@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-24 11:08+0100\n"
-"PO-Revision-Date: 2004-01-24 11:29+0100\n"
+"POT-Creation-Date: 2004-07-26 21:56+0200\n"
+"PO-Revision-Date: 2004-07-26 21:57+0200\n"
 "Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
 "Language-Team: German <ufleisch@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: _translatorinfo.cpp:1
 msgid ""
@@ -77,15 +77,15 @@ msgstr "Von"
 msgid "To"
 msgstr "Nach"
 
-#: formatbox.cpp:144
+#: formatbox.cpp:146
 msgid "&Insert row"
 msgstr "Zeile &einfügen"
 
-#: formatbox.cpp:148
+#: formatbox.cpp:150
 msgid "&Delete row"
 msgstr "Zeile &löschen"
 
-#: formatbox.cpp:152
+#: formatbox.cpp:154
 msgid "&Clear cell"
 msgstr "&Zelle löschen"
 
@@ -129,7 +129,7 @@ msgstr "Email"
 msgid "Rating"
 msgstr "Bewertung"
 
-#: framelist.cpp:240 id3form.cpp:110
+#: framelist.cpp:240 id3form.cpp:132 kid3.cpp:250 kid3.cpp:252 kid3.cpp:254
 msgid "Filename"
 msgstr "Dateiname"
 
@@ -637,40 +637,40 @@ msgstr "Element ID auswählen"
 msgid "BinaryOpenSave"
 msgstr "BinaryOpenSave"
 
-#: freedbclient.cpp:50 freedbclient.cpp:198 kid3.cpp:328 kid3.cpp:381
-#: kid3.cpp:716 kid3.cpp:744 kid3.cpp:760 kid3.cpp:843 kid3.cpp:911
+#: freedbclient.cpp:50 freedbclient.cpp:199 kid3.cpp:391 kid3.cpp:444
+#: kid3.cpp:792 kid3.cpp:820 kid3.cpp:836 kid3.cpp:963 kid3.cpp:1096
 msgid "Ready."
 msgstr "Bereit."
 
-#: freedbclient.cpp:162 freedbclient.cpp:259
+#: freedbclient.cpp:163 freedbclient.cpp:260
 msgid "Connecting..."
 msgstr "Verbinden..."
 
-#: freedbclient.cpp:170
+#: freedbclient.cpp:171
 msgid "Host found..."
 msgstr "Rechner gefunden..."
 
-#: freedbclient.cpp:179
+#: freedbclient.cpp:180
 msgid "Request sent..."
 msgstr "Anfrage gesendet..."
 
-#: freedbclient.cpp:206
+#: freedbclient.cpp:207
 msgid "Data received: %1"
 msgstr "Daten empfangen: %1"
 
-#: freedbclient.cpp:214
+#: freedbclient.cpp:215
 msgid "Socket error: "
 msgstr "Socket Fehler: "
 
-#: freedbclient.cpp:217
+#: freedbclient.cpp:218
 msgid "Connection refused"
 msgstr "Verbindung verweigert"
 
-#: freedbclient.cpp:220
+#: freedbclient.cpp:221
 msgid "Host not found"
 msgstr "Rechner nicht gefunden"
 
-#: freedbclient.cpp:223
+#: freedbclient.cpp:224
 msgid "Read failed"
 msgstr "Lesen gescheitert"
 
@@ -678,19 +678,19 @@ msgstr "Lesen gescheitert"
 msgid "FreedbClient"
 msgstr "FreedbClient"
 
-#: freedbdialog.cpp:70
+#: freedbdialog.cpp:85
 msgid "Find"
 msgstr "Suchen"
 
-#: freedbdialog.cpp:81
+#: freedbdialog.cpp:96
 msgid "Server:"
 msgstr "Server:"
 
-#: freedbdialog.cpp:83
+#: freedbdialog.cpp:98
 msgid "CGI Path:"
 msgstr "CGI Pfad:"
 
-#: freedbdialog.cpp:109
+#: freedbdialog.cpp:124
 msgid "Proxy:"
 msgstr "Proxy:"
 
@@ -698,67 +698,73 @@ msgstr "Proxy:"
 msgid "FreedbDialog"
 msgstr "FreedbDialog"
 
-#: id3form.cpp:97 main.cpp:42
+#: id3form.cpp:119 main.cpp:42
 msgid "Kid3"
 msgstr "Kid3"
 
-#: id3form.cpp:114
+#: id3form.cpp:136
 msgid "Name:"
 msgstr "Name:"
 
-#: id3form.cpp:121 id3form.cpp:239
+#: id3form.cpp:143 id3form.cpp:267 kid3.cpp:236 kid3.cpp:250
+#: rendirdialog.cpp:70
 msgid "From ID3v1"
 msgstr "Von ID3v1"
 
-#: id3form.cpp:125
+#: id3form.cpp:147 rendirdialog.cpp:76
 msgid "Format:"
 msgstr "Format:"
 
-#: id3form.cpp:132 id3form.cpp:162
+#: id3form.cpp:154 id3form.cpp:190 kid3.cpp:226 kid3.cpp:252
+#: rendirdialog.cpp:71
 msgid "From ID3v2"
 msgstr "Von ID3v2"
 
-#: id3form.cpp:137
+#: id3form.cpp:158
+msgid "Info:"
+msgstr "Info:"
+
+#: id3form.cpp:165
 msgid "ID3v1.1"
 msgstr "ID3v1.1"
 
-#: id3form.cpp:141 id3form.cpp:220
+#: id3form.cpp:169 id3form.cpp:248
 msgid "Title:"
 msgstr "Titel:"
 
-#: id3form.cpp:150 id3form.cpp:228
+#: id3form.cpp:178 id3form.cpp:256 kid3.cpp:224 kid3.cpp:234
 msgid "From Filename"
 msgstr "Von Dateiname"
 
-#: id3form.cpp:154 id3form.cpp:232
+#: id3form.cpp:182 id3form.cpp:260
 msgid "Artist:"
 msgstr "Interpret:"
 
-#: id3form.cpp:166 id3form.cpp:243
+#: id3form.cpp:194 id3form.cpp:271
 msgid "Album:"
 msgstr "Album:"
 
-#: id3form.cpp:182 id3form.cpp:254
+#: id3form.cpp:210 id3form.cpp:282
 msgid "Comment:"
 msgstr "Kommentar:"
 
-#: id3form.cpp:194 id3form.cpp:265
+#: id3form.cpp:222 id3form.cpp:293
 msgid "Year:"
 msgstr "Jahr:"
 
-#: id3form.cpp:202 id3form.cpp:273
+#: id3form.cpp:230 id3form.cpp:301
 msgid "Track:"
 msgstr "Nummer:"
 
-#: id3form.cpp:207 id3form.cpp:282
+#: id3form.cpp:235 id3form.cpp:310
 msgid "Genre:"
 msgstr "Stil:"
 
-#: id3form.cpp:214
+#: id3form.cpp:242
 msgid "ID3v2.3"
 msgstr "ID3v2.3"
 
-#: id3form.cpp:289
+#: id3form.cpp:317 kid3.cpp:244 kid3.cpp:246 kid3.cpp:248
 msgid "Frames:"
 msgstr "Elemente:"
 
@@ -766,51 +772,59 @@ msgstr "Elemente:"
 msgid "id3Form"
 msgstr "id3Form"
 
-#: importselector.cpp:55
+#: importdialog.cpp:67
+msgid "Check maximum allowable time difference (sec):"
+msgstr "Teste maximal erlaubten Zeitunterschied (s):"
+
+#: importselector.cpp:56
 msgid "Track"
 msgstr "Nummer"
 
-#: importselector.cpp:56
+#: importselector.cpp:57
 msgid "Title"
 msgstr "Titel"
 
-#: importselector.cpp:57
+#: importselector.cpp:58
 msgid "Artist"
 msgstr "Interpret"
 
-#: importselector.cpp:58
+#: importselector.cpp:59
 msgid "Album"
 msgstr "Album"
 
-#: importselector.cpp:59
+#: importselector.cpp:60
 msgid "Year"
 msgstr "Jahr"
 
-#: importselector.cpp:60
+#: importselector.cpp:61
 msgid "Genre"
 msgstr "Stil"
 
-#: importselector.cpp:61
+#: importselector.cpp:62
 msgid "Comment"
 msgstr "Kommentar"
 
-#: importselector.cpp:66
+#: importselector.cpp:63
+msgid "Length"
+msgstr "Länge"
+
+#: importselector.cpp:68
 msgid "Format"
 msgstr "Format"
 
-#: importselector.cpp:78
+#: importselector.cpp:80
 msgid "From File"
 msgstr "Von Datei"
 
-#: importselector.cpp:80
+#: importselector.cpp:82
 msgid "From Clipboard"
 msgstr "Von Zwischenablage"
 
-#: importselector.cpp:82
+#: importselector.cpp:84
 msgid "From freedb.org"
 msgstr "Von freedb.org"
 
-#: importselector.cpp:88
+#: importselector.cpp:90
 msgid "Destination:"
 msgstr "Ziel:"
 
@@ -818,107 +832,143 @@ msgstr "Ziel:"
 msgid "ImportSelector"
 msgstr "ImportSelector"
 
-#: kid3.cpp:92
+#: kid3.cpp:95
 msgid "Forward"
 msgstr "Nach vorne"
 
-#: kid3.cpp:186 kid3.cpp:211
+#: kid3.cpp:191 kid3.cpp:266
 msgid "Opens a directory"
 msgstr "Öffnet ein Verzeichnis"
 
-#: kid3.cpp:187
+#: kid3.cpp:192
 msgid "Opens a recently used directory"
 msgstr "Öffnet ein kürzlich benutztes Verzeichnis"
 
-#: kid3.cpp:189 kid3.cpp:228
+#: kid3.cpp:194 kid3.cpp:283
 msgid "Reverts the changes of all or the selected files"
 msgstr "Macht die Änderungen an allen oder den ausgewählten Dateien rückgängig"
 
-#: kid3.cpp:190 kid3.cpp:219
+#: kid3.cpp:195 kid3.cpp:274
 msgid "Saves the changed files"
 msgstr "Speichert die veränderten Dateien"
 
-#: kid3.cpp:191 kid3.cpp:249
+#: kid3.cpp:196 kid3.cpp:304
 msgid "Quits the application"
 msgstr "Beendet die Anwendung"
 
-#: kid3.cpp:192
+#: kid3.cpp:197
 msgid "Enables/disables the toolbar"
 msgstr "Werkzeugleiste anzeigen"
 
-#: kid3.cpp:193
+#: kid3.cpp:198
 msgid "Enables/disables the statusbar"
 msgstr "Statusleiste anzeigen"
 
-#: kid3.cpp:194
+#: kid3.cpp:199
+msgid "Configure Shortcuts"
+msgstr "Kurzbefehle festlegen"
+
+#: kid3.cpp:200
 msgid "Preferences dialog"
 msgstr "Einstellungen"
 
-#: kid3.cpp:196 kid3.cpp:236
+#: kid3.cpp:202 kid3.cpp:291
 msgid "&Import..."
 msgstr "&Importieren..."
 
-#: kid3.cpp:199 kid3.cpp:243
+#: kid3.cpp:205 kid3.cpp:298
 msgid "&Create Playlist"
 msgstr "Stü&ckliste erstellen"
 
-#: kid3.cpp:202 kid3.cpp:279
+#: kid3.cpp:208 kid3.cpp:334
 msgid "&Apply Format"
 msgstr "Format &anwenden"
 
-#: kid3.cpp:229
+#: kid3.cpp:211 kid3.cpp:341
+msgid "&Rename Directory..."
+msgstr "Verzeichnis &umbenennen..."
+
+#: kid3.cpp:215
+msgid "Select &All"
+msgstr "A&lles auswählen"
+
+#: kid3.cpp:218
+msgid "&Next File"
+msgstr "&Nächste Datei"
+
+#: kid3.cpp:221
+msgid "&Previous File"
+msgstr "&Vorangehende Datei"
+
+#: kid3.cpp:254 kid3.cpp:256 kid3.cpp:258
+msgid "Focus"
+msgstr "Fokus"
+
+#: kid3.cpp:284
 msgid "Re&vert"
 msgstr "&Zuletzt gespeicherte Fassung"
 
-#: kid3.cpp:235
+#: kid3.cpp:290
 msgid "Import from file or clipboard"
 msgstr "Von Datei oder Zwischenablage importieren"
 
-#: kid3.cpp:242
+#: kid3.cpp:297
 msgid "Create M3U Playlist"
 msgstr "Erstelle M3U Stückliste"
 
-#: kid3.cpp:257 kid3.cpp:770
+#: kid3.cpp:312 kid3.cpp:890
 msgid "Kid3 Handbook"
 msgstr "Handbuch zu Kid3"
 
-#: kid3.cpp:258
+#: kid3.cpp:313
 msgid "Kid3 &Handbook"
 msgstr "&Handbuch zu Kid3"
 
-#: kid3.cpp:264
+#: kid3.cpp:319
 msgid "About Kid3"
 msgstr "Über Kid3"
 
-#: kid3.cpp:265
+#: kid3.cpp:320
 msgid "&About Kid3"
 msgstr "&Über Kid3"
 
-#: kid3.cpp:271
+#: kid3.cpp:326
 msgid "About Qt"
 msgstr "Über Qt"
 
-#: kid3.cpp:272
+#: kid3.cpp:327
 msgid "About &Qt"
 msgstr "Über &Qt"
 
-#: kid3.cpp:278
+#: kid3.cpp:333
 msgid "Apply Format"
 msgstr "Format anwenden"
 
-#: kid3.cpp:285
+#: kid3.cpp:340 kid3.cpp:1170 rendirdialog.cpp:66
+msgid "Rename Directory"
+msgstr "Verzeichnis umbenennen"
+
+#: kid3.cpp:347
 msgid "Configure Kid3"
 msgstr "Kid3 einrichten"
 
-#: kid3.cpp:286
+#: kid3.cpp:348
 msgid "&Configure Kid3..."
 msgstr "Kid3 einr&ichten..."
 
-#: kid3.cpp:368
+#: kid3.cpp:431
 msgid "Opening directory..."
 msgstr "Öffne Verzeichnis..."
 
-#: kid3.cpp:537 kid3.cpp:547
+#: kid3.cpp:586 kid3.cpp:1195
+msgid "File Error"
+msgstr "Datei Fehler"
+
+#: kid3.cpp:587
+msgid "Error while writing file:\n"
+msgstr "Fehler während dem Schreiben in Datei:\n"
+
+#: kid3.cpp:613 kid3.cpp:623
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -926,11 +976,11 @@ msgstr ""
 "Das aktuelle Verzeichnis wurde verändert.\n"
 "Soll es gespeichert werden?"
 
-#: kid3.cpp:546
+#: kid3.cpp:622
 msgid "Warning - Kid3"
 msgstr "Warnung - Kid3"
 
-#: kid3.cpp:631
+#: kid3.cpp:707
 msgid ""
 "*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
 "*|All Files (*)"
@@ -938,39 +988,55 @@ msgstr ""
 "*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
 "*|Alle Dateien (*)"
 
-#: kid3.cpp:644
+#: kid3.cpp:720
 msgid "MP3 (*.mp3 *.MP3);;All Files (*)"
 msgstr "MP3 (*.mp3 *.MP3);;Alle Dateien (*)"
 
-#: kid3.cpp:713
+#: kid3.cpp:789
 msgid "Saving directory..."
 msgstr "Speichere Verzeichnis..."
 
-#: kid3.cpp:726
+#: kid3.cpp:802
 msgid "Exiting..."
 msgstr "Beende..."
 
-#: kid3.cpp:737
+#: kid3.cpp:813
 msgid "Toggling toolbar..."
 msgstr "Schalte Werkzeugleiste um..."
 
-#: kid3.cpp:753
+#: kid3.cpp:829
 msgid "Toggle the statusbar..."
 msgstr "Schalte Statusleiste um..."
 
-#: kid3.cpp:833
+#: kid3.cpp:953
 msgid "Creating playlist..."
 msgstr "Erstelle Stückliste..."
 
-#: kid3.cpp:869
+#: kid3.cpp:1013
+msgid "Number of files is not equal to number of imported tracks"
+msgstr "Die Anzahl Dateien ist nicht gleich der Anzahl der importierten Stücke"
+
+#: kid3.cpp:1017
+msgid "Import Mismatch"
+msgstr "Import Konflikt"
+
+#: kid3.cpp:1018
+msgid "Continue import?"
+msgstr "Weiterfahren mit dem Importieren?"
+
+#: kid3.cpp:1063
 msgid "Import..."
 msgstr "Importieren..."
 
-#: kid3.cpp:924
+#: kid3.cpp:1110
 msgid "Configure - Kid3"
 msgstr "Kid3 einrichten"
 
-#: kid3.cpp:1034
+#: kid3.cpp:1196
+msgid "Error while renaming:\n"
+msgstr "Fehler beim Umbenennen:\n"
+
+#: kid3.cpp:1265
 msgid " [modified]"
 msgstr " [Geändert]"
 
@@ -985,6 +1051,50 @@ msgstr "Kid3 ID3 Tagger"
 #: main.cpp:26
 msgid "directory to open"
 msgstr "Zu öffnendes Verzeichnis"
+
+#: rendirdialog.cpp:67
+msgid "Create Directory"
+msgstr "Verzeichnis erstellen"
+
+#: rendirdialog.cpp:97
+msgid "From:"
+msgstr "Von:"
+
+#: rendirdialog.cpp:99
+msgid "To:"
+msgstr "Nach:"
+
+#: rendirdialog.cpp:168
+msgid "Create directory %1 failed\n"
+msgstr "Fehler beim Erstellen des Verzeichnisses %1\n"
+
+#: rendirdialog.cpp:189
+msgid "File %1 already exists\n"
+msgstr "Datei %1 existiert bereits\n"
+
+#: rendirdialog.cpp:195
+msgid "%1 is not a directory\n"
+msgstr "%1 ist kein Verzeichnis\n"
+
+#: rendirdialog.cpp:203 rendirdialog.cpp:241
+msgid "Rename %1 to %2 failed\n"
+msgstr "Fehler beim Umbenennen von %1 nach %2\n"
+
+#: rendirdialog.cpp:227
+msgid "%1 already exists\n"
+msgstr "%1 existiert bereits\n"
+
+#: rendirdialog.cpp:233
+msgid "%1 is not a file\n"
+msgstr "%1 ist keine Datei\n"
+
+#: rendirdialog.cpp:396
+msgid "New directory name is too different\n"
+msgstr "Der neue Verzeichnisname ist zu verschieden\n"
+
+#: rendirdialog.moc.cpp:34 rendirdialog.moc.cpp:42
+msgid "RenDirDialog"
+msgstr "RenDirDialog"
 
 #~ msgid "Do you want to save it?"
 #~ msgstr "Wollen Sie es speichern?"

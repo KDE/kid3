@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-24 11:08+0100\n"
-"PO-Revision-Date: 2004-01-24 11:27+0100\n"
+"POT-Creation-Date: 2004-07-26 21:56+0200\n"
+"PO-Revision-Date: 2004-07-28 22:30+0200\n"
 "Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
 "Language-Team: German <ufleisch@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: _translatorinfo.cpp:1
 msgid ""
@@ -78,15 +78,15 @@ msgstr "От"
 msgid "To"
 msgstr "к"
 
-#: formatbox.cpp:144
+#: formatbox.cpp:146
 msgid "&Insert row"
 msgstr "&Вставить строку"
 
-#: formatbox.cpp:148
+#: formatbox.cpp:150
 msgid "&Delete row"
 msgstr "&Удалить строку"
 
-#: formatbox.cpp:152
+#: formatbox.cpp:154
 msgid "&Clear cell"
 msgstr "&Очистить ячейку"
 
@@ -130,7 +130,7 @@ msgstr "Почта"
 msgid "Rating"
 msgstr "Рейтинг"
 
-#: framelist.cpp:240 id3form.cpp:110
+#: framelist.cpp:240 id3form.cpp:132 kid3.cpp:250 kid3.cpp:252 kid3.cpp:254
 msgid "Filename"
 msgstr "Имя файла"
 
@@ -638,40 +638,40 @@ msgstr "Выбрать ID фрейма"
 msgid "BinaryOpenSave"
 msgstr "ДвоичноеОткрытиеСохранение"
 
-#: freedbclient.cpp:50 freedbclient.cpp:198 kid3.cpp:328 kid3.cpp:381
-#: kid3.cpp:716 kid3.cpp:744 kid3.cpp:760 kid3.cpp:843 kid3.cpp:911
+#: freedbclient.cpp:50 freedbclient.cpp:199 kid3.cpp:391 kid3.cpp:444
+#: kid3.cpp:792 kid3.cpp:820 kid3.cpp:836 kid3.cpp:963 kid3.cpp:1096
 msgid "Ready."
 msgstr "Готово."
 
-#: freedbclient.cpp:162 freedbclient.cpp:259
+#: freedbclient.cpp:163 freedbclient.cpp:260
 msgid "Connecting..."
 msgstr "Соединение..."
 
-#: freedbclient.cpp:170
+#: freedbclient.cpp:171
 msgid "Host found..."
 msgstr "Сервер найден..."
 
-#: freedbclient.cpp:179
+#: freedbclient.cpp:180
 msgid "Request sent..."
 msgstr "Передано..."
 
-#: freedbclient.cpp:206
+#: freedbclient.cpp:207
 msgid "Data received: %1"
 msgstr "Полученные сведения: %1"
 
-#: freedbclient.cpp:214
+#: freedbclient.cpp:215
 msgid "Socket error: "
 msgstr "Ошибка сокета: "
 
-#: freedbclient.cpp:217
+#: freedbclient.cpp:218
 msgid "Connection refused"
 msgstr "Соединение отвергнуто"
 
-#: freedbclient.cpp:220
+#: freedbclient.cpp:221
 msgid "Host not found"
 msgstr "Сервер не найден"
 
-#: freedbclient.cpp:223
+#: freedbclient.cpp:224
 msgid "Read failed"
 msgstr "Ошибка чтения"
 
@@ -679,19 +679,19 @@ msgstr "Ошибка чтения"
 msgid "FreedbClient"
 msgstr "FreedbClient"
 
-#: freedbdialog.cpp:70
+#: freedbdialog.cpp:85
 msgid "Find"
 msgstr "Поиск"
 
-#: freedbdialog.cpp:81
+#: freedbdialog.cpp:96
 msgid "Server:"
 msgstr "Сервер:"
 
-#: freedbdialog.cpp:83
+#: freedbdialog.cpp:98
 msgid "CGI Path:"
 msgstr "Путь к CGI:"
 
-#: freedbdialog.cpp:109
+#: freedbdialog.cpp:124
 msgid "Proxy:"
 msgstr "Прокси:"
 
@@ -699,67 +699,73 @@ msgstr "Прокси:"
 msgid "FreedbDialog"
 msgstr "FreedbDialog"
 
-#: id3form.cpp:97 main.cpp:42
+#: id3form.cpp:119 main.cpp:42
 msgid "Kid3"
 msgstr "Kid3"
 
-#: id3form.cpp:114
+#: id3form.cpp:136
 msgid "Name:"
 msgstr "Имя:"
 
-#: id3form.cpp:121 id3form.cpp:239
+#: id3form.cpp:143 id3form.cpp:267 kid3.cpp:236 kid3.cpp:250
+#: rendirdialog.cpp:70
 msgid "From ID3v1"
 msgstr "Из ID3v1"
 
-#: id3form.cpp:125
+#: id3form.cpp:147 rendirdialog.cpp:76
 msgid "Format:"
 msgstr "Формат:"
 
-#: id3form.cpp:132 id3form.cpp:162
+#: id3form.cpp:154 id3form.cpp:190 kid3.cpp:226 kid3.cpp:252
+#: rendirdialog.cpp:71
 msgid "From ID3v2"
 msgstr "Из ID3v2"
 
-#: id3form.cpp:137
+#: id3form.cpp:158
+msgid "Info:"
+msgstr "Информация:"
+
+#: id3form.cpp:165
 msgid "ID3v1.1"
 msgstr "ID3v1.1"
 
-#: id3form.cpp:141 id3form.cpp:220
+#: id3form.cpp:169 id3form.cpp:248
 msgid "Title:"
 msgstr "Название:"
 
-#: id3form.cpp:150 id3form.cpp:228
+#: id3form.cpp:178 id3form.cpp:256 kid3.cpp:224 kid3.cpp:234
 msgid "From Filename"
 msgstr "Из имени файла"
 
-#: id3form.cpp:154 id3form.cpp:232
+#: id3form.cpp:182 id3form.cpp:260
 msgid "Artist:"
 msgstr "Исполнитель:"
 
-#: id3form.cpp:166 id3form.cpp:243
+#: id3form.cpp:194 id3form.cpp:271
 msgid "Album:"
 msgstr "Альбом:"
 
-#: id3form.cpp:182 id3form.cpp:254
+#: id3form.cpp:210 id3form.cpp:282
 msgid "Comment:"
 msgstr "Коментарий:"
 
-#: id3form.cpp:194 id3form.cpp:265
+#: id3form.cpp:222 id3form.cpp:293
 msgid "Year:"
 msgstr "Год:"
 
-#: id3form.cpp:202 id3form.cpp:273
+#: id3form.cpp:230 id3form.cpp:301
 msgid "Track:"
 msgstr "Дорожка:"
 
-#: id3form.cpp:207 id3form.cpp:282
+#: id3form.cpp:235 id3form.cpp:310
 msgid "Genre:"
 msgstr "Жанр:"
 
-#: id3form.cpp:214
+#: id3form.cpp:242
 msgid "ID3v2.3"
 msgstr "ID3v2.3"
 
-#: id3form.cpp:289
+#: id3form.cpp:317 kid3.cpp:244 kid3.cpp:246 kid3.cpp:248
 msgid "Frames:"
 msgstr "Фреймы:"
 
@@ -767,51 +773,59 @@ msgstr "Фреймы:"
 msgid "id3Form"
 msgstr "id3Form"
 
-#: importselector.cpp:55
+#: importdialog.cpp:67
+msgid "Check maximum allowable time difference (sec):"
+msgstr "Проверить максимальную допустимую разницу во времени (секунды):"
+
+#: importselector.cpp:56
 msgid "Track"
 msgstr "Дорожка"
 
-#: importselector.cpp:56
+#: importselector.cpp:57
 msgid "Title"
 msgstr "Название"
 
-#: importselector.cpp:57
+#: importselector.cpp:58
 msgid "Artist"
 msgstr "Исполнитель"
 
-#: importselector.cpp:58
+#: importselector.cpp:59
 msgid "Album"
 msgstr "Альбом"
 
-#: importselector.cpp:59
+#: importselector.cpp:60
 msgid "Year"
 msgstr "Год"
 
-#: importselector.cpp:60
+#: importselector.cpp:61
 msgid "Genre"
 msgstr "Жанр"
 
-#: importselector.cpp:61
+#: importselector.cpp:62
 msgid "Comment"
 msgstr "Коментарий"
 
-#: importselector.cpp:66
+#: importselector.cpp:63
+msgid "Length"
+msgstr "Длительность"
+
+#: importselector.cpp:68
 msgid "Format"
 msgstr "Формат"
 
-#: importselector.cpp:78
+#: importselector.cpp:80
 msgid "From File"
 msgstr "Из имени файла"
 
-#: importselector.cpp:80
+#: importselector.cpp:82
 msgid "From Clipboard"
 msgstr "Из Буфера Обмена"
 
-#: importselector.cpp:82
+#: importselector.cpp:84
 msgid "From freedb.org"
 msgstr "Из freedb.org"
 
-#: importselector.cpp:88
+#: importselector.cpp:90
 msgid "Destination:"
 msgstr "Место назначения:"
 
@@ -819,107 +833,143 @@ msgstr "Место назначения:"
 msgid "ImportSelector"
 msgstr "ImportSelector"
 
-#: kid3.cpp:92
+#: kid3.cpp:95
 msgid "Forward"
 msgstr "Вперед"
 
-#: kid3.cpp:186 kid3.cpp:211
+#: kid3.cpp:191 kid3.cpp:266
 msgid "Opens a directory"
 msgstr "Открыть каталог"
 
-#: kid3.cpp:187
+#: kid3.cpp:192
 msgid "Opens a recently used directory"
 msgstr "Открыть недавний каталог"
 
-#: kid3.cpp:189 kid3.cpp:228
+#: kid3.cpp:194 kid3.cpp:283
 msgid "Reverts the changes of all or the selected files"
 msgstr "Отменить изменения всех выделенных файлов"
 
-#: kid3.cpp:190 kid3.cpp:219
+#: kid3.cpp:195 kid3.cpp:274
 msgid "Saves the changed files"
 msgstr "Сохранить измененные файлы"
 
-#: kid3.cpp:191 kid3.cpp:249
+#: kid3.cpp:196 kid3.cpp:304
 msgid "Quits the application"
 msgstr "Завершить приложение"
 
-#: kid3.cpp:192
+#: kid3.cpp:197
 msgid "Enables/disables the toolbar"
 msgstr "Включить/выключить панель инструментов"
 
-#: kid3.cpp:193
+#: kid3.cpp:198
 msgid "Enables/disables the statusbar"
 msgstr "Включить/выключить строку состояния"
 
-#: kid3.cpp:194
+#: kid3.cpp:199
+msgid "Configure Shortcuts"
+msgstr "Настройка быстрых клавиш"
+
+#: kid3.cpp:200
 msgid "Preferences dialog"
 msgstr "Настройка параметров"
 
-#: kid3.cpp:196 kid3.cpp:236
+#: kid3.cpp:202 kid3.cpp:291
 msgid "&Import..."
 msgstr "&Импорт..."
 
-#: kid3.cpp:199 kid3.cpp:243
+#: kid3.cpp:205 kid3.cpp:298
 msgid "&Create Playlist"
 msgstr "&Cоздать список песен"
 
-#: kid3.cpp:202 kid3.cpp:279
+#: kid3.cpp:208 kid3.cpp:334
 msgid "&Apply Format"
 msgstr "&Применить Формат"
 
-#: kid3.cpp:229
+#: kid3.cpp:211 kid3.cpp:341
+msgid "&Rename Directory..."
+msgstr "&Переименовать Каталог..."
+
+#: kid3.cpp:215
+msgid "Select &All"
+msgstr "Выделить &все"
+
+#: kid3.cpp:218
+msgid "&Next File"
+msgstr "&Следующий файл"
+
+#: kid3.cpp:221
+msgid "&Previous File"
+msgstr "&Предыдущий файл"
+
+#: kid3.cpp:254 kid3.cpp:256 kid3.cpp:258
+msgid "Focus"
+msgstr "Фокус"
+
+#: kid3.cpp:284
 msgid "Re&vert"
 msgstr "&Отменить"
 
-#: kid3.cpp:235
+#: kid3.cpp:290
 msgid "Import from file or clipboard"
 msgstr "Импортировать файл или буфер обмена"
 
-#: kid3.cpp:242
+#: kid3.cpp:297
 msgid "Create M3U Playlist"
 msgstr "Создать список M3U"
 
-#: kid3.cpp:257 kid3.cpp:770
+#: kid3.cpp:312 kid3.cpp:890
 msgid "Kid3 Handbook"
 msgstr "Руководство Kid3"
 
-#: kid3.cpp:258
+#: kid3.cpp:313
 msgid "Kid3 &Handbook"
 msgstr "&Руководство \"Kid3\""
 
-#: kid3.cpp:264
+#: kid3.cpp:319
 msgid "About Kid3"
 msgstr "О Kid3"
 
-#: kid3.cpp:265
+#: kid3.cpp:320
 msgid "&About Kid3"
 msgstr "&О Kid3"
 
-#: kid3.cpp:271
+#: kid3.cpp:326
 msgid "About Qt"
 msgstr "О Qt"
 
-#: kid3.cpp:272
+#: kid3.cpp:327
 msgid "About &Qt"
 msgstr "О &Qt"
 
-#: kid3.cpp:278
+#: kid3.cpp:333
 msgid "Apply Format"
 msgstr "Применить Формат"
 
-#: kid3.cpp:285
+#: kid3.cpp:340 kid3.cpp:1170 rendirdialog.cpp:66
+msgid "Rename Directory"
+msgstr "Переименовать Каталог"
+
+#: kid3.cpp:347
 msgid "Configure Kid3"
 msgstr "Настроить Kid3"
 
-#: kid3.cpp:286
+#: kid3.cpp:348
 msgid "&Configure Kid3..."
 msgstr "&Настроить Kid3..."
 
-#: kid3.cpp:368
+#: kid3.cpp:431
 msgid "Opening directory..."
 msgstr "Открытие каталога..."
 
-#: kid3.cpp:537 kid3.cpp:547
+#: kid3.cpp:586 kid3.cpp:1195
+msgid "File Error"
+msgstr "Ошибка файла"
+
+#: kid3.cpp:587
+msgid "Error while writing file:\n"
+msgstr "Ошибка при записи файла:\n"
+
+#: kid3.cpp:613 kid3.cpp:623
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -927,11 +977,11 @@ msgstr ""
 "Текущий каталог был изменен.\n"
 "Хотите сохранить его?"
 
-#: kid3.cpp:546
+#: kid3.cpp:622
 msgid "Warning - Kid3"
 msgstr "Предупреждение - Kid3"
 
-#: kid3.cpp:631
+#: kid3.cpp:707
 msgid ""
 "*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
 "*|All Files (*)"
@@ -939,39 +989,55 @@ msgstr ""
 "*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
 "*|Все файлы (*)"
 
-#: kid3.cpp:644
+#: kid3.cpp:720
 msgid "MP3 (*.mp3 *.MP3);;All Files (*)"
 msgstr "MP3 (*.mp3 *.MP3);;Все файлы (*)"
 
-#: kid3.cpp:713
+#: kid3.cpp:789
 msgid "Saving directory..."
 msgstr "Сохранение каталога..."
 
-#: kid3.cpp:726
+#: kid3.cpp:802
 msgid "Exiting..."
 msgstr "Выход..."
 
-#: kid3.cpp:737
+#: kid3.cpp:813
 msgid "Toggling toolbar..."
 msgstr "Переключение панели инструментов..."
 
-#: kid3.cpp:753
+#: kid3.cpp:829
 msgid "Toggle the statusbar..."
 msgstr "Переключение строки состояния..."
 
-#: kid3.cpp:833
+#: kid3.cpp:953
 msgid "Creating playlist..."
 msgstr "Создание списка песен..."
 
-#: kid3.cpp:869
+#: kid3.cpp:1013
+msgid "Number of files is not equal to number of imported tracks"
+msgstr "Число файлов не соответсвует числу импортированных следов"
+
+#: kid3.cpp:1017
+msgid "Import Mismatch"
+msgstr "Несовпадение импорт"
+
+#: kid3.cpp:1018
+msgid "Continue import?"
+msgstr "Продолжить импорт?"
+
+#: kid3.cpp:1063
 msgid "Import..."
 msgstr "Импортирование..."
 
-#: kid3.cpp:924
+#: kid3.cpp:1110
 msgid "Configure - Kid3"
 msgstr "Настройка - Kid3"
 
-#: kid3.cpp:1034
+#: kid3.cpp:1196
+msgid "Error while renaming:\n"
+msgstr "Ошибка переименование:\n"
+
+#: kid3.cpp:1265
 msgid " [modified]"
 msgstr " [изменено]"
 
@@ -986,4 +1052,48 @@ msgstr "Kid3 Редактор тэгов ID3"
 #: main.cpp:26
 msgid "directory to open"
 msgstr "каталог для открытия"
+
+#: rendirdialog.cpp:67
+msgid "Create Directory"
+msgstr "Создать Каталог"
+
+#: rendirdialog.cpp:97
+msgid "From:"
+msgstr "От:"
+
+#: rendirdialog.cpp:99
+msgid "To:"
+msgstr "На:"
+
+#: rendirdialog.cpp:168
+msgid "Create directory %1 failed\n"
+msgstr "Сбой попытки создания требуемого каталога %1\n"
+
+#: rendirdialog.cpp:189
+msgid "File %1 already exists\n"
+msgstr "Файл %1 уже существует\n"
+
+#: rendirdialog.cpp:195
+msgid "%1 is not a directory\n"
+msgstr "%1 - это не каталог\n"
+
+#: rendirdialog.cpp:203 rendirdialog.cpp:241
+msgid "Rename %1 to %2 failed\n"
+msgstr "Ошибка переименование из %1 в %2\n"
+
+#: rendirdialog.cpp:227
+msgid "%1 already exists\n"
+msgstr "%1 уже существует\n"
+
+#: rendirdialog.cpp:233
+msgid "%1 is not a file\n"
+msgstr "%1 не является файлом\n"
+
+#: rendirdialog.cpp:396
+msgid "New directory name is too different\n"
+msgstr "Новое название каталога слишком отлично\n"
+
+#: rendirdialog.moc.cpp:34 rendirdialog.moc.cpp:42
+msgid "RenDirDialog"
+msgstr "RenDirDialog"
 
