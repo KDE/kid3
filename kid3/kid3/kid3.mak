@@ -1,185 +1,842 @@
-# Makefile for building kid3 using nmake, cl, link
-# kid3_de.qm for German language strings has to be generated
-# with Linux using the KDE tools.
+# Microsoft Developer Studio Generated NMAKE File, Based on kid3.dsp
+!IF "$(CFG)" == ""
+CFG=kid3 - Win32 Release
+!MESSAGE No configuration specified. Defaulting to kid3 - Win32 Release.
+!ENDIF 
 
-# Compiler, tools and options
-# directory containing id3lib.lib
-ID3LIBDIR = .\id3lib\id3lib-3.8.0binaries\Release
-# directory containing id3.h, id3\
-ID3INCDIR = .\id3lib\include
+!IF "$(CFG)" != "kid3 - Win32 Release" && "$(CFG)" != "kid3 - Win32 Debug"
+!MESSAGE Invalid configuration "$(CFG)" specified.
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE 
+!MESSAGE NMAKE /f "kid3.mak" CFG="kid3 - Win32 Debug"
+!MESSAGE 
+!MESSAGE Possible choices for configuration are:
+!MESSAGE 
+!MESSAGE "kid3 - Win32 Release" (based on "Win32 (x86) Application")
+!MESSAGE "kid3 - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE 
+!ERROR An invalid configuration is specified.
+!ENDIF 
 
-CC	=	cl
-CXX	=	cl
-CFLAGS	=	-nologo -W3 -MD -O1 -DQT_DLL -DQT_THREAD_SUPPORT -DNO_DEBUG -DID3LIB_LINKOPTION=3 -GR
-CXXFLAGS	=	$(CFLAGS)
-INCPATH	=	-I"$(QTDIR)\include" -I"$(ID3INCDIR)" -I".\.moc" -I"."
-LINK	=	link
-LFLAGS	=	/NOLOGO /SUBSYSTEM:windows
-LIBS	=	$(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib winmm.lib wsock32.lib $(ID3LIBDIR)\id3lib.lib
-MOC	=	$(QTDIR)\bin\moc.exe
-ZIP	=	zip -r -9
+!IF "$(OS)" == "Windows_NT"
+NULL=
+!ELSE 
+NULL=nul
+!ENDIF 
 
-TAR      = tar -cf
-GZIP     = gzip -9f
-COPY     = copy
-COPY_FILE= $(COPY)
-COPY_DIR = $(COPY)
-DEL_FILE = del
-DEL_DIR  = rmdir
-PERL     = perl
-# quoted the following characters: # -> \x23, $ -> $$
-# make C defines from Makefile definitions
-MK2H = $(PERL) -ne "print if (s/^([^\x23][^=\s]*)[\s=]+(.+)$$/\x23define \1 \2/)"
+!IF  "$(CFG)" == "kid3 - Win32 Release"
 
-# Files
+OUTDIR=.\Release
+INTDIR=.\Release
+# Begin Custom Macros
+OutDir=.\Release
+# End Custom Macros
 
-HEADERS = filelist.h \
-		framelist.h \
-		genres.h \
-		kid3.h \
-		mp3file.h \
-		standardtags.h \
-		id3form.h \
-		kid3.h.qtonly
-SOURCES = filelist.cpp \
-		framelist.cpp \
-		genres.cpp \
-		kid3.cpp \
-		main.cpp \
-		mp3file.cpp \
-		standardtags.cpp \
-		id3form.cpp
-OBJECTS = filelist.obj \
-		framelist.obj \
-		genres.obj \
-		kid3.obj \
-		main.obj \
-		mp3file.obj \
-		standardtags.obj \
-		id3form.obj
-SRCMOC   = moc_framelist.cpp \
-		moc_kid3.cpp \
-		moc_id3form.cpp
-OBJMOC = moc_framelist.obj \
-		moc_kid3.obj \
-		moc_id3form.obj
-DIST	   = kid3.pro
-DESTDIR  = 
-TARGET   = kid3.exe
+ALL : "$(OUTDIR)\kid3.exe"
 
-first: all
-####### Implicit rules
 
-.SUFFIXES: .cpp .cxx .cc .c
+CLEAN :
+	-@erase "$(INTDIR)\configdialog.obj"
+	-@erase "$(INTDIR)\filelist.obj"
+	-@erase "$(INTDIR)\formatbox.obj"
+	-@erase "$(INTDIR)\formatconfig.obj"
+	-@erase "$(INTDIR)\framelist.obj"
+	-@erase "$(INTDIR)\generalconfig.obj"
+	-@erase "$(INTDIR)\genres.obj"
+	-@erase "$(INTDIR)\id3form.obj"
+	-@erase "$(INTDIR)\importdialog.obj"
+	-@erase "$(INTDIR)\importparser.obj"
+	-@erase "$(INTDIR)\importselector.obj"
+	-@erase "$(INTDIR)\kid3.obj"
+	-@erase "$(INTDIR)\kid3win.res"
+	-@erase "$(INTDIR)\main.obj"
+	-@erase "$(INTDIR)\moc_formatbox.obj"
+	-@erase "$(INTDIR)\moc_framelist.obj"
+	-@erase "$(INTDIR)\moc_id3form.obj"
+	-@erase "$(INTDIR)\moc_importselector.obj"
+	-@erase "$(INTDIR)\moc_kid3.obj"
+	-@erase "$(INTDIR)\mp3file.obj"
+	-@erase "$(INTDIR)\standardtags.obj"
+	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(OUTDIR)\kid3.exe"
 
-.cpp.obj:
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
+"$(OUTDIR)" :
+    if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-.cxx.obj:
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
+CPP=cl.exe
+CPP_PROJ=/nologo /MD /W3 /GR /GX /O1 /I "$(QTDIR)\include" /I "$(ID3INCDIR)" /I ".." /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "UNICODE" /D "QT_THREAD_SUPPORT" /D "NO_DEBUG" /D ID3LIB_LINKOPTION=3 /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
-.cc.obj:
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fo$@ $<
-
-.c.obj:
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fo$@ $<
-
-####### Build rules
-
-all: autoconf.h $(TARGET)
-
-# generate autoconf.h from config.mk
-autoconf.h: config.mk
-	$(MK2H) config.mk >$@
-	$(COPY_FILE) kid3.h.qtonly kid3.h
-
-$(TARGET): $(OBJECTS) $(OBJMOC) 
-	$(LINK) $(LFLAGS) /OUT:$(TARGET) @<<
-	    $(OBJECTS) $(OBJMOC) $(LIBS)
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
 <<
 
-mocables: $(SRCMOC)
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-dist: 
-	$(ZIP) kid3.zip kid3.pro $(SOURCES) $(HEADERS) $(DIST) $(INTERFACES)
-#	@mkdir -p kid3 && $(COPY_FILE) --parents $(SOURCES) $(HEADERS) $(FORMS) $(DIST) kid3\ && ( cd `dirname kid3` && $(TAR) kid3.tar kid3 && $(GZIP) kid3.tar ) && $(MOVE) `dirname kid3`/kid3.tar.gz . && $(DEL_DIR) kid3
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-mocclean:
-	-$(DEL_FILE) $(OBJMOC)
-	-$(DEL_FILE) $(SRCMOC)
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-clean: mocclean
-	-$(DEL_FILE) $(OBJECTS) 
-	-$(DEL_FILE) kid3.h
-	-$(DEL_FILE) autoconf.h
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-distclean: clean
-	-$(DEL_FILE) $(TARGET)
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+MTL=midl.exe
+MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
+RSC=rc.exe
+RSC_PROJ=/l 0x409 /fo"$(INTDIR)\kid3win.res" /d "NDEBUG" 
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\kid3.bsc" 
+BSC32_SBRS= \
+	
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib $(ID3LIBDIR)\Release\id3lib.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /incremental:no /pdb:"$(OUTDIR)\kid3.pdb" /machine:I386 /out:"$(OUTDIR)\kid3.exe" 
+LINK32_OBJS= \
+	"$(INTDIR)\configdialog.obj" \
+	"$(INTDIR)\filelist.obj" \
+	"$(INTDIR)\formatbox.obj" \
+	"$(INTDIR)\formatconfig.obj" \
+	"$(INTDIR)\framelist.obj" \
+	"$(INTDIR)\generalconfig.obj" \
+	"$(INTDIR)\genres.obj" \
+	"$(INTDIR)\id3form.obj" \
+	"$(INTDIR)\importdialog.obj" \
+	"$(INTDIR)\importparser.obj" \
+	"$(INTDIR)\importselector.obj" \
+	"$(INTDIR)\kid3.obj" \
+	"$(INTDIR)\main.obj" \
+	"$(INTDIR)\moc_formatbox.obj" \
+	"$(INTDIR)\moc_framelist.obj" \
+	"$(INTDIR)\moc_id3form.obj" \
+	"$(INTDIR)\moc_importselector.obj" \
+	"$(INTDIR)\moc_kid3.obj" \
+	"$(INTDIR)\mp3file.obj" \
+	"$(INTDIR)\standardtags.obj" \
+	"$(INTDIR)\kid3win.res"
+
+"$(OUTDIR)\kid3.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+OUTDIR=.\Debug
+INTDIR=.\Debug
+# Begin Custom Macros
+OutDir=.\Debug
+# End Custom Macros
+
+ALL : "$(OUTDIR)\kid3.exe" "$(OUTDIR)\kid3.bsc"
 
 
-FORCE:
+CLEAN :
+	-@erase "$(INTDIR)\configdialog.obj"
+	-@erase "$(INTDIR)\configdialog.sbr"
+	-@erase "$(INTDIR)\filelist.obj"
+	-@erase "$(INTDIR)\filelist.sbr"
+	-@erase "$(INTDIR)\formatbox.obj"
+	-@erase "$(INTDIR)\formatbox.sbr"
+	-@erase "$(INTDIR)\formatconfig.obj"
+	-@erase "$(INTDIR)\formatconfig.sbr"
+	-@erase "$(INTDIR)\framelist.obj"
+	-@erase "$(INTDIR)\framelist.sbr"
+	-@erase "$(INTDIR)\generalconfig.obj"
+	-@erase "$(INTDIR)\generalconfig.sbr"
+	-@erase "$(INTDIR)\genres.obj"
+	-@erase "$(INTDIR)\genres.sbr"
+	-@erase "$(INTDIR)\id3form.obj"
+	-@erase "$(INTDIR)\id3form.sbr"
+	-@erase "$(INTDIR)\importdialog.obj"
+	-@erase "$(INTDIR)\importdialog.sbr"
+	-@erase "$(INTDIR)\importparser.obj"
+	-@erase "$(INTDIR)\importparser.sbr"
+	-@erase "$(INTDIR)\importselector.obj"
+	-@erase "$(INTDIR)\importselector.sbr"
+	-@erase "$(INTDIR)\kid3.obj"
+	-@erase "$(INTDIR)\kid3.sbr"
+	-@erase "$(INTDIR)\kid3win.res"
+	-@erase "$(INTDIR)\main.obj"
+	-@erase "$(INTDIR)\main.sbr"
+	-@erase "$(INTDIR)\moc_formatbox.obj"
+	-@erase "$(INTDIR)\moc_formatbox.sbr"
+	-@erase "$(INTDIR)\moc_framelist.obj"
+	-@erase "$(INTDIR)\moc_framelist.sbr"
+	-@erase "$(INTDIR)\moc_id3form.obj"
+	-@erase "$(INTDIR)\moc_id3form.sbr"
+	-@erase "$(INTDIR)\moc_importselector.obj"
+	-@erase "$(INTDIR)\moc_importselector.sbr"
+	-@erase "$(INTDIR)\moc_kid3.obj"
+	-@erase "$(INTDIR)\moc_kid3.sbr"
+	-@erase "$(INTDIR)\mp3file.obj"
+	-@erase "$(INTDIR)\mp3file.sbr"
+	-@erase "$(INTDIR)\standardtags.obj"
+	-@erase "$(INTDIR)\standardtags.sbr"
+	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(OUTDIR)\kid3.bsc"
+	-@erase "$(OUTDIR)\kid3.exe"
+	-@erase "$(OUTDIR)\kid3.ilk"
+	-@erase "$(OUTDIR)\kid3.pdb"
 
-# Compile
+"$(OUTDIR)" :
+    if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-filelist.obj: filelist.cpp mp3file.h \
-		filelist.h
+CPP=cl.exe
+CPP_PROJ=/nologo /MD /W3 /Gm /GR /GX /ZI /Od /I "$(QTDIR)\include" /I "$(ID3INCDIR)" /I ".." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "UNICODE" /D "QT_THREAD_SUPPORT" /D ID3LIB_LINKOPTION=3 /FR"$(INTDIR)\\" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 
-framelist.obj: framelist.cpp mp3file.h \
-		framelist.h autoconf.h
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-genres.obj: genres.cpp genres.h
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-kid3.obj: kid3.cpp kid3.h \
-		id3form.h \
-		genres.h \
-		framelist.h \
-		filelist.h \
-		standardtags.h \
-		mp3file.h autoconf.h
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-main.obj: main.cpp kid3.h \
-		filelist.h \
-		standardtags.h \
-		framelist.h \
-		mp3file.h autoconf.h
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-mp3file.obj: mp3file.cpp standardtags.h \
-		mp3file.h
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-standardtags.obj: standardtags.cpp standardtags.h
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
-id3form.obj: id3form.cpp filelist.h \
-		kid3.h \
-		genres.h \
-		id3form.h autoconf.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Foid3form.obj id3form.cpp
+MTL=midl.exe
+MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
+RSC=rc.exe
+RSC_PROJ=/l 0x409 /fo"$(INTDIR)\kid3win.res" /d "_DEBUG" 
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\kid3.bsc" 
+BSC32_SBRS= \
+	"$(INTDIR)\configdialog.sbr" \
+	"$(INTDIR)\filelist.sbr" \
+	"$(INTDIR)\formatbox.sbr" \
+	"$(INTDIR)\formatconfig.sbr" \
+	"$(INTDIR)\framelist.sbr" \
+	"$(INTDIR)\generalconfig.sbr" \
+	"$(INTDIR)\genres.sbr" \
+	"$(INTDIR)\id3form.sbr" \
+	"$(INTDIR)\importdialog.sbr" \
+	"$(INTDIR)\importparser.sbr" \
+	"$(INTDIR)\importselector.sbr" \
+	"$(INTDIR)\kid3.sbr" \
+	"$(INTDIR)\main.sbr" \
+	"$(INTDIR)\moc_formatbox.sbr" \
+	"$(INTDIR)\moc_framelist.sbr" \
+	"$(INTDIR)\moc_id3form.sbr" \
+	"$(INTDIR)\moc_importselector.sbr" \
+	"$(INTDIR)\moc_kid3.sbr" \
+	"$(INTDIR)\mp3file.sbr" \
+	"$(INTDIR)\standardtags.sbr"
 
-moc_framelist.obj: moc_framelist.cpp framelist.h 
+"$(OUTDIR)\kid3.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
+    $(BSC32) @<<
+  $(BSC32_FLAGS) $(BSC32_SBRS)
+<<
 
-moc_kid3.obj: moc_kid3.cpp kid3.h filelist.h \
-		standardtags.h \
-		framelist.h \
-		mp3file.h autoconf.h
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib $(ID3LIBDIR)\Debug\id3lib.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /incremental:yes /pdb:"$(OUTDIR)\kid3.pdb" /debug /machine:I386 /out:"$(OUTDIR)\kid3.exe" /pdbtype:sept 
+LINK32_OBJS= \
+	"$(INTDIR)\configdialog.obj" \
+	"$(INTDIR)\filelist.obj" \
+	"$(INTDIR)\formatbox.obj" \
+	"$(INTDIR)\formatconfig.obj" \
+	"$(INTDIR)\framelist.obj" \
+	"$(INTDIR)\generalconfig.obj" \
+	"$(INTDIR)\genres.obj" \
+	"$(INTDIR)\id3form.obj" \
+	"$(INTDIR)\importdialog.obj" \
+	"$(INTDIR)\importparser.obj" \
+	"$(INTDIR)\importselector.obj" \
+	"$(INTDIR)\kid3.obj" \
+	"$(INTDIR)\main.obj" \
+	"$(INTDIR)\moc_formatbox.obj" \
+	"$(INTDIR)\moc_framelist.obj" \
+	"$(INTDIR)\moc_id3form.obj" \
+	"$(INTDIR)\moc_importselector.obj" \
+	"$(INTDIR)\moc_kid3.obj" \
+	"$(INTDIR)\mp3file.obj" \
+	"$(INTDIR)\standardtags.obj" \
+	"$(INTDIR)\kid3win.res"
 
-moc_id3form.obj: moc_id3form.cpp id3form.h 
+"$(OUTDIR)\kid3.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
 
-moc_framelist.cpp: $(MOC) framelist.h
-	$(MOC) framelist.h -o moc_framelist.cpp
+!ENDIF 
 
-moc_kid3.cpp: $(MOC) kid3.h
-	$(MOC) kid3.h -o moc_kid3.cpp
 
-moc_id3form.cpp: $(MOC) id3form.h
-	$(MOC) id3form.h -o moc_id3form.cpp
+!IF "$(NO_EXTERNAL_DEPS)" != "1"
+!IF EXISTS("kid3.dep")
+!INCLUDE "kid3.dep"
+!ELSE 
+!MESSAGE Warning: cannot find "kid3.dep"
+!ENDIF 
+!ENDIF 
 
-# Install
 
-!IF "$(CFG)" == ""
-!MESSAGE No prefix specified. Defaulting to .\kid3win.
-prefix = .\kid3win
-!ENDIF
+!IF "$(CFG)" == "kid3 - Win32 Release" || "$(CFG)" == "kid3 - Win32 Debug"
+SOURCE=.\configdialog.cpp
 
-install: all 
-	-mkdir $(prefix)
-	-$(COPY) .\kid3.exe $(prefix)\kid3.exe
-	-$(COPY) .\kid3_de.qm $(prefix)\kid3_de.qm
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\configdialog.obj" : $(SOURCE) "$(INTDIR)" ".\formatbox.h" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\configdialog.obj"	"$(INTDIR)\configdialog.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\filelist.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\filelist.obj" : $(SOURCE) "$(INTDIR)"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\filelist.obj"	"$(INTDIR)\filelist.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\formatbox.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\formatbox.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\formatbox.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\formatbox.obj"	"$(INTDIR)\formatbox.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\formatconfig.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\formatconfig.obj" : $(SOURCE) "$(INTDIR)" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\formatconfig.obj"	"$(INTDIR)\formatconfig.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\framelist.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\framelist.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\framelist.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\framelist.obj"	"$(INTDIR)\framelist.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\generalconfig.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\generalconfig.obj" : $(SOURCE) "$(INTDIR)" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\generalconfig.obj"	"$(INTDIR)\generalconfig.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\genres.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\genres.obj" : $(SOURCE) "$(INTDIR)"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\genres.obj"	"$(INTDIR)\genres.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\id3form.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\id3form.obj" : $(SOURCE) "$(INTDIR)" ".\kid3.h" ".\id3form.h" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\id3form.obj"	"$(INTDIR)\id3form.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\importdialog.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\importdialog.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\importselector.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\importdialog.obj"	"$(INTDIR)\importdialog.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\importparser.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\importparser.obj" : $(SOURCE) "$(INTDIR)"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\importparser.obj"	"$(INTDIR)\importparser.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\importselector.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\importselector.obj" : $(SOURCE) "$(INTDIR)" ".\importselector.h" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\importselector.obj"	"$(INTDIR)\importselector.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\kid3.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\kid3.obj" : $(SOURCE) "$(INTDIR)" ".\framelist.h" ".\id3form.h" ".\kid3.h" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\kid3.obj"	"$(INTDIR)\kid3.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\kid3win.rc
+
+"$(INTDIR)\kid3win.res" : $(SOURCE) "$(INTDIR)"
+	$(RSC) $(RSC_PROJ) $(SOURCE)
+
+
+SOURCE=.\main.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\main.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\kid3.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\main.obj"	"$(INTDIR)\main.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\moc_formatbox.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\moc_formatbox.obj" : $(SOURCE) "$(INTDIR)" ".\formatbox.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\moc_formatbox.obj"	"$(INTDIR)\moc_formatbox.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\moc_framelist.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\moc_framelist.obj" : $(SOURCE) "$(INTDIR)" ".\framelist.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\moc_framelist.obj"	"$(INTDIR)\moc_framelist.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\moc_id3form.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\moc_id3form.obj" : $(SOURCE) "$(INTDIR)" ".\id3form.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\moc_id3form.obj"	"$(INTDIR)\moc_id3form.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\moc_importselector.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\moc_importselector.obj" : $(SOURCE) "$(INTDIR)" ".\importselector.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\moc_importselector.obj"	"$(INTDIR)\moc_importselector.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\moc_kid3.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\moc_kid3.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\kid3.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\moc_kid3.obj"	"$(INTDIR)\moc_kid3.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\mp3file.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\mp3file.obj" : $(SOURCE) "$(INTDIR)"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\mp3file.obj"	"$(INTDIR)\mp3file.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\standardtags.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\standardtags.obj" : $(SOURCE) "$(INTDIR)"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\standardtags.obj"	"$(INTDIR)\standardtags.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\formatbox.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\formatbox.h
+
+".\moc_formatbox.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_formatbox.cpp
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\formatbox.h
+
+".\moc_formatbox.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_formatbox.cpp
+<< 
+	
+
+!ENDIF 
+
+SOURCE=.\framelist.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\framelist.h
+
+".\moc_framelist.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_framelist.cpp
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\framelist.h
+
+".\moc_framelist.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_framelist.cpp
+<< 
+	
+
+!ENDIF 
+
+SOURCE=.\id3form.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\id3form.h
+
+".\moc_id3form.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_id3form.cpp
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\id3form.h
+
+".\moc_id3form.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_id3form.cpp
+<< 
+	
+
+!ENDIF 
+
+SOURCE=.\importselector.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\importselector.h
+
+".\moc_importselector.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_importselector.cpp
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\importselector.h
+
+".\moc_importselector.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_importselector.cpp
+<< 
+	
+
+!ENDIF 
+
+SOURCE=.\kid3.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\kid3.h
+
+".\moc_kid3.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_kid3.cpp
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\kid3.h
+
+".\moc_kid3.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_kid3.cpp
+<< 
+	
+
+!ENDIF 
+
+SOURCE=.\config.mk
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\config.mk
+
+"..\config.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%PERLDIR%\bin\perl.exe  -ne "print if (s/^([^#][^=\s]*)[\s=]+(.+)$$/#define \1 \2/)" $(InputPath) >..\config.h
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\config.mk
+
+"..\config.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%PERLDIR%\bin\perl.exe  -ne "print if (s/^([^#][^=\s]*)[\s=]+(.+)$$/#define \1 \2/)" $(InputPath) >..\config.h
+<< 
+	
+
+!ENDIF 
+
+SOURCE=.\kid3.h.both
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\kid3.h.both
+USERDEP__KID3_="..\config.h"	
+
+".\kid3.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)" $(USERDEP__KID3_)
+	<<tempfile.bat 
+	@echo off 
+	echo /* Generated from kid3.h.both */ >.\kid3.h 
+	echo #ifndef KID3_H >>.\kid3.h 
+	echo #define KID3_H >>.\kid3.h 
+	echo #include "config.h" >>.\kid3.h 
+	echo #ifdef CONFIG_USE_KDE >>.\kid3.h 
+	echo #include ^<kmainwindow.h^> >>.\kid3.h 
+	echo #else >>.\kid3.h 
+	echo #include ^<qmainwindow.h^> >>.\kid3.h 
+	echo #endif >>.\kid3.h 
+	cl.exe /nologo /EP /I "$(QTDIR)\include" /I "$(ID3INCDIR)" /I ".." /DKMAINWINDOW_H /DQMAINWINDOW_H $(InputPath) >>.\kid3.h 
+	echo #endif >>.\kid3.h 
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\kid3.h.both
+USERDEP__KID3_="..\config.h"	
+
+".\kid3.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)" $(USERDEP__KID3_)
+	<<tempfile.bat 
+	@echo off 
+	echo /* Generated from kid3.h.both */ >.\kid3.h 
+	echo #ifndef KID3_H >>.\kid3.h 
+	echo #define KID3_H >>.\kid3.h 
+	echo #include "config.h" >>.\kid3.h 
+	echo #ifdef CONFIG_USE_KDE >>.\kid3.h 
+	echo #include ^<kmainwindow.h^> >>.\kid3.h 
+	echo #else >>.\kid3.h 
+	echo #include ^<qmainwindow.h^> >>.\kid3.h 
+	echo #endif >>.\kid3.h 
+	cl.exe /nologo /EP /I "$(QTDIR)\include" /I "$(ID3INCDIR)" /I ".." /DKMAINWINDOW_H /DQMAINWINDOW_H $(InputPath) >>.\kid3.h 
+	echo #endif >>.\kid3.h 
+<< 
+	
+
+!ENDIF 
+
+
+!ENDIF 
+
