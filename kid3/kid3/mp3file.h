@@ -12,14 +12,16 @@
 
 #include <qstring.h>
 #include <qlistbox.h>
+#include <qpixmap.h>
 #include <id3/globals.h> /* ID3_FrameID */
 class QListBox;
+class QPainter;
 class ID3_Tag;
 class ID3_Field;
 class StandardTags;
 
  /** List box item containing MP3 file */
-class Mp3File : public QListBoxText {
+class Mp3File : public QListBoxItem {
  public:
 	/**
 	 * Constructor.
@@ -32,10 +34,6 @@ class Mp3File : public QListBoxText {
 	 * Destructor.
 	 */
 	virtual ~Mp3File();
-	/**
-	 * Append asterisk to text if file was changed.
-	 */
-	void refreshText(void);
 	/**
 	 * Set file name.
 	 *
@@ -414,7 +412,7 @@ class Mp3File : public QListBoxText {
 	 *
 	 * @return TRUE if file was changed.
 	 */
-	bool isChanged(void) { return changedV1 || changedV2 || new_filename != filename; }
+	bool isChanged(void) const { return changedV1 || changedV2 || new_filename != filename; }
 	/**
 	 * Mark file as selected.
 	 *
@@ -433,6 +431,22 @@ class Mp3File : public QListBoxText {
 	 * @param lb list box
 	 */
 	void updateTagListV2(QListBox *lb);
+	/**
+	 * Get height of item.
+	 *
+	 * @param lb listbox containing the item
+	 *
+	 * @return height.
+	 */
+	int height(const QListBox* lb) const;
+	/**
+	 * Get width of item.
+	 *
+	 * @param lb listbox containing the item
+	 *
+	 * @return width.
+	 */
+	int width(const QListBox* lb) const;
 
 	/** ID3v2 tags */
 	ID3_Tag *tagV2;
@@ -440,6 +454,14 @@ class Mp3File : public QListBoxText {
 	bool changedV2;
 	/** List with filename formats */
 	static const char **fnFmtList;
+
+protected:
+	/**
+	 * Paint item.
+	 *
+	 * @param painter painter used
+	 */
+	void paint(QPainter *painter);
 
  private:
 	/**
@@ -461,6 +483,10 @@ class Mp3File : public QListBoxText {
 	bool changedV1;
 	/** TRUE if file is marked selected */
 	bool selected;
+	/** pointer to pixmap for modified file */
+	static QPixmap *modifiedPixmap;
+	/** pointer to empty pixmap */
+	static QPixmap *nullPixmap;
 };
 
 #endif // MP3FILE_H
