@@ -1,7 +1,7 @@
 # Microsoft Developer Studio Generated NMAKE File, Based on kid3.dsp
 !IF "$(CFG)" == ""
-CFG=kid3 - Win32 Release
-!MESSAGE No configuration specified. Defaulting to kid3 - Win32 Release.
+CFG=kid3 - Win32 Debug
+!MESSAGE No configuration specified. Defaulting to kid3 - Win32 Debug.
 !ENDIF 
 
 !IF "$(CFG)" != "kid3 - Win32 Release" && "$(CFG)" != "kid3 - Win32 Debug"
@@ -42,17 +42,24 @@ CLEAN :
 	-@erase "$(INTDIR)\formatbox.obj"
 	-@erase "$(INTDIR)\formatconfig.obj"
 	-@erase "$(INTDIR)\framelist.obj"
+	-@erase "$(INTDIR)\freedbclient.obj"
+	-@erase "$(INTDIR)\freedbconfig.obj"
+	-@erase "$(INTDIR)\freedbdialog.obj"
 	-@erase "$(INTDIR)\generalconfig.obj"
 	-@erase "$(INTDIR)\genres.obj"
 	-@erase "$(INTDIR)\id3form.obj"
+	-@erase "$(INTDIR)\importconfig.obj"
 	-@erase "$(INTDIR)\importdialog.obj"
 	-@erase "$(INTDIR)\importparser.obj"
 	-@erase "$(INTDIR)\importselector.obj"
 	-@erase "$(INTDIR)\kid3.obj"
 	-@erase "$(INTDIR)\kid3win.res"
 	-@erase "$(INTDIR)\main.obj"
+	-@erase "$(INTDIR)\miscconfig.obj"
 	-@erase "$(INTDIR)\moc_formatbox.obj"
 	-@erase "$(INTDIR)\moc_framelist.obj"
+	-@erase "$(INTDIR)\moc_freedbclient.obj"
+	-@erase "$(INTDIR)\moc_freedbdialog.obj"
 	-@erase "$(INTDIR)\moc_id3form.obj"
 	-@erase "$(INTDIR)\moc_importselector.obj"
 	-@erase "$(INTDIR)\moc_kid3.obj"
@@ -106,23 +113,30 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\kid3.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib $(ID3LIBDIR)\Release\id3lib.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /incremental:no /pdb:"$(OUTDIR)\kid3.pdb" /machine:I386 /out:"$(OUTDIR)\kid3.exe" 
+LINK32_FLAGS=$(ID3LIBDIR)\Release\id3lib.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib wsock32.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /incremental:no /pdb:"$(OUTDIR)\kid3.pdb" /machine:I386 /out:"$(OUTDIR)\kid3.exe" 
 LINK32_OBJS= \
 	"$(INTDIR)\configdialog.obj" \
 	"$(INTDIR)\filelist.obj" \
 	"$(INTDIR)\formatbox.obj" \
 	"$(INTDIR)\formatconfig.obj" \
 	"$(INTDIR)\framelist.obj" \
+	"$(INTDIR)\freedbclient.obj" \
+	"$(INTDIR)\freedbconfig.obj" \
+	"$(INTDIR)\freedbdialog.obj" \
 	"$(INTDIR)\generalconfig.obj" \
 	"$(INTDIR)\genres.obj" \
 	"$(INTDIR)\id3form.obj" \
+	"$(INTDIR)\importconfig.obj" \
 	"$(INTDIR)\importdialog.obj" \
 	"$(INTDIR)\importparser.obj" \
 	"$(INTDIR)\importselector.obj" \
 	"$(INTDIR)\kid3.obj" \
 	"$(INTDIR)\main.obj" \
+	"$(INTDIR)\miscconfig.obj" \
 	"$(INTDIR)\moc_formatbox.obj" \
 	"$(INTDIR)\moc_framelist.obj" \
+	"$(INTDIR)\moc_freedbclient.obj" \
+	"$(INTDIR)\moc_freedbdialog.obj" \
 	"$(INTDIR)\moc_id3form.obj" \
 	"$(INTDIR)\moc_importselector.obj" \
 	"$(INTDIR)\moc_kid3.obj" \
@@ -157,12 +171,20 @@ CLEAN :
 	-@erase "$(INTDIR)\formatconfig.sbr"
 	-@erase "$(INTDIR)\framelist.obj"
 	-@erase "$(INTDIR)\framelist.sbr"
+	-@erase "$(INTDIR)\freedbclient.obj"
+	-@erase "$(INTDIR)\freedbclient.sbr"
+	-@erase "$(INTDIR)\freedbconfig.obj"
+	-@erase "$(INTDIR)\freedbconfig.sbr"
+	-@erase "$(INTDIR)\freedbdialog.obj"
+	-@erase "$(INTDIR)\freedbdialog.sbr"
 	-@erase "$(INTDIR)\generalconfig.obj"
 	-@erase "$(INTDIR)\generalconfig.sbr"
 	-@erase "$(INTDIR)\genres.obj"
 	-@erase "$(INTDIR)\genres.sbr"
 	-@erase "$(INTDIR)\id3form.obj"
 	-@erase "$(INTDIR)\id3form.sbr"
+	-@erase "$(INTDIR)\importconfig.obj"
+	-@erase "$(INTDIR)\importconfig.sbr"
 	-@erase "$(INTDIR)\importdialog.obj"
 	-@erase "$(INTDIR)\importdialog.sbr"
 	-@erase "$(INTDIR)\importparser.obj"
@@ -174,10 +196,16 @@ CLEAN :
 	-@erase "$(INTDIR)\kid3win.res"
 	-@erase "$(INTDIR)\main.obj"
 	-@erase "$(INTDIR)\main.sbr"
+	-@erase "$(INTDIR)\miscconfig.obj"
+	-@erase "$(INTDIR)\miscconfig.sbr"
 	-@erase "$(INTDIR)\moc_formatbox.obj"
 	-@erase "$(INTDIR)\moc_formatbox.sbr"
 	-@erase "$(INTDIR)\moc_framelist.obj"
 	-@erase "$(INTDIR)\moc_framelist.sbr"
+	-@erase "$(INTDIR)\moc_freedbclient.obj"
+	-@erase "$(INTDIR)\moc_freedbclient.sbr"
+	-@erase "$(INTDIR)\moc_freedbdialog.obj"
+	-@erase "$(INTDIR)\moc_freedbdialog.sbr"
 	-@erase "$(INTDIR)\moc_id3form.obj"
 	-@erase "$(INTDIR)\moc_id3form.sbr"
 	-@erase "$(INTDIR)\moc_importselector.obj"
@@ -243,16 +271,23 @@ BSC32_SBRS= \
 	"$(INTDIR)\formatbox.sbr" \
 	"$(INTDIR)\formatconfig.sbr" \
 	"$(INTDIR)\framelist.sbr" \
+	"$(INTDIR)\freedbclient.sbr" \
+	"$(INTDIR)\freedbconfig.sbr" \
+	"$(INTDIR)\freedbdialog.sbr" \
 	"$(INTDIR)\generalconfig.sbr" \
 	"$(INTDIR)\genres.sbr" \
 	"$(INTDIR)\id3form.sbr" \
+	"$(INTDIR)\importconfig.sbr" \
 	"$(INTDIR)\importdialog.sbr" \
 	"$(INTDIR)\importparser.sbr" \
 	"$(INTDIR)\importselector.sbr" \
 	"$(INTDIR)\kid3.sbr" \
 	"$(INTDIR)\main.sbr" \
+	"$(INTDIR)\miscconfig.sbr" \
 	"$(INTDIR)\moc_formatbox.sbr" \
 	"$(INTDIR)\moc_framelist.sbr" \
+	"$(INTDIR)\moc_freedbclient.sbr" \
+	"$(INTDIR)\moc_freedbdialog.sbr" \
 	"$(INTDIR)\moc_id3form.sbr" \
 	"$(INTDIR)\moc_importselector.sbr" \
 	"$(INTDIR)\moc_kid3.sbr" \
@@ -265,23 +300,30 @@ BSC32_SBRS= \
 <<
 
 LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib $(ID3LIBDIR)\Debug\id3lib.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /incremental:yes /pdb:"$(OUTDIR)\kid3.pdb" /debug /machine:I386 /out:"$(OUTDIR)\kid3.exe" /pdbtype:sept 
+LINK32_FLAGS=$(ID3LIBDIR)\Debug\id3lib.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib wsock32.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /incremental:yes /pdb:"$(OUTDIR)\kid3.pdb" /debug /machine:I386 /out:"$(OUTDIR)\kid3.exe" /pdbtype:sept 
 LINK32_OBJS= \
 	"$(INTDIR)\configdialog.obj" \
 	"$(INTDIR)\filelist.obj" \
 	"$(INTDIR)\formatbox.obj" \
 	"$(INTDIR)\formatconfig.obj" \
 	"$(INTDIR)\framelist.obj" \
+	"$(INTDIR)\freedbclient.obj" \
+	"$(INTDIR)\freedbconfig.obj" \
+	"$(INTDIR)\freedbdialog.obj" \
 	"$(INTDIR)\generalconfig.obj" \
 	"$(INTDIR)\genres.obj" \
 	"$(INTDIR)\id3form.obj" \
+	"$(INTDIR)\importconfig.obj" \
 	"$(INTDIR)\importdialog.obj" \
 	"$(INTDIR)\importparser.obj" \
 	"$(INTDIR)\importselector.obj" \
 	"$(INTDIR)\kid3.obj" \
 	"$(INTDIR)\main.obj" \
+	"$(INTDIR)\miscconfig.obj" \
 	"$(INTDIR)\moc_formatbox.obj" \
 	"$(INTDIR)\moc_framelist.obj" \
+	"$(INTDIR)\moc_freedbclient.obj" \
+	"$(INTDIR)\moc_freedbdialog.obj" \
 	"$(INTDIR)\moc_id3form.obj" \
 	"$(INTDIR)\moc_importselector.obj" \
 	"$(INTDIR)\moc_kid3.obj" \
@@ -387,6 +429,54 @@ SOURCE=.\framelist.cpp
 
 !ENDIF 
 
+SOURCE=.\freedbclient.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\freedbclient.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\freedbclient.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\freedbclient.obj"	"$(INTDIR)\freedbclient.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\freedbconfig.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\freedbconfig.obj" : $(SOURCE) "$(INTDIR)" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\freedbconfig.obj"	"$(INTDIR)\freedbconfig.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\freedbdialog.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\freedbdialog.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\freedbdialog.h" ".\freedbclient.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\freedbdialog.obj"	"$(INTDIR)\freedbdialog.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
 SOURCE=.\generalconfig.cpp
 
 !IF  "$(CFG)" == "kid3 - Win32 Release"
@@ -435,6 +525,22 @@ SOURCE=.\id3form.cpp
 
 !ENDIF 
 
+SOURCE=.\importconfig.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\importconfig.obj" : $(SOURCE) "$(INTDIR)" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\importconfig.obj"	"$(INTDIR)\importconfig.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
 SOURCE=.\importdialog.cpp
 
 !IF  "$(CFG)" == "kid3 - Win32 Release"
@@ -472,7 +578,7 @@ SOURCE=.\importselector.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\importselector.obj" : $(SOURCE) "$(INTDIR)" ".\importselector.h" "..\config.h"
+"$(INTDIR)\importselector.obj" : $(SOURCE) "$(INTDIR)" ".\importselector.h" ".\freedbdialog.h" "..\config.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
@@ -488,7 +594,7 @@ SOURCE=.\kid3.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\kid3.obj" : $(SOURCE) "$(INTDIR)" ".\framelist.h" ".\id3form.h" ".\kid3.h" "..\config.h"
+"$(INTDIR)\kid3.obj" : $(SOURCE) "$(INTDIR)" ".\kid3.h" "..\config.h" ".\id3form.h" ".\framelist.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
@@ -521,6 +627,22 @@ SOURCE=.\main.cpp
 
 !ENDIF 
 
+SOURCE=.\miscconfig.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\miscconfig.obj" : $(SOURCE) "$(INTDIR)" "..\config.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\miscconfig.obj"	"$(INTDIR)\miscconfig.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
 SOURCE=.\moc_formatbox.cpp
 
 !IF  "$(CFG)" == "kid3 - Win32 Release"
@@ -549,6 +671,38 @@ SOURCE=.\moc_framelist.cpp
 
 
 "$(INTDIR)\moc_framelist.obj"	"$(INTDIR)\moc_framelist.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\moc_freedbclient.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\moc_freedbclient.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\freedbclient.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\moc_freedbclient.obj"	"$(INTDIR)\moc_freedbclient.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\moc_freedbdialog.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\moc_freedbdialog.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\freedbdialog.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\moc_freedbdialog.obj"	"$(INTDIR)\moc_freedbdialog.sbr" : $(SOURCE) "$(INTDIR)"
 
 
 !ENDIF 
@@ -685,6 +839,58 @@ InputPath=.\framelist.h
 
 !ENDIF 
 
+SOURCE=.\freedbclient.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\freedbclient.h
+
+".\moc_freedbclient.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_freedbclient.cpp
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\freedbclient.h
+
+".\moc_freedbclient.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_freedbclient.cpp
+<< 
+	
+
+!ENDIF 
+
+SOURCE=.\freedbdialog.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\freedbdialog.h
+
+".\moc_freedbdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_freedbdialog.cpp
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\freedbdialog.h
+
+".\moc_freedbdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_freedbdialog.cpp
+<< 
+	
+
+!ENDIF 
+
 SOURCE=.\id3form.h
 
 !IF  "$(CFG)" == "kid3 - Win32 Release"
@@ -772,7 +978,7 @@ InputPath=.\config.mk
 "..\config.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	<<tempfile.bat 
 	@echo off 
-	%PERLDIR%\bin\perl.exe  -ne "print if (s/^([^#][^=\s]*)[\s=]+(.+)$$/#define \1 \2/)" $(InputPath) >..\config.h
+	%PERLDIR%\bin\perl.exe  -ne "print if (s/^([^#][^=\s]*)[\s=]+(.+)$/#define \1 \2/)" $(InputPath) >..\config.h
 << 
 	
 
@@ -783,7 +989,7 @@ InputPath=.\config.mk
 "..\config.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	<<tempfile.bat 
 	@echo off 
-	%PERLDIR%\bin\perl.exe  -ne "print if (s/^([^#][^=\s]*)[\s=]+(.+)$$/#define \1 \2/)" $(InputPath) >..\config.h
+	%PERLDIR%\bin\perl.exe  -ne "print if (s/^([^#][^=\s]*)[\s=]+(.+)$/#define \1 \2/)" $(InputPath) >..\config.h
 << 
 	
 
