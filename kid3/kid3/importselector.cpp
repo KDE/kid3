@@ -1,0 +1,324 @@
+/**
+ * \file importselector.cpp
+ * Import selector widget.
+ *
+ * \b Project: Kid3
+ * \author Urs Fleisch
+ * \date 17 Sep 2003
+ */
+
+#include "config.h"
+#ifdef CONFIG_USE_KDE
+#include <klocale.h>
+#include <kfiledialog.h>
+#else
+#define i18n(s) tr(s)
+#define I18N_NOOP(s) QT_TR_NOOP(s)
+#include <qfiledialog.h>
+#endif
+#include <qlayout.h>
+#include <qgroupbox.h>
+#include <qpushbutton.h>
+#include <qfile.h>
+#include <qtextstream.h>
+#include <qapplication.h>
+#include <qclipboard.h>
+#include <qtable.h>
+#include <qlabel.h>
+#include <qcombobox.h>
+#include <qlineedit.h>
+#include "genres.h"
+#include "standardtags.h"
+#include "importparser.h"
+#include "importselector.h"
+
+/**
+ * Constructor.
+ *
+ * @param parent parent widget
+ * @param name   Qt name
+ * @param f      window flags
+ */
+ImportSelector::ImportSelector(QWidget *parent, const char *name, WFlags f)
+	: QVBox(parent, name, f)
+{
+	header_parser = new ImportParser();
+	track_parser = new ImportParser();
+	setSpacing(6);
+	setMargin(6);
+	tab = new QTable(0, 7, this);
+	tab->horizontalHeader()->setLabel(TrackColumn, i18n("Track"));
+	tab->horizontalHeader()->setLabel(TitleColumn, i18n("Title"));
+	tab->horizontalHeader()->setLabel(ArtistColumn, i18n("Artist"));
+	tab->horizontalHeader()->setLabel(AlbumColumn, i18n("Album"));
+	tab->horizontalHeader()->setLabel(YearColumn, i18n("Year"));
+	tab->horizontalHeader()->setLabel(GenreColumn, i18n("Genre"));
+	tab->horizontalHeader()->setLabel(CommentColumn, i18n("Comment"));
+	tab->adjustColumn(TrackColumn);
+	tab->adjustColumn(YearColumn);
+
+#if QT_VERSION >= 300
+	QGroupBox *fmtbox = new QGroupBox(3, Qt::Vertical, i18n("Format"), this);
+	formatComboBox = new QComboBox(false, fmtbox, "formatComboBox");
+	formatComboBox->setEditable(true);
+	headerLineEdit = new QLineEdit(fmtbox);
+	trackLineEdit = new QLineEdit(fmtbox);
+	connect(formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
+#endif
+
+	QWidget *butbox = new QWidget(this);
+	QHBoxLayout *butlayout = new QHBoxLayout(butbox);
+	butlayout->setSpacing(6);
+	butlayout->setMargin(6);
+	fileButton = new QPushButton(i18n("From File"), butbox);
+	butlayout->addWidget(fileButton);
+	clipButton = new QPushButton(i18n("From Clipboard"), butbox);
+	butlayout->addWidget(clipButton);
+	QSpacerItem *butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+	                                       QSizePolicy::Minimum);
+	butlayout->addItem(butspacer);
+	QLabel *destLabel = new QLabel(butbox, "destLabel");
+	destLabel->setText(i18n("Destination:"));
+	butlayout->addWidget(destLabel);
+	destComboBox = new QComboBox(false, butbox, "destComboBox");
+	destComboBox->insertItem("ID3v1", DestV1);
+	destComboBox->insertItem("ID3v2", DestV2);
+	butlayout->addWidget(destComboBox);
+
+	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
+	connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
+}
+
+/**
+ * Destructor.
+ */
+ImportSelector::~ImportSelector()
+{
+	delete header_parser;
+	delete track_parser;
+}
+
+/**
+ * Look for album specific information (artist, album, year, genre) in
+ * a header (e.g. in a freedb header).
+ *
+ * @param st standard tags to put resulting values in,
+ *           fields which are not found are not touched.
+ *
+ * @return true if one or more field were found.
+ */
+bool ImportSelector::parseHeader(StandardTags &st)
+{
+	int pos = 0;
+#if QT_VERSION >= 300
+	header_parser->setFormat(headerLineEdit->text());
+#else
+	/* dummy format to indicate a header format */
+	header_parser->setFormat("%y(+\\d)");
+#endif
+	return header_parser->getNextTags(text, st, pos);
+}
+
+/**
+ * Let user select file, assign file contents to text and preview in
+ * table.
+ */
+void ImportSelector::fromFile()
+{
+	QString fn =
+#ifdef CONFIG_USE_KDE
+		KFileDialog::getOpenFileName();
+#else
+		QFileDialog::getOpenFileName();
+#endif
+	if (!fn.isEmpty()) {
+		QFile file(fn);
+		if (file.open(IO_ReadOnly)) {
+			QTextStream stream(&file);
+			text = stream.read();
+			if (!text.isNull()) {
+				(void)showPreview();
+			}
+			file.close();
+		}
+	}
+}
+
+/**
+ * Assign clipboard contents to text and preview in table.
+ */
+void ImportSelector::fromClipboard()
+{
+	QClipboard *cb = QApplication::clipboard();
+#if QT_VERSION >= 300
+	text = cb->text(QClipboard::Clipboard);
+	if (text.isNull() || !showPreview()) {
+		text = cb->text(QClipboard::Selection);
+		if (!text.isNull()) {
+			(void)showPreview();
+		}
+	}
+#else
+	text = cb->text();
+	if (!text.isNull()) {
+		(void)showPreview();
+	}
+#endif
+}
+
+/**
+ * Set the format lineedits to the format selected in the combo box.
+ *
+ * @param index current index of the combo box
+ */
+void ImportSelector::setFormatLineEdit(int index)
+{
+#if QT_VERSION >= 300
+	headerLineEdit->setText(formatHeaders[index]);
+	trackLineEdit->setText(formatTracks[index]);
+#endif
+}
+
+/**
+ * Show fields to import in text as preview in table.
+ *
+ * @return true if tags were found.
+ */
+bool ImportSelector::showPreview()
+{
+	StandardTags st_hdr;
+	tab->setNumRows(0);
+	st_hdr.setInactive();
+	(void)parseHeader(st_hdr);
+
+	StandardTags st(st_hdr);
+	int row = 0;
+	bool start = true;
+	while (getNextTags(st, start)) {
+		start = false;
+		tab->setNumRows(row + 1);
+		if (st.track != -1) {
+			QString trackStr;
+			trackStr.setNum(st.track);
+			tab->setText(row, TrackColumn, trackStr);
+		}
+		if (!st.title.isNull())
+			tab->setText(row, TitleColumn, st.title);
+		if (!st.artist.isNull())
+			tab->setText(row, ArtistColumn, st.artist);
+		if (!st.album.isNull())
+			tab->setText(row, AlbumColumn, st.album);
+		if (st.year != -1) {
+			QString yearStr;
+			yearStr.setNum(st.year);
+			tab->setText(row, YearColumn, yearStr);
+		}
+		if (st.genre != -1) {
+			QString genreStr(Genres::getName(st.genre));
+			tab->setText(row, GenreColumn, genreStr);
+		}
+		if (!st.comment.isNull())
+			tab->setText(row, CommentColumn, st.comment);
+		st = st_hdr;
+		++row;
+	}
+	if (!start) {
+		/* start is false => tags were found */
+		for (int col = 0; col < NumColumns; col++) {
+			tab->adjustColumn(col);
+		}
+		return true;
+	}
+	return false;
+}
+
+/**
+ * Get next line as standardtags from imported file or clipboard.
+ *
+ * @param st standard tags
+ * @param start true to start with the first line, false for all
+ *              other lines
+ *
+ * @return true if ok (result in st),
+ *         false if end of file reached.
+ */
+bool ImportSelector::getNextTags(StandardTags &st, bool start)
+{
+	static int pos = 0;
+	if (start || pos == 0) {
+		pos = 0;
+#if QT_VERSION >= 300
+		track_parser->setFormat(trackLineEdit->text(), true);
+#else
+		/* dummy format to indicate a track format */
+		track_parser->setFormat("%t(\\d+)");
+#endif
+	}
+	return track_parser->getNextTags(text, st, pos);
+}
+
+/**
+ * Set ID3v1 or ID3v2 tags as import destination.
+ *
+ * @param dest DestV1 or DestV2 for ID3v1 or ID3v2
+ */
+void ImportSelector::setDestination(ImportSelector::Destination dest)
+{
+	destComboBox->setCurrentItem((int)dest);
+}
+
+/**
+ * Get import destination.
+ *
+ * @return DestV1 or DestV2 for ID3v1 or ID3v2.
+ */
+ImportSelector::Destination ImportSelector::getDestination()
+{
+	return (Destination)destComboBox->currentItem();
+}
+
+/**
+ * Set import format regexp.
+ *
+ * @param names   import format names list
+ * @param headers import format header regexps
+ * @param tracks  import format track regexps
+ * @param idx     selected index
+ */
+void ImportSelector::setImportFormat(const QStringList &names,
+									 const QStringList &headers,
+									 const QStringList &tracks,
+									 int idx)
+{
+#if QT_VERSION >= 300
+	formatHeaders = headers;
+	formatTracks = tracks;
+	formatComboBox->clear();
+	formatComboBox->insertStringList(names);
+	formatComboBox->setCurrentItem(idx);
+	setFormatLineEdit(idx);
+#endif
+}
+
+/**
+ * Get import format regexp.
+ *
+ * @param name   import format name
+ * @param header import format header regexp
+ * @param track  import format track regexp
+ *
+ * @return index of current selection.
+ */
+int ImportSelector::getImportFormat(QString &name,
+									QString &header,
+									QString &track) const
+{
+#if QT_VERSION >= 300
+	name = formatComboBox->currentText();
+	header = headerLineEdit->text();
+	track = trackLineEdit->text();
+	return formatComboBox->currentItem();
+#else
+	return 0;
+#endif
+}
