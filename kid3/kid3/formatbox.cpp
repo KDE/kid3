@@ -20,6 +20,7 @@
 #include <qcheckbox.h>
 #include <qtable.h>
 #include <qstring.h>
+#include <qpopupmenu.h>
 #include "formatconfig.h"
 #include "formatbox.h"
 
@@ -59,6 +60,10 @@ FormatBox::FormatBox(const QString & title, QWidget *parent, const char *name) :
 	strReplTable->adjustColumn(0);
 	connect(strReplTable, SIGNAL(valueChanged(int,int)),
 			this, SLOT(valueChanged(int,int)));
+#if QT_VERSION >= 300
+	connect(strReplTable, SIGNAL(contextMenuRequested(int,int,const QPoint &)),
+			this, SLOT(contextMenu(int,int,const QPoint&)));
+#endif
 }
 
 /**
@@ -80,20 +85,77 @@ void FormatBox::valueChanged(int row, int col)
 	if (row == strReplTable->numRows() - 1 && col == 0) {
 		if (strReplTable->text(row, col).isEmpty()) {
 			if (row != 0) {
-#if QT_VERSION >= 300
-				strReplTable->removeRow(row);
-#else
-				strReplTable->setNumRows(row);
-#endif
+				deleteRow(row);
 			}
 		} else {
-#if QT_VERSION >= 300
-			strReplTable->insertRows(row + 1);
-#else
-			strReplTable->setNumRows(row + 2);
-#endif
+			insertRow(row);
 		}
 	}
+}
+
+/**
+ * Insert a new row into the table.
+ *
+ * @param row the new row is inserted after this row
+ */
+void FormatBox::insertRow(int row)
+{
+#if QT_VERSION >= 300
+	strReplTable->insertRows(row + 1);
+#else
+	strReplTable->setNumRows(row + 2);
+#endif
+}
+
+/**
+ * Delete a row from the table.
+ *
+ * @param row row to delete
+ */
+void FormatBox::deleteRow(int row)
+{
+#if QT_VERSION >= 300
+	strReplTable->removeRow(row);
+#else
+	strReplTable->setNumRows(row);
+#endif
+}
+
+/**
+ * Clear a cell in the table.
+ *
+ * @param row_col cell (row << 8 + col) to delete
+ */
+void FormatBox::clearCell(int row_col)
+{
+	strReplTable->setText((row_col >> 8) & 0xff, row_col & 0xff, "");
+}
+
+/**
+ * Display context menu.
+ *
+ * @param row row at which context menu is displayed
+ * @param col column at which context menu is displayed
+ * @param pos position where context menu is drawn on screen
+ */
+void FormatBox::contextMenu(int row, int col, const QPoint &pos)
+{
+	QPopupMenu menu(this);
+
+	if (row >= -1) {
+		menu.insertItem(i18n("&Insert row"), this, SLOT(insertRow(int)), 0, 0);
+		menu.setItemParameter(0, row);
+	}
+	if (row >= 0) {
+		menu.insertItem(i18n("&Delete row"), this, SLOT(deleteRow(int)), 0, 1);
+		menu.setItemParameter(1, row);
+	}
+	if (row >= 0 && row <= 255 && col >= 0 && col <= 255) {
+		menu.insertItem(i18n("&Clear cell"), this, SLOT(clearCell(int)), 0, 2);
+		menu.setItemParameter(2, (row << 8) + col);
+	}
+	menu.setMouseTracking(true);
+	menu.exec(pos);
 }
 
 /**
