@@ -34,7 +34,7 @@
 #include "genres.h"
 #include "kid3.h"
 #include "standardtags.h"
-#include "generalconfig.h"
+#include "miscconfig.h"
 #include "formatconfig.h"
 #include "id3form.h"
 
@@ -772,7 +772,7 @@ void id3Form::titleV2LineEditChanged(const QString &txt)
 void id3Form::formatLineEdit(QLineEdit *le, const QString &txt,
 							 const FormatConfig *fcfg)
 {
-	if (theApp->genCfg->formatWhileEditing) {
+	if (theApp->miscCfg->formatWhileEditing) {
 		QString str(txt);
 		fcfg->formatString(str);
 		if (str != txt) {

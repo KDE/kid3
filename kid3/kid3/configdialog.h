@@ -21,7 +21,7 @@
 class FormatBox;
 class QCheckBox;
 class FormatConfig;
-class GeneralConfig;
+class MiscConfig;
 class QString;
 class QWidget;
 
@@ -49,21 +49,21 @@ public:
 	/**
 	 * Set values in dialog from current configuration.
 	 *
-	 * @param fnCfg  filename format configuration
-	 * @param fnCfg  ID3 format configuration
-	 * @param genCfg general configuration
+	 * @param fnCfg   filename format configuration
+	 * @param fnCfg   ID3 format configuration
+	 * @param miscCfg misc. configuration
 	 */
 	void setConfig(const FormatConfig *fnCfg, const FormatConfig *id3Cfg,
-				   const GeneralConfig *genCfg);
+				   const MiscConfig *miscCfg);
 	/**
 	 * Get values from dialog and store them in the current configuration.
 	 *
-	 * @param fnCfg  filename format configuration
-	 * @param fnCfg  ID3 format configuration
-	 * @param genCfg general configuration
+	 * @param fnCfg   filename format configuration
+	 * @param fnCfg   ID3 format configuration
+	 * @param miscCfg misc. configuration
 	 */
 	void getConfig(FormatConfig *fnCfg, FormatConfig *id3Cfg,
-				   GeneralConfig *genCfg) const;
+				   MiscConfig *miscCfg) const;
 private:
 	/** Format while editing checkbox */
 	QCheckBox *formatEditingCheckBox;

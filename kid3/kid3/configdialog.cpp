@@ -24,7 +24,7 @@
 
 #include "formatconfig.h"
 #include "formatbox.h"
-#include "generalconfig.h"
+#include "miscconfig.h"
 #include "configdialog.h"
 
 /**
@@ -100,31 +100,31 @@ ConfigDialog::~ConfigDialog()
 /**
  * Set values in dialog from current configuration.
  *
- * @param fnCfg  filename format configuration
- * @param fnCfg  ID3 format configuration
- * @param genCfg general configuration
+ * @param fnCfg   filename format configuration
+ * @param fnCfg   ID3 format configuration
+ * @param miscCfg misc. configuration
  */
 void ConfigDialog::setConfig(const FormatConfig *fnCfg,
 							 const FormatConfig *id3Cfg,
-							 const GeneralConfig *genCfg)
+							 const MiscConfig *miscCfg)
 {
 	fnFormatBox->fromFormatConfig(fnCfg);
 	id3FormatBox->fromFormatConfig(id3Cfg);
-	formatEditingCheckBox->setChecked(genCfg->formatWhileEditing);
+	formatEditingCheckBox->setChecked(miscCfg->formatWhileEditing);
 }
 
 /**
  * Get values from dialog and store them in the current configuration.
  *
- * @param fnCfg  filename format configuration
- * @param fnCfg  ID3 format configuration
- * @param genCfg general configuration
+ * @param fnCfg   filename format configuration
+ * @param fnCfg   ID3 format configuration
+ * @param miscCfg misc. configuration
  */
 void ConfigDialog::getConfig(FormatConfig *fnCfg,
 							 FormatConfig *id3Cfg,
-							 GeneralConfig *genCfg) const
+							 MiscConfig *miscCfg) const
 {
 	fnFormatBox->toFormatConfig(fnCfg);
 	id3FormatBox->toFormatConfig(id3Cfg);
-	genCfg->formatWhileEditing = formatEditingCheckBox->isChecked();
+	miscCfg->formatWhileEditing = formatEditingCheckBox->isChecked();
 }
