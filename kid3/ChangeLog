@@ -1,3 +1,22 @@
+Sat Oct 18 16:40:42 CEST 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.3
+
+	* Automatic case conversion and string replacements
+
+	* Import of album data from freedb.org and other sources
+
+	* Improved Windows (Qt only) version: persisted configuration,
+	  online help
+
+	* Support files for KDevelop and Visual C++
+
+	* Improved Unicode support, however some bugs in id3lib have to be
+	  fixed before this is of real use
+	
+Sat Sep 06 2003 Egor S. Orlov <oes@altlinux.ru> 0.2.1-alt0.1
+	* Added russian translation
+
 Thu May 13 07:37:07 CEST 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.2.1
