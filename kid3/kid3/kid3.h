@@ -1,15 +1,35 @@
+/**
+ * \file kid3.h
+ * Kid3 application for KDE
+ *
+ * \b Project: Kid3
+ * \author Urs Fleisch
+ * \date 9 Jan 2003
+ */
+
+#ifndef KID3_H
+#define KID3_H
+
 #include "autoconf.h"
+#include "filelist.h"
+#include "standardtags.h"
+#include "framelist.h"
+
+// forward declaration of the Kid3 classes
+#include <kmainwindow.h>
+class KAction;
+class KRecentFilesAction;
+class KToggleAction;
+class KURL;
+class id3Form;
+class Mp3File;
 
 /** Kid3 application */
-#ifdef CONFIG_USE_KDE
 class Kid3App : public KMainWindow
-#else
-class Kid3App : public QMainWindow
-#endif
 {
-	Q_OBJECT
+Q_OBJECT
 
-		public:
+public:
 	/**
 	 * Constructor.
 	 *
@@ -104,7 +124,7 @@ class Kid3App : public QMainWindow
 	 */
 	void addFrame(void);
 
- protected:
+protected:
 	/**
 	 * Init menu and toolbar actions.
 	 */
@@ -133,7 +153,7 @@ class Kid3App : public QMainWindow
 	 * @return TRUE.
 	 */
 	virtual bool queryExit();
-#ifdef CONFIG_USE_KDE
+
 	/**
 	 * Saves the window properties for each open window during session end
 	 * to the session config file.
@@ -155,14 +175,6 @@ class Kid3App : public QMainWindow
 	 * Load application options.
 	 */
 	void readOptions();
-#else
-	/**
-	 * Window is closed.
-	 *
-	 * @param ce close event
-	 */
-	void closeEvent(QCloseEvent *ce);
-#endif
 	/**
 	 * Set modification state.
 	 *
@@ -176,12 +188,12 @@ class Kid3App : public QMainWindow
 	 */
 	bool isModified(void) { return modified; }
 
- public slots:
-	/**
-	 * Request new directory and open it.
-	 */
-	void slotFileOpen();
-#ifdef CONFIG_USE_KDE
+	public slots:
+        /**
+		 * Request new directory and open it.
+		 */
+        void slotFileOpen();
+
 	/**
 	 * Open recent directory.
 	 *
@@ -196,10 +208,10 @@ class Kid3App : public QMainWindow
 	 * Turn status bar on or off.
 	 */
 	void slotViewStatusBar();
-#else
-	void slotHelpAbout(void);
-	void slotHelpAboutQt(void);
-#endif
+
+
+
+
 	/**
 	 * Revert file modifications.
 	 * Acts on selected files or all files if no file is selected.
@@ -224,7 +236,7 @@ class Kid3App : public QMainWindow
 	 */
 	void slotCreatePlaylist(void);
 
- private:
+private:
 	/**
 	 * Save all changed files.
 	 *
@@ -264,7 +276,7 @@ class Kid3App : public QMainWindow
 	/** Copy buffer */
 	StandardTags copytags;
 
-#ifdef CONFIG_USE_KDE
+
 	/** the configuration object of the application */
 	KConfig *config;
 	/** Actions */
@@ -275,17 +287,5 @@ class Kid3App : public QMainWindow
 	KAction* fileQuit;
 	KToggleAction* viewToolBar;
 	KToggleAction* viewStatusBar;
-#else
-	QAction* fileOpen;
-	QAction* fileSave;
-	QAction* fileRevert;
-	QAction* fileCreatePlaylist;
-	QAction* fileQuit;
-	QAction* helpIndex;
-	QAction* helpAbout;
-	QAction* helpAboutQt;
-	QMenuBar* menubar;
-	QPopupMenu* fileMenu;
-	QPopupMenu* helpMenu;
-#endif
 };
+#endif

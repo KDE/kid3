@@ -25,8 +25,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>23/04/2003</date>
-<releaseinfo>0.2</releaseinfo>
+<date>13/05/2003</date>
+<releaseinfo>0.2.1</releaseinfo>
 
 <abstract>
 <para>
@@ -523,25 +523,24 @@ Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, non-commercial Qt version 2.3.0.
 <title>Kompilieren und Installation</title>
 
 <para>
-Man kann &kid3; mit oder ohne KDE kompilieren. Um KDE zu benutzen, muss in
-<filename>config.mk</filename> eine Zeile <command>CONFIG_USE_KDE=1</command>
-vorhanden sein, andernfalls wird diese Zeile auskommentiert zu
-<command>#CONFIG_USE_KDE=1</command>. Ohne KDE ist &kid3; eine reine
+Man kann &kid3; mit oder ohne KDE kompilieren. Ohne KDE ist &kid3; eine reine
 Qt Applikation und es fehlen einige Konfigurations- und Session-Funktionen.
 </para>
 <para>
-Im <filename>kid3</filename> Verzeichnis wird getippt:
+Im obersten Verzeichnis wird getippt:
 <screen width="40">
+<prompt>%</prompt> <userinput>./configure</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
 <prompt>%</prompt> <userinput>make install</userinput>
 </screen>
 </para>
 <para>
 Um f&uuml;r andere Versionen von Qt oder KDE zu kompilieren, werden die
-Variablen QTDIR und KDEDIR auf die jeweiligen Verzeichnisse gesetzt.
+jeweiligen configure-Optionen gesetzt.
 </para>
 <para>
 Die Qt Anwendung kann auch unter Windows kompiliert werden.
+Im kid3 Verzeichnis wird getippt:
 <screen width="40">
 <prompt>></prompt> <userinput>nmake /f kid3.mak</userinput>
 <prompt>></prompt> <userinput>nmake /f kid3.mak install</userinput>

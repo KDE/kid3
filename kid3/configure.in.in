@@ -1,0 +1,16 @@
+#MIN_CONFIG(3.0)
+AM_INIT_AUTOMAKE(kid3,0.2.1)
+dnl Check for libid3
+AC_SEARCH_LIBS(ID3Tag_Link,"id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++",,AC_MSG_ERROR(id3lib not found))
+dnl Option to build with KDE
+AC_ARG_WITH(kde, [  --with-kde                build with KDE, default=yes],
+  with_kde="$withval",
+  with_kde=yes
+)
+if test "$with_kde" != "no"; then
+  CONFIG_USE_KDE=1
+  AC_DEFINE(CONFIG_USE_KDE,1,[Define to build with KDE])
+  cp -f kid3/kid3.h.kde kid3/kid3.h
+else
+  cp -f kid3/kid3.h.qtonly kid3/kid3.h
+fi

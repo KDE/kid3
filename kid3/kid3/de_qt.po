@@ -1,0 +1,60 @@
+
+msgid "&File"
+msgstr "&Datei"
+
+msgid "&Open..."
+msgstr "&Öffnen..."
+
+msgid "&Save"
+msgstr "S&peichern"
+
+msgid "&Quit"
+msgstr "B&eenden"
+
+msgid "&Help"
+msgstr "&Hilfe"
+
+msgid "Open"
+msgstr "Öffnen"
+
+msgid "Copy"
+msgstr "Kopieren"
+
+msgid "Paste"
+msgstr "Einfügen"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Look &in:"
+msgstr "Gehe &in:"
+
+msgid "File &name:"
+msgstr "Datei&name:"
+
+msgid "File &type:"
+msgstr "Datei&typ:"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Import"
+msgstr "Importieren"
+
+msgid "Export"
+msgstr "Exportieren"
+
+msgid "View"
+msgstr "Ansicht"
+
+msgid "Revert"
+msgstr "Änderungen verwerfen"
