@@ -10,6 +10,8 @@
 #ifndef GENRES_H
 #define GENRES_H
 
+class QString;
+
 /** Alphabetically sorted list of genres, conversion to/from genre numbers */
 class Genres {
  public:
@@ -37,6 +39,15 @@ class Genres {
 	 * @return genre number, 255 for unknown index.
 	 */
 	static int getNumber(int index);
+	/**
+	 * Get the genre number from a string containing a genre text.
+	 *
+	 * @param index index in alphabethically sorted list
+	 * @param str   string with genre
+	 *
+	 * @return genre number, 255 for unknown index.
+	 */
+	static int getNumber(QString &str);
 	/** Number of genres */
 #if defined _WIN32 || defined WIN32
 	enum { count = 148 };

@@ -7,6 +7,7 @@
  * \date 9 Jan 2003
  */
 
+#include <qstring.h>
 #include "genres.h"
 
 /**
@@ -371,6 +372,25 @@ int Genres::getNumber(int index)
 {
 	if (index >= 0 || index <= Genres::count) {
 		return genre_num[index];
+	}
+	return 255; // 255 for unknown
+}
+
+/**
+ * Get the genre number from a string containing a genre text.
+ *
+ * @param index index in alphabethically sorted list
+ * @param str   string with genre
+ *
+ * @return genre number, 255 for unknown index.
+ */
+
+int Genres::getNumber(QString &str)
+{
+	for (int i = 0; i < Genres::count + 1; i++) {
+		if (QString(genre[i]) == str) {
+			return getNumber(i);
+		}
 	}
 	return 255; // 255 for unknown
 }
