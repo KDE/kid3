@@ -15,7 +15,7 @@ package-messages:
 	$(MAKE) -f admin/Makefile.common package-messages
 	$(MAKE) -C po merge
 
-EXTRA_DIST = admin AUTHORS COPYING ChangeLog INSTALL README make_qtonly.sh
+EXTRA_DIST = admin AUTHORS COPYING ChangeLog INSTALL README make_qtonly.sh kid3.lsm kid3.spec kid3.kdevelop
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
