@@ -54,7 +54,10 @@ public:
 	QComboBox* genreV2ComboBox;
 	QComboBox* formatComboBox;
 	QLineEdit* nameLineEdit;
+	QLabel* detailsLabel;
 	QListBox* framesListBox;
+	QLineEdit* titleV1LineEdit;
+	QLineEdit* titleV2LineEdit;
 
 public slots:
 	/**
@@ -160,37 +163,37 @@ public slots:
 
 	/**
 	 * Filename line edit is changed.
-	 * @param contents of line edit
+	 * @param txt contents of line edit
 	 */
 	virtual void nameLineEditChanged(const QString &txt);
 	/**
 	 * Album V1 line edit is changed.
-	 * @param contents of line edit
+	 * @param txt contents of line edit
 	 */
 	virtual void albumV1LineEditChanged(const QString &txt);
 	/**
 	 * Artist V1 line edit is changed.
-	 * @param contents of line edit
+	 * @param txt contents of line edit
 	 */
 	virtual void artistV1LineEditChanged(const QString &txt);
 	/**
 	 * Title V1 line edit is changed.
-	 * @param contents of line edit
+	 * @param txt contents of line edit
 	 */
 	virtual void titleV1LineEditChanged(const QString &txt);
 	/**
 	 * Album V2 line edit is changed.
-	 * @param contents of line edit
+	 * @param txt contents of line edit
 	 */
 	virtual void albumV2LineEditChanged(const QString &txt);
 	/**
 	 * Artist V2 line edit is changed.
-	 * @param contents of line edit
+	 * @param txt contents of line edit
 	 */
 	virtual void artistV2LineEditChanged(const QString &txt);
 	/**
 	 * Title V2 line edit is changed.
-	 * @param contents of line edit
+	 * @param txt contents of line edit
 	 */
 	virtual void titleV2LineEditChanged(const QString &txt);
 
@@ -210,6 +213,7 @@ private:
 	QPushButton* fnV1Button;
 	QPushButton* fnV2Button;
 	QLabel* formatLabel;
+	QLabel* infoLabel;
 	QGroupBox* idV1GroupBox;
 	QLineEdit* albumV1LineEdit;
 	QPushButton* copyV1PushButton;
@@ -219,7 +223,6 @@ private:
 	QPushButton* pasteV1PushButton;
 	QCheckBox* albumV1CheckBox;
 	QCheckBox* yearV1CheckBox;
-	QLineEdit* titleV1LineEdit;
 	QSpinBox* yearV1SpinBox;
 	QCheckBox* trackV1CheckBox;
 	QSpinBox* trackV1SpinBox;
@@ -232,7 +235,6 @@ private:
 	QGroupBox* idV2GroupBox;
 	QPushButton* copyV2PushButton;
 	QCheckBox* commentV2CheckBox;
-	QLineEdit* titleV2LineEdit;
 	QLineEdit* albumV2LineEdit;
 	QLineEdit* artistV2LineEdit;
 	QPushButton* pasteV2PushButton;

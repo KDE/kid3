@@ -28,6 +28,7 @@
 #define i18n(s) tr(s)
 #endif
 
+/** Shortcut for pointer to parent (application) widget. */
 #define theApp ((Kid3App *)parentWidget())
 
 #include "filelist.h"
@@ -44,9 +45,30 @@
  */
 class Kid3ScrollView: public QScrollView {
 public:
+	/**
+	 * Constructor.
+	 * @param parent parent widget
+	 * @param name   name
+	 * @param f      window flags
+	 */
 	Kid3ScrollView(QWidget *parent = 0, const char *name = 0, WFlags f = 0);
+	/**
+	 * Constructor.
+	 * @param parent  parent widget
+	 * @param _client client widget
+	 */
 	Kid3ScrollView(QWidget *parent, QWidget *_client);
+	/**
+	 * Get size hint.
+	 * @return size hint.
+	 */
 	virtual QSize sizeHint() const;
+	/**
+	 * Add child widget.
+	 * @param child child widget
+	 * @param x     x-coordinate
+	 * @param y     y-coordinate
+	 */
 	virtual void addChild(QWidget *child, int x = 0, int y = 0);
 private:
 	QWidget *client;
@@ -108,7 +130,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 
 	filenameGroupBox = new QGroupBox(rightHalfVBox, "filenameGroupBox");
 	filenameGroupBox->setTitle(i18n("Filename"));
-	filenameGroupBoxLayout = new QGridLayout(filenameGroupBox, 2, 3, 16, 6);
+	filenameGroupBoxLayout = new QGridLayout(filenameGroupBox, 3, 3, 16, 6);
 
 	nameLabel = new QLabel(filenameGroupBox, "nameLabel");
 	nameLabel->setText(i18n("Name:"));
@@ -132,6 +154,12 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	fnV2Button->setText(i18n("From ID3v2"));
 	filenameGroupBoxLayout->addWidget(fnV2Button, 1, 2);
 
+	infoLabel = new QLabel(filenameGroupBox, "infoLabel");
+	infoLabel->setText(i18n("Info:"));
+	filenameGroupBoxLayout->addWidget(infoLabel, 2, 0);
+
+	detailsLabel = new QLabel(filenameGroupBox, "detailsLabel");
+	filenameGroupBoxLayout->addMultiCellWidget(detailsLabel, 2, 2, 1, 2);
 
 	idV1GroupBox = new QGroupBox(rightHalfVBox, "idV1GroupBox");
 	idV1GroupBox->setTitle(i18n("ID3v1.1"));
