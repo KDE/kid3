@@ -7,7 +7,7 @@
  * \date 9 Jan 2003
  */
 
-#include "autoconf.h"
+#include "config.h"
 #ifdef CONFIG_USE_KDE
 
 #include <kapp.h>
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 {
 	KAboutData aboutData(
 	    "kid3", I18N_NOOP("Kid3"),
-	    CONFIG_VERSION, description, KAboutData::License_GPL,
+	    VERSION, description, KAboutData::License_GPL,
 	    "(c) 2003, Urs Fleisch", 0, "http://kid3.sourceforge.net",
 	    "ufleisch@users.sourceforge.net");
 	aboutData.addAuthor("Urs Fleisch",0, "ufleisch@users.sourceforge.net");
