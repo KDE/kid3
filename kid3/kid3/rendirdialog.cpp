@@ -1,0 +1,433 @@
+/**
+ * \file rendirdialog.cpp
+ * Rename directory dialog.
+ *
+ * \b Project: Kid3
+ * \author Urs Fleisch
+ * \date 21 Mar 2004
+ */
+
+#include "config.h"
+#ifdef CONFIG_USE_KDE
+#include <klocale.h>
+#else
+#define i18n(s) tr(s)
+#define I18N_NOOP(s) QT_TR_NOOP(s)
+#endif
+
+#include <qlayout.h>
+#include <qhbox.h>
+#include <qpushbutton.h>
+#include <qcombobox.h>
+#include <qlabel.h>
+#include <qdir.h>
+
+#include "mp3file.h"
+#include "standardtags.h"
+#include "rendirdialog.h"
+
+static const char *formatList[] = {
+	"%a - %l",
+	"%a - [%y] %l",
+	"%a/%l",
+	"%a/[%y] %l",
+	0                  // end of StrList
+};
+
+const char **RenDirDialog::dirFmtList = &formatList[0];
+
+/**
+ * Constructor.
+ *
+ * @param parent     parent widget
+ * @param caption    dialog title
+ * @param mp3        MP3 file to use for rename preview
+ * @param formatItem directory format item
+ * @param formatText directory format
+ */
+RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
+						   Mp3File *mp3,
+						   int formatItem, const QString &formatText) :
+	QDialog(parent, "rendir", true), mp3file(mp3)
+{
+	setCaption(caption);
+
+	QVBoxLayout *vlayout = new QVBoxLayout(this);
+	if (!vlayout) {
+		return ;
+	}
+	vlayout->setSpacing(6);
+	vlayout->setMargin(6);
+
+	QHBoxLayout *actionLayout = new QHBoxLayout(vlayout);
+	actionComboBox = new QComboBox(this);
+	tagversionComboBox = new QComboBox(this);
+	if (actionComboBox && tagversionComboBox) {
+		actionComboBox->insertItem(i18n("Rename Directory"), ActionRename);
+		actionComboBox->insertItem(i18n("Create Directory"), ActionCreate);
+		actionLayout->addWidget(actionComboBox);
+		connect(actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+		tagversionComboBox->insertItem(i18n("From ID3v1"), TagV1);
+		tagversionComboBox->insertItem(i18n("From ID3v2"), TagV2);
+		actionLayout->addWidget(tagversionComboBox);
+		connect(tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+	}
+	QHBoxLayout *formatLayout = new QHBoxLayout(vlayout);
+	QLabel *formatLabel = new QLabel(i18n("Format:"), this);
+	formatComboBox = new QComboBox(this);
+	if (formatLayout && formatLabel && formatComboBox) {
+		static const char *formatList[] = {
+			"%a - %l",
+			"%a - [%y] %l",
+			"%a/%l",
+			"%a/[%y] %l",
+			0                  // end of StrList
+		};
+		formatComboBox->insertStrList(formatList);
+		formatComboBox->setEditable(true);
+		formatComboBox->setCurrentItem(formatItem);
+#if QT_VERSION >= 300
+		formatComboBox->setCurrentText(formatText);
+#else
+		formatComboBox->setEditText(formatText);
+#endif
+		formatLayout->addWidget(formatLabel);
+		formatLayout->addWidget(formatComboBox);
+		connect(formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+		connect(formatComboBox, SIGNAL(textChanged(const QString &)), this, SLOT(slotUpdateNewDirname()));
+	}
+
+	QGridLayout *fromToLayout = new QGridLayout(vlayout, 2, 2);
+	QLabel *fromLabel = new QLabel(i18n("From:"), this);
+	currentDirLabel = new QLabel(this);
+	QLabel *toLabel = new QLabel(i18n("To:"), this);
+	newDirLabel = new QLabel(this);
+	if (fromToLayout && fromLabel && currentDirLabel &&
+		toLabel && newDirLabel) {
+		fromToLayout->addWidget(fromLabel, 0, 0);
+		fromToLayout->addWidget(currentDirLabel, 0, 1);
+		fromToLayout->addWidget(toLabel, 1, 0);
+		fromToLayout->addWidget(newDirLabel, 1, 1);
+	}
+
+	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
+	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+	                                       QSizePolicy::Minimum);
+	QPushButton *okButton = new QPushButton(i18n("OK"), this);
+	QPushButton *cancelButton = new QPushButton(i18n("Cancel"), this);
+	if (hlayout && okButton && cancelButton) {
+		hlayout->addItem(hspacer);
+		hlayout->addWidget(okButton);
+		hlayout->addWidget(cancelButton);
+		okButton->setDefault(TRUE);
+		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	}
+	slotUpdateNewDirname();
+}
+
+/**
+ * Destructor.
+ */
+RenDirDialog::~RenDirDialog()
+{}
+
+/**
+ * Get parent directory.
+ *
+ * @param dir directory
+ *
+ * @return parent directory (terminated by separator),
+ *         empty string if no separator in dir.
+ */
+static QString parentDirectory(const QString &dir)
+{
+	QString parent(dir);
+	int slashPos = parent.findRev('/');
+	if (slashPos != -1) {
+		parent.truncate(slashPos + 1);
+	} else {
+		parent = "";
+	}
+	return parent;
+}
+
+/**
+ * Create a directory if it does not exist.
+ *
+ * @param dir      directory path
+ * @param errorMsg if not NULL and an error occurred, a message is appended here,
+ *                 otherwise it is not touched
+ *
+ * @return true if directory exists or was created successfully.
+ */
+bool RenDirDialog::createDirectory(const QString &dir,
+								   QString *errorMsg) const
+{
+	if (QFileInfo(dir).isDir() ||
+		(QDir().mkdir(dir) && QFileInfo(dir).isDir())) {
+		return true;
+	} else {
+		if (errorMsg) {
+			errorMsg->append(i18n("Create directory %1 failed\n").arg(dir));
+		}
+		return false;
+	}
+}
+
+/**
+ * Rename a directory.
+ *
+ * @param olddir   old directory name
+ * @param newdir   new directory name
+ * @param errorMsg if not NULL and an error occurred, a message is
+ *                 appended here, otherwise it is not touched
+ *
+ * @return true if rename successful.
+ */
+bool RenDirDialog::renameDirectory(
+	const QString &olddir, const QString &newdir, QString *errorMsg) const
+{
+	if (QFileInfo(newdir).exists()) {
+		if (errorMsg) {
+			errorMsg->append(i18n("File %1 already exists\n").arg(newdir));
+		}
+		return false;
+	}
+	if (!QFileInfo(olddir).isDir()) {
+		if (errorMsg) {
+			errorMsg->append(i18n("%1 is not a directory\n").arg(olddir));
+		}
+		return false;
+	}
+	if (QDir().rename(olddir, newdir) && QFileInfo(newdir).isDir()) {
+		return true;
+	} else {
+		if (errorMsg) {
+			errorMsg->append(i18n("Rename %1 to %2 failed\n").arg(olddir).arg(newdir));
+		}
+		return false;
+	}
+}
+
+/**
+ * Rename a file.
+ *
+ * @param oldfn    old file name
+ * @param newfn    new file name
+ * @param errorMsg if not NULL and an error occurred, a message is
+ *                 appended here, otherwise it is not touched
+ *
+ * @return true if rename successful or newfn already exists.
+ */
+bool RenDirDialog::renameFile(const QString &oldfn, const QString &newfn,
+							  QString *errorMsg) const
+{
+	if (QFileInfo(newfn).isFile()) {
+		return true;
+	}
+	if (QFileInfo(newfn).exists()) {
+		if (errorMsg) {
+			errorMsg->append(i18n("%1 already exists\n").arg(newfn));
+		}
+		return false;
+	}
+	if (!QFileInfo(oldfn).isFile()) {
+		if (errorMsg) {
+			errorMsg->append(i18n("%1 is not a file\n").arg(oldfn));
+		}
+		return false;
+	}
+	if (QDir().rename(oldfn, newfn) && QFileInfo(newfn).isFile()) {
+		return true;
+	} else {
+		if (errorMsg) {
+			errorMsg->append(i18n("Rename %1 to %2 failed\n").arg(oldfn).arg(newfn));
+		}
+		return false;
+	}
+}
+
+/**
+ * Generate new directory name according to current settings.
+ *
+ * @param mp3 MP3 file to get information from
+ * @param newdir pointer to QString to place old directory name into,
+ *               NULL if not used
+ *
+ * @return new directory name.
+ */
+QString RenDirDialog::generateNewDirname(Mp3File *mp3, QString *olddir)
+{
+	StandardTags st;
+	mp3->readTags(false);
+	if (tagversionComboBox->currentItem() == TagV1) {
+		mp3->getStandardTagsV1(&st);
+	} else {
+		mp3->getStandardTagsV2(&st);
+	}
+	QString newdir(mp3->getDirname());
+	if (
+#if QT_VERSION >= 300
+		newdir.endsWith(QChar('/'))
+#else
+		newdir.at(newdir.length() - 1) == '/'
+#endif
+	   ) {
+		// remove trailing separator
+		newdir.truncate(newdir.length() - 1);
+	}
+	if (olddir) {
+		*olddir = newdir;
+	}
+	if (actionComboBox->currentItem() == ActionRename) {
+		newdir = parentDirectory(newdir);
+	} else if (!newdir.isEmpty()) {
+		newdir.append('/');
+	}
+	newdir.append(mp3->formatWithTags(&st, formatComboBox->currentText()));
+	return newdir;
+}
+
+/**
+ * Get new directory name.
+ *
+ * @return new directory name.
+ */
+void RenDirDialog::setNewDirname(const QString &dir)
+{
+	newDirLabel->setText(dir);
+}
+
+/**
+ * Get new directory name.
+ *
+ * @return new directory name.
+ */
+QString RenDirDialog::getNewDirname(void) const
+{
+	return newDirLabel->text();
+}
+
+/**
+ * Set new directory name according to current settings.
+ */
+void RenDirDialog::slotUpdateNewDirname()
+{
+	if (mp3file) {
+		QString currentDirname;
+		QString newDirname(generateNewDirname(mp3file, &currentDirname));
+		currentDirLabel->setText(currentDirname);
+		setNewDirname(newDirname);
+	}
+}
+
+/**
+ * Perform renaming or creation of directory according to current settings.
+ *
+ * @param mp3      MP3 file to take directory from and to move
+ * @param again    is set true if the new directory (getNewDirname())
+ *                 should be read and processed again
+ * @param errorMsg if not NULL and an error occurred, a message is appended here,
+ *                 otherwise it is not touched
+ *
+ * @return true if other files can be processed,
+ *         false if operation is finished.
+ */
+bool RenDirDialog::performAction(Mp3File *mp3, bool& again, QString *errorMsg)
+{
+	QString currentDirname;
+	QString newDirname(generateNewDirname(mp3, &currentDirname));
+	bool result = true;
+	again = false;
+	if (newDirname != currentDirname) {
+		if (newDirname.startsWith(currentDirname)) {
+			// A new directory is created in the current directory.
+			bool createDir = true;
+			QString dirWithFiles(currentDirname);
+			for (int i = 0;
+				 createDir && newDirname.startsWith(currentDirname) && i < 5;
+				 i++) {
+				QString newPart(newDirname.mid(currentDirname.length()));
+				// currentDirname does not end with a separator, so newPart
+				// starts with a separator and the search starts with the
+				// second character.
+				int slashPos = newPart.find('/', 1);
+				if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
+					newPart.truncate(slashPos);
+					// the new part has multiple directories
+					// => create one directory
+				} else {
+					createDir = false;
+				}
+				// Create a directory for each file and move it.
+				if (createDirectory(currentDirname + newPart, errorMsg)) {
+					if (!createDir) {
+						renameFile(dirWithFiles + '/' +
+								   mp3->getFilename(),
+								   currentDirname + newPart +
+								   '/' + mp3->getFilename(),
+								   errorMsg);
+					}
+					currentDirname = currentDirname + newPart;
+				}
+			}
+		} else {
+			QString parent(parentDirectory(currentDirname));
+			if (newDirname.startsWith(parent)) {
+				QString newPart(newDirname.mid(parent.length()));
+				int slashPos = newPart.find('/');
+				if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
+					newPart.truncate(slashPos);
+					// the new part has multiple directories
+					// => rename current directory, then create additional
+					// directories.
+					again = true;
+				}
+				if (QFileInfo(parent + newPart).isDir()) {
+					// directory already exists => move files
+					if (renameFile(currentDirname + '/' +
+								   mp3->getFilename(),
+								   parent + newPart +
+								   '/' + mp3->getFilename(),
+								   errorMsg)) {
+						currentDirname = parent + newPart;
+					}
+				} else {
+					if (renameDirectory(currentDirname, parent + newPart, errorMsg)) {
+						currentDirname = parent + newPart;
+						// Current directory is changed => finish operation
+						result = false;
+					}
+				}
+			} else {
+				// new directory name is too different
+				if (errorMsg) {
+					errorMsg->append(i18n("New directory name is too different\n"));
+				}
+			}
+		}
+	}
+	setNewDirname(currentDirname);
+	return result;
+}
+
+/**
+ * Get currently selected directory format item.
+ *
+ * @return index of directory format.
+ */
+int RenDirDialog::getFormatItem(void) const
+{
+	return formatComboBox->currentItem();
+}
+
+/**
+ * Get currently used directory format.
+ *
+ * @return directory format.
+ */
+QString RenDirDialog::getFormatText(void) const
+{
+	return formatComboBox->currentText();
+}
