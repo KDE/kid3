@@ -2,47 +2,23 @@
 
 *** Linux
 
-*** Compile for KDE 3, Qt 3
+*** Compile for KDE
 
+./configure
 make
 make install
 
-*** Compile for KDE2, Qt 2
+*** Compile for Qt (no KDE)
 
-The id3form.ui is not compatible with uic from Qt2, so you have to
-generate the files in .ui/ with Qt3 and then generate the rest with Qt2:
+./make_qtonly.sh
 
-make .ui/id3form.cpp
-make QTDIR=/usr/lib/qt2 KDEDIR=/opt/kde2
-make install
-
-*** Compile for Qt 3 (no KDE)
-
-Change line in config.mk to:
-#CONFIG_USE_KDE=1
-
-make
-make install
-
-The install directory can be set with the variable "prefix".
-
-*** Compile for Qt 2 (no KDE)
-
-Change line in config.mk to:
-#CONFIG_USE_KDE=1
-
-make .ui/id3form.cpp
-make QTDIR=/usr/lib/qt2
-make install
-
-The install directory can be set with the variable "prefix".
+The install directory can be given as an optional parameter,
+default is kid3qt.
 
 *** Windows
 
 *** Compile with non-commercial Qt version 2.3.0
 
-.ui\id3form.cpp .ui\id3form.h must exist before compilation. They are
-included in the distribution or can be generated using uic from Qt3/Linux.
 If you want to use language files like kid3_de.qm for German
 translations, generate them from KDE/Linux. They can be used for
 example with "set LANG=de".
@@ -51,9 +27,6 @@ Qt must be installed and QTDIR set. The id3lib binaries and includes
 must be installed.
 Edit kid.mak so that ID3LIBDIR, ID3INCDIR point to the your id3lib
 installation
-
-Change line in config.mk to:
-#CONFIG_USE_KDE=1
 
 nmake /f kid3.mak
 nmake /f kid3.mak install
