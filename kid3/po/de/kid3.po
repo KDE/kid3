@@ -1,897 +1,638 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# translation of kid3.po to German
+# Kid3 German Translation.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: kid3\n"
 "POT-Creation-Date: 2003-01-15 22:29+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2003-04-25 22:14+0200\n"
+"Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
+"Language-Team: German <ufleisch@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.1\n"
 
-#: framelist.cpp:186 framelist.cpp:189 framelist.cpp:191 framelist.cpp:192
-#: framelist.cpp:197 framelist.cpp:206
+#: framelist.cpp:206
 msgid "View Picture"
 msgstr "Bild anzeigen"
 
-#: framelist.cpp:1018 framelist.cpp:1020 framelist.cpp:1021 framelist.cpp:1022
-#: framelist.cpp:1023 framelist.cpp:1028 framelist.cpp:1061
+#: framelist.cpp:229
+msgid "Text Encoding"
+msgstr "Text Codierung"
+
+#: framelist.cpp:230
+msgid "Text"
+msgstr "Text"
+
+#: framelist.cpp:231
+msgid "URL"
+msgstr "URL"
+
+#: framelist.cpp:232
+msgid "Data"
+msgstr "Daten"
+
+#: framelist.cpp:233
+msgid "Description"
+msgstr "Beschreibung"
+
+#: framelist.cpp:234
+msgid "Owner"
+msgstr "Besitzer"
+
+#: framelist.cpp:235
+msgid "Email"
+msgstr "Email"
+
+#: framelist.cpp:236
+msgid "Rating"
+msgstr "Bewertung"
+
+#: framelist.cpp:237 id3form.cpp:107
+msgid "Filename"
+msgstr "Dateiname"
+
+#: framelist.cpp:238
+msgid "Language"
+msgstr "Sprache"
+
+#: framelist.cpp:239
+msgid "Picture Type"
+msgstr "Bildtyp"
+
+#: framelist.cpp:240
+msgid "Image format"
+msgstr "Bildformat"
+
+#: framelist.cpp:241
+msgid "Mimetype"
+msgstr "Mime Typ"
+
+#: framelist.cpp:242
+msgid "Counter"
+msgstr "Zähler"
+
+#: framelist.cpp:243
+msgid "Identifier"
+msgstr "Identifikation"
+
+#: framelist.cpp:244
+msgid "Volume Adjustment"
+msgstr "Lautstärkenanpassung"
+
+#: framelist.cpp:245
+msgid "Number of Bits"
+msgstr "Anzahl Bits"
+
+#: framelist.cpp:246
+msgid "Volume Change Right"
+msgstr "Lautstärkenänderung rechts"
+
+#: framelist.cpp:247
+msgid "Volume Change Left"
+msgstr "Lautstärkenänderung links"
+
+#: framelist.cpp:248
+msgid "Peak Volume Right"
+msgstr "Höchstlautstärke rechts"
+
+#: framelist.cpp:249
+msgid "Peak Volume Left"
+msgstr "Höchstlautstärke links"
+
+#: framelist.cpp:250
+msgid "Timestamp Format"
+msgstr "Zeitstempel Format"
+
+#: framelist.cpp:251
+msgid "Content Type"
+msgstr "Stil"
+
+#: framelist.cpp:680
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: framelist.cpp:681
+msgid "Unicode"
+msgstr "Unicode"
+
+#: framelist.cpp:682
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+#: framelist.cpp:683
+msgid "UTF8"
+msgstr "UTF8"
+
+#: framelist.cpp:694 framelist.cpp:725 framelist.cpp:738
+msgid "Other"
+msgstr "Anderes"
+
+#: framelist.cpp:695
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 Pixels PNG Datei Icon"
+
+#: framelist.cpp:696
+msgid "Other file icon"
+msgstr "Anderes Datei Icon"
+
+#: framelist.cpp:697
+msgid "Cover (front)"
+msgstr "Cover (Vorderseite)"
+
+#: framelist.cpp:698
+msgid "Cover (back)"
+msgstr "Cover (Rückseite)"
+
+#: framelist.cpp:699
+msgid "Leaflet page"
+msgstr "Booklet Seite"
+
+#: framelist.cpp:700
+msgid "Media"
+msgstr "Medium"
+
+#: framelist.cpp:701
+msgid "Lead artist/lead performer/soloist"
+msgstr "Haupt-Künstler/Interpret/Solist"
+
+#: framelist.cpp:702
+msgid "Artist/performer"
+msgstr "Künster/Interpret"
+
+#: framelist.cpp:703
+msgid "Conductor"
+msgstr "Leiter"
+
+#: framelist.cpp:704
+msgid "Band/Orchestra"
+msgstr "Band/Orchester"
+
+#: framelist.cpp:705
+msgid "Composer"
+msgstr "Komponist"
+
+#: framelist.cpp:706
+msgid "Lyricist/text writer"
+msgstr "Texter"
+
+#: framelist.cpp:707
+msgid "Recording Location"
+msgstr "Aufnahmeort"
+
+#: framelist.cpp:708
+msgid "During recording"
+msgstr "Während Aufnahme"
+
+#: framelist.cpp:709
+msgid "During performance"
+msgstr "Während Aufführung"
+
+#: framelist.cpp:710
+msgid "Movie/video screen capture"
+msgstr "Bild aus Video"
+
+#: framelist.cpp:711
+msgid "A bright coloured fish"
+msgstr "Ein hell leuchtender Fisch"
+
+#: framelist.cpp:712
+msgid "Illustration"
+msgstr "Illustration"
+
+#: framelist.cpp:713
+msgid "Band/artist logotype"
+msgstr "Band/Künster Logo"
+
+#: framelist.cpp:714
+msgid "Publisher/Studio logotype"
+msgstr "Herausgeber/Studio Logo"
+
+#: framelist.cpp:726
+msgid "MPEG frames as unit"
+msgstr "MPEG Frames als Einheit"
+
+#: framelist.cpp:727
+msgid "Milliseconds as unit"
+msgstr "Millisekunden als Einheit"
+
+#: framelist.cpp:739
+msgid "Lyrics"
+msgstr "Text"
+
+#: framelist.cpp:740
+msgid "Text transcription"
+msgstr "Text Abschrift"
+
+#: framelist.cpp:741
+msgid "Movement/part name"
+msgstr "Name des Teils"
+
+#: framelist.cpp:742
+msgid "Events"
+msgstr "Ereignis"
+
+#: framelist.cpp:743
+msgid "Chord"
+msgstr "Saite"
+
+#: framelist.cpp:744
+msgid "Trivia/pop up"
+msgstr "Trivia/Pop Up"
+
+#: framelist.cpp:869
+msgid "AENC - Audio encryption"
+msgstr "AENC - Audio Codierung"
+
+#: framelist.cpp:870
+msgid "APIC - Attached picture"
+msgstr "APIC - Dazugehöriges Bild"
+
+#: framelist.cpp:871
+msgid "CDM  - Compressed data meta frame"
+msgstr "CDM  - Komprimiertes Data Meta Frame"
+
+#: framelist.cpp:872
+msgid "COMM - Comments"
+msgstr "COMM - Kommentar"
+
+#: framelist.cpp:873
+msgid "COMR - Commercial"
+msgstr "COMR - Kommerzielle Information"
+
+#: framelist.cpp:874
+msgid "CRM  - Encrypted meta frame"
+msgstr "CRM  - Verschlüsseltes Meta Frame"
+
+#: framelist.cpp:875
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Verschlüsselungsmethode"
+
+#: framelist.cpp:876
+msgid "EQUA - Equalization"
+msgstr "EQUA - Equalization"
+
+#: framelist.cpp:877
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Ereignis Zeit Codes"
+
+#: framelist.cpp:878
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - Allgemeines gekapseltes Objekt"
+
+#: framelist.cpp:879
+msgid "GRID - Group identification registration"
+msgstr "GRID - Gruppierungs Identifikation"
+
+#: framelist.cpp:880
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Liste beteiligter Personen"
+
+#: framelist.cpp:881
+msgid "LINK - Linked information"
+msgstr "LINK - Verknüpfungsinformation"
+
+#: framelist.cpp:882
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Musik CD Indentifikation"
+
+#: framelist.cpp:883
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG Positions Nachschlage Tabelle"
+
+#: framelist.cpp:884
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Besitzer"
+
+#: framelist.cpp:885
+msgid "PRIV - Private frame"
+msgstr "PRIV - Privat"
+
+#: framelist.cpp:886
+msgid "PCNT - Play counter"
+msgstr "PCNT - Abspielzähler"
+
+#: framelist.cpp:887
+msgid "POPM - Popularimeter"
+msgstr "POPM - Beliebtheitsmessung"
+
+#: framelist.cpp:888
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Positionssynchronisierung"
+
+#: framelist.cpp:889
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Empfohlene Buffergrösse"
+
+#: framelist.cpp:890
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Relative Lautstärkenanpassung"
+
+#: framelist.cpp:891
+msgid "RVRB - Reverb"
+msgstr "RVRB - "
+
+#: framelist.cpp:892
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Synchronisierter Text"
+
+#: framelist.cpp:893
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Synchronisierte Tempo Codes"
+
+#: framelist.cpp:894
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Album/Film/Show Titel"
+
+#: framelist.cpp:895
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (beats per minute)"
+
+#: framelist.cpp:896
+msgid "TCOM - Composer"
+msgstr "TCOM - Komponist"
+
+#: framelist.cpp:897
+msgid "TCON - Content type"
+msgstr "TCON - Stil"
+
+#: framelist.cpp:898
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Copyright Information"
+
+#: framelist.cpp:899
+msgid "TDAT - Date"
+msgstr "TDAT - Datum"
+
+#: framelist.cpp:900
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Stücklisten Verzögerung"
+
+#: framelist.cpp:901
+msgid "TENC - Encoded by"
+msgstr "TENC - Codiert von"
+
+#: framelist.cpp:902
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Texter"
+
+#: framelist.cpp:903
+msgid "TFLT - File type"
+msgstr "TFLT - Datei Typ"
+
+#: framelist.cpp:904
+msgid "TIME - Time"
+msgstr "TIME - Zeit"
+
+#: framelist.cpp:905
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Beschreibung der Stilkategorie"
+
+#: framelist.cpp:906
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Titel/Name/Inhaltsbezeichnung"
+
+#: framelist.cpp:907
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Untergeordneter Titel/Genauere Beschreibung"
+
+#: framelist.cpp:908
+msgid "TKEY - Initial key"
+msgstr "TKEY - Anfangstonart"
+
+#: framelist.cpp:909
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Sprache(n)"
+
+#: framelist.cpp:910
+msgid "TLEN - Length"
+msgstr "TLEN - Länge"
+
+#: framelist.cpp:911
+msgid "TMED - Media type"
+msgstr "TMED - Mediumtyp"
+
+#: framelist.cpp:912
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Original Album/Film/Show Titel"
+
+#: framelist.cpp:913
+msgid "TOFN - Original filename"
+msgstr "TOFN - Original Dateiname"
+
+#: framelist.cpp:914
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Original Texter"
+
+#: framelist.cpp:915
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Original Künstler/Interpret"
+
+#: framelist.cpp:916
+msgid "TORY - Original release year"
+msgstr "TORY - Original Erscheinungsjahr"
+
+#: framelist.cpp:917
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - Original Dateibesitzer"
+
+#: framelist.cpp:918
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Hauptinterpret(en)/-solist(en)"
+
+#: framelist.cpp:919
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Band/Orchester/Begleitung"
+
+#: framelist.cpp:920
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Leiter"
+
+#: framelist.cpp:921
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Interpretiert, remixed oder auf andere Weise modifiziert durch"
+
+#: framelist.cpp:922
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Teil einer Menge"
+
+#: framelist.cpp:923
+msgid "TPUB - Publisher"
+msgstr "TPUB - Herausgeber"
+
+#: framelist.cpp:924
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Stücknummer/Position in einer Menge"
+
+#: framelist.cpp:925
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Aufnahmedaten"
+
+#: framelist.cpp:926
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Internetradiostation"
+
+#: framelist.cpp:927
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Internetradiostationsbesitzer"
+
+#: framelist.cpp:928
+msgid "TSIZ - Size"
+msgstr "TSIZ - Grösse"
+
+#: framelist.cpp:929
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (Internationaler Standardaufnahmecode)"
+
+#: framelist.cpp:930
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Software/Hardware und Einstellungen der Codierung"
+
+#: framelist.cpp:931
+msgid "TXXX - User defined text information"
+msgstr "TXXX - Benutzerdefinierte Textinformation"
+
+#: framelist.cpp:932
+msgid "TYER - Year"
+msgstr "TYER - Jahr"
+
+#: framelist.cpp:933
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Eindeutige Dateiidentifikation"
+
+#: framelist.cpp:934
+msgid "USER - Terms of use"
+msgstr "USER - Benutzungsbedingungen"
+
+#: framelist.cpp:935
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Unsynchronisierte Textabschrift"
+
+#: framelist.cpp:936
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Kommerzielle Information"
+
+#: framelist.cpp:937
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Copyright/Gesetzliche Information"
+
+#: framelist.cpp:938
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Offizielle Webseite der Audio-Datei"
+
+#: framelist.cpp:939
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Offizielle Webseite des Künstlers/Interpreten"
+
+#: framelist.cpp:940
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Offizielle Webseite der Audio-Quelle"
+
+#: framelist.cpp:941
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Offizielle Webseite der Internetradiostation"
+
+#: framelist.cpp:942
+msgid "WPAY - Payment"
+msgstr "WPAY - Bezahlung"
+
+#: framelist.cpp:943
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Offizielle Webseite des Herausgebers"
+
+#: framelist.cpp:944
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - Benutzerdefinierte URL"
+
+#: framelist.cpp:1061
 msgid "Add Frame"
-msgstr "Element hinzufÃ¼gen"
+msgstr "Element hinzufügen"
 
-#: framelist.cpp:1019 framelist.cpp:1021 framelist.cpp:1022 framelist.cpp:1023
-#: framelist.cpp:1024 framelist.cpp:1029 framelist.cpp:1062
+#: framelist.cpp:1062
 msgid "Select the frame ID"
-msgstr "Element ID auswÃ¤hlen"
+msgstr "Element ID auswählen"
 
-#: kid3.cpp:92 kid3.cpp:93 kid3.cpp:98 kid3.cpp:105 kid3.cpp:107 kid3.cpp:108
-#: kid3.cpp:110 kid3.cpp:113 kid3.cpp:123
+#: kid3.cpp:106 kid3.cpp:124
 msgid "Opens a directory"
-msgstr "Ã–ffnet ein Verzeichnis"
+msgstr "Öffnet ein Verzeichnis"
 
-#: kid3.cpp:93 kid3.cpp:94 kid3.cpp:99 kid3.cpp:106
+#: kid3.cpp:107
 msgid "Opens a recently used directory"
-msgstr "Ã–ffnet ein kÃ¼rzlich benutztes Verzeichnis"
+msgstr "Öffnet ein kürzlich benutztes Verzeichnis"
 
-#: kid3.cpp:94 kid3.cpp:95 kid3.cpp:100 kid3.cpp:108 kid3.cpp:121 kid3.cpp:122
-#: kid3.cpp:124 kid3.cpp:127 kid3.cpp:140
+#: kid3.cpp:109 kid3.cpp:141
 msgid "Reverts the changes of all or the selected files"
-msgstr "Macht die Ã„nderungen an allen oder den ausgewÃ¤hlten Dateien rÃ¼ckgÃ¤ngig"
+msgstr "Macht die Änderungen an allen oder den ausgewählten Dateien rückgängig"
 
-#: kid3.cpp:95 kid3.cpp:96 kid3.cpp:101 kid3.cpp:109 kid3.cpp:114 kid3.cpp:115
-#: kid3.cpp:117 kid3.cpp:120 kid3.cpp:131
+#: kid3.cpp:110 kid3.cpp:132
 msgid "Saves the changed files"
-msgstr "Speichert die verÃ¤nderten Dateien"
+msgstr "Speichert die veränderten Dateien"
 
-#: kid3.cpp:96 kid3.cpp:97 kid3.cpp:102 kid3.cpp:110 kid3.cpp:133 kid3.cpp:134
-#: kid3.cpp:136 kid3.cpp:139 kid3.cpp:154
+#: kid3.cpp:111 kid3.cpp:155
 msgid "Quits the application"
 msgstr "Beendet die Anwendung"
 
-#: kid3.cpp:97 kid3.cpp:98 kid3.cpp:103 kid3.cpp:111
+#: kid3.cpp:112
 msgid "Enables/disables the toolbar"
 msgstr "Werkzeugleiste anzeigen"
 
-#: kid3.cpp:98 kid3.cpp:99 kid3.cpp:104 kid3.cpp:112
+#: kid3.cpp:113
 msgid "Enables/disables the statusbar"
 msgstr "Statusleiste anzeigen"
 
-#: kid3.cpp:100 kid3.cpp:101 kid3.cpp:106 kid3.cpp:114 kid3.cpp:128
-#: kid3.cpp:129 kid3.cpp:134 kid3.cpp:148
+#: kid3.cpp:115 kid3.cpp:149
 msgid "&Create Playlist"
-msgstr "StÃ¼&ckliste erstellen"
+msgstr "Stü&ckliste erstellen"
 
-#: kid3.cpp:122 kid3.cpp:125
-msgid "Revert"
-msgstr "Ã„nderungen verwerfen"
+#: kid3.cpp:142
+msgid "Re&vert"
+msgstr "&Zuletzt gespeicherte Fassung"
 
-#: kid3.cpp:127 kid3.cpp:128 kid3.cpp:130 kid3.cpp:133 kid3.cpp:147
+#: kid3.cpp:148
 msgid "Create M3U Playlist"
-msgstr "Erstelle M3U StÃ¼ckliste"
+msgstr "Erstelle M3U Stückliste"
 
-#: kid3.cpp:128 kid3.cpp:131
-msgid "Create Playlist"
-msgstr "Erstelle StÃ¼ckliste"
+#: kid3.cpp:163
+msgid "About Kid3"
+msgstr "Über Kid3"
 
-#: kid3.cpp:146 kid3.cpp:147 kid3.cpp:149 kid3.cpp:150 kid3.cpp:152
-#: kid3.cpp:169
+#: kid3.cpp:164
+msgid "&About Kid3"
+msgstr "&Über Kid3"
+
+#: kid3.cpp:170
 msgid "About Qt"
-msgstr "Ãœber Qt"
+msgstr "Über Qt"
 
-#: kid3.cpp:177 kid3.cpp:178 kid3.cpp:179 kid3.cpp:180 kid3.cpp:184
-#: kid3.cpp:202 kid3.cpp:225 kid3.cpp:226 kid3.cpp:227 kid3.cpp:230
-#: kid3.cpp:232 kid3.cpp:250 kid3.cpp:501 kid3.cpp:502 kid3.cpp:504
-#: kid3.cpp:506 kid3.cpp:507 kid3.cpp:509 kid3.cpp:510 kid3.cpp:515
-#: kid3.cpp:532 kid3.cpp:533 kid3.cpp:535 kid3.cpp:537 kid3.cpp:538
-#: kid3.cpp:540 kid3.cpp:541 kid3.cpp:546 kid3.cpp:548 kid3.cpp:549
-#: kid3.cpp:551 kid3.cpp:553 kid3.cpp:554 kid3.cpp:556 kid3.cpp:557
-#: kid3.cpp:562 kid3.cpp:564 kid3.cpp:580 kid3.cpp:611 kid3.cpp:612
-#: kid3.cpp:614 kid3.cpp:619 kid3.cpp:620 kid3.cpp:625 kid3.cpp:644
+#: kid3.cpp:171
+msgid "About &Qt"
+msgstr "Über &Qt"
+
+#: kid3.cpp:203 kid3.cpp:256 kid3.cpp:552 kid3.cpp:584 kid3.cpp:600
+#: kid3.cpp:669
 msgid "Ready."
 msgstr "Bereit."
 
-#: kid3.cpp:212 kid3.cpp:213 kid3.cpp:214 kid3.cpp:216 kid3.cpp:219
-#: kid3.cpp:237
+#: kid3.cpp:243
 msgid "Opening directory..."
-msgstr "Ã–ffne Verzeichnis..."
+msgstr "Öffne Verzeichnis..."
 
-#: kid3.cpp:348 kid3.cpp:350 kid3.cpp:351 kid3.cpp:353 kid3.cpp:354
-#: kid3.cpp:355 kid3.cpp:358 kid3.cpp:359 kid3.cpp:360 kid3.cpp:361
-#: kid3.cpp:363 kid3.cpp:364 kid3.cpp:365 kid3.cpp:369 kid3.cpp:370
-#: kid3.cpp:380
+#: kid3.cpp:384 kid3.cpp:394
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"Das aktuelle Verzeichnis wurde verÃ¤ndert.\n"
+"Das aktuelle Verzeichnis wurde verändert.\n"
 "Wollen Sie es speichern?"
 
-#: kid3.cpp:357 kid3.cpp:359 kid3.cpp:360 kid3.cpp:362 kid3.cpp:363
-#: kid3.cpp:364 kid3.cpp:368 kid3.cpp:379
+#: kid3.cpp:393
 msgid "Warning - Kid3"
 msgstr "Warnung - Kid3"
 
-#: kid3.cpp:503 kid3.cpp:504
-msgid "Saving file..."
-msgstr "Speichere Datei..."
-
-#: kid3.cpp:511 kid3.cpp:512 kid3.cpp:514 kid3.cpp:516 kid3.cpp:517
-#: kid3.cpp:519 kid3.cpp:520 kid3.cpp:525 kid3.cpp:543
-msgid "Exiting..."
-msgstr "Beende..."
-
-#: kid3.cpp:525 kid3.cpp:526 kid3.cpp:528 kid3.cpp:530 kid3.cpp:531
-#: kid3.cpp:533 kid3.cpp:534 kid3.cpp:539 kid3.cpp:557
-msgid "Toggling toolbar..."
-msgstr "Schalte Werkzeugleiste um..."
-
-#: kid3.cpp:541 kid3.cpp:542 kid3.cpp:544 kid3.cpp:546 kid3.cpp:547
-#: kid3.cpp:549 kid3.cpp:550 kid3.cpp:555 kid3.cpp:573
-msgid "Toggle the statusbar..."
-msgstr "Schalte Statusleiste um..."
-
-#: kid3.cpp:664 kid3.cpp:665 kid3.cpp:669 kid3.cpp:670 kid3.cpp:672
-#: kid3.cpp:677 kid3.cpp:678 kid3.cpp:683 kid3.cpp:703
-msgid " [modified]"
-msgstr " [GeÃ¤ndert]"
-
-#: .ui/id3form.cpp:39 main.cpp:19 main.cpp:20 main.cpp:36 main.cpp:39
-#: main.cpp:40 main.cpp:41 main.cpp:42
-msgid "Kid3"
-msgstr "Kid3"
-
-#: main.cpp:21 main.cpp:24 main.cpp:25 main.cpp:26
-msgid "directory to open"
-msgstr "Zu Ã¶ffnendes Verzeichnis"
-
-#: .ui/id3form.cpp:39
-msgid "Qid3"
-msgstr "Qid3"
-
-#: .ui/id3form.cpp:50 framelist.cpp:219 framelist.cpp:220 framelist.cpp:221
-#: framelist.cpp:222 framelist.cpp:227 framelist.cpp:237
-msgid "Filename"
-msgstr "Dateiname"
-
-#: .ui/id3form.cpp:58
-msgid "Name:"
-msgstr "Name:"
-
-#: .ui/id3form.cpp:71 .ui/id3form.cpp:256 .ui/id3form.cpp:265
-msgid "From ID3v1"
-msgstr "Von ID3v1"
-
-#: .ui/id3form.cpp:76 .ui/id3form.cpp:158 .ui/id3form.cpp:160
-msgid "From ID3v2"
-msgstr "Von ID3v2"
-
-#: .ui/id3form.cpp:81
-msgid "Format:"
-msgstr "Format:"
-
-#: .ui/id3form.cpp:88
-msgid "ID3v1.1"
-msgstr "ID3v1.1"
-
-#: .ui/id3form.cpp:108 .ui/id3form.cpp:241 .ui/id3form.cpp:249
-msgid "From Filename"
-msgstr "Von Dateiname"
-
-#: .ui/id3form.cpp:128 .ui/id3form.cpp:286 .ui/id3form.cpp:299
-msgid "Album:"
-msgstr "Album:"
-
-#: .ui/id3form.cpp:133 .ui/id3form.cpp:134 .ui/id3form.cpp:251
-#: .ui/id3form.cpp:260
-msgid "Year:"
-msgstr "Jahr:"
-
-#: .ui/id3form.cpp:149 .ui/id3form.cpp:151 .ui/id3form.cpp:267
-#: .ui/id3form.cpp:277
-msgid "Track:"
-msgstr "Nummer:"
-
-#: .ui/id3form.cpp:163 .ui/id3form.cpp:166 .ui/id3form.cpp:281
-#: .ui/id3form.cpp:293
-msgid "Title:"
-msgstr "Titel:"
-
-#: .ui/id3form.cpp:168 .ui/id3form.cpp:172 .ui/id3form.cpp:232
-#: .ui/id3form.cpp:240
-msgid "Genre:"
-msgstr "Stil:"
-
-#: .ui/id3form.cpp:173 .ui/id3form.cpp:178 .ui/id3form.cpp:210
-#: .ui/id3form.cpp:217
-msgid "Comment:"
-msgstr "Kommentar:"
-
-#: .ui/id3form.cpp:178 .ui/id3form.cpp:184 .ui/id3form.cpp:276
-#: .ui/id3form.cpp:287
-msgid "Artist:"
-msgstr "Interpret:"
-
-#: .ui/id3form.cpp:193 .ui/id3form.cpp:199
-msgid "ID3v2.3"
-msgstr "ID3v2.3"
-
-#: .ui/id3form.cpp:217
-msgid "Comment"
-msgstr "Kommentar"
-
-#: .ui/id3form.cpp:315 .ui/id3form.cpp:328
-msgid "Frames:"
-msgstr "Elemente:"
-
-#: framelist.cpp:662 framelist.cpp:664 framelist.cpp:665 framelist.cpp:666
-#: framelist.cpp:667 framelist.cpp:672 framelist.cpp:694 framelist.cpp:695
-#: framelist.cpp:696 framelist.cpp:697 framelist.cpp:702 framelist.cpp:706
-#: framelist.cpp:707 framelist.cpp:708 framelist.cpp:709 framelist.cpp:714
-#: framelist.cpp:725 framelist.cpp:738
-msgid "Other"
-msgstr "Anderes"
-
-#: framelist.cpp:663 framelist.cpp:665 framelist.cpp:666 framelist.cpp:667
-#: framelist.cpp:668 framelist.cpp:673 framelist.cpp:695
-msgid "32x32 pixels PNG file icon"
-msgstr "32x32 Pixels PNG Datei Icon"
-
-#: framelist.cpp:664 framelist.cpp:666 framelist.cpp:667 framelist.cpp:668
-#: framelist.cpp:669 framelist.cpp:674 framelist.cpp:696
-msgid "Other file icon"
-msgstr "Anderes Datei Icon"
-
-#: framelist.cpp:665 framelist.cpp:667 framelist.cpp:668 framelist.cpp:669
-#: framelist.cpp:670 framelist.cpp:675 framelist.cpp:697
-msgid "Cover (front)"
-msgstr "Cover (Vorderseite)"
-
-#: framelist.cpp:666 framelist.cpp:668 framelist.cpp:669 framelist.cpp:670
-#: framelist.cpp:671 framelist.cpp:676 framelist.cpp:698
-msgid "Cover (back)"
-msgstr "Cover (RÃ¼ckseite)"
-
-#: framelist.cpp:667 framelist.cpp:669 framelist.cpp:670 framelist.cpp:671
-#: framelist.cpp:672 framelist.cpp:677 framelist.cpp:699
-msgid "Leaflet page"
-msgstr "Booklet Seite"
-
-#: framelist.cpp:668 framelist.cpp:670 framelist.cpp:671 framelist.cpp:672
-#: framelist.cpp:673 framelist.cpp:678 framelist.cpp:700
-msgid "Media"
-msgstr "Medium"
-
-#: framelist.cpp:669 framelist.cpp:671 framelist.cpp:672 framelist.cpp:673
-#: framelist.cpp:674 framelist.cpp:679 framelist.cpp:701
-msgid "Lead artist/lead performer/soloist"
-msgstr "Haupt-KÃ¼nstler/Interpret/Solist"
-
-#: framelist.cpp:670 framelist.cpp:672 framelist.cpp:673 framelist.cpp:674
-#: framelist.cpp:675 framelist.cpp:680 framelist.cpp:702
-msgid "Artist/performer"
-msgstr "KÃ¼nster/Interpret"
-
-#: framelist.cpp:671 framelist.cpp:673 framelist.cpp:674 framelist.cpp:675
-#: framelist.cpp:676 framelist.cpp:681 framelist.cpp:703
-msgid "Conductor"
-msgstr "Leiter"
-
-#: framelist.cpp:672 framelist.cpp:674 framelist.cpp:675 framelist.cpp:676
-#: framelist.cpp:677 framelist.cpp:682 framelist.cpp:704
-msgid "Band/Orchestra"
-msgstr "Band/Orchester"
-
-#: framelist.cpp:673 framelist.cpp:675 framelist.cpp:676 framelist.cpp:677
-#: framelist.cpp:678 framelist.cpp:683 framelist.cpp:705
-msgid "Composer"
-msgstr "Komponist"
-
-#: framelist.cpp:674 framelist.cpp:676 framelist.cpp:677 framelist.cpp:678
-#: framelist.cpp:679 framelist.cpp:684 framelist.cpp:706
-msgid "Lyricist/text writer"
-msgstr "Texter"
-
-#: framelist.cpp:675 framelist.cpp:677 framelist.cpp:678 framelist.cpp:679
-#: framelist.cpp:680 framelist.cpp:685 framelist.cpp:707
-msgid "Recording Location"
-msgstr "Aufnahmeort"
-
-#: framelist.cpp:676 framelist.cpp:678 framelist.cpp:679 framelist.cpp:680
-#: framelist.cpp:681 framelist.cpp:686 framelist.cpp:708
-msgid "During recording"
-msgstr "WÃ¤hrend Aufnahme"
-
-#: framelist.cpp:677 framelist.cpp:679 framelist.cpp:680 framelist.cpp:681
-#: framelist.cpp:682 framelist.cpp:687 framelist.cpp:709
-msgid "During performance"
-msgstr "WÃ¤hrend AuffÃ¼hrung"
-
-#: framelist.cpp:678 framelist.cpp:680 framelist.cpp:681 framelist.cpp:682
-#: framelist.cpp:683 framelist.cpp:688 framelist.cpp:710
-msgid "Movie/video screen capture"
-msgstr "Bild aus Video"
-
-#: framelist.cpp:679 framelist.cpp:681 framelist.cpp:682 framelist.cpp:683
-#: framelist.cpp:684 framelist.cpp:689 framelist.cpp:711
-msgid "A bright coloured fish"
-msgstr "Ein hell leuchtender Fisch"
-
-#: framelist.cpp:680 framelist.cpp:682 framelist.cpp:683 framelist.cpp:684
-#: framelist.cpp:685 framelist.cpp:690 framelist.cpp:712
-msgid "Illustration"
-msgstr "Illustration"
-
-#: framelist.cpp:681 framelist.cpp:683 framelist.cpp:684 framelist.cpp:685
-#: framelist.cpp:686 framelist.cpp:691 framelist.cpp:713
-msgid "Band/artist logotype"
-msgstr "Band/KÃ¼nster Logo"
-
-#: framelist.cpp:682 framelist.cpp:684 framelist.cpp:685 framelist.cpp:686
-#: framelist.cpp:687 framelist.cpp:692 framelist.cpp:714
-msgid "Publisher/Studio logotype"
-msgstr "Herausgeber/Studio Logo"
-
-#: kid3.moc.cpp:34 kid3.moc.cpp:42
-msgid "Kid3App"
-msgstr "Kid3App"
-
-#: framelist.cpp:211 framelist.cpp:212 framelist.cpp:213 framelist.cpp:214
-#: framelist.cpp:219 framelist.cpp:229
-msgid "Text Encoding"
-msgstr "Text Codierung"
-
-#: framelist.cpp:212 framelist.cpp:213 framelist.cpp:214 framelist.cpp:215
-#: framelist.cpp:220 framelist.cpp:230
-msgid "Text"
-msgstr "Text"
-
-#: framelist.cpp:213 framelist.cpp:214 framelist.cpp:215 framelist.cpp:216
-#: framelist.cpp:221 framelist.cpp:231
-msgid "URL"
-msgstr "URL"
-
-#: framelist.cpp:214 framelist.cpp:215 framelist.cpp:216 framelist.cpp:217
-#: framelist.cpp:222 framelist.cpp:232
-msgid "Data"
-msgstr "Daten"
-
-#: framelist.cpp:215 framelist.cpp:216 framelist.cpp:217 framelist.cpp:218
-#: framelist.cpp:223 framelist.cpp:233
-msgid "Description"
-msgstr "Beschreibung"
-
-#: framelist.cpp:216 framelist.cpp:217 framelist.cpp:218 framelist.cpp:219
-#: framelist.cpp:224 framelist.cpp:234
-msgid "Owner"
-msgstr "Besitzer"
-
-#: framelist.cpp:217 framelist.cpp:218 framelist.cpp:219 framelist.cpp:220
-#: framelist.cpp:225 framelist.cpp:235
-msgid "Email"
-msgstr "Email"
-
-#: framelist.cpp:218 framelist.cpp:219 framelist.cpp:220 framelist.cpp:221
-#: framelist.cpp:226 framelist.cpp:236
-msgid "Rating"
-msgstr "Bewertung"
-
-#: framelist.cpp:220 framelist.cpp:221 framelist.cpp:222 framelist.cpp:223
-#: framelist.cpp:228 framelist.cpp:238
-msgid "Language"
-msgstr "Sprache"
-
-#: framelist.cpp:221 framelist.cpp:222 framelist.cpp:223 framelist.cpp:224
-#: framelist.cpp:229 framelist.cpp:239
-msgid "Picture Type"
-msgstr "Bildtyp"
-
-#: framelist.cpp:222 framelist.cpp:223 framelist.cpp:224 framelist.cpp:225
-#: framelist.cpp:230 framelist.cpp:240
-msgid "Image format"
-msgstr "Bildformat"
-
-#: framelist.cpp:223 framelist.cpp:224 framelist.cpp:225 framelist.cpp:226
-#: framelist.cpp:231 framelist.cpp:241
-msgid "Mimetype"
-msgstr "Mime Typ"
-
-#: framelist.cpp:224 framelist.cpp:225 framelist.cpp:226 framelist.cpp:227
-#: framelist.cpp:232 framelist.cpp:242
-msgid "Counter"
-msgstr "ZÃ¤hler"
-
-#: framelist.cpp:225 framelist.cpp:226 framelist.cpp:227 framelist.cpp:228
-#: framelist.cpp:233 framelist.cpp:243
-msgid "Identifier"
-msgstr "Identifikation"
-
-#: framelist.cpp:226 framelist.cpp:227 framelist.cpp:228 framelist.cpp:229
-#: framelist.cpp:234 framelist.cpp:244
-msgid "Volume Adjustment"
-msgstr "LautstÃ¤rkenanpassung"
-
-#: framelist.cpp:227 framelist.cpp:228 framelist.cpp:229 framelist.cpp:230
-#: framelist.cpp:235 framelist.cpp:245
-msgid "Number of Bits"
-msgstr "Anzahl Bits"
-
-#: framelist.cpp:228 framelist.cpp:229 framelist.cpp:230 framelist.cpp:231
-#: framelist.cpp:236 framelist.cpp:246
-msgid "Volume Change Right"
-msgstr "LautstÃ¤rkenÃ¤nderung rechts"
-
-#: framelist.cpp:229 framelist.cpp:230 framelist.cpp:231 framelist.cpp:232
-#: framelist.cpp:237 framelist.cpp:247
-msgid "Volume Change Left"
-msgstr "LautstÃ¤rkenÃ¤nderung links"
-
-#: framelist.cpp:230 framelist.cpp:231 framelist.cpp:232 framelist.cpp:233
-#: framelist.cpp:238 framelist.cpp:248
-msgid "Peak Volume Right"
-msgstr "HÃ¶chstlautstÃ¤rke rechts"
-
-#: framelist.cpp:231 framelist.cpp:232 framelist.cpp:233 framelist.cpp:234
-#: framelist.cpp:239 framelist.cpp:249
-msgid "Peak Volume Left"
-msgstr "HÃ¶chstlautstÃ¤rke links"
-
-#: framelist.cpp:232 framelist.cpp:233 framelist.cpp:234 framelist.cpp:235
-#: framelist.cpp:240 framelist.cpp:250
-msgid "Timestamp Format"
-msgstr "Zeitstempel Format"
-
-#: framelist.cpp:233 framelist.cpp:234 framelist.cpp:235 framelist.cpp:236
-#: framelist.cpp:241 framelist.cpp:251
-msgid "Content Type"
-msgstr "Stil"
-
-#: framelist.cpp:651 framelist.cpp:652 framelist.cpp:653 framelist.cpp:654
-#: framelist.cpp:659 framelist.cpp:680
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-#: framelist.cpp:652 framelist.cpp:653 framelist.cpp:654 framelist.cpp:655
-#: framelist.cpp:660 framelist.cpp:681
-msgid "Unicode"
-msgstr "Unicode"
-
-#: framelist.cpp:653 framelist.cpp:654 framelist.cpp:655 framelist.cpp:656
-#: framelist.cpp:661 framelist.cpp:682
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-#: framelist.cpp:654 framelist.cpp:655 framelist.cpp:656 framelist.cpp:657
-#: framelist.cpp:662 framelist.cpp:683
-msgid "UTF8"
-msgstr "UTF8"
-
-#: framelist.cpp:695 framelist.cpp:696 framelist.cpp:697 framelist.cpp:698
-#: framelist.cpp:703 framelist.cpp:726
-msgid "MPEG frames as unit"
-msgstr "MPEG Frames als Einheit"
-
-#: framelist.cpp:696 framelist.cpp:697 framelist.cpp:698 framelist.cpp:699
-#: framelist.cpp:704 framelist.cpp:727
-msgid "Milliseconds as unit"
-msgstr "Millisekunden als Einheit"
-
-#: framelist.cpp:707 framelist.cpp:708 framelist.cpp:709 framelist.cpp:710
-#: framelist.cpp:715 framelist.cpp:739
-msgid "Lyrics"
-msgstr "Text"
-
-#: framelist.cpp:708 framelist.cpp:709 framelist.cpp:710 framelist.cpp:711
-#: framelist.cpp:716 framelist.cpp:740
-msgid "Text transcription"
-msgstr "Text Abschrift"
-
-#: framelist.cpp:709 framelist.cpp:710 framelist.cpp:711 framelist.cpp:712
-#: framelist.cpp:717 framelist.cpp:741
-msgid "Movement/part name"
-msgstr "Name des Teils"
-
-#: framelist.cpp:710 framelist.cpp:711 framelist.cpp:712 framelist.cpp:713
-#: framelist.cpp:718 framelist.cpp:742
-msgid "Events"
-msgstr "Ereignis"
-
-#: framelist.cpp:711 framelist.cpp:712 framelist.cpp:713 framelist.cpp:714
-#: framelist.cpp:719 framelist.cpp:743
-msgid "Chord"
-msgstr "Saite"
-
-#: framelist.cpp:712 framelist.cpp:713 framelist.cpp:714 framelist.cpp:715
-#: framelist.cpp:720 framelist.cpp:744
-msgid "Trivia/pop up"
-msgstr "Trivia/Pop Up"
-
-#: framelist.cpp:828 framelist.cpp:829 framelist.cpp:830 framelist.cpp:831
-#: framelist.cpp:836 framelist.cpp:869
-msgid "AENC - Audio encryption"
-msgstr "AENC - Audio Codierung"
-
-#: framelist.cpp:829 framelist.cpp:830 framelist.cpp:831 framelist.cpp:832
-#: framelist.cpp:837 framelist.cpp:870
-msgid "APIC - Attached picture"
-msgstr "APIC - DazugehÃ¶riges Bild"
-
-#: framelist.cpp:830 framelist.cpp:831 framelist.cpp:832 framelist.cpp:833
-#: framelist.cpp:838 framelist.cpp:871
-msgid "CDM  - Compressed data meta frame"
-msgstr "CDM  - Komprimiertes Data Meta Frame"
-
-#: framelist.cpp:831 framelist.cpp:832 framelist.cpp:833 framelist.cpp:834
-#: framelist.cpp:839 framelist.cpp:872
-msgid "COMM - Comments"
-msgstr "COMM - Kommentar"
-
-#: framelist.cpp:832 framelist.cpp:833 framelist.cpp:834 framelist.cpp:835
-#: framelist.cpp:840 framelist.cpp:873
-msgid "COMR - Commercial"
-msgstr "COMR - Kommerzielle Information"
-
-#: framelist.cpp:833 framelist.cpp:834 framelist.cpp:835 framelist.cpp:836
-#: framelist.cpp:841 framelist.cpp:874
-msgid "CRM  - Encrypted meta frame"
-msgstr "CRM  - VerschlÃ¼sseltes Meta Frame"
-
-#: framelist.cpp:834 framelist.cpp:835 framelist.cpp:836 framelist.cpp:837
-#: framelist.cpp:842 framelist.cpp:875
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - VerschlÃ¼sselungsmethode"
-
-#: framelist.cpp:835 framelist.cpp:836 framelist.cpp:837 framelist.cpp:838
-#: framelist.cpp:843 framelist.cpp:876
-msgid "EQUA - Equalization"
-msgstr "EQUA - Equalization"
-
-#: framelist.cpp:836 framelist.cpp:837 framelist.cpp:838 framelist.cpp:839
-#: framelist.cpp:844 framelist.cpp:877
-msgid "ETCO - Event timing codes"
-msgstr "ETCO - Ereignis Zeit Codes"
-
-#: framelist.cpp:837 framelist.cpp:838 framelist.cpp:839 framelist.cpp:840
-#: framelist.cpp:845 framelist.cpp:878
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB - Allgemeines gekapseltes Objekt"
-
-#: framelist.cpp:838 framelist.cpp:839 framelist.cpp:840 framelist.cpp:841
-#: framelist.cpp:846 framelist.cpp:879
-msgid "GRID - Group identification registration"
-msgstr "GRID - Gruppierungs Identifikation"
-
-#: framelist.cpp:839 framelist.cpp:840 framelist.cpp:841 framelist.cpp:842
-#: framelist.cpp:847 framelist.cpp:880
-msgid "IPLS - Involved people list"
-msgstr "IPLS - Liste beteiligter Personen"
-
-#: framelist.cpp:840 framelist.cpp:841 framelist.cpp:842 framelist.cpp:843
-#: framelist.cpp:848 framelist.cpp:881
-msgid "LINK - Linked information"
-msgstr "LINK - VerknÃ¼pfungsinformation"
-
-#: framelist.cpp:841 framelist.cpp:842 framelist.cpp:843 framelist.cpp:844
-#: framelist.cpp:849 framelist.cpp:882
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Musik CD Indentifikation"
-
-#: framelist.cpp:842 framelist.cpp:843 framelist.cpp:844 framelist.cpp:845
-#: framelist.cpp:850 framelist.cpp:883
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - MPEG Positions Nachschlage Tabelle"
-
-#: framelist.cpp:843 framelist.cpp:844 framelist.cpp:845 framelist.cpp:846
-#: framelist.cpp:851 framelist.cpp:884
-msgid "OWNE - Ownership frame"
-msgstr "OWNE - Besitzer"
-
-#: framelist.cpp:844 framelist.cpp:845 framelist.cpp:846 framelist.cpp:847
-#: framelist.cpp:852 framelist.cpp:885
-msgid "PRIV - Private frame"
-msgstr "PRIV - Privat"
-
-#: framelist.cpp:845 framelist.cpp:846 framelist.cpp:847 framelist.cpp:848
-#: framelist.cpp:853 framelist.cpp:886
-msgid "PCNT - Play counter"
-msgstr "PCNT - AbspielzÃ¤hler"
-
-#: framelist.cpp:846 framelist.cpp:847 framelist.cpp:848 framelist.cpp:849
-#: framelist.cpp:854 framelist.cpp:887
-msgid "POPM - Popularimeter"
-msgstr "POPM - Beliebtheitsmessung"
-
-#: framelist.cpp:847 framelist.cpp:848 framelist.cpp:849 framelist.cpp:850
-#: framelist.cpp:855 framelist.cpp:888
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS - Positionssynchronisierung"
-
-#: framelist.cpp:848 framelist.cpp:849 framelist.cpp:850 framelist.cpp:851
-#: framelist.cpp:856 framelist.cpp:889
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - Empfohlene BuffergrÃ¶sse"
-
-#: framelist.cpp:849 framelist.cpp:850 framelist.cpp:851 framelist.cpp:852
-#: framelist.cpp:857 framelist.cpp:890
-msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - Relative LautstÃ¤rkenanpassung"
-
-#: framelist.cpp:850 framelist.cpp:851 framelist.cpp:852 framelist.cpp:853
-#: framelist.cpp:858 framelist.cpp:891
-msgid "RVRB - Reverb"
-msgstr "RVRB - "
-
-#: framelist.cpp:851 framelist.cpp:852 framelist.cpp:853 framelist.cpp:854
-#: framelist.cpp:859 framelist.cpp:892
-msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Synchronisierter Text"
-
-#: framelist.cpp:852 framelist.cpp:853 framelist.cpp:854 framelist.cpp:855
-#: framelist.cpp:860 framelist.cpp:893
-msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC - Synchronisierte Tempo Codes"
-
-#: framelist.cpp:853 framelist.cpp:854 framelist.cpp:855 framelist.cpp:856
-#: framelist.cpp:861 framelist.cpp:894
-msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - Album/Film/Show Titel"
-
-#: framelist.cpp:854 framelist.cpp:855 framelist.cpp:856 framelist.cpp:857
-#: framelist.cpp:862 framelist.cpp:895
-msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - BPM (beats per minute)"
-
-#: framelist.cpp:855 framelist.cpp:856 framelist.cpp:857 framelist.cpp:858
-#: framelist.cpp:863 framelist.cpp:896
-msgid "TCOM - Composer"
-msgstr "TCOM - Komponist"
-
-#: framelist.cpp:856 framelist.cpp:857 framelist.cpp:858 framelist.cpp:859
-#: framelist.cpp:864 framelist.cpp:897
-msgid "TCON - Content type"
-msgstr "TCON - Stil"
-
-#: framelist.cpp:857 framelist.cpp:858 framelist.cpp:859 framelist.cpp:860
-#: framelist.cpp:865 framelist.cpp:898
-msgid "TCOP - Copyright message"
-msgstr "TCOP - Copyright Information"
-
-#: framelist.cpp:858 framelist.cpp:859 framelist.cpp:860 framelist.cpp:861
-#: framelist.cpp:866 framelist.cpp:899
-msgid "TDAT - Date"
-msgstr "TDAT - Datum"
-
-#: framelist.cpp:859 framelist.cpp:860 framelist.cpp:861 framelist.cpp:862
-#: framelist.cpp:867 framelist.cpp:900
-msgid "TDLY - Playlist delay"
-msgstr "TDLY - StÃ¼cklisten VerzÃ¶gerung"
-
-#: framelist.cpp:860 framelist.cpp:861 framelist.cpp:862 framelist.cpp:863
-#: framelist.cpp:868 framelist.cpp:901
-msgid "TENC - Encoded by"
-msgstr "TENC - Codiert von"
-
-#: framelist.cpp:861 framelist.cpp:862 framelist.cpp:863 framelist.cpp:864
-#: framelist.cpp:869 framelist.cpp:902
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - Texter"
-
-#: framelist.cpp:862 framelist.cpp:863 framelist.cpp:864 framelist.cpp:865
-#: framelist.cpp:870 framelist.cpp:903
-msgid "TFLT - File type"
-msgstr "TFLT - Datei Typ"
-
-#: framelist.cpp:863 framelist.cpp:864 framelist.cpp:865 framelist.cpp:866
-#: framelist.cpp:871 framelist.cpp:904
-msgid "TIME - Time"
-msgstr "TIME - Zeit"
-
-#: framelist.cpp:864 framelist.cpp:865 framelist.cpp:866 framelist.cpp:867
-#: framelist.cpp:872 framelist.cpp:905
-msgid "TIT1 - Content group description"
-msgstr "TIT1 - Beschreibung der Stilkategorie"
-
-#: framelist.cpp:865 framelist.cpp:866 framelist.cpp:867 framelist.cpp:868
-#: framelist.cpp:873 framelist.cpp:906
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - Titel/Name/Inhaltsbezeichnung"
-
-#: framelist.cpp:866 framelist.cpp:867 framelist.cpp:868 framelist.cpp:869
-#: framelist.cpp:874 framelist.cpp:907
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 - Untergeordneter Titel/Genauere Beschreibung"
-
-#: framelist.cpp:867 framelist.cpp:868 framelist.cpp:869 framelist.cpp:870
-#: framelist.cpp:875 framelist.cpp:908
-msgid "TKEY - Initial key"
-msgstr "TKEY - Anfangstonart"
-
-#: framelist.cpp:868 framelist.cpp:869 framelist.cpp:870 framelist.cpp:871
-#: framelist.cpp:876 framelist.cpp:909
-msgid "TLAN - Language(s)"
-msgstr "TLAN - Sprache(n)"
-
-#: framelist.cpp:869 framelist.cpp:870 framelist.cpp:871 framelist.cpp:872
-#: framelist.cpp:877 framelist.cpp:910
-msgid "TLEN - Length"
-msgstr "TLEN - LÃ¤nge"
-
-#: framelist.cpp:870 framelist.cpp:871 framelist.cpp:872 framelist.cpp:873
-#: framelist.cpp:878 framelist.cpp:911
-msgid "TMED - Media type"
-msgstr "TMED - Mediumtyp"
-
-#: framelist.cpp:871 framelist.cpp:872 framelist.cpp:873 framelist.cpp:874
-#: framelist.cpp:879 framelist.cpp:912
-msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Original Album/Film/Show Titel"
-
-#: framelist.cpp:872 framelist.cpp:873 framelist.cpp:874 framelist.cpp:875
-#: framelist.cpp:880 framelist.cpp:913
-msgid "TOFN - Original filename"
-msgstr "TOFN - Original Dateiname"
-
-#: framelist.cpp:873 framelist.cpp:874 framelist.cpp:875 framelist.cpp:876
-#: framelist.cpp:881 framelist.cpp:914
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Original Texter"
-
-#: framelist.cpp:874 framelist.cpp:875 framelist.cpp:876 framelist.cpp:877
-#: framelist.cpp:882 framelist.cpp:915
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Original KÃ¼nstler/Interpret"
-
-#: framelist.cpp:875 framelist.cpp:876 framelist.cpp:877 framelist.cpp:878
-#: framelist.cpp:883 framelist.cpp:916
-msgid "TORY - Original release year"
-msgstr "TORY - Original Erscheinungsjahr"
-
-#: framelist.cpp:876 framelist.cpp:877 framelist.cpp:878 framelist.cpp:879
-#: framelist.cpp:884 framelist.cpp:917
-msgid "TOWN - File owner/licensee"
-msgstr "TOWN - Original Dateibesitzer"
-
-#: framelist.cpp:877 framelist.cpp:878 framelist.cpp:879 framelist.cpp:880
-#: framelist.cpp:885 framelist.cpp:918
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Hauptinterpret(en)/-solist(en)"
-
-#: framelist.cpp:878 framelist.cpp:879 framelist.cpp:880 framelist.cpp:881
-#: framelist.cpp:886 framelist.cpp:919
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - Band/Orchester/Begleitung"
-
-#: framelist.cpp:879 framelist.cpp:880 framelist.cpp:881 framelist.cpp:882
-#: framelist.cpp:887 framelist.cpp:920
-msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Leiter"
-
-#: framelist.cpp:880 framelist.cpp:881 framelist.cpp:882 framelist.cpp:883
-#: framelist.cpp:888 framelist.cpp:921
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - Interpretiert, remixed oder auf andere Weise modifiziert durch"
-
-#: framelist.cpp:881 framelist.cpp:882 framelist.cpp:883 framelist.cpp:884
-#: framelist.cpp:889 framelist.cpp:922
-msgid "TPOS - Part of a set"
-msgstr "TPOS - Teil einer Menge"
-
-#: framelist.cpp:882 framelist.cpp:883 framelist.cpp:884 framelist.cpp:885
-#: framelist.cpp:890 framelist.cpp:923
-msgid "TPUB - Publisher"
-msgstr "TPUB - Herausgeber"
-
-#: framelist.cpp:883 framelist.cpp:884 framelist.cpp:885 framelist.cpp:886
-#: framelist.cpp:891 framelist.cpp:924
-msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - StÃ¼cknummer/Position in einer Menge"
-
-#: framelist.cpp:884 framelist.cpp:885 framelist.cpp:886 framelist.cpp:887
-#: framelist.cpp:892 framelist.cpp:925
-msgid "TRDA - Recording dates"
-msgstr "TRDA - Aufnahmedaten"
-
-#: framelist.cpp:885 framelist.cpp:886 framelist.cpp:887 framelist.cpp:888
-#: framelist.cpp:893 framelist.cpp:926
-msgid "TRSN - Internet radio station name"
-msgstr "TRSN - Internetradiostation"
-
-#: framelist.cpp:886 framelist.cpp:887 framelist.cpp:888 framelist.cpp:889
-#: framelist.cpp:894 framelist.cpp:927
-msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - Internetradiostationsbesitzer"
-
-#: framelist.cpp:887 framelist.cpp:888 framelist.cpp:889 framelist.cpp:890
-#: framelist.cpp:895 framelist.cpp:928
-msgid "TSIZ - Size"
-msgstr "TSIZ - GrÃ¶sse"
-
-#: framelist.cpp:888 framelist.cpp:889 framelist.cpp:890 framelist.cpp:891
-#: framelist.cpp:896 framelist.cpp:929
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - ISRC (Internationaler Standardaufnahmecode)"
-
-#: framelist.cpp:889 framelist.cpp:890 framelist.cpp:891 framelist.cpp:892
-#: framelist.cpp:897 framelist.cpp:930
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - Software/Hardware und Einstellungen der Codierung"
-
-#: framelist.cpp:890 framelist.cpp:891 framelist.cpp:892 framelist.cpp:893
-#: framelist.cpp:898 framelist.cpp:931
-msgid "TXXX - User defined text information"
-msgstr "TXXX - Benutzerdefinierte Textinformation"
-
-#: framelist.cpp:891 framelist.cpp:892 framelist.cpp:893 framelist.cpp:894
-#: framelist.cpp:899 framelist.cpp:932
-msgid "TYER - Year"
-msgstr "TYER - Jahr"
-
-#: framelist.cpp:892 framelist.cpp:893 framelist.cpp:894 framelist.cpp:895
-#: framelist.cpp:900 framelist.cpp:933
-msgid "UFID - Unique file identifier"
-msgstr "UFID - Eindeutige Dateiidentifikation"
-
-#: framelist.cpp:893 framelist.cpp:894 framelist.cpp:895 framelist.cpp:896
-#: framelist.cpp:901 framelist.cpp:934
-msgid "USER - Terms of use"
-msgstr "USER - Benutzungsbedingungen"
-
-#: framelist.cpp:894 framelist.cpp:895 framelist.cpp:896 framelist.cpp:897
-#: framelist.cpp:902 framelist.cpp:935
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT - Unsynchronisierte Textabschrift"
-
-#: framelist.cpp:895 framelist.cpp:896 framelist.cpp:897 framelist.cpp:898
-#: framelist.cpp:903 framelist.cpp:936
-msgid "WCOM - Commercial information"
-msgstr "WCOM - Kommerzielle Information"
-
-#: framelist.cpp:896 framelist.cpp:897 framelist.cpp:898 framelist.cpp:899
-#: framelist.cpp:904 framelist.cpp:937
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - Copyright/Gesetzliche Information"
-
-#: framelist.cpp:897 framelist.cpp:898 framelist.cpp:899 framelist.cpp:900
-#: framelist.cpp:905 framelist.cpp:938
-msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Offizielle Webseite der Audio-Datei"
-
-#: framelist.cpp:898 framelist.cpp:899 framelist.cpp:900 framelist.cpp:901
-#: framelist.cpp:906 framelist.cpp:939
-msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Offizielle Webseite des KÃ¼nstlers/Interpreten"
-
-#: framelist.cpp:899 framelist.cpp:900 framelist.cpp:901 framelist.cpp:902
-#: framelist.cpp:907 framelist.cpp:940
-msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Offizielle Webseite der Audio-Quelle"
-
-#: framelist.cpp:900 framelist.cpp:901 framelist.cpp:902 framelist.cpp:903
-#: framelist.cpp:908 framelist.cpp:941
-msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Offizielle Webseite der Internetradiostation"
-
-#: framelist.cpp:901 framelist.cpp:902 framelist.cpp:903 framelist.cpp:904
-#: framelist.cpp:909 framelist.cpp:942
-msgid "WPAY - Payment"
-msgstr "WPAY - Bezahlung"
-
-#: framelist.cpp:902 framelist.cpp:903 framelist.cpp:904 framelist.cpp:905
-#: framelist.cpp:910 framelist.cpp:943
-msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Offizielle Webseite des Herausgebers"
-
-#: framelist.cpp:903 framelist.cpp:904 framelist.cpp:905 framelist.cpp:906
-#: framelist.cpp:911 framelist.cpp:944
-msgid "WXXX - User defined URL link"
-msgstr "WXXX - Benutzerdefinierte URL"
-
-#: kid3.cpp:428 kid3.cpp:430 kid3.cpp:431 kid3.cpp:433 kid3.cpp:434
-#: kid3.cpp:435 kid3.cpp:439 kid3.cpp:453
+#: kid3.cpp:467
 msgid ""
 "*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
 "*|All Files (*)"
@@ -899,37 +640,102 @@ msgstr ""
 "*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
 "*|Alle Dateien (*)"
 
-#: kid3.cpp:436 kid3.cpp:437 kid3.cpp:438 kid3.cpp:439 kid3.cpp:441
-#: kid3.cpp:443 kid3.cpp:444 kid3.cpp:449 kid3.cpp:466
+#: kid3.cpp:480
 msgid "MP3 (*.mp3 *.MP3);;All Files (*)"
 msgstr "MP3 (*.mp3 *.MP3);;Alle Dateien (*)"
 
-#: kid3.cpp:498 kid3.cpp:499 kid3.cpp:501 kid3.cpp:506 kid3.cpp:507
-#: kid3.cpp:512 kid3.cpp:530
+#: kid3.cpp:549
 msgid "Saving directory..."
 msgstr "Speichere Verzeichnis..."
 
-#: kid3.cpp:601 kid3.cpp:602 kid3.cpp:604 kid3.cpp:609 kid3.cpp:610
-#: kid3.cpp:615 kid3.cpp:634
+#: kid3.cpp:563
+msgid "Exiting..."
+msgstr "Beende..."
+
+#: kid3.cpp:577
+msgid "Toggling toolbar..."
+msgstr "Schalte Werkzeugleiste um..."
+
+#: kid3.cpp:593
+msgid "Toggle the statusbar..."
+msgstr "Schalte Statusleiste um..."
+
+#: kid3.cpp:659
 msgid "Creating playlist..."
-msgstr "Erstelle StÃ¼ckliste..."
+msgstr "Erstelle Stückliste..."
 
-#: kid3.cpp:140 kid3.cpp:141 kid3.cpp:146 kid3.cpp:162
-msgid "About Kid3"
-msgstr "Ãœber Kid3"
+#: kid3.cpp:729
+msgid " [modified]"
+msgstr " [Geändert]"
 
-#: kid3.cpp:141 kid3.cpp:142 kid3.cpp:147 kid3.cpp:163
-msgid "&About Kid3"
-msgstr "&Ãœber Kid3"
-
-#: kid3.cpp:147 kid3.cpp:148 kid3.cpp:153 kid3.cpp:170
-msgid "About &Qt"
-msgstr "Ãœber &Qt"
-
-#: main.cpp:16 main.cpp:21
+#: main.cpp:21
 msgid "Kid3 ID3 Tagger"
 msgstr "Kid3 ID3 Tagger"
 
-#: kid3.cpp:128 kid3.cpp:141
-msgid "Re&vert"
-msgstr "&Zuletzt gespeicherte Fassung"
+#: main.cpp:26
+msgid "directory to open"
+msgstr "Zu öffnendes Verzeichnis"
+
+#: main.cpp:42 id3form.cpp:94
+msgid "Kid3"
+msgstr "Kid3"
+
+#: id3form.cpp:111
+msgid "Name:"
+msgstr "Name:"
+
+#: id3form.cpp:118 id3form.cpp:234
+msgid "From ID3v1"
+msgstr "Von ID3v1"
+
+#: id3form.cpp:122
+msgid "Format:"
+msgstr "Format:"
+
+#: id3form.cpp:129 id3form.cpp:158
+msgid "From ID3v2"
+msgstr "Von ID3v2"
+
+#: id3form.cpp:134
+msgid "ID3v1.1"
+msgstr "ID3v1.1"
+
+#: id3form.cpp:138 id3form.cpp:216
+msgid "Title:"
+msgstr "Titel:"
+
+#: id3form.cpp:146 id3form.cpp:223
+msgid "From Filename"
+msgstr "Von Dateiname"
+
+#: id3form.cpp:150 id3form.cpp:227
+msgid "Artist:"
+msgstr "Interpret:"
+
+#: id3form.cpp:162 id3form.cpp:238
+msgid "Album:"
+msgstr "Album:"
+
+#: id3form.cpp:178 id3form.cpp:249
+msgid "Comment:"
+msgstr "Kommentar:"
+
+#: id3form.cpp:190 id3form.cpp:260
+msgid "Year:"
+msgstr "Jahr:"
+
+#: id3form.cpp:198 id3form.cpp:268
+msgid "Track:"
+msgstr "Nummer:"
+
+#: id3form.cpp:203 id3form.cpp:277
+msgid "Genre:"
+msgstr "Stil:"
+
+#: id3form.cpp:210
+msgid "ID3v2.3"
+msgstr "ID3v2.3"
+
+#: id3form.cpp:284
+msgid "Frames:"
+msgstr "Elemente:"
