@@ -20,6 +20,8 @@
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
+#include <qcheckbox.h>
+#include <qspinbox.h>
 #include <qstring.h>
 #include "importselector.h"
 #include "importdialog.h"
@@ -57,6 +59,21 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption)
 	vlayout->setMargin(6);
 	impsel = new ImportSelector(page);
 	vlayout->addWidget(impsel);
+
+	QHBoxLayout* checkLayout = new QHBoxLayout(vlayout);
+	if (checkLayout) {
+		mismatchCheckBox = new QCheckBox(page);
+		mismatchCheckBox->setText(
+			i18n("Check maximum allowable time difference (sec):"));
+		maxDiffSpinBox = new QSpinBox(page);
+		maxDiffSpinBox->setMaxValue(9999);
+		if (mismatchCheckBox && maxDiffSpinBox) {
+			checkLayout->addSpacing(vlayout->margin() * 2);
+			checkLayout->addWidget(mismatchCheckBox);
+			checkLayout->addWidget(maxDiffSpinBox);
+			checkLayout->addStretch();
+		}
+	}
 
 #ifndef CONFIG_USE_KDE
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
@@ -109,7 +126,7 @@ bool ImportDialog::parseHeader(StandardTags &st)
 bool ImportDialog::getNextTags(StandardTags &st, bool start)
 {
 	return impsel->getNextTags(st, start);
-};
+}
 
 /**
  * Set ID3v1 or ID3v2 tags as import destination.
@@ -149,6 +166,30 @@ void ImportDialog::setImportFormat(const QStringList &names,
 }
 
 /**
+ * Set time difference check configuration.
+ *
+ * @param enable  true to enable check
+ * @param maxDiff maximum allowable time difference
+ */ 
+void ImportDialog::setTimeDifferenceCheck(bool enable, int maxDiff)
+{
+	mismatchCheckBox->setChecked(enable);
+	maxDiffSpinBox->setValue(maxDiff);
+}
+
+/**
+ * Get time difference check configuration.
+ *
+ * @param enable  true if check is enabled
+ * @param maxDiff maximum allowed time difference
+ */ 
+void ImportDialog::getTimeDifferenceCheck(bool& enable, int& maxDiff) const
+{
+	enable = mismatchCheckBox->isChecked();
+	maxDiff = maxDiffSpinBox->value();
+}
+
+/**
  * Get import format regexp.
  *
  * @param name   import format name
@@ -182,4 +223,15 @@ void ImportDialog::setFreedbConfig(const FreedbConfig *cfg)
 void ImportDialog::getFreedbConfig(FreedbConfig *cfg) const
 {
 	impsel->getFreedbConfig(cfg);
+}
+
+/**
+ * Get list with track durations.
+ *
+ * @return list with track durations,
+ *         0 if no track durations found.
+ */
+QValueList<int>* ImportDialog::getTrackDurations()
+{
+	return impsel->getTrackDurations();
 }

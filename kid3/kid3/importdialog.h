@@ -16,9 +16,12 @@
 #else
 #include <qdialog.h>
 #endif
+#include <qvaluelist.h>
 
 class ImportSelector;
 class FreedbConfig;
+class QCheckBox;
+class QSpinBox;
 
 /**
  * Import dialog.
@@ -101,6 +104,20 @@ public:
 						QString &header,
 						QString &track) const;
 	/**
+	 * Set time difference check configuration.
+	 *
+	 * @param enable  true to enable check
+	 * @param maxDiff maximum allowable time difference
+	 */ 
+	void setTimeDifferenceCheck(bool enable, int maxDiff);
+	/**
+	 * Get time difference check configuration.
+	 *
+	 * @param enable  true if check is enabled
+	 * @param maxDiff maximum allowed time difference
+	 */ 
+	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
+	/**
 	 * Set freedb.org configuration.
 	 *
 	 * @param cfg freedb configuration.
@@ -112,10 +129,19 @@ public:
 	 * @param cfg freedb configuration.
 	 */
 	void getFreedbConfig(FreedbConfig *cfg) const;
+	/**
+	 * Get list with track durations.
+	 *
+	 * @return list with track durations,
+	 *         0 if no track durations found.
+	 */
+	QValueList<int>* getTrackDurations();
 
 private:
 	/** import selector widget */
 	ImportSelector *impsel;
+	QCheckBox* mismatchCheckBox;
+	QSpinBox* maxDiffSpinBox;
 };
 
 #endif
