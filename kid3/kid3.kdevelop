@@ -3,7 +3,7 @@
   <general>
     <author>Urs Fleisch</author>
     <email>ufleisch@users.sourceforge.net</email>
-    <version>0.3</version>
+    <version>0.4</version>
     <projectmanagement>KDevKDEAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <keywords>
@@ -12,11 +12,10 @@
     </keywords>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <description></description>
+    <description/>
     <ignoreparts>
       <part>KDevClearCase</part>
       <part>KDevPerforce</part>
-      <part>KDevVisualBoyAdvance</part>
     </ignoreparts>
     <secondaryLanguages/>
   </general>
@@ -27,6 +26,7 @@
       <group pattern="*.png" name="Icons" />
       <group pattern="*.po;*.ts" name="Translations" />
       <group pattern="*" name="Others" />
+      <hidenonprojectfiles>false</hidenonprojectfiles>
     </groups>
     <tree>
       <hidenonprojectfiles>false</hidenonprojectfiles>
@@ -48,27 +48,56 @@
       <toc>w3c-dom-level2-html</toc>
       <toc>w3c-svg</toc>
       <toc>w3c-uaag10</toc>
+      <toc>ada</toc>
+      <toc>ada_bugs_gcc</toc>
+      <toc>bash</toc>
+      <toc>bash_bugs</toc>
+      <toc>clanlib</toc>
+      <toc>fortran_bugs_gcc</toc>
+      <toc>gtk_bugs</toc>
+      <toc>haskell</toc>
+      <toc>haskell_bugs_ghc</toc>
+      <toc>java_bugs_gcc</toc>
+      <toc>java_bugs_sun</toc>
+      <toc>opengl</toc>
+      <toc>php_bugs</toc>
+      <toc>pascal_bugs_fp</toc>
+      <toc>perl_bugs</toc>
+      <toc>python_bugs</toc>
+      <toc>ruby</toc>
+      <toc>ruby_bugs</toc>
+      <toc>sdl</toc>
+      <toc>sw</toc>
+      <toc>wxwindows_bugs</toc>
     </ignoretocs>
     <projectdoc>
-      <userdocDir>/home/urs/dat/c/kid3/html/</userdocDir>
-      <apidocDir>/home/urs/dat/c/kid3/html/</apidocDir>
+      <userdocDir>html/</userdocDir>
+      <apidocDir>html/</apidocDir>
     </projectdoc>
-    <ignoreqt_xml/>
+    <ignoreqt_xml>
+      <toc>qmake User Guide</toc>
+    </ignoreqt_xml>
     <ignoredoxygen/>
     <ignorekdocs/>
-    <ignoredevhelp/>
+    <ignoredevhelp>
+      <toc>gdk</toc>
+      <toc>glib</toc>
+      <toc>gobject</toc>
+      <toc>gtk</toc>
+      <toc>gdk-pixbuf</toc>
+    </ignoredevhelp>
   </kdevdoctreeview>
   <kdevdebugger>
     <general>
       <dbgshell>libtool</dbgshell>
-      <programargs></programargs>
-      <gdbpath></gdbpath>
+      <programargs/>
+      <gdbpath/>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
-      <configGdbScript></configGdbScript>
-      <runShellScript></runShellScript>
-      <runGdbScript></runGdbScript>
+      <configGdbScript/>
+      <runShellScript/>
+      <runGdbScript/>
     </general>
     <display>
       <staticmembers>false</staticmembers>
@@ -92,14 +121,14 @@
       <abortonerror>false</abortonerror>
       <numberofjobs>1</numberofjobs>
       <dontact>false</dontact>
-      <makebin></makebin>
+      <makebin/>
     </make>
     <general>
       <useconfiguration>default</useconfiguration>
     </general>
     <run>
       <mainprogram>kid3/kid3</mainprogram>
-      <programargs></programargs>
+      <programargs/>
       <terminal>false</terminal>
       <envvars/>
       <directoryradio>executable</directoryradio>
@@ -109,35 +138,35 @@
     <configurations>
       <default>
         <configargs>--enable-debug=no --prefix=/opt/kde3</configargs>
-        <builddir></builddir>
-        <topsourcedir></topsourcedir>
-        <cppflags></cppflags>
-        <ldflags></ldflags>
+        <builddir/>
+        <topsourcedir/>
+        <cppflags/>
+        <ldflags/>
         <ccompiler>GccOptions</ccompiler>
         <cxxcompiler>GppOptions</cxxcompiler>
         <f77compiler>G77Options</f77compiler>
-        <ccompilerbinary></ccompilerbinary>
-        <cxxcompilerbinary></cxxcompilerbinary>
-        <f77compilerbinary></f77compilerbinary>
-        <cflags></cflags>
-        <cxxflags></cxxflags>
-        <f77flags></f77flags>
+        <ccompilerbinary/>
+        <cxxcompilerbinary/>
+        <f77compilerbinary/>
+        <cflags/>
+        <cxxflags/>
+        <f77flags/>
       </default>
       <debug>
         <configargs>--enable-debug=full --prefix=/opt/kde3</configargs>
         <builddir>debug</builddir>
-        <topsourcedir></topsourcedir>
-        <cppflags></cppflags>
-        <ldflags></ldflags>
+        <topsourcedir/>
+        <cppflags/>
+        <ldflags/>
         <ccompiler>GccOptions</ccompiler>
         <cxxcompiler>GppOptions</cxxcompiler>
         <f77compiler>G77Options</f77compiler>
-        <ccompilerbinary></ccompilerbinary>
-        <cxxcompilerbinary></cxxcompilerbinary>
-        <f77compilerbinary></f77compilerbinary>
-        <cflags></cflags>
-        <cxxflags></cxxflags>
-        <f77flags></f77flags>
+        <ccompilerbinary/>
+        <cxxcompilerbinary/>
+        <f77compilerbinary/>
+        <cflags/>
+        <cxxflags/>
+        <f77flags/>
       </debug>
     </configurations>
   </kdevautoproject>
@@ -158,13 +187,13 @@
   </kdevclassview>
   <kdevcvs>
     <cvsoptions>-f</cvsoptions>
-    <commitoptions></commitoptions>
+    <commitoptions/>
     <updateoptions>-dP</updateoptions>
-    <addoptions></addoptions>
+    <addoptions/>
     <removeoptions>-f</removeoptions>
     <diffoptions>-u3 -p</diffoptions>
-    <logoptions></logoptions>
-    <rshoptions></rshoptions>
+    <logoptions/>
+    <rshoptions/>
     <revertoptions>-C -d -P</revertoptions>
   </kdevcvs>
   <kdevcppsupport>
