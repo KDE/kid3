@@ -7,6 +7,7 @@
   </Menu>
   <Menu name="tools"><text>&amp;Tools</text>
     <Action name="apply_format"/>
+    <Action name="rename_directory"/>
   </Menu>
 </MenuBar>
 </kpartgui>
