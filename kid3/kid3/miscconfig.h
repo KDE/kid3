@@ -22,6 +22,9 @@ class QSettings;
 class QString;
 class StandardTags;
 
+/**
+ * Miscellaneous Configuration.
+ */
 class MiscConfig : public GeneralConfig
 {
 public:
@@ -37,7 +40,6 @@ public:
 	 * Persist configuration.
 	 *
 	 * @param config KDE configuration
-	 * @param group  configuration group
 	 */
 	void writeToConfig(
 #ifdef CONFIG_USE_KDE
@@ -50,7 +52,6 @@ public:
 	 * Read persisted configuration.
 	 *
 	 * @param config KDE configuration
-	 * @param group  configuration group
 	 */
 	void readFromConfig(
 #ifdef CONFIG_USE_KDE
@@ -68,8 +69,18 @@ public:
 	QString formatText;
 	/** index of filename format selected */
 	int formatItem;
+	/** directory name format */
+	QString dirFormatText;
+	/** index of directory name format selected */
+	int dirFormatItem;
 	/** size of splitter in main window */
 	QValueList<int> splitterSizes;
+#ifndef CONFIG_USE_KDE
+	/** mainwindow width */
+	int windowWidth;
+	/** mainwindow height */
+	int windowHeight;
+#endif
 };
 
 #endif
