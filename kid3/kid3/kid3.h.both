@@ -1,7 +1,8 @@
 /**
  * \file kid3.h
  * Kid3 application.
- * kid3.h is generated from kid3_1.h and kid3_2.h. Do not edit kid3.h.
+ * kid3.h is generated from this file (for KDE or for Qt only) by
+ * the C preprocessor.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -11,12 +12,7 @@
 #ifndef KID3_H
 #define KID3_H
 
-#include "autoconf.h"
-#include "filelist.h"
-#include "standardtags.h"
-#include "framelist.h"
-
-// forward declaration of the Kid3 classes
+#include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kmainwindow.h>
 class KAction;
@@ -25,10 +21,15 @@ class KToggleAction;
 class KURL;
 #else
 #include <qmainwindow.h>
+class QSettings;
 class QAction;
 #endif
 class id3Form;
 class Mp3File;
+class FormatConfig;
+class GeneralConfig;
+class FrameList;
+class StandardTags;
 
 /** Kid3 application */
 #ifdef CONFIG_USE_KDE
@@ -37,9 +38,9 @@ class Kid3App : public KMainWindow
 class Kid3App : public QMainWindow
 #endif
 {
-	Q_OBJECT
+Q_OBJECT
 
-		public:
+public:
 	/**
 	 * Constructor.
 	 *
@@ -134,7 +135,14 @@ class Kid3App : public QMainWindow
 	 */
 	void addFrame(void);
 
- protected:
+	/** Filename format configuration */
+	FormatConfig *fnFormatCfg;
+	/** ID3 format configuration */
+	FormatConfig *id3FormatCfg;
+	/** General configuration */
+	GeneralConfig *genCfg;
+
+protected:
 	/**
 	 * Init menu and toolbar actions.
 	 */
@@ -148,6 +156,11 @@ class Kid3App : public QMainWindow
 	 */
 	void initView();
 	/**
+	 * Free allocated resources.
+	 * Our destructor may not be called, so cleanup is done here.
+	 */
+	void cleanup();
+	/**
 	 * Update modification state before closing.
 	 * Called on closeEvent() of window.
 	 * If anything was modified, save after asking user.
@@ -155,14 +168,6 @@ class Kid3App : public QMainWindow
 	 * @return FALSE if user canceled.
 	 */
 	virtual bool queryClose();
-	/**
-	 * Save options before closing.
-	 * queryExit() is called when the last window of the application is
-	 * going to be closed during the closeEvent().
-	 *
-	 * @return TRUE.
-	 */
-	virtual bool queryExit();
 #ifdef CONFIG_USE_KDE
 	/**
 	 * Saves the window properties for each open window during session end
@@ -177,14 +182,6 @@ class Kid3App : public QMainWindow
 	 * @param _cfg application configuration
 	 */
 	virtual void readProperties(KConfig *_cfg);
-	/**
-	 * Save application options.
-	 */
-	void saveOptions();
-	/**
-	 * Load application options.
-	 */
-	void readOptions();
 #else
 	/**
 	 * Window is closed.
@@ -193,6 +190,14 @@ class Kid3App : public QMainWindow
 	 */
 	void closeEvent(QCloseEvent *ce);
 #endif
+	/**
+	 * Save application options.
+	 */
+	void saveOptions();
+	/**
+	 * Load application options.
+	 */
+	void readOptions();
 	/**
 	 * Set modification state.
 	 *
@@ -206,7 +211,7 @@ class Kid3App : public QMainWindow
 	 */
 	bool isModified(void) { return modified; }
 
- public slots:
+public slots:
 	/**
 	 * Request new directory and open it.
 	 */
@@ -227,6 +232,7 @@ class Kid3App : public QMainWindow
 	 */
 	void slotViewStatusBar();
 #else
+	void slotHelpHandbook(void);
 	void slotHelpAbout(void);
 	void slotHelpAboutQt(void);
 #endif
@@ -253,8 +259,20 @@ class Kid3App : public QMainWindow
 	 * Create playlist.
 	 */
 	void slotCreatePlaylist(void);
+	/**
+	 * Import.
+	 */
+	void slotImport(void);
+	/**
+	 * Preferences.
+	 */
+	void slotSettingsConfigure(void);
+	/**
+	 * Apply format.
+	 */
+	void slotApplyFormat(void);
 
- private:
+private:
 	/**
 	 * Save all changed files.
 	 *
@@ -290,13 +308,13 @@ class Kid3App : public QMainWindow
 	/** Current directory */
 	QString doc_dir;
 	/** Frame list */
-	FrameList framelist;
+	FrameList *framelist;
 	/** Copy buffer */
-	StandardTags copytags;
+	StandardTags *copytags;
 
 #ifdef CONFIG_USE_KDE
 	/** the configuration object of the application */
-	KConfig *config;
+	KConfig* config;
 	/** Actions */
 	KAction* fileOpen;
 	KRecentFilesAction* fileOpenRecent;
@@ -305,17 +323,24 @@ class Kid3App : public QMainWindow
 	KAction* fileQuit;
 	KToggleAction* viewToolBar;
 	KToggleAction* viewStatusBar;
+	KAction* settingsConfigure;
 #else
+	QSettings* config;
 	QAction* fileOpen;
 	QAction* fileSave;
 	QAction* fileRevert;
 	QAction* fileCreatePlaylist;
 	QAction* fileQuit;
-	QAction* helpIndex;
+	QAction* fileImport;
+	QAction* toolsApplyFormat;
+	QAction* settingsConfigure;
+	QAction* helpHandbook;
 	QAction* helpAbout;
 	QAction* helpAboutQt;
 	QMenuBar* menubar;
 	QPopupMenu* fileMenu;
+	QPopupMenu* toolsMenu;
+	QPopupMenu* settingsMenu;
 	QPopupMenu* helpMenu;
 #endif
 };
