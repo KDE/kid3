@@ -30,6 +30,8 @@
 #include "genres.h"
 #include "standardtags.h"
 #include "importparser.h"
+#include "freedbdialog.h"
+#include "freedbconfig.h"
 #include "importselector.h"
 
 /**
@@ -42,6 +44,9 @@
 ImportSelector::ImportSelector(QWidget *parent, const char *name, WFlags f)
 	: QVBox(parent, name, f)
 {
+	freedbDialog = 0;
+	freedbCfg = 0;
+	importSource = None;
 	header_parser = new ImportParser();
 	track_parser = new ImportParser();
 	setSpacing(6);
@@ -74,6 +79,8 @@ ImportSelector::ImportSelector(QWidget *parent, const char *name, WFlags f)
 	butlayout->addWidget(fileButton);
 	clipButton = new QPushButton(i18n("From Clipboard"), butbox);
 	butlayout->addWidget(clipButton);
+	freedbButton = new QPushButton(i18n("From freedb.org"), butbox);
+	butlayout->addWidget(freedbButton);
 	QSpacerItem *butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	butlayout->addItem(butspacer);
@@ -87,6 +94,7 @@ ImportSelector::ImportSelector(QWidget *parent, const char *name, WFlags f)
 
 	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
+	connect(freedbButton, SIGNAL(clicked()), this, SLOT(fromFreedb()));
 }
 
 /**
@@ -96,6 +104,11 @@ ImportSelector::~ImportSelector()
 {
 	delete header_parser;
 	delete track_parser;
+	if (freedbDialog) {
+		freedbDialog->disconnect();
+		delete freedbDialog;
+		freedbDialog = 0;
+	}
 }
 
 /**
@@ -110,12 +123,15 @@ ImportSelector::~ImportSelector()
 bool ImportSelector::parseHeader(StandardTags &st)
 {
 	int pos = 0;
+	header_parser->setFormat(
+		importSource == Freedb ? "freedb_header" :
 #if QT_VERSION >= 300
-	header_parser->setFormat(headerLineEdit->text());
+		headerLineEdit->text()
 #else
-	/* dummy format to indicate a header format */
-	header_parser->setFormat("%y(+\\d)");
+		/* dummy format to indicate a header format */
+		"%y(+\\d)"
 #endif
+		);
 	return header_parser->getNextTags(text, st, pos);
 }
 
@@ -137,6 +153,7 @@ void ImportSelector::fromFile()
 			QTextStream stream(&file);
 			text = stream.read();
 			if (!text.isNull()) {
+				importSource = File;
 				(void)showPreview();
 			}
 			file.close();
@@ -152,18 +169,51 @@ void ImportSelector::fromClipboard()
 	QClipboard *cb = QApplication::clipboard();
 #if QT_VERSION >= 300
 	text = cb->text(QClipboard::Clipboard);
-	if (text.isNull() || !showPreview()) {
+	if (text.isNull() || !(importSource = Clipboard, showPreview())) {
 		text = cb->text(QClipboard::Selection);
 		if (!text.isNull()) {
+			importSource = Clipboard;
 			(void)showPreview();
 		}
 	}
 #else
 	text = cb->text();
 	if (!text.isNull()) {
+		importSource = Clipboard;
 		(void)showPreview();
 	}
 #endif
+}
+
+/**
+ * Import from freedb.org and preview in table.
+ */
+void ImportSelector::fromFreedb()
+{
+	if (!freedbDialog) {
+		freedbDialog = new FreedbDialog();
+		if (!freedbDialog) {
+			return;
+		}
+		if (freedbCfg) {
+			freedbDialog->setFreedbConfig(freedbCfg);
+		}
+		connect(freedbDialog, SIGNAL(albumDataReceived(QString)),
+				this, SLOT(freedbAlbumDataReceived(QString)));
+	}
+	(void)freedbDialog->exec();
+}
+
+/**
+ * Called when freedb.org album data is received.
+ *
+ * @param txt text containing album data from freedb.org
+ */
+void ImportSelector::freedbAlbumDataReceived(QString txt)
+{
+	importSource = Freedb;
+	text = txt;
+	showPreview();
 }
 
 /**
@@ -247,12 +297,15 @@ bool ImportSelector::getNextTags(StandardTags &st, bool start)
 	static int pos = 0;
 	if (start || pos == 0) {
 		pos = 0;
+		track_parser->setFormat(
+			importSource == Freedb ? "freedb_tracks" :
 #if QT_VERSION >= 300
-		track_parser->setFormat(trackLineEdit->text(), true);
+			trackLineEdit->text()
 #else
-		/* dummy format to indicate a track format */
-		track_parser->setFormat("%t(\\d+)");
+			/* dummy format to indicate a track format */
+			"%t(\\d+)"
 #endif
+			, true);
 	}
 	return track_parser->getNextTags(text, st, pos);
 }
@@ -321,4 +374,31 @@ int ImportSelector::getImportFormat(QString &name,
 #else
 	return 0;
 #endif
+}
+
+/**
+ * Set freedb.org configuration.
+ *
+ * @param cfg freedb configuration.
+ */
+void ImportSelector::setFreedbConfig(const FreedbConfig *cfg)
+{
+	freedbCfg = cfg;
+}
+
+/**
+ * Get freedb.org configuration.
+ *
+ * @param cfg freedb configuration.
+ */
+void ImportSelector::getFreedbConfig(FreedbConfig *cfg) const
+{
+	if (freedbDialog) {
+		freedbDialog->getFreedbConfig(cfg);
+	} else {
+		// freedb dialog does not exist => copy configuration which was set
+		if (freedbCfg && (freedbCfg != cfg)) {
+			*cfg = *freedbCfg;
+		}
+	}
 }
