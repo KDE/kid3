@@ -50,7 +50,7 @@ public:
 	 * Set values in dialog from current configuration.
 	 *
 	 * @param fnCfg   filename format configuration
-	 * @param fnCfg   ID3 format configuration
+	 * @param id3Cfg  ID3 format configuration
 	 * @param miscCfg misc. configuration
 	 */
 	void setConfig(const FormatConfig *fnCfg, const FormatConfig *id3Cfg,
@@ -59,7 +59,7 @@ public:
 	 * Get values from dialog and store them in the current configuration.
 	 *
 	 * @param fnCfg   filename format configuration
-	 * @param fnCfg   ID3 format configuration
+	 * @param id3Cfg  ID3 format configuration
 	 * @param miscCfg misc. configuration
 	 */
 	void getConfig(FormatConfig *fnCfg, FormatConfig *id3Cfg,

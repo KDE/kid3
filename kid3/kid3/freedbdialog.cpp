@@ -33,10 +33,25 @@
  */
 class AlbumListItem : public QListBoxText {
 public:
+	/**
+	 * Constructor.
+	 * @param listbox listbox
+	 * @param text    title
+	 * @param cat     category
+	 * @param idStr   ID
+	 */
 	AlbumListItem(QListBox *listbox, const QString &text,
 				  const QString &cat, const QString &idStr) : 
 		QListBoxText(listbox, text), category(cat), id(idStr) {}
+	/**
+	 * Get category.
+	 * @return category.
+	 */
 	QString getCategory() { return category; }
+	/**
+	 * Get ID.
+	 * @return ID.
+	 */
 	QString getId() { return id; }
 private:
 	QString category;

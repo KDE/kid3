@@ -22,6 +22,9 @@ class QSettings;
 class QString;
 class StandardTags;
 
+/**
+ * Format configuration.
+ */
 class FormatConfig : public GeneralConfig
 {
 public:
