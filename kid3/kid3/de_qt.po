@@ -58,3 +58,18 @@ msgstr "Ansicht"
 
 msgid "Revert"
 msgstr "Änderungen verwerfen"
+
+msgid "All Files (*)"
+msgstr "Alle Dateien (*)"
+
+msgid "&Tools"
+msgstr "E&xtras"
+
+msgid "&Settings"
+msgstr "&Einstellungen"
+
+msgid "Back"
+msgstr "Zurück"
+
+msgid "Close"
+msgstr "Schliessen"
