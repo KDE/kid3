@@ -11,5 +11,7 @@ With Kid3 you can:
 - Generate tags from filenames
 - Generate filenames from tags
 - Generate playlist files
+- Automatically convert upper and lower case and replace strings
+- Import from freedb.org and other sources of album data
 
 Kid3 uses Qt and id3lib and runs under Linux (KDE or only Qt) and Windows.
