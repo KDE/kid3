@@ -126,8 +126,7 @@ private slots:
 signals:
 	/**
 	 * Emitted when album data is received.
-	 *
-	 * @param text containing album data from freedb.org
+	 * Parameter: text containing album data from freedb.org
 	 */
 	void albumDataReceived(QString);
 private:

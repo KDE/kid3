@@ -169,7 +169,7 @@ class LabeledSpinBox : public QWidget {
 	/**
 	 * Set value.
 	 *
-	 * @param txt text
+	 * @param value value
 	 */
 	void setValue(int value) { spinbox->setValue(value); }
 	/**
@@ -276,6 +276,7 @@ class FieldControl : public QObject {
 	/**
 	 * Constructor.
 	 *
+	 * @param fl  frame list
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
@@ -320,6 +321,7 @@ class TextFieldControl : public FieldControl {
 	/**
 	 * Constructor.
 	 *
+	 * @param fl  frame list
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
@@ -353,6 +355,7 @@ class LineFieldControl : public FieldControl {
 	/**
 	 * Constructor.
 	 *
+	 * @param fl  frame list
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
@@ -386,6 +389,7 @@ class IntFieldControl : public FieldControl {
 	/**
 	 * Constructor.
 	 *
+	 * @param fl  frame list
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
@@ -419,6 +423,7 @@ class IntComboBoxControl : public FieldControl {
 	/**
 	 * Constructor.
 	 *
+	 * @param fl  frame list
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 * @param lst list of strings with possible selections, NULL terminated
@@ -455,6 +460,7 @@ class BinFieldControl : public FieldControl {
 	/**
 	 * Constructor.
 	 *
+	 * @param fl  frame list
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
@@ -482,6 +488,9 @@ class BinFieldControl : public FieldControl {
 	BinaryOpenSave *bos;
 };
 
+/**
+ * List of ID3v2.3 frames.
+ */
 class FrameList : public QObject {
  public: 
 	/**
@@ -542,7 +551,7 @@ class FrameList : public QObject {
 	/**
 	 * Set encoding selected in frame dialog.
 	 *
-	 * @param encoding.
+	 * @param enc encoding.
 	 */
 	void setSelectedEncoding(ID3_TextEnc enc) { selected_enc = enc; }
 	/**

@@ -42,7 +42,6 @@ class Genres {
 	/**
 	 * Get the genre number from a string containing a genre text.
 	 *
-	 * @param index index in alphabethically sorted list
 	 * @param str   string with genre
 	 *
 	 * @return genre number, 255 for unknown index.

@@ -77,14 +77,12 @@ private slots:
 signals:
 	/**
 	 * Emitted when find request finished.
-	 *
-	 * @param text containing result of find request
+	 * Parameter: text containing result of find request
 	 */
 	void findFinished(QString);
 	/**
 	 * Emitted when album track data request finished.
-	 *
-	 * @param text containing result of album request
+	 * Parameter: text containing result of album request
 	 */
 	void albumFinished(QString);
 private:

@@ -13,6 +13,7 @@
 #include <qvbox.h>
 #include <qstring.h>
 #include <qstringlist.h>
+#include <qvaluelist.h>
 
 class QPushButton;
 class QTable;
@@ -94,9 +95,9 @@ public:
 	/**
 	 * Get import format regexp.
 	 *
-	 * @param name   import format name
-	 * @param header import format header regexp
-	 * @param track  import format track regexp
+	 * @param names   import format names
+	 * @param headers import format header regexp
+	 * @param tracks  import format track regexp
 	 *
 	 * @return index of current selection.
 	 */
@@ -115,6 +116,13 @@ public:
 	 * @param cfg freedb configuration.
 	 */
 	void getFreedbConfig(FreedbConfig *cfg) const;
+	/**
+	 * Get list with track durations.
+	 *
+	 * @return list with track durations,
+	 *         0 if no track durations found.
+	 */
+	QValueList<int>* getTrackDurations();
 	/**
 	 * List with line formats.
 	 * The following codes are used before the () expressions.
@@ -157,7 +165,7 @@ public slots:
 private:
 	enum TabColumn {
 		TrackColumn, TitleColumn, ArtistColumn, AlbumColumn,
-		YearColumn, GenreColumn, CommentColumn, NumColumns
+		YearColumn, GenreColumn, CommentColumn, LengthColumn, NumColumns
 	};
 	enum ImportSource {
 	    None, File, Clipboard, Freedb

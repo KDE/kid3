@@ -90,6 +90,7 @@ public:
 #endif
 		) = 0;
 protected:
+	/** Configuration group. */
 	QString group;
 };
 
