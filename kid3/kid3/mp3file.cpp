@@ -13,11 +13,20 @@
 #include <qregexp.h>
 
 #include <id3/tag.h>
-#include <id3/misc_support.h>
+#if defined WIN32 && defined _DEBUG
+#include <id3.h> /* ID3TagIterator_Delete() */
+#endif
 
 #include "standardtags.h"
 #include "genres.h"
 #include "mp3file.h"
+
+#ifdef WIN32
+/* ID3LIB_ symbols not found on Windows ?! */
+#define UNICODE_SUPPORT_BUGGY 1
+#else
+#define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
+#endif
 
 /**
  * Constructor.
@@ -166,7 +175,12 @@ void Mp3File::removeTagsV1(void)
 		while ((frame = iter->GetNext()) != NULL) {
 			tagV1->RemoveFrame(frame);
 		}
+#if defined WIN32 && defined _DEBUG
+		/* just to avoid user breakpoint in VC++ */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
 		delete iter;
+#endif
 		changedV1 = TRUE;
 	}
 }
@@ -183,33 +197,315 @@ void Mp3File::removeTagsV2(void)
 		while ((frame = iter->GetNext()) != NULL) {
 			tagV2->RemoveFrame(frame);
 		}
+#if defined WIN32 && defined _DEBUG
+		/* just to avoid user breakpoint in VC++ */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
 		delete iter;
+#endif
 		changedV2 = TRUE;
 	}
 }
 
 /**
- * Generate code to get text field.
- * QString::null is returned if the field does not exist.
- * Last line before return is "ID3_FreeString(str); \" in
- * later versions of id3lib. 
+ * Get string from text field.
  *
- * @param name field name (Title, Artist, Album, Comment)
- * @param version ID3 version (V1, V2)
+ * @param field field
  *
+ * @return string,
+ *         "" if the field does not exist.
+ */
+
+QString Mp3File::getString(ID3_Field* field)
+{
+	QString text("");
+	if (field != NULL) {
+		ID3_TextEnc enc = field->GetEncoding();
+		if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
+			const unicode_t *txt = field->GetRawUnicodeText();
+			uint unicode_size = field->Size() / sizeof(unicode_t);
+			if (unicode_size && txt) {
+				QChar *qcarray = new QChar[unicode_size];
+				if (qcarray) {
+					// Unfortunately, Unicode support in id3lib is rather buggy
+					// in the current version: The codes are mirrored.
+					// In the hope that my patches will be included, I try here
+					// to work around these bugs.
+					uint i;
+					for (i = 0; i < unicode_size; i++) {
+						qcarray[i] =
+							UNICODE_SUPPORT_BUGGY ?
+							(ushort)(((txt[i] & 0x00ff) << 8) |
+									 ((txt[i] & 0xff00) >> 8)) :
+							(ushort)txt[i];
+					}
+					text = QString(qcarray, unicode_size);
+					delete [] qcarray;
+				}
+			}
+		} else {
+			// (ID3TE_IS_SINGLE_BYTE_ENC(enc))
+			// (enc == ID3TE_ISO8859_1 || enc == ID3TE_UTF8)
+			text = QString(field->GetRawText());
+		}
+	}
+	return text;
+}
+
+/**
+ * Get text field.
+ *
+ * @param tag ID3 tag
+ * @param id  frame ID
  * @return string,
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
 
-#define GET_TEXT_FIELD(name, version) \
-	if (!tag##version) { \
-		return QString::null; \
-	} \
-	char *str = ID3_Get##name(tag##version); \
-	QString result = str ? str : ""; \
-	if (str != NULL) delete [] str; \
-	return result
+QString Mp3File::getTextField(const ID3_Tag *tag, ID3_FrameID id)
+{
+	if (!tag) {
+		return QString::null;
+	}
+	QString str("");
+	ID3_Field* fld;
+	ID3_Frame *frame = tag->Find(id);
+	if (frame && ((fld = frame->GetField(ID3FN_TEXT)) != NULL)) {
+		str = getString(fld);
+	}
+	return str;
+}
+
+/**
+ * Get year.
+ *
+ * @param tag ID3 tag
+ * @return number,
+ *         0 if the field does not exist,
+ *         -1 if the tags do not exist.
+ */
+
+int Mp3File::getYear(const ID3_Tag *tag)
+{
+	QString str = getTextField(tag, ID3FID_YEAR);
+	if (str.isNull()) return -1;
+	if (str.isEmpty()) return 0;
+	return str.toInt();
+}
+
+/**
+ * Get track.
+ *
+ * @param tag ID3 tag
+ * @return number,
+ *         0 if the field does not exist,
+ *         -1 if the tags do not exist.
+ */
+
+int Mp3File::getTrackNum(const ID3_Tag *tag)
+{
+	QString str = getTextField(tag, ID3FID_TRACKNUM);
+	if (str.isNull()) return -1;
+	if (str.isEmpty()) return 0;
+	return str.toInt();
+}
+
+/**
+ * Get genre.
+ *
+ * @param tag ID3 tag
+ * @return number,
+ *         0xff if the field does not exist,
+ *         -1 if the tags do not exist.
+ */
+
+int Mp3File::getGenreNum(const ID3_Tag *tag)
+{
+	QString str = getTextField(tag, ID3FID_CONTENTTYPE);
+	if (str.isNull()) return -1;
+	if (str.isEmpty()) return 0xff;
+	int cpPos, n = 0xff;
+	if ((str[0] == '(') && ((cpPos = str.find(')', 2)) > 1)) {
+		bool ok;
+		n = str.mid(1, cpPos - 1).toInt(&ok);
+		if (!ok || n > 0xff) {
+			n = 0xff;
+		}
+	}
+	return n;
+}
+
+/**
+ * Set string in text field.
+ *
+ * @param field        field
+ * @param text         text to set
+ */
+
+void Mp3File::setString(ID3_Field* field, const QString &text)
+{
+	ID3_TextEnc enc = field->GetEncoding();
+	// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
+	if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
+		// Unfortunately, Unicode support in id3lib is rather buggy in the
+		// current version: The codes are mirrored, a second different
+		// BOM may be added, if the LSB >= 0x80, the MSB is set to 0xff.
+		// If iconv is used (id3lib on Linux), the character do not come
+		// back mirrored, but with a second (different)! BOM 0xfeff and
+		// they are still written in the wrong order (big endian).
+		// In the hope that my patches will be included, I try here to
+		// work around these bugs, but there is no solution for the
+		// LSB >= 0x80 bug.
+		const QChar *qcarray = text.unicode();
+		uint unicode_size = text.length();
+		unicode_t *unicode = new unicode_t[unicode_size + 1];
+		if (unicode) {
+			uint i;
+			for (i = 0; i < unicode_size; i++) {
+				unicode[i] = (ushort)qcarray[i].unicode();
+				if (UNICODE_SUPPORT_BUGGY) {
+					unicode[i] = (ushort)(((unicode[i] & 0x00ff) << 8) |
+										  ((unicode[i] & 0xff00) >> 8));
+				}
+			}
+			unicode[unicode_size] = 0;
+			field->Set(unicode);
+			delete [] unicode;
+		}
+	} else {
+		// (ID3TE_IS_SINGLE_BYTE_ENC(enc))
+		// (enc == ID3TE_ISO8859_1 || enc == ID3TE_UTF8)
+		field->Set(text);
+	}
+}
+
+/**
+ * Set text field.
+ *
+ * @param tag          ID3 tag
+ * @param id           frame ID
+ * @param text         text to set
+ * @param allowUnicode true to allow setting of Unicode encoding if necessary
+ * @param replace      true to replace an existing field
+ * @param removeEmpty  true to remove a field if text is empty
+ *
+ * @return true if the field was changed.
+ */
+
+bool Mp3File::setTextField(ID3_Tag *tag, ID3_FrameID id, const QString &text,
+						   bool allowUnicode, bool replace, bool removeEmpty)
+{
+	bool changed = false;
+	if (tag && !text.isNull()) {
+		ID3_Frame* frame = NULL;
+		bool removeOnly = removeEmpty && text.isEmpty();
+		if (replace || removeOnly) {
+			frame = tag->Find(id);
+			frame = tag->RemoveFrame(frame);
+			delete frame;
+			changed = true;
+		}
+		if (!removeOnly && (replace || tag->Find(id) == NULL)) {
+			frame = new ID3_Frame(id);
+			if (frame) {
+				ID3_Field* fld = frame->GetField(ID3FN_TEXT);
+				if (fld) {
+					if (allowUnicode && fld->GetEncoding() == ID3TE_ISO8859_1) {
+						// check if information is lost if the string is not unicode
+						uint i, unicode_size = text.length();
+						const QChar *qcarray = text.unicode();
+						for (i = 0; i < unicode_size; i++) {
+							if (qcarray[i].latin1() == 0) {
+								ID3_Field *encfld = frame->GetField(ID3FN_TEXTENC);
+								if (encfld) {
+									encfld->Set(ID3TE_UTF16);
+								}
+								fld->SetEncoding(ID3TE_UTF16);
+								break;
+							}
+						}
+					}
+					setString(fld, text);
+					tag->AttachFrame(frame);
+				}
+			}
+			changed = true;
+		}
+	}
+	return changed;
+}
+
+/**
+ * Set year.
+ *
+ * @param tag ID3 tag
+ * @param num number to set, 0 to remove field.
+ *
+ * @return true if the field was changed.
+ */
+
+bool Mp3File::setYear(ID3_Tag *tag, int num)
+{
+	bool changed = false;
+	if (num >= 0) {
+		QString str;
+		if (num != 0) {
+			str.setNum(num);
+		} else {
+			str = "";
+		}
+		changed = setTextField(tag, ID3FID_YEAR, str);
+	}
+	return changed;
+}
+
+/**
+ * Set track.
+ *
+ * @param tag ID3 tag
+ * @param num number to set, 0 to remove field.
+ *
+ * @return true if the field was changed.
+ */
+
+bool Mp3File::setTrackNum(ID3_Tag *tag, int num)
+{
+	bool changed = false;
+	if (num >= 0) {
+		QString str;
+		if (num != 0) {
+			str.setNum(num);
+		} else {
+			str = "";
+		}
+		changed = setTextField(tag, ID3FID_TRACKNUM, str);
+	}
+	return changed;
+}
+
+/**
+ * Set genre.
+ *
+ * @param tag ID3 tag
+ * @param num number to set, 0xff to remove field.
+ *
+ * @return true if the field was changed.
+ */
+
+bool Mp3File::setGenreNum(ID3_Tag *tag, int num)
+{
+	bool changed = false;
+	if (num >= 0) {
+		QString str;
+		if (num != 0xff) {
+			str = QString("(%1)").arg(num);
+		} else {
+			str = "";
+		}
+		changed = setTextField(tag, ID3FID_CONTENTTYPE, str);
+	}
+	return changed;
+}
 
 /**
  * Get ID3v1 title.
@@ -221,7 +517,7 @@ void Mp3File::removeTagsV2(void)
 
 QString Mp3File::getTitleV1(void)
 {
-	GET_TEXT_FIELD(Title, V1);
+	return getTextField(tagV1, ID3FID_TITLE);
 }
 
 /**
@@ -234,7 +530,7 @@ QString Mp3File::getTitleV1(void)
 
 QString Mp3File::getArtistV1(void)
 {
-	GET_TEXT_FIELD(Artist, V1);
+	return getTextField(tagV1, ID3FID_LEADARTIST);
 }
 
 /**
@@ -247,7 +543,7 @@ QString Mp3File::getArtistV1(void)
 
 QString Mp3File::getAlbumV1(void)
 {
-	GET_TEXT_FIELD(Album, V1);
+	return getTextField(tagV1, ID3FID_ALBUM);
 }
 
 /**
@@ -260,7 +556,7 @@ QString Mp3File::getAlbumV1(void)
 
 QString Mp3File::getCommentV1(void)
 {
-	GET_TEXT_FIELD(Comment, V1);
+	return getTextField(tagV1, ID3FID_COMMENT);
 }
 
 /**
@@ -273,16 +569,7 @@ QString Mp3File::getCommentV1(void)
 
 int Mp3File::getYearV1(void)
 {
-	if (!tagV1) {
-		return -1;
-	}
-	char *str = ID3_GetYear(tagV1);
-	if (str) {
-		QString result(str);
-		delete [] str; // ID3_FreeString(str);
-		return result.toInt();
-	}
-	return 0;
+	return getYear(tagV1);
 }
 
 /**
@@ -295,16 +582,7 @@ int Mp3File::getYearV1(void)
 
 int Mp3File::getTrackNumV1(void)
 {
-	if (!tagV1) {
-		return -1;
-	}
-	char *str = ID3_GetTrack(tagV1);
-	if (str) {
-		QString result(str);
-		delete [] str; // ID3_FreeString(str);
-		return result.toInt();
-	}
-	return 0;
+	return getTrackNum(tagV1);
 }
 
 /**
@@ -317,11 +595,7 @@ int Mp3File::getTrackNumV1(void)
 
 int Mp3File::getGenreNumV1(void)
 {
-	if (!tagV1) {
-		return -1;
-	}
-	int n = (int)ID3_GetGenreNum(tagV1);
-	return (n < 0xff) ? n : 0xff;
+	return getGenreNum(tagV1);
 }
 
 /**
@@ -334,7 +608,7 @@ int Mp3File::getGenreNumV1(void)
 
 QString Mp3File::getTitleV2(void)
 {
-	GET_TEXT_FIELD(Title, V2);
+	return getTextField(tagV2, ID3FID_TITLE);
 }
 
 /**
@@ -347,7 +621,7 @@ QString Mp3File::getTitleV2(void)
 
 QString Mp3File::getArtistV2(void)
 {
-	GET_TEXT_FIELD(Artist, V2);
+	return getTextField(tagV2, ID3FID_LEADARTIST);
 }
 
 /**
@@ -360,7 +634,7 @@ QString Mp3File::getArtistV2(void)
 
 QString Mp3File::getAlbumV2(void)
 {
-	GET_TEXT_FIELD(Album, V2);
+	return getTextField(tagV2, ID3FID_ALBUM);
 }
 
 /**
@@ -373,7 +647,7 @@ QString Mp3File::getAlbumV2(void)
 
 QString Mp3File::getCommentV2(void)
 {
-	GET_TEXT_FIELD(Comment, V2);
+	return getTextField(tagV2, ID3FID_COMMENT);
 }
 
 /**
@@ -386,16 +660,7 @@ QString Mp3File::getCommentV2(void)
 
 int Mp3File::getYearV2(void)
 {
-	if (!tagV2) {
-		return -1;
-	}
-	char *str = ID3_GetYear(tagV2);
-	if (str) {
-		QString result(str);
-		delete [] str; // ID3_FreeString(str);
-		return result.toInt();
-	}
-	return 0;
+	return getYear(tagV2);
 }
 
 /**
@@ -408,16 +673,7 @@ int Mp3File::getYearV2(void)
 
 int Mp3File::getTrackNumV2(void)
 {
-	if (!tagV2) {
-		return -1;
-	}
-	char *str = ID3_GetTrack(tagV2);
-	if (str) {
-		QString result(str);
-		delete [] str; // ID3_FreeString(str);
-		return result.toInt();
-	}
-	return 0;
+	return getTrackNum(tagV2);
 }
 
 /**
@@ -430,11 +686,7 @@ int Mp3File::getTrackNumV2(void)
 
 int Mp3File::getGenreNumV2(void)
 {
-	if (!tagV2) {
-		return -1;
-	}
-	int n = (int)ID3_GetGenreNum(tagV2);
-	return (n < 0xff) ? n : 0xff;
+	return getGenreNum(tagV2);
 }
 
 /**
@@ -472,24 +724,6 @@ void Mp3File::getStandardTagsV2(StandardTags *st)
 }
 
 /**
- * Generate code to set text field.
- * QString::null is returned if the field does not exist.
- *
- * @param name field name (Title, Artist, Album, Comment)
- * @param version ID3 version (V1, V2)
- * @param str (QString variable) string to set, "" to remove field.
- */
-
-#define SET_TEXT_FIELD(name, version) \
-	if (tag##version && !str.isNull()) { \
-		if (str.isEmpty()) \
-			ID3_Remove##name##s(tag##version); \
-		else \
-			ID3_Add##name(tag##version, str.latin1(), TRUE); \
-		changed##version = TRUE; \
-	}
-
-/**
  * Set ID3v1 title.
  *
  * @param str string to set, "" to remove field.
@@ -497,7 +731,9 @@ void Mp3File::getStandardTagsV2(StandardTags *st)
 
 void Mp3File::setTitleV1(const QString& str)
 {
-	SET_TEXT_FIELD(Title, V1);
+	if (setTextField(tagV1, ID3FID_TITLE, str)) {
+		changedV1 = true;
+	}
 }
 
 /**
@@ -508,7 +744,9 @@ void Mp3File::setTitleV1(const QString& str)
 
 void Mp3File::setArtistV1(const QString& str)
 {
-	SET_TEXT_FIELD(Artist, V1);
+	if (setTextField(tagV1, ID3FID_LEADARTIST, str)) {
+		changedV1 = true;
+	}
 }
 
 /**
@@ -519,7 +757,9 @@ void Mp3File::setArtistV1(const QString& str)
 
 void Mp3File::setAlbumV1(const QString& str)
 {
-	SET_TEXT_FIELD(Album, V1);
+	if (setTextField(tagV1, ID3FID_ALBUM, str)) {
+		changedV1 = true;
+	}
 }
 
 /**
@@ -530,7 +770,9 @@ void Mp3File::setAlbumV1(const QString& str)
 
 void Mp3File::setCommentV1(const QString& str)
 {
-	SET_TEXT_FIELD(Comment, V1);
+	if (setTextField(tagV1, ID3FID_COMMENT, str)) {
+		changedV1 = true;
+	}
 }
 
 /**
@@ -541,16 +783,8 @@ void Mp3File::setCommentV1(const QString& str)
 
 void Mp3File::setYearV1(int num)
 {
-	if (tagV1 && num >= 0) {
-		if (num == 0) {
-			ID3_RemoveYears(tagV1);
-		}
-		else {
-			QString str;
-			str.setNum(num);
-			ID3_AddYear(tagV1, str.latin1(), TRUE);
-		}
-		changedV1 = TRUE;
+	if (setYear(tagV1, num)) {
+		changedV1 = true;
 	}
 }
 
@@ -562,14 +796,8 @@ void Mp3File::setYearV1(int num)
 
 void Mp3File::setTrackNumV1(int num)
 {
-	if (tagV1 && num >= 0) {
-		if (num == 0) {
-			ID3_RemoveTracks(tagV1);
-		}
-		else {
-			ID3_AddTrack(tagV1, (uchar)num, 0, TRUE);
-		}
-		changedV1 = TRUE;
+	if (setTrackNum(tagV1, num)) {
+		changedV1 = true;
 	}
 }
 
@@ -581,14 +809,8 @@ void Mp3File::setTrackNumV1(int num)
 
 void Mp3File::setGenreNumV1(int num)
 {
-	if (tagV1 && num >= 0) {
-		if (num == 0xff) {
-			ID3_RemoveGenres(tagV1);
-		}
-		else {
-			ID3_AddGenre(tagV1, (size_t)num, TRUE);
-		}
-		changedV1 = TRUE;
+	if (setGenreNum(tagV1, num)) {
+		changedV1 = true;
 	}
 }
 
@@ -600,7 +822,9 @@ void Mp3File::setGenreNumV1(int num)
 
 void Mp3File::setTitleV2(const QString& str)
 {
-	SET_TEXT_FIELD(Title, V2);
+	if (setTextField(tagV2, ID3FID_TITLE, str, true)) {
+		changedV2 = true;
+	}
 }
 
 /**
@@ -611,7 +835,9 @@ void Mp3File::setTitleV2(const QString& str)
 
 void Mp3File::setArtistV2(const QString& str)
 {
-	SET_TEXT_FIELD(Artist, V2);
+	if (setTextField(tagV2, ID3FID_LEADARTIST, str, true)) {
+		changedV2 = true;
+	}
 }
 
 /**
@@ -622,7 +848,9 @@ void Mp3File::setArtistV2(const QString& str)
 
 void Mp3File::setAlbumV2(const QString& str)
 {
-	SET_TEXT_FIELD(Album, V2);
+	if (setTextField(tagV2, ID3FID_ALBUM, str, true)) {
+		changedV2 = true;
+	}
 }
 
 /**
@@ -633,7 +861,9 @@ void Mp3File::setAlbumV2(const QString& str)
 
 void Mp3File::setCommentV2(const QString& str)
 {
-	SET_TEXT_FIELD(Comment, V2);
+	if (setTextField(tagV2, ID3FID_COMMENT, str, true)) {
+		changedV2 = true;
+	}
 }
 
 /**
@@ -644,16 +874,8 @@ void Mp3File::setCommentV2(const QString& str)
 
 void Mp3File::setYearV2(int num)
 {
-	if (tagV2 && num >= 0) {
-		if (num == 0) {
-			ID3_RemoveYears(tagV2);
-		}
-		else {
-			QString str;
-			str.setNum(num);
-			ID3_AddYear(tagV2, str.latin1(), TRUE);
-		}
-		changedV2 = TRUE;
+	if (setYear(tagV2, num)) {
+		changedV2 = true;
 	}
 }
 
@@ -665,14 +887,8 @@ void Mp3File::setYearV2(int num)
 
 void Mp3File::setTrackNumV2(int num)
 {
-	if (tagV2 && num >= 0) {
-		if (num == 0) {
-			ID3_RemoveTracks(tagV2);
-		}
-		else {
-			ID3_AddTrack(tagV2, (uchar)num, 0, TRUE);
-		}
-		changedV2 = TRUE;
+	if (setTrackNum(tagV2, num)) {
+		changedV2 = true;
 	}
 }
 
@@ -684,14 +900,8 @@ void Mp3File::setTrackNumV2(int num)
 
 void Mp3File::setGenreNumV2(int num)
 {
-	if (tagV2 && num >= 0) {
-		if (num == 0xff) {
-			ID3_RemoveGenres(tagV2);
-		}
-		else {
-			ID3_AddGenre(tagV2, (size_t)num, TRUE);
-		}
-		changedV2 = TRUE;
+	if (setGenreNum(tagV2, num)) {
+		changedV2 = true;
 	}
 }
 
@@ -907,22 +1117,22 @@ const char **Mp3File::fnFmtList = &fnFmt[0];
 void Mp3File::getFilenameFromTags(const StandardTags *st, QString fmt)
 {
 	const int num_tag_codes = 7;
-	const char tag_code[num_tag_codes] = {
+	const QChar tag_code[num_tag_codes] = {
 	    's', 'l', 'a', 'c', 'y', 't', 'g'};
-	const char *tag_str[num_tag_codes];
-	const char *insert_str[num_tag_codes];
+	QString tag_str[num_tag_codes];
+	QString insert_str[num_tag_codes];
 	QString year, track;
 	year.sprintf("%d", st->year);
 	track.sprintf("%02d", st->track);
-	tag_str[0] = st->title.latin1();
-	tag_str[1] = st->album.latin1();
-	tag_str[2] = st->artist.latin1();
-	tag_str[3] = st->comment.latin1();
-	tag_str[4] = year.latin1();
-	tag_str[5] = track.latin1();
+	tag_str[0] = st->title;
+	tag_str[1] = st->album;
+	tag_str[2] = st->artist;
+	tag_str[3] = st->comment;
+	tag_str[4] = year;
+	tag_str[5] = track;
 	tag_str[6] = Genres::getName(st->genre);
-	int pos = 0;
-	for (int i = 0;; ++i) {
+	int pos = 0, i;
+	for (i = 0;; ++i) {
 		pos = fmt.find('%', pos);
 		if (pos == -1) break;
 		if (i >= num_tag_codes) {
@@ -940,16 +1150,17 @@ void Mp3File::getFilenameFromTags(const StandardTags *st, QString fmt)
 			}
 			if (fmt[pos] == tag_code[k]) {
 				// code found, prepare format and string for sprintf
-				fmt[pos] = 's';
+				fmt[pos] = i + '0';
 				insert_str[i] = tag_str[k];
 				++pos;
 				break;
 			}
 		}
 	}
-	new_filename.sprintf(
-		fmt, insert_str[0], insert_str[1], insert_str[2],
-		insert_str[3], insert_str[4], insert_str[5], insert_str[6]);
+	new_filename = fmt;
+	for (int k = 0; k < i; ++k) {
+		new_filename = new_filename.arg(insert_str[k]);
+	}
 }
 
 /**
@@ -967,6 +1178,11 @@ void Mp3File::updateTagListV2(QListBox *lb)
 		while ((frame = iter->GetNext()) != NULL) {
 			lb->insertItem(frame->GetTextID());
 		}
+#if defined WIN32 && defined _DEBUG
+		/* just to avoid user breakpoint in VC++ */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
 		delete iter;
+#endif
 	}
 }

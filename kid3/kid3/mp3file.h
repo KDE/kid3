@@ -12,9 +12,10 @@
 
 #include <qstring.h>
 #include <qlistbox.h>
-
+#include <id3/globals.h> /* ID3_FrameID */
 class QListBox;
 class ID3_Tag;
+class ID3_Field;
 class StandardTags;
 
  /** List box item containing MP3 file */
@@ -69,6 +70,101 @@ class Mp3File : public QListBoxText {
 	 * Remove all ID3v2 tags.
 	 */
 	void removeTagsV2(void);
+	/**
+	 * Get string from text field.
+	 *
+	 * @param field field
+	 *
+	 * @return string,
+	 *         "" if the field does not exist.
+	 */
+	static QString getString(ID3_Field* field);
+	/**
+	 * Get text field.
+	 *
+	 * @param tag ID3 tag
+	 * @param id  frame ID
+	 * @return string,
+	 *         "" if the field does not exist,
+	 *         QString::null if the tags do not exist.
+	 */
+	static QString getTextField(const ID3_Tag *tag, ID3_FrameID id);
+	/**
+	 * Get year.
+	 *
+	 * @param tag ID3 tag
+	 * @return number,
+	 *         0 if the field does not exist,
+	 *         -1 if the tags do not exist.
+	 */
+	static int getYear(const ID3_Tag *tag);
+	/**
+	 * Get track.
+	 *
+	 * @param tag ID3 tag
+	 * @return number,
+	 *         0 if the field does not exist,
+	 *         -1 if the tags do not exist.
+	 */
+	static int getTrackNum(const ID3_Tag *tag);
+	/**
+	 * Get genre.
+	 *
+	 * @param tag ID3 tag
+	 * @return number,
+	 *         0xff if the field does not exist,
+	 *         -1 if the tags do not exist.
+	 */
+	static int getGenreNum(const ID3_Tag *tag);
+	/**
+	 * Set string in text field.
+	 *
+	 * @param field        field
+	 * @param text         text to set
+	 */
+	static void setString(ID3_Field* field, const QString &text);
+	/**
+	 * Set text field.
+	 *
+	 * @param tag          ID3 tag
+	 * @param id           frame ID
+	 * @param text         text to set
+	 * @param allowUnicode true to allow setting of Unicode encoding if necessary
+	 * @param replace      true to replace an existing field
+	 * @param removeEmpty  true to remove a field if text is empty
+	 *
+	 * @return true if the field was changed.
+	 */
+	static bool setTextField(ID3_Tag *tag, ID3_FrameID id, const QString &text,
+							 bool allowUnicode = false, bool replace = true,
+							 bool removeEmpty = true);
+	/**
+	 * Set year.
+	 *
+	 * @param tag ID3 tag
+	 * @param num number to set, 0 to remove field.
+	 *
+	 * @return true if the field was changed.
+	 */
+	static bool setYear(ID3_Tag *tag, int num);
+	/**
+	 * Set track.
+	 *
+	 * @param tag ID3 tag
+	 * @param num number to set, 0 to remove field.
+	 *
+	 * @return true if the field was changed.
+	 */
+	static bool setTrackNum(ID3_Tag *tag, int num);
+	/**
+	 * Set genre.
+	 *
+	 * @param tag ID3 tag
+	 * @param num number to set, 0xff to remove field.
+	 *
+	 * @return true if the field was changed.
+	 */
+	static bool setGenreNum(ID3_Tag *tag, int num);
 	/**
 	 * Get ID3v1 title.
 	 *
