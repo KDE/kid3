@@ -70,6 +70,10 @@ public:
 	QStringList importFormatTracks;
 	/** selected import format */
 	int importFormatIdx;
+	/** check maximum allowable time difference */
+	bool enableTimeDifferenceCheck;
+	/** maximum allowable time difference */
+	int maxTimeDifference;
 };
 
 #endif
