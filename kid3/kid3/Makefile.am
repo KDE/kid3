@@ -16,14 +16,14 @@ kid3_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 kid3_LDADD   = $(LIB_KFILE)
 
 # which sources should be compiled for kid3
-kid3_SOURCES = filelist.cpp framelist.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.h configdialog.cpp formatconfig.h formatconfig.cpp formatbox.h formatbox.cpp importdialog.h importdialog.cpp importselector.h importselector.cpp importparser.h importparser.cpp generalconfig.h generalconfig.cpp
+kid3_SOURCES = filelist.cpp framelist.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.h configdialog.cpp formatconfig.h formatconfig.cpp formatbox.h formatbox.cpp importdialog.h importdialog.cpp importselector.h importselector.cpp importparser.h importparser.cpp generalconfig.h generalconfig.cpp importconfig.h importconfig.cpp miscconfig.h miscconfig.cpp freedbdialog.h freedbdialog.cpp freedbconfig.h freedbconfig.cpp freedbclient.h freedbclient.cpp
 
 # these headers are automatically built
 BUILT_SOURCES =
 CLEANFILES =
 
 # these are the headers for your project that won't be installed
-noinst_HEADERS = configdialog.h filelist.h formatbox.h formatconfig.h framelist.h generalconfig.h genres.h id3form.h importdialog.h importparser.h importselector.h kid3.h mp3file.h standardtags.h
+noinst_HEADERS = configdialog.h filelist.h formatbox.h formatconfig.h framelist.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h standardtags.h
 
 # additional files in distribution
 EXTRA_DIST = kid3.desktop kid3ui.rc hi16-app-kid3.png hi32-app-kid3.png hi48-app-kid3.png kid3.h.both kid3.h.kde kid3.h.qtonly de_qt.po ru_qt.po kid3.dsp kid3.dsw kid3win.rc kid3.ico kid3.mak config.mk
