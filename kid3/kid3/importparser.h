@@ -12,6 +12,7 @@
 
 #include <qstring.h>
 #include <qregexp.h>
+#include <qvaluelist.h>
 
 class StandardTags;
 
@@ -37,8 +38,20 @@ public:
 	 * @return true if tags found (pos is index behind match).
 	 */
 	bool getNextTags(const QString &text, StandardTags &st, int &pos);
-
+	/**
+	 * Get list with track durations.
+	 *
+	 * @return list with track durations.
+	 */
+	QValueList<int>* getTrackDurations() { return &trackDuration; }
 private:
+	/**
+	 * Parse the track durations from freedb.org.
+	 *
+	 * @param text          text buffer containing data from freedb.org
+	 */
+	void parseFreedbTrackDurations(const QString &text);
+
 	/** track regexp pattern */
 	QString pattern;
 	/** regexp object */
@@ -55,6 +68,8 @@ private:
 	int yearPos;
 	int trackPos;
 	int genrePos;
+	int durationPos;
+	QValueList<int> trackDuration;
 };
 
 #endif
