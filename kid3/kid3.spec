@@ -1,5 +1,5 @@
 #
-# spec file for package kid3 (Version 0.2.1)
+# spec file for package kid3 (Version 0.3)
 #
 # neededforbuild  aaa_base aaa_dir base bash cpp glibc glibc-devel grep gzip less man sh-utils binutils fileutils gdb id3lib id3lib-devel gpp gcc make perl qt qt-devel qt-devel-doc qt3-devel-tools rpm gettext kdelib kdelibs-devel libxslt
 
@@ -7,11 +7,13 @@ Name:         kid3
 Copyright:    GPL
 Group:        Applications/Multimedia
 Summary:      ID3 tagger
-Version:      0.2.1
+Version:      0.3
 Release:      1
 Source0:      kid3-%{version}.tar.gz
 BuildRoot:    /var/tmp/%{name}-buildroot
 Prefix:       /opt/kde3
+Requires:     id3lib
+BuildRequires: id3lib-devel
 
 %description
 Kid3 - Efficient ID3 Tagger
@@ -27,6 +29,8 @@ With Kid3 you can:
 - Generate tags from filenames
 - Generate filenames from tags
 - Generate playlist files
+- Automatic case conversion and string translation
+- Import of album data
 
 Authors:
 --------
@@ -35,7 +39,7 @@ Authors:
 
 %prep
 [ ${RPM_BUILD_ROOT} != "/" ] && rm -rf ${RPM_BUILD_ROOT}
-%setup -n kid3-0.2.1
+%setup -n %{name}-%{version}
 
 %build
 ./configure --disable-debug --prefix=%{prefix}

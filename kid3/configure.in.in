@@ -1,5 +1,5 @@
 #MIN_CONFIG(3.0)
-AM_INIT_AUTOMAKE(kid3,0.2.1)
+AM_INIT_AUTOMAKE(kid3,0.3)
 dnl Check for libid3
 AC_SEARCH_LIBS(ID3Tag_Link,"id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++",,AC_MSG_ERROR(id3lib not found))
 dnl Option to build with KDE
