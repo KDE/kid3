@@ -32,6 +32,7 @@
 #include "importparser.h"
 #include "freedbdialog.h"
 #include "freedbconfig.h"
+#include "mp3file.h"
 #include "importselector.h"
 
 /**
@@ -51,7 +52,7 @@ ImportSelector::ImportSelector(QWidget *parent, const char *name, WFlags f)
 	track_parser = new ImportParser();
 	setSpacing(6);
 	setMargin(6);
-	tab = new QTable(0, 7, this);
+	tab = new QTable(0, NumColumns, this);
 	tab->horizontalHeader()->setLabel(TrackColumn, i18n("Track"));
 	tab->horizontalHeader()->setLabel(TitleColumn, i18n("Title"));
 	tab->horizontalHeader()->setLabel(ArtistColumn, i18n("Artist"));
@@ -59,6 +60,7 @@ ImportSelector::ImportSelector(QWidget *parent, const char *name, WFlags f)
 	tab->horizontalHeader()->setLabel(YearColumn, i18n("Year"));
 	tab->horizontalHeader()->setLabel(GenreColumn, i18n("Genre"));
 	tab->horizontalHeader()->setLabel(CommentColumn, i18n("Comment"));
+	tab->horizontalHeader()->setLabel(LengthColumn, i18n("Length"));
 	tab->adjustColumn(TrackColumn);
 	tab->adjustColumn(YearColumn);
 
@@ -274,6 +276,22 @@ bool ImportSelector::showPreview()
 	}
 	if (!start) {
 		/* start is false => tags were found */
+		QValueList<int>* trackDuration = getTrackDurations();
+		if (trackDuration) {
+			row = 0;
+			for(
+#if QT_VERSION >= 300
+				QValueList<int>::iterator
+#else
+				QValueListConstIterator<int>
+#endif
+				it = trackDuration->begin();
+				it != trackDuration->end();
+				++it) {
+				tab->setText(row, LengthColumn, Mp3File::formatTime(*it));
+				++row;
+			}
+		}
 		for (int col = 0; col < NumColumns; col++) {
 			tab->adjustColumn(col);
 		}
@@ -400,5 +418,35 @@ void ImportSelector::getFreedbConfig(FreedbConfig *cfg) const
 		if (freedbCfg && (freedbCfg != cfg)) {
 			*cfg = *freedbCfg;
 		}
+	}
+}
+
+/**
+ * Get list with track durations.
+ *
+ * @return list with track durations,
+ *         0 if no track durations found.
+ */
+QValueList<int>* ImportSelector::getTrackDurations()
+{
+	QValueList<int>* lst = 0;
+	if (header_parser && ((lst = header_parser->getTrackDurations()) != 0) &&
+#if QT_VERSION >= 300
+		(lst->size() > 0)
+#else
+		(lst->count() > 0)
+#endif
+		) {
+		return lst;
+	} else if (track_parser && ((lst = track_parser->getTrackDurations()) != 0) &&
+#if QT_VERSION >= 300
+		(lst->size() > 0)
+#else
+		(lst->count() > 0)
+#endif
+	   ) {
+		return lst;
+	} else {
+		return 0;
 	}
 }
