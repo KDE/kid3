@@ -3,6 +3,9 @@
 /* Define to build with KDE */
 #undef CONFIG_USE_KDE
 
+/* whether or not we use precompiled headers */
+#undef GCC_PCH
+
 /* Define if you have the CoreAudio API */
 #undef HAVE_COREAUDIO
 
