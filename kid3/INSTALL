@@ -25,10 +25,7 @@ example with "set LANG=de".
 
 Qt must be installed and QTDIR set. The id3lib binaries and includes
 must be installed.
-Edit kid.mak so that ID3LIBDIR, ID3INCDIR point to the your id3lib
-installation
 
 nmake /f kid3.mak
-nmake /f kid3.mak install
 
-The install directory can be set with the variable "prefix".
+To compile using Visual C++, use the files kid3.dsp, kid3.dsw.
