@@ -16,6 +16,7 @@ class QComboBox;
 class QCheckBox;
 class QTable;
 class QString;
+class QPoint;
 class FormatConfig;
 
 /**
@@ -61,6 +62,32 @@ public slots:
 	 * @param col table column of changed item
 	 */
 	void valueChanged(int row, int col);
+	/**
+	 * Insert a new row into the table.
+	 *
+	 * @param row the new row is inserted after this row
+	 */
+	void insertRow(int row);
+	/**
+	 * Delete a row from the table.
+	 *
+	 * @param row row to delete
+	 */
+	void deleteRow(int row);
+	/**
+	 * Clear a cell in the table.
+	 *
+	 * @param row_col cell (row << 8 + col) to delete
+	 */
+	void clearCell(int row_col);
+	/**
+	 * Display context menu.
+	 *
+	 * @param row row at which context menu is displayed
+	 * @param col column at which context menu is displayed
+	 * @param pos position where context menu is drawn on screen
+	 */
+	void contextMenu(int row, int col, const QPoint & pos);
 private:
 	QComboBox *caseConvComboBox;
 	QCheckBox *strRepCheckBox;
