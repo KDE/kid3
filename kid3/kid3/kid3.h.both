@@ -27,7 +27,9 @@ class QAction;
 class id3Form;
 class Mp3File;
 class FormatConfig;
-class GeneralConfig;
+class ImportConfig;
+class MiscConfig;
+class FreedbConfig;
 class FrameList;
 class StandardTags;
 
@@ -139,8 +141,12 @@ public:
 	FormatConfig *fnFormatCfg;
 	/** ID3 format configuration */
 	FormatConfig *id3FormatCfg;
-	/** General configuration */
-	GeneralConfig *genCfg;
+	/** Import configuration */
+	ImportConfig *genCfg;
+	/** Miscellaneous configuration */
+	MiscConfig *miscCfg;
+	/** Freedb configuration */
+	FreedbConfig *freedbCfg;
 
 protected:
 	/**

@@ -20,7 +20,9 @@ class KURL;
 class id3Form;
 class Mp3File;
 class FormatConfig;
-class GeneralConfig;
+class ImportConfig;
+class MiscConfig;
+class FreedbConfig;
 class FrameList;
 class StandardTags;
 
@@ -133,7 +135,11 @@ public:
 
         FormatConfig *id3FormatCfg;
 
-        GeneralConfig *genCfg;
+        ImportConfig *genCfg;
+
+        MiscConfig *miscCfg;
+
+        FreedbConfig *freedbCfg;
 
 protected:
 
