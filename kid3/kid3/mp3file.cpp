@@ -11,6 +11,8 @@
 #include <qstring.h>
 #include <qlistbox.h>
 #include <qregexp.h>
+#include <qapplication.h>
+#include <qpainter.h>
 
 #include <id3/tag.h>
 #if defined WIN32 && defined _DEBUG
@@ -28,6 +30,95 @@
 #define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
 #endif
 
+/** Empty pixmap, will be allocated in constructor */
+QPixmap *Mp3File::nullPixmap = 0;
+/** Pixmap for modified file, will be allocated in constructor */
+QPixmap *Mp3File::modifiedPixmap = 0;
+
+/* The bitmaps are stored here instead of using KDE bitmaps to make
+   it work for the Qt only versions. */
+/** picture for modified pixmap */
+static const char * const modified_xpm[] = {
+	"16 16 33 1",
+	". c None",
+	"B c None",
+	"A c None",
+	"C c None",
+	"D c None",
+	"E c None",
+	"# c #000000",
+	"b c #006562",
+	"j c #414041",
+	"x c #525552",
+	"f c #529594",
+	"e c #52959c",
+	"w c #5a555a",
+	"v c #626162",
+	"u c #626562",
+	"r c #737173",
+	"p c #737573",
+	"q c #7b757b",
+	"o c #838183",
+	"m c #838583",
+	"z c #8b8d8b",
+	"l c #949194",
+	"k c #9c959c",
+	"i c #a4a1a4",
+	"h c #a4a5a4",
+	"y c #b4b6b4",
+	"g c #bdb6bd",
+	"a c #c5c2c5",
+	"s c #c5c6c5",
+	"c c #cdc6cd",
+	"t c #dedade",
+	"n c #eeeaee",
+	"d c #ffffff",
+	".......##.......",
+	"......#ab#......",
+	".....#cbde#.....",
+	"....#abdddf#....",
+	"...#gbddddde#...",
+	"..#hijddddddf#..",
+	".#kjkljdddddd##.",
+	"#mjnjmojddddjma#",
+	"#jnpnjqrjddjqs#.",
+	"#drtttjuvjjua#..",
+	".#dasajjwxws#...",
+	"..#dyjzljxa#...A",
+	"...#jrrjws#...AB",
+	"....#cjxa#...ACB",
+	".....#cs#...ADE.",
+	"......##...ABB.."
+};
+
+/** picture for empty pixmap */
+static const char * const null_xpm[] = {
+	"16 16 2 1",
+	"# c None",
+	". c None",
+	".#.#.#.#.#.#.#.#",
+	"#.#.#.#.#.#.#.#.",
+	".#.#.#.#.#.#.#.#",
+	"#.#.#.#.#.#.#.#.",
+	".#.#.#.#.#.#.#.#",
+	"#.#.#.#.#.#.#.#.",
+	".#.#.#.#.#.#.#.#",
+	"#.#.#.#.#.#.#.#.",
+	".#.#.#.#.#.#.#.#",
+	"#.#.#.#.#.#.#.#.",
+	".#.#.#.#.#.#.#.#",
+	"#.#.#.#.#.#.#.#.",
+	".#.#.#.#.#.#.#.#",
+	"#.#.#.#.#.#.#.#.",
+	".#.#.#.#.#.#.#.#",
+	"#.#.#.#.#.#.#.#."
+};
+
+/** width of both pixmaps, got using QPixmap::width() */
+static const int pixmapWidth = 16;
+/** height of both pixmaps, got using QPixmap::height() */
+static const int pixmapHeight = 16;
+
 /**
  * Constructor.
  *
@@ -36,13 +127,23 @@
  */
 
 Mp3File::Mp3File(const QString& dn, const QString& fn) :
-	QListBoxText(fn), dirname(dn), filename(fn), new_filename(fn)
+	QListBoxItem(), dirname(dn), filename(fn), new_filename(fn)
 {
+	setText(fn);
 	setInSelection(FALSE);
 	tagV1 = 0;
 	tagV2 = 0;
 	changedV1 = FALSE;
 	changedV2 = FALSE;
+	// this two objects should be destructed when the program terminates.
+	// static QPixmap objects are not possible:
+	// "QPaintDevice: Must construct a QApplication before a QPaintDevice"
+	if (!nullPixmap) {
+		nullPixmap = new QPixmap((const char **)null_xpm);
+	}
+	if (!modifiedPixmap) {
+		modifiedPixmap = new QPixmap((const char **)modified_xpm);
+	}
 }
 
 /**
@@ -56,21 +157,6 @@ Mp3File::~Mp3File(void)
 	}
 	if (tagV2) {
 		delete tagV2;
-	}
-}
-
-/**
- * Append asterisk to text if file was changed.
- */
-
-void Mp3File::refreshText(void)
-{
-	QString txt(filename);
-	if (isChanged()) {
-		txt.append(" *");
-	}
-	if (text() != txt) {
-		setText(txt);
 	}
 }
 
@@ -152,11 +238,26 @@ bool Mp3File::writeTags(bool force)
 		tagV2->Update(ID3TT_ID3V2);
 		changedV2 = FALSE;
 	}
-	if ((new_filename != filename) &&
-		!QFile::exists(dirname + QDir::separator() + new_filename)) {
-		if (!QDir(dirname).rename(filename, new_filename)) {
-			qDebug("rename(%s, %s) failed", filename.latin1(),
-			       new_filename.latin1());
+	if (new_filename != filename) {
+		if (new_filename.lower() == filename.lower()) {
+			// if the filenames only differ in case, first rename to a
+			// temporary filename, so that it works also with case
+			// insensitive filesystems (e.g. Windows).
+			QString temp_filename(new_filename);
+			temp_filename.append("_CASE");
+			if (!QDir(dirname).rename(filename, temp_filename)) {
+				qDebug("rename(%s, %s) failed", filename.latin1(),
+					   temp_filename.latin1());
+			}
+			if (!QDir(dirname).rename(temp_filename, new_filename)) {
+				qDebug("rename(%s, %s) failed", temp_filename.latin1(),
+					   new_filename.latin1());
+			}
+		} else if (!QFile::exists(dirname + QDir::separator() + new_filename)) {
+			if (!QDir(dirname).rename(filename, new_filename)) {
+				qDebug("rename(%s, %s) failed", filename.latin1(),
+					   new_filename.latin1());
+			}
 		}
 		return TRUE;
 	}
@@ -1184,5 +1285,52 @@ void Mp3File::updateTagListV2(QListBox *lb)
 #else
 		delete iter;
 #endif
+	}
+}
+
+/**
+ * Get height of item.
+ *
+ * @param lb listbox containing the item
+ *
+ * @return height.
+ */
+int Mp3File::height(const QListBox* lb) const
+{
+	int h = text().isEmpty() ? pixmapHeight :
+		QMAX(pixmapHeight, lb->fontMetrics().lineSpacing() + 1);
+	return QMAX(h, QApplication::globalStrut().height());
+}
+
+/**
+ * Get width of item.
+ *
+ * @param lb listbox containing the item
+ *
+ * @return width.
+ */
+int Mp3File::width(const QListBox* lb) const
+{
+	if (text().isEmpty()) {
+		return QMAX(pixmapWidth + 6, QApplication::globalStrut().width());
+	}
+	return QMAX(pixmapWidth + 6 + lb->fontMetrics().width(text()), QApplication::globalStrut().width());
+}
+
+/**
+ * Paint item.
+ *
+ * @param painter painter used
+ */
+void Mp3File::paint(QPainter *painter)
+{
+	painter->drawPixmap(3, 0, isChanged() ? *modifiedPixmap : *nullPixmap);
+	if (!text().isEmpty()) {
+		QFontMetrics fm = painter->fontMetrics();
+		painter->drawText(pixmapWidth + 5,
+						  pixmapHeight < fm.height() ?
+						  fm.ascent() + fm.leading() / 2 :
+						  pixmapHeight / 2 - fm.height() / 2 + fm.ascent(),
+						  text());
 	}
 }
