@@ -7,7 +7,6 @@
  * \date 8 Apr 2003
  */
 
-//#include <qvariant.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qdragobject.h>
@@ -19,11 +18,10 @@
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-//#include <qwhatsthis.h>
 #include <qvbox.h>
 #include <qsplitter.h>
 
-#include "autoconf.h"
+#include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <klocale.h>
 #else
@@ -35,6 +33,9 @@
 #include "filelist.h"
 #include "genres.h"
 #include "kid3.h"
+#include "standardtags.h"
+#include "generalconfig.h"
+#include "formatconfig.h"
 #include "id3form.h"
 
 /**
@@ -45,7 +46,7 @@ class Kid3ScrollView: public QScrollView {
 public:
 	Kid3ScrollView(QWidget *parent = 0, const char *name = 0, WFlags f = 0);
 	Kid3ScrollView(QWidget *parent, QWidget *_client);
-    virtual QSize sizeHint() const;
+	virtual QSize sizeHint() const;
 	virtual void addChild(QWidget *child, int x = 0, int y = 0);
 private:
 	QWidget *client;
@@ -83,17 +84,19 @@ void Kid3ScrollView::addChild(QWidget *child, int x, int y)
 	QScrollView::addChild(child, x, y);
 }
 
-/* 
- *  Constructs a id3Form as a child of 'parent', with the 
- *  name 'name' and widget flags set to 'f'.
+/** 
+ * Constructs an id3Form as a child of 'parent', with the 
+ * name 'name' and widget flags set to 'f'.
+ * @param parent parent widget
+ * @param name   Qt name
  */
 id3Form::id3Form(QWidget* parent, const char* name)
-    : QSplitter(parent, name)
+	: QSplitter(parent, name)
 {
-    setAcceptDrops(TRUE);
-    setCaption(i18n("Kid3"));
-    mp3ListBox = new FileList(this, "mp3ListBox");
-    mp3ListBox->setSelectionMode(QListBox::Extended);
+	setAcceptDrops(TRUE);
+	setCaption(i18n("Kid3"));
+	mp3ListBox = new FileList(this, "mp3ListBox");
+	mp3ListBox->setSelectionMode(QListBox::Extended);
 
 	scrollView = new Kid3ScrollView(this);
 	scrollView->setResizePolicy(QScrollView::AutoOneFit);
@@ -103,266 +106,290 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	rightHalfVBox->setMargin(2);
 
 
-    filenameGroupBox = new QGroupBox(rightHalfVBox, "filenameGroupBox");
-    filenameGroupBox->setTitle(i18n("Filename"));
-    filenameGroupBoxLayout = new QGridLayout(filenameGroupBox, 2, 3, 11, 6);
+	filenameGroupBox = new QGroupBox(rightHalfVBox, "filenameGroupBox");
+	filenameGroupBox->setTitle(i18n("Filename"));
+	filenameGroupBoxLayout = new QGridLayout(filenameGroupBox, 2, 3, 16, 6);
 
-    nameLabel = new QLabel(filenameGroupBox, "nameLabel");
-    nameLabel->setText(i18n("Name:"));
-    filenameGroupBoxLayout->addWidget(nameLabel, 0, 0);
+	nameLabel = new QLabel(filenameGroupBox, "nameLabel");
+	nameLabel->setText(i18n("Name:"));
+	filenameGroupBoxLayout->addWidget(nameLabel, 0, 0);
 
-    nameLineEdit = new QLineEdit(filenameGroupBox, "nameLineEdit");
-    filenameGroupBoxLayout->addWidget(nameLineEdit, 0, 1);
+	nameLineEdit = new QLineEdit(filenameGroupBox, "nameLineEdit");
+	filenameGroupBoxLayout->addWidget(nameLineEdit, 0, 1);
 
-    fnV1Button = new QPushButton(filenameGroupBox, "fnV1Button");
-    fnV1Button->setText(i18n("From ID3v1"));
-    filenameGroupBoxLayout->addWidget(fnV1Button, 0, 2);
+	fnV1Button = new QPushButton(filenameGroupBox, "fnV1Button");
+	fnV1Button->setText(i18n("From ID3v1"));
+	filenameGroupBoxLayout->addWidget(fnV1Button, 0, 2);
 
-    formatLabel = new QLabel(filenameGroupBox, "formatLabel");
-    formatLabel->setText(i18n("Format:"));
-    filenameGroupBoxLayout->addWidget(formatLabel, 1, 0);
+	formatLabel = new QLabel(filenameGroupBox, "formatLabel");
+	formatLabel->setText(i18n("Format:"));
+	filenameGroupBoxLayout->addWidget(formatLabel, 1, 0);
 
-    formatComboBox = new QComboBox(FALSE, filenameGroupBox, "formatComboBox");
-    filenameGroupBoxLayout->addWidget(formatComboBox, 1, 1);
+	formatComboBox = new QComboBox(FALSE, filenameGroupBox, "formatComboBox");
+	filenameGroupBoxLayout->addWidget(formatComboBox, 1, 1);
 
-    fnV2Button = new QPushButton(filenameGroupBox, "fnV2Button");
-    fnV2Button->setText(i18n("From ID3v2"));
-    filenameGroupBoxLayout->addWidget(fnV2Button, 1, 2);
+	fnV2Button = new QPushButton(filenameGroupBox, "fnV2Button");
+	fnV2Button->setText(i18n("From ID3v2"));
+	filenameGroupBoxLayout->addWidget(fnV2Button, 1, 2);
 
 
-    idV1GroupBox = new QGroupBox(rightHalfVBox, "idV1GroupBox");
-    idV1GroupBox->setTitle(i18n("ID3v1.1"));
-    idV1GroupBoxLayout = new QGridLayout(idV1GroupBox, 6, 3, 11, 6);
+	idV1GroupBox = new QGroupBox(rightHalfVBox, "idV1GroupBox");
+	idV1GroupBox->setTitle(i18n("ID3v1.1"));
+	idV1GroupBoxLayout = new QGridLayout(idV1GroupBox, 6, 3, 16, 6);
 
-    titleV1CheckBox = new QCheckBox(idV1GroupBox, "titleV1CheckBox");
-    titleV1CheckBox->setText(i18n("Title:"));
-    idV1GroupBoxLayout->addWidget(titleV1CheckBox, 0, 0);
+	titleV1CheckBox = new QCheckBox(idV1GroupBox, "titleV1CheckBox");
+	titleV1CheckBox->setText(i18n("Title:"));
+	idV1GroupBoxLayout->addWidget(titleV1CheckBox, 0, 0);
 
-    titleV1LineEdit = new QLineEdit(idV1GroupBox, "titleV1LineEdit");
-    titleV1LineEdit->setMaxLength(30);
-    idV1GroupBoxLayout->addWidget(titleV1LineEdit, 0, 1);
+	titleV1LineEdit = new QLineEdit(idV1GroupBox, "titleV1LineEdit");
+	titleV1LineEdit->setMaxLength(30);
+	idV1GroupBoxLayout->addWidget(titleV1LineEdit, 0, 1);
 
-    filenameV1PushButton = new QPushButton(idV1GroupBox, "filenameV1PushButton");
-    filenameV1PushButton->setText(i18n("From Filename"));
-    idV1GroupBoxLayout->addWidget(filenameV1PushButton, 0, 2);
+	filenameV1PushButton = new QPushButton(idV1GroupBox,
+										   "filenameV1PushButton");
+	filenameV1PushButton->setText(i18n("From Filename"));
+	idV1GroupBoxLayout->addWidget(filenameV1PushButton, 0, 2);
 
-    artistV1CheckBox = new QCheckBox(idV1GroupBox, "artistV1CheckBox");
-    artistV1CheckBox->setText(i18n("Artist:"));
-    idV1GroupBoxLayout->addWidget(artistV1CheckBox, 1, 0);
+	artistV1CheckBox = new QCheckBox(idV1GroupBox, "artistV1CheckBox");
+	artistV1CheckBox->setText(i18n("Artist:"));
+	idV1GroupBoxLayout->addWidget(artistV1CheckBox, 1, 0);
 
-    artistV1LineEdit = new QLineEdit(idV1GroupBox, "artistV1LineEdit");
-    artistV1LineEdit->setMaxLength(30);
-    idV1GroupBoxLayout->addWidget(artistV1LineEdit, 1, 1);
+	artistV1LineEdit = new QLineEdit(idV1GroupBox, "artistV1LineEdit");
+	artistV1LineEdit->setMaxLength(30);
+	idV1GroupBoxLayout->addWidget(artistV1LineEdit, 1, 1);
 
-    id3V1PushButton = new QPushButton(idV1GroupBox, "id3V1PushButton");
-    id3V1PushButton->setText(i18n("From ID3v2"));
-    idV1GroupBoxLayout->addWidget(id3V1PushButton, 1, 2);
+	id3V1PushButton = new QPushButton(idV1GroupBox, "id3V1PushButton");
+	id3V1PushButton->setText(i18n("From ID3v2"));
+	idV1GroupBoxLayout->addWidget(id3V1PushButton, 1, 2);
 
-    albumV1CheckBox = new QCheckBox(idV1GroupBox, "albumV1CheckBox");
-    albumV1CheckBox->setText(i18n("Album:"));
-    idV1GroupBoxLayout->addWidget(albumV1CheckBox, 2, 0);
+	albumV1CheckBox = new QCheckBox(idV1GroupBox, "albumV1CheckBox");
+	albumV1CheckBox->setText(i18n("Album:"));
+	idV1GroupBoxLayout->addWidget(albumV1CheckBox, 2, 0);
 
-    albumV1LineEdit = new QLineEdit(idV1GroupBox, "albumV1LineEdit");
-    albumV1LineEdit->setMaxLength(30);
-    idV1GroupBoxLayout->addWidget(albumV1LineEdit, 2, 1);
+	albumV1LineEdit = new QLineEdit(idV1GroupBox, "albumV1LineEdit");
+	albumV1LineEdit->setMaxLength(30);
+	idV1GroupBoxLayout->addWidget(albumV1LineEdit, 2, 1);
 
-    copyV1PushButton = new QPushButton(idV1GroupBox, "copyV1PushButton");
-    copyV1PushButton->setText(i18n("Copy"));
-    idV1GroupBoxLayout->addWidget(copyV1PushButton, 2, 2);
+	copyV1PushButton = new QPushButton(idV1GroupBox, "copyV1PushButton");
+	copyV1PushButton->setText(i18n("Copy"));
+	idV1GroupBoxLayout->addWidget(copyV1PushButton, 2, 2);
 
-    removeV1PushButton = new QPushButton(idV1GroupBox, "removeV1PushButton");
-    removeV1PushButton->setText(i18n("Remove"));
-    idV1GroupBoxLayout->addWidget(removeV1PushButton, 4, 2);
+	removeV1PushButton = new QPushButton(idV1GroupBox, "removeV1PushButton");
+	removeV1PushButton->setText(i18n("Remove"));
+	idV1GroupBoxLayout->addWidget(removeV1PushButton, 4, 2);
 
-    commentV1CheckBox = new QCheckBox(idV1GroupBox, "commentV1CheckBox");
-    commentV1CheckBox->setText(i18n("Comment:"));
-    idV1GroupBoxLayout->addWidget(commentV1CheckBox, 3, 0);
+	commentV1CheckBox = new QCheckBox(idV1GroupBox, "commentV1CheckBox");
+	commentV1CheckBox->setText(i18n("Comment:"));
+	idV1GroupBoxLayout->addWidget(commentV1CheckBox, 3, 0);
 
-    commentV1LineEdit = new QLineEdit(idV1GroupBox, "commentV1LineEdit");
-    commentV1LineEdit->setMaxLength(28);
-    idV1GroupBoxLayout->addWidget(commentV1LineEdit, 3, 1);
+	commentV1LineEdit = new QLineEdit(idV1GroupBox, "commentV1LineEdit");
+	commentV1LineEdit->setMaxLength(29);
+	idV1GroupBoxLayout->addWidget(commentV1LineEdit, 3, 1);
 
-    pasteV1PushButton = new QPushButton(idV1GroupBox, "pasteV1PushButton");
-    pasteV1PushButton->setText(i18n("Paste"));
-    idV1GroupBoxLayout->addWidget(pasteV1PushButton, 3, 2);
+	pasteV1PushButton = new QPushButton(idV1GroupBox, "pasteV1PushButton");
+	pasteV1PushButton->setText(i18n("Paste"));
+	idV1GroupBoxLayout->addWidget(pasteV1PushButton, 3, 2);
 
-    yearV1CheckBox = new QCheckBox(idV1GroupBox, "yearV1CheckBox");
-    yearV1CheckBox->setText(i18n("Year:"));
-    idV1GroupBoxLayout->addWidget(yearV1CheckBox, 4, 0);
+	yearV1CheckBox = new QCheckBox(idV1GroupBox, "yearV1CheckBox");
+	yearV1CheckBox->setText(i18n("Year:"));
+	idV1GroupBoxLayout->addWidget(yearV1CheckBox, 4, 0);
 
-    trackV1HBox = new QHBox(idV1GroupBox, "trackV1HBox");
+	trackV1HBox = new QHBox(idV1GroupBox, "trackV1HBox");
 	trackV1HBox->setSpacing(6);
-    yearV1SpinBox = new QSpinBox(trackV1HBox, "yearV1SpinBox");
-    yearV1SpinBox->setMaxValue(9999);
-    trackV1CheckBox = new QCheckBox(trackV1HBox, "trackV1CheckBox");
-    trackV1CheckBox->setText(i18n("Track:"));
-    trackV1SpinBox = new QSpinBox(trackV1HBox, "trackV1SpinBox");
-    idV1GroupBoxLayout->addWidget(trackV1HBox, 4, 1);
+	yearV1SpinBox = new QSpinBox(trackV1HBox, "yearV1SpinBox");
+	yearV1SpinBox->setMaxValue(9999);
+	trackV1CheckBox = new QCheckBox(trackV1HBox, "trackV1CheckBox");
+	trackV1CheckBox->setText(i18n("Track:"));
+	trackV1SpinBox = new QSpinBox(trackV1HBox, "trackV1SpinBox");
+	idV1GroupBoxLayout->addWidget(trackV1HBox, 4, 1);
 
-    genreV1CheckBox = new QCheckBox(idV1GroupBox, "genreV1CheckBox");
-    genreV1CheckBox->setText(i18n("Genre:"));
-    idV1GroupBoxLayout->addWidget(genreV1CheckBox, 5, 0);
+	genreV1CheckBox = new QCheckBox(idV1GroupBox, "genreV1CheckBox");
+	genreV1CheckBox->setText(i18n("Genre:"));
+	idV1GroupBoxLayout->addWidget(genreV1CheckBox, 5, 0);
 
-    genreV1ComboBox = new QComboBox(FALSE, idV1GroupBox, "genreV1ComboBox");
-    idV1GroupBoxLayout->addWidget(genreV1ComboBox, 5, 1);
+	genreV1ComboBox = new QComboBox(FALSE, idV1GroupBox, "genreV1ComboBox");
+	idV1GroupBoxLayout->addWidget(genreV1ComboBox, 5, 1);
 
-    idV2GroupBox = new QGroupBox(rightHalfVBox, "idV2GroupBox");
-    idV2GroupBox->setTitle(i18n("ID3v2.3"));
+	idV2GroupBox = new QGroupBox(rightHalfVBox, "idV2GroupBox");
+	idV2GroupBox->setTitle(i18n("ID3v2.3"));
 
-    idV2GroupBoxLayout = new QGridLayout(idV2GroupBox, 7, 3, 11, 6);
-    idV2GroupBoxLayout->setAlignment(Qt::AlignTop);
+	idV2GroupBoxLayout = new QGridLayout(idV2GroupBox, 7, 3, 16, 6);
+	idV2GroupBoxLayout->setAlignment(Qt::AlignTop);
 
-    titleV2CheckBox = new QCheckBox(idV2GroupBox, "titleV2CheckBox");
-    titleV2CheckBox->setText(i18n("Title:"));
-    idV2GroupBoxLayout->addWidget(titleV2CheckBox, 0, 0);
+	titleV2CheckBox = new QCheckBox(idV2GroupBox, "titleV2CheckBox");
+	titleV2CheckBox->setText(i18n("Title:"));
+	idV2GroupBoxLayout->addWidget(titleV2CheckBox, 0, 0);
 
-    titleV2LineEdit = new QLineEdit(idV2GroupBox, "titleV2LineEdit");
-    idV2GroupBoxLayout->addWidget(titleV2LineEdit, 0, 1);
+	titleV2LineEdit = new QLineEdit(idV2GroupBox, "titleV2LineEdit");
+	idV2GroupBoxLayout->addWidget(titleV2LineEdit, 0, 1);
 
-    filenameV2PushButton = new QPushButton(idV2GroupBox, "filenameV2PushButton");
-    filenameV2PushButton->setText(i18n("From Filename"));
-    idV2GroupBoxLayout->addWidget(filenameV2PushButton, 0, 2);
+	filenameV2PushButton = new QPushButton(idV2GroupBox,
+										   "filenameV2PushButton");
+	filenameV2PushButton->setText(i18n("From Filename"));
+	idV2GroupBoxLayout->addWidget(filenameV2PushButton, 0, 2);
 
-    artistV2CheckBox = new QCheckBox(idV2GroupBox, "artistV2CheckBox");
-    artistV2CheckBox->setText(i18n("Artist:"));
-    idV2GroupBoxLayout->addWidget(artistV2CheckBox, 1, 0);
+	artistV2CheckBox = new QCheckBox(idV2GroupBox, "artistV2CheckBox");
+	artistV2CheckBox->setText(i18n("Artist:"));
+	idV2GroupBoxLayout->addWidget(artistV2CheckBox, 1, 0);
 
-    artistV2LineEdit = new QLineEdit(idV2GroupBox, "artistV2LineEdit");
-    idV2GroupBoxLayout->addWidget(artistV2LineEdit, 1, 1);
+	artistV2LineEdit = new QLineEdit(idV2GroupBox, "artistV2LineEdit");
+	idV2GroupBoxLayout->addWidget(artistV2LineEdit, 1, 1);
 
-    id3V2PushButton = new QPushButton(idV2GroupBox, "id3V2PushButton");
-    id3V2PushButton->setText(i18n("From ID3v1"));
-    idV2GroupBoxLayout->addWidget(id3V2PushButton, 1, 2);
+	id3V2PushButton = new QPushButton(idV2GroupBox, "id3V2PushButton");
+	id3V2PushButton->setText(i18n("From ID3v1"));
+	idV2GroupBoxLayout->addWidget(id3V2PushButton, 1, 2);
 
-    albumV2CheckBox = new QCheckBox(idV2GroupBox, "albumV2CheckBox");
-    albumV2CheckBox->setText(i18n("Album:"));
-    idV2GroupBoxLayout->addWidget(albumV2CheckBox, 2, 0);
+	albumV2CheckBox = new QCheckBox(idV2GroupBox, "albumV2CheckBox");
+	albumV2CheckBox->setText(i18n("Album:"));
+	idV2GroupBoxLayout->addWidget(albumV2CheckBox, 2, 0);
 
-    albumV2LineEdit = new QLineEdit(idV2GroupBox, "albumV2LineEdit");
-    idV2GroupBoxLayout->addWidget(albumV2LineEdit, 2, 1);
+	albumV2LineEdit = new QLineEdit(idV2GroupBox, "albumV2LineEdit");
+	idV2GroupBoxLayout->addWidget(albumV2LineEdit, 2, 1);
 
-    copyV2PushButton = new QPushButton(idV2GroupBox, "copyV2PushButton");
-    copyV2PushButton->setText(i18n("Copy"));
-    idV2GroupBoxLayout->addWidget(copyV2PushButton, 2, 2);
+	copyV2PushButton = new QPushButton(idV2GroupBox, "copyV2PushButton");
+	copyV2PushButton->setText(i18n("Copy"));
+	idV2GroupBoxLayout->addWidget(copyV2PushButton, 2, 2);
 
-    commentV2CheckBox = new QCheckBox(idV2GroupBox, "commentV2CheckBox");
-    commentV2CheckBox->setText(i18n("Comment:"));
-    idV2GroupBoxLayout->addWidget(commentV2CheckBox, 3, 0);
+	commentV2CheckBox = new QCheckBox(idV2GroupBox, "commentV2CheckBox");
+	commentV2CheckBox->setText(i18n("Comment:"));
+	idV2GroupBoxLayout->addWidget(commentV2CheckBox, 3, 0);
 
-    commentV2LineEdit = new QLineEdit(idV2GroupBox, "commentV2LineEdit");
-    idV2GroupBoxLayout->addWidget(commentV2LineEdit, 3, 1);
+	commentV2LineEdit = new QLineEdit(idV2GroupBox, "commentV2LineEdit");
+	idV2GroupBoxLayout->addWidget(commentV2LineEdit, 3, 1);
 
-    pasteV2PushButton = new QPushButton(idV2GroupBox, "pasteV2PushButton");
-    pasteV2PushButton->setText(i18n("Paste"));
-    idV2GroupBoxLayout->addWidget(pasteV2PushButton, 3, 2);
+	pasteV2PushButton = new QPushButton(idV2GroupBox, "pasteV2PushButton");
+	pasteV2PushButton->setText(i18n("Paste"));
+	idV2GroupBoxLayout->addWidget(pasteV2PushButton, 3, 2);
 
-    yearV2CheckBox = new QCheckBox(idV2GroupBox, "yearV2CheckBox");
-    yearV2CheckBox->setText(i18n("Year:"));
-    idV2GroupBoxLayout->addWidget(yearV2CheckBox, 4, 0);
+	yearV2CheckBox = new QCheckBox(idV2GroupBox, "yearV2CheckBox");
+	yearV2CheckBox->setText(i18n("Year:"));
+	idV2GroupBoxLayout->addWidget(yearV2CheckBox, 4, 0);
 
-    trackV2HBox = new QHBox(idV2GroupBox, "trackV2HBox"); 
+	trackV2HBox = new QHBox(idV2GroupBox, "trackV2HBox"); 
 	trackV2HBox->setSpacing(6);
-    yearV2SpinBox = new QSpinBox(trackV2HBox, "yearV2SpinBox");
-    yearV2SpinBox->setMaxValue(9999);
-    trackV2CheckBox = new QCheckBox(trackV2HBox, "trackV2CheckBox");
-    trackV2CheckBox->setText(i18n("Track:"));
-    trackV2SpinBox = new QSpinBox(trackV2HBox, "trackV2SpinBox");
-    idV2GroupBoxLayout->addWidget(trackV2HBox, 4, 1);
+	yearV2SpinBox = new QSpinBox(trackV2HBox, "yearV2SpinBox");
+	yearV2SpinBox->setMaxValue(9999);
+	trackV2CheckBox = new QCheckBox(trackV2HBox, "trackV2CheckBox");
+	trackV2CheckBox->setText(i18n("Track:"));
+	trackV2SpinBox = new QSpinBox(trackV2HBox, "trackV2SpinBox");
+	idV2GroupBoxLayout->addWidget(trackV2HBox, 4, 1);
 
-    removeV2PushButton = new QPushButton(idV2GroupBox, "removeV2PushButton");
-    removeV2PushButton->setText(i18n("Remove"));
-    idV2GroupBoxLayout->addWidget(removeV2PushButton, 4, 2);
+	removeV2PushButton = new QPushButton(idV2GroupBox, "removeV2PushButton");
+	removeV2PushButton->setText(i18n("Remove"));
+	idV2GroupBoxLayout->addWidget(removeV2PushButton, 4, 2);
 
-    genreV2CheckBox = new QCheckBox(idV2GroupBox, "genreV2CheckBox");
-    genreV2CheckBox->setText(i18n("Genre:"));
-    idV2GroupBoxLayout->addWidget(genreV2CheckBox, 5, 0);
+	genreV2CheckBox = new QCheckBox(idV2GroupBox, "genreV2CheckBox");
+	genreV2CheckBox->setText(i18n("Genre:"));
+	idV2GroupBoxLayout->addWidget(genreV2CheckBox, 5, 0);
 
-    genreV2ComboBox = new QComboBox(FALSE, idV2GroupBox, "genreV2ComboBox");
-    idV2GroupBoxLayout->addWidget(genreV2ComboBox, 5, 1);
+	genreV2ComboBox = new QComboBox(FALSE, idV2GroupBox, "genreV2ComboBox");
+	idV2GroupBoxLayout->addWidget(genreV2ComboBox, 5, 1);
 
-    framesTextLabel = new QLabel(idV2GroupBox, "framesTextLabel");
-    framesTextLabel->setText(i18n("Frames:"));
+	framesTextLabel = new QLabel(idV2GroupBox, "framesTextLabel");
+	framesTextLabel->setText(i18n("Frames:"));
 
-    idV2GroupBoxLayout->addWidget(framesTextLabel, 6, 0);
+	idV2GroupBoxLayout->addWidget(framesTextLabel, 6, 0);
 
-    framesListBox = new QListBox(idV2GroupBox, "framesListBox");
-    idV2GroupBoxLayout->addWidget(framesListBox, 6, 1);
+	framesListBox = new QListBox(idV2GroupBox, "framesListBox");
+	idV2GroupBoxLayout->addWidget(framesListBox, 6, 1);
 
-    frameButtonVBox = new QVBox(idV2GroupBox, "frameButtonLayout"); 
+	frameButtonVBox = new QVBox(idV2GroupBox, "frameButtonLayout"); 
 	frameButtonVBox->setSpacing(6);
-    editFramesPushButton = new QPushButton(frameButtonVBox, "editFramesPushButton");
-    editFramesPushButton->setText(i18n("Edit"));
-    framesAddPushButton = new QPushButton(frameButtonVBox, "framesAddPushButton");
-    framesAddPushButton->setText(i18n("Add"));
-    deleteFramesPushButton = new QPushButton(frameButtonVBox, "deleteFramesPushButton");
-    deleteFramesPushButton->setText(i18n("Delete"));
+	editFramesPushButton = new QPushButton(frameButtonVBox,
+										   "editFramesPushButton");
+	editFramesPushButton->setText(i18n("Edit"));
+	framesAddPushButton = new QPushButton(frameButtonVBox,
+										  "framesAddPushButton");
+	framesAddPushButton->setText(i18n("Add"));
+	deleteFramesPushButton = new QPushButton(frameButtonVBox,
+											 "deleteFramesPushButton");
+	deleteFramesPushButton->setText(i18n("Delete"));
 
-    idV2GroupBoxLayout->addWidget(frameButtonVBox, 6, 2);
+	idV2GroupBoxLayout->addWidget(frameButtonVBox, 6, 2);
 
 
 	scrollView->addChild(rightHalfVBox);
 
-    // signals and slots connections
-    connect(filenameV1PushButton, SIGNAL(clicked()), this, SLOT(fromFilenameV1()));
-    connect(id3V1PushButton, SIGNAL(clicked()), this, SLOT(fromID3V1()));
-    connect(copyV1PushButton, SIGNAL(clicked()), this, SLOT(copyV1()));
-    connect(pasteV1PushButton, SIGNAL(clicked()), this, SLOT(pasteV1()));
-    connect(removeV1PushButton, SIGNAL(clicked()), this, SLOT(removeV1()));
-    connect(filenameV2PushButton, SIGNAL(clicked()), this, SLOT(fromFilenameV2()));
-    connect(id3V2PushButton, SIGNAL(clicked()), this, SLOT(fromID3V2()));
-    connect(copyV2PushButton, SIGNAL(clicked()), this, SLOT(copyV2()));
-    connect(pasteV2PushButton, SIGNAL(clicked()), this, SLOT(pasteV2()));
-    connect(removeV2PushButton, SIGNAL(clicked()), this, SLOT(removeV2()));
-    connect(mp3ListBox, SIGNAL(selectionChanged()), this, SLOT(fileSelected()));
-    connect(framesListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(editFrame()));
-    connect(framesAddPushButton, SIGNAL(clicked()), this, SLOT(addFrame()));
-    connect(deleteFramesPushButton, SIGNAL(clicked()), this, SLOT(deleteFrame()));
-    connect(editFramesPushButton, SIGNAL(clicked()), this, SLOT(editFrame()));
-    connect(fnV1Button, SIGNAL(clicked()), this, SLOT(fnFromID3V1()));
-    connect(fnV2Button, SIGNAL(clicked()), this, SLOT(fnFromID3V2()));
+	// signals and slots connections
+	connect(filenameV1PushButton, SIGNAL(clicked()), this,
+			SLOT(fromFilenameV1()));
+	connect(id3V1PushButton, SIGNAL(clicked()), this, SLOT(fromID3V1()));
+	connect(copyV1PushButton, SIGNAL(clicked()), this, SLOT(copyV1()));
+	connect(pasteV1PushButton, SIGNAL(clicked()), this, SLOT(pasteV1()));
+	connect(removeV1PushButton, SIGNAL(clicked()), this, SLOT(removeV1()));
+	connect(filenameV2PushButton, SIGNAL(clicked()), this,
+			SLOT(fromFilenameV2()));
+	connect(id3V2PushButton, SIGNAL(clicked()), this, SLOT(fromID3V2()));
+	connect(copyV2PushButton, SIGNAL(clicked()), this, SLOT(copyV2()));
+	connect(pasteV2PushButton, SIGNAL(clicked()), this, SLOT(pasteV2()));
+	connect(removeV2PushButton, SIGNAL(clicked()), this, SLOT(removeV2()));
+	connect(mp3ListBox, SIGNAL(selectionChanged()), this,
+			SLOT(fileSelected()));
+	connect(framesListBox, SIGNAL(doubleClicked(QListBoxItem*)), this,
+			SLOT(editFrame()));
+	connect(framesAddPushButton, SIGNAL(clicked()), this, SLOT(addFrame()));
+	connect(deleteFramesPushButton, SIGNAL(clicked()), this,
+			SLOT(deleteFrame()));
+	connect(editFramesPushButton, SIGNAL(clicked()), this, SLOT(editFrame()));
+	connect(fnV1Button, SIGNAL(clicked()), this, SLOT(fnFromID3V1()));
+	connect(fnV2Button, SIGNAL(clicked()), this, SLOT(fnFromID3V2()));
+	connect(nameLineEdit, SIGNAL(textChanged(const QString &)), this,
+			SLOT(nameLineEditChanged(const QString &)));
+	connect(albumV1LineEdit, SIGNAL(textChanged(const QString &)), this,
+			SLOT(albumV1LineEditChanged(const QString &)));
+	connect(artistV1LineEdit, SIGNAL(textChanged(const QString &)), this,
+			SLOT(artistV1LineEditChanged(const QString &)));
+	connect(titleV1LineEdit, SIGNAL(textChanged(const QString &)), this,
+			SLOT(titleV1LineEditChanged(const QString &)));
+	connect(albumV2LineEdit, SIGNAL(textChanged(const QString &)), this,
+			SLOT(albumV2LineEditChanged(const QString &)));
+	connect(artistV2LineEdit, SIGNAL(textChanged(const QString &)), this,
+			SLOT(artistV2LineEditChanged(const QString &)));
+	connect(titleV2LineEdit, SIGNAL(textChanged(const QString &)), this,
+			SLOT(titleV2LineEditChanged(const QString &)));
 
-    // tab order
-    setTabOrder(mp3ListBox, titleV1CheckBox);
-    setTabOrder(titleV1CheckBox, titleV1LineEdit);
-    setTabOrder(titleV1LineEdit, artistV1CheckBox);
-    setTabOrder(artistV1CheckBox, artistV1LineEdit);
-    setTabOrder(artistV1LineEdit, albumV1CheckBox);
-    setTabOrder(albumV1CheckBox, albumV1LineEdit);
-    setTabOrder(albumV1LineEdit, commentV1CheckBox);
-    setTabOrder(commentV1CheckBox, commentV1LineEdit);
-    setTabOrder(commentV1LineEdit, yearV1CheckBox);
-    setTabOrder(yearV1CheckBox, yearV1SpinBox);
-    setTabOrder(yearV1SpinBox, trackV1CheckBox);
-    setTabOrder(trackV1CheckBox, trackV1SpinBox);
-    setTabOrder(trackV1SpinBox, genreV1CheckBox);
-    setTabOrder(genreV1CheckBox, genreV1ComboBox);
-    setTabOrder(genreV1ComboBox, filenameV1PushButton);
-    setTabOrder(filenameV1PushButton, id3V1PushButton);
-    setTabOrder(id3V1PushButton, copyV1PushButton);
-    setTabOrder(copyV1PushButton, pasteV1PushButton);
-    setTabOrder(pasteV1PushButton, removeV1PushButton);
-    setTabOrder(removeV1PushButton, titleV2CheckBox);
-    setTabOrder(titleV2CheckBox, titleV2LineEdit);
-    setTabOrder(titleV2LineEdit, artistV2CheckBox);
-    setTabOrder(artistV2CheckBox, artistV2LineEdit);
-    setTabOrder(artistV2LineEdit, albumV2CheckBox);
-    setTabOrder(albumV2CheckBox, albumV2LineEdit);
-    setTabOrder(albumV2LineEdit, commentV2CheckBox);
-    setTabOrder(commentV2CheckBox, commentV2LineEdit);
-    setTabOrder(commentV2LineEdit, yearV2CheckBox);
-    setTabOrder(yearV2CheckBox, yearV2SpinBox);
-    setTabOrder(yearV2SpinBox, trackV2CheckBox);
-    setTabOrder(trackV2CheckBox, trackV2SpinBox);
-    setTabOrder(trackV2SpinBox, genreV2CheckBox);
-    setTabOrder(genreV2CheckBox, genreV2ComboBox);
-    setTabOrder(genreV2ComboBox, filenameV2PushButton);
-    setTabOrder(filenameV2PushButton, id3V2PushButton);
-    setTabOrder(id3V2PushButton, copyV2PushButton);
-    setTabOrder(copyV2PushButton, pasteV2PushButton);
-    setTabOrder(pasteV2PushButton, removeV2PushButton);
-    setTabOrder(removeV2PushButton, framesListBox);
-    setTabOrder(framesListBox, framesAddPushButton);
-    setTabOrder(framesAddPushButton, deleteFramesPushButton);
+	// tab order
+	setTabOrder(mp3ListBox, titleV1CheckBox);
+	setTabOrder(titleV1CheckBox, titleV1LineEdit);
+	setTabOrder(titleV1LineEdit, artistV1CheckBox);
+	setTabOrder(artistV1CheckBox, artistV1LineEdit);
+	setTabOrder(artistV1LineEdit, albumV1CheckBox);
+	setTabOrder(albumV1CheckBox, albumV1LineEdit);
+	setTabOrder(albumV1LineEdit, commentV1CheckBox);
+	setTabOrder(commentV1CheckBox, commentV1LineEdit);
+	setTabOrder(commentV1LineEdit, yearV1CheckBox);
+	setTabOrder(yearV1CheckBox, yearV1SpinBox);
+	setTabOrder(yearV1SpinBox, trackV1CheckBox);
+	setTabOrder(trackV1CheckBox, trackV1SpinBox);
+	setTabOrder(trackV1SpinBox, genreV1CheckBox);
+	setTabOrder(genreV1CheckBox, genreV1ComboBox);
+	setTabOrder(genreV1ComboBox, filenameV1PushButton);
+	setTabOrder(filenameV1PushButton, id3V1PushButton);
+	setTabOrder(id3V1PushButton, copyV1PushButton);
+	setTabOrder(copyV1PushButton, pasteV1PushButton);
+	setTabOrder(pasteV1PushButton, removeV1PushButton);
+	setTabOrder(removeV1PushButton, titleV2CheckBox);
+	setTabOrder(titleV2CheckBox, titleV2LineEdit);
+	setTabOrder(titleV2LineEdit, artistV2CheckBox);
+	setTabOrder(artistV2CheckBox, artistV2LineEdit);
+	setTabOrder(artistV2LineEdit, albumV2CheckBox);
+	setTabOrder(albumV2CheckBox, albumV2LineEdit);
+	setTabOrder(albumV2LineEdit, commentV2CheckBox);
+	setTabOrder(commentV2CheckBox, commentV2LineEdit);
+	setTabOrder(commentV2LineEdit, yearV2CheckBox);
+	setTabOrder(yearV2CheckBox, yearV2SpinBox);
+	setTabOrder(yearV2SpinBox, trackV2CheckBox);
+	setTabOrder(trackV2CheckBox, trackV2SpinBox);
+	setTabOrder(trackV2SpinBox, genreV2CheckBox);
+	setTabOrder(genreV2CheckBox, genreV2ComboBox);
+	setTabOrder(genreV2ComboBox, filenameV2PushButton);
+	setTabOrder(filenameV2PushButton, id3V2PushButton);
+	setTabOrder(id3V2PushButton, copyV2PushButton);
+	setTabOrder(copyV2PushButton, pasteV2PushButton);
+	setTabOrder(pasteV2PushButton, removeV2PushButton);
+	setTabOrder(removeV2PushButton, framesListBox);
+	setTabOrder(framesListBox, framesAddPushButton);
+	setTabOrder(framesAddPushButton, deleteFramesPushButton);
 }
 
 /**
@@ -486,7 +513,7 @@ void id3Form::getStandardTagsV1(StandardTags *st)
 		: QString::null;
 	st->comment = commentV1CheckBox->isChecked() ? commentV1LineEdit->text()
 		: QString::null;
-	st->year    = yearV1CheckBox->isChecked()    ? yearV1SpinBox->value()
+	st->year = yearV1CheckBox->isChecked()       ? yearV1SpinBox->value()
 		: -1;
 	st->track   = trackV1CheckBox->isChecked()   ? trackV1SpinBox->value()
 		: -1;
@@ -540,7 +567,7 @@ void id3Form::setStandardTagsV1(const StandardTags *st)
 	trackV1SpinBox->setValue(st->track >= 0 ? st->track : 0);
 	genreV1CheckBox->setChecked(st->genre >= 0);
 	genreV1ComboBox->setCurrentItem(st->genre >= 0 ?
-					Genres::getIndex(st->genre) : 0);
+									Genres::getIndex(st->genre) : 0);
 }
 
 /**
@@ -564,7 +591,7 @@ void id3Form::setStandardTagsV2(const StandardTags *st)
 	trackV2SpinBox->setValue(st->track >= 0 ? st->track : 0);
 	genreV2CheckBox->setChecked(st->genre >= 0);
 	genreV2ComboBox->setCurrentItem(st->genre >= 0 ?
-					Genres::getIndex(st->genre) : 0);
+									Genres::getIndex(st->genre) : 0);
 }
 
 /**
@@ -670,4 +697,88 @@ void id3Form::fnFromID3V1(void)
 void id3Form::fnFromID3V2(void)
 {
 	theApp->getFilenameFromTags(2);
+}
+
+/**
+ * Filename line edit is changed.
+ * @param contents of line edit
+ */
+void id3Form::nameLineEditChanged(const QString &txt)
+{
+	formatLineEdit(nameLineEdit, txt, theApp->fnFormatCfg);
+}
+
+/**
+ * Album V1 line edit is changed.
+ * @param contents of line edit
+ */
+void id3Form::albumV1LineEditChanged(const QString &txt)
+{
+	formatLineEdit(albumV1LineEdit, txt, theApp->id3FormatCfg);
+}
+
+/**
+ * Artist V1 line edit is changed.
+ * @param contents of line edit
+ */
+void id3Form::artistV1LineEditChanged(const QString &txt)
+{
+	formatLineEdit(artistV1LineEdit, txt, theApp->id3FormatCfg);
+}
+
+/**
+ * Title V1 line edit is changed.
+ * @param contents of line edit
+ */
+void id3Form::titleV1LineEditChanged(const QString &txt)
+{
+	formatLineEdit(titleV1LineEdit, txt, theApp->id3FormatCfg);
+}
+
+/**
+ * Album V2 line edit is changed.
+ * @param contents of line edit
+ */
+void id3Form::albumV2LineEditChanged(const QString &txt)
+{
+	formatLineEdit(albumV2LineEdit, txt, theApp->id3FormatCfg);
+}
+
+/**
+ * Artist V2 line edit is changed.
+ * @param contents of line edit
+ */
+void id3Form::artistV2LineEditChanged(const QString &txt)
+{
+	formatLineEdit(artistV2LineEdit, txt, theApp->id3FormatCfg);
+}
+
+/**
+ * Title V2 line edit is changed.
+ * @param contents of line edit
+ */
+void id3Form::titleV2LineEditChanged(const QString &txt)
+{
+	formatLineEdit(titleV2LineEdit, txt, theApp->id3FormatCfg);
+}
+
+/**
+ * Format string within line edit.
+ *
+ * @param le   line edit
+ * @param txt  text in line edit
+ * @param fcfg format configuration
+ */
+void id3Form::formatLineEdit(QLineEdit *le, const QString &txt,
+							 const FormatConfig *fcfg)
+{
+	if (theApp->genCfg->formatWhileEditing) {
+		QString str(txt);
+		fcfg->formatString(str);
+		if (str != txt) {
+			int curPos = le->cursorPosition();
+			le->setText(str);
+			le->setCursorPosition(curPos);
+		}
+	}
 }
