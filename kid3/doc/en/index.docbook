@@ -25,8 +25,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>13/05/2003</date>
-<releaseinfo>0.2.1</releaseinfo>
+<date>10/10/2003</date>
+<releaseinfo>0.3</releaseinfo>
 
 <abstract>
 <para>
@@ -70,6 +70,17 @@ automatically set from the file name. It is also possible to set the file
 name according to the tags found in the file in arbitrary formats.
 </para>
 <para>
+The editing task is further supported by automatic replacement of characters
+or substrings, for instance to remove illegal characters from
+filenames. Automatic control of upper and lower case characters makes it easy
+to use a consistent naming scheme in all tags.
+</para>
+<para>
+The tag information for full albums can be taken from the Web-interface of
+<ulink url="http://freedb.org">freedb.org</ulink> or other sources of
+track lists. The import format is freely configurable by regular expressions.
+</para>
+<para>
 Please report any problems or feature requests to the author.
 </para>
 </chapter>
@@ -79,7 +90,6 @@ Please report any problems or feature requests to the author.
 
 <sect1 id="kid3-features">
 <title>Kid3 features</title>
-<para>
 <itemizedlist>
 <listitem><para>Edit ID3v1.1 tags</para></listitem>
 <listitem><para>Edit all ID3v2.3 frames</para></listitem>
@@ -88,8 +98,10 @@ Please report any problems or feature requests to the author.
 <listitem><para>Generate tags from filename</para></listitem>
 <listitem><para>Generate filename from tags</para></listitem>
 <listitem><para>Generate playlist file</para></listitem>
+<listitem><para>Automatic case conversion and string translation</para></listitem>
+<listitem><para>Import from <ulink url="http://freedb.org">freedb.org</ulink>
+and other data sources</para></listitem>
 </itemizedlist>
-</para>
 </sect1>
 
 <sect1 id="example-usage">
@@ -149,10 +161,11 @@ The &kid3; GUI is separated in four sections: At the left is the file
 listbox, the right side contains the <guilabel>Filename</guilabel>,
 <guilabel>ID3v1.1</guilabel> and <guilabel>ID3v2.3</guilabel> sections.
 </para>
-<para>
-<itemizedlist>
 
-<listitem><para>Filelist</para>
+<variablelist>
+
+<varlistentry><term>Filelist</term>
+<listitem>
 <para>
 The file list contains the names of all the files in the opened
 directory which match the selected file name filter (typically
@@ -162,10 +175,12 @@ selection determines the files which are affected by the operations which
 are available by using the buttons described below.
 </para>
 </listitem>
+</varlistentry>
 
-<listitem><para><guilabel>Filename</guilabel></para>
-<para>
-The <guilabel>Name</guilabel> line edit contains the name of the file
+<varlistentry>
+<term><guilabel>Filename</guilabel></term>
+
+<listitem><para>The <guilabel>Name</guilabel> line edit contains the name of the file
 (if only a single file is selected). If this name is changed, the file will
 be renamed when the Save command is used.
 </para>
@@ -177,7 +192,7 @@ by a slash from the file name, but that directory must already exist for the
 renaming to succeed. The following special codes are used to insert tag values
 into the filename:
 </para>
-<para>
+
 <itemizedlist>
 <listitem><para>%s Title (Song)</para></listitem>
 <listitem><para>%a Artist</para></listitem>
@@ -187,7 +202,7 @@ into the filename:
 <listitem><para>%t Track</para></listitem>
 <listitem><para>%g Genre</para></listitem>
 </itemizedlist>
-</para>
+
 <para>
 Some commonly used filename formats are already available in the combo box,
 but it is also possible to type in some special format into the line edit.
@@ -203,8 +218,10 @@ and the ID3v2.3
 tags.
 </para>
 </listitem>
+</varlistentry>
 
-<listitem><para><guilabel>ID3v1.1</guilabel></para>
+<varlistentry><term><guilabel>ID3v1.1</guilabel></term>
+<listitem>
 <para>
 The line edit widgets for <guilabel>Title</guilabel>,
 <guilabel>Artist</guilabel>,
@@ -275,8 +292,10 @@ values which results in removing all values. The saved file will then contain
 no ID3v1.1 tags.
 </para>
 </listitem>
+</varlistentry>
 
-<listitem><para><guilabel>ID3v2.3</guilabel></para>
+<varlistentry><term><guilabel>ID3v2.3</guilabel></term>
+<listitem>
 <para>
 The GUI controls function in the same way as described for the
 <guilabel>ID3v1.1</guilabel> section, but the size of the strings is not limited.
@@ -299,9 +318,9 @@ and a frame of the selected type is added to the file.
 <guibutton>Delete</guibutton>: Deletes the selected frame.
 </para>
 </listitem>
+</varlistentry>
 
-</itemizedlist>
-</para>
+</variablelist>
 </sect2>
 
 <sect2>
@@ -317,8 +336,8 @@ and a frame of the selected type is added to the file.
 <guimenu>File</guimenu>
 <guimenuitem>Open...</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Opens a directory. All files matching the selected
-file name filter will be displayed in the file listbox.</action></para></listitem>
+<listitem><para><action>Opens a directory.</action> All files matching the selected
+file name filter will be displayed in the file listbox.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -337,9 +356,9 @@ file name filter will be displayed in the file listbox.</action></para></listite
 <guimenu>File</guimenu>
 <guimenuitem>Save</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Saves all changed files in the directory. The
+<listitem><para><action>Saves all changed files in the directory.</action> The
 changed files are marked with an asterisk in the file listbox. If any file
-names have been changed, those files will be renamed.</action></para></listitem>
+names have been changed, those files will be renamed.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -347,10 +366,77 @@ names have been changed, those files will be renamed.</action></para></listitem>
 <guimenu>File</guimenu>
 <guimenuitem>Revert</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Reverts the changes of one or multiple files. If no
+<listitem><para><action>Reverts the changes of one or multiple files.</action> If no
 files are selected in the file listbox, the changes of all files will be
 reverted, else only the changes of the selected files are reverted.
-</action></para></listitem>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import...</guimenuitem>
+</menuchoice></term>
+<listitem><para>The <action>Import dialog</action> can be used to import data from the
+Web-interface of <ulink url="http://freedb.org">freedb.org</ulink> or other
+sources of album track lists in textual format.
+</para>
+<para>
+Several preconfigured import formats are available. The first, "freedb HTML
+text", can be used to copy information from an HTML page of
+<ulink url="http://freedb.org">freedb.org</ulink>. Search an album in freedb
+and if the desired information is displayed in the web browser, copy the
+contents to the clipboard. Then click the <guibutton>From
+Clipboard</guibutton> button and the imported tracks will be displayed in the
+preview table at the top of the dialog. If you are satisfied with the imported
+data, terminate the dialog with <guibutton>OK</guibutton>, which will insert
+the data into the tags of the current directory. The destination
+(<guilabel>ID3v1</guilabel> or <guilabel>ID3v2</guilabel>) can be selected
+with a combo box. The files in the current directory should be in the correct
+track order to get their tags assigned. This is the case if they are numbered.
+</para>
+<para>
+The second preconfigured import format, "freedb HTML source", can be used, if
+the data is available as an HTML document. Import is possible using the
+<guibutton>From File</guibutton> button, which opens a file selector, or
+copying its contents from an editor and then importing from clipboard. This
+format can be useful for offline import, although the HTML document could also
+be opened in a browser and then be imported in the first format via the clipboard.
+</para>
+<para>
+More preconfigured formats, e.g. "Track Title Time", are available. A custom format
+is left empty to be set by the user. Two lines below the format name can be
+set with a regular expression to capture the fields from the import text. The
+first regular expression will be parsed once per document to gather per-album
+data such as artist, album, year and genre. The second line is tried to match
+from the start of the document to the end to get track data, usually number
+and title. The regular expressions include all the features offered by Qt,
+which is most of the what Perl offers. Bracketing constructs "(..)" create
+capture buffers for the fields to import and are preceeded by &kid3; specific
+codes to specify which field to capture. The codes are the same as used for
+the filename format:
+</para>
+
+<itemizedlist>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+</itemizedlist>
+
+<para>
+For example, a track regular expression (second line) to import from an 
+.m3u playlist could be "%t(\d+)\s+%s(\S[^\r\n]*)\.mp3[\r\n]". All formats can
+be changed by editing the regular expressions and the name and then clicking
+<guibutton>OK</guibutton>. They will be stored in the
+<filename>kid3rc</filename> file in the configuration directory. This file can
+be directly edited to have more import formats or it can be deleted to revert
+to the default formats.
+</para>
+</listitem>
 </varlistentry>
 
 <varlistentry>
@@ -358,12 +444,12 @@ reverted, else only the changes of the selected files are reverted.
 <guimenu>File</guimenu>
 <guimenuitem>Create Playlist</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Creates an M3U playlist. The file will be stored in
+<listitem><para><action>Creates an M3U playlist.</action> The file will be stored in
 the opened directory and have the same name as the directory, followed by
 an .m3u extension. The file simly contains the names of the files displayed
 in the file listbox, no special EXTM3U or EXTINFO lines are generated.
 If all files of an album are stored in a separate directory, this function
-can be used to generate a playlist for an album.</action></para></listitem>
+can be used to generate a playlist for an album.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -383,6 +469,29 @@ can be used to generate a playlist for an album.</action></para></listitem>
 </sect2>
 
 <sect2>
+<title>The Tools Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Apply Format</guimenuitem>
+</menuchoice></term>
+<listitem><para>When <guilabel>Format while editing</guilabel> is switched off
+in the configuration dialog, this menu item can be used to <action>apply
+the configured format to the selected files</action>. This can also be used
+to check whether the file and tag names conform with the configured format
+by applying the format to all saved files and then checking if any files were
+changed (and therefore marked with an asterisk in the file listbox).
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
+<sect2>
 <title>The Settings Menu</title>
 <para>
 <variablelist>
@@ -392,8 +501,8 @@ can be used to generate a playlist for an album.</action></para></listitem>
 <guimenu>Settings</guimenu>
 <guimenuitem>Show Toolbar</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles displaying of the toolbar, which contains
-icons to open and save a directory.</action></para></listitem>
+<listitem><para><action>Toggles displaying of the toolbar</action>, which contains
+icons to open and save a directory.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -401,8 +510,31 @@ icons to open and save a directory.</action></para></listitem>
 <guimenu>Settings</guimenu>
 <guimenuitem>Show Statusbar</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles displaying of the statusbar, which displays
-longer actions such as opening or saving a directory.</action></para></listitem>
+<listitem><para><action>Toggles displaying of the statusbar</action>, which displays
+longer actions such as opening or saving a directory.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Kid3...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Opens the <action>configuration dialog</action>, which is used
+to set the format for the strings in the tag fields and the filename.
+</para>
+<para>
+When <guilabel>Format while editing</guilabel> is checked, the format
+configuration is automatically used while editing text in the line edits. The
+format can be set separately for filenames and ID3 tags.
+The <guilabel>Case Conversion</guilabel> can be set to <guilabel>No
+changes</guilabel>, <guilabel>All lowercase</guilabel>, <guilabel>All
+uppercase</guilabel>, <guilabel>First letter uppercase</guilabel> or
+<guilabel>All first letters uppercase</guilabel>. 
+The string replacement list can be set to arbitrary string
+mappings. Replacement is only active, if the <guilabel>String
+Replacement</guilabel> checkbox is checked.
+</para>
+</listitem>
 </varlistentry>
 
 </variablelist>
@@ -493,7 +625,11 @@ SuSE Linux 8.1: id3lib 3.8.0, KDE 3.0.5, KDE 3.1.1, Qt 2.3.2, Qt
 3.0.5, Qt 3.1.2
 </para>
 <para>
-Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, non-commercial Qt version 2.3.0.
+SuSE Linux 8.2: id3lib 3.8.2, id3lib 3.8.3, KDE 3.1.1, KDE 3.1.3, KDE 3.1.4,
+Qt 3.1.1, Qt 3.1.2, Qt 3.2.1
+</para>
+<para>
+Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt version 2.3.0.
 </para>
 
 </sect1>
@@ -522,7 +658,6 @@ The Qt application can also be compiled for Windows.
 In the kid3 directory, type
 <screen width="40">
 <prompt>></prompt> <userinput>nmake /f kid3.mak</userinput>
-<prompt>></prompt> <userinput>nmake /f kid3.mak install</userinput>
 </screen>
 </para>
 
@@ -531,9 +666,13 @@ In the kid3 directory, type
 <sect1 id="configuration">
 <title>Configuration</title>
 
-<para>With KDE, the file name filter and format, the toolbar and statusbar
+<para>With KDE, the file name filter and format, the import formats, the
+filename and ID3 formats, the toolbar and statusbar
 settings as well as the window size will be be saved in the standard
-location in file <filename>kid3rc</filename>.</para>
+location in file <filename>kid3rc</filename>.
+As a Qt application, this file is in the <filename>.qt</filename> directory,
+with older releases of Qt, a file <filename>kid3.cfg</filename> is created.
+</para>
 
 </sect1>
 

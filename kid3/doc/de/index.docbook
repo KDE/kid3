@@ -25,13 +25,13 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>13/05/2003</date>
-<releaseinfo>0.2.1</releaseinfo>
+<date>10/10/2003</date>
+<releaseinfo>0.3</releaseinfo>
 
 <abstract>
 <para>
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
-in MP3 Dateien. Es is einfach, Tags in mehreren Dateien auf die gleichen Werte
+in MP3 Dateien. Es ist einfach, Tags in mehreren Dateien auf die gleichen Werte
 zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
 Tags aus den Dateinamen zu generieren oder umgekehrt.
 </para>
@@ -72,6 +72,18 @@ Dateinamen generiert werden. Es ist aus m&ouml;glich, den Dateinamen in einem
 beliebigen Format aus den Werten in den Tags zu setzen.
 </para>
 <para>
+Das Editieren wird dar&uuml;berhinaus durch automatische Ersetzung von
+Zeichenketten erleichtert, z.B. um ung&uuml;ltige Zeichen aus Dateinamen zu
+entfernen. Automatische Gro&szlig;- und Kleinschreibung macht es einfach,
+eine konsistente Namensschreibweise in allen Tags zu verwenden.
+</para>
+<para>
+Die Tag-Information f&uuml;r ganze Alben kann &uuml;ber die Web-Schnittstelle von
+<ulink url="http://freedb.org">freedb.org</ulink> oder von anderen Quellen mit
+Albuminformationen importiert werden. Das verwendete Format ist mit regul&auml;ren
+Ausdr&uuml;cken frei konfigurierbar.
+</para>
+<para>
 Probleme und Vorschl&auml;ge f&uuml;r neue Funktionen k&ouml;nnen dem Autor gemeldet
 werden.
 </para>
@@ -82,7 +94,6 @@ werden.
 
 <sect1 id="kid3-features">
 <title>Funktionsmerkmale von Kid3</title>
-<para>
 <itemizedlist>
 <listitem><para>Editieren von ID3v1.1 Tags</para></listitem>
 <listitem><para>Editieren von allen ID3v2.3 Frames</para></listitem>
@@ -91,14 +102,16 @@ werden.
 <listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
 <listitem><para>Generieren des Dateinamens aus den Tags</para></listitem>
 <listitem><para>Generieren von St&uuml;cklisten</para></listitem>
+<listitem><para>Automatische Gro&szlig;-/Kleinschreibung und Zeichenersetzung</para></listitem>
+<listitem><para>Import von <ulink url="http://freedb.org">freedb.org</ulink>
+und anderen Quellen</para></listitem>
 </itemizedlist>
-</para>
 </sect1>
 
 <sect1 id="example-usage">
 <title>Arbeiten anhand eines Beispiels</title>
 <para>
-Dieser Abschnitt beschreibt eine typische Sitzung mit kid3;. Nehmen wir an,
+Dieser Abschnitt beschreibt eine typische Sitzung mit &kid3;. Nehmen wir an,
 wir haben ein Verzeichnis mit MP3 Dateien der St&uuml;cke aus dem Album "Let's Tag"
 von der Gruppe "One Hit Wonder". Das Verzeichnis ist im "Interpret - Album"
 Format benannt, in unserem Fall also <filename>One Hit Wonder - Let's
@@ -134,7 +147,7 @@ ver&auml;ndert, so sieht man, dass die Tags f&uuml;r die erste Datei die korrekt
 Werte enthalten. Die Tags der anderen Dateien k&ouml;nnen auch &uuml;berpr&uuml;ft werden,
 indem eine nach der andern selektiert wird. Wenn wir mit den Tags
 zufrieden sind, k&ouml;nnen die &Auml;nderungen mit <guimenuitem>Speichern</guimenuitem>
-(<guimenu>Datei</guimenu> Men&uuml; oder Werkzeugliste) &uuml;bernommen weden. W&auml;hlen von
+(<guimenu>Datei</guimenu> Men&uuml; oder Werkzeugleiste) &uuml;bernommen weden. W&auml;hlen von
 <guimenuitem>St&uuml;ckliste erstellen</guimenuitem> im <guimenu>Datei</guimenu>
 Men&uuml; erzeugt die Datei <filename>One Hit Wonder - Let's Tag.m3u</filename>
 im Verzeichnis.
@@ -157,10 +170,11 @@ Dateilistenfeld, die rechte Seite enth&auml;lt die <guilabel>Dateiname</guilabel
 <guilabel>ID3v1.1</guilabel> und <guilabel>ID3v2.3</guilabel>
 Sektionen.
 </para>
-<para>
-<itemizedlist>
 
-<listitem><para>Dateiliste</para>
+<variablelist>
+
+<varlistentry><term>Dateiliste</term>
+<listitem>
 <para>
 Die Dateiliste enth&auml;lt die Namen aller Dateien im ge&ouml;ffneten Verzeichnis,
 welche den gew&auml;hlten Dateinamenfilter (typischerweise <filename>*.mp3</filename>)
@@ -170,16 +184,18 @@ Dateieintr&auml;ge geklickt werden. Die Auswahl bestimmt die Dateien, welche
 durch die unten beschriebenen Operationen ver&auml;ndert werden.
 </para>
 </listitem>
+</varlistentry>
 
-<listitem><para><guilabel>Dateiname</guilabel></para>
-<para>
+<varlistentry>
+<term><guilabel>Dateiname</guilabel></term>
+<listitem><para>
 Das <guilabel>Name</guilabel> Editierfeld enth&auml;lt den Dateiname wenn nur
 eine einzelne Datei ausgew&auml;hlt ist. Wird dieses Feld ver&auml;ndert, so wird
 die Datei umbenannt, wenn <guimenuitem>Speichern</guimenuitem> ausgef&uuml;hrt
 wird.
 </para>
 <para>
-Das <guilabel>Format</guilabel> Auswahl- und Editierfeld enth&auml;lt das Fromat
+Das <guilabel>Format</guilabel> Auswahl- und Editierfeld enth&auml;lt das Format,
 welches verwendet wird, wenn der Dateiname aus den ID3v1.1 oder ID3v2.3
 Tags erzeugt wird. Der Dateiname kann beliebige Zeichen enthalten, es kann
 sogar ein Verzeichnisteil abgetrennt durch einen Schr&auml;gstrich angegeben
@@ -187,7 +203,7 @@ werden, doch dieses Verzeichnis muss bereits existieren, damit das
 Umbenennen erfolgreich ist. Die folgenden Codes k&ouml;nnen verwendet werden, um
 Werte aus den Tags im Dateinamen einzusetzen:
 </para>
-<para>
+
 <itemizedlist>
 <listitem><para>%s Titel (Song)</para></listitem>
 <listitem><para>%a Interpret (Artist)</para></listitem>
@@ -197,9 +213,9 @@ Werte aus den Tags im Dateinamen einzusetzen:
 <listitem><para>%t Nummer (Track)</para></listitem>
 <listitem><para>%g Stil (Genre)</para></listitem>
 </itemizedlist>
-</para>
+
 <para>
-Einige h&auml;ufig verwendete Dateinamen Formate sind bereits vordefiniert und
+Einige h&auml;ufig verwendete Dateinamen-Formate sind bereits vordefiniert und
 &uuml;ber das Auswahlfeld verf&uuml;gbar, aber es ist auch m&ouml;glich, ein eigenes Format
 in das Eingabefeld einzutragen.
 </para>
@@ -212,8 +228,10 @@ ausgew&auml;hlten Format und den ID3v1.1 Tags.
 ausgew&auml;hlten Format und den ID3v2.3 Tags.
 </para>
 </listitem>
+</varlistentry>
 
-<listitem><para><guilabel>ID3v1.1</guilabel></para>
+<varlistentry><term><guilabel>ID3v1.1</guilabel></term>
+<listitem>
 <para>
 Die Eingabefelder f&uuml;r <guilabel>Titel</guilabel>,
 <guilabel>Interpret</guilabel>,
@@ -224,7 +242,7 @@ ID3v1.1 Tags der ausgew&auml;hlten Dateien zu editieren. Die Werte werden
 ver&auml;ndert, wenn die Dateiauswahl ge&auml;ndert wird oder vor Operationen wie
 <guimenuitem>Speichern</guimenuitem> und
 <guimenuitem>Beenden</guimenuitem> und wenn die entsprechenden
-Markierungsfelder links aktiviert sind. Dies ist n&uuml;tzlich um nur bestimmte
+Markierungsfelder links aktiviert sind. Dies ist n&uuml;tzlich, um nur bestimmte
 Werte zu ver&auml;ndern und die &uuml;brigen Werte nicht anzur&uuml;hren.
 </para>
 <para>
@@ -288,8 +306,10 @@ die leeren Werte, entfernt also alle Werte. Die gespeicherte Datei enth&auml;lt
 dann keine ID3v1.1 Tags mehr.
 </para>
 </listitem>
+</varlistentry>
 
-<listitem><para><guilabel>ID3v2.3</guilabel></para>
+<varlistentry><term><guilabel>ID3v2.3</guilabel></term>
+<listitem>
 <para>
 Die Eingabefelder funktionieren gleich wie bei <guilabel>ID3v1.1</guilabel>
 beschrieben, die L&auml;nge der Zeichenketten ist jedoch nicht begrenzt.
@@ -315,8 +335,8 @@ Typs wird zu der Datei hinzugef&uuml;gt.
 </para>
 </listitem>
 
-</itemizedlist>
-</para>
+</varlistentry>
+</variablelist>
 </sect2>
 
 <sect2>
@@ -332,9 +352,9 @@ Typs wird zu der Datei hinzugef&uuml;gt.
 <guimenu>Datei</guimenu>
 <guimenuitem>&Ouml;ffnen...</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Ein Verzeichnis wird ge&ouml;ffnet, und alle Dateien,
+<listitem><para><action>Ein Verzeichnis wird ge&ouml;ffnet</action>, und alle Dateien,
 welche den gew&auml;hlten Dateinamenfilter erf&uuml;llen, werden im Dateilistenfeld
-angezeigt.</action></para></listitem>
+angezeigt.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -342,7 +362,7 @@ angezeigt.</action></para></listitem>
 <guimenu>Datei</guimenu>
 <guimenuitem>Zuletzt ge&ouml;ffnete Dateien</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Eine k&uuml;rzlich ge&ouml;ffnetes Verzeichnis wird ge&ouml;ffnet.
+<listitem><para><action>Ein k&uuml;rzlich ge&ouml;ffnetes Verzeichnis wird ge&ouml;ffnet.
 </action></para></listitem>
 </varlistentry>
 
@@ -354,10 +374,10 @@ angezeigt.</action></para></listitem>
 <guimenu>Datei</guimenu>
 <guimenuitem>Speichern</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Speichert alle ver&auml;nderten Dateien im Verzeichnis.
+<listitem><para><action>Speichert alle ver&auml;nderten Dateien im Verzeichnis.</action>
 Die ver&auml;nderten Dateien sind durch einen Stern gekennzeichnet. Wenn
 Dateinamen ver&auml;ndert wurden, so werden die entsprechenden Dateien
-umbenannt.</action></para></listitem>
+umbenannt.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -366,9 +386,80 @@ umbenannt.</action></para></listitem>
 <guimenuitem>Zuletzt gespeicherte Fassung</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Macht die &Auml;nderungen an einer oder mehreren Dateien
-r&uuml;ckg&auml;ngig. Wenn keine Dateien im Dateilistenfeld selektiert sind, so
+r&uuml;ckg&auml;ngig.</action> Wenn keine Dateien im Dateilistenfeld selektiert sind, so
 werden die &Auml;nderungen an allen Dateien r&uuml;ckg&auml;ngig gemacht, ansonsten nur an
-den ausgew&auml;hlten Dateien.</action></para></listitem>
+den ausgew&auml;hlten Dateien.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>Importieren...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Der <action>Import Dialog</action> wird verwendet, um Daten
+von der Web-Schnittstelle von <ulink
+url="http://freedb.org">freedb.org</ulink> oder anderen Quellen mit
+Albumtitellisten zu importieren.
+</para>
+<para>
+Mehrere vorkonfigurierte Formate sind verf&uuml;gbar. Das erste, "freedb HTML
+text", kann benutzt werden, um Informationen aus einer HTML-Seite von
+<ulink url="http://freedb.org">freedb.org</ulink> zu kopieren. Dazu sucht man
+sich in freedb das Album, und wenn die gew&uuml;nschte Information im Browser
+angezeigt wird, kann sie selektiert und in die Zwischenablage kopiert
+werden. Nach einem Klick auf <guibutton>Von Zwischenablage</guibutton> werden
+die importierten Daten in der Tabelle angezeigt und k&ouml;nnen mit
+<guibutton>OK</guibutton> &uuml;bernommen werden. Das Ziel
+(<guilabel>ID3v1</guilabel> oder <guilabel>ID3v2</guilabel>) kann mit einem
+Auswahlfeld festgelegt werden. Die Titel in der Dateiliste sollten in der
+korrekten Reihenfolge angezeigt sein um die richtigen Tags zu kriegen. Dies
+ist kein Problem, wenn sie nummeriert sind.
+</para>
+<para>
+Das zweite vorkonfigurierte Format, "freedb HTML source", kann dann benutzt
+werden, wenn die Import-Daten als HTML-Dokument vorliegen. Solch eine Datei
+kann im Datei-Requester, welcher nach Klick auf <guibutton>Von
+Datei</guibutton> erscheint, ausgew&auml;hlt werden. Nat&uuml;rlich k&ouml;nnen die Daten auch
+in einem Editor kopiert und dann &uuml;ber die Zwischenablage &uuml;bernommen
+werden. Dieses Format kann f&uuml;r Offline Import n&uuml;tzlich sein, obschon die
+HTML-Datei auch von einem Browser angezeigt und im ersten Format &uuml;ber
+die Zwischenablage importiert werden kann.
+</para>
+<para>
+Weitere vorkonfigurierte Formate, z.B. "Track Title Time" stehen zur
+Verf&uuml;gung. Das Format "Custom Format" ist leer gelassen und kann vom Benutzer gesetzt
+werden. Die zwei Zeilen unterhalb des Formatnamens k&ouml;nnen hierzu mit regul&auml;ren
+Ausdr&uuml;cken gef&uuml;llt weden. Der erste Ausdruck wird einmal angewendet, um
+albumspezifische Daten wie Interpret, Album, Jahr und Stil zu extrahieren. Die
+zweite Zeile wird vom Dokumentanfang bis zum Schluss f&uuml;r jeden Titel probiert,
+um Titeldaten zu kriegen, also Nummer und Titel. In den regul&auml;ren Ausdr&uuml;cken
+k&ouml;nnen alle von Qt unterst&uuml;tzten Funktionen eingesetzt werden; also das meiste
+von dem, was Perl bietet. Klammerkonstrukte "(..)" werden ben&uuml;tzt, um
+Felddaten zu extrahieren und werden von einem &kid3;-spezifischen Feldcode
+eingeleitet. Die Codes sind dieselben wie beim Dateinamenformat:
+</para>
+
+<itemizedlist>
+<listitem><para>%s Titel (Song)</para></listitem>
+<listitem><para>%a Interpret (Artist)</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Kommentar (Comment)</para></listitem>
+<listitem><para>%y Jahr (Year)</para></listitem>
+<listitem><para>%t Nummer (Track)</para></listitem>
+<listitem><para>%g Stil (Genre)</para></listitem>
+</itemizedlist>
+
+<para>
+Beispiel: Ein regul&auml;rer Ausdruck f&uuml;r die zweite Zeile, um Titel aus einer .m3u
+St&uuml;ckliste zu holen, k&ouml;nnte "%t(\d+)\s+%s(\S[^\r\n]*)\.mp3[\r\n]"
+sein. Alle Formate k&ouml;nnen ge&auml;ndert werden, indem der Name und die regul&auml;ren
+Ausdr&uuml;cke editiert werden und dann der Dialog mit <guibutton>OK</guibutton>
+beendet wird. Gespeichert werden sie in der Datei <filename>kid3rc</filename>
+im Konfigurationsverzeichnis. Diese Datei kann auch direkt ver&auml;ndert werden,
+um mehr Importformate zu haben, oder man kann sie l&ouml;schen, um wieder zu den
+Standardeinstellungen zu kommen.
+</para>
+</listitem>
 </varlistentry>
 
 <varlistentry>
@@ -376,13 +467,13 @@ den ausgew&auml;hlten Dateien.</action></para></listitem>
 <guimenu>Datei</guimenu>
 <guimenuitem>St&uuml;ckliste erstellen</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Erzeugt eine M3U St&uuml;ckliste. Die Datei wird im
+<listitem><para><action>Erzeugt eine M3U St&uuml;ckliste.</action> Die Datei wird im
 ge&ouml;ffneten Verzeichnis gespeichert und tr&auml;gt denselben Namen wie das
 Verzeichnis, gefolgt von einer .m3u Erweiterung. Diese Datei enth&auml;lt bloss
 die Namen der im Dateilistenfeld angezeigten Dateien, keine speziellen
 EXTM3U oder EXTINFO Zeilen werden generiert. Wenn alle Dateien eines Albums
 in einem separaten Verzeichnis gespeichert werden, kann mit dieser Funktion
-eine St&uuml;ckliste f&uuml;r das Album erstellt werden.</action></para></listitem>
+eine St&uuml;ckliste f&uuml;r das Album erstellt werden.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -399,6 +490,33 @@ eine St&uuml;ckliste f&uuml;r das Album erstellt werden.</action></para></listit
 </variablelist>
 </para>
 
+</sect2>
+
+<sect2>
+<title>Das Men&uuml; Extras</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Extras</guimenu>
+<guimenuitem>Format anwenden</guimenuitem>
+</menuchoice></term>
+<listitem><para>Wenn <guilabel>W&auml;hrend dem Editieren formatieren</guilabel>
+im Konfigurationsdialog deaktiviert ist, kann man mit diesem Men&uuml;punkt
+<action>die Formatierung auf die ausgew&auml;hlten Dateien anwenden</action>.
+Diese Funktion kann auch angewendet werden, um zu testen, ob die Dateinamen
+und Tags dem eingestellten Format entsprechen. Hierzu sollten alle Dateien
+gespeichert werden; nach Anwendung des Formates sind dann nur diejenigen
+Dateien ver&auml;ndert (in der Dateiliste mit einem Stern versehen), welche nicht
+dem eingestellten Format entsprechen. Ungewollte &Auml;nderungen k&ouml;nnen
+mit <guilabel>Zuletzt gespeicherte Fassung</guilabel>
+r&uuml;ckg&auml;ngig gemacht werden.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 </sect2>
 
 <sect2>
@@ -424,6 +542,30 @@ Symbole zum &Ouml;ffnen und Speichern eines Verzeichnisses enth&auml;lt, ein und
 <listitem><para><action>Schaltet die Anzeige der Statusleiste, welche
 l&auml;ngere Aktionen wie &Ouml;ffnen und Speichern eines Verzeichnisses anzeigt, ein
 und aus.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Einstellungen</guimenu>
+<guimenuitem>Kid3 einrichten...</guimenuitem>
+</menuchoice></term>
+<listitem><para>&Ouml;ffnet den <action>Konfigurationsdialog</action>, mit welchem
+das Format der Dateinamen und Tag-Felder gesetzt werden kann.
+</para>
+<para>
+Wenn <guilabel>W&auml;hrend dem Editieren formatieren</guilabel> aktiviert ist,
+wird die Eingabe w&auml;hrend dem Editieren automatisch formatiert. Das Format kann
+separat f&uuml;r Dateinamen und ID3 Tags eingestellt werden.
+<guilabel>Gro&szlig;/Kleinschreibung</guilabel> kann auf <guilabel>Keine
+&Auml;nderungen</guilabel>, <guilabel>Alles Kleinbuchstaben</guilabel>,
+<guilabel>Alles Gro&szlig;buchstaben</guilabel>, <guilabel>Den ersten Buchstaben
+gro&szlig;</guilabel> oder <guilabel>Alle ersten Buchstaben gro&szlig;</guilabel>
+gesetzt werden.
+Die <guilabel>Zeichen ersetzen</guilabel> Liste kann mit beliebigen Zuordnungen
+von Zeichenketten gef&uuml;llt werden. Die Ersetzung wird nur durchgef&uuml;hrt, wenn das
+Markierungsfeld aktiviert ist.
+</para>
+</listitem>
 </varlistentry>
 
 </variablelist>
@@ -514,7 +656,11 @@ SuSE Linux 8.1: id3lib 3.8.0, KDE 3.0.5, KDE 3.1.1, Qt 2.3.2, Qt
 3.0.5, Qt 3.1.2
 </para>
 <para>
-Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, non-commercial Qt version 2.3.0.
+SuSE Linux 8.2: id3lib 3.8.2, id3lib 3.8.3, KDE 3.1.1, KDE 3.1.3, KDE 3.1.4,
+Qt 3.1.1, Qt 3.1.2, Qt 3.2.1
+</para>
+<para>
+Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt version 2.3.0.
 </para>
 
 </sect1>
@@ -543,7 +689,6 @@ Die Qt Anwendung kann auch unter Windows kompiliert werden.
 Im kid3 Verzeichnis wird getippt:
 <screen width="40">
 <prompt>></prompt> <userinput>nmake /f kid3.mak</userinput>
-<prompt>></prompt> <userinput>nmake /f kid3.mak install</userinput>
 </screen>
 </para>
 
@@ -553,8 +698,13 @@ Im kid3 Verzeichnis wird getippt:
 <title>Konfiguration</title>
 
 <para>Mit KDE werden der Dateinamenfilter, das Dateinamenformat, die
+Importformate, die Dateinamen- und ID3-Formate, die
 Einstellungen f&uuml;r die Werkzeug- und Statusleiste sowie die Fenstergr&ouml;sse im
-Standardverzeichnis in der Datei <filename>kid3rc</filename> gespeichert.</para>
+Standardverzeichnis in der Datei <filename>kid3rc</filename> gespeichert.
+Als Qt-Anwendung liegt diese Datei im Verzeichnis <filename>.qt</filename>,
+bei &auml;lteren Qt-Versionen wird eine Datei <filename>kid3.cfg</filename>
+erstellt.
+</para>
 
 </sect1>
 
