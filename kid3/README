@@ -10,6 +10,7 @@ With Kid3 you can:
   set together. 
 - Generate tags from filenames
 - Generate filenames from tags
+- Rename directories from tags
 - Generate playlist files
 - Automatically convert upper and lower case and replace strings
 - Import from freedb.org and other sources of album data
