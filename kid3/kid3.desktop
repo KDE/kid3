@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Kid3
+Exec=kid3 -caption "%c" %i %m  
+Icon=kid3.png
+Type=Application
+DocPath=kid3/index.html
+MimeType=audio/x-mp3;audio/x-mpegurl
+GenericName=ID3 Tagger
+Terminal=0

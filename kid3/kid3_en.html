@@ -1,0 +1,234 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>The Kid3 Handbook</title><meta name="generator" content="DocBook XSL Stylesheets V1.48"><meta name="keywords" content="KDE, kdemultimedia, MP3, ID3, ID3v1, ID3v2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book"><div class="titlepage"><div><h1 class="title"><a name="id2594406"></a>The Kid3 Handbook</h1></div><div><h3 class="author">Urs Fleisch</h3><div class="affiliation"><div class="address"><p><tt>&lt;<a href="mailto:ufleisch at users.sourceforge.net">ufleisch at users.sourceforge.net</a>&gt;</tt></p></div></div></div><div><p class="releaseinfo">0.1</p></div><div><p class="copyright">Copyright © 2003 Urs Fleisch</p></div><div><div class="legalnotice"><p>Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections, with no Front-Cover Texts, and
+with no Back-Cover Texts.  A copy of the license is included in <a href="#gnu-fdl">the section entitled &quot;GNU Free Documentation License&quot;</a>.</p></div></div><div><div class="abstract"><p><b>Abstract</b></p><p>
+Kid3 is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
+an efficient way. It is easy to set tags of multiple files to the same
+values (e.g. album, artist, year and genre in all files of the same album) and
+generate the tags from the file name or vice versa.
+</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt>1. <a href="#introduction">Introduction</a></dt><dt>2. <a href="#using-kid3">Using Kid3</a></dt><dd><dl><dt><a href="#kid3-features">Kid3 features</a></dt><dt><a href="#example-usage">Example Usage</a></dt></dl></dd><dt>3. <a href="#commands">Command Reference</a></dt><dd><dl><dt><a href="#kid3-window">The Kid3 Window</a></dt><dd><dl><dt><a href="#id2825042">The GUI Elements</a></dt><dt><a href="#id2757092">The File Menu</a></dt><dt><a href="#id2757402">The Settings Menu</a></dt><dt><a href="#id2757491">The Help Menu</a></dt></dl></dd></dl></dd><dt>4. <a href="#credits">Credits and License</a></dt><dt>A. <a href="#installation">Installation</a></dt><dd><dl><dt><a href="#getting-kid3">How to obtain Kid3</a></dt><dt><a href="#requirements">Requirements</a></dt><dt><a href="#compilation">Compilation and Installation</a></dt><dt><a href="#configuration">Configuration</a></dt></dl></dd></dl></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="introduction"></a>Chapter 1. Introduction</h2></div></div><p>
+Kid3 is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
+an efficient way. These tags can be edited by most MP3 players, but not in
+a very comfortable and efficient way.
+</p><p>
+Kid3 does not grab, encode nor play
+MP3 files, but it is targeted to edit the ID3 tags of all files of an album
+in an efficient way, i.e. with as few mouse clicks and key strokes as
+possible. Where most other programs can edit either ID3v1 or ID3v2 tags,
+Kid3 has full control over both versions, can convert tags between the
+two formats and has access to all ID3v2 tags. Tags of multiple files can be
+set to the same value, e.g. the artist, album, year and genre of all files
+of an album typically have the same values and can be set together. If the
+information for the tags is contained in the file name, the tags can be
+automatically set from the file name. It is also possible to set the file
+name according to the tags found in the file in arbitrary formats.
+</p><p>
+Please report any problems or feature requests to the author.
+</p></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="using-kid3"></a>Chapter 2. Using Kid3</h2></div></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="kid3-features"></a>Kid3 features</h2></div></div><p>
+<div class="itemizedlist"><ul type="disc"><li><p>Edit ID3v1.1 tags</p></li><li><p>Edit all ID3v2.3 frames</p></li><li><p>Edit tags of multiple files</p></li><li><p>Convert between ID3v1.1 and ID3v2.3 tags</p></li><li><p>Generate tags from filename</p></li><li><p>Generate filename from tags</p></li><li><p>Generate playlist file</p></li></ul></div>
+</p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="example-usage"></a>Example Usage</h2></div></div><p>
+This section describes a typical session with Kid3.
+Let's assume we have a directory containing MP3 files with the tracks from
+the album &quot;Let's Tag&quot; from the band &quot;One Hit Wonder&quot;. The directory is
+named in the &quot;artist - album&quot; format, in our case <tt>One Hit Wonder - Let's
+Tag</tt>. The directory contains the tracks in the &quot;track title.mp3&quot;
+format, which I think is useful because the filenames are short
+(important when using mobile MP3 players with small displays) and in the
+correct order when sorted alphabetically (important when using hardware MP3
+players which play the tracks in alphabetical order or in the order in
+which they are burnt on CD and that order is alphabetical when using
+<b>mkisofs</b>). Besides this, the artist and album information
+is already in the directory name and does not have to be repeated in the filename.
+But back to our example, the directory listing looks like this:
+</p><p><tt>01 Intro.mp3</tt></p><p><tt>02 We Only Got This One.mp3</tt></p><p><tt>03 Outro.mp3</tt></p><p>
+These files have no tags yet and we want to generate them using Kid3. We use
+Open (File menu or toolbar) and
+select one of the files in this directory. All files will be displayed in the
+file listbox. Lazy as we are, we want to use the information in the directory
+and file names to generate tags. Therefore we select all files, then click the
+From Filename button in the ID3v1.1
+section. This will set the title, artist, album and track values in all files.
+To set the year and genre values of all files, we keep all files selected and
+type in &quot;2002&quot; for the Year and select &quot;Pop&quot; from the
+Genre combobox. To set only these two values, we check their
+checkboxes and leave all other checkboxes unchecked. Now we change the
+selection by only selecting the first file and we see that all tags contain
+the correct values. The tags of the other files can be verified too by
+selecting them one by one. When we are satisfied with the tags, we use
+Save (File menu or toolbar).
+Selecting Create Playlist from the
+File menu will generate a file
+<tt>One Hit Wonder - Let's Tag.m3u</tt> in the directory.
+</p></div></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="commands"></a>Chapter 3. Command Reference</h2></div></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="kid3-window"></a>The Kid3 Window</h2></div></div><div class="sect2"><div class="titlepage"><div><h3 class="title"><a name="id2825042"></a>The GUI Elements</h3></div></div><p>
+The Kid3 GUI is separated in four sections: At the left is the file
+listbox, the right side contains the Filename,
+ID3v1.1 and ID3v2.3 sections.
+</p><p>
+<div class="itemizedlist"><ul type="disc"><li><p>Filelist</p><p>
+The file list contains the names of all the files in the opened
+directory which match the selected file name filter (typically
+<tt>*.mp3</tt>). A single or multiple files can be selected. To
+select no file, click into the empty area after the listbox entries. The
+selection determines the files which are affected by the operations which
+are available by using the buttons described below.
+</p></li><li><p>Filename</p><p>
+The Name line edit contains the name of the file
+(if only a single file is selected). If this name is changed, the file will
+be renamed when the Save command is used.
+</p><p>
+The Format combo box and line edit contains the format
+to be used when the filename is generated from the ID3v1.1 or ID3v2.3 tags.
+The filename can contain arbitrary characters, even a directory part separated
+by a slash from the file name, but that directory must already exist for the
+renaming to succeed. The following special codes are used to insert tag values
+into the filename:
+</p><p>
+<div class="itemizedlist"><ul type="round"><li><p>%s Title (Song)</p></li><li><p>%a Artist</p></li><li><p>%l Album</p></li><li><p>%c Comment</p></li><li><p>%y Year</p></li><li><p>%t Track</p></li><li><p>%g Genre</p></li></ul></div>
+</p><p>
+Some commonly used filename formats are already available in the combo box,
+but it is also possible to type in some special format into the line edit.
+</p><p>
+From ID3v1: Sets the filename using the selected format
+and the ID3v1.1
+tags.
+</p><p>
+From ID3v2: Sets the filename using the selected format
+and the ID3v2.3
+tags.
+</p></li><li><p>ID3v1.1</p><p>
+The line edit widgets for Title,
+Artist,
+Album, Comment,
+Year, Track and
+Genre are used to edit the corresponding value in the
+ID3v1.1 tags of the selected files. The value will be changed when the file
+selection is altered or before operations like Save
+and Quit and when the corresponding
+check box at the left of the field name is checked. This is useful to
+change only some values and leave the other values unchanged.
+</p><p>
+If a single file is selected, all check boxes are checked and the line edit
+widgets contain the values found in the tags of this file. If a tag is not
+found in the file, the corresponding empty value is displayed, which is an
+empty string for the Title, Artist,
+Album and Comment line edits, 0 for the
+numerical Year and Track edits and
+an empty selected value for the Genre
+combo box. The values can be changed and if the corresponding check box is
+checked, they will be set for the selected file after the selection is
+changed. The file is then marked as modified by an asterisk in the file
+listbox but remains unchanged until the Save
+command is used.
+</p><p>
+If multiple files are selected, only the values which are identical in all
+selected files are displayed. In all other controls, the empty values as
+described above are displayed. All check boxes are unchecked to avoid
+unwanted changes. If a value has to be set for all selected files, it can
+be edited and the checkbox has to be set. The values will be set for all
+selected files when the selection is changed and can be saved using the
+Save command.
+</p><p>
+From Filename: The tags are set from the filename.
+The filename should be in one of the supported formats:
+<div class="itemizedlist"><ul type="round"><li><p><tt>Artist - Album/Track Song.mp3</tt></p></li><li><p><tt>Album/Track - Artist - Song.mp3</tt></p></li><li><p><tt>/Artist - Album - Track - Song.mp3</tt></p></li><li><p><tt>Album/Artist - Track - Song.mp3</tt></p></li><li><p><tt>Album/Artist - Song.mp3</tt></p></li></ul></div>
+If a single file is selected, the GUI controls are filled with the values
+extraced from the filename. If multiple files are selected, the tags of the
+files are directly set according to the filenames.
+</p><p>
+From ID3v2: The ID3v1.1 tags are set from the
+corresponding values in the ID3v2.3 tags.
+If a single file is selected, the GUI controls are filled with the values
+from the ID3v2.3 tags. If multiple files are selected, the tags of the
+files are directly set.
+</p><p>
+Copy: The copy buffer is filled with the ID3v1.1 values.
+Only values with checked checkbox will be used in subsequent Paste commands.
+</p><p>
+Paste: Pastes the values from the copy buffer into the
+GUI controls.
+</p><p>
+Remove: This will set all GUI controls to their empty
+values which results in removing all values. The saved file will then contain
+no ID3v1.1 tags.
+</p></li><li><p>ID3v2.3</p><p>
+The GUI controls function in the same way as described for the
+ID3v1.1 section, but the size of the strings is not limited.
+</p><p>
+Frames: The ID3v2.3 tags can not only contain the same values
+as the ID3v1.1 tags, the format is built in a flexible way from several frames
+which are themselves composed of several fields. The frames list box shows
+all the frames which are available in the selected file.
+</p><p>
+Edit: This will open a window which allows to edit all fields
+of the selected frame. This is equivalent to double clicking on the selected frame.
+</p><p>
+Add: A requester to select the frame type will appear
+and a frame of the selected type is added to the file.
+</p><p>
+Delete: Deletes the selected frame.
+</p></li></ul></div>
+</p></div><div class="sect2"><div class="titlepage"><div><h3 class="title"><a name="id2757092"></a>The File Menu</h3></div></div><p>
+<div class="variablelist"><dl><dt><span class="term">File-&gt;Open... (<b><b>Ctrl</b>-<b>O</b></b>)</span></dt><dd><p>Opens a directory. All files matching the selected
+file name filter will be displayed in the file listbox.</p></dd><dt><span class="term">File-&gt;Open Recent</span></dt><dd><p>Opens a recently opened directory.</p></dd><dt><span class="term">File-&gt;Save (<b><b>Ctrl</b>-<b>S</b></b>)</span></dt><dd><p>Saves all changed files in the directory. The
+changed files are marked with an asterisk in the file listbox. If any file
+names have been changed, those files will be renamed.</p></dd><dt><span class="term">File-&gt;Revert</span></dt><dd><p>Reverts the changes of one or multiple files. If no
+files are selected in the file listbox, the changes of all files will be
+reverted, else only the changes of the selected files are reverted.
+</p></dd><dt><span class="term">File-&gt;Create Playlist</span></dt><dd><p>Creates an M3U playlist. The file will be stored in
+the opened directory and have the same name as the directory, followed by
+an .m3u extension. The file simly contains the names of the files displayed
+in the file listbox, no special EXTM3U or EXTINFO lines are generated.
+If all files of an album are stored in a separate directory, this function
+can be used to generate a playlist for an album.</p></dd><dt><span class="term">File-&gt;Quit (<b><b>Ctrl</b>-<b>Q</b></b>)</span></dt><dd><p>Quits the application.</p></dd></dl></div>
+</p></div><div class="sect2"><div class="titlepage"><div><h3 class="title"><a name="id2757402"></a>The Settings Menu</h3></div></div><p>
+<div class="variablelist"><dl><dt><span class="term">Settings-&gt;Show Toolbar</span></dt><dd><p>Toggles displaying of the toolbar, which contains
+icons to open and save a directory.</p></dd><dt><span class="term">Settings-&gt;Show Statusbar</span></dt><dd><p>Toggles displaying of the statusbar, which displays
+longer actions such as opening or saving a directory.</p></dd></dl></div>
+</p></div><div class="sect2"><div class="titlepage"><div><h3 class="title"><a name="id2757491"></a>The Help Menu</h3></div></div><p>
+<div class="variablelist"><dl><dt><span class="term">Help-&gt;Kid3 Handbook</span></dt><dd><p>Opens this handbook.</p></dd><dt><span class="term">Help-&gt;About Kid3</span></dt><dd><p>Displays a short information about Kid3.
+</p></dd></dl></div>
+</p></div></div></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="credits"></a>Chapter 4. Credits and License</h2></div></div><p>
+Kid3
+</p><p>
+Program written by Urs Fleisch <tt>&lt;<a href="mailto:ufleisch at users.sourceforge.net">ufleisch at users.sourceforge.net</a>&gt;</tt>
+</p><p><a name="gnu-fdl"></a>This documentation is licensed under the terms of the <a href="http://www.gnu.org/licenses/licenses.html#FDL" target="_top">GNU Free Documentation
+License</a>.</p><p>This program is licensed under the terms of the <a href="http://www.gnu.org/licenses/licenses.html#GPL" target="_top">GNU General Public License</a>.</p></div><div class="appendix"><div class="titlepage"><div><h2 class="title"><a name="installation"></a>Appendix A. Installation</h2></div></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="getting-kid3"></a>How to obtain Kid3</h2></div></div><p>
+Kid3 can be found at
+<a href="http://kid3.sourceforge.net" target="_top">http://kid3.sourceforge.net</a>.
+</p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="requirements"></a>Requirements</h2></div></div><p>
+Kid3 needs <a href="http://id3lib.sourceforge.net" target="_top">id3lib</a> and
+<a href="http://www.trolltech.com/qt/" target="_top">Qt</a>. <a href="http://www.kde.org" target="_top">KDE</a> is recommended but not necessary, as
+Kid3 can also be compiled as a Qt application. Kid3 can be compiled for
+systems where these libraries are available, e.g. for Linux and Windows.
+</p><p>
+Kid3 was tested with
+</p><p>
+SuSE Linux 7.3: id3lib 3.8.0pre1, id3lib 3.8.0, id3lib 3.8.2, KDE 2.2.2,
+KDE 3.0.4, Qt 2.3.2, Qt 3.0.5
+</p><p>
+Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, non-commercial Qt version 2.3.0.
+</p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="compilation"></a>Compilation and Installation</h2></div></div><p>
+You can compile Kid3 with or without KDE. To use KDE, make sure that
+<tt>config.mk</tt> contains a line
+<b>CONFIG_USE_KDE=1</b>, otherwise uncomment this line
+to <b>#CONFIG_USE_KDE=1</b>. Without KDE, Kid3 is a
+simple Qt application and lacks some configuration and session features.
+</p><p>
+Go into the kid3 directory and type 
+<pre class="screen">
+<tt>%</tt> <b><tt>make</tt></b>
+<tt>%</tt> <b><tt>make install</tt></b>
+</pre>
+</p><p>
+To compile for different versions of Qt or KDE, set the variables QTDIR and
+KDEDIR to the corresponding directories.
+</p><p>
+The Qt application can also be compiled for Windows.
+<pre class="screen">
+<tt>&gt;</tt> <b><tt>nmake /f kid3.mak</tt></b>
+<tt>&gt;</tt> <b><tt>nmake /f kid3.mak install</tt></b>
+</pre>
+</p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="configuration"></a>Configuration</h2></div></div><p>With KDE, the file name filter and format, the toolbar and statusbar
+settings as well as the window size will be be saved in the standard
+location in file <tt>kid3rc</tt>.</p></div></div></div></body></html>

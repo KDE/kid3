@@ -1,0 +1,257 @@
+<html><head><meta content="text/html; charset=ISO-8859-1" http-equiv="Content-Type"><title>Das Kid3 Handbuch</title><meta name="generator" content="DocBook XSL Stylesheets V1.48"><meta name="keywords" content="KDE, kdemultimedia, MP3, ID3, ID3v1, ID3v2"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="book"><div class="titlepage"><div><h1 class="title"><a name="id2750918"></a>Das Kid3 Handbuch</h1></div><div><h3 class="author">Urs Fleisch</h3><div class="affiliation"><div class="address"><p><tt>&lt;<a href="mailto:ufleisch at users.sourceforge.net">ufleisch at users.sourceforge.net</a>&gt;</tt></p></div></div></div><div><p class="releaseinfo">0.1</p></div><div><p class="copyright">Copyright © 2003 Urs Fleisch</p></div><div><div class="legalnotice"><p>Es ist erlaubt, dieses Dokument zu kopieren, zu vertreiben 
+und/oder zu ändern gemäß den Bedingungen der 
+GNU Free Documentation Licence, Version 1.1 oder irgend einer 
+späteren Version, wie sie von der Free Software Foundation 
+veröffentlicht wurde; ohne die invarianten Abschnitte, ohne Texte auf der vorderen Umschlagseite, 
+und ohne Texte auf der hinteren Umschlagseite. Eine Kopie der Lizenz findet sich im <a href="#gnu-fdl">Abschnitt &quot;GNU Free Documentation License&quot;</a>.</p></div></div><div><div class="abstract"><p><b>Zusammenfassung</b></p><p>
+Kid3 ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
+in MP3 Dateien. Es is einfach, Tags in mehreren Dateien auf die gleichen Werte
+zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
+Tags aus den Dateinamen zu generieren oder umgekehrt.
+</p></div></div><hr></div><div class="toc"><p><b>Inhaltsverzeichnis</b></p><dl><dt>1. <a href="#introduction">Einleitung</a></dt><dt>2. <a href="#using-kid3">Benutzen von Kid3</a></dt><dd><dl><dt><a href="#kid3-features">Funktionsmerkmale von Kid3</a></dt><dt><a href="#example-usage">Arbeiten anhand eines Beispiels</a></dt></dl></dd><dt>3. <a href="#commands">Menüeinträge</a></dt><dd><dl><dt><a href="#kid3-window">Das Kid3 Fenster</a></dt><dd><dl><dt><a href="#id2754736">Die Elemente der Benutzeroberfläche</a></dt><dt><a href="#id2757686">Das Menü Datei</a></dt><dt><a href="#id2820718">Das Menü Einstellungen</a></dt><dt><a href="#id2820808">Das Menü Hilfe</a></dt></dl></dd></dl></dd><dt>4. <a href="#credits">Danksagungen und Lizenz</a></dt><dt>A. <a href="#installation">Installation</a></dt><dd><dl><dt><a href="#getting-kid3">Bezugsquellen</a></dt><dt><a href="#requirements">Anforderungen</a></dt><dt><a href="#compilation">Kompilieren und Installation</a></dt><dt><a href="#configuration">Konfiguration</a></dt></dl></dd></dl></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="introduction"></a>Kapitel 1. Einleitung</h2></div></div><p>
+Kid3 ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
+in MP3 Dateien. Diese Tags können zwar mit den meisten MP3 Player
+Programmen editiert werden, jedoch nicht auf eine sehr komfortable und
+effiziente Art.
+</p><p>
+Kid3 kann weder MP3 grabben noch codieren oder abspielen, es ist darauf
+ausgelegt, die ID3 Tags von allen Dateien eines Albums auf eine möglichst
+effiziente Art zu editieren, d.h. mit so wenig Mausklicks und Tastendrücken
+wie möglich. Während die meisten anderen Programme entweder ID3v1 oder
+ID3v2 Tags editieren können, hat Kid3 volle Kontrolle über die Tags
+beider Versionen, es kann zwischen den beiden Formaten konvertieren und hat
+Zugang zu allen ID3v2 Frames. Tags mehrerer Dateien können gleichzeitig
+auf dieselben Werte gesetzt werden, so beispielsweise Interpret, Album,
+Jahr und Stil aller Dateien eines Albums. Wenn die Information für die Tags
+schon im Dateinamen enthalten ist, können die Tags automatisch aus dem
+Dateinamen generiert werden. Es ist aus möglich, den Dateinamen in einem
+beliebigen Format aus den Werten in den Tags zu setzen.
+</p><p>
+Probleme und Vorschläge für neue Funktionen können dem Autor gemeldet
+werden.
+</p></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="using-kid3"></a>Kapitel 2. Benutzen von Kid3</h2></div></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="kid3-features"></a>Funktionsmerkmale von Kid3</h2></div></div><p>
+<div class="itemizedlist"><ul type="disc"><li><p>Editieren von ID3v1.1 Tags</p></li><li><p>Editieren von allen ID3v2.3 Frames</p></li><li><p>Editieren der Tags von mehreren Dateien</p></li><li><p>Konvertieren zwischen ID3v1.1 und ID3v2.3 Tags</p></li><li><p>Generieren der Tags aus dem Dateinamen</p></li><li><p>Generieren des Dateinamens aus den Tags</p></li><li><p>Generieren von Stücklisten</p></li></ul></div>
+</p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="example-usage"></a>Arbeiten anhand eines Beispiels</h2></div></div><p>
+Dieser Abschnitt beschreibt eine typische Sitzung mit kid3;. Nehmen wir an,
+wir haben ein Verzeichnis mit MP3 Dateien der Stücke aus dem Album &quot;Let's Tag&quot;
+von der Gruppe &quot;One Hit Wonder&quot;. Das Verzeichnis ist im &quot;Interpret - Album&quot;
+Format benannt, in unserem Fall also <tt>One Hit Wonder - Let's
+Tag</tt>. Das Verzeichnis enthält die Stücke im &quot;Nummer Titel.mp3&quot;
+Format, was auch Sinn macht, weil die Dateinamen kurz werden (wichtig bei
+den kleinen Anzeigen mobiler MP3 Player) und alphabetisch in der richtigen
+Reihenfolge geordnet werden (wichtig falls ein Hardware MP3 Player die
+Stücke in alphabetischer Reihenfolge abspielt oder in der Reihenfolge, wie
+sie auf CD gebrannt wurde - diese Reihenfolge ist bei <b>mkisofs</b>
+alphabetisch). Darüber hinaus sind Interpret und Album bereits im
+Verzeichnisnamen enthalten und brauchen nicht im Dateinamen wiederholt zu
+werden. Doch zurück zu unserem Beispiel - das Verzeichnis sieht
+folgendermassen aus:
+</p><p><tt>01 Intro.mp3</tt></p><p><tt>02 We Only Got This One.mp3</tt></p><p><tt>03 Outro.mp3</tt></p><p>
+Diese Dateien haben noch keine Tags, wir werden diese mit Kid3 erzeugen.
+Wir benutzen Öffnen (Datei Menü
+oder Werzeugleiste) und wählen eine der Dateien in diesem Verzeichnis. Alle
+Dateien werden im Dateilistenfeld angezeigt. Aus Bequemlichkeit wollen
+wir die Tags aus den Dateinamen erzeugen. Daher wählen wir alle Dateien im
+Listenfeld aus und klicken auf Von  Dateiname in der
+ID3v1.1 Sektion. Dadurch werden Titel, Interpret,
+Album und Nummer in allen Dateien gesetzt. Um die Werte für Jahr und Stil
+in allen Dateien zu setzen, lassen wir alle Dateien selektiert und tippen
+&quot;2002&quot; in das Feld Jahr und wählen &quot;Pop&quot; im
+Stil Auswahlfeld. Um einzig diese zwei Werte zu
+verändern, werden ihre Markierfelder aktiviert, und alle anderen Markierfelder
+bleiben leer. Wird nun durch Klick auf die erste Datei die Auswahl
+verändert, so sieht man, dass die Tags für die erste Datei die korrekten
+Werte enthalten. Die Tags der anderen Dateien können auch überprüft werden,
+indem eine nach der andern selektiert wird. Wenn wir mit den Tags
+zufrieden sind, können die Änderungen mit Speichern
+(Datei Menü oder Werkzeugliste) übernommen weden. Wählen von
+Stückliste erstellen im Datei
+Menü erzeugt die Datei <tt>One Hit Wonder - Let's Tag.m3u</tt>
+im Verzeichnis.
+</p></div></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="commands"></a>Kapitel 3. Menüeinträge</h2></div></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="kid3-window"></a>Das Kid3 Fenster</h2></div></div><div class="sect2"><div class="titlepage"><div><h3 class="title"><a name="id2754736"></a>Die Elemente der Benutzeroberfläche</h3></div></div><p>
+Die Kid3 Benutzeroberfläche ist in vier Sektionen aufgeteilt: Links findet sich das
+Dateilistenfeld, die rechte Seite enthält die Dateiname,
+ID3v1.1 und ID3v2.3
+Sektionen.
+</p><p>
+<div class="itemizedlist"><ul type="disc"><li><p>Dateiliste</p><p>
+Die Dateiliste enthält die Namen aller Dateien im geöffneten Verzeichnis,
+welche den gewählten Dateinamenfilter (typischerweise <tt>*.mp3</tt>)
+erfüllen. Eine einzelne oder mehrere Dateien können ausgewählt werden. Um
+keine Datei auszuwählen, kann in den leeren Bereich unterhalb der
+Dateieinträge geklickt werden. Die Auswahl bestimmt die Dateien, welche
+durch die unten beschriebenen Operationen verändert werden.
+</p></li><li><p>Dateiname</p><p>
+Das Name Editierfeld enthält den Dateiname wenn nur
+eine einzelne Datei ausgewählt ist. Wird dieses Feld verändert, so wird
+die Datei umbenannt, wenn Speichern ausgeführt
+wird.
+</p><p>
+Das Format Auswahl- und Editierfeld enthält das Fromat
+welches verwendet wird, wenn der Dateiname aus den ID3v1.1 oder ID3v2.3
+Tags erzeugt wird. Der Dateiname kann beliebige Zeichen enthalten, es kann
+sogar ein Verzeichnisteil abgetrennt durch einen Schrägstrich angegeben
+werden, doch dieses Verzeichnis muss bereits existieren, damit das
+Umbenennen erfolgreich ist. Die folgenden Codes können verwendet werden, um
+Werte aus den Tags im Dateinamen einzusetzen:
+</p><p>
+<div class="itemizedlist"><ul type="round"><li><p>%s Titel (Song)</p></li><li><p>%a Interpret (Artist)</p></li><li><p>%l Album</p></li><li><p>%c Kommentar (Comment)</p></li><li><p>%y Jahr (Year)</p></li><li><p>%t Nummer (Track)</p></li><li><p>%g Stil (Genre)</p></li></ul></div>
+</p><p>
+Einige häufig verwendete Dateinamen Formate sind bereits vordefiniert und
+über das Auswahlfeld verfügbar, aber es ist auch möglich, ein eigenes Format
+in das Eingabefeld einzutragen.
+</p><p>
+Von ID3v1: Setzt den Dateinamen gemäss dem
+ausgewählten Format und den ID3v1.1 Tags.
+</p><p>
+Von ID3v2: Setzt den Dateinamen gemäss dem
+ausgewählten Format und den ID3v2.3 Tags.
+</p></li><li><p>ID3v1.1</p><p>
+Die Eingabefelder für Titel,
+Interpret,
+Album, Kommentar,
+Jahr, Nummer und
+Stil werden benutzt um die entsprechenden Werte in den
+ID3v1.1 Tags der ausgewählten Dateien zu editieren. Die Werte werden
+verändert, wenn die Dateiauswahl geändert wird oder vor Operationen wie
+Speichern und
+Beenden und wenn die entsprechenden
+Markierungsfelder links aktiviert sind. Dies ist nützlich um nur bestimmte
+Werte zu verändern und die übrigen Werte nicht anzurühren.
+</p><p>
+Wenn eine einzelne Datei ausgewählt ist, werden alle Markierungfelder
+aktiviert und die Eingabefelder enthalten die Werte aus den Tags in der
+Datei. Wenn ein Tag nicht vorhanden ist, werden die leeren Werte angezeigt,
+d.h. eine leere Zeichenkette für die Felder Titel,
+Interpret, Album und
+Kommentar, 0 für Jahr und
+Nummer und ein leerer Auswahleintrag bei
+Stil. Die Werte können editiert werden und werden
+für die ausgewählte Datei beim Ändern der Auswahl gesetzt, sofern das
+entsprechende Markierungsfeld aktiviert ist. Die Datei wird dann durch
+einen Stern als modifiziert gekennzeichnet, doch die eigentliche Datei
+bleibt unverändert, bis Speichern ausgeführt
+wird.
+</p><p>
+Wenn mehrere Dateien ausgewählt werden, dann werden nur diejenigen Werte
+angezeigt, welche bei allen ausgewählten Dateien identisch sind. In allen
+übrigen Editierfeldern werden die leeren Werte (siehe oben) angezeigt. Alle
+Markierungsfelder sind inaktiv, um ungewolltes Verändern mehrerer Dateien
+zu verhindern. Soll ein Wert für alle selektierten Dateien verändert
+werden, so kann er editiert werden, und das entsprechende Markierungsfeld
+wird gesetzt. Der Wert wird dann für alle ausgewählten Dateien verändert
+wenn die Auswahl geändert wird und kann mit Speichern
+gesichert werden.
+</p><p>
+Von Dateiname: Die Tags werden anhand des
+Dateinamens gesetzt. Der Dateiname sollte in einem der unterstützten
+Formate sein:
+<div class="itemizedlist"><ul type="round"><li><p><tt>Interpret - Album/Nummer Titel.mp3</tt></p></li><li><p><tt>Album/Nummer - Interpret - Titel.mp3</tt></p></li><li><p><tt>/Interpret - Album - Nummer - Titel.mp3</tt></p></li><li><p><tt>Album/Interpret - Nummer - Titel.mp3</tt></p></li><li><p><tt>Album/Interpret - Titel.mp3</tt></p></li></ul></div>
+Wenn eine einzelne Datei ausgewählt wurde, werden die Eingabefelder mit den
+aus dem Dateinamen extrahierten Werten gefüllt. Bei Mehrfachselektion
+werden die Werte direkt gemäss den Dateinamen gesetzt.
+</p><p>
+Von ID3v2: Die ID3v1.1 Tags werden auf die gleichen
+Werte gesetzt wie die entsprechenden ID3v2.3 Tags. Bei Mehrfachselektion
+werden die Tags der Dateien direkt gesetzt.
+</p><p>
+Kopieren: Die Kopierablage wird mit den ID3v1.1 Werten
+gefüllt. Bei folgenden Einfüge-Operationen werden nur solche Werte gesetzt,
+bei welchen hier das Markierungsfeld aktiviert war.
+</p><p>
+Einfügen: Fügt die Werte aus der Kopierablage in die
+Eingabefelder ein.
+</p><p>
+Löschen: Diese Funkton setzt alle Editierfelder auf
+die leeren Werte, entfernt also alle Werte. Die gespeicherte Datei enthält
+dann keine ID3v1.1 Tags mehr.
+</p></li><li><p>ID3v2.3</p><p>
+Die Eingabefelder funktionieren gleich wie bei ID3v1.1
+beschrieben, die Länge der Zeichenketten ist jedoch nicht begrenzt.
+</p><p>
+Elemente: Die ID3v2.3 Tags können nicht bloss
+dieselben Werte enthalten wie die ID3v1.1 Tags, das Format ist vielmehr auf
+flexible Art aus mehreren Elementen aufgebaut, welche wiederum aus
+verschiedenen Feldern bestehen. Das Elemente Listenfeld zeigt alle Elemente
+an, welche in der ausgewählten Datei vorhanden sind.
+</p><p>
+Editieren: Ein Fenster wird geöffnet, in welchem
+alle Felder des gewählten Elementes editiert werden können. Dies kann auch
+durch Doppelklick auf den Elementeintrag erreicht werden.</p><p>
+Hinzufügen: Ein Auswahlfenster mit allen
+unterstützten Elementtypen wird angezeigt und ein Element des gewählten
+Typs wird zu der Datei hinzugefügt.
+</p><p>
+Löschen: Löscht das ausgewählte Element.
+</p></li></ul></div>
+</p></div><div class="sect2"><div class="titlepage"><div><h3 class="title"><a name="id2757686"></a>Das Menü Datei</h3></div></div><p>
+<div class="variablelist"><dl><dt><span class="term">Datei-&gt;Öffnen... (<b><b>Ctrl</b>-<b>O</b></b>)</span></dt><dd><p>Ein Verzeichnis wird geöffnet, und alle Dateien,
+welche den gewählten Dateinamenfilter erfüllen, werden im Dateilistenfeld
+angezeigt.</p></dd><dt><span class="term">Datei-&gt;Zuletzt geöffnete Dateien</span></dt><dd><p>Eine kürzlich geöffnetes Verzeichnis wird geöffnet.
+</p></dd><dt><span class="term">Datei-&gt;Speichern (<b><b>Ctrl</b>-<b>S</b></b>)</span></dt><dd><p>Speichert alle veränderten Dateien im Verzeichnis.
+Die veränderten Dateien sind durch einen Stern gekennzeichnet. Wenn
+Dateinamen verändert wurden, so werden die entsprechenden Dateien
+umbenannt.</p></dd><dt><span class="term">Datei-&gt;Zuletzt gespeicherte Fassung</span></dt><dd><p>Macht die Änderungen an einer oder mehreren Dateien
+rückgängig. Wenn keine Dateien im Dateilistenfeld selektiert sind, so
+werden die Änderungen an allen Dateien rückgängig gemacht, ansonsten nur an
+den ausgewählten Dateien.</p></dd><dt><span class="term">Datei-&gt;Stückliste erstellen</span></dt><dd><p>Erzeugt eine M3U Stückliste. Die Datei wird im
+geöffneten Verzeichnis gespeichert und trägt denselben Namen wie das
+Verzeichnis, gefolgt von einer .m3u Erweiterung. Diese Datei enthält bloss
+die Namen der im Dateilistenfeld angezeigten Dateien, keine speziellen
+EXTM3U oder EXTINFO Zeilen werden generiert. Wenn alle Dateien eines Albums
+in einem separaten Verzeichnis gespeichert werden, kann mit dieser Funktion
+eine Stückliste für das Album erstellt werden.</p></dd><dt><span class="term">Datei-&gt;Beenden (<b><b>Ctrl</b>-<b>Q</b></b>)</span></dt><dd><p>Beendet die Anwendung.</p></dd></dl></div>
+</p></div><div class="sect2"><div class="titlepage"><div><h3 class="title"><a name="id2820718"></a>Das Menü Einstellungen</h3></div></div><p>
+<div class="variablelist"><dl><dt><span class="term">Einstellungen-&gt;Werkzeugleiste anzeigen</span></dt><dd><p>Schaltet die Anzeige der Werkzeugliste, welche
+Symbole zum Öffnen und Speichern eines Verzeichnisses enthält, ein und aus.
+</p></dd><dt><span class="term">Einstellungen-&gt;Statusleiste anzeigen</span></dt><dd><p>Schaltet die Anzeige der Statusleiste, welche
+längere Aktionen wie Öffnen und Speichern eines Verzeichnisses anzeigt, ein
+und aus.</p></dd></dl></div>
+</p></div><div class="sect2"><div class="titlepage"><div><h3 class="title"><a name="id2820808"></a>Das Menü Hilfe</h3></div></div><p>
+<div class="variablelist"><dl><dt><span class="term">Hilfe-&gt;Handbuch zu Kid3</span></dt><dd><p>Öffnet dieses Handbuch.</p></dd><dt><span class="term">Hilfe-&gt;Über Kid3</span></dt><dd><p>Zeigt eine kurze Information über Kid3 an.
+</p></dd></dl></div>
+</p></div></div></div><div class="chapter"><div class="titlepage"><div><h2 class="title"><a name="credits"></a>Kapitel 4. Danksagungen und Lizenz</h2></div></div><p>
+Kid3
+</p><p>
+Programmiert von Urs Fleisch <tt>&lt;<a href="mailto:ufleisch at users.sourceforge.net">ufleisch at users.sourceforge.net</a>&gt;</tt>
+</p><p><a name="gnu-fdl"></a>Diese Dokumentation ist unter den Bedingungen der <a href="http://www.gnu.org/licenses/licenses.html#FDL" target="_top">GNU Free Documentation License</a> 
+veröffentlicht.</p><p>Dieses Programm ist unter den Bedingungen der <a href="http://www.gnu.org/licenses/licenses.html#GPL" target="_top">GNU General Public License</a> veröffentlicht.</p></div><div class="appendix"><div class="titlepage"><div><h2 class="title"><a name="installation"></a>Anhang A. Installation</h2></div></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="getting-kid3"></a>Bezugsquellen</h2></div></div><p>
+Kid3 ist zu finden unter
+<a href="http://kid3.sourceforge.net" target="_top">http://kid3.sourceforge.net</a>.
+</p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="requirements"></a>Anforderungen</h2></div></div><p>
+Kid3 braucht <a href="http://id3lib.sourceforge.net" target="_top">id3lib</a> und
+<a href="http://www.trolltech.com/qt/" target="_top">Qt</a>. <a href="http://www.kde.org" target="_top">KDE</a> ist empfohlen aber nicht notwendig,
+denn Kid3 kann auch als reine Qt Applikation kompiliert werden. Kid3
+läuft auf Systemen, wo diese Libraries vorhanden sind, z.B. auf Linux und
+Windows.
+</p><p>
+Kid3 wurde getestet unter
+</p><p>
+SuSE Linux 7.3: id3lib 3.8.0pre1, id3lib 3.8.0, id3lib 3.8.2, KDE 2.2.2,
+KDE 3.0.4, Qt 2.3.2, Qt 3.0.5
+</p><p>
+Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, non-commercial Qt version 2.3.0.
+</p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="compilation"></a>Kompilieren und Installation</h2></div></div><p>
+Man kann Kid3 mit oder ohne KDE kompilieren. Um KDE zu benutzen, muss in
+<tt>config.mk</tt> eine Zeile <b>CONFIG_USE_KDE=1</b>
+vorhanden sein, andernfalls wird diese Zeile auskommentiert zu
+<b>#CONFIG_USE_KDE=1</b>. Ohne KDE ist Kid3 eine reine
+Qt Applikation und es fehlen einige Konfigurations- und Session-Funktionen.
+</p><p>
+Im <tt>kid3</tt> Verzeichnis wird getippt:
+<pre class="screen">
+<tt>%</tt> <b><tt>make</tt></b>
+<tt>%</tt> <b><tt>make install</tt></b>
+</pre>
+</p><p>
+Um für andere Versionen von Qt oder KDE zu kompilieren, werden die
+Variablen QTDIR und KDEDIR auf die jeweiligen Verzeichnisse gesetzt.
+</p><p>
+Die Qt Anwendung kann auch unter Windows kompiliert werden.
+<pre class="screen">
+<tt>&gt;</tt> <b><tt>nmake /f kid3.mak</tt></b>
+<tt>&gt;</tt> <b><tt>nmake /f kid3.mak install</tt></b>
+</pre>
+</p></div><div class="sect1"><div class="titlepage"><div><h2 class="title" style="clear: both"><a name="configuration"></a>Konfiguration</h2></div></div><p>Mit KDE werden der Dateinamenfilter, das Dateinamenformat, die
+Einstellungen für die Werkzeug- und Statusleiste sowie die Fenstergrösse im
+Standardverzeichnis in der Datei <tt>kid3rc</tt> gespeichert.</p></div></div></div></body></html>

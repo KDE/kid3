@@ -1,0 +1,570 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
+  <!ENTITY kid3 '<application>Kid3</application>'>
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % German "INCLUDE"><!-- change language only here -->
+]>
+<book lang="&language;">
+
+<bookinfo>
+<title>Das Kid3 Handbuch</title>
+
+<authorgroup>
+<author>
+<firstname>Urs</firstname>
+<surname>Fleisch</surname>
+<affiliation>
+<address><email>ufleisch@users.sourceforge.net</email></address>
+</affiliation>
+</author>
+</authorgroup>
+
+<copyright>
+<year>2003</year>
+<holder>Urs Fleisch</holder>
+</copyright>
+<legalnotice>&FDLNotice;</legalnotice>
+
+<date>12/01/2003</date>
+<releaseinfo>0.1</releaseinfo>
+
+<abstract>
+<para>
+&kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
+in MP3 Dateien. Es is einfach, Tags in mehreren Dateien auf die gleichen Werte
+zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
+Tags aus den Dateinamen zu generieren oder umgekehrt.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdemultimedia</keyword>
+<keyword>MP3</keyword>
+<keyword>ID3</keyword>
+<keyword>ID3v1</keyword>
+<keyword>ID3v2</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title>Einleitung</title>
+
+<para>
+&kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
+in MP3 Dateien. Diese Tags k&ouml;nnen zwar mit den meisten MP3 Player
+Programmen editiert werden, jedoch nicht auf eine sehr komfortable und
+effiziente Art.
+</para>
+<para>
+&kid3; kann weder MP3 grabben noch codieren oder abspielen, es ist darauf
+ausgelegt, die ID3 Tags von allen Dateien eines Albums auf eine m&ouml;glichst
+effiziente Art zu editieren, d.h. mit so wenig Mausklicks und Tastendr&uuml;cken
+wie m&ouml;glich. W&auml;hrend die meisten anderen Programme entweder ID3v1 oder
+ID3v2 Tags editieren k&ouml;nnen, hat &kid3; volle Kontrolle &uuml;ber die Tags
+beider Versionen, es kann zwischen den beiden Formaten konvertieren und hat
+Zugang zu allen ID3v2 Frames. Tags mehrerer Dateien k&ouml;nnen gleichzeitig
+auf dieselben Werte gesetzt werden, so beispielsweise Interpret, Album,
+Jahr und Stil aller Dateien eines Albums. Wenn die Information f&uuml;r die Tags
+schon im Dateinamen enthalten ist, k&ouml;nnen die Tags automatisch aus dem
+Dateinamen generiert werden. Es ist aus m&ouml;glich, den Dateinamen in einem
+beliebigen Format aus den Werten in den Tags zu setzen.
+</para>
+<para>
+Probleme und Vorschl&auml;ge f&uuml;r neue Funktionen k&ouml;nnen dem Autor gemeldet
+werden.
+</para>
+</chapter>
+
+<chapter id="using-kid3">
+<title>Benutzen von Kid3</title>
+
+<sect1 id="kid3-features">
+<title>Funktionsmerkmale von Kid3</title>
+<para>
+<itemizedlist>
+<listitem><para>Editieren von ID3v1.1 Tags</para></listitem>
+<listitem><para>Editieren von allen ID3v2.3 Frames</para></listitem>
+<listitem><para>Editieren der Tags von mehreren Dateien</para></listitem>
+<listitem><para>Konvertieren zwischen ID3v1.1 und ID3v2.3 Tags</para></listitem>
+<listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
+<listitem><para>Generieren des Dateinamens aus den Tags</para></listitem>
+<listitem><para>Generieren von St&uuml;cklisten</para></listitem>
+</itemizedlist>
+</para>
+</sect1>
+
+<sect1 id="example-usage">
+<title>Arbeiten anhand eines Beispiels</title>
+<para>
+Dieser Abschnitt beschreibt eine typische Sitzung mit kid3;. Nehmen wir an,
+wir haben ein Verzeichnis mit MP3 Dateien der St&uuml;cke aus dem Album "Let's Tag"
+von der Gruppe "One Hit Wonder". Das Verzeichnis ist im "Interpret - Album"
+Format benannt, in unserem Fall also <filename>One Hit Wonder - Let's
+Tag</filename>. Das Verzeichnis enth&auml;lt die St&uuml;cke im "Nummer Titel.mp3"
+Format, was auch Sinn macht, weil die Dateinamen kurz werden (wichtig bei
+den kleinen Anzeigen mobiler MP3 Player) und alphabetisch in der richtigen
+Reihenfolge geordnet werden (wichtig falls ein Hardware MP3 Player die
+St&uuml;cke in alphabetischer Reihenfolge abspielt oder in der Reihenfolge, wie
+sie auf CD gebrannt wurde - diese Reihenfolge ist bei <command>mkisofs</command>
+alphabetisch). Dar&uuml;ber hinaus sind Interpret und Album bereits im
+Verzeichnisnamen enthalten und brauchen nicht im Dateinamen wiederholt zu
+werden. Doch zur&uuml;ck zu unserem Beispiel - das Verzeichnis sieht
+folgendermassen aus:
+</para>
+<para><filename>01 Intro.mp3</filename></para>
+<para><filename>02 We Only Got This One.mp3</filename></para>
+<para><filename>03 Outro.mp3</filename></para>
+<para>
+Diese Dateien haben noch keine Tags, wir werden diese mit &kid3; erzeugen.
+Wir benutzen <guimenuitem>&Ouml;ffnen</guimenuitem> (<guimenu>Datei</guimenu> Men&uuml;
+oder Werzeugleiste) und w&auml;hlen eine der Dateien in diesem Verzeichnis. Alle
+Dateien werden im Dateilistenfeld angezeigt. Aus Bequemlichkeit wollen
+wir die Tags aus den Dateinamen erzeugen. Daher w&auml;hlen wir alle Dateien im
+Listenfeld aus und klicken auf <guibutton>Von  Dateiname</guibutton> in der
+<guilabel>ID3v1.1</guilabel> Sektion. Dadurch werden Titel, Interpret,
+Album und Nummer in allen Dateien gesetzt. Um die Werte f&uuml;r Jahr und Stil
+in allen Dateien zu setzen, lassen wir alle Dateien selektiert und tippen
+"2002" in das Feld <guilabel>Jahr</guilabel> und w&auml;hlen "Pop" im
+<guilabel>Stil</guilabel> Auswahlfeld. Um einzig diese zwei Werte zu
+ver&auml;ndern, werden ihre Markierfelder aktiviert, und alle anderen Markierfelder
+bleiben leer. Wird nun durch Klick auf die erste Datei die Auswahl
+ver&auml;ndert, so sieht man, dass die Tags f&uuml;r die erste Datei die korrekten
+Werte enthalten. Die Tags der anderen Dateien k&ouml;nnen auch &uuml;berpr&uuml;ft werden,
+indem eine nach der andern selektiert wird. Wenn wir mit den Tags
+zufrieden sind, k&ouml;nnen die &Auml;nderungen mit <guimenuitem>Speichern</guimenuitem>
+(<guimenu>Datei</guimenu> Men&uuml; oder Werkzeugliste) &uuml;bernommen weden. W&auml;hlen von
+<guimenuitem>St&uuml;ckliste erstellen</guimenuitem> im <guimenu>Datei</guimenu>
+Men&uuml; erzeugt die Datei <filename>One Hit Wonder - Let's Tag.m3u</filename>
+im Verzeichnis.
+</para>
+</sect1>
+
+</chapter>
+
+<chapter id="commands">
+<title>Men&uuml;eintr&auml;ge</title>
+
+<sect1 id="kid3-window">
+<title>Das Kid3 Fenster</title>
+
+<sect2>
+<title>Die Elemente der Benutzeroberfl&auml;che</title>
+<para>
+Die &kid3; Benutzeroberfl&auml;che ist in vier Sektionen aufgeteilt: Links findet sich das
+Dateilistenfeld, die rechte Seite enth&auml;lt die <guilabel>Dateiname</guilabel>,
+<guilabel>ID3v1.1</guilabel> und <guilabel>ID3v2.3</guilabel>
+Sektionen.
+</para>
+<para>
+<itemizedlist>
+
+<listitem><para>Dateiliste</para>
+<para>
+Die Dateiliste enth&auml;lt die Namen aller Dateien im ge&ouml;ffneten Verzeichnis,
+welche den gew&auml;hlten Dateinamenfilter (typischerweise <filename>*.mp3</filename>)
+erf&uuml;llen. Eine einzelne oder mehrere Dateien k&ouml;nnen ausgew&auml;hlt werden. Um
+keine Datei auszuw&auml;hlen, kann in den leeren Bereich unterhalb der
+Dateieintr&auml;ge geklickt werden. Die Auswahl bestimmt die Dateien, welche
+durch die unten beschriebenen Operationen ver&auml;ndert werden.
+</para>
+</listitem>
+
+<listitem><para><guilabel>Dateiname</guilabel></para>
+<para>
+Das <guilabel>Name</guilabel> Editierfeld enth&auml;lt den Dateiname wenn nur
+eine einzelne Datei ausgew&auml;hlt ist. Wird dieses Feld ver&auml;ndert, so wird
+die Datei umbenannt, wenn <guimenuitem>Speichern</guimenuitem> ausgef&uuml;hrt
+wird.
+</para>
+<para>
+Das <guilabel>Format</guilabel> Auswahl- und Editierfeld enth&auml;lt das Fromat
+welches verwendet wird, wenn der Dateiname aus den ID3v1.1 oder ID3v2.3
+Tags erzeugt wird. Der Dateiname kann beliebige Zeichen enthalten, es kann
+sogar ein Verzeichnisteil abgetrennt durch einen Schr&auml;gstrich angegeben
+werden, doch dieses Verzeichnis muss bereits existieren, damit das
+Umbenennen erfolgreich ist. Die folgenden Codes k&ouml;nnen verwendet werden, um
+Werte aus den Tags im Dateinamen einzusetzen:
+</para>
+<para>
+<itemizedlist>
+<listitem><para>%s Titel (Song)</para></listitem>
+<listitem><para>%a Interpret (Artist)</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Kommentar (Comment)</para></listitem>
+<listitem><para>%y Jahr (Year)</para></listitem>
+<listitem><para>%t Nummer (Track)</para></listitem>
+<listitem><para>%g Stil (Genre)</para></listitem>
+</itemizedlist>
+</para>
+<para>
+Einige h&auml;ufig verwendete Dateinamen Formate sind bereits vordefiniert und
+&uuml;ber das Auswahlfeld verf&uuml;gbar, aber es ist auch m&ouml;glich, ein eigenes Format
+in das Eingabefeld einzutragen.
+</para>
+<para>
+<guibutton>Von ID3v1</guibutton>: Setzt den Dateinamen gem&auml;ss dem
+ausgew&auml;hlten Format und den ID3v1.1 Tags.
+</para>
+<para>
+<guibutton>Von ID3v2</guibutton>: Setzt den Dateinamen gem&auml;ss dem
+ausgew&auml;hlten Format und den ID3v2.3 Tags.
+</para>
+</listitem>
+
+<listitem><para><guilabel>ID3v1.1</guilabel></para>
+<para>
+Die Eingabefelder f&uuml;r <guilabel>Titel</guilabel>,
+<guilabel>Interpret</guilabel>,
+<guilabel>Album</guilabel>, <guilabel>Kommentar</guilabel>,
+<guilabel>Jahr</guilabel>, <guilabel>Nummer</guilabel> und
+<guilabel>Stil</guilabel> werden benutzt um die entsprechenden Werte in den
+ID3v1.1 Tags der ausgew&auml;hlten Dateien zu editieren. Die Werte werden
+ver&auml;ndert, wenn die Dateiauswahl ge&auml;ndert wird oder vor Operationen wie
+<guimenuitem>Speichern</guimenuitem> und
+<guimenuitem>Beenden</guimenuitem> und wenn die entsprechenden
+Markierungsfelder links aktiviert sind. Dies ist n&uuml;tzlich um nur bestimmte
+Werte zu ver&auml;ndern und die &uuml;brigen Werte nicht anzur&uuml;hren.
+</para>
+<para>
+Wenn eine einzelne Datei ausgew&auml;hlt ist, werden alle Markierungfelder
+aktiviert und die Eingabefelder enthalten die Werte aus den Tags in der
+Datei. Wenn ein Tag nicht vorhanden ist, werden die leeren Werte angezeigt,
+d.h. eine leere Zeichenkette f&uuml;r die Felder <guilabel>Titel</guilabel>,
+<guilabel>Interpret</guilabel>, <guilabel>Album</guilabel> und
+<guilabel>Kommentar</guilabel>, 0 f&uuml;r <guilabel>Jahr</guilabel> und
+<guilabel>Nummer</guilabel> und ein leerer Auswahleintrag bei
+<guilabel>Stil</guilabel>. Die Werte k&ouml;nnen editiert werden und werden
+f&uuml;r die ausgew&auml;hlte Datei beim &Auml;ndern der Auswahl gesetzt, sofern das
+entsprechende Markierungsfeld aktiviert ist. Die Datei wird dann durch
+einen Stern als modifiziert gekennzeichnet, doch die eigentliche Datei
+bleibt unver&auml;ndert, bis <guimenuitem>Speichern</guimenuitem> ausgef&uuml;hrt
+wird.
+</para>
+<para>
+Wenn mehrere Dateien ausgew&auml;hlt werden, dann werden nur diejenigen Werte
+angezeigt, welche bei allen ausgew&auml;hlten Dateien identisch sind. In allen
+&uuml;brigen Editierfeldern werden die leeren Werte (siehe oben) angezeigt. Alle
+Markierungsfelder sind inaktiv, um ungewolltes Ver&auml;ndern mehrerer Dateien
+zu verhindern. Soll ein Wert f&uuml;r alle selektierten Dateien ver&auml;ndert
+werden, so kann er editiert werden, und das entsprechende Markierungsfeld
+wird gesetzt. Der Wert wird dann f&uuml;r alle ausgew&auml;hlten Dateien ver&auml;ndert
+wenn die Auswahl ge&auml;ndert wird und kann mit <guimenuitem>Speichern</guimenuitem>
+gesichert werden.
+</para>
+<para>
+<guibutton>Von Dateiname</guibutton>: Die Tags werden anhand des
+Dateinamens gesetzt. Der Dateiname sollte in einem der unterst&uuml;tzten
+Formate sein:
+<itemizedlist>
+<listitem><para><filename>Interpret - Album/Nummer Titel.mp3</filename></para></listitem>
+<listitem><para><filename>Album/Nummer - Interpret - Titel.mp3</filename></para></listitem>
+<listitem><para><filename>/Interpret - Album - Nummer - Titel.mp3</filename></para></listitem>
+<listitem><para><filename>Album/Interpret - Nummer - Titel.mp3</filename></para></listitem>
+<listitem><para><filename>Album/Interpret - Titel.mp3</filename></para></listitem>
+</itemizedlist>
+Wenn eine einzelne Datei ausgew&auml;hlt wurde, werden die Eingabefelder mit den
+aus dem Dateinamen extrahierten Werten gef&uuml;llt. Bei Mehrfachselektion
+werden die Werte direkt gem&auml;ss den Dateinamen gesetzt.
+</para>
+<para>
+<guibutton>Von ID3v2</guibutton>: Die ID3v1.1 Tags werden auf die gleichen
+Werte gesetzt wie die entsprechenden ID3v2.3 Tags. Bei Mehrfachselektion
+werden die Tags der Dateien direkt gesetzt.
+</para>
+<para>
+<guibutton>Kopieren</guibutton>: Die Kopierablage wird mit den ID3v1.1 Werten
+gef&uuml;llt. Bei folgenden Einf&uuml;ge-Operationen werden nur solche Werte gesetzt,
+bei welchen hier das Markierungsfeld aktiviert war.
+</para>
+<para>
+<guibutton>Einf&uuml;gen</guibutton>: F&uuml;gt die Werte aus der Kopierablage in die
+Eingabefelder ein.
+</para>
+<para>
+<guibutton>L&ouml;schen</guibutton>: Diese Funkton setzt alle Editierfelder auf
+die leeren Werte, entfernt also alle Werte. Die gespeicherte Datei enth&auml;lt
+dann keine ID3v1.1 Tags mehr.
+</para>
+</listitem>
+
+<listitem><para><guilabel>ID3v2.3</guilabel></para>
+<para>
+Die Eingabefelder funktionieren gleich wie bei <guilabel>ID3v1.1</guilabel>
+beschrieben, die L&auml;nge der Zeichenketten ist jedoch nicht begrenzt.
+</para>
+<para>
+<guilabel>Elemente</guilabel>: Die ID3v2.3 Tags k&ouml;nnen nicht bloss
+dieselben Werte enthalten wie die ID3v1.1 Tags, das Format ist vielmehr auf
+flexible Art aus mehreren Elementen aufgebaut, welche wiederum aus
+verschiedenen Feldern bestehen. Das Elemente Listenfeld zeigt alle Elemente
+an, welche in der ausgew&auml;hlten Datei vorhanden sind.
+</para>
+<para>
+<guibutton>Editieren</guibutton>: Ein Fenster wird ge&ouml;ffnet, in welchem
+alle Felder des gew&auml;hlten Elementes editiert werden k&ouml;nnen. Dies kann auch
+durch Doppelklick auf den Elementeintrag erreicht werden.</para>
+<para>
+<guibutton>Hinzuf&uuml;gen</guibutton>: Ein Auswahlfenster mit allen
+unterst&uuml;tzten Elementtypen wird angezeigt und ein Element des gew&auml;hlten
+Typs wird zu der Datei hinzugef&uuml;gt.
+</para>
+<para>
+<guibutton>L&ouml;schen</guibutton>: L&ouml;scht das ausgew&auml;hlte Element.
+</para>
+</listitem>
+
+</itemizedlist>
+</para>
+</sect2>
+
+<sect2>
+<title>Das Men&uuml; Datei</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>
+</shortcut>
+<guimenu>Datei</guimenu>
+<guimenuitem>&Ouml;ffnen...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Ein Verzeichnis wird ge&ouml;ffnet, und alle Dateien,
+welche den gew&auml;hlten Dateinamenfilter erf&uuml;llen, werden im Dateilistenfeld
+angezeigt.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>Zuletzt ge&ouml;ffnete Dateien</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Eine k&uuml;rzlich ge&ouml;ffnetes Verzeichnis wird ge&ouml;ffnet.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>
+</shortcut>
+<guimenu>Datei</guimenu>
+<guimenuitem>Speichern</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Speichert alle ver&auml;nderten Dateien im Verzeichnis.
+Die ver&auml;nderten Dateien sind durch einen Stern gekennzeichnet. Wenn
+Dateinamen ver&auml;ndert wurden, so werden die entsprechenden Dateien
+umbenannt.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>Zuletzt gespeicherte Fassung</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Macht die &Auml;nderungen an einer oder mehreren Dateien
+r&uuml;ckg&auml;ngig. Wenn keine Dateien im Dateilistenfeld selektiert sind, so
+werden die &Auml;nderungen an allen Dateien r&uuml;ckg&auml;ngig gemacht, ansonsten nur an
+den ausgew&auml;hlten Dateien.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>St&uuml;ckliste erstellen</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Erzeugt eine M3U St&uuml;ckliste. Die Datei wird im
+ge&ouml;ffneten Verzeichnis gespeichert und tr&auml;gt denselben Namen wie das
+Verzeichnis, gefolgt von einer .m3u Erweiterung. Diese Datei enth&auml;lt bloss
+die Namen der im Dateilistenfeld angezeigten Dateien, keine speziellen
+EXTM3U oder EXTINFO Zeilen werden generiert. Wenn alle Dateien eines Albums
+in einem separaten Verzeichnis gespeichert werden, kann mit dieser Funktion
+eine St&uuml;ckliste f&uuml;r das Album erstellt werden.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>Q</keycap></keycombo>
+</shortcut>
+<guimenu>Datei</guimenu>
+<guimenuitem>Beenden</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Beendet die Anwendung.</action></para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2>
+<title>Das Men&uuml; Einstellungen</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Einstellungen</guimenu>
+<guimenuitem>Werkzeugleiste anzeigen</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Schaltet die Anzeige der Werkzeugliste, welche
+Symbole zum &Ouml;ffnen und Speichern eines Verzeichnisses enth&auml;lt, ein und aus.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Einstellungen</guimenu>
+<guimenuitem>Statusleiste anzeigen</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Schaltet die Anzeige der Statusleiste, welche
+l&auml;ngere Aktionen wie &Ouml;ffnen und Speichern eines Verzeichnisses anzeigt, ein
+und aus.</action></para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2>
+<title>Das Men&uuml; Hilfe</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Hilfe</guimenu>
+<guimenuitem>Handbuch zu Kid3</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>&Ouml;ffnet dieses Handbuch.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Hilfe</guimenu>
+<guimenuitem>&Uuml;ber Kid3</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Zeigt eine kurze Information &uuml;ber &kid3; an.
+</action></para></listitem>
+</varlistentry>
+
+
+</variablelist>
+</para>
+
+</sect2>
+
+</sect1>
+</chapter>
+
+
+<chapter id="credits">
+
+<title>Danksagungen und Lizenz</title>
+
+<para>
+&kid3;
+</para>
+<para>
+Programmiert von Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
+</para>
+
+&underFDL;
+&underGPL;
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-kid3">
+<title>Bezugsquellen</title>
+
+<para>
+&kid3; ist zu finden unter
+<ulink url="http://kid3.sourceforge.net">http://kid3.sourceforge.net</ulink>.
+</para>
+</sect1>
+
+<sect1 id="requirements">
+<title>Anforderungen</title>
+
+<para>
+&kid3; braucht <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> und
+<ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
+url="http://www.kde.org">KDE</ulink> ist empfohlen aber nicht notwendig,
+denn &kid3; kann auch als reine Qt Applikation kompiliert werden. &kid3;
+l&auml;uft auf Systemen, wo diese Libraries vorhanden sind, z.B. auf Linux und
+Windows.
+</para>
+<para>
+&kid3; wurde getestet unter
+</para>
+<para>
+SuSE Linux 7.3: id3lib 3.8.0pre1, id3lib 3.8.0, id3lib 3.8.2, KDE 2.2.2,
+KDE 3.0.4, Qt 2.3.2, Qt 3.0.5
+</para>
+<para>
+Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, non-commercial Qt version 2.3.0.
+</para>
+
+</sect1>
+
+<sect1 id="compilation">
+<title>Kompilieren und Installation</title>
+
+<para>
+Man kann &kid3; mit oder ohne KDE kompilieren. Um KDE zu benutzen, muss in
+<filename>config.mk</filename> eine Zeile <command>CONFIG_USE_KDE=1</command>
+vorhanden sein, andernfalls wird diese Zeile auskommentiert zu
+<command>#CONFIG_USE_KDE=1</command>. Ohne KDE ist &kid3; eine reine
+Qt Applikation und es fehlen einige Konfigurations- und Session-Funktionen.
+</para>
+<para>
+Im <filename>kid3</filename> Verzeichnis wird getippt:
+<screen width="40">
+<prompt>%</prompt> <userinput>make</userinput>
+<prompt>%</prompt> <userinput>make install</userinput>
+</screen>
+</para>
+<para>
+Um f&uuml;r andere Versionen von Qt oder KDE zu kompilieren, werden die
+Variablen QTDIR und KDEDIR auf die jeweiligen Verzeichnisse gesetzt.
+</para>
+<para>
+Die Qt Anwendung kann auch unter Windows kompiliert werden.
+<screen width="40">
+<prompt>></prompt> <userinput>nmake /f kid3.mak</userinput>
+<prompt>></prompt> <userinput>nmake /f kid3.mak install</userinput>
+</screen>
+</para>
+
+</sect1>
+
+<sect1 id="configuration">
+<title>Konfiguration</title>
+
+<para>Mit KDE werden der Dateinamenfilter, das Dateinamenformat, die
+Einstellungen f&uuml;r die Werkzeug- und Statusleiste sowie die Fenstergr&ouml;sse im
+Standardverzeichnis in der Datei <filename>kid3rc</filename> gespeichert.</para>
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

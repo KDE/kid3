@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<kpartgui name="kid3" version="0.1">
+<MenuBar>
+  <Menu name="file"><text>&amp;File</text>
+    <Action name="create_playlist"/>
+  </Menu>
+</MenuBar>
+</kpartgui>
