@@ -190,9 +190,9 @@ class LabeledSpinBox : public QWidget {
 
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
-    Q_OBJECT
+ Q_OBJECT
 
-		public:
+ public:
 	/**
 	 * Constructor.
 	 *
@@ -268,6 +268,8 @@ class ImageViewer : public QDialog {
 	QImage *image; 
 };
 
+class FrameList;
+
 /** Base class for field controls */
 class FieldControl : public QObject {
  public:
@@ -277,8 +279,8 @@ class FieldControl : public QObject {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	FieldControl(ID3_FieldID id, ID3_Field *fld) :
-	    field_id(id), field(fld) {}
+	FieldControl(FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	    frmlst(fl), field_id(id), field(fld) {}
 	/**
 	 * Destructor.
 	 */
@@ -304,6 +306,8 @@ class FieldControl : public QObject {
 	 * @return description or NULL if id unknown.
 	 */
 	const char *getFieldIDString(ID3_FieldID id) const;
+	/** Frame list */
+	FrameList *frmlst;
 	/** Field ID */
 	ID3_FieldID field_id;
 	/** ID3 field */
@@ -319,8 +323,8 @@ class TextFieldControl : public FieldControl {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	TextFieldControl(ID3_FieldID id, ID3_Field *fld) :
-	    FieldControl(id, fld) {}
+	TextFieldControl(FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	    FieldControl(fl, id, fld) {}
 	/**
 	 * Destructor.
 	 */
@@ -343,38 +347,6 @@ class TextFieldControl : public FieldControl {
 	LabeledTextEdit *edit;
 };
 
-/** Control to edit unicode text fields */
-class UnicodeFieldControl : public FieldControl {
- public:
-	/**
-	 * Constructor.
-	 *
-	 * @param id  ID of field
-	 * @param fld ID3 field
-	 */
-	UnicodeFieldControl(ID3_FieldID id, ID3_Field *fld) :
-		FieldControl(id, fld) {}
-	/**
-	 * Destructor.
-	 */
-	virtual ~UnicodeFieldControl() {}
-	/**
-	 * Update field from data in field control.
-	 */
-	virtual void updateTag(void);
-	/**
-	 * Create widget to edit field data.
-	 *
-	 * @param parent parent widget
-	 *
-	 * @return widget to edit field data.
-	 */
-	virtual QWidget *createWidget(QWidget *parent);
- protected:
-	/** Text editor widget */
-	LabeledTextEdit *edit;
-};
-
 /** Control to edit single line text fields */
 class LineFieldControl : public FieldControl {
  public:
@@ -384,8 +356,8 @@ class LineFieldControl : public FieldControl {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	LineFieldControl(ID3_FieldID id, ID3_Field *fld) :
-	    FieldControl(id, fld) {}
+	LineFieldControl(FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	    FieldControl(fl, id, fld) {}
 	/**
 	 * Destructor.
 	 */
@@ -417,8 +389,8 @@ class IntFieldControl : public FieldControl {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	IntFieldControl(ID3_FieldID id, ID3_Field *fld) :
-	    FieldControl(id, fld) {};
+	IntFieldControl(FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	    FieldControl(fl, id, fld) {};
 	/**
 	 * Destructor.
 	 */
@@ -451,8 +423,8 @@ class IntComboBoxControl : public FieldControl {
 	 * @param fld ID3 field
 	 * @param lst list of strings with possible selections, NULL terminated
 	 */
-	IntComboBoxControl(ID3_FieldID id, ID3_Field *fld, const char **lst) :
-	    FieldControl(id, fld), strlst(lst) {};
+	IntComboBoxControl(FrameList *fl, ID3_FieldID id, ID3_Field *fld, const char **lst) :
+	    FieldControl(fl, id, fld), strlst(lst) {};
 	/**
 	 * Destructor.
 	 */
@@ -486,8 +458,8 @@ class BinFieldControl : public FieldControl {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	BinFieldControl(ID3_FieldID id, ID3_Field *fld) :
-	    FieldControl(id, fld) {};
+	BinFieldControl(FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	    FieldControl(fl, id, fld) {};
 	/**
 	 * Destructor.
 	 */
@@ -567,6 +539,18 @@ class FrameList : public QObject {
 	 *         ID3FID_NOFRAME if no frame selected.
 	 */
 	static ID3_FrameID selectFrameId(void);
+	/**
+	 * Set encoding selected in frame dialog.
+	 *
+	 * @param encoding.
+	 */
+	void setSelectedEncoding(ID3_TextEnc enc) { selected_enc = enc; }
+	/**
+	 * Get encoding selected in frame dialog.
+	 *
+	 * @return encoding, ID3TE_NONE if none selected.
+	 */
+	ID3_TextEnc getSelectedEncoding(void) const { return selected_enc; }
 
  private:
 	/**
@@ -610,6 +594,8 @@ class FrameList : public QObject {
 #else
 	static const int num_frameid = 76;
 #endif
+	/** Encoding selected in frame dialog */
+	ID3_TextEnc selected_enc;
 	/** Alphabetically sorted list of frame descriptions */
 	static const char *frameid_str[num_frameid];
 	/** Frame IDs corresponding to frameid_str[] */

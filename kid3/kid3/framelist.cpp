@@ -7,7 +7,7 @@
  * \date 9 Jan 2003
  */
 
-#include "autoconf.h"
+#include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <klocale.h>
 #include <kdialogbase.h>
@@ -26,6 +26,9 @@
 #include <qpainter.h>
 #include <qinputdialog.h>
 #include <qcombobox.h>
+#if defined WIN32 && defined _DEBUG
+#include <id3.h> /* ID3TagIterator_Delete() */
+#endif
 
 #include "mp3file.h"
 #include "framelist.h"
@@ -268,7 +271,12 @@ const char *FieldControl::getFieldIDString(ID3_FieldID id) const
 
 void TextFieldControl::updateTag(void)
 {
-	field->Set(edit->text());
+	// get encoding from selection
+	ID3_TextEnc enc = frmlst->getSelectedEncoding();
+	if (enc != ID3TE_NONE) {
+		field->SetEncoding(enc);
+	}
+	Mp3File::setString(field, edit->text());
 }
 
 /**
@@ -281,72 +289,11 @@ void TextFieldControl::updateTag(void)
 QWidget *TextFieldControl::createWidget(QWidget *parent)
 {
 	edit = new LabeledTextEdit(parent);
-	if (edit) {
-		edit->setLabel(i18n(getFieldIDString(field_id)));
-		edit->setText(field->GetRawText());
-	}
-	return edit;
-}
-
-/**
- * Update field with data from dialog.
- */
-
-void UnicodeFieldControl::updateTag(void)
-{
-	QString txt = edit->text();
-	const QChar *qcarray = txt.unicode();
-	uint unicode_size = txt.length();
-	unicode_t *unicode = new unicode_t[unicode_size + 1];
-	if (unicode) {
-		uint i;
-		for (i = 0; i < unicode_size; i++) {
-			unicode[i] = (ushort)qcarray[i].unicode();
-		}
-		unicode[unicode_size] = 0;
-		field->Set(unicode);
-		delete [] unicode;
-	}
-}
-
-/**
- * Create widget for dialog.
- *
- * @param parent parent widget
- * @return widget to edit field.
- */
-
-QWidget *UnicodeFieldControl::createWidget(QWidget *parent)
-{
-	edit = new LabeledTextEdit(parent);
 	if (edit == NULL)
 		return NULL;
 
 	edit->setLabel(i18n(getFieldIDString(field_id)));
-	const unicode_t *txt = field->GetRawUnicodeText();
-	uint unicode_size = field->Size() / sizeof(unicode_t);
-	if (!unicode_size || !txt)
-		return edit;
-	QChar *qcarray = new QChar[unicode_size];
-	if (qcarray) {
-		uint i, msb_null = 0, lsb_null = 0;
-		for (i = 0; i < unicode_size; i++) {
-			qcarray[i] = (ushort)txt[i];
-			if (!(txt[i] & 0xff00)) msb_null++;
-			if (!(txt[i] & 0x00ff)) lsb_null++;
-		}
-		if (msb_null < lsb_null) {
-			// The byte order seems wrong => correct
-			for (i = 0; i < unicode_size; i++) {
-				qcarray[i] =
-				    (ushort)(((txt[i] & 0x00ff) << 8) |
-					     ((txt[i] & 0xff00) >> 8));
-			}
-		}
-		QString unicode(qcarray, unicode_size);
-		edit->setText(unicode);
-		delete [] qcarray;
-	}
+	edit->setText(Mp3File::getString(field));
 	return edit;
 }
 
@@ -409,6 +356,10 @@ QWidget *IntFieldControl::createWidget(QWidget *parent)
 void IntComboBoxControl::updateTag(void)
 {
 	field->Set(ptinp->currentItem());
+	/* If this is the selected encoding, store it to be used by text fields */
+	if (field->GetID() == ID3FN_TEXTENC) {
+		frmlst->setSelectedEncoding((ID3_TextEnc)ptinp->currentItem());
+	}
 }
 
 /**
@@ -492,6 +443,8 @@ EditFrameDialog::EditFrameDialog(QWidget *parent, QString &caption,
 		setMainWidget(page);
 		QVBoxLayout *vb = new QVBoxLayout(page);
 		if (vb) {
+			vb->setSpacing(6);
+			vb->setMargin(6);
 			FieldControl *fld_ctl = ctls.first();
 			while (fld_ctl != NULL) {
 				vb->addWidget(fld_ctl->createWidget(page));
@@ -559,7 +512,7 @@ EditFrameDialog::EditFrameDialog(QWidget *parent, QString &caption,
  * Constructor.
  */
 
-FrameList::FrameList() : listbox(0), tags(0), file(0)
+FrameList::FrameList() : listbox(0), tags(0), file(0), selected_enc(ID3TE_NONE)
 {
 	fieldcontrols.setAutoDelete(TRUE);
 }
@@ -587,9 +540,15 @@ void FrameList::readTags(void)
 		ID3_Tag::Iterator* iter = tags->CreateIterator();
 		ID3_Frame* frame;
 		while ((frame = iter->GetNext()) != NULL) {
-			listbox->insertItem(i18n(getIdString(frame->GetID())));
+			const char *idstr = getIdString(frame->GetID());
+			listbox->insertItem(idstr ? i18n(idstr) : QString(frame->GetTextID()));
 		}
+#if defined WIN32 && defined _DEBUG
+		/* just to avoid user breakpoint in VC++ */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
 		delete iter;
+#endif
 	}
 }
 
@@ -624,7 +583,12 @@ ID3_Frame *FrameList::getFrame(int index) const
 		for (i = 0;
 		     i <= index && ((frame = iter->GetNext()) != NULL);
 		     i++);
+#if defined WIN32 && defined _DEBUG
+		/* just to avoid user breakpoint in VC++ */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
 		delete iter;
+#endif
 	}
 	return frame;
 }
@@ -652,7 +616,12 @@ ID3_Frame *FrameList::getSelectedFrame(void) const
 				frame = NULL;
 			}
 		}
+#if defined WIN32 && defined _DEBUG
+		/* just to avoid user breakpoint in VC++ */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
 		delete iter;
+#endif
 	}
 	return frame;
 }
@@ -684,7 +653,7 @@ bool FrameList::editFrame(void)
 						NULL
 					};
 					IntComboBoxControl *cbox =
-						new IntComboBoxControl(id, field, strlst);
+						new IntComboBoxControl(this, id, field, strlst);
 					if (cbox) {
 						fieldcontrols.append(cbox);
 					}
@@ -715,7 +684,7 @@ bool FrameList::editFrame(void)
 						NULL
 					};
 					IntComboBoxControl *cbox =
-						new IntComboBoxControl(id, field, strlst);
+						new IntComboBoxControl(this, id, field, strlst);
 					if (cbox) {
 						fieldcontrols.append(cbox);
 					}
@@ -728,7 +697,7 @@ bool FrameList::editFrame(void)
 						NULL
 					};
 					IntComboBoxControl *cbox =
-						new IntComboBoxControl(id, field, strlst);
+						new IntComboBoxControl(this, id, field, strlst);
 					if (cbox) {
 						fieldcontrols.append(cbox);
 					}
@@ -745,14 +714,14 @@ bool FrameList::editFrame(void)
 						NULL
 					};
 					IntComboBoxControl *cbox =
-						new IntComboBoxControl(id, field, strlst);
+						new IntComboBoxControl(this, id, field, strlst);
 					if (cbox) {
 						fieldcontrols.append(cbox);
 					}
 				}
 				else {
 					IntFieldControl *intctl =
-						new IntFieldControl(id, field);
+						new IntFieldControl(this, id, field);
 					if (intctl) {
 						fieldcontrols.append(intctl);
 					}
@@ -760,47 +729,46 @@ bool FrameList::editFrame(void)
 			}
 			else if (type == ID3FTY_BINARY) {
 				BinFieldControl *binctl =
-					new BinFieldControl(id, field);
+					new BinFieldControl(this, id, field);
 				if (binctl) {
 					fieldcontrols.append(binctl);
 				}
 			}
 			else if (type == ID3FTY_TEXTSTRING) {
 				ID3_TextEnc enc = field->GetEncoding();
-				// (ID3TE_IS_SINGLE_BYTE_ENC(enc))
-				if (enc == ID3TE_ISO8859_1 || enc == ID3TE_UTF8) {
-					if (id == ID3FN_TEXT) {
-						// Large textedit for text fields
-						TextFieldControl *textctl =
-							new TextFieldControl(id, field);
-						if (textctl) {
-							fieldcontrols.append(textctl);
-						}
-					}
-					else {
-						LineFieldControl *textctl =
-							new LineFieldControl(id, field);
-						if (textctl) {
-							fieldcontrols.append(textctl);
-						}
+				if (id == ID3FN_TEXT ||
+					// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
+					enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
+					// Large textedit for text fields
+					TextFieldControl *textctl =
+						new TextFieldControl(this, id, field);
+					if (textctl) {
+						fieldcontrols.append(textctl);
 					}
 				}
-				// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
-				else if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
-					UnicodeFieldControl *textctl =
-						new UnicodeFieldControl(id, field);
+				else {
+					LineFieldControl *textctl =
+						new LineFieldControl(this, id, field);
 					if (textctl) {
 						fieldcontrols.append(textctl);
 					}
 				}
 			}
 		}
+#if defined WIN32 && defined _DEBUG
+		/* just to avoid user breakpoint in VC++ */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
 		delete iter;
-		QString caption(i18n(getIdString(frame->GetID())));
+#endif
+		const char *idstr = getIdString(frame->GetID());
+		QString caption = idstr ? i18n(idstr) : QString(frame->GetTextID());
 		EditFrameDialog *dialog =
 			new EditFrameDialog(NULL, caption, fieldcontrols);
 		if (dialog && dialog->exec() == QDialog::Accepted) {
 			FieldControl *fld_ctl = fieldcontrols.first();
+			// will be set if there is an encoding selector
+			setSelectedEncoding(ID3TE_NONE);
 			while (fld_ctl != NULL) {
 				fld_ctl->updateTag();
 				fld_ctl = fieldcontrols.next();
