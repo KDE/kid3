@@ -91,7 +91,6 @@ bool FileList::updateModificationState(void)
 	Mp3File *mp3file = first();
 	bool modified = FALSE;
 	while (mp3file != 0) {
-		mp3file->refreshText();
 		if (mp3file->isChanged()) {
 			modified = TRUE;
 		}
