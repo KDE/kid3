@@ -18,15 +18,23 @@ class StandardTags {
 	/**
 	 * Constructor.
 	 */
-	StandardTags() :
-		title(QString::null), artist(QString::null), album(QString::null),
-		comment(QString::null), year(-1), track(-1), genre(-1) {}
+	StandardTags();
 	/**
 	 * Set values which are different inactive.
 	 *
 	 * @param st tags to compare
 	 */
 	void filterDifferent(const StandardTags& st);
+	/**
+	 * Set tags inactive.
+	 */
+	void setInactive();
+	/**
+	 * Copy all tags which are not inactive.
+	 *
+	 * @param dest standard tags to copy into
+	 */
+	void copyActiveTags(StandardTags &dest) const;
 	/**
 	 * Set tags empty.
 	 */
