@@ -15,6 +15,7 @@
 #include <qtextstream.h>
 #include <qcursor.h>
 #include <qprogressbar.h>
+#include <qmessagebox.h>
 
 #ifdef CONFIG_USE_KDE
 #include <kapp.h>
@@ -27,6 +28,7 @@
 #include <kaction.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
+#include <kkeydialog.h>
 #else
 #include <qapplication.h>
 #include <qmenubar.h>
@@ -52,6 +54,7 @@
 #include "miscconfig.h"
 #include "freedbconfig.h"
 #include "standardtags.h"
+#include "rendirdialog.h"
 
 #ifndef CONFIG_USE_KDE
 #include <qdialog.h>
@@ -133,10 +136,10 @@ QMainWindow(0, name)
 	framelist = new FrameList();
 	copytags = new StandardTags();
 	initStatusBar();
-	initActions();
 	setModified(false);
 	doc_dir = QString::null;
 	initView();
+	initActions();
 	framelist->setListBox(view->framesListBox);
 	fnFormatCfg->setAsFilenameFormatter();
 
@@ -180,6 +183,8 @@ void Kid3App::initActions()
 	    this, SLOT(slotViewToolBar()), actionCollection());
 	viewStatusBar = KStdAction::showStatusbar(
 	    this, SLOT(slotViewStatusBar()), actionCollection());
+    settingsShortcuts = KStdAction::keyBindings(
+		this, SLOT(slotSettingsShortcuts()), actionCollection());
 	settingsConfigure = KStdAction::preferences(
 	    this, SLOT(slotSettingsConfigure()), actionCollection());
 
@@ -191,6 +196,7 @@ void Kid3App::initActions()
 	fileQuit->setStatusText(i18n("Quits the application"));
 	viewToolBar->setStatusText(i18n("Enables/disables the toolbar"));
 	viewStatusBar->setStatusText(i18n("Enables/disables the statusbar"));
+	settingsShortcuts->setStatusText(i18n("Configure Shortcuts"));
 	settingsConfigure->setStatusText(i18n("Preferences dialog"));
 
 	new KAction(i18n("&Import..."), 0, this,
@@ -202,6 +208,55 @@ void Kid3App::initActions()
 	new KAction(i18n("&Apply Format"), 0, this,
 		    SLOT(slotApplyFormat()), actionCollection(),
 		    "apply_format");
+	new KAction(i18n("&Rename Directory..."), 0, this,
+		    SLOT(slotRenameDirectory()), actionCollection(),
+		    "rename_directory");
+
+	new KAction(i18n("Select &All"), KShortcut("Alt+A"), this,
+		    SLOT(slotSelectAll()), actionCollection(),
+		    "select_all");
+	new KAction(i18n("&Next File"), KShortcut("Alt+Down"), this,
+		    SLOT(slotNextFile()), actionCollection(),
+		    "next_file");
+	new KAction(i18n("&Previous File"), KShortcut("Alt+Up"), this,
+		    SLOT(slotPreviousFile()), actionCollection(),
+		    "previous_file");
+	new KAction("ID3v1: " + i18n("From Filename"), 0, view, SLOT(fromFilenameV1()),
+				actionCollection(), "v1_from_filename");
+	new KAction("ID3v1: " + i18n("From ID3v2"), 0, view, SLOT(fromID3V1()),
+				actionCollection(), "v1_from_v2");
+	new KAction("ID3v1: " + i18n("Copy"), 0, view, SLOT(copyV1()),
+				actionCollection(), "v1_copy");
+	new KAction("ID3v1: " + i18n("Paste"), 0, view, SLOT(pasteV1()),
+				actionCollection(), "v1_paste");
+	new KAction("ID3v1: " + i18n("Remove"), 0, view, SLOT(removeV1()),
+				actionCollection(), "v1_remove");
+	new KAction("ID3v2: " + i18n("From Filename"), 0, view, SLOT(fromFilenameV2()),
+				actionCollection(), "v2_from_filename");
+	new KAction("ID3v2: " + i18n("From ID3v1"), 0, view, SLOT(fromID3V2()),
+				actionCollection(), "v2_from_v1");
+	new KAction("ID3v2: " + i18n("Copy"), 0, view, SLOT(copyV2()),
+				actionCollection(), "v2_copy");
+	new KAction("ID3v2: " + i18n("Paste"), 0, view, SLOT(pasteV2()),
+				actionCollection(), "v2_paste");
+	new KAction("ID3v2: " + i18n("Remove"), 0, view, SLOT(removeV2()),
+				actionCollection(), "v2_remove");
+	new KAction(i18n("Frames:") + " " + i18n("Edit"), 0, view, SLOT(editFrame()),
+				actionCollection(), "frames_edit");
+	new KAction(i18n("Frames:") + " " + i18n("Add"), 0, view, SLOT(addFrame()),
+				actionCollection(), "frames_add");
+	new KAction(i18n("Frames:") + " " + i18n("Delete"), 0, view, SLOT(deleteFrame()),
+				actionCollection(), "frames_delete");
+	new KAction(i18n("Filename") + ": " + i18n("From ID3v1"), 0, view, SLOT(fnFromID3V1()),
+				actionCollection(), "filename_from_v1");
+	new KAction(i18n("Filename") + ": " + i18n("From ID3v2"), 0, view, SLOT(fnFromID3V2()),
+				actionCollection(), "filename_from_v2");
+	new KAction(i18n("Filename") + ": " + i18n("Focus"), 0, view->nameLineEdit, SLOT(setFocus()),
+				actionCollection(), "filename_focus");
+	new KAction("ID3v1: " + i18n("Focus"), 0, view->titleV1LineEdit, SLOT(setFocus()),
+				actionCollection(), "v1_focus");
+	new KAction("ID3v2: " + i18n("Focus"), 0, view->titleV2LineEdit, SLOT(setFocus()),
+				actionCollection(), "v2_focus");
 
 	createGUI();
 
@@ -280,6 +335,13 @@ void Kid3App::initActions()
 		connect(toolsApplyFormat, SIGNAL(activated()),
 			this, SLOT(slotApplyFormat()));
 	}
+	toolsRenameDirectory = new QAction(this);
+	if (toolsRenameDirectory) {
+		toolsRenameDirectory->setText(i18n("Rename Directory"));
+		toolsRenameDirectory->setMenuText(i18n("&Rename Directory..."));
+		connect(toolsRenameDirectory, SIGNAL(activated()),
+			this, SLOT(slotRenameDirectory()));
+	}
 	settingsConfigure = new QAction(this);
 	if (settingsConfigure) {
 		settingsConfigure->setText(i18n("Configure Kid3"));
@@ -305,6 +367,7 @@ void Kid3App::initActions()
 		menubar->insertItem((i18n("&File")), fileMenu);
 
 		toolsApplyFormat->addTo(toolsMenu);
+		toolsRenameDirectory->addTo(toolsMenu);
 		menubar->insertItem((i18n("&Tools")), toolsMenu);
 
 		settingsConfigure->addTo(settingsMenu);
@@ -390,8 +453,11 @@ void Kid3App::saveOptions()
 {
 #ifdef CONFIG_USE_KDE
 	fileOpenRecent->saveEntries(config, "Recent Files");
-	miscCfg->splitterSizes = view->sizes();
+#else
+	miscCfg->windowWidth = size().width();
+	miscCfg->windowHeight = size().height();
 #endif
+	miscCfg->splitterSizes = view->sizes();
 	miscCfg->nameFilter = view->mp3ListBox->getNameFilter();
 	miscCfg->formatItem = view->formatComboBox->currentItem();
 	miscCfg->formatText = view->formatComboBox->currentText();
@@ -419,10 +485,20 @@ void Kid3App::readOptions()
 	fileOpenRecent->loadEntries(config,"Recent Files");
 	viewToolBar->setChecked(!toolBar("mainToolBar")->isHidden());
 	viewStatusBar->setChecked(!statusBar()->isHidden());
-	if (!miscCfg->splitterSizes.empty()) {
-		view->setSizes(miscCfg->splitterSizes);
+#else
+	if (miscCfg->windowWidth != -1 && miscCfg->windowHeight != -1) {
+		resize(miscCfg->windowWidth, miscCfg->windowHeight);
 	}
 #endif
+	if (
+#if QT_VERSION >= 300
+		!miscCfg->splitterSizes.empty()
+#else
+		miscCfg->splitterSizes.count() > 0
+#endif
+		) {
+		view->setSizes(miscCfg->splitterSizes);
+	}
 	view->mp3ListBox->setNameFilter(miscCfg->nameFilter);
 	view->formatComboBox->setCurrentItem(miscCfg->formatItem);
 #if QT_VERSION >= 300
@@ -480,20 +556,32 @@ void Kid3App::closeEvent(QCloseEvent *ce)
 
 bool Kid3App::saveDirectory(void)
 {
-	int numFiles = 0;
+	QString errorFiles;
+	int numFiles = 0, totalFiles = 0;
 	bool renamed = FALSE;
 	Mp3File *mp3file = view->mp3ListBox->first();
+	// Get number of files to be saved to display correct progressbar
+	while (mp3file != 0) {
+		if (mp3file->isChanged()) {
+			++totalFiles;
+		}
+		mp3file = view->mp3ListBox->next();
+	}
 	QProgressBar *progress = new QProgressBar();
 	statusBar()->addWidget(progress, 0, true);
-	progress->setTotalSteps(view->mp3ListBox->numRows());
+	progress->setTotalSteps(totalFiles);
 	progress->setProgress(numFiles);
 #ifdef CONFIG_USE_KDE
 	kapp->processEvents();
 #else
 	qApp->processEvents();
 #endif
+	mp3file = view->mp3ListBox->first();
 	while (mp3file != 0) {
-		renamed = mp3file->writeTags(FALSE) || renamed;
+		if (!mp3file->writeTags(FALSE, &renamed)) {
+			errorFiles.append(mp3file->getFilename());
+			errorFiles.append('\n');
+		}
 		mp3file = view->mp3ListBox->next();
 		++numFiles;
 		progress->setProgress(numFiles);
@@ -506,6 +594,12 @@ bool Kid3App::saveDirectory(void)
 	}
 	else {
 		updateModificationState();
+	}
+	if (!errorFiles.isEmpty()) {
+		QMessageBox::warning(0, i18n("File Error"),
+							 i18n("Error while writing file:\n") +
+							 errorFiles,
+							 QMessageBox::Ok, QMessageBox::NoButton);
 	}
 	return true;
 }
@@ -755,6 +849,50 @@ void Kid3App::slotViewStatusBar()
 	slotStatusMsg(i18n("Ready."));
 }
 
+/**
+ * Shortcuts configuration.
+ */
+void Kid3App::slotSettingsShortcuts()
+{
+	KKeyDialog::configure(actionCollection(), this);
+}
+
+/**
+ * Select all files.
+ */
+void Kid3App::slotSelectAll()
+{
+	view->mp3ListBox->selectAll(true);
+}
+
+/**
+ * Select next file.
+ */
+void Kid3App::slotNextFile()
+{
+	int ci = view->mp3ListBox->currentItem();
+	if (ci >= 0 && ci < (int)view->mp3ListBox->count() - 1) {
+		++ci;
+		view->mp3ListBox->clearSelection();
+		view->mp3ListBox->setCurrentItem(ci);
+		view->mp3ListBox->setSelected(ci, true);
+	}
+}
+
+/**
+ * Select previous file.
+ */
+void Kid3App::slotPreviousFile()
+{
+	int ci = view->mp3ListBox->currentItem();
+	if (ci > 0) {
+		--ci;
+		view->mp3ListBox->clearSelection();
+		view->mp3ListBox->setCurrentItem(ci);
+		view->mp3ListBox->setSelected(ci, true);
+	}
+}
+
 #else /* CONFIG_USE_KDE */
 /**
  * Display handbook.
@@ -840,6 +978,69 @@ void Kid3App::slotCreatePlaylist(void)
 }
 
 /**
+ * Check if the duration of the files corresponds to the duration of the
+ * imported tracks.
+ *
+ * @param trackDuration list with durations of imported tracks
+ * @param maxDiff       the maximum difference in seconds allowed
+ *
+ * @return true if ok or user agreed with import,
+ *         false if user canceled import.
+ */
+bool Kid3App::checkDuration(QValueList<int>* trackDuration,
+							unsigned maxDiff)
+{
+	if (!trackDuration) {
+		return true;
+	}
+	QString warningMsg;
+	int numFiles = 0;
+	int numTracks = 0;
+#if QT_VERSION >= 300
+	QValueList<int>::iterator
+#else
+	QValueListIterator<int>
+#endif
+	it = trackDuration->begin();
+	Mp3File *mp3file = view->mp3ListBox->first();
+	while (mp3file != 0) {
+		if (it != trackDuration->end()) {
+			mp3file->readTags(false);
+			unsigned fileLen = mp3file->getDuration();
+			unsigned trackLen = *it;
+			if (fileLen != 0 && trackLen != 0) {
+				unsigned diff = fileLen > trackLen ?
+					fileLen - trackLen : trackLen - fileLen;
+				if (diff > maxDiff) {
+					warningMsg.append(mp3file->getFilename());
+					warningMsg.append(": ");
+					warningMsg.append(Mp3File::formatTime(fileLen));
+					warningMsg.append(" != ");
+					warningMsg.append(Mp3File::formatTime(trackLen));
+					warningMsg.append('\n');
+				}
+			}
+			++it;
+			++numTracks;
+		}
+		mp3file = view->mp3ListBox->next();
+		++numFiles;
+	}
+	if (numFiles != 0 && numTracks != 0 &&
+		numFiles != numTracks) {
+		warningMsg.append(i18n("Number of files is not equal to number of imported tracks"));
+		warningMsg.append(QString(": %1 != %2\n").arg(numFiles).arg(numTracks));
+	}
+	if (!warningMsg.isEmpty()) {
+		return (QMessageBox::warning(0, i18n("Import Mismatch"),
+									 warningMsg + i18n("Continue import?"),
+									 QMessageBox::Ok, QMessageBox::Cancel) ==
+				QMessageBox::Ok);
+	}
+	return true;
+}
+
+/**
  * Import.
  */
 
@@ -854,57 +1055,65 @@ void Kid3App::slotImport(void)
 								genCfg->importFormatHeaders,
 								genCfg->importFormatTracks,
 								genCfg->importFormatIdx);
+		dialog->setTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
+									   genCfg->maxTimeDifference);
 		dialog->setFreedbConfig(freedbCfg);
 		if (dialog->exec() == QDialog::Accepted) {
-#if QT_VERSION >= 300
-			QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-#else
-			QApplication::setOverrideCursor(QCursor(WaitCursor));
-#endif
-			slotStatusMsg(i18n("Import..."));
-			StandardTags st, st_hdr;
-			Mp3File *mp3file = view->mp3ListBox->first();
-			bool no_selection = view->numFilesSelected() == 0;
-			bool start = true;
-			st_hdr.setInactive();
-			(void)dialog->parseHeader(st_hdr);
 			genCfg->importDestV1 = dialog->getDestV1();
 			QString name, header, track;
 			genCfg->importFormatIdx = dialog->getImportFormat(name, header, track);
 			genCfg->importFormatNames[genCfg->importFormatIdx] = name;
 			genCfg->importFormatHeaders[genCfg->importFormatIdx] = header;
 			genCfg->importFormatTracks[genCfg->importFormatIdx] = track;
+			dialog->getTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
+										   genCfg->maxTimeDifference);
 			dialog->getFreedbConfig(freedbCfg);
-			while (mp3file != 0) {
-				mp3file->readTags(false);
-				if (genCfg->importDestV1) {
-					mp3file->getStandardTagsV1(&st);
-				} else {
-					mp3file->getStandardTagsV2(&st);
+			StandardTags st_hdr;
+			st_hdr.setInactive();
+			(void)dialog->parseHeader(st_hdr);
+			if (!genCfg->enableTimeDifferenceCheck ||
+				checkDuration(dialog->getTrackDurations(), genCfg->maxTimeDifference)) {
+#if QT_VERSION >= 300
+				QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+#else
+				QApplication::setOverrideCursor(QCursor(WaitCursor));
+#endif
+				slotStatusMsg(i18n("Import..."));
+				StandardTags st;
+				bool start = true;
+				bool no_selection = view->numFilesSelected() == 0;
+				Mp3File *mp3file = view->mp3ListBox->first();
+				while (mp3file != 0) {
+					mp3file->readTags(false);
+					if (genCfg->importDestV1) {
+						mp3file->getStandardTagsV1(&st);
+					} else {
+						mp3file->getStandardTagsV2(&st);
+					}
+					st_hdr.copyActiveTags(st);
+					if (!dialog->getNextTags(st, start))
+						break;
+					start = false;
+					if (genCfg->importDestV1) {
+						mp3file->setStandardTagsV1(&st);
+					} else {
+						mp3file->setStandardTagsV2(&st);
+					}
+					mp3file = view->mp3ListBox->next();
 				}
-				st_hdr.copyActiveTags(st);
-				if (!dialog->getNextTags(st, start))
-					break;
-				start = false;
-				if (genCfg->importDestV1) {
-					mp3file->setStandardTagsV1(&st);
-				} else {
-					mp3file->setStandardTagsV2(&st);
+				if (!no_selection) {
+					StandardTags st; // empty
+					view->setStandardTagsV1(&st);
+					view->setStandardTagsV2(&st);
+					view->nameLineEdit->setEnabled(FALSE);
+					fileSelected();
 				}
-				mp3file = view->mp3ListBox->next();
+				else {
+					updateModificationState();
+				}
+				slotStatusMsg(i18n("Ready."));
+				QApplication::restoreOverrideCursor();
 			}
-			if (!no_selection) {
-				StandardTags st; // empty
-				view->setStandardTagsV1(&st);
-				view->setStandardTagsV2(&st);
-				view->nameLineEdit->setEnabled(FALSE);
-				fileSelected();
-			}
-			else {
-				updateModificationState();
-			}
-			slotStatusMsg(i18n("Ready."));
-			QApplication::restoreOverrideCursor();
 		}
 		delete dialog;
 	}
@@ -971,6 +1180,47 @@ void Kid3App::slotApplyFormat(void)
 }
 
 /**
+ * Rename directory.
+ */
+void Kid3App::slotRenameDirectory(void)
+{
+	if (saveModified()) {
+		QString caption(i18n("Rename Directory"));
+		RenDirDialog *dialog =
+			new RenDirDialog(NULL, caption, view->mp3ListBox->first(),
+							 miscCfg->dirFormatItem, miscCfg->dirFormatText);
+		if (dialog) {
+			if (dialog->exec() == QDialog::Accepted) {
+				Mp3File *mp3file = view->mp3ListBox->first();
+				QString errorMsg;
+				bool again = false;
+				while (mp3file &&
+					   dialog->performAction(mp3file, again, &errorMsg)) {
+					mp3file = view->mp3ListBox->next();
+				}
+				openDirectory(dialog->getNewDirname());
+				if (again) {
+					mp3file = view->mp3ListBox->first();
+					while (mp3file &&
+						   dialog->performAction(mp3file, again, &errorMsg)) {
+						mp3file = view->mp3ListBox->next();
+					}
+					openDirectory(dialog->getNewDirname());
+				}
+				miscCfg->dirFormatItem = dialog->getFormatItem();
+				miscCfg->dirFormatText = dialog->getFormatText();
+				if (!errorMsg.isEmpty()) {
+					QMessageBox::warning(0, i18n("File Error"),
+										 i18n("Error while renaming:\n") +
+										 errorMsg,
+										 QMessageBox::Ok, QMessageBox::NoButton);
+				}
+			}
+		}
+	}
+}
+
+/**
  * Open directory on drop.
  *
  * @param txt URL of directory or file in directory
@@ -978,6 +1228,10 @@ void Kid3App::slotApplyFormat(void)
 
 void Kid3App::openDrop(QString txt)
 {
+	int lfPos = txt.find('\n');
+	if (lfPos > 0 && lfPos < (int)txt.length() - 1) {
+		txt.truncate(lfPos + 1);
+	}
 	QUrl url(txt);
 	if (url.hasPath()) {
 		QString dir = url.path().stripWhiteSpace();
@@ -1111,10 +1365,12 @@ void Kid3App::fileSelected(void)
 		framelist->setTags(single_v2_file);
 		view->nameLineEdit->setEnabled(TRUE);
 		view->nameLineEdit->setText(single_v2_file->getFilename());
+		view->detailsLabel->setText(single_v2_file->getDetailInfo());
 	}
 	else {
 		framelist->clear();
 		view->nameLineEdit->setEnabled(FALSE);
+		view->detailsLabel->setText("");
 	}
 }
 
@@ -1183,6 +1439,10 @@ void Kid3App::getTagsFromFilenameV1(void)
 		}
 		mp3file = view->mp3ListBox->next();
 	}
+	if (multiselect) {
+		// update controls with filtered data
+		fileSelected();
+	}
 }
 
 /**
@@ -1214,6 +1474,10 @@ void Kid3App::getTagsFromFilenameV2(void)
 			}
 		}
 		mp3file = view->mp3ListBox->next();
+	}
+	if (multiselect) {
+		// update controls with filtered data
+		fileSelected();
 	}
 }
 
@@ -1275,6 +1539,8 @@ void Kid3App::copyV1ToV2(void)
 			}
 			mp3file = view->mp3ListBox->next();
 		}
+		// update controls with filtered data
+		fileSelected();
 	}
 	else {
 		view->getStandardTagsV1(&st);
@@ -1298,6 +1564,8 @@ void Kid3App::copyV2ToV1(void)
 			}
 			mp3file = view->mp3ListBox->next();
 		}
+		// update controls with filtered data
+		fileSelected();
 	}
 	else {
 		view->getStandardTagsV2(&st);
