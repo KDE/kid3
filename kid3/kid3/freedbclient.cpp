@@ -64,6 +64,7 @@ FreedbClient::~FreedbClient()
  * Get string with proxy or destination and port.
  * If a proxy is set, the proxy is returned, else the real destination.
  *
+ * @param cfg  freedb configuration
  * @param dst real destination
  *
  * @return "destinationname:port".
@@ -148,7 +149,7 @@ void FreedbClient::find(const FreedbConfig *cfg, QString what)
 		"&cats=blues&cats=classical&cats=country&cats=folk&cats=jazz" +
 		"&cats=misc&cats=newage&cats=reggae&cats=rock&cats=soundtrack" +
 		"&grouping=none HTTP/1.1\r\nHost: " +
-		cfg->server + "\r\nUser-Agent: Kid3 0.4\r\nConnection: close\r\n\r\n";
+		cfg->server + "\r\nUser-Agent: Kid3 0.5\r\nConnection: close\r\n\r\n";
 #ifdef WIN32
 	int err = hostnameToAddress(dest);
 	if (err) {
@@ -244,7 +245,7 @@ void FreedbClient::getTrackList(const FreedbConfig *cfg, QString cat, QString id
 	request = "GET http://" + cfg->server + cfg->cgiPath +
 		"?cmd=cddb+read+" + cat + "+" +
 		id + "&hello=noname+localhost+" +
-		"Kid3+0.4&proto=1 HTTP/1.1\r\nHost: " + cfg->server +
+		"Kid3+0.5&proto=1 HTTP/1.1\r\nHost: " + cfg->server +
 		"\r\nConnection: close\r\n\r\n";
 
 #ifdef WIN32
