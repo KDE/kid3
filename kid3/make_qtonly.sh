@@ -21,6 +21,8 @@ $INSTALL -d $DESTDIR
 $INSTALL ./kid3/kid3 $DESTDIR/kid3
 cat po/de.po kid3/de_qt.po >tmp.po
 $QTDIR/bin/msg2qm tmp.po $DESTDIR/kid3_de.qm
-rm tmp.po
+cat po/ru.po kid3/ru_qt.po >tmp.po
+$QTDIR/bin/msg2qm tmp.po $DESTDIR/kid3_ru.qm
+rm -f tmp.po
 SGML_CATALOG_FILES=$KDEDIR/share/apps/ksgmltools2/customization/catalog xsltproc --catalogs $KDEDIR/share/apps/ksgmltools2/docbook/xsl/html/docbook.xsl doc/en/index.docbook | finish_html >$DESTDIR/kid3_en.html
 SGML_CATALOG_FILES=$KDEDIR/share/apps/ksgmltools2/customization/catalog xsltproc --catalogs $KDEDIR/share/apps/ksgmltools2/docbook/xsl/html/docbook.xsl doc/de/index.docbook | finish_html >$DESTDIR/kid3_de.html
