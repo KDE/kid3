@@ -1,0 +1,915 @@
+# translation of kid3.po to Русский
+# Kid3 Russian Translation.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003.
+# "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kid3\n"
+"POT-Creation-Date: 2003-10-18 11:14+0200\n"
+"PO-Revision-Date: 2003-10-18 14:23+0200\n"
+"Last-Translator: Egor S. Orlov <Egor.Orlov@avalon.ru>\n"
+"Language-Team: Russian <Egor.Orlov@avalon.ru>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
+
+#: _translatorinfo.cpp:1
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Егор С. Орлов"
+
+#: _translatorinfo.cpp:3
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "Egor.Orlov@avalon.ru"
+
+#: configdialog.cpp:63
+msgid "Format while &editing:"
+msgstr "Форматировать при р&едактировании:"
+
+#: configdialog.cpp:67
+msgid "&Filename Format"
+msgstr "&Формат имени файла"
+
+#: configdialog.cpp:69
+msgid "&ID3 Format"
+msgstr "Формат &ID3"
+
+#: formatbox.cpp:37
+msgid "Case Conversion:"
+msgstr "Преобразование Регистра:"
+
+#: formatbox.cpp:41
+msgid "No changes"
+msgstr "Нет изменений"
+
+#: formatbox.cpp:43
+msgid "All lowercase"
+msgstr "Все в нижний регистр"
+
+#: formatbox.cpp:45
+msgid "All uppercase"
+msgstr "Все в верхний регистр"
+
+#: formatbox.cpp:47
+msgid "First letter uppercase"
+msgstr "Первая буква в верхний регистр"
+
+#: formatbox.cpp:49
+msgid "All first letters uppercase"
+msgstr "Все первые буквы в верхний регистр"
+
+#: formatbox.cpp:53
+msgid "String Replacement:"
+msgstr "Замена Строк:"
+
+#: formatbox.cpp:57
+msgid "From"
+msgstr "От"
+
+#: formatbox.cpp:58
+msgid "To"
+msgstr "к"
+
+#: formatbox.moc.cpp:34 formatbox.moc.cpp:42
+msgid "FormatBox"
+msgstr "FormatBox"
+
+#: framelist.cpp:209
+msgid "View Picture"
+msgstr "Просмотр Картинки"
+
+#: framelist.cpp:232
+msgid "Text Encoding"
+msgstr "Кодировка Текста"
+
+#: framelist.cpp:233
+msgid "Text"
+msgstr "Текст"
+
+#: framelist.cpp:234
+msgid "URL"
+msgstr "URL"
+
+#: framelist.cpp:235
+msgid "Data"
+msgstr "Дата"
+
+#: framelist.cpp:236
+msgid "Description"
+msgstr "Описание"
+
+#: framelist.cpp:237
+msgid "Owner"
+msgstr "Владелец"
+
+#: framelist.cpp:238
+msgid "Email"
+msgstr "Почта"
+
+#: framelist.cpp:239
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: framelist.cpp:240 id3form.cpp:110
+msgid "Filename"
+msgstr "Имя файла"
+
+#: framelist.cpp:241
+msgid "Language"
+msgstr "Язык"
+
+#: framelist.cpp:242
+msgid "Picture Type"
+msgstr "Тип Картинки"
+
+#: framelist.cpp:243
+msgid "Image format"
+msgstr "Формат Картинки"
+
+#: framelist.cpp:244
+msgid "Mimetype"
+msgstr "Тип MIME"
+
+#: framelist.cpp:245
+msgid "Counter"
+msgstr "Счетчик"
+
+#: framelist.cpp:246
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: framelist.cpp:247
+msgid "Volume Adjustment"
+msgstr "Корректировка Громкости"
+
+#: framelist.cpp:248
+msgid "Number of Bits"
+msgstr "Количество Бит"
+
+#: framelist.cpp:249
+msgid "Volume Change Right"
+msgstr "Изменить громкость Справа"
+
+#: framelist.cpp:250
+msgid "Volume Change Left"
+msgstr "Изменить громкость Слева"
+
+#: framelist.cpp:251
+msgid "Peak Volume Right"
+msgstr "Максимальная громкость Справа"
+
+#: framelist.cpp:252
+msgid "Peak Volume Left"
+msgstr "Максимальная громкость Слева"
+
+#: framelist.cpp:253
+msgid "Timestamp Format"
+msgstr "Формат отметки о времени"
+
+#: framelist.cpp:254
+msgid "Content Type"
+msgstr "Тип Содержимого"
+
+#: framelist.cpp:649
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: framelist.cpp:650
+msgid "Unicode"
+msgstr "Unicode"
+
+#: framelist.cpp:651
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+#: framelist.cpp:652
+msgid "UTF8"
+msgstr "UTF8"
+
+#: framelist.cpp:663 framelist.cpp:694 framelist.cpp:707
+msgid "Other"
+msgstr "Другое"
+
+#: framelist.cpp:664
+msgid "32x32 pixels PNG file icon"
+msgstr "Иконка PNG-файла 32x32 точки"
+
+#: framelist.cpp:665
+msgid "Other file icon"
+msgstr "Другая Иконка файла"
+
+#: framelist.cpp:666
+msgid "Cover (front)"
+msgstr "Оболочка (Спереди)"
+
+#: framelist.cpp:667
+msgid "Cover (back)"
+msgstr "Оболочка (Сзади)"
+
+#: framelist.cpp:668
+msgid "Leaflet page"
+msgstr "Лист Брошюры"
+
+#: framelist.cpp:669
+msgid "Media"
+msgstr "Медиа"
+
+#: framelist.cpp:670
+msgid "Lead artist/lead performer/soloist"
+msgstr "Ведущий Исполнитель/Солист"
+
+#: framelist.cpp:671
+msgid "Artist/performer"
+msgstr "Исполнитель"
+
+#: framelist.cpp:672
+msgid "Conductor"
+msgstr "Дирижер"
+
+#: framelist.cpp:673
+msgid "Band/Orchestra"
+msgstr "Группа/Оркестр"
+
+#: framelist.cpp:674
+msgid "Composer"
+msgstr "Композитор"
+
+#: framelist.cpp:675
+msgid "Lyricist/text writer"
+msgstr "Автор текста"
+
+#: framelist.cpp:676
+msgid "Recording Location"
+msgstr "Место записи"
+
+#: framelist.cpp:677
+msgid "During recording"
+msgstr "Длительность записи"
+
+#: framelist.cpp:678
+msgid "During performance"
+msgstr "Длительность исполнения"
+
+#: framelist.cpp:679
+msgid "Movie/video screen capture"
+msgstr "Movie/video screen capture"
+
+#: framelist.cpp:680
+msgid "A bright coloured fish"
+msgstr "A bright coloured fish"
+
+#: framelist.cpp:681
+msgid "Illustration"
+msgstr "Иллюстрация"
+
+#: framelist.cpp:682
+msgid "Band/artist logotype"
+msgstr "Логотип группы/испольнителя"
+
+#: framelist.cpp:683
+msgid "Publisher/Studio logotype"
+msgstr "Логотип студии записи"
+
+#: framelist.cpp:695
+msgid "MPEG frames as unit"
+msgstr "Измерять в MPEG-кадрах"
+
+#: framelist.cpp:696
+msgid "Milliseconds as unit"
+msgstr "Измерять в милисекундах"
+
+#: framelist.cpp:708
+msgid "Lyrics"
+msgstr "Lyrics"
+
+#: framelist.cpp:709
+msgid "Text transcription"
+msgstr "Запись текста"
+
+#: framelist.cpp:710
+msgid "Movement/part name"
+msgstr "Movement/part name"
+
+#: framelist.cpp:711
+msgid "Events"
+msgstr "События"
+
+#: framelist.cpp:712
+msgid "Chord"
+msgstr "Аккорд"
+
+#: framelist.cpp:713
+msgid "Trivia/pop up"
+msgstr "Trivia/pop up"
+
+#: framelist.cpp:837
+msgid "AENC - Audio encryption"
+msgstr "AENC - Аудио-кодирование"
+
+#: framelist.cpp:838
+msgid "APIC - Attached picture"
+msgstr "APIC - Прикрепленная картинка"
+
+#: framelist.cpp:839
+msgid "CDM  - Compressed data meta frame"
+msgstr "CDM  - Compressed data meta frame"
+
+#: framelist.cpp:840
+msgid "COMM - Comments"
+msgstr "COMM - Комментарии"
+
+#: framelist.cpp:841
+msgid "COMR - Commercial"
+msgstr "COMR - Реклама"
+
+#: framelist.cpp:842
+msgid "CRM  - Encrypted meta frame"
+msgstr "CRM  - Encrypted meta frame"
+
+#: framelist.cpp:843
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Encryption method registration"
+
+#: framelist.cpp:844
+msgid "EQUA - Equalization"
+msgstr "EQUA - Equalization"
+
+#: framelist.cpp:845
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Event timing codes"
+
+#: framelist.cpp:846
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - General encapsulated object"
+
+#: framelist.cpp:847
+msgid "GRID - Group identification registration"
+msgstr "GRID - Group identification registration"
+
+#: framelist.cpp:848
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Involved people list"
+
+#: framelist.cpp:849
+msgid "LINK - Linked information"
+msgstr "LINK - Linked information"
+
+#: framelist.cpp:850
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Music CD identifier"
+
+#: framelist.cpp:851
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG location lookup table"
+
+#: framelist.cpp:852
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Ownership frame"
+
+#: framelist.cpp:853
+msgid "PRIV - Private frame"
+msgstr "PRIV - Private frame"
+
+#: framelist.cpp:854
+msgid "PCNT - Play counter"
+msgstr "PCNT - Play counter"
+
+#: framelist.cpp:855
+msgid "POPM - Popularimeter"
+msgstr "POPM - Popularimeter"
+
+#: framelist.cpp:856
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Position synchronisation frame"
+
+#: framelist.cpp:857
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Recommended buffer size"
+
+#: framelist.cpp:858
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Relative volume adjustment"
+
+#: framelist.cpp:859
+msgid "RVRB - Reverb"
+msgstr "RVRB - Reverb"
+
+#: framelist.cpp:860
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Synchronized lyric/text"
+
+#: framelist.cpp:861
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Synchronized tempo codes"
+
+#: framelist.cpp:862
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Album/Movie/Show title"
+
+#: framelist.cpp:863
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (beats per minute)"
+
+#: framelist.cpp:864
+msgid "TCOM - Composer"
+msgstr "TCOM - Composer"
+
+#: framelist.cpp:865
+msgid "TCON - Content type"
+msgstr "TCON - Content type"
+
+#: framelist.cpp:866
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Copyright message"
+
+#: framelist.cpp:867
+msgid "TDAT - Date"
+msgstr "TDAT - Date"
+
+#: framelist.cpp:868
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Playlist delay"
+
+#: framelist.cpp:869
+msgid "TENC - Encoded by"
+msgstr "TENC - Encoded by"
+
+#: framelist.cpp:870
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Lyricist/Text writer"
+
+#: framelist.cpp:871
+msgid "TFLT - File type"
+msgstr "TFLT - File type"
+
+#: framelist.cpp:872
+msgid "TIME - Time"
+msgstr "TIME - Time"
+
+#: framelist.cpp:873
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Content group description"
+
+#: framelist.cpp:874
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Title/songname/content description"
+
+#: framelist.cpp:875
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Subtitle/Description refinement"
+
+#: framelist.cpp:876
+msgid "TKEY - Initial key"
+msgstr "TKEY - Initial key"
+
+#: framelist.cpp:877
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Язык(и)"
+
+#: framelist.cpp:878
+msgid "TLEN - Length"
+msgstr "TLEN - Длина"
+
+#: framelist.cpp:879
+msgid "TMED - Media type"
+msgstr "TMED - Тип носителя"
+
+#: framelist.cpp:880
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Original album/movie/show title"
+
+#: framelist.cpp:881
+msgid "TOFN - Original filename"
+msgstr "TOFN - Original filename"
+
+#: framelist.cpp:882
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Original lyricist(s)/text writer(s)"
+
+#: framelist.cpp:883
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Original artist(s)/performer(s)"
+
+#: framelist.cpp:884
+msgid "TORY - Original release year"
+msgstr "TORY - Original release year"
+
+#: framelist.cpp:885
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - File owner/licensee"
+
+#: framelist.cpp:886
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Lead performer(s)/Soloist(s)"
+
+#: framelist.cpp:887
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Band/orchestra/accompaniment"
+
+#: framelist.cpp:888
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Conductor/performer refinement"
+
+#: framelist.cpp:889
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Interpreted, remixed, or otherwise modified by"
+
+#: framelist.cpp:890
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Part of a set"
+
+#: framelist.cpp:891
+msgid "TPUB - Publisher"
+msgstr "TPUB - Publisher"
+
+#: framelist.cpp:892
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Track number/Position in set"
+
+#: framelist.cpp:893
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Recording dates"
+
+#: framelist.cpp:894
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Internet radio station name"
+
+#: framelist.cpp:895
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Internet radio station owner"
+
+#: framelist.cpp:896
+msgid "TSIZ - Size"
+msgstr "TSIZ - Size"
+
+#: framelist.cpp:897
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (international standard recording code)"
+
+#: framelist.cpp:898
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Software/Hardware and settings used for encoding"
+
+#: framelist.cpp:899
+msgid "TXXX - User defined text information"
+msgstr "TXXX - User defined text information"
+
+#: framelist.cpp:900
+msgid "TYER - Year"
+msgstr "TYER - Year"
+
+#: framelist.cpp:901
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Unique file identifier"
+
+#: framelist.cpp:902
+msgid "USER - Terms of use"
+msgstr "USER - Terms of use"
+
+#: framelist.cpp:903
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Unsynchronized lyric/text transcription"
+
+#: framelist.cpp:904
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Commercial information"
+
+#: framelist.cpp:905
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Copyright/Legal information"
+
+#: framelist.cpp:906
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Official audio file webpage"
+
+#: framelist.cpp:907
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Official artist/performer webpage"
+
+#: framelist.cpp:908
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Official audio source webpage"
+
+#: framelist.cpp:909
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Official internet radio station homepage"
+
+#: framelist.cpp:910
+msgid "WPAY - Payment"
+msgstr "WPAY - Payment"
+
+#: framelist.cpp:911
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Official publisher webpage"
+
+#: framelist.cpp:912
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - User defined URL link"
+
+#: framelist.cpp:1029
+msgid "Add Frame"
+msgstr "Добавить Фрейм"
+
+#: framelist.cpp:1030
+msgid "Select the frame ID"
+msgstr "Выбрать ID фрейма"
+
+#: framelist.moc.cpp:34 framelist.moc.cpp:42
+msgid "BinaryOpenSave"
+msgstr "ДвоичноеОткрытиеСохранение"
+
+#: id3form.cpp:97 main.cpp:42
+msgid "Kid3"
+msgstr "Kid3"
+
+#: id3form.cpp:114
+msgid "Name:"
+msgstr "Имя:"
+
+#: id3form.cpp:121 id3form.cpp:239
+msgid "From ID3v1"
+msgstr "Из ID3v1"
+
+#: id3form.cpp:125
+msgid "Format:"
+msgstr "Формат:"
+
+#: id3form.cpp:132 id3form.cpp:162
+msgid "From ID3v2"
+msgstr "Из ID3v2"
+
+#: id3form.cpp:137
+msgid "ID3v1.1"
+msgstr "ID3v1.1"
+
+#: id3form.cpp:141 id3form.cpp:220
+msgid "Title:"
+msgstr "Название:"
+
+#: id3form.cpp:150 id3form.cpp:228
+msgid "From Filename"
+msgstr "Из имени файла"
+
+#: id3form.cpp:154 id3form.cpp:232
+msgid "Artist:"
+msgstr "Исполнитель:"
+
+#: id3form.cpp:166 id3form.cpp:243
+msgid "Album:"
+msgstr "Альбом:"
+
+#: id3form.cpp:182 id3form.cpp:254
+msgid "Comment:"
+msgstr "Коментарий:"
+
+#: id3form.cpp:194 id3form.cpp:265
+msgid "Year:"
+msgstr "Год:"
+
+#: id3form.cpp:202 id3form.cpp:273
+msgid "Track:"
+msgstr "Дорожка:"
+
+#: id3form.cpp:207 id3form.cpp:282
+msgid "Genre:"
+msgstr "Жанр:"
+
+#: id3form.cpp:214
+msgid "ID3v2.3"
+msgstr "ID3v2.3"
+
+#: id3form.cpp:289
+msgid "Frames:"
+msgstr "Фреймы:"
+
+#: id3form.moc.cpp:34 id3form.moc.cpp:42
+msgid "id3Form"
+msgstr "id3Form"
+
+#: importselector.cpp:50
+msgid "Track"
+msgstr "Дорожка"
+
+#: importselector.cpp:51
+msgid "Title"
+msgstr "Название"
+
+#: importselector.cpp:52
+msgid "Artist"
+msgstr "Исполнитель"
+
+#: importselector.cpp:53
+msgid "Album"
+msgstr "Альбом"
+
+#: importselector.cpp:54
+msgid "Year"
+msgstr "Год"
+
+#: importselector.cpp:55
+msgid "Genre"
+msgstr "Жанр"
+
+#: importselector.cpp:56
+msgid "Comment"
+msgstr "Коментарий"
+
+#: importselector.cpp:61
+msgid "Format"
+msgstr "Формат"
+
+#: importselector.cpp:73
+msgid "From File"
+msgstr "Из имени файла"
+
+#: importselector.cpp:75
+msgid "From Clipboard"
+msgstr "Из Буфера Обмена"
+
+#: importselector.cpp:81
+msgid "Destination:"
+msgstr "Место назначения:"
+
+#: importselector.moc.cpp:34 importselector.moc.cpp:42
+msgid "ImportSelector"
+msgstr "ImportSelector"
+
+#: kid3.cpp:87
+msgid "Forward"
+msgstr "Вперед"
+
+#: kid3.cpp:179 kid3.cpp:204
+msgid "Opens a directory"
+msgstr "Открыть каталог"
+
+#: kid3.cpp:180
+msgid "Opens a recently used directory"
+msgstr "Открыть недавний каталог"
+
+#: kid3.cpp:182 kid3.cpp:221
+msgid "Reverts the changes of all or the selected files"
+msgstr "Отменить изменения всех выделенных файлов"
+
+#: kid3.cpp:183 kid3.cpp:212
+msgid "Saves the changed files"
+msgstr "Сохранить измененные файлы"
+
+#: kid3.cpp:184 kid3.cpp:242
+msgid "Quits the application"
+msgstr "Завершить приложение"
+
+#: kid3.cpp:185
+msgid "Enables/disables the toolbar"
+msgstr "Включить/выключить панель инструментов"
+
+#: kid3.cpp:186
+msgid "Enables/disables the statusbar"
+msgstr "Включить/выключить строку состояния"
+
+#: kid3.cpp:187
+msgid "Preferences dialog"
+msgstr "Настройка параметров"
+
+#: kid3.cpp:189 kid3.cpp:229
+msgid "&Import..."
+msgstr "&Импорт..."
+
+#: kid3.cpp:192 kid3.cpp:236
+msgid "&Create Playlist"
+msgstr "&Cоздать список песен"
+
+#: kid3.cpp:195 kid3.cpp:272
+msgid "&Apply Format"
+msgstr "&Применить Формат"
+
+#: kid3.cpp:222
+msgid "Re&vert"
+msgstr "&Отменить"
+
+#: kid3.cpp:228
+msgid "Import from file or clipboard"
+msgstr "Импортировать файл или буфер обмена"
+
+#: kid3.cpp:235
+msgid "Create M3U Playlist"
+msgstr "Создать список M3U"
+
+#: kid3.cpp:250 kid3.cpp:761
+msgid "Kid3 Handbook"
+msgstr "Руководство Kid3"
+
+#: kid3.cpp:251
+msgid "Kid3 &Handbook"
+msgstr "&Руководство \"Kid3\""
+
+#: kid3.cpp:257
+msgid "About Kid3"
+msgstr "О Kid3"
+
+#: kid3.cpp:258
+msgid "&About Kid3"
+msgstr "&О Kid3"
+
+#: kid3.cpp:264
+msgid "About Qt"
+msgstr "О Qt"
+
+#: kid3.cpp:265
+msgid "About &Qt"
+msgstr "О &Qt"
+
+#: kid3.cpp:271
+msgid "Apply Format"
+msgstr "Применить Формат"
+
+#: kid3.cpp:278
+msgid "Configure Kid3"
+msgstr "Настроить Kid3"
+
+#: kid3.cpp:279
+msgid "&Configure Kid3..."
+msgstr "&Настроить Kid3..."
+
+#: kid3.cpp:321 kid3.cpp:374 kid3.cpp:707 kid3.cpp:735 kid3.cpp:751
+#: kid3.cpp:834 kid3.cpp:900
+msgid "Ready."
+msgstr "Готово."
+
+#: kid3.cpp:361
+msgid "Opening directory..."
+msgstr "Открытие каталога..."
+
+#: kid3.cpp:530 kid3.cpp:540
+msgid ""
+"The current directory has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Текущий каталог был изменен.\n"
+"Хотите сохранить его?"
+
+#: kid3.cpp:539
+msgid "Warning - Kid3"
+msgstr "Предупреждение - Kid3"
+
+#: kid3.cpp:622
+msgid ""
+"*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
+"*|All Files (*)"
+msgstr ""
+"*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
+"*|Все файлы (*)"
+
+#: kid3.cpp:635
+msgid "MP3 (*.mp3 *.MP3);;All Files (*)"
+msgstr "MP3 (*.mp3 *.MP3);;Все файлы (*)"
+
+#: kid3.cpp:704
+msgid "Saving directory..."
+msgstr "Сохранение каталога..."
+
+#: kid3.cpp:717
+msgid "Exiting..."
+msgstr "Выход..."
+
+#: kid3.cpp:728
+msgid "Toggling toolbar..."
+msgstr "Переключение панели инструментов..."
+
+#: kid3.cpp:744
+msgid "Toggle the statusbar..."
+msgstr "Переключение строки состояния..."
+
+#: kid3.cpp:824
+msgid "Creating playlist..."
+msgstr "Создание списка песен..."
+
+#: kid3.cpp:859
+msgid "Import..."
+msgstr "Импортирование..."
+
+#: kid3.cpp:912
+msgid "Configure - Kid3"
+msgstr "Настройка - Kid3"
+
+#: kid3.cpp:1022
+msgid " [modified]"
+msgstr " [изменено]"
+
+#: kid3.moc.cpp:34 kid3.moc.cpp:42
+msgid "Kid3App"
+msgstr "Kid3App"
+
+#: main.cpp:21
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 Редактор тэгов ID3"
+
+#: main.cpp:26
+msgid "directory to open"
+msgstr "каталог для открытия"
+
