@@ -1,3 +1,15 @@
+Mon Jul 26 20:05:14 CEST 2004  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.5
+
+	* When importing, check the length and the count of the tracks
+
+	* Keyboard shortcut configuration
+
+	* Rename and create directories from tags
+
+	* Display information about tags, bitrate, length, ...
+	
 Sat Jan 24 13:39:44 CET 2004  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.4
