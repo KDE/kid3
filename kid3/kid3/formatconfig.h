@@ -11,6 +11,7 @@
 #define FORMATCONFIG_H
 
 #include "config.h"
+#include "generalconfig.h"
 #include <qmap.h>
 
 #ifdef CONFIG_USE_KDE
@@ -21,7 +22,7 @@ class QSettings;
 class QString;
 class StandardTags;
 
-class FormatConfig
+class FormatConfig : public GeneralConfig
 {
 public:
 	/** Case conversion options. */
@@ -35,8 +36,14 @@ public:
 	};
 	/**
 	 * Constructor.
+	 *
+	 * @param grp configuration group
 	 */
-	FormatConfig();
+	FormatConfig(const QString &grp);
+	/**
+	 * Destructor.
+	 */
+	virtual ~FormatConfig();
 	/**
 	 * Set specific properties for a filename format.
 	 * This will set default string conversions and not touch the file
@@ -59,28 +66,26 @@ public:
 	 * Persist configuration.
 	 *
 	 * @param config KDE configuration
-	 * @param group  configuration group
 	 */
-	void writeToConfig(
+	virtual void writeToConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config,
+		KConfig *config
 #else
-		QSettings *config,
+		QSettings *config
 #endif
-		const QString &group) const;
+		) const;
 	/**
 	 * Read persisted configuration.
 	 *
 	 * @param config KDE configuration
-	 * @param group  configuration group
 	 */
-	void readFromConfig(
+	virtual void readFromConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config,
+		KConfig *config
 #else
-		QSettings *config,
+		QSettings *config
 #endif
-		const QString &group);
+		);
 	/** Case conversion option */
 	CaseConversion caseConversion;
 	/** true if string replacement enabled */

@@ -25,13 +25,18 @@
 /**
  * Constructor.
  */
-FormatConfig::FormatConfig()
+FormatConfig::FormatConfig(const QString &grp) : GeneralConfig(grp)
 {
 	caseConversion = AllFirstLettersUppercase;
 	strRepEnabled = false;
 	filenameFormatter = false;
 	strRepMap.clear();
 }
+
+/**
+ * Destructor.
+ */
+FormatConfig::~FormatConfig() {}
 
 /**
  * Set specific properties for a filename format.
@@ -147,15 +152,14 @@ void FormatConfig::formatStandardTags(StandardTags& st) const
  * Persist configuration.
  *
  * @param config KDE configuration
- * @param group  configuration group
  */
 void FormatConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
-	KConfig *config,
+	KConfig *config
 #else
-	QSettings *config,
+	QSettings *config
 #endif
-	const QString &group) const
+	) const
 {
 #ifdef CONFIG_USE_KDE
 	config->setGroup(group);
@@ -181,15 +185,14 @@ void FormatConfig::writeToConfig(
  * Read persisted configuration.
  *
  * @param config KDE configuration
- * @param group  configuration group
  */
 void FormatConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
-	KConfig *config,
+	KConfig *config
 #else
-	QSettings *config,
+	QSettings *config
 #endif
-	const QString &group)
+	)
 {
 #ifdef CONFIG_USE_KDE
 	config->setGroup(group);
