@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2003</year>
+<year>2004</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>10/10/2003</date>
-<releaseinfo>0.3</releaseinfo>
+<date>24/01/2004</date>
+<releaseinfo>0.4</releaseinfo>
 
 <abstract>
 <para>
@@ -76,7 +76,7 @@ filenames. Automatic control of upper and lower case characters makes it easy
 to use a consistent naming scheme in all tags.
 </para>
 <para>
-The tag information for full albums can be taken from the Web-interface of
+The tag information for full albums can be taken from
 <ulink url="http://freedb.org">freedb.org</ulink> or other sources of
 track lists. The import format is freely configurable by regular expressions.
 </para>
@@ -377,12 +377,31 @@ reverted, else only the changes of the selected files are reverted.
 <guimenu>File</guimenu>
 <guimenuitem>Import...</guimenuitem>
 </menuchoice></term>
-<listitem><para>The <action>Import dialog</action> can be used to import data from the
+<listitem><para>The <action>Import dialog</action> can be used to import data
+directly from a freedb.org server, from the
 Web-interface of <ulink url="http://freedb.org">freedb.org</ulink> or other
 sources of album track lists in textual format.
 </para>
 <para>
-Several preconfigured import formats are available. The first, "freedb HTML
+Import from a freedb.org server is possible using a dialog which appears when
+<guibutton>From freedb.org</guibutton> is selected. The words to search for
+(e.g. artist and album name) can be entered there, the albums which match the
+query will be displayed when <guibutton>Find</guibutton> is clicked and the
+results from <ulink url="http://www.freedb.org">www.freedb.org</ulink> are
+received. If multiple entries for one album are found, the second entry is
+displayed as 2, then 3 and so on. Importing the track data for an album is
+done by selecting the album in the list. The freedb.org server to import from
+can be selected as well as the CGI path and a proxy, if necessary.  The
+imported data is displayed in the preview table of the import dialog. To work
+in that dialog again, the freedb.org dialog has to be closed - it can be
+reopened later by clicking <guibutton>From freedb.org</guibutton> again and
+its contents will be restored. When satisfied with the displayed tracks, they
+can be imported by terminating the import dialog with
+<guibutton>OK</guibutton>.
+</para>
+<para>
+For the import of textual data, several preconfigured import formats are
+available. The first, "freedb HTML 
 text", can be used to copy information from an HTML page of
 <ulink url="http://freedb.org">freedb.org</ulink>. Search an album in freedb
 and if the desired information is displayed in the web browser, copy the
@@ -530,9 +549,14 @@ The <guilabel>Case Conversion</guilabel> can be set to <guilabel>No
 changes</guilabel>, <guilabel>All lowercase</guilabel>, <guilabel>All
 uppercase</guilabel>, <guilabel>First letter uppercase</guilabel> or
 <guilabel>All first letters uppercase</guilabel>. 
-The string replacement list can be set to arbitrary string
-mappings. Replacement is only active, if the <guilabel>String
-Replacement</guilabel> checkbox is checked.
+The string replacement list can be set to arbitrary string mappings. To add a
+new mapping, select the <guilabel>From</guilabel> cell of a row and insert the
+text to replace, then go to the <guilabel>To</guilabel> column and enter the
+replacement text. To remove a mapping set the <guilabel>From</guilabel> cell
+to an empty value (e.g. by first typing space and then backspace). Inserting
+and deleting rows is also possible using a context menu which appears when the
+right mouse button is clicked.  Replacement is only active, if the
+<guilabel>String Replacement</guilabel> checkbox is checked.
 </para>
 </listitem>
 </varlistentry>

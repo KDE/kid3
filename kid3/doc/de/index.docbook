@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2003</year>
+<year>2004</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>10/10/2003</date>
-<releaseinfo>0.3</releaseinfo>
+<date>24/01/2004</date>
+<releaseinfo>0.4</releaseinfo>
 
 <abstract>
 <para>
@@ -78,7 +78,7 @@ entfernen. Automatische Gro&szlig;- und Kleinschreibung macht es einfach,
 eine konsistente Namensschreibweise in allen Tags zu verwenden.
 </para>
 <para>
-Die Tag-Information f&uuml;r ganze Alben kann &uuml;ber die Web-Schnittstelle von
+Die Tag-Information f&uuml;r ganze Alben kann &uuml;ber
 <ulink url="http://freedb.org">freedb.org</ulink> oder von anderen Quellen mit
 Albuminformationen importiert werden. Das verwendete Format ist mit regul&auml;ren
 Ausdr&uuml;cken frei konfigurierbar.
@@ -397,12 +397,30 @@ den ausgew&auml;hlten Dateien.</para></listitem>
 <guimenuitem>Importieren...</guimenuitem>
 </menuchoice></term>
 <listitem><para>Der <action>Import Dialog</action> wird verwendet, um Daten
-von der Web-Schnittstelle von <ulink
+direkt von einem freedb.org Server, von der Web-Schnittstelle von <ulink
 url="http://freedb.org">freedb.org</ulink> oder anderen Quellen mit
 Albumtitellisten zu importieren.
 </para>
 <para>
-Mehrere vorkonfigurierte Formate sind verf&uuml;gbar. Das erste, "freedb HTML
+Zum Importieren von einem freedb.org Server wird <guibutton>Von
+freedb.org</guibutton> gew&auml;hlt. Die zu suchenden Begriffe (z.B. Interpret
+und Album) k&ouml;nnen eingegeben werden, und die gefundenen Alben werden nach
+Klick auf <guibutton>Suchen</guibutton> dargestellt, sobald sie von <ulink
+url="http://www.freedb.org">www.freedb.org</ulink> empfangen werden. Wenn
+mehrere Eintr&auml;ge f&uuml;r dasselbe Album vorhanden sind, wird f&uuml;r
+den zweiten Eintrag 2, dann 3, usw. geschrieben. Die Track Daten eines Albums
+werden nach Auswahl geladen, der verwendete freedb.org Server kann
+gew&auml;hlt werden, ebenso der CGI Pfad und ein Proxy, falls n&ouml;tig. Die
+importierten Daten werden in der Vorschau des Import Dialogfensters
+dargestellt. Um wieder in jenem Fenster zu arbeiten, muss der freedb.org
+Dialog beendet werden - sp&auml;ter kann er wieder mit <guibutton>Von
+freedb.org</guibutton> ge&ouml;ffnet werden, und sein Inhalt wird
+wiederhergestellt. Wenn man mit den Daten in der Vorschau zufrieden ist,
+k&ouml;nnen sie mit <guibutton>OK</guibutton> importiert werden.
+</para>
+<para>
+Zum Importieren von Albumdaten in Textform stehen mehrere vorkonfigurierte
+Formate zur Verf&uuml;gung. Das erste, "freedb HTML
 text", kann benutzt werden, um Informationen aus einer HTML-Seite von
 <ulink url="http://freedb.org">freedb.org</ulink> zu kopieren. Dazu sucht man
 sich in freedb das Album, und wenn die gew&uuml;nschte Information im Browser
@@ -562,8 +580,16 @@ separat f&uuml;r Dateinamen und ID3 Tags eingestellt werden.
 gro&szlig;</guilabel> oder <guilabel>Alle ersten Buchstaben gro&szlig;</guilabel>
 gesetzt werden.
 Die <guilabel>Zeichen ersetzen</guilabel> Liste kann mit beliebigen Zuordnungen
-von Zeichenketten gef&uuml;llt werden. Die Ersetzung wird nur durchgef&uuml;hrt, wenn das
-Markierungsfeld aktiviert ist.
+von Zeichenketten gef&uuml;llt werden. Eine neue Zuordnung kann
+hinzugef&uuml;gt werden, indem in der <guilabel>Von</guilabel> Zelle einer
+Zeile der zu ersetzende Text eingegeben wird und dann in der
+<guilabel>Nach</guilabel> Spalte der Ersetzungstext. Zum L&ouml;schen einer
+Zuordnung wird die <guilabel>Von</guilabel> Zelle auf einen leeren Wert
+gesetzt (z.B. indem man zuerst einen Leerschlag eingibt und diesen dann wieder
+l&ouml;scht). Einf&uuml;gen und L&ouml;schen von Zeilen ist auch &uuml;ber das
+Kontext-Men&uuml; m&ouml;glich, welches erscheint, wenn man die rechte
+Maustaste dr&uuml;ckt. Ersetzungen werden nur durchgef&uuml;hrt, wenn das
+<guilabel>Zeichen ersetzen</guilabel> Markierungsfeld aktiviert ist.
 </para>
 </listitem>
 </varlistentry>
