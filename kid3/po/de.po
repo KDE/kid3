@@ -1,13 +1,15 @@
+# translation of de.po to German
 # translation of kid3.po to German
 # Kid3 German Translation.
-# Copyright (C) 2003 Free Software Foundation, Inc.
-# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003.
+# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: kid3\n"
-"POT-Creation-Date: 2003-10-18 11:14+0200\n"
-"PO-Revision-Date: 2003-10-18 11:17+0200\n"
+"Project-Id-Version: de\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-01-24 11:08+0100\n"
+"PO-Revision-Date: 2004-01-24 11:29+0100\n"
 "Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
 "Language-Team: German <ufleisch@users.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -39,41 +41,53 @@ msgstr "&Dateinamenformat"
 msgid "&ID3 Format"
 msgstr "&ID3 Format:"
 
-#: formatbox.cpp:37
+#: formatbox.cpp:38
 msgid "Case Conversion:"
 msgstr "Groß/Kleinschreibung:"
 
-#: formatbox.cpp:41
+#: formatbox.cpp:42
 msgid "No changes"
 msgstr "Keine Änderungen"
 
-#: formatbox.cpp:43
+#: formatbox.cpp:44
 msgid "All lowercase"
 msgstr "Alles Kleinbuchstaben"
 
-#: formatbox.cpp:45
+#: formatbox.cpp:46
 msgid "All uppercase"
 msgstr "Alles Großbuchstaben"
 
-#: formatbox.cpp:47
+#: formatbox.cpp:48
 msgid "First letter uppercase"
 msgstr "Den ersten Buchstaben groß"
 
-#: formatbox.cpp:49
+#: formatbox.cpp:50
 msgid "All first letters uppercase"
 msgstr "Alle ersten Buchstaben groß"
 
-#: formatbox.cpp:53
+#: formatbox.cpp:54
 msgid "String Replacement:"
 msgstr "Zeichen ersetzen:"
 
-#: formatbox.cpp:57
+#: formatbox.cpp:58
 msgid "From"
 msgstr "Von"
 
-#: formatbox.cpp:58
+#: formatbox.cpp:59
 msgid "To"
 msgstr "Nach"
+
+#: formatbox.cpp:144
+msgid "&Insert row"
+msgstr "Zeile &einfügen"
+
+#: formatbox.cpp:148
+msgid "&Delete row"
+msgstr "Zeile &löschen"
+
+#: formatbox.cpp:152
+msgid "&Clear cell"
+msgstr "&Zelle löschen"
 
 #: formatbox.moc.cpp:34 formatbox.moc.cpp:42
 msgid "FormatBox"
@@ -623,6 +637,67 @@ msgstr "Element ID auswählen"
 msgid "BinaryOpenSave"
 msgstr "BinaryOpenSave"
 
+#: freedbclient.cpp:50 freedbclient.cpp:198 kid3.cpp:328 kid3.cpp:381
+#: kid3.cpp:716 kid3.cpp:744 kid3.cpp:760 kid3.cpp:843 kid3.cpp:911
+msgid "Ready."
+msgstr "Bereit."
+
+#: freedbclient.cpp:162 freedbclient.cpp:259
+msgid "Connecting..."
+msgstr "Verbinden..."
+
+#: freedbclient.cpp:170
+msgid "Host found..."
+msgstr "Rechner gefunden..."
+
+#: freedbclient.cpp:179
+msgid "Request sent..."
+msgstr "Anfrage gesendet..."
+
+#: freedbclient.cpp:206
+msgid "Data received: %1"
+msgstr "Daten empfangen: %1"
+
+#: freedbclient.cpp:214
+msgid "Socket error: "
+msgstr "Socket Fehler: "
+
+#: freedbclient.cpp:217
+msgid "Connection refused"
+msgstr "Verbindung verweigert"
+
+#: freedbclient.cpp:220
+msgid "Host not found"
+msgstr "Rechner nicht gefunden"
+
+#: freedbclient.cpp:223
+msgid "Read failed"
+msgstr "Lesen gescheitert"
+
+#: freedbclient.moc.cpp:34 freedbclient.moc.cpp:42
+msgid "FreedbClient"
+msgstr "FreedbClient"
+
+#: freedbdialog.cpp:70
+msgid "Find"
+msgstr "Suchen"
+
+#: freedbdialog.cpp:81
+msgid "Server:"
+msgstr "Server:"
+
+#: freedbdialog.cpp:83
+msgid "CGI Path:"
+msgstr "CGI Pfad:"
+
+#: freedbdialog.cpp:109
+msgid "Proxy:"
+msgstr "Proxy:"
+
+#: freedbdialog.moc.cpp:34 freedbdialog.moc.cpp:42
+msgid "FreedbDialog"
+msgstr "FreedbDialog"
+
 #: id3form.cpp:97 main.cpp:42
 msgid "Kid3"
 msgstr "Kid3"
@@ -691,47 +766,51 @@ msgstr "Elemente:"
 msgid "id3Form"
 msgstr "id3Form"
 
-#: importselector.cpp:50
+#: importselector.cpp:55
 msgid "Track"
 msgstr "Nummer"
 
-#: importselector.cpp:51
+#: importselector.cpp:56
 msgid "Title"
 msgstr "Titel"
 
-#: importselector.cpp:52
+#: importselector.cpp:57
 msgid "Artist"
 msgstr "Interpret"
 
-#: importselector.cpp:53
+#: importselector.cpp:58
 msgid "Album"
 msgstr "Album"
 
-#: importselector.cpp:54
+#: importselector.cpp:59
 msgid "Year"
 msgstr "Jahr"
 
-#: importselector.cpp:55
+#: importselector.cpp:60
 msgid "Genre"
 msgstr "Stil"
 
-#: importselector.cpp:56
+#: importselector.cpp:61
 msgid "Comment"
 msgstr "Kommentar"
 
-#: importselector.cpp:61
+#: importselector.cpp:66
 msgid "Format"
 msgstr "Format"
 
-#: importselector.cpp:73
+#: importselector.cpp:78
 msgid "From File"
 msgstr "Von Datei"
 
-#: importselector.cpp:75
+#: importselector.cpp:80
 msgid "From Clipboard"
 msgstr "Von Zwischenablage"
 
-#: importselector.cpp:81
+#: importselector.cpp:82
+msgid "From freedb.org"
+msgstr "Von freedb.org"
+
+#: importselector.cpp:88
 msgid "Destination:"
 msgstr "Ziel:"
 
@@ -739,112 +818,107 @@ msgstr "Ziel:"
 msgid "ImportSelector"
 msgstr "ImportSelector"
 
-#: kid3.cpp:87
+#: kid3.cpp:92
 msgid "Forward"
 msgstr "Nach vorne"
 
-#: kid3.cpp:179 kid3.cpp:204
+#: kid3.cpp:186 kid3.cpp:211
 msgid "Opens a directory"
 msgstr "Öffnet ein Verzeichnis"
 
-#: kid3.cpp:180
+#: kid3.cpp:187
 msgid "Opens a recently used directory"
 msgstr "Öffnet ein kürzlich benutztes Verzeichnis"
 
-#: kid3.cpp:182 kid3.cpp:221
+#: kid3.cpp:189 kid3.cpp:228
 msgid "Reverts the changes of all or the selected files"
 msgstr "Macht die Änderungen an allen oder den ausgewählten Dateien rückgängig"
 
-#: kid3.cpp:183 kid3.cpp:212
+#: kid3.cpp:190 kid3.cpp:219
 msgid "Saves the changed files"
 msgstr "Speichert die veränderten Dateien"
 
-#: kid3.cpp:184 kid3.cpp:242
+#: kid3.cpp:191 kid3.cpp:249
 msgid "Quits the application"
 msgstr "Beendet die Anwendung"
 
-#: kid3.cpp:185
+#: kid3.cpp:192
 msgid "Enables/disables the toolbar"
 msgstr "Werkzeugleiste anzeigen"
 
-#: kid3.cpp:186
+#: kid3.cpp:193
 msgid "Enables/disables the statusbar"
 msgstr "Statusleiste anzeigen"
 
-#: kid3.cpp:187
+#: kid3.cpp:194
 msgid "Preferences dialog"
 msgstr "Einstellungen"
 
-#: kid3.cpp:189 kid3.cpp:229
+#: kid3.cpp:196 kid3.cpp:236
 msgid "&Import..."
 msgstr "&Importieren..."
 
-#: kid3.cpp:192 kid3.cpp:236
+#: kid3.cpp:199 kid3.cpp:243
 msgid "&Create Playlist"
 msgstr "Stü&ckliste erstellen"
 
-#: kid3.cpp:195 kid3.cpp:272
+#: kid3.cpp:202 kid3.cpp:279
 msgid "&Apply Format"
 msgstr "Format &anwenden"
 
-#: kid3.cpp:222
+#: kid3.cpp:229
 msgid "Re&vert"
 msgstr "&Zuletzt gespeicherte Fassung"
 
-#: kid3.cpp:228
+#: kid3.cpp:235
 msgid "Import from file or clipboard"
 msgstr "Von Datei oder Zwischenablage importieren"
 
-#: kid3.cpp:235
+#: kid3.cpp:242
 msgid "Create M3U Playlist"
 msgstr "Erstelle M3U Stückliste"
 
-#: kid3.cpp:250 kid3.cpp:761
+#: kid3.cpp:257 kid3.cpp:770
 msgid "Kid3 Handbook"
 msgstr "Handbuch zu Kid3"
 
-#: kid3.cpp:251
+#: kid3.cpp:258
 msgid "Kid3 &Handbook"
 msgstr "&Handbuch zu Kid3"
 
-#: kid3.cpp:257
+#: kid3.cpp:264
 msgid "About Kid3"
 msgstr "Über Kid3"
 
-#: kid3.cpp:258
+#: kid3.cpp:265
 msgid "&About Kid3"
 msgstr "&Über Kid3"
 
-#: kid3.cpp:264
+#: kid3.cpp:271
 msgid "About Qt"
 msgstr "Über Qt"
 
-#: kid3.cpp:265
+#: kid3.cpp:272
 msgid "About &Qt"
 msgstr "Über &Qt"
 
-#: kid3.cpp:271
+#: kid3.cpp:278
 msgid "Apply Format"
 msgstr "Format anwenden"
 
-#: kid3.cpp:278
+#: kid3.cpp:285
 msgid "Configure Kid3"
 msgstr "Kid3 einrichten"
 
-#: kid3.cpp:279
+#: kid3.cpp:286
 msgid "&Configure Kid3..."
 msgstr "Kid3 einr&ichten..."
 
-#: kid3.cpp:321 kid3.cpp:374 kid3.cpp:707 kid3.cpp:735 kid3.cpp:751
-#: kid3.cpp:834 kid3.cpp:900
-msgid "Ready."
-msgstr "Bereit."
-
-#: kid3.cpp:361
+#: kid3.cpp:368
 msgid "Opening directory..."
 msgstr "Öffne Verzeichnis..."
 
-#: kid3.cpp:530 kid3.cpp:540
+#: kid3.cpp:537 kid3.cpp:547
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -852,11 +926,11 @@ msgstr ""
 "Das aktuelle Verzeichnis wurde verändert.\n"
 "Soll es gespeichert werden?"
 
-#: kid3.cpp:539
+#: kid3.cpp:546
 msgid "Warning - Kid3"
 msgstr "Warnung - Kid3"
 
-#: kid3.cpp:622
+#: kid3.cpp:631
 msgid ""
 "*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
 "*|All Files (*)"
@@ -864,39 +938,39 @@ msgstr ""
 "*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n"
 "*|Alle Dateien (*)"
 
-#: kid3.cpp:635
+#: kid3.cpp:644
 msgid "MP3 (*.mp3 *.MP3);;All Files (*)"
 msgstr "MP3 (*.mp3 *.MP3);;Alle Dateien (*)"
 
-#: kid3.cpp:704
+#: kid3.cpp:713
 msgid "Saving directory..."
 msgstr "Speichere Verzeichnis..."
 
-#: kid3.cpp:717
+#: kid3.cpp:726
 msgid "Exiting..."
 msgstr "Beende..."
 
-#: kid3.cpp:728
+#: kid3.cpp:737
 msgid "Toggling toolbar..."
 msgstr "Schalte Werkzeugleiste um..."
 
-#: kid3.cpp:744
+#: kid3.cpp:753
 msgid "Toggle the statusbar..."
 msgstr "Schalte Statusleiste um..."
 
-#: kid3.cpp:824
+#: kid3.cpp:833
 msgid "Creating playlist..."
 msgstr "Erstelle Stückliste..."
 
-#: kid3.cpp:859
+#: kid3.cpp:869
 msgid "Import..."
 msgstr "Importieren..."
 
-#: kid3.cpp:912
+#: kid3.cpp:924
 msgid "Configure - Kid3"
 msgstr "Kid3 einrichten"
 
-#: kid3.cpp:1022
+#: kid3.cpp:1034
 msgid " [modified]"
 msgstr " [Geändert]"
 
