@@ -163,3 +163,23 @@ int ImportDialog::getImportFormat(QString &name,
 {
 	return impsel->getImportFormat(name, header, track);
 }
+
+/**
+ * Set freedb.org configuration.
+ *
+ * @param cfg freedb configuration.
+ */
+void ImportDialog::setFreedbConfig(const FreedbConfig *cfg)
+{
+	impsel->setFreedbConfig(cfg);
+}
+
+/**
+ * Get freedb.org configuration.
+ *
+ * @param cfg freedb configuration.
+ */
+void ImportDialog::getFreedbConfig(FreedbConfig *cfg) const
+{
+	impsel->getFreedbConfig(cfg);
+}

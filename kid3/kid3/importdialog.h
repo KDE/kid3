@@ -18,6 +18,7 @@
 #endif
 
 class ImportSelector;
+class FreedbConfig;
 
 /**
  * Import dialog.
@@ -99,6 +100,18 @@ public:
 	int getImportFormat(QString &name,
 						QString &header,
 						QString &track) const;
+	/**
+	 * Set freedb.org configuration.
+	 *
+	 * @param cfg freedb configuration.
+	 */
+	void setFreedbConfig(const FreedbConfig *cfg);
+	/**
+	 * Get freedb.org configuration.
+	 *
+	 * @param cfg freedb configuration.
+	 */
+	void getFreedbConfig(FreedbConfig *cfg) const;
 
 private:
 	/** import selector widget */
