@@ -20,6 +20,8 @@ class QComboBox;
 class QLineEdit;
 class ImportParser;
 class StandardTags;
+class FreedbDialog;
+class FreedbConfig;
 
 /**
  * Import selector widget.
@@ -102,6 +104,18 @@ public:
 						QString &headers,
 						QString &tracks) const;
 	/**
+	 * Set freedb.org configuration.
+	 *
+	 * @param cfg freedb configuration.
+	 */
+	void setFreedbConfig(const FreedbConfig *cfg);
+	/**
+	 * Get freedb.org configuration.
+	 *
+	 * @param cfg freedb configuration.
+	 */
+	void getFreedbConfig(FreedbConfig *cfg) const;
+	/**
 	 * List with line formats.
 	 * The following codes are used before the () expressions.
 	 * %s title (song)
@@ -125,16 +139,28 @@ public slots:
 	 */
 	void fromClipboard();
 	/**
+	 * Import from freedb.org and preview in table.
+	 */
+	void fromFreedb();
+	/**
 	 * Set the format lineedits to the format selected in the combo box.
 	 *
 	 * @param index current index of the combo box
 	 */
 	void setFormatLineEdit(int index);
-
+	/**
+	 * Called when freedb.org album data is received.
+	 *
+	 * @param txt text containing album data from freedb.org
+	 */
+	void freedbAlbumDataReceived(QString txt);
 private:
 	enum TabColumn {
 		TrackColumn, TitleColumn, ArtistColumn, AlbumColumn,
 		YearColumn, GenreColumn, CommentColumn, NumColumns
+	};
+	enum ImportSource {
+	    None, File, Clipboard, Freedb
 	};
 	/**
 	 * Show fields to import in text as preview in table.
@@ -146,6 +172,8 @@ private:
 	QPushButton *fileButton;
 	/** From Clipboard button */
 	QPushButton *clipButton;
+	/** From freedb.org button */
+	QPushButton *freedbButton;
 	/** Preview table */
 	QTable *tab;
 	/** contents of imported file/clipboard */
@@ -166,6 +194,12 @@ private:
 	QStringList formatHeaders;
 	/** track format regexps */
 	QStringList formatTracks;
+	/** freedb.org import dialog */
+	FreedbDialog *freedbDialog;
+	/** import source */
+	ImportSource importSource;
+	/** freedb config */
+	const FreedbConfig *freedbCfg;
 };
 
 #endif
