@@ -1,3 +1,10 @@
+Thu May 13 07:37:07 CEST 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.2.1
+
+	* Now uses the standard automake/autoconf build process provided
+	by kapptemplate.
+
 Sat Apr 26 08:38:14 CEST 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.2
