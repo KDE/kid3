@@ -55,3 +55,6 @@ msgstr "Exportieren"
 
 msgid "View"
 msgstr "Ansicht"
+
+msgid "Revert"
+msgstr "Änderungen verwerfen"
