@@ -20,3 +20,7 @@ EXTRA_DIST = admin AUTHORS COPYING ChangeLog INSTALL README make_qtonly.sh kid3.
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
 	cd $(top_distdir) && $(MAKE) -f admin/Makefile.common subdirs
+
+# generate precompiled header allsys.h.gch for GCC 3.4
+pch:
+	$(MAKE) -C kid3 pch
