@@ -14,6 +14,7 @@
 #include <qurl.h>
 #include <qtextstream.h>
 #include <qcursor.h>
+#include <qprogressbar.h>
 
 #ifdef CONFIG_USE_KDE
 #include <kapp.h>
@@ -47,7 +48,9 @@
 #include "configdialog.h"
 #include "importdialog.h"
 #include "formatconfig.h"
-#include "generalconfig.h"
+#include "importconfig.h"
+#include "miscconfig.h"
+#include "freedbconfig.h"
 #include "standardtags.h"
 
 #ifndef CONFIG_USE_KDE
@@ -122,9 +125,11 @@ KMainWindow(0, name)
 QMainWindow(0, name)
 #endif
 {
-	genCfg = new GeneralConfig();
-	fnFormatCfg = new FormatConfig();
-	id3FormatCfg = new FormatConfig();
+	miscCfg = new MiscConfig("General Options");
+	genCfg = new ImportConfig("General Options");
+	fnFormatCfg = new FormatConfig("FilenameFormat");
+	id3FormatCfg = new FormatConfig("Id3Format");
+	freedbCfg = new FreedbConfig("Freedb");
 	framelist = new FrameList();
 	copytags = new StandardTags();
 	initStatusBar();
@@ -385,22 +390,17 @@ void Kid3App::saveOptions()
 {
 #ifdef CONFIG_USE_KDE
 	fileOpenRecent->saveEntries(config, "Recent Files");
-	config->setGroup("General Options");
-	config->writeEntry("NameFilter", view->mp3ListBox->getNameFilter());
-	config->writeEntry("FormatItem", view->formatComboBox->currentItem());
-	config->writeEntry("FormatText", view->formatComboBox->currentText());
-	config->writeEntry("SplitterSizes", view->sizes());
-#else
-	config->beginGroup("/General Options");
-	config->writeEntry("/NameFilter", view->mp3ListBox->getNameFilter());
-	config->writeEntry("/FormatItem", view->formatComboBox->currentItem());
-	config->writeEntry("/FormatText", view->formatComboBox->currentText());
-	config->endGroup();
+	miscCfg->splitterSizes = view->sizes();
 #endif
+	miscCfg->nameFilter = view->mp3ListBox->getNameFilter();
+	miscCfg->formatItem = view->formatComboBox->currentItem();
+	miscCfg->formatText = view->formatComboBox->currentText();
 
-	fnFormatCfg->writeToConfig(config, "FilenameFormat");
-	id3FormatCfg->writeToConfig(config, "Id3Format");
+	miscCfg->writeToConfig(config);
+	fnFormatCfg->writeToConfig(config);
+	id3FormatCfg->writeToConfig(config);
 	genCfg->writeToConfig(config);
+	freedbCfg->writeToConfig(config);
 }
 
 /**
@@ -409,39 +409,25 @@ void Kid3App::saveOptions()
 
 void Kid3App::readOptions()
 {
+	miscCfg->readFromConfig(config);
+	fnFormatCfg->readFromConfig(config);
+	id3FormatCfg->readFromConfig(config);
+	genCfg->readFromConfig(config);
+	freedbCfg->readFromConfig(config);
 #ifdef CONFIG_USE_KDE
 	setAutoSaveSettings();
 	fileOpenRecent->loadEntries(config,"Recent Files");
 	viewToolBar->setChecked(!toolBar("mainToolBar")->isHidden());
 	viewStatusBar->setChecked(!statusBar()->isHidden());
-	config->setGroup("General Options");
-	view->mp3ListBox->setNameFilter(
-	    config->readEntry("NameFilter", FileList::defaultNameFilter));
-	view->formatComboBox->setCurrentItem(
-	    config->readNumEntry("FormatItem", 0));
-#if QT_VERSION >= 300
-	view->formatComboBox->setCurrentText(
-	    config->readEntry("FormatText", Mp3File::fnFmtList[0]));
-#endif
-	QValueList<int> splitterSizes = config->readIntListEntry("SplitterSizes");
-	if (!splitterSizes.empty()) {
-		view->setSizes(splitterSizes);
+	if (!miscCfg->splitterSizes.empty()) {
+		view->setSizes(miscCfg->splitterSizes);
 	}
-#else
-	config->beginGroup("/General Options");
-	view->mp3ListBox->setNameFilter(
-	    config->readEntry("/NameFilter", FileList::defaultNameFilter));
-	view->formatComboBox->setCurrentItem(
-	    config->readNumEntry("/FormatItem", 0));
+#endif
+	view->mp3ListBox->setNameFilter(miscCfg->nameFilter);
+	view->formatComboBox->setCurrentItem(miscCfg->formatItem);
 #if QT_VERSION >= 300
-	view->formatComboBox->setCurrentText(
-	    config->readEntry("/FormatText", Mp3File::fnFmtList[0]));
+	view->formatComboBox->setCurrentText(miscCfg->formatText);
 #endif
-	config->endGroup();
-#endif
-	fnFormatCfg->readFromConfig(config, "FilenameFormat");
-	id3FormatCfg->readFromConfig(config, "Id3Format");
-	genCfg->readFromConfig(config);
 }
 
 #ifdef CONFIG_USE_KDE
@@ -494,12 +480,26 @@ void Kid3App::closeEvent(QCloseEvent *ce)
 
 bool Kid3App::saveDirectory(void)
 {
+	int numFiles = 0;
 	bool renamed = FALSE;
 	Mp3File *mp3file = view->mp3ListBox->first();
+	QProgressBar *progress = new QProgressBar();
+	statusBar()->addWidget(progress, 0, true);
+	progress->setTotalSteps(view->mp3ListBox->numRows());
+	progress->setProgress(numFiles);
+#ifdef CONFIG_USE_KDE
+	kapp->processEvents();
+#else
+	qApp->processEvents();
+#endif
 	while (mp3file != 0) {
 		renamed = mp3file->writeTags(FALSE) || renamed;
 		mp3file = view->mp3ListBox->next();
+		++numFiles;
+		progress->setProgress(numFiles);
 	}
+	statusBar()->removeWidget(progress);
+	delete progress;
 	if (renamed) {
 		view->mp3ListBox->readDir(doc_dir);
 		setModified(false);
@@ -579,7 +579,9 @@ void Kid3App::cleanup()
 #ifndef CONFIG_USE_KDE
 		delete config;
 #endif
+		delete freedbCfg;
 		delete genCfg;
+		delete miscCfg;
 		delete fnFormatCfg;
 		delete id3FormatCfg;
 		delete framelist;
@@ -704,7 +706,7 @@ void Kid3App::slotFileSave()
 	QApplication::setOverrideCursor(QCursor(WaitCursor));
 #endif
 	slotStatusMsg(i18n("Saving directory..."));
-	
+
 	saveDirectory();
 	slotStatusMsg(i18n("Ready."));
 	QApplication::restoreOverrideCursor();
@@ -777,7 +779,7 @@ void Kid3App::slotHelpAbout()
 	QMessageBox::about(
 		(Kid3App*)parent(), "Kid3",
 		"Kid3 " VERSION
-		"\n(c) 2003, Urs Fleisch\nufleisch@users.sourceforge.net");
+		"\n(c) 2003-2004 Urs Fleisch\nufleisch@users.sourceforge.net");
 }
 
 /**
@@ -852,6 +854,7 @@ void Kid3App::slotImport(void)
 								genCfg->importFormatHeaders,
 								genCfg->importFormatTracks,
 								genCfg->importFormatIdx);
+		dialog->setFreedbConfig(freedbCfg);
 		if (dialog->exec() == QDialog::Accepted) {
 #if QT_VERSION >= 300
 			QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -871,6 +874,7 @@ void Kid3App::slotImport(void)
 			genCfg->importFormatNames[genCfg->importFormatIdx] = name;
 			genCfg->importFormatHeaders[genCfg->importFormatIdx] = header;
 			genCfg->importFormatTracks[genCfg->importFormatIdx] = track;
+			dialog->getFreedbConfig(freedbCfg);
 			while (mp3file != 0) {
 				mp3file->readTags(false);
 				if (genCfg->importDestV1) {
@@ -902,6 +906,7 @@ void Kid3App::slotImport(void)
 			slotStatusMsg(i18n("Ready."));
 			QApplication::restoreOverrideCursor();
 		}
+		delete dialog;
 	}
 }
 
@@ -915,12 +920,12 @@ void Kid3App::slotSettingsConfigure(void)
 	ConfigDialog *dialog =
 		new ConfigDialog(NULL, caption);
 	if (dialog) {
-		dialog->setConfig(fnFormatCfg, id3FormatCfg, genCfg);
+		dialog->setConfig(fnFormatCfg, id3FormatCfg, miscCfg);
 		if (dialog->exec() == QDialog::Accepted) {
-			dialog->getConfig(fnFormatCfg, id3FormatCfg, genCfg);
+			dialog->getConfig(fnFormatCfg, id3FormatCfg, miscCfg);
 #if defined CONFIG_USE_KDE || QT_VERSION >= 300
-			fnFormatCfg->writeToConfig(config, "FilenameFormat");
-			id3FormatCfg->writeToConfig(config, "Id3Format");
+			fnFormatCfg->writeToConfig(config);
+			id3FormatCfg->writeToConfig(config);
 			genCfg->writeToConfig(config);
 #endif
 #ifdef CONFIG_USE_KDE
