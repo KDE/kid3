@@ -18,10 +18,11 @@ class KConfig;
 class QSettings;
 #endif
 #endif
-#include <qstringlist.h>
+#include <qstring.h>
 
 #if !defined CONFIG_USE_KDE && (QT_VERSION < 300)
 #include <qmap.h>
+#include <qstringlist.h>
 
 /** Quick and dirty replacement for QSettings */
 class QSettings {
@@ -49,51 +50,47 @@ private:
 #endif
 
 /**
- * General configuration.
+ * Abstract base class for configurations.
  */
 class GeneralConfig {
 public:
 	/**
 	 * Constructor.
 	 * Set default configuration.
+	 *
+	 * @param grp configuration group
 	 */
-	GeneralConfig();
+	GeneralConfig(const QString &grp);
+	/**
+	 * Destructor.
+	 */
+	virtual ~GeneralConfig();
 	/**
 	 * Persist configuration.
 	 *
 	 * @param config KDE configuration
 	 */
-	void writeToConfig(
+	virtual void writeToConfig(
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
 		QSettings *config
 #endif
-		) const;
+		) const = 0;
 	/**
 	 * Read persisted configuration.
 	 *
 	 * @param config KDE configuration
 	 */
-	void readFromConfig(
+	virtual void readFromConfig(
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
 		QSettings *config
 #endif
-		);
-	/** true to enable formating in line edits */
-	bool formatWhileEditing;
-	/** true to import into ID3v1 tags, else into ID3v2 tags */
-	bool importDestV1;
-	/** Names of import formats */
-	QStringList importFormatNames;
-	/** regexp describing header import format */
-	QStringList importFormatHeaders;
-	/** regexp describing track import format */
-	QStringList importFormatTracks;
-	/** selected import format */
-	int importFormatIdx;
+		) = 0;
+protected:
+	QString group;
 };
 
 #endif
