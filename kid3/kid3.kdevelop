@@ -3,7 +3,7 @@
   <general>
     <author>Urs Fleisch</author>
     <email>ufleisch@users.sourceforge.net</email>
-    <version>0.4</version>
+    <version>0.5</version>
     <projectmanagement>KDevKDEAutoProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <keywords>
@@ -27,6 +27,7 @@
       <group pattern="*.po;*.ts" name="Translations" />
       <group pattern="*" name="Others" />
       <hidenonprojectfiles>false</hidenonprojectfiles>
+      <hidenonlocation>false</hidenonlocation>
     </groups>
     <tree>
       <hidenonprojectfiles>false</hidenonprojectfiles>
@@ -125,6 +126,7 @@
     </make>
     <general>
       <useconfiguration>default</useconfiguration>
+      <activetarget>kid3/kid3</activetarget>
     </general>
     <run>
       <mainprogram>kid3/kid3</mainprogram>
@@ -211,4 +213,11 @@
       <headerCompletionDelay>250</headerCompletionDelay>
     </codecompletion>
   </kdevcppsupport>
+  <kdevcvsservice>
+    <recursivewhenupdate>true</recursivewhenupdate>
+    <prunedirswhenupdate>true</prunedirswhenupdate>
+    <createdirswhenupdate>true</createdirswhenupdate>
+    <recursivewhencommitremove>true</recursivewhencommitremove>
+    <revertoptions>-C</revertoptions>
+  </kdevcvsservice>
 </kdevelop>
