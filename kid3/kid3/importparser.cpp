@@ -22,7 +22,7 @@ void ImportParser::setFormat(const QString &fmt, bool enableTrackIncr)
 	int percentIdx = 0, nr = 1, lastIdx = fmt.length() - 1;
 	pattern = fmt;
 	titlePos = albumPos = artistPos = commentPos = yearPos = trackPos =
-		genrePos = -1;
+		genrePos = durationPos = -1;
 	while (((percentIdx = pattern.find('%', percentIdx)) >= 0) &&
 		   (percentIdx < lastIdx)) {
 		switch (pattern[percentIdx + 1].latin1()) {
@@ -47,6 +47,9 @@ void ImportParser::setFormat(const QString &fmt, bool enableTrackIncr)
 			case 'g':
 				genrePos = nr;
 				break;
+			case 'd':
+				durationPos = nr;
+				break;
 			default:
 				++percentIdx;
 				continue;
@@ -62,9 +65,9 @@ void ImportParser::setFormat(const QString &fmt, bool enableTrackIncr)
 		trackIncrNr = 0;
 	}
 #if QT_VERSION >= 300
-	pattern.remove(QRegExp("%[slacytg]"));
+	pattern.remove(QRegExp("%[slacytgd]"));
 #else
-	pattern.replace(QRegExp("%[slacytg]"), "");
+	pattern.replace(QRegExp("%[slacytgd]"), "");
 #endif
 	re.setPattern(pattern);
 }
@@ -95,6 +98,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 #if QT_VERSION >= 300
 	if (pattern == "freedb_header") {
 		// special pattern for parsing of freedb.org album data
+		parseFreedbTrackDurations(text);
 		int dtitlePos, extdYearPos, extdId3gPos;
 		QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");
 		if ((dtitlePos = fdre.search(text, pos, QRegExp::CaretAtOffset)) != -1) {
@@ -119,6 +123,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 	}
 	if (pattern == "freedb_tracks") {
 		// special pattern for parsing of freedb.org track data
+		trackDuration.clear();
 		static int tracknr = 0;
 		// assume search for 1st track if pos is 0
 		if (pos == 0) {
@@ -138,6 +143,32 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 			return true;
 		} else {
 			return false;
+		}
+	}
+	if (durationPos == -1) {
+		trackDuration.clear();
+	} else if (pos == 0) {
+		trackDuration.clear();
+		int dsp = 0; // "duration search pos"
+		int lastDsp = dsp;
+		while ((idx = re.search(text, dsp, QRegExp::CaretAtOffset)) != -1) {
+			QString durationStr = re.cap(durationPos);
+			int duration;
+			QRegExp durationRe("(\\d+):(\\d+)");
+			if (durationRe.search(durationStr) != -1) {
+				duration = durationRe.cap(1).toInt() * 60 +
+					durationRe.cap(2).toInt();
+			} else {
+				duration = durationStr.toInt();
+			}
+			trackDuration.append(duration);
+
+			dsp = idx + re.matchedLength();
+			if (dsp > lastDsp) { /* avoid endless loop */
+				lastDsp = dsp;
+			} else {
+				break;
+			}
 		}
 	}
 	if ((idx = re.search(text, pos, QRegExp::CaretAtOffset)) != -1) {
@@ -164,6 +195,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 	/* no regexp capture in old Qt versions */
 	if (pattern == "freedb_header") {
 		// special pattern for parsing of freedb.org album data
+		parseFreedbTrackDurations(text);
 		int dtitlePos, dextPos, extdYearPos = -1, extdId3gPos = -1;
 		if ((dtitlePos = text.find("DTITLE=", pos)) != -1) {
 			dtitlePos += 7;
@@ -203,6 +235,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 	}
 	if (pattern == "freedb_tracks") {
 		// special pattern for parsing of freedb.org track data
+		trackDuration.clear();
 		static int tracknr = 0;
 		// assume search for 1st track if pos is 0
 		if (pos == 0) {
@@ -283,4 +316,55 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 	}
 #endif
 	return false;
+}
+
+/**
+ * Parse the track durations from freedb.org.
+ *
+ * @param text          text buffer containing data from freedb.org
+ */
+void ImportParser::parseFreedbTrackDurations(const QString &text)
+{
+/* Example freedb format:
+   # Track frame offsets:
+   # 150
+   # 2390
+   # 23387
+   # 44650
+   # 61322
+   # 94605
+   # 121710
+   # 144637
+   # 176820
+   # 187832
+   # 218930
+   #
+   # Disc length: 3114 seconds
+*/
+	trackDuration.clear();
+	int discLenPos, len;
+	discLenPos = QRegExp("Disc length:\\s*\\d+").match(text, 0, &len);
+	if (discLenPos != -1) {
+		discLenPos += 12;
+		int discLen = text.mid(discLenPos, len - 12).toInt();
+		int trackOffsetPos = text.find("Track frame offsets", 0);
+		if (trackOffsetPos != -1) {
+			QRegExp re("#\\s*\\d+");
+			int lastOffset = -1;
+			while ((trackOffsetPos = re.match(text, trackOffsetPos, &len)) != -1 &&
+				   trackOffsetPos < discLenPos) {
+				trackOffsetPos += 1;
+				int trackOffset = text.mid(trackOffsetPos, len - 1).toInt();
+				if (lastOffset != -1) {
+					int duration = (trackOffset - lastOffset) / 75;
+					trackDuration.append(duration);
+				}
+				lastOffset = trackOffset;
+			}
+			if (lastOffset != -1) {
+				int duration = (discLen * 75 - lastOffset) / 75;
+				trackDuration.append(duration);
+			}
+		}
+	}
 }
