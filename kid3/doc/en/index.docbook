@@ -25,8 +25,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>24/01/2004</date>
-<releaseinfo>0.4</releaseinfo>
+<date>25/07/2004</date>
+<releaseinfo>0.5</releaseinfo>
 
 <abstract>
 <para>
@@ -97,6 +97,7 @@ Please report any problems or feature requests to the author.
 <listitem><para>Convert between ID3v1.1 and ID3v2.3 tags</para></listitem>
 <listitem><para>Generate tags from filename</para></listitem>
 <listitem><para>Generate filename from tags</para></listitem>
+<listitem><para>Generate and change directory names from tags</para></listitem>
 <listitem><para>Generate playlist file</para></listitem>
 <listitem><para>Automatic case conversion and string translation</para></listitem>
 <listitem><para>Import from <ulink url="http://freedb.org">freedb.org</ulink>
@@ -174,6 +175,11 @@ select no file, click into the empty area after the listbox entries. The
 selection determines the files which are affected by the operations which
 are available by using the buttons described below.
 </para>
+<para>
+The the left of the names two icons can be displayed: a disc to show that the
+file has been modified and information about which tags are present (V1, V2,
+V1V2 or NO TAG, no icon is displayed if the file has not been read in yet).
+</para>
 </listitem>
 </varlistentry>
 
@@ -216,6 +222,10 @@ tags.
 <guibutton>From ID3v2</guibutton>: Sets the filename using the selected format
 and the ID3v2.3
 tags.
+</para>
+<para>
+<guibutton>Info</guibutton>: Shows information about MPEG version and layer,
+bitrate, sample rate, channels and the length of the file.
 </para>
 </listitem>
 </varlistentry>
@@ -444,6 +454,7 @@ the filename format:
 <listitem><para>%y Year</para></listitem>
 <listitem><para>%t Track</para></listitem>
 <listitem><para>%g Genre</para></listitem>
+<listitem><para>%d Duration</para></listitem>
 </itemizedlist>
 
 <para>
@@ -454,6 +465,14 @@ be changed by editing the regular expressions and the name and then clicking
 <filename>kid3rc</filename> file in the configuration directory. This file can
 be directly edited to have more import formats or it can be deleted to revert
 to the default formats.
+</para>
+<para>
+To check whether the imported tracks match the current set of files, the
+duration of the imported tracks can be compared with the duration of the
+files. This option can be enabled with the checkbox <guibutton>Check maximum
+allowable time difference</guibutton> and the maximum tolerated difference in
+time can be set in seconds. If a mismatch in a length or in the number of
+tracks is detected, it will be reported and the import can be canceled.
 </para>
 </listitem>
 </varlistentry>
@@ -503,6 +522,40 @@ the configured format to the selected files</action>. This can also be used
 to check whether the file and tag names conform with the configured format
 by applying the format to all saved files and then checking if any files were
 changed (and therefore marked with an asterisk in the file listbox).
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Rename Directory...</guimenuitem>
+</menuchoice></term>
+<listitem><para>This dialog offers the possibility to automatically rename the
+currently open directory according to the tags in the files. Several formats
+are preconfigured to include information about artist, album and year in the
+directory name. It is also possible to set a custom format, the following
+special codes are used to insert tag values into the directory name:
+</para>
+
+<itemizedlist>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+</itemizedlist>
+
+<para>
+If a directory separator "/" is found in the format, multiple directories are
+created. If you want to create a new directory instead of renaming the current
+directory, select <guilabel>Create Directory</guilabel> instead of
+<guilabel>Rename Directory</guilabel>. The source of the tag information can
+be chosen between <guilabel>From ID3v1</guilabel> and <guilabel>From
+ID3v2</guilabel>. A preview for the rename operation performed on the first
+file can be seen in the <guilabel>From</guilabel> and <guilabel>To</guilabel>
+sections of the dialog.
 </para></listitem>
 </varlistentry>
 
@@ -557,6 +610,20 @@ to an empty value (e.g. by first typing space and then backspace). Inserting
 and deleting rows is also possible using a context menu which appears when the
 right mouse button is clicked.  Replacement is only active, if the
 <guilabel>String Replacement</guilabel> checkbox is checked.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Shortcuts...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Opens a dialog to assign keyboard shortcuts for most of the
+program functions. There are even functions without corresponding menu or
+button available, e.g. next file, previous file, select all.
+</para>
+<para>
 </para>
 </listitem>
 </varlistentry>
@@ -649,8 +716,8 @@ SuSE Linux 8.1: id3lib 3.8.0, KDE 3.0.5, KDE 3.1.1, Qt 2.3.2, Qt
 3.0.5, Qt 3.1.2
 </para>
 <para>
-SuSE Linux 8.2: id3lib 3.8.2, id3lib 3.8.3, KDE 3.1.1, KDE 3.1.3, KDE 3.1.4,
-Qt 3.1.1, Qt 3.1.2, Qt 3.2.1
+SuSE Linux 8.2: id3lib 3.8.2, id3lib 3.8.3, KDE 3.1.x, KDE 3.2.x,
+Qt 3.1.x, Qt 3.2.x, Qt 3.3.2
 </para>
 <para>
 Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt version 2.3.0.
@@ -676,6 +743,13 @@ Go into the top directory and type
 <para>
 To compile for different versions of Qt or KDE, set the corresponding
 configure options.
+</para>
+<para>
+To speed up compilation, &kid3; can use precompiled headers with GCC
+3.4. Start <userinput>configure</userinput> with the option
+<userinput>--enable-gcc-pch</userinput> (and setting CC and CXX to gcc and g++
+of GCC 3.4 if it is not the default compiler). The create a precompiled system
+include file with <userinput>make pch</userinput>.
 </para>
 <para>
 The Qt application can also be compiled for Windows.

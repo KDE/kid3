@@ -25,8 +25,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>24/01/2004</date>
-<releaseinfo>0.4</releaseinfo>
+<date>25/07/2004</date>
+<releaseinfo>0.5</releaseinfo>
 
 <abstract>
 <para>
@@ -101,6 +101,7 @@ werden.
 <listitem><para>Konvertieren zwischen ID3v1.1 und ID3v2.3 Tags</para></listitem>
 <listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
 <listitem><para>Generieren des Dateinamens aus den Tags</para></listitem>
+<listitem><para>Generieren und &Auml;ndern des Verzeichnisnamens aus den Tags</para></listitem>
 <listitem><para>Generieren von St&uuml;cklisten</para></listitem>
 <listitem><para>Automatische Gro&szlig;-/Kleinschreibung und Zeichenersetzung</para></listitem>
 <listitem><para>Import von <ulink url="http://freedb.org">freedb.org</ulink>
@@ -183,6 +184,12 @@ keine Datei auszuw&auml;hlen, kann in den leeren Bereich unterhalb der
 Dateieintr&auml;ge geklickt werden. Die Auswahl bestimmt die Dateien, welche
 durch die unten beschriebenen Operationen ver&auml;ndert werden.
 </para>
+<para>
+Links von den Namen k&ouml;nnen zwei Symbole dargestellt werden: eine Diskette, um
+zu zeigen, dass die Datei ver&auml;ndert wurde, und Information &uuml;ber die Tags
+welche vorhanden sind (V1, V2, V1V2 oder NO TAG, wenn nichts dargestellt wird,
+wurde die Datei noch nicht eingelesen).
+</para>
 </listitem>
 </varlistentry>
 
@@ -226,6 +233,10 @@ ausgew&auml;hlten Format und den ID3v1.1 Tags.
 <para>
 <guibutton>Von ID3v2</guibutton>: Setzt den Dateinamen gem&auml;ss dem
 ausgew&auml;hlten Format und den ID3v2.3 Tags.
+</para>
+<para>
+<guibutton>Info</guibutton>: Zeigt Informationen &uuml;ber MPEG Version und
+Schicht, Bit- und Samplerate, Kan&auml;le und die L&auml;nge der Datei an.
 </para>
 </listitem>
 </varlistentry>
@@ -465,6 +476,7 @@ eingeleitet. Die Codes sind dieselben wie beim Dateinamenformat:
 <listitem><para>%y Jahr (Year)</para></listitem>
 <listitem><para>%t Nummer (Track)</para></listitem>
 <listitem><para>%g Stil (Genre)</para></listitem>
+<listitem><para>%d L&auml;nge (Dauer)</para></listitem>
 </itemizedlist>
 
 <para>
@@ -476,6 +488,15 @@ beendet wird. Gespeichert werden sie in der Datei <filename>kid3rc</filename>
 im Konfigurationsverzeichnis. Diese Datei kann auch direkt ver&auml;ndert werden,
 um mehr Importformate zu haben, oder man kann sie l&ouml;schen, um wieder zu den
 Standardeinstellungen zu kommen.
+</para>
+<para>
+Um zu pr&uuml;fen, ob die importierten St&uuml;cke den vorhandenen Dateien entsprechen,
+k&ouml;nnen die L&auml;ngen verglichen werden. Diese Option kann mit dem Markierfeld
+<guibutton>Teste maximal erlaubten Zeitunterschied</guibutton> eingeschaltet
+werden und der maximal erlaubten Zeitunterschied kann in Sekunden eingestellt
+werden. Wenn eine &Uuml;berschreitung dieser Toleranzschwelle festgestellt
+wird oder die Anzahl der St&uuml;cke nicht &uuml;bereinstimmt, wird dies mitgeteilt, und
+der Import kann abgebrochen werden.
 </para>
 </listitem>
 </varlistentry>
@@ -530,6 +551,42 @@ Dateien ver&auml;ndert (in der Dateiliste mit einem Stern versehen), welche nich
 dem eingestellten Format entsprechen. Ungewollte &Auml;nderungen k&ouml;nnen
 mit <guilabel>Zuletzt gespeicherte Fassung</guilabel>
 r&uuml;ckg&auml;ngig gemacht werden.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Extras</guimenu>
+<guimenuitem>Verzeichnis umbenennen...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Dieser Dialog bietet die M&ouml;glichkeit, automatisch das aktuelle
+Verzeichnis gem&auml;ss den Tags umzubenennen. Verschiedene Formate sind
+vordefiniert und Informationen &uuml;ber Interpret, Album und Jahr in den
+Verzeichnisnamen zu &uuml;bernehmen. Es ist auch m&ouml;glich, ein eigenes Format zu
+definieren, die folgenden Codes k&ouml;nnen verwendet werden, um
+Werte aus den Tags im Verzeichnisnamen einzusetzen:
+</para>
+
+<itemizedlist>
+<listitem><para>%s Titel (Song)</para></listitem>
+<listitem><para>%a Interpret (Artist)</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Kommentar (Comment)</para></listitem>
+<listitem><para>%y Jahr (Year)</para></listitem>
+<listitem><para>%t Nummer (Track)</para></listitem>
+<listitem><para>%g Stil (Genre)</para></listitem>
+</itemizedlist>
+
+<para>
+Wenn ein Verzeichnis-Trennzeichen "/" im Format gefunden wird, werden mehrere
+Verzeichnisse erstellt. Will man ein neues Verzeichnis erstellen statt das
+aktuelle Verzeichnis umbenennen, so w&auml;hlt man <guilabel>Verzeichnis
+erstellen</guilabel> statt <guilabel>Verzeichnis umbenennen</guilabel>. Die
+Quelle der Tag-Information kann zwischen <guilabel>Von ID3v1</guilabel> und
+<guilabel>Von ID3v2</guilabel> ausgew&auml;hlt werden. Die voraussichtiliche
+Verzeichnisnamens&auml;nderung f&uuml;r die erste Datei kann in den Abschnitten
+<guilabel>Von</guilabel> und <guilabel>Nach</guilabel> des Dialogs gesehen
+werden.
 </para></listitem>
 </varlistentry>
 
@@ -590,6 +647,21 @@ l&ouml;scht). Einf&uuml;gen und L&ouml;schen von Zeilen ist auch &uuml;ber das
 Kontext-Men&uuml; m&ouml;glich, welches erscheint, wenn man die rechte
 Maustaste dr&uuml;ckt. Ersetzungen werden nur durchgef&uuml;hrt, wenn das
 <guilabel>Zeichen ersetzen</guilabel> Markierungsfeld aktiviert ist.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Einstellungen</guimenu>
+<guimenuitem>Kurzbefehle festlegen...</guimenuitem>
+</menuchoice></term>
+<listitem><para>&Ouml;ffnet einen Dialog, um den meisten Programm-Funktionen
+ein Tastatur-K&uuml;rzel zuzuordnen. Es gibt sogar einige Funktionen ohne
+entsprechenen Menupunkt oder Knopf, z.B. n&auml;chste Datei, vorangehende Datei,
+alles ausw&auml;hlen.
+</para>
+<para>
 </para>
 </listitem>
 </varlistentry>
@@ -682,8 +754,8 @@ SuSE Linux 8.1: id3lib 3.8.0, KDE 3.0.5, KDE 3.1.1, Qt 2.3.2, Qt
 3.0.5, Qt 3.1.2
 </para>
 <para>
-SuSE Linux 8.2: id3lib 3.8.2, id3lib 3.8.3, KDE 3.1.1, KDE 3.1.3, KDE 3.1.4,
-Qt 3.1.1, Qt 3.1.2, Qt 3.2.1
+SuSE Linux 8.2: id3lib 3.8.2, id3lib 3.8.3, KDE 3.1.x, KDE 3.2.x,
+Qt 3.1.x, Qt 3.2.x, Qt 3.3.2 
 </para>
 <para>
 Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt version 2.3.0.
@@ -709,6 +781,15 @@ Im obersten Verzeichnis wird getippt:
 <para>
 Um f&uuml;r andere Versionen von Qt oder KDE zu kompilieren, werden die
 jeweiligen configure-Optionen gesetzt.
+</para>
+<para>
+Um die Kompilation etwas zu beschleunigen, kann &kid3; mit GCC 3.4 eine
+vorkompilierte Include-Datei verwenden. Dazu wird
+<userinput>configure</userinput> mit der Option
+<userinput>--enable-gcc-pch</userinput> (und Zuweisen von gcc und g++ von GCC
+3.4 zu CC and CXX falls GCC 3.4 nicht der Default Kompiler ist) gestartet. Das
+vorkompilierte System-Include wird dann mit <userinput>make pch</userinput>
+generiert.
 </para>
 <para>
 Die Qt Anwendung kann auch unter Windows kompiliert werden.
