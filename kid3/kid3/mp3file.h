@@ -47,6 +47,12 @@ class Mp3File : public QListBoxItem {
 	 */
 	QString getFilename(void) const { return new_filename; }
 	/**
+	 * Get directory name.
+	 *
+	 * @return directory name
+	 */
+	QString getDirname(void) const { return dirname; }
+	/**
 	 * Read tags from file.
 	 *
 	 * @param force TRUE to force reading even if tags were already read.
@@ -55,11 +61,14 @@ class Mp3File : public QListBoxItem {
 	/**
 	 * Write tags to file and rename it if necessary.
 	 *
-	 * @param force TRUE to force writing even if file was not changed.
+	 * @param force   TRUE to force writing even if file was not changed.
+	 * @param renamed will be set to TRUE if the file was renamed,
+	 *                i.e. the file name is no longer valid, else *renamed
+	 *                is left unchanged
 	 *
-	 * @return TRUE if the file was renamed, i.e. the file name is no longer valid.
+	 * @return TRUE if ok, FALSE if the file could not be written or renamed.
 	 */
-	bool writeTags(bool force);
+	bool writeTags(bool force, bool *renamed);
 	/**
 	 * Remove all ID3v1 tags.
 	 */
@@ -392,9 +401,23 @@ class Mp3File : public QListBoxItem {
 	 */
 	void getTagsFromFilename(StandardTags *st);
 	/**
+	 * Create string with tags according to format string.
+	 *
+	 * @param st  tags to use to build filename
+	 * @param fmt format string containing the following codes:
+	 *            %s title (song)
+	 *            %l album
+	 *            %a artist
+	 *            %c comment
+	 *            %y year
+	 *            %t track
+	 *            %g genre
+	 *
+	 * @return format string with format codes replaced by tags.
+	 */
+	static QString formatWithTags(const StandardTags *st, QString fmt);
+	/**
 	 * Get filename from tags.
-	 * Supported formats:
-	 * artist - album/track song.mp3
 	 *
 	 * @param st  tags to use to build filename
 	 * @param fmt format string containing the following codes:
@@ -448,6 +471,33 @@ class Mp3File : public QListBoxItem {
 	 */
 	int width(const QListBox* lb) const;
 
+	/**
+	 * Get technical detail information.
+	 *
+	 * @return string with detail information,
+	 *         "" if no information available.
+	 */
+	QString getDetailInfo() const;
+
+	/**
+	 * Get duration of file.
+	 *
+	 * @return duration in seconds,
+	 *         0 if unknown.
+	 */
+	unsigned getDuration() const;
+
+	/**
+	 * Format a time string "h:mm:ss".
+	 * If the time is less than an hour, the hour is not put into the
+	 * string and the minute is not padded with zeroes.
+	 *
+	 * @param seconds time in seconds
+	 *
+	 * @return string with the time in hours, minutes and seconds.
+	 */
+	static QString formatTime(unsigned seconds);
+
 	/** ID3v2 tags */
 	ID3_Tag *tagV2;
 	/** TRUE if ID3v2 tags were changed */
@@ -487,6 +537,14 @@ protected:
 	static QPixmap *modifiedPixmap;
 	/** pointer to empty pixmap */
 	static QPixmap *nullPixmap;
+	/** pointer to V1V2 pixmap */
+	static QPixmap *v1v2Pixmap;
+	/** pointer to V1 pixmap */
+	static QPixmap *v1Pixmap;
+	/** pointer to V2 pixmap */
+	static QPixmap *v2Pixmap;
+	/** pointer to "no tag" pixmap */
+	static QPixmap *notagPixmap;
 };
 
 #endif // MP3FILE_H
