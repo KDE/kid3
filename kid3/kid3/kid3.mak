@@ -63,7 +63,9 @@ CLEAN :
 	-@erase "$(INTDIR)\moc_id3form.obj"
 	-@erase "$(INTDIR)\moc_importselector.obj"
 	-@erase "$(INTDIR)\moc_kid3.obj"
+	-@erase "$(INTDIR)\moc_rendirdialog.obj"
 	-@erase "$(INTDIR)\mp3file.obj"
+	-@erase "$(INTDIR)\rendirdialog.obj"
 	-@erase "$(INTDIR)\standardtags.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\kid3.exe"
@@ -140,7 +142,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\moc_id3form.obj" \
 	"$(INTDIR)\moc_importselector.obj" \
 	"$(INTDIR)\moc_kid3.obj" \
+	"$(INTDIR)\moc_rendirdialog.obj" \
 	"$(INTDIR)\mp3file.obj" \
+	"$(INTDIR)\rendirdialog.obj" \
 	"$(INTDIR)\standardtags.obj" \
 	"$(INTDIR)\kid3win.res"
 
@@ -212,8 +216,12 @@ CLEAN :
 	-@erase "$(INTDIR)\moc_importselector.sbr"
 	-@erase "$(INTDIR)\moc_kid3.obj"
 	-@erase "$(INTDIR)\moc_kid3.sbr"
+	-@erase "$(INTDIR)\moc_rendirdialog.obj"
+	-@erase "$(INTDIR)\moc_rendirdialog.sbr"
 	-@erase "$(INTDIR)\mp3file.obj"
 	-@erase "$(INTDIR)\mp3file.sbr"
+	-@erase "$(INTDIR)\rendirdialog.obj"
+	-@erase "$(INTDIR)\rendirdialog.sbr"
 	-@erase "$(INTDIR)\standardtags.obj"
 	-@erase "$(INTDIR)\standardtags.sbr"
 	-@erase "$(INTDIR)\vc60.idb"
@@ -291,7 +299,9 @@ BSC32_SBRS= \
 	"$(INTDIR)\moc_id3form.sbr" \
 	"$(INTDIR)\moc_importselector.sbr" \
 	"$(INTDIR)\moc_kid3.sbr" \
+	"$(INTDIR)\moc_rendirdialog.sbr" \
 	"$(INTDIR)\mp3file.sbr" \
+	"$(INTDIR)\rendirdialog.sbr" \
 	"$(INTDIR)\standardtags.sbr"
 
 "$(OUTDIR)\kid3.bsc" : "$(OUTDIR)" $(BSC32_SBRS)
@@ -327,7 +337,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\moc_id3form.obj" \
 	"$(INTDIR)\moc_importselector.obj" \
 	"$(INTDIR)\moc_kid3.obj" \
+	"$(INTDIR)\moc_rendirdialog.obj" \
 	"$(INTDIR)\mp3file.obj" \
+	"$(INTDIR)\rendirdialog.obj" \
 	"$(INTDIR)\standardtags.obj" \
 	"$(INTDIR)\kid3win.res"
 
@@ -360,7 +372,7 @@ SOURCE=.\configdialog.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\configdialog.obj"	"$(INTDIR)\configdialog.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\configdialog.obj"	"$(INTDIR)\configdialog.sbr" : $(SOURCE) "$(INTDIR)" ".\formatbox.h" "..\config.h"
 
 
 !ENDIF 
@@ -386,13 +398,13 @@ SOURCE=.\formatbox.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\formatbox.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\formatbox.h"
+"$(INTDIR)\formatbox.obj" : $(SOURCE) "$(INTDIR)" ".\formatbox.h" "..\config.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\formatbox.obj"	"$(INTDIR)\formatbox.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\formatbox.obj"	"$(INTDIR)\formatbox.sbr" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\formatbox.h"
 
 
 !ENDIF 
@@ -408,7 +420,7 @@ SOURCE=.\formatconfig.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\formatconfig.obj"	"$(INTDIR)\formatconfig.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\formatconfig.obj"	"$(INTDIR)\formatconfig.sbr" : $(SOURCE) "$(INTDIR)" "..\config.h"
 
 
 !ENDIF 
@@ -418,13 +430,13 @@ SOURCE=.\framelist.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\framelist.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\framelist.h"
+"$(INTDIR)\framelist.obj" : $(SOURCE) "$(INTDIR)" ".\framelist.h" "..\config.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\framelist.obj"	"$(INTDIR)\framelist.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\framelist.obj"	"$(INTDIR)\framelist.sbr" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\framelist.h"
 
 
 !ENDIF 
@@ -434,13 +446,13 @@ SOURCE=.\freedbclient.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\freedbclient.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\freedbclient.h"
+"$(INTDIR)\freedbclient.obj" : $(SOURCE) "$(INTDIR)" ".\freedbclient.h" "..\config.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\freedbclient.obj"	"$(INTDIR)\freedbclient.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\freedbclient.obj"	"$(INTDIR)\freedbclient.sbr" : $(SOURCE) "$(INTDIR)" ".\freedbclient.h" "..\config.h"
 
 
 !ENDIF 
@@ -456,7 +468,7 @@ SOURCE=.\freedbconfig.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\freedbconfig.obj"	"$(INTDIR)\freedbconfig.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\freedbconfig.obj"	"$(INTDIR)\freedbconfig.sbr" : $(SOURCE) "$(INTDIR)" "..\config.h"
 
 
 !ENDIF 
@@ -466,13 +478,13 @@ SOURCE=.\freedbdialog.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\freedbdialog.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\freedbdialog.h" ".\freedbclient.h"
+"$(INTDIR)\freedbdialog.obj" : $(SOURCE) "$(INTDIR)" ".\freedbdialog.h" ".\freedbclient.h" "..\config.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\freedbdialog.obj"	"$(INTDIR)\freedbdialog.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\freedbdialog.obj"	"$(INTDIR)\freedbdialog.sbr" : $(SOURCE) "$(INTDIR)" ".\freedbclient.h" ".\freedbdialog.h" "..\config.h"
 
 
 !ENDIF 
@@ -488,7 +500,7 @@ SOURCE=.\generalconfig.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\generalconfig.obj"	"$(INTDIR)\generalconfig.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\generalconfig.obj"	"$(INTDIR)\generalconfig.sbr" : $(SOURCE) "$(INTDIR)" "..\config.h"
 
 
 !ENDIF 
@@ -514,13 +526,13 @@ SOURCE=.\id3form.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\id3form.obj" : $(SOURCE) "$(INTDIR)" ".\kid3.h" ".\id3form.h" "..\config.h"
+"$(INTDIR)\id3form.obj" : $(SOURCE) "$(INTDIR)" ".\id3form.h" "..\config.h" ".\kid3.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\id3form.obj"	"$(INTDIR)\id3form.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\id3form.obj"	"$(INTDIR)\id3form.sbr" : $(SOURCE) "$(INTDIR)" ".\kid3.h" "..\config.h" ".\id3form.h"
 
 
 !ENDIF 
@@ -536,7 +548,7 @@ SOURCE=.\importconfig.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\importconfig.obj"	"$(INTDIR)\importconfig.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\importconfig.obj"	"$(INTDIR)\importconfig.sbr" : $(SOURCE) "$(INTDIR)" "..\config.h"
 
 
 !ENDIF 
@@ -546,13 +558,13 @@ SOURCE=.\importdialog.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\importdialog.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\importselector.h"
+"$(INTDIR)\importdialog.obj" : $(SOURCE) "$(INTDIR)" ".\importselector.h" "..\config.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\importdialog.obj"	"$(INTDIR)\importdialog.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\importdialog.obj"	"$(INTDIR)\importdialog.sbr" : $(SOURCE) "$(INTDIR)" ".\importselector.h" "..\config.h"
 
 
 !ENDIF 
@@ -578,13 +590,13 @@ SOURCE=.\importselector.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\importselector.obj" : $(SOURCE) "$(INTDIR)" ".\importselector.h" ".\freedbdialog.h" "..\config.h"
+"$(INTDIR)\importselector.obj" : $(SOURCE) "$(INTDIR)" ".\importselector.h" "..\config.h" ".\freedbdialog.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\importselector.obj"	"$(INTDIR)\importselector.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\importselector.obj"	"$(INTDIR)\importselector.sbr" : $(SOURCE) "$(INTDIR)" ".\importselector.h" "..\config.h" ".\freedbdialog.h"
 
 
 !ENDIF 
@@ -594,13 +606,13 @@ SOURCE=.\kid3.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\kid3.obj" : $(SOURCE) "$(INTDIR)" ".\kid3.h" "..\config.h" ".\id3form.h" ".\framelist.h"
+"$(INTDIR)\kid3.obj" : $(SOURCE) "$(INTDIR)" ".\framelist.h" ".\rendirdialog.h" "..\config.h" ".\kid3.h" ".\id3form.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\kid3.obj"	"$(INTDIR)\kid3.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\kid3.obj"	"$(INTDIR)\kid3.sbr" : $(SOURCE) "$(INTDIR)" ".\framelist.h" ".\rendirdialog.h" "..\config.h" ".\kid3.h" ".\id3form.h"
 
 
 !ENDIF 
@@ -622,7 +634,7 @@ SOURCE=.\main.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\main.obj"	"$(INTDIR)\main.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\main.obj"	"$(INTDIR)\main.sbr" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\kid3.h"
 
 
 !ENDIF 
@@ -632,13 +644,13 @@ SOURCE=.\miscconfig.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\miscconfig.obj" : $(SOURCE) "$(INTDIR)" "..\config.h"
+"$(INTDIR)\miscconfig.obj" : $(SOURCE) "$(INTDIR)" ".\rendirdialog.h" "..\config.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\miscconfig.obj"	"$(INTDIR)\miscconfig.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\miscconfig.obj"	"$(INTDIR)\miscconfig.sbr" : $(SOURCE) "$(INTDIR)" ".\rendirdialog.h" "..\config.h"
 
 
 !ENDIF 
@@ -654,7 +666,7 @@ SOURCE=.\moc_formatbox.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\moc_formatbox.obj"	"$(INTDIR)\moc_formatbox.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\moc_formatbox.obj"	"$(INTDIR)\moc_formatbox.sbr" : $(SOURCE) "$(INTDIR)" ".\formatbox.h"
 
 
 !ENDIF 
@@ -670,7 +682,7 @@ SOURCE=.\moc_framelist.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\moc_framelist.obj"	"$(INTDIR)\moc_framelist.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\moc_framelist.obj"	"$(INTDIR)\moc_framelist.sbr" : $(SOURCE) "$(INTDIR)" ".\framelist.h"
 
 
 !ENDIF 
@@ -686,7 +698,7 @@ SOURCE=.\moc_freedbclient.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\moc_freedbclient.obj"	"$(INTDIR)\moc_freedbclient.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\moc_freedbclient.obj"	"$(INTDIR)\moc_freedbclient.sbr" : $(SOURCE) "$(INTDIR)" ".\freedbclient.h" "..\config.h"
 
 
 !ENDIF 
@@ -696,13 +708,13 @@ SOURCE=.\moc_freedbdialog.cpp
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
 
-"$(INTDIR)\moc_freedbdialog.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\freedbdialog.h"
+"$(INTDIR)\moc_freedbdialog.obj" : $(SOURCE) "$(INTDIR)" ".\freedbdialog.h" "..\config.h"
 
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\moc_freedbdialog.obj"	"$(INTDIR)\moc_freedbdialog.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\moc_freedbdialog.obj"	"$(INTDIR)\moc_freedbdialog.sbr" : $(SOURCE) "$(INTDIR)" ".\freedbdialog.h" "..\config.h"
 
 
 !ENDIF 
@@ -718,7 +730,7 @@ SOURCE=.\moc_id3form.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\moc_id3form.obj"	"$(INTDIR)\moc_id3form.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\moc_id3form.obj"	"$(INTDIR)\moc_id3form.sbr" : $(SOURCE) "$(INTDIR)" ".\id3form.h"
 
 
 !ENDIF 
@@ -734,7 +746,7 @@ SOURCE=.\moc_importselector.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\moc_importselector.obj"	"$(INTDIR)\moc_importselector.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\moc_importselector.obj"	"$(INTDIR)\moc_importselector.sbr" : $(SOURCE) "$(INTDIR)" ".\importselector.h"
 
 
 !ENDIF 
@@ -750,7 +762,23 @@ SOURCE=.\moc_kid3.cpp
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
 
-"$(INTDIR)\moc_kid3.obj"	"$(INTDIR)\moc_kid3.sbr" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\moc_kid3.obj"	"$(INTDIR)\moc_kid3.sbr" : $(SOURCE) "$(INTDIR)" ".\kid3.h" "..\config.h"
+
+
+!ENDIF 
+
+SOURCE=.\moc_rendirdialog.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\moc_rendirdialog.obj" : $(SOURCE) "$(INTDIR)" ".\rendirdialog.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\moc_rendirdialog.obj"	"$(INTDIR)\moc_rendirdialog.sbr" : $(SOURCE) "$(INTDIR)" ".\rendirdialog.h"
 
 
 !ENDIF 
@@ -767,6 +795,22 @@ SOURCE=.\mp3file.cpp
 
 
 "$(INTDIR)\mp3file.obj"	"$(INTDIR)\mp3file.sbr" : $(SOURCE) "$(INTDIR)"
+
+
+!ENDIF 
+
+SOURCE=.\rendirdialog.cpp
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+
+"$(INTDIR)\rendirdialog.obj" : $(SOURCE) "$(INTDIR)" "..\config.h" ".\rendirdialog.h"
+
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+
+"$(INTDIR)\rendirdialog.obj"	"$(INTDIR)\rendirdialog.sbr" : $(SOURCE) "$(INTDIR)" ".\rendirdialog.h" "..\config.h"
 
 
 !ENDIF 
@@ -964,6 +1008,32 @@ InputPath=.\kid3.h
 	<<tempfile.bat 
 	@echo off 
 	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_kid3.cpp
+<< 
+	
+
+!ENDIF 
+
+SOURCE=.\rendirdialog.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+InputPath=.\rendirdialog.h
+
+".\moc_rendirdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_rendirdialog.cpp
+<< 
+	
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+InputPath=.\rendirdialog.h
+
+".\moc_rendirdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	<<tempfile.bat 
+	@echo off 
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_rendirdialog.cpp
 << 
 	
 

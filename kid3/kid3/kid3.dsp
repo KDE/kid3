@@ -200,7 +200,15 @@ SOURCE=.\moc_kid3.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\moc_rendirdialog.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\mp3file.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\rendirdialog.cpp
 # End Source File
 # Begin Source File
 
@@ -442,6 +450,33 @@ SOURCE=.\miscconfig.h
 # Begin Source File
 
 SOURCE=.\mp3file.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\rendirdialog.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\rendirdialog.h
+
+".\moc_rendirdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_rendirdialog.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\rendirdialog.h
+
+".\moc_rendirdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_rendirdialog.cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
