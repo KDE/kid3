@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 	KAboutData aboutData(
 	    "kid3", I18N_NOOP("Kid3"),
 	    VERSION, description, KAboutData::License_GPL,
-	    "(c) 2003, Urs Fleisch", 0, "http://kid3.sourceforge.net",
+	    "(c) 2003-2004 Urs Fleisch", 0, "http://kid3.sourceforge.net",
 	    "ufleisch@users.sourceforge.net");
 	aboutData.addAuthor("Urs Fleisch",0, "ufleisch@users.sourceforge.net");
 	KCmdLineArgs::init(argc, argv, &aboutData);
