@@ -54,7 +54,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib $(ID3LIBDIR)\Release\id3lib.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /machine:I386
+# ADD LINK32 $(ID3LIBDIR)\Release\id3lib.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib wsock32.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /machine:I386
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
@@ -82,7 +82,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib $(ID3LIBDIR)\Debug\id3lib.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 $(ID3LIBDIR)\Debug\id3lib.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib wsock32.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -116,6 +116,18 @@ SOURCE=.\framelist.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\freedbclient.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\freedbconfig.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\freedbdialog.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\generalconfig.cpp
 # End Source File
 # Begin Source File
@@ -125,6 +137,10 @@ SOURCE=.\genres.cpp
 # Begin Source File
 
 SOURCE=.\id3form.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\importconfig.cpp
 # End Source File
 # Begin Source File
 
@@ -152,11 +168,23 @@ SOURCE=.\main.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\miscconfig.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\moc_formatbox.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\moc_framelist.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_freedbclient.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_freedbdialog.cpp
 # End Source File
 # Begin Source File
 
@@ -250,6 +278,64 @@ InputPath=.\framelist.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\freedbclient.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\freedbclient.h
+
+".\moc_freedbclient.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_freedbclient.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\freedbclient.h
+
+".\moc_freedbclient.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_freedbclient.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\freedbconfig.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\freedbdialog.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\freedbdialog.h
+
+".\moc_freedbdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_freedbdialog.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\freedbdialog.h
+
+".\moc_freedbdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_freedbdialog.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\generalconfig.h
 # End Source File
 # Begin Source File
@@ -282,6 +368,10 @@ InputPath=.\id3form.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\importconfig.h
 # End Source File
 # Begin Source File
 
@@ -344,6 +434,10 @@ InputPath=.\kid3.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\miscconfig.h
 # End Source File
 # Begin Source File
 
