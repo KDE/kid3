@@ -10,13 +10,21 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qstringlist.h>
-#include <qlistbox.h>
 
 #include "mp3file.h"
 #include "filelist.h"
 
 /** Default name filter */
 const QString FileList::defaultNameFilter("*.mp3 *.MP3");
+
+/**
+ * Returns the recommended size for the widget.
+ * @return recommended size.
+ */
+QSize FileList::sizeHint() const
+{
+	return QSize(fontMetrics().maxWidth() * 25, QListBox::sizeHint().height());
+}
 
 /**
  * Get the first item in the filelist.
@@ -26,7 +34,7 @@ const QString FileList::defaultNameFilter("*.mp3 *.MP3");
 
 Mp3File *FileList::first()
 {
-	current_item = dynamic_cast<Mp3File *>(listbox->firstItem());
+	current_item = dynamic_cast<Mp3File *>(firstItem());
 	return current_item;
 }
 
@@ -53,7 +61,7 @@ bool FileList::readDir(const QString& name)
 {
 	QFileInfo file(name);
 	if(file.isDir()) {
-		listbox->clear();
+		clear();
 		dirname = name;
 		QDir dir(file.filePath());
 		QStringList dirContents=dir.entryList(namefilter);
@@ -63,7 +71,7 @@ bool FileList::readDir(const QString& name)
 			    dirname + QDir::separator() + *it).isDir()) {
 				Mp3File *mp3file = new Mp3File(dirname, *it);
 				if (mp3file) {
-					listbox->insertItem(mp3file);
+					insertItem(mp3file);
 				}
 			}
 		}
@@ -89,7 +97,7 @@ bool FileList::updateModificationState(void)
 		}
 		mp3file = next();
 	}
-	listbox->triggerUpdate(TRUE);
+	triggerUpdate(TRUE);
 	return modified;
 }
 

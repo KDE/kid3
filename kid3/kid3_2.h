@@ -34,12 +34,6 @@ class Kid3App : public QMainWindow
 	 */
 	void fileSelected(void);
 	/**
-	 * Get file list.
-	 *
-	 * @return file list.
-	 */
-	FileList *getFileList(void) { return &filelist; }
-	/**
 	 * Update files of current selection.
 	 */
 	void updateCurrentSelection(void);
@@ -265,8 +259,6 @@ class Kid3App : public QMainWindow
 	bool modified;
 	/** Current directory */
 	QString doc_dir;
-	/** File list */
-	FileList filelist;
 	/** Frame list */
 	FrameList framelist;
 	/** Copy buffer */

@@ -15,14 +15,18 @@ endif
 
 # Output directories
 OBJECTS_DIR = .obj
-UIC_DIR = .ui
 MOC_DIR = .moc
 
 # Compiler, tools and options
 CC       = gcc
 CXX      = g++
-CFLAGS   = -pipe -Wall -W -O2 -mcpu=i486 -march=i486 -DNO_DEBUG -DQT_NO_DEBUG
-CFLAGS  += -I$(KDEDIR)/include -I$(QTDIR)/include -I$(UIC_DIR) -I$(MOC_DIR) -I.
+CFLAGS   = -pipe -Wall -W -mcpu=i486 -march=i486
+ifdef CONFIG_DEBUG
+CFLAGS  += -O -g
+else
+CFLAGS  += -O2 -DNO_DEBUG -DQT_NO_DEBUG
+endif
+CFLAGS  += -I$(KDEDIR)/include -I$(QTDIR)/include -I$(MOC_DIR) -I.
 CXXFLAGS = $(CFLAGS)
 LINK     = g++
 LFLAGS   = -Wl,-rpath,$(QTDIR)/lib  -L$(QTDIR)/lib -lqt-mt -lid3
@@ -36,7 +40,6 @@ endif
 AR       = ar cqs
 RANLIB   = 
 MOC      = $(QTDIR)/bin/moc
-UIC      = $(QTDIR)/bin/uic
 TAR      = tar -cf
 GZIP     = gzip -9f
 COPY     = cp -f
@@ -57,19 +60,15 @@ ADDOBJDIR = $(PERL) -ne "s/(\w+\.o)/$(OBJECTS_DIR)\/\1/; print"
 FINISH_HTML = $(PERL) -ne "s/ufleisch@/ufleisch at /g; s/common\/fdl-license.html/http:\/\/www.gnu.org\/licenses\/licenses.html\#FDL/g; s/common\/gpl-license.html/http:\/\/www.gnu.org\/licenses\/licenses.html\#GPL/g; s/common\/fdl-translated.html/http:\/\/www.gnu.org\/licenses\/licenses.html\#FDL/g; s/common\/gpl-translated.html/http:\/\/www.gnu.org\/licenses\/licenses.html\#GPL/g; s/<div class=\"toc\">.+?<\/div><div class=\"sect1\">/<div class=\"sect1\">/g; print"
 # Files
 HEADERS = filelist.h framelist.h genres.h kid3_1.h kid3_2.h mp3file.h \
-          standardtags.h id3form.ui.h
+          standardtags.h id3form.h
 SOURCES = filelist.cpp framelist.cpp genres.cpp kid3.cpp main.cpp \
-          mp3file.cpp standardtags.cpp
-FORMS =    id3form.ui
-UICDECLS = $(UIC_DIR)/id3form.h
-UICIMPLS = $(UIC_DIR)/id3form.cpp
-OBJECTS  = $(SOURCES:%.cpp=$(OBJECTS_DIR)/%.o) \
-           $(UICIMPLS:$(UIC_DIR)/%.cpp=$(OBJECTS_DIR)/%.o)
+          mp3file.cpp standardtags.cpp id3form.cpp
+OBJECTS  = $(SOURCES:%.cpp=$(OBJECTS_DIR)/%.o)
 SRCMOC   = $(MOC_DIR)/moc_framelist.cpp $(MOC_DIR)/moc_kid3.cpp \
            $(MOC_DIR)/moc_id3form.cpp
 OBJMOC   = $(SRCMOC:$(MOC_DIR)/%.cpp=$(OBJECTS_DIR)/%.o)
 DIST     = AUTHORS COPYING INSTALL LICENSE README ChangeLog \
-           Makefile config.mk kid3.mak kid3.pro kid3.spec \
+           Makefile config.mk kid3.mak kid3.spec \
            hi16-app-kid3.png hi32-app-kid3.png hi48-app-kid3.png \
            kid3.desktop kid3ui.rc
 DISTNAME = kid3-$(CONFIG_VERSION:"%"=%)
@@ -79,22 +78,10 @@ TARGET   = kid3
 $(OBJECTS_DIR)/%.o: %.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-$(OBJECTS_DIR)/%.o: $(UIC_DIR)/%.cpp
-	$(CXX) -c $(CXXFLAGS) $< -o $@
-
 $(OBJECTS_DIR)/%.o: $(MOC_DIR)/%.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-$(UIC_DIR)/%.h: %.ui
-	$(UIC) $< -o $@
-
-$(UIC_DIR)/%.cpp: %.ui
-	$(UIC) $< -tr i18n -i $(@:.cpp=.h) -o $@
-
 $(MOC_DIR)/moc_%.cpp: %.h
-	$(MOC) $< -o $@
-
-$(MOC_DIR)/moc_%.cpp: $(UIC_DIR)/%.h
 	$(MOC) $< -o $@
 
 # Build rules
@@ -117,16 +104,13 @@ mocclean:
 	-$(DEL_FILE) $(OBJMOC)
 	-$(DEL_FILE) $(SRCMOC)
 
-uiclean:
-	-$(DEL_FILE) $(UICIMPLS) $(UICDECLS)
-
 clean: mocclean
 	-$(DEL_FILE) $(OBJECTS) 
 	-$(DEL_FILE) *~ core *.core
 	-$(DEL_FILE) kid3.h
 	-$(DEL_FILE) autoconf.h
 
-distclean: clean uiclean
+distclean: clean
 	-$(DEL_FILE) $(TARGET)
 	-$(DEL_FILE) TAGS
 	-$(DEL_FILE) .depend
@@ -153,16 +137,17 @@ else
 i18n: kid3_de.qm
 endif
 
-po/de/kid3.po: $(SOURCES) $(UICIMPLS)
-	xgettext -j -C -ki18n -kI18N_NOOP -ktr2i18n -ktranslate -x$(KDEDIR)/include/kde.pot  -o$@ $(SOURCES) $(UICIMPLS)
+po/de/kid3.po: $(SOURCES)
+	xgettext --omit-header -C -ki18n -kI18N_NOOP -ktr2i18n -ktranslate -x/opt/kde3/include/kde.pot  -otmp.po $(SOURCES)
+	msgmerge -U $@ tmp.po
+	$(DEL_FILE) tmp.po
 
 po/de/kid3.mo: po/de/kid3.po
 	msgfmt -o $@ $<
 
 # Translation for Qt (non-KDE) application
 kid3_de.qm: po/de/kid3.po po/de/kid3qt.po
-	$(PERL) -ne "s/Ã¤/ä/g; s/Ã¶/ö/g; s/Ã¼/ü/g; s/Ã„/Ä/g; s/Ã–/Ö/g; s/Ãœ/Ü/g; print" po/de/kid3.po >tmp.po; \
-	cat po/de/kid3qt.po >>tmp.po; \
+	cat po/de/kid3.po po/de/kid3qt.po >tmp.po; \
 	$(QTDIR)/bin/msg2qm tmp.po kid3_de.qm; \
 	$(DEL_FILE) tmp.po
 
@@ -255,41 +240,36 @@ qtuninstall:
 	-$(DEL_DIR) $(DESTDIR)
 
 # Tags
-TAGS: $(UICDECLS) $(UICIMPLS) autoconf.h
-	ctags -e $(HEADERS) autoconf.h $(SOURCES) $(UICIMPLS) $(UICDECLS)
+TAGS: autoconf.h
+	ctags -e $(HEADERS) autoconf.h $(SOURCES)
 
 # Distribution
-# As uic, .html and .qm files cannot be generated from Windows,
+# As .html and .qm files cannot be generated from Windows,
 # they are included in the distribution.
-dist: $(UICIMPLS) $(UICDECLS) kid3_en.html kid3_de.html kid3_de.qm
+dist: kid3_en.html kid3_de.html kid3_de.qm
 	mkdir $(DISTNAME) $(DISTNAME)/$(MOC_DIR)
-	mkdir $(DISTNAME)/$(OBJECTS_DIR) $(DISTNAME)/$(UIC_DIR)
+	mkdir $(DISTNAME)/$(OBJECTS_DIR)
 	mkdir $(DISTNAME)/doc  $(DISTNAME)/doc/en $(DISTNAME)/doc/de
 	mkdir $(DISTNAME)/po $(DISTNAME)/po/de
 	cp $(DIST) $(SOURCES) $(HEADERS) $(FORMS) $(DISTNAME)/
 	cp doc/en/index.docbook $(DISTNAME)/doc/en/
 	cp doc/de/index.docbook $(DISTNAME)/doc/de/
 	cp po/de/kid3.po po/de/kid3qt.po $(DISTNAME)/po/de/
-	for i in $(UICIMPLS) $(UICDECLS); do cp $$i $(DISTNAME)/$$i; done
 	cp kid3_en.html kid3_de.html $(DISTNAME)/
 	cp kid3_de.qm $(DISTNAME)/
 	tar czf $(DISTNAME).tgz $(DISTNAME)/
 	rm -rf $(DISTNAME)/
 
 # Dependencies which are needed before automatic generation of dependencies
-$(UIC_DIR)/id3form.h: id3form.ui
-
-$(UIC_DIR)/id3form.cpp: id3form.ui $(UIC_DIR)/id3form.h
-
 $(MOC_DIR)/moc_framelist.cpp: framelist.h
 
 $(MOC_DIR)/moc_kid3.cpp: kid3.h autoconf.h config.mk
 
-$(MOC_DIR)/moc_id3form.cpp: $(UIC_DIR)/id3form.h
+$(MOC_DIR)/moc_id3form.cpp: id3form.h
 
-# Automatic genertion of dependencies
-depend .depend dep: $(UICIMPLS) $(SRCMOC)
-	$(CC) $(CFLAGS) -MM -MG $(SOURCES) $(UICIMPLS) $(SRCMOC) | $(ADDOBJDIR) > .depend
+# Automatic generation of dependencies
+depend .depend dep: $(SRCMOC)
+	$(CC) $(CFLAGS) -MM -MG $(SOURCES) $(SRCMOC) | $(ADDOBJDIR) > .depend
 
 ifeq (.depend,$(wildcard .depend))
 include .depend

@@ -11,20 +11,26 @@
 #define FILELIST_H
 
 #include <qstring.h>
+#include <qlistbox.h>
+#include <qsize.h>
 #include "mp3file.h"
-
-class QListBox;
 
 /**
  * List of files to operate on.
  */
-class FileList
+class FileList : public QListBox
 {
  public:
 	/**
 	 * Constructor.
 	 */
-	FileList() : namefilter(defaultNameFilter) {}
+	FileList(QWidget *parent = 0, const char *name = 0, WFlags f = 0) :
+		QListBox(parent, name, f), namefilter(defaultNameFilter) {}
+	/**
+	 * Returns the recommended size for the widget.
+	 * @return recommended size.
+	 */
+	virtual QSize sizeHint() const;
 	/**
 	 * Get the first item in the filelist.
 	 *
@@ -49,12 +55,6 @@ class FileList
 	 * @return name filter.
 	 */
 	const QString& getNameFilter(void) const { return namefilter; }
-	/**
-	 * Set the listbox to be used for the filelist.
-	 *
-	 * @param lb listbox
-	 */
-	void setListBox(QListBox *lb) { listbox = lb; }
 	/**
 	 * Fill the filelist with the files found in a directory.
 	 *
@@ -89,8 +89,6 @@ class FileList
 	QString namefilter;
 	/** path of directory */
 	QString dirname;
-	/** listbox to be used to hold file names */
-	QListBox *listbox;
 	/** current file */
 	Mp3File *current_item;
 };
