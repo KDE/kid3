@@ -24,9 +24,13 @@
 #include "mp3file.h"
 
 #ifdef WIN32
-/* ID3LIB_ symbols not found on Windows ?! */
+/**
+ * This will be set for id3lib versions with Unicode bugs.
+ * ID3LIB_ symbols cannot be found on Windows ?!
+ */
 #define UNICODE_SUPPORT_BUGGY 1
 #else
+/** This will be set for id3lib versions with Unicode bugs. */
 #define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
 #endif
 
@@ -34,6 +38,14 @@
 QPixmap *Mp3File::nullPixmap = 0;
 /** Pixmap for modified file, will be allocated in constructor */
 QPixmap *Mp3File::modifiedPixmap = 0;
+/** Pixmap for V1V2, will be allocated in constructor */
+QPixmap *Mp3File::v1v2Pixmap = 0;
+/** Pixmap for V1, will be allocated in constructor */
+QPixmap *Mp3File::v1Pixmap = 0;
+/** Pixmap for V2, will be allocated in constructor */
+QPixmap *Mp3File::v2Pixmap = 0;
+/** Pixmap for "no tag", will be allocated in constructor */
+QPixmap *Mp3File::notagPixmap = 0;
 
 /* The bitmaps are stored here instead of using KDE bitmaps to make
    it work for the Qt only versions. */
@@ -114,6 +126,98 @@ static const char * const null_xpm[] = {
 	"#.#.#.#.#.#.#.#."
 };
 
+/* XPM */
+static const char * const v1v2_xpm[] = {
+	"16 16 3 1",
+	"       c None",
+	".      c #000000",
+	"+      c #FFFFFF",
+	"                ",
+	"                ",
+	"   .   .   .    ",
+	"   .   .  ..    ",
+	"    . .  . .    ",
+	"    . .    .    ",
+	"     .     .    ",
+	"                ",
+	"                ",
+	"   .   .  ..    ",
+	"   .   . .  .   ",
+	"    . .    .    ",
+	"    . .   .     ",
+	"     .   ....   ",
+	"                ",
+	"                "};
+
+/* XPM */
+static const char * const v1_xpm[] = {
+	"16 16 3 1",
+	"       c None",
+	".      c #000000",
+	"+      c #FFFFFF",
+	"                ",
+	"                ",
+	"   .   .   .    ",
+	"   .   .  ..    ",
+	"    . .  . .    ",
+	"    . .    .    ",
+	"     .     .    ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                "};
+
+/* XPM */
+static const char * const v2_xpm[] = {
+	"16 16 3 1",
+	"       c None",
+	".      c #000000",
+	"+      c #FFFFFF",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"                ",
+	"   .   .  ..    ",
+	"   .   . .  .   ",
+	"    . .    .    ",
+	"    . .   .     ",
+	"     .   ....   ",
+	"                ",
+	"                "};
+
+/* XPM */
+static const char * const notag_xpm[] = {
+	"16 16 3 1",
+	"       c None",
+	".      c #000000",
+	"+      c #FFFFFF",
+	"                ",
+	"                ",
+	"   .   .  ..    ",
+	"   ..  . .  .   ",
+	"   . . . .  .   ",
+	"   .  .. .  .   ",
+	"   .   .  ..    ",
+	"                ",
+	"                ",
+	"  ...  .   ..   ",
+	"   .  . . .     ",
+	"   .  ... . ..  ",
+	"   .  . . .  .  ",
+	"   .  . .  ..   ",
+	"                ",
+	"                "};
+
 /** width of both pixmaps, got using QPixmap::width() */
 static const int pixmapWidth = 16;
 /** height of both pixmaps, got using QPixmap::height() */
@@ -143,6 +247,18 @@ Mp3File::Mp3File(const QString& dn, const QString& fn) :
 	}
 	if (!modifiedPixmap) {
 		modifiedPixmap = new QPixmap((const char **)modified_xpm);
+	}
+	if (!v1v2Pixmap) {
+		v1v2Pixmap = new QPixmap((const char **)v1v2_xpm);
+	}
+	if (!v1Pixmap) {
+		v1Pixmap = new QPixmap((const char **)v1_xpm);
+	}
+	if (!v2Pixmap) {
+		v2Pixmap = new QPixmap((const char **)v2_xpm);
+	}
+	if (!notagPixmap) {
+		notagPixmap = new QPixmap((const char **)notag_xpm);
 	}
 }
 
@@ -217,25 +333,40 @@ void Mp3File::readTags(bool force)
 /**
  * Write tags to file and rename it if necessary.
  *
- * @param force TRUE to force writing even if file was not changed.
+ * @param force   TRUE to force writing even if file was not changed.
+ * @param renamed will be set to TRUE if the file was renamed,
+ *                i.e. the file name is no longer valid, else *renamed
+ *                is left unchanged
  *
- * @return TRUE if the file was renamed, i.e. the file name is no longer valid.
+ * @return TRUE if ok, FALSE if the file could not be written or renamed.
  */
 
-bool Mp3File::writeTags(bool force)
+bool Mp3File::writeTags(bool force, bool *renamed)
 {
+	if (isChanged() &&
+		!QFileInfo(dirname + QDir::separator() + filename).isWritable()) {
+		return FALSE;
+	}
+
 	if (tagV1 && (force || changedV1)) {
-		tagV1->Update(ID3TT_ID3V1);
 		// There seems to be a bug in id3lib: The V1 genre is not
 		// removed. So we check here and strip the whole header
 		// if there are no frames.
 		if (tagV1->NumFrames() == 0) {
 			tagV1->Strip(ID3TT_ID3V1);
+		} else {
+			tagV1->Update(ID3TT_ID3V1);
 		}
 		changedV1 = FALSE;
 	}
 	if (tagV2 && (force || changedV2)) {
-		tagV2->Update(ID3TT_ID3V2);
+		// Even after removing all frames, HasV2Tag() still returns true,
+		// so we strip the whole header.
+		if (tagV2->NumFrames() == 0) {
+			tagV2->Strip(ID3TT_ID3V2);
+		} else {
+			tagV2->Update(ID3TT_ID3V2);
+		}
 		changedV2 = FALSE;
 	}
 	if (new_filename != filename) {
@@ -248,20 +379,23 @@ bool Mp3File::writeTags(bool force)
 			if (!QDir(dirname).rename(filename, temp_filename)) {
 				qDebug("rename(%s, %s) failed", filename.latin1(),
 					   temp_filename.latin1());
+				return FALSE;
 			}
 			if (!QDir(dirname).rename(temp_filename, new_filename)) {
 				qDebug("rename(%s, %s) failed", temp_filename.latin1(),
 					   new_filename.latin1());
+				return FALSE;
 			}
 		} else if (!QFile::exists(dirname + QDir::separator() + new_filename)) {
 			if (!QDir(dirname).rename(filename, new_filename)) {
 				qDebug("rename(%s, %s) failed", filename.latin1(),
 					   new_filename.latin1());
+				return FALSE;
 			}
 		}
-		return TRUE;
+		*renamed = TRUE;
 	}
-	return FALSE;
+	return TRUE;
 }
 
 /**
@@ -1200,9 +1334,7 @@ static const char *fnFmt[] = {
 const char **Mp3File::fnFmtList = &fnFmt[0];
 
 /**
- * Get filename from tags.
- * Supported formats:
- * artist - album/track song.mp3
+ * Create string with tags according to format string.
  *
  * @param st  tags to use to build filename
  * @param fmt format string containing the following codes:
@@ -1213,9 +1345,10 @@ const char **Mp3File::fnFmtList = &fnFmt[0];
  *            %y year
  *            %t track
  *            %g genre
+ *
+ * @return format string with format codes replaced by tags.
  */
-
-void Mp3File::getFilenameFromTags(const StandardTags *st, QString fmt)
+QString Mp3File::formatWithTags(const StandardTags *st, QString fmt)
 {
 	const int num_tag_codes = 7;
 	const QChar tag_code[num_tag_codes] = {
@@ -1243,6 +1376,7 @@ void Mp3File::getFilenameFromTags(const StandardTags *st, QString fmt)
 			break;
 		}
 		++pos;
+		insert_str[i] = "";
 		for (int k = 0;; ++k) {
 			if (k >= num_tag_codes) {
 				// invalid code at pos, remove it
@@ -1258,10 +1392,28 @@ void Mp3File::getFilenameFromTags(const StandardTags *st, QString fmt)
 			}
 		}
 	}
-	new_filename = fmt;
 	for (int k = 0; k < i; ++k) {
-		new_filename = new_filename.arg(insert_str[k]);
+		fmt = fmt.arg(insert_str[k]);
 	}
+	return fmt;
+}
+
+/**
+ * Get filename from tags.
+ *
+ * @param st  tags to use to build filename
+ * @param fmt format string containing the following codes:
+ *            %s title (song)
+ *            %l album
+ *            %a artist
+ *            %c comment
+ *            %y year
+ *            %t track
+ *            %g genre
+ */
+void Mp3File::getFilenameFromTags(const StandardTags *st, QString fmt)
+{
+	new_filename = formatWithTags(st, fmt);
 }
 
 /**
@@ -1312,9 +1464,9 @@ int Mp3File::height(const QListBox* lb) const
 int Mp3File::width(const QListBox* lb) const
 {
 	if (text().isEmpty()) {
-		return QMAX(pixmapWidth + 6, QApplication::globalStrut().width());
+		return QMAX(pixmapWidth * 2 + 6, QApplication::globalStrut().width());
 	}
-	return QMAX(pixmapWidth + 6 + lb->fontMetrics().width(text()), QApplication::globalStrut().width());
+	return QMAX(pixmapWidth * 2 + 6 + lb->fontMetrics().width(text()), QApplication::globalStrut().width());
 }
 
 /**
@@ -1324,13 +1476,157 @@ int Mp3File::width(const QListBox* lb) const
  */
 void Mp3File::paint(QPainter *painter)
 {
+	static const QPixmap *tagpm[] = {
+		notagPixmap, v1Pixmap, v2Pixmap, v1v2Pixmap, nullPixmap
+	};
+	int tagpmIdx;
+	if (!tagV1 && !tagV2) {
+		tagpmIdx = 4;
+	} else {
+		tagpmIdx = 0;
+		if (tagV1 && tagV1->HasV1Tag()) {
+			tagpmIdx |= 1;
+		}
+		if (tagV2 && tagV2->HasV2Tag()) {
+			tagpmIdx |= 2;
+		}
+	}
 	painter->drawPixmap(3, 0, isChanged() ? *modifiedPixmap : *nullPixmap);
+	painter->drawPixmap(pixmapWidth + 3, 0, *tagpm[tagpmIdx]);
 	if (!text().isEmpty()) {
 		QFontMetrics fm = painter->fontMetrics();
-		painter->drawText(pixmapWidth + 5,
+		painter->drawText(pixmapWidth * 2 + 5,
 						  pixmapHeight < fm.height() ?
 						  fm.ascent() + fm.leading() / 2 :
 						  pixmapHeight / 2 - fm.height() / 2 + fm.ascent(),
 						  text());
 	}
+}
+
+/**
+ * Get technical detail information.
+ *
+ * @return string with detail information,
+ *         "" if no information available.
+ */
+QString Mp3File::getDetailInfo() const {
+	QString str("");
+	const Mp3_Headerinfo* info = NULL;
+	if (tagV1) {
+		info = tagV1->GetMp3HeaderInfo();
+	} else if (tagV2) {
+		info = tagV2->GetMp3HeaderInfo();
+	}
+	if (info) {
+		switch (info->version) {
+			case MPEGVERSION_1:
+				str.append("MPEG 1 ");
+				break;
+			case MPEGVERSION_2:
+				str.append("MPEG 2 ");
+				break;
+			case MPEGVERSION_2_5:
+				str.append("MPEG 2.5 ");
+				break;
+			default:
+				; // nothing
+		}
+		switch (info->layer) {
+			case MPEGLAYER_I:
+				str.append("Layer 1 ");
+				break;
+			case MPEGLAYER_II:
+				str.append("Layer 2 ");
+				break;
+			case MPEGLAYER_III:
+				str.append("Layer 3 ");
+				break;
+			default:
+				; // nothing
+		}
+		int kb = info->bitrate;
+		if (info->vbr_bitrate > 1000) {
+			str.append("VBR ");
+			kb = info->vbr_bitrate;
+		}
+		if (kb > 1000 && kb < 999000) {
+			kb /= 1000;
+			QString kbStr;
+			kbStr.setNum(kb);
+			kbStr.append(" kbps ");
+			str.append(kbStr);
+		}
+		int hz = info->frequency;
+		if (hz > 0) {
+			QString hzStr;
+			hzStr.setNum(hz);
+			hzStr.append(" Hz ");
+			str.append(hzStr);
+		}
+		switch (info->channelmode) {
+			case MP3CHANNELMODE_STEREO:
+				str.append("Stereo ");
+				break;
+			case MP3CHANNELMODE_JOINT_STEREO:
+				str.append("Joint Stereo ");
+				break;
+			case MP3CHANNELMODE_DUAL_CHANNEL:
+				str.append("Dual ");
+				break;
+			case MP3CHANNELMODE_SINGLE_CHANNEL:
+				str.append("Single ");
+				break;
+			default:
+				; // nothing
+		}
+		if (info->time > 0) {
+			str.append(formatTime(info->time));
+		}
+	}
+	return str;
+}
+
+/**
+ * Get duration of file.
+ *
+ * @return duration in seconds,
+ *         0 if unknown.
+ */
+unsigned Mp3File::getDuration() const
+{
+	unsigned duration = 0;
+	const Mp3_Headerinfo* info = NULL;
+	if (tagV1) {
+		info = tagV1->GetMp3HeaderInfo();
+	} else if (tagV2) {
+		info = tagV2->GetMp3HeaderInfo();
+	}
+	if (info && info->time > 0) {
+		duration = info->time;
+	}
+	return duration;
+}
+
+/**
+ * Format a time string "h:mm:ss".
+ * If the time is less than an hour, the hour is not put into the
+ * string and the minute is not padded with zeroes.
+ *
+ * @param seconds time in seconds
+ *
+ * @return string with the time in hours, minutes and seconds.
+ */
+QString Mp3File::formatTime(unsigned seconds)
+{
+	unsigned hours = seconds / 3600;
+	seconds %= 3600;
+	unsigned minutes = seconds / 60;
+	seconds %= 60;
+	QString timeStr;
+	if (hours > 0) {
+		timeStr.sprintf("%u:%02u:%02u", hours, minutes, seconds);
+	} else {
+		timeStr.sprintf("%u:%02u", minutes, seconds);
+	}
+	return timeStr;
 }
