@@ -24,8 +24,9 @@
  *
  * @param grp configuration group
  */
-ImportConfig::ImportConfig(const QString &grp) : GeneralConfig(grp),
-	importDestV1(true)
+ImportConfig::ImportConfig(const QString &grp) :
+	GeneralConfig(grp), importDestV1(true),
+	enableTimeDifferenceCheck(true), maxTimeDifference(3)
 {
 	importFormatIdx = 0;
 	importFormatNames.append("freedb HTML text");
@@ -51,11 +52,11 @@ ImportConfig::ImportConfig(const QString &grp) : GeneralConfig(grp),
 	importFormatHeaders.append("");
 	importFormatHeaders.append("");
 	importFormatHeaders.append("");
-	importFormatTracks.append("[\\r\\n]%t(\\d+)[\\.\\s]+(?:\\d+:\\d+\\s+)?(?!\\d+:\\d+)%s(\\S[^\\r\\n]*\\S)");
-	importFormatTracks.append("<td[^>]*>\\s*%t(\\d+).</td><td[^>]*>\\s*\\d+:\\d+</td><td[^>]*>(?:<[^>]+>)?%s([^<\\r\\n]+)");
+	importFormatTracks.append("[\\r\\n]%t(\\d+)[\\.\\s]+%d(\\d+:\\d+)\\s+%s(\\S[^\\r\\n]*\\S)");
+	importFormatTracks.append("<td[^>]*>\\s*%t(\\d+).</td><td[^>]*>\\s*%d(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%s([^<\\r\\n]+)");
 	importFormatTracks.append("\\s*%s(\\S[^\\r\\n]*\\S)\\s*");
 	importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s*");
-	importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s+\\d+:\\d+\\s*");
+	importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s+%d(\\d+:\\d+)\\s*");
 	importFormatTracks.append("");
 }
 
@@ -84,6 +85,8 @@ void ImportConfig::writeToConfig(
 	config->writeEntry("ImportFormatHeaders", importFormatHeaders);
 	config->writeEntry("ImportFormatTracks", importFormatTracks);
 	config->writeEntry("ImportFormatIdx", importFormatIdx);
+	config->writeEntry("EnableTimeDifferenceCheck", enableTimeDifferenceCheck);
+	config->writeEntry("MaxTimeDifference", maxTimeDifference);
 #else
 	config->beginGroup("/" + group);
 	config->writeEntry("/ImportDestinationV1", importDestV1);
@@ -91,6 +94,8 @@ void ImportConfig::writeToConfig(
 	config->writeEntry("/ImportFormatHeaders", importFormatHeaders);
 	config->writeEntry("/ImportFormatTracks", importFormatTracks);
 	config->writeEntry("/ImportFormatIdx", importFormatIdx);
+	config->writeEntry("/EnableTimeDifferenceCheck", enableTimeDifferenceCheck);
+	config->writeEntry("/MaxTimeDifference", maxTimeDifference);
 	config->endGroup();
 #endif
 }
@@ -116,6 +121,8 @@ void ImportConfig::readFromConfig(
 	headers = config->readListEntry("ImportFormatHeaders");
 	tracks = config->readListEntry("ImportFormatTracks");
 	importFormatIdx = config->readNumEntry("ImportFormatIdx", importFormatIdx);
+	enableTimeDifferenceCheck = config->readBoolEntry("EnableTimeDifferenceCheck", enableTimeDifferenceCheck);
+	maxTimeDifference = config->readNumEntry("MaxTimeDifference", maxTimeDifference);
 #else
 	config->beginGroup("/" + group);
 	importDestV1 = config->readBoolEntry("/ImportDestinationV1", importDestV1);
@@ -123,6 +130,8 @@ void ImportConfig::readFromConfig(
 	headers = config->readListEntry("/ImportFormatHeaders");
 	tracks = config->readListEntry("/ImportFormatTracks");
 	importFormatIdx = config->readNumEntry("/ImportFormatIdx", importFormatIdx);
+	enableTimeDifferenceCheck = config->readBoolEntry("/EnableTimeDifferenceCheck", enableTimeDifferenceCheck);
+	maxTimeDifference = config->readNumEntry("/MaxTimeDifference", maxTimeDifference);
 	config->endGroup();
 #endif
 	/* Use defaults if no configuration found */
