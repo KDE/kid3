@@ -41,132 +41,125 @@ public:
 
 
 
-        Kid3App(QWidget* parent=0, const char* name=0);
 
+ Kid3App(QWidget* parent=0, const char* name=0);
 
 
-        ~Kid3App();
 
+ ~Kid3App();
 
 
 
 
-        void openDirectory(QString dir);
 
+ void openDirectory(QString dir);
 
 
 
 
 
-        void fileSelected(void);
 
+ void fileSelected(void);
 
 
-        void updateCurrentSelection(void);
 
+ void updateCurrentSelection(void);
 
 
 
 
-        void copyTags(const StandardTags *st);
 
+ void copyTags(const StandardTags *st);
 
 
 
 
-        void pasteTags(StandardTags *st);
 
+ void pasteTags(StandardTags *st);
 
 
 
 
-        void getTagsFromFilenameV1(void);
 
+ void getTagsFromFilenameV1(void);
 
 
 
 
-        void getTagsFromFilenameV2(void);
 
+ void getTagsFromFilenameV2(void);
 
 
 
 
 
 
-        void getFilenameFromTags(int tag_version);
 
+ void getFilenameFromTags(int tag_version);
 
 
-        void copyV1ToV2(void);
 
+ void copyV1ToV2(void);
 
 
-        void copyV2ToV1(void);
 
+ void copyV2ToV1(void);
 
 
-        void removeTagsV1(void);
 
+ void removeTagsV1(void);
 
 
-        void removeTagsV2(void);
 
+ void removeTagsV2(void);
 
 
 
 
-        void openDrop(QString txt);
 
+ void openDrop(QString txt);
 
 
-        void editFrame(void);
 
+ void editFrame(void);
 
 
-        void deleteFrame(void);
 
+ void deleteFrame(void);
 
 
-        void addFrame(void);
 
+ void addFrame(void);
 
-        FormatConfig *fnFormatCfg;
 
-        FormatConfig *id3FormatCfg;
+ FormatConfig *fnFormatCfg;
 
-        ImportConfig *genCfg;
+ FormatConfig *id3FormatCfg;
 
-        MiscConfig *miscCfg;
+ ImportConfig *genCfg;
 
-        FreedbConfig *freedbCfg;
+ MiscConfig *miscCfg;
+
+ FreedbConfig *freedbCfg;
 
 protected:
 
 
 
-        void initActions();
+ void initActions();
 
 
 
-        void initStatusBar();
+ void initStatusBar();
 
 
 
-        void initView();
-
-
-
-
-        void cleanup();
+ void initView();
 
 
 
 
-
-
-
-        virtual bool queryClose();
+ void cleanup();
 
 
 
@@ -174,82 +167,110 @@ protected:
 
 
 
-        virtual void saveProperties(KConfig *_cfg);
+ virtual bool queryClose();
 
 
 
 
 
-        virtual void readProperties(KConfig *_cfg);
-        void saveOptions();
 
 
-
-        void readOptions();
-
-
-
-
-
-        void setModified(bool val) { modified = val; }
+ virtual void saveProperties(KConfig *_cfg);
 
 
 
 
 
-        bool isModified(void) { return modified; }
+ virtual void readProperties(KConfig *_cfg);
+ void saveOptions();
+
+
+
+ void readOptions();
+
+
+
+
+
+ void setModified(bool val) { modified = val; }
+
+
+
+
+
+ bool isModified(void) { return modified; }
 
 public slots:
 
 
 
-        void slotFileOpen();
+ void slotFileOpen();
 
 
 
 
 
 
-        void slotFileOpenRecent(const KURL& url);
+ void slotFileOpenRecent(const KURL& url);
 
 
 
-        void slotViewToolBar();
+ void slotViewToolBar();
 
 
 
-        void slotViewStatusBar();
-        void slotFileRevert();
+ void slotViewStatusBar();
 
 
 
-        void slotFileSave();
+ void slotSettingsShortcuts();
 
 
 
-        void slotFileQuit();
+ void slotSelectAll();
+
+
+
+ void slotNextFile();
+
+
+
+ void slotPreviousFile();
+ void slotFileRevert();
+
+
+
+ void slotFileSave();
+
+
+
+ void slotFileQuit();
 
 
 
 
 
-        void slotStatusMsg(const QString &text);
+ void slotStatusMsg(const QString &text);
 
 
 
-        void slotCreatePlaylist(void);
+ void slotCreatePlaylist(void);
 
 
 
-        void slotImport(void);
+ void slotImport(void);
 
 
 
-        void slotSettingsConfigure(void);
+ void slotSettingsConfigure(void);
 
 
 
-        void slotApplyFormat(void);
+ void slotApplyFormat(void);
+
+
+
+ void slotRenameDirectory(void);
 
 private:
 
@@ -257,51 +278,54 @@ private:
 
 
 
-        bool saveDirectory(void);
+ bool saveDirectory(void);
 
 
 
 
 
-        bool saveModified();
+ bool saveModified();
 
 
 
 
 
-        void updateTags(Mp3File *mp3file);
+ void updateTags(Mp3File *mp3file);
 
 
 
-        void updateModificationState(void);
+ void updateModificationState(void);
 
 
 
-        void updateAfterFrameModification(void);
+ void updateAfterFrameModification(void);
+ bool checkDuration(QValueList<int>* trackDuration,
+        unsigned maxDiff);
 
 
-        id3Form *view;
+ id3Form *view;
 
 
-        bool modified;
+ bool modified;
 
-        QString doc_dir;
+ QString doc_dir;
 
-        FrameList *framelist;
+ FrameList *framelist;
 
-        StandardTags *copytags;
+ StandardTags *copytags;
 
 
 
-        KConfig* config;
+ KConfig* config;
 
-        KAction* fileOpen;
-        KRecentFilesAction* fileOpenRecent;
-        KAction* fileRevert;
-        KAction* fileSave;
-        KAction* fileQuit;
-        KToggleAction* viewToolBar;
-        KToggleAction* viewStatusBar;
-        KAction* settingsConfigure;
+ KAction* fileOpen;
+ KRecentFilesAction* fileOpenRecent;
+ KAction* fileRevert;
+ KAction* fileSave;
+ KAction* fileQuit;
+ KToggleAction* viewToolBar;
+ KToggleAction* viewStatusBar;
+ KAction* settingsShortcuts;
+ KAction* settingsConfigure;
 };
 #endif

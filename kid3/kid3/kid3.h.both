@@ -1,5 +1,5 @@
 /**
- * \file kid3.h
+ * \file kid3.h.both
  * Kid3 application.
  * kid3.h is generated from this file (for KDE or for Qt only) by
  * the C preprocessor.
@@ -46,7 +46,8 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param name name
+	 * @param parent parent widget
+	 * @param name   name
 	 */
 	Kid3App(QWidget* parent=0, const char* name=0);
 	/**
@@ -237,6 +238,22 @@ public slots:
 	 * Turn status bar on or off.
 	 */
 	void slotViewStatusBar();
+	/**
+	 * Shortcuts configuration.
+	 */
+	void slotSettingsShortcuts();
+	/**
+	 * Select all files.
+	 */
+	void slotSelectAll();
+	/**
+	 * Select next file.
+	 */
+	void slotNextFile();
+	/**
+	 * Select previous file.
+	 */
+	void slotPreviousFile();
 #else
 	void slotHelpHandbook(void);
 	void slotHelpAbout(void);
@@ -277,6 +294,10 @@ public slots:
 	 * Apply format.
 	 */
 	void slotApplyFormat(void);
+	/**
+	 * Rename directory.
+	 */
+	void slotRenameDirectory(void);
 
 private:
 	/**
@@ -305,7 +326,19 @@ private:
 	 * Update ID3v2 tags in GUI controls from file displayed in frame list.
 	 */
 	void updateAfterFrameModification(void);
-
+	/**
+	 * Check if the duration of the files corresponds to the duration of the
+	 * imported tracks.
+	 *
+	 * @param trackDuration list with durations of imported tracks
+	 * @param maxDiff       the maximum difference in seconds allowed
+	 *
+	 * @return true if ok or user agreed with import,
+	 *         false if user canceled import.
+	 */
+	bool checkDuration(QValueList<int>* trackDuration,
+					   unsigned maxDiff);
+	
 	/** GUI with controls, created by Qt Designer */
 	id3Form *view;
 
@@ -329,6 +362,7 @@ private:
 	KAction* fileQuit;
 	KToggleAction* viewToolBar;
 	KToggleAction* viewStatusBar;
+	KAction* settingsShortcuts;
 	KAction* settingsConfigure;
 #else
 	QSettings* config;
@@ -339,6 +373,7 @@ private:
 	QAction* fileQuit;
 	QAction* fileImport;
 	QAction* toolsApplyFormat;
+	QAction* toolsRenameDirectory;
 	QAction* settingsConfigure;
 	QAction* helpHandbook;
 	QAction* helpAbout;
