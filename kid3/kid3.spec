@@ -1,5 +1,5 @@
 #
-# spec file for package kid3 (Version 0.3)
+# spec file for package kid3 (Version 0.4)
 #
 # neededforbuild  aaa_base aaa_dir base bash cpp glibc glibc-devel grep gzip less man sh-utils binutils fileutils gdb id3lib id3lib-devel gpp gcc make perl qt qt-devel qt-devel-doc qt3-devel-tools rpm gettext kdelib kdelibs-devel libxslt
 
@@ -7,7 +7,7 @@ Name:         kid3
 Copyright:    GPL
 Group:        Applications/Multimedia
 Summary:      ID3 tagger
-Version:      0.3
+Version:      0.4
 Release:      1
 Source0:      kid3-%{version}.tar.gz
 BuildRoot:    /var/tmp/%{name}-buildroot
