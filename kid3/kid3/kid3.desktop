@@ -8,4 +8,4 @@ DocPath=kid3/index.html
 MimeType=audio/x-mp3;audio/x-mpegurl
 GenericName=ID3 Tagger
 Terminal=false
-Categories=Application;AudioVideo;KDE
+Categories=Application;AudioVideo;KDE;
