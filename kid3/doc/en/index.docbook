@@ -25,8 +25,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>05/01/2003</date>
-<releaseinfo>0.1</releaseinfo>
+<date>23/04/2003</date>
+<releaseinfo>0.2</releaseinfo>
 
 <abstract>
 <para>
@@ -487,6 +487,10 @@ systems where these libraries are available, e.g. for Linux and Windows.
 <para>
 SuSE Linux 7.3: id3lib 3.8.0pre1, id3lib 3.8.0, id3lib 3.8.2, KDE 2.2.2,
 KDE 3.0.4, Qt 2.3.2, Qt 3.0.5
+</para>
+<para>
+SuSE Linux 8.1: id3lib 3.8.0, KDE 3.0.5, KDE 3.1.1, Qt 2.3.2, Qt
+3.0.5, Qt 3.1.2
 </para>
 <para>
 Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, non-commercial Qt version 2.3.0.
