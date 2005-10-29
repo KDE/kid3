@@ -13,19 +13,27 @@
 #include <qstring.h>
 #include <qlistbox.h>
 #include <qsize.h>
-#include "mp3file.h"
+#include "taggedfile.h"
+
+class MiscConfig;
+class QProcess;
 
 /**
  * List of files to operate on.
  */
 class FileList : public QListBox
 {
- public:
+Q_OBJECT
+
+public:
 	/**
 	 * Constructor.
 	 */
-	FileList(QWidget *parent = 0, const char *name = 0, WFlags f = 0) :
-		QListBox(parent, name, f), namefilter(defaultNameFilter) {}
+	FileList(QWidget* parent = 0, const char* name = 0, WFlags f = 0);
+	/**
+	 * Destructor.
+	 */
+	virtual ~FileList();
 	/**
 	 * Returns the recommended size for the widget.
 	 * @return recommended size.
@@ -36,25 +44,13 @@ class FileList : public QListBox
 	 *
 	 * @return first file.
 	 */
-	Mp3File *first();
+	TaggedFile *first();
 	/**
 	 * Get the next item in the filelist.
 	 *
 	 * @return next file.
 	 */
-	Mp3File *next();
-	/**
-	 * Set the file name filter to be used for the filelist.
-	 *
-	 * @param filter name filter
-	 */
-	void setNameFilter(const QString& filter) { namefilter = filter; }
-	/**
-	 * Get the file name filter to be used for the filelist.
-	 *
-	 * @return name filter.
-	 */
-	const QString& getNameFilter(void) const { return namefilter; }
+	TaggedFile *next();
 	/**
 	 * Fill the filelist with the files found in a directory.
 	 *
@@ -80,17 +76,42 @@ class FileList : public QListBox
 	 * @return absolute path of directory.
 	 */
 	QString getAbsDirname(void) const;
+	/**
+	 * Set configuration.
+	 * @param cfg configuration.
+	 */
+	void setMiscConfig(MiscConfig* cfg) { m_miscCfg = cfg; }
+	/**
+	 * Get configuration.
+	 * @return configuration.
+	 */
+	const MiscConfig* getMiscConfig() const { return m_miscCfg; }
 
-	/** Default name filter */
-	static const QString defaultNameFilter;
+private slots:
+	/**
+	 * Display a context menu with operations for selected files.
+	 *
+	 * @param item list box item
+	 * @param pos  position where context menu is drawn on screen
+	 */
+	void contextMenu(QListBoxItem* item, const QPoint& pos);
 
- private:
-	/** name filter */
-	QString namefilter;
+	/**
+	 * Execute a context menu command.
+	 *
+	 * @param id command ID
+	 */
+	void executeContextCommand(int id);
+
+private:
 	/** path of directory */
 	QString dirname;
 	/** current file */
-	Mp3File *current_item;
+	TaggedFile *current_item;
+	/** Miscellaneous configuration */
+	MiscConfig* m_miscCfg;
+	/** Process for context menu commands */
+	QProcess* m_process;
 };
 
 #endif // FILELIST_H
