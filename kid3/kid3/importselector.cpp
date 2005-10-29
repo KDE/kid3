@@ -27,40 +27,142 @@
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
+#include <qbitarray.h>
+#include <qcheckbox.h>
+#include <qspinbox.h>
 #include "genres.h"
 #include "standardtags.h"
 #include "importparser.h"
 #include "freedbdialog.h"
 #include "freedbconfig.h"
-#include "mp3file.h"
+#include "taggedfile.h"
 #include "importselector.h"
+#ifdef HAVE_TUNEPIMP
+#include "musicbrainzdialog.h"
+#include "musicbrainzconfig.h"
+#endif
+
+/**
+ * Table used for import data.
+ * Subclassed to be able to change the cell colors.
+ */
+class ImportTable: public QTable {
+public:
+	/**
+	 * Constructor.
+	 * @param parent parent widget
+	 * @param name   Qt name
+	 */
+	ImportTable(QWidget* parent = 0, const char* name = 0) :
+		QTable(parent, name) {}
+	/**
+	 * Constructor.
+	 * @param numRows number of rows
+	 * @param parent  parent widget
+	 * @param name    Qt name
+	 */
+	ImportTable(int numRows, int numCols, QWidget* parent = 0, const char* name = 0) :
+		QTable(numRows, numCols, parent, name) {} 
+	/**
+	 * Clear marked rows.
+	 */
+	void clearMarks() { m_markedRows.fill(false); }
+	/**
+	 * Mark a row.
+	 * This first cell of such a row will have a red background.
+	 * @param row number of row
+	 */
+	void markRow(unsigned row) {
+		if (m_markedRows.size() <= row) m_markedRows.resize(row + 1);
+		m_markedRows.setBit(row);
+	}
+	/**
+	 * Check if a row is marked.
+	 * @param row number of row
+	 * @return true if row is marked.
+	 */
+	bool isRowMarked(unsigned row) const {
+		return m_markedRows.size() > row && m_markedRows.testBit(row);
+	}
+
+protected:
+	/**
+	 * Called when a cell is painted.
+	 * Paint the first cell of marked rows with red background.
+	 * @param p painter
+	 * @param row column
+	 * @param col column
+	 * @param cr  cell rectangle
+	 * @param selected true if selected
+	 * @param cg color group
+	 */
+#if QT_VERSION >= 300
+	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr, bool selected, const QColorGroup& cg) {
+		if (col == 0 && isRowMarked(row)) {
+			QColorGroup g(cg);
+			g.setColor(QColorGroup::Base, QColor("red"));
+			QTable::paintCell(p, row, col, cr, selected, g);
+		} else {
+			QTable::paintCell(p, row, col, cr, selected, cg);
+		}
+	}
+#else
+	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr, bool selected) {
+		if (col == 0 && isRowMarked(row)) {
+			p->setBackgroundColor(QColor("red"));
+		}
+		QTable::paintCell(p, row, col, cr, selected);
+	}
+#endif
+
+private:
+	QBitArray m_markedRows;
+};
+
 
 /**
  * Constructor.
  *
  * @param parent parent widget
- * @param name   Qt name
- * @param f      window flags
+ * @param trackDataList track data to be filled with imported values,
+ *                      is passed with durations of files set
+ * @param name          Qt name
+ * @param f             window flags
  */
-ImportSelector::ImportSelector(QWidget *parent, const char *name, WFlags f)
-	: QVBox(parent, name, f)
+ImportSelector::ImportSelector(
+	QWidget *parent, ImportTrackDataVector& trackDataList,
+	const char *name, WFlags f) :
+	QVBox(parent, name, f),
+	m_trackDataVector(trackDataList)
 {
 	freedbDialog = 0;
 	freedbCfg = 0;
+#ifdef HAVE_TUNEPIMP
+	m_musicBrainzDialog = 0;
+	m_musicBrainzCfg = 0;
+#endif
 	importSource = None;
 	header_parser = new ImportParser();
 	track_parser = new ImportParser();
 	setSpacing(6);
 	setMargin(6);
-	tab = new QTable(0, NumColumns, this);
-	tab->horizontalHeader()->setLabel(TrackColumn, i18n("Track"));
-	tab->horizontalHeader()->setLabel(TitleColumn, i18n("Title"));
-	tab->horizontalHeader()->setLabel(ArtistColumn, i18n("Artist"));
-	tab->horizontalHeader()->setLabel(AlbumColumn, i18n("Album"));
-	tab->horizontalHeader()->setLabel(YearColumn, i18n("Year"));
-	tab->horizontalHeader()->setLabel(GenreColumn, i18n("Genre"));
-	tab->horizontalHeader()->setLabel(CommentColumn, i18n("Comment"));
-	tab->horizontalHeader()->setLabel(LengthColumn, i18n("Length"));
+	tab = new ImportTable(0, NumColumns, this);
+#if QT_VERSION >= 300
+	tab->setReadOnly(true);
+	tab->setFocusStyle(QTable::FollowStyle);
+#endif
+	tab->setRowMovingEnabled(true);
+	tab->setSelectionMode(QTable::NoSelection);
+	QHeader* hHeader = tab->horizontalHeader();
+	QHeader* vHeader = tab->verticalHeader();
+	hHeader->setLabel(LengthColumn, i18n("Length"));
+	hHeader->setLabel(TrackColumn, i18n("Track"));
+	hHeader->setLabel(TitleColumn, i18n("Title"));
+	hHeader->setLabel(ArtistColumn, i18n("Artist"));
+	hHeader->setLabel(AlbumColumn, i18n("Album"));
+	hHeader->setLabel(YearColumn, i18n("Year"));
+	hHeader->setLabel(GenreColumn, i18n("Genre"));
+	hHeader->setLabel(CommentColumn, i18n("Comment"));
 	tab->adjustColumn(TrackColumn);
 	tab->adjustColumn(YearColumn);
 
@@ -77,26 +179,53 @@ ImportSelector::ImportSelector(QWidget *parent, const char *name, WFlags f)
 	QHBoxLayout *butlayout = new QHBoxLayout(butbox);
 	butlayout->setSpacing(6);
 	butlayout->setMargin(6);
-	fileButton = new QPushButton(i18n("From File"), butbox);
+	fileButton = new QPushButton(i18n("From F&ile"), butbox);
 	butlayout->addWidget(fileButton);
-	clipButton = new QPushButton(i18n("From Clipboard"), butbox);
+	clipButton = new QPushButton(i18n("From Clip&board"), butbox);
 	butlayout->addWidget(clipButton);
-	freedbButton = new QPushButton(i18n("From freedb.org"), butbox);
+	freedbButton = new QPushButton(i18n("From &freedb.org"), butbox);
 	butlayout->addWidget(freedbButton);
+#ifdef HAVE_TUNEPIMP
+	m_musicBrainzButton = new QPushButton(i18n("From &MusicBrainz"), butbox);
+	butlayout->addWidget(m_musicBrainzButton);
+#endif
 	QSpacerItem *butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	butlayout->addItem(butspacer);
 	QLabel *destLabel = new QLabel(butbox, "destLabel");
-	destLabel->setText(i18n("Destination:"));
+	destLabel->setText(i18n("D&estination:"));
 	butlayout->addWidget(destLabel);
 	destComboBox = new QComboBox(false, butbox, "destComboBox");
 	destComboBox->insertItem("ID3v1", DestV1);
 	destComboBox->insertItem("ID3v2", DestV2);
+	destLabel->setBuddy(destComboBox);
 	butlayout->addWidget(destComboBox);
+
+	QWidget* diffbox = new QWidget(this);
+	QHBoxLayout* checkLayout = new QHBoxLayout(diffbox);
+	if (checkLayout) {
+		mismatchCheckBox = new QCheckBox(diffbox);
+		mismatchCheckBox->setText(
+			i18n("Check maximum allowable time &difference (sec):"));
+		maxDiffSpinBox = new QSpinBox(diffbox);
+		maxDiffSpinBox->setMaxValue(9999);
+		if (mismatchCheckBox && maxDiffSpinBox) {
+			checkLayout->addSpacing(margin() * 2);
+			checkLayout->addWidget(mismatchCheckBox);
+			checkLayout->addWidget(maxDiffSpinBox);
+			checkLayout->addStretch();
+		}
+	}
 
 	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
 	connect(freedbButton, SIGNAL(clicked()), this, SLOT(fromFreedb()));
+#ifdef HAVE_TUNEPIMP
+	connect(m_musicBrainzButton, SIGNAL(clicked()), this, SLOT(fromMusicBrainz()));
+#endif
+	connect(vHeader, SIGNAL(indexChange(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
+	connect(mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
+	connect(maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
 }
 
 /**
@@ -111,6 +240,13 @@ ImportSelector::~ImportSelector()
 		delete freedbDialog;
 		freedbDialog = 0;
 	}
+#ifdef HAVE_TUNEPIMP
+	if (m_musicBrainzDialog) {
+		m_musicBrainzDialog->disconnect();
+		delete m_musicBrainzDialog;
+		m_musicBrainzDialog = 0;
+	}
+#endif
 }
 
 /**
@@ -145,9 +281,9 @@ void ImportSelector::fromFile()
 {
 	QString fn =
 #ifdef CONFIG_USE_KDE
-		KFileDialog::getOpenFileName();
+		KFileDialog::getOpenFileName(QString::null, QString::null, this);
 #else
-		QFileDialog::getOpenFileName();
+		QFileDialog::getOpenFileName(QString::null, QString::null, this);
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
@@ -155,8 +291,8 @@ void ImportSelector::fromFile()
 			QTextStream stream(&file);
 			text = stream.read();
 			if (!text.isNull()) {
-				importSource = File;
-				(void)showPreview();
+				updateTrackData(File);
+				showPreview();
 			}
 			file.close();
 		}
@@ -169,20 +305,22 @@ void ImportSelector::fromFile()
 void ImportSelector::fromClipboard()
 {
 	QClipboard *cb = QApplication::clipboard();
-#if QT_VERSION >= 300
+#if QT_VERSION >= 0x030100
 	text = cb->text(QClipboard::Clipboard);
-	if (text.isNull() || !(importSource = Clipboard, showPreview())) {
+	if (!text.isNull() && updateTrackData(Clipboard)) {
+		showPreview();
+	} else {
 		text = cb->text(QClipboard::Selection);
 		if (!text.isNull()) {
-			importSource = Clipboard;
-			(void)showPreview();
+			updateTrackData(Clipboard);
+			showPreview();
 		}
 	}
 #else
 	text = cb->text();
 	if (!text.isNull()) {
-		importSource = Clipboard;
-		(void)showPreview();
+		updateTrackData(Clipboard);
+		showPreview();
 	}
 #endif
 }
@@ -193,7 +331,7 @@ void ImportSelector::fromClipboard()
 void ImportSelector::fromFreedb()
 {
 	if (!freedbDialog) {
-		freedbDialog = new FreedbDialog();
+		freedbDialog = new FreedbDialog(this);
 		if (!freedbDialog) {
 			return;
 		}
@@ -213,8 +351,8 @@ void ImportSelector::fromFreedb()
  */
 void ImportSelector::freedbAlbumDataReceived(QString txt)
 {
-	importSource = Freedb;
 	text = txt;
+	updateTrackData(Freedb);
 	showPreview();
 }
 
@@ -232,72 +370,164 @@ void ImportSelector::setFormatLineEdit(int index)
 }
 
 /**
- * Show fields to import in text as preview in table.
+ * Update track data list with imported tags.
+ *
+ * @param impSrc import source
  *
  * @return true if tags were found.
  */
-bool ImportSelector::showPreview()
-{
+bool ImportSelector::updateTrackData(ImportSource impSrc) {
 	StandardTags st_hdr;
-	tab->setNumRows(0);
 	st_hdr.setInactive();
+	importSource = impSrc;
 	(void)parseHeader(st_hdr);
 
 	StandardTags st(st_hdr);
-	int row = 0;
 	bool start = true;
+#if QT_VERSION >= 300
+	ImportTrackDataVector::iterator
+#else
+	ImportTrackDataVector::Iterator
+#endif
+		it = m_trackDataVector.begin();
+	bool atTrackDataListEnd = (it == m_trackDataVector.end());
 	while (getNextTags(st, start)) {
 		start = false;
-		tab->setNumRows(row + 1);
-		if (st.track != -1) {
-			QString trackStr;
-			trackStr.setNum(st.track);
-			tab->setText(row, TrackColumn, trackStr);
+		if (atTrackDataListEnd) {
+			ImportTrackData trackData;
+			trackData.setStandardTags(st);
+#if QT_VERSION >= 300
+			m_trackDataVector.push_back(trackData);
+#else
+			m_trackDataVector.append(trackData);
+#endif
+		} else {
+			(*it).setStandardTags(st);
+			++it;
+			atTrackDataListEnd = (it == m_trackDataVector.end());
 		}
-		if (!st.title.isNull())
-			tab->setText(row, TitleColumn, st.title);
-		if (!st.artist.isNull())
-			tab->setText(row, ArtistColumn, st.artist);
-		if (!st.album.isNull())
-			tab->setText(row, AlbumColumn, st.album);
-		if (st.year != -1) {
-			QString yearStr;
-			yearStr.setNum(st.year);
-			tab->setText(row, YearColumn, yearStr);
-		}
-		if (st.genre != -1) {
-			QString genreStr(Genres::getName(st.genre));
-			tab->setText(row, GenreColumn, genreStr);
-		}
-		if (!st.comment.isNull())
-			tab->setText(row, CommentColumn, st.comment);
 		st = st_hdr;
-		++row;
 	}
+	st.setInactive();
+	while (!atTrackDataListEnd) {
+		if ((*it).getFileDuration() == 0) {
+#if QT_VERSION >= 300
+			it = m_trackDataVector.erase(it);
+#else
+			it = m_trackDataVector.remove(it);
+#endif
+		} else {
+			(*it).setStandardTags(st);
+			(*it).setImportDuration(0);
+			++it;
+		}
+		atTrackDataListEnd = (it == m_trackDataVector.end());
+	}
+
 	if (!start) {
 		/* start is false => tags were found */
 		QValueList<int>* trackDuration = getTrackDurations();
 		if (trackDuration) {
-			row = 0;
-			for(
+			it = m_trackDataVector.begin();
+			for (
 #if QT_VERSION >= 300
-				QValueList<int>::iterator
+				 QValueList<int>::const_iterator
 #else
-				QValueListConstIterator<int>
+				 QValueList<int>::ConstIterator
 #endif
-				it = trackDuration->begin();
-				it != trackDuration->end();
-				++it) {
-				tab->setText(row, LengthColumn, Mp3File::formatTime(*it));
-				++row;
+					 tdit = trackDuration->begin();
+					 tdit != trackDuration->end();
+					 ++tdit) {
+				if (it != m_trackDataVector.end()) {
+					(*it).setImportDuration(*tdit);
+					++it;
+				} else {
+					break;
+				}
 			}
-		}
-		for (int col = 0; col < NumColumns; col++) {
-			tab->adjustColumn(col);
 		}
 		return true;
 	}
 	return false;
+}
+
+/**
+ * Show fields to import in text as preview in table.
+ */
+void ImportSelector::showPreview() {
+	tab->setNumRows(0);
+	int row = 0;
+	QHeader* vHeader = tab->verticalHeader();
+	for (
+#if QT_VERSION >= 300
+		 ImportTrackDataVector::const_iterator
+#else
+		 ImportTrackDataVector::ConstIterator
+#endif
+			 it = m_trackDataVector.begin();
+			 it != m_trackDataVector.end();
+			 ++it) {
+		tab->setNumRows(row + 1);
+		int fileDuration = (*it).getFileDuration();
+		if (fileDuration != 0) {
+			vHeader->setLabel(row, TaggedFile::formatTime(fileDuration));
+		}
+		int importDuration = (*it).getImportDuration();
+		if (importDuration != 0)
+			tab->setText(row, LengthColumn, TaggedFile::formatTime(importDuration));
+		if ((*it).track != -1) {
+			QString trackStr;
+			trackStr.setNum((*it).track);
+			tab->setText(row, TrackColumn, trackStr);
+		}
+		if (!(*it).title.isNull())
+			tab->setText(row, TitleColumn, (*it).title);
+		if (!(*it).artist.isNull())
+			tab->setText(row, ArtistColumn, (*it).artist);
+		if (!(*it).album.isNull())
+			tab->setText(row, AlbumColumn, (*it).album);
+		if ((*it).year != -1) {
+			QString yearStr;
+			yearStr.setNum((*it).year);
+			tab->setText(row, YearColumn, yearStr);
+		}
+		if ((*it).genre != -1) {
+			QString genreStr(Genres::getName((*it).genre));
+			tab->setText(row, GenreColumn, genreStr);
+		}
+		if (!(*it).comment.isNull())
+			tab->setText(row, CommentColumn, (*it).comment);
+		++row;
+	}
+
+	// make time difference check
+	tab->clearMarks();
+	bool diffCheckEnable;
+	int maxDiff;
+	getTimeDifferenceCheck(diffCheckEnable, maxDiff);
+	if (diffCheckEnable) {
+		row = 0;
+		for (
+#if QT_VERSION >= 300
+			ImportTrackDataVector::const_iterator
+#else
+			ImportTrackDataVector::ConstIterator
+#endif
+				 it = m_trackDataVector.begin();
+				 it != m_trackDataVector.end();
+				 ++it) {
+			int fileDuration = (*it).getFileDuration();
+			int importDuration = (*it).getImportDuration();
+			if (fileDuration != 0 && importDuration != 0) {
+				int diff = fileDuration > importDuration ?
+					fileDuration - importDuration : importDuration - fileDuration;
+				if (diff > maxDiff) {
+					tab->markRow(row);
+				}
+			}
+			++row;
+		}
+	}
 }
 
 /**
@@ -450,3 +680,123 @@ QValueList<int>* ImportSelector::getTrackDurations()
 		return 0;
 	}
 }
+
+/**
+ * Set time difference check configuration.
+ *
+ * @param enable  true to enable check
+ * @param maxDiff maximum allowable time difference
+ */ 
+void ImportSelector::setTimeDifferenceCheck(bool enable, int maxDiff)
+{
+	mismatchCheckBox->setChecked(enable);
+	maxDiffSpinBox->setValue(maxDiff);
+}
+
+/**
+ * Get time difference check configuration.
+ *
+ * @param enable  true if check is enabled
+ * @param maxDiff maximum allowed time difference
+ */ 
+void ImportSelector::getTimeDifferenceCheck(bool& enable, int& maxDiff) const
+{
+	enable = mismatchCheckBox->isChecked();
+	maxDiff = maxDiffSpinBox->value();
+}
+
+/**
+ * Called when the maximum time difference value is changed.
+ */
+void ImportSelector::maxDiffChanged() {
+	if (mismatchCheckBox->isChecked()) {
+		showPreview();
+	}
+}
+
+/**
+ * Move a table row.
+ *
+ * @param section not used
+ * @param fromIndex index of position moved from
+ * @param fromIndex index of position moved to
+ */
+void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
+	if (toIndex > fromIndex && toIndex > 0) {
+		--toIndex;
+	}
+#if QT_VERSION >= 300
+	int numTracks = static_cast<int>(m_trackDataVector.size());
+#else
+	int numTracks = static_cast<int>(m_trackDataVector.count());
+#endif
+	if (fromIndex < numTracks && toIndex < numTracks) {
+		// swap elements but keep file durations
+		ImportTrackData fromData(m_trackDataVector[fromIndex]);
+		ImportTrackData toData(m_trackDataVector[toIndex]);
+		int fromDuration = fromData.getFileDuration();
+		fromData.setFileDuration(toData.getFileDuration());
+		toData.setFileDuration(fromDuration);
+		m_trackDataVector[fromIndex] = toData;
+		m_trackDataVector[toIndex] = fromData;
+
+		// redisplay the table
+		showPreview();
+	}
+}
+
+/**
+ * Import from freedb.org and preview in table.
+ */
+void ImportSelector::fromMusicBrainz()
+{
+#ifdef HAVE_TUNEPIMP
+	if (!m_musicBrainzDialog) {
+		m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataVector);
+		if (!m_musicBrainzDialog) {
+			return;
+		}
+		if (m_musicBrainzCfg) {
+			m_musicBrainzDialog->setMusicBrainzConfig(m_musicBrainzCfg);
+		}
+		connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
+	}
+	(void)m_musicBrainzDialog->exec();
+#endif
+}
+
+#ifdef HAVE_TUNEPIMP
+/**
+ * Set MusicBrainz configuration.
+ *
+ * @param cfg MusicBrainz configuration.
+ */
+void ImportSelector::setMusicBrainzConfig(const MusicBrainzConfig* cfg)
+{
+	m_musicBrainzCfg = cfg;
+}
+#else
+void ImportSelector::setMusicBrainzConfig(const MusicBrainzConfig*) {}
+#endif
+
+#ifdef HAVE_TUNEPIMP
+/**
+ * Get MusicBrainz configuration.
+ *
+ * @param cfg MusicBrainz configuration.
+ */
+void ImportSelector::getMusicBrainzConfig(MusicBrainzConfig* cfg) const
+{
+	if (m_musicBrainzDialog) {
+		m_musicBrainzDialog->getMusicBrainzConfig(cfg);
+	} else {
+		// MusicBrainz dialog does not exist => copy configuration which was set
+		if (m_musicBrainzCfg && (m_musicBrainzCfg != cfg)) {
+			*cfg = *m_musicBrainzCfg;
+		}
+	}
+}
+#else
+void ImportSelector::getMusicBrainzConfig(MusicBrainzConfig*) const {}
+#endif

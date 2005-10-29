@@ -10,19 +10,23 @@
 #ifndef IMPORTSELECTOR_H
 #define IMPORTSELECTOR_H
 
+#include "importtrackdata.h"
 #include <qvbox.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qvaluelist.h>
 
 class QPushButton;
-class QTable;
 class QComboBox;
 class QLineEdit;
+class QCheckBox;
+class QSpinBox;
 class ImportParser;
 class StandardTags;
 class FreedbDialog;
 class FreedbConfig;
+class MusicBrainzDialog;
+class MusicBrainzConfig;
+class ImportTable;
 
 /**
  * Import selector widget.
@@ -38,11 +42,14 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param parent parent widget
-	 * @param name   Qt name
-	 * @param f      window flags
+	 * @param parent        parent widget
+	 * @param trackDataList track data to be filled with imported values,
+	 *                      is passed with durations of files set
+	 * @param name          Qt name
+	 * @param f             window flags
 	 */
-	ImportSelector(QWidget *parent = 0, const char *name = 0, WFlags f = 0);
+	ImportSelector(QWidget *parent, ImportTrackDataVector& trackDataList,
+								 const char *name = 0, WFlags f = 0);
 	/**
 	 * Destructor.
 	 */
@@ -117,12 +124,38 @@ public:
 	 */
 	void getFreedbConfig(FreedbConfig *cfg) const;
 	/**
+	 * Set MusicBrainz configuration.
+	 *
+	 * @param cfg MusicBrainz configuration.
+	 */
+	void setMusicBrainzConfig(const MusicBrainzConfig* cfg);
+	/**
+	 * Get MusicBrainz configuration.
+	 *
+	 * @param cfg MusicBrainz configuration.
+	 */
+	void getMusicBrainzConfig(MusicBrainzConfig* cfg) const;
+	/**
 	 * Get list with track durations.
 	 *
 	 * @return list with track durations,
 	 *         0 if no track durations found.
 	 */
 	QValueList<int>* getTrackDurations();
+	/**
+	 * Set time difference check configuration.
+	 *
+	 * @param enable  true to enable check
+	 * @param maxDiff maximum allowable time difference
+	 */ 
+	void setTimeDifferenceCheck(bool enable, int maxDiff);
+	/**
+	 * Get time difference check configuration.
+	 *
+	 * @param enable  true if check is enabled
+	 * @param maxDiff maximum allowed time difference
+	 */ 
+	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
 	/**
 	 * List with line formats.
 	 * The following codes are used before the () expressions.
@@ -138,6 +171,18 @@ public:
 
 public slots:
 	/**
+	 * Called when the maximum time difference value is changed.
+	 */
+	void maxDiffChanged();
+	/**
+	 * Move a table row.
+	 *
+	 * @param section not used
+	 * @param fromIndex index of position moved from
+	 * @param fromIndex index of position moved to
+	 */
+	void moveTableRow(int, int fromIndex, int toIndex);
+	/**
 	 * Let user select file, assign file contents to text and preview in
 	 * table.
 	 */
@@ -151,6 +196,10 @@ public slots:
 	 */
 	void fromFreedb();
 	/**
+	 * Import from MusicBrainz and preview in table.
+	 */
+	void fromMusicBrainz();
+	/**
 	 * Set the format lineedits to the format selected in the combo box.
 	 *
 	 * @param index current index of the combo box
@@ -162,28 +211,36 @@ public slots:
 	 * @param txt text containing album data from freedb.org
 	 */
 	void freedbAlbumDataReceived(QString txt);
-private:
-	enum TabColumn {
-		TrackColumn, TitleColumn, ArtistColumn, AlbumColumn,
-		YearColumn, GenreColumn, CommentColumn, LengthColumn, NumColumns
-	};
-	enum ImportSource {
-	    None, File, Clipboard, Freedb
-	};
 	/**
 	 * Show fields to import in text as preview in table.
+	 */
+	void showPreview();
+private:
+	enum TabColumn {
+		LengthColumn, TrackColumn, TitleColumn, ArtistColumn,
+		AlbumColumn, YearColumn, GenreColumn, CommentColumn, NumColumns
+	};
+	enum ImportSource {
+		None, File, Clipboard, Freedb, MusicBrainz
+	};
+	/**
+	 * Update track data list with imported tags.
+	 *
+	 * @param impSrc import source
 	 *
 	 * @return true if tags were found.
 	 */
-	bool showPreview();
+	bool updateTrackData(ImportSource impSrc);
 	/** From File button */
 	QPushButton *fileButton;
 	/** From Clipboard button */
 	QPushButton *clipButton;
 	/** From freedb.org button */
 	QPushButton *freedbButton;
+	/** From MusicBrainz button */
+	QPushButton *m_musicBrainzButton;
 	/** Preview table */
-	QTable *tab;
+	ImportTable *tab;
 	/** contents of imported file/clipboard */
 	QString text;
 	/** combobox with import destinations */
@@ -194,6 +251,8 @@ private:
 	QLineEdit *headerLineEdit;
 	/** LineEdit for track regexp */
 	QLineEdit *trackLineEdit;
+	QCheckBox* mismatchCheckBox;
+	QSpinBox* maxDiffSpinBox;
 	/** header parser object */
 	ImportParser *header_parser;
 	/** track parser object */
@@ -204,10 +263,16 @@ private:
 	QStringList formatTracks;
 	/** freedb.org import dialog */
 	FreedbDialog *freedbDialog;
+	/** freedb.org import dialog */
+	MusicBrainzDialog* m_musicBrainzDialog;
 	/** import source */
 	ImportSource importSource;
 	/** freedb config */
 	const FreedbConfig *freedbCfg;
+	/** MusicBrainz config */
+	const MusicBrainzConfig *m_musicBrainzCfg;
+	/** track data */
+	ImportTrackDataVector& m_trackDataVector;
 };
 
 #endif
