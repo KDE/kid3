@@ -55,4 +55,35 @@ class StandardTags {
 	int genre;
 };
 
+/**
+ * Filter to enable fields.
+ */
+class StandardTagsFilter {
+public:
+	/**
+	 * If all fields are false set all true.
+	 */
+	void allFalseToAllTrue();
+
+	/**
+	 * Set all fields true.
+	 */
+	void setAllTrue();
+
+  /**
+   * Check if all fields are true.
+   *
+   * @return true if all fields are true.
+   */
+  bool areAllTrue() const;
+
+	bool m_enableTitle;
+	bool m_enableArtist;
+	bool m_enableAlbum;
+	bool m_enableComment;
+	bool m_enableYear;
+	bool m_enableTrack;
+	bool m_enableGenre;
+};
+
 #endif // STANDARDTAGS_H

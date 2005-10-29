@@ -89,3 +89,39 @@ void StandardTags::setEmpty(void)
 	track = 0;
 	genre = 0xff;
 }
+
+/**
+ * If all fields are false set all true.
+ */
+void StandardTagsFilter::allFalseToAllTrue()
+{
+	if (!m_enableTitle && !m_enableArtist && !m_enableAlbum &&
+			!m_enableComment && !m_enableYear && !m_enableTrack && !m_enableGenre) {
+		setAllTrue();
+	}
+}
+
+/**
+ * Set all fields true.
+ */
+void StandardTagsFilter::setAllTrue()
+{
+	m_enableTitle = true;
+	m_enableArtist = true;
+	m_enableAlbum = true;
+	m_enableComment = true;
+	m_enableYear = true;
+	m_enableTrack = true;
+	m_enableGenre = true;
+}
+
+/**
+ * Check if all fields are true.
+ *
+ * @return true if all fields are true.
+ */
+bool StandardTagsFilter::areAllTrue() const
+{
+	return m_enableTitle && m_enableArtist && m_enableAlbum &&
+		m_enableComment && m_enableYear && m_enableTrack && m_enableGenre;
+}
