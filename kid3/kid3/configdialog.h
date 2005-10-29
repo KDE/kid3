@@ -12,9 +12,16 @@
 
 #include "config.h"
 #ifdef CONFIG_USE_KDE
-#include <kdialogbase.h>
+#include <kdeversion.h>
+#if KDE_VERSION >= 0x30200
+#define KID3_USE_KCONFIGDIALOG
+#endif
+#endif
+
+#ifdef KID3_USE_KCONFIGDIALOG
+#include <kconfigdialog.h>
 #else
-#include <qdialog.h>
+#include <qtabdialog.h>
 #endif
 #include "formatconfig.h"
 
@@ -22,16 +29,18 @@ class FormatBox;
 class QCheckBox;
 class FormatConfig;
 class MiscConfig;
+class CommandsTable;
 class QString;
 class QWidget;
+class QComboBox;
 
 /**
  * Configuration dialog.
  */
-#ifdef CONFIG_USE_KDE
-class ConfigDialog : public KDialogBase
+#ifdef KID3_USE_KCONFIGDIALOG
+class ConfigDialog : public KConfigDialog
 #else
-class ConfigDialog : public QDialog
+class ConfigDialog : public QTabDialog
 #endif
 {
 public:
@@ -41,7 +50,12 @@ public:
 	 * @param parent  parent widget
 	 * @param caption dialog title
 	 */
-	ConfigDialog(QWidget *parent, QString &caption);
+#ifdef KID3_USE_KCONFIGDIALOG
+	ConfigDialog(QWidget* parent, QString& caption,
+							 KConfigSkeleton* configSkeleton);
+#else
+	ConfigDialog(QWidget* parent, QString& caption);
+#endif
 	/**
 	 * Destructor.
 	 */
@@ -67,10 +81,18 @@ public:
 private:
 	/** Format while editing checkbox */
 	QCheckBox *formatEditingCheckBox;
+	/** Preserve timestamp checkbox */
+	QCheckBox* m_preserveTimeCheckBox;
+	/** Use track/total number of tracks format checkbox */
+	QCheckBox* m_totalNumTracksCheckBox;
+	/** Comment field name combo box */
+	QComboBox* m_commentNameComboBox;
 	/** Filename Format box */
 	FormatBox *fnFormatBox;
 	/** ID3 Format box */
 	FormatBox *id3FormatBox;
+	/** Commands table */
+	CommandsTable* m_commandsTable;
 };
 
 #endif

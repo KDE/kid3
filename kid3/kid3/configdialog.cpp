@@ -7,7 +7,7 @@
  * \date 17 Sep 2003
  */
 
-#include "config.h"
+#include "configdialog.h"
 #ifdef CONFIG_USE_KDE
 #include <klocale.h>
 #include <kconfig.h>
@@ -21,11 +21,13 @@
 #include <qlabel.h>
 #include <qstring.h>
 #include <qcheckbox.h>
+#include <qgroupbox.h>
+#include <qcombobox.h>
 
 #include "formatconfig.h"
 #include "formatbox.h"
 #include "miscconfig.h"
-#include "configdialog.h"
+#include "commandstable.h"
 
 /**
  * Constructor.
@@ -33,61 +35,96 @@
  * @param parent  parent widget
  * @param caption dialog title
  */
-ConfigDialog::ConfigDialog(QWidget *parent, QString &caption)
-#ifdef CONFIG_USE_KDE
-	: KDialogBase(parent, "configure", true, caption, Ok|Cancel, Ok)
+#ifdef KID3_USE_KCONFIGDIALOG
+ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
+													 KConfigSkeleton* configSkeleton) :
+	KConfigDialog(parent, "configure", configSkeleton,
+								IconList, Ok | Cancel, Ok, true)
 #else
-	: QDialog(parent, "configure", true)
+ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
+	QTabDialog(parent, "configure", true)
 #endif
 {
-
-#ifdef CONFIG_USE_KDE
-	QWidget *page = new QWidget(this);
-	if (!page) {
-		return;
-	}
-	setMainWidget(page);
-#else
-#define page this
 	setCaption(caption);
+	QWidget* generalPage = new QWidget(this);
+	if (generalPage) {
+		QVBoxLayout* vlayout = new QVBoxLayout(generalPage, 6, 6);
+		if (vlayout) {
+			QGroupBox* saveGroupBox = new QGroupBox(1, Horizontal, i18n("Save"), generalPage);
+			if (saveGroupBox) {
+				m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
+				vlayout->addWidget(saveGroupBox);
+			}
+			QGroupBox* v2GroupBox = new QGroupBox(1, Horizontal, i18n("ID3v2.3"), generalPage);
+			if (v2GroupBox) {
+				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
+				vlayout->addWidget(v2GroupBox);
+			}
+#ifdef HAVE_VORBIS
+			QGroupBox* vorbisGroupBox = new QGroupBox(2, Horizontal, i18n("Ogg/Vorbis"), generalPage);
+			if (vorbisGroupBox) {
+				QLabel* commentNameLabel = new QLabel(i18n("Comment Field &Name:"), vorbisGroupBox);
+				m_commentNameComboBox = new QComboBox(true, vorbisGroupBox);
+				if (commentNameLabel && m_commentNameComboBox) {
+					static const char* items[] = { "COMMENT", "DESCRIPTION", 0 };
+					m_commentNameComboBox->insertStrList(items);
+#if QT_VERSION >= 0x030100
+					m_commentNameComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+#else
+					m_commentNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 #endif
-
-	QVBoxLayout *vlayout = new QVBoxLayout(page);
-	if (!vlayout) {
-		return ;
+					commentNameLabel->setBuddy(m_commentNameComboBox);
+				}
+				vlayout->addWidget(vorbisGroupBox);
+			}
+#endif
+#if QT_VERSION >= 300
+			QGroupBox* commandsGroupBox = new QGroupBox(1, Horizontal, i18n("Context &Menu Commands"), generalPage);
+			if (commandsGroupBox) {
+				m_commandsTable = new CommandsTable(commandsGroupBox, "commandsTable");
+				vlayout->addWidget(commandsGroupBox);
+			}
+#endif
+			QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+			vlayout->addItem(vspacer);
+		}
+#ifdef KID3_USE_KCONFIGDIALOG
+		addPage(generalPage, i18n("General"), "package_system");
+#else
+		addTab(generalPage, i18n("&General"));
+#endif
 	}
-	vlayout->setSpacing(6);
-	vlayout->setMargin(6);
 
-	formatEditingCheckBox = new QCheckBox(page, "formatEditingCheckBox");
-	formatEditingCheckBox->setText(i18n("Format while &editing:"));
-	vlayout->addWidget(formatEditingCheckBox);
+	QWidget* formatPage = new QWidget(this);
+	if (formatPage) {
+		QVBoxLayout* vlayout = new QVBoxLayout(formatPage, 6, 6);
+		if (vlayout) {
+			formatEditingCheckBox = new QCheckBox(formatPage, "formatEditingCheckBox");
+			formatEditingCheckBox->setText(i18n("Format while &editing:"));
+			vlayout->addWidget(formatEditingCheckBox);
 
-	QHBoxLayout *fmtLayout = new QHBoxLayout(vlayout);
-	QString fnFormatTitle(i18n("&Filename Format"));
-	fnFormatBox = new FormatBox(fnFormatTitle, page, "fnFormatBox");
-	QString id3FormatTitle(i18n("&ID3 Format"));
-	id3FormatBox = new FormatBox(id3FormatTitle, page, "id3FormatBox");
-	if (fmtLayout && fnFormatBox && id3FormatBox) {
-		fmtLayout->addWidget(fnFormatBox);
-		fmtLayout->addWidget(id3FormatBox);
+			QHBoxLayout *fmtLayout = new QHBoxLayout(vlayout);
+			QString fnFormatTitle(i18n("&Filename Format"));
+			fnFormatBox = new FormatBox(fnFormatTitle, formatPage, "fnFormatBox");
+			QString id3FormatTitle(i18n("&ID3 Format"));
+			id3FormatBox = new FormatBox(id3FormatTitle, formatPage, "id3FormatBox");
+			if (fmtLayout && fnFormatBox && id3FormatBox) {
+				fmtLayout->addWidget(fnFormatBox);
+				fmtLayout->addWidget(id3FormatBox);
+			}
+		}
+#ifdef KID3_USE_KCONFIGDIALOG
+		addPage(formatPage, i18n("Format"), "package_editors");
+#else
+		addTab(formatPage, i18n("F&ormat"));
+#endif
 	}
-
-#ifndef CONFIG_USE_KDE
-	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
-	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-	                                       QSizePolicy::Minimum);
-	QPushButton *okButton = new QPushButton(i18n("OK"), page);
-	QPushButton *cancelButton = new QPushButton(i18n("Cancel"), page);
-	if (hlayout && okButton && cancelButton) {
-		hlayout->addItem(hspacer);
-		hlayout->addWidget(okButton);
-		hlayout->addWidget(cancelButton);
-		okButton->setDefault(TRUE);
-		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	}
-#undef page
+#ifndef KID3_USE_KCONFIGDIALOG
+	setOkButton();
+	setCancelButton();
+#endif
+#if QT_VERSION < 300
+	resize(415, 488);
 #endif
 }
 
@@ -111,6 +148,18 @@ void ConfigDialog::setConfig(const FormatConfig *fnCfg,
 	fnFormatBox->fromFormatConfig(fnCfg);
 	id3FormatBox->fromFormatConfig(id3Cfg);
 	formatEditingCheckBox->setChecked(miscCfg->formatWhileEditing);
+	m_totalNumTracksCheckBox->setChecked(miscCfg->m_enableTotalNumberOfTracks);
+	m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
+#if QT_VERSION >= 300
+	m_commandsTable->setCommandList(miscCfg->m_contextMenuCommands);
+#endif
+#ifdef HAVE_VORBIS
+#if QT_VERSION >= 300
+	m_commentNameComboBox->setCurrentText(miscCfg->m_commentName);
+#else
+	m_commentNameComboBox->setEditText(miscCfg->m_commentName);
+#endif
+#endif
 }
 
 /**
@@ -127,4 +176,12 @@ void ConfigDialog::getConfig(FormatConfig *fnCfg,
 	fnFormatBox->toFormatConfig(fnCfg);
 	id3FormatBox->toFormatConfig(id3Cfg);
 	miscCfg->formatWhileEditing = formatEditingCheckBox->isChecked();
+	miscCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
+	miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
+#if QT_VERSION >= 300
+	m_commandsTable->getCommandList(miscCfg->m_contextMenuCommands);
+#endif
+#ifdef HAVE_VORBIS
+	miscCfg->m_commentName = m_commentNameComboBox->currentText();
+#endif
 }
