@@ -88,8 +88,8 @@ static QString getProxyOrDest(const FreedbConfig *cfg, const QString dst)
  * @param name     output string with "name"
  * @param port     output integer with port
  */
-static void splitNamePort(const QString &namePort,
-						  QString &name, int &port)
+void FreedbClient::splitNamePort(const QString &namePort,
+																 QString &name, int &port)
 {
 	int colPos = namePort.findRev(':');
 	if (colPos >= 0) {
@@ -149,7 +149,7 @@ void FreedbClient::find(const FreedbConfig *cfg, QString what)
 		"&cats=blues&cats=classical&cats=country&cats=folk&cats=jazz" +
 		"&cats=misc&cats=newage&cats=reggae&cats=rock&cats=soundtrack" +
 		"&grouping=none HTTP/1.1\r\nHost: " +
-		cfg->server + "\r\nUser-Agent: Kid3 0.5\r\nConnection: close\r\n\r\n";
+		cfg->server + "\r\nUser-Agent: Kid3 0.6\r\nConnection: close\r\n\r\n";
 #ifdef WIN32
 	int err = hostnameToAddress(dest);
 	if (err) {
@@ -245,7 +245,7 @@ void FreedbClient::getTrackList(const FreedbConfig *cfg, QString cat, QString id
 	request = "GET http://" + cfg->server + cfg->cgiPath +
 		"?cmd=cddb+read+" + cat + "+" +
 		id + "&hello=noname+localhost+" +
-		"Kid3+0.5&proto=1 HTTP/1.1\r\nHost: " + cfg->server +
+		"Kid3+0.6&proto=1 HTTP/1.1\r\nHost: " + cfg->server +
 		"\r\nConnection: close\r\n\r\n";
 
 #ifdef WIN32
