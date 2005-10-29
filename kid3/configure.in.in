@@ -1,19 +1,48 @@
 #MIN_CONFIG(3.0)
-AM_INIT_AUTOMAKE(kid3,0.5)
+AM_INIT_AUTOMAKE(kid3,0.6)
 dnl Check for libid3
 AC_SEARCH_LIBS(ID3Tag_Link,"id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++",,AC_MSG_ERROR(id3lib not found))
+
+# Check if old id3lib without VBR support
+AC_DEFUN([ID3LIB_CHECK_VBR],
+[
+  AC_MSG_CHECKING([for id3lib VBR support])
+  AC_LANG_SAVE
+  AC_LANG_CPLUSPLUS
+cat > conftest.$ac_ext <<EOF
+#include <id3/globals.h>
+int main() {
+  Mp3_Headerinfo info;
+  info.vbr_bitrate = 0;
+  return 0;
+}
+EOF
+
+  ac_save_CPPFLAGS=$CPPFLAGS
+  CPPFLAGS="$all_includes $CPPFLAGS"
+  if AC_TRY_EVAL(ac_compile); then
+    AC_MSG_RESULT(yes)
+  else
+    AC_MSG_RESULT(no)
+    AC_DEFINE(HAVE_NO_ID3LIB_VBR,1,[Define to build without id3lib VBR support])
+  fi
+  CPPFLAGS=$ac_save_CPPFLAGS
+
+  AC_LANG_RESTORE
+])
+ID3LIB_CHECK_VBR
+
 dnl Option to build with KDE
-AC_ARG_WITH(kde, [  --with-kde                build with KDE, default=yes],
+AC_ARG_WITH(kde, [  --with-kde              build with KDE, default=yes],
   with_kde="$withval",
   with_kde=yes
 )
 if test "$with_kde" != "no"; then
   CONFIG_USE_KDE=1
+  AC_SUBST(CONFIG_USE_KDE)
   AC_DEFINE(CONFIG_USE_KDE,1,[Define to build with KDE])
-  cp -f kid3/kid3.h.kde kid3/kid3.h
-else
-  cp -f kid3/kid3.h.qtonly kid3/kid3.h
 fi
+AM_CONDITIONAL(CONFIG_USE_KDE, test "$with_kde" = "yes")
 
 # precompiled headers
 AC_ARG_ENABLE(gcc-pch,
@@ -32,3 +61,95 @@ AC_ARG_ENABLE(gcc-pch,
     esac
   ])
 AM_CONDITIONAL(GCC_PCH, test "$GCC_PCH" = "yes")
+
+# MusicBrainz support with libtunepimp
+AC_ARG_WITH(musicbrainz, [  --with-musicbrainz      build with MusicBrainz, default=yes],
+  with_musicbrainz="$withval",
+  with_musicbrainz=yes
+)
+if test "$with_musicbrainz" != "no"; then
+  KDE_CHECK_HEADER(tunepimp/tp_c.h, [build_musicbrainz="yes"], [build_musicbrainz="no"])
+fi
+if test "$build_musicbrainz" = "yes"; then
+  HAVE_TUNEPIMP=1
+  AC_SUBST(HAVE_TUNEPIMP)
+  AC_DEFINE(HAVE_TUNEPIMP, 1, [have TunePimp])
+  LIB_TUNEPIMP="-ltunepimp"
+  have_tunepimp=yes
+else
+  LIB_TUNEPIMP=""
+  have_tunepimp=no
+fi
+AC_SUBST(LIB_TUNEPIMP)
+AM_CONDITIONAL(HAVE_TUNEPIMP, test "$build_musicbrainz" = "yes")
+
+# ogg/vorbis support with libvorbis
+AC_ARG_WITH(vorbis, [  --with-vorbis           build with ogg/vorbis, default=yes],
+  with_vorbis="$withval",
+  with_vorbis=yes
+)
+if test "$with_vorbis" != "no"; then
+  KDE_CHECK_HEADER(vorbis/codec.h, [build_vorbis="yes"], [build_vorbis="no"])
+fi
+if test "$build_vorbis" = "yes"; then
+  HAVE_VORBIS=1
+  AC_SUBST(HAVE_VORBIS)
+  AC_DEFINE(HAVE_VORBIS, 1, [have vorbis])
+  LIB_VORBIS="-lvorbis -lvorbisfile"
+  have_vorbis=yes
+else
+  LIB_VORBIS=""
+  have_vorbis=no
+fi
+AC_SUBST(LIB_VORBIS)
+AM_CONDITIONAL(HAVE_VORBIS, test "$build_vorbis" = "yes")
+
+# FLAC support with libFLAC++
+AC_ARG_WITH(flac, [  --with-flac             build with FLAC, default=yes],
+  with_flac="$withval",
+  with_flac=yes
+)
+if test "$with_flac" != "no"; then
+  KDE_CHECK_HEADER(FLAC++/metadata.h, [build_flac="yes"], [build_flac="no"])
+fi
+if test "$build_flac" = "yes"; then
+  HAVE_FLAC=1
+  AC_SUBST(HAVE_FLAC)
+  AC_DEFINE(HAVE_FLAC, 1, [have flac])
+  LIB_FLAC="-lFLAC++ -lFLAC"
+  have_flac=yes
+else
+  LIB_FLAC=""
+  have_flac=no
+fi
+AC_SUBST(LIB_FLAC)
+AM_CONDITIONAL(HAVE_FLAC, test "$build_flac" = "yes")
+
+# Check if old FLAC++ without Prototype::operator ::FLAC__StreamMetadata const *()
+AC_DEFUN([FLAC_CHECK_STREAMMETADATA_OPERATOR],
+[
+  AC_MSG_CHECKING([for FLAC__StreamMetadata operator])
+  AC_LANG_SAVE
+  AC_LANG_CPLUSPLUS
+cat > conftest.$ac_ext <<EOF
+#include <FLAC++/metadata.h>
+int main() {
+  FLAC::Metadata::VorbisComment vc;
+  const ::FLAC__StreamMetadata* fsmd = vc;
+  return 0;
+}
+EOF
+
+  ac_save_CPPFLAGS=$CPPFLAGS
+  CPPFLAGS="$all_includes $CPPFLAGS"
+  if AC_TRY_EVAL(ac_compile); then
+    AC_MSG_RESULT(yes)
+  else
+    AC_MSG_RESULT(no)
+    AC_DEFINE(HAVE_NO_FLAC_STREAMMETADATA_OPERATOR,1,[Define to build without FLAC__StreamMetadata operator])
+  fi
+  CPPFLAGS=$ac_save_CPPFLAGS
+
+  AC_LANG_RESTORE
+])
+FLAC_CHECK_STREAMMETADATA_OPERATOR
