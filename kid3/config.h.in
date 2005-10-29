@@ -18,6 +18,9 @@
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
+/* have flac */
+#undef HAVE_FLAC
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
@@ -36,15 +39,23 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
+/* Define to build without FLAC__StreamMetadata operator */
+#undef HAVE_NO_FLAC_STREAMMETADATA_OPERATOR
+
+/* Define to build without id3lib VBR support */
+#undef HAVE_NO_ID3LIB_VBR
+
 /* Define if your system needs _NSGetEnviron to set up the environment */
 #undef HAVE_NSGETENVIRON
 
-/* Define to 1 if you have the <pthread/linuxthreads/pthread.h> header file.
-   */
-#undef HAVE_PTHREAD_LINUXTHREADS_PTHREAD_H
-
-/* Define if you have the res_init function */
+/* Define if you have res_init */
 #undef HAVE_RES_INIT
+
+/* Define if you have the res_init prototype */
+#undef HAVE_RES_INIT_PROTO
+
+/* Define if you have a STL implementation by SGI */
+#undef HAVE_SGI_STL
 
 /* Define to 1 if you have the `snprintf' function. */
 #undef HAVE_SNPRINTF
@@ -61,23 +72,38 @@
 /* Define to 1 if you have the <string.h> header file. */
 #undef HAVE_STRING_H
 
+/* Define if you have strlcat */
+#undef HAVE_STRLCAT
+
+/* Define if you have the strlcat prototype */
+#undef HAVE_STRLCAT_PROTO
+
+/* Define if you have strlcpy */
+#undef HAVE_STRLCPY
+
+/* Define if you have the strlcpy prototype */
+#undef HAVE_STRLCPY_PROTO
+
+/* Define to 1 if you have the <sys/bitypes.h> header file. */
+#undef HAVE_SYS_BITYPES_H
+
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #undef HAVE_SYS_STAT_H
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
 
-/* C++ compiler supports template repository */
-#undef HAVE_TEMPLATE_REPOSITORY
+/* have TunePimp */
+#undef HAVE_TUNEPIMP
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
+/* have vorbis */
+#undef HAVE_VORBIS
+
 /* Define to 1 if you have the `vsnprintf' function. */
 #undef HAVE_VSNPRINTF
-
-/* Define if you want Xinerama support */
-#undef HAVE_XINERAMA
 
 /* Suffix for lib directories */
 #undef KDELIBSUFF
@@ -100,9 +126,6 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
-/* The size of a `char', as computed by sizeof. */
-#undef SIZEOF_CHAR
-
 /* The size of a `char *', as computed by sizeof. */
 #undef SIZEOF_CHAR_P
 
@@ -112,11 +135,23 @@
 /* The size of a `long', as computed by sizeof. */
 #undef SIZEOF_LONG
 
+/* The size of a `short', as computed by sizeof. */
+#undef SIZEOF_SHORT
+
+/* The size of a `size_t', as computed by sizeof. */
+#undef SIZEOF_SIZE_T
+
+/* The size of a `unsigned long', as computed by sizeof. */
+#undef SIZEOF_UNSIGNED_LONG
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
 /* Version number of package */
 #undef VERSION
+
+/* Defined if compiling without arts */
+#undef WITHOUT_ARTS
 
 /*
  * jpeg.h needs HAVE_BOOLEAN, when the system uses boolean in system
@@ -136,6 +171,50 @@
 
 #if defined(_AIX)
 #include <strings.h>
+#endif
+
+
+
+#if defined(HAVE_NSGETENVIRON) && defined(HAVE_CRT_EXTERNS_H)
+# include <sys/time.h>
+# include <crt_externs.h>
+# define environ (*_NSGetEnviron())
+#endif
+
+
+
+#if !defined(HAVE_RES_INIT_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+int res_init(void);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_STRLCAT_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+unsigned long strlcat(char*, const char*, unsigned long);
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+
+
+#if !defined(HAVE_STRLCPY_PROTO)
+#ifdef __cplusplus
+extern "C" {
+#endif
+unsigned long strlcpy(char*, const char*, unsigned long);
+#ifdef __cplusplus
+}
+#endif
 #endif
 
 
@@ -168,8 +247,9 @@ int snprintf(char *str, size_t n, char const *fmt, ...);
 #endif
 
 
-/* Compatibility define */
-#undef ksize_t
+/* type to use in place of socklen_t if not defined */
+#undef kde_socklen_t
 
-/* Define the real type of socklen_t */
-#undef socklen_t
+/* type to use in place of socklen_t if not defined (deprecated, use
+   kde_socklen_t) */
+#undef ksize_t
