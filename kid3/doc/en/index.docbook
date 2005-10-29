@@ -20,18 +20,19 @@
 </authorgroup>
 
 <copyright>
-<year>2004</year>
+<year>2005</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>25/07/2004</date>
-<releaseinfo>0.5</releaseinfo>
+<date>18/10/2005</date>
+<releaseinfo>0.6</releaseinfo>
 
 <abstract>
 <para>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
-an efficient way. It is easy to set tags of multiple files to the same
+an efficient way. Also tags in Ogg/Vorbis and FLAC files are supported.
+It is easy to set tags of multiple files to the same
 values (e.g. album, artist, year and genre in all files of the same album) and
 generate the tags from the file name or vice versa.
 </para>
@@ -44,6 +45,9 @@ generate the tags from the file name or vice versa.
 <keyword>ID3</keyword>
 <keyword>ID3v1</keyword>
 <keyword>ID3v2</keyword>
+<keyword>Ogg</keyword>
+<keyword>Vorbis</keyword>
+<keyword>FLAC</keyword>
 </keywordset>
 
 </bookinfo>
@@ -54,7 +58,8 @@ generate the tags from the file name or vice versa.
 <para>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
 an efficient way. These tags can be edited by most MP3 players, but not in
-a very comfortable and efficient way.
+a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis and FLAC
+files are supported too.
 </para>
 <para>
 &kid3; does not grab, encode nor play
@@ -77,7 +82,8 @@ to use a consistent naming scheme in all tags.
 </para>
 <para>
 The tag information for full albums can be taken from
-<ulink url="http://freedb.org">freedb.org</ulink> or other sources of
+<ulink url="http://freedb.org">freedb.org</ulink>, <ulink
+url="http://musicbrainz.org">MusicBrainz</ulink> or other sources of
 track lists. The import format is freely configurable by regular expressions.
 </para>
 <para>
@@ -95,12 +101,15 @@ Please report any problems or feature requests to the author.
 <listitem><para>Edit all ID3v2.3 frames</para></listitem>
 <listitem><para>Edit tags of multiple files</para></listitem>
 <listitem><para>Convert between ID3v1.1 and ID3v2.3 tags</para></listitem>
+<listitem><para>Edit Ogg/Vorbis tags</para></listitem>
+<listitem><para>Edit FLAC tags</para></listitem>
 <listitem><para>Generate tags from filename</para></listitem>
 <listitem><para>Generate filename from tags</para></listitem>
 <listitem><para>Generate and change directory names from tags</para></listitem>
 <listitem><para>Generate playlist file</para></listitem>
 <listitem><para>Automatic case conversion and string translation</para></listitem>
-<listitem><para>Import from <ulink url="http://freedb.org">freedb.org</ulink>
+<listitem><para>Import from <ulink url="http://freedb.org">freedb.org</ulink>,
+<ulink url="http://musicbrainz.org">MusicBrainz</ulink>
 and other data sources</para></listitem>
 </itemizedlist>
 </sect1>
@@ -158,8 +167,8 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <sect2>
 <title>The GUI Elements</title>
 <para>
-The &kid3; GUI is separated in four sections: At the left is the file
-listbox, the right side contains the <guilabel>Filename</guilabel>,
+The &kid3; GUI is separated in five sections: At the left are the file
+and directory listboxes, the right side contains the <guilabel>Filename</guilabel>,
 <guilabel>ID3v1.1</guilabel> and <guilabel>ID3v2.3</guilabel> sections.
 </para>
 
@@ -170,7 +179,7 @@ listbox, the right side contains the <guilabel>Filename</guilabel>,
 <para>
 The file list contains the names of all the files in the opened
 directory which match the selected file name filter (typically
-<filename>*.mp3</filename>). A single or multiple files can be selected. To
+<filename>*.mp3 *.ogg *.flac</filename>). A single or multiple files can be selected. To
 select no file, click into the empty area after the listbox entries. The
 selection determines the files which are affected by the operations which
 are available by using the buttons described below.
@@ -179,6 +188,17 @@ are available by using the buttons described below.
 The the left of the names two icons can be displayed: a disc to show that the
 file has been modified and information about which tags are present (V1, V2,
 V1V2 or NO TAG, no icon is displayed if the file has not been read in yet).
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Directory List</term>
+<listitem>
+<para>
+The directory list contains the names of the directories in the opened
+directory, as well as the current (<filename>.</filename>) and the parent
+(<filename>..</filename>) directory. It allows to quickly change the directory
+without using the <guimenuitem>Open...</guimenuitem> command or drag and drop.
 </para>
 </listitem>
 </varlistentry>
@@ -210,6 +230,12 @@ into the filename:
 </itemizedlist>
 
 <para>
+This format is also used to generate the tags from the filename. If the format
+of the filename does not match this pattern, a few other commonly used formats
+are tried.
+</para>
+
+<para>
 Some commonly used filename formats are already available in the combo box,
 but it is also possible to type in some special format into the line edit.
 </para>
@@ -224,7 +250,7 @@ and the ID3v2.3
 tags.
 </para>
 <para>
-<guibutton>Info</guibutton>: Shows information about MPEG version and layer,
+<guibutton>Info</guibutton>: Shows information about the encoding (MP3, Ogg, FLAC),
 bitrate, sample rate, channels and the length of the file.
 </para>
 </listitem>
@@ -254,7 +280,7 @@ numerical <guilabel>Year</guilabel> and <guilabel>Track</guilabel> edits and
 an empty selected value for the <guilabel>Genre</guilabel>
 combo box. The values can be changed and if the corresponding check box is
 checked, they will be set for the selected file after the selection is
-changed. The file is then marked as modified by an asterisk in the file
+changed. The file is then marked as modified by a disk symbol in the file
 listbox but remains unchanged until the <guimenuitem>Save</guimenuitem>
 command is used.
 </para>
@@ -268,17 +294,27 @@ selected files when the selection is changed and can be saved using the
 <guimenuitem>Save</guimenuitem> command.
 </para>
 <para>
+The check boxes also control the operation of most commands affecting the
+tags, such as copy, paste and transfer between V1 and V2 tags. To make it
+easier to use with multiple files where all check boxes are unchecked, these
+commands behave in the same way when all check boxes are checked and when all
+check boxes are unchecked.
+</para>
+<para>
 <guibutton>From Filename</guibutton>: The tags are set from the filename.
-The filename should be in one of the supported formats:
+First, the format specified in <guilabel>Format</guilabel> is used. If the
+existing filename does not match this format, the following formats
+are tried:
 <itemizedlist>
-<listitem><para><filename>Artist - Album/Track Song.mp3</filename></para></listitem>
-<listitem><para><filename>Album/Track - Artist - Song.mp3</filename></para></listitem>
-<listitem><para><filename>/Artist - Album - Track - Song.mp3</filename></para></listitem>
-<listitem><para><filename>Album/Artist - Track - Song.mp3</filename></para></listitem>
-<listitem><para><filename>Album/Artist - Song.mp3</filename></para></listitem>
+<listitem><para><filename>Artist - Album/Track Song</filename></para></listitem>
+<listitem><para><filename>Album/Track - Artist - Song</filename></para></listitem>
+<listitem><para><filename>/Artist - Album - Track - Song</filename></para></listitem>
+<listitem><para><filename>Album/Artist - Track - Song</filename></para></listitem>
+<listitem><para><filename>Album/Artist - Song</filename></para></listitem>
+<listitem><para><filename>Artist/Album/Track Song</filename></para></listitem>
 </itemizedlist>
 If a single file is selected, the GUI controls are filled with the values
-extraced from the filename. If multiple files are selected, the tags of the
+extracted from the filename. If multiple files are selected, the tags of the
 files are directly set according to the filenames.
 </para>
 <para>
@@ -388,8 +424,8 @@ reverted, else only the changes of the selected files are reverted.
 <guimenuitem>Import...</guimenuitem>
 </menuchoice></term>
 <listitem><para>The <action>Import dialog</action> can be used to import data
-directly from a freedb.org server, from the
-Web-interface of <ulink url="http://freedb.org">freedb.org</ulink> or other
+directly from a freedb.org server, from the Web-interface of <ulink
+url="http://freedb.org">freedb.org</ulink>, from a MusicBrainz server or other
 sources of album track lists in textual format.
 </para>
 <para>
@@ -408,6 +444,22 @@ reopened later by clicking <guibutton>From freedb.org</guibutton> again and
 its contents will be restored. When satisfied with the displayed tracks, they
 can be imported by terminating the import dialog with
 <guibutton>OK</guibutton>.
+</para>
+<para>
+Import from a MusicBrainz server is possible using the dialog which appears when
+<guibutton>From MusicBrainz</guibutton> is selected. Server and proxy can be
+selected as in the freedb import dialog. Below is a table displaying the
+imported track data. The right column shows the state of the MusicBrainz
+query, which starts with "Pending" when the dialog is opened. Then the TRM
+fingerprint is looked up and if it does not yield a result, another lookup
+using the tags in the file is tried. Thus it can be helpful for a successful
+MusicBrainz query to store known information (e.g. artist and album) in the
+tags before the import. If a result was found, the search ends in the state
+"Recognized", otherwise nothing was found or multiple ambiguous results and one
+of them has to be selected by the user.
+<guibutton>OK</guibutton> and <guibutton>Apply</guibutton> use the imported
+data, <guibutton>Cancel</guibutton> closes the dialog. The closing can take a
+while since the whole MusicBrainz machinery has to be shut down.
 </para>
 <para>
 For the import of textual data, several preconfigured import formats are
@@ -441,7 +493,7 @@ data such as artist, album, year and genre. The second line is tried to match
 from the start of the document to the end to get track data, usually number
 and title. The regular expressions include all the features offered by Qt,
 which is most of the what Perl offers. Bracketing constructs "(..)" create
-capture buffers for the fields to import and are preceeded by &kid3; specific
+capture buffers for the fields to import and are preceded by &kid3; specific
 codes to specify which field to capture. The codes are the same as used for
 the filename format:
 </para>
@@ -471,8 +523,8 @@ To check whether the imported tracks match the current set of files, the
 duration of the imported tracks can be compared with the duration of the
 files. This option can be enabled with the checkbox <guibutton>Check maximum
 allowable time difference</guibutton> and the maximum tolerated difference in
-time can be set in seconds. If a mismatch in a length or in the number of
-tracks is detected, it will be reported and the import can be canceled.
+time can be set in seconds. If a mismatch in a length is detected, the length
+is displayed with a red background in the preview table.
 </para>
 </listitem>
 </varlistentry>
@@ -484,7 +536,7 @@ tracks is detected, it will be reported and the import can be canceled.
 </menuchoice></term>
 <listitem><para><action>Creates an M3U playlist.</action> The file will be stored in
 the opened directory and have the same name as the directory, followed by
-an .m3u extension. The file simly contains the names of the files displayed
+an .m3u extension. The file simply contains the names of the files displayed
 in the file listbox, no special EXTM3U or EXTINFO lines are generated.
 If all files of an album are stored in a separate directory, this function
 can be used to generate a playlist for an album.</para></listitem>
@@ -591,10 +643,30 @@ longer actions such as opening or saving a directory.</para></listitem>
 <guimenu>Settings</guimenu>
 <guimenuitem>Configure Kid3...</guimenuitem>
 </menuchoice></term>
-<listitem><para>Opens the <action>configuration dialog</action>, which is used
+<listitem><para>Opens the <action>configuration dialog</action>, which
+consists of two pages, one for general settings and one, which is used
 to set the format for the strings in the tag fields and the filename.
 </para>
 <para>
+On the page <guilabel>General</guilabel> the check box <guilabel>Preserve file
+timestamp</guilabel> can be marked to preserve the file modification time
+stamp. The check box <guilabel>Use track/total number of tracks
+format</guilabel> controls whether the track number field of ID3v2 tags
+contains simply the track number or additionally the total number of tracks in
+the directory. The combo box <guilabel>Comment Field Name</guilabel> is only
+relevant for Ogg/Vorbis and FLAC files and sets the name of the field used for
+comments. Different applications seem to use different names, "COMMENT" for
+instance is used by xmms, whereas amaroK uses "DESCRIPTION".
+The <guilabel>Context Menu Commands</guilabel> table contains the commands
+which can be used from the context menu of the file list. For critical
+operations such as deleting files, it is advisable to mark
+<guilabel>Confirm</guilabel> to pop up a confirmation dialog before executing
+the command. To add and delete entries in this table, a context menu can be
+used.
+</para>
+<para>
+The page <guilabel>Format</guilabel> contains options for the format of
+filenames and tags.
 When <guilabel>Format while editing</guilabel> is checked, the format
 configuration is automatically used while editing text in the line edits. The
 format can be set separately for filenames and ID3 tags.
@@ -702,7 +774,11 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 <ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
 url="http://www.kde.org">KDE</ulink> is recommended but not necessary, as
 &kid3; can also be compiled as a Qt application. &kid3; can be compiled for
-systems where these libraries are available, e.g. for Linux and Windows.
+systems where these libraries are available, e.g. for GNU/Linux and Windows.
+To tag Ogg/Vorbis files, libogg, libvorbis and libvorbisfile are
+required, for FLAC files libFLAC++ and libFLAC. For MusicBrainz support,
+libtunepimp is used. As there does not exist a tunepimp SDK for Windows at the
+moment, the Windows version is compiled without MusicBrainz import.
 </para>
 <para>
 &kid3; was tested with
@@ -720,7 +796,19 @@ SuSE Linux 8.2: id3lib 3.8.2, id3lib 3.8.3, KDE 3.1.x, KDE 3.2.x,
 Qt 3.1.x, Qt 3.2.x, Qt 3.3.2
 </para>
 <para>
-Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt version 2.3.0.
+Debian GNU/Linux 3.1: id3lib 3.8.3, KDE 3.3.2, Qt 3.3.4, libvorbis 1.1.0,
+libogg 1.1.2, libflac++ 1.1.1, libtunepimp 0.3.0
+</para>
+<para>
+Ubuntu 5.10: id3lib 3.8.3, KDE 3.4.3, Qt 3.3.4, libvorbis 1.1.0,
+libogg 1.1.2, libflac++ 1.1.2, libtunepimp 0.3.0
+</para>
+<para>
+Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt version 2.3.0
+</para>
+<para>
+Windows 2000, XP: id3lib 3.8.3, non-commercial Qt Version 2.3.0,
+non-commercial Qt Version 3.2.1, libvorbis 1.1.0, libogg 1.1.2, FLAC 1.1.2
 </para>
 
 </sect1>
@@ -742,7 +830,7 @@ Go into the top directory and type
 </para>
 <para>
 To compile for different versions of Qt or KDE, set the corresponding
-configure options.
+<userinput>configure</userinput> options.
 </para>
 <para>
 To speed up compilation, &kid3; can use precompiled headers with GCC
