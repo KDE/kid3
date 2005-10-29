@@ -1,0 +1,59 @@
+kid3 (0.6-0) unstable; urgency=low 
+
+   * New upstream version: support for Ogg/Vorbis and FLAC files, import
+     from MusicBrainz, usability improvements.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Tue, 11 Oct 2005 21:42:29 +0200
+
+kid3 (0.5-6) unstable; urgency=low 
+
+   * Applied a patch from Urs Fleisch to fix a bug appearing when moving
+     a tag from ID3v2 to ID3v1 (closes: bug#320077).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sat, 10 Sep 2005 01:08:30 +0200 
+
+kid3 (0.5-5) unstable; urgency=low 
+
+   * Tightened the build-dependency on libid3-3.8.3-dev to (>= 3.8.3-4.2)
+     (closes: bug#325611).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 30 Aug 2005 07:48:14 +0200 
+
+kid3 (0.5-4) unstable; urgency=low 
+
+   * C++ transition: build-depends on libqt3-mt-dev (>= 3:3.3.4-7) and
+     kdelibs4-dev (>= 4:3.4.2-1).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 18 Aug 2005 10:53:10 +0200 
+
+kid3 (0.5-3) unstable; urgency=low
+
+  * Fixed po/de.po (closes: bug#314026). 
+
+ -- Aurelien Jarno <aurel32@debian.org>  Wed, 15 Jun 2005 11:34:40 +0200
+
+kid3 (0.5-2) unstable; urgency=low
+
+  * Included patch #1079111 (from kid3.sf.net) to handle filenames with 
+    accents correctly (closes: bug#291925).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Fri, 28 Jan 2005 02:12:50 +0100
+
+kid3 (0.5-1) unstable; urgency=low
+
+  * New upstream version (closes: bug#273073).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sun, 26 Sep 2004 00:22:06 +0200
+
+kid3 (0.4-2) unstable; urgency=low
+
+  * Improved description (closes: bug#246411). 
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 29 Apr 2004 02:11:57 +0200
+
+kid3 (0.4-1) unstable; urgency=low
+
+  * Initial Release (closes: bug#205938).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sat, 17 Apr 2004 19:02:02 +0200
+

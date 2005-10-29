@@ -1,0 +1,117 @@
+#!/usr/bin/make -f
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+pixmaps = $(CURDIR)/debian/kid3/usr/share/pixmaps
+bindir = $(CURDIR)/debian/kid3/usr/bin
+kdedocs = $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML
+
+INSTALL_DIR = install -p -d -o root -g root -m 755
+INSTALL_FILE = install -p -o root -g root -m 644
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -g
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+		
+build: build-stamp
+	
+-include debian/debiandirs
+
+debian/debiandirs: admin/debianrules
+	perl -w admin/debianrules echodirs > debian/debiandirs
+
+build-stamp:
+	dh_testdir
+
+	-test -r /usr/share/misc/config.sub && \
+	cp -f /usr/share/misc/config.sub admin/config.sub
+	-test -r /usr/share/misc/config.guess && \
+	cp -f /usr/share/misc/config.guess admin/config.guess
+				
+	if test ! -f configure; then \
+	  $(MAKE) -f admin/Makefile.common ;\
+	fi
+	-chmod 755 configure
+	QTDIR=/usr/share/qt3 ./configure \
+	                        --host=$(DEB_HOST_GNU_TYPE) \
+	                        --build=$(DEB_BUILD_GNU_TYPE) \
+	                        $(configkde)
+	$(MAKE)
+	touch build-stamp
+
+clean: debian-clean
+	dh_clean
+
+debian-clean:
+	dh_testdir
+	if test -d CVS; then \
+	   make -f admin/Makefile.common cvs-clean ;\
+	fi
+	-$(MAKE) distclean
+	-rm -f *-stamp
+	-rm -f debian/debiandirs
+	-rm -f admin/config.sub admin/config.guess
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	# Main install.
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/kid3
+
+	# Make common links for docs.
+	for p in `dh_listpackages`; do \
+	  for i in `find $(kdedocs) -type d -name $$p -not -regex .*/en/$$p`; do \
+	    ln -f -n -s ../../en/common $$i/common; done; done
+
+	perl -w admin/debianrules cleanup
+	
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+#	dh_installdebconf	
+	dh_installdocs
+#	dh_installexamples
+	dh_installmenu
+#	dh_installlogrotate
+#	dh_installemacsen
+#	dh_installpam
+#	dh_installmime
+#	dh_installinit
+#	dh_installcron
+	dh_installman
+#	dh_installinfo
+	dh_installchangelogs ChangeLog
+	dh_link
+	dh_strip
+	dh_compress --exclude=.docbook
+	dh_fixperms
+#	dh_makeshlibs
+	dh_installdeb
+#	dh_perl
+	dh_shlibdeps
+
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure
