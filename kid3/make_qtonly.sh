@@ -1,8 +1,10 @@
 #!/bin/sh
 # Build without KDE
 
-KDEDIR=/opt/kde3
-QTDIR=/usr/lib/qt3
+KDEDIR=/usr
+# SUSE: KDEDIR=/opt/kde3
+QTBINDIR=/usr/bin
+# SUSE: QTBINDIR=/usr/lib/qt3/bin
 INSTALL="/usr/bin/install -c -p"
 
 finish_html() {
@@ -11,18 +13,18 @@ perl -ne "s/ufleisch@/ufleisch at /g; s/common\/fdl-license.html/http:\/\/www.gn
 }
 
 DESTDIR=$1
-echo $DESTDIR
 test -z $DESTDIR && DESTDIR=./kid3qt
-echo $DESTDIR
 
 ./configure --without-kde
 make
 $INSTALL -d $DESTDIR
 $INSTALL ./kid3/kid3 $DESTDIR/kid3
 cat po/de.po kid3/de_qt.po >tmp.po
-$QTDIR/bin/msg2qm tmp.po $DESTDIR/kid3_de.qm
+$QTBINDIR/msg2qm tmp.po $DESTDIR/kid3_de.qm
 cat po/ru.po kid3/ru_qt.po >tmp.po
-$QTDIR/bin/msg2qm tmp.po $DESTDIR/kid3_ru.qm
+$QTBINDIR/msg2qm tmp.po $DESTDIR/kid3_ru.qm
+cat po/es.po kid3/es_qt.po >tmp.po
+$QTBINDIR/msg2qm tmp.po $DESTDIR/kid3_es.qm
 rm -f tmp.po
 SGML_CATALOG_FILES=$KDEDIR/share/apps/ksgmltools2/customization/catalog xsltproc --catalogs $KDEDIR/share/apps/ksgmltools2/docbook/xsl/html/docbook.xsl doc/en/index.docbook | finish_html >$DESTDIR/kid3_en.html
 SGML_CATALOG_FILES=$KDEDIR/share/apps/ksgmltools2/customization/catalog xsltproc --catalogs $KDEDIR/share/apps/ksgmltools2/docbook/xsl/html/docbook.xsl doc/de/index.docbook | finish_html >$DESTDIR/kid3_de.html
