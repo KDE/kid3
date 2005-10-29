@@ -11,17 +11,20 @@
 #define IMPORTDIALOG_H
 
 #include "config.h"
+#include "importtrackdata.h"
 #ifdef CONFIG_USE_KDE
 #include <kdialogbase.h>
 #else
 #include <qdialog.h>
 #endif
-#include <qvaluelist.h>
 
 class ImportSelector;
 class FreedbConfig;
 class QCheckBox;
 class QSpinBox;
+#ifdef HAVE_TUNEPIMP
+class MusicBrainzConfig;
+#endif
 
 /**
  * Import dialog.
@@ -37,35 +40,17 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param parent  parent widget
-	 * @param caption dialog title
+	 * @param parent        parent widget
+	 * @param caption       dialog title
+	 * @param trackDataList track data to be filled with imported values,
+	 *                      is passed with durations of files set
 	 */
-	ImportDialog(QWidget *parent, QString &caption);
+	ImportDialog(QWidget *parent, QString &caption,
+							 ImportTrackDataVector& trackDataList);
 	/**
 	 * Destructor.
 	 */
 	~ImportDialog();
-	/**
-	 * Look for album specific information (artist, album, year, genre) in
-	 * a header (e.g. in a freedb header).
-	 *
-	 * @param st standard tags to put resulting values in,
-	 *           fields which are not found are not touched.
-	 *
-	 * @return true if one or more field were found.
-	 */
-	bool parseHeader(StandardTags &st);
-	/**
-	 * Get next line as standardtags from imported file or clipboard.
-	 *
-	 * @param st standard tags
-	 * @param start true to start with the first line, false for all
-	 *              other lines
-	 *
-	 * @return true if ok (result in st),
-	 *         false if end of file reached.
-	 */
-	bool getNextTags(StandardTags &st, bool start = false);
 	/**
 	 * Set ID3v1 or ID3v2 tags as destination.
 	 *
@@ -129,19 +114,24 @@ public:
 	 * @param cfg freedb configuration.
 	 */
 	void getFreedbConfig(FreedbConfig *cfg) const;
+#ifdef HAVE_TUNEPIMP
 	/**
-	 * Get list with track durations.
+	 * Set MusicBrainz configuration.
 	 *
-	 * @return list with track durations,
-	 *         0 if no track durations found.
+	 * @param cfg musicBrainz configuration.
 	 */
-	QValueList<int>* getTrackDurations();
-
+	void setMusicBrainzConfig(const MusicBrainzConfig* cfg);
+	/**
+	 * Get MusicBrainz configuration.
+	 *
+	 * @param cfg MusicBrainz configuration.
+	 */
+	void getMusicBrainzConfig(MusicBrainzConfig* cfg) const;
+#endif
 private:
 	/** import selector widget */
 	ImportSelector *impsel;
-	QCheckBox* mismatchCheckBox;
-	QSpinBox* maxDiffSpinBox;
+	ImportTrackDataVector& m_trackDataVector;
 };
 
 #endif

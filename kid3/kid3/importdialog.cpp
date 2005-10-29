@@ -29,15 +29,19 @@
 /**
  * Constructor.
  *
- * @param parent  parent widget
- * @param caption dialog title
+ * @param parent        parent widget
+ * @param caption       dialog title
+ * @param trackDataList track data to be filled with imported values,
+ *                      is passed with durations of files set
  */
-ImportDialog::ImportDialog(QWidget *parent, QString &caption)
+ImportDialog::ImportDialog(QWidget *parent, QString &caption,
+													 ImportTrackDataVector& trackDataList)
 #ifdef CONFIG_USE_KDE
-	: KDialogBase(parent, "import", true, caption, Ok|Cancel, Ok)
+	: KDialogBase(parent, "import", true, caption, Ok|Cancel, Ok),
 #else
-	: QDialog(parent, "import", true)
+	: QDialog(parent, "import", true),
 #endif
+		m_trackDataVector(trackDataList)
 {
 
 #ifdef CONFIG_USE_KDE
@@ -57,30 +61,15 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption)
 	}
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
-	impsel = new ImportSelector(page);
+	impsel = new ImportSelector(page, m_trackDataVector);
 	vlayout->addWidget(impsel);
-
-	QHBoxLayout* checkLayout = new QHBoxLayout(vlayout);
-	if (checkLayout) {
-		mismatchCheckBox = new QCheckBox(page);
-		mismatchCheckBox->setText(
-			i18n("Check maximum allowable time difference (sec):"));
-		maxDiffSpinBox = new QSpinBox(page);
-		maxDiffSpinBox->setMaxValue(9999);
-		if (mismatchCheckBox && maxDiffSpinBox) {
-			checkLayout->addSpacing(vlayout->margin() * 2);
-			checkLayout->addWidget(mismatchCheckBox);
-			checkLayout->addWidget(maxDiffSpinBox);
-			checkLayout->addStretch();
-		}
-	}
 
 #ifndef CONFIG_USE_KDE
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
 	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	QPushButton *okButton = new QPushButton(i18n("OK"), page);
-	QPushButton *cancelButton = new QPushButton(i18n("Cancel"), page);
+	QPushButton *okButton = new QPushButton(i18n("&OK"), page);
+	QPushButton *cancelButton = new QPushButton(i18n("&Cancel"), page);
 	if (hlayout && okButton && cancelButton) {
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
@@ -98,35 +87,6 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption)
  */
 ImportDialog::~ImportDialog()
 {}
-
-/**
- * Look for album specific information (artist, album, year, genre) in
- * a header (e.g. in a freedb header).
- *
- * @param st standard tags to put resulting values in,
- *           fields which are not found are not touched.
- *
- * @return true if one or more field were found.
- */
-bool ImportDialog::parseHeader(StandardTags &st)
-{
-	return impsel->parseHeader(st);
-}
-
-/**
- * Get next line as standardtags from imported file or clipboard.
- *
- * @param st standard tags
- * @param start true to start with the first line, false for all
- *              other lines
- *
- * @return true if ok (result in st),
- *         false if end of file reached.
- */
-bool ImportDialog::getNextTags(StandardTags &st, bool start)
-{
-	return impsel->getNextTags(st, start);
-}
 
 /**
  * Set ID3v1 or ID3v2 tags as import destination.
@@ -173,8 +133,7 @@ void ImportDialog::setImportFormat(const QStringList &names,
  */ 
 void ImportDialog::setTimeDifferenceCheck(bool enable, int maxDiff)
 {
-	mismatchCheckBox->setChecked(enable);
-	maxDiffSpinBox->setValue(maxDiff);
+	impsel->setTimeDifferenceCheck(enable, maxDiff);
 }
 
 /**
@@ -185,8 +144,7 @@ void ImportDialog::setTimeDifferenceCheck(bool enable, int maxDiff)
  */ 
 void ImportDialog::getTimeDifferenceCheck(bool& enable, int& maxDiff) const
 {
-	enable = mismatchCheckBox->isChecked();
-	maxDiff = maxDiffSpinBox->value();
+	impsel->getTimeDifferenceCheck(enable, maxDiff);
 }
 
 /**
@@ -225,13 +183,24 @@ void ImportDialog::getFreedbConfig(FreedbConfig *cfg) const
 	impsel->getFreedbConfig(cfg);
 }
 
+#ifdef HAVE_TUNEPIMP
 /**
- * Get list with track durations.
+ * Set MusicBrainz configuration.
  *
- * @return list with track durations,
- *         0 if no track durations found.
+ * @param cfg MusicBrainz configuration.
  */
-QValueList<int>* ImportDialog::getTrackDurations()
+void ImportDialog::setMusicBrainzConfig(const MusicBrainzConfig* cfg)
 {
-	return impsel->getTrackDurations();
+	impsel->setMusicBrainzConfig(cfg);
 }
+
+/**
+ * Get MusicBrainz configuration.
+ *
+ * @param cfg MusicBrainz configuration.
+ */
+void ImportDialog::getMusicBrainzConfig(MusicBrainzConfig* cfg) const
+{
+	impsel->getMusicBrainzConfig(cfg);
+}
+#endif
