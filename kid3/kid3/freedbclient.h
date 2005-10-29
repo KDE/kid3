@@ -51,6 +51,17 @@ public:
 	 * @param id  ID
 	 */
 	void getTrackList(const FreedbConfig *cfg, QString cat, QString id);
+
+	/**
+	 * Extract name and port from string.
+	 *
+	 * @param namePort input string with "name:port"
+	 * @param name     output string with "name"
+	 * @param port     output integer with port
+	 */
+	static void splitNamePort(const QString &namePort,
+														QString &name, int &port);
+
 private slots:
 	/**
 	 * Display status if host is found.
