@@ -10,6 +10,7 @@ make install
 
 To use precompiled headers (GCC 3.4):
 ./configure --enable-gcc-pch # for SuSE use option --prefix=/opt/kde3
+# for Debian: ./configure --prefix=/usr --enable-gcc-pch CC=/usr/bin/gcc-3.4 CXX=/usr/bin/g++-3.4
 make pch
 make
 make install
@@ -20,6 +21,22 @@ make install
 
 The install directory can be given as an optional parameter,
 default is kid3qt.
+
+*** Create Debian Package
+
+Make sure that you have installed all packages listed in debian/control,
+section Build-Depends.
+
+dpkg-buildpackage -rfakeroot -nc
+
+*** Create RPM Package
+
+Eventually change the prefix (/opt/kde3) and the configure arguments in
+kid3.spec. They should work with SUSE. Copy kid3.spec into the SPEC directory
+and the tar.gz archive into the SOURCES directory.
+
+rpm -ba kid3.spec
+ 
 
 *** Windows
 
