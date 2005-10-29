@@ -22,33 +22,24 @@
 #include <qlabel.h>
 #include <qdir.h>
 
-#include "mp3file.h"
+#include "taggedfile.h"
 #include "standardtags.h"
+#include "miscconfig.h"
 #include "rendirdialog.h"
-
-static const char *formatList[] = {
-	"%a - %l",
-	"%a - [%y] %l",
-	"%a/%l",
-	"%a/[%y] %l",
-	0                  // end of StrList
-};
-
-const char **RenDirDialog::dirFmtList = &formatList[0];
 
 /**
  * Constructor.
  *
  * @param parent     parent widget
  * @param caption    dialog title
- * @param mp3        MP3 file to use for rename preview
+ * @param taggedFile file to use for rename preview
  * @param formatItem directory format item
  * @param formatText directory format
  */
 RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
-						   Mp3File *mp3,
+						   TaggedFile *taggedFile,
 						   int formatItem, const QString &formatText) :
-	QDialog(parent, "rendir", true), mp3file(mp3)
+	QDialog(parent, "rendir", true), m_taggedFile(taggedFile)
 {
 	setCaption(caption);
 
@@ -73,17 +64,10 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 		connect(tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
 	}
 	QHBoxLayout *formatLayout = new QHBoxLayout(vlayout);
-	QLabel *formatLabel = new QLabel(i18n("Format:"), this);
+	QLabel *formatLabel = new QLabel(i18n("&Format:"), this);
 	formatComboBox = new QComboBox(this);
 	if (formatLayout && formatLabel && formatComboBox) {
-		static const char *formatList[] = {
-			"%a - %l",
-			"%a - [%y] %l",
-			"%a/%l",
-			"%a/[%y] %l",
-			0                  // end of StrList
-		};
-		formatComboBox->insertStrList(formatList);
+		formatComboBox->insertStrList(MiscConfig::defaultDirFmtList);
 		formatComboBox->setEditable(true);
 		formatComboBox->setCurrentItem(formatItem);
 #if QT_VERSION >= 300
@@ -91,6 +75,7 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 #else
 		formatComboBox->setEditText(formatText);
 #endif
+		formatLabel->setBuddy(formatComboBox);
 		formatLayout->addWidget(formatLabel);
 		formatLayout->addWidget(formatComboBox);
 		connect(formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
@@ -113,8 +98,8 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
 	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	QPushButton *okButton = new QPushButton(i18n("OK"), this);
-	QPushButton *cancelButton = new QPushButton(i18n("Cancel"), this);
+	QPushButton *okButton = new QPushButton(i18n("&OK"), this);
+	QPushButton *cancelButton = new QPushButton(i18n("&Cancel"), this);
 	if (hlayout && okButton && cancelButton) {
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
@@ -251,22 +236,22 @@ bool RenDirDialog::renameFile(const QString &oldfn, const QString &newfn,
 /**
  * Generate new directory name according to current settings.
  *
- * @param mp3 MP3 file to get information from
+ * @param taggedFile file to get information from
  * @param newdir pointer to QString to place old directory name into,
  *               NULL if not used
  *
  * @return new directory name.
  */
-QString RenDirDialog::generateNewDirname(Mp3File *mp3, QString *olddir)
+QString RenDirDialog::generateNewDirname(TaggedFile *taggedFile, QString *olddir)
 {
 	StandardTags st;
-	mp3->readTags(false);
+	taggedFile->readTags(false);
 	if (tagversionComboBox->currentItem() == TagV1) {
-		mp3->getStandardTagsV1(&st);
+		taggedFile->getStandardTagsV1(&st);
 	} else {
-		mp3->getStandardTagsV2(&st);
+		taggedFile->getStandardTagsV2(&st);
 	}
-	QString newdir(mp3->getDirname());
+	QString newdir(taggedFile->getDirname());
 	if (
 #if QT_VERSION >= 300
 		newdir.endsWith(QChar('/'))
@@ -285,7 +270,7 @@ QString RenDirDialog::generateNewDirname(Mp3File *mp3, QString *olddir)
 	} else if (!newdir.isEmpty()) {
 		newdir.append('/');
 	}
-	newdir.append(mp3->formatWithTags(&st, formatComboBox->currentText()));
+	newdir.append(taggedFile->formatWithTags(&st, formatComboBox->currentText(), true));
 	return newdir;
 }
 
@@ -314,9 +299,9 @@ QString RenDirDialog::getNewDirname(void) const
  */
 void RenDirDialog::slotUpdateNewDirname()
 {
-	if (mp3file) {
+	if (m_taggedFile) {
 		QString currentDirname;
-		QString newDirname(generateNewDirname(mp3file, &currentDirname));
+		QString newDirname(generateNewDirname(m_taggedFile, &currentDirname));
 		currentDirLabel->setText(currentDirname);
 		setNewDirname(newDirname);
 	}
@@ -325,7 +310,7 @@ void RenDirDialog::slotUpdateNewDirname()
 /**
  * Perform renaming or creation of directory according to current settings.
  *
- * @param mp3      MP3 file to take directory from and to move
+ * @param taggedFile file to take directory from and to move
  * @param again    is set true if the new directory (getNewDirname())
  *                 should be read and processed again
  * @param errorMsg if not NULL and an error occurred, a message is appended here,
@@ -334,10 +319,10 @@ void RenDirDialog::slotUpdateNewDirname()
  * @return true if other files can be processed,
  *         false if operation is finished.
  */
-bool RenDirDialog::performAction(Mp3File *mp3, bool& again, QString *errorMsg)
+bool RenDirDialog::performAction(TaggedFile *taggedFile, bool& again, QString *errorMsg)
 {
 	QString currentDirname;
-	QString newDirname(generateNewDirname(mp3, &currentDirname));
+	QString newDirname(generateNewDirname(taggedFile, &currentDirname));
 	bool result = true;
 	again = false;
 	if (newDirname != currentDirname) {
@@ -364,9 +349,9 @@ bool RenDirDialog::performAction(Mp3File *mp3, bool& again, QString *errorMsg)
 				if (createDirectory(currentDirname + newPart, errorMsg)) {
 					if (!createDir) {
 						renameFile(dirWithFiles + '/' +
-								   mp3->getFilename(),
+								   taggedFile->getFilename(),
 								   currentDirname + newPart +
-								   '/' + mp3->getFilename(),
+								   '/' + taggedFile->getFilename(),
 								   errorMsg);
 					}
 					currentDirname = currentDirname + newPart;
@@ -387,9 +372,9 @@ bool RenDirDialog::performAction(Mp3File *mp3, bool& again, QString *errorMsg)
 				if (QFileInfo(parent + newPart).isDir()) {
 					// directory already exists => move files
 					if (renameFile(currentDirname + '/' +
-								   mp3->getFilename(),
+								   taggedFile->getFilename(),
 								   parent + newPart +
-								   '/' + mp3->getFilename(),
+								   '/' + taggedFile->getFilename(),
 								   errorMsg)) {
 						currentDirname = parent + newPart;
 					}

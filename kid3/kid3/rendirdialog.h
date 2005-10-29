@@ -15,7 +15,7 @@
 
 class QComboBox;
 class QLabel;
-class Mp3File;
+class TaggedFile;
 
 /**
  * Rename directory dialog.
@@ -29,12 +29,12 @@ public:
 	 *
 	 * @param parent     parent widget
 	 * @param caption    dialog title
-	 * @param mp3        MP3 file to use for rename preview
+	 * @param taggedFile file to use for rename preview
 	 * @param formatItem directory format item
 	 * @param formatText directory format
 	 */
 	RenDirDialog(QWidget *parent, const QString &caption,
-				 Mp3File *mp3,
+				 TaggedFile *taggedFile,
 				 int formatItem, const QString &formatText);
 	/**
 	 * Destructor.
@@ -55,17 +55,17 @@ public:
 	/**
 	 * Generate new directory name according to current settings.
 	 *
-	 * @param mp3    MP3 file to get information from
+	 * @param taggedFile file to get information from
 	 * @param olddir pointer to QString to place old directory name into,
 	 *               NULL if not used
 	 *
 	 * @return new directory name.
 	 */
-	QString generateNewDirname(Mp3File *mp3, QString *olddir);
+	QString generateNewDirname(TaggedFile *taggedFile, QString *olddir);
 	/**
 	 * Perform renaming or creation of directory according to current settings.
 	 *
-	 * @param mp3      MP3 file to take directory from and to move
+	 * @param taggedFile file to take directory from and to move
 	 * @param again    is set true if the new directory (getNewDirname())
 	 *                 should be read and processed again
 	 * @param errorMsg if not NULL and an error occurred, a message is appended here,
@@ -74,7 +74,7 @@ public:
 	 * @return true if other files can be processed,
 	 *         false if operation is finished.
 	 */
-	bool performAction(Mp3File *mp3, bool& again, QString *errorMsg);
+	bool performAction(TaggedFile *taggedFile, bool& again, QString *errorMsg);
 	/**
 	 * Get currently selected directory format item.
 	 *
@@ -87,8 +87,6 @@ public:
 	 * @return directory format.
 	 */
 	QString getFormatText(void) const;
-	/** List with directory name formats */
-	static const char **dirFmtList;
 
 private slots:
 	/**
@@ -142,7 +140,7 @@ private:
 	QComboBox *tagversionComboBox;
 	QLabel *currentDirLabel;
 	QLabel *newDirLabel;
-	Mp3File *mp3file;
+	TaggedFile* m_taggedFile;
 };
 
 #endif
