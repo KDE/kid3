@@ -13,6 +13,7 @@
 #include <qvariant.h>
 #include <qsplitter.h>
 #include "filelist.h"
+#include "standardtags.h"
 
 class QVBoxLayout;
 class QGridLayout;
@@ -29,9 +30,9 @@ class QSplitter;
 class QScrollView;
 class QVBox;
 class QHBox;
-class StandardTags;
 class Kid3ScrollView;
 class FormatConfig;
+class DirList;
 
 /**
  * Main widget.
@@ -49,6 +50,27 @@ public:
 	 */
 	id3Form(QWidget* parent = 0, const char* name = 0);
 
+	/**
+	 * Get filter from ID3v1 check boxes.
+	 *
+	 * @return filter.
+	 */
+	StandardTagsFilter getFilterFromID3V1();
+
+	/**
+	 * Get filter from ID3v2 check boxes.
+	 *
+	 * @return filter.
+	 */
+	StandardTagsFilter getFilterFromID3V2();
+
+	/**
+	 * Enable or disable controls requiring ID3v1 tags.
+	 *
+	 * @param enable true to enable
+	 */
+	void enableControlsV1(bool enable);
+
 	FileList *mp3ListBox;
 	QComboBox* genreV1ComboBox;
 	QComboBox* genreV2ComboBox;
@@ -58,6 +80,8 @@ public:
 	QListBox* framesListBox;
 	QLineEdit* titleV1LineEdit;
 	QLineEdit* titleV2LineEdit;
+	QSplitter* m_vSplitter;
+	DirList* m_dirListBox;
 
 public slots:
 	/**
@@ -196,6 +220,12 @@ public slots:
 	 * @param txt contents of line edit
 	 */
 	virtual void titleV2LineEditChanged(const QString &txt);
+	/**
+	 * Directory list box directory selected.
+	 *
+	 * @param item selected item
+	 */
+	virtual void dirSelected(QListBoxItem* item);
 
 private:
 	/**

@@ -20,6 +20,7 @@
 #include <qtooltip.h>
 #include <qvbox.h>
 #include <qsplitter.h>
+#include <qdir.h>
 
 #include "config.h"
 #ifdef CONFIG_USE_KDE
@@ -34,10 +35,10 @@
 #include "filelist.h"
 #include "genres.h"
 #include "kid3.h"
-#include "standardtags.h"
 #include "miscconfig.h"
 #include "formatconfig.h"
 #include "id3form.h"
+#include "dirlist.h"
 
 /**
  * A QScrollView which returns the sizeHint of its child.
@@ -117,8 +118,11 @@ id3Form::id3Form(QWidget* parent, const char* name)
 {
 	setAcceptDrops(TRUE);
 	setCaption(i18n("Kid3"));
-	mp3ListBox = new FileList(this, "mp3ListBox");
+
+	m_vSplitter = new QSplitter(Vertical, this, "vSplitter");
+	mp3ListBox = new FileList(m_vSplitter, "mp3ListBox");
 	mp3ListBox->setSelectionMode(QListBox::Extended);
+	m_dirListBox = new DirList(m_vSplitter, "dirListBox");
 
 	scrollView = new Kid3ScrollView(this);
 	scrollView->setResizePolicy(QScrollView::AutoOneFit);
@@ -129,7 +133,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 
 
 	filenameGroupBox = new QGroupBox(rightHalfVBox, "filenameGroupBox");
-	filenameGroupBox->setTitle(i18n("Filename"));
+	filenameGroupBox->setTitle(i18n("File&name"));
 	filenameGroupBoxLayout = new QGridLayout(filenameGroupBox, 3, 3, 16, 6);
 
 	nameLabel = new QLabel(filenameGroupBox, "nameLabel");
@@ -162,7 +166,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	filenameGroupBoxLayout->addMultiCellWidget(detailsLabel, 2, 2, 1, 2);
 
 	idV1GroupBox = new QGroupBox(rightHalfVBox, "idV1GroupBox");
-	idV1GroupBox->setTitle(i18n("ID3v1.1"));
+	idV1GroupBox->setTitle(i18n("ID3v&1.1"));
 	idV1GroupBoxLayout = new QGridLayout(idV1GroupBox, 6, 3, 16, 6);
 
 	titleV1CheckBox = new QCheckBox(idV1GroupBox, "titleV1CheckBox");
@@ -229,6 +233,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	trackV1CheckBox = new QCheckBox(trackV1HBox, "trackV1CheckBox");
 	trackV1CheckBox->setText(i18n("Track:"));
 	trackV1SpinBox = new QSpinBox(trackV1HBox, "trackV1SpinBox");
+	trackV1SpinBox->setMaxValue(255);
 	idV1GroupBoxLayout->addWidget(trackV1HBox, 4, 1);
 
 	genreV1CheckBox = new QCheckBox(idV1GroupBox, "genreV1CheckBox");
@@ -239,7 +244,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	idV1GroupBoxLayout->addWidget(genreV1ComboBox, 5, 1);
 
 	idV2GroupBox = new QGroupBox(rightHalfVBox, "idV2GroupBox");
-	idV2GroupBox->setTitle(i18n("ID3v2.3"));
+	idV2GroupBox->setTitle(i18n("ID3v&2.3"));
 
 	idV2GroupBoxLayout = new QGridLayout(idV2GroupBox, 7, 3, 16, 6);
 	idV2GroupBoxLayout->setAlignment(Qt::AlignTop);
@@ -300,6 +305,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	trackV2CheckBox = new QCheckBox(trackV2HBox, "trackV2CheckBox");
 	trackV2CheckBox->setText(i18n("Track:"));
 	trackV2SpinBox = new QSpinBox(trackV2HBox, "trackV2SpinBox");
+	trackV2SpinBox->setMaxValue(999);
 	idV2GroupBoxLayout->addWidget(trackV2HBox, 4, 1);
 
 	removeV2PushButton = new QPushButton(idV2GroupBox, "removeV2PushButton");
@@ -355,6 +361,8 @@ id3Form::id3Form(QWidget* parent, const char* name)
 			SLOT(fileSelected()));
 	connect(framesListBox, SIGNAL(doubleClicked(QListBoxItem*)), this,
 			SLOT(editFrame()));
+	connect(framesListBox, SIGNAL(returnPressed(QListBoxItem*)), this,
+			SLOT(editFrame()));
 	connect(framesAddPushButton, SIGNAL(clicked()), this, SLOT(addFrame()));
 	connect(deleteFramesPushButton, SIGNAL(clicked()), this,
 			SLOT(deleteFrame()));
@@ -375,9 +383,20 @@ id3Form::id3Form(QWidget* parent, const char* name)
 			SLOT(artistV2LineEditChanged(const QString &)));
 	connect(titleV2LineEdit, SIGNAL(textChanged(const QString &)), this,
 			SLOT(titleV2LineEditChanged(const QString &)));
+	connect(m_dirListBox, SIGNAL(doubleClicked(QListBoxItem *)), this,
+			SLOT(dirSelected(QListBoxItem *)));
+	connect(m_dirListBox, SIGNAL(returnPressed(QListBoxItem *)), this,
+			SLOT(dirSelected(QListBoxItem *)));
 
 	// tab order
-	setTabOrder(mp3ListBox, titleV1CheckBox);
+	setTabOrder(mp3ListBox, m_dirListBox);
+	setTabOrder(m_dirListBox, filenameGroupBox);
+	setTabOrder(filenameGroupBox, nameLineEdit);
+	setTabOrder(nameLineEdit, formatComboBox);
+	setTabOrder(formatComboBox, fnV1Button);
+	setTabOrder(fnV1Button, fnV2Button);
+	setTabOrder(fnV2Button, idV1GroupBox);
+	setTabOrder(idV1GroupBox, titleV1CheckBox);
 	setTabOrder(titleV1CheckBox, titleV1LineEdit);
 	setTabOrder(titleV1LineEdit, artistV1CheckBox);
 	setTabOrder(artistV1CheckBox, artistV1LineEdit);
@@ -396,7 +415,8 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	setTabOrder(id3V1PushButton, copyV1PushButton);
 	setTabOrder(copyV1PushButton, pasteV1PushButton);
 	setTabOrder(pasteV1PushButton, removeV1PushButton);
-	setTabOrder(removeV1PushButton, titleV2CheckBox);
+	setTabOrder(removeV1PushButton, idV2GroupBox);
+	setTabOrder(idV2GroupBox, titleV2CheckBox);
 	setTabOrder(titleV2CheckBox, titleV2LineEdit);
 	setTabOrder(titleV2LineEdit, artistV2CheckBox);
 	setTabOrder(artistV2CheckBox, artistV2LineEdit);
@@ -418,6 +438,16 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	setTabOrder(removeV2PushButton, framesListBox);
 	setTabOrder(framesListBox, framesAddPushButton);
 	setTabOrder(framesAddPushButton, deleteFramesPushButton);
+
+	// go to next line edit when pressing enter
+	connect(titleV1LineEdit, SIGNAL(returnPressed()), artistV1LineEdit, SLOT(setFocus()));
+	connect(artistV1LineEdit, SIGNAL(returnPressed()), albumV1LineEdit, SLOT(setFocus()));
+	connect(albumV1LineEdit, SIGNAL(returnPressed()), commentV1LineEdit, SLOT(setFocus()));
+	connect(commentV1LineEdit, SIGNAL(returnPressed()), yearV1SpinBox, SLOT(setFocus()));
+	connect(titleV2LineEdit, SIGNAL(returnPressed()), artistV2LineEdit, SLOT(setFocus()));
+	connect(artistV2LineEdit, SIGNAL(returnPressed()), albumV2LineEdit, SLOT(setFocus()));
+	connect(albumV2LineEdit, SIGNAL(returnPressed()), commentV2LineEdit, SLOT(setFocus()));
+	connect(commentV2LineEdit, SIGNAL(returnPressed()), yearV2SpinBox, SLOT(setFocus()));
 }
 
 /**
@@ -460,7 +490,6 @@ void id3Form::copyV1()
 	StandardTags st;
 	getStandardTagsV1(&st);
 	theApp->copyTags(&st);
-
 }
 
 /**
@@ -478,11 +507,7 @@ void id3Form::copyV2()
  */
 void id3Form::removeV2()
 {
-	StandardTags st;
-	st.setEmpty();
-	setStandardTagsV2(&st);
 	theApp->removeTagsV2();
-	framesListBox->clear();
 }
 
 /**
@@ -490,10 +515,7 @@ void id3Form::removeV2()
  */
 void id3Form::pasteV1()
 {
-	StandardTags st;
-	getStandardTagsV1(&st);
-	theApp->pasteTags(&st);
-	setStandardTagsV1(&st);
+	theApp->pasteTagsV1();
 }
 
 /**
@@ -501,10 +523,7 @@ void id3Form::pasteV1()
  */
 void id3Form::pasteV2()
 {
-	StandardTags st;
-	getStandardTagsV2(&st);
-	theApp->pasteTags(&st);
-	setStandardTagsV2(&st);
+	theApp->pasteTagsV2();
 }
 
 /**
@@ -512,9 +531,6 @@ void id3Form::pasteV2()
  */
 void id3Form::removeV1()
 {
-	StandardTags st;
-	st.setEmpty();
-	setStandardTagsV1(&st);
 	theApp->removeTagsV1();
 }
 
@@ -809,4 +825,68 @@ void id3Form::formatLineEdit(QLineEdit *le, const QString &txt,
 			le->setCursorPosition(curPos);
 		}
 	}
+}
+
+/**
+ * Directory list box directory selected.
+ *
+ * @param item selected item
+ */
+void id3Form::dirSelected(QListBoxItem* item) {
+	QDir dir(m_dirListBox->getDirname() + QDir::separator() +
+					 item->text());
+	QString dirPath = dir.absPath();
+	if (!dirPath.isEmpty()) {
+		theApp->openDirectory(dirPath, true);
+	}
+}
+
+/**
+ * Get filter from ID3v1 check boxes.
+ *
+ * @return filter.
+ */
+StandardTagsFilter id3Form::getFilterFromID3V1()
+{
+	StandardTagsFilter flt;
+	flt.m_enableTitle   = titleV1CheckBox->isChecked();
+	flt.m_enableArtist  = artistV1CheckBox->isChecked();
+	flt.m_enableAlbum   = albumV1CheckBox->isChecked();
+	flt.m_enableComment = commentV1CheckBox->isChecked();
+	flt.m_enableYear    = yearV1CheckBox->isChecked();
+	flt.m_enableTrack   = trackV1CheckBox->isChecked();
+	flt.m_enableGenre   = genreV1CheckBox->isChecked();
+	flt.allFalseToAllTrue();
+	return flt;
+}
+
+/**
+ * Get filter from ID3v2 check boxes.
+ *
+ * @return filter.
+ */
+StandardTagsFilter id3Form::getFilterFromID3V2()
+{
+	StandardTagsFilter flt;
+	flt.m_enableTitle   = titleV2CheckBox->isChecked();
+	flt.m_enableArtist  = artistV2CheckBox->isChecked();
+	flt.m_enableAlbum   = albumV2CheckBox->isChecked();
+	flt.m_enableComment = commentV2CheckBox->isChecked();
+	flt.m_enableYear    = yearV2CheckBox->isChecked();
+	flt.m_enableTrack   = trackV2CheckBox->isChecked();
+	flt.m_enableGenre   = genreV2CheckBox->isChecked();
+	flt.allFalseToAllTrue();
+	return flt;
+}
+
+/**
+ * Enable or disable controls requiring ID3v1 tags.
+ *
+ * @param enable true to enable
+ */
+void id3Form::enableControlsV1(bool enable)
+{
+	fnV1Button->setEnabled(enable);
+	id3V2PushButton->setEnabled(enable);
+	idV1GroupBox->setEnabled(enable);
 }
