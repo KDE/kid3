@@ -64,7 +64,7 @@ void ImportParser::setFormat(const QString &fmt, bool enableTrackIncr)
 		trackIncrEnabled = false;
 		trackIncrNr = 0;
 	}
-#if QT_VERSION >= 300
+#if QT_VERSION >= 0x030100
 	pattern.remove(QRegExp("%[slacytgd]"));
 #else
 	pattern.replace(QRegExp("%[slacytgd]"), "");
@@ -101,18 +101,18 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 		parseFreedbTrackDurations(text);
 		int dtitlePos, extdYearPos, extdId3gPos;
 		QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");
-		if ((dtitlePos = fdre.search(text, pos, QRegExp::CaretAtOffset)) != -1) {
+		if ((dtitlePos = fdre.search(text, pos)) != -1) {
 			st.artist = fdre.cap(1);
 			st.album = fdre.cap(2);
 			dtitlePos += fdre.matchedLength();
 		}
 		fdre.setPattern("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D");
-		if ((extdYearPos = fdre.search(text, pos, QRegExp::CaretAtOffset)) != -1) {
+		if ((extdYearPos = fdre.search(text, pos)) != -1) {
 			st.year = fdre.cap(1).toInt();
 			extdYearPos += fdre.matchedLength();
 		}
 		fdre.setPattern("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D");
-		if ((extdId3gPos = fdre.search(text, pos, QRegExp::CaretAtOffset)) != -1) {
+		if ((extdId3gPos = fdre.search(text, pos)) != -1) {
 			st.genre = fdre.cap(1).toInt();
 			extdId3gPos += fdre.matchedLength();
 		}
@@ -133,7 +133,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 		}
 		QRegExp fdre(QString("TTITLE%1=([^\\r\\n]+)[\\r\\n]").arg(tracknr));
 		QString title;
-		while ((idx = fdre.search(text, pos, QRegExp::CaretAtOffset)) != -1) {
+		while ((idx = fdre.search(text, pos)) != -1) {
 			title += fdre.cap(1);
 			pos = idx + fdre.matchedLength();
 		}
@@ -151,7 +151,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 		trackDuration.clear();
 		int dsp = 0; // "duration search pos"
 		int lastDsp = dsp;
-		while ((idx = re.search(text, dsp, QRegExp::CaretAtOffset)) != -1) {
+		while ((idx = re.search(text, dsp)) != -1) {
 			QString durationStr = re.cap(durationPos);
 			int duration;
 			QRegExp durationRe("(\\d+):(\\d+)");
@@ -171,7 +171,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 			}
 		}
 	}
-	if ((idx = re.search(text, pos, QRegExp::CaretAtOffset)) != -1) {
+	if ((idx = re.search(text, pos)) != -1) {
 		SET_TEXT_FIELD(title);
 		SET_TEXT_FIELD(album);
 		SET_TEXT_FIELD(artist);
