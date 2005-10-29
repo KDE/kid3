@@ -14,12 +14,6 @@
 #include "config.h"
 #include "generalconfig.h"
 
-#ifdef CONFIG_USE_KDE
-class KConfig;
-#else
-class QSettings;
-#endif
-
 /**
  * Freedb configuration.
  */
@@ -50,7 +44,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		) const;
 	/**
@@ -62,7 +56,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		);
 	/** true if freedb proxy is used */
@@ -73,6 +67,10 @@ public:
 	QString server;
 	/** CGI path used for freedb.org access */
 	QString cgiPath;
+	/** freedb.org window width */
+	int m_windowWidth;
+	/** freedb.org window height */
+	int m_windowHeight;
 };
 
 #endif

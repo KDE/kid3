@@ -12,10 +12,6 @@
 
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
-#else
-#if QT_VERSION >= 300
-#include <qsettings.h>
-#endif
 #endif
 
 /**
@@ -30,6 +26,8 @@ FreedbConfig::FreedbConfig(const QString &grp) : GeneralConfig(grp)
 	proxy = "";
 	server = "freedb.freedb.org:80";
 	cgiPath = "/~cddb/cddb.cgi";
+	m_windowWidth = -1;
+	m_windowHeight = -1;
 }
 
 /**
@@ -52,7 +50,7 @@ void FreedbConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
 	KConfig *config
 #else
-	QSettings *config
+	Kid3Settings *config
 #endif
 	) const
 {
@@ -62,12 +60,16 @@ void FreedbConfig::writeToConfig(
 	config->writeEntry("Proxy", proxy);
 	config->writeEntry("Server", server);
 	config->writeEntry("CgiPath", cgiPath);
+	config->writeEntry("FreedbWindowWidth", m_windowWidth);
+	config->writeEntry("FreedbWindowHeight", m_windowHeight);
 #else
 	config->beginGroup("/" + group);
 	config->writeEntry("/UseProxy", useProxy);
 	config->writeEntry("/Proxy", proxy);
 	config->writeEntry("/Server", server);
 	config->writeEntry("/CgiPath", cgiPath);
+	config->writeEntry("/FreedbWindowWidth", m_windowWidth);
+	config->writeEntry("/FreedbWindowHeight", m_windowHeight);
 	config->endGroup();
 #endif
 }
@@ -81,7 +83,7 @@ void FreedbConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
 	KConfig *config
 #else
-	QSettings *config
+	Kid3Settings *config
 #endif
 	)
 {
@@ -91,12 +93,16 @@ void FreedbConfig::readFromConfig(
 	proxy = config->readEntry("Proxy", proxy);
 	server = config->readEntry("Server", server);
 	cgiPath = config->readEntry("CgiPath", cgiPath);
+	m_windowWidth = config->readNumEntry("FreedbWindowWidth", -1);
+	m_windowHeight = config->readNumEntry("FreedbWindowHeight", -1);
 #else
 	config->beginGroup("/" + group);
 	useProxy = config->readBoolEntry("/UseProxy", useProxy);
 	proxy = config->readEntry("/Proxy", proxy);
 	server = config->readEntry("/Server", server);
 	cgiPath = config->readEntry("/CgiPath", cgiPath);
+	m_windowWidth = config->readNumEntry("/FreedbWindowWidth", -1);
+	m_windowHeight = config->readNumEntry("/FreedbWindowHeight", -1);
 	config->endGroup();
 #endif
 }
