@@ -43,8 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O1 /I "$(QTDIR)\include" /I "$(ID3INCDIR)" /I ".." /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "UNICODE" /D "QT_THREAD_SUPPORT" /D "NO_DEBUG" /D ID3LIB_LINKOPTION=3 /FD /c
-# SUBTRACT CPP /YX
+# ADD CPP /nologo /MD /W3 /GR /GX /O1 /I "$(QTDIR)\include" /I "$(INCDIR)" /I ".." /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "UNICODE" /D "QT_THREAD_SUPPORT" /D "NO_DEBUG" /D ID3LIB_LINKOPTION=3 /D "FLAC__NO_DLL" /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -54,7 +53,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 $(ID3LIBDIR)\Release\id3lib.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib wsock32.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /machine:I386
+# ADD LINK32 $(LIBDIR)\Release\id3lib.lib $(LIBDIR)\Release\vorbis_static.lib $(LIBDIR)\Release\vorbisfile_static.lib $(LIBDIR)\Release\ogg_static.lib $(LIBDIR)\Release\libFLAC_static.lib $(LIBDIR)\Release\libFLAC++_static.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib wsock32.lib $(QTDIR)\lib\qt-mtnc321.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /machine:I386 /nodefaultlib:"libcmt"
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
@@ -71,8 +70,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MD /W3 /Gm /GR /GX /ZI /Od /I "$(QTDIR)\include" /I "$(ID3INCDIR)" /I ".." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "UNICODE" /D "QT_THREAD_SUPPORT" /D ID3LIB_LINKOPTION=3 /FR /FD /GZ /c
-# SUBTRACT CPP /YX
+# ADD CPP /nologo /MD /W3 /Gm /GR /GX /ZI /Od /I "$(QTDIR)\include" /I "$(INCDIR)" /I ".." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "QT_DLL" /D "UNICODE" /D "QT_THREAD_SUPPORT" /D ID3LIB_LINKOPTION=3 /D "FLAC__NO_DLL" /FR /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -82,7 +80,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 $(ID3LIBDIR)\Debug\id3lib.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib wsock32.lib $(QTDIR)\lib\qt-mt230nc.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 $(LIBDIR)\Debug\id3lib.lib $(LIBDIR)\Debug\vorbis_static_d.lib $(LIBDIR)\Debug\vorbisfile_static_d.lib $(LIBDIR)\Debug\ogg_static_d.lib $(LIBDIR)\Debug\libFLAC_static.lib $(LIBDIR)\Debug\libFLAC++_static.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib wsock32.lib $(QTDIR)\lib\qt-mtnc321.lib $(QTDIR)\lib\qtmain.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"libcmtd" /nodefaultlib:"msvcrtd" /pdbtype:sept
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -96,11 +94,27 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\commandstable.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\configdialog.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\dirlist.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\filelist.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\flacfile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\flacframelist.cpp
 # End Source File
 # Begin Source File
 
@@ -172,11 +186,15 @@ SOURCE=.\miscconfig.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\moc_formatbox.cpp
+SOURCE=.\moc_commandstable.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\moc_framelist.cpp
+SOURCE=.\moc_filelist.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_formatbox.cpp
 # End Source File
 # Begin Source File
 
@@ -200,11 +218,47 @@ SOURCE=.\moc_kid3.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\moc_mp3framelist.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_musicbrainzclient.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_musicbrainzdialog.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\moc_rendirdialog.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\mp3file.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\mp3framelist.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\musicbrainzclient.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\musicbrainzconfig.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\musicbrainzdialog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\oggfile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\oggframelist.cpp
 # End Source File
 # Begin Source File
 
@@ -214,17 +268,87 @@ SOURCE=.\rendirdialog.cpp
 
 SOURCE=.\standardtags.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\taggedfile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\vcedit.c
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=.\commandstable.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\commandstable.h
+
+".\moc_commandstable.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_commandstable.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\commandstable.h
+
+".\moc_commandstable.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_commandstable.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\configdialog.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\dirlist.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\filelist.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\filelist.h
+
+".\moc_filelist.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_filelist.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\filelist.h
+
+".\moc_filelist.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_filelist.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\flacfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\flacframelist.h
 # End Source File
 # Begin Source File
 
@@ -260,29 +384,6 @@ SOURCE=.\formatconfig.h
 # Begin Source File
 
 SOURCE=.\framelist.h
-
-!IF  "$(CFG)" == "kid3 - Win32 Release"
-
-# Begin Custom Build - Moc'ing $(InputPath)
-InputPath=.\framelist.h
-
-".\moc_framelist.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_framelist.cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
-
-# Begin Custom Build - Moc'ing $(InputPath)
-InputPath=.\framelist.h
-
-".\moc_framelist.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_framelist.cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -418,6 +519,10 @@ InputPath=.\importselector.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\importtrackdata.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\kid3.h
 
 !IF  "$(CFG)" == "kid3 - Win32 Release"
@@ -453,6 +558,99 @@ SOURCE=.\mp3file.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\mp3framelist.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\mp3framelist.h
+
+".\moc_mp3framelist.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_mp3framelist.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\mp3framelist.h
+
+".\moc_mp3framelist.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_mp3framelist.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\musicbrainzclient.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\musicbrainzclient.h
+
+".\moc_musicbrainzclient.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_musicbrainzclient.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\musicbrainzclient.h
+
+".\moc_musicbrainzclient.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_musicbrainzclient.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\musicbrainzconfig.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\musicbrainzdialog.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\musicbrainzdialog.h
+
+".\moc_musicbrainzdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_musicbrainzdialog.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\musicbrainzdialog.h
+
+".\moc_musicbrainzdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_musicbrainzdialog.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\oggfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\oggframelist.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\rendirdialog.h
 
 !IF  "$(CFG)" == "kid3 - Win32 Release"
@@ -481,6 +679,14 @@ InputPath=.\rendirdialog.h
 # Begin Source File
 
 SOURCE=.\standardtags.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\taggedfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\vcedit.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
@@ -520,48 +726,26 @@ InputPath=.\config.mk
 # End Source File
 # Begin Source File
 
-SOURCE=.\kid3.h.both
+SOURCE=.\kid3.h.qtonly
 
 !IF  "$(CFG)" == "kid3 - Win32 Release"
 
-USERDEP__KID3_="..\config.h"	
-# Begin Custom Build - Generating kid3.h from $(InputPath)
-InputPath=.\kid3.h.both
+# Begin Custom Build - Creating kid3.h from $(InputPath)
+InputPath=.\kid3.h.qtonly
 
 ".\kid3.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	echo /* Generated from kid3.h.both */ >.\kid3.h 
-	echo #ifndef KID3_H >>.\kid3.h 
-	echo #define KID3_H >>.\kid3.h 
-	echo #include "config.h" >>.\kid3.h 
-	echo #ifdef CONFIG_USE_KDE >>.\kid3.h 
-	echo #include ^<kmainwindow.h^> >>.\kid3.h 
-	echo #else >>.\kid3.h 
-	echo #include ^<qmainwindow.h^> >>.\kid3.h 
-	echo #endif >>.\kid3.h 
-	cl.exe /nologo /EP /I "$(QTDIR)\include" /I "$(ID3INCDIR)" /I ".." /DKMAINWINDOW_H /DQMAINWINDOW_H $(InputPath) >>.\kid3.h 
-	echo #endif >>.\kid3.h 
-	
+	copy kid3.h.qtonly kid3.h
+
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
 
-USERDEP__KID3_="..\config.h"	
-# Begin Custom Build - Generating kid3.h from $(InputPath)
-InputPath=.\kid3.h.both
+# Begin Custom Build - Creating kid3.h from $(InputPath)
+InputPath=.\kid3.h.qtonly
 
 ".\kid3.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	echo /* Generated from kid3.h.both */ >.\kid3.h 
-	echo #ifndef KID3_H >>.\kid3.h 
-	echo #define KID3_H >>.\kid3.h 
-	echo #include "config.h" >>.\kid3.h 
-	echo #ifdef CONFIG_USE_KDE >>.\kid3.h 
-	echo #include ^<kmainwindow.h^> >>.\kid3.h 
-	echo #else >>.\kid3.h 
-	echo #include ^<qmainwindow.h^> >>.\kid3.h 
-	echo #endif >>.\kid3.h 
-	cl.exe /nologo /EP /I "$(QTDIR)\include" /I "$(ID3INCDIR)" /I ".." /DKMAINWINDOW_H /DQMAINWINDOW_H $(InputPath) >>.\kid3.h 
-	echo #endif >>.\kid3.h 
-	
+	copy kid3.h.qtonly kid3.h
+
 # End Custom Build
 
 !ENDIF 
