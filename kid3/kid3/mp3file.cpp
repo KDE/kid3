@@ -7,21 +7,26 @@
  * \date 9 Jan 2003
  */
 
+#include "config.h"
 #include <qdir.h>
 #include <qstring.h>
 #include <qlistbox.h>
-#include <qregexp.h>
-#include <qapplication.h>
-#include <qpainter.h>
 
 #include <id3/tag.h>
-#if defined WIN32 && defined _DEBUG
+#ifdef WIN32
 #include <id3.h> /* ID3TagIterator_Delete() */
 #endif
 
 #include "standardtags.h"
+#include "mp3framelist.h"
 #include "genres.h"
 #include "mp3file.h"
+#include <sys/stat.h>
+#ifdef WIN32
+#include <sys/utime.h>
+#else
+#include <utime.h>
+#endif
 
 #ifdef WIN32
 /**
@@ -34,195 +39,6 @@
 #define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
 #endif
 
-/** Empty pixmap, will be allocated in constructor */
-QPixmap *Mp3File::nullPixmap = 0;
-/** Pixmap for modified file, will be allocated in constructor */
-QPixmap *Mp3File::modifiedPixmap = 0;
-/** Pixmap for V1V2, will be allocated in constructor */
-QPixmap *Mp3File::v1v2Pixmap = 0;
-/** Pixmap for V1, will be allocated in constructor */
-QPixmap *Mp3File::v1Pixmap = 0;
-/** Pixmap for V2, will be allocated in constructor */
-QPixmap *Mp3File::v2Pixmap = 0;
-/** Pixmap for "no tag", will be allocated in constructor */
-QPixmap *Mp3File::notagPixmap = 0;
-
-/* The bitmaps are stored here instead of using KDE bitmaps to make
-   it work for the Qt only versions. */
-/** picture for modified pixmap */
-static const char * const modified_xpm[] = {
-	"16 16 33 1",
-	". c None",
-	"B c None",
-	"A c None",
-	"C c None",
-	"D c None",
-	"E c None",
-	"# c #000000",
-	"b c #006562",
-	"j c #414041",
-	"x c #525552",
-	"f c #529594",
-	"e c #52959c",
-	"w c #5a555a",
-	"v c #626162",
-	"u c #626562",
-	"r c #737173",
-	"p c #737573",
-	"q c #7b757b",
-	"o c #838183",
-	"m c #838583",
-	"z c #8b8d8b",
-	"l c #949194",
-	"k c #9c959c",
-	"i c #a4a1a4",
-	"h c #a4a5a4",
-	"y c #b4b6b4",
-	"g c #bdb6bd",
-	"a c #c5c2c5",
-	"s c #c5c6c5",
-	"c c #cdc6cd",
-	"t c #dedade",
-	"n c #eeeaee",
-	"d c #ffffff",
-	".......##.......",
-	"......#ab#......",
-	".....#cbde#.....",
-	"....#abdddf#....",
-	"...#gbddddde#...",
-	"..#hijddddddf#..",
-	".#kjkljdddddd##.",
-	"#mjnjmojddddjma#",
-	"#jnpnjqrjddjqs#.",
-	"#drtttjuvjjua#..",
-	".#dasajjwxws#...",
-	"..#dyjzljxa#...A",
-	"...#jrrjws#...AB",
-	"....#cjxa#...ACB",
-	".....#cs#...ADE.",
-	"......##...ABB.."
-};
-
-/** picture for empty pixmap */
-static const char * const null_xpm[] = {
-	"16 16 2 1",
-	"# c None",
-	". c None",
-	".#.#.#.#.#.#.#.#",
-	"#.#.#.#.#.#.#.#.",
-	".#.#.#.#.#.#.#.#",
-	"#.#.#.#.#.#.#.#.",
-	".#.#.#.#.#.#.#.#",
-	"#.#.#.#.#.#.#.#.",
-	".#.#.#.#.#.#.#.#",
-	"#.#.#.#.#.#.#.#.",
-	".#.#.#.#.#.#.#.#",
-	"#.#.#.#.#.#.#.#.",
-	".#.#.#.#.#.#.#.#",
-	"#.#.#.#.#.#.#.#.",
-	".#.#.#.#.#.#.#.#",
-	"#.#.#.#.#.#.#.#.",
-	".#.#.#.#.#.#.#.#",
-	"#.#.#.#.#.#.#.#."
-};
-
-/* XPM */
-static const char * const v1v2_xpm[] = {
-	"16 16 3 1",
-	"       c None",
-	".      c #000000",
-	"+      c #FFFFFF",
-	"                ",
-	"                ",
-	"   .   .   .    ",
-	"   .   .  ..    ",
-	"    . .  . .    ",
-	"    . .    .    ",
-	"     .     .    ",
-	"                ",
-	"                ",
-	"   .   .  ..    ",
-	"   .   . .  .   ",
-	"    . .    .    ",
-	"    . .   .     ",
-	"     .   ....   ",
-	"                ",
-	"                "};
-
-/* XPM */
-static const char * const v1_xpm[] = {
-	"16 16 3 1",
-	"       c None",
-	".      c #000000",
-	"+      c #FFFFFF",
-	"                ",
-	"                ",
-	"   .   .   .    ",
-	"   .   .  ..    ",
-	"    . .  . .    ",
-	"    . .    .    ",
-	"     .     .    ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                "};
-
-/* XPM */
-static const char * const v2_xpm[] = {
-	"16 16 3 1",
-	"       c None",
-	".      c #000000",
-	"+      c #FFFFFF",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"                ",
-	"   .   .  ..    ",
-	"   .   . .  .   ",
-	"    . .    .    ",
-	"    . .   .     ",
-	"     .   ....   ",
-	"                ",
-	"                "};
-
-/* XPM */
-static const char * const notag_xpm[] = {
-	"16 16 3 1",
-	"       c None",
-	".      c #000000",
-	"+      c #FFFFFF",
-	"                ",
-	"                ",
-	"   .   .  ..    ",
-	"   ..  . .  .   ",
-	"   . . . .  .   ",
-	"   .  .. .  .   ",
-	"   .   .  ..    ",
-	"                ",
-	"                ",
-	"  ...  .   ..   ",
-	"   .  . . .     ",
-	"   .  ... . ..  ",
-	"   .  . . .  .  ",
-	"   .  . .  ..   ",
-	"                ",
-	"                "};
-
-/** width of both pixmaps, got using QPixmap::width() */
-static const int pixmapWidth = 16;
-/** height of both pixmaps, got using QPixmap::height() */
-static const int pixmapHeight = 16;
-
 /**
  * Constructor.
  *
@@ -231,35 +47,10 @@ static const int pixmapHeight = 16;
  */
 
 Mp3File::Mp3File(const QString& dn, const QString& fn) :
-	QListBoxItem(), dirname(dn), filename(fn), new_filename(fn)
+	TaggedFile(dn, fn)
 {
-	setText(fn);
-	setInSelection(FALSE);
 	tagV1 = 0;
 	tagV2 = 0;
-	changedV1 = FALSE;
-	changedV2 = FALSE;
-	// this two objects should be destructed when the program terminates.
-	// static QPixmap objects are not possible:
-	// "QPaintDevice: Must construct a QApplication before a QPaintDevice"
-	if (!nullPixmap) {
-		nullPixmap = new QPixmap((const char **)null_xpm);
-	}
-	if (!modifiedPixmap) {
-		modifiedPixmap = new QPixmap((const char **)modified_xpm);
-	}
-	if (!v1v2Pixmap) {
-		v1v2Pixmap = new QPixmap((const char **)v1v2_xpm);
-	}
-	if (!v1Pixmap) {
-		v1Pixmap = new QPixmap((const char **)v1_xpm);
-	}
-	if (!v2Pixmap) {
-		v2Pixmap = new QPixmap((const char **)v2_xpm);
-	}
-	if (!notagPixmap) {
-		notagPixmap = new QPixmap((const char **)notag_xpm);
-	}
 }
 
 /**
@@ -277,18 +68,6 @@ Mp3File::~Mp3File(void)
 }
 
 /**
- * Get absolute filename.
- *
- * @return absolute file path.
- */
-
-QString Mp3File::getAbsFilename(void) const
-{
-	QDir dir(dirname);
-	return QDir::cleanDirPath(dir.absFilePath(new_filename));
-}
-
-/**
  * Read tags from file.
  *
  * @param force TRUE to force reading even if tags were already read.
@@ -296,8 +75,7 @@ QString Mp3File::getAbsFilename(void) const
 
 void Mp3File::readTags(bool force)
 {
-	QString absfn = dirname + QDir::separator() + filename;
-	const char *fn = absfn.latin1();
+	QCString fn = QFile::encodeName(dirname + QDir::separator() + filename);
 
 	if (force && tagV1) {
 		tagV1->Clear();
@@ -337,61 +115,65 @@ void Mp3File::readTags(bool force)
  * @param renamed will be set to TRUE if the file was renamed,
  *                i.e. the file name is no longer valid, else *renamed
  *                is left unchanged
+ * @param preserve true to preserve file time stamps
  *
  * @return TRUE if ok, FALSE if the file could not be written or renamed.
  */
 
-bool Mp3File::writeTags(bool force, bool *renamed)
+bool Mp3File::writeTags(bool force, bool *renamed, bool preserve)
 {
-	if (isChanged() &&
-		!QFileInfo(dirname + QDir::separator() + filename).isWritable()) {
+	QString fnStr(dirname + QDir::separator() + filename);
+	if (isChanged() && !QFileInfo(fnStr).isWritable()) {
 		return FALSE;
 	}
 
-	if (tagV1 && (force || changedV1)) {
-		// There seems to be a bug in id3lib: The V1 genre is not
-		// removed. So we check here and strip the whole header
-		// if there are no frames.
-		if (tagV1->NumFrames() == 0) {
-			tagV1->Strip(ID3TT_ID3V1);
-		} else {
-			tagV1->Update(ID3TT_ID3V1);
+	// store time stamp if it has to be preserved
+	QCString fn;
+	bool setUtime = false;
+	struct utimbuf times;
+	if (preserve) {
+		fn = QFile::encodeName(fnStr);
+		struct stat fileStat;
+		if (::stat(fn, &fileStat) == 0) {
+			times.actime  = fileStat.st_atime;
+			times.modtime = fileStat.st_mtime;
+			setUtime = true;
 		}
+	}
+
+	// There seems to be a bug in id3lib: The V1 genre is not
+	// removed. So we check here and strip the whole header
+	// if there are no frames.
+	if (tagV1 && (force || changedV1) && (tagV1->NumFrames() == 0)) {
+		tagV1->Strip(ID3TT_ID3V1);
 		changedV1 = FALSE;
 	}
-	if (tagV2 && (force || changedV2)) {
-		// Even after removing all frames, HasV2Tag() still returns true,
-		// so we strip the whole header.
-		if (tagV2->NumFrames() == 0) {
-			tagV2->Strip(ID3TT_ID3V2);
-		} else {
-			tagV2->Update(ID3TT_ID3V2);
-		}
+	// Even after removing all frames, HasV2Tag() still returns true,
+	// so we strip the whole header.
+	if (tagV2 && (force || changedV2) && (tagV2->NumFrames() == 0)) {
+		tagV2->Strip(ID3TT_ID3V2);
 		changedV2 = FALSE;
 	}
+	// There seems to be a bug in id3lib: If I update an ID3v1 and then
+	// strip the ID3v2 the ID3v1 is removed too and vice versa, so I
+	// first make any stripping and then the updating.
+	if (tagV1 && (force || changedV1) && (tagV1->NumFrames() > 0)) {
+		tagV1->Update(ID3TT_ID3V1);
+		changedV1 = FALSE;
+	}
+	if (tagV2 && (force || changedV2) && (tagV2->NumFrames() > 0)) {
+		tagV2->Update(ID3TT_ID3V2);
+		changedV2 = FALSE;
+	}
+
+	// restore time stamp
+	if (setUtime) {
+		::utime(fn, &times);
+	}
+
 	if (new_filename != filename) {
-		if (new_filename.lower() == filename.lower()) {
-			// if the filenames only differ in case, first rename to a
-			// temporary filename, so that it works also with case
-			// insensitive filesystems (e.g. Windows).
-			QString temp_filename(new_filename);
-			temp_filename.append("_CASE");
-			if (!QDir(dirname).rename(filename, temp_filename)) {
-				qDebug("rename(%s, %s) failed", filename.latin1(),
-					   temp_filename.latin1());
-				return FALSE;
-			}
-			if (!QDir(dirname).rename(temp_filename, new_filename)) {
-				qDebug("rename(%s, %s) failed", temp_filename.latin1(),
-					   new_filename.latin1());
-				return FALSE;
-			}
-		} else if (!QFile::exists(dirname + QDir::separator() + new_filename)) {
-			if (!QDir(dirname).rename(filename, new_filename)) {
-				qDebug("rename(%s, %s) failed", filename.latin1(),
-					   new_filename.latin1());
-				return FALSE;
-			}
+		if (!renameFile(filename, new_filename)) {
+			return FALSE;
 		}
 		*renamed = TRUE;
 	}
@@ -400,45 +182,57 @@ bool Mp3File::writeTags(bool force, bool *renamed)
 
 /**
  * Remove all ID3v1 tags.
+ *
+ * @param flt filter specifying which fields to remove
  */
 
-void Mp3File::removeTagsV1(void)
+void Mp3File::removeTagsV1(const StandardTagsFilter& flt)
 {
 	if (tagV1) {
-		ID3_Tag::Iterator* iter = tagV1->CreateIterator();
-		ID3_Frame* frame;
-		while ((frame = iter->GetNext()) != NULL) {
-			tagV1->RemoveFrame(frame);
-		}
-#if defined WIN32 && defined _DEBUG
-		/* just to avoid user breakpoint in VC++ */
-		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+		if (flt.areAllTrue()) {
+			ID3_Tag::Iterator* iter = tagV1->CreateIterator();
+			ID3_Frame* frame;
+			while ((frame = iter->GetNext()) != NULL) {
+				tagV1->RemoveFrame(frame);
+			}
+#ifdef WIN32
+			/* allocated in Windows DLL => must be freed in the same DLL */
+			ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
-		delete iter;
+			delete iter;
 #endif
-		changedV1 = TRUE;
+			changedV1 = TRUE;
+		} else {
+			removeStandardTagsV1(flt);
+		}
 	}
 }
 
 /**
  * Remove all ID3v2 tags.
+ *
+ * @param flt filter specifying which fields to remove
  */
 
-void Mp3File::removeTagsV2(void)
+void Mp3File::removeTagsV2(const StandardTagsFilter& flt)
 {
 	if (tagV2) {
-		ID3_Tag::Iterator* iter = tagV2->CreateIterator();
-		ID3_Frame* frame;
-		while ((frame = iter->GetNext()) != NULL) {
-			tagV2->RemoveFrame(frame);
-		}
-#if defined WIN32 && defined _DEBUG
-		/* just to avoid user breakpoint in VC++ */
-		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+		if (flt.areAllTrue()) {
+			ID3_Tag::Iterator* iter = tagV2->CreateIterator();
+			ID3_Frame* frame;
+			while ((frame = iter->GetNext()) != NULL) {
+				tagV2->RemoveFrame(frame);
+			}
+#ifdef WIN32
+			/* allocated in Windows DLL => must be freed in the same DLL */
+			ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
-		delete iter;
+			delete iter;
 #endif
-		changedV2 = TRUE;
+			changedV2 = TRUE;
+		} else {
+			removeStandardTagsV2(flt);
+		}
 	}
 }
 
@@ -542,6 +336,11 @@ int Mp3File::getTrackNum(const ID3_Tag *tag)
 	QString str = getTextField(tag, ID3FID_TRACKNUM);
 	if (str.isNull()) return -1;
 	if (str.isEmpty()) return 0;
+	// handle "track/total number of tracks" format
+	int slashPos = str.find('/');
+	if (slashPos != -1) {
+		str.truncate(slashPos);
+	}
 	return str.toInt();
 }
 
@@ -559,7 +358,7 @@ int Mp3File::getGenreNum(const ID3_Tag *tag)
 	QString str = getTextField(tag, ID3FID_CONTENTTYPE);
 	if (str.isNull()) return -1;
 	if (str.isEmpty()) return 0xff;
-	int cpPos, n = 0xff;
+	int cpPos = 0, n = 0xff;
 	if ((str[0] == '(') && ((cpPos = str.find(')', 2)) > 1)) {
 		bool ok;
 		n = str.mid(1, cpPos - 1).toInt(&ok);
@@ -699,17 +498,22 @@ bool Mp3File::setYear(ID3_Tag *tag, int num)
  *
  * @param tag ID3 tag
  * @param num number to set, 0 to remove field.
+ * @param numTracks total number of tracks, -1 to ignore
  *
  * @return true if the field was changed.
  */
 
-bool Mp3File::setTrackNum(ID3_Tag *tag, int num)
+bool Mp3File::setTrackNum(ID3_Tag *tag, int num, int numTracks)
 {
 	bool changed = false;
 	if (num >= 0) {
 		QString str;
 		if (num != 0) {
 			str.setNum(num);
+			if (numTracks > 0) {
+				str += '/';
+				str += QString::number(numTracks);
+			}
 		} else {
 			str = "";
 		}
@@ -925,37 +729,20 @@ int Mp3File::getGenreNumV2(void)
 }
 
 /**
- * Get ID3v1 tags from file.
+ * Get ID3v2 genre as text.
  *
- * @param st tags to put result
+ * @return string,
+ *         "" if the field does not exist,
+ *         QString::null if the tags do not exist.
  */
-
-void Mp3File::getStandardTagsV1(StandardTags *st)
+QString Mp3File::getGenreV2()
 {
-	st->title = getTitleV1();
-	st->artist = getArtistV1();
-	st->album = getAlbumV1();
-	st->comment = getCommentV1();
-	st->year = getYearV1();
-	st->track = getTrackNumV1();
-	st->genre = getGenreNumV1();
-}
-
-/**
- * Get ID3v2 tags from file.
- *
- * @param st tags to put result
- */
-
-void Mp3File::getStandardTagsV2(StandardTags *st)
-{
-	st->title = getTitleV2();
-	st->artist = getArtistV2();
-	st->album = getAlbumV2();
-	st->comment = getCommentV2();
-	st->year = getYearV2();
-	st->track = getTrackNumV2();
-	st->genre = getGenreNumV2();
+	int num = getGenreNumV2();
+	if (num != 0xff && num != -1) {
+		return Genres::getName(num);
+	} else {
+		return getTextField(tagV2, ID3FID_CONTENTTYPE);
+	}
 }
 
 /**
@@ -1122,7 +909,8 @@ void Mp3File::setYearV2(int num)
 
 void Mp3File::setTrackNumV2(int num)
 {
-	if (setTrackNum(tagV2, num)) {
+	int numTracks = getTotalNumberOfTracksIfEnabled();
+	if (setTrackNum(tagV2, num, numTracks)) {
 		changedV2 = true;
 	}
 }
@@ -1141,366 +929,59 @@ void Mp3File::setGenreNumV2(int num)
 }
 
 /**
- * Set ID3v1 tags.
+ * Set ID3v2 genre as text.
  *
- * @param st tags to set
+ * @param str string to set, "" to remove field, QString::null to ignore.
  */
-
-void  Mp3File::setStandardTagsV1(const StandardTags *st)
+void Mp3File::setGenreV2(const QString& str)
 {
-	StandardTags oldst;
-	getStandardTagsV1(&oldst);
-	if (st->title != oldst.title) {
-		setTitleV1(st->title);
-	}
-	if (st->artist != oldst.artist) {
-		setArtistV1(st->artist);
-	}
-	if (st->album != oldst.album) {
-		setAlbumV1(st->album);
-	}
-	if (st->comment != oldst.comment) {
-		setCommentV1(st->comment);
-	}
-	if (st->year != oldst.year) {
-		setYearV1(st->year);
-	}
-	if (st->track != oldst.track) {
-		setTrackNumV1(st->track);
-	}
-	if (st->genre != oldst.genre) {
-		setGenreNumV1(st->genre);
+	if (setTextField(tagV2, ID3FID_CONTENTTYPE, str, true)) {
+		changedV2 = true;
 	}
 }
 
 /**
- * Set ID3v2 tags.
+ * Check if tag information has already been read.
  *
- * @param st tags to set
+ * @return true if information is available,
+ *         false if the tags have not been read yet, in which case
+ *         hasTagV1() and hasTagV2() do not return meaningful information.
  */
-
-void  Mp3File::setStandardTagsV2(const StandardTags *st)
+bool Mp3File::isTagInformationRead() const
 {
-	StandardTags oldst;
-	getStandardTagsV2(&oldst);
-	if (st->title != oldst.title) {
-		setTitleV2(st->title);
-	}
-	if (st->artist != oldst.artist) {
-		setArtistV2(st->artist);
-	}
-	if (st->album != oldst.album) {
-		setAlbumV2(st->album);
-	}
-	if (st->comment != oldst.comment) {
-		setCommentV2(st->comment);
-	}
-	if (st->year != oldst.year) {
-		setYearV2(st->year);
-	}
-	if (st->track != oldst.track) {
-		setTrackNumV2(st->track);
-	}
-	if (st->genre != oldst.genre) {
-		setGenreNumV2(st->genre);
-	}
-}
-
-#if QT_VERSION >= 300
-/**
- * Remove artist part from album string.
- * This is used when only the album is needed, but the regexp in
- * getTagsFromFilename() matched a "artist - album" string.
- *
- * @param album album string
- */
-
-static void remove_artist(QString& album)
-{
-	int pos = album.find(" - ");
-	if (pos != -1) {
-		album.remove(0, pos + 3);
-	}
-}
-#endif
-
-/**
- * Get tags from filename.
- * Supported formats:
- * with QT3:
- * album/track - artist - song.mp3
- * artist - album/track song.mp3
- * /artist - album - track - song.mp3
- * album/artist - track - song.mp3
- * album/artist - song.mp3
- *
- * with QT2 (only weak regexp support):
- * artist - album/track song.mp3
- *
- * @param st tags to put result
- */
-
-void Mp3File::getTagsFromFilename(StandardTags *st)
-{
-#if QT_VERSION < 300
-	int start, end;
-	const QString fn(getAbsFilename());
-	QRegExp re("[^/]+ - [^/]+/\\d\\d?\\d?[- ]+[^/]+\\.mp3");
-	start = re.match(fn);
-	if (start != -1) {
-		end = fn.find(" - ", start);
-		st->artist = fn.mid(start, end - start);
-		start = end + 3;
-		end = fn.find("/", start);
-		st->album = fn.mid(start, end - start);
-		start = end + 1;
-		for (end = start + 1;; end++) {
-			if (fn[end] < '0' || fn[end] > '9') break;
-		}
-		st->track = fn.mid(start, end - start).toInt();
-		for (;; end++) {
-			if (fn[end] != ' ' && fn[end] != '-') break;
-		}
-		start = end;
-		end = fn.find(".mp3", start);
-		st->title = fn.mid(start, end - start);
-	}
-#else
-	QRegExp re;
-	QString fn(getAbsFilename());
-	// album/track - artist - song.mp3
-	re.setPattern("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+) - ([^-_\\./ ][^/]+)\\.mp3");
-	if (re.search(fn) != -1) {
-		st->album = re.cap(1);
-		st->track = re.cap(2).toInt();
-		st->artist = re.cap(3);
-		st->title = re.cap(4);
-		remove_artist(st->album);
-		return;
-	}
-	// artist - album/track song.mp3
-	re.setPattern("([^/]+) - ([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\.mp3");
-	if (re.search(fn) != -1) {
-		st->artist = re.cap(1);
-		st->album = re.cap(2);
-		st->track = re.cap(3).toInt();
-		st->title = re.cap(4);
-		return;
-	}
-	// /artist - album - track - song.mp3
-	re.setPattern("/([^/]+[^-_/ ]) - ([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\.mp3");
-	if (re.search(fn) != -1) {
-		st->artist = re.cap(1);
-		st->album = re.cap(2);
-		st->track = re.cap(3).toInt();
-		st->title = re.cap(4);
-		return;
-	}
-	// album/artist - track - song.mp3
-	re.setPattern("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\.mp3");
-	if (re.search(fn) != -1) {
-		st->album = re.cap(1);
-		st->artist = re.cap(2);
-		st->track = re.cap(3).toInt();
-		st->title = re.cap(4);
-		remove_artist(st->album);
-		return;
-	}
-	// album/artist - song.mp3
-	re.setPattern("([^/]+)/([^/]+[^-_/ ]) - ([^-_/ ][^/]+)\\.mp3");
-	if (re.search(fn) != -1) {
-		st->album = re.cap(1);
-		st->artist = re.cap(2);
-		st->title = re.cap(3);
-		remove_artist(st->album);
-		return;
-	}
-#endif
-}
-
-static const char *fnFmt[] = {
-	"%t %s.mp3",
-	"%t. %s.mp3",
-	"%a - %s.mp3",
-	"%a-%s.mp3",
-	"%a_%s.mp3",
-	"(%a) %s.mp3",
-	"%t. %a - %s.mp3",
-	"%a - %t - %s.mp3",
-	"%a - %l - %t - %s.mp3",
-	0
-};
-
-const char **Mp3File::fnFmtList = &fnFmt[0];
-
-/**
- * Create string with tags according to format string.
- *
- * @param st  tags to use to build filename
- * @param fmt format string containing the following codes:
- *            %s title (song)
- *            %l album
- *            %a artist
- *            %c comment
- *            %y year
- *            %t track
- *            %g genre
- *
- * @return format string with format codes replaced by tags.
- */
-QString Mp3File::formatWithTags(const StandardTags *st, QString fmt)
-{
-	const int num_tag_codes = 7;
-	const QChar tag_code[num_tag_codes] = {
-	    's', 'l', 'a', 'c', 'y', 't', 'g'};
-	QString tag_str[num_tag_codes];
-	QString insert_str[num_tag_codes];
-	QString year, track;
-	year.sprintf("%d", st->year);
-	track.sprintf("%02d", st->track);
-	tag_str[0] = st->title;
-	tag_str[1] = st->album;
-	tag_str[2] = st->artist;
-	tag_str[3] = st->comment;
-	tag_str[4] = year;
-	tag_str[5] = track;
-	tag_str[6] = Genres::getName(st->genre);
-	int pos = 0, i;
-	for (i = 0;; ++i) {
-		pos = fmt.find('%', pos);
-		if (pos == -1) break;
-		if (i >= num_tag_codes) {
-			// maximum of insert strings reached,
-			// remove rest of string
-			fmt.truncate(pos);
-			break;
-		}
-		++pos;
-		insert_str[i] = "";
-		for (int k = 0;; ++k) {
-			if (k >= num_tag_codes) {
-				// invalid code at pos, remove it
-				fmt.remove(--pos, 2);
-				break;
-			}
-			if (fmt[pos] == tag_code[k]) {
-				// code found, prepare format and string for sprintf
-				fmt[pos] = i + '0';
-				insert_str[i] = tag_str[k];
-				++pos;
-				break;
-			}
-		}
-	}
-	for (int k = 0; k < i; ++k) {
-		fmt = fmt.arg(insert_str[k]);
-	}
-	return fmt;
+	return tagV1 || tagV2;
 }
 
 /**
- * Get filename from tags.
+ * Check if file has an ID3v1 tag.
  *
- * @param st  tags to use to build filename
- * @param fmt format string containing the following codes:
- *            %s title (song)
- *            %l album
- *            %a artist
- *            %c comment
- *            %y year
- *            %t track
- *            %g genre
+ * @return true if a V1 tag is available.
+ * @see isTagInformationRead()
  */
-void Mp3File::getFilenameFromTags(const StandardTags *st, QString fmt)
+bool Mp3File::hasTagV1() const
 {
-	new_filename = formatWithTags(st, fmt);
+	return tagV1 && tagV1->HasV1Tag();
 }
 
 /**
- * Update frame list box.
+ * Check if ID3v1 tags are supported by the format of this file.
  *
- * @param lb list box
+ * @return true.
  */
-
-void Mp3File::updateTagListV2(QListBox *lb)
+bool Mp3File::isTagV1Supported() const
 {
-	if (tagV2) {
-		ID3_Tag::Iterator* iter = tagV2->CreateIterator();
-		ID3_Frame* frame;
-		lb->clear();
-		while ((frame = iter->GetNext()) != NULL) {
-			lb->insertItem(frame->GetTextID());
-		}
-#if defined WIN32 && defined _DEBUG
-		/* just to avoid user breakpoint in VC++ */
-		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
-#else
-		delete iter;
-#endif
-	}
+	return true;
 }
 
 /**
- * Get height of item.
+ * Check if file has an ID3v2 tag.
  *
- * @param lb listbox containing the item
- *
- * @return height.
+ * @return true if a V2 tag is available.
+ * @see isTagInformationRead()
  */
-int Mp3File::height(const QListBox* lb) const
+bool Mp3File::hasTagV2() const
 {
-	int h = text().isEmpty() ? pixmapHeight :
-		QMAX(pixmapHeight, lb->fontMetrics().lineSpacing() + 1);
-	return QMAX(h, QApplication::globalStrut().height());
-}
-
-/**
- * Get width of item.
- *
- * @param lb listbox containing the item
- *
- * @return width.
- */
-int Mp3File::width(const QListBox* lb) const
-{
-	if (text().isEmpty()) {
-		return QMAX(pixmapWidth * 2 + 6, QApplication::globalStrut().width());
-	}
-	return QMAX(pixmapWidth * 2 + 6 + lb->fontMetrics().width(text()), QApplication::globalStrut().width());
-}
-
-/**
- * Paint item.
- *
- * @param painter painter used
- */
-void Mp3File::paint(QPainter *painter)
-{
-	static const QPixmap *tagpm[] = {
-		notagPixmap, v1Pixmap, v2Pixmap, v1v2Pixmap, nullPixmap
-	};
-	int tagpmIdx;
-	if (!tagV1 && !tagV2) {
-		tagpmIdx = 4;
-	} else {
-		tagpmIdx = 0;
-		if (tagV1 && tagV1->HasV1Tag()) {
-			tagpmIdx |= 1;
-		}
-		if (tagV2 && tagV2->HasV2Tag()) {
-			tagpmIdx |= 2;
-		}
-	}
-	painter->drawPixmap(3, 0, isChanged() ? *modifiedPixmap : *nullPixmap);
-	painter->drawPixmap(pixmapWidth + 3, 0, *tagpm[tagpmIdx]);
-	if (!text().isEmpty()) {
-		QFontMetrics fm = painter->fontMetrics();
-		painter->drawText(pixmapWidth * 2 + 5,
-						  pixmapHeight < fm.height() ?
-						  fm.ascent() + fm.leading() / 2 :
-						  pixmapHeight / 2 - fm.height() / 2 + fm.ascent(),
-						  text());
-	}
+	return tagV2 && tagV2->HasV2Tag();
 }
 
 /**
@@ -1545,10 +1026,12 @@ QString Mp3File::getDetailInfo() const {
 				; // nothing
 		}
 		int kb = info->bitrate;
+#ifndef HAVE_NO_ID3LIB_VBR
 		if (info->vbr_bitrate > 1000) {
 			str.append("VBR ");
 			kb = info->vbr_bitrate;
 		}
+#endif
 		if (kb > 1000 && kb < 999000) {
 			kb /= 1000;
 			QString kbStr;
@@ -1607,26 +1090,37 @@ unsigned Mp3File::getDuration() const
 	return duration;
 }
 
+/** Frame list for MP3 files. */
+Mp3FrameList* Mp3File::s_mp3FrameList = 0;
+
 /**
- * Format a time string "h:mm:ss".
- * If the time is less than an hour, the hour is not put into the
- * string and the minute is not padded with zeroes.
+ * Get frame list for this type of tagged file.
  *
- * @param seconds time in seconds
- *
- * @return string with the time in hours, minutes and seconds.
+ * @return frame list.
  */
-QString Mp3File::formatTime(unsigned seconds)
+FrameList* Mp3File::getFrameList() const
 {
-	unsigned hours = seconds / 3600;
-	seconds %= 3600;
-	unsigned minutes = seconds / 60;
-	seconds %= 60;
-	QString timeStr;
-	if (hours > 0) {
-		timeStr.sprintf("%u:%02u:%02u", hours, minutes, seconds);
-	} else {
-		timeStr.sprintf("%u:%02u", minutes, seconds);
+	if (!s_mp3FrameList) {
+		s_mp3FrameList = new Mp3FrameList();
 	}
-	return timeStr;
+	return s_mp3FrameList;
+}
+
+/**
+ * Get file extension including the dot.
+ *
+ * @return file extension ".mp3".
+ */
+QString Mp3File::getFileExtension() const
+{
+	return ".mp3";
+}
+
+/**
+ * Clean up static resources.
+ */
+void Mp3File::staticCleanup()
+{
+	delete s_mp3FrameList;
+	s_mp3FrameList = 0;
 }
