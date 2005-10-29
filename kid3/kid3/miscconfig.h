@@ -11,14 +11,10 @@
 #define MISCCONFIG_H
 
 #include <qvaluelist.h>
+#include <qstringlist.h>
 #include "config.h"
 #include "generalconfig.h"
 
-#ifdef CONFIG_USE_KDE
-class KConfig;
-#else
-class QSettings;
-#endif
 class QString;
 class StandardTags;
 
@@ -45,7 +41,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		) const;
 	/**
@@ -57,12 +53,18 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		);
 
 	/** true to enable formating in line edits */
 	bool formatWhileEditing;
+	/** true to write total number of tracks into track fields */
+	bool m_enableTotalNumberOfTracks;
+	/** true to preserve file time stamps */
+	bool m_preserveTime;
+	/** field name used for Vorbis comment entries */
+	QString m_commentName;
 	/** filter of file names to be opened */
 	QString nameFilter;
 	/** filename format */
@@ -75,12 +77,25 @@ public:
 	int dirFormatItem;
 	/** size of splitter in main window */
 	QValueList<int> splitterSizes;
+	/** size of file/dirlist splitter */
+	QValueList<int> m_vSplitterSizes;
+	/** commands available in context menu */
+	QStringList m_contextMenuCommands;
 #ifndef CONFIG_USE_KDE
 	/** mainwindow width */
 	int windowWidth;
 	/** mainwindow height */
 	int windowHeight;
 #endif
+
+	/** Default name filter */
+	static const QString defaultNameFilter;
+	/** Default value for comment name */
+	static const QString defaultCommentName;
+	/** Default filename format list */
+	static const char** defaultFnFmtList;
+	/** Default directory format list */
+	static const char** defaultDirFmtList;
 };
 
 #endif
