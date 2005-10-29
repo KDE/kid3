@@ -66,7 +66,8 @@ private:
  * @param caption dialog title
  */
 FreedbDialog::FreedbDialog(QWidget *parent, QString caption)
-	: QDialog(parent, "freedb", true)
+	: QDialog(parent, "freedb", true),
+		m_windowWidth(0), m_windowHeight(0)
 {
 	if (caption.isNull()) {
 		caption = "freedb.org";
@@ -82,20 +83,20 @@ FreedbDialog::FreedbDialog(QWidget *parent, QString caption)
 
 	QHBoxLayout *findLayout = new QHBoxLayout(vlayout);
 	findLineEdit = new QLineEdit(this);
-	findButton = new QPushButton(i18n("Find"), this);
-	QPushButton *closeButton = new QPushButton(i18n("Close"), this);
+	findButton = new QPushButton(i18n("&Find"), this);
+	QPushButton *closeButton = new QPushButton(i18n("&Close"), this);
 	if (findLayout && findLineEdit && findButton) {
 		findButton->setDefault(true);
 		findLayout->addWidget(findLineEdit);
 		findLayout->addWidget(findButton);
 		connect(findButton, SIGNAL(clicked()), this, SLOT(slotFind()));
 		findLayout->addWidget(closeButton);
-		connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+		connect(closeButton, SIGNAL(clicked()), this, SLOT(saveWindowSizeAndClose()));
 	}
 	QHBoxLayout *serverLayout = new QHBoxLayout(vlayout);
-	QLabel *serverLabel = new QLabel(i18n("Server:"), this);
+	QLabel *serverLabel = new QLabel(i18n("&Server:"), this);
 	serverComboBox = new QComboBox(this);
-	QLabel *cgiLabel = new QLabel(i18n("CGI Path:"), this);
+	QLabel *cgiLabel = new QLabel(i18n("C&GI Path:"), this);
 	cgiLineEdit = new QLineEdit(this);
 	if (serverLayout && serverLabel && serverComboBox &&
 		cgiLabel && cgiLineEdit) {
@@ -104,7 +105,9 @@ FreedbDialog::FreedbDialog(QWidget *parent, QString caption)
 			"at.freedb.org:80",
 			"au.freedb.org:80",
 			"ca.freedb.org:80",
+			"ca2.freedb.org:80",
 			"de.freedb.org:80",
+			"de2.freedb.org:80",
 			"es.freedb.org:80",
 			"fi.freedb.org:80",
 			"lu.freedb.org:80",
@@ -119,9 +122,11 @@ FreedbDialog::FreedbDialog(QWidget *parent, QString caption)
 		serverLayout->addWidget(serverComboBox);
 		serverLayout->addWidget(cgiLabel);
 		serverLayout->addWidget(cgiLineEdit);
+		cgiLabel->setBuddy(cgiLineEdit);
+		serverLabel->setBuddy(serverComboBox);
 	}
 	QHBoxLayout *proxyLayout = new QHBoxLayout(vlayout);
-	proxyCheckBox = new QCheckBox(i18n("Proxy:"), this);
+	proxyCheckBox = new QCheckBox(i18n("&Proxy:"), this);
 	proxyLineEdit = new QLineEdit(this);
 	if (proxyLayout && proxyCheckBox && proxyLineEdit) {
 		proxyLayout->addWidget(proxyCheckBox);
@@ -243,6 +248,9 @@ void FreedbDialog::setFreedbConfig(const FreedbConfig *cfg)
 	setProxy(cfg->proxy, cfg->useProxy);
 	setServer(cfg->server);
 	setCgiPath(cfg->cgiPath);
+	if (cfg->m_windowWidth > 0 && cfg->m_windowHeight > 0) {
+		resize(cfg->m_windowWidth, cfg->m_windowHeight);
+	}
 }
 
 /**
@@ -255,6 +263,10 @@ void FreedbDialog::getFreedbConfig(FreedbConfig *cfg) const
 	cfg->proxy = getProxy(&cfg->useProxy);
 	cfg->server = getServer();
 	cfg->cgiPath = getCgiPath();
+	if (m_windowWidth > 0 && m_windowHeight > 0) {
+		cfg->m_windowWidth = m_windowWidth;
+		cfg->m_windowHeight = m_windowHeight;
+	}
 }
 
 /**
@@ -345,4 +357,14 @@ void FreedbDialog::requestTrackList(QListBoxItem *li)
 void FreedbDialog::requestTrackList(int index)
 {
 	requestTrackList(albumListBox->item(index));
+}
+
+/**
+ * Save the size of the window and close it.
+ */
+void FreedbDialog::saveWindowSizeAndClose()
+{
+	m_windowWidth = size().width();
+	m_windowHeight = size().height();
+	accept();
 }

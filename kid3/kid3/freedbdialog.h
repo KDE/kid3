@@ -123,6 +123,10 @@ private slots:
 	 * @param index index of list box item containing an AlbumListItem
 	 */
 	void requestTrackList(int index);
+	/**
+	 * Save the size of the window and close it.
+	 */
+	void saveWindowSizeAndClose();
 signals:
 	/**
 	 * Emitted when album data is received.
@@ -139,6 +143,8 @@ private:
 	QListBox *albumListBox;
 	QStatusBar *statusBar;
 	FreedbClient *client;
+	int m_windowWidth;
+	int m_windowHeight;
 };
 
 #endif
