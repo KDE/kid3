@@ -68,9 +68,6 @@ msgstr "&Сервис"
 msgid "&Settings"
 msgstr "&Настройка"
 
-msgid "All Files (*)"
-msgstr "Все файлы (*)"
-
 msgid "OK"
 msgstr "ОК"
 
@@ -79,3 +76,30 @@ msgstr "Назад"
 
 msgid "Close"
 msgstr "Закрыть"
+
+msgid "&Apply"
+msgstr "&Применить"
+
+msgid "&Cancel"
+msgstr "О&тмена"
+
+msgid "&Close"
+msgstr "&Закрыть"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "&Yes"
+msgstr "&Да"
+
+msgid "&No"
+msgstr "&Нет"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"

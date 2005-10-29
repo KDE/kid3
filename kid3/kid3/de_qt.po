@@ -59,9 +59,6 @@ msgstr "Ansicht"
 msgid "Revert"
 msgstr "Änderungen verwerfen"
 
-msgid "All Files (*)"
-msgstr "Alle Dateien (*)"
-
 msgid "&Tools"
 msgstr "E&xtras"
 
@@ -73,3 +70,33 @@ msgstr "Zurück"
 
 msgid "Close"
 msgstr "Schliessen"
+
+msgid "&Apply"
+msgstr "An&wenden"
+
+msgid "&Cancel"
+msgstr "&Abbrechen"
+
+msgid "&Close"
+msgstr "&Schliessen"
+
+msgid "Error"
+msgstr "Fehler"
+
+msgid "&Open"
+msgstr "&Öffnen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "&Yes"
+msgstr "&Ja"
+
+msgid "&No"
+msgstr "&Nein"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nein"
