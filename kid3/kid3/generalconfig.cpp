@@ -13,17 +13,12 @@
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
 #else
-#if QT_VERSION >= 300
-#include <qsettings.h>
-#endif
-#endif
-
-#if !defined CONFIG_USE_KDE && (QT_VERSION < 300)
+#if QT_VERSION < 0x030100
 #include <qfile.h>
 #include <qtextstream.h>
 
 /** Quick and dirty replacement for QSettings */
-QSettings::QSettings()
+Kid3Settings::Kid3Settings()
 {
 	QFile file("kid3.cfg");
 	if (file.open(IO_ReadOnly)) {
@@ -39,7 +34,7 @@ QSettings::QSettings()
 	}
 }
 
-QSettings::~QSettings()
+Kid3Settings::~Kid3Settings()
 {
 	QFile file("kid3.cfg");
 	if (file.open(IO_WriteOnly)) {
@@ -52,33 +47,33 @@ QSettings::~QSettings()
 	}
 }
 
-void QSettings::setPath(const QString &, const QString &, QSettings::Scope) {} 
+void Kid3Settings::setPath(const QString &, const QString &, Kid3Settings::Scope) {} 
 
-void QSettings::beginGroup(const QString &grp)
+void Kid3Settings::beginGroup(const QString &grp)
 {
 	group = grp;
 }
 
-void QSettings::endGroup() {}
+void Kid3Settings::endGroup() {}
 
-void QSettings::writeEntry(const QString &key, int val)
+void Kid3Settings::writeEntry(const QString &key, int val)
 {
 	map[group + key] = QString().setNum(val);
 }
 
-void QSettings::writeEntry(const QString &key, bool val)
+void Kid3Settings::writeEntry(const QString &key, bool val)
 {
 	map[group + key] = val ? "true" : "false";
 }
 
-void QSettings::writeEntry(const QString &key, const QString &val)
+void Kid3Settings::writeEntry(const QString &key, const QString &val)
 {
 	map[group + key] = val;
 }
 
-void QSettings::writeEntry(const QString &key, const QStringList &val) { /* not used */ }
+void Kid3Settings::writeEntry(const QString&, const QStringList&) { /* not used */ }
 
-void QSettings::writeEntry(const QString &key, const QMap<QString, QString> &val)
+void Kid3Settings::writeEntry(const QString &key, const QMap<QString, QString> &val)
 {
 	QMap<QString, QString>::ConstIterator it;
 	for (it = val.begin(); it != val.end(); ++it) {
@@ -86,24 +81,24 @@ void QSettings::writeEntry(const QString &key, const QMap<QString, QString> &val
 	}
 }
 
-QString QSettings::readEntry(const QString &key, const QString &dflt)
+QString Kid3Settings::readEntry(const QString &key, const QString &dflt)
 {
 	return map.contains(group + key) ? map[group + key] : dflt;
 }
 
-int QSettings::readNumEntry(const QString &key, int dflt)
+int Kid3Settings::readNumEntry(const QString &key, int dflt)
 {
 	return map.contains(group + key) ? map[group + key].toInt() : dflt;
 }
 
-bool QSettings::readBoolEntry(const QString &key, bool dflt)
+bool Kid3Settings::readBoolEntry(const QString &key, bool dflt)
 {
 	return map.contains(group + key) ? (map[group + key] == "true") : dflt;
 }
 
-QStringList QSettings::readListEntry(const QString &key) { /* not used */ return QStringList(); }
+QStringList Kid3Settings::readListEntry(const QString&) { /* not used */ return QStringList(); }
 
-QMap<QString, QString> QSettings::readMapEntry(const QString &key, const QMap<QString, QString> &dflt)
+QMap<QString, QString> Kid3Settings::readMapEntry(const QString &key, const QMap<QString, QString> &dflt)
 {
 	bool found = false;
 	QMap<QString, QString> val;
@@ -116,6 +111,7 @@ QMap<QString, QString> QSettings::readMapEntry(const QString &key, const QMap<QS
 	}
 	return found ? val : dflt;
 }
+#endif
 #endif
 
 /**

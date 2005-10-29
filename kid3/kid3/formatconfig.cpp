@@ -12,13 +12,11 @@
 #include <kconfig.h>
 #else
 #include <qstring.h>
-#if QT_VERSION >= 300
-#include <qsettings.h>
-#else
+#if QT_VERSION < 0x030100
 #include <qregexp.h>
+#endif
+#endif
 #include "generalconfig.h"
-#endif
-#endif
 #include "standardtags.h"
 #include "formatconfig.h"
 
@@ -81,7 +79,7 @@ void FormatConfig::formatString(QString& str) const
 	if (strRepEnabled) {
 		QMap<QString, QString>::ConstIterator it;
 		for (it = strRepMap.begin(); it != strRepMap.end(); ++it) {
-#if QT_VERSION >= 300
+#if QT_VERSION >= 0x030100
 			str.replace(it.key(), it.data());
 #else
 			QString key(it.key()), data(it.data());
@@ -146,6 +144,7 @@ void FormatConfig::formatStandardTags(StandardTags& st) const
 	formatString(st.title);
 	formatString(st.artist);
 	formatString(st.album);
+	formatString(st.comment);
 }
 
 /**
@@ -157,7 +156,7 @@ void FormatConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
 	KConfig *config
 #else
-	QSettings *config
+	Kid3Settings *config
 #endif
 	) const
 {
@@ -190,7 +189,7 @@ void FormatConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
 	KConfig *config
 #else
-	QSettings *config
+	Kid3Settings *config
 #endif
 	)
 {

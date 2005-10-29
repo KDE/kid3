@@ -11,25 +11,24 @@
 #define GENERALCONFIG_H
 
 #include "config.h"
+#include <qstring.h>
+
 #ifdef CONFIG_USE_KDE
 class KConfig;
 #else
-#if QT_VERSION >= 300
-class QSettings;
-#endif
-#endif
-#include <qstring.h>
-
-#if !defined CONFIG_USE_KDE && (QT_VERSION < 300)
+#if QT_VERSION >= 0x030100
+#include <qsettings.h>
+typedef QSettings Kid3Settings;
+#else
 #include <qmap.h>
 #include <qstringlist.h>
 
 /** Quick and dirty replacement for QSettings */
-class QSettings {
+class Kid3Settings {
 public:
 	enum Scope { User, Global };
-	QSettings();
-	~QSettings();
+	Kid3Settings();
+	~Kid3Settings();
 	void setPath(const QString &, const QString &, Scope = Global);
 	void beginGroup(const QString &grp);
 	void endGroup();
@@ -47,6 +46,7 @@ private:
 	QMap<QString, QString> map;
 	QString group;
 };
+#endif
 #endif
 
 /**
@@ -74,7 +74,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		) const = 0;
 	/**
@@ -86,7 +86,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		) = 0;
 protected:

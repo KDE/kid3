@@ -14,11 +14,6 @@
 #include "generalconfig.h"
 #include <qmap.h>
 
-#ifdef CONFIG_USE_KDE
-class KConfig;
-#else
-class QSettings;
-#endif
 class QString;
 class StandardTags;
 
@@ -74,7 +69,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		) const;
 	/**
@@ -86,7 +81,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		);
 	/** Case conversion option */

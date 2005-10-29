@@ -12,10 +12,6 @@
 
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
-#else
-#if QT_VERSION >= 300
-#include <qsettings.h>
-#endif
 #endif
 
 /**
@@ -74,7 +70,7 @@ void ImportConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
 	KConfig *config
 #else
-	QSettings *config
+	Kid3Settings *config
 #endif
 	) const
 {
@@ -109,7 +105,7 @@ void ImportConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
 	KConfig *config
 #else
-	QSettings *config
+	Kid3Settings *config
 #endif
 	)
 {

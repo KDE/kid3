@@ -14,12 +14,6 @@
 #include "config.h"
 #include "generalconfig.h"
 
-#ifdef CONFIG_USE_KDE
-class KConfig;
-#else
-class QSettings;
-#endif
-
 /**
  * Import configuration.
  */
@@ -45,7 +39,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		) const;
 	/**
@@ -57,7 +51,7 @@ public:
 #ifdef CONFIG_USE_KDE
 		KConfig *config
 #else
-		QSettings *config
+		Kid3Settings *config
 #endif
 		);
 	/** true to import into ID3v1 tags, else into ID3v2 tags */
