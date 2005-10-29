@@ -36,9 +36,6 @@
 #include <qstatusbar.h>
 #include <qmessagebox.h>
 #include <qfiledialog.h>
-#if QT_VERSION >= 300
-#include <qsettings.h>
-#endif
 #define i18n(s) tr(s)
 #define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
@@ -46,7 +43,7 @@
 #include "kid3.h"
 #include "id3form.h"
 #include "genres.h"
-#include "framelist.h"
+#include "mp3framelist.h"
 #include "configdialog.h"
 #include "importdialog.h"
 #include "formatconfig.h"
@@ -55,6 +52,22 @@
 #include "freedbconfig.h"
 #include "standardtags.h"
 #include "rendirdialog.h"
+#include "dirlist.h"
+#include "mp3file.h"
+#ifdef HAVE_VORBIS
+#include "oggfile.h"
+#endif
+#ifdef HAVE_FLAC
+#include "flacfile.h"
+#endif
+
+#ifdef HAVE_TUNEPIMP
+#include "musicbrainzconfig.h"
+#endif
+
+#ifdef KID3_USE_KCONFIGDIALOG
+#include <kconfigskeleton.h>
+#endif
 
 #ifndef CONFIG_USE_KDE
 #include <qdialog.h>
@@ -91,9 +104,9 @@ BrowserDialog::BrowserDialog(QWidget *parent, QString &caption)
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
 	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	QPushButton *backButton = new QPushButton(i18n("Back"), this);
-	QPushButton *forwardButton = new QPushButton(i18n("Forward"), this);
-	QPushButton *closeButton = new QPushButton(i18n("Close"), this);
+	QPushButton *backButton = new QPushButton(i18n("&Back"), this);
+	QPushButton *forwardButton = new QPushButton(i18n("&Forward"), this);
+	QPushButton *closeButton = new QPushButton(i18n("&Close"), this);
 	if (hlayout && backButton && forwardButton && closeButton) {
 		hlayout->addWidget(backButton);
 		hlayout->addWidget(forwardButton);
@@ -121,34 +134,32 @@ BrowserDialog::~BrowserDialog()
  * @param name name
  */
 
-Kid3App::Kid3App(QWidget* , const char* name):
-#ifdef CONFIG_USE_KDE
-KMainWindow(0, name)
-#else
-QMainWindow(0, name)
-#endif
+Kid3App::Kid3App()
 {
 	miscCfg = new MiscConfig("General Options");
 	genCfg = new ImportConfig("General Options");
 	fnFormatCfg = new FormatConfig("FilenameFormat");
 	id3FormatCfg = new FormatConfig("Id3Format");
 	freedbCfg = new FreedbConfig("Freedb");
-	framelist = new FrameList();
+#ifdef HAVE_TUNEPIMP
+	m_musicBrainzCfg = new MusicBrainzConfig("MusicBrainz");
+#endif
 	copytags = new StandardTags();
 	initStatusBar();
 	setModified(false);
 	doc_dir = QString::null;
 	initView();
 	initActions();
-	framelist->setListBox(view->framesListBox);
+	FrameList::setListBox(view->framesListBox);
 	fnFormatCfg->setAsFilenameFormatter();
+	view->mp3ListBox->setMiscConfig(miscCfg);
 
 	resize(sizeHint());
 #ifdef CONFIG_USE_KDE
 	config=kapp->config();
 #else
-	config = new QSettings();
-    config->setPath("kid3.sourceforge.net", "Kid3", QSettings::User);
+	config = new Kid3Settings();
+	config->setPath("kid3.sourceforge.net", "Kid3", Kid3Settings::User);
 	config->beginGroup("/kid3");
 #endif
 	readOptions();
@@ -403,18 +414,22 @@ void Kid3App::initView()
 		view->genreV1ComboBox->insertStrList(Genres::strList);
 		view->genreV2ComboBox->insertStrList(Genres::strList);
 		view->formatComboBox->setEditable(TRUE);
-		view->formatComboBox->insertStrList(Mp3File::fnFmtList);
+		view->formatComboBox->insertStrList(MiscConfig::defaultFnFmtList);
 	}
 }
 
 /**
  * Open directory.
  *
- * @param dir directory or file path
+ * @param dir     directory or file path
+ * @param confirm if true ask if there are unsaved changes
  */
 
-void Kid3App::openDirectory(QString dir)
+void Kid3App::openDirectory(QString dir, bool confirm)
 {
+	if (confirm && !saveModified()) {
+		return;
+	}
 	if (dir.isNull() || dir.isEmpty()) {
 		return;
 	}
@@ -430,6 +445,7 @@ void Kid3App::openDirectory(QString dir)
 #endif
 	slotStatusMsg(i18n("Opening directory..."));
 	if (view->mp3ListBox->readDir(dir)) {
+		view->m_dirListBox->readDir(dir);
 		setModified(false);
 #ifdef CONFIG_USE_KDE
 		KURL url;
@@ -458,7 +474,7 @@ void Kid3App::saveOptions()
 	miscCfg->windowHeight = size().height();
 #endif
 	miscCfg->splitterSizes = view->sizes();
-	miscCfg->nameFilter = view->mp3ListBox->getNameFilter();
+	miscCfg->m_vSplitterSizes = view->m_vSplitter->sizes();
 	miscCfg->formatItem = view->formatComboBox->currentItem();
 	miscCfg->formatText = view->formatComboBox->currentText();
 
@@ -467,6 +483,9 @@ void Kid3App::saveOptions()
 	id3FormatCfg->writeToConfig(config);
 	genCfg->writeToConfig(config);
 	freedbCfg->writeToConfig(config);
+#ifdef HAVE_TUNEPIMP
+	m_musicBrainzCfg->writeToConfig(config);
+#endif
 }
 
 /**
@@ -480,6 +499,9 @@ void Kid3App::readOptions()
 	id3FormatCfg->readFromConfig(config);
 	genCfg->readFromConfig(config);
 	freedbCfg->readFromConfig(config);
+#ifdef HAVE_TUNEPIMP
+	m_musicBrainzCfg->readFromConfig(config);
+#endif
 #ifdef CONFIG_USE_KDE
 	setAutoSaveSettings();
 	fileOpenRecent->loadEntries(config,"Recent Files");
@@ -499,7 +521,25 @@ void Kid3App::readOptions()
 		) {
 		view->setSizes(miscCfg->splitterSizes);
 	}
-	view->mp3ListBox->setNameFilter(miscCfg->nameFilter);
+	if (
+#if QT_VERSION >= 300
+		!miscCfg->m_vSplitterSizes.empty()
+#else
+		miscCfg->m_vSplitterSizes.count() > 0
+#endif
+		) {
+		view->m_vSplitter->setSizes(miscCfg->m_vSplitterSizes);
+	} else {
+		// no values in configuration => set defaults
+		// the window height is a bit too large, but works
+		int sumSizes = size().height();
+		if (sumSizes > 70) {
+			QValueList<int> sizes;
+			sizes.append(sumSizes - 70);
+			sizes.append(70);
+			view->m_vSplitter->setSizes(sizes);
+		}
+	}
 	view->formatComboBox->setCurrentItem(miscCfg->formatItem);
 #if QT_VERSION >= 300
 	view->formatComboBox->setCurrentText(miscCfg->formatText);
@@ -530,7 +570,9 @@ void Kid3App::readProperties(KConfig* _cfg)
 {
 	openDirectory(_cfg->readEntry("dirname", ""));
 }
-#else
+
+#else /* CONFIG_USE_KDE */
+
 /**
  * Window is closed.
  *
@@ -546,7 +588,7 @@ void Kid3App::closeEvent(QCloseEvent *ce)
 		ce->ignore();
 	}
 }
-#endif
+#endif /* CONFIG_USE_KDE */
 
 /**
  * Save all changed files.
@@ -559,7 +601,7 @@ bool Kid3App::saveDirectory(void)
 	QString errorFiles;
 	int numFiles = 0, totalFiles = 0;
 	bool renamed = FALSE;
-	Mp3File *mp3file = view->mp3ListBox->first();
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	// Get number of files to be saved to display correct progressbar
 	while (mp3file != 0) {
 		if (mp3file->isChanged()) {
@@ -578,7 +620,7 @@ bool Kid3App::saveDirectory(void)
 #endif
 	mp3file = view->mp3ListBox->first();
 	while (mp3file != 0) {
-		if (!mp3file->writeTags(FALSE, &renamed)) {
+		if (!mp3file->writeTags(FALSE, &renamed, miscCfg->m_preserveTime)) {
 			errorFiles.append(mp3file->getFilename());
 			errorFiles.append('\n');
 		}
@@ -673,13 +715,22 @@ void Kid3App::cleanup()
 #ifndef CONFIG_USE_KDE
 		delete config;
 #endif
+#ifdef HAVE_TUNEPIMP
+		delete m_musicBrainzCfg;
+#endif
 		delete freedbCfg;
 		delete genCfg;
 		delete miscCfg;
 		delete fnFormatCfg;
 		delete id3FormatCfg;
-		delete framelist;
 		delete copytags;
+		Mp3File::staticCleanup();
+#ifdef HAVE_VORBIS
+		OggFile::staticCleanup();
+#endif
+#ifdef HAVE_FLAC
+		FlacFile::staticCleanup();
+#endif
 }
 
 /**
@@ -713,33 +764,54 @@ void Kid3App::slotFileOpen()
 {
 	updateCurrentSelection();
 	if(saveModified()) {
-		QString dir, filter;
+		QString dir, filter, flt;
 #ifdef CONFIG_USE_KDE
+		flt = "*.mp3 *.MP3 *.ogg *.OGG *.flac *.FLAC|MP3, OGG, FLAC (*.mp3, *.ogg, *.flac)\n";
+		flt += "*.mp3 *.MP3 *.Mp3 *.mP3|MP3 (*.mp3)\n";
+#ifdef HAVE_VORBIS
+		flt += "*.ogg *.ogG *.oGg *.oGG *.Ogg *.OgG *.OGg *.OGG|OGG (*.ogg)\n";
+#endif
+#ifdef HAVE_FLAC
+		flt += "*.flac *.flaC *.flAc *.flAC *.Flac *.FlaC *.FlAc *.FLAC|FLAC (*.flac)\n";
+#endif
+		flt += ("*|All Files (*)");
 		KFileDialog diag(
 		    QString::null,
-		    i18n("*.mp3 *.MP3|MP3 (*.mp3 *.MP3)\n*|All Files (*)"),
+		    flt,
 		    this, "filedialog", TRUE);
 		diag.setCaption(i18n("Open"));
-		(void)diag.exec();
-		dir = diag.selectedFile();
-		filter = diag.currentFilter();
+		if (diag.exec() == QDialog::Accepted) {
+			dir = diag.selectedFile();
+			filter = diag.currentFilter();
+		}
 #else
+		flt = "MP3, OGG, FLAC (*.mp3 *.MP3 *.ogg *.OGG *.flac *.FLAC);;";
+		flt += "MP3 (*.mp3 *.MP3 *.Mp3 *.mP3);;";
+#ifdef HAVE_VORBIS
+		flt += "OGG (*.ogg *.ogG *.oGg *.oGG *.Ogg *.OgG *.OGg *.OGG);;";
+#endif
+#ifdef HAVE_FLAC
+		flt += "FLAC (*.flac *.flaC *.flAc *.flAC *.Flac *.FlaC *.FlAc *.FLAC);;";
+#endif
+		flt += i18n("All Files (*)");
 #if QT_VERSION < 300
-		filter = "MP3 (*.mp3 *.MP3);;All Files (*)";
+		filter = flt;
 		dir = QFileDialog::getOpenFileName(
-		    QString::null, i18n(filter), this, 0);
+		    QString::null, flt, this, 0);
 #else
 		dir = QFileDialog::getOpenFileName(
-		    QString::null, i18n("MP3 (*.mp3 *.MP3);;All Files (*)"),
+		    QString::null, flt,
 		    this, 0, QString::null, &filter);
 #endif
 #endif
-		int start = filter.find('('), end = filter.find(')');
-		if (start != -1 && end != -1 && end > start) {
-			filter = filter.mid(start + 1, end - start - 1);
+		if (!dir.isEmpty()) {
+			int start = filter.find('('), end = filter.find(')');
+			if (start != -1 && end != -1 && end > start) {
+				filter = filter.mid(start + 1, end - start - 1);
+			}
+			miscCfg->nameFilter = filter;
+			openDirectory(dir);
 		}
-		view->mp3ListBox->setNameFilter(filter);
-		openDirectory(dir);
 	}
 }
 
@@ -753,12 +825,12 @@ void Kid3App::slotFileOpen()
 void Kid3App::slotFileOpenRecent(const KURL& url)
 {
 	updateCurrentSelection();
-	if(saveModified()) {
-		QString dir = url.path();
-		openDirectory(dir);
-	}
+	QString dir = url.path();
+	openDirectory(dir, true);
 }
-#endif
+#else /* CONFIG_USE_KDE */
+void Kid3App::slotFileOpenRecent(const KURL&) {}
+#endif /* CONFIG_USE_KDE */
 
 /**
  * Revert file modifications.
@@ -767,7 +839,7 @@ void Kid3App::slotFileOpenRecent(const KURL& url)
 
 void Kid3App::slotFileRevert()
 {
-	Mp3File *mp3file = view->mp3ListBox->first();
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	bool no_selection = view->numFilesSelected() == 0;
 	while (mp3file != 0) {
 		if (no_selection || mp3file->isInSelection()) {
@@ -857,6 +929,52 @@ void Kid3App::slotSettingsShortcuts()
 	KKeyDialog::configure(actionCollection(), this);
 }
 
+void Kid3App::slotHelpHandbook() {}
+void Kid3App::slotHelpAbout() {}
+void Kid3App::slotHelpAboutQt() {}
+
+#else /* CONFIG_USE_KDE */
+
+void Kid3App::slotViewToolBar() {}
+void Kid3App::slotViewStatusBar() {}
+void Kid3App::slotSettingsShortcuts() {}
+
+/**
+ * Display handbook.
+ */
+
+void Kid3App::slotHelpHandbook()
+{
+	QString caption(i18n("Kid3 Handbook"));
+	BrowserDialog *dialog =
+		new BrowserDialog(NULL, caption);
+	if (dialog) {
+		(void)dialog->exec();
+	}
+}
+
+/**
+ * Display "About" dialog.
+ */
+
+void Kid3App::slotHelpAbout()
+{
+	QMessageBox::about(
+		(Kid3App*)parent(), "Kid3",
+		"Kid3 " VERSION
+		"\n(c) 2003-2005 Urs Fleisch\nufleisch@users.sourceforge.net");
+}
+
+/**
+ * Display "About Qt" dialog.
+ */
+
+void Kid3App::slotHelpAboutQt()
+{
+	QMessageBox::aboutQt((Kid3App*)parent(), "Kid3");
+}
+#endif /* CONFIG_USE_KDE */
+
 /**
  * Select all files.
  */
@@ -892,43 +1010,6 @@ void Kid3App::slotPreviousFile()
 		view->mp3ListBox->setSelected(ci, true);
 	}
 }
-
-#else /* CONFIG_USE_KDE */
-/**
- * Display handbook.
- */
-
-void Kid3App::slotHelpHandbook()
-{
-	QString caption(i18n("Kid3 Handbook"));
-	BrowserDialog *dialog =
-		new BrowserDialog(NULL, caption);
-	if (dialog) {
-		(void)dialog->exec();
-	}
-}
-
-/**
- * Display "About" dialog.
- */
-
-void Kid3App::slotHelpAbout()
-{
-	QMessageBox::about(
-		(Kid3App*)parent(), "Kid3",
-		"Kid3 " VERSION
-		"\n(c) 2003-2004 Urs Fleisch\nufleisch@users.sourceforge.net");
-}
-
-/**
- * Display "About Qt" dialog.
- */
-
-void Kid3App::slotHelpAboutQt()
-{
-	QMessageBox::aboutQt((Kid3App*)parent(), "Kid3");
-}
-#endif /* CONFIG_USE_KDE */
 
 /**
  * Change status message.
@@ -966,7 +1047,7 @@ void Kid3App::slotCreatePlaylist(void)
 	slotStatusMsg(i18n("Creating playlist..."));
 	if (file.open(IO_WriteOnly)) {
 		QTextStream stream(&file);
-		Mp3File *mp3file = view->mp3ListBox->first();
+		TaggedFile *mp3file = view->mp3ListBox->first();
 		while (mp3file != 0) {
 			stream << mp3file->getFilename() << "\n";
 			mp3file = view->mp3ListBox->next();
@@ -978,77 +1059,28 @@ void Kid3App::slotCreatePlaylist(void)
 }
 
 /**
- * Check if the duration of the files corresponds to the duration of the
- * imported tracks.
- *
- * @param trackDuration list with durations of imported tracks
- * @param maxDiff       the maximum difference in seconds allowed
- *
- * @return true if ok or user agreed with import,
- *         false if user canceled import.
- */
-bool Kid3App::checkDuration(QValueList<int>* trackDuration,
-							unsigned maxDiff)
-{
-	if (!trackDuration) {
-		return true;
-	}
-	QString warningMsg;
-	int numFiles = 0;
-	int numTracks = 0;
-#if QT_VERSION >= 300
-	QValueList<int>::iterator
-#else
-	QValueListIterator<int>
-#endif
-	it = trackDuration->begin();
-	Mp3File *mp3file = view->mp3ListBox->first();
-	while (mp3file != 0) {
-		if (it != trackDuration->end()) {
-			mp3file->readTags(false);
-			unsigned fileLen = mp3file->getDuration();
-			unsigned trackLen = *it;
-			if (fileLen != 0 && trackLen != 0) {
-				unsigned diff = fileLen > trackLen ?
-					fileLen - trackLen : trackLen - fileLen;
-				if (diff > maxDiff) {
-					warningMsg.append(mp3file->getFilename());
-					warningMsg.append(": ");
-					warningMsg.append(Mp3File::formatTime(fileLen));
-					warningMsg.append(" != ");
-					warningMsg.append(Mp3File::formatTime(trackLen));
-					warningMsg.append('\n');
-				}
-			}
-			++it;
-			++numTracks;
-		}
-		mp3file = view->mp3ListBox->next();
-		++numFiles;
-	}
-	if (numFiles != 0 && numTracks != 0 &&
-		numFiles != numTracks) {
-		warningMsg.append(i18n("Number of files is not equal to number of imported tracks"));
-		warningMsg.append(QString(": %1 != %2\n").arg(numFiles).arg(numTracks));
-	}
-	if (!warningMsg.isEmpty()) {
-		return (QMessageBox::warning(0, i18n("Import Mismatch"),
-									 warningMsg + i18n("Continue import?"),
-									 QMessageBox::Ok, QMessageBox::Cancel) ==
-				QMessageBox::Ok);
-	}
-	return true;
-}
-
-/**
  * Import.
  */
 
 void Kid3App::slotImport(void)
 {
+	ImportTrackDataVector trackDataList;
+	TaggedFile *mp3file = view->mp3ListBox->first();
+	while (mp3file != 0) {
+		mp3file->readTags(false);
+#if QT_VERSION >= 300
+		trackDataList.push_back(ImportTrackData(mp3file->getAbsFilename(),
+                                            mp3file->getDuration()));
+#else
+		trackDataList.append(ImportTrackData(mp3file->getAbsFilename(),
+                                            mp3file->getDuration()));
+#endif
+		mp3file = view->mp3ListBox->next();
+	}
+
 	QString caption(i18n("Import"));
 	ImportDialog *dialog =
-		new ImportDialog(NULL, caption);
+		new ImportDialog(NULL, caption, trackDataList);
 	if (dialog) {
 		dialog->setDestV1(genCfg->importDestV1);
 		dialog->setImportFormat(genCfg->importFormatNames,
@@ -1058,6 +1090,9 @@ void Kid3App::slotImport(void)
 		dialog->setTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
 									   genCfg->maxTimeDifference);
 		dialog->setFreedbConfig(freedbCfg);
+#ifdef HAVE_TUNEPIMP
+		dialog->setMusicBrainzConfig(m_musicBrainzCfg);
+#endif
 		if (dialog->exec() == QDialog::Accepted) {
 			genCfg->importDestV1 = dialog->getDestV1();
 			QString name, header, track;
@@ -1068,52 +1103,54 @@ void Kid3App::slotImport(void)
 			dialog->getTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
 										   genCfg->maxTimeDifference);
 			dialog->getFreedbConfig(freedbCfg);
-			StandardTags st_hdr;
-			st_hdr.setInactive();
-			(void)dialog->parseHeader(st_hdr);
-			if (!genCfg->enableTimeDifferenceCheck ||
-				checkDuration(dialog->getTrackDurations(), genCfg->maxTimeDifference)) {
-#if QT_VERSION >= 300
-				QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-#else
-				QApplication::setOverrideCursor(QCursor(WaitCursor));
+#ifdef HAVE_TUNEPIMP
+			dialog->getMusicBrainzConfig(m_musicBrainzCfg);
 #endif
-				slotStatusMsg(i18n("Import..."));
-				StandardTags st;
-				bool start = true;
-				bool no_selection = view->numFilesSelected() == 0;
-				Mp3File *mp3file = view->mp3ListBox->first();
-				while (mp3file != 0) {
-					mp3file->readTags(false);
-					if (genCfg->importDestV1) {
-						mp3file->getStandardTagsV1(&st);
-					} else {
-						mp3file->getStandardTagsV2(&st);
-					}
-					st_hdr.copyActiveTags(st);
-					if (!dialog->getNextTags(st, start))
-						break;
-					start = false;
-					if (genCfg->importDestV1) {
-						mp3file->setStandardTagsV1(&st);
-					} else {
-						mp3file->setStandardTagsV2(&st);
-					}
-					mp3file = view->mp3ListBox->next();
+
+			slotStatusMsg(i18n("Import..."));
+#if QT_VERSION >= 300
+			ImportTrackDataVector::const_iterator it = trackDataList.begin();
+#else
+			ImportTrackDataVector::ConstIterator it = trackDataList.begin();
+#endif
+			StandardTags st;
+			StandardTagsFilter flt(genCfg->importDestV1 ?
+														 view->getFilterFromID3V1() :
+														 view->getFilterFromID3V2());
+			bool no_selection = view->numFilesSelected() == 0;
+			TaggedFile *mp3file = view->mp3ListBox->first();
+			while (mp3file != 0) {
+				mp3file->readTags(false);
+				if (genCfg->importDestV1) {
+					mp3file->getStandardTagsV1(&st);
+				} else {
+					mp3file->getStandardTagsV2(&st);
 				}
-				if (!no_selection) {
-					StandardTags st; // empty
-					view->setStandardTagsV1(&st);
-					view->setStandardTagsV2(&st);
-					view->nameLineEdit->setEnabled(FALSE);
-					fileSelected();
+				if (it != trackDataList.end()) {
+					(*it).copyActiveTags(st);
+					++it;
+				} else {
+					break;
 				}
-				else {
-					updateModificationState();
+				if (genCfg->importDestV1) {
+					mp3file->setStandardTagsV1(&st, flt);
+				} else {
+					mp3file->setStandardTagsV2(&st, flt);
 				}
-				slotStatusMsg(i18n("Ready."));
-				QApplication::restoreOverrideCursor();
+				mp3file = view->mp3ListBox->next();
 			}
+			if (!no_selection) {
+				StandardTags st; // empty
+				view->setStandardTagsV1(&st);
+				view->setStandardTagsV2(&st);
+				view->nameLineEdit->setEnabled(FALSE);
+				fileSelected();
+			}
+			else {
+				updateModificationState();
+			}
+			slotStatusMsg(i18n("Ready."));
+			QApplication::restoreOverrideCursor();
 		}
 		delete dialog;
 	}
@@ -1126,8 +1163,14 @@ void Kid3App::slotImport(void)
 void Kid3App::slotSettingsConfigure(void)
 {
 	QString caption(i18n("Configure - Kid3"));
+#ifdef KID3_USE_KCONFIGDIALOG
+	KConfigSkeleton* configSkeleton = new KConfigSkeleton;
+	ConfigDialog* dialog =
+		new ConfigDialog(NULL, caption, configSkeleton);
+#else
 	ConfigDialog *dialog =
 		new ConfigDialog(NULL, caption);
+#endif
 	if (dialog) {
 		dialog->setConfig(fnFormatCfg, id3FormatCfg, miscCfg);
 		if (dialog->exec() == QDialog::Accepted) {
@@ -1135,13 +1178,16 @@ void Kid3App::slotSettingsConfigure(void)
 #if defined CONFIG_USE_KDE || QT_VERSION >= 300
 			fnFormatCfg->writeToConfig(config);
 			id3FormatCfg->writeToConfig(config);
-			genCfg->writeToConfig(config);
+			miscCfg->writeToConfig(config);
 #endif
 #ifdef CONFIG_USE_KDE
 			config->sync();
 #endif
 		}
 	}
+#ifdef KID3_USE_KCONFIGDIALOG
+	delete configSkeleton;
+#endif
 }
 
 /**
@@ -1150,33 +1196,30 @@ void Kid3App::slotSettingsConfigure(void)
 void Kid3App::slotApplyFormat(void)
 {
 	StandardTags st;
-	updateCurrentSelection();
-	Mp3File *mp3file = view->mp3ListBox->first();
+	if (view->numFilesSelected() == 1) {
+		updateCurrentSelection();
+	}
+	StandardTagsFilter fltV1(view->getFilterFromID3V1());
+	StandardTagsFilter fltV2(view->getFilterFromID3V2());
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	bool no_selection = view->numFilesSelected() == 0;
 	while (mp3file != 0) {
 		if (no_selection || mp3file->isInSelection()) {
+			mp3file->readTags(false);
 			QString str;
 			str = mp3file->getFilename();
 			fnFormatCfg->formatString(str);
 			mp3file->setFilename(str);
 			mp3file->getStandardTagsV1(&st);
 			id3FormatCfg->formatStandardTags(st);
-			mp3file->setStandardTagsV1(&st);
+			mp3file->setStandardTagsV1(&st, fltV1);
 			mp3file->getStandardTagsV2(&st);
 			id3FormatCfg->formatStandardTags(st);
-			mp3file->setStandardTagsV2(&st);
+			mp3file->setStandardTagsV2(&st, fltV2);
 		}
 		mp3file = view->mp3ListBox->next();
 	}
-	if (!no_selection) {
-		StandardTags st; // empty
-		view->setStandardTagsV1(&st);
-		view->setStandardTagsV2(&st);
-		view->nameLineEdit->setEnabled(FALSE);
-		fileSelected();
-	} else {
-		updateModificationState();
-	}
+	updateGuiControls();
 }
 
 /**
@@ -1191,7 +1234,7 @@ void Kid3App::slotRenameDirectory(void)
 							 miscCfg->dirFormatItem, miscCfg->dirFormatText);
 		if (dialog) {
 			if (dialog->exec() == QDialog::Accepted) {
-				Mp3File *mp3file = view->mp3ListBox->first();
+				TaggedFile *mp3file = view->mp3ListBox->first();
 				QString errorMsg;
 				bool again = false;
 				while (mp3file &&
@@ -1244,9 +1287,7 @@ void Kid3App::openDrop(QString txt)
 		}
 #endif
 		updateCurrentSelection();
-		if(saveModified()) {
-			openDirectory(dir);
-		}
+		openDirectory(dir, true);
 	}
 }
 
@@ -1256,13 +1297,15 @@ void Kid3App::openDrop(QString txt)
  * @param mp3file file
  */
 
-void Kid3App::updateTags(Mp3File *mp3file)
+void Kid3App::updateTags(TaggedFile *mp3file)
 {
 	StandardTags st;
+	StandardTagsFilter flt;
+	flt.setAllTrue();
 	view->getStandardTagsV1(&st);
-	mp3file->setStandardTagsV1(&st);
+	mp3file->setStandardTagsV1(&st, flt);
 	view->getStandardTagsV2(&st);
-	mp3file->setStandardTagsV2(&st);
+	mp3file->setStandardTagsV2(&st, flt);
 	if (view->nameLineEdit->isEnabled()) {
 		mp3file->setFilename(view->nameLineEdit->text());
 	}
@@ -1296,7 +1339,7 @@ void Kid3App::updateModificationState(void)
 
 void Kid3App::updateCurrentSelection(void)
 {
-	Mp3File *mp3file = view->mp3ListBox->first();
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
 			updateTags(mp3file);
@@ -1307,23 +1350,19 @@ void Kid3App::updateCurrentSelection(void)
 }
 
 /**
- * Process change of selection.
- * The files of the current selection are updated.
+ * Update GUI controls from the tags in the files.
  * The new selection is stored and the GUI controls and frame list
  * updated accordingly (filtered for multiple selection).
  */
-
-void Kid3App::fileSelected(void)
+void Kid3App::updateGuiControls()
 {
 	StandardTags tags_v1, tags_v2;
-	Mp3File *mp3file = view->mp3ListBox->first(), *single_v2_file = NULL;
+	TaggedFile *mp3file = view->mp3ListBox->first(), *single_v2_file = NULL;
+	TaggedFile* firstMp3File = NULL;
 	int num_files_selected = 0;
+	bool tagV1Supported = false;
 
 	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			// file was selected -> update
-			updateTags(mp3file);
-		}
 		if (
 #if QT_VERSION < 300
 			mp3file->QListBoxItem::selected()
@@ -1345,12 +1384,17 @@ void Kid3App::fileSelected(void)
 			if (num_files_selected == 0) {
 				tags_v2 = filetags;
 				single_v2_file = mp3file;
+				firstMp3File = mp3file;
 			}
 			else {
 				tags_v2.filterDifferent(filetags);
 				single_v2_file = NULL;
 			}
 			++num_files_selected;
+
+			if (mp3file->isTagV1Supported()) {
+				tagV1Supported = true;
+			}
 		}
 		else {
 			mp3file->setInSelection(FALSE);
@@ -1362,16 +1406,39 @@ void Kid3App::fileSelected(void)
 	view->setAllCheckBoxes(num_files_selected == 1);
 	updateModificationState();
 	if (single_v2_file) {
-		framelist->setTags(single_v2_file);
+		FrameList* framelist = single_v2_file->getFrameList();
+		if (framelist) {
+			framelist->setTags(single_v2_file);
+		}
 		view->nameLineEdit->setEnabled(TRUE);
 		view->nameLineEdit->setText(single_v2_file->getFilename());
 		view->detailsLabel->setText(single_v2_file->getDetailInfo());
 	}
 	else {
-		framelist->clear();
+		FrameList* framelist;
+		if (firstMp3File && (framelist = firstMp3File->getFrameList()) != 0) {
+			framelist->clear();
+		}
 		view->nameLineEdit->setEnabled(FALSE);
 		view->detailsLabel->setText("");
 	}
+
+	if (num_files_selected == 0) {
+		tagV1Supported = true;
+	}
+	view->enableControlsV1(tagV1Supported);
+}
+
+/**
+ * Process change of selection.
+ * The files of the current selection are updated.
+ * The new selection is stored and the GUI controls and frame list
+ * updated accordingly (filtered for multiple selection).
+ */
+void Kid3App::fileSelected(void)
+{
+	updateCurrentSelection();
+	updateGuiControls();
 }
 
 /**
@@ -1399,14 +1466,56 @@ void Kid3App::pasteTags(StandardTags *st)
 		st->artist = copytags->artist;
 	if (!copytags->album.isNull())
 		st->album = copytags->album;
-	if (!copytags->album.isNull())
-		st->album = copytags->album;
+	if (!copytags->comment.isNull())
+		st->comment = copytags->comment;
 	if (copytags->year >= 0)
 		st->year = copytags->year;
 	if (copytags->track >= 0)
 		st->track = copytags->track;
 	if (copytags->genre >= 0)
 		st->genre = copytags->genre;
+}
+
+/**
+ * Paste from copy buffer to ID3v1 tags.
+ */
+void Kid3App::pasteTagsV1()
+{
+	updateCurrentSelection();
+	StandardTags st;
+	StandardTagsFilter flt(view->getFilterFromID3V1());
+	TaggedFile *mp3file = view->mp3ListBox->first();
+	while (mp3file != 0) {
+		if (mp3file->isInSelection()) {
+			mp3file->getStandardTagsV1(&st);
+			pasteTags(&st);
+			mp3file->setStandardTagsV1(&st, flt);
+		}
+		mp3file = view->mp3ListBox->next();
+	}
+	// update controls with filtered data
+	updateGuiControls();
+}
+
+/**
+ * Paste from copy buffer to ID3v2 tags.
+ */
+void Kid3App::pasteTagsV2()
+{
+	updateCurrentSelection();
+	StandardTags st;
+	StandardTagsFilter flt(view->getFilterFromID3V2());
+	TaggedFile *mp3file = view->mp3ListBox->first();
+	while (mp3file != 0) {
+		if (mp3file->isInSelection()) {
+			mp3file->getStandardTagsV2(&st);
+			pasteTags(&st);
+			mp3file->setStandardTagsV2(&st, flt);
+		}
+		mp3file = view->mp3ListBox->next();
+	}
+	// update controls with filtered data
+	updateGuiControls();
 }
 
 /**
@@ -1417,32 +1526,25 @@ void Kid3App::pasteTags(StandardTags *st)
 
 void Kid3App::getTagsFromFilenameV1(void)
 {
+	updateCurrentSelection();
 	StandardTags st;
-	Mp3File *mp3file = view->mp3ListBox->first();
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	bool multiselect = view->numFilesSelected() > 1;
+	StandardTagsFilter flt(view->getFilterFromID3V1());
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			if (multiselect) {
-				mp3file->getStandardTagsV1(&st);
-				mp3file->getTagsFromFilename(&st);
-				mp3file->setStandardTagsV1(&st);
+			if (!multiselect && view->nameLineEdit->isEnabled()) {
+				mp3file->setFilename(
+					view->nameLineEdit->text());
 			}
-			else {
-				if (view->nameLineEdit->isEnabled()) {
-					mp3file->setFilename(
-					    view->nameLineEdit->text());
-				}
-				view->getStandardTagsV1(&st);
-				mp3file->getTagsFromFilename(&st);
-				view->setStandardTagsV1(&st);
-			}
+			mp3file->getStandardTagsV1(&st);
+			mp3file->getTagsFromFilename(&st, view->formatComboBox->currentText());
+			mp3file->setStandardTagsV1(&st, flt);
 		}
 		mp3file = view->mp3ListBox->next();
 	}
-	if (multiselect) {
-		// update controls with filtered data
-		fileSelected();
-	}
+	// update controls with filtered data
+	updateGuiControls();
 }
 
 /**
@@ -1453,32 +1555,25 @@ void Kid3App::getTagsFromFilenameV1(void)
 
 void Kid3App::getTagsFromFilenameV2(void)
 {
+	updateCurrentSelection();
 	StandardTags st;
-	Mp3File *mp3file = view->mp3ListBox->first();
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	bool multiselect = view->numFilesSelected() > 1;
+	StandardTagsFilter flt(view->getFilterFromID3V2());
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			if (multiselect) {
-				mp3file->getStandardTagsV2(&st);
-				mp3file->getTagsFromFilename(&st);
-				mp3file->setStandardTagsV2(&st);
+			if (!multiselect && view->nameLineEdit->isEnabled()) {
+				mp3file->setFilename(
+					view->nameLineEdit->text());
 			}
-			else {
-				if (view->nameLineEdit->isEnabled()) {
-					mp3file->setFilename(
-					    view->nameLineEdit->text());
-				}
-				view->getStandardTagsV2(&st);
-				mp3file->getTagsFromFilename(&st);
-				view->setStandardTagsV2(&st);
-			}
+			mp3file->getStandardTagsV2(&st);
+			mp3file->getTagsFromFilename(&st, view->formatComboBox->currentText());
+			mp3file->setStandardTagsV2(&st, flt);
 		}
 		mp3file = view->mp3ListBox->next();
 	}
-	if (multiselect) {
-		// update controls with filtered data
-		fileSelected();
-	}
+	// update controls with filtered data
+	updateGuiControls();
 }
 
 /**
@@ -1491,36 +1586,29 @@ void Kid3App::getTagsFromFilenameV2(void)
 
 void Kid3App::getFilenameFromTags(int tag_version)
 {
+	updateCurrentSelection();
 	StandardTags st;
-	Mp3File *mp3file = view->mp3ListBox->first();
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	bool multiselect = view->numFilesSelected() > 1;
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			if (multiselect) {
-				if (tag_version == 2) {
-					mp3file->getStandardTagsV2(&st);
-				}
-				else {
-					mp3file->getStandardTagsV1(&st);
-				}
-				mp3file->getFilenameFromTags(
-				    &st, view->formatComboBox->currentText());
+			if (tag_version == 2) {
+				mp3file->getStandardTagsV2(&st);
 			}
 			else {
-				if (tag_version == 2) {
-					view->getStandardTagsV2(&st);
-				}
-				else {
-					view->getStandardTagsV1(&st);
-				}
-				mp3file->getFilenameFromTags(
-				    &st, view->formatComboBox->currentText());
+				mp3file->getStandardTagsV1(&st);
+			}
+			mp3file->getFilenameFromTags(
+				&st, view->formatComboBox->currentText());
+			if (!multiselect) {
 				view->nameLineEdit->setText(
-				    mp3file->getFilename());
+					mp3file->getFilename());
 			}
 		}
 		mp3file = view->mp3ListBox->next();
 	}
+	// update controls with filtered data
+	updateGuiControls();
 }
 
 /**
@@ -1529,23 +1617,19 @@ void Kid3App::getFilenameFromTags(int tag_version)
 
 void Kid3App::copyV1ToV2(void)
 {
+	updateCurrentSelection();
 	StandardTags st;
-	if (view->numFilesSelected() > 1) {
-		Mp3File *mp3file = view->mp3ListBox->first();
-		while (mp3file != 0) {
-			if (mp3file->isInSelection()) {
-				mp3file->getStandardTagsV1(&st);
-				mp3file->setStandardTagsV2(&st);
-			}
-			mp3file = view->mp3ListBox->next();
+	StandardTagsFilter flt(view->getFilterFromID3V2());
+	TaggedFile *mp3file = view->mp3ListBox->first();
+	while (mp3file != 0) {
+		if (mp3file->isInSelection()) {
+			mp3file->getStandardTagsV1(&st);
+			mp3file->setStandardTagsV2(&st, flt);
 		}
-		// update controls with filtered data
-		fileSelected();
+		mp3file = view->mp3ListBox->next();
 	}
-	else {
-		view->getStandardTagsV1(&st);
-		view->setStandardTagsV2(&st);
-	}
+	// update controls with filtered data
+	updateGuiControls();
 }
 
 /**
@@ -1554,23 +1638,19 @@ void Kid3App::copyV1ToV2(void)
 
 void Kid3App::copyV2ToV1(void)
 {
+	updateCurrentSelection();
 	StandardTags st;
-	if (view->numFilesSelected() > 1) {
-		Mp3File *mp3file = view->mp3ListBox->first();
-		while (mp3file != 0) {
-			if (mp3file->isInSelection()) {
-				mp3file->getStandardTagsV2(&st);
-				mp3file->setStandardTagsV1(&st);
-			}
-			mp3file = view->mp3ListBox->next();
+	StandardTagsFilter flt(view->getFilterFromID3V1());
+	TaggedFile *mp3file = view->mp3ListBox->first();
+	while (mp3file != 0) {
+		if (mp3file->isInSelection()) {
+			mp3file->getStandardTagsV2(&st);
+			mp3file->setStandardTagsV1(&st, flt);
 		}
-		// update controls with filtered data
-		fileSelected();
+		mp3file = view->mp3ListBox->next();
 	}
-	else {
-		view->getStandardTagsV2(&st);
-		view->setStandardTagsV1(&st);
-	}
+	// update controls with filtered data
+	updateGuiControls();
 }
 
 /**
@@ -1579,80 +1659,117 @@ void Kid3App::copyV2ToV1(void)
 
 void Kid3App::removeTagsV1(void)
 {
-	Mp3File *mp3file = view->mp3ListBox->first();
-	int i = 0;
+	updateCurrentSelection();
+	StandardTagsFilter flt(view->getFilterFromID3V1());
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			mp3file->removeTagsV1();
+			mp3file->removeTagsV1(flt);
 		}
 		mp3file = view->mp3ListBox->next();
-		++i;
 	}
+	updateGuiControls();
 }
 
 /**
- * Remove ID3v1 tags in selected files.
+ * Remove ID3v2 tags in selected files.
  */
 
 void Kid3App::removeTagsV2(void)
 {
-	Mp3File *mp3file = view->mp3ListBox->first();
-	int i = 0;
+	updateCurrentSelection();
+	StandardTagsFilter flt(view->getFilterFromID3V2());
+	TaggedFile *mp3file = view->mp3ListBox->first();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			mp3file->removeTagsV2();
+			mp3file->removeTagsV2(flt);
 		}
 		mp3file = view->mp3ListBox->next();
-		++i;
 	}
+	updateGuiControls();
 }
 
 /**
  * Update ID3v2 tags in GUI controls from file displayed in frame list.
+ *
+ * @param taggedFile the selected file
  */
-
-void Kid3App::updateAfterFrameModification(void)
+void Kid3App::updateAfterFrameModification(TaggedFile* taggedFile)
 {
-	Mp3File *mp3file = framelist->getFile();
-	if (mp3file) {
+	if (taggedFile) {
 		StandardTags st;
-		mp3file->getStandardTagsV2(&st);
+		taggedFile->getStandardTagsV2(&st);
 		view->setStandardTagsV2(&st);
 		updateModificationState();
 	}
 }
 
 /**
+ * Get the selected file together with its frame list.
+ * If multiple files are selected, 0 is returned for both parameters.
+ *
+ * @param taggedFile the file is returned here,
+ *                   0 if not exactly one file is selected
+ * @param framelist  the frame list is returned here,
+ *                   0 if not exactly one file is selected
+ */
+void Kid3App::getSelectedFileWithFrameList(
+	TaggedFile*& taggedFile, FrameList*& framelist)
+{
+	taggedFile = 0;
+	framelist = 0;
+	if (view->numFilesSelected() != 1) {
+		return;
+	}
+	TaggedFile *mp3file = view->mp3ListBox->first();
+	while (mp3file != 0) {
+		if (mp3file->isInSelection()) {
+			taggedFile = mp3file;
+			framelist = mp3file->getFrameList();
+			return;
+		}
+		mp3file = view->mp3ListBox->next();
+	}
+}
+
+/**
  * Edit selected frame.
  */
-
 void Kid3App::editFrame(void)
 {
-	if (framelist->editFrame()) {
-		updateAfterFrameModification();
+	FrameList* framelist;
+	TaggedFile* taggedFile;
+	getSelectedFileWithFrameList(taggedFile, framelist);
+	if (taggedFile && framelist && framelist->editFrame()) {
+		updateAfterFrameModification(taggedFile);
 	}
 }
 
 /**
  * Delete selected frame.
  */
-
 void Kid3App::deleteFrame(void)
 {
-	if (framelist->deleteFrame()) {
-		updateAfterFrameModification();
+	FrameList* framelist;
+	TaggedFile* taggedFile;
+	getSelectedFileWithFrameList(taggedFile, framelist);
+	if (taggedFile && framelist && framelist->deleteFrame()) {
+		updateAfterFrameModification(taggedFile);
 	}
 }
 
 /**
  * Select a frame type and add such a frame to frame list.
  */
-
 void Kid3App::addFrame(void)
 {
-	ID3_FrameID id = FrameList::selectFrameId();
-	if (id != ID3FID_NOFRAME &&
-		framelist->addFrame(id)) {
-		updateAfterFrameModification();
+	FrameList* framelist;
+	TaggedFile* taggedFile;
+	int id;
+	getSelectedFileWithFrameList(taggedFile, framelist);
+	if (taggedFile && framelist &&
+			(id = framelist->selectFrameId()) != -1 &&
+			framelist->addFrame(id)) {
+		updateAfterFrameModification(taggedFile);
 	}
 }
