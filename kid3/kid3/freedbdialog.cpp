@@ -82,10 +82,18 @@ FreedbDialog::FreedbDialog(QWidget *parent, QString caption)
 	vlayout->setMargin(6);
 
 	QHBoxLayout *findLayout = new QHBoxLayout(vlayout);
-	findLineEdit = new QLineEdit(this);
+	findLineEdit = new QComboBox(this);
 	findButton = new QPushButton(i18n("&Find"), this);
 	QPushButton *closeButton = new QPushButton(i18n("&Close"), this);
 	if (findLayout && findLineEdit && findButton) {
+		findLineEdit->setEditable(true);
+		findLineEdit->setAutoCompletion(true);
+		findLineEdit->setDuplicatesEnabled(false);
+#if QT_VERSION >= 0x030100
+		findLineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+#else
+		findLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+#endif
 		findButton->setDefault(true);
 		findLayout->addWidget(findLineEdit);
 		findLayout->addWidget(findButton);
@@ -159,6 +167,14 @@ FreedbDialog::~FreedbDialog()
 {
 	client->disconnect();
 	delete client;
+}
+
+/**
+ * Clear dialog data.
+ */
+void FreedbDialog::clear()
+{
+	albumListBox->clear();
 }
 
 /**
@@ -270,13 +286,36 @@ void FreedbDialog::getFreedbConfig(FreedbConfig *cfg) const
 }
 
 /**
+ * Set a find string from artist and album information.
+ *
+ * @param artist artist
+ * @param album  album
+ */
+void FreedbDialog::setArtistAlbum(const QString& artist, const QString& album)
+{
+	QString findStr(artist);
+	if (!findStr.isEmpty()) {
+		findStr += ' ';
+	}
+	findStr += album;
+	if (!findStr.isEmpty()) {
+		findLineEdit->setCurrentText(findStr);
+		QLineEdit* lineEdit = findLineEdit->lineEdit();
+		if (lineEdit) {
+			lineEdit->selectAll();
+		}
+		findLineEdit->setFocus();
+	}
+}
+
+/**
  * Find keyword in freedb.
  */
 void FreedbDialog::slotFind()
 {
 	FreedbConfig cfg;
 	getFreedbConfig(&cfg);
-	client->find(&cfg, findLineEdit->text());
+	client->find(&cfg, findLineEdit->currentText());
 }
 
 /**
@@ -321,6 +360,7 @@ read line with the format "http://www.freedb.org/freedb_search_fmt.php?cat=categ
 				searchStr.mid(catStart, catEnd - catStart),
 				searchStr.mid(idStart, idEnd - idStart));
 		}
+		albumListBox->setFocus();
 }
 
 /**

@@ -44,6 +44,10 @@ public:
 	 */
 	~FreedbDialog();
 	/**
+	 * Clear dialog data.
+	 */
+	void clear();
+	/**
 	 * Get string with server and port.
 	 *
 	 * @return "servername:port".
@@ -94,6 +98,13 @@ public:
 	 * @param cfg freedb configuration.
 	 */
 	void getFreedbConfig(FreedbConfig *cfg) const;
+	/**
+	 * Set a find string from artist and album information.
+	 *
+	 * @param artist artist
+	 * @param album  album
+	 */
+	void setArtistAlbum(const QString& artist, const QString& album);
 private slots:
 	/**
 	 * Find keyword in freedb.
@@ -134,7 +145,7 @@ signals:
 	 */
 	void albumDataReceived(QString);
 private:
-	QLineEdit *findLineEdit;
+	QComboBox *findLineEdit;
 	QPushButton *findButton;
 	QComboBox *serverComboBox;
 	QLineEdit *cgiLineEdit;
