@@ -1,5 +1,5 @@
 #MIN_CONFIG(3.0)
-AM_INIT_AUTOMAKE(kid3,0.6)
+AM_INIT_AUTOMAKE(kid3,0.7)
 dnl Check for libid3
 AC_SEARCH_LIBS(ID3Tag_Link,"id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++",,AC_MSG_ERROR(id3lib not found))
 
@@ -82,6 +82,35 @@ else
 fi
 AC_SUBST(LIB_TUNEPIMP)
 AM_CONDITIONAL(HAVE_TUNEPIMP, test "$build_musicbrainz" = "yes")
+
+# Check if libtunepimp > 0.3.0
+AC_DEFUN([TUNEPIMP_CHECK_VERSION_0_3_0],
+[
+  AC_MSG_CHECKING([for libtunepimp > 0.3.0])
+  AC_LANG_SAVE
+  AC_LANG_CPLUSPLUS
+cat > conftest.$ac_ext <<EOF
+#include <tunepimp/tp_c.h>
+int main() {
+  tunepimp_t tp = tp_New("tp_tagger", "0.2.1");
+  tp_SetID3Encoding(tp, eUTF8);
+  return 0;
+}
+EOF
+
+  ac_save_CPPFLAGS=$CPPFLAGS
+  CPPFLAGS="$all_includes $CPPFLAGS"
+  if AC_TRY_EVAL(ac_compile); then
+    AC_MSG_RESULT(yes)
+  else
+    AC_MSG_RESULT(no)
+    AC_DEFINE(HAVE_TUNEPIMP_030,1,[Define to build with libtunepimp 0.3.0])
+  fi
+  CPPFLAGS=$ac_save_CPPFLAGS
+
+  AC_LANG_RESTORE
+])
+TUNEPIMP_CHECK_VERSION_0_3_0
 
 # ogg/vorbis support with libvorbis
 AC_ARG_WITH(vorbis, [  --with-vorbis           build with ogg/vorbis, default=yes],
