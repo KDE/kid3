@@ -55,6 +55,10 @@ public:
 	 */
 	~ImportSelector();
 	/**
+	 * Clear dialog data.
+	 */
+	void clear();
+	/**
 	 * Look for album specific information (artist, album, year, genre) in
 	 * a header (e.g. in a freedb header).
 	 *
@@ -215,6 +219,19 @@ public slots:
 	 * Show fields to import in text as preview in table.
 	 */
 	void showPreview();
+	/**
+	 * Match import data with length.
+	 */
+	void matchWithLength();
+	/**
+	 * Match import data with track number.
+	 */
+	void matchWithTrack();
+	/**
+	 * Match import data with title.
+	 */
+	void matchWithTitle();
+
 private:
 	enum TabColumn {
 		LengthColumn, TrackColumn, TitleColumn, ArtistColumn,
@@ -239,6 +256,12 @@ private:
 	QPushButton *freedbButton;
 	/** From MusicBrainz button */
 	QPushButton *m_musicBrainzButton;
+	/** Match with Length button */
+	QPushButton* m_lengthButton;
+	/** Match with Track button */
+	QPushButton* m_trackButton;
+	/** Match with Title button */
+	QPushButton* m_titleButton;
 	/** Preview table */
 	ImportTable *tab;
 	/** contents of imported file/clipboard */

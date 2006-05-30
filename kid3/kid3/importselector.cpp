@@ -201,21 +201,26 @@ ImportSelector::ImportSelector(
 	destLabel->setBuddy(destComboBox);
 	butlayout->addWidget(destComboBox);
 
-	QWidget* diffbox = new QWidget(this);
-	QHBoxLayout* checkLayout = new QHBoxLayout(diffbox);
-	if (checkLayout) {
-		mismatchCheckBox = new QCheckBox(diffbox);
-		mismatchCheckBox->setText(
-			i18n("Check maximum allowable time &difference (sec):"));
-		maxDiffSpinBox = new QSpinBox(diffbox);
-		maxDiffSpinBox->setMaxValue(9999);
-		if (mismatchCheckBox && maxDiffSpinBox) {
-			checkLayout->addSpacing(margin() * 2);
-			checkLayout->addWidget(mismatchCheckBox);
-			checkLayout->addWidget(maxDiffSpinBox);
-			checkLayout->addStretch();
-		}
-	}
+	QWidget* matchBox = new QWidget(this, "matchBox");
+	QHBoxLayout* matchLayout = new QHBoxLayout(matchBox, 6, 6, "matchLayout");
+	mismatchCheckBox = new QCheckBox(
+		i18n("Check maximum allowable time &difference (sec):"), matchBox ,
+		"mismatchCheckBox");
+	matchLayout->addWidget(mismatchCheckBox);
+	maxDiffSpinBox = new QSpinBox(matchBox, "maxDiffSpinBox");
+	maxDiffSpinBox->setMaxValue(9999);
+	matchLayout->addWidget(maxDiffSpinBox);
+	QSpacerItem* matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+																						 QSizePolicy::Minimum);
+	matchLayout->addItem(matchSpacer);
+	QLabel* matchLabel = new QLabel(i18n("Match with:"), matchBox, "matchLabel");
+	matchLayout->addWidget(matchLabel);
+	m_lengthButton = new QPushButton(i18n("&Length"), matchBox, "lengthButton");
+	matchLayout->addWidget(m_lengthButton);
+	m_trackButton = new QPushButton(i18n("T&rack"), matchBox, "trackButton");
+	matchLayout->addWidget(m_trackButton);
+	m_titleButton = new QPushButton(i18n("&Title"), matchBox, "titleButton");
+	matchLayout->addWidget(m_titleButton);
 
 	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
@@ -223,6 +228,9 @@ ImportSelector::ImportSelector(
 #ifdef HAVE_TUNEPIMP
 	connect(m_musicBrainzButton, SIGNAL(clicked()), this, SLOT(fromMusicBrainz()));
 #endif
+	connect(m_lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
+	connect(m_trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
+	connect(m_titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
 	connect(vHeader, SIGNAL(indexChange(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
 	connect(mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
 	connect(maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
@@ -247,6 +255,14 @@ ImportSelector::~ImportSelector()
 		m_musicBrainzDialog = 0;
 	}
 #endif
+}
+
+/**
+ * Clear dialog data.
+ */
+void ImportSelector::clear()
+{
+	tab->setNumRows(0);
 }
 
 /**
@@ -332,16 +348,17 @@ void ImportSelector::fromFreedb()
 {
 	if (!freedbDialog) {
 		freedbDialog = new FreedbDialog(this);
-		if (!freedbDialog) {
-			return;
-		}
-		if (freedbCfg) {
-			freedbDialog->setFreedbConfig(freedbCfg);
-		}
 		connect(freedbDialog, SIGNAL(albumDataReceived(QString)),
 				this, SLOT(freedbAlbumDataReceived(QString)));
 	}
-	(void)freedbDialog->exec();
+	if (freedbDialog) {
+		if (freedbCfg) {
+			freedbDialog->setFreedbConfig(freedbCfg);
+		}
+		freedbDialog->setArtistAlbum(m_trackDataVector.artist,
+																 m_trackDataVector.album);
+		(void)freedbDialog->exec();
+	}
 }
 
 /**
@@ -493,6 +510,9 @@ void ImportSelector::showPreview() {
 		}
 		if ((*it).genre != -1) {
 			QString genreStr(Genres::getName((*it).genre));
+			if (genreStr.isEmpty() && !(*it).genreStr.isEmpty()) {
+				genreStr = (*it).genreStr;
+			}
 			tab->setText(row, GenreColumn, genreStr);
 		}
 		if (!(*it).comment.isNull())
@@ -731,15 +751,13 @@ void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
 	int numTracks = static_cast<int>(m_trackDataVector.count());
 #endif
 	if (fromIndex < numTracks && toIndex < numTracks) {
-		// swap elements but keep file durations
+		// swap elements but keep file durations and names
 		ImportTrackData fromData(m_trackDataVector[fromIndex]);
 		ImportTrackData toData(m_trackDataVector[toIndex]);
-		int fromDuration = fromData.getFileDuration();
-		fromData.setFileDuration(toData.getFileDuration());
-		toData.setFileDuration(fromDuration);
-		m_trackDataVector[fromIndex] = toData;
-		m_trackDataVector[toIndex] = fromData;
-
+		m_trackDataVector[fromIndex].setStandardTags(toData);
+		m_trackDataVector[toIndex].setStandardTags(fromData);
+		m_trackDataVector[fromIndex].setImportDuration(toData.getImportDuration());
+		m_trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
 		// redisplay the table
 		showPreview();
 	}
@@ -753,16 +771,16 @@ void ImportSelector::fromMusicBrainz()
 #ifdef HAVE_TUNEPIMP
 	if (!m_musicBrainzDialog) {
 		m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataVector);
-		if (!m_musicBrainzDialog) {
-			return;
-		}
-		if (m_musicBrainzCfg) {
-			m_musicBrainzDialog->setMusicBrainzConfig(m_musicBrainzCfg);
-		}
 		connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
 						this, SLOT(showPreview()));
 	}
-	(void)m_musicBrainzDialog->exec();
+	if (m_musicBrainzDialog) {
+		if (m_musicBrainzCfg) {
+			m_musicBrainzDialog->setMusicBrainzConfig(m_musicBrainzCfg);
+		}
+		m_musicBrainzDialog->initTable();
+		(void)m_musicBrainzDialog->exec();
+	}
 #endif
 }
 
@@ -800,3 +818,370 @@ void ImportSelector::getMusicBrainzConfig(MusicBrainzConfig* cfg) const
 #else
 void ImportSelector::getMusicBrainzConfig(MusicBrainzConfig*) const {}
 #endif
+
+/**
+ * Match import data with length.
+ */
+void ImportSelector::matchWithLength()
+{
+	struct MatchData {
+		int fileLen;      // length of file
+		int importLen;    // length of import
+		int assignedTo;   // number of file import is assigned to, -1 if not assigned
+		int assignedFrom; // number of import assigned to file, -1 if not assigned
+	};
+
+	bool failed = false;
+#if QT_VERSION >= 300
+	unsigned numTracks = m_trackDataVector.size();
+#else
+	unsigned numTracks = m_trackDataVector.count();
+#endif
+	if (numTracks > 0) {
+		bool diffCheckEnable;
+		int maxDiff;
+		getTimeDifferenceCheck(diffCheckEnable, maxDiff);
+
+		MatchData* md = new MatchData[numTracks];
+		unsigned numFiles = 0, numImports = 0;
+		unsigned i = 0;
+		for (
+#if QT_VERSION >= 300
+			ImportTrackDataVector::const_iterator
+#else
+			ImportTrackDataVector::ConstIterator
+#endif
+				 it = m_trackDataVector.begin();
+				 it != m_trackDataVector.end();
+				 ++it) {
+			if (i >= numTracks) {
+				break;
+			}
+			md[i].fileLen = (*it).getFileDuration();
+			if (md[i].fileLen > 0) {
+				++numFiles;
+			}
+			md[i].importLen = (*it).getImportDuration();
+			if (md[i].importLen > 0) {
+				++numImports;
+			}
+			md[i].assignedTo = -1;
+			md[i].assignedFrom = -1;
+			// If time difference checking is enabled and the time difference
+			// is not larger then the allowed limit, do not reassign the track.
+			if (diffCheckEnable) {
+				if (md[i].fileLen != 0 && md[i].importLen != 0) {
+					int diff = md[i].fileLen > md[i].importLen ?
+						md[i].fileLen - md[i].importLen : md[i].importLen - md[i].fileLen;
+					if (diff <= maxDiff) {
+						md[i].assignedTo = i;
+						md[i].assignedFrom = i;
+					}
+				}
+			}
+			++i;
+		}
+
+		if (numFiles <= numImports) {
+			// more imports than files => first look through all imports
+			for (i = 0; i < numTracks; ++i) {
+				if (md[i].assignedFrom == -1) {
+					int bestTrack = -1;
+					int bestDiff = INT_MAX;
+					// Find the unassigned import with the best difference
+					for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
+						if (md[comparedTrack].assignedTo == -1) {
+							int comparedDiff = md[i].fileLen > md[comparedTrack].importLen ?
+								md[i].fileLen - md[comparedTrack].importLen :
+								md[comparedTrack].importLen - md[i].fileLen;
+							if (comparedDiff < bestDiff) {
+								bestDiff = comparedDiff;
+								bestTrack = comparedTrack;
+							}
+						}
+					}
+					if (bestTrack >= 0 && bestTrack < static_cast<int>(numTracks)) {
+						md[i].assignedFrom = bestTrack;
+						md[bestTrack].assignedTo = i;
+					} else {
+						qDebug("No match for track %d", i);
+						failed = true;
+						break;
+					}
+				}
+			}
+		} else {
+			// more files than imports => first look through all files
+			for (i = 0; i < numTracks; ++i) {
+				if (md[i].assignedTo == -1) {
+					int bestTrack = -1;
+					int bestDiff = INT_MAX;
+					// Find the unassigned file with the best difference
+					for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
+						if (md[comparedTrack].assignedFrom == -1) {
+							int comparedDiff = md[comparedTrack].fileLen > md[i].importLen ?
+								md[comparedTrack].fileLen - md[i].importLen :
+								md[i].importLen - md[comparedTrack].fileLen;
+							if (comparedDiff < bestDiff) {
+								bestDiff = comparedDiff;
+								bestTrack = comparedTrack;
+							}
+						}
+					}
+					if (bestTrack >= 0 && bestTrack < static_cast<int>(numTracks)) {
+						md[i].assignedTo = bestTrack;
+						md[bestTrack].assignedFrom = i;
+					} else {
+						qDebug("No match for track %d", i);
+						failed = true;
+						break;
+					}
+				}
+			}
+		}
+
+		if (!failed) {
+			ImportTrackDataVector oldTrackDataVector(m_trackDataVector);
+			for (i = 0; i < numTracks; ++i) {
+				m_trackDataVector[i].setStandardTags(
+					oldTrackDataVector[md[i].assignedFrom]);
+				m_trackDataVector[i].setImportDuration(
+					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
+			}
+			showPreview();
+		}
+
+		delete [] md;
+	}
+}
+
+/**
+ * Match import data with track number.
+ */
+void ImportSelector::matchWithTrack()
+{
+	struct MatchData {
+		int track;        // track number starting with 0
+		int assignedTo;   // number of file import is assigned to, -1 if not assigned
+		int assignedFrom; // number of import assigned to file, -1 if not assigned
+	};
+
+	bool failed = false;
+#if QT_VERSION >= 300
+	unsigned numTracks = m_trackDataVector.size();
+#else
+	unsigned numTracks = m_trackDataVector.count();
+#endif
+	if (numTracks > 0) {
+		MatchData* md = new MatchData[numTracks];
+
+		// 1st pass: Get track data and keep correct assignments.
+		unsigned i = 0;
+		for (
+#if QT_VERSION >= 300
+			ImportTrackDataVector::const_iterator
+#else
+			ImportTrackDataVector::ConstIterator
+#endif
+				 it = m_trackDataVector.begin();
+				 it != m_trackDataVector.end();
+				 ++it) {
+			if (i >= numTracks) {
+				break;
+			}
+			if ((*it).track > 0 && (*it).track <= static_cast<int>(numTracks)) {
+				md[i].track = (*it).track - 1;
+			} else {
+				md[i].track = -1;
+			}
+			md[i].assignedTo = -1;
+			md[i].assignedFrom = -1;
+			if (md[i].track == static_cast<int>(i)) {
+				md[i].assignedTo = i;
+				md[i].assignedFrom = i;
+			}
+			++i;
+		}
+
+		// 2nd pass: Assign imported track numbers to unassigned tracks.
+		for (i = 0; i < numTracks; ++i) {
+			if (md[i].assignedTo == -1 &&
+					md[i].track >= 0 && md[i].track < static_cast<int>(numTracks)) {
+				if (md[md[i].track].assignedFrom == -1) {
+					md[md[i].track].assignedFrom = i;
+					md[i].assignedTo = md[i].track;
+				}
+			}
+		}
+
+		// 3rd pass: Assign remaining tracks.
+		unsigned unassignedTrack = 0;
+		for (i = 0; i < numTracks; ++i) {
+			if (md[i].assignedFrom == -1) {
+				while (unassignedTrack < numTracks) {
+					if (md[unassignedTrack].assignedTo == -1) {
+						md[i].assignedFrom = unassignedTrack;
+						md[unassignedTrack++].assignedTo = i;
+						break;
+					}
+					++unassignedTrack;
+				}
+				if (md[i].assignedFrom == -1) {
+					qDebug("No track assigned to %d", i);
+					failed = true;
+				}
+			}
+		}
+
+		if (!failed) {
+			ImportTrackDataVector oldTrackDataVector(m_trackDataVector);
+			for (i = 0; i < numTracks; ++i) {
+				m_trackDataVector[i].setStandardTags(
+					oldTrackDataVector[md[i].assignedFrom]);
+				m_trackDataVector[i].setImportDuration(
+					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
+			}
+			showPreview();
+		}
+
+		delete [] md;
+	}
+}
+
+/**
+ * Match import data with title.
+ */
+void ImportSelector::matchWithTitle()
+{
+	struct MatchData {
+		QStringList fileWords;  // words in file name
+		QStringList titleWords; // words in title
+		int assignedTo;   // number of file import is assigned to, -1 if not assigned
+		int assignedFrom; // number of import assigned to file, -1 if not assigned
+	};
+
+	bool failed = false;
+#if QT_VERSION >= 300
+	unsigned numTracks = m_trackDataVector.size();
+#else
+	unsigned numTracks = m_trackDataVector.count();
+#endif
+	if (numTracks > 0) {
+		MatchData* md = new MatchData[numTracks];
+		unsigned numFiles = 0, numImports = 0;
+		QRegExp nonWordCharRegExp("\\W");
+		unsigned i = 0;
+		for (
+#if QT_VERSION >= 300
+			ImportTrackDataVector::const_iterator
+#else
+			ImportTrackDataVector::ConstIterator
+#endif
+				 it = m_trackDataVector.begin();
+				 it != m_trackDataVector.end();
+				 ++it) {
+			if (i >= numTracks) {
+				break;
+			}
+			QString fileName = (*it).getAbsFilename();
+			if (!fileName.isEmpty()) {
+				++numFiles;
+				int startIndex = fileName.findRev(QDir::separator()) + 1;
+				int endIndex = fileName.findRev('.');
+				if (endIndex > startIndex) {
+					fileName = fileName.mid(startIndex, endIndex - startIndex);
+				} else {
+					fileName = fileName.mid(startIndex);
+				}
+				md[i].fileWords = QStringList::split(nonWordCharRegExp, fileName.lower());
+			}
+			if (!(*it).title.isEmpty()) {
+				++numImports;
+				md[i].titleWords = QStringList::split(nonWordCharRegExp, (*it).title.lower());
+			}
+			md[i].assignedTo = -1;
+			md[i].assignedFrom = -1;
+			++i;
+		}
+
+		if (numFiles <= numImports) {
+			// more imports than files => first look through all imports
+			for (i = 0; i < numTracks; ++i) {
+				if (md[i].assignedFrom == -1) {
+					int bestTrack = -1;
+					int bestMatch = -1;
+					// Find the unassigned import with the best match
+					for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
+						if (md[comparedTrack].assignedTo == -1) {
+							int comparedMatch = 0;
+							for (QStringList::const_iterator fwit = md[i].fileWords.begin();
+									 fwit != md[i].fileWords.end();
+									 ++fwit) {
+								if (md[comparedTrack].titleWords.contains(*fwit)) {
+									++comparedMatch;
+								}
+							}
+							if (comparedMatch > bestMatch) {
+								bestMatch = comparedMatch;
+								bestTrack = comparedTrack;
+							}
+						}
+					}
+					if (bestTrack >= 0 && bestTrack < static_cast<int>(numTracks)) {
+						md[i].assignedFrom = bestTrack;
+						md[bestTrack].assignedTo = i;
+					} else {
+						qDebug("No match for track %d", i);
+						failed = true;
+						break;
+					}
+				}
+			}
+		} else {
+			// more files than imports => first look through all files
+			for (i = 0; i < numTracks; ++i) {
+				if (md[i].assignedTo == -1) {
+					int bestTrack = -1;
+					int bestMatch = -1;
+					// Find the unassigned file with the best match
+					for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
+						if (md[comparedTrack].assignedFrom == -1) {
+							int comparedMatch = 0;
+							for (QStringList::const_iterator fwit = md[comparedTrack].fileWords.begin();
+									 fwit != md[comparedTrack].fileWords.end();
+									 ++fwit) {
+								if (md[i].titleWords.contains(*fwit)) {
+									++comparedMatch;
+								}
+							}
+							if (comparedMatch > bestMatch) {
+								bestMatch = comparedMatch;
+								bestTrack = comparedTrack;
+							}
+						}
+					}
+					if (bestTrack >= 0 && bestTrack < static_cast<int>(numTracks)) {
+						md[i].assignedTo = bestTrack;
+						md[bestTrack].assignedFrom = i;
+					} else {
+						qDebug("No match for track %d", i);
+						failed = true;
+						break;
+					}
+				}
+			}
+		}
+		if (!failed) {
+			ImportTrackDataVector oldTrackDataVector(m_trackDataVector);
+			for (i = 0; i < numTracks; ++i) {
+				m_trackDataVector[i].setStandardTags(
+					oldTrackDataVector[md[i].assignedFrom]);
+				m_trackDataVector[i].setImportDuration(
+					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
+			}
+			showPreview();
+		}
+
+		delete [] md;
+	}
+}
