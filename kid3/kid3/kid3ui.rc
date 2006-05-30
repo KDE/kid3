@@ -3,11 +3,20 @@
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="import"/>
+    <Action name="import_freedb"/>
+    <Action name="import_musicbrainz"/>
+    <Action name="export"/>
     <Action name="create_playlist"/>
   </Menu>
   <Menu name="tools"><text>&amp;Tools</text>
-    <Action name="apply_format"/>
+    <Action name="apply_filename_format"/>
+    <Action name="apply_id3_format"/>
     <Action name="rename_directory"/>
+    <Action name="number_tracks"/>
+  </Menu>
+  <Menu name="settings"><text>&amp;Settings</text>
+    <Action name="hide_v1"/>
+    <Action name="hide_v2"/>
   </Menu>
 </MenuBar>
 </kpartgui>
