@@ -208,6 +208,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 		if (new_filename == filename) {
 			QDir(dirname).remove(tempFilename);
 		} else {
+			QDir(dirname).remove(filename);
 			*renamed = true;
 		}
 	} else if (new_filename != filename) {
@@ -469,8 +470,9 @@ void OggFile::setTrackNumV2(int num)
  */
 void OggFile::setGenreNumV2(int num)
 {
-	if (num >= 0) {
-		m_comments.setValue("GENRE", Genres::getName(num));
+	if (m_fileRead && num >= 0 &&
+			m_comments.setValue("GENRE", Genres::getName(num))) {
+		changedV2 = true;
 	}
 }
 
