@@ -68,6 +68,23 @@ public:
 	bool enableTimeDifferenceCheck;
 	/** maximum allowable time difference */
 	int maxTimeDifference;
+
+	/** true to export ID3v1 tags, else ID3v2 tags */
+	bool m_exportSrcV1;
+	/** Names of export formats */
+	QStringList m_exportFormatNames;
+	/** regexp describing header export format */
+	QStringList m_exportFormatHeaders;
+	/** regexp describing track export format */
+	QStringList m_exportFormatTracks;
+	/** regexp describing trailer export format */
+	QStringList m_exportFormatTrailers;
+	/** selected export format */
+	int m_exportFormatIdx;
+	/** export window width */
+	int m_exportWindowWidth;
+	/** export window height */
+	int m_exportWindowHeight;
 };
 
 #endif
