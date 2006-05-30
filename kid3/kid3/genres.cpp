@@ -370,7 +370,7 @@ int Genres::getIndex(int num)
 
 int Genres::getNumber(int index)
 {
-	if (index >= 0 || index <= Genres::count) {
+	if (index >= 0 && index <= Genres::count) {
 		return genre_num[index];
 	}
 	return 255; // 255 for unknown
