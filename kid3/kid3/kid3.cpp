@@ -16,6 +16,7 @@
 #include <qcursor.h>
 #include <qprogressbar.h>
 #include <qmessagebox.h>
+#include <qgroupbox.h>
 
 #ifdef CONFIG_USE_KDE
 #include <kapp.h>
@@ -46,6 +47,8 @@
 #include "mp3framelist.h"
 #include "configdialog.h"
 #include "importdialog.h"
+#include "exportdialog.h"
+#include "numbertracksdialog.h"
 #include "formatconfig.h"
 #include "importconfig.h"
 #include "miscconfig.h"
@@ -134,7 +137,8 @@ BrowserDialog::~BrowserDialog()
  * @param name name
  */
 
-Kid3App::Kid3App()
+Kid3App::Kid3App() :
+	m_importDialog(0), m_exportDialog(0), m_numberTracksDialog(0)
 {
 	miscCfg = new MiscConfig("General Options");
 	genCfg = new ImportConfig("General Options");
@@ -171,6 +175,8 @@ Kid3App::Kid3App()
 
 Kid3App::~Kid3App()
 {
+	delete m_importDialog;
+	delete m_numberTracksDialog;
 }
 
 /**
@@ -194,7 +200,7 @@ void Kid3App::initActions()
 	    this, SLOT(slotViewToolBar()), actionCollection());
 	viewStatusBar = KStdAction::showStatusbar(
 	    this, SLOT(slotViewStatusBar()), actionCollection());
-    settingsShortcuts = KStdAction::keyBindings(
+	settingsShortcuts = KStdAction::keyBindings(
 		this, SLOT(slotSettingsShortcuts()), actionCollection());
 	settingsConfigure = KStdAction::preferences(
 	    this, SLOT(slotSettingsConfigure()), actionCollection());
@@ -213,15 +219,40 @@ void Kid3App::initActions()
 	new KAction(i18n("&Import..."), 0, this,
 		    SLOT(slotImport()), actionCollection(),
 		    "import");
+	new KAction(i18n("Import from &freedb.org..."), 0, this,
+		    SLOT(slotImportFreedb()), actionCollection(),
+		    "import_freedb");
+#ifdef HAVE_TUNEPIMP
+	new KAction(i18n("Import from &MusicBrainz..."), 0, this,
+		    SLOT(slotImportMusicBrainz()), actionCollection(),
+		    "import_musicbrainz");
+#endif
+	new KAction(i18n("&Export..."), 0, this,
+		    SLOT(slotExport()), actionCollection(),
+		    "export");
 	new KAction(i18n("&Create Playlist"), 0, this,
 		    SLOT(slotCreatePlaylist()), actionCollection(),
 		    "create_playlist");
-	new KAction(i18n("&Apply Format"), 0, this,
-		    SLOT(slotApplyFormat()), actionCollection(),
-		    "apply_format");
+	new KAction(i18n("Apply &Filename Format"), 0, this,
+		    SLOT(slotApplyFilenameFormat()), actionCollection(),
+		    "apply_filename_format");
+	new KAction(i18n("Apply &ID3 Format"), 0, this,
+		    SLOT(slotApplyId3Format()), actionCollection(),
+		    "apply_id3_format");
 	new KAction(i18n("&Rename Directory..."), 0, this,
 		    SLOT(slotRenameDirectory()), actionCollection(),
 		    "rename_directory");
+	new KAction(i18n("&Number Tracks..."), 0, this,
+		    SLOT(slotNumberTracks()), actionCollection(),
+		    "number_tracks");
+	settingsShowHideV1 =
+		new KAction(i18n("Hide ID3v&1.1"), 0, this,
+								SLOT(slotSettingsShowHideV1()), actionCollection(),
+								"hide_v1");
+	settingsShowHideV2 =
+		new KAction(i18n("Hide ID3v&2.3"), 0, this,
+								SLOT(slotSettingsShowHideV2()), actionCollection(),
+								"hide_v2");
 
 	new KAction(i18n("Select &All"), KShortcut("Alt+A"), this,
 		    SLOT(slotSelectAll()), actionCollection(),
@@ -303,6 +334,29 @@ void Kid3App::initActions()
 		connect(fileImport, SIGNAL(activated()),
 			this, SLOT(slotImport()));
 	}
+	fileImportFreedb = new QAction(this);
+	if (fileImportFreedb) {
+		fileImportFreedb->setText(i18n("Import from freedb.org"));
+		fileImportFreedb->setMenuText(i18n("Import from &freedb.org..."));
+		connect(fileImportFreedb, SIGNAL(activated()),
+			this, SLOT(slotImportFreedb()));
+	}
+#ifdef HAVE_TUNEPIMP
+	fileImportMusicBrainz = new QAction(this);
+	if (fileImportMusicBrainz) {
+		fileImportMusicBrainz->setText(i18n("Import from MusicBrainz"));
+		fileImportMusicBrainz->setMenuText(i18n("Import from &MusicBrainz..."));
+		connect(fileImportMusicBrainz, SIGNAL(activated()),
+			this, SLOT(slotImportMusicBrainz()));
+	}
+#endif
+	fileExport = new QAction(this);
+	if (fileExport) {
+		fileExport->setText(i18n("Export to file or clipboard"));
+		fileExport->setMenuText(i18n("&Export..."));
+		connect(fileExport, SIGNAL(activated()),
+			this, SLOT(slotExport()));
+	}
 	fileCreatePlaylist = new QAction(this);
 	if (fileCreatePlaylist) {
 		fileCreatePlaylist->setText(i18n("Create M3U Playlist"));
@@ -339,12 +393,19 @@ void Kid3App::initActions()
 		connect(helpAboutQt, SIGNAL(activated()),
 			this, SLOT(slotHelpAboutQt()));
 	}
-	toolsApplyFormat = new QAction(this);
-	if (toolsApplyFormat) {
-		toolsApplyFormat->setText(i18n("Apply Format"));
-		toolsApplyFormat->setMenuText(i18n("&Apply Format"));
-		connect(toolsApplyFormat, SIGNAL(activated()),
-			this, SLOT(slotApplyFormat()));
+	toolsApplyFilenameFormat = new QAction(this);
+	if (toolsApplyFilenameFormat) {
+		toolsApplyFilenameFormat->setText(i18n("Apply Filename Format"));
+		toolsApplyFilenameFormat->setMenuText(i18n("Apply &Filename Format"));
+		connect(toolsApplyFilenameFormat, SIGNAL(activated()),
+			this, SLOT(slotApplyFilenameFormat()));
+	}
+	toolsApplyId3Format = new QAction(this);
+	if (toolsApplyId3Format) {
+		toolsApplyId3Format->setText(i18n("Apply ID3 Format"));
+		toolsApplyId3Format->setMenuText(i18n("Apply &ID3 Format"));
+		connect(toolsApplyId3Format, SIGNAL(activated()),
+			this, SLOT(slotApplyId3Format()));
 	}
 	toolsRenameDirectory = new QAction(this);
 	if (toolsRenameDirectory) {
@@ -352,6 +413,27 @@ void Kid3App::initActions()
 		toolsRenameDirectory->setMenuText(i18n("&Rename Directory..."));
 		connect(toolsRenameDirectory, SIGNAL(activated()),
 			this, SLOT(slotRenameDirectory()));
+	}
+	toolsNumberTracks = new QAction(this);
+	if (toolsNumberTracks) {
+		toolsNumberTracks->setText(i18n("Number Tracks"));
+		toolsNumberTracks->setMenuText(i18n("&Number Tracks..."));
+		connect(toolsNumberTracks, SIGNAL(activated()),
+			this, SLOT(slotNumberTracks()));
+	}
+	settingsShowHideV1 = new QAction(this);
+	if (settingsShowHideV1) {
+		settingsShowHideV1->setText(i18n("Hide ID3v1.1"));
+		settingsShowHideV1->setMenuText(i18n("Hide ID3v&1.1"));
+		connect(settingsShowHideV1, SIGNAL(activated()),
+			this, SLOT(slotSettingsShowHideV1()));
+	}
+	settingsShowHideV2 = new QAction(this);
+	if (settingsShowHideV2) {
+		settingsShowHideV2->setText(i18n("Hide ID3v2.3"));
+		settingsShowHideV2->setMenuText(i18n("Hide ID3v&2.3"));
+		connect(settingsShowHideV2, SIGNAL(activated()),
+			this, SLOT(slotSettingsShowHideV2()));
 	}
 	settingsConfigure = new QAction(this);
 	if (settingsConfigure) {
@@ -372,15 +454,25 @@ void Kid3App::initActions()
 		fileRevert->addTo(fileMenu);
 		fileMenu->insertSeparator();
 		fileImport->addTo(fileMenu);
+		fileImportFreedb->addTo(fileMenu);
+#ifdef HAVE_TUNEPIMP
+		fileImportMusicBrainz->addTo(fileMenu);
+#endif
+		fileExport->addTo(fileMenu);
 		fileCreatePlaylist->addTo(fileMenu);
 		fileMenu->insertSeparator();
 		fileQuit->addTo(fileMenu);
 		menubar->insertItem((i18n("&File")), fileMenu);
 
-		toolsApplyFormat->addTo(toolsMenu);
+		toolsApplyFilenameFormat->addTo(toolsMenu);
+		toolsApplyId3Format->addTo(toolsMenu);
 		toolsRenameDirectory->addTo(toolsMenu);
+		toolsNumberTracks->addTo(toolsMenu);
 		menubar->insertItem((i18n("&Tools")), toolsMenu);
 
+		settingsShowHideV1->addTo(settingsMenu);
+		settingsShowHideV2->addTo(settingsMenu);
+		settingsMenu->insertSeparator();
 		settingsConfigure->addTo(settingsMenu);
 		menubar->insertItem(i18n("&Settings"), settingsMenu);
 
@@ -478,6 +570,12 @@ void Kid3App::saveOptions()
 	miscCfg->formatItem = view->formatComboBox->currentItem();
 	miscCfg->formatText = view->formatComboBox->currentText();
 
+	miscCfg->m_customGenres.clear();
+	int idx, numGenres = view->genreV2ComboBox->count();
+	for (idx = Genres::count + 1; idx < numGenres; ++idx) {
+		miscCfg->m_customGenres.append(view->genreV2ComboBox->text(idx));
+	}
+
 	miscCfg->writeToConfig(config);
 	fnFormatCfg->writeToConfig(config);
 	id3FormatCfg->writeToConfig(config);
@@ -502,6 +600,8 @@ void Kid3App::readOptions()
 #ifdef HAVE_TUNEPIMP
 	m_musicBrainzCfg->readFromConfig(config);
 #endif
+	updateHideV1();
+	updateHideV2();
 #ifdef CONFIG_USE_KDE
 	setAutoSaveSettings();
 	fileOpenRecent->loadEntries(config,"Recent Files");
@@ -544,6 +644,7 @@ void Kid3App::readOptions()
 #if QT_VERSION >= 300
 	view->formatComboBox->setCurrentText(miscCfg->formatText);
 #endif
+	view->genreV2ComboBox->insertStringList(miscCfg->m_customGenres);
 }
 
 #ifdef CONFIG_USE_KDE
@@ -962,7 +1063,7 @@ void Kid3App::slotHelpAbout()
 	QMessageBox::about(
 		(Kid3App*)parent(), "Kid3",
 		"Kid3 " VERSION
-		"\n(c) 2003-2005 Urs Fleisch\nufleisch@users.sourceforge.net");
+		"\n(c) 2003-2006 Urs Fleisch\nufleisch@users.sourceforge.net");
 }
 
 /**
@@ -1059,101 +1160,307 @@ void Kid3App::slotCreatePlaylist(void)
 }
 
 /**
- * Import.
+ * Update track data and create import dialog.
  */
-
-void Kid3App::slotImport(void)
+void Kid3App::setupImportDialog()
 {
-	ImportTrackDataVector trackDataList;
+	m_trackDataList.clear();
 	TaggedFile *mp3file = view->mp3ListBox->first();
+	bool firstTrack = true;
 	while (mp3file != 0) {
 		mp3file->readTags(false);
+		if (firstTrack) {
+			StandardTags st;
+			mp3file->getStandardTagsV2(&st);
+			if (st.artist.isEmpty() && st.album.isEmpty()) {
+				mp3file->getStandardTagsV1(&st);
+			}
+			m_trackDataList.artist = st.artist;
+			m_trackDataList.album = st.album;
+			firstTrack = false;
+		}
 #if QT_VERSION >= 300
-		trackDataList.push_back(ImportTrackData(mp3file->getAbsFilename(),
+		m_trackDataList.push_back(ImportTrackData(mp3file->getAbsFilename(),
                                             mp3file->getDuration()));
 #else
-		trackDataList.append(ImportTrackData(mp3file->getAbsFilename(),
+		m_trackDataList.append(ImportTrackData(mp3file->getAbsFilename(),
                                             mp3file->getDuration()));
 #endif
 		mp3file = view->mp3ListBox->next();
 	}
 
-	QString caption(i18n("Import"));
-	ImportDialog *dialog =
-		new ImportDialog(NULL, caption, trackDataList);
-	if (dialog) {
-		dialog->setDestV1(genCfg->importDestV1);
-		dialog->setImportFormat(genCfg->importFormatNames,
+	if (!m_importDialog) {
+		QString caption(i18n("Import"));
+		m_importDialog =
+			new ImportDialog(NULL, caption, m_trackDataList);
+	}
+	if (m_importDialog) {
+		m_importDialog->clear();
+		m_importDialog->setDestV1(genCfg->importDestV1);
+		m_importDialog->setImportFormat(genCfg->importFormatNames,
 								genCfg->importFormatHeaders,
 								genCfg->importFormatTracks,
 								genCfg->importFormatIdx);
-		dialog->setTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
+		m_importDialog->setTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
 									   genCfg->maxTimeDifference);
-		dialog->setFreedbConfig(freedbCfg);
+		m_importDialog->setFreedbConfig(freedbCfg);
 #ifdef HAVE_TUNEPIMP
-		dialog->setMusicBrainzConfig(m_musicBrainzCfg);
+		m_importDialog->setMusicBrainzConfig(m_musicBrainzCfg);
 #endif
-		if (dialog->exec() == QDialog::Accepted) {
-			genCfg->importDestV1 = dialog->getDestV1();
-			QString name, header, track;
-			genCfg->importFormatIdx = dialog->getImportFormat(name, header, track);
-			genCfg->importFormatNames[genCfg->importFormatIdx] = name;
-			genCfg->importFormatHeaders[genCfg->importFormatIdx] = header;
-			genCfg->importFormatTracks[genCfg->importFormatIdx] = track;
-			dialog->getTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
-										   genCfg->maxTimeDifference);
-			dialog->getFreedbConfig(freedbCfg);
+	}
+}
+
+/**
+ * Execute the import dialog.
+ */
+void Kid3App::execImportDialog()
+{
+	if (m_importDialog &&
+			m_importDialog->exec() == QDialog::Accepted) {
+		genCfg->importDestV1 = m_importDialog->getDestV1();
+		QString name, header, track;
+		genCfg->importFormatIdx = m_importDialog->getImportFormat(name, header, track);
+		genCfg->importFormatNames[genCfg->importFormatIdx] = name;
+		genCfg->importFormatHeaders[genCfg->importFormatIdx] = header;
+		genCfg->importFormatTracks[genCfg->importFormatIdx] = track;
+		m_importDialog->getTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
+																					 genCfg->maxTimeDifference);
+		m_importDialog->getFreedbConfig(freedbCfg);
 #ifdef HAVE_TUNEPIMP
-			dialog->getMusicBrainzConfig(m_musicBrainzCfg);
+		m_importDialog->getMusicBrainzConfig(m_musicBrainzCfg);
 #endif
 
-			slotStatusMsg(i18n("Import..."));
+		slotStatusMsg(i18n("Import..."));
 #if QT_VERSION >= 300
-			ImportTrackDataVector::const_iterator it = trackDataList.begin();
+		ImportTrackDataVector::const_iterator it = m_trackDataList.begin();
 #else
-			ImportTrackDataVector::ConstIterator it = trackDataList.begin();
+		ImportTrackDataVector::ConstIterator it = m_trackDataList.begin();
 #endif
-			StandardTags st;
-			StandardTagsFilter flt(genCfg->importDestV1 ?
-														 view->getFilterFromID3V1() :
-														 view->getFilterFromID3V2());
-			bool no_selection = view->numFilesSelected() == 0;
-			TaggedFile *mp3file = view->mp3ListBox->first();
-			while (mp3file != 0) {
-				mp3file->readTags(false);
-				if (genCfg->importDestV1) {
-					mp3file->getStandardTagsV1(&st);
-				} else {
-					mp3file->getStandardTagsV2(&st);
-				}
-				if (it != trackDataList.end()) {
-					(*it).copyActiveTags(st);
-					++it;
-				} else {
-					break;
-				}
-				if (genCfg->importDestV1) {
-					mp3file->setStandardTagsV1(&st, flt);
-				} else {
-					mp3file->setStandardTagsV2(&st, flt);
-				}
-				mp3file = view->mp3ListBox->next();
+		StandardTags st;
+		StandardTagsFilter flt(genCfg->importDestV1 ?
+													 view->getFilterFromID3V1() :
+													 view->getFilterFromID3V2());
+		bool no_selection = view->numFilesSelected() == 0;
+		TaggedFile *mp3file = view->mp3ListBox->first();
+		while (mp3file != 0) {
+			mp3file->readTags(false);
+			if (genCfg->importDestV1) {
+				mp3file->getStandardTagsV1(&st);
+			} else {
+				mp3file->getStandardTagsV2(&st);
 			}
-			if (!no_selection) {
-				StandardTags st; // empty
-				view->setStandardTagsV1(&st);
-				view->setStandardTagsV2(&st);
-				view->nameLineEdit->setEnabled(FALSE);
-				fileSelected();
+			if (it != m_trackDataList.end()) {
+				(*it).copyActiveTags(st);
+				++it;
+			} else {
+				break;
 			}
-			else {
-				updateModificationState();
+			formatStandardTagsIfEnabled(&st);
+			if (genCfg->importDestV1) {
+				mp3file->setStandardTagsV1(&st, flt);
+			} else {
+				mp3file->setStandardTagsV2(&st, flt);
 			}
-			slotStatusMsg(i18n("Ready."));
-			QApplication::restoreOverrideCursor();
+			mp3file = view->mp3ListBox->next();
 		}
-		delete dialog;
+		if (!no_selection) {
+			StandardTags st; // empty
+			view->setStandardTagsV1(&st);
+			view->setStandardTagsV2(&st);
+			view->nameLineEdit->setEnabled(FALSE);
+			fileSelected();
+		}
+		else {
+			updateModificationState();
+		}
+		slotStatusMsg(i18n("Ready."));
+		QApplication::restoreOverrideCursor();
 	}
+}
+
+/**
+ * Import.
+ */
+
+void Kid3App::slotImport(void)
+{
+	setupImportDialog();
+	if (m_importDialog) {
+		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_None);
+		execImportDialog();
+	}
+}
+
+/**
+ * Import from freedb.org.
+ */
+void Kid3App::slotImportFreedb()
+{
+	setupImportDialog();
+	if (m_importDialog) {
+		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Freedb);
+		execImportDialog();
+	}
+}
+
+/**
+ * Import from MusicBrainz.
+ */
+void Kid3App::slotImportMusicBrainz()
+{
+#ifdef HAVE_TUNEPIMP
+	setupImportDialog();
+	if (m_importDialog) {
+		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_MusicBrainz);
+		execImportDialog();
+	}
+#endif
+}
+
+/**
+ * Set data to be exported.
+ *
+ * @param src ExportDialog::SrcV1 to export ID3v1,
+ *            ExportDialog::SrcV2 to export ID3v2
+ */
+void Kid3App::setExportData(int src)
+{
+	if (m_exportDialog) {
+		ImportTrackDataVector trackDataVector;
+		TaggedFile *mp3file = view->mp3ListBox->first();
+		bool firstTrack = true;
+		while (mp3file != 0) {
+			mp3file->readTags(false);
+			ImportTrackData trackData(mp3file->getAbsFilename(),
+																mp3file->getDuration());
+			if (src == ExportDialog::SrcV1) {
+				mp3file->getStandardTagsV1(&trackData);
+			} else {
+				mp3file->getStandardTagsV2(&trackData);
+			}
+			if (firstTrack) {
+				trackDataVector.artist = trackData.artist;
+				trackDataVector.album = trackData.album;
+				firstTrack = false;
+			}
+#if QT_VERSION >= 300
+			trackDataVector.push_back(trackData);
+#else
+			trackDataVector.append(trackData);
+#endif
+			mp3file = view->mp3ListBox->next();
+		}
+		m_exportDialog->setExportData(trackDataVector);
+	}
+}
+
+/**
+ * Export.
+ */
+void Kid3App::slotExport()
+{
+	m_exportDialog = new ExportDialog(0);
+	if (m_exportDialog) {
+		m_exportDialog->setSrcV1(genCfg->m_exportSrcV1);
+		m_exportDialog->setExportFormat(
+			genCfg->m_exportFormatNames, genCfg->m_exportFormatHeaders,
+			genCfg->m_exportFormatTracks, genCfg->m_exportFormatTrailers,
+			genCfg->m_exportFormatIdx);
+		setExportData(genCfg->m_exportSrcV1 ?
+									ExportDialog::SrcV1 : ExportDialog::SrcV2);
+		connect(m_exportDialog, SIGNAL(exportDataRequested(int)),
+						this, SLOT(setExportData(int)));
+		m_exportDialog->setWindowSize(genCfg->m_exportWindowWidth,
+																	genCfg->m_exportWindowHeight);
+		if (m_exportDialog->exec() == QDialog::Accepted) {
+			genCfg->m_exportSrcV1 = m_exportDialog->getSrcV1();
+			QString name, header, track, trailer;
+			genCfg->m_exportFormatIdx = m_exportDialog->getExportFormat(
+				name, header, track, trailer);
+			genCfg->m_exportFormatNames[genCfg->m_exportFormatIdx] = name;
+			genCfg->m_exportFormatHeaders[genCfg->m_exportFormatIdx] = header;
+			genCfg->m_exportFormatTracks[genCfg->m_exportFormatIdx] = track;
+			genCfg->m_exportFormatTrailers[genCfg->m_exportFormatIdx] = trailer;
+			m_exportDialog->getWindowSize(genCfg->m_exportWindowWidth,
+																		genCfg->m_exportWindowHeight);
+		}
+		delete m_exportDialog;
+		m_exportDialog = 0;
+	}
+}
+
+/**
+ * Show or hide the ID3V1.1 controls according to the settings and
+ * set the menu entries appropriately.
+ */
+void Kid3App::updateHideV1()
+{
+	if (miscCfg && miscCfg->m_hideV1) {
+		view->idV1GroupBox->hide();
+#ifdef CONFIG_USE_KDE
+		settingsShowHideV1->setText(i18n("Show ID3v&1.1"));
+#else
+		settingsShowHideV1->setText(i18n("Show ID3v1.1"));
+		settingsShowHideV1->setMenuText(i18n("Show ID3v&1.1"));
+#endif
+
+	} else {
+		view->idV1GroupBox->show();
+#ifdef CONFIG_USE_KDE
+		settingsShowHideV1->setText(i18n("Hide ID3v&1.1"));
+#else
+		settingsShowHideV1->setText(i18n("Hide ID3v1.1"));
+		settingsShowHideV1->setMenuText(i18n("Hide ID3v&1.1"));
+#endif
+	}
+}
+
+/**
+ * Show or hide the ID3V2.3 controls according to the settings and
+ * set the menu entries appropriately.
+ */
+void Kid3App::updateHideV2()
+{
+	if (miscCfg && miscCfg->m_hideV2) {
+		view->idV2GroupBox->hide();
+#ifdef CONFIG_USE_KDE
+		settingsShowHideV2->setText(i18n("Show ID3v&2.3"));
+#else
+		settingsShowHideV2->setText(i18n("Show ID3v2.3"));
+		settingsShowHideV2->setMenuText(i18n("Show ID3v&2.3"));
+#endif
+
+	} else {
+		view->idV2GroupBox->show();
+#ifdef CONFIG_USE_KDE
+		settingsShowHideV2->setText(i18n("Hide ID3v&2.3"));
+#else
+		settingsShowHideV2->setText(i18n("Hide ID3v2.3"));
+		settingsShowHideV2->setMenuText(i18n("Hide ID3v&2.3"));
+#endif
+	}
+}
+
+/**
+ * Show or hide ID3v1.1 controls.
+ */
+void Kid3App::slotSettingsShowHideV1()
+{
+	if (miscCfg) {
+		miscCfg->m_hideV1 = !miscCfg->m_hideV1;
+	}
+	updateHideV1();
+}
+
+/**
+ * Show or hide ID3v2.3 controls.
+ */
+void Kid3App::slotSettingsShowHideV2()
+{
+	if (miscCfg) {
+		miscCfg->m_hideV2 = !miscCfg->m_hideV2;
+	}
+	updateHideV2();
 }
 
 /**
@@ -1191,9 +1498,33 @@ void Kid3App::slotSettingsConfigure(void)
 }
 
 /**
- * Apply format.
+ * Apply filename format.
  */
-void Kid3App::slotApplyFormat(void)
+void Kid3App::slotApplyFilenameFormat(void)
+{
+	StandardTags st;
+	if (view->numFilesSelected() == 1) {
+		updateCurrentSelection();
+	}
+	TaggedFile *mp3file = view->mp3ListBox->first();
+	bool no_selection = view->numFilesSelected() == 0;
+	while (mp3file != 0) {
+		if (no_selection || mp3file->isInSelection()) {
+			mp3file->readTags(false);
+			QString str;
+			str = mp3file->getFilename();
+			fnFormatCfg->formatString(str);
+			mp3file->setFilename(str);
+		}
+		mp3file = view->mp3ListBox->next();
+	}
+	updateGuiControls();
+}
+
+/**
+ * Apply ID3 format.
+ */
+void Kid3App::slotApplyId3Format(void)
 {
 	StandardTags st;
 	if (view->numFilesSelected() == 1) {
@@ -1206,10 +1537,6 @@ void Kid3App::slotApplyFormat(void)
 	while (mp3file != 0) {
 		if (no_selection || mp3file->isInSelection()) {
 			mp3file->readTags(false);
-			QString str;
-			str = mp3file->getFilename();
-			fnFormatCfg->formatString(str);
-			mp3file->setFilename(str);
 			mp3file->getStandardTagsV1(&st);
 			id3FormatCfg->formatStandardTags(st);
 			mp3file->setStandardTagsV1(&st, fltV1);
@@ -1259,6 +1586,45 @@ void Kid3App::slotRenameDirectory(void)
 										 QMessageBox::Ok, QMessageBox::NoButton);
 				}
 			}
+		}
+	}
+}
+
+/**
+ * Number tracks.
+ */
+void Kid3App::slotNumberTracks()
+{
+	if (!m_numberTracksDialog) {
+		m_numberTracksDialog = new NumberTracksDialog(0);
+	}
+	if (m_numberTracksDialog) {
+		if (m_numberTracksDialog->exec() == QDialog::Accepted) {
+			int nr = m_numberTracksDialog->getStartNumber();
+			bool destV1 = m_numberTracksDialog->getDestV1();
+
+			updateCurrentSelection();
+			TaggedFile *mp3file = view->mp3ListBox->first();
+			bool no_selection = view->numFilesSelected() == 0;
+			while (mp3file != 0) {
+				if (no_selection || mp3file->isInSelection()) {
+					mp3file->readTags(false);
+					if (destV1) {
+						int oldnr = mp3file->getTrackNumV1();
+						if (nr != oldnr) {
+							mp3file->setTrackNumV1(nr);
+						}
+					} else {
+						int oldnr = mp3file->getTrackNumV2();
+						if (nr != oldnr) {
+							mp3file->setTrackNumV2(nr);
+						}
+					}
+					++nr;
+				}
+				mp3file = view->mp3ListBox->next();
+			}
+			updateGuiControls();
 		}
 	}
 }
@@ -1472,8 +1838,10 @@ void Kid3App::pasteTags(StandardTags *st)
 		st->year = copytags->year;
 	if (copytags->track >= 0)
 		st->track = copytags->track;
-	if (copytags->genre >= 0)
+	if (copytags->genre >= 0) {
 		st->genre = copytags->genre;
+		st->genreStr = copytags->genreStr;
+	}
 }
 
 /**
@@ -1489,6 +1857,7 @@ void Kid3App::pasteTagsV1()
 		if (mp3file->isInSelection()) {
 			mp3file->getStandardTagsV1(&st);
 			pasteTags(&st);
+			formatStandardTagsIfEnabled(&st);
 			mp3file->setStandardTagsV1(&st, flt);
 		}
 		mp3file = view->mp3ListBox->next();
@@ -1510,6 +1879,7 @@ void Kid3App::pasteTagsV2()
 		if (mp3file->isInSelection()) {
 			mp3file->getStandardTagsV2(&st);
 			pasteTags(&st);
+			formatStandardTagsIfEnabled(&st);
 			mp3file->setStandardTagsV2(&st, flt);
 		}
 		mp3file = view->mp3ListBox->next();
@@ -1539,6 +1909,7 @@ void Kid3App::getTagsFromFilenameV1(void)
 			}
 			mp3file->getStandardTagsV1(&st);
 			mp3file->getTagsFromFilename(&st, view->formatComboBox->currentText());
+			formatStandardTagsIfEnabled(&st);
 			mp3file->setStandardTagsV1(&st, flt);
 		}
 		mp3file = view->mp3ListBox->next();
@@ -1568,6 +1939,7 @@ void Kid3App::getTagsFromFilenameV2(void)
 			}
 			mp3file->getStandardTagsV2(&st);
 			mp3file->getTagsFromFilename(&st, view->formatComboBox->currentText());
+			formatStandardTagsIfEnabled(&st);
 			mp3file->setStandardTagsV2(&st, flt);
 		}
 		mp3file = view->mp3ListBox->next();
@@ -1600,6 +1972,7 @@ void Kid3App::getFilenameFromTags(int tag_version)
 			}
 			mp3file->getFilenameFromTags(
 				&st, view->formatComboBox->currentText());
+			formatFileNameIfEnabled(mp3file);
 			if (!multiselect) {
 				view->nameLineEdit->setText(
 					mp3file->getFilename());
@@ -1624,6 +1997,7 @@ void Kid3App::copyV1ToV2(void)
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
 			mp3file->getStandardTagsV1(&st);
+			formatStandardTagsIfEnabled(&st);
 			mp3file->setStandardTagsV2(&st, flt);
 		}
 		mp3file = view->mp3ListBox->next();
@@ -1645,6 +2019,7 @@ void Kid3App::copyV2ToV1(void)
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
 			mp3file->getStandardTagsV2(&st);
+			formatStandardTagsIfEnabled(&st);
 			mp3file->setStandardTagsV1(&st, flt);
 		}
 		mp3file = view->mp3ListBox->next();
@@ -1771,5 +2146,31 @@ void Kid3App::addFrame(void)
 			(id = framelist->selectFrameId()) != -1 &&
 			framelist->addFrame(id)) {
 		updateAfterFrameModification(taggedFile);
+	}
+}
+
+/**
+ * Format a filename if format while editing is switched on.
+ *
+ * @param taggedFile file to modify
+ */
+void Kid3App::formatFileNameIfEnabled(TaggedFile* taggedFile) const
+{
+	if (fnFormatCfg->m_formatWhileEditing) {
+		QString fn(taggedFile->getFilename());
+		fnFormatCfg->formatString(fn);
+		taggedFile->setFilename(fn);
+	}
+}
+
+/**
+ * Format tags if format while editing is switched on.
+ *
+ * @param st standard tags
+ */
+void Kid3App::formatStandardTagsIfEnabled(StandardTags* st) const
+{
+	if (id3FormatCfg->m_formatWhileEditing) {
+		id3FormatCfg->formatStandardTags(*st);
 	}
 }
