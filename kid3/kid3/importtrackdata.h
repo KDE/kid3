@@ -83,10 +83,16 @@ private:
 	QString m_absFilename;
 };
 
+class ImportTrackDataVector : public 
 #if QT_VERSION >= 300
-typedef QValueVector<ImportTrackData> ImportTrackDataVector;
+QValueVector<ImportTrackData>
 #else
-typedef QValueList<ImportTrackData> ImportTrackDataVector;
+QValueList<ImportTrackData>
 #endif
+{
+public:
+	QString artist;
+	QString album;
+};
 
 #endif // IMPORTTRACKDATA_H
