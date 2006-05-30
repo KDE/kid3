@@ -57,8 +57,6 @@ public:
 #endif
 		);
 
-	/** true to enable formating in line edits */
-	bool formatWhileEditing;
 	/** true to write total number of tracks into track fields */
 	bool m_enableTotalNumberOfTracks;
 	/** true to preserve file time stamps */
@@ -81,6 +79,12 @@ public:
 	QValueList<int> m_vSplitterSizes;
 	/** commands available in context menu */
 	QStringList m_contextMenuCommands;
+	/** custom genres for ID3v2.3 */
+	QStringList m_customGenres;
+	/** true to hide ID3v1.1 controls */
+	bool m_hideV1;
+	/** true to hide ID3v2.3 controls */
+	bool m_hideV2;
 #ifndef CONFIG_USE_KDE
 	/** mainwindow width */
 	int windowWidth;

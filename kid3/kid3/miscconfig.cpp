@@ -80,17 +80,22 @@ const char** MiscConfig::defaultDirFmtList = &dirFmt[0];
  *
  * @param group configuration group
  */
-MiscConfig::MiscConfig(const QString &group) : GeneralConfig(group)
+MiscConfig::MiscConfig(const QString &group) :
+	GeneralConfig(group),
+	m_enableTotalNumberOfTracks(false),
+	m_preserveTime(false),
+	m_commentName(defaultCommentName),
+	nameFilter(defaultNameFilter),
+	formatText(defaultFnFmtList[0]),
+	formatItem(0),
+	dirFormatText(defaultDirFmtList[0]),
+	dirFormatItem(0),
+	m_hideV1(false),
+	m_hideV2(false)
+#ifndef CONFIG_USE_KDE
+	, windowWidth(-1), windowHeight(-1)
+#endif
 {
-	formatWhileEditing = false;
-	m_enableTotalNumberOfTracks = false;
-	m_preserveTime = false;
-	m_commentName = defaultCommentName;
-	nameFilter = defaultNameFilter;
-	formatItem = 0;
-	formatText = defaultFnFmtList[0];
-	dirFormatItem = 0;
-	dirFormatText = defaultDirFmtList[0];
 }
 
 /**
@@ -119,7 +124,6 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("FormatText2", formatText);
 	config->writeEntry("DirFormatItem", dirFormatItem);
 	config->writeEntry("DirFormatText", dirFormatText);
-	config->writeEntry("FormatWhileEditing", formatWhileEditing);
 	config->writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("PreserveTime", m_preserveTime);
 	config->writeEntry("CommentName", m_commentName);
@@ -128,6 +132,9 @@ void MiscConfig::writeToConfig(
 #endif
 	config->writeEntry("SplitterSizes", splitterSizes);
 	config->writeEntry("VSplitterSizes", m_vSplitterSizes);
+	config->writeEntry("CustomGenres", m_customGenres);
+	config->writeEntry("HideV1", m_hideV1);
+	config->writeEntry("HideV2", m_hideV2);
 #else
 	config->beginGroup("/" + group);
 	config->writeEntry("/NameFilter2", nameFilter);
@@ -135,7 +142,6 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/FormatText2", formatText);
 	config->writeEntry("/DirFormatItem", dirFormatItem);
 	config->writeEntry("/DirFormatText", dirFormatText);
-	config->writeEntry("/FormatWhileEditing", formatWhileEditing);
 	config->writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("/PreserveTime", m_preserveTime);
 	config->writeEntry("/CommentName", m_commentName);
@@ -157,6 +163,9 @@ void MiscConfig::writeToConfig(
 		 ++it, ++i) {
 		config->writeEntry("/VSplitterSize" + QString::number(i), *it);
 	}
+	config->writeEntry("/CustomGenres", m_customGenres);
+	config->writeEntry("/HideV1", m_hideV1);
+	config->writeEntry("/HideV2", m_hideV2);
 	config->writeEntry("/WindowWidth", windowWidth);
 	config->writeEntry("/WindowHeight", windowHeight);
 	config->endGroup();
@@ -185,7 +194,6 @@ void MiscConfig::readFromConfig(
 	    config->readNumEntry("FormatItem", 0);
 	dirFormatItem =
 	    config->readNumEntry("DirFormatItem", 0);
-	formatWhileEditing = config->readBoolEntry("FormatWhileEditing", formatWhileEditing);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("CommentName", defaultCommentName);
@@ -202,6 +210,9 @@ void MiscConfig::readFromConfig(
 #endif
 	splitterSizes = config->readIntListEntry("SplitterSizes");
 	m_vSplitterSizes = config->readIntListEntry("VSplitterSizes");
+	m_customGenres = config->readListEntry("CustomGenres");
+	m_hideV1 = config->readBoolEntry("HideV1", m_hideV1);
+	m_hideV2 = config->readBoolEntry("HideV2", m_hideV2);
 #else
 	config->beginGroup("/" + group);
 	nameFilter =
@@ -210,7 +221,6 @@ void MiscConfig::readFromConfig(
 	    config->readNumEntry("/FormatItem", 0);
 	dirFormatItem =
 	    config->readNumEntry("/DirFormatItem", 0);
-	formatWhileEditing = config->readBoolEntry("/FormatWhileEditing", formatWhileEditing);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("/PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("/CommentName", defaultCommentName);
@@ -251,6 +261,9 @@ void MiscConfig::readFromConfig(
 			break;
 		}
 	}
+	m_customGenres = config->readListEntry("/CustomGenres");
+	m_hideV1 = config->readBoolEntry("/HideV1", m_hideV1);
+	m_hideV2 = config->readBoolEntry("/HideV2", m_hideV2);
 	windowWidth = config->readNumEntry("/WindowWidth", -1);
 	windowHeight = config->readNumEntry("/WindowHeight", -1);
 	config->endGroup();
