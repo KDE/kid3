@@ -35,41 +35,27 @@
  *                      is passed with durations of files set
  */
 ImportDialog::ImportDialog(QWidget *parent, QString &caption,
-													 ImportTrackDataVector& trackDataList)
-#ifdef CONFIG_USE_KDE
-	: KDialogBase(parent, "import", true, caption, Ok|Cancel, Ok),
-#else
-	: QDialog(parent, "import", true),
-#endif
-		m_trackDataVector(trackDataList)
+													 ImportTrackDataVector& trackDataList) :
+	QDialog(parent, "import", true),
+	m_autoStartSubDialog(ASD_None),
+	m_trackDataVector(trackDataList)
 {
-
-#ifdef CONFIG_USE_KDE
-	QWidget *page = new QWidget(this);
-	if (!page) {
-		return;
-	}
-	setMainWidget(page);
-#else
-#define page this
 	setCaption(caption);
-#endif
 
-	QVBoxLayout *vlayout = new QVBoxLayout(page);
+	QVBoxLayout *vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
 		return ;
 	}
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
-	impsel = new ImportSelector(page, m_trackDataVector);
+	impsel = new ImportSelector(this, m_trackDataVector);
 	vlayout->addWidget(impsel);
 
-#ifndef CONFIG_USE_KDE
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
 	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	QPushButton *okButton = new QPushButton(i18n("&OK"), page);
-	QPushButton *cancelButton = new QPushButton(i18n("&Cancel"), page);
+	QPushButton *okButton = new QPushButton(i18n("&OK"), this);
+	QPushButton *cancelButton = new QPushButton(i18n("&Cancel"), this);
 	if (hlayout && okButton && cancelButton) {
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
@@ -78,8 +64,6 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption,
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
-#undef page
-#endif
 }
 
 /**
@@ -87,6 +71,37 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption,
  */
 ImportDialog::~ImportDialog()
 {}
+
+/**
+ * Shows the dialog as a modal dialog.
+ */
+int ImportDialog::exec()
+{
+	switch (m_autoStartSubDialog) {
+		case ASD_None:
+			return QDialog::exec();
+
+		case ASD_Freedb:
+		case ASD_MusicBrainz:
+			setModal(true);
+			show();
+			if (m_autoStartSubDialog == ASD_Freedb) {
+				impsel->fromFreedb();
+			} else if (m_autoStartSubDialog == ASD_MusicBrainz) {
+				impsel->fromMusicBrainz();
+			}
+			return result();
+	}
+	return QDialog::Rejected;
+}
+
+/**
+ * Clear dialog data.
+ */
+void ImportDialog::clear()
+{
+	impsel->clear();
+}
 
 /**
  * Set ID3v1 or ID3v2 tags as import destination.

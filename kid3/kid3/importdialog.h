@@ -12,11 +12,7 @@
 
 #include "config.h"
 #include "importtrackdata.h"
-#ifdef CONFIG_USE_KDE
-#include <kdialogbase.h>
-#else
 #include <qdialog.h>
-#endif
 
 class ImportSelector;
 class FreedbConfig;
@@ -29,14 +25,19 @@ class MusicBrainzConfig;
 /**
  * Import dialog.
  */
-class ImportDialog : public
-#ifdef CONFIG_USE_KDE
-KDialogBase
-#else
-QDialog
-#endif
-{
+class ImportDialog : public QDialog {
+Q_OBJECT
+
 public:
+	/**
+	 * Sub-Dialog to be started automatically.
+	 */
+	enum AutoStartSubDialog {
+		ASD_None,
+		ASD_Freedb,
+		ASD_MusicBrainz
+	};
+
 	/**
 	 * Constructor.
 	 *
@@ -51,6 +52,20 @@ public:
 	 * Destructor.
 	 */
 	~ImportDialog();
+
+	/**
+	 * Set dialog to be started automatically.
+	 *
+	 * @param asd dialog to be started
+	 */
+	void setAutoStartSubDialog(AutoStartSubDialog asd) {
+		m_autoStartSubDialog = asd;
+	}
+
+	/**
+	 * Clear dialog data.
+	 */
+	void clear();
 	/**
 	 * Set ID3v1 or ID3v2 tags as destination.
 	 *
@@ -128,7 +143,15 @@ public:
 	 */
 	void getMusicBrainzConfig(MusicBrainzConfig* cfg) const;
 #endif
+
+public slots:
+	/**
+	 * Shows the dialog as a modal dialog.
+	 */
+	int exec();
+
 private:
+	AutoStartSubDialog m_autoStartSubDialog;
 	/** import selector widget */
 	ImportSelector *impsel;
 	ImportTrackDataVector& m_trackDataVector;
