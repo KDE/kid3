@@ -184,7 +184,13 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 		if (genrePos != -1) {
 			QString genreStr = re.cap(genrePos);
 			int genre = Genres::getNumber(genreStr);
-			if (genre != 0xff) st.genre = genre;
+			if (genre != 0xff) {
+				st.genre = genre;
+				st.genreStr = QString::null;
+			} else if (!genreStr.isEmpty()) {
+				st.genre = 0xff;
+				st.genreStr = genreStr;
+			}
 		}
 		pos = idx + re.matchedLength();
 		if (pos > oldpos) { /* avoid endless loop */
@@ -307,7 +313,13 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 		if (idx != -1) {
 			QString genreStr(text.mid(idx + 6, len - 7).stripWhiteSpace());
 			int genre = Genres::getNumber(genreStr);
-			if (genre != 0xff) st.genre = genre;
+			if (genre != 0xff) {
+				st.genre = genre;
+				st.genreStr = QString::null;
+			} else if (!genreStr.isEmpty()) {
+				st.genre = 0xff;
+				st.genreStr = genreStr;
+			}
 			pos = idx + len;
 		}
 	}
