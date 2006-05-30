@@ -82,6 +82,8 @@ public:
 	QLineEdit* titleV2LineEdit;
 	QSplitter* m_vSplitter;
 	DirList* m_dirListBox;
+	QGroupBox* idV1GroupBox;
+	QGroupBox* idV2GroupBox;
 
 public slots:
 	/**
@@ -244,7 +246,6 @@ private:
 	QPushButton* fnV2Button;
 	QLabel* formatLabel;
 	QLabel* infoLabel;
-	QGroupBox* idV1GroupBox;
 	QLineEdit* albumV1LineEdit;
 	QPushButton* copyV1PushButton;
 	QPushButton* filenameV1PushButton;
@@ -262,7 +263,6 @@ private:
 	QCheckBox* commentV1CheckBox;
 	QCheckBox* artistV1CheckBox;
 	QLineEdit* commentV1LineEdit;
-	QGroupBox* idV2GroupBox;
 	QPushButton* copyV2PushButton;
 	QCheckBox* commentV2CheckBox;
 	QLineEdit* albumV2LineEdit;
