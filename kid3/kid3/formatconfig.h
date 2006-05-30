@@ -84,6 +84,9 @@ public:
 		Kid3Settings *config
 #endif
 		);
+
+	/** true to enable formating in line edits */
+	bool m_formatWhileEditing;
 	/** Case conversion option */
 	CaseConversion caseConversion;
 	/** true if string replacement enabled */

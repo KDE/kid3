@@ -99,10 +99,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 	if (formatPage) {
 		QVBoxLayout* vlayout = new QVBoxLayout(formatPage, 6, 6);
 		if (vlayout) {
-			formatEditingCheckBox = new QCheckBox(formatPage, "formatEditingCheckBox");
-			formatEditingCheckBox->setText(i18n("Format while &editing:"));
-			vlayout->addWidget(formatEditingCheckBox);
-
 			QHBoxLayout *fmtLayout = new QHBoxLayout(vlayout);
 			QString fnFormatTitle(i18n("&Filename Format"));
 			fnFormatBox = new FormatBox(fnFormatTitle, formatPage, "fnFormatBox");
@@ -147,7 +143,6 @@ void ConfigDialog::setConfig(const FormatConfig *fnCfg,
 {
 	fnFormatBox->fromFormatConfig(fnCfg);
 	id3FormatBox->fromFormatConfig(id3Cfg);
-	formatEditingCheckBox->setChecked(miscCfg->formatWhileEditing);
 	m_totalNumTracksCheckBox->setChecked(miscCfg->m_enableTotalNumberOfTracks);
 	m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
 #if QT_VERSION >= 300
@@ -175,7 +170,6 @@ void ConfigDialog::getConfig(FormatConfig *fnCfg,
 {
 	fnFormatBox->toFormatConfig(fnCfg);
 	id3FormatBox->toFormatConfig(id3Cfg);
-	miscCfg->formatWhileEditing = formatEditingCheckBox->isChecked();
 	miscCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
 	miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
 #if QT_VERSION >= 300

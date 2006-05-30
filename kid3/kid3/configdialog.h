@@ -79,8 +79,6 @@ public:
 	void getConfig(FormatConfig *fnCfg, FormatConfig *id3Cfg,
 				   MiscConfig *miscCfg) const;
 private:
-	/** Format while editing checkbox */
-	QCheckBox *formatEditingCheckBox;
 	/** Preserve timestamp checkbox */
 	QCheckBox* m_preserveTimeCheckBox;
 	/** Use track/total number of tracks format checkbox */

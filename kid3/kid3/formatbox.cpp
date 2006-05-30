@@ -32,8 +32,11 @@
  * @param name   Qt object name
  */
 FormatBox::FormatBox(const QString & title, QWidget *parent, const char *name) :
-	QGroupBox(4, Qt::Vertical, title, parent, name)
+	QGroupBox(5, Qt::Vertical, title, parent, name)
 {
+	m_formatEditingCheckBox = new QCheckBox(i18n("Format while editing"),
+																					this, "formatEditingCheckBox");
+
 	QLabel *caseConvLabel = new QLabel(this, "caseConvLabel");
 	caseConvLabel->setText(i18n("Case Conversion:"));
 
@@ -166,6 +169,7 @@ void FormatBox::contextMenu(int row, int col, const QPoint &pos)
 void FormatBox::fromFormatConfig(const FormatConfig *cfg)
 {
 	int i;
+	m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
 	caseConvComboBox->setCurrentItem(cfg->caseConversion);
 	strRepCheckBox->setChecked(cfg->strRepEnabled);
 	QMap<QString, QString>::ConstIterator it;
@@ -209,6 +213,7 @@ void FormatBox::fromFormatConfig(const FormatConfig *cfg)
  */
 void FormatBox::toFormatConfig(FormatConfig *cfg) const
 {
+	cfg->m_formatWhileEditing = m_formatEditingCheckBox->isChecked();
 	cfg->caseConversion =
 		(FormatConfig::CaseConversion)caseConvComboBox->currentItem();
 	if (cfg->caseConversion >= FormatConfig::NumCaseConversions) {

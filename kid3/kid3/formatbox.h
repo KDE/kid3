@@ -92,6 +92,7 @@ private:
 	QComboBox *caseConvComboBox;
 	QCheckBox *strRepCheckBox;
 	QTable *strReplTable;
+	QCheckBox* m_formatEditingCheckBox;
 };
 
 #endif
