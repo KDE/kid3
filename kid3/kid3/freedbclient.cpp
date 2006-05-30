@@ -24,7 +24,7 @@
 #include "freedbconfig.h"
 #include "freedbclient.h"
 
-#ifdef WIN32
+#if defined WIN32 && QT_VERSION < 300
 // see hostnameToAddress()
 #include <winsock.h>
 #endif
@@ -103,7 +103,7 @@ void FreedbClient::splitNamePort(const QString &namePort,
 	}
 }
 
-#ifdef WIN32
+#if defined WIN32 && QT_VERSION < 300
 /**
  * Lookup hostname.
  * connectToHost() does not seem to look up the host names correctly on
@@ -149,8 +149,8 @@ void FreedbClient::find(const FreedbConfig *cfg, QString what)
 		"&cats=blues&cats=classical&cats=country&cats=folk&cats=jazz" +
 		"&cats=misc&cats=newage&cats=reggae&cats=rock&cats=soundtrack" +
 		"&grouping=none HTTP/1.1\r\nHost: " +
-		cfg->server + "\r\nUser-Agent: Kid3 0.6\r\nConnection: close\r\n\r\n";
-#ifdef WIN32
+		cfg->server + "\r\nUser-Agent: Kid3 " VERSION "\r\nConnection: close\r\n\r\n";
+#if defined WIN32 && QT_VERSION < 300
 	int err = hostnameToAddress(dest);
 	if (err) {
 		statusBar->message(QString("WinSock error %1").arg(err));
@@ -245,10 +245,10 @@ void FreedbClient::getTrackList(const FreedbConfig *cfg, QString cat, QString id
 	request = "GET http://" + cfg->server + cfg->cgiPath +
 		"?cmd=cddb+read+" + cat + "+" +
 		id + "&hello=noname+localhost+" +
-		"Kid3+0.6&proto=1 HTTP/1.1\r\nHost: " + cfg->server +
+		"Kid3+" VERSION "&proto=1 HTTP/1.1\r\nHost: " + cfg->server +
 		"\r\nConnection: close\r\n\r\n";
 
-#ifdef WIN32
+#if defined WIN32 && QT_VERSION < 300
 	int err = hostnameToAddress(dest);
 	if (err) {
 		statusBar->message(QString("WinSock error %1").arg(err));
