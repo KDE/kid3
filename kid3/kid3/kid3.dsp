@@ -106,6 +106,10 @@ SOURCE=.\dirlist.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\exportdialog.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\filelist.cpp
 # End Source File
 # Begin Source File
@@ -190,6 +194,10 @@ SOURCE=.\moc_commandstable.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\moc_exportdialog.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\moc_filelist.cpp
 # End Source File
 # Begin Source File
@@ -207,6 +215,10 @@ SOURCE=.\moc_freedbdialog.cpp
 # Begin Source File
 
 SOURCE=.\moc_id3form.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\moc_importdialog.cpp
 # End Source File
 # Begin Source File
 
@@ -251,6 +263,10 @@ SOURCE=.\musicbrainzconfig.cpp
 # Begin Source File
 
 SOURCE=.\musicbrainzdialog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\numbertracksdialog.cpp
 # End Source File
 # Begin Source File
 
@@ -314,6 +330,33 @@ SOURCE=.\configdialog.h
 # Begin Source File
 
 SOURCE=.\dirlist.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\exportdialog.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\exportdialog.h
+
+".\moc_exportdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_exportdialog.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\exportdialog.h
+
+".\moc_exportdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_exportdialog.cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -485,6 +528,29 @@ SOURCE=.\importconfig.h
 # Begin Source File
 
 SOURCE=.\importdialog.h
+
+!IF  "$(CFG)" == "kid3 - Win32 Release"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\importdialog.h
+
+".\moc_importdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_importdialog.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
+
+# Begin Custom Build - Moc'ing $(InputPath)
+InputPath=.\importdialog.h
+
+".\moc_importdialog.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe $(InputPath) -o .\moc_importdialog.cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -640,6 +706,10 @@ InputPath=.\musicbrainzdialog.h
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\numbertracksdialog.h
 # End Source File
 # Begin Source File
 
