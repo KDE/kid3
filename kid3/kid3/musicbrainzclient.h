@@ -12,7 +12,6 @@
 
 #include "config.h"
 
-#include "importtrackdata.h"
 #include <qobject.h>
 
 #ifdef HAVE_TUNEPIMP
@@ -20,6 +19,8 @@
 #endif // HAVE_TUNEPIMP
 
 class MusicBrainzConfig;
+class ImportTrackData;
+class ImportTrackDataVector;
 
 /**
  * MusicBrainz client.

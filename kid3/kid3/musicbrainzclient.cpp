@@ -19,6 +19,7 @@
 #include <qfile.h>
 #include "musicbrainzconfig.h"
 #include "freedbclient.h"
+#include "importtrackdata.h"
 
 /**
  * Constructor.
@@ -29,8 +30,15 @@
 MusicBrainzClient::MusicBrainzClient(ImportTrackDataVector& trackDataList) :
 	m_trackDataVector(trackDataList), m_tp(0), m_ids(0), m_numFiles(0)
 {
-	m_tp = tp_New("kid3", "0.6");
+	m_tp = tp_New("kid3", VERSION);
+#ifdef WIN32
+	tp_WSAInit(m_tp);
+#endif
+#ifdef HAVE_TUNEPIMP_030
 	tp_SetUseUTF8(m_tp, 1);
+#else
+	tp_SetID3Encoding(m_tp, eUTF8);
+#endif
 	tp_SetAutoFileLookup(m_tp, 1);
 	tp_SetRenameFiles(m_tp, 0);
 	tp_SetMoveFiles(m_tp, 0);
@@ -47,6 +55,9 @@ MusicBrainzClient::~MusicBrainzClient()
 {
 	removeFiles();
 	if (m_tp) {
+#ifdef WIN32
+		tp_WSAStop(m_tp);
+#endif
 		tp_Delete(m_tp);
 	}
 }
@@ -124,7 +135,13 @@ void MusicBrainzClient::pollStatus()
 {
 	TPCallbackEnum type;
 	int id;
-	while (tp_GetNotification(m_tp, &type, &id)) {
+#ifdef HAVE_TUNEPIMP_030
+	while (tp_GetNotification(m_tp, &type, &id))
+#else
+	TPFileStatus status;
+	while (tp_GetNotification(m_tp, &type, &id, &status))
+#endif
+	{
 		QString fn = getFilename(id);
 		int index = getIndexOfId(id);
 		switch (type) {
@@ -211,7 +228,11 @@ void MusicBrainzClient::addFiles()
 			 it = m_trackDataVector.begin();
 			 it != m_trackDataVector.end();
 			 ++it) {
+#ifdef HAVE_TUNEPIMP_030
 		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()));
+#else
+		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()), 1);
+#endif
 	}
 }
 
@@ -290,10 +311,16 @@ bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
 					albumtrackresult_t* res = *albumTrackResults++;
 					ImportTrackData trackData;
 					trackData.title = QString::fromUtf8(res->name);
+#ifdef HAVE_TUNEPIMP_030
 					trackData.artist = QString::fromUtf8(res->artist->name);
 					trackData.album = QString::fromUtf8(res->album->name);
-					trackData.track = res->trackNum;
 					trackData.year = res->album->releaseYear;
+#else
+					trackData.artist = QString::fromUtf8(res->artist.name);
+					trackData.album = QString::fromUtf8(res->album.name);
+					trackData.year = res->album.releaseYear;
+#endif
+					trackData.track = res->trackNum;
 					// year does not seem to work, so at least we should not
 					// overwrite it with 0
 					if (trackData.year == 0) {
