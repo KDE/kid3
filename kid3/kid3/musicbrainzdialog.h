@@ -53,6 +53,12 @@ public:
 
 #ifdef HAVE_TUNEPIMP
 	/**
+	 * Initialize the table.
+	 * Has to be called before reusing the dialog with new track data.
+	 */
+	void initTable();
+
+	/**
 	 * Get string with server and port.
 	 *
 	 * @return "servername:port".

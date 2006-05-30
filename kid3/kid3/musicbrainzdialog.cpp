@@ -83,14 +83,9 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 		connect(m_proxyLineEdit, SIGNAL(returnPressed()),
 						this, SLOT(setClientConfig()));
 	}
-#if QT_VERSION >= 300
-	unsigned numRows = m_trackDataVector.size();
-	m_trackResults.resize(numRows);
-#else
-	unsigned numRows = m_trackDataVector.count();
-#endif
-	m_albumTable = new QTable(numRows, 2, this);
+	m_albumTable = new QTable(this, "albumTable");
 	if (m_albumTable) {
+		m_albumTable->setNumCols(2);
 #if QT_VERSION >= 300
 		m_albumTable->setColumnReadOnly(1, true);
 		m_albumTable->setFocusStyle(QTable::FollowStyle);
@@ -104,16 +99,7 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 		m_albumTable->adjustColumn(1);
 		hHeader->setLabel(0, i18n("Track Title/Artist - Album"));
 		hHeader->setLabel(1, i18n("State"));
-		for (unsigned i = 0; i < numRows; ++i) {
-#if QT_VERSION >= 300
-			QComboTableItem* cti = new QComboTableItem(
-				m_albumTable, QStringList(i18n("No result")));
-			m_albumTable->setItem(i, 0, cti);
-			m_albumTable->setText(i, 1, i18n("Unknown"));
-#else
-			m_albumTable->setText(i, 0, i18n("Unknown"));
-#endif
-		}
+		initTable();
 		vlayout->addWidget(m_albumTable);
 	}
 
@@ -145,6 +131,31 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 MusicBrainzDialog::~MusicBrainzDialog()
 {
 	stopClient();
+}
+
+/**
+ * Initialize the table.
+ * Has to be called before reusing the dialog with new track data.
+ */
+void MusicBrainzDialog::initTable()
+{
+#if QT_VERSION >= 300
+	unsigned numRows = m_trackDataVector.size();
+#else
+	unsigned numRows = m_trackDataVector.count();
+#endif
+	m_trackResults.resize(numRows);
+	m_albumTable->setNumRows(numRows);
+	for (unsigned i = 0; i < numRows; ++i) {
+#if QT_VERSION >= 300
+		QComboTableItem* cti = new QComboTableItem(
+			m_albumTable, QStringList(i18n("No result")));
+		m_albumTable->setItem(i, 0, cti);
+		m_albumTable->setText(i, 1, i18n("Unknown"));
+#else
+		m_albumTable->setText(i, 0, i18n("Unknown"));
+#endif
+	}
 }
 
 /**
