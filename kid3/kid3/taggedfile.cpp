@@ -458,6 +458,7 @@ void TaggedFile::getStandardTagsV1(StandardTags *st)
 	st->year = getYearV1();
 	st->track = getTrackNumV1();
 	st->genre = getGenreNumV1();
+	st->genreStr = QString::null;
 }
 
 /**
@@ -475,6 +476,7 @@ void TaggedFile::getStandardTagsV2(StandardTags *st)
 	st->year = getYearV2();
 	st->track = getTrackNumV2();
 	st->genre = getGenreNumV2();
+	st->genreStr = st->genre == 0xff ? getGenreV2() : QString::null;
 }
 
 /**
@@ -542,8 +544,13 @@ void TaggedFile::setStandardTagsV2(const StandardTags *st,
 	if (flt.m_enableTrack && st->track != oldst.track) {
 		setTrackNumV2(st->track);
 	}
-	if (flt.m_enableGenre && st->genre != oldst.genre) {
-		setGenreNumV2(st->genre);
+	if (flt.m_enableGenre &&
+			(st->genre != oldst.genre || st->genreStr != oldst.genreStr)) {
+		if (st->genre != 0xff) {
+			setGenreNumV2(st->genre);
+		} else {
+			setGenreV2(st->genreStr);
+		}
 	}
 }
 

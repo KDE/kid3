@@ -53,6 +53,9 @@ class StandardTags {
 	int track;
 	/** Genre, empty if 0xff, inactive if -1 */
 	int genre;
+	/** Genre without number, inactive if QString::null or genre != 0xff,
+			empty if "" */
+	QString genreStr;
 };
 
 /**
