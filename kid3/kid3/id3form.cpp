@@ -215,7 +215,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	idV1GroupBoxLayout->addWidget(commentV1CheckBox, 3, 0);
 
 	commentV1LineEdit = new QLineEdit(idV1GroupBox, "commentV1LineEdit");
-	commentV1LineEdit->setMaxLength(29);
+	commentV1LineEdit->setMaxLength(28);
 	idV1GroupBoxLayout->addWidget(commentV1LineEdit, 3, 1);
 
 	pasteV1PushButton = new QPushButton(idV1GroupBox, "pasteV1PushButton");
@@ -317,6 +317,9 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	idV2GroupBoxLayout->addWidget(genreV2CheckBox, 5, 0);
 
 	genreV2ComboBox = new QComboBox(FALSE, idV2GroupBox, "genreV2ComboBox");
+	genreV2ComboBox->setEditable(true);
+	genreV2ComboBox->setAutoCompletion(true);
+	genreV2ComboBox->setDuplicatesEnabled(false);
 	idV2GroupBoxLayout->addWidget(genreV2ComboBox, 5, 1);
 
 	framesTextLabel = new QLabel(idV2GroupBox, "framesTextLabel");
@@ -585,9 +588,9 @@ void id3Form::getStandardTagsV2(StandardTags *st)
 	st->track   = trackV2CheckBox->isChecked()   ? trackV2SpinBox->value()
 		: -1;
 	st->genre   = genreV2CheckBox->isChecked()   ?
-		genreV2ComboBox->currentItem() - 1 : -1;
-	st->genre   = genreV2CheckBox->isChecked()   ?
 		Genres::getNumber(genreV2ComboBox->currentItem()) : -1;
+	st->genreStr = st->genre == 0xff ? genreV2ComboBox->currentText()
+		: QString::null;
 }
 
 /**
@@ -634,8 +637,12 @@ void id3Form::setStandardTagsV2(const StandardTags *st)
 	trackV2CheckBox->setChecked(st->track >= 0);
 	trackV2SpinBox->setValue(st->track >= 0 ? st->track : 0);
 	genreV2CheckBox->setChecked(st->genre >= 0);
-	genreV2ComboBox->setCurrentItem(st->genre >= 0 ?
-									Genres::getIndex(st->genre) : 0);
+	int genreIndex = st->genre >= 0 ?	Genres::getIndex(st->genre) : 0;
+	if (genreIndex > 0 || st->genreStr.isEmpty()) {
+		genreV2ComboBox->setCurrentItem(genreIndex);
+	} else {
+		genreV2ComboBox->setCurrentText(st->genreStr);
+	}
 }
 
 /**
@@ -816,7 +823,7 @@ void id3Form::titleV2LineEditChanged(const QString &txt)
 void id3Form::formatLineEdit(QLineEdit *le, const QString &txt,
 							 const FormatConfig *fcfg)
 {
-	if (theApp->miscCfg->formatWhileEditing) {
+	if (fcfg->m_formatWhileEditing) {
 		QString str(txt);
 		fcfg->formatString(str);
 		if (str != txt) {
