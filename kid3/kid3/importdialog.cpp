@@ -78,21 +78,18 @@ ImportDialog::~ImportDialog()
 int ImportDialog::exec()
 {
 	switch (m_autoStartSubDialog) {
-		case ASD_None:
-			return QDialog::exec();
-
 		case ASD_Freedb:
-		case ASD_MusicBrainz:
-			setModal(true);
 			show();
-			if (m_autoStartSubDialog == ASD_Freedb) {
-				impsel->fromFreedb();
-			} else if (m_autoStartSubDialog == ASD_MusicBrainz) {
-				impsel->fromMusicBrainz();
-			}
-			return result();
+			impsel->fromFreedb();
+			break;
+		case ASD_MusicBrainz:
+			show();
+			impsel->fromMusicBrainz();
+			break;
+		case ASD_None:
+			break;
 	}
-	return QDialog::Rejected;
+	return QDialog::exec();
 }
 
 /**
