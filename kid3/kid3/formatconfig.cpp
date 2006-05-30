@@ -23,11 +23,13 @@
 /**
  * Constructor.
  */
-FormatConfig::FormatConfig(const QString &grp) : GeneralConfig(grp)
+FormatConfig::FormatConfig(const QString &grp) :
+	GeneralConfig(grp),
+	m_formatWhileEditing(false),
+	caseConversion(AllFirstLettersUppercase),
+	strRepEnabled(false),
+	filenameFormatter(false)
 {
-	caseConversion = AllFirstLettersUppercase;
-	strRepEnabled = false;
-	filenameFormatter = false;
 	strRepMap.clear();
 }
 
@@ -76,24 +78,6 @@ void FormatConfig::formatString(QString& str) const
 			str = str.left(dotPos);
 		}
 	}
-	if (strRepEnabled) {
-		QMap<QString, QString>::ConstIterator it;
-		for (it = strRepMap.begin(); it != strRepMap.end(); ++it) {
-#if QT_VERSION >= 0x030100
-			str.replace(it.key(), it.data());
-#else
-			QString key(it.key()), data(it.data());
-			int pos = 0, keylen = key.length();
-			int datalen = data.length();
-			while (pos < (int)str.length()) {
-				pos = str.find(key);
-				if (pos == -1) break;
-				str.replace(pos, keylen, data);
-				pos += datalen;
-			}
-#endif
-		}
-	}
 	if (caseConversion != NoChanges) {
 		switch (caseConversion) {
 			case AllLowercase:
@@ -126,6 +110,24 @@ void FormatConfig::formatString(QString& str) const
 			}
 			default:
 				;
+		}
+	}
+	if (strRepEnabled) {
+		QMap<QString, QString>::ConstIterator it;
+		for (it = strRepMap.begin(); it != strRepMap.end(); ++it) {
+#if QT_VERSION >= 0x030100
+			str.replace(it.key(), it.data());
+#else
+			QString key(it.key()), data(it.data());
+			int pos = 0, keylen = key.length();
+			int datalen = data.length();
+			while (pos < (int)str.length()) {
+				pos = str.find(key);
+				if (pos == -1) break;
+				str.replace(pos, keylen, data);
+				pos += datalen;
+			}
+#endif
 		}
 	}
 	/* append extension if it was removed */
@@ -162,12 +164,14 @@ void FormatConfig::writeToConfig(
 {
 #ifdef CONFIG_USE_KDE
 	config->setGroup(group);
+	config->writeEntry("FormatWhileEditing", m_formatWhileEditing);
 	config->writeEntry("CaseConversion", caseConversion);
 	config->writeEntry("StrRepEnabled", strRepEnabled);
 	config->writeEntry("StrRepMapKeys", strRepMap.keys());
 	config->writeEntry("StrRepMapValues", strRepMap.values());
 #else
 	config->beginGroup("/" + group);
+	config->writeEntry("/FormatWhileEditing", m_formatWhileEditing);
 	config->writeEntry("/CaseConversion", caseConversion);
 	config->writeEntry("/StrRepEnabled", strRepEnabled);
 #if QT_VERSION >= 300
@@ -195,6 +199,7 @@ void FormatConfig::readFromConfig(
 {
 #ifdef CONFIG_USE_KDE
 	config->setGroup(group);
+	m_formatWhileEditing = config->readBoolEntry("FormatWhileEditing", m_formatWhileEditing);
 	caseConversion = (CaseConversion)config->readNumEntry("CaseConversion",
 														  (int)caseConversion);
 	strRepEnabled = config->readBoolEntry("StrRepEnabled", strRepEnabled);
@@ -211,6 +216,7 @@ void FormatConfig::readFromConfig(
 	}
 #else
 	config->beginGroup("/" + group);
+	m_formatWhileEditing = config->readBoolEntry("/FormatWhileEditing", m_formatWhileEditing);
 	caseConversion = (CaseConversion)config->readNumEntry("/CaseConversion",
 														  (int)caseConversion);
 	strRepEnabled = config->readBoolEntry("/StrRepEnabled", strRepEnabled);
