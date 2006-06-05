@@ -34,10 +34,10 @@ MusicBrainzClient::MusicBrainzClient(ImportTrackDataVector& trackDataList) :
 #ifdef WIN32
 	tp_WSAInit(m_tp);
 #endif
-#ifdef HAVE_TUNEPIMP_030
-	tp_SetUseUTF8(m_tp, 1);
-#else
+#if HAVE_TUNEPIMP >= 4
 	tp_SetID3Encoding(m_tp, eUTF8);
+#else
+	tp_SetUseUTF8(m_tp, 1);
 #endif
 	tp_SetAutoFileLookup(m_tp, 1);
 	tp_SetRenameFiles(m_tp, 0);
@@ -104,6 +104,9 @@ static const char* getFileStatusText(TPFileStatus statusCode)
 {
 	static const struct id_str_s { TPFileStatus id; const char *str; }
 	id_str[] = {
+#if HAVE_TUNEPIMP >= 4
+    { eMetadataRead,  I18N_NOOP("Metadata Read") },
+#endif
     { eUnrecognized,  I18N_NOOP("Unrecognized") },
     { eRecognized,    I18N_NOOP("Recognized") },
     { ePending,       I18N_NOOP("Pending") },
@@ -135,11 +138,11 @@ void MusicBrainzClient::pollStatus()
 {
 	TPCallbackEnum type;
 	int id;
-#ifdef HAVE_TUNEPIMP_030
-	while (tp_GetNotification(m_tp, &type, &id))
+#if HAVE_TUNEPIMP >= 4
+	TPFileStatus statusCode;
+	while (tp_GetNotification(m_tp, &type, &id, &statusCode))
 #else
-	TPFileStatus status;
-	while (tp_GetNotification(m_tp, &type, &id, &status))
+	while (tp_GetNotification(m_tp, &type, &id))
 #endif
 	{
 		QString fn = getFilename(id);
@@ -153,12 +156,33 @@ void MusicBrainzClient::pollStatus()
 				break;
 			case tpFileChanged:
 			{
+#if HAVE_TUNEPIMP >= 4
+				if (statusCode == eUnrecognized) {
+					char trm[255];
+					trm[0] = '\0';
+					track_t track = tp_GetTrack(m_tp, id);
+					if (track) {
+						tr_Lock(track);
+						tr_GetTRM(track, trm, sizeof(trm));
+						if (trm[0] == '\0') {
+							tr_SetStatus(track, ePending);
+							tp_Wake(m_tp, track);
+						}
+						tr_Unlock(track);
+						tp_ReleaseTrack(m_tp, track);
+					}
+				}
+#else
+				TPFileStatus statusCode = eLastStatus;
 				track_t track = tp_GetTrack(m_tp, id);
 				if (track) {
 					tr_Lock(track);
-					TPFileStatus statusCode = tr_GetStatus(track);
+					statusCode = tr_GetStatus(track);
 					tr_Unlock(track);
 					tp_ReleaseTrack(m_tp, track);
+				}
+#endif
+				if (statusCode != eLastStatus) {
 					const char* statusText = getFileStatusText(statusCode);
 					emit statusChanged(index, i18n(statusText));
 					if (statusCode == eRecognized) {
@@ -228,10 +252,10 @@ void MusicBrainzClient::addFiles()
 			 it = m_trackDataVector.begin();
 			 it != m_trackDataVector.end();
 			 ++it) {
-#ifdef HAVE_TUNEPIMP_030
-		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()));
+#if HAVE_TUNEPIMP >= 4
+		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()), 0);
 #else
-		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()), 1);
+		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()));
 #endif
 	}
 }
@@ -311,14 +335,14 @@ bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
 					albumtrackresult_t* res = *albumTrackResults++;
 					ImportTrackData trackData;
 					trackData.title = QString::fromUtf8(res->name);
-#ifdef HAVE_TUNEPIMP_030
-					trackData.artist = QString::fromUtf8(res->artist->name);
-					trackData.album = QString::fromUtf8(res->album->name);
-					trackData.year = res->album->releaseYear;
-#else
+#if HAVE_TUNEPIMP >= 4
 					trackData.artist = QString::fromUtf8(res->artist.name);
 					trackData.album = QString::fromUtf8(res->album.name);
 					trackData.year = res->album.releaseYear;
+#else
+					trackData.artist = QString::fromUtf8(res->artist->name);
+					trackData.album = QString::fromUtf8(res->album->name);
+					trackData.year = res->album->releaseYear;
 #endif
 					trackData.track = res->trackNum;
 					// year does not seem to work, so at least we should not
