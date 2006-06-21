@@ -196,10 +196,17 @@ void Kid3App::initActions()
 	    this, SLOT(slotFileSave()), actionCollection());
 	fileQuit = KStdAction::quit(
 	    this, SLOT(slotFileQuit()), actionCollection());
+#if KDE_VERSION < 0x30200
 	viewToolBar = KStdAction::showToolbar(
 	    this, SLOT(slotViewToolBar()), actionCollection());
 	viewStatusBar = KStdAction::showStatusbar(
 	    this, SLOT(slotViewStatusBar()), actionCollection());
+	viewToolBar->setStatusText(i18n("Enables/disables the toolbar"));
+	viewStatusBar->setStatusText(i18n("Enables/disables the statusbar"));
+#else
+	setStandardToolBarMenuEnabled(true);
+	createStandardStatusBarAction();
+#endif
 	settingsShortcuts = KStdAction::keyBindings(
 		this, SLOT(slotSettingsShortcuts()), actionCollection());
 	settingsConfigure = KStdAction::preferences(
@@ -211,8 +218,6 @@ void Kid3App::initActions()
 	    i18n("Reverts the changes of all or the selected files"));
 	fileSave->setStatusText(i18n("Saves the changed files"));
 	fileQuit->setStatusText(i18n("Quits the application"));
-	viewToolBar->setStatusText(i18n("Enables/disables the toolbar"));
-	viewStatusBar->setStatusText(i18n("Enables/disables the statusbar"));
 	settingsShortcuts->setStatusText(i18n("Configure Shortcuts"));
 	settingsConfigure->setStatusText(i18n("Preferences dialog"));
 
@@ -605,8 +610,10 @@ void Kid3App::readOptions()
 #ifdef CONFIG_USE_KDE
 	setAutoSaveSettings();
 	fileOpenRecent->loadEntries(config,"Recent Files");
+#if KDE_VERSION < 0x30200
 	viewToolBar->setChecked(!toolBar("mainToolBar")->isHidden());
 	viewStatusBar->setChecked(!statusBar()->isHidden());
+#endif
 #else
 	if (miscCfg->windowWidth != -1 && miscCfg->windowHeight != -1) {
 		resize(miscCfg->windowWidth, miscCfg->windowHeight);
@@ -990,6 +997,7 @@ void Kid3App::slotFileQuit()
 }
 
 #ifdef CONFIG_USE_KDE
+#if KDE_VERSION < 0x30200
 /**
  * Turn tool bar on or off.
  */
@@ -1021,6 +1029,12 @@ void Kid3App::slotViewStatusBar()
 	}
 	slotStatusMsg(i18n("Ready."));
 }
+#else
+
+void Kid3App::slotViewToolBar() {}
+void Kid3App::slotViewStatusBar() {}
+
+#endif
 
 /**
  * Shortcuts configuration.
@@ -2144,8 +2158,38 @@ void Kid3App::addFrame(void)
 	getSelectedFileWithFrameList(taggedFile, framelist);
 	if (taggedFile && framelist &&
 			(id = framelist->selectFrameId()) != -1 &&
-			framelist->addFrame(id)) {
+			framelist->addFrame(id, true)) {
 		updateAfterFrameModification(taggedFile);
+	} else if (!taggedFile && !framelist) {
+		// multiple files selected
+		TaggedFile *mp3file = view->mp3ListBox->first();
+		bool firstFile = true;
+		while (mp3file != 0) {
+			if (mp3file->isInSelection()) {
+				if (firstFile) {
+					firstFile = false;
+					taggedFile = mp3file;
+					framelist = mp3file->getFrameList();
+					framelist->setTags(taggedFile);
+					if ((id = framelist->selectFrameId()) != -1 &&
+							framelist->addFrame(id, true)) {
+						framelist->copyFrame();
+					} else {
+						break;
+					}
+				} else {
+					if (mp3file->getFrameList() == framelist) {
+						framelist->setTags(mp3file);
+						framelist->pasteFrame();
+					}
+				}
+			}
+			mp3file = view->mp3ListBox->next();
+		}
+		if (taggedFile && framelist) {
+//			framelist->setTags(taggedFile);
+		}
+		updateModificationState();
 	}
 }
 
