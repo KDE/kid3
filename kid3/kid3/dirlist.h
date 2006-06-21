@@ -43,9 +43,18 @@ public:
 	 */
 	QString getDirname(void) const { return m_dirname; }
 
+	/**
+	 * Set name of entry to select in next call to readDir().
+	 *
+	 * @param str name of entry to select
+	 */
+	void setEntryToSelect(const QString& str) { m_entryToSelect = str; }
+
 private:
 	/** path of directory */
 	QString m_dirname;
+	/** entry to select in readDir() */
+	QString m_entryToSelect;
 };
 
 #endif // DIRLIST_H

@@ -36,6 +36,12 @@ bool DirList::readDir(const QString& name) {
 		m_dirname = name;
 		QDir dir(file.filePath());
 		insertStringList(dir.entryList(QDir::Dirs | QDir::Drives));
+		if (!m_entryToSelect.isEmpty()) {
+			QListBoxItem* lbi = findItem(m_entryToSelect);
+			if (lbi) {
+				setCurrentItem(lbi);
+			}
+		}
 		return true;
 	}
 	return false;
