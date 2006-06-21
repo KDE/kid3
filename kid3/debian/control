@@ -22,7 +22,7 @@ Description: KDE MP3 ID3 tag editor
   * Generate filenames from tags
   * Generate playlist files
   * Automatic case conversion and string translation
-  * Import of album data
+  * Import and export album data
  . 
   Author: Urs Fleisch <ufleisch@users.sourceforge.net>
   Homepage: http://kid3.sourceforge.net/

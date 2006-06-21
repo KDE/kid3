@@ -16,5 +16,6 @@ With Kid3 you can:
 - Generate playlist files
 - Automatically convert upper and lower case and replace strings
 - Import from freedb.org, MusicBrainz and other sources of album data
+- Export tags as CSV, HTML, playlists, Kover XML and in other formats
 
 Kid3 uses Qt and id3lib and runs under GNU/Linux (KDE or only Qt) and Windows.
