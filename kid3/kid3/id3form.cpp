@@ -842,6 +842,9 @@ void id3Form::formatLineEdit(QLineEdit *le, const QString &txt,
 void id3Form::dirSelected(QListBoxItem* item) {
 	QDir dir(m_dirListBox->getDirname() + QDir::separator() +
 					 item->text());
+	m_dirListBox->setEntryToSelect(
+		item->text() == ".." ? QDir(m_dirListBox->getDirname()).dirName() :
+		QString::null);
 	QString dirPath = dir.absPath();
 	if (!dirPath.isEmpty()) {
 		theApp->openDirectory(dirPath, true);
