@@ -16,11 +16,14 @@
 class KAction;
 class KRecentFilesAction;
 class KToggleAction;
+typedef KMainWindow Kid3AppBaseClass;
 #else
 #include <qmainwindow.h>
 #include "generalconfig.h" // Kid3Settings
 class QAction;
+typedef QMainWindow Kid3AppBaseClass;
 #endif
+#include "importtrackdata.h"
 class KURL;
 class id3Form;
 class TaggedFile;
@@ -30,13 +33,16 @@ class MiscConfig;
 class FreedbConfig;
 class StandardTags;
 class FrameList;
+class ImportDialog;
+class ExportDialog;
+class NumberTracksDialog;
 
 #ifdef HAVE_TUNEPIMP
 class MusicBrainzConfig;
 #endif
 
 /** Kid3 application */
-class Kid3App : public QMainWindow
+class Kid3App : public Kid3AppBaseClass
 {
 Q_OBJECT
 
@@ -355,19 +361,63 @@ public slots:
 	void slotImport(void);
 
 	/**
+	 * Import from freedb.org.
+	 */
+	void slotImportFreedb();
+
+	/**
+	 * Import from MusicBrainz.
+	 */
+	void slotImportMusicBrainz();
+
+	/**
+	 * Export.
+	 */
+	void slotExport();
+
+	/**
+	 * Show or hide ID3v1.1 controls.
+	 */
+	void slotSettingsShowHideV1();
+
+	/**
+	 * Show or hide ID3v2.3 controls.
+	 */
+	void slotSettingsShowHideV2();
+
+	/**
 	 * Preferences.
 	 */
 	void slotSettingsConfigure(void);
 
 	/**
-	 * Apply format.
+	 * Apply filename format.
 	 */
-	void slotApplyFormat(void);
+	void slotApplyFilenameFormat(void);
+
+	/**
+	 * Apply ID3 format.
+	 */
+	void slotApplyId3Format(void);
 
 	/**
 	 * Rename directory.
 	 */
 	void slotRenameDirectory(void);
+
+	/**
+	 * Number tracks.
+	 */
+	void slotNumberTracks();
+
+private slots:
+	/**
+	 * Set data to be exported.
+	 *
+	 * @param src ExportDialog::SrcV1 to export ID3v1,
+	 *            ExportDialog::SrcV2 to export ID3v2
+	 */
+	void setExportData(int src);
 
 private:
 	/**
@@ -415,6 +465,42 @@ private:
 	void getSelectedFileWithFrameList(
 		TaggedFile*& taggedFile, FrameList*& framelist);
 	
+	/**
+	 * Format a filename if format while editing is switched on.
+	 *
+	 * @param taggedFile file to modify
+	 */
+	void formatFileNameIfEnabled(TaggedFile* taggedFile) const;
+
+	/**
+	 * Format tags if format while editing is switched on.
+	 *
+	 * @param st standard tags
+	 */
+	void formatStandardTagsIfEnabled(StandardTags* st) const;
+
+	/**
+	 * Update track data and create import dialog.
+	 */
+	void setupImportDialog();
+
+	/**
+	 * Execute the import dialog.
+	 */
+	void execImportDialog();
+
+	/**
+	 * Show or hide the ID3V1.1 controls according to the settings and
+	 * set the menu entries appropriately.
+	 */
+	void updateHideV1();
+
+	/**
+	 * Show or hide the ID3V2.3 controls according to the settings and
+	 * set the menu entries appropriately.
+	 */
+	void updateHideV2();
+
 	/** GUI with controls, created by Qt Designer */
 	id3Form *view;
 	/** TRUE if any file was modified */
@@ -423,6 +509,14 @@ private:
 	QString doc_dir;
 	/** Copy buffer */
 	StandardTags *copytags;
+	/** Import dialog */
+	ImportDialog* m_importDialog;
+	/** Track data list */
+	ImportTrackDataVector m_trackDataList;
+	/** Export dialog */
+	ExportDialog* m_exportDialog;
+	/** Number tracks dialog */
+	NumberTracksDialog* m_numberTracksDialog;
 
 #ifdef CONFIG_USE_KDE
 	/** the configuration object of the application */
@@ -437,6 +531,8 @@ private:
 	KToggleAction* viewStatusBar;
 	KAction* settingsShortcuts;
 	KAction* settingsConfigure;
+	KAction* settingsShowHideV1;
+	KAction* settingsShowHideV2;
 #else
 	Kid3Settings* config;
 	QAction* fileOpen;
@@ -445,8 +541,17 @@ private:
 	QAction* fileCreatePlaylist;
 	QAction* fileQuit;
 	QAction* fileImport;
-	QAction* toolsApplyFormat;
+	QAction* fileImportFreedb;
+#ifdef HAVE_TUNEPIMP
+	QAction* fileImportMusicBrainz;
+#endif
+	QAction* fileExport;
+	QAction* toolsApplyFilenameFormat;
+	QAction* toolsApplyId3Format;
 	QAction* toolsRenameDirectory;
+	QAction* toolsNumberTracks;
+	QAction* settingsShowHideV1;
+	QAction* settingsShowHideV2;
 	QAction* settingsConfigure;
 	QAction* helpHandbook;
 	QAction* helpAbout;
