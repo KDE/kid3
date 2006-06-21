@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2005</year>
+<year>2006</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>18/10/2005</date>
-<releaseinfo>0.6</releaseinfo>
+<date>20/05/2006</date>
+<releaseinfo>0.7</releaseinfo>
 
 <abstract>
 <para>
@@ -111,6 +111,8 @@ Please report any problems or feature requests to the author.
 <listitem><para>Import from <ulink url="http://freedb.org">freedb.org</ulink>,
 <ulink url="http://musicbrainz.org">MusicBrainz</ulink>
 and other data sources</para></listitem>
+<listitem><para>Export as CSV, HTML, playlist, Kover XML and other
+formats. Exported CSV files can be imported again.</para></listitem>
 </itemizedlist>
 </sect1>
 
@@ -347,6 +349,12 @@ The GUI controls function in the same way as described for the
 <guilabel>ID3v1.1</guilabel> section, but the size of the strings is not limited.
 </para>
 <para>
+For the ID3v2.3 <guilabel>Genre</guilabel> you can also use your own names
+besides the genres listed in the combo box, just type the name into the line
+edit. If such a custom genre shall be present in the combo box list in the
+future, type <keycap>Enter</keycap>.
+</para>
+<para>
 <guilabel>Frames</guilabel>: The ID3v2.3 tags can not only contain the same values
 as the ID3v1.1 tags, the format is built in a flexible way from several frames
 which are themselves composed of several fields. The frames list box shows
@@ -358,7 +366,8 @@ of the selected frame. This is equivalent to double clicking on the selected fra
 </para>
 <para>
 <guibutton>Add</guibutton>: A requester to select the frame type will appear
-and a frame of the selected type is added to the file.
+and a frame of the selected type can be edited and added to the file. This
+works also to add a frame to multiple selected files.
 </para>
 <para>
 <guibutton>Delete</guibutton>: Deletes the selected frame.
@@ -403,7 +412,7 @@ file name filter will be displayed in the file listbox.</para></listitem>
 <guimenuitem>Save</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Saves all changed files in the directory.</action> The
-changed files are marked with an asterisk in the file listbox. If any file
+changed files are marked with a disk symbol in the file listbox. If any file
 names have been changed, those files will be renamed.</para></listitem>
 </varlistentry>
 
@@ -463,7 +472,17 @@ while since the whole MusicBrainz machinery has to be shut down.
 </para>
 <para>
 For the import of textual data, several preconfigured import formats are
-available. The first, "freedb HTML 
+available. The first two, "CSV unquoted" and "CSV quoted" can be used to
+import data which was exported by the Export dialog. The CSV data can be
+edited with a spreadsheet, and shall be written using tabs as
+delimiters. Import should then be possible using "CSV quoted", which is more
+flexible than "CSV unquoted". However, its fields cannot contain any double
+quotes. If you only export from &kid3; and import later, "CSV unquoted" can be
+used as a simple format for this purpose.
+</para>
+
+<para>
+The next format, "freedb HTML 
 text", can be used to copy information from an HTML page of
 <ulink url="http://freedb.org">freedb.org</ulink>. Search an album in freedb
 and if the desired information is displayed in the web browser, copy the
@@ -477,7 +496,7 @@ with a combo box. The files in the current directory should be in the correct
 track order to get their tags assigned. This is the case if they are numbered.
 </para>
 <para>
-The second preconfigured import format, "freedb HTML source", can be used, if
+The next preconfigured import format, "freedb HTML source", can be used, if
 the data is available as an HTML document. Import is possible using the
 <guibutton>From File</guibutton> button, which opens a file selector, or
 copying its contents from an editor and then importing from clipboard. This
@@ -526,7 +545,107 @@ allowable time difference</guibutton> and the maximum tolerated difference in
 time can be set in seconds. If a mismatch in a length is detected, the length
 is displayed with a red background in the preview table.
 </para>
+<para>
+It the files are ordered differently than the imported tracks, their assigned
+tracks have to be changed. This task can be facilitated using
+the <guilabel>Match with</guilabel>
+buttons <guibutton>Length</guibutton>, <guibutton>Track</guibutton>,
+and <guibutton>Title</guibutton>, which will reorder the tracks according to
+the corresponding field. To correct the assignments manually, a track can be
+dragged with the left mouse button and the <keycap>Ctrl</keycap> key hold
+down, and then dropped at the new location.
+</para>
 </listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from freedb.org...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from a freedb.org server.</action> This menu
+item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>From freedb.org</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from MusicBrainz...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from a MusicBrainz server.</action> This menu
+item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>From MusicBrainz</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Export...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+The <action>Export Dialog</action> is used to store data from the tags in a
+file or the clipboard. The editor at the top shows a preview of the data to
+export. The data can be edited before exporting, as it is exactly the contents
+of the editor which will be stored. The data will be generated from the tags
+in the current directory according to the configured format.
+</para>
+<para>
+The format settings are similar as in the Import dialog: The topmost field
+contains the title (e.g. "CSV unquoted"), followed by the header, which will
+be generated at the begin of the file. The track data follows; it is used for
+every track. Finally, the trailer can be used to generate some finishing
+text.
+</para>
+<para>
+The format fields do not contain regular expressions as in the Import dialog,
+but only output format expressions with special %-expressions, which will be
+replaced by values from the tags. The whole thing works like the file name
+format, and the same codes are used plus some additional codes.
+</para>
+
+<itemizedlist>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%T Track, without leading zeroes</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+<listitem><para>%f File name</para></listitem>
+<listitem><para>%p Path</para></listitem>
+<listitem><para>%u URL</para></listitem>
+<listitem><para>%d Duration in minutes:seconds</para></listitem>
+<listitem><para>%D Duration in seconds</para></listitem>
+<listitem><para>%n Number of tracks of the album</para></listitem>
+</itemizedlist>
+
+<para>
+A few formats are predefined. "CSV unquoted" separates the fields by
+tabs. Data in this format can be imported again into &kid3; using the import
+format with the same name. "CSV quoted" additionally encloses the fields by
+double quotes, which eases the import into spreadsheet applications. However,
+the fields shall not contain any double quotes when this format is used.
+"Extended M3U" and "Extended PLS" generate playlists with extended attributes
+and absolute path names. "HTML" can be used to generate an HTML page with
+hyperlinks to the tracks. "Kover XML" creates a file which can be imported by
+the cover printing program Kover. Finally, "Custom Format" is left empty for
+definition of a custom format. You can define more formats of your own by
+adding lines in the file <filename>kid3rc</filename> in the configuration
+directory. The other formats can be adapted to your needs.
+</para>
+<para>
+The source of the tags to generate the export data (<guilabel>ID3v1</guilabel>
+or <guilabel>ID3v2</guilabel>) can be selected with a combo
+box. Pushing <guibutton>To File</guibutton> or
+<guibutton>To Clipboard</guibutton> stores the data in a file or on the
+clipboard. <guibutton>OK</guibutton> and <guibutton>Cancel</guibutton> close
+the dialog, whereat <guibutton>OK</guibutton> accepts the current dialog
+settings.
+</para></listitem> 
 </varlistentry>
 
 <varlistentry>
@@ -566,14 +685,28 @@ can be used to generate a playlist for an album.</para></listitem>
 <varlistentry>
 <term><menuchoice>
 <guimenu>Tools</guimenu>
-<guimenuitem>Apply Format</guimenuitem>
+<guimenuitem>Apply Filename Format</guimenuitem>
 </menuchoice></term>
 <listitem><para>When <guilabel>Format while editing</guilabel> is switched off
-in the configuration dialog, this menu item can be used to <action>apply
-the configured format to the selected files</action>. This can also be used
-to check whether the file and tag names conform with the configured format
+for the filename format in the configuration dialog, this menu item can be used to <action>apply
+the configured format to the names of the selected files</action>. This can also be used
+to check whether the file names conform with the configured format
 by applying the format to all saved files and then checking if any files were
-changed (and therefore marked with an asterisk in the file listbox).
+changed (and therefore marked with a disk symbol in the file listbox).
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Apply ID3 Format</guimenuitem>
+</menuchoice></term>
+<listitem><para>When <guilabel>Format while editing</guilabel> is switched off
+for the ID3 format in the configuration dialog, this menu item can be used to <action>apply
+the configured format to the tags of the selected files</action>. This can also be used
+to check whether the tags conform with the configured format
+by applying the format to all saved files and then checking if any files were
+changed (and therefore marked with a disk symbol in the file listbox).
 </para></listitem>
 </varlistentry>
 
@@ -611,6 +744,19 @@ sections of the dialog.
 </para></listitem>
 </varlistentry>
 
+<varlistentry>
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Number Tracks...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If the track numbers in the tags are not set or have the wrong values, this
+function can <action>number the tracks automatically in ascending
+order</action>. The start number can be set in the dialog. If only part of the
+tracks have to be numbered, they must be selected.
+</para></listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 </sect2>
@@ -619,6 +765,24 @@ sections of the dialog.
 <title>The Settings Menu</title>
 <para>
 <variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Hide ID3v1.1</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles displaying of the ID3v1.1 section.</action>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Hide ID3v2.3</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles displaying of the ID3v2.3 section.</action>
+</para></listitem>
+</varlistentry>
 
 <varlistentry>
 <term><menuchoice>
@@ -667,9 +831,9 @@ used.
 <para>
 The page <guilabel>Format</guilabel> contains options for the format of
 filenames and tags.
+The format can be set separately for filenames and ID3 tags.
 When <guilabel>Format while editing</guilabel> is checked, the format
-configuration is automatically used while editing text in the line edits. The
-format can be set separately for filenames and ID3 tags.
+configuration is automatically used while editing text in the line edits.
 The <guilabel>Case Conversion</guilabel> can be set to <guilabel>No
 changes</guilabel>, <guilabel>All lowercase</guilabel>, <guilabel>All
 uppercase</guilabel>, <guilabel>First letter uppercase</guilabel> or
@@ -723,7 +887,7 @@ button available, e.g. next file, previous file, select all.
 <guimenu>Help</guimenu>
 <guimenuitem>About Kid3</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Displays a short information about &kid3;.
+<listitem><para><action>Displays a short information about Kid3;.
 </action></para></listitem>
 </varlistentry>
 
@@ -804,6 +968,14 @@ Ubuntu 5.10: id3lib 3.8.3, KDE 3.4.3, Qt 3.3.4, libvorbis 1.1.0,
 libogg 1.1.2, libflac++ 1.1.2, libtunepimp 0.3.0
 </para>
 <para>
+Ubuntu 6.06: id3lib 3.8.3, KDE 3.4.3, Qt 3.3.6, libvorbis 1.1.2,
+libogg 1.1.3, libflac++ 1.1.2, libtunepimp 0.3.0 and 0.4.2
+</para>
+<para>
+Note that the MP3 format is not supported in the MusicBrainz import on Ubuntu
+as libtunepimp is built without libmad.
+</para>
+<para>
 Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt version 2.3.0
 </para>
 <para>
@@ -838,6 +1010,11 @@ To speed up compilation, &kid3; can use precompiled headers with GCC
 <userinput>--enable-gcc-pch</userinput> (and setting CC and CXX to gcc and g++
 of GCC 3.4 if it is not the default compiler). The create a precompiled system
 include file with <userinput>make pch</userinput>.
+</para>
+<para>
+Generation of RPM-Packages is supported by the
+file <filename>kid3.spec</filename>, for Debian-Packages,
+a <filename>debian</filename> directory is available.
 </para>
 <para>
 The Qt application can also be compiled for Windows.

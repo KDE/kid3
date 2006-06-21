@@ -1,3 +1,32 @@
+Wed Jun  7 21:14:24 CEST 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.7
+
+	* New:
+	  + Export dialog can export tags as CSV, HTML, playlists, Kover
+	    XML and other formats. CSV files can be imported again.
+	  + Show/hide ID3v1.1/ID3v2.3 controls.
+	  + Custom strings can be used for ID3v2.3, Ogg/Vorbis and FLAC genres.
+	  + Automatic numbering of tracks.
+
+	* Improved:
+	  + Direct menus for freedb.org and MusicBrainz import.
+	  + freedb.org import has suggested search string, search history.
+	  + Imported tracks can be reordered to match track number, title
+	    or length.
+	  + Format while editing affects most operations, is split into separate
+	    options for filenames and tags, menu commands to apply
+	    filename format and tag format.
+	  + Case conversion is done before string replacements, so that "case
+	    exceptions" can be corrected.
+	  + Builds with libtunepimp 0.4.x.
+
+	* Fixed:
+	  + Remove temporary Ogg file when filename and tags are changed.
+	  + Mark file as changed when Ogg genre is changed.
+	  + Correct length restriction for ID3v1.1 comment.
+	  + Open directories with special characters from the command line.
+
 Mon Oct 24 16:59:35 CEST 2005  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.6

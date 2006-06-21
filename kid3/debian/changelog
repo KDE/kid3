@@ -1,3 +1,19 @@
+kid3 (0.7-0) unstable; urgency=low 
+
+   * New upstream version: Export dialog, show/hide ID3v1.1/ID3v2.3,
+     custom genres, automatic track numbering, improved import (search
+     history, track reordering), split filename and tag format into
+     separate options and commands, builds with libtunepimp 0.4.x.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Wed, 07 Jun 2006 21:07:40 +0200
+
+kid3 (0.6-1) unstable; urgency=low 
+
+   * Fixed bug: When changing both the tags and the filename of an Ogg
+     file, the old file was not deleted.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 14 Nov 2005 19:32:09 +0100
+
 kid3 (0.6-0) unstable; urgency=low 
 
    * New upstream version: support for Ogg/Vorbis and FLAC files, import

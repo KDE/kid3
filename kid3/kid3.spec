@@ -7,7 +7,7 @@ Name:         kid3
 License:      GPL
 Group:        Applications/Multimedia
 Summary:      ID3 tagger
-Version:      0.6
+Version:      0.7
 Release:      1
 Source0:      kid3-%{version}.tar.gz
 BuildRoot:    /var/tmp/%{name}-buildroot
@@ -23,6 +23,8 @@ With Kid3 you can:
 - Edit ID3v1.1 tags
 - Edit all ID3v2.3 frames
 - Convert between ID3v1.1 and ID3v2.3 tags
+- Edit Ogg/Vorbis tags
+- Edit FLAC tags
 - Edit tags of multiple files, e.g. the artist, album, year and genre
   of all files of an album typically have the same values and can be
   set together.
@@ -30,7 +32,8 @@ With Kid3 you can:
 - Generate filenames from tags
 - Generate playlist files
 - Automatic case conversion and string translation
-- Import of album data
+- Import of album data from freedb.org, MusicBrainz and other data sources
+- Export of album data in various formats
 
 Authors: Urs Fleisch
 
