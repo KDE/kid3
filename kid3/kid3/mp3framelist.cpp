@@ -616,7 +616,8 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
  * Constructor.
  */
 
-Mp3FrameList::Mp3FrameList() : tags(0), selected_enc(ID3TE_NONE)
+Mp3FrameList::Mp3FrameList() : tags(0), selected_enc(ID3TE_NONE),
+															 m_copyFrame(0)
 {
 	fieldcontrols.setAutoDelete(TRUE);
 }
@@ -624,7 +625,12 @@ Mp3FrameList::Mp3FrameList() : tags(0), selected_enc(ID3TE_NONE)
 /**
  * Destructor.
  */
-Mp3FrameList::~Mp3FrameList() {}
+Mp3FrameList::~Mp3FrameList()
+{
+	if (m_copyFrame) {
+		delete m_copyFrame;
+	}
+}
 
 /**
  * Fill listbox with frame descriptions.
@@ -737,6 +743,161 @@ ID3_Frame *Mp3FrameList::getSelectedFrame(int* lbIndex) const
 }
 
 /**
+ * Create dialog to edit a frame and update the fields if Ok is
+ * returned.
+ *
+ * @param frame frame to edit
+ *
+ * @return TRUE if Ok selected in dialog.
+ */
+bool Mp3FrameList::editFrame(ID3_Frame* frame)
+{
+	bool result = FALSE;
+	ID3_Frame::Iterator* iter = frame->CreateIterator();
+	ID3_Field *field;
+	while ((field = iter->GetNext()) != NULL) {
+		ID3_FieldID id = field->GetID();
+		ID3_FieldType type = field->GetType();
+		if (type == ID3FTY_INTEGER) {
+			if (id == ID3FN_TEXTENC) {
+				static const char *strlst[] = {
+					I18N_NOOP("ISO-8859-1"),
+					I18N_NOOP("Unicode"),
+					I18N_NOOP("UTF16BE"),
+					I18N_NOOP("UTF8"),
+					NULL
+				};
+				IntComboBoxControl *cbox =
+					new IntComboBoxControl(this, id, field, strlst);
+				if (cbox) {
+					fieldcontrols.append(cbox);
+				}
+			}
+			else if (id == ID3FN_PICTURETYPE) {
+				static const char *strlst[] = {
+					I18N_NOOP("Other"),
+					I18N_NOOP("32x32 pixels PNG file icon"),
+					I18N_NOOP("Other file icon"),
+					I18N_NOOP("Cover (front)"),
+					I18N_NOOP("Cover (back)"),
+					I18N_NOOP("Leaflet page"),
+					I18N_NOOP("Media"),
+					I18N_NOOP("Lead artist/lead performer/soloist"),
+					I18N_NOOP("Artist/performer"),
+					I18N_NOOP("Conductor"),
+					I18N_NOOP("Band/Orchestra"),
+					I18N_NOOP("Composer"),
+					I18N_NOOP("Lyricist/text writer"),
+					I18N_NOOP("Recording Location"),
+					I18N_NOOP("During recording"),
+					I18N_NOOP("During performance"),
+					I18N_NOOP("Movie/video screen capture"),
+					I18N_NOOP("A bright coloured fish"),
+					I18N_NOOP("Illustration"),
+					I18N_NOOP("Band/artist logotype"),
+					I18N_NOOP("Publisher/Studio logotype"),
+					NULL
+				};
+				IntComboBoxControl *cbox =
+					new IntComboBoxControl(this, id, field, strlst);
+				if (cbox) {
+					fieldcontrols.append(cbox);
+				}
+			}
+			else if (id == ID3FN_TIMESTAMPFORMAT) {
+				static const char *strlst[] = {
+					I18N_NOOP("Other"),
+					I18N_NOOP("MPEG frames as unit"),
+					I18N_NOOP("Milliseconds as unit"),
+					NULL
+				};
+				IntComboBoxControl *cbox =
+					new IntComboBoxControl(this, id, field, strlst);
+				if (cbox) {
+					fieldcontrols.append(cbox);
+				}
+			}
+			else if (id == ID3FN_CONTENTTYPE) {
+				static const char *strlst[] = {
+					I18N_NOOP("Other"),
+					I18N_NOOP("Lyrics"),
+					I18N_NOOP("Text transcription"),
+					I18N_NOOP("Movement/part name"),
+					I18N_NOOP("Events"),
+					I18N_NOOP("Chord"),
+					I18N_NOOP("Trivia/pop up"),
+					NULL
+				};
+				IntComboBoxControl *cbox =
+					new IntComboBoxControl(this, id, field, strlst);
+				if (cbox) {
+					fieldcontrols.append(cbox);
+				}
+			}
+			else {
+				IntFieldControl *intctl =
+					new IntFieldControl(this, id, field);
+				if (intctl) {
+					fieldcontrols.append(intctl);
+				}
+			}
+		}
+		else if (type == ID3FTY_BINARY) {
+			BinFieldControl *binctl =
+				new BinFieldControl(this, id, field);
+			if (binctl) {
+				fieldcontrols.append(binctl);
+			}
+		}
+		else if (type == ID3FTY_TEXTSTRING) {
+			ID3_TextEnc enc = field->GetEncoding();
+			if (id == ID3FN_TEXT ||
+					// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
+					enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
+				// Large textedit for text fields
+				TextFieldControl *textctl =
+					new TextFieldControl(this, id, field);
+				if (textctl) {
+					fieldcontrols.append(textctl);
+				}
+			}
+			else {
+				LineFieldControl *textctl =
+					new LineFieldControl(this, id, field);
+				if (textctl) {
+					fieldcontrols.append(textctl);
+				}
+			}
+		}
+	}
+#ifdef WIN32
+	/* allocated in Windows DLL => must be freed in the same DLL */
+	ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
+	delete iter;
+#endif
+	const char *idstr = getIdString(frame->GetID());
+	QString caption = idstr ? i18n(idstr) : QString(frame->GetTextID());
+	EditMp3FrameDialog *dialog =
+		new EditMp3FrameDialog(NULL, caption, fieldcontrols);
+	if (dialog && dialog->exec() == QDialog::Accepted) {
+		FieldControl *fld_ctl = fieldcontrols.first();
+		// will be set if there is an encoding selector
+		setSelectedEncoding(ID3TE_NONE);
+		while (fld_ctl != NULL) {
+			fld_ctl->updateTag();
+			fld_ctl = fieldcontrols.next();
+		}
+		if (m_file) {
+			m_file->changedV2 = TRUE;
+		}
+		result = TRUE;
+	}
+	fieldcontrols.clear();
+	return result;
+}
+
+/**
  * Create dialog to edit the selected frame and update the fields if Ok is
  * returned.
  *
@@ -745,152 +906,11 @@ ID3_Frame *Mp3FrameList::getSelectedFrame(int* lbIndex) const
 
 bool Mp3FrameList::editFrame(void)
 {
-	bool result = FALSE;
-	ID3_Frame *frame = getSelectedFrame();
+	ID3_Frame* frame = getSelectedFrame();
 	if (frame) {
-		ID3_Frame::Iterator* iter = frame->CreateIterator();
-		ID3_Field *field;
-		while ((field = iter->GetNext()) != NULL) {
-			ID3_FieldID id = field->GetID();
-			ID3_FieldType type = field->GetType();
-			if (type == ID3FTY_INTEGER) {
-				if (id == ID3FN_TEXTENC) {
-					static const char *strlst[] = {
-						I18N_NOOP("ISO-8859-1"),
-						I18N_NOOP("Unicode"),
-						I18N_NOOP("UTF16BE"),
-						I18N_NOOP("UTF8"),
-						NULL
-					};
-					IntComboBoxControl *cbox =
-						new IntComboBoxControl(this, id, field, strlst);
-					if (cbox) {
-						fieldcontrols.append(cbox);
-					}
-				}
-				else if (id == ID3FN_PICTURETYPE) {
-					static const char *strlst[] = {
-						I18N_NOOP("Other"),
-						I18N_NOOP("32x32 pixels PNG file icon"),
-						I18N_NOOP("Other file icon"),
-						I18N_NOOP("Cover (front)"),
-						I18N_NOOP("Cover (back)"),
-						I18N_NOOP("Leaflet page"),
-						I18N_NOOP("Media"),
-						I18N_NOOP("Lead artist/lead performer/soloist"),
-						I18N_NOOP("Artist/performer"),
-						I18N_NOOP("Conductor"),
-						I18N_NOOP("Band/Orchestra"),
-						I18N_NOOP("Composer"),
-						I18N_NOOP("Lyricist/text writer"),
-						I18N_NOOP("Recording Location"),
-						I18N_NOOP("During recording"),
-						I18N_NOOP("During performance"),
-						I18N_NOOP("Movie/video screen capture"),
-						I18N_NOOP("A bright coloured fish"),
-						I18N_NOOP("Illustration"),
-						I18N_NOOP("Band/artist logotype"),
-						I18N_NOOP("Publisher/Studio logotype"),
-						NULL
-					};
-					IntComboBoxControl *cbox =
-						new IntComboBoxControl(this, id, field, strlst);
-					if (cbox) {
-						fieldcontrols.append(cbox);
-					}
-				}
-				else if (id == ID3FN_TIMESTAMPFORMAT) {
-					static const char *strlst[] = {
-						I18N_NOOP("Other"),
-						I18N_NOOP("MPEG frames as unit"),
-						I18N_NOOP("Milliseconds as unit"),
-						NULL
-					};
-					IntComboBoxControl *cbox =
-						new IntComboBoxControl(this, id, field, strlst);
-					if (cbox) {
-						fieldcontrols.append(cbox);
-					}
-				}
-				else if (id == ID3FN_CONTENTTYPE) {
-					static const char *strlst[] = {
-						I18N_NOOP("Other"),
-						I18N_NOOP("Lyrics"),
-						I18N_NOOP("Text transcription"),
-						I18N_NOOP("Movement/part name"),
-						I18N_NOOP("Events"),
-						I18N_NOOP("Chord"),
-						I18N_NOOP("Trivia/pop up"),
-						NULL
-					};
-					IntComboBoxControl *cbox =
-						new IntComboBoxControl(this, id, field, strlst);
-					if (cbox) {
-						fieldcontrols.append(cbox);
-					}
-				}
-				else {
-					IntFieldControl *intctl =
-						new IntFieldControl(this, id, field);
-					if (intctl) {
-						fieldcontrols.append(intctl);
-					}
-				}
-			}
-			else if (type == ID3FTY_BINARY) {
-				BinFieldControl *binctl =
-					new BinFieldControl(this, id, field);
-				if (binctl) {
-					fieldcontrols.append(binctl);
-				}
-			}
-			else if (type == ID3FTY_TEXTSTRING) {
-				ID3_TextEnc enc = field->GetEncoding();
-				if (id == ID3FN_TEXT ||
-					// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
-					enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
-					// Large textedit for text fields
-					TextFieldControl *textctl =
-						new TextFieldControl(this, id, field);
-					if (textctl) {
-						fieldcontrols.append(textctl);
-					}
-				}
-				else {
-					LineFieldControl *textctl =
-						new LineFieldControl(this, id, field);
-					if (textctl) {
-						fieldcontrols.append(textctl);
-					}
-				}
-			}
-		}
-#ifdef WIN32
-		/* allocated in Windows DLL => must be freed in the same DLL */
-		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
-#else
-		delete iter;
-#endif
-		const char *idstr = getIdString(frame->GetID());
-		QString caption = idstr ? i18n(idstr) : QString(frame->GetTextID());
-		EditMp3FrameDialog *dialog =
-			new EditMp3FrameDialog(NULL, caption, fieldcontrols);
-		if (dialog && dialog->exec() == QDialog::Accepted) {
-			FieldControl *fld_ctl = fieldcontrols.first();
-			// will be set if there is an encoding selector
-			setSelectedEncoding(ID3TE_NONE);
-			while (fld_ctl != NULL) {
-				fld_ctl->updateTag();
-				fld_ctl = fieldcontrols.next();
-			}
-			if (m_file) {
-				m_file->changedV2 = TRUE;
-			}
-			result = TRUE;
-		}
-		fieldcontrols.clear();
+		return editFrame(frame);
 	}
-	return result;
+	return false;
 }
 
 /**
@@ -928,10 +948,11 @@ bool Mp3FrameList::deleteFrame(void)
  * Add a new frame.
  *
  * @param frameId ID of frame to add
+ * @param edit    true to edit frame after adding it
  * @return TRUE if frame added.
  */
 
-bool Mp3FrameList::addFrame(int frameId)
+bool Mp3FrameList::addFrame(int frameId, bool edit)
 {
 	if (frameId < 0 || frameId > ID3FID_LASTFRAMEID) {
 		return false;
@@ -944,17 +965,22 @@ bool Mp3FrameList::addFrame(int frameId)
 	ID3_Frame *frame = new ID3_Frame(id);
 	if (frame) {
 		if (tags) {
+			if (edit && !editFrame(frame)) {
+				delete frame;
+				return false;
+			}
 			tags->AttachFrame(frame);
 			readTags(); // refresh listbox
 			const int lastIndex = listbox->count() - 1;
 			if (lastIndex >= 0) {
 				listbox->setSelected(lastIndex, true);
 			}
+			if (m_file) {
+				m_file->changedV2 = TRUE;
+			}
+			return TRUE;
 		}
-		if (m_file) {
-			m_file->changedV2 = TRUE;
-		}
-		return TRUE;
+		delete frame;
 	}
 	return FALSE;
 }
@@ -1162,4 +1188,40 @@ int Mp3FrameList::selectFrameId(void)
 		}
 	}
 	return -1;
+}
+
+/**
+ * Copy the selected frame to the copy buffer.
+ *
+ * @return true if frame copied.
+ */
+bool Mp3FrameList::copyFrame() {
+	ID3_Frame *frame = getSelectedFrame();
+	if (frame) {
+		if (m_copyFrame) {
+			delete m_copyFrame;
+		}
+		m_copyFrame = new ID3_Frame(*frame);
+		return true;
+	}
+	return false;
+}
+
+/**
+ * Paste the selected frame from the copy buffer.
+ *
+ * @return true if frame pasted.
+ */
+bool Mp3FrameList::pasteFrame() {
+	if (m_copyFrame && tags) {
+		ID3_Frame* frame = new ID3_Frame(*m_copyFrame);
+		if (frame) {
+			tags->AttachFrame(frame);
+			if (m_file) {
+				m_file->changedV2 = true;
+			}
+			return true;
+		}
+	}
+	return false;
 }

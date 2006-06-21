@@ -59,9 +59,24 @@ public:
 	 * Add a new frame.
 	 *
 	 * @param frameId ID of frame to add, from selectFrameId()
+	 * @param edit    true to edit frame after adding it
 	 * @return true if frame added.
 	 */
-	virtual bool addFrame(int frameId);
+	virtual bool addFrame(int frameId, bool edit = false);
+
+	/**
+	 * Copy the selected frame to the copy buffer.
+	 *
+	 * @return true if frame copied.
+	 */
+	virtual bool copyFrame();
+
+	/**
+	 * Paste the selected frame from the copy buffer.
+	 *
+	 * @return true if frame pasted.
+	 */
+	virtual bool pasteFrame();
 
 	/**
 	 * Display a dialog to select a frame type.
@@ -79,8 +94,19 @@ protected:
 	 */
 	void readTags();
 
+	/**
+	 * Create dialog to edit a frame and update the fields
+	 * if Ok is returned.
+	 *
+	 * @param frame frame to edit
+	 *
+	 * @return true if Ok selected in dialog.
+	 */
+	bool editFrame(OggFile::CommentField& frame);
+
 	OggFile::CommentList* m_tags;
 	QString m_selectedName;
+	OggFile::CommentField m_copyFrame;
 };
 
 #endif // HAVE_VORBIS

@@ -160,6 +160,28 @@ void OggFrameList::setTags(TaggedFile* taggedFile)
 }
 
 /**
+ * Create dialog to edit a frame and update the fields
+ * if Ok is returned.
+ *
+ * @param frame frame to edit
+ *
+ * @return true if Ok selected in dialog.
+ */
+bool OggFrameList::editFrame(OggFile::CommentField& frame)
+{
+	EditOggFrameDialog *dialog =
+		new EditOggFrameDialog(NULL, frame.getName(), frame.getValue());
+	if (dialog && dialog->exec() == QDialog::Accepted) {
+		frame.setValue(dialog->getText());
+		if (m_file) {
+			m_file->changedV2 = true;
+		}
+		return true;
+	}
+	return false;
+}
+
+/**
  * Create dialog to edit the selected frame and update the fields
  * if Ok is returned.
  *
@@ -167,7 +189,6 @@ void OggFrameList::setTags(TaggedFile* taggedFile)
  */
 bool OggFrameList::editFrame()
 {
-	bool result = false;
 	int selectedIndex = listbox->currentItem();
 	if (selectedIndex != -1 && m_tags) {
 #if QT_VERSION >= 300
@@ -177,17 +198,9 @@ bool OggFrameList::editFrame()
 #endif
 			it = m_tags->at(selectedIndex);
 
-		EditOggFrameDialog *dialog =
-			new EditOggFrameDialog(NULL, (*it).getName(), (*it).getValue());
-		if (dialog && dialog->exec() == QDialog::Accepted) {
-			(*it).setValue(dialog->getText());
-			if (m_file) {
-				m_file->changedV2 = true;
-			}
-			result = true;
-		}
+		return editFrame(*it);
 	}
-	return result;
+	return false;
 }
 
 /**
@@ -227,18 +240,23 @@ bool OggFrameList::deleteFrame()
  * Add a new frame.
  *
  * @param frameId ID of frame to add, from selectFrameId()
+ * @param edit    true to edit frame after adding it
  * @return true if frame added.
  */
-bool OggFrameList::addFrame(int frameId)
+bool OggFrameList::addFrame(int frameId, bool edit)
 {
 	if (frameId != 0) {
 		return false;
 	}
 	if (m_tags) {
+		OggFile::CommentField frame(m_selectedName, "");
+		if (edit && !editFrame(frame)) {
+			return false;
+		}
 #if QT_VERSION >= 300
-		m_tags->push_back(OggFile::CommentField(m_selectedName, ""));
+		m_tags->push_back(frame);
 #else
-		m_tags->append(OggFile::CommentField(m_selectedName, ""));
+		m_tags->append(frame);
 #endif
 		readTags(); // refresh listbox
 		const int lastIndex = listbox->count() - 1;
@@ -327,6 +345,49 @@ int OggFrameList::selectFrameId()
 		return 0; // just used by addFrame()
 	}
 	return -1;
+}
+
+/**
+ * Copy the selected frame to the copy buffer.
+ *
+ * @return true if frame copied.
+ */
+bool OggFrameList::copyFrame() {
+	int selectedIndex = listbox->currentItem();
+	if (selectedIndex != -1 && m_tags) {
+#if QT_VERSION >= 300
+		OggFile::CommentList::iterator
+#else
+		OggFile::CommentList::Iterator
+#endif
+			it = m_tags->at(selectedIndex);
+		if (it != m_tags->end()) {
+			m_copyFrame = *it;
+		}
+		return true;
+	}
+	return false;
+}
+
+/**
+ * Paste the selected frame from the copy buffer.
+ *
+ * @return true if frame pasted.
+ */
+bool OggFrameList::pasteFrame() {
+	if (!(m_copyFrame.getName().isEmpty() && m_copyFrame.getValue().isEmpty()) &&
+			m_tags) {
+#if QT_VERSION >= 300
+		m_tags->push_back(m_copyFrame);
+#else
+		m_tags->append(m_copyFrame);
+#endif
+		if (m_file) {
+			m_file->changedV2 = true;
+		}
+		return true;
+	}
+	return false;
 }
 
 #endif // HAVE_VORBIS || defined HAVE_FLAC

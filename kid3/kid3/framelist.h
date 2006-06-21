@@ -279,9 +279,22 @@ public:
 	 * Add a new frame.
 	 *
 	 * @param frameId ID of frame to add
+	 * @param edit    true to edit frame after adding it
 	 * @return TRUE if frame added.
 	 */
-	virtual bool addFrame(int frameId) = 0;
+	virtual bool addFrame(int frameId, bool edit = false) = 0;
+	/**
+	 * Copy the selected frame to the copy buffer.
+	 *
+	 * @return true if frame copied.
+	 */
+	virtual bool copyFrame() = 0;
+	/**
+	 * Paste the selected frame from the copy buffer.
+	 *
+	 * @return true if frame pasted.
+	 */
+	virtual bool pasteFrame() = 0;
 	/**
 	 * Get file containing frames.
 	 *

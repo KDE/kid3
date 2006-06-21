@@ -126,9 +126,22 @@ public:
 	 * Add a new frame.
 	 *
 	 * @param frameId ID of frame to add
+	 * @param edit    true to edit frame after adding it
 	 * @return TRUE if frame added.
 	 */
-	virtual bool addFrame(int frameId);
+	virtual bool addFrame(int frameId, bool edit = false);
+	/**
+	 * Copy the selected frame to the copy buffer.
+	 *
+	 * @return true if frame copied.
+	 */
+	virtual bool copyFrame();
+	/**
+	 * Paste the selected frame from the copy buffer.
+	 *
+	 * @return true if frame pasted.
+	 */
+	virtual bool pasteFrame();
 	/**
 	 * Display a dialog to select a frame type.
 	 *
@@ -176,6 +189,15 @@ public:
 	 */
 	void readTags(void);
 	/**
+	 * Create dialog to edit a frame and update the fields if Ok is
+	 * returned.
+	 *
+	 * @param frame frame to edit
+	 *
+	 * @return TRUE if Ok selected in dialog.
+	 */
+	bool editFrame(ID3_Frame* frame);
+	/**
 	 * Get description of frame.
 	 *
 	 * @param id ID of frame
@@ -195,6 +217,9 @@ public:
 #endif
 	/** Encoding selected in frame dialog */
 	ID3_TextEnc selected_enc;
+	/** Frame storage for copy-paste */
+	ID3_Frame* m_copyFrame;
+
 	/** Alphabetically sorted list of frame descriptions */
 	static const char *frameid_str[num_frameid];
 	/** Frame IDs corresponding to frameid_str[] */
