@@ -8,6 +8,7 @@
  */
 
 #include "config.h"
+#include <qfile.h>
 #ifdef CONFIG_USE_KDE
 
 #include <kapp.h>
@@ -59,7 +60,7 @@ int main(int argc, char *argv[])
 			KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
 			if (args->count()) {
-				kid3->openDirectory(args->arg(0));
+				kid3->openDirectory(QFile::decodeName(args->arg(0)));
 			}
 			args->clear();
 		}
@@ -103,7 +104,7 @@ int main(int argc, char *argv[])
 		kid3->show();
 		app.setMainWidget(kid3);
 		if (argc > 1) {
-			kid3->openDirectory(argv[1]);
+			kid3->openDirectory(QFile::decodeName(argv[1]));
 		}
 	}
 	return app.exec();
