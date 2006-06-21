@@ -296,14 +296,14 @@ kid3_LDFLAGS = $(KDE_RPATH) $(all_libraries)
 @CONFIG_USE_KDE_FALSE@kid3_LDADD = $(LIB_QT) $(LIB_TUNEPIMP) $(LIB_VORBIS) $(LIB_FLAC)
 
 # which sources should be compiled for kid3
-kid3_SOURCES = filelist.cpp framelist.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.h configdialog.cpp formatconfig.h formatconfig.cpp formatbox.h formatbox.cpp importdialog.h importdialog.cpp importselector.h importselector.cpp importparser.h importparser.cpp generalconfig.h generalconfig.cpp importconfig.h importconfig.cpp miscconfig.h miscconfig.cpp freedbdialog.h freedbdialog.cpp freedbconfig.h freedbconfig.cpp freedbclient.h freedbclient.cpp rendirdialog.h rendirdialog.cpp dirlist.cpp taggedfile.cpp mp3framelist.cpp musicbrainzdialog.h musicbrainzdialog.cpp musicbrainzconfig.h musicbrainzconfig.cpp musicbrainzclient.h musicbrainzclient.cpp oggfile.cpp oggframelist.cpp vcedit.c flacfile.cpp flacframelist.cpp commandstable.cpp
+kid3_SOURCES = filelist.cpp framelist.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.h configdialog.cpp exportdialog.h exportdialog.cpp formatconfig.h formatconfig.cpp formatbox.h formatbox.cpp importdialog.h importdialog.cpp importselector.h importselector.cpp importparser.h importparser.cpp generalconfig.h generalconfig.cpp importconfig.h importconfig.cpp miscconfig.h miscconfig.cpp freedbdialog.h freedbdialog.cpp freedbconfig.h freedbconfig.cpp freedbclient.h freedbclient.cpp rendirdialog.h rendirdialog.cpp dirlist.cpp taggedfile.cpp mp3framelist.cpp musicbrainzdialog.h musicbrainzdialog.cpp musicbrainzconfig.h musicbrainzconfig.cpp musicbrainzclient.h musicbrainzclient.cpp numbertracksdialog.h numbertracksdialog.cpp oggfile.cpp oggframelist.cpp vcedit.c flacfile.cpp flacframelist.cpp commandstable.cpp
 
 # these headers are automatically built
 BUILT_SOURCES = 
 CLEANFILES = allsys.h allsys.h.gch
 
 # these are the headers for your project that won't be installed
-noinst_HEADERS = configdialog.h filelist.h formatbox.h formatconfig.h framelist.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h rendirdialog.h standardtags.h dirlist.h taggedfile.h mp3framelist.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h oggfile.h oggframelist.h vcedit.h flacfile.h flacframelist.h commandstable.h
+noinst_HEADERS = configdialog.h exportdialog.h filelist.h formatbox.h formatconfig.h framelist.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h rendirdialog.h standardtags.h dirlist.h taggedfile.h mp3framelist.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h numbertracksdialog.h oggfile.h oggframelist.h vcedit.h flacfile.h flacframelist.h commandstable.h
 
 # additional files in distribution
 EXTRA_DIST = kid3.desktop kid3ui.rc hi16-app-kid3.png hi32-app-kid3.png hi48-app-kid3.png de_qt.po ru_qt.po kid3.dsp kid3.dsw kid3win.rc kid3.ico kid3.mak config.mk
@@ -325,37 +325,39 @@ PROGRAMS = $(bin_PROGRAMS)
 am_kid3_OBJECTS = filelist.$(OBJEXT) framelist.$(OBJEXT) \
 	genres.$(OBJEXT) id3form.$(OBJEXT) kid3.$(OBJEXT) \
 	main.$(OBJEXT) mp3file.$(OBJEXT) standardtags.$(OBJEXT) \
-	configdialog.$(OBJEXT) formatconfig.$(OBJEXT) \
-	formatbox.$(OBJEXT) importdialog.$(OBJEXT) \
-	importselector.$(OBJEXT) importparser.$(OBJEXT) \
-	generalconfig.$(OBJEXT) importconfig.$(OBJEXT) \
-	miscconfig.$(OBJEXT) freedbdialog.$(OBJEXT) \
-	freedbconfig.$(OBJEXT) freedbclient.$(OBJEXT) \
-	rendirdialog.$(OBJEXT) dirlist.$(OBJEXT) taggedfile.$(OBJEXT) \
-	mp3framelist.$(OBJEXT) musicbrainzdialog.$(OBJEXT) \
-	musicbrainzconfig.$(OBJEXT) musicbrainzclient.$(OBJEXT) \
+	configdialog.$(OBJEXT) exportdialog.$(OBJEXT) \
+	formatconfig.$(OBJEXT) formatbox.$(OBJEXT) \
+	importdialog.$(OBJEXT) importselector.$(OBJEXT) \
+	importparser.$(OBJEXT) generalconfig.$(OBJEXT) \
+	importconfig.$(OBJEXT) miscconfig.$(OBJEXT) \
+	freedbdialog.$(OBJEXT) freedbconfig.$(OBJEXT) \
+	freedbclient.$(OBJEXT) rendirdialog.$(OBJEXT) dirlist.$(OBJEXT) \
+	taggedfile.$(OBJEXT) mp3framelist.$(OBJEXT) \
+	musicbrainzdialog.$(OBJEXT) musicbrainzconfig.$(OBJEXT) \
+	musicbrainzclient.$(OBJEXT) numbertracksdialog.$(OBJEXT) \
 	oggfile.$(OBJEXT) oggframelist.$(OBJEXT) vcedit.$(OBJEXT) \
 	flacfile.$(OBJEXT) flacframelist.$(OBJEXT) \
 	commandstable.$(OBJEXT)
 #>- kid3_OBJECTS = $(am_kid3_OBJECTS)
-#>+ 19
+#>+ 20
 kid3_final_OBJECTS = vcedit.o kid3.all_cpp.o 
 kid3_nofinal_OBJECTS = filelist.$(OBJEXT) framelist.$(OBJEXT) \
 	genres.$(OBJEXT) id3form.$(OBJEXT) kid3.$(OBJEXT) \
 	main.$(OBJEXT) mp3file.$(OBJEXT) standardtags.$(OBJEXT) \
-	configdialog.$(OBJEXT) formatconfig.$(OBJEXT) \
-	formatbox.$(OBJEXT) importdialog.$(OBJEXT) \
-	importselector.$(OBJEXT) importparser.$(OBJEXT) \
-	generalconfig.$(OBJEXT) importconfig.$(OBJEXT) \
-	miscconfig.$(OBJEXT) freedbdialog.$(OBJEXT) \
-	freedbconfig.$(OBJEXT) freedbclient.$(OBJEXT) \
-	rendirdialog.$(OBJEXT) dirlist.$(OBJEXT) taggedfile.$(OBJEXT) \
-	mp3framelist.$(OBJEXT) musicbrainzdialog.$(OBJEXT) \
-	musicbrainzconfig.$(OBJEXT) musicbrainzclient.$(OBJEXT) \
+	configdialog.$(OBJEXT) exportdialog.$(OBJEXT) \
+	formatconfig.$(OBJEXT) formatbox.$(OBJEXT) \
+	importdialog.$(OBJEXT) importselector.$(OBJEXT) \
+	importparser.$(OBJEXT) generalconfig.$(OBJEXT) \
+	importconfig.$(OBJEXT) miscconfig.$(OBJEXT) \
+	freedbdialog.$(OBJEXT) freedbconfig.$(OBJEXT) \
+	freedbclient.$(OBJEXT) rendirdialog.$(OBJEXT) dirlist.$(OBJEXT) \
+	taggedfile.$(OBJEXT) mp3framelist.$(OBJEXT) \
+	musicbrainzdialog.$(OBJEXT) musicbrainzconfig.$(OBJEXT) \
+	musicbrainzclient.$(OBJEXT) numbertracksdialog.$(OBJEXT) \
 	oggfile.$(OBJEXT) oggframelist.$(OBJEXT) vcedit.$(OBJEXT) \
 	flacfile.$(OBJEXT) flacframelist.$(OBJEXT) \
 	commandstable.$(OBJEXT)\
-id3form.moc.o filelist.moc.o freedbclient.moc.o musicbrainzclient.moc.o rendirdialog.moc.o freedbdialog.moc.o musicbrainzdialog.moc.o importselector.moc.o formatbox.moc.o kid3.moc.o mp3framelist.moc.o commandstable.moc.o 
+importdialog.moc.o id3form.moc.o filelist.moc.o freedbclient.moc.o exportdialog.moc.o musicbrainzclient.moc.o rendirdialog.moc.o freedbdialog.moc.o musicbrainzdialog.moc.o importselector.moc.o formatbox.moc.o mp3framelist.moc.o kid3.moc.o commandstable.moc.o 
 @KDE_USE_FINAL_FALSE@kid3_OBJECTS = $(kid3_nofinal_OBJECTS)
 @KDE_USE_FINAL_TRUE@kid3_OBJECTS = $(kid3_final_OBJECTS)
 @CONFIG_USE_KDE_TRUE@kid3_DEPENDENCIES =
@@ -366,7 +368,8 @@ depcomp = $(SHELL) $(top_srcdir)/admin/depcomp
 am__depfiles_maybe = depfiles
 #>- @AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/commandstable.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/configdialog.Po ./$(DEPDIR)/dirlist.Po \
-#>- @AMDEP_TRUE@	./$(DEPDIR)/filelist.Po ./$(DEPDIR)/flacfile.Po \
+#>- @AMDEP_TRUE@	./$(DEPDIR)/exportdialog.Po ./$(DEPDIR)/filelist.Po \
+#>- @AMDEP_TRUE@	./$(DEPDIR)/flacfile.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/flacframelist.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/formatbox.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/formatconfig.Po \
@@ -384,14 +387,16 @@ am__depfiles_maybe = depfiles
 #>- @AMDEP_TRUE@	./$(DEPDIR)/musicbrainzclient.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/musicbrainzconfig.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/musicbrainzdialog.Po \
+#>- @AMDEP_TRUE@	./$(DEPDIR)/numbertracksdialog.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/oggfile.Po ./$(DEPDIR)/oggframelist.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/rendirdialog.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/standardtags.Po \
 #>- @AMDEP_TRUE@	./$(DEPDIR)/taggedfile.Po ./$(DEPDIR)/vcedit.Po
-#>+ 48
-@AMDEP_TRUE@@KDE_USE_FINAL_TRUE@DEP_FILES =  $(DEPDIR)/id3form.moc.P $(DEPDIR)/filelist.moc.P $(DEPDIR)/freedbclient.moc.P $(DEPDIR)/musicbrainzclient.moc.P $(DEPDIR)/rendirdialog.moc.P $(DEPDIR)/freedbdialog.moc.P $(DEPDIR)/musicbrainzdialog.moc.P $(DEPDIR)/importselector.moc.P $(DEPDIR)/formatbox.moc.P $(DEPDIR)/kid3.moc.P $(DEPDIR)/mp3framelist.moc.P $(DEPDIR)/commandstable.moc.P  $(DEPDIR)/kid3.all_cpp.P ./$(DEPDIR)/commandstable.Po \
+#>+ 52
+@AMDEP_TRUE@@KDE_USE_FINAL_TRUE@DEP_FILES =  $(DEPDIR)/importdialog.moc.P $(DEPDIR)/id3form.moc.P $(DEPDIR)/filelist.moc.P $(DEPDIR)/freedbclient.moc.P $(DEPDIR)/exportdialog.moc.P $(DEPDIR)/musicbrainzclient.moc.P $(DEPDIR)/rendirdialog.moc.P $(DEPDIR)/freedbdialog.moc.P $(DEPDIR)/musicbrainzdialog.moc.P $(DEPDIR)/importselector.moc.P $(DEPDIR)/formatbox.moc.P $(DEPDIR)/mp3framelist.moc.P $(DEPDIR)/kid3.moc.P $(DEPDIR)/commandstable.moc.P  $(DEPDIR)/kid3.all_cpp.P ./$(DEPDIR)/commandstable.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/configdialog.Po ./$(DEPDIR)/dirlist.Po \
-@AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/filelist.Po ./$(DEPDIR)/flacfile.Po \
+@AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/exportdialog.Po ./$(DEPDIR)/filelist.Po \
+@AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/flacfile.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/flacframelist.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/formatbox.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/formatconfig.Po \
@@ -409,13 +414,15 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/musicbrainzclient.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/musicbrainzconfig.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/musicbrainzdialog.Po \
+@AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/numbertracksdialog.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/oggfile.Po ./$(DEPDIR)/oggframelist.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/rendirdialog.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/standardtags.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_TRUE@	@AMDEP_TRUE@	./$(DEPDIR)/taggedfile.Po ./$(DEPDIR)/vcedit.Po
-@AMDEP_TRUE@@KDE_USE_FINAL_FALSE@DEP_FILES =  $(DEPDIR)/id3form.moc.P $(DEPDIR)/filelist.moc.P $(DEPDIR)/freedbclient.moc.P $(DEPDIR)/musicbrainzclient.moc.P $(DEPDIR)/rendirdialog.moc.P $(DEPDIR)/freedbdialog.moc.P $(DEPDIR)/musicbrainzdialog.moc.P $(DEPDIR)/importselector.moc.P $(DEPDIR)/formatbox.moc.P $(DEPDIR)/kid3.moc.P $(DEPDIR)/mp3framelist.moc.P $(DEPDIR)/commandstable.moc.P ./$(DEPDIR)/commandstable.Po \
+@AMDEP_TRUE@@KDE_USE_FINAL_FALSE@DEP_FILES =  $(DEPDIR)/importdialog.moc.P $(DEPDIR)/id3form.moc.P $(DEPDIR)/filelist.moc.P $(DEPDIR)/freedbclient.moc.P $(DEPDIR)/exportdialog.moc.P $(DEPDIR)/musicbrainzclient.moc.P $(DEPDIR)/rendirdialog.moc.P $(DEPDIR)/freedbdialog.moc.P $(DEPDIR)/musicbrainzdialog.moc.P $(DEPDIR)/importselector.moc.P $(DEPDIR)/formatbox.moc.P $(DEPDIR)/mp3framelist.moc.P $(DEPDIR)/kid3.moc.P $(DEPDIR)/commandstable.moc.P ./$(DEPDIR)/commandstable.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/configdialog.Po ./$(DEPDIR)/dirlist.Po \
-@AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/filelist.Po ./$(DEPDIR)/flacfile.Po \
+@AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/exportdialog.Po ./$(DEPDIR)/filelist.Po \
+@AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/flacfile.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/flacframelist.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/formatbox.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/formatconfig.Po \
@@ -433,6 +440,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/musicbrainzclient.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/musicbrainzconfig.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/musicbrainzdialog.Po \
+@AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/numbertracksdialog.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/oggfile.Po ./$(DEPDIR)/oggframelist.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/rendirdialog.Po \
 @AMDEP_TRUE@@KDE_USE_FINAL_FALSE@	@AMDEP_TRUE@	./$(DEPDIR)/standardtags.Po \
@@ -483,7 +491,7 @@ $(srcdir)/Makefile.in:  Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
 #>+ 3
 	cd $(top_srcdir) && \
 	  $(AUTOMAKE) --gnu  kid3/Makefile
-	cd $(top_srcdir) && perl admin/am_edit -padmin kid3-0.6/kid3/Makefile.in
+	cd $(top_srcdir) && perl admin/am_edit kid3/Makefile.in
 Makefile:  $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe)
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
@@ -528,6 +536,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/commandstable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/configdialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dirlist.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/exportdialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/filelist.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/flacfile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/flacframelist.Po@am__quote@
@@ -552,6 +561,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/musicbrainzclient.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/musicbrainzconfig.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/musicbrainzdialog.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/numbertracksdialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/oggfile.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/oggframelist.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rendirdialog.Po@am__quote@
@@ -900,9 +910,12 @@ messages: rc.cpp
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
+#>+ 3
+importdialog.moc.cpp: $(srcdir)/importdialog.h
+	$(MOC) $(srcdir)/importdialog.h -o importdialog.moc.cpp
 
-
-
+#>+ 2
+mocs: importdialog.moc.cpp
 
 #>+ 3
 id3form.moc.cpp: $(srcdir)/id3form.h
@@ -924,6 +937,13 @@ freedbclient.moc.cpp: $(srcdir)/freedbclient.h
 
 #>+ 2
 mocs: freedbclient.moc.cpp
+
+#>+ 3
+exportdialog.moc.cpp: $(srcdir)/exportdialog.h
+	$(MOC) $(srcdir)/exportdialog.h -o exportdialog.moc.cpp
+
+#>+ 2
+mocs: exportdialog.moc.cpp
 
 #>+ 3
 musicbrainzclient.moc.cpp: $(srcdir)/musicbrainzclient.h
@@ -968,18 +988,18 @@ formatbox.moc.cpp: $(srcdir)/formatbox.h
 mocs: formatbox.moc.cpp
 
 #>+ 3
-kid3.moc.cpp: $(srcdir)/kid3.h
-	$(MOC) $(srcdir)/kid3.h -o kid3.moc.cpp
-
-#>+ 2
-mocs: kid3.moc.cpp
-
-#>+ 3
 mp3framelist.moc.cpp: $(srcdir)/mp3framelist.h
 	$(MOC) $(srcdir)/mp3framelist.h -o mp3framelist.moc.cpp
 
 #>+ 2
 mocs: mp3framelist.moc.cpp
+
+#>+ 3
+kid3.moc.cpp: $(srcdir)/kid3.h
+	$(MOC) $(srcdir)/kid3.h -o kid3.moc.cpp
+
+#>+ 2
+mocs: kid3.moc.cpp
 
 #>+ 3
 commandstable.moc.cpp: $(srcdir)/commandstable.h
@@ -990,10 +1010,10 @@ mocs: commandstable.moc.cpp
 
 #>+ 3
 clean-metasources:
-	-rm -f  id3form.moc.cpp filelist.moc.cpp freedbclient.moc.cpp musicbrainzclient.moc.cpp rendirdialog.moc.cpp freedbdialog.moc.cpp musicbrainzdialog.moc.cpp importselector.moc.cpp formatbox.moc.cpp kid3.moc.cpp mp3framelist.moc.cpp commandstable.moc.cpp
+	-rm -f  importdialog.moc.cpp id3form.moc.cpp filelist.moc.cpp freedbclient.moc.cpp exportdialog.moc.cpp musicbrainzclient.moc.cpp rendirdialog.moc.cpp freedbdialog.moc.cpp musicbrainzdialog.moc.cpp importselector.moc.cpp formatbox.moc.cpp mp3framelist.moc.cpp kid3.moc.cpp commandstable.moc.cpp
 
 #>+ 2
-KDE_DIST=kid3.h.both kid3.h.qtonly importtrackdata.h es_qt.po Makefile.in 
+KDE_DIST=kid3.h.both kid3.h.qtonly importtrackdata.h es_qt.po BROWSE Makefile.in 
 
 #>+ 2
 docs-am:
@@ -1002,7 +1022,7 @@ docs-am:
 force-reedit:
 		cd $(top_srcdir) && \
 	  $(AUTOMAKE) --gnu  kid3/Makefile
-	cd $(top_srcdir) && perl admin/am_edit -padmin kid3-0.6/kid3/Makefile.in
+	cd $(top_srcdir) && perl admin/am_edit kid3/Makefile.in
 
 
 #>+ 21
@@ -1028,11 +1048,11 @@ bcheck-am:
 
 
 #>+ 11
-kid3.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/filelist.cpp $(srcdir)/framelist.cpp $(srcdir)/genres.cpp $(srcdir)/id3form.cpp $(srcdir)/kid3.cpp $(srcdir)/main.cpp $(srcdir)/mp3file.cpp $(srcdir)/standardtags.cpp $(srcdir)/configdialog.cpp $(srcdir)/formatconfig.cpp $(srcdir)/formatbox.cpp $(srcdir)/importdialog.cpp $(srcdir)/importselector.cpp $(srcdir)/importparser.cpp $(srcdir)/generalconfig.cpp $(srcdir)/importconfig.cpp $(srcdir)/miscconfig.cpp $(srcdir)/freedbdialog.cpp $(srcdir)/freedbconfig.cpp $(srcdir)/freedbclient.cpp $(srcdir)/rendirdialog.cpp $(srcdir)/dirlist.cpp $(srcdir)/taggedfile.cpp $(srcdir)/mp3framelist.cpp $(srcdir)/musicbrainzdialog.cpp $(srcdir)/musicbrainzconfig.cpp $(srcdir)/musicbrainzclient.cpp $(srcdir)/oggfile.cpp $(srcdir)/oggframelist.cpp $(srcdir)/flacfile.cpp $(srcdir)/flacframelist.cpp $(srcdir)/commandstable.cpp id3form.moc.cpp filelist.moc.cpp musicbrainzclient.moc.cpp freedbclient.moc.cpp rendirdialog.moc.cpp freedbdialog.moc.cpp musicbrainzdialog.moc.cpp formatbox.moc.cpp importselector.moc.cpp mp3framelist.moc.cpp kid3.moc.cpp commandstable.moc.cpp 
+kid3.all_cpp.cpp: $(srcdir)/Makefile.in $(srcdir)/filelist.cpp $(srcdir)/framelist.cpp $(srcdir)/genres.cpp $(srcdir)/id3form.cpp $(srcdir)/kid3.cpp $(srcdir)/main.cpp $(srcdir)/mp3file.cpp $(srcdir)/standardtags.cpp $(srcdir)/configdialog.cpp $(srcdir)/exportdialog.cpp $(srcdir)/formatconfig.cpp $(srcdir)/formatbox.cpp $(srcdir)/importdialog.cpp $(srcdir)/importselector.cpp $(srcdir)/importparser.cpp $(srcdir)/generalconfig.cpp $(srcdir)/importconfig.cpp $(srcdir)/miscconfig.cpp $(srcdir)/freedbdialog.cpp $(srcdir)/freedbconfig.cpp $(srcdir)/freedbclient.cpp $(srcdir)/rendirdialog.cpp $(srcdir)/dirlist.cpp $(srcdir)/taggedfile.cpp $(srcdir)/mp3framelist.cpp $(srcdir)/musicbrainzdialog.cpp $(srcdir)/musicbrainzconfig.cpp $(srcdir)/musicbrainzclient.cpp $(srcdir)/numbertracksdialog.cpp $(srcdir)/oggfile.cpp $(srcdir)/oggframelist.cpp $(srcdir)/flacfile.cpp $(srcdir)/flacframelist.cpp $(srcdir)/commandstable.cpp importdialog.moc.cpp id3form.moc.cpp filelist.moc.cpp musicbrainzclient.moc.cpp exportdialog.moc.cpp freedbclient.moc.cpp rendirdialog.moc.cpp freedbdialog.moc.cpp musicbrainzdialog.moc.cpp formatbox.moc.cpp importselector.moc.cpp kid3.moc.cpp mp3framelist.moc.cpp commandstable.moc.cpp 
 	@echo 'creating kid3.all_cpp.cpp ...'; \
 	rm -f kid3.all_cpp.files kid3.all_cpp.final; \
 	echo "#define KDE_USE_FINAL 1" >> kid3.all_cpp.final; \
-	for file in filelist.cpp framelist.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp mp3framelist.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp oggfile.cpp oggframelist.cpp flacfile.cpp flacframelist.cpp commandstable.cpp id3form.moc.cpp filelist.moc.cpp musicbrainzclient.moc.cpp freedbclient.moc.cpp rendirdialog.moc.cpp freedbdialog.moc.cpp musicbrainzdialog.moc.cpp formatbox.moc.cpp importselector.moc.cpp mp3framelist.moc.cpp kid3.moc.cpp commandstable.moc.cpp ; do \
+	for file in filelist.cpp framelist.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp mp3framelist.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp oggframelist.cpp flacfile.cpp flacframelist.cpp commandstable.cpp importdialog.moc.cpp id3form.moc.cpp filelist.moc.cpp musicbrainzclient.moc.cpp exportdialog.moc.cpp freedbclient.moc.cpp rendirdialog.moc.cpp freedbdialog.moc.cpp musicbrainzdialog.moc.cpp formatbox.moc.cpp importselector.moc.cpp kid3.moc.cpp mp3framelist.moc.cpp commandstable.moc.cpp ; do \
 	  echo "#include \"$$file\"" >> kid3.all_cpp.files; \
 	  test ! -f $(srcdir)/$$file || egrep '^#pragma +implementation' $(srcdir)/$$file >> kid3.all_cpp.final; \
 	done; \
