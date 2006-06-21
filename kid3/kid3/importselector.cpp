@@ -526,6 +526,7 @@ void ImportSelector::showPreview() {
 	int maxDiff;
 	getTimeDifferenceCheck(diffCheckEnable, maxDiff);
 	if (diffCheckEnable) {
+		bool tracksAvailable = false;
 		row = 0;
 		for (
 #if QT_VERSION >= 300
@@ -544,6 +545,12 @@ void ImportSelector::showPreview() {
 				if (diff > maxDiff) {
 					tab->markRow(row);
 				}
+				tracksAvailable = true;
+			}
+			if (tracksAvailable &&
+					((fileDuration == 0 && importDuration != 0) ||
+					 (fileDuration != 0 && importDuration == 0))) {
+				tab->markRow(row);
 			}
 			++row;
 		}
