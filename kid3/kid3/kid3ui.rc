@@ -1,5 +1,5 @@
-<!DOCTYPE kpartgui>
-<kpartgui name="kid3" version="0.1">
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="kid3" version="4">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="import"/>
@@ -15,8 +15,9 @@
     <Action name="number_tracks"/>
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
-    <Action name="hide_v1"/>
-    <Action name="hide_v2"/>
+    <Action name="hide_v1" append="show_merge"/>
+    <Action name="hide_v2" append="show_merge"/>
+    <DefineGroup name="show_merge"/>
   </Menu>
 </MenuBar>
 </kpartgui>
