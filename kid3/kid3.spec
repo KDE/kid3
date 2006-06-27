@@ -12,8 +12,8 @@ Release:      1
 Source0:      kid3-%{version}.tar.gz
 BuildRoot:    /var/tmp/%{name}-buildroot
 Prefix:       /opt/kde3
-Requires:     id3lib
-BuildRequires: id3lib-devel
+#Requires:     id3lib
+#BuildRequires: id3lib-devel
 
 %description
 Kid3 - Efficient ID3 Tagger
