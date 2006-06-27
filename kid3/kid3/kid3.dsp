@@ -794,32 +794,5 @@ InputPath=.\config.mk
 !ENDIF 
 
 # End Source File
-# Begin Source File
-
-SOURCE=.\kid3.h.qtonly
-
-!IF  "$(CFG)" == "kid3 - Win32 Release"
-
-# Begin Custom Build - Creating kid3.h from $(InputPath)
-InputPath=.\kid3.h.qtonly
-
-".\kid3.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy kid3.h.qtonly kid3.h
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "kid3 - Win32 Debug"
-
-# Begin Custom Build - Creating kid3.h from $(InputPath)
-InputPath=.\kid3.h.qtonly
-
-".\kid3.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy kid3.h.qtonly kid3.h
-
-# End Custom Build
-
-!ENDIF 
-
-# End Source File
 # End Target
 # End Project
