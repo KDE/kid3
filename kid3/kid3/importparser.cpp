@@ -93,6 +93,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 {
 	int idx, oldpos = pos;
 	if (pattern.isEmpty()) {
+		trackDuration.clear();
 		return false;
 	}
 #if QT_VERSION >= 300
