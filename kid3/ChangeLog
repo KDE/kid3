@@ -26,6 +26,8 @@ Wed Jun  7 21:14:24 CEST 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Mark file as changed when Ogg genre is changed.
 	  + Correct length restriction for ID3v1.1 comment.
 	  + Open directories with special characters from the command line.
+	  + Import from file/clipboard does not use durations from
+	    previous freedb.org import.
 
 Mon Oct 24 16:59:35 CEST 2005  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
