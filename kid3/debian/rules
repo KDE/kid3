@@ -38,11 +38,11 @@ build-stamp:
 	cp -f /usr/share/misc/config.sub admin/config.sub
 	-test -r /usr/share/misc/config.guess && \
 	cp -f /usr/share/misc/config.guess admin/config.guess
-				
-	if test ! -f configure; then \
-	  $(MAKE) -f admin/Makefile.common ;\
-	fi
-	-chmod 755 configure
+	
+	/usr/bin/libtoolize -f
+	cp -f /usr/share/aclocal/libtool.m4 admin/libtool.m4.in
+	$(MAKE) -f admin/Makefile.common
+	
 	QTDIR=/usr/share/qt3 ./configure \
 	                        --host=$(DEB_HOST_GNU_TYPE) \
 	                        --build=$(DEB_BUILD_GNU_TYPE) \
@@ -50,18 +50,19 @@ build-stamp:
 	$(MAKE)
 	touch build-stamp
 
-clean: debian-clean
-	dh_clean
-
-debian-clean:
+clean: 
 	dh_testdir
-	if test -d CVS; then \
-	   make -f admin/Makefile.common cvs-clean ;\
-	fi
+	dh_testroot
 	-$(MAKE) distclean
 	-rm -f *-stamp
 	-rm -f debian/debiandirs
-	-rm -f admin/config.sub admin/config.guess
+	-rm -f admin/config.sub admin/config.guess admin/ltmain.sh configure
+	-rm -f admin/libtool.m4.in admin/Makefile aclocal.m4 acinclude.m4
+	-rm -f config.log
+	-rm -f admin/CVS
+	-rm -f debian/CVS
+	-find $(CURDIR) -name Makefile.in -exec rm -f {} \;
+	dh_clean
 
 install: build
 	dh_testdir
@@ -100,6 +101,7 @@ binary-arch: build install
 	dh_installman
 #	dh_installinfo
 	dh_installchangelogs ChangeLog
+	dh_iconcache
 	dh_link
 	dh_strip
 	dh_compress --exclude=.docbook
