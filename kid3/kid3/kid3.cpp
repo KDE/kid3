@@ -874,7 +874,7 @@ void Kid3App::slotFileOpen()
 	if(saveModified()) {
 		QString dir, filter, flt;
 #ifdef CONFIG_USE_KDE
-		flt = "*.mp3 *.MP3 *.ogg *.OGG *.flac *.FLAC|MP3, OGG, FLAC (*.mp3, *.ogg, *.flac)\n";
+		flt = "*.mp3 *.ogg *.flac *.MP3 *.OGG *.FLAC *.Mp3 *.Ogg *.Flac *.mP3 *.ogG *.oGg *.oGG *.OgG *.OGg *.flaC *.flAc *.flAC *.FlaC *.FlAc|MP3, OGG, FLAC (*.mp3, *.ogg, *.flac)\n";
 		flt += "*.mp3 *.MP3 *.Mp3 *.mP3|MP3 (*.mp3)\n";
 #ifdef HAVE_VORBIS
 		flt += "*.ogg *.ogG *.oGg *.oGG *.Ogg *.OgG *.OGg *.OGG|OGG (*.ogg)\n";
@@ -893,7 +893,7 @@ void Kid3App::slotFileOpen()
 			filter = diag.currentFilter();
 		}
 #else
-		flt = "MP3, OGG, FLAC (*.mp3 *.MP3 *.ogg *.OGG *.flac *.FLAC);;";
+		flt = "MP3, OGG, FLAC (*.mp3 *.ogg *.flac *.MP3 *.OGG *.FLAC *.Mp3 *.Ogg *.Flac *.mP3 *.ogG *.oGg *.oGG *.OgG *.OGg *.flaC *.flAc *.flAC *.FlaC *.FlAc);;";
 		flt += "MP3 (*.mp3 *.MP3 *.Mp3 *.mP3);;";
 #ifdef HAVE_VORBIS
 		flt += "OGG (*.ogg *.ogG *.oGg *.oGG *.Ogg *.OgG *.OGg *.OGG);;";
