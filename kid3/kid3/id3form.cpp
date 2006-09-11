@@ -588,7 +588,7 @@ void id3Form::getStandardTagsV2(StandardTags *st)
 	st->track   = trackV2CheckBox->isChecked()   ? trackV2SpinBox->value()
 		: -1;
 	st->genre   = genreV2CheckBox->isChecked()   ?
-		Genres::getNumber(genreV2ComboBox->currentItem()) : -1;
+		Genres::getNumber(genreV2ComboBox->currentText()) : -1;
 	st->genreStr = st->genre == 0xff ? genreV2ComboBox->currentText()
 		: QString::null;
 }
