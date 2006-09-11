@@ -143,7 +143,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 			bool setUtime = false;
 			struct utimbuf times;
 			if (preserve) {
-				int fd = ::fileno(fpIn);
+				int fd = fileno(fpIn);
 				if (fd >= 0) {
 					struct stat fileStat;
 					if (::fstat(fd, &fileStat) == 0) {
