@@ -87,6 +87,7 @@ GMSGFMT = @GMSGFMT@
 HAVE_FLAC = @HAVE_FLAC@
 HAVE_FLAC_FALSE = @HAVE_FLAC_FALSE@
 HAVE_FLAC_TRUE = @HAVE_FLAC_TRUE@
+HAVE_GCC_VISIBILITY = @HAVE_GCC_VISIBILITY@
 HAVE_TUNEPIMP = @HAVE_TUNEPIMP@
 HAVE_TUNEPIMP_FALSE = @HAVE_TUNEPIMP_FALSE@
 HAVE_TUNEPIMP_TRUE = @HAVE_TUNEPIMP_TRUE@
@@ -100,6 +101,7 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 KCFG_DEPENDENCIES = @KCFG_DEPENDENCIES@
 KCONFIG_COMPILER = @KCONFIG_COMPILER@
 KDECONFIG = @KDECONFIG@
+KDE_CHECK_PLUGIN = @KDE_CHECK_PLUGIN@
 KDE_EXTRA_RPATH = @KDE_EXTRA_RPATH@
 KDE_INCLUDES = @KDE_INCLUDES@
 KDE_LDFLAGS = @KDE_LDFLAGS@
@@ -112,10 +114,14 @@ KDE_USE_CLOSURE_FALSE = @KDE_USE_CLOSURE_FALSE@
 KDE_USE_CLOSURE_TRUE = @KDE_USE_CLOSURE_TRUE@
 KDE_USE_FINAL_FALSE = @KDE_USE_FINAL_FALSE@
 KDE_USE_FINAL_TRUE = @KDE_USE_FINAL_TRUE@
+KDE_USE_FPIE = @KDE_USE_FPIE@
 KDE_USE_NMCHECK_FALSE = @KDE_USE_NMCHECK_FALSE@
 KDE_USE_NMCHECK_TRUE = @KDE_USE_NMCHECK_TRUE@
+KDE_USE_PIE = @KDE_USE_PIE@
 KDE_XSL_STYLESHEET = @KDE_XSL_STYLESHEET@
 LDFLAGS = @LDFLAGS@
+LDFLAGS_AS_NEEDED = @LDFLAGS_AS_NEEDED@
+LDFLAGS_NEW_DTAGS = @LDFLAGS_NEW_DTAGS@
 LIBCOMPAT = @LIBCOMPAT@
 LIBCRYPT = @LIBCRYPT@
 LIBDL = @LIBDL@
@@ -135,16 +141,22 @@ LIB_FLAC = @LIB_FLAC@
 LIB_KAB = @LIB_KAB@
 LIB_KABC = @LIB_KABC@
 LIB_KDECORE = @LIB_KDECORE@
+LIB_KDED = @LIB_KDED@
 LIB_KDEPIM = @LIB_KDEPIM@
 LIB_KDEPRINT = @LIB_KDEPRINT@
 LIB_KDEUI = @LIB_KDEUI@
+LIB_KDNSSD = @LIB_KDNSSD@
 LIB_KFILE = @LIB_KFILE@
 LIB_KFM = @LIB_KFM@
 LIB_KHTML = @LIB_KHTML@
+LIB_KIMPROXY = @LIB_KIMPROXY@
 LIB_KIO = @LIB_KIO@
+LIB_KJS = @LIB_KJS@
+LIB_KNEWSTUFF = @LIB_KNEWSTUFF@
 LIB_KPARTS = @LIB_KPARTS@
 LIB_KSPELL = @LIB_KSPELL@
 LIB_KSYCOCA = @LIB_KSYCOCA@
+LIB_KUNITTEST = @LIB_KUNITTEST@
 LIB_KUTILS = @LIB_KUTILS@
 LIB_POLL = @LIB_POLL@
 LIB_QPE = @LIB_QPE@
@@ -157,7 +169,11 @@ LIB_XEXT = @LIB_XEXT@
 LIB_XRENDER = @LIB_XRENDER@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
+MAINT = @MAINT@
+MAINTAINER_MODE_FALSE = @MAINTAINER_MODE_FALSE@
+MAINTAINER_MODE_TRUE = @MAINTAINER_MODE_TRUE@
 MAKEINFO = @MAKEINFO@
+MAKEKDEWIDGETS = @MAKEKDEWIDGETS@
 MCOPIDL = @MCOPIDL@
 MEINPROC = @MEINPROC@
 MOC = @MOC@
@@ -203,6 +219,8 @@ ac_ct_CXX = @ac_ct_CXX@
 ac_ct_F77 = @ac_ct_F77@
 ac_ct_RANLIB = @ac_ct_RANLIB@
 ac_ct_STRIP = @ac_ct_STRIP@
+admin_SUBDIR_included_FALSE = @admin_SUBDIR_included_FALSE@
+admin_SUBDIR_included_TRUE = @admin_SUBDIR_included_TRUE@
 all_includes = @all_includes@
 all_libraries = @all_libraries@
 am__fastdepCC_FALSE = @am__fastdepCC_FALSE@
@@ -219,6 +237,8 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 datadir = @datadir@
+doc_SUBDIR_included_FALSE = @doc_SUBDIR_included_FALSE@
+doc_SUBDIR_included_TRUE = @doc_SUBDIR_included_TRUE@
 exec_prefix = @exec_prefix@
 host = @host@
 host_alias = @host_alias@
@@ -227,6 +247,8 @@ host_os = @host_os@
 host_vendor = @host_vendor@
 include_ARTS_FALSE = @include_ARTS_FALSE@
 include_ARTS_TRUE = @include_ARTS_TRUE@
+include_x11_FALSE = @include_x11_FALSE@
+include_x11_TRUE = @include_x11_TRUE@
 includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
@@ -253,11 +275,15 @@ kde_templatesdir = @kde_templatesdir@
 kde_wallpaperdir = @kde_wallpaperdir@
 kde_widgetdir = @kde_widgetdir@
 kdeinitdir = @kdeinitdir@
+kid3_SUBDIR_included_FALSE = @kid3_SUBDIR_included_FALSE@
+kid3_SUBDIR_included_TRUE = @kid3_SUBDIR_included_TRUE@
 libdir = @libdir@
 libexecdir = @libexecdir@
 localstatedir = @localstatedir@
 mandir = @mandir@
 oldincludedir = @oldincludedir@
+po_SUBDIR_included_FALSE = @po_SUBDIR_included_FALSE@
+po_SUBDIR_included_TRUE = @po_SUBDIR_included_TRUE@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 qt_includes = @qt_includes@
@@ -270,6 +296,8 @@ target_alias = @target_alias@
 target_cpu = @target_cpu@
 target_os = @target_os@
 target_vendor = @target_vendor@
+unsermake_enable_pch_FALSE = @unsermake_enable_pch_FALSE@
+unsermake_enable_pch_TRUE = @unsermake_enable_pch_TRUE@
 x_includes = @x_includes@
 x_libraries = @x_libraries@
 xdg_appsdir = @xdg_appsdir@
@@ -281,22 +309,22 @@ mkinstalldirs = $(SHELL) $(top_srcdir)/admin/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 DIST_SOURCES =
-DIST_COMMON = $(srcdir)/Makefile.in ChangeLog Makefile.am compile \
-	config.guess config.sub depcomp install-sh ltmain.sh missing \
-	mkinstalldirs ylwrap
+DIST_COMMON = $(srcdir)/Makefile.in Makefile.am compile config.guess \
+	config.sub depcomp install-sh ltmain.sh missing mkinstalldirs \
+	ylwrap
 #>- all: all-am
 #>+ 1
 all: docs-am  all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in:  Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
 #>- 	cd $(top_srcdir) && \
 #>- 	  $(AUTOMAKE) --gnu  admin/Makefile
 #>+ 3
 	cd $(top_srcdir) && \
 	  $(AUTOMAKE) --gnu  admin/Makefile
-	cd $(top_srcdir) && perl admin/am_edit -padmin kid3-0.6/admin/Makefile.in
-Makefile:  $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	cd $(top_srcdir) && perl admin/am_edit admin/Makefile.in
+Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@ $(am__depfiles_maybe)
 
 mostlyclean-libtool:
@@ -451,12 +479,8 @@ uninstall-local:
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
 
-
-
-
-
 #>+ 2
-KDE_DIST=configure.in.bot.end bcheck.pl detect-autoconf.sh deps.am configure.in.min debianrules cvs.sh config.pl oldinclude.m4.in am_edit Makefile.common cvs-clean.pl Makefile.in Doxyfile.global acinclude.m4.in libtool.m4.in nmcheck Doxyfile.am conf.change.pl 
+KDE_DIST=configure.in.bot.end bcheck.pl config.guess.cdbs-orig deps.am detect-autoconf.pl configure.in.min doxygen.sh debianrules cvs.sh config.pl oldinclude.m4.in am_edit Makefile.common Makefile.in Doxyfile.global pkg.m4.in acinclude.m4.in nmcheck libtool.m4.in config.sub.cdbs-orig Doxyfile.am conf.change.pl 
 
 #>+ 2
 docs-am:
@@ -465,7 +489,7 @@ docs-am:
 force-reedit:
 		cd $(top_srcdir) && \
 	  $(AUTOMAKE) --gnu  admin/Makefile
-	cd $(top_srcdir) && perl admin/am_edit -padmin kid3-0.6/admin/Makefile.in
+	cd $(top_srcdir) && perl admin/am_edit admin/Makefile.in
 
 
 #>+ 21
@@ -480,7 +504,7 @@ bcheck-am:
 	        echo "int main() {return 0;}" > $$i.bchecktest.cc ; \
 	        echo "#include \"$$i\"" >> $$i.bchecktest.cc ; \
 	        echo "$$i"; \
-	        if ! $(CXX) $(DEFS) -I. -I$(srcdir) -I$(top_builddir) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(KDE_CXXFLAGS)  --dump-class-hierarchy -c $$i.bchecktest.cc; then \
+	        if ! $(CXX) $(DEFS) -I. -I$(srcdir) -I$(top_builddir) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(KDE_CXXFLAGS)  --dump-class-hierarchy -c $$i.bchecktest.cc; then \
 	            rm -f $$i.bchecktest.cc; exit 1; \
 	        fi ; \
 	        echo "" >> $$i.bchecktest.cc.class; \
@@ -505,10 +529,6 @@ no-final:
 #>+ 3
 no-final-install:
 	$(MAKE) install-am
-
-#>+ 3
-cvs-clean:
-	$(MAKE) admindir=$(top_srcdir)/admin -f $(top_srcdir)/admin/Makefile.common cvs-clean
 
 #>+ 3
 kde-rpo-clean:
