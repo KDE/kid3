@@ -6,18 +6,21 @@
 Name:         kid3
 License:      GPL
 Group:        Applications/Multimedia
-Summary:      ID3 tagger
+Summary:      Efficient ID3 tag editor
 Version:      0.7
-Release:      1
-Source0:      kid3-%{version}.tar.gz
-BuildRoot:    /var/tmp/%{name}-buildroot
+Release:      1%{?dist}
+URL:          http://kid3.sourceforge.net/
+Source0:      http://download.sourceforge.net/kid3/%{name}-%{version}.tar.gz
+BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Prefix:       /opt/kde3
-#Requires:     id3lib
-#BuildRequires: id3lib-devel
+#BuildRequires:  kdelibs-devel
+#BuildRequires:  id3lib-devel
+#BuildRequires:  flac-devel
+#BuildRequires:  libtunepimp-devel
+#BuildRequires:  desktop-file-utils
+#BuildRequires:  perl(File::Spec)
 
 %description
-Kid3 - Efficient ID3 Tagger
-
 With Kid3 you can:
 
 - Edit ID3v1.1 tags
@@ -40,7 +43,8 @@ Authors: Urs Fleisch
 
 %prep
 [ ${RPM_BUILD_ROOT} != "/" ] && rm -rf ${RPM_BUILD_ROOT}
-%setup -n %{name}-%{version}
+%setup -q
+sed -i -e 's/\r//' LICENSE
 
 %build
 ./configure --disable-debug --prefix=%{prefix}
@@ -50,9 +54,12 @@ make
 make DESTDIR=$RPM_BUILD_ROOT install
 find $RPM_BUILD_ROOT -type f -o -type l | sed "s|^$RPM_BUILD_ROOT||" >master.list
 mkdir -p ${RPM_BUILD_ROOT}/%{_defaultdocdir}
+strip $RPM_BUILD_ROOT%_bindir/*
+find $RPM_BUILD_ROOT%_prefix -type f -o -name "*.so" -exec strip "{}" \;
 
 %clean
-[ ${RPM_BUILD_ROOT} != "/" ] && rm -rf ${RPM_BUILD_ROOT}
+[ -d  ${RPM_BUILD_ROOT} -a "${RPM_BUILD_ROOT}" != "/" ] && rm -rf  ${RPM_BUILD_ROOT}
 
 %files -f master.list
+%defattr(-,root,root)
 %doc AUTHORS COPYING INSTALL LICENSE README ChangeLog
