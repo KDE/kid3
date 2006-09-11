@@ -261,12 +261,18 @@ QString Mp3File::getString(ID3_Field* field)
 					// In the hope that my patches will be included, I try here
 					// to work around these bugs.
 					uint i;
+					uint numZeroes = 0;
 					for (i = 0; i < unicode_size; i++) {
 						qcarray[i] =
 							UNICODE_SUPPORT_BUGGY ?
 							(ushort)(((txt[i] & 0x00ff) << 8) |
 									 ((txt[i] & 0xff00) >> 8)) :
 							(ushort)txt[i];
+						if (qcarray[i].isNull()) { ++numZeroes; }
+					}
+					// remove a single trailing zero character
+					if (numZeroes == 1 && qcarray[unicode_size - 1].isNull()) {
+						--unicode_size;
 					}
 					text = QString(qcarray, unicode_size);
 					delete [] qcarray;
@@ -365,6 +371,11 @@ int Mp3File::getGenreNum(const ID3_Tag *tag)
 		if (!ok || n > 0xff) {
 			n = 0xff;
 		}
+	} else {
+		// ID3v2 genres can be stored as "(9)", "(9)Metal" or "Metal".
+		// If the string does not start with '(', try to get the genre number
+		// from a string containing a genre text.
+		n = Genres::getNumber(str);
 	}
 	return n;
 }
