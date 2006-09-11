@@ -46,7 +46,7 @@ class Genres {
 	 *
 	 * @return genre number, 255 for unknown index.
 	 */
-	static int getNumber(QString &str);
+	static int getNumber(const QString &str);
 	/** Number of genres */
 #if defined _WIN32 || defined WIN32
 	enum { count = 148 };

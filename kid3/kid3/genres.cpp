@@ -385,7 +385,7 @@ int Genres::getNumber(int index)
  * @return genre number, 255 for unknown index.
  */
 
-int Genres::getNumber(QString &str)
+int Genres::getNumber(const QString &str)
 {
 	for (int i = 0; i < Genres::count + 1; i++) {
 		if (QString(genre[i]) == str) {
