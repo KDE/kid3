@@ -11,16 +11,13 @@
 #define TAGGEDFILE_H
 
 #include <qstring.h>
-#include <qlistbox.h>
-#include <qpixmap.h>
-class QListBox;
-class QPainter;
+
 class StandardTags;
 class StandardTagsFilter;
 class FrameList;
 
-/** List box item containing tagged file */
-class TaggedFile : public QListBoxItem {
+/** Base class for tagged files. */
+class TaggedFile {
 public:
 	/**
 	 * Constructor.
@@ -393,6 +390,24 @@ public:
 	virtual QString getFileExtension() const = 0;
 
 	/**
+	 * Get the format of tag 1.
+	 *
+	 * @return string describing format of tag 1,
+	 *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
+	 *         QString::null if unknown.
+	 */
+	virtual QString getTagFormatV1() const;
+
+	/**
+	 * Get the format of tag 2.
+	 *
+	 * @return string describing format of tag 2,
+	 *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
+	 *         QString::null if unknown.
+	 */
+	virtual QString getTagFormatV2() const;
+
+	/**
 	 * Get ID3v1 tags from file.
 	 *
 	 * @param st tags to put result
@@ -481,38 +496,6 @@ public:
 																 new_filename != filename; }
 
 	/**
-	 * Mark file as selected.
-	 *
-	 * @param val TRUE to set file selected.
-	 */
-	void setInSelection(bool val) { selected = val; }
-
-	/**
-	 * Check if file is marked selected.
-	 *
-	 * @return TRUE if file is marked selected.
-	 */
-	bool isInSelection(void) { return selected; }
-
-	/**
-	 * Get height of item.
-	 *
-	 * @param lb listbox containing the item
-	 *
-	 * @return height.
-	 */
-	int height(const QListBox* lb) const;
-
-	/**
-	 * Get width of item.
-	 *
-	 * @param lb listbox containing the item
-	 *
-	 * @return width.
-	 */
-	int width(const QListBox* lb) const;
-
-	/**
 	 * Get absolute filename.
 	 *
 	 * @return absolute file path.
@@ -534,13 +517,6 @@ public:
 	bool changedV2;
 
 protected:
-	/**
-	 * Paint item.
-	 *
-	 * @param painter painter used
-	 */
-	void paint(QPainter *painter);
-
 	/**
 	 * Rename a file.
 	 * This methods takes care of case insensitive filesystems.
@@ -582,7 +558,7 @@ protected:
 	void removeStandardTagsV2(const StandardTagsFilter& flt);
 
 	/** Directory name */
-	const QString& dirname;
+	const QString dirname;
 	/** File name */
 	const QString filename;
 	/** New file name */
@@ -591,20 +567,8 @@ protected:
 	bool changedV1;
 
 private:
-	/** TRUE if file is marked selected */
-	bool selected;
-	/** pointer to pixmap for modified file */
-	static QPixmap *modifiedPixmap;
-	/** pointer to empty pixmap */
-	static QPixmap *nullPixmap;
-	/** pointer to V1V2 pixmap */
-	static QPixmap *v1v2Pixmap;
-	/** pointer to V1 pixmap */
-	static QPixmap *v1Pixmap;
-	/** pointer to V2 pixmap */
-	static QPixmap *v2Pixmap;
-	/** pointer to "no tag" pixmap */
-	static QPixmap *notagPixmap;
+	TaggedFile(const TaggedFile&);
+	TaggedFile& operator=(const TaggedFile&);
 };
 
 #endif // TAGGEDFILE_H
