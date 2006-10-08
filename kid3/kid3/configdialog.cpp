@@ -55,9 +55,23 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
 				vlayout->addWidget(saveGroupBox);
 			}
-			QGroupBox* v2GroupBox = new QGroupBox(1, Horizontal, i18n("ID3v2.3"), generalPage);
+			QGroupBox* v2GroupBox = new QGroupBox(1, Horizontal, i18n("ID3v2"), generalPage);
 			if (v2GroupBox) {
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
+				m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
+				if (id3v2VersionLabel && m_id3v2VersionComboBox) {
+					m_id3v2VersionComboBox->insertItem(i18n("ID3v2.3.0 (id3lib)"), MiscConfig::ID3v2_3_0);
+					m_id3v2VersionComboBox->insertItem(i18n("ID3v2.4.0 (TagLib)"), MiscConfig::ID3v2_4_0);
+#if QT_VERSION >= 0x030100
+					m_id3v2VersionComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+#else
+					m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+#endif
+					id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
+				}
+#endif
 				vlayout->addWidget(v2GroupBox);
 			}
 #ifdef HAVE_VORBIS
@@ -102,7 +116,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			QHBoxLayout *fmtLayout = new QHBoxLayout(vlayout);
 			QString fnFormatTitle(i18n("&Filename Format"));
 			fnFormatBox = new FormatBox(fnFormatTitle, formatPage, "fnFormatBox");
-			QString id3FormatTitle(i18n("&ID3 Format"));
+			QString id3FormatTitle(i18n("&Tag Format"));
 			id3FormatBox = new FormatBox(id3FormatTitle, formatPage, "id3FormatBox");
 			if (fmtLayout && fnFormatBox && id3FormatBox) {
 				fmtLayout->addWidget(fnFormatBox);
@@ -155,6 +169,9 @@ void ConfigDialog::setConfig(const FormatConfig *fnCfg,
 	m_commentNameComboBox->setEditText(miscCfg->m_commentName);
 #endif
 #endif
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+	m_id3v2VersionComboBox->setCurrentItem(miscCfg->m_id3v2Version);
+#endif
 }
 
 /**
@@ -177,5 +194,8 @@ void ConfigDialog::getConfig(FormatConfig *fnCfg,
 #endif
 #ifdef HAVE_VORBIS
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
+#endif
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+	miscCfg->m_id3v2Version = m_id3v2VersionComboBox->currentItem();
 #endif
 }
