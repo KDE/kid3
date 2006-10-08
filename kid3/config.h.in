@@ -6,6 +6,9 @@
 /* whether or not we use precompiled headers */
 #undef GCC_PCH
 
+/* Define to 1 if you have the <Carbon/Carbon.h> header file. */
+#undef HAVE_CARBON_CARBON_H
+
 /* Define if you have the CoreAudio API */
 #undef HAVE_COREAUDIO
 
@@ -20,6 +23,9 @@
 
 /* have flac */
 #undef HAVE_FLAC
+
+/* have id3lib */
+#undef HAVE_ID3LIB
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
@@ -92,6 +98,9 @@
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
+
+/* have TagLib */
+#undef HAVE_TAGLIB
 
 /* have TunePimp */
 #undef HAVE_TUNEPIMP

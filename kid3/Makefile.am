@@ -1,15 +1,11 @@
-SUBDIRS = $(TOPSUBDIRS)
 
-$(top_srcdir)/configure.in: configure.in.in $(top_srcdir)/subdirs
-	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common configure.in ;
+AUTOMAKE_OPTIONS = foreign 1.5
+DISTCLEANFILES = inst-apps
+MAINTAINERCLEANFILES = subdirs configure.in acinclude.m4 configure.files
 
-$(top_srcdir)/subdirs:
-	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common subdirs
+include admin/deps.am
 
-$(top_srcdir)/acinclude.m4: $(top_srcdir)/admin/acinclude.m4.in $(top_srcdir)/admin/libtool.m4.in
-	@cd $(top_srcdir) && cat admin/acinclude.m4.in admin/libtool.m4.in > acinclude.m4
-
-MAINTAINERCLEANFILES = subdirs configure.in acinclude.m4 configure.files 
+include admin/Doxyfile.am
 
 package-messages:
 	$(MAKE) -f admin/Makefile.common package-messages
@@ -17,10 +13,8 @@ package-messages:
 
 EXTRA_DIST = admin debian AUTHORS COPYING ChangeLog INSTALL README make_qtonly.sh kid3.lsm kid3.spec
 
-dist-hook:
-	cd $(top_distdir) && perl admin/am_edit -padmin
-	cd $(top_distdir) && $(MAKE) -f admin/Makefile.common subdirs
-
 # generate precompiled header allsys.h.gch for GCC 3.4
 pch:
 	$(MAKE) -C kid3 pch
+
+SUBDIRS=$(TOPSUBDIRS)
