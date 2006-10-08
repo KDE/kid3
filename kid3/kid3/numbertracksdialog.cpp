@@ -53,8 +53,8 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 			QLabel* destLabel = new QLabel(i18n("&Destination:"), this, "destLabel");
 			m_destComboBox = new QComboBox(false, this, "destComboBox");
 			if (destLabel && m_destComboBox) {
-				m_destComboBox->insertItem("ID3v1", DestV1);
-				m_destComboBox->insertItem("ID3v2", DestV2);
+				m_destComboBox->insertItem(i18n("Tag 1"), DestV1);
+				m_destComboBox->insertItem(i18n("Tag 2"), DestV2);
 				trackLayout->addWidget(destLabel);
 				trackLayout->addWidget(m_destComboBox);
 				destLabel->setBuddy(m_destComboBox);

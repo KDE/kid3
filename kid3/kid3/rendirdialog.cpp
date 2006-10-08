@@ -58,8 +58,8 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 		actionComboBox->insertItem(i18n("Create Directory"), ActionCreate);
 		actionLayout->addWidget(actionComboBox);
 		connect(actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-		tagversionComboBox->insertItem(i18n("From ID3v1"), TagV1);
-		tagversionComboBox->insertItem(i18n("From ID3v2"), TagV2);
+		tagversionComboBox->insertItem(i18n("From Tag 1"), TagV1);
+		tagversionComboBox->insertItem(i18n("From Tag 2"), TagV2);
 		actionLayout->addWidget(tagversionComboBox);
 		connect(tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
 	}

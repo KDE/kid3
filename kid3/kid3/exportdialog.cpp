@@ -92,8 +92,8 @@ ExportDialog::ExportDialog(QWidget* parent) :
 			butlayout->addWidget(srcLabel);
 			m_srcComboBox = new QComboBox(false, this, "srcComboBox");
 			if (m_srcComboBox) {
-				m_srcComboBox->insertItem("ID3v1", SrcV1);
-				m_srcComboBox->insertItem("ID3v2", SrcV2);
+				m_srcComboBox->insertItem(i18n("Tag 1"), SrcV1);
+				m_srcComboBox->insertItem(i18n("Tag 2"), SrcV2);
 				srcLabel->setBuddy(m_srcComboBox);
 				butlayout->addWidget(m_srcComboBox);
 				connect(m_srcComboBox, SIGNAL(activated(int)),
