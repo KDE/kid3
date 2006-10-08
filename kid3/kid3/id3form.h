@@ -71,6 +71,20 @@ public:
 	 */
 	void enableControlsV1(bool enable);
 
+	/**
+	 * Display the format of tag 1.
+	 *
+	 * @param str string describing format, e.g. "ID3v1.1"
+	 */
+	void setTagFormatV1(const QString& str);
+
+	/**
+	 * Display the format of tag 2.
+	 *
+	 * @param str string describing format, e.g. "ID3v2.4"
+	 */
+	void setTagFormatV2(const QString& str);
+
 	FileList *mp3ListBox;
 	QComboBox* genreV1ComboBox;
 	QComboBox* genreV2ComboBox;
