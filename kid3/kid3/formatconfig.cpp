@@ -87,7 +87,7 @@ void FormatConfig::formatString(QString& str) const
 				str = str.upper();
 				break;
 			case FirstLetterUppercase:
-				str = str.at(0).upper() + str.right(str.length() - 1);
+				str = str.at(0).upper() + str.right(str.length() - 1).lower();
 				break;
 			case AllFirstLettersUppercase: {
 				QString newstr;
