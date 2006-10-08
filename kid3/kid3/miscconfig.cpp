@@ -91,7 +91,8 @@ MiscConfig::MiscConfig(const QString &group) :
 	dirFormatText(defaultDirFmtList[0]),
 	dirFormatItem(0),
 	m_hideV1(false),
-	m_hideV2(false)
+	m_hideV2(false),
+	m_id3v2Version(ID3v2_3_0)
 #ifndef CONFIG_USE_KDE
 	, windowWidth(-1), windowHeight(-1)
 #endif
@@ -135,6 +136,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("CustomGenres", m_customGenres);
 	config->writeEntry("HideV1", m_hideV1);
 	config->writeEntry("HideV2", m_hideV2);
+	config->writeEntry("ID3v2Version", m_id3v2Version);
 #else
 	config->beginGroup("/" + group);
 	config->writeEntry("/NameFilter2", nameFilter);
@@ -166,6 +168,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/CustomGenres", m_customGenres);
 	config->writeEntry("/HideV1", m_hideV1);
 	config->writeEntry("/HideV2", m_hideV2);
+	config->writeEntry("/ID3v2Version", m_id3v2Version);
 	config->writeEntry("/WindowWidth", windowWidth);
 	config->writeEntry("/WindowHeight", windowHeight);
 	config->endGroup();
@@ -213,6 +216,7 @@ void MiscConfig::readFromConfig(
 	m_customGenres = config->readListEntry("CustomGenres");
 	m_hideV1 = config->readBoolEntry("HideV1", m_hideV1);
 	m_hideV2 = config->readBoolEntry("HideV2", m_hideV2);
+	m_id3v2Version = config->readNumEntry("ID3v2Version", ID3v2_3_0);
 #else
 	config->beginGroup("/" + group);
 	nameFilter =
@@ -264,6 +268,7 @@ void MiscConfig::readFromConfig(
 	m_customGenres = config->readListEntry("/CustomGenres");
 	m_hideV1 = config->readBoolEntry("/HideV1", m_hideV1);
 	m_hideV2 = config->readBoolEntry("/HideV2", m_hideV2);
+	m_id3v2Version = config->readNumEntry("/ID3v2Version", ID3v2_3_0);
 	windowWidth = config->readNumEntry("/WindowWidth", -1);
 	windowHeight = config->readNumEntry("/WindowHeight", -1);
 	config->endGroup();

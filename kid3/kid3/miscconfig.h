@@ -24,6 +24,12 @@ class StandardTags;
 class MiscConfig : public GeneralConfig
 {
 public:
+	/** The ID3v2 version used for new tags. */
+	enum Id3v2Version {
+		ID3v2_3_0 = 0,
+		ID3v2_4_0 = 1
+	};
+
 	/**
 	 * Constructor.
 	 */
@@ -85,6 +91,8 @@ public:
 	bool m_hideV1;
 	/** true to hide ID3v2.3 controls */
 	bool m_hideV2;
+	/** version used for new ID3v2 tags */
+	int m_id3v2Version;
 #ifndef CONFIG_USE_KDE
 	/** mainwindow width */
 	int windowWidth;
