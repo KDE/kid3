@@ -13,7 +13,7 @@
 #include <qstring.h>
 #include <qlistbox.h>
 #include <qsize.h>
-#include "taggedfile.h"
+#include "filelistitem.h"
 
 class MiscConfig;
 class QProcess;
@@ -44,13 +44,13 @@ public:
 	 *
 	 * @return first file.
 	 */
-	TaggedFile *first();
+	FileListItem* first();
 	/**
 	 * Get the next item in the filelist.
 	 *
 	 * @return next file.
 	 */
-	TaggedFile *next();
+	FileListItem* next();
 	/**
 	 * Fill the filelist with the files found in a directory.
 	 *
@@ -80,12 +80,20 @@ public:
 	 * Set configuration.
 	 * @param cfg configuration.
 	 */
-	void setMiscConfig(MiscConfig* cfg) { m_miscCfg = cfg; }
+	static void setMiscConfig(MiscConfig* cfg) { s_miscCfg = cfg; }
 	/**
 	 * Get configuration.
 	 * @return configuration.
 	 */
-	const MiscConfig* getMiscConfig() const { return m_miscCfg; }
+	static const MiscConfig* getMiscConfig() { return s_miscCfg; }
+
+	/**
+	 * Get the number of files in the file list.
+	 * @return number of files.
+	 */
+	static int getNumberOfFiles() {
+		return s_instance ? s_instance->count() : 0;
+	}
 
 private slots:
 	/**
@@ -104,14 +112,20 @@ private slots:
 	void executeContextCommand(int id);
 
 private:
+	FileList(const FileList&);
+	FileList& operator=(const FileList&);
+
 	/** path of directory */
 	QString dirname;
 	/** current file */
-	TaggedFile *current_item;
-	/** Miscellaneous configuration */
-	MiscConfig* m_miscCfg;
+	FileListItem* current_item;
 	/** Process for context menu commands */
 	QProcess* m_process;
+
+	/** Miscellaneous configuration */
+	static MiscConfig* s_miscCfg;
+	/** Single instance */
+	static FileList* s_instance;
 };
 
 #endif // FILELIST_H

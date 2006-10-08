@@ -24,32 +24,53 @@
 #endif
 
 #include "taggedfile.h"
-#include "mp3file.h"
 #include "filelist.h"
+#include "filelistitem.h"
 #include "miscconfig.h"
+#ifdef HAVE_ID3LIB
+#include "mp3file.h"
+#endif
 #ifdef HAVE_VORBIS
 #include "oggfile.h"
 #endif
 #ifdef HAVE_FLAC
 #include "flacfile.h"
 #endif
+#ifdef HAVE_TAGLIB
+#include "taglibfile.h"
+#endif
+
+/** Miscellaneous configuration */
+MiscConfig* FileList::s_miscCfg = 0;
+
+/** Single instance */
+FileList* FileList::s_instance = 0;
 
 /**
  * Constructor.
  */
 FileList::FileList(QWidget* parent, const char* name, WFlags f) :
-	QListBox(parent, name, f), m_miscCfg(0), m_process(0)
+	QListBox(parent, name, f), m_process(0)
 {
 #if QT_VERSION >= 300
 	connect(this, SIGNAL(contextMenuRequested(QListBoxItem*, const QPoint&)),
 			this, SLOT(contextMenu(QListBoxItem*, const QPoint&)));
 #endif
+	if (s_instance) {
+		qWarning("The must be only one instance of FileList");
+	}
+	s_instance = this;
 }
 
 /**
  * Destructor.
  */
-FileList::~FileList() {}
+FileList::~FileList()
+{
+	if (this == s_instance) {
+		s_instance = 0;
+	}
+}
 
 /**
  * Returns the recommended size for the widget.
@@ -66,9 +87,9 @@ QSize FileList::sizeHint() const
  * @return first file.
  */
 
-TaggedFile *FileList::first()
+FileListItem* FileList::first()
 {
-	current_item = dynamic_cast<TaggedFile *>(firstItem());
+	current_item = dynamic_cast<FileListItem*>(firstItem());
 	return current_item;
 }
 
@@ -78,9 +99,9 @@ TaggedFile *FileList::first()
  * @return next file.
  */
 
-TaggedFile *FileList::next()
+FileListItem* FileList::next()
 {
-	current_item = dynamic_cast<TaggedFile *>(current_item->next());
+	current_item = dynamic_cast<FileListItem*>(current_item->next());
 	return current_item;
 }
 
@@ -99,7 +120,7 @@ bool FileList::readDir(const QString& name)
 		dirname = name;
 		QDir dir(file.filePath());
 		QStringList dirContents = dir.entryList(
-			m_miscCfg ? m_miscCfg->nameFilter : "*");
+			s_miscCfg ? s_miscCfg->nameFilter : "*");
 		for (QStringList::Iterator it = dirContents.begin();
 			 it != dirContents.end(); ++it) {
 			if (!QFileInfo(
@@ -115,10 +136,21 @@ bool FileList::readDir(const QString& name)
 					taggedFile = new FlacFile(dirname, *it);
 				else
 #endif
-				if ((*it).right(4).lower() == ".mp3")
+#ifdef HAVE_ID3LIB
+				if ((*it).right(4).lower() == ".mp3"
+#ifdef HAVE_TAGLIB
+						&& !(s_miscCfg &&
+								 s_miscCfg->m_id3v2Version == MiscConfig::ID3v2_4_0)
+#endif
+					)
 					taggedFile = new Mp3File(dirname, *it);
+				else
+#endif
+#ifdef HAVE_TAGLIB
+					taggedFile = new TagLibFile(dirname, *it);
+#endif
 				if (taggedFile) {
-					insertItem(taggedFile);
+					insertItem(new FileListItem(taggedFile));
 				}
 			}
 		}
@@ -135,15 +167,15 @@ bool FileList::readDir(const QString& name)
 
 bool FileList::updateModificationState(void)
 {
-	TaggedFile *taggedFile = first();
-	bool modified = FALSE;
-	while (taggedFile != 0) {
-		if (taggedFile->isChanged()) {
-			modified = TRUE;
+	FileListItem* item = first();
+	bool modified = false;
+	while (item != 0) {
+		if (item->getFile()->isChanged()) {
+			modified = true;
 		}
-		taggedFile = next();
+		item = next();
 	}
-	triggerUpdate(TRUE);
+	triggerUpdate(true);
 	return modified;
 }
 
@@ -168,12 +200,12 @@ QString FileList::getAbsDirname(void) const
 void FileList::contextMenu(QListBoxItem* item, const QPoint& pos)
 {
 #if QT_VERSION >= 300
-	if (item && m_miscCfg && !m_miscCfg->m_contextMenuCommands.empty()) {
+	if (item && s_miscCfg && !s_miscCfg->m_contextMenuCommands.empty()) {
 		QPopupMenu menu(this);
 		int id = 0;
 		for (QStringList::const_iterator
-					 it = m_miscCfg->m_contextMenuCommands.begin();
-				 it != m_miscCfg->m_contextMenuCommands.end();
+					 it = s_miscCfg->m_contextMenuCommands.begin();
+				 it != s_miscCfg->m_contextMenuCommands.end();
 				 ++it) {
 			QString cmd = *it;
 			if (cmd[0] == '!') {
@@ -196,22 +228,22 @@ void FileList::contextMenu(QListBoxItem* item, const QPoint& pos)
 void FileList::executeContextCommand(int id)
 {
 #if QT_VERSION >= 300
-	if (m_miscCfg &&
-			id < static_cast<int>(m_miscCfg->m_contextMenuCommands.size())) {
+	if (s_miscCfg &&
+			id < static_cast<int>(s_miscCfg->m_contextMenuCommands.size())) {
 		QStringList args;
-		QString cmd = m_miscCfg->m_contextMenuCommands[id];
+		QString cmd = s_miscCfg->m_contextMenuCommands[id];
 		bool confirm = false;
 		if (cmd[0] == '!') {
 			cmd = cmd.mid(1);
 			confirm = true;
 		}
 		args.push_back(cmd);
-		TaggedFile *taggedFile = first();
-		while (taggedFile != 0) {
-			if (taggedFile->isInSelection()) {
-				args.push_back(taggedFile->getAbsFilename());
+		FileListItem* item = first();
+		while (item != 0) {
+			if (item->isInSelection()) {
+				args.push_back(item->getFile()->getAbsFilename());
 			}
-			taggedFile = next();
+			item = next();
 		}
 
 		if (args.size() > 1) {
