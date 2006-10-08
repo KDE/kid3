@@ -1,0 +1,341 @@
+dnl =======================================================
+dnl FILE: ./admin/configure.in.min
+dnl =======================================================
+
+dnl    This file is part of the KDE libraries/packages
+dnl    Copyright (C) 2001 Stephan Kulow (coolo@kde.org)
+ 
+dnl    This file is free software; you can redistribute it and/or
+dnl    modify it under the terms of the GNU Library General Public
+dnl    License as published by the Free Software Foundation; either
+dnl    version 2 of the License, or (at your option) any later version.
+ 
+dnl    This library is distributed in the hope that it will be useful,
+dnl    but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+dnl    Library General Public License for more details.
+ 
+dnl    You should have received a copy of the GNU Library General Public License
+dnl    along with this library; see the file COPYING.LIB.  If not, write to
+dnl    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+dnl    Boston, MA 02110-1301, USA.
+
+# Original Author was Kalle@kde.org
+# I lifted it in some mater. (Stephan Kulow)
+# I used much code from Janos Farkas
+
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(acinclude.m4) dnl a source file from your sub dir
+
+dnl This is so we can use kde-common
+AC_CONFIG_AUX_DIR(admin)
+
+dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
+unset CDPATH
+
+dnl Checking host/target/build systems, for make, install etc.
+AC_CANONICAL_SYSTEM 
+dnl Perform program name transformation
+AC_ARG_PROGRAM
+
+dnl Automake doc recommends to do this only here. (Janos)
+AM_INIT_AUTOMAKE(kid3, 0.7) dnl searches for some needed programs
+
+AM_MAINTAINER_MODE
+
+KDE_SET_PREFIX
+
+dnl generate the config header
+AM_CONFIG_HEADER(config.h) dnl at the distribution this done
+
+dnl Checks for programs.
+AC_CHECK_COMPILERS
+AC_ENABLE_SHARED(yes)
+AC_ENABLE_STATIC(no)
+KDE_PROG_LIBTOOL
+
+dnl for NLS support. Call them in this order!
+dnl WITH_NLS is for the po files
+AM_KDE_WITH_NLS
+
+KDE_USE_QT(3.0)
+AC_PATH_KDE
+dnl =======================================================
+dnl FILE: configure.in.in
+dnl =======================================================
+
+#MIN_CONFIG(3.0)
+dnl PACKAGE set before
+
+AC_LANG_CPLUSPLUS
+
+# Check for taglib
+TAGLIB_REQ_VERSION="1.4.0"
+AC_DEFUN([VERSION_TO_NUMBER], [`$1 | awk 'BEGIN { FS = "."; } { printf "%d",  ([$]1* 1000 + [$]2) * 1000 + [$]3;}'`])
+AC_ARG_WITH(taglib, [  --with-taglib           build with taglib, default=yes],
+  with_taglib="$withval",
+  with_taglib=yes
+)
+if test "$with_taglib" != "no"; then
+  AC_PATH_PROG(TAGLIB_CONFIG, taglib-config, no)
+  if test "x$TAGLIB_CONFIG" != "xno" ; then
+    TAGLIB_VERSION=[`$TAGLIB_CONFIG --version`]
+    if test VERSION_TO_NUMBER(echo $TAGLIB_VERSION) -lt VERSION_TO_NUMBER(echo $TAGLIB_REQ_VERSION); then
+      have_taglib=no
+    else
+      AC_DEFINE(HAVE_TAGLIB, 1, [have TagLib])
+      TAGLIB_INCLUDES=[`$TAGLIB_CONFIG --cflags`]
+      LIB_TAGLIB=[`$TAGLIB_CONFIG --libs`]
+      HAVE_TAGLIB=1
+      AC_SUBST(HAVE_TAGLIB)
+      have_taglib=yes
+    fi
+  else
+    have_taglib=no
+  fi
+else
+    have_taglib=no
+fi
+AC_SUBST(TAGLIB_INCLUDES)
+AC_SUBST(LIB_TAGLIB)
+AM_CONDITIONAL(HAVE_TAGLIB, test "$have_taglib" = "yes")
+
+# mp3 support with id3lib
+AC_ARG_WITH(id3lib, [  --with-id3lib           build with id3lib, default=yes],
+  with_id3lib="$withval",
+  with_id3lib=yes
+)
+if test "$with_id3lib" != "no"; then
+  AC_CHECK_LIB(id3, ID3Tag_Link, [build_id3lib="yes"], [build_id3lib="no"])
+fi
+if test "$build_id3lib" = "yes"; then
+  HAVE_ID3LIB=1
+  AC_SUBST(HAVE_ID3LIB)
+  AC_DEFINE(HAVE_ID3LIB, 1, [have id3lib])
+  LIB_ID3LIB="-lid3"
+  have_id3lib=yes
+else
+  LIB_ID3LIB=""
+  have_id3lib=no
+fi
+AC_SUBST(LIB_ID3LIB)
+AM_CONDITIONAL(HAVE_ID3LIB, test "$build_id3lib" = "yes")
+
+# Check if old id3lib without VBR support
+if test "$build_id3lib" = "yes"; then
+  AC_DEFUN([ID3LIB_CHECK_VBR],
+  [
+    AC_MSG_CHECKING([for id3lib VBR support])
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+  cat > conftest.$ac_ext <<EOF
+#include <id3/globals.h>
+int main() {
+  Mp3_Headerinfo info;
+  info.vbr_bitrate = 0;
+  return 0;
+}
+EOF
+
+    ac_save_CPPFLAGS=$CPPFLAGS
+    CPPFLAGS="$all_includes $CPPFLAGS"
+    if AC_TRY_EVAL(ac_compile); then
+      AC_MSG_RESULT(yes)
+    else
+      AC_MSG_RESULT(no)
+      AC_DEFINE(HAVE_NO_ID3LIB_VBR,1,[Define to build without id3lib VBR support])
+    fi
+    CPPFLAGS=$ac_save_CPPFLAGS
+  
+    AC_LANG_RESTORE
+  ])
+  ID3LIB_CHECK_VBR
+fi
+
+dnl Option to build with KDE
+AC_ARG_WITH(kde, [  --with-kde              build with KDE, default=yes],
+  with_kde="$withval",
+  with_kde=yes
+)
+if test "$with_kde" != "no"; then
+  CONFIG_USE_KDE=1
+  AC_SUBST(CONFIG_USE_KDE)
+  AC_DEFINE(CONFIG_USE_KDE,1,[Define to build with KDE])
+fi
+AM_CONDITIONAL(CONFIG_USE_KDE, test "$with_kde" = "yes")
+
+# precompiled headers
+AC_ARG_ENABLE(gcc-pch,
+  [  --enable-gcc-pch        enable precompiled headers (gcc 3.4 required)],[
+    case "$enableval" in
+      "yes")
+        GCC_PCH="yes"
+        AC_SUBST(GCC_PCH)
+        AC_DEFINE(GCC_PCH, 1, [whether or not we use precompiled headers])
+        ;;
+      "no")
+        ;;
+      *)
+        AC_MSG_ERROR([must use --enable-gcc-pch(=yes/no) or --disable-gcc-pch])
+        ;;
+    esac
+  ])
+AM_CONDITIONAL(GCC_PCH, test "$GCC_PCH" = "yes")
+
+# MusicBrainz support with libtunepimp
+AC_ARG_WITH(musicbrainz, [  --with-musicbrainz      build with MusicBrainz, default=yes],
+  with_musicbrainz="$withval",
+  with_musicbrainz=yes
+)
+if test "$with_musicbrainz" != "no"; then
+  AC_CHECK_HEADER(tunepimp-0.5/tp_c.h, [build_musicbrainz="yes"],
+    [AC_CHECK_HEADER(tunepimp/tp_c.h, [build_musicbrainz="yes"],
+      [build_musicbrainz="no"])])
+fi
+if test "$build_musicbrainz" = "yes"; then
+  AC_CHECK_LIB(tunepimp, tr_GetPUID,
+    AC_DEFINE(HAVE_TUNEPIMP, 5, [have TunePimp 0.5.x]),
+    AC_CHECK_LIB(tunepimp, tp_SetFileNameEncoding,
+      AC_DEFINE(HAVE_TUNEPIMP, 4, [have TunePimp 0.4.x]),
+      AC_DEFINE(HAVE_TUNEPIMP, 1, [have TunePimp])))
+  AC_SUBST(HAVE_TUNEPIMP)
+  LIB_TUNEPIMP="-ltunepimp"
+  have_tunepimp=yes
+else
+  LIB_TUNEPIMP=""
+  have_tunepimp=no
+fi
+AC_SUBST(LIB_TUNEPIMP)
+AM_CONDITIONAL(HAVE_TUNEPIMP, test "$build_musicbrainz" = "yes")
+
+# ogg/vorbis support with libvorbis
+AC_ARG_WITH(vorbis, [  --with-vorbis           build with ogg/vorbis, default=yes],
+  with_vorbis="$withval",
+  with_vorbis=yes
+)
+if test "$with_vorbis" != "no"; then
+  AC_CHECK_HEADER(vorbis/codec.h, [build_vorbis="yes"], [build_vorbis="no"])
+fi
+if test "$build_vorbis" = "yes"; then
+  HAVE_VORBIS=1
+  AC_SUBST(HAVE_VORBIS)
+  AC_DEFINE(HAVE_VORBIS, 1, [have vorbis])
+  LIB_VORBIS="-lvorbis -lvorbisfile"
+  have_vorbis=yes
+else
+  LIB_VORBIS=""
+  have_vorbis=no
+fi
+AC_SUBST(LIB_VORBIS)
+AM_CONDITIONAL(HAVE_VORBIS, test "$build_vorbis" = "yes")
+
+# FLAC support with libFLAC++
+AC_ARG_WITH(flac, [  --with-flac             build with FLAC, default=yes],
+  with_flac="$withval",
+  with_flac=yes
+)
+if test "$with_flac" != "no"; then
+  AC_CHECK_HEADER(FLAC++/metadata.h, [build_flac="yes"], [build_flac="no"])
+fi
+if test "$build_flac" = "yes"; then
+  HAVE_FLAC=1
+  AC_SUBST(HAVE_FLAC)
+  AC_DEFINE(HAVE_FLAC, 1, [have flac])
+  LIB_FLAC="-lFLAC++ -lFLAC"
+  have_flac=yes
+else
+  LIB_FLAC=""
+  have_flac=no
+fi
+AC_SUBST(LIB_FLAC)
+AM_CONDITIONAL(HAVE_FLAC, test "$build_flac" = "yes")
+
+# Check if old FLAC++ without Prototype::operator ::FLAC__StreamMetadata const *()
+if test "$build_flac" = "yes"; then
+  AC_DEFUN([FLAC_CHECK_STREAMMETADATA_OPERATOR],
+  [
+    AC_MSG_CHECKING([for FLAC__StreamMetadata operator])
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+  cat > conftest.$ac_ext <<EOF
+#include <FLAC++/metadata.h>
+int main() {
+  FLAC::Metadata::VorbisComment vc;
+  const ::FLAC__StreamMetadata* fsmd = vc;
+  return 0;
+}
+EOF
+
+    ac_save_CPPFLAGS=$CPPFLAGS
+    CPPFLAGS="$all_includes $CPPFLAGS"
+    if AC_TRY_EVAL(ac_compile); then
+      AC_MSG_RESULT(yes)
+    else
+      AC_MSG_RESULT(no)
+      AC_DEFINE(HAVE_NO_FLAC_STREAMMETADATA_OPERATOR,1,[Define to build without FLAC__StreamMetadata operator])
+    fi
+    CPPFLAGS=$ac_save_CPPFLAGS
+  
+    AC_LANG_RESTORE
+  ])
+  FLAC_CHECK_STREAMMETADATA_OPERATOR
+fi
+KDE_CREATE_SUBDIRSLIST
+AM_CONDITIONAL(admin_SUBDIR_included, test "x$admin_SUBDIR_included" = xyes)
+AM_CONDITIONAL(doc_SUBDIR_included, test "x$doc_SUBDIR_included" = xyes)
+AM_CONDITIONAL(kid3_SUBDIR_included, test "x$kid3_SUBDIR_included" = xyes)
+AM_CONDITIONAL(po_SUBDIR_included, test "x$po_SUBDIR_included" = xyes)
+AC_CONFIG_FILES([ Makefile ])
+AC_CONFIG_FILES([ admin/Makefile ])
+AC_CONFIG_FILES([ doc/Makefile ])
+AC_CONFIG_FILES([ doc/de/Makefile ])
+AC_CONFIG_FILES([ doc/en/Makefile ])
+AC_CONFIG_FILES([ kid3/Makefile ])
+AC_CONFIG_FILES([ po/Makefile ])
+AC_OUTPUT
+# Check if KDE_SET_PREFIX was called, and --prefix was passed to configure
+if test -n "$kde_libs_prefix" -a -n "$given_prefix"; then
+  # And if so, warn when they don't match
+  if test "$kde_libs_prefix" != "$given_prefix"; then
+    # And if kde doesn't know about the prefix yet
+    echo ":"`kde-config --path exe`":" | grep ":$given_prefix/bin/:" 2>&1 >/dev/null
+    if test $? -ne 0; then
+      echo ""
+      echo "Warning: you chose to install this package in $given_prefix,"
+      echo "but KDE was found in $kde_libs_prefix."
+      echo "For this to work, you will need to tell KDE about the new prefix, by ensuring"
+      echo "that KDEDIRS contains it, e.g. export KDEDIRS=$given_prefix:$kde_libs_prefix"
+      echo "Then restart KDE."
+      echo ""
+    fi
+  fi
+fi
+
+if test x$GXX = "xyes" -a x$kde_have_gcc_visibility = "xyes" -a x$kde_cv_val_qt_gcc_visibility_patched = "xno"; then
+  echo ""
+  echo "Your GCC supports symbol visibility, but the patch for Qt supporting visibility"
+  echo "was not included. Therefore, GCC symbol visibility support remains disabled."
+  echo ""
+  echo "For better performance, consider including the Qt visibility supporting patch"
+  echo "located at:"
+  echo ""
+  echo "http://bugs.kde.org/show_bug.cgi?id=109386"
+  echo ""
+  echo "and recompile all of Qt and KDE. Note, this is entirely optional and"
+  echo "everything will continue to work just fine without it."
+  echo ""
+fi
+
+if test "$all_tests" = "bad"; then
+  if test ! "$cache_file" = "/dev/null"; then
+    echo ""
+    echo "Please remove the file $cache_file after changing your setup"
+    echo "so that configure will find the changes next time."
+    echo ""
+  fi
+else
+  echo ""
+  echo "Good - your configure finished. Start make now"
+  echo ""
+fi
