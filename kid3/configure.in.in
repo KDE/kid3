@@ -1,15 +1,68 @@
 #MIN_CONFIG(3.0)
 AM_INIT_AUTOMAKE(kid3,0.7)
-dnl Check for libid3
-AC_SEARCH_LIBS(ID3Tag_Link,"id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++",,AC_MSG_ERROR(id3lib not found))
+
+AC_LANG_CPLUSPLUS
+
+# Check for taglib
+TAGLIB_REQ_VERSION="1.4.0"
+AC_DEFUN([VERSION_TO_NUMBER], [`$1 | awk 'BEGIN { FS = "."; } { printf "%d",  ([$]1* 1000 + [$]2) * 1000 + [$]3;}'`])
+AC_ARG_WITH(taglib, [  --with-taglib           build with taglib, default=yes],
+  with_taglib="$withval",
+  with_taglib=yes
+)
+if test "$with_taglib" != "no"; then
+  AC_PATH_PROG(TAGLIB_CONFIG, taglib-config, no)
+  if test "x$TAGLIB_CONFIG" != "xno" ; then
+    TAGLIB_VERSION=[`$TAGLIB_CONFIG --version`]
+    if test VERSION_TO_NUMBER(echo $TAGLIB_VERSION) -lt VERSION_TO_NUMBER(echo $TAGLIB_REQ_VERSION); then
+      have_taglib=no
+    else
+      AC_DEFINE(HAVE_TAGLIB, 1, [have TagLib])
+      TAGLIB_INCLUDES=[`$TAGLIB_CONFIG --cflags`]
+      LIB_TAGLIB=[`$TAGLIB_CONFIG --libs`]
+      HAVE_TAGLIB=1
+      AC_SUBST(HAVE_TAGLIB)
+      have_taglib=yes
+    fi
+  else
+    have_taglib=no
+  fi
+else
+    have_taglib=no
+fi
+AC_SUBST(TAGLIB_INCLUDES)
+AC_SUBST(LIB_TAGLIB)
+AM_CONDITIONAL(HAVE_TAGLIB, test "$have_taglib" = "yes")
+
+# mp3 support with id3lib
+AC_ARG_WITH(id3lib, [  --with-id3lib           build with id3lib, default=yes],
+  with_id3lib="$withval",
+  with_id3lib=yes
+)
+if test "$with_id3lib" != "no"; then
+  AC_CHECK_LIB(id3, ID3Tag_Link, [build_id3lib="yes"], [build_id3lib="no"])
+fi
+if test "$build_id3lib" = "yes"; then
+  HAVE_ID3LIB=1
+  AC_SUBST(HAVE_ID3LIB)
+  AC_DEFINE(HAVE_ID3LIB, 1, [have id3lib])
+  LIB_ID3LIB="-lid3"
+  have_id3lib=yes
+else
+  LIB_ID3LIB=""
+  have_id3lib=no
+fi
+AC_SUBST(LIB_ID3LIB)
+AM_CONDITIONAL(HAVE_ID3LIB, test "$build_id3lib" = "yes")
 
 # Check if old id3lib without VBR support
-AC_DEFUN([ID3LIB_CHECK_VBR],
-[
-  AC_MSG_CHECKING([for id3lib VBR support])
-  AC_LANG_SAVE
-  AC_LANG_CPLUSPLUS
-cat > conftest.$ac_ext <<EOF
+if test "$build_id3lib" = "yes"; then
+  AC_DEFUN([ID3LIB_CHECK_VBR],
+  [
+    AC_MSG_CHECKING([for id3lib VBR support])
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+  cat > conftest.$ac_ext <<EOF
 #include <id3/globals.h>
 int main() {
   Mp3_Headerinfo info;
@@ -18,19 +71,20 @@ int main() {
 }
 EOF
 
-  ac_save_CPPFLAGS=$CPPFLAGS
-  CPPFLAGS="$all_includes $CPPFLAGS"
-  if AC_TRY_EVAL(ac_compile); then
-    AC_MSG_RESULT(yes)
-  else
-    AC_MSG_RESULT(no)
-    AC_DEFINE(HAVE_NO_ID3LIB_VBR,1,[Define to build without id3lib VBR support])
-  fi
-  CPPFLAGS=$ac_save_CPPFLAGS
-
-  AC_LANG_RESTORE
-])
-ID3LIB_CHECK_VBR
+    ac_save_CPPFLAGS=$CPPFLAGS
+    CPPFLAGS="$all_includes $CPPFLAGS"
+    if AC_TRY_EVAL(ac_compile); then
+      AC_MSG_RESULT(yes)
+    else
+      AC_MSG_RESULT(no)
+      AC_DEFINE(HAVE_NO_ID3LIB_VBR,1,[Define to build without id3lib VBR support])
+    fi
+    CPPFLAGS=$ac_save_CPPFLAGS
+  
+    AC_LANG_RESTORE
+  ])
+  ID3LIB_CHECK_VBR
+fi
 
 dnl Option to build with KDE
 AC_ARG_WITH(kde, [  --with-kde              build with KDE, default=yes],
@@ -94,7 +148,7 @@ AC_ARG_WITH(vorbis, [  --with-vorbis           build with ogg/vorbis, default=ye
   with_vorbis=yes
 )
 if test "$with_vorbis" != "no"; then
-  KDE_CHECK_HEADER(vorbis/codec.h, [build_vorbis="yes"], [build_vorbis="no"])
+  AC_CHECK_HEADER(vorbis/codec.h, [build_vorbis="yes"], [build_vorbis="no"])
 fi
 if test "$build_vorbis" = "yes"; then
   HAVE_VORBIS=1
@@ -115,7 +169,7 @@ AC_ARG_WITH(flac, [  --with-flac             build with FLAC, default=yes],
   with_flac=yes
 )
 if test "$with_flac" != "no"; then
-  KDE_CHECK_HEADER(FLAC++/metadata.h, [build_flac="yes"], [build_flac="no"])
+  AC_CHECK_HEADER(FLAC++/metadata.h, [build_flac="yes"], [build_flac="no"])
 fi
 if test "$build_flac" = "yes"; then
   HAVE_FLAC=1
@@ -131,12 +185,13 @@ AC_SUBST(LIB_FLAC)
 AM_CONDITIONAL(HAVE_FLAC, test "$build_flac" = "yes")
 
 # Check if old FLAC++ without Prototype::operator ::FLAC__StreamMetadata const *()
-AC_DEFUN([FLAC_CHECK_STREAMMETADATA_OPERATOR],
-[
-  AC_MSG_CHECKING([for FLAC__StreamMetadata operator])
-  AC_LANG_SAVE
-  AC_LANG_CPLUSPLUS
-cat > conftest.$ac_ext <<EOF
+if test "$build_flac" = "yes"; then
+  AC_DEFUN([FLAC_CHECK_STREAMMETADATA_OPERATOR],
+  [
+    AC_MSG_CHECKING([for FLAC__StreamMetadata operator])
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+  cat > conftest.$ac_ext <<EOF
 #include <FLAC++/metadata.h>
 int main() {
   FLAC::Metadata::VorbisComment vc;
@@ -145,16 +200,17 @@ int main() {
 }
 EOF
 
-  ac_save_CPPFLAGS=$CPPFLAGS
-  CPPFLAGS="$all_includes $CPPFLAGS"
-  if AC_TRY_EVAL(ac_compile); then
-    AC_MSG_RESULT(yes)
-  else
-    AC_MSG_RESULT(no)
-    AC_DEFINE(HAVE_NO_FLAC_STREAMMETADATA_OPERATOR,1,[Define to build without FLAC__StreamMetadata operator])
-  fi
-  CPPFLAGS=$ac_save_CPPFLAGS
-
-  AC_LANG_RESTORE
-])
-FLAC_CHECK_STREAMMETADATA_OPERATOR
+    ac_save_CPPFLAGS=$CPPFLAGS
+    CPPFLAGS="$all_includes $CPPFLAGS"
+    if AC_TRY_EVAL(ac_compile); then
+      AC_MSG_RESULT(yes)
+    else
+      AC_MSG_RESULT(no)
+      AC_DEFINE(HAVE_NO_FLAC_STREAMMETADATA_OPERATOR,1,[Define to build without FLAC__StreamMetadata operator])
+    fi
+    CPPFLAGS=$ac_save_CPPFLAGS
+  
+    AC_LANG_RESTORE
+  ])
+  FLAC_CHECK_STREAMMETADATA_OPERATOR
+fi
