@@ -559,6 +559,16 @@ unsigned OggFile::getDuration() const
 	return 0;
 }
 
+/**
+ * Get the format of tag 2.
+ *
+ * @return "Vorbis".
+ */
+QString OggFile::getTagFormatV2() const
+{
+	return hasTagV2() ? QString("Vorbis") : QString::null;
+}
+
 /** Frame list for Ogg files. */
 OggFrameList* OggFile::s_oggFrameList = 0;
 

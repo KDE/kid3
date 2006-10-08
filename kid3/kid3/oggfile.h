@@ -14,6 +14,7 @@
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
 #include "taggedfile.h"
+#include <qvaluelist.h>
 
 class OggFrameList;
 
@@ -236,6 +237,13 @@ public:
 	virtual QString getFileExtension() const;
 
 	/**
+	 * Get the format of tag 2.
+	 *
+	 * @return "Vorbis".
+	 */
+	virtual QString getTagFormatV2() const;
+
+	/**
 	 * Clean up static resources.
 	 */
 	static void staticCleanup();
@@ -322,6 +330,9 @@ protected:
 	bool m_changed;
 
 private:
+	OggFile(const OggFile&);
+	OggFile& operator=(const OggFile&);
+
 #ifdef HAVE_VORBIS
 	/** Information about Ogg/Vorbis file. */
 	struct FileInfo {
