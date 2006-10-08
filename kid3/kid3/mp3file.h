@@ -10,6 +10,9 @@
 #ifndef MP3FILE_H
 #define MP3FILE_H
 
+#include "config.h"
+#ifdef HAVE_ID3LIB
+
 #include "taggedfile.h"
 #include <id3/globals.h> /* ID3_FrameID */
 class ID3_Tag;
@@ -369,6 +372,22 @@ public:
 	virtual QString getFileExtension() const;
 
 	/**
+	 * Get the format of tag 1.
+	 *
+	 * @return string describing format of tag 1,
+	 *         e.g. "ID3v1.1".
+	 */
+	virtual QString getTagFormatV1() const;
+
+	/**
+	 * Get the format of tag 2.
+	 *
+	 * @return string describing format of tag 2,
+	 *         e.g. "ID3v2.3", "ID3v2.4".
+	 */
+	virtual QString getTagFormatV2() const;
+
+	/**
 	 * Get string from text field.
 	 *
 	 * @param field field
@@ -394,6 +413,9 @@ public:
 	friend class Mp3FrameList;
 
 private:
+	Mp3File(const Mp3File&);
+	Mp3File& operator=(const Mp3File&);
+
 	/**
 	 * Get text field.
 	 *
@@ -491,5 +513,7 @@ private:
 	/** Frame list for MP3 files. */
 	static Mp3FrameList* s_mp3FrameList;
 };
+
+#endif // HAVE_ID3LIB
 
 #endif // MP3FILE_H

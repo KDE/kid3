@@ -7,7 +7,9 @@
  * \date 9 Jan 2003
  */
 
-#include "config.h"
+#include "mp3file.h"
+#ifdef HAVE_ID3LIB
+
 #include <qdir.h>
 #include <qstring.h>
 #include <qlistbox.h>
@@ -20,7 +22,6 @@
 #include "standardtags.h"
 #include "mp3framelist.h"
 #include "genres.h"
-#include "mp3file.h"
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -1128,6 +1129,42 @@ QString Mp3File::getFileExtension() const
 }
 
 /**
+ * Get the format of tag 1.
+ *
+ * @return string describing format of tag 1,
+ *         e.g. "ID3v1.1".
+ */
+QString Mp3File::getTagFormatV1() const
+{
+	return hasTagV1() ? QString("ID3v1.1") : QString::null;
+}
+
+/**
+ * Get the format of tag 2.
+ *
+ * @return string describing format of tag 2,
+ *         e.g. "ID3v2.3", "ID3v2.4".
+ */
+QString Mp3File::getTagFormatV2() const
+{
+	if (tagV2 && tagV2->HasV2Tag()) {
+		switch (tagV2->GetSpec()) {
+			case ID3V2_3_0:
+				return "ID3v2.3.0";
+			case ID3V2_4_0:
+				return "ID3v2.4.0";
+			case ID3V2_2_0:
+				return "ID3v2.2.0";
+			case ID3V2_2_1:
+				return "ID3v2.2.1";
+			default:
+				break;
+		}
+	}
+	return QString::null;
+}
+
+/**
  * Clean up static resources.
  */
 void Mp3File::staticCleanup()
@@ -1135,3 +1172,5 @@ void Mp3File::staticCleanup()
 	delete s_mp3FrameList;
 	s_mp3FrameList = 0;
 }
+
+#endif // HAVE_ID3LIB
