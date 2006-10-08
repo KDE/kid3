@@ -117,6 +117,12 @@ private slots:
 	 */
 	void slotFindFinished(QString searchStr);
 	/**
+	 * Process finished findCddbAlbum request.
+	 *
+	 * @param searchStr search data received
+	 */
+	void slotFindCddbAlbumFinished(QString searchStr);
+	/**
 	 * Process finished album data.
 	 *
 	 * @param albumStr album track data received
