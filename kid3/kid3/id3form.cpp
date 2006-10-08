@@ -144,7 +144,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	filenameGroupBoxLayout->addWidget(nameLineEdit, 0, 1);
 
 	fnV1Button = new QPushButton(filenameGroupBox, "fnV1Button");
-	fnV1Button->setText(i18n("From ID3v1"));
+	fnV1Button->setText(i18n("From Tag 1"));
 	filenameGroupBoxLayout->addWidget(fnV1Button, 0, 2);
 
 	formatLabel = new QLabel(filenameGroupBox, "formatLabel");
@@ -155,7 +155,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	filenameGroupBoxLayout->addWidget(formatComboBox, 1, 1);
 
 	fnV2Button = new QPushButton(filenameGroupBox, "fnV2Button");
-	fnV2Button->setText(i18n("From ID3v2"));
+	fnV2Button->setText(i18n("From Tag 2"));
 	filenameGroupBoxLayout->addWidget(fnV2Button, 1, 2);
 
 	infoLabel = new QLabel(filenameGroupBox, "infoLabel");
@@ -166,7 +166,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	filenameGroupBoxLayout->addMultiCellWidget(detailsLabel, 2, 2, 1, 2);
 
 	idV1GroupBox = new QGroupBox(rightHalfVBox, "idV1GroupBox");
-	idV1GroupBox->setTitle(i18n("ID3v&1.1"));
+	idV1GroupBox->setTitle(i18n("Tag &1"));
 	idV1GroupBoxLayout = new QGridLayout(idV1GroupBox, 6, 3, 16, 6);
 
 	titleV1CheckBox = new QCheckBox(idV1GroupBox, "titleV1CheckBox");
@@ -191,7 +191,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	idV1GroupBoxLayout->addWidget(artistV1LineEdit, 1, 1);
 
 	id3V1PushButton = new QPushButton(idV1GroupBox, "id3V1PushButton");
-	id3V1PushButton->setText(i18n("From ID3v2"));
+	id3V1PushButton->setText(i18n("From Tag 2"));
 	idV1GroupBoxLayout->addWidget(id3V1PushButton, 1, 2);
 
 	albumV1CheckBox = new QCheckBox(idV1GroupBox, "albumV1CheckBox");
@@ -244,7 +244,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	idV1GroupBoxLayout->addWidget(genreV1ComboBox, 5, 1);
 
 	idV2GroupBox = new QGroupBox(rightHalfVBox, "idV2GroupBox");
-	idV2GroupBox->setTitle(i18n("ID3v&2.3"));
+	idV2GroupBox->setTitle(i18n("Tag &2"));
 
 	idV2GroupBoxLayout = new QGridLayout(idV2GroupBox, 7, 3, 16, 6);
 	idV2GroupBoxLayout->setAlignment(Qt::AlignTop);
@@ -269,7 +269,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	idV2GroupBoxLayout->addWidget(artistV2LineEdit, 1, 1);
 
 	id3V2PushButton = new QPushButton(idV2GroupBox, "id3V2PushButton");
-	id3V2PushButton->setText(i18n("From ID3v1"));
+	id3V2PushButton->setText(i18n("From Tag 1"));
 	idV2GroupBoxLayout->addWidget(id3V2PushButton, 1, 2);
 
 	albumV2CheckBox = new QCheckBox(idV2GroupBox, "albumV2CheckBox");
@@ -899,4 +899,34 @@ void id3Form::enableControlsV1(bool enable)
 	fnV1Button->setEnabled(enable);
 	id3V2PushButton->setEnabled(enable);
 	idV1GroupBox->setEnabled(enable);
+}
+
+/**
+ * Display the format of tag 1.
+ *
+ * @param str string describing format, e.g. "ID3v1.1"
+ */
+void id3Form::setTagFormatV1(const QString& str)
+{
+	QString txt = i18n("Tag &1");
+	if (!str.isEmpty()) {
+		txt += ": ";
+		txt += str;
+	}
+	idV1GroupBox->setTitle(txt);
+}
+
+/**
+ * Display the format of tag 2.
+ *
+ * @param str string describing format, e.g. "ID3v2.4"
+ */
+void id3Form::setTagFormatV2(const QString& str)
+{
+	QString txt = i18n("Tag &2");
+	if (!str.isEmpty()) {
+		txt += ": ";
+		txt += str;
+	}
+	idV2GroupBox->setTitle(txt);
 }
