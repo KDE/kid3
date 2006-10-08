@@ -196,8 +196,8 @@ ImportSelector::ImportSelector(
 	destLabel->setText(i18n("D&estination:"));
 	butlayout->addWidget(destLabel);
 	destComboBox = new QComboBox(false, butbox, "destComboBox");
-	destComboBox->insertItem("ID3v1", DestV1);
-	destComboBox->insertItem("ID3v2", DestV2);
+	destComboBox->insertItem(i18n("Tag 1"), DestV1);
+	destComboBox->insertItem(i18n("Tag 2"), DestV2);
 	destLabel->setBuddy(destComboBox);
 	butlayout->addWidget(destComboBox);
 
@@ -1077,6 +1077,7 @@ void ImportSelector::matchWithTitle()
 		MatchData* md = new MatchData[numTracks];
 		unsigned numFiles = 0, numImports = 0;
 		QRegExp nonWordCharRegExp("\\W");
+		QRegExp nonLetterSpaceRegExp("[^a-z ]");
 		unsigned i = 0;
 		for (
 #if QT_VERSION >= 300
@@ -1100,11 +1101,15 @@ void ImportSelector::matchWithTitle()
 				} else {
 					fileName = fileName.mid(startIndex);
 				}
-				md[i].fileWords = QStringList::split(nonWordCharRegExp, fileName.lower());
+				md[i].fileWords = QStringList::split(
+					nonWordCharRegExp, fileName.lower().
+					replace(nonLetterSpaceRegExp, " "));
 			}
 			if (!(*it).title.isEmpty()) {
 				++numImports;
-				md[i].titleWords = QStringList::split(nonWordCharRegExp, (*it).title.lower());
+				md[i].titleWords = QStringList::split(
+					nonWordCharRegExp, (*it).title.lower().
+					replace(nonLetterSpaceRegExp, " "));
 			}
 			md[i].assignedTo = -1;
 			md[i].assignedFrom = -1;
