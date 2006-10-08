@@ -107,6 +107,10 @@ protected:
 	OggFile::CommentList* m_tags;
 	QString m_selectedName;
 	OggFile::CommentField m_copyFrame;
+
+private:
+	OggFrameList(const OggFrameList&);
+	OggFrameList& operator=(const OggFrameList&);
 };
 
 #endif // HAVE_VORBIS

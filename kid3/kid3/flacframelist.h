@@ -38,6 +38,10 @@ public:
 	 * @param taggedFile file
 	 */
 	virtual void setTags(TaggedFile* taggedFile);
+
+private:
+	FlacFrameList(const FlacFrameList&);
+	FlacFrameList& operator=(const FlacFrameList&);
 };
 
 #endif // HAVE_FLAC

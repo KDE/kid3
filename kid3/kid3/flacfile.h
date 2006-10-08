@@ -98,6 +98,9 @@ public:
 	friend class FlacFrameList;
 
 private:
+	FlacFile(const FlacFile&);
+	FlacFile& operator=(const FlacFile&);
+
 	/** Information about a FLAC file. */
 	struct FileInfo {
 		/**

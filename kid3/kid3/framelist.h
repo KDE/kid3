@@ -316,12 +316,16 @@ public:
 	 */
 	static void setListBox(QListBox *lb) { listbox = lb; }
 
- protected:
+protected:
 	/** File containing tags */
 	TaggedFile* m_file;
 
 	/** List box to select frame */
 	static QListBox* listbox;
+
+private:
+	FrameList(const FrameList&);
+	FrameList& operator=(const FrameList&);
 };
 
 #endif // FRAMELIST_H
