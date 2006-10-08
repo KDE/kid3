@@ -20,6 +20,7 @@
 #include <qpushbutton.h>
 #include <qinputdialog.h>
 #include <qstringlist.h>
+#include <qlistbox.h>
 
 /** Field edit dialog */
 class EditOggFrameDialog : public QDialog {

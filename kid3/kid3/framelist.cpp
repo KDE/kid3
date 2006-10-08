@@ -18,6 +18,7 @@
 #include <qimage.h>
 #include <qpainter.h>
 #include <qcombobox.h>
+#include <qlistbox.h>
 
 #include "taggedfile.h"
 #include "framelist.h"
