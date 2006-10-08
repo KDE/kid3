@@ -10,6 +10,10 @@
 #ifndef MP3FRAMELIST_H
 #define MP3FRAMELIST_H
 
+#include <qpushbutton.h>
+#include "config.h"
+#ifdef HAVE_ID3LIB
+
 #include "framelist.h"
 
 #if QT_VERSION < 300
@@ -18,18 +22,20 @@
 #else
 #include <qptrlist.h>
 #endif
-#include <qpushbutton.h>
 #include <id3/tag.h>
 
 class Mp3File;
 class IntComboBoxControl;
 class TextFieldControl;
 
+#endif // HAVE_ID3LIB
+
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
  Q_OBJECT
 
  public:
+#ifdef HAVE_ID3LIB
 	/**
 	 * Constructor.
 	 *
@@ -52,6 +58,7 @@ class BinaryOpenSave : public QWidget {
 	 * @return filename.
 	 */
 	QString getFilename(void) { return loadfilename; }
+#endif // HAVE_ID3LIB
  
  public slots:
  	/**
@@ -71,6 +78,7 @@ class BinaryOpenSave : public QWidget {
 	void viewData(void);
 
  private:
+#ifdef HAVE_ID3LIB
 	/** ID3 field containing binary data */
 	ID3_Field *field;
 	/** horizontal layout */
@@ -85,8 +93,10 @@ class BinaryOpenSave : public QWidget {
 	QPushButton *saveButton;
 	/** View push button */
 	QPushButton *viewButton;
+#endif // HAVE_ID3LIB
 };
 
+#ifdef HAVE_ID3LIB
 
 /**
  * List of ID3v2.3 frames.
@@ -154,6 +164,9 @@ public:
 	friend class TextFieldControl;   // access to getSelectedEncoding()
 
  private:
+	Mp3FrameList(const Mp3FrameList&);
+	Mp3FrameList& operator=(const Mp3FrameList&);
+
 	/**
 	 * Set encoding selected in frame dialog.
 	 *
@@ -225,5 +238,7 @@ public:
 	/** Frame IDs corresponding to frameid_str[] */
 	static const ID3_FrameID frameid_code[num_frameid];
 };
+
+#endif // HAVE_ID3LIB
 
 #endif // MP3FRAMELIST_H

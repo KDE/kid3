@@ -7,7 +7,9 @@
  * \date 9 Jan 2003
  */
 
-#include "config.h"
+#include "mp3framelist.h"
+#ifdef HAVE_ID3LIB
+
 #ifdef CONFIG_USE_KDE
 #include <klocale.h>
 #include <kdialogbase.h>
@@ -29,7 +31,6 @@
 #endif
 
 #include "mp3file.h"
-#include "mp3framelist.h"
 
 
 /** Base class for MP3 field controls */
@@ -1225,3 +1226,11 @@ bool Mp3FrameList::pasteFrame() {
 	}
 	return false;
 }
+
+#else // HAVE_ID3LIB
+
+void BinaryOpenSave::loadData(void) {}
+void BinaryOpenSave::saveData(void) {}
+void BinaryOpenSave::viewData(void) {}
+
+#endif // HAVE_ID3LIB
