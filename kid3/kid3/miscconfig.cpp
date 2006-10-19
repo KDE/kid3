@@ -22,15 +22,15 @@
 
 /** Default name filter */
 #ifdef HAVE_VORBIS
-const QString MiscConfig::defaultNameFilter(
+const char* const MiscConfig::defaultNameFilter =
 	"*.mp3 *.MP3 *.Mp3 *.mP3 "
-	"*.ogg *.ogG *.oGg *.oGG *.Ogg *.OgG *.OGg *.OGG");
+	"*.ogg *.ogG *.oGg *.oGG *.Ogg *.OgG *.OGg *.OGG";
 #else
-const QString MiscConfig::defaultNameFilter("*.mp3 *.MP3 *.Mp3 *.mP3");
+const char* const MiscConfig::defaultNameFilter = "*.mp3 *.MP3 *.Mp3 *.mP3";
 #endif
 
 /** Default value for comment name */
-const QString MiscConfig::defaultCommentName("COMMENT");
+const char* const MiscConfig::defaultCommentName = "COMMENT";
 
 /** Default filename format list */
 static const char* fnFmt[] = {
@@ -90,9 +90,11 @@ MiscConfig::MiscConfig(const QString &group) :
 	formatItem(0),
 	dirFormatText(defaultDirFmtList[0]),
 	dirFormatItem(0),
+	m_renDirSrcV1(true),
 	m_hideV1(false),
 	m_hideV2(false),
-	m_id3v2Version(ID3v2_3_0)
+	m_id3v2Version(ID3v2_3_0),
+	m_useProxy(false)
 #ifndef CONFIG_USE_KDE
 	, windowWidth(-1), windowHeight(-1)
 #endif
@@ -125,6 +127,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("FormatText2", formatText);
 	config->writeEntry("DirFormatItem", dirFormatItem);
 	config->writeEntry("DirFormatText", dirFormatText);
+	config->writeEntry("RenameDirectorySourceV1", m_renDirSrcV1);
 	config->writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("PreserveTime", m_preserveTime);
 	config->writeEntry("CommentName", m_commentName);
@@ -137,6 +140,8 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("HideV1", m_hideV1);
 	config->writeEntry("HideV2", m_hideV2);
 	config->writeEntry("ID3v2Version", m_id3v2Version);
+	config->writeEntry("UseProxy", m_useProxy);
+	config->writeEntry("Proxy", m_proxy);
 #else
 	config->beginGroup("/" + group);
 	config->writeEntry("/NameFilter2", nameFilter);
@@ -144,6 +149,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/FormatText2", formatText);
 	config->writeEntry("/DirFormatItem", dirFormatItem);
 	config->writeEntry("/DirFormatText", dirFormatText);
+	config->writeEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
 	config->writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("/PreserveTime", m_preserveTime);
 	config->writeEntry("/CommentName", m_commentName);
@@ -169,6 +175,8 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/HideV1", m_hideV1);
 	config->writeEntry("/HideV2", m_hideV2);
 	config->writeEntry("/ID3v2Version", m_id3v2Version);
+	config->writeEntry("/UseProxy", m_useProxy);
+	config->writeEntry("/Proxy", m_proxy);
 	config->writeEntry("/WindowWidth", windowWidth);
 	config->writeEntry("/WindowHeight", windowHeight);
 	config->endGroup();
@@ -197,6 +205,7 @@ void MiscConfig::readFromConfig(
 	    config->readNumEntry("FormatItem", 0);
 	dirFormatItem =
 	    config->readNumEntry("DirFormatItem", 0);
+	m_renDirSrcV1 = config->readBoolEntry("RenameDirectorySourceV1", m_renDirSrcV1);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("CommentName", defaultCommentName);
@@ -217,6 +226,8 @@ void MiscConfig::readFromConfig(
 	m_hideV1 = config->readBoolEntry("HideV1", m_hideV1);
 	m_hideV2 = config->readBoolEntry("HideV2", m_hideV2);
 	m_id3v2Version = config->readNumEntry("ID3v2Version", ID3v2_3_0);
+	m_useProxy = config->readBoolEntry("UseProxy", m_useProxy);
+	m_proxy = config->readEntry("Proxy", m_proxy);
 #else
 	config->beginGroup("/" + group);
 	nameFilter =
@@ -225,6 +236,7 @@ void MiscConfig::readFromConfig(
 	    config->readNumEntry("/FormatItem", 0);
 	dirFormatItem =
 	    config->readNumEntry("/DirFormatItem", 0);
+	m_renDirSrcV1 = config->readBoolEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("/PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("/CommentName", defaultCommentName);
@@ -269,6 +281,8 @@ void MiscConfig::readFromConfig(
 	m_hideV1 = config->readBoolEntry("/HideV1", m_hideV1);
 	m_hideV2 = config->readBoolEntry("/HideV2", m_hideV2);
 	m_id3v2Version = config->readNumEntry("/ID3v2Version", ID3v2_3_0);
+	m_useProxy = config->readBoolEntry("/UseProxy", m_useProxy);
+	m_proxy = config->readEntry("/Proxy", m_proxy);
 	windowWidth = config->readNumEntry("/WindowWidth", -1);
 	windowHeight = config->readNumEntry("/WindowHeight", -1);
 	config->endGroup();

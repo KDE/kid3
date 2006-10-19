@@ -79,6 +79,8 @@ public:
 	QString dirFormatText;
 	/** index of directory name format selected */
 	int dirFormatItem;
+	/** true to rename directory from ID3v1 tags, else ID3v2 tags */
+	bool m_renDirSrcV1;
 	/** size of splitter in main window */
 	QValueList<int> splitterSizes;
 	/** size of file/dirlist splitter */
@@ -93,6 +95,10 @@ public:
 	bool m_hideV2;
 	/** version used for new ID3v2 tags */
 	int m_id3v2Version;
+	/** true if proxy is used */
+	bool m_useProxy;
+	/** proxy used for access */
+	QString m_proxy;
 #ifndef CONFIG_USE_KDE
 	/** mainwindow width */
 	int windowWidth;
@@ -101,9 +107,9 @@ public:
 #endif
 
 	/** Default name filter */
-	static const QString defaultNameFilter;
+	static const char* const defaultNameFilter;
 	/** Default value for comment name */
-	static const QString defaultCommentName;
+	static const char* const defaultCommentName;
 	/** Default filename format list */
 	static const char** defaultFnFmtList;
 	/** Default directory format list */
