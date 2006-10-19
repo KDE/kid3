@@ -44,14 +44,8 @@ public:
 	 * @return list with track durations.
 	 */
 	QValueList<int>* getTrackDurations() { return &trackDuration; }
-private:
-	/**
-	 * Parse the track durations from freedb.org.
-	 *
-	 * @param text          text buffer containing data from freedb.org
-	 */
-	void parseFreedbTrackDurations(const QString &text);
 
+private:
 	/** track regexp pattern */
 	QString pattern;
 	/** regexp object */

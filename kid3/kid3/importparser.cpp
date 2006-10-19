@@ -97,55 +97,6 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 		return false;
 	}
 #if QT_VERSION >= 300
-	if (pattern == "freedb_header") {
-		// special pattern for parsing of freedb.org album data
-		parseFreedbTrackDurations(text);
-		int dtitlePos, extdYearPos, extdId3gPos;
-		QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");
-		if ((dtitlePos = fdre.search(text, pos)) != -1) {
-			st.artist = fdre.cap(1);
-			st.album = fdre.cap(2);
-			dtitlePos += fdre.matchedLength();
-		}
-		fdre.setPattern("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D");
-		if ((extdYearPos = fdre.search(text, pos)) != -1) {
-			st.year = fdre.cap(1).toInt();
-			extdYearPos += fdre.matchedLength();
-		}
-		fdre.setPattern("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D");
-		if ((extdId3gPos = fdre.search(text, pos)) != -1) {
-			st.genre = fdre.cap(1).toInt();
-			extdId3gPos += fdre.matchedLength();
-		}
-		if (dtitlePos > pos) pos = dtitlePos;
-		if (extdYearPos > pos) pos = extdYearPos;
-		if (extdId3gPos > pos) pos = extdId3gPos;
-		return (pos > oldpos);
-	}
-	if (pattern == "freedb_tracks") {
-		// special pattern for parsing of freedb.org track data
-		trackDuration.clear();
-		static int tracknr = 0;
-		// assume search for 1st track if pos is 0
-		if (pos == 0) {
-			tracknr = 0;
-		} else {
-			++tracknr;
-		}
-		QRegExp fdre(QString("TTITLE%1=([^\\r\\n]+)[\\r\\n]").arg(tracknr));
-		QString title;
-		while ((idx = fdre.search(text, pos)) != -1) {
-			title += fdre.cap(1);
-			pos = idx + fdre.matchedLength();
-		}
-		if (pos > oldpos) { /* avoid endless loop */
-			st.track = tracknr + 1;
-			st.title = title;
-			return true;
-		} else {
-			return false;
-		}
-	}
 	if (durationPos == -1) {
 		trackDuration.clear();
 	} else if (pos == 0) {
@@ -200,74 +151,6 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 	}
 #else
 	/* no regexp capture in old Qt versions */
-	if (pattern == "freedb_header") {
-		// special pattern for parsing of freedb.org album data
-		parseFreedbTrackDurations(text);
-		int dtitlePos, dextPos, extdYearPos = -1, extdId3gPos = -1;
-		if ((dtitlePos = text.find("DTITLE=", pos)) != -1) {
-			dtitlePos += 7;
-			int slashPos = text.find('/', dtitlePos);
-			if (slashPos != -1) {
-				st.artist = text.mid(dtitlePos, slashPos - dtitlePos).stripWhiteSpace();
-				dtitlePos = slashPos + 1;
-				int lfPos = text.find('\n', dtitlePos);
-				if (lfPos != -1) {
-					st.album = text.mid(dtitlePos, lfPos - dtitlePos).stripWhiteSpace();
-					dtitlePos = lfPos + 1;
-				}
-			}
-		}
-		if ((dextPos = text.find("EXTD=", pos)) != -1) {
-			dextPos += 5;
-			int dextEnd = text.find('\n', dextPos);
-			if (dextEnd != -1) {
-				QString dextStr(text.mid(dextPos, dextEnd - dextPos).stripWhiteSpace());
-				int len;
-				extdYearPos = QRegExp("YEAR:\\s*\\d+").match(dextStr, 0, &len);
-				if (extdYearPos != -1) {
-					extdYearPos += 5;
-					st.year = dextStr.mid(extdYearPos, len - 5).toInt();
-				}
-				extdId3gPos = QRegExp("ID3G:\\s*\\d+").match(dextStr, 0, &len);
-				if (extdId3gPos != -1) {
-					extdId3gPos += 5;
-					st.genre = dextStr.mid(extdId3gPos, len - 5).toInt();
-				}
-			}
-		}
-		if (dtitlePos > pos) pos = dtitlePos;
-		if (extdYearPos > pos) pos = extdYearPos;
-		if (extdId3gPos > pos) pos = extdId3gPos;
-		return (pos > oldpos);
-	}
-	if (pattern == "freedb_tracks") {
-		// special pattern for parsing of freedb.org track data
-		trackDuration.clear();
-		static int tracknr = 0;
-		// assume search for 1st track if pos is 0
-		if (pos == 0) {
-			tracknr = 0;
-		} else {
-			++tracknr;
-		}
-		QString ttitleStr(QString("TTITLE%1=").arg(tracknr));
-		QString title;
-		while ((idx = text.find(ttitleStr, pos)) != -1) {
-			pos = idx + ttitleStr.length();
-			int crPos = text.find('\r', pos);
-			if (crPos != -1) {
-				title += text.mid(pos, crPos - pos);
-				pos = crPos + 1;
-			}
-		}
-		if (pos > oldpos) { /* avoid endless loop */
-			st.track = tracknr + 1;
-			st.title = title;
-			return true;
-		} else {
-			return false;
-		}
-	}
 	/* hack: use yearPos to determine whether header or track parsing
 	   is required */
 	if (yearPos == -1) {
@@ -329,55 +212,4 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 	}
 #endif
 	return false;
-}
-
-/**
- * Parse the track durations from freedb.org.
- *
- * @param text          text buffer containing data from freedb.org
- */
-void ImportParser::parseFreedbTrackDurations(const QString &text)
-{
-/* Example freedb format:
-   # Track frame offsets:
-   # 150
-   # 2390
-   # 23387
-   # 44650
-   # 61322
-   # 94605
-   # 121710
-   # 144637
-   # 176820
-   # 187832
-   # 218930
-   #
-   # Disc length: 3114 seconds
-*/
-	trackDuration.clear();
-	int discLenPos, len;
-	discLenPos = QRegExp("Disc length:\\s*\\d+").match(text, 0, &len);
-	if (discLenPos != -1) {
-		discLenPos += 12;
-		int discLen = text.mid(discLenPos, len - 12).toInt();
-		int trackOffsetPos = text.find("Track frame offsets", 0);
-		if (trackOffsetPos != -1) {
-			QRegExp re("#\\s*\\d+");
-			int lastOffset = -1;
-			while ((trackOffsetPos = re.match(text, trackOffsetPos, &len)) != -1 &&
-				   trackOffsetPos < discLenPos) {
-				trackOffsetPos += 1;
-				int trackOffset = text.mid(trackOffsetPos, len - 1).toInt();
-				if (lastOffset != -1) {
-					int duration = (trackOffset - lastOffset) / 75;
-					trackDuration.append(duration);
-				}
-				lastOffset = trackOffset;
-			}
-			if (lastOffset != -1) {
-				int duration = (discLen * 75 - lastOffset) / 75;
-				trackDuration.append(duration);
-			}
-		}
-	}
 }
