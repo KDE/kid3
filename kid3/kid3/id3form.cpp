@@ -756,7 +756,7 @@ void id3Form::fnFromID3V2(void)
  */
 void id3Form::nameLineEditChanged(const QString &txt)
 {
-	formatLineEdit(nameLineEdit, txt, theApp->fnFormatCfg);
+	formatLineEdit(nameLineEdit, txt, &theApp->s_fnFormatCfg);
 }
 
 /**
@@ -765,7 +765,7 @@ void id3Form::nameLineEditChanged(const QString &txt)
  */
 void id3Form::albumV1LineEditChanged(const QString &txt)
 {
-	formatLineEdit(albumV1LineEdit, txt, theApp->id3FormatCfg);
+	formatLineEdit(albumV1LineEdit, txt, &theApp->s_id3FormatCfg);
 }
 
 /**
@@ -774,7 +774,7 @@ void id3Form::albumV1LineEditChanged(const QString &txt)
  */
 void id3Form::artistV1LineEditChanged(const QString &txt)
 {
-	formatLineEdit(artistV1LineEdit, txt, theApp->id3FormatCfg);
+	formatLineEdit(artistV1LineEdit, txt, &theApp->s_id3FormatCfg);
 }
 
 /**
@@ -783,7 +783,7 @@ void id3Form::artistV1LineEditChanged(const QString &txt)
  */
 void id3Form::titleV1LineEditChanged(const QString &txt)
 {
-	formatLineEdit(titleV1LineEdit, txt, theApp->id3FormatCfg);
+	formatLineEdit(titleV1LineEdit, txt, &theApp->s_id3FormatCfg);
 }
 
 /**
@@ -792,7 +792,7 @@ void id3Form::titleV1LineEditChanged(const QString &txt)
  */
 void id3Form::albumV2LineEditChanged(const QString &txt)
 {
-	formatLineEdit(albumV2LineEdit, txt, theApp->id3FormatCfg);
+	formatLineEdit(albumV2LineEdit, txt, &theApp->s_id3FormatCfg);
 }
 
 /**
@@ -801,7 +801,7 @@ void id3Form::albumV2LineEditChanged(const QString &txt)
  */
 void id3Form::artistV2LineEditChanged(const QString &txt)
 {
-	formatLineEdit(artistV2LineEdit, txt, theApp->id3FormatCfg);
+	formatLineEdit(artistV2LineEdit, txt, &theApp->s_id3FormatCfg);
 }
 
 /**
@@ -810,7 +810,7 @@ void id3Form::artistV2LineEditChanged(const QString &txt)
  */
 void id3Form::titleV2LineEditChanged(const QString &txt)
 {
-	formatLineEdit(titleV2LineEdit, txt, theApp->id3FormatCfg);
+	formatLineEdit(titleV2LineEdit, txt, &theApp->s_id3FormatCfg);
 }
 
 /**
