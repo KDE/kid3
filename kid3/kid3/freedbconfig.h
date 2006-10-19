@@ -10,14 +10,12 @@
 #ifndef FREEDBCONFIG_H
 #define FREEDBCONFIG_H
 
-#include <qstringlist.h>
-#include "config.h"
-#include "generalconfig.h"
+#include "importsourceconfig.h"
 
 /**
  * Freedb configuration.
  */
-class FreedbConfig : public GeneralConfig {
+class FreedbConfig : public ImportSourceConfig {
 public:
 	/**
 	 * Constructor.
@@ -26,51 +24,11 @@ public:
 	 * @param grp configuration group
 	 */
 	FreedbConfig(const QString &grp);
-	/**
-	 * Constructor.
-	 * Use to create temporary configuration.
-	 */
-	FreedbConfig();
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~FreedbConfig();
-	/**
-	 * Persist configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void writeToConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig *config
-#else
-		Kid3Settings *config
-#endif
-		) const;
-	/**
-	 * Read persisted configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void readFromConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig *config
-#else
-		Kid3Settings *config
-#endif
-		);
-	/** true if freedb proxy is used */
-	bool useProxy;
-	/** proxy used for freedb.org access */
-	QString proxy;
-	/** freedb.org server */
-	QString server;
-	/** CGI path used for freedb.org access */
-	QString cgiPath;
-	/** freedb.org window width */
-	int m_windowWidth;
-	/** freedb.org window height */
-	int m_windowHeight;
 };
 
 #endif
