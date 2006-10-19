@@ -15,48 +15,33 @@
 #define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
 
-#include <qlayout.h>
-#include <qhbox.h>
-#include <qpushbutton.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlistbox.h>
-#include <qlabel.h>
-#include <qstatusbar.h>
 #include <qregexp.h>
-#include "freedbconfig.h"
+#include "kid3.h"
 #include "freedbclient.h"
 #include "freedbdialog.h"
 
-/**
- * QListBoxItem subclass for album list.
- */
-class AlbumListItem : public QListBoxText {
-public:
-	/**
-	 * Constructor.
-	 * @param listbox listbox
-	 * @param text    title
-	 * @param cat     category
-	 * @param idStr   ID
-	 */
-	AlbumListItem(QListBox *listbox, const QString &text,
-				  const QString &cat, const QString &idStr) : 
-		QListBoxText(listbox, text), category(cat), id(idStr) {}
-	/**
-	 * Get category.
-	 * @return category.
-	 */
-	QString getCategory() { return category; }
-	/**
-	 * Get ID.
-	 * @return ID.
-	 */
-	QString getId() { return id; }
-private:
-	QString category;
-	QString id;
+static const char* serverList[] = {
+	"freedb2.org:80",
+	"freedb.org:80",
+	"freedb.freedb.org:80",
+	"at.freedb.org:80",
+	"au.freedb.org:80",
+	"ca.freedb.org:80",
+	"es.freedb.org:80",
+	"fi.freedb.org:80",
+	"lu.freedb.org:80",
+	"ru.freedb.org:80",
+	"uk.freedb.org:80",
+	"us.freedb.org:80",
+	0                  // end of StrList
+};
+
+static const ImportSourceDialog::Properties props = {
+	serverList,
+	"freedb.freedb.org:80",
+	"/~cddb/cddb.cgi",
+	"import-freedb",
+	&Kid3App::s_freedbCfg
 };
 
 
@@ -64,104 +49,13 @@ private:
  * Constructor.
  *
  * @param parent  parent widget
- * @param caption dialog title
+ * @param trackDataVector track data to be filled with imported values
  */
-FreedbDialog::FreedbDialog(QWidget *parent, QString caption)
-	: QDialog(parent, "freedb", true),
-		m_windowWidth(0), m_windowHeight(0)
+FreedbDialog::FreedbDialog(QWidget *parent,
+													 ImportTrackDataVector& trackDataVector)
+	: ImportSourceDialog(parent, "freedb.org", trackDataVector,
+											 new FreedbClient, props)
 {
-	if (caption.isNull()) {
-		caption = "freedb.org";
-	}
-	setCaption(caption);
-
-	QVBoxLayout *vlayout = new QVBoxLayout(this);
-	if (!vlayout) {
-		return ;
-	}
-	vlayout->setSpacing(6);
-	vlayout->setMargin(6);
-
-	QHBoxLayout *findLayout = new QHBoxLayout(vlayout);
-	findLineEdit = new QComboBox(this);
-	findButton = new QPushButton(i18n("&Find"), this);
-	QPushButton *closeButton = new QPushButton(i18n("&Close"), this);
-	if (findLayout && findLineEdit && findButton) {
-		findLineEdit->setEditable(true);
-		findLineEdit->setAutoCompletion(true);
-		findLineEdit->setDuplicatesEnabled(false);
-#if QT_VERSION >= 0x030100
-		findLineEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-#else
-		findLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-#endif
-		findButton->setDefault(true);
-		findLayout->addWidget(findLineEdit);
-		findLayout->addWidget(findButton);
-		connect(findButton, SIGNAL(clicked()), this, SLOT(slotFind()));
-		findLayout->addWidget(closeButton);
-		connect(closeButton, SIGNAL(clicked()), this, SLOT(saveWindowSizeAndClose()));
-	}
-	QHBoxLayout *serverLayout = new QHBoxLayout(vlayout);
-	QLabel *serverLabel = new QLabel(i18n("&Server:"), this);
-	serverComboBox = new QComboBox(this);
-	QLabel *cgiLabel = new QLabel(i18n("C&GI Path:"), this);
-	cgiLineEdit = new QLineEdit(this);
-	if (serverLayout && serverLabel && serverComboBox &&
-		cgiLabel && cgiLineEdit) {
-		static const char *serverList[] = {
-			"freedb2.org:80",
-			"freedb.freedb.org:80",
-			"at.freedb.org:80",
-			"au.freedb.org:80",
-			"ca.freedb.org:80",
-			"ca2.freedb.org:80",
-			"de.freedb.org:80",
-			"de2.freedb.org:80",
-			"es.freedb.org:80",
-			"fi.freedb.org:80",
-			"lu.freedb.org:80",
-			"ru.freedb.org:80",
-			"uk.freedb.org:80",
-			"us.freedb.org:80",
-			0                  // end of StrList
-		};
-		serverComboBox->insertStrList(serverList);
-		serverComboBox->setEditable(true);
-		serverLayout->addWidget(serverLabel);
-		serverLayout->addWidget(serverComboBox);
-		serverLayout->addWidget(cgiLabel);
-		serverLayout->addWidget(cgiLineEdit);
-		cgiLabel->setBuddy(cgiLineEdit);
-		serverLabel->setBuddy(serverComboBox);
-	}
-	QHBoxLayout *proxyLayout = new QHBoxLayout(vlayout);
-	proxyCheckBox = new QCheckBox(i18n("&Proxy:"), this);
-	proxyLineEdit = new QLineEdit(this);
-	if (proxyLayout && proxyCheckBox && proxyLineEdit) {
-		proxyLayout->addWidget(proxyCheckBox);
-		proxyLayout->addWidget(proxyLineEdit);
-	}
-	albumListBox = new QListBox(this);
-	if (albumListBox) {
-		vlayout->addWidget(albumListBox);
-		connect(albumListBox, SIGNAL(selectionChanged(QListBoxItem*)),
-				this, SLOT(requestTrackList(QListBoxItem*)));
-		connect(albumListBox, SIGNAL(selected(int)),
-				this, SLOT(requestTrackList(int)));
-	}
-
-	statusBar = new QStatusBar(this);
-	if (statusBar) {
-		vlayout->addWidget(statusBar);
-		client = new FreedbClient(statusBar);
-		connect(client, SIGNAL(findFinished(QString)),
-				this, SLOT(slotFindFinished(QString)));
-		connect(client, SIGNAL(findCddbAlbumFinished(QString)),
-				this, SLOT(slotFindCddbAlbumFinished(QString)));
-		connect(client, SIGNAL(albumFinished(QString)),
-				this, SLOT(slotAlbumFinished(QString)));
-	}
 }
 
 /**
@@ -169,203 +63,6 @@ FreedbDialog::FreedbDialog(QWidget *parent, QString caption)
  */
 FreedbDialog::~FreedbDialog()
 {
-	client->disconnect();
-	delete client;
-}
-
-/**
- * Clear dialog data.
- */
-void FreedbDialog::clear()
-{
-	albumListBox->clear();
-}
-
-/**
- * Get string with server and port.
- *
- * @return "servername:port".
- */
-QString FreedbDialog::getServer() const
-{
-	QString server(serverComboBox->currentText());
-	if (server.isEmpty()) {
-		server = "freedb.freedb.org:80";
-	}
-	return server;
-}
-
-/**
- * Set string with server and port.
- *
- * @param srv "servername:port"
- */
-void FreedbDialog::setServer(const QString &srv)
-{
-#if QT_VERSION >= 300
-	serverComboBox->setCurrentText(srv);
-#else
-	serverComboBox->setEditText(srv);
-#endif
-}
-
-/**
- * Get string with CGI path.
- *
- * @return CGI path, e.g. "/~cddb/cddb.cgi".
- */
-QString FreedbDialog::getCgiPath() const
-{
-	QString cgi(cgiLineEdit->text());
-	if (cgi.isEmpty()) {
-		cgi = "/~cddb/cddb.cgi";
-	}
-	return cgi;
-}
-
-/**
- * Set string with CGI path.
- *
- * @param cgi CGI path, e.g. "/~cddb/cddb.cgi".
- */
-void FreedbDialog::setCgiPath(const QString &cgi)
-{
-	cgiLineEdit->setText(cgi);
-}
-
-/**
- * Get proxy.
- *
- * @param used is set to true if proxy is used
- *
- * @return proxy, e.g. "myproxy:8080".
- */
-QString FreedbDialog::getProxy(bool *used) const
-{
-	*used = proxyCheckBox->isChecked();
-	return proxyLineEdit->text();
-}
-
-/**
- * Set proxy.
- *
- * @param proxy proxy, e.g. "myproxy:8080"
- * @param used is set to true if proxy is used
- */
-void FreedbDialog::setProxy(const QString &proxy, bool used)
-{
-	proxyCheckBox->setChecked(used);
-	proxyLineEdit->setText(proxy);
-}
-
-/**
- * Set freedb.org configuration.
- *
- * @param cfg freedb configuration.
- */
-void FreedbDialog::setFreedbConfig(const FreedbConfig *cfg)
-{
-	setProxy(cfg->proxy, cfg->useProxy);
-	setServer(cfg->server);
-	setCgiPath(cfg->cgiPath);
-	if (cfg->m_windowWidth > 0 && cfg->m_windowHeight > 0) {
-		resize(cfg->m_windowWidth, cfg->m_windowHeight);
-	}
-}
-
-/**
- * Get freedb.org configuration.
- *
- * @param cfg freedb configuration.
- */
-void FreedbDialog::getFreedbConfig(FreedbConfig *cfg) const
-{
-	cfg->proxy = getProxy(&cfg->useProxy);
-	cfg->server = getServer();
-	cfg->cgiPath = getCgiPath();
-	if (m_windowWidth > 0 && m_windowHeight > 0) {
-		cfg->m_windowWidth = m_windowWidth;
-		cfg->m_windowHeight = m_windowHeight;
-	}
-}
-
-/**
- * Set a find string from artist and album information.
- *
- * @param artist artist
- * @param album  album
- */
-void FreedbDialog::setArtistAlbum(const QString& artist, const QString& album)
-{
-	QString findStr(artist);
-	if (!findStr.isEmpty()) {
-		findStr += ' ';
-	}
-	findStr += album;
-	if (!findStr.isEmpty()) {
-		findLineEdit->setCurrentText(findStr);
-		QLineEdit* lineEdit = findLineEdit->lineEdit();
-		if (lineEdit) {
-			lineEdit->selectAll();
-		}
-		findLineEdit->setFocus();
-	}
-}
-
-/**
- * Find keyword in freedb.
- */
-void FreedbDialog::slotFind()
-{
-	FreedbConfig cfg;
-	getFreedbConfig(&cfg);
-//	client->find(&cfg, findLineEdit->currentText());
-	client->findCddbAlbum(&cfg, findLineEdit->currentText());
-}
-
-/**
- * Process finished find request.
- *
- * @param searchStr search data received
- */
-void FreedbDialog::slotFindFinished(QString searchStr)
-{
-/*
-read line with the format "http://www.freedb.org/freedb_search_fmt.php?cat=category&id=id">albumartist</a>"
-  if albumartist ">otherversion</font>" => other version
-  else artist_album
-*/
-		int catStart, catEnd, idStart, idEnd, albumArtistStart, albumArtistEnd;
-		static const char catStr[] =
-			"http://www.freedb.org/freedb_search_fmt.php?cat=";
-		static const char idStr[] = "&id=";
-		static const char albumArtistStr[] = "\">";
-		albumListBox->clear();
-		albumArtistEnd = 0; // start search at begin
-		while ((catStart = searchStr.find(catStr, albumArtistEnd)) != -1) {
-			catStart += sizeof(catStr) - 1;
-			catEnd = searchStr.find(idStr, catStart);
-			if (catEnd == -1) break;
-			idStart = catEnd + sizeof(idStr) - 1;
-			idEnd = searchStr.find(albumArtistStr, idStart);
-			if (idEnd == -1) break;
-			albumArtistStart = idEnd + sizeof(albumArtistStr) - 1;
-			if (searchStr.mid(albumArtistStart, 5) == "<font") {
-				albumArtistStart = searchStr.find('>', albumArtistStart);
-				if (albumArtistStart == -1) break;
-				++albumArtistStart;
-			}
-			albumArtistEnd = searchStr.find('<', albumArtistStart);
-			if (albumArtistEnd == -1) break;
-
-			new AlbumListItem(
-				albumListBox,
-				searchStr.mid(albumArtistStart,
-							  albumArtistEnd - albumArtistStart),
-				searchStr.mid(catStart, catEnd - catStart),
-				searchStr.mid(idStart, idEnd - idStart));
-		}
-		albumListBox->setFocus();
 }
 
 /**
@@ -373,7 +70,7 @@ read line with the format "http://www.freedb.org/freedb_search_fmt.php?cat=categ
  *
  * @param searchStr search data received
  */
-void FreedbDialog::slotFindCddbAlbumFinished(QString searchStr)
+void FreedbDialog::parseFindResults(const QCString& searchStr)
 {
 /*
 210 exact matches found
@@ -387,10 +84,11 @@ rock 920b810c Catharsis / Imago
 theoretically, but never seen
 200	categ discid dtitle
 */
+	QString str = QString::fromUtf8(searchStr);
 	QRegExp catIdTitleRe("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)");
-	QStringList lines = QStringList::split(QRegExp("[\\r\\n]+"), searchStr);
+	QStringList lines = QStringList::split(QRegExp("[\\r\\n]+"), str);
 	bool inEntries = false;
-	albumListBox->clear();
+	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		if (*it == ".") {
 			break;
@@ -398,7 +96,7 @@ theoretically, but never seen
 		if (inEntries) {
 			if (catIdTitleRe.exactMatch(*it)) {
 				new AlbumListItem(
-					albumListBox,
+					m_albumListBox,
 					catIdTitleRe.cap(3),
 					catIdTitleRe.cap(1),
 					catIdTitleRe.cap(2));
@@ -409,7 +107,7 @@ theoretically, but never seen
 			} else if ((*it).startsWith("200 ")) {
 				if (catIdTitleRe.exactMatch((*it).mid(4))) {
 					new AlbumListItem(
-						albumListBox,
+						m_albumListBox,
 						catIdTitleRe.cap(3),
 						catIdTitleRe.cap(1),
 						catIdTitleRe.cap(2));
@@ -417,51 +115,147 @@ theoretically, but never seen
 			}
 		}
 	}
-	albumListBox->setFocus();
+	m_albumListBox->setFocus();
 }
 
 /**
- * Process finished album data.
+ * Parse the track durations from freedb.org.
  *
- * @param albumStr album track data received
+ * @param text          text buffer containing data from freedb.org
+ * @param trackDuration list for results
  */
-void FreedbDialog::slotAlbumFinished(QString albumStr)
+static void parseFreedbTrackDurations(
+	const QString& text,
+	QValueList<int>& trackDuration)
 {
-	emit albumDataReceived(albumStr);
-}
-
-
-/**
- * Request track list from freedb server.
- *
- * @param li list box item containing an AlbumListItem
- */
-void FreedbDialog::requestTrackList(QListBoxItem *li)
-{
-	AlbumListItem *ali;
-	if ((ali = dynamic_cast<AlbumListItem *>(li)) != 0) {
-		FreedbConfig cfg;
-		getFreedbConfig(&cfg);
-		client->getTrackList(&cfg, ali->getCategory(), ali->getId());
+/* Example freedb format:
+   # Track frame offsets:
+   # 150
+   # 2390
+   # 23387
+   # 44650
+   # 61322
+   # 94605
+   # 121710
+   # 144637
+   # 176820
+   # 187832
+   # 218930
+   #
+   # Disc length: 3114 seconds
+*/
+	trackDuration.clear();
+	int discLenPos, len;
+	discLenPos = QRegExp("Disc length:\\s*\\d+").match(text, 0, &len);
+	if (discLenPos != -1) {
+		discLenPos += 12;
+		int discLen = text.mid(discLenPos, len - 12).toInt();
+		int trackOffsetPos = text.find("Track frame offsets", 0);
+		if (trackOffsetPos != -1) {
+			QRegExp re("#\\s*\\d+");
+			int lastOffset = -1;
+			while ((trackOffsetPos = re.match(text, trackOffsetPos, &len)) != -1 &&
+						 trackOffsetPos < discLenPos) {
+				trackOffsetPos += 1;
+				int trackOffset = text.mid(trackOffsetPos, len - 1).toInt();
+				if (lastOffset != -1) {
+					int duration = (trackOffset - lastOffset) / 75;
+					trackDuration.append(duration);
+				}
+				lastOffset = trackOffset;
+			}
+			if (lastOffset != -1) {
+				int duration = (discLen * 75 - lastOffset) / 75;
+				trackDuration.append(duration);
+			}
+		}
 	}
 }
 
 /**
- * Request track list from freedb server.
+ * Parse the album specific data (artist, album, year, genre) from freedb.org.
  *
- * @param index index of list box item containing an AlbumListItem
+ * @param text text buffer containing data from freedb.org
+ * @param st   standard tag to put result
  */
-void FreedbDialog::requestTrackList(int index)
+static void parseFreedbAlbumData(const QString &text,
+																 StandardTags& st)
 {
-	requestTrackList(albumListBox->item(index));
+	QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");
+	if (fdre.search(text) != -1) {
+		st.artist = fdre.cap(1);
+		st.album = fdre.cap(2);
+	}
+	fdre.setPattern("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D");
+	if (fdre.search(text) != -1) {
+		st.year = fdre.cap(1).toInt();
+	}
+	fdre.setPattern("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D");
+	if (fdre.search(text) != -1) {
+		st.genre = fdre.cap(1).toInt();
+	}
 }
 
 /**
- * Save the size of the window and close it.
+ * Parse result of album request and populate m_trackDataVector with results.
+ *
+ * @param albumStr album data received
  */
-void FreedbDialog::saveWindowSizeAndClose()
+void FreedbDialog::parseAlbumResults(const QCString& albumStr)
 {
-	m_windowWidth = size().width();
-	m_windowHeight = size().height();
-	accept();
+	QString text = QString::fromUtf8(albumStr);
+	StandardTags st_hdr;
+	st_hdr.setInactive();
+	QValueList<int> trackDuration;
+	parseFreedbTrackDurations(text, trackDuration);
+	parseFreedbAlbumData(text, st_hdr);
+
+	StandardTags st(st_hdr);
+	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
+	QValueList<int>::const_iterator tdit = trackDuration.begin();
+	bool atTrackDataListEnd = (it == m_trackDataVector.end());
+	int pos = 0;
+	int idx, oldpos = pos;
+	int tracknr = 0;
+	for (;;) {
+		QRegExp fdre(QString("TTITLE%1=([^\\r\\n]+)[\\r\\n]").arg(tracknr));
+		QString title;
+		while ((idx = fdre.search(text, pos)) != -1) {
+			title += fdre.cap(1);
+			pos = idx + fdre.matchedLength();
+		}
+		if (pos > oldpos) {
+			st.track = tracknr + 1;
+			st.title = title;
+		} else {
+			break;
+		}
+		int duration = (tdit != trackDuration.end()) ?
+			*tdit++ : 0;
+		if (atTrackDataListEnd) {
+			ImportTrackData trackData;
+			trackData.setStandardTags(st);
+			trackData.setImportDuration(duration);
+			m_trackDataVector.push_back(trackData);
+		} else {
+			(*it).setStandardTags(st);
+			(*it).setImportDuration(duration);
+			++it;
+			atTrackDataListEnd = (it == m_trackDataVector.end());
+		}
+		st = st_hdr;
+		oldpos = pos;
+		++tracknr;
+	}
+	st.setInactive();
+	while (!atTrackDataListEnd) {
+		if ((*it).getFileDuration() == 0) {
+			it = m_trackDataVector.erase(it);
+		} else {
+			(*it).setStandardTags(st);
+			(*it).setImportDuration(0);
+			++it;
+		}
+		atTrackDataListEnd = (it == m_trackDataVector.end());
+	}
 }
