@@ -17,6 +17,7 @@
 #include <qprogressbar.h>
 #include <qmessagebox.h>
 #include <qgroupbox.h>
+#include <qpushbutton.h>
 
 #ifdef CONFIG_USE_KDE
 #include <kapp.h>
@@ -49,10 +50,6 @@
 #include "importdialog.h"
 #include "exportdialog.h"
 #include "numbertracksdialog.h"
-#include "formatconfig.h"
-#include "importconfig.h"
-#include "miscconfig.h"
-#include "freedbconfig.h"
 #include "standardtags.h"
 #include "rendirdialog.h"
 #include "dirlist.h"
@@ -69,10 +66,6 @@
 #include "taglibfile.h"
 #endif
 
-#ifdef HAVE_TUNEPIMP
-#include "musicbrainzconfig.h"
-#endif
-
 #ifdef KID3_USE_KCONFIGDIALOG
 #include <kconfigskeleton.h>
 #endif
@@ -86,10 +79,15 @@ class BrowserDialog : public QDialog {
 public:
 	BrowserDialog(QWidget *parent, QString &caption);
 	~BrowserDialog();
+	void goToAnchor(const QString& anchor);
+
+private:
+	QTextBrowser *m_textBrowser;
+	QString m_filename;
 };
 
 BrowserDialog::BrowserDialog(QWidget *parent, QString &caption)
-	: QDialog(parent, "browser", true)
+	: QDialog(parent, "browser")
 {
 	setCaption(caption);
 	QVBoxLayout *vlayout = new QVBoxLayout(this);
@@ -99,15 +97,15 @@ BrowserDialog::BrowserDialog(QWidget *parent, QString &caption)
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
 
-	QTextBrowser *textBrowser = new QTextBrowser(this, "textBrowser");
-	QString fn(QDir::currentDirPath() + QDir::separator() + "kid3_");
+	m_textBrowser = new QTextBrowser(this, "textBrowser");
+	m_filename = QDir::currentDirPath() + QDir::separator() + "kid3_";
 	QString lang((QString(QTextCodec::locale())).left(2));
-	if (!QFile::exists(fn + lang + ".html")) {
+	if (!QFile::exists(m_filename + lang + ".html")) {
 		lang = "en";
 	}
-	fn += lang + ".html";
-	textBrowser->setSource(fn);
-	vlayout->addWidget(textBrowser);
+	m_filename += lang + ".html";
+	m_textBrowser->setSource(m_filename);
+	vlayout->addWidget(m_textBrowser);
 
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
 	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
@@ -123,10 +121,10 @@ BrowserDialog::BrowserDialog(QWidget *parent, QString &caption)
 		closeButton->setDefault(true);
 		backButton->setEnabled(false);
 		forwardButton->setEnabled(false);
-		connect(backButton, SIGNAL(clicked()), textBrowser, SLOT(backward()));
-		connect(forwardButton, SIGNAL(clicked()), textBrowser, SLOT(forward()));
-		connect(textBrowser, SIGNAL(backwardAvailable(bool)), backButton, SLOT(setEnabled(bool)));
-		connect(textBrowser, SIGNAL(forwardAvailable(bool)), forwardButton, SLOT(setEnabled(bool)));
+		connect(backButton, SIGNAL(clicked()), m_textBrowser, SLOT(backward()));
+		connect(forwardButton, SIGNAL(clicked()), m_textBrowser, SLOT(forward()));
+		connect(m_textBrowser, SIGNAL(backwardAvailable(bool)), backButton, SLOT(setEnabled(bool)));
+		connect(m_textBrowser, SIGNAL(forwardAvailable(bool)), forwardButton, SLOT(setEnabled(bool)));
 		connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	}
 	resize(500, 500);
@@ -134,7 +132,23 @@ BrowserDialog::BrowserDialog(QWidget *parent, QString &caption)
 
 BrowserDialog::~BrowserDialog()
 {}
+
+void BrowserDialog::goToAnchor(const QString& anchor)
+{
+	m_textBrowser->setSource(m_filename + '#' + anchor);
+}
+
+BrowserDialog* Kid3App::s_helpBrowser = 0;
 #endif
+
+
+MiscConfig Kid3App::s_miscCfg("General Options");
+ImportConfig Kid3App::s_genCfg("General Options");
+FormatConfig Kid3App::s_fnFormatCfg("FilenameFormat");
+FormatConfig Kid3App::s_id3FormatCfg("Id3Format");
+FreedbConfig Kid3App::s_freedbCfg("Freedb");
+DiscogsConfig Kid3App::s_discogsCfg("Discogs");
+MusicBrainzConfig Kid3App::s_musicBrainzCfg("MusicBrainz");
 
 /**
  * Constructor.
@@ -145,14 +159,6 @@ BrowserDialog::~BrowserDialog()
 Kid3App::Kid3App() :
 	m_importDialog(0), m_exportDialog(0), m_numberTracksDialog(0)
 {
-	miscCfg = new MiscConfig("General Options");
-	genCfg = new ImportConfig("General Options");
-	fnFormatCfg = new FormatConfig("FilenameFormat");
-	id3FormatCfg = new FormatConfig("Id3Format");
-	freedbCfg = new FreedbConfig("Freedb");
-#ifdef HAVE_TUNEPIMP
-	m_musicBrainzCfg = new MusicBrainzConfig("MusicBrainz");
-#endif
 	copytags = new StandardTags();
 	initStatusBar();
 	setModified(false);
@@ -160,8 +166,7 @@ Kid3App::Kid3App() :
 	initView();
 	initActions();
 	FrameList::setListBox(view->framesListBox);
-	fnFormatCfg->setAsFilenameFormatter();
-	FileList::setMiscConfig(miscCfg);
+	s_fnFormatCfg.setAsFilenameFormatter();
 
 	resize(sizeHint());
 #ifdef CONFIG_USE_KDE
@@ -182,6 +187,10 @@ Kid3App::~Kid3App()
 {
 	delete m_importDialog;
 	delete m_numberTracksDialog;
+#ifndef CONFIG_USE_KDE
+	delete s_helpBrowser;
+	s_helpBrowser = 0;
+#endif
 }
 
 /**
@@ -232,8 +241,14 @@ void Kid3App::initActions()
 	new KAction(i18n("Import from &freedb.org..."), 0, this,
 		    SLOT(slotImportFreedb()), actionCollection(),
 		    "import_freedb");
+	new KAction(i18n("Import from &Discogs..."), 0, this,
+		    SLOT(slotImportDiscogs()), actionCollection(),
+		    "import_discogs");
+	new KAction(i18n("Import from MusicBrainz &release..."), 0, this,
+		    SLOT(slotImportMusicBrainzRelease()), actionCollection(),
+		    "import_musicbrainzrelease");
 #ifdef HAVE_TUNEPIMP
-	new KAction(i18n("Import from &MusicBrainz..."), 0, this,
+	new KAction(i18n("Import from &MusicBrainz fingerprint..."), 0, this,
 		    SLOT(slotImportMusicBrainz()), actionCollection(),
 		    "import_musicbrainz");
 #endif
@@ -351,11 +366,25 @@ void Kid3App::initActions()
 		connect(fileImportFreedb, SIGNAL(activated()),
 			this, SLOT(slotImportFreedb()));
 	}
+	fileImportDiscogs = new QAction(this);
+	if (fileImportDiscogs) {
+		fileImportDiscogs->setText(i18n("Import from Discogs"));
+		fileImportDiscogs->setMenuText(i18n("Import from &Discogs..."));
+		connect(fileImportDiscogs, SIGNAL(activated()),
+			this, SLOT(slotImportDiscogs()));
+	}
+	fileImportMusicBrainzRelease = new QAction(this);
+	if (fileImportMusicBrainzRelease) {
+		fileImportMusicBrainzRelease->setText(i18n("Import from MusicBrainz release"));
+		fileImportMusicBrainzRelease->setMenuText(i18n("Import from MusicBrainz &release..."));
+		connect(fileImportMusicBrainzRelease, SIGNAL(activated()),
+			this, SLOT(slotImportMusicBrainzRelease()));
+	}
 #ifdef HAVE_TUNEPIMP
 	fileImportMusicBrainz = new QAction(this);
 	if (fileImportMusicBrainz) {
-		fileImportMusicBrainz->setText(i18n("Import from MusicBrainz"));
-		fileImportMusicBrainz->setMenuText(i18n("Import from &MusicBrainz..."));
+		fileImportMusicBrainz->setText(i18n("Import from MusicBrainz fingerprint"));
+		fileImportMusicBrainz->setMenuText(i18n("Import from &MusicBrainz fingerprint..."));
 		connect(fileImportMusicBrainz, SIGNAL(activated()),
 			this, SLOT(slotImportMusicBrainz()));
 	}
@@ -465,6 +494,8 @@ void Kid3App::initActions()
 		fileMenu->insertSeparator();
 		fileImport->addTo(fileMenu);
 		fileImportFreedb->addTo(fileMenu);
+		fileImportDiscogs->addTo(fileMenu);
+		fileImportMusicBrainzRelease->addTo(fileMenu);
 #ifdef HAVE_TUNEPIMP
 		fileImportMusicBrainz->addTo(fileMenu);
 #endif
@@ -572,27 +603,28 @@ void Kid3App::saveOptions()
 #ifdef CONFIG_USE_KDE
 	fileOpenRecent->saveEntries(config, "Recent Files");
 #else
-	miscCfg->windowWidth = size().width();
-	miscCfg->windowHeight = size().height();
+	s_miscCfg.windowWidth = size().width();
+	s_miscCfg.windowHeight = size().height();
 #endif
-	miscCfg->splitterSizes = view->sizes();
-	miscCfg->m_vSplitterSizes = view->m_vSplitter->sizes();
-	miscCfg->formatItem = view->formatComboBox->currentItem();
-	miscCfg->formatText = view->formatComboBox->currentText();
+	s_miscCfg.splitterSizes = view->sizes();
+	s_miscCfg.m_vSplitterSizes = view->m_vSplitter->sizes();
+	s_miscCfg.formatItem = view->formatComboBox->currentItem();
+	s_miscCfg.formatText = view->formatComboBox->currentText();
 
-	miscCfg->m_customGenres.clear();
+	s_miscCfg.m_customGenres.clear();
 	int idx, numGenres = view->genreV2ComboBox->count();
 	for (idx = Genres::count + 1; idx < numGenres; ++idx) {
-		miscCfg->m_customGenres.append(view->genreV2ComboBox->text(idx));
+		s_miscCfg.m_customGenres.append(view->genreV2ComboBox->text(idx));
 	}
 
-	miscCfg->writeToConfig(config);
-	fnFormatCfg->writeToConfig(config);
-	id3FormatCfg->writeToConfig(config);
-	genCfg->writeToConfig(config);
-	freedbCfg->writeToConfig(config);
+	s_miscCfg.writeToConfig(config);
+	s_fnFormatCfg.writeToConfig(config);
+	s_id3FormatCfg.writeToConfig(config);
+	s_genCfg.writeToConfig(config);
+	s_freedbCfg.writeToConfig(config);
+	s_discogsCfg.writeToConfig(config);
 #ifdef HAVE_TUNEPIMP
-	m_musicBrainzCfg->writeToConfig(config);
+	s_musicBrainzCfg.writeToConfig(config);
 #endif
 }
 
@@ -602,13 +634,14 @@ void Kid3App::saveOptions()
 
 void Kid3App::readOptions()
 {
-	miscCfg->readFromConfig(config);
-	fnFormatCfg->readFromConfig(config);
-	id3FormatCfg->readFromConfig(config);
-	genCfg->readFromConfig(config);
-	freedbCfg->readFromConfig(config);
+	s_miscCfg.readFromConfig(config);
+	s_fnFormatCfg.readFromConfig(config);
+	s_id3FormatCfg.readFromConfig(config);
+	s_genCfg.readFromConfig(config);
+	s_freedbCfg.readFromConfig(config);
+	s_discogsCfg.readFromConfig(config);
 #ifdef HAVE_TUNEPIMP
-	m_musicBrainzCfg->readFromConfig(config);
+	s_musicBrainzCfg.readFromConfig(config);
 #endif
 	updateHideV1();
 	updateHideV2();
@@ -620,27 +653,27 @@ void Kid3App::readOptions()
 	viewStatusBar->setChecked(!statusBar()->isHidden());
 #endif
 #else
-	if (miscCfg->windowWidth != -1 && miscCfg->windowHeight != -1) {
-		resize(miscCfg->windowWidth, miscCfg->windowHeight);
+	if (s_miscCfg.windowWidth != -1 && s_miscCfg.windowHeight != -1) {
+		resize(s_miscCfg.windowWidth, s_miscCfg.windowHeight);
 	}
 #endif
 	if (
 #if QT_VERSION >= 300
-		!miscCfg->splitterSizes.empty()
+		!s_miscCfg.splitterSizes.empty()
 #else
-		miscCfg->splitterSizes.count() > 0
+		s_miscCfg.splitterSizes.count() > 0
 #endif
 		) {
-		view->setSizes(miscCfg->splitterSizes);
+		view->setSizes(s_miscCfg.splitterSizes);
 	}
 	if (
 #if QT_VERSION >= 300
-		!miscCfg->m_vSplitterSizes.empty()
+		!s_miscCfg.m_vSplitterSizes.empty()
 #else
-		miscCfg->m_vSplitterSizes.count() > 0
+		s_miscCfg.m_vSplitterSizes.count() > 0
 #endif
 		) {
-		view->m_vSplitter->setSizes(miscCfg->m_vSplitterSizes);
+		view->m_vSplitter->setSizes(s_miscCfg.m_vSplitterSizes);
 	} else {
 		// no values in configuration => set defaults
 		// the window height is a bit too large, but works
@@ -652,11 +685,11 @@ void Kid3App::readOptions()
 			view->m_vSplitter->setSizes(sizes);
 		}
 	}
-	view->formatComboBox->setCurrentItem(miscCfg->formatItem);
+	view->formatComboBox->setCurrentItem(s_miscCfg.formatItem);
 #if QT_VERSION >= 300
-	view->formatComboBox->setCurrentText(miscCfg->formatText);
+	view->formatComboBox->setCurrentText(s_miscCfg.formatText);
 #endif
-	view->genreV2ComboBox->insertStringList(miscCfg->m_customGenres);
+	view->genreV2ComboBox->insertStringList(s_miscCfg.m_customGenres);
 }
 
 #ifdef CONFIG_USE_KDE
@@ -733,7 +766,7 @@ bool Kid3App::saveDirectory(void)
 #endif
 	mp3file = view->mp3ListBox->first();
 	while (mp3file != 0) {
-		if (!mp3file->getFile()->writeTags(FALSE, &renamed, miscCfg->m_preserveTime)) {
+		if (!mp3file->getFile()->writeTags(FALSE, &renamed, s_miscCfg.m_preserveTime)) {
 			errorFiles.append(mp3file->getFile()->getFilename());
 			errorFiles.append('\n');
 		}
@@ -828,14 +861,6 @@ void Kid3App::cleanup()
 #ifndef CONFIG_USE_KDE
 		delete config;
 #endif
-#ifdef HAVE_TUNEPIMP
-		delete m_musicBrainzCfg;
-#endif
-		delete freedbCfg;
-		delete genCfg;
-		delete miscCfg;
-		delete fnFormatCfg;
-		delete id3FormatCfg;
 		delete copytags;
 #ifdef HAVE_ID3LIB
 		Mp3File::staticCleanup();
@@ -937,7 +962,7 @@ void Kid3App::slotFileOpen()
 			if (start != -1 && end != -1 && end > start) {
 				filter = filter.mid(start + 1, end - start - 1);
 			}
-			miscCfg->nameFilter = filter;
+			s_miscCfg.nameFilter = filter;
 			openDirectory(dir);
 		}
 	}
@@ -1064,6 +1089,16 @@ void Kid3App::slotSettingsShortcuts()
 	KKeyDialog::configure(actionCollection(), this);
 }
 
+/**
+ * Display help for a topic.
+ *
+ * @param anchor anchor in help document
+ */
+void Kid3App::displayHelp(const QString& anchor)
+{
+	kapp->invokeHelp(anchor, QString::null, "");
+}
+
 void Kid3App::slotHelpHandbook() {}
 void Kid3App::slotHelpAbout() {}
 void Kid3App::slotHelpAboutQt() {}
@@ -1075,17 +1110,37 @@ void Kid3App::slotViewStatusBar() {}
 void Kid3App::slotSettingsShortcuts() {}
 
 /**
+ * Display help for a topic.
+ *
+ * @param anchor anchor in help document
+ */
+void Kid3App::displayHelp(const QString& anchor)
+{
+	if (!s_helpBrowser) {
+		QString caption(i18n("Kid3 Handbook"));
+		s_helpBrowser =
+			new BrowserDialog(NULL, caption);
+	}
+	if (s_helpBrowser) { 
+		if (!anchor.isEmpty()) {
+			s_helpBrowser->goToAnchor(anchor);
+			s_helpBrowser->setModal(true);
+		} else {
+			s_helpBrowser->setModal(false);
+		}
+		if (!s_helpBrowser->isShown()) {
+			s_helpBrowser->show();
+		}
+	}
+}
+
+/**
  * Display handbook.
  */
 
 void Kid3App::slotHelpHandbook()
 {
-	QString caption(i18n("Kid3 Handbook"));
-	BrowserDialog *dialog =
-		new BrowserDialog(NULL, caption);
-	if (dialog) {
-		(void)dialog->exec();
-	}
+	displayHelp();
 }
 
 /**
@@ -1230,17 +1285,6 @@ void Kid3App::setupImportDialog()
 	}
 	if (m_importDialog) {
 		m_importDialog->clear();
-		m_importDialog->setDestV1(genCfg->importDestV1);
-		m_importDialog->setImportFormat(genCfg->importFormatNames,
-								genCfg->importFormatHeaders,
-								genCfg->importFormatTracks,
-								genCfg->importFormatIdx);
-		m_importDialog->setTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
-									   genCfg->maxTimeDifference);
-		m_importDialog->setFreedbConfig(freedbCfg);
-#ifdef HAVE_TUNEPIMP
-		m_importDialog->setMusicBrainzConfig(m_musicBrainzCfg);
-#endif
 	}
 }
 
@@ -1251,19 +1295,6 @@ void Kid3App::execImportDialog()
 {
 	if (m_importDialog &&
 			m_importDialog->exec() == QDialog::Accepted) {
-		genCfg->importDestV1 = m_importDialog->getDestV1();
-		QString name, header, track;
-		genCfg->importFormatIdx = m_importDialog->getImportFormat(name, header, track);
-		genCfg->importFormatNames[genCfg->importFormatIdx] = name;
-		genCfg->importFormatHeaders[genCfg->importFormatIdx] = header;
-		genCfg->importFormatTracks[genCfg->importFormatIdx] = track;
-		m_importDialog->getTimeDifferenceCheck(genCfg->enableTimeDifferenceCheck,
-																					 genCfg->maxTimeDifference);
-		m_importDialog->getFreedbConfig(freedbCfg);
-#ifdef HAVE_TUNEPIMP
-		m_importDialog->getMusicBrainzConfig(m_musicBrainzCfg);
-#endif
-
 		slotStatusMsg(i18n("Import..."));
 #if QT_VERSION >= 300
 		ImportTrackDataVector::const_iterator it = m_trackDataList.begin();
@@ -1271,14 +1302,15 @@ void Kid3App::execImportDialog()
 		ImportTrackDataVector::ConstIterator it = m_trackDataList.begin();
 #endif
 		StandardTags st;
-		StandardTagsFilter flt(genCfg->importDestV1 ?
+		bool destV1 = m_importDialog->getDestV1();
+		StandardTagsFilter flt(destV1 ?
 													 view->getFilterFromID3V1() :
 													 view->getFilterFromID3V2());
 		bool no_selection = view->numFilesSelected() == 0;
 		FileListItem* mp3file = view->mp3ListBox->first();
 		while (mp3file != 0) {
 			mp3file->getFile()->readTags(false);
-			if (genCfg->importDestV1) {
+			if (destV1) {
 				mp3file->getFile()->getStandardTagsV1(&st);
 			} else {
 				mp3file->getFile()->getStandardTagsV2(&st);
@@ -1290,7 +1322,7 @@ void Kid3App::execImportDialog()
 				break;
 			}
 			formatStandardTagsIfEnabled(&st);
-			if (genCfg->importDestV1) {
+			if (destV1) {
 				mp3file->getFile()->setStandardTagsV1(&st, flt);
 			} else {
 				mp3file->getFile()->setStandardTagsV2(&st, flt);
@@ -1333,6 +1365,30 @@ void Kid3App::slotImportFreedb()
 	setupImportDialog();
 	if (m_importDialog) {
 		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Freedb);
+		execImportDialog();
+	}
+}
+
+/**
+ * Import from Discogs.
+ */
+void Kid3App::slotImportDiscogs()
+{
+	setupImportDialog();
+	if (m_importDialog) {
+		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Discogs);
+		execImportDialog();
+	}
+}
+
+/**
+ * Import from MusicBrainz release database.
+ */
+void Kid3App::slotImportMusicBrainzRelease()
+{
+	setupImportDialog();
+	if (m_importDialog) {
+		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_MusicBrainzRelease);
 		execImportDialog();
 	}
 }
@@ -1395,29 +1451,12 @@ void Kid3App::slotExport()
 {
 	m_exportDialog = new ExportDialog(0);
 	if (m_exportDialog) {
-		m_exportDialog->setSrcV1(genCfg->m_exportSrcV1);
-		m_exportDialog->setExportFormat(
-			genCfg->m_exportFormatNames, genCfg->m_exportFormatHeaders,
-			genCfg->m_exportFormatTracks, genCfg->m_exportFormatTrailers,
-			genCfg->m_exportFormatIdx);
-		setExportData(genCfg->m_exportSrcV1 ?
+		m_exportDialog->readConfig();
+		setExportData(s_genCfg.m_exportSrcV1 ?
 									ExportDialog::SrcV1 : ExportDialog::SrcV2);
 		connect(m_exportDialog, SIGNAL(exportDataRequested(int)),
 						this, SLOT(setExportData(int)));
-		m_exportDialog->setWindowSize(genCfg->m_exportWindowWidth,
-																	genCfg->m_exportWindowHeight);
-		if (m_exportDialog->exec() == QDialog::Accepted) {
-			genCfg->m_exportSrcV1 = m_exportDialog->getSrcV1();
-			QString name, header, track, trailer;
-			genCfg->m_exportFormatIdx = m_exportDialog->getExportFormat(
-				name, header, track, trailer);
-			genCfg->m_exportFormatNames[genCfg->m_exportFormatIdx] = name;
-			genCfg->m_exportFormatHeaders[genCfg->m_exportFormatIdx] = header;
-			genCfg->m_exportFormatTracks[genCfg->m_exportFormatIdx] = track;
-			genCfg->m_exportFormatTrailers[genCfg->m_exportFormatIdx] = trailer;
-			m_exportDialog->getWindowSize(genCfg->m_exportWindowWidth,
-																		genCfg->m_exportWindowHeight);
-		}
+		m_exportDialog->exec();
 		delete m_exportDialog;
 		m_exportDialog = 0;
 	}
@@ -1429,7 +1468,7 @@ void Kid3App::slotExport()
  */
 void Kid3App::updateHideV1()
 {
-	if (miscCfg && miscCfg->m_hideV1) {
+	if (s_miscCfg.m_hideV1) {
 		view->idV1GroupBox->hide();
 #ifdef CONFIG_USE_KDE
 		settingsShowHideV1->setText(i18n("Show Tag &1"));
@@ -1455,7 +1494,7 @@ void Kid3App::updateHideV1()
  */
 void Kid3App::updateHideV2()
 {
-	if (miscCfg && miscCfg->m_hideV2) {
+	if (s_miscCfg.m_hideV2) {
 		view->idV2GroupBox->hide();
 #ifdef CONFIG_USE_KDE
 		settingsShowHideV2->setText(i18n("Show Tag &2"));
@@ -1480,9 +1519,7 @@ void Kid3App::updateHideV2()
  */
 void Kid3App::slotSettingsShowHideV1()
 {
-	if (miscCfg) {
-		miscCfg->m_hideV1 = !miscCfg->m_hideV1;
-	}
+	s_miscCfg.m_hideV1 = !s_miscCfg.m_hideV1;
 	updateHideV1();
 }
 
@@ -1491,9 +1528,7 @@ void Kid3App::slotSettingsShowHideV1()
  */
 void Kid3App::slotSettingsShowHideV2()
 {
-	if (miscCfg) {
-		miscCfg->m_hideV2 = !miscCfg->m_hideV2;
-	}
+	s_miscCfg.m_hideV2 = !s_miscCfg.m_hideV2;
 	updateHideV2();
 }
 
@@ -1513,13 +1548,13 @@ void Kid3App::slotSettingsConfigure(void)
 		new ConfigDialog(NULL, caption);
 #endif
 	if (dialog) {
-		dialog->setConfig(fnFormatCfg, id3FormatCfg, miscCfg);
+		dialog->setConfig(&s_fnFormatCfg, &s_id3FormatCfg, &s_miscCfg);
 		if (dialog->exec() == QDialog::Accepted) {
-			dialog->getConfig(fnFormatCfg, id3FormatCfg, miscCfg);
+			dialog->getConfig(&s_fnFormatCfg, &s_id3FormatCfg, &s_miscCfg);
 #if defined CONFIG_USE_KDE || QT_VERSION >= 300
-			fnFormatCfg->writeToConfig(config);
-			id3FormatCfg->writeToConfig(config);
-			miscCfg->writeToConfig(config);
+			s_fnFormatCfg.writeToConfig(config);
+			s_id3FormatCfg.writeToConfig(config);
+			s_miscCfg.writeToConfig(config);
 #endif
 #ifdef CONFIG_USE_KDE
 			config->sync();
@@ -1547,7 +1582,7 @@ void Kid3App::slotApplyFilenameFormat(void)
 			mp3file->getFile()->readTags(false);
 			QString str;
 			str = mp3file->getFile()->getFilename();
-			fnFormatCfg->formatString(str);
+			s_fnFormatCfg.formatString(str);
 			mp3file->getFile()->setFilename(str);
 		}
 		mp3file = view->mp3ListBox->next();
@@ -1572,10 +1607,10 @@ void Kid3App::slotApplyId3Format(void)
 		if (no_selection || mp3file->isInSelection()) {
 			mp3file->getFile()->readTags(false);
 			mp3file->getFile()->getStandardTagsV1(&st);
-			id3FormatCfg->formatStandardTags(st);
+			s_id3FormatCfg.formatStandardTags(st);
 			mp3file->getFile()->setStandardTagsV1(&st, fltV1);
 			mp3file->getFile()->getStandardTagsV2(&st);
-			id3FormatCfg->formatStandardTags(st);
+			s_id3FormatCfg.formatStandardTags(st);
 			mp3file->getFile()->setStandardTagsV2(&st, fltV2);
 		}
 		mp3file = view->mp3ListBox->next();
@@ -1591,8 +1626,7 @@ void Kid3App::slotRenameDirectory(void)
 	if (saveModified() && view->mp3ListBox->first()) {
 		QString caption(i18n("Rename Directory"));
 		RenDirDialog *dialog =
-			new RenDirDialog(NULL, caption, view->mp3ListBox->first()->getFile(),
-							 miscCfg->dirFormatItem, miscCfg->dirFormatText);
+			new RenDirDialog(NULL, caption, view->mp3ListBox->first()->getFile());
 		if (dialog) {
 			if (dialog->exec() == QDialog::Accepted) {
 				FileListItem* mp3file = view->mp3ListBox->first();
@@ -1611,8 +1645,6 @@ void Kid3App::slotRenameDirectory(void)
 					}
 					openDirectory(dialog->getNewDirname());
 				}
-				miscCfg->dirFormatItem = dialog->getFormatItem();
-				miscCfg->dirFormatText = dialog->getFormatText();
 				if (!errorMsg.isEmpty()) {
 					QMessageBox::warning(0, i18n("File Error"),
 										 i18n("Error while renaming:\n") +
@@ -2250,9 +2282,9 @@ void Kid3App::addFrame(void)
  */
 void Kid3App::formatFileNameIfEnabled(TaggedFile* taggedFile) const
 {
-	if (fnFormatCfg->m_formatWhileEditing) {
+	if (s_fnFormatCfg.m_formatWhileEditing) {
 		QString fn(taggedFile->getFilename());
-		fnFormatCfg->formatString(fn);
+		s_fnFormatCfg.formatString(fn);
 		taggedFile->setFilename(fn);
 	}
 }
@@ -2264,7 +2296,7 @@ void Kid3App::formatFileNameIfEnabled(TaggedFile* taggedFile) const
  */
 void Kid3App::formatStandardTagsIfEnabled(StandardTags* st) const
 {
-	if (id3FormatCfg->m_formatWhileEditing) {
-		id3FormatCfg->formatStandardTags(*st);
+	if (s_id3FormatCfg.m_formatWhileEditing) {
+		s_id3FormatCfg.formatStandardTags(*st);
 	}
 }

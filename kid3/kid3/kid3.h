@@ -21,25 +21,25 @@ typedef KMainWindow Kid3AppBaseClass;
 #include <qmainwindow.h>
 #include "generalconfig.h" // Kid3Settings
 class QAction;
+class BrowserDialog;
 typedef QMainWindow Kid3AppBaseClass;
 #endif
 #include "importtrackdata.h"
+#include "formatconfig.h"
+#include "importconfig.h"
+#include "miscconfig.h"
+#include "freedbconfig.h"
+#include "discogsconfig.h"
+#include "musicbrainzconfig.h"
+
 class KURL;
 class id3Form;
 class TaggedFile;
-class FormatConfig;
-class ImportConfig;
-class MiscConfig;
-class FreedbConfig;
 class StandardTags;
 class FrameList;
 class ImportDialog;
 class ExportDialog;
 class NumberTracksDialog;
-
-#ifdef HAVE_TUNEPIMP
-class MusicBrainzConfig;
-#endif
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -174,20 +174,27 @@ public:
 	 */
 	void addFrame(void);
 
+	/**
+	 * Display help for a topic.
+	 *
+	 * @param anchor anchor in help document
+	 */
+	static void displayHelp(const QString& anchor = QString::null);
+
 	/** Filename format configuration */
-	FormatConfig *fnFormatCfg;
+	static FormatConfig s_fnFormatCfg;
 	/** ID3 format configuration */
-	FormatConfig *id3FormatCfg;
+	static FormatConfig s_id3FormatCfg;
 	/** Import configuration */
-	ImportConfig *genCfg;
+	static ImportConfig s_genCfg;
 	/** Miscellaneous configuration */
-	MiscConfig *miscCfg;
+	static MiscConfig s_miscCfg;
 	/** Freedb configuration */
-	FreedbConfig *freedbCfg;
-#ifdef HAVE_TUNEPIMP
+	static FreedbConfig s_freedbCfg;
+	/** Discogs configuration */
+	static DiscogsConfig s_discogsCfg;
 	/** MusicBrainz configuration */
-	MusicBrainzConfig *m_musicBrainzCfg;
-#endif
+	static MusicBrainzConfig s_musicBrainzCfg;
 
 protected:
 	/**
@@ -366,6 +373,16 @@ public slots:
 	void slotImportFreedb();
 
 	/**
+	 * Import from Discogs.
+	 */
+	void slotImportDiscogs();
+
+	/**
+	 * Import from MusicBrainz release database.
+	 */
+	void slotImportMusicBrainzRelease();
+
+	/**
 	 * Import from MusicBrainz.
 	 */
 	void slotImportMusicBrainz();
@@ -542,6 +559,8 @@ private:
 	QAction* fileQuit;
 	QAction* fileImport;
 	QAction* fileImportFreedb;
+	QAction* fileImportDiscogs;
+	QAction* fileImportMusicBrainzRelease;
 #ifdef HAVE_TUNEPIMP
 	QAction* fileImportMusicBrainz;
 #endif
@@ -561,6 +580,8 @@ private:
 	QPopupMenu* toolsMenu;
 	QPopupMenu* settingsMenu;
 	QPopupMenu* helpMenu;
+
+	static BrowserDialog* s_helpBrowser;
 #endif
 };
 
