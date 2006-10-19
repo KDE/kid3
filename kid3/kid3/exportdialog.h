@@ -42,64 +42,9 @@ public:
 	~ExportDialog();
 
 	/**
-	 * Set export format.
-	 *
-	 * @param names    export format names list
-	 * @param headers  export format headers
-	 * @param tracks   export format tracks
-	 * @param trailers export format trailers
-	 * @param idx      selected index
+	 * Read the local settings from the configuration.
 	 */
-	void setExportFormat(const QStringList& names,
-											 const QStringList& headers,
-											 const QStringList& tracks,
-											 const QStringList& trailers,
-											 int idx);
-	/**
-	 * Get export format.
-	 *
-	 * @param name    export format name
-	 * @param header  export format header
-	 * @param track   export format track
-	 * @param trailer export format trailer
-	 *
-	 * @return index of current selection.
-	 */
-	int getExportFormat(QString& name,
-											QString& header,
-											QString& track,
-											QString& trailer) const;
-
-	/**
-	 * Set ID3v1 or ID3v2 tags as export source.
-	 *
-	 * @param v1 true to set ID3v1, false for ID3v2
-	 */
-	void setSrcV1(bool v1);
-
-	/**
-	 * Get export source.
-	 *
-	 * @return true if ID3v1 is source,
-	 *         false if ID3v2.
-	 */
-	bool getSrcV1() const;
-
-	/**
-	 * Set size of window.
-	 *
-	 * @param width  width
-	 * @param height height
-	 */
-	void setWindowSize(int width, int height);
-
-	/**
-	 * Get size of window.
-	 *
-	 * @param width  the width is returned here
-	 * @param height the height is returned here
-	 */
-	void getWindowSize(int& width, int& height) const;
+	void readConfig();
 
 	/**
 	 * Set data to be exported.
@@ -139,9 +84,14 @@ private slots:
 	void showPreview();
 
 	/**
-	 * Save the size of the window and close it.
+	 * Save the local settings to the configuration.
 	 */
-	void saveWindowSizeAndClose();
+	void saveConfig();
+
+	/**
+	 * Show help.
+	 */
+	void showHelp();
 
 private:
   /** Text editor */
@@ -169,10 +119,6 @@ private:
 
 	/** data to export */
 	ImportTrackDataVector m_trackDataVector;
-	/** width of window */
-	int m_windowWidth;
-	/** height of window */
-	int m_windowHeight;
 };
 
 #endif

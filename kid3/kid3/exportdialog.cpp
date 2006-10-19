@@ -21,6 +21,7 @@
 
 #include "taggedfile.h"
 #include "genres.h"
+#include "kid3.h"
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -42,8 +43,7 @@
  * @param parent        parent widget
  */
 ExportDialog::ExportDialog(QWidget* parent) :
-	QDialog(parent, "export", true),
-	m_windowWidth(-1), m_windowHeight(-1)
+	QDialog(parent, "export", true)
 {
 	setCaption(i18n("Export"));
 
@@ -103,21 +103,27 @@ ExportDialog::ExportDialog(QWidget* parent) :
 
 		QHBoxLayout* hlayout = new QHBoxLayout(vlayout, 6, "hlayout");
 		if (hlayout) {
+			QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+			if (helpButton) {
+				helpButton->setAutoDefault(false);
+				hlayout->addWidget(helpButton);
+				connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+			}
+			QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+			if (saveButton) {
+				saveButton->setAutoDefault(false);
+				hlayout->addWidget(saveButton);
+				connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+			}
 			QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 																						 QSizePolicy::Minimum);
 			hlayout->addItem(hspacer);
 
-			QPushButton* okButton = new QPushButton(i18n("&OK"), this);
-			if (okButton) {
-				okButton->setAutoDefault(false);
-				hlayout->addWidget(okButton);
-				connect(okButton, SIGNAL(clicked()), this, SLOT(saveWindowSizeAndClose()));
-			}
-			QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-			if (cancelButton) {
-				cancelButton->setAutoDefault(false);
-				hlayout->addWidget(cancelButton);
-				connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+			QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+			if (closeButton) {
+				closeButton->setAutoDefault(false);
+				hlayout->addWidget(closeButton);
+				connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 			}
 		}
 	}
@@ -128,100 +134,6 @@ ExportDialog::ExportDialog(QWidget* parent) :
  */
 ExportDialog::~ExportDialog()
 {}
-
-/**
- * Set export format.
- *
- * @param names    export format names list
- * @param headers  export format headers
- * @param tracks   export format tracks
- * @param trailers export format trailers
- * @param idx      selected index
- */
-void ExportDialog::setExportFormat(const QStringList& names,
-								   const QStringList& headers,
-								   const QStringList& tracks,
-								   const QStringList& trailers,
-								   int idx)
-{
-	m_formatHeaders = headers;
-	m_formatTracks = tracks;
-	m_formatTrailers = trailers;
-	m_formatComboBox->clear();
-	m_formatComboBox->insertStringList(names);
-	m_formatComboBox->setCurrentItem(idx);
-	setFormatLineEdit(idx);
-}
-
-/**
- * Get export format.
- *
- * @param name    export format name
- * @param header  export format header
- * @param track   export format track
- * @param trailer export format trailer
- *
- * @return index of current selection.
- */
-int ExportDialog::getExportFormat(QString& name,
-																	QString& header,
-																	QString& track,
-																	QString& trailer) const
-{
-	name = m_formatComboBox->currentText();
-	header = m_headerLineEdit->text();
-	track = m_trackLineEdit->text();
-	trailer = m_trailerLineEdit->text();
-	return m_formatComboBox->currentItem();
-}
-
-/**
- * Set ID3v1 or ID3v2 tags as export source.
- *
- * @param v1 true to set ID3v1, false for ID3v2
- */
-void ExportDialog::setSrcV1(bool v1)
-{
-	m_srcComboBox->setCurrentItem(v1 ? SrcV1 : SrcV2);
-}
-
-/**
- * Get export source.
- *
- * @return true if ID3v1 is source,
- *         false if ID3v2.
- */
-bool ExportDialog::getSrcV1() const
-{
-	return m_srcComboBox->currentItem() == SrcV1;
-}
-
-/**
- * Set size of window.
- *
- * @param width  width
- * @param height height
- */
-void ExportDialog::setWindowSize(int width, int height)
-{
-	m_windowWidth = width;
-	m_windowHeight = height;
-	if (width > 0 && height > 0) {
-		resize(width, height);
-	}
-}
-
-/**
- * Get size of window.
- *
- * @param width  the width is returned here
- * @param height the height is returned here
- */
-void ExportDialog::getWindowSize(int& width, int& height) const
-{
-	width = m_windowWidth;
-	height = m_windowHeight;
-}
 
 /**
  * Export to a file.
@@ -428,11 +340,48 @@ void ExportDialog::setExportData(const ImportTrackDataVector& trackDataVector)
 }
 
 /**
- * Save the size of the window and close it.
+ * Read the local settings from the configuration.
  */
-void ExportDialog::saveWindowSizeAndClose()
+void ExportDialog::readConfig()
 {
-	m_windowWidth = size().width();
-	m_windowHeight = size().height();
-	accept();
+	m_srcComboBox->setCurrentItem(Kid3App::s_genCfg.m_exportSrcV1 ? SrcV1 : SrcV2);
+
+	m_formatHeaders = Kid3App::s_genCfg.m_exportFormatHeaders;
+	m_formatTracks = Kid3App::s_genCfg.m_exportFormatTracks;
+	m_formatTrailers = Kid3App::s_genCfg.m_exportFormatTrailers;
+	m_formatComboBox->clear();
+	m_formatComboBox->insertStringList(Kid3App::s_genCfg.m_exportFormatNames);
+	m_formatComboBox->setCurrentItem(Kid3App::s_genCfg.m_exportFormatIdx);
+	setFormatLineEdit(Kid3App::s_genCfg.m_exportFormatIdx);
+
+	if (Kid3App::s_genCfg.m_exportWindowWidth > 0 &&
+			Kid3App::s_genCfg.m_exportWindowHeight > 0) {
+		resize(Kid3App::s_genCfg.m_exportWindowWidth,
+					 Kid3App::s_genCfg.m_exportWindowHeight);
+	}
+}
+
+/**
+ * Save the local settings to the configuration.
+ */
+void ExportDialog::saveConfig()
+{
+	Kid3App::s_genCfg.m_exportSrcV1 = (m_srcComboBox->currentItem() == SrcV1);
+
+	Kid3App::s_genCfg.m_exportFormatIdx = m_formatComboBox->currentItem();
+	Kid3App::s_genCfg.m_exportFormatNames[Kid3App::s_genCfg.m_exportFormatIdx] = m_formatComboBox->currentText();
+	Kid3App::s_genCfg.m_exportFormatHeaders[Kid3App::s_genCfg.m_exportFormatIdx] = m_headerLineEdit->text();
+	Kid3App::s_genCfg.m_exportFormatTracks[Kid3App::s_genCfg.m_exportFormatIdx] = m_trackLineEdit->text();
+	Kid3App::s_genCfg.m_exportFormatTrailers[Kid3App::s_genCfg.m_exportFormatIdx] = m_trailerLineEdit->text();
+
+	Kid3App::s_genCfg.m_exportWindowWidth = size().width();
+	Kid3App::s_genCfg.m_exportWindowHeight = size().height();
+}
+
+/**
+ * Show help.
+ */
+void ExportDialog::showHelp()
+{
+	Kid3App::displayHelp("export");
 }
