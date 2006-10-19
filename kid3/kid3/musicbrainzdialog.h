@@ -71,37 +71,6 @@ public:
 	 * @param srv "servername:port"
 	 */
 	void setServer(const QString& srv);
-
-	/**
-	 * Get proxy.
-	 *
-	 * @param used is set to true if proxy is used
-	 *
-	 * @return proxy, e.g. "myproxy:8080".
-	 */
-	QString getProxy(bool* used) const;
-
-	/**
-	 * Set proxy.
-	 *
-	 * @param proxy proxy, e.g. "myproxy:8080"
-	 * @param used is set to true if proxy is used
-	 */
-	void setProxy(const QString& proxy, bool used);
-
-	/**
-	 * Set MusicBrainz configuration.
-	 *
-	 * @param cfg MusicBrainz configuration.
-	 */
-	void setMusicBrainzConfig(const MusicBrainzConfig* cfg);
-
-	/**
-	 * Get MusicBrainz configuration.
-	 *
-	 * @param cfg MusicBrainz configuration.
-	 */
-	void getMusicBrainzConfig(MusicBrainzConfig* cfg) const;
 #endif // HAVE_TUNEPIMP
 
 signals:
@@ -175,6 +144,16 @@ private slots:
 	 */
 	void setResults(int index, ImportTrackDataVector& trackDataVector);
 
+	/**
+	 * Save the local settings to the configuration.
+	 */
+	void saveConfig();
+
+	/**
+	 * Show help.
+	 */
+	void showHelp();
+
 #ifdef HAVE_TUNEPIMP
 private:
 	/**
@@ -193,8 +172,6 @@ private:
 	void stopClient();
 
 	QComboBox* m_serverComboBox;
-	QCheckBox* m_proxyCheckBox;
-	QLineEdit* m_proxyLineEdit;
 	QTable* m_albumTable;
 	QTimer* m_timer;
 	MusicBrainzClient* m_client;

@@ -26,7 +26,7 @@
 #include <qtable.h>
 #include <qlabel.h>
 #include <qtimer.h>
-#include "musicbrainzconfig.h"
+#include "kid3.h"
 #include "musicbrainzclient.h"
 
 /**
@@ -72,17 +72,6 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 		connect(m_serverComboBox, SIGNAL(activated(int)),
 						this, SLOT(setClientConfig()));
 	}
-	QHBoxLayout* proxyLayout = new QHBoxLayout(vlayout);
-	m_proxyCheckBox = new QCheckBox(i18n("&Proxy:"), this);
-	m_proxyLineEdit = new QLineEdit(this);
-	if (proxyLayout && m_proxyCheckBox && m_proxyLineEdit) {
-		proxyLayout->addWidget(m_proxyCheckBox);
-		proxyLayout->addWidget(m_proxyLineEdit);
-		connect(m_proxyCheckBox, SIGNAL(toggled(bool)),
-						this, SLOT(setClientConfig()));
-		connect(m_proxyLineEdit, SIGNAL(returnPressed()),
-						this, SLOT(setClientConfig()));
-	}
 	m_albumTable = new QTable(this, "albumTable");
 	if (m_albumTable) {
 		m_albumTable->setNumCols(2);
@@ -106,19 +95,26 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
 	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
+	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+	QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
 	QPushButton* okButton = new QPushButton(i18n("&OK"), this);
 	QPushButton* applyButton = new QPushButton(i18n("&Apply"), this);
 	QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-	if (hlayout && okButton && cancelButton && applyButton) {
+	if (hlayout && helpButton && saveButton &&
+			okButton && cancelButton && applyButton) {
+		hlayout->addWidget(helpButton);
+		hlayout->addWidget(saveButton);
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
 		hlayout->addWidget(applyButton);
 		hlayout->addWidget(cancelButton);
 		// auto default is switched off to use the return key to set the server
-		// and proxy configuration
+		// configuration
 		okButton->setAutoDefault(false);
 		cancelButton->setAutoDefault(false);
 		applyButton->setAutoDefault(false);
+		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
@@ -139,6 +135,8 @@ MusicBrainzDialog::~MusicBrainzDialog()
  */
 void MusicBrainzDialog::initTable()
 {
+	setServer(Kid3App::s_musicBrainzCfg.m_server);
+
 #if QT_VERSION >= 300
 	unsigned numRows = m_trackDataVector.size();
 #else
@@ -181,9 +179,9 @@ void MusicBrainzDialog::clearResults()
 void MusicBrainzDialog::setClientConfig()
 {
 	if (m_client) {
-		MusicBrainzConfig cfg;
-		getMusicBrainzConfig(&cfg);
-		m_client->setMusicBrainzConfig(&cfg);
+		m_client->setConfig(
+			getServer(),
+			Kid3App::s_miscCfg.m_proxy, Kid3App::s_miscCfg.m_useProxy);
 	}
 }
 
@@ -454,50 +452,19 @@ void MusicBrainzDialog::setServer(const QString& srv)
 }
 
 /**
- * Get proxy.
- *
- * @param used is set to true if proxy is used
- *
- * @return proxy, e.g. "myproxy:8080".
+ * Save the local settings to the configuration.
  */
-QString MusicBrainzDialog::getProxy(bool* used) const
+void MusicBrainzDialog::saveConfig()
 {
-	*used = m_proxyCheckBox->isChecked();
-	return m_proxyLineEdit->text();
+	Kid3App::s_musicBrainzCfg.m_server = getServer();
 }
 
 /**
- * Set proxy.
- *
- * @param proxy proxy, e.g. "myproxy:8080"
- * @param used is set to true if proxy is used
+ * Show help.
  */
-void MusicBrainzDialog::setProxy(const QString& proxy, bool used)
+void MusicBrainzDialog::showHelp()
 {
-	m_proxyCheckBox->setChecked(used);
-	m_proxyLineEdit->setText(proxy);
-}
-
-/**
- * Set MusicBrainz configuration.
- *
- * @param cfg MusicBrainz configuration.
- */
-void MusicBrainzDialog::setMusicBrainzConfig(const MusicBrainzConfig* cfg)
-{
-	setProxy(cfg->m_proxy, cfg->m_useProxy);
-	setServer(cfg->m_server);
-}
-
-/**
- * Get musicBrainz.org configuration.
- *
- * @param cfg musicBrainz configuration.
- */
-void MusicBrainzDialog::getMusicBrainzConfig(MusicBrainzConfig* cfg) const
-{
-	cfg->m_proxy = getProxy(&cfg->m_useProxy);
-	cfg->m_server = getServer();
+	Kid3App::displayHelp("import-musicbrainz");
 }
 
 #else // HAVE_TUNEPIMP
@@ -514,5 +481,7 @@ void MusicBrainzDialog::setFileStatus(int, QString) {}
 void MusicBrainzDialog::updateFileTrackData(int) {}
 void MusicBrainzDialog::setMetaData(int, ImportTrackData&) {}
 void MusicBrainzDialog::setResults(int, ImportTrackDataVector&) {}
+void MusicBrainzDialog::saveConfig() {}
+void MusicBrainzDialog::showHelp() {}
 
 #endif // HAVE_TUNEPIMP
