@@ -35,6 +35,8 @@ public:
 	enum AutoStartSubDialog {
 		ASD_None,
 		ASD_Freedb,
+		ASD_Discogs,
+		ASD_MusicBrainzRelease,
 		ASD_MusicBrainz
 	};
 
@@ -66,12 +68,7 @@ public:
 	 * Clear dialog data.
 	 */
 	void clear();
-	/**
-	 * Set ID3v1 or ID3v2 tags as destination.
-	 *
-	 * @param v1 true to set ID3v1, false for ID3v2
-	 */
-	void setDestV1(bool v1);
+
 	/**
 	 * Get import destination.
 	 *
@@ -79,76 +76,18 @@ public:
 	 *         false if ID3v2.
 	 */
 	bool getDestV1() const;
-	/**
-	 * Set import format regexp.
-	 *
-	 * @param names   import format names list
-	 * @param headers import format header regexps
-	 * @param tracks  import format track regexps
-	 * @param idx     selected index
-	 */
-	void setImportFormat(const QStringList &names,
-						 const QStringList &headers,
-						 const QStringList &tracks,
-						 int idx);
-	/**
-	 * Get import format regexp.
-	 *
-	 * @param name   import format name
-	 * @param header import format header regexp
-	 * @param track  import format track regexp
-	 *
-	 * @return index of current selection.
-	 */
-	int getImportFormat(QString &name,
-						QString &header,
-						QString &track) const;
-	/**
-	 * Set time difference check configuration.
-	 *
-	 * @param enable  true to enable check
-	 * @param maxDiff maximum allowable time difference
-	 */ 
-	void setTimeDifferenceCheck(bool enable, int maxDiff);
-	/**
-	 * Get time difference check configuration.
-	 *
-	 * @param enable  true if check is enabled
-	 * @param maxDiff maximum allowed time difference
-	 */ 
-	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
-	/**
-	 * Set freedb.org configuration.
-	 *
-	 * @param cfg freedb configuration.
-	 */
-	void setFreedbConfig(const FreedbConfig *cfg);
-	/**
-	 * Get freedb.org configuration.
-	 *
-	 * @param cfg freedb configuration.
-	 */
-	void getFreedbConfig(FreedbConfig *cfg) const;
-#ifdef HAVE_TUNEPIMP
-	/**
-	 * Set MusicBrainz configuration.
-	 *
-	 * @param cfg musicBrainz configuration.
-	 */
-	void setMusicBrainzConfig(const MusicBrainzConfig* cfg);
-	/**
-	 * Get MusicBrainz configuration.
-	 *
-	 * @param cfg MusicBrainz configuration.
-	 */
-	void getMusicBrainzConfig(MusicBrainzConfig* cfg) const;
-#endif
 
 public slots:
 	/**
 	 * Shows the dialog as a modal dialog.
 	 */
 	int exec();
+
+private slots:
+	/**
+	 * Show help.
+	 */
+	void showHelp();
 
 private:
 	AutoStartSubDialog m_autoStartSubDialog;

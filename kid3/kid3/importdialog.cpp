@@ -25,6 +25,7 @@
 #include <qstring.h>
 #include "importselector.h"
 #include "importdialog.h"
+#include "kid3.h"
 
 /**
  * Constructor.
@@ -54,13 +55,19 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption,
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
 	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
+	QPushButton *helpButton = new QPushButton(i18n("&Help"), this);
+	QPushButton *saveButton = new QPushButton(i18n("&Save Settings"), this);
 	QPushButton *okButton = new QPushButton(i18n("&OK"), this);
 	QPushButton *cancelButton = new QPushButton(i18n("&Cancel"), this);
-	if (hlayout && okButton && cancelButton) {
+	if (hlayout && helpButton && okButton && saveButton && cancelButton) {
+		hlayout->addWidget(helpButton);
+		hlayout->addWidget(saveButton);
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
 		hlayout->addWidget(cancelButton);
 		okButton->setDefault(TRUE);
+		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+		connect(saveButton, SIGNAL(clicked()), impsel, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
@@ -82,6 +89,14 @@ int ImportDialog::exec()
 			show();
 			impsel->fromFreedb();
 			break;
+		case ASD_Discogs:
+			show();
+			impsel->fromDiscogs();
+			break;
+		case ASD_MusicBrainzRelease:
+			show();
+			impsel->fromMusicBrainzRelease();
+			break;
 		case ASD_MusicBrainz:
 			show();
 			impsel->fromMusicBrainz();
@@ -101,16 +116,6 @@ void ImportDialog::clear()
 }
 
 /**
- * Set ID3v1 or ID3v2 tags as import destination.
- *
- * @param v1 true to set ID3v1, false for ID3v2
- */
-void ImportDialog::setDestV1(bool v1)
-{
-	impsel->setDestination(v1 ? ImportSelector::DestV1 : ImportSelector::DestV2);
-}
-
-/**
  * Get import destination.
  *
  * @return true if ID3v1 is destination,
@@ -122,97 +127,9 @@ bool ImportDialog::getDestV1() const
 }
 
 /**
- * Set import format regexp.
- *
- * @param names   import format names list
- * @param headers import format header regexps
- * @param tracks  import format track regexps
- * @param idx     selected index
+ * Show help.
  */
-void ImportDialog::setImportFormat(const QStringList &names,
-								   const QStringList &headers,
-								   const QStringList &tracks,
-								   int idx)
+void ImportDialog::showHelp()
 {
-	impsel->setImportFormat(names, headers, tracks, idx);
+	Kid3App::displayHelp("import");
 }
-
-/**
- * Set time difference check configuration.
- *
- * @param enable  true to enable check
- * @param maxDiff maximum allowable time difference
- */ 
-void ImportDialog::setTimeDifferenceCheck(bool enable, int maxDiff)
-{
-	impsel->setTimeDifferenceCheck(enable, maxDiff);
-}
-
-/**
- * Get time difference check configuration.
- *
- * @param enable  true if check is enabled
- * @param maxDiff maximum allowed time difference
- */ 
-void ImportDialog::getTimeDifferenceCheck(bool& enable, int& maxDiff) const
-{
-	impsel->getTimeDifferenceCheck(enable, maxDiff);
-}
-
-/**
- * Get import format regexp.
- *
- * @param name   import format name
- * @param header import format header regexp
- * @param track  import format track regexp
- *
- * @return index of current selection.
- */
-int ImportDialog::getImportFormat(QString &name,
-								  QString &header,
-								  QString &track) const
-{
-	return impsel->getImportFormat(name, header, track);
-}
-
-/**
- * Set freedb.org configuration.
- *
- * @param cfg freedb configuration.
- */
-void ImportDialog::setFreedbConfig(const FreedbConfig *cfg)
-{
-	impsel->setFreedbConfig(cfg);
-}
-
-/**
- * Get freedb.org configuration.
- *
- * @param cfg freedb configuration.
- */
-void ImportDialog::getFreedbConfig(FreedbConfig *cfg) const
-{
-	impsel->getFreedbConfig(cfg);
-}
-
-#ifdef HAVE_TUNEPIMP
-/**
- * Set MusicBrainz configuration.
- *
- * @param cfg MusicBrainz configuration.
- */
-void ImportDialog::setMusicBrainzConfig(const MusicBrainzConfig* cfg)
-{
-	impsel->setMusicBrainzConfig(cfg);
-}
-
-/**
- * Get MusicBrainz configuration.
- *
- * @param cfg MusicBrainz configuration.
- */
-void ImportDialog::getMusicBrainzConfig(MusicBrainzConfig* cfg) const
-{
-	impsel->getMusicBrainzConfig(cfg);
-}
-#endif
