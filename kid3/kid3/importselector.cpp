@@ -34,7 +34,9 @@
 #include "standardtags.h"
 #include "importparser.h"
 #include "freedbdialog.h"
-#include "freedbconfig.h"
+#include "musicbrainzreleasedialog.h"
+#include "discogsdialog.h"
+#include "kid3.h"
 #include "taggedfile.h"
 #include "importselector.h"
 #ifdef HAVE_TUNEPIMP
@@ -136,10 +138,10 @@ ImportSelector::ImportSelector(
 	m_trackDataVector(trackDataList)
 {
 	freedbDialog = 0;
-	freedbCfg = 0;
+	m_musicBrainzReleaseDialog = 0;
+	m_discogsDialog = 0;
 #ifdef HAVE_TUNEPIMP
 	m_musicBrainzDialog = 0;
-	m_musicBrainzCfg = 0;
 #endif
 	importSource = None;
 	header_parser = new ImportParser();
@@ -176,33 +178,36 @@ ImportSelector::ImportSelector(
 #endif
 
 	QWidget *butbox = new QWidget(this);
-	QHBoxLayout *butlayout = new QHBoxLayout(butbox);
-	butlayout->setSpacing(6);
-	butlayout->setMargin(6);
+	QGridLayout *butlayout = new QGridLayout(butbox, 2, 7, 0, 6);
 	fileButton = new QPushButton(i18n("From F&ile"), butbox);
-	butlayout->addWidget(fileButton);
+	butlayout->addWidget(fileButton, 0, 0);
 	clipButton = new QPushButton(i18n("From Clip&board"), butbox);
-	butlayout->addWidget(clipButton);
+	butlayout->addWidget(clipButton, 0, 1);
 	freedbButton = new QPushButton(i18n("From &freedb.org"), butbox);
-	butlayout->addWidget(freedbButton);
-#ifdef HAVE_TUNEPIMP
-	m_musicBrainzButton = new QPushButton(i18n("From &MusicBrainz"), butbox);
-	butlayout->addWidget(m_musicBrainzButton);
-#endif
+	butlayout->addWidget(freedbButton, 0, 2);
+	m_discogsButton = new QPushButton(i18n("From Disco&gs"), butbox);
+	butlayout->addWidget(m_discogsButton, 0, 3);
 	QSpacerItem *butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	butlayout->addItem(butspacer);
+	butlayout->addItem(butspacer, 0, 4);
 	QLabel *destLabel = new QLabel(butbox, "destLabel");
 	destLabel->setText(i18n("D&estination:"));
-	butlayout->addWidget(destLabel);
+	butlayout->addWidget(destLabel, 0, 5);
 	destComboBox = new QComboBox(false, butbox, "destComboBox");
 	destComboBox->insertItem(i18n("Tag 1"), DestV1);
 	destComboBox->insertItem(i18n("Tag 2"), DestV2);
 	destLabel->setBuddy(destComboBox);
-	butlayout->addWidget(destComboBox);
+	butlayout->addWidget(destComboBox, 0, 7);
+
+	m_musicBrainzReleaseButton = new QPushButton(i18n("From MusicBrainz &Release"), butbox);
+	butlayout->addMultiCellWidget(m_musicBrainzReleaseButton, 1, 1, 0, 1);
+#ifdef HAVE_TUNEPIMP
+	m_musicBrainzButton = new QPushButton(i18n("From &MusicBrainz Fingerprint"), butbox);
+	butlayout->addMultiCellWidget(m_musicBrainzButton, 1, 1, 2, 3);
+#endif
 
 	QWidget* matchBox = new QWidget(this, "matchBox");
-	QHBoxLayout* matchLayout = new QHBoxLayout(matchBox, 6, 6, "matchLayout");
+	QHBoxLayout* matchLayout = new QHBoxLayout(matchBox, 0, 6, "matchLayout");
 	mismatchCheckBox = new QCheckBox(
 		i18n("Check maximum allowable time &difference (sec):"), matchBox ,
 		"mismatchCheckBox");
@@ -225,6 +230,8 @@ ImportSelector::ImportSelector(
 	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
 	connect(freedbButton, SIGNAL(clicked()), this, SLOT(fromFreedb()));
+	connect(m_musicBrainzReleaseButton, SIGNAL(clicked()), this, SLOT(fromMusicBrainzRelease()));
+	connect(m_discogsButton, SIGNAL(clicked()), this, SLOT(fromDiscogs()));
 #ifdef HAVE_TUNEPIMP
 	connect(m_musicBrainzButton, SIGNAL(clicked()), this, SLOT(fromMusicBrainz()));
 #endif
@@ -248,6 +255,16 @@ ImportSelector::~ImportSelector()
 		delete freedbDialog;
 		freedbDialog = 0;
 	}
+	if (m_musicBrainzReleaseDialog) {
+		m_musicBrainzReleaseDialog->disconnect();
+		delete m_musicBrainzReleaseDialog;
+		m_musicBrainzReleaseDialog = 0;
+	}
+	if (m_discogsDialog) {
+		m_discogsDialog->disconnect();
+		delete m_discogsDialog;
+		m_discogsDialog = 0;
+	}
 #ifdef HAVE_TUNEPIMP
 	if (m_musicBrainzDialog) {
 		m_musicBrainzDialog->disconnect();
@@ -263,11 +280,25 @@ ImportSelector::~ImportSelector()
 void ImportSelector::clear()
 {
 	tab->setNumRows(0);
+	destComboBox->setCurrentItem(
+		static_cast<int>(Kid3App::s_genCfg.importDestV1 ? DestV1 : DestV2));
+
+#if QT_VERSION >= 300
+	formatHeaders = Kid3App::s_genCfg.importFormatHeaders;
+	formatTracks = Kid3App::s_genCfg.importFormatTracks;
+	formatComboBox->clear();
+	formatComboBox->insertStringList(Kid3App::s_genCfg.importFormatNames);
+	formatComboBox->setCurrentItem(Kid3App::s_genCfg.importFormatIdx);
+	setFormatLineEdit(Kid3App::s_genCfg.importFormatIdx);
+#endif
+
+	mismatchCheckBox->setChecked(Kid3App::s_genCfg.enableTimeDifferenceCheck);
+	maxDiffSpinBox->setValue(Kid3App::s_genCfg.maxTimeDifference);
 }
 
 /**
  * Look for album specific information (artist, album, year, genre) in
- * a header (e.g. in a freedb header).
+ * a header.
  *
  * @param st standard tags to put resulting values in,
  *           fields which are not found are not touched.
@@ -278,7 +309,6 @@ bool ImportSelector::parseHeader(StandardTags &st)
 {
 	int pos = 0;
 	header_parser->setFormat(
-		importSource == Freedb ? "freedb_header" :
 #if QT_VERSION >= 300
 		headerLineEdit->text()
 #else
@@ -347,14 +377,11 @@ void ImportSelector::fromClipboard()
 void ImportSelector::fromFreedb()
 {
 	if (!freedbDialog) {
-		freedbDialog = new FreedbDialog(this);
-		connect(freedbDialog, SIGNAL(albumDataReceived(QString)),
-				this, SLOT(freedbAlbumDataReceived(QString)));
+		freedbDialog = new FreedbDialog(this, m_trackDataVector);
+		connect(freedbDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
 	}
 	if (freedbDialog) {
-		if (freedbCfg) {
-			freedbDialog->setFreedbConfig(freedbCfg);
-		}
 		freedbDialog->setArtistAlbum(m_trackDataVector.artist,
 																 m_trackDataVector.album);
 		(void)freedbDialog->exec();
@@ -362,15 +389,36 @@ void ImportSelector::fromFreedb()
 }
 
 /**
- * Called when freedb.org album data is received.
- *
- * @param txt text containing album data from freedb.org
+ * Import from MusicBrainz release database and preview in table.
  */
-void ImportSelector::freedbAlbumDataReceived(QString txt)
+void ImportSelector::fromMusicBrainzRelease()
 {
-	text = txt;
-	updateTrackData(Freedb);
-	showPreview();
+	if (!m_musicBrainzReleaseDialog) {
+		m_musicBrainzReleaseDialog = new MusicBrainzReleaseDialog(this, m_trackDataVector);
+		connect(m_musicBrainzReleaseDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
+	}
+	if (m_musicBrainzReleaseDialog) {
+		m_musicBrainzReleaseDialog->setArtistAlbum(m_trackDataVector.artist,
+																							 m_trackDataVector.album);
+		(void)m_musicBrainzReleaseDialog->exec();
+	}
+}
+/**
+ * Import from www.discogs.com and preview in table.
+ */
+void ImportSelector::fromDiscogs()
+{
+	if (!m_discogsDialog) {
+		m_discogsDialog = new DiscogsDialog(this, m_trackDataVector);
+		connect(m_discogsDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
+	}
+	if (m_discogsDialog) {
+		m_discogsDialog->setArtistAlbum(m_trackDataVector.artist,
+																		m_trackDataVector.album);
+		(void)m_discogsDialog->exec();
+	}
 }
 
 /**
@@ -573,7 +621,6 @@ bool ImportSelector::getNextTags(StandardTags &st, bool start)
 	if (start || pos == 0) {
 		pos = 0;
 		track_parser->setFormat(
-			importSource == Freedb ? "freedb_tracks" :
 #if QT_VERSION >= 300
 			trackLineEdit->text()
 #else
@@ -583,16 +630,6 @@ bool ImportSelector::getNextTags(StandardTags &st, bool start)
 			, true);
 	}
 	return track_parser->getNextTags(text, st, pos);
-}
-
-/**
- * Set ID3v1 or ID3v2 tags as import destination.
- *
- * @param dest DestV1 or DestV2 for ID3v1 or ID3v2
- */
-void ImportSelector::setDestination(ImportSelector::Destination dest)
-{
-	destComboBox->setCurrentItem((int)dest);
 }
 
 /**
@@ -606,76 +643,22 @@ ImportSelector::Destination ImportSelector::getDestination()
 }
 
 /**
- * Set import format regexp.
- *
- * @param names   import format names list
- * @param headers import format header regexps
- * @param tracks  import format track regexps
- * @param idx     selected index
+ * Save the local settings to the configuration.
  */
-void ImportSelector::setImportFormat(const QStringList &names,
-									 const QStringList &headers,
-									 const QStringList &tracks,
-									 int idx)
+void ImportSelector::saveConfig()
 {
+	Kid3App::s_genCfg.importDestV1 = 
+		(destComboBox->currentItem() == static_cast<int>(ImportSelector::DestV1));
+
 #if QT_VERSION >= 300
-	formatHeaders = headers;
-	formatTracks = tracks;
-	formatComboBox->clear();
-	formatComboBox->insertStringList(names);
-	formatComboBox->setCurrentItem(idx);
-	setFormatLineEdit(idx);
+	Kid3App::s_genCfg.importFormatIdx = formatComboBox->currentItem();
+	Kid3App::s_genCfg.importFormatNames[Kid3App::s_genCfg.importFormatIdx] = formatComboBox->currentText();
+	Kid3App::s_genCfg.importFormatHeaders[Kid3App::s_genCfg.importFormatIdx] = headerLineEdit->text();
+	Kid3App::s_genCfg.importFormatTracks[Kid3App::s_genCfg.importFormatIdx] = trackLineEdit->text();
 #endif
-}
+	getTimeDifferenceCheck(Kid3App::s_genCfg.enableTimeDifferenceCheck,
+												 Kid3App::s_genCfg.maxTimeDifference);
 
-/**
- * Get import format regexp.
- *
- * @param name   import format name
- * @param header import format header regexp
- * @param track  import format track regexp
- *
- * @return index of current selection.
- */
-int ImportSelector::getImportFormat(QString &name,
-									QString &header,
-									QString &track) const
-{
-#if QT_VERSION >= 300
-	name = formatComboBox->currentText();
-	header = headerLineEdit->text();
-	track = trackLineEdit->text();
-	return formatComboBox->currentItem();
-#else
-	return 0;
-#endif
-}
-
-/**
- * Set freedb.org configuration.
- *
- * @param cfg freedb configuration.
- */
-void ImportSelector::setFreedbConfig(const FreedbConfig *cfg)
-{
-	freedbCfg = cfg;
-}
-
-/**
- * Get freedb.org configuration.
- *
- * @param cfg freedb configuration.
- */
-void ImportSelector::getFreedbConfig(FreedbConfig *cfg) const
-{
-	if (freedbDialog) {
-		freedbDialog->getFreedbConfig(cfg);
-	} else {
-		// freedb dialog does not exist => copy configuration which was set
-		if (freedbCfg && (freedbCfg != cfg)) {
-			*cfg = *freedbCfg;
-		}
-	}
 }
 
 /**
@@ -706,18 +689,6 @@ QValueList<int>* ImportSelector::getTrackDurations()
 	} else {
 		return 0;
 	}
-}
-
-/**
- * Set time difference check configuration.
- *
- * @param enable  true to enable check
- * @param maxDiff maximum allowable time difference
- */ 
-void ImportSelector::setTimeDifferenceCheck(bool enable, int maxDiff)
-{
-	mismatchCheckBox->setChecked(enable);
-	maxDiffSpinBox->setValue(maxDiff);
 }
 
 /**
@@ -771,7 +742,7 @@ void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
 }
 
 /**
- * Import from freedb.org and preview in table.
+ * Import from MusicBrainz and preview in table.
  */
 void ImportSelector::fromMusicBrainz()
 {
@@ -782,49 +753,11 @@ void ImportSelector::fromMusicBrainz()
 						this, SLOT(showPreview()));
 	}
 	if (m_musicBrainzDialog) {
-		if (m_musicBrainzCfg) {
-			m_musicBrainzDialog->setMusicBrainzConfig(m_musicBrainzCfg);
-		}
 		m_musicBrainzDialog->initTable();
 		(void)m_musicBrainzDialog->exec();
 	}
 #endif
 }
-
-#ifdef HAVE_TUNEPIMP
-/**
- * Set MusicBrainz configuration.
- *
- * @param cfg MusicBrainz configuration.
- */
-void ImportSelector::setMusicBrainzConfig(const MusicBrainzConfig* cfg)
-{
-	m_musicBrainzCfg = cfg;
-}
-#else
-void ImportSelector::setMusicBrainzConfig(const MusicBrainzConfig*) {}
-#endif
-
-#ifdef HAVE_TUNEPIMP
-/**
- * Get MusicBrainz configuration.
- *
- * @param cfg MusicBrainz configuration.
- */
-void ImportSelector::getMusicBrainzConfig(MusicBrainzConfig* cfg) const
-{
-	if (m_musicBrainzDialog) {
-		m_musicBrainzDialog->getMusicBrainzConfig(cfg);
-	} else {
-		// MusicBrainz dialog does not exist => copy configuration which was set
-		if (m_musicBrainzCfg && (m_musicBrainzCfg != cfg)) {
-			*cfg = *m_musicBrainzCfg;
-		}
-	}
-}
-#else
-void ImportSelector::getMusicBrainzConfig(MusicBrainzConfig*) const {}
-#endif
 
 /**
  * Match import data with length.

@@ -23,9 +23,9 @@ class QSpinBox;
 class ImportParser;
 class StandardTags;
 class FreedbDialog;
-class FreedbConfig;
 class MusicBrainzDialog;
-class MusicBrainzConfig;
+class MusicBrainzReleaseDialog;
+class DiscogsDialog;
 class ImportTable;
 
 /**
@@ -60,7 +60,7 @@ public:
 	void clear();
 	/**
 	 * Look for album specific information (artist, album, year, genre) in
-	 * a header (e.g. in a freedb header).
+	 * a header.
 	 *
 	 * @param st standard tags to put resulting values in,
 	 *           fields which are not found are not touched.
@@ -80,65 +80,11 @@ public:
 	 */
 	bool getNextTags(StandardTags &st, bool start);
 	/**
-	 * Set ID3v1 or ID3v2 tags as import destination.
-	 *
-	 * @param dest DestV1 or DestV2 for ID3v1 or ID3v2
-	 */
-	void setDestination(ImportSelector::Destination dest);
-	/**
 	 * Get import destination.
 	 *
 	 * @return DestV1 or DestV2 for ID3v1 or ID3v2.
 	 */
 	Destination getDestination();
-	/**
-	 * Set import format regexp.
-	 *
-	 * @param names   import format names list
-	 * @param headers import format header regexps
-	 * @param tracks  import format track regexps
-	 * @param idx     selected index
-	 */
-	void setImportFormat(const QStringList &names,
-						 const QStringList &headers,
-						 const QStringList &tracks,
-						 int idx);
-	/**
-	 * Get import format regexp.
-	 *
-	 * @param names   import format names
-	 * @param headers import format header regexp
-	 * @param tracks  import format track regexp
-	 *
-	 * @return index of current selection.
-	 */
-	int getImportFormat(QString &names,
-						QString &headers,
-						QString &tracks) const;
-	/**
-	 * Set freedb.org configuration.
-	 *
-	 * @param cfg freedb configuration.
-	 */
-	void setFreedbConfig(const FreedbConfig *cfg);
-	/**
-	 * Get freedb.org configuration.
-	 *
-	 * @param cfg freedb configuration.
-	 */
-	void getFreedbConfig(FreedbConfig *cfg) const;
-	/**
-	 * Set MusicBrainz configuration.
-	 *
-	 * @param cfg MusicBrainz configuration.
-	 */
-	void setMusicBrainzConfig(const MusicBrainzConfig* cfg);
-	/**
-	 * Get MusicBrainz configuration.
-	 *
-	 * @param cfg MusicBrainz configuration.
-	 */
-	void getMusicBrainzConfig(MusicBrainzConfig* cfg) const;
 	/**
 	 * Get list with track durations.
 	 *
@@ -146,13 +92,6 @@ public:
 	 *         0 if no track durations found.
 	 */
 	QValueList<int>* getTrackDurations();
-	/**
-	 * Set time difference check configuration.
-	 *
-	 * @param enable  true to enable check
-	 * @param maxDiff maximum allowable time difference
-	 */ 
-	void setTimeDifferenceCheck(bool enable, int maxDiff);
 	/**
 	 * Get time difference check configuration.
 	 *
@@ -204,17 +143,19 @@ public slots:
 	 */
 	void fromMusicBrainz();
 	/**
+	 * Import from MusicBrainz release database and preview in table.
+	 */
+	void fromMusicBrainzRelease();
+	/**
+	 * Import from www.discogs.com and preview in table.
+	 */
+	void fromDiscogs();
+	/**
 	 * Set the format lineedits to the format selected in the combo box.
 	 *
 	 * @param index current index of the combo box
 	 */
 	void setFormatLineEdit(int index);
-	/**
-	 * Called when freedb.org album data is received.
-	 *
-	 * @param txt text containing album data from freedb.org
-	 */
-	void freedbAlbumDataReceived(QString txt);
 	/**
 	 * Show fields to import in text as preview in table.
 	 */
@@ -231,6 +172,10 @@ public slots:
 	 * Match import data with title.
 	 */
 	void matchWithTitle();
+	/**
+	 * Save the local settings to the configuration.
+	 */
+	void saveConfig();
 
 private:
 	enum TabColumn {
@@ -238,8 +183,9 @@ private:
 		AlbumColumn, YearColumn, GenreColumn, CommentColumn, NumColumns
 	};
 	enum ImportSource {
-		None, File, Clipboard, Freedb, MusicBrainz
+		None, File, Clipboard
 	};
+
 	/**
 	 * Update track data list with imported tags.
 	 *
@@ -248,6 +194,7 @@ private:
 	 * @return true if tags were found.
 	 */
 	bool updateTrackData(ImportSource impSrc);
+
 	/** From File button */
 	QPushButton *fileButton;
 	/** From Clipboard button */
@@ -256,6 +203,10 @@ private:
 	QPushButton *freedbButton;
 	/** From MusicBrainz button */
 	QPushButton *m_musicBrainzButton;
+	/** From MusicBrainz Release button */
+	QPushButton* m_musicBrainzReleaseButton;
+	/** From Discogs button */
+	QPushButton* m_discogsButton;
 	/** Match with Length button */
 	QPushButton* m_lengthButton;
 	/** Match with Track button */
@@ -286,14 +237,14 @@ private:
 	QStringList formatTracks;
 	/** freedb.org import dialog */
 	FreedbDialog *freedbDialog;
-	/** freedb.org import dialog */
+	/** MusicBrainz import dialog */
 	MusicBrainzDialog* m_musicBrainzDialog;
+	/** MusicBrainz release import dialog */
+	MusicBrainzReleaseDialog* m_musicBrainzReleaseDialog;
+	/** Discogs import dialog */
+	DiscogsDialog* m_discogsDialog;
 	/** import source */
 	ImportSource importSource;
-	/** freedb config */
-	const FreedbConfig *freedbCfg;
-	/** MusicBrainz config */
-	const MusicBrainzConfig *m_musicBrainzCfg;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
 };
