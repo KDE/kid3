@@ -24,7 +24,6 @@ class QSocket;
 #endif
 #endif // HAVE_TUNEPIMP
 
-class MusicBrainzConfig;
 class ImportTrackData;
 class ImportTrackDataVector;
 
@@ -152,11 +151,14 @@ public:
 	void pollStatus();
 
 	/**
-	 * Set MusicBrainz configuration.
+	 * Set configuration.
 	 *
-	 * @param cfg MusicBrainz configuration.
+	 * @param server   server
+	 * @param proxy    proxy
+	 * @param useProxy true if proxy has to be used
 	 */
-	void setMusicBrainzConfig(const MusicBrainzConfig* cfg);
+	void setConfig(const QString& server, const QString& proxy,
+								 bool useProxy);
 
 	/**
 	 * Add the files in the file list.

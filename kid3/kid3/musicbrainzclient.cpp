@@ -21,7 +21,6 @@
 #include <qsocket.h>
 #include <qdom.h>
 #endif
-#include "musicbrainzconfig.h"
 #include "freedbclient.h"
 #include "importtrackdata.h"
 
@@ -161,16 +160,7 @@ void LookupQuery::socketConnectionClosed()
 	queryNext();
 }
 
-#else
-
-LookupQuery::LookupQuery(int, const QString&, Q_UINT16, const QString&, Q_UINT16) {}
-LookupQuery::~LookupQuery() {}
-void LookupQuery::socketConnected() {}
-void LookupQuery::socketError() {}
-void LookupQuery::socketConnectionClosed() {}
-
 #endif
-
 
 /**
  * Constructor.
@@ -396,19 +386,22 @@ void MusicBrainzClient::pollStatus()
 }
 
 /**
- * Set MusicBrainz configuration.
+ * Set configuration.
  *
- * @param cfg MusicBrainz configuration.
+ * @param server   server
+ * @param proxy    proxy
+ * @param useProxy true if proxy has to be used
  */
-void MusicBrainzClient::setMusicBrainzConfig(const MusicBrainzConfig* cfg)
+void MusicBrainzClient::setConfig(
+	const QString& server, const QString& proxy, bool useProxy)
 {
 	int port;
 	QString ip;
-	FreedbClient::splitNamePort(cfg->m_server, ip, port);
+	FreedbClient::splitNamePort(server, ip, port);
 	tp_SetServer(m_tp, ip.latin1(), port);
 
-	if (cfg->m_useProxy) {
-		FreedbClient::splitNamePort(cfg->m_proxy, ip, port);
+	if (useProxy) {
+		FreedbClient::splitNamePort(proxy, ip, port);
 		tp_SetProxy(m_tp, ip.latin1(), port);
 	}	else {
 		tp_SetProxy(m_tp, "", 80);
@@ -651,8 +644,6 @@ bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
 	return resultsAvailable;
 }
 
-void MusicBrainzClient::parseLookupResponse(int, const QCString&) {}
-
 #endif
 
 #else // HAVE_TUNEPIMP
@@ -661,3 +652,14 @@ MusicBrainzClient::MusicBrainzClient(ImportTrackDataVector&) {}
 MusicBrainzClient::~MusicBrainzClient() {}
 
 #endif // HAVE_TUNEPIMP
+
+#if !(HAVE_TUNEPIMP >= 5)
+
+LookupQuery::LookupQuery(int, const QString&, Q_UINT16, const QString&, Q_UINT16) {}
+LookupQuery::~LookupQuery() {}
+void LookupQuery::socketConnected() {}
+void LookupQuery::socketError() {}
+void LookupQuery::socketConnectionClosed() {}
+void MusicBrainzClient::parseLookupResponse(int, const QCString&) {}
+
+#endif
