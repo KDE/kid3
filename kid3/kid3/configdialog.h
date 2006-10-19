@@ -33,16 +33,20 @@ class CommandsTable;
 class QString;
 class QWidget;
 class QComboBox;
+class QLineEdit;
+
+#ifdef KID3_USE_KCONFIGDIALOG
+typedef KConfigDialog ConfigDialogBaseClass;
+#else
+typedef QTabDialog ConfigDialogBaseClass;
+#endif
 
 /**
  * Configuration dialog.
  */
-#ifdef KID3_USE_KCONFIGDIALOG
-class ConfigDialog : public KConfigDialog
-#else
-class ConfigDialog : public QTabDialog
-#endif
+class ConfigDialog : public ConfigDialogBaseClass
 {
+Q_OBJECT
 public:
 	/**
 	 * Constructor.
@@ -78,6 +82,13 @@ public:
 	 */
 	void getConfig(FormatConfig *fnCfg, FormatConfig *id3Cfg,
 				   MiscConfig *miscCfg) const;
+
+protected slots:
+	/**
+	 * Show help.
+	 */
+	virtual void slotHelp();
+
 private:
 	/** Preserve timestamp checkbox */
 	QCheckBox* m_preserveTimeCheckBox;
@@ -93,6 +104,10 @@ private:
 	FormatBox *id3FormatBox;
 	/** Commands table */
 	CommandsTable* m_commandsTable;
+	/** Use proxy check box */
+	QCheckBox* m_proxyCheckBox;
+	/** Proxy line edit */
+	QLineEdit* m_proxyLineEdit;
 };
 
 #endif

@@ -23,11 +23,13 @@
 #include <qcheckbox.h>
 #include <qgroupbox.h>
 #include <qcombobox.h>
+#include <qlineedit.h>
 
 #include "formatconfig.h"
 #include "formatbox.h"
 #include "miscconfig.h"
 #include "commandstable.h"
+#include "kid3.h"
 
 /**
  * Constructor.
@@ -39,7 +41,7 @@
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
 													 KConfigSkeleton* configSkeleton) :
 	KConfigDialog(parent, "configure", configSkeleton,
-								IconList, Ok | Cancel, Ok, true)
+								IconList, Ok | Cancel | Help, Ok, true)
 #else
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 	QTabDialog(parent, "configure", true)
@@ -129,9 +131,32 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 		addTab(formatPage, i18n("F&ormat"));
 #endif
 	}
+
+	QWidget* proxyPage = new QWidget(this);
+	if (proxyPage) {
+		QVBoxLayout* vlayout = new QVBoxLayout(proxyPage, 6, 6);
+		if (vlayout) {
+			QHBoxLayout* proxyLayout = new QHBoxLayout(vlayout);
+			m_proxyCheckBox = new QCheckBox(i18n("&Proxy:"), proxyPage);
+			m_proxyLineEdit = new QLineEdit(proxyPage);
+			if (proxyLayout && m_proxyCheckBox && m_proxyLineEdit) {
+				proxyLayout->addWidget(m_proxyCheckBox);
+				proxyLayout->addWidget(m_proxyLineEdit);
+			}
+		}
+#ifdef KID3_USE_KCONFIGDIALOG
+		addPage(proxyPage, i18n("Proxy"), "proxy");
+#else
+		addTab(proxyPage, i18n("&Proxy"));
+#endif
+	}
+
 #ifndef KID3_USE_KCONFIGDIALOG
-	setOkButton();
-	setCancelButton();
+	setHelpButton(i18n("&Help"));
+	connect(this, SIGNAL(helpButtonPressed()), this, SLOT(slotHelp()));
+
+	setOkButton(i18n("&OK"));
+	setCancelButton(i18n("&Cancel"));
 #endif
 #if QT_VERSION < 300
 	resize(415, 488);
@@ -172,6 +197,8 @@ void ConfigDialog::setConfig(const FormatConfig *fnCfg,
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	m_id3v2VersionComboBox->setCurrentItem(miscCfg->m_id3v2Version);
 #endif
+	m_proxyCheckBox->setChecked(miscCfg->m_useProxy);
+	m_proxyLineEdit->setText(miscCfg->m_proxy);
 }
 
 /**
@@ -198,4 +225,14 @@ void ConfigDialog::getConfig(FormatConfig *fnCfg,
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	miscCfg->m_id3v2Version = m_id3v2VersionComboBox->currentItem();
 #endif
+	miscCfg->m_useProxy = m_proxyCheckBox->isChecked();
+	miscCfg->m_proxy = m_proxyLineEdit->text();
+}
+
+/**
+ * Show help.
+ */
+void ConfigDialog::slotHelp()
+{
+	Kid3App::displayHelp("configure-kid3");
 }
