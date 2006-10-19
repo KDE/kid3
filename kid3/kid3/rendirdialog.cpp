@@ -24,6 +24,7 @@
 
 #include "taggedfile.h"
 #include "standardtags.h"
+#include "kid3.h"
 #include "miscconfig.h"
 #include "rendirdialog.h"
 
@@ -33,12 +34,9 @@
  * @param parent     parent widget
  * @param caption    dialog title
  * @param taggedFile file to use for rename preview
- * @param formatItem directory format item
- * @param formatText directory format
  */
 RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
-						   TaggedFile *taggedFile,
-						   int formatItem, const QString &formatText) :
+						   TaggedFile *taggedFile) :
 	QDialog(parent, "rendir", true), m_taggedFile(taggedFile)
 {
 	setCaption(caption);
@@ -69,12 +67,14 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 	if (formatLayout && formatLabel && formatComboBox) {
 		formatComboBox->insertStrList(MiscConfig::defaultDirFmtList);
 		formatComboBox->setEditable(true);
-		formatComboBox->setCurrentItem(formatItem);
+		formatComboBox->setCurrentItem(Kid3App::s_miscCfg.dirFormatItem);
 #if QT_VERSION >= 300
-		formatComboBox->setCurrentText(formatText);
+		formatComboBox->setCurrentText(Kid3App::s_miscCfg.dirFormatText);
 #else
-		formatComboBox->setEditText(formatText);
+		formatComboBox->setEditText(Kid3App::s_miscCfg.dirFormatText);
 #endif
+		tagversionComboBox->setCurrentItem(
+			Kid3App::s_miscCfg.m_renDirSrcV1 ? TagV1 : TagV2);
 		formatLabel->setBuddy(formatComboBox);
 		formatLayout->addWidget(formatLabel);
 		formatLayout->addWidget(formatComboBox);
@@ -98,13 +98,19 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
 	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
+	QPushButton *helpButton = new QPushButton(i18n("&Help"), this);
+	QPushButton *saveButton = new QPushButton(i18n("&Save Settings"), this);
 	QPushButton *okButton = new QPushButton(i18n("&OK"), this);
 	QPushButton *cancelButton = new QPushButton(i18n("&Cancel"), this);
-	if (hlayout && okButton && cancelButton) {
+	if (hlayout && helpButton && saveButton && okButton && cancelButton) {
+		hlayout->addWidget(helpButton);
+		hlayout->addWidget(saveButton);
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
 		hlayout->addWidget(cancelButton);
 		okButton->setDefault(TRUE);
+		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
@@ -398,21 +404,20 @@ bool RenDirDialog::performAction(TaggedFile *taggedFile, bool& again, QString *e
 }
 
 /**
- * Get currently selected directory format item.
- *
- * @return index of directory format.
+ * Save the local settings to the configuration.
  */
-int RenDirDialog::getFormatItem(void) const
+void RenDirDialog::saveConfig()
 {
-	return formatComboBox->currentItem();
+	Kid3App::s_miscCfg.dirFormatItem = formatComboBox->currentItem();
+	Kid3App::s_miscCfg.dirFormatText = formatComboBox->currentText();
+	Kid3App::s_miscCfg.m_renDirSrcV1 =
+		(tagversionComboBox->currentItem() == TagV1);
 }
 
 /**
- * Get currently used directory format.
- *
- * @return directory format.
+ * Show help.
  */
-QString RenDirDialog::getFormatText(void) const
+void RenDirDialog::showHelp()
 {
-	return formatComboBox->currentText();
+	Kid3App::displayHelp("rename-directory");
 }

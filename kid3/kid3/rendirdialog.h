@@ -30,12 +30,9 @@ public:
 	 * @param parent     parent widget
 	 * @param caption    dialog title
 	 * @param taggedFile file to use for rename preview
-	 * @param formatItem directory format item
-	 * @param formatText directory format
 	 */
 	RenDirDialog(QWidget *parent, const QString &caption,
-				 TaggedFile *taggedFile,
-				 int formatItem, const QString &formatText);
+				 TaggedFile *taggedFile);
 	/**
 	 * Destructor.
 	 */
@@ -75,24 +72,22 @@ public:
 	 *         false if operation is finished.
 	 */
 	bool performAction(TaggedFile *taggedFile, bool& again, QString *errorMsg);
-	/**
-	 * Get currently selected directory format item.
-	 *
-	 * @return index of directory format.
-	 */
-	int getFormatItem(void) const;
-	/**
-	 * Get currently used directory format.
-	 *
-	 * @return directory format.
-	 */
-	QString getFormatText(void) const;
 
 private slots:
 	/**
 	 * Set new directory name according to current settings.
 	 */
 	void slotUpdateNewDirname();
+
+	/**
+	 * Save the local settings to the configuration.
+	 */
+	void saveConfig();
+
+	/**
+	 * Show help.
+	 */
+	void showHelp();
 
 private:
 	/**
