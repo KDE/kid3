@@ -13,7 +13,7 @@
 
 #include "standardtags.h"
 #include "filelist.h"
-#include "miscconfig.h"
+#include "kid3.h"
 #include "genres.h"
 #include "taggedfile.h"
 
@@ -705,9 +705,7 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
  */
 QString TaggedFile::getCommentFieldName() const
 {
-	const MiscConfig* miscCfg = FileList::getMiscConfig();
-	return miscCfg ?
-		miscCfg->m_commentName : MiscConfig::defaultCommentName;
+	return Kid3App::s_miscCfg.m_commentName;
 }
 
 /**
@@ -719,8 +717,7 @@ QString TaggedFile::getCommentFieldName() const
 int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 {
 	int numTracks = -1;
-	const MiscConfig* miscCfg = FileList::getMiscConfig();
-	if (miscCfg && miscCfg->m_enableTotalNumberOfTracks) {
+	if (Kid3App::s_miscCfg.m_enableTotalNumberOfTracks) {
 		numTracks = FileList::getNumberOfFiles();
 	}
 	return numTracks;
