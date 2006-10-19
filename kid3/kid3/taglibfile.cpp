@@ -1142,9 +1142,16 @@ static QString getTagFormat(const TagLib::Tag* tag)
 		} else if ((id3v2Tag = dynamic_cast<const TagLib::ID3v2::Tag*>(tag)) != 0) {
 			TagLib::ID3v2::Header* header = id3v2Tag->header();
 			if (header) {
+				uint majorVersion = header->majorVersion();
+				uint revisionNumber = header->revisionNumber();
+#if (TAGLIB_VERSION <= 0x010400)
+				// A wrong majorVersion is returned if a new ID3v2.4.0 tag is created.
+				if (majorVersion == 0 && revisionNumber == 0) {
+					majorVersion = 4;
+				}
+#endif
 				return QString("ID3v2.%1.%2").
-					arg(header->majorVersion()).
-					arg(header->revisionNumber());
+					arg(majorVersion).arg(revisionNumber);
 			} else {
 				return "ID3v2";
 			}
