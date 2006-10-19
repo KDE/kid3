@@ -19,6 +19,7 @@ class QComboBox;
  * Number tracks dialog.
  */
 class NumberTracksDialog : public QDialog {
+Q_OBJECT
 public:
 	/**
 	 * Constructor.
@@ -44,6 +45,12 @@ public:
 	 *         false if ID3v2.
 	 */
 	bool getDestV1() const;
+
+private slots:
+	/**
+	 * Show help.
+	 */
+	void showHelp();
 
 private:
 	/** Destinations */

@@ -23,6 +23,7 @@
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qcombobox.h>
+#include "kid3.h"
 
 /**
  * Constructor.
@@ -63,6 +64,11 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 
 		QHBoxLayout* hlayout = new QHBoxLayout(vlayout, 6, "hlayout");
 		if (hlayout) {
+			QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+			if (helpButton) {
+				hlayout->addWidget(helpButton);
+				connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+			}
 			QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 																						 QSizePolicy::Minimum);
 			hlayout->addItem(hspacer);
@@ -104,4 +110,12 @@ int NumberTracksDialog::getStartNumber() const
 bool NumberTracksDialog::getDestV1() const
 {
 	return (m_destComboBox->currentItem() == DestV1);
+}
+
+/**
+ * Show help.
+ */
+void NumberTracksDialog::showHelp()
+{
+	Kid3App::displayHelp("number-tracks");
 }
