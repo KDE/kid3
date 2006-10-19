@@ -26,7 +26,7 @@
 #include "taggedfile.h"
 #include "filelist.h"
 #include "filelistitem.h"
-#include "miscconfig.h"
+#include "kid3.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -39,9 +39,6 @@
 #ifdef HAVE_TAGLIB
 #include "taglibfile.h"
 #endif
-
-/** Miscellaneous configuration */
-MiscConfig* FileList::s_miscCfg = 0;
 
 /** Single instance */
 FileList* FileList::s_instance = 0;
@@ -120,7 +117,7 @@ bool FileList::readDir(const QString& name)
 		dirname = name;
 		QDir dir(file.filePath());
 		QStringList dirContents = dir.entryList(
-			s_miscCfg ? s_miscCfg->nameFilter : "*");
+			Kid3App::s_miscCfg.nameFilter);
 		for (QStringList::Iterator it = dirContents.begin();
 			 it != dirContents.end(); ++it) {
 			if (!QFileInfo(
@@ -139,8 +136,7 @@ bool FileList::readDir(const QString& name)
 #ifdef HAVE_ID3LIB
 				if ((*it).right(4).lower() == ".mp3"
 #ifdef HAVE_TAGLIB
-						&& !(s_miscCfg &&
-								 s_miscCfg->m_id3v2Version == MiscConfig::ID3v2_4_0)
+						&& Kid3App::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
 #endif
 					)
 					taggedFile = new Mp3File(dirname, *it);
@@ -148,6 +144,8 @@ bool FileList::readDir(const QString& name)
 #endif
 #ifdef HAVE_TAGLIB
 					taggedFile = new TagLibFile(dirname, *it);
+#else
+					;
 #endif
 				if (taggedFile) {
 					insertItem(new FileListItem(taggedFile));
@@ -200,12 +198,12 @@ QString FileList::getAbsDirname(void) const
 void FileList::contextMenu(QListBoxItem* item, const QPoint& pos)
 {
 #if QT_VERSION >= 300
-	if (item && s_miscCfg && !s_miscCfg->m_contextMenuCommands.empty()) {
+	if (item && !Kid3App::s_miscCfg.m_contextMenuCommands.empty()) {
 		QPopupMenu menu(this);
 		int id = 0;
 		for (QStringList::const_iterator
-					 it = s_miscCfg->m_contextMenuCommands.begin();
-				 it != s_miscCfg->m_contextMenuCommands.end();
+					 it = Kid3App::s_miscCfg.m_contextMenuCommands.begin();
+				 it != Kid3App::s_miscCfg.m_contextMenuCommands.end();
 				 ++it) {
 			QString cmd = *it;
 			if (cmd[0] == '!') {
@@ -228,10 +226,9 @@ void FileList::contextMenu(QListBoxItem* item, const QPoint& pos)
 void FileList::executeContextCommand(int id)
 {
 #if QT_VERSION >= 300
-	if (s_miscCfg &&
-			id < static_cast<int>(s_miscCfg->m_contextMenuCommands.size())) {
+	if (id < static_cast<int>(Kid3App::s_miscCfg.m_contextMenuCommands.size())) {
 		QStringList args;
-		QString cmd = s_miscCfg->m_contextMenuCommands[id];
+		QString cmd = Kid3App::s_miscCfg.m_contextMenuCommands[id];
 		bool confirm = false;
 		if (cmd[0] == '!') {
 			cmd = cmd.mid(1);
