@@ -631,7 +631,7 @@ const QByteArray& TagLibRelativeVolumeControl::getPeakVolume()
 		uint i, index;
 		for (i = 0, index = 0; i < numBytes; ++i, index += 2) {
 			if (len < index + 2) break;
-			m_peakVol[i] = str.mid(index, 2).toUShort(0, 16);
+			m_peakVol.at(i) = str.mid(index, 2).toUShort(0, 16);
 		}
 	}
 	return m_peakVol;
