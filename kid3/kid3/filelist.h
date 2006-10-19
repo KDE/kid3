@@ -15,7 +15,6 @@
 #include <qsize.h>
 #include "filelistitem.h"
 
-class MiscConfig;
 class QProcess;
 
 /**
@@ -76,16 +75,6 @@ public:
 	 * @return absolute path of directory.
 	 */
 	QString getAbsDirname(void) const;
-	/**
-	 * Set configuration.
-	 * @param cfg configuration.
-	 */
-	static void setMiscConfig(MiscConfig* cfg) { s_miscCfg = cfg; }
-	/**
-	 * Get configuration.
-	 * @return configuration.
-	 */
-	static const MiscConfig* getMiscConfig() { return s_miscCfg; }
 
 	/**
 	 * Get the number of files in the file list.
@@ -122,8 +111,6 @@ private:
 	/** Process for context menu commands */
 	QProcess* m_process;
 
-	/** Miscellaneous configuration */
-	static MiscConfig* s_miscCfg;
 	/** Single instance */
 	static FileList* s_instance;
 };
