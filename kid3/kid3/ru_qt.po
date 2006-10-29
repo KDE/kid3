@@ -53,8 +53,8 @@ msgstr "Импорт"
 msgid "Export"
 msgstr "Экспорт"
 
-msgid "View"
-msgstr "Вид"
+msgid "&View"
+msgstr "&Вид"
 
 msgid "Revert"
 msgstr "Восстановить"

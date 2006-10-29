@@ -53,8 +53,8 @@ msgstr "Importieren"
 msgid "Export"
 msgstr "Exportieren"
 
-msgid "View"
-msgstr "Ansicht"
+msgid "&View"
+msgstr "&Ansicht"
 
 msgid "Revert"
 msgstr "Änderungen verwerfen"
