@@ -637,6 +637,20 @@ const QByteArray& TagLibRelativeVolumeControl::getPeakVolume()
 	return m_peakVol;
 }
 
+static const unsigned maxNumChannels = 9;
+static const char* const channelTypeStrings[maxNumChannels] = {
+	I18N_NOOP("Other"),
+	I18N_NOOP("Master volume"),
+	I18N_NOOP("Front right"),
+	I18N_NOOP("Front left"),
+	I18N_NOOP("Back right"),
+	I18N_NOOP("Back left"),
+	I18N_NOOP("Front centre"),
+	I18N_NOOP("Back centre"),
+	I18N_NOOP("Subwoofer")
+};
+
+
 /**
  * Create widget for dialog.
  *
@@ -652,7 +666,12 @@ QWidget* TagLibRelativeVolumeControl::createWidget(QWidget* parent)
 		new QLabel(vbox0);
 	QLabel* label = new QLabel(m_label, vbox0);
 	QFontMetrics fm(label->fontMetrics());
-	label->setFixedWidth(fm.width(i18n("Master volume")));
+	int maxWidth = 0;
+	for (unsigned i = 0; i < maxNumChannels; ++i) {
+		int width = fm.width(i18n(channelTypeStrings[i]));
+		if (width > maxWidth) maxWidth = width;
+	}
+	label->setFixedWidth(maxWidth);
 	QVBox* vbox1 = new QVBox(hbox);
 	QString str1(i18n("Adjustment [dB/512]"));
 	if (m_header)
@@ -925,10 +944,12 @@ void TagLibFrameList::readTags()
 void TagLibFrameList::setTags(TaggedFile* taggedFile)
 {
 	m_file = taggedFile;
-	TagLibFile* tagLibFile = dynamic_cast<TagLibFile*>(m_file);
-	if (tagLibFile && tagLibFile->isTagInformationRead()) {
-		m_tag = tagLibFile->m_tagV2;
-		readTags();
+	if (m_file) {
+		TagLibFile* tagLibFile = dynamic_cast<TagLibFile*>(m_file);
+		if (tagLibFile && tagLibFile->isTagInformationRead()) {
+			m_tag = tagLibFile->m_tagV2;
+			readTags();
+		}
 	}
 }
 
@@ -1089,7 +1110,8 @@ TagLib::ID3v2::Frame* TagLibFrameList::editTextFrame(
 	}
 	TagLibLineFieldControl* descCtl = 0;
 	TagLibTextFieldControl* textCtl = 0;
-	if ((txxxFrame =
+	if (tFrame &&
+			(txxxFrame =
 			 dynamic_cast<const TagLib::ID3v2::UserTextIdentificationFrame*>(tFrame))
 			!= 0) {
 		descCtl = new TagLibLineFieldControl(
@@ -1280,18 +1302,6 @@ TagLib::ID3v2::Frame* TagLibFrameList::editRva2Frame(
 	const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame, const QString& id)
 {
 	TagLib::ID3v2::Frame* newFrame = 0;
-	static const unsigned maxNumChannels = 9;
-	static const char* const channelTypeStrings[maxNumChannels] = {
-		I18N_NOOP("Other"),
-		I18N_NOOP("Master volume"),
-		I18N_NOOP("Front right"),
-		I18N_NOOP("Front left"),
-		I18N_NOOP("Back right"),
-		I18N_NOOP("Back left"),
-		I18N_NOOP("Front centre"),
-		I18N_NOOP("Back centre"),
-		I18N_NOOP("Subwoofer")
-	};
 	TagLibRelativeVolumeControl* rvCtl[maxNumChannels];
 	for (unsigned i = 0; i < maxNumChannels; ++i) {
 		TagLib::ID3v2::RelativeVolumeFrame::ChannelType channelType =
@@ -1701,100 +1711,102 @@ TagLib::ID3v2::Frame* TagLibFrameList::editId3v2Frame(
 	const TagLib::ID3v2::Frame* frame)
 {
 	TagLib::ID3v2::Frame* newFrame = 0;
-	QString id(getId3v2FrameDescription(frame->frameID()));
-	m_fieldcontrols.clear();
+	if (frame) {
+		QString id(getId3v2FrameDescription(frame->frameID()));
+		m_fieldcontrols.clear();
 
-	const TagLib::ID3v2::TextIdentificationFrame* tFrame;
-	const TagLib::ID3v2::AttachedPictureFrame* apicFrame;
-	const TagLib::ID3v2::CommentsFrame* commFrame;
-	const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame;
-	const TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame;
+		const TagLib::ID3v2::TextIdentificationFrame* tFrame;
+		const TagLib::ID3v2::AttachedPictureFrame* apicFrame;
+		const TagLib::ID3v2::CommentsFrame* commFrame;
+		const TagLib::ID3v2::RelativeVolumeFrame* rva2Frame;
+		const TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame;
 #ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
-	const TagLib::ID3v2::GeneralEncapsulatedObjectFrame* geobFrame;
+		const TagLib::ID3v2::GeneralEncapsulatedObjectFrame* geobFrame;
 #endif // TAGLIB_SUPPORTS_GEOB_FRAMES
 #ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
-	const TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame;
-	const TagLib::ID3v2::UrlLinkFrame* wFrame;
+		const TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame;
+		const TagLib::ID3v2::UrlLinkFrame* wFrame;
 #else
-	const UserUrlLinkFrame* wxxxFrame;
-	const UrlLinkFrame* wFrame;
+		const UserUrlLinkFrame* wxxxFrame;
+		const UrlLinkFrame* wFrame;
 #endif
 #ifdef TAGLIB_SUPPORTS_USLT_FRAMES
-	const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
+		const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
 #else
-	const UnsynchronizedLyricsFrame* usltFrame;
+		const UnsynchronizedLyricsFrame* usltFrame;
 #endif
-	if ((tFrame =
-			 dynamic_cast<const TagLib::ID3v2::TextIdentificationFrame*>(frame)) !=
-			0) {
-		newFrame = editTextFrame(tFrame, id);
-	} else if ((apicFrame =
-							dynamic_cast<const TagLib::ID3v2::AttachedPictureFrame*>(frame))
-						 != 0) {
-		newFrame = editApicFrame(apicFrame, id);
-	} else if ((commFrame = dynamic_cast<const TagLib::ID3v2::CommentsFrame*>(
-								frame)) != 0) {
-		newFrame = editCommFrame(commFrame, id);
-	} else if ((rva2Frame =
-							dynamic_cast<const TagLib::ID3v2::RelativeVolumeFrame*>(frame))
-						 != 0) {
-		newFrame = editRva2Frame(rva2Frame, id);
-	} else if ((ufidFrame =
-							dynamic_cast<const TagLib::ID3v2::UniqueFileIdentifierFrame*>(
-								frame)) != 0) {
-		newFrame = editUfidFrame(ufidFrame, id);
-	}
+		if ((tFrame =
+				 dynamic_cast<const TagLib::ID3v2::TextIdentificationFrame*>(frame)) !=
+				0) {
+			newFrame = editTextFrame(tFrame, id);
+		} else if ((apicFrame =
+								dynamic_cast<const TagLib::ID3v2::AttachedPictureFrame*>(frame))
+							 != 0) {
+			newFrame = editApicFrame(apicFrame, id);
+		} else if ((commFrame = dynamic_cast<const TagLib::ID3v2::CommentsFrame*>(
+									frame)) != 0) {
+			newFrame = editCommFrame(commFrame, id);
+		} else if ((rva2Frame =
+								dynamic_cast<const TagLib::ID3v2::RelativeVolumeFrame*>(frame))
+							 != 0) {
+			newFrame = editRva2Frame(rva2Frame, id);
+		} else if ((ufidFrame =
+								dynamic_cast<const TagLib::ID3v2::UniqueFileIdentifierFrame*>(
+									frame)) != 0) {
+			newFrame = editUfidFrame(ufidFrame, id);
+		}
 #ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
-	else if ((geobFrame =
+		else if ((geobFrame =
 							dynamic_cast<const TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(
 								frame)) != 0) {
-		newFrame = editGeobFrame(geobFrame, id);
-	}
+			newFrame = editGeobFrame(geobFrame, id);
+		}
 #endif // TAGLIB_SUPPORTS_GEOB_FRAMES
 #ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
-	else if ((wxxxFrame = dynamic_cast<const TagLib::ID3v2::UserUrlLinkFrame*>(frame)) != 0) {
-		newFrame = editUserUrlFrame(wxxxFrame, id);
-	} else if ((wFrame = dynamic_cast<const TagLib::ID3v2::UrlLinkFrame*>(frame)) != 0) {
-		newFrame = editUrlFrame(wFrame, id);
-	}
+		else if ((wxxxFrame = dynamic_cast<const TagLib::ID3v2::UserUrlLinkFrame*>(frame)) != 0) {
+			newFrame = editUserUrlFrame(wxxxFrame, id);
+		} else if ((wFrame = dynamic_cast<const TagLib::ID3v2::UrlLinkFrame*>(frame)) != 0) {
+			newFrame = editUrlFrame(wFrame, id);
+		}
 #else
-	else if ((wxxxFrame = dynamic_cast<const UserUrlLinkFrame*>(frame)) != 0) {
-		newFrame = editUserUrlFrame(wxxxFrame, id);
-	} else if ((wFrame = dynamic_cast<const UrlLinkFrame*>(frame)) != 0) {
-		newFrame = editUrlFrame(wFrame, id);
-	}
+		else if ((wxxxFrame = dynamic_cast<const UserUrlLinkFrame*>(frame)) != 0) {
+			newFrame = editUserUrlFrame(wxxxFrame, id);
+		} else if ((wFrame = dynamic_cast<const UrlLinkFrame*>(frame)) != 0) {
+			newFrame = editUrlFrame(wFrame, id);
+		}
 #endif
 #ifdef TAGLIB_SUPPORTS_USLT_FRAMES
-	else if ((usltFrame = dynamic_cast<const TagLib::ID3v2::UnsynchronizedLyricsFrame*>(frame)) != 0) {
-		newFrame = editUsltFrame(usltFrame, id);
-	}
+		else if ((usltFrame = dynamic_cast<const TagLib::ID3v2::UnsynchronizedLyricsFrame*>(frame)) != 0) {
+			newFrame = editUsltFrame(usltFrame, id);
+		}
 #else
-	else if ((usltFrame = dynamic_cast<const UnsynchronizedLyricsFrame*>(frame)) != 0) {
-		newFrame = editUsltFrame(usltFrame, id);
-	}
+		else if ((usltFrame = dynamic_cast<const UnsynchronizedLyricsFrame*>(frame)) != 0) {
+			newFrame = editUsltFrame(usltFrame, id);
+		}
 #endif
-	else if (frame != 0) {
-		// create temporary objects for frames not known by TagLib,
-		// an UnknownFrame copy will be created by the edit method.
+		else {
+			// create temporary objects for frames not known by TagLib,
+			// an UnknownFrame copy will be created by the edit method.
 #ifndef TAGLIB_SUPPORTS_URLLINK_FRAMES
-		if (id.startsWith("WXXX")) {
-			UserUrlLinkFrame userUrlLinkFrame(frame->render());
-			newFrame = editUserUrlFrame(&userUrlLinkFrame, id);
-		} else if (id.startsWith("W")) {
-			UrlLinkFrame urlLinkFrame(frame->render());
-			newFrame = editUrlFrame(&urlLinkFrame, id);
-		} else
+			if (id.startsWith("WXXX")) {
+				UserUrlLinkFrame userUrlLinkFrame(frame->render());
+				newFrame = editUserUrlFrame(&userUrlLinkFrame, id);
+			} else if (id.startsWith("W")) {
+				UrlLinkFrame urlLinkFrame(frame->render());
+				newFrame = editUrlFrame(&urlLinkFrame, id);
+			} else
 #endif
 #ifndef TAGLIB_SUPPORTS_USLT_FRAMES
-		if (id.startsWith("USLT")) {
-			UnsynchronizedLyricsFrame usltFrame(frame->render());
-			newFrame = editUsltFrame(&usltFrame, id);
-		} else
+				if (id.startsWith("USLT")) {
+					UnsynchronizedLyricsFrame usltFrame(frame->render());
+					newFrame = editUsltFrame(&usltFrame, id);
+				} else
 #endif
-			newFrame = editUnknownFrame(frame, id);
-	}
+					newFrame = editUnknownFrame(frame, id);
+		}
 
-	m_fieldcontrols.clear();
+		m_fieldcontrols.clear();
+	}
 	return newFrame;
 }
 
@@ -1941,7 +1953,7 @@ bool TagLibFrameList::deleteFrame()
  */
 bool TagLibFrameList::makeTagSettable()
 {
-	if (!m_tag) {
+	if (!m_tag && m_file) {
 		TagLibFile* tagLibFile = dynamic_cast<TagLibFile*>(m_file);
 		if (tagLibFile && tagLibFile->isTagInformationRead() &&
 				tagLibFile->makeTagV2Settable()) {
@@ -2095,7 +2107,7 @@ int TagLibFrameList::selectFrameId()
 					 i < sizeof(id3v2FrameIdTable) / sizeof(id3v2FrameIdTable[0]);
 					 ++i) {
 				if (id3v2FrameIdTable[i].supported) {
-					lst.append(id3v2FrameIdTable[i].str);
+					lst.append(i18n(id3v2FrameIdTable[i].str));
 				}
 			}
 		} else {
