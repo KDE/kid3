@@ -1029,6 +1029,7 @@ void Kid3App::slotFileSave()
 	saveDirectory();
 	slotStatusMsg(i18n("Ready."));
 	QApplication::restoreOverrideCursor();
+	updateGuiControls();
 }
 
 /**
@@ -2210,6 +2211,7 @@ void Kid3App::editFrame(void)
 {
 	FrameList* framelist;
 	TaggedFile* taggedFile;
+	updateCurrentSelection();
 	getSelectedFileWithFrameList(taggedFile, framelist);
 	if (taggedFile && framelist && framelist->editFrame()) {
 		updateAfterFrameModification(taggedFile);
@@ -2223,6 +2225,7 @@ void Kid3App::deleteFrame(void)
 {
 	FrameList* framelist;
 	TaggedFile* taggedFile;
+	updateCurrentSelection();
 	getSelectedFileWithFrameList(taggedFile, framelist);
 	if (taggedFile && framelist && framelist->deleteFrame()) {
 		updateAfterFrameModification(taggedFile);
@@ -2237,6 +2240,7 @@ void Kid3App::addFrame(void)
 	FrameList* framelist;
 	TaggedFile* taggedFile;
 	int id;
+	updateCurrentSelection();
 	getSelectedFileWithFrameList(taggedFile, framelist);
 	if (taggedFile && framelist &&
 			(id = framelist->selectFrameId()) != -1 &&
