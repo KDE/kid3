@@ -157,17 +157,20 @@ bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 		}
 	}
 
+	bool fileChanged = false;
 	TagLib::File* file;
 	if (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0) {
 		TagLib::MPEG::File* mpegFile = dynamic_cast<TagLib::MPEG::File*>(file);
 		if (mpegFile) {
 			if (m_tagV1 && (force || changedV1) && m_tagV1->isEmpty()) {
 				mpegFile->strip(TagLib::MPEG::File::ID3v1);
+				fileChanged = true;
 				changedV1 = false;
 				m_tagV1 = 0;
 			}
 			if (m_tagV2 && (force || changedV2) && m_tagV2->isEmpty()) {
 				mpegFile->strip(TagLib::MPEG::File::ID3v2);
+				fileChanged = true;
 				changedV2 = false;
 				m_tagV2 = 0;
 			}
@@ -180,6 +183,7 @@ bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 			}
 			if (saveMask != 0) {
 				if (mpegFile->save(saveMask, false)) {
+					fileChanged = true;
 					if (saveMask & TagLib::MPEG::File::ID3v1) {
 						changedV1 = false;
 					}
@@ -196,15 +200,31 @@ bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 				// it does not work if there is also an ID3 tag (bug in TagLib?)
 				if (mpcFile) {
 					mpcFile->remove(TagLib::MPC::File::ID3v1 | TagLib::MPC::File::ID3v2);
+					fileChanged = true;
 				}
 #endif
 				if (m_fileRef.save()) {
+					fileChanged = true;
 					changedV1 = false;
 					changedV2 = false;
 				}
 			}
 		}
 	}
+
+	// If the file was changed, make sure it is written to disk.
+	// This is done when the file is closed, which is only done
+	// in the TagLib::File destructor. To force destruction, a new
+	// file reference is assigned, later readTags() is called.
+	// If the file is not properly closed, doubled tags can be
+	// written if the file is finally closed!
+	// This can be reproduced with an untag MP3 file, then add
+	// an ID3v2 title, save, add an ID3v2 artist, save, reload
+	// => double ID3v2 tags. 
+	if (fileChanged) {
+		m_fileRef = TagLib::FileRef();
+	}
+
 	// restore time stamp
 	if (setUtime) {
 		::utime(fn, &times);
@@ -215,6 +235,10 @@ bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 			return false;
 		}
 		*renamed = true;
+	}
+
+	if (fileChanged) {
+		readTags(true);
 	}
 	return true;
 }
@@ -507,7 +531,20 @@ int TagLibFile::getGenreNumV2()
 	if (m_tagV2) {
 		TagLib::String str = m_tagV2->genre();
 		if (!str.isNull()) {
-			return Genres::getNumber(TStringToQString(str));
+			QString qs = TStringToQString(str);
+			int cpPos = 0, n = 0xff;
+			bool ok = false;
+			if (qs[0] == '(' && (cpPos = qs.find(')', 2)) > 1) {
+				n = qs.mid(1, cpPos - 1).toInt(&ok);
+				if (!ok || n > 0xff) {
+					n = 0xff;
+				}
+				return n;
+			} else if ((n = qs.toInt(&ok)) >= 0 && n <= 0xff && ok) {
+				return n;
+			} else {
+				return Genres::getNumber(qs);
+			}
 		} else {
 			return 0xff;
 		}
@@ -715,8 +752,8 @@ void TagLibFile::setGenreNumV1(int num)
  */
 bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String& tstr, const char* frameId)
 {
-	TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag);
-	if (id3v2Tag) {
+	TagLib::ID3v2::Tag* id3v2Tag;
+	if (tag && (id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag)) != 0) {
 		// first check if this string needs to be stored as unicode
 		bool needsUnicode = false;
 		uint unicodeSize = qstr.length();
