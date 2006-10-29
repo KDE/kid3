@@ -23,15 +23,15 @@
 <year>2006</year>
 <holder>Urs Fleisch</holder>
 </copyright>
-<legalnotice>&FDLNotice;</legalnotice>
+<legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>20/05/2006</date>
-<releaseinfo>0.7</releaseinfo>
+<date>15/10/2006</date>
+<releaseinfo>0.8</releaseinfo>
 
 <abstract>
 <para>
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
-in MP3 Dateien. Auch die Tags in Ogg/Vorbis und FLAC Dateien werden
+in MP3 Dateien. Auch die Tags in Ogg/Vorbis, FLAC und MPC Dateien werden
 unterst&uuml;tzt. Es ist einfach, Tags in mehreren Dateien auf die gleichen Werte
 zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
 Tags aus den Dateinamen zu generieren oder umgekehrt.
@@ -48,6 +48,8 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 <keyword>Ogg</keyword>
 <keyword>Vorbis</keyword>
 <keyword>FLAC</keyword>
+<keyword>MPC</keyword>
+<keyword>APE</keyword>
 </keywordset>
 
 </bookinfo>
@@ -59,8 +61,8 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
 in MP3 Dateien. Diese Tags k&ouml;nnen zwar mit den meisten MP3 Player
 Programmen editiert werden, jedoch nicht auf eine sehr komfortable und
-effiziente Art. Dar&uuml;ber hinaus werden auch die Tags in Ogg/Vorbis und FLAC
-Dateien unterst&uuml;tzt.
+effiziente Art. Dar&uuml;ber hinaus werden auch die Tags in Ogg/Vorbis, FLAC
+und MPC Dateien unterst&uuml;tzt.
 </para>
 <para>
 &kid3; kann weder MP3 grabben noch codieren oder abspielen, es ist darauf
@@ -85,7 +87,8 @@ eine konsistente Namensschreibweise in allen Tags zu verwenden.
 <para>
 Die Tag-Information f&uuml;r ganze Alben kann &uuml;ber
 <ulink url="http://freedb.org">freedb.org</ulink>, <ulink
-url="http://musicbrainz.org">MusicBrainz</ulink> oder von anderen Quellen mit
+url="http://musicbrainz.org">MusicBrainz</ulink>, <ulink
+url="http://discogs.com">Discogs</ulink> oder von anderen Quellen mit
 Albuminformationen importiert werden. Das verwendete Format ist mit regul&auml;ren
 Ausdr&uuml;cken frei konfigurierbar.
 </para>
@@ -102,18 +105,20 @@ werden.
 <title>Funktionsmerkmale von Kid3</title>
 <itemizedlist>
 <listitem><para>Editieren von ID3v1.1 Tags</para></listitem>
-<listitem><para>Editieren von allen ID3v2.3 Frames</para></listitem>
+<listitem><para>Editieren von allen ID3v2.3 und ID3v2.4 Frames</para></listitem>
 <listitem><para>Editieren der Tags von mehreren Dateien</para></listitem>
-<listitem><para>Konvertieren zwischen ID3v1.1 und ID3v2.3 Tags</para></listitem>
+<listitem><para>Konvertieren zwischen ID3v1 und ID3v2 Tags</para></listitem>
 <listitem><para>Editieren von Ogg/Vorbis Tags</para></listitem>
 <listitem><para>Editieren von FLAC Tags</para></listitem>
+<listitem><para>Editieren von APE Tags in MPC Dateien</para></listitem>
 <listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
 <listitem><para>Generieren des Dateinamens aus den Tags</para></listitem>
 <listitem><para>Generieren und &Auml;ndern des Verzeichnisnamens aus den Tags</para></listitem>
 <listitem><para>Generieren von St&uuml;cklisten</para></listitem>
 <listitem><para>Automatische Gro&szlig;-/Kleinschreibung und Zeichenersetzung</para></listitem>
 <listitem><para>Import von <ulink url="http://freedb.org">freedb.org</ulink>,
-<ulink url="http://musicbrainz.org">MusicBrainz</ulink>
+<ulink url="http://musicbrainz.org">MusicBrainz</ulink>,
+<ulink url="http://discogs.com">Discogs</ulink>
 und anderen Quellen</para></listitem>
 <listitem><para>Export als CSV, HTML, St&uuml;ckliste, Kover XML oder in
 anderen Formaten. Exportierte CSV-Dateien k&ouml;nnen wieder importiert
@@ -145,11 +150,11 @@ folgenderma&szlig;en aus:
 <para>
 Diese Dateien haben noch keine Tags, wir werden diese mit &kid3; erzeugen.
 Wir benutzen <guimenuitem>&Ouml;ffnen</guimenuitem> (<guimenu>Datei</guimenu> Men&uuml;
-oder Werzeugleiste) und w&auml;hlen eine der Dateien in diesem Verzeichnis. Alle
+oder Werkzeugleiste) und w&auml;hlen eine der Dateien in diesem Verzeichnis. Alle
 Dateien werden im Dateilistenfeld angezeigt. Aus Bequemlichkeit wollen
 wir die Tags aus den Dateinamen erzeugen. Daher w&auml;hlen wir alle Dateien im
 Listenfeld aus und klicken auf <guibutton>Von  Dateiname</guibutton> in der
-<guilabel>ID3v1.1</guilabel> Sektion. Dadurch werden Titel, Interpret,
+<guilabel>Tag 1</guilabel> Sektion. Dadurch werden Titel, Interpret,
 Album und Nummer in allen Dateien gesetzt. Um die Werte f&uuml;r Jahr und Stil
 in allen Dateien zu setzen, lassen wir alle Dateien selektiert und tippen
 "2002" in das Feld <guilabel>Jahr</guilabel> und w&auml;hlen "Pop" im
@@ -181,7 +186,7 @@ im Verzeichnis.
 Die &kid3; Benutzeroberfl&auml;che ist in f&uuml;nf Sektionen aufgeteilt: Links finden sich das
 Dateilistenfeld und das Verzeichnislistenfeld, die rechte Seite enth&auml;lt
 die <guilabel>Dateiname</guilabel>, 
-<guilabel>ID3v1.1</guilabel> und <guilabel>ID3v2.3</guilabel>
+<guilabel>Tag 1</guilabel> und <guilabel>Tag 2</guilabel>
 Sektionen.
 </para>
 
@@ -192,7 +197,7 @@ Sektionen.
 <para>
 Die Dateiliste enth&auml;lt die Namen aller Dateien im ge&ouml;ffneten Verzeichnis,
 welche den gew&auml;hlten Dateinamenfilter (typischerweise <filename>*.mp3
-*.ogg *.flac</filename>)
+*.ogg *.flac *.mpc</filename>)
 erf&uuml;llen. Eine einzelne oder mehrere Dateien k&ouml;nnen ausgew&auml;hlt werden. Um
 keine Datei auszuw&auml;hlen, kann in den leeren Bereich unterhalb der
 Dateieintr&auml;ge geklickt werden. Die Auswahl bestimmt die Dateien, welche
@@ -229,8 +234,8 @@ wird.
 </para>
 <para>
 Das <guilabel>Format</guilabel> Auswahl- und Editierfeld enth&auml;lt das Format,
-welches verwendet wird, wenn der Dateiname aus den ID3v1.1 oder ID3v2.3
-Tags erzeugt wird. Der Dateiname kann beliebige Zeichen enthalten, es kann
+welches verwendet wird, wenn der Dateiname aus dem ersten oder zweiten Tag
+erzeugt wird. Der Dateiname kann beliebige Zeichen enthalten, es kann
 sogar ein Verzeichnisteil abgetrennt durch einen Schr&auml;gstrich angegeben
 werden, doch dieses Verzeichnis muss bereits existieren, damit das
 Umbenennen erfolgreich ist. Die folgenden Codes k&ouml;nnen verwendet werden, um
@@ -259,29 +264,29 @@ Einige h&auml;ufig verwendete Dateinamen-Formate sind bereits vordefiniert und
 in das Eingabefeld einzutragen.
 </para>
 <para>
-<guibutton>Von ID3v1</guibutton>: Setzt den Dateinamen gem&auml;&szlig; dem
-ausgew&auml;hlten Format und den ID3v1.1 Tags.
+<guibutton>Von Tag 1</guibutton>: Setzt den Dateinamen gem&auml;&szlig; dem
+ausgew&auml;hlten Format und dem ersten Tag.
 </para>
 <para>
 <guibutton>Von ID3v2</guibutton>: Setzt den Dateinamen gem&auml;&szlig; dem
-ausgew&auml;hlten Format und den ID3v2.3 Tags.
+ausgew&auml;hlten Format und dem zweiten Tag.
 </para>
 <para>
 <guibutton>Info</guibutton>: Zeigt Informationen &uuml;ber Codierung (MP3,
-Ogg, FLAC), Bit- und Samplerate, Kan&auml;le und die L&auml;nge der Datei an.
+Ogg, FLAC, MPC), Bit- und Samplerate, Kan&auml;le und die L&auml;nge der Datei an.
 </para>
 </listitem>
 </varlistentry>
 
-<varlistentry><term><guilabel>ID3v1.1</guilabel></term>
+<varlistentry><term><guilabel>Tag 1</guilabel></term>
 <listitem>
 <para>
 Die Eingabefelder f&uuml;r <guilabel>Titel</guilabel>,
 <guilabel>Interpret</guilabel>,
 <guilabel>Album</guilabel>, <guilabel>Kommentar</guilabel>,
 <guilabel>Jahr</guilabel>, <guilabel>Nummer</guilabel> und
-<guilabel>Stil</guilabel> werden benutzt um die entsprechenden Werte in den
-ID3v1.1 Tags der ausgew&auml;hlten Dateien zu editieren. Die Werte werden
+<guilabel>Stil</guilabel> werden benutzt um die entsprechenden Werte im
+ersten Tag der ausgew&auml;hlten Dateien zu editieren. Die Werte werden
 ver&auml;ndert, wenn die Dateiauswahl ge&auml;ndert wird oder vor Operationen wie
 <guimenuitem>Speichern</guimenuitem> und
 <guimenuitem>Beenden</guimenuitem> und wenn die entsprechenden
@@ -340,12 +345,12 @@ aus dem Dateinamen extrahierten Werten gef&uuml;llt. Bei Mehrfachselektion
 werden die Werte direkt gem&auml;&szlig; den Dateinamen gesetzt.
 </para>
 <para>
-<guibutton>Von ID3v2</guibutton>: Die ID3v1.1 Tags werden auf die gleichen
-Werte gesetzt wie die entsprechenden ID3v2.3 Tags. Bei Mehrfachselektion
+<guibutton>Von Tag 2</guibutton>: Die Tag 1 Felder werden auf die gleichen
+Werte gesetzt wie die entsprechenden Tag 2 Werte. Bei Mehrfachselektion
 werden die Tags der Dateien direkt gesetzt.
 </para>
 <para>
-<guibutton>Kopieren</guibutton>: Die Kopierablage wird mit den ID3v1.1 Werten
+<guibutton>Kopieren</guibutton>: Die Kopierablage wird mit den Tag 1 Werten
 gef&uuml;llt. Bei folgenden Einf&uuml;ge-Operationen werden nur solche Werte gesetzt,
 bei welchen hier das Markierungsfeld aktiviert war.
 </para>
@@ -356,15 +361,15 @@ Eingabefelder ein.
 <para>
 <guibutton>L&ouml;schen</guibutton>: Diese Funktion setzt alle Editierfelder auf
 die leeren Werte, entfernt also alle Werte. Die gespeicherte Datei enth&auml;lt
-dann keine ID3v1.1 Tags mehr.
+dann keine Tag 1 mehr.
 </para>
 </listitem>
 </varlistentry>
 
-<varlistentry><term><guilabel>ID3v2.3</guilabel></term>
+<varlistentry><term><guilabel>Tag 2</guilabel></term>
 <listitem>
 <para>
-Die Eingabefelder funktionieren gleich wie bei <guilabel>ID3v1.1</guilabel>
+Die Eingabefelder funktionieren gleich wie bei <guilabel>Tag 1</guilabel>
 beschrieben, die L&auml;nge der Zeichenketten ist jedoch nicht begrenzt.
 </para>
 <para>
@@ -374,8 +379,8 @@ Stil k&uuml;nftig in der Liste erscheinen, so ist noch <keycap>Enter</keycap> zu
 dr&uuml;cken.
 </para>
 <para>
-<guilabel>Elemente</guilabel>: Die ID3v2.3 Tags k&ouml;nnen nicht blo&szlig;
-dieselben Werte enthalten wie die ID3v1.1 Tags, das Format ist vielmehr auf
+<guilabel>Elemente</guilabel>: Das Tag 2 kann nicht blo&szlig;
+dieselben Werte enthalten wie das Tag 1, das Format ist vielmehr auf
 flexible Art aus mehreren Elementen aufgebaut, welche wiederum aus
 verschiedenen Feldern bestehen. Das Elemente Listenfeld zeigt alle Elemente
 an, welche in der ausgew&auml;hlten Datei vorhanden sind.
@@ -400,7 +405,7 @@ ausgew&auml;hlten Dateien hinzugef&uuml;gt.
 </variablelist>
 </sect2>
 
-<sect2>
+<sect2 id="file-menu">
 <title>Das Men&uuml; Datei</title>
 <para>
 <variablelist>
@@ -452,26 +457,26 @@ werden die &Auml;nderungen an allen Dateien r&uuml;ckg&auml;ngig gemacht, ansons
 den ausgew&auml;hlten Dateien.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="import">
 <term><menuchoice>
 <guimenu>Datei</guimenu>
 <guimenuitem>Importieren...</guimenuitem>
 </menuchoice></term>
 <listitem><para>Der <action>Import Dialog</action> wird verwendet, um Daten
 direkt von einem freedb.org Server, von der Web-Schnittstelle von <ulink
-url="http://freedb.org">freedb.org</ulink>, von einem MusicBrainz Server oder
-anderen Quellen mit Albumtitellisten zu importieren.
+url="http://freedb.org">freedb.org</ulink>, von einem MusicBrainz Server,
+von Discogs oder anderen Quellen mit Albumtitellisten zu importieren.
 </para>
-<para>
+<para id="import-freedb">
 Zum Importieren von einem freedb.org Server wird <guibutton>Von
-freedb.org</guibutton> gew&auml;hlt. Die zu suchenden Begriffe (z.B. Interpret
-und Album) k&ouml;nnen eingegeben werden, und die gefundenen Alben werden nach
+freedb.org</guibutton> gew&auml;hlt. Der zu suchende Interpret und der Name
+des Albums k&ouml;nnen in den zwei oberen Feldern eingegeben werden,
+und die gefundenen Alben werden nach
 Klick auf <guibutton>Suchen</guibutton> dargestellt, sobald sie von <ulink
-url="http://www.freedb.org">www.freedb.org</ulink> empfangen werden. Wenn
-mehrere Eintr&auml;ge f&uuml;r dasselbe Album vorhanden sind, wird f&uuml;r
-den zweiten Eintrag 2, dann 3, usw. geschrieben. Die Track Daten eines Albums
+url="http://www.freedb.org">www.freedb.org</ulink> empfangen werden.
+Die Track Daten eines Albums
 werden nach Auswahl geladen, der verwendete freedb.org Server kann
-gew&auml;hlt werden, ebenso der CGI Pfad und ein Proxy, falls n&ouml;tig. Die
+gew&auml;hlt werden, ebenso der CGI Pfad. Die
 importierten Daten werden in der Vorschau des Import Dialogfensters
 dargestellt. Um wieder in jenem Fenster zu arbeiten, muss der freedb.org
 Dialog beendet werden - sp&auml;ter kann er wieder mit <guibutton>Von
@@ -479,13 +484,25 @@ freedb.org</guibutton> ge&ouml;ffnet werden, und sein Inhalt wird
 wiederhergestellt. Wenn man mit den Daten in der Vorschau zufrieden ist,
 k&ouml;nnen sie mit <guibutton>OK</guibutton> importiert werden.
 </para>
-<para>
+<para id="import-discogs">
+Zum Importieren vom Discogs Server wird <guibutton>Von
+Discogs</guibutton> gew&auml;hlt. Wie bei <guibutton>Von
+freedb.org</guibutton> k&ouml;nnen auch hier Artist und Album eingegeben werden und
+es wird ebenfalls eine Liste mit Alben zur Auswahl gestellt.
+</para>
+<para id="import-musicbrainzrelease">
+In der gleichen Art kann mit <guibutton>Von MusicBrainz Album</guibutton>
+auch in der Album-Datenbank von MusicBrainz gesucht
+werden. Die Bedienung ist wie bei <guibutton>Von freedb.org</guibutton>
+beschrieben.
+</para>
+<para id="import-musicbrainz">
 Zum Importieren von einem MusicBrainz Server dient der Dialog, der nach
 Klicken auf <guibutton>Von MusicBrainz</guibutton> erscheint. Wie bei freedb
 k&ouml;nnen auch hier Server und Proxy ausgew&auml;hlt werden. Unten ist eine Tabelle,
 welche die importierten Track Daten darstellt. Die rechte Spalte zeigt dabei
 den Zustand der MusicBrainz-Abfrage, welche gleich mit dem &Ouml;ffnen des Dialogs
-mit "Suche l&auml;uft" beginnt. Es folgen dann ein Abfrage des TRM Fingerprints und,
+mit "Suche l&auml;uft" beginnt. Es folgen dann ein Abfrage des Fingerprints und,
 falls diese kein Ergebnis liefert, eine Suche anhand der in der Datei
 vorhandenen Tags. F&uuml;r eine erfolgreiche MusicBrainz-Suche kann es daher
 hilfreich sein, vorhandene Informationen (z.B. Interpret und Album) vorg&auml;ngig
@@ -589,6 +606,11 @@ werden m&uuml;ssen, so kann ein Track nach Dr&uuml;cken der Steuerungs-Taste
 (<keycap>Ctrl</keycap>/<keycap>Strg</keycap>) mit der linken Maustaste gefasst
 und dann an die gew&uuml;nschte Stelle gezogen werden.
 </para>
+<para>
+Wie in fast allen Dialogen dient der <guibutton>Einstellungen
+speichern</guibutton> Knopf dazu, die dialogspezifischen Optionen und die
+Fenstergr&ouml;&szlig;e persistent zu speichern.
+</para>
 </listitem>
 </varlistentry>
 
@@ -606,6 +628,28 @@ den <guibutton>Von freedb.org</guibutton> Dialog.</para></listitem>
 <varlistentry>
 <term><menuchoice>
 <guimenu>Datei</guimenu>
+<guimenuitem>Importieren von Discogs...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Importieren vom Discogs Server.</action>
+Dieser Men&uuml;punkt &ouml;ffnet denselben Import Dialog
+wie <guimenuitem>Importieren...</guimenuitem>, &ouml;ffnet jedoch direkt auch
+den <guibutton>Von Discogs</guibutton> Dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>Importieren von MusicBrainz Album...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Importieren von der MusicBrainz Album Datenbank.</action>
+Dieser Men&uuml;punkt &ouml;ffnet denselben Import Dialog
+wie <guimenuitem>Importieren...</guimenuitem>, &ouml;ffnet jedoch direkt auch
+den <guibutton>Von MusicBrainz Album</guibutton> Dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Datei</guimenu>
 <guimenuitem>Importieren von MusicBrainz...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Importieren von einem MusicBrainz Server.</action>
@@ -614,7 +658,7 @@ wie <guimenuitem>Importieren...</guimenuitem>, &ouml;ffnet jedoch direkt auch
 den <guibutton>Von MusicBrainz</guibutton> Dialog.</para></listitem> 
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="export">
 <term><menuchoice>
 <guimenu>Datei</guimenu>
 <guimenuitem>Exportieren...</guimenuitem>
@@ -716,7 +760,7 @@ eine St&uuml;ckliste f&uuml;r das Album erstellt werden.</para></listitem>
 
 </sect2>
 
-<sect2>
+<sect2 id="tools-menu">
 <title>Das Men&uuml; Extras</title>
 <para>
 <variablelist>
@@ -757,7 +801,7 @@ r&uuml;ckg&auml;ngig gemacht werden.
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="rename-directory">
 <term><menuchoice>
 <guimenu>Extras</guimenu>
 <guimenuitem>Verzeichnis umbenennen...</guimenuitem>
@@ -793,7 +837,7 @@ werden.
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="number-tracks">
 <term><menuchoice>
 <guimenu>Extras</guimenu>
 <guimenuitem>Tracks nummerieren...</guimenuitem>
@@ -811,7 +855,7 @@ sind diese vorg&auml;ngig auszuw&auml;hlen.
 </para>
 </sect2>
 
-<sect2>
+<sect2 id="settings-menu">
 <title>Das Men&uuml; Einstellungen</title>
 <para>
 <variablelist>
@@ -819,18 +863,18 @@ sind diese vorg&auml;ngig auszuw&auml;hlen.
 <varlistentry>
 <term><menuchoice>
 <guimenu>Einstellungen</guimenu>
-<guimenuitem>ID3v1.1 ausblenden</guimenuitem>
+<guimenuitem>Tag 1 ausblenden</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Schaltet die Anzeige der ID3v1.1 Sektion ein und aus.
+<listitem><para><action>Schaltet die Anzeige der Tag 1 Sektion ein und aus.
 </action></para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>Einstellungen</guimenu>
-<guimenuitem>ID3v2.3 ausblenden</guimenuitem>
+<guimenuitem>Tag 2 ausblenden</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Schaltet die Anzeige der ID3v2.3 Sektion ein und aus.
+<listitem><para><action>Schaltet die Anzeige der Tag 2 Sektion ein und aus.
 </action></para></listitem>
 </varlistentry>
 
@@ -854,14 +898,15 @@ l&auml;ngere Aktionen wie &Ouml;ffnen und Speichern eines Verzeichnisses anzeigt
 und aus.</action></para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="configure-kid3">
 <term><menuchoice>
 <guimenu>Einstellungen</guimenu>
 <guimenuitem>Kid3 einrichten...</guimenuitem>
 </menuchoice></term>
 <listitem><para>&Ouml;ffnet den <action>Konfigurationsdialog</action>, 
-der aus zwei Seiten besteht, einer f&uuml;r allgemeine Einstellungen und einer,
-mit welcher das Format der Dateinamen und Tag-Felder gesetzt werden kann.
+der aus drei Seiten besteht, einer f&uuml;r allgemeine Einstellungen, einer,
+mit welcher das Format der Dateinamen und Tag-Felder gesetzt werden kann,
+und schlie&szlig;lich einer um den Proxy zu setzen, falls n&ouml;tig.
 </para>
 <para>
 Auf der Seite <guilabel>Allgemein</guilabel>, kann mit dem Markierungsfeld
@@ -869,7 +914,14 @@ Auf der Seite <guilabel>Allgemein</guilabel>, kann mit dem Markierungsfeld
 dass die Modifikationszeit der Datei nicht ver&auml;ndert wird. Das Markierungsfeld
 <guilabel>Benutze Format Nummer/Anzahl St&uuml;cke</guilabel> bewirkt, dass im
 Tracknummer-Feld bei den ID3v2 Tags nicht blo&szlig; die Tracknummer gespeichert
-wird, sondern auch die Gesamtzahl der St&uuml;cke im Verzeichnis. Das Auswahlfeld
+wird, sondern auch die Gesamtzahl der St&uuml;cke im Verzeichnis.
+<guilabel>Version f&uuml;r neue Tags</guilabel> legt fest, ob neue ID3v2 Tags mit
+der Version 2.3.0 oder 2.4.0 erzeugt werden. Im ersteren Fall wird id3lib
+verwendet, TagLib kommt nur dann zum Einsatz, wenn ein ID3v2.4.0 Tag
+bearbeitet werden muss. Mit der Einstellung <guilabel>ID3v2.4.0
+(TagLib)</guilabel> wird f&uuml;r MP3-Dateien immer die TagLib verwendet;
+ver&auml;nderte oder neu erstellte Tags werden dann als ID3v2.4.0 gespeichert.
+Das Auswahlfeld
 <guilabel>Name des Kommentar-Feldes</guilabel> ist f&uuml;r Ogg/Vorbis und
 FLAC-Dateien relevant und bestimmt den Namen des Feldes, welches f&uuml;r
 Kommentare verwendet wird. Hier scheinen verschiedene Anwendungen
@@ -905,10 +957,16 @@ Kontext-Men&uuml; m&ouml;glich, welches erscheint, wenn man die rechte
 Maustaste dr&uuml;ckt. Ersetzungen werden nur durchgef&uuml;hrt, wenn das
 <guilabel>Zeichen ersetzen</guilabel> Markierungsfeld aktiviert ist.
 </para>
+<para>
+Die <guilabel>Proxy</guilabel> Seite enth&auml;lt blo&szlig; ein Textfeld f&uuml;r die
+Adresse des Netzwerk Proxys und optional der Portnummer, abgetrennt durch
+einen Doppelpunkt. Dieser Proxy wird f&uuml;r den Import von einem Internet Server
+verwendet, wenn das K&auml;stchen davor markiert ist.
+</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="configure-shortcuts">
 <term><menuchoice>
 <guimenu>Einstellungen</guimenu>
 <guimenuitem>Kurzbefehle festlegen...</guimenuitem>
@@ -928,7 +986,7 @@ alles ausw&auml;hlen.
 
 </sect2>
 
-<sect2>
+<sect2 id="help-menu">
 <title>Das Men&uuml; Hilfe</title>
 <para>
 <variablelist>
@@ -992,17 +1050,21 @@ Programmiert von Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 <title>Anforderungen</title>
 
 <para>
-&kid3; braucht <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> und
-<ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
+&kid3; braucht <ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
 url="http://www.kde.org">KDE</ulink> ist empfohlen aber nicht notwendig,
 denn &kid3; kann auch als reine Qt Applikation kompiliert werden. &kid3;
 l&auml;uft auf Systemen, wo diese Programmbibliotheken vorhanden sind,
 z.B. auf GNU/Linux und Windows.
 Um Ogg/Vorbis Dateien zu taggen werden libogg, libvorbis und libvorbisfile
-ben&ouml;tigt, f&uuml;r FLAC Dateien libFLAC++ und libFLAC. F&uuml;r MusicBrainz
-Unterst&uuml;tzung wird libtunepimp verwendet. Da momentan kein Tunepimp SDK f&uuml;r
-Windows existiert, wurde die Windows Version ohne MusicBrainz Import
-kompiliert.
+ben&ouml;tigt, f&uuml;r FLAC Dateien libFLAC++ und libFLAC. F&uuml;r MP3 Dateien
+wird die <ulink url="http://id3lib.sourceforge.net">id3lib</ulink>
+verwendet. F&uuml;r diese drei Formate kann auch durch
+die <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>
+verwendet werden, welche zudem auch MPC Dateien unterst&uuml;tzt.
+F&uuml;r MusicBrainz Unterst&uuml;tzung wird
+<ulink url="http://musicbrainz.org/products/tunepimp/">libtunepimp</ulink>
+verwendet. Da momentan kein Tunepimp SDK f&uuml;r Windows existiert, wurde die
+Windows Version ohne MusicBrainz Import kompiliert.
 </para>
 <para>
 &kid3; wurde getestet unter
@@ -1036,7 +1098,7 @@ Leider ist das MP3 Format beim MusicBrainz Import in Ubuntu nicht
 unterst&uuml;tzt, da dort libtunepimp ohne libmad kompiliert ist.
 </para>
 <para>
-Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt Version 2.3.0
+Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt Version 2.3.0, TagLib 1.4
 </para>
 <para>
 Windows 2000, XP: id3lib 3.8.3, non-commercial Qt Version 2.3.0,
@@ -1065,7 +1127,7 @@ Um f&uuml;r andere Versionen von Qt oder KDE zu kompilieren, werden die
 jeweiligen <userinput>configure</userinput>-Optionen gesetzt.
 </para>
 <para>
-Um die Kompilation etwas zu beschleunigen, kann &kid3; mit GCC 3.4 eine
+Um die Kompilation etwas zu beschleunigen, kann &kid3; ab GCC 3.4 eine
 vorkompilierte Include-Datei verwenden. Dazu wird
 <userinput>configure</userinput> mit der Option
 <userinput>--enable-gcc-pch</userinput> (und Zuweisen von gcc und g++ von GCC
@@ -1074,13 +1136,23 @@ vorkompilierte System-Include wird dann mit <userinput>make pch</userinput>
 generiert.
 </para>
 <para>
+Falls nicht alle Programmbibliotheken vorhanden sind, so wird &kid3; mit
+reduzierter Funktionalit&auml;t kompiliert. Es sollte also darauf geachtet werden,
+dass die Entwicklungspakete aller gew&uuml;nschten Bibliotheken auch installiert
+sind. Andererseits kann mit <userinput>configure</userinput>-Optionen bestimmt
+werden, was verwendet werden soll. Die Voreinstellung ist
+<userinput>--with-kde --with-id3lib --with-vorbis --with-flac --with-taglib
+--with-musicbrainz</userinput>. Entsprechend kann auch
+<userinput>--without-</userinput> gesetzt werden.
+</para>
+<para>
 F&uuml;r die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>
 vorhanden, f&uuml;r Debian-Pakete steht ein <filename>debian</filename> Verzeichnis
 zur Verf&uuml;gung.
 </para>
 <para>
 Die Qt Anwendung kann auch unter Windows kompiliert werden.
-Im kid3 Verzeichnis wird getippt:
+Im win32 Verzeichnis wird getippt:
 <screen width="40">
 <prompt>></prompt> <userinput>nmake /f kid3.mak</userinput>
 </screen>

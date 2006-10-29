@@ -23,15 +23,15 @@
 <year>2006</year>
 <holder>Urs Fleisch</holder>
 </copyright>
-<legalnotice>&FDLNotice;</legalnotice>
+<legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>20/05/2006</date>
-<releaseinfo>0.7</releaseinfo>
+<date>15/10/2006</date>
+<releaseinfo>0.8</releaseinfo>
 
 <abstract>
 <para>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
-an efficient way. Also tags in Ogg/Vorbis and FLAC files are supported.
+an efficient way. Also tags in Ogg/Vorbis, FLAC and MPC files are supported.
 It is easy to set tags of multiple files to the same
 values (e.g. album, artist, year and genre in all files of the same album) and
 generate the tags from the file name or vice versa.
@@ -48,6 +48,8 @@ generate the tags from the file name or vice versa.
 <keyword>Ogg</keyword>
 <keyword>Vorbis</keyword>
 <keyword>FLAC</keyword>
+<keyword>MPC</keyword>
+<keyword>APE</keyword>
 </keywordset>
 
 </bookinfo>
@@ -58,8 +60,8 @@ generate the tags from the file name or vice versa.
 <para>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
 an efficient way. These tags can be edited by most MP3 players, but not in
-a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis and FLAC
-files are supported too.
+a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis, FLAC
+and MPC files are supported too.
 </para>
 <para>
 &kid3; does not grab, encode nor play
@@ -83,7 +85,8 @@ to use a consistent naming scheme in all tags.
 <para>
 The tag information for full albums can be taken from
 <ulink url="http://freedb.org">freedb.org</ulink>, <ulink
-url="http://musicbrainz.org">MusicBrainz</ulink> or other sources of
+url="http://musicbrainz.org">MusicBrainz</ulink>,  <ulink
+url="http://discogs.com">Discogs</ulink> or other sources of
 track lists. The import format is freely configurable by regular expressions.
 </para>
 <para>
@@ -98,18 +101,20 @@ Please report any problems or feature requests to the author.
 <title>Kid3 features</title>
 <itemizedlist>
 <listitem><para>Edit ID3v1.1 tags</para></listitem>
-<listitem><para>Edit all ID3v2.3 frames</para></listitem>
+<listitem><para>Edit all ID3v2.3 and ID3v2.4 frames</para></listitem>
 <listitem><para>Edit tags of multiple files</para></listitem>
-<listitem><para>Convert between ID3v1.1 and ID3v2.3 tags</para></listitem>
+<listitem><para>Convert between ID3v1 and ID3v2 tags</para></listitem>
 <listitem><para>Edit Ogg/Vorbis tags</para></listitem>
 <listitem><para>Edit FLAC tags</para></listitem>
+<listitem><para>Edit APE tags in MPC files</para></listitem>
 <listitem><para>Generate tags from filename</para></listitem>
 <listitem><para>Generate filename from tags</para></listitem>
 <listitem><para>Generate and change directory names from tags</para></listitem>
 <listitem><para>Generate playlist file</para></listitem>
 <listitem><para>Automatic case conversion and string translation</para></listitem>
 <listitem><para>Import from <ulink url="http://freedb.org">freedb.org</ulink>,
-<ulink url="http://musicbrainz.org">MusicBrainz</ulink>
+<ulink url="http://musicbrainz.org">MusicBrainz</ulink>,
+<ulink url="http://discogs.com">Discogs</ulink>
 and other data sources</para></listitem>
 <listitem><para>Export as CSV, HTML, playlist, Kover XML and other
 formats. Exported CSV files can be imported again.</para></listitem>
@@ -142,7 +147,7 @@ These files have no tags yet and we want to generate them using &kid3;. We use
 select one of the files in this directory. All files will be displayed in the
 file listbox. Lazy as we are, we want to use the information in the directory
 and file names to generate tags. Therefore we select all files, then click the
-<guibutton>From Filename</guibutton> button in the <guilabel>ID3v1.1</guilabel>
+<guibutton>From Filename</guibutton> button in the <guilabel>Tag 1</guilabel>
 section. This will set the title, artist, album and track values in all files.
 To set the year and genre values of all files, we keep all files selected and
 type in "2002" for the <guilabel>Year</guilabel> and select "Pop" from the
@@ -171,7 +176,7 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <para>
 The &kid3; GUI is separated in five sections: At the left are the file
 and directory listboxes, the right side contains the <guilabel>Filename</guilabel>,
-<guilabel>ID3v1.1</guilabel> and <guilabel>ID3v2.3</guilabel> sections.
+<guilabel>Tag 1</guilabel> and <guilabel>Tag 2</guilabel> sections.
 </para>
 
 <variablelist>
@@ -181,7 +186,7 @@ and directory listboxes, the right side contains the <guilabel>Filename</guilabe
 <para>
 The file list contains the names of all the files in the opened
 directory which match the selected file name filter (typically
-<filename>*.mp3 *.ogg *.flac</filename>). A single or multiple files can be selected. To
+<filename>*.mp3 *.ogg *.flac *.mpc</filename>). A single or multiple files can be selected. To
 select no file, click into the empty area after the listbox entries. The
 selection determines the files which are affected by the operations which
 are available by using the buttons described below.
@@ -214,7 +219,7 @@ be renamed when the Save command is used.
 </para>
 <para>
 The <guilabel>Format</guilabel> combo box and line edit contains the format
-to be used when the filename is generated from the ID3v1.1 or ID3v2.3 tags.
+to be used when the filename is generated from first or the second tag.
 The filename can contain arbitrary characters, even a directory part separated
 by a slash from the file name, but that directory must already exist for the
 renaming to succeed. The following special codes are used to insert tag values
@@ -242,23 +247,21 @@ Some commonly used filename formats are already available in the combo box,
 but it is also possible to type in some special format into the line edit.
 </para>
 <para>
-<guibutton>From ID3v1</guibutton>: Sets the filename using the selected format
-and the ID3v1.1
-tags.
+<guibutton>From Tag 1</guibutton>: Sets the filename using the selected format
+and the first tag.
 </para>
 <para>
-<guibutton>From ID3v2</guibutton>: Sets the filename using the selected format
-and the ID3v2.3
-tags.
+<guibutton>From Tag 2</guibutton>: Sets the filename using the selected format
+and the second tag.
 </para>
 <para>
-<guibutton>Info</guibutton>: Shows information about the encoding (MP3, Ogg, FLAC),
+<guibutton>Info</guibutton>: Shows information about the encoding (MP3, Ogg, FLAC, MPC),
 bitrate, sample rate, channels and the length of the file.
 </para>
 </listitem>
 </varlistentry>
 
-<varlistentry><term><guilabel>ID3v1.1</guilabel></term>
+<varlistentry><term><guilabel>Tag 1</guilabel></term>
 <listitem>
 <para>
 The line edit widgets for <guilabel>Title</guilabel>,
@@ -266,7 +269,7 @@ The line edit widgets for <guilabel>Title</guilabel>,
 <guilabel>Album</guilabel>, <guilabel>Comment</guilabel>,
 <guilabel>Year</guilabel>, <guilabel>Track</guilabel> and
 <guilabel>Genre</guilabel> are used to edit the corresponding value in the
-ID3v1.1 tags of the selected files. The value will be changed when the file
+first tag of the selected files. The value will be changed when the file
 selection is altered or before operations like <guimenuitem>Save</guimenuitem>
 and <guimenuitem>Quit</guimenuitem> and when the corresponding
 check box at the left of the field name is checked. This is useful to
@@ -320,14 +323,14 @@ extracted from the filename. If multiple files are selected, the tags of the
 files are directly set according to the filenames.
 </para>
 <para>
-<guibutton>From ID3v2</guibutton>: The ID3v1.1 tags are set from the
-corresponding values in the ID3v2.3 tags.
+<guibutton>From Tag 2</guibutton>: The tag 1 fields are set from the
+corresponding values in tag 2.
 If a single file is selected, the GUI controls are filled with the values
-from the ID3v2.3 tags. If multiple files are selected, the tags of the
+from tag 2. If multiple files are selected, the tags of the
 files are directly set.
 </para>
 <para>
-<guibutton>Copy</guibutton>: The copy buffer is filled with the ID3v1.1 values.
+<guibutton>Copy</guibutton>: The copy buffer is filled with the Tag 1 values.
 Only values with checked checkbox will be used in subsequent Paste commands.
 </para>
 <para>
@@ -337,26 +340,26 @@ GUI controls.
 <para>
 <guibutton>Remove</guibutton>: This will set all GUI controls to their empty
 values which results in removing all values. The saved file will then contain
-no ID3v1.1 tags.
+no tag 1.
 </para>
 </listitem>
 </varlistentry>
 
-<varlistentry><term><guilabel>ID3v2.3</guilabel></term>
+<varlistentry><term><guilabel>Tag 2</guilabel></term>
 <listitem>
 <para>
 The GUI controls function in the same way as described for the
-<guilabel>ID3v1.1</guilabel> section, but the size of the strings is not limited.
+<guilabel>Tag 1</guilabel> section, but the size of the strings is not limited.
 </para>
 <para>
-For the ID3v2.3 <guilabel>Genre</guilabel> you can also use your own names
+For the tag 2 <guilabel>Genre</guilabel> you can also use your own names
 besides the genres listed in the combo box, just type the name into the line
 edit. If such a custom genre shall be present in the combo box list in the
 future, type <keycap>Enter</keycap>.
 </para>
 <para>
-<guilabel>Frames</guilabel>: The ID3v2.3 tags can not only contain the same values
-as the ID3v1.1 tags, the format is built in a flexible way from several frames
+<guilabel>Frames</guilabel>: The tag 2 can not only contain the same values
+as the tag 1, the format is built in a flexible way from several frames
 which are themselves composed of several fields. The frames list box shows
 all the frames which are available in the selected file.
 </para>
@@ -378,7 +381,7 @@ works also to add a frame to multiple selected files.
 </variablelist>
 </sect2>
 
-<sect2>
+<sect2 id="file-menu">
 <title>The File Menu</title>
 <para>
 <variablelist>
@@ -427,26 +430,26 @@ reverted, else only the changes of the selected files are reverted.
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="import">
 <term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Import...</guimenuitem>
 </menuchoice></term>
 <listitem><para>The <action>Import dialog</action> can be used to import data
 directly from a freedb.org server, from the Web-interface of <ulink
-url="http://freedb.org">freedb.org</ulink>, from a MusicBrainz server or other
-sources of album track lists in textual format.
+url="http://freedb.org">freedb.org</ulink>, from a MusicBrainz server, from
+Discogs  or other sources of album track lists in textual format.
 </para>
-<para>
+<para id="import-freedb">
 Import from a freedb.org server is possible using a dialog which appears when
-<guibutton>From freedb.org</guibutton> is selected. The words to search for
-(e.g. artist and album name) can be entered there, the albums which match the
+<guibutton>From freedb.org</guibutton> is selected. The artist and album name
+to search for can be entered in the two topmost fields,
+the albums which match the
 query will be displayed when <guibutton>Find</guibutton> is clicked and the
 results from <ulink url="http://www.freedb.org">www.freedb.org</ulink> are
-received. If multiple entries for one album are found, the second entry is
-displayed as 2, then 3 and so on. Importing the track data for an album is
+received. Importing the track data for an album is
 done by selecting the album in the list. The freedb.org server to import from
-can be selected as well as the CGI path and a proxy, if necessary.  The
+can be selected as well as the CGI path. The
 imported data is displayed in the preview table of the import dialog. To work
 in that dialog again, the freedb.org dialog has to be closed - it can be
 reopened later by clicking <guibutton>From freedb.org</guibutton> again and
@@ -454,12 +457,23 @@ its contents will be restored. When satisfied with the displayed tracks, they
 can be imported by terminating the import dialog with
 <guibutton>OK</guibutton>.
 </para>
-<para>
+<para id="import-discogs">
+A search on the Discogs server can be performed using <guibutton>From
+Discogs</guibutton>. As in the <guibutton>From freedb.org</guibutton> dialog,
+you can enter artist and album and then choose from a list of releases.
+</para>
+<para id="import-musicbrainzrelease">
+You can search in the same way in the release database of MusicBrainz
+using <guibutton>From MusicBrainz Release</guibutton>.
+The workflow is the same as described for <guibutton>From
+freedb.org</guibutton>.
+</para>
+<para id="import-musicbrainz">
 Import from a MusicBrainz server is possible using the dialog which appears when
 <guibutton>From MusicBrainz</guibutton> is selected. Server and proxy can be
 selected as in the freedb import dialog. Below is a table displaying the
 imported track data. The right column shows the state of the MusicBrainz
-query, which starts with "Pending" when the dialog is opened. Then the TRM
+query, which starts with "Pending" when the dialog is opened. Then the
 fingerprint is looked up and if it does not yield a result, another lookup
 using the tags in the file is tried. Thus it can be helpful for a successful
 MusicBrainz query to store known information (e.g. artist and album) in the
@@ -555,6 +569,11 @@ the corresponding field. To correct the assignments manually, a track can be
 dragged with the left mouse button and the <keycap>Ctrl</keycap> key hold
 down, and then dropped at the new location.
 </para>
+<para>
+Almost all dialogs feature a <guibutton>Save Settings</guibutton> button,
+which can be used to store the dialog specific settings and the window size
+persistently.
+</para>
 </listitem>
 </varlistentry>
 
@@ -580,7 +599,7 @@ opens directly the <guibutton>From MusicBrainz</guibutton>
 dialog.</para></listitem> 
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="export">
 <term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Export...</guimenuitem>
@@ -677,7 +696,7 @@ can be used to generate a playlist for an album.</para></listitem>
 
 </sect2>
 
-<sect2>
+<sect2 id="tools-menu">
 <title>The Tools Menu</title>
 <para>
 <variablelist>
@@ -710,7 +729,7 @@ changed (and therefore marked with a disk symbol in the file listbox).
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="rename-directory">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Rename Directory...</guimenuitem>
@@ -744,7 +763,7 @@ sections of the dialog.
 </para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="number-tracks">
 <term><menuchoice>
 <guimenu>Tools</guimenu>
 <guimenuitem>Number Tracks...</guimenuitem>
@@ -761,7 +780,7 @@ tracks have to be numbered, they must be selected.
 </para>
 </sect2>
 
-<sect2>
+<sect2 id="settings-menu">
 <title>The Settings Menu</title>
 <para>
 <variablelist>
@@ -769,18 +788,18 @@ tracks have to be numbered, they must be selected.
 <varlistentry>
 <term><menuchoice>
 <guimenu>Settings</guimenu>
-<guimenuitem>Hide ID3v1.1</guimenuitem>
+<guimenuitem>Hide Tag 1</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles displaying of the ID3v1.1 section.</action>
+<listitem><para><action>Toggles displaying of the Tag 1 section.</action>
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>Settings</guimenu>
-<guimenuitem>Hide ID3v2.3</guimenuitem>
+<guimenuitem>Hide Tag 2</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles displaying of the ID3v2.3 section.</action>
+<listitem><para><action>Toggles displaying of the Tag 2 section.</action>
 </para></listitem>
 </varlistentry>
 
@@ -802,14 +821,15 @@ icons to open and save a directory.</para></listitem>
 longer actions such as opening or saving a directory.</para></listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="configure-kid3">
 <term><menuchoice>
 <guimenu>Settings</guimenu>
 <guimenuitem>Configure Kid3...</guimenuitem>
 </menuchoice></term>
 <listitem><para>Opens the <action>configuration dialog</action>, which
-consists of two pages, one for general settings and one, which is used
-to set the format for the strings in the tag fields and the filename.
+consists of three pages, one for general settings, one, which is used
+to set the format for the strings in the tag fields and the filename,
+and finally one to set the network proxy, if necessary.
 </para>
 <para>
 On the page <guilabel>General</guilabel> the check box <guilabel>Preserve file
@@ -817,7 +837,14 @@ timestamp</guilabel> can be marked to preserve the file modification time
 stamp. The check box <guilabel>Use track/total number of tracks
 format</guilabel> controls whether the track number field of ID3v2 tags
 contains simply the track number or additionally the total number of tracks in
-the directory. The combo box <guilabel>Comment Field Name</guilabel> is only
+the directory.
+<guilabel>Version used for new tags</guilabel> determines whether new ID3v2
+tags are created as version 2.3.0 or 2.4.0. In the first case, id3lib is used
+as it was in earlier versions of &kid3; and TagLib is only applied when an
+ID3v2.4.0 tag is encountered. In the second case, <guilabel>ID3v2.4.0
+(TagLib)</guilabel>, TagLib is generally used for MP3 files; changed or newly
+created tags will then be saved in version 2.4.0.
+The combo box <guilabel>Comment Field Name</guilabel> is only
 relevant for Ogg/Vorbis and FLAC files and sets the name of the field used for
 comments. Different applications seem to use different names, "COMMENT" for
 instance is used by xmms, whereas amaroK uses "DESCRIPTION".
@@ -847,10 +874,15 @@ and deleting rows is also possible using a context menu which appears when the
 right mouse button is clicked.  Replacement is only active, if the
 <guilabel>String Replacement</guilabel> checkbox is checked.
 </para>
+<para>
+The <guilabel>Proxy</guilabel> page contains only a field to insert the proxy
+address and optionally the port, separated by a colon. The proxy will be used
+when importing from an internet server when the checkbox is checked.
+</para>
 </listitem>
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="configure-shortcuts">
 <term><menuchoice>
 <guimenu>Settings</guimenu>
 <guimenuitem>Configure Shortcuts...</guimenuitem>
@@ -869,7 +901,7 @@ button available, e.g. next file, previous file, select all.
 
 </sect2>
 
-<sect2>
+<sect2 id="help-menu">
 <title>The Help Menu</title>
 <para>
 <variablelist>
@@ -934,15 +966,20 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 <title>Requirements</title>
 
 <para>
-&kid3; needs <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> and
-<ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
+&kid3; needs <ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
 url="http://www.kde.org">KDE</ulink> is recommended but not necessary, as
 &kid3; can also be compiled as a Qt application. &kid3; can be compiled for
 systems where these libraries are available, e.g. for GNU/Linux and Windows.
 To tag Ogg/Vorbis files, libogg, libvorbis and libvorbisfile are
-required, for FLAC files libFLAC++ and libFLAC. For MusicBrainz support,
-libtunepimp is used. As there does not exist a tunepimp SDK for Windows at the
-moment, the Windows version is compiled without MusicBrainz import.
+required, for FLAC files libFLAC++ and libFLAC.
+<ulink url="http://id3lib.sourceforge.net">id3lib</ulink> is used for MP3
+ files. These three formats are also supported by
+<ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
+which can also handle MPC files. 
+For MusicBrainz support,
+<ulink url="http://musicbrainz.org/products/tunepimp/">libtunepimp</ulink>
+is used. As there does not exist a tunepimp SDK for Windows at the moment, the
+Windows version is compiled without MusicBrainz import. 
 </para>
 <para>
 &kid3; was tested with
@@ -969,7 +1006,7 @@ libogg 1.1.2, libflac++ 1.1.2, libtunepimp 0.3.0
 </para>
 <para>
 Ubuntu 6.06: id3lib 3.8.3, KDE 3.4.3, Qt 3.3.6, libvorbis 1.1.2,
-libogg 1.1.3, libflac++ 1.1.2, libtunepimp 0.3.0 and 0.4.2
+libogg 1.1.3, libflac++ 1.1.2, libtunepimp 0.3.0 and 0.4.2, TagLib 1.4
 </para>
 <para>
 Note that the MP3 format is not supported in the MusicBrainz import on Ubuntu
@@ -1006,19 +1043,27 @@ To compile for different versions of Qt or KDE, set the corresponding
 </para>
 <para>
 To speed up compilation, &kid3; can use precompiled headers with GCC
-3.4. Start <userinput>configure</userinput> with the option
+3.4 and above. Start <userinput>configure</userinput> with the option
 <userinput>--enable-gcc-pch</userinput> (and setting CC and CXX to gcc and g++
-of GCC 3.4 if it is not the default compiler). The create a precompiled system
+of GCC 3.4 if it is not the default compiler). Then create a precompiled system
 include file with <userinput>make pch</userinput>.
 </para>
 <para>
+If not all libraries are present, &kid3; is built with reduced functionality.
+So you should take care to have all desired development packages installed.
+On the other side, <userinput>configure</userinput>-options control which
+libraries are compiled in. The default is
+<userinput>--with-kde --with-id3lib --with-vorbis --with-flac --with-taglib
+--with-musicbrainz</userinput>. These options can be disabled using
+<userinput>--without-</userinput>.
+</para><para>
 Generation of RPM-Packages is supported by the
 file <filename>kid3.spec</filename>, for Debian-Packages,
 a <filename>debian</filename> directory is available.
 </para>
 <para>
 The Qt application can also be compiled for Windows.
-In the kid3 directory, type
+In the win32 directory, type
 <screen width="40">
 <prompt>></prompt> <userinput>nmake /f kid3.mak</userinput>
 </screen>
