@@ -416,11 +416,7 @@ void MusicBrainzClient::addFiles()
 	if (m_ids) {
 		removeFiles();
 	}
-#if QT_VERSION >= 300
 	m_numFiles = m_trackDataVector.size();
-#else
-	m_numFiles = m_trackDataVector.count();
-#endif
 	m_ids = new int[m_numFiles];
 #if HAVE_TUNEPIMP >= 5
 	char serverName[80], proxyName[80];
@@ -433,13 +429,7 @@ void MusicBrainzClient::addFiles()
 					this, SLOT(parseLookupResponse(int, const QCString&)));
 #endif
 	int i = 0;
-	for (
-#if QT_VERSION >= 300
-		ImportTrackDataVector::const_iterator
-#else
-		ImportTrackDataVector::ConstIterator
-#endif
-			 it = m_trackDataVector.begin();
+	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 			 it != m_trackDataVector.end();
 			 ++it) {
 #if HAVE_TUNEPIMP >= 4
@@ -607,11 +597,7 @@ bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
 						trackData.year = -1;
 					}
 					trackData.setImportDuration(res->duration / 1000);
-#if QT_VERSION >= 300
 					trackDataList.push_back(trackData);
-#else
-					trackDataList.append(trackData);
-#endif
 					resultsAvailable = true;
 				}
 			}

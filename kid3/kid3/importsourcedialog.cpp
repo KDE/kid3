@@ -187,11 +187,7 @@ QString ImportSourceDialog::getServer() const
 void ImportSourceDialog::setServer(const QString& srv)
 {
 	if (m_serverComboBox) {
-#if QT_VERSION >= 300
 		m_serverComboBox->setCurrentText(srv);
-#else
-		m_serverComboBox->setEditText(srv);
-#endif
 	}
 }
 

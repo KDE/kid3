@@ -96,7 +96,6 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 		trackDuration.clear();
 		return false;
 	}
-#if QT_VERSION >= 300
 	if (durationPos == -1) {
 		trackDuration.clear();
 	} else if (pos == 0) {
@@ -149,67 +148,5 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 			return true;
 		}
 	}
-#else
-	/* no regexp capture in old Qt versions */
-	/* hack: use yearPos to determine whether header or track parsing
-	   is required */
-	if (yearPos == -1) {
-		/* track parsing */
-		idx = QRegExp("[\\r\\n]\\s*\\d+[.\\s]").match(text, pos);
-		if (idx == -1) return false;
-		int trackLen, spaceLen, titleLen, titleIdx;
-		int trackIdx = QRegExp("\\d+").match(text, idx + 1, &trackLen, true);
-		if (trackIdx == -1) return false;
-		if (!((QRegExp("^[.\\s]\\s*\\d+:\\d+\\s+").match(text, trackIdx + trackLen, &spaceLen, true) != -1) ||
-			  (QRegExp("^[.\\s]\\s*").match(text, trackIdx + trackLen, &spaceLen, true) != -1)))
-			return false;
-		titleIdx = QRegExp("^[^\\s][^\\r\\n]*[^\\s]").match(text, trackIdx + trackLen + spaceLen, &titleLen, true);
-		if (titleIdx == -1) return false;
-		st.track = text.mid(trackIdx, trackLen).toInt();
-		st.title = text.mid(titleIdx, titleLen);
-		pos = titleIdx + titleLen;
-	} else {
-		/* header parsing */
-		/* I know, this is done rather complicated, but I only use QRegExp of
-		   Qt 2.3, so that it runs also on Windows. */
-		int len, artistIdx, artistLen, albumIdx, albumLen;
-		idx = QRegExp("[^\\s][^\\r\\n/]+\\s*/\\s*[^\\r\\n]*[^\\s][\\r\\n]+\\s*tracks:\\s+\\d+").match(text, pos);
-		if (idx == -1) return false;
-
-		artistIdx = QRegExp("^[^\\s][^\\r\\n/]+\\s*/").match(text, idx, &artistLen, true);
-		if (artistIdx == -1) return false;
-
-		albumIdx = QRegExp("^\\s*[^\\r\\n]*[^\\s][\\r\\n]").match(text, artistIdx + artistLen, &albumLen, true);
-		if (albumIdx == -1) return false;
-		pos = albumIdx + albumLen;
-		st.artist = text.mid(artistIdx, artistLen - 1).stripWhiteSpace();
-		st.album = text.mid(albumIdx, albumLen - 1).stripWhiteSpace();
-
-		idx = QRegExp("year:\\s*\\d+").match(text, pos, &len);
-		if (idx != -1) {
-			bool ok;
-			int year = text.mid(idx + 5, len - 5).stripWhiteSpace().toInt(&ok);
-			if (ok) st.year = year;
-			pos = idx + len;
-		}
-
-		idx = QRegExp("genre:\\s*[^\\r\\n]+[\\r\\n]").match(text, pos, &len);
-		if (idx != -1) {
-			QString genreStr(text.mid(idx + 6, len - 7).stripWhiteSpace());
-			int genre = Genres::getNumber(genreStr);
-			if (genre != 0xff) {
-				st.genre = genre;
-				st.genreStr = QString::null;
-			} else if (!genreStr.isEmpty()) {
-				st.genre = 0xff;
-				st.genreStr = genreStr;
-			}
-			pos = idx + len;
-		}
-	}
-	if (pos > oldpos) { /* avoid endless loop */
-		return true;
-	}
-#endif
 	return false;
 }

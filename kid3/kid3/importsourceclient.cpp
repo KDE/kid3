@@ -23,11 +23,6 @@
 #include "importsourceconfig.h"
 #include "kid3.h"
 
-#if defined WIN32 && QT_VERSION < 300
-// see hostnameToAddress()
-#include <winsock.h>
-#endif
-
 /**
  * Constructor.
  */
@@ -111,34 +106,6 @@ void ImportSourceClient::splitNamePort(const QString& namePort,
 	}
 }
 
-#if defined WIN32 && QT_VERSION < 300
-/**
- * Lookup hostname.
- * connectToHost() does not seem to look up the host names correctly on
- * Qt 2.3 non commerical Windows, so some Windows specific code is used here.
- *
- * @param adr input: hostname, output: IP address string
- *
- * @return 0 if ok,
- *         WINSOCK error code if error.
- */
-static int hostnameToAddress(QString& adr)
-{
-	WSADATA wsaData;
-	int err = WSAStartup(MAKEWORD(1, 1), &wsaData);
-	if (err == 0) {
-		struct hostent FAR *he = gethostbyname(adr.latin1());
-		if (he) {
-			adr = QHostAddress(htonl(*(u_long *)he->h_addr_list[0])).toString();
-		} else {
-			err = WSAGetLastError();
-		}
-		(void)WSACleanup();
-	}
-	return err;
-}
-#endif
-
 /**
  * Find keyword on server.
  *
@@ -152,13 +119,6 @@ void ImportSourceClient::find(const ImportSourceConfig* cfg,
 	QString dest;
 	int destPort;
 	constructFindQuery(cfg, artist, album, dest, destPort);
-#if defined WIN32 && QT_VERSION < 300
-	int err = hostnameToAddress(dest);
-	if (err) {
-		m_statusBar->message(QString("WinSock error %1").arg(err));
-		return;
-	}
-#endif
 	m_sock->connectToHost(dest, destPort);
 	m_requestType = RT_Find;
 
@@ -248,13 +208,6 @@ void ImportSourceClient::getTrackList(const ImportSourceConfig* cfg, QString cat
 	QString dest;
 	int destPort;
 	constructTrackListQuery(cfg, cat, id, dest, destPort);
-#if defined WIN32 && QT_VERSION < 300
-	int err = hostnameToAddress(dest);
-	if (err) {
-		m_statusBar->message(QString("WinSock error %1").arg(err));
-		return;
-	}
-#endif
 	m_sock->connectToHost(dest, destPort);
 	m_requestType = RT_Album;
 	m_statusBar->message(i18n("Connecting..."));

@@ -23,12 +23,7 @@
 #include "framelist.h"
 #include "taglibfile.h"
 
-#if QT_VERSION < 300
-#include <qlist.h>
-#define QPtrList QList
-#else
 #include <qptrlist.h>
-#endif
 
 class IntComboBoxControl;
 class TextFieldControl;

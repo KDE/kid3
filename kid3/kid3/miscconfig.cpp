@@ -131,9 +131,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("PreserveTime", m_preserveTime);
 	config->writeEntry("CommentName", m_commentName);
-#if QT_VERSION >= 300
 	config->writeEntry("ContextMenuCommands", m_contextMenuCommands);
-#endif
 	config->writeEntry("SplitterSizes", splitterSizes);
 	config->writeEntry("VSplitterSizes", m_vSplitterSizes);
 	config->writeEntry("CustomGenres", m_customGenres);
@@ -154,12 +152,8 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/PreserveTime", m_preserveTime);
 	config->writeEntry("/CommentName", m_commentName);
 
-#if QT_VERSION >= 300
 	config->writeEntry("/ContextMenuCommands", m_contextMenuCommands);
 	QValueList<int>::const_iterator it;
-#else
-	QValueListConstIterator<int> it;
-#endif
 	int i;
 	for (it = splitterSizes.begin(), i = 0;
 		 it != splitterSizes.end();
@@ -209,7 +203,6 @@ void MiscConfig::readFromConfig(
 	m_enableTotalNumberOfTracks = config->readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("CommentName", defaultCommentName);
-#if QT_VERSION >= 300
 	m_contextMenuCommands = config->readListEntry("ContextMenuCommands"
 #if KDE_VERSION >= 0x30200
 																								, QStringList("xmms")
@@ -219,7 +212,6 @@ void MiscConfig::readFromConfig(
 	    config->readEntry("FormatText2", defaultFnFmtList[0]);
 	dirFormatText =
 	    config->readEntry("DirFormatText", defaultDirFmtList[0]);
-#endif
 	splitterSizes = config->readIntListEntry("SplitterSizes");
 	m_vSplitterSizes = config->readIntListEntry("VSplitterSizes");
 	m_customGenres = config->readListEntry("CustomGenres");
@@ -240,7 +232,6 @@ void MiscConfig::readFromConfig(
 	m_enableTotalNumberOfTracks = config->readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("/PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("/CommentName", defaultCommentName);
-#if QT_VERSION >= 300
 	bool ok;
 	m_contextMenuCommands = config->readListEntry("/ContextMenuCommands", &ok);
 	if (!ok) {
@@ -250,16 +241,11 @@ void MiscConfig::readFromConfig(
 	    config->readEntry("/FormatText2", defaultFnFmtList[0]);
 	dirFormatText =
 	    config->readEntry("/DirFormatText", defaultDirFmtList[0]);
-#endif
 	splitterSizes.clear();
 	for (int i = 0; i < 5; ++i) {
 		int val = config->readNumEntry("/SplitterSize" + QString::number(i), -1);
 		if (val != -1) {
-#if QT_VERSION >= 300
 			splitterSizes.push_back(val);
-#else
-			splitterSizes.append(val);
-#endif
 		} else {
 			break;
 		}
@@ -268,11 +254,7 @@ void MiscConfig::readFromConfig(
 	for (int j = 0; j < 5; ++j) {
 		int val = config->readNumEntry("/VSplitterSize" + QString::number(j), -1);
 		if (val != -1) {
-#if QT_VERSION >= 300
 			m_vSplitterSizes.push_back(val);
-#else
-			m_vSplitterSizes.append(val);
-#endif
 		} else {
 			break;
 		}

@@ -17,11 +17,9 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qstringlist.h>
-#if QT_VERSION >= 300
 #include <qpopupmenu.h>
 #include <qmessagebox.h>
 #include <qprocess.h>
-#endif
 
 #include "taggedfile.h"
 #include "filelist.h"
@@ -49,10 +47,8 @@ FileList* FileList::s_instance = 0;
 FileList::FileList(QWidget* parent, const char* name, WFlags f) :
 	QListBox(parent, name, f), m_process(0)
 {
-#if QT_VERSION >= 300
 	connect(this, SIGNAL(contextMenuRequested(QListBoxItem*, const QPoint&)),
 			this, SLOT(contextMenu(QListBoxItem*, const QPoint&)));
-#endif
 	if (s_instance) {
 		qWarning("The must be only one instance of FileList");
 	}
@@ -197,7 +193,6 @@ QString FileList::getAbsDirname(void) const
  */
 void FileList::contextMenu(QListBoxItem* item, const QPoint& pos)
 {
-#if QT_VERSION >= 300
 	if (item && !Kid3App::s_miscCfg.m_contextMenuCommands.empty()) {
 		QPopupMenu menu(this);
 		int id = 0;
@@ -215,7 +210,6 @@ void FileList::contextMenu(QListBoxItem* item, const QPoint& pos)
 		menu.setMouseTracking(true);
 		menu.exec(pos);
 	}
-#endif
 }
 
 /**
@@ -225,7 +219,6 @@ void FileList::contextMenu(QListBoxItem* item, const QPoint& pos)
  */
 void FileList::executeContextCommand(int id)
 {
-#if QT_VERSION >= 300
 	if (id < static_cast<int>(Kid3App::s_miscCfg.m_contextMenuCommands.size())) {
 		QStringList args;
 		QString cmd = Kid3App::s_miscCfg.m_contextMenuCommands[id];
@@ -265,5 +258,4 @@ void FileList::executeContextCommand(int id)
 			}
 		}
 	}
-#endif
 }

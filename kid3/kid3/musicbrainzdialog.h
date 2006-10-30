@@ -15,11 +15,7 @@
 #include "importtrackdata.h"
 #include <qdialog.h>
 #include <qstring.h>
-#if QT_VERSION >= 300
 #include <qvaluevector.h>
-#else
-#include <qvaluelist.h>
-#endif
 
 class QLineEdit;
 class QComboBox;
@@ -176,11 +172,7 @@ private:
 	QTimer* m_timer;
 	MusicBrainzClient* m_client;
 	ImportTrackDataVector& m_trackDataVector;
-#if QT_VERSION >= 300
 	QValueVector<ImportTrackDataVector> m_trackResults;
-#else
-	QValueList<ImportTrackDataVector> m_trackResults;
-#endif
 #endif // HAVE_TUNEPIMP
 };
 

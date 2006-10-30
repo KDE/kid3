@@ -63,10 +63,8 @@ FormatBox::FormatBox(const QString & title, QWidget *parent, const char *name) :
 	strReplTable->adjustColumn(0);
 	connect(strReplTable, SIGNAL(valueChanged(int,int)),
 			this, SLOT(valueChanged(int,int)));
-#if QT_VERSION >= 300
 	connect(strReplTable, SIGNAL(contextMenuRequested(int,int,const QPoint &)),
 			this, SLOT(contextMenu(int,int,const QPoint&)));
-#endif
 }
 
 /**
@@ -103,11 +101,7 @@ void FormatBox::valueChanged(int row, int col)
  */
 void FormatBox::insertRow(int row)
 {
-#if QT_VERSION >= 300
 	strReplTable->insertRows(row + 1);
-#else
-	strReplTable->setNumRows(row + 2);
-#endif
 }
 
 /**
@@ -117,11 +111,7 @@ void FormatBox::insertRow(int row)
  */
 void FormatBox::deleteRow(int row)
 {
-#if QT_VERSION >= 300
 	strReplTable->removeRow(row);
-#else
-	strReplTable->setNumRows(row);
-#endif
 }
 
 /**
@@ -177,33 +167,21 @@ void FormatBox::fromFormatConfig(const FormatConfig *cfg)
 		 it != cfg->strRepMap.end();
 		 ++it, ++i) {
 		if (strReplTable->numRows() <= i) {
-#if QT_VERSION >= 300
 			strReplTable->insertRows(i);
-#else
-			strReplTable->setNumRows(i + 1);
-#endif
 		}
 		strReplTable->setText(i, 0, it.key());
 		strReplTable->setText(i, 1, it.data());
 	}
 	if (strReplTable->numRows() <= i) {
-#if QT_VERSION >= 300
 		strReplTable->insertRows(i);
-#else
-		strReplTable->setNumRows(i + 1);
-#endif
 	}
 	// add an empty row as last row and remove all rows below
 	strReplTable->setText(i, 0, "");
 	strReplTable->setText(i, 1, "");
 	int row = strReplTable->numRows();
-#if QT_VERSION >= 300
 	while (--row > i) {
 		strReplTable->removeRow(row);
 	}
-#else
-	strReplTable->setNumRows(i + 1);
-#endif
 }
 
 /**

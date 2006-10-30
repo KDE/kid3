@@ -98,7 +98,6 @@ protected:
 	 * @param selected true if selected
 	 * @param cg color group
 	 */
-#if QT_VERSION >= 300
 	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr, bool selected, const QColorGroup& cg) {
 		if (col == 0 && isRowMarked(row)) {
 			QColorGroup g(cg);
@@ -108,14 +107,6 @@ protected:
 			QTable::paintCell(p, row, col, cr, selected, cg);
 		}
 	}
-#else
-	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr, bool selected) {
-		if (col == 0 && isRowMarked(row)) {
-			p->setBackgroundColor(QColor("red"));
-		}
-		QTable::paintCell(p, row, col, cr, selected);
-	}
-#endif
 
 private:
 	QBitArray m_markedRows;
@@ -149,10 +140,8 @@ ImportSelector::ImportSelector(
 	setSpacing(6);
 	setMargin(6);
 	tab = new ImportTable(0, NumColumns, this);
-#if QT_VERSION >= 300
 	tab->setReadOnly(true);
 	tab->setFocusStyle(QTable::FollowStyle);
-#endif
 	tab->setRowMovingEnabled(true);
 	tab->setSelectionMode(QTable::NoSelection);
 	QHeader* hHeader = tab->horizontalHeader();
@@ -168,14 +157,12 @@ ImportSelector::ImportSelector(
 	tab->adjustColumn(TrackColumn);
 	tab->adjustColumn(YearColumn);
 
-#if QT_VERSION >= 300
 	QGroupBox *fmtbox = new QGroupBox(3, Qt::Vertical, i18n("Format"), this);
 	formatComboBox = new QComboBox(false, fmtbox, "formatComboBox");
 	formatComboBox->setEditable(true);
 	headerLineEdit = new QLineEdit(fmtbox);
 	trackLineEdit = new QLineEdit(fmtbox);
 	connect(formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
-#endif
 
 	QWidget *butbox = new QWidget(this);
 	QGridLayout *butlayout = new QGridLayout(butbox, 2, 7, 0, 6);
@@ -283,14 +270,12 @@ void ImportSelector::clear()
 	destComboBox->setCurrentItem(
 		static_cast<int>(Kid3App::s_genCfg.importDestV1 ? DestV1 : DestV2));
 
-#if QT_VERSION >= 300
 	formatHeaders = Kid3App::s_genCfg.importFormatHeaders;
 	formatTracks = Kid3App::s_genCfg.importFormatTracks;
 	formatComboBox->clear();
 	formatComboBox->insertStringList(Kid3App::s_genCfg.importFormatNames);
 	formatComboBox->setCurrentItem(Kid3App::s_genCfg.importFormatIdx);
 	setFormatLineEdit(Kid3App::s_genCfg.importFormatIdx);
-#endif
 
 	mismatchCheckBox->setChecked(Kid3App::s_genCfg.enableTimeDifferenceCheck);
 	maxDiffSpinBox->setValue(Kid3App::s_genCfg.maxTimeDifference);
@@ -308,14 +293,7 @@ void ImportSelector::clear()
 bool ImportSelector::parseHeader(StandardTags &st)
 {
 	int pos = 0;
-	header_parser->setFormat(
-#if QT_VERSION >= 300
-		headerLineEdit->text()
-#else
-		/* dummy format to indicate a header format */
-		"%y(+\\d)"
-#endif
-		);
+	header_parser->setFormat(headerLineEdit->text());
 	return header_parser->getNextTags(text, st, pos);
 }
 
@@ -428,10 +406,8 @@ void ImportSelector::fromDiscogs()
  */
 void ImportSelector::setFormatLineEdit(int index)
 {
-#if QT_VERSION >= 300
 	headerLineEdit->setText(formatHeaders[index]);
 	trackLineEdit->setText(formatTracks[index]);
-#endif
 }
 
 /**
@@ -449,23 +425,14 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 
 	StandardTags st(st_hdr);
 	bool start = true;
-#if QT_VERSION >= 300
-	ImportTrackDataVector::iterator
-#else
-	ImportTrackDataVector::Iterator
-#endif
-		it = m_trackDataVector.begin();
+	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
 	bool atTrackDataListEnd = (it == m_trackDataVector.end());
 	while (getNextTags(st, start)) {
 		start = false;
 		if (atTrackDataListEnd) {
 			ImportTrackData trackData;
 			trackData.setStandardTags(st);
-#if QT_VERSION >= 300
 			m_trackDataVector.push_back(trackData);
-#else
-			m_trackDataVector.append(trackData);
-#endif
 		} else {
 			(*it).setStandardTags(st);
 			++it;
@@ -476,11 +443,7 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 	st.setInactive();
 	while (!atTrackDataListEnd) {
 		if ((*it).getFileDuration() == 0) {
-#if QT_VERSION >= 300
 			it = m_trackDataVector.erase(it);
-#else
-			it = m_trackDataVector.remove(it);
-#endif
 		} else {
 			(*it).setStandardTags(st);
 			(*it).setImportDuration(0);
@@ -494,13 +457,7 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 		QValueList<int>* trackDuration = getTrackDurations();
 		if (trackDuration) {
 			it = m_trackDataVector.begin();
-			for (
-#if QT_VERSION >= 300
-				 QValueList<int>::const_iterator
-#else
-				 QValueList<int>::ConstIterator
-#endif
-					 tdit = trackDuration->begin();
+			for (QValueList<int>::const_iterator tdit = trackDuration->begin();
 					 tdit != trackDuration->end();
 					 ++tdit) {
 				if (it != m_trackDataVector.end()) {
@@ -523,13 +480,7 @@ void ImportSelector::showPreview() {
 	tab->setNumRows(0);
 	int row = 0;
 	QHeader* vHeader = tab->verticalHeader();
-	for (
-#if QT_VERSION >= 300
-		 ImportTrackDataVector::const_iterator
-#else
-		 ImportTrackDataVector::ConstIterator
-#endif
-			 it = m_trackDataVector.begin();
+	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 			 it != m_trackDataVector.end();
 			 ++it) {
 		tab->setNumRows(row + 1);
@@ -576,13 +527,7 @@ void ImportSelector::showPreview() {
 	if (diffCheckEnable) {
 		bool tracksAvailable = false;
 		row = 0;
-		for (
-#if QT_VERSION >= 300
-			ImportTrackDataVector::const_iterator
-#else
-			ImportTrackDataVector::ConstIterator
-#endif
-				 it = m_trackDataVector.begin();
+		for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 				 it != m_trackDataVector.end();
 				 ++it) {
 			int fileDuration = (*it).getFileDuration();
@@ -620,14 +565,7 @@ bool ImportSelector::getNextTags(StandardTags &st, bool start)
 	static int pos = 0;
 	if (start || pos == 0) {
 		pos = 0;
-		track_parser->setFormat(
-#if QT_VERSION >= 300
-			trackLineEdit->text()
-#else
-			/* dummy format to indicate a track format */
-			"%t(\\d+)"
-#endif
-			, true);
+		track_parser->setFormat(trackLineEdit->text(), true);
 	}
 	return track_parser->getNextTags(text, st, pos);
 }
@@ -650,12 +588,10 @@ void ImportSelector::saveConfig()
 	Kid3App::s_genCfg.importDestV1 = 
 		(destComboBox->currentItem() == static_cast<int>(ImportSelector::DestV1));
 
-#if QT_VERSION >= 300
 	Kid3App::s_genCfg.importFormatIdx = formatComboBox->currentItem();
 	Kid3App::s_genCfg.importFormatNames[Kid3App::s_genCfg.importFormatIdx] = formatComboBox->currentText();
 	Kid3App::s_genCfg.importFormatHeaders[Kid3App::s_genCfg.importFormatIdx] = headerLineEdit->text();
 	Kid3App::s_genCfg.importFormatTracks[Kid3App::s_genCfg.importFormatIdx] = trackLineEdit->text();
-#endif
 	getTimeDifferenceCheck(Kid3App::s_genCfg.enableTimeDifferenceCheck,
 												 Kid3App::s_genCfg.maxTimeDifference);
 
@@ -671,20 +607,10 @@ QValueList<int>* ImportSelector::getTrackDurations()
 {
 	QValueList<int>* lst = 0;
 	if (header_parser && ((lst = header_parser->getTrackDurations()) != 0) &&
-#if QT_VERSION >= 300
-		(lst->size() > 0)
-#else
-		(lst->count() > 0)
-#endif
-		) {
+			(lst->size() > 0)) {
 		return lst;
 	} else if (track_parser && ((lst = track_parser->getTrackDurations()) != 0) &&
-#if QT_VERSION >= 300
-		(lst->size() > 0)
-#else
-		(lst->count() > 0)
-#endif
-	   ) {
+						 (lst->size() > 0)) {
 		return lst;
 	} else {
 		return 0;
@@ -723,11 +649,7 @@ void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
 	if (toIndex > fromIndex && toIndex > 0) {
 		--toIndex;
 	}
-#if QT_VERSION >= 300
 	int numTracks = static_cast<int>(m_trackDataVector.size());
-#else
-	int numTracks = static_cast<int>(m_trackDataVector.count());
-#endif
 	if (fromIndex < numTracks && toIndex < numTracks) {
 		// swap elements but keep file durations and names
 		ImportTrackData fromData(m_trackDataVector[fromIndex]);
@@ -772,11 +694,7 @@ void ImportSelector::matchWithLength()
 	};
 
 	bool failed = false;
-#if QT_VERSION >= 300
 	unsigned numTracks = m_trackDataVector.size();
-#else
-	unsigned numTracks = m_trackDataVector.count();
-#endif
 	if (numTracks > 0) {
 		bool diffCheckEnable;
 		int maxDiff;
@@ -785,13 +703,7 @@ void ImportSelector::matchWithLength()
 		MatchData* md = new MatchData[numTracks];
 		unsigned numFiles = 0, numImports = 0;
 		unsigned i = 0;
-		for (
-#if QT_VERSION >= 300
-			ImportTrackDataVector::const_iterator
-#else
-			ImportTrackDataVector::ConstIterator
-#endif
-				 it = m_trackDataVector.begin();
+		for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 				 it != m_trackDataVector.end();
 				 ++it) {
 			if (i >= numTracks) {
@@ -907,23 +819,13 @@ void ImportSelector::matchWithTrack()
 	};
 
 	bool failed = false;
-#if QT_VERSION >= 300
 	unsigned numTracks = m_trackDataVector.size();
-#else
-	unsigned numTracks = m_trackDataVector.count();
-#endif
 	if (numTracks > 0) {
 		MatchData* md = new MatchData[numTracks];
 
 		// 1st pass: Get track data and keep correct assignments.
 		unsigned i = 0;
-		for (
-#if QT_VERSION >= 300
-			ImportTrackDataVector::const_iterator
-#else
-			ImportTrackDataVector::ConstIterator
-#endif
-				 it = m_trackDataVector.begin();
+		for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 				 it != m_trackDataVector.end();
 				 ++it) {
 			if (i >= numTracks) {
@@ -1001,24 +903,14 @@ void ImportSelector::matchWithTitle()
 	};
 
 	bool failed = false;
-#if QT_VERSION >= 300
 	unsigned numTracks = m_trackDataVector.size();
-#else
-	unsigned numTracks = m_trackDataVector.count();
-#endif
 	if (numTracks > 0) {
 		MatchData* md = new MatchData[numTracks];
 		unsigned numFiles = 0, numImports = 0;
 		QRegExp nonWordCharRegExp("\\W");
 		QRegExp nonLetterSpaceRegExp("[^a-z ]");
 		unsigned i = 0;
-		for (
-#if QT_VERSION >= 300
-			ImportTrackDataVector::const_iterator
-#else
-			ImportTrackDataVector::ConstIterator
-#endif
-				 it = m_trackDataVector.begin();
+		for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 				 it != m_trackDataVector.end();
 				 ++it) {
 			if (i >= numTracks) {

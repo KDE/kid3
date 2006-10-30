@@ -337,7 +337,6 @@ void TaggedFile::setStandardTagsV2(const StandardTags *st,
 	}
 }
 
-#if QT_VERSION >= 300
 /**
  * Remove artist part from album string.
  * This is used when only the album is needed, but the regexp in
@@ -353,7 +352,6 @@ static void remove_artist(QString& album)
 		album.remove(0, pos + 3);
 	}
 }
-#endif
 
 /**
  * Get tags from filename.
@@ -380,30 +378,6 @@ static void remove_artist(QString& album)
  */
 void TaggedFile::getTagsFromFilename(StandardTags *st, QString fmt)
 {
-#if QT_VERSION < 300
-	int start, end;
-	const QString fn(getAbsFilename());
-	QRegExp re("[^/]+ - [^/]+/\\d\\d?\\d?[- ]+[^/]+\\.....?");
-	start = re.match(fn);
-	if (start != -1) {
-		end = fn.find(" - ", start);
-		st->artist = fn.mid(start, end - start);
-		start = end + 3;
-		end = fn.find("/", start);
-		st->album = fn.mid(start, end - start);
-		start = end + 1;
-		for (end = start + 1;; end++) {
-			if (fn[end] < '0' || fn[end] > '9') break;
-		}
-		st->track = fn.mid(start, end - start).toInt();
-		for (;; end++) {
-			if (fn[end] != ' ' && fn[end] != '-') break;
-		}
-		start = end;
-		end = fn.findRev('.');
-		st->title = fn.mid(start, end - start);
-	}
-#else
 	QRegExp re;
 	QString fn(getAbsFilename());
 
@@ -539,7 +513,6 @@ void TaggedFile::getTagsFromFilename(StandardTags *st, QString fmt)
 		remove_artist(st->album);
 		return;
 	}
-#endif
 }
 
 /**

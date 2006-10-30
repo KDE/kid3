@@ -77,9 +77,7 @@ EditOggFrameDialog::EditOggFrameDialog(QWidget* parent, const QString& caption,
 		m_edit = new QTextEdit(this);
 		if (m_edit) {
 			m_edit->setText(text);
-#if QT_VERSION >= 300
 			m_edit->moveCursor(QTextEdit::MoveEnd, false);
-#endif
 			vlayout->addWidget(m_edit);
 		}
 	}
@@ -129,13 +127,7 @@ void OggFrameList::readTags()
 {
 	listbox->clear();
 	if (m_tags) {
-		for (
-#if QT_VERSION >= 300
-			OggFile::CommentList::const_iterator
-#else
-			OggFile::CommentList::ConstIterator
-#endif
-				 it = m_tags->begin();
+		for (OggFile::CommentList::const_iterator it = m_tags->begin();
 				 it != m_tags->end();
 				 ++it) {
 			listbox->insertItem((*it).getName());
@@ -192,13 +184,7 @@ bool OggFrameList::editFrame()
 {
 	int selectedIndex = listbox->currentItem();
 	if (selectedIndex != -1 && m_tags) {
-#if QT_VERSION >= 300
-		OggFile::CommentList::iterator
-#else
-		OggFile::CommentList::Iterator
-#endif
-			it = m_tags->at(selectedIndex);
-
+		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
 		return editFrame(*it);
 	}
 	return false;
@@ -213,13 +199,8 @@ bool OggFrameList::deleteFrame()
 {
 	int selectedIndex = listbox->currentItem();
 	if (selectedIndex != -1 && m_tags) {
-#if QT_VERSION >= 300
 		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
 		m_tags->erase(it);
-#else
-		OggFile::CommentList::Iterator it = m_tags->at(selectedIndex);
-		m_tags->remove(it);
-#endif
 		readTags(); // refresh listbox
 		// select the next item (or the last if it was the last)
 		if (selectedIndex >= 0) {
@@ -254,11 +235,7 @@ bool OggFrameList::addFrame(int frameId, bool edit)
 		if (edit && !editFrame(frame)) {
 			return false;
 		}
-#if QT_VERSION >= 300
 		m_tags->push_back(frame);
-#else
-		m_tags->append(frame);
-#endif
 		readTags(); // refresh listbox
 		const int lastIndex = listbox->count() - 1;
 		if (lastIndex >= 0) {
@@ -356,12 +333,7 @@ int OggFrameList::selectFrameId()
 bool OggFrameList::copyFrame() {
 	int selectedIndex = listbox->currentItem();
 	if (selectedIndex != -1 && m_tags) {
-#if QT_VERSION >= 300
-		OggFile::CommentList::iterator
-#else
-		OggFile::CommentList::Iterator
-#endif
-			it = m_tags->at(selectedIndex);
+		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
 		if (it != m_tags->end()) {
 			m_copyFrame = *it;
 		}
@@ -378,11 +350,7 @@ bool OggFrameList::copyFrame() {
 bool OggFrameList::pasteFrame() {
 	if (!(m_copyFrame.getName().isEmpty() && m_copyFrame.getValue().isEmpty()) &&
 			m_tags) {
-#if QT_VERSION >= 300
 		m_tags->push_back(m_copyFrame);
-#else
-		m_tags->append(m_copyFrame);
-#endif
 		if (m_file) {
 			m_file->changedV2 = true;
 		}

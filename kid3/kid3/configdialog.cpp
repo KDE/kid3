@@ -94,13 +94,11 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				vlayout->addWidget(vorbisGroupBox);
 			}
 #endif
-#if QT_VERSION >= 300
 			QGroupBox* commandsGroupBox = new QGroupBox(1, Horizontal, i18n("Context &Menu Commands"), generalPage);
 			if (commandsGroupBox) {
 				m_commandsTable = new CommandsTable(commandsGroupBox, "commandsTable");
 				vlayout->addWidget(commandsGroupBox);
 			}
-#endif
 			QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 			vlayout->addItem(vspacer);
 		}
@@ -158,9 +156,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 	setOkButton(i18n("&OK"));
 	setCancelButton(i18n("&Cancel"));
 #endif
-#if QT_VERSION < 300
-	resize(415, 488);
-#endif
 }
 
 /**
@@ -184,15 +179,9 @@ void ConfigDialog::setConfig(const FormatConfig *fnCfg,
 	id3FormatBox->fromFormatConfig(id3Cfg);
 	m_totalNumTracksCheckBox->setChecked(miscCfg->m_enableTotalNumberOfTracks);
 	m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
-#if QT_VERSION >= 300
 	m_commandsTable->setCommandList(miscCfg->m_contextMenuCommands);
-#endif
 #ifdef HAVE_VORBIS
-#if QT_VERSION >= 300
 	m_commentNameComboBox->setCurrentText(miscCfg->m_commentName);
-#else
-	m_commentNameComboBox->setEditText(miscCfg->m_commentName);
-#endif
 #endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	m_id3v2VersionComboBox->setCurrentItem(miscCfg->m_id3v2Version);
@@ -216,9 +205,7 @@ void ConfigDialog::getConfig(FormatConfig *fnCfg,
 	id3FormatBox->toFormatConfig(id3Cfg);
 	miscCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
 	miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
-#if QT_VERSION >= 300
 	m_commandsTable->getCommandList(miscCfg->m_contextMenuCommands);
-#endif
 #ifdef HAVE_VORBIS
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
 #endif

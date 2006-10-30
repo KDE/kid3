@@ -16,12 +16,7 @@
 
 #include "framelist.h"
 
-#if QT_VERSION < 300
-#include <qlist.h>
-#define QPtrList QList
-#else
 #include <qptrlist.h>
-#endif
 #include <id3/tag.h>
 
 class Mp3File;

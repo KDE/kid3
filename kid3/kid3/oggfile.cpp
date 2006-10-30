@@ -79,12 +79,7 @@ void OggFile::readTags(bool force)
 									QString value(
 										userComment.mid(equalPos + 1).stripWhiteSpace());
 									if (!value.isEmpty()) {
-#if QT_VERSION >= 300
-										m_comments.push_back(
-#else
-										m_comments.append(
-#endif
-											CommentField(name, value));
+										m_comments.push_back(CommentField(name, value));
 									}
 								}
 							}
@@ -163,11 +158,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 						if (vc) {
 							::vorbis_comment_clear(vc);
 							::vorbis_comment_init(vc);
-#if QT_VERSION >= 300
 							CommentList::iterator it = m_comments.begin();
-#else
-							CommentList::Iterator it = m_comments.begin();
-#endif
 							while (it != m_comments.end()) {
 								QString name((*it).getName());
 								QString value((*it).getValue());
@@ -178,11 +169,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 										const_cast<char*>((const char*)value.utf8()));
 									++it;
 								} else {
-#if QT_VERSION >= 300
 									it = m_comments.erase(it);
-#else
-									it = m_comments.remove(it);
-#endif
 								}
 							}
 							if (::vcedit_write(state, fpOut) >= 0) {
@@ -506,11 +493,7 @@ bool OggFile::isTagInformationRead() const
  */
 bool OggFile::hasTagV2() const
 {
-#if QT_VERSION >= 300
 	return !m_comments.empty();
-#else
-	return m_comments.count() > 0;
-#endif
 }
 
 /**
@@ -647,13 +630,7 @@ void OggFile::staticCleanup() {}
  */
 QString OggFile::CommentList::getValue(const QString& name) const
 {
-	for (
-#if QT_VERSION >= 300
-		const_iterator
-#else
-		ConstIterator
-#endif
-		it = begin(); it != end(); ++it) {
+	for (const_iterator it = begin(); it != end(); ++it) {
 		if ((*it).getName() == name) {
 			return (*it).getValue();
 		}
@@ -669,13 +646,7 @@ QString OggFile::CommentList::getValue(const QString& name) const
  */
 bool OggFile::CommentList::setValue(const QString& name, const QString& value)
 {
-	for (
-#if QT_VERSION >= 300
-		iterator
-#else
-		Iterator
-#endif
-		it = begin(); it != end(); ++it) {
+	for (iterator it = begin(); it != end(); ++it) {
 		if ((*it).getName() == name) {
 			QString oldValue = (*it).getValue();
 			if (value != oldValue) {
@@ -688,11 +659,7 @@ bool OggFile::CommentList::setValue(const QString& name, const QString& value)
 	}
 	if (!value.isEmpty()) {
 		CommentField cf(name, value);
-#if QT_VERSION >= 300
 		push_back(cf);
-#else
-		append(cf);
-#endif
 		return true;
 	} else {
 		return false;

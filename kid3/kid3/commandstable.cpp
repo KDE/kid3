@@ -16,8 +16,6 @@
 #define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
 
-#if QT_VERSION >= 300
-
 #include <qpopupmenu.h>
 
 /**
@@ -189,18 +187,3 @@ void CommandsTable::getCommandList(QStringList& cmdList) const
 		}
 	}
 }
-
-#else
-
-CommandsTable::CommandsTable(QWidget* parent, const char* name) :
-	QTable(parent, name) {}
-CommandsTable::~CommandsTable() {}
-void CommandsTable::valueChanged(int, int) {}
-void CommandsTable::insertRow(int) {}
-void CommandsTable::deleteRow(int) {}
-void CommandsTable::clearRow(int) {}
-void CommandsTable::contextMenu(int, int, const QPoint&) {}
-void CommandsTable::setCommandList(const QStringList&) {}
-void CommandsTable::getCommandList(QStringList&) const {}
-
-#endif

@@ -174,12 +174,8 @@ void FormatConfig::writeToConfig(
 	config->writeEntry("/FormatWhileEditing", m_formatWhileEditing);
 	config->writeEntry("/CaseConversion", caseConversion);
 	config->writeEntry("/StrRepEnabled", strRepEnabled);
-#if QT_VERSION >= 300
 	config->writeEntry("/StrRepMapKeys", strRepMap.keys());
 	config->writeEntry("/StrRepMapValues", strRepMap.values());
-#else
-	config->writeEntry("/StrRepMap", strRepMap);
-#endif
 	config->endGroup();
 #endif
 }
@@ -220,7 +216,6 @@ void FormatConfig::readFromConfig(
 	caseConversion = (CaseConversion)config->readNumEntry("/CaseConversion",
 														  (int)caseConversion);
 	strRepEnabled = config->readBoolEntry("/StrRepEnabled", strRepEnabled);
-#if QT_VERSION >= 300
 	QStringList keys = config->readListEntry("/StrRepMapKeys");
 	QStringList values = config->readListEntry("/StrRepMapValues");
 	if (!keys.empty() && !values.empty()) {
@@ -232,9 +227,6 @@ void FormatConfig::readFromConfig(
 			strRepMap[*itk] = *itv;
 		}
 	}
-#else
-	strRepMap = config->readMapEntry("/StrRepMap", strRepMap);
-#endif
 	config->endGroup();
 #endif
 }

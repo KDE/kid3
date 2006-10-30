@@ -97,13 +97,8 @@ void FlacFile::readTags(bool force)
 																					entry.get_field_value_length()).
 												stripWhiteSpace();
 											if (!value.isEmpty()) {
-#if QT_VERSION >= 300
 												m_comments.push_back(
 													CommentField(name, value));
-#else
-												m_comments.append(
-													CommentField(name, value));
-#endif
 											}
 										}
 									}
@@ -225,12 +220,7 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
   }
 #endif
 	// then our comments are appended
-#if QT_VERSION >= 300
-	CommentList::iterator
-#else
-	CommentList::Iterator
-#endif
-		it = m_comments.begin();
+	CommentList::iterator it = m_comments.begin();
 	while (it != m_comments.end()) {
 		QString name((*it).getName());
 		QString value((*it).getValue());
@@ -243,11 +233,7 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
 					name.latin1(), valueCStr, qstrlen(valueCStr)));
 			++it;
 		} else {
-#if QT_VERSION >= 300
 			it = m_comments.erase(it);
-#else
-			it = m_comments.remove(it);
-#endif
 		}
 	}
 }

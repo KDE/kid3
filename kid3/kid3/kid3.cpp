@@ -571,11 +571,7 @@ void Kid3App::openDirectory(QString dir, bool confirm)
 		dir = file.dirPath(TRUE);
 	}
 
-#if QT_VERSION >= 300
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-#else
-	QApplication::setOverrideCursor(QCursor(WaitCursor));
-#endif
 	slotStatusMsg(i18n("Opening directory..."));
 	if (view->mp3ListBox->readDir(dir)) {
 		view->m_dirListBox->readDir(dir);
@@ -657,22 +653,10 @@ void Kid3App::readOptions()
 		resize(s_miscCfg.windowWidth, s_miscCfg.windowHeight);
 	}
 #endif
-	if (
-#if QT_VERSION >= 300
-		!s_miscCfg.splitterSizes.empty()
-#else
-		s_miscCfg.splitterSizes.count() > 0
-#endif
-		) {
+	if (!s_miscCfg.splitterSizes.empty()) {
 		view->setSizes(s_miscCfg.splitterSizes);
 	}
-	if (
-#if QT_VERSION >= 300
-		!s_miscCfg.m_vSplitterSizes.empty()
-#else
-		s_miscCfg.m_vSplitterSizes.count() > 0
-#endif
-		) {
+	if (!s_miscCfg.m_vSplitterSizes.empty()) {
 		view->m_vSplitter->setSizes(s_miscCfg.m_vSplitterSizes);
 	} else {
 		// no values in configuration => set defaults
@@ -686,9 +670,7 @@ void Kid3App::readOptions()
 		}
 	}
 	view->formatComboBox->setCurrentItem(s_miscCfg.formatItem);
-#if QT_VERSION >= 300
 	view->formatComboBox->setCurrentText(s_miscCfg.formatText);
-#endif
 	view->genreV2ComboBox->insertStringList(s_miscCfg.m_customGenres);
 }
 
@@ -947,15 +929,9 @@ void Kid3App::slotFileOpen()
 		flt += "MPC (*.mpc *.MPC *.Mpc *.mpC *.mPc *.mPC *.MpC *.MPc);;";
 #endif
 		flt += i18n("All Files (*)");
-#if QT_VERSION < 300
-		filter = flt;
-		dir = QFileDialog::getOpenFileName(
-		    QString::null, flt, this, 0);
-#else
 		dir = QFileDialog::getOpenFileName(
 		    QString::null, flt,
 		    this, 0, QString::null, &filter);
-#endif
 #endif
 		if (!dir.isEmpty()) {
 			int start = filter.find('('), end = filter.find(')');
@@ -1019,11 +995,7 @@ void Kid3App::slotFileRevert()
 void Kid3App::slotFileSave()
 {
 	updateCurrentSelection();
-#if QT_VERSION >= 300
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-#else
-	QApplication::setOverrideCursor(QCursor(WaitCursor));
-#endif
 	slotStatusMsg(i18n("Saving directory..."));
 
 	saveDirectory();
@@ -1230,11 +1202,7 @@ void Kid3App::slotCreatePlaylist(void)
 	QDir dir(view->mp3ListBox->getAbsDirname());
 	QString fn = view->mp3ListBox->getAbsDirname() + QDir::separator() + dir.dirName() + ".m3u";
 	QFile file(fn);
-#if QT_VERSION >= 300
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-#else
-	QApplication::setOverrideCursor(QCursor(WaitCursor));
-#endif
 	slotStatusMsg(i18n("Creating playlist..."));
 	if (file.open(IO_WriteOnly)) {
 		QTextStream stream(&file);
@@ -1269,13 +1237,8 @@ void Kid3App::setupImportDialog()
 			m_trackDataList.album = st.album;
 			firstTrack = false;
 		}
-#if QT_VERSION >= 300
 		m_trackDataList.push_back(ImportTrackData(mp3file->getFile()->getAbsFilename(),
                                             mp3file->getFile()->getDuration()));
-#else
-		m_trackDataList.append(ImportTrackData(mp3file->getFile()->getAbsFilename(),
-                                            mp3file->getFile()->getDuration()));
-#endif
 		mp3file = view->mp3ListBox->next();
 	}
 
@@ -1297,11 +1260,7 @@ void Kid3App::execImportDialog()
 	if (m_importDialog &&
 			m_importDialog->exec() == QDialog::Accepted) {
 		slotStatusMsg(i18n("Import..."));
-#if QT_VERSION >= 300
 		ImportTrackDataVector::const_iterator it = m_trackDataList.begin();
-#else
-		ImportTrackDataVector::ConstIterator it = m_trackDataList.begin();
-#endif
 		StandardTags st;
 		bool destV1 = m_importDialog->getDestV1();
 		StandardTagsFilter flt(destV1 ?
@@ -1434,11 +1393,7 @@ void Kid3App::setExportData(int src)
 				trackDataVector.album = trackData.album;
 				firstTrack = false;
 			}
-#if QT_VERSION >= 300
 			trackDataVector.push_back(trackData);
-#else
-			trackDataVector.append(trackData);
-#endif
 			mp3file = view->mp3ListBox->next();
 		}
 		m_exportDialog->setExportData(trackDataVector);
@@ -1552,11 +1507,9 @@ void Kid3App::slotSettingsConfigure(void)
 		dialog->setConfig(&s_fnFormatCfg, &s_id3FormatCfg, &s_miscCfg);
 		if (dialog->exec() == QDialog::Accepted) {
 			dialog->getConfig(&s_fnFormatCfg, &s_id3FormatCfg, &s_miscCfg);
-#if defined CONFIG_USE_KDE || QT_VERSION >= 300
 			s_fnFormatCfg.writeToConfig(config);
 			s_id3FormatCfg.writeToConfig(config);
 			s_miscCfg.writeToConfig(config);
-#endif
 #ifdef CONFIG_USE_KDE
 			config->sync();
 #endif
@@ -1798,13 +1751,7 @@ void Kid3App::updateGuiControls()
 	bool tagV1Supported = false;
 
 	while (mp3file != 0) {
-		if (
-#if QT_VERSION < 300
-			mp3file->QListBoxItem::selected()
-#else
-			mp3file->isSelected()
-#endif
-			) {
+		if (mp3file->isSelected()) {
 			StandardTags filetags;
 			mp3file->setInSelection(TRUE);
 			mp3file->getFile()->readTags(FALSE);

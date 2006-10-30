@@ -68,11 +68,7 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 		formatComboBox->insertStrList(MiscConfig::defaultDirFmtList);
 		formatComboBox->setEditable(true);
 		formatComboBox->setCurrentItem(Kid3App::s_miscCfg.dirFormatItem);
-#if QT_VERSION >= 300
 		formatComboBox->setCurrentText(Kid3App::s_miscCfg.dirFormatText);
-#else
-		formatComboBox->setEditText(Kid3App::s_miscCfg.dirFormatText);
-#endif
 		tagversionComboBox->setCurrentItem(
 			Kid3App::s_miscCfg.m_renDirSrcV1 ? TagV1 : TagV2);
 		formatLabel->setBuddy(formatComboBox);
@@ -258,13 +254,7 @@ QString RenDirDialog::generateNewDirname(TaggedFile *taggedFile, QString *olddir
 		taggedFile->getStandardTagsV2(&st);
 	}
 	QString newdir(taggedFile->getDirname());
-	if (
-#if QT_VERSION >= 300
-		newdir.endsWith(QChar('/'))
-#else
-		newdir.at(newdir.length() - 1) == '/'
-#endif
-	   ) {
+	if (newdir.endsWith(QChar('/'))) {
 		// remove trailing separator
 		newdir.truncate(newdir.length() - 1);
 	}

@@ -12,13 +12,7 @@
 
 #include <qlabel.h>
 #include <qlayout.h>
-#if QT_VERSION < 300
-#include <qmultilineedit.h>
-#define QTextEdit QMultiLineEdit
-#define setTextFormat(x) isReadOnly() /* just something which does nothing */
-#else
 #include <qtextedit.h>
-#endif
 #include <qdialog.h>
 #include <qlineedit.h>
 #include <qspinbox.h>

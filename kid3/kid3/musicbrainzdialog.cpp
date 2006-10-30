@@ -75,10 +75,8 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 	m_albumTable = new QTable(this, "albumTable");
 	if (m_albumTable) {
 		m_albumTable->setNumCols(2);
-#if QT_VERSION >= 300
 		m_albumTable->setColumnReadOnly(1, true);
 		m_albumTable->setFocusStyle(QTable::FollowStyle);
-#endif
 		m_albumTable->setColumnStretchable(0, true);
 		m_albumTable->setSelectionMode(QTable::NoSelection);
 		QHeader* hHeader = m_albumTable->horizontalHeader();
@@ -137,22 +135,14 @@ void MusicBrainzDialog::initTable()
 {
 	setServer(Kid3App::s_musicBrainzCfg.m_server);
 
-#if QT_VERSION >= 300
 	unsigned numRows = m_trackDataVector.size();
-#else
-	unsigned numRows = m_trackDataVector.count();
-#endif
 	m_trackResults.resize(numRows);
 	m_albumTable->setNumRows(numRows);
 	for (unsigned i = 0; i < numRows; ++i) {
-#if QT_VERSION >= 300
 		QComboTableItem* cti = new QComboTableItem(
 			m_albumTable, QStringList(i18n("No result")));
 		m_albumTable->setItem(i, 0, cti);
 		m_albumTable->setText(i, 1, i18n("Unknown"));
-#else
-		m_albumTable->setText(i, 0, i18n("Unknown"));
-#endif
 	}
 }
 
@@ -161,11 +151,7 @@ void MusicBrainzDialog::initTable()
  */
 void MusicBrainzDialog::clearResults()
 {
-#if QT_VERSION >= 300
 	unsigned numRows = m_trackDataVector.size();
-#else
-	unsigned numRows = m_trackDataVector.count();
-#endif
 	for (unsigned i = 0; i < numRows; ++i) {
 		m_trackResults[i].clear();
 		setFileStatus(i, i18n("Unknown"));
@@ -252,7 +238,6 @@ void MusicBrainzDialog::reject()
 void MusicBrainzDialog::apply()
 {
 	bool newTrackData = false;
-#if QT_VERSION >= 300
 	unsigned numRows = m_trackDataVector.size();
 	for (unsigned index = 0; index < numRows; ++index) {
 		QComboTableItem* item =
@@ -273,21 +258,6 @@ void MusicBrainzDialog::apply()
 			}
 		}
 	}
-#else
-	unsigned numRows = m_trackDataVector.count();
-	for (unsigned index = 0; index < numRows; ++index) {
-		const ImportTrackData& selectedData =
-			m_trackResults[index][0];
-		m_trackDataVector[index].title = selectedData.title;
-		m_trackDataVector[index].artist = selectedData.artist;
-		m_trackDataVector[index].album = selectedData.album;
-		m_trackDataVector[index].track = selectedData.track;
-		m_trackDataVector[index].year = selectedData.year;
-		m_trackDataVector[index].setImportDuration(
-			selectedData.getImportDuration());
-		newTrackData = true;
-	}
-#endif
 	if (newTrackData) {
 		emit trackDataUpdated();
 	}
@@ -332,25 +302,11 @@ void MusicBrainzDialog::setFileStatus(int index, QString status)
 void MusicBrainzDialog::updateFileTrackData(int index)
 {
 	QStringList stringList;
-#if QT_VERSION >= 300
 	unsigned numResults = m_trackResults[index].size();
-#else
-	unsigned numResults = m_trackResults[index].count();
-#endif
 	QString str(numResults == 0 ?
 							i18n("No result") : i18n("No result selected"));
-#if QT_VERSION >= 300
 	stringList.push_back(str);
-#else
-	stringList.append(str);
-#endif
-	for (
-#if QT_VERSION >= 300
-		ImportTrackDataVector::const_iterator
-#else
-		ImportTrackDataVector::ConstIterator
-#endif
-			 it = m_trackResults[index].begin();
+	for (ImportTrackDataVector::const_iterator it = m_trackResults[index].begin();
 			 it != m_trackResults[index].end();
 			 ++it) {
 		str.sprintf("%02d ", (*it).track);
@@ -362,13 +318,8 @@ void MusicBrainzDialog::updateFileTrackData(int index)
 		if ((*it).year > 0) {
 			str += QString(" [%1]").arg((*it).year);
 		}
-#if QT_VERSION >= 300
 		stringList.push_back(str);
-#else
-		stringList.append(str);
-#endif
 	}
-#if QT_VERSION >= 300
 	QComboTableItem* item =
 		dynamic_cast<QComboTableItem*>(m_albumTable->item(index, 0));
 	if (item) {
@@ -378,9 +329,6 @@ void MusicBrainzDialog::updateFileTrackData(int index)
 			item->setCurrentItem(1);
 		}
 	}
-#else
-	m_albumTable->setText(index, 0, stringList.first());
-#endif
 }
 
 /**
@@ -392,11 +340,7 @@ void MusicBrainzDialog::updateFileTrackData(int index)
 void MusicBrainzDialog::setMetaData(int index, ImportTrackData& trackData)
 {
 	m_trackResults[index].clear();
-#if QT_VERSION >= 300
 	m_trackResults[index].push_back(trackData);
-#else
-	m_trackResults[index].append(trackData);
-#endif
 	updateFileTrackData(index);
 }
 
@@ -412,11 +356,7 @@ void MusicBrainzDialog::setResults(
 	m_trackResults[index] = trackDataVector;
 	updateFileTrackData(index);
 	for (
-#if QT_VERSION >= 300
 		 ImportTrackDataVector::const_iterator
-#else
-		 ImportTrackDataVector::ConstIterator
-#endif
 			 it = trackDataVector.begin();
 			 it != trackDataVector.end();
 			 ++it) {
@@ -444,11 +384,7 @@ QString MusicBrainzDialog::getServer() const
  */
 void MusicBrainzDialog::setServer(const QString& srv)
 {
-#if QT_VERSION >= 300
 	m_serverComboBox->setCurrentText(srv);
-#else
-	m_serverComboBox->setEditText(srv);
-#endif
 }
 
 /**
