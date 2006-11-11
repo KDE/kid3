@@ -153,7 +153,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/CommentName", m_commentName);
 
 	config->writeEntry("/ContextMenuCommands", m_contextMenuCommands);
-	QValueList<int>::const_iterator it;
+	Q3ValueList<int>::const_iterator it;
 	int i;
 	for (it = splitterSizes.begin(), i = 0;
 		 it != splitterSizes.end();
@@ -235,7 +235,7 @@ void MiscConfig::readFromConfig(
 	bool ok;
 	m_contextMenuCommands = config->readListEntry("/ContextMenuCommands", &ok);
 	if (!ok) {
-		m_contextMenuCommands = "xmms";
+		m_contextMenuCommands = QStringList("xmms");
 	}
 	formatText =
 	    config->readEntry("/FormatText2", defaultFnFmtList[0]);

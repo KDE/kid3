@@ -23,14 +23,25 @@
 
 #include <qfile.h>
 #include <qdatastream.h>
-#include <qlistbox.h>
 #include <qimage.h>
 #include <qinputdialog.h>
 #include <qvalidator.h>
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#include <Q3HBox>
+#include <Q3VBox>
+#include <Q3CString>
+#include <Q3PtrList>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#else
+#include <qlistbox.h>
 #include <qhbox.h>
 #include <qvbox.h>
+#endif
 
-// Just using #include <oggfile.h>, #include <flacfile.h> as recommended in the
+// Just using include <oggfile.h>, include <flacfile.h> as recommended in the
 // TagLib documentation does not work, as there are files with these names
 // in this directory.
 #include <taglib/id3v2tag.h>
@@ -102,7 +113,7 @@ void TagLibBinaryOpenSave::loadData()
 #endif
 	if (!loadfilename.isEmpty()) {
 		QFile file(loadfilename);
-		if (file.open(IO_ReadOnly)) {
+		if (file.open(QCM_ReadOnly)) {
 			size_t size = file.size();
 			char* data = new char[size];
 			if (data) {
@@ -130,7 +141,7 @@ void TagLibBinaryOpenSave::saveData()
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
-		if (file.open(IO_WriteOnly)) {
+		if (file.open(QCM_WriteOnly)) {
 			QDataStream stream(&file);
 			stream.writeRawBytes(m_byteArray.data(), m_byteArray.size());
 			file.close();
@@ -631,7 +642,7 @@ const QByteArray& TagLibRelativeVolumeControl::getPeakVolume()
 		uint i, index;
 		for (i = 0, index = 0; i < numBytes; ++i, index += 2) {
 			if (len < index + 2) break;
-			m_peakVol.at(i) = str.mid(index, 2).toUShort(0, 16);
+			m_peakVol[i] = str.mid(index, 2).toUShort(0, 16);
 		}
 	}
 	return m_peakVol;
@@ -659,9 +670,9 @@ static const char* const channelTypeStrings[maxNumChannels] = {
  */
 QWidget* TagLibRelativeVolumeControl::createWidget(QWidget* parent)
 {
-	QHBox* hbox = new QHBox(parent);
+	Q3HBox* hbox = new Q3HBox(parent);
 	hbox->setSpacing(6);
-	QVBox* vbox0 = new QVBox(hbox);
+	Q3VBox* vbox0 = new Q3VBox(hbox);
 	if (m_header)
 		new QLabel(vbox0);
 	QLabel* label = new QLabel(m_label, vbox0);
@@ -672,21 +683,21 @@ QWidget* TagLibRelativeVolumeControl::createWidget(QWidget* parent)
 		if (width > maxWidth) maxWidth = width;
 	}
 	label->setFixedWidth(maxWidth);
-	QVBox* vbox1 = new QVBox(hbox);
+	Q3VBox* vbox1 = new Q3VBox(hbox);
 	QString str1(i18n("Adjustment [dB/512]"));
 	if (m_header)
 		new QLabel(str1, vbox1);
 	m_adjSpinBox = new QSpinBox(-32768, 32767, 1, vbox1);
 	m_adjSpinBox->setValue(m_adjIndex);
 	vbox1->setFixedWidth(fm.width(str1));
-	QVBox* vbox2 = new QVBox(hbox);
+	Q3VBox* vbox2 = new Q3VBox(hbox);
 	QString str2(i18n("Bits representing peak"));
 	if (m_header)
 		new QLabel(str2, vbox2);
 	m_peakBitsSpinBox = new QSpinBox(0, 255, 1, vbox2);
 	m_peakBitsSpinBox->setValue(m_peakBits);
 	vbox2->setFixedWidth(fm.width(str2));
-	QVBox* vbox3 = new QVBox(hbox);
+	Q3VBox* vbox3 = new Q3VBox(hbox);
 	if (m_header)
 		new QLabel(i18n("Peak volume [hex]"), vbox3);
 	m_peakVolEdit = new QLineEdit(peakVolAsString(), vbox3);
@@ -708,7 +719,7 @@ public:
 	 * @param ctls    list with controls to edit fields
 	 */
 	TagLibEditFrameDialog(QWidget* parent, const QString& caption,
-										 QPtrList<FieldControl> &ctls);
+										 Q3PtrList<FieldControl> &ctls);
 
 protected:
 	QVBoxLayout* m_vlayout;
@@ -726,7 +737,7 @@ protected:
  * @param ctls    list with controls to edit fields
  */
 TagLibEditFrameDialog::TagLibEditFrameDialog(
-	QWidget* parent, const QString &caption, QPtrList<FieldControl> &ctls) :
+	QWidget* parent, const QString &caption, Q3PtrList<FieldControl> &ctls) :
 	QDialog(parent, "edit_frame", true)
 {
 	setCaption(caption);
@@ -753,7 +764,10 @@ TagLibEditFrameDialog::TagLibEditFrameDialog(
 		connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
+#if QT_VERSION < 0x040000
+	// the widget is not painted correctly after resizing in Qt4
 	resize(fontMetrics().maxWidth() * 30, -1);
+#endif
 }
 
 
@@ -1258,7 +1272,7 @@ TagLib::ID3v2::Frame* TagLibFrameList::editCommFrame(
 	}
 	TagLib::ByteVector bvLang = commFrame->language();
 	TagLibLineFieldControl* langCtl = new TagLibLineFieldControl(
-		i18n("Language"), QCString(bvLang.data(), bvLang.size() + 1));
+		i18n("Language"), Q3CString(bvLang.data(), bvLang.size() + 1));
 	if (langCtl) {
 		m_fieldcontrols.append(langCtl);
 	}
@@ -1605,7 +1619,7 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUsltFrame(
 	}
 	TagLib::ByteVector bvLang = usltFrame->language();
 	TagLibLineFieldControl* langCtl = new TagLibLineFieldControl(
-		i18n("Language"), QCString(bvLang.data(), bvLang.size() + 1));
+		i18n("Language"), Q3CString(bvLang.data(), bvLang.size() + 1));
 	if (langCtl) {
 		m_fieldcontrols.append(langCtl);
 	}
@@ -2054,7 +2068,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 				oggTag->addField(key, value);
 				added = true;
 				readTags(); // refresh listbox
-				QListBoxItem* lbi = listbox->findItem(m_selectedName);
+				Q3ListBoxItem* lbi = listbox->findItem(m_selectedName);
 				if (lbi) {
 					listbox->setSelected(lbi, true);
 				}
@@ -2069,7 +2083,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 				apeTag->addValue(key, value, true);
 				added = true;
 				readTags(); // refresh listbox
-				QListBoxItem* lbi = listbox->findItem(m_selectedName);
+				Q3ListBoxItem* lbi = listbox->findItem(m_selectedName);
 				if (lbi) {
 					listbox->setSelected(lbi, true);
 				}

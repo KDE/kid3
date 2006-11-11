@@ -11,17 +11,22 @@
 #define DIRLIST_H
 
 #include <qstring.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#else
 #include <qlistbox.h>
+#endif
 
 /**
  * List of directories to operate on.
  */
-class DirList : public QListBox {
+class DirList : public Q3ListBox {
 public:
 	/**
 	 * Constructor.
 	 */
-	DirList(QWidget* parent = 0, const char* name = 0, WFlags f = 0);
+	DirList(QWidget* parent = 0, const char* name = 0, Qt::WFlags f = 0);
 
 	/**
 	 * Destructor.

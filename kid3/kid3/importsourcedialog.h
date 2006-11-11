@@ -13,15 +13,21 @@
 #include "config.h"
 #include "importtrackdata.h"
 #include <qdialog.h>
-#include <qlistbox.h>
 #include <qstring.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#include <Q3CString>
+#else
+#include <qlistbox.h>
+#endif
 
 class QLineEdit;
 class QComboBox;
 class QPushButton;
 class QCheckBox;
-class QListBox;
-class QListBoxItem;
+class Q3ListBox;
+class Q3ListBoxItem;
 class QStatusBar;
 class ImportSourceConfig;
 class ImportSourceClient;
@@ -70,7 +76,7 @@ public:
 	 *
 	 * @param searchStr search data received
 	 */
-	virtual void parseFindResults(const QCString& searchStr) = 0;
+	virtual void parseFindResults(const QByteArray& searchStr) = 0;
 
 	/**
 	 * Parse result of album request and populate m_trackDataVector with results.
@@ -78,7 +84,7 @@ public:
 	 *
 	 * @param albumStr album data received
 	 */
-	virtual void parseAlbumResults(const QCString& albumStr) = 0;
+	virtual void parseAlbumResults(const QByteArray& albumStr) = 0;
 
 	/**
 	 * Clear dialog data.
@@ -132,21 +138,25 @@ private slots:
 	 *
 	 * @param searchStr search data received
 	 */
-	void slotFindFinished(QCString searchStr);
+	void slotFindFinished(const QByteArray& searchStr);
 
 	/**
 	 * Process finished album data.
 	 *
 	 * @param albumStr album track data received
 	 */
-	void slotAlbumFinished(QCString albumStr);
+	void slotAlbumFinished(const QByteArray& albumStr);
 
 	/**
 	 * Request track list from server.
 	 *
 	 * @param li list box item containing an AlbumListItem
 	 */
+#if QT_VERSION >= 0x040000
+	void requestTrackList(Q3ListBoxItem* li);
+#else
 	void requestTrackList(QListBoxItem* li);
+#endif
 
 	/**
 	 * Request track list from server.
@@ -172,7 +182,7 @@ signals:
 	void trackDataUpdated();
 
 protected:
-	QListBox* m_albumListBox;
+	Q3ListBox* m_albumListBox;
 	ImportTrackDataVector& m_trackDataVector;
 
 private:
@@ -196,7 +206,7 @@ private:
 /**
  * QListBoxItem subclass for album list.
  */
-class AlbumListItem : public QListBoxText {
+class AlbumListItem : public Q3ListBoxText {
 public:
 	/**
 	 * Constructor.
@@ -205,9 +215,9 @@ public:
 	 * @param cat     category
 	 * @param idStr   ID
 	 */
-	AlbumListItem(QListBox* listbox, const QString& text,
+	AlbumListItem(Q3ListBox* listbox, const QString& text,
 				  const QString& cat, const QString& idStr) : 
-		QListBoxText(listbox, text), category(cat), id(idStr) {}
+		Q3ListBoxText(listbox, text), category(cat), id(idStr) {}
 	/**
 	 * Get category.
 	 * @return category.

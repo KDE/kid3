@@ -16,18 +16,25 @@
 #include <kfiledialog.h>
 #else
 #include <qdialog.h>
-#include <qfiledialog.h>
 #define i18n(s) tr(s)
 #define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
 
 #include <qfile.h>
 #include <qdatastream.h>
-#include <qlistbox.h>
 #include <qimage.h>
 #include <qinputdialog.h>
+#include <qfiledialog.h>
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#else
+#include <qlistbox.h>
+#endif
 #ifdef WIN32
-#include <id3.h> /* ID3TagIterator_Delete() */
+#include <id3.h>
 #endif
 
 #include "mp3file.h"
@@ -300,7 +307,7 @@ void BinaryOpenSave::saveData(void)
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
-		if (file.open(IO_WriteOnly)) {
+		if (file.open(QCM_WriteOnly)) {
 			QDataStream stream(&file);
 			stream.writeRawBytes(
 			    (const char *)field->GetRawBinary(),
@@ -408,7 +415,7 @@ QWidget *TextFieldControl::createWidget(QWidget *parent)
 
 void LineFieldControl::updateTag(void)
 {
-	field->Set(edit->text());
+	field->Set(edit->text().latin1());
 }
 
 /**
@@ -492,7 +499,7 @@ void BinFieldControl::updateTag(void)
 {
 	if (bos && !bos->getFilename().isEmpty()) {
 		QFile file(bos->getFilename());
-		if (file.open(IO_ReadOnly)) {
+		if (file.open(QCM_ReadOnly)) {
 			size_t size = file.size();
 			uchar *data = new uchar[size];
 			if (data) {
@@ -528,7 +535,7 @@ QWidget *BinFieldControl::createWidget(QWidget *parent)
 class EditMp3FrameDialog : public KDialogBase { /* KDE */
 public:
 	EditMp3FrameDialog(QWidget *parent, QString &caption,
-			QPtrList<FieldControl> &ctls);
+			Q3PtrList<FieldControl> &ctls);
 };
 
 /**
@@ -540,7 +547,7 @@ public:
  */
 
 EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
- QPtrList<FieldControl> &ctls) :
+ Q3PtrList<FieldControl> &ctls) :
 	KDialogBase(parent, "edit_frame", true, caption, Ok|Cancel, Ok)
 {
 	QWidget *page = new QWidget(this);
@@ -557,14 +564,17 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
 			}
 		}
 	}
+#if QT_VERSION < 0x040000
+	// the widget is not painted correctly after resizing in Qt4
 	resize(fontMetrics().maxWidth() * 30, -1);
+#endif
 }
 #else
 /** Field edit dialog */
 class EditMp3FrameDialog : public QDialog {
 public:
 	EditMp3FrameDialog(QWidget *parent, QString &caption,
-			QPtrList<FieldControl> &ctls);
+			Q3PtrList<FieldControl> &ctls);
 protected:
 	QVBoxLayout *vlayout;
 	QHBoxLayout *hlayout;
@@ -582,7 +592,7 @@ protected:
  */
 
 EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
- QPtrList<FieldControl> &ctls) :
+ Q3PtrList<FieldControl> &ctls) :
 	QDialog(parent, "edit_frame", true)
 {
 	setCaption(caption);
@@ -609,7 +619,10 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
+#if QT_VERSION < 0x040000
+	// the widget is not painted correctly after resizing in Qt4
 	resize(fontMetrics().maxWidth() * 30, -1);
+#endif
 }
 #endif
 

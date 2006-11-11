@@ -12,7 +12,12 @@
 
 #include <qstring.h>
 #include <qregexp.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ValueList>
+#else
 #include <qvaluelist.h>
+#endif
 
 class StandardTags;
 
@@ -43,7 +48,7 @@ public:
 	 *
 	 * @return list with track durations.
 	 */
-	QValueList<int>* getTrackDurations() { return &trackDuration; }
+	Q3ValueList<int>* getTrackDurations() { return &trackDuration; }
 
 private:
 	/** track regexp pattern */
@@ -63,7 +68,7 @@ private:
 	int trackPos;
 	int genrePos;
 	int durationPos;
-	QValueList<int> trackDuration;
+	Q3ValueList<int> trackDuration;
 };
 
 #endif

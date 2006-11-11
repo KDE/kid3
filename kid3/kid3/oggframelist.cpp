@@ -20,7 +20,14 @@
 #include <qpushbutton.h>
 #include <qinputdialog.h>
 #include <qstringlist.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#else
 #include <qlistbox.h>
+#endif
 
 /** Field edit dialog */
 class EditOggFrameDialog : public QDialog {
@@ -94,7 +101,10 @@ EditOggFrameDialog::EditOggFrameDialog(QWidget* parent, const QString& caption,
 		connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
+#if QT_VERSION < 0x040000
+	// the widget is not painted correctly after resizing in Qt4
 	resize(fontMetrics().maxWidth() * 30, -1);
+#endif
 }
 
 /**

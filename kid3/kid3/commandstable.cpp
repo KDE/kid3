@@ -16,7 +16,11 @@
 #define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
 
+#if QT_VERSION >= 0x040000
+#include <Q3PopupMenu>
+#else 
 #include <qpopupmenu.h>
+#endif
 
 /**
  * Constructor.
@@ -26,7 +30,7 @@
  * @param name   Qt object name
  */
 CommandsTable::CommandsTable(QWidget* parent, const char* name) :
-	QTable(parent, name) {
+	Q3Table(parent, name) {
 	setNumCols(2);
 	horizontalHeader()->setLabel(0, i18n("Confirm"));
 	horizontalHeader()->setLabel(1, i18n("Command"));
@@ -74,7 +78,7 @@ void CommandsTable::valueChanged(int row, int col)
 void CommandsTable::insertRow(int row)
 {
 	insertRows(row + 1);
-	setItem(row + 1, 0, new QCheckTableItem(this, ""));
+	setItem(row + 1, 0, new Q3CheckTableItem(this, ""));
 }
 
 /**
@@ -95,8 +99,8 @@ void CommandsTable::deleteRow(int row)
 void CommandsTable::clearRow(int row)
 {
 	setText(row, 1, "");
-	QTableItem* ti = item(row, 0);
-	QCheckTableItem* cti = dynamic_cast<QCheckTableItem*>(ti);
+	Q3TableItem* ti = item(row, 0);
+	Q3CheckTableItem* cti = dynamic_cast<Q3CheckTableItem*>(ti);
 	if (cti) {
 		cti->setChecked(false);
 	}
@@ -111,7 +115,7 @@ void CommandsTable::clearRow(int row)
  */
 void CommandsTable::contextMenu(int row, int /* col */, const QPoint& pos)
 {
-	QPopupMenu menu(this);
+	Q3PopupMenu menu(this);
 
 	if (row >= -1) {
 		menu.insertItem(i18n("&Insert row"), this, SLOT(insertRow(int)), 0, 0);
@@ -149,7 +153,7 @@ void CommandsTable::setCommandList(const QStringList& cmdList)
 		}
 		if (!cmd.isEmpty()) {
 			insertRows(row);
-			QCheckTableItem* cti = new QCheckTableItem(this, "");
+			Q3CheckTableItem* cti = new Q3CheckTableItem(this, "");
 			if (cti) {
 				cti->setChecked(confirm);
 				setItem(row, 0, cti);
@@ -176,8 +180,8 @@ void CommandsTable::getCommandList(QStringList& cmdList) const
 	for (int row = 0; row < nrRows; ++row) {
 		QString cmd = text(row, 1);
 		if (!cmd.isEmpty()) {
-			QTableItem* ti = item(row, 0);
-			QCheckTableItem* cti = dynamic_cast<QCheckTableItem*>(ti);
+			Q3TableItem* ti = item(row, 0);
+			Q3CheckTableItem* cti = dynamic_cast<Q3CheckTableItem*>(ti);
 			if (cti) {
 				if (cti->isChecked()) {
 					cmd = "!" + cmd;

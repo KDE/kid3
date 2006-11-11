@@ -18,7 +18,14 @@
 #include <qimage.h>
 #include <qpainter.h>
 #include <qcombobox.h>
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QPaintEvent>
+#else
 #include <qlistbox.h>
+#endif
 
 #include "taggedfile.h"
 #include "framelist.h"
@@ -133,7 +140,7 @@ void ImageViewer::paintEvent(QPaintEvent *)
 
 
 /** List box to select frame */
-QListBox* FrameList::listbox = 0;
+Q3ListBox* FrameList::listbox = 0;
 
 /**
  * Constructor.

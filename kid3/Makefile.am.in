@@ -17,3 +17,6 @@ EXTRA_DIST = admin debian AUTHORS COPYING ChangeLog INSTALL README make_qtonly.s
 pch:
 	$(MAKE) -C kid3 pch
 
+# modify Makefiles to build with Qt4
+qt4-Makefile:
+	sed -i.Qt3 -e 's#-I/usr/share/qt[3]/include#-I/usr/include/qt4 -I/usr/include/qt4/Qt -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4/Qt3Support -I/usr/include/qt4/QtNetwork -I/usr/include/qt4/QtXml#g; s#-l[q]t-mt#-lQtCore -lQtGui -lQtNetwork -lQtXml -lQt3Support#g; s#\(-D[Q]T_THREAD_SUPPORT\)#\1 -DQT3_SUPPORT#g; s#qt[3]#qt4#g; s#\($$([M]OC)\)#\1 $$(DEFS) $$(DEFAULT_INCLUDES) $$(INCLUDES)#g' Makefile kid3/Makefile

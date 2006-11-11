@@ -19,6 +19,9 @@
 #include "kid3.h"
 #include "freedbclient.h"
 #include "freedbdialog.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ValueList>
+#endif
 
 static const char* serverList[] = {
 	"freedb2.org:80",
@@ -70,7 +73,7 @@ FreedbDialog::~FreedbDialog()
  *
  * @param searchStr search data received
  */
-void FreedbDialog::parseFindResults(const QCString& searchStr)
+void FreedbDialog::parseFindResults(const QByteArray& searchStr)
 {
 /*
 210 exact matches found
@@ -126,7 +129,7 @@ theoretically, but never seen
  */
 static void parseFreedbTrackDurations(
 	const QString& text,
-	QValueList<int>& trackDuration)
+	Q3ValueList<int>& trackDuration)
 {
 /* Example freedb format:
    # Track frame offsets:
@@ -145,17 +148,20 @@ static void parseFreedbTrackDurations(
    # Disc length: 3114 seconds
 */
 	trackDuration.clear();
+	QRegExp discLenRe("Disc length:\\s*\\d+");
 	int discLenPos, len;
-	discLenPos = QRegExp("Disc length:\\s*\\d+").match(text, 0, &len);
+	discLenPos = discLenRe.QCM_indexIn(text, 0);
 	if (discLenPos != -1) {
+		len = discLenRe.matchedLength();
 		discLenPos += 12;
 		int discLen = text.mid(discLenPos, len - 12).toInt();
 		int trackOffsetPos = text.find("Track frame offsets", 0);
 		if (trackOffsetPos != -1) {
 			QRegExp re("#\\s*\\d+");
 			int lastOffset = -1;
-			while ((trackOffsetPos = re.match(text, trackOffsetPos, &len)) != -1 &&
+			while ((trackOffsetPos = re.QCM_indexIn(text, trackOffsetPos)) != -1 &&
 						 trackOffsetPos < discLenPos) {
+				len = re.matchedLength();
 				trackOffsetPos += 1;
 				int trackOffset = text.mid(trackOffsetPos, len - 1).toInt();
 				if (lastOffset != -1) {
@@ -201,18 +207,18 @@ static void parseFreedbAlbumData(const QString &text,
  *
  * @param albumStr album data received
  */
-void FreedbDialog::parseAlbumResults(const QCString& albumStr)
+void FreedbDialog::parseAlbumResults(const QByteArray& albumStr)
 {
 	QString text = QString::fromUtf8(albumStr);
 	StandardTags st_hdr;
 	st_hdr.setInactive();
-	QValueList<int> trackDuration;
+	Q3ValueList<int> trackDuration;
 	parseFreedbTrackDurations(text, trackDuration);
 	parseFreedbAlbumData(text, st_hdr);
 
 	StandardTags st(st_hdr);
 	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-	QValueList<int>::const_iterator tdit = trackDuration.begin();
+	Q3ValueList<int>::const_iterator tdit = trackDuration.begin();
 	bool atTrackDataListEnd = (it == m_trackDataVector.end());
 	int pos = 0;
 	int idx, oldpos = pos;

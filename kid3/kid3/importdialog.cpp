@@ -14,7 +14,6 @@
 #else
 #define i18n(s) tr(s)
 #define I18N_NOOP(s) QT_TR_NOOP(s)
-#include <qhbox.h>
 #endif
 
 #include <qlayout.h>
@@ -23,6 +22,12 @@
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include <qstring.h>
+#if QT_VERSION >= 0x040000
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#else
+#include <qhbox.h>
+#endif
 #include "importselector.h"
 #include "importdialog.h"
 #include "kid3.h"

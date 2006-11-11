@@ -10,14 +10,19 @@
 #ifndef FILELISTITEM_H
 #define FILELISTITEM_H
 
-#include <qlistbox.h>
 #include <qpixmap.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#else
+#include <qlistbox.h>
+#endif
 
 class QPainter;
 class TaggedFile;
 
 /** List box item containing tagged file */
-class FileListItem : public QListBoxItem {
+class FileListItem : public Q3ListBoxItem {
 public:
 	/**
 	 * Constructor.
@@ -66,7 +71,7 @@ public:
 	 *
 	 * @return height.
 	 */
-	int height(const QListBox* lb) const;
+	int height(const Q3ListBox* lb) const;
 
 	/**
 	 * Get width of item.
@@ -75,7 +80,7 @@ public:
 	 *
 	 * @return width.
 	 */
-	int width(const QListBox* lb) const;
+	int width(const Q3ListBox* lb) const;
 
 protected:
 	/**

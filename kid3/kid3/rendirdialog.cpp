@@ -16,11 +16,19 @@
 #endif
 
 #include <qlayout.h>
-#include <qhbox.h>
 #include <qpushbutton.h>
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qdir.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3HBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#else
+#include <qhbox.h>
+#endif
 
 #include "taggedfile.h"
 #include "standardtags.h"
@@ -65,7 +73,11 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 	QLabel *formatLabel = new QLabel(i18n("&Format:"), this);
 	formatComboBox = new QComboBox(this);
 	if (formatLayout && formatLabel && formatComboBox) {
-		formatComboBox->insertStrList(MiscConfig::defaultDirFmtList);
+		QStringList strList;
+		for (const char** sl = MiscConfig::defaultDirFmtList; *sl != 0; ++sl) {
+			strList += *sl;
+		}
+		formatComboBox->QCM_addItems(strList);
 		formatComboBox->setEditable(true);
 		formatComboBox->setCurrentItem(Kid3App::s_miscCfg.dirFormatItem);
 		formatComboBox->setCurrentText(Kid3App::s_miscCfg.dirFormatText);

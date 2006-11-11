@@ -10,8 +10,13 @@
 #ifndef MISCCONFIG_H
 #define MISCCONFIG_H
 
-#include <qvaluelist.h>
 #include <qstringlist.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ValueList>
+#else
+#include <qvaluelist.h>
+#endif
 #include "config.h"
 #include "generalconfig.h"
 
@@ -82,9 +87,9 @@ public:
 	/** true to rename directory from ID3v1 tags, else ID3v2 tags */
 	bool m_renDirSrcV1;
 	/** size of splitter in main window */
-	QValueList<int> splitterSizes;
+	Q3ValueList<int> splitterSizes;
 	/** size of file/dirlist splitter */
-	QValueList<int> m_vSplitterSizes;
+	Q3ValueList<int> m_vSplitterSizes;
 	/** commands available in context menu */
 	QStringList m_contextMenuCommands;
 	/** custom genres for ID3v2.3 */

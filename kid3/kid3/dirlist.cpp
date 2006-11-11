@@ -15,8 +15,8 @@
 /**
  * Constructor.
  */
-DirList::DirList(QWidget* parent, const char* name, WFlags f) :
-	QListBox(parent, name, f) {}
+DirList::DirList(QWidget* parent, const char* name, Qt::WFlags f) :
+	Q3ListBox(parent, name, f) {}
 
 /**
  * Destructor.
@@ -37,7 +37,7 @@ bool DirList::readDir(const QString& name) {
 		QDir dir(file.filePath());
 		insertStringList(dir.entryList(QDir::Dirs | QDir::Drives));
 		if (!m_entryToSelect.isEmpty()) {
-			QListBoxItem* lbi = findItem(m_entryToSelect);
+			Q3ListBoxItem* lbi = findItem(m_entryToSelect);
 			if (lbi) {
 				setCurrentItem(lbi);
 			}

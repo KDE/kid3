@@ -14,7 +14,7 @@
 #include "config.h"
 #ifdef HAVE_TAGLIB
 
-// Just using #include <oggfile.h>, #include <flacfile.h> as recommended in the
+// Just using include <oggfile.h>, include <flacfile.h> as recommended in the
 // TagLib documentation does not work, as there are files with these names
 // in this directory.
 #include <taglib/tbytevector.h>
@@ -23,8 +23,15 @@
 #include "framelist.h"
 #include "taglibfile.h"
 
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3PtrList>
+#else
 #include <qptrlist.h>
+#endif
 
+class QHBoxLayout;
+class QLabel;
 class IntComboBoxControl;
 class TextFieldControl;
 #ifndef TAGLIB_SUPPORTS_URLLINK_FRAMES
@@ -381,7 +388,7 @@ protected:
 
 	TagLib::Tag* m_tag;
 	QString m_selectedName;
-	QPtrList<FieldControl> m_fieldcontrols; 
+	Q3PtrList<FieldControl> m_fieldcontrols; 
 	TagLib::ByteVector m_copyData;
 	TagLib::String m_copyKey;
 	TagLib::String m_copyValue;

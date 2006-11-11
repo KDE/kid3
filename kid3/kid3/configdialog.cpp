@@ -21,9 +21,16 @@
 #include <qlabel.h>
 #include <qstring.h>
 #include <qcheckbox.h>
-#include <qgroupbox.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <Q3GroupBox>
+#else
+#include <qgroupbox.h>
+#endif
 
 #include "formatconfig.h"
 #include "formatbox.h"
@@ -44,21 +51,27 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
 								IconList, Ok | Cancel | Help, Ok, true)
 #else
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
-	QTabDialog(parent, "configure", true)
+	Q3TabDialog(parent, "configure", true)
 #endif
 {
 	setCaption(caption);
-	QWidget* generalPage = new QWidget(this);
+	QWidget* generalPage = new QWidget;
 	if (generalPage) {
 		QVBoxLayout* vlayout = new QVBoxLayout(generalPage, 6, 6);
 		if (vlayout) {
-			QGroupBox* saveGroupBox = new QGroupBox(1, Horizontal, i18n("Save"), generalPage);
+			Q3GroupBox* saveGroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("Save"), generalPage);
 			if (saveGroupBox) {
+#if QT_VERSION >= 0x040000
+				saveGroupBox->setInsideMargin(5);
+#endif
 				m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
 				vlayout->addWidget(saveGroupBox);
 			}
-			QGroupBox* v2GroupBox = new QGroupBox(1, Horizontal, i18n("ID3v2"), generalPage);
+			Q3GroupBox* v2GroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("ID3v2"), generalPage);
 			if (v2GroupBox) {
+#if QT_VERSION >= 0x040000
+				v2GroupBox->setInsideMargin(5);
+#endif
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
@@ -66,36 +79,36 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				if (id3v2VersionLabel && m_id3v2VersionComboBox) {
 					m_id3v2VersionComboBox->insertItem(i18n("ID3v2.3.0 (id3lib)"), MiscConfig::ID3v2_3_0);
 					m_id3v2VersionComboBox->insertItem(i18n("ID3v2.4.0 (TagLib)"), MiscConfig::ID3v2_4_0);
-#if QT_VERSION >= 0x030100
-					m_id3v2VersionComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-#else
 					m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-#endif
 					id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
 				}
 #endif
 				vlayout->addWidget(v2GroupBox);
 			}
 #ifdef HAVE_VORBIS
-			QGroupBox* vorbisGroupBox = new QGroupBox(2, Horizontal, i18n("Ogg/Vorbis"), generalPage);
+			Q3GroupBox* vorbisGroupBox = new Q3GroupBox(2, Qt::Horizontal, i18n("Ogg/Vorbis"), generalPage);
 			if (vorbisGroupBox) {
+#if QT_VERSION >= 0x040000
+				vorbisGroupBox->setInsideMargin(5);
+#endif
 				QLabel* commentNameLabel = new QLabel(i18n("Comment Field &Name:"), vorbisGroupBox);
 				m_commentNameComboBox = new QComboBox(true, vorbisGroupBox);
 				if (commentNameLabel && m_commentNameComboBox) {
-					static const char* items[] = { "COMMENT", "DESCRIPTION", 0 };
-					m_commentNameComboBox->insertStrList(items);
-#if QT_VERSION >= 0x030100
-					m_commentNameComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-#else
+					QStringList items;
+					items += "COMMENT";
+					items += "DESCRIPTION";
+					m_commentNameComboBox->QCM_addItems(items);
 					m_commentNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-#endif
 					commentNameLabel->setBuddy(m_commentNameComboBox);
 				}
 				vlayout->addWidget(vorbisGroupBox);
 			}
 #endif
-			QGroupBox* commandsGroupBox = new QGroupBox(1, Horizontal, i18n("Context &Menu Commands"), generalPage);
+			Q3GroupBox* commandsGroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("Context &Menu Commands"), generalPage);
 			if (commandsGroupBox) {
+#if QT_VERSION >= 0x040000
+				commandsGroupBox->setInsideMargin(5);
+#endif
 				m_commandsTable = new CommandsTable(commandsGroupBox, "commandsTable");
 				vlayout->addWidget(commandsGroupBox);
 			}
@@ -109,7 +122,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #endif
 	}
 
-	QWidget* formatPage = new QWidget(this);
+	QWidget* formatPage = new QWidget;
 	if (formatPage) {
 		QVBoxLayout* vlayout = new QVBoxLayout(formatPage, 6, 6);
 		if (vlayout) {
@@ -130,7 +143,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #endif
 	}
 
-	QWidget* proxyPage = new QWidget(this);
+	QWidget* proxyPage = new QWidget;
 	if (proxyPage) {
 		QVBoxLayout* vlayout = new QVBoxLayout(proxyPage, 6, 6);
 		if (vlayout) {

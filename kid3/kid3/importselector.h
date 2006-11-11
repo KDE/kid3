@@ -11,9 +11,15 @@
 #define IMPORTSELECTOR_H
 
 #include "importtrackdata.h"
-#include <qvbox.h>
 #include <qstring.h>
 #include <qstringlist.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3VBox>
+#include <Q3ValueList>
+#else
+#include <qvbox.h>
+#endif
 
 class QPushButton;
 class QComboBox;
@@ -31,7 +37,7 @@ class ImportTable;
 /**
  * Import selector widget.
  */
-class ImportSelector : public QVBox
+class ImportSelector : public Q3VBox
 {
 Q_OBJECT
 
@@ -49,7 +55,7 @@ public:
 	 * @param f             window flags
 	 */
 	ImportSelector(QWidget *parent, ImportTrackDataVector& trackDataList,
-								 const char *name = 0, WFlags f = 0);
+								 const char *name = 0, Qt::WFlags f = 0);
 	/**
 	 * Destructor.
 	 */
@@ -91,7 +97,7 @@ public:
 	 * @return list with track durations,
 	 *         0 if no track durations found.
 	 */
-	QValueList<int>* getTrackDurations();
+	Q3ValueList<int>* getTrackDurations();
 	/**
 	 * Get time difference check configuration.
 	 *

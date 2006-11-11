@@ -14,10 +14,21 @@
 #include <qurl.h>
 #include <qtextstream.h>
 #include <qcursor.h>
-#include <qprogressbar.h>
 #include <qmessagebox.h>
-#include <qgroupbox.h>
 #include <qpushbutton.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ProgressBar>
+#include <Q3GroupBox>
+#include <QCloseEvent>
+#include <Q3ValueList>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <Q3PopupMenu>
+#else
+#include <qprogressbar.h>
+#include <qgroupbox.h>
+#endif
 
 #ifdef CONFIG_USE_KDE
 #include <kapp.h>
@@ -332,7 +343,7 @@ void Kid3App::initActions()
 	if (fileOpen) {
 		fileOpen->setText(i18n("Opens a directory"));
 		fileOpen->setMenuText(i18n("&Open..."));
-		fileOpen->setAccel(CTRL + Key_O);
+		fileOpen->setAccel(Qt::CTRL + Qt::Key_O);
 		connect(fileOpen, SIGNAL(activated()),
 			this, SLOT(slotFileOpen()));
 	}
@@ -340,7 +351,7 @@ void Kid3App::initActions()
 	if (fileSave) {
 		fileSave->setText(i18n("Saves the changed files"));
 		fileSave->setMenuText(i18n("&Save"));
-		fileSave->setAccel(CTRL + Key_S);
+		fileSave->setAccel(Qt::CTRL + Qt::Key_S);
 		connect(fileSave, SIGNAL(activated()),
 			this, SLOT(slotFileSave()));
 	}
@@ -407,7 +418,7 @@ void Kid3App::initActions()
 	if (fileQuit) {
 		fileQuit->setText(i18n("Quits the application"));
 		fileQuit->setMenuText(i18n("&Quit"));
-		fileQuit->setAccel(CTRL + Key_Q);
+		fileQuit->setAccel(Qt::CTRL + Qt::Key_Q);
 		connect(fileQuit, SIGNAL(activated()),
 			this, SLOT(slotFileQuit()));
 	}
@@ -482,10 +493,10 @@ void Kid3App::initActions()
 			this, SLOT(slotSettingsConfigure()));
 	}
 	menubar = new QMenuBar(this);
-	fileMenu = new QPopupMenu(this);
-	toolsMenu = new QPopupMenu(this);
-	settingsMenu = new QPopupMenu(this);
-	helpMenu = new QPopupMenu(this);
+	fileMenu = new Q3PopupMenu(this);
+	toolsMenu = new Q3PopupMenu(this);
+	settingsMenu = new Q3PopupMenu(this);
+	helpMenu = new Q3PopupMenu(this);
 	if (menubar && fileMenu && toolsMenu && settingsMenu && helpMenu) {
 		fileOpen->addTo(fileMenu);
 		fileMenu->insertSeparator();
@@ -544,10 +555,18 @@ void Kid3App::initView()
 	view = new id3Form(this, "id3Form");
 	if (view) {
 		setCentralWidget(view);	
-		view->genreV1ComboBox->insertStrList(Genres::strList);
-		view->genreV2ComboBox->insertStrList(Genres::strList);
+		QStringList strList;
+		for (const char** sl = Genres::strList; *sl != 0; ++sl) {
+			strList += *sl;
+		}
+		view->genreV1ComboBox->QCM_addItems(strList);
+		view->genreV2ComboBox->QCM_addItems(strList);
 		view->formatComboBox->setEditable(TRUE);
-		view->formatComboBox->insertStrList(MiscConfig::defaultFnFmtList);
+		strList.clear();
+		for (const char** sl = MiscConfig::defaultFnFmtList; *sl != 0; ++sl) {
+			strList += *sl;
+		}
+		view->formatComboBox->QCM_addItems(strList);
 	}
 }
 
@@ -663,7 +682,7 @@ void Kid3App::readOptions()
 		// the window height is a bit too large, but works
 		int sumSizes = size().height();
 		if (sumSizes > 70) {
-			QValueList<int> sizes;
+			Q3ValueList<int> sizes;
 			sizes.append(sumSizes - 70);
 			sizes.append(70);
 			view->m_vSplitter->setSizes(sizes);
@@ -737,7 +756,7 @@ bool Kid3App::saveDirectory(void)
 		}
 		mp3file = view->mp3ListBox->next();
 	}
-	QProgressBar *progress = new QProgressBar();
+	Q3ProgressBar *progress = new Q3ProgressBar();
 	statusBar()->addWidget(progress, 0, true);
 	progress->setTotalSteps(totalFiles);
 	progress->setProgress(numFiles);
@@ -769,7 +788,7 @@ bool Kid3App::saveDirectory(void)
 		QMessageBox::warning(0, i18n("File Error"),
 							 i18n("Error while writing file:\n") +
 							 errorFiles,
-							 QMessageBox::Ok, QMessageBox::NoButton);
+							 QMessageBox::Ok, QCM_NoButton);
 	}
 	return true;
 }
@@ -841,7 +860,13 @@ bool Kid3App::saveModified()
 void Kid3App::cleanup()
 {
 #ifndef CONFIG_USE_KDE
-		delete config;
+#ifdef WIN32
+	// A _BLOCK_TYPE_IS_VALID assertion pops up if config is deleted
+	// on Windows, MSVC 2005, Qt 4.1.2
+	config->sync();
+#else
+	delete config;
+#endif
 #endif
 		delete copytags;
 #ifdef HAVE_ID3LIB
@@ -1204,7 +1229,7 @@ void Kid3App::slotCreatePlaylist(void)
 	QFile file(fn);
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	slotStatusMsg(i18n("Creating playlist..."));
-	if (file.open(IO_WriteOnly)) {
+	if (file.open(QCM_WriteOnly)) {
 		QTextStream stream(&file);
 		FileListItem* mp3file = view->mp3ListBox->first();
 		while (mp3file != 0) {
@@ -1442,6 +1467,9 @@ void Kid3App::updateHideV1()
 		settingsShowHideV1->setMenuText(i18n("Hide Tag &1"));
 #endif
 	}
+#if QT_VERSION >= 0x040000
+	view->adjustRightHalfBoxSize();
+#endif
 }
 
 /**
@@ -1468,6 +1496,9 @@ void Kid3App::updateHideV2()
 		settingsShowHideV2->setMenuText(i18n("Hide Tag &2"));
 #endif
 	}
+#if QT_VERSION >= 0x040000
+	view->adjustRightHalfBoxSize();
+#endif
 }
 
 /**
@@ -1603,7 +1634,7 @@ void Kid3App::slotRenameDirectory(void)
 					QMessageBox::warning(0, i18n("File Error"),
 										 i18n("Error while renaming:\n") +
 										 errorMsg,
-										 QMessageBox::Ok, QMessageBox::NoButton);
+										 QMessageBox::Ok, QCM_NoButton);
 				}
 			}
 		}

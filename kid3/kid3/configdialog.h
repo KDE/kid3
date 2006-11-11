@@ -18,10 +18,15 @@
 #endif
 #endif
 
+#include "qtcompatmac.h"
 #ifdef KID3_USE_KCONFIGDIALOG
 #include <kconfigdialog.h>
 #else
+#if QT_VERSION >= 0x040000
+#include <Q3TabDialog>
+#else
 #include <qtabdialog.h>
+#endif
 #endif
 #include "formatconfig.h"
 
@@ -38,7 +43,7 @@ class QLineEdit;
 #ifdef KID3_USE_KCONFIGDIALOG
 typedef KConfigDialog ConfigDialogBaseClass;
 #else
-typedef QTabDialog ConfigDialogBaseClass;
+typedef Q3TabDialog ConfigDialogBaseClass;
 #endif
 
 /**

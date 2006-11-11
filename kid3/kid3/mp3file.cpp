@@ -12,11 +12,17 @@
 
 #include <qdir.h>
 #include <qstring.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#include <Q3CString>
+#else
 #include <qlistbox.h>
+#endif
 
 #include <id3/tag.h>
 #ifdef WIN32
-#include <id3.h> /* ID3TagIterator_Delete() */
+#include <id3.h>
 #endif
 
 #include "standardtags.h"
@@ -76,7 +82,7 @@ Mp3File::~Mp3File(void)
 
 void Mp3File::readTags(bool force)
 {
-	QCString fn = QFile::encodeName(dirname + QDir::separator() + filename);
+	Q3CString fn = QFile::encodeName(dirname + QDir::separator() + filename);
 
 	if (force && tagV1) {
 		tagV1->Clear();
@@ -129,7 +135,7 @@ bool Mp3File::writeTags(bool force, bool *renamed, bool preserve)
 	}
 
 	// store time stamp if it has to be preserved
-	QCString fn;
+	Q3CString fn;
 	bool setUtime = false;
 	struct utimbuf times;
 	if (preserve) {
@@ -418,10 +424,11 @@ void Mp3File::setString(ID3_Field* field, const QString &text)
 			field->Set(unicode);
 			delete [] unicode;
 		}
+	} else if (enc == ID3TE_UTF8) {
+		field->Set(text.utf8().data());
 	} else {
-		// (ID3TE_IS_SINGLE_BYTE_ENC(enc))
-		// (enc == ID3TE_ISO8859_1 || enc == ID3TE_UTF8)
-		field->Set(text);
+		// enc == ID3TE_ISO8859_1
+		field->Set(text.latin1());
 	}
 }
 

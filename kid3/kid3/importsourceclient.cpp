@@ -15,11 +15,16 @@
 #define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
 
+#include "importsourceclient.h"
 #include <qregexp.h>
-#include <qsocket.h>
 #include <qstatusbar.h>
 #include <qurl.h>
-#include "importsourceclient.h"
+#if QT_VERSION >= 0x040000
+#include <Q3Socket>
+#else
+#include <qsocket.h>
+#endif
+
 #include "importsourceconfig.h"
 #include "kid3.h"
 
@@ -29,7 +34,7 @@
 ImportSourceClient::ImportSourceClient() :
  m_statusBar(0), m_requestType(RT_None)
 {
-	m_sock = new QSocket();
+	m_sock = new Q3Socket();
 	connect(m_sock, SIGNAL(hostFound()),
 			this, SLOT(slotHostFound()));
 	connect(m_sock, SIGNAL(connected()),
@@ -149,7 +154,7 @@ void ImportSourceClient::slotConnected()
 void ImportSourceClient::slotConnectionClosed()
 {
 	Q_ULONG len = m_sock->bytesAvailable();
-	QCString rcvStr;
+	QByteArray rcvStr;
 	rcvStr.resize(len + 1);
 	m_sock->readBlock(rcvStr.data(), len);
 	switch (m_requestType) {
@@ -181,13 +186,13 @@ void ImportSourceClient::slotError(int err)
 {
 	QString msg(i18n("Socket error: "));
 	switch (err) {
-		case QSocket::ErrConnectionRefused:
+		case Q3Socket::ErrConnectionRefused:
 			msg += i18n("Connection refused");
 			break;
-		case QSocket::ErrHostNotFound:
+		case Q3Socket::ErrHostNotFound:
 			msg += i18n("Host not found");
 			break;
-		case QSocket::ErrSocketRead:
+		case Q3Socket::ErrSocketRead:
 			msg += i18n("Read failed");
 			break;
 		default:

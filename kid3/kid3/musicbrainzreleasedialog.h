@@ -37,14 +37,14 @@ public:
 	 *
 	 * @param searchStr search data received
 	 */
-	virtual void parseFindResults(const QCString& searchStr);
+	virtual void parseFindResults(const QByteArray& searchStr);
 
 	/**
 	 * Parse result of album request and populate m_trackDataVector with results.
 	 *
 	 * @param albumStr album data received
 	 */
-	virtual void parseAlbumResults(const QCString& albumStr);
+	virtual void parseAlbumResults(const QByteArray& albumStr);
 };
 
 #endif

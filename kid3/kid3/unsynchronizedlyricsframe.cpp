@@ -96,7 +96,7 @@ void UnsynchronizedLyricsFrame::setTextEncoding(TagLib::String::Type encoding)
 void UnsynchronizedLyricsFrame::parseFields(const TagLib::ByteVector &data)
 {
   if(data.size() < 5) {
-    debug("An unsynchronized lyrics frame must contain at least 5 bytes.");
+    qDebug("An unsynchronized lyrics frame must contain at least 5 bytes.");
     return;
   }
 

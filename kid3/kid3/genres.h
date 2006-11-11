@@ -65,7 +65,7 @@ class Genres {
 	 *
 	 * 125: Last ID3v1, 142: WinAmp 1.91, 145: WinAmp 1.92, 255: unknown
 	 */
-	static const char *genre[Genres::count + 2];
+	static const char *genre[Genres::count + 3];
 	/**
 	 * genre_num[n] gives the number of the n-th genre
 	 * in the alphabetically sorted list.

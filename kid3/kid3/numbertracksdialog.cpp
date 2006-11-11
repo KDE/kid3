@@ -23,6 +23,11 @@
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qcombobox.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#endif
 #include "kid3.h"
 
 /**

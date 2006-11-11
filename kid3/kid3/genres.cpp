@@ -16,7 +16,7 @@
  * 125: Last ID3v1, 142: WinAmp 1.91, 145: WinAmp 1.92, 255: unknown
  */
 
-const char *Genres::genre[Genres::count + 2] = {
+const char *Genres::genre[Genres::count + 3] = {
 	"",                // 255,
 	"A Capella",	   // 123,
 	"Acid",			   // 34,
@@ -166,6 +166,7 @@ const char *Genres::genre[Genres::count + 2] = {
 	"Tribal",		   // 72, 
 	"Trip-Hop",		   // 27,
 	"Vocal",           // 28,
+	"Custom",          // place for temporary custom genres
 	0                  // end of StrList
 };
 

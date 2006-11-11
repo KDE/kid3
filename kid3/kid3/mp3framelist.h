@@ -16,12 +16,19 @@
 
 #include "framelist.h"
 
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3PtrList>
+#else
 #include <qptrlist.h>
+#endif
 #include <id3/tag.h>
 
 class Mp3File;
 class IntComboBoxControl;
 class TextFieldControl;
+class QHBoxLayout;
+class QLabel;
 
 #endif // HAVE_ID3LIB
 
@@ -216,7 +223,7 @@ public:
 	/** ID3v2 tags containing frames */
 	ID3_Tag *tags;
 	/** List with controls to edit fields in frame */
-	QPtrList<FieldControl> fieldcontrols; 
+	Q3PtrList<FieldControl> fieldcontrols; 
 	/** Number of possible frame IDs */
 #if defined _WIN32 || defined WIN32
 	enum { num_frameid = 76 };

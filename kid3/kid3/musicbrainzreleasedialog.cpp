@@ -63,7 +63,7 @@ MusicBrainzReleaseDialog::~MusicBrainzReleaseDialog()
  *
  * @param searchStr search data received
  */
-void MusicBrainzReleaseDialog::parseFindResults(const QCString& searchStr)
+void MusicBrainzReleaseDialog::parseFindResults(const QByteArray& searchStr)
 {
 	/*
 <metadata>
@@ -77,9 +77,20 @@ void MusicBrainzReleaseDialog::parseFindResults(const QCString& searchStr)
 			<track-list count="11"/>
 		</release>
 	*/
-	int start = searchStr.find("<?xml");
+#if QT_VERSION >= 0x040000
+	int start = searchStr.indexOf("<?xml");
+	int end = searchStr.indexOf("</metadata>");
+	QByteArray xmlStr = searchStr;
+#else
+	QCString xmlStr(searchStr.data(), searchStr.size());
+	int start = xmlStr.find("<?xml");
+	int end = xmlStr.find("</metadata>");
+#endif
+	if (start >= 0 && end > start) {
+		xmlStr = xmlStr.mid(start, end + 11 - start);
+	}
 	QDomDocument doc;
-	if (start >= 0 && doc.setContent(searchStr.mid(start))) {
+	if (doc.setContent(xmlStr, false)) {
 		m_albumListBox->clear();
 		QDomElement releaseList =
 			doc.namedItem("metadata").toElement().namedItem("release-list").toElement();
@@ -106,7 +117,7 @@ void MusicBrainzReleaseDialog::parseFindResults(const QCString& searchStr)
  *
  * @param albumStr album data received
  */
-void MusicBrainzReleaseDialog::parseAlbumResults(const QCString& albumStr)
+void MusicBrainzReleaseDialog::parseAlbumResults(const QByteArray& albumStr)
 {
 	/*
 <metadata>
@@ -123,9 +134,21 @@ void MusicBrainzReleaseDialog::parseAlbumResults(const QCString& albumStr)
 				<duration>319173</duration>
 			</track>
 	*/
-	int start = albumStr.find("<?xml");
+#if QT_VERSION >= 0x040000
+	int start = albumStr.indexOf("<?xml");
+	int end = albumStr.indexOf("</metadata>");
+	QByteArray xmlStr = start >= 0 && end > start ?
+		albumStr.mid(start, end + 11 - start) : albumStr;
+#else
+	QCString xmlStr(albumStr.data(), albumStr.size());
+	int start = xmlStr.find("<?xml");
+	int end = xmlStr.find("</metadata>");
+	if (start >= 0 && end > start) {
+		xmlStr = xmlStr.mid(start, end + 11 - start);
+	}
+#endif
 	QDomDocument doc;
-	if (start >= 0 && doc.setContent(albumStr.mid(start))) {
+	if (doc.setContent(xmlStr, false)) {
 		QDomElement release =
 			doc.namedItem("metadata").toElement().namedItem("release").toElement();
 		StandardTags stHdr;

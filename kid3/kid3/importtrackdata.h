@@ -12,7 +12,12 @@
 
 #include "standardtags.h"
 #include <qglobal.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ValueVector>
+#else
 #include <qvaluevector.h>
+#endif
 
 /**
  * Track data used for import.
@@ -79,7 +84,7 @@ private:
 	QString m_absFilename;
 };
 
-class ImportTrackDataVector : public QValueVector<ImportTrackData> {
+class ImportTrackDataVector : public Q3ValueVector<ImportTrackData> {
 public:
 	QString artist;
 	QString album;

@@ -18,11 +18,16 @@
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
-#include <qtable.h>
 #include <qstring.h>
-#include <qpopupmenu.h>
 #include "formatconfig.h"
 #include "formatbox.h"
+#if QT_VERSION >= 0x040000
+#include <Q3Table>
+#include <Q3PopupMenu>
+#else
+#include <qtable.h>
+#include <qpopupmenu.h>
+#endif
 
 /**
  * Constructor.
@@ -32,7 +37,7 @@
  * @param name   Qt object name
  */
 FormatBox::FormatBox(const QString & title, QWidget *parent, const char *name) :
-	QGroupBox(5, Qt::Vertical, title, parent, name)
+	Q3GroupBox(5, Qt::Vertical, title, parent, name)
 {
 	m_formatEditingCheckBox = new QCheckBox(i18n("Format while editing"),
 																					this, "formatEditingCheckBox");
@@ -55,7 +60,7 @@ FormatBox::FormatBox(const QString & title, QWidget *parent, const char *name) :
 
 	strRepCheckBox = new QCheckBox(this, "strRepCheckBox");
 	strRepCheckBox->setText(i18n("String Replacement:"));
-	strReplTable = new QTable(this, "strReplTable");
+	strReplTable = new Q3Table(this, "strReplTable");
 	strReplTable->setNumRows(1);
 	strReplTable->setNumCols(2);
 	strReplTable->horizontalHeader()->setLabel(0, i18n("From"));
@@ -133,7 +138,7 @@ void FormatBox::clearCell(int row_col)
  */
 void FormatBox::contextMenu(int row, int col, const QPoint &pos)
 {
-	QPopupMenu menu(this);
+	Q3PopupMenu menu(this);
 
 	if (row >= -1) {
 		menu.insertItem(i18n("&Insert row"), this, SLOT(insertRow(int)), 0, 0);

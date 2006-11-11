@@ -18,11 +18,17 @@ class KRecentFilesAction;
 class KToggleAction;
 typedef KMainWindow Kid3AppBaseClass;
 #else
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3MainWindow>
+#else
 #include <qmainwindow.h>
+#endif
 #include "generalconfig.h" // Kid3Settings
 class QAction;
 class BrowserDialog;
-typedef QMainWindow Kid3AppBaseClass;
+class Q3PopupMenu;
+typedef Q3MainWindow Kid3AppBaseClass;
 #endif
 #include "importtrackdata.h"
 #include "formatconfig.h"
@@ -576,10 +582,10 @@ private:
 	QAction* helpAbout;
 	QAction* helpAboutQt;
 	QMenuBar* menubar;
-	QPopupMenu* fileMenu;
-	QPopupMenu* toolsMenu;
-	QPopupMenu* settingsMenu;
-	QPopupMenu* helpMenu;
+	Q3PopupMenu* fileMenu;
+	Q3PopupMenu* toolsMenu;
+	Q3PopupMenu* settingsMenu;
+	Q3PopupMenu* helpMenu;
 
 	static BrowserDialog* s_helpBrowser;
 #endif

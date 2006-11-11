@@ -12,6 +12,7 @@
 
 #include <qapplication.h>
 #include <qpainter.h>
+#include <qpixmap.h>
 
 /** Empty pixmap, will be allocated in constructor */
 QPixmap *FileListItem::nullPixmap = 0;
@@ -269,7 +270,7 @@ void FileListItem::setFile(TaggedFile* file)
  *
  * @return height.
  */
-int FileListItem::height(const QListBox* lb) const
+int FileListItem::height(const Q3ListBox* lb) const
 {
 	int h = text().isEmpty() ? pixmapHeight :
 		QMAX(pixmapHeight, lb->fontMetrics().lineSpacing() + 1);
@@ -283,7 +284,7 @@ int FileListItem::height(const QListBox* lb) const
  *
  * @return width.
  */
-int FileListItem::width(const QListBox* lb) const
+int FileListItem::width(const Q3ListBox* lb) const
 {
 	if (text().isEmpty()) {
 		return QMAX(pixmapWidth * 2 + 6, QApplication::globalStrut().width());

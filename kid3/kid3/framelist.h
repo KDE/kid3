@@ -17,8 +17,10 @@
 #include <qlineedit.h>
 #include <qspinbox.h>
 #include <qcombobox.h>
+#include "qtcompatmac.h"
 
-class QListBox;
+class Q3ListBox;
+class QVBoxLayout;
 class QPaintEvent;
 class TaggedFile;
 class FrameList;
@@ -308,14 +310,14 @@ public:
 	 *
 	 * @param lb list box
 	 */
-	static void setListBox(QListBox *lb) { listbox = lb; }
+	static void setListBox(Q3ListBox *lb) { listbox = lb; }
 
 protected:
 	/** File containing tags */
 	TaggedFile* m_file;
 
 	/** List box to select frame */
-	static QListBox* listbox;
+	static Q3ListBox* listbox;
 
 private:
 	FrameList(const FrameList&);

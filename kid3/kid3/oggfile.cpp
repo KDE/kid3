@@ -15,6 +15,9 @@
 #include "oggframelist.h"
 #include <qfile.h>
 #include <qdir.h>
+#if QT_VERSION >= 0x040000
+#include <Q3CString>
+#endif
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -58,7 +61,7 @@ void OggFile::readTags(bool force)
 		m_comments.clear();
 		changedV2 = false;
 		m_fileRead = true;
-		QCString fnIn = QFile::encodeName(dirname + QDir::separator() + filename);
+		Q3CString fnIn = QFile::encodeName(dirname + QDir::separator() + filename);
 
 		if (m_fileInfo.read(fnIn)) {
 			FILE* fpIn = ::fopen(fnIn, "rb");
@@ -118,7 +121,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 	if (m_fileRead && (force || changedV2)) {
 		bool writeOk = false;
 		QString tempFilename(filename);
-		QCString fnIn;
+		Q3CString fnIn;
 		if (new_filename == filename) {
 			// we have to rename the original file and delete it afterwards
 			tempFilename += "_KID3";
@@ -129,7 +132,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 		} else {
 			fnIn = QFile::encodeName(dirname + QDir::separator() + filename);
 		}
-		QCString fnOut = QFile::encodeName(dirname + QDir::separator() +
+		Q3CString fnOut = QFile::encodeName(dirname + QDir::separator() +
 																			 new_filename);
 		FILE* fpIn = ::fopen(fnIn, "rb");
 		if (fpIn) {

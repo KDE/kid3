@@ -12,6 +12,10 @@
 
 #include <qdir.h>
 #include <qstring.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3CString>
+#endif
 
 #include "standardtags.h"
 #include "taglibframelist.h"
@@ -23,7 +27,7 @@
 #include <utime.h>
 #endif
 
-// Just using #include <oggfile.h>, #include <flacfile.h> as recommended in the
+// Just using include <oggfile.h>, include <flacfile.h> as recommended in the
 // TagLib documentation does not work, as there are files with these names
 // in this directory.
 #include <taglib/mpegfile.h>
@@ -63,7 +67,7 @@ TagLibFile::~TagLibFile()
  */
 void TagLibFile::readTags(bool force)
 {
-	QCString fn = QFile::encodeName(dirname + QDir::separator() + filename);
+	Q3CString fn = QFile::encodeName(dirname + QDir::separator() + filename);
 
 	if (force || m_fileRef.isNull()) {
 		m_fileRef = TagLib::FileRef(fn);
@@ -144,7 +148,7 @@ bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 	}
 
 	// store time stamp if it has to be preserved
-	QCString fn;
+	Q3CString fn;
 	bool setUtime = false;
 	struct utimbuf times;
 	if (preserve) {

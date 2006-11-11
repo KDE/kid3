@@ -17,8 +17,13 @@
 #define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
 #include <qfile.h>
-#if HAVE_TUNEPIMP >= 5
+#if QT_VERSION >= 0x040000
+#include <Q3Socket>
+#include <Q3CString>
+#else
 #include <qsocket.h>
+#endif
+#if HAVE_TUNEPIMP >= 5
 #include <qdom.h>
 #endif
 #include "freedbclient.h"
@@ -40,7 +45,7 @@ LookupQuery::LookupQuery(int numFiles,
 	m_numFiles(numFiles), m_serverName(serverName), m_serverPort(serverPort),
 	m_proxyName(proxyName), m_proxyPort(proxyPort),
 	m_currentFile(-1), m_fileQueries(new FileQuery[numFiles]),
-	m_sock(new QSocket)
+	m_sock(new Q3Socket)
 {
 	for (int i = 0; i < m_numFiles; ++i) {
 		m_fileQueries[i].requested = false;
@@ -146,7 +151,7 @@ void LookupQuery::socketError()
 void LookupQuery::socketConnectionClosed()
 {
 	Q_ULONG len = m_sock->bytesAvailable();
-	QCString buf;
+	Q3CString buf;
 	buf.resize(len + 1 );
 	m_sock->readBlock(buf.data(), len);
 	m_sock->close();
@@ -425,8 +430,8 @@ void MusicBrainzClient::addFiles()
 	tp_GetProxy(m_tp, proxyName, sizeof(proxyName) - 1, &proxyPort);
 	m_lookupQuery = new LookupQuery(m_numFiles, serverName, serverPort,
 																	proxyName, proxyPort);
-	connect(m_lookupQuery, SIGNAL(queryResponseReceived(int, const QCString&)),
-					this, SLOT(parseLookupResponse(int, const QCString&)));
+	connect(m_lookupQuery, SIGNAL(queryResponseReceived(int, const QByteArray&)),
+					this, SLOT(parseLookupResponse(int, const QByteArray&)));
 #endif
 	int i = 0;
 	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
@@ -504,11 +509,21 @@ bool MusicBrainzClient::getResults(int, ImportTrackDataVector&) {
  * @param index    index of file
  * @param response response from server
  */
-void MusicBrainzClient::parseLookupResponse(int index, const QCString& response)
+void MusicBrainzClient::parseLookupResponse(int index, const QByteArray& response)
 {
 	ImportTrackDataVector trackDataList;
 	QDomDocument doc;
-	if (doc.setContent(response)) {
+#if QT_VERSION >= 0x040000
+	QByteArray xmlStr = response;
+	int end = xmlStr.indexOf("</metadata>");
+#else
+	QCString xmlStr(response.data(), response.size());
+	int end = xmlStr.find("</metadata>");
+#endif
+	if (end >= 0 && end + 11 < xmlStr.size()) {
+		xmlStr.resize(end + 11);
+	}
+	if (doc.setContent(xmlStr, false)) {
 		QDomElement trackList =
 			doc.namedItem("metadata").toElement().namedItem("track-list").toElement();
 
@@ -646,6 +661,6 @@ LookupQuery::~LookupQuery() {}
 void LookupQuery::socketConnected() {}
 void LookupQuery::socketError() {}
 void LookupQuery::socketConnectionClosed() {}
-void MusicBrainzClient::parseLookupResponse(int, const QCString&) {}
+void MusicBrainzClient::parseLookupResponse(int, const QByteArray&) {}
 
 #endif

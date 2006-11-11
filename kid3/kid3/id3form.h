@@ -14,25 +14,26 @@
 #include <qsplitter.h>
 #include "filelist.h"
 #include "standardtags.h"
+#include "qtcompatmac.h"
 
-class QVBoxLayout;
-class QGridLayout;
 class QCheckBox;
 class QComboBox;
-class QGroupBox;
 class QLabel;
 class QLineEdit;
-class QListBox;
-class QListBoxItem;
 class QPushButton;
 class QSpinBox;
 class QSplitter;
-class QScrollView;
-class QVBox;
-class QHBox;
 class Kid3ScrollView;
 class FormatConfig;
 class DirList;
+class Q3VBoxLayout;
+class QGridLayout;
+class Q3GroupBox;
+class Q3ListBox;
+class Q3ListBoxItem;
+class Q3ScrollView;
+class Q3VBox;
+class Q3HBox;
 
 /**
  * Main widget.
@@ -85,19 +86,24 @@ public:
 	 */
 	void setTagFormatV2(const QString& str);
 
+	/**
+	 * Adjust the size of the right half box.
+	 */
+	void adjustRightHalfBoxSize();
+
 	FileList *mp3ListBox;
 	QComboBox* genreV1ComboBox;
 	QComboBox* genreV2ComboBox;
 	QComboBox* formatComboBox;
 	QLineEdit* nameLineEdit;
 	QLabel* detailsLabel;
-	QListBox* framesListBox;
+	Q3ListBox* framesListBox;
 	QLineEdit* titleV1LineEdit;
 	QLineEdit* titleV2LineEdit;
 	QSplitter* m_vSplitter;
 	DirList* m_dirListBox;
-	QGroupBox* idV1GroupBox;
-	QGroupBox* idV2GroupBox;
+	Q3GroupBox* idV1GroupBox;
+	Q3GroupBox* idV2GroupBox;
 
 public slots:
 	/**
@@ -241,7 +247,11 @@ public slots:
 	 *
 	 * @param item selected item
 	 */
+#if QT_VERSION >= 0x040000
+	virtual void dirSelected(Q3ListBoxItem* item);
+#else
 	virtual void dirSelected(QListBoxItem* item);
+#endif
 
 private:
 	/**
@@ -254,7 +264,7 @@ private:
 	void formatLineEdit(QLineEdit *le, const QString &txt,
 						const FormatConfig *fcfg);
 
-	QGroupBox* filenameGroupBox;
+	Q3GroupBox* filenameGroupBox;
 	QLabel* nameLabel;
 	QPushButton* fnV1Button;
 	QPushButton* fnV2Button;
@@ -299,10 +309,10 @@ private:
 	QPushButton* deleteFramesPushButton;
 	QLabel* framesTextLabel;
 	Kid3ScrollView *scrollView;
-	QVBox* rightHalfVBox;
-	QHBox* trackV1HBox;
-	QHBox* trackV2HBox;
-	QVBox* frameButtonVBox;
+	Q3VBox* rightHalfVBox;
+	Q3HBox* trackV1HBox;
+	Q3HBox* trackV2HBox;
+	Q3VBox* frameButtonVBox;
 	QGridLayout* filenameGroupBoxLayout;
 	QGridLayout* idV1GroupBoxLayout;
 	QGridLayout* idV2GroupBoxLayout;

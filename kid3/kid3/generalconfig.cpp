@@ -16,12 +16,13 @@
 #if QT_VERSION < 0x030100
 #include <qfile.h>
 #include <qtextstream.h>
+#include "qtcompatmac.h"
 
 /** Quick and dirty replacement for QSettings */
 Kid3Settings::Kid3Settings()
 {
 	QFile file("kid3.cfg");
-	if (file.open(IO_ReadOnly)) {
+	if (file.open(QCM_ReadOnly)) {
 		QTextStream stream(&file);
 		QString line;
 		while (!(line = stream.readLine()).isNull()) {
@@ -37,7 +38,7 @@ Kid3Settings::Kid3Settings()
 Kid3Settings::~Kid3Settings()
 {
 	QFile file("kid3.cfg");
-	if (file.open(IO_WriteOnly)) {
+	if (file.open(QCM_WriteOnly)) {
 		QTextStream stream(&file);
 		QMap<QString, QString>::Iterator it;
 		for (it = map.begin(); it != map.end(); ++it) {

@@ -17,9 +17,14 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qstringlist.h>
-#include <qpopupmenu.h>
 #include <qmessagebox.h>
+#if QT_VERSION >= 0x040000
+#include <Q3PopupMenu>
+#include <Q3Process>
+#else
+#include <qpopupmenu.h>
 #include <qprocess.h>
+#endif
 
 #include "taggedfile.h"
 #include "filelist.h"
@@ -44,11 +49,16 @@ FileList* FileList::s_instance = 0;
 /**
  * Constructor.
  */
-FileList::FileList(QWidget* parent, const char* name, WFlags f) :
-	QListBox(parent, name, f), m_process(0)
+FileList::FileList(QWidget* parent, const char* name, Qt::WFlags f) :
+	Q3ListBox(parent, name, f), m_process(0)
 {
+#if QT_VERSION >= 0x040000
+	connect(this, SIGNAL(contextMenuRequested(Q3ListBoxItem*, const QPoint&)),
+			this, SLOT(contextMenu(Q3ListBoxItem*, const QPoint&)));
+#else
 	connect(this, SIGNAL(contextMenuRequested(QListBoxItem*, const QPoint&)),
 			this, SLOT(contextMenu(QListBoxItem*, const QPoint&)));
+#endif
 	if (s_instance) {
 		qWarning("The must be only one instance of FileList");
 	}
@@ -71,7 +81,7 @@ FileList::~FileList()
  */
 QSize FileList::sizeHint() const
 {
-	return QSize(fontMetrics().maxWidth() * 25, QListBox::sizeHint().height());
+	return QSize(fontMetrics().maxWidth() * 25, Q3ListBox::sizeHint().height());
 }
 
 /**
@@ -191,10 +201,10 @@ QString FileList::getAbsDirname(void) const
  * @param item list box item
  * @param pos  position where context menu is drawn on screen
  */
-void FileList::contextMenu(QListBoxItem* item, const QPoint& pos)
+void FileList::contextMenu(Q3ListBoxItem* item, const QPoint& pos)
 {
 	if (item && !Kid3App::s_miscCfg.m_contextMenuCommands.empty()) {
-		QPopupMenu menu(this);
+		Q3PopupMenu menu(this);
 		int id = 0;
 		for (QStringList::const_iterator
 					 it = Kid3App::s_miscCfg.m_contextMenuCommands.begin();
@@ -250,11 +260,11 @@ void FileList::executeContextCommand(int id)
 				return;
 			}
 			if (!m_process) {
-				m_process = new QProcess(this);
+				m_process = new Q3Process(this);
 			}
 			if (m_process) {
 				m_process->setArguments(args);
-				m_process->launch("");
+				m_process->launch(QString(""));
 			}
 		}
 	}

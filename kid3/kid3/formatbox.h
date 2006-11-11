@@ -10,11 +10,17 @@
 #ifndef FORMATBOX_H
 #define FORMATBOX_H
 
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3GroupBox>
+class Q3Table;
+#else
 #include <qgroupbox.h>
+class QTable;
+#endif
 
 class QComboBox;
 class QCheckBox;
-class QTable;
 class QString;
 class QPoint;
 class FormatConfig;
@@ -22,7 +28,7 @@ class FormatConfig;
 /**
  * Group box containing format options.
  */
-class FormatBox : public QGroupBox
+class FormatBox : public Q3GroupBox
 {
 Q_OBJECT
 
@@ -91,7 +97,7 @@ public slots:
 private:
 	QComboBox *caseConvComboBox;
 	QCheckBox *strRepCheckBox;
-	QTable *strReplTable;
+	Q3Table *strReplTable;
 	QCheckBox* m_formatEditingCheckBox;
 };
 

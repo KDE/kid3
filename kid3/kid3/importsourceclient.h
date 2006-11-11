@@ -13,9 +13,13 @@
 #include "config.h"
 #include <qobject.h>
 #include <qstring.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3CString>
+#endif
 
 class QStatusBar;
-class QSocket;
+class Q3Socket;
 class ImportSourceConfig;
 
 /**
@@ -135,13 +139,13 @@ signals:
 	 * Emitted when find request finished.
 	 * Parameter: text containing result of find request
 	 */
-	void findFinished(QCString);
+	void findFinished(const QByteArray&);
 
 	/**
 	 * Emitted when album track data request finished.
 	 * Parameter: text containing result of album request
 	 */
-	void albumFinished(QCString);
+	void albumFinished(const QByteArray&);
 
 protected:
 	/**
@@ -161,7 +165,7 @@ private:
 	/** status bar to display progress */
 	QStatusBar* m_statusBar;
 	/** client socket */
-	QSocket* m_sock;
+	Q3Socket* m_sock;
 	/** type of current request */
 	enum RequestType {
 		RT_None,

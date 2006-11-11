@@ -10,11 +10,16 @@
 #ifndef COMMANDSTABLE_H
 #define COMMANDSTABLE_H
 
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3Table>
+#else 
 #include <qtable.h>
+#endif
 
 class QStringList;
 
-class CommandsTable : public QTable {
+class CommandsTable : public Q3Table {
 Q_OBJECT
 
 public:

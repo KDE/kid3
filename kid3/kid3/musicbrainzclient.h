@@ -13,12 +13,18 @@
 #include "config.h"
 
 #include <qobject.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <qbytearray.h>
+#else
+#include <qcstring.h>
+#endif
 
 #ifdef HAVE_TUNEPIMP
 #if HAVE_TUNEPIMP >= 5
 #include <qbuffer.h>
 #include <tunepimp-0.5/tp_c.h>
-class QSocket;
+class Q3Socket;
 #else
 #include <tunepimp/tp_c.h>
 #endif
@@ -66,7 +72,7 @@ signals:
 	/**
 	 * Emitted when the query response is received
 	 */
-	void queryResponseReceived(int, const QCString&);
+	void queryResponseReceived(int, const QByteArray&);
 
 private slots:
 	/**
@@ -118,7 +124,7 @@ private:
 	 */ 
 	int m_currentFile;
 	FileQuery* m_fileQueries;
-	QSocket* m_sock;
+	Q3Socket* m_sock;
 	QString m_request;
 #endif
 };
@@ -197,7 +203,7 @@ private slots:
 	 * @param index    index of file
 	 * @param response response from server
 	 */
-	void parseLookupResponse(int index, const QCString& response);
+	void parseLookupResponse(int index, const QByteArray& response);
 
 #ifdef HAVE_TUNEPIMP
 private:

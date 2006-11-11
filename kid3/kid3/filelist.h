@@ -11,16 +11,21 @@
 #define FILELIST_H
 
 #include <qstring.h>
-#include <qlistbox.h>
 #include <qsize.h>
 #include "filelistitem.h"
-
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+class Q3Process;
+#else
+#include <qlistbox.h>
 class QProcess;
+#endif
 
 /**
  * List of files to operate on.
  */
-class FileList : public QListBox
+class FileList : public Q3ListBox
 {
 Q_OBJECT
 
@@ -28,7 +33,7 @@ public:
 	/**
 	 * Constructor.
 	 */
-	FileList(QWidget* parent = 0, const char* name = 0, WFlags f = 0);
+	FileList(QWidget* parent = 0, const char* name = 0, Qt::WFlags f = 0);
 	/**
 	 * Destructor.
 	 */
@@ -91,7 +96,11 @@ private slots:
 	 * @param item list box item
 	 * @param pos  position where context menu is drawn on screen
 	 */
+#if QT_VERSION >= 0x040000
+	void contextMenu(Q3ListBoxItem* item, const QPoint& pos);
+#else
 	void contextMenu(QListBoxItem* item, const QPoint& pos);
+#endif
 
 	/**
 	 * Execute a context menu command.
@@ -109,7 +118,7 @@ private:
 	/** current file */
 	FileListItem* current_item;
 	/** Process for context menu commands */
-	QProcess* m_process;
+	Q3Process* m_process;
 
 	/** Single instance */
 	static FileList* s_instance;

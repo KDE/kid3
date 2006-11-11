@@ -24,6 +24,10 @@
 #endif
 #include <cstdio>
 #include <cmath>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3CString>
+#endif
 
 /**
  * Constructor.
@@ -57,7 +61,7 @@ void FlacFile::readTags(bool force)
 		m_comments.clear();
 		changedV2 = false;
 		m_fileRead = true;
-		QCString fnIn = QFile::encodeName(dirname + QDir::separator() + filename);
+		Q3CString fnIn = QFile::encodeName(dirname + QDir::separator() + filename);
 		m_fileInfo.read(0); // just to start invalid
 		if (!m_chain) {
 			m_chain = new FLAC::Metadata::Chain;
@@ -227,7 +231,7 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
 		if (!value.isEmpty()) {
 			// The number of bytes - not characters - has to be passed to the
 			// Entry constructor, thus qstrlen is used.
-			QCString valueCStr = value.utf8();
+			Q3CString valueCStr = value.utf8();
 			vc->insert_comment(vc->get_num_comments(),
 				FLAC::Metadata::VorbisComment::Entry(
 					name.latin1(), valueCStr, qstrlen(valueCStr)));

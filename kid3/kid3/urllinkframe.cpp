@@ -119,7 +119,7 @@ void UserUrlLinkFrame::setDescription(const TagLib::String &s)
 void UserUrlLinkFrame::parseFields(const TagLib::ByteVector &data)
 {
   if (data.size() < 2) {
-    debug("A user URL link frame must contain at least 2 bytes.");
+    qDebug("A user URL link frame must contain at least 2 bytes.");
     return;
   }
 

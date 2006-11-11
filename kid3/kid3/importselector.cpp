@@ -17,19 +17,28 @@
 #include <qfiledialog.h>
 #endif
 #include <qlayout.h>
-#include <qgroupbox.h>
 #include <qpushbutton.h>
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qapplication.h>
 #include <qclipboard.h>
-#include <qtable.h>
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qbitarray.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3Table>
+#include <Q3ValueList>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <Q3GroupBox>
+#else
+#include <qtable.h>
+#include <qgroupbox.h>
+#endif
 #include "genres.h"
 #include "standardtags.h"
 #include "importparser.h"
@@ -48,7 +57,7 @@
  * Table used for import data.
  * Subclassed to be able to change the cell colors.
  */
-class ImportTable: public QTable {
+class ImportTable: public Q3Table {
 public:
 	/**
 	 * Constructor.
@@ -56,7 +65,7 @@ public:
 	 * @param name   Qt name
 	 */
 	ImportTable(QWidget* parent = 0, const char* name = 0) :
-		QTable(parent, name) {}
+		Q3Table(parent, name) {}
 	/**
 	 * Constructor.
 	 * @param numRows number of rows
@@ -64,7 +73,7 @@ public:
 	 * @param name    Qt name
 	 */
 	ImportTable(int numRows, int numCols, QWidget* parent = 0, const char* name = 0) :
-		QTable(numRows, numCols, parent, name) {} 
+		Q3Table(numRows, numCols, parent, name) {} 
 	/**
 	 * Clear marked rows.
 	 */
@@ -102,9 +111,9 @@ protected:
 		if (col == 0 && isRowMarked(row)) {
 			QColorGroup g(cg);
 			g.setColor(QColorGroup::Base, QColor("red"));
-			QTable::paintCell(p, row, col, cr, selected, g);
+			Q3Table::paintCell(p, row, col, cr, selected, g);
 		} else {
-			QTable::paintCell(p, row, col, cr, selected, cg);
+			Q3Table::paintCell(p, row, col, cr, selected, cg);
 		}
 	}
 
@@ -124,8 +133,8 @@ private:
  */
 ImportSelector::ImportSelector(
 	QWidget *parent, ImportTrackDataVector& trackDataList,
-	const char *name, WFlags f) :
-	QVBox(parent, name, f),
+	const char *name, Qt::WFlags f) :
+	Q3VBox(parent, name, f),
 	m_trackDataVector(trackDataList)
 {
 	freedbDialog = 0;
@@ -141,11 +150,11 @@ ImportSelector::ImportSelector(
 	setMargin(6);
 	tab = new ImportTable(0, NumColumns, this);
 	tab->setReadOnly(true);
-	tab->setFocusStyle(QTable::FollowStyle);
+	tab->setFocusStyle(Q3Table::FollowStyle);
 	tab->setRowMovingEnabled(true);
-	tab->setSelectionMode(QTable::NoSelection);
-	QHeader* hHeader = tab->horizontalHeader();
-	QHeader* vHeader = tab->verticalHeader();
+	tab->setSelectionMode(Q3Table::NoSelection);
+	Q3Header* hHeader = tab->horizontalHeader();
+	Q3Header* vHeader = tab->verticalHeader();
 	hHeader->setLabel(LengthColumn, i18n("Length"));
 	hHeader->setLabel(TrackColumn, i18n("Track"));
 	hHeader->setLabel(TitleColumn, i18n("Title"));
@@ -157,7 +166,10 @@ ImportSelector::ImportSelector(
 	tab->adjustColumn(TrackColumn);
 	tab->adjustColumn(YearColumn);
 
-	QGroupBox *fmtbox = new QGroupBox(3, Qt::Vertical, i18n("Format"), this);
+	Q3GroupBox *fmtbox = new Q3GroupBox(3, Qt::Vertical, i18n("Format"), this);
+#if QT_VERSION >= 0x040000
+	fmtbox->setInsideMargin(5);
+#endif
 	formatComboBox = new QComboBox(false, fmtbox, "formatComboBox");
 	formatComboBox->setEditable(true);
 	headerLineEdit = new QLineEdit(fmtbox);
@@ -311,7 +323,7 @@ void ImportSelector::fromFile()
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
-		if (file.open(IO_ReadOnly)) {
+		if (file.open(QCM_ReadOnly)) {
 			QTextStream stream(&file);
 			text = stream.read();
 			if (!text.isNull()) {
@@ -454,10 +466,10 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 
 	if (!start) {
 		/* start is false => tags were found */
-		QValueList<int>* trackDuration = getTrackDurations();
+		Q3ValueList<int>* trackDuration = getTrackDurations();
 		if (trackDuration) {
 			it = m_trackDataVector.begin();
-			for (QValueList<int>::const_iterator tdit = trackDuration->begin();
+			for (Q3ValueList<int>::const_iterator tdit = trackDuration->begin();
 					 tdit != trackDuration->end();
 					 ++tdit) {
 				if (it != m_trackDataVector.end()) {
@@ -479,7 +491,7 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 void ImportSelector::showPreview() {
 	tab->setNumRows(0);
 	int row = 0;
-	QHeader* vHeader = tab->verticalHeader();
+	Q3Header* vHeader = tab->verticalHeader();
 	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 			 it != m_trackDataVector.end();
 			 ++it) {
@@ -603,9 +615,9 @@ void ImportSelector::saveConfig()
  * @return list with track durations,
  *         0 if no track durations found.
  */
-QValueList<int>* ImportSelector::getTrackDurations()
+Q3ValueList<int>* ImportSelector::getTrackDurations()
 {
-	QValueList<int>* lst = 0;
+	Q3ValueList<int>* lst = 0;
 	if (header_parser && ((lst = header_parser->getTrackDurations()) != 0) &&
 			(lst->size() > 0)) {
 		return lst;

@@ -31,11 +31,19 @@
 #include <qtextedit.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
 #include <qdir.h>
 #include <qapplication.h>
 #include <qclipboard.h>
 #include <qurl.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3GroupBox>
+#include <QTextStream>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#else
+#include <qgroupbox.h>
+#endif
 
 /**
  * Constructor.
@@ -55,8 +63,11 @@ ExportDialog::ExportDialog(QWidget* parent) :
 			vlayout->addWidget(m_edit);
 		}
 
-		QGroupBox* fmtbox = new QGroupBox(4, Qt::Vertical, i18n("&Format"), this);
+		Q3GroupBox* fmtbox = new Q3GroupBox(4, Qt::Vertical, i18n("&Format"), this);
 		if (fmtbox) {
+#if QT_VERSION >= 0x040000
+			fmtbox->setInsideMargin(5);
+#endif
 			m_formatComboBox = new QComboBox(false, fmtbox, "formatComboBox");
 			m_formatComboBox->setEditable(true);
 			m_headerLineEdit = new QLineEdit(fmtbox);
@@ -148,7 +159,7 @@ void ExportDialog::slotToFile()
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
-		if (file.open(IO_WriteOnly)) {
+		if (file.open(QCM_WriteOnly)) {
 			QTextStream stream(&file);
 			stream.setEncoding(QTextStream::Locale);
 			stream << m_edit->text();
@@ -248,7 +259,11 @@ static QString trackDataToString(
 		QUrl url;
 		url.setFileName(tagStr[9]);
 		url.setProtocol("file");
-		tagStr[10] = url.toString(true);
+		tagStr[10] = url.toString(
+#if QT_VERSION < 0x040000
+			true
+#endif
+			);
 		tagStr[11] = TaggedFile::formatTime(trackData.getFileDuration());
 		tagStr[12] = QString::number(trackData.getFileDuration());
 		tagStr[13] = QString::number(numTracks);

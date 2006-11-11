@@ -14,7 +14,12 @@
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
 #include "taggedfile.h"
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ValueList>
+#else
 #include <qvaluelist.h>
+#endif
 
 class OggFrameList;
 
@@ -282,7 +287,7 @@ protected:
 	};
 
 	/** Vorbis comment list. */
-	class CommentList : public QValueList<CommentField> {
+	class CommentList : public Q3ValueList<CommentField> {
 	public:
 		/** Constructor. */
 		CommentList() {}

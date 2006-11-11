@@ -18,14 +18,21 @@
 #endif
 
 #include <qlayout.h>
-#include <qhbox.h>
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
-#include <qtable.h>
 #include <qlabel.h>
 #include <qtimer.h>
+#if QT_VERSION >= 0x040000
+#include <q3hbox.h>
+#include <q3table.h>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#else
+#include <qhbox.h>
+#include <qtable.h>
+#endif
 #include "kid3.h"
 #include "musicbrainzclient.h"
 
@@ -58,28 +65,27 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 			"nl.musicbrainz.org:80",
 			0                  // end of StrList
 		};
-		m_serverComboBox->insertStrList(serverList);
-#if QT_VERSION >= 0x030100
-		m_serverComboBox->setSizePolicy(
-			QSizePolicy::Expanding, QSizePolicy::Minimum);
-#else
+		QStringList strList;
+		for (const char** sl = serverList; *sl != 0; ++sl) {
+			strList += *sl;
+		}
+		m_serverComboBox->QCM_addItems(strList);
 		m_serverComboBox->setSizePolicy(
 			QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-#endif
 		serverLabel->setBuddy(m_serverComboBox);
 		serverLayout->addWidget(serverLabel);
 		serverLayout->addWidget(m_serverComboBox);
 		connect(m_serverComboBox, SIGNAL(activated(int)),
 						this, SLOT(setClientConfig()));
 	}
-	m_albumTable = new QTable(this, "albumTable");
+	m_albumTable = new Q3Table(this, "albumTable");
 	if (m_albumTable) {
 		m_albumTable->setNumCols(2);
 		m_albumTable->setColumnReadOnly(1, true);
-		m_albumTable->setFocusStyle(QTable::FollowStyle);
+		m_albumTable->setFocusStyle(Q3Table::FollowStyle);
 		m_albumTable->setColumnStretchable(0, true);
-		m_albumTable->setSelectionMode(QTable::NoSelection);
-		QHeader* hHeader = m_albumTable->horizontalHeader();
+		m_albumTable->setSelectionMode(Q3Table::NoSelection);
+		Q3Header* hHeader = m_albumTable->horizontalHeader();
 		hHeader->setLabel(0, "08 A Not So Short Title/Medium Sized Artist - And The Album Title [2005]");
 		hHeader->setLabel(1, "A Not So Short State");
 		m_albumTable->adjustColumn(0);
@@ -139,7 +145,7 @@ void MusicBrainzDialog::initTable()
 	m_trackResults.resize(numRows);
 	m_albumTable->setNumRows(numRows);
 	for (unsigned i = 0; i < numRows; ++i) {
-		QComboTableItem* cti = new QComboTableItem(
+		Q3ComboTableItem* cti = new Q3ComboTableItem(
 			m_albumTable, QStringList(i18n("No result")));
 		m_albumTable->setItem(i, 0, cti);
 		m_albumTable->setText(i, 1, i18n("Unknown"));
@@ -240,8 +246,8 @@ void MusicBrainzDialog::apply()
 	bool newTrackData = false;
 	unsigned numRows = m_trackDataVector.size();
 	for (unsigned index = 0; index < numRows; ++index) {
-		QComboTableItem* item =
-			dynamic_cast<QComboTableItem*>(m_albumTable->item(index, 0));
+		Q3ComboTableItem* item =
+			dynamic_cast<Q3ComboTableItem*>(m_albumTable->item(index, 0));
 		if (item) {
 			int selectedItem = item->currentItem();
 			if (selectedItem > 0) {
@@ -320,8 +326,8 @@ void MusicBrainzDialog::updateFileTrackData(int index)
 		}
 		stringList.push_back(str);
 	}
-	QComboTableItem* item =
-		dynamic_cast<QComboTableItem*>(m_albumTable->item(index, 0));
+	Q3ComboTableItem* item =
+		dynamic_cast<Q3ComboTableItem*>(m_albumTable->item(index, 0));
 	if (item) {
 		item->setStringList(stringList);
 		// if there is only one result, select it, else let the user select

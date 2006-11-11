@@ -55,7 +55,7 @@ DiscogsDialog::~DiscogsDialog()
  *
  * @param searchStr search data received
  */
-void DiscogsDialog::parseFindResults(const QCString& searchStr)
+void DiscogsDialog::parseFindResults(const QByteArray& searchStr)
 {
 	// releases have the format:
 	// <li><a href="/release/761529"><span style="font-size: 11pt;"><em>Amon</em> <em>Amarth</em> - The <em>Avenger</em></span></a><br>
@@ -82,7 +82,7 @@ void DiscogsDialog::parseFindResults(const QCString& searchStr)
  *
  * @param albumStr album data received
  */
-void DiscogsDialog::parseAlbumResults(const QCString& albumStr)
+void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 {
 	QRegExp nlSpaceRe("[\r\n]+\\s*");
 	QRegExp htmlTagRe("<[^>]+>");

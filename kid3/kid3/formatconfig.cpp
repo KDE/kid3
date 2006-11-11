@@ -12,9 +12,6 @@
 #include <kconfig.h>
 #else
 #include <qstring.h>
-#if QT_VERSION < 0x030100
-#include <qregexp.h>
-#endif
 #endif
 #include "generalconfig.h"
 #include "standardtags.h"

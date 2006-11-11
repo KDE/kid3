@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
 
 #include <qapplication.h>
 #include <qtextcodec.h>
+#include <qtranslator.h>
 
 #include "kid3.h"
 

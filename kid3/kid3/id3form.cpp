@@ -9,18 +9,32 @@
 
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qdragobject.h>
-#include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlineedit.h>
-#include <qlistbox.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qvbox.h>
 #include <qsplitter.h>
 #include <qdir.h>
+#include <qframe.h>
+
+#if QT_VERSION >= 0x040000
+#include <Q3DragObject>
+#include <Q3ListBox>
+#include <Q3VBox>
+#include <QVBoxLayout>
+#include <QDropEvent>
+#include <QDragEnterEvent>
+#include <QLabel>
+#include <QGridLayout>
+#include <Q3GroupBox>
+#else
+#include <qdragobject.h>
+#include <qlistbox.h>
+#include <qvbox.h>
+#include <qgroupbox.h>
+#endif
 
 #include "config.h"
 #ifdef CONFIG_USE_KDE
@@ -44,7 +58,7 @@
  * A QScrollView which returns the sizeHint of its child.
  * This is necessary to get a reasonable default size of the window.
  */
-class Kid3ScrollView: public QScrollView {
+class Kid3ScrollView: public Q3ScrollView {
 public:
 	/**
 	 * Constructor.
@@ -52,7 +66,7 @@ public:
 	 * @param name   name
 	 * @param f      window flags
 	 */
-	Kid3ScrollView(QWidget *parent = 0, const char *name = 0, WFlags f = 0);
+	Kid3ScrollView(QWidget *parent = 0, const char *name = 0, Qt::WFlags f = 0);
 	/**
 	 * Constructor.
 	 * @param parent  parent widget
@@ -81,8 +95,8 @@ private:
  * @param parent parent widget
  * @see QScrollView
  */
-Kid3ScrollView::Kid3ScrollView(QWidget *parent, const char *name, WFlags f)
-	: QScrollView(parent, name, f), client(0) {}
+Kid3ScrollView::Kid3ScrollView(QWidget *parent, const char *name, Qt::WFlags f)
+	: Q3ScrollView(parent, name, f), client(0) {}
 
 /**
  * Returns the recommended size for the widget by using the sizeHint of
@@ -92,7 +106,7 @@ Kid3ScrollView::Kid3ScrollView(QWidget *parent, const char *name, WFlags f)
  */
 QSize Kid3ScrollView::sizeHint() const
 {
-	return client ? client->sizeHint() : QScrollView::sizeHint();
+	return client ? client->sizeHint() : Q3ScrollView::sizeHint();
 }
 
 /**
@@ -104,7 +118,7 @@ QSize Kid3ScrollView::sizeHint() const
 void Kid3ScrollView::addChild(QWidget *child, int x, int y)
 {
 	client = child;
-	QScrollView::addChild(child, x, y);
+	Q3ScrollView::addChild(child, x, y);
 }
 
 /** 
@@ -116,25 +130,33 @@ void Kid3ScrollView::addChild(QWidget *child, int x, int y)
 id3Form::id3Form(QWidget* parent, const char* name)
 	: QSplitter(parent, name)
 {
+#if QT_VERSION >= 0x040000
+	const int margin = 12;
+	const int spacing = 2;
+#else
+	const int margin = 16;
+	const int spacing = 6;
+#endif
+
 	setAcceptDrops(TRUE);
 	setCaption(i18n("Kid3"));
 
-	m_vSplitter = new QSplitter(Vertical, this, "vSplitter");
+	m_vSplitter = new QSplitter(Qt::Vertical, this, "vSplitter");
 	mp3ListBox = new FileList(m_vSplitter, "mp3ListBox");
-	mp3ListBox->setSelectionMode(QListBox::Extended);
+	mp3ListBox->setSelectionMode(Q3ListBox::Extended);
 	m_dirListBox = new DirList(m_vSplitter, "dirListBox");
 
 	scrollView = new Kid3ScrollView(this);
-	scrollView->setResizePolicy(QScrollView::AutoOneFit);
+	scrollView->setResizePolicy(Q3ScrollView::AutoOneFit);
 	scrollView->setFrameStyle(QFrame::NoFrame);
-	rightHalfVBox = new QVBox(scrollView->viewport());
+	rightHalfVBox = new Q3VBox(scrollView->viewport());
 	rightHalfVBox->setSpacing(2);
 	rightHalfVBox->setMargin(2);
 
 
-	filenameGroupBox = new QGroupBox(rightHalfVBox, "filenameGroupBox");
+	filenameGroupBox = new Q3GroupBox(rightHalfVBox, "filenameGroupBox");
 	filenameGroupBox->setTitle(i18n("File&name"));
-	filenameGroupBoxLayout = new QGridLayout(filenameGroupBox, 3, 3, 16, 6);
+	filenameGroupBoxLayout = new QGridLayout(filenameGroupBox, 3, 3, margin, spacing);
 
 	nameLabel = new QLabel(filenameGroupBox, "nameLabel");
 	nameLabel->setText(i18n("Name:"));
@@ -165,9 +187,9 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	detailsLabel = new QLabel(filenameGroupBox, "detailsLabel");
 	filenameGroupBoxLayout->addMultiCellWidget(detailsLabel, 2, 2, 1, 2);
 
-	idV1GroupBox = new QGroupBox(rightHalfVBox, "idV1GroupBox");
+	idV1GroupBox = new Q3GroupBox(rightHalfVBox, "idV1GroupBox");
 	idV1GroupBox->setTitle(i18n("Tag &1"));
-	idV1GroupBoxLayout = new QGridLayout(idV1GroupBox, 6, 3, 16, 6);
+	idV1GroupBoxLayout = new QGridLayout(idV1GroupBox, 6, 3, margin, spacing);
 
 	titleV1CheckBox = new QCheckBox(idV1GroupBox, "titleV1CheckBox");
 	titleV1CheckBox->setText(i18n("Title:"));
@@ -226,7 +248,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	yearV1CheckBox->setText(i18n("Year:"));
 	idV1GroupBoxLayout->addWidget(yearV1CheckBox, 4, 0);
 
-	trackV1HBox = new QHBox(idV1GroupBox, "trackV1HBox");
+	trackV1HBox = new Q3HBox(idV1GroupBox, "trackV1HBox");
 	trackV1HBox->setSpacing(6);
 	yearV1SpinBox = new QSpinBox(trackV1HBox, "yearV1SpinBox");
 	yearV1SpinBox->setMaxValue(9999);
@@ -243,10 +265,10 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	genreV1ComboBox = new QComboBox(FALSE, idV1GroupBox, "genreV1ComboBox");
 	idV1GroupBoxLayout->addWidget(genreV1ComboBox, 5, 1);
 
-	idV2GroupBox = new QGroupBox(rightHalfVBox, "idV2GroupBox");
+	idV2GroupBox = new Q3GroupBox(rightHalfVBox, "idV2GroupBox");
 	idV2GroupBox->setTitle(i18n("Tag &2"));
 
-	idV2GroupBoxLayout = new QGridLayout(idV2GroupBox, 7, 3, 16, 6);
+	idV2GroupBoxLayout = new QGridLayout(idV2GroupBox, 7, 3, margin, spacing);
 	idV2GroupBoxLayout->setAlignment(Qt::AlignTop);
 
 	titleV2CheckBox = new QCheckBox(idV2GroupBox, "titleV2CheckBox");
@@ -298,7 +320,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	yearV2CheckBox->setText(i18n("Year:"));
 	idV2GroupBoxLayout->addWidget(yearV2CheckBox, 4, 0);
 
-	trackV2HBox = new QHBox(idV2GroupBox, "trackV2HBox"); 
+	trackV2HBox = new Q3HBox(idV2GroupBox, "trackV2HBox"); 
 	trackV2HBox->setSpacing(6);
 	yearV2SpinBox = new QSpinBox(trackV2HBox, "yearV2SpinBox");
 	yearV2SpinBox->setMaxValue(9999);
@@ -327,10 +349,10 @@ id3Form::id3Form(QWidget* parent, const char* name)
 
 	idV2GroupBoxLayout->addWidget(framesTextLabel, 6, 0);
 
-	framesListBox = new QListBox(idV2GroupBox, "framesListBox");
+	framesListBox = new Q3ListBox(idV2GroupBox, "framesListBox");
 	idV2GroupBoxLayout->addWidget(framesListBox, 6, 1);
 
-	frameButtonVBox = new QVBox(idV2GroupBox, "frameButtonLayout"); 
+	frameButtonVBox = new Q3VBox(idV2GroupBox, "frameButtonLayout"); 
 	frameButtonVBox->setSpacing(6);
 	editFramesPushButton = new QPushButton(frameButtonVBox,
 										   "editFramesPushButton");
@@ -362,10 +384,17 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	connect(removeV2PushButton, SIGNAL(clicked()), this, SLOT(removeV2()));
 	connect(mp3ListBox, SIGNAL(selectionChanged()), this,
 			SLOT(fileSelected()));
+#if QT_VERSION >= 0x040000
+	connect(framesListBox, SIGNAL(doubleClicked(Q3ListBoxItem*)), this,
+			SLOT(editFrame()));
+	connect(framesListBox, SIGNAL(returnPressed(Q3ListBoxItem*)), this,
+			SLOT(editFrame()));
+#else
 	connect(framesListBox, SIGNAL(doubleClicked(QListBoxItem*)), this,
 			SLOT(editFrame()));
 	connect(framesListBox, SIGNAL(returnPressed(QListBoxItem*)), this,
 			SLOT(editFrame()));
+#endif
 	connect(framesAddPushButton, SIGNAL(clicked()), this, SLOT(addFrame()));
 	connect(deleteFramesPushButton, SIGNAL(clicked()), this,
 			SLOT(deleteFrame()));
@@ -386,10 +415,17 @@ id3Form::id3Form(QWidget* parent, const char* name)
 			SLOT(artistV2LineEditChanged(const QString &)));
 	connect(titleV2LineEdit, SIGNAL(textChanged(const QString &)), this,
 			SLOT(titleV2LineEditChanged(const QString &)));
+#if QT_VERSION >= 0x040000
+	connect(m_dirListBox, SIGNAL(doubleClicked(Q3ListBoxItem *)), this,
+			SLOT(dirSelected(Q3ListBoxItem *)));
+	connect(m_dirListBox, SIGNAL(returnPressed(Q3ListBoxItem *)), this,
+			SLOT(dirSelected(Q3ListBoxItem *)));
+#else
 	connect(m_dirListBox, SIGNAL(doubleClicked(QListBoxItem *)), this,
 			SLOT(dirSelected(QListBoxItem *)));
 	connect(m_dirListBox, SIGNAL(returnPressed(QListBoxItem *)), this,
 			SLOT(dirSelected(QListBoxItem *)));
+#endif
 
 	// tab order
 	setTabOrder(mp3ListBox, m_dirListBox);
@@ -640,7 +676,9 @@ void id3Form::setStandardTagsV2(const StandardTags *st)
 	int genreIndex = st->genre >= 0 ?	Genres::getIndex(st->genre) : 0;
 	if (genreIndex > 0 || st->genreStr.isEmpty()) {
 		genreV2ComboBox->setCurrentItem(genreIndex);
+		genreV2ComboBox->setCurrentText(Genres::getName(st->genre));
 	} else {
+		genreV2ComboBox->setCurrentItem(Genres::count + 1);
 		genreV2ComboBox->setCurrentText(st->genreStr);
 	}
 }
@@ -692,7 +730,7 @@ int id3Form::numFilesSelected()
  */
 void id3Form::dragEnterEvent(QDragEnterEvent *ev)
 {
-	ev->accept(QTextDrag::canDecode(ev));
+	ev->accept(Q3TextDrag::canDecode(ev));
 }
 
 /**
@@ -703,7 +741,7 @@ void id3Form::dragEnterEvent(QDragEnterEvent *ev)
 void id3Form::dropEvent(QDropEvent *ev)
 {
 	QString text;
-	if (QTextDrag::decode(ev, text)) {
+	if (Q3TextDrag::decode(ev, text)) {
 		theApp->openDrop(text);
 	}
 }
@@ -839,7 +877,7 @@ void id3Form::formatLineEdit(QLineEdit *le, const QString &txt,
  *
  * @param item selected item
  */
-void id3Form::dirSelected(QListBoxItem* item) {
+void id3Form::dirSelected(Q3ListBoxItem* item) {
 	QDir dir(m_dirListBox->getDirname() + QDir::separator() +
 					 item->text());
 	m_dirListBox->setEntryToSelect(
@@ -929,4 +967,12 @@ void id3Form::setTagFormatV2(const QString& str)
 		txt += str;
 	}
 	idV2GroupBox->setTitle(txt);
+}
+
+/**
+ * Adjust the size of the right half box.
+ */
+void id3Form::adjustRightHalfBoxSize()
+{
+	rightHalfVBox->adjustSize();
 }
