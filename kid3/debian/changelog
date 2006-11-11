@@ -1,8 +1,13 @@
-kid3 (0.7-2) unstable; urgency=low
+kid3 (0.8-0) unstable; urgency=low
 
-  * Patched upstream version
+  * New upstream version
+    - Import from freedb2.org, Discogs and MusicBrainz release database
+    - Support for ID3v2.4 and MPC using TagLib
+    - Context specific help in dialogs
+    - Builds with tunepimp 0.5.x and Qt4
+    - Usability improvements and bug fixes
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 04 Sep 2006 19:21:36 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 11 Nov 2006 11:08:46 +0100
 
 kid3 (0.7-1) unstable; urgency=low
 

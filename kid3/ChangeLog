@@ -1,3 +1,25 @@
+Sat Nov 11 11:02:44 CET 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.8
+
+	* New:
+	  + Import from freedb2.org, Discogs and MusicBrainz release database.
+	  + Support for ID3v2.4 and MPC using TagLib.
+	  + Context specific help in dialogs.
+	  + Support build with Qt4.
+
+	* Improved:
+	  + Show tag formats.
+	  + Remove non-letter characters before matching by title in
+	    import dialog.
+	  + Buttons to save dialog specific settings.
+
+	* Fixed:
+	  + Allow building with tunepimp 0.5.x.
+	  + Place kid3.desktop in /usr/share/applications/kde/.
+	  + Fix inadvertent changes of ID3v2.3 genre strings.
+	  + Remove trailing zeroes in unicode strings.
+
 Wed Jun  7 21:14:24 CEST 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.7
