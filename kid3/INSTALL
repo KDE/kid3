@@ -22,6 +22,12 @@ make install
 The install directory can be given as an optional parameter,
 default is kid3qt.
 
+*** Compile with Qt 4
+
+The Makefiles have to be modified using
+
+make qt4-Makefile
+
 *** Create Debian Package
 
 Make sure that you have installed all packages listed in debian/control,
@@ -40,7 +46,7 @@ rpm -ba kid3.spec
 
 *** Windows
 
-*** Compile with non-commercial Qt version 2.3.0
+*** Compile with non-commercial Qt version 3.2.1
 
 If you want to use language files like kid3_de.qm for German
 translations, generate them from KDE/Linux. They can be used for
