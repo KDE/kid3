@@ -17,6 +17,7 @@ Prefix:       /opt/kde3
 #BuildRequires:  id3lib-devel
 #BuildRequires:  flac-devel
 #BuildRequires:  libtunepimp-devel
+#BuildRequires:  taglib-devel
 #BuildRequires:  desktop-file-utils
 #BuildRequires:  perl(File::Spec)
 
