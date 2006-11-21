@@ -28,6 +28,11 @@ The Makefiles have to be modified using
 
 make qt4-Makefile
 
+It is easier to use qmake with the Qt project file win32/kid3.pro:
+
+qmake-qt4
+make
+
 *** Create Debian Package
 
 Make sure that you have installed all packages listed in debian/control,
@@ -57,4 +62,9 @@ must be installed.
 
 nmake /f kid3.mak
 
-To compile using Visual C++, use the files kid3.dsp, kid3.dsw.
+To compile using Visual C++, use the files kid3.dsp, kid3.dsw or kid3.vcproj.
+
+*** Compile with open source Qt version 4
+
+qmake
+mingw32-make
