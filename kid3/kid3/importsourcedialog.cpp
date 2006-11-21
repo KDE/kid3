@@ -7,14 +7,6 @@
  * \date 09 Oct 2006
  */
 
-#include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <klocale.h>
-#else
-#define i18n(s) tr(s)
-#define I18N_NOOP(s) QT_TR_NOOP(s)
-#endif
-
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qlineedit.h>

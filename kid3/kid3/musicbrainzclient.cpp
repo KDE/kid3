@@ -10,12 +10,6 @@
 #include "musicbrainzclient.h"
 #ifdef HAVE_TUNEPIMP
 
-#ifdef CONFIG_USE_KDE
-#include <klocale.h>
-#else
-#define i18n(s) tr(s)
-#define I18N_NOOP(s) QT_TR_NOOP(s)
-#endif
 #include <qfile.h>
 #if QT_VERSION >= 0x040000
 #include <Q3Socket>

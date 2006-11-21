@@ -11,6 +11,19 @@
 #define QTCOMPATMAC_H
 
 #include <qglobal.h>
+#include "config.h"
+
+#ifdef CONFIG_USE_KDE
+#include <klocale.h>
+#else
+#if QT_VERSION >= 0x040000
+#include <QCoreApplication>
+#define i18n(s) QCoreApplication::translate("@default", s)
+#else
+#define i18n(s) tr(s)
+#endif
+#define I18N_NOOP(s) QT_TR_NOOP(s)
+#endif
 
 #if QT_VERSION >= 0x040000
 

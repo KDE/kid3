@@ -9,12 +9,6 @@
 
 #include "oggframelist.h"
 #if defined HAVE_VORBIS || defined HAVE_FLAC
-#ifdef CONFIG_USE_KDE
-#include <klocale.h>
-#else
-#define i18n(s) tr(s)
-#define I18N_NOOP(s) QT_TR_NOOP(s)
-#endif
 
 #include <qdialog.h>
 #include <qpushbutton.h>

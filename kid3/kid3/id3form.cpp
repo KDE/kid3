@@ -36,13 +36,6 @@
 #include <qgroupbox.h>
 #endif
 
-#include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <klocale.h>
-#else
-#define i18n(s) tr(s)
-#endif
-
 /** Shortcut for pointer to parent (application) widget. */
 #define theApp ((Kid3App *)parentWidget())
 

@@ -11,13 +11,10 @@
 #ifdef HAVE_ID3LIB
 
 #ifdef CONFIG_USE_KDE
-#include <klocale.h>
 #include <kdialogbase.h>
 #include <kfiledialog.h>
 #else
 #include <qdialog.h>
-#define i18n(s) tr(s)
-#define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
 
 #include <qfile.h>

@@ -8,12 +8,6 @@
  */
 
 #include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <klocale.h>
-#else
-#define i18n(s) tr(s)
-#define I18N_NOOP(s) QT_TR_NOOP(s)
-#endif
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qstringlist.h>
@@ -30,6 +24,7 @@
 #include "filelist.h"
 #include "filelistitem.h"
 #include "kid3.h"
+#include "qtcompatmac.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif

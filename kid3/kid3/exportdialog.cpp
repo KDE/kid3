@@ -10,12 +10,9 @@
 #include "exportdialog.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
-#include <klocale.h>
 #include <kconfig.h>
 #include <kfiledialog.h>
 #else
-#define i18n(s) tr(s)
-#define I18N_NOOP(s) QT_TR_NOOP(s)
 #include <qfiledialog.h>
 #endif
 
