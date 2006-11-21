@@ -35,7 +35,6 @@
 #include <kurl.h>
 #include <kmenubar.h>
 #include <kstatusbar.h>
-#include <klocale.h>
 #include <kconfig.h>
 #include <kstdaction.h>
 #include <kaction.h>
@@ -49,8 +48,6 @@
 #include <qstatusbar.h>
 #include <qmessagebox.h>
 #include <qfiledialog.h>
-#define i18n(s) tr(s)
-#define I18N_NOOP(s) QT_TR_NOOP(s)
 #endif
 
 #include "kid3.h"
@@ -115,7 +112,11 @@ BrowserDialog::BrowserDialog(QWidget *parent, QString &caption)
 		lang = "en";
 	}
 	m_filename += lang + ".html";
+#if QT_VERSION >= 0x040000
+	m_textBrowser->setSource(QUrl::fromLocalFile(m_filename));
+#else
 	m_textBrowser->setSource(m_filename);
+#endif
 	vlayout->addWidget(m_textBrowser);
 
 	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
@@ -146,7 +147,17 @@ BrowserDialog::~BrowserDialog()
 
 void BrowserDialog::goToAnchor(const QString& anchor)
 {
-	m_textBrowser->setSource(m_filename + '#' + anchor);
+#if QT_VERSION >= 0x040000
+	QUrl url = QUrl::fromLocalFile(m_filename);
+	url.setFragment(anchor);
+	m_textBrowser->setSource(url);
+#else
+	if (!anchor.isEmpty()) {
+		m_textBrowser->setSource(m_filename + '#' + anchor);
+	} else {
+		m_textBrowser->setSource(m_filename);
+	}
+#endif
 }
 
 BrowserDialog* Kid3App::s_helpBrowser = 0;
@@ -860,7 +871,7 @@ bool Kid3App::saveModified()
 void Kid3App::cleanup()
 {
 #ifndef CONFIG_USE_KDE
-#ifdef WIN32
+#ifdef _MSC_VER
 	// A _BLOCK_TYPE_IS_VALID assertion pops up if config is deleted
 	// on Windows, MSVC 2005, Qt 4.1.2
 	config->sync();
@@ -1120,12 +1131,8 @@ void Kid3App::displayHelp(const QString& anchor)
 			new BrowserDialog(NULL, caption);
 	}
 	if (s_helpBrowser) { 
-		if (!anchor.isEmpty()) {
-			s_helpBrowser->goToAnchor(anchor);
-			s_helpBrowser->setModal(true);
-		} else {
-			s_helpBrowser->setModal(false);
-		}
+		s_helpBrowser->goToAnchor(anchor);
+		s_helpBrowser->setModal(!anchor.isEmpty());
 		if (!s_helpBrowser->isShown()) {
 			s_helpBrowser->show();
 		}
@@ -1701,6 +1708,8 @@ void Kid3App::openDrop(QString txt)
 		if (dir[0] == '/' && dir[1] == '/' && dir[3] == '|') {
 			dir[3] = ':';
 			dir.remove(0, 2);
+		} else if (dir[0] == '/' && dir[2] == ':') {
+			dir.remove(0, 1);
 		}
 #endif
 		updateCurrentSelection();
