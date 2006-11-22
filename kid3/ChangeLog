@@ -1,3 +1,10 @@
+Tue Nov 21 23:39:09 CET 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.8.1
+
+	* Fixed:
+	  + A new Custom genre was added on termination.
+	
 Sat Nov 11 11:02:44 CET 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.8

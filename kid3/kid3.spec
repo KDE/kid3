@@ -7,7 +7,7 @@ Name:         kid3
 License:      GPL
 Group:        Applications/Multimedia
 Summary:      Efficient ID3 tag editor
-Version:      0.8
+Version:      0.8.1
 Release:      1%{?dist}
 URL:          http://kid3.sourceforge.net/
 Source0:      http://download.sourceforge.net/kid3/%{name}-%{version}.tar.gz

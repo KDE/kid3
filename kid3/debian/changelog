@@ -1,3 +1,8 @@
+kid3 (0.8.1-0) unstable; urgency=low
+  * Bugfix: A new Custom genre was added on termination
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Tue, 21 Nov 2006 23:38:25 +0100
+
 kid3 (0.8-0) unstable; urgency=low
 
   * New upstream version
