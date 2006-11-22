@@ -639,7 +639,7 @@ void Kid3App::saveOptions()
 
 	s_miscCfg.m_customGenres.clear();
 	int idx, numGenres = view->genreV2ComboBox->count();
-	for (idx = Genres::count + 1; idx < numGenres; ++idx) {
+	for (idx = Genres::count + 2; idx < numGenres; ++idx) {
 		s_miscCfg.m_customGenres.append(view->genreV2ComboBox->text(idx));
 	}
 
