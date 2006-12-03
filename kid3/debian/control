@@ -2,7 +2,7 @@ Source: kid3
 Section: kde
 Priority: optional
 Maintainer: Aurelien Jarno <aurel32@debian.org>
-Build-Depends: debhelper (>> 4.0.0), autotools-dev, libqt3-mt-dev (>> 3.0), kdelibs4-dev (>> 3.0), libid3-3.8.3-dev, libtunepimp2-dev, libvorbis-dev, libflac++-dev, libtag1-dev
+Build-Depends: debhelper (>> 4.0.0), autotools-dev, libqt3-mt-dev (>> 3.0), kdelibs4-dev (>> 3.0), libid3-3.8.3-dev, libtunepimp3-dev, libvorbis-dev, libflac++-dev, libtag1-dev
 Build-Conflicts: autoconf2.13
 Standards-Version: 3.7.2
 
