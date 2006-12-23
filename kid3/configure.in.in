@@ -15,7 +15,8 @@ if test "$with_taglib" != "no"; then
   if test "x$TAGLIB_CONFIG" != "xno" ; then
     TAGLIB_VERSION=[`$TAGLIB_CONFIG --version`]
     if test VERSION_TO_NUMBER(echo $TAGLIB_VERSION) -lt VERSION_TO_NUMBER(echo $TAGLIB_REQ_VERSION); then
-      have_taglib=no
+      AC_MSG_ERROR([TagLib >= $TAGLIB_REQ_VERSION not found.
+Use --without-taglib to build without TagLib.])
     else
       AC_DEFINE(HAVE_TAGLIB, 1, [have TagLib])
       TAGLIB_INCLUDES=[`$TAGLIB_CONFIG --cflags`]
@@ -25,7 +26,9 @@ if test "$with_taglib" != "no"; then
       have_taglib=yes
     fi
   else
-    have_taglib=no
+    AC_MSG_ERROR([taglib-config not found.
+Install TagLib development package (e.g. libtag1-dev or taglib-devel)
+or use --without-taglib.])
   fi
 else
     have_taglib=no
@@ -40,7 +43,11 @@ AC_ARG_WITH(id3lib, [  --with-id3lib           build with id3lib, default=yes],
   with_id3lib=yes
 )
 if test "$with_id3lib" != "no"; then
-  AC_CHECK_LIB(id3, ID3Tag_Link, [build_id3lib="yes"], [build_id3lib="no"])
+  AC_CHECK_LIB(id3, ID3Tag_Link, [build_id3lib="yes"], [
+    AC_MSG_ERROR([libid3 not found.
+Install id3lib development package (e.g. libid3-3.8.3-dev or id3lib-devel)
+or use --without-id3lib.])
+      ], -lz -lstdc++)
 fi
 if test "$build_id3lib" = "yes"; then
   HAVE_ID3LIB=1
@@ -123,8 +130,11 @@ AC_ARG_WITH(musicbrainz, [  --with-musicbrainz      build with MusicBrainz, defa
 )
 if test "$with_musicbrainz" != "no"; then
   AC_CHECK_HEADER(tunepimp-0.5/tp_c.h, [build_musicbrainz="yes"],
-    [AC_CHECK_HEADER(tunepimp/tp_c.h, [build_musicbrainz="yes"],
-      [build_musicbrainz="no"])])
+    [AC_CHECK_HEADER(tunepimp/tp_c.h, [build_musicbrainz="yes"], [
+      AC_MSG_ERROR([tunepimp/tp_c.h not found.
+Install tunepimp development package (e.g. libtunepimp3-dev or libtunepimp-devel)
+or use --without-musicbrainz.])
+        ])])
 fi
 if test "$build_musicbrainz" = "yes"; then
   AC_CHECK_LIB(tunepimp, tr_GetPUID,
@@ -148,7 +158,11 @@ AC_ARG_WITH(vorbis, [  --with-vorbis           build with ogg/vorbis, default=ye
   with_vorbis=yes
 )
 if test "$with_vorbis" != "no"; then
-  AC_CHECK_HEADER(vorbis/codec.h, [build_vorbis="yes"], [build_vorbis="no"])
+  AC_CHECK_HEADER(vorbis/codec.h, [build_vorbis="yes"], [
+    AC_MSG_ERROR([vorbis/codec.h not found.
+Install libvorbis development package (e.g. libvorbis-dev or libvorbis-devel)
+or use --without-vorbis.])
+      ])
 fi
 if test "$build_vorbis" = "yes"; then
   HAVE_VORBIS=1
@@ -169,7 +183,11 @@ AC_ARG_WITH(flac, [  --with-flac             build with FLAC, default=yes],
   with_flac=yes
 )
 if test "$with_flac" != "no"; then
-  AC_CHECK_HEADER(FLAC++/metadata.h, [build_flac="yes"], [build_flac="no"])
+  AC_CHECK_HEADER(FLAC++/metadata.h, [build_flac="yes"], [
+    AC_MSG_ERROR([FLAC++/metadata.h not found.
+Install libFLAC++ development package (e.g. libflac++-dev or flac-devel)
+or use --without-flac.])
+      ])
 fi
 if test "$build_flac" = "yes"; then
   HAVE_FLAC=1
