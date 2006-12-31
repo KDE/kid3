@@ -28,6 +28,7 @@
 #if QT_VERSION >= 0x040000
 
 #define QListBoxItem Q3ListBoxItem
+#define QListViewItem Q3ListViewItem
 
 #define QCM_WriteOnly QIODevice::WriteOnly
 #define QCM_ReadOnly QIODevice::ReadOnly
@@ -48,6 +49,9 @@
 #define Q3ListBox QListBox
 #define Q3ListBoxItem QListBoxItem
 #define Q3ListBoxText QListBoxText
+#define Q3ListView QListView
+#define Q3ListViewItem QListViewItem
+#define Q3ListViewItemIterator QListViewItemIterator
 #define Q3MainWindow QMainWindow
 #define Q3PopupMenu QPopupMenu
 #define Q3Process QProcess
