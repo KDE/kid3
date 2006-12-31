@@ -13,6 +13,7 @@
 #include "standardtags.h"
 #include "genres.h"
 #include "oggframelist.h"
+#include "dirinfo.h"
 #include <qfile.h>
 #include <qdir.h>
 #if QT_VERSION >= 0x040000
@@ -34,11 +35,11 @@
 /**
  * Constructor.
  *
- * @param dn directory name
+ * @param di directory information
  * @param fn filename
  */
-OggFile::OggFile(const QString& dn, const QString& fn) :
-	TaggedFile(dn, fn), m_fileRead(false)
+OggFile::OggFile(const DirInfo* di, const QString& fn) :
+	TaggedFile(di, fn), m_fileRead(false)
 {
 }
 
@@ -59,9 +60,9 @@ void OggFile::readTags(bool force)
 {
 	if (force || !m_fileRead) {
 		m_comments.clear();
-		changedV2 = false;
+		markTag2Changed(false);
 		m_fileRead = true;
-		Q3CString fnIn = QFile::encodeName(dirname + QDir::separator() + filename);
+		Q3CString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
 		if (m_fileInfo.read(fnIn)) {
 			FILE* fpIn = ::fopen(fnIn, "rb");
@@ -96,7 +97,7 @@ void OggFile::readTags(bool force)
 	}
 
 	if (force) {
-		new_filename = filename;
+		setFilename(currentFilename());
 	}
 }
 
@@ -113,27 +114,28 @@ void OggFile::readTags(bool force)
  */
 bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 {
+	QString dirname = getDirInfo()->getDirname();
 	if (isChanged() &&
-		!QFileInfo(dirname + QDir::separator() + filename).isWritable()) {
+		!QFileInfo(dirname + QDir::separator() + currentFilename()).isWritable()) {
 		return false;
 	}
 
-	if (m_fileRead && (force || changedV2)) {
+	if (m_fileRead && (force || isTag2Changed())) {
 		bool writeOk = false;
-		QString tempFilename(filename);
+		QString tempFilename(currentFilename());
 		Q3CString fnIn;
-		if (new_filename == filename) {
+		if (getFilename() == currentFilename()) {
 			// we have to rename the original file and delete it afterwards
 			tempFilename += "_KID3";
-			if (!renameFile(filename, tempFilename)) {
+			if (!renameFile(currentFilename(), tempFilename)) {
 				return false;
 			}
 			fnIn = QFile::encodeName(dirname + QDir::separator() + tempFilename);
 		} else {
-			fnIn = QFile::encodeName(dirname + QDir::separator() + filename);
+			fnIn = QFile::encodeName(dirname + QDir::separator() + currentFilename());
 		}
 		Q3CString fnOut = QFile::encodeName(dirname + QDir::separator() +
-																			 new_filename);
+																			 getFilename());
 		FILE* fpIn = ::fopen(fnIn, "rb");
 		if (fpIn) {
 
@@ -194,18 +196,20 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 		if (!writeOk) {
 			return false;
 		}
-		changedV2 = false;
-		if (new_filename == filename) {
+		markTag2Changed(false);
+		if (getFilename() == currentFilename()) {
 			QDir(dirname).remove(tempFilename);
 		} else {
-			QDir(dirname).remove(filename);
+			QDir(dirname).remove(currentFilename());
+			updateCurrentFilename();
 			*renamed = true;
 		}
-	} else if (new_filename != filename) {
+	} else if (getFilename() != currentFilename()) {
 		// tags not changed, but file name
-		if (!renameFile(filename, new_filename)) {
+		if (!renameFile(currentFilename(), getFilename())) {
 			return false;
 		}
+		updateCurrentFilename();
 		*renamed = true;
 	}
 	return true;
@@ -224,7 +228,7 @@ void OggFile::removeTagsV2(const StandardTagsFilter& flt)
 {
 	if (flt.areAllTrue()) {
 		m_comments.clear();
-		changedV2 = true;
+		markTag2Changed();
 	} else {
 		removeStandardTagsV2(flt);
 	}
@@ -358,7 +362,7 @@ QString OggFile::getTextField(const QString& name) const
 /**
  * Set text field.
  * If value is null if the tags have not been read yet, nothing is changed.
- * If value is different from the current value, changedV2 is set.
+ * If value is different from the current value, tag 2 is marked as changed.
  *
  * @param name name
  * @param value value, "" to remove, QString::null to do nothing
@@ -367,7 +371,7 @@ void OggFile::setTextField(const QString& name, const QString& value)
 {
 	if (m_fileRead && !value.isNull() &&
 			m_comments.setValue(name, value)) {
-		changedV2 = true;
+		markTag2Changed();
 	}
 }
 
@@ -462,7 +466,7 @@ void OggFile::setGenreNumV2(int num)
 {
 	if (m_fileRead && num >= 0 &&
 			m_comments.setValue("GENRE", Genres::getName(num))) {
-		changedV2 = true;
+		markTag2Changed();
 	}
 }
 

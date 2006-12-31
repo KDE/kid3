@@ -25,10 +25,10 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param dn directory name
+	 * @param di directory information
 	 * @param fn filename
 	 */
-	Mp3File(const QString& dn, const QString& fn);
+	Mp3File(const DirInfo* di, const QString& fn);
 
 	/**
 	 * Destructor.
@@ -38,20 +38,20 @@ public:
 	/**
 	 * Read tags from file.
 	 *
-	 * @param force TRUE to force reading even if tags were already read.
+	 * @param force true to force reading even if tags were already read.
 	 */
 	virtual void readTags(bool force);
 
 	/**
 	 * Write tags to file and rename it if necessary.
 	 *
-	 * @param force   TRUE to force writing even if file was not changed.
-	 * @param renamed will be set to TRUE if the file was renamed,
+	 * @param force   true to force writing even if file was not changed.
+	 * @param renamed will be set to true if the file was renamed,
 	 *                i.e. the file name is no longer valid, else *renamed
 	 *                is left unchanged
 	 * @param preserve true to preserve file time stamps
 	 *
-	 * @return TRUE if ok, FALSE if the file could not be written or renamed.
+	 * @return true if ok, false if the file could not be written or renamed.
 	 */
 	virtual bool writeTags(bool force, bool *renamed, bool preserve);
 
@@ -76,7 +76,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getTitleV1(void);
+	virtual QString getTitleV1();
 
 	/**
 	 * Get ID3v1 artist.
@@ -85,7 +85,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getArtistV1(void);
+	virtual QString getArtistV1();
 
 	/**
 	 * Get ID3v1 album.
@@ -94,7 +94,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getAlbumV1(void);
+	virtual QString getAlbumV1();
 
 	/**
 	 * Get ID3v1 comment.
@@ -103,7 +103,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getCommentV1(void);
+	virtual QString getCommentV1();
 
 	/**
 	 * Get ID3v1 year.
@@ -112,7 +112,7 @@ public:
 	 *         0 if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getYearV1(void);
+	virtual int getYearV1();
 
 	/**
 	 * Get ID3v1 track.
@@ -121,7 +121,7 @@ public:
 	 *         0 if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getTrackNumV1(void);
+	virtual int getTrackNumV1();
 
 	/**
 	 * Get ID3v1 genre.
@@ -130,7 +130,7 @@ public:
 	 *         0xff if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getGenreNumV1(void);
+	virtual int getGenreNumV1();
 
 	/**
 	 * Get ID3v2 title.
@@ -139,7 +139,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getTitleV2(void);
+	virtual QString getTitleV2();
 
 	/**
 	 * Get ID3v2 artist.
@@ -148,7 +148,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getArtistV2(void);
+	virtual QString getArtistV2();
 
 	/**
 	 * Get ID3v2 album.
@@ -157,7 +157,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getAlbumV2(void);
+	virtual QString getAlbumV2();
 
 	/**
 	 * Get ID3v2 comment.
@@ -166,7 +166,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getCommentV2(void);
+	virtual QString getCommentV2();
 
 	/**
 	 * Get ID3v2 year.
@@ -175,7 +175,7 @@ public:
 	 *         0 if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getYearV2(void);
+	virtual int getYearV2();
 
 	/**
 	 * Get ID3v2 track.
@@ -184,7 +184,7 @@ public:
 	 *         0 if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getTrackNumV2(void);
+	virtual int getTrackNumV2();
 
 	/**
 	 * Get ID3v2 genre.
@@ -193,7 +193,7 @@ public:
 	 *         0xff if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getGenreNumV2(void);
+	virtual int getGenreNumV2();
 
 	/**
 	 * Get ID3v2 genre as text.
@@ -505,10 +505,10 @@ private:
 	static bool setGenreNum(ID3_Tag *tag, int num);
 
 	/** ID3v1 tags */
-	ID3_Tag *tagV1;
+	ID3_Tag *m_tagV1;
 
 	/** ID3v2 tags */
-	ID3_Tag *tagV2;
+	ID3_Tag *m_tagV2;
 
 	/** Frame list for MP3 files. */
 	static Mp3FrameList* s_mp3FrameList;

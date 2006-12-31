@@ -28,6 +28,7 @@
 #include "standardtags.h"
 #include "mp3framelist.h"
 #include "genres.h"
+#include "dirinfo.h"
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -49,89 +50,83 @@
 /**
  * Constructor.
  *
- * @param dn directory name
+ * @param di directory information
  * @param fn filename
  */
-
-Mp3File::Mp3File(const QString& dn, const QString& fn) :
-	TaggedFile(dn, fn)
+Mp3File::Mp3File(const DirInfo* di, const QString& fn) :
+	TaggedFile(di, fn), m_tagV1(0), m_tagV2(0)
 {
-	tagV1 = 0;
-	tagV2 = 0;
 }
 
 /**
  * Destructor.
  */
-
-Mp3File::~Mp3File(void)
+Mp3File::~Mp3File()
 {
-	if (tagV1) {
-		delete tagV1;
+	if (m_tagV1) {
+		delete m_tagV1;
 	}
-	if (tagV2) {
-		delete tagV2;
+	if (m_tagV2) {
+		delete m_tagV2;
 	}
 }
 
 /**
  * Read tags from file.
  *
- * @param force TRUE to force reading even if tags were already read.
+ * @param force true to force reading even if tags were already read.
  */
-
 void Mp3File::readTags(bool force)
 {
-	Q3CString fn = QFile::encodeName(dirname + QDir::separator() + filename);
+	Q3CString fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
-	if (force && tagV1) {
-		tagV1->Clear();
-		tagV1->Link(fn, ID3TT_ID3V1);
-		changedV1 = FALSE;
+	if (force && m_tagV1) {
+		m_tagV1->Clear();
+		m_tagV1->Link(fn, ID3TT_ID3V1);
+		markTag1Changed(false);
 	}
-	if (!tagV1) {
-		tagV1 = new ID3_Tag;
-		if (tagV1) {
-			tagV1->Link(fn, ID3TT_ID3V1);
-			changedV1 = FALSE;
+	if (!m_tagV1) {
+		m_tagV1 = new ID3_Tag;
+		if (m_tagV1) {
+			m_tagV1->Link(fn, ID3TT_ID3V1);
+			markTag1Changed(false);
 		}
 	}
 
-	if (force && tagV2) {
-		tagV2->Clear();
-		tagV2->Link(fn, ID3TT_ID3V2);
-		changedV2 = FALSE;
+	if (force && m_tagV2) {
+		m_tagV2->Clear();
+		m_tagV2->Link(fn, ID3TT_ID3V2);
+		markTag2Changed(false);
 	}
-	if (!tagV2) {
-		tagV2 = new ID3_Tag;
-		if (tagV2) {
-			tagV2->Link(fn, ID3TT_ID3V2);
-			changedV2 = FALSE;
+	if (!m_tagV2) {
+		m_tagV2 = new ID3_Tag;
+		if (m_tagV2) {
+			m_tagV2->Link(fn, ID3TT_ID3V2);
+			markTag2Changed(false);
 		}
 	}
 
 	if (force) {
-		new_filename = filename;
+		setFilename(currentFilename());
 	}
 }
 
 /**
  * Write tags to file and rename it if necessary.
  *
- * @param force   TRUE to force writing even if file was not changed.
- * @param renamed will be set to TRUE if the file was renamed,
+ * @param force   true to force writing even if file was not changed.
+ * @param renamed will be set to true if the file was renamed,
  *                i.e. the file name is no longer valid, else *renamed
  *                is left unchanged
  * @param preserve true to preserve file time stamps
  *
- * @return TRUE if ok, FALSE if the file could not be written or renamed.
+ * @return true if ok, false if the file could not be written or renamed.
  */
-
 bool Mp3File::writeTags(bool force, bool *renamed, bool preserve)
 {
-	QString fnStr(dirname + QDir::separator() + filename);
+	QString fnStr(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 	if (isChanged() && !QFileInfo(fnStr).isWritable()) {
-		return FALSE;
+		return false;
 	}
 
 	// store time stamp if it has to be preserved
@@ -151,26 +146,26 @@ bool Mp3File::writeTags(bool force, bool *renamed, bool preserve)
 	// There seems to be a bug in id3lib: The V1 genre is not
 	// removed. So we check here and strip the whole header
 	// if there are no frames.
-	if (tagV1 && (force || changedV1) && (tagV1->NumFrames() == 0)) {
-		tagV1->Strip(ID3TT_ID3V1);
-		changedV1 = FALSE;
+	if (m_tagV1 && (force || isTag1Changed()) && (m_tagV1->NumFrames() == 0)) {
+		m_tagV1->Strip(ID3TT_ID3V1);
+		markTag1Changed(false);
 	}
 	// Even after removing all frames, HasV2Tag() still returns true,
 	// so we strip the whole header.
-	if (tagV2 && (force || changedV2) && (tagV2->NumFrames() == 0)) {
-		tagV2->Strip(ID3TT_ID3V2);
-		changedV2 = FALSE;
+	if (m_tagV2 && (force || isTag2Changed()) && (m_tagV2->NumFrames() == 0)) {
+		m_tagV2->Strip(ID3TT_ID3V2);
+		markTag2Changed(false);
 	}
 	// There seems to be a bug in id3lib: If I update an ID3v1 and then
 	// strip the ID3v2 the ID3v1 is removed too and vice versa, so I
 	// first make any stripping and then the updating.
-	if (tagV1 && (force || changedV1) && (tagV1->NumFrames() > 0)) {
-		tagV1->Update(ID3TT_ID3V1);
-		changedV1 = FALSE;
+	if (m_tagV1 && (force || isTag1Changed()) && (m_tagV1->NumFrames() > 0)) {
+		m_tagV1->Update(ID3TT_ID3V1);
+		markTag1Changed(false);
 	}
-	if (tagV2 && (force || changedV2) && (tagV2->NumFrames() > 0)) {
-		tagV2->Update(ID3TT_ID3V2);
-		changedV2 = FALSE;
+	if (m_tagV2 && (force || isTag2Changed()) && (m_tagV2->NumFrames() > 0)) {
+		m_tagV2->Update(ID3TT_ID3V2);
+		markTag2Changed(false);
 	}
 
 	// restore time stamp
@@ -178,13 +173,16 @@ bool Mp3File::writeTags(bool force, bool *renamed, bool preserve)
 		::utime(fn, &times);
 	}
 
-	if (new_filename != filename) {
-		if (!renameFile(filename, new_filename)) {
-			return FALSE;
+	if (getFilename() != currentFilename()) {
+		if (!renameFile(currentFilename(), getFilename())) {
+			return false;
 		}
-		*renamed = TRUE;
+		updateCurrentFilename();
+		// link tags to new file name
+		readTags(true);
+		*renamed = true;
 	}
-	return TRUE;
+	return true;
 }
 
 /**
@@ -192,15 +190,14 @@ bool Mp3File::writeTags(bool force, bool *renamed, bool preserve)
  *
  * @param flt filter specifying which fields to remove
  */
-
 void Mp3File::removeTagsV1(const StandardTagsFilter& flt)
 {
-	if (tagV1) {
+	if (m_tagV1) {
 		if (flt.areAllTrue()) {
-			ID3_Tag::Iterator* iter = tagV1->CreateIterator();
+			ID3_Tag::Iterator* iter = m_tagV1->CreateIterator();
 			ID3_Frame* frame;
 			while ((frame = iter->GetNext()) != NULL) {
-				tagV1->RemoveFrame(frame);
+				m_tagV1->RemoveFrame(frame);
 			}
 #ifdef WIN32
 			/* allocated in Windows DLL => must be freed in the same DLL */
@@ -208,7 +205,7 @@ void Mp3File::removeTagsV1(const StandardTagsFilter& flt)
 #else
 			delete iter;
 #endif
-			changedV1 = TRUE;
+			markTag1Changed();
 		} else {
 			removeStandardTagsV1(flt);
 		}
@@ -220,15 +217,14 @@ void Mp3File::removeTagsV1(const StandardTagsFilter& flt)
  *
  * @param flt filter specifying which fields to remove
  */
-
 void Mp3File::removeTagsV2(const StandardTagsFilter& flt)
 {
-	if (tagV2) {
+	if (m_tagV2) {
 		if (flt.areAllTrue()) {
-			ID3_Tag::Iterator* iter = tagV2->CreateIterator();
+			ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
 			ID3_Frame* frame;
 			while ((frame = iter->GetNext()) != NULL) {
-				tagV2->RemoveFrame(frame);
+				m_tagV2->RemoveFrame(frame);
 			}
 #ifdef WIN32
 			/* allocated in Windows DLL => must be freed in the same DLL */
@@ -236,7 +232,7 @@ void Mp3File::removeTagsV2(const StandardTagsFilter& flt)
 #else
 			delete iter;
 #endif
-			changedV2 = TRUE;
+			markTag2Changed();
 		} else {
 			removeStandardTagsV2(flt);
 		}
@@ -251,7 +247,6 @@ void Mp3File::removeTagsV2(const StandardTagsFilter& flt)
  * @return string,
  *         "" if the field does not exist.
  */
-
 QString Mp3File::getString(ID3_Field* field)
 {
 	QString text("");
@@ -303,7 +298,6 @@ QString Mp3File::getString(ID3_Field* field)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
 QString Mp3File::getTextField(const ID3_Tag *tag, ID3_FrameID id)
 {
 	if (!tag) {
@@ -326,7 +320,6 @@ QString Mp3File::getTextField(const ID3_Tag *tag, ID3_FrameID id)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
 int Mp3File::getYear(const ID3_Tag *tag)
 {
 	QString str = getTextField(tag, ID3FID_YEAR);
@@ -343,7 +336,6 @@ int Mp3File::getYear(const ID3_Tag *tag)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
 int Mp3File::getTrackNum(const ID3_Tag *tag)
 {
 	QString str = getTextField(tag, ID3FID_TRACKNUM);
@@ -365,7 +357,6 @@ int Mp3File::getTrackNum(const ID3_Tag *tag)
  *         0xff if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
 int Mp3File::getGenreNum(const ID3_Tag *tag)
 {
 	QString str = getTextField(tag, ID3FID_CONTENTTYPE);
@@ -393,7 +384,6 @@ int Mp3File::getGenreNum(const ID3_Tag *tag)
  * @param field        field
  * @param text         text to set
  */
-
 void Mp3File::setString(ID3_Field* field, const QString &text)
 {
 	ID3_TextEnc enc = field->GetEncoding();
@@ -444,7 +434,6 @@ void Mp3File::setString(ID3_Field* field, const QString &text)
  *
  * @return true if the field was changed.
  */
-
 bool Mp3File::setTextField(ID3_Tag *tag, ID3_FrameID id, const QString &text,
 						   bool allowUnicode, bool replace, bool removeEmpty)
 {
@@ -496,7 +485,6 @@ bool Mp3File::setTextField(ID3_Tag *tag, ID3_FrameID id, const QString &text,
  *
  * @return true if the field was changed.
  */
-
 bool Mp3File::setYear(ID3_Tag *tag, int num)
 {
 	bool changed = false;
@@ -521,7 +509,6 @@ bool Mp3File::setYear(ID3_Tag *tag, int num)
  *
  * @return true if the field was changed.
  */
-
 bool Mp3File::setTrackNum(ID3_Tag *tag, int num, int numTracks)
 {
 	bool changed = false;
@@ -549,7 +536,6 @@ bool Mp3File::setTrackNum(ID3_Tag *tag, int num, int numTracks)
  *
  * @return true if the field was changed.
  */
-
 bool Mp3File::setGenreNum(ID3_Tag *tag, int num)
 {
 	bool changed = false;
@@ -572,10 +558,9 @@ bool Mp3File::setGenreNum(ID3_Tag *tag, int num)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
-QString Mp3File::getTitleV1(void)
+QString Mp3File::getTitleV1()
 {
-	return getTextField(tagV1, ID3FID_TITLE);
+	return getTextField(m_tagV1, ID3FID_TITLE);
 }
 
 /**
@@ -585,10 +570,9 @@ QString Mp3File::getTitleV1(void)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
-QString Mp3File::getArtistV1(void)
+QString Mp3File::getArtistV1()
 {
-	return getTextField(tagV1, ID3FID_LEADARTIST);
+	return getTextField(m_tagV1, ID3FID_LEADARTIST);
 }
 
 /**
@@ -598,10 +582,9 @@ QString Mp3File::getArtistV1(void)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
-QString Mp3File::getAlbumV1(void)
+QString Mp3File::getAlbumV1()
 {
-	return getTextField(tagV1, ID3FID_ALBUM);
+	return getTextField(m_tagV1, ID3FID_ALBUM);
 }
 
 /**
@@ -611,10 +594,9 @@ QString Mp3File::getAlbumV1(void)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
-QString Mp3File::getCommentV1(void)
+QString Mp3File::getCommentV1()
 {
-	return getTextField(tagV1, ID3FID_COMMENT);
+	return getTextField(m_tagV1, ID3FID_COMMENT);
 }
 
 /**
@@ -624,10 +606,9 @@ QString Mp3File::getCommentV1(void)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
-int Mp3File::getYearV1(void)
+int Mp3File::getYearV1()
 {
-	return getYear(tagV1);
+	return getYear(m_tagV1);
 }
 
 /**
@@ -637,10 +618,9 @@ int Mp3File::getYearV1(void)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
-int Mp3File::getTrackNumV1(void)
+int Mp3File::getTrackNumV1()
 {
-	return getTrackNum(tagV1);
+	return getTrackNum(m_tagV1);
 }
 
 /**
@@ -650,10 +630,9 @@ int Mp3File::getTrackNumV1(void)
  *         0xff if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
-int Mp3File::getGenreNumV1(void)
+int Mp3File::getGenreNumV1()
 {
-	return getGenreNum(tagV1);
+	return getGenreNum(m_tagV1);
 }
 
 /**
@@ -663,10 +642,9 @@ int Mp3File::getGenreNumV1(void)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
-QString Mp3File::getTitleV2(void)
+QString Mp3File::getTitleV2()
 {
-	return getTextField(tagV2, ID3FID_TITLE);
+	return getTextField(m_tagV2, ID3FID_TITLE);
 }
 
 /**
@@ -676,10 +654,9 @@ QString Mp3File::getTitleV2(void)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
-QString Mp3File::getArtistV2(void)
+QString Mp3File::getArtistV2()
 {
-	return getTextField(tagV2, ID3FID_LEADARTIST);
+	return getTextField(m_tagV2, ID3FID_LEADARTIST);
 }
 
 /**
@@ -689,10 +666,9 @@ QString Mp3File::getArtistV2(void)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
-QString Mp3File::getAlbumV2(void)
+QString Mp3File::getAlbumV2()
 {
-	return getTextField(tagV2, ID3FID_ALBUM);
+	return getTextField(m_tagV2, ID3FID_ALBUM);
 }
 
 /**
@@ -702,10 +678,9 @@ QString Mp3File::getAlbumV2(void)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-
-QString Mp3File::getCommentV2(void)
+QString Mp3File::getCommentV2()
 {
-	return getTextField(tagV2, ID3FID_COMMENT);
+	return getTextField(m_tagV2, ID3FID_COMMENT);
 }
 
 /**
@@ -715,10 +690,9 @@ QString Mp3File::getCommentV2(void)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
-int Mp3File::getYearV2(void)
+int Mp3File::getYearV2()
 {
-	return getYear(tagV2);
+	return getYear(m_tagV2);
 }
 
 /**
@@ -728,10 +702,9 @@ int Mp3File::getYearV2(void)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
-int Mp3File::getTrackNumV2(void)
+int Mp3File::getTrackNumV2()
 {
-	return getTrackNum(tagV2);
+	return getTrackNum(m_tagV2);
 }
 
 /**
@@ -741,10 +714,9 @@ int Mp3File::getTrackNumV2(void)
  *         0xff if the field does not exist,
  *         -1 if the tags do not exist.
  */
-
-int Mp3File::getGenreNumV2(void)
+int Mp3File::getGenreNumV2()
 {
-	return getGenreNum(tagV2);
+	return getGenreNum(m_tagV2);
 }
 
 /**
@@ -760,7 +732,7 @@ QString Mp3File::getGenreV2()
 	if (num != 0xff && num != -1) {
 		return Genres::getName(num);
 	} else {
-		return getTextField(tagV2, ID3FID_CONTENTTYPE);
+		return getTextField(m_tagV2, ID3FID_CONTENTTYPE);
 	}
 }
 
@@ -769,11 +741,10 @@ QString Mp3File::getGenreV2()
  *
  * @param str string to set, "" to remove field.
  */
-
 void Mp3File::setTitleV1(const QString& str)
 {
-	if (setTextField(tagV1, ID3FID_TITLE, str)) {
-		changedV1 = true;
+	if (setTextField(m_tagV1, ID3FID_TITLE, str)) {
+		markTag1Changed();
 	}
 }
 
@@ -782,11 +753,10 @@ void Mp3File::setTitleV1(const QString& str)
  *
  * @param str string to set, "" to remove field.
  */
-
 void Mp3File::setArtistV1(const QString& str)
 {
-	if (setTextField(tagV1, ID3FID_LEADARTIST, str)) {
-		changedV1 = true;
+	if (setTextField(m_tagV1, ID3FID_LEADARTIST, str)) {
+		markTag1Changed();
 	}
 }
 
@@ -795,11 +765,10 @@ void Mp3File::setArtistV1(const QString& str)
  *
  * @param str string to set, "" to remove field.
  */
-
 void Mp3File::setAlbumV1(const QString& str)
 {
-	if (setTextField(tagV1, ID3FID_ALBUM, str)) {
-		changedV1 = true;
+	if (setTextField(m_tagV1, ID3FID_ALBUM, str)) {
+		markTag1Changed();
 	}
 }
 
@@ -808,11 +777,10 @@ void Mp3File::setAlbumV1(const QString& str)
  *
  * @param str string to set, "" to remove field.
  */
-
 void Mp3File::setCommentV1(const QString& str)
 {
-	if (setTextField(tagV1, ID3FID_COMMENT, str)) {
-		changedV1 = true;
+	if (setTextField(m_tagV1, ID3FID_COMMENT, str)) {
+		markTag1Changed();
 	}
 }
 
@@ -821,11 +789,10 @@ void Mp3File::setCommentV1(const QString& str)
  *
  * @param num number to set, 0 to remove field.
  */
-
 void Mp3File::setYearV1(int num)
 {
-	if (setYear(tagV1, num)) {
-		changedV1 = true;
+	if (setYear(m_tagV1, num)) {
+		markTag1Changed();
 	}
 }
 
@@ -834,11 +801,10 @@ void Mp3File::setYearV1(int num)
  *
  * @param num number to set, 0 to remove field.
  */
-
 void Mp3File::setTrackNumV1(int num)
 {
-	if (setTrackNum(tagV1, num)) {
-		changedV1 = true;
+	if (setTrackNum(m_tagV1, num)) {
+		markTag1Changed();
 	}
 }
 
@@ -847,11 +813,10 @@ void Mp3File::setTrackNumV1(int num)
  *
  * @param num number to set, 0xff to remove field.
  */
-
 void Mp3File::setGenreNumV1(int num)
 {
-	if (setGenreNum(tagV1, num)) {
-		changedV1 = true;
+	if (setGenreNum(m_tagV1, num)) {
+		markTag1Changed();
 	}
 }
 
@@ -860,11 +825,10 @@ void Mp3File::setGenreNumV1(int num)
  *
  * @param str string to set, "" to remove field.
  */
-
 void Mp3File::setTitleV2(const QString& str)
 {
-	if (setTextField(tagV2, ID3FID_TITLE, str, true)) {
-		changedV2 = true;
+	if (setTextField(m_tagV2, ID3FID_TITLE, str, true)) {
+		markTag2Changed();
 	}
 }
 
@@ -873,11 +837,10 @@ void Mp3File::setTitleV2(const QString& str)
  *
  * @param str string to set, "" to remove field.
  */
-
 void Mp3File::setArtistV2(const QString& str)
 {
-	if (setTextField(tagV2, ID3FID_LEADARTIST, str, true)) {
-		changedV2 = true;
+	if (setTextField(m_tagV2, ID3FID_LEADARTIST, str, true)) {
+		markTag2Changed();
 	}
 }
 
@@ -886,11 +849,10 @@ void Mp3File::setArtistV2(const QString& str)
  *
  * @param str string to set, "" to remove field.
  */
-
 void Mp3File::setAlbumV2(const QString& str)
 {
-	if (setTextField(tagV2, ID3FID_ALBUM, str, true)) {
-		changedV2 = true;
+	if (setTextField(m_tagV2, ID3FID_ALBUM, str, true)) {
+		markTag2Changed();
 	}
 }
 
@@ -899,11 +861,10 @@ void Mp3File::setAlbumV2(const QString& str)
  *
  * @param str string to set, "" to remove field.
  */
-
 void Mp3File::setCommentV2(const QString& str)
 {
-	if (setTextField(tagV2, ID3FID_COMMENT, str, true)) {
-		changedV2 = true;
+	if (setTextField(m_tagV2, ID3FID_COMMENT, str, true)) {
+		markTag2Changed();
 	}
 }
 
@@ -912,11 +873,10 @@ void Mp3File::setCommentV2(const QString& str)
  *
  * @param num number to set, 0 to remove field.
  */
-
 void Mp3File::setYearV2(int num)
 {
-	if (setYear(tagV2, num)) {
-		changedV2 = true;
+	if (setYear(m_tagV2, num)) {
+		markTag2Changed();
 	}
 }
 
@@ -925,12 +885,11 @@ void Mp3File::setYearV2(int num)
  *
  * @param num number to set, 0 to remove field.
  */
-
 void Mp3File::setTrackNumV2(int num)
 {
 	int numTracks = getTotalNumberOfTracksIfEnabled();
-	if (setTrackNum(tagV2, num, numTracks)) {
-		changedV2 = true;
+	if (setTrackNum(m_tagV2, num, numTracks)) {
+		markTag2Changed();
 	}
 }
 
@@ -939,11 +898,10 @@ void Mp3File::setTrackNumV2(int num)
  *
  * @param num number to set, 0xff to remove field.
  */
-
 void Mp3File::setGenreNumV2(int num)
 {
-	if (setGenreNum(tagV2, num)) {
-		changedV2 = true;
+	if (setGenreNum(m_tagV2, num)) {
+		markTag2Changed();
 	}
 }
 
@@ -954,8 +912,8 @@ void Mp3File::setGenreNumV2(int num)
  */
 void Mp3File::setGenreV2(const QString& str)
 {
-	if (setTextField(tagV2, ID3FID_CONTENTTYPE, str, true)) {
-		changedV2 = true;
+	if (setTextField(m_tagV2, ID3FID_CONTENTTYPE, str, true)) {
+		markTag2Changed();
 	}
 }
 
@@ -968,7 +926,7 @@ void Mp3File::setGenreV2(const QString& str)
  */
 bool Mp3File::isTagInformationRead() const
 {
-	return tagV1 || tagV2;
+	return m_tagV1 || m_tagV2;
 }
 
 /**
@@ -979,7 +937,7 @@ bool Mp3File::isTagInformationRead() const
  */
 bool Mp3File::hasTagV1() const
 {
-	return tagV1 && tagV1->HasV1Tag();
+	return m_tagV1 && m_tagV1->HasV1Tag();
 }
 
 /**
@@ -1000,7 +958,7 @@ bool Mp3File::isTagV1Supported() const
  */
 bool Mp3File::hasTagV2() const
 {
-	return tagV2 && tagV2->HasV2Tag();
+	return m_tagV2 && m_tagV2->HasV2Tag();
 }
 
 /**
@@ -1012,10 +970,10 @@ bool Mp3File::hasTagV2() const
 QString Mp3File::getDetailInfo() const {
 	QString str("");
 	const Mp3_Headerinfo* info = NULL;
-	if (tagV1) {
-		info = tagV1->GetMp3HeaderInfo();
-	} else if (tagV2) {
-		info = tagV2->GetMp3HeaderInfo();
+	if (m_tagV1) {
+		info = m_tagV1->GetMp3HeaderInfo();
+	} else if (m_tagV2) {
+		info = m_tagV2->GetMp3HeaderInfo();
 	}
 	if (info) {
 		switch (info->version) {
@@ -1098,10 +1056,10 @@ unsigned Mp3File::getDuration() const
 {
 	unsigned duration = 0;
 	const Mp3_Headerinfo* info = NULL;
-	if (tagV1) {
-		info = tagV1->GetMp3HeaderInfo();
-	} else if (tagV2) {
-		info = tagV2->GetMp3HeaderInfo();
+	if (m_tagV1) {
+		info = m_tagV1->GetMp3HeaderInfo();
+	} else if (m_tagV2) {
+		info = m_tagV2->GetMp3HeaderInfo();
 	}
 	if (info && info->time > 0) {
 		duration = info->time;
@@ -1154,8 +1112,8 @@ QString Mp3File::getTagFormatV1() const
  */
 QString Mp3File::getTagFormatV2() const
 {
-	if (tagV2 && tagV2->HasV2Tag()) {
-		switch (tagV2->GetSpec()) {
+	if (m_tagV2 && m_tagV2->HasV2Tag()) {
+		switch (m_tagV2->GetSpec()) {
 			case ID3V2_3_0:
 				return "ID3v2.3.0";
 			case ID3V2_4_0:

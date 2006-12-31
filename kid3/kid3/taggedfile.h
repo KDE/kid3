@@ -15,6 +15,7 @@
 class StandardTags;
 class StandardTagsFilter;
 class FrameList;
+class DirInfo;
 
 /** Base class for tagged files. */
 class TaggedFile {
@@ -22,10 +23,10 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param dn directory name
+	 * @param di directory information
 	 * @param fn filename
 	 */
-	TaggedFile(const QString& dn, const QString& fn);
+	TaggedFile(const DirInfo* di, const QString& fn);
 
 	/**
 	 * Destructor.
@@ -37,39 +38,46 @@ public:
 	 *
 	 * @param fn file name
 	 */
-	void setFilename(const QString& fn) { new_filename = fn; }
+	void setFilename(const QString& fn) { m_newFilename = fn; }
 
 	/**
 	 * Get file name.
 	 *
 	 * @return file name
 	 */
-	QString getFilename(void) const { return new_filename; }
+	const QString& getFilename() const { return m_newFilename; }
 
 	/**
 	 * Get directory name.
 	 *
 	 * @return directory name
 	 */
-	QString getDirname(void) const { return dirname; }
+	QString getDirname() const;
+
+	/**
+	 * Get information about directory.
+	 *
+	 * @return directory information.
+	 */
+	const DirInfo* getDirInfo() const { return m_dirInfo; }
 
 	/**
 	 * Read tags from file.
 	 *
-	 * @param force TRUE to force reading even if tags were already read.
+	 * @param force true to force reading even if tags were already read.
 	 */
 	virtual void readTags(bool force) = 0;
 
 	/**
 	 * Write tags to file and rename it if necessary.
 	 *
-	 * @param force   TRUE to force writing even if file was not changed.
-	 * @param renamed will be set to TRUE if the file was renamed,
+	 * @param force   true to force writing even if file was not changed.
+	 * @param renamed will be set to true if the file was renamed,
 	 *                i.e. the file name is no longer valid, else *renamed
 	 *                is left unchanged
 	 * @param preserve true to preserve file time stamps
 	 *
-	 * @return TRUE if ok, FALSE if the file could not be written or renamed.
+	 * @return true if ok, false if the file could not be written or renamed.
 	 */
 	virtual bool writeTags(bool force, bool *renamed, bool preserve) = 0;
 
@@ -214,7 +222,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getTitleV2(void) = 0;
+	virtual QString getTitleV2() = 0;
 
 	/**
 	 * Get ID3v2 artist.
@@ -223,7 +231,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getArtistV2(void) = 0;
+	virtual QString getArtistV2() = 0;
 
 	/**
 	 * Get ID3v2 album.
@@ -232,7 +240,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getAlbumV2(void) = 0;
+	virtual QString getAlbumV2() = 0;
 
 	/**
 	 * Get ID3v2 comment.
@@ -241,7 +249,7 @@ public:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	virtual QString getCommentV2(void) = 0;
+	virtual QString getCommentV2() = 0;
 
 	/**
 	 * Get ID3v2 year.
@@ -250,7 +258,7 @@ public:
 	 *         0 if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getYearV2(void) = 0;
+	virtual int getYearV2() = 0;
 
 	/**
 	 * Get ID3v2 track.
@@ -259,7 +267,7 @@ public:
 	 *         0 if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getTrackNumV2(void) = 0;
+	virtual int getTrackNumV2() = 0;
 
 	/**
 	 * Get ID3v2 genre.
@@ -268,7 +276,7 @@ public:
 	 *         0xff if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	virtual int getGenreNumV2(void) = 0;
+	virtual int getGenreNumV2() = 0;
 
 	/**
 	 * Remove all ID3v2 tags.
@@ -490,17 +498,29 @@ public:
 	/**
 	 * Check if file is changed.
 	 *
-	 * @return TRUE if file was changed.
+	 * @return true if file was changed.
 	 */
-	bool isChanged(void) const { return changedV1 || changedV2 ||
-																 new_filename != filename; }
+	bool isChanged() const { return m_changedV1 || m_changedV2 ||
+			m_newFilename != m_filename; }
 
 	/**
 	 * Get absolute filename.
 	 *
 	 * @return absolute file path.
 	 */
-	QString getAbsFilename(void) const;
+	QString getAbsFilename() const;
+
+	/**
+	 * Check if tag 2 was changed.
+	 * @return true if tag 2 was changed.
+	 */
+	bool isTag2Changed() const { return m_changedV2; }
+
+	/**
+	 * Mark tag 2 as changed.
+	 * @param changed true if tag is changed
+	 */
+	void markTag2Changed(bool changed = true) { m_changedV2 = changed; }
 
 	/**
 	 * Format a time string "h:mm:ss".
@@ -512,9 +532,6 @@ public:
 	 * @return string with the time in hours, minutes and seconds.
 	 */
 	static QString formatTime(unsigned seconds);
-
-	/** TRUE if ID3v2 tags were changed */
-	bool changedV2;
 
 protected:
 	/**
@@ -557,18 +574,43 @@ protected:
 	 */
 	void removeStandardTagsV2(const StandardTagsFilter& flt);
 
-	/** Directory name */
-	const QString dirname;
-	/** File name */
-	const QString filename;
-	/** New file name */
-	QString new_filename;
-	/** TRUE if ID3v1 tags were changed */
-	bool changedV1;
+	/**
+	 * Get current filename.
+	 * @return existing name.
+	 */
+	const QString& currentFilename() const { return m_filename; }
+
+	/**
+	 * Set current filename to new filename.
+	 */
+	void updateCurrentFilename() { m_filename = m_newFilename; }
+
+	/**
+	 * Check if tag 1 was changed.
+	 * @return true if tag 1 was changed.
+	 */
+	bool isTag1Changed() const { return m_changedV1; }
+
+	/**
+	 * Mark tag 1 as changed.
+	 * @param changed true if tag is changed
+	 */
+	void markTag1Changed(bool changed = true) { m_changedV1 = changed; }
 
 private:
 	TaggedFile(const TaggedFile&);
 	TaggedFile& operator=(const TaggedFile&);
+
+	/** Directory information */
+	const DirInfo* m_dirInfo;
+	/** File name */
+	QString m_filename;
+	/** New file name */
+	QString m_newFilename;
+	/** true if ID3v1 tags were changed */
+	bool m_changedV1;
+	/** true if ID3v2 tags were changed */
+	bool m_changedV2;
 };
 
 #endif // TAGGEDFILE_H

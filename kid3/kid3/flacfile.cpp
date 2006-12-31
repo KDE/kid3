@@ -13,6 +13,7 @@
 #include "standardtags.h"
 #include "genres.h"
 #include "flacframelist.h"
+#include "dirinfo.h"
 #include <FLAC++/metadata.h>
 #include <qfile.h>
 #include <qdir.h>
@@ -32,11 +33,11 @@
 /**
  * Constructor.
  *
- * @param dn directory name
+ * @param di directory information
  * @param fn filename
  */
-FlacFile::FlacFile(const QString& dn, const QString& fn) :
-	OggFile(dn, fn), m_chain(0)
+FlacFile::FlacFile(const DirInfo* di, const QString& fn) :
+	OggFile(di, fn), m_chain(0)
 {
 }
 
@@ -59,9 +60,9 @@ void FlacFile::readTags(bool force)
 {
 	if (force || !m_fileRead) {
 		m_comments.clear();
-		changedV2 = false;
+		markTag2Changed(false);
 		m_fileRead = true;
-		Q3CString fnIn = QFile::encodeName(dirname + QDir::separator() + filename);
+		Q3CString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 		m_fileInfo.read(0); // just to start invalid
 		if (!m_chain) {
 			m_chain = new FLAC::Metadata::Chain;
@@ -121,7 +122,7 @@ void FlacFile::readTags(bool force)
 	}
 
 	if (force) {
-		new_filename = filename;
+		setFilename(currentFilename());
 	}
 }
 
@@ -139,11 +140,11 @@ void FlacFile::readTags(bool force)
 bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 {
 	if (isChanged() &&
-		!QFileInfo(dirname + QDir::separator() + filename).isWritable()) {
+		!QFileInfo(getDirInfo()->getDirname() + QDir::separator() + currentFilename()).isWritable()) {
 		return false;
 	}
 
-	if (m_fileRead && (force || changedV2) && m_chain && m_chain->is_valid()) {
+	if (m_fileRead && (force || isTag2Changed()) && m_chain && m_chain->is_valid()) {
 		bool commentsSet = false;
 		m_chain->sort_padding();
 		FLAC::Metadata::Iterator* mdit = new FLAC::Metadata::Iterator;
@@ -190,15 +191,18 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 		}
 		if (commentsSet &&
 				m_chain->write(true, preserve)) {
-			changedV2 = false;
+			markTag2Changed(false);
 		} else {
 			return false;
 		}
 	}
-	if (new_filename != filename) {
-		if (!renameFile(filename, new_filename)) {
+	if (getFilename() != currentFilename()) {
+		if (!renameFile(currentFilename(), getFilename())) {
 			return false;
 		}
+		updateCurrentFilename();
+		// link tags to new file name
+		readTags(true);
 		*renamed = true;
 	}
 	return true;

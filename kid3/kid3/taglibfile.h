@@ -36,10 +36,10 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param dn directory name
+	 * @param di directory information
 	 * @param fn filename
 	 */
-	TagLibFile(const QString& dn, const QString& fn);
+	TagLibFile(const DirInfo* di, const QString& fn);
 
 	/**
 	 * Destructor.

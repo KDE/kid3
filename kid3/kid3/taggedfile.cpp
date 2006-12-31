@@ -12,22 +12,21 @@
 #include <qregexp.h>
 
 #include "standardtags.h"
-#include "filelist.h"
 #include "kid3.h"
 #include "genres.h"
+#include "dirinfo.h"
 #include "taggedfile.h"
 
 /**
  * Constructor.
  *
- * @param dn directory name
+ * @param di directory information
  * @param fn filename
  */
-TaggedFile::TaggedFile(const QString& dn, const QString& fn) :
-	dirname(dn), filename(fn), new_filename(fn)
+TaggedFile::TaggedFile(const DirInfo* di, const QString& fn) :
+	m_dirInfo(di), m_filename(fn), m_newFilename(fn),
+	m_changedV1(false), m_changedV2(false)
 {
-	changedV1 = FALSE;
-	changedV2 = FALSE;
 }
 
 /**
@@ -35,6 +34,16 @@ TaggedFile::TaggedFile(const QString& dn, const QString& fn) :
  */
 TaggedFile::~TaggedFile()
 {
+}
+
+/**
+ * Get directory name.
+ *
+ * @return directory name
+ */
+QString TaggedFile::getDirname() const
+{
+	return m_dirInfo->getDirname();
 }
 
 /**
@@ -219,11 +228,10 @@ bool TaggedFile::isTagV1Supported() const
  *
  * @return absolute file path.
  */
-
-QString TaggedFile::getAbsFilename(void) const
+QString TaggedFile::getAbsFilename() const
 {
-	QDir dir(dirname);
-	return QDir::cleanDirPath(dir.absFilePath(new_filename));
+	QDir dir(m_dirInfo->getDirname());
+	return QDir::cleanDirPath(dir.absFilePath(m_newFilename));
 }
 
 /**
@@ -231,7 +239,6 @@ QString TaggedFile::getAbsFilename(void) const
  *
  * @param st tags to put result
  */
-
 void TaggedFile::getStandardTagsV1(StandardTags *st)
 {
 	st->title = getTitleV1();
@@ -249,7 +256,6 @@ void TaggedFile::getStandardTagsV1(StandardTags *st)
  *
  * @param st tags to put result
  */
-
 void TaggedFile::getStandardTagsV2(StandardTags *st)
 {
 	st->title = getTitleV2();
@@ -268,7 +274,6 @@ void TaggedFile::getStandardTagsV2(StandardTags *st)
  * @param st tags to set
  * @param flt filter specifying which fields to set
  */
-
 void TaggedFile::setStandardTagsV1(const StandardTags *st,
 																	 const StandardTagsFilter& flt)
 {
@@ -303,7 +308,6 @@ void TaggedFile::setStandardTagsV1(const StandardTags *st,
  * @param st tags to set
  * @param flt filter specifying which fields to set
  */
-
 void TaggedFile::setStandardTagsV2(const StandardTags *st,
 																	 const StandardTagsFilter& flt)
 {
@@ -344,7 +348,6 @@ void TaggedFile::setStandardTagsV2(const StandardTags *st,
  *
  * @param album album string
  */
-
 static void remove_artist(QString& album)
 {
 	int pos = album.find(" - ");
@@ -607,7 +610,7 @@ QString TaggedFile::formatWithTags(const StandardTags *st, QString fmt,
  */
 void TaggedFile::getFilenameFromTags(const StandardTags *st, QString fmt)
 {
-	new_filename = formatWithTags(st, fmt);
+	m_newFilename = formatWithTags(st, fmt);
 }
 
 /**
@@ -645,6 +648,7 @@ QString TaggedFile::formatTime(unsigned seconds)
  */
 bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 {
+	QString dirname = m_dirInfo->getDirname();
 	if (fnNew.lower() == fnOld.lower()) {
 		// if the filenames only differ in case, first rename to a
 		// temporary filename, so that it works also with case
@@ -691,7 +695,7 @@ int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 {
 	int numTracks = -1;
 	if (Kid3App::s_miscCfg.m_enableTotalNumberOfTracks) {
-		numTracks = FileList::getNumberOfFiles();
+		numTracks = m_dirInfo->getNumFiles();
 	}
 	return numTracks;
 }

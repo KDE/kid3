@@ -30,10 +30,10 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param dn directory name
+	 * @param di directory information
 	 * @param fn filename
 	 */
-	FlacFile(const QString& dn, const QString& fn);
+	FlacFile(const DirInfo* di, const QString& fn);
 
 	/**
 	 * Destructor.

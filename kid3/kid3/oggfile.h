@@ -29,10 +29,10 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param dn directory name
+	 * @param di directory information
 	 * @param fn filename
 	 */
-	OggFile(const QString& dn, const QString& fn);
+	OggFile(const DirInfo* di, const QString& fn);
 
 	/**
 	 * Destructor.

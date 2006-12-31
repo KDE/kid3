@@ -131,12 +131,11 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	const int spacing = 6;
 #endif
 
-	setAcceptDrops(TRUE);
+	setAcceptDrops(true);
 	setCaption(i18n("Kid3"));
 
 	m_vSplitter = new QSplitter(Qt::Vertical, this, "vSplitter");
 	mp3ListBox = new FileList(m_vSplitter, "mp3ListBox");
-	mp3ListBox->setSelectionMode(Q3ListBox::Extended);
 	m_dirListBox = new DirList(m_vSplitter, "dirListBox");
 
 	scrollView = new Kid3ScrollView(this);
@@ -166,7 +165,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	formatLabel->setText(i18n("Format:"));
 	filenameGroupBoxLayout->addWidget(formatLabel, 1, 0);
 
-	formatComboBox = new QComboBox(FALSE, filenameGroupBox, "formatComboBox");
+	formatComboBox = new QComboBox(false, filenameGroupBox, "formatComboBox");
 	filenameGroupBoxLayout->addWidget(formatComboBox, 1, 1);
 
 	fnV2Button = new QPushButton(filenameGroupBox, "fnV2Button");
@@ -255,7 +254,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	genreV1CheckBox->setText(i18n("Genre:"));
 	idV1GroupBoxLayout->addWidget(genreV1CheckBox, 5, 0);
 
-	genreV1ComboBox = new QComboBox(FALSE, idV1GroupBox, "genreV1ComboBox");
+	genreV1ComboBox = new QComboBox(false, idV1GroupBox, "genreV1ComboBox");
 	idV1GroupBoxLayout->addWidget(genreV1ComboBox, 5, 1);
 
 	idV2GroupBox = new Q3GroupBox(rightHalfVBox, "idV2GroupBox");
@@ -331,7 +330,7 @@ id3Form::id3Form(QWidget* parent, const char* name)
 	genreV2CheckBox->setText(i18n("Genre:"));
 	idV2GroupBoxLayout->addWidget(genreV2CheckBox, 5, 0);
 
-	genreV2ComboBox = new QComboBox(FALSE, idV2GroupBox, "genreV2ComboBox");
+	genreV2ComboBox = new QComboBox(false, idV2GroupBox, "genreV2ComboBox");
 	genreV2ComboBox->setEditable(true);
 	genreV2ComboBox->setAutoCompletion(true);
 	genreV2ComboBox->setDuplicatesEnabled(false);
@@ -569,7 +568,7 @@ void id3Form::removeV1()
 /**
  * File list box file selected
  */
-void id3Form::fileSelected(void)
+void id3Form::fileSelected()
 {
 	theApp->fileSelected();
 }
@@ -679,7 +678,7 @@ void id3Form::setStandardTagsV2(const StandardTags *st)
 /**
  * Set all ID3v1 and ID3v2 check boxes on or off.
  *
- * @param val TRUE to set check boxes on.
+ * @param val true to set check boxes on.
  */
 void id3Form::setAllCheckBoxes(bool val)
 {
@@ -707,13 +706,7 @@ void id3Form::setAllCheckBoxes(bool val)
  */
 int id3Form::numFilesSelected()
 {
-	int i, num_files_selected = 0;
-	for (i = 0; i < (int)mp3ListBox->count(); i++) {
-		if (mp3ListBox->isSelected(i)) {
-			++num_files_selected;
-		}
-	}
-	return num_files_selected;
+	return mp3ListBox->numFilesSelected();
 }
 
 /**
@@ -742,7 +735,7 @@ void id3Form::dropEvent(QDropEvent *ev)
 /**
  * Frame list button Edit.
  */
-void id3Form::editFrame(void)
+void id3Form::editFrame()
 {
 	theApp->editFrame();
 }
@@ -750,7 +743,7 @@ void id3Form::editFrame(void)
 /**
  * Frame list button Add.
  */
-void id3Form::addFrame(void)
+void id3Form::addFrame()
 {
 	theApp->addFrame();
 }
@@ -758,7 +751,7 @@ void id3Form::addFrame(void)
 /**
  * Frame list button Delete.
  */
-void id3Form::deleteFrame(void)
+void id3Form::deleteFrame()
 {
 	theApp->deleteFrame();
 }
@@ -767,7 +760,7 @@ void id3Form::deleteFrame(void)
  * Set filename according to ID3v1 tags.
  */
 
-void id3Form::fnFromID3V1(void)
+void id3Form::fnFromID3V1()
 {
 	theApp->getFilenameFromTags(1);
 }
@@ -776,7 +769,7 @@ void id3Form::fnFromID3V1(void)
  * Set filename according to ID3v1 tags.
  */
 
-void id3Form::fnFromID3V2(void)
+void id3Form::fnFromID3V2()
 {
 	theApp->getFilenameFromTags(2);
 }

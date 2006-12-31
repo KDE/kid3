@@ -20,6 +20,7 @@
 #include "standardtags.h"
 #include "taglibframelist.h"
 #include "genres.h"
+#include "dirinfo.h"
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -45,11 +46,11 @@
 /**
  * Constructor.
  *
- * @param dn directory name
+ * @param di directory information
  * @param fn filename
  */
-TagLibFile::TagLibFile(const QString& dn, const QString& fn) :
-	TaggedFile(dn, fn), m_tagV1(0), m_tagV2(0), m_fileRead(false)
+TagLibFile::TagLibFile(const DirInfo* di, const QString& fn) :
+	TaggedFile(di, fn), m_tagV1(0), m_tagV2(0), m_fileRead(false)
 {
 }
 
@@ -67,14 +68,14 @@ TagLibFile::~TagLibFile()
  */
 void TagLibFile::readTags(bool force)
 {
-	Q3CString fn = QFile::encodeName(dirname + QDir::separator() + filename);
+	Q3CString fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
 	if (force || m_fileRef.isNull()) {
 		m_fileRef = TagLib::FileRef(fn);
 		m_tagV1 = 0;
 		m_tagV2 = 0;
-		changedV1 = false;
-		changedV2 = false;
+		markTag1Changed(false);
+		markTag2Changed(false);
 		m_fileRead = true;
 	}
 
@@ -88,44 +89,44 @@ void TagLibFile::readTags(bool force)
 		if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 			if (!m_tagV1) {
 				m_tagV1 = mpegFile->ID3v1Tag();
-				changedV1 = false;
+				markTag1Changed(false);
 			}
 			if (!m_tagV2) {
 				m_tagV2 = mpegFile->ID3v2Tag();
-				changedV2 = false;
+				markTag2Changed(false);
 			}
 		} else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
 			if (!m_tagV1) {
 				m_tagV1 = flacFile->ID3v1Tag();
-				changedV1 = false;
+				markTag1Changed(false);
 			}
 			if (!m_tagV2) {
 				m_tagV2 = flacFile->xiphComment();
-				changedV2 = false;
+				markTag2Changed(false);
 			}
 #ifdef MPC_ID3V1
 		} else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
 			if (!m_tagV1) {
 				m_tagV1 = mpcFile->ID3v1Tag();
-				changedV1 = false;
+				markTag1Changed(false);
 			}
 			if (!m_tagV2) {
 				m_tagV2 = mpcFile->APETag();
-				changedV2 = false;
+				markTag2Changed(false);
 			}
 #endif
 		} else {
 			m_tagV1 = 0;
-			changedV1 = false;
+			markTag1Changed(false);
 			if (!m_tagV2) {
 				m_tagV2 = m_fileRef.tag();
-				changedV2 = false;
+				markTag2Changed(false);
 			}
 		}
 	}
 
 	if (force) {
-		new_filename = filename;
+		setFilename(currentFilename());
 	}
 }
 
@@ -142,7 +143,7 @@ void TagLibFile::readTags(bool force)
  */
 bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 {
-	QString fnStr(dirname + QDir::separator() + filename);
+	QString fnStr(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 	if (isChanged() && !QFileInfo(fnStr).isWritable()) {
 		return false;
 	}
@@ -166,39 +167,39 @@ bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 	if (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0) {
 		TagLib::MPEG::File* mpegFile = dynamic_cast<TagLib::MPEG::File*>(file);
 		if (mpegFile) {
-			if (m_tagV1 && (force || changedV1) && m_tagV1->isEmpty()) {
+			if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
 				mpegFile->strip(TagLib::MPEG::File::ID3v1);
 				fileChanged = true;
-				changedV1 = false;
+				markTag1Changed(false);
 				m_tagV1 = 0;
 			}
-			if (m_tagV2 && (force || changedV2) && m_tagV2->isEmpty()) {
+			if (m_tagV2 && (force || isTag2Changed()) && m_tagV2->isEmpty()) {
 				mpegFile->strip(TagLib::MPEG::File::ID3v2);
 				fileChanged = true;
-				changedV2 = false;
+				markTag2Changed(false);
 				m_tagV2 = 0;
 			}
 			int saveMask = 0;
-			if (m_tagV1 && (force || changedV1) && !m_tagV1->isEmpty()) {
+			if (m_tagV1 && (force || isTag1Changed()) && !m_tagV1->isEmpty()) {
 				saveMask |= TagLib::MPEG::File::ID3v1;
 			}
-			if (m_tagV2 && (force || changedV2) && !m_tagV2->isEmpty()) {
+			if (m_tagV2 && (force || isTag2Changed()) && !m_tagV2->isEmpty()) {
 				saveMask |= TagLib::MPEG::File::ID3v2;
 			}
 			if (saveMask != 0) {
 				if (mpegFile->save(saveMask, false)) {
 					fileChanged = true;
 					if (saveMask & TagLib::MPEG::File::ID3v1) {
-						changedV1 = false;
+						markTag1Changed(false);
 					}
 					if (saveMask & TagLib::MPEG::File::ID3v2) {
-						changedV2 = false;
+						markTag2Changed(false);
 					}
 				}
 			}
 		} else {
-			if ((m_tagV2 && (force || changedV2)) ||
-					(m_tagV1 && (force || changedV1))) {
+			if ((m_tagV2 && (force || isTag2Changed())) ||
+					(m_tagV1 && (force || isTag1Changed()))) {
 				TagLib::MPC::File* mpcFile = dynamic_cast<TagLib::MPC::File*>(file);
 #ifndef MPC_ID3V1
 				// it does not work if there is also an ID3 tag (bug in TagLib?)
@@ -209,8 +210,8 @@ bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 #endif
 				if (m_fileRef.save()) {
 					fileChanged = true;
-					changedV1 = false;
-					changedV2 = false;
+					markTag1Changed(false);
+					markTag2Changed(false);
 				}
 			}
 		}
@@ -234,10 +235,11 @@ bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
 		::utime(fn, &times);
 	}
 
-	if (new_filename != filename) {
-		if (!renameFile(filename, new_filename)) {
+	if (getFilename() != currentFilename()) {
+		if (!renameFile(currentFilename(), getFilename())) {
 			return false;
 		}
+		updateCurrentFilename();
 		*renamed = true;
 	}
 
@@ -277,7 +279,7 @@ void TagLibFile::removeTagsV2(const StandardTagsFilter& flt)
 						 it != frameList.end();) {
 					id3v2Tag->removeFrame(*it++, true);
 				}
-				changedV2 = true;
+				markTag2Changed();
 			} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) !=
 								 0) {
 				const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -285,14 +287,14 @@ void TagLibFile::removeTagsV2(const StandardTagsFilter& flt)
 						 it != fieldListMap.end();) {
 					oggTag->removeField((*it++).first);
 				}
-				changedV2 = true;
+				markTag2Changed();
 			} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
 				const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
 				for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
 						 it != itemListMap.end();) {
 					apeTag->removeItem((*it++).first);
 				}
-				changedV2 = true;
+				markTag2Changed();
 			} else {
 				removeStandardTagsV2(flt);
 			}
@@ -640,7 +642,7 @@ void TagLibFile::setTitleV1(const QString& str)
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->title())) {
 			m_tagV1->setTitle(tstr);
-			changedV1 = true;
+			markTag1Changed();
 		}
 	}
 }
@@ -657,7 +659,7 @@ void TagLibFile::setArtistV1(const QString& str)
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->artist())) {
 			m_tagV1->setArtist(tstr);
-			changedV1 = true;
+			markTag1Changed();
 		}
 	}
 }
@@ -674,7 +676,7 @@ void TagLibFile::setAlbumV1(const QString& str)
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->album())) {
 			m_tagV1->setAlbum(tstr);
-			changedV1 = true;
+			markTag1Changed();
 		}
 	}
 }
@@ -691,7 +693,7 @@ void TagLibFile::setCommentV1(const QString& str)
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->comment())) {
 			m_tagV1->setComment(tstr);
-			changedV1 = true;
+			markTag1Changed();
 		}
 	}
 }
@@ -706,7 +708,7 @@ void TagLibFile::setYearV1(int num)
 	if (makeTagV1Settable() && num >= 0) {
 		if (num != static_cast<int>(m_tagV1->year())) {
 			m_tagV1->setYear(num);
-			changedV1 = true;
+			markTag1Changed();
 		}
 	}
 }
@@ -721,7 +723,7 @@ void TagLibFile::setTrackNumV1(int num)
 	if (makeTagV1Settable() && num >= 0) {
 		if (num != static_cast<int>(m_tagV1->track())) {
 			m_tagV1->setTrack(num);
-			changedV1 = true;
+			markTag1Changed();
 		}
 	}
 }
@@ -739,7 +741,7 @@ void TagLibFile::setGenreNumV1(int num)
 			TagLib::String(str) : TagLib::String::null;
 		if (!(tstr == m_tagV1->genre())) {
 			m_tagV1->setGenre(tstr);
-			changedV1 = true;
+			markTag1Changed();
 		}
 	}
 }
@@ -814,7 +816,7 @@ void TagLibFile::setTitleV2(const QString& str)
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TIT2")) {
 				m_tagV2->setTitle(tstr);
 			}
-			changedV2 = true;
+			markTag2Changed();
 		}
 	}
 }
@@ -833,7 +835,7 @@ void TagLibFile::setArtistV2(const QString& str)
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TPE1")) {
 			}
 			m_tagV2->setArtist(tstr);
-			changedV2 = true;
+			markTag2Changed();
 		}
 	}
 }
@@ -852,7 +854,7 @@ void TagLibFile::setAlbumV2(const QString& str)
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TALB")) {
 			}
 			m_tagV2->setAlbum(tstr);
-			changedV2 = true;
+			markTag2Changed();
 		}
 	}
 }
@@ -871,7 +873,7 @@ void TagLibFile::setCommentV2(const QString& str)
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "COMM")) {
 			}
 			m_tagV2->setComment(tstr);
-			changedV2 = true;
+			markTag2Changed();
 		}
 	}
 }
@@ -886,7 +888,7 @@ void TagLibFile::setYearV2(int num)
 	if (makeTagV2Settable() && num >= 0) {
 		if (num != static_cast<int>(m_tagV2->year())) {
 			m_tagV2->setYear(num);
-			changedV2 = true;
+			markTag2Changed();
 		}
 	}
 }
@@ -927,7 +929,7 @@ void TagLibFile::setTrackNumV2(int num)
 			} else {
 				m_tagV2->setTrack(num);
 			}
-			changedV2 = true;
+			markTag2Changed();
 		}
 	}
 }
@@ -945,7 +947,7 @@ void TagLibFile::setGenreNumV2(int num)
 			TagLib::String(str) : TagLib::String::null;
 		if (!(tstr == m_tagV2->genre())) {
 			m_tagV2->setGenre(tstr);
-			changedV2 = true;
+			markTag2Changed();
 		}
 	}
 }
@@ -962,7 +964,7 @@ void TagLibFile::setGenreV2(const QString& str)
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV2->genre())) {
 			m_tagV2->setGenre(tstr);
-			changedV2 = true;
+			markTag2Changed();
 		}
 	}
 }
