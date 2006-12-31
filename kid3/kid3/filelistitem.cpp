@@ -8,29 +8,36 @@
  */
 
 #include "filelistitem.h"
+#include "filelist.h"
 #include "taggedfile.h"
+#include "dirinfo.h"
 
 #include <qapplication.h>
 #include <qpainter.h>
 #include <qpixmap.h>
+#include <qfileinfo.h>
 
 /** Empty pixmap, will be allocated in constructor */
-QPixmap *FileListItem::nullPixmap = 0;
+QPixmap* FileListItem::nullPixmap = 0;
 /** Pixmap for modified file, will be allocated in constructor */
-QPixmap *FileListItem::modifiedPixmap = 0;
+QPixmap* FileListItem::modifiedPixmap = 0;
 /** Pixmap for V1V2, will be allocated in constructor */
-QPixmap *FileListItem::v1v2Pixmap = 0;
+QPixmap* FileListItem::v1v2Pixmap = 0;
 /** Pixmap for V1, will be allocated in constructor */
-QPixmap *FileListItem::v1Pixmap = 0;
+QPixmap* FileListItem::v1Pixmap = 0;
 /** Pixmap for V2, will be allocated in constructor */
-QPixmap *FileListItem::v2Pixmap = 0;
+QPixmap* FileListItem::v2Pixmap = 0;
 /** Pixmap for "no tag", will be allocated in constructor */
-QPixmap *FileListItem::notagPixmap = 0;
+QPixmap* FileListItem::notagPixmap = 0;
+/** Pixmap for closed folder, will be allocated in constructor */
+QPixmap* FileListItem::folderClosedPixmap = 0;
+/** Pixmap for open folder, will be allocated in constructor */
+QPixmap* FileListItem::folderOpenPixmap = 0;
 
 /* The bitmaps are stored here instead of using KDE bitmaps to make
    it work for the Qt only versions. */
 /** picture for modified pixmap */
-static const char * const modified_xpm[] = {
+static const char* const modified_xpm[] = {
 	"16 16 33 1",
 	". c None",
 	"B c None",
@@ -84,7 +91,7 @@ static const char * const modified_xpm[] = {
 };
 
 /** picture for empty pixmap */
-static const char * const null_xpm[] = {
+static const char* const null_xpm[] = {
 	"16 16 2 1",
 	"# c None",
 	". c None",
@@ -106,8 +113,8 @@ static const char * const null_xpm[] = {
 	"#.#.#.#.#.#.#.#."
 };
 
-/* XPM */
-static const char * const v1v2_xpm[] = {
+/** picture with V1 and V2 */
+static const char* const v1v2_xpm[] = {
 	"16 16 3 1",
 	"       c None",
 	".      c #000000",
@@ -129,8 +136,8 @@ static const char * const v1v2_xpm[] = {
 	"                ",
 	"                "};
 
-/* XPM */
-static const char * const v1_xpm[] = {
+/** picture with V1 */
+static const char* const v1_xpm[] = {
 	"16 16 3 1",
 	"       c None",
 	".      c #000000",
@@ -152,8 +159,8 @@ static const char * const v1_xpm[] = {
 	"                ",
 	"                "};
 
-/* XPM */
-static const char * const v2_xpm[] = {
+/** picture with V2 */
+static const char* const v2_xpm[] = {
 	"16 16 3 1",
 	"       c None",
 	".      c #000000",
@@ -175,8 +182,8 @@ static const char * const v2_xpm[] = {
 	"                ",
 	"                "};
 
-/* XPM */
-static const char * const notag_xpm[] = {
+/** picture with NO TAG */
+static const char* const notag_xpm[] = {
 	"16 16 3 1",
 	"       c None",
 	".      c #000000",
@@ -198,21 +205,103 @@ static const char * const notag_xpm[] = {
 	"                ",
 	"                "};
 
-/** width of both pixmaps, got using QPixmap::width() */
-static const int pixmapWidth = 16;
-/** height of both pixmaps, got using QPixmap::height() */
-static const int pixmapHeight = 16;
+/** picture with closed folder */
+static const char* folder_closed_xpm[]={
+	"16 16 10 1",
+	" 	c #0E279A",
+	".	c #2852AF",
+	"+	c #2B66D3",
+	"@	c #2A83FE",
+	"#	c #627CB1",
+	"$	c #5FA1FC",
+	"%	c #B0B2CA",
+	"&	c #89BEF9",
+	"*	c #CDE9FD",
+	"=	c #FCFFFC",
+	"==++++++========",
+	"=+======+=======",
+	"+==*=*==#++++++=",
+	"+**=*****=*=*=*+",
+	".********+++++++",
+	".*******+&====&+",
+	".*&+++++&=&&&&&+",
+	".&+$=*===$$$$$$+",
+	".&+@$@$@$$$$$@$+",
+	".&.@@@@@@@@@@@@ ",
+	".& @@@@@@@@@@@@ ",
+	".& ===========% ",
+	".& ===========% ",
+	".$ %%%%%%%%%%%% ",
+	"=.             =",
+	"================"};
+
+/** picture with open folder */
+static const char* folder_open_xpm[]={
+	"16 16 10 1",
+	" 	c #0E279A",
+	".	c #2852AF",
+	"+	c #2B66D3",
+	"@	c #2A83FE",
+	"#	c #627CB1",
+	"$	c #5FA1FC",
+	"%	c #B0B2CA",
+	"&	c #89BEF9",
+	"*	c #CDE9FD",
+	"=	c #FCFFFC",
+	"==++++++========",
+	"=+======+=======",
+	"+==*=*==#++++++=",
+	"+**=*****=*=*=*+",
+	".********+++++++",
+	".*******+&====*+",
+	".*&+++++#=&&&&&+",
+	".&+$=*==*$$$$$$+",
+	".&+$$@$$@$$$$$@ ",
+	".$+@@@@@@@@@@@@ ",
+	"..+@@@@@@@@@@@+ ",
+	".+%===========.=",
+	". %==========% =",
+	". %%%%%%%%%%%% =",
+	"=              =",
+	"================"};
 
 /**
  * Constructor.
  *
- * @param file tagged file (will be owned by this item)
+ * @param parent parent file list
+ * @param after  this item is inserted after item @a after
+ * @param file   tagged file (will be owned by this item)
  */
-FileListItem::FileListItem(TaggedFile* file) : m_file(file)
+FileListItem::FileListItem(FileList* parent, FileListItem* after,
+													 TaggedFile* file) :
+	Q3ListViewItem(parent, after), m_file(file), m_dirInfo(0)
+{
+	init();
+}
+
+/**
+ * Constructor for non top-level items.
+ *
+ * @param parent parent file list item
+ * @param after  this item is inserted after item @a after
+ * @param file   tagged file (will be owned by this item)
+ */
+FileListItem::FileListItem(FileListItem* parent, FileListItem* after,
+													 TaggedFile* file) :
+	Q3ListViewItem(parent, after), m_file(file), m_dirInfo(0)
+{
+	init();
+}
+
+/**
+ * Initialize file list item.
+ * Common initialization for all constructors.
+ */
+void FileListItem::init()
 {
 	setInSelection(false);
 	if (m_file) {
-		setText(m_file->getFilename());
+		setText(0, m_file->getFilename());
 	}
 
 	// this two objects should be destructed when the program terminates.
@@ -236,6 +325,14 @@ FileListItem::FileListItem(TaggedFile* file) : m_file(file)
 	if (!notagPixmap) {
 		notagPixmap = new QPixmap((const char **)notag_xpm);
 	}
+	if (!folderClosedPixmap) {
+		folderClosedPixmap = new QPixmap((const char **)folder_closed_xpm);
+	}
+	if (!folderOpenPixmap) {
+		folderOpenPixmap = new QPixmap((const char **)folder_open_xpm);
+	}
+
+	updateIcons();
 }
 
 /**
@@ -244,6 +341,38 @@ FileListItem::FileListItem(TaggedFile* file) : m_file(file)
 FileListItem::~FileListItem()
 {
 	delete m_file;
+	delete m_dirInfo;
+}
+
+/**
+ * Opens or closes an item.
+ *
+ * @param o true to open
+ */
+void FileListItem::setOpen(bool o)
+{
+	if (m_dirInfo) {
+		setPixmap(0, o ? *folderOpenPixmap : *folderClosedPixmap);
+
+		if (o && !childCount()) {
+			listView()->setUpdatesEnabled(false);
+			FileList::readSubDirectory(m_dirInfo, this, 0);
+			listView()->setUpdatesEnabled(true);
+		}
+		updateIcons();
+	}
+	QListViewItem::setOpen(o);
+}
+
+/**
+ * Called before showing the item.
+ */
+void FileListItem::setup()
+{
+	if (!m_file) {
+		setExpandable(true);
+	}
+	QListViewItem::setup();
 }
 
 /**
@@ -259,69 +388,68 @@ void FileListItem::setFile(TaggedFile* file)
 	}
 	m_file = file;
 	if (m_file) {
-		setText(m_file->getFilename());
+		setText(0, m_file->getFilename());
+	}
+	updateIcons();
+}
+
+/**
+ * Set directory information.
+ * An item can represent a file (file is set) or
+ * a directory (directory information is set).
+ * The item takes ownership of this directory information
+ * and the old information is deleted.
+ *
+ * @param dirInfo directory information
+ */
+void FileListItem::setDirInfo(DirInfo* dirInfo)
+{
+	if (m_dirInfo) {
+		delete m_dirInfo;
+	}
+	m_dirInfo = dirInfo;
+	if (m_dirInfo) {
+		QFileInfo fi(m_dirInfo->getDirname());
+		setText(0, fi.fileName());
+		setOpen(false);
 	}
 }
 
 /**
- * Get height of item.
- *
- * @param lb listbox containing the item
- *
- * @return height.
+ * Update the icons according to the modificaton state and the tags present.
  */
-int FileListItem::height(const Q3ListBox* lb) const
+void FileListItem::updateIcons()
 {
-	int h = text().isEmpty() ? pixmapHeight :
-		QMAX(pixmapHeight, lb->fontMetrics().lineSpacing() + 1);
-	return QMAX(h, QApplication::globalStrut().height());
-}
-
-/**
- * Get width of item.
- *
- * @param lb listbox containing the item
- *
- * @return width.
- */
-int FileListItem::width(const Q3ListBox* lb) const
-{
-	if (text().isEmpty()) {
-		return QMAX(pixmapWidth * 2 + 6, QApplication::globalStrut().width());
-	}
-	return QMAX(pixmapWidth * 2 + 6 + lb->fontMetrics().width(text()), QApplication::globalStrut().width());
-}
-
-/**
- * Paint item.
- *
- * @param painter painter used
- */
-void FileListItem::paint(QPainter *painter)
-{
-	static const QPixmap *tagpm[] = {
-		notagPixmap, v1Pixmap, v2Pixmap, v1v2Pixmap, nullPixmap
-	};
-	int tagpmIdx;
-	if (!m_file->isTagInformationRead()) {
-		tagpmIdx = 4;
-	} else {
-		tagpmIdx = 0;
-		if (m_file->hasTagV1()) {
-			tagpmIdx |= 1;
+	if (m_file) {
+		if (m_file->isChanged()) {
+			setPixmap(0, *modifiedPixmap);
+		} else {
+			static const QPixmap* tagpm[] = {
+				notagPixmap, v1Pixmap, v2Pixmap, v1v2Pixmap, nullPixmap
+			};
+			int tagpmIdx;
+			if (!m_file->isTagInformationRead()) {
+				tagpmIdx = 4;
+			} else {
+				tagpmIdx = 0;
+				if (m_file->hasTagV1()) {
+					tagpmIdx |= 1;
+				}
+				if (m_file->hasTagV2()) {
+					tagpmIdx |= 2;
+				}
+			}
+			setPixmap(0, *tagpm[tagpmIdx]);
 		}
-		if (m_file->hasTagV2()) {
-			tagpmIdx |= 2;
-		}
 	}
-	painter->drawPixmap(3, 0, m_file->isChanged() ? *modifiedPixmap : *nullPixmap);
-	painter->drawPixmap(pixmapWidth + 3, 0, *tagpm[tagpmIdx]);
-	if (!text().isEmpty()) {
-		QFontMetrics fm = painter->fontMetrics();
-		painter->drawText(pixmapWidth * 2 + 5,
-						  pixmapHeight < fm.height() ?
-						  fm.ascent() + fm.leading() / 2 :
-						  pixmapHeight / 2 - fm.height() / 2 + fm.ascent(),
-						  text());
+}
+
+/**
+ * Update the text according to the file name.
+ */
+void FileListItem::updateText()
+{
+	if (m_file) {
+		setText(0, m_file->getFilename());
 	}
 }
