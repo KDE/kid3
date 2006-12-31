@@ -31,10 +31,10 @@ BUILT_SOURCES =
 CLEANFILES = allsys.h allsys.h.gch
 
 # these are the headers for your project that won't be installed
-noinst_HEADERS = configdialog.h exportdialog.h filelist.h filelistitem.h formatbox.h formatconfig.h framelist.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h rendirdialog.h standardtags.h dirlist.h taggedfile.h mp3framelist.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h numbertracksdialog.h oggfile.h oggframelist.h vcedit.h flacfile.h flacframelist.h commandstable.h taglibfile.h taglibframelist.h urllinkframe.h unsynchronizedlyricsframe.h importsourceconfig.h importsourcedialog.h importsourceclient.h discogsdialog.h discogsclient.h discogsconfig.h musicbrainzreleasedialog.h musicbrainzreleaseclient.h qtcompatmac.h
+noinst_HEADERS = configdialog.h exportdialog.h filelist.h filelistitem.h formatbox.h formatconfig.h framelist.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h rendirdialog.h standardtags.h dirlist.h taggedfile.h mp3framelist.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h numbertracksdialog.h oggfile.h oggframelist.h vcedit.h flacfile.h flacframelist.h commandstable.h taglibfile.h taglibframelist.h urllinkframe.h unsynchronizedlyricsframe.h importsourceconfig.h importsourcedialog.h importsourceclient.h discogsdialog.h discogsclient.h discogsconfig.h musicbrainzreleasedialog.h musicbrainzreleaseclient.h qtcompatmac.h dirinfo.h
 
 # additional files in distribution
-EXTRA_DIST = kid3.desktop kid3ui.rc hi16-app-kid3.png hi32-app-kid3.png hi48-app-kid3.png de_qt.po ru_qt.po
+EXTRA_DIST = kid3.desktop kid3ui.rc hi16-app-kid3.png hi32-app-kid3.png hi48-app-kid3.png hisc-app-kid3.svgz de_qt.po ru_qt.po es_qt.po fr_qt.po
 
 # generate precompiled header allsys.h.gch for GCC 3.4
 pch:
