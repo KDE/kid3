@@ -84,12 +84,12 @@ public:
 	 * The new selection is stored and the GUI controls and frame list
 	 * updated accordingly (filtered for multiple selection).
 	 */
-	void fileSelected(void);
+	void fileSelected();
 
 	/**
 	 * Update files of current selection.
 	 */
-	void updateCurrentSelection(void);
+	void updateCurrentSelection();
 
 	/**
 	 * Copy a set of standard tags into copy buffer.
@@ -120,14 +120,14 @@ public:
 	 * If a single file is selected the tags in the GUI controls
 	 * are set, else the tags in the multiple selected files.
 	 */
-	void getTagsFromFilenameV1(void);
+	void getTagsFromFilenameV1();
 
 	/**
 	 * Set ID3v2 tags according to filename.
 	 * If a single file is selected the tags in the GUI controls
 	 * are set, else the tags in the multiple selected files.
 	 */
-	void getTagsFromFilenameV2(void);
+	void getTagsFromFilenameV2();
 
 	/**
 	 * Set filename according to tags.
@@ -141,22 +141,22 @@ public:
 	/**
 	 * Copy ID3v1 tags to ID3v2 tags of selected files.
 	 */
-	void copyV1ToV2(void);
+	void copyV1ToV2();
 
 	/**
 	 * Copy ID3v2 tags to ID3v1 tags of selected files.
 	 */
-	void copyV2ToV1(void);
+	void copyV2ToV1();
 
 	/**
 	 * Remove ID3v1 tags in selected files.
 	 */
-	void removeTagsV1(void);
+	void removeTagsV1();
 
 	/**
 	 * Remove ID3v2 tags in selected files.
 	 */
-	void removeTagsV2(void);
+	void removeTagsV2();
 
 	/**
 	 * Open directory on drop.
@@ -168,17 +168,17 @@ public:
 	/**
 	 * Edit selected frame.
 	 */
-	void editFrame(void);
+	void editFrame();
 
 	/**
 	 * Delete selected frame.
 	 */
-	void deleteFrame(void);
+	void deleteFrame();
 
 	/**
 	 * Select a frame type and add such a frame to frame list.
 	 */
-	void addFrame(void);
+	void addFrame();
 
 	/**
 	 * Display help for a topic.
@@ -271,16 +271,16 @@ protected:
 	/**
 	 * Set modification state.
 	 *
-	 * @param val TRUE if a file is modified
+	 * @param val true if a file is modified
 	 */
 	void setModified(bool val) { modified = val; }
 
 	/**
 	 * Check modification state.
 	 *
-	 * @return TRUE if a file is modified.
+	 * @return true if a file is modified.
 	 */
-	bool isModified(void) { return modified; }
+	bool isModified() { return modified; }
 
 public slots:
 	/**
@@ -328,17 +328,17 @@ public slots:
 	/**
 	 * Display handbook.
 	 */
-	void slotHelpHandbook(void);
+	void slotHelpHandbook();
 
 	/**
 	 * Display "About" dialog.
 	 */
-	void slotHelpAbout(void);
+	void slotHelpAbout();
 
 	/**
 	 * Display "About Qt" dialog.
 	 */
-	void slotHelpAboutQt(void);
+	void slotHelpAboutQt();
 
 	/**
 	 * Revert file modifications.
@@ -366,12 +366,12 @@ public slots:
 	/**
 	 * Create playlist.
 	 */
-	void slotCreatePlaylist(void);
+	void slotCreatePlaylist();
 
 	/**
 	 * Import.
 	 */
-	void slotImport(void);
+	void slotImport();
 
 	/**
 	 * Import from freedb.org.
@@ -411,22 +411,22 @@ public slots:
 	/**
 	 * Preferences.
 	 */
-	void slotSettingsConfigure(void);
+	void slotSettingsConfigure();
 
 	/**
 	 * Apply filename format.
 	 */
-	void slotApplyFilenameFormat(void);
+	void slotApplyFilenameFormat();
 
 	/**
 	 * Apply ID3 format.
 	 */
-	void slotApplyId3Format(void);
+	void slotApplyId3Format();
 
 	/**
 	 * Rename directory.
 	 */
-	void slotRenameDirectory(void);
+	void slotRenameDirectory();
 
 	/**
 	 * Number tracks.
@@ -448,7 +448,7 @@ private:
 	 *
 	 * @return true
 	 */
-	bool saveDirectory(void);
+	bool saveDirectory();
 
 	/**
 	 * If anything was modified, save after asking user.
@@ -467,7 +467,7 @@ private:
 	/**
 	 * Update modification state, caption and listbox entries.
 	 */
-	void updateModificationState(void);
+	void updateModificationState();
 
 	/**
 	 * Update ID3v2 tags in GUI controls from file displayed in frame list.
@@ -526,7 +526,7 @@ private:
 
 	/** GUI with controls, created by Qt Designer */
 	id3Form *view;
-	/** TRUE if any file was modified */
+	/** true if any file was modified */
 	bool modified;
 	/** Current directory */
 	QString doc_dir;

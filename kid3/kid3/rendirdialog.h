@@ -48,7 +48,7 @@ public:
 	 *
 	 * @return new directory name.
 	 */
-	QString getNewDirname(void) const;
+	QString getNewDirname() const;
 	/**
 	 * Generate new directory name according to current settings.
 	 *

@@ -37,7 +37,7 @@ FormatBox::FormatBox(const QString & title, QWidget *parent, const char *name) :
 	QLabel *caseConvLabel = new QLabel(this, "caseConvLabel");
 	caseConvLabel->setText(i18n("Case Conversion:"));
 
-	caseConvComboBox = new QComboBox(FALSE, this, "caseConvComboBox");
+	caseConvComboBox = new QComboBox(false, this, "caseConvComboBox");
 	caseConvComboBox->clear();
 	caseConvComboBox->insertItem(i18n("No changes"),
 								 FormatConfig::NoChanges);

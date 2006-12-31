@@ -171,7 +171,7 @@ bool OggFrameList::editFrame(OggFile::CommentField& frame)
 	if (dialog && dialog->exec() == QDialog::Accepted) {
 		frame.setValue(dialog->getText());
 		if (m_file) {
-			m_file->changedV2 = true;
+			m_file->markTag2Changed();
 		}
 		return true;
 	}
@@ -215,7 +215,7 @@ bool OggFrameList::deleteFrame()
 			}
 		}
 		if (m_file) {
-			m_file->changedV2 = true;
+			m_file->markTag2Changed();
 		}
 		return true;
 	}
@@ -246,7 +246,7 @@ bool OggFrameList::addFrame(int frameId, bool edit)
 			listbox->setSelected(lastIndex, true);
 		}
 		if (m_file) {
-			m_file->changedV2 = true;
+			m_file->markTag2Changed();
 		}
 		return true;
 	}
@@ -356,7 +356,7 @@ bool OggFrameList::pasteFrame() {
 			m_tags) {
 		m_tags->push_back(m_copyFrame);
 		if (m_file) {
-			m_file->changedV2 = true;
+			m_file->markTag2Changed();
 		}
 		return true;
 	}

@@ -29,7 +29,6 @@
  * @param parent parent widget
  * @param name   internal name or 0
  */
-
 LabeledTextEdit::LabeledTextEdit(QWidget *parent, const char *name) :
     QWidget(parent, name)
 {
@@ -49,7 +48,6 @@ LabeledTextEdit::LabeledTextEdit(QWidget *parent, const char *name) :
  * @param parent parent widget
  * @param name   internal name or 0
  */
-
 LabeledLineEdit::LabeledLineEdit(QWidget *parent, const char *name) :
     QWidget(parent, name)
 {
@@ -69,7 +67,6 @@ LabeledLineEdit::LabeledLineEdit(QWidget *parent, const char *name) :
  * @param name   internal name or 0
  * @param strlst list with ComboBox items, terminated by NULL
  */
-
 LabeledComboBox::LabeledComboBox(QWidget *parent, const char *name,
 				 const char **strlst) : QWidget(parent, name)
 {
@@ -77,7 +74,6 @@ LabeledComboBox::LabeledComboBox(QWidget *parent, const char *name,
 	label = new QLabel(this);
 	combo = new QComboBox(this);
 	if (layout && label && combo) {
-//		combo->insertStrList(strlst);
 		while (*strlst) {
 			combo->insertItem(i18n(*strlst++));
 		}
@@ -92,7 +88,6 @@ LabeledComboBox::LabeledComboBox(QWidget *parent, const char *name,
  * @param parent parent widget
  * @param name   internal name or 0
  */
-
 LabeledSpinBox::LabeledSpinBox(QWidget *parent, const char *name) :
     QWidget(parent, name)
 {
@@ -112,9 +107,8 @@ LabeledSpinBox::LabeledSpinBox(QWidget *parent, const char *name) :
  * @param name   internal name or 0
  * @param img    image to display in window
  */
-
 ImageViewer::ImageViewer(QWidget *parent, const char *name, QImage *img) :
-    QDialog(parent, name, TRUE), image(img)
+    QDialog(parent, name, true), image(img)
 {
 	setFixedSize(image->width(), image->height());
 	setCaption(i18n("View Picture"));
@@ -123,7 +117,6 @@ ImageViewer::ImageViewer(QWidget *parent, const char *name, QImage *img) :
 /**
  * Paint image, called when window has to be drawn.
  */
-
 void ImageViewer::paintEvent(QPaintEvent *)
 {
 	QPainter paint(this);
@@ -147,7 +140,7 @@ FrameList::~FrameList() {}
 /**
  * Clear listbox and file reference.
  */
-void FrameList::clear(void)
+void FrameList::clear()
 {
 	listbox->clear();
 	m_file = 0;
@@ -158,7 +151,7 @@ void FrameList::clear(void)
  *
  * @return file, NULL if no file selected.
  */
-TaggedFile* FrameList::getFile(void) const
+TaggedFile* FrameList::getFile() const
 {
 	return m_file;
 }

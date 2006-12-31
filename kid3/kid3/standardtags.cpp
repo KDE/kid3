@@ -19,7 +19,6 @@ StandardTags::StandardTags()
  *
  * @param st tags to compare
  */
-
 void StandardTags::filterDifferent(const StandardTags& st)
 {
 	if (title != st.title) {
@@ -48,7 +47,6 @@ void StandardTags::filterDifferent(const StandardTags& st)
 /**
  * Set tags inactive.
  */
-
 void StandardTags::setInactive()
 {
 	title = QString::null;
@@ -64,7 +62,7 @@ void StandardTags::setInactive()
  *
  * @param dest standard tags to copy into
  */
-void StandardTags::copyActiveTags(StandardTags &dest) const
+void StandardTags::copyActiveTags(StandardTags& dest) const
 {
 	if (title != QString::null) dest.title = title;
 	if (artist != QString::null) dest.artist = artist;
@@ -81,8 +79,7 @@ void StandardTags::copyActiveTags(StandardTags &dest) const
 /**
  * Set tags empty.
  */
-
-void StandardTags::setEmpty(void)
+void StandardTags::setEmpty()
 {
 	title = "";
 	artist = "";

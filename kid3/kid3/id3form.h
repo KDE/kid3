@@ -110,138 +110,166 @@ public slots:
 	 * Button ID3v1 From Filename.
 	 */
 	virtual void fromFilenameV1();
+
 	/**
 	 * Button ID3v2 From Filename.
 	 */
 	virtual void fromFilenameV2();
+
 	/**
 	 * Button ID3v2 From ID3v1.
 	 */
 	virtual void fromID3V2();
+
 	/**
 	 * Button ID3v1 From ID3v2.
 	 */
 	virtual void fromID3V1();
+
 	/**
 	 * Button ID3v1 Copy.
 	 */
 	virtual void copyV1();
+
 	/**
 	 * Button ID3v2 Copy.
 	 */
 	virtual void copyV2();
+
 	/**
 	 * Button ID3v2 Remove.
 	 */
 	virtual void removeV2();
+
 	/**
 	 * Button ID3v1 Paste.
 	 */
 	virtual void pasteV1();
+
 	/**
 	 * Button ID3v2 Paste.
 	 */
 	virtual void pasteV2();
+
 	/**
 	 * Button ID3v1 Remove.
 	 */
 	virtual void removeV1();
+
 	/**
 	 * File list box file selected
 	 */
-	virtual void fileSelected(void);
+	virtual void fileSelected();
+
 	/**
 	 * Get standard tags from the ID3v1 controls.
 	 *
 	 * @param st standard tags to store result
 	 */
 	virtual void getStandardTagsV1(StandardTags * st);
+
 	/**
 	 * Get standard tags from the ID3v2 controls.
 	 *
 	 * @param st standard tags to store result
 	 */
 	virtual void getStandardTagsV2(StandardTags * st);
+
 	/**
 	 * Set ID3v1 standard tags controls.
 	 *
 	 * @param st standard tags to set
 	 */
 	virtual void setStandardTagsV1(const StandardTags * st);
+
 	/**
 	 * Set ID3v2 standard tags controls.
 	 *
 	 * @param st standard tags to set
 	 */
 	virtual void setStandardTagsV2(const StandardTags * st);
+
 	/**
 	 * Set all ID3v1 and ID3v2 check boxes on or off.
 	 *
-	 * @param val TRUE to set check boxes on.
+	 * @param val true to set check boxes on.
 	 */
 	virtual void setAllCheckBoxes(bool val);
+
 	/**
 	 * Get number of files selected in file list box.
 	 *
 	 * @return number of files selected.
 	 */
 	virtual int numFilesSelected();
+
 	/**
 	 * Frame list button Edit.
 	 */
-	virtual void editFrame(void);
+	virtual void editFrame();
+
 	/**
 	 * Frame list button Add.
 	 */
-	virtual void addFrame(void);
+	virtual void addFrame();
+
 	/**
 	 * Frame list button Delete.
 	 */
-	virtual void deleteFrame(void);
+	virtual void deleteFrame();
+
 	/**
 	 * Set filename according to ID3v1 tags.
 	 */
-	virtual void fnFromID3V1(void);
+	virtual void fnFromID3V1();
+
 	/**
 	 * Set filename according to ID3v1 tags.
 	 */
-	virtual void fnFromID3V2(void);
+	virtual void fnFromID3V2();
 
 	/**
 	 * Filename line edit is changed.
 	 * @param txt contents of line edit
 	 */
 	virtual void nameLineEditChanged(const QString &txt);
+
 	/**
 	 * Album V1 line edit is changed.
 	 * @param txt contents of line edit
 	 */
 	virtual void albumV1LineEditChanged(const QString &txt);
+
 	/**
 	 * Artist V1 line edit is changed.
 	 * @param txt contents of line edit
 	 */
 	virtual void artistV1LineEditChanged(const QString &txt);
+
 	/**
 	 * Title V1 line edit is changed.
 	 * @param txt contents of line edit
 	 */
 	virtual void titleV1LineEditChanged(const QString &txt);
+
 	/**
 	 * Album V2 line edit is changed.
 	 * @param txt contents of line edit
 	 */
 	virtual void albumV2LineEditChanged(const QString &txt);
+
 	/**
 	 * Artist V2 line edit is changed.
 	 * @param txt contents of line edit
 	 */
 	virtual void artistV2LineEditChanged(const QString &txt);
+
 	/**
 	 * Title V2 line edit is changed.
 	 * @param txt contents of line edit
 	 */
 	virtual void titleV2LineEditChanged(const QString &txt);
+
 	/**
 	 * Directory list box directory selected.
 	 *
@@ -324,6 +352,7 @@ private slots:
 	 * @param ev drag event.
 	 */
 	void dragEnterEvent(QDragEnterEvent * ev);
+
 	/**
 	 * Handle drop event.
 	 *

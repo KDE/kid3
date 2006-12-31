@@ -59,7 +59,7 @@ class BinaryOpenSave : public QWidget {
 	 *
 	 * @return filename.
 	 */
-	QString getFilename(void) { return loadfilename; }
+	QString getFilename() { return loadfilename; }
 #endif // HAVE_ID3LIB
  
  public slots:
@@ -67,17 +67,17 @@ class BinaryOpenSave : public QWidget {
 	 * Request name of file to import binary data from.
 	 * The data is imported later when Ok is pressed in the parent dialog.
 	 */
-	void loadData(void);
+	void loadData();
 
 	/**
 	 * Request name of file and export binary data.
 	 */
-	void saveData(void);
+	void saveData();
 
 	/**
 	 * Create image from binary data and display it in window.
 	 */
-	void viewData(void);
+	void viewData();
 
  private:
 #ifdef HAVE_ID3LIB
@@ -109,10 +109,12 @@ public:
 	 * Constructor.
 	 */
 	Mp3FrameList();
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~Mp3FrameList();
+
 	/**
 	 * Set file and fill the list box with its frames.
 	 * The listbox has to be set with setListBox() before calling this
@@ -121,46 +123,52 @@ public:
 	 * @param taggedFile file
 	 */
 	virtual void setTags(TaggedFile* taggedFile);
+
 	/**
 	 * Create dialog to edit the selected frame and update the fields
 	 * if Ok is returned.
 	 *
-	 * @return TRUE if Ok selected in dialog.
+	 * @return true if Ok selected in dialog.
 	 */
-	virtual bool editFrame(void);
+	virtual bool editFrame();
+
 	/**
 	 * Delete selected frame.
 	 *
-	 * @return FALSE if frame not found.
+	 * @return false if frame not found.
 	 */
-	virtual bool deleteFrame(void);
+	virtual bool deleteFrame();
+
 	/**
 	 * Add a new frame.
 	 *
 	 * @param frameId ID of frame to add
 	 * @param edit    true to edit frame after adding it
-	 * @return TRUE if frame added.
+	 * @return true if frame added.
 	 */
 	virtual bool addFrame(int frameId, bool edit = false);
+
 	/**
 	 * Copy the selected frame to the copy buffer.
 	 *
 	 * @return true if frame copied.
 	 */
 	virtual bool copyFrame();
+
 	/**
 	 * Paste the selected frame from the copy buffer.
 	 *
 	 * @return true if frame pasted.
 	 */
 	virtual bool pasteFrame();
+
 	/**
 	 * Display a dialog to select a frame type.
 	 *
 	 * @return ID of selected frame,
 	 *         -1 if no frame selected.
 	 */
-	virtual int selectFrameId(void);
+	virtual int selectFrameId();
 
 	friend class IntComboBoxControl; // access to setSelectedEncoding()
 	friend class TextFieldControl;   // access to getSelectedEncoding()
@@ -175,12 +183,14 @@ public:
 	 * @param enc encoding.
 	 */
 	void setSelectedEncoding(ID3_TextEnc enc) { selected_enc = enc; }
+
 	/**
 	 * Get encoding selected in frame dialog.
 	 *
 	 * @return encoding, ID3TE_NONE if none selected.
 	 */
-	ID3_TextEnc getSelectedEncoding(void) const { return selected_enc; }
+	ID3_TextEnc getSelectedEncoding() const { return selected_enc; }
+
 	/**
 	 * Get frame with index.
 	 *
@@ -188,6 +198,7 @@ public:
 	 * @return frame with index.
 	 */
 	ID3_Frame *getFrame(int index) const;
+
 	/**
 	 * Get frame which is selected in listbox.
 	 *
@@ -197,21 +208,24 @@ public:
 	 * @return selected frame.
 	 */
 	ID3_Frame *getSelectedFrame(int* lbIndex = 0) const;
+
 	/**
 	 * Fill listbox with frame descriptions.
 	 * Before using this method, the listbox and file have to be set.
 	 * @see setListBox(), setTags()
 	 */
-	void readTags(void);
+	void readTags();
+
 	/**
 	 * Create dialog to edit a frame and update the fields if Ok is
 	 * returned.
 	 *
 	 * @param frame frame to edit
 	 *
-	 * @return TRUE if Ok selected in dialog.
+	 * @return true if Ok selected in dialog.
 	 */
 	bool editFrame(ID3_Frame* frame);
+
 	/**
 	 * Get description of frame.
 	 *

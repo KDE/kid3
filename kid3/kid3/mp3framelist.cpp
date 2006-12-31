@@ -49,6 +49,7 @@ public:
 	 */
 	Mp3FieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
 		frmlst(fl), field_id(id), field(fld) {}
+
 	/**
 	 * Destructor.
 	 */
@@ -62,6 +63,7 @@ protected:
 	 * @return description or NULL if id unknown.
 	 */
 	const char *getFieldIDString(ID3_FieldID id) const;
+
 	/** Frame list */
 	Mp3FrameList *frmlst;
 	/** Field ID */
@@ -82,6 +84,7 @@ class TextFieldControl : public Mp3FieldControl {
 	 */
 	TextFieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
 	    Mp3FieldControl(fl, id, fld) {}
+
 	/**
 	 * Destructor.
 	 */
@@ -89,7 +92,7 @@ class TextFieldControl : public Mp3FieldControl {
 	/**
 	 * Update field from data in field control.
 	 */
-	virtual void updateTag(void);
+	virtual void updateTag();
 	/**
 	 * Create widget to edit field data.
 	 *
@@ -116,14 +119,17 @@ class LineFieldControl : public Mp3FieldControl {
 	 */
 	LineFieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
 	    Mp3FieldControl(fl, id, fld) {}
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~LineFieldControl() {}
+
 	/**
 	 * Update field from data in field control.
 	 */
-	virtual void updateTag(void);
+	virtual void updateTag();
+
 	/**
 	 * Create widget to edit field data.
 	 *
@@ -150,14 +156,17 @@ class IntFieldControl : public Mp3FieldControl {
 	 */
 	IntFieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
 	    Mp3FieldControl(fl, id, fld) {};
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~IntFieldControl() {}
+
 	/**
 	 * Update field from data in field control.
 	 */
-	virtual void updateTag(void);
+	virtual void updateTag();
+
 	/**
 	 * Create widget to edit field data.
 	 *
@@ -186,14 +195,17 @@ class IntComboBoxControl : public Mp3FieldControl {
 	IntComboBoxControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld,
 										 const char **lst) :
 	    Mp3FieldControl(fl, id, fld), strlst(lst) {};
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~IntComboBoxControl() {}
+
 	/**
 	 * Update field from data in field control.
 	 */
-	virtual void updateTag(void);
+	virtual void updateTag();
+
 	/**
 	 * Create widget to edit field data.
 	 *
@@ -222,14 +234,17 @@ class BinFieldControl : public Mp3FieldControl {
 	 */
 	BinFieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
 	    Mp3FieldControl(fl, id, fld) {};
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~BinFieldControl() {}
+
 	/**
 	 * Update field from data in field control.
 	 */
-	virtual void updateTag(void);
+	virtual void updateTag();
+
 	/**
 	 * Create widget to edit field data.
 	 *
@@ -252,7 +267,6 @@ class BinFieldControl : public Mp3FieldControl {
  * @param name   internal name or 0
  * @param fld    ID3_Field containing binary data
  */
-
 BinaryOpenSave::BinaryOpenSave(QWidget *parent, const char *name,
 			       ID3_Field *fld) :
 	QWidget(parent, name), field(fld), loadfilename("")
@@ -277,8 +291,7 @@ BinaryOpenSave::BinaryOpenSave(QWidget *parent, const char *name,
  * Request name of file to import binary data from.
  * The data is imported later when Ok is pressed in the parent dialog.
  */
-
-void BinaryOpenSave::loadData(void)
+void BinaryOpenSave::loadData()
 {
 #ifdef CONFIG_USE_KDE
 	loadfilename = KFileDialog::getOpenFileName(QString::null, QString::null,
@@ -292,8 +305,7 @@ void BinaryOpenSave::loadData(void)
 /**
  * Request name of file and export binary data.
  */
-
-void BinaryOpenSave::saveData(void)
+void BinaryOpenSave::saveData()
 {
 #ifdef CONFIG_USE_KDE
 	QString fn = KFileDialog::getSaveFileName(QString::null, QString::null,
@@ -317,8 +329,7 @@ void BinaryOpenSave::saveData(void)
 /**
  * Create image from binary data and display it in window.
  */
-
-void BinaryOpenSave::viewData(void)
+void BinaryOpenSave::viewData()
 {
 	QImage image;
 	if (image.loadFromData((const uchar *)field->GetRawBinary(),
@@ -377,8 +388,7 @@ const char *Mp3FieldControl::getFieldIDString(ID3_FieldID id) const
 /**
  * Update field with data from dialog.
  */
-
-void TextFieldControl::updateTag(void)
+void TextFieldControl::updateTag()
 {
 	// get encoding from selection
 	ID3_TextEnc enc = frmlst->getSelectedEncoding();
@@ -394,7 +404,6 @@ void TextFieldControl::updateTag(void)
  * @param parent parent widget
  * @return widget to edit field.
  */
-
 QWidget *TextFieldControl::createWidget(QWidget *parent)
 {
 	edit = new LabeledTextEdit(parent);
@@ -409,8 +418,7 @@ QWidget *TextFieldControl::createWidget(QWidget *parent)
 /**
  * Update field with data from dialog.
  */
-
-void LineFieldControl::updateTag(void)
+void LineFieldControl::updateTag()
 {
 	field->Set(edit->text().latin1());
 }
@@ -421,7 +429,6 @@ void LineFieldControl::updateTag(void)
  * @param parent parent widget
  * @return widget to edit field.
  */
-
 QWidget *LineFieldControl::createWidget(QWidget *parent)
 {
 	edit = new LabeledLineEdit(parent);
@@ -435,8 +442,7 @@ QWidget *LineFieldControl::createWidget(QWidget *parent)
 /**
  * Update field with data from dialog.
  */
-
-void IntFieldControl::updateTag(void)
+void IntFieldControl::updateTag()
 {
 	field->Set(numinp->value());
 }
@@ -447,7 +453,6 @@ void IntFieldControl::updateTag(void)
  * @param parent parent widget
  * @return widget to edit field.
  */
-
 QWidget *IntFieldControl::createWidget(QWidget *parent)
 {
 	numinp = new LabeledSpinBox(parent);
@@ -461,8 +466,7 @@ QWidget *IntFieldControl::createWidget(QWidget *parent)
 /**
  * Update field with data from dialog.
  */
-
-void IntComboBoxControl::updateTag(void)
+void IntComboBoxControl::updateTag()
 {
 	field->Set(ptinp->currentItem());
 	/* If this is the selected encoding, store it to be used by text fields */
@@ -477,7 +481,6 @@ void IntComboBoxControl::updateTag(void)
  * @param parent parent widget
  * @return widget to edit field.
  */
-
 QWidget *IntComboBoxControl::createWidget(QWidget *parent)
 {
 	ptinp = new LabeledComboBox(parent, 0, strlst);
@@ -491,8 +494,7 @@ QWidget *IntComboBoxControl::createWidget(QWidget *parent)
 /**
  * Update field with data from dialog.
  */
-
-void BinFieldControl::updateTag(void)
+void BinFieldControl::updateTag()
 {
 	if (bos && !bos->getFilename().isEmpty()) {
 		QFile file(bos->getFilename());
@@ -517,7 +519,6 @@ void BinFieldControl::updateTag(void)
  * @param parent parent widget
  * @return widget to edit field.
  */
-
 QWidget *BinFieldControl::createWidget(QWidget *parent)
 {
 	bos = new BinaryOpenSave(parent, 0, field);
@@ -542,7 +543,6 @@ public:
  * @param caption window title
  * @param ctls    list with controls to edit fields
  */
-
 EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
  Q3PtrList<FieldControl> &ctls) :
 	KDialogBase(parent, "edit_frame", true, caption, Ok|Cancel, Ok)
@@ -566,7 +566,9 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
 	resize(fontMetrics().maxWidth() * 30, -1);
 #endif
 }
+
 #else
+
 /** Field edit dialog */
 class EditMp3FrameDialog : public QDialog {
 public:
@@ -587,7 +589,6 @@ protected:
  * @param caption window title
  * @param ctls    list with controls to edit fields
  */
-
 EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
  Q3PtrList<FieldControl> &ctls) :
 	QDialog(parent, "edit_frame", true)
@@ -612,7 +613,7 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
 		hlayout->addWidget(cancelButton);
-		okButton->setDefault(TRUE);
+		okButton->setDefault(true);
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
@@ -626,11 +627,10 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
 /**
  * Constructor.
  */
-
 Mp3FrameList::Mp3FrameList() : tags(0), selected_enc(ID3TE_NONE),
 															 m_copyFrame(0)
 {
-	fieldcontrols.setAutoDelete(TRUE);
+	fieldcontrols.setAutoDelete(true);
 }
 
 /**
@@ -648,8 +648,7 @@ Mp3FrameList::~Mp3FrameList()
  * Before using this method, the listbox and file have to be set.
  * @see setListBox(), setTags()
  */
-
-void Mp3FrameList::readTags(void)
+void Mp3FrameList::readTags()
 {
 	listbox->clear();
 	if (tags) {
@@ -675,13 +674,12 @@ void Mp3FrameList::readTags(void)
  *
  * @param taggedFile file
  */
-
 void Mp3FrameList::setTags(TaggedFile *taggedFile)
 {
 	m_file = taggedFile;
 	Mp3File* mp3File = dynamic_cast<Mp3File*>(m_file);
 	if (mp3File) {
-		tags = mp3File->tagV2;
+		tags = mp3File->m_tagV2;
 		readTags();
 	}
 }
@@ -692,7 +690,6 @@ void Mp3FrameList::setTags(TaggedFile *taggedFile)
  * @param index index in listbox
  * @return frame with index.
  */
-
 ID3_Frame *Mp3FrameList::getFrame(int index) const
 {
 	ID3_Frame *frame = NULL;
@@ -720,7 +717,6 @@ ID3_Frame *Mp3FrameList::getFrame(int index) const
  *
  * @return selected frame.
  */
-
 ID3_Frame *Mp3FrameList::getSelectedFrame(int* lbIndex) const
 {
 	ID3_Frame *frame = NULL;
@@ -759,11 +755,11 @@ ID3_Frame *Mp3FrameList::getSelectedFrame(int* lbIndex) const
  *
  * @param frame frame to edit
  *
- * @return TRUE if Ok selected in dialog.
+ * @return true if Ok selected in dialog.
  */
 bool Mp3FrameList::editFrame(ID3_Frame* frame)
 {
-	bool result = FALSE;
+	bool result = false;
 	ID3_Frame::Iterator* iter = frame->CreateIterator();
 	ID3_Field *field;
 	while ((field = iter->GetNext()) != NULL) {
@@ -900,9 +896,9 @@ bool Mp3FrameList::editFrame(ID3_Frame* frame)
 			fld_ctl = fieldcontrols.next();
 		}
 		if (m_file) {
-			m_file->changedV2 = TRUE;
+			m_file->markTag2Changed();
 		}
-		result = TRUE;
+		result = true;
 	}
 	fieldcontrols.clear();
 	return result;
@@ -912,10 +908,9 @@ bool Mp3FrameList::editFrame(ID3_Frame* frame)
  * Create dialog to edit the selected frame and update the fields if Ok is
  * returned.
  *
- * @return TRUE if Ok selected in dialog.
+ * @return true if Ok selected in dialog.
  */
-
-bool Mp3FrameList::editFrame(void)
+bool Mp3FrameList::editFrame()
 {
 	ID3_Frame* frame = getSelectedFrame();
 	if (frame) {
@@ -927,10 +922,9 @@ bool Mp3FrameList::editFrame(void)
 /**
  * Delete selected frame.
  *
- * @return FALSE if frame not found.
+ * @return false if frame not found.
  */
-
-bool Mp3FrameList::deleteFrame(void)
+bool Mp3FrameList::deleteFrame()
 {
 	int selectedIndex;
 	ID3_Frame *frame = getSelectedFrame(&selectedIndex);
@@ -948,11 +942,11 @@ bool Mp3FrameList::deleteFrame(void)
 			}
 		}
 		if (m_file) {
-			m_file->changedV2 = TRUE;
+			m_file->markTag2Changed();
 		}
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 /**
@@ -960,9 +954,8 @@ bool Mp3FrameList::deleteFrame(void)
  *
  * @param frameId ID of frame to add
  * @param edit    true to edit frame after adding it
- * @return TRUE if frame added.
+ * @return true if frame added.
  */
-
 bool Mp3FrameList::addFrame(int frameId, bool edit)
 {
 	if (frameId < 0 || frameId > ID3FID_LASTFRAMEID) {
@@ -971,7 +964,7 @@ bool Mp3FrameList::addFrame(int frameId, bool edit)
 	ID3_FrameID id = static_cast<ID3_FrameID>(frameId);
 	if (id == ID3FID_METACOMPRESSION || id == ID3FID_METACRYPTO) {
 		// these two do not seem to work
-		return FALSE;
+		return false;
 	}
 	ID3_Frame *frame = new ID3_Frame(id);
 	if (frame) {
@@ -987,13 +980,13 @@ bool Mp3FrameList::addFrame(int frameId, bool edit)
 				listbox->setSelected(lastIndex, true);
 			}
 			if (m_file) {
-				m_file->changedV2 = TRUE;
+				m_file->markTag2Changed();
 			}
-			return TRUE;
+			return true;
 		}
 		delete frame;
 	}
-	return FALSE;
+	return false;
 }
 
 /** Alphabetically sorted list of frame descriptions */
@@ -1162,7 +1155,6 @@ const ID3_FrameID Mp3FrameList::frameid_code[num_frameid] = {
  * @param id ID of frame
  * @return description or NULL if id not found.
  */
-
 const char *Mp3FrameList::getIdString(ID3_FrameID id) const
 {
 	int i;
@@ -1180,18 +1172,17 @@ const char *Mp3FrameList::getIdString(ID3_FrameID id) const
  * @return ID of selected frame,
  *         -1 if no frame selected.
  */
-
-int Mp3FrameList::selectFrameId(void)
+int Mp3FrameList::selectFrameId()
 {
 	int i;
 	QStringList lst;
-	bool ok = FALSE;
+	bool ok = false;
 	for (i = 0; i < num_frameid; i++) {
 		lst.append(i18n(frameid_str[i]));
 	}
 	QString res = QInputDialog::getItem(
 		i18n("Add Frame"),
-		i18n("Select the frame ID"), lst, 0, FALSE, &ok);
+		i18n("Select the frame ID"), lst, 0, false, &ok);
 	if (ok) {
 		int idx = lst.findIndex(res);
 		if (idx >= 0 && idx < num_frameid) {
@@ -1229,7 +1220,7 @@ bool Mp3FrameList::pasteFrame() {
 		if (frame) {
 			tags->AttachFrame(frame);
 			if (m_file) {
-				m_file->changedV2 = true;
+				m_file->markTag2Changed();
 			}
 			return true;
 		}
@@ -1239,8 +1230,8 @@ bool Mp3FrameList::pasteFrame() {
 
 #else // HAVE_ID3LIB
 
-void BinaryOpenSave::loadData(void) {}
-void BinaryOpenSave::saveData(void) {}
-void BinaryOpenSave::viewData(void) {}
+void BinaryOpenSave::loadData() {}
+void BinaryOpenSave::saveData() {}
+void BinaryOpenSave::viewData() {}
 
 #endif // HAVE_ID3LIB

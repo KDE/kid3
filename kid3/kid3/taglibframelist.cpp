@@ -1892,7 +1892,7 @@ bool TagLibFrameList::editFrame()
 			}
 		}
 		if (m_file) {
-			m_file->changedV2 = true;
+			m_file->markTag2Changed();
 		}
 	}
 	return edited;
@@ -1949,7 +1949,7 @@ bool TagLibFrameList::deleteFrame()
 				}
 			}
 			if (m_file) {
-				m_file->changedV2 = true;
+				m_file->markTag2Changed();
 			}
 			return true;
 		}
@@ -2088,7 +2088,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 		}
 		if (added) {
 			if (m_file) {
-				m_file->changedV2 = true;
+				m_file->markTag2Changed();
 			}
 		}
 	}
@@ -2271,7 +2271,7 @@ bool TagLibFrameList::pasteFrame()
 		}
 	}
 	if (pasted && m_file) {
-		m_file->changedV2 = true;
+		m_file->markTag2Changed();
 	}
 	return pasted;
 }

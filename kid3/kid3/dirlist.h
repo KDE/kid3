@@ -37,7 +37,7 @@ public:
 	 * Fill the dirlist with the directories found in a directory.
 	 *
 	 * @param name path of directory
-	 * @return FALSE if name is not directory path, else TRUE.
+	 * @return false if name is not directory path, else true.
 	 */
 	bool readDir(const QString& name);
 
@@ -46,7 +46,7 @@ public:
 	 *
 	 * @return absolute path of directory.
 	 */
-	QString getDirname(void) const { return m_dirname; }
+	QString getDirname() const { return m_dirname; }
 
 	/**
 	 * Set name of entry to select in next call to readDir().

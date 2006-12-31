@@ -66,7 +66,7 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption,
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
 		hlayout->addWidget(cancelButton);
-		okButton->setDefault(TRUE);
+		okButton->setDefault(true);
 		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 		connect(saveButton, SIGNAL(clicked()), impsel, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));

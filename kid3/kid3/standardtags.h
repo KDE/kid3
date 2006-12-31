@@ -19,26 +19,31 @@ class StandardTags {
 	 * Constructor.
 	 */
 	StandardTags();
+
 	/**
 	 * Set values which are different inactive.
 	 *
 	 * @param st tags to compare
 	 */
 	void filterDifferent(const StandardTags& st);
+
 	/**
 	 * Set tags inactive.
 	 */
 	void setInactive();
+
 	/**
 	 * Copy all tags which are not inactive.
 	 *
 	 * @param dest standard tags to copy into
 	 */
-	void copyActiveTags(StandardTags &dest) const;
+	void copyActiveTags(StandardTags& dest) const;
+
 	/**
 	 * Set tags empty.
 	 */
 	void setEmpty();
+
 	/** Title, empty if "", inactive if QString::null */
 	QString title;
 	/** Artist, empty if "", inactive if QString::null */
@@ -80,13 +85,13 @@ public:
    */
   bool areAllTrue() const;
 
-	bool m_enableTitle;
-	bool m_enableArtist;
-	bool m_enableAlbum;
-	bool m_enableComment;
-	bool m_enableYear;
-	bool m_enableTrack;
-	bool m_enableGenre;
+	bool m_enableTitle;   /**< true if title enabled */
+	bool m_enableArtist;  /**< true if artist enabled */
+	bool m_enableAlbum;   /**< true if album enabled */
+	bool m_enableComment; /**< true if comment enabled */
+	bool m_enableYear;    /**< true if year enabled */
+	bool m_enableTrack;   /**< true if track enabled */
+	bool m_enableGenre;   /**< true if genre enabled */
 };
 
 #endif // STANDARDTAGS_H

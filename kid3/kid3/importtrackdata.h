@@ -76,7 +76,7 @@ public:
 	 *
 	 * @return absolute file path.
 	 */
-	QString getAbsFilename(void) const { return m_absFilename; }
+	QString getAbsFilename() const { return m_absFilename; }
 
 private:
 	int m_fileDuration;

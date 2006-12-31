@@ -108,7 +108,7 @@ RenDirDialog::RenDirDialog(QWidget *parent, const QString &caption,
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(okButton);
 		hlayout->addWidget(cancelButton);
-		okButton->setDefault(TRUE);
+		okButton->setDefault(true);
 		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
@@ -289,7 +289,7 @@ void RenDirDialog::setNewDirname(const QString &dir)
  *
  * @return new directory name.
  */
-QString RenDirDialog::getNewDirname(void) const
+QString RenDirDialog::getNewDirname() const
 {
 	return newDirLabel->text();
 }
