@@ -122,7 +122,7 @@ void Mp3File::readTags(bool force)
  *
  * @return true if ok, false if the file could not be written or renamed.
  */
-bool Mp3File::writeTags(bool force, bool *renamed, bool preserve)
+bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 {
 	QString fnStr(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 	if (isChanged() && !QFileInfo(fnStr).isWritable()) {
@@ -253,10 +253,10 @@ QString Mp3File::getString(ID3_Field* field)
 	if (field != NULL) {
 		ID3_TextEnc enc = field->GetEncoding();
 		if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
-			const unicode_t *txt = field->GetRawUnicodeText();
+			const unicode_t* txt = field->GetRawUnicodeText();
 			uint unicode_size = field->Size() / sizeof(unicode_t);
 			if (unicode_size && txt) {
-				QChar *qcarray = new QChar[unicode_size];
+				QChar* qcarray = new QChar[unicode_size];
 				if (qcarray) {
 					// Unfortunately, Unicode support in id3lib is rather buggy
 					// in the current version: The codes are mirrored.
@@ -298,14 +298,14 @@ QString Mp3File::getString(ID3_Field* field)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getTextField(const ID3_Tag *tag, ID3_FrameID id)
+QString Mp3File::getTextField(const ID3_Tag* tag, ID3_FrameID id)
 {
 	if (!tag) {
 		return QString::null;
 	}
 	QString str("");
 	ID3_Field* fld;
-	ID3_Frame *frame = tag->Find(id);
+	ID3_Frame* frame = tag->Find(id);
 	if (frame && ((fld = frame->GetField(ID3FN_TEXT)) != NULL)) {
 		str = getString(fld);
 	}
@@ -320,7 +320,7 @@ QString Mp3File::getTextField(const ID3_Tag *tag, ID3_FrameID id)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getYear(const ID3_Tag *tag)
+int Mp3File::getYear(const ID3_Tag* tag)
 {
 	QString str = getTextField(tag, ID3FID_YEAR);
 	if (str.isNull()) return -1;
@@ -336,7 +336,7 @@ int Mp3File::getYear(const ID3_Tag *tag)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getTrackNum(const ID3_Tag *tag)
+int Mp3File::getTrackNum(const ID3_Tag* tag)
 {
 	QString str = getTextField(tag, ID3FID_TRACKNUM);
 	if (str.isNull()) return -1;
@@ -357,7 +357,7 @@ int Mp3File::getTrackNum(const ID3_Tag *tag)
  *         0xff if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getGenreNum(const ID3_Tag *tag)
+int Mp3File::getGenreNum(const ID3_Tag* tag)
 {
 	QString str = getTextField(tag, ID3FID_CONTENTTYPE);
 	if (str.isNull()) return -1;
@@ -384,7 +384,7 @@ int Mp3File::getGenreNum(const ID3_Tag *tag)
  * @param field        field
  * @param text         text to set
  */
-void Mp3File::setString(ID3_Field* field, const QString &text)
+void Mp3File::setString(ID3_Field* field, const QString& text)
 {
 	ID3_TextEnc enc = field->GetEncoding();
 	// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
@@ -398,9 +398,9 @@ void Mp3File::setString(ID3_Field* field, const QString &text)
 		// In the hope that my patches will be included, I try here to
 		// work around these bugs, but there is no solution for the
 		// LSB >= 0x80 bug.
-		const QChar *qcarray = text.unicode();
+		const QChar* qcarray = text.unicode();
 		uint unicode_size = text.length();
-		unicode_t *unicode = new unicode_t[unicode_size + 1];
+		unicode_t* unicode = new unicode_t[unicode_size + 1];
 		if (unicode) {
 			uint i;
 			for (i = 0; i < unicode_size; i++) {
@@ -434,7 +434,7 @@ void Mp3File::setString(ID3_Field* field, const QString &text)
  *
  * @return true if the field was changed.
  */
-bool Mp3File::setTextField(ID3_Tag *tag, ID3_FrameID id, const QString &text,
+bool Mp3File::setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 						   bool allowUnicode, bool replace, bool removeEmpty)
 {
 	bool changed = false;
@@ -455,10 +455,10 @@ bool Mp3File::setTextField(ID3_Tag *tag, ID3_FrameID id, const QString &text,
 					if (allowUnicode && fld->GetEncoding() == ID3TE_ISO8859_1) {
 						// check if information is lost if the string is not unicode
 						uint i, unicode_size = text.length();
-						const QChar *qcarray = text.unicode();
+						const QChar* qcarray = text.unicode();
 						for (i = 0; i < unicode_size; i++) {
 							if (qcarray[i].latin1() == 0) {
-								ID3_Field *encfld = frame->GetField(ID3FN_TEXTENC);
+								ID3_Field* encfld = frame->GetField(ID3FN_TEXTENC);
 								if (encfld) {
 									encfld->Set(ID3TE_UTF16);
 								}
@@ -485,7 +485,7 @@ bool Mp3File::setTextField(ID3_Tag *tag, ID3_FrameID id, const QString &text,
  *
  * @return true if the field was changed.
  */
-bool Mp3File::setYear(ID3_Tag *tag, int num)
+bool Mp3File::setYear(ID3_Tag* tag, int num)
 {
 	bool changed = false;
 	if (num >= 0) {
@@ -509,7 +509,7 @@ bool Mp3File::setYear(ID3_Tag *tag, int num)
  *
  * @return true if the field was changed.
  */
-bool Mp3File::setTrackNum(ID3_Tag *tag, int num, int numTracks)
+bool Mp3File::setTrackNum(ID3_Tag* tag, int num, int numTracks)
 {
 	bool changed = false;
 	if (num >= 0) {
@@ -536,7 +536,7 @@ bool Mp3File::setTrackNum(ID3_Tag *tag, int num, int numTracks)
  *
  * @return true if the field was changed.
  */
-bool Mp3File::setGenreNum(ID3_Tag *tag, int num)
+bool Mp3File::setGenreNum(ID3_Tag* tag, int num)
 {
 	bool changed = false;
 	if (num >= 0) {

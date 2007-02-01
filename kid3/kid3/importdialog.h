@@ -48,7 +48,7 @@ public:
 	 * @param trackDataList track data to be filled with imported values,
 	 *                      is passed with durations of files set
 	 */
-	ImportDialog(QWidget *parent, QString &caption,
+	ImportDialog(QWidget* parent, QString& caption,
 							 ImportTrackDataVector& trackDataList);
 	/**
 	 * Destructor.
@@ -92,7 +92,7 @@ private slots:
 private:
 	AutoStartSubDialog m_autoStartSubDialog;
 	/** import selector widget */
-	ImportSelector *impsel;
+	ImportSelector* m_impsel;
 	ImportTrackDataVector& m_trackDataVector;
 };
 

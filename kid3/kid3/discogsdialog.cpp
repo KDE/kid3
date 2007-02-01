@@ -28,7 +28,7 @@ static const ImportSourceDialog::Properties props = {
  * @param parent  parent widget
  * @param trackDataVector track data to be filled with imported values
  */
-DiscogsDialog::DiscogsDialog(QWidget *parent,
+DiscogsDialog::DiscogsDialog(QWidget* parent,
 														 ImportTrackDataVector& trackDataVector)
 	: ImportSourceDialog(parent, "Discogs", trackDataVector,
 											 new DiscogsClient, props)

@@ -164,10 +164,6 @@ class TagLibFieldControl : public FieldControl {
 public:
 	/**
 	 * Constructor.
-	 *
-	 * @param fl  frame list
-	 * @param id  ID of field
-	 * @param fld ID3 field
 	 */
 	TagLibFieldControl() {}
 
@@ -475,7 +471,8 @@ class TagLibBinFieldControl : public TagLibFieldControl {
  public:
 	/**
 	 * Constructor.
-	 * @param label label
+	 * @param label      label
+	 * @param viewButton true to display a View button
 	 */
 	explicit TagLibBinFieldControl(const QString& label, bool viewButton = false) :
 	m_label(label), m_viewButton(viewButton) {}
@@ -719,11 +716,11 @@ public:
 										 Q3PtrList<FieldControl> &ctls);
 
 protected:
-	QVBoxLayout* m_vlayout;
-	QHBoxLayout* m_hlayout;
-	QSpacerItem* m_hspacer;
-	QPushButton* m_okButton;
-	QPushButton* m_cancelButton;
+	QVBoxLayout* m_vlayout;      /**< vertical layout */
+	QHBoxLayout* m_hlayout;      /**< horizontal layout */
+	QSpacerItem* m_hspacer;      /**< horizontal spacer */
+	QPushButton* m_okButton;     /**< OK button */
+	QPushButton* m_cancelButton; /**< Cancel button */
 };
 
 /**
@@ -734,7 +731,7 @@ protected:
  * @param ctls    list with controls to edit fields
  */
 TagLibEditFrameDialog::TagLibEditFrameDialog(
-	QWidget* parent, const QString &caption, Q3PtrList<FieldControl> &ctls) :
+	QWidget* parent, const QString& caption, Q3PtrList<FieldControl>& ctls) :
 	QDialog(parent, "edit_frame", true)
 {
 	setCaption(caption);
@@ -909,7 +906,7 @@ QString TagLibFrameList::getId3v2FrameDescription(
  */
 void TagLibFrameList::readTags()
 {
-	listbox->clear();
+	s_listbox->clear();
 	if (m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
 		TagLib::Ogg::XiphComment* oggTag;
@@ -919,7 +916,7 @@ void TagLibFrameList::readTags()
 			for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
 					 it != frameList.end();
 					 ++it) {
-				listbox->insertItem(getId3v2FrameDescription((*it)->frameID()));
+				s_listbox->insertItem(getId3v2FrameDescription((*it)->frameID()));
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag)) != 0) {
 			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -931,7 +928,7 @@ void TagLibFrameList::readTags()
 				for (TagLib::StringList::ConstIterator slit = stringList.begin();
 						 slit != stringList.end();
 						 ++slit) {
-					listbox->insertItem(id);
+					s_listbox->insertItem(id);
 				}
 			}
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag)) != 0) {
@@ -939,7 +936,7 @@ void TagLibFrameList::readTags()
 			for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
 					 it != itemListMap.end();
 					 ++it) {
-				listbox->insertItem(TStringToQString((*it).first));
+				s_listbox->insertItem(TStringToQString((*it).first));
 			}
 		}
 	}
@@ -1830,7 +1827,7 @@ TagLib::ID3v2::Frame* TagLibFrameList::editId3v2Frame(
 bool TagLibFrameList::editFrame()
 {
 	bool edited = false;
-	int selectedIndex = listbox->currentItem();
+	int selectedIndex = s_listbox->currentItem();
 	if (selectedIndex != -1 && m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
 		TagLib::Ogg::XiphComment* oggTag;
@@ -1885,9 +1882,9 @@ bool TagLibFrameList::editFrame()
 		readTags(); // refresh listbox
 		// select the next item (or the last if it was the last)
 		if (selectedIndex >= 0) {
-			const int lastIndex = listbox->count() - 1;
+			const int lastIndex = s_listbox->count() - 1;
 			if (lastIndex >= 0) {
-				listbox->setSelected(
+				s_listbox->setSelected(
 					selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
 			}
 		}
@@ -1906,7 +1903,7 @@ bool TagLibFrameList::editFrame()
 bool TagLibFrameList::deleteFrame()
 {
 	bool deleted = false;
-	int selectedIndex = listbox->currentItem();
+	int selectedIndex = s_listbox->currentItem();
 	if (selectedIndex != -1 && m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
 		TagLib::Ogg::XiphComment* oggTag;
@@ -1942,9 +1939,9 @@ bool TagLibFrameList::deleteFrame()
 			readTags(); // refresh listbox
 			// select the next item (or the last if it was the last)
 			if (selectedIndex >= 0) {
-				const int lastIndex = listbox->count() - 1;
+				const int lastIndex = s_listbox->count() - 1;
 				if (lastIndex >= 0) {
-					listbox->setSelected(
+					s_listbox->setSelected(
 						selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
 				}
 			}
@@ -2049,9 +2046,9 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 					id3v2Tag->addFrame(newFrame);
 					added = true;
 					readTags(); // refresh listbox
-					const int lastIndex = listbox->count() - 1;
+					const int lastIndex = s_listbox->count() - 1;
 					if (lastIndex >= 0) {
-						listbox->setSelected(lastIndex, true);
+						s_listbox->setSelected(lastIndex, true);
 					}
 				}
 			}
@@ -2065,9 +2062,9 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 				oggTag->addField(key, value);
 				added = true;
 				readTags(); // refresh listbox
-				Q3ListBoxItem* lbi = listbox->findItem(m_selectedName);
+				Q3ListBoxItem* lbi = s_listbox->findItem(m_selectedName);
 				if (lbi) {
-					listbox->setSelected(lbi, true);
+					s_listbox->setSelected(lbi, true);
 				}
 			}
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag)) != 0) {
@@ -2080,9 +2077,9 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 				apeTag->addValue(key, value, true);
 				added = true;
 				readTags(); // refresh listbox
-				Q3ListBoxItem* lbi = listbox->findItem(m_selectedName);
+				Q3ListBoxItem* lbi = s_listbox->findItem(m_selectedName);
 				if (lbi) {
-					listbox->setSelected(lbi, true);
+					s_listbox->setSelected(lbi, true);
 				}
 			}
 		}
@@ -2204,7 +2201,7 @@ int TagLibFrameList::selectFrameId()
 bool TagLibFrameList::copyFrame()
 {
 	bool copied = false;
-	int selectedIndex = listbox->currentItem();
+	int selectedIndex = s_listbox->currentItem();
 	if (selectedIndex != -1 && m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
 		TagLib::Ogg::XiphComment* oggTag;

@@ -36,7 +36,7 @@ static const ImportSourceDialog::Properties props = {
  * @param trackDataVector track data to be filled with imported values
  */
 MusicBrainzReleaseDialog::MusicBrainzReleaseDialog(
-	QWidget *parent,
+	QWidget* parent,
 	ImportTrackDataVector& trackDataVector)
 	: ImportSourceDialog(parent, "MusicBrainz", trackDataVector,
 											 new MusicBrainzReleaseClient, props)

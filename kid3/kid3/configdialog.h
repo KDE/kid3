@@ -40,6 +40,7 @@ class QWidget;
 class QComboBox;
 class QLineEdit;
 
+/** Base class for configuration dialog. */
 #ifdef KID3_USE_KCONFIGDIALOG
 typedef KConfigDialog ConfigDialogBaseClass;
 #else
@@ -76,8 +77,8 @@ public:
 	 * @param id3Cfg  ID3 format configuration
 	 * @param miscCfg misc. configuration
 	 */
-	void setConfig(const FormatConfig *fnCfg, const FormatConfig *id3Cfg,
-				   const MiscConfig *miscCfg);
+	void setConfig(const FormatConfig* fnCfg, const FormatConfig* id3Cfg,
+				   const MiscConfig* miscCfg);
 	/**
 	 * Get values from dialog and store them in the current configuration.
 	 *
@@ -85,8 +86,8 @@ public:
 	 * @param id3Cfg  ID3 format configuration
 	 * @param miscCfg misc. configuration
 	 */
-	void getConfig(FormatConfig *fnCfg, FormatConfig *id3Cfg,
-				   MiscConfig *miscCfg) const;
+	void getConfig(FormatConfig* fnCfg, FormatConfig* id3Cfg,
+				   MiscConfig* miscCfg) const;
 
 protected slots:
 	/**
@@ -104,9 +105,9 @@ private:
 	/** ID3v2 version combo box */
 	QComboBox* m_id3v2VersionComboBox;
 	/** Filename Format box */
-	FormatBox *fnFormatBox;
+	FormatBox* m_fnFormatBox;
 	/** ID3 Format box */
-	FormatBox *id3FormatBox;
+	FormatBox* m_id3FormatBox;
 	/** Commands table */
 	CommandsTable* m_commandsTable;
 	/** Use proxy check box */

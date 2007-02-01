@@ -84,10 +84,13 @@ private:
 	QString m_absFilename;
 };
 
+/**
+ * Vector containing tracks to import and artist, album names.
+ */
 class ImportTrackDataVector : public Q3ValueVector<ImportTrackData> {
 public:
-	QString artist;
-	QString album;
+	QString m_artist; /**< album artist */
+	QString m_album;  /**< album name */
 };
 
 #endif // IMPORTTRACKDATA_H

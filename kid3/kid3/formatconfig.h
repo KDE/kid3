@@ -37,7 +37,7 @@ public:
 	 *
 	 * @param grp configuration group
 	 */
-	FormatConfig(const QString &grp);
+	FormatConfig(const QString& grp);
 	/**
 	 * Destructor.
 	 */
@@ -67,9 +67,9 @@ public:
 	 */
 	virtual void writeToConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config
+		KConfig* config
 #else
-		Kid3Settings *config
+		Kid3Settings* config
 #endif
 		) const;
 	/**
@@ -79,23 +79,23 @@ public:
 	 */
 	virtual void readFromConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config
+		KConfig* config
 #else
-		Kid3Settings *config
+		Kid3Settings* config
 #endif
 		);
 
 	/** true to enable formating in line edits */
 	bool m_formatWhileEditing;
 	/** Case conversion option */
-	CaseConversion caseConversion;
+	CaseConversion m_caseConversion;
 	/** true if string replacement enabled */
-	bool strRepEnabled;
+	bool m_strRepEnabled;
 	/** Mapping for string replacement */
-	QMap<QString, QString> strRepMap;
+	QMap<QString, QString> m_strRepMap;
 private:
 	/** true if it is a file formatter */
-	bool filenameFormatter;
+	bool m_filenameFormatter;
 };
 
 #endif

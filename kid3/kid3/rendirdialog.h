@@ -31,24 +31,28 @@ public:
 	 * @param caption    dialog title
 	 * @param taggedFile file to use for rename preview
 	 */
-	RenDirDialog(QWidget *parent, const QString &caption,
-				 TaggedFile *taggedFile);
+	RenDirDialog(QWidget* parent, const QString& caption,
+							 TaggedFile* taggedFile);
+
 	/**
 	 * Destructor.
 	 */
 	~RenDirDialog();
+
 	/**
 	 * Get new directory name.
 	 *
 	 * @return new directory name.
 	 */
-	void setNewDirname(const QString &dir);
+	void setNewDirname(const QString& dir);
+
 	/**
 	 * Get new directory name.
 	 *
 	 * @return new directory name.
 	 */
 	QString getNewDirname() const;
+
 	/**
 	 * Generate new directory name according to current settings.
 	 *
@@ -58,7 +62,8 @@ public:
 	 *
 	 * @return new directory name.
 	 */
-	QString generateNewDirname(TaggedFile *taggedFile, QString *olddir);
+	QString generateNewDirname(TaggedFile* taggedFile, QString* olddir);
+
 	/**
 	 * Perform renaming or creation of directory according to current settings.
 	 *
@@ -71,7 +76,7 @@ public:
 	 * @return true if other files can be processed,
 	 *         false if operation is finished.
 	 */
-	bool performAction(TaggedFile *taggedFile, bool& again, QString *errorMsg);
+	bool performAction(TaggedFile* taggedFile, bool& again, QString* errorMsg);
 
 private slots:
 	/**
@@ -99,8 +104,8 @@ private:
 	 *
 	 * @return true if directory exists or was created successfully.
 	 */
-	bool createDirectory(const QString &dir,
-						 QString *errorMsg) const;
+	bool createDirectory(const QString& dir,
+						 QString* errorMsg) const;
 
 	/**
 	 * Rename a directory.
@@ -113,7 +118,7 @@ private:
 	 * @return true if rename successful.
 	 */
 	bool renameDirectory(
-		const QString &olddir, const QString &newdir, QString *errorMsg) const;
+		const QString& olddir, const QString& newdir, QString* errorMsg) const;
 
 	/**
 	 * Rename a file.
@@ -125,16 +130,17 @@ private:
 	 *
 	 * @return true if rename successful or newfn already exists.
 	 */
-	bool renameFile(const QString &oldfn, const QString &newfn,
-					QString *errorMsg) const;
+	bool renameFile(const QString& oldfn, const QString& newfn,
+									QString* errorMsg) const;
 
 	enum Action { ActionRename = 0, ActionCreate = 1 };
 	enum TagVersion { TagV1 = 0, TagV2 = 1 };
-	QComboBox *formatComboBox;
-	QComboBox *actionComboBox;
-	QComboBox *tagversionComboBox;
-	QLabel *currentDirLabel;
-	QLabel *newDirLabel;
+
+	QComboBox* m_formatComboBox;
+	QComboBox* m_actionComboBox;
+	QComboBox* m_tagversionComboBox;
+	QLabel* m_currentDirLabel;
+	QLabel* m_newDirLabel;
 	TaggedFile* m_taggedFile;
 };
 

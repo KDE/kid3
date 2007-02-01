@@ -24,7 +24,7 @@ public:
 	 * @param parent  parent widget
 	 * @param trackDataVector track data to be filled with imported values
 	 */
-	MusicBrainzReleaseDialog(QWidget *parent,
+	MusicBrainzReleaseDialog(QWidget* parent,
 													 ImportTrackDataVector& trackDataVector);
 
 	/**

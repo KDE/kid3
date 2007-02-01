@@ -38,7 +38,7 @@ public:
 	/**
 	 * Constructor.
 	 */
-	MiscConfig(const QString &group);
+	MiscConfig(const QString& group);
 	/**
 	 * Destructor.
 	 */
@@ -50,9 +50,9 @@ public:
 	 */
 	void writeToConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config
+		KConfig* config
 #else
-		Kid3Settings *config
+		Kid3Settings* config
 #endif
 		) const;
 	/**
@@ -62,9 +62,9 @@ public:
 	 */
 	void readFromConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config
+		KConfig* config
 #else
-		Kid3Settings *config
+		Kid3Settings* config
 #endif
 		);
 
@@ -75,19 +75,19 @@ public:
 	/** field name used for Vorbis comment entries */
 	QString m_commentName;
 	/** filter of file names to be opened */
-	QString nameFilter;
+	QString m_nameFilter;
 	/** filename format */
-	QString formatText;
+	QString m_formatText;
 	/** index of filename format selected */
-	int formatItem;
+	int m_formatItem;
 	/** directory name format */
-	QString dirFormatText;
+	QString m_dirFormatText;
 	/** index of directory name format selected */
-	int dirFormatItem;
+	int m_dirFormatItem;
 	/** true to rename directory from ID3v1 tags, else ID3v2 tags */
 	bool m_renDirSrcV1;
 	/** size of splitter in main window */
-	Q3ValueList<int> splitterSizes;
+	Q3ValueList<int> m_splitterSizes;
 	/** size of file/dirlist splitter */
 	Q3ValueList<int> m_vSplitterSizes;
 	/** commands available in context menu */
@@ -106,19 +106,19 @@ public:
 	QString m_proxy;
 #ifndef CONFIG_USE_KDE
 	/** mainwindow width */
-	int windowWidth;
+	int m_windowWidth;
 	/** mainwindow height */
-	int windowHeight;
+	int m_windowHeight;
 #endif
 
 	/** Default name filter */
-	static const char* const defaultNameFilter;
+	static const char* const s_defaultNameFilter;
 	/** Default value for comment name */
-	static const char* const defaultCommentName;
+	static const char* const s_defaultCommentName;
 	/** Default filename format list */
-	static const char** defaultFnFmtList;
+	static const char** s_defaultFnFmtList;
 	/** Default directory format list */
-	static const char** defaultDirFmtList;
+	static const char** s_defaultDirFmtList;
 };
 
 #endif

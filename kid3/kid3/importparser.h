@@ -32,7 +32,8 @@ public:
 	 * @param fmt format regexp
 	 * @param enableTrackIncr enable automatic track increment if no %t is found
 	 */
-	void setFormat(const QString &fmt, bool enableTrackIncr = false);
+	void setFormat(const QString& fmt, bool enableTrackIncr = false);
+
 	/**
 	 * Get next tags in text buffer.
 	 *
@@ -42,33 +43,34 @@ public:
 	 *             behind current match (to be used for next call)
 	 * @return true if tags found (pos is index behind match).
 	 */
-	bool getNextTags(const QString &text, StandardTags &st, int &pos);
+	bool getNextTags(const QString& text, StandardTags& st, int& pos);
+
 	/**
 	 * Get list with track durations.
 	 *
 	 * @return list with track durations.
 	 */
-	Q3ValueList<int>* getTrackDurations() { return &trackDuration; }
+	Q3ValueList<int>* getTrackDurations() { return &m_trackDuration; }
 
 private:
 	/** track regexp pattern */
-	QString pattern;
+	QString m_pattern;
 	/** regexp object */
-	QRegExp re;
+	QRegExp m_re;
 	/** true if automatic track number incrementing is used */
-	bool trackIncrEnabled;
+	bool m_trackIncrEnabled;
 	/** automatically incremented track number */
-	int trackIncrNr;
+	int m_trackIncrNr;
 	/** numbers of fields within regexp captures, -1 if not in pattern */
-	int titlePos;
-	int albumPos;
-	int artistPos;
-	int commentPos;
-	int yearPos;
-	int trackPos;
-	int genrePos;
-	int durationPos;
-	Q3ValueList<int> trackDuration;
+	int m_titlePos;
+	int m_albumPos;
+	int m_artistPos;
+	int m_commentPos;
+	int m_yearPos;
+	int m_trackPos;
+	int m_genrePos;
+	int m_durationPos;
+	Q3ValueList<int> m_trackDuration;
 };
 
 #endif

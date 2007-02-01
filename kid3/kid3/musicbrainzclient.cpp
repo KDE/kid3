@@ -249,7 +249,7 @@ QString MusicBrainzClient::getFilename(int id) const
  */
 static const char* getFileStatusText(TPFileStatus statusCode)
 {
-	static const struct id_str_s { TPFileStatus id; const char *str; }
+	static const struct id_str_s { TPFileStatus id; const char* str; }
 	id_str[] = {
 #if HAVE_TUNEPIMP >= 4
     { eMetadataRead,  I18N_NOOP("Metadata Read") },
@@ -273,7 +273,7 @@ static const char* getFileStatusText(TPFileStatus statusCode)
 		{ eLastStatus,    0 }
 	};
 
-	const struct id_str_s *is = &id_str[0];
+	const struct id_str_s* is = &id_str[0];
 	while (is->str) {
 		if (is->id == statusCode) {
 			break;

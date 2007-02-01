@@ -123,14 +123,14 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 	if (formatPage) {
 		QVBoxLayout* vlayout = new QVBoxLayout(formatPage, 6, 6);
 		if (vlayout) {
-			QHBoxLayout *fmtLayout = new QHBoxLayout(vlayout);
+			QHBoxLayout* fmtLayout = new QHBoxLayout(vlayout);
 			QString fnFormatTitle(i18n("&Filename Format"));
-			fnFormatBox = new FormatBox(fnFormatTitle, formatPage, "fnFormatBox");
+			m_fnFormatBox = new FormatBox(fnFormatTitle, formatPage, "fnFormatBox");
 			QString id3FormatTitle(i18n("&Tag Format"));
-			id3FormatBox = new FormatBox(id3FormatTitle, formatPage, "id3FormatBox");
-			if (fmtLayout && fnFormatBox && id3FormatBox) {
-				fmtLayout->addWidget(fnFormatBox);
-				fmtLayout->addWidget(id3FormatBox);
+			m_id3FormatBox = new FormatBox(id3FormatTitle, formatPage, "id3FormatBox");
+			if (fmtLayout && m_fnFormatBox && m_id3FormatBox) {
+				fmtLayout->addWidget(m_fnFormatBox);
+				fmtLayout->addWidget(m_id3FormatBox);
 			}
 		}
 #ifdef KID3_USE_KCONFIGDIALOG
@@ -181,12 +181,12 @@ ConfigDialog::~ConfigDialog()
  * @param fnCfg   ID3 format configuration
  * @param miscCfg misc. configuration
  */
-void ConfigDialog::setConfig(const FormatConfig *fnCfg,
-							 const FormatConfig *id3Cfg,
-							 const MiscConfig *miscCfg)
+void ConfigDialog::setConfig(const FormatConfig* fnCfg,
+							 const FormatConfig* id3Cfg,
+							 const MiscConfig* miscCfg)
 {
-	fnFormatBox->fromFormatConfig(fnCfg);
-	id3FormatBox->fromFormatConfig(id3Cfg);
+	m_fnFormatBox->fromFormatConfig(fnCfg);
+	m_id3FormatBox->fromFormatConfig(id3Cfg);
 	m_totalNumTracksCheckBox->setChecked(miscCfg->m_enableTotalNumberOfTracks);
 	m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
 	m_commandsTable->setCommandList(miscCfg->m_contextMenuCommands);
@@ -207,12 +207,12 @@ void ConfigDialog::setConfig(const FormatConfig *fnCfg,
  * @param fnCfg   ID3 format configuration
  * @param miscCfg misc. configuration
  */
-void ConfigDialog::getConfig(FormatConfig *fnCfg,
-							 FormatConfig *id3Cfg,
-							 MiscConfig *miscCfg) const
+void ConfigDialog::getConfig(FormatConfig* fnCfg,
+							 FormatConfig* id3Cfg,
+							 MiscConfig* miscCfg) const
 {
-	fnFormatBox->toFormatConfig(fnCfg);
-	id3FormatBox->toFormatConfig(id3Cfg);
+	m_fnFormatBox->toFormatConfig(fnCfg);
+	m_id3FormatBox->toFormatConfig(id3Cfg);
 	miscCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
 	miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
 	m_commandsTable->getCommandList(miscCfg->m_contextMenuCommands);

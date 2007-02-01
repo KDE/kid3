@@ -19,6 +19,9 @@
 
 class QStringList;
 
+/**
+ * Context menu commands configuration table.
+ */
 class CommandsTable : public Q3Table {
 Q_OBJECT
 
@@ -26,7 +29,6 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param title  title
 	 * @param parent parent widget
 	 * @param name   Qt object name
 	 */
@@ -76,12 +78,13 @@ public slots:
 	 * @param row row to delete
 	 */
 	void deleteRow(int row);
+
 	/**
 	 * Clear a row in the table.
 	 *
 	 * @param row row to clear
 	 */
-	void clearRow(int row_col);
+	void clearRow(int row);
 
 	/**
 	 * Display context menu.

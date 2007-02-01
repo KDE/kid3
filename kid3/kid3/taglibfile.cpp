@@ -141,7 +141,7 @@ void TagLibFile::readTags(bool force)
  *
  * @return true if ok, false if the file could not be written or renamed.
  */
-bool TagLibFile::writeTags(bool force, bool *renamed, bool preserve)
+bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 {
 	QString fnStr(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 	if (isChanged() && !QFileInfo(fnStr).isWritable()) {
@@ -751,7 +751,7 @@ void TagLibFile::setGenreNumV1(int num)
  *
  * @param tag     tag
  * @param qstr    text as QString
- * @param tst     text as TagLib::String
+ * @param tstr    text as TagLib::String
  * @param frameId ID3v2 frame ID
  *
  * @return true if an ID3v2 Unicode field was written.

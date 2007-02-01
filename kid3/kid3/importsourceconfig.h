@@ -25,7 +25,7 @@ public:
 	 * @param grp         configuration group
 	 * @param cgiPathUsed true to use CgiPath configuration
 	 */
-	ImportSourceConfig(const QString &grp, bool cgiPathUsed = true);
+	ImportSourceConfig(const QString& grp, bool cgiPathUsed = true);
 
 	/**
 	 * Constructor.
@@ -45,9 +45,9 @@ public:
 	 */
 	virtual void writeToConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config
+		KConfig* config
 #else
-		Kid3Settings *config
+		Kid3Settings* config
 #endif
 		) const;
 
@@ -58,9 +58,9 @@ public:
 	 */
 	virtual void readFromConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config
+		KConfig* config
 #else
-		Kid3Settings *config
+		Kid3Settings* config
 #endif
 		);
 

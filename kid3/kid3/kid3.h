@@ -16,6 +16,7 @@
 class KAction;
 class KRecentFilesAction;
 class KToggleAction;
+/** Base class for main window. */
 typedef KMainWindow Kid3AppBaseClass;
 #else
 #include "qtcompatmac.h"
@@ -28,6 +29,7 @@ typedef KMainWindow Kid3AppBaseClass;
 class QAction;
 class BrowserDialog;
 class Q3PopupMenu;
+/** Base class for main window. */
 typedef Q3MainWindow Kid3AppBaseClass;
 #endif
 #include "importtrackdata.h"
@@ -39,7 +41,7 @@ typedef Q3MainWindow Kid3AppBaseClass;
 #include "musicbrainzconfig.h"
 
 class KURL;
-class id3Form;
+class Id3Form;
 class TaggedFile;
 class StandardTags;
 class FrameList;
@@ -96,14 +98,14 @@ public:
 	 *
 	 * @param st tags to copy
 	 */
-	void copyTags(const StandardTags *st);
+	void copyTags(const StandardTags* st);
 
 	/**
 	 * Paste from copy buffer to standard tags.
 	 *
 	 * @param st tags to fill from data in copy buffer.
 	 */
-	void pasteTags(StandardTags *st);
+	void pasteTags(StandardTags* st);
 
 	/**
 	 * Paste from copy buffer to ID3v1 tags.
@@ -238,16 +240,16 @@ protected:
 	 * Saves the window properties for each open window during session end
 	 * to the session config file.
 	 *
-	 * @param _cfg application configuration
+	 * @param cfg application configuration
 	 */
-	virtual void saveProperties(KConfig *_cfg);
+	virtual void saveProperties(KConfig* cfg);
 
 	/**
 	 * Reads the session config file and restores the application's state.
 	 *
-	 * @param _cfg application configuration
+	 * @param cfg application configuration
 	 */
-	virtual void readProperties(KConfig *_cfg);
+	virtual void readProperties(KConfig* cfg);
 
 #else
 	/**
@@ -255,7 +257,7 @@ protected:
 	 *
 	 * @param ce close event
 	 */
-	void closeEvent(QCloseEvent *ce);
+	void closeEvent(QCloseEvent* ce);
 #endif
 
 	/**
@@ -273,14 +275,14 @@ protected:
 	 *
 	 * @param val true if a file is modified
 	 */
-	void setModified(bool val) { modified = val; }
+	void setModified(bool val) { m_modified = val; }
 
 	/**
 	 * Check modification state.
 	 *
 	 * @return true if a file is modified.
 	 */
-	bool isModified() { return modified; }
+	bool isModified() { return m_modified; }
 
 public slots:
 	/**
@@ -309,21 +311,6 @@ public slots:
 	 * Shortcuts configuration.
 	 */
 	void slotSettingsShortcuts();
-
-	/**
-	 * Select all files.
-	 */
-	void slotSelectAll();
-
-	/**
-	 * Select next file.
-	 */
-	void slotNextFile();
-
-	/**
-	 * Select previous file.
-	 */
-	void slotPreviousFile();
 
 	/**
 	 * Display handbook.
@@ -361,7 +348,7 @@ public slots:
 	 *
 	 * @param text message
 	 */
-	void slotStatusMsg(const QString &text);
+	void slotStatusMsg(const QString& text);
 
 	/**
 	 * Create playlist.
@@ -462,7 +449,7 @@ private:
 	 *
 	 * @param mp3file file
 	 */
-	void updateTags(TaggedFile *mp3file);
+	void updateTags(TaggedFile* mp3file);
 
 	/**
 	 * Update modification state, caption and listbox entries.
@@ -525,13 +512,13 @@ private:
 	void updateHideV2();
 
 	/** GUI with controls, created by Qt Designer */
-	id3Form *view;
+	Id3Form* m_view;
 	/** true if any file was modified */
-	bool modified;
+	bool m_modified;
 	/** Current directory */
-	QString doc_dir;
+	QString m_dirName;
 	/** Copy buffer */
-	StandardTags *copytags;
+	StandardTags* m_copyTags;
 	/** Import dialog */
 	ImportDialog* m_importDialog;
 	/** Track data list */
@@ -543,49 +530,49 @@ private:
 
 #ifdef CONFIG_USE_KDE
 	/** the configuration object of the application */
-	KConfig* config;
+	KConfig* m_config;
 	/** Actions */
-	KAction* fileOpen;
-	KRecentFilesAction* fileOpenRecent;
-	KAction* fileRevert;
-	KAction* fileSave;
-	KAction* fileQuit;
-	KToggleAction* viewToolBar;
-	KToggleAction* viewStatusBar;
+	KAction* m_fileOpen;
+	KRecentFilesAction* m_fileOpenRecent;
+	KAction* m_fileRevert;
+	KAction* m_fileSave;
+	KAction* m_fileQuit;
+	KToggleAction* m_viewToolBar;
+	KToggleAction* m_viewStatusBar;
 	KAction* settingsShortcuts;
-	KAction* settingsConfigure;
-	KAction* settingsShowHideV1;
-	KAction* settingsShowHideV2;
+	KAction* m_settingsConfigure;
+	KAction* m_settingsShowHideV1;
+	KAction* m_settingsShowHideV2;
 #else
-	Kid3Settings* config;
-	QAction* fileOpen;
-	QAction* fileSave;
-	QAction* fileRevert;
-	QAction* fileCreatePlaylist;
-	QAction* fileQuit;
-	QAction* fileImport;
-	QAction* fileImportFreedb;
-	QAction* fileImportDiscogs;
-	QAction* fileImportMusicBrainzRelease;
+	Kid3Settings* m_config;
+	QAction* m_fileOpen;
+	QAction* m_fileSave;
+	QAction* m_fileRevert;
+	QAction* m_fileCreatePlaylist;
+	QAction* m_fileQuit;
+	QAction* m_fileImport;
+	QAction* m_fileImportFreedb;
+	QAction* m_fileImportDiscogs;
+	QAction* m_fileImportMusicBrainzRelease;
 #ifdef HAVE_TUNEPIMP
-	QAction* fileImportMusicBrainz;
+	QAction* m_fileImportMusicBrainz;
 #endif
-	QAction* fileExport;
-	QAction* toolsApplyFilenameFormat;
-	QAction* toolsApplyId3Format;
-	QAction* toolsRenameDirectory;
-	QAction* toolsNumberTracks;
-	QAction* settingsShowHideV1;
-	QAction* settingsShowHideV2;
-	QAction* settingsConfigure;
-	QAction* helpHandbook;
-	QAction* helpAbout;
-	QAction* helpAboutQt;
-	QMenuBar* menubar;
-	Q3PopupMenu* fileMenu;
-	Q3PopupMenu* toolsMenu;
-	Q3PopupMenu* settingsMenu;
-	Q3PopupMenu* helpMenu;
+	QAction* m_fileExport;
+	QAction* m_toolsApplyFilenameFormat;
+	QAction* m_toolsApplyId3Format;
+	QAction* m_toolsRenameDirectory;
+	QAction* m_toolsNumberTracks;
+	QAction* m_settingsShowHideV1;
+	QAction* m_settingsShowHideV2;
+	QAction* m_settingsConfigure;
+	QAction* m_helpHandbook;
+	QAction* m_helpAbout;
+	QAction* m_helpAboutQt;
+	QMenuBar* m_menubar;
+	Q3PopupMenu* m_fileMenu;
+	Q3PopupMenu* m_toolsMenu;
+	Q3PopupMenu* m_settingsMenu;
+	Q3PopupMenu* m_helpMenu;
 
 	static BrowserDialog* s_helpBrowser;
 #endif

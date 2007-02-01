@@ -243,7 +243,7 @@ void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 	FileListItem* last = 0;
 	QDir dir(dirname);
 	QStringList dirContents = dir.entryList(QDir::Dirs) +
-		dir.entryList(Kid3App::s_miscCfg.nameFilter, QDir::Files);
+		dir.entryList(Kid3App::s_miscCfg.m_nameFilter, QDir::Files);
 	for (QStringList::Iterator it = dirContents.begin();
 			 it != dirContents.end(); ++it) {
 		QString filename = dirname + QDir::separator() + *it;

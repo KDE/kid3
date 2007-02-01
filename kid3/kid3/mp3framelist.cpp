@@ -47,8 +47,8 @@ public:
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	Mp3FieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
-		frmlst(fl), field_id(id), field(fld) {}
+	Mp3FieldControl(Mp3FrameList* fl, ID3_FieldID id, ID3_Field* fld) :
+		m_frmLst(fl), m_fieldId(id), m_field(fld) {}
 
 	/**
 	 * Destructor.
@@ -62,14 +62,14 @@ protected:
 	 * @param id ID of field
 	 * @return description or NULL if id unknown.
 	 */
-	const char *getFieldIDString(ID3_FieldID id) const;
+	const char* getFieldIDString(ID3_FieldID id) const;
 
 	/** Frame list */
-	Mp3FrameList *frmlst;
+	Mp3FrameList* m_frmLst;
 	/** Field ID */
-	ID3_FieldID field_id;
+	ID3_FieldID m_fieldId;
 	/** ID3 field */
-	ID3_Field *field;
+	ID3_Field* m_field;
 };
 
 /** Control to edit standard UTF text fields */
@@ -82,7 +82,7 @@ class TextFieldControl : public Mp3FieldControl {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	TextFieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	TextFieldControl(Mp3FrameList* fl, ID3_FieldID id, ID3_Field* fld) :
 	    Mp3FieldControl(fl, id, fld) {}
 
 	/**
@@ -100,11 +100,11 @@ class TextFieldControl : public Mp3FieldControl {
 	 *
 	 * @return widget to edit field data.
 	 */
-	virtual QWidget *createWidget(QWidget *parent);
+	virtual QWidget* createWidget(QWidget* parent);
 
  protected:
 	/** Text editor widget */
-	LabeledTextEdit *edit;
+	LabeledTextEdit* m_edit;
 };
 
 /** Control to edit single line text fields */
@@ -117,7 +117,7 @@ class LineFieldControl : public Mp3FieldControl {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	LineFieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	LineFieldControl(Mp3FrameList* fl, ID3_FieldID id, ID3_Field* fld) :
 	    Mp3FieldControl(fl, id, fld) {}
 
 	/**
@@ -137,11 +137,11 @@ class LineFieldControl : public Mp3FieldControl {
 	 *
 	 * @return widget to edit field data.
 	 */
-	virtual QWidget *createWidget(QWidget *parent);
+	virtual QWidget* createWidget(QWidget* parent);
 
  protected:
 	/** Line editor widget */
-	LabeledLineEdit *edit;
+	LabeledLineEdit* m_edit;
 };
 
 /** Control to edit integer fields */
@@ -154,7 +154,7 @@ class IntFieldControl : public Mp3FieldControl {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	IntFieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	IntFieldControl(Mp3FrameList* fl, ID3_FieldID id, ID3_Field* fld) :
 	    Mp3FieldControl(fl, id, fld) {};
 
 	/**
@@ -174,11 +174,11 @@ class IntFieldControl : public Mp3FieldControl {
 	 *
 	 * @return widget to edit field data.
 	 */
-	virtual QWidget *createWidget(QWidget *parent);
+	virtual QWidget* createWidget(QWidget* parent);
 
  protected:
 	/** Spin box widget */
-	LabeledSpinBox *numinp;
+	LabeledSpinBox* m_numInp;
 };
 
 /** Control to edit integer fields using a combo box with given values */
@@ -192,9 +192,9 @@ class IntComboBoxControl : public Mp3FieldControl {
 	 * @param fld ID3 field
 	 * @param lst list of strings with possible selections, NULL terminated
 	 */
-	IntComboBoxControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld,
+	IntComboBoxControl(Mp3FrameList* fl, ID3_FieldID id, ID3_Field* fld,
 										 const char **lst) :
-	    Mp3FieldControl(fl, id, fld), strlst(lst) {};
+	    Mp3FieldControl(fl, id, fld), m_strLst(lst) {};
 
 	/**
 	 * Destructor.
@@ -213,13 +213,13 @@ class IntComboBoxControl : public Mp3FieldControl {
 	 *
 	 * @return widget to edit field data.
 	 */
-	virtual QWidget *createWidget(QWidget *parent);
+	virtual QWidget* createWidget(QWidget* parent);
 
  protected:
 	/** Combo box widget */
-	LabeledComboBox *ptinp;
+	LabeledComboBox* m_ptInp;
 	/** List of strings with possible selections */
-	const char **strlst;
+	const char** m_strLst;
 };
 
 /** Control to import, export and view data from binary fields */
@@ -232,7 +232,7 @@ class BinFieldControl : public Mp3FieldControl {
 	 * @param id  ID of field
 	 * @param fld ID3 field
 	 */
-	BinFieldControl(Mp3FrameList *fl, ID3_FieldID id, ID3_Field *fld) :
+	BinFieldControl(Mp3FrameList* fl, ID3_FieldID id, ID3_Field* fld) :
 	    Mp3FieldControl(fl, id, fld) {};
 
 	/**
@@ -252,11 +252,11 @@ class BinFieldControl : public Mp3FieldControl {
 	 *
 	 * @return widget to edit field data.
 	 */
-	virtual QWidget *createWidget(QWidget *parent);
+	virtual QWidget* createWidget(QWidget* parent);
 
  protected:
 	/** Import, Export, View buttons */
-	BinaryOpenSave *bos;
+	BinaryOpenSave* m_bos;
 };
 
 
@@ -267,23 +267,23 @@ class BinFieldControl : public Mp3FieldControl {
  * @param name   internal name or 0
  * @param fld    ID3_Field containing binary data
  */
-BinaryOpenSave::BinaryOpenSave(QWidget *parent, const char *name,
-			       ID3_Field *fld) :
-	QWidget(parent, name), field(fld), loadfilename("")
+BinaryOpenSave::BinaryOpenSave(QWidget* parent, const char* name,
+			       ID3_Field* fld) :
+	QWidget(parent, name), m_field(fld), m_loadfilename("")
 {
-	layout = new QHBoxLayout(this);
-	label = new QLabel(this);
-	openButton = new QPushButton(i18n("&Import"), this);
-	saveButton = new QPushButton(i18n("&Export"), this);
-	viewButton = new QPushButton(i18n("&View"), this);
-	if (layout && label && openButton && saveButton && viewButton) {
-		layout->addWidget(label);
-		layout->addWidget(openButton);
-		layout->addWidget(saveButton);
-		layout->addWidget(viewButton);
-		connect(openButton, SIGNAL(clicked()), this, SLOT(loadData()));
-		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
-		connect(viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
+	m_layout = new QHBoxLayout(this);
+	m_label = new QLabel(this);
+	m_openButton = new QPushButton(i18n("&Import"), this);
+	m_saveButton = new QPushButton(i18n("&Export"), this);
+	m_viewButton = new QPushButton(i18n("&View"), this);
+	if (m_layout && m_label && m_openButton && m_saveButton && m_viewButton) {
+		m_layout->addWidget(m_label);
+		m_layout->addWidget(m_openButton);
+		m_layout->addWidget(m_saveButton);
+		m_layout->addWidget(m_viewButton);
+		connect(m_openButton, SIGNAL(clicked()), this, SLOT(loadData()));
+		connect(m_saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
+		connect(m_viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
 	}
 }
 
@@ -294,11 +294,11 @@ BinaryOpenSave::BinaryOpenSave(QWidget *parent, const char *name,
 void BinaryOpenSave::loadData()
 {
 #ifdef CONFIG_USE_KDE
-	loadfilename = KFileDialog::getOpenFileName(QString::null, QString::null,
-																							this);
+	m_loadfilename = KFileDialog::getOpenFileName(QString::null, QString::null,
+																								this);
 #else
-	loadfilename = QFileDialog::getOpenFileName(QString::null, QString::null,
-																							this);
+	m_loadfilename = QFileDialog::getOpenFileName(QString::null, QString::null,
+																								this);
 #endif
 }
 
@@ -319,8 +319,8 @@ void BinaryOpenSave::saveData()
 		if (file.open(QCM_WriteOnly)) {
 			QDataStream stream(&file);
 			stream.writeRawBytes(
-			    (const char *)field->GetRawBinary(),
-			    (unsigned int)field->Size());
+			    (const char *)m_field->GetRawBinary(),
+			    (unsigned int)m_field->Size());
 			file.close();
 		}
 	}
@@ -332,8 +332,8 @@ void BinaryOpenSave::saveData()
 void BinaryOpenSave::viewData()
 {
 	QImage image;
-	if (image.loadFromData((const uchar *)field->GetRawBinary(),
-			       (uint)field->Size())) {
+	if (image.loadFromData((const uchar *)m_field->GetRawBinary(),
+			       (uint)m_field->Size())) {
 		ImageViewer iv(this, 0, &image);
 		iv.exec();
 	}
@@ -345,9 +345,9 @@ void BinaryOpenSave::viewData()
  * @param id ID of field
  * @return description or NULL if id unknown.
  */
-const char *Mp3FieldControl::getFieldIDString(ID3_FieldID id) const
+const char* Mp3FieldControl::getFieldIDString(ID3_FieldID id) const
 {
-	static const struct id_str_s { ID3_FieldID id; const char *str; }
+	static const struct id_str_s { ID3_FieldID id; const char* str; }
 	id_str[] = {
 		{ID3FN_TEXTENC,        I18N_NOOP("Text Encoding")},
 		{ID3FN_TEXT,           I18N_NOOP("Text")},
@@ -375,7 +375,7 @@ const char *Mp3FieldControl::getFieldIDString(ID3_FieldID id) const
 		{ID3FN_LASTFIELDID,    NULL}
 	};
 
-	const struct id_str_s *is = &id_str[0];
+	const struct id_str_s* is = &id_str[0];
 	while (is->str) {
 		if (is->id == id) {
 			break;
@@ -391,11 +391,11 @@ const char *Mp3FieldControl::getFieldIDString(ID3_FieldID id) const
 void TextFieldControl::updateTag()
 {
 	// get encoding from selection
-	ID3_TextEnc enc = frmlst->getSelectedEncoding();
+	ID3_TextEnc enc = m_frmLst->getSelectedEncoding();
 	if (enc != ID3TE_NONE) {
-		field->SetEncoding(enc);
+		m_field->SetEncoding(enc);
 	}
-	Mp3File::setString(field, edit->text());
+	Mp3File::setString(m_field, m_edit->text());
 }
 
 /**
@@ -404,15 +404,15 @@ void TextFieldControl::updateTag()
  * @param parent parent widget
  * @return widget to edit field.
  */
-QWidget *TextFieldControl::createWidget(QWidget *parent)
+QWidget* TextFieldControl::createWidget(QWidget* parent)
 {
-	edit = new LabeledTextEdit(parent);
-	if (edit == NULL)
+	m_edit = new LabeledTextEdit(parent);
+	if (m_edit == NULL)
 		return NULL;
 
-	edit->setLabel(i18n(getFieldIDString(field_id)));
-	edit->setText(Mp3File::getString(field));
-	return edit;
+	m_edit->setLabel(i18n(getFieldIDString(m_fieldId)));
+	m_edit->setText(Mp3File::getString(m_field));
+	return m_edit;
 }
 
 /**
@@ -420,7 +420,7 @@ QWidget *TextFieldControl::createWidget(QWidget *parent)
  */
 void LineFieldControl::updateTag()
 {
-	field->Set(edit->text().latin1());
+	m_field->Set(m_edit->text().latin1());
 }
 
 /**
@@ -429,14 +429,14 @@ void LineFieldControl::updateTag()
  * @param parent parent widget
  * @return widget to edit field.
  */
-QWidget *LineFieldControl::createWidget(QWidget *parent)
+QWidget* LineFieldControl::createWidget(QWidget* parent)
 {
-	edit = new LabeledLineEdit(parent);
-	if (edit) {
-		edit->setLabel(i18n(getFieldIDString(field_id)));
-		edit->setText(field->GetRawText());
+	m_edit = new LabeledLineEdit(parent);
+	if (m_edit) {
+		m_edit->setLabel(i18n(getFieldIDString(m_fieldId)));
+		m_edit->setText(m_field->GetRawText());
 	}
-	return edit;
+	return m_edit;
 }
 
 /**
@@ -444,7 +444,7 @@ QWidget *LineFieldControl::createWidget(QWidget *parent)
  */
 void IntFieldControl::updateTag()
 {
-	field->Set(numinp->value());
+	m_field->Set(m_numInp->value());
 }
 
 /**
@@ -453,14 +453,14 @@ void IntFieldControl::updateTag()
  * @param parent parent widget
  * @return widget to edit field.
  */
-QWidget *IntFieldControl::createWidget(QWidget *parent)
+QWidget* IntFieldControl::createWidget(QWidget* parent)
 {
-	numinp = new LabeledSpinBox(parent);
-	if (numinp) {
-		numinp->setLabel(i18n(getFieldIDString(field_id)));
-		numinp->setValue(field->Get());
+	m_numInp = new LabeledSpinBox(parent);
+	if (m_numInp) {
+		m_numInp->setLabel(i18n(getFieldIDString(m_fieldId)));
+		m_numInp->setValue(m_field->Get());
 	}
-	return numinp;
+	return m_numInp;
 }
 
 /**
@@ -468,10 +468,10 @@ QWidget *IntFieldControl::createWidget(QWidget *parent)
  */
 void IntComboBoxControl::updateTag()
 {
-	field->Set(ptinp->currentItem());
+	m_field->Set(m_ptInp->currentItem());
 	/* If this is the selected encoding, store it to be used by text fields */
-	if (field->GetID() == ID3FN_TEXTENC) {
-		frmlst->setSelectedEncoding((ID3_TextEnc)ptinp->currentItem());
+	if (m_field->GetID() == ID3FN_TEXTENC) {
+		m_frmLst->setSelectedEncoding((ID3_TextEnc)m_ptInp->currentItem());
 	}
 }
 
@@ -481,14 +481,14 @@ void IntComboBoxControl::updateTag()
  * @param parent parent widget
  * @return widget to edit field.
  */
-QWidget *IntComboBoxControl::createWidget(QWidget *parent)
+QWidget* IntComboBoxControl::createWidget(QWidget* parent)
 {
-	ptinp = new LabeledComboBox(parent, 0, strlst);
-	if (ptinp) {
-		ptinp->setLabel(i18n(getFieldIDString(field_id)));
-		ptinp->setCurrentItem(field->Get());
+	m_ptInp = new LabeledComboBox(parent, 0, m_strLst);
+	if (m_ptInp) {
+		m_ptInp->setLabel(i18n(getFieldIDString(m_fieldId)));
+		m_ptInp->setCurrentItem(m_field->Get());
 	}
-	return ptinp;
+	return m_ptInp;
 }
 
 /**
@@ -496,16 +496,16 @@ QWidget *IntComboBoxControl::createWidget(QWidget *parent)
  */
 void BinFieldControl::updateTag()
 {
-	if (bos && !bos->getFilename().isEmpty()) {
-		QFile file(bos->getFilename());
+	if (m_bos && !m_bos->getFilename().isEmpty()) {
+		QFile file(m_bos->getFilename());
 		if (file.open(QCM_ReadOnly)) {
 			size_t size = file.size();
-			uchar *data = new uchar[size];
+			uchar* data = new uchar[size];
 			if (data) {
 				QDataStream stream(&file);
 				stream.readRawBytes((char *)data,
 						    (unsigned int)size);
-				field->Set(data, size);
+				m_field->Set(data, size);
 				delete [] data;
 			}
 			file.close();
@@ -519,20 +519,20 @@ void BinFieldControl::updateTag()
  * @param parent parent widget
  * @return widget to edit field.
  */
-QWidget *BinFieldControl::createWidget(QWidget *parent)
+QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
-	bos = new BinaryOpenSave(parent, 0, field);
-	if (bos) {
-		bos->setLabel(i18n(getFieldIDString(field_id)));
+	m_bos = new BinaryOpenSave(parent, 0, m_field);
+	if (m_bos) {
+		m_bos->setLabel(i18n(getFieldIDString(m_fieldId)));
 	}
-	return bos;
+	return m_bos;
 }
 
 #ifdef CONFIG_USE_KDE
 /** Field edit dialog */
 class EditMp3FrameDialog : public KDialogBase { /* KDE */
 public:
-	EditMp3FrameDialog(QWidget *parent, QString &caption,
+	EditMp3FrameDialog(QWidget* parent, QString& caption,
 			Q3PtrList<FieldControl> &ctls);
 };
 
@@ -543,18 +543,18 @@ public:
  * @param caption window title
  * @param ctls    list with controls to edit fields
  */
-EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
+EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
  Q3PtrList<FieldControl> &ctls) :
 	KDialogBase(parent, "edit_frame", true, caption, Ok|Cancel, Ok)
 {
-	QWidget *page = new QWidget(this);
+	QWidget* page = new QWidget(this);
 	if (page) {
 		setMainWidget(page);
-		QVBoxLayout *vb = new QVBoxLayout(page);
+		QVBoxLayout* vb = new QVBoxLayout(page);
 		if (vb) {
 			vb->setSpacing(6);
 			vb->setMargin(6);
-			FieldControl *fld_ctl = ctls.first();
+			FieldControl* fld_ctl = ctls.first();
 			while (fld_ctl != NULL) {
 				vb->addWidget(fld_ctl->createWidget(page));
 				fld_ctl = ctls.next();
@@ -572,14 +572,14 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
 /** Field edit dialog */
 class EditMp3FrameDialog : public QDialog {
 public:
-	EditMp3FrameDialog(QWidget *parent, QString &caption,
+	EditMp3FrameDialog(QWidget* parent, QString& caption,
 			Q3PtrList<FieldControl> &ctls);
 protected:
-	QVBoxLayout *vlayout;
-	QHBoxLayout *hlayout;
-	QSpacerItem *hspacer;
-	QPushButton *okButton;
-	QPushButton *cancelButton;
+	QVBoxLayout* m_vlayout;      /**< vertical layout */
+	QHBoxLayout* m_hlayout;      /**< horizontal layout */
+	QSpacerItem* m_hspacer;      /**< horizontal spacer */
+	QPushButton* m_okButton;     /**< OK button */
+	QPushButton* m_cancelButton; /**< Cancel button */
 };
 
 /**
@@ -589,33 +589,33 @@ protected:
  * @param caption window title
  * @param ctls    list with controls to edit fields
  */
-EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
+EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
  Q3PtrList<FieldControl> &ctls) :
 	QDialog(parent, "edit_frame", true)
 {
 	setCaption(caption);
-	vlayout = new QVBoxLayout(this);
-	if (vlayout) {
-		vlayout->setSpacing(6);
-		vlayout->setMargin(6);
-		FieldControl *fld_ctl = ctls.first();
+	m_vlayout = new QVBoxLayout(this);
+	if (m_vlayout) {
+		m_vlayout->setSpacing(6);
+		m_vlayout->setMargin(6);
+		FieldControl* fld_ctl = ctls.first();
 		while (fld_ctl != NULL) {
-			vlayout->addWidget(fld_ctl->createWidget(this));
+			m_vlayout->addWidget(fld_ctl->createWidget(this));
 			fld_ctl = ctls.next();
 		}
 	}
-	hlayout = new QHBoxLayout(vlayout);
-	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+	m_hlayout = new QHBoxLayout(m_vlayout);
+	QSpacerItem* m_hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 					   QSizePolicy::Minimum);
-	okButton = new QPushButton(i18n("&OK"), this);
-	cancelButton = new QPushButton(i18n("&Cancel"), this);
-	if (hlayout && okButton && cancelButton) {
-		hlayout->addItem(hspacer);
-		hlayout->addWidget(okButton);
-		hlayout->addWidget(cancelButton);
-		okButton->setDefault(true);
-		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	m_okButton = new QPushButton(i18n("&OK"), this);
+	m_cancelButton = new QPushButton(i18n("&Cancel"), this);
+	if (m_hlayout && m_okButton && m_cancelButton) {
+		m_hlayout->addItem(m_hspacer);
+		m_hlayout->addWidget(m_okButton);
+		m_hlayout->addWidget(m_cancelButton);
+		m_okButton->setDefault(true);
+		connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
+		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
 #if QT_VERSION < 0x040000
 	// the widget is not painted correctly after resizing in Qt4
@@ -627,10 +627,10 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget *parent, QString &caption,
 /**
  * Constructor.
  */
-Mp3FrameList::Mp3FrameList() : tags(0), selected_enc(ID3TE_NONE),
+Mp3FrameList::Mp3FrameList() : m_tags(0), m_selectedEnc(ID3TE_NONE),
 															 m_copyFrame(0)
 {
-	fieldcontrols.setAutoDelete(true);
+	m_fieldcontrols.setAutoDelete(true);
 }
 
 /**
@@ -650,13 +650,13 @@ Mp3FrameList::~Mp3FrameList()
  */
 void Mp3FrameList::readTags()
 {
-	listbox->clear();
-	if (tags) {
-		ID3_Tag::Iterator* iter = tags->CreateIterator();
+	s_listbox->clear();
+	if (m_tags) {
+		ID3_Tag::Iterator* iter = m_tags->CreateIterator();
 		ID3_Frame* frame;
 		while ((frame = iter->GetNext()) != NULL) {
-			const char *idstr = getIdString(frame->GetID());
-			listbox->insertItem(idstr ? i18n(idstr) : QString(frame->GetTextID()));
+			const char* idstr = getIdString(frame->GetID());
+			s_listbox->insertItem(idstr ? i18n(idstr) : QString(frame->GetTextID()));
 		}
 #ifdef WIN32
 		/* allocated in Windows DLL => must be freed in the same DLL */
@@ -674,12 +674,12 @@ void Mp3FrameList::readTags()
  *
  * @param taggedFile file
  */
-void Mp3FrameList::setTags(TaggedFile *taggedFile)
+void Mp3FrameList::setTags(TaggedFile* taggedFile)
 {
 	m_file = taggedFile;
 	Mp3File* mp3File = dynamic_cast<Mp3File*>(m_file);
 	if (mp3File) {
-		tags = mp3File->m_tagV2;
+		m_tags = mp3File->m_tagV2;
 		readTags();
 	}
 }
@@ -690,12 +690,12 @@ void Mp3FrameList::setTags(TaggedFile *taggedFile)
  * @param index index in listbox
  * @return frame with index.
  */
-ID3_Frame *Mp3FrameList::getFrame(int index) const
+ID3_Frame* Mp3FrameList::getFrame(int index) const
 {
-	ID3_Frame *frame = NULL;
-	if (tags) {
+	ID3_Frame* frame = NULL;
+	if (m_tags) {
 		int i;
-		ID3_Tag::Iterator* iter = tags->CreateIterator();
+		ID3_Tag::Iterator* iter = m_tags->CreateIterator();
 		for (i = 0;
 		     i <= index && ((frame = iter->GetNext()) != NULL);
 		     i++);
@@ -717,18 +717,18 @@ ID3_Frame *Mp3FrameList::getFrame(int index) const
  *
  * @return selected frame.
  */
-ID3_Frame *Mp3FrameList::getSelectedFrame(int* lbIndex) const
+ID3_Frame* Mp3FrameList::getSelectedFrame(int* lbIndex) const
 {
-	ID3_Frame *frame = NULL;
+	ID3_Frame* frame = NULL;
 	int selectedIndex = -1;
-	if (tags) {
+	if (m_tags) {
 		int i;
-		ID3_Tag::Iterator* iter = tags->CreateIterator();
+		ID3_Tag::Iterator* iter = m_tags->CreateIterator();
 		for (i = 0;
-		     i < (int)listbox->count() &&
+		     i < (int)s_listbox->count() &&
 			 ((frame = iter->GetNext()) != NULL);
 		     i++) {
-			if (listbox->isSelected(i)) {
+			if (s_listbox->isSelected(i)) {
 				selectedIndex = i;
 				break;
 			}
@@ -761,27 +761,27 @@ bool Mp3FrameList::editFrame(ID3_Frame* frame)
 {
 	bool result = false;
 	ID3_Frame::Iterator* iter = frame->CreateIterator();
-	ID3_Field *field;
+	ID3_Field* field;
 	while ((field = iter->GetNext()) != NULL) {
 		ID3_FieldID id = field->GetID();
 		ID3_FieldType type = field->GetType();
 		if (type == ID3FTY_INTEGER) {
 			if (id == ID3FN_TEXTENC) {
-				static const char *strlst[] = {
+				static const char* strlst[] = {
 					I18N_NOOP("ISO-8859-1"),
 					I18N_NOOP("Unicode"),
 					I18N_NOOP("UTF16BE"),
 					I18N_NOOP("UTF8"),
 					NULL
 				};
-				IntComboBoxControl *cbox =
+				IntComboBoxControl* cbox =
 					new IntComboBoxControl(this, id, field, strlst);
 				if (cbox) {
-					fieldcontrols.append(cbox);
+					m_fieldcontrols.append(cbox);
 				}
 			}
 			else if (id == ID3FN_PICTURETYPE) {
-				static const char *strlst[] = {
+				static const char* strlst[] = {
 					I18N_NOOP("Other"),
 					I18N_NOOP("32x32 pixels PNG file icon"),
 					I18N_NOOP("Other file icon"),
@@ -805,27 +805,27 @@ bool Mp3FrameList::editFrame(ID3_Frame* frame)
 					I18N_NOOP("Publisher/Studio logotype"),
 					NULL
 				};
-				IntComboBoxControl *cbox =
+				IntComboBoxControl* cbox =
 					new IntComboBoxControl(this, id, field, strlst);
 				if (cbox) {
-					fieldcontrols.append(cbox);
+					m_fieldcontrols.append(cbox);
 				}
 			}
 			else if (id == ID3FN_TIMESTAMPFORMAT) {
-				static const char *strlst[] = {
+				static const char* strlst[] = {
 					I18N_NOOP("Other"),
 					I18N_NOOP("MPEG frames as unit"),
 					I18N_NOOP("Milliseconds as unit"),
 					NULL
 				};
-				IntComboBoxControl *cbox =
+				IntComboBoxControl* cbox =
 					new IntComboBoxControl(this, id, field, strlst);
 				if (cbox) {
-					fieldcontrols.append(cbox);
+					m_fieldcontrols.append(cbox);
 				}
 			}
 			else if (id == ID3FN_CONTENTTYPE) {
-				static const char *strlst[] = {
+				static const char* strlst[] = {
 					I18N_NOOP("Other"),
 					I18N_NOOP("Lyrics"),
 					I18N_NOOP("Text transcription"),
@@ -835,25 +835,25 @@ bool Mp3FrameList::editFrame(ID3_Frame* frame)
 					I18N_NOOP("Trivia/pop up"),
 					NULL
 				};
-				IntComboBoxControl *cbox =
+				IntComboBoxControl* cbox =
 					new IntComboBoxControl(this, id, field, strlst);
 				if (cbox) {
-					fieldcontrols.append(cbox);
+					m_fieldcontrols.append(cbox);
 				}
 			}
 			else {
-				IntFieldControl *intctl =
+				IntFieldControl* intctl =
 					new IntFieldControl(this, id, field);
 				if (intctl) {
-					fieldcontrols.append(intctl);
+					m_fieldcontrols.append(intctl);
 				}
 			}
 		}
 		else if (type == ID3FTY_BINARY) {
-			BinFieldControl *binctl =
+			BinFieldControl* binctl =
 				new BinFieldControl(this, id, field);
 			if (binctl) {
-				fieldcontrols.append(binctl);
+				m_fieldcontrols.append(binctl);
 			}
 		}
 		else if (type == ID3FTY_TEXTSTRING) {
@@ -862,17 +862,17 @@ bool Mp3FrameList::editFrame(ID3_Frame* frame)
 					// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
 					enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
 				// Large textedit for text fields
-				TextFieldControl *textctl =
+				TextFieldControl* textctl =
 					new TextFieldControl(this, id, field);
 				if (textctl) {
-					fieldcontrols.append(textctl);
+					m_fieldcontrols.append(textctl);
 				}
 			}
 			else {
-				LineFieldControl *textctl =
+				LineFieldControl* textctl =
 					new LineFieldControl(this, id, field);
 				if (textctl) {
-					fieldcontrols.append(textctl);
+					m_fieldcontrols.append(textctl);
 				}
 			}
 		}
@@ -883,24 +883,24 @@ bool Mp3FrameList::editFrame(ID3_Frame* frame)
 #else
 	delete iter;
 #endif
-	const char *idstr = getIdString(frame->GetID());
+	const char* idstr = getIdString(frame->GetID());
 	QString caption = idstr ? i18n(idstr) : QString(frame->GetTextID());
-	EditMp3FrameDialog *dialog =
-		new EditMp3FrameDialog(NULL, caption, fieldcontrols);
+	EditMp3FrameDialog* dialog =
+		new EditMp3FrameDialog(NULL, caption, m_fieldcontrols);
 	if (dialog && dialog->exec() == QDialog::Accepted) {
-		FieldControl *fld_ctl = fieldcontrols.first();
+		FieldControl* fld_ctl = m_fieldcontrols.first();
 		// will be set if there is an encoding selector
 		setSelectedEncoding(ID3TE_NONE);
 		while (fld_ctl != NULL) {
 			fld_ctl->updateTag();
-			fld_ctl = fieldcontrols.next();
+			fld_ctl = m_fieldcontrols.next();
 		}
 		if (m_file) {
 			m_file->markTag2Changed();
 		}
 		result = true;
 	}
-	fieldcontrols.clear();
+	m_fieldcontrols.clear();
 	return result;
 }
 
@@ -927,16 +927,16 @@ bool Mp3FrameList::editFrame()
 bool Mp3FrameList::deleteFrame()
 {
 	int selectedIndex;
-	ID3_Frame *frame = getSelectedFrame(&selectedIndex);
+	ID3_Frame* frame = getSelectedFrame(&selectedIndex);
 	if (frame) {
-		if (tags) {
-			tags->RemoveFrame(frame);
+		if (m_tags) {
+			m_tags->RemoveFrame(frame);
 			readTags(); // refresh listbox
 			// select the next item (or the last if it was the last)
 			if (selectedIndex >= 0) {
-				const int lastIndex = listbox->count() - 1;
+				const int lastIndex = s_listbox->count() - 1;
 				if (lastIndex >= 0) {
-					listbox->setSelected(
+					s_listbox->setSelected(
 						selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
 				}
 			}
@@ -966,18 +966,18 @@ bool Mp3FrameList::addFrame(int frameId, bool edit)
 		// these two do not seem to work
 		return false;
 	}
-	ID3_Frame *frame = new ID3_Frame(id);
+	ID3_Frame* frame = new ID3_Frame(id);
 	if (frame) {
-		if (tags) {
+		if (m_tags) {
 			if (edit && !editFrame(frame)) {
 				delete frame;
 				return false;
 			}
-			tags->AttachFrame(frame);
+			m_tags->AttachFrame(frame);
 			readTags(); // refresh listbox
-			const int lastIndex = listbox->count() - 1;
+			const int lastIndex = s_listbox->count() - 1;
 			if (lastIndex >= 0) {
-				listbox->setSelected(lastIndex, true);
+				s_listbox->setSelected(lastIndex, true);
 			}
 			if (m_file) {
 				m_file->markTag2Changed();
@@ -990,7 +990,7 @@ bool Mp3FrameList::addFrame(int frameId, bool edit)
 }
 
 /** Alphabetically sorted list of frame descriptions */
-const char *Mp3FrameList::frameid_str[num_frameid] = {
+const char* Mp3FrameList::s_frameIdStr[NumFrameIds] = {
 	I18N_NOOP("AENC - Audio encryption"),
 	I18N_NOOP("APIC - Attached picture"),
 	I18N_NOOP("CDM  - Compressed data meta frame"),
@@ -1069,8 +1069,8 @@ const char *Mp3FrameList::frameid_str[num_frameid] = {
 	I18N_NOOP("WXXX - User defined URL link")
 };
 
-/** Frame IDs corresponding to frameid_str[] */
-const ID3_FrameID Mp3FrameList::frameid_code[num_frameid] = {
+/** Frame IDs corresponding to s_frameIdStr[] */
+const ID3_FrameID Mp3FrameList::s_frameIdCode[NumFrameIds] = {
 	ID3FID_AUDIOCRYPTO,
 	ID3FID_PICTURE,
 	ID3FID_METACOMPRESSION,
@@ -1155,12 +1155,12 @@ const ID3_FrameID Mp3FrameList::frameid_code[num_frameid] = {
  * @param id ID of frame
  * @return description or NULL if id not found.
  */
-const char *Mp3FrameList::getIdString(ID3_FrameID id) const
+const char* Mp3FrameList::getIdString(ID3_FrameID id) const
 {
 	int i;
-	for (i = 0; i < num_frameid; i++) {
-		if (frameid_code[i] == id) {
-			return frameid_str[i];
+	for (i = 0; i < NumFrameIds; i++) {
+		if (s_frameIdCode[i] == id) {
+			return s_frameIdStr[i];
 		}
 	}
 	return NULL;
@@ -1177,16 +1177,16 @@ int Mp3FrameList::selectFrameId()
 	int i;
 	QStringList lst;
 	bool ok = false;
-	for (i = 0; i < num_frameid; i++) {
-		lst.append(i18n(frameid_str[i]));
+	for (i = 0; i < NumFrameIds; i++) {
+		lst.append(i18n(s_frameIdStr[i]));
 	}
 	QString res = QInputDialog::getItem(
 		i18n("Add Frame"),
 		i18n("Select the frame ID"), lst, 0, false, &ok);
 	if (ok) {
 		int idx = lst.findIndex(res);
-		if (idx >= 0 && idx < num_frameid) {
-			return frameid_code[idx];
+		if (idx >= 0 && idx < NumFrameIds) {
+			return s_frameIdCode[idx];
 		}
 	}
 	return -1;
@@ -1198,7 +1198,7 @@ int Mp3FrameList::selectFrameId()
  * @return true if frame copied.
  */
 bool Mp3FrameList::copyFrame() {
-	ID3_Frame *frame = getSelectedFrame();
+	ID3_Frame* frame = getSelectedFrame();
 	if (frame) {
 		if (m_copyFrame) {
 			delete m_copyFrame;
@@ -1215,10 +1215,10 @@ bool Mp3FrameList::copyFrame() {
  * @return true if frame pasted.
  */
 bool Mp3FrameList::pasteFrame() {
-	if (m_copyFrame && tags) {
+	if (m_copyFrame && m_tags) {
 		ID3_Frame* frame = new ID3_Frame(*m_copyFrame);
 		if (frame) {
-			tags->AttachFrame(frame);
+			m_tags->AttachFrame(frame);
 			if (m_file) {
 				m_file->markTag2Changed();
 			}

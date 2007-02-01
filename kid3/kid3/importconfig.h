@@ -25,11 +25,13 @@ public:
 	 *
 	 * @param grp configuration group
 	 */
-	ImportConfig(const QString &grp);
+	ImportConfig(const QString& grp);
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~ImportConfig();
+
 	/**
 	 * Persist configuration.
 	 *
@@ -37,11 +39,12 @@ public:
 	 */
 	virtual void writeToConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config
+		KConfig* config
 #else
-		Kid3Settings *config
+		Kid3Settings* config
 #endif
 		) const;
+
 	/**
 	 * Read persisted configuration.
 	 *
@@ -49,25 +52,26 @@ public:
 	 */
 	virtual void readFromConfig(
 #ifdef CONFIG_USE_KDE
-		KConfig *config
+		KConfig* config
 #else
-		Kid3Settings *config
+		Kid3Settings* config
 #endif
 		);
+
 	/** true to import into ID3v1 tags, else into ID3v2 tags */
-	bool importDestV1;
+	bool m_importDestV1;
 	/** Names of import formats */
-	QStringList importFormatNames;
+	QStringList m_importFormatNames;
 	/** regexp describing header import format */
-	QStringList importFormatHeaders;
+	QStringList m_importFormatHeaders;
 	/** regexp describing track import format */
-	QStringList importFormatTracks;
+	QStringList m_importFormatTracks;
 	/** selected import format */
-	int importFormatIdx;
+	int m_importFormatIdx;
 	/** check maximum allowable time difference */
-	bool enableTimeDifferenceCheck;
+	bool m_enableTimeDifferenceCheck;
 	/** maximum allowable time difference */
-	int maxTimeDifference;
+	int m_maxTimeDifference;
 
 	/** true to export ID3v1 tags, else ID3v2 tags */
 	bool m_exportSrcV1;

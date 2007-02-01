@@ -40,7 +40,7 @@ public:
 	 * @param parent parent widget
 	 * @param name   Qt object name
 	 */
-	FormatBox(const QString & title, QWidget *parent = 0, const char *name = 0);
+	FormatBox(const QString& title, QWidget* parent = 0, const char* name = 0);
 	/**
 	 * Destructor.
 	 */
@@ -50,13 +50,13 @@ public:
 	 *
 	 * @param cfg format configuration
 	 */
-	void fromFormatConfig(const FormatConfig *cfg);
+	void fromFormatConfig(const FormatConfig* cfg);
 	/**
 	 * Store the values in a format configuration.
 	 *
 	 * @param cfg format configuration
 	 */
-	void toFormatConfig(FormatConfig *cfg) const;
+	void toFormatConfig(FormatConfig* cfg) const;
 public slots:
 	/**
 	 * Called when a value in the string replacement table is changed.
@@ -93,11 +93,11 @@ public slots:
 	 * @param col column at which context menu is displayed
 	 * @param pos position where context menu is drawn on screen
 	 */
-	void contextMenu(int row, int col, const QPoint & pos);
+	void contextMenu(int row, int col, const QPoint& pos);
 private:
-	QComboBox *caseConvComboBox;
-	QCheckBox *strRepCheckBox;
-	Q3Table *strReplTable;
+	QComboBox* m_caseConvComboBox;
+	QCheckBox* m_strRepCheckBox;
+	Q3Table* m_strReplTable;
 	QCheckBox* m_formatEditingCheckBox;
 };
 

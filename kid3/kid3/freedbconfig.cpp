@@ -16,7 +16,7 @@
  *
  * @param grp configuration group
  */
-FreedbConfig::FreedbConfig(const QString &grp) : ImportSourceConfig(grp)
+FreedbConfig::FreedbConfig(const QString& grp) : ImportSourceConfig(grp)
 {
 	m_server = "freedb.freedb.org:80";
 	m_cgiPath = "/~cddb/cddb.cgi";

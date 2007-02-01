@@ -54,16 +54,18 @@ public:
 	 * @param name          Qt name
 	 * @param f             window flags
 	 */
-	ImportSelector(QWidget *parent, ImportTrackDataVector& trackDataList,
-								 const char *name = 0, Qt::WFlags f = 0);
+	ImportSelector(QWidget* parent, ImportTrackDataVector& trackDataList,
+								 const char* name = 0, Qt::WFlags f = 0);
 	/**
 	 * Destructor.
 	 */
 	~ImportSelector();
+
 	/**
 	 * Clear dialog data.
 	 */
 	void clear();
+
 	/**
 	 * Look for album specific information (artist, album, year, genre) in
 	 * a header.
@@ -73,7 +75,8 @@ public:
 	 *
 	 * @return true if one or more field were found.
 	 */
-	bool parseHeader(StandardTags &st);
+	bool parseHeader(StandardTags& st);
+
 	/**
 	 * Get next line as standardtags from imported file or clipboard.
 	 *
@@ -84,13 +87,15 @@ public:
 	 * @return true if ok (result in st),
 	 *         false if end of file reached.
 	 */
-	bool getNextTags(StandardTags &st, bool start);
+	bool getNextTags(StandardTags& st, bool start);
+
 	/**
 	 * Get import destination.
 	 *
 	 * @return DestV1 or DestV2 for ID3v1 or ID3v2.
 	 */
 	Destination getDestination();
+
 	/**
 	 * Get list with track durations.
 	 *
@@ -98,6 +103,7 @@ public:
 	 *         0 if no track durations found.
 	 */
 	Q3ValueList<int>* getTrackDurations();
+
 	/**
 	 * Get time difference check configuration.
 	 *
@@ -105,6 +111,7 @@ public:
 	 * @param maxDiff maximum allowed time difference
 	 */ 
 	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
+
 	/**
 	 * List with line formats.
 	 * The following codes are used before the () expressions.
@@ -116,68 +123,81 @@ public:
 	 * %t track
 	 * %g genre
 	 */
-	static const char **lineFmtList;
+	static const char** s_lineFmtList;
 
 public slots:
 	/**
 	 * Called when the maximum time difference value is changed.
 	 */
 	void maxDiffChanged();
+
 	/**
 	 * Move a table row.
 	 *
-	 * @param section not used
+	 * The first parameter @a section is not used.
 	 * @param fromIndex index of position moved from
-	 * @param fromIndex index of position moved to
+	 * @param toIndex   index of position moved to
 	 */
 	void moveTableRow(int, int fromIndex, int toIndex);
+
 	/**
 	 * Let user select file, assign file contents to text and preview in
 	 * table.
 	 */
 	void fromFile();
+
 	/**
 	 * Assign clipboard contents to text and preview in table.
 	 */
 	void fromClipboard();
+
 	/**
 	 * Import from freedb.org and preview in table.
 	 */
 	void fromFreedb();
+
 	/**
 	 * Import from MusicBrainz and preview in table.
 	 */
 	void fromMusicBrainz();
+
 	/**
 	 * Import from MusicBrainz release database and preview in table.
 	 */
 	void fromMusicBrainzRelease();
+
 	/**
 	 * Import from www.discogs.com and preview in table.
 	 */
 	void fromDiscogs();
+
 	/**
 	 * Set the format lineedits to the format selected in the combo box.
 	 *
 	 * @param index current index of the combo box
 	 */
 	void setFormatLineEdit(int index);
+
 	/**
 	 * Show fields to import in text as preview in table.
 	 */
 	void showPreview();
+
 	/**
 	 * Match import data with length.
 	 */
 	void matchWithLength();
+
 	/**
 	 * Match import data with track number.
 	 */
 	void matchWithTrack();
+
 	/**
 	 * Match import data with title.
 	 */
 	void matchWithTitle();
+
 	/**
 	 * Save the local settings to the configuration.
 	 */
@@ -188,6 +208,7 @@ private:
 		LengthColumn, TrackColumn, TitleColumn, ArtistColumn,
 		AlbumColumn, YearColumn, GenreColumn, CommentColumn, NumColumns
 	};
+
 	enum ImportSource {
 		None, File, Clipboard
 	};
@@ -202,13 +223,13 @@ private:
 	bool updateTrackData(ImportSource impSrc);
 
 	/** From File button */
-	QPushButton *fileButton;
+	QPushButton* m_fileButton;
 	/** From Clipboard button */
-	QPushButton *clipButton;
+	QPushButton* m_clipButton;
 	/** From freedb.org button */
-	QPushButton *freedbButton;
+	QPushButton* m_freedbButton;
 	/** From MusicBrainz button */
-	QPushButton *m_musicBrainzButton;
+	QPushButton* m_musicBrainzButton;
 	/** From MusicBrainz Release button */
 	QPushButton* m_musicBrainzReleaseButton;
 	/** From Discogs button */
@@ -220,29 +241,29 @@ private:
 	/** Match with Title button */
 	QPushButton* m_titleButton;
 	/** Preview table */
-	ImportTable *tab;
+	ImportTable* m_tab;
 	/** contents of imported file/clipboard */
-	QString text;
+	QString m_text;
 	/** combobox with import destinations */
-	QComboBox *destComboBox;
+	QComboBox* m_destComboBox;
 	/** combobox with import formats */
-	QComboBox *formatComboBox;
+	QComboBox* m_formatComboBox;
 	/** LineEdit for header regexp */
-	QLineEdit *headerLineEdit;
+	QLineEdit* m_headerLineEdit;
 	/** LineEdit for track regexp */
-	QLineEdit *trackLineEdit;
-	QCheckBox* mismatchCheckBox;
-	QSpinBox* maxDiffSpinBox;
+	QLineEdit* m_trackLineEdit;
+	QCheckBox* m_mismatchCheckBox;
+	QSpinBox* m_maxDiffSpinBox;
 	/** header parser object */
-	ImportParser *header_parser;
+	ImportParser* m_headerParser;
 	/** track parser object */
-	ImportParser *track_parser;
+	ImportParser* m_trackParser;
 	/** header format regexps */
-	QStringList formatHeaders;
+	QStringList m_formatHeaders;
 	/** track format regexps */
-	QStringList formatTracks;
+	QStringList m_formatTracks;
 	/** freedb.org import dialog */
-	FreedbDialog *freedbDialog;
+	FreedbDialog* m_freedbDialog;
 	/** MusicBrainz import dialog */
 	MusicBrainzDialog* m_musicBrainzDialog;
 	/** MusicBrainz release import dialog */
@@ -250,7 +271,7 @@ private:
 	/** Discogs import dialog */
 	DiscogsDialog* m_discogsDialog;
 	/** import source */
-	ImportSource importSource;
+	ImportSource m_importSource;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
 };

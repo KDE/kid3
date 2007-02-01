@@ -35,36 +35,36 @@ class LabeledTextEdit : public QWidget {
 	 * @param parent parent widget
 	 * @param name   internal name or 0
 	 */
-	LabeledTextEdit(QWidget *parent, const char *name = 0);
+	LabeledTextEdit(QWidget* parent, const char* name = 0);
 
 	/**
 	 * Get text.
 	 *
 	 * @return text.
 	 */
-	QString text() const { return edit->text(); }
+	QString text() const { return m_edit->text(); }
 
 	/**
 	 * Set text.
 	 *
 	 * @param txt text
 	 */
-	void setText(const QString & txt) { edit->setText(txt); }
+	void setText(const QString& txt) { m_edit->setText(txt); }
 
 	/**
 	 * Set label.
 	 *
 	 * @param txt label
 	 */
-	void setLabel(const QString & txt) { label->setText(txt); }
+	void setLabel(const QString& txt) { m_label->setText(txt); }
 
  private:
 	/** Vertical layout */
-	QVBoxLayout *layout;
+	QVBoxLayout* m_layout;
 	/** Label above edit */
-	QLabel *label;
+	QLabel* m_label;
 	/** Text editor */
-	QTextEdit *edit;
+	QTextEdit* m_edit;
 };
 
 
@@ -77,36 +77,36 @@ class LabeledLineEdit : public QWidget {
 	 * @param parent parent widget
 	 * @param name   internal name or 0
 	 */
-	LabeledLineEdit(QWidget *parent, const char *name = 0);
+	LabeledLineEdit(QWidget* parent, const char* name = 0);
 
 	/**
 	 * Get text.
 	 *
 	 * @return text.
 	 */
-	QString text() const { return edit->text(); }
+	QString text() const { return m_edit->text(); }
 
 	/**
 	 * Set text.
 	 *
 	 * @param txt text
 	 */
-	void setText(const QString & txt) { edit->setText(txt); }
+	void setText(const QString& txt) { m_edit->setText(txt); }
 
 	/**
 	 * Set label.
 	 *
 	 * @param txt label
 	 */
-	void setLabel(const QString & txt) { label->setText(txt); }
+	void setLabel(const QString& txt) { m_label->setText(txt); }
 
  private:
 	/** Vertical layout */
-	QVBoxLayout *layout;
+	QVBoxLayout* m_layout;
 	/** Label above edit */
-	QLabel *label;
+	QLabel* m_label;
 	/** Line editor */
-	QLineEdit *edit;
+	QLineEdit* m_edit;
 };
 
 
@@ -120,37 +120,37 @@ class LabeledComboBox : public QWidget {
 	 * @param name   internal name or 0
 	 * @param strlst list with ComboBox items, terminated by NULL
 	 */
-	LabeledComboBox(QWidget *parent, const char *name,
-			const char **strlst);
+	LabeledComboBox(QWidget* parent, const char* name,
+			const char** strlst);
 
 	/**
 	 * Get index of selected item.
 	 *
 	 * @return index.
 	 */
-	int currentItem() const { return combo->currentItem(); }
+	int currentItem() const { return m_combo->currentItem(); }
 
 	/**
 	 * Set index of selected item.
 	 *
 	 * @param idx index
 	 */
-	void setCurrentItem(int idx) { combo->setCurrentItem(idx); }
+	void setCurrentItem(int idx) { m_combo->setCurrentItem(idx); }
 
 	/**
 	 * Set label.
 	 *
 	 * @param txt label
 	 */
-	void setLabel(const QString & txt) { label->setText(txt); }
+	void setLabel(const QString& txt) { m_label->setText(txt); }
 
  private:
 	/** Vertical layout */
-	QVBoxLayout *layout;
+	QVBoxLayout* m_layout;
 	/** Label above combo box */
-	QLabel *label;
+	QLabel* m_label;
 	/** Combo box */
-	QComboBox *combo;
+	QComboBox* m_combo;
 };
 
 
@@ -163,36 +163,36 @@ class LabeledSpinBox : public QWidget {
 	 * @param parent parent widget
 	 * @param name   internal name or 0
 	 */
-	LabeledSpinBox(QWidget *parent, const char *name = 0);
+	LabeledSpinBox(QWidget* parent, const char* name = 0);
 
 	/**
 	 * Get value.
 	 *
 	 * @return text.
 	 */
-	int value() const { return spinbox->value(); }
+	int value() const { return m_spinbox->value(); }
 
 	/**
 	 * Set value.
 	 *
 	 * @param value value
 	 */
-	void setValue(int value) { spinbox->setValue(value); }
+	void setValue(int value) { m_spinbox->setValue(value); }
 
 	/**
 	 * Set label.
 	 *
 	 * @param txt label
 	 */
-	void setLabel(const QString & txt) { label->setText(txt); }
+	void setLabel(const QString& txt) { m_label->setText(txt); }
 
  private:
 	/** Vertical layout */
-	QVBoxLayout *layout;
+	QVBoxLayout* m_layout;
 	/** Label above edit */
-	QLabel *label;
+	QLabel* m_label;
 	/** Text editor */
-	QSpinBox *spinbox;
+	QSpinBox* m_spinbox;
 };
 
 
@@ -206,17 +206,17 @@ class ImageViewer : public QDialog {
 	 * @param name   internal name or 0
 	 * @param img    image to display in window
 	 */
-	ImageViewer(QWidget *parent, const char *name, QImage *img);
+	ImageViewer(QWidget* parent, const char* name, QImage* img);
 
  protected:
 	/**
 	 * Paint image, called when window has to be drawn.
 	 */
-	void paintEvent(QPaintEvent *);
+	void paintEvent(QPaintEvent*);
 
  private:
 	/** image to view */
-	QImage *image; 
+	QImage* m_image; 
 };
 
 
@@ -245,7 +245,7 @@ public:
 	 *
 	 * @return widget to edit field data.
 	 */
-	virtual QWidget *createWidget(QWidget *parent) = 0;
+	virtual QWidget* createWidget(QWidget* parent) = 0;
 };
 
 
@@ -336,14 +336,14 @@ public:
 	 *
 	 * @param lb list box
 	 */
-	static void setListBox(Q3ListBox *lb) { listbox = lb; }
+	static void setListBox(Q3ListBox* lb) { s_listbox = lb; }
 
 protected:
 	/** File containing tags */
 	TaggedFile* m_file;
 
 	/** List box to select frame */
-	static Q3ListBox* listbox;
+	static Q3ListBox* s_listbox;
 
 private:
 	FrameList(const FrameList&);

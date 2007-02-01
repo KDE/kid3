@@ -53,7 +53,7 @@ public:
 	 *
 	 * @return true if ok, false if the file could not be written or renamed.
 	 */
-	virtual bool writeTags(bool force, bool *renamed, bool preserve);
+	virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
 	/**
 	 * Remove all ID3v1 tags.
@@ -403,7 +403,7 @@ public:
 	 * @param field        field
 	 * @param text         text to set
 	 */
-	static void setString(ID3_Field* field, const QString &text);
+	static void setString(ID3_Field* field, const QString& text);
 
 	/**
 	 * Clean up static resources.
@@ -425,7 +425,7 @@ private:
 	 *         "" if the field does not exist,
 	 *         QString::null if the tags do not exist.
 	 */
-	static QString getTextField(const ID3_Tag *tag, ID3_FrameID id);
+	static QString getTextField(const ID3_Tag* tag, ID3_FrameID id);
 
 	/**
 	 * Get year.
@@ -435,7 +435,7 @@ private:
 	 *         0 if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	static int getYear(const ID3_Tag *tag);
+	static int getYear(const ID3_Tag* tag);
 
 	/**
 	 * Get track.
@@ -445,7 +445,7 @@ private:
 	 *         0 if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	static int getTrackNum(const ID3_Tag *tag);
+	static int getTrackNum(const ID3_Tag* tag);
 
 	/**
 	 * Get genre.
@@ -455,7 +455,7 @@ private:
 	 *         0xff if the field does not exist,
 	 *         -1 if the tags do not exist.
 	 */
-	static int getGenreNum(const ID3_Tag *tag);
+	static int getGenreNum(const ID3_Tag* tag);
 
 	/**
 	 * Set text field.
@@ -469,7 +469,7 @@ private:
 	 *
 	 * @return true if the field was changed.
 	 */
-	static bool setTextField(ID3_Tag *tag, ID3_FrameID id, const QString &text,
+	static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 							 bool allowUnicode = false, bool replace = true,
 							 bool removeEmpty = true);
 
@@ -481,7 +481,7 @@ private:
 	 *
 	 * @return true if the field was changed.
 	 */
-	static bool setYear(ID3_Tag *tag, int num);
+	static bool setYear(ID3_Tag* tag, int num);
 
 	/**
 	 * Set track.
@@ -492,7 +492,7 @@ private:
 	 *
 	 * @return true if the field was changed.
 	 */
-	static bool setTrackNum(ID3_Tag *tag, int num, int numTracks = -1);
+	static bool setTrackNum(ID3_Tag* tag, int num, int numTracks = -1);
 
 	/**
 	 * Set genre.
@@ -502,13 +502,13 @@ private:
 	 *
 	 * @return true if the field was changed.
 	 */
-	static bool setGenreNum(ID3_Tag *tag, int num);
+	static bool setGenreNum(ID3_Tag* tag, int num);
 
 	/** ID3v1 tags */
-	ID3_Tag *m_tagV1;
+	ID3_Tag* m_tagV1;
 
 	/** ID3v2 tags */
-	ID3_Tag *m_tagV2;
+	ID3_Tag* m_tagV2;
 
 	/** Frame list for MP3 files. */
 	static Mp3FrameList* s_mp3FrameList;

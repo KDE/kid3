@@ -23,7 +23,7 @@ public:
 	 *
 	 * @param grp configuration group
 	 */
-	MusicBrainzConfig(const QString &grp);
+	MusicBrainzConfig(const QString& grp);
 
 	/**
 	 * Destructor.

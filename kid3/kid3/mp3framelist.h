@@ -45,21 +45,21 @@ class BinaryOpenSave : public QWidget {
 	 * @param name   internal name or 0
 	 * @param fld    ID3_Field containing binary data
 	 */
-	BinaryOpenSave(QWidget *parent, const char *name, ID3_Field *fld);
+	BinaryOpenSave(QWidget* parent, const char* name, ID3_Field* fld);
 
 	/**
 	 * Set label.
 	 *
 	 * @param txt label
 	 */
-	void setLabel(const QString & txt) { label->setText(txt); }
+	void setLabel(const QString& txt) { m_label->setText(txt); }
 
 	/**
 	 * Get filename of file to import.
 	 *
 	 * @return filename.
 	 */
-	QString getFilename() { return loadfilename; }
+	QString getFilename() { return m_loadfilename; }
 #endif // HAVE_ID3LIB
  
  public slots:
@@ -82,19 +82,19 @@ class BinaryOpenSave : public QWidget {
  private:
 #ifdef HAVE_ID3LIB
 	/** ID3 field containing binary data */
-	ID3_Field *field;
+	ID3_Field* m_field;
 	/** horizontal layout */
-	QHBoxLayout *layout;
+	QHBoxLayout* m_layout;
 	/** Label left of buttons */
-	QLabel *label;
+	QLabel* m_label;
 	/** filename of file to import */
-	QString loadfilename;
+	QString m_loadfilename;
 	/** Import push button */
-	QPushButton *openButton;
+	QPushButton* m_openButton;
 	/** Export push button */
-	QPushButton *saveButton;
+	QPushButton* m_saveButton;
 	/** View push button */
-	QPushButton *viewButton;
+	QPushButton* m_viewButton;
 #endif // HAVE_ID3LIB
 };
 
@@ -182,14 +182,14 @@ public:
 	 *
 	 * @param enc encoding.
 	 */
-	void setSelectedEncoding(ID3_TextEnc enc) { selected_enc = enc; }
+	void setSelectedEncoding(ID3_TextEnc enc) { m_selectedEnc = enc; }
 
 	/**
 	 * Get encoding selected in frame dialog.
 	 *
 	 * @return encoding, ID3TE_NONE if none selected.
 	 */
-	ID3_TextEnc getSelectedEncoding() const { return selected_enc; }
+	ID3_TextEnc getSelectedEncoding() const { return m_selectedEnc; }
 
 	/**
 	 * Get frame with index.
@@ -197,7 +197,7 @@ public:
 	 * @param index index in listbox
 	 * @return frame with index.
 	 */
-	ID3_Frame *getFrame(int index) const;
+	ID3_Frame* getFrame(int index) const;
 
 	/**
 	 * Get frame which is selected in listbox.
@@ -207,7 +207,7 @@ public:
 	 *
 	 * @return selected frame.
 	 */
-	ID3_Frame *getSelectedFrame(int* lbIndex = 0) const;
+	ID3_Frame* getSelectedFrame(int* lbIndex = 0) const;
 
 	/**
 	 * Fill listbox with frame descriptions.
@@ -232,27 +232,27 @@ public:
 	 * @param id ID of frame
 	 * @return description or NULL if id not found.
 	 */
-	const char *getIdString(ID3_FrameID id) const;
+	const char* getIdString(ID3_FrameID id) const;
 
 	/** ID3v2 tags containing frames */
-	ID3_Tag *tags;
+	ID3_Tag* m_tags;
 	/** List with controls to edit fields in frame */
-	Q3PtrList<FieldControl> fieldcontrols; 
+	Q3PtrList<FieldControl> m_fieldcontrols; 
 	/** Number of possible frame IDs */
 #if defined _WIN32 || defined WIN32
-	enum { num_frameid = 76 };
+	enum { NumFrameIds = 76 };
 #else
-	static const int num_frameid = 76;
+	static const int NumFrameIds = 76;
 #endif
 	/** Encoding selected in frame dialog */
-	ID3_TextEnc selected_enc;
+	ID3_TextEnc m_selectedEnc;
 	/** Frame storage for copy-paste */
 	ID3_Frame* m_copyFrame;
 
 	/** Alphabetically sorted list of frame descriptions */
-	static const char *frameid_str[num_frameid];
-	/** Frame IDs corresponding to frameid_str[] */
-	static const ID3_FrameID frameid_code[num_frameid];
+	static const char* s_frameIdStr[NumFrameIds];
+	/** Frame IDs corresponding to s_frameIdStr[] */
+	static const ID3_FrameID s_frameIdCode[NumFrameIds];
 };
 
 #endif // HAVE_ID3LIB

@@ -28,39 +28,39 @@
  * @param parent parent widget
  * @param name   Qt object name
  */
-FormatBox::FormatBox(const QString & title, QWidget *parent, const char *name) :
+FormatBox::FormatBox(const QString& title, QWidget* parent, const char* name) :
 	Q3GroupBox(5, Qt::Vertical, title, parent, name)
 {
 	m_formatEditingCheckBox = new QCheckBox(i18n("Format while editing"),
 																					this, "formatEditingCheckBox");
 
-	QLabel *caseConvLabel = new QLabel(this, "caseConvLabel");
+	QLabel* caseConvLabel = new QLabel(this, "caseConvLabel");
 	caseConvLabel->setText(i18n("Case Conversion:"));
 
-	caseConvComboBox = new QComboBox(false, this, "caseConvComboBox");
-	caseConvComboBox->clear();
-	caseConvComboBox->insertItem(i18n("No changes"),
+	m_caseConvComboBox = new QComboBox(false, this, "caseConvComboBox");
+	m_caseConvComboBox->clear();
+	m_caseConvComboBox->insertItem(i18n("No changes"),
 								 FormatConfig::NoChanges);
-	caseConvComboBox->insertItem(i18n("All lowercase"),
+	m_caseConvComboBox->insertItem(i18n("All lowercase"),
 								 FormatConfig::AllLowercase);
-	caseConvComboBox->insertItem(i18n("All uppercase"),
+	m_caseConvComboBox->insertItem(i18n("All uppercase"),
 								 FormatConfig::AllUppercase);
-	caseConvComboBox->insertItem(i18n("First letter uppercase"),
+	m_caseConvComboBox->insertItem(i18n("First letter uppercase"),
 								 FormatConfig::FirstLetterUppercase);
-	caseConvComboBox->insertItem(i18n("All first letters uppercase"),
+	m_caseConvComboBox->insertItem(i18n("All first letters uppercase"),
 								 FormatConfig::AllFirstLettersUppercase);
 
-	strRepCheckBox = new QCheckBox(this, "strRepCheckBox");
-	strRepCheckBox->setText(i18n("String Replacement:"));
-	strReplTable = new Q3Table(this, "strReplTable");
-	strReplTable->setNumRows(1);
-	strReplTable->setNumCols(2);
-	strReplTable->horizontalHeader()->setLabel(0, i18n("From"));
-	strReplTable->horizontalHeader()->setLabel(1, i18n("To"));
-	strReplTable->adjustColumn(0);
-	connect(strReplTable, SIGNAL(valueChanged(int,int)),
+	m_strRepCheckBox = new QCheckBox(this, "strRepCheckBox");
+	m_strRepCheckBox->setText(i18n("String Replacement:"));
+	m_strReplTable = new Q3Table(this, "strReplTable");
+	m_strReplTable->setNumRows(1);
+	m_strReplTable->setNumCols(2);
+	m_strReplTable->horizontalHeader()->setLabel(0, i18n("From"));
+	m_strReplTable->horizontalHeader()->setLabel(1, i18n("To"));
+	m_strReplTable->adjustColumn(0);
+	connect(m_strReplTable, SIGNAL(valueChanged(int,int)),
 			this, SLOT(valueChanged(int,int)));
-	connect(strReplTable, SIGNAL(contextMenuRequested(int,int,const QPoint &)),
+	connect(m_strReplTable, SIGNAL(contextMenuRequested(int,int,const QPoint &)),
 			this, SLOT(contextMenu(int,int,const QPoint&)));
 }
 
@@ -80,8 +80,8 @@ FormatBox::~FormatBox() {}
  */
 void FormatBox::valueChanged(int row, int col)
 {
-	if (row == strReplTable->numRows() - 1 && col == 0) {
-		if (strReplTable->text(row, col).isEmpty()) {
+	if (row == m_strReplTable->numRows() - 1 && col == 0) {
+		if (m_strReplTable->text(row, col).isEmpty()) {
 			if (row != 0) {
 				deleteRow(row);
 			}
@@ -98,7 +98,7 @@ void FormatBox::valueChanged(int row, int col)
  */
 void FormatBox::insertRow(int row)
 {
-	strReplTable->insertRows(row + 1);
+	m_strReplTable->insertRows(row + 1);
 }
 
 /**
@@ -108,7 +108,7 @@ void FormatBox::insertRow(int row)
  */
 void FormatBox::deleteRow(int row)
 {
-	strReplTable->removeRow(row);
+	m_strReplTable->removeRow(row);
 }
 
 /**
@@ -118,7 +118,7 @@ void FormatBox::deleteRow(int row)
  */
 void FormatBox::clearCell(int row_col)
 {
-	strReplTable->setText((row_col >> 8) & 0xff, row_col & 0xff, "");
+	m_strReplTable->setText((row_col >> 8) & 0xff, row_col & 0xff, "");
 }
 
 /**
@@ -128,7 +128,7 @@ void FormatBox::clearCell(int row_col)
  * @param col column at which context menu is displayed
  * @param pos position where context menu is drawn on screen
  */
-void FormatBox::contextMenu(int row, int col, const QPoint &pos)
+void FormatBox::contextMenu(int row, int col, const QPoint& pos)
 {
 	Q3PopupMenu menu(this);
 
@@ -153,31 +153,31 @@ void FormatBox::contextMenu(int row, int col, const QPoint &pos)
  *
  * @param cfg format configuration
  */
-void FormatBox::fromFormatConfig(const FormatConfig *cfg)
+void FormatBox::fromFormatConfig(const FormatConfig* cfg)
 {
 	int i;
 	m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
-	caseConvComboBox->setCurrentItem(cfg->caseConversion);
-	strRepCheckBox->setChecked(cfg->strRepEnabled);
+	m_caseConvComboBox->setCurrentItem(cfg->m_caseConversion);
+	m_strRepCheckBox->setChecked(cfg->m_strRepEnabled);
 	QMap<QString, QString>::ConstIterator it;
-	for (i = 0, it = cfg->strRepMap.begin();
-		 it != cfg->strRepMap.end();
+	for (i = 0, it = cfg->m_strRepMap.begin();
+		 it != cfg->m_strRepMap.end();
 		 ++it, ++i) {
-		if (strReplTable->numRows() <= i) {
-			strReplTable->insertRows(i);
+		if (m_strReplTable->numRows() <= i) {
+			m_strReplTable->insertRows(i);
 		}
-		strReplTable->setText(i, 0, it.key());
-		strReplTable->setText(i, 1, it.data());
+		m_strReplTable->setText(i, 0, it.key());
+		m_strReplTable->setText(i, 1, it.data());
 	}
-	if (strReplTable->numRows() <= i) {
-		strReplTable->insertRows(i);
+	if (m_strReplTable->numRows() <= i) {
+		m_strReplTable->insertRows(i);
 	}
 	// add an empty row as last row and remove all rows below
-	strReplTable->setText(i, 0, "");
-	strReplTable->setText(i, 1, "");
-	int row = strReplTable->numRows();
+	m_strReplTable->setText(i, 0, "");
+	m_strReplTable->setText(i, 1, "");
+	int row = m_strReplTable->numRows();
 	while (--row > i) {
-		strReplTable->removeRow(row);
+		m_strReplTable->removeRow(row);
 	}
 }
 
@@ -186,20 +186,20 @@ void FormatBox::fromFormatConfig(const FormatConfig *cfg)
  *
  * @param cfg format configuration
  */
-void FormatBox::toFormatConfig(FormatConfig *cfg) const
+void FormatBox::toFormatConfig(FormatConfig* cfg) const
 {
 	cfg->m_formatWhileEditing = m_formatEditingCheckBox->isChecked();
-	cfg->caseConversion =
-		(FormatConfig::CaseConversion)caseConvComboBox->currentItem();
-	if (cfg->caseConversion >= FormatConfig::NumCaseConversions) {
-		cfg->caseConversion = FormatConfig::NoChanges;
+	cfg->m_caseConversion =
+		(FormatConfig::CaseConversion)m_caseConvComboBox->currentItem();
+	if (cfg->m_caseConversion >= FormatConfig::NumCaseConversions) {
+		cfg->m_caseConversion = FormatConfig::NoChanges;
 	}
-	cfg->strRepEnabled = strRepCheckBox->isOn();
-	cfg->strRepMap.clear();
-	for (int i = 0; i < strReplTable->numRows(); ++i) {
-		QString key(strReplTable->text(i, 0));
+	cfg->m_strRepEnabled = m_strRepCheckBox->isOn();
+	cfg->m_strRepMap.clear();
+	for (int i = 0; i < m_strReplTable->numRows(); ++i) {
+		QString key(m_strReplTable->text(i, 0));
 		if (!key.isNull() && !key.isEmpty()) {
-			cfg->strRepMap[key] = strReplTable->text(i, 1);
+			cfg->m_strRepMap[key] = m_strReplTable->text(i, 1);
 		}
 	}
 }

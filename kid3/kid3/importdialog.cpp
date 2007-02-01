@@ -36,7 +36,7 @@
  * @param trackDataList track data to be filled with imported values,
  *                      is passed with durations of files set
  */
-ImportDialog::ImportDialog(QWidget *parent, QString &caption,
+ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 													 ImportTrackDataVector& trackDataList) :
 	QDialog(parent, "import", true),
 	m_autoStartSubDialog(ASD_None),
@@ -44,22 +44,22 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption,
 {
 	setCaption(caption);
 
-	QVBoxLayout *vlayout = new QVBoxLayout(this);
+	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
 		return ;
 	}
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
-	impsel = new ImportSelector(this, m_trackDataVector);
-	vlayout->addWidget(impsel);
+	m_impsel = new ImportSelector(this, m_trackDataVector);
+	vlayout->addWidget(m_impsel);
 
-	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
-	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+	QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
+	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	QPushButton *helpButton = new QPushButton(i18n("&Help"), this);
-	QPushButton *saveButton = new QPushButton(i18n("&Save Settings"), this);
-	QPushButton *okButton = new QPushButton(i18n("&OK"), this);
-	QPushButton *cancelButton = new QPushButton(i18n("&Cancel"), this);
+	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+	QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+	QPushButton* okButton = new QPushButton(i18n("&OK"), this);
+	QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
 	if (hlayout && helpButton && okButton && saveButton && cancelButton) {
 		hlayout->addWidget(helpButton);
 		hlayout->addWidget(saveButton);
@@ -68,7 +68,7 @@ ImportDialog::ImportDialog(QWidget *parent, QString &caption,
 		hlayout->addWidget(cancelButton);
 		okButton->setDefault(true);
 		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-		connect(saveButton, SIGNAL(clicked()), impsel, SLOT(saveConfig()));
+		connect(saveButton, SIGNAL(clicked()), m_impsel, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	}
@@ -88,19 +88,19 @@ int ImportDialog::exec()
 	switch (m_autoStartSubDialog) {
 		case ASD_Freedb:
 			show();
-			impsel->fromFreedb();
+			m_impsel->fromFreedb();
 			break;
 		case ASD_Discogs:
 			show();
-			impsel->fromDiscogs();
+			m_impsel->fromDiscogs();
 			break;
 		case ASD_MusicBrainzRelease:
 			show();
-			impsel->fromMusicBrainzRelease();
+			m_impsel->fromMusicBrainzRelease();
 			break;
 		case ASD_MusicBrainz:
 			show();
-			impsel->fromMusicBrainz();
+			m_impsel->fromMusicBrainz();
 			break;
 		case ASD_None:
 			break;
@@ -113,7 +113,7 @@ int ImportDialog::exec()
  */
 void ImportDialog::clear()
 {
-	impsel->clear();
+	m_impsel->clear();
 }
 
 /**
@@ -124,7 +124,7 @@ void ImportDialog::clear()
  */
 bool ImportDialog::getDestV1() const
 {
-	return (impsel->getDestination() == ImportSelector::DestV1);
+	return (m_impsel->getDestination() == ImportSelector::DestV1);
 }
 
 /**

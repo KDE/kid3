@@ -19,7 +19,7 @@
 #include "kid3.h"
 
 /** Description for application */
-static const char *description = I18N_NOOP("Kid3 ID3 Tagger");
+static const char* description = I18N_NOOP("Kid3 ID3 Tagger");
 
 /** Command line options */
 static KCmdLineOptions options[] =
@@ -37,7 +37,7 @@ static KCmdLineOptions options[] =
  * @return exit code of application.
  */
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	KAboutData aboutData(
 	    "kid3", I18N_NOOP("Kid3"),
@@ -53,11 +53,11 @@ int main(int argc, char *argv[])
 		RESTORE(Kid3App);
 	}
 	else {
-		Kid3App *kid3 = new Kid3App();
+		Kid3App* kid3 = new Kid3App();
 		if (kid3) {
 			kid3->show();
 
-			KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+			KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
 			if (args->count()) {
 				kid3->openDirectory(QFile::decodeName(args->arg(0)));
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
  * @return exit code of application.
  */
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	QApplication app(argc, argv);
 
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 	kid3_tr.load( QString("kid3_") + QTextCodec::locale(), "." );
 	app.installTranslator(&kid3_tr);
 
-	Kid3App *kid3 = new Kid3App();
+	Kid3App* kid3 = new Kid3App();
 	if (kid3) {
 		kid3->show();
 		app.setMainWidget(kid3);

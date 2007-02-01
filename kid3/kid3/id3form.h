@@ -10,22 +10,20 @@
 #ifndef ID3FORM_H
 #define ID3FORM_H
 
-#include <qvariant.h>
 #include <qsplitter.h>
+#include <qlabel.h>
+#include <qcombobox.h>
+#include <qlineedit.h>
 #include "filelist.h"
+#include "dirlist.h"
 #include "standardtags.h"
 #include "qtcompatmac.h"
 
 class QCheckBox;
-class QComboBox;
-class QLabel;
-class QLineEdit;
 class QPushButton;
 class QSpinBox;
-class QSplitter;
 class Kid3ScrollView;
 class FormatConfig;
-class DirList;
 class Q3VBoxLayout;
 class QGridLayout;
 class Q3GroupBox;
@@ -38,18 +36,18 @@ class Q3HBox;
 /**
  * Main widget.
  */
-class id3Form : public QSplitter
+class Id3Form : public QSplitter
 {
 Q_OBJECT
 
 public:
 	/** 
-	 * Constructs an id3Form as a child of 'parent', with the 
+	 * Constructs an Id3Form as a child of 'parent', with the 
 	 * name 'name' and widget flags set to 'f'.
 	 * @param parent parent widget
 	 * @param name   Qt name
 	 */
-	id3Form(QWidget* parent = 0, const char* name = 0);
+	Id3Form(QWidget* parent = 0, const char* name = 0);
 
 	/**
 	 * Get filter from ID3v1 check boxes.
@@ -91,184 +89,278 @@ public:
 	 */
 	void adjustRightHalfBoxSize();
 
-	FileList *mp3ListBox;
-	QComboBox* genreV1ComboBox;
-	QComboBox* genreV2ComboBox;
-	QComboBox* formatComboBox;
-	QLineEdit* nameLineEdit;
-	QLabel* detailsLabel;
-	Q3ListBox* framesListBox;
-	QLineEdit* titleV1LineEdit;
-	QLineEdit* titleV2LineEdit;
-	QSplitter* m_vSplitter;
-	DirList* m_dirListBox;
-	Q3GroupBox* idV1GroupBox;
-	Q3GroupBox* idV2GroupBox;
+	/**
+	 * Hide or show tag 1 controls.
+	 *
+	 * @param hide true to hide, false to show
+	 */
+	void hideV1(bool hide);
+
+	/**
+	 * Hide or show tag 2 controls.
+	 *
+	 * @param hide true to hide, false to show
+	 */
+	void hideV2(bool hide);
+
+	/**
+	 * Save the local settings to the configuration.
+	 */
+	void saveConfig();
+
+	/**
+	 * Read the local settings from the configuration.
+	 */
+	void readConfig();
+
+	/**
+	 * Init GUI.
+	 */
+	void initView();
+
+	/**
+	 * Get current filename format string.
+	 * @return filename format.
+	 */
+	QString getFilenameFormat() const { return m_formatComboBox->currentText(); }
+
+	/**
+	 * Get filename.
+	 */
+	QString getFilename() const { return m_nameLineEdit->text(); }
+
+	/**
+	 * Set filename.
+	 * @param fn filename
+	 */
+	void setFilename(const QString& fn) { m_nameLineEdit->setText(fn); }
+
+	/**
+	 * Check if the filename line edit is enabled.
+	 * @return true if the filename line edit is enabled.
+	 */
+	bool isFilenameEditEnabled() const { return m_nameLineEdit->isEnabled(); }
+
+	/**
+	 * Enable or disable the filename line edit.
+	 * @param en true to enable
+	 */
+	void setFilenameEditEnabled(bool en) { m_nameLineEdit->setEnabled(en); }
+
+	/**
+	 * Set details info text.
+	 * @param text details text
+	 */
+	void setDetailInfo(const QString& text) { m_detailsLabel->setText(text); }
+
+	/**
+	 * Fill directory list.
+	 * @param dir path of directory
+	 * @return false if name is not directory path, else true.
+	 */
+	bool readDirectoryList(const QString& dir) { return m_dirListBox->readDir(dir); }
+
+	/**
+	 * Fill file list.
+	 * @param dir path of directory
+	 * @return false if name is not directory path, else true.
+	 */
+	bool readFileList(const QString& dir) { return m_fileListBox->readDir(dir); }
+
+	/**
+	 * Get the first item in the filelist.
+	 * @return first file.
+	 */
+	FileListItem* firstFile() { return m_fileListBox->first(); }
+
+	/**
+	 * Get the next item in the filelist.
+	 * @return next file.
+	 */
+	FileListItem* nextFile() { return m_fileListBox->next(); }
+
+	/**
+	 * Get the first item in the the current directory.
+	 * @return first file.
+	 */
+	FileListItem* firstFileInDir() { return m_fileListBox->firstInDir(); }
+
+	/**
+	 * Get the next item in the current directory.
+	 * @return next file.
+	 */
+	FileListItem* nextFileInDir() { return m_fileListBox->nextInDir(); }
+
+	/**
+	 * Refresh text of all files in file list and check if any file is modified.
+	 * @return true if a file is modified.
+	 */
+	bool updateModificationState() { return m_fileListBox->updateModificationState(); }
 
 public slots:
 	/**
 	 * Button ID3v1 From Filename.
 	 */
-	virtual void fromFilenameV1();
+	void fromFilenameV1();
 
 	/**
 	 * Button ID3v2 From Filename.
 	 */
-	virtual void fromFilenameV2();
+	void fromFilenameV2();
 
 	/**
 	 * Button ID3v2 From ID3v1.
 	 */
-	virtual void fromID3V2();
+	void fromID3V2();
 
 	/**
 	 * Button ID3v1 From ID3v2.
 	 */
-	virtual void fromID3V1();
+	void fromID3V1();
 
 	/**
 	 * Button ID3v1 Copy.
 	 */
-	virtual void copyV1();
+	void copyV1();
 
 	/**
 	 * Button ID3v2 Copy.
 	 */
-	virtual void copyV2();
+	void copyV2();
 
 	/**
 	 * Button ID3v2 Remove.
 	 */
-	virtual void removeV2();
+	void removeV2();
 
 	/**
 	 * Button ID3v1 Paste.
 	 */
-	virtual void pasteV1();
+	void pasteV1();
 
 	/**
 	 * Button ID3v2 Paste.
 	 */
-	virtual void pasteV2();
+	void pasteV2();
 
 	/**
 	 * Button ID3v1 Remove.
 	 */
-	virtual void removeV1();
+	void removeV1();
 
 	/**
 	 * File list box file selected
 	 */
-	virtual void fileSelected();
+	void fileSelected();
 
 	/**
 	 * Get standard tags from the ID3v1 controls.
 	 *
 	 * @param st standard tags to store result
 	 */
-	virtual void getStandardTagsV1(StandardTags * st);
+	void getStandardTagsV1(StandardTags* st);
 
 	/**
 	 * Get standard tags from the ID3v2 controls.
 	 *
 	 * @param st standard tags to store result
 	 */
-	virtual void getStandardTagsV2(StandardTags * st);
+	void getStandardTagsV2(StandardTags* st);
 
 	/**
 	 * Set ID3v1 standard tags controls.
 	 *
 	 * @param st standard tags to set
 	 */
-	virtual void setStandardTagsV1(const StandardTags * st);
+	void setStandardTagsV1(const StandardTags* st);
 
 	/**
 	 * Set ID3v2 standard tags controls.
 	 *
 	 * @param st standard tags to set
 	 */
-	virtual void setStandardTagsV2(const StandardTags * st);
+	void setStandardTagsV2(const StandardTags* st);
 
 	/**
 	 * Set all ID3v1 and ID3v2 check boxes on or off.
 	 *
 	 * @param val true to set check boxes on.
 	 */
-	virtual void setAllCheckBoxes(bool val);
+	void setAllCheckBoxes(bool val);
 
 	/**
 	 * Get number of files selected in file list box.
 	 *
 	 * @return number of files selected.
 	 */
-	virtual int numFilesSelected();
+	int numFilesSelected();
 
 	/**
 	 * Frame list button Edit.
 	 */
-	virtual void editFrame();
+	void editFrame();
 
 	/**
 	 * Frame list button Add.
 	 */
-	virtual void addFrame();
+	void addFrame();
 
 	/**
 	 * Frame list button Delete.
 	 */
-	virtual void deleteFrame();
+	void deleteFrame();
 
 	/**
 	 * Set filename according to ID3v1 tags.
 	 */
-	virtual void fnFromID3V1();
+	void fnFromID3V1();
 
 	/**
 	 * Set filename according to ID3v1 tags.
 	 */
-	virtual void fnFromID3V2();
+	void fnFromID3V2();
 
 	/**
 	 * Filename line edit is changed.
 	 * @param txt contents of line edit
 	 */
-	virtual void nameLineEditChanged(const QString &txt);
+	void nameLineEditChanged(const QString& txt);
 
 	/**
 	 * Album V1 line edit is changed.
 	 * @param txt contents of line edit
 	 */
-	virtual void albumV1LineEditChanged(const QString &txt);
+	void albumV1LineEditChanged(const QString& txt);
 
 	/**
 	 * Artist V1 line edit is changed.
 	 * @param txt contents of line edit
 	 */
-	virtual void artistV1LineEditChanged(const QString &txt);
+	void artistV1LineEditChanged(const QString& txt);
 
 	/**
 	 * Title V1 line edit is changed.
 	 * @param txt contents of line edit
 	 */
-	virtual void titleV1LineEditChanged(const QString &txt);
+	void titleV1LineEditChanged(const QString& txt);
 
 	/**
 	 * Album V2 line edit is changed.
 	 * @param txt contents of line edit
 	 */
-	virtual void albumV2LineEditChanged(const QString &txt);
+	void albumV2LineEditChanged(const QString& txt);
 
 	/**
 	 * Artist V2 line edit is changed.
 	 * @param txt contents of line edit
 	 */
-	virtual void artistV2LineEditChanged(const QString &txt);
+	void artistV2LineEditChanged(const QString& txt);
 
 	/**
 	 * Title V2 line edit is changed.
 	 * @param txt contents of line edit
 	 */
-	virtual void titleV2LineEditChanged(const QString &txt);
+	void titleV2LineEditChanged(const QString& txt);
 
 	/**
 	 * Directory list box directory selected.
@@ -276,10 +368,40 @@ public slots:
 	 * @param item selected item
 	 */
 #if QT_VERSION >= 0x040000
-	virtual void dirSelected(Q3ListBoxItem* item);
+	void dirSelected(Q3ListBoxItem* item);
 #else
-	virtual void dirSelected(QListBoxItem* item);
+	void dirSelected(QListBoxItem* item);
 #endif
+
+	/**
+	 * Set focus on filename controls.
+	 */
+	void setFocusFilename();
+
+	/**
+	 * Set focus on tag 1 controls.
+	 */
+	void setFocusV1();
+
+	/**
+	 * Set focus on tag 2 controls.
+	 */
+	void setFocusV2();
+
+	/**
+	 * Select all files.
+	 */
+	void selectAllFiles();
+
+	/**
+	 * Select next file.
+	 */
+	void selectNextFile();
+
+	/**
+	 * Select previous file.
+	 */
+	void selectPreviousFile();
 
 private:
 	/**
@@ -289,61 +411,49 @@ private:
 	 * @param txt  text in line edit
 	 * @param fcfg format configuration
 	 */
-	void formatLineEdit(QLineEdit *le, const QString &txt,
-						const FormatConfig *fcfg);
+	void formatLineEdit(QLineEdit* le, const QString& txt,
+						const FormatConfig* fcfg);
 
-	Q3GroupBox* filenameGroupBox;
-	QLabel* nameLabel;
-	QPushButton* fnV1Button;
-	QPushButton* fnV2Button;
-	QLabel* formatLabel;
-	QLabel* infoLabel;
-	QLineEdit* albumV1LineEdit;
-	QPushButton* copyV1PushButton;
-	QPushButton* filenameV1PushButton;
-	QLineEdit* artistV1LineEdit;
-	QPushButton* removeV1PushButton;
-	QPushButton* pasteV1PushButton;
-	QCheckBox* albumV1CheckBox;
-	QCheckBox* yearV1CheckBox;
-	QSpinBox* yearV1SpinBox;
-	QCheckBox* trackV1CheckBox;
-	QSpinBox* trackV1SpinBox;
-	QPushButton* id3V1PushButton;
-	QCheckBox* titleV1CheckBox;
-	QCheckBox* genreV1CheckBox;
-	QCheckBox* commentV1CheckBox;
-	QCheckBox* artistV1CheckBox;
-	QLineEdit* commentV1LineEdit;
-	QPushButton* copyV2PushButton;
-	QCheckBox* commentV2CheckBox;
-	QLineEdit* albumV2LineEdit;
-	QLineEdit* artistV2LineEdit;
-	QPushButton* pasteV2PushButton;
-	QCheckBox* genreV2CheckBox;
-	QLineEdit* commentV2LineEdit;
-	QPushButton* filenameV2PushButton;
-	QPushButton* removeV2PushButton;
-	QCheckBox* yearV2CheckBox;
-	QPushButton* id3V2PushButton;
-	QSpinBox* yearV2SpinBox;
-	QCheckBox* trackV2CheckBox;
-	QSpinBox* trackV2SpinBox;
-	QCheckBox* artistV2CheckBox;
-	QCheckBox* titleV2CheckBox;
-	QCheckBox* albumV2CheckBox;
-	QPushButton* editFramesPushButton;
-	QPushButton* framesAddPushButton;
-	QPushButton* deleteFramesPushButton;
-	QLabel* framesTextLabel;
-	Kid3ScrollView *scrollView;
-	Q3VBox* rightHalfVBox;
-	Q3HBox* trackV1HBox;
-	Q3HBox* trackV2HBox;
-	Q3VBox* frameButtonVBox;
-	QGridLayout* filenameGroupBoxLayout;
-	QGridLayout* idV1GroupBoxLayout;
-	QGridLayout* idV2GroupBoxLayout;
+	FileList* m_fileListBox;
+	QComboBox* m_genreV1ComboBox;
+	QComboBox* m_genreV2ComboBox;
+	QComboBox* m_formatComboBox;
+	QLineEdit* m_nameLineEdit;
+	QLineEdit* m_titleV1LineEdit;
+	QLineEdit* m_titleV2LineEdit;
+	QLabel* m_detailsLabel;
+	Q3ListBox* m_framesListBox;
+	DirList* m_dirListBox;
+	QSplitter* m_vSplitter;
+	Q3GroupBox* m_idV1GroupBox;
+	Q3GroupBox* m_idV2GroupBox;
+	QPushButton* m_fnV1Button;
+	QLineEdit* m_albumV1LineEdit;
+	QLineEdit* m_artistV1LineEdit;
+	QCheckBox* m_albumV1CheckBox;
+	QCheckBox* m_yearV1CheckBox;
+	QSpinBox* m_yearV1SpinBox;
+	QCheckBox* m_trackV1CheckBox;
+	QSpinBox* m_trackV1SpinBox;
+	QCheckBox* m_titleV1CheckBox;
+	QCheckBox* m_genreV1CheckBox;
+	QCheckBox* m_commentV1CheckBox;
+	QCheckBox* m_artistV1CheckBox;
+	QLineEdit* m_commentV1LineEdit;
+	QCheckBox* m_commentV2CheckBox;
+	QLineEdit* m_albumV2LineEdit;
+	QLineEdit* m_artistV2LineEdit;
+	QCheckBox* m_genreV2CheckBox;
+	QLineEdit* m_commentV2LineEdit;
+	QCheckBox* m_yearV2CheckBox;
+	QPushButton* m_id3V2PushButton;
+	QSpinBox* m_yearV2SpinBox;
+	QCheckBox* m_trackV2CheckBox;
+	QSpinBox* m_trackV2SpinBox;
+	QCheckBox* m_artistV2CheckBox;
+	QCheckBox* m_titleV2CheckBox;
+	QCheckBox* m_albumV2CheckBox;
+	Q3VBox* m_rightHalfVBox;
 
 private slots:
 	/**
@@ -351,14 +461,14 @@ private slots:
 	 *
 	 * @param ev drag event.
 	 */
-	void dragEnterEvent(QDragEnterEvent * ev);
+	void dragEnterEvent(QDragEnterEvent* ev);
 
 	/**
 	 * Handle drop event.
 	 *
 	 * @param ev drop event.
 	 */
-	void dropEvent(QDropEvent * ev);
+	void dropEvent(QDropEvent* ev);
 };
 
 #endif // ID3FORM_H

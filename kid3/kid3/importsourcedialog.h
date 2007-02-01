@@ -182,8 +182,8 @@ signals:
 	void trackDataUpdated();
 
 protected:
-	Q3ListBox* m_albumListBox;
-	ImportTrackDataVector& m_trackDataVector;
+	Q3ListBox* m_albumListBox; /**< list box with albums to select */
+	ImportTrackDataVector& m_trackDataVector; /**< vector with tracks to import */
 
 private:
 	/**
@@ -217,20 +217,23 @@ public:
 	 */
 	AlbumListItem(Q3ListBox* listbox, const QString& text,
 				  const QString& cat, const QString& idStr) : 
-		Q3ListBoxText(listbox, text), category(cat), id(idStr) {}
+		Q3ListBoxText(listbox, text), m_category(cat), m_id(idStr) {}
+
 	/**
 	 * Get category.
 	 * @return category.
 	 */
-	QString getCategory() { return category; }
+	QString getCategory() const { return m_category; }
+
 	/**
 	 * Get ID.
 	 * @return ID.
 	 */
-	QString getId() { return id; }
+	QString getId() const { return m_id; }
+
 private:
-	QString category;
-	QString id;
+	QString m_category;
+	QString m_id;
 };
 
 #endif

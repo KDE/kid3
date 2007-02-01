@@ -104,9 +104,9 @@ protected:
 	 */
 	bool editFrame(OggFile::CommentField& frame);
 
-	OggFile::CommentList* m_tags;
-	QString m_selectedName;
-	OggFile::CommentField m_copyFrame;
+	OggFile::CommentList* m_tags;      /**< tags of current file */
+	QString m_selectedName;            /**< the type of the frame to add */
+	OggFile::CommentField m_copyFrame; /**< frame used by copyFrame(), pasteFrame */
 
 private:
 	OggFrameList(const OggFrameList&);

@@ -15,8 +15,7 @@
  *
  * 125: Last ID3v1, 142: WinAmp 1.91, 145: WinAmp 1.92, 255: unknown
  */
-
-const char *Genres::genre[Genres::count + 3] = {
+const char* Genres::s_genre[Genres::count + 3] = {
 	"",                // 255,
 	"A Capella",	   // 123,
 	"Acid",			   // 34,
@@ -171,11 +170,10 @@ const char *Genres::genre[Genres::count + 3] = {
 };
 
 /**
- * genre_num[n] gives the number of the n-th genre
+ * s_genreNum[n] gives the number of the n-th genre
  * in the alphabetically sorted list.
  */
-
-const unsigned char Genres::genre_num[Genres::count + 1] = {
+const unsigned char Genres::s_genreNum[Genres::count + 1] = {
 	255,
 	123,
 	34,
@@ -327,7 +325,7 @@ const unsigned char Genres::genre_num[Genres::count + 1] = {
 	28
 };
 
-const char **Genres::strList = &genre[0];
+const char** Genres::s_strList = &s_genre[0];
 
 /**
  * Get name assigned to genre number.
@@ -336,10 +334,9 @@ const char **Genres::strList = &genre[0];
  *
  * @return name, empty string for unknown number.
  */
-
-const char *Genres::getName(int num){
-
-	return genre[getIndex(num)];
+const char* Genres::getName(int num)
+{
+	return s_genre[getIndex(num)];
 }
 
 /**
@@ -349,12 +346,11 @@ const char *Genres::getName(int num){
  *
  * @return index, 0 for unknown number.
  */
-
 int Genres::getIndex(int num)
 {
 	int i;
 	for (i = 0; i < Genres::count + 1; i++) {
-		if (genre_num[i] == num) {
+		if (s_genreNum[i] == num) {
 			return i;
 		}
 	}
@@ -368,11 +364,10 @@ int Genres::getIndex(int num)
  *
  * @return genre number, 255 for unknown index.
  */
-
 int Genres::getNumber(int index)
 {
 	if (index >= 0 && index <= Genres::count) {
-		return genre_num[index];
+		return s_genreNum[index];
 	}
 	return 255; // 255 for unknown
 }
@@ -385,11 +380,10 @@ int Genres::getNumber(int index)
  *
  * @return genre number, 255 for unknown index.
  */
-
-int Genres::getNumber(const QString &str)
+int Genres::getNumber(const QString& str)
 {
 	for (int i = 0; i < Genres::count + 1; i++) {
-		if (QString(genre[i]) == str) {
+		if (QString(s_genre[i]) == str) {
 			return getNumber(i);
 		}
 	}

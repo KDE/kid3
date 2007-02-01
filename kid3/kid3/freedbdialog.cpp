@@ -46,7 +46,7 @@ static const ImportSourceDialog::Properties props = {
  * @param parent  parent widget
  * @param trackDataVector track data to be filled with imported values
  */
-FreedbDialog::FreedbDialog(QWidget *parent,
+FreedbDialog::FreedbDialog(QWidget* parent,
 													 ImportTrackDataVector& trackDataVector)
 	: ImportSourceDialog(parent, "freedb.org", trackDataVector,
 											 new FreedbClient, props)
@@ -176,7 +176,7 @@ static void parseFreedbTrackDurations(
  * @param text text buffer containing data from freedb.org
  * @param st   standard tag to put result
  */
-static void parseFreedbAlbumData(const QString &text,
+static void parseFreedbAlbumData(const QString& text,
 																 StandardTags& st)
 {
 	QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");

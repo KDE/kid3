@@ -23,7 +23,7 @@ public:
 	 *
 	 * @param grp configuration group
 	 */
-	DiscogsConfig(const QString &grp);
+	DiscogsConfig(const QString& grp);
 
 	/**
 	 * Destructor.

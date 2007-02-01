@@ -24,7 +24,7 @@ public:
 	 * @param parent  parent widget
 	 * @param trackDataVector track data to be filled with imported values
 	 */
-	DiscogsDialog(QWidget *parent,
+	DiscogsDialog(QWidget* parent,
 								ImportTrackDataVector& trackDataVector);
 
 	/**

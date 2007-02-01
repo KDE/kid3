@@ -29,16 +29,16 @@
  * @param parent parent widget
  * @param name   internal name or 0
  */
-LabeledTextEdit::LabeledTextEdit(QWidget *parent, const char *name) :
+LabeledTextEdit::LabeledTextEdit(QWidget* parent, const char* name) :
     QWidget(parent, name)
 {
-	layout = new QVBoxLayout(this);
-	label = new QLabel(this);
-	edit = new QTextEdit(this);
-	if (layout && label && edit) {
-		edit->setTextFormat(Qt::PlainText);
-		layout->addWidget(label);
-		layout->addWidget(edit);
+	m_layout = new QVBoxLayout(this);
+	m_label = new QLabel(this);
+	m_edit = new QTextEdit(this);
+	if (m_layout && m_label && m_edit) {
+		m_edit->setTextFormat(Qt::PlainText);
+		m_layout->addWidget(m_label);
+		m_layout->addWidget(m_edit);
 	}
 }
 
@@ -48,15 +48,15 @@ LabeledTextEdit::LabeledTextEdit(QWidget *parent, const char *name) :
  * @param parent parent widget
  * @param name   internal name or 0
  */
-LabeledLineEdit::LabeledLineEdit(QWidget *parent, const char *name) :
+LabeledLineEdit::LabeledLineEdit(QWidget* parent, const char* name) :
     QWidget(parent, name)
 {
-	layout = new QVBoxLayout(this);
-	label = new QLabel(this);
-	edit = new QLineEdit(this);
-	if (layout && label && edit) {
-		layout->addWidget(label);
-		layout->addWidget(edit);
+	m_layout = new QVBoxLayout(this);
+	m_label = new QLabel(this);
+	m_edit = new QLineEdit(this);
+	if (m_layout && m_label && m_edit) {
+		m_layout->addWidget(m_label);
+		m_layout->addWidget(m_edit);
 	}
 }
 
@@ -67,18 +67,18 @@ LabeledLineEdit::LabeledLineEdit(QWidget *parent, const char *name) :
  * @param name   internal name or 0
  * @param strlst list with ComboBox items, terminated by NULL
  */
-LabeledComboBox::LabeledComboBox(QWidget *parent, const char *name,
+LabeledComboBox::LabeledComboBox(QWidget* parent, const char* name,
 				 const char **strlst) : QWidget(parent, name)
 {
-	layout = new QVBoxLayout(this);
-	label = new QLabel(this);
-	combo = new QComboBox(this);
-	if (layout && label && combo) {
+	m_layout = new QVBoxLayout(this);
+	m_label = new QLabel(this);
+	m_combo = new QComboBox(this);
+	if (m_layout && m_label && m_combo) {
 		while (*strlst) {
-			combo->insertItem(i18n(*strlst++));
+			m_combo->insertItem(i18n(*strlst++));
 		}
-		layout->addWidget(label);
-		layout->addWidget(combo);
+		m_layout->addWidget(m_label);
+		m_layout->addWidget(m_combo);
 	}
 }
 
@@ -88,15 +88,15 @@ LabeledComboBox::LabeledComboBox(QWidget *parent, const char *name,
  * @param parent parent widget
  * @param name   internal name or 0
  */
-LabeledSpinBox::LabeledSpinBox(QWidget *parent, const char *name) :
+LabeledSpinBox::LabeledSpinBox(QWidget* parent, const char* name) :
     QWidget(parent, name)
 {
-	layout = new QVBoxLayout(this);
-	label = new QLabel(this);
-	spinbox = new QSpinBox(this);
-	if (layout && label && spinbox) {
-		layout->addWidget(label);
-		layout->addWidget(spinbox);
+	m_layout = new QVBoxLayout(this);
+	m_label = new QLabel(this);
+	m_spinbox = new QSpinBox(this);
+	if (m_layout && m_label && m_spinbox) {
+		m_layout->addWidget(m_label);
+		m_layout->addWidget(m_spinbox);
 	}
 }
 
@@ -107,25 +107,25 @@ LabeledSpinBox::LabeledSpinBox(QWidget *parent, const char *name) :
  * @param name   internal name or 0
  * @param img    image to display in window
  */
-ImageViewer::ImageViewer(QWidget *parent, const char *name, QImage *img) :
-    QDialog(parent, name, true), image(img)
+ImageViewer::ImageViewer(QWidget* parent, const char* name, QImage* img) :
+    QDialog(parent, name, true), m_image(img)
 {
-	setFixedSize(image->width(), image->height());
+	setFixedSize(m_image->width(), m_image->height());
 	setCaption(i18n("View Picture"));
 }
 
 /**
  * Paint image, called when window has to be drawn.
  */
-void ImageViewer::paintEvent(QPaintEvent *)
+void ImageViewer::paintEvent(QPaintEvent*)
 {
 	QPainter paint(this);
-	paint.drawImage(0, 0, *image, 0, 0, image->width(), image->height());
+	paint.drawImage(0, 0, *m_image, 0, 0, m_image->width(), m_image->height());
 }
 
 
 /** List box to select frame */
-Q3ListBox* FrameList::listbox = 0;
+Q3ListBox* FrameList::s_listbox = 0;
 
 /**
  * Constructor.
@@ -142,7 +142,7 @@ FrameList::~FrameList() {}
  */
 void FrameList::clear()
 {
-	listbox->clear();
+	s_listbox->clear();
 	m_file = 0;
 }
 

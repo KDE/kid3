@@ -79,7 +79,7 @@ public:
 	 *
 	 * @return true if ok, false if the file could not be written or renamed.
 	 */
-	virtual bool writeTags(bool force, bool *renamed, bool preserve) = 0;
+	virtual bool writeTags(bool force, bool* renamed, bool preserve) = 0;
 
 	/**
 	 * Get ID3v1 title.
@@ -420,14 +420,14 @@ public:
 	 *
 	 * @param st tags to put result
 	 */
-	void getStandardTagsV1(StandardTags *st);
+	void getStandardTagsV1(StandardTags* st);
 
 	/**
 	 * Get ID3v2 tags from file.
 	 *
 	 * @param st tags to put result
 	 */
-	void getStandardTagsV2(StandardTags *st);
+	void getStandardTagsV2(StandardTags* st);
 
 	/**
 	 * Set ID3v1 tags.
@@ -435,7 +435,7 @@ public:
 	 * @param st tags to set
 	 * @param flt filter specifying which fields to set
 	 */
-	void setStandardTagsV1(const StandardTags *st,
+	void setStandardTagsV1(const StandardTags* st,
 												 const StandardTagsFilter& flt);
 	/**
 	 * Set ID3v2 tags.
@@ -443,7 +443,7 @@ public:
 	 * @param st tags to set
 	 * @param flt filter specifying which fields to set
 	 */
-	void setStandardTagsV2(const StandardTags *st,
+	void setStandardTagsV2(const StandardTags* st,
 												 const StandardTagsFilter& flt);
 	/**
 	 * Get tags from filename.
@@ -459,7 +459,7 @@ public:
 	 *            %y year
 	 *            %t track
 	 */
-	void getTagsFromFilename(StandardTags *st, QString fmt);
+	void getTagsFromFilename(StandardTags* st, QString fmt);
 
 	/**
 	 * Create string with tags according to format string.
@@ -477,7 +477,7 @@ public:
 	 *
 	 * @return format string with format codes replaced by tags.
 	 */
-	QString formatWithTags(const StandardTags *st, QString fmt,
+	QString formatWithTags(const StandardTags* st, QString fmt,
 	                       bool isDirname = false) const;
 
 	/**
@@ -493,7 +493,7 @@ public:
 	 *            %t track
 	 *            %g genre
 	 */
-	void getFilenameFromTags(const StandardTags *st, QString fmt);
+	void getFilenameFromTags(const StandardTags* st, QString fmt);
 
 	/**
 	 * Check if file is changed.

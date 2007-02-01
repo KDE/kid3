@@ -33,7 +33,7 @@ public:
 	* @param caption window title
 	* @param text    text to edit
 	*/
-	EditOggFrameDialog(QWidget *parent, const QString& caption,
+	EditOggFrameDialog(QWidget* parent, const QString& caption,
 									const QString& text);
 
 	/**
@@ -83,7 +83,7 @@ EditOggFrameDialog::EditOggFrameDialog(QWidget* parent, const QString& caption,
 		}
 	}
 	QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
-	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 					   QSizePolicy::Minimum);
 	m_okButton = new QPushButton(i18n("&OK"), this);
 	m_cancelButton = new QPushButton(i18n("&Cancel"), this);
@@ -129,12 +129,12 @@ OggFrameList::~OggFrameList()
  */
 void OggFrameList::readTags()
 {
-	listbox->clear();
+	s_listbox->clear();
 	if (m_tags) {
 		for (OggFile::CommentList::const_iterator it = m_tags->begin();
 				 it != m_tags->end();
 				 ++it) {
-			listbox->insertItem((*it).getName());
+			s_listbox->insertItem((*it).getName());
 		}
 	}
 }
@@ -166,7 +166,7 @@ void OggFrameList::setTags(TaggedFile* taggedFile)
  */
 bool OggFrameList::editFrame(OggFile::CommentField& frame)
 {
-	EditOggFrameDialog *dialog =
+	EditOggFrameDialog* dialog =
 		new EditOggFrameDialog(NULL, frame.getName(), frame.getValue());
 	if (dialog && dialog->exec() == QDialog::Accepted) {
 		frame.setValue(dialog->getText());
@@ -186,7 +186,7 @@ bool OggFrameList::editFrame(OggFile::CommentField& frame)
  */
 bool OggFrameList::editFrame()
 {
-	int selectedIndex = listbox->currentItem();
+	int selectedIndex = s_listbox->currentItem();
 	if (selectedIndex != -1 && m_tags) {
 		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
 		return editFrame(*it);
@@ -201,16 +201,16 @@ bool OggFrameList::editFrame()
  */
 bool OggFrameList::deleteFrame()
 {
-	int selectedIndex = listbox->currentItem();
+	int selectedIndex = s_listbox->currentItem();
 	if (selectedIndex != -1 && m_tags) {
 		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
 		m_tags->erase(it);
 		readTags(); // refresh listbox
 		// select the next item (or the last if it was the last)
 		if (selectedIndex >= 0) {
-			const int lastIndex = listbox->count() - 1;
+			const int lastIndex = s_listbox->count() - 1;
 			if (lastIndex >= 0) {
-				listbox->setSelected(
+				s_listbox->setSelected(
 					selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
 			}
 		}
@@ -241,9 +241,9 @@ bool OggFrameList::addFrame(int frameId, bool edit)
 		}
 		m_tags->push_back(frame);
 		readTags(); // refresh listbox
-		const int lastIndex = listbox->count() - 1;
+		const int lastIndex = s_listbox->count() - 1;
 		if (lastIndex >= 0) {
-			listbox->setSelected(lastIndex, true);
+			s_listbox->setSelected(lastIndex, true);
 		}
 		if (m_file) {
 			m_file->markTag2Changed();
@@ -335,7 +335,7 @@ int OggFrameList::selectFrameId()
  * @return true if frame copied.
  */
 bool OggFrameList::copyFrame() {
-	int selectedIndex = listbox->currentItem();
+	int selectedIndex = s_listbox->currentItem();
 	if (selectedIndex != -1 && m_tags) {
 		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
 		if (it != m_tags->end()) {

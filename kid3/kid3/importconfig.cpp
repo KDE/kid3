@@ -20,9 +20,9 @@
  *
  * @param grp configuration group
  */
-ImportConfig::ImportConfig(const QString &grp) :
-	GeneralConfig(grp), importDestV1(true), importFormatIdx(0),
-	enableTimeDifferenceCheck(true), maxTimeDifference(3),
+ImportConfig::ImportConfig(const QString& grp) :
+	GeneralConfig(grp), m_importDestV1(true), m_importFormatIdx(0),
+	m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
 	m_exportSrcV1(true), m_exportFormatIdx(0),
 	m_exportWindowWidth(-1), m_exportWindowHeight(-1)
 {
@@ -37,38 +37,38 @@ ImportConfig::ImportConfig(const QString &grp) :
 	 * %t track
 	 * %g genre
 	 */
-	importFormatNames.append("CSV unquoted");
-	importFormatHeaders.append("");
-	importFormatTracks.append("%t(\\d+)\\t%s([^\\r\\n\\t]*)\\t%a([^\\r\\n\\t]*)\\t%l([^\\r\\n\\t]*)\\t%y(\\d+)\\t%g([^\\r\\n\\t]*)\\t%c([^\\r\\n\\t]*)\\t(?:\\d+:)?%d(\\d+:\\d+)");
+	m_importFormatNames.append("CSV unquoted");
+	m_importFormatHeaders.append("");
+	m_importFormatTracks.append("%t(\\d+)\\t%s([^\\r\\n\\t]*)\\t%a([^\\r\\n\\t]*)\\t%l([^\\r\\n\\t]*)\\t%y(\\d+)\\t%g([^\\r\\n\\t]*)\\t%c([^\\r\\n\\t]*)\\t(?:\\d+:)?%d(\\d+:\\d+)");
 
-	importFormatNames.append("CSV quoted");
-	importFormatHeaders.append("");
-	importFormatTracks.append("\"?%t(\\d+)\"?\\t\"?%s([^\\r\\n\\t\"]*)\"?\\t\"?%a([^\\r\\n\\t\"]*)\"?\\t\"?%l([^\\r\\n\\t\"]*)\"?\\t\"?%y(\\d+)\"?\\t\"?%g([^\\r\\n\\t\"]*)\"?\\t\"?%c([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%d(\\d+:\\d+)");
-//	importFormatTracks.append("\"%t(\\d+)\"\\t\"%s([^\\r\\n]*)\"\\t\"%a([^\\r\\n]*)\"\\t\"%l([^\\r\\n]*)\"\\t\"%y(\\d+)\"\\t\"%g([^\\r\\n]*)\"\\t\"%c([^\\r\\n]*)\"\\t\"%d(\\d+:\\d+)\\.00\"");
+	m_importFormatNames.append("CSV quoted");
+	m_importFormatHeaders.append("");
+	m_importFormatTracks.append("\"?%t(\\d+)\"?\\t\"?%s([^\\r\\n\\t\"]*)\"?\\t\"?%a([^\\r\\n\\t\"]*)\"?\\t\"?%l([^\\r\\n\\t\"]*)\"?\\t\"?%y(\\d+)\"?\\t\"?%g([^\\r\\n\\t\"]*)\"?\\t\"?%c([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%d(\\d+:\\d+)");
+//	m_importFormatTracks.append("\"%t(\\d+)\"\\t\"%s([^\\r\\n]*)\"\\t\"%a([^\\r\\n]*)\"\\t\"%l([^\\r\\n]*)\"\\t\"%y(\\d+)\"\\t\"%g([^\\r\\n]*)\"\\t\"%c([^\\r\\n]*)\"\\t\"%d(\\d+:\\d+)\\.00\"");
 
-	importFormatNames.append("freedb HTML text");
-	importFormatHeaders.append("%a(\\S[^\\r\\n/]*\\S)\\s*/\\s*%l(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%y(\\d+)?.*genre:\\s*%g(\\S[^\\r\\n]*\\S)?[\\r\\n]");
-	importFormatTracks.append("[\\r\\n]%t(\\d+)[\\.\\s]+%d(\\d+:\\d+)\\s+%s(\\S[^\\r\\n]*\\S)");
+	m_importFormatNames.append("freedb HTML text");
+	m_importFormatHeaders.append("%a(\\S[^\\r\\n/]*\\S)\\s*/\\s*%l(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%y(\\d+)?.*genre:\\s*%g(\\S[^\\r\\n]*\\S)?[\\r\\n]");
+	m_importFormatTracks.append("[\\r\\n]%t(\\d+)[\\.\\s]+%d(\\d+:\\d+)\\s+%s(\\S[^\\r\\n]*\\S)");
 
-	importFormatNames.append("freedb HTML source");
-	importFormatHeaders.append("<[^>]+>%a([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%l(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%y(\\d+)?.*genre:\\s*%g(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]");
-	importFormatTracks.append("<td[^>]*>\\s*%t(\\d+).</td><td[^>]*>\\s*%d(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%s([^<\\r\\n]+)");
+	m_importFormatNames.append("freedb HTML source");
+	m_importFormatHeaders.append("<[^>]+>%a([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%l(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%y(\\d+)?.*genre:\\s*%g(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]");
+	m_importFormatTracks.append("<td[^>]*>\\s*%t(\\d+).</td><td[^>]*>\\s*%d(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%s([^<\\r\\n]+)");
 
-	importFormatNames.append("Title");
-	importFormatHeaders.append("");
-	importFormatTracks.append("\\s*%s(\\S[^\\r\\n]*\\S)\\s*");
+	m_importFormatNames.append("Title");
+	m_importFormatHeaders.append("");
+	m_importFormatTracks.append("\\s*%s(\\S[^\\r\\n]*\\S)\\s*");
 
-	importFormatNames.append("Track Title");
-	importFormatHeaders.append("");
-	importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s*");
+	m_importFormatNames.append("Track Title");
+	m_importFormatHeaders.append("");
+	m_importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s*");
 
-	importFormatNames.append("Track Title Time");
-	importFormatHeaders.append("");
-	importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s+%d(\\d+:\\d+)\\s*");
+	m_importFormatNames.append("Track Title Time");
+	m_importFormatHeaders.append("");
+	m_importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s+%d(\\d+:\\d+)\\s*");
 
-	importFormatNames.append("Custom Format");
-	importFormatHeaders.append("");
-	importFormatTracks.append("");
+	m_importFormatNames.append("Custom Format");
+	m_importFormatHeaders.append("");
+	m_importFormatTracks.append("");
 
 	m_exportFormatNames.append("CSV unquoted");
 	m_exportFormatHeaders.append("");
@@ -118,21 +118,21 @@ ImportConfig::~ImportConfig() {}
  */
 void ImportConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
-	KConfig *config
+	KConfig* config
 #else
-	Kid3Settings *config
+	Kid3Settings* config
 #endif
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(group);
-	config->writeEntry("ImportDestinationV1", importDestV1);
-	config->writeEntry("ImportFormatNames", importFormatNames);
-	config->writeEntry("ImportFormatHeaders", importFormatHeaders);
-	config->writeEntry("ImportFormatTracks", importFormatTracks);
-	config->writeEntry("ImportFormatIdx", importFormatIdx);
-	config->writeEntry("EnableTimeDifferenceCheck", enableTimeDifferenceCheck);
-	config->writeEntry("MaxTimeDifference", maxTimeDifference);
+	config->setGroup(m_group);
+	config->writeEntry("ImportDestinationV1", m_importDestV1);
+	config->writeEntry("ImportFormatNames", m_importFormatNames);
+	config->writeEntry("ImportFormatHeaders", m_importFormatHeaders);
+	config->writeEntry("ImportFormatTracks", m_importFormatTracks);
+	config->writeEntry("ImportFormatIdx", m_importFormatIdx);
+	config->writeEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	config->writeEntry("MaxTimeDifference", m_maxTimeDifference);
 
 	config->writeEntry("ExportSourceV1", m_exportSrcV1);
 	config->writeEntry("ExportFormatNames", m_exportFormatNames);
@@ -143,14 +143,14 @@ void ImportConfig::writeToConfig(
 	config->writeEntry("ExportWindowWidth", m_exportWindowWidth);
 	config->writeEntry("ExportWindowHeight", m_exportWindowHeight);
 #else
-	config->beginGroup("/" + group);
-	config->writeEntry("/ImportDestinationV1", importDestV1);
-	config->writeEntry("/ImportFormatNames", importFormatNames);
-	config->writeEntry("/ImportFormatHeaders", importFormatHeaders);
-	config->writeEntry("/ImportFormatTracks", importFormatTracks);
-	config->writeEntry("/ImportFormatIdx", importFormatIdx);
-	config->writeEntry("/EnableTimeDifferenceCheck", enableTimeDifferenceCheck);
-	config->writeEntry("/MaxTimeDifference", maxTimeDifference);
+	config->beginGroup("/" + m_group);
+	config->writeEntry("/ImportDestinationV1", m_importDestV1);
+	config->writeEntry("/ImportFormatNames", m_importFormatNames);
+	config->writeEntry("/ImportFormatHeaders", m_importFormatHeaders);
+	config->writeEntry("/ImportFormatTracks", m_importFormatTracks);
+	config->writeEntry("/ImportFormatIdx", m_importFormatIdx);
+	config->writeEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	config->writeEntry("/MaxTimeDifference", m_maxTimeDifference);
 
 	config->writeEntry("/ExportSourceV1", m_exportSrcV1);
 	config->writeEntry("/ExportFormatNames", m_exportFormatNames);
@@ -172,23 +172,23 @@ void ImportConfig::writeToConfig(
  */
 void ImportConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
-	KConfig *config
+	KConfig* config
 #else
-	Kid3Settings *config
+	Kid3Settings* config
 #endif
 	)
 {
 	QStringList names, headers, tracks;
 	QStringList expNames, expHeaders, expTracks, expTrailers;
 #ifdef CONFIG_USE_KDE
-	config->setGroup(group);
-	importDestV1 = config->readBoolEntry("ImportDestinationV1", importDestV1);
+	config->setGroup(m_group);
+	m_importDestV1 = config->readBoolEntry("ImportDestinationV1", m_importDestV1);
 	names = config->readListEntry("ImportFormatNames");
 	headers = config->readListEntry("ImportFormatHeaders");
 	tracks = config->readListEntry("ImportFormatTracks");
-	importFormatIdx = config->readNumEntry("ImportFormatIdx", importFormatIdx);
-	enableTimeDifferenceCheck = config->readBoolEntry("EnableTimeDifferenceCheck", enableTimeDifferenceCheck);
-	maxTimeDifference = config->readNumEntry("MaxTimeDifference", maxTimeDifference);
+	m_importFormatIdx = config->readNumEntry("ImportFormatIdx", m_importFormatIdx);
+	m_enableTimeDifferenceCheck = config->readBoolEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	m_maxTimeDifference = config->readNumEntry("MaxTimeDifference", m_maxTimeDifference);
 
 	m_exportSrcV1 = config->readBoolEntry("ExportSourceV1", m_exportSrcV1);
 	expNames = config->readListEntry("ExportFormatNames");
@@ -199,14 +199,14 @@ void ImportConfig::readFromConfig(
 	m_exportWindowWidth = config->readNumEntry("ExportWindowWidth", -1);
 	m_exportWindowHeight = config->readNumEntry("ExportWindowHeight", -1);
 #else
-	config->beginGroup("/" + group);
-	importDestV1 = config->readBoolEntry("/ImportDestinationV1", importDestV1);
+	config->beginGroup("/" + m_group);
+	m_importDestV1 = config->readBoolEntry("/ImportDestinationV1", m_importDestV1);
 	names = config->readListEntry("/ImportFormatNames");
 	headers = config->readListEntry("/ImportFormatHeaders");
 	tracks = config->readListEntry("/ImportFormatTracks");
-	importFormatIdx = config->readNumEntry("/ImportFormatIdx", importFormatIdx);
-	enableTimeDifferenceCheck = config->readBoolEntry("/EnableTimeDifferenceCheck", enableTimeDifferenceCheck);
-	maxTimeDifference = config->readNumEntry("/MaxTimeDifference", maxTimeDifference);
+	m_importFormatIdx = config->readNumEntry("/ImportFormatIdx", m_importFormatIdx);
+	m_enableTimeDifferenceCheck = config->readBoolEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	m_maxTimeDifference = config->readNumEntry("/MaxTimeDifference", m_maxTimeDifference);
 
 	m_exportSrcV1 = config->readBoolEntry("/ExportSourceV1", m_exportSrcV1);
 	expNames = config->readListEntry("/ExportFormatNames");
@@ -226,14 +226,14 @@ void ImportConfig::readFromConfig(
 			 namesIt != names.end() && headersIt != headers.end() &&
 				 tracksIt != tracks.end();
 			 ++namesIt, ++headersIt, ++tracksIt) {
-		int idx = importFormatNames.findIndex(*namesIt);
+		int idx = m_importFormatNames.findIndex(*namesIt);
 		if (idx >= 0) {
-			importFormatHeaders[idx] = *headersIt;
-			importFormatTracks[idx] = *tracksIt;
+			m_importFormatHeaders[idx] = *headersIt;
+			m_importFormatTracks[idx] = *tracksIt;
 		} else {
-			importFormatNames.append(*namesIt);
-			importFormatHeaders.append(*headersIt);
-			importFormatTracks.append(*tracksIt);
+			m_importFormatNames.append(*namesIt);
+			m_importFormatHeaders.append(*headersIt);
+			m_importFormatTracks.append(*tracksIt);
 		}
 	}
 

@@ -17,10 +17,12 @@
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
 
+/** TagLib version in with 8 bits for major, minor and patch version. */
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
 												((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION))
 
 #if (TAGLIB_VERSION <= 0x010400)
+/** Defined if TagLib::Ogg::XiphComment::removeField() crashes */
 #define TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
 //#else
 //#define TAGLIB_SUPPORTS_GEOB_FRAMES
@@ -64,7 +66,7 @@ public:
 	 *
 	 * @return true if ok, false if the file could not be written or renamed.
 	 */
-	virtual bool writeTags(bool force, bool *renamed, bool preserve);
+	virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
 	/**
 	 * Remove all ID3v1 tags.

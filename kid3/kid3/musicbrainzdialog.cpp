@@ -52,7 +52,7 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 	QLabel* serverLabel = new QLabel(i18n("&Server:"), this);
 	m_serverComboBox = new QComboBox(true, this);
 	if (serverLayout && serverLabel && m_serverComboBox) {
-		static const char *serverList[] = {
+		static const char* serverList[] = {
 			"musicbrainz.org:80",
 			"de.musicbrainz.org:80",
 			"nl.musicbrainz.org:80",
@@ -89,8 +89,8 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 		vlayout->addWidget(m_albumTable);
 	}
 
-	QHBoxLayout *hlayout = new QHBoxLayout(vlayout);
-	QSpacerItem *hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+	QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
+	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
 	QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);

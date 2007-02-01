@@ -20,14 +20,14 @@
 /**
  * Constructor.
  */
-FormatConfig::FormatConfig(const QString &grp) :
+FormatConfig::FormatConfig(const QString& grp) :
 	GeneralConfig(grp),
 	m_formatWhileEditing(false),
-	caseConversion(AllFirstLettersUppercase),
-	strRepEnabled(false),
-	filenameFormatter(false)
+	m_caseConversion(AllFirstLettersUppercase),
+	m_strRepEnabled(false),
+	m_filenameFormatter(false)
 {
-	strRepMap.clear();
+	m_strRepMap.clear();
 }
 
 /**
@@ -42,20 +42,20 @@ FormatConfig::~FormatConfig() {}
  */
 void FormatConfig::setAsFilenameFormatter()
 {
-	filenameFormatter = true;
-	strRepEnabled = true;
-	strRepMap["/"] = "-";
-	strRepMap[":"] = "-";
-	strRepMap["."] = "";
-	strRepMap["?"] = "";
-	strRepMap["*"] = "";
-	strRepMap["ä"] = "ae";
-	strRepMap["ö"] = "oe";
-	strRepMap["ü"] = "ue";
-	strRepMap["Ä"] = "Ae";
-	strRepMap["Ö"] = "Oe";
-	strRepMap["Ü"] = "Ue";
-	strRepMap["ß"] = "ss";
+	m_filenameFormatter = true;
+	m_strRepEnabled = true;
+	m_strRepMap["/"] = "-";
+	m_strRepMap[":"] = "-";
+	m_strRepMap["."] = "";
+	m_strRepMap["?"] = "";
+	m_strRepMap["*"] = "";
+	m_strRepMap["ä"] = "ae";
+	m_strRepMap["ö"] = "oe";
+	m_strRepMap["ü"] = "ue";
+	m_strRepMap["Ä"] = "Ae";
+	m_strRepMap["Ö"] = "Oe";
+	m_strRepMap["Ü"] = "Ue";
+	m_strRepMap["ß"] = "ss";
 }
 
 /**
@@ -67,7 +67,7 @@ void FormatConfig::formatString(QString& str) const
 {
 	QString ext;
 	int dotPos = -1;
-	if (filenameFormatter) {
+	if (m_filenameFormatter) {
 		/* Do not format the extension if it is a filename */
 		dotPos = str.findRev('.');
 		if (dotPos != -1) {
@@ -75,8 +75,8 @@ void FormatConfig::formatString(QString& str) const
 			str = str.left(dotPos);
 		}
 	}
-	if (caseConversion != NoChanges) {
-		switch (caseConversion) {
+	if (m_caseConversion != NoChanges) {
+		switch (m_caseConversion) {
 			case AllLowercase:
 				str = str.lower();
 				break;
@@ -109,9 +109,9 @@ void FormatConfig::formatString(QString& str) const
 				;
 		}
 	}
-	if (strRepEnabled) {
+	if (m_strRepEnabled) {
 		QMap<QString, QString>::ConstIterator it;
-		for (it = strRepMap.begin(); it != strRepMap.end(); ++it) {
+		for (it = m_strRepMap.begin(); it != m_strRepMap.end(); ++it) {
 #if QT_VERSION >= 0x030100
 			str.replace(it.key(), it.data());
 #else
@@ -153,26 +153,26 @@ void FormatConfig::formatStandardTags(StandardTags& st) const
  */
 void FormatConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
-	KConfig *config
+	KConfig* config
 #else
-	Kid3Settings *config
+	Kid3Settings* config
 #endif
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(group);
+	config->setGroup(m_group);
 	config->writeEntry("FormatWhileEditing", m_formatWhileEditing);
-	config->writeEntry("CaseConversion", caseConversion);
-	config->writeEntry("StrRepEnabled", strRepEnabled);
-	config->writeEntry("StrRepMapKeys", strRepMap.keys());
-	config->writeEntry("StrRepMapValues", strRepMap.values());
+	config->writeEntry("CaseConversion", m_caseConversion);
+	config->writeEntry("StrRepEnabled", m_strRepEnabled);
+	config->writeEntry("StrRepMapKeys", m_strRepMap.keys());
+	config->writeEntry("StrRepMapValues", m_strRepMap.values());
 #else
-	config->beginGroup("/" + group);
+	config->beginGroup("/" + m_group);
 	config->writeEntry("/FormatWhileEditing", m_formatWhileEditing);
-	config->writeEntry("/CaseConversion", caseConversion);
-	config->writeEntry("/StrRepEnabled", strRepEnabled);
-	config->writeEntry("/StrRepMapKeys", strRepMap.keys());
-	config->writeEntry("/StrRepMapValues", strRepMap.values());
+	config->writeEntry("/CaseConversion", m_caseConversion);
+	config->writeEntry("/StrRepEnabled", m_strRepEnabled);
+	config->writeEntry("/StrRepMapKeys", m_strRepMap.keys());
+	config->writeEntry("/StrRepMapValues", m_strRepMap.values());
 	config->endGroup();
 #endif
 }
@@ -184,44 +184,44 @@ void FormatConfig::writeToConfig(
  */
 void FormatConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
-	KConfig *config
+	KConfig* config
 #else
-	Kid3Settings *config
+	Kid3Settings* config
 #endif
 	)
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(group);
+	config->setGroup(m_group);
 	m_formatWhileEditing = config->readBoolEntry("FormatWhileEditing", m_formatWhileEditing);
-	caseConversion = (CaseConversion)config->readNumEntry("CaseConversion",
-														  (int)caseConversion);
-	strRepEnabled = config->readBoolEntry("StrRepEnabled", strRepEnabled);
+	m_caseConversion = (CaseConversion)config->readNumEntry("CaseConversion",
+														  (int)m_caseConversion);
+	m_strRepEnabled = config->readBoolEntry("StrRepEnabled", m_strRepEnabled);
 	QStringList keys = config->readListEntry("StrRepMapKeys");
 	QStringList values = config->readListEntry("StrRepMapValues");
 	if (!keys.empty() && !values.empty()) {
 		QStringList::Iterator itk, itv;
-		strRepMap.clear();
+		m_strRepMap.clear();
 		for (itk = keys.begin(), itv = values.begin();
 			 itk != keys.end() && itv != values.end();
 			 ++itk, ++itv) {
-			strRepMap[*itk] = *itv;
+			m_strRepMap[*itk] = *itv;
 		}
 	}
 #else
-	config->beginGroup("/" + group);
+	config->beginGroup("/" + m_group);
 	m_formatWhileEditing = config->readBoolEntry("/FormatWhileEditing", m_formatWhileEditing);
-	caseConversion = (CaseConversion)config->readNumEntry("/CaseConversion",
-														  (int)caseConversion);
-	strRepEnabled = config->readBoolEntry("/StrRepEnabled", strRepEnabled);
+	m_caseConversion = (CaseConversion)config->readNumEntry("/CaseConversion",
+														  (int)m_caseConversion);
+	m_strRepEnabled = config->readBoolEntry("/StrRepEnabled", m_strRepEnabled);
 	QStringList keys = config->readListEntry("/StrRepMapKeys");
 	QStringList values = config->readListEntry("/StrRepMapValues");
 	if (!keys.empty() && !values.empty()) {
 		QStringList::Iterator itk, itv;
-		strRepMap.clear();
+		m_strRepMap.clear();
 		for (itk = keys.begin(), itv = values.begin();
 			 itk != keys.end() && itv != values.end();
 			 ++itk, ++itv) {
-			strRepMap[*itk] = *itv;
+			m_strRepMap[*itk] = *itv;
 		}
 	}
 	config->endGroup();

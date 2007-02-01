@@ -22,15 +22,15 @@
 
 /** Default name filter */
 #ifdef HAVE_VORBIS
-const char* const MiscConfig::defaultNameFilter =
+const char* const MiscConfig::s_defaultNameFilter =
 	"*.mp3 *.MP3 *.Mp3 *.mP3 "
 	"*.ogg *.ogG *.oGg *.oGG *.Ogg *.OgG *.OGg *.OGG";
 #else
-const char* const MiscConfig::defaultNameFilter = "*.mp3 *.MP3 *.Mp3 *.mP3";
+const char* const MiscConfig::s_defaultNameFilter = "*.mp3 *.MP3 *.Mp3 *.mP3";
 #endif
 
 /** Default value for comment name */
-const char* const MiscConfig::defaultCommentName = "COMMENT";
+const char* const MiscConfig::s_defaultCommentName = "COMMENT";
 
 /** Default filename format list */
 static const char* fnFmt[] = {
@@ -58,7 +58,7 @@ static const char* fnFmt[] = {
 };
 
 /** Default filename format list */
-const char** MiscConfig::defaultFnFmtList = &fnFmt[0];
+const char** MiscConfig::s_defaultFnFmtList = &fnFmt[0];
 
 /** Default directory format list */
 static const char* dirFmt[] = {
@@ -72,7 +72,7 @@ static const char* dirFmt[] = {
 };
 
 /** Default directory format list */
-const char** MiscConfig::defaultDirFmtList = &dirFmt[0];
+const char** MiscConfig::s_defaultDirFmtList = &dirFmt[0];
 
 
 /**
@@ -80,23 +80,23 @@ const char** MiscConfig::defaultDirFmtList = &dirFmt[0];
  *
  * @param group configuration group
  */
-MiscConfig::MiscConfig(const QString &group) :
+MiscConfig::MiscConfig(const QString& group) :
 	GeneralConfig(group),
 	m_enableTotalNumberOfTracks(false),
 	m_preserveTime(false),
-	m_commentName(defaultCommentName),
-	nameFilter(defaultNameFilter),
-	formatText(defaultFnFmtList[0]),
-	formatItem(0),
-	dirFormatText(defaultDirFmtList[0]),
-	dirFormatItem(0),
+	m_commentName(s_defaultCommentName),
+	m_nameFilter(s_defaultNameFilter),
+	m_formatText(s_defaultFnFmtList[0]),
+	m_formatItem(0),
+	m_dirFormatText(s_defaultDirFmtList[0]),
+	m_dirFormatItem(0),
 	m_renDirSrcV1(true),
 	m_hideV1(false),
 	m_hideV2(false),
 	m_id3v2Version(ID3v2_3_0),
 	m_useProxy(false)
 #ifndef CONFIG_USE_KDE
-	, windowWidth(-1), windowHeight(-1)
+	, m_windowWidth(-1), m_windowHeight(-1)
 #endif
 {
 }
@@ -114,25 +114,25 @@ MiscConfig::~MiscConfig() {}
  */
 void MiscConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
-	KConfig *config
+	KConfig* config
 #else
-	Kid3Settings *config
+	Kid3Settings* config
 #endif
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(group);
-	config->writeEntry("NameFilter2", nameFilter);
-	config->writeEntry("FormatItem", formatItem);
-	config->writeEntry("FormatText2", formatText);
-	config->writeEntry("DirFormatItem", dirFormatItem);
-	config->writeEntry("DirFormatText", dirFormatText);
+	config->setGroup(m_group);
+	config->writeEntry("NameFilter2", m_nameFilter);
+	config->writeEntry("FormatItem", m_formatItem);
+	config->writeEntry("FormatText2", m_formatText);
+	config->writeEntry("DirFormatItem", m_dirFormatItem);
+	config->writeEntry("DirFormatText", m_dirFormatText);
 	config->writeEntry("RenameDirectorySourceV1", m_renDirSrcV1);
 	config->writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("PreserveTime", m_preserveTime);
 	config->writeEntry("CommentName", m_commentName);
 	config->writeEntry("ContextMenuCommands", m_contextMenuCommands);
-	config->writeEntry("SplitterSizes", splitterSizes);
+	config->writeEntry("SplitterSizes", m_splitterSizes);
 	config->writeEntry("VSplitterSizes", m_vSplitterSizes);
 	config->writeEntry("CustomGenres", m_customGenres);
 	config->writeEntry("HideV1", m_hideV1);
@@ -141,12 +141,12 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("UseProxy", m_useProxy);
 	config->writeEntry("Proxy", m_proxy);
 #else
-	config->beginGroup("/" + group);
-	config->writeEntry("/NameFilter2", nameFilter);
-	config->writeEntry("/FormatItem", formatItem);
-	config->writeEntry("/FormatText2", formatText);
-	config->writeEntry("/DirFormatItem", dirFormatItem);
-	config->writeEntry("/DirFormatText", dirFormatText);
+	config->beginGroup("/" + m_group);
+	config->writeEntry("/NameFilter2", m_nameFilter);
+	config->writeEntry("/FormatItem", m_formatItem);
+	config->writeEntry("/FormatText2", m_formatText);
+	config->writeEntry("/DirFormatItem", m_dirFormatItem);
+	config->writeEntry("/DirFormatText", m_dirFormatText);
 	config->writeEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
 	config->writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("/PreserveTime", m_preserveTime);
@@ -155,8 +155,8 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/ContextMenuCommands", m_contextMenuCommands);
 	Q3ValueList<int>::const_iterator it;
 	int i;
-	for (it = splitterSizes.begin(), i = 0;
-		 it != splitterSizes.end();
+	for (it = m_splitterSizes.begin(), i = 0;
+		 it != m_splitterSizes.end();
 		 ++it, ++i) {
 		config->writeEntry("/SplitterSize" + QString::number(i), *it);
 	}
@@ -171,8 +171,8 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/ID3v2Version", m_id3v2Version);
 	config->writeEntry("/UseProxy", m_useProxy);
 	config->writeEntry("/Proxy", m_proxy);
-	config->writeEntry("/WindowWidth", windowWidth);
-	config->writeEntry("/WindowHeight", windowHeight);
+	config->writeEntry("/WindowWidth", m_windowWidth);
+	config->writeEntry("/WindowHeight", m_windowHeight);
 	config->endGroup();
 #endif
 }
@@ -185,34 +185,34 @@ void MiscConfig::writeToConfig(
  */
 void MiscConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
-	KConfig *config
+	KConfig* config
 #else
-	Kid3Settings *config
+	Kid3Settings* config
 #endif
 	)
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(group);
-	nameFilter =
-	    config->readEntry("NameFilter2", defaultNameFilter);
-	formatItem =
+	config->setGroup(m_group);
+	m_nameFilter =
+	    config->readEntry("NameFilter2", s_defaultNameFilter);
+	m_formatItem =
 	    config->readNumEntry("FormatItem", 0);
-	dirFormatItem =
+	m_dirFormatItem =
 	    config->readNumEntry("DirFormatItem", 0);
 	m_renDirSrcV1 = config->readBoolEntry("RenameDirectorySourceV1", m_renDirSrcV1);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("PreserveTime", m_preserveTime);
-	m_commentName = config->readEntry("CommentName", defaultCommentName);
+	m_commentName = config->readEntry("CommentName", s_defaultCommentName);
 	m_contextMenuCommands = config->readListEntry("ContextMenuCommands"
 #if KDE_VERSION >= 0x30200
 																								, QStringList("xmms")
 #endif
 		);
-	formatText =
-	    config->readEntry("FormatText2", defaultFnFmtList[0]);
-	dirFormatText =
-	    config->readEntry("DirFormatText", defaultDirFmtList[0]);
-	splitterSizes = config->readIntListEntry("SplitterSizes");
+	m_formatText =
+	    config->readEntry("FormatText2", s_defaultFnFmtList[0]);
+	m_dirFormatText =
+	    config->readEntry("DirFormatText", s_defaultDirFmtList[0]);
+	m_splitterSizes = config->readIntListEntry("SplitterSizes");
 	m_vSplitterSizes = config->readIntListEntry("VSplitterSizes");
 	m_customGenres = config->readListEntry("CustomGenres");
 	m_hideV1 = config->readBoolEntry("HideV1", m_hideV1);
@@ -221,31 +221,31 @@ void MiscConfig::readFromConfig(
 	m_useProxy = config->readBoolEntry("UseProxy", m_useProxy);
 	m_proxy = config->readEntry("Proxy", m_proxy);
 #else
-	config->beginGroup("/" + group);
-	nameFilter =
-	    config->readEntry("/NameFilter2", defaultNameFilter);
-	formatItem =
+	config->beginGroup("/" + m_group);
+	m_nameFilter =
+	    config->readEntry("/NameFilter2", s_defaultNameFilter);
+	m_formatItem =
 	    config->readNumEntry("/FormatItem", 0);
-	dirFormatItem =
+	m_dirFormatItem =
 	    config->readNumEntry("/DirFormatItem", 0);
 	m_renDirSrcV1 = config->readBoolEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("/PreserveTime", m_preserveTime);
-	m_commentName = config->readEntry("/CommentName", defaultCommentName);
+	m_commentName = config->readEntry("/CommentName", s_defaultCommentName);
 	bool ok;
 	m_contextMenuCommands = config->readListEntry("/ContextMenuCommands", &ok);
 	if (!ok) {
 		m_contextMenuCommands = QStringList("xmms");
 	}
-	formatText =
-	    config->readEntry("/FormatText2", defaultFnFmtList[0]);
-	dirFormatText =
-	    config->readEntry("/DirFormatText", defaultDirFmtList[0]);
-	splitterSizes.clear();
+	m_formatText =
+	    config->readEntry("/FormatText2", s_defaultFnFmtList[0]);
+	m_dirFormatText =
+	    config->readEntry("/DirFormatText", s_defaultDirFmtList[0]);
+	m_splitterSizes.clear();
 	for (int i = 0; i < 5; ++i) {
 		int val = config->readNumEntry("/SplitterSize" + QString::number(i), -1);
 		if (val != -1) {
-			splitterSizes.push_back(val);
+			m_splitterSizes.push_back(val);
 		} else {
 			break;
 		}
@@ -265,8 +265,8 @@ void MiscConfig::readFromConfig(
 	m_id3v2Version = config->readNumEntry("/ID3v2Version", ID3v2_3_0);
 	m_useProxy = config->readBoolEntry("/UseProxy", m_useProxy);
 	m_proxy = config->readEntry("/Proxy", m_proxy);
-	windowWidth = config->readNumEntry("/WindowWidth", -1);
-	windowHeight = config->readNumEntry("/WindowHeight", -1);
+	m_windowWidth = config->readNumEntry("/WindowWidth", -1);
+	m_windowHeight = config->readNumEntry("/WindowHeight", -1);
 	config->endGroup();
 #endif
 }

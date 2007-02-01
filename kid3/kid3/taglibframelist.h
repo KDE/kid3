@@ -91,7 +91,7 @@ class TagLibBinaryOpenSave : public QWidget {
 	 *
 	 * @param txt label
 	 */
-	void setLabel(const QString & txt) { m_label->setText(txt); }
+	void setLabel(const QString& txt) { m_label->setText(txt); }
 #endif // HAVE_TAGLIB
 
  public slots:
@@ -113,10 +113,6 @@ class TagLibBinaryOpenSave : public QWidget {
 
  private:
 #ifdef HAVE_TAGLIB
-	/** ID3 field containing binary data */
-/*
-	ID3_Field *field;
-*/
 	/** horizontal layout */
 	QHBoxLayout* m_layout;
 	/** Label left of buttons */
@@ -386,12 +382,13 @@ protected:
 	 */
 	bool makeTagSettable();
 
-	TagLib::Tag* m_tag;
-	QString m_selectedName;
+	TagLib::Tag* m_tag;            /**< tags of current file */
+	QString m_selectedName;        /**< the type of the frame to add */
+	/** List with controls to edit fields in frame */
 	Q3PtrList<FieldControl> m_fieldcontrols; 
-	TagLib::ByteVector m_copyData;
-	TagLib::String m_copyKey;
-	TagLib::String m_copyValue;
+	TagLib::ByteVector m_copyData; /**< data used by copyFrame(), pasteFrame */
+	TagLib::String m_copyKey;      /**< key used by copyFrame(), pasteFrame */
+	TagLib::String m_copyValue;    /**< value used by copyFrame(), pasteFrame */
 
 private:
 	TagLibFrameList(const TagLibFrameList&);

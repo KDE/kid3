@@ -29,7 +29,7 @@ public:
 
 	/**
 	 * Set directory name.
-	 * @param fn file name
+	 * @param dirname directory name
 	 */
 	void setDirname(const QString& dirname) { m_dirname = dirname; }
 

@@ -239,7 +239,7 @@ QString TaggedFile::getAbsFilename() const
  *
  * @param st tags to put result
  */
-void TaggedFile::getStandardTagsV1(StandardTags *st)
+void TaggedFile::getStandardTagsV1(StandardTags* st)
 {
 	st->title = getTitleV1();
 	st->artist = getArtistV1();
@@ -256,7 +256,7 @@ void TaggedFile::getStandardTagsV1(StandardTags *st)
  *
  * @param st tags to put result
  */
-void TaggedFile::getStandardTagsV2(StandardTags *st)
+void TaggedFile::getStandardTagsV2(StandardTags* st)
 {
 	st->title = getTitleV2();
 	st->artist = getArtistV2();
@@ -274,7 +274,7 @@ void TaggedFile::getStandardTagsV2(StandardTags *st)
  * @param st tags to set
  * @param flt filter specifying which fields to set
  */
-void TaggedFile::setStandardTagsV1(const StandardTags *st,
+void TaggedFile::setStandardTagsV1(const StandardTags* st,
 																	 const StandardTagsFilter& flt)
 {
 	StandardTags oldst;
@@ -308,7 +308,7 @@ void TaggedFile::setStandardTagsV1(const StandardTags *st,
  * @param st tags to set
  * @param flt filter specifying which fields to set
  */
-void TaggedFile::setStandardTagsV2(const StandardTags *st,
+void TaggedFile::setStandardTagsV2(const StandardTags* st,
 																	 const StandardTagsFilter& flt)
 {
 	StandardTags oldst;
@@ -379,7 +379,7 @@ static void remove_artist(QString& album)
  *            %y year
  *            %t track
  */
-void TaggedFile::getTagsFromFilename(StandardTags *st, QString fmt)
+void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 {
 	QRegExp re;
 	QString fn(getAbsFilename());
@@ -534,7 +534,7 @@ void TaggedFile::getTagsFromFilename(StandardTags *st, QString fmt)
  *
  * @return format string with format codes replaced by tags.
  */
-QString TaggedFile::formatWithTags(const StandardTags *st, QString fmt,
+QString TaggedFile::formatWithTags(const StandardTags* st, QString fmt,
 								   bool isDirname) const
 {
 	if (!isDirname) {
@@ -608,7 +608,7 @@ QString TaggedFile::formatWithTags(const StandardTags *st, QString fmt,
  *            %t track
  *            %g genre
  */
-void TaggedFile::getFilenameFromTags(const StandardTags *st, QString fmt)
+void TaggedFile::getFilenameFromTags(const StandardTags* st, QString fmt)
 {
 	m_newFilename = formatWithTags(st, fmt);
 }

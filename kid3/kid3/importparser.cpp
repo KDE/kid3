@@ -17,38 +17,38 @@
  * @param fmt format regexp
  * @param enableTrackIncr enable automatic track increment if no %t is found
  */
-void ImportParser::setFormat(const QString &fmt, bool enableTrackIncr)
+void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
 {
 	int percentIdx = 0, nr = 1, lastIdx = fmt.length() - 1;
-	pattern = fmt;
-	titlePos = albumPos = artistPos = commentPos = yearPos = trackPos =
-		genrePos = durationPos = -1;
-	while (((percentIdx = pattern.find('%', percentIdx)) >= 0) &&
+	m_pattern = fmt;
+	m_titlePos = m_albumPos = m_artistPos = m_commentPos = m_yearPos = m_trackPos =
+		m_genrePos = m_durationPos = -1;
+	while (((percentIdx = m_pattern.find('%', percentIdx)) >= 0) &&
 		   (percentIdx < lastIdx)) {
-		switch (pattern[percentIdx + 1].latin1()) {
+		switch (m_pattern[percentIdx + 1].latin1()) {
 			case 's':
-				titlePos = nr;
+				m_titlePos = nr;
 				break;
 			case 'l':
-				albumPos = nr;
+				m_albumPos = nr;
 				break;
 			case 'a':
-				artistPos = nr;
+				m_artistPos = nr;
 				break;
 			case 'c':
-				commentPos = nr;
+				m_commentPos = nr;
 				break;
 			case 'y':
-				yearPos = nr;
+				m_yearPos = nr;
 				break;
 			case 't':
-				trackPos = nr;
+				m_trackPos = nr;
 				break;
 			case 'g':
-				genrePos = nr;
+				m_genrePos = nr;
 				break;
 			case 'd':
-				durationPos = nr;
+				m_durationPos = nr;
 				break;
 			default:
 				++percentIdx;
@@ -57,28 +57,28 @@ void ImportParser::setFormat(const QString &fmt, bool enableTrackIncr)
 		++nr;
 		percentIdx += 2;
 	}
-	if (enableTrackIncr && trackPos == -1) {
-		trackIncrEnabled = true;
-		trackIncrNr = 1;
+	if (enableTrackIncr && m_trackPos == -1) {
+		m_trackIncrEnabled = true;
+		m_trackIncrNr = 1;
 	} else {
-		trackIncrEnabled = false;
-		trackIncrNr = 0;
+		m_trackIncrEnabled = false;
+		m_trackIncrNr = 0;
 	}
 #if QT_VERSION >= 0x030100
-	pattern.remove(QRegExp("%[slacytgd]"));
+	m_pattern.remove(QRegExp("%[slacytgd]"));
 #else
-	pattern.replace(QRegExp("%[slacytgd]"), "");
+	m_pattern.replace(QRegExp("%[slacytgd]"), "");
 #endif
-	re.setPattern(pattern);
+	m_re.setPattern(m_pattern);
 }
 
 /** Get ID3 text field if it is in format */
 #define SET_TEXT_FIELD(name) \
-if (name##Pos != -1) st.name = re.cap(name##Pos)
+if (m_##name##Pos != -1) st.name = m_re.cap(m_##name##Pos)
 
 /** Get ID3 integer field if it is in format */
 #define SET_INT_FIELD(name) \
-if (name##Pos != -1) st.name = re.cap(name##Pos).toInt()
+if (m_##name##Pos != -1) st.name = m_re.cap(m_##name##Pos).toInt()
 
 /**
  * Get next tags in text buffer.
@@ -89,21 +89,21 @@ if (name##Pos != -1) st.name = re.cap(name##Pos).toInt()
  *             behind current match (to be used for next call)
  * @return true if tags found (pos is index behind match).
  */
-bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
+bool ImportParser::getNextTags(const QString& text, StandardTags& st, int& pos)
 {
 	int idx, oldpos = pos;
-	if (pattern.isEmpty()) {
-		trackDuration.clear();
+	if (m_pattern.isEmpty()) {
+		m_trackDuration.clear();
 		return false;
 	}
-	if (durationPos == -1) {
-		trackDuration.clear();
+	if (m_durationPos == -1) {
+		m_trackDuration.clear();
 	} else if (pos == 0) {
-		trackDuration.clear();
+		m_trackDuration.clear();
 		int dsp = 0; // "duration search pos"
 		int lastDsp = dsp;
-		while ((idx = re.search(text, dsp)) != -1) {
-			QString durationStr = re.cap(durationPos);
+		while ((idx = m_re.search(text, dsp)) != -1) {
+			QString durationStr = m_re.cap(m_durationPos);
 			int duration;
 			QRegExp durationRe("(\\d+):(\\d+)");
 			if (durationRe.search(durationStr) != -1) {
@@ -112,9 +112,9 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 			} else {
 				duration = durationStr.toInt();
 			}
-			trackDuration.append(duration);
+			m_trackDuration.append(duration);
 
-			dsp = idx + re.matchedLength();
+			dsp = idx + m_re.matchedLength();
 			if (dsp > lastDsp) { /* avoid endless loop */
 				lastDsp = dsp;
 			} else {
@@ -122,18 +122,18 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 			}
 		}
 	}
-	if ((idx = re.search(text, pos)) != -1) {
+	if ((idx = m_re.search(text, pos)) != -1) {
 		SET_TEXT_FIELD(title);
 		SET_TEXT_FIELD(album);
 		SET_TEXT_FIELD(artist);
 		SET_TEXT_FIELD(comment);
 		SET_INT_FIELD(year);
 		SET_INT_FIELD(track);
-		if (trackIncrEnabled) {
-			st.track = trackIncrNr++;
+		if (m_trackIncrEnabled) {
+			st.track = m_trackIncrNr++;
 		}
-		if (genrePos != -1) {
-			QString genreStr = re.cap(genrePos);
+		if (m_genrePos != -1) {
+			QString genreStr = m_re.cap(m_genrePos);
 			int genre = Genres::getNumber(genreStr);
 			if (genre != 0xff) {
 				st.genre = genre;
@@ -143,7 +143,7 @@ bool ImportParser::getNextTags(const QString &text, StandardTags &st, int &pos)
 				st.genreStr = genreStr;
 			}
 		}
-		pos = idx + re.matchedLength();
+		pos = idx + m_re.matchedLength();
 		if (pos > oldpos) { /* avoid endless loop */
 			return true;
 		}

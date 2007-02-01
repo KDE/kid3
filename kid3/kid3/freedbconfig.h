@@ -23,7 +23,7 @@ public:
 	 *
 	 * @param grp configuration group
 	 */
-	FreedbConfig(const QString &grp);
+	FreedbConfig(const QString& grp);
 
 	/**
 	 * Destructor.
