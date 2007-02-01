@@ -1,7 +1,6 @@
 #
 # spec file for package kid3
 #
-# neededforbuild  aaa_base aaa_dir base bash cpp glibc glibc-devel grep gzip less man sh-utils binutils fileutils gdb id3lib id3lib-devel gpp gcc make perl qt qt-devel qt-devel-doc qt3-devel-tools rpm gettext kdelib kdelibs-devel libxslt libvorbis-devel libogg-devel flac-devel libtunepimp-devel
 
 Name:         kid3
 License:      GPL
@@ -10,16 +9,15 @@ Summary:      Efficient ID3 tag editor
 Version:      0.8.1
 Release:      1%{?dist}
 URL:          http://kid3.sourceforge.net/
-Source0:      http://download.sourceforge.net/kid3/%{name}-%{version}.tar.gz
+Source0:      http://downloads.sourceforge.net/kid3/%{name}-%{version}.tar.gz
 BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Prefix:       /opt/kde3
-#BuildRequires:  kdelibs-devel
-#BuildRequires:  id3lib-devel
-#BuildRequires:  flac-devel
-#BuildRequires:  libtunepimp-devel
-#BuildRequires:  taglib-devel
-#BuildRequires:  desktop-file-utils
-#BuildRequires:  perl(File::Spec)
+BuildRequires:  kdelibs-devel
+BuildRequires:  id3lib-devel
+BuildRequires:  taglib-devel >= 1.4
+BuildRequires:  flac-devel
+BuildRequires:  libtunepimp-devel
+BuildRequires:  perl(File::Spec)
 
 %description
 With Kid3 you can:
@@ -45,7 +43,7 @@ Authors: Urs Fleisch
 %prep
 [ ${RPM_BUILD_ROOT} != "/" ] && rm -rf ${RPM_BUILD_ROOT}
 %setup -q
-sed -i -e 's/\r//' LICENSE
+sed -i -e 's|/lib /usr/lib\b|/%{_lib} %{_libdir}|g' configure # lib64 rpaths
 
 %build
 ./configure --disable-debug --prefix=%{prefix}
@@ -62,5 +60,5 @@ find $RPM_BUILD_ROOT%_prefix -type f -o -name "*.so" -exec strip "{}" \;
 [ -d  ${RPM_BUILD_ROOT} -a "${RPM_BUILD_ROOT}" != "/" ] && rm -rf  ${RPM_BUILD_ROOT}
 
 %files -f master.list
-%defattr(-,root,root)
-%doc AUTHORS COPYING INSTALL LICENSE README ChangeLog
+%defattr(-,root,root,-)
+%doc AUTHORS ChangeLog COPYING LICENSE README
