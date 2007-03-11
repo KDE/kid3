@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2006</year>
+<year>2007</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>15/11/2006</date>
-<releaseinfo>0.8</releaseinfo>
+<date>07/03/2007</date>
+<releaseinfo>0.9</releaseinfo>
 
 <abstract>
 <para>
@@ -204,10 +204,18 @@ Dateieintr&auml;ge geklickt werden. Die Auswahl bestimmt die Dateien, welche
 durch die unten beschriebenen Operationen ver&auml;ndert werden.
 </para>
 <para>
-Links von den Namen k&ouml;nnen zwei Symbole dargestellt werden: eine Diskette, um
-zu zeigen, dass die Datei ver&auml;ndert wurde, und Information &uuml;ber die Tags
+Links von den Namen kann ein Symbol dargestellt werden: eine Diskette, um
+zu zeigen, dass die Datei ver&auml;ndert wurde, oder Information &uuml;ber die Tags
 welche vorhanden sind (V1, V2, V1V2 oder NO TAG, wenn nichts dargestellt wird,
 wurde die Datei noch nicht eingelesen).
+</para>
+<para>
+Verzeichnisse werden mit Ordner-Symbolen gekennzeichnet. Wenn ein Verzeichnis
+ge&ouml;ffnet wird, so werden seine Dateien in einem hierarchischen Baum
+dargestellt. Operationen k&ouml;nnen auf Dateien aus verschiedenen
+Verzeichnissen angewendet werden, was n&uuml;tzlich ist, wenn die
+Musik-Dateien so organisiert werden, dass pro Interpret ein Ordner erstellt
+wird, der wiederum ein Verzeichnis f&uuml;r jedes Album enth&auml;lt.
 </para>
 </listitem>
 </varlistentry>
@@ -851,6 +859,32 @@ sind diese vorg&auml;ngig auszuw&auml;hlen.
 </para></listitem>
 </varlistentry>
 
+<varlistentry id="convert-to-id3v24">
+<term><menuchoice>
+<guimenu>Extras</guimenu>
+<guimenuitem>ID3v2.3 nach ID3v2.4 konvertieren</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Wenn in den ausgew&auml;hlten Dateien ID3v2.3 Tags vorhanden sind, so werden
+sie <action>zu ID3v2.4 Tags konvertiert</action>. Frames, welche von TagLib
+nicht unterst&uuml;tzt sind, werden verworfen. Nur Dateien ohne ungesicherte
+&Auml;nderungen werden konvertiert.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="convert-to-id3v23">
+<term><menuchoice>
+<guimenu>Extras</guimenu>
+<guimenuitem>ID3v2.4 nach ID3v2.3 konvertieren</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Wenn in den ausgew&auml;hlten Dateien ID3v2.4 Tags vorhanden sind, so werden
+sie <action>zu ID3v2.3 Tags konvertiert</action>. Es sollte beachtet werden,
+dass nur die Standard Tags konvertiert werden. Alle anderen Frames werden
+verworfen. Nur Dateien ohne ungesicherte &Auml;nderungen werden konvertiert.
+</para></listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 </sect2>
@@ -927,11 +961,39 @@ FLAC-Dateien relevant und bestimmt den Namen des Feldes, welches f&uuml;r
 Kommentare verwendet wird. Hier scheinen verschiedene Anwendungen
 unterschiedliche Namen zu verwenden, "COMMENT" wird beispielsweise von xmms
 benutzt, w&auml;hrend amaroK "DESCRIPTION" verwendet.
+</para>
+<para>
 Die Tabelle <guilabel>Kontext Men&uuml; Befehle</guilabel> enth&auml;lt die Befehle,
 welche &uuml;ber das Kontext Men&uuml; der Dateiliste ausgew&auml;hlt werden k&ouml;nnen. Bei
 kritischen Operationen, beispielsweise dem L&ouml;schen von Dateien, empfiehlt es
 sich, <guilabel>Nachfragen</guilabel> zu markieren, damit vor dem Ausf&uuml;hren
-des Befehls eine Best&auml;tigung verlangt wird. Zum L&ouml;schen und Hinzuf&uuml;gen von
+des Befehls eine Best&auml;tigung verlangt wird.
+<guilabel>Ausgabe</guilabel> kann markiert werden, um die Ausgabe von
+Konsolen-Applikationen zu sehen (Standard und
+Fehler-Ausgabe). <guilabel>Name</guilabel> ist der Text, welcher im Kontext
+Men&uuml; dargestellt wird. <guilabel>Befehl</guilabel> schlie&szlig;lich ist
+die auszuf&uuml;hrende Kommandozeile. Argumente k&ouml;nnen mit den
+folgenden Codes &uuml;bergeben werden:
+</para>
+
+<itemizedlist>
+<listitem><para>%F Dateipfad (eine Liste wenn mehrere Dateien selektiert sind)</para></listitem>
+<listitem><para>%f Pfad einer einzelnen Datei</para></listitem>
+<listitem><para>%U URLs (eine Liste wenn mehrere Dateien selektiert sind)</para></listitem>
+<listitem><para>%u URL zu einer einzelnen Datei</para></listitem>
+<listitem><para>%d Verzeichnis</para></listitem>
+<listitem><para>%s Titel (Song)</para></listitem>
+<listitem><para>%a Interpret (Artist)</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Kommentar (Comment)</para></listitem>
+<listitem><para>%y Jahr (Year)</para></listitem>
+<listitem><para>%t Nummer (Track)</para></listitem>
+<listitem><para>%T Nummer (Track), ohne f&uuml;hrende Null</para></listitem>
+<listitem><para>%g Stil (Genre)</para></listitem>
+</itemizedlist>
+
+<para> 
+Zum L&ouml;schen und Hinzuf&uuml;gen von
 Eintr&auml;gen steht in dieser Tabelle ein Kontext Men&uuml; zur Verf&uuml;gung.
 </para>
 <para>

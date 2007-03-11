@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2006</year>
+<year>2007</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>15/11/2006</date>
-<releaseinfo>0.8</releaseinfo>
+<date>07/03/2007</date>
+<releaseinfo>0.9</releaseinfo>
 
 <abstract>
 <para>
@@ -192,9 +192,16 @@ selection determines the files which are affected by the operations which
 are available by using the buttons described below.
 </para>
 <para>
-The the left of the names two icons can be displayed: a disc to show that the
-file has been modified and information about which tags are present (V1, V2,
+At the left of the names an icon can be displayed: a disc to show that the
+file has been modified or information about which tags are present (V1, V2,
 V1V2 or NO TAG, no icon is displayed if the file has not been read in yet).
+</para>
+<para>
+Directories are displayed with a folder icon. If a directory is opened, its
+files are displayed in a hierarchical tree. By selecting files from
+subdirectories, operations can be executed on files in different directories,
+which is useful if the music collection is organized with a folder for each
+artist containing folders for albums of this artist.
 </para>
 </listitem>
 </varlistentry>
@@ -776,6 +783,31 @@ tracks have to be numbered, they must be selected.
 </para></listitem>
 </varlistentry>
 
+<varlistentry id="convert-to-id3v24">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Convert ID3v2.3 to ID3v2.4</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If there are any ID3v2.3 tags in the selected files, they will
+be <action>converted to ID3v2.4</action> tags. Frames which are not supported
+by TagLib will be discarded. Only files without unsaved changes will be converted.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="convert-to-id3v23">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Convert ID3v2.4 to ID3v2.3</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If there are any ID3v2.4 tags in the selected files, they will
+be <action>converted to ID3v2.3</action> tags. Note that only the standard
+tags are converted, all other frames will be discarded. Only files without
+unsaved changes will be converted.
+</para></listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 </sect2>
@@ -848,11 +880,38 @@ The combo box <guilabel>Comment Field Name</guilabel> is only
 relevant for Ogg/Vorbis and FLAC files and sets the name of the field used for
 comments. Different applications seem to use different names, "COMMENT" for
 instance is used by xmms, whereas amaroK uses "DESCRIPTION".
+</para>
+<para>
 The <guilabel>Context Menu Commands</guilabel> table contains the commands
 which can be used from the context menu of the file list. For critical
 operations such as deleting files, it is advisable to mark
 <guilabel>Confirm</guilabel> to pop up a confirmation dialog before executing
-the command. To add and delete entries in this table, a context menu can be
+the command.
+<guilabel>Output</guilabel> can be marked to see the output written by console
+commands (standard output and standard error). <guilabel>Name</guilabel> is
+the name displayed in the context menu. <guilabel>Command</guilabel> is the
+command line to be executed. Arguments can be passed using the following
+codes:
+</para>
+
+<itemizedlist>
+<listitem><para>%F File paths (a list if multiple files selected)</para></listitem>
+<listitem><para>%f File path to single file</para></listitem>
+<listitem><para>%U URLs (a list if multiple files selected)</para></listitem>
+<listitem><para>%u URL to single file</para></listitem>
+<listitem><para>%d Directory</para></listitem>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%T Track, without leading zeroes</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+</itemizedlist>
+
+<para> 
+To add and delete entries in this table, a context menu can be
 used.
 </para>
 <para>
