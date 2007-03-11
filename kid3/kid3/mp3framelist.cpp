@@ -938,6 +938,7 @@ bool Mp3FrameList::deleteFrame()
 				if (lastIndex >= 0) {
 					s_listbox->setSelected(
 						selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
+					s_listbox->ensureCurrentVisible();
 				}
 			}
 		}
@@ -978,6 +979,7 @@ bool Mp3FrameList::addFrame(int frameId, bool edit)
 			const int lastIndex = s_listbox->count() - 1;
 			if (lastIndex >= 0) {
 				s_listbox->setSelected(lastIndex, true);
+				s_listbox->ensureCurrentVisible();
 			}
 			if (m_file) {
 				m_file->markTag2Changed();

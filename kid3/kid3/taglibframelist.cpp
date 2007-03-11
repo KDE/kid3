@@ -1886,6 +1886,7 @@ bool TagLibFrameList::editFrame()
 			if (lastIndex >= 0) {
 				s_listbox->setSelected(
 					selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
+				s_listbox->ensureCurrentVisible();
 			}
 		}
 		if (m_file) {
@@ -1943,6 +1944,7 @@ bool TagLibFrameList::deleteFrame()
 				if (lastIndex >= 0) {
 					s_listbox->setSelected(
 						selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
+					s_listbox->ensureCurrentVisible();
 				}
 			}
 			if (m_file) {
@@ -2049,6 +2051,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 					const int lastIndex = s_listbox->count() - 1;
 					if (lastIndex >= 0) {
 						s_listbox->setSelected(lastIndex, true);
+						s_listbox->ensureCurrentVisible();
 					}
 				}
 			}
@@ -2065,6 +2068,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 				Q3ListBoxItem* lbi = s_listbox->findItem(m_selectedName);
 				if (lbi) {
 					s_listbox->setSelected(lbi, true);
+					s_listbox->ensureCurrentVisible();
 				}
 			}
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag)) != 0) {
@@ -2080,6 +2084,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 				Q3ListBoxItem* lbi = s_listbox->findItem(m_selectedName);
 				if (lbi) {
 					s_listbox->setSelected(lbi, true);
+					s_listbox->ensureCurrentVisible();
 				}
 			}
 		}
