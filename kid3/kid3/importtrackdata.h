@@ -78,6 +78,22 @@ public:
 	 */
 	QString getAbsFilename() const { return m_absFilename; }
 
+	/**
+	 * Format a string from track data.
+	 * Supported format fields:
+	 * Those supported by StandardTags::formatString()
+	 * %f filename
+	 * %p path to file
+	 * %u URL of file
+	 * %d duration in minutes:seconds
+	 * %D duration in seconds
+	 *
+	 * @param format format specification
+	 *
+	 * @return formatted string.
+	 */
+	QString formatString(const QString& format) const;
+
 private:
 	int m_fileDuration;
 	int m_importDuration;

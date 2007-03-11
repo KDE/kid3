@@ -196,19 +196,7 @@ void ExportDialog::setFormatLineEdit(int index)
 /**
  * Format a string from track data.
  * Supported format fields:
- * %s title (song)
- * %l album
- * %a artist
- * %c comment
- * %y year
- * %t track, two digits, i.e. leading zero if < 10
- * %T track, without leading zeroes
- * %g genre
- * %f filename
- * %p path to file
- * %u URL of file
- * %d duration in minutes:seconds
- * %D duration in seconds
+ * Those supported by ImportTrackData::formatString()
  * %n total number of tracks
  *
  * @param trackData track data
@@ -220,94 +208,15 @@ void ExportDialog::setFormatLineEdit(int index)
 static QString trackDataToString(
 	const ImportTrackData& trackData, const QString& format, int numTracks)
 {
-	QString fmt(format);
+	QString fmt = trackData.formatString(format);
 	if (!fmt.isEmpty()) {
-
-		const int numTagCodes = 14;
-		const QChar tagCode[numTagCodes] = {
-	    's', 'l', 'a', 'c', 'y', 't', 'T', 'g', 'f', 'p', 'u', 'd', 'D', 'n'};
+		const int numTagCodes = 1;
+		const QChar tagCode[numTagCodes] = { 'n' };
 		QString tagStr[numTagCodes];
+		tagStr[0] = QString::number(numTracks);
 
-		QString year, track;
-		year.sprintf("%d", trackData.year);
-		track.sprintf("%02d", trackData.track);
-		QString filename(trackData.getAbsFilename());
-		int sepPos = filename.findRev('/');
-		if (sepPos < 0) {
-			sepPos = filename.findRev(QDir::separator());
-		}
-		if (sepPos >= 0) {
-			filename.remove(0, sepPos + 1);
-		}
-
-		tagStr[0] = trackData.title;
-		tagStr[1] = trackData.album;
-		tagStr[2] = trackData.artist;
-		tagStr[3] = trackData.comment;
-		tagStr[4] = year;
-		tagStr[5] = track;
-		tagStr[6] = QString::number(trackData.track);
-		tagStr[7] = Genres::getName(trackData.genre);
-		if (tagStr[7].isEmpty()) {
-			tagStr[7] = trackData.genreStr;
-		}
-		tagStr[8] = filename;
-		tagStr[9] = trackData.getAbsFilename();
-		QUrl url;
-		url.setFileName(tagStr[9]);
-		url.setProtocol("file");
-		tagStr[10] = url.toString(
-#if QT_VERSION < 0x040000
-			true
-#endif
-			);
-		tagStr[11] = TaggedFile::formatTime(trackData.getFileDuration());
-		tagStr[12] = QString::number(trackData.getFileDuration());
-		tagStr[13] = QString::number(numTracks);
-
-		const int numEscCodes = 8;
-		const QChar escCode[numEscCodes] = {
-			'n', 't', 'r', '\\', 'a', 'b', 'f', 'v'};
-		const char escChar[numEscCodes] = {
-			'\n', '\t', '\r', '\\', '\a', '\b', '\f', '\v'};
-
-		int pos;
-		for (pos = 0; pos < static_cast<int>(fmt.length());) {
-			pos = fmt.find('\\', pos);
-			if (pos == -1) break;
-			++pos;
-			for (int k = 0;; ++k) {
-				if (k >= numEscCodes) {
-					// invalid code at pos
-					++pos;
-					break;
-				}
-				if (fmt[pos] == escCode[k]) {
-					// code found, replace it
-					fmt.replace(pos - 1, 2, escChar[k]);
-					break;
-				}
-			}
-		}
-
-		for (pos = 0; pos < static_cast<int>(fmt.length());) {
-			pos = fmt.find('%', pos);
-			if (pos == -1) break;
-
-			for (int k = 0;; ++k) {
-				if (k >= numTagCodes) {
-					// invalid code at pos
-					++pos;
-					break;
-				}
-				if (fmt[pos + 1] == tagCode[k]) {
-					// code found, replace it
-					fmt.replace(pos, 2, tagStr[k]);
-					pos += tagStr[k].length();
-					break;
-				}
-			}
-		}
+		fmt = StandardTags::replacePercentCodes(
+			fmt, tagCode, tagStr, numTagCodes);
 	}
 	return fmt;
 }
