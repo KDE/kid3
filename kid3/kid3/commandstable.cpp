@@ -15,6 +15,15 @@
 #include <qpopupmenu.h>
 #endif
 
+/** Column indices. */
+enum ColumnIndex {
+	CI_Confirm,
+	CI_Output,
+	CI_Name,
+	CI_Command,
+	CI_NumColumns
+};
+
 /**
  * Constructor.
  *
@@ -24,11 +33,15 @@
  */
 CommandsTable::CommandsTable(QWidget* parent, const char* name) :
 	Q3Table(parent, name) {
-	setNumCols(2);
-	horizontalHeader()->setLabel(0, i18n("Confirm"));
-	horizontalHeader()->setLabel(1, i18n("Command"));
-	adjustColumn(0);
-	setColumnStretchable(1, true);
+	setNumCols(CI_NumColumns);
+	horizontalHeader()->setLabel(CI_Confirm, i18n("Confirm"));
+	horizontalHeader()->setLabel(CI_Output, i18n("Output"));
+	horizontalHeader()->setLabel(CI_Name, i18n("Name"));
+	horizontalHeader()->setLabel(CI_Command, i18n("Command"));
+	adjustColumn(CI_Confirm);
+	adjustColumn(CI_Output);
+	setColumnStretchable(CI_Name, true);
+	setColumnStretchable(CI_Command, true);
 
 	connect(this, SIGNAL(valueChanged(int, int)),
 			this, SLOT(valueChanged(int, int)));
@@ -43,7 +56,7 @@ CommandsTable::~CommandsTable() {}
 
 /**
  * Called when a value in the table is changed.
- * If the second cell in the last row is changed to a non-empty
+ * If the command cell in the last row is changed to a non-empty
  * value, a new row is added. If it is changed to an empty value,
  * the row is deleted.
  *
@@ -52,7 +65,7 @@ CommandsTable::~CommandsTable() {}
  */
 void CommandsTable::valueChanged(int row, int col)
 {
-	if (row == numRows() - 1 && col == 1) {
+	if (row == numRows() - 1 && col == CI_Command) {
 		if (text(row, col).isEmpty()) {
 			if (row != 0) {
 				deleteRow(row);
@@ -71,7 +84,8 @@ void CommandsTable::valueChanged(int row, int col)
 void CommandsTable::insertRow(int row)
 {
 	insertRows(row + 1);
-	setItem(row + 1, 0, new Q3CheckTableItem(this, ""));
+	setItem(row + 1, CI_Confirm, new Q3CheckTableItem(this, ""));
+	setItem(row + 1, CI_Output, new Q3CheckTableItem(this, ""));
 }
 
 /**
@@ -91,9 +105,15 @@ void CommandsTable::deleteRow(int row)
  */
 void CommandsTable::clearRow(int row)
 {
-	setText(row, 1, "");
-	Q3TableItem* ti = item(row, 0);
+	setText(row, CI_Name, "");
+	setText(row, CI_Command, "");
+	Q3TableItem* ti = item(row, CI_Confirm);
 	Q3CheckTableItem* cti = dynamic_cast<Q3CheckTableItem*>(ti);
+	if (cti) {
+		cti->setChecked(false);
+	}
+	ti = item(row, CI_Output);
+	cti = dynamic_cast<Q3CheckTableItem*>(ti);
 	if (cti) {
 		cti->setChecked(false);
 	}
@@ -131,27 +151,27 @@ void CommandsTable::contextMenu(int row, int /* col */, const QPoint& pos)
  *
  * @param cmdList command list
  */
-void CommandsTable::setCommandList(const QStringList& cmdList)
+void CommandsTable::setCommandList(const Q3ValueList<MiscConfig::MenuCommand>& cmdList)
 {
 	setNumRows(0);
 	int row = 0;
-	for (QStringList::const_iterator it = cmdList.begin();
+	for (Q3ValueList<MiscConfig::MenuCommand>::const_iterator it = cmdList.begin();
 			 it != cmdList.end();
 			 ++it) {
-		QString cmd = *it;
-		bool confirm = false;
-		if (cmd[0] == '!') {
-			cmd = cmd.mid(1);
-			confirm = true;
-		}
-		if (!cmd.isEmpty()) {
+		if (!(*it).getCommand().isEmpty()) {
 			insertRows(row);
 			Q3CheckTableItem* cti = new Q3CheckTableItem(this, "");
 			if (cti) {
-				cti->setChecked(confirm);
-				setItem(row, 0, cti);
+				cti->setChecked((*it).mustBeConfirmed());
+				setItem(row, CI_Confirm, cti);
 			}
-			setText(row, 1, cmd);
+			cti = new Q3CheckTableItem(this, "");
+			if (cti) {
+				cti->setChecked((*it).outputShown());
+				setItem(row, CI_Output, cti);
+			}
+			setText(row, CI_Name, (*it).getName());
+			setText(row, CI_Command, (*it).getCommand());
 			++row;
 		}
 	}
@@ -166,21 +186,34 @@ void CommandsTable::setCommandList(const QStringList& cmdList)
  *
  * @param cmdList the command list is returned here
  */
-void CommandsTable::getCommandList(QStringList& cmdList) const
+void CommandsTable::getCommandList(Q3ValueList<MiscConfig::MenuCommand>& cmdList) const
 {
 	cmdList.clear();
 	int nrRows = numRows();
 	for (int row = 0; row < nrRows; ++row) {
-		QString cmd = text(row, 1);
+		QString cmd = text(row, CI_Command);
 		if (!cmd.isEmpty()) {
-			Q3TableItem* ti = item(row, 0);
+			QString name = text(row, CI_Name);
+			if (name.isEmpty()) {
+				name = cmd;
+			}
+			bool confirm = false;
+			bool showOutput = false;
+			Q3TableItem* ti = item(row, CI_Confirm);
 			Q3CheckTableItem* cti = dynamic_cast<Q3CheckTableItem*>(ti);
 			if (cti) {
 				if (cti->isChecked()) {
-					cmd = "!" + cmd;
+					confirm = true;
 				}
 			}
-			cmdList.push_back(cmd);
+			ti = item(row, CI_Output);
+			cti = dynamic_cast<Q3CheckTableItem*>(ti);
+			if (cti) {
+				if (cti->isChecked()) {
+					showOutput = true;
+				}
+			}
+			cmdList.push_back(MiscConfig::MenuCommand(name, cmd, confirm, showOutput));
 		}
 	}
 }

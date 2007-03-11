@@ -16,8 +16,7 @@
 #else 
 #include <qtable.h>
 #endif
-
-class QStringList;
+#include "miscconfig.h"
 
 /**
  * Context menu commands configuration table.
@@ -44,19 +43,19 @@ public:
 	 *
 	 * @param cmdList command list
 	 */
-	void setCommandList(const QStringList& cmdList);
+	void setCommandList(const Q3ValueList<MiscConfig::MenuCommand>& cmdList);
 
 	/**
 	 * Get the command list from the table.
 	 *
 	 * @param cmdList the command list is returned here
 	 */
-	void getCommandList(QStringList& cmdList) const;
+	void getCommandList(Q3ValueList<MiscConfig::MenuCommand>& cmdList) const;
 
 public slots:
 	/**
 	 * Called when a value in the table is changed.
-	 * If the second cell in the last row is changed to a non-empty
+	 * If the command cell in the last row is changed to a non-empty
 	 * value, a new row is added. If it is changed to an empty value,
 	 * the row is deleted.
 	 *
