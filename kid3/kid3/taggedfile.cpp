@@ -547,52 +547,7 @@ QString TaggedFile::formatWithTags(const StandardTags* st, QString fmt,
 		fmt += getFileExtension();
 	}
 
-	const int num_tag_codes = 7;
-	const QChar tag_code[num_tag_codes] = {
-	    's', 'l', 'a', 'c', 'y', 't', 'g'};
-	QString tag_str[num_tag_codes];
-	QString insert_str[num_tag_codes];
-	QString year, track;
-	year.sprintf("%d", st->year);
-	track.sprintf("%02d", st->track);
-	tag_str[0] = st->title;
-	tag_str[1] = st->album;
-	tag_str[2] = st->artist;
-	tag_str[3] = st->comment;
-	tag_str[4] = year;
-	tag_str[5] = track;
-	tag_str[6] = Genres::getName(st->genre);
-	int pos = 0, i;
-	for (i = 0;; ++i) {
-		pos = fmt.find('%', pos);
-		if (pos == -1) break;
-		if (i >= num_tag_codes) {
-			// maximum of insert strings reached,
-			// remove rest of string
-			fmt.truncate(pos);
-			break;
-		}
-		++pos;
-		insert_str[i] = "";
-		for (int k = 0;; ++k) {
-			if (k >= num_tag_codes) {
-				// invalid code at pos, remove it
-				fmt.remove(--pos, 2);
-				break;
-			}
-			if (fmt[pos] == tag_code[k]) {
-				// code found, prepare format and string for sprintf
-				fmt[pos] = i + '0';
-				insert_str[i] = tag_str[k];
-				++pos;
-				break;
-			}
-		}
-	}
-	for (int k = 0; k < i; ++k) {
-		fmt = fmt.arg(insert_str[k]);
-	}
-	return fmt;
+	return st->formatString(fmt);
 }
 
 /**
