@@ -74,13 +74,6 @@ public:
 	void openDirectory(QString dir, bool confirm = false);
 
 	/**
-	 * Update GUI controls from the tags in the files.
-	 * The new selection is stored and the GUI controls and frame list
-	 * updated accordingly (filtered for multiple selection).
-	 */
-	void updateGuiControls();
-
-	/**
 	 * Process change of selection.
 	 * The files of the current selection are updated.
 	 * The new selection is stored and the GUI controls and frame list
@@ -420,6 +413,23 @@ public slots:
 	 */
 	void slotNumberTracks();
 
+	/**
+	 * Convert ID3v2.3 to ID3v2.4 tags.
+	 */
+	void slotConvertToId3v24();
+
+	/**
+	 * Convert ID3v2.4 to ID3v2.3 tags.
+	 */
+	void slotConvertToId3v23();
+
+	/**
+	 * Update GUI controls from the tags in the files.
+	 * The new selection is stored and the GUI controls and frame list
+	 * updated accordingly (filtered for multiple selection).
+	 */
+	void updateGuiControls();
+
 private slots:
 	/**
 	 * Set data to be exported.
@@ -562,6 +572,12 @@ private:
 	QAction* m_toolsApplyId3Format;
 	QAction* m_toolsRenameDirectory;
 	QAction* m_toolsNumberTracks;
+#ifdef HAVE_TAGLIB
+	QAction* m_toolsConvertToId3v24;
+#endif
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+	QAction* m_toolsConvertToId3v23;
+#endif
 	QAction* m_settingsShowHideV1;
 	QAction* m_settingsShowHideV2;
 	QAction* m_settingsConfigure;

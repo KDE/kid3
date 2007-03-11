@@ -304,6 +304,16 @@ void Kid3App::initActions()
 	new KAction(i18n("&Number Tracks..."), 0, this,
 		    SLOT(slotNumberTracks()), actionCollection(),
 		    "number_tracks");
+#ifdef HAVE_TAGLIB
+	new KAction(i18n("Convert ID3v2.3 to ID3v2.&4"), 0, this,
+		    SLOT(slotConvertToId3v24()), actionCollection(),
+		    "convert_to_id3v24");
+#endif
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+	new KAction(i18n("Convert ID3v2.4 to ID3v2.&3"), 0, this,
+		    SLOT(slotConvertToId3v23()), actionCollection(),
+		    "convert_to_id3v23");
+#endif
 	m_settingsShowHideV1 =
 		new KAction(i18n("Hide Tag &1"), 0, this,
 								SLOT(slotSettingsShowHideV1()), actionCollection(),
@@ -494,6 +504,24 @@ void Kid3App::initActions()
 		connect(m_toolsNumberTracks, SIGNAL(activated()),
 			this, SLOT(slotNumberTracks()));
 	}
+#ifdef HAVE_TAGLIB
+	m_toolsConvertToId3v24 = new QAction(this);
+	if (m_toolsConvertToId3v24) {
+		m_toolsConvertToId3v24->setText(i18n("Convert ID3v2.3 to ID3v2.4"));
+		m_toolsConvertToId3v24->setMenuText(i18n("Convert ID3v2.3 to ID3v2.&4"));
+		connect(m_toolsConvertToId3v24, SIGNAL(activated()),
+			this, SLOT(slotConvertToId3v24()));
+	}
+#endif
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+	m_toolsConvertToId3v23 = new QAction(this);
+	if (m_toolsConvertToId3v23) {
+		m_toolsConvertToId3v23->setText(i18n("Convert ID3v2.4 to ID3v2.3"));
+		m_toolsConvertToId3v23->setMenuText(i18n("Convert ID3v2.4 to ID3v2.&3"));
+		connect(m_toolsConvertToId3v23, SIGNAL(activated()),
+			this, SLOT(slotConvertToId3v23()));
+	}
+#endif
 	m_settingsShowHideV1 = new QAction(this);
 	if (m_settingsShowHideV1) {
 		m_settingsShowHideV1->setText(i18n("Hide Tag 1"));
@@ -543,6 +571,12 @@ void Kid3App::initActions()
 		m_toolsApplyId3Format->addTo(m_toolsMenu);
 		m_toolsRenameDirectory->addTo(m_toolsMenu);
 		m_toolsNumberTracks->addTo(m_toolsMenu);
+#ifdef HAVE_TAGLIB
+		m_toolsConvertToId3v24->addTo(m_toolsMenu);
+#endif
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+		m_toolsConvertToId3v23->addTo(m_toolsMenu);
+#endif
 		m_menubar->insertItem((i18n("&Tools")), m_toolsMenu);
 
 		m_settingsShowHideV1->addTo(m_settingsMenu);
@@ -577,6 +611,8 @@ void Kid3App::initView()
 	if (m_view) {
 		setCentralWidget(m_view);	
 		m_view->initView();
+		connect(m_view, SIGNAL(selectedFilesRenamed()),
+						this, SLOT(updateGuiControls()));
 	}
 }
 
@@ -721,7 +757,7 @@ void Kid3App::closeEvent(QCloseEvent* ce)
  */
 bool Kid3App::saveDirectory()
 {
-	QString errorFiles;
+	QStringList errorFiles;
 	int numFiles = 0, totalFiles = 0;
 	FileListItem* mp3file = m_view->firstFile();
 	// Get number of files to be saved to display correct progressbar
@@ -744,8 +780,7 @@ bool Kid3App::saveDirectory()
 	while (mp3file != 0) {
 		bool renamed = false;
 		if (!mp3file->getFile()->writeTags(false, &renamed, s_miscCfg.m_preserveTime)) {
-			errorFiles.append(mp3file->getFile()->getFilename());
-			errorFiles.append('\n');
+			errorFiles.push_back(mp3file->getFile()->getFilename());
 		}
 		if (renamed) {
 			mp3file->updateText();
@@ -757,11 +792,19 @@ bool Kid3App::saveDirectory()
 	statusBar()->removeWidget(progress);
 	delete progress;
 	updateModificationState();
-	if (!errorFiles.isEmpty()) {
-		QMessageBox::warning(0, i18n("File Error"),
-							 i18n("Error while writing file:\n") +
-							 errorFiles,
-							 QMessageBox::Ok, QCM_NoButton);
+	if (!errorFiles.empty()) {
+#ifdef CONFIG_USE_KDE
+		KMessageBox::errorList(
+			0, i18n("Error while writing file:\n"),
+			errorFiles,
+			i18n("File Error"));
+#else
+		QMessageBox::warning(
+			0, i18n("File Error"),
+			i18n("Error while writing file:\n") +
+			errorFiles.join("\n"),
+			QMessageBox::Ok, QCM_NoButton);
+#endif
 	}
 	return true;
 }
@@ -1108,7 +1151,7 @@ void Kid3App::slotHelpAbout()
 	QMessageBox::about(
 		(Kid3App*)parent(), "Kid3",
 		"Kid3 " VERSION
-		"\n(c) 2003-2006 Urs Fleisch\nufleisch@users.sourceforge.net");
+		"\n(c) 2003-2007 Urs Fleisch\nufleisch@users.sourceforge.net");
 }
 
 /**
@@ -1598,6 +1641,101 @@ void Kid3App::slotNumberTracks()
 }
 
 /**
+ * Convert ID3v2.3 to ID3v2.4 tags.
+ */
+void Kid3App::slotConvertToId3v24()
+{
+#ifdef HAVE_TAGLIB
+	if (m_view->numFilesSelected() == 1) {
+		updateCurrentSelection();
+	}
+	FileListItem* item = m_view->firstFile();
+	while (item != 0) {
+		TaggedFile* taggedFile;
+		if (item->isInSelection() &&
+				(taggedFile = item->getFile()) != 0) {
+			taggedFile->readTags(false);
+			if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
+				QString tagFmt = taggedFile->getTagFormatV2();
+				if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] < '4') {
+#ifdef HAVE_ID3LIB
+					if (dynamic_cast<Mp3File*>(taggedFile) != 0) {
+						// The file has to be read with TagLib to write ID3v2.4 tags
+						TagLibFile* tagLibFile;
+						if ((tagLibFile = new TagLibFile(
+									 taggedFile->getDirInfo(),
+									 taggedFile->getFilename())) != 0) {
+							item->setFile(tagLibFile);
+							taggedFile = tagLibFile;
+							taggedFile->readTags(false);
+						}
+					}
+#endif
+					// Write the file with TagLib, it always writes ID3v2.4 tags
+					bool renamed;
+					taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
+				}
+			}
+		}
+		item = m_view->nextFile();
+	}
+	updateGuiControls();
+#endif
+}
+
+/**
+ * Convert ID3v2.4 to ID3v2.3 tags.
+ */
+void Kid3App::slotConvertToId3v23()
+{
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+	if (m_view->numFilesSelected() == 1) {
+		updateCurrentSelection();
+	}
+	FileListItem* item = m_view->firstFile();
+	while (item != 0) {
+		TaggedFile* taggedFile;
+		if (item->isInSelection() &&
+				(taggedFile = item->getFile()) != 0) {
+			taggedFile->readTags(false);
+			if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
+				QString tagFmt = taggedFile->getTagFormatV2();
+				if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3') {
+					if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
+						// Read the standard ID3v2.4 tags, other frames will be discarded!
+						StandardTags st;
+						taggedFile->getStandardTagsV2(&st);
+						StandardTagsFilter flt;
+						flt.setAllTrue();
+						taggedFile->removeTagsV2(flt);
+
+						// The file has to be read with id3lib to write ID3v2.3 tags
+						Mp3File* id3libFile;
+						if ((id3libFile = new Mp3File(
+									 taggedFile->getDirInfo(),
+									 taggedFile->getFilename())) != 0) {
+							item->setFile(id3libFile);
+							taggedFile = id3libFile;
+							taggedFile->readTags(false);
+						}
+
+						// Restore the standard tags
+						taggedFile->setStandardTagsV2(&st, flt);
+					}
+
+					// Write the file with id3lib, it always writes ID3v2.3 tags
+					bool renamed;
+					taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
+				}
+			}
+		}
+		item = m_view->nextFile();
+	}
+	updateGuiControls();
+#endif
+}
+
+/**
  * Open directory on drop.
  *
  * @param txt URL of directory or file in directory
@@ -1700,30 +1838,50 @@ void Kid3App::updateGuiControls()
 		if (mp3file->isSelected()) {
 			StandardTags filetags;
 			mp3file->setInSelection(true);
-			mp3file->getFile()->readTags(false);
-			mp3file->getFile()->getStandardTagsV1(&filetags);
-			if (num_files_selected == 0) {
-				tags_v1 = filetags;
-			}
-			else {
-				tags_v1.filterDifferent(filetags);
-			}
-			mp3file->getFile()->getStandardTagsV2(&filetags);
-			if (num_files_selected == 0) {
-				tags_v2 = filetags;
-				single_v2_file = mp3file->getFile();
-				singleItem = mp3file;
-				firstMp3File = mp3file->getFile();
-			}
-			else {
-				tags_v2.filterDifferent(filetags);
-				single_v2_file = 0;
-				singleItem = 0;
-			}
-			++num_files_selected;
+			TaggedFile* taggedFile = mp3file->getFile();
+			if (taggedFile) {
+				taggedFile->readTags(false);
 
-			if (mp3file->getFile()->isTagV1Supported()) {
-				tagV1Supported = true;
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+				if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
+						!taggedFile->isChanged() &&
+						taggedFile->isTagInformationRead() && taggedFile->hasTagV2() &&
+						taggedFile->getTagFormatV2() == QString::null) {
+					TagLibFile* tagLibFile;
+					if ((tagLibFile = new TagLibFile(
+								 taggedFile->getDirInfo(),
+								 taggedFile->getFilename())) != 0) {
+						mp3file->setFile(tagLibFile);
+						taggedFile = tagLibFile;
+						taggedFile->readTags(false);
+					}
+				}
+#endif
+
+				taggedFile->getStandardTagsV1(&filetags);
+				if (num_files_selected == 0) {
+					tags_v1 = filetags;
+				}
+				else {
+					tags_v1.filterDifferent(filetags);
+				}
+				taggedFile->getStandardTagsV2(&filetags);
+				if (num_files_selected == 0) {
+					tags_v2 = filetags;
+					single_v2_file = taggedFile;
+					singleItem = mp3file;
+					firstMp3File = taggedFile;
+				}
+				else {
+					tags_v2.filterDifferent(filetags);
+					single_v2_file = 0;
+					singleItem = 0;
+				}
+				++num_files_selected;
+
+				if (taggedFile->isTagV1Supported()) {
+					tagV1Supported = true;
+				}
 			}
 		}
 		else {
@@ -1731,27 +1889,6 @@ void Kid3App::updateGuiControls()
 		}
 		mp3file = m_view->nextFile();
 	}
-
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-	if (single_v2_file) {
-		if (dynamic_cast<Mp3File*>(single_v2_file) != 0 &&
-				!single_v2_file->isChanged() &&
-				single_v2_file->isTagInformationRead() && single_v2_file->hasTagV2() &&
-				single_v2_file->getTagFormatV2() == QString::null) {
-			TagLibFile* tagLibFile;
-			if (singleItem &&
-					(tagLibFile = new TagLibFile(
-						single_v2_file->getDirInfo(),
-						single_v2_file->getFilename())) != 0) {
-				singleItem->setFile(tagLibFile);
-				single_v2_file = tagLibFile;
-				single_v2_file->readTags(false);
-				single_v2_file->getStandardTagsV1(&tags_v1);
-				single_v2_file->getStandardTagsV2(&tags_v2);
-			}
-		}
-	}
-#endif
 
 	m_view->setStandardTagsV1(&tags_v1);
 	m_view->setStandardTagsV2(&tags_v2);
