@@ -415,6 +415,8 @@ Id3Form::Id3Form(QWidget* parent, const char* name)
 	connect(m_dirListBox, SIGNAL(returnPressed(QListBoxItem *)), this,
 			SLOT(dirSelected(QListBoxItem *)));
 #endif
+	connect(m_fileListBox, SIGNAL(selectedFilesRenamed()),
+					SIGNAL(selectedFilesRenamed()));
 
 	// tab order
 	setTabOrder(m_fileListBox, m_dirListBox);

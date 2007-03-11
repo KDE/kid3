@@ -403,6 +403,12 @@ public slots:
 	 */
 	void selectPreviousFile();
 
+signals:
+	/**
+	 * Emitted when some of the selected files have been renamed.
+	 */
+	void selectedFilesRenamed();
+
 private:
 	/**
 	 * Format string within line edit.
