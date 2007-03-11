@@ -131,7 +131,6 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("PreserveTime", m_preserveTime);
 	config->writeEntry("CommentName", m_commentName);
-	config->writeEntry("ContextMenuCommands", m_contextMenuCommands);
 	config->writeEntry("SplitterSizes", m_splitterSizes);
 	config->writeEntry("VSplitterSizes", m_vSplitterSizes);
 	config->writeEntry("CustomGenres", m_customGenres);
@@ -140,6 +139,14 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("ID3v2Version", m_id3v2Version);
 	config->writeEntry("UseProxy", m_useProxy);
 	config->writeEntry("Proxy", m_proxy);
+
+	config->setGroup("MenuCommands");
+	int cmdNr = 1;
+	for (Q3ValueList<MiscConfig::MenuCommand>::const_iterator it = m_contextMenuCommands.begin();
+			 it != m_contextMenuCommands.end();
+			 ++it) {
+		config->writeEntry(QString("%1").arg(cmdNr++), (*it).toStringList());
+	}
 #else
 	config->beginGroup("/" + m_group);
 	config->writeEntry("/NameFilter2", m_nameFilter);
@@ -152,7 +159,6 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/PreserveTime", m_preserveTime);
 	config->writeEntry("/CommentName", m_commentName);
 
-	config->writeEntry("/ContextMenuCommands", m_contextMenuCommands);
 	Q3ValueList<int>::const_iterator it;
 	int i;
 	for (it = m_splitterSizes.begin(), i = 0;
@@ -173,6 +179,15 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/Proxy", m_proxy);
 	config->writeEntry("/WindowWidth", m_windowWidth);
 	config->writeEntry("/WindowHeight", m_windowHeight);
+	config->endGroup();
+
+	config->beginGroup("/MenuCommands");
+	int cmdNr = 1;
+	for (Q3ValueList<MiscConfig::MenuCommand>::const_iterator it = m_contextMenuCommands.begin();
+			 it != m_contextMenuCommands.end();
+			 ++it) {
+		config->writeEntry(QString("/%1").arg(cmdNr++), (*it).toStringList());
+	}
 	config->endGroup();
 #endif
 }
@@ -203,11 +218,6 @@ void MiscConfig::readFromConfig(
 	m_enableTotalNumberOfTracks = config->readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("CommentName", s_defaultCommentName);
-	m_contextMenuCommands = config->readListEntry("ContextMenuCommands"
-#if KDE_VERSION >= 0x30200
-																								, QStringList("xmms")
-#endif
-		);
 	m_formatText =
 	    config->readEntry("FormatText2", s_defaultFnFmtList[0]);
 	m_dirFormatText =
@@ -220,6 +230,21 @@ void MiscConfig::readFromConfig(
 	m_id3v2Version = config->readNumEntry("ID3v2Version", ID3v2_3_0);
 	m_useProxy = config->readBoolEntry("UseProxy", m_useProxy);
 	m_proxy = config->readEntry("Proxy", m_proxy);
+
+	m_contextMenuCommands.clear();
+	config->setGroup("MenuCommands");
+	int cmdNr = 1;
+	for (;;) {
+		QStringList strList = config->readListEntry(QString("%1").arg(cmdNr));
+		if (strList.empty()) {
+			break;
+		}
+		m_contextMenuCommands.push_back(MiscConfig::MenuCommand(strList));
+		++cmdNr;
+	}
+	if (cmdNr == 1) {
+		m_contextMenuCommands.push_back(MiscConfig::MenuCommand("xmms", "xmms %F"));
+	}
 #else
 	config->beginGroup("/" + m_group);
 	m_nameFilter =
@@ -232,11 +257,7 @@ void MiscConfig::readFromConfig(
 	m_enableTotalNumberOfTracks = config->readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("/PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("/CommentName", s_defaultCommentName);
-	bool ok;
-	m_contextMenuCommands = config->readListEntry("/ContextMenuCommands", &ok);
-	if (!ok) {
-		m_contextMenuCommands = QStringList("xmms");
-	}
+
 	m_formatText =
 	    config->readEntry("/FormatText2", s_defaultFnFmtList[0]);
 	m_dirFormatText =
@@ -268,5 +289,72 @@ void MiscConfig::readFromConfig(
 	m_windowWidth = config->readNumEntry("/WindowWidth", -1);
 	m_windowHeight = config->readNumEntry("/WindowHeight", -1);
 	config->endGroup();
+
+	m_contextMenuCommands.clear();
+	config->beginGroup("/MenuCommands");
+	int cmdNr = 1;
+	bool ok;
+	for (;;) {
+		QStringList strList = config->readListEntry(QString("/%1").arg(cmdNr), &ok);
+		if (!ok) {
+			break;
+		}
+		m_contextMenuCommands.push_back(MiscConfig::MenuCommand(strList));
+		++cmdNr;
+	}
+	config->endGroup();
+	if (cmdNr == 1) {
+		m_contextMenuCommands.push_back(MiscConfig::MenuCommand("xmms", "xmms %F"));
+	}
 #endif
+}
+
+/**
+ * Constructor.
+ *
+ * @param name display name
+ * @param cmd  command string with argument codes
+ * @param config true if confirmation required
+ * @param showOutput true if output of command shall be shown
+ */
+MiscConfig::MenuCommand::MenuCommand(const QString& name, const QString& cmd,
+																		 bool confirm, bool showOutput) :
+	m_name(name), m_cmd(cmd), m_confirm(confirm), m_showOutput(showOutput)
+{
+}
+
+/**
+ * Constructor.
+ *
+ * @param strList string list with encoded command
+ */
+MiscConfig::MenuCommand::MenuCommand(const QStringList& strList)
+{
+	if (strList.size() == 3) {
+		bool ok;
+		uint flags = strList[2].toUInt(&ok);
+		if (ok) {
+			m_confirm = (flags & 1) != 0;
+			m_showOutput = (flags & 2) != 0;
+			m_name = strList[0];
+			m_cmd = strList[1];
+		} else {
+			m_confirm = false;
+			m_showOutput = false;
+		}
+	}
+}
+
+/**
+ * Encode into string list.
+ *
+ * @return string list with encoded command.
+ */
+QStringList MiscConfig::MenuCommand::toStringList() const {
+	QStringList strList;
+	strList.push_back(m_name);
+	strList.push_back(m_cmd);
+	uint flags = (m_confirm ? 1 : 0) | (m_showOutput ? 2 : 0);
+	strList.push_back(QString::number(flags));
+	return strList;
 }

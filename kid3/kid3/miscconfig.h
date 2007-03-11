@@ -36,13 +36,77 @@ public:
 	};
 
 	/**
+	 * External command in context menu.
+	 */
+	class MenuCommand {
+	public:
+		/**
+		 * Constructor.
+		 *
+		 * @param name display name
+		 * @param cmd  command string with argument codes
+		 * @param config true if confirmation required
+		 * @param showOutput true if output of command shall be shown
+		 */
+		explicit MenuCommand(const QString& name = QString::null,
+												 const QString& cmd = QString::null,
+												 bool confirm = false, bool showOutput = false);
+
+		/**
+		 * Constructor.
+		 *
+		 * @param strList string list with encoded command
+		 */
+		explicit MenuCommand(const QStringList& strList);
+
+		/**
+		 * Encode into string list.
+		 *
+		 * @return string list with encoded command.
+		 */
+		QStringList toStringList() const;
+
+		/**
+		 * Get the display name.
+		 * @return name.
+		 */
+		const QString& getName() const { return m_name; }
+
+		/**
+		 * Get the command string.
+		 * @return command string.
+		 */
+		const QString& getCommand() const { return m_cmd; }
+
+		/**
+		 * Check if command must be confirmed.
+		 * @return true if command has to be confirmed.
+		 */
+		bool mustBeConfirmed() const { return m_confirm; }
+
+		/**
+		 * Check if command output has to be shown.
+		 * @return true if command output has to be shown.
+		 */
+		bool outputShown() const { return m_showOutput; }
+
+	private:
+		QString m_name;
+		QString m_cmd;
+		bool m_confirm;
+		bool m_showOutput;
+	};
+
+	/**
 	 * Constructor.
 	 */
 	MiscConfig(const QString& group);
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~MiscConfig();
+
 	/**
 	 * Persist configuration.
 	 *
@@ -55,6 +119,7 @@ public:
 		Kid3Settings* config
 #endif
 		) const;
+
 	/**
 	 * Read persisted configuration.
 	 *
@@ -91,7 +156,7 @@ public:
 	/** size of file/dirlist splitter */
 	Q3ValueList<int> m_vSplitterSizes;
 	/** commands available in context menu */
-	QStringList m_contextMenuCommands;
+	Q3ValueList<MenuCommand> m_contextMenuCommands;
 	/** custom genres for ID3v2.3 */
 	QStringList m_customGenres;
 	/** true to hide ID3v1.1 controls */
