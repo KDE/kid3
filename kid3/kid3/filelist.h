@@ -15,14 +15,14 @@
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <Q3ListView>
-class Q3Process;
 #else
 #include <qlistview.h>
-class QProcess;
 #endif
 #include "dirinfo.h"
 
 class FileListItem;
+class TaggedFile;
+class ExternalProcess;
 
 /**
  * List of files to operate on.
@@ -109,6 +109,16 @@ public:
 	bool updateModificationState();
 
 	/**
+	 * Create a TaggedFile subclass depending on the file extension.
+	 *
+	 * @param di directory information
+	 * @param fn filename
+	 *
+	 * @return tagged file, 0 if no type found.
+	 */
+	static TaggedFile* createTaggedFile(const DirInfo* di, const QString& fn);
+
+	/**
 	 * Fill the filelist with the files found in the directory tree.
 	 *
 	 * @param dirInfo  information  about directory
@@ -117,6 +127,12 @@ public:
 	 */
 	static void readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 															 FileList* listView);
+
+signals:
+	/**
+	 * Emitted when some of the selected files have been renamed.
+	 */
+	void selectedFilesRenamed();
 
 private slots:
 	/**
@@ -138,9 +154,40 @@ private slots:
 	 */
 	void executeContextCommand(int id);
 
+	/**
+	 * Rename the selected file(s).
+	 */
+	void renameFile();
+
+	/**
+	 * Delete the selected file(s).
+	 */
+	void deleteFile();
+
 private:
 	FileList(const FileList&);
 	FileList& operator=(const FileList&);
+
+	/**
+	 * Format a string list from the selected files.
+	 * Supported format fields:
+	 * Those supported by StandardTags::formatString()
+	 * %f filename
+	 * %F list of files
+	 * %u URL of single file
+	 * %U list of URLs
+	 * %d directory name
+	 *
+	 * @todo %f and %F are full paths, which is inconsistent with the
+	 * export format strings but compatible with .desktop files.
+	 * %d is duration in export format.
+	 * The export codes should be changed.
+	 *
+	 * @param format format specification
+	 *
+	 * @return formatted string list.
+	 */
+	QStringList formatStringList(const QStringList& format);
 
 	/** information about directory */
 	DirInfo m_dirInfo;
@@ -149,7 +196,7 @@ private:
 	/** current item in current directory */
 	FileListItem* m_currentItemInDir;
 	/** Process for context menu commands */
-	Q3Process* m_process;
+	ExternalProcess* m_process;
 };
 
 #endif // FILELIST_H
