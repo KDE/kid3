@@ -15,6 +15,8 @@
     <Action name="apply_id3_format"/>
     <Action name="rename_directory"/>
     <Action name="number_tracks"/>
+    <Action name="convert_to_id3v24"/>
+    <Action name="convert_to_id3v23"/>
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Action name="hide_v1" append="show_merge"/>
