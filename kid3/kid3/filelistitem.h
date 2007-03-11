@@ -95,6 +95,14 @@ public:
 	const DirInfo* getDirInfo() const { return m_dirInfo; }
 
 	/**
+	 * Set directory name.
+	 * Sets a new directory name if the item represents a directory.
+	 *
+	 * @param dirName new directory name
+	 */
+	void setDirName(const QString& dirName);
+
+	/**
 	 * Update the icons according to the modificaton state and the tags present.
 	 */
 	void updateIcons();

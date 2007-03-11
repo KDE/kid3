@@ -453,3 +453,19 @@ void FileListItem::updateText()
 		setText(0, m_file->getFilename());
 	}
 }
+
+/**
+ * Set directory name.
+ * Sets a new directory name if the item represents a directory.
+ *
+ * @param dirName new directory name
+ */
+void FileListItem::setDirName(const QString& dirName)
+{
+	if (m_dirInfo) {
+		m_dirInfo->setDirname(dirName);
+		QFileInfo fi(dirName);
+		setText(0, fi.fileName());
+		setOpen(false);
+	}
+}
