@@ -1908,7 +1908,9 @@ void Kid3App::updateGuiControls()
 	else {
 		FrameList* framelist;
 		if (firstMp3File && (framelist = firstMp3File->getFrameList()) != 0) {
-			framelist->clear();
+			framelist->setTags(firstMp3File);
+		} else {
+			FrameList::clearListBox();
 		}
 		m_view->setFilenameEditEnabled(false);
 		m_view->setDetailInfo("");
@@ -2236,6 +2238,42 @@ void Kid3App::editFrame()
 	getSelectedFileWithFrameList(taggedFile, framelist);
 	if (taggedFile && framelist && framelist->editFrame()) {
 		updateAfterFrameModification(taggedFile);
+	} else if (!taggedFile && !framelist) {
+		// multiple files selected
+		FileListItem* mp3file = m_view->firstFile();
+		bool firstFile = true;
+		QString name;
+		int frameId = -1;
+		while (mp3file != 0) {
+			if (mp3file->isInSelection()) {
+				if (firstFile) {
+					firstFile = false;
+					taggedFile = mp3file->getFile();
+					framelist = mp3file->getFile()->getFrameList();
+					name = FrameList::getSelectedName();
+					if (!name.isEmpty() && framelist->editFrame()) {
+						framelist->copyFrame();
+						frameId = FrameList::getSelectedId();
+					} else {
+						break;
+					}
+				} else {
+					if (mp3file->getFile()->getFrameList() == framelist) {
+						framelist->setTags(mp3file->getFile());
+						if (FrameList::selectByName(name) &&
+								framelist->deleteFrame()) {
+							framelist->pasteFrame();
+						}
+					}
+				}
+			}
+			mp3file = m_view->nextFile();
+		}
+		framelist->setTags(taggedFile);
+		if (frameId != -1) {
+			FrameList::setSelectedId(frameId);
+		}
+		updateModificationState();
 	}
 }
 
@@ -2250,6 +2288,40 @@ void Kid3App::deleteFrame()
 	getSelectedFileWithFrameList(taggedFile, framelist);
 	if (taggedFile && framelist && framelist->deleteFrame()) {
 		updateAfterFrameModification(taggedFile);
+	} else if (!taggedFile && !framelist) {
+		// multiple files selected
+		FileListItem* mp3file = m_view->firstFile();
+		bool firstFile = true;
+		QString name;
+		int frameId = -1;
+		while (mp3file != 0) {
+			if (mp3file->isInSelection()) {
+				if (firstFile) {
+					firstFile = false;
+					taggedFile = mp3file->getFile();
+					framelist = mp3file->getFile()->getFrameList();
+					name = FrameList::getSelectedName();
+					if (!name.isEmpty() && framelist->deleteFrame()) {
+						frameId = FrameList::getSelectedId();
+					} else {
+						break;
+					}
+				} else {
+					if (mp3file->getFile()->getFrameList() == framelist) {
+						framelist->setTags(mp3file->getFile());
+						if (FrameList::selectByName(name)) {
+							framelist->deleteFrame();
+						}
+					}
+				}
+			}
+			mp3file = m_view->nextFile();
+		}
+		framelist->setTags(taggedFile);
+		if (frameId != -1) {
+			FrameList::setSelectedId(frameId);
+		}
+		updateModificationState();
 	}
 }
 
@@ -2271,16 +2343,17 @@ void Kid3App::addFrame()
 		// multiple files selected
 		FileListItem* mp3file = m_view->firstFile();
 		bool firstFile = true;
+		int frameId = -1;
 		while (mp3file != 0) {
 			if (mp3file->isInSelection()) {
 				if (firstFile) {
 					firstFile = false;
 					taggedFile = mp3file->getFile();
 					framelist = mp3file->getFile()->getFrameList();
-					framelist->setTags(taggedFile);
 					if ((id = framelist->selectFrameId()) != -1 &&
 							framelist->addFrame(id, true)) {
 						framelist->copyFrame();
+						frameId = FrameList::getSelectedId();
 					} else {
 						break;
 					}
@@ -2292,6 +2365,10 @@ void Kid3App::addFrame()
 				}
 			}
 			mp3file = m_view->nextFile();
+		}
+		framelist->setTags(taggedFile);
+		if (frameId != -1) {
+			FrameList::setSelectedId(frameId);
 		}
 		updateModificationState();
 	}
