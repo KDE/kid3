@@ -913,13 +913,15 @@ void TagLibFrameList::readTags()
 		TagLib::APE::Tag* apeTag;
 		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag)) != 0) {
 			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
+			int i = 0;
 			for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
 					 it != frameList.end();
 					 ++it) {
-				s_listbox->insertItem(getId3v2FrameDescription((*it)->frameID()));
+				new FrameListItem(s_listbox, getId3v2FrameDescription((*it)->frameID()), i++);
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag)) != 0) {
 			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
+			int i = 0;
 			for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
 					 it != fieldListMap.end();
 					 ++it) {
@@ -928,17 +930,19 @@ void TagLibFrameList::readTags()
 				for (TagLib::StringList::ConstIterator slit = stringList.begin();
 						 slit != stringList.end();
 						 ++slit) {
-					s_listbox->insertItem(id);
+					new FrameListItem(s_listbox, id, i++);
 				}
 			}
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag)) != 0) {
 			const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
+			int i = 0;
 			for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
 					 it != itemListMap.end();
 					 ++it) {
-				s_listbox->insertItem(TStringToQString((*it).first));
+				new FrameListItem(s_listbox, TStringToQString((*it).first), i++);
 			}
 		}
+		s_listbox->sort();
 	}
 }
 
@@ -1828,14 +1832,15 @@ bool TagLibFrameList::editFrame()
 {
 	bool edited = false;
 	int selectedIndex = s_listbox->currentItem();
-	if (selectedIndex != -1 && m_tag) {
+	int selectedId = getSelectedId();
+	if (selectedId != -1 && m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
 		TagLib::Ogg::XiphComment* oggTag;
 		TagLib::APE::Tag* apeTag;
 		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag)) != 0) {
 			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
-			if (selectedIndex < static_cast<int>(frameList.size())) {
-				TagLib::ID3v2::Frame* oldFrame = frameList[selectedIndex];
+			if (selectedId < static_cast<int>(frameList.size())) {
+				TagLib::ID3v2::Frame* oldFrame = frameList[selectedId];
 				TagLib::ID3v2::Frame* newFrame;
 				if ((newFrame = editId3v2Frame(oldFrame)) != 0) {
 					id3v2Tag->removeFrame(oldFrame);
@@ -1845,7 +1850,7 @@ bool TagLibFrameList::editFrame()
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag)) != 0) {
 			TagLib::String key, value;
-			if (getXiphCommentField(*oggTag, selectedIndex, key, value)) {
+			if (getXiphCommentField(*oggTag, selectedId, key, value)) {
 				TagLib::String oldValue = value;
 				if (editKeyValueField(key, value)) {
 					if (!(value == oldValue)) {
@@ -1865,7 +1870,7 @@ bool TagLibFrameList::editFrame()
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag)) != 0) {
 			TagLib::String key;
 			TagLib::APE::Item item;
-			if (getApeItem(*apeTag, selectedIndex, key, item)) {
+			if (getApeItem(*apeTag, selectedId, key, item)) {
 				TagLib::StringList values = item.toStringList();
 				TagLib::String value = values.size() > 0 ? values.front() : "";
 				TagLib::String oldValue = value;
@@ -1905,19 +1910,20 @@ bool TagLibFrameList::deleteFrame()
 {
 	bool deleted = false;
 	int selectedIndex = s_listbox->currentItem();
-	if (selectedIndex != -1 && m_tag) {
+	int selectedId = getSelectedId();
+	if (selectedId != -1 && m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
 		TagLib::Ogg::XiphComment* oggTag;
 		TagLib::APE::Tag* apeTag;
 		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag)) != 0) {
 			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
-			if (selectedIndex < static_cast<int>(frameList.size())) {
-				id3v2Tag->removeFrame(frameList[selectedIndex]);
+			if (selectedId < static_cast<int>(frameList.size())) {
+				id3v2Tag->removeFrame(frameList[selectedId]);
 				deleted = true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag)) != 0) {
 			TagLib::String key, value;
-			if (getXiphCommentField(*oggTag, selectedIndex, key, value)) {
+			if (getXiphCommentField(*oggTag, selectedId, key, value)) {
 #ifdef TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
 				oggTag->removeField(key);
 #else
@@ -1931,7 +1937,7 @@ bool TagLibFrameList::deleteFrame()
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag)) != 0) {
 			TagLib::String key;
 			TagLib::APE::Item item;
-			if (getApeItem(*apeTag, selectedIndex, key, item)) {
+			if (getApeItem(*apeTag, selectedId, key, item)) {
 				apeTag->removeItem(key);
 				deleted = true;
 			}
@@ -2047,12 +2053,10 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 				if (newFrame) {
 					id3v2Tag->addFrame(newFrame);
 					added = true;
+					int frameIndex = id3v2Tag->frameList().size() - 1;
 					readTags(); // refresh listbox
-					const int lastIndex = s_listbox->count() - 1;
-					if (lastIndex >= 0) {
-						s_listbox->setSelected(lastIndex, true);
-						s_listbox->ensureCurrentVisible();
-					}
+					setSelectedId(frameIndex);
+					s_listbox->ensureCurrentVisible();
 				}
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag)) != 0) {
@@ -2206,20 +2210,20 @@ int TagLibFrameList::selectFrameId()
 bool TagLibFrameList::copyFrame()
 {
 	bool copied = false;
-	int selectedIndex = s_listbox->currentItem();
-	if (selectedIndex != -1 && m_tag) {
+	int selectedId = getSelectedId();
+	if (selectedId != -1 && m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
 		TagLib::Ogg::XiphComment* oggTag;
 		TagLib::APE::Tag* apeTag;
 		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag)) != 0) {
 			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
-			if (selectedIndex < static_cast<int>(frameList.size())) {
-				m_copyData = frameList[selectedIndex]->render();
+			if (selectedId < static_cast<int>(frameList.size())) {
+				m_copyData = frameList[selectedId]->render();
 				copied = true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag)) != 0) {
 			TagLib::String key, value;
-			if (getXiphCommentField(*oggTag, selectedIndex, key, value)) {
+			if (getXiphCommentField(*oggTag, selectedId, key, value)) {
 				m_copyKey = key;
 				m_copyValue = value;
 				copied = true;
@@ -2227,7 +2231,7 @@ bool TagLibFrameList::copyFrame()
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag)) != 0) {
 			TagLib::String key;
 			TagLib::APE::Item item;
-			if (getApeItem(*apeTag, selectedIndex, key, item)) {
+			if (getApeItem(*apeTag, selectedId, key, item)) {
 				m_copyKey = key;
 				TagLib::StringList values = item.toStringList();
 				m_copyValue = values.size() > 0 ? values.front() : "";

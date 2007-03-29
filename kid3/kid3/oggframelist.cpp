@@ -131,11 +131,13 @@ void OggFrameList::readTags()
 {
 	s_listbox->clear();
 	if (m_tags) {
+		int i = 0;
 		for (OggFile::CommentList::const_iterator it = m_tags->begin();
 				 it != m_tags->end();
 				 ++it) {
-			s_listbox->insertItem((*it).getName());
+			new FrameListItem(s_listbox, (*it).getName(), i++);
 		}
+		s_listbox->sort();
 	}
 }
 
@@ -186,9 +188,9 @@ bool OggFrameList::editFrame(OggFile::CommentField& frame)
  */
 bool OggFrameList::editFrame()
 {
-	int selectedIndex = s_listbox->currentItem();
-	if (selectedIndex != -1 && m_tags) {
-		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
+	int selectedId = getSelectedId();
+	if (selectedId != -1 && m_tags) {
+		OggFile::CommentList::iterator it = m_tags->at(selectedId);
 		return editFrame(*it);
 	}
 	return false;
@@ -202,8 +204,9 @@ bool OggFrameList::editFrame()
 bool OggFrameList::deleteFrame()
 {
 	int selectedIndex = s_listbox->currentItem();
-	if (selectedIndex != -1 && m_tags) {
-		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
+	int selectedId = getSelectedId();
+	if (selectedId != -1 && m_tags) {
+		OggFile::CommentList::iterator it = m_tags->at(selectedId);
 		m_tags->erase(it);
 		readTags(); // refresh listbox
 		// select the next item (or the last if it was the last)
@@ -241,12 +244,10 @@ bool OggFrameList::addFrame(int frameId, bool edit)
 			return false;
 		}
 		m_tags->push_back(frame);
+		int frameIndex = m_tags->size() - 1;
 		readTags(); // refresh listbox
-		const int lastIndex = s_listbox->count() - 1;
-		if (lastIndex >= 0) {
-			s_listbox->setSelected(lastIndex, true);
-			s_listbox->ensureCurrentVisible();
-		}
+		setSelectedId(frameIndex);
+		s_listbox->ensureCurrentVisible();
 		if (m_file) {
 			m_file->markTag2Changed();
 		}
@@ -337,9 +338,9 @@ int OggFrameList::selectFrameId()
  * @return true if frame copied.
  */
 bool OggFrameList::copyFrame() {
-	int selectedIndex = s_listbox->currentItem();
-	if (selectedIndex != -1 && m_tags) {
-		OggFile::CommentList::iterator it = m_tags->at(selectedIndex);
+	int selectedId = getSelectedId();
+	if (selectedId != -1 && m_tags) {
+		OggFile::CommentList::iterator it = m_tags->at(selectedId);
 		if (it != m_tags->end()) {
 			m_copyFrame = *it;
 		}

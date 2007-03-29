@@ -654,9 +654,10 @@ void Mp3FrameList::readTags()
 	if (m_tags) {
 		ID3_Tag::Iterator* iter = m_tags->CreateIterator();
 		ID3_Frame* frame;
+		int i = 0;
 		while ((frame = iter->GetNext()) != NULL) {
 			const char* idstr = getIdString(frame->GetID());
-			s_listbox->insertItem(idstr ? i18n(idstr) : QString(frame->GetTextID()));
+			new FrameListItem(s_listbox, idstr ? i18n(idstr) : QString(frame->GetTextID()), i++);
 		}
 #ifdef WIN32
 		/* allocated in Windows DLL => must be freed in the same DLL */
@@ -664,6 +665,7 @@ void Mp3FrameList::readTags()
 #else
 		delete iter;
 #endif
+		s_listbox->sort();
 	}
 }
 
@@ -720,7 +722,7 @@ ID3_Frame* Mp3FrameList::getFrame(int index) const
 ID3_Frame* Mp3FrameList::getSelectedFrame(int* lbIndex) const
 {
 	ID3_Frame* frame = NULL;
-	int selectedIndex = -1;
+	int selectedId = getSelectedId();
 	if (m_tags) {
 		int i;
 		ID3_Tag::Iterator* iter = m_tags->CreateIterator();
@@ -728,8 +730,7 @@ ID3_Frame* Mp3FrameList::getSelectedFrame(int* lbIndex) const
 		     i < (int)s_listbox->count() &&
 			 ((frame = iter->GetNext()) != NULL);
 		     i++) {
-			if (s_listbox->isSelected(i)) {
-				selectedIndex = i;
+			if (i == selectedId) {
 				break;
 			}
 			else {
@@ -744,7 +745,7 @@ ID3_Frame* Mp3FrameList::getSelectedFrame(int* lbIndex) const
 #endif
 	}
 	if (lbIndex) {
-		*lbIndex = selectedIndex;
+		*lbIndex = s_listbox->currentItem();
 	}
 	return frame;
 }
@@ -978,7 +979,7 @@ bool Mp3FrameList::addFrame(int frameId, bool edit)
 			readTags(); // refresh listbox
 			const int lastIndex = s_listbox->count() - 1;
 			if (lastIndex >= 0) {
-				s_listbox->setSelected(lastIndex, true);
+				setSelectedId(lastIndex);
 				s_listbox->ensureCurrentVisible();
 			}
 			if (m_file) {
