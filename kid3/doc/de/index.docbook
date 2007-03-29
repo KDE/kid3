@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>07/03/2007</date>
+<date>29/03/2007</date>
 <releaseinfo>0.9</releaseinfo>
 
 <abstract>
@@ -396,7 +396,10 @@ an, welche in der ausgew&auml;hlten Datei vorhanden sind.
 <para>
 <guibutton>Editieren</guibutton>: Ein Fenster wird ge&ouml;ffnet, in welchem
 alle Felder des gew&auml;hlten Elementes editiert werden k&ouml;nnen. Dies kann auch
-durch Doppelklick auf den Elementeintrag erreicht werden.</para>
+durch Doppelklick auf den Elementeintrag erreicht werden. Wenn mehrere Dateien
+ausgew&auml;hlt sind, so werden die editierten Felder bei allen ausgew&auml;hlten
+Dateien angewendet, welche solch ein Element enthalten.
+</para>
 <para>
 <guibutton>Hinzuf&uuml;gen</guibutton>: Ein Auswahlfenster mit allen
 unterst&uuml;tzten Elementtypen wird angezeigt und  ein Element des gew&auml;hlten
@@ -405,7 +408,8 @@ auch, wenn mehrere Dateien ausgew&auml;hlt sind; das Element wird dann bei allen
 ausgew&auml;hlten Dateien hinzugef&uuml;gt. 
 </para>
 <para>
-<guibutton>L&ouml;schen</guibutton>: L&ouml;scht das ausgew&auml;hlte Element.
+<guibutton>L&ouml;schen</guibutton>: L&ouml;scht das ausgew&auml;hlte Element
+in den ausgew&auml;hlten Dateien.
 </para>
 </listitem>
 

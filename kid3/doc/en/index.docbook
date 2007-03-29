@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>07/03/2007</date>
+<date>29/03/2007</date>
 <releaseinfo>0.9</releaseinfo>
 
 <abstract>
@@ -373,6 +373,8 @@ all the frames which are available in the selected file.
 <para>
 <guibutton>Edit</guibutton>: This will open a window which allows to edit all fields
 of the selected frame. This is equivalent to double clicking on the selected frame.
+If multiple files are selected, the edited fields are applied to all selected files
+which contain such a frame.
 </para>
 <para>
 <guibutton>Add</guibutton>: A requester to select the frame type will appear
@@ -380,7 +382,7 @@ and a frame of the selected type can be edited and added to the file. This
 works also to add a frame to multiple selected files.
 </para>
 <para>
-<guibutton>Delete</guibutton>: Deletes the selected frame.
+<guibutton>Delete</guibutton>: Deletes the selected frame in the selected files.
 </para>
 </listitem>
 </varlistentry>
