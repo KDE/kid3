@@ -155,3 +155,75 @@ TaggedFile* FrameList::getFile() const
 {
 	return m_file;
 }
+
+/**
+ * Get ID of selected frame list item.
+ *
+ * @return ID of selected item,
+ *         -1 if not item is selected.
+ */
+int FrameList::getSelectedId()
+{
+	Q3ListBoxItem* lbi;
+	FrameListItem* fli;
+	return
+		(lbi = s_listbox->selectedItem()) != 0 &&
+		(fli = dynamic_cast<FrameListItem*>(lbi)) != 0 ? fli->getId() : -1;
+}
+
+/**
+ * Select the frame by ID.
+ *
+ * @param id ID of frame to select
+ */
+void FrameList::setSelectedId(int id)
+{
+	Q3ListBoxItem* lbi = s_listbox->firstItem();
+	while (lbi) {
+		FrameListItem* fli = dynamic_cast<FrameListItem*>(lbi);
+		if (fli && fli->getId() == id) {
+			s_listbox->setSelected(lbi, true);
+			break;
+		}
+		lbi = lbi->next();
+	}
+}
+
+/**
+ * Get the name of the selected frame.
+ *
+ * @return name, QString::null if nothing selected.
+ */
+QString FrameList::getSelectedName()
+{
+	return s_listbox ? s_listbox->currentText() : QString::null;
+}
+
+/**
+ * Select a frame with a given name.
+ *
+ * @param name name of frame
+ *
+ * @return true if a frame with that name could be selected.
+ */
+bool FrameList::selectByName(const QString& name)
+{
+	if (s_listbox) {
+		Q3ListBoxItem* lbi = s_listbox->findItem(name);
+		if (lbi) {
+			s_listbox->setSelected(lbi, true);
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * Clear list box.
+ */
+void FrameList::clearListBox()
+{
+	if (s_listbox) {
+		s_listbox->clear();
+	}
+}

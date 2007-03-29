@@ -18,8 +18,12 @@
 #include <qspinbox.h>
 #include <qcombobox.h>
 #include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <Q3ListBox>
+#else
+#include <qlistbox.h>
+#endif
 
-class Q3ListBox;
 class QVBoxLayout;
 class QPaintEvent;
 class TaggedFile;
@@ -250,6 +254,36 @@ public:
 
 
 /**
+ * Item in frame list box.
+ */
+class FrameListItem : public Q3ListBoxText {
+public:
+	/**
+	 * Constructor.
+	 * @param listbox listbox
+	 * @param text    title
+	 * @param id      ID
+	 */
+	FrameListItem(Q3ListBox* listbox, const QString& text, int id) :
+		Q3ListBoxText(listbox, text), m_id(id) {}
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~FrameListItem() {}
+
+	/**
+	 * Get ID.
+	 * @return ID.
+	 */
+	int getId() const { return m_id; }
+
+private:
+	int m_id;
+};
+
+
+/**
  * List of frames.
  */
 class FrameList : public QObject {
@@ -337,6 +371,42 @@ public:
 	 * @param lb list box
 	 */
 	static void setListBox(Q3ListBox* lb) { s_listbox = lb; }
+
+	/**
+	 * Get the name of the selected frame.
+	 *
+	 * @return name, QString::null if nothing selected.
+	 */
+	static QString getSelectedName();
+
+	/**
+	 * Select a frame with a given name.
+	 *
+	 * @param name name of frame
+	 *
+	 * @return true if a frame with that name could be selected.
+	 */
+	static bool selectByName(const QString& name);
+
+	/**
+	 * Get ID of selected frame list item.
+	 *
+	 * @return ID of selected item,
+	 *         -1 if not item is selected.
+	 */
+	static int getSelectedId();
+
+	/**
+	 * Select the frame by ID.
+	 *
+	 * @param id ID of frame to select
+	 */
+	static void setSelectedId(int id);
+
+	/**
+	 * Clear list box.
+	 */
+	static void clearListBox();
 
 protected:
 	/** File containing tags */
