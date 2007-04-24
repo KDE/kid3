@@ -34,6 +34,7 @@ class FormatBox;
 class QCheckBox;
 class FormatConfig;
 class MiscConfig;
+class StringListEdit;
 class CommandsTable;
 class QString;
 class QWidget;
@@ -108,8 +109,14 @@ private:
 	FormatBox* m_fnFormatBox;
 	/** ID3 Format box */
 	FormatBox* m_id3FormatBox;
+	/** Only custom genres checkbox */
+	QCheckBox* m_onlyCustomGenresCheckBox;
+	/** List of custom genres */
+	StringListEdit* m_genresEdit;
 	/** Commands table */
 	CommandsTable* m_commandsTable;
+	/** Browser line edit */
+	QLineEdit* m_browserLineEdit;
 	/** Use proxy check box */
 	QCheckBox* m_proxyCheckBox;
 	/** Proxy line edit */

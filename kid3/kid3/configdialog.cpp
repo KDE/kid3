@@ -32,6 +32,7 @@
 #include "formatconfig.h"
 #include "formatbox.h"
 #include "miscconfig.h"
+#include "stringlistedit.h"
 #include "commandstable.h"
 #include "kid3.h"
 
@@ -52,19 +53,12 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #endif
 {
 	setCaption(caption);
-	QWidget* generalPage = new QWidget;
-	if (generalPage) {
-		QVBoxLayout* vlayout = new QVBoxLayout(generalPage, 6, 6);
+
+	QWidget* tagsPage = new QWidget;
+	if (tagsPage) {
+		QVBoxLayout* vlayout = new QVBoxLayout(tagsPage, 6, 6);
 		if (vlayout) {
-			Q3GroupBox* saveGroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("Save"), generalPage);
-			if (saveGroupBox) {
-#if QT_VERSION >= 0x040000
-				saveGroupBox->setInsideMargin(5);
-#endif
-				m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
-				vlayout->addWidget(saveGroupBox);
-			}
-			Q3GroupBox* v2GroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("ID3v2"), generalPage);
+			Q3GroupBox* v2GroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("ID3v2"), tagsPage);
 			if (v2GroupBox) {
 #if QT_VERSION >= 0x040000
 				v2GroupBox->setInsideMargin(5);
@@ -83,7 +77,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				vlayout->addWidget(v2GroupBox);
 			}
 #ifdef HAVE_VORBIS
-			Q3GroupBox* vorbisGroupBox = new Q3GroupBox(2, Qt::Horizontal, i18n("Ogg/Vorbis"), generalPage);
+			Q3GroupBox* vorbisGroupBox = new Q3GroupBox(2, Qt::Horizontal, i18n("Ogg/Vorbis"), tagsPage);
 			if (vorbisGroupBox) {
 #if QT_VERSION >= 0x040000
 				vorbisGroupBox->setInsideMargin(5);
@@ -101,7 +95,74 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				vlayout->addWidget(vorbisGroupBox);
 			}
 #endif
-			Q3GroupBox* commandsGroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("Context &Menu Commands"), generalPage);
+			QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
+			if (hlayout) {
+				Q3GroupBox* genresGroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("Custom &Genres"), tagsPage);
+				if (genresGroupBox) {
+#if QT_VERSION >= 0x040000
+					genresGroupBox->setInsideMargin(5);
+#endif
+					m_onlyCustomGenresCheckBox = new QCheckBox(i18n("&Show only custom genres"), genresGroupBox);
+					m_genresEdit = new StringListEdit(genresGroupBox, "genresList");
+					hlayout->addWidget(genresGroupBox);
+				}
+				QString id3FormatTitle(i18n("&Tag Format"));
+				m_id3FormatBox = new FormatBox(id3FormatTitle, tagsPage, "id3FormatBox");
+				if (m_id3FormatBox) {
+					hlayout->addWidget(m_id3FormatBox);
+				}
+			}
+		}
+#ifdef KID3_USE_KCONFIGDIALOG
+		addPage(tagsPage, i18n("Tags"), "package_multimedia");
+#else
+		addTab(tagsPage, i18n("&Tags"));
+#endif
+	}
+
+	QWidget* filesPage = new QWidget;
+	if (filesPage) {
+		QVBoxLayout* vlayout = new QVBoxLayout(filesPage, 6, 6);
+		if (vlayout) {
+			Q3GroupBox* saveGroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("Save"), filesPage);
+			if (saveGroupBox) {
+#if QT_VERSION >= 0x040000
+				saveGroupBox->setInsideMargin(5);
+#endif
+				m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
+				vlayout->addWidget(saveGroupBox);
+			}
+			QString fnFormatTitle(i18n("&Filename Format"));
+			m_fnFormatBox = new FormatBox(fnFormatTitle, filesPage, "fnFormatBox");
+			if (m_fnFormatBox) {
+				vlayout->addWidget(m_fnFormatBox);
+			}
+		}
+#ifdef KID3_USE_KCONFIGDIALOG
+		addPage(filesPage, i18n("Files"), "package_system");
+#else
+		addTab(filesPage, i18n("&Files"));
+#endif
+	}
+
+	QWidget* actionsPage = new QWidget;
+	if (actionsPage) {
+		QVBoxLayout* vlayout = new QVBoxLayout(actionsPage, 6, 6);
+		if (vlayout) {
+			Q3GroupBox* browserGroupBox = new Q3GroupBox(2, Qt::Horizontal, i18n("Browser"), actionsPage);
+			if (browserGroupBox) {
+#if QT_VERSION >= 0x040000
+				browserGroupBox->setInsideMargin(5);
+#endif
+				QLabel* browserLabel = new QLabel(i18n("Web &Browser:"), browserGroupBox);
+				m_browserLineEdit = new QLineEdit(browserGroupBox);
+				if (browserLabel && m_browserLineEdit) {
+					browserLabel->setBuddy(m_browserLineEdit);
+				}
+				vlayout->addWidget(browserGroupBox);
+			}
+
+			Q3GroupBox* commandsGroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("Context &Menu Commands"), actionsPage);
 			if (commandsGroupBox) {
 #if QT_VERSION >= 0x040000
 				commandsGroupBox->setInsideMargin(5);
@@ -113,49 +174,33 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			vlayout->addItem(vspacer);
 		}
 #ifdef KID3_USE_KCONFIGDIALOG
-		addPage(generalPage, i18n("General"), "package_system");
+		addPage(actionsPage, i18n("User Actions"), "package_utilities");
 #else
-		addTab(generalPage, i18n("&General"));
+		addTab(actionsPage, i18n("&User Actions"));
 #endif
 	}
 
-	QWidget* formatPage = new QWidget;
-	if (formatPage) {
-		QVBoxLayout* vlayout = new QVBoxLayout(formatPage, 6, 6);
+	QWidget* networkPage = new QWidget;
+	if (networkPage) {
+		QVBoxLayout* vlayout = new QVBoxLayout(networkPage, 6, 6);
 		if (vlayout) {
-			QHBoxLayout* fmtLayout = new QHBoxLayout(vlayout);
-			QString fnFormatTitle(i18n("&Filename Format"));
-			m_fnFormatBox = new FormatBox(fnFormatTitle, formatPage, "fnFormatBox");
-			QString id3FormatTitle(i18n("&Tag Format"));
-			m_id3FormatBox = new FormatBox(id3FormatTitle, formatPage, "id3FormatBox");
-			if (fmtLayout && m_fnFormatBox && m_id3FormatBox) {
-				fmtLayout->addWidget(m_fnFormatBox);
-				fmtLayout->addWidget(m_id3FormatBox);
-			}
-		}
-#ifdef KID3_USE_KCONFIGDIALOG
-		addPage(formatPage, i18n("Format"), "package_editors");
-#else
-		addTab(formatPage, i18n("F&ormat"));
+			Q3GroupBox* proxyGroupBox = new Q3GroupBox(2, Qt::Horizontal, i18n("Proxy"), networkPage);
+			if (proxyGroupBox) {
+#if QT_VERSION >= 0x040000
+				proxyGroupBox->setInsideMargin(5);
 #endif
-	}
-
-	QWidget* proxyPage = new QWidget;
-	if (proxyPage) {
-		QVBoxLayout* vlayout = new QVBoxLayout(proxyPage, 6, 6);
-		if (vlayout) {
-			QHBoxLayout* proxyLayout = new QHBoxLayout(vlayout);
-			m_proxyCheckBox = new QCheckBox(i18n("&Proxy:"), proxyPage);
-			m_proxyLineEdit = new QLineEdit(proxyPage);
-			if (proxyLayout && m_proxyCheckBox && m_proxyLineEdit) {
-				proxyLayout->addWidget(m_proxyCheckBox);
-				proxyLayout->addWidget(m_proxyLineEdit);
+				m_proxyCheckBox = new QCheckBox(i18n("&Proxy:"), proxyGroupBox);
+				m_proxyLineEdit = new QLineEdit(proxyGroupBox);
+				vlayout->addWidget(proxyGroupBox);
 			}
+
+			QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+			vlayout->addItem(vspacer);
 		}
 #ifdef KID3_USE_KCONFIGDIALOG
-		addPage(proxyPage, i18n("Proxy"), "proxy");
+		addPage(networkPage, i18n("Network"), "package_network");
 #else
-		addTab(proxyPage, i18n("&Proxy"));
+		addTab(networkPage, i18n("&Network"));
 #endif
 	}
 
@@ -189,6 +234,8 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 	m_id3FormatBox->fromFormatConfig(id3Cfg);
 	m_totalNumTracksCheckBox->setChecked(miscCfg->m_enableTotalNumberOfTracks);
 	m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
+	m_onlyCustomGenresCheckBox->setChecked(miscCfg->m_onlyCustomGenres);
+	m_genresEdit->setStrings(miscCfg->m_customGenres);
 	m_commandsTable->setCommandList(miscCfg->m_contextMenuCommands);
 #ifdef HAVE_VORBIS
 	m_commentNameComboBox->setCurrentText(miscCfg->m_commentName);
@@ -196,6 +243,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	m_id3v2VersionComboBox->setCurrentItem(miscCfg->m_id3v2Version);
 #endif
+	m_browserLineEdit->setText(miscCfg->m_browser);
 	m_proxyCheckBox->setChecked(miscCfg->m_useProxy);
 	m_proxyLineEdit->setText(miscCfg->m_proxy);
 }
@@ -215,6 +263,8 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	m_id3FormatBox->toFormatConfig(id3Cfg);
 	miscCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
 	miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
+	miscCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
+	m_genresEdit->getStrings(miscCfg->m_customGenres);
 	m_commandsTable->getCommandList(miscCfg->m_contextMenuCommands);
 #ifdef HAVE_VORBIS
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
@@ -222,6 +272,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	miscCfg->m_id3v2Version = m_id3v2VersionComboBox->currentItem();
 #endif
+	miscCfg->m_browser = m_browserLineEdit->text();
 	miscCfg->m_useProxy = m_proxyCheckBox->isChecked();
 	miscCfg->m_proxy = m_proxyLineEdit->text();
 }
