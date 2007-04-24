@@ -385,12 +385,14 @@ void FileList::contextMenu(Q3ListViewItem* item, const QPoint& pos)
 /**
  * Format a string list from the selected files.
  * Supported format fields:
- * Those supported by StandardTags::formatString()
+ * Those supported by StandardTags::formatString(),
+ * when prefixed with u, encoded as URL
  * %f filename
  * %F list of files
- * %u URL of single file
- * %U list of URLs
+ * %uf URL of single file
+ * %uF list of URLs
  * %d directory name
+ * %b the web browser set in the configuration
  *
  * @todo %f and %F are full paths, which is inconsistent with the
  * export format strings but compatible with .desktop files.
@@ -434,8 +436,8 @@ QStringList FileList::formatStringList(const QStringList& format)
 			if (*it == "%F") {
 				// list of files
 				fmt += files;
-			} else if (*it == "%U") {
-				// list of URLs
+			} else if (*it == "%uF") {
+				// list of URLs or URL
 				QUrl url;
 				url.setProtocol("file");
 				for (QStringList::const_iterator fit = files.begin();
@@ -450,37 +452,43 @@ QStringList FileList::formatStringList(const QStringList& format)
 				}
 			} else {
 				const int numTagCodes = 3;
-				const QChar tagCode[numTagCodes] = { 'f', 'u', 'd' };
+				const QChar tagCode[numTagCodes] = { 'f', 'd', 'b' };
 				QString tagStr[numTagCodes];
 				if (!files.empty()) {
 					tagStr[0] = files.front();
-					QUrl url;
-					url.setFileName(tagStr[0]);
-					url.setProtocol("file");
-					tagStr[1] = url.toString(
-#if QT_VERSION < 0x040000
-						true
-#endif
-						);
-					tagStr[2] = tagStr[0];
+					tagStr[1] = tagStr[0];
+					tagStr[2] = Kid3App::s_miscCfg.m_browser;
 					if (!dirInfo) {
-						int sepPos = tagStr[2].findRev('/');
+						int sepPos = tagStr[1].findRev('/');
 						if (sepPos < 0) {
-							sepPos = tagStr[2].findRev(QDir::separator());
+							sepPos = tagStr[1].findRev(QDir::separator());
 						}
 						if (sepPos >= 0) {
-							tagStr[2].truncate(sepPos);
+							tagStr[1].truncate(sepPos);
 						}
 					}
 				}
 				QString str = StandardTags::replacePercentCodes(*it, tagCode, tagStr, numTagCodes);
+
+				int ufPos;
+				if ((ufPos = str.find("%uf")) != -1 && !files.empty()) {
+					QUrl url;
+					url.setProtocol("file");
+					url.setFileName(files.front());
+					str.replace(ufPos, 3, url.toString(
+#if QT_VERSION < 0x040000
+												true
+#endif
+												));
+				}
+
 				if (firstSelectedItem) {
 					// use merged tags 1 and 2 to format string
 					StandardTags st1, st2;
 					firstSelectedItem->getFile()->getStandardTagsV1(&st1);
 					firstSelectedItem->getFile()->getStandardTagsV2(&st2);
 					st2.merge(st1);
-					str = st2.formatString(str);
+					str = st2.formatString(str, StandardTags::FSF_SupportUrlEncode);
 				}
 				fmt.push_back(str);
 			}
@@ -501,15 +509,35 @@ void FileList::executeContextCommand(int id)
 		const MiscConfig::MenuCommand& menuCmd = Kid3App::s_miscCfg.m_contextMenuCommands[id];
 		QString cmd = menuCmd.getCommand();
 
-		QRegExp rx("(\".*\"|\\S+)");
-		int pos = 0, lastPos = -1;
-		while (pos >= 0 && pos > lastPos) {
-			pos = rx.search(cmd, pos);
-			if (pos >= 0) {
-				args.push_back(rx.cap(1));
-				lastPos = pos;
-				pos += rx.matchedLength();
+		int len = cmd.length();
+		int begin;
+		int end = 0;
+		while (end < len) {
+			begin = end;
+			while (begin < len && cmd[begin] == ' ') ++begin;
+			if (begin >= len) break;
+			if (cmd[begin] == '"') {
+				++begin;
+				QString str;
+				while (begin < len) {
+					if (cmd[begin] == '\\' && begin + 1 < len &&
+							(cmd[begin + 1] == '\\' ||
+							 cmd[begin + 1] == '"')) {
+						++begin;
+					} else if (cmd[begin] == '"') {
+						break;
+					}
+					str += cmd[begin];
+					++begin;
+				}
+				args.push_back(str);
+				end = begin;
+			} else {
+				end = cmd.find(' ', begin + 1);
+				if (end == -1) end = len;
+				args.push_back(cmd.mid(begin, end - begin));
 			}
+			++end;
 		}
 
 		args = formatStringList(args);

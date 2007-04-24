@@ -171,12 +171,14 @@ private:
 	/**
 	 * Format a string list from the selected files.
 	 * Supported format fields:
-	 * Those supported by StandardTags::formatString()
+	 * Those supported by StandardTags::formatString(),
+	 * when prefixed with u, encoded as URL
 	 * %f filename
 	 * %F list of files
-	 * %u URL of single file
-	 * %U list of URLs
+	 * %uf URL of single file
+	 * %uF list of URLs
 	 * %d directory name
+	 * %b the web browser set in the configuration
 	 *
 	 * @todo %f and %F are full paths, which is inconsistent with the
 	 * export format strings but compatible with .desktop files.
