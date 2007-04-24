@@ -942,14 +942,11 @@ und aus.</action></para></listitem>
 <guimenuitem>Kid3 einrichten...</guimenuitem>
 </menuchoice></term>
 <listitem><para>&Ouml;ffnet den <action>Konfigurationsdialog</action>, 
-der aus drei Seiten besteht, einer f&uuml;r allgemeine Einstellungen, einer,
-mit welcher das Format der Dateinamen und Tag-Felder gesetzt werden kann,
-und schlie&szlig;lich einer um den Proxy zu setzen, falls n&ouml;tig.
+der aus verschiedenen Seiten besteht, mit Optionen f&uuml;r Tags, Dateien, Benutzerbefehle und Netzwerk.
 </para>
 <para>
-Auf der Seite <guilabel>Allgemein</guilabel>, kann mit dem Markierungsfeld
-<guilabel>Datei-Zeitstempel nicht ver&auml;ndern</guilabel> eingestellt werden,
-dass die Modifikationszeit der Datei nicht ver&auml;ndert wird. Das Markierungsfeld
+Optionen f&uuml;r Tags sind auf der Seite <guilabel>Tags</guilabel> zu finden.
+Das Markierungsfeld
 <guilabel>Benutze Format Nummer/Anzahl St&uuml;cke</guilabel> bewirkt, dass im
 Tracknummer-Feld bei den ID3v2 Tags nicht blo&szlig; die Tracknummer gespeichert
 wird, sondern auch die Gesamtzahl der St&uuml;cke im Verzeichnis.
@@ -967,43 +964,31 @@ unterschiedliche Namen zu verwenden, "COMMENT" wird beispielsweise von xmms
 benutzt, w&auml;hrend amaroK "DESCRIPTION" verwendet.
 </para>
 <para>
-Die Tabelle <guilabel>Kontext Men&uuml; Befehle</guilabel> enth&auml;lt die Befehle,
-welche &uuml;ber das Kontext Men&uuml; der Dateiliste ausgew&auml;hlt werden k&ouml;nnen. Bei
-kritischen Operationen, beispielsweise dem L&ouml;schen von Dateien, empfiehlt es
-sich, <guilabel>Nachfragen</guilabel> zu markieren, damit vor dem Ausf&uuml;hren
-des Befehls eine Best&auml;tigung verlangt wird.
-<guilabel>Ausgabe</guilabel> kann markiert werden, um die Ausgabe von
-Konsolen-Applikationen zu sehen (Standard und
-Fehler-Ausgabe). <guilabel>Name</guilabel> ist der Text, welcher im Kontext
-Men&uuml; dargestellt wird. <guilabel>Befehl</guilabel> schlie&szlig;lich ist
-die auszuf&uuml;hrende Kommandozeile. Argumente k&ouml;nnen mit den
-folgenden Codes &uuml;bergeben werden:
-</para>
-
-<itemizedlist>
-<listitem><para>%F Dateipfad (eine Liste wenn mehrere Dateien selektiert sind)</para></listitem>
-<listitem><para>%f Pfad einer einzelnen Datei</para></listitem>
-<listitem><para>%U URLs (eine Liste wenn mehrere Dateien selektiert sind)</para></listitem>
-<listitem><para>%u URL zu einer einzelnen Datei</para></listitem>
-<listitem><para>%d Verzeichnis</para></listitem>
-<listitem><para>%s Titel (Song)</para></listitem>
-<listitem><para>%a Interpret (Artist)</para></listitem>
-<listitem><para>%l Album</para></listitem>
-<listitem><para>%c Kommentar (Comment)</para></listitem>
-<listitem><para>%y Jahr (Year)</para></listitem>
-<listitem><para>%t Nummer (Track)</para></listitem>
-<listitem><para>%T Nummer (Track), ohne f&uuml;hrende Null</para></listitem>
-<listitem><para>%g Stil (Genre)</para></listitem>
-</itemizedlist>
-
-<para> 
-Zum L&ouml;schen und Hinzuf&uuml;gen von
-Eintr&auml;gen steht in dieser Tabelle ein Kontext Men&uuml; zur Verf&uuml;gung.
+<guilabel>Eigene Stile</guilabel> kann zur Definition von Stilen benutzt werden,
+welche nicht in der Standard-Liste enthalten sind, so z.B. "Gothic Metal".
+Solche Stile sind dann im <guilabel>Stil</guilabel> Auswahlfeld von
+<guilabel>Tag 2</guilabel> verf&uuml;gbar. F&uuml;r ID3v1.1 Tags k&ouml;nnen nur
+die vordefinierten Stile verwendet werden.
 </para>
 <para>
-Die Seite <guilabel>Format</guilabel> enth&auml;lt Einstellungen f&uuml;r das Format der
-Dateinamen und Tags.
-Das Format kann separat f&uuml;r Dateinamen und ID3 Tags eingestellt werden.
+Die Liste mit den eigenen Stilen kann auch dazu verwendet werden, die Anzahl
+der im <guilabel>Stil</guilabel> Auswahlfeld angebotenen Eintr&auml;ge auf
+diejenigen zu reduzieren, welche man braucht. Falls die Musiksammlung
+haupts&auml;chlich aus Metal, Gothic Metal, Ancient und Hard Rock Nummern
+besteht, so kann man diese Stile eingeben und
+<guilabel>Nur eigene Stile anzeigen</guilabel> markieren. Das
+<guilabel>Tag 2</guilabel> <guilabel>Stil</guilabel> Auswahlfeld enth&auml;lt
+dann nur noch diese vier Stile, und man braucht nicht mehr die ganze lange
+Liste nach ihnen zu durchsuchen. Bei dieser Beispielkonfiguration sind im
+<guilabel>Tag 1</guilabel> <guilabel>Stil</guilabel> Auswahlfeld nur noch
+Metal und Hard Rock verf&uuml;gbar, denn diese zwei Eintr&auml;ge sind
+Standard Stile. Wenn <guilabel>Nur eigene Stile anzeigen</guilabel> nicht
+markiert ist, so werden die eigenen Stile am Ende der Auswahlliste
+aufgef&uuml;hrt.
+</para>
+<para>
+<guilabel>Tag Format</guilabel> enth&auml;lt Einstellungen f&uuml;r das Format
+der Tags.
 Wenn <guilabel>W&auml;hrend dem Editieren formatieren</guilabel> aktiviert ist,
 wird die Eingabe w&auml;hrend dem Editieren automatisch formatiert. 
 <guilabel>Gro&szlig;/Kleinschreibung</guilabel> kann auf <guilabel>Keine
@@ -1024,7 +1009,70 @@ Maustaste dr&uuml;ckt. Ersetzungen werden nur durchgef&uuml;hrt, wenn das
 <guilabel>Zeichen ersetzen</guilabel> Markierungsfeld aktiviert ist.
 </para>
 <para>
-Die <guilabel>Proxy</guilabel> Seite enth&auml;lt blo&szlig; ein Textfeld f&uuml;r die
+Auf der Seite <guilabel>Dateien</guilabel>, kann mit dem Markierungsfeld
+<guilabel>Datei-Zeitstempel nicht ver&auml;ndern</guilabel> eingestellt werden,
+dass die Modifikationszeit der Datei nicht ver&auml;ndert wird.
+</para>
+<para>
+<guilabel>Dateinamen Format</guilabel> enth&auml;lt Einstellungen f&uuml;r das
+Format der Dateinamen. Dabei sind die selben Optionen wie bei
+<guilabel>Tag Format</guilabel> m&ouml;glich.
+</para>
+<para>
+Die Seite <guilabel>Benutzerbefehle</guilabel> enth&auml;lt eine Tabelle mit
+Befehlen, welche &uuml;ber das Kontext Men&uuml; der Dateiliste ausgew&auml;hlt
+werden k&ouml;nnen. Bei
+kritischen Operationen, beispielsweise dem L&ouml;schen von Dateien, empfiehlt es
+sich, <guilabel>Nachfragen</guilabel> zu markieren, damit vor dem Ausf&uuml;hren
+des Befehls eine Best&auml;tigung verlangt wird.
+<guilabel>Ausgabe</guilabel> kann markiert werden, um die Ausgabe von
+Konsolen-Applikationen zu sehen (Standard und
+Fehler-Ausgabe). <guilabel>Name</guilabel> ist der Text, welcher im Kontext
+Men&uuml; dargestellt wird. <guilabel>Befehl</guilabel> schlie&szlig;lich ist
+die auszuf&uuml;hrende Kommandozeile. Argumente k&ouml;nnen mit den
+folgenden Codes &uuml;bergeben werden:
+</para>
+
+<itemizedlist>
+<listitem><para>%F Dateipfad (eine Liste wenn mehrere Dateien selektiert sind)</para></listitem>
+<listitem><para>%f Pfad einer einzelnen Datei</para></listitem>
+<listitem><para>%uF URLs (eine Liste wenn mehrere Dateien selektiert sind)</para></listitem>
+<listitem><para>%uf URL zu einer einzelnen Datei</para></listitem>
+<listitem><para>%d Verzeichnis</para></listitem>
+<listitem><para>%s Titel (Song)</para></listitem>
+<listitem><para>%a Interpret (Artist)</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Kommentar (Comment)</para></listitem>
+<listitem><para>%y Jahr (Year)</para></listitem>
+<listitem><para>%t Nummer (Track)</para></listitem>
+<listitem><para>%T Nummer (Track), ohne f&uuml;hrende Null</para></listitem>
+<listitem><para>%g Stil (Genre)</para></listitem>
+<listitem><para>%b Kommando zum Starten des Web Browsers</para></listitem>
+</itemizedlist>
+
+<para>
+Das Kommando, welches mit %b eingef&uuml;gt werden kann, wird oberhalb der
+Tabelle im Eingabefeld <guilabel>Web Browser</guilabel> definiert. Damit
+lassen sich leicht Webseiten mit Informationen zu den Audiodateien aufrufen.
+Zum Beispiel startet
+<screen width="40">
+<userinput>%b http://lyricwiki.org/%ua:%us</userinput>
+</screen>
+eine Anfrage in <ulink url="http://www.lyricwiki.org">LyricWiki</ulink> mit
+Interpret und Titel. Das "u" in %ua und %us bewirkt, dass Interpret %a und Titel
+%s URL-codiert werden. In gleicher Weise lassen sich auch leicht andere Abfragen
+definieren, z.B. eine Bildsuche bei
+<ulink url="http://www.google.com">Google</ulink>:
+<screen width="40">
+<userinput>%b http://images.google.com/images?q=%ua%20%ul</userinput>
+</screen>
+</para>
+<para> 
+Zum L&ouml;schen und Hinzuf&uuml;gen von
+Eintr&auml;gen steht in der Tabelle ein Kontext Men&uuml; zur Verf&uuml;gung.
+</para>
+<para>
+Die <guilabel>Netzwerk</guilabel> Seite enth&auml;lt blo&szlig; ein Textfeld f&uuml;r die
 Adresse des Netzwerk Proxys und optional der Portnummer, abgetrennt durch
 einen Doppelpunkt. Dieser Proxy wird f&uuml;r den Import von einem Internet Server
 verwendet, wenn das K&auml;stchen davor markiert ist.

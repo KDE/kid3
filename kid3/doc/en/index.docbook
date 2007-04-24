@@ -861,14 +861,11 @@ longer actions such as opening or saving a directory.</para></listitem>
 <guimenuitem>Configure Kid3...</guimenuitem>
 </menuchoice></term>
 <listitem><para>Opens the <action>configuration dialog</action>, which
-consists of three pages, one for general settings, one, which is used
-to set the format for the strings in the tag fields and the filename,
-and finally one to set the network proxy, if necessary.
+consists of pages for tags, files, user actions, and network settings.
 </para>
 <para>
-On the page <guilabel>General</guilabel> the check box <guilabel>Preserve file
-timestamp</guilabel> can be marked to preserve the file modification time
-stamp. The check box <guilabel>Use track/total number of tracks
+Tag specific options can be found on the <guilabel>Tags</guilabel> page.
+The check box <guilabel>Use track/total number of tracks
 format</guilabel> controls whether the track number field of ID3v2 tags
 contains simply the track number or additionally the total number of tracks in
 the directory.
@@ -884,42 +881,27 @@ comments. Different applications seem to use different names, "COMMENT" for
 instance is used by xmms, whereas amaroK uses "DESCRIPTION".
 </para>
 <para>
-The <guilabel>Context Menu Commands</guilabel> table contains the commands
-which can be used from the context menu of the file list. For critical
-operations such as deleting files, it is advisable to mark
-<guilabel>Confirm</guilabel> to pop up a confirmation dialog before executing
-the command.
-<guilabel>Output</guilabel> can be marked to see the output written by console
-commands (standard output and standard error). <guilabel>Name</guilabel> is
-the name displayed in the context menu. <guilabel>Command</guilabel> is the
-command line to be executed. Arguments can be passed using the following
-codes:
-</para>
-
-<itemizedlist>
-<listitem><para>%F File paths (a list if multiple files selected)</para></listitem>
-<listitem><para>%f File path to single file</para></listitem>
-<listitem><para>%U URLs (a list if multiple files selected)</para></listitem>
-<listitem><para>%u URL to single file</para></listitem>
-<listitem><para>%d Directory</para></listitem>
-<listitem><para>%s Title (Song)</para></listitem>
-<listitem><para>%a Artist</para></listitem>
-<listitem><para>%l Album</para></listitem>
-<listitem><para>%c Comment</para></listitem>
-<listitem><para>%y Year</para></listitem>
-<listitem><para>%t Track</para></listitem>
-<listitem><para>%T Track, without leading zeroes</para></listitem>
-<listitem><para>%g Genre</para></listitem>
-</itemizedlist>
-
-<para> 
-To add and delete entries in this table, a context menu can be
-used.
+<guilabel>Custom Genres</guilabel> can be used to define genres which are not
+available in the standard genre list, e.g. "Gothic Metal". Such custom genres
+will appear in the <guilabel>Genre</guilabel> combo box of
+<guilabel>Tag 2</guilabel>. For ID3v1.1 tags, only the predefined genres can
+be used.
 </para>
 <para>
-The page <guilabel>Format</guilabel> contains options for the format of
-filenames and tags.
-The format can be set separately for filenames and ID3 tags.
+The list of custom genres can also be used to reduce the number of genres
+available in the <guilabel>Genre</guilabel> combo box to those typically used.
+If your collection mostly contains music in the genres Metal, Gothic Metal,
+Ancient and Hard Rock, you can enter those genres and mark
+<guilabel>Show only custom genres</guilabel>. The <guilabel>Tag 2</guilabel>
+<guilabel>Genre</guilabel> combo box will then only contain those four genres
+and you will not have to search through the complete genres list for them.
+In this example, only Metal and Hard Rock will be listed in the tag 1 genres
+list, because those two custom genres entries are standard genres.
+If <guilabel>Show only custom genres</guilabel> is not active, the custom
+genres can be found at the end of the genres list.
+</para>
+<para>
+<guilabel>Tag Format</guilabel> contains options for the format of the tags.
 When <guilabel>Format while editing</guilabel> is checked, the format
 configuration is automatically used while editing text in the line edits.
 The <guilabel>Case Conversion</guilabel> can be set to <guilabel>No
@@ -936,7 +918,66 @@ right mouse button is clicked.  Replacement is only active, if the
 <guilabel>String Replacement</guilabel> checkbox is checked.
 </para>
 <para>
-The <guilabel>Proxy</guilabel> page contains only a field to insert the proxy
+On the page <guilabel>Files</guilabel> the check box <guilabel>Preserve file
+timestamp</guilabel> can be marked to preserve the file modification time
+stamp.
+</para>
+<para>
+<guilabel>Filename Format</guilabel> contains options for the format of the
+filenames. The same options as in <guilabel>Tag Format</guilabel> are available.
+</para>
+<para>
+The <guilabel>User Actions</guilabel> page contains a table with the commands which are available in the context menu of the file list. For critical
+operations such as deleting files, it is advisable to mark
+<guilabel>Confirm</guilabel> to pop up a confirmation dialog before executing
+the command.
+<guilabel>Output</guilabel> can be marked to see the output written by console
+commands (standard output and standard error). <guilabel>Name</guilabel> is
+the name displayed in the context menu. <guilabel>Command</guilabel> is the
+command line to be executed. Arguments can be passed using the following
+codes:
+</para>
+
+<itemizedlist>
+<listitem><para>%F File paths (a list if multiple files selected)</para></listitem>
+<listitem><para>%f File path to single file</para></listitem>
+<listitem><para>%uF URLs (a list if multiple files selected)</para></listitem>
+<listitem><para>%uf URL to single file</para></listitem>
+<listitem><para>%d Directory</para></listitem>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%T Track, without leading zeroes</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+<listitem><para>%b Command to start the web browser</para></listitem>
+</itemizedlist>
+
+<para>
+The command which will be inserted with %b can be defined in the
+<guilabel>Web Browser</guilabel> line edit above. Commands starting with %b
+can be used to fetch information about the audio files from the web,
+for instance
+<screen width="40">
+<userinput>%b http://lyricwiki.org/%ua:%us</userinput>
+</screen>
+will query the lyrics for the current song in
+<ulink url="http://www.lyricwiki.org">LyricWiki</ulink>. The "u" in %ua and %us
+is used to URL-encode the artist %a and song %s information. It is easy to
+define your own queries in the same way, e.g. an image search with
+<ulink url="http://www.google.com">Google</ulink>:
+<screen width="40">
+<userinput>%b http://images.google.com/images?q=%ua%20%ul</userinput>
+</screen>
+</para>
+<para> 
+To add and delete entries in the table, a context menu can be
+used.
+</para>
+<para>
+The <guilabel>Network</guilabel> page contains only a field to insert the proxy
 address and optionally the port, separated by a colon. The proxy will be used
 when importing from an internet server when the checkbox is checked.
 </para>
