@@ -157,6 +157,28 @@ TaggedFile* FrameList::getFile() const
 }
 
 /**
+ * Reload the frame list, keeping the same row selected.
+ */
+void FrameList::reloadTags()
+{
+	int selectedRow = -1;
+	int topRow = s_listbox->topItem();
+	for (int i = 0; i < static_cast<int>(s_listbox->count()); ++i) {
+		if (s_listbox->isSelected(i)) {
+			selectedRow = i;
+			break;
+		}
+	}
+	setTags(m_file);
+	if (topRow >= 0 && topRow < static_cast<int>(s_listbox->count())) {
+		s_listbox->setTopItem(topRow);
+	}
+	if (selectedRow >= 0 && selectedRow < static_cast<int>(s_listbox->count())) {
+		s_listbox->setSelected(selectedRow, true);
+	}
+}
+
+/**
  * Get ID of selected frame list item.
  *
  * @return ID of selected item,

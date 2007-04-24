@@ -358,6 +358,11 @@ public:
 	TaggedFile* getFile() const;
 
 	/**
+	 * Reload the frame list, keeping the same row selected.
+	 */
+	void reloadTags();
+
+	/**
 	 * Display a dialog to select a frame type.
 	 *
 	 * @return ID of selected frame,
