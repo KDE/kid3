@@ -9,6 +9,7 @@
 
 #include "standardtags.h"
 #include "genres.h"
+#include <qurl.h>
 
 StandardTags::StandardTags()
 {
@@ -159,12 +160,15 @@ QString StandardTags::replaceEscapedChars(const QString& format)
  * @param codes        characters following percent
  * @param replacements strings with replacements for codes
  * @param numCodes     number of elements in codes and replacements
+ * @param flags        flags: FSF_SupportUrlEncode to support modifier u
+ *                     (with code c "%uc") to URL encode
  *
  * @return string with percent codes replaced
  */
 QString StandardTags::replacePercentCodes(
 	const QString& format, const QChar* codes,
-	const QString* replacements, int numCodes)
+	const QString* replacements, int numCodes,
+	unsigned flags)
 {
 	QString fmt(format);
 	if (!fmt.isEmpty()) {
@@ -176,6 +180,15 @@ QString StandardTags::replacePercentCodes(
 				if (k >= numCodes) {
 					// invalid code at pos
 					++pos;
+					break;
+				}
+				if ((flags & FSF_SupportUrlEncode) &&
+						fmt[pos + 1] == 'u' && fmt[pos + 2] == codes[k]) {
+					// code found, replace it URL encoded
+					QString enc = replacements[k];
+					QUrl::encode(enc);
+					fmt.replace(pos, 3, enc);
+					pos += enc.length();
 					break;
 				}
 				if (fmt[pos + 1] == codes[k]) {
@@ -203,10 +216,12 @@ QString StandardTags::replacePercentCodes(
  * %g genre
  *
  * @param format format specification
+ * @param flags  flags: FSF_SupportUrlEncode to support modifier u
+ *               (with code c "%uc") to URL encode
  *
  * @return formatted string.
  */
-QString StandardTags::formatString(const QString& format) const
+QString StandardTags::formatString(const QString& format, unsigned flags) const
 {
 	if (!format.isEmpty()) {
 		const int numTagCodes = 8;
@@ -230,7 +245,7 @@ QString StandardTags::formatString(const QString& format) const
 			tagStr[7] = genreStr;
 		}
 
-		return replacePercentCodes(format, tagCode, tagStr, numTagCodes);
+		return replacePercentCodes(format, tagCode, tagStr, numTagCodes, flags);
 	}
 	return format;
 }

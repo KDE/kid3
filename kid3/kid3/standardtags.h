@@ -15,6 +15,11 @@
 /** Set of standard tags */
 class StandardTags {
  public:
+	/** Flags for formatString(), replacePercentCodes(). */
+	enum FormatStringFlags {
+		FSF_SupportUrlEncode = 1
+	};
+
 	/**
 	 * Constructor.
 	 */
@@ -65,10 +70,12 @@ class StandardTags {
 	 * %g genre
 	 *
 	 * @param format format specification
+	 * @param flags  flags: FSF_SupportUrlEncode to support modifier u
+	 *               (with code c "%uc") to URL encode
 	 *
 	 * @return formatted string.
 	 */
-	QString formatString(const QString& format) const;
+	QString formatString(const QString& format, unsigned flags = 0) const;
 
 	/**
 	 * Replace escaped characters in a string.
@@ -88,12 +95,15 @@ class StandardTags {
 	 * @param codes        characters following percent
 	 * @param replacements strings with replacements for codes
 	 * @param numCodes     number of elements in codes and replacements
+	 * @param flags        flags: FSF_SupportUrlEncode to support modifier u
+	 *                     (with code c "%uc") to URL encode
 	 *
 	 * @return string with percent codes replaced
 	 */
 	static QString replacePercentCodes(
 		const QString& format, const QChar* codes,
-		const QString* replacements, int numCodes);
+		const QString* replacements, int numCodes,
+		unsigned flags = 0);
 
 	/** Title, empty if "", inactive if QString::null */
 	QString title;
