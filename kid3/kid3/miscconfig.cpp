@@ -32,6 +32,14 @@ const char* const MiscConfig::s_defaultNameFilter = "*.mp3 *.MP3 *.Mp3 *.mP3";
 /** Default value for comment name */
 const char* const MiscConfig::s_defaultCommentName = "COMMENT";
 
+/** Default value for web browser */
+const char* const MiscConfig::s_defaultBrowser =
+#ifdef CONFIG_USE_KDE
+	"konqueror";
+#else
+	"firefox";
+#endif
+
 /** Default filename format list */
 static const char* fnFmt[] = {
 	"%a - %l/%t %s",
@@ -94,7 +102,8 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_hideV1(false),
 	m_hideV2(false),
 	m_id3v2Version(ID3v2_3_0),
-	m_useProxy(false)
+	m_useProxy(false),
+	m_onlyCustomGenres(false)
 #ifndef CONFIG_USE_KDE
 	, m_windowWidth(-1), m_windowHeight(-1)
 #endif
@@ -139,13 +148,15 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("ID3v2Version", m_id3v2Version);
 	config->writeEntry("UseProxy", m_useProxy);
 	config->writeEntry("Proxy", m_proxy);
+	config->writeEntry("Browser", m_browser);
+	config->writeEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
 	config->setGroup("MenuCommands");
 	int cmdNr = 1;
 	for (Q3ValueList<MiscConfig::MenuCommand>::const_iterator it = m_contextMenuCommands.begin();
 			 it != m_contextMenuCommands.end();
 			 ++it) {
-		config->writeEntry(QString("%1").arg(cmdNr++), (*it).toStringList());
+		config->writeEntry(QString("Command%1").arg(cmdNr++), (*it).toStringList());
 	}
 #else
 	config->beginGroup("/" + m_group);
@@ -177,6 +188,8 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/ID3v2Version", m_id3v2Version);
 	config->writeEntry("/UseProxy", m_useProxy);
 	config->writeEntry("/Proxy", m_proxy);
+	config->writeEntry("/Browser", m_browser);
+	config->writeEntry("/OnlyCustomGenres", m_onlyCustomGenres);
 	config->writeEntry("/WindowWidth", m_windowWidth);
 	config->writeEntry("/WindowHeight", m_windowHeight);
 	config->endGroup();
@@ -186,7 +199,7 @@ void MiscConfig::writeToConfig(
 	for (Q3ValueList<MiscConfig::MenuCommand>::const_iterator it = m_contextMenuCommands.begin();
 			 it != m_contextMenuCommands.end();
 			 ++it) {
-		config->writeEntry(QString("/%1").arg(cmdNr++), (*it).toStringList());
+		config->writeEntry(QString("/Command%1").arg(cmdNr++), (*it).toStringList());
 	}
 	config->endGroup();
 #endif
@@ -230,20 +243,19 @@ void MiscConfig::readFromConfig(
 	m_id3v2Version = config->readNumEntry("ID3v2Version", ID3v2_3_0);
 	m_useProxy = config->readBoolEntry("UseProxy", m_useProxy);
 	m_proxy = config->readEntry("Proxy", m_proxy);
+	m_browser = config->readEntry("Browser", s_defaultBrowser);
+	m_onlyCustomGenres = config->readBoolEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
 	m_contextMenuCommands.clear();
 	config->setGroup("MenuCommands");
 	int cmdNr = 1;
 	for (;;) {
-		QStringList strList = config->readListEntry(QString("%1").arg(cmdNr));
+		QStringList strList = config->readListEntry(QString("Command%1").arg(cmdNr));
 		if (strList.empty()) {
 			break;
 		}
 		m_contextMenuCommands.push_back(MiscConfig::MenuCommand(strList));
 		++cmdNr;
-	}
-	if (cmdNr == 1) {
-		m_contextMenuCommands.push_back(MiscConfig::MenuCommand("xmms", "xmms %F"));
 	}
 #else
 	config->beginGroup("/" + m_group);
@@ -286,6 +298,8 @@ void MiscConfig::readFromConfig(
 	m_id3v2Version = config->readNumEntry("/ID3v2Version", ID3v2_3_0);
 	m_useProxy = config->readBoolEntry("/UseProxy", m_useProxy);
 	m_proxy = config->readEntry("/Proxy", m_proxy);
+	m_browser = config->readEntry("/Browser", s_defaultBrowser);
+	m_onlyCustomGenres = config->readBoolEntry("/OnlyCustomGenres", m_onlyCustomGenres);
 	m_windowWidth = config->readNumEntry("/WindowWidth", -1);
 	m_windowHeight = config->readNumEntry("/WindowHeight", -1);
 	config->endGroup();
@@ -295,7 +309,7 @@ void MiscConfig::readFromConfig(
 	int cmdNr = 1;
 	bool ok;
 	for (;;) {
-		QStringList strList = config->readListEntry(QString("/%1").arg(cmdNr), &ok);
+		QStringList strList = config->readListEntry(QString("/Command%1").arg(cmdNr), &ok);
 		if (!ok) {
 			break;
 		}
@@ -303,10 +317,23 @@ void MiscConfig::readFromConfig(
 		++cmdNr;
 	}
 	config->endGroup();
-	if (cmdNr == 1) {
-		m_contextMenuCommands.push_back(MiscConfig::MenuCommand("xmms", "xmms %F"));
-	}
 #endif
+	if (cmdNr == 1) {
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand("xmms", "xmms %F"));
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand("AlbumArt", "albumart-qt %d"));
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand("Google Images", "%b http://images.google.com/images?q=%ua%20%ul"));
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand("Amazon", "%b http://www.amazon.com/s?field-artist=%ua&field-title=%ul"));
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand("LyricWiki", "%b http://lyricwiki.org/%ua:%us"));
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand("LeosLyrics", "%b http://www.leoslyrics.com/search.php?search=%ua%20%us&sartist=1&ssongtitle=1"));
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand("Lyrc", "%b http://lyrc.com.ar/en/tema1en.php?artist=%ua&songname=%us"));
+	}
 }
 
 /**

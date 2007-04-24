@@ -169,6 +169,10 @@ public:
 	bool m_useProxy;
 	/** proxy used for access */
 	QString m_proxy;
+	/** web browser substituted for %b */
+	QString m_browser;
+	/** true to show only custom genres in combo boxes */
+	bool m_onlyCustomGenres;
 #ifndef CONFIG_USE_KDE
 	/** mainwindow width */
 	int m_windowWidth;
@@ -180,6 +184,8 @@ public:
 	static const char* const s_defaultNameFilter;
 	/** Default value for comment name */
 	static const char* const s_defaultCommentName;
+	/** Default value for web browser */
+	static const char* const s_defaultBrowser;
 	/** Default filename format list */
 	static const char** s_defaultFnFmtList;
 	/** Default directory format list */
