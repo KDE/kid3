@@ -40,7 +40,6 @@ CommandsTable::CommandsTable(QWidget* parent, const char* name) :
 	horizontalHeader()->setLabel(CI_Command, i18n("Command"));
 	adjustColumn(CI_Confirm);
 	adjustColumn(CI_Output);
-	setColumnStretchable(CI_Name, true);
 	setColumnStretchable(CI_Command, true);
 
 	connect(this, SIGNAL(valueChanged(int, int)),
