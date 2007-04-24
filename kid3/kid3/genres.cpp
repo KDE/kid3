@@ -8,6 +8,7 @@
  */
 
 #include <qstring.h>
+#include <qmap.h>
 #include "genres.h"
 
 /**
@@ -358,34 +359,24 @@ int Genres::getIndex(int num)
 }
 
 /**
- * Get the genre number from the index in the alphabethically sorted list.
- *
- * @param index index in alphabethically sorted list
- *
- * @return genre number, 255 for unknown index.
- */
-int Genres::getNumber(int index)
-{
-	if (index >= 0 && index <= Genres::count) {
-		return s_genreNum[index];
-	}
-	return 255; // 255 for unknown
-}
-
-/**
  * Get the genre number from a string containing a genre text.
  *
- * @param index index in alphabethically sorted list
- * @param str   string with genre
+ * @param str string with genre
  *
  * @return genre number, 255 for unknown index.
  */
 int Genres::getNumber(const QString& str)
 {
-	for (int i = 0; i < Genres::count + 1; i++) {
-		if (QString(s_genre[i]) == str) {
-			return getNumber(i);
+	static QMap<QString, int> strNumMap;
+	if (strNumMap.empty()) {
+		// first time initialization
+		for (int i = 0; i < Genres::count + 1; i++) {
+			strNumMap.insert(s_genre[i], s_genreNum[i]);
 		}
+	}
+	QMap<QString, int>::const_iterator it = strNumMap.find(str);
+	if (it != strNumMap.end()) {
+		return it.data();
 	}
 	return 255; // 255 for unknown
 }

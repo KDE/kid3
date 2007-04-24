@@ -34,18 +34,9 @@ public:
 	static int getIndex(int num);
 
 	/**
-	 * Get the genre number from the index in the alphabethically sorted list.
-	 *
-	 * @param index index in alphabethically sorted list
-	 *
-	 * @return genre number, 255 for unknown index.
-	 */
-	static int getNumber(int index);
-
-	/**
 	 * Get the genre number from a string containing a genre text.
 	 *
-	 * @param str   string with genre
+	 * @param str string with genre
 	 *
 	 * @return genre number, 255 for unknown index.
 	 */
