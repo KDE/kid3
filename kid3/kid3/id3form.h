@@ -197,6 +197,16 @@ public:
 	 */
 	bool updateModificationState() { return m_fileListBox->updateModificationState(); }
 
+	/**
+	 * Set the custom genres configuration from the entries in the combo box.
+	 */
+	void customGenresComboBoxToConfig() const;
+
+	/**
+	 * Set the custom genres combo box from the configuration.
+	 */
+	void customGenresConfigToComboBox();
+
 public slots:
 	/**
 	 * Button ID3v1 From Filename.
@@ -419,6 +429,35 @@ private:
 	 */
 	void formatLineEdit(QLineEdit* le, const QString& txt,
 						const FormatConfig* fcfg);
+
+	/**
+	 * Get genre from the ID3v1 controls.
+	 *
+	 * @param genre the genre is returned here
+	 */
+	void getGenreV1(int& genre);
+
+	/**
+	 * Get genre from the ID3v2 controls.
+	 *
+	 * @param genre    the genre is returned here
+	 * @param genreStr the genre string is returned here
+	 */
+	void getGenreV2(int& genre, QString& genreStr);
+
+	/**
+	 * Set ID3v1 genre controls.
+	 *
+	 * @param genre genre
+	 */
+	void setGenreV1(int genre);
+
+	/**
+	 * Set ID3v2 genre controls.
+	 *
+	 * @param genre genre
+	 */
+	void setGenreV2(int genre, const QString& genreStr);
 
 	FileList* m_fileListBox;
 	QComboBox* m_genreV1ComboBox;

@@ -573,6 +573,17 @@ void Id3Form::fileSelected()
 }
 
 /**
+ * Get genre from the ID3v1 controls.
+ *
+ * @param genre the genre is returned here
+ */
+void Id3Form::getGenreV1(int& genre)
+{
+	genre = m_genreV1CheckBox->isChecked() ?
+		Genres::getNumber(m_genreV1ComboBox->currentText()) : -1;
+}
+
+/**
  * Get standard tags from the ID3v1 controls.
  *
  * @param st standard tags to store result
@@ -591,8 +602,21 @@ void Id3Form::getStandardTagsV1(StandardTags* st)
 		: -1;
 	st->track   = m_trackV1CheckBox->isChecked()   ? m_trackV1SpinBox->value()
 		: -1;
-	st->genre   = m_genreV1CheckBox->isChecked()   ?
-		Genres::getNumber(m_genreV1ComboBox->currentItem()) : -1;
+	getGenreV1(st->genre);
+}
+
+/**
+ * Get genre from the ID3v2 controls.
+ *
+ * @param genre    the genre is returned here
+ * @param genreStr the genre string is returned here
+ */
+void Id3Form::getGenreV2(int& genre, QString& genreStr)
+{
+	genre = m_genreV2CheckBox->isChecked() ?
+		Genres::getNumber(m_genreV2ComboBox->currentText()) : -1;
+	genreStr = genre == 0xff ? m_genreV2ComboBox->currentText()
+		: QString::null;
 }
 
 /**
@@ -614,10 +638,24 @@ void Id3Form::getStandardTagsV2(StandardTags* st)
 		: -1;
 	st->track   = m_trackV2CheckBox->isChecked()   ? m_trackV2SpinBox->value()
 		: -1;
-	st->genre   = m_genreV2CheckBox->isChecked()   ?
-		Genres::getNumber(m_genreV2ComboBox->currentText()) : -1;
-	st->genreStr = st->genre == 0xff ? m_genreV2ComboBox->currentText()
-		: QString::null;
+	getGenreV2(st->genre, st->genreStr);
+}
+
+/**
+ * Set ID3v1 genre controls.
+ *
+ * @param genre genre
+ */
+void Id3Form::setGenreV1(int genre)
+{
+	m_genreV1CheckBox->setChecked(genre >= 0);
+	if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
+		m_genreV1ComboBox->setCurrentItem(0);
+		m_genreV1ComboBox->setCurrentText(Genres::getName(genre));
+	} else {
+		m_genreV1ComboBox->setCurrentItem(genre >= 0 ?
+																			Genres::getIndex(genre) : 0);
+	}
 }
 
 /**
@@ -639,9 +677,32 @@ void Id3Form::setStandardTagsV1(const StandardTags* st)
 	m_yearV1SpinBox->setValue(st->year >= 0 ? st->year : 0);
 	m_trackV1CheckBox->setChecked(st->track >= 0);
 	m_trackV1SpinBox->setValue(st->track >= 0 ? st->track : 0);
-	m_genreV1CheckBox->setChecked(st->genre >= 0);
-	m_genreV1ComboBox->setCurrentItem(st->genre >= 0 ?
-									Genres::getIndex(st->genre) : 0);
+	setGenreV1(st->genre);
+}
+
+/**
+ * Set ID3v2 genre controls.
+ *
+ * @param genre genre
+ */
+void Id3Form::setGenreV2(int genre, const QString& genreStr)
+{
+	m_genreV2CheckBox->setChecked(genre >= 0);
+	int genreIndex = genre >= 0 ?	Genres::getIndex(genre) : 0;
+	if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
+		m_genreV2ComboBox->setCurrentItem(0);
+		m_genreV2ComboBox->setCurrentText(
+			genreIndex > 0 || genreStr.isEmpty() ?
+			QString(Genres::getName(genre)) : genreStr);
+	} else {
+		if (genreIndex > 0 || genreStr.isEmpty()) {
+			m_genreV2ComboBox->setCurrentItem(genreIndex);
+			m_genreV2ComboBox->setCurrentText(Genres::getName(genre));
+		} else {
+			m_genreV2ComboBox->setCurrentItem(Genres::count + 1);
+			m_genreV2ComboBox->setCurrentText(genreStr);
+		}
+	}
 }
 
 /**
@@ -663,15 +724,7 @@ void Id3Form::setStandardTagsV2(const StandardTags* st)
 	m_yearV2SpinBox->setValue(st->year >= 0 ? st->year : 0);
 	m_trackV2CheckBox->setChecked(st->track >= 0);
 	m_trackV2SpinBox->setValue(st->track >= 0 ? st->track : 0);
-	m_genreV2CheckBox->setChecked(st->genre >= 0);
-	int genreIndex = st->genre >= 0 ?	Genres::getIndex(st->genre) : 0;
-	if (genreIndex > 0 || st->genreStr.isEmpty()) {
-		m_genreV2ComboBox->setCurrentItem(genreIndex);
-		m_genreV2ComboBox->setCurrentText(Genres::getName(st->genre));
-	} else {
-		m_genreV2ComboBox->setCurrentItem(Genres::count + 1);
-		m_genreV2ComboBox->setCurrentText(st->genreStr);
-	}
+	setGenreV2(st->genre, st->genreStr);
 }
 
 /**
@@ -1015,6 +1068,59 @@ void Id3Form::setFocusV2()
 }
 
 /**
+ * Set the custom genres configuration from the entries in the combo box.
+ */
+void Id3Form::customGenresComboBoxToConfig() const
+{
+	Kid3App::s_miscCfg.m_customGenres.clear();
+	int idx, numGenres = m_genreV2ComboBox->count();
+	for (idx = Kid3App::s_miscCfg.m_onlyCustomGenres ? 1 : Genres::count + 2;
+			 idx < numGenres;
+			 ++idx) {
+		Kid3App::s_miscCfg.m_customGenres.append(m_genreV2ComboBox->text(idx));
+	}
+}
+
+/**
+ * Set the custom genres combo box from the configuration.
+ */
+void Id3Form::customGenresConfigToComboBox()
+{
+	int genre;
+	QString genreStr;
+	QStringList strList;
+	for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
+		strList += *sl;
+	}
+
+	getGenreV1(genre);
+	m_genreV1ComboBox->clear();
+	if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
+		m_genreV1ComboBox->insertItem("");
+	} else {
+		m_genreV1ComboBox->QCM_addItems(strList);
+	}
+	for (QStringList::const_iterator it = Kid3App::s_miscCfg.m_customGenres.begin();
+			 it != Kid3App::s_miscCfg.m_customGenres.end();
+			 ++it) {
+		if (Genres::getNumber(*it) != 255) {
+			m_genreV1ComboBox->insertItem(*it);
+		}
+	}
+	setGenreV1(genre);
+
+	getGenreV2(genre, genreStr);
+	m_genreV2ComboBox->clear();
+	if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
+		m_genreV2ComboBox->insertItem("");
+	} else {
+		m_genreV2ComboBox->QCM_addItems(strList);
+	}
+	m_genreV2ComboBox->insertStringList(Kid3App::s_miscCfg.m_customGenres);
+	setGenreV2(genre, genreStr);
+}
+
+/**
  * Save the local settings to the configuration.
  */
 void Id3Form::saveConfig()
@@ -1023,12 +1129,7 @@ void Id3Form::saveConfig()
 	Kid3App::s_miscCfg.m_vSplitterSizes = m_vSplitter->sizes();
 	Kid3App::s_miscCfg.m_formatItem = m_formatComboBox->currentItem();
 	Kid3App::s_miscCfg.m_formatText = m_formatComboBox->currentText();
-
-	Kid3App::s_miscCfg.m_customGenres.clear();
-	int idx, numGenres = m_genreV2ComboBox->count();
-	for (idx = Genres::count + 2; idx < numGenres; ++idx) {
-		Kid3App::s_miscCfg.m_customGenres.append(m_genreV2ComboBox->text(idx));
-	}
+	customGenresComboBoxToConfig();
 }
 
 /**
@@ -1054,7 +1155,7 @@ void Id3Form::readConfig()
 	}
 	m_formatComboBox->setCurrentItem(Kid3App::s_miscCfg.m_formatItem);
 	m_formatComboBox->setCurrentText(Kid3App::s_miscCfg.m_formatText);
-	m_genreV2ComboBox->insertStringList(Kid3App::s_miscCfg.m_customGenres);
+	customGenresConfigToComboBox();
 }
 
 /**
@@ -1063,13 +1164,7 @@ void Id3Form::readConfig()
 void Id3Form::initView()
 {
 	QStringList strList;
-	for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
-		strList += *sl;
-	}
-	m_genreV1ComboBox->QCM_addItems(strList);
-	m_genreV2ComboBox->QCM_addItems(strList);
 	m_formatComboBox->setEditable(true);
-	strList.clear();
 	for (const char** sl = MiscConfig::s_defaultFnFmtList; *sl != 0; ++sl) {
 		strList += *sl;
 	}
