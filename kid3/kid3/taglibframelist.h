@@ -220,7 +220,7 @@ protected:
 	bool editKeyValueField(const TagLib::String& key, TagLib::String& value);
 
 	/**
-	 * Edit a text identificatin frame.
+	 * Edit a text identification frame.
 	 *
 	 * @param tFrame text identification frame
 	 * @param id     frame ID

@@ -1097,12 +1097,11 @@ static const char* encodingStrLst[] = {
 	I18N_NOOP("UTF16"),
 	I18N_NOOP("UTF16BE"),
 	I18N_NOOP("UTF8"),
-	I18N_NOOP("UTF16LE"),
 	0
 };
 
 /**
- * Edit a text identificatin frame.
+ * Edit a text identification frame.
  *
  * @param tFrame text identification frame
  * @param id     frame ID
