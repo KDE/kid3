@@ -1485,6 +1485,7 @@ void Kid3App::slotSettingsShowHideV2()
  */
 void Kid3App::slotSettingsConfigure()
 {
+	m_view->customGenresComboBoxToConfig();
 	QString caption(i18n("Configure - Kid3"));
 #ifdef KID3_USE_KCONFIGDIALOG
 	KConfigSkeleton* configSkeleton = new KConfigSkeleton;
@@ -1504,6 +1505,7 @@ void Kid3App::slotSettingsConfigure()
 #ifdef CONFIG_USE_KDE
 			m_config->sync();
 #endif
+			m_view->customGenresConfigToComboBox();
 		}
 	}
 #ifdef KID3_USE_KCONFIGDIALOG
@@ -2236,6 +2238,9 @@ void Kid3App::editFrame()
 	TaggedFile* taggedFile;
 	updateCurrentSelection();
 	getSelectedFileWithFrameList(taggedFile, framelist);
+	if (framelist) {
+		framelist->reloadTags();
+	}
 	if (taggedFile && framelist && framelist->editFrame()) {
 		updateAfterFrameModification(taggedFile);
 	} else if (!taggedFile && !framelist) {
@@ -2286,6 +2291,9 @@ void Kid3App::deleteFrame()
 	TaggedFile* taggedFile;
 	updateCurrentSelection();
 	getSelectedFileWithFrameList(taggedFile, framelist);
+	if (framelist) {
+		framelist->reloadTags();
+	}
 	if (taggedFile && framelist && framelist->deleteFrame()) {
 		updateAfterFrameModification(taggedFile);
 	} else if (!taggedFile && !framelist) {
