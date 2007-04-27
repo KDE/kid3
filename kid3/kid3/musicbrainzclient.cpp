@@ -514,8 +514,8 @@ void MusicBrainzClient::parseLookupResponse(int index, const QByteArray& respons
 	QCString xmlStr(response.data(), response.size());
 	int end = xmlStr.find("</metadata>");
 #endif
-	if (end >= 0 && end + 11 < xmlStr.size()) {
-		xmlStr.resize(end + 11);
+	if (end >= 0 && end + 12 < static_cast<int>(xmlStr.size())) {
+		xmlStr.resize(end + 12);
 	}
 	if (doc.setContent(xmlStr, false)) {
 		QDomElement trackList =
