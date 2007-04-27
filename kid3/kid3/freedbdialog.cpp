@@ -16,7 +16,8 @@
 #endif
 
 static const char* serverList[] = {
-	"freedb2.org:80",
+	"www.gnudb.org:80",
+	"gnudb.gnudb.org:80",
 	"freedb.org:80",
 	"freedb.freedb.org:80",
 	"at.freedb.org:80",
@@ -33,7 +34,7 @@ static const char* serverList[] = {
 
 static const ImportSourceDialog::Properties props = {
 	serverList,
-	"freedb.freedb.org:80",
+	"www.gnudb.org:80",
 	"/~cddb/cddb.cgi",
 	"import-freedb",
 	&Kid3App::s_freedbCfg
@@ -48,8 +49,25 @@ static const ImportSourceDialog::Properties props = {
  */
 FreedbDialog::FreedbDialog(QWidget* parent,
 													 ImportTrackDataVector& trackDataVector)
-	: ImportSourceDialog(parent, "freedb.org", trackDataVector,
+	: ImportSourceDialog(parent, "gnudb.org", trackDataVector,
 											 new FreedbClient, props)
+{
+}
+
+/**
+ * Constructor.
+ *
+ * @param parent  parent widget
+ * @param caption dialog title
+ * @param trackDataVector track data to be filled with imported values
+ * @param client  client to use, this object takes ownership of it
+ * @param props   constant dialog properties, must exist while dialog exists
+ */
+FreedbDialog::FreedbDialog(QWidget* parent, QString caption,
+													 ImportTrackDataVector& trackDataVector,
+													 ImportSourceClient* client,
+													 const Properties& props)
+	: ImportSourceDialog(parent, caption, trackDataVector, client, props)
 {
 }
 
@@ -68,46 +86,33 @@ FreedbDialog::~FreedbDialog()
 void FreedbDialog::parseFindResults(const QByteArray& searchStr)
 {
 /*
-210 exact matches found
-categ discid dtitle
-(more matches...)
-.
-or
-211 close matches found
-rock 920b810c Catharsis / Imago
-.
-theoretically, but never seen
-200	categ discid dtitle
+<h2>Search Results, 1 albums found:</h2>
+<br><br>
+<a href="http://www.gnudb.org/cd/ro920b810c"><b>Catharsis / Imago</b></a><br>
+Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
+<a href="http://www.gnudb.org/gnudb/rock/920b810c" target=_blank>Discid: rock / 920b810c</a><br>
 */
 	QString str = QString::fromUtf8(searchStr);
-	QRegExp catIdTitleRe("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)");
+	QRegExp titleRe("<a href=\"[^\"]+/cd/[^\"]+\"><b>([^<]+)</b></a>");
+	QRegExp catIdRe("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)");
 	QStringList lines = QStringList::split(QRegExp("[\\r\\n]+"), str);
+	QString title;
 	bool inEntries = false;
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
-		if (*it == ".") {
-			break;
-		}
 		if (inEntries) {
-			if (catIdTitleRe.exactMatch(*it)) {
+			if (titleRe.search(*it) != -1) {
+				title = titleRe.cap(1);
+			}
+			if (catIdRe.search(*it) != -1) {
 				new AlbumListItem(
 					m_albumListBox,
-					catIdTitleRe.cap(3),
-					catIdTitleRe.cap(1),
-					catIdTitleRe.cap(2));
+					title,
+					catIdRe.cap(1),
+					catIdRe.cap(2));
 			}
-		} else {
-			if ((*it).startsWith("21") && (*it).find(" match") != -1) {
-				inEntries = true;
-			} else if ((*it).startsWith("200 ")) {
-				if (catIdTitleRe.exactMatch((*it).mid(4))) {
-					new AlbumListItem(
-						m_albumListBox,
-						catIdTitleRe.cap(3),
-						catIdTitleRe.cap(1),
-						catIdTitleRe.cap(2));
-				}
-			}
+		} else if ((*it).find(" albums found:") != -1) {
+			inEntries = true;
 		}
 	}
 	m_albumListBox->setFocus();

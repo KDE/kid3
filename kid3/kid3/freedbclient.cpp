@@ -12,7 +12,7 @@
 #include <qregexp.h>
 #include <qurl.h>
 
-static const char freedb2Server[] = "freedb2.org:80";
+static const char gnudbServer[] = "www.gnudb.org:80";
 
 /**
  * Constructor.
@@ -38,14 +38,14 @@ FreedbClient::~FreedbClient()
  * @param destPort the port of the server is returned here
  */
 void FreedbClient::constructFindQuery(
-	const ImportSourceConfig* cfg,
+	const ImportSourceConfig*,
 	const QString& artist, const QString& album,
 	QString& dest, int& destPort)
 {
-	// At the moment, only freedb2.org recognizes cddb album commands,
+	// At the moment, only www.gnudb.org has a working search
 	// so we always use this server for find queries.
-	QString server(freedb2Server);
-	QString what = artist + " / " + album;
+	QString server(gnudbServer);
+	QString what = artist + " " + album;
 	QString destNamePort(getProxyOrDest(server));
 	splitNamePort(destNamePort, dest, destPort);
 	QString serverName;
@@ -63,11 +63,9 @@ void FreedbClient::constructFindQuery(
 			m_request += QString::number(serverPort);
 		}
 	}
-	m_request += cfg->m_cgiPath;
-	m_request += "?cmd=cddb+album+";
+	m_request += "/search/";
 	m_request += what;
-	m_request += "&hello=noname+localhost+";
-	m_request += "Kid3+" VERSION "&proto=1 HTTP/1.1\r\nHost: ";
+	m_request += " HTTP/1.0\r\nUser-Agent: Kid3/" VERSION "\r\nHost: ";
 	m_request += serverName;
 	m_request += "\r\nConnection: close\r\n\r\n";
 }

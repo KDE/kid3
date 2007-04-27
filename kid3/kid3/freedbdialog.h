@@ -45,6 +45,21 @@ public:
 	 * @param albumStr album data received
 	 */
 	virtual void parseAlbumResults(const QByteArray& albumStr);
+
+protected:
+	/**
+	 * Constructor.
+	 *
+	 * @param parent  parent widget
+	 * @param caption dialog title
+	 * @param trackDataVector track data to be filled with imported values
+	 * @param client  client to use, this object takes ownership of it
+	 * @param props   constant dialog properties, must exist while dialog exists
+	 */
+	FreedbDialog(QWidget* parent, QString caption,
+							 ImportTrackDataVector& trackDataVector,
+							 ImportSourceClient* client,
+							 const Properties& props);
 };
 
 #endif
