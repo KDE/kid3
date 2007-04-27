@@ -35,6 +35,7 @@ public:
 	enum AutoStartSubDialog {
 		ASD_None,
 		ASD_Freedb,
+		ASD_TrackType,
 		ASD_Discogs,
 		ASD_MusicBrainzRelease,
 		ASD_MusicBrainz

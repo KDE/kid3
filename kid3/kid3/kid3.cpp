@@ -185,6 +185,7 @@ ImportConfig Kid3App::s_genCfg("General Options");
 FormatConfig Kid3App::s_fnFormatCfg("FilenameFormat");
 FormatConfig Kid3App::s_id3FormatCfg("Id3Format");
 FreedbConfig Kid3App::s_freedbCfg("Freedb");
+FreedbConfig Kid3App::s_trackTypeCfg("TrackType");
 DiscogsConfig Kid3App::s_discogsCfg("Discogs");
 MusicBrainzConfig Kid3App::s_musicBrainzCfg("MusicBrainz");
 
@@ -272,9 +273,12 @@ void Kid3App::initActions()
 	new KAction(i18n("&Import..."), 0, this,
 		    SLOT(slotImport()), actionCollection(),
 		    "import");
-	new KAction(i18n("Import from &freedb.org..."), 0, this,
+	new KAction(i18n("Import from &gnudb.org..."), 0, this,
 		    SLOT(slotImportFreedb()), actionCollection(),
 		    "import_freedb");
+	new KAction(i18n("Import from &TrackType.org..."), 0, this,
+		    SLOT(slotImportTrackType()), actionCollection(),
+		    "import_tracktype");
 	new KAction(i18n("Import from &Discogs..."), 0, this,
 		    SLOT(slotImportDiscogs()), actionCollection(),
 		    "import_discogs");
@@ -405,10 +409,17 @@ void Kid3App::initActions()
 	}
 	m_fileImportFreedb = new QAction(this);
 	if (m_fileImportFreedb) {
-		m_fileImportFreedb->setText(i18n("Import from freedb.org"));
-		m_fileImportFreedb->setMenuText(i18n("Import from &freedb.org..."));
+		m_fileImportFreedb->setText(i18n("Import from gnudb.org"));
+		m_fileImportFreedb->setMenuText(i18n("Import from &gnudb.org..."));
 		connect(m_fileImportFreedb, SIGNAL(activated()),
 			this, SLOT(slotImportFreedb()));
+	}
+	m_fileImportTrackType = new QAction(this);
+	if (m_fileImportTrackType) {
+		m_fileImportTrackType->setText(i18n("Import from TrackType.org"));
+		m_fileImportTrackType->setMenuText(i18n("Import from &TrackType.org..."));
+		connect(m_fileImportTrackType, SIGNAL(activated()),
+			this, SLOT(slotImportTrackType()));
 	}
 	m_fileImportDiscogs = new QAction(this);
 	if (m_fileImportDiscogs) {
@@ -556,6 +567,7 @@ void Kid3App::initActions()
 		m_fileMenu->insertSeparator();
 		m_fileImport->addTo(m_fileMenu);
 		m_fileImportFreedb->addTo(m_fileMenu);
+		m_fileImportTrackType->addTo(m_fileMenu);
 		m_fileImportDiscogs->addTo(m_fileMenu);
 		m_fileImportMusicBrainzRelease->addTo(m_fileMenu);
 #ifdef HAVE_TUNEPIMP
@@ -672,6 +684,7 @@ void Kid3App::saveOptions()
 	s_id3FormatCfg.writeToConfig(m_config);
 	s_genCfg.writeToConfig(m_config);
 	s_freedbCfg.writeToConfig(m_config);
+	s_trackTypeCfg.writeToConfig(m_config);
 	s_discogsCfg.writeToConfig(m_config);
 #ifdef HAVE_TUNEPIMP
 	s_musicBrainzCfg.writeToConfig(m_config);
@@ -688,6 +701,13 @@ void Kid3App::readOptions()
 	s_id3FormatCfg.readFromConfig(m_config);
 	s_genCfg.readFromConfig(m_config);
 	s_freedbCfg.readFromConfig(m_config);
+	if (s_freedbCfg.m_server == "freedb2.org:80") {
+		s_freedbCfg.m_server = "www.gnudb.org:80"; // replace old default
+	}
+	s_trackTypeCfg.readFromConfig(m_config);
+	if (s_trackTypeCfg.m_server == "gnudb.gnudb.org:80") {
+		s_trackTypeCfg.m_server = "tracktype.org:80"; // replace default
+	}
 	s_discogsCfg.readFromConfig(m_config);
 #ifdef HAVE_TUNEPIMP
 	s_musicBrainzCfg.readFromConfig(m_config);
@@ -1313,6 +1333,18 @@ void Kid3App::slotImportFreedb()
 	setupImportDialog();
 	if (m_importDialog) {
 		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Freedb);
+		execImportDialog();
+	}
+}
+
+/**
+ * Import from TrackType.org.
+ */
+void Kid3App::slotImportTrackType()
+{
+	setupImportDialog();
+	if (m_importDialog) {
+		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_TrackType);
 		execImportDialog();
 	}
 }

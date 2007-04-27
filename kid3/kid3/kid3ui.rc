@@ -4,6 +4,7 @@
   <Menu name="file"><text>&amp;File</text>
     <Action name="import"/>
     <Action name="import_freedb"/>
+    <Action name="import_tracktype"/>
     <Action name="import_discogs"/>
     <Action name="import_musicbrainzrelease"/>
     <Action name="import_musicbrainz"/>

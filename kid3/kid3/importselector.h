@@ -29,6 +29,7 @@ class QSpinBox;
 class ImportParser;
 class StandardTags;
 class FreedbDialog;
+class TrackTypeDialog;
 class MusicBrainzDialog;
 class MusicBrainzReleaseDialog;
 class DiscogsDialog;
@@ -157,6 +158,11 @@ public slots:
 	void fromFreedb();
 
 	/**
+	 * Import from TrackType.org and preview in table.
+	 */
+	void fromTrackType();
+
+	/**
 	 * Import from MusicBrainz and preview in table.
 	 */
 	void fromMusicBrainz();
@@ -228,6 +234,8 @@ private:
 	QPushButton* m_clipButton;
 	/** From freedb.org button */
 	QPushButton* m_freedbButton;
+	/** From TrackType.org button */
+	QPushButton* m_trackTypeButton;
 	/** From MusicBrainz button */
 	QPushButton* m_musicBrainzButton;
 	/** From MusicBrainz Release button */
@@ -264,6 +272,8 @@ private:
 	QStringList m_formatTracks;
 	/** freedb.org import dialog */
 	FreedbDialog* m_freedbDialog;
+	/** TrackType.org import dialog */
+	TrackTypeDialog* m_trackTypeDialog;
 	/** MusicBrainz import dialog */
 	MusicBrainzDialog* m_musicBrainzDialog;
 	/** MusicBrainz release import dialog */

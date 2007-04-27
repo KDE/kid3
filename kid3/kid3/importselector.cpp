@@ -40,6 +40,7 @@
 #include "standardtags.h"
 #include "importparser.h"
 #include "freedbdialog.h"
+#include "tracktypedialog.h"
 #include "musicbrainzreleasedialog.h"
 #include "discogsdialog.h"
 #include "kid3.h"
@@ -140,6 +141,7 @@ ImportSelector::ImportSelector(
 	m_trackDataVector(trackDataList)
 {
 	m_freedbDialog = 0;
+	m_trackTypeDialog = 0;
 	m_musicBrainzReleaseDialog = 0;
 	m_discogsDialog = 0;
 #ifdef HAVE_TUNEPIMP
@@ -179,21 +181,23 @@ ImportSelector::ImportSelector(
 	connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
 
 	QWidget* butbox = new QWidget(this);
-	QGridLayout* butlayout = new QGridLayout(butbox, 2, 7, 0, 6);
+	QGridLayout* butlayout = new QGridLayout(butbox, 2, 8, 0, 6);
 	m_fileButton = new QPushButton(i18n("From F&ile"), butbox);
 	butlayout->addWidget(m_fileButton, 0, 0);
 	m_clipButton = new QPushButton(i18n("From Clip&board"), butbox);
 	butlayout->addWidget(m_clipButton, 0, 1);
-	m_freedbButton = new QPushButton(i18n("From &freedb.org"), butbox);
+	m_freedbButton = new QPushButton(i18n("&gnudb.org"), butbox);
 	butlayout->addWidget(m_freedbButton, 0, 2);
-	m_discogsButton = new QPushButton(i18n("From Disco&gs"), butbox);
-	butlayout->addWidget(m_discogsButton, 0, 3);
+	m_trackTypeButton = new QPushButton(i18n("&TrackType.org"), butbox);
+	butlayout->addWidget(m_trackTypeButton, 0, 3);
+	m_discogsButton = new QPushButton(i18n("Disco&gs"), butbox);
+	butlayout->addWidget(m_discogsButton, 0, 4);
 	QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	butlayout->addItem(butspacer, 0, 4);
+	butlayout->addItem(butspacer, 0, 5);
 	QLabel* destLabel = new QLabel(butbox, "destLabel");
 	destLabel->setText(i18n("D&estination:"));
-	butlayout->addWidget(destLabel, 0, 5);
+	butlayout->addWidget(destLabel, 0, 6);
 	m_destComboBox = new QComboBox(false, butbox, "destComboBox");
 	m_destComboBox->insertItem(i18n("Tag 1"), DestV1);
 	m_destComboBox->insertItem(i18n("Tag 2"), DestV2);
@@ -204,7 +208,7 @@ ImportSelector::ImportSelector(
 	butlayout->addMultiCellWidget(m_musicBrainzReleaseButton, 1, 1, 0, 1);
 #ifdef HAVE_TUNEPIMP
 	m_musicBrainzButton = new QPushButton(i18n("From &MusicBrainz Fingerprint"), butbox);
-	butlayout->addMultiCellWidget(m_musicBrainzButton, 1, 1, 2, 3);
+	butlayout->addMultiCellWidget(m_musicBrainzButton, 1, 1, 2, 4);
 #endif
 
 	QWidget* matchBox = new QWidget(this, "matchBox");
@@ -231,6 +235,7 @@ ImportSelector::ImportSelector(
 	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	connect(m_clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
 	connect(m_freedbButton, SIGNAL(clicked()), this, SLOT(fromFreedb()));
+	connect(m_trackTypeButton, SIGNAL(clicked()), this, SLOT(fromTrackType()));
 	connect(m_musicBrainzReleaseButton, SIGNAL(clicked()), this, SLOT(fromMusicBrainzRelease()));
 	connect(m_discogsButton, SIGNAL(clicked()), this, SLOT(fromDiscogs()));
 #ifdef HAVE_TUNEPIMP
@@ -255,6 +260,11 @@ ImportSelector::~ImportSelector()
 		m_freedbDialog->disconnect();
 		delete m_freedbDialog;
 		m_freedbDialog = 0;
+	}
+	if (m_trackTypeDialog) {
+		m_trackTypeDialog->disconnect();
+		delete m_trackTypeDialog;
+		m_trackTypeDialog = 0;
 	}
 	if (m_musicBrainzReleaseDialog) {
 		m_musicBrainzReleaseDialog->disconnect();
@@ -377,6 +387,23 @@ void ImportSelector::fromFreedb()
 		m_freedbDialog->setArtistAlbum(m_trackDataVector.m_artist,
 																	 m_trackDataVector.m_album);
 		(void)m_freedbDialog->exec();
+	}
+}
+
+/**
+ * Import from TrackType.org and preview in table.
+ */
+void ImportSelector::fromTrackType()
+{
+	if (!m_trackTypeDialog) {
+		m_trackTypeDialog = new TrackTypeDialog(this, m_trackDataVector);
+		connect(m_trackTypeDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
+	}
+	if (m_trackTypeDialog) {
+		m_trackTypeDialog->setArtistAlbum(m_trackDataVector.m_artist,
+																	 m_trackDataVector.m_album);
+		(void)m_trackTypeDialog->exec();
 	}
 }
 

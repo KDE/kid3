@@ -192,6 +192,8 @@ public:
 	static MiscConfig s_miscCfg;
 	/** Freedb configuration */
 	static FreedbConfig s_freedbCfg;
+	/** TrackType configuration */
+	static FreedbConfig s_trackTypeCfg;
 	/** Discogs configuration */
 	static DiscogsConfig s_discogsCfg;
 	/** MusicBrainz configuration */
@@ -357,6 +359,11 @@ public slots:
 	 * Import from freedb.org.
 	 */
 	void slotImportFreedb();
+
+	/**
+	 * Import from TrackType.org.
+	 */
+	void slotImportTrackType();
 
 	/**
 	 * Import from Discogs.
@@ -562,6 +569,7 @@ private:
 	QAction* m_fileQuit;
 	QAction* m_fileImport;
 	QAction* m_fileImportFreedb;
+	QAction* m_fileImportTrackType;
 	QAction* m_fileImportDiscogs;
 	QAction* m_fileImportMusicBrainzRelease;
 #ifdef HAVE_TUNEPIMP

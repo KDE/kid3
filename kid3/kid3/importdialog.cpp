@@ -90,6 +90,10 @@ int ImportDialog::exec()
 			show();
 			m_impsel->fromFreedb();
 			break;
+		case ASD_TrackType:
+			show();
+			m_impsel->fromTrackType();
+			break;
 		case ASD_Discogs:
 			show();
 			m_impsel->fromDiscogs();
