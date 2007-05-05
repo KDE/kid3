@@ -318,21 +318,6 @@ int OggFile::getTrackNumV2()
 }
 
 /**
- * Get ID3v2 genre.
- *
- * @return number,
- *         0xff if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int OggFile::getGenreNumV2()
-{
-	QString str = getTextField("GENRE");
-	if (str.isNull()) return -1;
-	if (str.isEmpty()) return 0xff;
-	return Genres::getNumber(str);
-}
-
-/**
  * Get ID3v2 genre as text.
  *
  * @return string,
@@ -454,19 +439,6 @@ void OggFile::setTrackNumV2(int num)
 			str.setNum(numTracks);
 			setTextField("TRACKTOTAL", str);
 		}
-	}
-}
-
-/**
- * Set ID3v2 genre.
- *
- * @param num number to set, 0xff to remove field, < 0 to ignore.
- */
-void OggFile::setGenreNumV2(int num)
-{
-	if (m_fileRead && num >= 0 &&
-			m_comments.setValue("GENRE", Genres::getName(num))) {
-		markTag2Changed();
 	}
 }
 

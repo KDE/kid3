@@ -133,6 +133,8 @@ public:
 #endif
 		);
 
+	/** true to mark truncated ID3v1.1 fields */
+	bool m_markTruncations;
 	/** true to write total number of tracks into track fields */
 	bool m_enableTotalNumberOfTracks;
 	/** true to preserve file time stamps */

@@ -407,21 +407,17 @@ int TagLibFile::getTrackNumV1()
 /**
  * Get ID3v1 genre.
  *
- * @return number,
- *         0xff if the field does not exist,
- *         -1 if the tags do not exist.
+ * @return string,
+ *         "" if the field does not exist,
+ *         QString::null if the tags do not exist.
  */
-int TagLibFile::getGenreNumV1()
+QString TagLibFile::getGenreV1()
 {
 	if (m_tagV1) {
 		TagLib::String str = m_tagV1->genre();
-		if (!str.isNull()) {
-			return Genres::getNumber(TStringToQString(str));
-		} else {
-			return 0xff;
-		}
+		return str.isNull() ? QString("") : TStringToQString(str);
 	} else {
-		return -1;
+		return QString::null;
 	}
 }
 
@@ -526,36 +522,32 @@ int TagLibFile::getTrackNumV2()
 }
 
 /**
- * Get ID3v2 genre.
+ * Get a genre string from a string which can contain the genre itself,
+ * or only the genre number or the genre number in parenthesis.
  *
- * @return number,
- *         0xff if the field does not exist,
- *         -1 if the tags do not exist.
+ * @param str genre string
+ *
+ * @return genre.
  */
-int TagLibFile::getGenreNumV2()
+static QString getGenreString(const TagLib::String& str)
 {
-	if (m_tagV2) {
-		TagLib::String str = m_tagV2->genre();
-		if (!str.isNull()) {
-			QString qs = TStringToQString(str);
-			int cpPos = 0, n = 0xff;
-			bool ok = false;
-			if (qs[0] == '(' && (cpPos = qs.find(')', 2)) > 1) {
-				n = qs.mid(1, cpPos - 1).toInt(&ok);
-				if (!ok || n > 0xff) {
-					n = 0xff;
-				}
-				return n;
-			} else if ((n = qs.toInt(&ok)) >= 0 && n <= 0xff && ok) {
-				return n;
-			} else {
-				return Genres::getNumber(qs);
+	if (!str.isNull()) {
+		QString qs = TStringToQString(str);
+		int cpPos = 0, n = 0xff;
+		bool ok = false;
+		if (qs[0] == '(' && (cpPos = qs.find(')', 2)) > 1) {
+			n = qs.mid(1, cpPos - 1).toInt(&ok);
+			if (!ok || n > 0xff) {
+				n = 0xff;
 			}
+			return Genres::getName(n);
+		} else if ((n = qs.toInt(&ok)) >= 0 && n <= 0xff && ok) {
+			return Genres::getName(n);
 		} else {
-			return 0xff;
+			return qs;
 		}
 	} else {
-		return -1;
+		return "";
 	}
 }
 
@@ -569,8 +561,7 @@ int TagLibFile::getGenreNumV2()
 QString TagLibFile::getGenreV2()
 {
 	if (m_tagV2) {
-		TagLib::String str = m_tagV2->genre();
-		return str.isNull() ? QString("") : TStringToQString(str);
+		return getGenreString(m_tagV2->genre());
 	} else {
 		return QString::null;
 	}
@@ -641,7 +632,11 @@ void TagLibFile::setTitleV1(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->title())) {
-			m_tagV1->setTitle(tstr);
+			QString s = checkTruncation(str, StandardTags::TF_Title);
+			if (!s.isNull())
+				m_tagV1->setTitle(QStringToTString(s));
+			else
+				m_tagV1->setTitle(tstr);
 			markTag1Changed();
 		}
 	}
@@ -658,7 +653,11 @@ void TagLibFile::setArtistV1(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->artist())) {
-			m_tagV1->setArtist(tstr);
+			QString s = checkTruncation(str, StandardTags::TF_Artist);
+			if (!s.isNull())
+				m_tagV1->setArtist(QStringToTString(s));
+			else
+				m_tagV1->setArtist(tstr);
 			markTag1Changed();
 		}
 	}
@@ -675,7 +674,11 @@ void TagLibFile::setAlbumV1(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->album())) {
-			m_tagV1->setAlbum(tstr);
+			QString s = checkTruncation(str, StandardTags::TF_Album);
+			if (!s.isNull())
+				m_tagV1->setAlbum(QStringToTString(s));
+			else
+				m_tagV1->setAlbum(tstr);
 			markTag1Changed();
 		}
 	}
@@ -692,7 +695,11 @@ void TagLibFile::setCommentV1(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->comment())) {
-			m_tagV1->setComment(tstr);
+			QString s = checkTruncation(str, StandardTags::TF_Comment, 28);
+			if (!s.isNull())
+				m_tagV1->setComment(QStringToTString(s));
+			else
+				m_tagV1->setComment(tstr);
 			markTag1Changed();
 		}
 	}
@@ -722,27 +729,33 @@ void TagLibFile::setTrackNumV1(int num)
 {
 	if (makeTagV1Settable() && num >= 0) {
 		if (num != static_cast<int>(m_tagV1->track())) {
-			m_tagV1->setTrack(num);
+			int n = checkTruncation(num, StandardTags::TF_Track);
+			if (n != -1)
+				m_tagV1->setTrack(n);
+			else
+				m_tagV1->setTrack(num);
 			markTag1Changed();
 		}
 	}
 }
 
 /**
- * Set ID3v1 genre.
+ * Set ID3v1 genre as text.
  *
- * @param num number to set, 0xff to remove field.
+ * @param str string to set, "" to remove field, QString::null to ignore.
  */
-void TagLibFile::setGenreNumV1(int num)
+void TagLibFile::setGenreV1(const QString& str)
 {
-	if (makeTagV1Settable() && num >= 0) {
-		const char* str = Genres::getName(num);
-		TagLib::String tstr = str && *str ?
-			TagLib::String(str) : TagLib::String::null;
+	if (makeTagV1Settable() && !str.isNull()) {
+		TagLib::String tstr = str.isEmpty() ?
+			TagLib::String::null : QStringToTString(str);
 		if (!(tstr == m_tagV1->genre())) {
 			m_tagV1->setGenre(tstr);
 			markTag1Changed();
 		}
+		// if the string cannot be converted to a number, set the truncation flag
+		checkTruncation(!str.isEmpty() && Genres::getNumber(str) == 0xff ? 1 : 0,
+										StandardTags::TF_Genre, 0);
 	}
 }
 
@@ -929,24 +942,6 @@ void TagLibFile::setTrackNumV2(int num)
 			} else {
 				m_tagV2->setTrack(num);
 			}
-			markTag2Changed();
-		}
-	}
-}
-
-/**
- * Set ID3v2 genre.
- *
- * @param num number to set, 0xff to remove field.
- */
-void TagLibFile::setGenreNumV2(int num)
-{
-	if (makeTagV2Settable() && num >= 0) {
-		const char* str = Genres::getName(num);
-		TagLib::String tstr = str && *str ?
-			TagLib::String(str) : TagLib::String::null;
-		if (!(tstr == m_tagV2->genre())) {
-			m_tagV2->setGenre(tstr);
 			markTag2Changed();
 		}
 	}

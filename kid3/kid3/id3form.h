@@ -207,6 +207,14 @@ public:
 	 */
 	void customGenresConfigToComboBox();
 
+	/**
+	 * Mark truncated ID3v1 fields.
+	 *
+	 * @param flags truncation flags
+	 * @see StandardTags::TruncationFlag.
+	 */
+	void markTruncatedFields(unsigned flags);
+
 public slots:
 	/**
 	 * Button ID3v1 From Filename.
@@ -431,33 +439,18 @@ private:
 						const FormatConfig* fcfg);
 
 	/**
-	 * Get genre from the ID3v1 controls.
-	 *
-	 * @param genre the genre is returned here
-	 */
-	void getGenreV1(int& genre);
-
-	/**
-	 * Get genre from the ID3v2 controls.
-	 *
-	 * @param genre    the genre is returned here
-	 * @param genreStr the genre string is returned here
-	 */
-	void getGenreV2(int& genre, QString& genreStr);
-
-	/**
 	 * Set ID3v1 genre controls.
 	 *
-	 * @param genre genre
+	 * @param genreStr genre string
 	 */
-	void setGenreV1(int genre);
+	void setGenreV1(const QString& genreStr);
 
 	/**
 	 * Set ID3v2 genre controls.
 	 *
-	 * @param genre genre
+	 * @param genreStr genre string
 	 */
-	void setGenreV2(int genre, const QString& genreStr);
+	void setGenreV2(const QString& genreStr);
 
 	FileList* m_fileListBox;
 	QComboBox* m_genreV1ComboBox;

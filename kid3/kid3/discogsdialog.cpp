@@ -153,17 +153,19 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			}
 		}
 	}
-	stHdr.genre = 255;
+	int genreNum = 255;
 	for (QStringList::const_iterator it = genreList.begin();
 			 it != genreList.end();
 			 ++it) {
-		stHdr.genre = Genres::getNumber(*it);
-		if (stHdr.genre != 255) {
+		genreNum = Genres::getNumber(*it);
+		if (genreNum != 255) {
 			break;
 		}
 	}
-	if (stHdr.genre == 255 && !genreList.empty()) {
-		stHdr.genreStr = genreList.front();
+	if (genreNum != 255) {
+		stHdr.genre = Genres::getName(genreNum);
+	} else if (!genreList.empty()) {
+		stHdr.genre = genreList.front();
 	}
 
 	/*

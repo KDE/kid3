@@ -11,6 +11,7 @@
 #include "kid3.h"
 #include "freedbclient.h"
 #include "freedbdialog.h"
+#include "genres.h"
 #if QT_VERSION >= 0x040000
 #include <Q3ValueList>
 #endif
@@ -195,7 +196,7 @@ static void parseFreedbAlbumData(const QString& text,
 	}
 	fdre.setPattern("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D");
 	if (fdre.search(text) != -1) {
-		st.genre = fdre.cap(1).toInt();
+		st.genre = Genres::getName(fdre.cap(1).toInt());
 	}
 }
 

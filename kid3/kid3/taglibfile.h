@@ -139,11 +139,11 @@ public:
 	/**
 	 * Get ID3v1 genre.
 	 *
-	 * @return number,
-	 *         0xff if the field does not exist,
-	 *         -1 if the tags do not exist.
+	 * @return string,
+	 *         "" if the field does not exist,
+	 *         QString::null if the tags do not exist.
 	 */
-	virtual int getGenreNumV1();
+	virtual QString getGenreV1();
 
 	/**
 	 * Get ID3v2 title.
@@ -200,15 +200,6 @@ public:
 	virtual int getTrackNumV2();
 
 	/**
-	 * Get ID3v2 genre.
-	 *
-	 * @return number,
-	 *         0xff if the field does not exist,
-	 *         -1 if the tags do not exist.
-	 */
-	virtual int getGenreNumV2();
-
-	/**
 	 * Get ID3v2 genre as text.
 	 *
 	 * @return string,
@@ -260,11 +251,11 @@ public:
 	virtual void setTrackNumV1(int num);
 
 	/**
-	 * Set ID3v1 genre.
+	 * Set ID3v1 genre as text.
 	 *
-	 * @param num number to set, 0xff to remove field.
+	 * @param str string to set, "" to remove field, QString::null to ignore.
 	 */
-	virtual void setGenreNumV1(int num);
+	virtual void setGenreV1(const QString& str);
 
 	/**
 	 * Set ID3v2 title.
@@ -307,13 +298,6 @@ public:
 	 * @param num number to set, 0 to remove field.
 	 */
 	virtual void setTrackNumV2(int num);
-
-	/**
-	 * Set ID3v2 genre.
-	 *
-	 * @param num number to set, 0xff to remove field.
-	 */
-	virtual void setGenreNumV2(int num);
 
 	/**
 	 * Set ID3v2 genre as text.

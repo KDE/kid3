@@ -41,8 +41,8 @@ void StandardTags::filterDifferent(const StandardTags& st)
 	if (track != st.track) {
 		track = -1;
 	}
-	if (genre != st.genre || genreStr != st.genreStr) {
-		genre = -1;
+	if (genre != st.genre) {
+		genre = QString::null;
 	}
 }
 
@@ -55,8 +55,8 @@ void StandardTags::setInactive()
 	artist = QString::null;
 	album = QString::null;
 	comment = QString::null;
-	year = track = genre = -1;
-	genreStr = QString::null;
+	year = track = -1;
+	genre = QString::null;
 }
 
 /**
@@ -72,10 +72,7 @@ void StandardTags::copyActiveTags(StandardTags& dest) const
 	if (comment != QString::null) dest.comment = comment;
 	if (year != -1) dest.year = year;
 	if (track != -1) dest.track = track;
-	if (genre != -1) {
-		dest.genre = genre;
-		dest.genreStr = genreStr;
-	}
+	if (genre != QString::null) dest.genre = genre;
 }
 
 /**
@@ -89,8 +86,7 @@ void StandardTags::setEmpty()
 	comment = "";
 	year = 0;
 	track = 0;
-	genre = 0xff;
-	genreStr = "";
+	genre = "";
 }
 
 /**
@@ -107,10 +103,7 @@ void StandardTags::merge(const StandardTags& st)
 	if (comment.isEmpty()) comment = st.comment;
 	if (year <= 0)         year = st.year;
 	if (track <= 0)        track = st.track;
-	if ((genre == 0xff || genre == -1) && genreStr.isEmpty()) {
-		genre = st.genre;
-		genreStr = st.genreStr;
-	}
+	if (genre.isEmpty())   genre = st.genre;
 }
 
 /**
@@ -240,10 +233,7 @@ QString StandardTags::formatString(const QString& format, unsigned flags) const
 		tagStr[4] = yearStr;
 		tagStr[5] = trackStr;
 		tagStr[6] = QString::number(track);
-		tagStr[7] = Genres::getName(genre);
-		if (tagStr[7].isEmpty()) {
-			tagStr[7] = genreStr;
-		}
+		tagStr[7] = genre;
 
 		return replacePercentCodes(format, tagCode, tagStr, numTagCodes, flags);
 	}

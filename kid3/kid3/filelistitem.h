@@ -50,6 +50,18 @@ public:
 	virtual ~FileListItem();
 
 	/**
+	 * Paints the contents of one column of an item.
+	 *
+   * @param p      painter
+   * @param cg     color group
+   * @param column number of column
+   * @param width  width
+   * @param align  alignment
+   */
+	virtual void paintCell(QPainter* p, const QColorGroup& cg,
+												 int column, int width, int align);
+
+	/**
 	 * Opens or closes an item.
 	 *
 	 * @param o true to open

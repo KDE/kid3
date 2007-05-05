@@ -25,7 +25,7 @@
  */
 TaggedFile::TaggedFile(const DirInfo* di, const QString& fn) :
 	m_dirInfo(di), m_filename(fn), m_newFilename(fn),
-	m_changedV1(false), m_changedV2(false)
+	m_changedV1(false), m_changedV2(false), m_truncation(0)
 {
 }
 
@@ -121,13 +121,13 @@ int TaggedFile::getTrackNumV1()
 /**
  * Get ID3v1 genre.
  *
- * @return number,
- *         0xff if the field does not exist,
- *         -1 if the tags do not exist.
+ * @return string,
+ *         "" if the field does not exist,
+ *         QString::null if the tags do not exist.
  */
-int TaggedFile::getGenreNumV1()
+QString TaggedFile::getGenreV1()
 {
-	return -1;
+	return QString::null;
 }
 
 /**
@@ -194,11 +194,11 @@ void TaggedFile::setTrackNumV1(int)
 }
 
 /**
- * Set ID3v1 genre.
+ * Set ID3v1 genre as text.
  *
- * @param num number to set, 0xff to remove field.
+ * @param str string to set, "" to remove field, QString::null to ignore.
  */
-void TaggedFile::setGenreNumV1(int)
+void TaggedFile::setGenreV1(const QString&)
 {
 }
 
@@ -247,8 +247,7 @@ void TaggedFile::getStandardTagsV1(StandardTags* st)
 	st->comment = getCommentV1();
 	st->year = getYearV1();
 	st->track = getTrackNumV1();
-	st->genre = getGenreNumV1();
-	st->genreStr = QString::null;
+	st->genre = getGenreV1();
 }
 
 /**
@@ -264,8 +263,7 @@ void TaggedFile::getStandardTagsV2(StandardTags* st)
 	st->comment = getCommentV2();
 	st->year = getYearV2();
 	st->track = getTrackNumV2();
-	st->genre = getGenreNumV2();
-	st->genreStr = st->genre == 0xff ? getGenreV2() : QString::null;
+	st->genre = getGenreV2();
 }
 
 /**
@@ -298,7 +296,7 @@ void TaggedFile::setStandardTagsV1(const StandardTags* st,
 		setTrackNumV1(st->track);
 	}
 	if (flt.m_enableGenre && st->genre != oldst.genre) {
-		setGenreNumV1(st->genre);
+		setGenreV1(st->genre);
 	}
 }
 
@@ -331,13 +329,8 @@ void TaggedFile::setStandardTagsV2(const StandardTags* st,
 	if (flt.m_enableTrack && st->track != oldst.track) {
 		setTrackNumV2(st->track);
 	}
-	if (flt.m_enableGenre &&
-			(st->genre != oldst.genre || st->genreStr != oldst.genreStr)) {
-		if (st->genre != 0xff) {
-			setGenreNumV2(st->genre);
-		} else {
-			setGenreV2(st->genreStr);
-		}
+	if (flt.m_enableGenre && st->genre != oldst.genre) {
+		setGenreV2(st->genre);
 	}
 }
 
@@ -668,7 +661,7 @@ void TaggedFile::removeStandardTagsV1(const StandardTagsFilter& flt)
 	if (flt.m_enableComment) setCommentV1("");
 	if (flt.m_enableYear)    setYearV1(0);
 	if (flt.m_enableTrack)   setTrackNumV1(0);
-	if (flt.m_enableGenre)   setGenreNumV1(0xff);
+	if (flt.m_enableGenre)   setGenreV1("");
 }
 
 /**
@@ -684,7 +677,7 @@ void TaggedFile::removeStandardTagsV2(const StandardTagsFilter& flt)
 	if (flt.m_enableComment) setCommentV2("");
 	if (flt.m_enableYear)    setYearV2(0);
 	if (flt.m_enableTrack)   setTrackNumV2(0);
-	if (flt.m_enableGenre)   setGenreNumV2(0xff);
+	if (flt.m_enableGenre)   setGenreV2("");
 }
 
 /**
@@ -709,4 +702,48 @@ QString TaggedFile::getTagFormatV1() const
 QString TaggedFile::getTagFormatV2() const
 {
 	return QString::null;
+}
+
+/**
+ * Check if a string has to be truncated.
+ *
+ * @param str  string to be checked
+ * @param flag flag to be set if string has to be truncated
+ * @param len  maximum length of string
+ *
+ * @return str truncated to len characters if necessary, else QString::null.
+ */
+QString TaggedFile::checkTruncation(
+	const QString& str, StandardTags::TruncationFlag flag, int len)
+{
+	if (static_cast<int>(str.length()) > len) {
+		QString s = str;
+		s.truncate(len);
+		m_truncation |= flag;
+		return s;
+	} else {
+		m_truncation &= ~flag;
+		return QString::null;
+	}
+}
+
+/**
+ * Check if a number has to be truncated.
+ *
+ * @param val  value to be checked
+ * @param flag flag to be set if number has to be truncated
+ * @param max  maximum value
+ *
+ * @return val truncated to max if necessary, else -1.
+ */
+int TaggedFile::checkTruncation(int val, StandardTags::TruncationFlag flag,
+																int max)
+{
+	if (val > max) {
+		m_truncation |= flag;
+		return max;
+	} else {
+		m_truncation &= ~flag;
+		return -1;
+	}
 }

@@ -206,6 +206,7 @@ void Mp3File::removeTagsV1(const StandardTagsFilter& flt)
 			delete iter;
 #endif
 			markTag1Changed();
+			clearTrunctionFlags();
 		} else {
 			removeStandardTagsV1(flt);
 		}
@@ -626,13 +627,20 @@ int Mp3File::getTrackNumV1()
 /**
  * Get ID3v1 genre.
  *
- * @return number,
- *         0xff if the field does not exist,
- *         -1 if the tags do not exist.
+ * @return string,
+ *         "" if the field does not exist,
+ *         QString::null if the tags do not exist.
  */
-int Mp3File::getGenreNumV1()
+QString Mp3File::getGenreV1()
 {
-	return getGenreNum(m_tagV1);
+	int num = getGenreNum(m_tagV1);
+	if (num == -1) {
+		return QString::null;
+	} else if (num == 0xff) {
+		return "";
+	} else {
+		return Genres::getName(num);
+	}
 }
 
 /**
@@ -708,18 +716,6 @@ int Mp3File::getTrackNumV2()
 }
 
 /**
- * Get ID3v2 genre.
- *
- * @return number,
- *         0xff if the field does not exist,
- *         -1 if the tags do not exist.
- */
-int Mp3File::getGenreNumV2()
-{
-	return getGenreNum(m_tagV2);
-}
-
-/**
  * Get ID3v2 genre as text.
  *
  * @return string,
@@ -728,7 +724,7 @@ int Mp3File::getGenreNumV2()
  */
 QString Mp3File::getGenreV2()
 {
-	int num = getGenreNumV2();
+	int num = getGenreNum(m_tagV2);
 	if (num != 0xff && num != -1) {
 		return Genres::getName(num);
 	} else {
@@ -745,6 +741,8 @@ void Mp3File::setTitleV1(const QString& str)
 {
 	if (setTextField(m_tagV1, ID3FID_TITLE, str)) {
 		markTag1Changed();
+		QString s = checkTruncation(str, StandardTags::TF_Title);
+		if (!s.isNull()) setTextField(m_tagV1, ID3FID_TITLE, s);
 	}
 }
 
@@ -757,6 +755,8 @@ void Mp3File::setArtistV1(const QString& str)
 {
 	if (setTextField(m_tagV1, ID3FID_LEADARTIST, str)) {
 		markTag1Changed();
+		QString s = checkTruncation(str, StandardTags::TF_Artist);
+		if (!s.isNull()) setTextField(m_tagV1, ID3FID_LEADARTIST, s);
 	}
 }
 
@@ -769,6 +769,8 @@ void Mp3File::setAlbumV1(const QString& str)
 {
 	if (setTextField(m_tagV1, ID3FID_ALBUM, str)) {
 		markTag1Changed();
+		QString s = checkTruncation(str, StandardTags::TF_Album);
+		if (!s.isNull()) setTextField(m_tagV1, ID3FID_ALBUM, s);
 	}
 }
 
@@ -781,6 +783,8 @@ void Mp3File::setCommentV1(const QString& str)
 {
 	if (setTextField(m_tagV1, ID3FID_COMMENT, str)) {
 		markTag1Changed();
+		QString s = checkTruncation(str, StandardTags::TF_Comment, 28);
+		if (!s.isNull()) setTextField(m_tagV1, ID3FID_COMMENT, s);
 	}
 }
 
@@ -805,18 +809,26 @@ void Mp3File::setTrackNumV1(int num)
 {
 	if (setTrackNum(m_tagV1, num)) {
 		markTag1Changed();
+		int n = checkTruncation(num, StandardTags::TF_Track);
+		if (n != -1) setTrackNum(m_tagV1, n);
 	}
 }
 
 /**
- * Set ID3v1 genre.
+ * Set ID3v1 genre as text.
  *
- * @param num number to set, 0xff to remove field.
+ * @param str string to set, "" to remove field, QString::null to ignore.
  */
-void Mp3File::setGenreNumV1(int num)
+void Mp3File::setGenreV1(const QString& str)
 {
-	if (setGenreNum(m_tagV1, num)) {
-		markTag1Changed();
+	if (!str.isNull()) {
+		int num = Genres::getNumber(str);
+		if (setGenreNum(m_tagV1, num)) {
+			markTag1Changed();
+		}
+		// if the string cannot be converted to a number, set the truncation flag
+		checkTruncation(num == 0xff && !str.isEmpty() ? 1 : 0,
+										StandardTags::TF_Genre, 0);
 	}
 }
 
@@ -894,26 +906,23 @@ void Mp3File::setTrackNumV2(int num)
 }
 
 /**
- * Set ID3v2 genre.
- *
- * @param num number to set, 0xff to remove field.
- */
-void Mp3File::setGenreNumV2(int num)
-{
-	if (setGenreNum(m_tagV2, num)) {
-		markTag2Changed();
-	}
-}
-
-/**
  * Set ID3v2 genre as text.
  *
  * @param str string to set, "" to remove field, QString::null to ignore.
  */
 void Mp3File::setGenreV2(const QString& str)
 {
-	if (setTextField(m_tagV2, ID3FID_CONTENTTYPE, str, true)) {
-		markTag2Changed();
+	if (!str.isNull()) {
+		int num = Genres::getNumber(str);
+		if (num >= 0 && num != 0xff) {
+			if (setGenreNum(m_tagV2, num)) {
+				markTag2Changed();
+			}
+		} else {
+			if (setTextField(m_tagV2, ID3FID_CONTENTTYPE, str, true)) {
+				markTag2Changed();
+			}
+		}
 	}
 }
 

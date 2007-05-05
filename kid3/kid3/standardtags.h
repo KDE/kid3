@@ -20,6 +20,17 @@ class StandardTags {
 		FSF_SupportUrlEncode = 1
 	};
 
+	/** Flags for truncation. */
+	enum TruncationFlag {
+		TF_Title   = (1 << 0),
+		TF_Artist  = (1 << 1),
+		TF_Album   = (1 << 2),
+		TF_Comment = (1 << 3),
+		TF_Year    = (1 << 4),
+		TF_Track   = (1 << 5),
+		TF_Genre   = (1 << 6)
+	};
+
 	/**
 	 * Constructor.
 	 */
@@ -117,11 +128,8 @@ class StandardTags {
 	int year;
 	/** Track, empty if 0, inactive if -1 */
 	int track;
-	/** Genre, empty if 0xff, inactive if -1 */
-	int genre;
-	/** Genre without number, inactive if QString::null or genre != 0xff,
-			empty if "" */
-	QString genreStr;
+	/** Genre, inactive if QString::null, empty if "" */
+	QString genre;
 };
 
 /**

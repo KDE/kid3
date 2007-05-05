@@ -11,9 +11,8 @@
 #define TAGGEDFILE_H
 
 #include <qstring.h>
+#include "standardtags.h"
 
-class StandardTags;
-class StandardTagsFilter;
 class FrameList;
 class DirInfo;
 
@@ -138,11 +137,11 @@ public:
 	/**
 	 * Get ID3v1 genre.
 	 *
-	 * @return number,
-	 *         0xff if the field does not exist,
-	 *         -1 if the tags do not exist.
+	 * @return string,
+	 *         "" if the field does not exist,
+	 *         QString::null if the tags do not exist.
 	 */
-	virtual int getGenreNumV1();
+	virtual QString getGenreV1();
 
 	/**
 	 * Remove all ID3v1 tags.
@@ -194,11 +193,11 @@ public:
 	virtual void setTrackNumV1(int num);
 
 	/**
-	 * Set ID3v1 genre.
+	 * Set ID3v1 genre as text.
 	 *
-	 * @param num number to set, 0xff to remove field.
+	 * @param str string to set, "" to remove field, QString::null to ignore.
 	 */
-	virtual void setGenreNumV1(int num);
+	virtual void setGenreV1(const QString& str);
 
 	/**
 	 * Check if file has an ID3v1 tag.
@@ -270,15 +269,6 @@ public:
 	virtual int getTrackNumV2() = 0;
 
 	/**
-	 * Get ID3v2 genre.
-	 *
-	 * @return number,
-	 *         0xff if the field does not exist,
-	 *         -1 if the tags do not exist.
-	 */
-	virtual int getGenreNumV2() = 0;
-
-	/**
 	 * Remove all ID3v2 tags.
 	 *
 	 * @param flt filter specifying which fields to remove
@@ -335,13 +325,6 @@ public:
 	 * @param num number to set, 0 to remove field.
 	 */
 	virtual void setTrackNumV2(int num) = 0;
-
-	/**
-	 * Set ID3v2 genre.
-	 *
-	 * @param num number to set, 0xff to remove field.
-	 */
-	virtual void setGenreNumV2(int num) = 0;
 
 	/**
 	 * Set ID3v2 genre as text.
@@ -523,6 +506,12 @@ public:
 	void markTag2Changed(bool changed = true) { m_changedV2 = changed; }
 
 	/**
+	 * Get the truncation flags.
+	 * @return truncation flags.
+	 */
+	unsigned getTruncationFlags() const { return m_truncation; }
+
+	/**
 	 * Format a time string "h:mm:ss".
 	 * If the time is less than an hour, the hour is not put into the
 	 * string and the minute is not padded with zeroes.
@@ -595,7 +584,39 @@ protected:
 	 * Mark tag 1 as changed.
 	 * @param changed true if tag is changed
 	 */
-	void markTag1Changed(bool changed = true) { m_changedV1 = changed; }
+	void markTag1Changed(bool changed = true) {
+		m_changedV1 = changed;
+		if (!m_changedV1) clearTrunctionFlags();
+	}
+
+	/**
+	 * Check if a string has to be truncated.
+	 *
+	 * @param str  string to be checked
+	 * @param flag flag to be set if string has to be truncated
+	 * @param len  maximum length of string
+	 *
+	 * @return str truncated to len characters if necessary, else QString::null.
+	 */
+	QString checkTruncation(const QString& str,
+													StandardTags::TruncationFlag flag, int len = 30);
+
+	/**
+	 * Check if a number has to be truncated.
+	 *
+	 * @param val  value to be checked
+	 * @param flag flag to be set if number has to be truncated
+	 * @param max  maximum value
+	 *
+	 * @return val truncated to max if necessary, else -1.
+	 */
+	int checkTruncation(int val, StandardTags::TruncationFlag flag,
+											int max = 255);
+
+	/**
+	 * Clear all truncation flags.
+	 */
+	void clearTrunctionFlags() { m_truncation = 0; }
 
 private:
 	TaggedFile(const TaggedFile&);
@@ -611,6 +632,8 @@ private:
 	bool m_changedV1;
 	/** true if ID3v2 tags were changed */
 	bool m_changedV2;
+	/** Truncation flags. */
+	unsigned m_truncation;
 };
 
 #endif // TAGGEDFILE_H

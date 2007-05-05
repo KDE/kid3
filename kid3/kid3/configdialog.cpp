@@ -58,6 +58,14 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 	if (tagsPage) {
 		QVBoxLayout* vlayout = new QVBoxLayout(tagsPage, 6, 6);
 		if (vlayout) {
+			Q3GroupBox* v1GroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("ID3v1"), tagsPage);
+			if (v1GroupBox) {
+#if QT_VERSION >= 0x040000
+				v1GroupBox->setInsideMargin(5);
+#endif
+				m_markTruncationsCheckBox = new QCheckBox(i18n("&Mark truncated fields"), v1GroupBox);
+				vlayout->addWidget(v1GroupBox);
+			}
 			Q3GroupBox* v2GroupBox = new Q3GroupBox(1, Qt::Horizontal, i18n("ID3v2"), tagsPage);
 			if (v2GroupBox) {
 #if QT_VERSION >= 0x040000
@@ -232,6 +240,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 {
 	m_fnFormatBox->fromFormatConfig(fnCfg);
 	m_id3FormatBox->fromFormatConfig(id3Cfg);
+	m_markTruncationsCheckBox->setChecked(miscCfg->m_markTruncations);
 	m_totalNumTracksCheckBox->setChecked(miscCfg->m_enableTotalNumberOfTracks);
 	m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
 	m_onlyCustomGenresCheckBox->setChecked(miscCfg->m_onlyCustomGenres);
@@ -261,6 +270,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 {
 	m_fnFormatBox->toFormatConfig(fnCfg);
 	m_id3FormatBox->toFormatConfig(id3Cfg);
+	miscCfg->m_markTruncations = m_markTruncationsCheckBox->isChecked();
 	miscCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
 	miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
 	miscCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();

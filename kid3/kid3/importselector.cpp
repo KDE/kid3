@@ -549,13 +549,8 @@ void ImportSelector::showPreview() {
 			yearStr.setNum((*it).year);
 			m_tab->setText(row, YearColumn, yearStr);
 		}
-		if ((*it).genre != -1) {
-			QString genreStr(Genres::getName((*it).genre));
-			if (genreStr.isEmpty() && !(*it).genreStr.isEmpty()) {
-				genreStr = (*it).genreStr;
-			}
-			m_tab->setText(row, GenreColumn, genreStr);
-		}
+		if (!(*it).genre.isNull())
+			m_tab->setText(row, GenreColumn, (*it).genre);
 		if (!(*it).comment.isNull())
 			m_tab->setText(row, CommentColumn, (*it).comment);
 		++row;

@@ -121,15 +121,6 @@ public:
 	virtual int getTrackNumV2();
 
 	/**
-	 * Get ID3v2 genre.
-	 *
-	 * @return number,
-	 *         0xff if the field does not exist,
-	 *         -1 if the tags do not exist.
-	 */
-	virtual int getGenreNumV2();
-
-	/**
 	 * Get ID3v2 genre as text.
 	 *
 	 * @return string,
@@ -179,13 +170,6 @@ public:
 	 * @param num number to set, 0 to remove field.
 	 */
 	virtual void setTrackNumV2(int num);
-
-	/**
-	 * Set ID3v2 genre.
-	 *
-	 * @param num number to set, 0xff to remove field.
-	 */
-	virtual void setGenreNumV2(int num);
 
 	/**
 	 * Set ID3v2 genre as text.

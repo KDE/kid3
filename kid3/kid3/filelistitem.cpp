@@ -11,6 +11,7 @@
 #include "filelist.h"
 #include "taggedfile.h"
 #include "dirinfo.h"
+#include "kid3.h"
 
 #include <qapplication.h>
 #include <qpainter.h>
@@ -342,6 +343,32 @@ FileListItem::~FileListItem()
 {
 	delete m_file;
 	delete m_dirInfo;
+}
+
+/**
+ * Paints the contents of one column of an item.
+ *
+ * @param p      painter
+ * @param cg     color group
+ * @param column number of column
+ * @param width  width
+ * @param align  alignment
+ */
+void FileListItem::paintCell(QPainter* p, const QColorGroup& cg,
+														 int column, int width, int align)
+{
+	if (Kid3App::s_miscCfg.m_markTruncations &&
+			column == 0 && m_file && m_file->getTruncationFlags() != 0) {
+		QColorGroup g(cg);
+#if QT_VERSION >= 0x040000
+		g.setColor(QPalette::Window, Qt::red);
+#else
+		g.setColor(QColorGroup::Base, Qt::red);
+#endif
+		Q3ListViewItem::paintCell(p, g, column, width, align);
+	} else {
+		Q3ListViewItem::paintCell(p, cg, column, width, align);
+	}
 }
 
 /**

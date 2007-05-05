@@ -132,17 +132,7 @@ bool ImportParser::getNextTags(const QString& text, StandardTags& st, int& pos)
 		if (m_trackIncrEnabled) {
 			st.track = m_trackIncrNr++;
 		}
-		if (m_genrePos != -1) {
-			QString genreStr = m_re.cap(m_genrePos);
-			int genre = Genres::getNumber(genreStr);
-			if (genre != 0xff) {
-				st.genre = genre;
-				st.genreStr = QString::null;
-			} else if (!genreStr.isEmpty()) {
-				st.genre = 0xff;
-				st.genreStr = genreStr;
-			}
-		}
+		SET_TEXT_FIELD(genre);
 		pos = idx + m_re.matchedLength();
 		if (pos > oldpos) { /* avoid endless loop */
 			return true;

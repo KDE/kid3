@@ -99,6 +99,8 @@ protected slots:
 private:
 	/** Preserve timestamp checkbox */
 	QCheckBox* m_preserveTimeCheckBox;
+	/** Mark truncated fields checkbox */
+	QCheckBox* m_markTruncationsCheckBox;
 	/** Use track/total number of tracks format checkbox */
 	QCheckBox* m_totalNumTracksCheckBox;
 	/** Comment field name combo box */

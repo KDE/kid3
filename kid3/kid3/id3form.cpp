@@ -121,7 +121,7 @@ Id3Form::Id3Form(QWidget* parent, const char* name)
 	: QSplitter(parent, name)
 {
 #if QT_VERSION >= 0x040000
-	const int margin = 12;
+	const int margin = 6;
 	const int spacing = 2;
 #else
 	const int margin = 16;
@@ -336,24 +336,25 @@ Id3Form::Id3Form(QWidget* parent, const char* name)
 	QLabel* framesTextLabel = new QLabel(m_idV2GroupBox, "framesTextLabel");
 	framesTextLabel->setText(i18n("Frames:"));
 
-	idV2GroupBoxLayout->addWidget(framesTextLabel, 6, 0);
+	idV2GroupBoxLayout->addWidget(framesTextLabel, 6, 0, Qt::AlignTop);
 
 	m_framesListBox = new Q3ListBox(m_idV2GroupBox, "framesListBox");
 	idV2GroupBoxLayout->addWidget(m_framesListBox, 6, 1);
 
-	Q3VBox* frameButtonVBox = new Q3VBox(m_idV2GroupBox, "frameButtonLayout"); 
-	frameButtonVBox->setSpacing(6);
+	QVBoxLayout* frameButtonLayout = new QVBoxLayout;
+	frameButtonLayout->setSpacing(spacing);
 	QPushButton* editFramesPushButton =
-		new QPushButton(frameButtonVBox, "editFramesPushButton");
-	editFramesPushButton->setText(i18n("Edit"));
+		new QPushButton(i18n("Edit"), m_idV2GroupBox);
+	frameButtonLayout->addWidget(editFramesPushButton);
 	QPushButton* framesAddPushButton =
-		new QPushButton(frameButtonVBox, "framesAddPushButton");
-	framesAddPushButton->setText(i18n("Add"));
+		new QPushButton(i18n("Add"), m_idV2GroupBox);
+	frameButtonLayout->addWidget(framesAddPushButton);
 	QPushButton* deleteFramesPushButton =
-		new QPushButton(frameButtonVBox, "deleteFramesPushButton");
-	deleteFramesPushButton->setText(i18n("Delete"));
-
-	idV2GroupBoxLayout->addWidget(frameButtonVBox, 6, 2);
+		new QPushButton(i18n("Delete"), m_idV2GroupBox);
+	frameButtonLayout->addWidget(deleteFramesPushButton);
+	frameButtonLayout->addItem(
+		new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
+	idV2GroupBoxLayout->addLayout(frameButtonLayout, 6, 2);
 
 
 	scrollView->addChild(m_rightHalfVBox);
@@ -573,17 +574,6 @@ void Id3Form::fileSelected()
 }
 
 /**
- * Get genre from the ID3v1 controls.
- *
- * @param genre the genre is returned here
- */
-void Id3Form::getGenreV1(int& genre)
-{
-	genre = m_genreV1CheckBox->isChecked() ?
-		Genres::getNumber(m_genreV1ComboBox->currentText()) : -1;
-}
-
-/**
  * Get standard tags from the ID3v1 controls.
  *
  * @param st standard tags to store result
@@ -602,20 +592,7 @@ void Id3Form::getStandardTagsV1(StandardTags* st)
 		: -1;
 	st->track   = m_trackV1CheckBox->isChecked()   ? m_trackV1SpinBox->value()
 		: -1;
-	getGenreV1(st->genre);
-}
-
-/**
- * Get genre from the ID3v2 controls.
- *
- * @param genre    the genre is returned here
- * @param genreStr the genre string is returned here
- */
-void Id3Form::getGenreV2(int& genre, QString& genreStr)
-{
-	genre = m_genreV2CheckBox->isChecked() ?
-		Genres::getNumber(m_genreV2ComboBox->currentText()) : -1;
-	genreStr = genre == 0xff ? m_genreV2ComboBox->currentText()
+	st->genre   = m_genreV1CheckBox->isChecked()   ? m_genreV1ComboBox->currentText()
 		: QString::null;
 }
 
@@ -638,24 +615,23 @@ void Id3Form::getStandardTagsV2(StandardTags* st)
 		: -1;
 	st->track   = m_trackV2CheckBox->isChecked()   ? m_trackV2SpinBox->value()
 		: -1;
-	getGenreV2(st->genre, st->genreStr);
+	st->genre   = m_genreV2CheckBox->isChecked()   ? m_genreV2ComboBox->currentText()
+		: QString::null;
 }
 
 /**
  * Set ID3v1 genre controls.
  *
- * @param genre genre
+ * @param genreStr genre string
  */
-void Id3Form::setGenreV1(int genre)
+void Id3Form::setGenreV1(const QString& genreStr)
 {
-	m_genreV1CheckBox->setChecked(genre >= 0);
-	if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
-		m_genreV1ComboBox->setCurrentItem(0);
-		m_genreV1ComboBox->setCurrentText(Genres::getName(genre));
-	} else {
-		m_genreV1ComboBox->setCurrentItem(genre >= 0 ?
-																			Genres::getIndex(genre) : 0);
-	}
+	m_genreV1CheckBox->setChecked(!genreStr.isNull());
+	int genreIndex = genreStr.isNull() ? 0 :
+		Genres::getIndex(Genres::getNumber(genreStr));
+	m_genreV1ComboBox->setCurrentItem(
+		Kid3App::s_miscCfg.m_onlyCustomGenres ? 0 : genreIndex);
+	m_genreV1ComboBox->setCurrentText(genreStr);
 }
 
 /**
@@ -683,26 +659,17 @@ void Id3Form::setStandardTagsV1(const StandardTags* st)
 /**
  * Set ID3v2 genre controls.
  *
- * @param genre genre
+ * @param genreStr genre string
  */
-void Id3Form::setGenreV2(int genre, const QString& genreStr)
+void Id3Form::setGenreV2(const QString& genreStr)
 {
-	m_genreV2CheckBox->setChecked(genre >= 0);
-	int genreIndex = genre >= 0 ?	Genres::getIndex(genre) : 0;
-	if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
-		m_genreV2ComboBox->setCurrentItem(0);
-		m_genreV2ComboBox->setCurrentText(
-			genreIndex > 0 || genreStr.isEmpty() ?
-			QString(Genres::getName(genre)) : genreStr);
-	} else {
-		if (genreIndex > 0 || genreStr.isEmpty()) {
-			m_genreV2ComboBox->setCurrentItem(genreIndex);
-			m_genreV2ComboBox->setCurrentText(Genres::getName(genre));
-		} else {
-			m_genreV2ComboBox->setCurrentItem(Genres::count + 1);
-			m_genreV2ComboBox->setCurrentText(genreStr);
-		}
-	}
+	m_genreV2CheckBox->setChecked(!genreStr.isNull());
+	int genreIndex = genreStr.isNull() ? 0 :
+		Genres::getIndex(Genres::getNumber(genreStr));
+	m_genreV2ComboBox->setCurrentItem(
+		Kid3App::s_miscCfg.m_onlyCustomGenres ? 0 :
+		(genreIndex > 0 ? genreIndex : Genres::count + 1));
+	m_genreV2ComboBox->setCurrentText(genreStr);
 }
 
 /**
@@ -724,7 +691,7 @@ void Id3Form::setStandardTagsV2(const StandardTags* st)
 	m_yearV2SpinBox->setValue(st->year >= 0 ? st->year : 0);
 	m_trackV2CheckBox->setChecked(st->track >= 0);
 	m_trackV2SpinBox->setValue(st->track >= 0 ? st->track : 0);
-	setGenreV2(st->genre, st->genreStr);
+	setGenreV2(st->genre);
 }
 
 /**
@@ -1086,14 +1053,13 @@ void Id3Form::customGenresComboBoxToConfig() const
  */
 void Id3Form::customGenresConfigToComboBox()
 {
-	int genre;
-	QString genreStr;
 	QStringList strList;
 	for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
 		strList += *sl;
 	}
 
-	getGenreV1(genre);
+	QString genreStr = m_genreV1CheckBox->isChecked() ?
+		m_genreV1ComboBox->currentText() : QString::null;
 	m_genreV1ComboBox->clear();
 	if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
 		m_genreV1ComboBox->insertItem("");
@@ -1107,9 +1073,10 @@ void Id3Form::customGenresConfigToComboBox()
 			m_genreV1ComboBox->insertItem(*it);
 		}
 	}
-	setGenreV1(genre);
+	setGenreV1(genreStr);
 
-	getGenreV2(genre, genreStr);
+	genreStr = m_genreV2CheckBox->isChecked() ?
+		m_genreV2ComboBox->currentText() : QString::null;
 	m_genreV2ComboBox->clear();
 	if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
 		m_genreV2ComboBox->insertItem("");
@@ -1117,7 +1084,7 @@ void Id3Form::customGenresConfigToComboBox()
 		m_genreV2ComboBox->QCM_addItems(strList);
 	}
 	m_genreV2ComboBox->insertStringList(Kid3App::s_miscCfg.m_customGenres);
-	setGenreV2(genre, genreStr);
+	setGenreV2(genreStr);
 }
 
 /**
@@ -1195,4 +1162,51 @@ void Id3Form::selectNextFile()
 void Id3Form::selectPreviousFile()
 {
 	m_fileListBox->selectPreviousFile();
+}
+
+/**
+ * Mark truncated ID3v1 fields.
+ *
+ * @param flags truncation flags
+ * @see StandardTags::TruncationFlag.
+ */
+void Id3Form::markTruncatedFields(unsigned flags)
+{
+	if (flags & StandardTags::TF_Title) {
+		m_titleV1LineEdit->setPaletteBackgroundColor(Qt::red);
+	} else {
+		m_titleV1LineEdit->unsetPalette();
+	}
+	if (flags & StandardTags::TF_Artist) {
+		m_artistV1LineEdit->setPaletteBackgroundColor(Qt::red);
+	} else {
+		m_artistV1LineEdit->unsetPalette();
+	}
+	if (flags & StandardTags::TF_Album) {
+		m_albumV1LineEdit->setPaletteBackgroundColor(Qt::red);
+	} else {
+		m_albumV1LineEdit->unsetPalette();
+	}
+	if (flags & StandardTags::TF_Comment) {
+		m_commentV1LineEdit->setPaletteBackgroundColor(Qt::red);
+	} else {
+		m_commentV1LineEdit->unsetPalette();
+	}
+	if (flags & StandardTags::TF_Year) {
+		m_yearV1SpinBox->setPaletteBackgroundColor(Qt::red);
+	} else {
+		m_yearV1SpinBox->unsetPalette();
+	}
+	if (flags & StandardTags::TF_Track) {
+		m_trackV1SpinBox->setPaletteBackgroundColor(Qt::red);
+	} else {
+		m_trackV1SpinBox->unsetPalette();
+	}
+	if (flags & StandardTags::TF_Genre) {
+		QPalette p = m_genreV1ComboBox->palette();
+		p.setColor(QColorGroup::Button, Qt::red);
+		m_genreV1ComboBox->setPalette(p);
+	} else {
+		m_genreV1ComboBox->unsetPalette();
+	}
 }

@@ -90,6 +90,7 @@ const char** MiscConfig::s_defaultDirFmtList = &dirFmt[0];
  */
 MiscConfig::MiscConfig(const QString& group) :
 	GeneralConfig(group),
+	m_markTruncations(true),
 	m_enableTotalNumberOfTracks(false),
 	m_preserveTime(false),
 	m_commentName(s_defaultCommentName),
@@ -137,6 +138,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("DirFormatItem", m_dirFormatItem);
 	config->writeEntry("DirFormatText", m_dirFormatText);
 	config->writeEntry("RenameDirectorySourceV1", m_renDirSrcV1);
+	config->writeEntry("MarkTruncations", m_markTruncations);
 	config->writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("PreserveTime", m_preserveTime);
 	config->writeEntry("CommentName", m_commentName);
@@ -166,6 +168,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("/DirFormatItem", m_dirFormatItem);
 	config->writeEntry("/DirFormatText", m_dirFormatText);
 	config->writeEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
+	config->writeEntry("/MarkTruncations", m_markTruncations);
 	config->writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("/PreserveTime", m_preserveTime);
 	config->writeEntry("/CommentName", m_commentName);
@@ -228,6 +231,7 @@ void MiscConfig::readFromConfig(
 	m_dirFormatItem =
 	    config->readNumEntry("DirFormatItem", 0);
 	m_renDirSrcV1 = config->readBoolEntry("RenameDirectorySourceV1", m_renDirSrcV1);
+	m_markTruncations = config->readBoolEntry("MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("CommentName", s_defaultCommentName);
@@ -266,6 +270,7 @@ void MiscConfig::readFromConfig(
 	m_dirFormatItem =
 	    config->readNumEntry("/DirFormatItem", 0);
 	m_renDirSrcV1 = config->readBoolEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
+	m_markTruncations = config->readBoolEntry("/MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("/PreserveTime", m_preserveTime);
 	m_commentName = config->readEntry("/CommentName", s_defaultCommentName);
