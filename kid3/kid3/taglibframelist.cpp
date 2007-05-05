@@ -2191,7 +2191,12 @@ int TagLibFrameList::selectFrameId()
 			bool ok = false;
 			QString res = QInputDialog::getItem(
 				i18n("Add Frame"),
-				i18n("Select the frame ID"), lst, 0, true, &ok);
+				i18n("Select the frame ID")
+#if QT_VERSION >= 0x040000
+				// the dialog is too small in Qt4
+				+ "                                     "
+#endif
+				, lst, 0, true, &ok);
 			if (ok) {
 				m_selectedName = res;
 				return 0; // just used by addFrame()

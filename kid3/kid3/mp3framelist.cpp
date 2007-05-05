@@ -996,10 +996,8 @@ bool Mp3FrameList::addFrame(int frameId, bool edit)
 const char* Mp3FrameList::s_frameIdStr[NumFrameIds] = {
 	I18N_NOOP("AENC - Audio encryption"),
 	I18N_NOOP("APIC - Attached picture"),
-	I18N_NOOP("CDM  - Compressed data meta frame"),
 	I18N_NOOP("COMM - Comments"),
 	I18N_NOOP("COMR - Commercial"),
-	I18N_NOOP("CRM  - Encrypted meta frame"),
 	I18N_NOOP("ENCR - Encryption method registration"),
 	I18N_NOOP("EQUA - Equalization"),
 	I18N_NOOP("ETCO - Event timing codes"),
@@ -1076,10 +1074,8 @@ const char* Mp3FrameList::s_frameIdStr[NumFrameIds] = {
 const ID3_FrameID Mp3FrameList::s_frameIdCode[NumFrameIds] = {
 	ID3FID_AUDIOCRYPTO,
 	ID3FID_PICTURE,
-	ID3FID_METACOMPRESSION,
 	ID3FID_COMMENT,
 	ID3FID_COMMERCIAL,
-	ID3FID_METACRYPTO,
 	ID3FID_CRYPTOREG,
 	ID3FID_EQUALIZATION,
 	ID3FID_EVENTTIMING,
@@ -1185,7 +1181,12 @@ int Mp3FrameList::selectFrameId()
 	}
 	QString res = QInputDialog::getItem(
 		i18n("Add Frame"),
-		i18n("Select the frame ID"), lst, 0, false, &ok);
+		i18n("Select the frame ID")
+#if QT_VERSION >= 0x040000
+		// the dialog is too small in Qt4
+		+ "                                     "
+#endif
+		, lst, 0, false, &ok);
 	if (ok) {
 		int idx = lst.findIndex(res);
 		if (idx >= 0 && idx < NumFrameIds) {

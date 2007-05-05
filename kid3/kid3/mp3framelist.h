@@ -240,9 +240,9 @@ public:
 	Q3PtrList<FieldControl> m_fieldcontrols; 
 	/** Number of possible frame IDs */
 #if defined _WIN32 || defined WIN32
-	enum { NumFrameIds = 76 };
+	enum { NumFrameIds = 74 };
 #else
-	static const int NumFrameIds = 76;
+	static const int NumFrameIds = 74;
 #endif
 	/** Encoding selected in frame dialog */
 	ID3_TextEnc m_selectedEnc;
