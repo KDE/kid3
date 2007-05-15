@@ -121,13 +121,21 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
 
-	m_textBrowser = new QTextBrowser(this, "textBrowser");
-	m_filename = QDir::currentDirPath() + QDir::separator() + "kid3_";
 	QString lang((QString(QTextCodec::locale())).left(2));
-	if (!QFile::exists(m_filename + lang + ".html")) {
-		lang = "en";
+	QStringList docPaths;
+#ifdef CFG_DOCDIR
+	docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
+	docPaths += QString(CFG_DOCDIR) + "/kid3_en.html";
+#endif
+	docPaths += QDir::currentDirPath() + "/kid3_" + lang + ".html";
+	docPaths += QDir::currentDirPath() + "/kid3_en.html";
+	for (QStringList::const_iterator it = docPaths.begin();
+			 it != docPaths.end();
+			 ++it) {
+		m_filename = *it;
+		if (QFile::exists(m_filename)) break;
 	}
-	m_filename += lang + ".html";
+	m_textBrowser = new QTextBrowser(this, "textBrowser");
 #if QT_VERSION >= 0x040000
 	m_textBrowser->setSource(QUrl::fromLocalFile(m_filename));
 #else

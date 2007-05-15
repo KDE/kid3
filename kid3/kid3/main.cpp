@@ -92,11 +92,17 @@ int main(int argc, char* argv[])
 
 	// translation file for Qt
 	QTranslator qt_tr(0);
+#ifdef CFG_TRANSLATIONSDIR
+	if (!qt_tr.load(QString("qt_") + QTextCodec::locale(), CFG_TRANSLATIONSDIR))
+#endif
 	qt_tr.load( QString("qt_") + QTextCodec::locale(), "." );
 	app.installTranslator(&qt_tr);
 
 	// translation file for application strings
 	QTranslator kid3_tr(0);
+#ifdef CFG_TRANSLATIONSDIR
+	if (!kid3_tr.load(QString("kid3_") + QTextCodec::locale(), CFG_TRANSLATIONSDIR))
+#endif
 	kid3_tr.load( QString("kid3_") + QTextCodec::locale(), "." );
 	app.installTranslator(&kid3_tr);
 
