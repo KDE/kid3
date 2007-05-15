@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=Kid3
 Exec=kid3 -caption "%c" %i %m  
-Icon=kid3.png
+Icon=kid3
 Type=Application
 DocPath=kid3/index.html
 MimeType=audio/x-mp3;audio/x-mpegurl;application/ogg;audio/x-flac;audio/x-flac+ogg;audio/x-vorbis+ogg;audio/x-speex+ogg;audio/x-oggflac;audio/x-musepack;
