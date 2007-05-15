@@ -120,8 +120,11 @@ void Kid3ScrollView::addChild(QWidget* child, int x, int y)
 Id3Form::Id3Form(QWidget* parent, const char* name)
 	: QSplitter(parent, name)
 {
-#if QT_VERSION >= 0x040000
+#if QT_VERSION >= 0x040200
 	const int margin = 6;
+	const int spacing = 2;
+#elif QT_VERSION >= 0x040000
+	const int margin = 12;
 	const int spacing = 2;
 #else
 	const int margin = 16;
@@ -1204,7 +1207,11 @@ void Id3Form::markTruncatedFields(unsigned flags)
 	}
 	if (flags & StandardTags::TF_Genre) {
 		QPalette p = m_genreV1ComboBox->palette();
+#ifdef WIN32
+		p.setColor(QColorGroup::Base, Qt::red);
+#else
 		p.setColor(QColorGroup::Button, Qt::red);
+#endif
 		m_genreV1ComboBox->setPalette(p);
 	} else {
 		m_genreV1ComboBox->unsetPalette();
