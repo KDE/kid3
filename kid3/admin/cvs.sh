@@ -32,7 +32,7 @@ check_autotool_versions()
 required_autoconf_version="2.53 or newer"
 AUTOCONF_VERSION=`$AUTOCONF --version | head -n 1`
 case $AUTOCONF_VERSION in
-  Autoconf*2.5* | autoconf*2.5* | autoconf*2.6*) : ;;
+  Autoconf*2.5* | autoconf*2.5* | autoconf*2.6* ) : ;;
   "" )
     echo "*** AUTOCONF NOT FOUND!."
     echo "*** KDE requires autoconf $required_autoconf_version"
@@ -68,7 +68,7 @@ case $AUTOMAKE_STRING in
     echo "*** KDE requires automake $required_automake_version"
     exit 1
     ;;
-  automake*1.6.* | automake*1.7* | automake*1.8* | automake*1.9*)
+  automake*1.6.* | automake*1.7* | automake*1.8* | automake*1.9* | automake*1.10*)
     echo "*** $AUTOMAKE_STRING found."
     UNSERMAKE=no
     ;;
@@ -316,7 +316,7 @@ if test -f configure.in.in; then
    fi
 fi
 if test -z "$VERSION" || test "$VERSION" = "@VERSION@"; then
-     VERSION="\"3.5.2\""
+     VERSION="\"3.5.6\""
 fi
 if test -z "$modulename" || test "$modulename" = "@MODULENAME@"; then
    modulename=`pwd`; 
@@ -537,6 +537,8 @@ if test -z "$EXTRACTRC"; then EXTRACTRC=extractrc ; fi
 if test -z "$PREPARETIPS"; then PREPARETIPS=preparetips ; fi
 export EXTRACTRC PREPARETIPS
 
+kdepotpath=/usr/include/kde/kde.pot
+
 for subdir in $dirs; do
   test -z "$VERBOSE" || echo "Making messages in $subdir"
   (cd $subdir
@@ -554,10 +556,10 @@ for subdir in $dirs; do
    fi
    perl -e '$mes=0; while (<STDIN>) { next if (/^(if\s|else\s|endif)/); if (/^messages:/) { $mes=1; print $_; next; } if ($mes) { if (/$\\(XGETTEXT\)/ && / -o/) { s/ -o \$\(podir\)/ _translatorinfo.cpp -o \$\(podir\)/ } print $_; } else { print $_; } }' < Makefile.am | egrep -v '^include ' > _transMakefile
 
-   kdepotpath=${includedir:-`kde-config --expandvars --install include`}/kde.pot
-   if ! test -f $kdepotpath; then
-	kdepotpath=`kde-config --expandvars --prefix`/include/kde.pot
-   fi
+#   kdepotpath=${includedir:-`kde-config --expandvars --install include`}/kde.pot
+#   if ! test -f $kdepotpath; then
+#	kdepotpath=`kde-config --expandvars --prefix`/include/kde.pot
+#   fi
 
    $MAKE -s -f _transMakefile podir=$podir EXTRACTRC="$EXTRACTRC" PREPARETIPS="$PREPARETIPS" srcdir=. \
 	XGETTEXT="${XGETTEXT:-xgettext} --foreign-user -C -ci18n -ki18n -ktr2i18n -kI18N_NOOP -kI18N_NOOP2 -kaliasLocale -x $kdepotpath" messages

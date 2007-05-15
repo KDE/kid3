@@ -784,7 +784,7 @@ support])
    # CoreAudio framework
    AC_CHECK_HEADER(CoreAudio/CoreAudio.h, [
      AC_DEFINE(HAVE_COREAUDIO, 1, [Define if you have the CoreAudio API])
-     FRAMEWORK_COREAUDIO="-Xlinker -framework -Xlinker CoreAudio"
+     FRAMEWORK_COREAUDIO="-Wl,-framework,CoreAudio"
    ])
 
    AC_CHECK_RES_INIT
@@ -2735,7 +2735,7 @@ AC_CACHE_VAL(ac_cv_libexr,
            EXRSTATUS=old
         else
            kde_save_LIBS="$LIBS"
-           LIBS="$LIBS $all_libraries $USER_LDFLAGS $LIBZ `pkg-config --libs OpenEXR`"
+           LIBS="$LIBS $all_libraries $USER_LDFLAGS `pkg-config --libs OpenEXR` $LIBZ"
            AC_LANG_SAVE
            AC_LANG_CPLUSPLUS
            kde_save_CXXFLAGS="$CXXFLAGS"
@@ -3011,8 +3011,8 @@ AC_DEFUN([KDE_CHECK_FOR_OPT_NOINLINE_MATCH],
   [
   kde_cv_opt_noinline_match=irrelevant
   dnl if we don't use both -O2 and -fno-inline, this check is moot
-  if echo "$CFLAGS" | grep -qe -O2 \
-     && echo "$CFLAGS" | grep -qe -fno-inline ; then
+  if echo "$CFLAGS" | grep -e -O2 >/dev/null 2>/dev/null \
+     && echo "$CFLAGS" | grep -e -fno-inline >/dev/null 2>/dev/null ; then
 
     ac_cflags_save="$CFLAGS"
     CFLAGS="$CFLAGS -D_USE_GNU"
@@ -3487,14 +3487,10 @@ AC_SUBST(AUTOCONF,'$(SHELL) $(top_srcdir)/admin/cvs.sh configure || touch config
 
 AC_DEFUN([KDE_CHECK_LIB64],
 [
-    kdelibsuff="$kde_libs_suffix"
-    if test -z "$kdelibsuff"; then
-       kdelibsuff="auto"
-    fi
     AC_ARG_ENABLE(libsuffix,
         AC_HELP_STRING([--enable-libsuffix],
             [/lib directory suffix (64,32,none,auto[=default])]),
-            kdelibsuff=$enableval)
+            kdelibsuff=$enableval, kdelibsuff="auto")
     
     if test "$kdelibsuff" = "auto"; then
     
@@ -3504,13 +3500,16 @@ int main() {
  return 0;
 }
 EOF
-        kdelibsuff=`$CC conftest.c -o conftest.out; ldd conftest.out | grep -E "libc.so"| grep -E -o "/lib[[^\/]]*/" | sed "s/lib//" | sed "s/\/*//g"`
+        kdelibsuff=`$CC conftest.c -o conftest.out; ldd conftest.out |sed -ne '/libc.so/{
+    s,.*/lib\([[^\/]]*\)/.*,\1, 
+    p 
+}'`
 	rm -rf conftest.*
     fi	
 	
-    if test "$kdelibsuff" = "no"; then
+    if test "$kdelibsuff" = "no" || test "$kdelibsuff" = "none"; then
        kdelibsuff=
-    fi    
+    fi
     if test -z "$kdelibsuff"; then
         AC_MSG_RESULT([not using lib directory suffix])
         AC_DEFINE(KDELIBSUFF, [""], Suffix for lib directories)
@@ -4613,12 +4612,14 @@ fi
 
 AC_DEFUN([KDE_CHECK_PYTHON],
 [
-  KDE_CHECK_PYTHON_INTERN("2.4",
-   [KDE_CHECK_PYTHON_INTERN("2.3", 
-     [KDE_CHECK_PYTHON_INTERN("2.2", 
-       [KDE_CHECK_PYTHON_INTERN("2.1", 
-         [KDE_CHECK_PYTHON_INTERN("2.0", 
-           [KDE_CHECK_PYTHON_INTERN($1, $2) ])
+  KDE_CHECK_PYTHON_INTERN("2.5",
+    [KDE_CHECK_PYTHON_INTERN("2.4",
+     [KDE_CHECK_PYTHON_INTERN("2.3", 
+       [KDE_CHECK_PYTHON_INTERN("2.2", 
+         [KDE_CHECK_PYTHON_INTERN("2.1", 
+           [KDE_CHECK_PYTHON_INTERN("2.0", 
+             [KDE_CHECK_PYTHON_INTERN($1, $2) ])
+           ])
          ])
        ])
      ])
@@ -4986,7 +4987,6 @@ AC_DEFUN([KDE_SET_PREFIX],
                     ])
   fi
   kde_libs_htmldir=`$KDECONFIG --install html --expandvars`
-  kde_libs_suffix=`$KDECONFIG --libsuffix`
 
   AC_MSG_CHECKING([where to install])
   if test "x$prefix" = "xNONE"; then
@@ -5362,7 +5362,7 @@ elif test -d "/Library/Java/Home"; then
   JAVAC=$kde_java_bindir/javac
   JAVAH=$kde_java_bindir/javah
   JAR=$kde_java_bindir/jar
-  JVMLIBS="-Xlinker -framework -Xlinker JavaVM"
+  JVMLIBS="-Wl,-framework,JavaVM"
 
   AC_DEFINE_UNQUOTED(PATH_JAVA, "$kde_java_bindir/java", [Define where your java executable is])
   AC_MSG_RESULT([Apple Java Framework])

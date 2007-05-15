@@ -1,1 +1,1 @@
-SUBDIRS = en de
+SUBDIRS = $(AUTODIRS)
