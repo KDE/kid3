@@ -1,4 +1,8 @@
-# Qt project file for Kid3
+# qmake subdirectory project file
+
+!include(../config.pri) {
+  error("config.pri not found")
+}
 
 win32 {
   INCLUDEPATH = %MSYSDIR%\local\include %MSYSDIR%\local\include\taglib
@@ -6,28 +10,39 @@ win32 {
   LIBS += -L%MSYSDIR%\local\lib
 }
 unix {
-  INCLUDEPATH = /usr/include/taglib
+  INCLUDEPATH = /usr/include/taglib $$PWD
 }
 CONFIG += release
-RC_FILE = kid3win.rc
+win32:RC_FILE = ../kid3win.rc
 TEMPLATE = app
 QT = core gui network xml qt3support
-LIBS += -lid3 -logg -lvorbisfile -lvorbis -lFLAC++ -lFLAC -ltag
+LIBS += $$CFG_LIBS
+CONFIG += $$CFG_CONFIG
+PRECOMPILED_HEADER = $$CFG_PRECOMPILED_HEADER
 
-kid3_SOURCES = filelist.cpp filelistitem.cpp framelist.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.h configdialog.cpp exportdialog.h exportdialog.cpp formatconfig.h formatconfig.cpp formatbox.h formatbox.cpp importdialog.h importdialog.cpp importselector.h importselector.cpp importparser.h importparser.cpp generalconfig.h generalconfig.cpp importconfig.h importconfig.cpp miscconfig.h miscconfig.cpp freedbdialog.h freedbdialog.cpp freedbconfig.h freedbconfig.cpp freedbclient.h freedbclient.cpp rendirdialog.h rendirdialog.cpp dirlist.cpp taggedfile.cpp mp3framelist.cpp musicbrainzdialog.h musicbrainzdialog.cpp musicbrainzconfig.h musicbrainzconfig.cpp musicbrainzclient.h musicbrainzclient.cpp numbertracksdialog.h numbertracksdialog.cpp oggfile.cpp oggframelist.cpp vcedit.c flacfile.cpp flacframelist.cpp commandstable.cpp taglibfile.cpp taglibframelist.cpp urllinkframe.cpp unsynchronizedlyricsframe.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp
+SOURCES = filelist.cpp filelistitem.cpp framelist.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.cpp  exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp mp3framelist.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp oggframelist.cpp vcedit.c flacfile.cpp flacframelist.cpp commandstable.cpp taglibfile.cpp taglibframelist.cpp urllinkframe.cpp unsynchronizedlyricsframe.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp
 
-kid3_HEADERS = configdialog.h exportdialog.h filelist.h filelistitem.h formatbox.h formatconfig.h framelist.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h rendirdialog.h standardtags.h dirlist.h taggedfile.h mp3framelist.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h numbertracksdialog.h oggfile.h oggframelist.h vcedit.h flacfile.h flacframelist.h commandstable.h taglibfile.h taglibframelist.h urllinkframe.h unsynchronizedlyricsframe.h importsourceconfig.h importsourcedialog.h importsourceclient.h discogsdialog.h discogsclient.h discogsconfig.h musicbrainzreleasedialog.h musicbrainzreleaseclient.h qtcompatmac.h dirinfo.h externalprocess.h stringlistedit.h tracktypedialog.h tracktypeclient.h
+HEADERS = configdialog.h exportdialog.h filelist.h filelistitem.h formatbox.h formatconfig.h framelist.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h rendirdialog.h standardtags.h dirlist.h taggedfile.h mp3framelist.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h numbertracksdialog.h oggfile.h oggframelist.h vcedit.h flacfile.h flacframelist.h commandstable.h taglibfile.h taglibframelist.h urllinkframe.h unsynchronizedlyricsframe.h importsourceconfig.h importsourcedialog.h importsourceclient.h discogsdialog.h discogsclient.h discogsconfig.h musicbrainzreleasedialog.h musicbrainzreleaseclient.h qtcompatmac.h dirinfo.h externalprocess.h stringlistedit.h tracktypedialog.h tracktypeclient.h
 
-for(s, kid3_SOURCES): SOURCES += ../kid3/$${s}
-for(h, kid3_HEADERS): HEADERS += ../kid3/$${h}
-
-config_h.target = config.h
-config_h.depends = config.mk
+unix:program.path = $$CFG_BINDIR $$CFG_DATAROOTDIR/applications
 win32 {
-  config_h.commands = %MSYSDIR%\bin\perl -ne \"print if (s/^([^$$LITERAL_HASH][^=\s]*)[\s=]+(.+)\$\$/$${LITERAL_HASH}define \1 \2/)\" config.mk >config.h
+  isEmpty(CFG_BINDIR) {
+    program.path = \.
+  } else {
+    program.path = $$CFG_BINDIR
+  }
 }
-unix {
-  config_h.commands = perl -ne "print if (s/^([^$$LITERAL_HASH][^=\s]*)[\s=]+(.+)\$\$/$${LITERAL_HASH}define \1 \2/)" config.mk >config.h
+contains($$list($$[QT_VERSION]), 4.*) {
+  contains($$list($$[QT_VERSION]), 4.2.*) {
+    unix:program.extra = $(INSTALL_PROGRAM) $(TARGET) $(INSTALL_ROOT)$$CFG_BINDIR/kid3-qt; $(INSTALL_FILE) kid3-qt.desktop $(INSTALL_ROOT)$$CFG_DATAROOTDIR/applications/kid3-qt.desktop
+    win32:program.extra = $(INSTALL_PROGRAM) $(DESTDIR_TARGET) $(INSTALL_ROOT)$$CFG_BINDIR
+  } else {
+    unix:program.extra = $(COPY_FILE) $(TARGET) $(INSTALL_ROOT)$$CFG_BINDIR/kid3-qt; $(INSTALL_FILE) kid3-qt.desktop $(INSTALL_ROOT)$$CFG_DATAROOTDIR/applications/kid3-qt.desktop
+    win32:program.extra = $(COPY_FILE) $(DESTDIR_TARGET) $(INSTALL_ROOT)$$CFG_BINDIR
+  }
+} else {
+  program.extra = $(INSTALL_FILE) $(TARGET) $(INSTALL_ROOT)$$CFG_BINDIR/kid3-qt; $(INSTALL_FILE) kid3-qt.desktop $(INSTALL_ROOT)$$CFG_DATAROOTDIR/applications/kid3-qt.desktop
+  MOC_DIR = .
 }
-PRE_TARGETDEPS += $$config_h.target
-QMAKE_EXTRA_TARGETS += config_h
+
+INSTALLS += program
