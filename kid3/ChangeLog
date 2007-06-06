@@ -1,3 +1,24 @@
+Sat May  5 14:22:28 CEST 2007  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.9
+
+	* New:
+	  + Hierarchical directory tree instead of flat file list.
+	  + Enhanced context menu commands, can be used to browse for lyrics
+	    and album art.
+	  + Import from gnudb.org.
+	  + Conversion between ID3v2.3 and ID3v2.4 tags.
+	  + Editor for custom genres.
+	  + Option to mark truncated ID3v1.1 fields.
+
+	* Improved:
+	  + Frames are listed alphabetically and can be edited and deleted
+	    in multiple files.
+	  + Import from TrackType.org (formerly freedb2.org)
+
+	* Fixed:
+	  + MusicBrainz fingerprint import.
+
 Tue Nov 21 23:39:09 CET 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.8.1
