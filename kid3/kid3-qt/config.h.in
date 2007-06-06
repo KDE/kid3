@@ -1,0 +1,15 @@
+#undef VERSION
+#undef CFG_PREFIX
+#undef CFG_BINDIR
+#undef CFG_DATAROOTDIR
+#undef CFG_DOCDIR
+#undef CFG_TRANSLATIONSDIR
+#undef HAVE_ID3LIB
+#undef HAVE_VORBIS
+#undef HAVE_FLAC
+#undef HAVE_TAGLIB
+#undef HAVE_TUNEPIMP
+#undef GCC_PCH
+#undef CFG_DEBUG
+#undef CFG_QMAKE
+#undef CFG_LUPDATE

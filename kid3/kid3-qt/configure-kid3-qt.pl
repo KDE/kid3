@@ -1,8 +1,17 @@
 #!/usr/bin/perl -W
 # Configuration of Kid3 build.
+# Used to generate all necessary files to build kid3 without KDE.
+# Can be used for basic configuration when no configure script
+# is available (e.g. on Windows) or called at the end of a
+# configure script with the options --from-configure --generate-ts.
 
 use strict;
 use File::Basename;
+use File::Spec;
+use File::Copy;
+
+my $topdir = File::Spec->rel2abs(dirname($0). "/..");
+my $lupdate_cmd = "lupdate";
 
 # Read all source files given in the parameter list and copy them to the
 # current directory, replaceing i18n by tr and I18N_NOOP by QT_TR_NOOP.
@@ -122,13 +131,13 @@ sub generateTs()
 	mkdir $tmpdir unless -d $tmpdir;
 	mkdir "po" unless -d "po";
 	chdir $tmpdir or die "Could not change to $tmpdir: $!\n";
-	my @sources = glob "../" . dirname($0) . "/kid3/*.cpp";
+	my @sources = glob "$topdir/kid3/*.cpp";
 	createTranslateSources(@sources);
-	system "lupdate " . join ' ', glob "*.cpp" . " -ts ". join ' ', map { "kid3_". $_ . ".ts" } @languages;
+	system "$lupdate_cmd " . join ' ', glob "*.cpp" . " -ts ". join ' ', map { "kid3_". $_ . ".ts" } @languages;
 	foreach my $lang (@languages) { 
 		setTsTranslations("kid3_$lang.ts", "../po/kid3_$lang.ts",
-											(getPoTranslations("../" . dirname($0) . "/po/$lang.po"),
-											 getPoTranslations("../" . dirname($0) . "/kid3/${lang}_qt.po")));
+											(getPoTranslations("$topdir/po/$lang.po"),
+											 getPoTranslations("$topdir/kid3/${lang}_qt.po")));
 	}
 	unlink <*>;
 	chdir "..";
@@ -149,6 +158,8 @@ my $bindir;
 my $datarootdir;
 my $docdir;
 my $translationsdir;
+my $from_configure;
+my $generate_ts;
 
 while (my $opt = shift) {
   if ($opt eq "--without-vorbis") {
@@ -171,37 +182,40 @@ while (my $opt = shift) {
 		$enable_debug = 1;
 	} elsif (substr($opt, 0, 9) eq "--prefix=") {
 		$prefix = substr($opt, 9);
-	} elsif (substr($opt, 0, 9) eq "--bindir=") {
-		$bindir = substr($opt, 9);
-	} elsif (substr($opt, 0, 14) eq "--datarootdir=") {
-		$datarootdir = substr($opt, 14);
-	} elsif (substr($opt, 0, 9) eq "--docdir=") {
-		$docdir = substr($opt, 9);
-	} elsif (substr($opt, 0, 18) eq "--translationsdir=") {
-		$translationsdir = substr($opt, 18);
+	} elsif (substr($opt, 0, 14) eq "--with-bindir=") {
+		$bindir = substr($opt, 14);
+	} elsif (substr($opt, 0, 19) eq "--with-datarootdir=") {
+		$datarootdir = substr($opt, 19);
+	} elsif (substr($opt, 0, 14) eq "--with-docdir=") {
+		$docdir = substr($opt, 14);
+	} elsif (substr($opt, 0, 23) eq "--with-translationsdir=") {
+		$translationsdir = substr($opt, 23);
+	} elsif ($opt eq "--from-configure") {
+		$from_configure = 1;
 	} elsif ($opt eq "--generate-ts") {
-		generateTs();
+		$generate_ts = 1;
 	} elsif ($opt eq "-h" or $opt eq "--help") {
 		print "Usage: $0 [OPTION]\nOptions [default]:\n";
 		print "  --prefix=PREFIX        install prefix [/usr/local]\n";
-		print "  --bindir=DIR           user executables [PREFIX/bin]\n";
-		print "  --datarootdir=DIR      data root [PREFIX/share]\n";
-		print "  --docdir=DIR           documentation [DATAROOTDIR/doc/kid3-qt]\n";
-		print "  --translationsdir=DIR  translations [DATAROOTDIR/kid3-qt/translations]\n";
-		print "  --with-qmake=PROGRAM   qmake command [qmake]\n";
+		print "  --with-bindir=DIR      user executables [PREFIX/bin]\n";
+		print "  --with-datarootdir=DIR data root [PREFIX/share]\n";
+		print "  --with-docdir=DIR      documentation [DATAROOTDIR/doc/kid3-qt]\n";
+		print "  --with-translationsdir=DIR translations [DATAROOTDIR/kid3-qt/translations]\n";
 		print "  --without-musicbrainz  build without MusicBrainz\n";
 		print "  --with-musicbrainz=VER build with MusicBrainz version [5]\n";
 		print "  --without-taglib       build without taglib\n";
 		print "  --without-id3lib       build without id3lib\n";
 		print "  --without-vorbis       build without ogg/vorbis\n";
 		print "  --without-flac         build without FLAC\n";
-		print "  --enable-pch           enable precompiled headers\n";
+		print "  --enable-gcc-pch       enable precompiled headers\n";
 		print "  --enable-debug         enables debug symbols\n";
+		print "  --with-qmake=PROGRAM   qmake command [qmake]\n";
+    print "  --from-configure       started from configure, ignore settings above,\n";
+    print "                         do not generate config.h, config.pri\n";
 		print "  --generate-ts          generate ts from po translations\n";
 		exit 0;
 	}
 }
-
 if (!defined $prefix) {
  $prefix = "/usr/local";
 }
@@ -216,6 +230,62 @@ if (!defined $docdir) {
 }
 if (!defined $translationsdir) {
 	$translationsdir = $datarootdir . "/kid3-qt/translations";
+}
+
+my $fn;
+if ($from_configure) {
+	# started from configure => ignore settings above, get them from configure
+	$prefix = "";
+	$bindir = "";
+	$datarootdir = "";
+	$docdir = "";
+	$translationsdir = "";
+	$have_id3lib = 0;
+	$have_vorbis = 0;
+	$have_flac = 0;
+	$have_taglib = 0;
+	$have_tunepimp = 0;
+	$qmake_cmd = "";
+	$lupdate_cmd = "";
+	$enable_pch = 0;
+	$enable_debug = 0;
+
+	$fn = "kid3/config.h";
+	if (open IF, "$fn") {
+		while (<IF>) {
+			s/\r\n/\n/;
+			if (/^#define CFG_PREFIX "(.*)"$/) {
+				$prefix = $1;
+			} elsif (/^#define CFG_BINDIR "(.*)"$/) {
+				$bindir = $1;
+			} elsif (/^#define CFG_DATAROOTDIR "(.*)"$/) {
+				$datarootdir = $1;
+			} elsif (/^#define CFG_DOCDIR "(.*)"$/) {
+				$docdir = $1;
+			} elsif (/^#define CFG_TRANSLATIONSDIR "(.*)"$/) {
+				$translationsdir = $1;
+			} elsif (/^#define HAVE_ID3LIB (\d+)$/) {
+				$have_id3lib = $1;
+			} elsif (/^#define HAVE_VORBIS (\d+)$/) {
+				$have_vorbis = $1;
+			} elsif (/^#define HAVE_FLAC (\d+)$/) {
+				$have_flac = $1;
+			} elsif (/^#define HAVE_TAGLIB (\d+)$/) {
+				$have_taglib = $1;
+			} elsif (/^#define HAVE_TUNEPIMP (\d+)$/) {
+				$have_tunepimp = $1;
+			} elsif (/^#define CFG_QMAKE "(.*)"$/) {
+				$qmake_cmd = $1;
+			} elsif (/^#define CFG_LUPDATE "(.*)"$/) {
+				$lupdate_cmd = $1;
+			} elsif (/^#define GCC_PCH (\d+)$/) {
+				$enable_pch = $1;
+			} elsif (/^#define CFG_DEBUG (\d+)$/) {
+				$enable_debug = $1;
+			}
+		}
+		close IF;
+	}
 }
 
 my $config_h = "#define VERSION \"0.9\"\n";
@@ -345,34 +415,36 @@ EOF
 
 mkdir "kid3" unless -d "kid3";
 
-my $fn = "kid3/config.h";
-my $old_config_h;
-if (open IF, "$fn") {
-	$old_config_h = join('', <IF>);
-	close IF;
-}
-if ($old_config_h and $old_config_h eq $config_h) {
-	print "keeping $fn\n";
-} else {
-	open OF, ">$fn" or die "Cannot open $fn: $!\n";
-	print "creating $fn\n";
-	print OF "$config_h";
-	close OF;
-}
+if (!$from_configure) {
+	$fn = "kid3/config.h";
+	my $old_config_h;
+	if (open IF, "$fn") {
+		$old_config_h = join('', <IF>);
+		close IF;
+	}
+	if ($old_config_h and $old_config_h eq $config_h) {
+		print "keeping $fn\n";
+	} else {
+		open OF, ">$fn" or die "Cannot open $fn: $!\n";
+		print "creating $fn\n";
+		print OF "$config_h";
+		close OF;
+	}
 
-$fn = "config.pri";
-my $old_config_pri;
-if (open IF, "$fn") {
-	$old_config_pri = join('', <IF>);
-	close IF;
-}
-if ($old_config_pri and $old_config_pri eq $config_pri) {
-	print "keeping $fn\n";
-} else {
-	open OF, ">$fn" or die "Cannot open $fn: $!\n";
-	print "creating $fn\n";
-	print OF "$config_pri";
-	close OF;
+	$fn = "config.pri";
+	my $old_config_pri;
+	if (open IF, "$fn") {
+		$old_config_pri = join('', <IF>);
+		close IF;
+	}
+	if ($old_config_pri and $old_config_pri eq $config_pri) {
+		print "keeping $fn\n";
+	} else {
+		open OF, ">$fn" or die "Cannot open $fn: $!\n";
+		print "creating $fn\n";
+		print OF "$config_pri";
+		close OF;
+	}
 }
 
 if ($enable_pch) {
@@ -392,7 +464,7 @@ if ($enable_pch) {
 	}
 }
 
-if (open IF, dirname($0) . "/kid3/kid3.desktop") {
+if (open IF, "$topdir/kid3/kid3.desktop") {
   $fn = "kid3/kid3-qt.desktop";
 	open OF, ">$fn" or die "Cannot open $fn: $!\n";
 	while (<IF>) {
@@ -404,6 +476,12 @@ if (open IF, dirname($0) . "/kid3/kid3.desktop") {
 	close OF;
 	close IF;
 }
+
+print "copying icons\n";
+copy("$topdir/kid3/hi16-app-kid3.png", "kid3/hi16-app-kid3-qt.png");
+copy("$topdir/kid3/hi32-app-kid3.png", "kid3/hi32-app-kid3-qt.png");
+copy("$topdir/kid3/hi48-app-kid3.png", "kid3/hi48-app-kid3-qt.png");
+copy("$topdir/kid3/hisc-app-kid3.svgz", "kid3/hisc-app-kid3-qt.svgz");
 
 mkdir "doc" unless -d "doc";
 $fn = "doc/fixdocbook.pl";
@@ -423,14 +501,33 @@ EOF
 print "creating $fn\n";
 close OF;
 
+if ($generate_ts) {
+	print "creating .ts files\n";
+	generateTs();
+}
+
 print "starting $qmake_cmd\n";
-system "$qmake_cmd " . dirname($0) . "/kid3-qt.pro";
+system "$qmake_cmd $topdir/kid3-qt.pro";
+chdir "kid3";
+system "$qmake_cmd $topdir/kid3/kid3.pro";
+chdir "..";
+chdir "po";
+system "$qmake_cmd $topdir/po/po.pro";
+chdir "..";
+chdir "doc";
+mkdir "en" unless -d "en";
+mkdir "de" unless -d "de";
+chdir "en";
+system "$qmake_cmd $topdir/doc/en/en.pro";
+chdir "..";
+chdir "de";
+system "$qmake_cmd $topdir/doc/de/de.pro";
+chdir "..";
+chdir "..";
 
 if ($enable_pch) {
 # qmake < Qt 4.2 generates a dependency requiring the precompiled header
 # to be in the source tree, this is fixed here.
-	system "cd kid3; $qmake_cmd ../" . dirname($0) . "/kid3/kid3.pro; cd ..";
-
 	my $makefile_changed = 0;
 	if (open IF, "kid3/Makefile") {
 		if (open OF, ">kid3/Makefile.new") {
@@ -447,7 +544,7 @@ if ($enable_pch) {
 	if ($makefile_changed) {
 		rename "kid3/Makefile", "kid3/Makefile.bak";
 		rename "kid3/Makefile.new", "kid3/Makefile";
-		print "fixed kid3/Makefile\n";
+		print "fixing kid3/Makefile\n";
 	}
 }
 
