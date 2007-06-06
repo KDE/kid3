@@ -103,3 +103,19 @@ msgstr "Да"
 
 msgid "No"
 msgstr "Нет"
+
+msgid "Files"
+msgstr "Файлы"
+
+msgid "&OK"
+msgstr "&ОК"
+
+msgid "&Delete"
+msgstr "&Удалить"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "&Remove"
+msgstr "&Удалить"
+

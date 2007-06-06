@@ -100,3 +100,19 @@ msgstr "Ja"
 
 msgid "No"
 msgstr "Nein"
+
+msgid "Files"
+msgstr "Dateien"
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "&Delete"
+msgstr "&Löschen"
+
+msgid "Warning"
+msgstr "Warnung"
+
+msgid "&Remove"
+msgstr "&Entfernen"
+
