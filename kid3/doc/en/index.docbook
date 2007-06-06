@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>29/03/2007</date>
+<date>05/05/2007</date>
 <releaseinfo>0.9</releaseinfo>
 
 <abstract>
@@ -84,7 +84,8 @@ to use a consistent naming scheme in all tags.
 </para>
 <para>
 The tag information for full albums can be taken from
-<ulink url="http://freedb.org">freedb.org</ulink>, <ulink
+<ulink url="http://gnudb.org">gnudb.org</ulink>, <ulink
+url="http://tracktype.org">TrackType.org</ulink>, <ulink
 url="http://musicbrainz.org">MusicBrainz</ulink>,  <ulink
 url="http://discogs.com">Discogs</ulink> or other sources of
 track lists. The import format is freely configurable by regular expressions.
@@ -112,7 +113,8 @@ Please report any problems or feature requests to the author.
 <listitem><para>Generate and change directory names from tags</para></listitem>
 <listitem><para>Generate playlist file</para></listitem>
 <listitem><para>Automatic case conversion and string translation</para></listitem>
-<listitem><para>Import from <ulink url="http://freedb.org">freedb.org</ulink>,
+<listitem><para>Import from <ulink url="http://gnudb.org">gnudb.org</ulink>,
+<ulink url="http://tracktype.org">TrackType.org</ulink>,
 <ulink url="http://musicbrainz.org">MusicBrainz</ulink>,
 <ulink url="http://discogs.com">Discogs</ulink>
 and other data sources</para></listitem>
@@ -171,7 +173,7 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <sect1 id="kid3-window">
 <title>The Kid3 Window</title>
 
-<sect2>
+<sect2 id="gui-elements">
 <title>The GUI Elements</title>
 <para>
 The &kid3; GUI is separated in five sections: At the left are the file
@@ -451,35 +453,36 @@ Discogs  or other sources of album track lists in textual format.
 </para>
 <para id="import-freedb">
 Import from a freedb.org server is possible using a dialog which appears when
-<guibutton>From freedb.org</guibutton> is selected. The artist and album name
+<guibutton>gnudb.org</guibutton> or <guibutton>TrackType.org</guibutton>
+is selected. The artist and album name
 to search for can be entered in the two topmost fields,
 the albums which match the
 query will be displayed when <guibutton>Find</guibutton> is clicked and the
-results from <ulink url="http://www.freedb.org">www.freedb.org</ulink> are
+results from <ulink url="http://www.gnudb.org">www.gnudb.org</ulink> are
 received. Importing the track data for an album is
 done by selecting the album in the list. The freedb.org server to import from
 can be selected as well as the CGI path. The
 imported data is displayed in the preview table of the import dialog. To work
-in that dialog again, the freedb.org dialog has to be closed - it can be
-reopened later by clicking <guibutton>From freedb.org</guibutton> again and
+in that dialog again, the gnudb.org dialog has to be closed - it can be
+reopened later by clicking <guibutton>gnudb.org</guibutton> again and
 its contents will be restored. When satisfied with the displayed tracks, they
 can be imported by terminating the import dialog with
 <guibutton>OK</guibutton>.
 </para>
 <para id="import-discogs">
-A search on the Discogs server can be performed using <guibutton>From
-Discogs</guibutton>. As in the <guibutton>From freedb.org</guibutton> dialog,
+A search on the Discogs server can be performed using
+<guibutton>Discogs</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
 you can enter artist and album and then choose from a list of releases.
 </para>
 <para id="import-musicbrainzrelease">
 You can search in the same way in the release database of MusicBrainz
 using <guibutton>From MusicBrainz Release</guibutton>.
 The workflow is the same as described for <guibutton>From
-freedb.org</guibutton>.
+gnudb.org</guibutton>.
 </para>
 <para id="import-musicbrainz">
 Import from a MusicBrainz server is possible using the dialog which appears when
-<guibutton>From MusicBrainz</guibutton> is selected. Server and proxy can be
+<guibutton>From MusicBrainz Fingerprint</guibutton> is selected. Server and proxy can be
 selected as in the freedb import dialog. Below is a table displaying the
 imported track data. The right column shows the state of the MusicBrainz
 query, which starts with "Pending" when the dialog is opened. Then the
@@ -589,22 +592,46 @@ persistently.
 <varlistentry>
 <term><menuchoice>
 <guimenu>File</guimenu>
-<guimenuitem>Import from freedb.org...</guimenuitem>
+<guimenuitem>Import from gnudb.org...</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Import from a freedb.org server.</action> This menu
+<listitem><para><action>Import from a freedb.org server
+using gnudb.org album search.</action> This menu
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
-opens directly the <guibutton>From freedb.org</guibutton>
+opens directly the <guibutton>gnudb.org</guibutton>
 dialog.</para></listitem> 
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>File</guimenu>
-<guimenuitem>Import from MusicBrainz...</guimenuitem>
+<guimenuitem>Import from TrackType.org...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from the TrackType.org server.</action> This menu
+item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>TrackType.org</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from MusicBrainz Release...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from the MusicBrainz release database.</action>
+This menu item opens the same import dialog as
+<guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>From MusicBrainz Release</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from MusicBrainz Fingerprint...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Import from a MusicBrainz server.</action> This menu
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
-opens directly the <guibutton>From MusicBrainz</guibutton>
+opens directly the <guibutton>From MusicBrainz Fingerprint</guibutton>
 dialog.</para></listitem> 
 </varlistentry>
 
@@ -865,6 +892,16 @@ consists of pages for tags, files, user actions, and network settings.
 </para>
 <para>
 Tag specific options can be found on the <guilabel>Tags</guilabel> page.
+</para>
+<para>
+If <guilabel>Mark truncated fields</guilabel> is checked, truncated ID3v1.1
+fields will be marked red. The text fields of ID3v1.1 tags can only have 30
+characters, the comment only 28 characters. Also the genre and track numbers
+are restricted, so that fields can be truncated when imported or transfered
+from ID3v2. Truncated fields and the file will be marked red, and the mark
+will be removed after the field has been edited.
+</para>
+<para>
 The check box <guilabel>Use track/total number of tracks
 format</guilabel> controls whether the track number field of ID3v2 tags
 contains simply the track number or additionally the total number of tracks in
@@ -875,7 +912,7 @@ as it was in earlier versions of &kid3; and TagLib is only applied when an
 ID3v2.4.0 tag is encountered. In the second case, <guilabel>ID3v2.4.0
 (TagLib)</guilabel>, TagLib is generally used for MP3 files; changed or newly
 created tags will then be saved in version 2.4.0.
-The combo box <guilabel>Comment Field Name</guilabel> is only
+The combo box <guilabel>Comment field name</guilabel> is only
 relevant for Ogg/Vorbis and FLAC files and sets the name of the field used for
 comments. Different applications seem to use different names, "COMMENT" for
 instance is used by xmms, whereas amaroK uses "DESCRIPTION".
@@ -904,7 +941,7 @@ genres can be found at the end of the genres list.
 <guilabel>Tag Format</guilabel> contains options for the format of the tags.
 When <guilabel>Format while editing</guilabel> is checked, the format
 configuration is automatically used while editing text in the line edits.
-The <guilabel>Case Conversion</guilabel> can be set to <guilabel>No
+The <guilabel>Case conversion</guilabel> can be set to <guilabel>No
 changes</guilabel>, <guilabel>All lowercase</guilabel>, <guilabel>All
 uppercase</guilabel>, <guilabel>First letter uppercase</guilabel> or
 <guilabel>All first letters uppercase</guilabel>. 
@@ -915,7 +952,7 @@ replacement text. To remove a mapping set the <guilabel>From</guilabel> cell
 to an empty value (e.g. by first typing space and then backspace). Inserting
 and deleting rows is also possible using a context menu which appears when the
 right mouse button is clicked.  Replacement is only active, if the
-<guilabel>String Replacement</guilabel> checkbox is checked.
+<guilabel>String replacement</guilabel> checkbox is checked.
 </para>
 <para>
 On the page <guilabel>Files</guilabel> the check box <guilabel>Preserve file
@@ -957,7 +994,7 @@ codes:
 
 <para>
 The command which will be inserted with %b can be defined in the
-<guilabel>Web Browser</guilabel> line edit above. Commands starting with %b
+<guilabel>Web browser</guilabel> line edit above. Commands starting with %b
 can be used to fetch information about the audio files from the web,
 for instance
 <screen width="40">
@@ -1122,7 +1159,7 @@ Windows 2000, XP: id3lib 3.8.3, non-commercial Qt Version 2.3.0,
 non-commercial Qt Version 3.2.1, libvorbis 1.1.0, libogg 1.1.2, FLAC 1.1.2
 </para>
 <para>
-Windows 2000, XP: id3lib 3.8.3, open source Qt Version 4.2.1,
+Windows 2000, XP: id3lib 3.8.3, open source Qt Version 4.2.1 and 4.2.3,
 libvorbis 1.1.0, libogg 1.1.2, FLAC 1.1.2, TagLib 1.4
 </para>
 
@@ -1141,6 +1178,13 @@ Go into the top directory and type
 <prompt>%</prompt> <userinput>./configure</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
 <prompt>%</prompt> <userinput>make install</userinput>
+</screen>
+</para>
+<para>
+If the sources are downloaded from Subversion, the
+<userinput>configure</userinput> script can be built with 
+<screen width="40">
+<prompt>%</prompt> <userinput>make -f Makefile.cvs</userinput>
 </screen>
 </para>
 <para>
@@ -1168,12 +1212,15 @@ file <filename>kid3.spec</filename>, for Debian-Packages,
 a <filename>debian</filename> directory is available.
 </para>
 <para>
+To build &kid3; as a Qt application without KDE, use
+<userinput>configure</userinput> and <userinput>make</userinput>
+from the <filename>kid3-qt</filename> directory. The
+<userinput>configure</userinput> script can be generated with
+<userinput>autoconf</userinput>.
+</para>
+<para>
 The Qt application can also be compiled for Windows.
-In the win32 directory, type
-<screen width="40">
-<prompt>></prompt> <userinput>qmake</userinput>
-<prompt>></prompt> <userinput>mingw32-make</userinput>
-</screen>
+<userinput>buildkid3.bat</userinput> can be used to configure and build.
 </para>
 
 </sect1>
