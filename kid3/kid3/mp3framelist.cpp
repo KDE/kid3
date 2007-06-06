@@ -269,8 +269,10 @@ class BinFieldControl : public Mp3FieldControl {
  */
 BinaryOpenSave::BinaryOpenSave(QWidget* parent, const char* name,
 			       ID3_Field* fld) :
-	QWidget(parent, name), m_field(fld), m_loadfilename("")
+	QWidget(parent, name), m_isChanged(false)
 {
+	m_byteArray.duplicate(
+		(const char *)fld->GetRawBinary(), (unsigned int)fld->Size());
 	m_layout = new QHBoxLayout(this);
 	m_label = new QLabel(this);
 	m_openButton = new QPushButton(i18n("&Import"), this);
@@ -294,12 +296,27 @@ BinaryOpenSave::BinaryOpenSave(QWidget* parent, const char* name,
 void BinaryOpenSave::loadData()
 {
 #ifdef CONFIG_USE_KDE
-	m_loadfilename = KFileDialog::getOpenFileName(QString::null, QString::null,
-																								this);
+	QString loadfilename = KFileDialog::getOpenFileName(
+		QString::null, QString::null, this);
 #else
-	m_loadfilename = QFileDialog::getOpenFileName(QString::null, QString::null,
-																								this);
+	QString loadfilename = QFileDialog::getOpenFileName(
+		QString::null, QString::null, this);
 #endif
+	if (!loadfilename.isEmpty()) {
+		QFile file(loadfilename);
+		if (file.open(QCM_ReadOnly)) {
+			size_t size = file.size();
+			char* data = new char[size];
+			if (data) {
+				QDataStream stream(&file);
+				stream.readRawBytes(data, size);
+				m_byteArray.duplicate(data, size);
+				m_isChanged = true;
+				delete [] data;
+			}
+			file.close();
+		}
+	}
 }
 
 /**
@@ -318,9 +335,7 @@ void BinaryOpenSave::saveData()
 		QFile file(fn);
 		if (file.open(QCM_WriteOnly)) {
 			QDataStream stream(&file);
-			stream.writeRawBytes(
-			    (const char *)m_field->GetRawBinary(),
-			    (unsigned int)m_field->Size());
+			stream.writeRawBytes(m_byteArray.data(), m_byteArray.size());
 			file.close();
 		}
 	}
@@ -332,8 +347,7 @@ void BinaryOpenSave::saveData()
 void BinaryOpenSave::viewData()
 {
 	QImage image;
-	if (image.loadFromData((const uchar *)m_field->GetRawBinary(),
-			       (uint)m_field->Size())) {
+	if (image.loadFromData(m_byteArray)) {
 		ImageViewer iv(this, 0, &image);
 		iv.exec();
 	}
@@ -496,20 +510,9 @@ QWidget* IntComboBoxControl::createWidget(QWidget* parent)
  */
 void BinFieldControl::updateTag()
 {
-	if (m_bos && !m_bos->getFilename().isEmpty()) {
-		QFile file(m_bos->getFilename());
-		if (file.open(QCM_ReadOnly)) {
-			size_t size = file.size();
-			uchar* data = new uchar[size];
-			if (data) {
-				QDataStream stream(&file);
-				stream.readRawBytes((char *)data,
-						    (unsigned int)size);
-				m_field->Set(data, size);
-				delete [] data;
-			}
-			file.close();
-		}
+	if (m_bos && m_bos->isChanged()) {
+		const QByteArray& ba = m_bos->getData();
+		m_field->Set(reinterpret_cast<const unsigned char*>(ba.data()), ba.size());
 	}
 }
 

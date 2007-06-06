@@ -55,11 +55,16 @@ class BinaryOpenSave : public QWidget {
 	void setLabel(const QString& txt) { m_label->setText(txt); }
 
 	/**
-	 * Get filename of file to import.
-	 *
-	 * @return filename.
+	 * Check if data changed.
+	 * @return true if data changed.
 	 */
-	QString getFilename() { return m_loadfilename; }
+	bool isChanged() const { return m_isChanged; }
+
+	/**
+	 * Get binary data.
+	 * @return byte array.
+	 */
+	const QByteArray& getData() const { return m_byteArray; }
 #endif // HAVE_ID3LIB
  
  public slots:
@@ -81,14 +86,14 @@ class BinaryOpenSave : public QWidget {
 
  private:
 #ifdef HAVE_ID3LIB
-	/** ID3 field containing binary data */
-	ID3_Field* m_field;
+	/** Array with binary data */
+	QByteArray m_byteArray;
+	/** true if m_byteArray changed */
+	bool m_isChanged;
 	/** horizontal layout */
 	QHBoxLayout* m_layout;
 	/** Label left of buttons */
 	QLabel* m_label;
-	/** filename of file to import */
-	QString m_loadfilename;
 	/** Import push button */
 	QPushButton* m_openButton;
 	/** Export push button */
