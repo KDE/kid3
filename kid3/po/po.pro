@@ -16,15 +16,19 @@ win32 {
 }
 
 QM_FILES = kid3_de.qm kid3_es.qm kid3_fr.qm kid3_ru.qm
+QMAKE_CLEAN += $$QM_FILES
 
+isEmpty(CFG_LRELEASE) {
+  CFG_LRELEASE = lrelease
+}
 contains($$list($$[QT_VERSION]), 4.*) {
   ts2qm.input = TS_FILES
-  ts2qm.commands = lrelease ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
+  ts2qm.commands = $$CFG_LRELEASE ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
   QMAKE_EXTRA_COMPILERS += ts2qm
   TS_FILES += kid3_de.ts kid3_es.ts kid3_fr.ts kid3_ru.ts
 } else {
   ts2qm.input = SOURCES
-  ts2qm.commands = lrelease ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
+  ts2qm.commands = $$CFG_LRELEASE ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
   QMAKE_EXTRA_UNIX_COMPILERS += ts2qm
   SOURCES += kid3_de.ts kid3_es.ts kid3_fr.ts kid3_ru.ts
 }

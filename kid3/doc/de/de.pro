@@ -8,6 +8,7 @@
 }
 
 HTML_FILES = kid3_${QMAKE_TARGET}.html
+QMAKE_CLEAN += $$HTML_FILES
 
 isEmpty(CFG_DOCDIR) {
   unix:documentation.path = /.

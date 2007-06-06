@@ -23,21 +23,31 @@ contains($$list($$[QT_VERSION]), 4.*) {
 
 db2html.output = kid3_${QMAKE_TARGET}.html
 unix {
-  exists(/usr/bin/jw) {
+  isEmpty(CFG_DB2HTML) {
+    exists(/usr/bin/jw) {
+      CFG_DB2HTML = jw
+    } else:exists(/usr/bin/xsltproc) {
+      CFG_DB2HTML = xsltproc
+    } else:exists(/usr/bin/xalan) {
+      CFG_DB2HTML = xalan
+    }
+  }
+  contains(CFG_DB2HTML, jw) {
     db2html.commands = perl -n ../fixdocbook.pl <${QMAKE_FILE_NAME} >${QMAKE_FILE_BASE}.sgml; jw -f docbook -b html -u ${QMAKE_FILE_BASE}.sgml; mv ${QMAKE_FILE_BASE}.html ${QMAKE_FILE_OUT}
   } else {
-    DOCBOOK_XSL = docbook.xsl
-    exists(/usr/share/xml/docbook/stylesheet/nwalsh/html/docbook.xsl) {
-      DOCBOOK_XSL = /usr/share/xml/docbook/stylesheet/nwalsh/html/docbook.xsl
-    } else:exists(/usr/share/apps/ksgmltools2/docbook/xsl/html/docbook.xsl) {
-      DOCBOOK_XSL = /usr/share/apps/ksgmltools2/docbook/xsl/html/docbook.xsl
+    isEmpty(CFG_XSL_STYLESHEET) {
+      exists(/usr/share/xml/docbook/stylesheet/nwalsh/html/docbook.xsl) {
+        CFG_XSL_STYLESHEET = /usr/share/xml/docbook/stylesheet/nwalsh/html/docbook.xsl
+      } else:exists(/usr/share/apps/ksgmltools2/docbook/xsl/html/docbook.xsl) {
+        CFG_XSL_STYLESHEET = /usr/share/apps/ksgmltools2/docbook/xsl/html/docbook.xsl
+      }
     }
-    exists(/usr/bin/xsltproc) {
-      db2html.commands = perl -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | xsltproc $$DOCBOOK_XSL - >${QMAKE_FILE_OUT}
-    } else:exists(/usr/bin/xalan) {
-      db2html.commands = perl -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | xalan -xsl $$DOCBOOK_XSL -out ${QMAKE_FILE_OUT}
+    contains(CFG_DB2HTML, xsltproc) {
+      db2html.commands = perl -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | xsltproc $$CFG_XSL_STYLESHEET - >${QMAKE_FILE_OUT}
+    } else:contains(CFG_DB2HTML, xalan) {
+      db2html.commands = perl -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | xalan -xsl $$CFG_XSL_STYLESHEET -out ${QMAKE_FILE_OUT}
     } else {
-      db2html.commands = perl -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | xsltproc $$DOCBOOK_XSL - >${QMAKE_FILE_OUT}
+      db2html.commands = perl -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | $$CFG_DB2HTML $$CFG_XSL_STYLESHEET - >${QMAKE_FILE_OUT}
     }
   }
 }
