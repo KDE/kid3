@@ -35,7 +35,7 @@ FormatBox::FormatBox(const QString& title, QWidget* parent, const char* name) :
 																					this, "formatEditingCheckBox");
 
 	QLabel* caseConvLabel = new QLabel(this, "caseConvLabel");
-	caseConvLabel->setText(i18n("Case Conversion:"));
+	caseConvLabel->setText(i18n("Case conversion:"));
 
 	m_caseConvComboBox = new QComboBox(false, this, "caseConvComboBox");
 	m_caseConvComboBox->clear();
@@ -51,7 +51,7 @@ FormatBox::FormatBox(const QString& title, QWidget* parent, const char* name) :
 								 FormatConfig::AllFirstLettersUppercase);
 
 	m_strRepCheckBox = new QCheckBox(this, "strRepCheckBox");
-	m_strRepCheckBox->setText(i18n("String Replacement:"));
+	m_strRepCheckBox->setText(i18n("String replacement:"));
 	m_strReplTable = new Q3Table(this, "strReplTable");
 	m_strReplTable->setNumRows(1);
 	m_strReplTable->setNumCols(2);

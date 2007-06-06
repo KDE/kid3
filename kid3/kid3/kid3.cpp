@@ -220,6 +220,13 @@ Kid3App::Kid3App() :
 	m_config = new Kid3Settings();
 	m_config->setPath("kid3.sourceforge.net", "Kid3", Kid3Settings::User);
 	m_config->beginGroup("/kid3");
+#if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
+	QPixmap icon;
+	if (icon.load(QString(CFG_DATAROOTDIR) +
+								"/icons/hicolor/48x48/apps/kid3-qt.png")) {
+		setIcon(icon);
+	}
+#endif
 #endif
 	readOptions();
 }
@@ -290,11 +297,11 @@ void Kid3App::initActions()
 	new KAction(i18n("Import from &Discogs..."), 0, this,
 		    SLOT(slotImportDiscogs()), actionCollection(),
 		    "import_discogs");
-	new KAction(i18n("Import from MusicBrainz &release..."), 0, this,
+	new KAction(i18n("Import from MusicBrainz &Release..."), 0, this,
 		    SLOT(slotImportMusicBrainzRelease()), actionCollection(),
 		    "import_musicbrainzrelease");
 #ifdef HAVE_TUNEPIMP
-	new KAction(i18n("Import from &MusicBrainz fingerprint..."), 0, this,
+	new KAction(i18n("Import from &MusicBrainz Fingerprint..."), 0, this,
 		    SLOT(slotImportMusicBrainz()), actionCollection(),
 		    "import_musicbrainz");
 #endif
@@ -438,16 +445,16 @@ void Kid3App::initActions()
 	}
 	m_fileImportMusicBrainzRelease = new QAction(this);
 	if (m_fileImportMusicBrainzRelease) {
-		m_fileImportMusicBrainzRelease->setText(i18n("Import from MusicBrainz release"));
-		m_fileImportMusicBrainzRelease->setMenuText(i18n("Import from MusicBrainz &release..."));
+		m_fileImportMusicBrainzRelease->setText(i18n("Import from MusicBrainz Release"));
+		m_fileImportMusicBrainzRelease->setMenuText(i18n("Import from MusicBrainz &Release..."));
 		connect(m_fileImportMusicBrainzRelease, SIGNAL(activated()),
 			this, SLOT(slotImportMusicBrainzRelease()));
 	}
 #ifdef HAVE_TUNEPIMP
 	m_fileImportMusicBrainz = new QAction(this);
 	if (m_fileImportMusicBrainz) {
-		m_fileImportMusicBrainz->setText(i18n("Import from MusicBrainz fingerprint"));
-		m_fileImportMusicBrainz->setMenuText(i18n("Import from &MusicBrainz fingerprint..."));
+		m_fileImportMusicBrainz->setText(i18n("Import from MusicBrainz Fingerprint"));
+		m_fileImportMusicBrainz->setMenuText(i18n("Import from &MusicBrainz Fingerprint..."));
 		connect(m_fileImportMusicBrainz, SIGNAL(activated()),
 			this, SLOT(slotImportMusicBrainz()));
 	}

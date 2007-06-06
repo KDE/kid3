@@ -12,6 +12,8 @@
 #ifdef CONFIG_USE_KDE
 #include <kdeversion.h>
 #include <kconfig.h>
+#else
+#include <qfile.h>
 #endif
 
 #include "generalconfig.h"
@@ -303,7 +305,15 @@ void MiscConfig::readFromConfig(
 	m_id3v2Version = config->readNumEntry("/ID3v2Version", ID3v2_3_0);
 	m_useProxy = config->readBoolEntry("/UseProxy", m_useProxy);
 	m_proxy = config->readEntry("/Proxy", m_proxy);
+#if defined _WIN32 || defined WIN32
+	m_browser = config->readEntry("/Browser");
+	if (m_browser.isEmpty()) {
+		m_browser = ::getenv("ProgramFiles");
+		m_browser += "\\Internet Explorer\\IEXPLORE.EXE";
+	}
+#else
 	m_browser = config->readEntry("/Browser", s_defaultBrowser);
+#endif
 	m_onlyCustomGenres = config->readBoolEntry("/OnlyCustomGenres", m_onlyCustomGenres);
 	m_windowWidth = config->readNumEntry("/WindowWidth", -1);
 	m_windowHeight = config->readNumEntry("/WindowHeight", -1);
@@ -324,10 +334,22 @@ void MiscConfig::readFromConfig(
 	config->endGroup();
 #endif
 	if (cmdNr == 1) {
+#if defined _WIN32 || defined WIN32
+		QString prgDir = ::getenv("ProgramFiles");
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand(
+				"Windows Media Player",
+				prgDir + "\\Windows Media Player\\wmplayer.exe %F"));
+		m_contextMenuCommands.push_back(
+			MiscConfig::MenuCommand(
+				"AlbumArt",
+				prgDir +  "\\Album Cover Art Downloader\\albumart-qt.exe %d"));
+#else
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand("xmms", "xmms %F"));
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand("AlbumArt", "albumart-qt %d"));
+#endif
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand("Google Images", "%b http://images.google.com/images?q=%ua%20%ul"));
 		m_contextMenuCommands.push_back(

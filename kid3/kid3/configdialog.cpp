@@ -90,7 +90,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #if QT_VERSION >= 0x040000
 				vorbisGroupBox->setInsideMargin(5);
 #endif
-				QLabel* commentNameLabel = new QLabel(i18n("Comment Field &Name:"), vorbisGroupBox);
+				QLabel* commentNameLabel = new QLabel(i18n("Comment field &name:"), vorbisGroupBox);
 				m_commentNameComboBox = new QComboBox(true, vorbisGroupBox);
 				if (commentNameLabel && m_commentNameComboBox) {
 					QStringList items;
@@ -162,7 +162,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #if QT_VERSION >= 0x040000
 				browserGroupBox->setInsideMargin(5);
 #endif
-				QLabel* browserLabel = new QLabel(i18n("Web &Browser:"), browserGroupBox);
+				QLabel* browserLabel = new QLabel(i18n("Web &browser:"), browserGroupBox);
 				m_browserLineEdit = new QLineEdit(browserGroupBox);
 				if (browserLabel && m_browserLineEdit) {
 					browserLabel->setBuddy(m_browserLineEdit);
