@@ -1,6 +1,4 @@
 #!/usr/bin/make -f
-# Sample debian/rules that uses debhelper.
-# GNU copyright 1997 to 1999 by Joey Hess.
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
@@ -34,34 +32,24 @@ debian/debiandirs: admin/debianrules
 build-stamp:
 	dh_testdir
 
-	-test -r /usr/share/misc/config.sub && \
-	cp -f /usr/share/misc/config.sub admin/config.sub
-	-test -r /usr/share/misc/config.guess && \
-	cp -f /usr/share/misc/config.guess admin/config.guess
-	
-	/usr/bin/libtoolize -f
-	cp -f /usr/share/aclocal/libtool.m4 admin/libtool.m4.in
-	$(MAKE) -f admin/Makefile.common
-	
 	QTDIR=/usr/share/qt3 ./configure \
 	                        --host=$(DEB_HOST_GNU_TYPE) \
 	                        --build=$(DEB_BUILD_GNU_TYPE) \
 	                        $(configkde)
 	$(MAKE)
+	cd kid3-qt; \
+	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
+	            --prefix=/usr --with-qmake=qmake-qt3; \
+	cd ..
+	$(MAKE) -C kid3-qt
 	touch build-stamp
 
 clean: 
 	dh_testdir
 	dh_testroot
 	-$(MAKE) distclean
+	-$(MAKE) -C kid3-qt distclean
 	-rm -f *-stamp
-	-rm -f debian/debiandirs
-	-rm -f admin/config.sub admin/config.guess admin/ltmain.sh configure
-	-rm -f admin/libtool.m4.in admin/Makefile aclocal.m4 acinclude.m4
-	-rm -f config.log
-	-rm -f admin/CVS
-	-rm -f debian/CVS
-	-find $(CURDIR) -name Makefile.in -exec rm -f {} \;
 	dh_clean
 
 install: build
@@ -72,6 +60,7 @@ install: build
 
 	# Main install.
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/kid3
+	$(MAKE) -C kid3-qt install INSTALL_ROOT=$(CURDIR)/debian/kid3-qt
 
 	# Make common links for docs.
 	for p in `dh_listpackages`; do \
@@ -80,37 +69,23 @@ install: build
 
 	perl -w admin/debianrules cleanup
 	
-# Build architecture-independent files here.
 binary-indep: build install
-# We have nothing to do by default.
 
-# Build architecture-dependent files here.
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-#	dh_installdebconf	
 	dh_installdocs
-#	dh_installexamples
 	dh_installmenu
-#	dh_installlogrotate
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-#	dh_installinit
-#	dh_installcron
 	dh_installman
 #	dh_installinfo
 	dh_installchangelogs ChangeLog
-	dh_iconcache
+	-dh_iconcache
 	dh_link
 	dh_strip
 	dh_compress --exclude=.docbook
 	dh_fixperms
-#	dh_makeshlibs
 	dh_installdeb
-#	dh_perl
 	dh_shlibdeps
-
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb

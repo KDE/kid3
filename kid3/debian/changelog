@@ -1,18 +1,38 @@
-kid3 (0.8.1-0) unstable; urgency=low
-  * Bugfix: A new Custom genre was added on termination
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Tue, 21 Nov 2006 23:38:25 +0100
-
-kid3 (0.8-0) unstable; urgency=low
+kid3 (0.9-0) unstable; urgency=low
 
   * New upstream version
-    - Import from freedb2.org, Discogs and MusicBrainz release database
-    - Support for ID3v2.4 and MPC using TagLib
-    - Context specific help in dialogs
-    - Builds with tunepimp 0.5.x and Qt4
-    - Usability improvements and bug fixes
+	
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Tue, 22 May 2007 21:10:30 +0200
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 11 Nov 2006 11:08:46 +0100
+kid3 (0.8.1-2) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Sat, 19 May 2007 11:36:19 +0100
+
+kid3 (0.8.1-1) experimental; urgency=low
+
+  * New upstream release.
+  * Compiled against libtunepimp 0.5.2. (Closes: #397325)
+  * Removed relibtoolization at build time, does not seem necessary now. 
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Fri, 24 Nov 2006 01:29:55 +0100
+
+kid3 (0.7-3) unstable; urgency=low
+
+  * New maintainter. (Closes: #393170)
+  * Bumped compat to 5.
+  * Added space to homepage pseudo header.
+  * Moved .desktop file to the right place.
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Fri, 27 Oct 2006 19:28:50 +0200
+
+kid3 (0.7-2) unstable; urgency=low
+
+  * Orphaning this package, setting maintainer field to
+    packages@qa.debian.org.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sun, 15 Oct 2006 02:37:49 +0200
 
 kid3 (0.7-1) unstable; urgency=low
 

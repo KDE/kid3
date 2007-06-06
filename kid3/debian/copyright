@@ -1,13 +1,16 @@
 This package was debianized by Aurelien Jarno <aurelien@aurel32.net> on
 Sat, 17 Apr 2004 19:02:08 +0100.
 
+Maintenance was taken over by Ana Beatriz Guerrero López
+<ana@debian.org> on Fri, 27 Oct 2006 19:26:06 +0200
+
 It was downloaded from  http://kid3.sourceforge.net/
 
 Upstream Author: Urs Fleisch <ufleisch@users.sourceforge.net>
 
 Copyright:
 
-Copyright 2003-2005 Urs Fleisch <ufleisch@users.sourceforge.net>
+Copyright 2003-2007 Urs Fleisch <ufleisch@users.sourceforge.net>
 
 License:
 
