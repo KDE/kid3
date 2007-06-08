@@ -3,7 +3,7 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>
-Build-Depends: debhelper (>> 4.0.0), libqt3-mt-dev (>> 3.0), kdelibs4-dev (>> 3.0), libid3-3.8.3-dev, libtunepimp-dev | libtunepimp3-dev, libvorbis-dev, libflac++-dev, libtag1-dev
+Build-Depends: debhelper (>> 5.0.0), libqt3-mt-dev (>> 3.0), kdelibs4-dev (>> 3.0), libid3-3.8.3-dev, libtunepimp-dev | libtunepimp3-dev, libvorbis-dev, libflac++-dev, libtag1-dev
 Standards-Version: 3.7.2
 
 Package: kid3
