@@ -28,6 +28,7 @@ class QPushButton;
 class QCheckBox;
 class Q3Table;
 class QTimer;
+class QStatusBar;
 class MusicBrainzConfig;
 class MusicBrainzClient;
 
@@ -155,6 +156,13 @@ private slots:
 	 */
 	void showHelp();
 
+	/**
+	 * Show the name of the current track in the status bar.
+	 *
+	 * @param row table row
+	 */
+	void showFilenameInStatusBar(int row);
+
 #ifdef HAVE_TUNEPIMP
 private:
 	/**
@@ -174,6 +182,7 @@ private:
 
 	QComboBox* m_serverComboBox;
 	Q3Table* m_albumTable;
+	QStatusBar* m_statusBar;
 	QTimer* m_timer;
 	MusicBrainzClient* m_client;
 	ImportTrackDataVector& m_trackDataVector;

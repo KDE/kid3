@@ -17,6 +17,8 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qtimer.h>
+#include <qstatusbar.h>
+#include <qfileinfo.h>
 #if QT_VERSION >= 0x040000
 #include <q3hbox.h>
 #include <q3table.h>
@@ -38,8 +40,8 @@
  */
 MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 																		 ImportTrackDataVector& trackDataVector)
-	: QDialog(parent, "musicbrainz", true), m_timer(0), m_client(0),
-		m_trackDataVector(trackDataVector)
+	: QDialog(parent, "musicbrainz", true), m_statusBar(0),
+		m_timer(0), m_client(0), m_trackDataVector(trackDataVector)
 {
 	setCaption(i18n("MusicBrainz"));
 
@@ -116,6 +118,15 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
 	}
+
+	m_statusBar = new QStatusBar(this);
+	if (m_statusBar) {
+		vlayout->addWidget(m_statusBar);
+		if (m_albumTable) {
+			connect(m_albumTable, SIGNAL(currentChanged(int, int)),
+							this, SLOT(showFilenameInStatusBar(int)));
+		}
+	}
 }
 
 /**
@@ -143,6 +154,7 @@ void MusicBrainzDialog::initTable()
 		m_albumTable->setItem(i, 0, cti);
 		m_albumTable->setText(i, 1, i18n("Unknown"));
 	}
+	showFilenameInStatusBar(m_albumTable->currentRow());
 }
 
 /**
@@ -402,6 +414,24 @@ void MusicBrainzDialog::showHelp()
 	Kid3App::displayHelp("import-musicbrainz");
 }
 
+/**
+ * Show the name of the current track in the status bar.
+ *
+ * @param row table row
+ */
+void MusicBrainzDialog::showFilenameInStatusBar(int row)
+{
+	if (m_statusBar) {
+		unsigned numRows = m_trackDataVector.size();
+		if (row >= 0 && row < static_cast<int>(numRows)) {
+			QFileInfo fi(m_trackDataVector[row].getAbsFilename());
+			m_statusBar->message(fi.fileName());
+		} else {
+			m_statusBar->clear();
+		}
+	}
+}
+
 #else // HAVE_TUNEPIMP
 
 MusicBrainzDialog::MusicBrainzDialog(QWidget*, ImportTrackDataVector&) {}
@@ -418,5 +448,6 @@ void MusicBrainzDialog::setMetaData(int, ImportTrackData&) {}
 void MusicBrainzDialog::setResults(int, ImportTrackDataVector&) {}
 void MusicBrainzDialog::saveConfig() {}
 void MusicBrainzDialog::showHelp() {}
+void MusicBrainzDialog::showFilenameInStatusBar(int) {}
 
 #endif // HAVE_TUNEPIMP
