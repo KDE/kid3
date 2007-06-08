@@ -16,6 +16,7 @@
 #include "genres.h"
 #include "dirinfo.h"
 #include "taggedfile.h"
+#include <sys/stat.h>
 
 /**
  * Constructor.
@@ -598,6 +599,23 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 {
 	QString dirname = m_dirInfo->getDirname();
 	if (fnNew.lower() == fnOld.lower()) {
+		// If the filenames only differ in case, the new file is reported to
+		// already exist on case insensitive filesystems (e.g. Windows),
+		// so it is checked if the new file is really the old file by
+		// comparing inodes and devices. If the files are not the same,
+		// another file would be overwritten and an error is reported.
+		if (QFile::exists(dirname + QDir::separator() + fnNew)) {
+			struct stat statOld, statNew;
+			if (::stat((dirname + QDir::separator() + fnOld).latin1(), &statOld) == 0 &&
+					::stat((dirname + QDir::separator() + fnNew).latin1(), &statNew) == 0 &&
+					!(statOld.st_ino == statNew.st_ino &&
+						statOld.st_dev == statNew.st_dev)) {
+				qDebug("rename(%s, %s): %s already exists", fnOld.latin1(),
+							 fnNew.latin1(), fnNew.latin1());
+				return false;
+			}
+		}
+
 		// if the filenames only differ in case, first rename to a
 		// temporary filename, so that it works also with case
 		// insensitive filesystems (e.g. Windows).
@@ -613,12 +631,14 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 					   fnNew.latin1());
 			return false;
 		}
-	} else if (!QFile::exists(dirname + QDir::separator() + fnNew)) {
-		if (!QDir(dirname).rename(fnOld, fnNew)) {
-			qDebug("rename(%s, %s) failed", fnOld.latin1(),
-					   fnNew.latin1());
-			return false;
-		}
+	} else if (QFile::exists(dirname + QDir::separator() + fnNew)) {
+		qDebug("rename(%s, %s): %s already exists", fnOld.latin1(),
+					 fnNew.latin1(), fnNew.latin1());
+		return false;
+	} else if (!QDir(dirname).rename(fnOld, fnNew)) {
+		qDebug("rename(%s, %s) failed", fnOld.latin1(),
+					 fnNew.latin1());
+		return false;
 	}
 	return true;
 }
