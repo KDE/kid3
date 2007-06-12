@@ -114,7 +114,7 @@ werden.
 <listitem><para>Editieren von APE Tags in MPC Dateien</para></listitem>
 <listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
 <listitem><para>Generieren des Dateinamens aus den Tags</para></listitem>
-<listitem><para>Generieren und ändern des Verzeichnisnamens aus den Tags</para></listitem>
+<listitem><para>Generieren und Ändern des Verzeichnisnamens aus den Tags</para></listitem>
 <listitem><para>Generieren von Stücklisten</para></listitem>
 <listitem><para>Automatische Groß-/Kleinschreibung und Zeichenersetzung</para></listitem>
 <listitem><para>Import von <ulink url="http://gnudb.org">gnudb.org</ulink>,
@@ -151,7 +151,7 @@ folgendermaßen aus:
 <para><filename>03 Outro.mp3</filename></para>
 <para>
 Diese Dateien haben noch keine Tags, wir werden diese mit &kid3; erzeugen.
-Wir benutzen <guimenuitem>öffnen</guimenuitem> (<guimenu>Datei</guimenu> Menü
+Wir benutzen <guimenuitem>Öffnen</guimenuitem> (<guimenu>Datei</guimenu> Menü
 oder Werkzeugleiste) und wählen eine der Dateien in diesem Verzeichnis. Alle
 Dateien werden im Dateilistenfeld angezeigt. Aus Bequemlichkeit wollen
 wir die Tags aus den Dateinamen erzeugen. Daher wählen wir alle Dateien im
@@ -166,7 +166,7 @@ bleiben leer. Wird nun durch Klick auf die erste Datei die Auswahl
 verändert, so sieht man, dass die Tags für die erste Datei die korrekten
 Werte enthalten. Die Tags der anderen Dateien können auch überprüft werden,
 indem eine nach der andern selektiert wird. Wenn wir mit den Tags
-zufrieden sind, können die änderungen mit <guimenuitem>Speichern</guimenuitem>
+zufrieden sind, können die Änderungen mit <guimenuitem>Speichern</guimenuitem>
 (<guimenu>Datei</guimenu> Menü oder Werkzeugleiste) übernommen werden. Wählen von
 <guimenuitem>Stückliste erstellen</guimenuitem> im <guimenu>Datei</guimenu>
 Menü erzeugt die Datei <filename>One Hit Wonder - Let's Tag.m3u</filename>
@@ -229,7 +229,7 @@ Die Verzeichnisliste enthält die Verzeichnisse, welche das geöffnete
 Verzeichnis enthält, sowie das aktuelle (<filename>.</filename>) und das
 übergeordnete (<filename>..</filename>) Verzeichnis. Sie erlaubt den raschen
 Wechsel zwischen Verzeichnissen, ohne den Umweg über die
-<guimenuitem>öffnen...</guimenuitem> Funktion oder "Drag and Drop".
+<guimenuitem>Öffnen...</guimenuitem> Funktion oder "Drag and Drop".
 </para>
 </listitem>
 </varlistentry>
@@ -312,7 +312,7 @@ d.h. eine leere Zeichenkette für die Felder <guilabel>Titel</guilabel>,
 <guilabel>Kommentar</guilabel>, 0 für <guilabel>Jahr</guilabel> und
 <guilabel>Nummer</guilabel> und ein leerer Auswahleintrag bei
 <guilabel>Stil</guilabel>. Die Werte können editiert werden und werden
-für die ausgewählte Datei beim ändern der Auswahl gesetzt, sofern das
+für die ausgewählte Datei beim Ändern der Auswahl gesetzt, sofern das
 entsprechende Markierungsfeld aktiviert ist. Die Datei wird dann durch
 ein Disketten-Symbol als modifiziert gekennzeichnet, doch die eigentliche Datei
 bleibt unverändert, bis <guimenuitem>Speichern</guimenuitem> ausgeführt
@@ -430,7 +430,7 @@ in den ausgewählten Dateien.
 <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>
 </shortcut>
 <guimenu>Datei</guimenu>
-<guimenuitem>öffnen...</guimenuitem>
+<guimenuitem>Öffnen...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Ein Verzeichnis wird geöffnet</action>, und alle Dateien,
 welche den gewählten Dateinamenfilter erfüllen, werden im Dateilistenfeld
@@ -465,9 +465,9 @@ umbenannt.</para></listitem>
 <guimenu>Datei</guimenu>
 <guimenuitem>Zuletzt gespeicherte Fassung</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Macht die änderungen an einer oder mehreren Dateien
+<listitem><para><action>Macht die Änderungen an einer oder mehreren Dateien
 rückgängig.</action> Wenn keine Dateien im Dateilistenfeld selektiert sind, so
-werden die änderungen an allen Dateien rückgängig gemacht, ansonsten nur an
+werden die Änderungen an allen Dateien rückgängig gemacht, ansonsten nur an
 den ausgewählten Dateien.</para></listitem>
 </varlistentry>
 
@@ -516,7 +516,7 @@ Zum Importieren von einem MusicBrainz Server dient der Dialog, der nach
 Klicken auf <guibutton>Von MusicBrainz Fingerprint</guibutton> erscheint. Wie bei freedb
 können auch hier Server und Proxy ausgewählt werden. Unten ist eine Tabelle,
 welche die importierten Track Daten darstellt. Die rechte Spalte zeigt dabei
-den Zustand der MusicBrainz-Abfrage, welche gleich mit dem öffnen des Dialogs
+den Zustand der MusicBrainz-Abfrage, welche gleich mit dem Öffnen des Dialogs
 mit "Suche läuft" beginnt. Es folgen dann ein Abfrage des Fingerprints und,
 falls diese kein Ergebnis liefert, eine Suche anhand der in der Datei
 vorhandenen Tags. Für eine erfolgreiche MusicBrainz-Suche kann es daher
@@ -607,7 +607,7 @@ Um zu prüfen, ob die importierten Stücke den vorhandenen Dateien entsprechen,
 können die Längen verglichen werden. Diese Option kann mit dem Markierungsfeld
 <guibutton>Teste maximal erlaubten Zeitunterschied</guibutton> eingeschaltet
 werden und der maximal erlaubten Zeitunterschied kann in Sekunden eingestellt
-werden. Wird eine überschreitung dieser Toleranzschwelle festgestellt,
+werden. Wird eine Überschreitung dieser Toleranzschwelle festgestellt,
 so wird die entsprechende Länge in der Vorschau rot dargestellt.
 </para>
 <para>
@@ -697,7 +697,7 @@ stellt einen einfachen Editor zur Verfügung, welcher eine Vorschau der zu
 exportierenden Daten bietet. Zusätzlich lassen sich die Daten darin noch
 modifizieren, denn es wird der Inhalt dieses Editierfeldes gespeichert. Die
 Daten werden aus den Tags der Dateien im aktuellen Verzeichnis generiert, und
-zwar gemäss dem unten eingestellten Format.
+zwar gemäß dem unten eingestellten Format.
 </para>
 <para>
 Diese Formateinstellung ist gleich aufgebaut wie im Import Dialog: Im obersten
@@ -804,7 +804,7 @@ Diese Funktion kann auch angewendet werden, um zu testen, ob die Dateinamen
 dem eingestellten Format entsprechen. Hierzu sollten alle Dateien
 gespeichert werden; nach Anwendung des Formates sind dann nur diejenigen
 Dateien verändert (in der Dateiliste mit einem Diskettensymbol versehen), welche nicht
-dem eingestellten Format entsprechen. Ungewollte änderungen können
+dem eingestellten Format entsprechen. Ungewollte Änderungen können
 mit <guilabel>Zuletzt gespeicherte Fassung</guilabel>
 rückgängig gemacht werden.
 </para></listitem>
@@ -822,7 +822,7 @@ Diese Funktion kann auch angewendet werden, um zu testen, ob die Tags dem
 eingestellten Format entsprechen. Hierzu sollten alle Dateien
 gespeichert werden; nach Anwendung des Formates sind dann nur diejenigen
 Dateien verändert (in der Dateiliste mit einem Diskettensymbol versehen), welche nicht
-dem eingestellten Format entsprechen. Ungewollte änderungen können
+dem eingestellten Format entsprechen. Ungewollte Änderungen können
 mit <guilabel>Zuletzt gespeicherte Fassung</guilabel>
 rückgängig gemacht werden.
 </para></listitem>
@@ -887,7 +887,7 @@ sind diese vorgängig auszuwählen.
 Wenn in den ausgewählten Dateien ID3v2.3 Tags vorhanden sind, so werden
 sie <action>zu ID3v2.4 Tags konvertiert</action>. Frames, welche von TagLib
 nicht unterstützt sind, werden verworfen. Nur Dateien ohne ungesicherte
-änderungen werden konvertiert.
+Änderungen werden konvertiert.
 </para></listitem>
 </varlistentry>
 
@@ -900,7 +900,7 @@ nicht unterstützt sind, werden verworfen. Nur Dateien ohne ungesicherte
 Wenn in den ausgewählten Dateien ID3v2.4 Tags vorhanden sind, so werden
 sie <action>zu ID3v2.3 Tags konvertiert</action>. Es sollte beachtet werden,
 dass nur die Standard Tags konvertiert werden. Alle anderen Frames werden
-verworfen. Nur Dateien ohne ungesicherte änderungen werden konvertiert.
+verworfen. Nur Dateien ohne ungesicherte Änderungen werden konvertiert.
 </para></listitem>
 </varlistentry>
 
@@ -937,7 +937,7 @@ verworfen. Nur Dateien ohne ungesicherte änderungen werden konvertiert.
 <guimenuitem>Werkzeugleiste anzeigen</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Schaltet die Anzeige der Werkzeugleiste, welche
-Symbole zum öffnen und Speichern eines Verzeichnisses enthält, ein und aus.
+Symbole zum Öffnen und Speichern eines Verzeichnisses enthält, ein und aus.
 </action></para></listitem>
 </varlistentry>
 
@@ -947,7 +947,7 @@ Symbole zum öffnen und Speichern eines Verzeichnisses enthält, ein und aus.
 <guimenuitem>Statusleiste anzeigen</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Schaltet die Anzeige der Statusleiste, welche
-längere Aktionen wie öffnen und Speichern eines Verzeichnisses anzeigt, ein
+längere Aktionen wie Öffnen und Speichern eines Verzeichnisses anzeigt, ein
 und aus.</action></para></listitem>
 </varlistentry>
 
@@ -956,7 +956,7 @@ und aus.</action></para></listitem>
 <guimenu>Einstellungen</guimenu>
 <guimenuitem>Kid3 einrichten...</guimenuitem>
 </menuchoice></term>
-<listitem><para>öffnet den <action>Konfigurationsdialog</action>, 
+<listitem><para>Öffnet den <action>Konfigurationsdialog</action>, 
 der aus verschiedenen Seiten besteht, mit Optionen für Tags, Dateien, Benutzerbefehle und Netzwerk.
 </para>
 <para>
@@ -1018,7 +1018,7 @@ der Tags.
 Wenn <guilabel>Während dem Editieren formatieren</guilabel> aktiviert ist,
 wird die Eingabe während dem Editieren automatisch formatiert. 
 <guilabel>Groß/Kleinschreibung</guilabel> kann auf <guilabel>Keine
-änderungen</guilabel>, <guilabel>Alles Kleinbuchstaben</guilabel>,
+Änderungen</guilabel>, <guilabel>Alles Kleinbuchstaben</guilabel>,
 <guilabel>Alles Großbuchstaben</guilabel>, <guilabel>Den ersten Buchstaben
 groß</guilabel> oder <guilabel>Alle ersten Buchstaben groß</guilabel>
 gesetzt werden.
@@ -1111,7 +1111,7 @@ verwendet, wenn das Kästchen davor markiert ist.
 <guimenu>Einstellungen</guimenu>
 <guimenuitem>Kurzbefehle festlegen...</guimenuitem>
 </menuchoice></term>
-<listitem><para>öffnet einen Dialog, um den meisten Programm-Funktionen
+<listitem><para>Öffnet einen Dialog, um den meisten Programm-Funktionen
 ein Tastatur-Kürzel zuzuordnen. Es gibt sogar einige Funktionen ohne
 entsprechenden Menüpunkt oder Knopf, z.B. nächste Datei, vorangehende Datei,
 alles auswählen.
@@ -1136,13 +1136,13 @@ alles auswählen.
 <guimenu>Hilfe</guimenu>
 <guimenuitem>Handbuch zu Kid3</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>öffnet dieses Handbuch.</action></para></listitem>
+<listitem><para><action>Öffnet dieses Handbuch.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>Hilfe</guimenu>
-<guimenuitem>über Kid3</guimenuitem>
+<guimenuitem>Über Kid3</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Zeigt eine kurze Information über Kid3 an.
 </action></para></listitem>
@@ -1207,46 +1207,9 @@ verwendet. Da momentan kein Tunepimp SDK für Windows existiert, wurde die
 Windows Version ohne MusicBrainz Import kompiliert.
 </para>
 <para>
-&kid3; wurde getestet unter
-</para>
-<para>
-SuSE Linux 7.3: id3lib 3.8.0pre1, id3lib 3.8.0, id3lib 3.8.2, KDE 2.2.2,
-KDE 3.0.4, Qt 2.3.2, Qt 3.0.5
-</para>
-<para>
-SuSE Linux 8.1: id3lib 3.8.0, KDE 3.0.5, KDE 3.1.1, Qt 2.3.2, Qt
-3.0.5, Qt 3.1.2
-</para>
-<para>
-SuSE Linux 8.2: id3lib 3.8.2, id3lib 3.8.3, KDE 3.1.x, KDE 3.2.x,
-Qt 3.1.x, Qt 3.2.x, Qt 3.3.2 
-</para>
-<para>
-Debian GNU/Linux 3.1: id3lib 3.8.3, KDE 3.3.2, Qt 3.3.4, libvorbis 1.1.0,
-libogg 1.1.2, libflac++ 1.1.1, libtunepimp 0.3.0
-</para>
-<para>
-Ubuntu 5.10: id3lib 3.8.3, KDE 3.4.3, Qt 3.3.4, libvorbis 1.1.0,
-libogg 1.1.2, libflac++ 1.1.2, libtunepimp 0.3.0
-</para>
-<para>
-Ubuntu 6.06: id3lib 3.8.3, KDE 3.4.3, Qt 3.3.6, libvorbis 1.1.2,
-libogg 1.1.3, libflac++ 1.1.2, libtunepimp 0.3.0, 0.4.2 und 0.5.1, TagLib 1.4
-</para>
-<para>
-Leider ist das MP3 Format beim MusicBrainz Import in Ubuntu nicht
-unterstützt, da dort libtunepimp ohne libmad kompiliert ist.
-</para>
-<para>
-Windows NT 4.0: id3lib 3.8.0, id3lib 3.8.2, id3lib 3.8.3, non-commercial Qt Version 2.3.0
-</para>
-<para>
-Windows 2000, XP: id3lib 3.8.3, non-commercial Qt Version 2.3.0,
-non-commercial Qt Version 3.2.1, libvorbis 1.1.0, libogg 1.1.2, FLAC 1.1.2
-</para>
-<para>
-Windows 2000, XP: id3lib 3.8.3, open source Qt Version 4.2.1 und 4.2.3,
-libvorbis 1.1.0, libogg 1.1.2, FLAC 1.1.2, TagLib 1.4
+&kid3; ist für die meisten Linux-Distributionen, Windows und Mac OS X
+erhältlich. Links finden sich auf <ulink url="http://kid3.sourceforge.net">
+http://kid3.sourceforge.net</ulink>.
 </para>
 
 </sect1>
