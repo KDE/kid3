@@ -122,18 +122,13 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 
 	if (m_fileRead && (force || isTag2Changed())) {
 		bool writeOk = false;
-		QString tempFilename(currentFilename());
-		Q3CString fnIn;
-		if (getFilename() == currentFilename()) {
-			// we have to rename the original file and delete it afterwards
-			tempFilename += "_KID3";
-			if (!renameFile(currentFilename(), tempFilename)) {
-				return false;
-			}
-			fnIn = QFile::encodeName(dirname + QDir::separator() + tempFilename);
-		} else {
-			fnIn = QFile::encodeName(dirname + QDir::separator() + currentFilename());
+		// we have to rename the original file and delete it afterwards
+		QString tempFilename(currentFilename() + "_KID3");
+		if (!renameFile(currentFilename(), tempFilename)) {
+			return false;
 		}
+		Q3CString fnIn = QFile::encodeName(dirname + QDir::separator() +
+																			 tempFilename);
 		Q3CString fnOut = QFile::encodeName(dirname + QDir::separator() +
 																			 getFilename());
 		FILE* fpIn = ::fopen(fnIn, "rb");
@@ -197,10 +192,8 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 			return false;
 		}
 		markTag2Changed(false);
-		if (getFilename() == currentFilename()) {
-			QDir(dirname).remove(tempFilename);
-		} else {
-			QDir(dirname).remove(currentFilename());
+		QDir(dirname).remove(tempFilename);
+		if (getFilename() != currentFilename()) {
 			updateCurrentFilename();
 			*renamed = true;
 		}
