@@ -2152,12 +2152,14 @@ void Kid3App::getFilenameFromTags(int tag_version)
 			else {
 				mp3file->getFile()->getStandardTagsV1(&st);
 			}
-			mp3file->getFile()->getFilenameFromTags(
-				&st, m_view->getFilenameFormat());
-			formatFileNameIfEnabled(mp3file->getFile());
-			if (!multiselect) {
-				m_view->setFilename(
-					mp3file->getFile()->getFilename());
+			if (!st.isEmptyOrInactive()) {
+				mp3file->getFile()->getFilenameFromTags(
+					&st, m_view->getFilenameFormat());
+				formatFileNameIfEnabled(mp3file->getFile());
+				if (!multiselect) {
+					m_view->setFilename(
+						mp3file->getFile()->getFilename());
+				}
 			}
 		}
 		mp3file = m_view->nextFile();

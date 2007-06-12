@@ -69,6 +69,13 @@ class StandardTags {
 	void merge(const StandardTags& st);
 
 	/**
+	 * Check if the tags are empty or inactive.
+	 *
+	 * @return true if empty or inactive.
+	 */
+	bool isEmptyOrInactive() const;
+
+	/**
 	 * Format a string from tag data.
 	 * Supported format fields:
 	 * %s title (song)

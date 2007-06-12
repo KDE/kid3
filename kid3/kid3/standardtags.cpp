@@ -107,6 +107,23 @@ void StandardTags::merge(const StandardTags& st)
 }
 
 /**
+ * Check if the tags are empty or inactive.
+ *
+ * @return true if empty or inactive.
+ */
+bool StandardTags::isEmptyOrInactive() const
+{
+return 
+	title.isEmpty() &&
+	artist.isEmpty() &&
+	album.isEmpty() && 
+	comment.isEmpty() &&
+	year <= 0 &&
+	track <= 0 &&
+	genre.isEmpty();
+}
+
+/**
  * Replace escaped characters in a string.
  *
  * @param format string with escaped two-character-sequences
