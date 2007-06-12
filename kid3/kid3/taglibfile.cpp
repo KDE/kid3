@@ -223,12 +223,15 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 	// file reference is assigned, later readTags() is called.
 	// If the file is not properly closed, doubled tags can be
 	// written if the file is finally closed!
-	// This can be reproduced with an untag MP3 file, then add
+	// This can be reproduced with an untagged MP3 file, then add
 	// an ID3v2 title, save, add an ID3v2 artist, save, reload
-	// => double ID3v2 tags. 
-	if (fileChanged) {
+	// => double ID3v2 tags.
+	// On Windows it is necessary to close the file before renaming it,
+	// so it is done even if the file is not changed.
+#ifndef WIN32
+	if (fileChanged)
+#endif
 		m_fileRef = TagLib::FileRef();
-	}
 
 	// restore time stamp
 	if (setUtime) {
@@ -243,9 +246,10 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 		*renamed = true;
 	}
 
-	if (fileChanged) {
+#ifndef WIN32
+	if (fileChanged)
+#endif
 		readTags(true);
-	}
 	return true;
 }
 
