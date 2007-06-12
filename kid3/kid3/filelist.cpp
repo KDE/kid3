@@ -565,27 +565,35 @@ void FileList::renameFile()
 				(taggedFile = item->getFile()) != 0) {
 			bool ok;
 			QString newFileName = QInputDialog::getText(
-				i18n("Rename File"), i18n("Enter new file name:"), QLineEdit::Normal,
-				taggedFile->getFilename(), &ok, this);
+				i18n("Rename File"),
+				i18n("Enter new file name:"),
+				QLineEdit::Normal, taggedFile->getFilename(), &ok, this);
 			if (ok && !newFileName.isEmpty()) {
 				if (taggedFile->isChanged()) {
 					taggedFile->setFilename(newFileName);
 					fileRenamed = true;
 				} else {
 					QString newPath = taggedFile->getDirname() + '/' + newFileName;
-					if (QDir().rename(taggedFile->getAbsFilename(), newPath)) {
+					const DirInfo* dirInfo = taggedFile->getDirInfo();
+					QString absFilename = taggedFile->getAbsFilename();
+					QString filename = taggedFile->getFilename();
+					// This will close the file.
+					// The file must be closed before renaming on Windows.
+					item->setFile(0);
+					if (QDir().rename(absFilename, newPath)) {
 						TaggedFile* newTaggedFile =
-							createTaggedFile(taggedFile->getDirInfo(), newFileName);
+							createTaggedFile(dirInfo, newFileName);
 						if (newTaggedFile) {
 							item->setFile(newTaggedFile);
 							fileRenamed = true;
 						}
 					} else {
+						item->setFile(createTaggedFile(dirInfo, filename));
 						QMessageBox::warning(
 							0, i18n("File Error"),
 							i18n("Error while renaming:\n") +
 							i18n("Rename %1 to %2 failed\n").
-							arg(taggedFile->getFilename()).arg(newFileName),
+							arg(filename).arg(newFileName),
 							QMessageBox::Ok, QCM_NoButton);
 					}
 				}
@@ -605,9 +613,9 @@ void FileList::renameFile()
 		QFileInfo fi(dirInfo->getDirname());
 		bool ok;
 		QString newDirName = QInputDialog::getText(
-			i18n("Rename Directory"), i18n("Enter new directory name:"),
-			QLineEdit::Normal,
-			fi.fileName(), &ok, this);
+			i18n("Rename Directory"),
+			i18n("Enter new directory name:"),
+			QLineEdit::Normal, fi.fileName(), &ok, this);
 		if (ok && !newDirName.isEmpty()) {
 			QString newPath = fi.dirPath() + '/' + newDirName;
 			if (QDir().rename(dirInfo->getDirname(), newPath)) {
@@ -669,10 +677,20 @@ void FileList::deleteFile()
 			while (item != 0) {
 				FileListItem* nextItem = next();
 				if (item->isInSelection()) {
-					if (QDir().remove(item->getFile()->getAbsFilename())) {
-						delete item;
-					} else {
-						files.push_back(item->getFile()->getAbsFilename());
+					TaggedFile* taggedFile = item->getFile();
+					if (taggedFile) {
+						const DirInfo* dirInfo = taggedFile->getDirInfo();
+						QString absFilename = taggedFile->getAbsFilename();
+						QString filename = taggedFile->getFilename();
+						// This will close the file.
+						// The file must be closed before deleting on Windows.
+						item->setFile(0);
+						if (QDir().remove(absFilename)) {
+							delete item;
+						} else {
+							item->setFile(createTaggedFile(dirInfo, filename));
+							files.push_back(absFilename);
+						}
 					}
 				}
 				item = nextItem;
