@@ -1,0 +1,118 @@
+
+msgid "&File"
+msgstr "&Fichier"
+
+msgid "&Open..."
+msgstr "&Ouvrir..."
+
+msgid "&Save"
+msgstr "&Enregistrer"
+
+msgid "&Quit"
+msgstr "&Quitter"
+
+msgid "&Help"
+msgstr "&Aide"
+
+msgid "Open"
+msgstr "Ouvrir"
+
+msgid "Copy"
+msgstr "Copier"
+
+msgid "Paste"
+msgstr "Coller"
+
+msgid "Remove"
+msgstr "Supprimer"
+
+msgid "Edit"
+msgstr "Édition"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Look &in:"
+msgstr "&Rechercher dans:"
+
+msgid "File &name:"
+msgstr "&Nom de fichier:"
+
+msgid "File &type:"
+msgstr "&Type de fichier:"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Import"
+msgstr "Importer"
+
+msgid "Export"
+msgstr "Exporter"
+
+msgid "&View"
+msgstr "&Affichage"
+
+msgid "Revert"
+msgstr "Revenir"
+
+msgid "&Tools"
+msgstr "O&utils"
+
+msgid "&Settings"
+msgstr "&Configuration"
+
+msgid "Back"
+msgstr "Précédent"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "&Apply"
+msgstr "&Appliquer"
+
+msgid "&Cancel"
+msgstr "Annu&ler"
+
+msgid "&Close"
+msgstr "&Fermer"
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "&Open"
+msgstr "Ou&vrir"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "&Yes"
+msgstr "&Oui"
+
+msgid "&No"
+msgstr "&Non"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Files"
+msgstr "Fichiers"
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "&Delete"
+msgstr "Suppri&mer"
+
+msgid "Warning"
+msgstr "Avertissement"
+
+msgid "&Remove"
+msgstr "Su&pprimer"
+

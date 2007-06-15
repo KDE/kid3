@@ -1,0 +1,72 @@
+*** TO INSTALL
+
+*** Requirements
+
+Qt, optional KDE, id3lib, TagLib, libogg, libvorbis, libvorbisfile, libFLAC++,
+libFLAC, libtunepimp.
+
+*** Linux
+
+*** Compile for KDE
+
+# if configure does not exist: make -f Makefile.cvs
+
+./configure
+# for SuSE use option --prefix=/opt/kde3
+# for Debian use option --prefix=/usr
+make
+make install
+
+The install directory can be assigned to DESTDIR
+
+*** Compile for Qt (no KDE)
+
+cd kid3-qt
+
+# if configure does not exist: autoconf
+
+./configure
+make
+make install
+
+The install directory can be assigned to INSTALL_ROOT
+
+*** Compile with Qt 4
+
+cd kid3-qt
+./configure --with-qmake=qmake-qt4
+make
+make install
+
+*** Create Debian Package
+
+Make sure that you have installed all packages listed in debian/control,
+section Build-Depends.
+
+dpkg-buildpackage -rfakeroot -nc
+
+*** Create RPM Package
+
+Eventually change the prefix (/opt/kde3) and the configure arguments in
+kid3.spec. They should work with SUSE. Copy kid3.spec into the SPEC directory
+and the tar.gz archive into the SOURCES directory.
+
+rpm -ba kid3.spec
+ 
+
+*** Windows
+
+- Install Qt/Windows Open Source Edition, MinGW and MSYS
+- Compile and install the libraries with MinGW and MSYS: id3lib, libvorbis,
+  libogg, FLAC, TagLib.
+- Install xsltproc and an XSL stylesheet to transform Docbook to HTML
+  (http://sourceforge.net/projects/docbook)
+- Point environment variables to the installed programs:
+  * %MSYSDIR%\bin\perl
+  * %XSLTPROCDIR%\xsltproc
+  * %DOCBOOKDIR%\html\docbook.xsl
+- start win32/buildkid3.bat or build manually:
+
+%MSYSDIR%\bin\perl ../kid3-qt/configure-kid3-qt.pl --generate-ts --prefix= --with-bindir= --with-datarootdir= --with-docdir= --with-translationsdir= --without-musicbrainz --enable-gcc-pch
+mkdir kid3win
+make && make install INSTALL_ROOT=%cd%\kid3win

@@ -1,0 +1,158 @@
+Sat May  5 14:22:28 CEST 2007  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.9
+
+	* New:
+	  + Hierarchical directory tree instead of flat file list.
+	  + Enhanced context menu commands, can be used to browse for lyrics
+	    and album art.
+	  + Import from gnudb.org.
+	  + Conversion between ID3v2.3 and ID3v2.4 tags.
+	  + Editor for custom genres.
+	  + Option to mark truncated ID3v1.1 fields.
+
+	* Improved:
+	  + Frames are listed alphabetically and can be edited and deleted
+	    in multiple files.
+	  + Import from TrackType.org (formerly freedb2.org)
+
+	* Fixed:
+	  + MusicBrainz fingerprint import.
+
+Tue Nov 21 23:39:09 CET 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.8.1
+
+	* Fixed:
+	  + A new Custom genre was added on termination.
+	
+Sat Nov 11 11:02:44 CET 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.8
+
+	* New:
+	  + Import from freedb2.org, Discogs and MusicBrainz release database.
+	  + Support for ID3v2.4 and MPC using TagLib.
+	  + Context specific help in dialogs.
+	  + Support build with Qt4.
+
+	* Improved:
+	  + Show tag formats.
+	  + Remove non-letter characters before matching by title in
+	    import dialog.
+	  + Buttons to save dialog specific settings.
+
+	* Fixed:
+	  + Allow building with tunepimp 0.5.x.
+	  + Place kid3.desktop in /usr/share/applications/kde/.
+	  + Fix inadvertent changes of ID3v2.3 genre strings.
+	  + Remove trailing zeroes in unicode strings.
+
+Wed Jun  7 21:14:24 CEST 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.7
+
+	* New:
+	  + Export dialog can export tags as CSV, HTML, playlists, Kover
+	    XML and other formats. CSV files can be imported again.
+	  + Show/hide ID3v1.1/ID3v2.3 controls.
+	  + Custom strings can be used for ID3v2.3, Ogg/Vorbis and FLAC genres.
+	  + Automatic numbering of tracks.
+
+	* Improved:
+	  + Direct menus for freedb.org and MusicBrainz import.
+	  + freedb.org import has suggested search string, search history.
+	  + Imported tracks can be reordered to match track number, title
+	    or length.
+	  + Format while editing affects most operations, is split into separate
+	    options for filenames and tags, menu commands to apply
+	    filename format and tag format.
+	  + Case conversion is done before string replacements, so that "case
+	    exceptions" can be corrected.
+	  + Builds with libtunepimp 0.4.x.
+
+	* Fixed:
+	  + Remove temporary Ogg file when filename and tags are changed.
+	  + Mark file as changed when Ogg genre is changed.
+	  + Correct length restriction for ID3v1.1 comment.
+	  + Open directories with special characters from the command line.
+	  + Import from file/clipboard does not use durations from
+	    previous freedb.org import.
+
+Mon Oct 24 16:59:35 CEST 2005  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.6
+
+	* Support for Ogg/Vorbis and FLAC files
+
+	* Import from MusicBrainz
+
+	* Usability improvements
+
+Mon Jul 26 20:05:14 CEST 2004  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.5
+
+	* When importing, check the length and the count of the tracks
+
+	* Keyboard shortcut configuration
+
+	* Rename and create directories from tags
+
+	* Display information about tags, bitrate, length, ...
+	
+Sat Jan 24 13:39:44 CET 2004  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.4
+
+	* Direct import from freedb.org
+
+	* freedesktop.org compliant kid3.desktop file
+
+	* Accept freedb.org input if there is no year or genre information
+
+	* File renaming works on Windows filesystems if case changed
+
+	* Context menu in string replacement table
+
+	* Progress bar while saving directory
+
+Sat Oct 18 16:40:42 CEST 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.3
+
+	* Automatic case conversion and string replacements
+
+	* Import of album data from freedb.org and other sources
+
+	* Improved Windows (Qt only) version: persisted configuration,
+	  online help
+
+	* Support files for KDevelop and Visual C++
+
+	* Improved Unicode support, however some bugs in id3lib have to be
+	  fixed before this is of real use
+	
+Sat Sep 06 2003 Egor S. Orlov <oes@altlinux.ru> 0.2.1-alt0.1
+	* Added russian translation
+
+Thu May 13 07:37:07 CEST 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.2.1
+
+	* Now uses the standard automake/autoconf build process provided
+	by kapptemplate.
+
+Sat Apr 26 08:38:14 CEST 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.2
+
+	* Use QScrollView for control widgets at the right side and
+	separate them from the filelist by a QSplitter, so that the window
+	can be resized to a small size.
+
+	* Show busy cursor while reading and writing files.
+
+Thu Jan 16 19:41:21 CET 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Started ChangeLog.

@@ -1,0 +1,1218 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.1-Based Variant V1.0//EN" "dtd/kdex.dtd" [
+  <!ENTITY kid3 '<application>Kid3</application>'>
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"><!-- change language only here -->
+]>
+<book lang="&language;">
+
+<bookinfo>
+<title>The Kid3 Handbook</title>
+
+<authorgroup>
+<author>
+<firstname>Urs</firstname>
+<surname>Fleisch</surname>
+<affiliation>
+<address><email>ufleisch@users.sourceforge.net</email></address>
+</affiliation>
+</author>
+</authorgroup>
+
+<copyright>
+<year>2007</year>
+<holder>Urs Fleisch</holder>
+</copyright>
+<legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
+
+<date>05/05/2007</date>
+<releaseinfo>0.9</releaseinfo>
+
+<abstract>
+<para>
+&kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
+an efficient way. Also tags in Ogg/Vorbis, FLAC and MPC files are supported.
+It is easy to set tags of multiple files to the same
+values (e.g. album, artist, year and genre in all files of the same album) and
+generate the tags from the file name or vice versa.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdemultimedia</keyword>
+<keyword>MP3</keyword>
+<keyword>ID3</keyword>
+<keyword>ID3v1</keyword>
+<keyword>ID3v2</keyword>
+<keyword>Ogg</keyword>
+<keyword>Vorbis</keyword>
+<keyword>FLAC</keyword>
+<keyword>MPC</keyword>
+<keyword>APE</keyword>
+</keywordset>
+
+</bookinfo>
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<para>
+&kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
+an efficient way. These tags can be edited by most MP3 players, but not in
+a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis, FLAC
+and MPC files are supported too.
+</para>
+<para>
+&kid3; does not grab, encode nor play
+MP3 files, but it is targeted to edit the ID3 tags of all files of an album
+in an efficient way, i.e. with as few mouse clicks and key strokes as
+possible. Where most other programs can edit either ID3v1 or ID3v2 tags,
+&kid3; has full control over both versions, can convert tags between the
+two formats and has access to all ID3v2 tags. Tags of multiple files can be
+set to the same value, e.g. the artist, album, year and genre of all files
+of an album typically have the same values and can be set together. If the
+information for the tags is contained in the file name, the tags can be
+automatically set from the file name. It is also possible to set the file
+name according to the tags found in the file in arbitrary formats.
+</para>
+<para>
+The editing task is further supported by automatic replacement of characters
+or substrings, for instance to remove illegal characters from
+filenames. Automatic control of upper and lower case characters makes it easy
+to use a consistent naming scheme in all tags.
+</para>
+<para>
+The tag information for full albums can be taken from
+<ulink url="http://gnudb.org">gnudb.org</ulink>, <ulink
+url="http://tracktype.org">TrackType.org</ulink>, <ulink
+url="http://musicbrainz.org">MusicBrainz</ulink>,  <ulink
+url="http://discogs.com">Discogs</ulink> or other sources of
+track lists. The import format is freely configurable by regular expressions.
+</para>
+<para>
+Please report any problems or feature requests to the author.
+</para>
+</chapter>
+
+<chapter id="using-kid3">
+<title>Using Kid3</title>
+
+<sect1 id="kid3-features">
+<title>Kid3 features</title>
+<itemizedlist>
+<listitem><para>Edit ID3v1.1 tags</para></listitem>
+<listitem><para>Edit all ID3v2.3 and ID3v2.4 frames</para></listitem>
+<listitem><para>Edit tags of multiple files</para></listitem>
+<listitem><para>Convert between ID3v1 and ID3v2 tags</para></listitem>
+<listitem><para>Edit Ogg/Vorbis tags</para></listitem>
+<listitem><para>Edit FLAC tags</para></listitem>
+<listitem><para>Edit APE tags in MPC files</para></listitem>
+<listitem><para>Generate tags from filename</para></listitem>
+<listitem><para>Generate filename from tags</para></listitem>
+<listitem><para>Generate and change directory names from tags</para></listitem>
+<listitem><para>Generate playlist file</para></listitem>
+<listitem><para>Automatic case conversion and string translation</para></listitem>
+<listitem><para>Import from <ulink url="http://gnudb.org">gnudb.org</ulink>,
+<ulink url="http://tracktype.org">TrackType.org</ulink>,
+<ulink url="http://musicbrainz.org">MusicBrainz</ulink>,
+<ulink url="http://discogs.com">Discogs</ulink>
+and other data sources</para></listitem>
+<listitem><para>Export as CSV, HTML, playlist, Kover XML and other
+formats. Exported CSV files can be imported again.</para></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="example-usage">
+<title>Example Usage</title>
+<para>
+This section describes a typical session with &kid3;.
+Let's assume we have a directory containing MP3 files with the tracks from
+the album "Let's Tag" from the band "One Hit Wonder". The directory is
+named in the "artist - album" format, in our case <filename>One Hit Wonder - Let's
+Tag</filename>. The directory contains the tracks in the "track title.mp3"
+format, which I think is useful because the filenames are short
+(important when using mobile MP3 players with small displays) and in the
+correct order when sorted alphabetically (important when using hardware MP3
+players which play the tracks in alphabetical order or in the order in
+which they are burnt on CD and that order is alphabetical when using
+<command>mkisofs</command>). Besides this, the artist and album information
+is already in the directory name and does not have to be repeated in the filename.
+But back to our example, the directory listing looks like this:
+</para>
+<para><filename>01 Intro.mp3</filename></para>
+<para><filename>02 We Only Got This One.mp3</filename></para>
+<para><filename>03 Outro.mp3</filename></para>
+<para>
+These files have no tags yet and we want to generate them using &kid3;. We use
+<guimenuitem>Open</guimenuitem> (<guimenu>File</guimenu> menu or toolbar) and
+select one of the files in this directory. All files will be displayed in the
+file listbox. Lazy as we are, we want to use the information in the directory
+and file names to generate tags. Therefore we select all files, then click the
+<guibutton>From Filename</guibutton> button in the <guilabel>Tag 1</guilabel>
+section. This will set the title, artist, album and track values in all files.
+To set the year and genre values of all files, we keep all files selected and
+type in "2002" for the <guilabel>Year</guilabel> and select "Pop" from the
+<guilabel>Genre</guilabel> combobox. To set only these two values, we check their
+checkboxes and leave all other checkboxes unchecked. Now we change the
+selection by only selecting the first file and we see that all tags contain
+the correct values. The tags of the other files can be verified too by
+selecting them one by one. When we are satisfied with the tags, we use
+<guimenuitem>Save</guimenuitem> (<guimenu>File</guimenu> menu or toolbar).
+Selecting <guimenuitem>Create Playlist</guimenuitem> from the
+<guimenu>File</guimenu> menu will generate a file
+<filename>One Hit Wonder - Let's Tag.m3u</filename> in the directory.
+</para>
+</sect1>
+
+</chapter>
+
+<chapter id="commands">
+<title>Command Reference</title>
+
+<sect1 id="kid3-window">
+<title>The Kid3 Window</title>
+
+<sect2 id="gui-elements">
+<title>The GUI Elements</title>
+<para>
+The &kid3; GUI is separated in five sections: At the left are the file
+and directory listboxes, the right side contains the <guilabel>Filename</guilabel>,
+<guilabel>Tag 1</guilabel> and <guilabel>Tag 2</guilabel> sections.
+</para>
+
+<variablelist>
+
+<varlistentry><term>Filelist</term>
+<listitem>
+<para>
+The file list contains the names of all the files in the opened
+directory which match the selected file name filter (typically
+<filename>*.mp3 *.ogg *.flac *.mpc</filename>). A single or multiple files can be selected. To
+select no file, click into the empty area after the listbox entries. The
+selection determines the files which are affected by the operations which
+are available by using the buttons described below.
+</para>
+<para>
+At the left of the names an icon can be displayed: a disc to show that the
+file has been modified or information about which tags are present (V1, V2,
+V1V2 or NO TAG, no icon is displayed if the file has not been read in yet).
+</para>
+<para>
+Directories are displayed with a folder icon. If a directory is opened, its
+files are displayed in a hierarchical tree. By selecting files from
+subdirectories, operations can be executed on files in different directories,
+which is useful if the music collection is organized with a folder for each
+artist containing folders for albums of this artist.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term>Directory List</term>
+<listitem>
+<para>
+The directory list contains the names of the directories in the opened
+directory, as well as the current (<filename>.</filename>) and the parent
+(<filename>..</filename>) directory. It allows to quickly change the directory
+without using the <guimenuitem>Open...</guimenuitem> command or drag and drop.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Filename</guilabel></term>
+
+<listitem><para>The <guilabel>Name</guilabel> line edit contains the name of the file
+(if only a single file is selected). If this name is changed, the file will
+be renamed when the Save command is used.
+</para>
+<para>
+The <guilabel>Format</guilabel> combo box and line edit contains the format
+to be used when the filename is generated from first or the second tag.
+The filename can contain arbitrary characters, even a directory part separated
+by a slash from the file name, but that directory must already exist for the
+renaming to succeed. The following special codes are used to insert tag values
+into the filename:
+</para>
+
+<itemizedlist>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+</itemizedlist>
+
+<para>
+This format is also used to generate the tags from the filename. If the format
+of the filename does not match this pattern, a few other commonly used formats
+are tried.
+</para>
+
+<para>
+Some commonly used filename formats are already available in the combo box,
+but it is also possible to type in some special format into the line edit.
+</para>
+<para>
+<guibutton>From Tag 1</guibutton>: Sets the filename using the selected format
+and the first tag.
+</para>
+<para>
+<guibutton>From Tag 2</guibutton>: Sets the filename using the selected format
+and the second tag.
+</para>
+<para>
+<guibutton>Info</guibutton>: Shows information about the encoding (MP3, Ogg, FLAC, MPC),
+bitrate, sample rate, channels and the length of the file.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><guilabel>Tag 1</guilabel></term>
+<listitem>
+<para>
+The line edit widgets for <guilabel>Title</guilabel>,
+<guilabel>Artist</guilabel>,
+<guilabel>Album</guilabel>, <guilabel>Comment</guilabel>,
+<guilabel>Year</guilabel>, <guilabel>Track</guilabel> and
+<guilabel>Genre</guilabel> are used to edit the corresponding value in the
+first tag of the selected files. The value will be changed when the file
+selection is altered or before operations like <guimenuitem>Save</guimenuitem>
+and <guimenuitem>Quit</guimenuitem> and when the corresponding
+check box at the left of the field name is checked. This is useful to
+change only some values and leave the other values unchanged.
+</para>
+<para>
+If a single file is selected, all check boxes are checked and the line edit
+widgets contain the values found in the tags of this file. If a tag is not
+found in the file, the corresponding empty value is displayed, which is an
+empty string for the <guilabel>Title</guilabel>, <guilabel>Artist</guilabel>,
+<guilabel>Album</guilabel> and <guilabel>Comment</guilabel> line edits, 0 for the
+numerical <guilabel>Year</guilabel> and <guilabel>Track</guilabel> edits and
+an empty selected value for the <guilabel>Genre</guilabel>
+combo box. The values can be changed and if the corresponding check box is
+checked, they will be set for the selected file after the selection is
+changed. The file is then marked as modified by a disk symbol in the file
+listbox but remains unchanged until the <guimenuitem>Save</guimenuitem>
+command is used.
+</para>
+<para>
+If multiple files are selected, only the values which are identical in all
+selected files are displayed. In all other controls, the empty values as
+described above are displayed. All check boxes are unchecked to avoid
+unwanted changes. If a value has to be set for all selected files, it can
+be edited and the checkbox has to be set. The values will be set for all
+selected files when the selection is changed and can be saved using the
+<guimenuitem>Save</guimenuitem> command.
+</para>
+<para>
+The check boxes also control the operation of most commands affecting the
+tags, such as copy, paste and transfer between V1 and V2 tags. To make it
+easier to use with multiple files where all check boxes are unchecked, these
+commands behave in the same way when all check boxes are checked and when all
+check boxes are unchecked.
+</para>
+<para>
+<guibutton>From Filename</guibutton>: The tags are set from the filename.
+First, the format specified in <guilabel>Format</guilabel> is used. If the
+existing filename does not match this format, the following formats
+are tried:
+<itemizedlist>
+<listitem><para><filename>Artist - Album/Track Song</filename></para></listitem>
+<listitem><para><filename>Album/Track - Artist - Song</filename></para></listitem>
+<listitem><para><filename>/Artist - Album - Track - Song</filename></para></listitem>
+<listitem><para><filename>Album/Artist - Track - Song</filename></para></listitem>
+<listitem><para><filename>Album/Artist - Song</filename></para></listitem>
+<listitem><para><filename>Artist/Album/Track Song</filename></para></listitem>
+</itemizedlist>
+If a single file is selected, the GUI controls are filled with the values
+extracted from the filename. If multiple files are selected, the tags of the
+files are directly set according to the filenames.
+</para>
+<para>
+<guibutton>From Tag 2</guibutton>: The tag 1 fields are set from the
+corresponding values in tag 2.
+If a single file is selected, the GUI controls are filled with the values
+from tag 2. If multiple files are selected, the tags of the
+files are directly set.
+</para>
+<para>
+<guibutton>Copy</guibutton>: The copy buffer is filled with the Tag 1 values.
+Only values with checked checkbox will be used in subsequent Paste commands.
+</para>
+<para>
+<guibutton>Paste</guibutton>: Pastes the values from the copy buffer into the
+GUI controls.
+</para>
+<para>
+<guibutton>Remove</guibutton>: This will set all GUI controls to their empty
+values which results in removing all values. The saved file will then contain
+no tag 1.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry><term><guilabel>Tag 2</guilabel></term>
+<listitem>
+<para>
+The GUI controls function in the same way as described for the
+<guilabel>Tag 1</guilabel> section, but the size of the strings is not limited.
+</para>
+<para>
+For the tag 2 <guilabel>Genre</guilabel> you can also use your own names
+besides the genres listed in the combo box, just type the name into the line
+edit. If such a custom genre shall be present in the combo box list in the
+future, type <keycap>Enter</keycap>.
+</para>
+<para>
+<guilabel>Frames</guilabel>: The tag 2 can not only contain the same values
+as the tag 1, the format is built in a flexible way from several frames
+which are themselves composed of several fields. The frames list box shows
+all the frames which are available in the selected file.
+</para>
+<para>
+<guibutton>Edit</guibutton>: This will open a window which allows to edit all fields
+of the selected frame. This is equivalent to double clicking on the selected frame.
+If multiple files are selected, the edited fields are applied to all selected files
+which contain such a frame.
+</para>
+<para>
+<guibutton>Add</guibutton>: A requester to select the frame type will appear
+and a frame of the selected type can be edited and added to the file. This
+works also to add a frame to multiple selected files.
+</para>
+<para>
+<guibutton>Delete</guibutton>: Deletes the selected frame in the selected files.
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="file-menu">
+<title>The File Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Open...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens a directory.</action> All files matching the selected
+file name filter will be displayed in the file listbox.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Open Recent</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens a recently opened directory.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Save</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Saves all changed files in the directory.</action> The
+changed files are marked with a disk symbol in the file listbox. If any file
+names have been changed, those files will be renamed.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Revert</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Reverts the changes of one or multiple files.</action> If no
+files are selected in the file listbox, the changes of all files will be
+reverted, else only the changes of the selected files are reverted.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="import">
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import...</guimenuitem>
+</menuchoice></term>
+<listitem><para>The <action>Import dialog</action> can be used to import data
+directly from a freedb.org server, from the Web-interface of <ulink
+url="http://freedb.org">freedb.org</ulink>, from a MusicBrainz server, from
+Discogs  or other sources of album track lists in textual format.
+</para>
+<para id="import-freedb">
+Import from a freedb.org server is possible using a dialog which appears when
+<guibutton>gnudb.org</guibutton> or <guibutton>TrackType.org</guibutton>
+is selected. The artist and album name
+to search for can be entered in the two topmost fields,
+the albums which match the
+query will be displayed when <guibutton>Find</guibutton> is clicked and the
+results from <ulink url="http://www.gnudb.org">www.gnudb.org</ulink> are
+received. Importing the track data for an album is
+done by selecting the album in the list. The freedb.org server to import from
+can be selected as well as the CGI path. The
+imported data is displayed in the preview table of the import dialog. To work
+in that dialog again, the gnudb.org dialog has to be closed - it can be
+reopened later by clicking <guibutton>gnudb.org</guibutton> again and
+its contents will be restored. When satisfied with the displayed tracks, they
+can be imported by terminating the import dialog with
+<guibutton>OK</guibutton>.
+</para>
+<para id="import-discogs">
+A search on the Discogs server can be performed using
+<guibutton>Discogs</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
+you can enter artist and album and then choose from a list of releases.
+</para>
+<para id="import-musicbrainzrelease">
+You can search in the same way in the release database of MusicBrainz
+using <guibutton>From MusicBrainz Release</guibutton>.
+The workflow is the same as described for <guibutton>From
+gnudb.org</guibutton>.
+</para>
+<para id="import-musicbrainz">
+Import from a MusicBrainz server is possible using the dialog which appears when
+<guibutton>From MusicBrainz Fingerprint</guibutton> is selected. Server and proxy can be
+selected as in the freedb import dialog. Below is a table displaying the
+imported track data. The right column shows the state of the MusicBrainz
+query, which starts with "Pending" when the dialog is opened. Then the
+fingerprint is looked up and if it does not yield a result, another lookup
+using the tags in the file is tried. Thus it can be helpful for a successful
+MusicBrainz query to store known information (e.g. artist and album) in the
+tags before the import. If a result was found, the search ends in the state
+"Recognized", otherwise nothing was found or multiple ambiguous results and one
+of them has to be selected by the user.
+<guibutton>OK</guibutton> and <guibutton>Apply</guibutton> use the imported
+data, <guibutton>Cancel</guibutton> closes the dialog. The closing can take a
+while since the whole MusicBrainz machinery has to be shut down.
+</para>
+<para>
+For the import of textual data, several preconfigured import formats are
+available. The first two, "CSV unquoted" and "CSV quoted" can be used to
+import data which was exported by the Export dialog. The CSV data can be
+edited with a spreadsheet, and shall be written using tabs as
+delimiters. Import should then be possible using "CSV quoted", which is more
+flexible than "CSV unquoted". However, its fields cannot contain any double
+quotes. If you only export from &kid3; and import later, "CSV unquoted" can be
+used as a simple format for this purpose.
+</para>
+
+<para>
+The next format, "freedb HTML 
+text", can be used to copy information from an HTML page of
+<ulink url="http://freedb.org">freedb.org</ulink>. Search an album in freedb
+and if the desired information is displayed in the web browser, copy the
+contents to the clipboard. Then click the <guibutton>From
+Clipboard</guibutton> button and the imported tracks will be displayed in the
+preview table at the top of the dialog. If you are satisfied with the imported
+data, terminate the dialog with <guibutton>OK</guibutton>, which will insert
+the data into the tags of the current directory. The destination
+(<guilabel>ID3v1</guilabel> or <guilabel>ID3v2</guilabel>) can be selected
+with a combo box. The files in the current directory should be in the correct
+track order to get their tags assigned. This is the case if they are numbered.
+</para>
+<para>
+The next preconfigured import format, "freedb HTML source", can be used, if
+the data is available as an HTML document. Import is possible using the
+<guibutton>From File</guibutton> button, which opens a file selector, or
+copying its contents from an editor and then importing from clipboard. This
+format can be useful for offline import, although the HTML document could also
+be opened in a browser and then be imported in the first format via the clipboard.
+</para>
+<para>
+More preconfigured formats, e.g. "Track Title Time", are available. A custom format
+is left empty to be set by the user. Two lines below the format name can be
+set with a regular expression to capture the fields from the import text. The
+first regular expression will be parsed once per document to gather per-album
+data such as artist, album, year and genre. The second line is tried to match
+from the start of the document to the end to get track data, usually number
+and title. The regular expressions include all the features offered by Qt,
+which is most of the what Perl offers. Bracketing constructs "(..)" create
+capture buffers for the fields to import and are preceded by &kid3; specific
+codes to specify which field to capture. The codes are the same as used for
+the filename format:
+</para>
+
+<itemizedlist>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+<listitem><para>%d Duration</para></listitem>
+</itemizedlist>
+
+<para>
+For example, a track regular expression (second line) to import from an 
+.m3u playlist could be "%t(\d+)\s+%s(\S[^\r\n]*)\.mp3[\r\n]". All formats can
+be changed by editing the regular expressions and the name and then clicking
+<guibutton>OK</guibutton>. They will be stored in the
+<filename>kid3rc</filename> file in the configuration directory. This file can
+be directly edited to have more import formats or it can be deleted to revert
+to the default formats.
+</para>
+<para>
+To check whether the imported tracks match the current set of files, the
+duration of the imported tracks can be compared with the duration of the
+files. This option can be enabled with the checkbox <guibutton>Check maximum
+allowable time difference</guibutton> and the maximum tolerated difference in
+time can be set in seconds. If a mismatch in a length is detected, the length
+is displayed with a red background in the preview table.
+</para>
+<para>
+It the files are ordered differently than the imported tracks, their assigned
+tracks have to be changed. This task can be facilitated using
+the <guilabel>Match with</guilabel>
+buttons <guibutton>Length</guibutton>, <guibutton>Track</guibutton>,
+and <guibutton>Title</guibutton>, which will reorder the tracks according to
+the corresponding field. To correct the assignments manually, a track can be
+dragged with the left mouse button and the <keycap>Ctrl</keycap> key hold
+down, and then dropped at the new location.
+</para>
+<para>
+Almost all dialogs feature a <guibutton>Save Settings</guibutton> button,
+which can be used to store the dialog specific settings and the window size
+persistently.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from gnudb.org...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from a freedb.org server
+using gnudb.org album search.</action> This menu
+item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>gnudb.org</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from TrackType.org...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from the TrackType.org server.</action> This menu
+item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>TrackType.org</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from MusicBrainz Release...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from the MusicBrainz release database.</action>
+This menu item opens the same import dialog as
+<guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>From MusicBrainz Release</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from MusicBrainz Fingerprint...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from a MusicBrainz server.</action> This menu
+item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>From MusicBrainz Fingerprint</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry id="export">
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Export...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+The <action>Export Dialog</action> is used to store data from the tags in a
+file or the clipboard. The editor at the top shows a preview of the data to
+export. The data can be edited before exporting, as it is exactly the contents
+of the editor which will be stored. The data will be generated from the tags
+in the current directory according to the configured format.
+</para>
+<para>
+The format settings are similar as in the Import dialog: The topmost field
+contains the title (e.g. "CSV unquoted"), followed by the header, which will
+be generated at the begin of the file. The track data follows; it is used for
+every track. Finally, the trailer can be used to generate some finishing
+text.
+</para>
+<para>
+The format fields do not contain regular expressions as in the Import dialog,
+but only output format expressions with special %-expressions, which will be
+replaced by values from the tags. The whole thing works like the file name
+format, and the same codes are used plus some additional codes.
+</para>
+
+<itemizedlist>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%T Track, without leading zeroes</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+<listitem><para>%f File name</para></listitem>
+<listitem><para>%p Path</para></listitem>
+<listitem><para>%u URL</para></listitem>
+<listitem><para>%d Duration in minutes:seconds</para></listitem>
+<listitem><para>%D Duration in seconds</para></listitem>
+<listitem><para>%n Number of tracks of the album</para></listitem>
+</itemizedlist>
+
+<para>
+A few formats are predefined. "CSV unquoted" separates the fields by
+tabs. Data in this format can be imported again into &kid3; using the import
+format with the same name. "CSV quoted" additionally encloses the fields by
+double quotes, which eases the import into spreadsheet applications. However,
+the fields shall not contain any double quotes when this format is used.
+"Extended M3U" and "Extended PLS" generate playlists with extended attributes
+and absolute path names. "HTML" can be used to generate an HTML page with
+hyperlinks to the tracks. "Kover XML" creates a file which can be imported by
+the cover printing program Kover. Finally, "Custom Format" is left empty for
+definition of a custom format. You can define more formats of your own by
+adding lines in the file <filename>kid3rc</filename> in the configuration
+directory. The other formats can be adapted to your needs.
+</para>
+<para>
+The source of the tags to generate the export data (<guilabel>ID3v1</guilabel>
+or <guilabel>ID3v2</guilabel>) can be selected with a combo
+box. Pushing <guibutton>To File</guibutton> or
+<guibutton>To Clipboard</guibutton> stores the data in a file or on the
+clipboard. <guibutton>OK</guibutton> and <guibutton>Cancel</guibutton> close
+the dialog, whereat <guibutton>OK</guibutton> accepts the current dialog
+settings.
+</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Create Playlist</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Creates an M3U playlist.</action> The file will be stored in
+the opened directory and have the same name as the directory, followed by
+an .m3u extension. The file simply contains the names of the files displayed
+in the file listbox, no special EXTM3U or EXTINFO lines are generated.
+If all files of an album are stored in a separate directory, this function
+can be used to generate a playlist for an album.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>Q</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Quit</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Quits the application.</action></para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="tools-menu">
+<title>The Tools Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Apply Filename Format</guimenuitem>
+</menuchoice></term>
+<listitem><para>When <guilabel>Format while editing</guilabel> is switched off
+for the filename format in the configuration dialog, this menu item can be used to <action>apply
+the configured format to the names of the selected files</action>. This can also be used
+to check whether the file names conform with the configured format
+by applying the format to all saved files and then checking if any files were
+changed (and therefore marked with a disk symbol in the file listbox).
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Apply ID3 Format</guimenuitem>
+</menuchoice></term>
+<listitem><para>When <guilabel>Format while editing</guilabel> is switched off
+for the ID3 format in the configuration dialog, this menu item can be used to <action>apply
+the configured format to the tags of the selected files</action>. This can also be used
+to check whether the tags conform with the configured format
+by applying the format to all saved files and then checking if any files were
+changed (and therefore marked with a disk symbol in the file listbox).
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="rename-directory">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Rename Directory...</guimenuitem>
+</menuchoice></term>
+<listitem><para>This dialog offers the possibility to automatically rename the
+currently open directory according to the tags in the files. Several formats
+are preconfigured to include information about artist, album and year in the
+directory name. It is also possible to set a custom format, the following
+special codes are used to insert tag values into the directory name:
+</para>
+
+<itemizedlist>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+</itemizedlist>
+
+<para>
+If a directory separator "/" is found in the format, multiple directories are
+created. If you want to create a new directory instead of renaming the current
+directory, select <guilabel>Create Directory</guilabel> instead of
+<guilabel>Rename Directory</guilabel>. The source of the tag information can
+be chosen between <guilabel>From ID3v1</guilabel> and <guilabel>From
+ID3v2</guilabel>. A preview for the rename operation performed on the first
+file can be seen in the <guilabel>From</guilabel> and <guilabel>To</guilabel>
+sections of the dialog.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="number-tracks">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Number Tracks...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If the track numbers in the tags are not set or have the wrong values, this
+function can <action>number the tracks automatically in ascending
+order</action>. The start number can be set in the dialog. If only part of the
+tracks have to be numbered, they must be selected.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="convert-to-id3v24">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Convert ID3v2.3 to ID3v2.4</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If there are any ID3v2.3 tags in the selected files, they will
+be <action>converted to ID3v2.4</action> tags. Frames which are not supported
+by TagLib will be discarded. Only files without unsaved changes will be converted.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="convert-to-id3v23">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Convert ID3v2.4 to ID3v2.3</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If there are any ID3v2.4 tags in the selected files, they will
+be <action>converted to ID3v2.3</action> tags. Note that only the standard
+tags are converted, all other frames will be discarded. Only files without
+unsaved changes will be converted.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-menu">
+<title>The Settings Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Hide Tag 1</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles displaying of the Tag 1 section.</action>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Hide Tag 2</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles displaying of the Tag 2 section.</action>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Toolbar</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles displaying of the toolbar</action>, which contains
+icons to open and save a directory.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Show Statusbar</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles displaying of the statusbar</action>, which displays
+longer actions such as opening or saving a directory.</para></listitem>
+</varlistentry>
+
+<varlistentry id="configure-kid3">
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Kid3...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Opens the <action>configuration dialog</action>, which
+consists of pages for tags, files, user actions, and network settings.
+</para>
+<para>
+Tag specific options can be found on the <guilabel>Tags</guilabel> page.
+</para>
+<para>
+If <guilabel>Mark truncated fields</guilabel> is checked, truncated ID3v1.1
+fields will be marked red. The text fields of ID3v1.1 tags can only have 30
+characters, the comment only 28 characters. Also the genre and track numbers
+are restricted, so that fields can be truncated when imported or transfered
+from ID3v2. Truncated fields and the file will be marked red, and the mark
+will be removed after the field has been edited.
+</para>
+<para>
+The check box <guilabel>Use track/total number of tracks
+format</guilabel> controls whether the track number field of ID3v2 tags
+contains simply the track number or additionally the total number of tracks in
+the directory.
+<guilabel>Version used for new tags</guilabel> determines whether new ID3v2
+tags are created as version 2.3.0 or 2.4.0. In the first case, id3lib is used
+as it was in earlier versions of &kid3; and TagLib is only applied when an
+ID3v2.4.0 tag is encountered. In the second case, <guilabel>ID3v2.4.0
+(TagLib)</guilabel>, TagLib is generally used for MP3 files; changed or newly
+created tags will then be saved in version 2.4.0.
+The combo box <guilabel>Comment field name</guilabel> is only
+relevant for Ogg/Vorbis and FLAC files and sets the name of the field used for
+comments. Different applications seem to use different names, "COMMENT" for
+instance is used by xmms, whereas amaroK uses "DESCRIPTION".
+</para>
+<para>
+<guilabel>Custom Genres</guilabel> can be used to define genres which are not
+available in the standard genre list, e.g. "Gothic Metal". Such custom genres
+will appear in the <guilabel>Genre</guilabel> combo box of
+<guilabel>Tag 2</guilabel>. For ID3v1.1 tags, only the predefined genres can
+be used.
+</para>
+<para>
+The list of custom genres can also be used to reduce the number of genres
+available in the <guilabel>Genre</guilabel> combo box to those typically used.
+If your collection mostly contains music in the genres Metal, Gothic Metal,
+Ancient and Hard Rock, you can enter those genres and mark
+<guilabel>Show only custom genres</guilabel>. The <guilabel>Tag 2</guilabel>
+<guilabel>Genre</guilabel> combo box will then only contain those four genres
+and you will not have to search through the complete genres list for them.
+In this example, only Metal and Hard Rock will be listed in the tag 1 genres
+list, because those two custom genres entries are standard genres.
+If <guilabel>Show only custom genres</guilabel> is not active, the custom
+genres can be found at the end of the genres list.
+</para>
+<para>
+<guilabel>Tag Format</guilabel> contains options for the format of the tags.
+When <guilabel>Format while editing</guilabel> is checked, the format
+configuration is automatically used while editing text in the line edits.
+The <guilabel>Case conversion</guilabel> can be set to <guilabel>No
+changes</guilabel>, <guilabel>All lowercase</guilabel>, <guilabel>All
+uppercase</guilabel>, <guilabel>First letter uppercase</guilabel> or
+<guilabel>All first letters uppercase</guilabel>. 
+The string replacement list can be set to arbitrary string mappings. To add a
+new mapping, select the <guilabel>From</guilabel> cell of a row and insert the
+text to replace, then go to the <guilabel>To</guilabel> column and enter the
+replacement text. To remove a mapping set the <guilabel>From</guilabel> cell
+to an empty value (e.g. by first typing space and then backspace). Inserting
+and deleting rows is also possible using a context menu which appears when the
+right mouse button is clicked.  Replacement is only active, if the
+<guilabel>String replacement</guilabel> checkbox is checked.
+</para>
+<para>
+On the page <guilabel>Files</guilabel> the check box <guilabel>Preserve file
+timestamp</guilabel> can be marked to preserve the file modification time
+stamp.
+</para>
+<para>
+<guilabel>Filename Format</guilabel> contains options for the format of the
+filenames. The same options as in <guilabel>Tag Format</guilabel> are available.
+</para>
+<para>
+The <guilabel>User Actions</guilabel> page contains a table with the commands which are available in the context menu of the file list. For critical
+operations such as deleting files, it is advisable to mark
+<guilabel>Confirm</guilabel> to pop up a confirmation dialog before executing
+the command.
+<guilabel>Output</guilabel> can be marked to see the output written by console
+commands (standard output and standard error). <guilabel>Name</guilabel> is
+the name displayed in the context menu. <guilabel>Command</guilabel> is the
+command line to be executed. Arguments can be passed using the following
+codes:
+</para>
+
+<itemizedlist>
+<listitem><para>%F File paths (a list if multiple files selected)</para></listitem>
+<listitem><para>%f File path to single file</para></listitem>
+<listitem><para>%uF URLs (a list if multiple files selected)</para></listitem>
+<listitem><para>%uf URL to single file</para></listitem>
+<listitem><para>%d Directory</para></listitem>
+<listitem><para>%s Title (Song)</para></listitem>
+<listitem><para>%a Artist</para></listitem>
+<listitem><para>%l Album</para></listitem>
+<listitem><para>%c Comment</para></listitem>
+<listitem><para>%y Year</para></listitem>
+<listitem><para>%t Track</para></listitem>
+<listitem><para>%T Track, without leading zeroes</para></listitem>
+<listitem><para>%g Genre</para></listitem>
+<listitem><para>%b Command to start the web browser</para></listitem>
+</itemizedlist>
+
+<para>
+The command which will be inserted with %b can be defined in the
+<guilabel>Web browser</guilabel> line edit above. Commands starting with %b
+can be used to fetch information about the audio files from the web,
+for instance
+<screen width="40">
+<userinput>%b http://lyricwiki.org/%ua:%us</userinput>
+</screen>
+will query the lyrics for the current song in
+<ulink url="http://www.lyricwiki.org">LyricWiki</ulink>. The "u" in %ua and %us
+is used to URL-encode the artist %a and song %s information. It is easy to
+define your own queries in the same way, e.g. an image search with
+<ulink url="http://www.google.com">Google</ulink>:
+<screen width="40">
+<userinput>%b http://images.google.com/images?q=%ua%20%ul</userinput>
+</screen>
+</para>
+<para> 
+To add and delete entries in the table, a context menu can be
+used.
+</para>
+<para>
+The <guilabel>Network</guilabel> page contains only a field to insert the proxy
+address and optionally the port, separated by a colon. The proxy will be used
+when importing from an internet server when the checkbox is checked.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="configure-shortcuts">
+<term><menuchoice>
+<guimenu>Settings</guimenu>
+<guimenuitem>Configure Shortcuts...</guimenuitem>
+</menuchoice></term>
+<listitem><para>Opens a dialog to assign keyboard shortcuts for most of the
+program functions. There are even functions without corresponding menu or
+button available, e.g. next file, previous file, select all.
+</para>
+<para>
+</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2 id="help-menu">
+<title>The Help Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Help</guimenu>
+<guimenuitem>Kid3 Handbook</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens this handbook.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Help</guimenu>
+<guimenuitem>About Kid3</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Displays a short information about Kid3;.
+</action></para></listitem>
+</varlistentry>
+
+
+</variablelist>
+</para>
+
+</sect2>
+
+</sect1>
+</chapter>
+
+
+<chapter id="credits">
+
+<title>Credits and License</title>
+
+<para>
+&kid3;
+</para>
+<para>
+Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
+</para>
+
+
+&underFDL;
+&underGPL;
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-kid3">
+<title>How to obtain Kid3</title>
+
+<para>
+&kid3; can be found at
+<ulink url="http://kid3.sourceforge.net">http://kid3.sourceforge.net</ulink>.
+</para>
+</sect1>
+
+<sect1 id="requirements">
+<title>Requirements</title>
+
+<para>
+&kid3; needs <ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
+url="http://www.kde.org">KDE</ulink> is recommended but not necessary, as
+&kid3; can also be compiled as a Qt application. &kid3; can be compiled for
+systems where these libraries are available, e.g. for GNU/Linux and Windows.
+To tag Ogg/Vorbis files, libogg, libvorbis and libvorbisfile are
+required, for FLAC files libFLAC++ and libFLAC.
+<ulink url="http://id3lib.sourceforge.net">id3lib</ulink> is used for MP3
+ files. These three formats are also supported by
+<ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
+which can also handle MPC files. 
+For MusicBrainz support,
+<ulink url="http://musicbrainz.org/products/tunepimp/">libtunepimp</ulink>
+is used. As there does not exist a tunepimp SDK for Windows at the moment, the
+Windows version is compiled without MusicBrainz import. 
+</para>
+<para>
+&kid3; is available for most Linux distributions, Windows and Mac OS X.
+Links can be found on <ulink url="http://kid3.sourceforge.net">
+http://kid3.sourceforge.net</ulink>.
+</para>
+
+</sect1>
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+<para>
+You can compile &kid3; with or without KDE. Without KDE, &kid3; is a
+simple Qt application and lacks some configuration and session features.
+</para>
+<para>
+Go into the top directory and type 
+<screen width="40">
+<prompt>%</prompt> <userinput>./configure</userinput>
+<prompt>%</prompt> <userinput>make</userinput>
+<prompt>%</prompt> <userinput>make install</userinput>
+</screen>
+</para>
+<para>
+If the sources are downloaded from Subversion, the
+<userinput>configure</userinput> script can be built with 
+<screen width="40">
+<prompt>%</prompt> <userinput>make -f Makefile.cvs</userinput>
+</screen>
+</para>
+<para>
+To compile for different versions of Qt or KDE, set the corresponding
+<userinput>configure</userinput> options.
+</para>
+<para>
+To speed up compilation, &kid3; can use precompiled headers with GCC
+3.4 and above. Start <userinput>configure</userinput> with the option
+<userinput>--enable-gcc-pch</userinput> (and setting CC and CXX to gcc and g++
+of GCC 3.4 if it is not the default compiler). Then create a precompiled system
+include file with <userinput>make pch</userinput>.
+</para>
+<para>
+If not all libraries are present, &kid3; is built with reduced functionality.
+So you should take care to have all desired development packages installed.
+On the other side, <userinput>configure</userinput>-options control which
+libraries are compiled in. The default is
+<userinput>--with-kde --with-id3lib --with-vorbis --with-flac --with-taglib
+--with-musicbrainz</userinput>. These options can be disabled using
+<userinput>--without-</userinput>.
+</para><para>
+Generation of RPM-Packages is supported by the
+file <filename>kid3.spec</filename>, for Debian-Packages,
+a <filename>debian</filename> directory is available.
+</para>
+<para>
+To build &kid3; as a Qt application without KDE, use
+<userinput>configure</userinput> and <userinput>make</userinput>
+from the <filename>kid3-qt</filename> directory. The
+<userinput>configure</userinput> script can be generated with
+<userinput>autoconf</userinput>.
+</para>
+<para>
+The Qt application can also be compiled for Windows.
+<userinput>buildkid3.bat</userinput> can be used to configure and build.
+</para>
+
+</sect1>
+
+<sect1 id="configuration">
+<title>Configuration</title>
+
+<para>With KDE, the file name filter and format, the import formats, the
+filename and ID3 formats, the toolbar and statusbar
+settings as well as the window size will be be saved in the standard
+location in file <filename>kid3rc</filename>.
+As a Qt application, this file is in the <filename>.qt</filename> directory,
+with Qt 4 in <filename>.config/kid3.sourceforge.net/Kid3.conf</filename>,
+with older releases of Qt, a file <filename>kid3.cfg</filename> is created.
+On Windows, the configuration is stored in the registry.
+</para>
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

@@ -1,0 +1,331 @@
+AC_INIT(kid3, 0.9)
+VERSION=0.9
+AC_CONFIG_HEADERS([config.h])
+AC_LANG([C++])
+
+dnl Check for taglib
+TAGLIB_REQ_VERSION="1.4.0"
+AC_DEFUN([VERSION_TO_NUMBER], [`$1 | awk 'BEGIN { FS = "."; } { printf "%d",  ([$]1* 1000 + [$]2) * 1000 + [$]3;}'`])
+AC_ARG_WITH(taglib, [  --with-taglib           build with taglib, default=yes],
+  with_taglib="$withval",
+  with_taglib=yes
+)
+if test "$with_taglib" != "no"; then
+  AC_PATH_PROG(TAGLIB_CONFIG, taglib-config, no)
+  if test "x$TAGLIB_CONFIG" != "xno" ; then
+    TAGLIB_VERSION=[`$TAGLIB_CONFIG --version`]
+    if test VERSION_TO_NUMBER(echo $TAGLIB_VERSION) -lt VERSION_TO_NUMBER(echo $TAGLIB_REQ_VERSION); then
+      AC_MSG_ERROR([TagLib >= $TAGLIB_REQ_VERSION not found.
+Use --without-taglib to build without TagLib.])
+    else
+      AC_DEFINE(HAVE_TAGLIB, 1, [have TagLib])
+      TAGLIB_INCLUDES=[`$TAGLIB_CONFIG --cflags`]
+      LIB_TAGLIB=[`$TAGLIB_CONFIG --libs`]
+      HAVE_TAGLIB=1
+      AC_SUBST(HAVE_TAGLIB)
+      have_taglib=yes
+    fi
+  else
+    AC_MSG_ERROR([taglib-config not found.
+Install TagLib development package (e.g. libtag1-dev or taglib-devel)
+or use --without-taglib.])
+  fi
+else
+    have_taglib=no
+fi
+AC_SUBST(TAGLIB_INCLUDES)
+AC_SUBST(LIB_TAGLIB)
+
+dnl mp3 support with id3lib
+AC_ARG_WITH(id3lib, [  --with-id3lib           build with id3lib, default=yes],
+  with_id3lib="$withval",
+  with_id3lib=yes
+)
+if test "$with_id3lib" != "no"; then
+  AC_CHECK_LIB(id3, ID3Tag_Link, [build_id3lib="yes"], [
+    AC_MSG_ERROR([libid3 not found.
+Install id3lib development package (e.g. libid3-3.8.3-dev or id3lib-devel)
+or use --without-id3lib.])
+      ], -lz -lstdc++)
+fi
+if test "$build_id3lib" = "yes"; then
+  HAVE_ID3LIB=1
+  AC_SUBST(HAVE_ID3LIB)
+  AC_DEFINE(HAVE_ID3LIB, 1, [have id3lib])
+  LIB_ID3LIB="-lid3"
+  have_id3lib=yes
+else
+  LIB_ID3LIB=""
+  have_id3lib=no
+fi
+AC_SUBST(LIB_ID3LIB)
+
+dnl Check if old id3lib without VBR support
+if test "$build_id3lib" = "yes"; then
+  AC_DEFUN([ID3LIB_CHECK_VBR],
+  [
+    AC_MSG_CHECKING([for id3lib VBR support])
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+  cat > conftest.$ac_ext <<EOF
+#include <id3/globals.h>
+int main() {
+  Mp3_Headerinfo info;
+  info.vbr_bitrate = 0;
+  return 0;
+}
+EOF
+
+    ac_save_CPPFLAGS=$CPPFLAGS
+    CPPFLAGS="$all_includes $CPPFLAGS"
+    if AC_TRY_EVAL(ac_compile); then
+      AC_MSG_RESULT(yes)
+    else
+      AC_MSG_RESULT(no)
+      AC_DEFINE(HAVE_NO_ID3LIB_VBR,1,[Define to build without id3lib VBR support])
+    fi
+    CPPFLAGS=$ac_save_CPPFLAGS
+  
+    AC_LANG_RESTORE
+  ])
+  ID3LIB_CHECK_VBR
+fi
+
+dnl Option to build with KDE
+AC_ARG_WITH(kde, [  --with-kde              build with KDE, default=yes],
+  with_kde="$withval",
+  with_kde=yes
+)
+if test "$with_kde" != "no"; then
+  CONFIG_USE_KDE=1
+  AC_SUBST(CONFIG_USE_KDE)
+  AC_DEFINE(CONFIG_USE_KDE,1,[Define to build with KDE])
+fi
+
+dnl precompiled headers
+CFG_CONFIG=""
+AC_ARG_ENABLE(gcc-pch,
+  [  --enable-gcc-pch        enable precompiled headers (gcc 3.4 required)],[
+    case "$enableval" in
+      "yes")
+        GCC_PCH="yes"
+        AC_SUBST(GCC_PCH)
+        AC_DEFINE(GCC_PCH, 1, [whether or not we use precompiled headers])
+        ;;
+      "no")
+        ;;
+      *)
+        AC_MSG_ERROR([must use --enable-gcc-pch(=yes/no) or --disable-gcc-pch])
+        ;;
+    esac
+  ])
+
+dnl MusicBrainz support with libtunepimp
+AC_ARG_WITH(musicbrainz, [  --with-musicbrainz      build with MusicBrainz, default=yes],
+  with_musicbrainz="$withval",
+  with_musicbrainz=yes
+)
+if test "$with_musicbrainz" != "no"; then
+  AC_CHECK_HEADER(tunepimp-0.5/tp_c.h, [build_musicbrainz="yes"],
+    [AC_CHECK_HEADER(tunepimp/tp_c.h, [build_musicbrainz="yes"], [
+      AC_MSG_ERROR([tunepimp/tp_c.h not found.
+Install tunepimp development package (e.g. libtunepimp3-dev or libtunepimp-devel)
+or use --without-musicbrainz.])
+        ])])
+fi
+if test "$build_musicbrainz" = "yes"; then
+  AC_CHECK_LIB(tunepimp, tr_GetPUID,
+    AC_DEFINE(HAVE_TUNEPIMP, 5, [have TunePimp 0.5.x]),
+    AC_CHECK_LIB(tunepimp, tp_SetFileNameEncoding,
+      AC_DEFINE(HAVE_TUNEPIMP, 4, [have TunePimp 0.4.x]),
+      AC_DEFINE(HAVE_TUNEPIMP, 1, [have TunePimp])))
+  AC_SUBST(HAVE_TUNEPIMP)
+  LIB_TUNEPIMP="-ltunepimp"
+  have_tunepimp=yes
+else
+  LIB_TUNEPIMP=""
+  have_tunepimp=no
+fi
+AC_SUBST(LIB_TUNEPIMP)
+
+dnl ogg/vorbis support with libvorbis
+AC_ARG_WITH(vorbis, [  --with-vorbis           build with ogg/vorbis, default=yes],
+  with_vorbis="$withval",
+  with_vorbis=yes
+)
+if test "$with_vorbis" != "no"; then
+  AC_CHECK_HEADER(vorbis/codec.h, [build_vorbis="yes"], [
+    AC_MSG_ERROR([vorbis/codec.h not found.
+Install libvorbis development package (e.g. libvorbis-dev or libvorbis-devel)
+or use --without-vorbis.])
+      ])
+fi
+if test "$build_vorbis" = "yes"; then
+  HAVE_VORBIS=1
+  AC_SUBST(HAVE_VORBIS)
+  AC_DEFINE(HAVE_VORBIS, 1, [have vorbis])
+  LIB_VORBIS="-lvorbis -lvorbisfile"
+  have_vorbis=yes
+else
+  LIB_VORBIS=""
+  have_vorbis=no
+fi
+AC_SUBST(LIB_VORBIS)
+
+dnl FLAC support with libFLAC++
+AC_ARG_WITH(flac, [  --with-flac             build with FLAC, default=yes],
+  with_flac="$withval",
+  with_flac=yes
+)
+if test "$with_flac" != "no"; then
+  AC_CHECK_HEADER(FLAC++/metadata.h, [build_flac="yes"], [
+    AC_MSG_ERROR([FLAC++/metadata.h not found.
+Install libFLAC++ development package (e.g. libflac++-dev or flac-devel)
+or use --without-flac.])
+      ])
+fi
+if test "$build_flac" = "yes"; then
+  HAVE_FLAC=1
+  AC_SUBST(HAVE_FLAC)
+  AC_DEFINE(HAVE_FLAC, 1, [have flac])
+  LIB_FLAC="-lFLAC++ -lFLAC"
+  have_flac=yes
+else
+  LIB_FLAC=""
+  have_flac=no
+fi
+AC_SUBST(LIB_FLAC)
+
+dnl Check if old FLAC++ without Prototype::operator ::FLAC__StreamMetadata const *()
+if test "$build_flac" = "yes"; then
+  AC_DEFUN([FLAC_CHECK_STREAMMETADATA_OPERATOR],
+  [
+    AC_MSG_CHECKING([for FLAC__StreamMetadata operator])
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+  cat > conftest.$ac_ext <<EOF
+#include <FLAC++/metadata.h>
+int main() {
+  FLAC::Metadata::VorbisComment vc;
+  const ::FLAC__StreamMetadata* fsmd = vc;
+  return 0;
+}
+EOF
+
+    ac_save_CPPFLAGS=$CPPFLAGS
+    CPPFLAGS="$all_includes $CPPFLAGS"
+    if AC_TRY_EVAL(ac_compile); then
+      AC_MSG_RESULT(yes)
+    else
+      AC_MSG_RESULT(no)
+      AC_DEFINE(HAVE_NO_FLAC_STREAMMETADATA_OPERATOR,1,[Define to build without FLAC__StreamMetadata operator])
+    fi
+    CPPFLAGS=$ac_save_CPPFLAGS
+  
+    AC_LANG_RESTORE
+  ])
+  FLAC_CHECK_STREAMMETADATA_OPERATOR
+fi
+
+
+AC_DEFINE_UNQUOTED(VERSION, "${VERSION}")
+
+AC_ARG_ENABLE(debug, [  --enable-debug          enables debug symbols],
+  [CFG_CONFIG=debug; AC_DEFINE(CFG_DEBUG, 1)],
+  CFG_CONFIG=release
+)
+if test "x$GCC_PCH" = "xyes"; then
+  CFG_CONFIG="${CFG_CONFIG} precompile_header"
+  CFG_PRECOMPILED_HEADER="allsys.h"
+  AC_SUBST(CFG_PRECOMPILED_HEADER)
+fi
+AC_SUBST(CFG_CONFIG)
+
+CFG_PREFIX=$ac_default_prefix
+if test "x$prefix" != "xNONE"; then
+  CFG_PREFIX=$prefix
+fi
+AC_SUBST(CFG_PREFIX)
+AC_DEFINE_UNQUOTED(CFG_PREFIX, "${CFG_PREFIX}")
+
+AC_ARG_WITH(bindir, [  --with-bindir=DIR       user executables directory, default=PREFIX/bin],
+  CFG_BINDIR="${with_bindir}",
+  CFG_BINDIR="${CFG_PREFIX}/bin"
+)
+AC_SUBST(CFG_BINDIR)
+AC_DEFINE_UNQUOTED(CFG_BINDIR, "${CFG_BINDIR}")
+
+AC_ARG_WITH(datarootdir, [  --with-datarootdir=DIR  data root directory, default=PREFIX/share],
+  CFG_DATAROOTDIR="${with_datarootdir}",
+  CFG_DATAROOTDIR="${CFG_PREFIX}/share"
+)
+AC_SUBST(CFG_DATAROOTDIR)
+AC_DEFINE_UNQUOTED(CFG_DATAROOTDIR, "${CFG_DATAROOTDIR}")
+
+AC_ARG_WITH(docdir, [  --with-docdir=DIR       documentation directory, default=DATAROOTDIR/doc/kid3-qt],
+  CFG_DOCDIR="${with_docdir}",
+  CFG_DOCDIR="${CFG_DATAROOTDIR}/doc/kid3-qt"
+)
+AC_SUBST(CFG_DOCDIR)
+AC_DEFINE_UNQUOTED(CFG_DOCDIR, "${CFG_DOCDIR}")
+
+AC_ARG_WITH(translationsdir, [  --with-translationsdir=DIR translations directory, default=DATAROOTDIR/kid3-qt/translations],
+  CFG_TRANSLATIONSDIR="${with_translationsdir}",
+  CFG_TRANSLATIONSDIR="${CFG_DATAROOTDIR}/kid3-qt/translations"
+)
+AC_SUBST(CFG_TRANSLATIONSDIR)
+AC_DEFINE_UNQUOTED(CFG_TRANSLATIONSDIR, "${CFG_TRANSLATIONSDIR}")
+
+AC_ARG_WITH(qmake, [  --with-qmake=PROGRAM    qmake command, default=qmake],
+  AC_CHECK_PROG(CFG_QMAKE, ${with_qmake}, ${with_qmake}),
+  AC_CHECK_PROGS(CFG_QMAKE, qmake qmake-qt3 qmake-qt4)
+)
+if test -z ${CFG_QMAKE}; then
+  AC_MSG_ERROR([qmake not found])
+fi
+AC_DEFINE_UNQUOTED(CFG_QMAKE, "${CFG_QMAKE}")
+
+if expr ${CFG_QMAKE} : '.*-qt4' >/dev/null; then
+  AC_CHECK_PROGS(CFG_LUPDATE, lupdate-qt4 lupdate lupdate-qt3)
+  AC_CHECK_PROGS(CFG_LRELEASE, lrelease-qt4 lrelease lrelease-qt3)
+elif expr ${CFG_QMAKE} : '.*-qt3' >/dev/null; then
+  AC_CHECK_PROGS(CFG_LUPDATE, lupdate-qt3 lupdate lupdate-qt4)
+  AC_CHECK_PROGS(CFG_LRELEASE, lrelease-qt3 lrelease lrelease-qt4)
+else
+  AC_CHECK_PROGS(CFG_LUPDATE, lupdate lupdate-qt3 lupdate-qt4)
+  AC_CHECK_PROGS(CFG_LRELEASE, lrelease lrelease-qt3 lrelease-qt4)
+fi
+AC_DEFINE_UNQUOTED(CFG_LUPDATE, "${CFG_LUPDATE}")
+AC_DEFINE_UNQUOTED(CFG_LRELEASE, "${CFG_LRELEASE}")
+
+AC_CHECK_PROGS(CFG_DB2HTML, jw xsltproc xalan)
+if test -z ${CFG_DB2HTML}; then
+  AC_MSG_ERROR([No docbook to HTML converter found, install docbook-utils, xsltproc or xalan])
+elif test "x${CFG_DB2HTML}" != "xjw"; then
+  docbookxsldirs="/usr/share/xml/docbook/stylesheet/nwalsh /usr/share/sgml/docbook/xsl-stylesheets /usr/share/xml/docbook/stylesheet/nwalsh/current /usr/share/xml/docbook/xsl-stylesheets /usr/share/xsl/docbook /usr/share/sgml/docbook/xsl-stylesheets* /usr/share/xml/docbook/stylesheet/nwalsh/1.*"
+  for docbookxsldir in $docbookxsldirs; do
+    AC_CHECK_FILE(${docbookxsldir}/html/docbook.xsl,
+  	  CFG_XSL_STYLESHEET=${docbookxsldir}/html/docbook.xsl; break
+    )
+  done
+  if test -z ${CFG_XSL_STYLESHEET}; then
+    kde_sharedirs="/usr/share/kde /usr/local/share /usr/share /opt/kde3/share /opt/kde/share $prefix/share"
+    test -n "$KDEDIR" && kde_sharedirs="$KDEDIR/share $kde_sharedirs"
+    for kde_sharedir in $kde_sharedirs; do
+      AC_CHECK_FILE(${kde_sharedir}/apps/ksgmltools2/docbook/xsl/html/docbook.xsl,
+  		  CFG_XSL_STYLESHEET=${kde_sharedir}/apps/ksgmltools2/docbook/xsl/html/docbook.xsl; break
+      )
+    done
+  fi
+  if test -z ${CFG_XSL_STYLESHEET}; then
+    AC_MSG_ERROR([No docbook XSL stylesheet found, install docbook-xsl or kdelibs-data])
+  fi
+  AC_SUBST(CFG_XSL_STYLESHEET)
+fi
+
+AC_CONFIG_FILES([config.pri])
+AC_OUTPUT
+
+test -d kid3 || mkdir kid3
+mv config.h kid3/
+`dirname $0`/configure-kid3-qt.pl --from-configure --generate-ts

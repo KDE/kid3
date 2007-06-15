@@ -1,0 +1,94 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+pixmaps = $(CURDIR)/debian/kid3/usr/share/pixmaps
+bindir = $(CURDIR)/debian/kid3/usr/bin
+kdedocs = $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML
+
+INSTALL_DIR = install -p -d -o root -g root -m 755
+INSTALL_FILE = install -p -o root -g root -m 644
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -g
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+	INSTALL_PROGRAM += -s
+endif
+		
+build: build-stamp
+	
+-include debian/debiandirs
+
+debian/debiandirs: admin/debianrules
+	perl -w admin/debianrules echodirs > debian/debiandirs
+
+build-stamp:
+	dh_testdir
+
+	QTDIR=/usr/share/qt3 ./configure \
+	                        --host=$(DEB_HOST_GNU_TYPE) \
+	                        --build=$(DEB_BUILD_GNU_TYPE) \
+	                        $(configkde)
+	$(MAKE)
+	cd kid3-qt; \
+	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
+	            --prefix=/usr --with-qmake=qmake-qt3; \
+	cd ..
+	$(MAKE) -C kid3-qt
+	touch build-stamp
+
+clean: 
+	dh_testdir
+	dh_testroot
+	-$(MAKE) distclean
+	-$(MAKE) -C kid3-qt distclean
+	-rm -f *-stamp
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+
+	# Main install.
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/kid3
+	$(MAKE) -C kid3-qt install INSTALL_ROOT=$(CURDIR)/debian/kid3-qt
+
+	# Make common links for docs.
+	for p in `dh_listpackages`; do \
+	  for i in `find $(kdedocs) -type d -name $$p -not -regex .*/en/$$p`; do \
+	    ln -f -n -s ../../en/common $$i/common; done; done
+
+	perl -w admin/debianrules cleanup
+	
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installmenu
+	dh_installman
+#	dh_installinfo
+	dh_installchangelogs ChangeLog
+	-dh_iconcache
+	dh_link
+	dh_strip
+	dh_compress --exclude=.docbook
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

@@ -1,0 +1,121 @@
+
+msgid "&File"
+msgstr "&Файл"
+
+msgid "&Open..."
+msgstr "&Открыть..."
+
+msgid "&Save"
+msgstr "&Сохранить"
+
+msgid "&Quit"
+msgstr "В&ыход"
+
+msgid "&Help"
+msgstr "Помо&щь"
+
+msgid "Open"
+msgstr "Открыть"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Paste"
+msgstr "Вставить"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Edit"
+msgstr "Правка"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Look &in:"
+msgstr "&Искать в:"
+
+msgid "File &name:"
+msgstr "Имя файла:"
+
+msgid "File &type:"
+msgstr "Тип файла:"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Import"
+msgstr "Импорт"
+
+msgid "Export"
+msgstr "Экспорт"
+
+msgid "&View"
+msgstr "&Вид"
+
+msgid "Revert"
+msgstr "Восстановить"
+
+msgid "&Open"
+msgstr "&Открыть"
+
+msgid "&Tools"
+msgstr "&Сервис"
+
+msgid "&Settings"
+msgstr "&Настройка"
+
+msgid "OK"
+msgstr "ОК"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "&Apply"
+msgstr "&Применить"
+
+msgid "&Cancel"
+msgstr "О&тмена"
+
+msgid "&Close"
+msgstr "&Закрыть"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "&Yes"
+msgstr "&Да"
+
+msgid "&No"
+msgstr "&Нет"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "Files"
+msgstr "Файлы"
+
+msgid "&OK"
+msgstr "&ОК"
+
+msgid "&Delete"
+msgstr "&Удалить"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "&Remove"
+msgstr "&Удалить"
+

@@ -1,0 +1,9 @@
+The program is licensed under the GNU GENERAL PUBLIC LICENSE (GPL),
+see file COPYING. To allow distribution of binaries which are compiled
+with the non-commerical Qt version for Windows, the following
+exception is added.
+
+As a special exception, permission is given to link this program with
+Qt non-commercial edition, and distribute the resulting executable,
+without including the source code for the Qt non-commercial edition in
+the source distribution.
