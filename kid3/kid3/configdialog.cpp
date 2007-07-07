@@ -178,8 +178,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				m_commandsTable = new CommandsTable(commandsGroupBox, "commandsTable");
 				vlayout->addWidget(commandsGroupBox);
 			}
-			QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-			vlayout->addItem(vspacer);
 		}
 #ifdef KID3_USE_KCONFIGDIALOG
 		addPage(actionsPage, i18n("User Actions"), "package_utilities");

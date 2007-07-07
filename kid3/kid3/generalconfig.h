@@ -42,6 +42,7 @@ public:
 	bool readBoolEntry(const QString& key, bool dflt = 0);
 	QStringList readListEntry(const QString& key);
 	QMap<QString, QString> readMapEntry(const QString& key, const QMap<QString, QString>& dflt);
+	bool removeEntry(const QString& key);
 private:
 	QMap<QString, QString> m_map;
 	QString m_group;

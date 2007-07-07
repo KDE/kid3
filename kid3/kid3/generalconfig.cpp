@@ -112,6 +112,12 @@ QMap<QString, QString> Kid3Settings::readMapEntry(const QString& key, const QMap
 	}
 	return found ? val : dflt;
 }
+
+bool Kid3Settings::removeEntry(const QString& key)
+{
+	m_map.erase(key);
+	return true;
+} 
 #endif
 #endif
 

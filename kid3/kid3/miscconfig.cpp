@@ -162,6 +162,15 @@ void MiscConfig::writeToConfig(
 			 ++it) {
 		config->writeEntry(QString("Command%1").arg(cmdNr++), (*it).toStringList());
 	}
+	// delete entries which are no longer used
+	for (;;) {
+		QStringList strList = config->readListEntry(QString("Command%1").arg(cmdNr));
+		if (strList.empty()) {
+			break;
+		}
+		config->deleteEntry(QString("Command%1").arg(cmdNr));
+		++cmdNr;
+	}
 #else
 	config->beginGroup("/" + m_group);
 	config->writeEntry("/NameFilter2", m_nameFilter);
@@ -205,6 +214,16 @@ void MiscConfig::writeToConfig(
 			 it != m_contextMenuCommands.end();
 			 ++it) {
 		config->writeEntry(QString("/Command%1").arg(cmdNr++), (*it).toStringList());
+	}
+	// delete entries which are no longer used
+	bool ok;
+	for (;;) {
+		QStringList strList = config->readListEntry(QString("/Command%1").arg(cmdNr), &ok);
+		if (!ok) {
+			break;
+		}
+		config->removeEntry(QString("/Command%1").arg(cmdNr));
+		++cmdNr;
 	}
 	config->endGroup();
 #endif
