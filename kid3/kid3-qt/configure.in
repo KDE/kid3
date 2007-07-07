@@ -2,6 +2,7 @@ AC_INIT(kid3, 0.9)
 VERSION=0.9
 AC_CONFIG_HEADERS([config.h])
 AC_LANG([C++])
+AC_PROG_CXX
 
 dnl Check for taglib
 TAGLIB_REQ_VERSION="1.4.0"
