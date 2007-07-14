@@ -198,6 +198,16 @@ void ImportConfig::readFromConfig(
 	m_exportFormatIdx = config->readNumEntry("ExportFormatIdx", m_exportFormatIdx);
 	m_exportWindowWidth = config->readNumEntry("ExportWindowWidth", -1);
 	m_exportWindowHeight = config->readNumEntry("ExportWindowHeight", -1);
+
+	// KConfig seems to strip empty entries from the end of the string lists,
+	// so we have to append them again.
+	unsigned numNames = names.size();
+	while (headers.size() < numNames) headers.append("");
+	while (tracks.size() < numNames) tracks.append("");
+	unsigned numExpNames = expNames.size();
+	while (expHeaders.size() < numExpNames) expHeaders.append("");
+	while (expTracks.size() < numExpNames) expTracks.append("");
+	while (expTrailers.size() < numExpNames) expTrailers.append("");
 #else
 	config->beginGroup("/" + m_group);
 	m_importDestV1 = config->readBoolEntry("/ImportDestinationV1", m_importDestV1);
@@ -256,4 +266,9 @@ void ImportConfig::readFromConfig(
 			m_exportFormatTrailers.append(*expTrailersIt);
 		}
 	}
+
+	if (m_importFormatIdx >= static_cast<int>(m_importFormatNames.size()))
+		m_importFormatIdx = 0;
+	if (m_exportFormatIdx >=  static_cast<int>(m_exportFormatNames.size()))
+		m_exportFormatIdx = 0;
 }
