@@ -50,7 +50,7 @@ msgstr "Zeile &einfügen"
 
 #: commandstable.cpp:137 formatbox.cpp:140
 msgid "&Delete row"
-msgstr "Zeile &löschen"
+msgstr "Zeile ent&fernen"
 
 #: commandstable.cpp:141
 msgid "&Clear row"
