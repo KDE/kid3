@@ -17,7 +17,7 @@
 #include <qfile.h>
 #include <qdir.h>
 #if QT_VERSION >= 0x040000
-#include <Q3CString>
+#include <QByteArray>
 #endif
 #include <sys/stat.h>
 #ifdef WIN32
@@ -62,7 +62,7 @@ void OggFile::readTags(bool force)
 		m_comments.clear();
 		markTag2Changed(false);
 		m_fileRead = true;
-		Q3CString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+		QCM_QCString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
 		if (m_fileInfo.read(fnIn)) {
 			FILE* fpIn = ::fopen(fnIn, "rb");
@@ -76,12 +76,12 @@ void OggFile::readTags(bool force)
 								QString userComment =
 									QString::fromUtf8(vc->user_comments[i],
 																		vc->comment_lengths[i]);
-								int equalPos = userComment.find('=');
+								int equalPos = userComment.QCM_indexOf('=');
 								if (equalPos != -1) {
 									QString name(
-										userComment.left(equalPos).stripWhiteSpace().upper());
+										userComment.left(equalPos).QCM_trimmed().QCM_toUpper());
 									QString value(
-										userComment.mid(equalPos + 1).stripWhiteSpace());
+										userComment.mid(equalPos + 1).QCM_trimmed());
 									if (!value.isEmpty()) {
 										m_comments.push_back(CommentField(name, value));
 									}
@@ -127,10 +127,10 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 		if (!renameFile(currentFilename(), tempFilename)) {
 			return false;
 		}
-		Q3CString fnIn = QFile::encodeName(dirname + QDir::separator() +
-																			 tempFilename);
-		Q3CString fnOut = QFile::encodeName(dirname + QDir::separator() +
-																			 getFilename());
+		QCM_QCString fnIn = QFile::encodeName(dirname + QDir::separator() +
+																					tempFilename);
+		QCM_QCString fnOut = QFile::encodeName(dirname + QDir::separator() +
+																					 getFilename());
 		FILE* fpIn = ::fopen(fnIn, "rb");
 		if (fpIn) {
 
@@ -165,8 +165,8 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 								if (!value.isEmpty()) {
 									::vorbis_comment_add_tag(
 										vc,
-										const_cast<char*>(name.latin1()),
-										const_cast<char*>((const char*)value.utf8()));
+										const_cast<char*>(name.QCM_latin1()),
+										const_cast<char*>((const char*)value.QCM_toUtf8().data()));
 									++it;
 								} else {
 									it = m_comments.erase(it);
@@ -303,7 +303,7 @@ int OggFile::getTrackNumV2()
 	if (str.isNull()) return -1;
 	if (str.isEmpty()) return 0;
 	// handle "track/total number of tracks" format
-	int slashPos = str.find('/');
+	int slashPos = str.QCM_indexOf('/');
 	if (slashPos != -1) {
 		str.truncate(slashPos);
 	}

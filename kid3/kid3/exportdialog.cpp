@@ -34,7 +34,7 @@
 #include <qurl.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3GroupBox>
+#include <QGroupBox>
 #include <QTextStream>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -48,28 +48,41 @@
  * @param parent        parent widget
  */
 ExportDialog::ExportDialog(QWidget* parent) :
-	QDialog(parent, "export", true)
+	QDialog(parent)
 {
-	setCaption(i18n("Export"));
+	setModal(true);
+	QCM_setWindowTitle(i18n("Export"));
 
-	QVBoxLayout* vlayout = new QVBoxLayout(this, 6, 6, "vlayout");
+	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (vlayout) {
+		vlayout->setMargin(6);
+		vlayout->setSpacing(6);
 		m_edit = new QTextEdit(this);
 		if (m_edit) {
-			m_edit->setTextFormat(Qt::PlainText);
+			m_edit->QCM_setTextFormat_PlainText();
 			vlayout->addWidget(m_edit);
 		}
 
-		Q3GroupBox* fmtbox = new Q3GroupBox(4, Qt::Vertical, i18n("&Format"), this);
-		if (fmtbox) {
 #if QT_VERSION >= 0x040000
-			fmtbox->setInsideMargin(5);
+		QGroupBox* fmtbox = new QGroupBox(i18n("&Format"), this);
+#else
+		QGroupBox* fmtbox = new QGroupBox(4, Qt::Vertical, i18n("&Format"), this);
 #endif
-			m_formatComboBox = new QComboBox(false, fmtbox, "formatComboBox");
+		if (fmtbox) {
+			m_formatComboBox = new QComboBox(fmtbox);
 			m_formatComboBox->setEditable(true);
 			m_headerLineEdit = new QLineEdit(fmtbox);
 			m_trackLineEdit = new QLineEdit(fmtbox);
 			m_trailerLineEdit = new QLineEdit(fmtbox);
+#if QT_VERSION >= 0x040000
+			QVBoxLayout* vbox = new QVBoxLayout;
+			vbox->setMargin(2);
+			vbox->addWidget(m_formatComboBox);
+			vbox->addWidget(m_headerLineEdit);
+			vbox->addWidget(m_trackLineEdit);
+			vbox->addWidget(m_trailerLineEdit);
+			fmtbox->setLayout(vbox);
+#endif
 			vlayout->addWidget(fmtbox);
 			connect(m_formatComboBox, SIGNAL(activated(int)), this,
 							SLOT(setFormatLineEdit(int)));
@@ -78,8 +91,9 @@ ExportDialog::ExportDialog(QWidget* parent) :
 			connect(m_trailerLineEdit, SIGNAL(returnPressed()), this, SLOT(showPreview()));
 		}
 
-		QHBoxLayout* butlayout = new QHBoxLayout(vlayout, 6, "butlayout");
+		QHBoxLayout* butlayout = new QHBoxLayout;
 		if (butlayout) {
+			butlayout->setSpacing(6);
 			m_fileButton = new QPushButton(i18n("To F&ile"), this);
 			if (m_fileButton) {
 				m_fileButton->setAutoDefault(false);
@@ -96,21 +110,24 @@ ExportDialog::ExportDialog(QWidget* parent) :
 																							 QSizePolicy::Minimum);
 			butlayout->addItem(butspacer);
 
-			QLabel* srcLabel = new QLabel(i18n("&Source:"), this, "srcLabel");
+			QLabel* srcLabel = new QLabel(i18n("&Source:"), this);
 			butlayout->addWidget(srcLabel);
-			m_srcComboBox = new QComboBox(false, this, "srcComboBox");
+			m_srcComboBox = new QComboBox(this);
 			if (m_srcComboBox) {
-				m_srcComboBox->insertItem(i18n("Tag 1"), SrcV1);
-				m_srcComboBox->insertItem(i18n("Tag 2"), SrcV2);
+				m_srcComboBox->setEditable(false);
+				m_srcComboBox->QCM_insertItem(SrcV1, i18n("Tag 1"));
+				m_srcComboBox->QCM_insertItem(SrcV2, i18n("Tag 2"));
 				srcLabel->setBuddy(m_srcComboBox);
 				butlayout->addWidget(m_srcComboBox);
 				connect(m_srcComboBox, SIGNAL(activated(int)),
 								this, SIGNAL(exportDataRequested(int)));
 			}
+			vlayout->addLayout(butlayout);
 		}
 
-		QHBoxLayout* hlayout = new QHBoxLayout(vlayout, 6, "hlayout");
+		QHBoxLayout* hlayout = new QHBoxLayout;
 		if (hlayout) {
+			hlayout->setSpacing(6);
 			QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
 			if (helpButton) {
 				helpButton->setAutoDefault(false);
@@ -133,6 +150,7 @@ ExportDialog::ExportDialog(QWidget* parent) :
 				hlayout->addWidget(closeButton);
 				connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 			}
+			vlayout->addLayout(hlayout);
 		}
 	}
 }
@@ -152,14 +170,16 @@ void ExportDialog::slotToFile()
 #ifdef CONFIG_USE_KDE
 		KFileDialog::getSaveFileName(QString::null, QString::null, this);
 #else
-		QFileDialog::getSaveFileName(QString::null, QString::null, this);
+		QFileDialog::QCM_getSaveFileName(this);
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QCM_WriteOnly)) {
 			QTextStream stream(&file);
+#if QT_VERSION < 0x040000
 			stream.setEncoding(QTextStream::Locale);
-			stream << m_edit->text();
+#endif
+			stream << m_edit->QCM_toPlainText();
 			file.close();
 		}
 	}
@@ -171,7 +191,7 @@ void ExportDialog::slotToFile()
 void ExportDialog::slotToClipboard()
 {
 	QApplication::clipboard()->setText(
-		m_edit->text()
+		m_edit->QCM_toPlainText()
 #if QT_VERSION >= 0x030100
 		, QClipboard::Clipboard
 #endif
@@ -265,14 +285,14 @@ void ExportDialog::setExportData(const ImportTrackDataVector& trackDataVector)
  */
 void ExportDialog::readConfig()
 {
-	m_srcComboBox->setCurrentItem(Kid3App::s_genCfg.m_exportSrcV1 ? SrcV1 : SrcV2);
+	m_srcComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_exportSrcV1 ? SrcV1 : SrcV2);
 
 	m_formatHeaders = Kid3App::s_genCfg.m_exportFormatHeaders;
 	m_formatTracks = Kid3App::s_genCfg.m_exportFormatTracks;
 	m_formatTrailers = Kid3App::s_genCfg.m_exportFormatTrailers;
 	m_formatComboBox->clear();
-	m_formatComboBox->insertStringList(Kid3App::s_genCfg.m_exportFormatNames);
-	m_formatComboBox->setCurrentItem(Kid3App::s_genCfg.m_exportFormatIdx);
+	m_formatComboBox->QCM_addItems(Kid3App::s_genCfg.m_exportFormatNames);
+	m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_exportFormatIdx);
 	setFormatLineEdit(Kid3App::s_genCfg.m_exportFormatIdx);
 
 	if (Kid3App::s_genCfg.m_exportWindowWidth > 0 &&
@@ -287,9 +307,8 @@ void ExportDialog::readConfig()
  */
 void ExportDialog::saveConfig()
 {
-	Kid3App::s_genCfg.m_exportSrcV1 = (m_srcComboBox->currentItem() == SrcV1);
-
-	Kid3App::s_genCfg.m_exportFormatIdx = m_formatComboBox->currentItem();
+	Kid3App::s_genCfg.m_exportSrcV1 = (m_srcComboBox->QCM_currentIndex() == SrcV1);
+	Kid3App::s_genCfg.m_exportFormatIdx = m_formatComboBox->QCM_currentIndex();
 	Kid3App::s_genCfg.m_exportFormatNames[Kid3App::s_genCfg.m_exportFormatIdx] = m_formatComboBox->currentText();
 	Kid3App::s_genCfg.m_exportFormatHeaders[Kid3App::s_genCfg.m_exportFormatIdx] = m_headerLineEdit->text();
 	Kid3App::s_genCfg.m_exportFormatTracks[Kid3App::s_genCfg.m_exportFormatIdx] = m_trackLineEdit->text();

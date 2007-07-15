@@ -16,11 +16,8 @@
 #include <qstatusbar.h>
 #include <qregexp.h>
 #if QT_VERSION >= 0x040000
-#include <Q3HBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#else
-#include <qhbox.h>
 #endif
 #include "importsourceconfig.h"
 #include "importsourceclient.h"
@@ -40,11 +37,12 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 																			 ImportTrackDataVector& trackDataVector,
 																			 ImportSourceClient* client,
 																			 const Properties& props)
-	: QDialog(parent, "importsource", true), m_trackDataVector(trackDataVector),
+	: QDialog(parent), m_trackDataVector(trackDataVector),
 		m_serverComboBox(0), m_cgiLineEdit(0),
 		m_client(client), m_props(props)
 {
-	setCaption(caption);
+	setModal(true);
+	QCM_setWindowTitle(caption);
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
@@ -53,7 +51,7 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
 
-	QHBoxLayout* findLayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* findLayout = new QHBoxLayout;
 	m_artistLineEdit = new QComboBox(this);
 	m_albumLineEdit = new QComboBox(this);
 	m_findButton = new QPushButton(i18n("&Find"), this);
@@ -71,9 +69,10 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 		findLayout->addWidget(m_albumLineEdit);
 		findLayout->addWidget(m_findButton);
 		connect(m_findButton, SIGNAL(clicked()), this, SLOT(slotFind()));
+		vlayout->addLayout(findLayout);
 	}
 	if (m_props.defaultServer) {
-		QHBoxLayout* serverLayout = new QHBoxLayout(vlayout);
+		QHBoxLayout* serverLayout = new QHBoxLayout;
 		QLabel* serverLabel = new QLabel(i18n("&Server:"), this);
 		m_serverComboBox = new QComboBox(this);
 		QLabel* cgiLabel = 0;
@@ -98,23 +97,28 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 				serverLayout->addWidget(m_cgiLineEdit);
 				cgiLabel->setBuddy(m_cgiLineEdit);
 			}
+			vlayout->addLayout(serverLayout);
 		}
 	}
-	m_albumListBox = new Q3ListBox(this);
+#if QT_VERSION >= 0x040000
+	m_albumListBox = new QListWidget(this);
+#else
+	m_albumListBox = new QListBox(this);
+#endif
 	if (m_albumListBox) {
 		vlayout->addWidget(m_albumListBox);
 #if QT_VERSION >= 0x040000
-		connect(m_albumListBox, SIGNAL(selectionChanged(Q3ListBoxItem*)),
-				this, SLOT(requestTrackList(Q3ListBoxItem*)));
+		connect(m_albumListBox, SIGNAL(itemActivated(QListWidgetItem*)),
+				this, SLOT(requestTrackList(QListWidgetItem*)));
 #else
 		connect(m_albumListBox, SIGNAL(selectionChanged(QListBoxItem*)),
 				this, SLOT(requestTrackList(QListBoxItem*)));
-#endif
 		connect(m_albumListBox, SIGNAL(selected(int)),
 				this, SLOT(requestTrackList(int)));
+#endif
 	}
 
-	QHBoxLayout* buttonLayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* buttonLayout = new QHBoxLayout;
 	QPushButton* helpButton = m_props.helpAnchor ?
 		new QPushButton(i18n("&Help"), this) : 0;
 	QPushButton* saveButton = m_props.cfg ? new QPushButton(i18n("&Save Settings"), this) : 0;
@@ -133,6 +137,7 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 		buttonLayout->addItem(hspacer);
 		buttonLayout->addWidget(closeButton);
 		connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+		vlayout->addLayout(buttonLayout);
 	}
 
 	m_statusBar = new QStatusBar(this);
@@ -189,7 +194,17 @@ QString ImportSourceDialog::getServer() const
 void ImportSourceDialog::setServer(const QString& srv)
 {
 	if (m_serverComboBox) {
+#if QT_VERSION >= 0x040000
+		int idx = m_serverComboBox->findText(srv);
+		if (idx >= 0) {
+			m_serverComboBox->setCurrentIndex(idx);
+		} else {
+			m_serverComboBox->addItem(srv);
+			m_serverComboBox->setCurrentIndex(m_serverComboBox->count() - 1);
+		}
+#else
 		m_serverComboBox->setCurrentText(srv);
+#endif
 	}
 }
 
@@ -263,8 +278,25 @@ void ImportSourceDialog::setArtistAlbum(const QString& artist, const QString& al
 	}
 
 	if (!(artist.isEmpty() && album.isEmpty())) {
+#if QT_VERSION >= 0x040000
+		int idx = m_artistLineEdit->findText(artist);
+		if (idx >= 0) {
+			m_artistLineEdit->setCurrentIndex(idx);
+		} else {
+			m_artistLineEdit->addItem(artist);
+			m_artistLineEdit->setCurrentIndex(m_artistLineEdit->count() - 1);
+		}
+		idx = m_albumLineEdit->findText(album);
+		if (idx >= 0) {
+			m_albumLineEdit->setCurrentIndex(idx);
+		} else {
+			m_albumLineEdit->addItem(album);
+			m_albumLineEdit->setCurrentIndex(m_albumLineEdit->count() - 1);
+		}
+#else
 		m_artistLineEdit->setCurrentText(artist);
 		m_albumLineEdit->setCurrentText(album);
+#endif
 		QLineEdit* lineEdit = m_artistLineEdit->lineEdit();
 		if (lineEdit) {
 			lineEdit->selectAll();
@@ -310,7 +342,11 @@ void ImportSourceDialog::slotAlbumFinished(const QByteArray& albumStr)
  *
  * @param li list box item containing an AlbumListItem
  */
-void ImportSourceDialog::requestTrackList(Q3ListBoxItem* li)
+#if QT_VERSION >= 0x040000
+void ImportSourceDialog::requestTrackList(QListWidgetItem* li)
+#else
+void ImportSourceDialog::requestTrackList(QListBoxItem* li)
+#endif
 {
 	AlbumListItem* ali;
 	if ((ali = dynamic_cast<AlbumListItem *>(li)) != 0) {

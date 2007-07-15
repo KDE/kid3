@@ -8,6 +8,8 @@
  */
 
 #include "importsourceconfig.h"
+#include <qglobal.h>
+#include "qtcompatmac.h"
 
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
@@ -59,11 +61,11 @@ void ImportSourceConfig::writeToConfig(
 	config->writeEntry("WindowHeight", m_windowHeight);
 #else
 	config->beginGroup("/" + m_group);
-	config->writeEntry("/Server", m_server);
+	config->QCM_writeEntry("/Server", m_server);
 	if (m_cgiPathUsed)
-		config->writeEntry("/CgiPath", m_cgiPath);
-	config->writeEntry("/WindowWidth", m_windowWidth);
-	config->writeEntry("/WindowHeight", m_windowHeight);
+		config->QCM_writeEntry("/CgiPath", m_cgiPath);
+	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
+	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
 	config->endGroup();
 #endif
 }
@@ -90,11 +92,11 @@ void ImportSourceConfig::readFromConfig(
 	m_windowHeight = config->readNumEntry("WindowHeight", -1);
 #else
 	config->beginGroup("/" + m_group);
-	m_server = config->readEntry("/Server", m_server);
+	m_server = config->QCM_readEntry("/Server", m_server);
 	if (m_cgiPathUsed)
-		m_cgiPath = config->readEntry("/CgiPath", m_cgiPath);
-	m_windowWidth = config->readNumEntry("/WindowWidth", -1);
-	m_windowHeight = config->readNumEntry("/WindowHeight", -1);
+		m_cgiPath = config->QCM_readEntry("/CgiPath", m_cgiPath);
+	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
+	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
 	config->endGroup();
 #endif
 }

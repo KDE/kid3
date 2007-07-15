@@ -15,16 +15,17 @@
 #include <qobject.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <qbytearray.h>
+#include <QByteArray>
+#include <QTcpSocket>
 #else
 #include <qcstring.h>
+#include <qsocket.h>
 #endif
 
 #ifdef HAVE_TUNEPIMP
 #if HAVE_TUNEPIMP >= 5
 #include <qbuffer.h>
 #include <tunepimp-0.5/tp_c.h>
-class Q3Socket;
 #else
 #include <tunepimp/tp_c.h>
 #endif
@@ -50,8 +51,8 @@ public:
 	 * @param proxyPort  proxy port
 	 */
 	LookupQuery(int numFiles,
-							const QString& serverName, Q_UINT16 serverPort = 80,
-							const QString& proxyName = "", Q_UINT16 proxyPort = 80);
+							const QString& serverName, unsigned short serverPort = 80,
+							const QString& proxyName = "", unsigned short proxyPort = 80);
 
 	/**
 	 * Destructor.
@@ -83,8 +84,11 @@ private slots:
 	/**
 	 * Error on socket connection.
 	 */
-	void socketError();
-
+#if QT_VERSION >= 0x040000
+	void socketError(QAbstractSocket::SocketError err);
+#else
+	void socketError(int);
+#endif
 	/**
 	 * Read received data when the server has closed the connection.
 	 */
@@ -112,11 +116,11 @@ private:
 	/** MusicBrainz server */
 	QString m_serverName;
 	/** Port of MusicBrainz server */
-	Q_UINT16 m_serverPort;
+	unsigned short m_serverPort;
 	/** Proxy */
 	QString m_proxyName;
 	/** Port of proxy */
-	Q_UINT16 m_proxyPort;
+	unsigned short m_proxyPort;
 	/**
 	 * -1 if not yet started,
 	 * 0..m_numFiles-1 if a file is currently processed,
@@ -124,7 +128,11 @@ private:
 	 */ 
 	int m_currentFile;
 	FileQuery* m_fileQueries;
-	Q3Socket* m_sock;
+#if QT_VERSION >= 0x040000
+	QTcpSocket* m_sock;
+#else
+	QSocket* m_sock;
+#endif
 	QString m_request;
 #endif
 };

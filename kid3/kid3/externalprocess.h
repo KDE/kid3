@@ -16,7 +16,7 @@
 #include <qtextedit.h>
 #include "qtcompatmac.h"
 
-class Q3Process;
+class QProcess;
 class TaggedFile;
 class DirInfo;
 
@@ -54,13 +54,7 @@ public:
 		/**
 		 * Scroll text to bottom.
 		 */
-		void scrollToBottom() {
-#if QT_VERSION >= 0x040000
-			m_textEdit->moveCursor(QTextEdit::MoveEnd);
-#else
-			m_textEdit->scrollToBottom();
-#endif
-		}
+		void scrollToBottom();
 
 	private:
 		QTextEdit* m_textEdit;
@@ -103,7 +97,7 @@ private slots:
 
 private:
 	QWidget* m_parent;
-	Q3Process* m_process;
+	QProcess* m_process;
 	OutputViewer* m_outputViewer;
 };
 

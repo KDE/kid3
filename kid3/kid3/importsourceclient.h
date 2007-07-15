@@ -14,12 +14,13 @@
 #include <qobject.h>
 #include <qstring.h>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
-#include <Q3CString>
-#endif
 
+#if QT_VERSION >= 0x040000
+#include <QTcpSocket>
+#else
+#include <qsocket.h>
+#endif
 class QStatusBar;
-class Q3Socket;
 class ImportSourceConfig;
 
 /**
@@ -132,7 +133,11 @@ private slots:
 	/**
 	 * Display information about socket error.
 	 */
+#if QT_VERSION >= 0x040000
+	void slotError(QAbstractSocket::SocketError err);
+#else
 	void slotError(int err);
+#endif
 
 signals:
 	/**
@@ -165,7 +170,11 @@ private:
 	/** status bar to display progress */
 	QStatusBar* m_statusBar;
 	/** client socket */
-	Q3Socket* m_sock;
+#if QT_VERSION >= 0x040000
+	QTcpSocket* m_sock;
+#else
+	QSocket* m_sock;
+#endif
 	/** type of current request */
 	enum RequestType {
 		RT_None,

@@ -16,12 +16,6 @@
 
 #include "framelist.h"
 
-#include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
-#include <Q3PtrList>
-#else
-#include <qptrlist.h>
-#endif
 #include <id3/tag.h>
 
 class Mp3File;
@@ -42,10 +36,9 @@ class BinaryOpenSave : public QWidget {
 	 * Constructor.
 	 *
 	 * @param parent parent widget
-	 * @param name   internal name or 0
 	 * @param fld    ID3_Field containing binary data
 	 */
-	BinaryOpenSave(QWidget* parent, const char* name, ID3_Field* fld);
+	BinaryOpenSave(QWidget* parent, ID3_Field* fld);
 
 	/**
 	 * Set label.
@@ -242,7 +235,7 @@ public:
 	/** ID3v2 tags containing frames */
 	ID3_Tag* m_tags;
 	/** List with controls to edit fields in frame */
-	Q3PtrList<FieldControl> m_fieldcontrols; 
+	FieldControlList m_fieldcontrols; 
 	/** Number of possible frame IDs */
 #if defined _WIN32 || defined WIN32
 	enum { NumFrameIds = 74 };

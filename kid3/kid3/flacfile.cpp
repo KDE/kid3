@@ -27,7 +27,7 @@
 #include <cmath>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3CString>
+#include <QByteArray>
 #endif
 
 /**
@@ -62,7 +62,7 @@ void FlacFile::readTags(bool force)
 		m_comments.clear();
 		markTag2Changed(false);
 		m_fileRead = true;
-		Q3CString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+		QCM_QCString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 		m_fileInfo.read(0); // just to start invalid
 		if (!m_chain) {
 			m_chain = new FLAC::Metadata::Chain;
@@ -96,11 +96,11 @@ void FlacFile::readTags(bool force)
 											QString name =
 												QString::fromUtf8(entry.get_field_name(),
 																					entry.get_field_name_length()).
-												stripWhiteSpace().upper();
+												QCM_trimmed().QCM_toUpper();
 											QString value =
 												QString::fromUtf8(entry.get_field_value(),
 																					entry.get_field_value_length()).
-												stripWhiteSpace();
+												QCM_trimmed();
 											if (!value.isEmpty()) {
 												m_comments.push_back(
 													CommentField(name, value));
@@ -235,10 +235,10 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
 		if (!value.isEmpty()) {
 			// The number of bytes - not characters - has to be passed to the
 			// Entry constructor, thus qstrlen is used.
-			Q3CString valueCStr = value.utf8();
+		  QCM_QCString valueCStr = value.QCM_toUtf8();
 			vc->insert_comment(vc->get_num_comments(),
 				FLAC::Metadata::VorbisComment::Entry(
-					name.latin1(), valueCStr, qstrlen(valueCStr)));
+					name.QCM_latin1(), valueCStr, qstrlen(valueCStr)));
 			++it;
 		} else {
 			it = m_comments.erase(it);

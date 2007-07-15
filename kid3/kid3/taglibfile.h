@@ -16,6 +16,7 @@
 #include "taggedfile.h"
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
+#include <qglobal.h>
 
 /** TagLib version in with 8 bits for major, minor and patch version. */
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
@@ -28,6 +29,12 @@
 //#define TAGLIB_SUPPORTS_GEOB_FRAMES
 //#define TAGLIB_SUPPORTS_URLLINK_FRAMES
 //#define TAGLIB_SUPPORTS_USLT_FRAMES
+#endif
+
+#if QT_VERSION >= 0x040000
+#define QSTRING_TO_TSTRING(s) TagLib::String(s.toUtf8().data(), TagLib::String::UTF8)
+#else
+#define QSTRING_TO_TSTRING(s) TagLib::String(s.utf8().data(), TagLib::String::UTF8)
 #endif
 
 class TagLibFrameList;

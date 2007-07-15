@@ -13,7 +13,7 @@
 #include <qstringlist.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ValueList>
+#include <QList>
 #else
 #include <qvaluelist.h>
 #endif
@@ -153,12 +153,23 @@ public:
 	int m_dirFormatItem;
 	/** true to rename directory from ID3v1 tags, else ID3v2 tags */
 	bool m_renDirSrcV1;
+#if QT_VERSION >= 0x040000
+	/** List of splitter sizes. */
+	typedef QList<int> SizesList;
+	/** List of menu commands */
+	typedef QList<MenuCommand> MenuCommandList;
+#else
+	/** List of splitter sizes. */
+	typedef QValueList<int> SizesList;
+	/** List of menu commands */
+	typedef QValueList<MenuCommand> MenuCommandList;
+#endif
 	/** size of splitter in main window */
-	Q3ValueList<int> m_splitterSizes;
+	SizesList m_splitterSizes;
 	/** size of file/dirlist splitter */
-	Q3ValueList<int> m_vSplitterSizes;
+	SizesList m_vSplitterSizes;
 	/** commands available in context menu */
-	Q3ValueList<MenuCommand> m_contextMenuCommands;
+	MenuCommandList m_contextMenuCommands;
 	/** custom genres for ID3v2.3 */
 	QStringList m_customGenres;
 	/** true to hide ID3v1.1 controls */

@@ -8,6 +8,7 @@
  */
 
 #include <qstring.h>
+#include "qtcompatmac.h"
 #include "importconfig.h"
 
 #ifdef CONFIG_USE_KDE
@@ -144,22 +145,22 @@ void ImportConfig::writeToConfig(
 	config->writeEntry("ExportWindowHeight", m_exportWindowHeight);
 #else
 	config->beginGroup("/" + m_group);
-	config->writeEntry("/ImportDestinationV1", m_importDestV1);
-	config->writeEntry("/ImportFormatNames", m_importFormatNames);
-	config->writeEntry("/ImportFormatHeaders", m_importFormatHeaders);
-	config->writeEntry("/ImportFormatTracks", m_importFormatTracks);
-	config->writeEntry("/ImportFormatIdx", m_importFormatIdx);
-	config->writeEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-	config->writeEntry("/MaxTimeDifference", m_maxTimeDifference);
+	config->QCM_writeEntry("/ImportDestinationV1", m_importDestV1);
+	config->QCM_writeEntry("/ImportFormatNames", m_importFormatNames);
+	config->QCM_writeEntry("/ImportFormatHeaders", m_importFormatHeaders);
+	config->QCM_writeEntry("/ImportFormatTracks", m_importFormatTracks);
+	config->QCM_writeEntry("/ImportFormatIdx", m_importFormatIdx);
+	config->QCM_writeEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	config->QCM_writeEntry("/MaxTimeDifference", m_maxTimeDifference);
 
-	config->writeEntry("/ExportSourceV1", m_exportSrcV1);
-	config->writeEntry("/ExportFormatNames", m_exportFormatNames);
-	config->writeEntry("/ExportFormatHeaders", m_exportFormatHeaders);
-	config->writeEntry("/ExportFormatTracks", m_exportFormatTracks);
-	config->writeEntry("/ExportFormatTrailers", m_exportFormatTrailers);
-	config->writeEntry("/ExportFormatIdx", m_exportFormatIdx);
-	config->writeEntry("/ExportWindowWidth", m_exportWindowWidth);
-	config->writeEntry("/ExportWindowHeight", m_exportWindowHeight);
+	config->QCM_writeEntry("/ExportSourceV1", m_exportSrcV1);
+	config->QCM_writeEntry("/ExportFormatNames", m_exportFormatNames);
+	config->QCM_writeEntry("/ExportFormatHeaders", m_exportFormatHeaders);
+	config->QCM_writeEntry("/ExportFormatTracks", m_exportFormatTracks);
+	config->QCM_writeEntry("/ExportFormatTrailers", m_exportFormatTrailers);
+	config->QCM_writeEntry("/ExportFormatIdx", m_exportFormatIdx);
+	config->QCM_writeEntry("/ExportWindowWidth", m_exportWindowWidth);
+	config->QCM_writeEntry("/ExportWindowHeight", m_exportWindowHeight);
 
 	config->endGroup();
 #endif
@@ -210,22 +211,22 @@ void ImportConfig::readFromConfig(
 	while (expTrailers.size() < numExpNames) expTrailers.append("");
 #else
 	config->beginGroup("/" + m_group);
-	m_importDestV1 = config->readBoolEntry("/ImportDestinationV1", m_importDestV1);
-	names = config->readListEntry("/ImportFormatNames");
-	headers = config->readListEntry("/ImportFormatHeaders");
-	tracks = config->readListEntry("/ImportFormatTracks");
-	m_importFormatIdx = config->readNumEntry("/ImportFormatIdx", m_importFormatIdx);
-	m_enableTimeDifferenceCheck = config->readBoolEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-	m_maxTimeDifference = config->readNumEntry("/MaxTimeDifference", m_maxTimeDifference);
+	m_importDestV1 = config->QCM_readBoolEntry("/ImportDestinationV1", m_importDestV1);
+	names = config->QCM_readListEntry("/ImportFormatNames");
+	headers = config->QCM_readListEntry("/ImportFormatHeaders");
+	tracks = config->QCM_readListEntry("/ImportFormatTracks");
+	m_importFormatIdx = config->QCM_readNumEntry("/ImportFormatIdx", m_importFormatIdx);
+	m_enableTimeDifferenceCheck = config->QCM_readBoolEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	m_maxTimeDifference = config->QCM_readNumEntry("/MaxTimeDifference", m_maxTimeDifference);
 
-	m_exportSrcV1 = config->readBoolEntry("/ExportSourceV1", m_exportSrcV1);
-	expNames = config->readListEntry("/ExportFormatNames");
-	expHeaders = config->readListEntry("/ExportFormatHeaders");
-	expTracks = config->readListEntry("/ExportFormatTracks");
-	expTrailers = config->readListEntry("/ExportFormatTrailers");
-	m_exportFormatIdx = config->readNumEntry("/ExportFormatIdx", m_exportFormatIdx);
-	m_exportWindowWidth = config->readNumEntry("/ExportWindowWidth", -1);
-	m_exportWindowHeight = config->readNumEntry("/ExportWindowHeight", -1);
+	m_exportSrcV1 = config->QCM_readBoolEntry("/ExportSourceV1", m_exportSrcV1);
+	expNames = config->QCM_readListEntry("/ExportFormatNames");
+	expHeaders = config->QCM_readListEntry("/ExportFormatHeaders");
+	expTracks = config->QCM_readListEntry("/ExportFormatTracks");
+	expTrailers = config->QCM_readListEntry("/ExportFormatTrailers");
+	m_exportFormatIdx = config->QCM_readNumEntry("/ExportFormatIdx", m_exportFormatIdx);
+	m_exportWindowWidth = config->QCM_readNumEntry("/ExportWindowWidth", -1);
+	m_exportWindowHeight = config->QCM_readNumEntry("/ExportWindowHeight", -1);
 
 	config->endGroup();
 #endif
@@ -236,7 +237,11 @@ void ImportConfig::readFromConfig(
 			 namesIt != names.end() && headersIt != headers.end() &&
 				 tracksIt != tracks.end();
 			 ++namesIt, ++headersIt, ++tracksIt) {
+#if QT_VERSION >= 0x040000
+		int idx = m_importFormatNames.indexOf(*namesIt);
+#else
 		int idx = m_importFormatNames.findIndex(*namesIt);
+#endif
 		if (idx >= 0) {
 			m_importFormatHeaders[idx] = *headersIt;
 			m_importFormatTracks[idx] = *tracksIt;
@@ -254,7 +259,11 @@ void ImportConfig::readFromConfig(
 			 expNamesIt != expNames.end() && expHeadersIt != expHeaders.end() &&
 				 expTracksIt != expTracks.end() && expTrailersIt != expTrailers.end();
 			 ++expNamesIt, ++expHeadersIt, ++expTracksIt, ++expTrailersIt) {
+#if QT_VERSION >= 0x040000
+		int idx = m_exportFormatNames.indexOf(*expNamesIt);
+#else
 		int idx = m_exportFormatNames.findIndex(*expNamesIt);
+#endif
 		if (idx >= 0) {
 			m_exportFormatHeaders[idx] = *expHeadersIt;
 			m_exportFormatTracks[idx] = *expTracksIt;

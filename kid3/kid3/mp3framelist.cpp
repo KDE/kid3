@@ -23,7 +23,7 @@
 #include <qinputdialog.h>
 #include <qfiledialog.h>
 #if QT_VERSION >= 0x040000
-#include <Q3ListBox>
+#include <QListWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -267,11 +267,10 @@ class BinFieldControl : public Mp3FieldControl {
  * @param name   internal name or 0
  * @param fld    ID3_Field containing binary data
  */
-BinaryOpenSave::BinaryOpenSave(QWidget* parent, const char* name,
-			       ID3_Field* fld) :
-	QWidget(parent, name), m_isChanged(false)
+BinaryOpenSave::BinaryOpenSave(QWidget* parent, ID3_Field* fld) :
+	QWidget(parent), m_isChanged(false)
 {
-	m_byteArray.duplicate(
+	QCM_duplicate(m_byteArray,
 		(const char *)fld->GetRawBinary(), (unsigned int)fld->Size());
 	m_layout = new QHBoxLayout(this);
 	m_label = new QLabel(this);
@@ -299,8 +298,7 @@ void BinaryOpenSave::loadData()
 	QString loadfilename = KFileDialog::getOpenFileName(
 		QString::null, QString::null, this);
 #else
-	QString loadfilename = QFileDialog::getOpenFileName(
-		QString::null, QString::null, this);
+	QString loadfilename = QFileDialog::QCM_getOpenFileName(this);
 #endif
 	if (!loadfilename.isEmpty()) {
 		QFile file(loadfilename);
@@ -309,8 +307,8 @@ void BinaryOpenSave::loadData()
 			char* data = new char[size];
 			if (data) {
 				QDataStream stream(&file);
-				stream.readRawBytes(data, size);
-				m_byteArray.duplicate(data, size);
+				stream.QCM_readRawData(data, size);
+				QCM_duplicate(m_byteArray, data, size);
 				m_isChanged = true;
 				delete [] data;
 			}
@@ -328,14 +326,13 @@ void BinaryOpenSave::saveData()
 	QString fn = KFileDialog::getSaveFileName(QString::null, QString::null,
 																						this);
 #else
-	QString fn = QFileDialog::getSaveFileName(QString::null, QString::null,
-																						this);
+	QString fn = QFileDialog::QCM_getSaveFileName(this);
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QCM_WriteOnly)) {
 			QDataStream stream(&file);
-			stream.writeRawBytes(m_byteArray.data(), m_byteArray.size());
+			stream.QCM_writeRawData(m_byteArray.data(), m_byteArray.size());
 			file.close();
 		}
 	}
@@ -348,7 +345,7 @@ void BinaryOpenSave::viewData()
 {
 	QImage image;
 	if (image.loadFromData(m_byteArray)) {
-		ImageViewer iv(this, 0, &image);
+		ImageViewer iv(this, &image);
 		iv.exec();
 	}
 }
@@ -434,7 +431,7 @@ QWidget* TextFieldControl::createWidget(QWidget* parent)
  */
 void LineFieldControl::updateTag()
 {
-	m_field->Set(m_edit->text().latin1());
+	m_field->Set(m_edit->text().QCM_latin1());
 }
 
 /**
@@ -497,7 +494,7 @@ void IntComboBoxControl::updateTag()
  */
 QWidget* IntComboBoxControl::createWidget(QWidget* parent)
 {
-	m_ptInp = new LabeledComboBox(parent, 0, m_strLst);
+	m_ptInp = new LabeledComboBox(parent, m_strLst);
 	if (m_ptInp) {
 		m_ptInp->setLabel(i18n(getFieldIDString(m_fieldId)));
 		m_ptInp->setCurrentItem(m_field->Get());
@@ -524,7 +521,7 @@ void BinFieldControl::updateTag()
  */
 QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
-	m_bos = new BinaryOpenSave(parent, 0, m_field);
+	m_bos = new BinaryOpenSave(parent, m_field);
 	if (m_bos) {
 		m_bos->setLabel(i18n(getFieldIDString(m_fieldId)));
 	}
@@ -536,7 +533,7 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
 class EditMp3FrameDialog : public KDialogBase { /* KDE */
 public:
 	EditMp3FrameDialog(QWidget* parent, QString& caption,
-			Q3PtrList<FieldControl> &ctls);
+			FieldControlList &ctls);
 };
 
 /**
@@ -547,7 +544,7 @@ public:
  * @param ctls    list with controls to edit fields
  */
 EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
- Q3PtrList<FieldControl> &ctls) :
+ FieldControlList &ctls) :
 	KDialogBase(parent, "edit_frame", true, caption, Ok|Cancel, Ok)
 {
 	QWidget* page = new QWidget(this);
@@ -557,17 +554,21 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
 		if (vb) {
 			vb->setSpacing(6);
 			vb->setMargin(6);
+#if QT_VERSION >= 0x040000
+			QListIterator<FieldControl*> it(ctls);
+			while (it.hasNext()) {
+				vb->addWidget(it.next()->createWidget(page));
+			}
+#else
 			FieldControl* fld_ctl = ctls.first();
 			while (fld_ctl != NULL) {
 				vb->addWidget(fld_ctl->createWidget(page));
 				fld_ctl = ctls.next();
 			}
+#endif
 		}
 	}
-#if QT_VERSION < 0x040000
-	// the widget is not painted correctly after resizing in Qt4
 	resize(fontMetrics().maxWidth() * 30, -1);
-#endif
 }
 
 #else
@@ -576,7 +577,7 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
 class EditMp3FrameDialog : public QDialog {
 public:
 	EditMp3FrameDialog(QWidget* parent, QString& caption,
-			Q3PtrList<FieldControl> &ctls);
+			FieldControlList &ctls);
 protected:
 	QVBoxLayout* m_vlayout;      /**< vertical layout */
 	QHBoxLayout* m_hlayout;      /**< horizontal layout */
@@ -593,21 +594,29 @@ protected:
  * @param ctls    list with controls to edit fields
  */
 EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
- Q3PtrList<FieldControl> &ctls) :
-	QDialog(parent, "edit_frame", true)
+ FieldControlList &ctls) :
+	QDialog(parent)
 {
-	setCaption(caption);
+	setModal(true);
+	QCM_setWindowTitle(caption);
 	m_vlayout = new QVBoxLayout(this);
 	if (m_vlayout) {
 		m_vlayout->setSpacing(6);
 		m_vlayout->setMargin(6);
+#if QT_VERSION >= 0x040000
+		QListIterator<FieldControl*> it(ctls);
+		while (it.hasNext()) {
+			m_vlayout->addWidget(it.next()->createWidget(this));
+		}
+#else
 		FieldControl* fld_ctl = ctls.first();
 		while (fld_ctl != NULL) {
 			m_vlayout->addWidget(fld_ctl->createWidget(this));
 			fld_ctl = ctls.next();
 		}
+#endif
 	}
-	m_hlayout = new QHBoxLayout(m_vlayout);
+	m_hlayout = new QHBoxLayout;
 	QSpacerItem* m_hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 					   QSizePolicy::Minimum);
 	m_okButton = new QPushButton(i18n("&OK"), this);
@@ -619,11 +628,9 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
 		m_okButton->setDefault(true);
 		connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+		m_vlayout->addLayout(m_hlayout);
 	}
-#if QT_VERSION < 0x040000
-	// the widget is not painted correctly after resizing in Qt4
 	resize(fontMetrics().maxWidth() * 30, -1);
-#endif
 }
 #endif
 
@@ -633,7 +640,9 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
 Mp3FrameList::Mp3FrameList() : m_tags(0), m_selectedEnc(ID3TE_NONE),
 															 m_copyFrame(0)
 {
+#if QT_VERSION < 0x040000
 	m_fieldcontrols.setAutoDelete(true);
+#endif
 }
 
 /**
@@ -644,6 +653,10 @@ Mp3FrameList::~Mp3FrameList()
 	if (m_copyFrame) {
 		delete m_copyFrame;
 	}
+#if QT_VERSION >= 0x040000
+	qDeleteAll(m_fieldcontrols);
+	m_fieldcontrols.clear();
+#endif
 }
 
 /**
@@ -668,7 +681,11 @@ void Mp3FrameList::readTags()
 #else
 		delete iter;
 #endif
+#if QT_VERSION >= 0x040000
+		s_listbox->sortItems();
+#else
 		s_listbox->sort();
+#endif
 	}
 }
 
@@ -748,7 +765,11 @@ ID3_Frame* Mp3FrameList::getSelectedFrame(int* lbIndex) const
 #endif
 	}
 	if (lbIndex) {
+#if QT_VERSION >= 0x040000
+		*lbIndex = s_listbox->currentRow();
+#else
 		*lbIndex = s_listbox->currentItem();
+#endif
 	}
 	return frame;
 }
@@ -892,18 +913,28 @@ bool Mp3FrameList::editFrame(ID3_Frame* frame)
 	EditMp3FrameDialog* dialog =
 		new EditMp3FrameDialog(NULL, caption, m_fieldcontrols);
 	if (dialog && dialog->exec() == QDialog::Accepted) {
-		FieldControl* fld_ctl = m_fieldcontrols.first();
 		// will be set if there is an encoding selector
 		setSelectedEncoding(ID3TE_NONE);
+#if QT_VERSION >= 0x040000
+		QListIterator<FieldControl*> it(m_fieldcontrols);
+		while (it.hasNext()) {
+			it.next()->updateTag();
+		}
+#else
+		FieldControl* fld_ctl = m_fieldcontrols.first();
 		while (fld_ctl != NULL) {
 			fld_ctl->updateTag();
 			fld_ctl = m_fieldcontrols.next();
 		}
+#endif
 		if (m_file) {
 			m_file->markTag2Changed();
 		}
 		result = true;
 	}
+#if QT_VERSION >= 0x040000
+	qDeleteAll(m_fieldcontrols);
+#endif
 	m_fieldcontrols.clear();
 	return result;
 }
@@ -940,9 +971,14 @@ bool Mp3FrameList::deleteFrame()
 			if (selectedIndex >= 0) {
 				const int lastIndex = s_listbox->count() - 1;
 				if (lastIndex >= 0) {
+#if QT_VERSION >= 0x040000
+					s_listbox->setCurrentRow(
+						selectedIndex <= lastIndex ? selectedIndex : lastIndex);
+#else
 					s_listbox->setSelected(
 						selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
 					s_listbox->ensureCurrentVisible();
+#endif
 				}
 			}
 		}
@@ -983,7 +1019,9 @@ bool Mp3FrameList::addFrame(int frameId, bool edit)
 			const int lastIndex = s_listbox->count() - 1;
 			if (lastIndex >= 0) {
 				setSelectedId(lastIndex);
+#if QT_VERSION < 0x040000
 				s_listbox->ensureCurrentVisible();
+#endif
 			}
 			if (m_file) {
 				m_file->markTag2Changed();
@@ -1182,20 +1220,27 @@ int Mp3FrameList::selectFrameId()
 	for (i = 0; i < NumFrameIds; i++) {
 		lst.append(i18n(s_frameIdStr[i]));
 	}
-	QString res = QInputDialog::getItem(
-		i18n("Add Frame"),
-		i18n("Select the frame ID")
 #if QT_VERSION >= 0x040000
-		// the dialog is too small in Qt4
-		+ "                                     "
-#endif
-		, lst, 0, false, &ok);
+	QString res = QInputDialog::getItem(
+		0, i18n("Add Frame"),
+		i18n("Select the frame ID") + "                                     ",
+		lst, 0, false, &ok);
+	if (ok) {
+		int idx = lst.indexOf(res);
+		if (idx >= 0 && idx < NumFrameIds) {
+			return s_frameIdCode[idx];
+		}
+	}
+#else
+	QString res = QInputDialog::getItem(
+		i18n("Add Frame"), i18n("Select the frame ID"), lst, 0, false, &ok);
 	if (ok) {
 		int idx = lst.findIndex(res);
 		if (idx >= 0 && idx < NumFrameIds) {
 			return s_frameIdCode[idx];
 		}
 	}
+#endif
 	return -1;
 }
 

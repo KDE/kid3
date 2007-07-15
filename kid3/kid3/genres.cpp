@@ -376,7 +376,7 @@ int Genres::getNumber(const QString& str)
 	}
 	QMap<QString, int>::const_iterator it = strNumMap.find(str);
 	if (it != strNumMap.end()) {
-		return it.data();
+		return *it;
 	}
 	return 255; // 255 for unknown
 }

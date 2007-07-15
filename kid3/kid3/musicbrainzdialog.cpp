@@ -20,8 +20,8 @@
 #include <qstatusbar.h>
 #include <qfileinfo.h>
 #if QT_VERSION >= 0x040000
-#include <q3hbox.h>
-#include <q3table.h>
+#include <QTableWidget>
+#include <QHeaderView>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #else
@@ -40,20 +40,23 @@
  */
 MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 																		 ImportTrackDataVector& trackDataVector)
-	: QDialog(parent, "musicbrainz", true), m_statusBar(0),
+	: QDialog(parent), m_statusBar(0),
 		m_timer(0), m_client(0), m_trackDataVector(trackDataVector)
 {
-	setCaption(i18n("MusicBrainz"));
+	setModal(true);
+	QCM_setWindowTitle(i18n("MusicBrainz"));
 
-	QVBoxLayout* vlayout = new QVBoxLayout(this, 6, 6);
+	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
-		return ;
+		return;
 	}
-
-	QHBoxLayout* serverLayout = new QHBoxLayout(vlayout);
+	vlayout->setMargin(6);
+	vlayout->setSpacing(6);
+	QHBoxLayout* serverLayout = new QHBoxLayout;
 	QLabel* serverLabel = new QLabel(i18n("&Server:"), this);
-	m_serverComboBox = new QComboBox(true, this);
+	m_serverComboBox = new QComboBox(this);
 	if (serverLayout && serverLabel && m_serverComboBox) {
+		m_serverComboBox->setEditable(true);
 		static const char* serverList[] = {
 			"musicbrainz.org:80",
 			"de.musicbrainz.org:80",
@@ -72,15 +75,36 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 		serverLayout->addWidget(m_serverComboBox);
 		connect(m_serverComboBox, SIGNAL(activated(int)),
 						this, SLOT(setClientConfig()));
+		vlayout->addLayout(serverLayout);
 	}
-	m_albumTable = new Q3Table(this, "albumTable");
+#if QT_VERSION >= 0x040000
+	m_albumTable = new QTableWidget(this);
+	if (m_albumTable) {
+		m_albumTable->setColumnCount(2);
+		m_albumTable->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+		m_albumTable->setSelectionMode(QAbstractItemView::NoSelection);
+		m_albumTable->setHorizontalHeaderLabels(
+			QStringList() <<
+			"08 A Not So Short Title/Medium Sized Artist - And The Album Title [2005]" <<
+			"A Not So Short State");
+		m_albumTable->resizeColumnToContents(0);
+		m_albumTable->resizeColumnToContents(1);
+		m_albumTable->setHorizontalHeaderLabels(
+			QStringList() <<
+			i18n("Track Title/Artist - Album") <<
+			i18n("State"));
+		initTable();
+		vlayout->addWidget(m_albumTable);
+	}
+#else
+	m_albumTable = new QTable(this, "albumTable");
 	if (m_albumTable) {
 		m_albumTable->setNumCols(2);
 		m_albumTable->setColumnReadOnly(1, true);
-		m_albumTable->setFocusStyle(Q3Table::FollowStyle);
+		m_albumTable->setFocusStyle(QTable::FollowStyle);
 		m_albumTable->setColumnStretchable(0, true);
-		m_albumTable->setSelectionMode(Q3Table::NoSelection);
-		Q3Header* hHeader = m_albumTable->horizontalHeader();
+		m_albumTable->setSelectionMode(QTable::NoSelection);
+		QHeader* hHeader = m_albumTable->horizontalHeader();
 		hHeader->setLabel(0, "08 A Not So Short Title/Medium Sized Artist - And The Album Title [2005]");
 		hHeader->setLabel(1, "A Not So Short State");
 		m_albumTable->adjustColumn(0);
@@ -90,8 +114,9 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 		initTable();
 		vlayout->addWidget(m_albumTable);
 	}
+#endif
 
-	QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
@@ -117,14 +142,20 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
+		vlayout->addLayout(hlayout);
 	}
 
 	m_statusBar = new QStatusBar(this);
 	if (m_statusBar) {
 		vlayout->addWidget(m_statusBar);
 		if (m_albumTable) {
+#if QT_VERSION >= 0x040000
+			connect(m_albumTable, SIGNAL(currentCellChanged(int, int, int, int)),
+							this, SLOT(showFilenameInStatusBar(int)));
+#else
 			connect(m_albumTable, SIGNAL(currentChanged(int, int)),
 							this, SLOT(showFilenameInStatusBar(int)));
+#endif
 		}
 	}
 }
@@ -147,13 +178,43 @@ void MusicBrainzDialog::initTable()
 
 	unsigned numRows = m_trackDataVector.size();
 	m_trackResults.resize(numRows);
+#if QT_VERSION >= 0x040000
+	m_albumTable->setRowCount(numRows);
+	for (unsigned i = 0; i < numRows; ++i) {
+		QTableWidgetItem* twi;
+		QComboBox* combo;
+		if ((twi = m_albumTable->item(i, 0)) == 0) {
+			twi = new QTableWidgetItem;
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_albumTable->setItem(i, 0, twi);
+			combo = new QComboBox;
+			m_albumTable->setCellWidget(i, 0, combo);
+		} else {
+			combo = dynamic_cast<QComboBox*>(m_albumTable->cellWidget(i, 0));
+		}
+		if (combo) {
+			combo->clear();
+			combo->addItem(i18n("No result"));
+			combo->addItem(i18n("Unknown"));
+		}
+
+		if ((twi = m_albumTable->item(i, 1)) != 0) {
+			twi->setText(i18n("Unknown"));
+		} else {
+			twi = new QTableWidgetItem(i18n("Unknown"));
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_albumTable->setItem(i, 1, twi);
+		}
+	}
+#else
 	m_albumTable->setNumRows(numRows);
 	for (unsigned i = 0; i < numRows; ++i) {
-		Q3ComboTableItem* cti = new Q3ComboTableItem(
+		QComboTableItem* cti = new QComboTableItem(
 			m_albumTable, QStringList(i18n("No result")));
 		m_albumTable->setItem(i, 0, cti);
 		m_albumTable->setText(i, 1, i18n("Unknown"));
 	}
+#endif
 	showFilenameInStatusBar(m_albumTable->currentRow());
 }
 
@@ -251,10 +312,20 @@ void MusicBrainzDialog::apply()
 	bool newTrackData = false;
 	unsigned numRows = m_trackDataVector.size();
 	for (unsigned index = 0; index < numRows; ++index) {
-		Q3ComboTableItem* item =
-			dynamic_cast<Q3ComboTableItem*>(m_albumTable->item(index, 0));
+#if QT_VERSION >= 0x040000
+		QTableWidgetItem* item = m_albumTable->item(index, 0);
+		if (item) {
+			QComboBox* combo = dynamic_cast<QComboBox*>(m_albumTable->cellWidget(index, 0));
+			int selectedItem = -1;
+			if (combo) {
+				selectedItem = combo->currentIndex();
+			}
+#else
+		QComboTableItem* item =
+			dynamic_cast<QComboTableItem*>(m_albumTable->item(index, 0));
 		if (item) {
 			int selectedItem = item->currentItem();
+#endif
 			if (selectedItem > 0) {
 				const ImportTrackData& selectedData =
 					m_trackResults[index][selectedItem - 1];
@@ -302,7 +373,18 @@ void MusicBrainzDialog::timerDone()
  */
 void MusicBrainzDialog::setFileStatus(int index, QString status)
 {
+#if QT_VERSION >= 0x040000
+	QTableWidgetItem* twi = m_albumTable->item(index, 1);
+	if (twi) {
+		twi->setText(status);
+	} else {
+		twi = new QTableWidgetItem(status);
+		twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+		m_albumTable->setItem(index, 1, twi);
+	}
+#else
 	m_albumTable->setText(index, 1, status);
+#endif
 }
 
 /**
@@ -331,8 +413,22 @@ void MusicBrainzDialog::updateFileTrackData(int index)
 		}
 		stringList.push_back(str);
 	}
-	Q3ComboTableItem* item =
-		dynamic_cast<Q3ComboTableItem*>(m_albumTable->item(index, 0));
+#if QT_VERSION >= 0x040000
+	QTableWidgetItem* item = m_albumTable->item(index, 0);
+	if (item) {
+		QComboBox* combo = dynamic_cast<QComboBox*>(m_albumTable->cellWidget(index, 0));
+		if (combo) {
+			combo->clear();
+			combo->addItems(stringList);
+			// if there is only one result, select it, else let the user select
+			if (numResults == 1) {
+				combo->setCurrentIndex(1);
+			}
+		}
+	}
+#else
+	QComboTableItem* item =
+		dynamic_cast<QComboTableItem*>(m_albumTable->item(index, 0));
 	if (item) {
 		item->setStringList(stringList);
 		// if there is only one result, select it, else let the user select
@@ -340,6 +436,7 @@ void MusicBrainzDialog::updateFileTrackData(int index)
 			item->setCurrentItem(1);
 		}
 	}
+#endif
 }
 
 /**
@@ -395,7 +492,17 @@ QString MusicBrainzDialog::getServer() const
  */
 void MusicBrainzDialog::setServer(const QString& srv)
 {
+#if QT_VERSION >= 0x040000
+	int idx = m_serverComboBox->findText(srv);
+	if (idx >= 0) {
+		m_serverComboBox->setCurrentIndex(idx);
+	} else {
+		m_serverComboBox->addItem(srv);
+		m_serverComboBox->setCurrentIndex(m_serverComboBox->count() - 1);
+	}
+#else
 	m_serverComboBox->setCurrentText(srv);
+#endif
 }
 
 /**
@@ -425,9 +532,9 @@ void MusicBrainzDialog::showFilenameInStatusBar(int row)
 		unsigned numRows = m_trackDataVector.size();
 		if (row >= 0 && row < static_cast<int>(numRows)) {
 			QFileInfo fi(m_trackDataVector[row].getAbsFilename());
-			m_statusBar->message(fi.fileName());
+			m_statusBar->QCM_showMessage(fi.fileName());
 		} else {
-			m_statusBar->clear();
+			m_statusBar->QCM_clearMessage();
 		}
 	}
 }

@@ -23,13 +23,6 @@
 #include "framelist.h"
 #include "taglibfile.h"
 
-#include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
-#include <Q3PtrList>
-#else
-#include <qptrlist.h>
-#endif
-
 class QHBoxLayout;
 class QLabel;
 class IntComboBoxControl;
@@ -80,11 +73,10 @@ class TagLibBinaryOpenSave : public QWidget {
 	 *
 	 * @param byteArray  array with binary data
 	 * @param parent     parent widget
-	 * @param name       internal name or 0
 	 * @param viewButton true to display View button
 	 */
 	TagLibBinaryOpenSave(QByteArray& byteArray, QWidget* parent,
-											 const char* name = 0, bool viewButton = false);
+											 bool viewButton = false);
 
 	/**
 	 * Set label.
@@ -385,7 +377,7 @@ protected:
 	TagLib::Tag* m_tag;            /**< tags of current file */
 	QString m_selectedName;        /**< the type of the frame to add */
 	/** List with controls to edit fields in frame */
-	Q3PtrList<FieldControl> m_fieldcontrols; 
+	FieldControlList m_fieldcontrols; 
 	TagLib::ByteVector m_copyData; /**< data used by copyFrame(), pasteFrame */
 	TagLib::String m_copyKey;      /**< key used by copyFrame(), pasteFrame */
 	TagLib::String m_copyValue;    /**< value used by copyFrame(), pasteFrame */

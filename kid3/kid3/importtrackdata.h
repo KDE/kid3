@@ -14,7 +14,7 @@
 #include <qglobal.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ValueVector>
+#include <QVector>
 #else
 #include <qvaluevector.h>
 #endif
@@ -103,7 +103,13 @@ private:
 /**
  * Vector containing tracks to import and artist, album names.
  */
-class ImportTrackDataVector : public Q3ValueVector<ImportTrackData> {
+class ImportTrackDataVector : public
+#if QT_VERSION >= 0x040000
+QVector<ImportTrackData>
+#else
+QValueVector<ImportTrackData>
+#endif
+{
 public:
 	QString m_artist; /**< album artist */
 	QString m_album;  /**< album name */

@@ -15,7 +15,7 @@ unix {
 CONFIG += release
 win32:RC_FILE = ../kid3win.rc
 TEMPLATE = app
-QT = core gui network xml qt3support
+QT = core gui network xml
 LIBS += $$CFG_LIBS
 CONFIG += $$CFG_CONFIG
 PRECOMPILED_HEADER = $$CFG_PRECOMPILED_HEADER

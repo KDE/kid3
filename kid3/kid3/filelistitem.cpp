@@ -275,7 +275,12 @@ static const char* folder_open_xpm[]={
  */
 FileListItem::FileListItem(FileList* parent, FileListItem* after,
 													 TaggedFile* file) :
-	Q3ListViewItem(parent, after), m_file(file), m_dirInfo(0)
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem(parent, after),
+#else
+	QListViewItem(parent, after),
+#endif
+	m_file(file), m_dirInfo(0)
 {
 	init();
 }
@@ -289,7 +294,12 @@ FileListItem::FileListItem(FileList* parent, FileListItem* after,
  */
 FileListItem::FileListItem(FileListItem* parent, FileListItem* after,
 													 TaggedFile* file) :
-	Q3ListViewItem(parent, after), m_file(file), m_dirInfo(0)
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem(parent, after), m_isOpen(false),
+#else
+	QListViewItem(parent, after),
+#endif
+	m_file(file), m_dirInfo(0)
 {
 	init();
 }
@@ -345,6 +355,27 @@ FileListItem::~FileListItem()
 	delete m_dirInfo;
 }
 
+#if QT_VERSION >= 0x040000
+/**
+ * Opens or closes an item.
+ *
+ * @param o true to open
+ */
+void FileListItem::setOpen(bool o)
+{
+	if (m_dirInfo) {
+		m_isOpen = o;
+		setIcon(0, o ? *folderOpenPixmap : *folderClosedPixmap);
+
+		if (o  && !childCount()) {
+			treeWidget()->setUpdatesEnabled(false);
+			FileList::readSubDirectory(m_dirInfo, this, 0);
+			treeWidget()->setUpdatesEnabled(true);
+		}
+		updateIcons();
+	}
+}
+#else
 /**
  * Paints the contents of one column of an item.
  *
@@ -360,14 +391,10 @@ void FileListItem::paintCell(QPainter* p, const QColorGroup& cg,
 	if (Kid3App::s_miscCfg.m_markTruncations &&
 			column == 0 && m_file && m_file->getTruncationFlags() != 0) {
 		QColorGroup g(cg);
-#if QT_VERSION >= 0x040000
-		g.setColor(QPalette::Window, Qt::red);
-#else
 		g.setColor(QColorGroup::Base, Qt::red);
-#endif
-		Q3ListViewItem::paintCell(p, g, column, width, align);
+		QListViewItem::paintCell(p, g, column, width, align);
 	} else {
-		Q3ListViewItem::paintCell(p, cg, column, width, align);
+		QListViewItem::paintCell(p, cg, column, width, align);
 	}
 }
 
@@ -401,6 +428,7 @@ void FileListItem::setup()
 	}
 	QListViewItem::setup();
 }
+#endif
 
 /**
  * Set tagged file.
@@ -449,7 +477,7 @@ void FileListItem::updateIcons()
 {
 	if (m_file) {
 		if (m_file->isChanged()) {
-			setPixmap(0, *modifiedPixmap);
+			QCM_setIcon(0, *modifiedPixmap);
 		} else {
 			static const QPixmap* tagpm[] = {
 				notagPixmap, v1Pixmap, v2Pixmap, v1v2Pixmap, nullPixmap
@@ -466,8 +494,23 @@ void FileListItem::updateIcons()
 					tagpmIdx |= 2;
 				}
 			}
-			setPixmap(0, *tagpm[tagpmIdx]);
+			QCM_setIcon(0, *tagpm[tagpmIdx]);
 		}
+#if QT_VERSION >= 0x040200
+		if (Kid3App::s_miscCfg.m_markTruncations &&
+				m_file->getTruncationFlags() != 0) {
+			setBackground(0, Qt::red);
+		} else {
+			setBackground(0, Qt::NoBrush);
+		}
+#elif QT_VERSION >= 0x040000
+		if (Kid3App::s_miscCfg.m_markTruncations &&
+				m_file->getTruncationFlags() != 0) {
+			setBackgroundColor(0, Qt::red);
+		} else {
+			setBackgroundColor(0, QColor());
+		}
+#endif
 	}
 }
 
@@ -496,3 +539,16 @@ void FileListItem::setDirName(const QString& dirName)
 		setOpen(false);
 	}
 }
+
+#if QT_VERSION >= 0x040000
+/**
+ * Check if QTreeWidgetItem is selected.
+ *
+ * @return true if selected.
+ */
+bool FileListItem::isSelected() const
+{
+	const QTreeWidget* tree = treeWidget();
+	return tree && tree->isItemSelected(this);
+}
+#endif

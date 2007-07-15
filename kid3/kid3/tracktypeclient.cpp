@@ -52,7 +52,7 @@ void TrackTypeClient::constructFindQuery(
 	int serverPort;
 	splitNamePort(server, serverName, serverPort);
 	what.replace(QRegExp(" +"), " "); // collapse spaces
-	QUrl::encode(what);
+	QCM_QUrl_encode(what);
 	what.replace("%20", "+"); // replace spaces by '+'
 	m_request = "GET ";
 	if (dest != serverName) {

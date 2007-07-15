@@ -14,12 +14,9 @@
 #include <qdir.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3HBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
-#else
-#include <qhbox.h>
 #endif
 
 #include "taggedfile.h"
@@ -37,9 +34,10 @@
  */
 RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
 						   TaggedFile* taggedFile) :
-	QDialog(parent, "rendir", true), m_taggedFile(taggedFile)
+	QDialog(parent), m_taggedFile(taggedFile)
 {
-	setCaption(caption);
+	setModal(true);
+	QCM_setWindowTitle(caption);
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
@@ -48,20 +46,21 @@ RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
 
-	QHBoxLayout* actionLayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* actionLayout = new QHBoxLayout;
 	m_actionComboBox = new QComboBox(this);
 	m_tagversionComboBox = new QComboBox(this);
 	if (m_actionComboBox && m_tagversionComboBox) {
-		m_actionComboBox->insertItem(i18n("Rename Directory"), ActionRename);
-		m_actionComboBox->insertItem(i18n("Create Directory"), ActionCreate);
+		m_actionComboBox->QCM_insertItem(ActionRename, i18n("Rename Directory"));
+		m_actionComboBox->QCM_insertItem(ActionCreate, i18n("Create Directory"));
 		actionLayout->addWidget(m_actionComboBox);
 		connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-		m_tagversionComboBox->insertItem(i18n("From Tag 1"), TagV1);
-		m_tagversionComboBox->insertItem(i18n("From Tag 2"), TagV2);
+		m_tagversionComboBox->QCM_insertItem(TagV1, i18n("From Tag 1"));
+		m_tagversionComboBox->QCM_insertItem(TagV2, i18n("From Tag 2"));
 		actionLayout->addWidget(m_tagversionComboBox);
 		connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+		vlayout->addLayout(actionLayout);
 	}
-	QHBoxLayout* formatLayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* formatLayout = new QHBoxLayout;
 	QLabel* formatLabel = new QLabel(i18n("&Format:"), this);
 	m_formatComboBox = new QComboBox(this);
 	if (formatLayout && formatLabel && m_formatComboBox) {
@@ -71,18 +70,29 @@ RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
 		}
 		m_formatComboBox->QCM_addItems(strList);
 		m_formatComboBox->setEditable(true);
-		m_formatComboBox->setCurrentItem(Kid3App::s_miscCfg.m_dirFormatItem);
+		m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_miscCfg.m_dirFormatItem);
+#if QT_VERSION >= 0x040000
+		m_formatComboBox->setItemText(Kid3App::s_miscCfg.m_dirFormatItem,
+																	Kid3App::s_miscCfg.m_dirFormatText);
+#else
 		m_formatComboBox->setCurrentText(Kid3App::s_miscCfg.m_dirFormatText);
-		m_tagversionComboBox->setCurrentItem(
+#endif
+		m_tagversionComboBox->QCM_setCurrentIndex(
 			Kid3App::s_miscCfg.m_renDirSrcV1 ? TagV1 : TagV2);
 		formatLabel->setBuddy(m_formatComboBox);
 		formatLayout->addWidget(formatLabel);
 		formatLayout->addWidget(m_formatComboBox);
 		connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-		connect(m_formatComboBox, SIGNAL(textChanged(const QString &)), this, SLOT(slotUpdateNewDirname()));
+		connect(m_formatComboBox, QCM_SIGNAL_editTextChanged, this, SLOT(slotUpdateNewDirname()));
+		vlayout->addLayout(formatLayout);
 	}
 
+#if QT_VERSION >= 0x040000
+	QGridLayout* fromToLayout = new QGridLayout;
+	vlayout->addLayout(fromToLayout);
+#else
 	QGridLayout* fromToLayout = new QGridLayout(vlayout, 2, 2);
+#endif
 	QLabel* fromLabel = new QLabel(i18n("From:"), this);
 	m_currentDirLabel = new QLabel(this);
 	QLabel* toLabel = new QLabel(i18n("To:"), this);
@@ -95,7 +105,7 @@ RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
 		fromToLayout->addWidget(m_newDirLabel, 1, 1);
 	}
 
-	QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
@@ -113,6 +123,7 @@ RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
 		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+		vlayout->addLayout(hlayout);
 	}
 	slotUpdateNewDirname();
 }
@@ -134,7 +145,7 @@ RenDirDialog::~RenDirDialog()
 static QString parentDirectory(const QString& dir)
 {
 	QString parent(dir);
-	int slashPos = parent.findRev('/');
+	int slashPos = parent.QCM_lastIndexOf('/');
 	if (slashPos != -1) {
 		parent.truncate(slashPos + 1);
 	} else {
@@ -252,7 +263,7 @@ QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir
 {
 	StandardTags st;
 	taggedFile->readTags(false);
-	if (m_tagversionComboBox->currentItem() == TagV1) {
+	if (m_tagversionComboBox->QCM_currentIndex() == TagV1) {
 		taggedFile->getStandardTagsV1(&st);
 	} else {
 		taggedFile->getStandardTagsV2(&st);
@@ -265,7 +276,7 @@ QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir
 	if (olddir) {
 		*olddir = newdir;
 	}
-	if (m_actionComboBox->currentItem() == ActionRename) {
+	if (m_actionComboBox->QCM_currentIndex() == ActionRename) {
 		newdir = parentDirectory(newdir);
 	} else if (!newdir.isEmpty()) {
 		newdir.append('/');
@@ -337,7 +348,7 @@ bool RenDirDialog::performAction(TaggedFile* taggedFile, bool& again, QString* e
 				// currentDirname does not end with a separator, so newPart
 				// starts with a separator and the search starts with the
 				// second character.
-				int slashPos = newPart.find('/', 1);
+				int slashPos = newPart.QCM_indexOf('/', 1);
 				if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
 					newPart.truncate(slashPos);
 					// the new part has multiple directories
@@ -361,7 +372,7 @@ bool RenDirDialog::performAction(TaggedFile* taggedFile, bool& again, QString* e
 			QString parent(parentDirectory(currentDirname));
 			if (newDirname.startsWith(parent)) {
 				QString newPart(newDirname.mid(parent.length()));
-				int slashPos = newPart.find('/');
+				int slashPos = newPart.QCM_indexOf('/');
 				if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
 					newPart.truncate(slashPos);
 					// the new part has multiple directories
@@ -402,10 +413,10 @@ bool RenDirDialog::performAction(TaggedFile* taggedFile, bool& again, QString* e
  */
 void RenDirDialog::saveConfig()
 {
-	Kid3App::s_miscCfg.m_dirFormatItem = m_formatComboBox->currentItem();
+	Kid3App::s_miscCfg.m_dirFormatItem = m_formatComboBox->QCM_currentIndex();
 	Kid3App::s_miscCfg.m_dirFormatText = m_formatComboBox->currentText();
 	Kid3App::s_miscCfg.m_renDirSrcV1 =
-		(m_tagversionComboBox->currentItem() == TagV1);
+		(m_tagversionComboBox->QCM_currentIndex() == TagV1);
 }
 
 /**

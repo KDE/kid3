@@ -16,18 +16,13 @@
 #include <qcursor.h>
 #include <qmessagebox.h>
 #include <qpushbutton.h>
+#include <qprogressbar.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ProgressBar>
-#include <Q3GroupBox>
 #include <QCloseEvent>
-#include <Q3ValueList>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <Q3PopupMenu>
-#else
-#include <qprogressbar.h>
-#include <qgroupbox.h>
+#include <QMenu>
 #endif
 
 #ifdef CONFIG_USE_KDE
@@ -82,7 +77,7 @@
 #ifndef CONFIG_USE_KDE
 #include <qdialog.h>
 #include <qtextbrowser.h>
-#include <qtextcodec.h>
+#include <qlocale.h>
 
 /**
  * Help browser.
@@ -111,9 +106,9 @@ private:
 };
 
 BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
-	: QDialog(parent, "browser")
+	: QDialog(parent)
 {
-	setCaption(caption);
+	QCM_setWindowTitle(caption);
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
 		return ;
@@ -121,21 +116,21 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
 
-	QString lang((QString(QTextCodec::locale())).left(2));
+	QString lang(QLocale::system().name().left(2));
 	QStringList docPaths;
 #ifdef CFG_DOCDIR
 	docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
 	docPaths += QString(CFG_DOCDIR) + "/kid3_en.html";
 #endif
-	docPaths += QDir::currentDirPath() + "/kid3_" + lang + ".html";
-	docPaths += QDir::currentDirPath() + "/kid3_en.html";
+	docPaths += QDir::QCM_currentPath() + "/kid3_" + lang + ".html";
+	docPaths += QDir::QCM_currentPath() + "/kid3_en.html";
 	for (QStringList::const_iterator it = docPaths.begin();
 			 it != docPaths.end();
 			 ++it) {
 		m_filename = *it;
 		if (QFile::exists(m_filename)) break;
 	}
-	m_textBrowser = new QTextBrowser(this, "textBrowser");
+	m_textBrowser = new QTextBrowser(this);
 #if QT_VERSION >= 0x040000
 	m_textBrowser->setSource(QUrl::fromLocalFile(m_filename));
 #else
@@ -143,7 +138,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 #endif
 	vlayout->addWidget(m_textBrowser);
 
-	QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	QPushButton* backButton = new QPushButton(i18n("&Back"), this);
@@ -162,6 +157,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 		connect(m_textBrowser, SIGNAL(backwardAvailable(bool)), backButton, SLOT(setEnabled(bool)));
 		connect(m_textBrowser, SIGNAL(forwardAvailable(bool)), forwardButton, SLOT(setEnabled(bool)));
 		connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+		vlayout->addLayout(hlayout);
 	}
 	resize(500, 500);
 }
@@ -217,14 +213,18 @@ Kid3App::Kid3App() :
 #ifdef CONFIG_USE_KDE
 	m_config=kapp->config();
 #else
+#if QT_VERSION >= 0x040000
+	m_config = new Kid3Settings(QSettings::UserScope, "kid3.sourceforge.net", "Kid3");
+#else
 	m_config = new Kid3Settings();
 	m_config->setPath("kid3.sourceforge.net", "Kid3", Kid3Settings::User);
+#endif
 	m_config->beginGroup("/kid3");
 #if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
 	QPixmap icon;
 	if (icon.load(QString(CFG_DATAROOTDIR) +
 								"/icons/hicolor/48x48/apps/kid3-qt.png")) {
-		setIcon(icon);
+		QCM_setWindowIcon(icon);
 	}
 #endif
 #endif
@@ -393,231 +393,239 @@ void Kid3App::initActions()
 #else
 	m_fileOpen = new QAction(this);
 	if (m_fileOpen) {
-		m_fileOpen->setText(i18n("Opens a directory"));
-		m_fileOpen->setMenuText(i18n("&Open..."));
-		m_fileOpen->setAccel(Qt::CTRL + Qt::Key_O);
-		connect(m_fileOpen, SIGNAL(activated()),
+		m_fileOpen->setStatusTip(i18n("Opens a directory"));
+		m_fileOpen->QCM_setMenuText(i18n("&Open..."));
+		m_fileOpen->QCM_setShortcut(Qt::CTRL + Qt::Key_O);
+		connect(m_fileOpen, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileOpen()));
 	}
 	m_fileSave = new QAction(this);
 	if (m_fileSave) {
-		m_fileSave->setText(i18n("Saves the changed files"));
-		m_fileSave->setMenuText(i18n("&Save"));
-		m_fileSave->setAccel(Qt::CTRL + Qt::Key_S);
-		connect(m_fileSave, SIGNAL(activated()),
+		m_fileSave->setStatusTip(i18n("Saves the changed files"));
+		m_fileSave->QCM_setMenuText(i18n("&Save"));
+		m_fileSave->QCM_setShortcut(Qt::CTRL + Qt::Key_S);
+		connect(m_fileSave, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileSave()));
 	}
 	m_fileRevert = new QAction(this);
 	if (m_fileRevert) {
-		m_fileRevert->setText(
+		m_fileRevert->setStatusTip(
 		    i18n("Reverts the changes of all or the selected files"));
-		m_fileRevert->setMenuText(i18n("Re&vert"));
-		connect(m_fileRevert, SIGNAL(activated()),
+		m_fileRevert->QCM_setMenuText(i18n("Re&vert"));
+		connect(m_fileRevert, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileRevert()));
 	}
 	m_fileImport = new QAction(this);
 	if (m_fileImport) {
-		m_fileImport->setText(i18n("Import from file or clipboard"));
-		m_fileImport->setMenuText(i18n("&Import..."));
-		connect(m_fileImport, SIGNAL(activated()),
+		m_fileImport->setStatusTip(i18n("Import from file or clipboard"));
+		m_fileImport->QCM_setMenuText(i18n("&Import..."));
+		connect(m_fileImport, QCM_SIGNAL_triggered,
 			this, SLOT(slotImport()));
 	}
 	m_fileImportFreedb = new QAction(this);
 	if (m_fileImportFreedb) {
-		m_fileImportFreedb->setText(i18n("Import from gnudb.org"));
-		m_fileImportFreedb->setMenuText(i18n("Import from &gnudb.org..."));
-		connect(m_fileImportFreedb, SIGNAL(activated()),
+		m_fileImportFreedb->setStatusTip(i18n("Import from gnudb.org"));
+		m_fileImportFreedb->QCM_setMenuText(i18n("Import from &gnudb.org..."));
+		connect(m_fileImportFreedb, QCM_SIGNAL_triggered,
 			this, SLOT(slotImportFreedb()));
 	}
 	m_fileImportTrackType = new QAction(this);
 	if (m_fileImportTrackType) {
-		m_fileImportTrackType->setText(i18n("Import from TrackType.org"));
-		m_fileImportTrackType->setMenuText(i18n("Import from &TrackType.org..."));
-		connect(m_fileImportTrackType, SIGNAL(activated()),
+		m_fileImportTrackType->setStatusTip(i18n("Import from TrackType.org"));
+		m_fileImportTrackType->QCM_setMenuText(i18n("Import from &TrackType.org..."));
+		connect(m_fileImportTrackType, QCM_SIGNAL_triggered,
 			this, SLOT(slotImportTrackType()));
 	}
 	m_fileImportDiscogs = new QAction(this);
 	if (m_fileImportDiscogs) {
-		m_fileImportDiscogs->setText(i18n("Import from Discogs"));
-		m_fileImportDiscogs->setMenuText(i18n("Import from &Discogs..."));
-		connect(m_fileImportDiscogs, SIGNAL(activated()),
+		m_fileImportDiscogs->setStatusTip(i18n("Import from Discogs"));
+		m_fileImportDiscogs->QCM_setMenuText(i18n("Import from &Discogs..."));
+		connect(m_fileImportDiscogs, QCM_SIGNAL_triggered,
 			this, SLOT(slotImportDiscogs()));
 	}
 	m_fileImportMusicBrainzRelease = new QAction(this);
 	if (m_fileImportMusicBrainzRelease) {
-		m_fileImportMusicBrainzRelease->setText(i18n("Import from MusicBrainz Release"));
-		m_fileImportMusicBrainzRelease->setMenuText(i18n("Import from MusicBrainz &Release..."));
-		connect(m_fileImportMusicBrainzRelease, SIGNAL(activated()),
+		m_fileImportMusicBrainzRelease->setStatusTip(i18n("Import from MusicBrainz Release"));
+		m_fileImportMusicBrainzRelease->QCM_setMenuText(i18n("Import from MusicBrainz &Release..."));
+		connect(m_fileImportMusicBrainzRelease, QCM_SIGNAL_triggered,
 			this, SLOT(slotImportMusicBrainzRelease()));
 	}
 #ifdef HAVE_TUNEPIMP
 	m_fileImportMusicBrainz = new QAction(this);
 	if (m_fileImportMusicBrainz) {
-		m_fileImportMusicBrainz->setText(i18n("Import from MusicBrainz Fingerprint"));
-		m_fileImportMusicBrainz->setMenuText(i18n("Import from &MusicBrainz Fingerprint..."));
-		connect(m_fileImportMusicBrainz, SIGNAL(activated()),
+		m_fileImportMusicBrainz->setStatusTip(i18n("Import from MusicBrainz Fingerprint"));
+		m_fileImportMusicBrainz->QCM_setMenuText(i18n("Import from &MusicBrainz Fingerprint..."));
+		connect(m_fileImportMusicBrainz, QCM_SIGNAL_triggered,
 			this, SLOT(slotImportMusicBrainz()));
 	}
 #endif
 	m_fileExport = new QAction(this);
 	if (m_fileExport) {
-		m_fileExport->setText(i18n("Export to file or clipboard"));
-		m_fileExport->setMenuText(i18n("&Export..."));
-		connect(m_fileExport, SIGNAL(activated()),
+		m_fileExport->setStatusTip(i18n("Export to file or clipboard"));
+		m_fileExport->QCM_setMenuText(i18n("&Export..."));
+		connect(m_fileExport, QCM_SIGNAL_triggered,
 			this, SLOT(slotExport()));
 	}
 	m_fileCreatePlaylist = new QAction(this);
 	if (m_fileCreatePlaylist) {
-		m_fileCreatePlaylist->setText(i18n("Create M3U Playlist"));
-		m_fileCreatePlaylist->setMenuText(i18n("&Create Playlist"));
-		connect(m_fileCreatePlaylist, SIGNAL(activated()),
+		m_fileCreatePlaylist->setStatusTip(i18n("Create M3U Playlist"));
+		m_fileCreatePlaylist->QCM_setMenuText(i18n("&Create Playlist"));
+		connect(m_fileCreatePlaylist, QCM_SIGNAL_triggered,
 			this, SLOT(slotCreatePlaylist()));
 	}
 	m_fileQuit = new QAction(this);
 	if (m_fileQuit) {
-		m_fileQuit->setText(i18n("Quits the application"));
-		m_fileQuit->setMenuText(i18n("&Quit"));
-		m_fileQuit->setAccel(Qt::CTRL + Qt::Key_Q);
-		connect(m_fileQuit, SIGNAL(activated()),
+		m_fileQuit->setStatusTip(i18n("Quits the application"));
+		m_fileQuit->QCM_setMenuText(i18n("&Quit"));
+		m_fileQuit->QCM_setShortcut(Qt::CTRL + Qt::Key_Q);
+		connect(m_fileQuit, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileQuit()));
 	}
 	m_helpHandbook = new QAction(this);
 	if (m_helpHandbook) {
-		m_helpHandbook->setText(i18n("Kid3 Handbook"));
-		m_helpHandbook->setMenuText(i18n("Kid3 &Handbook"));
-		connect(m_helpHandbook, SIGNAL(activated()),
+		m_helpHandbook->setStatusTip(i18n("Kid3 Handbook"));
+		m_helpHandbook->QCM_setMenuText(i18n("Kid3 &Handbook"));
+		connect(m_helpHandbook, QCM_SIGNAL_triggered,
 			this, SLOT(slotHelpHandbook()));
 	}
 	m_helpAbout = new QAction(this);
 	if (m_helpAbout) {
-		m_helpAbout->setText(i18n("About Kid3"));
-		m_helpAbout->setMenuText(i18n("&About Kid3"));
-		connect(m_helpAbout, SIGNAL(activated()),
+		m_helpAbout->setStatusTip(i18n("About Kid3"));
+		m_helpAbout->QCM_setMenuText(i18n("&About Kid3"));
+		connect(m_helpAbout, QCM_SIGNAL_triggered,
 			this, SLOT(slotHelpAbout()));
 	}
 	m_helpAboutQt = new QAction(this);
 	if (m_helpAboutQt) {
-		m_helpAboutQt->setText(i18n("About Qt"));
-		m_helpAboutQt->setMenuText(i18n("About &Qt"));
-		connect(m_helpAboutQt, SIGNAL(activated()),
+		m_helpAboutQt->setStatusTip(i18n("About Qt"));
+		m_helpAboutQt->QCM_setMenuText(i18n("About &Qt"));
+		connect(m_helpAboutQt, QCM_SIGNAL_triggered,
 			this, SLOT(slotHelpAboutQt()));
 	}
 	m_toolsApplyFilenameFormat = new QAction(this);
 	if (m_toolsApplyFilenameFormat) {
-		m_toolsApplyFilenameFormat->setText(i18n("Apply Filename Format"));
-		m_toolsApplyFilenameFormat->setMenuText(i18n("Apply &Filename Format"));
-		connect(m_toolsApplyFilenameFormat, SIGNAL(activated()),
+		m_toolsApplyFilenameFormat->setStatusTip(i18n("Apply Filename Format"));
+		m_toolsApplyFilenameFormat->QCM_setMenuText(i18n("Apply &Filename Format"));
+		connect(m_toolsApplyFilenameFormat, QCM_SIGNAL_triggered,
 			this, SLOT(slotApplyFilenameFormat()));
 	}
 	m_toolsApplyId3Format = new QAction(this);
 	if (m_toolsApplyId3Format) {
-		m_toolsApplyId3Format->setText(i18n("Apply Tag Format"));
-		m_toolsApplyId3Format->setMenuText(i18n("Apply &Tag Format"));
-		connect(m_toolsApplyId3Format, SIGNAL(activated()),
+		m_toolsApplyId3Format->setStatusTip(i18n("Apply Tag Format"));
+		m_toolsApplyId3Format->QCM_setMenuText(i18n("Apply &Tag Format"));
+		connect(m_toolsApplyId3Format, QCM_SIGNAL_triggered,
 			this, SLOT(slotApplyId3Format()));
 	}
 	m_toolsRenameDirectory = new QAction(this);
 	if (m_toolsRenameDirectory) {
-		m_toolsRenameDirectory->setText(i18n("Rename Directory"));
-		m_toolsRenameDirectory->setMenuText(i18n("&Rename Directory..."));
-		connect(m_toolsRenameDirectory, SIGNAL(activated()),
+		m_toolsRenameDirectory->setStatusTip(i18n("Rename Directory"));
+		m_toolsRenameDirectory->QCM_setMenuText(i18n("&Rename Directory..."));
+		connect(m_toolsRenameDirectory, QCM_SIGNAL_triggered,
 			this, SLOT(slotRenameDirectory()));
 	}
 	m_toolsNumberTracks = new QAction(this);
 	if (m_toolsNumberTracks) {
-		m_toolsNumberTracks->setText(i18n("Number Tracks"));
-		m_toolsNumberTracks->setMenuText(i18n("&Number Tracks..."));
-		connect(m_toolsNumberTracks, SIGNAL(activated()),
+		m_toolsNumberTracks->setStatusTip(i18n("Number Tracks"));
+		m_toolsNumberTracks->QCM_setMenuText(i18n("&Number Tracks..."));
+		connect(m_toolsNumberTracks, QCM_SIGNAL_triggered,
 			this, SLOT(slotNumberTracks()));
 	}
 #ifdef HAVE_TAGLIB
 	m_toolsConvertToId3v24 = new QAction(this);
 	if (m_toolsConvertToId3v24) {
-		m_toolsConvertToId3v24->setText(i18n("Convert ID3v2.3 to ID3v2.4"));
-		m_toolsConvertToId3v24->setMenuText(i18n("Convert ID3v2.3 to ID3v2.&4"));
-		connect(m_toolsConvertToId3v24, SIGNAL(activated()),
+		m_toolsConvertToId3v24->setStatusTip(i18n("Convert ID3v2.3 to ID3v2.4"));
+		m_toolsConvertToId3v24->QCM_setMenuText(i18n("Convert ID3v2.3 to ID3v2.&4"));
+		connect(m_toolsConvertToId3v24, QCM_SIGNAL_triggered,
 			this, SLOT(slotConvertToId3v24()));
 	}
 #endif
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 	m_toolsConvertToId3v23 = new QAction(this);
 	if (m_toolsConvertToId3v23) {
-		m_toolsConvertToId3v23->setText(i18n("Convert ID3v2.4 to ID3v2.3"));
-		m_toolsConvertToId3v23->setMenuText(i18n("Convert ID3v2.4 to ID3v2.&3"));
-		connect(m_toolsConvertToId3v23, SIGNAL(activated()),
+		m_toolsConvertToId3v23->setStatusTip(i18n("Convert ID3v2.4 to ID3v2.3"));
+		m_toolsConvertToId3v23->QCM_setMenuText(i18n("Convert ID3v2.4 to ID3v2.&3"));
+		connect(m_toolsConvertToId3v23, QCM_SIGNAL_triggered,
 			this, SLOT(slotConvertToId3v23()));
 	}
 #endif
 	m_settingsShowHideV1 = new QAction(this);
 	if (m_settingsShowHideV1) {
-		m_settingsShowHideV1->setText(i18n("Hide Tag 1"));
-		m_settingsShowHideV1->setMenuText(i18n("Hide Tag &1"));
-		connect(m_settingsShowHideV1, SIGNAL(activated()),
+		m_settingsShowHideV1->setStatusTip(i18n("Hide Tag 1"));
+		m_settingsShowHideV1->QCM_setMenuText(i18n("Hide Tag &1"));
+		connect(m_settingsShowHideV1, QCM_SIGNAL_triggered,
 			this, SLOT(slotSettingsShowHideV1()));
 	}
 	m_settingsShowHideV2 = new QAction(this);
 	if (m_settingsShowHideV2) {
-		m_settingsShowHideV2->setText(i18n("Hide Tag 2"));
-		m_settingsShowHideV2->setMenuText(i18n("Hide Tag &2"));
-		connect(m_settingsShowHideV2, SIGNAL(activated()),
+		m_settingsShowHideV2->setStatusTip(i18n("Hide Tag 2"));
+		m_settingsShowHideV2->QCM_setMenuText(i18n("Hide Tag &2"));
+		connect(m_settingsShowHideV2, QCM_SIGNAL_triggered,
 			this, SLOT(slotSettingsShowHideV2()));
 	}
 	m_settingsConfigure = new QAction(this);
 	if (m_settingsConfigure) {
-		m_settingsConfigure->setText(i18n("Configure Kid3"));
-		m_settingsConfigure->setMenuText(i18n("&Configure Kid3..."));
-		connect(m_settingsConfigure, SIGNAL(activated()),
+		m_settingsConfigure->setStatusTip(i18n("Configure Kid3"));
+		m_settingsConfigure->QCM_setMenuText(i18n("&Configure Kid3..."));
+		connect(m_settingsConfigure, QCM_SIGNAL_triggered,
 			this, SLOT(slotSettingsConfigure()));
 	}
+#if QT_VERSION >= 0x040000
+	m_menubar = menuBar();
+	m_fileMenu = m_menubar->addMenu(i18n("&File"));
+	m_toolsMenu = m_menubar->addMenu(i18n("&Tools"));
+	m_settingsMenu = m_menubar->addMenu(i18n("&Settings"));
+	m_helpMenu = m_menubar->addMenu(i18n("&Help"));
+#else
 	m_menubar = new QMenuBar(this);
-	m_fileMenu = new Q3PopupMenu(this);
-	m_toolsMenu = new Q3PopupMenu(this);
-	m_settingsMenu = new Q3PopupMenu(this);
-	m_helpMenu = new Q3PopupMenu(this);
-	if (m_menubar && m_fileMenu && m_toolsMenu && m_settingsMenu && m_helpMenu) {
-		m_fileOpen->addTo(m_fileMenu);
-		m_fileMenu->insertSeparator();
-		m_fileSave->addTo(m_fileMenu);
-		m_fileRevert->addTo(m_fileMenu);
-		m_fileMenu->insertSeparator();
-		m_fileImport->addTo(m_fileMenu);
-		m_fileImportFreedb->addTo(m_fileMenu);
-		m_fileImportTrackType->addTo(m_fileMenu);
-		m_fileImportDiscogs->addTo(m_fileMenu);
-		m_fileImportMusicBrainzRelease->addTo(m_fileMenu);
-#ifdef HAVE_TUNEPIMP
-		m_fileImportMusicBrainz->addTo(m_fileMenu);
+	m_fileMenu = new QPopupMenu(this);
+	m_menubar->insertItem((i18n("&File")), m_fileMenu);
+	m_toolsMenu = new QPopupMenu(this);
+	m_menubar->insertItem((i18n("&Tools")), m_toolsMenu);
+	m_settingsMenu = new QPopupMenu(this);
+	m_menubar->insertItem(i18n("&Settings"), m_settingsMenu);
+	m_helpMenu = new QPopupMenu(this);
+	m_menubar->insertItem(i18n("&Help"), m_helpMenu);
 #endif
-		m_fileExport->addTo(m_fileMenu);
-		m_fileCreatePlaylist->addTo(m_fileMenu);
-		m_fileMenu->insertSeparator();
-		m_fileQuit->addTo(m_fileMenu);
-		m_menubar->insertItem((i18n("&File")), m_fileMenu);
+	if (m_fileMenu && m_toolsMenu && m_settingsMenu && m_helpMenu) {
+		QCM_addAction(m_fileMenu, m_fileOpen);
+		m_fileMenu->QCM_addSeparator();
+		QCM_addAction(m_fileMenu, m_fileSave);
+		QCM_addAction(m_fileMenu, m_fileRevert);
+		m_fileMenu->QCM_addSeparator();
+		QCM_addAction(m_fileMenu, m_fileImport);
+		QCM_addAction(m_fileMenu, m_fileImportFreedb);
+		QCM_addAction(m_fileMenu, m_fileImportTrackType);
+		QCM_addAction(m_fileMenu, m_fileImportDiscogs);
+		QCM_addAction(m_fileMenu, m_fileImportMusicBrainzRelease);
+#ifdef HAVE_TUNEPIMP
+		QCM_addAction(m_fileMenu, m_fileImportMusicBrainz);
+#endif
+		QCM_addAction(m_fileMenu, m_fileExport);
+		QCM_addAction(m_fileMenu, m_fileCreatePlaylist);
+		m_fileMenu->QCM_addSeparator();
+		QCM_addAction(m_fileMenu, m_fileQuit);
 
-		m_toolsApplyFilenameFormat->addTo(m_toolsMenu);
-		m_toolsApplyId3Format->addTo(m_toolsMenu);
-		m_toolsRenameDirectory->addTo(m_toolsMenu);
-		m_toolsNumberTracks->addTo(m_toolsMenu);
+		QCM_addAction(m_toolsMenu, m_toolsApplyFilenameFormat);
+		QCM_addAction(m_toolsMenu, m_toolsApplyId3Format);
+		QCM_addAction(m_toolsMenu, m_toolsRenameDirectory);
+		QCM_addAction(m_toolsMenu, m_toolsNumberTracks);
 #ifdef HAVE_TAGLIB
-		m_toolsConvertToId3v24->addTo(m_toolsMenu);
+		QCM_addAction(m_toolsMenu, m_toolsConvertToId3v24);
 #endif
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
-		m_toolsConvertToId3v23->addTo(m_toolsMenu);
+		QCM_addAction(m_toolsMenu, m_toolsConvertToId3v23);
 #endif
-		m_menubar->insertItem((i18n("&Tools")), m_toolsMenu);
 
-		m_settingsShowHideV1->addTo(m_settingsMenu);
-		m_settingsShowHideV2->addTo(m_settingsMenu);
-		m_settingsMenu->insertSeparator();
-		m_settingsConfigure->addTo(m_settingsMenu);
-		m_menubar->insertItem(i18n("&Settings"), m_settingsMenu);
+		QCM_addAction(m_settingsMenu, m_settingsShowHideV1);
+		QCM_addAction(m_settingsMenu, m_settingsShowHideV2);
+		m_settingsMenu->QCM_addSeparator();
+		QCM_addAction(m_settingsMenu, m_settingsConfigure);
 
-		m_helpHandbook->addTo(m_helpMenu);
-		m_helpAbout->addTo(m_helpMenu);
-		m_helpAboutQt->addTo(m_helpMenu);
-		m_menubar->insertItem(i18n("&Help"), m_helpMenu);
+		QCM_addAction(m_helpMenu, m_helpHandbook);
+		QCM_addAction(m_helpMenu, m_helpAbout);
+		QCM_addAction(m_helpMenu, m_helpAboutQt);
 	}
-	setCaption("Kid3");
+	QCM_setWindowTitle("Kid3");
 #endif
 }
 
@@ -626,7 +634,7 @@ void Kid3App::initActions()
  */
 void Kid3App::initStatusBar()
 {
-	statusBar()->message(i18n("Ready."));
+	statusBar()->QCM_showMessage(i18n("Ready."));
 }
 
 /**
@@ -634,7 +642,7 @@ void Kid3App::initStatusBar()
  */
 void Kid3App::initView()
 { 
-	m_view = new Id3Form(this, "id3Form");
+	m_view = new Id3Form(this);
 	if (m_view) {
 		setCentralWidget(m_view);	
 		m_view->initView();
@@ -659,7 +667,11 @@ void Kid3App::openDirectory(QString dir, bool confirm)
 	}
 	QFileInfo file(dir);
 	if (!file.isDir()) {
+#if QT_VERSION >= 0x040000
+		dir = file.dir().path();
+#else
 		dir = file.dirPath(true);
+#endif
 	}
 
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -671,9 +683,9 @@ void Kid3App::openDirectory(QString dir, bool confirm)
 		KURL url;
 		url.setPath(dir);
 		m_fileOpenRecent->addURL(url);
-		setCaption(dir, false);
+		QCM_setWindowTitle(dir, false);
 #else
-		setCaption(dir + " - Kid3");
+		QCM_setWindowTitle(dir + " - Kid3");
 #endif
 		m_dirName = dir;
 	}
@@ -802,10 +814,17 @@ bool Kid3App::saveDirectory()
 		}
 		mp3file = m_view->nextFile();
 	}
-	Q3ProgressBar* progress = new Q3ProgressBar();
+	QProgressBar* progress = new QProgressBar();
+#if QT_VERSION >= 0x040000
+	statusBar()->addPermanentWidget(progress);
+	progress->setMinimum(0);
+	progress->setMaximum(totalFiles);
+	progress->setValue(numFiles);
+#else
 	statusBar()->addWidget(progress, 0, true);
 	progress->setTotalSteps(totalFiles);
 	progress->setProgress(numFiles);
+#endif
 #ifdef CONFIG_USE_KDE
 	kapp->processEvents();
 #else
@@ -822,7 +841,11 @@ bool Kid3App::saveDirectory()
 		}
 		mp3file = m_view->nextFile();
 		++numFiles;
+#if QT_VERSION >= 0x040000
+		progress->setValue(numFiles);
+#else
 		progress->setProgress(numFiles);
+#endif
 	}
 	statusBar()->removeWidget(progress);
 	delete progress;
@@ -982,7 +1005,7 @@ void Kid3App::slotFileOpen()
 		    QString::null,
 		    flt,
 		    this, "filedialog", true);
-		diag.setCaption(i18n("Open"));
+		diag.QCM_setWindowTitle(i18n("Open"));
 		if (diag.exec() == QDialog::Accepted) {
 			dir = diag.selectedFile();
 			filter = diag.currentFilter();
@@ -1002,12 +1025,17 @@ void Kid3App::slotFileOpen()
 		flt += "MPC (*.mpc *.MPC *.Mpc *.mpC *.mPc *.mPC *.MpC *.MPc);;";
 #endif
 		flt += i18n("All Files (*)");
+#if QT_VERSION >= 0x040000
+		dir = QFileDialog::getOpenFileName(
+			this, QString(), QString(), flt, &filter);
+#else
 		dir = QFileDialog::getOpenFileName(
 		    QString::null, flt,
 		    this, 0, QString::null, &filter);
 #endif
+#endif
 		if (!dir.isEmpty()) {
-			int start = filter.find('('), end = filter.find(')');
+			int start = filter.QCM_indexOf('('), end = filter.QCM_indexOf(')');
 			if (start != -1 && end != -1 && end > start) {
 				filter = filter.mid(start + 1, end - start - 1);
 			}
@@ -1164,7 +1192,7 @@ void Kid3App::displayHelp(const QString& anchor)
 	if (s_helpBrowser) { 
 		s_helpBrowser->goToAnchor(anchor);
 		s_helpBrowser->setModal(!anchor.isEmpty());
-		if (!s_helpBrowser->isShown()) {
+		if (s_helpBrowser->isHidden()) {
 			s_helpBrowser->show();
 		}
 	}
@@ -1205,7 +1233,7 @@ void Kid3App::slotHelpAboutQt()
  */
 void Kid3App::slotStatusMsg(const QString& text)
 {
-	statusBar()->message(text);
+	statusBar()->QCM_showMessage(text);
 	// processEvents() is necessary to make the change of the status bar
 	// visible when it is changed back again in the same function,
 	// i.e. in the same call from the Qt main event loop.
@@ -1224,7 +1252,7 @@ void Kid3App::slotCreatePlaylist()
 	FileListItem* mp3file = m_view->firstFileInDir();
 	if (!(mp3file && mp3file->getFile())) return;
 	QDir dir(mp3file->getFile()->getDirname());
-	QString dirname = dir.absPath();
+	QString dirname = dir.QCM_absolutePath();
 	QString fn = dirname + QDir::separator() + dir.dirName() + ".m3u";
 	QFile file(fn);
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -1464,16 +1492,16 @@ void Kid3App::updateHideV1()
 #ifdef CONFIG_USE_KDE
 		m_settingsShowHideV1->setText(i18n("Show Tag &1"));
 #else
-		m_settingsShowHideV1->setText(i18n("Show Tag 1"));
-		m_settingsShowHideV1->setMenuText(i18n("Show Tag &1"));
+		m_settingsShowHideV1->setStatusTip(i18n("Show Tag 1"));
+		m_settingsShowHideV1->QCM_setMenuText(i18n("Show Tag &1"));
 #endif
 
 	} else {
 #ifdef CONFIG_USE_KDE
 		m_settingsShowHideV1->setText(i18n("Hide Tag &1"));
 #else
-		m_settingsShowHideV1->setText(i18n("Hide Tag 1"));
-		m_settingsShowHideV1->setMenuText(i18n("Hide Tag &1"));
+		m_settingsShowHideV1->setStatusTip(i18n("Hide Tag 1"));
+		m_settingsShowHideV1->QCM_setMenuText(i18n("Hide Tag &1"));
 #endif
 	}
 #if QT_VERSION >= 0x040000
@@ -1492,16 +1520,16 @@ void Kid3App::updateHideV2()
 #ifdef CONFIG_USE_KDE
 		m_settingsShowHideV2->setText(i18n("Show Tag &2"));
 #else
-		m_settingsShowHideV2->setText(i18n("Show Tag 2"));
-		m_settingsShowHideV2->setMenuText(i18n("Show Tag &2"));
+		m_settingsShowHideV2->setStatusTip(i18n("Show Tag 2"));
+		m_settingsShowHideV2->QCM_setMenuText(i18n("Show Tag &2"));
 #endif
 
 	} else {
 #ifdef CONFIG_USE_KDE
 		m_settingsShowHideV2->setText(i18n("Hide Tag &2"));
 #else
-		m_settingsShowHideV2->setText(i18n("Hide Tag 2"));
-		m_settingsShowHideV2->setMenuText(i18n("Hide Tag &2"));
+		m_settingsShowHideV2->setStatusTip(i18n("Hide Tag 2"));
+		m_settingsShowHideV2->QCM_setMenuText(i18n("Hide Tag &2"));
 #endif
 	}
 #if QT_VERSION >= 0x040000
@@ -1794,13 +1822,13 @@ void Kid3App::slotConvertToId3v23()
  */
 void Kid3App::openDrop(QString txt)
 {
-	int lfPos = txt.find('\n');
+	int lfPos = txt.QCM_indexOf('\n');
 	if (lfPos > 0 && lfPos < (int)txt.length() - 1) {
 		txt.truncate(lfPos + 1);
 	}
 	QUrl url(txt);
-	if (url.hasPath()) {
-		QString dir = url.path().stripWhiteSpace();
+	if (!url.path().isEmpty()) {
+		QString dir = url.path().QCM_trimmed();
 #if defined _WIN32 || defined WIN32
 		// There seems to be problems with filenames on Win32,
 		// so correct
@@ -1842,7 +1870,7 @@ void Kid3App::updateModificationState()
 {
 	setModified(m_view->updateModificationState());
 #ifdef CONFIG_USE_KDE
-	setCaption(m_dirName, isModified());
+	QCM_setWindowTitle(m_dirName, isModified());
 #else
 	QString cap(m_dirName);
 	if (isModified()) {
@@ -1852,7 +1880,7 @@ void Kid3App::updateModificationState()
 		cap += " - ";
 	}
 	cap += "Kid3";
-	setCaption(cap);
+	QCM_setWindowTitle(cap);
 #endif
 }
 

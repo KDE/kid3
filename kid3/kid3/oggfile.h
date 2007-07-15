@@ -16,7 +16,7 @@
 #include "taggedfile.h"
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ValueList>
+#include <QList>
 #else
 #include <qvaluelist.h>
 #endif
@@ -271,7 +271,13 @@ protected:
 	};
 
 	/** Vorbis comment list. */
-	class CommentList : public Q3ValueList<CommentField> {
+	class CommentList : public
+#if QT_VERSION >= 0x040000
+	QList<CommentField>
+#else
+	QValueList<CommentField>
+#endif
+	{
 	public:
 		/** Constructor. */
 		CommentList() {}

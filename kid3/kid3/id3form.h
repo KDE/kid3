@@ -22,16 +22,16 @@
 class QCheckBox;
 class QPushButton;
 class QSpinBox;
-class Kid3ScrollView;
 class FormatConfig;
-class Q3VBoxLayout;
 class QGridLayout;
-class Q3GroupBox;
-class Q3ListBox;
-class Q3ListBoxItem;
-class Q3ScrollView;
-class Q3VBox;
-class Q3HBox;
+class QGroupBox;
+#if QT_VERSION >= 0x040000
+class QListWidget;
+class QListWidgetItem;
+#else
+class QListBox;
+class QListBoxItem;
+#endif
 
 /**
  * Main widget.
@@ -45,9 +45,8 @@ public:
 	 * Constructs an Id3Form as a child of 'parent', with the 
 	 * name 'name' and widget flags set to 'f'.
 	 * @param parent parent widget
-	 * @param name   Qt name
 	 */
-	Id3Form(QWidget* parent = 0, const char* name = 0);
+	Id3Form(QWidget* parent = 0);
 
 	/**
 	 * Get filter from ID3v1 check boxes.
@@ -386,7 +385,7 @@ public slots:
 	 * @param item selected item
 	 */
 #if QT_VERSION >= 0x040000
-	void dirSelected(Q3ListBoxItem* item);
+	void dirSelected(QListWidgetItem* item);
 #else
 	void dirSelected(QListBoxItem* item);
 #endif
@@ -460,11 +459,15 @@ private:
 	QLineEdit* m_titleV1LineEdit;
 	QLineEdit* m_titleV2LineEdit;
 	QLabel* m_detailsLabel;
-	Q3ListBox* m_framesListBox;
+#if QT_VERSION >= 0x040000
+	QListWidget* m_framesListBox;
+#else
+	QListBox* m_framesListBox;
+#endif
 	DirList* m_dirListBox;
 	QSplitter* m_vSplitter;
-	Q3GroupBox* m_idV1GroupBox;
-	Q3GroupBox* m_idV2GroupBox;
+	QGroupBox* m_idV1GroupBox;
+	QGroupBox* m_idV2GroupBox;
 	QPushButton* m_fnV1Button;
 	QLineEdit* m_albumV1LineEdit;
 	QLineEdit* m_artistV1LineEdit;
@@ -491,7 +494,7 @@ private:
 	QCheckBox* m_artistV2CheckBox;
 	QCheckBox* m_titleV2CheckBox;
 	QCheckBox* m_albumV2CheckBox;
-	Q3VBox* m_rightHalfVBox;
+	QWidget* m_rightHalfVBox;
 
 private slots:
 	/**

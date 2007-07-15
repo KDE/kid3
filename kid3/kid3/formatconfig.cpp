@@ -12,7 +12,9 @@
 #include <kconfig.h>
 #else
 #include <qstring.h>
+#include <qstringlist.h>
 #endif
+#include "qtcompatmac.h"
 #include "generalconfig.h"
 #include "standardtags.h"
 #include "formatconfig.h"
@@ -69,7 +71,7 @@ void FormatConfig::formatString(QString& str) const
 	int dotPos = -1;
 	if (m_filenameFormatter) {
 		/* Do not format the extension if it is a filename */
-		dotPos = str.findRev('.');
+		dotPos = str.QCM_lastIndexOf('.');
 		if (dotPos != -1) {
 			ext = str.right(str.length() - dotPos);
 			str = str.left(dotPos);
@@ -78,18 +80,18 @@ void FormatConfig::formatString(QString& str) const
 	if (m_caseConversion != NoChanges) {
 		switch (m_caseConversion) {
 			case AllLowercase:
-				str = str.lower();
+				str = str.QCM_toLower();
 				break;
 			case AllUppercase:
-				str = str.upper();
+				str = str.QCM_toUpper();
 				break;
 			case FirstLetterUppercase:
-				str = str.at(0).upper() + str.right(str.length() - 1).lower();
+				str = str.at(0).QCM_toUpper() + str.right(str.length() - 1).QCM_toLower();
 				break;
 			case AllFirstLettersUppercase: {
 				QString newstr;
 				bool wordstart = true;
-				for (uint i = 0; i < str.length(); ++i) {
+				for (unsigned i = 0; i < static_cast<unsigned>(str.length()); ++i) {
 					QChar ch = str.at(i);
 					if (!ch.isLetterOrNumber() &&
 						ch != '\'' && ch != '`') {
@@ -97,9 +99,9 @@ void FormatConfig::formatString(QString& str) const
 						newstr.append(ch);
 					} else if (wordstart) {
 						wordstart = false;
-						newstr.append(ch.upper());
+						newstr.append(ch.QCM_toUpper());
 					} else {
-						newstr.append(ch.lower());
+						newstr.append(ch.QCM_toLower());
 					}
 				}
 				str = newstr;
@@ -113,13 +115,13 @@ void FormatConfig::formatString(QString& str) const
 		QMap<QString, QString>::ConstIterator it;
 		for (it = m_strRepMap.begin(); it != m_strRepMap.end(); ++it) {
 #if QT_VERSION >= 0x030100
-			str.replace(it.key(), it.data());
+			str.replace(it.key(), *it);
 #else
 			QString key(it.key()), data(it.data());
 			int pos = 0, keylen = key.length();
 			int datalen = data.length();
 			while (pos < (int)str.length()) {
-				pos = str.find(key);
+				pos = str.QCM_indexOf(key);
 				if (pos == -1) break;
 				str.replace(pos, keylen, data);
 				pos += datalen;
@@ -168,11 +170,11 @@ void FormatConfig::writeToConfig(
 	config->writeEntry("StrRepMapValues", m_strRepMap.values());
 #else
 	config->beginGroup("/" + m_group);
-	config->writeEntry("/FormatWhileEditing", m_formatWhileEditing);
-	config->writeEntry("/CaseConversion", m_caseConversion);
-	config->writeEntry("/StrRepEnabled", m_strRepEnabled);
-	config->writeEntry("/StrRepMapKeys", m_strRepMap.keys());
-	config->writeEntry("/StrRepMapValues", m_strRepMap.values());
+	config->QCM_writeEntry("/FormatWhileEditing", m_formatWhileEditing);
+	config->QCM_writeEntry("/CaseConversion", m_caseConversion);
+	config->QCM_writeEntry("/StrRepEnabled", m_strRepEnabled);
+	config->QCM_writeEntry("/StrRepMapKeys", m_strRepMap.keys());
+	config->QCM_writeEntry("/StrRepMapValues", m_strRepMap.values());
 	config->endGroup();
 #endif
 }
@@ -209,12 +211,12 @@ void FormatConfig::readFromConfig(
 	}
 #else
 	config->beginGroup("/" + m_group);
-	m_formatWhileEditing = config->readBoolEntry("/FormatWhileEditing", m_formatWhileEditing);
-	m_caseConversion = (CaseConversion)config->readNumEntry("/CaseConversion",
+	m_formatWhileEditing = config->QCM_readBoolEntry("/FormatWhileEditing", m_formatWhileEditing);
+	m_caseConversion = (CaseConversion)config->QCM_readNumEntry("/CaseConversion",
 														  (int)m_caseConversion);
-	m_strRepEnabled = config->readBoolEntry("/StrRepEnabled", m_strRepEnabled);
-	QStringList keys = config->readListEntry("/StrRepMapKeys");
-	QStringList values = config->readListEntry("/StrRepMapValues");
+	m_strRepEnabled = config->QCM_readBoolEntry("/StrRepEnabled", m_strRepEnabled);
+	QStringList keys = config->QCM_readListEntry("/StrRepMapKeys");
+	QStringList values = config->QCM_readListEntry("/StrRepMapValues");
 	if (!keys.empty() && !values.empty()) {
 		QStringList::Iterator itk, itv;
 		m_strRepMap.clear();

@@ -13,7 +13,7 @@
 #include <qpixmap.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ListView>
+#include <QTreeWidget>
 #else
 #include <qlistview.h>
 #endif
@@ -24,7 +24,13 @@ class DirInfo;
 class FileList;
 
 /** List box item containing tagged file */
-class FileListItem : public Q3ListViewItem {
+class FileListItem : public
+#if QT_VERSION >= 0x040000
+QTreeWidgetItem
+#else
+QListViewItem
+#endif
+{
 public:
 	/**
 	 * Constructor.
@@ -49,6 +55,7 @@ public:
 	 */
 	virtual ~FileListItem();
 
+#if QT_VERSION < 0x040000
 	/**
 	 * Paints the contents of one column of an item.
 	 *
@@ -62,16 +69,17 @@ public:
 												 int column, int width, int align);
 
 	/**
+	 * Called before showing the item.
+	 */
+	virtual void setup();
+#endif
+
+	/**
 	 * Opens or closes an item.
 	 *
 	 * @param o true to open
 	 */
 	virtual void setOpen(bool o);
-
-	/**
-	 * Called before showing the item.
-	 */
-	void setup();
 
 	/**
 	 * Get tagged file.
@@ -138,6 +146,21 @@ public:
 	 */
 	bool isInSelection() { return m_selected; }
 
+#if QT_VERSION >= 0x040000
+	/**
+	 * Check if QTreeWidgetItem is selected.
+	 *
+	 * @return true if selected.
+	 */
+	bool isSelected() const;
+
+	/**
+	 * Check if directory is open.
+	 * @return true if open.
+	 */
+	bool isOpen() const { return m_isOpen; }
+#endif
+
 private:
 	FileListItem(const FileListItem&);
 	FileListItem& operator=(const FileListItem&);
@@ -147,6 +170,11 @@ private:
 	 * Common initialization for all constructors.
 	 */
 	void init();
+
+#if QT_VERSION >= 0x040000
+	/** true if directory open. */
+	bool m_isOpen;
+#endif
 
 	/** the tagged file represented by this item */
 	TaggedFile* m_file;

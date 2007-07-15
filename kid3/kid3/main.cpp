@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 #else
 
 #include <qapplication.h>
-#include <qtextcodec.h>
+#include <qlocale.h>
 #include <qtranslator.h>
 
 #include "kid3.h"
@@ -89,27 +89,30 @@ int main(int argc, char* argv[])
 int main(int argc, char* argv[])
 {
 	QApplication app(argc, argv);
+	QString locale(QLocale::system().name());
 
 	// translation file for Qt
 	QTranslator qt_tr(0);
 #ifdef CFG_TRANSLATIONSDIR
-	if (!qt_tr.load(QString("qt_") + QTextCodec::locale(), CFG_TRANSLATIONSDIR))
+	if (!qt_tr.load(QString("qt_") + locale, CFG_TRANSLATIONSDIR))
 #endif
-	qt_tr.load( QString("qt_") + QTextCodec::locale(), "." );
+	qt_tr.load( QString("qt_") + locale, "." );
 	app.installTranslator(&qt_tr);
 
 	// translation file for application strings
 	QTranslator kid3_tr(0);
 #ifdef CFG_TRANSLATIONSDIR
-	if (!kid3_tr.load(QString("kid3_") + QTextCodec::locale(), CFG_TRANSLATIONSDIR))
+	if (!kid3_tr.load(QString("kid3_") + locale, CFG_TRANSLATIONSDIR))
 #endif
-	kid3_tr.load( QString("kid3_") + QTextCodec::locale(), "." );
+	kid3_tr.load( QString("kid3_") + locale, "." );
 	app.installTranslator(&kid3_tr);
 
 	Kid3App* kid3 = new Kid3App();
 	if (kid3) {
 		kid3->show();
+#if QT_VERSION < 0x040000
 		app.setMainWidget(kid3);
+#endif
 		if (argc > 1) {
 			kid3->openDirectory(QFile::decodeName(argv[1]));
 		}

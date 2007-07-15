@@ -16,8 +16,7 @@
 #include <qstring.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ListBox>
-#include <Q3CString>
+#include <QListWidget>
 #else
 #include <qlistbox.h>
 #endif
@@ -26,8 +25,6 @@ class QLineEdit;
 class QComboBox;
 class QPushButton;
 class QCheckBox;
-class Q3ListBox;
-class Q3ListBoxItem;
 class QStatusBar;
 class ImportSourceConfig;
 class ImportSourceClient;
@@ -153,7 +150,7 @@ private slots:
 	 * @param li list box item containing an AlbumListItem
 	 */
 #if QT_VERSION >= 0x040000
-	void requestTrackList(Q3ListBoxItem* li);
+	void requestTrackList(QListWidgetItem* li);
 #else
 	void requestTrackList(QListBoxItem* li);
 #endif
@@ -182,7 +179,11 @@ signals:
 	void trackDataUpdated();
 
 protected:
-	Q3ListBox* m_albumListBox; /**< list box with albums to select */
+#if QT_VERSION >= 0x040000
+	QListWidget* m_albumListBox; /**< list box with albums to select */
+#else
+	QListBox* m_albumListBox; /**< list box with albums to select */
+#endif
 	ImportTrackDataVector& m_trackDataVector; /**< vector with tracks to import */
 
 private:
@@ -203,10 +204,16 @@ private:
 	const Properties& m_props;
 };
 
+#if QT_VERSION >= 0x040000
+typedef QListWidgetItem AlbumListItemBaseClass;
+#else
+typedef QListBoxText AlbumListItemBaseClass;
+#endif
+
 /**
  * QListBoxItem subclass for album list.
  */
-class AlbumListItem : public Q3ListBoxText {
+class AlbumListItem : public AlbumListItemBaseClass {
 public:
 	/**
 	 * Constructor.
@@ -215,9 +222,15 @@ public:
 	 * @param cat     category
 	 * @param idStr   ID
 	 */
-	AlbumListItem(Q3ListBox* listbox, const QString& text,
+#if QT_VERSION >= 0x040000
+	AlbumListItem(QListWidget* listbox, const QString& text,
 				  const QString& cat, const QString& idStr) : 
-		Q3ListBoxText(listbox, text), m_category(cat), m_id(idStr) {}
+		QListWidgetItem(text, listbox), m_category(cat), m_id(idStr) {}
+#else
+	AlbumListItem(QListBox* listbox, const QString& text,
+				  const QString& cat, const QString& idStr) : 
+		QListBoxText(listbox, text), m_category(cat), m_id(idStr) {}
+#endif
 
 	/**
 	 * Get category.

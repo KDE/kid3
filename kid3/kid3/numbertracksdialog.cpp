@@ -32,17 +32,22 @@
  * @param parent parent widget
  */
 NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
-	QDialog(parent, "numbertracks", true)
+	QDialog(parent)
 {
-	setCaption(i18n("Number Tracks"));
+	setModal(true);
+	QCM_setWindowTitle(i18n("Number Tracks"));
 
-	QVBoxLayout* vlayout = new QVBoxLayout(this, 6, 6, "vlayout");
+	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (vlayout) {
-		QHBoxLayout* trackLayout = new QHBoxLayout(vlayout, 6, "trackLayout");
+		vlayout->setMargin(6);
+		vlayout->setSpacing(6);
+		QHBoxLayout* trackLayout = new QHBoxLayout;
 		if (trackLayout) {
-			QLabel* trackLabel = new QLabel(i18n("&Start number:"), this, "trackLabel");
-			m_trackSpinBox = new QSpinBox(0, 999, 1, this, "trackSpinBox");
+			trackLayout->setSpacing(6);
+			QLabel* trackLabel = new QLabel(i18n("&Start number:"), this);
+			m_trackSpinBox = new QSpinBox(this);
 			if (trackLabel && m_trackSpinBox) {
+				m_trackSpinBox->QCM_setMaximum(999);
 				m_trackSpinBox->setValue(1);
 				trackLayout->addWidget(trackLabel);
 				trackLayout->addWidget(m_trackSpinBox);
@@ -52,19 +57,22 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 																								 QSizePolicy::Minimum);
 			trackLayout->addItem(trackSpacer);
 
-			QLabel* destLabel = new QLabel(i18n("&Destination:"), this, "destLabel");
-			m_destComboBox = new QComboBox(false, this, "destComboBox");
+			QLabel* destLabel = new QLabel(i18n("&Destination:"), this);
+			m_destComboBox = new QComboBox(this);
 			if (destLabel && m_destComboBox) {
-				m_destComboBox->insertItem(i18n("Tag 1"), DestV1);
-				m_destComboBox->insertItem(i18n("Tag 2"), DestV2);
+				m_destComboBox->setEditable(false);
+				m_destComboBox->QCM_insertItem(DestV1, i18n("Tag 1"));
+				m_destComboBox->QCM_insertItem(DestV2, i18n("Tag 2"));
 				trackLayout->addWidget(destLabel);
 				trackLayout->addWidget(m_destComboBox);
 				destLabel->setBuddy(m_destComboBox);
 			}
+			vlayout->addLayout(trackLayout);
 		}
 
-		QHBoxLayout* hlayout = new QHBoxLayout(vlayout, 6, "hlayout");
+		QHBoxLayout* hlayout = new QHBoxLayout;
 		if (hlayout) {
+			hlayout->setSpacing(6);
 			QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
 			if (helpButton) {
 				hlayout->addWidget(helpButton);
@@ -84,6 +92,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 				hlayout->addWidget(cancelButton);
 				connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 			}
+			vlayout->addLayout(hlayout);
 		}
 	}
 }
@@ -110,7 +119,7 @@ int NumberTracksDialog::getStartNumber() const
  */
 bool NumberTracksDialog::getDestV1() const
 {
-	return (m_destComboBox->currentItem() == DestV1);
+	return (m_destComboBox->QCM_currentIndex() == DestV1);
 }
 
 /**

@@ -23,9 +23,15 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
 	m_pattern = fmt;
 	m_titlePos = m_albumPos = m_artistPos = m_commentPos = m_yearPos = m_trackPos =
 		m_genrePos = m_durationPos = -1;
-	while (((percentIdx = m_pattern.find('%', percentIdx)) >= 0) &&
+	while (((percentIdx = m_pattern.QCM_indexOf('%', percentIdx)) >= 0) &&
 		   (percentIdx < lastIdx)) {
-		switch (m_pattern[percentIdx + 1].latin1()) {
+		switch (
+#if QT_VERSION >= 0x040000
+			m_pattern[percentIdx + 1].toLatin1()
+#else
+			m_pattern[percentIdx + 1].latin1()
+#endif
+			) {
 			case 's':
 				m_titlePos = nr;
 				break;
@@ -102,11 +108,11 @@ bool ImportParser::getNextTags(const QString& text, StandardTags& st, int& pos)
 		m_trackDuration.clear();
 		int dsp = 0; // "duration search pos"
 		int lastDsp = dsp;
-		while ((idx = m_re.search(text, dsp)) != -1) {
+		while ((idx = m_re.QCM_indexIn(text, dsp)) != -1) {
 			QString durationStr = m_re.cap(m_durationPos);
 			int duration;
 			QRegExp durationRe("(\\d+):(\\d+)");
-			if (durationRe.search(durationStr) != -1) {
+			if (durationRe.QCM_indexIn(durationStr) != -1) {
 				duration = durationRe.cap(1).toInt() * 60 +
 					durationRe.cap(2).toInt();
 			} else {
@@ -122,7 +128,7 @@ bool ImportParser::getNextTags(const QString& text, StandardTags& st, int& pos)
 			}
 		}
 	}
-	if ((idx = m_re.search(text, pos)) != -1) {
+	if ((idx = m_re.QCM_indexIn(text, pos)) != -1) {
 		SET_TEXT_FIELD(title);
 		SET_TEXT_FIELD(album);
 		SET_TEXT_FIELD(artist);

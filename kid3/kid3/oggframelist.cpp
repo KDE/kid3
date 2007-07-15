@@ -16,9 +16,10 @@
 #include <qstringlist.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ListBox>
+#include <QListWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QTextCursor>
 #else
 #include <qlistbox.h>
 #endif
@@ -45,13 +46,15 @@ public:
 	 * Set text to edit.
 	 * @param text text
 	 */
-	void setText(const QString& text) { m_edit->setText(text); }
+	void setText(const QString& text) {
+		m_edit->QCM_setPlainText(text);
+	}
 
 	/**
 	 * Get edited text.
 	 * @return text.
 	 */
-	QString getText() const { return m_edit->text(); }
+	QString getText() const { return m_edit->QCM_toPlainText(); }
 
 private:
 	QTextEdit* m_edit;
@@ -68,21 +71,30 @@ private:
  */
 EditOggFrameDialog::EditOggFrameDialog(QWidget* parent, const QString& caption,
 																 const QString& text) :
-	QDialog(parent, "edit_frame", true)
+	QDialog(parent)
 {
-	setCaption(caption);
+	setModal(true);
+	QCM_setWindowTitle(caption);
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (vlayout) {
 		vlayout->setSpacing(6);
 		vlayout->setMargin(6);
 		m_edit = new QTextEdit(this);
 		if (m_edit) {
-			m_edit->setText(text);
+			m_edit->QCM_setPlainText(text);
+#if QT_VERSION >= 0x040200
+			m_edit->moveCursor(QTextCursor::End);
+#elif QT_VERSION >= 0x040000
+			QTextCursor cursor = m_edit->textCursor();
+			cursor.movePosition(QTextCursor::End);
+			m_edit->setTextCursor(cursor);
+#else
 			m_edit->moveCursor(QTextEdit::MoveEnd, false);
+#endif
 			vlayout->addWidget(m_edit);
 		}
 	}
-	QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 					   QSizePolicy::Minimum);
 	m_okButton = new QPushButton(i18n("&OK"), this);
@@ -94,11 +106,9 @@ EditOggFrameDialog::EditOggFrameDialog(QWidget* parent, const QString& caption,
 		m_okButton->setDefault(true);
 		connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+		vlayout->addLayout(hlayout);
 	}
-#if QT_VERSION < 0x040000
-	// the widget is not painted correctly after resizing in Qt4
 	resize(fontMetrics().maxWidth() * 30, -1);
-#endif
 }
 
 /**
@@ -137,7 +147,11 @@ void OggFrameList::readTags()
 				 ++it) {
 			new FrameListItem(s_listbox, (*it).getName(), i++);
 		}
+#if QT_VERSION >= 0x040000
+		s_listbox->sortItems();
+#else
 		s_listbox->sort();
+#endif
 	}
 }
 
@@ -190,8 +204,12 @@ bool OggFrameList::editFrame()
 {
 	int selectedId = getSelectedId();
 	if (selectedId != -1 && m_tags) {
+#if QT_VERSION >= 0x040000
+		return editFrame((*m_tags)[selectedId]);
+#else
 		OggFile::CommentList::iterator it = m_tags->at(selectedId);
 		return editFrame(*it);
+#endif
 	}
 	return false;
 }
@@ -203,19 +221,32 @@ bool OggFrameList::editFrame()
  */
 bool OggFrameList::deleteFrame()
 {
+#if QT_VERSION >= 0x040000
+	int selectedIndex = s_listbox->currentRow();
+#else
 	int selectedIndex = s_listbox->currentItem();
+#endif
 	int selectedId = getSelectedId();
 	if (selectedId != -1 && m_tags) {
+#if QT_VERSION >= 0x040000
+		m_tags->removeAt(selectedId);
+#else
 		OggFile::CommentList::iterator it = m_tags->at(selectedId);
 		m_tags->erase(it);
+#endif
 		readTags(); // refresh listbox
 		// select the next item (or the last if it was the last)
 		if (selectedIndex >= 0) {
 			const int lastIndex = s_listbox->count() - 1;
 			if (lastIndex >= 0) {
+#if QT_VERSION >= 0x040000
+				s_listbox->setCurrentRow(
+					selectedIndex <= lastIndex ? selectedIndex : lastIndex);
+#else
 				s_listbox->setSelected(
 					selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
 				s_listbox->ensureCurrentVisible();
+#endif
 			}
 		}
 		if (m_file) {
@@ -247,7 +278,9 @@ bool OggFrameList::addFrame(int frameId, bool edit)
 		int frameIndex = m_tags->size() - 1;
 		readTags(); // refresh listbox
 		setSelectedId(frameIndex);
+#if QT_VERSION < 0x040000
 		s_listbox->ensureCurrentVisible();
+#endif
 		if (m_file) {
 			m_file->markTag2Changed();
 		}
@@ -322,11 +355,11 @@ int OggFrameList::selectFrameId()
 		lst.append(fieldNames[i]);
 	}
 	bool ok = false;
-	QString res = QInputDialog::getItem(
-		i18n("Add Frame"),
+	QString res = QInputDialog::QCM_getItem(
+		0, i18n("Add Frame"),
 		i18n("Select the frame ID"), lst, 0, true, &ok);
 	if (ok) {
-		m_selectedName = res.stripWhiteSpace().upper();
+		m_selectedName = res.QCM_trimmed().QCM_toUpper();
 		return 0; // just used by addFrame()
 	}
 	return -1;
@@ -340,10 +373,16 @@ int OggFrameList::selectFrameId()
 bool OggFrameList::copyFrame() {
 	int selectedId = getSelectedId();
 	if (selectedId != -1 && m_tags) {
+#if QT_VERSION >= 0x040000
+		if (selectedId < m_tags->size()) {
+			m_copyFrame = m_tags->at(selectedId);
+		}
+#else
 		OggFile::CommentList::iterator it = m_tags->at(selectedId);
 		if (it != m_tags->end()) {
 			m_copyFrame = *it;
 		}
+#endif
 		return true;
 	}
 	return false;

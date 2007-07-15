@@ -14,9 +14,11 @@
 #include <qregexp.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ValueList>
+#include <QList>
+typedef QList<int> TrackDurationList;
 #else
 #include <qvaluelist.h>
+typedef QValueList<int> TrackDurationList;
 #endif
 
 class StandardTags;
@@ -50,7 +52,7 @@ public:
 	 *
 	 * @return list with track durations.
 	 */
-	Q3ValueList<int>* getTrackDurations() { return &m_trackDuration; }
+	TrackDurationList* getTrackDurations() { return &m_trackDuration; }
 
 private:
 	/** track regexp pattern */
@@ -70,7 +72,7 @@ private:
 	int m_trackPos;
 	int m_genrePos;
 	int m_durationPos;
-	Q3ValueList<int> m_trackDuration;
+	TrackDurationList m_trackDuration;
 };
 
 #endif

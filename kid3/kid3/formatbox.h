@@ -12,11 +12,12 @@
 
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3GroupBox>
-class Q3Table;
+#include <QGroupBox>
+class QTableWidget;
 #else
 #include <qgroupbox.h>
 class QTable;
+class QAction;
 #endif
 
 class QComboBox;
@@ -28,7 +29,7 @@ class FormatConfig;
 /**
  * Group box containing format options.
  */
-class FormatBox : public Q3GroupBox
+class FormatBox : public QGroupBox
 {
 Q_OBJECT
 
@@ -38,9 +39,8 @@ public:
 	 *
 	 * @param title  title
 	 * @param parent parent widget
-	 * @param name   Qt object name
 	 */
-	FormatBox(const QString& title, QWidget* parent = 0, const char* name = 0);
+	FormatBox(const QString& title, QWidget* parent = 0);
 
 	/**
 	 * Destructor.
@@ -95,6 +95,13 @@ public slots:
 	void clearCell(int row_col);
 
 	/**
+	 * Execute a context menu action.
+	 *
+	 * @param action action of selected menu
+	 */
+	void executeAction(QAction* action);
+
+	/**
 	 * Display context menu.
 	 *
 	 * @param row row at which context menu is displayed
@@ -103,10 +110,21 @@ public slots:
 	 */
 	void contextMenu(int row, int col, const QPoint& pos);
 
+	/**
+	 * Display custom context menu.
+	 *
+	 * @param pos position where context menu is drawn on screen
+	 */
+	void customContextMenu(const QPoint& pos);
+
 private:
 	QComboBox* m_caseConvComboBox;
 	QCheckBox* m_strRepCheckBox;
-	Q3Table* m_strReplTable;
+#if QT_VERSION >= 0x040000
+	QTableWidget* m_strReplTable;
+#else
+	QTable* m_strReplTable;
+#endif
 	QCheckBox* m_formatEditingCheckBox;
 };
 

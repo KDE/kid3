@@ -12,10 +12,7 @@
 
 #include <qfile.h>
 #if QT_VERSION >= 0x040000
-#include <Q3Socket>
-#include <Q3CString>
-#else
-#include <qsocket.h>
+#include <QByteArray>
 #endif
 #if HAVE_TUNEPIMP >= 5
 #include <qdom.h>
@@ -34,12 +31,16 @@
  * @param proxyPort  proxy port
  */
 LookupQuery::LookupQuery(int numFiles,
-												 const QString& serverName, Q_UINT16 serverPort,
-												 const QString& proxyName, Q_UINT16 proxyPort) :
+												 const QString& serverName, unsigned short serverPort,
+												 const QString& proxyName, unsigned short proxyPort) :
 	m_numFiles(numFiles), m_serverName(serverName), m_serverPort(serverPort),
 	m_proxyName(proxyName), m_proxyPort(proxyPort),
 	m_currentFile(-1), m_fileQueries(new FileQuery[numFiles]),
-	m_sock(new Q3Socket)
+#if QT_VERSION >= 0x040000
+	m_sock(new QTcpSocket)
+#else
+	m_sock(new QSocket)
+#endif
 {
 	for (int i = 0; i < m_numFiles; ++i) {
 		m_fileQueries[i].requested = false;
@@ -47,10 +48,17 @@ LookupQuery::LookupQuery(int numFiles,
 	}
 	connect(m_sock, SIGNAL(connected()),
 			this, SLOT(socketConnected()));
+#if QT_VERSION >= 0x040000
+	connect(m_sock, SIGNAL(error(QAbstractSocket::SocketError)),
+			this, SLOT(socketError(QAbstractSocket::SocketError)));
+	connect(m_sock, SIGNAL(disconnected()),
+			this, SLOT(socketConnectionClosed()));
+#else
 	connect(m_sock, SIGNAL(error(int)),
-			this, SLOT(socketError()));
+			this, SLOT(socketError(int)));
 	connect(m_sock, SIGNAL(connectionClosed()),
 			this, SLOT(socketConnectionClosed()));
+#endif
 }
 
 /**
@@ -71,7 +79,7 @@ void LookupQuery::socketQuery()
 {
 	if (m_currentFile >= 0 && m_currentFile < m_numFiles) {
 		QString  destName = m_proxyName.isEmpty() ? m_serverName : m_proxyName;
-		Q_UINT16 destPort = m_proxyName.isEmpty() ? m_serverPort : m_proxyPort;
+		unsigned short destPort = m_proxyName.isEmpty() ? m_serverPort : m_proxyPort;
 		m_request = "GET http://";
 		m_request += m_serverName;
 		if (m_serverPort != 80) {
@@ -128,29 +136,39 @@ void LookupQuery::query(const char* puid, int index)
  */
 void LookupQuery::socketConnected()
 {
-	m_sock->writeBlock(m_request.latin1(), m_request.length());
+	m_sock->QCM_writeBlock(m_request.QCM_latin1(), m_request.length());
 }
 
 /**
  * Error on socket connection.
  */
-void LookupQuery::socketError()
+#if QT_VERSION >= 0x040000
+void LookupQuery::socketError(QAbstractSocket::SocketError err)
+{
+	if (err != QAbstractSocket::RemoteHostClosedError) {
+		qDebug("Socket Error: %s", m_sock->errorString().QCM_latin1());
+		queryNext();
+	}
+}
+#else
+void LookupQuery::socketError(int)
 {
 	queryNext();
 }
+#endif
 
 /**
  * Read received data when the server has closed the connection.
  */
 void LookupQuery::socketConnectionClosed()
 {
-	Q_ULONG len = m_sock->bytesAvailable();
-	Q3CString buf;
+	unsigned long len = m_sock->bytesAvailable();
+	QCM_QCString buf;
 	buf.resize(len + 1 );
-	m_sock->readBlock(buf.data(), len);
+	m_sock->QCM_readBlock(buf.data(), len);
 	m_sock->close();
 
-	int xmlStart = buf.find("<?xml");
+	int xmlStart = buf.QCM_indexOf("<?xml");
 	if (xmlStart >= 0 &&
 			m_currentFile >= 0 && m_currentFile < m_numFiles &&
 			m_fileQueries[m_currentFile].requested) {
@@ -397,11 +415,11 @@ void MusicBrainzClient::setConfig(
 	int port;
 	QString ip;
 	FreedbClient::splitNamePort(server, ip, port);
-	tp_SetServer(m_tp, ip.latin1(), port);
+	tp_SetServer(m_tp, ip.QCM_latin1(), port);
 
 	if (useProxy) {
 		FreedbClient::splitNamePort(proxy, ip, port);
-		tp_SetProxy(m_tp, ip.latin1(), port);
+		tp_SetProxy(m_tp, ip.QCM_latin1(), port);
 	}	else {
 		tp_SetProxy(m_tp, "", 80);
 	}
@@ -650,10 +668,14 @@ MusicBrainzClient::~MusicBrainzClient() {}
 
 #if !(HAVE_TUNEPIMP >= 5)
 
-LookupQuery::LookupQuery(int, const QString&, Q_UINT16, const QString&, Q_UINT16) {}
+LookupQuery::LookupQuery(int, const QString&, unsigned short, const QString&, unsigned short) {}
 LookupQuery::~LookupQuery() {}
 void LookupQuery::socketConnected() {}
-void LookupQuery::socketError() {}
+#if QT_VERSION >= 0x040000
+void LookupQuery::socketError(QAbstractSocket::SocketError) {}
+#else
+void LookupQuery::socketError(int) {}
+#endif
 void LookupQuery::socketConnectionClosed() {}
 void MusicBrainzClient::parseLookupResponse(int, const QByteArray&) {}
 

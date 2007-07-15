@@ -14,7 +14,7 @@
 #include <qstring.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3CString>
+#include <QByteArray>
 #endif
 
 #include "standardtags.h"
@@ -68,7 +68,7 @@ TagLibFile::~TagLibFile()
  */
 void TagLibFile::readTags(bool force)
 {
-	Q3CString fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+	QCM_QCString fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
 	if (force || m_fileRef.isNull()) {
 		m_fileRef = TagLib::FileRef(fn);
@@ -149,7 +149,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 	}
 
 	// store time stamp if it has to be preserved
-	Q3CString fn;
+	QCM_QCString fn;
 	bool setUtime = false;
 	struct utimbuf times;
 	if (preserve) {
@@ -539,7 +539,7 @@ static QString getGenreString(const TagLib::String& str)
 		QString qs = TStringToQString(str);
 		int cpPos = 0, n = 0xff;
 		bool ok = false;
-		if (qs[0] == '(' && (cpPos = qs.find(')', 2)) > 1) {
+		if (qs[0] == '(' && (cpPos = qs.QCM_indexOf(')', 2)) > 1) {
 			n = qs.mid(1, cpPos - 1).toInt(&ok);
 			if (!ok || n > 0xff) {
 				n = 0xff;
@@ -634,11 +634,11 @@ void TagLibFile::setTitleV1(const QString& str)
 {
 	if (makeTagV1Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->title())) {
 			QString s = checkTruncation(str, StandardTags::TF_Title);
 			if (!s.isNull())
-				m_tagV1->setTitle(QStringToTString(s));
+				m_tagV1->setTitle(QSTRING_TO_TSTRING(s));
 			else
 				m_tagV1->setTitle(tstr);
 			markTag1Changed();
@@ -655,11 +655,11 @@ void TagLibFile::setArtistV1(const QString& str)
 {
 	if (makeTagV1Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->artist())) {
 			QString s = checkTruncation(str, StandardTags::TF_Artist);
 			if (!s.isNull())
-				m_tagV1->setArtist(QStringToTString(s));
+				m_tagV1->setArtist(QSTRING_TO_TSTRING(s));
 			else
 				m_tagV1->setArtist(tstr);
 			markTag1Changed();
@@ -676,11 +676,11 @@ void TagLibFile::setAlbumV1(const QString& str)
 {
 	if (makeTagV1Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->album())) {
 			QString s = checkTruncation(str, StandardTags::TF_Album);
 			if (!s.isNull())
-				m_tagV1->setAlbum(QStringToTString(s));
+				m_tagV1->setAlbum(QSTRING_TO_TSTRING(s));
 			else
 				m_tagV1->setAlbum(tstr);
 			markTag1Changed();
@@ -697,11 +697,11 @@ void TagLibFile::setCommentV1(const QString& str)
 {
 	if (makeTagV1Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->comment())) {
 			QString s = checkTruncation(str, StandardTags::TF_Comment, 28);
 			if (!s.isNull())
-				m_tagV1->setComment(QStringToTString(s));
+				m_tagV1->setComment(QSTRING_TO_TSTRING(s));
 			else
 				m_tagV1->setComment(tstr);
 			markTag1Changed();
@@ -752,7 +752,7 @@ void TagLibFile::setGenreV1(const QString& str)
 {
 	if (makeTagV1Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->genre())) {
 			m_tagV1->setGenre(tstr);
 			markTag1Changed();
@@ -782,7 +782,12 @@ bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String
 		uint unicodeSize = qstr.length();
 		const QChar* qcarray = qstr.unicode();
 		for (uint i = 0; i < unicodeSize; ++i) {
-			if (qcarray[i].latin1() == 0) {
+#if QT_VERSION >= 0x040000
+			if (qcarray[i].toLatin1() == 0)
+#else
+			if (qcarray[i].latin1() == 0)
+#endif
+			{
 				needsUnicode = true;
 				break;
 			}
@@ -828,7 +833,7 @@ void TagLibFile::setTitleV2(const QString& str)
 {
 	if (makeTagV2Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->title())) {
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TIT2")) {
 				m_tagV2->setTitle(tstr);
@@ -847,7 +852,7 @@ void TagLibFile::setArtistV2(const QString& str)
 {
 	if (makeTagV2Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->artist())) {
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TPE1")) {
 			}
@@ -866,7 +871,7 @@ void TagLibFile::setAlbumV2(const QString& str)
 {
 	if (makeTagV2Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->album())) {
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TALB")) {
 			}
@@ -885,7 +890,7 @@ void TagLibFile::setCommentV2(const QString& str)
 {
 	if (makeTagV2Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->comment())) {
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "COMM")) {
 			}
@@ -960,7 +965,7 @@ void TagLibFile::setGenreV2(const QString& str)
 {
 	if (makeTagV2Settable() && !str.isNull()) {
 		TagLib::String tstr = str.isEmpty() ?
-			TagLib::String::null : QStringToTString(str);
+			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->genre())) {
 			m_tagV2->setGenre(tstr);
 			markTag2Changed();

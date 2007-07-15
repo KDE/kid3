@@ -53,10 +53,10 @@ void DiscogsDialog::parseFindResults(const QByteArray& searchStr)
 	// <li><a href="/release/761529"><span style="font-size: 11pt;"><em>Amon</em> <em>Amarth</em> - The <em>Avenger</em></span></a><br>
 	QString str = QString::fromUtf8(searchStr);
 	QRegExp idTitleRe("<a href=\"/release/([0-9]+)\">(.+)</a>");
-	QStringList lines = QStringList::split(QRegExp("[\\r\\n]+"), str);
+	QStringList lines = QCM_split(QRegExp("[\\r\\n]+"), str);
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
-		if (idTitleRe.search(*it) != -1) {
+		if (idTitleRe.QCM_indexIn(*it) != -1) {
 			QString title(idTitleRe.cap(2));
 			title.replace(QRegExp("<[^>]+>"), "");
 			new AlbumListItem(
@@ -86,15 +86,15 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 <title>Amon Amarth - The Avenger</title>
 	 */
 	int end = 0;
-	int start = str.find("<title>");
+	int start = str.QCM_indexOf("<title>");
 	if (start >= 0) {
 		start += 7; // skip <title>
-		end = str.find("</title>", start);
+		end = str.QCM_indexOf("</title>", start);
 		if (end > start) {
 			QString titleStr = str.mid(start, end - start);
 			titleStr.replace(nlSpaceRe, " "); // reduce new lines and space after them
 			start = 0;
-			end = titleStr.find(" - ", start);
+			end = titleStr.QCM_indexOf(" - ", start);
 			if (end > start) {
 				stHdr.artist = titleStr.mid(start, end - start);
 				start = end + 3; // skip " - "
@@ -106,16 +106,16 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 	 * the year can be found in "Released:"
 <tr><td align=right>Released:</td><td>1999</td></tr>
 	 */
-	start = str.find("Released:");
+	start = str.QCM_indexOf("Released:");
 	if (start >= 0) {
 		start += 9; // skip "Released:"
-		end = str.find("</tr>", start);
+		end = str.QCM_indexOf("</tr>", start);
 		if (end > start) {
 			QString yearStr = str.mid(start, end - start);
 			yearStr.replace(nlSpaceRe, ""); // strip new lines and space after them
 			yearStr.replace(htmlTagRe, ""); // strip HTML tags
 			QRegExp yearRe("(\\d{4})"); // this should skip day and month numbers
-			if (yearRe.search(yearStr) >= 0) {
+			if (yearRe.QCM_indexIn(yearStr) >= 0) {
 				stHdr.year = yearRe.cap(1).toInt();
 			}
 		}
@@ -135,16 +135,16 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 	QStringList genreList;
 	static const char* const fields[] = { "Style:", "Genre:" };
 	for (unsigned i = 0; i < sizeof(fields) / sizeof(fields[0]); ++i) {
-		start = str.find(fields[i]);
+		start = str.QCM_indexOf(fields[i]);
 		if (start >= 0) {
 			start += qstrlen(fields[i]); // skip field
-			end = str.find("</tr>", start);
+			end = str.QCM_indexOf("</tr>", start);
 			if (end > start) {
 				QString genreStr = str.mid(start, end - start);
 				genreStr.replace(nlSpaceRe, ""); // strip new lines and space after them
 				genreStr.replace(htmlTagRe, ""); // strip HTML tags
-				if (genreStr.find(',') >= 0) {
-					genreList += QStringList::split(QRegExp(",\\s*"), genreStr);
+				if (genreStr.QCM_indexOf(',') >= 0) {
+					genreList += QCM_split(QRegExp(",\\s*"), genreStr);
 				} else {
 					if (!genreStr.isEmpty()) {
 						genreList += genreStr;
@@ -182,9 +182,9 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 	 *
 	 * Variations: strange track numbers, no durations, links instead of tracks
 	 */
-	start = str.find("Tracklisting:");
+	start = str.QCM_indexOf("Tracklisting:");
 	if (start >= 0) {
-		end = str.find("</table>", start);
+		end = str.QCM_indexOf("</table>", start);
 		if (end > start) {
 			str = str.mid(start, end - start);
 			// strip whitespace
@@ -196,8 +196,8 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			bool atTrackDataListEnd = (it == m_trackDataVector.end());
 			int trackNr = 1;
 			start = 0;
-			while ((end = str.find("</td></tr>", start)) > start) {
-				int titleStart = str.findRev("<td>", end);
+			while ((end = str.QCM_indexOf("</td></tr>", start)) > start) {
+				int titleStart = str.QCM_lastIndexOf("<td>", end);
 				if (titleStart > start) {
 					titleStart += 4; // skip <td>
 				} else {
@@ -205,7 +205,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 				}
 				QString title(str.mid(titleStart, end - titleStart));
 				start = end + 10; // skip </td></tr>
-				if (title.find("</") != -1 || title.find("<a href") != -1) {
+				if (title.QCM_indexOf("</") != -1 || title.QCM_indexOf("<a href") != -1) {
 					// strange entry instead of track => skip
 					continue;
 				}

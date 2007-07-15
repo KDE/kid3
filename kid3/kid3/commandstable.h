@@ -12,16 +12,19 @@
 
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3Table>
+#include <QTableWidget>
+typedef QTableWidget CommandsTableBaseClass;
 #else 
 #include <qtable.h>
+typedef QTable CommandsTableBaseClass;
+class QAction;
 #endif
 #include "miscconfig.h"
 
 /**
  * Context menu commands configuration table.
  */
-class CommandsTable : public Q3Table {
+class CommandsTable : public CommandsTableBaseClass {
 Q_OBJECT
 
 public:
@@ -29,9 +32,8 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent parent widget
-	 * @param name   Qt object name
 	 */
-	CommandsTable(QWidget* parent = 0, const char* name = 0);
+	CommandsTable(QWidget* parent = 0);
 
 	/**
 	 * Destructor.
@@ -43,14 +45,14 @@ public:
 	 *
 	 * @param cmdList command list
 	 */
-	void setCommandList(const Q3ValueList<MiscConfig::MenuCommand>& cmdList);
+	void setCommandList(const MiscConfig::MenuCommandList& cmdList);
 
 	/**
 	 * Get the command list from the table.
 	 *
 	 * @param cmdList the command list is returned here
 	 */
-	void getCommandList(Q3ValueList<MiscConfig::MenuCommand>& cmdList) const;
+	void getCommandList(MiscConfig::MenuCommandList& cmdList) const;
 
 public slots:
 	/**
@@ -69,7 +71,7 @@ public slots:
 	 *
 	 * @param row the new row is inserted after this row
 	 */
-	void insertRow(int row);
+	void addRow(int row);
 
 	/**
 	 * Delete a row from the table.
@@ -86,6 +88,13 @@ public slots:
 	void clearRow(int row);
 
 	/**
+	 * Execute a context menu action.
+	 *
+	 * @param action action of selected menu
+	 */
+	void executeAction(QAction* action);
+
+	/**
 	 * Display context menu.
 	 *
 	 * @param row row at which context menu is displayed
@@ -93,6 +102,13 @@ public slots:
 	 * @param pos position where context menu is drawn on screen
 	 */
 	void contextMenu(int row, int col, const QPoint& pos);
+
+	/**
+	 * Display custom context menu.
+	 *
+	 * @param pos position where context menu is drawn on screen
+	 */
+	void customContextMenu(const QPoint& pos);
 };
 
 #endif // COMMANDSTABLE_H

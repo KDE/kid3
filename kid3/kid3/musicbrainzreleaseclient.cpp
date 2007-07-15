@@ -51,11 +51,11 @@ void MusicBrainzReleaseClient::constructFindQuery(
 	splitNamePort(cfg->m_server, serverName, serverPort);
 	QString encArtist(artist);
 	encArtist.replace(QRegExp(" +"), " "); // collapse spaces
-	QUrl::encode(encArtist);
+	QCM_QUrl_encode(encArtist);
 	encArtist.replace("%20", "+"); // replace spaces by '+'
 	QString encAlbum(album);
 	encAlbum.replace(QRegExp(" +"), " "); // collapse spaces
-	QUrl::encode(encAlbum);
+	QCM_QUrl_encode(encAlbum);
 	encAlbum.replace("%20", "+"); // replace spaces by '+'
 	m_request = "GET ";
 	if (dest != serverName) {

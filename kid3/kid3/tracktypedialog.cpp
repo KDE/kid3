@@ -11,9 +11,6 @@
 #include "kid3.h"
 #include "tracktypeclient.h"
 #include "tracktypedialog.h"
-#if QT_VERSION >= 0x040000
-#include <Q3ValueList>
-#endif
 
 static const char* serverList[] = {
 	"tracktype.org:80",
@@ -70,7 +67,7 @@ theoretically, but never seen
 */
 	QString str = QString::fromUtf8(searchStr);
 	QRegExp catIdTitleRe("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)");
-	QStringList lines = QStringList::split(QRegExp("[\\r\\n]+"), str);
+	QStringList lines = QCM_split(QRegExp("[\\r\\n]+"), str);
 	bool inEntries = false;
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
@@ -86,7 +83,7 @@ theoretically, but never seen
 					catIdTitleRe.cap(2));
 			}
 		} else {
-			if ((*it).startsWith("21") && (*it).find(" match") != -1) {
+			if ((*it).startsWith("21") && (*it).QCM_indexOf(" match") != -1) {
 				inEntries = true;
 			} else if ((*it).startsWith("200 ")) {
 				if (catIdTitleRe.exactMatch((*it).mid(4))) {

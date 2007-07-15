@@ -17,16 +17,17 @@
 #include <qstring.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ValueVector>
+#include <QVector>
+class QTableWidget;
 #else
 #include <qvaluevector.h>
+class QTable;
 #endif
 
 class QLineEdit;
 class QComboBox;
 class QPushButton;
 class QCheckBox;
-class Q3Table;
 class QTimer;
 class QStatusBar;
 class MusicBrainzConfig;
@@ -181,12 +182,20 @@ private:
 	void stopClient();
 
 	QComboBox* m_serverComboBox;
-	Q3Table* m_albumTable;
+#if QT_VERSION >= 0x040000
+	QTableWidget* m_albumTable;
+#else
+	QTable* m_albumTable;
+#endif
 	QStatusBar* m_statusBar;
 	QTimer* m_timer;
 	MusicBrainzClient* m_client;
 	ImportTrackDataVector& m_trackDataVector;
-	Q3ValueVector<ImportTrackDataVector> m_trackResults;
+#if QT_VERSION >= 0x040000
+	QVector<ImportTrackDataVector> m_trackResults;
+#else
+	QValueVector<ImportTrackDataVector> m_trackResults;
+#endif
 #endif // HAVE_TUNEPIMP
 };
 

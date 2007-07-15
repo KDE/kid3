@@ -14,8 +14,8 @@
 #include <qstring.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ListBox>
-#include <Q3CString>
+#include <QListWidget>
+#include <QByteArray>
 #else
 #include <qlistbox.h>
 #endif
@@ -78,7 +78,7 @@ Mp3File::~Mp3File()
  */
 void Mp3File::readTags(bool force)
 {
-	Q3CString fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+	QCM_QCString fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
 	if (force && m_tagV1) {
 		m_tagV1->Clear();
@@ -130,7 +130,7 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 	}
 
 	// store time stamp if it has to be preserved
-	Q3CString fn;
+	QCM_QCString fn;
 	bool setUtime = false;
 	struct utimbuf times;
 	if (preserve) {
@@ -343,7 +343,7 @@ int Mp3File::getTrackNum(const ID3_Tag* tag)
 	if (str.isNull()) return -1;
 	if (str.isEmpty()) return 0;
 	// handle "track/total number of tracks" format
-	int slashPos = str.find('/');
+	int slashPos = str.QCM_indexOf('/');
 	if (slashPos != -1) {
 		str.truncate(slashPos);
 	}
@@ -364,7 +364,7 @@ int Mp3File::getGenreNum(const ID3_Tag* tag)
 	if (str.isNull()) return -1;
 	if (str.isEmpty()) return 0xff;
 	int cpPos = 0, n = 0xff;
-	if ((str[0] == '(') && ((cpPos = str.find(')', 2)) > 1)) {
+	if ((str[0] == '(') && ((cpPos = str.QCM_indexOf(')', 2)) > 1)) {
 		bool ok;
 		n = str.mid(1, cpPos - 1).toInt(&ok);
 		if (!ok || n > 0xff) {
@@ -416,10 +416,10 @@ void Mp3File::setString(ID3_Field* field, const QString& text)
 			delete [] unicode;
 		}
 	} else if (enc == ID3TE_UTF8) {
-		field->Set(text.utf8().data());
+		field->Set(text.QCM_toUtf8().data());
 	} else {
 		// enc == ID3TE_ISO8859_1
-		field->Set(text.latin1());
+		field->Set(text.QCM_latin1());
 	}
 }
 
@@ -458,7 +458,12 @@ bool Mp3File::setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 						uint i, unicode_size = text.length();
 						const QChar* qcarray = text.unicode();
 						for (i = 0; i < unicode_size; i++) {
-							if (qcarray[i].latin1() == 0) {
+#if QT_VERSION >= 0x040000
+							if (qcarray[i].toLatin1() == 0)
+#else
+							if (qcarray[i].latin1() == 0)
+#endif
+							{
 								ID3_Field* encfld = frame->GetField(ID3FN_TEXTENC);
 								if (encfld) {
 									encfld->Set(ID3TE_UTF16);

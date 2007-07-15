@@ -12,9 +12,7 @@
 #include "freedbclient.h"
 #include "freedbdialog.h"
 #include "genres.h"
-#if QT_VERSION >= 0x040000
-#include <Q3ValueList>
-#endif
+#include "importparser.h"
 
 static const char* serverList[] = {
 	"www.gnudb.org:80",
@@ -96,23 +94,23 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
 	QString str = QString::fromUtf8(searchStr);
 	QRegExp titleRe("<a href=\"[^\"]+/cd/[^\"]+\"><b>([^<]+)</b></a>");
 	QRegExp catIdRe("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)");
-	QStringList lines = QStringList::split(QRegExp("[\\r\\n]+"), str);
+	QStringList lines = QCM_split(QRegExp("[\\r\\n]+"), str);
 	QString title;
 	bool inEntries = false;
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		if (inEntries) {
-			if (titleRe.search(*it) != -1) {
+			if (titleRe.QCM_indexIn(*it) != -1) {
 				title = titleRe.cap(1);
 			}
-			if (catIdRe.search(*it) != -1) {
+			if (catIdRe.QCM_indexIn(*it) != -1) {
 				new AlbumListItem(
 					m_albumListBox,
 					title,
 					catIdRe.cap(1),
 					catIdRe.cap(2));
 			}
-		} else if ((*it).find(" albums found:") != -1) {
+		} else if ((*it).QCM_indexOf(" albums found:") != -1) {
 			inEntries = true;
 		}
 	}
@@ -127,7 +125,7 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
  */
 static void parseFreedbTrackDurations(
 	const QString& text,
-	Q3ValueList<int>& trackDuration)
+	TrackDurationList& trackDuration)
 {
 /* Example freedb format:
    # Track frame offsets:
@@ -153,7 +151,7 @@ static void parseFreedbTrackDurations(
 		len = discLenRe.matchedLength();
 		discLenPos += 12;
 		int discLen = text.mid(discLenPos, len - 12).toInt();
-		int trackOffsetPos = text.find("Track frame offsets", 0);
+		int trackOffsetPos = text.QCM_indexOf("Track frame offsets", 0);
 		if (trackOffsetPos != -1) {
 			QRegExp re("#\\s*\\d+");
 			int lastOffset = -1;
@@ -186,16 +184,16 @@ static void parseFreedbAlbumData(const QString& text,
 																 StandardTags& st)
 {
 	QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");
-	if (fdre.search(text) != -1) {
+	if (fdre.QCM_indexIn(text) != -1) {
 		st.artist = fdre.cap(1);
 		st.album = fdre.cap(2);
 	}
 	fdre.setPattern("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D");
-	if (fdre.search(text) != -1) {
+	if (fdre.QCM_indexIn(text) != -1) {
 		st.year = fdre.cap(1).toInt();
 	}
 	fdre.setPattern("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D");
-	if (fdre.search(text) != -1) {
+	if (fdre.QCM_indexIn(text) != -1) {
 		st.genre = Genres::getName(fdre.cap(1).toInt());
 	}
 }
@@ -210,13 +208,13 @@ void FreedbDialog::parseAlbumResults(const QByteArray& albumStr)
 	QString text = QString::fromUtf8(albumStr);
 	StandardTags st_hdr;
 	st_hdr.setInactive();
-	Q3ValueList<int> trackDuration;
+	TrackDurationList trackDuration;
 	parseFreedbTrackDurations(text, trackDuration);
 	parseFreedbAlbumData(text, st_hdr);
 
 	StandardTags st(st_hdr);
 	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-	Q3ValueList<int>::const_iterator tdit = trackDuration.begin();
+	TrackDurationList::const_iterator tdit = trackDuration.begin();
 	bool atTrackDataListEnd = (it == m_trackDataVector.end());
 	int pos = 0;
 	int idx, oldpos = pos;
@@ -224,7 +222,7 @@ void FreedbDialog::parseAlbumResults(const QByteArray& albumStr)
 	for (;;) {
 		QRegExp fdre(QString("TTITLE%1=([^\\r\\n]+)[\\r\\n]").arg(tracknr));
 		QString title;
-		while ((idx = fdre.search(text, pos)) != -1) {
+		while ((idx = fdre.QCM_indexIn(text, pos)) != -1) {
 			title += fdre.cap(1);
 			pos = idx + fdre.matchedLength();
 		}

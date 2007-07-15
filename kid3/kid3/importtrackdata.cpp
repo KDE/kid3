@@ -38,9 +38,9 @@ QString ImportTrackData::formatString(const QString& format) const
 		QString tagStr[numTagCodes];
 
 		QString filename(getAbsFilename());
-		int sepPos = filename.findRev('/');
+		int sepPos = filename.QCM_lastIndexOf('/');
 		if (sepPos < 0) {
-			sepPos = filename.findRev(QDir::separator());
+			sepPos = filename.QCM_lastIndexOf(QDir::separator());
 		}
 		if (sepPos >= 0) {
 			filename.remove(0, sepPos + 1);
@@ -49,8 +49,8 @@ QString ImportTrackData::formatString(const QString& format) const
 		tagStr[0] = filename;
 		tagStr[1] = getAbsFilename();
 		QUrl url;
-		url.setFileName(tagStr[1]);
-		url.setProtocol("file");
+		url.QCM_setPath(tagStr[1]);
+		url.QCM_setScheme("file");
 		tagStr[2] = url.toString(
 #if QT_VERSION < 0x040000
 			true

@@ -14,9 +14,12 @@
 #include <qsize.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ListView>
+#include <QTreeWidget>
+typedef QTreeWidget FileListBaseClass;
 #else
 #include <qlistview.h>
+typedef QListView FileListBaseClass;
+class QAction;
 #endif
 #include "dirinfo.h"
 
@@ -27,15 +30,16 @@ class ExternalProcess;
 /**
  * List of files to operate on.
  */
-class FileList : public Q3ListView
+class FileList : public FileListBaseClass
 {
 Q_OBJECT
 
 public:
 	/**
 	 * Constructor.
+	 * @param parent parent widget
 	 */
-	FileList(QWidget* parent = 0, const char* name = 0, Qt::WFlags f = 0);
+	FileList(QWidget* parent = 0);
 
 	/**
 	 * Destructor.
@@ -142,7 +146,7 @@ private slots:
 	 * @param pos  position where context menu is drawn on screen
 	 */
 #if QT_VERSION >= 0x040000
-	void contextMenu(Q3ListViewItem* item, const QPoint& pos);
+	void contextMenu(QTreeWidgetItem* item, const QPoint& pos);
 #else
 	void contextMenu(QListViewItem* item, const QPoint& pos);
 #endif
@@ -155,6 +159,13 @@ private slots:
 	void executeContextCommand(int id);
 
 	/**
+	 * Execute a context menu action.
+	 *
+	 * @param action action of selected menu
+	 */
+	void executeAction(QAction* action);
+
+	/**
 	 * Rename the selected file(s).
 	 */
 	void renameFile();
@@ -163,6 +174,34 @@ private slots:
 	 * Delete the selected file(s).
 	 */
 	void deleteFile();
+
+	/**
+	 * Expand an item.
+	 *
+	 * @param item item
+	 */
+	void expandItem(QTreeWidgetItem* item);
+
+	/**
+	 * Collapse an item.
+	 *
+	 * @param item item
+	 */
+	void collapseItem(QTreeWidgetItem* item);
+
+	/**
+	 * Display a custom context menu with operations for selected files.
+	 *
+	 * @param pos  position where context menu is drawn on screen
+	 */
+	void customContextMenu(const QPoint& pos);
+
+	/**
+	 * Expand or collapse an item which has no children.
+	 *
+	 * @param item item
+	 */
+	void expandOrCollapseEmptyItem(QTreeWidgetItem* item);
 
 private:
 	FileList(const FileList&);
@@ -194,7 +233,11 @@ private:
 	/** information about directory */
 	DirInfo m_dirInfo;
 	/** iterator pointing to current file */
-	Q3ListViewItemIterator m_iterator;
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItemIterator* m_iterator;
+#else
+	QListViewItemIterator m_iterator;
+#endif
 	/** current item in current directory */
 	FileListItem* m_currentItemInDir;
 	/** Process for context menu commands */

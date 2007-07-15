@@ -13,7 +13,7 @@
 #include <qstring.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ListBox>
+#include <QListWidget>
 #else
 #include <qlistbox.h>
 #endif
@@ -21,12 +21,19 @@
 /**
  * List of directories to operate on.
  */
-class DirList : public Q3ListBox {
+class DirList : public
+#if QT_VERSION >= 0x040000
+QListWidget
+#else
+QListBox
+#endif
+{
 public:
 	/**
 	 * Constructor.
+	 * @param parent parent widget
 	 */
-	DirList(QWidget* parent = 0, const char* name = 0, Qt::WFlags f = 0);
+	DirList(QWidget* parent = 0);
 
 	/**
 	 * Destructor.

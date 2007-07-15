@@ -8,6 +8,7 @@
  */
 
 #include <qstring.h>
+#include "qtcompatmac.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kdeversion.h>
@@ -157,7 +158,8 @@ void MiscConfig::writeToConfig(
 
 	config->setGroup("MenuCommands");
 	int cmdNr = 1;
-	for (Q3ValueList<MiscConfig::MenuCommand>::const_iterator it = m_contextMenuCommands.begin();
+	for (MiscConfig::MenuCommandList::const_iterator
+				 it = m_contextMenuCommands.begin();
 			 it != m_contextMenuCommands.end();
 			 ++it) {
 		config->writeEntry(QString("Command%1").arg(cmdNr++), (*it).toStringList());
@@ -173,56 +175,60 @@ void MiscConfig::writeToConfig(
 	}
 #else
 	config->beginGroup("/" + m_group);
-	config->writeEntry("/NameFilter2", m_nameFilter);
-	config->writeEntry("/FormatItem", m_formatItem);
-	config->writeEntry("/FormatText2", m_formatText);
-	config->writeEntry("/DirFormatItem", m_dirFormatItem);
-	config->writeEntry("/DirFormatText", m_dirFormatText);
-	config->writeEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
-	config->writeEntry("/MarkTruncations", m_markTruncations);
-	config->writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
-	config->writeEntry("/PreserveTime", m_preserveTime);
-	config->writeEntry("/CommentName", m_commentName);
+	config->QCM_writeEntry("/NameFilter2", m_nameFilter);
+	config->QCM_writeEntry("/FormatItem", m_formatItem);
+	config->QCM_writeEntry("/FormatText2", m_formatText);
+	config->QCM_writeEntry("/DirFormatItem", m_dirFormatItem);
+	config->QCM_writeEntry("/DirFormatText", m_dirFormatText);
+	config->QCM_writeEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
+	config->QCM_writeEntry("/MarkTruncations", m_markTruncations);
+	config->QCM_writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	config->QCM_writeEntry("/PreserveTime", m_preserveTime);
+	config->QCM_writeEntry("/CommentName", m_commentName);
 
-	Q3ValueList<int>::const_iterator it;
+#if QT_VERSION >= 0x040000
+	QList<int>::const_iterator it;
+#else
+	QValueList<int>::const_iterator it;
+#endif
 	int i;
 	for (it = m_splitterSizes.begin(), i = 0;
 		 it != m_splitterSizes.end();
 		 ++it, ++i) {
-		config->writeEntry("/SplitterSize" + QString::number(i), *it);
+		config->QCM_writeEntry("/SplitterSize" + QString::number(i), *it);
 	}
 	for (it = m_vSplitterSizes.begin(), i = 0;
 		 it != m_vSplitterSizes.end();
 		 ++it, ++i) {
-		config->writeEntry("/VSplitterSize" + QString::number(i), *it);
+		config->QCM_writeEntry("/VSplitterSize" + QString::number(i), *it);
 	}
-	config->writeEntry("/CustomGenres", m_customGenres);
-	config->writeEntry("/HideV1", m_hideV1);
-	config->writeEntry("/HideV2", m_hideV2);
-	config->writeEntry("/ID3v2Version", m_id3v2Version);
-	config->writeEntry("/UseProxy", m_useProxy);
-	config->writeEntry("/Proxy", m_proxy);
-	config->writeEntry("/Browser", m_browser);
-	config->writeEntry("/OnlyCustomGenres", m_onlyCustomGenres);
-	config->writeEntry("/WindowWidth", m_windowWidth);
-	config->writeEntry("/WindowHeight", m_windowHeight);
+	config->QCM_writeEntry("/CustomGenres", m_customGenres);
+	config->QCM_writeEntry("/HideV1", m_hideV1);
+	config->QCM_writeEntry("/HideV2", m_hideV2);
+	config->QCM_writeEntry("/ID3v2Version", m_id3v2Version);
+	config->QCM_writeEntry("/UseProxy", m_useProxy);
+	config->QCM_writeEntry("/Proxy", m_proxy);
+	config->QCM_writeEntry("/Browser", m_browser);
+	config->QCM_writeEntry("/OnlyCustomGenres", m_onlyCustomGenres);
+	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
+	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
 	config->endGroup();
 
 	config->beginGroup("/MenuCommands");
 	int cmdNr = 1;
-	for (Q3ValueList<MiscConfig::MenuCommand>::const_iterator it = m_contextMenuCommands.begin();
+	for (MiscConfig::MenuCommandList::const_iterator
+				 it = m_contextMenuCommands.begin();
 			 it != m_contextMenuCommands.end();
 			 ++it) {
-		config->writeEntry(QString("/Command%1").arg(cmdNr++), (*it).toStringList());
+		config->QCM_writeEntry(QString("/Command%1").arg(cmdNr++), (*it).toStringList());
 	}
 	// delete entries which are no longer used
-	bool ok;
 	for (;;) {
-		QStringList strList = config->readListEntry(QString("/Command%1").arg(cmdNr), &ok);
-		if (!ok) {
+		QStringList strList = config->QCM_readListEntry(QString("/Command%1").arg(cmdNr));
+		if (strList.empty()) {
 			break;
 		}
-		config->removeEntry(QString("/Command%1").arg(cmdNr));
+		config->QCM_removeEntry(QString("/Command%1").arg(cmdNr));
 		++cmdNr;
 	}
 	config->endGroup();
@@ -285,24 +291,24 @@ void MiscConfig::readFromConfig(
 #else
 	config->beginGroup("/" + m_group);
 	m_nameFilter =
-	    config->readEntry("/NameFilter2", s_defaultNameFilter);
+	    config->QCM_readEntry("/NameFilter2", s_defaultNameFilter);
 	m_formatItem =
-	    config->readNumEntry("/FormatItem", 0);
+	    config->QCM_readNumEntry("/FormatItem", 0);
 	m_dirFormatItem =
-	    config->readNumEntry("/DirFormatItem", 0);
-	m_renDirSrcV1 = config->readBoolEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
-	m_markTruncations = config->readBoolEntry("/MarkTruncations", m_markTruncations);
-	m_enableTotalNumberOfTracks = config->readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
-	m_preserveTime = config->readBoolEntry("/PreserveTime", m_preserveTime);
-	m_commentName = config->readEntry("/CommentName", s_defaultCommentName);
+	    config->QCM_readNumEntry("/DirFormatItem", 0);
+	m_renDirSrcV1 = config->QCM_readBoolEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
+	m_markTruncations = config->QCM_readBoolEntry("/MarkTruncations", m_markTruncations);
+	m_enableTotalNumberOfTracks = config->QCM_readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	m_preserveTime = config->QCM_readBoolEntry("/PreserveTime", m_preserveTime);
+	m_commentName = config->QCM_readEntry("/CommentName", s_defaultCommentName);
 
 	m_formatText =
-	    config->readEntry("/FormatText2", s_defaultFnFmtList[0]);
+	    config->QCM_readEntry("/FormatText2", s_defaultFnFmtList[0]);
 	m_dirFormatText =
-	    config->readEntry("/DirFormatText", s_defaultDirFmtList[0]);
+	    config->QCM_readEntry("/DirFormatText", s_defaultDirFmtList[0]);
 	m_splitterSizes.clear();
 	for (int i = 0; i < 5; ++i) {
-		int val = config->readNumEntry("/SplitterSize" + QString::number(i), -1);
+		int val = config->QCM_readNumEntry("/SplitterSize" + QString::number(i), -1);
 		if (val != -1) {
 			m_splitterSizes.push_back(val);
 		} else {
@@ -311,40 +317,39 @@ void MiscConfig::readFromConfig(
 	}
 	m_vSplitterSizes.clear();
 	for (int j = 0; j < 5; ++j) {
-		int val = config->readNumEntry("/VSplitterSize" + QString::number(j), -1);
+		int val = config->QCM_readNumEntry("/VSplitterSize" + QString::number(j), -1);
 		if (val != -1) {
 			m_vSplitterSizes.push_back(val);
 		} else {
 			break;
 		}
 	}
-	m_customGenres = config->readListEntry("/CustomGenres");
-	m_hideV1 = config->readBoolEntry("/HideV1", m_hideV1);
-	m_hideV2 = config->readBoolEntry("/HideV2", m_hideV2);
-	m_id3v2Version = config->readNumEntry("/ID3v2Version", ID3v2_3_0);
-	m_useProxy = config->readBoolEntry("/UseProxy", m_useProxy);
-	m_proxy = config->readEntry("/Proxy", m_proxy);
+	m_customGenres = config->QCM_readListEntry("/CustomGenres");
+	m_hideV1 = config->QCM_readBoolEntry("/HideV1", m_hideV1);
+	m_hideV2 = config->QCM_readBoolEntry("/HideV2", m_hideV2);
+	m_id3v2Version = config->QCM_readNumEntry("/ID3v2Version", ID3v2_3_0);
+	m_useProxy = config->QCM_readBoolEntry("/UseProxy", m_useProxy);
+	m_proxy = config->QCM_readEntry("/Proxy", m_proxy);
 #if defined _WIN32 || defined WIN32
-	m_browser = config->readEntry("/Browser");
+	m_browser = config->QCM_readEntry("/Browser", QString());
 	if (m_browser.isEmpty()) {
 		m_browser = ::getenv("ProgramFiles");
 		m_browser += "\\Internet Explorer\\IEXPLORE.EXE";
 	}
 #else
-	m_browser = config->readEntry("/Browser", s_defaultBrowser);
+	m_browser = config->QCM_readEntry("/Browser", s_defaultBrowser);
 #endif
-	m_onlyCustomGenres = config->readBoolEntry("/OnlyCustomGenres", m_onlyCustomGenres);
-	m_windowWidth = config->readNumEntry("/WindowWidth", -1);
-	m_windowHeight = config->readNumEntry("/WindowHeight", -1);
+	m_onlyCustomGenres = config->QCM_readBoolEntry("/OnlyCustomGenres", m_onlyCustomGenres);
+	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
+	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
 	config->endGroup();
 
 	m_contextMenuCommands.clear();
 	config->beginGroup("/MenuCommands");
 	int cmdNr = 1;
-	bool ok;
 	for (;;) {
-		QStringList strList = config->readListEntry(QString("/Command%1").arg(cmdNr), &ok);
-		if (!ok) {
+		QStringList strList = config->QCM_readListEntry(QString("/Command%1").arg(cmdNr));
+		if (strList.empty()) {
 			break;
 		}
 		m_contextMenuCommands.push_back(MiscConfig::MenuCommand(strList));
@@ -358,11 +363,11 @@ void MiscConfig::readFromConfig(
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand(
 				"Windows Media Player",
-				prgDir + "\\Windows Media Player\\wmplayer.exe %F"));
+				QString('"') + prgDir + "\\Windows Media Player\\wmplayer.exe\" %F"));
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand(
 				"AlbumArt",
-				prgDir +  "\\Album Cover Art Downloader\\albumart-qt.exe %d"));
+				QString('"') + prgDir +  "\\Album Cover Art Downloader\\albumart-qt.exe\" %d"));
 #else
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand("xmms", "xmms %F"));

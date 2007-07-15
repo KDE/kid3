@@ -11,11 +11,6 @@
 #include <qregexp.h>
 #include <qstatusbar.h>
 #include <qurl.h>
-#if QT_VERSION >= 0x040000
-#include <Q3Socket>
-#else
-#include <qsocket.h>
-#endif
 
 #include "importsourceconfig.h"
 #include "kid3.h"
@@ -26,17 +21,25 @@
 ImportSourceClient::ImportSourceClient() :
  m_statusBar(0), m_requestType(RT_None)
 {
-	m_sock = new Q3Socket();
+#if QT_VERSION >= 0x040000
+	m_sock = new QTcpSocket();
+	connect(m_sock, SIGNAL(disconnected()),
+			this, SLOT(slotConnectionClosed()));
+	connect(m_sock, SIGNAL(error(QAbstractSocket::SocketError)),
+			this, SLOT(slotError(QAbstractSocket::SocketError)));
+#else
+	m_sock = new QSocket();
+	connect(m_sock, SIGNAL(connectionClosed()),
+			this, SLOT(slotConnectionClosed()));
+	connect(m_sock, SIGNAL(error(int)),
+			this, SLOT(slotError(int)));
+#endif
 	connect(m_sock, SIGNAL(hostFound()),
 			this, SLOT(slotHostFound()));
 	connect(m_sock, SIGNAL(connected()),
 			this, SLOT(slotConnected()));
-	connect(m_sock, SIGNAL(connectionClosed()),
-			this, SLOT(slotConnectionClosed()));
 	connect(m_sock, SIGNAL(readyRead()),
 			this, SLOT(slotReadyRead()));
-	connect(m_sock, SIGNAL(error(int)),
-			this, SLOT(slotError(int)));
 }
 
 /**
@@ -58,7 +61,7 @@ ImportSourceClient::~ImportSourceClient()
 void ImportSourceClient::init(QStatusBar* sb)
 {
 	m_statusBar = sb;
-	m_statusBar->message(i18n("Ready."));
+	m_statusBar->QCM_showMessage(i18n("Ready."));
 }
 
 /**
@@ -91,7 +94,7 @@ QString ImportSourceClient::getProxyOrDest(const QString& dst)
 void ImportSourceClient::splitNamePort(const QString& namePort,
 																 QString& name, int& port)
 {
-	int colPos = namePort.findRev(':');
+	int colPos = namePort.QCM_lastIndexOf(':');
 	if (colPos >= 0) {
 		bool ok;
 		port = namePort.mid(colPos + 1).toInt(&ok);
@@ -119,7 +122,7 @@ void ImportSourceClient::find(const ImportSourceConfig* cfg,
 	m_sock->connectToHost(dest, destPort);
 	m_requestType = RT_Find;
 
-	m_statusBar->message(i18n("Connecting..."));
+	m_statusBar->QCM_showMessage(i18n("Connecting..."));
 }
 
 /**
@@ -127,7 +130,7 @@ void ImportSourceClient::find(const ImportSourceConfig* cfg,
  */
 void ImportSourceClient::slotHostFound()
 {
-	m_statusBar->message(i18n("Host found..."));
+	m_statusBar->QCM_showMessage(i18n("Host found..."));
 }
 
 /**
@@ -135,8 +138,8 @@ void ImportSourceClient::slotHostFound()
  */
 void ImportSourceClient::slotConnected()
 {
-	m_sock->writeBlock(m_request.latin1(), m_request.length());
-	m_statusBar->message(i18n("Request sent..."));
+	m_sock->QCM_writeBlock(m_request.QCM_latin1(), m_request.length());
+	m_statusBar->QCM_showMessage(i18n("Request sent..."));
 }
 
 /**
@@ -145,10 +148,10 @@ void ImportSourceClient::slotConnected()
  */
 void ImportSourceClient::slotConnectionClosed()
 {
-	Q_ULONG len = m_sock->bytesAvailable();
+	unsigned long len = m_sock->bytesAvailable();
 	QByteArray rcvStr;
 	rcvStr.resize(len + 1);
-	m_sock->readBlock(rcvStr.data(), len);
+	m_sock->QCM_readBlock(rcvStr.data(), len);
 	switch (m_requestType) {
 		case RT_Album:
 			emit albumFinished(rcvStr);
@@ -160,7 +163,7 @@ void ImportSourceClient::slotConnectionClosed()
 			qWarning("Unknown import request type");
 	}
 	m_sock->close();
-	m_statusBar->message(i18n("Ready."));
+	m_statusBar->QCM_showMessage(i18n("Ready."));
 }
 
 /**
@@ -168,30 +171,53 @@ void ImportSourceClient::slotConnectionClosed()
  */
 void ImportSourceClient::slotReadyRead()
 {
-	m_statusBar->message(i18n("Data received: %1").arg(m_sock->bytesAvailable()));
+	m_statusBar->QCM_showMessage(i18n("Data received: %1").arg(m_sock->bytesAvailable()));
 }
 
 /**
  * Display information about socket error.
  */
+#if QT_VERSION >= 0x040000
+void ImportSourceClient::slotError(QAbstractSocket::SocketError err)
+{
+	if (err == QAbstractSocket::RemoteHostClosedError)
+		return;
+	QString msg(i18n("Socket error: "));
+	switch (err) {
+		case QAbstractSocket::ConnectionRefusedError:
+			msg += i18n("Connection refused");
+			break;
+		case QAbstractSocket::HostNotFoundError:
+			msg += i18n("Host not found");
+			break;
+		case QAbstractSocket::SocketAccessError:
+			msg += i18n("Read failed");
+			break;
+		default:
+			msg += m_sock->errorString();
+	}
+	m_statusBar->QCM_showMessage(msg);
+}
+#else
 void ImportSourceClient::slotError(int err)
 {
 	QString msg(i18n("Socket error: "));
 	switch (err) {
-		case Q3Socket::ErrConnectionRefused:
+		case QSocket::ErrConnectionRefused:
 			msg += i18n("Connection refused");
 			break;
-		case Q3Socket::ErrHostNotFound:
+		case QSocket::ErrHostNotFound:
 			msg += i18n("Host not found");
 			break;
-		case Q3Socket::ErrSocketRead:
+		case QSocket::ErrSocketRead:
 			msg += i18n("Read failed");
 			break;
 		default:
 			msg += QString::number(err);
 	}
-	m_statusBar->message(msg);
+	m_statusBar->QCM_showMessage(msg);
 }
+#endif
 
 /**
  * Request track list from server.
@@ -207,5 +233,5 @@ void ImportSourceClient::getTrackList(const ImportSourceConfig* cfg, QString cat
 	constructTrackListQuery(cfg, cat, id, dest, destPort);
 	m_sock->connectToHost(dest, destPort);
 	m_requestType = RT_Album;
-	m_statusBar->message(i18n("Connecting..."));
+	m_statusBar->QCM_showMessage(i18n("Connecting..."));
 }

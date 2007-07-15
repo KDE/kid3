@@ -27,18 +27,18 @@
 #include <qspinbox.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3Table>
-#include <Q3ValueList>
+#include <QTableWidget>
+#include <QHeaderView>
+#include <QList>
 #include <QHBoxLayout>
 #include <QGridLayout>
-#include <Q3GroupBox>
+#include <QGroupBox>
 #else
 #include <qtable.h>
 #include <qgroupbox.h>
 #endif
 #include "genres.h"
 #include "standardtags.h"
-#include "importparser.h"
 #include "freedbdialog.h"
 #include "tracktypedialog.h"
 #include "musicbrainzreleasedialog.h"
@@ -55,30 +55,56 @@
  * Table used for import data.
  * Subclassed to be able to change the cell colors.
  */
-class ImportTable: public Q3Table {
+class ImportTable: public
+#if QT_VERSION >= 0x040000
+QTableWidget
+#else
+QTable
+#endif
+{
 public:
 	/**
 	 * Constructor.
 	 * @param parent parent widget
-	 * @param name   Qt name
 	 */
-	ImportTable(QWidget* parent = 0, const char* name = 0) :
-		Q3Table(parent, name) {}
+	ImportTable(QWidget* parent = 0) :
+#if QT_VERSION >= 0x040000
+		QTableWidget(parent)
+#else
+		QTable(parent)
+#endif
+		{}
 
 	/**
 	 * Constructor.
 	 * @param numRows number of rows
 	 * @param numCols number of columns
 	 * @param parent  parent widget
-	 * @param name    Qt name
 	 */
-	ImportTable(int numRows, int numCols, QWidget* parent = 0, const char* name = 0) :
-		Q3Table(numRows, numCols, parent, name) {} 
+	ImportTable(int numRows, int numCols, QWidget* parent = 0) :
+#if QT_VERSION >= 0x040000
+		QTableWidget(numRows, numCols, parent)
+#else
+		QTable(numRows, numCols, parent)
+#endif
+		{} 
 
 	/**
 	 * Clear marked rows.
 	 */
-	void clearMarks() { m_markedRows.fill(false); }
+	void clearMarks() {
+		m_markedRows.fill(false);
+#if QT_VERSION >= 0x040000
+		for (int row = 0; row < rowCount(); ++row) {
+			QTableWidgetItem* twi = item(row, 0);
+#if QT_VERSION >= 0x040200
+			if (twi) twi->setBackground(Qt::NoBrush);
+#else
+			if (twi) twi->setBackgroundColor(QColor());
+#endif
+		}
+#endif
+	}
 
 	/**
 	 * Mark a row.
@@ -86,8 +112,16 @@ public:
 	 * @param row number of row
 	 */
 	void markRow(unsigned row) {
-		if (m_markedRows.size() <= row) m_markedRows.resize(row + 1);
+		if (static_cast<unsigned>(m_markedRows.size()) <= row)
+			m_markedRows.resize(row + 1);
 		m_markedRows.setBit(row);
+#if QT_VERSION >= 0x040200
+		QTableWidgetItem* twi = item(row, 0);
+		if (twi) twi->setBackground(Qt::red);
+#elif QT_VERSION >= 0x040000
+		QTableWidgetItem* twi = item(row, 0);
+		if (twi) twi->setBackgroundColor(Qt::red);
+#endif
 	}
 
 	/**
@@ -96,7 +130,8 @@ public:
 	 * @return true if row is marked.
 	 */
 	bool isRowMarked(unsigned row) const {
-		return m_markedRows.size() > row && m_markedRows.testBit(row);
+		return static_cast<unsigned>(m_markedRows.size()) > row &&
+			m_markedRows.testBit(row);
 	}
 
 protected:
@@ -110,15 +145,17 @@ protected:
 	 * @param selected true if selected
 	 * @param cg color group
 	 */
+#if QT_VERSION < 0x040000
 	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr, bool selected, const QColorGroup& cg) {
 		if (col == 0 && isRowMarked(row)) {
 			QColorGroup g(cg);
 			g.setColor(QColorGroup::Base, QColor("red"));
-			Q3Table::paintCell(p, row, col, cr, selected, g);
+			QTable::paintCell(p, row, col, cr, selected, g);
 		} else {
-			Q3Table::paintCell(p, row, col, cr, selected, cg);
+			QTable::paintCell(p, row, col, cr, selected, cg);
 		}
 	}
+#endif
 
 private:
 	QBitArray m_markedRows;
@@ -131,13 +168,10 @@ private:
  * @param parent parent widget
  * @param trackDataList track data to be filled with imported values,
  *                      is passed with durations of files set
- * @param name          Qt name
- * @param f             window flags
  */
 ImportSelector::ImportSelector(
-	QWidget* parent, ImportTrackDataVector& trackDataList,
-	const char* name, Qt::WFlags f) :
-	Q3VBox(parent, name, f),
+	QWidget* parent, ImportTrackDataVector& trackDataList) :
+	QWidget(parent),
 	m_trackDataVector(trackDataList)
 {
 	m_freedbDialog = 0;
@@ -150,15 +184,31 @@ ImportSelector::ImportSelector(
 	m_importSource = None;
 	m_headerParser = new ImportParser();
 	m_trackParser = new ImportParser();
-	setSpacing(6);
-	setMargin(6);
+	QVBoxLayout* vboxLayout = new QVBoxLayout(this);
+	vboxLayout->setSpacing(6);
+	vboxLayout->setMargin(6);
+#if QT_VERSION >= 0x040000
+	m_tab = new ImportTable(0, NumColumns, this);
+	m_tab->setSelectionMode(QAbstractItemView::NoSelection);
+	m_tab->setHorizontalHeaderLabels(
+		QStringList() << i18n("Length") << i18n("Track") << i18n("Title") <<
+		i18n("Artist") << i18n("Album") << i18n("Year") << i18n("Genre") <<
+		i18n("Comment"));
+	m_tab->resizeColumnToContents(TrackColumn);
+	m_tab->resizeColumnToContents(YearColumn);
+	QHeaderView* vHeader = m_tab->verticalHeader();
+	if (vHeader) {
+		vHeader->setMovable(true);
+		vHeader->setResizeMode(QHeaderView::ResizeToContents);
+	}
+#else
 	m_tab = new ImportTable(0, NumColumns, this);
 	m_tab->setReadOnly(true);
-	m_tab->setFocusStyle(Q3Table::FollowStyle);
+	m_tab->setFocusStyle(QTable::FollowStyle);
 	m_tab->setRowMovingEnabled(true);
-	m_tab->setSelectionMode(Q3Table::NoSelection);
-	Q3Header* hHeader = m_tab->horizontalHeader();
-	Q3Header* vHeader = m_tab->verticalHeader();
+	m_tab->setSelectionMode(QTable::NoSelection);
+	QHeader* hHeader = m_tab->horizontalHeader();
+	QHeader* vHeader = m_tab->verticalHeader();
 	hHeader->setLabel(LengthColumn, i18n("Length"));
 	hHeader->setLabel(TrackColumn, i18n("Track"));
 	hHeader->setLabel(TitleColumn, i18n("Title"));
@@ -169,19 +219,37 @@ ImportSelector::ImportSelector(
 	hHeader->setLabel(CommentColumn, i18n("Comment"));
 	m_tab->adjustColumn(TrackColumn);
 	m_tab->adjustColumn(YearColumn);
-
-	Q3GroupBox* fmtbox = new Q3GroupBox(3, Qt::Vertical, i18n("Format"), this);
-#if QT_VERSION >= 0x040000
-	fmtbox->setInsideMargin(5);
 #endif
-	m_formatComboBox = new QComboBox(false, fmtbox, "formatComboBox");
+	vboxLayout->addWidget(m_tab);
+
+#if QT_VERSION >= 0x040000
+	QGroupBox* fmtbox = new QGroupBox(i18n("Format"), this);
+#else
+	QGroupBox* fmtbox = new QGroupBox(3, Qt::Vertical, i18n("Format"), this);
+#endif
+	m_formatComboBox = new QComboBox(fmtbox);
 	m_formatComboBox->setEditable(true);
 	m_headerLineEdit = new QLineEdit(fmtbox);
 	m_trackLineEdit = new QLineEdit(fmtbox);
 	connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
+#if QT_VERSION >= 0x040000
+	QVBoxLayout* vbox = new QVBoxLayout;
+	vbox->setMargin(2);
+	vbox->addWidget(m_formatComboBox);
+	vbox->addWidget(m_headerLineEdit);
+	vbox->addWidget(m_trackLineEdit);
+	fmtbox->setLayout(vbox);
+#endif
+	vboxLayout->addWidget(fmtbox);
 
 	QWidget* butbox = new QWidget(this);
+#if QT_VERSION >= 0x040000
+	QGridLayout* butlayout = new QGridLayout(butbox);
+	butlayout->setMargin(0);
+	butlayout->setSpacing(6);
+#else
 	QGridLayout* butlayout = new QGridLayout(butbox, 2, 8, 0, 6);
+#endif
 	m_fileButton = new QPushButton(i18n("From F&ile"), butbox);
 	butlayout->addWidget(m_fileButton, 0, 0);
 	m_clipButton = new QPushButton(i18n("From Clip&board"), butbox);
@@ -195,42 +263,54 @@ ImportSelector::ImportSelector(
 	QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	butlayout->addItem(butspacer, 0, 5);
-	QLabel* destLabel = new QLabel(butbox, "destLabel");
+	QLabel* destLabel = new QLabel(butbox);
 	destLabel->setText(i18n("D&estination:"));
 	butlayout->addWidget(destLabel, 0, 6);
-	m_destComboBox = new QComboBox(false, butbox, "destComboBox");
-	m_destComboBox->insertItem(i18n("Tag 1"), DestV1);
-	m_destComboBox->insertItem(i18n("Tag 2"), DestV2);
+	m_destComboBox = new QComboBox(butbox);
+	m_destComboBox->setEditable(false);
+	m_destComboBox->QCM_insertItem(DestV1, i18n("Tag 1"));
+	m_destComboBox->QCM_insertItem(DestV2, i18n("Tag 2"));
 	destLabel->setBuddy(m_destComboBox);
 	butlayout->addWidget(m_destComboBox, 0, 7);
 
 	m_musicBrainzReleaseButton = new QPushButton(i18n("From MusicBrainz &Release"), butbox);
+#if QT_VERSION >= 0x040000
+	butlayout->addWidget(m_musicBrainzReleaseButton, 1, 0, 1, 2);
+#else
 	butlayout->addMultiCellWidget(m_musicBrainzReleaseButton, 1, 1, 0, 1);
+#endif
 #ifdef HAVE_TUNEPIMP
 	m_musicBrainzButton = new QPushButton(i18n("From &MusicBrainz Fingerprint"), butbox);
+#if QT_VERSION >= 0x040000
+	butlayout->addWidget(m_musicBrainzButton, 1, 2, 1, 3);
+#else
 	butlayout->addMultiCellWidget(m_musicBrainzButton, 1, 1, 2, 4);
 #endif
+#endif
+	vboxLayout->addWidget(butbox);
 
-	QWidget* matchBox = new QWidget(this, "matchBox");
-	QHBoxLayout* matchLayout = new QHBoxLayout(matchBox, 0, 6, "matchLayout");
+	QWidget* matchBox = new QWidget(this);
+	QHBoxLayout* matchLayout = new QHBoxLayout(matchBox);
+	matchLayout->setMargin(0);
+	matchLayout->setSpacing(6);
 	m_mismatchCheckBox = new QCheckBox(
-		i18n("Check maximum allowable time &difference (sec):"), matchBox ,
-		"mismatchCheckBox");
+		i18n("Check maximum allowable time &difference (sec):"), matchBox);
 	matchLayout->addWidget(m_mismatchCheckBox);
-	m_maxDiffSpinBox = new QSpinBox(matchBox, "maxDiffSpinBox");
-	m_maxDiffSpinBox->setMaxValue(9999);
+	m_maxDiffSpinBox = new QSpinBox(matchBox);
+	m_maxDiffSpinBox->QCM_setMaximum(9999);
 	matchLayout->addWidget(m_maxDiffSpinBox);
 	QSpacerItem* matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 																						 QSizePolicy::Minimum);
 	matchLayout->addItem(matchSpacer);
-	QLabel* matchLabel = new QLabel(i18n("Match with:"), matchBox, "matchLabel");
+	QLabel* matchLabel = new QLabel(i18n("Match with:"), matchBox);
 	matchLayout->addWidget(matchLabel);
-	m_lengthButton = new QPushButton(i18n("&Length"), matchBox, "lengthButton");
+	m_lengthButton = new QPushButton(i18n("&Length"), matchBox);
 	matchLayout->addWidget(m_lengthButton);
-	m_trackButton = new QPushButton(i18n("T&rack"), matchBox, "trackButton");
+	m_trackButton = new QPushButton(i18n("T&rack"), matchBox);
 	matchLayout->addWidget(m_trackButton);
-	m_titleButton = new QPushButton(i18n("&Title"), matchBox, "titleButton");
+	m_titleButton = new QPushButton(i18n("&Title"), matchBox);
 	matchLayout->addWidget(m_titleButton);
+	vboxLayout->addWidget(matchBox);
 
 	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	connect(m_clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
@@ -244,7 +324,11 @@ ImportSelector::ImportSelector(
 	connect(m_lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
 	connect(m_trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
 	connect(m_titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
+#if QT_VERSION >= 0x040000
+	connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
+#else
 	connect(vHeader, SIGNAL(indexChange(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
+#endif
 	connect(m_mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
 	connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
 }
@@ -290,15 +374,19 @@ ImportSelector::~ImportSelector()
  */
 void ImportSelector::clear()
 {
+#if QT_VERSION >= 0x040000
+	m_tab->setRowCount(0);
+#else
 	m_tab->setNumRows(0);
-	m_destComboBox->setCurrentItem(
+#endif
+	m_destComboBox->QCM_setCurrentIndex(
 		static_cast<int>(Kid3App::s_genCfg.m_importDestV1 ? DestV1 : DestV2));
 
 	m_formatHeaders = Kid3App::s_genCfg.m_importFormatHeaders;
 	m_formatTracks = Kid3App::s_genCfg.m_importFormatTracks;
 	m_formatComboBox->clear();
-	m_formatComboBox->insertStringList(Kid3App::s_genCfg.m_importFormatNames);
-	m_formatComboBox->setCurrentItem(Kid3App::s_genCfg.m_importFormatIdx);
+	m_formatComboBox->QCM_addItems(Kid3App::s_genCfg.m_importFormatNames);
+	m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importFormatIdx);
 	setFormatLineEdit(Kid3App::s_genCfg.m_importFormatIdx);
 
 	m_mismatchCheckBox->setChecked(Kid3App::s_genCfg.m_enableTimeDifferenceCheck);
@@ -331,13 +419,13 @@ void ImportSelector::fromFile()
 #ifdef CONFIG_USE_KDE
 		KFileDialog::getOpenFileName(QString::null, QString::null, this);
 #else
-		QFileDialog::getOpenFileName(QString::null, QString::null, this);
+		QFileDialog::QCM_getOpenFileName(this);
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QCM_ReadOnly)) {
 			QTextStream stream(&file);
-			m_text = stream.read();
+			m_text = stream.QCM_readAll();
 			if (!m_text.isNull()) {
 				updateTrackData(File);
 				showPreview();
@@ -496,10 +584,10 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 
 	if (!start) {
 		/* start is false => tags were found */
-		Q3ValueList<int>* trackDuration = getTrackDurations();
+		TrackDurationList* trackDuration = getTrackDurations();
 		if (trackDuration) {
 			it = m_trackDataVector.begin();
-			for (Q3ValueList<int>::const_iterator tdit = trackDuration->begin();
+			for (TrackDurationList::const_iterator tdit = trackDuration->begin();
 					 tdit != trackDuration->end();
 					 ++tdit) {
 				if (it != m_trackDataVector.end()) {
@@ -519,9 +607,103 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
  * Show fields to import in text as preview in table.
  */
 void ImportSelector::showPreview() {
+#if QT_VERSION >= 0x040000
+  m_tab->setRowCount(m_trackDataVector.size());
+	int row = 0;
+	QStringList vLabels;
+	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
+			 it != m_trackDataVector.end();
+			 ++it) {
+		QTableWidgetItem* twi;
+		int fileDuration = (*it).getFileDuration();
+		if (fileDuration != 0) {
+			vLabels.append(TaggedFile::formatTime(fileDuration));
+		}
+		int importDuration = (*it).getImportDuration();
+		if (importDuration != 0) {
+			QString lengthStr = TaggedFile::formatTime(importDuration);
+			if ((twi = m_tab->item(row, LengthColumn)) != 0) {
+				twi->setText(lengthStr);
+			} else {
+				twi = new QTableWidgetItem(lengthStr);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, LengthColumn, twi);
+			}
+		}
+		if ((*it).track != -1) {
+			QString trackStr;
+			trackStr.setNum((*it).track);
+			if ((twi = m_tab->item(row, TrackColumn)) != 0) {
+				twi->setText(trackStr);
+			} else {
+				twi = new QTableWidgetItem(trackStr);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, TrackColumn, twi);
+			}
+		}
+		if (!(*it).title.isNull()) {
+			if ((twi = m_tab->item(row, TitleColumn)) != 0) {
+				twi->setText((*it).title);
+			} else {
+				twi = new QTableWidgetItem((*it).title);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, TitleColumn, twi);
+			}
+		}
+		if (!(*it).artist.isNull()) {
+			if ((twi = m_tab->item(row, ArtistColumn)) != 0) {
+				twi->setText((*it).artist);
+			} else {
+				twi = new QTableWidgetItem((*it).artist);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, ArtistColumn, twi);
+			}
+		}
+		if (!(*it).album.isNull()) {
+			if ((twi = m_tab->item(row, AlbumColumn)) != 0) {
+				twi->setText((*it).album);
+			} else {
+				twi = new QTableWidgetItem((*it).album);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, AlbumColumn, twi);
+			}
+		}
+		if ((*it).year != -1) {
+			QString yearStr;
+			yearStr.setNum((*it).year);
+			if ((twi = m_tab->item(row, YearColumn)) != 0) {
+				twi->setText(yearStr);
+			} else {
+				twi = new QTableWidgetItem(yearStr);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, YearColumn, twi);
+			}
+		}
+		if (!(*it).genre.isNull()) {
+			if ((twi = m_tab->item(row, GenreColumn)) != 0) {
+				twi->setText((*it).genre);
+			} else {
+				twi = new QTableWidgetItem((*it).genre);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, GenreColumn, twi);
+			}
+		}
+		if (!(*it).comment.isNull()) {
+			if ((twi = m_tab->item(row, CommentColumn)) != 0) {
+				twi->setText((*it).comment);
+			} else {
+				twi = new QTableWidgetItem((*it).comment);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, CommentColumn, twi);
+			}
+		}
+		++row;
+	}
+	m_tab->setVerticalHeaderLabels(vLabels);
+#else
 	m_tab->setNumRows(0);
 	int row = 0;
-	Q3Header* vHeader = m_tab->verticalHeader();
+	QHeader* vHeader = m_tab->verticalHeader();
 	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 			 it != m_trackDataVector.end();
 			 ++it) {
@@ -555,6 +737,7 @@ void ImportSelector::showPreview() {
 			m_tab->setText(row, CommentColumn, (*it).comment);
 		++row;
 	}
+#endif
 
 	// make time difference check
 	m_tab->clearMarks();
@@ -614,7 +797,7 @@ bool ImportSelector::getNextTags(StandardTags& st, bool start)
  */
 ImportSelector::Destination ImportSelector::getDestination()
 {
-	return (Destination)m_destComboBox->currentItem();
+	return (Destination)m_destComboBox->QCM_currentIndex();
 }
 
 /**
@@ -623,9 +806,9 @@ ImportSelector::Destination ImportSelector::getDestination()
 void ImportSelector::saveConfig()
 {
 	Kid3App::s_genCfg.m_importDestV1 = 
-		(m_destComboBox->currentItem() == static_cast<int>(ImportSelector::DestV1));
+		(m_destComboBox->QCM_currentIndex() == static_cast<int>(ImportSelector::DestV1));
 
-	Kid3App::s_genCfg.m_importFormatIdx = m_formatComboBox->currentItem();
+	Kid3App::s_genCfg.m_importFormatIdx = m_formatComboBox->QCM_currentIndex();
 	Kid3App::s_genCfg.m_importFormatNames[Kid3App::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
 	Kid3App::s_genCfg.m_importFormatHeaders[Kid3App::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
 	Kid3App::s_genCfg.m_importFormatTracks[Kid3App::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
@@ -640,9 +823,9 @@ void ImportSelector::saveConfig()
  * @return list with track durations,
  *         0 if no track durations found.
  */
-Q3ValueList<int>* ImportSelector::getTrackDurations()
+TrackDurationList* ImportSelector::getTrackDurations()
 {
-	Q3ValueList<int>* lst = 0;
+	TrackDurationList* lst = 0;
 	if (m_headerParser && ((lst = m_headerParser->getTrackDurations()) != 0) &&
 			(lst->size() > 0)) {
 		return lst;
@@ -683,9 +866,19 @@ void ImportSelector::maxDiffChanged() {
  * @param fromIndex index of position moved to
  */
 void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
+#if QT_VERSION >= 0x040000
+	QHeaderView* vHeader = m_tab->verticalHeader();
+	if (vHeader) {
+		// revert movement, but avoid recursion
+		disconnect(vHeader, SIGNAL(sectionMoved(int, int, int)), 0, 0);
+		vHeader->moveSection(toIndex, fromIndex);
+		connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
+	}
+#else
 	if (toIndex > fromIndex && toIndex > 0) {
 		--toIndex;
 	}
+#endif
 	int numTracks = static_cast<int>(m_trackDataVector.size());
 	if (fromIndex < numTracks && toIndex < numTracks) {
 		// swap elements but keep file durations and names
@@ -956,21 +1149,21 @@ void ImportSelector::matchWithTitle()
 			QString fileName = (*it).getAbsFilename();
 			if (!fileName.isEmpty()) {
 				++numFiles;
-				int startIndex = fileName.findRev(QDir::separator()) + 1;
-				int endIndex = fileName.findRev('.');
+				int startIndex = fileName.QCM_lastIndexOf(QDir::separator()) + 1;
+				int endIndex = fileName.QCM_lastIndexOf('.');
 				if (endIndex > startIndex) {
 					fileName = fileName.mid(startIndex, endIndex - startIndex);
 				} else {
 					fileName = fileName.mid(startIndex);
 				}
-				md[i].fileWords = QStringList::split(
-					nonWordCharRegExp, fileName.lower().
+				md[i].fileWords = QCM_split(
+					nonWordCharRegExp, fileName.QCM_toLower().
 					replace(nonLetterSpaceRegExp, " "));
 			}
 			if (!(*it).title.isEmpty()) {
 				++numImports;
-				md[i].titleWords = QStringList::split(
-					nonWordCharRegExp, (*it).title.lower().
+				md[i].titleWords = QCM_split(
+					nonWordCharRegExp, (*it).title.QCM_toLower().
 					replace(nonLetterSpaceRegExp, " "));
 			}
 			md[i].assignedTo = -1;

@@ -232,7 +232,7 @@ bool TaggedFile::isTagV1Supported() const
 QString TaggedFile::getAbsFilename() const
 {
 	QDir dir(m_dirInfo->getDirname());
-	return QDir::cleanDirPath(dir.absFilePath(m_newFilename));
+	return QDir::QCM_cleanPath(dir.QCM_absoluteFilePath(m_newFilename));
 }
 
 /**
@@ -344,7 +344,7 @@ void TaggedFile::setStandardTagsV2(const StandardTags* st,
  */
 static void remove_artist(QString& album)
 {
-	int pos = album.find(" - ");
+	int pos = album.QCM_indexOf(" - ");
 	if (pos != -1) {
 		album.remove(0, pos + 3);
 	}
@@ -416,7 +416,7 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 	}
 	int pos = 0;
 	for (int j = 0; j < numTagCodes; ++j) {
-		pos = pattern.find('%', pos);
+		pos = pattern.QCM_indexOf('%', pos);
 		if (pos == -1) break;
 		++pos;
 		for (int k = 0; k < numTagCodes; ++k) {
@@ -438,7 +438,7 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 	}
 
 	re.setPattern(pattern);
-	if (re.search(fileName) != -1) {
+	if (re.QCM_indexIn(fileName) != -1) {
 		if (idxOfCode[0])
 			st->title = re.cap(idxOfCode[0]);
 		if (idxOfCode[1])
@@ -456,7 +456,7 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 
 	// album/track - artist - song
 	re.setPattern("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.search(fn) != -1) {
+	if (re.QCM_indexIn(fn) != -1) {
 		st->album = re.cap(1);
 		st->track = re.cap(2).toInt();
 		st->artist = re.cap(3);
@@ -466,7 +466,7 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 	}
 	// artist - album/track song
 	re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.search(fn) != -1) {
+	if (re.QCM_indexIn(fn) != -1) {
 		st->artist = re.cap(1);
 		st->album = re.cap(2);
 		st->track = re.cap(3).toInt();
@@ -475,7 +475,7 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 	}
 	// /artist - album - track - song
 	re.setPattern("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.search(fn) != -1) {
+	if (re.QCM_indexIn(fn) != -1) {
 		st->artist = re.cap(1);
 		st->album = re.cap(2);
 		st->track = re.cap(3).toInt();
@@ -484,7 +484,7 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 	}
 	// album/artist - track - song
 	re.setPattern("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.search(fn) != -1) {
+	if (re.QCM_indexIn(fn) != -1) {
 		st->album = re.cap(1);
 		st->artist = re.cap(2);
 		st->track = re.cap(3).toInt();
@@ -494,7 +494,7 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 	}
 	// artist/album/track song
 	re.setPattern("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.search(fn) != -1) {
+	if (re.QCM_indexIn(fn) != -1) {
 		st->artist = re.cap(1);
 		st->album = re.cap(2);
 		st->track = re.cap(3).toInt();
@@ -503,7 +503,7 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 	}
 	// album/artist - song
 	re.setPattern("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{3,4}$");
-	if (re.search(fn) != -1) {
+	if (re.QCM_indexIn(fn) != -1) {
 		st->album = re.cap(1);
 		st->artist = re.cap(2);
 		st->title = re.cap(3);
@@ -533,7 +533,7 @@ QString TaggedFile::formatWithTags(const StandardTags* st, QString fmt,
 {
 	if (!isDirname) {
 		// first remove directory part from fmt
-		const int sepPos = fmt.findRev('/');
+		const int sepPos = fmt.QCM_lastIndexOf('/');
 		if (sepPos >= 0) {
 			fmt.remove(0, sepPos + 1);
 		}
@@ -598,7 +598,7 @@ QString TaggedFile::formatTime(unsigned seconds)
 bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 {
 	QString dirname = m_dirInfo->getDirname();
-	if (fnNew.lower() == fnOld.lower()) {
+	if (fnNew.QCM_toLower() == fnOld.QCM_toLower()) {
 		// If the filenames only differ in case, the new file is reported to
 		// already exist on case insensitive filesystems (e.g. Windows),
 		// so it is checked if the new file is really the old file by
@@ -606,12 +606,12 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 		// another file would be overwritten and an error is reported.
 		if (QFile::exists(dirname + QDir::separator() + fnNew)) {
 			struct stat statOld, statNew;
-			if (::stat((dirname + QDir::separator() + fnOld).latin1(), &statOld) == 0 &&
-					::stat((dirname + QDir::separator() + fnNew).latin1(), &statNew) == 0 &&
+			if (::stat((dirname + QDir::separator() + fnOld).QCM_latin1(), &statOld) == 0 &&
+					::stat((dirname + QDir::separator() + fnNew).QCM_latin1(), &statNew) == 0 &&
 					!(statOld.st_ino == statNew.st_ino &&
 						statOld.st_dev == statNew.st_dev)) {
-				qDebug("rename(%s, %s): %s already exists", fnOld.latin1(),
-							 fnNew.latin1(), fnNew.latin1());
+				qDebug("rename(%s, %s): %s already exists", fnOld.QCM_latin1(),
+							 fnNew.QCM_latin1(), fnNew.QCM_latin1());
 				return false;
 			}
 		}
@@ -622,22 +622,22 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 		QString temp_filename(fnNew);
 		temp_filename.append("_CASE");
 		if (!QDir(dirname).rename(fnOld, temp_filename)) {
-			qDebug("rename(%s, %s) failed", fnOld.latin1(),
-					   temp_filename.latin1());
+			qDebug("rename(%s, %s) failed", fnOld.QCM_latin1(),
+					   temp_filename.QCM_latin1());
 			return false;
 		}
 		if (!QDir(dirname).rename(temp_filename, fnNew)) {
-			qDebug("rename(%s, %s) failed", temp_filename.latin1(),
-					   fnNew.latin1());
+			qDebug("rename(%s, %s) failed", temp_filename.QCM_latin1(),
+					   fnNew.QCM_latin1());
 			return false;
 		}
 	} else if (QFile::exists(dirname + QDir::separator() + fnNew)) {
-		qDebug("rename(%s, %s): %s already exists", fnOld.latin1(),
-					 fnNew.latin1(), fnNew.latin1());
+		qDebug("rename(%s, %s): %s already exists", fnOld.QCM_latin1(),
+					 fnNew.QCM_latin1(), fnNew.QCM_latin1());
 		return false;
 	} else if (!QDir(dirname).rename(fnOld, fnNew)) {
-		qDebug("rename(%s, %s) failed", fnOld.latin1(),
-					 fnNew.latin1());
+		qDebug("rename(%s, %s) failed", fnOld.QCM_latin1(),
+					 fnNew.QCM_latin1());
 		return false;
 	}
 	return true;

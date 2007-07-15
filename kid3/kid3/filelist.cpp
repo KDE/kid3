@@ -16,12 +16,10 @@
 #include <qurl.h>
 #include <qregexp.h>
 #if QT_VERSION >= 0x040000
-#include <Q3PopupMenu>
-#include <Q3Process>
-#include <Q3Header>
+#include <QMenu>
+#include <QHeaderView>
 #else
 #include <qpopupmenu.h>
-#include <qprocess.h>
 #include <qheader.h>
 #endif
 #ifdef CONFIG_USE_KDE
@@ -49,21 +47,37 @@
 
 /**
  * Constructor.
+ * @param parent parent widget
  */
-FileList::FileList(QWidget* parent, const char* name, Qt::WFlags f) :
-	Q3ListView(parent, name, f), m_currentItemInDir(0), m_process(0)
+FileList::FileList(QWidget* parent) :
+#if QT_VERSION >= 0x040000
+	QTreeWidget(parent), m_iterator(0),
+#else
+	QListView(parent),
+#endif
+	m_currentItemInDir(0), m_process(0)
 {
+#if QT_VERSION >= 0x040000
+	setSelectionMode(ExtendedSelection);
+	setSortingEnabled(false);
+	setColumnCount(1);
+	setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
+			this, SLOT(customContextMenu(const QPoint&)));
+	connect(this, SIGNAL(itemExpanded(QTreeWidgetItem*)),
+					this, SLOT(expandItem(QTreeWidgetItem*)));
+	connect(this, SIGNAL(itemCollapsed(QTreeWidgetItem*)),
+					this, SLOT(collapseItem(QTreeWidgetItem*)));
+	connect(this, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)),
+					this, SLOT(expandOrCollapseEmptyItem(QTreeWidgetItem*)));
+#else
 	setSelectionMode(Extended);
 	setSorting(-1);
 	addColumn("");
-	header()->hide();
-#if QT_VERSION >= 0x040000
-	connect(this, SIGNAL(contextMenuRequested(Q3ListViewItem*, const QPoint&, int)),
-			this, SLOT(contextMenu(Q3ListViewItem*, const QPoint&)));
-#else
 	connect(this, SIGNAL(contextMenuRequested(QListViewItem*, const QPoint&, int)),
 			this, SLOT(contextMenu(QListViewItem*, const QPoint&)));
 #endif
+	header()->hide();
 }
 
 /**
@@ -72,6 +86,9 @@ FileList::FileList(QWidget* parent, const char* name, Qt::WFlags f) :
 FileList::~FileList()
 {
 	delete m_process;
+#if QT_VERSION >= 0x040000
+	delete m_iterator;
+#endif
 }
 
 /**
@@ -80,7 +97,13 @@ FileList::~FileList()
  */
 QSize FileList::sizeHint() const
 {
-	return QSize(fontMetrics().maxWidth() * 25, Q3ListView::sizeHint().height());
+	return QSize(fontMetrics().maxWidth() * 25,
+#if QT_VERSION >= 0x040000
+							 QTreeWidget::sizeHint().height()
+#else
+							 QListView::sizeHint().height()
+#endif
+		);
 }
 
 /**
@@ -90,10 +113,20 @@ QSize FileList::sizeHint() const
  *
  * @return next item with file.
  */
-static FileListItem* getNextItemWithFile(Q3ListViewItemIterator& it)
+static FileListItem* getNextItemWithFile(
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItemIterator& it
+#else
+	QListViewItemIterator& it
+#endif
+	)
 {
-	Q3ListViewItem* lvItem;
-	while ((lvItem = it.current()) != 0) {
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem* lvItem;
+#else
+	QListViewItem* lvItem;
+#endif
+	while ((lvItem = *it) != 0) {
 		FileListItem* flItem = dynamic_cast<FileListItem*>(lvItem);
 		if (flItem && flItem->getFile()) {
 			return flItem;
@@ -110,8 +143,19 @@ static FileListItem* getNextItemWithFile(Q3ListViewItemIterator& it)
  */
 FileListItem* FileList::first()
 {
-	m_iterator = Q3ListViewItemIterator(this);
+#if QT_VERSION >= 0x040000
+	delete m_iterator;
+	if (topLevelItemCount() > 0) {
+		m_iterator = new QTreeWidgetItemIterator(this);
+		return getNextItemWithFile(*m_iterator);
+	} else {
+		m_iterator = 0;
+		return 0;
+	}
+#else
+	m_iterator = QListViewItemIterator(this);
 	return getNextItemWithFile(m_iterator);
+#endif
 }
 
 /**
@@ -121,10 +165,17 @@ FileListItem* FileList::first()
  */
 FileListItem* FileList::next()
 {
-	if (m_iterator.current()) {
+#if QT_VERSION >= 0x040000
+	if (m_iterator && **m_iterator) {
+		++*m_iterator;
+		return getNextItemWithFile(*m_iterator);
+	}
+#else
+	if (*m_iterator) {
 		++m_iterator;
 		return getNextItemWithFile(m_iterator);
 	}
+#endif
 	return 0;
 }
 
@@ -135,14 +186,29 @@ FileListItem* FileList::next()
  *
  * @return next item with file.
  */
-static FileListItem* getNextItemWithFileInDir(Q3ListViewItem* lvItem)
+static FileListItem* getNextItemWithFileInDir(
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem* lvItem
+#else
+	QListViewItem* lvItem
+#endif
+	)
 {
 	while (lvItem) {
 		FileListItem* flItem = dynamic_cast<FileListItem*>(lvItem);
 		if (flItem && flItem->getFile()) {
 			return flItem;
 		}
+#if QT_VERSION >= 0x040000
+		QTreeWidgetItem* parent = lvItem->parent();
+		QTreeWidgetItemIterator it(lvItem);
+		lvItem = *(++it);
+		if (lvItem && lvItem->parent() != parent) {
+			lvItem = 0;
+		}
+#else
 		lvItem = lvItem->nextSibling();
+#endif
 	}
 	return 0;
 }
@@ -154,9 +220,37 @@ static FileListItem* getNextItemWithFileInDir(Q3ListViewItem* lvItem)
  */
 FileListItem* FileList::firstInDir()
 {
+#if QT_VERSION >= 0x040000
 	// try to get the currently selected directory
-	Q3ListViewItemIterator it(this, Q3ListViewItemIterator::Selected);
-	FileListItem* item = dynamic_cast<FileListItem*>(it.current());
+	if (topLevelItemCount() <= 0) {
+		m_currentItemInDir = 0;
+		return 0;
+	}
+	QTreeWidgetItemIterator it(this, QTreeWidgetItemIterator::Selected);
+	FileListItem* item = dynamic_cast<FileListItem*>(*it);
+	if (item &&
+		 (item->getDirInfo() ||
+			(item->getFile() &&
+			 (item = dynamic_cast<FileListItem*>(item->parent())) != 0))) {
+		m_currentItemInDir =
+			getNextItemWithFileInDir(item->child(0));
+	} else {
+		// if not found, get the first child of the list view
+		m_currentItemInDir =
+			getNextItemWithFileInDir(topLevelItem(0));
+	}
+
+	// if still not found, get the first file in the list view
+	if (!m_currentItemInDir) {
+		it = QTreeWidgetItemIterator(this);
+		m_currentItemInDir = getNextItemWithFile(it);
+	}
+
+	return m_currentItemInDir;
+#else
+	// try to get the currently selected directory
+	QListViewItemIterator it(this, QListViewItemIterator::Selected);
+	FileListItem* item = dynamic_cast<FileListItem*>(*it);
 	if (item &&
 		 (item->getDirInfo() ||
 			(item->getFile() &&
@@ -171,11 +265,12 @@ FileListItem* FileList::firstInDir()
 
 	// if still not found, get the first file in the list view
 	if (!m_currentItemInDir) {
-		it = Q3ListViewItemIterator(this);
+		it = QListViewItemIterator(this);
 		m_currentItemInDir = getNextItemWithFile(it);
 	}
 
 	return m_currentItemInDir;
+#endif
 }
 
 /**
@@ -186,8 +281,18 @@ FileListItem* FileList::firstInDir()
 FileListItem* FileList::nextInDir()
 {
 	if (m_currentItemInDir) {
+#if QT_VERSION >= 0x040000
+		QTreeWidgetItem* parent = m_currentItemInDir->parent();
+		QTreeWidgetItemIterator it(m_currentItemInDir);
+		QTreeWidgetItem* nextSibling = *(++it);
+		if (nextSibling && nextSibling->parent() != parent) {
+			nextSibling = 0;
+		}
+		m_currentItemInDir = getNextItemWithFileInDir(nextSibling);
+#else
 		m_currentItemInDir =
 			getNextItemWithFileInDir(m_currentItemInDir->nextSibling());
+#endif
 	}
 	return m_currentItemInDir;
 }
@@ -200,7 +305,14 @@ FileListItem* FileList::nextInDir()
 int FileList::numFilesSelected()
 {
 	int numSelected = 0;
-	Q3ListViewItemIterator it(this, Q3ListViewItemIterator::Selected);
+#if QT_VERSION >= 0x040000
+	if (topLevelItemCount() <= 0) {
+		return 0;
+	}
+	QTreeWidgetItemIterator it(this, QTreeWidgetItemIterator::Selected);
+#else
+	QListViewItemIterator it(this, QListViewItemIterator::Selected);
+#endif
 	FileListItem* item;
 	while ((item = getNextItemWithFile(it)) != 0) {
 		++numSelected;
@@ -214,12 +326,21 @@ int FileList::numFilesSelected()
  */
 void FileList::selectNextFile()
 {
-	Q3ListViewItem* item = currentItem();
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem* item = currentItem();
+	if (item && (item = *(++QTreeWidgetItemIterator(item))) != 0) {
+		clearSelection();
+		setCurrentItem(item);
+		setItemSelected(item, true);		
+	}
+#else
+	QListViewItem* item = currentItem();
 	if (item && (item = item->itemBelow()) != 0) {
 		clearSelection();
 		setCurrentItem(item);
 		setSelected(item, true);		
 	}
+#endif
 }
 
 /**
@@ -227,12 +348,21 @@ void FileList::selectNextFile()
  */
 void FileList::selectPreviousFile()
 {
-	Q3ListViewItem* item = currentItem();
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem* item = currentItem();
+	if (item && (item = *(--QTreeWidgetItemIterator(item))) != 0) {
+		clearSelection();
+		setCurrentItem(item);
+		setItemSelected(item, true);		
+	}
+#else
+	QListViewItem* item = currentItem();
 	if (item && (item = item->itemAbove()) != 0) {
 		clearSelection();
 		setCurrentItem(item);
 		setSelected(item, true);		
 	}
+#endif
 }
 
 /**
@@ -247,17 +377,17 @@ TaggedFile* FileList::createTaggedFile(const DirInfo* di, const QString& fn)
 {
 	TaggedFile* taggedFile = 0;
 #ifdef HAVE_VORBIS
-	if (fn.right(4).lower() == ".ogg")
+	if (fn.right(4).QCM_toLower() == ".ogg")
 		taggedFile = new OggFile(di, fn);
 	else
 #endif
 #ifdef HAVE_FLAC
-		if (fn.right(5).lower() == ".flac")
+		if (fn.right(5).QCM_toLower() == ".flac")
 			taggedFile = new FlacFile(di, fn);
 		else
 #endif
 #ifdef HAVE_ID3LIB
-			if (fn.right(4).lower() == ".mp3"
+			if (fn.right(4).QCM_toLower() == ".mp3"
 #ifdef HAVE_TAGLIB
 			&& Kid3App::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
 #endif
@@ -289,7 +419,11 @@ void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 	FileListItem* last = 0;
 	QDir dir(dirname);
 	QStringList dirContents = dir.entryList(QDir::Dirs) +
+#if QT_VERSION >= 0x040000
+		dir.entryList(Kid3App::s_miscCfg.m_nameFilter.split(' '), QDir::Files);
+#else
 		dir.entryList(Kid3App::s_miscCfg.m_nameFilter, QDir::Files);
+#endif
 	for (QStringList::Iterator it = dirContents.begin();
 			 it != dirContents.end(); ++it) {
 		QString filename = dirname + QDir::separator() + *it;
@@ -330,7 +464,7 @@ bool FileList::readDir(const QString& name)
 	QFileInfo file(name);
 	if(file.isDir()) {
 		clear();
-		m_dirInfo.setDirname(file.absFilePath());
+		m_dirInfo.setDirname(file.QCM_absoluteFilePath());
 		readSubDirectory(&m_dirInfo, 0, this);
 		return true;
 	}
@@ -353,7 +487,11 @@ bool FileList::updateModificationState()
 		item->updateIcons();
 		item = next();
 	}
+#if QT_VERSION >= 0x040000
+	update();
+#else
 	triggerUpdate();
+#endif
 	return modified;
 }
 
@@ -363,20 +501,41 @@ bool FileList::updateModificationState()
  * @param item list box item
  * @param pos  position where context menu is drawn on screen
  */
-void FileList::contextMenu(Q3ListViewItem* item, const QPoint& pos)
+void FileList::contextMenu(
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem* item,
+#else
+	QListViewItem* item,
+#endif
+	const QPoint& pos)
 {
 	if (item && !Kid3App::s_miscCfg.m_contextMenuCommands.empty()) {
-		Q3PopupMenu menu(this);
+#if QT_VERSION >= 0x040000
+		QMenu menu(this);
+		menu.addAction(i18n("&Rename"), this, SLOT(renameFile()));
+		menu.addAction(i18n("&Delete"), this, SLOT(deleteFile()));
+		int id = 0;
+		for (MiscConfig::MenuCommandList::const_iterator
+					 it = Kid3App::s_miscCfg.m_contextMenuCommands.begin();
+				 it != Kid3App::s_miscCfg.m_contextMenuCommands.end();
+				 ++it) {
+			menu.addAction((*it).getName());
+			++id;
+		}
+		connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
+#else
+		QPopupMenu menu(this);
 		menu.insertItem(i18n("&Rename"), this, SLOT(renameFile()));
 		menu.insertItem(i18n("&Delete"), this, SLOT(deleteFile()));
 		int id = 0;
-		for (Q3ValueList<MiscConfig::MenuCommand>::const_iterator
+		for (MiscConfig::MenuCommandList::const_iterator
 					 it = Kid3App::s_miscCfg.m_contextMenuCommands.begin();
 				 it != Kid3App::s_miscCfg.m_contextMenuCommands.end();
 				 ++it) {
 			menu.insertItem((*it).getName(), this, SLOT(executeContextCommand(int)), 0, id);
 			++id;
 		}
+#endif
 		menu.setMouseTracking(true);
 		menu.exec(pos);
 	}
@@ -430,7 +589,7 @@ QStringList FileList::formatStringList(const QStringList& format)
 	for (QStringList::const_iterator it = format.begin();
 			 it != format.end();
 			 ++it) {
-		if ((*it).find('%') == -1) {
+		if ((*it).QCM_indexOf('%') == -1) {
 			fmt.push_back(*it);
 		} else {
 			if (*it == "%F") {
@@ -439,16 +598,12 @@ QStringList FileList::formatStringList(const QStringList& format)
 			} else if (*it == "%uF") {
 				// list of URLs or URL
 				QUrl url;
-				url.setProtocol("file");
+				url.QCM_setScheme("file");
 				for (QStringList::const_iterator fit = files.begin();
 						 fit != files.end();
 						 ++fit) {
-					url.setFileName(*fit);
-					fmt.push_back(url.toString(
-#if QT_VERSION < 0x040000
-													true
-#endif
-													));
+					url.QCM_setPath(*fit);
+					fmt.push_back(url.toString());
 				}
 			} else {
 				const int numTagCodes = 3;
@@ -459,9 +614,9 @@ QStringList FileList::formatStringList(const QStringList& format)
 					tagStr[1] = tagStr[0];
 					tagStr[2] = Kid3App::s_miscCfg.m_browser;
 					if (!dirInfo) {
-						int sepPos = tagStr[1].findRev('/');
+						int sepPos = tagStr[1].QCM_lastIndexOf('/');
 						if (sepPos < 0) {
-							sepPos = tagStr[1].findRev(QDir::separator());
+							sepPos = tagStr[1].QCM_lastIndexOf(QDir::separator());
 						}
 						if (sepPos >= 0) {
 							tagStr[1].truncate(sepPos);
@@ -471,15 +626,11 @@ QStringList FileList::formatStringList(const QStringList& format)
 				QString str = StandardTags::replacePercentCodes(*it, tagCode, tagStr, numTagCodes);
 
 				int ufPos;
-				if ((ufPos = str.find("%uf")) != -1 && !files.empty()) {
+				if ((ufPos = str.QCM_indexOf("%uf")) != -1 && !files.empty()) {
 					QUrl url;
-					url.setProtocol("file");
-					url.setFileName(files.front());
-					str.replace(ufPos, 3, url.toString(
-#if QT_VERSION < 0x040000
-												true
-#endif
-												));
+					url.QCM_setScheme("file");
+					url.QCM_setPath(files.front());
+					str.replace(ufPos, 3, url.toString());
 				}
 
 				if (firstSelectedItem) {
@@ -533,7 +684,7 @@ void FileList::executeContextCommand(int id)
 				args.push_back(str);
 				end = begin;
 			} else {
-				end = cmd.find(' ', begin + 1);
+				end = cmd.QCM_indexOf(' ', begin + 1);
 				if (end == -1) end = len;
 				args.push_back(cmd.mid(begin, end - begin));
 			}
@@ -552,6 +703,33 @@ void FileList::executeContextCommand(int id)
 }
 
 /**
+ * Execute a context menu action.
+ *
+ * @param action action of selected menu
+ */
+#if QT_VERSION >= 0x040000
+void FileList::executeAction(QAction* action)
+{
+	if (action) {
+		QString name = action->text();
+		int id = 0;
+		for (MiscConfig::MenuCommandList::const_iterator
+					 it = Kid3App::s_miscCfg.m_contextMenuCommands.begin();
+				 it != Kid3App::s_miscCfg.m_contextMenuCommands.end();
+				 ++it) {
+			if (name == (*it).getName()) {
+				executeContextCommand(id);
+				break;
+			}
+			++id;
+		}
+	}
+}
+#else
+void FileList::executeAction(QAction*) {}
+#endif
+
+/**
  * Rename the selected file(s).
  */
 void FileList::renameFile()
@@ -564,10 +742,11 @@ void FileList::renameFile()
 		if (item->isInSelection() &&
 				(taggedFile = item->getFile()) != 0) {
 			bool ok;
-			QString newFileName = QInputDialog::getText(
+			QString newFileName = QInputDialog::QCM_getText(
+				this,
 				i18n("Rename File"),
 				i18n("Enter new file name:"),
-				QLineEdit::Normal, taggedFile->getFilename(), &ok, this);
+				QLineEdit::Normal, taggedFile->getFilename(), &ok);
 			if (ok && !newFileName.isEmpty()) {
 				if (taggedFile->isChanged()) {
 					taggedFile->setFilename(newFileName);
@@ -612,12 +791,17 @@ void FileList::renameFile()
 			(dirInfo = item->getDirInfo()) != 0) {
 		QFileInfo fi(dirInfo->getDirname());
 		bool ok;
-		QString newDirName = QInputDialog::getText(
+		QString newDirName = QInputDialog::QCM_getText(
+			this,
 			i18n("Rename Directory"),
 			i18n("Enter new directory name:"),
-			QLineEdit::Normal, fi.fileName(), &ok, this);
+			QLineEdit::Normal, fi.fileName(), &ok);
 		if (ok && !newDirName.isEmpty()) {
+#if QT_VERSION >= 0x040000
+			QString newPath = fi.dir().path() + '/' + newDirName;
+#else
 			QString newPath = fi.dirPath() + '/' + newDirName;
+#endif
 			if (QDir().rename(dirInfo->getDirname(), newPath)) {
 				item->setDirName(newPath);
 			} else {
@@ -672,6 +856,9 @@ void FileList::deleteFile()
 				QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
 #endif
 		{
+#if QT_VERSION >= 0x040000
+			QList<QTreeWidgetItem*> itemsToDelete;
+#endif
 			files.clear();
 			FileListItem* item = first();
 			while (item != 0) {
@@ -686,7 +873,11 @@ void FileList::deleteFile()
 						// The file must be closed before deleting on Windows.
 						item->setFile(0);
 						if (QDir().remove(absFilename)) {
+#if QT_VERSION >= 0x040000
+							itemsToDelete.append(item);
+#else
 							delete item;
+#endif
 						} else {
 							item->setFile(createTaggedFile(dirInfo, filename));
 							files.push_back(absFilename);
@@ -695,6 +886,10 @@ void FileList::deleteFile()
 				}
 				item = nextItem;
 			}
+#if QT_VERSION >= 0x040000
+			qDeleteAll(itemsToDelete);
+			itemsToDelete.clear();
+#endif
 			if (!files.empty()) {
 #ifdef CONFIG_USE_KDE
 				KMessageBox::errorList(
@@ -760,3 +955,59 @@ void FileList::deleteFile()
 		}
 	}
 }
+
+#if QT_VERSION >= 0x040000
+/**
+ * Expand an item.
+ *
+ * @param item item
+ */
+void FileList::expandItem(QTreeWidgetItem* item)
+{
+	FileListItem* fli = dynamic_cast<FileListItem*>(item);
+	if (fli) {
+		fli->setOpen(true);
+	}
+}
+
+/**
+ * Collapse an item.
+ *
+ * @param item item
+ */
+void FileList::collapseItem(QTreeWidgetItem* item)
+{
+	FileListItem* fli = dynamic_cast<FileListItem*>(item);
+	if (fli) {
+		fli->setOpen(false);
+	}
+}
+
+/**
+ * Display a custom context menu with operations for selected files.
+ *
+ * @param pos  position where context menu is drawn on screen
+ */
+void FileList::customContextMenu(const QPoint& pos)
+{
+	contextMenu(currentItem(), mapToGlobal(pos));
+}
+
+/**
+ * Expand or collapse an item which has no children.
+ *
+ * @param item item
+ */
+void FileList::expandOrCollapseEmptyItem(QTreeWidgetItem* item)
+{
+	FileListItem* fli = dynamic_cast<FileListItem*>(item);
+	if (fli && fli->getDirInfo() && !item->childCount()) {
+		fli->setOpen(!fli->isOpen());
+	}
+}
+#else
+void FileList::expandItem(QTreeWidgetItem*) {}
+void FileList::collapseItem(QTreeWidgetItem*) {}
+void FileList::customContextMenu(const QPoint&) {}
+void FileList::expandOrCollapseEmptyItem(QTreeWidgetItem*) {}
+#endif

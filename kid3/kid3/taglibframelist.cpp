@@ -24,18 +24,13 @@
 #include <qinputdialog.h>
 #include <qvalidator.h>
 #if QT_VERSION >= 0x040000
-#include <Q3ListBox>
-#include <Q3HBox>
-#include <Q3VBox>
-#include <Q3CString>
-#include <Q3PtrList>
+#include <QListWidget>
+#include <QByteArray>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #else
 #include <qlistbox.h>
-#include <qhbox.h>
-#include <qvbox.h>
 #endif
 
 // Just using include <oggfile.h>, include <flacfile.h> as recommended in the
@@ -69,13 +64,13 @@
 /**
  * Constructor.
  *
- * @param byteArray array with binary data
- * @param parent    parent widget
- * @param name      internal name or 0
+ * @param byteArray  array with binary data
+ * @param parent     parent widget
+ * @param viewButton true to display View button
  */
 TagLibBinaryOpenSave::TagLibBinaryOpenSave(
-	QByteArray& byteArray, QWidget* parent, const char* name, bool viewButton) :
-	QWidget(parent, name), m_byteArray(byteArray)
+	QByteArray& byteArray, QWidget* parent, bool viewButton) :
+	QWidget(parent), m_byteArray(byteArray)
 {
 	m_layout = new QHBoxLayout(this);
 	m_label = new QLabel(this);
@@ -105,8 +100,7 @@ void TagLibBinaryOpenSave::loadData()
 	QString loadfilename = KFileDialog::getOpenFileName(
 		QString::null, QString::null, this);
 #else
-	QString loadfilename = QFileDialog::getOpenFileName(
-		QString::null, QString::null, this);
+	QString loadfilename = QFileDialog::QCM_getOpenFileName(this);
 #endif
 	if (!loadfilename.isEmpty()) {
 		QFile file(loadfilename);
@@ -115,8 +109,8 @@ void TagLibBinaryOpenSave::loadData()
 			char* data = new char[size];
 			if (data) {
 				QDataStream stream(&file);
-				stream.readRawBytes(data, size);
-				m_byteArray.duplicate(data, size);
+				stream.QCM_readRawData(data, size);
+				QCM_duplicate(m_byteArray, data, size);
 				delete [] data;
 			}
 			file.close();
@@ -133,14 +127,13 @@ void TagLibBinaryOpenSave::saveData()
 	QString fn = KFileDialog::getSaveFileName(QString::null, QString::null,
 																						this);
 #else
-	QString fn = QFileDialog::getSaveFileName(QString::null, QString::null,
-																						this);
+	QString fn = QFileDialog::QCM_getSaveFileName(this);
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QCM_WriteOnly)) {
 			QDataStream stream(&file);
-			stream.writeRawBytes(m_byteArray.data(), m_byteArray.size());
+			stream.QCM_writeRawData(m_byteArray.data(), m_byteArray.size());
 			file.close();
 		}
 	}
@@ -153,7 +146,7 @@ void TagLibBinaryOpenSave::viewData()
 {
 	QImage image;
 	if (image.loadFromData(m_byteArray)) {
-		ImageViewer iv(this, 0, &image);
+		ImageViewer iv(this, &image);
 		iv.exec();
 	}
 }
@@ -457,7 +450,7 @@ public:
  */
 QWidget* TagLibIntComboBoxControl::createWidget(QWidget* parent)
 {
-	m_ptinp = new LabeledComboBox(parent, 0, m_strlst);
+	m_ptinp = new LabeledComboBox(parent, m_strlst);
 	if (m_ptinp) {
 		m_ptinp->setLabel(m_label);
 		m_ptinp->setCurrentItem(m_item);
@@ -497,7 +490,7 @@ class TagLibBinFieldControl : public TagLibFieldControl {
 	 * @param size size of array
 	 */
 	void setBinaryData(const char* data, unsigned size) {
-		m_byteArray.duplicate(data, size);
+		QCM_duplicate(m_byteArray, data, size);
 	}
 
 	/**
@@ -525,7 +518,7 @@ protected:
  */
 QWidget* TagLibBinFieldControl::createWidget(QWidget* parent)
 {
-	m_bos = new TagLibBinaryOpenSave(m_byteArray, parent, 0, m_viewButton);
+	m_bos = new TagLibBinaryOpenSave(m_byteArray, parent, m_viewButton);
 	if (m_bos) {
 		m_bos->setLabel(m_label);
 	}
@@ -664,12 +657,13 @@ static const char* const channelTypeStrings[maxNumChannels] = {
  */
 QWidget* TagLibRelativeVolumeControl::createWidget(QWidget* parent)
 {
-	Q3HBox* hbox = new Q3HBox(parent);
-	hbox->setSpacing(6);
-	Q3VBox* vbox0 = new Q3VBox(hbox);
+	QWidget* hbox = new QWidget(parent);
+	QHBoxLayout* hboxLayout = new QHBoxLayout(hbox);
+	hboxLayout->setSpacing(6);
+	QVBoxLayout* vbox0Layout = new QVBoxLayout;
 	if (m_header)
-		new QLabel(vbox0);
-	QLabel* label = new QLabel(m_label, vbox0);
+		vbox0Layout->addWidget(new QLabel(hbox));
+	QLabel* label = new QLabel(m_label, hbox);
 	QFontMetrics fm(label->fontMetrics());
 	int maxWidth = 0;
 	for (unsigned i = 0; i < maxNumChannels; ++i) {
@@ -677,27 +671,42 @@ QWidget* TagLibRelativeVolumeControl::createWidget(QWidget* parent)
 		if (width > maxWidth) maxWidth = width;
 	}
 	label->setFixedWidth(maxWidth);
-	Q3VBox* vbox1 = new Q3VBox(hbox);
+	vbox0Layout->addWidget(label);
+	hboxLayout->addLayout(vbox0Layout);
+
+	QVBoxLayout* vbox1Layout = new QVBoxLayout;
 	QString str1(i18n("Adjustment [dB/512]"));
 	if (m_header)
-		new QLabel(str1, vbox1);
-	m_adjSpinBox = new QSpinBox(-32768, 32767, 1, vbox1);
+		vbox1Layout->addWidget(new QLabel(str1, hbox));
+	m_adjSpinBox = new QSpinBox(hbox);
+	m_adjSpinBox->QCM_setMinimum(-32768);
+	m_adjSpinBox->QCM_setMaximum(32767);
 	m_adjSpinBox->setValue(m_adjIndex);
-	vbox1->setFixedWidth(fm.width(str1));
-	Q3VBox* vbox2 = new Q3VBox(hbox);
+	m_adjSpinBox->setFixedWidth(fm.width(str1));
+	vbox1Layout->addWidget(m_adjSpinBox);
+	hboxLayout->addLayout(vbox1Layout);
+
+	QVBoxLayout* vbox2Layout = new QVBoxLayout;
 	QString str2(i18n("Bits representing peak"));
 	if (m_header)
-		new QLabel(str2, vbox2);
-	m_peakBitsSpinBox = new QSpinBox(0, 255, 1, vbox2);
+		vbox2Layout->addWidget(new QLabel(str2, hbox));
+	m_peakBitsSpinBox = new QSpinBox(hbox);
+	m_peakBitsSpinBox->QCM_setMaximum(255);
 	m_peakBitsSpinBox->setValue(m_peakBits);
-	vbox2->setFixedWidth(fm.width(str2));
-	Q3VBox* vbox3 = new Q3VBox(hbox);
+	m_peakBitsSpinBox->setFixedWidth(fm.width(str2));
+	vbox2Layout->addWidget(m_peakBitsSpinBox);
+	hboxLayout->addLayout(vbox2Layout);
+
+	QVBoxLayout* vbox3Layout = new QVBoxLayout;
 	if (m_header)
-		new QLabel(i18n("Peak volume [hex]"), vbox3);
-	m_peakVolEdit = new QLineEdit(peakVolAsString(), vbox3);
+		vbox3Layout->addWidget(new QLabel(i18n("Peak volume [hex]"), hbox));
+	m_peakVolEdit = new QLineEdit(peakVolAsString(), hbox);
 	QRegExp rx("[A-Fa-f0-9]+");
 	QValidator* validator = new QRegExpValidator(rx, this);
 	m_peakVolEdit->setValidator(validator);
+	vbox3Layout->addWidget(m_peakVolEdit);
+	hboxLayout->addLayout(vbox3Layout);
+
 	return hbox;
 }
 
@@ -713,7 +722,7 @@ public:
 	 * @param ctls    list with controls to edit fields
 	 */
 	TagLibEditFrameDialog(QWidget* parent, const QString& caption,
-										 Q3PtrList<FieldControl> &ctls);
+										 FieldControlList &ctls);
 
 protected:
 	QVBoxLayout* m_vlayout;      /**< vertical layout */
@@ -731,21 +740,29 @@ protected:
  * @param ctls    list with controls to edit fields
  */
 TagLibEditFrameDialog::TagLibEditFrameDialog(
-	QWidget* parent, const QString& caption, Q3PtrList<FieldControl>& ctls) :
-	QDialog(parent, "edit_frame", true)
+	QWidget* parent, const QString& caption, FieldControlList& ctls) :
+	QDialog(parent)
 {
-	setCaption(caption);
+	setModal(true);
+	QCM_setWindowTitle(caption);
 	m_vlayout = new QVBoxLayout(this);
 	if (m_vlayout) {
 		m_vlayout->setSpacing(6);
 		m_vlayout->setMargin(6);
+#if QT_VERSION >= 0x040000
+		QListIterator<FieldControl*> it(ctls);
+		while (it.hasNext()) {
+			m_vlayout->addWidget(it.next()->createWidget(this));
+		}
+#else
 		FieldControl* fldCtl = ctls.first();
 		while (fldCtl != 0) {
 			m_vlayout->addWidget(fldCtl->createWidget(this));
 			fldCtl = ctls.next();
 		}
+#endif
 	}
-	m_hlayout = new QHBoxLayout(m_vlayout);
+	m_hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 																				 QSizePolicy::Minimum);
 	m_okButton = new QPushButton(i18n("&OK"), this);
@@ -757,11 +774,9 @@ TagLibEditFrameDialog::TagLibEditFrameDialog(
 		m_okButton->setDefault(true);
 		connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+		m_vlayout->addLayout(m_hlayout);
 	}
-#if QT_VERSION < 0x040000
-	// the widget is not painted correctly after resizing in Qt4
 	resize(fontMetrics().maxWidth() * 30, -1);
-#endif
 }
 
 
@@ -770,7 +785,9 @@ TagLibEditFrameDialog::TagLibEditFrameDialog(
  */
 TagLibFrameList::TagLibFrameList() : m_tag(0)
 {
+#if QT_VERSION < 0x040000
 	m_fieldcontrols.setAutoDelete(true);
+#endif
 }
 
 /**
@@ -778,6 +795,10 @@ TagLibFrameList::TagLibFrameList() : m_tag(0)
  */
 TagLibFrameList::~TagLibFrameList()
 {
+#if QT_VERSION >= 0x040000
+	qDeleteAll(m_fieldcontrols);
+	m_fieldcontrols.clear();
+#endif
 }
 
 /** Alphabetically sorted list of frame descriptions */
@@ -942,7 +963,11 @@ void TagLibFrameList::readTags()
 				new FrameListItem(s_listbox, TStringToQString((*it).first), i++);
 			}
 		}
+#if QT_VERSION >= 0x040000
+		s_listbox->sortItems();
+#else
 		s_listbox->sort();
+#endif
 	}
 }
 
@@ -1050,7 +1075,7 @@ bool TagLibFrameList::editKeyValueField(
 	TagLibEditFrameDialog* dialog =
 		new TagLibEditFrameDialog(0, TStringToQString(key), m_fieldcontrols);
 	if (dialog && dialog->exec() == QDialog::Accepted) {
-		value = QStringToTString(textCtl->getText());
+		value = QSTRING_TO_TSTRING(textCtl->getText());
 		result = true;
 	}
 	m_fieldcontrols.clear();
@@ -1089,7 +1114,7 @@ static TagLib::ByteVector languageCodeByteVector(QString str)
 			str += ' ';
 		}
 	}
-	return TagLib::ByteVector(str.latin1(), str.length());
+	return TagLib::ByteVector(str.QCM_latin1(), str.length());
 }
 
 static const char* encodingStrLst[] = {
@@ -1154,9 +1179,9 @@ TagLib::ID3v2::Frame* TagLibFrameList::editTextFrame(
 			TagLib::ID3v2::UserTextIdentificationFrame* newTxxxFrame =
 				dynamic_cast<TagLib::ID3v2::UserTextIdentificationFrame*>(newFrame);
 			if (newTxxxFrame && descCtl) {
-				newTxxxFrame->setDescription(QStringToTString(descCtl->getText()));
+				newTxxxFrame->setDescription(QSTRING_TO_TSTRING(descCtl->getText()));
 			}
-			newTFrame->setText(QStringToTString(textCtl->getText()));
+			newTFrame->setText(QSTRING_TO_TSTRING(textCtl->getText()));
 		}
 	}
 	return newFrame;
@@ -1236,11 +1261,11 @@ TagLib::ID3v2::Frame* TagLibFrameList::editApicFrame(
 					newFrame)) != 0) {
 			newApicFrame->setTextEncoding(
 				static_cast<TagLib::String::Type>(encCtl->getCurrentItem()));
-			newApicFrame->setMimeType(QStringToTString(mimeCtl->getText()));
+			newApicFrame->setMimeType(QSTRING_TO_TSTRING(mimeCtl->getText()));
 			newApicFrame->setType(
 				static_cast<TagLib::ID3v2::AttachedPictureFrame::Type>(
 					typeCtl->getCurrentItem()));
-			newApicFrame->setDescription(QStringToTString(descCtl->getText()));
+			newApicFrame->setDescription(QSTRING_TO_TSTRING(descCtl->getText()));
 			QByteArray baPicture = dataCtl->getBinaryData();
 			newApicFrame->setPicture(
 				TagLib::ByteVector(baPicture.data(), baPicture.size()));
@@ -1269,7 +1294,8 @@ TagLib::ID3v2::Frame* TagLibFrameList::editCommFrame(
 	}
 	TagLib::ByteVector bvLang = commFrame->language();
 	TagLibLineFieldControl* langCtl = new TagLibLineFieldControl(
-		i18n("Language"), Q3CString(bvLang.data(), bvLang.size() + 1));
+		i18n("Language"),
+		QCM_QCString(bvLang.data(), bvLang.size() + 1));
 	if (langCtl) {
 		m_fieldcontrols.append(langCtl);
 	}
@@ -1294,8 +1320,8 @@ TagLib::ID3v2::Frame* TagLibFrameList::editCommFrame(
 			newCommFrame->setTextEncoding(
 				static_cast<TagLib::String::Type>(encCtl->getCurrentItem()));
 			newCommFrame->setLanguage(languageCodeByteVector(langCtl->getText()));
-			newCommFrame->setDescription(QStringToTString(descCtl->getText()));
-			newCommFrame->setText(QStringToTString(textCtl->getText()));
+			newCommFrame->setDescription(QSTRING_TO_TSTRING(descCtl->getText()));
+			newCommFrame->setText(QSTRING_TO_TSTRING(textCtl->getText()));
 		}
 	}
 	return newFrame;
@@ -1321,7 +1347,7 @@ TagLib::ID3v2::Frame* TagLibFrameList::editRva2Frame(
 		TagLib::ID3v2::RelativeVolumeFrame::PeakVolume pv =
 			rva2Frame->peakVolume(channelType);
 		QByteArray baPeakVolume;
-		baPeakVolume.duplicate(pv.peakVolume.data(), pv.peakVolume.size());
+		QCM_duplicate(baPeakVolume, pv.peakVolume.data(), pv.peakVolume.size());
 		rvCtl[i] =
 			new TagLibRelativeVolumeControl(
 				channelName, rva2Frame->volumeAdjustmentIndex(channelType),
@@ -1389,7 +1415,7 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUfidFrame(
 				(newUfidFrame =
 				 dynamic_cast<TagLib::ID3v2::UniqueFileIdentifierFrame*>(newFrame)) !=
 				0) {
-			newUfidFrame->setOwner(QStringToTString(ownerCtl->getText()));
+			newUfidFrame->setOwner(QSTRING_TO_TSTRING(ownerCtl->getText()));
 			QByteArray id = dataCtl->getBinaryData();
 			newUfidFrame->setIdentifier(TagLib::ByteVector(id.data(), id.size()));
 		}
@@ -1447,9 +1473,9 @@ TagLib::ID3v2::Frame* TagLibFrameList::editGeobFrame(
 					newFrame)) != 0) {
 			newGeobFrame->setTextEncoding(
 				static_cast<TagLib::String::Type>(encCtl->getCurrentItem()));
-			newGeobFrame->setMimeType(QStringToTString(mimeCtl->getText()));
-			newGeobFrame->setFileName(QStringToTString(fnCtl->getText()));
-			newGeobFrame->setDescription(QStringToTString(descCtl->getText()));
+			newGeobFrame->setMimeType(QSTRING_TO_TSTRING(mimeCtl->getText()));
+			newGeobFrame->setFileName(QSTRING_TO_TSTRING(fnCtl->getText()));
+			newGeobFrame->setDescription(QSTRING_TO_TSTRING(descCtl->getText()));
 			QByteArray baObj = dataCtl->getBinaryData();
 			newGeobFrame->setObject(
 				TagLib::ByteVector(baObj.data(), baObj.size()));
@@ -1492,7 +1518,7 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUrlFrame(
 				(newWFrame = dynamic_cast<TagLib::ID3v2::UrlLinkFrame*>(
 					newFrame)) != 0) {
 			if (textCtl) {
-				newWFrame->setUrl(QStringToTString(textCtl->getText()));
+				newWFrame->setUrl(QSTRING_TO_TSTRING(textCtl->getText()));
 			}
 		}
 #else
@@ -1502,7 +1528,7 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUrlFrame(
 		UrlLinkFrame* newWFrame = new UrlLinkFrame(wFrame->render());
 		if (newWFrame) {
 			if (textCtl) {
-				newWFrame->setUrl(QStringToTString(textCtl->getText()));
+				newWFrame->setUrl(QSTRING_TO_TSTRING(textCtl->getText()));
 			}
 			newFrame = copyId3v2Frame(newWFrame);
 			delete newWFrame;
@@ -1560,10 +1586,10 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUserUrlFrame(
 					static_cast<TagLib::String::Type>(encCtl->getCurrentItem()));
 			}
 			if (descCtl) {
-				newWxxxFrame->setDescription(QStringToTString(descCtl->getText()));
+				newWxxxFrame->setDescription(QSTRING_TO_TSTRING(descCtl->getText()));
 			}
 			if (textCtl) {
-				newWxxxFrame->setUrl(QStringToTString(textCtl->getText()));
+				newWxxxFrame->setUrl(QSTRING_TO_TSTRING(textCtl->getText()));
 			}
 		}
 #else
@@ -1577,10 +1603,10 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUserUrlFrame(
 					static_cast<TagLib::String::Type>(encCtl->getCurrentItem()));
 			}
 			if (descCtl) {
-				newWxxxFrame->setDescription(QStringToTString(descCtl->getText()));
+				newWxxxFrame->setDescription(QSTRING_TO_TSTRING(descCtl->getText()));
 			}
 			if (textCtl) {
-				newWxxxFrame->setUrl(QStringToTString(textCtl->getText()));
+				newWxxxFrame->setUrl(QSTRING_TO_TSTRING(textCtl->getText()));
 			}
 			newFrame = copyId3v2Frame(newWxxxFrame);
 			delete newWxxxFrame;
@@ -1616,7 +1642,8 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUsltFrame(
 	}
 	TagLib::ByteVector bvLang = usltFrame->language();
 	TagLibLineFieldControl* langCtl = new TagLibLineFieldControl(
-		i18n("Language"), Q3CString(bvLang.data(), bvLang.size() + 1));
+		i18n("Language"),
+		QCM_QCString(bvLang.data(), bvLang.size() + 1));
 	if (langCtl) {
 		m_fieldcontrols.append(langCtl);
 	}
@@ -1647,10 +1674,10 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUsltFrame(
 				newUsltFrame->setLanguage(languageCodeByteVector(langCtl->getText()));
 			}
 			if (descCtl) {
-				newUsltFrame->setDescription(QStringToTString(descCtl->getText()));
+				newUsltFrame->setDescription(QSTRING_TO_TSTRING(descCtl->getText()));
 			}
 			if (textCtl) {
-				newUsltFrame->setText(QStringToTString(textCtl->getText()));
+				newUsltFrame->setText(QSTRING_TO_TSTRING(textCtl->getText()));
 			}
 		}
 #else
@@ -1667,10 +1694,10 @@ TagLib::ID3v2::Frame* TagLibFrameList::editUsltFrame(
 				newUsltFrame->setLanguage(languageCodeByteVector(langCtl->getText()));
 			}
 			if (descCtl) {
-				newUsltFrame->setDescription(QStringToTString(descCtl->getText()));
+				newUsltFrame->setDescription(QSTRING_TO_TSTRING(descCtl->getText()));
 			}
 			if (textCtl) {
-				newUsltFrame->setText(QStringToTString(textCtl->getText()));
+				newUsltFrame->setText(QSTRING_TO_TSTRING(textCtl->getText()));
 			}
 			newFrame = copyId3v2Frame(newUsltFrame);
 			delete newUsltFrame;
@@ -1830,7 +1857,11 @@ TagLib::ID3v2::Frame* TagLibFrameList::editId3v2Frame(
 bool TagLibFrameList::editFrame()
 {
 	bool edited = false;
+#if QT_VERSION >= 0x040000
+	int selectedIndex = s_listbox->currentRow();
+#else
 	int selectedIndex = s_listbox->currentItem();
+#endif
 	int selectedId = getSelectedId();
 	if (selectedId != -1 && m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
@@ -1888,9 +1919,14 @@ bool TagLibFrameList::editFrame()
 		if (selectedIndex >= 0) {
 			const int lastIndex = s_listbox->count() - 1;
 			if (lastIndex >= 0) {
+#if QT_VERSION >= 0x040000
+				s_listbox->setCurrentRow(
+					selectedIndex <= lastIndex ? selectedIndex : lastIndex);
+#else
 				s_listbox->setSelected(
 					selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
 				s_listbox->ensureCurrentVisible();
+#endif
 			}
 		}
 		if (m_file) {
@@ -1908,7 +1944,11 @@ bool TagLibFrameList::editFrame()
 bool TagLibFrameList::deleteFrame()
 {
 	bool deleted = false;
+#if QT_VERSION >= 0x040000
+	int selectedIndex = s_listbox->currentRow();
+#else
 	int selectedIndex = s_listbox->currentItem();
+#endif
 	int selectedId = getSelectedId();
 	if (selectedId != -1 && m_tag) {
 		TagLib::ID3v2::Tag* id3v2Tag;
@@ -1947,9 +1987,14 @@ bool TagLibFrameList::deleteFrame()
 			if (selectedIndex >= 0) {
 				const int lastIndex = s_listbox->count() - 1;
 				if (lastIndex >= 0) {
+#if QT_VERSION >= 0x040000
+					s_listbox->setCurrentRow(
+						selectedIndex <= lastIndex ? selectedIndex : lastIndex);
+#else
 					s_listbox->setSelected(
 						selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
 					s_listbox->ensureCurrentVisible();
+#endif
 				}
 			}
 			if (m_file) {
@@ -2000,7 +2045,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 					frame = new TagLib::ID3v2::UserTextIdentificationFrame;
 				} else {
 					frame = new TagLib::ID3v2::TextIdentificationFrame(
-						TagLib::ByteVector(frameId.latin1(), frameId.length()),
+						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()),
 						TagLib::String::Latin1);
 					frame->setText(""); // is necessary for createFrame() to work
 				}
@@ -2026,7 +2071,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 					frame = new TagLib::ID3v2::UserUrlLinkFrame;
 				} else {
 					frame = new TagLib::ID3v2::UrlLinkFrame(
-						TagLib::ByteVector(frameId.latin1(), frameId.length()));
+						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()));
 					frame->setText("http://"); // is necessary for createFrame() to work
 				}
 #else
@@ -2034,7 +2079,7 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 					frame = new UserUrlLinkFrame;
 				} else {
 					frame = new UrlLinkFrame(
-						TagLib::ByteVector(frameId.latin1(), frameId.length()));
+						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()));
 					frame->setText("http://"); // is necessary for createFrame() to work
 				}
 #endif
@@ -2055,40 +2100,58 @@ bool TagLibFrameList::addFrame(int frameId, bool edit)
 					int frameIndex = id3v2Tag->frameList().size() - 1;
 					readTags(); // refresh listbox
 					setSelectedId(frameIndex);
+#if QT_VERSION < 0x040000
 					s_listbox->ensureCurrentVisible();
+#endif
 				}
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag)) != 0) {
 			if (frameId != 0) {
 				return false;
 			}
-			TagLib::String key = QStringToTString(m_selectedName);
+			TagLib::String key = QSTRING_TO_TSTRING(m_selectedName);
 			TagLib::String value("");
 			if (!edit || editKeyValueField(key, value)) {
 				oggTag->addField(key, value);
 				added = true;
 				readTags(); // refresh listbox
-				Q3ListBoxItem* lbi = s_listbox->findItem(m_selectedName);
+#if QT_VERSION >= 0x040000
+				QList<QListWidgetItem*> items =
+					s_listbox->findItems(m_selectedName, Qt::MatchStartsWith);
+				if (!items.empty()) {
+					s_listbox->setCurrentItem(items.front());
+				}
+#else
+				QListBoxItem* lbi = s_listbox->findItem(m_selectedName);
 				if (lbi) {
 					s_listbox->setSelected(lbi, true);
 					s_listbox->ensureCurrentVisible();
 				}
+#endif
 			}
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag)) != 0) {
 			if (frameId != 0) {
 				return false;
 			}
-			TagLib::String key = QStringToTString(m_selectedName);
+			TagLib::String key = QSTRING_TO_TSTRING(m_selectedName);
 			TagLib::String value("");
 			if (!edit || editKeyValueField(key, value)) {
 				apeTag->addValue(key, value, true);
 				added = true;
 				readTags(); // refresh listbox
-				Q3ListBoxItem* lbi = s_listbox->findItem(m_selectedName);
+#if QT_VERSION >= 0x040000
+				QList<QListWidgetItem*> items =
+					s_listbox->findItems(m_selectedName, Qt::MatchStartsWith);
+				if (!items.empty()) {
+					s_listbox->setCurrentItem(items.front());
+				}
+#else
+				QListBoxItem* lbi = s_listbox->findItem(m_selectedName);
 				if (lbi) {
 					s_listbox->setSelected(lbi, true);
 					s_listbox->ensureCurrentVisible();
 				}
+#endif
 			}
 		}
 		if (added) {
@@ -2189,14 +2252,16 @@ int TagLibFrameList::selectFrameId()
 		}
 		if (!lst.empty()) {
 			bool ok = false;
+#if QT_VERSION >= 0x040000
+			QString res = QInputDialog::getItem(
+				0, i18n("Add Frame"),
+				i18n("Select the frame ID") + "                                     ",
+				lst, 0, true, &ok);
+#else
 			QString res = QInputDialog::getItem(
 				i18n("Add Frame"),
-				i18n("Select the frame ID")
-#if QT_VERSION >= 0x040000
-				// the dialog is too small in Qt4
-				+ "                                     "
+				i18n("Select the frame ID"), lst, 0, true, &ok);
 #endif
-				, lst, 0, true, &ok);
 			if (ok) {
 				m_selectedName = res;
 				return 0; // just used by addFrame()

@@ -26,7 +26,7 @@ Kid3Settings::Kid3Settings()
 		QTextStream stream(&file);
 		QString line;
 		while (!(line = stream.readLine()).isNull()) {
-			int equalPos = line.find('=');
+			int equalPos = line.QCM_indexOf('=');
 			if (equalPos > 0) {
 				m_map[line.left(equalPos)] = line.mid(equalPos + 1);
 			}
@@ -105,7 +105,7 @@ QMap<QString, QString> Kid3Settings::readMapEntry(const QString& key, const QMap
 	QMap<QString, QString> val;
 	QMap<QString, QString>::Iterator it;
 	for (it = m_map.begin(); it != m_map.end(); ++it) {
-		if (it.key().find(m_group + key) == 0) {
+		if (it.key().QCM_indexOf(m_group + key) == 0) {
 			found = true;
 			val[it.key().mid((m_group + key).length())] = it.data();
 		}

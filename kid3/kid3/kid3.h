@@ -20,17 +20,17 @@ class KToggleAction;
 typedef KMainWindow Kid3AppBaseClass;
 #else
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
-#include <Q3MainWindow>
-#else
 #include <qmainwindow.h>
-#endif
 #include "generalconfig.h" // Kid3Settings
 class QAction;
 class BrowserDialog;
-class Q3PopupMenu;
+#if QT_VERSION >= 0x040000
+class QMenu;
+#else
+class QPopupMenu;
+#endif
 /** Base class for main window. */
-typedef Q3MainWindow Kid3AppBaseClass;
+typedef QMainWindow Kid3AppBaseClass;
 #endif
 #include "importtrackdata.h"
 #include "formatconfig.h"
@@ -593,10 +593,17 @@ private:
 	QAction* m_helpAbout;
 	QAction* m_helpAboutQt;
 	QMenuBar* m_menubar;
-	Q3PopupMenu* m_fileMenu;
-	Q3PopupMenu* m_toolsMenu;
-	Q3PopupMenu* m_settingsMenu;
-	Q3PopupMenu* m_helpMenu;
+#if QT_VERSION >= 0x040000
+	QMenu* m_fileMenu;
+	QMenu* m_toolsMenu;
+	QMenu* m_settingsMenu;
+	QMenu* m_helpMenu;
+#else
+	QPopupMenu* m_fileMenu;
+	QPopupMenu* m_toolsMenu;
+	QPopupMenu* m_settingsMenu;
+	QPopupMenu* m_helpMenu;
+#endif
 
 	static BrowserDialog* s_helpBrowser;
 #endif

@@ -38,11 +38,12 @@
  */
 ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 													 ImportTrackDataVector& trackDataList) :
-	QDialog(parent, "import", true),
+	QDialog(parent),
 	m_autoStartSubDialog(ASD_None),
 	m_trackDataVector(trackDataList)
 {
-	setCaption(caption);
+	setModal(true);
+	QCM_setWindowTitle(caption);
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
@@ -53,7 +54,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	m_impsel = new ImportSelector(this, m_trackDataVector);
 	vlayout->addWidget(m_impsel);
 
-	QHBoxLayout* hlayout = new QHBoxLayout(vlayout);
+	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
@@ -71,6 +72,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 		connect(saveButton, SIGNAL(clicked()), m_impsel, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+		vlayout->addLayout(hlayout);
 	}
 }
 

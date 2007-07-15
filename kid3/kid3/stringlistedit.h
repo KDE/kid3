@@ -13,7 +13,11 @@
 #include <qwidget.h>
 #include "qtcompatmac.h"
 
-class Q3ListBox;
+#if QT_VERSION >= 0x040000
+class QListWidget;
+#else
+class QListBox;
+#endif
 class QPushButton;
 
 class StringListEdit : public QWidget {
@@ -24,9 +28,8 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent parent widget
-	 * @param name   Qt object name
 	 */
-	StringListEdit(QWidget* parent = 0, const char* name = 0);
+	StringListEdit(QWidget* parent = 0);
 
 	/**
 	 * Destructor.
@@ -79,7 +82,11 @@ public slots:
 	void setButtonEnableState();
 
 private:
-	Q3ListBox* m_stringListBox;
+#if QT_VERSION >= 0x040000
+	QListWidget* m_stringListBox;
+#else
+	QListBox* m_stringListBox;
+#endif
 	QPushButton* m_addPushButton;
 	QPushButton* m_moveUpPushButton;
 	QPushButton* m_moveDownPushButton;

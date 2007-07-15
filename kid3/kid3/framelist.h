@@ -19,9 +19,11 @@
 #include <qcombobox.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <Q3ListBox>
+#include <QListWidget>
+#include <QList>
 #else
 #include <qlistbox.h>
+#include <qptrlist.h>
 #endif
 
 class QVBoxLayout;
@@ -37,23 +39,26 @@ class LabeledTextEdit : public QWidget {
 	 * Constructor.
 	 *
 	 * @param parent parent widget
-	 * @param name   internal name or 0
 	 */
-	LabeledTextEdit(QWidget* parent, const char* name = 0);
+	LabeledTextEdit(QWidget* parent);
 
 	/**
 	 * Get text.
 	 *
 	 * @return text.
 	 */
-	QString text() const { return m_edit->text(); }
+	QString text() const {
+		return m_edit->QCM_toPlainText();
+	}
 
 	/**
 	 * Set text.
 	 *
 	 * @param txt text
 	 */
-	void setText(const QString& txt) { m_edit->setText(txt); }
+	void setText(const QString& txt) {
+		m_edit->QCM_setPlainText(txt);
+	}
 
 	/**
 	 * Set label.
@@ -79,9 +84,8 @@ class LabeledLineEdit : public QWidget {
 	 * Constructor.
 	 *
 	 * @param parent parent widget
-	 * @param name   internal name or 0
 	 */
-	LabeledLineEdit(QWidget* parent, const char* name = 0);
+	LabeledLineEdit(QWidget* parent);
 
 	/**
 	 * Get text.
@@ -121,25 +125,27 @@ class LabeledComboBox : public QWidget {
 	 * Constructor.
 	 *
 	 * @param parent parent widget
-	 * @param name   internal name or 0
 	 * @param strlst list with ComboBox items, terminated by NULL
 	 */
-	LabeledComboBox(QWidget* parent, const char* name,
-			const char** strlst);
+	LabeledComboBox(QWidget* parent, const char** strlst);
 
 	/**
 	 * Get index of selected item.
 	 *
 	 * @return index.
 	 */
-	int currentItem() const { return m_combo->currentItem(); }
+	int currentItem() const {
+		return m_combo->QCM_currentIndex();
+	}
 
 	/**
 	 * Set index of selected item.
 	 *
 	 * @param idx index
 	 */
-	void setCurrentItem(int idx) { m_combo->setCurrentItem(idx); }
+	void setCurrentItem(int idx) {
+		m_combo->QCM_setCurrentIndex(idx);
+	}
 
 	/**
 	 * Set label.
@@ -165,9 +171,8 @@ class LabeledSpinBox : public QWidget {
 	 * Constructor.
 	 *
 	 * @param parent parent widget
-	 * @param name   internal name or 0
 	 */
-	LabeledSpinBox(QWidget* parent, const char* name = 0);
+	LabeledSpinBox(QWidget* parent);
 
 	/**
 	 * Get value.
@@ -207,10 +212,9 @@ class ImageViewer : public QDialog {
 	 * Constructor.
 	 *
 	 * @param parent parent widget
-	 * @param name   internal name or 0
 	 * @param img    image to display in window
 	 */
-	ImageViewer(QWidget* parent, const char* name, QImage* img);
+	ImageViewer(QWidget* parent, QImage* img);
 
  protected:
 	/**
@@ -252,11 +256,23 @@ public:
 	virtual QWidget* createWidget(QWidget* parent) = 0;
 };
 
+/** List of field control pointers. */
+#if QT_VERSION >= 0x040000
+typedef QList<FieldControl*> FieldControlList;
+#else
+typedef QPtrList<FieldControl> FieldControlList;
+#endif
 
 /**
  * Item in frame list box.
  */
-class FrameListItem : public Q3ListBoxText {
+class FrameListItem : public
+#if QT_VERSION >= 0x040000
+QListWidgetItem
+#else
+QListBoxText
+#endif
+{
 public:
 	/**
 	 * Constructor.
@@ -264,8 +280,13 @@ public:
 	 * @param text    title
 	 * @param id      ID
 	 */
-	FrameListItem(Q3ListBox* listbox, const QString& text, int id) :
-		Q3ListBoxText(listbox, text), m_id(id) {}
+#if QT_VERSION >= 0x040000
+	FrameListItem(QListWidget* listbox, const QString& text, int id) :
+		QListWidgetItem(text, listbox), m_id(id) {}
+#else
+	FrameListItem(QListBox* listbox, const QString& text, int id) :
+		QListBoxText(listbox, text), m_id(id) {}
+#endif
 
 	/**
 	 * Destructor.
@@ -375,7 +396,11 @@ public:
 	 *
 	 * @param lb list box
 	 */
-	static void setListBox(Q3ListBox* lb) { s_listbox = lb; }
+#if QT_VERSION >= 0x040000
+	static void setListBox(QListWidget* lb) { s_listbox = lb; }
+#else
+	static void setListBox(QListBox* lb) { s_listbox = lb; }
+#endif
 
 	/**
 	 * Get the name of the selected frame.
@@ -418,7 +443,11 @@ protected:
 	TaggedFile* m_file;
 
 	/** List box to select frame */
-	static Q3ListBox* s_listbox;
+#if QT_VERSION >= 0x040000
+	static QListWidget* s_listbox;
+#else
+	static QListBox* s_listbox;
+#endif
 
 private:
 	FrameList(const FrameList&);

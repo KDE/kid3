@@ -10,6 +10,7 @@
 #include "standardtags.h"
 #include "genres.h"
 #include <qurl.h>
+#include "qtcompatmac.h"
 
 StandardTags::StandardTags()
 {
@@ -142,7 +143,7 @@ QString StandardTags::replaceEscapedChars(const QString& format)
 			'\n', '\t', '\r', '\\', '\a', '\b', '\f', '\v'};
 
 		for (int pos = 0; pos < static_cast<int>(fmt.length());) {
-			pos = fmt.find('\\', pos);
+			pos = fmt.QCM_indexOf('\\', pos);
 			if (pos == -1) break;
 			++pos;
 			for (int k = 0;; ++k) {
@@ -183,7 +184,7 @@ QString StandardTags::replacePercentCodes(
 	QString fmt(format);
 	if (!fmt.isEmpty()) {
 		for (int pos = 0; pos < static_cast<int>(fmt.length());) {
-			pos = fmt.find('%', pos);
+			pos = fmt.QCM_indexOf('%', pos);
 			if (pos == -1) break;
 
 			for (int k = 0;; ++k) {
@@ -196,7 +197,7 @@ QString StandardTags::replacePercentCodes(
 						fmt[pos + 1] == 'u' && fmt[pos + 2] == codes[k]) {
 					// code found, replace it URL encoded
 					QString enc = replacements[k];
-					QUrl::encode(enc);
+					QCM_QUrl_encode(enc);
 					fmt.replace(pos, 3, enc);
 					pos += enc.length();
 					break;
