@@ -10,6 +10,14 @@ kdedocs = $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML
 INSTALL_DIR = install -p -d -o root -g root -m 755
 INSTALL_FILE = install -p -o root -g root -m 644
 
+DEBVERSION:=$(shell head -n 1 debian/changelog \
+                    | sed -e 's/^[^(]*(\([^)]*\)).*/\1/')
+UPVERSION:=$(shell echo $(DEBVERSION) | sed -e 's/^.*://' -e 's/-[0-9.]*$$//' -e 's/.dfsg$$//')
+
+FILENAME := kid3_$(UPVERSION).orig.tar.gz
+UPFILENAME := kid3-$(UPVERSION).tar.gz
+URL = http://heanet.dl.sourceforge.net/kid3/$(UPFILENAME)
+
 # These are used for cross-compiling and for saving the configure script
 # from having to guess our platform (since we know it already)
 DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
@@ -32,6 +40,8 @@ debian/debiandirs: admin/debianrules
 build-stamp:
 	dh_testdir
 
+	$(MAKE) -f /usr/share/quilt/quilt.make patch
+
 	QTDIR=/usr/share/qt3 ./configure \
 	                        --host=$(DEB_HOST_GNU_TYPE) \
 	                        --build=$(DEB_BUILD_GNU_TYPE) \
@@ -42,13 +52,15 @@ build-stamp:
 	            --prefix=/usr --with-qmake=qmake-qt3; \
 	cd ..
 	$(MAKE) -C kid3-qt
+
 	touch build-stamp
 
 clean: 
 	dh_testdir
 	dh_testroot
-	-$(MAKE) distclean
-	-$(MAKE) -C kid3-qt distclean
+	[ ! -f Makefile ] || $(MAKE) distclean
+	[ ! -f Makefile ] || $(MAKE) -C kid3-qt distclean
+	$(MAKE) -f /usr/share/quilt/quilt.make unpatch
 	-rm -f *-stamp
 	dh_clean
 
@@ -74,7 +86,7 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	dh_installdocs
+	dh_installdocs -A AUTHORS NEWS README
 	dh_installmenu
 	dh_installman
 #	dh_installinfo
@@ -92,3 +104,9 @@ binary-arch: build install
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install configure
+
+get-orig-source:
+	@@dh_testdir
+	@@[ -d ../tarballs/. ]||mkdir -p ../tarballs
+	@@echo Downloading $(UPFILENAME) from $(URL) ...
+	@@wget -N -nv -T10 -t3 -O ../tarballs/$(FILENAME) $(URL)
