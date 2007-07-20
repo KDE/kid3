@@ -1806,6 +1806,7 @@ void Kid3App::slotConvertToId3v23()
 					// Write the file with id3lib, it always writes ID3v2.3 tags
 					bool renamed;
 					taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
+					taggedFile->readTags(true);
 				}
 			}
 		}
