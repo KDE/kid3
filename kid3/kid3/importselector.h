@@ -12,6 +12,7 @@
 
 #include "importtrackdata.h"
 #include "importparser.h"
+#include "importconfig.h"
 #include <qwidget.h>
 #include <qstring.h>
 #include <qstringlist.h>
@@ -42,15 +43,6 @@ class ImportSelector : public QWidget
 Q_OBJECT
 
 public:
-	/** Import destinations */
-	enum Destination { DestV1, DestV2 };
-
-	/** Import servers */
-	enum ImportServer {
-		ServerFreedb, ServerTrackType, ServerDiscogs,
-		ServerMusicBrainzRelease, ServerMusicBrainzFingerprint
-	};
-
 	/**
 	 * Constructor.
 	 *
@@ -59,6 +51,7 @@ public:
 	 *                      is passed with durations of files set
 	 */
 	ImportSelector(QWidget* parent, ImportTrackDataVector& trackDataList);
+
 	/**
 	 * Destructor.
 	 */
@@ -95,9 +88,9 @@ public:
 	/**
 	 * Get import destination.
 	 *
-	 * @return DestV1 or DestV2 for ID3v1 or ID3v2.
+	 * @return DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both.
 	 */
-	Destination getDestination();
+	ImportConfig::ImportDestination getDestination();
 
 	/**
 	 * Get list with track durations.

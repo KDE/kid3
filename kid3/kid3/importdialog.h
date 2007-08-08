@@ -12,6 +12,7 @@
 
 #include "config.h"
 #include "importtrackdata.h"
+#include "importconfig.h"
 #include <qdialog.h>
 
 class ImportSelector;
@@ -73,10 +74,9 @@ public:
 	/**
 	 * Get import destination.
 	 *
-	 * @return true if ID3v1 is destination,
-	 *         false if ID3v2.
+	 * @return DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both.
 	 */
-	bool getDestV1() const;
+	ImportConfig::ImportDestination getDestination() const;
 
 public slots:
 	/**

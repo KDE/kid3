@@ -19,6 +19,15 @@
  */
 class ImportConfig : public GeneralConfig {
 public:
+	/** Import destinations */
+	enum ImportDestination { DestV1, DestV2, DestV1V2 };
+
+	/** Import servers */
+	enum ImportServer {
+		ServerFreedb, ServerTrackType, ServerDiscogs,
+		ServerMusicBrainzRelease, ServerMusicBrainzFingerprint
+	};
+
 	/**
 	 * Constructor.
 	 * Set default configuration.
@@ -59,9 +68,9 @@ public:
 		);
 
 	/** import server */
-	int m_importServerIdx;
+	ImportServer m_importServer;
 	/** true to import into ID3v1 tags, else into ID3v2 tags */
-	bool m_importDestV1;
+	ImportDestination m_importDest;
 	/** Names of import formats */
 	QStringList m_importFormatNames;
 	/** regexp describing header import format */

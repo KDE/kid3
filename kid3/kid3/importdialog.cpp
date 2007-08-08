@@ -125,12 +125,11 @@ void ImportDialog::clear()
 /**
  * Get import destination.
  *
- * @return true if ID3v1 is destination,
- *         false if ID3v2.
+ * @return DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both.
  */
-bool ImportDialog::getDestV1() const
+ImportConfig::ImportDestination ImportDialog::getDestination() const
 {
-	return (m_impsel->getDestination() == ImportSelector::DestV1);
+	return m_impsel->getDestination();
 }
 
 /**

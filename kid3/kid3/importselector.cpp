@@ -263,13 +263,13 @@ ImportSelector::ImportSelector(
 	butlayout->addWidget(m_serverButton);
 	m_serverComboBox = new QComboBox(butbox);
 	m_serverComboBox->setEditable(false);
-	m_serverComboBox->QCM_insertItem(ServerFreedb, i18n("gnudb.org"));
-	m_serverComboBox->QCM_insertItem(ServerTrackType, i18n("TrackType.org"));
-	m_serverComboBox->QCM_insertItem(ServerDiscogs, i18n("Discogs"));
-	m_serverComboBox->QCM_insertItem(ServerMusicBrainzRelease,
+	m_serverComboBox->QCM_insertItem(ImportConfig::ServerFreedb, i18n("gnudb.org"));
+	m_serverComboBox->QCM_insertItem(ImportConfig::ServerTrackType, i18n("TrackType.org"));
+	m_serverComboBox->QCM_insertItem(ImportConfig::ServerDiscogs, i18n("Discogs"));
+	m_serverComboBox->QCM_insertItem(ImportConfig::ServerMusicBrainzRelease,
 																	 i18n("MusicBrainz Release"));
 #ifdef HAVE_TUNEPIMP
-	m_serverComboBox->QCM_insertItem(ServerMusicBrainzFingerprint,
+	m_serverComboBox->QCM_insertItem(ImportConfig::ServerMusicBrainzFingerprint,
 																	 i18n("MusicBrainz Fingerprint"));
 #endif
 	butlayout->addWidget(m_serverComboBox);
@@ -281,8 +281,9 @@ ImportSelector::ImportSelector(
 	butlayout->addWidget(destLabel);
 	m_destComboBox = new QComboBox(butbox);
 	m_destComboBox->setEditable(false);
-	m_destComboBox->QCM_insertItem(DestV1, i18n("Tag 1"));
-	m_destComboBox->QCM_insertItem(DestV2, i18n("Tag 2"));
+	m_destComboBox->QCM_insertItem(ImportConfig::DestV1, i18n("Tag 1"));
+	m_destComboBox->QCM_insertItem(ImportConfig::DestV2, i18n("Tag 2"));
+	m_destComboBox->QCM_insertItem(ImportConfig::DestV1V2, i18n("Tag 1 and Tag 2"));
 	destLabel->setBuddy(m_destComboBox);
 	butlayout->addWidget(m_destComboBox);
 	vboxLayout->addWidget(butbox);
@@ -371,9 +372,8 @@ void ImportSelector::clear()
 #else
 	m_tab->setNumRows(0);
 #endif
-	m_serverComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importServerIdx);
-	m_destComboBox->QCM_setCurrentIndex(
-		static_cast<int>(Kid3App::s_genCfg.m_importDestV1 ? DestV1 : DestV2));
+	m_serverComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importServer);
+	m_destComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importDest);
 
 	m_formatHeaders = Kid3App::s_genCfg.m_importFormatHeaders;
 	m_formatTracks = Kid3App::s_genCfg.m_importFormatTracks;
@@ -468,19 +468,19 @@ void ImportSelector::fromServer()
 {
 	if (m_serverComboBox) {
 		switch (m_serverComboBox->QCM_currentIndex()) {
-			case ServerFreedb:
+			case ImportConfig::ServerFreedb:
 				fromFreedb();
 				break;
-			case ServerTrackType:
+			case ImportConfig::ServerTrackType:
 				fromTrackType();
 				break;
-			case ServerDiscogs:
+			case ImportConfig::ServerDiscogs:
 				fromDiscogs();
 				break;
-			case ServerMusicBrainzRelease:
+			case ImportConfig::ServerMusicBrainzRelease:
 				fromMusicBrainzRelease();
 				break;
-			case ServerMusicBrainzFingerprint:
+			case ImportConfig::ServerMusicBrainzFingerprint:
 				fromMusicBrainz();
 				break;
 		}
@@ -819,11 +819,12 @@ bool ImportSelector::getNextTags(StandardTags& st, bool start)
 /**
  * Get import destination.
  *
- * @return DestV1 or DestV2 for ID3v1 or ID3v2.
+ * @return DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both.
  */
-ImportSelector::Destination ImportSelector::getDestination()
+ImportConfig::ImportDestination ImportSelector::getDestination()
 {
-	return (Destination)m_destComboBox->QCM_currentIndex();
+	return static_cast<ImportConfig::ImportDestination>(
+		m_destComboBox->QCM_currentIndex());
 }
 
 /**
@@ -831,10 +832,11 @@ ImportSelector::Destination ImportSelector::getDestination()
  */
 void ImportSelector::saveConfig()
 {
-	Kid3App::s_genCfg.m_importDestV1 = 
-		(m_destComboBox->QCM_currentIndex() == static_cast<int>(ImportSelector::DestV1));
+	Kid3App::s_genCfg.m_importDest = static_cast<ImportConfig::ImportDestination>(
+		m_destComboBox->QCM_currentIndex());
 
-	Kid3App::s_genCfg.m_importServerIdx = m_serverComboBox->QCM_currentIndex();
+	Kid3App::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
+		m_serverComboBox->QCM_currentIndex());
 	Kid3App::s_genCfg.m_importFormatIdx = m_formatComboBox->QCM_currentIndex();
 	Kid3App::s_genCfg.m_importFormatNames[Kid3App::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
 	Kid3App::s_genCfg.m_importFormatHeaders[Kid3App::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();

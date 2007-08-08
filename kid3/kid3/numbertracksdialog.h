@@ -21,6 +21,9 @@ class QComboBox;
 class NumberTracksDialog : public QDialog {
 Q_OBJECT
 public:
+	/** Destinations */
+	enum Destination { DestV1, DestV2, DestV1V2 };
+
 	/**
 	 * Constructor.
 	 *
@@ -41,10 +44,9 @@ public:
 	/**
 	 * Get destination.
 	 *
-	 * @return true if ID3v1 is destination,
-	 *         false if ID3v2.
+	 * @return DestV1, DestV2 or DestV1V2 if ID3v1, ID2v2 or both are destination
 	 */
-	bool getDestV1() const;
+	Destination getDestination() const;
 
 private slots:
 	/**
@@ -53,9 +55,6 @@ private slots:
 	void showHelp();
 
 private:
-	/** Destinations */
-	enum Destination { DestV1, DestV2 };
-
 	/** spinbox with starting track number */
 	QSpinBox* m_trackSpinBox;
 	/** combobox with destination */

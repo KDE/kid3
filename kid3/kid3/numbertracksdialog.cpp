@@ -63,6 +63,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 				m_destComboBox->setEditable(false);
 				m_destComboBox->QCM_insertItem(DestV1, i18n("Tag 1"));
 				m_destComboBox->QCM_insertItem(DestV2, i18n("Tag 2"));
+				m_destComboBox->QCM_insertItem(DestV1V2, i18n("Tag 1 and Tag 2"));
 				trackLayout->addWidget(destLabel);
 				trackLayout->addWidget(m_destComboBox);
 				destLabel->setBuddy(m_destComboBox);
@@ -114,12 +115,11 @@ int NumberTracksDialog::getStartNumber() const
 /**
  * Get destination.
  *
- * @return true if ID3v1 is destination,
- *         false if ID3v2.
+ * @return DestV1, DestV2 or DestV1V2 if ID3v1, ID2v2 or both are destination
  */
-bool NumberTracksDialog::getDestV1() const
+NumberTracksDialog::Destination NumberTracksDialog::getDestination() const
 {
-	return (m_destComboBox->QCM_currentIndex() == DestV1);
+	return static_cast<Destination>(m_destComboBox->QCM_currentIndex());
 }
 
 /**

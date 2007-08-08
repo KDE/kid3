@@ -22,8 +22,8 @@
  * @param grp configuration group
  */
 ImportConfig::ImportConfig(const QString& grp) :
-	GeneralConfig(grp), m_importServerIdx(0),
-	m_importDestV1(true), m_importFormatIdx(0),
+	GeneralConfig(grp), m_importServer(ImportConfig::ServerFreedb),
+	m_importDest(ImportConfig::DestV1), m_importFormatIdx(0),
 	m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
 	m_exportSrcV1(true), m_exportFormatIdx(0),
 	m_exportWindowWidth(-1), m_exportWindowHeight(-1)
@@ -128,8 +128,8 @@ void ImportConfig::writeToConfig(
 {
 #ifdef CONFIG_USE_KDE
 	config->setGroup(m_group);
-	config->writeEntry("ImportServerIdx", m_importServerIdx);
-	config->writeEntry("ImportDestinationV1", m_importDestV1);
+	config->writeEntry("ImportServer", m_importServer);
+	config->writeEntry("ImportDestination", m_importDest);
 	config->writeEntry("ImportFormatNames", m_importFormatNames);
 	config->writeEntry("ImportFormatHeaders", m_importFormatHeaders);
 	config->writeEntry("ImportFormatTracks", m_importFormatTracks);
@@ -147,8 +147,8 @@ void ImportConfig::writeToConfig(
 	config->writeEntry("ExportWindowHeight", m_exportWindowHeight);
 #else
 	config->beginGroup("/" + m_group);
-	config->QCM_writeEntry("/ImportServerIdx", m_importServerIdx);
-	config->QCM_writeEntry("/ImportDestinationV1", m_importDestV1);
+	config->QCM_writeEntry("/ImportServer", m_importServer);
+	config->QCM_writeEntry("/ImportDestination", m_importDest);
 	config->QCM_writeEntry("/ImportFormatNames", m_importFormatNames);
 	config->QCM_writeEntry("/ImportFormatHeaders", m_importFormatHeaders);
 	config->QCM_writeEntry("/ImportFormatTracks", m_importFormatTracks);
@@ -186,8 +186,10 @@ void ImportConfig::readFromConfig(
 	QStringList expNames, expHeaders, expTracks, expTrailers;
 #ifdef CONFIG_USE_KDE
 	config->setGroup(m_group);
-	m_importServerIdx = config->readNumEntry("ImportServerIdx", m_importServerIdx);
-	m_importDestV1 = config->readBoolEntry("ImportDestinationV1", m_importDestV1);
+	m_importServer = static_cast<ImportConfig::ImportServer>(
+		config->readNumEntry("ImportServer", m_importServer));
+	m_importDest = static_cast<ImportConfig::ImportDestination>(
+		config->readNumEntry("ImportDestination", m_importDest));
 	names = config->readListEntry("ImportFormatNames");
 	headers = config->readListEntry("ImportFormatHeaders");
 	tracks = config->readListEntry("ImportFormatTracks");
@@ -215,8 +217,10 @@ void ImportConfig::readFromConfig(
 	while (expTrailers.size() < numExpNames) expTrailers.append("");
 #else
 	config->beginGroup("/" + m_group);
-	m_importServerIdx = config->QCM_readNumEntry("/ImportServerIdx", m_importServerIdx);
-	m_importDestV1 = config->QCM_readBoolEntry("/ImportDestinationV1", m_importDestV1);
+	m_importServer = static_cast<ImportConfig::ImportServer>(
+		config->QCM_readNumEntry("/ImportServer", m_importServer));
+	m_importDest = static_cast<ImportConfig::ImportDestination>(
+		config->QCM_readNumEntry("/ImportDestination", m_importDest));
 	names = config->QCM_readListEntry("/ImportFormatNames");
 	headers = config->QCM_readListEntry("/ImportFormatHeaders");
 	tracks = config->QCM_readListEntry("/ImportFormatTracks");

@@ -1315,8 +1315,11 @@ void Kid3App::execImportDialog()
 			m_importDialog->exec() == QDialog::Accepted) {
 		slotStatusMsg(i18n("Import..."));
 		ImportTrackDataVector::const_iterator it = m_trackDataList.begin();
-		StandardTags st;
-		bool destV1 = m_importDialog->getDestV1();
+		StandardTags st1, st2;
+		bool destV1 = m_importDialog->getDestination() == ImportConfig::DestV1 ||
+		              m_importDialog->getDestination() == ImportConfig::DestV1V2;
+		bool destV2 = m_importDialog->getDestination() == ImportConfig::DestV2 ||
+		              m_importDialog->getDestination() == ImportConfig::DestV1V2;
 		StandardTagsFilter flt(destV1 ?
 													 m_view->getFilterFromID3V1() :
 													 m_view->getFilterFromID3V2());
@@ -1324,22 +1327,22 @@ void Kid3App::execImportDialog()
 		FileListItem* mp3file = m_view->firstFileInDir();
 		while (mp3file != 0) {
 			mp3file->getFile()->readTags(false);
-			if (destV1) {
-				mp3file->getFile()->getStandardTagsV1(&st);
-			} else {
-				mp3file->getFile()->getStandardTagsV2(&st);
-			}
+			if (destV1) mp3file->getFile()->getStandardTagsV1(&st1);
+			if (destV2) mp3file->getFile()->getStandardTagsV2(&st2);
 			if (it != m_trackDataList.end()) {
-				(*it).copyActiveTags(st);
+				if (destV1) (*it).copyActiveTags(st1);
+				if (destV2) (*it).copyActiveTags(st2);
 				++it;
 			} else {
 				break;
 			}
-			formatStandardTagsIfEnabled(&st);
 			if (destV1) {
-				mp3file->getFile()->setStandardTagsV1(&st, flt);
-			} else {
-				mp3file->getFile()->setStandardTagsV2(&st, flt);
+				formatStandardTagsIfEnabled(&st1);
+				mp3file->getFile()->setStandardTagsV1(&st1, flt);
+			}
+			if (destV2) {
+				formatStandardTagsIfEnabled(&st2);
+				mp3file->getFile()->setStandardTagsV2(&st2, flt);
 			}
 			mp3file = m_view->nextFileInDir();
 		}
@@ -1694,7 +1697,12 @@ void Kid3App::slotNumberTracks()
 	if (m_numberTracksDialog) {
 		if (m_numberTracksDialog->exec() == QDialog::Accepted) {
 			int nr = m_numberTracksDialog->getStartNumber();
-			bool destV1 = m_numberTracksDialog->getDestV1();
+			bool destV1 =
+				m_numberTracksDialog->getDestination() == NumberTracksDialog::DestV1 ||
+				m_numberTracksDialog->getDestination() == NumberTracksDialog::DestV1V2;
+			bool destV2 =
+				m_numberTracksDialog->getDestination() == NumberTracksDialog::DestV2 ||
+				m_numberTracksDialog->getDestination() == NumberTracksDialog::DestV1V2;
 
 			updateCurrentSelection();
 			FileListItem* mp3file = m_view->firstFileInDir();
@@ -1707,7 +1715,8 @@ void Kid3App::slotNumberTracks()
 						if (nr != oldnr) {
 							mp3file->getFile()->setTrackNumV1(nr);
 						}
-					} else {
+					}
+					if (destV2) {
 						int oldnr = mp3file->getFile()->getTrackNumV2();
 						if (nr != oldnr) {
 							mp3file->getFile()->setTrackNumV2(nr);
