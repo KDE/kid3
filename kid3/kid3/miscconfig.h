@@ -151,8 +151,8 @@ public:
 	QString m_dirFormatText;
 	/** index of directory name format selected */
 	int m_dirFormatItem;
-	/** true to rename directory from ID3v1 tags, else ID3v2 tags */
-	bool m_renDirSrcV1;
+	/** rename directory from tags 1, tags 2, or both */
+	int m_renDirSrc;
 #if QT_VERSION >= 0x040000
 	/** List of splitter sizes. */
 	typedef QList<int> SizesList;

@@ -172,7 +172,9 @@ QString StandardTags::replaceEscapedChars(const QString& format)
  * @param replacements strings with replacements for codes
  * @param numCodes     number of elements in codes and replacements
  * @param flags        flags: FSF_SupportUrlEncode to support modifier u
- *                     (with code c "%uc") to URL encode
+ *                     (with code c "%uc") to URL encode,
+ *                     FSF_ReplaceSeparators to replace directory separators
+ *                     ('/', '\\', ':') in tags.
  *
  * @return string with percent codes replaced
  */
@@ -204,8 +206,14 @@ QString StandardTags::replacePercentCodes(
 				}
 				if (fmt[pos + 1] == codes[k]) {
 					// code found, replace it
-					fmt.replace(pos, 2, replacements[k]);
-					pos += replacements[k].length();
+					QString repl = replacements[k];
+					if (flags & FSF_ReplaceSeparators) {
+						repl.replace('/', '-');
+						repl.replace('\\', '-');
+						repl.replace(':', '-');
+					}
+					fmt.replace(pos, 2, repl);
+					pos += repl.length();
 					break;
 				}
 			}
@@ -228,7 +236,9 @@ QString StandardTags::replacePercentCodes(
  *
  * @param format format specification
  * @param flags  flags: FSF_SupportUrlEncode to support modifier u
- *               (with code c "%uc") to URL encode
+ *               (with code c "%uc") to URL encode,
+ *               FSF_ReplaceSeparators to replace directory separators
+ *               ('/', '\\', ':') in tags.
  *
  * @return formatted string.
  */

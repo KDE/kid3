@@ -541,7 +541,8 @@ QString TaggedFile::formatWithTags(const StandardTags* st, QString fmt,
 		fmt += getFileExtension();
 	}
 
-	return st->formatString(fmt);
+	return st->formatString(fmt, isDirname ?
+													StandardTags::FSF_ReplaceSeparators : 0);
 }
 
 /**

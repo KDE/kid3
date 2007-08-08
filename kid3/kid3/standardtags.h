@@ -17,7 +17,8 @@ class StandardTags {
  public:
 	/** Flags for formatString(), replacePercentCodes(). */
 	enum FormatStringFlags {
-		FSF_SupportUrlEncode = 1
+		FSF_SupportUrlEncode  = (1 << 0),
+		FSF_ReplaceSeparators = (1 << 1)
 	};
 
 	/** Flags for truncation. */
@@ -89,7 +90,9 @@ class StandardTags {
 	 *
 	 * @param format format specification
 	 * @param flags  flags: FSF_SupportUrlEncode to support modifier u
-	 *               (with code c "%uc") to URL encode
+	 *               (with code c "%uc") to URL encode,
+	 *               FSF_ReplaceSeparators to replace directory separators
+	 *               ('/', '\\', ':') in tags.
 	 *
 	 * @return formatted string.
 	 */
@@ -114,7 +117,9 @@ class StandardTags {
 	 * @param replacements strings with replacements for codes
 	 * @param numCodes     number of elements in codes and replacements
 	 * @param flags        flags: FSF_SupportUrlEncode to support modifier u
-	 *                     (with code c "%uc") to URL encode
+	 *                     (with code c "%uc") to URL encode,
+	 *                     FSF_ReplaceSeparators to replace directory separators
+	 *                     ('/', '\\', ':') in tags.
 	 *
 	 * @return string with percent codes replaced
 	 */

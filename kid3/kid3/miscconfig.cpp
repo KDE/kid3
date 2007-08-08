@@ -102,7 +102,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_formatItem(0),
 	m_dirFormatText(s_defaultDirFmtList[0]),
 	m_dirFormatItem(0),
-	m_renDirSrcV1(true),
+	m_renDirSrc(0),
 	m_hideV1(false),
 	m_hideV2(false),
 	m_id3v2Version(ID3v2_3_0),
@@ -140,7 +140,7 @@ void MiscConfig::writeToConfig(
 	config->writeEntry("FormatText2", m_formatText);
 	config->writeEntry("DirFormatItem", m_dirFormatItem);
 	config->writeEntry("DirFormatText", m_dirFormatText);
-	config->writeEntry("RenameDirectorySourceV1", m_renDirSrcV1);
+	config->writeEntry("RenameDirectorySource", m_renDirSrc);
 	config->writeEntry("MarkTruncations", m_markTruncations);
 	config->writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->writeEntry("PreserveTime", m_preserveTime);
@@ -180,7 +180,7 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/FormatText2", m_formatText);
 	config->QCM_writeEntry("/DirFormatItem", m_dirFormatItem);
 	config->QCM_writeEntry("/DirFormatText", m_dirFormatText);
-	config->QCM_writeEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
+	config->QCM_writeEntry("/RenameDirectorySource", m_renDirSrc);
 	config->QCM_writeEntry("/MarkTruncations", m_markTruncations);
 	config->QCM_writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->QCM_writeEntry("/PreserveTime", m_preserveTime);
@@ -257,7 +257,7 @@ void MiscConfig::readFromConfig(
 	    config->readNumEntry("FormatItem", 0);
 	m_dirFormatItem =
 	    config->readNumEntry("DirFormatItem", 0);
-	m_renDirSrcV1 = config->readBoolEntry("RenameDirectorySourceV1", m_renDirSrcV1);
+	m_renDirSrc = config->readBoolEntry("RenameDirectorySource", m_renDirSrc);
 	m_markTruncations = config->readBoolEntry("MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = config->readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->readBoolEntry("PreserveTime", m_preserveTime);
@@ -296,7 +296,7 @@ void MiscConfig::readFromConfig(
 	    config->QCM_readNumEntry("/FormatItem", 0);
 	m_dirFormatItem =
 	    config->QCM_readNumEntry("/DirFormatItem", 0);
-	m_renDirSrcV1 = config->QCM_readBoolEntry("/RenameDirectorySourceV1", m_renDirSrcV1);
+	m_renDirSrc = config->QCM_readBoolEntry("/RenameDirectorySource", m_renDirSrc);
 	m_markTruncations = config->QCM_readBoolEntry("/MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = config->QCM_readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->QCM_readBoolEntry("/PreserveTime", m_preserveTime);

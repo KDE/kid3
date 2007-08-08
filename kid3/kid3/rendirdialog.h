@@ -134,7 +134,7 @@ private:
 									QString* errorMsg) const;
 
 	enum Action { ActionRename = 0, ActionCreate = 1 };
-	enum TagVersion { TagV1 = 0, TagV2 = 1 };
+	enum TagVersion { TagV2V1 = 0, TagV1 = 1, TagV2 = 2 };
 
 	QComboBox* m_formatComboBox;
 	QComboBox* m_actionComboBox;

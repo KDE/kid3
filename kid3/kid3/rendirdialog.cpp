@@ -54,6 +54,7 @@ RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
 		m_actionComboBox->QCM_insertItem(ActionCreate, i18n("Create Directory"));
 		actionLayout->addWidget(m_actionComboBox);
 		connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+		m_tagversionComboBox->QCM_insertItem(TagV2V1, i18n("From Tag 2 and Tag 1"));
 		m_tagversionComboBox->QCM_insertItem(TagV1, i18n("From Tag 1"));
 		m_tagversionComboBox->QCM_insertItem(TagV2, i18n("From Tag 2"));
 		actionLayout->addWidget(m_tagversionComboBox);
@@ -77,8 +78,7 @@ RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
 #else
 		m_formatComboBox->setCurrentText(Kid3App::s_miscCfg.m_dirFormatText);
 #endif
-		m_tagversionComboBox->QCM_setCurrentIndex(
-			Kid3App::s_miscCfg.m_renDirSrcV1 ? TagV1 : TagV2);
+		m_tagversionComboBox->QCM_setCurrentIndex(Kid3App::s_miscCfg.m_renDirSrc);
 		formatLabel->setBuddy(m_formatComboBox);
 		formatLayout->addWidget(formatLabel);
 		formatLayout->addWidget(m_formatComboBox);
@@ -263,10 +263,22 @@ QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir
 {
 	StandardTags st;
 	taggedFile->readTags(false);
-	if (m_tagversionComboBox->QCM_currentIndex() == TagV1) {
-		taggedFile->getStandardTagsV1(&st);
-	} else {
-		taggedFile->getStandardTagsV2(&st);
+	switch (m_tagversionComboBox->QCM_currentIndex()) {
+		case TagV1:
+			taggedFile->getStandardTagsV1(&st);
+			break;
+		case TagV2:
+			taggedFile->getStandardTagsV2(&st);
+			break;
+		case TagV2V1:
+		default:
+		{
+			// use merged tags 1 and 2
+			StandardTags st1;
+			taggedFile->getStandardTagsV1(&st1);
+			taggedFile->getStandardTagsV2(&st);
+			st.merge(st1);
+		}
 	}
 	QString newdir(taggedFile->getDirname());
 	if (newdir.endsWith(QChar('/'))) {
@@ -276,12 +288,14 @@ QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir
 	if (olddir) {
 		*olddir = newdir;
 	}
-	if (m_actionComboBox->QCM_currentIndex() == ActionRename) {
-		newdir = parentDirectory(newdir);
-	} else if (!newdir.isEmpty()) {
-		newdir.append('/');
+	if (!st.isEmptyOrInactive()) {
+		if (m_actionComboBox->QCM_currentIndex() == ActionRename) {
+			newdir = parentDirectory(newdir);
+		} else if (!newdir.isEmpty()) {
+			newdir.append('/');
+		}
+		newdir.append(taggedFile->formatWithTags(&st, m_formatComboBox->currentText(), true));
 	}
-	newdir.append(taggedFile->formatWithTags(&st, m_formatComboBox->currentText(), true));
 	return newdir;
 }
 
@@ -415,8 +429,7 @@ void RenDirDialog::saveConfig()
 {
 	Kid3App::s_miscCfg.m_dirFormatItem = m_formatComboBox->QCM_currentIndex();
 	Kid3App::s_miscCfg.m_dirFormatText = m_formatComboBox->currentText();
-	Kid3App::s_miscCfg.m_renDirSrcV1 =
-		(m_tagversionComboBox->QCM_currentIndex() == TagV1);
+	Kid3App::s_miscCfg.m_renDirSrc = m_tagversionComboBox->QCM_currentIndex();
 }
 
 /**
