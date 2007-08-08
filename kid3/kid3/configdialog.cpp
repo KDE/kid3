@@ -54,10 +54,10 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #endif
 {
 	QCM_setWindowTitle(caption);
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	vlayout->setSpacing(6);
-	vlayout->setMargin(6);
 #ifndef KID3_USE_KCONFIGDIALOG
+	QVBoxLayout* topLayout = new QVBoxLayout(this);
+	topLayout->setSpacing(6);
+	topLayout->setMargin(6);
 	QTabWidget* tabWidget = new QTabWidget(this);
 #endif
 
@@ -82,13 +82,21 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #endif
 				vlayout->addWidget(v1GroupBox);
 			}
-#if QT_VERSION >= 0x040000
 			QGroupBox* v2GroupBox = new QGroupBox(i18n("ID3v2"), tagsPage);
+#if QT_VERSION >= 0x040000
+			QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox);
+			v2GroupBoxLayout->setMargin(2);
+			v2GroupBoxLayout->setSpacing(4);
 #else
-			QGroupBox* v2GroupBox = new QGroupBox(1, Qt::Horizontal, i18n("ID3v2"), tagsPage);
+			QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox, 2, 2, 16, 6);
 #endif
 			if (v2GroupBox) {
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
+#if QT_VERSION >= 0x040000
+				v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
+#else
+				v2GroupBoxLayout->addMultiCellWidget(m_totalNumTracksCheckBox, 0, 0, 0, 1);
+#endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
 				m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
@@ -97,17 +105,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 					m_id3v2VersionComboBox->QCM_insertItem(MiscConfig::ID3v2_4_0, i18n("ID3v2.4.0 (TagLib)"));
 					m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 					id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
+					v2GroupBoxLayout->addWidget(id3v2VersionLabel, 1, 0);
+					v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 1, 1);
 				}
-#endif
-#if QT_VERSION >= 0x040000
-				QVBoxLayout* vbox = new QVBoxLayout;
-				vbox->setMargin(2);
-				vbox->addWidget(m_totalNumTracksCheckBox);
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-				vbox->addWidget(id3v2VersionLabel);
-				vbox->addWidget(m_id3v2VersionComboBox);
-#endif
-				v2GroupBox->setLayout(vbox);
 #endif
 				vlayout->addWidget(v2GroupBox);
 			}
@@ -292,7 +292,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 	}
 
 #ifndef KID3_USE_KCONFIGDIALOG
-	vlayout->addWidget(tabWidget);
+	topLayout->addWidget(tabWidget);
 	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
@@ -308,7 +308,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 		connect(helpButton, SIGNAL(clicked()), this, SLOT(slotHelp()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-		vlayout->addLayout(hlayout);
+		topLayout->addLayout(hlayout);
 	}
 #endif
 }
