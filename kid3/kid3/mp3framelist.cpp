@@ -35,6 +35,7 @@
 #endif
 
 #include "mp3file.h"
+#include "kid3.h"
 
 
 /** Base class for MP3 field controls */
@@ -296,9 +297,9 @@ void BinaryOpenSave::loadData()
 {
 #ifdef CONFIG_USE_KDE
 	QString loadfilename = KFileDialog::getOpenFileName(
-		QString::null, QString::null, this);
+		Kid3App::getDirName(), QString::null, this);
 #else
-	QString loadfilename = QFileDialog::QCM_getOpenFileName(this);
+	QString loadfilename = QFileDialog::QCM_getOpenFileName(this, Kid3App::getDirName());
 #endif
 	if (!loadfilename.isEmpty()) {
 		QFile file(loadfilename);
@@ -323,10 +324,10 @@ void BinaryOpenSave::loadData()
 void BinaryOpenSave::saveData()
 {
 #ifdef CONFIG_USE_KDE
-	QString fn = KFileDialog::getSaveFileName(QString::null, QString::null,
+	QString fn = KFileDialog::getSaveFileName(Kid3App::getDirName(), QString::null,
 																						this);
 #else
-	QString fn = QFileDialog::QCM_getSaveFileName(this);
+	QString fn = QFileDialog::QCM_getSaveFileName(this, Kid3App::getDirName());
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);

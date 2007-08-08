@@ -45,6 +45,12 @@ public:
 	/** Import destinations */
 	enum Destination { DestV1, DestV2 };
 
+	/** Import servers */
+	enum ImportServer {
+		ServerFreedb, ServerTrackType, ServerDiscogs,
+		ServerMusicBrainzRelease, ServerMusicBrainzFingerprint
+	};
+
 	/**
 	 * Constructor.
 	 *
@@ -122,6 +128,18 @@ public:
 	 */
 	static const char** s_lineFmtList;
 
+	/**
+	 * Get last directory used for import or export.
+	 * @return import directory.
+	 */
+	static QString getImportDir() { return s_importDir; }
+
+	/**
+	 * Set last directory used for import or export.
+	 * @param dir import directory
+	 */
+	static void setImportDir(const QString& dir) { s_importDir = dir; }
+
 public slots:
 	/**
 	 * Called when the maximum time difference value is changed.
@@ -147,6 +165,11 @@ public slots:
 	 * Assign clipboard contents to text and preview in table.
 	 */
 	void fromClipboard();
+
+	/**
+	 * Import from server and preview in table.
+	 */
+	void fromServer();
 
 	/**
 	 * Import from freedb.org and preview in table.
@@ -228,16 +251,8 @@ private:
 	QPushButton* m_fileButton;
 	/** From Clipboard button */
 	QPushButton* m_clipButton;
-	/** From freedb.org button */
-	QPushButton* m_freedbButton;
-	/** From TrackType.org button */
-	QPushButton* m_trackTypeButton;
-	/** From MusicBrainz button */
-	QPushButton* m_musicBrainzButton;
-	/** From MusicBrainz Release button */
-	QPushButton* m_musicBrainzReleaseButton;
-	/** From Discogs button */
-	QPushButton* m_discogsButton;
+	/** From Server button */
+	QPushButton* m_serverButton;
 	/** Match with Length button */
 	QPushButton* m_lengthButton;
 	/** Match with Track button */
@@ -248,6 +263,8 @@ private:
 	ImportTable* m_tab;
 	/** contents of imported file/clipboard */
 	QString m_text;
+	/** combobox with import servers */
+	QComboBox* m_serverComboBox;
 	/** combobox with import destinations */
 	QComboBox* m_destComboBox;
 	/** combobox with import formats */
@@ -280,6 +297,9 @@ private:
 	ImportSource m_importSource;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
+
+	/** Last directory used for import or export. */
+	static QString s_importDir;
 };
 
 #endif

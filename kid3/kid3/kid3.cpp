@@ -193,6 +193,9 @@ FreedbConfig Kid3App::s_trackTypeCfg("TrackType");
 DiscogsConfig Kid3App::s_discogsCfg("Discogs");
 MusicBrainzConfig Kid3App::s_musicBrainzCfg("MusicBrainz");
 
+/** Current directory */
+QString Kid3App::s_dirName;
+
 /**
  * Constructor.
  *
@@ -204,7 +207,6 @@ Kid3App::Kid3App() :
 	m_copyTags = new StandardTags();
 	initStatusBar();
 	setModified(false);
-	m_dirName = QString::null;
 	initView();
 	initActions();
 	s_fnFormatCfg.setAsFilenameFormatter();
@@ -687,7 +689,7 @@ void Kid3App::openDirectory(QString dir, bool confirm)
 #else
 		QCM_setWindowTitle(dir + " - Kid3");
 #endif
-		m_dirName = dir;
+		s_dirName = dir;
 	}
 	slotStatusMsg(i18n("Ready."));
 	QApplication::restoreOverrideCursor();
@@ -765,7 +767,7 @@ void Kid3App::readOptions()
 void Kid3App::saveProperties(KConfig* cfg)
 {
 	if (cfg) { // otherwise KDE 3.0 compiled program crashes with KDE 3.1
-		cfg->writeEntry("dirname", m_dirName);
+		cfg->writeEntry("dirname", s_dirName);
 	}
 }
 
@@ -876,7 +878,7 @@ bool Kid3App::saveModified()
 {
 	bool completed=true;
 
-	if(isModified() && !m_dirName.isEmpty())
+	if(isModified() && !s_dirName.isEmpty())
 	{
 		Kid3App* win=(Kid3App *) parent();
 #ifdef CONFIG_USE_KDE
@@ -1002,7 +1004,7 @@ void Kid3App::slotFileOpen()
 #endif
 		flt += ("*|All Files (*)");
 		KFileDialog diag(
-		    QString::null,
+		    s_dirName,
 		    flt,
 		    this, "filedialog", true);
 		diag.QCM_setWindowTitle(i18n("Open"));
@@ -1027,10 +1029,10 @@ void Kid3App::slotFileOpen()
 		flt += i18n("All Files (*)");
 #if QT_VERSION >= 0x040000
 		dir = QFileDialog::getOpenFileName(
-			this, QString(), QString(), flt, &filter);
+			this, QString(), s_dirName, flt, &filter);
 #else
 		dir = QFileDialog::getOpenFileName(
-		    QString::null, flt,
+		    s_dirName, flt,
 		    this, 0, QString::null, &filter);
 #endif
 #endif
@@ -1871,9 +1873,9 @@ void Kid3App::updateModificationState()
 {
 	setModified(m_view->updateModificationState());
 #ifdef CONFIG_USE_KDE
-	QCM_setWindowTitle(m_dirName, isModified());
+	QCM_setWindowTitle(s_dirName, isModified());
 #else
-	QString cap(m_dirName);
+	QString cap(s_dirName);
 	if (isModified()) {
 		cap += i18n(" [modified]");
 	}

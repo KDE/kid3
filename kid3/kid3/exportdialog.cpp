@@ -19,6 +19,7 @@
 #include "taggedfile.h"
 #include "genres.h"
 #include "kid3.h"
+#include "importselector.h"
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -168,13 +169,21 @@ void ExportDialog::slotToFile()
 {
 	QString fn =
 #ifdef CONFIG_USE_KDE
-		KFileDialog::getSaveFileName(QString::null, QString::null, this);
+		KFileDialog::getSaveFileName(ImportSelector::getImportDir(),
+																 QString::null, this);
 #else
-		QFileDialog::QCM_getSaveFileName(this);
+	QFileDialog::QCM_getSaveFileName(this, ImportSelector::getImportDir());
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QCM_WriteOnly)) {
+			ImportSelector::setImportDir(
+#if QT_VERSION >= 0x040000
+				QFileInfo(file).dir().path()
+#else
+				QFileInfo(file).dirPath(true)
+#endif
+				);
 			QTextStream stream(&file);
 #if QT_VERSION < 0x040000
 			stream.setEncoding(QTextStream::Locale);

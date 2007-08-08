@@ -58,6 +58,8 @@ public:
 #endif
 		);
 
+	/** import server */
+	int m_importServerIdx;
 	/** true to import into ID3v1 tags, else into ID3v2 tags */
 	bool m_importDestV1;
 	/** Names of import formats */

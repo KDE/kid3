@@ -182,6 +182,12 @@ public:
 	 */
 	static void displayHelp(const QString& anchor = QString::null);
 
+	/**
+	 * Get directory name.
+	 * @return directory.
+	 */
+	static QString getDirName() { return s_dirName; }
+
 	/** Filename format configuration */
 	static FormatConfig s_fnFormatCfg;
 	/** ID3 format configuration */
@@ -532,8 +538,6 @@ private:
 	Id3Form* m_view;
 	/** true if any file was modified */
 	bool m_modified;
-	/** Current directory */
-	QString m_dirName;
 	/** Copy buffer */
 	StandardTags* m_copyTags;
 	/** Import dialog */
@@ -607,6 +611,9 @@ private:
 
 	static BrowserDialog* s_helpBrowser;
 #endif
+
+	/** Current directory */
+	static QString s_dirName;
 };
 
 #endif /* KID3_H */

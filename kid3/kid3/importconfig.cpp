@@ -22,7 +22,8 @@
  * @param grp configuration group
  */
 ImportConfig::ImportConfig(const QString& grp) :
-	GeneralConfig(grp), m_importDestV1(true), m_importFormatIdx(0),
+	GeneralConfig(grp), m_importServerIdx(0),
+	m_importDestV1(true), m_importFormatIdx(0),
 	m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
 	m_exportSrcV1(true), m_exportFormatIdx(0),
 	m_exportWindowWidth(-1), m_exportWindowHeight(-1)
@@ -127,6 +128,7 @@ void ImportConfig::writeToConfig(
 {
 #ifdef CONFIG_USE_KDE
 	config->setGroup(m_group);
+	config->writeEntry("ImportServerIdx", m_importServerIdx);
 	config->writeEntry("ImportDestinationV1", m_importDestV1);
 	config->writeEntry("ImportFormatNames", m_importFormatNames);
 	config->writeEntry("ImportFormatHeaders", m_importFormatHeaders);
@@ -145,6 +147,7 @@ void ImportConfig::writeToConfig(
 	config->writeEntry("ExportWindowHeight", m_exportWindowHeight);
 #else
 	config->beginGroup("/" + m_group);
+	config->QCM_writeEntry("/ImportServerIdx", m_importServerIdx);
 	config->QCM_writeEntry("/ImportDestinationV1", m_importDestV1);
 	config->QCM_writeEntry("/ImportFormatNames", m_importFormatNames);
 	config->QCM_writeEntry("/ImportFormatHeaders", m_importFormatHeaders);
@@ -183,6 +186,7 @@ void ImportConfig::readFromConfig(
 	QStringList expNames, expHeaders, expTracks, expTrailers;
 #ifdef CONFIG_USE_KDE
 	config->setGroup(m_group);
+	m_importServerIdx = config->readNumEntry("ImportServerIdx", m_importServerIdx);
 	m_importDestV1 = config->readBoolEntry("ImportDestinationV1", m_importDestV1);
 	names = config->readListEntry("ImportFormatNames");
 	headers = config->readListEntry("ImportFormatHeaders");
@@ -211,6 +215,7 @@ void ImportConfig::readFromConfig(
 	while (expTrailers.size() < numExpNames) expTrailers.append("");
 #else
 	config->beginGroup("/" + m_group);
+	m_importServerIdx = config->QCM_readNumEntry("/ImportServerIdx", m_importServerIdx);
 	m_importDestV1 = config->QCM_readBoolEntry("/ImportDestinationV1", m_importDestV1);
 	names = config->QCM_readListEntry("/ImportFormatNames");
 	headers = config->QCM_readListEntry("/ImportFormatHeaders");

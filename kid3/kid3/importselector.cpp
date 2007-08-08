@@ -162,6 +162,9 @@ private:
 };
 
 
+/** Last directory used for import or export. */
+QString ImportSelector::s_importDir;
+
 /**
  * Constructor.
  *
@@ -199,7 +202,13 @@ ImportSelector::ImportSelector(
 	QHeaderView* vHeader = m_tab->verticalHeader();
 	if (vHeader) {
 		vHeader->setMovable(true);
-		vHeader->setResizeMode(QHeaderView::ResizeToContents);
+		vHeader->setResizeMode(
+#if QT_VERSION >= 0x040200
+			QHeaderView::ResizeToContents
+#else
+			QHeaderView::Stretch
+#endif
+			);
 	}
 #else
 	m_tab = new ImportTable(0, NumColumns, this);
@@ -243,50 +252,39 @@ ImportSelector::ImportSelector(
 	vboxLayout->addWidget(fmtbox);
 
 	QWidget* butbox = new QWidget(this);
-#if QT_VERSION >= 0x040000
-	QGridLayout* butlayout = new QGridLayout(butbox);
+	QHBoxLayout* butlayout = new QHBoxLayout(butbox);
 	butlayout->setMargin(0);
 	butlayout->setSpacing(6);
-#else
-	QGridLayout* butlayout = new QGridLayout(butbox, 2, 8, 0, 6);
-#endif
 	m_fileButton = new QPushButton(i18n("From F&ile"), butbox);
-	butlayout->addWidget(m_fileButton, 0, 0);
+	butlayout->addWidget(m_fileButton);
 	m_clipButton = new QPushButton(i18n("From Clip&board"), butbox);
-	butlayout->addWidget(m_clipButton, 0, 1);
-	m_freedbButton = new QPushButton(i18n("&gnudb.org"), butbox);
-	butlayout->addWidget(m_freedbButton, 0, 2);
-	m_trackTypeButton = new QPushButton(i18n("&TrackType.org"), butbox);
-	butlayout->addWidget(m_trackTypeButton, 0, 3);
-	m_discogsButton = new QPushButton(i18n("Disco&gs"), butbox);
-	butlayout->addWidget(m_discogsButton, 0, 4);
+	butlayout->addWidget(m_clipButton);
+	m_serverButton = new QPushButton(i18n("&From Server:"), butbox);
+	butlayout->addWidget(m_serverButton);
+	m_serverComboBox = new QComboBox(butbox);
+	m_serverComboBox->setEditable(false);
+	m_serverComboBox->QCM_insertItem(ServerFreedb, i18n("gnudb.org"));
+	m_serverComboBox->QCM_insertItem(ServerTrackType, i18n("TrackType.org"));
+	m_serverComboBox->QCM_insertItem(ServerDiscogs, i18n("Discogs"));
+	m_serverComboBox->QCM_insertItem(ServerMusicBrainzRelease,
+																	 i18n("MusicBrainz Release"));
+#ifdef HAVE_TUNEPIMP
+	m_serverComboBox->QCM_insertItem(ServerMusicBrainzFingerprint,
+																	 i18n("MusicBrainz Fingerprint"));
+#endif
+	butlayout->addWidget(m_serverComboBox);
 	QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	butlayout->addItem(butspacer, 0, 5);
+	butlayout->addItem(butspacer);
 	QLabel* destLabel = new QLabel(butbox);
 	destLabel->setText(i18n("D&estination:"));
-	butlayout->addWidget(destLabel, 0, 6);
+	butlayout->addWidget(destLabel);
 	m_destComboBox = new QComboBox(butbox);
 	m_destComboBox->setEditable(false);
 	m_destComboBox->QCM_insertItem(DestV1, i18n("Tag 1"));
 	m_destComboBox->QCM_insertItem(DestV2, i18n("Tag 2"));
 	destLabel->setBuddy(m_destComboBox);
-	butlayout->addWidget(m_destComboBox, 0, 7);
-
-	m_musicBrainzReleaseButton = new QPushButton(i18n("From MusicBrainz &Release"), butbox);
-#if QT_VERSION >= 0x040000
-	butlayout->addWidget(m_musicBrainzReleaseButton, 1, 0, 1, 2);
-#else
-	butlayout->addMultiCellWidget(m_musicBrainzReleaseButton, 1, 1, 0, 1);
-#endif
-#ifdef HAVE_TUNEPIMP
-	m_musicBrainzButton = new QPushButton(i18n("From &MusicBrainz Fingerprint"), butbox);
-#if QT_VERSION >= 0x040000
-	butlayout->addWidget(m_musicBrainzButton, 1, 2, 1, 3);
-#else
-	butlayout->addMultiCellWidget(m_musicBrainzButton, 1, 1, 2, 4);
-#endif
-#endif
+	butlayout->addWidget(m_destComboBox);
 	vboxLayout->addWidget(butbox);
 
 	QWidget* matchBox = new QWidget(this);
@@ -314,13 +312,7 @@ ImportSelector::ImportSelector(
 
 	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	connect(m_clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
-	connect(m_freedbButton, SIGNAL(clicked()), this, SLOT(fromFreedb()));
-	connect(m_trackTypeButton, SIGNAL(clicked()), this, SLOT(fromTrackType()));
-	connect(m_musicBrainzReleaseButton, SIGNAL(clicked()), this, SLOT(fromMusicBrainzRelease()));
-	connect(m_discogsButton, SIGNAL(clicked()), this, SLOT(fromDiscogs()));
-#ifdef HAVE_TUNEPIMP
-	connect(m_musicBrainzButton, SIGNAL(clicked()), this, SLOT(fromMusicBrainz()));
-#endif
+	connect(m_serverButton, SIGNAL(clicked()), this, SLOT(fromServer()));
 	connect(m_lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
 	connect(m_trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
 	connect(m_titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
@@ -379,6 +371,7 @@ void ImportSelector::clear()
 #else
 	m_tab->setNumRows(0);
 #endif
+	m_serverComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importServerIdx);
 	m_destComboBox->QCM_setCurrentIndex(
 		static_cast<int>(Kid3App::s_genCfg.m_importDestV1 ? DestV1 : DestV2));
 
@@ -417,13 +410,20 @@ void ImportSelector::fromFile()
 {
 	QString fn =
 #ifdef CONFIG_USE_KDE
-		KFileDialog::getOpenFileName(QString::null, QString::null, this);
+		KFileDialog::getOpenFileName(getImportDir(), QString::null, this);
 #else
-		QFileDialog::QCM_getOpenFileName(this);
+		QFileDialog::QCM_getOpenFileName(this, getImportDir());
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QCM_ReadOnly)) {
+			setImportDir(
+#if QT_VERSION >= 0x040000
+				QFileInfo(file).dir().path()
+#else
+				QFileInfo(file).dirPath(true)
+#endif
+				);
 			QTextStream stream(&file);
 			m_text = stream.QCM_readAll();
 			if (!m_text.isNull()) {
@@ -459,6 +459,32 @@ void ImportSelector::fromClipboard()
 		showPreview();
 	}
 #endif
+}
+
+/**
+ * Import from server and preview in table.
+ */
+void ImportSelector::fromServer()
+{
+	if (m_serverComboBox) {
+		switch (m_serverComboBox->QCM_currentIndex()) {
+			case ServerFreedb:
+				fromFreedb();
+				break;
+			case ServerTrackType:
+				fromTrackType();
+				break;
+			case ServerDiscogs:
+				fromDiscogs();
+				break;
+			case ServerMusicBrainzRelease:
+				fromMusicBrainzRelease();
+				break;
+			case ServerMusicBrainzFingerprint:
+				fromMusicBrainz();
+				break;
+		}
+	}
 }
 
 /**
@@ -808,6 +834,7 @@ void ImportSelector::saveConfig()
 	Kid3App::s_genCfg.m_importDestV1 = 
 		(m_destComboBox->QCM_currentIndex() == static_cast<int>(ImportSelector::DestV1));
 
+	Kid3App::s_genCfg.m_importServerIdx = m_serverComboBox->QCM_currentIndex();
 	Kid3App::s_genCfg.m_importFormatIdx = m_formatComboBox->QCM_currentIndex();
 	Kid3App::s_genCfg.m_importFormatNames[Kid3App::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
 	Kid3App::s_genCfg.m_importFormatHeaders[Kid3App::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();

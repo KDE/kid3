@@ -75,8 +75,8 @@
 #define QCM_SIGNAL_readyReadStandardError SIGNAL(readyReadStandardError())
 #define QCM_getText(parent, title, label, mode, text, ok) getText(parent, title, label, mode, text, ok)
 #define QCM_getItem(parent, title, label, list, current, editable, ok) getItem(parent, title, label, list, current, editable, ok)
-#define QCM_getSaveFileName(parent) getSaveFileName(parent)
-#define QCM_getOpenFileName(parent) getOpenFileName(parent)
+#define QCM_getSaveFileName(parent, dir) getSaveFileName(parent, QString(), dir)
+#define QCM_getOpenFileName(parent, dir) getOpenFileName(parent, QString(), dir)
 #define QCM_QUrl_encode(u) u = QUrl::toPercentEncoding(u)
 #define QCM_setTextFormat_PlainText() setAcceptRichText(false)
 #define QCM_readAllStandardOutput readAllStandardOutput
@@ -144,8 +144,8 @@ namespace QAbstractSocket { enum SocketError {}; }
 #define QCM_SIGNAL_readyReadStandardError SIGNAL(readyReadStderr())
 #define QCM_getText(parent, title, label, mode, text, ok) getText(title, label, mode, text, ok, parent)
 #define QCM_getItem(parent, title, label, list, current, editable, ok) getItem(title, label, list, current, editable, ok, parent)
-#define QCM_getSaveFileName(parent) getSaveFileName(QString::null, QString::null, parent)
-#define QCM_getOpenFileName(parent) getOpenFileName(QString::null, QString::null, parent)
+#define QCM_getSaveFileName(parent, dir) getSaveFileName(dir, QString::null, parent)
+#define QCM_getOpenFileName(parent, dir) getOpenFileName(dir, QString::null, parent)
 #define QCM_QUrl_encode(u) QUrl::encode(u)
 #define QCM_setTextFormat_PlainText() setTextFormat(Qt::PlainText)
 #define QCM_readAllStandardOutput readStdout
