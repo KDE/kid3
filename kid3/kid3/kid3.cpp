@@ -287,6 +287,11 @@ void Kid3App::initActions()
 	settingsShortcuts->setStatusText(i18n("Configure Shortcuts"));
 	m_settingsConfigure->setStatusText(i18n("Preferences dialog"));
 
+	KAction* openDirectoryAction =
+		new KAction(i18n("O&pen Directory..."), KShortcut("Ctrl+D"), this,
+								SLOT(slotFileOpenDirectory()), actionCollection(),
+								"open_directory");
+	openDirectoryAction->setIcon("fileopen");
 	new KAction(i18n("&Import..."), 0, this,
 		    SLOT(slotImport()), actionCollection(),
 		    "import");
@@ -400,6 +405,14 @@ void Kid3App::initActions()
 		m_fileOpen->QCM_setShortcut(Qt::CTRL + Qt::Key_O);
 		connect(m_fileOpen, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileOpen()));
+	}
+	m_fileOpenDirectory = new QAction(this);
+	if (m_fileOpenDirectory) {
+		m_fileOpenDirectory->setStatusTip(i18n("Opens a directory"));
+		m_fileOpenDirectory->QCM_setMenuText(i18n("O&pen Directory..."));
+		m_fileOpenDirectory->QCM_setShortcut(Qt::CTRL + Qt::Key_D);
+		connect(m_fileOpenDirectory, QCM_SIGNAL_triggered,
+			this, SLOT(slotFileOpenDirectory()));
 	}
 	m_fileSave = new QAction(this);
 	if (m_fileSave) {
@@ -590,6 +603,7 @@ void Kid3App::initActions()
 #endif
 	if (m_fileMenu && m_toolsMenu && m_settingsMenu && m_helpMenu) {
 		QCM_addAction(m_fileMenu, m_fileOpen);
+		QCM_addAction(m_fileMenu, m_fileOpenDirectory);
 		m_fileMenu->QCM_addSeparator();
 		QCM_addAction(m_fileMenu, m_fileSave);
 		QCM_addAction(m_fileMenu, m_fileRevert);
@@ -1042,6 +1056,29 @@ void Kid3App::slotFileOpen()
 				filter = filter.mid(start + 1, end - start - 1);
 			}
 			s_miscCfg.m_nameFilter = filter;
+			openDirectory(dir);
+		}
+	}
+}
+
+/**
+ * Request new directory and open it.
+ */
+void Kid3App::slotFileOpenDirectory()
+{
+	updateCurrentSelection();
+	if(saveModified()) {
+		QString dir;
+#ifdef CONFIG_USE_KDE
+		dir = KFileDialog::getExistingDirectory(s_dirName, this);
+#else
+#if QT_VERSION >= 0x040000
+		dir = QFileDialog::getExistingDirectory(this, QString(), s_dirName);
+#else
+		dir = QFileDialog::getExistingDirectory(s_dirName, this);
+#endif
+#endif
+		if (!dir.isEmpty()) {
 			openDirectory(dir);
 		}
 	}

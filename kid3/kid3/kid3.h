@@ -292,6 +292,11 @@ public slots:
 	void slotFileOpen();
 
 	/**
+	 * Request new directory and open it.
+	 */
+	void slotFileOpenDirectory();
+
+	/**
 	 * Open recent directory.
 	 *
 	 * @param url URL of directory to open
@@ -567,6 +572,7 @@ private:
 #else
 	Kid3Settings* m_config;
 	QAction* m_fileOpen;
+	QAction* m_fileOpenDirectory;
 	QAction* m_fileSave;
 	QAction* m_fileRevert;
 	QAction* m_fileCreatePlaylist;
