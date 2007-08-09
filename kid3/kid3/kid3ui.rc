@@ -12,6 +12,10 @@
     <Action name="export"/>
     <Action name="create_playlist"/>
   </Menu>
+  <Menu name="edit"><text>&amp;Edit</text>
+    <Action name="previous_file" append="edit_select_merge"/>
+    <Action name="next_file" append="edit_select_merge"/>
+  </Menu>
   <Menu name="tools"><text>&amp;Tools</text>
     <Action name="apply_filename_format"/>
     <Action name="apply_id3_format"/>
@@ -26,4 +30,12 @@
     <DefineGroup name="show_merge"/>
   </Menu>
 </MenuBar>
+<ToolBar noMerge="1" name="mainToolBar"><text>Main Toolbar</text>
+  <Action name="file_open" />
+  <Action name="file_save" />
+  <Action name="file_revert" />
+  <Action name="create_playlist" />
+  <Action name="previous_file" />
+  <Action name="next_file" />
+</ToolBar>
 </kpartgui>

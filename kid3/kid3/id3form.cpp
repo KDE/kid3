@@ -1253,6 +1253,18 @@ void Id3Form::selectAllFiles()
 }
 
 /**
+ * Deselect all files.
+ */
+void Id3Form::deselectAllFiles()
+{
+#if QT_VERSION >= 0x040000
+	m_fileListBox->clearSelection();
+#else
+	m_fileListBox->selectAll(false);
+#endif
+}
+
+/**
  * Select next file.
  */
 void Id3Form::selectNextFile()

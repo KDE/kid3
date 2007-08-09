@@ -24,11 +24,6 @@ typedef KMainWindow Kid3AppBaseClass;
 #include "generalconfig.h" // Kid3Settings
 class QAction;
 class BrowserDialog;
-#if QT_VERSION >= 0x040000
-class QMenu;
-#else
-class QPopupMenu;
-#endif
 /** Base class for main window. */
 typedef QMainWindow Kid3AppBaseClass;
 #endif
@@ -319,6 +314,11 @@ public slots:
 	void slotSettingsShortcuts();
 
 	/**
+	 * Toolbars configuration.
+	 */
+	void slotSettingsToolbars();
+
+	/**
 	 * Display handbook.
 	 */
 	void slotHelpHandbook();
@@ -558,62 +558,15 @@ private:
 	/** the configuration object of the application */
 	KConfig* m_config;
 	/** Actions */
-	KAction* m_fileOpen;
 	KRecentFilesAction* m_fileOpenRecent;
-	KAction* m_fileRevert;
-	KAction* m_fileSave;
-	KAction* m_fileQuit;
 	KToggleAction* m_viewToolBar;
 	KToggleAction* m_viewStatusBar;
-	KAction* settingsShortcuts;
-	KAction* m_settingsConfigure;
 	KAction* m_settingsShowHideV1;
 	KAction* m_settingsShowHideV2;
 #else
 	Kid3Settings* m_config;
-	QAction* m_fileOpen;
-	QAction* m_fileOpenDirectory;
-	QAction* m_fileSave;
-	QAction* m_fileRevert;
-	QAction* m_fileCreatePlaylist;
-	QAction* m_fileQuit;
-	QAction* m_fileImport;
-	QAction* m_fileImportFreedb;
-	QAction* m_fileImportTrackType;
-	QAction* m_fileImportDiscogs;
-	QAction* m_fileImportMusicBrainzRelease;
-#ifdef HAVE_TUNEPIMP
-	QAction* m_fileImportMusicBrainz;
-#endif
-	QAction* m_fileExport;
-	QAction* m_toolsApplyFilenameFormat;
-	QAction* m_toolsApplyId3Format;
-	QAction* m_toolsRenameDirectory;
-	QAction* m_toolsNumberTracks;
-#ifdef HAVE_TAGLIB
-	QAction* m_toolsConvertToId3v24;
-#endif
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
-	QAction* m_toolsConvertToId3v23;
-#endif
 	QAction* m_settingsShowHideV1;
 	QAction* m_settingsShowHideV2;
-	QAction* m_settingsConfigure;
-	QAction* m_helpHandbook;
-	QAction* m_helpAbout;
-	QAction* m_helpAboutQt;
-	QMenuBar* m_menubar;
-#if QT_VERSION >= 0x040000
-	QMenu* m_fileMenu;
-	QMenu* m_toolsMenu;
-	QMenu* m_settingsMenu;
-	QMenu* m_helpMenu;
-#else
-	QPopupMenu* m_fileMenu;
-	QPopupMenu* m_toolsMenu;
-	QPopupMenu* m_settingsMenu;
-	QPopupMenu* m_helpMenu;
-#endif
 
 	static BrowserDialog* s_helpBrowser;
 #endif

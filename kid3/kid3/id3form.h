@@ -411,6 +411,11 @@ public slots:
 	void selectAllFiles();
 
 	/**
+	 * Deselect all files.
+	 */
+	void deselectAllFiles();
+
+	/**
 	 * Select next file.
 	 */
 	void selectNextFile();
