@@ -637,6 +637,7 @@ void ImportSelector::showPreview() {
   m_tab->setRowCount(m_trackDataVector.size());
 	int row = 0;
 	QStringList vLabels;
+	QString str;
 	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
 			 it != m_trackDataVector.end();
 			 ++it) {
@@ -645,83 +646,94 @@ void ImportSelector::showPreview() {
 		if (fileDuration != 0) {
 			vLabels.append(TaggedFile::formatTime(fileDuration));
 		}
+		str.clear();
 		int importDuration = (*it).getImportDuration();
 		if (importDuration != 0) {
-			QString lengthStr = TaggedFile::formatTime(importDuration);
-			if ((twi = m_tab->item(row, LengthColumn)) != 0) {
-				twi->setText(lengthStr);
-			} else {
-				twi = new QTableWidgetItem(lengthStr);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, LengthColumn, twi);
-			}
+			str = TaggedFile::formatTime(importDuration);
 		}
+		if ((twi = m_tab->item(row, LengthColumn)) != 0) {
+			twi->setText(str);
+		} else {
+			twi = new QTableWidgetItem(str);
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_tab->setItem(row, LengthColumn, twi);
+		}
+		str.clear();
 		if ((*it).track != -1) {
-			QString trackStr;
-			trackStr.setNum((*it).track);
-			if ((twi = m_tab->item(row, TrackColumn)) != 0) {
-				twi->setText(trackStr);
-			} else {
-				twi = new QTableWidgetItem(trackStr);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, TrackColumn, twi);
-			}
+			str.setNum((*it).track);
 		}
+		if ((twi = m_tab->item(row, TrackColumn)) != 0) {
+			twi->setText(str);
+		} else {
+			twi = new QTableWidgetItem(str);
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_tab->setItem(row, TrackColumn, twi);
+		}
+		str.clear();
 		if (!(*it).title.isNull()) {
-			if ((twi = m_tab->item(row, TitleColumn)) != 0) {
-				twi->setText((*it).title);
-			} else {
-				twi = new QTableWidgetItem((*it).title);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, TitleColumn, twi);
-			}
+			str = (*it).title;
 		}
+		if ((twi = m_tab->item(row, TitleColumn)) != 0) {
+			twi->setText(str);
+		} else {
+			twi = new QTableWidgetItem(str);
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_tab->setItem(row, TitleColumn, twi);
+		}
+		str.clear();
 		if (!(*it).artist.isNull()) {
-			if ((twi = m_tab->item(row, ArtistColumn)) != 0) {
-				twi->setText((*it).artist);
-			} else {
-				twi = new QTableWidgetItem((*it).artist);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, ArtistColumn, twi);
-			}
+			str = (*it).artist;
 		}
+		if ((twi = m_tab->item(row, ArtistColumn)) != 0) {
+			twi->setText(str);
+		} else {
+			twi = new QTableWidgetItem(str);
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_tab->setItem(row, ArtistColumn, twi);
+		}
+		str.clear();
 		if (!(*it).album.isNull()) {
-			if ((twi = m_tab->item(row, AlbumColumn)) != 0) {
-				twi->setText((*it).album);
-			} else {
-				twi = new QTableWidgetItem((*it).album);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, AlbumColumn, twi);
-			}
+			str = (*it).album;
 		}
+		if ((twi = m_tab->item(row, AlbumColumn)) != 0) {
+			twi->setText(str);
+		} else {
+			twi = new QTableWidgetItem(str);
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_tab->setItem(row, AlbumColumn, twi);
+		}
+		str.clear();
 		if ((*it).year != -1) {
-			QString yearStr;
-			yearStr.setNum((*it).year);
-			if ((twi = m_tab->item(row, YearColumn)) != 0) {
-				twi->setText(yearStr);
-			} else {
-				twi = new QTableWidgetItem(yearStr);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, YearColumn, twi);
-			}
+			str.setNum((*it).year);
 		}
+		if ((twi = m_tab->item(row, YearColumn)) != 0) {
+			twi->setText(str);
+		} else {
+			twi = new QTableWidgetItem(str);
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_tab->setItem(row, YearColumn, twi);
+		}
+		str.clear();
 		if (!(*it).genre.isNull()) {
-			if ((twi = m_tab->item(row, GenreColumn)) != 0) {
-				twi->setText((*it).genre);
-			} else {
-				twi = new QTableWidgetItem((*it).genre);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, GenreColumn, twi);
-			}
+			str = (*it).genre;
 		}
+		if ((twi = m_tab->item(row, GenreColumn)) != 0) {
+			twi->setText(str);
+		} else {
+			twi = new QTableWidgetItem(str);
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_tab->setItem(row, GenreColumn, twi);
+		}
+		str.clear();
 		if (!(*it).comment.isNull()) {
-			if ((twi = m_tab->item(row, CommentColumn)) != 0) {
-				twi->setText((*it).comment);
-			} else {
-				twi = new QTableWidgetItem((*it).comment);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, CommentColumn, twi);
-			}
+			str = (*it).comment;
+		}
+		if ((twi = m_tab->item(row, CommentColumn)) != 0) {
+			twi->setText(str);
+		} else {
+			twi = new QTableWidgetItem(str);
+			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+			m_tab->setItem(row, CommentColumn, twi);
 		}
 		++row;
 	}
