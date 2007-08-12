@@ -23,6 +23,7 @@
 #include <qheader.h>
 #endif
 #ifdef CONFIG_USE_KDE
+#include <kdeversion.h>
 #include <kmessagebox.h>
 #endif
 
@@ -834,10 +835,19 @@ void FileList::deleteFile()
 #ifdef CONFIG_USE_KDE
 		if (KMessageBox::warningContinueCancelList(
 					this,
+#if KDE_VERSION >= 0x035c00
+					i18np("Do you really want to delete this item?",
+								"Do you really want to delete these %n items?", numFiles),
+					files,
+					i18n("Delete Files"),
+					KStandardGuiItem::del(), KStandardGuiItem::cancel(), QString(),
+#else
 					i18n("Do you really want to delete this item?",
 							 "Do you really want to delete these %n items?", numFiles),
 					files,
-					i18n("Delete Files"), KStdGuiItem::del(), QString::null,
+					i18n("Delete Files"),
+					KStdGuiItem::del(), QString::null,
+#endif
 					KMessageBox::Dangerous) == KMessageBox::Continue)
 #else
 		QString txt = numFiles > 1 ?
@@ -893,8 +903,14 @@ void FileList::deleteFile()
 			if (!files.empty()) {
 #ifdef CONFIG_USE_KDE
 				KMessageBox::errorList(
-					0, i18n("Error while deleting this item:",
-									"Error while deleting these %n items:", files.size()),
+					0,
+#if KDE_VERSION >= 0x035c00
+					i18np("Error while deleting this item:",
+								"Error while deleting these %n items:", files.size()),
+#else
+					i18n("Error while deleting this item:",
+							 "Error while deleting these %n items:", files.size()),
+#endif
 					files,
 					i18n("File Error"));
 #else
@@ -921,7 +937,12 @@ void FileList::deleteFile()
 				this,
 				i18n("Do you really want to delete this item?"),
 				QStringList(dirInfo->getDirname()),
-				i18n("Delete Files"), KStdGuiItem::del(), QString::null,
+				i18n("Delete Files"),
+#if KDE_VERSION >= 0x035c00
+				KStandardGuiItem::del(), KStandardGuiItem::cancel(), QString(),
+#else
+				KStdGuiItem::del(), QString::null,
+#endif
 				KMessageBox::Dangerous) == KMessageBox::Continue
 #else
 #if QT_VERSION >= 0x030100

@@ -53,12 +53,12 @@ void ImportSourceConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(m_group);
-	config->writeEntry("Server", m_server);
+	KCM_KConfigGroup(cfg, config, m_group);
+	cfg.writeEntry("Server", m_server);
 	if (m_cgiPathUsed)
-		config->writeEntry("CgiPath", m_cgiPath);
-	config->writeEntry("WindowWidth", m_windowWidth);
-	config->writeEntry("WindowHeight", m_windowHeight);
+		cfg.writeEntry("CgiPath", m_cgiPath);
+	cfg.writeEntry("WindowWidth", m_windowWidth);
+	cfg.writeEntry("WindowHeight", m_windowHeight);
 #else
 	config->beginGroup("/" + m_group);
 	config->QCM_writeEntry("/Server", m_server);
@@ -84,12 +84,12 @@ void ImportSourceConfig::readFromConfig(
 	)
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(m_group);
-	m_server = config->readEntry("Server", m_server);
+	KCM_KConfigGroup(cfg, config, m_group);
+	m_server = cfg.readEntry("Server", m_server);
 	if (m_cgiPathUsed)
-		m_cgiPath = config->readEntry("CgiPath", m_cgiPath);
-	m_windowWidth = config->readNumEntry("WindowWidth", -1);
-	m_windowHeight = config->readNumEntry("WindowHeight", -1);
+		m_cgiPath = cfg.readEntry("CgiPath", m_cgiPath);
+	m_windowWidth = cfg.KCM_readNumEntry("WindowWidth", -1);
+	m_windowHeight = cfg.KCM_readNumEntry("WindowHeight", -1);
 #else
 	config->beginGroup("/" + m_group);
 	m_server = config->QCM_readEntry("/Server", m_server);

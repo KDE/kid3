@@ -12,12 +12,18 @@
 
 #include "config.h"
 #ifdef CONFIG_USE_KDE
-#include <kmainwindow.h>
+#include <kdeversion.h>
 class KAction;
 class KRecentFilesAction;
 class KToggleAction;
 /** Base class for main window. */
+#if KDE_VERSION >= 0x035c00
+#include <kxmlguiwindow.h>
+typedef KXmlGuiWindow Kid3AppBaseClass;
+#else
+#include <kmainwindow.h>
 typedef KMainWindow Kid3AppBaseClass;
+#endif
 #else
 #include "qtcompatmac.h"
 #include <qmainwindow.h>
@@ -36,6 +42,7 @@ typedef QMainWindow Kid3AppBaseClass;
 #include "musicbrainzconfig.h"
 
 class KURL;
+class KUrl;
 class Id3Form;
 class TaggedFile;
 class StandardTags;
@@ -238,14 +245,26 @@ protected:
 	 *
 	 * @param cfg application configuration
 	 */
-	virtual void saveProperties(KConfig* cfg);
+	virtual void saveProperties(
+#if KDE_VERSION >= 0x035c00
+		KConfigGroup& cfg
+#else
+		KConfig* cfg
+#endif
+		);
 
 	/**
 	 * Reads the session config file and restores the application's state.
 	 *
 	 * @param cfg application configuration
 	 */
-	virtual void readProperties(KConfig* cfg);
+	virtual void readProperties(
+#if KDE_VERSION >= 0x035c00
+		KConfigGroup& cfg
+#else
+		KConfig* cfg
+#endif
+		);
 
 #else
 	/**
@@ -297,6 +316,13 @@ public slots:
 	 * @param url URL of directory to open
 	 */
 	void slotFileOpenRecent(const KURL& url);
+
+	/**
+	 * Open recent directory.
+	 *
+	 * @param url URL of directory to open
+	 */
+	void slotFileOpenRecentUrl(const KUrl& url);
 
 	/**
 	 * Quit application.

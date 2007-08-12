@@ -134,43 +134,43 @@ void MiscConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(m_group);
-	config->writeEntry("NameFilter2", m_nameFilter);
-	config->writeEntry("FormatItem", m_formatItem);
-	config->writeEntry("FormatText2", m_formatText);
-	config->writeEntry("DirFormatItem", m_dirFormatItem);
-	config->writeEntry("DirFormatText", m_dirFormatText);
-	config->writeEntry("RenameDirectorySource", m_renDirSrc);
-	config->writeEntry("MarkTruncations", m_markTruncations);
-	config->writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
-	config->writeEntry("PreserveTime", m_preserveTime);
-	config->writeEntry("CommentName", m_commentName);
-	config->writeEntry("SplitterSizes", m_splitterSizes);
-	config->writeEntry("VSplitterSizes", m_vSplitterSizes);
-	config->writeEntry("CustomGenres", m_customGenres);
-	config->writeEntry("HideV1", m_hideV1);
-	config->writeEntry("HideV2", m_hideV2);
-	config->writeEntry("ID3v2Version", m_id3v2Version);
-	config->writeEntry("UseProxy", m_useProxy);
-	config->writeEntry("Proxy", m_proxy);
-	config->writeEntry("Browser", m_browser);
-	config->writeEntry("OnlyCustomGenres", m_onlyCustomGenres);
+	KCM_KConfigGroup(cfg, config, m_group);
+	cfg.writeEntry("NameFilter2", m_nameFilter);
+	cfg.writeEntry("FormatItem", m_formatItem);
+	cfg.writeEntry("FormatText2", m_formatText);
+	cfg.writeEntry("DirFormatItem", m_dirFormatItem);
+	cfg.writeEntry("DirFormatText", m_dirFormatText);
+	cfg.writeEntry("RenameDirectorySource", m_renDirSrc);
+	cfg.writeEntry("MarkTruncations", m_markTruncations);
+	cfg.writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	cfg.writeEntry("PreserveTime", m_preserveTime);
+	cfg.writeEntry("CommentName", m_commentName);
+	cfg.writeEntry("SplitterSizes", m_splitterSizes);
+	cfg.writeEntry("VSplitterSizes", m_vSplitterSizes);
+	cfg.writeEntry("CustomGenres", m_customGenres);
+	cfg.writeEntry("HideV1", m_hideV1);
+	cfg.writeEntry("HideV2", m_hideV2);
+	cfg.writeEntry("ID3v2Version", m_id3v2Version);
+	cfg.writeEntry("UseProxy", m_useProxy);
+	cfg.writeEntry("Proxy", m_proxy);
+	cfg.writeEntry("Browser", m_browser);
+	cfg.writeEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
-	config->setGroup("MenuCommands");
+	KCM_KConfigGroup(menuCmdCfg, config, "MenuCommands");
 	int cmdNr = 1;
 	for (MiscConfig::MenuCommandList::const_iterator
 				 it = m_contextMenuCommands.begin();
 			 it != m_contextMenuCommands.end();
 			 ++it) {
-		config->writeEntry(QString("Command%1").arg(cmdNr++), (*it).toStringList());
+		menuCmdCfg.writeEntry(QString("Command%1").arg(cmdNr++), (*it).toStringList());
 	}
 	// delete entries which are no longer used
 	for (;;) {
-		QStringList strList = config->readListEntry(QString("Command%1").arg(cmdNr));
+		QStringList strList = menuCmdCfg.KCM_readListEntry(QString("Command%1").arg(cmdNr));
 		if (strList.empty()) {
 			break;
 		}
-		config->deleteEntry(QString("Command%1").arg(cmdNr));
+		menuCmdCfg.deleteEntry(QString("Command%1").arg(cmdNr));
 		++cmdNr;
 	}
 #else
@@ -250,38 +250,38 @@ void MiscConfig::readFromConfig(
 	)
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(m_group);
+	KCM_KConfigGroup(cfg, config, m_group);
 	m_nameFilter =
-	    config->readEntry("NameFilter2", s_defaultNameFilter);
+	    cfg.readEntry("NameFilter2", s_defaultNameFilter);
 	m_formatItem =
-	    config->readNumEntry("FormatItem", 0);
+	    cfg.KCM_readNumEntry("FormatItem", 0);
 	m_dirFormatItem =
-	    config->readNumEntry("DirFormatItem", 0);
-	m_renDirSrc = config->readBoolEntry("RenameDirectorySource", m_renDirSrc);
-	m_markTruncations = config->readBoolEntry("MarkTruncations", m_markTruncations);
-	m_enableTotalNumberOfTracks = config->readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
-	m_preserveTime = config->readBoolEntry("PreserveTime", m_preserveTime);
-	m_commentName = config->readEntry("CommentName", s_defaultCommentName);
+	    cfg.KCM_readNumEntry("DirFormatItem", 0);
+	m_renDirSrc = cfg.KCM_readBoolEntry("RenameDirectorySource", m_renDirSrc);
+	m_markTruncations = cfg.KCM_readBoolEntry("MarkTruncations", m_markTruncations);
+	m_enableTotalNumberOfTracks = cfg.KCM_readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	m_preserveTime = cfg.KCM_readBoolEntry("PreserveTime", m_preserveTime);
+	m_commentName = cfg.readEntry("CommentName", s_defaultCommentName);
 	m_formatText =
-	    config->readEntry("FormatText2", s_defaultFnFmtList[0]);
+	    cfg.readEntry("FormatText2", s_defaultFnFmtList[0]);
 	m_dirFormatText =
-	    config->readEntry("DirFormatText", s_defaultDirFmtList[0]);
-	m_splitterSizes = config->readIntListEntry("SplitterSizes");
-	m_vSplitterSizes = config->readIntListEntry("VSplitterSizes");
-	m_customGenres = config->readListEntry("CustomGenres");
-	m_hideV1 = config->readBoolEntry("HideV1", m_hideV1);
-	m_hideV2 = config->readBoolEntry("HideV2", m_hideV2);
-	m_id3v2Version = config->readNumEntry("ID3v2Version", ID3v2_3_0);
-	m_useProxy = config->readBoolEntry("UseProxy", m_useProxy);
-	m_proxy = config->readEntry("Proxy", m_proxy);
-	m_browser = config->readEntry("Browser", s_defaultBrowser);
-	m_onlyCustomGenres = config->readBoolEntry("OnlyCustomGenres", m_onlyCustomGenres);
+	    cfg.readEntry("DirFormatText", s_defaultDirFmtList[0]);
+	m_splitterSizes = cfg.KCM_readIntListEntry("SplitterSizes");
+	m_vSplitterSizes = cfg.KCM_readIntListEntry("VSplitterSizes");
+	m_customGenres = cfg.KCM_readListEntry("CustomGenres");
+	m_hideV1 = cfg.KCM_readBoolEntry("HideV1", m_hideV1);
+	m_hideV2 = cfg.KCM_readBoolEntry("HideV2", m_hideV2);
+	m_id3v2Version = cfg.KCM_readNumEntry("ID3v2Version", static_cast<int>(ID3v2_3_0));
+	m_useProxy = cfg.KCM_readBoolEntry("UseProxy", m_useProxy);
+	m_proxy = cfg.readEntry("Proxy", m_proxy);
+	m_browser = cfg.readEntry("Browser", s_defaultBrowser);
+	m_onlyCustomGenres = cfg.KCM_readBoolEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
 	m_contextMenuCommands.clear();
-	config->setGroup("MenuCommands");
+	KCM_KConfigGroup(menuCmdCfg, config, "MenuCommands");
 	int cmdNr = 1;
 	for (;;) {
-		QStringList strList = config->readListEntry(QString("Command%1").arg(cmdNr));
+		QStringList strList = menuCmdCfg.KCM_readListEntry(QString("Command%1").arg(cmdNr));
 		if (strList.empty()) {
 			break;
 		}

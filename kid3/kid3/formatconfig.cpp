@@ -162,12 +162,12 @@ void FormatConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(m_group);
-	config->writeEntry("FormatWhileEditing", m_formatWhileEditing);
-	config->writeEntry("CaseConversion", m_caseConversion);
-	config->writeEntry("StrRepEnabled", m_strRepEnabled);
-	config->writeEntry("StrRepMapKeys", m_strRepMap.keys());
-	config->writeEntry("StrRepMapValues", m_strRepMap.values());
+	KCM_KConfigGroup(cfg, config, m_group);
+	cfg.writeEntry("FormatWhileEditing", m_formatWhileEditing);
+	cfg.writeEntry("CaseConversion", static_cast<int>(m_caseConversion));
+	cfg.writeEntry("StrRepEnabled", m_strRepEnabled);
+	cfg.writeEntry("StrRepMapKeys", m_strRepMap.keys());
+	cfg.writeEntry("StrRepMapValues", m_strRepMap.values());
 #else
 	config->beginGroup("/" + m_group);
 	config->QCM_writeEntry("/FormatWhileEditing", m_formatWhileEditing);
@@ -193,13 +193,13 @@ void FormatConfig::readFromConfig(
 	)
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(m_group);
-	m_formatWhileEditing = config->readBoolEntry("FormatWhileEditing", m_formatWhileEditing);
-	m_caseConversion = (CaseConversion)config->readNumEntry("CaseConversion",
+	KCM_KConfigGroup(cfg, config, m_group);
+	m_formatWhileEditing = cfg.KCM_readBoolEntry("FormatWhileEditing", m_formatWhileEditing);
+	m_caseConversion = (CaseConversion)cfg.KCM_readNumEntry("CaseConversion",
 														  (int)m_caseConversion);
-	m_strRepEnabled = config->readBoolEntry("StrRepEnabled", m_strRepEnabled);
-	QStringList keys = config->readListEntry("StrRepMapKeys");
-	QStringList values = config->readListEntry("StrRepMapValues");
+	m_strRepEnabled = cfg.KCM_readBoolEntry("StrRepEnabled", m_strRepEnabled);
+	QStringList keys = cfg.KCM_readListEntry("StrRepMapKeys");
+	QStringList values = cfg.KCM_readListEntry("StrRepMapValues");
 	if (!keys.empty() && !values.empty()) {
 		QStringList::Iterator itk, itv;
 		m_strRepMap.clear();

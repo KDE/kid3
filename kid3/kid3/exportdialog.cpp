@@ -265,17 +265,19 @@ void ExportDialog::showPreview()
 			 it != m_trackDataVector.end();
 			 ++it) {
 		if (trackNr == 0 && !headerFormat.isEmpty()) {
-			m_edit->append(trackDataToString(*it, headerFormat, numTracks));
+			m_edit->QCM_insertPlainText(trackDataToString(*it, headerFormat, numTracks));
+			m_edit->QCM_insertPlainText("\n");
 		}
 		if (!trackFormat.isEmpty()) {
-			m_edit->append(trackDataToString(*it, trackFormat, numTracks));
+			m_edit->QCM_insertPlainText(trackDataToString(*it, trackFormat, numTracks));
+			m_edit->QCM_insertPlainText("\n");
 		}
 		if (trackNr == numTracks - 1 && !trailerFormat.isEmpty()) {
-			m_edit->append(trackDataToString(*it, trailerFormat, numTracks));
+			m_edit->QCM_insertPlainText(trackDataToString(*it, trailerFormat, numTracks));
+			m_edit->QCM_insertPlainText("\n");
 		}
 		++trackNr;
 	}
-	m_edit->append(""); // terminate last line
 }
 
 /**

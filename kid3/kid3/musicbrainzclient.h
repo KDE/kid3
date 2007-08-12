@@ -59,7 +59,7 @@ public:
 	 */
 	virtual ~LookupQuery();
 
-#if HAVE_TUNEPIMP >= 5
+#if defined HAVE_TUNEPIMP && HAVE_TUNEPIMP >= 5
 	/**
 	 * Query a PUID from the server.
 	 *
@@ -94,7 +94,7 @@ private slots:
 	 */
 	void socketConnectionClosed();
 
-#if HAVE_TUNEPIMP >= 5
+#if defined HAVE_TUNEPIMP && HAVE_TUNEPIMP >= 5
 private:
 	/**
 	 * Connect to server to query information about the current file.

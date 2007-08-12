@@ -46,8 +46,11 @@
 #ifdef KID3_USE_KCONFIGDIALOG
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
 													 KConfigSkeleton* configSkeleton) :
-	KConfigDialog(parent, "configure", configSkeleton,
-								IconList, Ok | Cancel | Help, Ok, true)
+	KConfigDialog(parent, "configure", configSkeleton
+#if KDE_VERSION < 0x035c00
+								, IconList, Ok | Cancel | Help, Ok, true
+#endif
+		)
 #else
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 	QDialog(parent)
@@ -310,6 +313,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		topLayout->addLayout(hlayout);
 	}
+#elif KDE_VERSION >= 0x035c00
+	setButtons(Ok | Cancel | Help);
+	setHelp("configure-kid3");
 #endif
 }
 

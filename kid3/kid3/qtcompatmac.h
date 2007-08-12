@@ -15,6 +15,64 @@
 
 #ifdef CONFIG_USE_KDE
 #include <klocale.h>
+#include <kdeversion.h>
+#if KDE_VERSION >= 0x035c00
+
+#define KCM_setStatusTip setStatusTip
+#define KCM_addUrl addUrl
+#define KCM_KStandardAction KStandardAction
+#define KCM_KActionShortcutIcon(var, cut, icon, text, rcvr, slot, parent, name) \
+	KAction* var = new KAction(KIcon(icon), text, this); \
+	var->setShortcut(cut); \
+	parent->addAction(name, var); \
+	connect(var, SIGNAL(triggered()), rcvr, slot)
+#define KCM_KActionIcon(var, icon, text, rcvr, slot, parent, name) \
+	KAction* var = new KAction(KIcon(icon), text, this); \
+	parent->addAction(name, var); \
+	connect(var, SIGNAL(triggered()), rcvr, slot)
+#define KCM_KActionShortcut(var, cut, text, rcvr, slot, parent, name)	\
+	KAction* var = new KAction(text, this); \
+	var->setShortcut(cut); \
+	parent->addAction(name, var); \
+	connect(var, SIGNAL(triggered()), rcvr, slot)
+#define KCM_KActionVar(var, text, rcvr, slot, parent, name)	\
+	var = new KAction(text, this); \
+	parent->addAction(name, var); \
+	connect(var, SIGNAL(triggered()), rcvr, slot)
+#define KCM_KAction(var, text, rcvr, slot, parent, name)	\
+	KAction* var = new KAction(text, this); \
+	parent->addAction(name, var); \
+	connect(var, SIGNAL(triggered()), rcvr, slot)
+#define KCM_KConfigGroup(var, cfgptr, name) KConfigGroup var = cfgptr->group(name)
+#define KCM_readBoolEntry readEntry
+#define KCM_readNumEntry readEntry
+#define KCM_readListEntry(key) readEntry(key, QStringList())
+#define KCM_readIntListEntry(key) readEntry(key, QList<int>())
+
+#else
+
+#define KCM_setStatusTip setStatusText
+#define KCM_addUrl addURL
+#define KCM_KStandardAction KStdAction
+#define KCM_KActionShortcutIcon(var, cut, icon, text, rcvr, slot, parent, name) \
+	KAction* var = new KAction(text, cut, rcvr, slot, parent, name); \
+	var->setIcon(icon)
+#define KCM_KActionIcon(var, icon, text, rcvr, slot, parent, name) \
+	KAction* var = new KAction(text, 0, rcvr, slot, parent, name); \
+	var->setIcon(icon)
+#define KCM_KActionShortcut(var, cut, text, rcvr, slot, parent, name)	\
+	new KAction(text, cut, rcvr, slot, parent, name)
+#define KCM_KActionVar(var, text, rcvr, slot, parent, name)	\
+	var = new KAction(text, 0, rcvr, slot, parent, name)
+#define KCM_KAction(var, text, rcvr, slot, parent, name)	\
+	new KAction(text, 0, rcvr, slot, parent, name)
+#define KCM_KConfigGroup(var, cfgptr, name) KConfig& var = *cfgptr; cfgptr->setGroup(name)
+#define KCM_readBoolEntry readBoolEntry
+#define KCM_readNumEntry readNumEntry
+#define KCM_readListEntry(key) readListEntry(key)
+#define KCM_readIntListEntry(key) readIntListEntry(key)
+
+#endif
 #else
 #define i18n(s) tr(s)
 #define I18N_NOOP(s) QT_TR_NOOP(s)
@@ -63,6 +121,7 @@
 #define QCM_writeBlock write
 #define QCM_toPlainText toPlainText
 #define QCM_setPlainText setPlainText
+#define QCM_insertPlainText insertPlainText
 #define QCM_readRawData readRawData
 #define QCM_writeRawData writeRawData
 #define QCM_duplicate(t, d, s) t = QByteArray(d, s)
@@ -132,6 +191,7 @@ namespace QAbstractSocket { enum SocketError {}; }
 #define QCM_writeBlock writeBlock
 #define QCM_toPlainText text
 #define QCM_setPlainText setText
+#define QCM_insertPlainText insert
 #define QCM_readRawData readRawBytes
 #define QCM_writeRawData writeRawBytes
 #define QCM_duplicate(t, d, s) t.duplicate(d, s)

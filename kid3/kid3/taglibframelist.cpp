@@ -12,7 +12,6 @@
 #include "kid3.h"
 
 #ifdef CONFIG_USE_KDE
-#include <kdialogbase.h>
 #include <kfiledialog.h>
 #else
 #include <qdialog.h>
@@ -778,7 +777,6 @@ TagLibEditFrameDialog::TagLibEditFrameDialog(
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		m_vlayout->addLayout(m_hlayout);
 	}
-	resize(fontMetrics().maxWidth() * 30, -1);
 }
 
 

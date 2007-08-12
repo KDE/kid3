@@ -11,7 +11,6 @@
 #ifdef HAVE_ID3LIB
 
 #ifdef CONFIG_USE_KDE
-#include <kdialogbase.h>
 #include <kfiledialog.h>
 #else
 #include <qdialog.h>
@@ -529,51 +528,6 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
 	return m_bos;
 }
 
-#ifdef CONFIG_USE_KDE
-/** Field edit dialog */
-class EditMp3FrameDialog : public KDialogBase { /* KDE */
-public:
-	EditMp3FrameDialog(QWidget* parent, QString& caption,
-			FieldControlList &ctls);
-};
-
-/**
- * Constructor.
- *
- * @param parent  parent widget
- * @param caption window title
- * @param ctls    list with controls to edit fields
- */
-EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
- FieldControlList &ctls) :
-	KDialogBase(parent, "edit_frame", true, caption, Ok|Cancel, Ok)
-{
-	QWidget* page = new QWidget(this);
-	if (page) {
-		setMainWidget(page);
-		QVBoxLayout* vb = new QVBoxLayout(page);
-		if (vb) {
-			vb->setSpacing(6);
-			vb->setMargin(6);
-#if QT_VERSION >= 0x040000
-			QListIterator<FieldControl*> it(ctls);
-			while (it.hasNext()) {
-				vb->addWidget(it.next()->createWidget(page));
-			}
-#else
-			FieldControl* fld_ctl = ctls.first();
-			while (fld_ctl != NULL) {
-				vb->addWidget(fld_ctl->createWidget(page));
-				fld_ctl = ctls.next();
-			}
-#endif
-		}
-	}
-	resize(fontMetrics().maxWidth() * 30, -1);
-}
-
-#else
-
 /** Field edit dialog */
 class EditMp3FrameDialog : public QDialog {
 public:
@@ -631,9 +585,7 @@ EditMp3FrameDialog::EditMp3FrameDialog(QWidget* parent, QString& caption,
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		m_vlayout->addLayout(m_hlayout);
 	}
-	resize(fontMetrics().maxWidth() * 30, -1);
 }
-#endif
 
 /**
  * Constructor.

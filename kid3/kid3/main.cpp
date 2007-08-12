@@ -11,7 +11,8 @@
 #include <qfile.h>
 #ifdef CONFIG_USE_KDE
 
-#include <kapp.h>
+#include <kdeversion.h>
+#include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <klocale.h>
@@ -20,6 +21,54 @@
 
 /** Description for application */
 static const char* description = I18N_NOOP("Kid3 ID3 Tagger");
+
+#if KDE_VERSION >= 0x035c00
+
+/**
+ * Main program.
+ *
+ * @param argc number of arguments including command name
+ * @param argv arguments, argv[0] is command name
+ *
+ * @return exit code of application.
+ */
+
+int main(int argc, char* argv[])
+{
+	KAboutData aboutData(
+		"kid3", 0, ki18n("Kid3"),
+		VERSION, ki18n(description), KAboutData::License_GPL,
+		ki18n("(c) 2003-2007 Urs Fleisch"), KLocalizedString(), "http://kid3.sourceforge.net",
+		"ufleisch@users.sourceforge.net");
+	aboutData.addAuthor(ki18n("Urs Fleisch"), KLocalizedString(), "ufleisch@users.sourceforge.net");
+	KCmdLineArgs::init(argc, argv, &aboutData);
+
+	KCmdLineOptions options;
+	options.add("+[Dir]", ki18n("directory to open"));
+	KCmdLineArgs::addCmdLineOptions(options);
+	KApplication app;
+
+	if (app.isSessionRestored()) {
+		RESTORE(Kid3App);
+	}
+	else {
+		Kid3App* kid3 = new Kid3App;
+		if (kid3) {
+			kid3->show();
+
+			KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+
+			if (args->count()) {
+				kid3->openDirectory(args->arg(0));
+			}
+			args->clear();
+		}
+	}
+
+	return app.exec();
+}
+
+#else
 
 /** Command line options */
 static KCmdLineOptions options[] =
@@ -68,6 +117,8 @@ int main(int argc, char* argv[])
 
 	return app.exec();
 }
+
+#endif
 
 #else
 

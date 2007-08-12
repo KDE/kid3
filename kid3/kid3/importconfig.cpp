@@ -93,7 +93,7 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_exportFormatTrailers.append("NumberOfEntries=%n\\nVersion=2");
 
 	m_exportFormatNames.append("HTML");
-	m_exportFormatHeaders.append("<html>\\n <head>\\n  <title>%a - %l</title>\\n </head>\\n <body>\\n  <h1>%a - %l</h1>\\n  <dl>\\n");
+	m_exportFormatHeaders.append("<html>\\n <head>\\n  <title>%a - %l</title>\\n </head>\\n <body>\\n  <h1>%a - %l</h1>\\n  <dl>");
 	m_exportFormatTracks.append("   <dt><a href=\"%u\">%t. %s</a></dt>");
 	m_exportFormatTrailers.append("  </dl>\\n </body>\\n</html>");
 
@@ -127,24 +127,24 @@ void ImportConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	config->setGroup(m_group);
-	config->writeEntry("ImportServer", m_importServer);
-	config->writeEntry("ImportDestination", m_importDest);
-	config->writeEntry("ImportFormatNames", m_importFormatNames);
-	config->writeEntry("ImportFormatHeaders", m_importFormatHeaders);
-	config->writeEntry("ImportFormatTracks", m_importFormatTracks);
-	config->writeEntry("ImportFormatIdx", m_importFormatIdx);
-	config->writeEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-	config->writeEntry("MaxTimeDifference", m_maxTimeDifference);
+	KCM_KConfigGroup(cfg, config, m_group);
+	cfg.writeEntry("ImportServer", static_cast<int>(m_importServer));
+	cfg.writeEntry("ImportDestination", static_cast<int>(m_importDest));
+	cfg.writeEntry("ImportFormatNames", m_importFormatNames);
+	cfg.writeEntry("ImportFormatHeaders", m_importFormatHeaders);
+	cfg.writeEntry("ImportFormatTracks", m_importFormatTracks);
+	cfg.writeEntry("ImportFormatIdx", m_importFormatIdx);
+	cfg.writeEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	cfg.writeEntry("MaxTimeDifference", m_maxTimeDifference);
 
-	config->writeEntry("ExportSourceV1", m_exportSrcV1);
-	config->writeEntry("ExportFormatNames", m_exportFormatNames);
-	config->writeEntry("ExportFormatHeaders", m_exportFormatHeaders);
-	config->writeEntry("ExportFormatTracks", m_exportFormatTracks);
-	config->writeEntry("ExportFormatTrailers", m_exportFormatTrailers);
-	config->writeEntry("ExportFormatIdx", m_exportFormatIdx);
-	config->writeEntry("ExportWindowWidth", m_exportWindowWidth);
-	config->writeEntry("ExportWindowHeight", m_exportWindowHeight);
+	cfg.writeEntry("ExportSourceV1", m_exportSrcV1);
+	cfg.writeEntry("ExportFormatNames", m_exportFormatNames);
+	cfg.writeEntry("ExportFormatHeaders", m_exportFormatHeaders);
+	cfg.writeEntry("ExportFormatTracks", m_exportFormatTracks);
+	cfg.writeEntry("ExportFormatTrailers", m_exportFormatTrailers);
+	cfg.writeEntry("ExportFormatIdx", m_exportFormatIdx);
+	cfg.writeEntry("ExportWindowWidth", m_exportWindowWidth);
+	cfg.writeEntry("ExportWindowHeight", m_exportWindowHeight);
 #else
 	config->beginGroup("/" + m_group);
 	config->QCM_writeEntry("/ImportServer", m_importServer);
@@ -185,36 +185,36 @@ void ImportConfig::readFromConfig(
 	QStringList names, headers, tracks;
 	QStringList expNames, expHeaders, expTracks, expTrailers;
 #ifdef CONFIG_USE_KDE
-	config->setGroup(m_group);
+	KCM_KConfigGroup(cfg, config, m_group);
 	m_importServer = static_cast<ImportConfig::ImportServer>(
-		config->readNumEntry("ImportServer", m_importServer));
+		cfg.KCM_readNumEntry("ImportServer", static_cast<int>(m_importServer)));
 	m_importDest = static_cast<ImportConfig::ImportDestination>(
-		config->readNumEntry("ImportDestination", m_importDest));
-	names = config->readListEntry("ImportFormatNames");
-	headers = config->readListEntry("ImportFormatHeaders");
-	tracks = config->readListEntry("ImportFormatTracks");
-	m_importFormatIdx = config->readNumEntry("ImportFormatIdx", m_importFormatIdx);
-	m_enableTimeDifferenceCheck = config->readBoolEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-	m_maxTimeDifference = config->readNumEntry("MaxTimeDifference", m_maxTimeDifference);
+		cfg.KCM_readNumEntry("ImportDestination", static_cast<int>(m_importDest)));
+	names = cfg.KCM_readListEntry("ImportFormatNames");
+	headers = cfg.KCM_readListEntry("ImportFormatHeaders");
+	tracks = cfg.KCM_readListEntry("ImportFormatTracks");
+	m_importFormatIdx = cfg.KCM_readNumEntry("ImportFormatIdx", m_importFormatIdx);
+	m_enableTimeDifferenceCheck = cfg.KCM_readBoolEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	m_maxTimeDifference = cfg.KCM_readNumEntry("MaxTimeDifference", m_maxTimeDifference);
 
-	m_exportSrcV1 = config->readBoolEntry("ExportSourceV1", m_exportSrcV1);
-	expNames = config->readListEntry("ExportFormatNames");
-	expHeaders = config->readListEntry("ExportFormatHeaders");
-	expTracks = config->readListEntry("ExportFormatTracks");
-	expTrailers = config->readListEntry("ExportFormatTrailers");
-	m_exportFormatIdx = config->readNumEntry("ExportFormatIdx", m_exportFormatIdx);
-	m_exportWindowWidth = config->readNumEntry("ExportWindowWidth", -1);
-	m_exportWindowHeight = config->readNumEntry("ExportWindowHeight", -1);
+	m_exportSrcV1 = cfg.KCM_readBoolEntry("ExportSourceV1", m_exportSrcV1);
+	expNames = cfg.KCM_readListEntry("ExportFormatNames");
+	expHeaders = cfg.KCM_readListEntry("ExportFormatHeaders");
+	expTracks = cfg.KCM_readListEntry("ExportFormatTracks");
+	expTrailers = cfg.KCM_readListEntry("ExportFormatTrailers");
+	m_exportFormatIdx = cfg.KCM_readNumEntry("ExportFormatIdx", m_exportFormatIdx);
+	m_exportWindowWidth = cfg.KCM_readNumEntry("ExportWindowWidth", -1);
+	m_exportWindowHeight = cfg.KCM_readNumEntry("ExportWindowHeight", -1);
 
 	// KConfig seems to strip empty entries from the end of the string lists,
 	// so we have to append them again.
 	unsigned numNames = names.size();
-	while (headers.size() < numNames) headers.append("");
-	while (tracks.size() < numNames) tracks.append("");
+	while (static_cast<unsigned>(headers.size()) < numNames) headers.append("");
+	while (static_cast<unsigned>(tracks.size()) < numNames) tracks.append("");
 	unsigned numExpNames = expNames.size();
-	while (expHeaders.size() < numExpNames) expHeaders.append("");
-	while (expTracks.size() < numExpNames) expTracks.append("");
-	while (expTrailers.size() < numExpNames) expTrailers.append("");
+	while (static_cast<unsigned>(expHeaders.size()) < numExpNames) expHeaders.append("");
+	while (static_cast<unsigned>(expTracks.size()) < numExpNames) expTracks.append("");
+	while (static_cast<unsigned>(expTrailers.size()) < numExpNames) expTrailers.append("");
 #else
 	config->beginGroup("/" + m_group);
 	m_importServer = static_cast<ImportConfig::ImportServer>(

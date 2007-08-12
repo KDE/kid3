@@ -108,7 +108,6 @@ EditOggFrameDialog::EditOggFrameDialog(QWidget* parent, const QString& caption,
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		vlayout->addLayout(hlayout);
 	}
-	resize(fontMetrics().maxWidth() * 30, -1);
 }
 
 /**
