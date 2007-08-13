@@ -71,11 +71,12 @@ RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
 		}
 		m_formatComboBox->QCM_addItems(strList);
 		m_formatComboBox->setEditable(true);
-		m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_miscCfg.m_dirFormatItem);
 #if QT_VERSION >= 0x040000
 		m_formatComboBox->setItemText(Kid3App::s_miscCfg.m_dirFormatItem,
 																	Kid3App::s_miscCfg.m_dirFormatText);
+		m_formatComboBox->setCurrentIndex(Kid3App::s_miscCfg.m_dirFormatItem);
 #else
+		m_formatComboBox->setCurrentItem(Kid3App::s_miscCfg.m_dirFormatItem);
 		m_formatComboBox->setCurrentText(Kid3App::s_miscCfg.m_dirFormatText);
 #endif
 		m_tagversionComboBox->QCM_setCurrentIndex(Kid3App::s_miscCfg.m_renDirSrc);

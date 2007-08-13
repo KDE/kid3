@@ -680,8 +680,8 @@ void Id3Form::setGenreV1(const QString& genreStr)
 		genreIndex = m_genreV1ComboBox->findText(genreStr);
 		if (genreIndex < 0) genreIndex = 0;
 	}
-	m_genreV1ComboBox->setCurrentIndex(genreIndex);
 	m_genreV1ComboBox->setItemText(genreIndex, genreStr);
+	m_genreV1ComboBox->setCurrentIndex(genreIndex);
 #else
 	m_genreV1ComboBox->setCurrentItem(
 		Kid3App::s_miscCfg.m_onlyCustomGenres ? 0 : genreIndex);
@@ -729,8 +729,8 @@ void Id3Form::setGenreV2(const QString& genreStr)
 		genreIndex = m_genreV2ComboBox->findText(genreStr);
 		if (genreIndex < 0) genreIndex = Genres::count + 1;
 	}
-	m_genreV2ComboBox->setCurrentIndex(genreIndex);
 	m_genreV2ComboBox->setItemText(genreIndex, genreStr);
+	m_genreV2ComboBox->setCurrentIndex(genreIndex);
 #else
 	m_genreV2ComboBox->setCurrentItem(
 		Kid3App::s_miscCfg.m_onlyCustomGenres ? 0 :
@@ -1215,11 +1215,12 @@ void Id3Form::readConfig()
 			m_vSplitter->setSizes(sizes);
 		}
 	}
-	m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_miscCfg.m_formatItem);
 #if QT_VERSION >= 0x040000
 	m_formatComboBox->setItemText(Kid3App::s_miscCfg.m_formatItem,
 																Kid3App::s_miscCfg.m_formatText);
+	m_formatComboBox->setCurrentIndex(Kid3App::s_miscCfg.m_formatItem);
 #else
+	m_formatComboBox->setCurrentItem(Kid3App::s_miscCfg.m_formatItem);
 	m_formatComboBox->setCurrentText(Kid3App::s_miscCfg.m_formatText);
 #endif
 	customGenresConfigToComboBox();
