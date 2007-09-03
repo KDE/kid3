@@ -11,54 +11,31 @@
 #define FRAMELIST_H
 
 #include <qlabel.h>
-#include <qlayout.h>
-#include <qtextedit.h>
-#include <qdialog.h>
-#include <qlineedit.h>
-#include <qspinbox.h>
-#include <qcombobox.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QListWidget>
 #include <QList>
+#include <QByteArray>
 #else
 #include <qlistbox.h>
 #include <qptrlist.h>
+#include <qcstring.h>
 #endif
-
-class QVBoxLayout;
-class QPaintEvent;
-class TaggedFile;
-class FrameList;
+#include "taggedfile.h"
 
 
-/** QTextEdit with label above */
-class LabeledTextEdit : public QWidget {
+/** Row of buttons to load, save and view binary data */
+class BinaryOpenSave : public QWidget {
+ Q_OBJECT
+
  public:
 	/**
 	 * Constructor.
 	 *
 	 * @param parent parent widget
+	 * @param field  field containing binary data
 	 */
-	LabeledTextEdit(QWidget* parent);
-
-	/**
-	 * Get text.
-	 *
-	 * @return text.
-	 */
-	QString text() const {
-		return m_edit->QCM_toPlainText();
-	}
-
-	/**
-	 * Set text.
-	 *
-	 * @param txt text
-	 */
-	void setText(const QString& txt) {
-		m_edit->QCM_setPlainText(txt);
-	}
+	BinaryOpenSave(QWidget* parent, const Frame::Field& field);
 
 	/**
 	 * Set label.
@@ -67,240 +44,81 @@ class LabeledTextEdit : public QWidget {
 	 */
 	void setLabel(const QString& txt) { m_label->setText(txt); }
 
+	/**
+	 * Check if data changed.
+	 * @return true if data changed.
+	 */
+	bool isChanged() const { return m_isChanged; }
+
+	/**
+	 * Get binary data.
+	 * @return byte array.
+	 */
+	const QByteArray& getData() const { return m_byteArray; }
+ 
+ public slots:
+	/**
+	 * Request name of file to import binary data from.
+	 * The data is imported later when Ok is pressed in the parent dialog.
+	 */
+	void loadData();
+
+	/**
+	 * Request name of file and export binary data.
+	 */
+	void saveData();
+
+	/**
+	 * Create image from binary data and display it in window.
+	 */
+	void viewData();
+
  private:
-	/** Vertical layout */
-	QVBoxLayout* m_layout;
-	/** Label above edit */
+	/** Array with binary data */
+	QByteArray m_byteArray;
+	/** true if m_byteArray changed */
+	bool m_isChanged;
+	/** Label left of buttons */
 	QLabel* m_label;
-	/** Text editor */
-	QTextEdit* m_edit;
 };
 
 
-/** LineEdit with label above */
-class LabeledLineEdit : public QWidget {
- public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	LabeledLineEdit(QWidget* parent);
-
-	/**
-	 * Get text.
-	 *
-	 * @return text.
-	 */
-	QString text() const { return m_edit->text(); }
-
-	/**
-	 * Set text.
-	 *
-	 * @param txt text
-	 */
-	void setText(const QString& txt) { m_edit->setText(txt); }
-
-	/**
-	 * Set label.
-	 *
-	 * @param txt label
-	 */
-	void setLabel(const QString& txt) { m_label->setText(txt); }
-
- private:
-	/** Vertical layout */
-	QVBoxLayout* m_layout;
-	/** Label above edit */
-	QLabel* m_label;
-	/** Line editor */
-	QLineEdit* m_edit;
-};
-
-
-/** Combo box with label above */
-class LabeledComboBox : public QWidget {
- public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 * @param strlst list with ComboBox items, terminated by NULL
-	 */
-	LabeledComboBox(QWidget* parent, const char** strlst);
-
-	/**
-	 * Get index of selected item.
-	 *
-	 * @return index.
-	 */
-	int currentItem() const {
-		return m_combo->QCM_currentIndex();
-	}
-
-	/**
-	 * Set index of selected item.
-	 *
-	 * @param idx index
-	 */
-	void setCurrentItem(int idx) {
-		m_combo->QCM_setCurrentIndex(idx);
-	}
-
-	/**
-	 * Set label.
-	 *
-	 * @param txt label
-	 */
-	void setLabel(const QString& txt) { m_label->setText(txt); }
-
- private:
-	/** Vertical layout */
-	QVBoxLayout* m_layout;
-	/** Label above combo box */
-	QLabel* m_label;
-	/** Combo box */
-	QComboBox* m_combo;
-};
-
-
-/** QSpinBox with label above */
-class LabeledSpinBox : public QWidget {
- public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	LabeledSpinBox(QWidget* parent);
-
-	/**
-	 * Get value.
-	 *
-	 * @return text.
-	 */
-	int value() const { return m_spinbox->value(); }
-
-	/**
-	 * Set value.
-	 *
-	 * @param value value
-	 */
-	void setValue(int value) { m_spinbox->setValue(value); }
-
-	/**
-	 * Set label.
-	 *
-	 * @param txt label
-	 */
-	void setLabel(const QString& txt) { m_label->setText(txt); }
-
- private:
-	/** Vertical layout */
-	QVBoxLayout* m_layout;
-	/** Label above edit */
-	QLabel* m_label;
-	/** Text editor */
-	QSpinBox* m_spinbox;
-};
-
-
-/** Window to view image */
-class ImageViewer : public QDialog {
- public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 * @param img    image to display in window
-	 */
-	ImageViewer(QWidget* parent, QImage* img);
-
- protected:
-	/**
-	 * Paint image, called when window has to be drawn.
-	 */
-	void paintEvent(QPaintEvent*);
-
- private:
-	/** image to view */
-	QImage* m_image; 
-};
-
-
-/** Base class for field controls */
-class FieldControl : public QObject {
-public:
-	/**
-	 * Constructor.
-	 */
-	FieldControl() {}
-
-	/**
-	 * Destructor.
-	 */
-	virtual ~FieldControl() {}
-
-	/**
-	 * Update field from data in field control.
-	 */
-	virtual void updateTag() = 0;
-
-	/**
-	 * Create widget to edit field data.
-	 *
-	 * @param parent parent widget
-	 *
-	 * @return widget to edit field data.
-	 */
-	virtual QWidget* createWidget(QWidget* parent) = 0;
-};
-
-/** List of field control pointers. */
 #if QT_VERSION >= 0x040000
-typedef QList<FieldControl*> FieldControlList;
+typedef QListWidgetItem FrameListItemBase;
 #else
-typedef QPtrList<FieldControl> FieldControlList;
+typedef QListBoxText FrameListItemBase;
 #endif
 
 /**
  * Item in frame list box.
  */
-class FrameListItem : public
-#if QT_VERSION >= 0x040000
-QListWidgetItem
-#else
-QListBoxText
-#endif
-{
+class FrameListItem : public FrameListItemBase {
 public:
 	/**
 	 * Constructor.
 	 * @param listbox listbox
-	 * @param text    title
-	 * @param id      ID
+	 * @param text    text
+	 * @param frame   frame
 	 */
 #if QT_VERSION >= 0x040000
-	FrameListItem(QListWidget* listbox, const QString& text, int id) :
-		QListWidgetItem(text, listbox), m_id(id) {}
+	FrameListItem(QListWidget* listbox, const QString& text, const Frame& frame);
 #else
-	FrameListItem(QListBox* listbox, const QString& text, int id) :
-		QListBoxText(listbox, text), m_id(id) {}
+	FrameListItem(QListBox* listbox, const QString& text, const Frame& frame);
 #endif
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~FrameListItem() {}
+	virtual ~FrameListItem();
 
 	/**
-	 * Get ID.
-	 * @return ID.
+	 * Get frame.
+	 * @return frame.
 	 */
-	int getId() const { return m_id; }
+  const Frame& getFrame() const { return m_frame; }
 
 private:
-	int m_id;
+	Frame m_frame;
 };
 
 
@@ -311,13 +129,19 @@ class FrameList : public QObject {
 public:
 	/**
 	 * Constructor.
+	 *
+	 * @param lb list box.
 	 */
-	FrameList();
+#if QT_VERSION >= 0x040000
+	FrameList(QListWidget* lb);
+#else
+	FrameList(QListBox* lb);
+#endif
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~FrameList();
+	~FrameList();
 
 	/**
 	 * Clear listbox and file reference.
@@ -331,7 +155,7 @@ public:
 	 *
 	 * @param taggedFile file
 	 */
-	virtual void setTags(TaggedFile* taggedFile) = 0;
+	void setTags(TaggedFile* taggedFile);
 
 	/**
 	 * Create dialog to edit the selected frame and update the fields
@@ -339,37 +163,30 @@ public:
 	 *
 	 * @return true if Ok selected in dialog.
 	 */
-	virtual bool editFrame() = 0;
+	bool editFrame();
 
 	/**
 	 * Delete selected frame.
 	 *
 	 * @return false if frame not found.
 	 */
-	virtual bool deleteFrame() = 0;
+	bool deleteFrame();
 
 	/**
 	 * Add a new frame.
 	 *
-	 * @param frameId ID of frame to add
 	 * @param edit    true to edit frame after adding it
+	 *
 	 * @return true if frame added.
 	 */
-	virtual bool addFrame(int frameId, bool edit = false) = 0;
-
-	/**
-	 * Copy the selected frame to the copy buffer.
-	 *
-	 * @return true if frame copied.
-	 */
-	virtual bool copyFrame() = 0;
+	bool addFrame(bool edit = false);
 
 	/**
 	 * Paste the selected frame from the copy buffer.
 	 *
 	 * @return true if frame pasted.
 	 */
-	virtual bool pasteFrame() = 0;
+	bool pasteFrame();
 
 	/**
 	 * Get file containing frames.
@@ -386,28 +203,16 @@ public:
 	/**
 	 * Display a dialog to select a frame type.
 	 *
-	 * @return ID of selected frame,
-	 *         -1 if no frame selected.
+	 * @return false if no frame selected.
 	 */
-	virtual int selectFrameId() = 0;
-
-	/**
-	 * Set list box to select frames.
-	 *
-	 * @param lb list box
-	 */
-#if QT_VERSION >= 0x040000
-	static void setListBox(QListWidget* lb) { s_listbox = lb; }
-#else
-	static void setListBox(QListBox* lb) { s_listbox = lb; }
-#endif
+	bool selectFrame();
 
 	/**
 	 * Get the name of the selected frame.
 	 *
 	 * @return name, QString::null if nothing selected.
 	 */
-	static QString getSelectedName();
+	QString getSelectedName() const;
 
 	/**
 	 * Select a frame with a given name.
@@ -416,7 +221,7 @@ public:
 	 *
 	 * @return true if a frame with that name could be selected.
 	 */
-	static bool selectByName(const QString& name);
+	bool selectByName(const QString& name);
 
 	/**
 	 * Get ID of selected frame list item.
@@ -424,29 +229,57 @@ public:
 	 * @return ID of selected item,
 	 *         -1 if not item is selected.
 	 */
-	static int getSelectedId();
+	int getSelectedId() const;
+
+	/**
+	 * Get frame of selected frame list item.
+	 *
+	 * @param frame the selected frame is returned here
+	 *
+	 * @return false if not item is selected.
+	 */
+	bool getSelectedFrame(Frame& frame) const;
 
 	/**
 	 * Select the frame by ID.
 	 *
 	 * @param id ID of frame to select
 	 */
-	static void setSelectedId(int id);
+	void setSelectedId(int id);
 
 	/**
 	 * Clear list box.
 	 */
-	static void clearListBox();
+	void clearListBox();
 
-protected:
+private:
+	/**
+	 * Fill listbox with frame descriptions.
+	 * Before using this method, the listbox and file have to be set.
+	 * @see setListBox(), setTags()
+	 */
+	void readTags();
+
+	/**
+	 * Create dialog to edit a frame and update the fields
+	 * if Ok is returned.
+	 *
+	 * @param frame frame to edit
+	 *
+	 * @return true if Ok selected in dialog.
+	 */
+	bool editFrame(Frame& frame);
+
 	/** File containing tags */
 	TaggedFile* m_file;
+	/** Frame used to add, edit and paste */
+	Frame m_frame;
 
 	/** List box to select frame */
 #if QT_VERSION >= 0x040000
-	static QListWidget* s_listbox;
+	QListWidget* m_listbox;
 #else
-	static QListBox* s_listbox;
+	QListBox* m_listbox;
 #endif
 
 private:

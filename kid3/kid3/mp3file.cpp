@@ -14,10 +14,7 @@
 #include <qstring.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <QListWidget>
 #include <QByteArray>
-#else
-#include <qlistbox.h>
 #endif
 
 #include <id3/tag.h>
@@ -26,7 +23,6 @@
 #endif
 
 #include "standardtags.h"
-#include "mp3framelist.h"
 #include "genres.h"
 #include "dirinfo.h"
 #include <sys/stat.h>
@@ -248,7 +244,7 @@ void Mp3File::removeTagsV2(const StandardTagsFilter& flt)
  * @return string,
  *         "" if the field does not exist.
  */
-QString Mp3File::getString(ID3_Field* field)
+static QString getString(ID3_Field* field)
 {
 	QString text("");
 	if (field != NULL) {
@@ -299,7 +295,7 @@ QString Mp3File::getString(ID3_Field* field)
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-QString Mp3File::getTextField(const ID3_Tag* tag, ID3_FrameID id)
+static QString getTextField(const ID3_Tag* tag, ID3_FrameID id)
 {
 	if (!tag) {
 		return QString::null;
@@ -321,7 +317,7 @@ QString Mp3File::getTextField(const ID3_Tag* tag, ID3_FrameID id)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getYear(const ID3_Tag* tag)
+static int getYear(const ID3_Tag* tag)
 {
 	QString str = getTextField(tag, ID3FID_YEAR);
 	if (str.isNull()) return -1;
@@ -337,7 +333,7 @@ int Mp3File::getYear(const ID3_Tag* tag)
  *         0 if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getTrackNum(const ID3_Tag* tag)
+static int getTrackNum(const ID3_Tag* tag)
 {
 	QString str = getTextField(tag, ID3FID_TRACKNUM);
 	if (str.isNull()) return -1;
@@ -358,7 +354,7 @@ int Mp3File::getTrackNum(const ID3_Tag* tag)
  *         0xff if the field does not exist,
  *         -1 if the tags do not exist.
  */
-int Mp3File::getGenreNum(const ID3_Tag* tag)
+static int getGenreNum(const ID3_Tag* tag)
 {
 	QString str = getTextField(tag, ID3FID_CONTENTTYPE);
 	if (str.isNull()) return -1;
@@ -385,7 +381,7 @@ int Mp3File::getGenreNum(const ID3_Tag* tag)
  * @param field        field
  * @param text         text to set
  */
-void Mp3File::setString(ID3_Field* field, const QString& text)
+static void setString(ID3_Field* field, const QString& text)
 {
 	ID3_TextEnc enc = field->GetEncoding();
 	// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
@@ -435,8 +431,9 @@ void Mp3File::setString(ID3_Field* field, const QString& text)
  *
  * @return true if the field was changed.
  */
-bool Mp3File::setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
-						   bool allowUnicode, bool replace, bool removeEmpty)
+static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
+												 bool allowUnicode = false, bool replace = true,
+												 bool removeEmpty = true)
 {
 	bool changed = false;
 	if (tag && !text.isNull()) {
@@ -491,7 +488,7 @@ bool Mp3File::setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
  *
  * @return true if the field was changed.
  */
-bool Mp3File::setYear(ID3_Tag* tag, int num)
+static bool setYear(ID3_Tag* tag, int num)
 {
 	bool changed = false;
 	if (num >= 0) {
@@ -515,7 +512,7 @@ bool Mp3File::setYear(ID3_Tag* tag, int num)
  *
  * @return true if the field was changed.
  */
-bool Mp3File::setTrackNum(ID3_Tag* tag, int num, int numTracks)
+static bool setTrackNum(ID3_Tag* tag, int num, int numTracks = -1)
 {
 	bool changed = false;
 	if (num >= 0) {
@@ -542,7 +539,7 @@ bool Mp3File::setTrackNum(ID3_Tag* tag, int num, int numTracks)
  *
  * @return true if the field was changed.
  */
-bool Mp3File::setGenreNum(ID3_Tag* tag, int num)
+static bool setGenreNum(ID3_Tag* tag, int num)
 {
 	bool changed = false;
 	if (num >= 0) {
@@ -1081,22 +1078,6 @@ unsigned Mp3File::getDuration() const
 	return duration;
 }
 
-/** Frame list for MP3 files. */
-Mp3FrameList* Mp3File::s_mp3FrameList = 0;
-
-/**
- * Get frame list for this type of tagged file.
- *
- * @return frame list.
- */
-FrameList* Mp3File::getFrameList() const
-{
-	if (!s_mp3FrameList) {
-		s_mp3FrameList = new Mp3FrameList();
-	}
-	return s_mp3FrameList;
-}
-
 /**
  * Get file extension including the dot.
  *
@@ -1143,13 +1124,477 @@ QString Mp3File::getTagFormatV2() const
 	return QString::null;
 }
 
+/** Types and descriptions for id3lib frame IDs */
+static const struct TypeStrOfId {
+	Frame::Type type;
+	const char* str;
+} typeStrOfId[] = {
+	{ Frame::FT_UnknownFrame,   0 },                                                                   /* ???? */
+	{ Frame::FT_Other,          I18N_NOOP("AENC - Audio encryption") },                                /* AENC */
+	{ Frame::FT_Other,          I18N_NOOP("APIC - Attached picture") },                                /* APIC */
+	{ Frame::FT_Other,          0 },                                                                   /* ASPI */
+	{ Frame::FT_Comment,        I18N_NOOP("COMM - Comments") },                                        /* COMM */
+	{ Frame::FT_Other,          I18N_NOOP("COMR - Commercial") },                                      /* COMR */
+	{ Frame::FT_Other,          I18N_NOOP("ENCR - Encryption method registration") },                  /* ENCR */
+	{ Frame::FT_Other,          0 },                                                                   /* EQU2 */
+	{ Frame::FT_Other,          I18N_NOOP("EQUA - Equalization") },                                    /* EQUA */
+	{ Frame::FT_Other,          I18N_NOOP("ETCO - Event timing codes") },                              /* ETCO */
+	{ Frame::FT_Other,          I18N_NOOP("GEOB - General encapsulated object") },                     /* GEOB */
+	{ Frame::FT_Other,          I18N_NOOP("GRID - Group identification registration") },               /* GRID */
+	{ Frame::FT_Other,          I18N_NOOP("IPLS - Involved people list") },                            /* IPLS */
+	{ Frame::FT_Other,          I18N_NOOP("LINK - Linked information") },                              /* LINK */
+	{ Frame::FT_Other,          I18N_NOOP("MCDI - Music CD identifier") },                             /* MCDI */
+	{ Frame::FT_Other,          I18N_NOOP("MLLT - MPEG location lookup table") },                      /* MLLT */
+	{ Frame::FT_Other,          I18N_NOOP("OWNE - Ownership frame") },                                 /* OWNE */
+	{ Frame::FT_Other,          I18N_NOOP("PRIV - Private frame") },                                   /* PRIV */
+	{ Frame::FT_Other,          I18N_NOOP("PCNT - Play counter") },                                    /* PCNT */
+	{ Frame::FT_Other,          I18N_NOOP("POPM - Popularimeter") },                                   /* POPM */
+	{ Frame::FT_Other,          I18N_NOOP("POSS - Position synchronisation frame") },                  /* POSS */
+	{ Frame::FT_Other,          I18N_NOOP("RBUF - Recommended buffer size") },                         /* RBUF */
+	{ Frame::FT_Other,          0 },                                                                   /* RVA2 */
+	{ Frame::FT_Other,          I18N_NOOP("RVAD - Relative volume adjustment") },                      /* RVAD */
+	{ Frame::FT_Other,          I18N_NOOP("RVRB - Reverb") },                                          /* RVRB */
+	{ Frame::FT_Other,          0 },                                                                   /* SEEK */
+	{ Frame::FT_Other,          0 },                                                                   /* SIGN */
+	{ Frame::FT_Other,          I18N_NOOP("SYLT - Synchronized lyric/text") },                         /* SYLT */
+	{ Frame::FT_Other,          I18N_NOOP("SYTC - Synchronized tempo codes") },                        /* SYTC */
+	{ Frame::FT_Album,          I18N_NOOP("TALB - Album/Movie/Show title") },                          /* TALB */
+	{ Frame::FT_Bpm,            I18N_NOOP("TBPM - BPM (beats per minute)") },                          /* TBPM */
+	{ Frame::FT_Composer,       I18N_NOOP("TCOM - Composer") },                                        /* TCOM */
+	{ Frame::FT_Genre,          I18N_NOOP("TCON - Content type") },                                    /* TCON */
+	{ Frame::FT_Copyright,      I18N_NOOP("TCOP - Copyright message") },                               /* TCOP */
+	{ Frame::FT_Other,          I18N_NOOP("TDAT - Date") },                                            /* TDAT */
+	{ Frame::FT_Other,          0 },                                                                   /* TDEN */
+	{ Frame::FT_Other,          I18N_NOOP("TDLY - Playlist delay") },                                  /* TDLY */
+	{ Frame::FT_Other,          0 },                                                                   /* TDOR */
+	{ Frame::FT_Other,          0 },                                                                   /* TDRC */
+	{ Frame::FT_Other,          0 },                                                                   /* TDRL */
+	{ Frame::FT_Other,          0 },                                                                   /* TDTG */
+	{ Frame::FT_Other,          0 },                                                                   /* TIPL */
+	{ Frame::FT_EncodedBy,      I18N_NOOP("TENC - Encoded by") },                                      /* TENC */
+	{ Frame::FT_Lyricist,       I18N_NOOP("TEXT - Lyricist/Text writer") },                            /* TEXT */
+	{ Frame::FT_Other,          I18N_NOOP("TFLT - File type") },                                       /* TFLT */
+	{ Frame::FT_Other,          I18N_NOOP("TIME - Time") },                                            /* TIME */
+	{ Frame::FT_Other,          I18N_NOOP("TIT1 - Content group description") },                       /* TIT1 */
+	{ Frame::FT_Title,          I18N_NOOP("TIT2 - Title/songname/content description") },              /* TIT2 */
+	{ Frame::FT_Subtitle,       I18N_NOOP("TIT3 - Subtitle/Description refinement") },                 /* TIT3 */
+	{ Frame::FT_Other,          I18N_NOOP("TKEY - Initial key") },                                     /* TKEY */
+	{ Frame::FT_Language,       I18N_NOOP("TLAN - Language(s)") },                                     /* TLAN */
+	{ Frame::FT_Other,          I18N_NOOP("TLEN - Length") },                                          /* TLEN */
+	{ Frame::FT_Other,          0 },                                                                   /* TMCL */
+	{ Frame::FT_Other,          I18N_NOOP("TMED - Media type") },                                      /* TMED */
+	{ Frame::FT_Other,          0 },                                                                   /* TMOO */
+	{ Frame::FT_OriginalAlbum,  I18N_NOOP("TOAL - Original album/movie/show title") },                 /* TOAL */
+	{ Frame::FT_Other,          I18N_NOOP("TOFN - Original filename") },                               /* TOFN */
+	{ Frame::FT_Author,         I18N_NOOP("TOLY - Original lyricist(s)/text writer(s)") },             /* TOLY */
+	{ Frame::FT_OriginalArtist, I18N_NOOP("TOPE - Original artist(s)/performer(s)") },                 /* TOPE */
+	{ Frame::FT_OriginalDate,   I18N_NOOP("TORY - Original release year") },                           /* TORY */
+	{ Frame::FT_Other,          I18N_NOOP("TOWN - File owner/licensee") },                             /* TOWN */
+	{ Frame::FT_Artist,         I18N_NOOP("TPE1 - Lead performer(s)/Soloist(s)") },                    /* TPE1 */
+	{ Frame::FT_Performer,      I18N_NOOP("TPE2 - Band/orchestra/accompaniment") },                    /* TPE2 */
+	{ Frame::FT_Conductor,      I18N_NOOP("TPE3 - Conductor/performer refinement") },                  /* TPE3 */
+	{ Frame::FT_Arranger,       I18N_NOOP("TPE4 - Interpreted, remixed, or otherwise modified by") },  /* TPE4 */
+	{ Frame::FT_Disc,           I18N_NOOP("TPOS - Part of a set") },                                   /* TPOS */
+	{ Frame::FT_Other,          0 },                                                                   /* TPRO */
+	{ Frame::FT_Publisher,      I18N_NOOP("TPUB - Publisher") },                                       /* TPUB */
+	{ Frame::FT_Track,          I18N_NOOP("TRCK - Track number/Position in set") },                    /* TRCK */
+	{ Frame::FT_Other,          I18N_NOOP("TRDA - Recording dates") },                                 /* TRDA */
+	{ Frame::FT_Other,          I18N_NOOP("TRSN - Internet radio station name") },                     /* TRSN */
+	{ Frame::FT_Other,          I18N_NOOP("TRSO - Internet radio station owner") },                    /* TRSO */
+	{ Frame::FT_Other,          I18N_NOOP("TSIZ - Size") },                                            /* TSIZ */
+	{ Frame::FT_Other,          0 },                                                                   /* TSOA */
+	{ Frame::FT_Other,          0 },                                                                   /* TSOP */
+	{ Frame::FT_Other,          0 },                                                                   /* TSOT */
+	{ Frame::FT_Isrc,           I18N_NOOP("TSRC - ISRC (international standard recording code)") },    /* TSRC */
+	{ Frame::FT_Other,          I18N_NOOP("TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
+	{ Frame::FT_Part,           0 },                                                                   /* TSST */
+	{ Frame::FT_Other,          I18N_NOOP("TXXX - User defined text information") },                   /* TXXX */
+	{ Frame::FT_Date,           I18N_NOOP("TYER - Year") },                                            /* TYER */
+	{ Frame::FT_Other,          I18N_NOOP("UFID - Unique file identifier") },                          /* UFID */
+	{ Frame::FT_Other,          I18N_NOOP("USER - Terms of use") },                                    /* USER */
+	{ Frame::FT_Other,          I18N_NOOP("USLT - Unsynchronized lyric/text transcription") },         /* USLT */
+	{ Frame::FT_Other,          I18N_NOOP("WCOM - Commercial information") },                          /* WCOM */
+	{ Frame::FT_Other,          I18N_NOOP("WCOP - Copyright/Legal information") },                     /* WCOP */
+	{ Frame::FT_Other,          I18N_NOOP("WOAF - Official audio file webpage") },                     /* WOAF */
+	{ Frame::FT_Website,        I18N_NOOP("WOAR - Official artist/performer webpage") },               /* WOAR */
+	{ Frame::FT_Other,          I18N_NOOP("WOAS - Official audio source webpage") },                   /* WOAS */
+	{ Frame::FT_Other,          I18N_NOOP("WORS - Official internet radio station homepage") },        /* WORS */
+	{ Frame::FT_Other,          I18N_NOOP("WPAY - Payment") },                                         /* WPAY */
+	{ Frame::FT_Other,          I18N_NOOP("WPUB - Official publisher webpage") },                      /* WPUB */
+	{ Frame::FT_Other,          I18N_NOOP("WXXX - User defined URL link") }                            /* WXXX */
+};
+
+class not_used { int array_size_check[
+		sizeof(typeStrOfId) / sizeof(typeStrOfId[0]) == ID3FID_WWWUSER + 1
+		? 1 : -1 ]; };
+
 /**
- * Clean up static resources.
+ * Get type and description of frame.
+ *
+ * @param id ID of frame
+ * @param type the type is returned here
+ * @param str  the description is returned here, 0 if not available
  */
-void Mp3File::staticCleanup()
+static void getTypeStringForId3libFrameId(ID3_FrameID id, Frame::Type& type,
+																					const char*& str)
 {
-	delete s_mp3FrameList;
-	s_mp3FrameList = 0;
+	const TypeStrOfId& ts = typeStrOfId[id <= ID3FID_WWWUSER ? id : 0];
+	type = ts.type;
+	str = ts.str;
+}
+
+/**
+ * Get id3lib frame ID for frame type.
+ *
+ * @param type frame type
+ *
+ * @return id3lib frame ID or ID3FID_NOFRAME if type not found.
+ */
+static ID3_FrameID getId3libFrameIdForType(Frame::Type type)
+{
+	static int typeIdMap[Frame::FT_LastFrame + 1] = { -1, };
+	if (typeIdMap[0] == -1) {
+		// first time initialization
+		for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
+			int t = typeStrOfId[i].type;
+			if (t <= Frame::FT_LastFrame) {
+				typeIdMap[t] = i;
+			}
+		}
+	}
+	return type <= Frame::FT_LastFrame ?
+		static_cast<ID3_FrameID>(typeIdMap[type]) : ID3FID_NOFRAME;
+}
+
+/**
+ * Get id3lib frame ID for frame name.
+ *
+ * @param name frame name
+ *
+ * @return id3lib frame ID or ID3FID_NOFRAME if name not found.
+ */
+static ID3_FrameID getId3libFrameIdForName(const QString& name)
+{
+	if (name.length() >= 4) {
+		const char* nameStr = name.QCM_latin1();
+		for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
+			const char* s = typeStrOfId[i].str;
+			if (s && ::strncmp(s, nameStr, 4) == 0) {
+				return static_cast<ID3_FrameID>(i);
+			}
+		}
+	}
+	return ID3FID_NOFRAME;
+}
+
+/**
+ * Get the fields from an ID3v2 tag.
+ *
+ * @param id3Frame frame
+ * @param fields   the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
+																		 Frame::FieldList& fields)
+{
+	QString text;
+	ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
+	ID3_Field* id3Field;
+	Frame::Field field;
+	while ((id3Field = iter->GetNext()) != 0) {
+		ID3_FieldID id = id3Field->GetID();
+		ID3_FieldType type = id3Field->GetType();
+		field.m_id = id;
+		if (type == ID3FTY_INTEGER) {
+			field.m_value = id3Field->Get();
+		}
+		else if (type == ID3FTY_BINARY) {
+			QByteArray ba;
+			QCM_duplicate(ba,
+										(const char *)id3Field->GetRawBinary(),
+										(unsigned int)id3Field->Size());
+			field.m_value = ba;
+		}
+		else if (type == ID3FTY_TEXTSTRING) {
+			if (id == ID3FN_TEXT || id == ID3FN_URL) {
+				text = getString(id3Field);
+				field.m_value = text;
+			} else {
+				field.m_value = getString(id3Field);
+			}
+		} else {
+			field.m_value.clear();
+		}
+		fields.push_back(field);
+	}
+#ifdef WIN32
+	/* allocated in Windows DLL => must be freed in the same DLL */
+	ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
+	delete iter;
+#endif
+	return text;
+}
+
+/**
+ * Get ID3v2 frame by index.
+ *
+ * @param tag   ID3v2 tag
+ * @param index index
+ *
+ * @return frame, 0 if index invalid.
+ */
+static ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
+{
+	ID3_Frame* result = 0;
+	if (tag) {
+		ID3_Frame* frame;
+		ID3_Tag::Iterator* iter = tag->CreateIterator();
+		int i = 0;
+		while ((frame = iter->GetNext()) != 0) {
+			if (i == index) {
+				result = frame;
+				break;
+			}
+			++i;
+		}
+#ifdef WIN32
+		/* allocated in Windows DLL => must be freed in the same DLL */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
+		delete iter;
+#endif
+	}
+	return result;
+}
+
+/**
+ * Set the fields in an id3lib frame from the field in the frame.
+ *
+ * @param id3Frame id3lib frame
+ * @param frame    frame with fields
+ */
+static void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame)
+{
+	ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
+	ID3_Field* id3Field;
+	ID3_TextEnc enc = ID3TE_NONE;
+	for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
+			 fldIt != frame.getFieldList().end();
+			 ++fldIt) {
+		id3Field = iter->GetNext();
+		if (!id3Field) {
+			qDebug("early end of ID3 fields");
+			break;
+		}
+		const Frame::Field& fld = *fldIt;
+		switch (fld.m_value.type()) {
+			case QVariant::Int:
+			case QVariant::UInt:
+			{
+				int intVal = fld.m_value.toInt();
+				id3Field->Set(intVal);
+				if (fld.m_id == ID3FN_TEXTENC) {
+					enc = static_cast<ID3_TextEnc>(intVal);
+				}
+				break;
+			}
+
+			case QVariant::String:
+				if (enc != ID3TE_NONE) {
+					id3Field->SetEncoding(enc);
+				}
+				setString(id3Field, fld.m_value.toString());
+				break;
+
+			case QVariant::ByteArray:
+			{
+				const QByteArray& ba = fld.m_value.toByteArray();
+				id3Field->Set(reinterpret_cast<const unsigned char*>(ba.data()),
+											ba.size());
+				break;
+			}
+
+			default:
+				qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
+		}
+	}
+#ifdef WIN32
+	/* allocated in Windows DLL => must be freed in the same DLL */
+	ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
+	delete iter;
+#endif
+}
+
+/**
+ * Set a frame in the tags 2.
+ *
+ * @param frame frame to set, the index can be set by this method
+ *
+ * @return true if ok.
+ */
+bool Mp3File::setFrameV2(Frame& frame)
+{
+	// If the frame has an index, change that specific frame
+	int index = frame.getIndex();
+	if (index != -1 && m_tagV2) {
+		ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
+		if (id3Frame) {
+			//! if field list is not empty set from FieldList,
+			//! else from value.
+			if (frame.getFieldList().empty()) {
+				ID3_Field* fld;
+				if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0) {
+					if (fld->GetEncoding() == ID3TE_ISO8859_1) {
+						// check if information is lost if the string is not unicode
+						uint i, unicode_size = frame.getValue().length();
+						const QChar* qcarray = frame.getValue().unicode();
+						for (i = 0; i < unicode_size; i++) {
+#if QT_VERSION >= 0x040000
+							if (qcarray[i].toLatin1() == 0)
+#else
+								if (qcarray[i].latin1() == 0)
+#endif
+								{
+									ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
+									if (encfld) {
+										encfld->Set(ID3TE_UTF16);
+									}
+									fld->SetEncoding(ID3TE_UTF16);
+									break;
+								}
+						}
+					}
+					setString(fld, frame.getValue());
+					return true;
+				} else if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
+					fld->Set(frame.getValue().QCM_latin1());
+					return true;
+				}
+			} else {
+				setId3v2Frame(id3Frame, frame);
+				return true;
+			}
+		}
+	}
+
+	// Try the superclass method
+	return TaggedFile::setFrameV2(frame);
+}
+
+
+/**
+ * Add a frame in the tags 2.
+ *
+ * @param frame frame to add, a field list may be added by this method
+ *
+ * @return true if ok.
+ */
+bool Mp3File::addFrameV2(Frame& frame)
+{
+	// Add a new frame.
+	ID3_FrameID id;
+	if (frame.getType() != Frame::FT_Other) {
+		id = getId3libFrameIdForType(frame.getType());
+	} else {
+		id = getId3libFrameIdForName(frame.getName());
+	}
+	if (id != ID3FID_NOFRAME && m_tagV2) {
+		ID3_Frame* id3Frame = new ID3_Frame(id);
+		if (id3Frame) {
+			if (!frame.fieldList().empty()) {
+				setId3v2Frame(id3Frame, frame);
+			}
+			Frame::Type type;
+			const char* name;
+			getTypeStringForId3libFrameId(id, type, name);
+			m_tagV2->AttachFrame(id3Frame);
+			frame.setInternalName(name);
+			frame.setIndex(m_tagV2->NumFrames() - 1);
+			if (frame.fieldList().empty()) {
+				// add field list to frame
+				getFieldsFromId3Frame(id3Frame, frame.fieldList());
+			}
+			return true;
+		}
+	}
+
+	// Try the superclass method
+	return TaggedFile::addFrameV2(frame);
+}
+
+/**
+ * Delete a frame in the tags 2.
+ *
+ * @param frame frame to delete.
+ *
+ * @return true if ok.
+ */
+bool Mp3File::deleteFrameV2(const Frame& frame)
+{
+	// If the frame has an index, delete that specific frame
+	int index = frame.getIndex();
+	if (index != -1 && m_tagV2) {
+		ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
+		if (id3Frame) {
+			m_tagV2->RemoveFrame(id3Frame);
+			return true;
+		}
+	}
+
+	// Try the superclass method
+	return TaggedFile::deleteFrameV2(frame);
+}
+
+/**
+ * Get all frames in tag 2.
+ *
+ * @return frame collection.
+ */
+FrameCollection Mp3File::getAllFramesV2()
+{
+	FrameCollection frames;
+	if (m_tagV2) {
+		ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
+		ID3_Frame* id3Frame;
+		int i = 0;
+		Frame::Type type;
+		const char* name;
+		while ((id3Frame = iter->GetNext()) != 0) {
+			getTypeStringForId3libFrameId(id3Frame->GetID(), type, name);
+			Frame frame(type, "", name, i++);
+			frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList()));
+			frames.push_back(frame);
+		}
+#ifdef WIN32
+		/* allocated in Windows DLL => must be freed in the same DLL */
+		ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
+		delete iter;
+#endif
+	}
+	return frames;
+}
+
+/**
+ * Get a list of frame IDs which can be added.
+ *
+ * @return list with frame IDs.
+ */
+QStringList Mp3File::getFrameIds() const
+{
+	QStringList lst(TaggedFile::getFrameIds());
+	for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
+		if (typeStrOfId[i].type == Frame::FT_Other) {
+			const char* s = typeStrOfId[i].str;
+			if (s) {
+				lst.append(s);
+			}
+		}
+	}
+	return lst;
 }
 
 #endif // HAVE_ID3LIB

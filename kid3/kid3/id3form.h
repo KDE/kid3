@@ -32,6 +32,7 @@ class QListWidgetItem;
 class QListBox;
 class QListBoxItem;
 #endif
+class FrameList;
 
 /**
  * Main widget.
@@ -47,6 +48,11 @@ public:
 	 * @param parent parent widget
 	 */
 	Id3Form(QWidget* parent = 0);
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~Id3Form();
 
 	/**
 	 * Get filter from ID3v1 check boxes.
@@ -213,6 +219,12 @@ public:
 	 * @see StandardTags::TruncationFlag.
 	 */
 	void markTruncatedFields(unsigned flags);
+
+	/**
+	 * Get frame list.
+	 * @return frame list.
+	 */
+	FrameList* getFrameList() { return m_framelist; }
 
 public slots:
 	/**
@@ -470,6 +482,7 @@ private:
 	QListBox* m_framesListBox;
 #endif
 	DirList* m_dirListBox;
+	FrameList* m_framelist;
 	QSplitter* m_vSplitter;
 	QGroupBox* m_idV1GroupBox;
 	QGroupBox* m_idV2GroupBox;

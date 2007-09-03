@@ -15,7 +15,6 @@
 
 #include "oggfile.h"
 
-class FlacFrameList;
 namespace FLAC {
 	namespace Metadata {
 		class Chain;
@@ -77,25 +76,11 @@ public:
 	virtual unsigned getDuration() const;
 
 	/**
-	 * Get frame list for this type of tagged file.
-	 *
-	 * @return frame list.
-	 */
-	virtual FrameList* getFrameList() const;
-
-	/**
 	 * Get file extension including the dot.
 	 *
 	 * @return file extension ".flac".
 	 */
 	virtual QString getFileExtension() const;
-
-	/**
-	 * Clean up static resources.
-	 */
-	static void staticCleanup();
-
-	friend class FlacFrameList;
 
 private:
 	FlacFile(const FlacFile&);
@@ -126,9 +111,6 @@ private:
 
 	/** Info about file. */
 	FileInfo m_fileInfo;
-
-	/** Frame list for FLAC files. */
-	static FlacFrameList* s_flacFrameList;
 
 	/** FLAC metadata chain. */
 	FLAC::Metadata::Chain* m_chain;

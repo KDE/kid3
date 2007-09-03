@@ -18,7 +18,6 @@
 #endif
 
 #include "standardtags.h"
-#include "taglibframelist.h"
 #include "genres.h"
 #include "dirinfo.h"
 #include <sys/stat.h>
@@ -42,6 +41,22 @@
 #include <taglib/apetag.h>
 #include <taglib/textidentificationframe.h>
 #include <taglib/commentsframe.h>
+#include <taglib/attachedpictureframe.h>
+#include <taglib/uniquefileidentifierframe.h>
+
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+#include <taglib/generalencapsulatedobjectframe.h>
+#endif
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+#include <taglib/urllinkframe.h>
+#else
+#include "urllinkframe.h"
+#endif
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+#include <taglib/unsynchronizedlyricsframe.h>
+#else
+#include "unsynchronizedlyricsframe.h"
+#endif
 
 /**
  * Constructor.
@@ -764,6 +779,31 @@ void TagLibFile::setGenreV1(const QString& str)
 }
 
 /**
+ * Check if string needs Unicode encoding.
+ *
+ * @return true if Unicode needed,
+ *         false if Latin-1 sufficient.
+ */
+static bool needsUnicode(const QString& qstr)
+{
+	bool result = false;
+	uint unicodeSize = qstr.length();
+	const QChar* qcarray = qstr.unicode();
+	for (uint i = 0; i < unicodeSize; ++i) {
+#if QT_VERSION >= 0x040000
+		if (qcarray[i].toLatin1() == 0)
+#else
+		if (qcarray[i].latin1() == 0)
+#endif
+		{
+			result = true;
+			break;
+		}
+	}
+	return result;
+}
+
+/**
  * Write a Unicode field if the tag is ID3v2 and Latin-1 is not sufficient.
  *
  * @param tag     tag
@@ -778,21 +818,7 @@ bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String
 	TagLib::ID3v2::Tag* id3v2Tag;
 	if (tag && (id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag)) != 0) {
 		// first check if this string needs to be stored as unicode
-		bool needsUnicode = false;
-		uint unicodeSize = qstr.length();
-		const QChar* qcarray = qstr.unicode();
-		for (uint i = 0; i < unicodeSize; ++i) {
-#if QT_VERSION >= 0x040000
-			if (qcarray[i].toLatin1() == 0)
-#else
-			if (qcarray[i].latin1() == 0)
-#endif
-			{
-				needsUnicode = true;
-				break;
-			}
-		}
-		if (needsUnicode) {
+		if (needsUnicode(qstr)) {
 			TagLib::ByteVector id(frameId);
 			id3v2Tag->removeFrames(id);
 			if (!tstr.isEmpty()) {
@@ -855,8 +881,8 @@ void TagLibFile::setArtistV2(const QString& str)
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->artist())) {
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TPE1")) {
+				m_tagV2->setArtist(tstr);
 			}
-			m_tagV2->setArtist(tstr);
 			markTag2Changed();
 		}
 	}
@@ -874,8 +900,8 @@ void TagLibFile::setAlbumV2(const QString& str)
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->album())) {
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TALB")) {
+				m_tagV2->setAlbum(tstr);
 			}
-			m_tagV2->setAlbum(tstr);
 			markTag2Changed();
 		}
 	}
@@ -893,8 +919,8 @@ void TagLibFile::setCommentV2(const QString& str)
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->comment())) {
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "COMM")) {
+				m_tagV2->setComment(tstr);
 			}
-			m_tagV2->setComment(tstr);
 			markTag2Changed();
 		}
 	}
@@ -1128,22 +1154,6 @@ unsigned TagLibFile::getDuration() const
 		audioProperties->length() : 0;
 }
 
-/** Frame list for MP3 files. */
-TagLibFrameList* TagLibFile::s_tagLibFrameList = 0;
-
-/**
- * Get frame list for this type of tagged file.
- *
- * @return frame list.
- */
-FrameList* TagLibFile::getFrameList() const
-{
-	if (!s_tagLibFrameList) {
-		s_tagLibFrameList = new TagLibFrameList();
-	}
-	return s_tagLibFrameList;
-}
-
 /**
  * Get file extension including the dot.
  *
@@ -1235,13 +1245,1505 @@ QString TagLibFile::getTagFormatV2() const
 	return getTagFormat(m_tagV2);
 }
 
+
+/** Types and descriptions for id3lib frame IDs */
+static const struct TypeStrOfId {
+	Frame::Type type;
+	const char* str;
+	bool supported;
+} typeStrOfId[] = {
+	{ Frame::FT_Other,          I18N_NOOP("AENC - Audio encryption"), false },
+	{ Frame::FT_Other,          I18N_NOOP("APIC - Attached picture"), true },
+	{ Frame::FT_Other,          I18N_NOOP("ASPI - Audio seek point index"), false },
+	{ Frame::FT_Comment,        I18N_NOOP("COMM - Comments"), true },
+	{ Frame::FT_Other,          I18N_NOOP("COMR - Commercial"), false },
+	{ Frame::FT_Other,          I18N_NOOP("ENCR - Encryption method registration"), false },
+	{ Frame::FT_Other,          I18N_NOOP("EQU2 - Equalisation (2)"), false },
+	{ Frame::FT_Other,          I18N_NOOP("ETCO - Event timing codes"), false },
+	{ Frame::FT_Other,          I18N_NOOP("GEOB - General encapsulated object"),
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+		true
+#else
+		false
+#endif
+	},
+	{ Frame::FT_Other,          I18N_NOOP("GRID - Group identification registration"), false },
+	{ Frame::FT_Other,          I18N_NOOP("LINK - Linked information"), false },
+	{ Frame::FT_Other,          I18N_NOOP("MCDI - Music CD identifier"), false },
+	{ Frame::FT_Other,          I18N_NOOP("MLLT - MPEG location lookup table"), false },
+	{ Frame::FT_Other,          I18N_NOOP("OWNE - Ownership frame"), false },
+	{ Frame::FT_Other,          I18N_NOOP("PRIV - Private frame"), false },
+	{ Frame::FT_Other,          I18N_NOOP("PCNT - Play counter"), false },
+	{ Frame::FT_Other,          I18N_NOOP("POPM - Popularimeter"), false },
+	{ Frame::FT_Other,          I18N_NOOP("POSS - Position synchronisation frame"), false },
+	{ Frame::FT_Other,          I18N_NOOP("RBUF - Recommended buffer size"), false },
+	{ Frame::FT_Other,          I18N_NOOP("RVA2 - Relative volume adjustment (2)"), false },
+	{ Frame::FT_Other,          I18N_NOOP("RVRB - Reverb"), false },
+	{ Frame::FT_Other,          I18N_NOOP("SEEK - Seek frame"), false },
+	{ Frame::FT_Other,          I18N_NOOP("SIGN - Signature frame"), false },
+	{ Frame::FT_Other,          I18N_NOOP("SYLT - Synchronized lyric/text"), false },
+	{ Frame::FT_Other,          I18N_NOOP("SYTC - Synchronized tempo codes"), false },
+	{ Frame::FT_Album,          I18N_NOOP("TALB - Album/Movie/Show title"), true },
+	{ Frame::FT_Bpm,            I18N_NOOP("TBPM - BPM (beats per minute)"), true },
+	{ Frame::FT_Composer,       I18N_NOOP("TCOM - Composer"), true },
+	{ Frame::FT_Genre,          I18N_NOOP("TCON - Content type"), true },
+	{ Frame::FT_Copyright,      I18N_NOOP("TCOP - Copyright message"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TDEN - Encoding time"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TDLY - Playlist delay"), true },
+	{ Frame::FT_OriginalDate,   I18N_NOOP("TDOR - Original release time"), true },
+	{ Frame::FT_Date,           I18N_NOOP("TDRC - Recording time"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TDRL - Release time"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TDTG - Tagging time"), true },
+	{ Frame::FT_EncodedBy,      I18N_NOOP("TENC - Encoded by"), true },
+	{ Frame::FT_Lyricist,       I18N_NOOP("TEXT - Lyricist/Text writer"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TFLT - File type"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TIPL - Involved people list"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TIT1 - Content group description"), true },
+	{ Frame::FT_Title,          I18N_NOOP("TIT2 - Title/songname/content description"), true },
+	{ Frame::FT_Subtitle,       I18N_NOOP("TIT3 - Subtitle/Description refinement"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TKEY - Initial key"), true },
+	{ Frame::FT_Language,       I18N_NOOP("TLAN - Language(s)"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TLEN - Length"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TMCL - Musician credits list"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TMED - Media type"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TMOO - Mood"), true },
+	{ Frame::FT_OriginalAlbum,  I18N_NOOP("TOAL - Original album/movie/show title"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TOFN - Original filename"), true },
+	{ Frame::FT_Author,         I18N_NOOP("TOLY - Original lyricist(s)/text writer(s)"), true },
+	{ Frame::FT_OriginalArtist, I18N_NOOP("TOPE - Original artist(s)/performer(s)"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TOWN - File owner/licensee"), true },
+	{ Frame::FT_Artist,         I18N_NOOP("TPE1 - Lead performer(s)/Soloist(s)"), true },
+	{ Frame::FT_Performer,      I18N_NOOP("TPE2 - Band/orchestra/accompaniment"), true },
+	{ Frame::FT_Conductor,      I18N_NOOP("TPE3 - Conductor/performer refinement"), true },
+	{ Frame::FT_Arranger,       I18N_NOOP("TPE4 - Interpreted, remixed, or otherwise modified by"), true },
+	{ Frame::FT_Disc,           I18N_NOOP("TPOS - Part of a set"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TPRO - Produced notice"), true },
+	{ Frame::FT_Publisher,      I18N_NOOP("TPUB - Publisher"), true },
+	{ Frame::FT_Track,          I18N_NOOP("TRCK - Track number/Position in set"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TRSN - Internet radio station name"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TRSO - Internet radio station owner"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TSOA - Album sort order"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TSOP - Performer sort order"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TSOT - Title sort order"), true },
+	{ Frame::FT_Isrc,           I18N_NOOP("TSRC - ISRC (international standard recording code)"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TSSE - Software/Hardware and settings used for encoding"), true },
+	{ Frame::FT_Part,           I18N_NOOP("TSST - Set subtitle"), true },
+	{ Frame::FT_Other,          I18N_NOOP("TXXX - User defined text information"), true },
+	{ Frame::FT_Other,          I18N_NOOP("UFID - Unique file identifier"), true },
+	{ Frame::FT_Other,          I18N_NOOP("USER - Terms of use"), false },
+	{ Frame::FT_Other,          I18N_NOOP("USLT - Unsynchronized lyric/text transcription"), true },
+	{ Frame::FT_Other,          I18N_NOOP("WCOM - Commercial information"), true },
+	{ Frame::FT_Other,          I18N_NOOP("WCOP - Copyright/Legal information"), true },
+	{ Frame::FT_Other,          I18N_NOOP("WOAF - Official audio file webpage"), true },
+	{ Frame::FT_Website,        I18N_NOOP("WOAR - Official artist/performer webpage"), true },
+	{ Frame::FT_Other,          I18N_NOOP("WOAS - Official audio source webpage"), true },
+	{ Frame::FT_Other,          I18N_NOOP("WORS - Official internet radio station homepage"), true },
+	{ Frame::FT_Other,          I18N_NOOP("WPAY - Payment"), true },
+	{ Frame::FT_Other,          I18N_NOOP("WPUB - Official publisher webpage"), true },
+	{ Frame::FT_Other,          I18N_NOOP("WXXX - User defined URL link"), true }
+};
+
 /**
- * Clean up static resources.
+ * Get type and description of frame.
+ *
+ * @param id   ID of frame
+ * @param type the type is returned here
+ * @param str  the description is returned here
  */
-void TagLibFile::staticCleanup()
+static void getTypeStringForFrameId(TagLib::ByteVector id, Frame::Type& type,
+																		const char*& str)
 {
-	delete s_tagLibFrameList;
-	s_tagLibFrameList = 0;
+	static TagLib::Map<TagLib::ByteVector, unsigned> idIndexMap;
+	if (idIndexMap.isEmpty()) {
+		for (unsigned i = 0;
+				 i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]);
+				 ++i) {
+			idIndexMap.insert(TagLib::ByteVector(typeStrOfId[i].str, 4), i);
+		}
+	}
+	if (idIndexMap.contains(id)) {
+		const TypeStrOfId& ts = typeStrOfId[idIndexMap[id]];
+		type = ts.type;
+		str = ts.str;
+	} else {
+		type = Frame::FT_UnknownFrame;
+		str = "????";
+	}
+}
+
+/**
+ * Get string description starting with 4 bytes ID.
+ *
+ * @param type type of frame
+ *
+ * @return string.
+ */
+static const char* getStringForType(Frame::Type type)
+{
+	if (type != Frame::FT_Other) {
+		for (unsigned i = 0;
+				 i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]);
+				 ++i) {
+			const TypeStrOfId& ts = typeStrOfId[i];
+			if (ts.type == type) {
+				return ts.str;
+			}
+		}
+	}
+	return "????";
+}
+
+/**
+ * Get the fields from a text identification frame.
+ *
+ * @param tFrame text identification frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromTextFrame(
+	const TagLib::ID3v2::TextIdentificationFrame* tFrame,
+	Frame::FieldList& fields)
+{
+	QString text;
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_TextEnc;
+	field.m_value = tFrame->textEncoding();
+	fields.push_back(field);
+
+	const TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame;
+	if (tFrame &&
+			(txxxFrame =
+			 dynamic_cast<const TagLib::ID3v2::UserTextIdentificationFrame*>(tFrame))
+			!= 0) {
+		field.m_id = Frame::Field::ID_Description;
+		field.m_value = TStringToQString(txxxFrame->description());
+		fields.push_back(field);
+
+		TagLib::StringList slText = tFrame->fieldList();
+		text = slText.size() > 1 ? TStringToQString(slText[1]) : "";
+	} else {
+		text = TStringToQString(tFrame->toString());
+	}
+	field.m_id = Frame::Field::ID_Text;
+	field.m_value = text;
+	fields.push_back(field);
+
+	return text;
+}
+
+/**
+ * Get the fields from an attached picture frame.
+ *
+ * @param apicFrame attached picture frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromApicFrame(
+	const TagLib::ID3v2::AttachedPictureFrame* apicFrame,
+	Frame::FieldList& fields)
+{
+	QString text;
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_TextEnc;
+	field.m_value = apicFrame->textEncoding();
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_MimeType;
+	field.m_value = TStringToQString(apicFrame->mimeType());
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_PictureType;
+	field.m_value = apicFrame->type();
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Description;
+	text = TStringToQString(apicFrame->description());
+	field.m_value = text;
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Data;
+	TagLib::ByteVector pic = apicFrame->picture();
+	QByteArray ba;
+	QCM_duplicate(ba, pic.data(), pic.size());
+	field.m_value = ba;
+	fields.push_back(field);
+
+	return text;
+}
+
+/**
+ * Get the fields from a comments frame.
+ *
+ * @param commFrame comments frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromCommFrame(
+	const TagLib::ID3v2::CommentsFrame* commFrame, Frame::FieldList& fields)
+{
+	QString text;
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_TextEnc;
+	field.m_value = commFrame->textEncoding();
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Language;
+	TagLib::ByteVector bvLang = commFrame->language();
+	field.m_value = QString(QCM_QCString(bvLang.data(), bvLang.size() + 1));
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Description;
+	field.m_value = TStringToQString(commFrame->description());
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Text;
+	text = TStringToQString(commFrame->toString());
+	field.m_value = text;
+	fields.push_back(field);
+
+	return text;
+}
+
+/**
+ * Get the fields from a unique file identifier frame.
+ *
+ * @param ufidFrame unique file identifier frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromUfidFrame(
+	const TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame,
+	Frame::FieldList& fields)
+{
+	QString text;
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_Owner;
+	field.m_value = TStringToQString(ufidFrame->owner());
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Id;
+	TagLib::ByteVector id = ufidFrame->identifier();
+	QByteArray ba;
+	QCM_duplicate(ba, id.data(), id.size());
+	field.m_value = ba;
+	fields.push_back(field);
+
+	return text;
+}
+
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+/**
+ * Get the fields from a general encapsulated object frame.
+ *
+ * @param geobFrame general encapsulated object frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromGeobFrame(
+	const TagLib::ID3v2::GeneralEncapsulatedObjectFrame* geobFrame,
+	Frame::FieldList& fields)
+{
+	QString text;
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_TextEnc;
+	field.m_value = geobFrame->textEncoding();
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_MimeType;
+	field.m_value = TStringToQString(geobFrame->mimeType());
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Filename;
+	field.m_value = TStringToQString(geobFrame->fileName());
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Description;
+	text = TStringToQString(geobFrame->description());
+	field.m_value = text;
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Data;
+	TagLib::ByteVector obj = geobFrame->object();
+	QByteArray ba;
+	QCM_duplicate(ba, obj.data(), obj.size());
+	field.m_value = ba;
+	fields.push_back(field);
+
+	return text;
+}
+#endif // TAGLIB_SUPPORTS_GEOB_FRAMES
+
+/**
+ * Get the fields from a URL link frame.
+ *
+ * @param wFrame URL link frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromUrlFrame(
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+	const TagLib::ID3v2::UrlLinkFrame* wFrame
+#else
+	const UrlLinkFrame* wFrame
+#endif
+	, Frame::FieldList& fields)
+{
+	QString text;
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_Url;
+	text = TStringToQString(wFrame->url());
+	field.m_value = text;
+	fields.push_back(field);
+
+	return text;
+}
+
+/**
+ * Get the fields from a user URL link frame.
+ *
+ * @param wxxxFrame user URL link frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromUserUrlFrame(
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+	const TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame
+#else
+	const UserUrlLinkFrame* wxxxFrame
+#endif
+	, Frame::FieldList& fields)
+{
+	QString text;
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_TextEnc;
+	field.m_value = wxxxFrame->textEncoding();
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Description;
+	field.m_value = TStringToQString(wxxxFrame->description());
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Url;
+	text = TStringToQString(wxxxFrame->url());
+	field.m_value = text;
+	fields.push_back(field);
+
+	return text;
+}
+
+/**
+ * Get the fields from an unsynchronized lyrics frame.
+ * This is copy-pasted from editCommFrame().
+ *
+ * @param usltFrame unsynchronized frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromUsltFrame(
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+	const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame
+#else
+	const UnsynchronizedLyricsFrame* usltFrame
+#endif
+	, Frame::FieldList& fields)
+{
+	QString text;
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_TextEnc;
+	field.m_value = usltFrame->textEncoding();
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Language;
+	TagLib::ByteVector bvLang = usltFrame->language();
+	field.m_value = QString(QCM_QCString(bvLang.data(), bvLang.size() + 1));
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Description;
+	field.m_value = TStringToQString(usltFrame->description());
+	fields.push_back(field);
+
+	field.m_id = Frame::Field::ID_Text;
+	text = TStringToQString(usltFrame->toString());
+	field.m_value = text;
+	fields.push_back(field);
+
+	return text;
+}
+
+/**
+ * Get the fields from an unknown frame.
+ *
+ * @param unknownFrame unknown frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromUnknownFrame(
+	const TagLib::ID3v2::Frame* unknownFrame, Frame::FieldList& fields)
+{
+	Frame::Field field;
+	field.m_id = Frame::Field::ID_Data;
+	TagLib::ByteVector dat = unknownFrame->render();
+	QByteArray ba;
+	QCM_duplicate(ba, dat.data(), dat.size());
+	field.m_value = ba;
+	fields.push_back(field);
+	return QString();
+}
+
+/**
+ * Get the fields from an ID3v2 tag.
+ *
+ * @param frame  frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
+																		 Frame::FieldList& fields)
+{
+	if (frame) {
+		const TagLib::ID3v2::TextIdentificationFrame* tFrame;
+		const TagLib::ID3v2::AttachedPictureFrame* apicFrame;
+		const TagLib::ID3v2::CommentsFrame* commFrame;
+		const TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame;
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+		const TagLib::ID3v2::GeneralEncapsulatedObjectFrame* geobFrame;
+#endif
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+		const TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame;
+		const TagLib::ID3v2::UrlLinkFrame* wFrame;
+#else
+		const UserUrlLinkFrame* wxxxFrame;
+		const UrlLinkFrame* wFrame;
+#endif
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+		const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
+#else
+		const UnsynchronizedLyricsFrame* usltFrame;
+#endif
+		if ((tFrame =
+				 dynamic_cast<const TagLib::ID3v2::TextIdentificationFrame*>(frame)) !=
+				0) {
+			return getFieldsFromTextFrame(tFrame, fields);
+		} else if ((apicFrame =
+								dynamic_cast<const TagLib::ID3v2::AttachedPictureFrame*>(frame))
+							 != 0) {
+			return getFieldsFromApicFrame(apicFrame, fields);
+		} else if ((commFrame = dynamic_cast<const TagLib::ID3v2::CommentsFrame*>(
+									frame)) != 0) {
+			return getFieldsFromCommFrame(commFrame, fields);
+		} else if ((ufidFrame =
+								dynamic_cast<const TagLib::ID3v2::UniqueFileIdentifierFrame*>(
+									frame)) != 0) {
+			return getFieldsFromUfidFrame(ufidFrame, fields);
+		}
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+		else if ((geobFrame =
+							dynamic_cast<const TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(
+								frame)) != 0) {
+			return getFieldsFromGeobFrame(geobFrame, fields);
+		}
+#endif
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+		else if ((wxxxFrame = dynamic_cast<const TagLib::ID3v2::UserUrlLinkFrame*>(
+								frame)) != 0) {
+			return getFieldsFromUserUrlFrame(wxxxFrame, fields);
+		} else if ((wFrame = dynamic_cast<const TagLib::ID3v2::UrlLinkFrame*>(
+									frame)) != 0) {
+			return getFieldsFromUrlFrame(wFrame, fields);
+		}
+#else
+		else if ((wxxxFrame = dynamic_cast<const UserUrlLinkFrame*>(frame)) != 0) {
+			return getFieldsFromUserUrlFrame(wxxxFrame, fields);
+		} else if ((wFrame = dynamic_cast<const UrlLinkFrame*>(frame)) != 0) {
+			return getFieldsFromUrlFrame(wFrame, fields);
+		}
+#endif
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+		else if ((usltFrame = dynamic_cast<const TagLib::ID3v2::UnsynchronizedLyricsFrame*>(
+								frame)) != 0) {
+			return getFieldsFromUsltFrame(usltFrame, fields);
+		}
+#else
+		else if ((usltFrame = dynamic_cast<const UnsynchronizedLyricsFrame*>(
+								frame)) != 0) {
+			return getFieldsFromUsltFrame(usltFrame, fields);
+		}
+#endif
+		else {
+			TagLib::ByteVector id = frame->frameID();
+#ifndef TAGLIB_SUPPORTS_URLLINK_FRAMES
+			if (id.startsWith("WXXX")) {
+				UserUrlLinkFrame userUrlLinkFrame(frame->render());
+				return getFieldsFromUserUrlFrame(&userUrlLinkFrame, fields);
+			} else if (id.startsWith("W")) {
+				UrlLinkFrame urlLinkFrame(frame->render());
+				return getFieldsFromUrlFrame(&urlLinkFrame, fields);
+			} else
+#endif
+#ifndef TAGLIB_SUPPORTS_USLT_FRAMES
+				if (id.startsWith("USLT")) {
+					UnsynchronizedLyricsFrame usltFrame(frame->render());
+					return getFieldsFromUsltFrame(&usltFrame, fields);
+				} else
+#endif
+					return getFieldsFromUnknownFrame(frame, fields);
+		}
+	}
+	return QString();
+}
+
+/**
+ * Copy an ID3v2 frame.
+ *
+ * @param frame original frame
+ *
+ * @return new frame.
+ */
+static TagLib::ID3v2::Frame* copyId3v2Frame(
+	const TagLib::ID3v2::Frame* frame)
+{
+	// Setting a version other than the default 4 makes not much sense as
+	// TagLib always writes ID3v2.4.0 tags.
+	return TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
+}
+
+/**
+ * Convert a string to a language code byte vector.
+ *
+ * @param str string containing language code.
+ *
+ * @return 3 byte vector with language code.
+ */
+static TagLib::ByteVector languageCodeByteVector(QString str)
+{
+	uint len = str.length();
+	if (len > 3) {
+		str.truncate(3);
+	} else if (len < 3) {
+		for (uint i = len; i < 3; ++i) {
+			str += ' ';
+		}
+	}
+	return TagLib::ByteVector(str.QCM_latin1(), str.length());
+}
+
+/**
+ * The follwoing template functions are used to uniformly set fields
+ * in the different ID3v2 frames.
+ */
+template <class T>
+void setTextEncoding(T*, TagLib::String::Type) {}
+
+template <>
+void setTextEncoding(TagLib::ID3v2::TextIdentificationFrame* f,
+										 TagLib::String::Type enc)
+{
+	f->setTextEncoding(enc);
+}
+
+template <>
+void setTextEncoding(TagLib::ID3v2::AttachedPictureFrame* f,
+										 TagLib::String::Type enc)
+{
+	f->setTextEncoding(enc);
+}
+
+template <>
+void setTextEncoding(TagLib::ID3v2::CommentsFrame* f,
+										 TagLib::String::Type enc)
+{
+	f->setTextEncoding(enc);
+}
+
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+template <>
+void setTextEncoding(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
+										 TagLib::String::Type enc)
+{
+	f->setTextEncoding(enc);
+}
+#endif
+
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+template <>
+void setTextEncoding(TagLib::ID3v2::UserUrlLinkFrame* f,
+										 TagLib::String::Type enc)
+{
+	f->setTextEncoding(enc);
+}
+#else
+template <>
+void setTextEncoding(UserUrlLinkFrame* f, TagLib::String::Type enc)
+{
+	f->setTextEncoding(enc);
+}
+#endif
+
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+template <>
+void setTextEncoding(TagLib::ID3v2::UnsynchronizedLyricsFrame* f,
+										 TagLib::String::Type enc)
+{
+	f->setTextEncoding(enc);
+}
+#else
+template <>
+void setTextEncoding(UnsynchronizedLyricsFrame* f, TagLib::String::Type enc)
+{
+	f->setTextEncoding(enc);
+}
+#endif
+
+
+template <class T>
+void setDescription(T*, const Frame::Field&) {}
+
+template <>
+void setDescription(TagLib::ID3v2::UserTextIdentificationFrame* f,
+										const Frame::Field& fld)
+{
+	f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <>
+void setDescription(TagLib::ID3v2::AttachedPictureFrame* f,
+										const Frame::Field& fld)
+{
+	f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <>
+void setDescription(TagLib::ID3v2::CommentsFrame* f, const Frame::Field& fld)
+{
+	f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+template <>
+void setDescription(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
+										const Frame::Field& fld)
+{
+	f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#endif
+
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+template <>
+void setDescription(TagLib::ID3v2::UserUrlLinkFrame* f, const Frame::Field& fld)
+{
+	f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#else
+template <>
+void setDescription(UserUrlLinkFrame* f, const Frame::Field& fld)
+{
+	f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#endif
+
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+template <>
+void setDescription(TagLib::ID3v2::UnsynchronizedLyricsFrame* f,
+										const Frame::Field& fld)
+{
+	f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#else
+template <>
+void setDescription(UnsynchronizedLyricsFrame* f, const Frame::Field& fld)
+{
+	f->setDescription(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#endif
+
+template <class T>
+void setMimeType(T*, const Frame::Field&) {}
+
+template <>
+void setMimeType(TagLib::ID3v2::AttachedPictureFrame* f,
+								 const Frame::Field& fld)
+{
+	f->setMimeType(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+template <>
+void setMimeType(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
+								 const Frame::Field& fld)
+{
+	f->setMimeType(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#endif
+
+template <class T>
+void setPictureType(T*, const Frame::Field&) {}
+
+template <>
+void setPictureType(TagLib::ID3v2::AttachedPictureFrame* f,
+										const Frame::Field& fld)
+{
+	f->setType(
+		static_cast<TagLib::ID3v2::AttachedPictureFrame::Type>(
+			fld.m_value.toInt()));
+}
+
+template <class T>
+void setData(T*, const Frame::Field&) {}
+
+template <>
+void setData(TagLib::ID3v2::Frame* f, const Frame::Field& fld)
+{
+	QByteArray ba(fld.m_value.toByteArray());
+	f->setData(TagLib::ByteVector(ba.data(), ba.size()));
+}
+
+template <>
+void setData(TagLib::ID3v2::AttachedPictureFrame* f, const Frame::Field& fld)
+{
+	QByteArray ba(fld.m_value.toByteArray());
+	f->setPicture(TagLib::ByteVector(ba.data(), ba.size()));
+}
+
+template <class T>
+void setLanguage(T*, const Frame::Field&) {}
+
+template <>
+void setLanguage(TagLib::ID3v2::CommentsFrame* f, const Frame::Field& fld)
+{
+	f->setLanguage(languageCodeByteVector(fld.m_value.toString()));
+}
+
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+template <>
+void setLanguage(TagLib::ID3v2::UnsynchronizedLyricsFrame* f,
+								 const Frame::Field& fld)
+{
+	f->setLanguage(languageCodeByteVector(fld.m_value.toString()));
+}
+#else
+template <>
+void setLanguage(UnsynchronizedLyricsFrame* f, const Frame::Field& fld)
+{
+	f->setLanguage(languageCodeByteVector(fld.m_value.toString()));
+}
+#endif
+
+template <class T>
+void setOwner(T*, const Frame::Field&) {}
+
+template <>
+void setOwner(TagLib::ID3v2::UniqueFileIdentifierFrame* f,
+							const Frame::Field& fld)
+{
+	f->setOwner(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <class T>
+void setIdentifier(T*, const Frame::Field&) {}
+
+template <>
+void setIdentifier(TagLib::ID3v2::UniqueFileIdentifierFrame* f,
+									 const Frame::Field& fld)
+{
+	QByteArray ba(fld.m_value.toByteArray());
+	f->setIdentifier(TagLib::ByteVector(ba.data(), ba.size()));
+}
+
+template <class T>
+void setFilename(T*, const Frame::Field&) {}
+
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+template <>
+void setFilename(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
+								 const Frame::Field& fld)
+{
+	f->setFileName(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#endif
+
+template <class T>
+void setUrl(T*, const Frame::Field&) {}
+
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+template <>
+void setUrl(TagLib::ID3v2::UrlLinkFrame* f, const Frame::Field& fld)
+{
+	f->setUrl(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <>
+void setUrl(TagLib::ID3v2::UserUrlLinkFrame* f, const Frame::Field& fld)
+{
+	f->setUrl(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#else
+template <>
+void setUrl(UrlLinkFrame* f, const Frame::Field& fld)
+{
+	f->setUrl(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <>
+void setUrl(UserUrlLinkFrame* f, const Frame::Field& fld)
+{
+	f->setUrl(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+#endif
+
+/**
+ * Set the fields in a TagLib ID3v2 frame.
+ *
+ * @param tFrame TagLib frame to set
+ * @param frame  frame with field values
+ */
+template <class T>
+void setTagLibFrame(T* tFrame, const Frame& frame)
+{
+	//! if field list is not empty set from FieldList,
+	//! else from value.
+	if (frame.getFieldList().empty()) {
+		QString text(frame.getValue());
+		tFrame->setText(QSTRING_TO_TSTRING(text));
+		setTextEncoding(tFrame, needsUnicode(text) ?
+										TagLib::String::UTF16 : TagLib::String::Latin1);
+	} else {
+		for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
+				 fldIt != frame.getFieldList().end();
+				 ++fldIt) {
+			const Frame::Field& fld = *fldIt;
+			switch (fld.m_id) {
+				case Frame::Field::ID_Text:
+					tFrame->setText(QSTRING_TO_TSTRING(fld.m_value.toString()));
+					break;
+				case Frame::Field::ID_TextEnc:
+					setTextEncoding(tFrame, static_cast<TagLib::String::Type>(
+														fld.m_value.toInt()));
+					break;
+				case Frame::Field::ID_Description:
+					setDescription(tFrame, fld);
+					break;
+				case Frame::Field::ID_MimeType:
+					setMimeType(tFrame, fld);
+					break;
+				case Frame::Field::ID_PictureType:
+					setPictureType(tFrame, fld);
+					break;
+				case Frame::Field::ID_Data:
+					setData(tFrame, fld);
+					break;
+				case Frame::Field::ID_Language:
+					setLanguage(tFrame, fld);
+					break;
+				case Frame::Field::ID_Owner:
+					setOwner(tFrame, fld);
+					break;
+				case Frame::Field::ID_Id:
+					setIdentifier(tFrame, fld);
+					break;
+				case Frame::Field::ID_Filename:
+					setFilename(tFrame, fld);
+					break;
+				case Frame::Field::ID_Url:
+					setUrl(tFrame, fld);
+					break;
+			}
+		}
+	}
+}
+
+/**
+ * Create a modified copy of an ID3v2 frame.
+ *
+ * @param id3Frame original ID3v2 frame
+ * @param frame    frame with fields to set in new frame
+ *
+ * @return new frame with modified fields.
+ */
+static TagLib::ID3v2::Frame* createId3v2Frame(
+	const TagLib::ID3v2::Frame* id3Frame, const Frame& frame)
+{
+	TagLib::ID3v2::Frame* newFrame = 0;
+	if (id3Frame) {
+		const TagLib::ID3v2::TextIdentificationFrame* tFrame;
+		const TagLib::ID3v2::AttachedPictureFrame* apicFrame;
+		const TagLib::ID3v2::CommentsFrame* commFrame;
+		const TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame;
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+		const TagLib::ID3v2::GeneralEncapsulatedObjectFrame* geobFrame;
+#endif
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+		const TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame;
+		const TagLib::ID3v2::UrlLinkFrame* wFrame;
+#else
+		const UserUrlLinkFrame* wxxxFrame;
+		const UrlLinkFrame* wFrame;
+#endif
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+		const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
+#else
+		const UnsynchronizedLyricsFrame* usltFrame;
+#endif
+		if ((tFrame =
+				 dynamic_cast<const TagLib::ID3v2::TextIdentificationFrame*>(id3Frame))
+				!= 0) {
+			const TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =
+				dynamic_cast<const TagLib::ID3v2::UserTextIdentificationFrame*>(id3Frame);
+			if (txxxFrame) {
+				TagLib::ID3v2::UserTextIdentificationFrame* newTxxxFrame;
+				newFrame = copyId3v2Frame(txxxFrame);
+				if (newFrame &&
+						(newTxxxFrame =
+						 dynamic_cast<TagLib::ID3v2::UserTextIdentificationFrame*>(newFrame))
+						!= 0) {
+					setTagLibFrame(newTxxxFrame, frame);
+				}
+			} else {
+				TagLib::ID3v2::TextIdentificationFrame* newTFrame;
+				newFrame = copyId3v2Frame(tFrame);
+				if (newFrame &&
+						(newTFrame =
+						 dynamic_cast<TagLib::ID3v2::TextIdentificationFrame*>(newFrame))
+						!= 0) {
+					setTagLibFrame(newTFrame, frame);
+				}
+			}
+		} else if ((apicFrame =
+								dynamic_cast<const TagLib::ID3v2::AttachedPictureFrame*>(id3Frame))
+							 != 0) {
+			TagLib::ID3v2::AttachedPictureFrame* newApicFrame;
+			newFrame = copyId3v2Frame(apicFrame);
+			if (newFrame &&
+					(newApicFrame =
+					 dynamic_cast<TagLib::ID3v2::AttachedPictureFrame*>(newFrame)) != 0) {
+				setTagLibFrame(newApicFrame, frame);
+			}
+		} else if ((commFrame = dynamic_cast<const TagLib::ID3v2::CommentsFrame*>(
+									id3Frame)) != 0) {
+			TagLib::ID3v2::CommentsFrame* newCommFrame;
+			newFrame = copyId3v2Frame(commFrame);
+			if (newFrame &&
+					(newCommFrame =
+					 dynamic_cast<TagLib::ID3v2::CommentsFrame*>(newFrame)) != 0) {
+				setTagLibFrame(newCommFrame, frame);
+			}
+		} else if ((ufidFrame =
+								dynamic_cast<const TagLib::ID3v2::UniqueFileIdentifierFrame*>(
+									id3Frame)) != 0) {
+			TagLib::ID3v2::UniqueFileIdentifierFrame* newUfidFrame;
+			newFrame = copyId3v2Frame(ufidFrame);
+			if (newFrame &&
+					(newUfidFrame =
+					 dynamic_cast<TagLib::ID3v2::UniqueFileIdentifierFrame*>(newFrame))
+					!= 0) {
+				setTagLibFrame(newUfidFrame, frame);
+			}
+		}
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+		else if ((geobFrame =
+							dynamic_cast<const TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(
+								id3Frame)) != 0) {
+			TagLib::ID3v2::GeneralEncapsulatedObjectFrame* newGeobFrame;
+			newFrame = copyId3v2Frame(geobFrame);
+			if (newFrame &&
+					(newGeobFrame =
+					 dynamic_cast<TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(
+						 newFrame)) != 0) {
+				setTagLibFrame(newGeobFrame, frame);
+			}
+		}
+#endif
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+		else if ((wxxxFrame = dynamic_cast<const TagLib::ID3v2::UserUrlLinkFrame*>(
+								id3Frame)) != 0) {
+			newFrame = createTagLibFrame(wxxxFrame, frame);
+			TagLib::ID3v2::UserUrlLinkFrame* newWxxxFrame;
+			newFrame = copyId3v2Frame(wxxxFrame);
+			if (newFrame &&
+					(newWxxxFrame =
+					 dynamic_cast<TagLib::ID3v2::UserUrlLinkFrame*>(newFrame)) != 0) {
+				setTagLibFrame(newWxxxFrame, frame);
+			}
+		}
+#else
+		else if ((wxxxFrame = dynamic_cast<const UserUrlLinkFrame*>(id3Frame)) != 0) {
+			// Because UserUrlLinkFrame is not known  to the
+			// TagLib frame factory, we have to create a new frame, change it
+			// and then create an UnknownFrame copy using copyId3v2Frame().
+			UserUrlLinkFrame* newWxxxFrame= new UserUrlLinkFrame(wxxxFrame->render());
+			if (newWxxxFrame) {
+				setTagLibFrame(newWxxxFrame, frame);
+				newFrame = copyId3v2Frame(newWxxxFrame);
+				delete newWxxxFrame;
+			}
+		}
+#endif
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+		else if ((wFrame = dynamic_cast<const TagLib::ID3v2::UrlLinkFrame*>(
+								id3Frame)) != 0) {
+			TagLib::ID3v2::UrlLinkFrame* newWFrame;
+			newFrame = copyId3v2Frame(wFrame);
+			if (newFrame &&
+					(newWFrame =
+					 dynamic_cast<TagLib::ID3v2::UrlLinkFrame*>(newFrame)) != 0) {
+				setTagLibFrame(newWFrame, frame);
+			}
+		}
+#else
+		else if ((wFrame = dynamic_cast<const UrlLinkFrame*>(id3Frame)) != 0) {
+			// Because UrlLinkFrame is not known to the
+			// TagLib frame factory, we have to create a new frame, change it
+			// and then create an UnknownFrame copy using copyId3v2Frame().
+			UrlLinkFrame* newWFrame = new UrlLinkFrame(wFrame->render());
+			if (newWFrame) {
+				setTagLibFrame(newWFrame, frame);
+				newFrame = copyId3v2Frame(newWFrame);
+				delete newWFrame;
+			}
+		}
+#endif
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+		else if ((usltFrame =
+							dynamic_cast<const TagLib::ID3v2::UnsynchronizedLyricsFrame*>(
+								id3Frame)) != 0) {
+			TagLib::ID3v2::UnsynchronizedLyricsFrame* newUsltFrame;
+			newFrame = copyId3v2Frame(usltFrame);
+			if (newFrame &&
+					(newUsltFrame =
+					 dynamic_cast<TagLib::ID3v2::UnsynchronizedLyricsFrame*>(newFrame))
+					!= 0) {
+				setTagLibFrame(newUsltFrame, frame);
+			}
+		}
+#else
+		else if ((usltFrame = dynamic_cast<const UnsynchronizedLyricsFrame*>(
+								id3Frame)) != 0) {
+			// Because UnsynchronizedLyricsFrame is not known to the
+			// TagLib frame factory, we have to create a new frame, change it
+			// and then create an UnknownFrame copy using copyId3v2Frame().
+			UnsynchronizedLyricsFrame* newUsltFrame =
+				new UnsynchronizedLyricsFrame(usltFrame->render());
+			if (newUsltFrame) {
+				setTagLibFrame(newUsltFrame, frame);
+				newFrame = copyId3v2Frame(newUsltFrame);
+				delete newUsltFrame;
+			}
+		}
+#endif
+		else {
+			TagLib::ByteVector id(id3Frame->frameID());
+			// create temporary objects for frames not known by TagLib,
+			// an UnknownFrame copy will be created by the edit method.
+#ifndef TAGLIB_SUPPORTS_URLLINK_FRAMES
+			if (id.startsWith("WXXX")) {
+				UserUrlLinkFrame userUrlLinkFrame(id3Frame->render());
+				setTagLibFrame(&userUrlLinkFrame, frame);
+				newFrame = copyId3v2Frame(&userUrlLinkFrame);
+			} else if (id.startsWith("W")) {
+				UrlLinkFrame urlLinkFrame(id3Frame->render());
+				setTagLibFrame(&urlLinkFrame, frame);
+				newFrame = copyId3v2Frame(&urlLinkFrame);
+			} else
+#endif
+#ifndef TAGLIB_SUPPORTS_USLT_FRAMES
+			if (id.startsWith("USLT")) {
+				UnsynchronizedLyricsFrame usltFrame(id3Frame->render());
+				setTagLibFrame(&usltFrame, frame);
+				newFrame = copyId3v2Frame(&usltFrame);
+			} else
+#endif
+			{
+				newFrame = copyId3v2Frame(id3Frame);
+				if (newFrame) {
+					setTagLibFrame(newFrame, frame);
+				}
+			}
+		}
+	}
+	return newFrame;
+}
+
+/**
+ * Set a frame in the tags 2.
+ *
+ * @param frame frame to set, the index can be set by this method
+ *
+ * @return true if ok.
+ */
+bool TagLibFile::setFrameV2(Frame& frame)
+{
+	// If the frame has an index, change that specific frame
+	int index = frame.getIndex();
+	if (index != -1 && m_tagV2) {
+		TagLib::ID3v2::Tag* id3v2Tag;
+		TagLib::Ogg::XiphComment* oggTag;
+		TagLib::APE::Tag* apeTag;
+		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
+			if (index < static_cast<int>(frameList.size())) {
+				TagLib::ID3v2::Frame* oldFrame = frameList[index];
+				TagLib::ID3v2::Frame* newFrame = createId3v2Frame(oldFrame, frame);
+				if (newFrame) {
+					id3v2Tag->removeFrame(oldFrame);
+					id3v2Tag->addFrame(newFrame);
+					return true;
+				}
+			}
+		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+			TagLib::String key = QSTRING_TO_TSTRING(frame.getName().remove(' ').QCM_toUpper());
+			TagLib::String value = QSTRING_TO_TSTRING(frame.getValue());
+#ifdef TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
+			oggTag->addField(key, value, true);
+#else
+			// This will crash because TagLib uses an invalidated iterator
+			// after calling erase(). I hope this will be fixed in the next
+			// version. Until then, remove all fields with that key.
+			oggTag->removeField(key, oldValue);
+			oggTag->addField(key, value, false);
+#endif
+			return true;
+		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+			apeTag->addValue(QSTRING_TO_TSTRING(frame.getName(true)),
+											 QSTRING_TO_TSTRING(frame.getValue()));
+			return true;
+		}
+	}
+
+	// Try the superclass method
+	return TaggedFile::setFrameV2(frame);
+}
+
+/**
+ * Get internal name of an APE frame.
+ *
+ * @param frame frame
+ *
+ * @return APE key.
+ */
+static QString getApeName(const Frame& frame)
+{
+	switch (frame.getType()) {
+		case Frame::FT_Date:
+			return "YEAR";
+		case Frame::FT_Track:
+			return "TRACK";
+		default:
+			return frame.getName().QCM_toUpper();
+	}
+}
+
+/**
+ * Add a frame in the tags 2.
+ *
+ * @param frame frame to add, a field list may be added by this method
+ *
+ * @return true if ok.
+ */
+bool TagLibFile::addFrameV2(Frame& frame)
+{
+	// Add a new frame.
+	if (makeTagV2Settable()) {
+		TagLib::ID3v2::Tag* id3v2Tag;
+		TagLib::Ogg::XiphComment* oggTag;
+		TagLib::APE::Tag* apeTag;
+		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+			QString name = frame.getType() != Frame::FT_Other ?
+				QString(getStringForType(frame.getType())) :
+				frame.getName();
+			QString frameId = name;
+			frameId.truncate(4);
+			TagLib::ID3v2::Frame* id3Frame = 0;
+			if (frameId.startsWith("T")) {
+				if (frameId == "TXXX") {
+					id3Frame = new TagLib::ID3v2::UserTextIdentificationFrame;
+				} else {
+					id3Frame = new TagLib::ID3v2::TextIdentificationFrame(
+						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()),
+						TagLib::String::Latin1);
+					id3Frame->setText(""); // is necessary for createFrame() to work
+				}
+			} else if (frameId == "COMM") {
+				id3Frame = new TagLib::ID3v2::CommentsFrame;
+			} else if (frameId == "APIC") {
+				id3Frame = new TagLib::ID3v2::AttachedPictureFrame;
+			} else if (frameId == "UFID") {
+				// the bytevector must not be empty
+				id3Frame = new TagLib::ID3v2::UniqueFileIdentifierFrame(
+					TagLib::String(), TagLib::ByteVector(" "));
+			}
+#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
+			else if (frameId == "GEOB") {
+				id3Frame = new TagLib::ID3v2::GeneralEncapsulatedObjectFrame;
+			}
+#endif
+			else if (frameId.startsWith("W")) {
+#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
+				if (frameId == "WXXX") {
+					id3Frame = new TagLib::ID3v2::UserUrlLinkFrame;
+				} else {
+					id3Frame = new TagLib::ID3v2::UrlLinkFrame(
+						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()));
+					frame->setText("http://"); // is necessary for createFrame() to work
+				}
+#else
+				if (frameId == "WXXX") {
+					id3Frame = new UserUrlLinkFrame;
+				} else {
+					id3Frame = new UrlLinkFrame(
+						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()));
+					id3Frame->setText("http://"); // is necessary for createFrame() to work
+				}
+#endif
+			} else if (frameId == "USLT") {
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+				id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame;
+#else
+				id3Frame = new UnsynchronizedLyricsFrame;
+#endif
+			}
+			if (id3Frame) {
+				if (!frame.fieldList().empty()) {
+					frame.setValueFromFieldList();
+					TagLib::ID3v2::Frame* newFrame = createId3v2Frame(id3Frame, frame);
+					if (newFrame) {
+						delete id3Frame;
+						id3Frame = newFrame;
+					}
+				}
+				id3v2Tag->addFrame(id3Frame);
+				frame.setInternalName(name);
+				frame.setIndex(id3v2Tag->frameList().size() - 1);
+				if (frame.fieldList().empty()) {
+					// add field list to frame
+					getFieldsFromId3Frame(id3Frame, frame.fieldList());
+					frame.setFieldListFromValue();
+				}
+				return true;
+			}
+		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+			QString name(frame.getName().remove(' ').QCM_toUpper());
+			TagLib::String tname = QSTRING_TO_TSTRING(name);
+			oggTag->addField(tname, QSTRING_TO_TSTRING(frame.getValue()));
+			frame.setInternalName(name);
+
+			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
+			int index = 0;
+			bool found = false;
+			for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
+					 it != fieldListMap.end();
+					 ++it) {
+				if ((*it).first == tname) {
+					index += (*it).second.size() - 1;
+					found = true;
+					break;
+				}
+				++index;
+			}
+			frame.setIndex(found ? index : -1);
+			return true;
+		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+			QString name(getApeName(frame));
+			TagLib::String tname = QSTRING_TO_TSTRING(name);
+			TagLib::String tvalue = QSTRING_TO_TSTRING(frame.getValue());
+			if (tvalue.isEmpty()) {
+				tvalue = " "; // empty values are not added by TagLib
+			}
+			apeTag->addValue(tname, tvalue, true);
+			frame.setInternalName(name);
+
+			const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
+			int index = 0;
+			bool found = false;
+			for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
+					 it != itemListMap.end();
+					 ++it) {
+				if ((*it).first == tname) {
+					found = true;
+					break;
+				}
+				++index;
+			}
+			frame.setIndex(found ? index : -1);
+			return true;
+		}
+	}
+
+	// Try the superclass method
+	return TaggedFile::addFrameV2(frame);
+}
+
+/**
+ * Delete a frame in the tags 2.
+ *
+ * @param frame frame to delete.
+ *
+ * @return true if ok.
+ */
+bool TagLibFile::deleteFrameV2(const Frame& frame)
+{
+	// If the frame has an index, delete that specific frame
+	int index = frame.getIndex();
+	if (index != -1 && m_tagV2) {
+		TagLib::ID3v2::Tag* id3v2Tag;
+		TagLib::Ogg::XiphComment* oggTag;
+		TagLib::APE::Tag* apeTag;
+		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
+			if (index < static_cast<int>(frameList.size())) {
+				id3v2Tag->removeFrame(frameList[index]);
+				return true;
+			}
+		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+			TagLib::String key =
+				QSTRING_TO_TSTRING(frame.getName().remove(' ').QCM_toUpper());
+#ifdef TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
+			oggTag->removeField(key);
+#else
+			// This will crash because TagLib uses an invalidated iterator
+			// after calling erase(). I hope this will be fixed in the next
+			// version. Until then, remove all fields with that key.
+			oggTag->removeField(key, QSTRING_TO_TSTRING(frame.getValue()));
+#endif
+			return true;
+		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+			TagLib::String key = QSTRING_TO_TSTRING(frame.getName(true));
+			apeTag->removeItem(key);
+			return true;
+		}
+	}
+
+	// Try the superclass method
+	return TaggedFile::deleteFrameV2(frame);
+}
+
+/**
+ * Get all frames in tag 2.
+ *
+ * @return frame collection.
+ */
+FrameCollection TagLibFile::getAllFramesV2()
+{
+	FrameCollection frames;
+	if (m_tagV2) {
+		TagLib::ID3v2::Tag* id3v2Tag;
+		TagLib::Ogg::XiphComment* oggTag;
+		TagLib::APE::Tag* apeTag;
+		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
+			int i = 0;
+			Frame::Type type;
+			const char* name;
+			for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
+					 it != frameList.end();
+					 ++it) {
+				getTypeStringForFrameId((*it)->frameID(), type, name);
+				Frame frame(type, TStringToQString((*it)->toString()), name, i++);
+				frame.setValue(getFieldsFromId3Frame(*it, frame.fieldList()));
+				frames.push_back(frame);
+			}
+		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
+			int i = 0;
+			for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
+					 it != fieldListMap.end();
+					 ++it) {
+				QString name = TStringToQString((*it).first);
+				Frame::Type type = Frame::getTypeFromName(name);
+				TagLib::StringList stringList = (*it).second;
+				for (TagLib::StringList::ConstIterator slit = stringList.begin();
+						 slit != stringList.end();
+						 ++slit) {
+					frames.push_back(Frame(type, TStringToQString(TagLib::String(*slit)),
+																 name, i++));
+				}
+			}
+		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+			const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
+			int i = 0;
+			for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
+					 it != itemListMap.end();
+					 ++it) {
+				QString name = TStringToQString((*it).first);
+				TagLib::StringList values = (*it).second.toStringList();
+				Frame::Type type = Frame::getTypeFromName(name);
+				if (type == Frame::FT_Other) {
+					if (name == "YEAR") {
+						type = Frame::FT_Date;
+					} else if (name == "TRACK") {
+						type = Frame::FT_Track;
+					}
+				}
+				frames.push_back(
+					Frame(type, values.size() > 0 ? TStringToQString(values.front()) : "",
+								name, i++));
+			}
+		}
+	}
+	return frames;
+}
+
+/**
+ * Get a list of frame IDs which can be added.
+ *
+ * @return list with frame IDs.
+ */
+QStringList TagLibFile::getFrameIds() const
+{
+	QStringList lst(TaggedFile::getFrameIds());
+	TagLib::ID3v2::Tag* id3v2Tag;
+	if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+		for (unsigned i = 0; i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]); ++i) {
+			const TypeStrOfId& ts = typeStrOfId[i];
+			if (ts.type == Frame::FT_Other && ts.supported && ts.str) {
+				lst.append(ts.str);
+			}
+		}
+	} else {
+		static const char* const fieldNames[] = {
+			"ALBUMARTIST",
+			"CATALOGNUMBER",
+			"CONTACT",
+			"DESCRIPTION",
+			"EAN/UPN",
+			"ENCODING",
+			"ENGINEER",
+			"ENSEMBLE",
+			"GUEST ARTIST",
+			"LABEL",
+			"LABELNO",
+			"LICENSE",
+			"LOCATION",
+			"OPUS",
+			"ORGANIZATION",
+			"PARTNUMBER",
+			"PRODUCER",
+			"PRODUCTNUMBER",
+			"RECORDINGDATE",
+			"RELEASE DATE",
+			"REMIXER",
+			"SOURCE ARTIST",
+			"SOURCE MEDIUM",
+			"SOURCE WORK",
+			"SOURCEMEDIA",
+			"SPARS",
+			"TRACKTOTAL",
+			"VERSION",
+			"VOLUME"
+		};
+		for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
+			lst.append(fieldNames[i]);
+		}
+	}
+	return lst;
 }
 
 #endif // HAVE_TAGLIB

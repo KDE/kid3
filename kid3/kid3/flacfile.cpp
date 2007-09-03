@@ -12,7 +12,6 @@
 
 #include "standardtags.h"
 #include "genres.h"
-#include "flacframelist.h"
 #include "dirinfo.h"
 #include <FLAC++/metadata.h>
 #include <qfile.h>
@@ -281,22 +280,6 @@ unsigned FlacFile::getDuration() const
 	return 0;
 }
 
-/** Frame list for Flac files. */
-FlacFrameList* FlacFile::s_flacFrameList = 0;
-
-/**
- * Get frame list for this type of tagged file.
- *
- * @return frame list.
- */
-FrameList* FlacFile::getFrameList() const
-{
-	if (!s_flacFrameList) {
-		s_flacFrameList = new FlacFrameList();
-	}
-	return s_flacFrameList;
-}
-
 /**
  * Get file extension including the dot.
  *
@@ -305,15 +288,6 @@ FrameList* FlacFile::getFrameList() const
 QString FlacFile::getFileExtension() const
 {
 	return ".flac";
-}
-
-/**
- * Clean up static resources.
- */
-void FlacFile::staticCleanup()
-{
-	delete s_flacFrameList;
-	s_flacFrameList = 0;
 }
 
 

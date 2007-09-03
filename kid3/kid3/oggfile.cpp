@@ -11,8 +11,6 @@
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
 #include "standardtags.h"
-#include "genres.h"
-#include "oggframelist.h"
 #include "dirinfo.h"
 #include <qfile.h>
 #include <qdir.h>
@@ -524,30 +522,142 @@ QString OggFile::getTagFormatV2() const
 	return hasTagV2() ? QString("Vorbis") : QString::null;
 }
 
-/** Frame list for Ogg files. */
-OggFrameList* OggFile::s_oggFrameList = 0;
-
 /**
- * Get frame list for this type of tagged file.
+ * Set a frame in the tags 2.
  *
- * @return frame list.
+ * @param frame frame to set, the index can be set by this method
+ *
+ * @return true if ok.
  */
-FrameList* OggFile::getFrameList() const
+bool OggFile::setFrameV2(Frame& frame)
 {
-	if (!s_oggFrameList) {
-		s_oggFrameList = new OggFrameList();
+	// If the frame has an index, change that specific frame
+	int index = frame.getIndex();
+	if (index != -1 && index < static_cast<int>(m_comments.size())) {
+#if QT_VERSION >= 0x040000
+		m_comments[index].setValue(frame.getValue());
+		return true;
+#else
+		CommentList::iterator it = m_comments.at(index);
+		if (it != m_comments.end()) {
+			(*it).setValue(frame.getValue());
+			return true;
+		}
+#endif
 	}
-	return s_oggFrameList;
+
+	// Try the superclass method
+	return TaggedFile::setFrameV2(frame);
 }
 
 /**
- * Clean up static resources.
+ * Add a frame in the tags 2.
+ *
+ * @param frame frame to add
+ *
+ * @return true if ok.
  */
-void OggFile::staticCleanup()
+bool OggFile::addFrameV2(Frame& frame)
 {
-	delete s_oggFrameList;
-	s_oggFrameList = 0;
+	// Add a new frame.
+	QString name(frame.getName().remove(' ').QCM_toUpper());
+	m_comments.push_back(OggFile::CommentField(name, frame.getValue()));
+	frame.setInternalName(name);
+	frame.setIndex(m_comments.size() - 1);
+	return true;
 }
+
+/**
+ * Delete a frame in the tags 2.
+ *
+ * @param frame frame to delete.
+ *
+ * @return true if ok.
+ */
+bool OggFile::deleteFrameV2(const Frame& frame)
+{
+	// If the frame has an index, delete that specific frame
+	int index = frame.getIndex();
+	if (index != -1 && index < static_cast<int>(m_comments.size())) {
+#if QT_VERSION >= 0x040000
+		m_comments.removeAt(index);
+#else
+		OggFile::CommentList::iterator it = m_comments.at(index);
+		m_comments.erase(it);
+#endif
+		return true;
+	}
+
+	// Try the superclass method
+	return TaggedFile::deleteFrameV2(frame);
+}
+
+/**
+ * Get all frames in tag 2.
+ *
+ * @return frame collection.
+ */
+FrameCollection OggFile::getAllFramesV2()
+{
+	FrameCollection frames;
+	QString name;
+	int i = 0;
+	for (OggFile::CommentList::const_iterator it = m_comments.begin();
+			 it != m_comments.end();
+			 ++it) {
+		name = (*it).getName();
+		Frame::Type type = Frame::getTypeFromName(name);
+		frames.push_back(Frame(type, (*it).getValue(), name, i++));
+	}
+	return frames;
+}
+
+/**
+ * Get a list of frame IDs which can be added.
+ *
+ * @return list with frame IDs.
+ */
+QStringList OggFile::getFrameIds() const
+{
+	static const char* const fieldNames[] = {
+		"ALBUMARTIST",
+		"CATALOGNUMBER",
+		"CONTACT",
+		"DESCRIPTION",
+		"EAN/UPN",
+		"ENCODING",
+		"ENGINEER",
+		"ENSEMBLE",
+		"GUEST ARTIST",
+		"LABEL",
+		"LABELNO",
+		"LICENSE",
+		"LOCATION",
+		"OPUS",
+		"ORGANIZATION",
+		"PARTNUMBER",
+		"PRODUCER",
+		"PRODUCTNUMBER",
+		"RECORDINGDATE",
+		"RELEASE DATE",
+		"REMIXER",
+		"SOURCE ARTIST",
+		"SOURCE MEDIUM",
+		"SOURCE WORK",
+		"SOURCEMEDIA",
+		"SPARS",
+		"TRACKTOTAL",
+		"VERSION",
+		"VOLUME"
+	};
+
+	QStringList lst(TaggedFile::getFrameIds());
+	for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
+		lst.append(fieldNames[i]);
+	}
+	return lst;
+}
+
 
 
 /**
@@ -591,8 +701,6 @@ bool OggFile::FileInfo::read(const char* fn)
 #else // HAVE_VORBIS
 QString OggFile::getDetailInfo() const { return ""; }
 unsigned OggFile::getDuration() const { return 0; }
-FrameList* OggFile::getFrameList() const { return 0; }
-void OggFile::staticCleanup() {}
 #endif // HAVE_VORBIS
 
 /**

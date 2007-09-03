@@ -387,6 +387,7 @@ Id3Form::Id3Form(QWidget* parent)
 	m_framesListBox = new QListBox(m_idV2GroupBox);
 #endif
 	idV2GroupBoxLayout->addWidget(m_framesListBox, 6, 1);
+	m_framelist = new FrameList(m_framesListBox);
 
 	QVBoxLayout* frameButtonLayout = new QVBoxLayout;
 	frameButtonLayout->setSpacing(spacing);
@@ -525,6 +526,14 @@ Id3Form::Id3Form(QWidget* parent)
 	connect(m_artistV2LineEdit, SIGNAL(returnPressed()), m_albumV2LineEdit, SLOT(setFocus()));
 	connect(m_albumV2LineEdit, SIGNAL(returnPressed()), m_commentV2LineEdit, SLOT(setFocus()));
 	connect(m_commentV2LineEdit, SIGNAL(returnPressed()), m_yearV2SpinBox, SLOT(setFocus()));
+}
+
+/**
+ * Destructor.
+ */
+Id3Form::~Id3Form()
+{
+	delete m_framelist;
 }
 
 /**
@@ -1237,8 +1246,6 @@ void Id3Form::initView()
 		strList += *sl;
 	}
 	m_formatComboBox->QCM_addItems(strList);
-
-	FrameList::setListBox(m_framesListBox);
 }
 
 /**

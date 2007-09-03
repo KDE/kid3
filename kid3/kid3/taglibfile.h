@@ -37,7 +37,6 @@
 #define QSTRING_TO_TSTRING(s) TagLib::String(s.utf8().data(), TagLib::String::UTF8)
 #endif
 
-class TagLibFrameList;
 
 /** List box item containing tagged file. */
 class TagLibFile : public TaggedFile {
@@ -362,13 +361,6 @@ public:
 	virtual unsigned getDuration() const;
 
 	/**
-	 * Get frame list for this type of tagged file.
-	 *
-	 * @return frame list.
-	 */
-	virtual FrameList* getFrameList() const;
-
-	/**
 	 * Get file extension including the dot.
 	 *
 	 * @return file extension ".mp3".
@@ -394,11 +386,45 @@ public:
 	virtual QString getTagFormatV2() const;
 
 	/**
-	 * Clean up static resources.
+	 * Set a frame in the tags 2.
+	 *
+	 * @param frame frame to set, the index can be set by this method
+	 *
+	 * @return true if ok.
 	 */
-	static void staticCleanup();
+	virtual bool setFrameV2(Frame& frame);
 
-	friend class TagLibFrameList;
+	/**
+	 * Add a frame in the tags 2.
+	 *
+	 * @param frame frame to add, a field list may be added by this method
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool addFrameV2(Frame& frame);
+
+	/**
+	 * Delete a frame in the tags 2.
+	 *
+	 * @param frame frame to delete.
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool deleteFrameV2(const Frame& frame);
+
+	/**
+	 * Get all frames in tag 2.
+	 *
+	 * @return frame collection.
+	 */
+	virtual FrameCollection getAllFramesV2();
+
+	/**
+	 * Get a list of frame IDs which can be added.
+	 *
+	 * @return list with frame IDs.
+	 */
+	virtual QStringList getFrameIds() const;
 
 private:
 	TagLibFile(const TagLibFile&);
@@ -422,9 +448,6 @@ private:
 	TagLib::Tag* m_tagV1;      /**< ID3v1 tags */
 	TagLib::Tag* m_tagV2;      /**< ID3v2 tags */
 	bool m_fileRead;           /**< true if file has been read */
-
-	/** Frame list for MP3 files. */
-	static TagLibFrameList* s_tagLibFrameList;
 };
 
 #endif // HAVE_TAGLIB

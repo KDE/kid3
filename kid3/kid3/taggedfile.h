@@ -12,8 +12,8 @@
 
 #include <qstring.h>
 #include "standardtags.h"
+#include "frame.h"
 
-class FrameList;
 class DirInfo;
 
 /** Base class for tagged files. */
@@ -367,13 +367,6 @@ public:
 	virtual unsigned getDuration() const = 0;
 
 	/**
-	 * Get frame list for this type of tagged file.
-	 *
-	 * @return frame list.
-	 */
-	virtual FrameList* getFrameList() const = 0;
-
-	/**
 	 * Get file extension including the dot.
 	 *
 	 * @return file extension, e.g. ".mp3".
@@ -397,6 +390,83 @@ public:
 	 *         QString::null if unknown.
 	 */
 	virtual QString getTagFormatV2() const;
+
+	/**
+	 * Get a specific frame from the tags 1.
+	 *
+	 * @param type  frame type
+	 * @param frame the frame is returned here
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool getFrameV1(Frame::Type type, Frame& frame);
+
+	/**
+	 * Set a frame in the tags 1.
+	 *
+	 * @param frame frame to set.
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool setFrameV1(const Frame& frame);
+
+	/**
+	 * Get a specific frame from the tags 2.
+	 *
+	 * @param type  frame type
+	 * @param frame the frame is returned here
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool getFrameV2(Frame::Type type, Frame& frame);
+
+	/**
+	 * Set a frame in the tags 2.
+	 *
+	 * @param frame frame to set, the index can be set by this method
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool setFrameV2(Frame& frame);
+
+	/**
+	 * Add a frame in the tags 2.
+	 *
+	 * @param frame frame to add, a field list may be added by this method
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool addFrameV2(Frame& frame);
+
+	/**
+	 * Delete a frame in the tags 2.
+	 *
+	 * @param frame frame to delete.
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool deleteFrameV2(const Frame& frame);
+
+	/**
+	 * Get all frames in tag 1.
+	 *
+	 * @return frame collection.
+	 */
+	virtual FrameCollection getAllFramesV1();
+
+	/**
+	 * Get all frames in tag 2.
+	 *
+	 * @return frame collection.
+	 */
+	virtual FrameCollection getAllFramesV2();
+
+	/**
+	 * Get a list of frame IDs which can be added.
+	 *
+	 * @return list with frame IDs.
+	 */
+	virtual QStringList getFrameIds() const;
 
 	/**
 	 * Get ID3v1 tags from file.

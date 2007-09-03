@@ -71,7 +71,7 @@ public:
 	 * Open directory.
 	 *
 	 * @param dir     directory or file path
- 	 * @param confirm if true ask if there are unsaved changes
+	 * @param confirm if true ask if there are unsaved changes
 	 */
 	void openDirectory(QString dir, bool confirm = false);
 
@@ -518,16 +518,12 @@ private:
 	void updateAfterFrameModification(TaggedFile* taggedFile);
 
 	/**
-	 * Get the selected file together with its frame list.
-	 * If multiple files are selected, 0 is returned for both parameters.
+	 * Get the selected file.
 	 *
-	 * @param taggedFile the file is returned here,
-	 *                   0 if not exactly one file is selected
-	 * @param framelist  the frame list is returned here,
-	 *                   0 if not exactly one file is selected
+	 * @return the selected file,
+	 *         0 if not exactly one file is selected
 	 */
-	void getSelectedFileWithFrameList(
-		TaggedFile*& taggedFile, FrameList*& framelist);
+	TaggedFile* getSelectedFile();
 	
 	/**
 	 * Format a filename if format while editing is switched on.
@@ -579,6 +575,8 @@ private:
 	ExportDialog* m_exportDialog;
 	/** Number tracks dialog */
 	NumberTracksDialog* m_numberTracksDialog;
+	/** Frame list */
+	FrameList* m_framelist;
 
 #ifdef CONFIG_USE_KDE
 	/** the configuration object of the application */

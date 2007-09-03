@@ -21,7 +21,6 @@
 #include <qvaluelist.h>
 #endif
 
-class OggFrameList;
 
  /** List box item containing OGG file */
 class OggFile : public TaggedFile {
@@ -212,13 +211,6 @@ public:
 	virtual unsigned getDuration() const;
 
 	/**
-	 * Get frame list for this type of tagged file.
-	 *
-	 * @return frame list.
-	 */
-	virtual FrameList* getFrameList() const;
-
-	/**
 	 * Get file extension including the dot.
 	 *
 	 * @return file extension ".ogg".
@@ -233,11 +225,45 @@ public:
 	virtual QString getTagFormatV2() const;
 
 	/**
-	 * Clean up static resources.
+	 * Set a frame in the tags 2.
+	 *
+	 * @param frame frame to set, the index can be set by this method
+	 *
+	 * @return true if ok.
 	 */
-	static void staticCleanup();
+	virtual bool setFrameV2(Frame& frame);
 
-	friend class OggFrameList;
+	/**
+	 * Add a frame in the tags 2.
+	 *
+	 * @param frame frame to add
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool addFrameV2(Frame& frame);
+
+	/**
+	 * Delete a frame in the tags 2.
+	 *
+	 * @param frame frame to delete.
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool deleteFrameV2(const Frame& frame);
+
+	/**
+	 * Get all frames in tag 2.
+	 *
+	 * @return frame collection.
+	 */
+	virtual FrameCollection getAllFramesV2();
+
+	/**
+	 * Get a list of frame IDs which can be added.
+	 *
+	 * @return list with frame IDs.
+	 */
+	virtual QStringList getFrameIds() const;
 
 protected:
 	/** Vorbis comment field. */
@@ -348,9 +374,6 @@ private:
 
 	/** Info about file. */
 	FileInfo m_fileInfo;
-
-	/** Frame list for Ogg files. */
-	static OggFrameList* s_oggFrameList;
 #endif // HAVE_VORBIS
 };
 
