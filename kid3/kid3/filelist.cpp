@@ -332,14 +332,14 @@ void FileList::selectNextFile()
 	if (item && (item = *(++QTreeWidgetItemIterator(item))) != 0) {
 		clearSelection();
 		setCurrentItem(item);
-		setItemSelected(item, true);		
+		setItemSelected(item, true);
 	}
 #else
 	QListViewItem* item = currentItem();
 	if (item && (item = item->itemBelow()) != 0) {
 		clearSelection();
 		setCurrentItem(item);
-		setSelected(item, true);		
+		setSelected(item, true);
 	}
 #endif
 }
@@ -354,14 +354,14 @@ void FileList::selectPreviousFile()
 	if (item && (item = *(--QTreeWidgetItemIterator(item))) != 0) {
 		clearSelection();
 		setCurrentItem(item);
-		setItemSelected(item, true);		
+		setItemSelected(item, true);
 	}
 #else
 	QListViewItem* item = currentItem();
 	if (item && (item = item->itemAbove()) != 0) {
 		clearSelection();
 		setCurrentItem(item);
-		setSelected(item, true);		
+		setSelected(item, true);
 	}
 #endif
 }
@@ -837,7 +837,7 @@ void FileList::deleteFile()
 					this,
 #if KDE_VERSION >= 0x035c00
 					i18np("Do you really want to delete this item?",
-								"Do you really want to delete these %n items?", numFiles),
+								"Do you really want to delete these %1 items?", numFiles),
 					files,
 					i18n("Delete Files"),
 					KStandardGuiItem::del(), KStandardGuiItem::cancel(), QString(),
@@ -906,7 +906,7 @@ void FileList::deleteFile()
 					0,
 #if KDE_VERSION >= 0x035c00
 					i18np("Error while deleting this item:",
-								"Error while deleting these %n items:", files.size()),
+								"Error while deleting these %1 items:", files.size()),
 #else
 					i18n("Error while deleting this item:",
 							 "Error while deleting these %n items:", files.size()),
