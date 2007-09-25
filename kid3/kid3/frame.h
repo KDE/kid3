@@ -17,6 +17,7 @@
 #else
 #include <qvaluelist.h>
 #endif
+#include <set>
 
 /** Generalized frame. */
 class Frame {
@@ -114,6 +115,16 @@ public:
 	~Frame();
 
 	/**
+	 * Less than operator.
+	 * Needed for sorting in multiset.
+	 * @param rhs right hand side to compare
+	 * @return true if this < rhs.
+	 */
+	bool operator<(const Frame& rhs) const {
+		return m_type < rhs.m_type || (m_type == FT_Other && m_type == rhs.m_type && m_name < rhs.m_name);
+	}
+
+	/**
 	 * Get type of frame.
 	 * @return type.
 	 */
@@ -156,7 +167,7 @@ public:
 	 * Set value as string.
 	 * @param value value as string
 	 */
-	void setValue(const QString& value);
+	void setValue(const QString& value) { m_value = value; }
 
 	/**
 	 * Check if value is empty.
@@ -171,28 +182,21 @@ public:
 	bool isInactive() const { return m_value.isNull(); }
 
 	/**
-	 * Check if frame is enabled.
-	 * @return true if enabled.
+	 * Set frame inactive.
 	 */
-	bool isEnabled() const { return m_enabled; }
+	void setInactive() { m_value = QString::null; }
 
 	/**
-	 * Enable or diable the frame.
-	 * @param en true to enable.
+	 * Check if value is changed.
+	 * @return true if changed.
 	 */
-	void setEnabled(bool enabled = true) { m_enabled = enabled; }
+	bool isValueChanged() const { return m_valueChanged; }
 
 	/**
-	 * Check if frame is truncated.
-	 * @return true if truncated.
+	 * Mark the value as changed.
+	 * @param changed true to mark as changed
 	 */
-	bool isTruncated() const { return m_truncated; }
-
-	/**
-	 * Set truncation status of frame.
-	 * @param truncated true if truncated.
-	 */
-	void setTruncated(bool truncated) { m_truncated = truncated; }
+	void setValueChanged(bool changed = true) { m_valueChanged = changed; }
 
 	/**
 	 * Set the value from a field in the field list.
@@ -244,21 +248,107 @@ private:
 	friend class TaggedFile;
 	Type m_type;
 	int m_index;
-	bool m_enabled;
-	bool m_truncated;
-	bool m_number;
-	bool m_maxValue255;
-	bool m_maxLength28;
-	bool m_maxLength30;
+	bool m_valueChanged;
 	QString m_value;
 	QString m_name;
 	FieldList m_fieldList;
 };
 
-#if QT_VERSION >= 0x040000
-typedef QList<Frame> FrameCollection;
-#else
-typedef QValueList<Frame> FrameCollection;
-#endif
+/** Filter to enable a subset of frame types. */
+class FrameFilter {
+public:
+	/**
+	 * Constructor.
+	 * All frames are disabled
+	 */
+	FrameFilter() : m_enabledFrames(0) {}
+
+	/**
+	 * Destructor.
+	 */
+	~FrameFilter() {}
+
+	/**
+	 * If all frames are disabled enable all.
+	 */
+	void allDisabledToAllEnabled() { if (m_enabledFrames == 0) enableAll(); }
+
+	/**
+	 * enable all frames.
+	 */
+	void enableAll() { m_enabledFrames = FTM_AllFrames; }
+
+  /**
+   * Check if all fields are true.
+   *
+   * @return true if all fields are true.
+   */
+  bool areAllEnabled() const {
+		return (m_enabledFrames & FTM_AllFrames) == FTM_AllFrames;
+	}
+
+	/**
+	 * Check if frame is enabled.
+	 * @param type frame type
+	 * @return true if frame is enabled.
+	 */
+	bool isEnabled(Frame::Type type) {
+		return type > Frame::FT_LastFrame || (m_enabledFrames & (1 << type)) != 0;
+	}
+
+	/**
+	 * Enable or disable frame.
+	 * @param type frame type
+	 * @param en true to enable
+	 */
+	void enable(Frame::Type type, bool en = true) {
+		if (type <= Frame::FT_LastFrame) {
+			if (en) {
+				m_enabledFrames |= (1 << type);
+			} else {
+				m_enabledFrames &= ~(1 << type);
+			}
+		}
+	}
+
+private:
+	enum { FTM_AllFrames = (1 << (Frame::FT_LastFrame + 1)) - 1 };
+	unsigned long m_enabledFrames;
+};
+
+/** Collection of frames. */
+class FrameCollection : public std::multiset<Frame> {
+public:
+	/**
+	 * Constructor.
+	 */
+	FrameCollection() {}
+
+	/**
+	 * Destructor.
+	 */
+	~FrameCollection() {}
+
+	/**
+	 * Set values which are different inactive.
+	 *
+	 * @param others frames to compare
+	 */
+	void filterDifferent(const FrameCollection& others);
+
+	/**
+	 * Add standard frames which are missing.
+	 */
+	void addMissingStandardFrames();
+
+	/**
+	 * Copy enabled frames.
+	 *
+	 * @param flt filter with enabled frames
+	 * 
+	 * @return copy with enabled frames.
+	 */
+	FrameCollection copyEnabledFrames(FrameFilter flt) const;
+};
 
 #endif // FRAME_H

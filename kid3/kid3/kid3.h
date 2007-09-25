@@ -40,6 +40,7 @@ typedef QMainWindow Kid3AppBaseClass;
 #include "freedbconfig.h"
 #include "discogsconfig.h"
 #include "musicbrainzconfig.h"
+#include "frame.h"
 
 class KURL;
 class KUrl;
@@ -89,18 +90,14 @@ public:
 	void updateCurrentSelection();
 
 	/**
-	 * Copy a set of standard tags into copy buffer.
-	 *
-	 * @param st tags to copy
+	 * Copy tags 1 into copy buffer.
 	 */
-	void copyTags(const StandardTags* st);
+	void copyTagsV1();
 
 	/**
-	 * Paste from copy buffer to standard tags.
-	 *
-	 * @param st tags to fill from data in copy buffer.
+	 * Copy tags 2 into copy buffer.
 	 */
-	void pasteTags(StandardTags* st);
+	void copyTagsV2();
 
 	/**
 	 * Paste from copy buffer to ID3v1 tags.
@@ -540,6 +537,13 @@ private:
 	void formatStandardTagsIfEnabled(StandardTags* st) const;
 
 	/**
+	 * Format frames if format while editing is switched on.
+	 *
+	 * @param frames frames
+	 */
+	void formatFramesIfEnabled(FrameCollection& frames) const;
+
+	/**
 	 * Update track data and create import dialog.
 	 */
 	void setupImportDialog();
@@ -566,7 +570,7 @@ private:
 	/** true if any file was modified */
 	bool m_modified;
 	/** Copy buffer */
-	StandardTags* m_copyTags;
+	FrameCollection m_copyTags;
 	/** Import dialog */
 	ImportDialog* m_importDialog;
 	/** Track data list */

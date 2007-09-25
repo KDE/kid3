@@ -22,13 +22,16 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QPaintEvent>
+#include <QTextCursor>
 #else
 #include <qlistbox.h>
 #include <qlayout.h>
+#include <qptrlist.h>
 #endif
 
 #include "taggedfile.h"
 #include "framelist.h"
+#include "frametable.h"
 #include "kid3.h"
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
@@ -459,10 +462,8 @@ public:
 /** List of field control pointers. */
 #if QT_VERSION >= 0x040000
 typedef QList<FieldControl*> FieldControlList;
-typedef QListWidgetItem FrameListItemBase;
 #else
 typedef QPtrList<FieldControl> FieldControlList;
-typedef QListBoxText FrameListItemBase;
 #endif
 
 
@@ -1170,35 +1171,11 @@ const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
 
 /**
  * Constructor.
- * @param listbox listbox
- * @param text    text
- * @param frame   frame
- */
-#if QT_VERSION >= 0x040000
-FrameListItem::FrameListItem(QListWidget* listbox, const QString& text, const Frame& frame) :
-	QListWidgetItem(text, listbox), m_frame(frame) {}
-#else
-FrameListItem::FrameListItem(QListBox* listbox, const QString& text, const Frame& frame) :
-	QListBoxText(listbox, text), m_frame(frame) {}
-#endif
-
-/**
- * Destructor.
- */
-FrameListItem::~FrameListItem() {}
-
-
-/**
- * Constructor.
  *
- * @param lb list box.
+ * @param ft frame table
  */
-#if QT_VERSION >= 0x040000
-FrameList::FrameList(QListWidget* lb)
-#else
-FrameList::FrameList(QListBox* lb)
-#endif
-: m_file(0), m_listbox(lb)
+FrameList::FrameList(FrameTable* ft) :
+	m_file(0), m_frameTable(ft)
 {
 }
 
@@ -1212,7 +1189,8 @@ FrameList::~FrameList() {}
  */
 void FrameList::clear()
 {
-	m_listbox->clear();
+	m_frameTable->frames().clear();
+	m_frameTable->framesToTable();
 	m_file = 0;
 }
 
@@ -1231,33 +1209,9 @@ TaggedFile* FrameList::getFile() const
  */
 void FrameList::reloadTags()
 {
-#if QT_VERSION >= 0x040000
-	int selectedRow = m_listbox->currentRow();
-	int topRow = m_listbox->row(m_listbox->itemAt(0, 0));
+	m_frameTable->saveCursor();
 	setTags(m_file);
-	if (topRow >= 0 && topRow < static_cast<int>(m_listbox->count())) {
-		m_listbox->scrollToItem(m_listbox->item(topRow), QAbstractItemView::PositionAtTop);
-	}
-	if (selectedRow >= 0 && selectedRow < static_cast<int>(m_listbox->count())) {
-		m_listbox->setCurrentRow(selectedRow);
-	}
-#else
-	int selectedRow = -1;
-	int topRow = m_listbox->topItem();
-	for (int i = 0; i < static_cast<int>(m_listbox->count()); ++i) {
-		if (m_listbox->isSelected(i)) {
-			selectedRow = i;
-			break;
-		}
-	}
-	setTags(m_file);
-	if (topRow >= 0 && topRow < static_cast<int>(m_listbox->count())) {
-		m_listbox->setTopItem(topRow);
-	}
-	if (selectedRow >= 0 && selectedRow < static_cast<int>(m_listbox->count())) {
-		m_listbox->setSelected(selectedRow, true);
-	}
-#endif
+	m_frameTable->restoreCursor();
 }
 
 /**
@@ -1268,19 +1222,8 @@ void FrameList::reloadTags()
  */
 int FrameList::getSelectedId() const
 {
-#if QT_VERSION >= 0x040000
-	FrameListItem* fli;
-	QList<QListWidgetItem*> items = m_listbox->selectedItems();
-	return
-		!items.empty() &&
-		(fli = dynamic_cast<FrameListItem*>(items.front())) != 0 ? fli->getFrame().getIndex() : -1;
-#else
-	QListBoxItem* lbi;
-	FrameListItem* fli;
-	return
-		(lbi = m_listbox->selectedItem()) != 0 &&
-		(fli = dynamic_cast<FrameListItem*>(lbi)) != 0 ? fli->getFrame().getIndex() : -1;
-#endif
+	const Frame* currentFrame = m_frameTable->getCurrentFrame();
+	return currentFrame ? currentFrame->getIndex() : -1;
 }
 
 /**
@@ -1292,18 +1235,9 @@ int FrameList::getSelectedId() const
  */
 bool FrameList::getSelectedFrame(Frame& frame) const
 {
-	FrameListItem* fli;
-#if QT_VERSION >= 0x040000
-	QList<QListWidgetItem*> items = m_listbox->selectedItems();
-	if (!items.empty() &&
-			(fli = dynamic_cast<FrameListItem*>(items.front())) != 0)
-#else
-	QListBoxItem* lbi;
-	if ((lbi = m_listbox->selectedItem()) != 0 &&
-			(fli = dynamic_cast<FrameListItem*>(lbi)) != 0)
-#endif
-	{
-		frame = fli->getFrame();
+	const Frame* currentFrame = m_frameTable->getCurrentFrame();
+	if (currentFrame) {
+		frame = *currentFrame;
 		return true;
 	}
 	return false;
@@ -1316,25 +1250,7 @@ bool FrameList::getSelectedFrame(Frame& frame) const
  */
 void FrameList::setSelectedId(int id)
 {
-#if QT_VERSION >= 0x040000
-	for (int i = 0; i < m_listbox->count(); ++i) {
-		FrameListItem* fli = dynamic_cast<FrameListItem*>(m_listbox->item(i));
-		if (fli && fli->getFrame().getIndex() == id) {
-			m_listbox->setCurrentRow(i);
-			break;
-		}
-	}
-#else
-	QListBoxItem* lbi = m_listbox->firstItem();
-	while (lbi) {
-		FrameListItem* fli = dynamic_cast<FrameListItem*>(lbi);
-		if (fli && fli->getFrame().getIndex() == id) {
-			m_listbox->setSelected(lbi, true);
-			break;
-		}
-		lbi = lbi->next();
-	}
-#endif
+	m_frameTable->selectFrameWithIndex(id);
 }
 
 /**
@@ -1344,16 +1260,8 @@ void FrameList::setSelectedId(int id)
  */
 QString FrameList::getSelectedName() const
 {
-#if QT_VERSION >= 0x040000
-	QListWidgetItem* item;
-	if (m_listbox &&
-			(item = m_listbox->currentItem()) != 0) {
-		return item->text();
-	}
-	return QString::null;
-#else
-	return m_listbox ? m_listbox->currentText() : QString::null;
-#endif
+	const Frame* currentFrame = m_frameTable->getCurrentFrame();
+	return currentFrame ? currentFrame->getName() : QString::null;
 }
 
 /**
@@ -1365,23 +1273,7 @@ QString FrameList::getSelectedName() const
  */
 bool FrameList::selectByName(const QString& name)
 {
-	if (m_listbox) {
-#if QT_VERSION >= 0x040000
-		QList<QListWidgetItem*> items =
-			m_listbox->findItems(name, Qt::MatchStartsWith);
-		if (!items.empty()) {
-			m_listbox->setCurrentItem(items.front());
-			return true;
-		}
-#else
-		QListBoxItem* lbi = m_listbox->findItem(name);
-		if (lbi) {
-			m_listbox->setSelected(lbi, true);
-			return true;
-		}
-#endif
-	}
-	return false;
+	return m_frameTable->selectFrameWithName(name);
 }
 
 /**
@@ -1389,8 +1281,9 @@ bool FrameList::selectByName(const QString& name)
  */
 void FrameList::clearListBox()
 {
-	if (m_listbox) {
-		m_listbox->clear();
+	if (m_frameTable) {
+		m_frameTable->frames().clear();
+		m_frameTable->framesToTable();
 	}
 }
 
@@ -1401,27 +1294,9 @@ void FrameList::clearListBox()
  */
 void FrameList::readTags()
 {
-	m_listbox->clear();
 	if (m_file) {
-		FrameCollection frames = m_file->getAllFramesV2();
-		for (FrameCollection::const_iterator it = frames.begin();
-				 it != frames.end();
-				 ++it) {
-			QString name((*it).getName());
-			if (!name.isEmpty()) {
-#if QT_VERSION >= 0x040000
-				name = i18n(name.toLatin1().data());
-#else
-				name = i18n(name);
-#endif
-			}
-			new FrameListItem(m_listbox, name, *it);
-		}
-#if QT_VERSION >= 0x040000
-		m_listbox->sortItems();
-#else
-		m_listbox->sort();
-#endif
+		m_file->getAllFramesV2(m_frameTable->frames());
+		m_frameTable->framesToTable();
 	}
 }
 
@@ -1435,9 +1310,6 @@ void FrameList::readTags()
 void FrameList::setTags(TaggedFile* taggedFile)
 {
 	m_file = taggedFile;
-	if (m_file && m_file->isTagInformationRead()) {
-		readTags();
-	}
 }
 
 /**
@@ -1451,16 +1323,24 @@ void FrameList::setTags(TaggedFile* taggedFile)
 bool FrameList::editFrame(Frame& frame)
 {
 	bool result = true;
+	QString name(frame.getName(true));
+	if (!name.isEmpty()) {
+#if QT_VERSION >= 0x040000
+		name = i18n(name.toLatin1().data());
+#else
+		name = i18n(name);
+#endif
+	}
 	if (frame.getFieldList().empty()) {
 		EditFrameDialog* dialog =
-			new EditFrameDialog(0, frame.getName(true), frame.getValue());
+			new EditFrameDialog(0, name, frame.getValue());
 		result = dialog && dialog->exec() == QDialog::Accepted;
 		if (result) {
 			frame.setValue(dialog->getText());
 		}
 	} else {
 		EditFrameFieldsDialog* dialog =
-			new EditFrameFieldsDialog(0, frame.getName(true), frame.getFieldList());
+			new EditFrameFieldsDialog(0, name, frame.getFieldList());
 		result = dialog && dialog->exec() == QDialog::Accepted;
 		if (result) {
 			frame.setFieldList(dialog->getUpdatedFieldList());
@@ -1496,29 +1376,12 @@ bool FrameList::editFrame()
  */
 bool FrameList::deleteFrame()
 {
-#if QT_VERSION >= 0x040000
-	int selectedIndex = m_listbox->currentRow();
-#else
-	int selectedIndex = m_listbox->currentItem();
-#endif
+	m_frameTable->saveCursor();
 	Frame frame;
 	if (getSelectedFrame(frame) && m_file) {
 		m_file->deleteFrameV2(frame);
-		readTags(); // refresh listbox
-		// select the next item (or the last if it was the last)
-		if (selectedIndex >= 0) {
-			const int lastIndex = m_listbox->count() - 1;
-			if (lastIndex >= 0) {
-#if QT_VERSION >= 0x040000
-				m_listbox->setCurrentRow(
-					selectedIndex <= lastIndex ? selectedIndex : lastIndex);
-#else
-				m_listbox->setSelected(
-					selectedIndex <= lastIndex ? selectedIndex : lastIndex, true);
-				m_listbox->ensureCurrentVisible();
-#endif
-			}
-		}
+		readTags();
+		m_frameTable->restoreCursor();
 		m_file->markTag2Changed();
 		return true;
 	}
@@ -1548,7 +1411,7 @@ bool FrameList::addFrame(bool edit)
 		if (index != -1) {
 			setSelectedId(index);
 #if QT_VERSION < 0x040000
-			m_listbox->ensureCurrentVisible();
+			m_frameTable->ensureCellVisible(m_frameTable->currentRow(), m_frameTable->currentColumn()); 
 #endif
 		}
 		m_file->markTag2Changed();

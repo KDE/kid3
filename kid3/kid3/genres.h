@@ -42,6 +42,24 @@ public:
 	 */
 	static int getNumber(const QString& str);
 
+	/**
+	 * Get a name string from a string with a number or a name.
+	 * ID3v2 genres can be stored as "9", "(9)", "(9)Metal" or "Metal".
+	 *
+	 * @param str genre string.
+	 */
+	static QString getNameString(const QString& str);
+
+	/**
+	 * Get a number representation of a genre name if possible.
+	 *
+	 * @param str         string with genre name
+	 * @param parentheses true to put the number in parentheses
+	 *
+	 * @return genre string.
+	 */
+	static QString getNumberString(const QString& str, bool parentheses);
+
 	/** Number of genres */
 #if defined _WIN32 || defined WIN32
 	enum { count = 148 };

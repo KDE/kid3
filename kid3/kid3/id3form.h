@@ -33,6 +33,7 @@ class QListBox;
 class QListBoxItem;
 #endif
 class FrameList;
+class FrameTable;
 
 /**
  * Main widget.
@@ -203,28 +204,22 @@ public:
 	bool updateModificationState() { return m_fileListBox->updateModificationState(); }
 
 	/**
-	 * Set the custom genres configuration from the entries in the combo box.
-	 */
-	void customGenresComboBoxToConfig() const;
-
-	/**
-	 * Set the custom genres combo box from the configuration.
-	 */
-	void customGenresConfigToComboBox();
-
-	/**
-	 * Mark truncated ID3v1 fields.
-	 *
-	 * @param flags truncation flags
-	 * @see StandardTags::TruncationFlag.
-	 */
-	void markTruncatedFields(unsigned flags);
-
-	/**
 	 * Get frame list.
 	 * @return frame list.
 	 */
 	FrameList* getFrameList() { return m_framelist; }
+
+	/**
+	 * Get tag 1 frame table.
+	 * @return frame table.
+	 */
+	FrameTable* frameTableV1() { return m_framesV1Table; }
+
+	/**
+	 * Get tag 2 frame table.
+	 * @return frame table.
+	 */
+	FrameTable* frameTableV2() { return m_framesV2Table; }
 
 public slots:
 	/**
@@ -283,41 +278,6 @@ public slots:
 	void fileSelected();
 
 	/**
-	 * Get standard tags from the ID3v1 controls.
-	 *
-	 * @param st standard tags to store result
-	 */
-	void getStandardTagsV1(StandardTags* st);
-
-	/**
-	 * Get standard tags from the ID3v2 controls.
-	 *
-	 * @param st standard tags to store result
-	 */
-	void getStandardTagsV2(StandardTags* st);
-
-	/**
-	 * Set ID3v1 standard tags controls.
-	 *
-	 * @param st standard tags to set
-	 */
-	void setStandardTagsV1(const StandardTags* st);
-
-	/**
-	 * Set ID3v2 standard tags controls.
-	 *
-	 * @param st standard tags to set
-	 */
-	void setStandardTagsV2(const StandardTags* st);
-
-	/**
-	 * Set all ID3v1 and ID3v2 check boxes on or off.
-	 *
-	 * @param val true to set check boxes on.
-	 */
-	void setAllCheckBoxes(bool val);
-
-	/**
 	 * Get number of files selected in file list box.
 	 *
 	 * @return number of files selected.
@@ -354,42 +314,6 @@ public slots:
 	 * @param txt contents of line edit
 	 */
 	void nameLineEditChanged(const QString& txt);
-
-	/**
-	 * Album V1 line edit is changed.
-	 * @param txt contents of line edit
-	 */
-	void albumV1LineEditChanged(const QString& txt);
-
-	/**
-	 * Artist V1 line edit is changed.
-	 * @param txt contents of line edit
-	 */
-	void artistV1LineEditChanged(const QString& txt);
-
-	/**
-	 * Title V1 line edit is changed.
-	 * @param txt contents of line edit
-	 */
-	void titleV1LineEditChanged(const QString& txt);
-
-	/**
-	 * Album V2 line edit is changed.
-	 * @param txt contents of line edit
-	 */
-	void albumV2LineEditChanged(const QString& txt);
-
-	/**
-	 * Artist V2 line edit is changed.
-	 * @param txt contents of line edit
-	 */
-	void artistV2LineEditChanged(const QString& txt);
-
-	/**
-	 * Title V2 line edit is changed.
-	 * @param txt contents of line edit
-	 */
-	void titleV2LineEditChanged(const QString& txt);
 
 	/**
 	 * Directory list box directory selected.
@@ -443,6 +367,20 @@ signals:
 	 */
 	void selectedFilesRenamed();
 
+	/**
+	 * Emitted when the window is resized.
+	 */
+	void windowResized();
+
+protected:
+#if QT_VERSION < 0x040000
+	/**
+	 * Called when the widget is resized.
+	 * @param ev resize event
+	 */
+	virtual void resizeEvent(QResizeEvent* ev);
+#endif
+
 private:
 	/**
 	 * Format string within line edit.
@@ -454,27 +392,9 @@ private:
 	void formatLineEdit(QLineEdit* le, const QString& txt,
 						const FormatConfig* fcfg);
 
-	/**
-	 * Set ID3v1 genre controls.
-	 *
-	 * @param genreStr genre string
-	 */
-	void setGenreV1(const QString& genreStr);
-
-	/**
-	 * Set ID3v2 genre controls.
-	 *
-	 * @param genreStr genre string
-	 */
-	void setGenreV2(const QString& genreStr);
-
 	FileList* m_fileListBox;
-	QComboBox* m_genreV1ComboBox;
-	QComboBox* m_genreV2ComboBox;
 	QComboBox* m_formatComboBox;
 	QLineEdit* m_nameLineEdit;
-	QLineEdit* m_titleV1LineEdit;
-	QLineEdit* m_titleV2LineEdit;
 	QLabel* m_detailsLabel;
 #if QT_VERSION >= 0x040000
 	QListWidget* m_framesListBox;
@@ -483,35 +403,13 @@ private:
 #endif
 	DirList* m_dirListBox;
 	FrameList* m_framelist;
+	FrameTable* m_framesV1Table;
+	FrameTable* m_framesV2Table;
 	QSplitter* m_vSplitter;
 	QGroupBox* m_idV1GroupBox;
 	QGroupBox* m_idV2GroupBox;
 	QPushButton* m_fnV1Button;
-	QLineEdit* m_albumV1LineEdit;
-	QLineEdit* m_artistV1LineEdit;
-	QCheckBox* m_albumV1CheckBox;
-	QCheckBox* m_yearV1CheckBox;
-	QSpinBox* m_yearV1SpinBox;
-	QCheckBox* m_trackV1CheckBox;
-	QSpinBox* m_trackV1SpinBox;
-	QCheckBox* m_titleV1CheckBox;
-	QCheckBox* m_genreV1CheckBox;
-	QCheckBox* m_commentV1CheckBox;
-	QCheckBox* m_artistV1CheckBox;
-	QLineEdit* m_commentV1LineEdit;
-	QCheckBox* m_commentV2CheckBox;
-	QLineEdit* m_albumV2LineEdit;
-	QLineEdit* m_artistV2LineEdit;
-	QCheckBox* m_genreV2CheckBox;
-	QLineEdit* m_commentV2LineEdit;
-	QCheckBox* m_yearV2CheckBox;
 	QPushButton* m_id3V2PushButton;
-	QSpinBox* m_yearV2SpinBox;
-	QCheckBox* m_trackV2CheckBox;
-	QSpinBox* m_trackV2SpinBox;
-	QCheckBox* m_artistV2CheckBox;
-	QCheckBox* m_titleV2CheckBox;
-	QCheckBox* m_albumV2CheckBox;
 	QWidget* m_rightHalfVBox;
 
 private slots:

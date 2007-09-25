@@ -16,6 +16,7 @@
 
 class QString;
 class StandardTags;
+class FrameCollection;
 
 /**
  * Format configuration.
@@ -32,34 +33,47 @@ public:
 	    AllFirstLettersUppercase,
 	    NumCaseConversions
 	};
+
 	/**
 	 * Constructor.
 	 *
 	 * @param grp configuration group
 	 */
 	FormatConfig(const QString& grp);
+
 	/**
 	 * Destructor.
 	 */
 	virtual ~FormatConfig();
+
 	/**
 	 * Set specific properties for a filename format.
 	 * This will set default string conversions and not touch the file
 	 * extension when formatting.
 	 */
 	void setAsFilenameFormatter();
+
 	/**
 	 * Format a string using this configuration.
 	 *
 	 * @param str string to format
 	 */
 	void formatString(QString& str) const;
+
 	/**
 	 * Format title, artist and album using this configuration.
 	 *
 	 * @param st standard tags
 	 */
 	void formatStandardTags(StandardTags& st) const;
+
+	/**
+	 * Format frames using this configuration.
+	 *
+	 * @param frames frames
+	 */
+	void formatFrames(FrameCollection& frames) const;
+
 	/**
 	 * Persist configuration.
 	 *
@@ -72,6 +86,7 @@ public:
 		Kid3Settings* config
 #endif
 		) const;
+
 	/**
 	 * Read persisted configuration.
 	 *

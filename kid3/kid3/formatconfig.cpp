@@ -18,6 +18,7 @@
 #include "generalconfig.h"
 #include "standardtags.h"
 #include "formatconfig.h"
+#include "frame.h"
 
 /**
  * Constructor.
@@ -146,6 +147,23 @@ void FormatConfig::formatStandardTags(StandardTags& st) const
 	formatString(st.artist);
 	formatString(st.album);
 	formatString(st.comment);
+}
+
+/**
+ * Format frames using this configuration.
+ *
+ * @param frames frames
+ */
+void FormatConfig::formatFrames(FrameCollection& frames) const
+{
+	for (FrameCollection::iterator it = frames.begin();
+			 it != frames.end();
+			 ++it) {
+		Frame& frame = const_cast<Frame&>(*it);
+		QString value(frame.getValue());
+		formatString(value);
+		frame.setValue(value);
+	}
 }
 
 /**

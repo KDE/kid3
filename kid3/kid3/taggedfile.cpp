@@ -780,45 +780,37 @@ int TaggedFile::checkTruncation(int val, StandardTags::TruncationFlag flag,
 bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame)
 {
 	int n = -1;
-	frame.m_number = false;
-	frame.m_maxValue255 = false;
-	frame.m_maxLength28 = false;
-	frame.m_maxLength30 = false;
+	bool number = false;
 
 	switch (type) {
 		case Frame::FT_Album:
 			frame.m_value = getAlbumV1();
-			frame.m_maxLength30 = true;
 			break;
 		case Frame::FT_Artist:
 			frame.m_value = getArtistV1();
-			frame.m_maxLength30 = true;
 			break;
 		case Frame::FT_Comment:
 			frame.m_value = getCommentV1();
-			frame.m_maxLength28 = true;
 			break;
 		case Frame::FT_Date:
 			n = getYearV1();
-			frame.m_number = true;
+			number = true;
 			break;
 		case Frame::FT_Genre:
 			frame.m_value = getGenreV1();
 			break;
 		case Frame::FT_Title:
 			frame.m_value = getTitleV1();
-			frame.m_maxLength30 = true;
 			break;
 		case Frame::FT_Track:
 			n = getTrackNumV1();
-			frame.m_number = true;
-			frame.m_maxValue255 = true;
+			number = true;
 			break;
 		default:
 			// maybe handled in a subclass
 			return false;
 	}
-	if (frame.m_number) {
+	if (number) {
 		if (n == -1) {
 			frame.m_value = QString();
 		} else if (n == 0) {
@@ -840,44 +832,42 @@ bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame)
  */
 bool TaggedFile::setFrameV1(const Frame& frame)
 {
-	if (frame.isEnabled()) {
-		int n = -1;
-		if (frame.m_type == Frame::FT_Date ||
-				frame.m_type == Frame::FT_Track) {
-			if (frame.isInactive()) {
-				n = -1;
-			} else if (frame.isEmpty()) {
-				n = 0;
-			} else {
-				n = frame.m_value.toInt();
-			} 
-		}
-		switch (frame.m_type) {
-			case Frame::FT_Album:
-				setAlbumV1(frame.m_value);
-				break;
-			case Frame::FT_Artist:
-				setArtistV1(frame.m_value);
-				break;
-			case Frame::FT_Comment:
-				setCommentV1(frame.m_value);
-				break;
-			case Frame::FT_Date:
-				setYearV1(n);
-				break;
-			case Frame::FT_Genre:
-				setGenreV1(frame.m_value);
-				break;
-			case Frame::FT_Title:
-				setTitleV1(frame.m_value);
-				break;
-			case Frame::FT_Track:
-				setTrackNumV1(n);
-				break;
-			default:
-				// maybe handled in a subclass
-				return false;
-		}
+	int n = -1;
+	if (frame.m_type == Frame::FT_Date ||
+			frame.m_type == Frame::FT_Track) {
+		if (frame.isInactive()) {
+			n = -1;
+		} else if (frame.isEmpty()) {
+			n = 0;
+		} else {
+			n = frame.m_value.toInt();
+		} 
+	}
+	switch (frame.m_type) {
+		case Frame::FT_Album:
+			setAlbumV1(frame.m_value);
+			break;
+		case Frame::FT_Artist:
+			setArtistV1(frame.m_value);
+			break;
+		case Frame::FT_Comment:
+			setCommentV1(frame.m_value);
+			break;
+		case Frame::FT_Date:
+			setYearV1(n);
+			break;
+		case Frame::FT_Genre:
+			setGenreV1(frame.m_value);
+			break;
+		case Frame::FT_Title:
+			setTitleV1(frame.m_value);
+			break;
+		case Frame::FT_Track:
+			setTrackNumV1(n);
+			break;
+		default:
+			// maybe handled in a subclass
+			return false;
 	}
 	return true;
 }
@@ -893,10 +883,7 @@ bool TaggedFile::setFrameV1(const Frame& frame)
 bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
 {
 	int n = -1;
-	frame.m_number = false;
-	frame.m_maxValue255 = false;
-	frame.m_maxLength28 = false;
-	frame.m_maxLength30 = false;
+	bool number = false;
 
 	switch (type) {
 		case Frame::FT_Album:
@@ -910,7 +897,7 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
 			break;
 		case Frame::FT_Date:
 			n = getYearV2();
-			frame.m_number = true;
+			number = true;
 			break;
 		case Frame::FT_Genre:
 			frame.m_value = getGenreV2();
@@ -920,13 +907,13 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
 			break;
 		case Frame::FT_Track:
 			n = getTrackNumV2();
-			frame.m_number = true;
+			number = true;
 			break;
 		default:
 			// maybe handled in a subclass
 			return false;
 	}
-	if (frame.m_number) {
+	if (number) {
 		if (n == -1) {
 			frame.m_value = QString();
 		} else if (n == 0) {
@@ -942,50 +929,48 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
 /**
  * Set a frame in the tags 2.
  *
- * @param frame frame to set, the index can be set by this method
+ * @param frame frame to set
  *
  * @return true if ok.
  */
-bool TaggedFile::setFrameV2(Frame& frame)
+bool TaggedFile::setFrameV2(const Frame& frame)
 {
-	if (frame.isEnabled()) {
-		int n = -1;
-		if (frame.m_type == Frame::FT_Date ||
-				frame.m_type == Frame::FT_Track) {
-			if (frame.isInactive()) {
-				n = -1;
-			} else if (frame.isEmpty()) {
-				n = 0;
-			} else {
-				n = frame.m_value.toInt();
-			} 
-		}
-		switch (frame.m_type) {
-			case Frame::FT_Album:
-				setAlbumV2(frame.m_value);
-				break;
-			case Frame::FT_Artist:
-				setArtistV2(frame.m_value);
-				break;
-			case Frame::FT_Comment:
-				setCommentV2(frame.m_value);
-				break;
-			case Frame::FT_Date:
-				setYearV2(n);
-				break;
-			case Frame::FT_Genre:
-				setGenreV2(frame.m_value);
-				break;
-			case Frame::FT_Title:
-				setTitleV2(frame.m_value);
-				break;
-			case Frame::FT_Track:
-				setTrackNumV2(n);
-				break;
-			default:
-				// maybe handled in a subclass
-				return false;
-		}
+	int n = -1;
+	if (frame.m_type == Frame::FT_Date ||
+			frame.m_type == Frame::FT_Track) {
+		if (frame.isInactive()) {
+			n = -1;
+		} else if (frame.isEmpty()) {
+			n = 0;
+		} else {
+			n = frame.m_value.toInt();
+		} 
+	}
+	switch (frame.m_type) {
+		case Frame::FT_Album:
+			setAlbumV2(frame.m_value);
+			break;
+		case Frame::FT_Artist:
+			setArtistV2(frame.m_value);
+			break;
+		case Frame::FT_Comment:
+			setCommentV2(frame.m_value);
+			break;
+		case Frame::FT_Date:
+			setYearV2(n);
+			break;
+		case Frame::FT_Genre:
+			setGenreV2(frame.m_value);
+			break;
+		case Frame::FT_Title:
+			setTitleV2(frame.m_value);
+			break;
+		case Frame::FT_Track:
+			setTrackNumV2(n);
+			break;
+		default:
+			// maybe handled in a subclass
+			return false;
 	}
 	return true;
 }
@@ -1019,29 +1004,95 @@ bool TaggedFile::deleteFrameV2(const Frame& frame)
 /**
  * Get all frames in tag 1.
  *
- * @return frame collection.
+ * @param frames frame collection to set.
  */
-FrameCollection TaggedFile::getAllFramesV1()
+void TaggedFile::getAllFramesV1(FrameCollection& frames)
 {
-	FrameCollection frames;
+	frames.clear();
 	Frame frame;
 	for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
 		if (getFrameV1(static_cast<Frame::Type>(i), frame)) {
-			frames.push_back(frame);
+			frames.insert(frame);
 		}
 	}
-	return frames;
 }
 
 /**
  * Get all frames in tag 2.
  *
- * @return frame collection.
+ * @param frames frame collection to set.
  */
-FrameCollection TaggedFile::getAllFramesV2()
+void TaggedFile::getAllFramesV2(FrameCollection&)
 {
 	// implement in subclasses
-	return FrameCollection();
+}
+
+/**
+ * Set frames in tag 1.
+ *
+ * @param frames      frame collection
+ * @param onlyChanged only frames with value marked as changed are set
+ */
+void TaggedFile::setFramesV1(const FrameCollection& frames, bool onlyChanged)
+{
+	for (FrameCollection::const_iterator it = frames.begin();
+			 it != frames.end();
+			 ++it) {
+		if (!onlyChanged || it->isValueChanged()) {
+				setFrameV1(*it);
+				markTag1Changed();
+		}
+	}
+}
+
+/**
+ * Set frames in tag 2.
+ *
+ * @param frames      frame collection
+ * @param onlyChanged only frames with value marked as changed are set
+ */
+void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
+{
+	bool myFramesValid = false;
+	FrameCollection myFrames;
+
+	for (FrameCollection::const_iterator it = frames.begin();
+			 it != frames.end();
+			 ++it) {
+		if (!onlyChanged || it->isValueChanged()) {
+			if (it->getIndex() != -1) {
+				// The frame has an index, so the original tag can be modified
+				setFrameV2(*it);
+				markTag2Changed();
+			} else {
+				// The frame does not have an index
+				if (it->getType() <= Frame::FT_LastV1Frame) {
+					// Standard tags can be handled with the basic method
+					TaggedFile::setFrameV2(*it);
+					markTag2Changed();
+				} else {
+					// The frame has to be looked up and modified
+					if (!myFramesValid) {
+						getAllFramesV2(myFrames);
+						myFramesValid = true;
+					}
+					FrameCollection::iterator myIt = myFrames.find(*it);
+					if (myIt != myFrames.end()) {
+						Frame myFrame(*it);
+						myFrame.setIndex(myIt->getIndex());
+						setFrameV2(myFrame);
+						markTag2Changed();
+					} else {
+						// Such a frame does not exist, add a new one.
+						Frame myFrame(*it);
+						addFrameV2(myFrame);
+						setFrameV2(myFrame);
+						markTag2Changed();
+					}
+				}
+			}
+		}
+	}
 }
 
 /**

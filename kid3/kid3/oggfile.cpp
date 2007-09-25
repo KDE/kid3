@@ -525,11 +525,11 @@ QString OggFile::getTagFormatV2() const
 /**
  * Set a frame in the tags 2.
  *
- * @param frame frame to set, the index can be set by this method
+ * @param frame frame to set
  *
  * @return true if ok.
  */
-bool OggFile::setFrameV2(Frame& frame)
+bool OggFile::setFrameV2(const Frame& frame)
 {
 	// If the frame has an index, change that specific frame
 	int index = frame.getIndex();
@@ -595,11 +595,11 @@ bool OggFile::deleteFrameV2(const Frame& frame)
 /**
  * Get all frames in tag 2.
  *
- * @return frame collection.
+ * @param frames frame collection to set.
  */
-FrameCollection OggFile::getAllFramesV2()
+void OggFile::getAllFramesV2(FrameCollection& frames)
 {
-	FrameCollection frames;
+	frames.clear();
 	QString name;
 	int i = 0;
 	for (OggFile::CommentList::const_iterator it = m_comments.begin();
@@ -607,9 +607,9 @@ FrameCollection OggFile::getAllFramesV2()
 			 ++it) {
 		name = (*it).getName();
 		Frame::Type type = Frame::getTypeFromName(name);
-		frames.push_back(Frame(type, (*it).getValue(), name, i++));
+		frames.insert(Frame(type, (*it).getValue(), name, i++));
 	}
-	return frames;
+	frames.addMissingStandardFrames();
 }
 
 /**

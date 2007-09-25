@@ -366,11 +366,11 @@ public:
 	/**
 	 * Set a frame in the tags 2.
 	 *
-	 * @param frame frame to set, the index can be set by this method
+	 * @param frame frame to set
 	 *
 	 * @return true if ok.
 	 */
-	virtual bool setFrameV2(Frame& frame);
+	virtual bool setFrameV2(const Frame& frame);
 
 	/**
 	 * Add a frame in the tags 2.
@@ -393,9 +393,9 @@ public:
 	/**
 	 * Get all frames in tag 2.
 	 *
-	 * @return frame collection.
+	 * @param frames frame collection to set.
 	 */
-	virtual FrameCollection getAllFramesV2();
+	virtual void getAllFramesV2(FrameCollection& frames);
 
 	/**
 	 * Get a list of frame IDs which can be added.

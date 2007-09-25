@@ -13,16 +13,11 @@
 #include <qlabel.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
-#include <QListWidget>
-#include <QList>
 #include <QByteArray>
-#else
-#include <qlistbox.h>
-#include <qptrlist.h>
-#include <qcstring.h>
 #endif
 #include "taggedfile.h"
 
+class FrameTable;
 
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
@@ -83,45 +78,6 @@ class BinaryOpenSave : public QWidget {
 };
 
 
-#if QT_VERSION >= 0x040000
-typedef QListWidgetItem FrameListItemBase;
-#else
-typedef QListBoxText FrameListItemBase;
-#endif
-
-/**
- * Item in frame list box.
- */
-class FrameListItem : public FrameListItemBase {
-public:
-	/**
-	 * Constructor.
-	 * @param listbox listbox
-	 * @param text    text
-	 * @param frame   frame
-	 */
-#if QT_VERSION >= 0x040000
-	FrameListItem(QListWidget* listbox, const QString& text, const Frame& frame);
-#else
-	FrameListItem(QListBox* listbox, const QString& text, const Frame& frame);
-#endif
-
-	/**
-	 * Destructor.
-	 */
-	virtual ~FrameListItem();
-
-	/**
-	 * Get frame.
-	 * @return frame.
-	 */
-  const Frame& getFrame() const { return m_frame; }
-
-private:
-	Frame m_frame;
-};
-
-
 /**
  * List of frames.
  */
@@ -130,13 +86,9 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param lb list box.
+	 * @param ft frame table
 	 */
-#if QT_VERSION >= 0x040000
-	FrameList(QListWidget* lb);
-#else
-	FrameList(QListBox* lb);
-#endif
+	FrameList(FrameTable* ft);
 
 	/**
 	 * Destructor.
@@ -275,12 +227,7 @@ private:
 	/** Frame used to add, edit and paste */
 	Frame m_frame;
 
-	/** List box to select frame */
-#if QT_VERSION >= 0x040000
-	QListWidget* m_listbox;
-#else
-	QListBox* m_listbox;
-#endif
+	FrameTable* m_frameTable;
 
 private:
 	FrameList(const FrameList&);

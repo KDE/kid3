@@ -15,9 +15,7 @@
  * Constructor.
  */
 Frame::Frame() :
-	m_type(FT_UnknownFrame), m_index(-1),
-	m_enabled(true), m_truncated(false), m_number(false),
-	m_maxValue255(false), m_maxLength28(false), m_maxLength30(false)
+	m_type(FT_UnknownFrame), m_index(-1), m_valueChanged(false)
 {
 }
 
@@ -25,10 +23,8 @@ Frame::Frame() :
  * Constructor.
  */
 Frame::Frame(Type type, const QString& value,
-												 const QString& name, int index) :
-	m_type(type), m_index(index),
-	m_enabled(true), m_truncated(false), m_number(false),
-	m_maxValue255(false), m_maxLength28(false), m_maxLength30(false),
+						 const QString& name, int index) :
+	m_type(type), m_index(index), m_valueChanged(false),
 	m_value(value), m_name(name)
 {
 }
@@ -128,36 +124,6 @@ QString Frame::getName(bool internal) const
 }
 
 /**
- * Set value as string.
- * @param value value as string
- */
-void Frame::setValue(const QString& value)
-{
-	if (m_number && !isInactive() && !isEmpty()) {
-		bool ok;
-		int n = value.toInt(&ok);
-		if (m_maxValue255 && n > 255) {
-			n = 255;
-			m_truncated = true;
-		} else {
-			m_truncated = !ok;
-		}
-		m_value = QString::number(n);
-		return;
-	}
-
-	m_value = value;
-	m_truncated = false;
-	int maxLen = 0;
-	if      (m_maxLength28) maxLen = 28;
-	else if (m_maxLength30) maxLen = 30;
-	if (maxLen && static_cast<int>(m_value.length()) > maxLen) {
-		m_value.truncate(maxLen);
-		m_truncated = true;
-	}
-}
-
-/**
  * Set the value from a field in the field list.
  */
 void Frame::setValueFromFieldList()
@@ -206,4 +172,63 @@ void Frame::setFieldListFromValue()
 			(*it).m_value = m_value;
 		}
 	}
+}
+
+
+/**
+ * Set values which are different inactive.
+ *
+ * @param others frames to compare
+ */
+void FrameCollection::filterDifferent(const FrameCollection& others)
+{
+	for (iterator it = begin(); it != end(); ++it) {
+		Frame& frame = const_cast<Frame&>(*it);
+		// This frame list is not tied to a specific file, so the
+		// index is not valid.
+		frame.setIndex(-1);
+		if (!frame.isInactive()) {
+			iterator othersIt = others.find(frame);
+			if (othersIt == others.end() ||
+					frame.getValue() != othersIt->getValue()) {
+				frame.setInactive();
+			}
+		}
+	}
+}
+
+/**
+ * Add standard frames which are missing.
+ */
+void FrameCollection::addMissingStandardFrames()
+{
+	for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
+		Frame frame(static_cast<Frame::Type>(i), QString::null, QString::null, -1);
+		FrameCollection::const_iterator it = find(frame);
+		if (it == end()) {
+			insert(frame);
+		}
+	}
+}
+
+/**
+ * Copy enabled frames.
+ *
+ * @param flt filter with enabled frames
+ * 
+ * @return copy with enabled frames.
+ */
+FrameCollection FrameCollection::copyEnabledFrames(FrameFilter flt) const
+{
+	FrameCollection frames;
+	for (const_iterator it = begin();
+			 it != end();
+			 ++it) {
+		if (flt.isEnabled(it->getType())) {
+			Frame frame = *it;
+			frame.setIndex(-1);
+			frames.insert(frame);
+		}
+	}
+	return frames;
 }

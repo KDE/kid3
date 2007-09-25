@@ -9,6 +9,7 @@
 
 #include <qstring.h>
 #include <qmap.h>
+#include "qtcompatmac.h"
 #include "genres.h"
 
 /**
@@ -379,4 +380,51 @@ int Genres::getNumber(const QString& str)
 		return *it;
 	}
 	return 255; // 255 for unknown
+}
+
+/**
+ * Get a name string from a string with a number or a name.
+ * ID3v2 genres can be stored as "9", "(9)", "(9)Metal" or "Metal".
+ *
+ * @param str genre string.
+ */
+QString Genres::getNameString(const QString& str)
+{
+	if (!str.isEmpty()) {
+		int cpPos, n;
+		bool ok;
+		if ((str[0] == '(') && ((cpPos = str.QCM_indexOf(')', 2)) > 1)) {
+			n = str.mid(1, cpPos - 1).toInt(&ok);
+			if (ok && n <= 0xff) {
+				return getName(n);
+			}
+		} else if ((n = str.toInt(&ok)) >= 0 && n <= 0xff && ok) {
+			return getName(n);
+		}
+	}
+	return str;
+}
+
+/**
+ * Get a number representation of a genre name if possible.
+ *
+ * @param str         string with genre name
+ * @param parentheses true to put the number in parentheses
+ *
+ * @return genre string.
+ */
+QString Genres::getNumberString(const QString& str, bool parentheses)
+{
+	int n = getNumber(str);
+	if (n < 0xff) {
+		if (parentheses) {
+			QString s("(");
+			s += QString::number(n);
+			s += ')';
+			return s;
+		} else {
+			return QString::number(n);
+		}
+	}
+	return str;
 }

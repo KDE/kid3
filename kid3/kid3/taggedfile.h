@@ -423,11 +423,11 @@ public:
 	/**
 	 * Set a frame in the tags 2.
 	 *
-	 * @param frame frame to set, the index can be set by this method
+	 * @param frame frame to set
 	 *
 	 * @return true if ok.
 	 */
-	virtual bool setFrameV2(Frame& frame);
+	virtual bool setFrameV2(const Frame& frame);
 
 	/**
 	 * Add a frame in the tags 2.
@@ -448,25 +448,41 @@ public:
 	virtual bool deleteFrameV2(const Frame& frame);
 
 	/**
-	 * Get all frames in tag 1.
-	 *
-	 * @return frame collection.
-	 */
-	virtual FrameCollection getAllFramesV1();
-
-	/**
-	 * Get all frames in tag 2.
-	 *
-	 * @return frame collection.
-	 */
-	virtual FrameCollection getAllFramesV2();
-
-	/**
 	 * Get a list of frame IDs which can be added.
 	 *
 	 * @return list with frame IDs.
 	 */
 	virtual QStringList getFrameIds() const;
+
+	/**
+	 * Get all frames in tag 1.
+	 *
+	 * @param frames frame collection to set.
+	 */
+	virtual void getAllFramesV1(FrameCollection& frames);
+
+	/**
+	 * Get all frames in tag 2.
+	 *
+	 * @param frames frame collection to set.
+	 */
+	virtual void getAllFramesV2(FrameCollection& frames);
+
+	/**
+	 * Set frames in tag 1.
+	 *
+	 * @param frames      frame collection
+	 * @param onlyChanged only frames with value marked as changed are set
+	 */
+	void setFramesV1(const FrameCollection& frames, bool onlyChanged = true);
+
+	/**
+	 * Set frames in tag 2.
+	 *
+	 * @param frames      frame collection
+	 * @param onlyChanged only frames with value marked as changed are set
+	 */
+	void setFramesV2(const FrameCollection& frames, bool onlyChanged = true);
 
 	/**
 	 * Get ID3v1 tags from file.

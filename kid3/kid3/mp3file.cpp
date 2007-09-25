@@ -1300,6 +1300,7 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
 {
 	QString text;
 	ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
+	ID3_FrameID id3Id = id3Frame->GetID();
 	ID3_Field* id3Field;
 	Frame::Field field;
 	while ((id3Field = iter->GetNext()) != 0) {
@@ -1317,8 +1318,11 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
 			field.m_value = ba;
 		}
 		else if (type == ID3FTY_TEXTSTRING) {
-			if (id == ID3FN_TEXT || id == ID3FN_URL) {
+			if (id == ID3FN_TEXT || id == ID3FN_DESCRIPTION || id == ID3FN_URL) {
 				text = getString(id3Field);
+				if (id3Id == ID3FID_CONTENTTYPE) {
+					text = Genres::getNameString(text);
+				}
 				field.m_value = text;
 			} else {
 				field.m_value = getString(id3Field);
@@ -1378,6 +1382,7 @@ static ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
 static void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame)
 {
 	ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
+	ID3_FrameID id3Id = id3Frame->GetID();
 	ID3_Field* id3Field;
 	ID3_TextEnc enc = ID3TE_NONE;
 	for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
@@ -1402,11 +1407,17 @@ static void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame)
 			}
 
 			case QVariant::String:
+			{
 				if (enc != ID3TE_NONE) {
 					id3Field->SetEncoding(enc);
 				}
-				setString(id3Field, fld.m_value.toString());
+				QString value(fld.m_value.toString());
+				if (id3Id == ID3FID_CONTENTTYPE) {
+					value = Genres::getNumberString(value, true);
+				}
+				setString(id3Field, value);
 				break;
+			}
 
 			case QVariant::ByteArray:
 			{
@@ -1431,26 +1442,31 @@ static void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame)
 /**
  * Set a frame in the tags 2.
  *
- * @param frame frame to set, the index can be set by this method
+ * @param frame frame to set
  *
  * @return true if ok.
  */
-bool Mp3File::setFrameV2(Frame& frame)
+bool Mp3File::setFrameV2(const Frame& frame)
 {
 	// If the frame has an index, change that specific frame
 	int index = frame.getIndex();
 	if (index != -1 && m_tagV2) {
 		ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
 		if (id3Frame) {
-			//! if field list is not empty set from FieldList,
-			//! else from value.
-			if (frame.getFieldList().empty()) {
+			// If value is changed or field list is empty,
+			// set from value, else from FieldList.
+			if (frame.isValueChanged() || frame.getFieldList().empty()) {
+				QString value(frame.getValue());
 				ID3_Field* fld;
-				if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0) {
+				if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
+						(fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
+					if (id3Frame->GetID() == ID3FID_CONTENTTYPE) {
+						value = Genres::getNumberString(value, true);
+					}
 					if (fld->GetEncoding() == ID3TE_ISO8859_1) {
 						// check if information is lost if the string is not unicode
-						uint i, unicode_size = frame.getValue().length();
-						const QChar* qcarray = frame.getValue().unicode();
+						uint i, unicode_size = value.length();
+						const QChar* qcarray = value.unicode();
 						for (i = 0; i < unicode_size; i++) {
 #if QT_VERSION >= 0x040000
 							if (qcarray[i].toLatin1() == 0)
@@ -1467,10 +1483,10 @@ bool Mp3File::setFrameV2(Frame& frame)
 								}
 						}
 					}
-					setString(fld, frame.getValue());
+					setString(fld, value);
 					return true;
 				} else if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
-					fld->Set(frame.getValue().QCM_latin1());
+					fld->Set(value.QCM_latin1());
 					return true;
 				}
 			} else {
@@ -1516,6 +1532,7 @@ bool Mp3File::addFrameV2(Frame& frame)
 			if (frame.fieldList().empty()) {
 				// add field list to frame
 				getFieldsFromId3Frame(id3Frame, frame.fieldList());
+				frame.setFieldListFromValue();
 			}
 			return true;
 		}
@@ -1551,11 +1568,11 @@ bool Mp3File::deleteFrameV2(const Frame& frame)
 /**
  * Get all frames in tag 2.
  *
- * @return frame collection.
+ * @param frames frame collection to set.
  */
-FrameCollection Mp3File::getAllFramesV2()
+void Mp3File::getAllFramesV2(FrameCollection& frames)
 {
-	FrameCollection frames;
+	frames.clear();
 	if (m_tagV2) {
 		ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
 		ID3_Frame* id3Frame;
@@ -1566,7 +1583,7 @@ FrameCollection Mp3File::getAllFramesV2()
 			getTypeStringForId3libFrameId(id3Frame->GetID(), type, name);
 			Frame frame(type, "", name, i++);
 			frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList()));
-			frames.push_back(frame);
+			frames.insert(frame);
 		}
 #ifdef WIN32
 		/* allocated in Windows DLL => must be freed in the same DLL */
@@ -1575,7 +1592,7 @@ FrameCollection Mp3File::getAllFramesV2()
 		delete iter;
 #endif
 	}
-	return frames;
+	frames.addMissingStandardFrames();
 }
 
 /**

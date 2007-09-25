@@ -1398,12 +1398,13 @@ static const char* getStringForType(Frame::Type type)
  *
  * @param tFrame text identification frame
  * @param fields the fields are appended to this list
+ * @param type   frame type
  *
  * @return text representation of fields (Text or URL).
  */
 static QString getFieldsFromTextFrame(
 	const TagLib::ID3v2::TextIdentificationFrame* tFrame,
-	Frame::FieldList& fields)
+	Frame::FieldList& fields, Frame::Type type)
 {
 	QString text;
 	Frame::Field field;
@@ -1426,6 +1427,9 @@ static QString getFieldsFromTextFrame(
 		text = TStringToQString(tFrame->toString());
 	}
 	field.m_id = Frame::Field::ID_Text;
+	if (type == Frame::FT_Genre) {
+		text = Genres::getNameString(text);
+	}
 	field.m_value = text;
 	fields.push_back(field);
 
@@ -1448,6 +1452,11 @@ static QString getFieldsFromApicFrame(
 	Frame::Field field;
 	field.m_id = Frame::Field::ID_TextEnc;
 	field.m_value = apicFrame->textEncoding();
+	fields.push_back(field);
+
+	// for compatibility with ID3v2.3 id3lib
+	field.m_id = Frame::Field::ID_ImageFormat;
+	field.m_value = QString("");
 	fields.push_back(field);
 
 	field.m_id = Frame::Field::ID_MimeType;
@@ -1704,11 +1713,12 @@ static QString getFieldsFromUnknownFrame(
  *
  * @param frame  frame
  * @param fields the fields are appended to this list
+ * @param type   frame type
  *
  * @return text representation of fields (Text or URL).
  */
 static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
-																		 Frame::FieldList& fields)
+																		 Frame::FieldList& fields, Frame::Type type)
 {
 	if (frame) {
 		const TagLib::ID3v2::TextIdentificationFrame* tFrame;
@@ -1733,7 +1743,7 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
 		if ((tFrame =
 				 dynamic_cast<const TagLib::ID3v2::TextIdentificationFrame*>(frame)) !=
 				0) {
-			return getFieldsFromTextFrame(tFrame, fields);
+			return getFieldsFromTextFrame(tFrame, fields, type);
 		} else if ((apicFrame =
 								dynamic_cast<const TagLib::ID3v2::AttachedPictureFrame*>(frame))
 							 != 0) {
@@ -1800,21 +1810,6 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
 		}
 	}
 	return QString();
-}
-
-/**
- * Copy an ID3v2 frame.
- *
- * @param frame original frame
- *
- * @return new frame.
- */
-static TagLib::ID3v2::Frame* copyId3v2Frame(
-	const TagLib::ID3v2::Frame* frame)
-{
-	// Setting a version other than the default 4 makes not much sense as
-	// TagLib always writes ID3v2.4.0 tags.
-	return TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
 }
 
 /**
@@ -2100,6 +2095,18 @@ void setUrl(UserUrlLinkFrame* f, const Frame::Field& fld)
 }
 #endif
 
+template <class T>
+void setValue(T* f, const TagLib::String& text)
+{
+	f->setText(text);
+}
+
+template <>
+void setValue(TagLib::ID3v2::AttachedPictureFrame* f, const TagLib::String& text)
+{
+	f->setDescription(text);
+}
+
 /**
  * Set the fields in a TagLib ID3v2 frame.
  *
@@ -2109,11 +2116,14 @@ void setUrl(UserUrlLinkFrame* f, const Frame::Field& fld)
 template <class T>
 void setTagLibFrame(T* tFrame, const Frame& frame)
 {
-	//! if field list is not empty set from FieldList,
-	//! else from value.
-	if (frame.getFieldList().empty()) {
+	// If value is changed or field list is empty,
+	// set from value, else from FieldList.
+	if (frame.isValueChanged() || frame.getFieldList().empty()) {
 		QString text(frame.getValue());
-		tFrame->setText(QSTRING_TO_TSTRING(text));
+		if (frame.getType() == Frame::FT_Genre) {
+			text = Genres::getNumberString(text, false);
+		}
+		setValue(tFrame, QSTRING_TO_TSTRING(text));
 		setTextEncoding(tFrame, needsUnicode(text) ?
 										TagLib::String::UTF16 : TagLib::String::Latin1);
 	} else {
@@ -2123,8 +2133,14 @@ void setTagLibFrame(T* tFrame, const Frame& frame)
 			const Frame::Field& fld = *fldIt;
 			switch (fld.m_id) {
 				case Frame::Field::ID_Text:
-					tFrame->setText(QSTRING_TO_TSTRING(fld.m_value.toString()));
+				{
+					QString value(fld.m_value.toString());
+					if (frame.getType() == Frame::FT_Genre) {
+						value = Genres::getNumberString(value, false);
+					}
+					tFrame->setText(QSTRING_TO_TSTRING(value));
 					break;
+				}
 				case Frame::Field::ID_TextEnc:
 					setTextEncoding(tFrame, static_cast<TagLib::String::Type>(
 														fld.m_value.toInt()));
@@ -2162,183 +2178,94 @@ void setTagLibFrame(T* tFrame, const Frame& frame)
 }
 
 /**
- * Create a modified copy of an ID3v2 frame.
+ * Modify an ID3v2 frame.
  *
  * @param id3Frame original ID3v2 frame
  * @param frame    frame with fields to set in new frame
- *
- * @return new frame with modified fields.
  */
-static TagLib::ID3v2::Frame* createId3v2Frame(
-	const TagLib::ID3v2::Frame* id3Frame, const Frame& frame)
+static void setId3v2Frame(
+	TagLib::ID3v2::Frame* id3Frame, const Frame& frame)
 {
-	TagLib::ID3v2::Frame* newFrame = 0;
 	if (id3Frame) {
-		const TagLib::ID3v2::TextIdentificationFrame* tFrame;
-		const TagLib::ID3v2::AttachedPictureFrame* apicFrame;
-		const TagLib::ID3v2::CommentsFrame* commFrame;
-		const TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame;
+		TagLib::ID3v2::TextIdentificationFrame* tFrame;
+		TagLib::ID3v2::AttachedPictureFrame* apicFrame;
+		TagLib::ID3v2::CommentsFrame* commFrame;
+		TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame;
 #ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
-		const TagLib::ID3v2::GeneralEncapsulatedObjectFrame* geobFrame;
+		TagLib::ID3v2::GeneralEncapsulatedObjectFrame* geobFrame;
 #endif
 #ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
-		const TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame;
-		const TagLib::ID3v2::UrlLinkFrame* wFrame;
+		TagLib::ID3v2::UserUrlLinkFrame* wxxxFrame;
+		TagLib::ID3v2::UrlLinkFrame* wFrame;
 #else
-		const UserUrlLinkFrame* wxxxFrame;
-		const UrlLinkFrame* wFrame;
+		UserUrlLinkFrame* wxxxFrame;
+		UrlLinkFrame* wFrame;
 #endif
 #ifdef TAGLIB_SUPPORTS_USLT_FRAMES
-		const TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
+		TagLib::ID3v2::UnsynchronizedLyricsFrame* usltFrame;
 #else
-		const UnsynchronizedLyricsFrame* usltFrame;
+		UnsynchronizedLyricsFrame* usltFrame;
 #endif
 		if ((tFrame =
-				 dynamic_cast<const TagLib::ID3v2::TextIdentificationFrame*>(id3Frame))
+				 dynamic_cast<TagLib::ID3v2::TextIdentificationFrame*>(id3Frame))
 				!= 0) {
-			const TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =
-				dynamic_cast<const TagLib::ID3v2::UserTextIdentificationFrame*>(id3Frame);
+			TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =
+				dynamic_cast<TagLib::ID3v2::UserTextIdentificationFrame*>(id3Frame);
 			if (txxxFrame) {
-				TagLib::ID3v2::UserTextIdentificationFrame* newTxxxFrame;
-				newFrame = copyId3v2Frame(txxxFrame);
-				if (newFrame &&
-						(newTxxxFrame =
-						 dynamic_cast<TagLib::ID3v2::UserTextIdentificationFrame*>(newFrame))
-						!= 0) {
-					setTagLibFrame(newTxxxFrame, frame);
-				}
+				setTagLibFrame(txxxFrame, frame);
 			} else {
-				TagLib::ID3v2::TextIdentificationFrame* newTFrame;
-				newFrame = copyId3v2Frame(tFrame);
-				if (newFrame &&
-						(newTFrame =
-						 dynamic_cast<TagLib::ID3v2::TextIdentificationFrame*>(newFrame))
-						!= 0) {
-					setTagLibFrame(newTFrame, frame);
-				}
+				setTagLibFrame(tFrame, frame);
 			}
 		} else if ((apicFrame =
-								dynamic_cast<const TagLib::ID3v2::AttachedPictureFrame*>(id3Frame))
+								dynamic_cast<TagLib::ID3v2::AttachedPictureFrame*>(id3Frame))
 							 != 0) {
-			TagLib::ID3v2::AttachedPictureFrame* newApicFrame;
-			newFrame = copyId3v2Frame(apicFrame);
-			if (newFrame &&
-					(newApicFrame =
-					 dynamic_cast<TagLib::ID3v2::AttachedPictureFrame*>(newFrame)) != 0) {
-				setTagLibFrame(newApicFrame, frame);
-			}
-		} else if ((commFrame = dynamic_cast<const TagLib::ID3v2::CommentsFrame*>(
+			setTagLibFrame(apicFrame, frame);
+		} else if ((commFrame = dynamic_cast<TagLib::ID3v2::CommentsFrame*>(
 									id3Frame)) != 0) {
-			TagLib::ID3v2::CommentsFrame* newCommFrame;
-			newFrame = copyId3v2Frame(commFrame);
-			if (newFrame &&
-					(newCommFrame =
-					 dynamic_cast<TagLib::ID3v2::CommentsFrame*>(newFrame)) != 0) {
-				setTagLibFrame(newCommFrame, frame);
-			}
+			setTagLibFrame(commFrame, frame);
 		} else if ((ufidFrame =
-								dynamic_cast<const TagLib::ID3v2::UniqueFileIdentifierFrame*>(
+								dynamic_cast<TagLib::ID3v2::UniqueFileIdentifierFrame*>(
 									id3Frame)) != 0) {
-			TagLib::ID3v2::UniqueFileIdentifierFrame* newUfidFrame;
-			newFrame = copyId3v2Frame(ufidFrame);
-			if (newFrame &&
-					(newUfidFrame =
-					 dynamic_cast<TagLib::ID3v2::UniqueFileIdentifierFrame*>(newFrame))
-					!= 0) {
-				setTagLibFrame(newUfidFrame, frame);
-			}
+			setTagLibFrame(ufidFrame, frame);
 		}
 #ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
 		else if ((geobFrame =
-							dynamic_cast<const TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(
+							dynamic_cast<TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(
 								id3Frame)) != 0) {
-			TagLib::ID3v2::GeneralEncapsulatedObjectFrame* newGeobFrame;
-			newFrame = copyId3v2Frame(geobFrame);
-			if (newFrame &&
-					(newGeobFrame =
-					 dynamic_cast<TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(
-						 newFrame)) != 0) {
-				setTagLibFrame(newGeobFrame, frame);
-			}
+			setTagLibFrame(geobFrame, frame);
 		}
 #endif
+		else if ((wxxxFrame = dynamic_cast<
 #ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
-		else if ((wxxxFrame = dynamic_cast<const TagLib::ID3v2::UserUrlLinkFrame*>(
-								id3Frame)) != 0) {
-			newFrame = createTagLibFrame(wxxxFrame, frame);
-			TagLib::ID3v2::UserUrlLinkFrame* newWxxxFrame;
-			newFrame = copyId3v2Frame(wxxxFrame);
-			if (newFrame &&
-					(newWxxxFrame =
-					 dynamic_cast<TagLib::ID3v2::UserUrlLinkFrame*>(newFrame)) != 0) {
-				setTagLibFrame(newWxxxFrame, frame);
-			}
-		}
+							TagLib::ID3v2::UserUrlLinkFrame*
 #else
-		else if ((wxxxFrame = dynamic_cast<const UserUrlLinkFrame*>(id3Frame)) != 0) {
-			// Because UserUrlLinkFrame is not known  to the
-			// TagLib frame factory, we have to create a new frame, change it
-			// and then create an UnknownFrame copy using copyId3v2Frame().
-			UserUrlLinkFrame* newWxxxFrame= new UserUrlLinkFrame(wxxxFrame->render());
-			if (newWxxxFrame) {
-				setTagLibFrame(newWxxxFrame, frame);
-				newFrame = copyId3v2Frame(newWxxxFrame);
-				delete newWxxxFrame;
-			}
-		}
+							UserUrlLinkFrame*
 #endif
+							>(
+								id3Frame)) != 0) {
+			setTagLibFrame(wxxxFrame, frame);
+		}
+		else if ((wFrame = dynamic_cast<
 #ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
-		else if ((wFrame = dynamic_cast<const TagLib::ID3v2::UrlLinkFrame*>(
-								id3Frame)) != 0) {
-			TagLib::ID3v2::UrlLinkFrame* newWFrame;
-			newFrame = copyId3v2Frame(wFrame);
-			if (newFrame &&
-					(newWFrame =
-					 dynamic_cast<TagLib::ID3v2::UrlLinkFrame*>(newFrame)) != 0) {
-				setTagLibFrame(newWFrame, frame);
-			}
-		}
+							TagLib::ID3v2::UrlLinkFrame*
 #else
-		else if ((wFrame = dynamic_cast<const UrlLinkFrame*>(id3Frame)) != 0) {
-			// Because UrlLinkFrame is not known to the
-			// TagLib frame factory, we have to create a new frame, change it
-			// and then create an UnknownFrame copy using copyId3v2Frame().
-			UrlLinkFrame* newWFrame = new UrlLinkFrame(wFrame->render());
-			if (newWFrame) {
-				setTagLibFrame(newWFrame, frame);
-				newFrame = copyId3v2Frame(newWFrame);
-				delete newWFrame;
-			}
-		}
+							UrlLinkFrame*
 #endif
-#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+							>(
+								id3Frame)) != 0) {
+			setTagLibFrame(wFrame, frame);
+		}
 		else if ((usltFrame =
-							dynamic_cast<const TagLib::ID3v2::UnsynchronizedLyricsFrame*>(
-								id3Frame)) != 0) {
-			TagLib::ID3v2::UnsynchronizedLyricsFrame* newUsltFrame;
-			newFrame = copyId3v2Frame(usltFrame);
-			if (newFrame &&
-					(newUsltFrame =
-					 dynamic_cast<TagLib::ID3v2::UnsynchronizedLyricsFrame*>(newFrame))
-					!= 0) {
-				setTagLibFrame(newUsltFrame, frame);
-			}
-		}
+							dynamic_cast<
+#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
+							TagLib::ID3v2::UnsynchronizedLyricsFrame*
 #else
-		else if ((usltFrame = dynamic_cast<const UnsynchronizedLyricsFrame*>(
-								id3Frame)) != 0) {
-			// Because UnsynchronizedLyricsFrame is not known to the
-			// TagLib frame factory, we have to create a new frame, change it
-			// and then create an UnknownFrame copy using copyId3v2Frame().
-			UnsynchronizedLyricsFrame* newUsltFrame =
-				new UnsynchronizedLyricsFrame(usltFrame->render());
-			if (newUsltFrame) {
-				setTagLibFrame(newUsltFrame, frame);
-				newFrame = copyId3v2Frame(newUsltFrame);
-				delete newUsltFrame;
-			}
-		}
+							UnsynchronizedLyricsFrame*
 #endif
+							>(
+								id3Frame)) != 0) {
+			setTagLibFrame(usltFrame, frame);
+		}
 		else {
 			TagLib::ByteVector id(id3Frame->frameID());
 			// create temporary objects for frames not known by TagLib,
@@ -2347,39 +2274,35 @@ static TagLib::ID3v2::Frame* createId3v2Frame(
 			if (id.startsWith("WXXX")) {
 				UserUrlLinkFrame userUrlLinkFrame(id3Frame->render());
 				setTagLibFrame(&userUrlLinkFrame, frame);
-				newFrame = copyId3v2Frame(&userUrlLinkFrame);
+				id3Frame->setData(userUrlLinkFrame.render());
 			} else if (id.startsWith("W")) {
 				UrlLinkFrame urlLinkFrame(id3Frame->render());
 				setTagLibFrame(&urlLinkFrame, frame);
-				newFrame = copyId3v2Frame(&urlLinkFrame);
+				id3Frame->setData(urlLinkFrame.render());
 			} else
 #endif
 #ifndef TAGLIB_SUPPORTS_USLT_FRAMES
 			if (id.startsWith("USLT")) {
 				UnsynchronizedLyricsFrame usltFrame(id3Frame->render());
 				setTagLibFrame(&usltFrame, frame);
-				newFrame = copyId3v2Frame(&usltFrame);
+				id3Frame->setData(usltFrame.render());
 			} else
 #endif
 			{
-				newFrame = copyId3v2Frame(id3Frame);
-				if (newFrame) {
-					setTagLibFrame(newFrame, frame);
-				}
+				setTagLibFrame(id3Frame, frame);
 			}
 		}
 	}
-	return newFrame;
 }
 
 /**
  * Set a frame in the tags 2.
  *
- * @param frame frame to set, the index can be set by this method
+ * @param frame frame to set
  *
  * @return true if ok.
  */
-bool TagLibFile::setFrameV2(Frame& frame)
+bool TagLibFile::setFrameV2(const Frame& frame)
 {
 	// If the frame has an index, change that specific frame
 	int index = frame.getIndex();
@@ -2390,13 +2313,11 @@ bool TagLibFile::setFrameV2(Frame& frame)
 		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
 			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
 			if (index < static_cast<int>(frameList.size())) {
-				TagLib::ID3v2::Frame* oldFrame = frameList[index];
-				TagLib::ID3v2::Frame* newFrame = createId3v2Frame(oldFrame, frame);
-				if (newFrame) {
-					id3v2Tag->removeFrame(oldFrame);
-					id3v2Tag->addFrame(newFrame);
-					return true;
-				}
+				// This is a hack. The frameList should not be modified directly.
+				// However when removing the old frame and adding a new frame,
+				// the indices of all frames get invalid.
+				setId3v2Frame(frameList[index], frame);
+				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
 			TagLib::String key = QSTRING_TO_TSTRING(frame.getName().remove(' ').QCM_toUpper());
@@ -2513,20 +2434,28 @@ bool TagLibFile::addFrameV2(Frame& frame)
 			if (id3Frame) {
 				if (!frame.fieldList().empty()) {
 					frame.setValueFromFieldList();
-					TagLib::ID3v2::Frame* newFrame = createId3v2Frame(id3Frame, frame);
-					if (newFrame) {
-						delete id3Frame;
-						id3Frame = newFrame;
-					}
+					setId3v2Frame(id3Frame, frame);
 				}
+#ifdef WIN32
+				// freed in Windows DLL => must be allocated in the same DLL
+				TagLib::ID3v2::Frame* dllAllocatedFrame =
+					TagLib::ID3v2::FrameFactory::instance()->createFrame(id3Frame->render());
+				if (dllAllocatedFrame) {
+					id3v2Tag->addFrame(dllAllocatedFrame);
+				}
+#else
 				id3v2Tag->addFrame(id3Frame);
+#endif
 				frame.setInternalName(name);
 				frame.setIndex(id3v2Tag->frameList().size() - 1);
 				if (frame.fieldList().empty()) {
 					// add field list to frame
-					getFieldsFromId3Frame(id3Frame, frame.fieldList());
+					getFieldsFromId3Frame(id3Frame, frame.fieldList(), frame.getType());
 					frame.setFieldListFromValue();
 				}
+#ifdef WIN32
+				delete id3Frame;
+#endif
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
@@ -2628,11 +2557,11 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 /**
  * Get all frames in tag 2.
  *
- * @return frame collection.
+ * @param frames frame collection to set.
  */
-FrameCollection TagLibFile::getAllFramesV2()
+void TagLibFile::getAllFramesV2(FrameCollection& frames)
 {
-	FrameCollection frames;
+	frames.clear();
 	if (m_tagV2) {
 		TagLib::ID3v2::Tag* id3v2Tag;
 		TagLib::Ogg::XiphComment* oggTag;
@@ -2647,8 +2576,8 @@ FrameCollection TagLibFile::getAllFramesV2()
 					 ++it) {
 				getTypeStringForFrameId((*it)->frameID(), type, name);
 				Frame frame(type, TStringToQString((*it)->toString()), name, i++);
-				frame.setValue(getFieldsFromId3Frame(*it, frame.fieldList()));
-				frames.push_back(frame);
+				frame.setValue(getFieldsFromId3Frame(*it, frame.fieldList(), type));
+				frames.insert(frame);
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
 			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -2662,7 +2591,7 @@ FrameCollection TagLibFile::getAllFramesV2()
 				for (TagLib::StringList::ConstIterator slit = stringList.begin();
 						 slit != stringList.end();
 						 ++slit) {
-					frames.push_back(Frame(type, TStringToQString(TagLib::String(*slit)),
+					frames.insert(Frame(type, TStringToQString(TagLib::String(*slit)),
 																 name, i++));
 				}
 			}
@@ -2680,15 +2609,17 @@ FrameCollection TagLibFile::getAllFramesV2()
 						type = Frame::FT_Date;
 					} else if (name == "TRACK") {
 						type = Frame::FT_Track;
+					} else if (name == "ENCODED BY") {
+						type = Frame::FT_EncodedBy;
 					}
 				}
-				frames.push_back(
+				frames.insert(
 					Frame(type, values.size() > 0 ? TStringToQString(values.front()) : "",
 								name, i++));
 			}
 		}
 	}
-	return frames;
+	frames.addMissingStandardFrames();
 }
 
 /**
