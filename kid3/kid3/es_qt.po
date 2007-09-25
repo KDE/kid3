@@ -29,6 +29,9 @@ msgstr "Eliminar"
 msgid "Edit"
 msgstr "Editar"
 
+msgid "&Edit"
+msgstr "&Editar"
+
 msgid "Add"
 msgstr "Añadir"
 
