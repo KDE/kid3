@@ -35,6 +35,8 @@
 #include "kid3.h"
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
+#else
+#include <qfiledialog.h>
 #endif
 
 

@@ -23,6 +23,8 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QMenu>
+#else
+#include <qlayout.h>
 #endif
 
 #ifdef CONFIG_USE_KDE

@@ -11,6 +11,7 @@
 #define QTCOMPATMAC_H
 
 #include <qglobal.h>
+#include <qobject.h>
 #include "config.h"
 
 #ifdef CONFIG_USE_KDE
