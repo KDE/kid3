@@ -200,7 +200,7 @@ Id3Form::Id3Form(QWidget* parent)
 	filenameGroupBoxLayout->addWidget(formatLabel, 1, 0);
 
 	m_formatComboBox = new QComboBox(filenameGroupBox);
-	m_formatComboBox->setEditable(false);
+	m_formatComboBox->setEditable(true);
 	filenameGroupBoxLayout->addWidget(m_formatComboBox, 1, 1);
 
 	QPushButton* fnV2Button = new QPushButton(filenameGroupBox);
@@ -361,21 +361,20 @@ Id3Form::Id3Form(QWidget* parent)
 	setTabOrder(m_nameLineEdit, m_formatComboBox);
 	setTabOrder(m_formatComboBox, m_fnV1Button);
 	setTabOrder(m_fnV1Button, fnV2Button);
-	setTabOrder(fnV2Button, m_idV1GroupBox);
-	setTabOrder(m_idV1GroupBox, filenameV1PushButton);
+	setTabOrder(fnV2Button, m_framesV1Table);
+	setTabOrder(m_framesV1Table, filenameV1PushButton);
 	setTabOrder(filenameV1PushButton, id3V1PushButton);
 	setTabOrder(id3V1PushButton, copyV1PushButton);
 	setTabOrder(copyV1PushButton, pasteV1PushButton);
 	setTabOrder(pasteV1PushButton, removeV1PushButton);
-	setTabOrder(removeV1PushButton, m_framesV1Table);
-	setTabOrder(m_framesV1Table, m_idV2GroupBox);
-	setTabOrder(m_idV2GroupBox, filenameV2PushButton);
+	setTabOrder(removeV1PushButton, m_framesV2Table);
+	setTabOrder(m_framesV2Table, filenameV2PushButton);
 	setTabOrder(filenameV2PushButton, m_id3V2PushButton);
 	setTabOrder(m_id3V2PushButton, copyV2PushButton);
 	setTabOrder(copyV2PushButton, pasteV2PushButton);
 	setTabOrder(pasteV2PushButton, removeV2PushButton);
-	setTabOrder(removeV2PushButton, m_framesV2Table);
-	setTabOrder(m_framesV2Table, framesAddPushButton);
+	setTabOrder(removeV2PushButton, editFramesPushButton);
+	setTabOrder(editFramesPushButton, framesAddPushButton);
 	setTabOrder(framesAddPushButton, deleteFramesPushButton);
 }
 
