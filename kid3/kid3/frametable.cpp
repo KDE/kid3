@@ -27,8 +27,7 @@
 #include "frametable.h"
 #include "kid3.h"
 #include "genres.h"
-#include "qcombobox.h"
-#include "qlineedit.h"
+#include <qcombobox.h>
 #if QT_VERSION >= 0x040000
 #include <QHeaderView>
 #include <QKeyEvent>
@@ -141,7 +140,7 @@ QWidget* FrameItemDelegate::createEditor(
 			}
 			return cb;
 		} else if (type == RttiValue28 || type == RttiValue30) {
-			QLineEdit* e = new QLineEdit(parent);
+			FrameTableLineEdit* e = new FrameTableLineEdit(parent);
 			e->setMaxLength(type == RttiValue28 ? 28 : 30);
 			e->setFrame(false);
 			return e;
@@ -210,11 +209,12 @@ public:
 	 * @param text  text
 	 * @param type  type (one of the RttiValue enum)
 	 */
-	ValueTableItem(QTable* table, const QString& text, int type) :
-		QTableItem(table, OnTyping, text), m_type(type) {}
+	ValueTableItem(QTable* table, const QString& text, int type);
 
-	/** Destructor. */
-	virtual ~ValueTableItem() {}
+	/**
+	 * Destructor.
+	 */
+	virtual ~ValueTableItem();
 
 	/**
 	 * Create an editor to edit the cells contents.
@@ -224,6 +224,12 @@ public:
 
 	/** Alignment. @return AlignLeft. */
 	virtual int alignment() const { return AlignLeft; }
+
+	/**
+	 * Get text of table item.
+	 * @return text.
+	 */
+	virtual QString text() const;
 
 	/**
 	 * Get runtime type identification.
@@ -236,20 +242,48 @@ private:
 };
 
 /**
+ * Constructor.
+ * @param table table
+ * @param text  text
+ * @param type  type (one of the RttiValue enum)
+ */
+ValueTableItem::ValueTableItem(QTable* table, const QString& text, int type) :
+	QTableItem(table, OnTyping, text), m_type(type)
+{
+	setReplaceable(false);
+}
+
+/**
+ * Destructor.
+ */
+ValueTableItem::~ValueTableItem() {}
+
+/**
  * Create an editor to edit the cells contents.
  * @return line edit widget.
  */
 QWidget* ValueTableItem::createEditor() const
 {
-    QLineEdit* e = new QLineEdit(table()->viewport(), "qt_tableeditor");
-		if (m_type == RttiValue28) {
-			e->setMaxLength(28);
-		} else if (m_type == RttiValue30) {
-			e->setMaxLength(30);
-		}
-    e->setFrame(false);
-    e->setText(text());
-    return e;
+	FrameTableLineEdit* e = new FrameTableLineEdit(table()->viewport());
+	if (m_type == RttiValue28) {
+		e->setMaxLength(28);
+	} else if (m_type == RttiValue30) {
+		e->setMaxLength(30);
+	}
+	e->setFrame(false);
+	e->setText(text());
+	return e;
+}
+
+/**
+ * Get text of table item.
+ * @return text.
+ */
+QString ValueTableItem::text() const
+{
+	QWidget* w = table()->cellWidget(row(), col());
+	if (w) ((QTableItem*)this)->setContentFromEditor(w);
+	return QTableItem::text();
 }
 
 
@@ -260,12 +294,17 @@ public:
 		RttiValue = 0x6e21e /**< RTTI value for genre items */
 	};
 
-	/** Constructor. */
-	GenreTableItem(QTable* table, const QString& text) :
-		QTableItem(table, OnTyping, text) {}
+	/**
+	 * Constructor.
+	 * @param table table
+	 * @param text  text
+	 */
+	GenreTableItem(QTable* table, const QString& text);
 
-	/** Destructor. */
-	virtual ~GenreTableItem() {}
+	/**
+	 * Destructor.
+	 */
+	virtual ~GenreTableItem();
 
 	/**
 	 * Create an editor to edit the cells contents.
@@ -280,11 +319,33 @@ public:
 	virtual void setContentFromEditor(QWidget *w);
 
 	/**
+	 * Get text of table item.
+	 * @return text.
+	 */
+	virtual QString text() const;
+
+	/**
 	 * Get runtime type identification.
 	 * @return RttiValue.
 	 */
 	virtual int rtti() const { return RttiValue; }
 };
+
+/**
+ * Constructor.
+ * @param table table
+ * @param text  text
+ */
+GenreTableItem::GenreTableItem(QTable* table, const QString& text) :
+	QTableItem(table, OnTyping, text)
+{
+	setReplaceable(false);
+}
+
+/**
+ * Destructor.
+ */
+GenreTableItem::~GenreTableItem() {}
 
 /**
  * Create an editor to edit the cells contents.
@@ -345,7 +406,19 @@ void GenreTableItem::setContentFromEditor(QWidget *w)
 		QTableItem::setContentFromEditor(w);
 	}
 }
+
+/**
+ * Get text of table item.
+ * @return text.
+ */
+QString GenreTableItem::text() const
+{
+	QWidget* w = table()->cellWidget(row(), col());
+	if (w) ((QTableItem*)this)->setContentFromEditor(w);
+	return QTableItem::text();
+}
 #endif
+
 
 /**
  * Constructor.
@@ -374,9 +447,6 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	horizontalHeader()->setResizeMode(CI_Value, QHeaderView::Stretch);
 	removeRow(0);
 	setItemDelegate(new FrameItemDelegate(this));
-
-	connect(this, SIGNAL(cellChanged(int, int)),
-			this, SLOT(valueChanged(int, int)));
 }
 #else
 FrameTable::FrameTable(QWidget* parent, bool id3v1) :
@@ -397,9 +467,6 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	adjustColumn(CI_Enable);
 	setColumnStretchable(CI_Value, true);
 	removeRow(0);
-
-	connect(this, SIGNAL(valueChanged(int, int)),
-			this, SLOT(valueChanged(int, int)));
 }
 #endif
 
@@ -440,7 +507,6 @@ QString FrameTable::getDisplayName(const QString& str) const
 void FrameTable::framesToTable()
 {
 #if QT_VERSION >= 0x040000
-	disconnect(this, SIGNAL(cellChanged(int, int)), 0, 0);
 	setRowCount(m_frames.size());
 	int row = 0;
 	for (FrameCollection::const_iterator it = m_frames.begin();
@@ -496,8 +562,6 @@ void FrameTable::framesToTable()
 
 		++row;
 	}
-	connect(this, SIGNAL(cellChanged(int, int)),
-			this, SLOT(valueChanged(int, int)));
 #else
 	if (m_resizeTable) {
 		resize(minimumSize());
@@ -614,31 +678,6 @@ void FrameTable::tableToFrames()
 }
 
 /**
- * Called when a value in the table is changed.
- *
- * @param row table row of changed item
- * @param col table column of changed item
- */
-void FrameTable::valueChanged(int row, int col)
-{
-#if QT_VERSION >= 0x040000
-	QTableWidgetItem* ti;
-#else
-	QTableItem* ti;
-#endif
-	if (col == CI_Value && row >= 0 &&
-			Kid3App::s_id3FormatCfg.m_formatWhileEditing &&
-			(ti = item(row, CI_Value)) != 0) {
-		QString txt(ti->text());
-		QString fmtTxt(txt);
-		Kid3App::s_id3FormatCfg.formatString(fmtTxt);
-		if (fmtTxt != txt) {
-			ti->setText(fmtTxt);
-		}
-	}
-}
-
-/**
  * Save the current cursor position.
  */
 void FrameTable::saveCursor()
@@ -752,12 +791,16 @@ bool FrameTable::selectFrameWithName(const QString& name)
 /**
  * Get filter with enabled frames.
  *
+ * @param allDisabledToAllEnabled true to enable all if all are disabled
+ *
  * @return filter with enabled frames.
  */
-FrameFilter FrameTable::getEnabledFrameFilter() const
+FrameFilter FrameTable::getEnabledFrameFilter(
+	bool allDisabledToAllEnabled) const
 {
 	FrameFilter filter;
 	filter.enableAll();
+	bool allDisabled = true;
 #if QT_VERSION >= 0x040000
 	int numberRows = rowCount();
 	QTableWidgetItem* ti;
@@ -779,9 +822,14 @@ FrameFilter FrameTable::getEnabledFrameFilter() const
 				!cti->isChecked()
 #endif
 			) {
-			filter.enable(it->getType(), false);
+			filter.enable(it->getType(), it->getName(), false);
+		} else {
+			allDisabled = false;
 		}
 		++row;
+	}
+	if (allDisabledToAllEnabled && allDisabled) {
+		filter.enableAll();
 	}
 	return filter;
 }
@@ -853,3 +901,37 @@ void FrameTable::paintCell(QPainter* p, int row, int col, const QRect& cr,
 	}
 }
 #endif
+
+
+/**
+ * Constructor.
+ * @param parent parent widget
+ */
+FrameTableLineEdit::FrameTableLineEdit(QWidget* parent) :
+	QLineEdit(parent)
+{
+	connect(this, SIGNAL(textChanged(const QString&)),
+					this, SLOT(formatTextIfEnabled(const QString&)));
+}
+
+/**
+ * Destructor.
+ */
+FrameTableLineEdit::~FrameTableLineEdit() {}
+
+/**
+ * Format text if enabled.
+ * @param txt text to format and set in line edit
+ */
+void FrameTableLineEdit::formatTextIfEnabled(const QString& txt)
+{
+	if (Kid3App::s_id3FormatCfg.m_formatWhileEditing) {
+		QString str(txt);
+		Kid3App::s_id3FormatCfg.formatString(str);
+		if (str != txt) {
+			int curPos = cursorPosition();
+			setText(str);
+			setCursorPosition(curPos);
+		}
+	}
+}

@@ -29,6 +29,7 @@
 
 #include "frame.h"
 #include <qstringlist.h>
+#include <qlineedit.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QTableWidget>
@@ -132,9 +133,11 @@ public:
 	/**
 	 * Get filter with enabled frames.
 	 *
+	 * @param allDisabledToAllEnabled true to enable all if all are disabled
+	 *
 	 * @return filter with enabled frames.
 	 */
-	FrameFilter getEnabledFrameFilter() const;
+	FrameFilter getEnabledFrameFilter(bool allDisabledToAllEnabled = false) const;
 
 	/**
 	 * Get reference to frame collection.
@@ -143,14 +146,6 @@ public:
 	FrameCollection& frames() { return m_frames; }
 
 public slots:
-	/**
-	 * Called when a value in the table is changed.
-	 *
-	 * @param row table row of changed item
-	 * @param col table column of changed item
-	 */
-	void valueChanged(int row, int col);
-
 	/**
 	 * Called to trigger resizing in the next call to framesToTable().
 	 */
@@ -202,6 +197,29 @@ private:
 	bool m_resizeTable;
 #endif
 	FrameCollection m_frames;
+};
+
+/** Line edit with automatic tag formatting. */
+class FrameTableLineEdit : public QLineEdit {
+Q_OBJECT
+public:
+	/**
+	 * Constructor.
+	 * @param parent parent widget
+	 */
+	FrameTableLineEdit(QWidget* parent);
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~FrameTableLineEdit();
+
+private slots:
+	/**
+	 * Format text if enabled.
+	 * @param txt text to format and set in line edit
+	 */
+	void formatTextIfEnabled(const QString& txt);
 };
 
 #endif // FRAMETABLE_H
