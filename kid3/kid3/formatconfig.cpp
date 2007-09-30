@@ -177,9 +177,15 @@ void FormatConfig::formatFrames(FrameCollection& frames) const
 			 it != frames.end();
 			 ++it) {
 		Frame& frame = const_cast<Frame&>(*it);
-		QString value(frame.getValue());
-		formatString(value);
-		frame.setValue(value);
+		if (frame.getType() != Frame::FT_Genre) {
+			QString value(frame.getValue());
+			QString oldValue(value);
+			formatString(value);
+			if (value != oldValue) {
+				frame.setValue(value);
+				frame.setValueChanged();
+			}
+		}
 	}
 }
 
