@@ -235,17 +235,112 @@ void FrameCollection::addMissingStandardFrames()
  * 
  * @return copy with enabled frames.
  */
-FrameCollection FrameCollection::copyEnabledFrames(FrameFilter flt) const
+FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
 {
 	FrameCollection frames;
 	for (const_iterator it = begin();
 			 it != end();
 			 ++it) {
-		if (flt.isEnabled(it->getType())) {
+		if (flt.isEnabled(it->getType(), it->getName())) {
 			Frame frame = *it;
 			frame.setIndex(-1);
 			frames.insert(frame);
 		}
 	}
 	return frames;
+}
+
+/**
+ * Remove all frames which are not enabled from the collection.
+ *
+ * @param flt filter with enabled frames
+ */
+void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
+{
+	for (iterator it = begin();
+			 it != end();
+			 ++it) {
+		if (!flt.isEnabled(it->getType(), it->getName())) {
+			erase(it);
+		}
+	}
+}
+
+
+/**
+ * Constructor.
+ * All frames are disabled
+ */
+FrameFilter::FrameFilter() : m_enabledFrames(0) {}
+
+/**
+ * Destructor.
+ */
+FrameFilter::~FrameFilter() {}
+
+/**
+ * Enable all frames.
+ */
+void FrameFilter::enableAll()
+{
+	m_enabledFrames = FTM_AllFrames;
+	m_disabledOtherFrames.clear();
+}
+
+/**
+ * Check if all fields are true.
+ *
+ * @return true if all fields are true.
+ */
+bool FrameFilter::areAllEnabled() const
+{
+	return (m_enabledFrames & FTM_AllFrames) == FTM_AllFrames &&
+		m_disabledOtherFrames.empty();
+}
+
+/**
+ * Check if frame is enabled.
+ *
+ * @param type frame type
+ * @param name frame name
+ *
+ * @return true if frame is enabled.
+ */
+bool FrameFilter::isEnabled(Frame::Type type, const QString& name) const
+{
+	if (type <= Frame::FT_LastFrame) {
+		return (m_enabledFrames & (1 << type)) != 0;
+	} else if (!name.isEmpty()) {
+		std::set<QString>::iterator it = m_disabledOtherFrames.find(name);
+		return it == m_disabledOtherFrames.end();
+	} else {
+		return true;
+	}
+}
+
+/**
+ * Enable or disable frame.
+ *
+ * @param type frame type
+ * @param name frame name
+ * @param en true to enable
+ */
+void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
+{
+	if (type <= Frame::FT_LastFrame) {
+		if (en) {
+			m_enabledFrames |= (1 << type);
+		} else {
+			m_enabledFrames &= ~(1 << type);
+		}
+	} else if (!name.isEmpty()) {
+		if (en) {
+			std::set<QString>::iterator it = m_disabledOtherFrames.find(name);
+			if (it != m_disabledOtherFrames.end()) {
+				m_disabledOtherFrames.erase(it);
+			}
+		} else {
+			m_disabledOtherFrames.insert(name);
+		}
+	}
 }

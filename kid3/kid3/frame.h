@@ -278,59 +278,48 @@ public:
 	 * Constructor.
 	 * All frames are disabled
 	 */
-	FrameFilter() : m_enabledFrames(0) {}
+	FrameFilter();
 
 	/**
 	 * Destructor.
 	 */
-	~FrameFilter() {}
+	~FrameFilter();
 
 	/**
-	 * If all frames are disabled enable all.
+	 * Enable all frames.
 	 */
-	void allDisabledToAllEnabled() { if (m_enabledFrames == 0) enableAll(); }
-
-	/**
-	 * enable all frames.
-	 */
-	void enableAll() { m_enabledFrames = FTM_AllFrames; }
+	void enableAll();
 
   /**
    * Check if all fields are true.
    *
    * @return true if all fields are true.
    */
-  bool areAllEnabled() const {
-		return (m_enabledFrames & FTM_AllFrames) == FTM_AllFrames;
-	}
+  bool areAllEnabled() const;
 
 	/**
 	 * Check if frame is enabled.
+	 *
 	 * @param type frame type
+	 * @param name frame name
+	 *
 	 * @return true if frame is enabled.
 	 */
-	bool isEnabled(Frame::Type type) {
-		return type > Frame::FT_LastFrame || (m_enabledFrames & (1 << type)) != 0;
-	}
+	bool isEnabled(Frame::Type type, const QString& name = QString()) const;
 
 	/**
 	 * Enable or disable frame.
+	 *
 	 * @param type frame type
+	 * @param name frame name
 	 * @param en true to enable
 	 */
-	void enable(Frame::Type type, bool en = true) {
-		if (type <= Frame::FT_LastFrame) {
-			if (en) {
-				m_enabledFrames |= (1 << type);
-			} else {
-				m_enabledFrames &= ~(1 << type);
-			}
-		}
-	}
+	void enable(Frame::Type type, const QString& name = QString(), bool en = true);
 
 private:
 	enum { FTM_AllFrames = (1 << (Frame::FT_LastFrame + 1)) - 1 };
 	unsigned long m_enabledFrames;
+	std::set<QString> m_disabledOtherFrames;
 };
 
 /** Collection of frames. */
@@ -365,7 +354,14 @@ public:
 	 * 
 	 * @return copy with enabled frames.
 	 */
-	FrameCollection copyEnabledFrames(FrameFilter flt) const;
+	FrameCollection copyEnabledFrames(const FrameFilter& flt) const;
+
+	/**
+	 * Remove all frames which are not enabled from the collection.
+	 *
+	 * @param flt filter with enabled frames
+	 */
+	void removeDisabledFrames(const FrameFilter& flt);
 };
 
 #endif // FRAME_H
