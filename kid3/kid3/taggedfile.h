@@ -161,11 +161,11 @@ public:
 	virtual QString getGenreV1();
 
 	/**
-	 * Remove all ID3v1 tags.
+	 * Remove ID3v1 frames.
 	 *
-	 * @param flt filter specifying which fields to remove
+	 * @param flt filter specifying which frames to remove
 	 */
-	virtual void removeTagsV1(const StandardTagsFilter& flt);
+	virtual void deleteFramesV1(const FrameFilter& flt);
 
 	/**
 	 * Set ID3v1 title.
@@ -286,11 +286,11 @@ public:
 	virtual int getTrackNumV2() = 0;
 
 	/**
-	 * Remove all ID3v2 tags.
+	 * Remove ID3v2 frames.
 	 *
-	 * @param flt filter specifying which fields to remove
+	 * @param flt filter specifying which frames to remove
 	 */
-	virtual void removeTagsV2(const StandardTagsFilter& flt) = 0;
+	virtual void deleteFramesV2(const FrameFilter& flt);
 
 	/**
 	 * Get ID3v2 genre as text.
@@ -483,7 +483,7 @@ public:
 	 *
 	 * @param frames frame collection to set.
 	 */
-	virtual void getAllFramesV2(FrameCollection& frames);
+	virtual void getAllFramesV2(FrameCollection& frames) = 0;
 
 	/**
 	 * Set frames in tag 1.
@@ -615,6 +615,15 @@ public:
 	unsigned getTruncationFlags() const { return m_truncation; }
 
 	/**
+	 * Add the total number of tracks to the track number if enabled.
+	 *
+	 * @param value string containing track number,
+	 *              "/t" with t = total number of tracks will be appended
+	 *              if enabled and value contains a number
+	 */
+	void addTotalNumberOfTracksIfEnabled(QString& value) const;
+
+	/**
 	 * Format a time string "h:mm:ss".
 	 * If the time is less than an hour, the hour is not put into the
 	 * string and the minute is not padded with zeroes.
@@ -651,20 +660,6 @@ protected:
 	*         -1 if disabled or unavailable.
 	*/
 	int getTotalNumberOfTracksIfEnabled() const;
-
-	/**
-	 * Remove the standard ID3v1 tags.
-	 *
-	 * @param flt filter specifying which fields to remove
-	 */
-	void removeStandardTagsV1(const StandardTagsFilter& flt);
-
-	/**
-	 * Remove the standard ID3v2 tags.
-	 *
-	 * @param flt filter specifying which fields to remove
-	 */
-	void removeStandardTagsV2(const StandardTagsFilter& flt);
 
 	/**
 	 * Get current filename.

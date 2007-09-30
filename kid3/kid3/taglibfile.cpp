@@ -286,57 +286,14 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 }
 
 /**
- * Remove all ID3v1 tags.
+ * Remove ID3v1 frames.
  *
- * @param flt filter specifying which fields to remove
+ * @param flt filter specifying which frames to remove
  */
-void TagLibFile::removeTagsV1(const StandardTagsFilter& flt)
+void TagLibFile::deleteFramesV1(const FrameFilter& flt)
 {
 	if (m_tagV1) {
-		removeStandardTagsV1(flt);
-	}
-}
-
-/**
- * Remove all ID3v2 tags.
- *
- * @param flt filter specifying which fields to remove
- */
-void TagLibFile::removeTagsV2(const StandardTagsFilter& flt)
-{
-	if (m_tagV2) {
-		TagLib::ID3v2::Tag* id3v2Tag;
-		TagLib::Ogg::XiphComment* oggTag;
-		TagLib::APE::Tag* apeTag;
-		if (flt.areAllTrue()) {
-			if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
-				const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
-				for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
-						 it != frameList.end();) {
-					id3v2Tag->removeFrame(*it++, true);
-				}
-				markTag2Changed();
-			} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) !=
-								 0) {
-				const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
-				for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
-						 it != fieldListMap.end();) {
-					oggTag->removeField((*it++).first);
-				}
-				markTag2Changed();
-			} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
-				const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
-				for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
-						 it != itemListMap.end();) {
-					apeTag->removeItem((*it++).first);
-				}
-				markTag2Changed();
-			} else {
-				removeStandardTagsV2(flt);
-			}
-		} else {
-			removeStandardTagsV2(flt);
-		}
+		TaggedFile::deleteFramesV1(flt);
 	}
 }
 
@@ -2131,7 +2088,7 @@ void setValue(TagLib::ID3v2::AttachedPictureFrame* f, const TagLib::String& text
  * @param frame  frame with field values
  */
 template <class T>
-void setTagLibFrame(T* tFrame, const Frame& frame)
+void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 {
 	// If value is changed or field list is empty,
 	// set from value, else from FieldList.
@@ -2139,6 +2096,8 @@ void setTagLibFrame(T* tFrame, const Frame& frame)
 		QString text(frame.getValue());
 		if (frame.getType() == Frame::FT_Genre) {
 			text = Genres::getNumberString(text, false);
+		} else if (frame.getType() == Frame::FT_Track) {
+			self->addTotalNumberOfTracksIfEnabled(text);
 		}
 		setValue(tFrame, QSTRING_TO_TSTRING(text));
 		setTextEncoding(tFrame, needsUnicode(text) ?
@@ -2154,6 +2113,8 @@ void setTagLibFrame(T* tFrame, const Frame& frame)
 					QString value(fld.m_value.toString());
 					if (frame.getType() == Frame::FT_Genre) {
 						value = Genres::getNumberString(value, false);
+					} else if (frame.getType() == Frame::FT_Track) {
+						self->addTotalNumberOfTracksIfEnabled(value);
 					}
 					tFrame->setText(QSTRING_TO_TSTRING(value));
 					break;
@@ -2200,8 +2161,8 @@ void setTagLibFrame(T* tFrame, const Frame& frame)
  * @param id3Frame original ID3v2 frame
  * @param frame    frame with fields to set in new frame
  */
-static void setId3v2Frame(
-	TagLib::ID3v2::Frame* id3Frame, const Frame& frame)
+void TagLibFile::setId3v2Frame(
+	TagLib::ID3v2::Frame* id3Frame, const Frame& frame) const
 {
 	if (id3Frame) {
 		TagLib::ID3v2::TextIdentificationFrame* tFrame;
@@ -2229,27 +2190,27 @@ static void setId3v2Frame(
 			TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =
 				dynamic_cast<TagLib::ID3v2::UserTextIdentificationFrame*>(id3Frame);
 			if (txxxFrame) {
-				setTagLibFrame(txxxFrame, frame);
+				setTagLibFrame(this, txxxFrame, frame);
 			} else {
-				setTagLibFrame(tFrame, frame);
+				setTagLibFrame(this, tFrame, frame);
 			}
 		} else if ((apicFrame =
 								dynamic_cast<TagLib::ID3v2::AttachedPictureFrame*>(id3Frame))
 							 != 0) {
-			setTagLibFrame(apicFrame, frame);
+			setTagLibFrame(this, apicFrame, frame);
 		} else if ((commFrame = dynamic_cast<TagLib::ID3v2::CommentsFrame*>(
 									id3Frame)) != 0) {
-			setTagLibFrame(commFrame, frame);
+			setTagLibFrame(this, commFrame, frame);
 		} else if ((ufidFrame =
 								dynamic_cast<TagLib::ID3v2::UniqueFileIdentifierFrame*>(
 									id3Frame)) != 0) {
-			setTagLibFrame(ufidFrame, frame);
+			setTagLibFrame(this, ufidFrame, frame);
 		}
 #ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
 		else if ((geobFrame =
 							dynamic_cast<TagLib::ID3v2::GeneralEncapsulatedObjectFrame*>(
 								id3Frame)) != 0) {
-			setTagLibFrame(geobFrame, frame);
+			setTagLibFrame(this, geobFrame, frame);
 		}
 #endif
 		else if ((wxxxFrame = dynamic_cast<
@@ -2260,7 +2221,7 @@ static void setId3v2Frame(
 #endif
 							>(
 								id3Frame)) != 0) {
-			setTagLibFrame(wxxxFrame, frame);
+			setTagLibFrame(this, wxxxFrame, frame);
 		}
 		else if ((wFrame = dynamic_cast<
 #ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
@@ -2270,7 +2231,7 @@ static void setId3v2Frame(
 #endif
 							>(
 								id3Frame)) != 0) {
-			setTagLibFrame(wFrame, frame);
+			setTagLibFrame(this, wFrame, frame);
 		}
 		else if ((usltFrame =
 							dynamic_cast<
@@ -2281,7 +2242,7 @@ static void setId3v2Frame(
 #endif
 							>(
 								id3Frame)) != 0) {
-			setTagLibFrame(usltFrame, frame);
+			setTagLibFrame(this, usltFrame, frame);
 		}
 		else {
 			TagLib::ByteVector id(id3Frame->frameID());
@@ -2290,23 +2251,23 @@ static void setId3v2Frame(
 #ifndef TAGLIB_SUPPORTS_URLLINK_FRAMES
 			if (id.startsWith("WXXX")) {
 				UserUrlLinkFrame userUrlLinkFrame(id3Frame->render());
-				setTagLibFrame(&userUrlLinkFrame, frame);
+				setTagLibFrame(this, &userUrlLinkFrame, frame);
 				id3Frame->setData(userUrlLinkFrame.render());
 			} else if (id.startsWith("W")) {
 				UrlLinkFrame urlLinkFrame(id3Frame->render());
-				setTagLibFrame(&urlLinkFrame, frame);
+				setTagLibFrame(this, &urlLinkFrame, frame);
 				id3Frame->setData(urlLinkFrame.render());
 			} else
 #endif
 #ifndef TAGLIB_SUPPORTS_USLT_FRAMES
 			if (id.startsWith("USLT")) {
 				UnsynchronizedLyricsFrame usltFrame(id3Frame->render());
-				setTagLibFrame(&usltFrame, frame);
+				setTagLibFrame(this, &usltFrame, frame);
 				id3Frame->setData(usltFrame.render());
 			} else
 #endif
 			{
-				setTagLibFrame(id3Frame, frame);
+				setTagLibFrame(this, id3Frame, frame);
 			}
 		}
 	}
@@ -2348,6 +2309,12 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 			oggTag->removeField(key, oldValue);
 			oggTag->addField(key, value, false);
 #endif
+			if (frame.getType() == Frame::FT_Track) {
+				int numTracks = getTotalNumberOfTracksIfEnabled();
+				if (numTracks > 0) {
+					oggTag->addField("TRACKTOTAL", TagLib::String::number(numTracks), true);
+				}
+			}
 			return true;
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
 			apeTag->addValue(QSTRING_TO_TSTRING(frame.getName(true)),
@@ -2572,6 +2539,112 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 }
 
 /**
+ * Get the frame type for an APE name.
+ *
+ * @param name APE tag name
+ *
+ * @return frame type.
+ */
+static Frame::Type getTypeFromApeName(const QString& name)
+{
+	Frame::Type type = Frame::getTypeFromName(name);
+	if (type == Frame::FT_Other) {
+		if (name == "YEAR") {
+			type = Frame::FT_Date;
+		} else if (name == "TRACK") {
+			type = Frame::FT_Track;
+		} else if (name == "ENCODED BY") {
+			type = Frame::FT_EncodedBy;
+		}
+	}
+	return type;
+}
+
+/**
+ * Remove ID3v2 frames.
+ *
+ * @param flt filter specifying which frames to remove
+ */
+void TagLibFile::deleteFramesV2(const FrameFilter& flt)
+{
+	if (m_tagV2) {
+		TagLib::ID3v2::Tag* id3v2Tag;
+		TagLib::Ogg::XiphComment* oggTag;
+		TagLib::APE::Tag* apeTag;
+		if (flt.areAllEnabled()) {
+			if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+				const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
+				for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
+						 it != frameList.end();) {
+					id3v2Tag->removeFrame(*it++, true);
+				}
+				markTag2Changed();
+			} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) !=
+								 0) {
+				const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
+				for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
+						 it != fieldListMap.end();) {
+					oggTag->removeField((*it++).first);
+				}
+				markTag2Changed();
+			} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+				const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
+				for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
+						 it != itemListMap.end();) {
+					apeTag->removeItem((*it++).first);
+				}
+				markTag2Changed();
+			} else {
+				TaggedFile::deleteFramesV2(flt);
+			}
+		} else {
+			if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+				const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
+				Frame::Type type;
+				const char* name;
+				for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
+						 it != frameList.end();) {
+					getTypeStringForFrameId((*it)->frameID(), type, name);
+					if (flt.isEnabled(type, name)) {
+						id3v2Tag->removeFrame(*it++, true);
+					} else {
+						++it;
+					}
+				}
+				markTag2Changed();
+			} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) !=
+								 0) {
+				const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
+				for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
+						 it != fieldListMap.end();) {
+					QString name(TStringToQString((*it).first));
+					if (flt.isEnabled(Frame::getTypeFromName(name), name)) {
+						oggTag->removeField((*it++).first);
+					} else {
+						++it;
+					}
+				}
+				markTag2Changed();
+			} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+				const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
+				for (TagLib::APE::ItemListMap::ConstIterator it = itemListMap.begin();
+						 it != itemListMap.end();) {
+					QString name(TStringToQString((*it).first));
+					if (flt.isEnabled(getTypeFromApeName(name), name)) {
+						apeTag->removeItem((*it++).first);
+					} else {
+						++it;
+					}
+				}
+				markTag2Changed();
+			} else {
+				TaggedFile::deleteFramesV2(flt);
+			}
+		}
+	}
+}
+
+/**
  * Get all frames in tag 2.
  *
  * @param frames frame collection to set.
@@ -2620,16 +2693,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 					 ++it) {
 				QString name = TStringToQString((*it).first);
 				TagLib::StringList values = (*it).second.toStringList();
-				Frame::Type type = Frame::getTypeFromName(name);
-				if (type == Frame::FT_Other) {
-					if (name == "YEAR") {
-						type = Frame::FT_Date;
-					} else if (name == "TRACK") {
-						type = Frame::FT_Track;
-					} else if (name == "ENCODED BY") {
-						type = Frame::FT_EncodedBy;
-					}
-				}
+				Frame::Type type = getTypeFromApeName(name);
 				frames.insert(
 					Frame(type, values.size() > 0 ? TStringToQString(values.front()) : "",
 								name, i++));

@@ -199,14 +199,14 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 }
 
 /**
- * Remove all ID3v1 tags.
+ * Remove ID3v1 frames.
  *
- * @param flt filter specifying which fields to remove
+ * @param flt filter specifying which frames to remove
  */
-void Mp3File::removeTagsV1(const StandardTagsFilter& flt)
+void Mp3File::deleteFramesV1(const FrameFilter& flt)
 {
 	if (m_tagV1) {
-		if (flt.areAllTrue()) {
+		if (flt.areAllEnabled()) {
 			ID3_Tag::Iterator* iter = m_tagV1->CreateIterator();
 			ID3_Frame* frame;
 			while ((frame = iter->GetNext()) != NULL) {
@@ -221,34 +221,7 @@ void Mp3File::removeTagsV1(const StandardTagsFilter& flt)
 			markTag1Changed();
 			clearTrunctionFlags();
 		} else {
-			removeStandardTagsV1(flt);
-		}
-	}
-}
-
-/**
- * Remove all ID3v2 tags.
- *
- * @param flt filter specifying which fields to remove
- */
-void Mp3File::removeTagsV2(const StandardTagsFilter& flt)
-{
-	if (m_tagV2) {
-		if (flt.areAllTrue()) {
-			ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
-			ID3_Frame* frame;
-			while ((frame = iter->GetNext()) != NULL) {
-				m_tagV2->RemoveFrame(frame);
-			}
-#ifdef WIN32
-			/* allocated in Windows DLL => must be freed in the same DLL */
-			ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
-#else
-			delete iter;
-#endif
-			markTag2Changed();
-		} else {
-			removeStandardTagsV2(flt);
+			TaggedFile::deleteFramesV1(flt);
 		}
 	}
 }
@@ -1396,7 +1369,7 @@ static ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
  * @param id3Frame id3lib frame
  * @param frame    frame with fields
  */
-static void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame)
+void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
 {
 	ID3_Frame::Iterator* iter = id3Frame->CreateIterator();
 	ID3_FrameID id3Id = id3Frame->GetID();
@@ -1431,6 +1404,8 @@ static void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame)
 				QString value(fld.m_value.toString());
 				if (id3Id == ID3FID_CONTENTTYPE) {
 					value = Genres::getNumberString(value, true);
+				} else if (id3Id == ID3FID_TRACKNUM) {
+					addTotalNumberOfTracksIfEnabled(value);
 				}
 				setString(id3Field, value);
 				break;
@@ -1479,6 +1454,8 @@ bool Mp3File::setFrameV2(const Frame& frame)
 						(fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
 					if (id3Frame->GetID() == ID3FID_CONTENTTYPE) {
 						value = Genres::getNumberString(value, true);
+					} else if (id3Frame->GetID() == ID3FID_TRACKNUM) {
+						addTotalNumberOfTracksIfEnabled(value);
 					}
 					if (fld->GetEncoding() == ID3TE_ISO8859_1) {
 						// check if information is lost if the string is not unicode
@@ -1580,6 +1557,49 @@ bool Mp3File::deleteFrameV2(const Frame& frame)
 
 	// Try the superclass method
 	return TaggedFile::deleteFrameV2(frame);
+}
+
+/**
+ * Remove ID3v2 frames.
+ *
+ * @param flt filter specifying which frames to remove
+ */
+void Mp3File::deleteFramesV2(const FrameFilter& flt)
+{
+	if (m_tagV2) {
+		if (flt.areAllEnabled()) {
+			ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
+			ID3_Frame* frame;
+			while ((frame = iter->GetNext()) != NULL) {
+				m_tagV2->RemoveFrame(frame);
+			}
+#ifdef WIN32
+			/* allocated in Windows DLL => must be freed in the same DLL */
+			ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
+			delete iter;
+#endif
+			markTag2Changed();
+		} else {
+			ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
+			ID3_Frame* frame;
+			while ((frame = iter->GetNext()) != NULL) {
+				Frame::Type type;
+				const char* name;
+				getTypeStringForId3libFrameId(frame->GetID(), type, name);
+				if (flt.isEnabled(type, name)) {
+					m_tagV2->RemoveFrame(frame);
+				}
+			}
+#ifdef WIN32
+			/* allocated in Windows DLL => must be freed in the same DLL */
+			ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
+#else
+			delete iter;
+#endif
+			markTag2Changed();
+		}
+	}
 }
 
 /**

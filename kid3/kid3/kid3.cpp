@@ -1849,23 +1849,26 @@ void Kid3App::slotApplyFilenameFormat()
  */
 void Kid3App::slotApplyId3Format()
 {
-	StandardTags st;
+	FrameCollection frames;
 	if (m_view->numFilesSelected() == 1) {
 		updateCurrentSelection();
 	}
-	StandardTagsFilter fltV1(m_view->getFilterFromID3V1());
-	StandardTagsFilter fltV2(m_view->getFilterFromID3V2());
+	FrameFilter fltV1(m_view->frameTableV1()->getEnabledFrameFilter(true));
+	FrameFilter fltV2(m_view->frameTableV2()->getEnabledFrameFilter(true));
 	FileListItem* mp3file = m_view->firstFile();
 	bool no_selection = m_view->numFilesSelected() == 0;
 	while (mp3file != 0) {
 		if (no_selection || mp3file->isInSelection()) {
-			mp3file->getFile()->readTags(false);
-			mp3file->getFile()->getStandardTagsV1(&st);
-			s_id3FormatCfg.formatStandardTags(st);
-			mp3file->getFile()->setStandardTagsV1(&st, fltV1);
-			mp3file->getFile()->getStandardTagsV2(&st);
-			s_id3FormatCfg.formatStandardTags(st);
-			mp3file->getFile()->setStandardTagsV2(&st, fltV2);
+			TaggedFile* taggedFile = mp3file->getFile();
+			taggedFile->readTags(false);
+			taggedFile->getAllFramesV1(frames);
+			frames.removeDisabledFrames(fltV1);
+			s_id3FormatCfg.formatFrames(frames);
+			taggedFile->setFramesV1(frames);
+			taggedFile->getAllFramesV2(frames);
+			frames.removeDisabledFrames(fltV2);
+			s_id3FormatCfg.formatFrames(frames);
+			taggedFile->setFramesV2(frames);
 		}
 		mp3file = m_view->nextFile();
 	}
@@ -1975,6 +1978,12 @@ void Kid3App::slotConvertToId3v24()
 				if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] < '4') {
 #ifdef HAVE_ID3LIB
 					if (dynamic_cast<Mp3File*>(taggedFile) != 0) {
+						FrameCollection frames;
+						taggedFile->getAllFramesV2(frames);
+						FrameFilter flt;
+						flt.enableAll();
+						taggedFile->deleteFramesV2(flt);
+
 						// The file has to be read with TagLib to write ID3v2.4 tags
 						TagLibFile* tagLibFile;
 						if ((tagLibFile = new TagLibFile(
@@ -1984,11 +1993,18 @@ void Kid3App::slotConvertToId3v24()
 							taggedFile = tagLibFile;
 							taggedFile->readTags(false);
 						}
+
+						// Restore the frames
+						FrameFilter frameFlt;
+						frameFlt.enableAll();
+						taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
 					}
 #endif
+
 					// Write the file with TagLib, it always writes ID3v2.4 tags
 					bool renamed;
 					taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
+					taggedFile->readTags(true);
 				}
 			}
 		}
@@ -2017,12 +2033,11 @@ void Kid3App::slotConvertToId3v23()
 				QString tagFmt = taggedFile->getTagFormatV2();
 				if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3') {
 					if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
-						// Read the standard ID3v2.4 tags, other frames will be discarded!
-						StandardTags st;
-						taggedFile->getStandardTagsV2(&st);
-						StandardTagsFilter flt;
-						flt.setAllTrue();
-						taggedFile->removeTagsV2(flt);
+						FrameCollection frames;
+						taggedFile->getAllFramesV2(frames);
+						FrameFilter flt;
+						flt.enableAll();
+						taggedFile->deleteFramesV2(flt);
 
 						// The file has to be read with id3lib to write ID3v2.3 tags
 						Mp3File* id3libFile;
@@ -2034,8 +2049,10 @@ void Kid3App::slotConvertToId3v23()
 							taggedFile->readTags(false);
 						}
 
-						// Restore the standard tags
-						taggedFile->setStandardTagsV2(&st, flt);
+						// Restore the frames
+						FrameFilter frameFlt;
+						frameFlt.enableAll();
+						taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
 					}
 
 					// Write the file with id3lib, it always writes ID3v2.3 tags
@@ -2446,11 +2463,11 @@ void Kid3App::copyV2ToV1()
 void Kid3App::removeTagsV1()
 {
 	updateCurrentSelection();
-	StandardTagsFilter flt(m_view->getFilterFromID3V1());
+	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter());
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			mp3file->getFile()->removeTagsV1(flt);
+			mp3file->getFile()->deleteFramesV1(flt);
 		}
 		mp3file = m_view->nextFile();
 	}
@@ -2463,11 +2480,11 @@ void Kid3App::removeTagsV1()
 void Kid3App::removeTagsV2()
 {
 	updateCurrentSelection();
-	StandardTagsFilter flt(m_view->getFilterFromID3V2());
+	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter());
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			mp3file->getFile()->removeTagsV2(flt);
+			mp3file->getFile()->deleteFramesV2(flt);
 		}
 		mp3file = m_view->nextFile();
 	}

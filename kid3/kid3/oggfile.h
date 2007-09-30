@@ -76,11 +76,11 @@ public:
 	virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
 	/**
-	 * Remove all ID3v2 tags.
+	 * Remove ID3v2 frames.
 	 *
-	 * @param flt filter specifying which fields to remove
+	 * @param flt filter specifying which frames to remove
 	 */
-	virtual void removeTagsV2(const StandardTagsFilter& flt);
+	virtual void deleteFramesV2(const FrameFilter& flt);
 
 	/**
 	 * Get ID3v2 title.

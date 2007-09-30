@@ -34,6 +34,7 @@
 #include <id3/globals.h> /* ID3_FrameID */
 class ID3_Tag;
 class ID3_Field;
+class ID3_Frame;
 
 /** List box item containing MP3 file */
 class Mp3File : public TaggedFile {
@@ -72,18 +73,18 @@ public:
 	virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
 	/**
-	 * Remove all ID3v1 tags.
+	 * Remove ID3v1 frames.
 	 *
-	 * @param flt filter specifying which fields to remove
+	 * @param flt filter specifying which frames to remove
 	 */
-	virtual void removeTagsV1(const StandardTagsFilter& flt);
+	virtual void deleteFramesV1(const FrameFilter& flt);
 
 	/**
-	 * Remove all ID3v2 tags.
+	 * Remove ID3v2 frames.
 	 *
-	 * @param flt filter specifying which fields to remove
+	 * @param flt filter specifying which frames to remove
 	 */
-	virtual void removeTagsV2(const StandardTagsFilter& flt);
+	virtual void deleteFramesV2(const FrameFilter& flt);
 
 	/**
 	 * Get ID3v1 title.
@@ -422,6 +423,14 @@ public:
 	virtual QStringList getFrameIds() const;
 
 private:
+	/**
+	 * Set the fields in an id3lib frame from the field in the frame.
+	 *
+	 * @param id3Frame id3lib frame
+	 * @param frame    frame with fields
+	 */
+	void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const;
+
 	Mp3File(const Mp3File&);
 	Mp3File& operator=(const Mp3File&);
 

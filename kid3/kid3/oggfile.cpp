@@ -228,17 +228,25 @@ bool OggFile::writeTags(bool, bool*, bool) { return false; }
 #endif // HAVE_VORBIS
 
 /**
- * Remove all ID3v2 tags.
+ * Remove ID3v2 frames.
  *
- * @param flt filter specifying which fields to remove
+ * @param flt filter specifying which frames to remove
  */
-void OggFile::removeTagsV2(const StandardTagsFilter& flt)
+void OggFile::deleteFramesV2(const FrameFilter& flt)
 {
-	if (flt.areAllTrue()) {
+	if (flt.areAllEnabled()) {
 		m_comments.clear();
 		markTag2Changed();
 	} else {
-		removeStandardTagsV2(flt);
+		for (OggFile::CommentList::iterator it = m_comments.begin();
+				 it != m_comments.end();) {
+			QString name((*it).getName());
+			if (flt.isEnabled(Frame::getTypeFromName(name), name)) {
+				it = m_comments.erase(it);
+			} else {
+				++it;
+			}
+		}
 	}
 }
 
@@ -548,6 +556,13 @@ QString OggFile::getTagFormatV2() const
  */
 bool OggFile::setFrameV2(const Frame& frame)
 {
+	if (frame.getType() == Frame::FT_Track) {
+		int numTracks = getTotalNumberOfTracksIfEnabled();
+		if (numTracks > 0) {
+			setTextField("TRACKTOTAL", QString::number(numTracks));
+		}
+	}
+
 	// If the frame has an index, change that specific frame
 	int index = frame.getIndex();
 	if (index != -1 && index < static_cast<int>(m_comments.size())) {

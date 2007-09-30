@@ -33,6 +33,7 @@
 #include "taggedfile.h"
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
+#include <taglib/id3v2frame.h>
 #include <qglobal.h>
 
 /** TagLib version in with 8 bits for major, minor and patch version. */
@@ -92,18 +93,18 @@ public:
 	virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
 	/**
-	 * Remove all ID3v1 tags.
+	 * Remove ID3v1 frames.
 	 *
-	 * @param flt filter specifying which fields to remove
+	 * @param flt filter specifying which frames to remove
 	 */
-	virtual void removeTagsV1(const StandardTagsFilter& flt);
+	virtual void deleteFramesV1(const FrameFilter& flt);
 
 	/**
-	 * Remove all ID3v2 tags.
+	 * Remove ID3v2 frames.
 	 *
-	 * @param flt filter specifying which fields to remove
+	 * @param flt filter specifying which frames to remove
 	 */
-	virtual void removeTagsV2(const StandardTagsFilter& flt);
+	virtual void deleteFramesV2(const FrameFilter& flt);
 
 	/**
 	 * Get ID3v1 title.
@@ -444,6 +445,15 @@ public:
 	virtual QStringList getFrameIds() const;
 
 private:
+	/**
+	 * Modify an ID3v2 frame.
+	 *
+	 * @param id3Frame original ID3v2 frame
+	 * @param frame    frame with fields to set in new frame
+	 */
+	void setId3v2Frame(
+		TagLib::ID3v2::Frame* id3Frame, const Frame& frame) const;
+
 	TagLibFile(const TagLibFile&);
 	TagLibFile& operator=(const TagLibFile&);
 

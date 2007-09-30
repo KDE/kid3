@@ -149,12 +149,19 @@ QString TaggedFile::getGenreV1()
 }
 
 /**
- * Remove all ID3v1 tags.
+ * Remove ID3v1 frames.
  *
- * @param flt filter specifying which fields to remove
+ * @param flt filter specifying which frames to remove
  */
-void TaggedFile::removeTagsV1(const StandardTagsFilter&)
+void TaggedFile::deleteFramesV1(const FrameFilter& flt)
 {
+	if (flt.isEnabled(Frame::FT_Title))   setTitleV1("");
+	if (flt.isEnabled(Frame::FT_Artist))  setArtistV1("");
+	if (flt.isEnabled(Frame::FT_Album))   setAlbumV1("");
+	if (flt.isEnabled(Frame::FT_Comment)) setCommentV1("");
+	if (flt.isEnabled(Frame::FT_Date))    setYearV1(0);
+	if (flt.isEnabled(Frame::FT_Track))   setTrackNumV1(0);
+	if (flt.isEnabled(Frame::FT_Genre))   setGenreV1("");
 }
 
 /**
@@ -687,35 +694,38 @@ int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 }
 
 /**
- * Remove the standard ID3v1 tags.
+ * Add the total number of tracks to the track number if enabled.
  *
- * @param flt filter specifying which fields to remove
+ * @param value string containing track number,
+ *              "/t" with t = total number of tracks will be appended
+ *              if enabled and value contains a number
  */
-void TaggedFile::removeStandardTagsV1(const StandardTagsFilter& flt)
+void TaggedFile::addTotalNumberOfTracksIfEnabled(QString& value) const
 {
-	if (flt.m_enableTitle)   setTitleV1("");
-	if (flt.m_enableArtist)  setArtistV1("");
-	if (flt.m_enableAlbum)   setAlbumV1("");
-	if (flt.m_enableComment) setCommentV1("");
-	if (flt.m_enableYear)    setYearV1(0);
-	if (flt.m_enableTrack)   setTrackNumV1(0);
-	if (flt.m_enableGenre)   setGenreV1("");
+	int numTracks = getTotalNumberOfTracksIfEnabled();
+	if (numTracks > 0) {
+		bool ok;
+		int trackNr = value.toInt(&ok);
+		if (ok && trackNr > 0) {
+			value = QString("%1/%2").arg(trackNr).arg(numTracks);
+		}
+	}
 }
 
 /**
- * Remove the standard ID3v2 tags.
+ * Remove ID3v2 frames.
  *
- * @param flt filter specifying which fields to remove
+ * @param flt filter specifying which frames to remove
  */
-void TaggedFile::removeStandardTagsV2(const StandardTagsFilter& flt)
+void TaggedFile::deleteFramesV2(const FrameFilter& flt)
 {
-	if (flt.m_enableTitle)   setTitleV2("");
-	if (flt.m_enableArtist)  setArtistV2("");
-	if (flt.m_enableAlbum)   setAlbumV2("");
-	if (flt.m_enableComment) setCommentV2("");
-	if (flt.m_enableYear)    setYearV2(0);
-	if (flt.m_enableTrack)   setTrackNumV2(0);
-	if (flt.m_enableGenre)   setGenreV2("");
+	if (flt.isEnabled(Frame::FT_Title))   setTitleV2("");
+	if (flt.isEnabled(Frame::FT_Artist))  setArtistV2("");
+	if (flt.isEnabled(Frame::FT_Album))   setAlbumV2("");
+	if (flt.isEnabled(Frame::FT_Comment)) setCommentV2("");
+	if (flt.isEnabled(Frame::FT_Date))    setYearV2(0);
+	if (flt.isEnabled(Frame::FT_Track))   setTrackNumV2(0);
+	if (flt.isEnabled(Frame::FT_Genre))   setGenreV2("");
 }
 
 /**
@@ -1032,16 +1042,6 @@ void TaggedFile::getAllFramesV1(FrameCollection& frames)
 			frames.insert(frame);
 		}
 	}
-}
-
-/**
- * Get all frames in tag 2.
- *
- * @param frames frame collection to set.
- */
-void TaggedFile::getAllFramesV2(FrameCollection&)
-{
-	// implement in subclasses
 }
 
 /**
