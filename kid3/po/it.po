@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kid3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-19 20:55+0200\n"
-"PO-Revision-Date: 2007-09-22 07:23+0200\n"
+"PO-Revision-Date: 2007-09-28 20:06+0200\n"
 "Last-Translator: Valter Mura <valtermura@yahoo.it>\n"
 "Language-Team: italiano\n"
 "MIME-Version: 1.0\n"
@@ -402,7 +402,7 @@ msgstr "Parte"
 
 #: frame.cpp:75
 msgid "Performer"
-msgstr "Esecutore"
+msgstr "Interprete"
 
 #: frame.cpp:76
 msgid "Publisher"
@@ -562,11 +562,11 @@ msgstr "Media"
 
 #: framelist.cpp:1010
 msgid "Lead artist/lead performer/soloist"
-msgstr "Artista principale/esecutore principale/solista"
+msgstr "Artista principale/interprete principale/solista"
 
 #: framelist.cpp:1011
 msgid "Artist/performer"
-msgstr "Artista/esecutore"
+msgstr "Artista/interprete"
 
 #: framelist.cpp:1013
 msgid "Band/Orchestra"
@@ -594,7 +594,7 @@ msgstr "Cattura schermo/film"
 
 #: framelist.cpp:1020
 msgid "A bright coloured fish"
-msgstr "Un pesce dai colori brillanti"
+msgstr "A bright coloured fish"
 
 #: framelist.cpp:1021
 msgid "Illustration"
@@ -1326,7 +1326,7 @@ msgstr "TOLY - Paroliere/i originale/i - Scrittore/i testo"
 
 #: mp3file.cpp:1190 taglibfile.cpp:1313
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Artista/i originale/i - esecutore/i"
+msgstr "TOPE - Artista/i originale/i - interprete/i"
 
 #: mp3file.cpp:1191
 msgid "TORY - Original release year"
@@ -1338,7 +1338,7 @@ msgstr "TOWN - Proprietario/licenziatario file"
 
 #: mp3file.cpp:1193 taglibfile.cpp:1315
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Esecutore/i principale/i - Solista/i"
+msgstr "TPE1 - Interprete/i principale/i - Solista/i"
 
 #: mp3file.cpp:1194 taglibfile.cpp:1316
 msgid "TPE2 - Band/orchestra/accompaniment"
@@ -1346,7 +1346,7 @@ msgstr "TPE2 - Band/orchestra/accompagnamento"
 
 #: mp3file.cpp:1195 taglibfile.cpp:1317
 msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Miglioramento direttore d'orchestra/esecutore"
+msgstr "TPE3 - Miglioramento direttore d'orchestra/interprete"
 
 #: mp3file.cpp:1196 taglibfile.cpp:1318
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
@@ -1422,7 +1422,7 @@ msgstr "WOAF - Pagina web ufficiale del file audio"
 
 #: mp3file.cpp:1219 taglibfile.cpp:1338
 msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Pagina web ufficiale dell'artista/esecutore"
+msgstr "WOAR - Pagina web ufficiale dell'artista/interprete"
 
 #: mp3file.cpp:1220 taglibfile.cpp:1339
 msgid "WOAS - Official audio source webpage"
@@ -1661,7 +1661,7 @@ msgstr "TMOO - Mood"
 
 #: taglibfile.cpp:1320
 msgid "TPRO - Produced notice"
-msgstr "TPRO - Avviso pubblicato"
+msgstr "TPRO - Indicatore copyright produttore"
 
 #: taglibfile.cpp:1325
 msgid "TSOA - Album sort order"
@@ -1669,7 +1669,7 @@ msgstr "TSOA - Ordinamento per album"
 
 #: taglibfile.cpp:1326
 msgid "TSOP - Performer sort order"
-msgstr "TSOP - Ordinamento per esecutore"
+msgstr "TSOP - Ordinamento per interprete"
 
 #: taglibfile.cpp:1327
 msgid "TSOT - Title sort order"
