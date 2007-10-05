@@ -226,12 +226,6 @@ public:
 	virtual int alignment() const { return AlignLeft; }
 
 	/**
-	 * Get text of table item.
-	 * @return text.
-	 */
-	virtual QString text() const;
-
-	/**
 	 * Get runtime type identification.
 	 * @return RttiValue.
 	 */
@@ -273,17 +267,6 @@ QWidget* ValueTableItem::createEditor() const
 	e->setFrame(false);
 	e->setText(text());
 	return e;
-}
-
-/**
- * Get text of table item.
- * @return text.
- */
-QString ValueTableItem::text() const
-{
-	QWidget* w = table()->cellWidget(row(), col());
-	if (w) ((QTableItem*)this)->setContentFromEditor(w);
-	return QTableItem::text();
 }
 
 
