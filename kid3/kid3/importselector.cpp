@@ -331,6 +331,7 @@ ImportSelector::ImportSelector(
 	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	connect(m_clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
 	connect(m_serverButton, SIGNAL(clicked()), this, SLOT(fromServer()));
+	connect(m_serverComboBox, SIGNAL(activated(int)), this, SLOT(fromServer()));
 	connect(m_lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
 	connect(m_trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
 	connect(m_titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
