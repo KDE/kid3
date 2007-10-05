@@ -801,17 +801,19 @@ void Kid3App::openDirectory(QString dir, bool confirm)
 		return;
 	}
 	QFileInfo file(dir);
+	QString fileName;
 	if (!file.isDir()) {
 #if QT_VERSION >= 0x040000
 		dir = file.dir().path();
 #else
 		dir = file.dirPath(true);
 #endif
+		fileName = file.fileName();
 	}
 
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	slotStatusMsg(i18n("Opening directory..."));
-	if (m_view->readFileList(dir)) {
+	if (m_view->readFileList(dir, fileName)) {
 		m_view->readDirectoryList(dir);
 		setModified(false);
 #ifdef CONFIG_USE_KDE
@@ -2268,7 +2270,7 @@ void Kid3App::fileSelected()
 void Kid3App::copyTagsV1()
 {
 	m_copyTags = m_view->frameTableV1()->frames().copyEnabledFrames(
-		m_view->frameTableV1()->getEnabledFrameFilter());
+		m_view->frameTableV1()->getEnabledFrameFilter(true));
 }
 
 /**
@@ -2277,7 +2279,7 @@ void Kid3App::copyTagsV1()
 void Kid3App::copyTagsV2()
 {
 	m_copyTags = m_view->frameTableV2()->frames().copyEnabledFrames(
-		m_view->frameTableV2()->getEnabledFrameFilter());
+		m_view->frameTableV2()->getEnabledFrameFilter(true));
 }
 
 /**
@@ -2287,7 +2289,7 @@ void Kid3App::pasteTagsV1()
 {
 	updateCurrentSelection();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
-													 m_view->frameTableV1()->getEnabledFrameFilter()));
+													 m_view->frameTableV1()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
@@ -2307,7 +2309,7 @@ void Kid3App::pasteTagsV2()
 {
 	updateCurrentSelection();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
-													 m_view->frameTableV2()->getEnabledFrameFilter()));
+													 m_view->frameTableV2()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
@@ -2463,7 +2465,7 @@ void Kid3App::copyV2ToV1()
 void Kid3App::removeTagsV1()
 {
 	updateCurrentSelection();
-	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter());
+	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
@@ -2480,7 +2482,7 @@ void Kid3App::removeTagsV1()
 void Kid3App::removeTagsV2()
 {
 	updateCurrentSelection();
-	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter());
+	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {

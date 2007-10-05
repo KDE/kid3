@@ -117,10 +117,12 @@ public:
 	/**
 	 * Fill the filelist with the files found in a directory.
 	 *
-	 * @param name path of directory
+	 * @param name     path of directory
+	 * @param fileName name of file to select (optional, else empty)
+	 *
 	 * @return false if name is not directory path, else true.
 	 */
-	bool readDir(const QString& name);
+	bool readDir(const QString& name, const QString& fileName = QString());
 
 	/**
 	 * Refresh text of all files in listview and check if any file is modified.
@@ -145,9 +147,11 @@ public:
 	 * @param dirInfo  information  about directory
 	 * @param item     parent directory item or 0 if top-level
 	 * @param listView parent list view if top-level, else 0
+	 * @param fileName name of file to select (optional, else empty)
 	 */
 	static void readSubDirectory(DirInfo* dirInfo, FileListItem* item,
-															 FileList* listView);
+															 FileList* listView,
+															 const QString& fileName = QString());
 
 signals:
 	/**

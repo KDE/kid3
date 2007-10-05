@@ -185,10 +185,13 @@ public:
 
 	/**
 	 * Fill file list.
-	 * @param dir path of directory
+	 * @param dir      path of directory
+	 * @param fileName name of file to select (optional, else empty)
 	 * @return false if name is not directory path, else true.
 	 */
-	bool readFileList(const QString& dir) { return m_fileListBox->readDir(dir); }
+	bool readFileList(const QString& dir, const QString& fileName = QString()) {
+		return m_fileListBox->readDir(dir, fileName);
+	}
 
 	/**
 	 * Get the first item in the filelist.

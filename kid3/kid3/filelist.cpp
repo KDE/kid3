@@ -427,9 +427,10 @@ TaggedFile* FileList::createTaggedFile(const DirInfo* di, const QString& fn)
  * @param dirInfo  information  about directory
  * @param item     parent directory item or 0 if top-level
  * @param listView parent list view if top-level, else 0
+ * @param fileName name of file to select (optional, else empty)
  */
 void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
-																FileList* listView)
+																FileList* listView, const QString& fileName)
 {
 	if (!dirInfo) return;
 	QString dirname = dirInfo->getDirname();
@@ -453,6 +454,15 @@ void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 				} else if (listView) {
 					last = new FileListItem(listView, last, taggedFile);
 				}
+				if (!fileName.isEmpty() && fileName == *it && last && listView) {
+					listView->clearSelection();
+					listView->setCurrentItem(last);
+#if QT_VERSION >= 0x040000
+					listView->setItemSelected(last, true);
+#else
+					listView->setSelected(last, true);
+#endif
+				}
 				++numFiles;
 			}
 		} else {
@@ -474,16 +484,18 @@ void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 /**
  * Fill the filelist with the files found in a directory.
  *
- * @param name path of directory
+ * @param name     path of directory
+ * @param fileName name of file to select (optional, else empty)
+ *
  * @return false if name is not directory path, else true.
  */
-bool FileList::readDir(const QString& name)
+bool FileList::readDir(const QString& name, const QString& fileName)
 {
 	QFileInfo file(name);
 	if(file.isDir()) {
 		clear();
 		m_dirInfo.setDirname(file.QCM_absoluteFilePath());
-		readSubDirectory(&m_dirInfo, 0, this);
+		readSubDirectory(&m_dirInfo, 0, this, fileName);
 		return true;
 	}
 	return false;
