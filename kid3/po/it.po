@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kid3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-19 20:55+0200\n"
-"PO-Revision-Date: 2007-09-28 20:06+0200\n"
+"PO-Revision-Date: 2007-10-04 20:02+0200\n"
 "Last-Translator: Valter Mura <valtermura@yahoo.it>\n"
 "Language-Team: italiano\n"
 "MIME-Version: 1.0\n"
@@ -266,7 +266,7 @@ msgstr "Errore durante l'eliminazione di questi %1 elementi:"
 
 #: filelist.cpp:964 filelist.cpp:971
 msgid "Directory must be empty.\n"
-msgstr "La directory deve essere vuota.\n"
+msgstr "La cartella deve essere vuota.\n"
 
 #: formatbox.cpp:39
 msgid "Format while editing"
@@ -1174,7 +1174,7 @@ msgstr "EQUA - Equalizzazione"
 
 #: mp3file.cpp:1141 taglibfile.cpp:1262
 msgid "ETCO - Event timing codes"
-msgstr "ETCO - Event timing codes"
+msgstr "ETCO - Codici temporali degli eventi"
 
 #: mp3file.cpp:1142 taglibfile.cpp:1263
 msgid "GEOB - General encapsulated object"
@@ -1446,7 +1446,7 @@ msgstr "WXXX - Collegamento URL definito dall'utente"
 
 #: musicbrainzclient.cpp:273
 msgid "Metadata Read"
-msgstr "Metadata Read"
+msgstr "Metadati letti"
 
 #: musicbrainzclient.cpp:275 musicbrainzclient.cpp:578
 msgid "Unrecognized"
