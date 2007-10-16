@@ -13,7 +13,7 @@ unix {
   INCLUDEPATH = /usr/include/taglib $$PWD
 }
 CONFIG += release
-win32:RC_FILE = ../kid3win.rc
+win32:RC_FILE = ../win32/kid3win.rc
 TEMPLATE = app
 QT = core gui network xml
 LIBS += $$CFG_LIBS
