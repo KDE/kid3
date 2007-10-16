@@ -776,23 +776,25 @@ void Id3Form::readConfig()
 {
 	if (!Kid3App::s_miscCfg.m_splitterSizes.empty()) {
 		setSizes(Kid3App::s_miscCfg.m_splitterSizes);
+	} else {
+		setSizes(
+#if QT_VERSION >= 0x040000
+			QList<int>()
+#else
+			QValueList<int>()
+#endif
+			<< 307 << 601);
 	}
 	if (!Kid3App::s_miscCfg.m_vSplitterSizes.empty()) {
 		m_vSplitter->setSizes(Kid3App::s_miscCfg.m_vSplitterSizes);
 	} else {
-		// no values in configuration => set defaults
-		// the window height is a bit too large, but works
-		int sumSizes = size().height();
-		if (sumSizes > 70) {
+		m_vSplitter->setSizes(
 #if QT_VERSION >= 0x040000
-			QList<int> sizes;
+			QList<int>()
 #else
-			QValueList<int> sizes;
+			QValueList<int>()
 #endif
-			sizes.append(sumSizes - 70);
-			sizes.append(70);
-			m_vSplitter->setSizes(sizes);
-		}
+			<< 451 << 109);
 	}
 #if QT_VERSION >= 0x040000
 	m_formatComboBox->setItemText(Kid3App::s_miscCfg.m_formatItem,
