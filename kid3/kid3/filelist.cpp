@@ -384,44 +384,6 @@ void FileList::selectPreviousFile()
 }
 
 /**
- * Create a TaggedFile subclass depending on the file extension.
- *
- * @param di directory information
- * @param fn filename
- *
- * @return tagged file, 0 if no type found.
- */
-TaggedFile* FileList::createTaggedFile(const DirInfo* di, const QString& fn)
-{
-	TaggedFile* taggedFile = 0;
-#ifdef HAVE_VORBIS
-	if (fn.right(4).QCM_toLower() == ".ogg")
-		taggedFile = new OggFile(di, fn);
-	else
-#endif
-#ifdef HAVE_FLAC
-		if (fn.right(5).QCM_toLower() == ".flac")
-			taggedFile = new FlacFile(di, fn);
-		else
-#endif
-#ifdef HAVE_ID3LIB
-			if (fn.right(4).QCM_toLower() == ".mp3"
-#ifdef HAVE_TAGLIB
-			&& Kid3App::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
-#endif
-		)
-		taggedFile = new Mp3File(di, fn);
-			else
-#endif
-#ifdef HAVE_TAGLIB
-		taggedFile = new TagLibFile(di, fn);
-#else
-	;
-#endif
-	return taggedFile;
-}
-
-/**
  * Fill the filelist with the files found in the directory tree.
  *
  * @param dirInfo  information  about directory
@@ -447,7 +409,7 @@ void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 			 it != dirContents.end(); ++it) {
 		QString filename = dirname + QDir::separator() + *it;
 		if (!QFileInfo(filename).isDir()) {
-			TaggedFile* taggedFile = createTaggedFile(dirInfo, *it);
+			TaggedFile* taggedFile = TaggedFile::createFile(dirInfo, *it);
 			if (taggedFile) {
 				if (item) {
 					last = new FileListItem(item, last, taggedFile);
@@ -461,6 +423,7 @@ void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 					listView->setItemSelected(last, true);
 #else
 					listView->setSelected(last, true);
+					listView->ensureItemVisible(last);
 #endif
 				}
 				++numFiles;
@@ -791,13 +754,13 @@ void FileList::renameFile()
 					item->setFile(0);
 					if (QDir().rename(absFilename, newPath)) {
 						TaggedFile* newTaggedFile =
-							createTaggedFile(dirInfo, newFileName);
+							TaggedFile::createFile(dirInfo, newFileName);
 						if (newTaggedFile) {
 							item->setFile(newTaggedFile);
 							fileRenamed = true;
 						}
 					} else {
-						item->setFile(createTaggedFile(dirInfo, filename));
+						item->setFile(TaggedFile::createFile(dirInfo, filename));
 						QMessageBox::warning(
 							0, i18n("File Error"),
 							i18n("Error while renaming:\n") +
@@ -918,7 +881,7 @@ void FileList::deleteFile()
 							delete item;
 #endif
 						} else {
-							item->setFile(createTaggedFile(dirInfo, filename));
+							item->setFile(TaggedFile::createFile(dirInfo, filename));
 							files.push_back(absFilename);
 						}
 					}

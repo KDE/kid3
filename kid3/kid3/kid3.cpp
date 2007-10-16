@@ -233,6 +233,7 @@ QString Kid3App::s_dirName;
 Kid3App::Kid3App() :
 	m_importDialog(0), m_exportDialog(0), m_numberTracksDialog(0)
 {
+	initFileTypes();
 	initStatusBar();
 	setModified(false);
 	initView();
@@ -764,6 +765,17 @@ void Kid3App::initActions()
 }
 
 /**
+ * Init file types.
+ */
+void Kid3App::initFileTypes()
+{
+	TaggedFile::addResolver(new Mp3File::Resolver);
+	TaggedFile::addResolver(new OggFile::Resolver);
+	TaggedFile::addResolver(new FlacFile::Resolver);
+	TaggedFile::addResolver(new TagLibFile::Resolver);
+}
+
+/**
  * Init status bar.
  */
 void Kid3App::initStatusBar()
@@ -869,6 +881,9 @@ void Kid3App::saveOptions()
 void Kid3App::readOptions()
 {
 	s_miscCfg.readFromConfig(m_config);
+	if (s_miscCfg.m_nameFilter.isEmpty()) {
+		createFilterString(&s_miscCfg.m_nameFilter);
+	}
 	s_fnFormatCfg.readFromConfig(m_config);
 	s_id3FormatCfg.readFromConfig(m_config);
 	s_genCfg.readFromConfig(m_config);
@@ -1115,6 +1130,7 @@ void Kid3App::cleanup()
 	m_config->sync();
 	delete m_config;
 #endif
+	TaggedFile::staticCleanup();
 }
 
 /**
@@ -1140,28 +1156,131 @@ bool Kid3App::queryClose()
 }
 
 /**
+ * Get all combinations with lower- and uppercase characters.
+ *
+ * @param str original string
+ *
+ * @return string with all combinations, separated by spaces.
+ */
+static QString lowerUpperCaseCombinations(const QString& str)
+{
+	QString result;
+	QString lc(str.QCM_toLower());
+	QString uc(str.QCM_toUpper());
+
+	// get a mask of all alphabetic characters in the string
+	unsigned char numChars = 0, charMask = 0, posMask = 1;
+	int numPos = lc.length();
+	if (numPos > 8) numPos = 8;
+	for (int pos = 0; pos < numPos; ++pos, posMask <<= 1) {
+		if (lc[pos] >= 'a' && lc[pos] <= 'z') {
+			charMask |= posMask;
+			++numChars;
+		}
+	}
+
+	int numCombinations = 1 << numChars;
+	for (int comb = 0; comb < numCombinations; ++comb) {
+		posMask = 1;
+		int combMask = 1;
+		if (!result.isEmpty()) {
+			result += ' ';
+		}
+		for (int pos = 0; pos < numPos; ++pos, posMask <<= 1) {
+			if (charMask & posMask) {
+				if (comb & combMask) {
+					result += uc[pos];
+				} else {
+					result += lc[pos];
+				}
+				combMask <<= 1;
+			} else {
+				result += lc[pos];
+			}
+		}
+	}
+
+	return result;
+}
+
+/**
+ * Create a filter string for the file dialog.
+ * The filter string contains entries for all supported types.
+ *
+ * @param defaultNameFilter if not 0, return default name filter here
+ *
+ * @return filter string.
+ */
+QString Kid3App::createFilterString(QString* defaultNameFilter) const
+{
+	QStringList extensions = TaggedFile::getSupportedFileExtensions();
+	QString result, allText, allLowerExt, allCombinations;
+	for (QStringList::const_iterator it = extensions.begin();
+			 it != extensions.end();
+			 ++it) {
+		QString text = (*it).mid(1).QCM_toUpper();
+		QString lowerExt = '*' + *it;
+		QString combinations = lowerUpperCaseCombinations(lowerExt);
+		if (!allCombinations.isEmpty()) {
+			allCombinations += ' ';
+		}
+		allCombinations += combinations;
+		if (!allLowerExt.isEmpty()) {
+			allLowerExt += ", ";
+		}
+		allLowerExt += lowerExt;
+		if (!allText.isEmpty()) {
+			allText += ", ";
+		}
+		allText += text;
+#ifdef CONFIG_USE_KDE
+		result += combinations;
+		result += '|';
+		result += text;
+		result += " (";
+		result += lowerExt;
+		result += ")\n";
+#else
+		result += text;
+		result += " (";
+		result += combinations;
+		result += ");;";
+#endif
+	}
+
+#ifdef CONFIG_USE_KDE
+	QString allExt = allCombinations;
+	allExt += '|';
+	allExt += allText;
+	allExt += " (";
+	allExt += allLowerExt;
+	allExt += ")\n";
+	result = allExt + result + i18n("*|All Files (*)");
+#else
+	QString allExt = allText;
+	allExt += " (";
+	allExt += allCombinations;
+	allExt += ");;";
+	result = allExt + result + i18n("All Files (*)");
+#endif
+
+	if (defaultNameFilter) {
+		*defaultNameFilter = allCombinations;
+	}
+
+	return result;
+}
+
+/**
  * Request new directory and open it.
  */
 void Kid3App::slotFileOpen()
 {
 	updateCurrentSelection();
 	if(saveModified()) {
-		QString dir, filter, flt;
+		static QString flt = createFilterString();
+		QString dir, filter;
 #ifdef CONFIG_USE_KDE
-		flt = "*.mp3 *.ogg *.flac *.mpc *.MP3 *.OGG *.FLAC *.MPC *.Mp3 *.Ogg *.Flac *.Mpc *.mP3 *.ogG *.oGg *.oGG *.OgG *.OGg *.flaC *.flAc *.flAC *.FlaC *.FlAc *.mpC *.mPc *.mPC *.MpC *.MPc|MP3, OGG, FLAC, MPC (*.mp3, *.ogg, *.flac *.mpc)\n";
-#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-		flt += "*.mp3 *.MP3 *.Mp3 *.mP3|MP3 (*.mp3)\n";
-#endif
-#if defined HAVE_VORBIS || defined HAVE_TAGLIB
-		flt += "*.ogg *.OGG *.Ogg *.ogG *.oGg *.oGG *.OgG *.OGg|OGG (*.ogg)\n";
-#endif
-#if defined HAVE_FLAC || defined HAVE_TAGLIB
-		flt += "*.flac *.FLAC *.Flac *.flaC *.flAc *.flAC *.FlaC *.FlAc|FLAC (*.flac)\n";
-#endif
-#ifdef HAVE_TAGLIB
-		flt += "*.mpc *.MPC *.Mpc *.mpC *.mPc *.mPC *.MpC *.MPc|MPC (*.mpc)\n";
-#endif
-		flt += ("*|All Files (*)");
 #if KDE_VERSION >= 0x035c00
 		KFileDialog diag(s_dirName, flt, this);
 #else
@@ -1176,20 +1295,6 @@ void Kid3App::slotFileOpen()
 			filter = diag.currentFilter();
 		}
 #else
-		flt = "MP3, OGG, FLAC, MPC (*.mp3 *.ogg *.flac *.mpc *.MP3 *.OGG *.FLAC *.MPC *.Mp3 *.Ogg *.Flac *.Mpc *.mP3 *.ogG *.oGg *.oGG *.OgG *.OGg *.flaC *.flAc *.flAC *.FlaC *.FlAc *.mpC *.mPc *.mPC *.MpC *.MPc);;";
-#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-		flt += "MP3 (*.mp3 *.MP3 *.Mp3 *.mP3);;";
-#endif
-#if defined HAVE_VORBIS || defined HAVE_TAGLIB
-		flt += "OGG (*.ogg *.OGG *.Ogg *.ogG *.oGg *.oGG *.OgG *.OGg);;";
-#endif
-#if defined HAVE_FLAC || defined HAVE_TAGLIB
-		flt += "FLAC (*.flac *.FLAC *.Flac *.flaC *.flAc *.flAC *.FlaC *.FlAc);;";
-#endif
-#ifdef HAVE_TAGLIB
-		flt += "MPC (*.mpc *.MPC *.Mpc *.mpC *.mPc *.mPC *.MpC *.MPc);;";
-#endif
-		flt += i18n("All Files (*)");
 #if QT_VERSION >= 0x040000
 		dir = QFileDialog::getOpenFileName(
 			this, QString(), s_dirName, flt, &filter);

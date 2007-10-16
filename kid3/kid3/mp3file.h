@@ -39,6 +39,27 @@ class ID3_Frame;
 /** List box item containing MP3 file */
 class Mp3File : public TaggedFile {
 public:
+	/** File type resolution. */
+	class Resolver : public TaggedFile::Resolver {
+		/**
+		 * Create an Mp3File object if it supports the filename's extension.
+		 *
+		 * @param di directory information
+		 * @param fn filename
+		 *
+		 * @return tagged file, 0 if type not supported.
+		 */
+		virtual TaggedFile* createFile(const DirInfo* di, const QString& fn) const;
+
+		/**
+		 * Get a list with all extensions supported by Mp3File.
+		 *
+		 * @return list of file extensions.
+		 */
+		virtual QStringList getSupportedFileExtensions() const;
+	};
+
+
 	/**
 	 * Constructor.
 	 *

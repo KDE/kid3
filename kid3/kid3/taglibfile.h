@@ -59,6 +59,27 @@
 /** List box item containing tagged file. */
 class TagLibFile : public TaggedFile {
 public:
+	/** File type resolution. */
+	class Resolver : public TaggedFile::Resolver {
+		/**
+		 * Create an TagLibFile object if it supports the filename's extension.
+		 *
+		 * @param di directory information
+		 * @param fn filename
+		 *
+		 * @return tagged file, 0 if type not supported.
+		 */
+		virtual TaggedFile* createFile(const DirInfo* di, const QString& fn) const;
+
+		/**
+		 * Get a list with all extensions supported by TagLibFile.
+		 *
+		 * @return list of file extensions.
+		 */
+		virtual QStringList getSupportedFileExtensions() const;
+	};
+
+
 	/**
 	 * Constructor.
 	 *

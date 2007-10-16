@@ -37,6 +37,7 @@
 #include "standardtags.h"
 #include "genres.h"
 #include "dirinfo.h"
+#include "kid3.h"
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -2756,6 +2757,40 @@ QStringList TagLibFile::getFrameIds() const
 		}
 	}
 	return lst;
+}
+
+
+/**
+ * Create an TagLibFile object if it supports the filename's extension.
+ *
+ * @param di directory information
+ * @param fn filename
+ *
+ * @return tagged file, 0 if type not supported.
+ */
+TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
+																					const QString& fn) const
+{
+	QString ext = fn.right(4).QCM_toLower();
+	if ((ext == ".mp3"
+#ifdef HAVE_ID3LIB
+			 && Kid3App::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0
+#endif
+				)
+			|| ext == ".mpc" || ext == ".ogg" || ext == "flac")
+		return new TagLibFile(di, fn);
+	else
+		return 0;
+}
+
+/**
+ * Get a list with all extensions supported by TagLibFile.
+ *
+ * @return list of file extensions.
+ */
+QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
+{
+	return QStringList() << ".flac" << ".mp3" << ".mpc" << ".ogg";
 }
 
 #endif // HAVE_TAGLIB

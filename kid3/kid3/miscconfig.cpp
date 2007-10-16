@@ -30,6 +30,7 @@
 #ifdef CONFIG_USE_KDE
 #include <kdeversion.h>
 #include <kconfig.h>
+#include <kconfigskeleton.h>
 #else
 #include <qfile.h>
 #endif
@@ -39,15 +40,6 @@
 #include "taggedfile.h"
 #include "rendirdialog.h"
 #include "miscconfig.h"
-
-/** Default name filter */
-#ifdef HAVE_VORBIS
-const char* const MiscConfig::s_defaultNameFilter =
-	"*.mp3 *.MP3 *.Mp3 *.mP3 "
-	"*.ogg *.ogG *.oGg *.oGG *.Ogg *.OgG *.OGg *.OGG";
-#else
-const char* const MiscConfig::s_defaultNameFilter = "*.mp3 *.MP3 *.Mp3 *.mP3";
-#endif
 
 /** Default value for comment name */
 const char* const MiscConfig::s_defaultCommentName = "COMMENT";
@@ -114,7 +106,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_enableTotalNumberOfTracks(false),
 	m_preserveTime(false),
 	m_commentName(s_defaultCommentName),
-	m_nameFilter(s_defaultNameFilter),
+	m_nameFilter(""),
 	m_formatText(s_defaultFnFmtList[0]),
 	m_formatItem(0),
 	m_dirFormatText(s_defaultDirFmtList[0]),
@@ -269,7 +261,7 @@ void MiscConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
 	KCM_KConfigGroup(cfg, config, m_group);
 	m_nameFilter =
-	    cfg.readEntry("NameFilter2", s_defaultNameFilter);
+	    cfg.readEntry("NameFilter2", "");
 	m_formatItem =
 	    cfg.KCM_readNumEntry("FormatItem", 0);
 	m_dirFormatItem =
@@ -308,7 +300,7 @@ void MiscConfig::readFromConfig(
 #else
 	config->beginGroup("/" + m_group);
 	m_nameFilter =
-	    config->QCM_readEntry("/NameFilter2", s_defaultNameFilter);
+	    config->QCM_readEntry("/NameFilter2", "");
 	m_formatItem =
 	    config->QCM_readNumEntry("/FormatItem", 0);
 	m_dirFormatItem =

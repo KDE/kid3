@@ -210,8 +210,6 @@ public:
 	int m_windowHeight;
 #endif
 
-	/** Default name filter */
-	static const char* const s_defaultNameFilter;
 	/** Default value for comment name */
 	static const char* const s_defaultCommentName;
 	/** Default value for web browser */

@@ -327,4 +327,32 @@ bool FlacFile::FileInfo::read(FLAC::Metadata::StreamInfo* si)
 	return valid;
 }
 
+
+/**
+ * Create an FlacFile object if it supports the filename's extension.
+ *
+ * @param di directory information
+ * @param fn filename
+ *
+ * @return tagged file, 0 if type not supported.
+ */
+TaggedFile* FlacFile::Resolver::createFile(const DirInfo* di,
+																					const QString& fn) const
+{
+	if (fn.right(5).QCM_toLower() == ".flac")
+		return new FlacFile(di, fn);
+	else
+		return 0;
+}
+
+/**
+ * Get a list with all extensions supported by FlacFile.
+ *
+ * @return list of file extensions.
+ */
+QStringList FlacFile::Resolver::getSupportedFileExtensions() const
+{
+	return QStringList() << ".flac";
+}
+
 #endif // HAVE_FLAC

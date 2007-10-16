@@ -778,4 +778,32 @@ bool OggFile::CommentList::setValue(const QString& name, const QString& value)
 	}
 }
 
+
+/**
+ * Create an OggFile object if it supports the filename's extension.
+ *
+ * @param di directory information
+ * @param fn filename
+ *
+ * @return tagged file, 0 if type not supported.
+ */
+TaggedFile* OggFile::Resolver::createFile(const DirInfo* di,
+																					const QString& fn) const
+{
+	if (fn.right(4).QCM_toLower() == ".ogg")
+		return new OggFile(di, fn);
+	else
+		return 0;
+}
+
+/**
+ * Get a list with all extensions supported by OggFile.
+ *
+ * @return list of file extensions.
+ */
+QStringList OggFile::Resolver::getSupportedFileExtensions() const
+{
+	return QStringList() << ".ogg";
+}
+
 #endif // HAVE_VORBIS || define HAVE_FLAC

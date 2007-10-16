@@ -28,6 +28,13 @@
 #define TAGGEDFILE_H
 
 #include <qstring.h>
+#include <qstringlist.h>
+#include "qtcompatmac.h"
+#if QT_VERSION >= 0x040000
+#include <QList>
+#else
+#include <qvaluelist.h>
+#endif
 #include "standardtags.h"
 #include "frame.h"
 
@@ -36,6 +43,38 @@ class DirInfo;
 /** Base class for tagged files. */
 class TaggedFile {
 public:
+	/** Abstract base class for pluggable file type resolution. */
+	class Resolver {
+	public:
+		/**
+		 * Constructor.
+		 */
+		Resolver() {}
+
+		/**
+		 * Destructor.
+		 */
+		virtual ~Resolver() {}
+
+		/**
+		 * Create a TaggedFile subclass depending on the file extension.
+		 *
+		 * @param di directory information
+		 * @param fn filename
+		 *
+		 * @return tagged file, 0 if type not supported.
+		 */
+		virtual TaggedFile* createFile(const DirInfo* di, const QString& fn) const = 0;
+
+		/**
+		 * Get a list with all extensions (e.g. ".mp3") supported by TaggedFile subclass.
+		 *
+		 * @return list of file extensions.
+		 */
+		virtual QStringList getSupportedFileExtensions() const = 0;
+	};
+
+
 	/**
 	 * Constructor.
 	 *
@@ -634,6 +673,37 @@ public:
 	 */
 	static QString formatTime(unsigned seconds);
 
+	/**
+	 * Add a file type resolver to the end of a list of resolvers.
+	 *
+	 * @param resolver file type resolver to add
+	 */
+	static void addResolver(const Resolver* resolver);
+
+	/**
+	 * Create a TaggedFile subclass using the first successful resolver.
+	 * @see addResolver()
+	 *
+	 * @param di directory information
+	 * @param fn filename
+	 *
+	 * @return tagged file, 0 if type not supported.
+	 */
+	static TaggedFile* createFile(const DirInfo* di, const QString& fn);
+
+	/**
+	 * Get a list with all extensions (e.g. ".mp3") supported by the resolvers.
+	 * @see addResolver()
+	 *
+	 * @return list of file extensions.
+	 */
+	static QStringList getSupportedFileExtensions();
+
+	/**
+	 * Free static resources.
+	 */
+	static void staticCleanup();
+
 protected:
 	/**
 	 * Rename a file.
@@ -732,6 +802,12 @@ private:
 	bool m_changedV2;
 	/** Truncation flags. */
 	unsigned m_truncation;
+
+#if QT_VERSION >= 0x040000
+	static QList<const Resolver*> s_resolvers;
+#else
+	static QValueList<const Resolver*> s_resolvers;
+#endif
 };
 
 #endif // TAGGEDFILE_H

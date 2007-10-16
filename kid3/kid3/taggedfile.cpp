@@ -35,6 +35,12 @@
 #include "taggedfile.h"
 #include <sys/stat.h>
 
+#if QT_VERSION >= 0x040000
+QList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
+#else
+QValueList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
+#endif
+
 /**
  * Constructor.
  *
@@ -1124,4 +1130,92 @@ QStringList TaggedFile::getFrameIds() const
 		lst.append(Frame::getNameFromType(static_cast<Frame::Type>(i)));
 	}
 	return lst;
+}
+
+
+/**
+ * Add a file type resolver to the end of a list of resolvers.
+ *
+ * @param resolver file type resolver to add
+ */
+void TaggedFile::addResolver(const Resolver* resolver)
+{
+	s_resolvers.push_back(resolver);
+}
+
+/**
+ * Create a TaggedFile subclass using the first successful resolver.
+ * @see addResolver()
+ *
+ * @param di directory information
+ * @param fn filename
+ *
+ * @return tagged file, 0 if type not supported.
+ */
+TaggedFile* TaggedFile::createFile(const DirInfo* di, const QString& fn)
+{
+	TaggedFile* taggedFile = 0;
+	for (
+#if QT_VERSION >= 0x040000
+		QList<const Resolver*>::const_iterator
+#else
+		QValueList<const Resolver*>::const_iterator
+#endif
+			it = s_resolvers.begin(); it != s_resolvers.end(); ++it) {
+		taggedFile = (*it)->createFile(di, fn);
+		if (taggedFile) break;
+	}
+	return taggedFile;
+}
+
+/**
+ * Get a list with all extensions (e.g. ".mp3") supported by the resolvers.
+ * @see addResolver()
+ *
+ * @return list of file extensions.
+ */
+QStringList TaggedFile::getSupportedFileExtensions()
+{
+	QStringList extensions;
+	for (
+#if QT_VERSION >= 0x040000
+		QList<const Resolver*>::const_iterator
+#else
+		QValueList<const Resolver*>::const_iterator
+#endif
+			it = s_resolvers.begin(); it != s_resolvers.end(); ++it) {
+		extensions += (*it)->getSupportedFileExtensions();
+	}
+
+	// remove duplicates
+	extensions.sort();
+	QString lastExt("");
+	for (QStringList::iterator it = extensions.begin();
+			 it != extensions.end();) {
+		if (*it == lastExt) {
+			it = extensions.erase(it);
+		} else {
+			lastExt = *it;
+			++it;
+		}
+	}
+
+	return extensions;
+}
+
+/**
+ * Free static resources.
+ */
+void TaggedFile::staticCleanup()
+{
+#if QT_VERSION >= 0x040000
+	qDeleteAll(s_resolvers);
+#else
+	for (QValueList<const Resolver*>::const_iterator it = s_resolvers.begin();
+			 it != s_resolvers.end();
+			 ++it) {
+		delete *it;
+	}
+#endif
+	s_resolvers.clear();
 }

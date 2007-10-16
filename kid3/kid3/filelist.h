@@ -132,16 +132,6 @@ public:
 	bool updateModificationState();
 
 	/**
-	 * Create a TaggedFile subclass depending on the file extension.
-	 *
-	 * @param di directory information
-	 * @param fn filename
-	 *
-	 * @return tagged file, 0 if no type found.
-	 */
-	static TaggedFile* createTaggedFile(const DirInfo* di, const QString& fn);
-
-	/**
 	 * Fill the filelist with the files found in the directory tree.
 	 *
 	 * @param dirInfo  information  about directory

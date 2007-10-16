@@ -42,6 +42,7 @@
 #include "standardtags.h"
 #include "genres.h"
 #include "dirinfo.h"
+#include "kid3.h"
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -1649,6 +1650,38 @@ QStringList Mp3File::getFrameIds() const
 		}
 	}
 	return lst;
+}
+
+
+/**
+ * Create an Mp3File object if it supports the filename's extension.
+ *
+ * @param di directory information
+ * @param fn filename
+ *
+ * @return tagged file, 0 if type not supported.
+ */
+TaggedFile* Mp3File::Resolver::createFile(const DirInfo* di,
+																					const QString& fn) const
+{
+	if (fn.right(4).QCM_toLower() == ".mp3"
+#ifdef HAVE_TAGLIB
+			&& Kid3App::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
+#endif
+		)
+		return new Mp3File(di, fn);
+	else
+		return 0;
+}
+
+/**
+ * Get a list with all extensions supported by Mp3File.
+ *
+ * @return list of file extensions.
+ */
+QStringList Mp3File::Resolver::getSupportedFileExtensions() const
+{
+	return QStringList() << ".mp3";
 }
 
 #endif // HAVE_ID3LIB

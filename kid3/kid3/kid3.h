@@ -228,6 +228,11 @@ protected:
 	void initActions();
 
 	/**
+	 * Init file types.
+	 */
+	void initFileTypes();
+
+	/**
 	 * Init status bar.
 	 */
 	void initStatusBar();
@@ -242,6 +247,16 @@ protected:
 	 * Our destructor may not be called, so cleanup is done here.
 	 */
 	void cleanup();
+
+	/**
+	 * Create a filter string for the file dialog.
+	 * The filter string contains entries for all supported types.
+	 *
+	 * @param defaultNameFilter if not 0, return default name filter here
+	 *
+	 * @return filter string.
+	 */
+	QString createFilterString(QString* defaultNameFilter = 0) const;
 
 	/**
 	 * Update modification state before closing.

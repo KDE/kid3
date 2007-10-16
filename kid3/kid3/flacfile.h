@@ -43,6 +43,27 @@ namespace FLAC {
  /** List box item containing FLAC file */
 class FlacFile : public OggFile {
 public:
+	/** File type resolution. */
+	class Resolver : public TaggedFile::Resolver {
+		/**
+		 * Create an FlacFile object if it supports the filename's extension.
+		 *
+		 * @param di directory information
+		 * @param fn filename
+		 *
+		 * @return tagged file, 0 if type not supported.
+		 */
+		virtual TaggedFile* createFile(const DirInfo* di, const QString& fn) const;
+
+		/**
+		 * Get a list with all extensions supported by FlacFile.
+		 *
+		 * @return list of file extensions.
+		 */
+		virtual QStringList getSupportedFileExtensions() const;
+	};
+
+
 	/**
 	 * Constructor.
 	 *
