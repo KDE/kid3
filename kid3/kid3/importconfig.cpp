@@ -30,6 +30,7 @@
 
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
+#include <kconfigskeleton.h>
 #endif
 
 /**
