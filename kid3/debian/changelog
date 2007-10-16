@@ -1,4 +1,4 @@
-kid3 (0.9-9) unstable; urgency=low
+kid3 (0.9.9-1) unstable; urgency=low
 
   * All frames can be directly edited in table
   * No more dependencies on Qt3Support module when building with Qt 4
