@@ -4,7 +4,7 @@ endif
 
 # this has all of the subdirectories that make will recurse into.  if
 # there are none, comment this out
-#SUBDIRS =
+SUBDIRS = taglibext
 
 # this is the program that gets installed.  it's name is used for all
 # of the other Makefile.am variables
@@ -23,15 +23,19 @@ else
 kid3_LDADD   = $(LIB_QT) $(LIB_ID3LIB) $(LIB_TUNEPIMP) $(LIB_VORBIS) $(LIB_FLAC) $(LIB_TAGLIB)
 endif
 
+if HAVE_TAGLIB
+kid3_LDADD += taglibext/libtaglibext.la
+endif
+
 # which sources should be compiled for kid3
-kid3_SOURCES = filelist.cpp filelistitem.cpp frame.cpp framelist.cpp frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp commandstable.cpp taglibfile.cpp urllinkframe.cpp unsynchronizedlyricsframe.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp
+kid3_SOURCES = filelist.cpp filelistitem.cpp frame.cpp framelist.cpp frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp mp3file.cpp standardtags.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp commandstable.cpp taglibfile.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp
 
 # these headers are automatically built
 BUILT_SOURCES =
 CLEANFILES = allsys.h allsys.h.gch
 
 # these are the headers for your project that won't be installed
-noinst_HEADERS = configdialog.h exportdialog.h filelist.h filelistitem.h formatbox.h formatconfig.h frame.h framelist.h frametable.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h rendirdialog.h standardtags.h dirlist.h taggedfile.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h numbertracksdialog.h oggfile.h vcedit.h flacfile.h commandstable.h taglibfile.h urllinkframe.h unsynchronizedlyricsframe.h importsourceconfig.h importsourcedialog.h importsourceclient.h discogsdialog.h discogsclient.h discogsconfig.h musicbrainzreleasedialog.h musicbrainzreleaseclient.h qtcompatmac.h dirinfo.h externalprocess.h stringlistedit.h tracktypedialog.h tracktypeclient.h
+noinst_HEADERS = configdialog.h exportdialog.h filelist.h filelistitem.h formatbox.h formatconfig.h frame.h framelist.h frametable.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h mp3file.h rendirdialog.h standardtags.h dirlist.h taggedfile.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h numbertracksdialog.h oggfile.h vcedit.h flacfile.h commandstable.h taglibfile.h importsourceconfig.h importsourcedialog.h importsourceclient.h discogsdialog.h discogsclient.h discogsconfig.h musicbrainzreleasedialog.h musicbrainzreleaseclient.h qtcompatmac.h dirinfo.h externalprocess.h stringlistedit.h tracktypedialog.h tracktypeclient.h
 
 # additional files in distribution
 EXTRA_DIST = kid3.desktop kid3ui.rc hi16-app-kid3.png hi32-app-kid3.png hi48-app-kid3.png hisc-app-kid3.svgz de_qt.po ru_qt.po es_qt.po fr_qt.po

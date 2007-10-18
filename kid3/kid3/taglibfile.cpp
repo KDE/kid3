@@ -68,12 +68,12 @@
 #ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
 #include <taglib/urllinkframe.h>
 #else
-#include "urllinkframe.h"
+#include "taglibext/urllinkframe.h"
 #endif
 #ifdef TAGLIB_SUPPORTS_USLT_FRAMES
 #include <taglib/unsynchronizedlyricsframe.h>
 #else
-#include "unsynchronizedlyricsframe.h"
+#include "taglibext/unsynchronizedlyricsframe.h"
 #endif
 
 /**
