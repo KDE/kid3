@@ -769,10 +769,18 @@ void Kid3App::initActions()
  */
 void Kid3App::initFileTypes()
 {
+#ifdef HAVE_ID3LIB
 	TaggedFile::addResolver(new Mp3File::Resolver);
+#endif
+#ifdef HAVE_VORBIS
 	TaggedFile::addResolver(new OggFile::Resolver);
+#endif
+#ifdef HAVE_FLAC
 	TaggedFile::addResolver(new FlacFile::Resolver);
+#endif
+#ifdef HAVE_TAGLIB
 	TaggedFile::addResolver(new TagLibFile::Resolver);
+#endif
 }
 
 /**
