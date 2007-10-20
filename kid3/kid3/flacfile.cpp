@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "flacfile.h"
+#include "flacfile.hpp"
 #ifdef HAVE_FLAC
 
 #include "standardtags.h"

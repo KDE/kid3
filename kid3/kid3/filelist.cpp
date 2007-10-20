@@ -54,10 +54,10 @@
 #include "mp3file.h"
 #endif
 #ifdef HAVE_VORBIS
-#include "oggfile.h"
+#include "oggfile.hpp"
 #endif
 #ifdef HAVE_FLAC
-#include "flacfile.h"
+#include "flacfile.hpp"
 #endif
 #ifdef HAVE_TAGLIB
 #include "taglibfile.h"

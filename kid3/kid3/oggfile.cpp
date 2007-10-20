@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "oggfile.h"
+#include "oggfile.hpp"
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
 #include "standardtags.h"

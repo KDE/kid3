@@ -1,5 +1,5 @@
 /**
- * \file flacfile.h
+ * \file flacfile.hpp
  * Handling of FLAC files.
  *
  * \b Project: Kid3
@@ -30,7 +30,7 @@
 #include "config.h"
 #ifdef HAVE_FLAC
 
-#include "oggfile.h"
+#include "oggfile.hpp"
 
 namespace FLAC {
 	namespace Metadata {

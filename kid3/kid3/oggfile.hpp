@@ -1,5 +1,5 @@
 /**
- * \file oggfile.h
+ * \file oggfile.hpp
  * Handling of Ogg files.
  *
  * \b Project: Kid3
