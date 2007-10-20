@@ -1,55 +1,54 @@
-/**
- * \file unsynchronizedlyricsframe.cpp
- * Unsynchronized lyrics frame for TagLib.
- * Copy-pasted from CommentsFrame.
- *
- * \b Project: Kid3
- * \author Urs Fleisch
- * \date 01 Oct 2006
- *
- * Copyright (C) 2006-2007  Urs Fleisch
- *
- * This file is part of Kid3.
- *
- * Kid3 is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * Kid3 is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/***************************************************************************
+    copyright            : (C) 2002, 2003 by Scott Wheeler
+    email                : wheeler@kde.org
+    copyright            : (C) 2006 by Urs Fleisch
+    email                : ufleisch@users.sourceforge.net
+ ***************************************************************************/
+
+/***************************************************************************
+ *   This library is free software; you can redistribute it and/or modify  *
+ *   it  under the terms of the GNU Lesser General Public License version  *
+ *   2.1 as published by the Free Software Foundation.                     *
+ *                                                                         *
+ *   This library is distributed in the hope that it will be useful, but   *
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU     *
+ *   Lesser General Public License for more details.                       *
+ *                                                                         *
+ *   You should have received a copy of the GNU Lesser General Public      *
+ *   License along with this library; if not, write to the Free Software   *
+ *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+ *   USA                                                                   *
+ ***************************************************************************/
 
 #include "unsynchronizedlyricsframe.h"
+#include <tbytevectorlist.h>
+#include <tdebug.h>
 
-#if defined HAVE_TAGLIB && !defined TAGLIB_SUPPORTS_USLT_FRAMES
+using namespace TagLib;
+using namespace ID3v2;
 
 class UnsynchronizedLyricsFrame::UnsynchronizedLyricsFramePrivate
 {
 public:
-  UnsynchronizedLyricsFramePrivate() : textEncoding(TagLib::String::Latin1) {}
-  TagLib::String::Type textEncoding;
-  TagLib::ByteVector language;
-  TagLib::String description;
-  TagLib::String text;
+  UnsynchronizedLyricsFramePrivate() : textEncoding(String::Latin1) {}
+  String::Type textEncoding;
+  ByteVector language;
+  String description;
+  String text;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 // public members
 ////////////////////////////////////////////////////////////////////////////////
 
-UnsynchronizedLyricsFrame::UnsynchronizedLyricsFrame(TagLib::String::Type encoding) : Frame("USLT")
+UnsynchronizedLyricsFrame::UnsynchronizedLyricsFrame(String::Type encoding) : Frame("USLT")
 {
   d = new UnsynchronizedLyricsFramePrivate;
   d->textEncoding = encoding;
 }
 
-UnsynchronizedLyricsFrame::UnsynchronizedLyricsFrame(const TagLib::ByteVector &data) : Frame(data)
+UnsynchronizedLyricsFrame::UnsynchronizedLyricsFrame(const ByteVector &data) : Frame(data)
 {
   d = new UnsynchronizedLyricsFramePrivate;
   setData(data);
@@ -60,48 +59,48 @@ UnsynchronizedLyricsFrame::~UnsynchronizedLyricsFrame()
   delete d;
 }
 
-TagLib::String UnsynchronizedLyricsFrame::toString() const
+String UnsynchronizedLyricsFrame::toString() const
 {
   return d->text;
 }
 
-TagLib::ByteVector UnsynchronizedLyricsFrame::language() const
+ByteVector UnsynchronizedLyricsFrame::language() const
 {
   return d->language;
 }
 
-TagLib::String UnsynchronizedLyricsFrame::description() const
+String UnsynchronizedLyricsFrame::description() const
 {
   return d->description;
 }
 
-TagLib::String UnsynchronizedLyricsFrame::text() const
+String UnsynchronizedLyricsFrame::text() const
 {
   return d->text;
 }
 
-void UnsynchronizedLyricsFrame::setLanguage(const TagLib::ByteVector &languageEncoding)
+void UnsynchronizedLyricsFrame::setLanguage(const ByteVector &languageEncoding)
 {
   d->language = languageEncoding.mid(0, 3);
 }
 
-void UnsynchronizedLyricsFrame::setDescription(const TagLib::String &s)
+void UnsynchronizedLyricsFrame::setDescription(const String &s)
 {
   d->description = s;
 }
 
-void UnsynchronizedLyricsFrame::setText(const TagLib::String &s)
+void UnsynchronizedLyricsFrame::setText(const String &s)
 {
   d->text = s;
 }
 
 
-TagLib::String::Type UnsynchronizedLyricsFrame::textEncoding() const
+String::Type UnsynchronizedLyricsFrame::textEncoding() const
 {
   return d->textEncoding;
 }
 
-void UnsynchronizedLyricsFrame::setTextEncoding(TagLib::String::Type encoding)
+void UnsynchronizedLyricsFrame::setTextEncoding(String::Type encoding)
 {
   d->textEncoding = encoding;
 }
@@ -110,29 +109,29 @@ void UnsynchronizedLyricsFrame::setTextEncoding(TagLib::String::Type encoding)
 // protected members
 ////////////////////////////////////////////////////////////////////////////////
 
-void UnsynchronizedLyricsFrame::parseFields(const TagLib::ByteVector &data)
+void UnsynchronizedLyricsFrame::parseFields(const ByteVector &data)
 {
   if(data.size() < 5) {
-    qDebug("An unsynchronized lyrics frame must contain at least 5 bytes.");
+    debug("An unsynchronized lyrics frame must contain at least 5 bytes.");
     return;
   }
 
-  d->textEncoding = TagLib::String::Type(data[0]);
+  d->textEncoding = String::Type(data[0]);
   d->language = data.mid(1, 3);
 
-  int byteAlign = d->textEncoding == TagLib::String::Latin1 || d->textEncoding == TagLib::String::UTF8 ? 1 : 2;
+  int byteAlign = d->textEncoding == String::Latin1 || d->textEncoding == String::UTF8 ? 1 : 2;
 
-  TagLib::ByteVectorList l = TagLib::ByteVectorList::split(data.mid(4), textDelimiter(d->textEncoding), byteAlign, 2);
+  ByteVectorList l = ByteVectorList::split(data.mid(4), textDelimiter(d->textEncoding), byteAlign, 2);
 
   if(l.size() == 2) {
-    d->description = TagLib::String(l.front(), d->textEncoding);
-    d->text = TagLib::String(l.back(), d->textEncoding);
+    d->description = String(l.front(), d->textEncoding);
+    d->text = String(l.back(), d->textEncoding);
   }
 }
 
-TagLib::ByteVector UnsynchronizedLyricsFrame::renderFields() const
+ByteVector UnsynchronizedLyricsFrame::renderFields() const
 {
-  TagLib::ByteVector v;
+  ByteVector v;
 
   v.append(char(d->textEncoding));
   v.append(d->language.size() == 3 ? d->language : "   ");
@@ -147,10 +146,8 @@ TagLib::ByteVector UnsynchronizedLyricsFrame::renderFields() const
 // private members
 ////////////////////////////////////////////////////////////////////////////////
 
-UnsynchronizedLyricsFrame::UnsynchronizedLyricsFrame(const TagLib::ByteVector &data, Header *h) : Frame(h)
+UnsynchronizedLyricsFrame::UnsynchronizedLyricsFrame(const ByteVector &data, Header *h) : Frame(h)
 {
   d = new UnsynchronizedLyricsFramePrivate();
   parseFields(fieldData(data));
 }
-
-#endif // HAVE_TAGLIB && !TAGLIB_SUPPORTS_USLT_FRAMES

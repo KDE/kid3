@@ -14,10 +14,11 @@ contains(CFG_LIBS, -ltag) {
     INCLUDEPATH = /usr/include/taglib $$PWD/.. ${OBJECTS_DIR}/..
   }
 
-  CONFIG += release staticlib
+  CONFIG += $$CFG_CONFIG
+  CONFIG += staticlib
   TEMPLATE = lib
-  SOURCES = urllinkframe.cpp unsynchronizedlyricsframe.cpp
-  HEADERS = urllinkframe.h unsynchronizedlyricsframe.h
+  SOURCES = urllinkframe.cpp unsynchronizedlyricsframe.cpp generalencapsulatedobjectframe.cpp
+  HEADERS = urllinkframe.h unsynchronizedlyricsframe.h generalencapsulatedobjectframe.h
   TARGET = taglibext
 
 }

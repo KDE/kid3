@@ -1,160 +1,152 @@
-/**
- * \file unsynchronizedlyricsframe.h
- * Unsynchronized lyrics frame for TagLib.
- *
- * \b Project: Kid3
- * \author Urs Fleisch
- * \date 01 Oct 2006
- *
- * Copyright (C) 2006-2007  Urs Fleisch
- *
- * This file is part of Kid3.
- *
- * Kid3 is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * Kid3 is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/***************************************************************************
+    copyright            : (C) 2002, 2003 by Scott Wheeler
+    email                : wheeler@kde.org
+    copyright            : (C) 2006 by Urs Fleisch
+    email                : ufleisch@users.sourceforge.net
+ ***************************************************************************/
 
-#ifndef UNSYNCHRONIZEDLYRICSFRAME_H
-#define UNSYNCHRONIZEDLYRICSFRAME_H
+/***************************************************************************
+ *   This library is free software; you can redistribute it and/or modify  *
+ *   it  under the terms of the GNU Lesser General Public License version  *
+ *   2.1 as published by the Free Software Foundation.                     *
+ *                                                                         *
+ *   This library is distributed in the hope that it will be useful, but   *
+ *   WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU     *
+ *   Lesser General Public License for more details.                       *
+ *                                                                         *
+ *   You should have received a copy of the GNU Lesser General Public      *
+ *   License along with this library; if not, write to the Free Software   *
+ *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+ *   USA                                                                   *
+ ***************************************************************************/
 
-#include "taglibfile.h"
+#ifndef TAGLIB_UNSYNCHRONIZEDLYRICSFRAME_H
+#define TAGLIB_UNSYNCHRONIZEDLYRICSFRAME_H
 
-#if defined HAVE_TAGLIB && !defined TAGLIB_SUPPORTS_USLT_FRAMES
-
-#include <taglib/id3v2frame.h>
+#include <id3v2frame.h>
 
 namespace TagLib {
-	namespace ID3v2 {
-		class Frame;
-		class FrameFactory;
-	}
+
+  namespace ID3v2 {
+
+    /*!
+     * An implementation of ID3v2 unsynchronized lyrics.
+     */
+    class UnsynchronizedLyricsFrame : public Frame
+    {
+      friend class FrameFactory;
+
+    public:
+      /*!
+       * Construct an empty unsynchronized lyrics frame that will use the text encoding
+       * \a encoding.
+       */
+      explicit UnsynchronizedLyricsFrame(String::Type encoding = String::Latin1);
+
+      /*!
+       * Construct a unsynchronized lyrics frame based on the data in \a data.
+       */
+      explicit UnsynchronizedLyricsFrame(const ByteVector &data);
+
+      /*!
+       * Destroys this UnsynchronizedLyricsFrame instance.
+       */
+      virtual ~UnsynchronizedLyricsFrame();
+
+      /*!
+       * Returns the text of this unsynchronized lyrics frame.
+       *
+       * \see text()
+       */
+      virtual String toString() const;
+
+      /*!
+       * Returns the language encoding as a 3 byte encoding as specified by
+       * <a href="http://en.wikipedia.org/wiki/ISO_639">ISO-639-2</a>.
+       *
+       * \note Most taggers simply ignore this value.
+       *
+       * \see setLanguage()
+       */
+      ByteVector language() const;
+
+      /*!
+       * Returns the description of this unsynchronized lyrics frame.
+       *
+       * \note Most taggers simply ignore this value.
+       *
+       * \see setDescription()
+       */
+      String description() const;
+
+      /*!
+       * Returns the text of this unsynchronized lyrics frame.
+       *
+       * \see setText()
+       */
+      String text() const;
+
+      /*!
+       * Set the language using the 3 byte language code from
+       * <a href="http://en.wikipedia.org/wiki/ISO_639">ISO-639-2</a> to
+       * \a languageCode.
+       *
+       * \see language()
+       */
+      void setLanguage(const ByteVector &languageCode);
+
+      /*!
+       * Sets the description of the unsynchronized lyrics frame to \a s.
+       *
+       * \see decription()
+       */
+      void setDescription(const String &s);
+
+      /*!
+       * Sets the text portion of the unsynchronized lyrics frame to \a s.
+       *
+       * \see text()
+       */
+      virtual void setText(const String &s);
+
+      /*!
+       * Returns the text encoding that will be used in rendering this frame.
+       * This defaults to the type that was either specified in the constructor
+       * or read from the frame when parsed.
+       *
+       * \see setTextEncoding()
+       * \see render()
+       */
+      String::Type textEncoding() const;
+
+      /*!
+       * Sets the text encoding to be used when rendering this frame to
+       * \a encoding.
+       *
+       * \see textEncoding()
+       * \see render()
+       */
+      void setTextEncoding(String::Type encoding);
+
+    protected:
+      // Reimplementations.
+
+      virtual void parseFields(const ByteVector &data);
+      virtual ByteVector renderFields() const;
+
+    private:
+      /*!
+       * The constructor used by the FrameFactory.
+       */
+      UnsynchronizedLyricsFrame(const ByteVector &data, Header *h);
+      UnsynchronizedLyricsFrame(const UnsynchronizedLyricsFrame &);
+      UnsynchronizedLyricsFrame &operator=(const UnsynchronizedLyricsFrame &);
+
+      class UnsynchronizedLyricsFramePrivate;
+      UnsynchronizedLyricsFramePrivate *d;
+    };
+
+  }
 }
-
-//! An implementation of ID3v2 unsynchronized lyrics.
-class UnsynchronizedLyricsFrame : public TagLib::ID3v2::Frame
-{
-	friend class TagLib::ID3v2::FrameFactory;
-
-public:
-	/*!
-	 * Construct an empty unsynchronized lyrics frame that will use the text encoding
-	 * \a encoding.
-	 */
-	explicit UnsynchronizedLyricsFrame(TagLib::String::Type encoding = TagLib::String::Latin1);
-
-	/*!
-	 * Construct a unsynchronized lyrics frame based on the data in \a data.
-	 */
-	explicit UnsynchronizedLyricsFrame(const TagLib::ByteVector &data);
-
-	/*!
-	 * Destroys this UnsynchronizedLyricsFrame instance.
-	 */
-	virtual ~UnsynchronizedLyricsFrame();
-
-	/*!
-	 * Returns the text of this unsynchronized lyrics frame.
-	 *
-	 * \see text()
-	 */
-	virtual TagLib::String toString() const;
-
-	/*!
-	 * Returns the language encoding as a 3 byte encoding as specified by
-	 * <a href="http://en.wikipedia.org/wiki/ISO_639">ISO-639-2</a>.
-	 *
-	 * \note Most taggers simply ignore this value.
-	 *
-	 * \see setLanguage()
-	 */
-	TagLib::ByteVector language() const;
-
-	/*!
-	 * Returns the description of this unsynchronized lyrics frame.
-	 *
-	 * \note Most taggers simply ignore this value.
-	 *
-	 * \see setDescription()
-	 */
-	TagLib::String description() const;
-
-	/*!
-	 * Returns the text of this unsynchronized lyrics frame.
-	 *
-	 * \see setText()
-	 */
-	TagLib::String text() const;
-
-	/*!
-	 * Set the language using the 3 byte language code from
-	 * <a href="http://en.wikipedia.org/wiki/ISO_639">ISO-639-2</a> to
-	 * \a languageCode.
-	 *
-	 * \see language()
-	 */
-	void setLanguage(const TagLib::ByteVector &languageCode);
-
-	/*!
-	 * Sets the description of the unsynchronized lyrics frame to \a s.
-	 *
-	 * \see decription()
-	 */
-	void setDescription(const TagLib::String &s);
-
-	/*!
-	 * Sets the text portion of the unsynchronized lyrics frame to \a s.
-	 *
-	 * \see text()
-	 */
-	virtual void setText(const TagLib::String &s);
-
-	/*!
-	 * Returns the text encoding that will be used in rendering this frame.
-	 * This defaults to the type that was either specified in the constructor
-	 * or read from the frame when parsed.
-	 *
-	 * \see setTextEncoding()
-	 * \see render()
-	 */
-	TagLib::String::Type textEncoding() const;
-
-	/*!
-	 * Sets the text encoding to be used when rendering this frame to
-	 * \a encoding.
-	 *
-	 * \see textEncoding()
-	 * \see render()
-	 */
-	void setTextEncoding(TagLib::String::Type encoding);
-
-protected:
-	// Reimplementations.
-
-	virtual void parseFields(const TagLib::ByteVector &data);
-	virtual TagLib::ByteVector renderFields() const;
-
-private:
-	/*!
-	 * The constructor used by the FrameFactory.
-	 */
-	UnsynchronizedLyricsFrame(const TagLib::ByteVector &data, Header *h);
-	UnsynchronizedLyricsFrame(const UnsynchronizedLyricsFrame &);
-	UnsynchronizedLyricsFrame &operator=(const UnsynchronizedLyricsFrame &);
-
-	class UnsynchronizedLyricsFramePrivate;
-	UnsynchronizedLyricsFramePrivate *d;
-};
-
-#endif // HAVE_TAGLIB && !TAGLIB_SUPPORTS_USLT_FRAMES
-
-#endif // UNSYNCHRONIZEDLYRICSFRAME_H
+#endif
