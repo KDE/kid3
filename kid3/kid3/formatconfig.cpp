@@ -180,11 +180,13 @@ void FormatConfig::formatFrames(FrameCollection& frames) const
 		Frame& frame = const_cast<Frame&>(*it);
 		if (frame.getType() != Frame::FT_Genre) {
 			QString value(frame.getValue());
-			QString oldValue(value);
-			formatString(value);
-			if (value != oldValue) {
-				frame.setValue(value);
-				frame.setValueChanged();
+			if (!value.isEmpty()) {
+				QString oldValue(value);
+				formatString(value);
+				if (value != oldValue) {
+					frame.setValue(value);
+					frame.setValueChanged();
+				}
 			}
 		}
 	}
