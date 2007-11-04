@@ -238,14 +238,19 @@ void OggFile::deleteFramesV2(const FrameFilter& flt)
 		m_comments.clear();
 		markTag2Changed();
 	} else {
+		bool changed = false;
 		for (OggFile::CommentList::iterator it = m_comments.begin();
 				 it != m_comments.end();) {
 			QString name((*it).getName());
 			if (flt.isEnabled(Frame::getTypeFromName(name), name)) {
 				it = m_comments.erase(it);
+				changed = true;
 			} else {
 				++it;
 			}
+		}
+		if (changed) {
+			markTag2Changed();
 		}
 	}
 }
