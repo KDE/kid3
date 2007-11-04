@@ -1069,6 +1069,24 @@ void TaggedFile::setFramesV1(const FrameCollection& frames, bool onlyChanged)
 }
 
 /**
+ * Get all frames in tag 2.
+ * This generic implementation only supports the standard tags and should
+ * be reimplemented in derived classes.
+ *
+ * @param frames frame collection to set.
+ */
+void TaggedFile::getAllFramesV2(FrameCollection& frames)
+{
+	frames.clear();
+	Frame frame;
+	for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
+		if (getFrameV2(static_cast<Frame::Type>(i), frame)) {
+			frames.insert(frame);
+		}
+	}
+}
+
+/**
  * Set frames in tag 2.
  *
  * @param frames      frame collection

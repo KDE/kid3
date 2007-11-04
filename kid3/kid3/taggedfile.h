@@ -519,10 +519,12 @@ public:
 
 	/**
 	 * Get all frames in tag 2.
+	 * This generic implementation only supports the standard tags and should
+	 * be reimplemented in derived classes.
 	 *
 	 * @param frames frame collection to set.
 	 */
-	virtual void getAllFramesV2(FrameCollection& frames) = 0;
+	virtual void getAllFramesV2(FrameCollection& frames);
 
 	/**
 	 * Set frames in tag 1.
