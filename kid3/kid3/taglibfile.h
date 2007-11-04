@@ -465,6 +465,12 @@ public:
 	 */
 	virtual QStringList getFrameIds() const;
 
+	/**
+	 * Static initialization.
+	 * Registers file types.
+	 */
+	static void staticInit();
+
 private:
 	/**
 	 * Modify an ID3v2 frame.

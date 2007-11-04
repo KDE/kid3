@@ -78,6 +78,15 @@
 #include "taglibext/unsynchronizedlyricsframe.h"
 #endif
 
+#include "taglibext/speex/speexfile.h"
+#include "taglibext/speex/taglib_speexfiletyperesolver.h"
+#include "taglibext/trueaudio/ttafile.h"
+#include "taglibext/trueaudio/taglib_trueaudiofiletyperesolver.h"
+#include "taglibext/wavpack/wvfile.h"
+#include "taglibext/wavpack/taglib_wavpackfiletyperesolver.h"
+#include "taglibext/aac/aacfiletyperesolver.h"
+#include "taglibext/mp2/mp2filetyperesolver.h"
+
 /**
  * Constructor.
  *
@@ -120,7 +129,9 @@ void TagLibFile::readTags(bool force)
 		TagLib::FLAC::File* flacFile;
 #ifdef MPC_ID3V1
 		TagLib::MPC::File* mpcFile;
+		TagLib::WavPack::File* wvFile;
 #endif
+		TagLib::TTA::File* ttaFile;
 		if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 			if (!m_tagV1) {
 				m_tagV1 = mpegFile->ID3v1Tag();
@@ -149,7 +160,25 @@ void TagLibFile::readTags(bool force)
 				m_tagV2 = mpcFile->APETag();
 				markTag2Changed(false);
 			}
+		} else if ((wvFile = dynamic_cast<TagLib::WavPack::File*>(file)) != 0) {
+			if (!m_tagV1) {
+				m_tagV1 = wvFile->ID3v1Tag();
+				markTag1Changed(false);
+			}
+			if (!m_tagV2) {
+				m_tagV2 = wvFile->APETag();
+				markTag2Changed(false);
+			}
 #endif
+		} else if ((ttaFile = dynamic_cast<TagLib::TTA::File*>(file)) != 0) {
+			if (!m_tagV1) {
+				m_tagV1 = ttaFile->ID3v1Tag();
+				markTag1Changed(false);
+			}
+			if (!m_tagV2) {
+				m_tagV2 = ttaFile->ID3v2Tag();
+				markTag2Changed(false);
+			}
 		} else {
 			m_tagV1 = 0;
 			markTag1Changed(false);
@@ -235,14 +264,33 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 		} else {
 			if ((m_tagV2 && (force || isTag2Changed())) ||
 					(m_tagV1 && (force || isTag1Changed()))) {
-				TagLib::MPC::File* mpcFile = dynamic_cast<TagLib::MPC::File*>(file);
+				TagLib::TTA::File* ttaFile = dynamic_cast<TagLib::TTA::File*>(file);
 #ifndef MPC_ID3V1
 				// it does not work if there is also an ID3 tag (bug in TagLib?)
+				TagLib::MPC::File* mpcFile = dynamic_cast<TagLib::MPC::File*>(file);
+				TagLib::WavPack::File* wvFile = dynamic_cast<TagLib::WavPack::File*>(file);
 				if (mpcFile) {
 					mpcFile->remove(TagLib::MPC::File::ID3v1 | TagLib::MPC::File::ID3v2);
 					fileChanged = true;
-				}
+				} else if (wvFile) {
+					wvFile->remove(TagLib::WavPack::File::ID3v1);
+					fileChanged = true;
+				} else
 #endif
+				if (ttaFile) {
+					if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
+						ttaFile->remove(TagLib::TTA::File::ID3v1);
+						fileChanged = true;
+						markTag1Changed(false);
+						m_tagV1 = 0;
+					}
+					if (m_tagV2 && (force || isTag2Changed()) && m_tagV2->isEmpty()) {
+						ttaFile->remove(TagLib::TTA::File::ID3v2);
+						fileChanged = true;
+						markTag2Changed(false);
+						m_tagV2 = 0;
+					}
+				}
 				if (m_fileRef.save()) {
 					fileChanged = true;
 					markTag1Changed(false);
@@ -577,7 +625,9 @@ bool TagLibFile::makeTagV1Settable()
 			TagLib::FLAC::File* flacFile;
 #ifdef MPC_ID3V1
 			TagLib::MPC::File* mpcFile;
+			TagLib::WavPack::File* wvFile;
 #endif
+			TagLib::TTA::File* ttaFile;
 			if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 				m_tagV1 = mpegFile->ID3v1Tag(true);
 			} else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
@@ -585,7 +635,11 @@ bool TagLibFile::makeTagV1Settable()
 #ifdef MPC_ID3V1
 			} else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
 				m_tagV1 = mpcFile->ID3v1Tag(true);
+			} else if ((wvFile = dynamic_cast<TagLib::WavPack::File*>(file)) != 0) {
+				m_tagV1 = wvFile->ID3v1Tag(true);
 #endif
+			} else if ((ttaFile = dynamic_cast<TagLib::TTA::File*>(file)) != 0) {
+				m_tagV1 = ttaFile->ID3v1Tag(true);
 			}
 		}
 	}
@@ -605,12 +659,18 @@ bool TagLibFile::makeTagV2Settable()
 			TagLib::MPEG::File* mpegFile;
 			TagLib::FLAC::File* flacFile;
 			TagLib::MPC::File* mpcFile;
+			TagLib::WavPack::File* wvFile;
+			TagLib::TTA::File* ttaFile;
 			if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 				m_tagV2 = mpegFile->ID3v2Tag(true);
 			} else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
 				m_tagV2 = flacFile->xiphComment(true);
 			} else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
 				m_tagV2 = mpcFile->APETag(true);
+			} else if ((wvFile = dynamic_cast<TagLib::WavPack::File*>(file)) != 0) {
+				m_tagV2 = wvFile->APETag(true);
+			} else if ((ttaFile = dynamic_cast<TagLib::TTA::File*>(file)) != 0) {
+				m_tagV2 = ttaFile->ID3v2Tag(true);
 			}
 		}
 	}
@@ -1009,9 +1069,11 @@ bool TagLibFile::isTagV1Supported() const
 	TagLib::File* file;
 	return (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0 &&
 					(dynamic_cast<TagLib::MPEG::File*>(file) != 0 ||
-					 dynamic_cast<TagLib::FLAC::File*>(file) != 0
+					 dynamic_cast<TagLib::FLAC::File*>(file) != 0 ||
+					 dynamic_cast<TagLib::TTA::File*>(file) != 0
 #ifdef MPC_ID3V1
 					 || dynamic_cast<TagLib::MPC::File*>(file)  != 0
+					 || dynamic_cast<TagLib::WavPack::File*>(file) != 0
 #endif
 						));
 }
@@ -1043,8 +1105,14 @@ QString TagLibFile::getDetailInfo() const {
 		TagLib::Vorbis::Properties* oggProperties;
 		TagLib::FLAC::Properties* flacProperties;
 		TagLib::MPC::Properties* mpcProperties;
+		TagLib::Speex::Properties* speexProperties;
+		TagLib::TTA::Properties* ttaProperties;
+		TagLib::WavPack::Properties* wvProperties;
 		if ((mpegProperties =
 				 dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
+			if (getFilename().right(4).QCM_toLower() == ".aac") {
+				return "AAC";
+			}
 			switch (mpegProperties->version()) {
 				case TagLib::MPEG::Header::Version1:
 					str += "MPEG 1 ";
@@ -1088,6 +1156,23 @@ QString TagLibFile::getDetailInfo() const {
 		} else if ((mpcProperties =
 								dynamic_cast<TagLib::MPC::Properties*>(audioProperties)) != 0) {
 			str += "MPC ";
+		} else if ((speexProperties =
+								dynamic_cast<TagLib::Speex::Properties*>(audioProperties)) != 0) {
+			str += QString("Speex %1 ").arg(speexProperties->speexVersion());
+		} else if ((ttaProperties =
+								dynamic_cast<TagLib::TTA::Properties*>(audioProperties)) != 0) {
+			str += "True Audio ";
+			str += QString::number(ttaProperties->ttaVersion());
+			str += " ";
+			str += QString::number(ttaProperties->bitsPerSample());
+			str += " bit ";
+		} else if ((wvProperties =
+								dynamic_cast<TagLib::WavPack::Properties*>(audioProperties)) != 0) {
+			str += "WavPack ";
+			str += QString::number(wvProperties->version(), 16);
+			str += " ";
+			str += QString::number(wvProperties->bitsPerSample());
+			str += " bit ";
 		}
 		int bitrate = audioProperties->bitrate();
 		if (bitrate > 0 && bitrate < 999) {
@@ -1150,6 +1235,12 @@ QString TagLibFile::getFileExtension() const
 			return ".flac";
 		} else if (dynamic_cast<TagLib::MPC::File*>(file) != 0) {
 			return ".mpc";
+		} else if (dynamic_cast<TagLib::Speex::File*>(file) != 0) {
+			return ".spx";
+		} else if (dynamic_cast<TagLib::WavPack::File*>(file) != 0) {
+			return ".wv";
+		} else if (dynamic_cast<TagLib::TTA::File*>(file) != 0) {
+			return ".tta";
 		}
 	}
 	return ".mp3";
@@ -2170,7 +2261,7 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
-			TagLib::String key = QSTRING_TO_TSTRING(frame.getName().remove(' ').QCM_toUpper());
+			TagLib::String key = QSTRING_TO_TSTRING(frame.getName(true));
 			TagLib::String value = QSTRING_TO_TSTRING(frame.getValue());
 #ifdef TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
 			oggTag->addField(key, value, true);
@@ -2197,6 +2288,22 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 
 	// Try the superclass method
 	return TaggedFile::setFrameV2(frame);
+}
+
+/**
+ * Get internal name of a Vorbis frame.
+ *
+ * @param frame frame
+ *
+ * @return Vorbis key.
+ */
+static QString getVorbisName(const Frame& frame)
+{
+	if (frame.getType() == Frame::FT_Comment) {
+		return "DESCRIPTION";
+	} else {
+		return frame.getName().remove(' ').QCM_toUpper();
+	}
 }
 
 /**
@@ -2297,7 +2404,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
-			QString name(frame.getName().remove(' ').QCM_toUpper());
+			QString name(getVorbisName(frame));
 			TagLib::String tname = QSTRING_TO_TSTRING(name);
 			oggTag->addField(tname, QSTRING_TO_TSTRING(frame.getValue()));
 			frame.setInternalName(name);
@@ -2371,7 +2478,7 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
 			TagLib::String key =
-				QSTRING_TO_TSTRING(frame.getName().remove(' ').QCM_toUpper());
+				QSTRING_TO_TSTRING(frame.getName(true));
 #ifdef TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
 			oggTag->removeField(key);
 #else
@@ -2390,6 +2497,23 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 
 	// Try the superclass method
 	return TaggedFile::deleteFrameV2(frame);
+}
+
+/**
+ * Get the frame type for a Vorbis name.
+ *
+ * @param name Vorbis tag name
+ *
+ * @return frame type.
+ */
+static Frame::Type getTypeFromVorbisName(const QString& name)
+{
+	Frame::Type type = Frame::getTypeFromName(name);
+	if (type == Frame::FT_Other &&
+			name == "DESCRIPTION") {
+		type = Frame::FT_Comment;
+	}
+	return type;
 }
 
 /**
@@ -2472,7 +2596,7 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
 				for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
 						 it != fieldListMap.end();) {
 					QString name(TStringToQString((*it).first));
-					if (flt.isEnabled(Frame::getTypeFromName(name), name)) {
+					if (flt.isEnabled(getTypeFromVorbisName(name), name)) {
 						oggTag->removeField((*it++).first);
 					} else {
 						++it;
@@ -2530,7 +2654,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 					 it != fieldListMap.end();
 					 ++it) {
 				QString name = TStringToQString((*it).first);
-				Frame::Type type = Frame::getTypeFromName(name);
+				Frame::Type type = getTypeFromVorbisName(name);
 				TagLib::StringList stringList = (*it).second;
 				for (TagLib::StringList::ConstIterator slit = stringList.begin();
 						 slit != stringList.end();
@@ -2552,6 +2676,8 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 					Frame(type, values.size() > 0 ? TStringToQString(values.front()) : "",
 								name, i++));
 			}
+		} else {
+			TaggedFile::getAllFramesV2(frames);
 		}
 	}
 	frames.addMissingStandardFrames();
@@ -2612,6 +2738,19 @@ QStringList TagLibFile::getFrameIds() const
 	return lst;
 }
 
+/**
+ * Static initialization.
+ * Registers file types.
+ */
+void TagLibFile::staticInit()
+{
+	TagLib::FileRef::addFileTypeResolver(new SpeexFileTypeResolver);
+	TagLib::FileRef::addFileTypeResolver(new WavPackFileTypeResolver);
+	TagLib::FileRef::addFileTypeResolver(new TTAFileTypeResolver);
+	TagLib::FileRef::addFileTypeResolver(new AACFileTypeResolver);
+	TagLib::FileRef::addFileTypeResolver(new MP2FileTypeResolver);
+}
+
 
 /**
  * Create an TagLibFile object if it supports the filename's extension.
@@ -2625,12 +2764,14 @@ TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
 																					const QString& fn) const
 {
 	QString ext = fn.right(4).QCM_toLower();
-	if ((ext == ".mp3"
+	if (((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_ID3LIB
 			 && Kid3App::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0
 #endif
 				)
-			|| ext == ".mpc" || ext == ".ogg" || ext == "flac")
+			|| ext == ".mpc" || ext == ".ogg" || ext == "flac"
+			|| ext == ".spx" || ext == ".tta"
+			|| ext.right(3) == ".wv")
 		return new TagLibFile(di, fn);
 	else
 		return 0;
@@ -2643,7 +2784,8 @@ TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
  */
 QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
 {
-	return QStringList() << ".flac" << ".mp3" << ".mpc" << ".ogg";
+	return QStringList() << ".flac" << ".mp3" << ".mpc" << ".ogg" <<
+		".spx" << ".tta" << ".aac" << ".mp2" << ".wv";
 }
 
 #endif // HAVE_TAGLIB
