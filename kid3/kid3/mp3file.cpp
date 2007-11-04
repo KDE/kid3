@@ -970,6 +970,9 @@ bool Mp3File::hasTagV2() const
  *         "" if no information available.
  */
 QString Mp3File::getDetailInfo() const {
+	if (getFilename().right(4).QCM_toLower() == ".aac") {
+		return "AAC";
+	}
 	QString str("");
 	const Mp3_Headerinfo* info = NULL;
 	if (m_tagV1) {
@@ -1664,7 +1667,8 @@ QStringList Mp3File::getFrameIds() const
 TaggedFile* Mp3File::Resolver::createFile(const DirInfo* di,
 																					const QString& fn) const
 {
-	if (fn.right(4).QCM_toLower() == ".mp3"
+	QString ext = fn.right(4).QCM_toLower();
+	if ((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_TAGLIB
 			&& Kid3App::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
 #endif
@@ -1681,7 +1685,7 @@ TaggedFile* Mp3File::Resolver::createFile(const DirInfo* di,
  */
 QStringList Mp3File::Resolver::getSupportedFileExtensions() const
 {
-	return QStringList() << ".mp3";
+	return QStringList() << ".mp3" << ".mp2" << ".aac";
 }
 
 #endif // HAVE_ID3LIB
