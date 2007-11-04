@@ -59,13 +59,6 @@ public:
 	 */
 	virtual ~FrameTable();
 
-#if QT_VERSION < 0x040000
-	/**
-	 * @return preferred size.
-	 */
-	virtual QSize sizeHint() const;
-#endif
-
 	/**
 	 * Check if table is for ID3v1 frames.
 	 * @return true if for ID3v1.
@@ -151,31 +144,6 @@ public slots:
 	 */
 	void triggerResize();
 
-protected:
-	/**
-	 * Receive key press events.
-	 * Reimplemented to use the Return key to start editing a cell, this can
-	 * also be done with F2, but Return seems to be more intuitive.
-	 *
-	 * @param event event
-	 */
-	virtual void keyPressEvent(QKeyEvent* event);
-
-#if QT_VERSION < 0x040000
-	/**
-	 * Called when a cell is painted.
-	 * Paint the first cell of marked rows with red background.
-	 * @param p painter
-	 * @param row column
-	 * @param col column
-	 * @param cr  cell rectangle
-	 * @param selected true if selected
-	 * @param cg color group
-	 */
-	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr,
-												 bool selected, const QColorGroup& cg);
-#endif
-
 private:
 	/**
 	 * Get a display representation of the a frame name.
@@ -193,10 +161,41 @@ private:
 	unsigned char m_markedRows;
 	bool m_setCheckBoxes;
 	const bool m_id3v1;
+	FrameCollection m_frames;
+
 #if QT_VERSION < 0x040000
+public:
+	/**
+	 * @return preferred size.
+	 */
+	virtual QSize sizeHint() const;
+
+	/**
+	 * Filters events if this object has been installed as an event filter
+	 * for the watched object.
+	 * @param o watched object
+	 * @param e event
+	 * @return true to filter event out.
+	 */
+	virtual bool eventFilter(QObject* o, QEvent* e);
+
+protected:
+	/**
+	 * Called when a cell is painted.
+	 * Paint the first cell of marked rows with red background.
+	 * @param p painter
+	 * @param row column
+	 * @param col column
+	 * @param cr  cell rectangle
+	 * @param selected true if selected
+	 * @param cg color group
+	 */
+	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr,
+												 bool selected, const QColorGroup& cg);
+
+private:
 	bool m_resizeTable;
 #endif
-	FrameCollection m_frames;
 };
 
 /** Line edit with automatic tag formatting. */
@@ -213,6 +212,26 @@ public:
 	 * Destructor.
 	 */
 	virtual ~FrameTableLineEdit();
+
+#if QT_VERSION < 0x040000
+	/**
+	 * Set the table item using this line edit.
+	 * @param ti table item
+	 */
+	void setTableItem(const QTableItem* ti) { m_tableItem = ti; }
+
+protected:
+	/**
+	 * Called when the widget gets the keyboard focus.
+	 * Used to set the current table cell, because this is not done
+	 * when using EditType Always.
+	 * @param event focus event
+	 */
+	virtual void focusInEvent(QFocusEvent* event);
+
+private:
+	const QTableItem* m_tableItem;
+#endif
 
 private slots:
 	/**

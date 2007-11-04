@@ -41,6 +41,123 @@ enum ColumnIndex {
 	CI_NumColumns
 };
 
+/**
+ * Constructor.
+ * @param parent parent widget
+ */
+FrameTableLineEdit::FrameTableLineEdit(QWidget* parent) :
+	QLineEdit(parent)
+#if QT_VERSION < 0x040000
+, m_tableItem(0)
+#endif
+{
+	connect(this, SIGNAL(textChanged(const QString&)),
+					this, SLOT(formatTextIfEnabled(const QString&)));
+}
+
+/**
+ * Destructor.
+ */
+FrameTableLineEdit::~FrameTableLineEdit() {}
+
+/**
+ * Format text if enabled.
+ * @param txt text to format and set in line edit
+ */
+void FrameTableLineEdit::formatTextIfEnabled(const QString& txt)
+{
+	if (Kid3App::s_id3FormatCfg.m_formatWhileEditing) {
+		QString str(txt);
+		Kid3App::s_id3FormatCfg.formatString(str);
+		if (str != txt) {
+			int curPos = cursorPosition();
+			setText(str);
+			setCursorPosition(curPos);
+		}
+	}
+}
+
+#if QT_VERSION < 0x040000
+/**
+ * Called when the widget gets the keyboard focus.
+ * Used to set the current table cell, because this is not done
+ * when using EditType Always.
+ * @param event focus event
+ */
+void FrameTableLineEdit::focusInEvent(QFocusEvent* event)
+{
+	if (m_tableItem) {
+		QTable* table = m_tableItem->table();
+		if (table) {
+			table->setCurrentCell(m_tableItem->row(), m_tableItem->col());
+		}
+	}
+	QLineEdit::focusInEvent(event);
+}
+
+class FrameTableComboBox : public QComboBox {
+public:
+	/**
+	 * Constructor.
+	 * @param parent parent widget
+	 */
+	FrameTableComboBox(QWidget* parent);
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~FrameTableComboBox();
+
+	/**
+	 * Set the table item using this line edit.
+	 * @param ti table item
+	 */
+	void setTableItem(const QTableItem* ti) { m_tableItem = ti; }
+
+protected:
+	/**
+	 * Called when the widget is clicked by the mouse.
+	 * Used to set the current table cell, because this is not done
+	 * when using EditType Always.
+	 * @param event mouse event
+	 */
+	virtual void mousePressEvent(QMouseEvent* event);
+
+private:
+	const QTableItem* m_tableItem;
+};
+
+/**
+ * Constructor.
+ * @param parent parent widget
+ */
+FrameTableComboBox::FrameTableComboBox(QWidget* parent) :
+	QComboBox(parent), m_tableItem(0) {}
+
+/**
+ * Destructor.
+ */
+FrameTableComboBox::~FrameTableComboBox() {}
+
+/**
+ * Called when the widget is clicked by the mouse.
+ * Used to set the current table cell, because this is not done
+ * when using EditType Always.
+ * @param event mouse event
+ */
+void FrameTableComboBox::mousePressEvent(QMouseEvent* event)
+{
+	if (m_tableItem) {
+		QTable* table = m_tableItem->table();
+		if (table) {
+			table->setCurrentCell(m_tableItem->row(), m_tableItem->col());
+		}
+	}
+	QComboBox::mousePressEvent(event);
+}
+#endif
+
+
 #if QT_VERSION >= 0x040000
 /** Delegate for table widget items. */
 class FrameItemDelegate : public QItemDelegate {
@@ -226,6 +343,18 @@ public:
 	virtual int alignment() const { return AlignLeft; }
 
 	/**
+	 * Set text of table item.
+	 * @param t text
+	 */
+	virtual void setText(const QString& t);
+
+	/**
+	 * Get text of table item.
+	 * @return text.
+	 */
+	virtual QString text() const;
+
+	/**
 	 * Get runtime type identification.
 	 * @return RttiValue.
 	 */
@@ -242,7 +371,7 @@ private:
  * @param type  type (one of the RttiValue enum)
  */
 ValueTableItem::ValueTableItem(QTable* table, const QString& text, int type) :
-	QTableItem(table, OnTyping, text), m_type(type)
+	QTableItem(table, Always, text), m_type(type)
 {
 	setReplaceable(false);
 }
@@ -266,7 +395,37 @@ QWidget* ValueTableItem::createEditor() const
 	}
 	e->setFrame(false);
 	e->setText(text());
+	e->setTableItem(this);
 	return e;
+}
+
+/**
+ * Set text of table item.
+ * @param t text
+ */
+void ValueTableItem::setText(const QString& t)
+{
+	QTableItem::setText(t);
+	QWidget* w = table()->cellWidget(row(), col());
+	QLineEdit* le = ::qt_cast<QLineEdit*>(w);
+	if (le) {
+		le->setText(t);
+	}
+}
+
+/**
+ * Get text of table item.
+ * @return text.
+ */
+QString ValueTableItem::text() const
+{
+	QWidget* w = table()->cellWidget(row(), col());
+	QLineEdit* le = ::qt_cast<QLineEdit*>(w);
+	if (le) {
+		return le->text();
+	} else {
+		return QTableItem::text();
+	}
 }
 
 
@@ -302,6 +461,12 @@ public:
 	virtual void setContentFromEditor(QWidget *w);
 
 	/**
+	 * Set text of table item.
+	 * @param t text
+	 */
+	virtual void setText(const QString& t);
+
+	/**
 	 * Get text of table item.
 	 * @return text.
 	 */
@@ -320,7 +485,7 @@ public:
  * @param text  text
  */
 GenreTableItem::GenreTableItem(QTable* table, const QString& text) :
-	QTableItem(table, OnTyping, text)
+	QTableItem(table, Always, text)
 {
 	setReplaceable(false);
 }
@@ -336,16 +501,26 @@ GenreTableItem::~GenreTableItem() {}
  */
 QWidget* GenreTableItem::createEditor() const
 {
-	QComboBox* cb = new QComboBox(table()->viewport());
+	FrameTableComboBox* cb = new FrameTableComboBox(table()->viewport());
 	if (cb) {
+		cb->setTableItem(this);
 		FrameTable* ft = dynamic_cast<FrameTable*>(table());
 		bool id3v1 = ft && ft->isId3v1();
 		QObject::connect(cb, SIGNAL(activated(int)),
 										 table(), SLOT(doValueChanged()));
 		if (!id3v1) {
 			cb->setEditable(true);
+			FrameTableLineEdit* ftle = new FrameTableLineEdit(cb);
+			if (ftle) {
+				ftle->setTableItem(this);
+				cb->setLineEdit(ftle);
+			}
 			cb->setAutoCompletion(true);
 			cb->setDuplicatesEnabled(false);
+			QLineEdit* le = cb->lineEdit();
+			if (le) {
+				le->installEventFilter(table());
+			}
 		}
 
 		if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
@@ -391,14 +566,32 @@ void GenreTableItem::setContentFromEditor(QWidget *w)
 }
 
 /**
+ * Set text of table item.
+ * @param t text
+ */
+void GenreTableItem::setText(const QString& t)
+{
+	QTableItem::setText(t);
+	QWidget* w = table()->cellWidget(row(), col());
+	QComboBox* cb = ::qt_cast<QComboBox*>(w);
+	if (cb) {
+		cb->setCurrentText(t);
+	}
+}
+
+/**
  * Get text of table item.
  * @return text.
  */
 QString GenreTableItem::text() const
 {
 	QWidget* w = table()->cellWidget(row(), col());
-	if (w) ((QTableItem*)this)->setContentFromEditor(w);
-	return QTableItem::text();
+	QComboBox* cb = ::qt_cast<QComboBox*>(w);
+	if (cb) {
+		return cb->currentText();
+	} else {
+		return QTableItem::text();
+	}
 }
 #endif
 
@@ -415,7 +608,7 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	m_markedRows(0), m_setCheckBoxes(true), m_id3v1(id3v1)
 {
 	setColumnCount(CI_NumColumns);
-	setSelectionMode(NoSelection);
+	setSelectionMode(SingleSelection);
 	horizontalHeader()->setResizeMode(CI_Value, QHeaderView::Stretch);
 	horizontalHeader()->hide();
 	verticalHeader()->hide();
@@ -430,6 +623,7 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	horizontalHeader()->setResizeMode(CI_Value, QHeaderView::Stretch);
 	removeRow(0);
 	setItemDelegate(new FrameItemDelegate(this));
+	setEditTriggers(AllEditTriggers);
 }
 #else
 FrameTable::FrameTable(QWidget* parent, bool id3v1) :
@@ -545,6 +739,7 @@ void FrameTable::framesToTable()
 
 		++row;
 	}
+	clearSelection();
 #else
 	if (m_resizeTable) {
 		resize(minimumSize());
@@ -649,7 +844,8 @@ void FrameTable::tableToFrames()
 			} else {
 				value = text(row, CI_Value);
 			}
-			if (value != (*it).getValue()) {
+			if (value != (*it).getValue() &&
+					!(value.isEmpty() && (*it).getValue().isEmpty())) {
 				Frame& frame = const_cast<Frame&>(*it);
 				frame.setValue(value);
 				frame.setValueChanged();
@@ -827,36 +1023,58 @@ void FrameTable::triggerResize()
 #endif
 }
 
+#if QT_VERSION < 0x040000
 /**
- * Receive key press events.
- * Reimplemented to use the Return key to start editing a cell, this can
- * also be done with F2, but Return seems to be more intuitive.
- *
- * @param event event
+ * Filters events if this object has been installed as an event filter
+ * for the watched object.
+ * This method is reimplemented to avoid the filtering of the left
+ * and right keys as done in QTable::eventFilter(), so that these
+ * keys can be used to move the cursor inside the line edit controls.
+ * @param o watched object
+ * @param e event
+ * @return true to filter event out.
  */
-void FrameTable::keyPressEvent(QKeyEvent* event)
+bool FrameTable::eventFilter(QObject* o, QEvent* e)
 {
-#if QT_VERSION >= 0x040000
-	if (event && event->key() == Qt::Key_Return) {
-		if (!edit(currentIndex(), EditKeyPressed, event)) {
-			event->ignore();
+	if (e && e->type() == QEvent::KeyPress) {
+		QKeyEvent* ke = (QKeyEvent*)e;
+		if (ke->key() == Key_Left || ke->key() == Key_Right) {
+			return false;
+		} else if (ke->key() == Key_Tab || ke->key() == Key_BackTab) {
+			int row = currentRow(), col = currentColumn();
+			if (ke->key() == Key_Tab) {
+				if (col >= numCols() - 1) {
+					col = 0;
+					if (row >= numRows() - 1) {
+						row = 0;
+					} else {
+						++row;
+					}
+				} else {
+					++col;
+				}
+			} else if (ke->key() == Key_BackTab) {
+				if (col <= 0) {
+					col = numCols() - 1;
+					if (row <= 0) {
+						row = numRows() - 1;
+					} else {
+						--row;
+					}
+				} else {
+					--col;
+				}
+			}
+			setCurrentCell(row, col);
+			return true;
 		}
 	}
-	QTableWidget::keyPressEvent(event);
-#else
-	int row, col;
-	if (event && event->key() == Key_Return && !isEditing() &&
-			(row = currentRow()) != -1 &&
-			(col = currentColumn()) != -1 &&
-			beginEdit(row, col, false)) {
-		setEditMode(Editing, row, col);
-	} else {
-		QTable::keyPressEvent(event);
-	}
-#endif
+	return QTable::eventFilter(o, e);
 }
 
-#if QT_VERSION < 0x040000
+/**
+ * @return preferred size.
+ */
 QSize FrameTable::sizeHint() const
 {
 	return QScrollView::sizeHint();
@@ -884,37 +1102,3 @@ void FrameTable::paintCell(QPainter* p, int row, int col, const QRect& cr,
 	}
 }
 #endif
-
-
-/**
- * Constructor.
- * @param parent parent widget
- */
-FrameTableLineEdit::FrameTableLineEdit(QWidget* parent) :
-	QLineEdit(parent)
-{
-	connect(this, SIGNAL(textChanged(const QString&)),
-					this, SLOT(formatTextIfEnabled(const QString&)));
-}
-
-/**
- * Destructor.
- */
-FrameTableLineEdit::~FrameTableLineEdit() {}
-
-/**
- * Format text if enabled.
- * @param txt text to format and set in line edit
- */
-void FrameTableLineEdit::formatTextIfEnabled(const QString& txt)
-{
-	if (Kid3App::s_id3FormatCfg.m_formatWhileEditing) {
-		QString str(txt);
-		Kid3App::s_id3FormatCfg.formatString(str);
-		if (str != txt) {
-			int curPos = cursorPosition();
-			setText(str);
-			setCursorPosition(curPos);
-		}
-	}
-}
