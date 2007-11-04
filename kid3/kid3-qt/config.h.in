@@ -8,6 +8,7 @@
 #undef HAVE_VORBIS
 #undef HAVE_FLAC
 #undef HAVE_TAGLIB
+#undef HAVE_MP4V2
 #undef HAVE_TUNEPIMP
 #undef GCC_PCH
 #undef CFG_DEBUG

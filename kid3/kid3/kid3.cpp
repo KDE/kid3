@@ -95,6 +95,9 @@
 #ifdef HAVE_FLAC
 #include "flacfile.hpp"
 #endif
+#ifdef HAVE_MP4V2
+#include "m4afile.h"
+#endif
 #ifdef HAVE_TAGLIB
 #include "taglibfile.h"
 #endif
@@ -778,7 +781,11 @@ void Kid3App::initFileTypes()
 #ifdef HAVE_FLAC
 	TaggedFile::addResolver(new FlacFile::Resolver);
 #endif
+#ifdef HAVE_MP4V2
+	TaggedFile::addResolver(new M4aFile::Resolver);
+#endif
 #ifdef HAVE_TAGLIB
+	TagLibFile::staticInit();
 	TaggedFile::addResolver(new TagLibFile::Resolver);
 #endif
 }
@@ -1163,6 +1170,7 @@ bool Kid3App::queryClose()
 	return false;
 }
 
+#ifndef WIN32
 /**
  * Get all combinations with lower- and uppercase characters.
  *
@@ -1210,6 +1218,7 @@ static QString lowerUpperCaseCombinations(const QString& str)
 
 	return result;
 }
+#endif
 
 /**
  * Create a filter string for the file dialog.
@@ -1222,25 +1231,21 @@ static QString lowerUpperCaseCombinations(const QString& str)
 QString Kid3App::createFilterString(QString* defaultNameFilter) const
 {
 	QStringList extensions = TaggedFile::getSupportedFileExtensions();
-	QString result, allText, allLowerExt, allCombinations;
+	QString result, allCombinations;
 	for (QStringList::const_iterator it = extensions.begin();
 			 it != extensions.end();
 			 ++it) {
 		QString text = (*it).mid(1).QCM_toUpper();
 		QString lowerExt = '*' + *it;
+#ifdef WIN32
+		const QString& combinations = lowerExt;
+#else
 		QString combinations = lowerUpperCaseCombinations(lowerExt);
+#endif
 		if (!allCombinations.isEmpty()) {
 			allCombinations += ' ';
 		}
 		allCombinations += combinations;
-		if (!allLowerExt.isEmpty()) {
-			allLowerExt += ", ";
-		}
-		allLowerExt += lowerExt;
-		if (!allText.isEmpty()) {
-			allText += ", ";
-		}
-		allText += text;
 #ifdef CONFIG_USE_KDE
 		result += combinations;
 		result += '|';
@@ -1259,13 +1264,11 @@ QString Kid3App::createFilterString(QString* defaultNameFilter) const
 #ifdef CONFIG_USE_KDE
 	QString allExt = allCombinations;
 	allExt += '|';
-	allExt += allText;
-	allExt += " (";
-	allExt += allLowerExt;
-	allExt += ")\n";
-	result = allExt + result + i18n("*|All Files (*)");
+	allExt += i18n("All Supported Files");
+	allExt += '\n';
+	result = allExt + result + "*|" + i18n("All Files (*)");
 #else
-	QString allExt = allText;
+	QString allExt = i18n("All Supported Files");
 	allExt += " (";
 	allExt += allCombinations;
 	allExt += ");;";

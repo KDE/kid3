@@ -149,6 +149,7 @@ my $have_vorbis = 1;
 my $have_flac = 1;
 my $have_id3lib = 1;
 my $have_taglib = 1;
+my $have_mp4v2 = 1;
 my $have_tunepimp = 5;
 my $qmake_cmd = "qmake";
 my $enable_pch = 0;
@@ -170,6 +171,8 @@ while (my $opt = shift) {
 		$have_id3lib = 0;
   } elsif ($opt eq "--without-taglib") {
 		$have_taglib = 0;
+  } elsif ($opt eq "--without-mp4v2") {
+		$have_mp4v2 = 0;
 	} elsif ($opt eq "--without-musicbrainz") {
 		$have_tunepimp = 0;
 	} elsif (substr($opt, 0, 19) eq "--with-musicbrainz=") {
@@ -204,6 +207,7 @@ while (my $opt = shift) {
 		print "  --without-musicbrainz  build without MusicBrainz\n";
 		print "  --with-musicbrainz=VER build with MusicBrainz version [5]\n";
 		print "  --without-taglib       build without taglib\n";
+		print "  --without-mp4v2        build without mp4v2\n";
 		print "  --without-id3lib       build without id3lib\n";
 		print "  --without-vorbis       build without ogg/vorbis\n";
 		print "  --without-flac         build without FLAC\n";
@@ -244,6 +248,7 @@ if ($from_configure) {
 	$have_vorbis = 0;
 	$have_flac = 0;
 	$have_taglib = 0;
+	$have_mp4v2 = 0;
 	$have_tunepimp = 0;
 	$qmake_cmd = "";
 	$lupdate_cmd = "";
@@ -272,6 +277,8 @@ if ($from_configure) {
 				$have_flac = $1;
 			} elsif (/^#define HAVE_TAGLIB (\d+)$/) {
 				$have_taglib = $1;
+			} elsif (/^#define HAVE_MP4V2 (\d+)$/) {
+				$have_mp4v2 = $1;
 			} elsif (/^#define HAVE_TUNEPIMP (\d+)$/) {
 				$have_tunepimp = $1;
 			} elsif (/^#define CFG_QMAKE "(.*)"$/) {
@@ -346,6 +353,10 @@ if ($have_flac) {
 if ($have_taglib) {
 	$config_h .= "#define HAVE_TAGLIB $have_taglib\n";
 	$config_pri .= "-ltag ";
+}
+if ($have_mp4v2) {
+	$config_h .= "#define HAVE_MP4V2 $have_mp4v2\n";
+	$config_pri .= "-lmp4v2 ";
 }
 if ($have_tunepimp) {
 	$config_h .= "#define HAVE_TUNEPIMP $have_tunepimp\n";

@@ -38,6 +38,57 @@ fi
 AC_SUBST(TAGLIB_INCLUDES)
 AC_SUBST(LIB_TAGLIB)
 
+dnl mp4 support with mp4v2
+AC_ARG_WITH(mp4v2, [  --with-mp4v2            build with mp4v2, default=yes],
+  with_mp4v2="$withval",
+  with_mp4v2=yes
+)
+AC_ARG_WITH(mp4v2-dir, [  --with-mp4v2-dir        path to mpv4v2, default=/usr],
+  mp4v2_dir="$withval",
+  mp4v2_dir=/usr
+)
+if test "$with_mp4v2" != "no"; then
+  AC_LANG_SAVE
+  AC_LANG_CPLUSPLUS
+  ac_cxxflags_save=$CXXFLAGS
+  CXXFLAGS="$CXXFLAGS -I$mp4v2_dir/include"
+  ac_ldflags_save=$LDFLAGS
+  LDFLAGS="$LDFLAGS -L$mp4v2_dir/lib"
+  # not even everyone using faad2 has <systems.h>
+  if ! test -f config.h; then
+    echo "#include \"confdefs.h\"" > config.h
+  fi
+  ac_cppflags_save=$CPPFLAGS
+  CPPFLAGS="$CPPFLAGS -I."
+  AC_CHECK_HEADERS(systems.h)
+  AC_CHECK_HEADERS([mp4.h], [have_mp4_h=yes], [],
+    [#ifdef HAVE_SYSTEMS_H
+     # include <systems.h>
+     #endif
+    ])
+  AC_CHECK_LIB(mp4v2, MP4Read, [have_mp4v2=yes], [
+    AC_MSG_WARN([libmp4v2 not found.
+Install mp4v2 development package (e.g. mp4v2-dev or libmp4v2-devel)
+or use --without-mp4v2.])
+      ])
+  CPPFLAGS=$ac_cppflags_save
+  CXXFLAGS=$ac_cxxflags_save
+  LDFLAGS=$ac_ldflags_save
+  AC_LANG_RESTORE
+fi
+if test "$have_mp4v2" = "yes" -a "$have_mp4_h" = "yes"; then
+  HAVE_MP4V2=1
+  AC_SUBST(HAVE_MP4V2)
+  AC_DEFINE(HAVE_MP4V2, 1, [have mp4v2])
+  MP4V2_INCLUDES="-I$mp4v2_dir/include"
+  LIB_MP4V2="-L$mp4v2_dir/lib -lmp4v2"
+else
+  LIB_MP4V2=""
+  have_mp4v2=no
+fi
+AC_SUBST(MP4V2_INCLUDES)
+AC_SUBST(LIB_MP4V2)
+
 dnl mp3 support with id3lib
 AC_ARG_WITH(id3lib, [  --with-id3lib           build with id3lib, default=yes],
   with_id3lib="$withval",

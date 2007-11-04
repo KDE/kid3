@@ -1,6 +1,7 @@
 project(kid3)
 
 set(WITH_TAGLIB ON CACHE BOOL "build with TagLib")
+set(WITH_MP4V2 ON CACHE BOOL "build with mp4v2")
 set(WITH_ID3LIB ON CACHE BOOL "build with id3lib")
 set(WITH_VORBIS ON CACHE BOOL "build with Ogg/Vorbis")
 set(WITH_FLAC ON CACHE BOOL "build with FLAC")
@@ -40,6 +41,29 @@ if(WITH_TAGLIB)
     message(FATAL_ERROR "Could not find Taglib")
   endif (NOT HAVE_TAGLIB)
 endif(WITH_TAGLIB)
+
+### Check for mp4v2
+set(MP4V2_LIBRARIES)
+if(WITH_MP4V2)
+  find_path(MP4V2_INCLUDE_DIR mp4.h
+   /usr/include/
+   /usr/local/include/
+  )
+
+  find_library(MP4V2_LIBRARIES NAMES mp4v2
+   PATHS
+   /usr/lib
+   /usr/local/lib
+  )
+
+  if (MP4V2_INCLUDE_DIR AND MP4V2_LIBRARIES)
+    message(STATUS "mp4v2 found: ${MP4V2_LIBRARIES}")
+    set(HAVE_MP4V2 1)
+    set(MP4V2_FOUND TRUE)
+  else (MP4V2_INCLUDE_DIR AND MP4V2_LIBRARIES)
+    message(STATUS "Could not find mp4v2")
+  endif (MP4V2_INCLUDE_DIR AND MP4V2_LIBRARIES)
+endif(WITH_MP4V2)
 
 ### Check for id3lib
 set(ID3LIB_LIBRARIES)

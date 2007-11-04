@@ -11,6 +11,9 @@
 /* Define if you have TagLib installed */
 #cmakedefine HAVE_TAGLIB 1
 
+/* Define if you have mp4v2 installed */
+#cmakedefine HAVE_MP4V2 1
+
 /* Set to TunePimp version, undefined if not installed */
 #cmakedefine HAVE_TUNEPIMP ${HAVE_TUNEPIMP}
 
