@@ -132,6 +132,39 @@ int ImportDialog::exec()
 }
 
 /**
+ * Set dialog to be started automatically.
+ *
+ * @param asd dialog to be started
+ */
+void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
+{
+	m_autoStartSubDialog = asd;
+
+	ImportConfig::ImportServer server;
+	switch (asd) {
+		case ASD_Freedb:
+			server = ImportConfig::ServerFreedb;
+			break;
+		case ASD_TrackType:
+			server = ImportConfig::ServerTrackType;
+			break;
+		case ASD_Discogs:
+			server = ImportConfig::ServerDiscogs;
+			break;
+		case ASD_MusicBrainzRelease:
+			server = ImportConfig::ServerMusicBrainzRelease;
+			break;
+		case ASD_MusicBrainz:
+			server = ImportConfig::ServerMusicBrainzFingerprint;
+			break;
+		case ASD_None:
+		default:
+			return;
+	}
+	m_impsel->setImportServer(server);
+}
+
+/**
  * Clear dialog data.
  */
 void ImportDialog::clear()

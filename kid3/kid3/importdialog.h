@@ -79,9 +79,7 @@ public:
 	 *
 	 * @param asd dialog to be started
 	 */
-	void setAutoStartSubDialog(AutoStartSubDialog asd) {
-		m_autoStartSubDialog = asd;
-	}
+	void setAutoStartSubDialog(AutoStartSubDialog asd);
 
 	/**
 	 * Clear dialog data.

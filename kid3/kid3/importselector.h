@@ -75,6 +75,13 @@ public:
 	~ImportSelector();
 
 	/**
+	 * Select the import server.
+	 *
+	 * @param server import server
+	 */
+	void setImportServer(ImportConfig::ImportServer server);
+
+	/**
 	 * Clear dialog data.
 	 */
 	void clear();

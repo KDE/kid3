@@ -381,6 +381,16 @@ ImportSelector::~ImportSelector()
 }
 
 /**
+ * Select the import server.
+ *
+ * @param server import server
+ */
+void ImportSelector::setImportServer(ImportConfig::ImportServer server)
+{
+	m_serverComboBox->QCM_setCurrentIndex(server);
+}
+
+/**
  * Clear dialog data.
  */
 void ImportSelector::clear()
