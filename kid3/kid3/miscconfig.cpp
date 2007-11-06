@@ -118,7 +118,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_useProxy(false),
 	m_onlyCustomGenres(false)
 #ifndef CONFIG_USE_KDE
-	, m_windowWidth(-1), m_windowHeight(-1)
+	, m_windowWidth(-1), m_windowHeight(-1), m_useFont(false), m_fontSize(-1)
 #endif
 {
 }
@@ -221,6 +221,10 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/OnlyCustomGenres", m_onlyCustomGenres);
 	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
 	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
+	config->QCM_writeEntry("/UseFont", m_useFont);
+	config->QCM_writeEntry("/FontFamily", m_fontFamily);
+	config->QCM_writeEntry("/FontSize", m_fontSize);
+	config->QCM_writeEntry("/Style", m_style);
 	config->endGroup();
 
 	config->beginGroup("/MenuCommands");
@@ -351,6 +355,10 @@ void MiscConfig::readFromConfig(
 	m_onlyCustomGenres = config->QCM_readBoolEntry("/OnlyCustomGenres", m_onlyCustomGenres);
 	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
 	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
+	m_useFont = config->QCM_readBoolEntry("/UseFont", m_useFont);
+	m_fontFamily = config->QCM_readEntry("/FontFamily", m_fontFamily);
+	m_fontSize = config->QCM_readNumEntry("/FontSize", -1);
+	m_style = config->QCM_readEntry("/Style", m_style);
 	config->endGroup();
 
 	m_contextMenuCommands.clear();

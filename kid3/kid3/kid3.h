@@ -302,6 +302,11 @@ protected:
 	 * @param ce close event
 	 */
 	void closeEvent(QCloseEvent* ce);
+
+	/**
+	 * Read font and style options.
+	 */
+	void readFontAndStyleOptions();
 #endif
 
 	/**

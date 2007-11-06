@@ -208,6 +208,14 @@ public:
 	int m_windowWidth;
 	/** mainwindow height */
 	int m_windowHeight;
+	/** true if custom application font is used */
+	bool m_useFont;
+	/** custom application font family */
+	QString m_fontFamily;
+	/** custom application font size */
+	int m_fontSize;
+	/** custom application style, empty if not used */
+	QString m_style;
 #endif
 
 	/** Default value for comment name */

@@ -109,6 +109,23 @@ protected slots:
 	 */
 	virtual void slotHelp();
 
+	/**
+	 * Select custom application font.
+	 */
+	void slotSelectFont();
+
+	/**
+	 * Select custom application style.
+	 *
+	 * @param key style key
+	 */
+	void slotSelectStyle(const QString& key);
+
+	/**
+	 * Revert the font and style to the values in the settings.
+	 */
+	void slotRevertFontAndStyle();
+
 private:
 	/** Preserve timestamp checkbox */
 	QCheckBox* m_preserveTimeCheckBox;
@@ -136,6 +153,16 @@ private:
 	QCheckBox* m_proxyCheckBox;
 	/** Proxy line edit */
 	QLineEdit* m_proxyLineEdit;
+#ifndef CONFIG_USE_KDE
+	QCheckBox* m_useApplicationFontCheckBox;
+	QPushButton* m_applicationFontButton;
+	QCheckBox* m_useApplicationStyleCheckBox;
+	QComboBox* m_applicationStyleComboBox;
+	QFont m_font;
+	QString m_style;
+	bool m_fontChanged;
+	bool m_styleChanged;
+#endif
 };
 
 #endif

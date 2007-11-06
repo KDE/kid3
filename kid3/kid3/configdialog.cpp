@@ -45,6 +45,11 @@
 #include <QGroupBox>
 #else
 #include <qgroupbox.h>
+#include <qvbox.h>
+#endif
+#ifndef CONFIG_USE_KDE
+#include <qfontdialog.h>
+#include <qstylefactory.h>
 #endif
 
 #include "formatconfig.h"
@@ -102,31 +107,36 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #endif
 				vlayout->addWidget(v1GroupBox);
 			}
-			QGroupBox* v2GroupBox = new QGroupBox(i18n("ID3v2"), tagsPage);
+
 #if QT_VERSION >= 0x040000
+			QGroupBox* v2GroupBox = new QGroupBox(i18n("ID3v2"), tagsPage);
 			QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox);
 			v2GroupBoxLayout->setMargin(2);
 			v2GroupBoxLayout->setSpacing(4);
-#else
-			QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox, 2, 2, 16, 6);
-#endif
 			if (v2GroupBox) {
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
-#if QT_VERSION >= 0x040000
 				v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
-#else
-				v2GroupBoxLayout->addMultiCellWidget(m_totalNumTracksCheckBox, 0, 0, 0, 1);
-#endif
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
 				m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
+#else
+			QGroupBox* v2GroupBox = new QGroupBox(2, Qt::Vertical, i18n("ID3v2"), tagsPage);
+			if (v2GroupBox) {
+				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
+				QHBox* id3v2VersionHBox = new QHBox(v2GroupBox);
+				id3v2VersionHBox->setSpacing(6);
+				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), id3v2VersionHBox);
+				m_id3v2VersionComboBox = new QComboBox(id3v2VersionHBox);
+#endif
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 				if (id3v2VersionLabel && m_id3v2VersionComboBox) {
 					m_id3v2VersionComboBox->QCM_insertItem(MiscConfig::ID3v2_3_0, i18n("ID3v2.3.0 (id3lib)"));
 					m_id3v2VersionComboBox->QCM_insertItem(MiscConfig::ID3v2_4_0, i18n("ID3v2.4.0 (TagLib)"));
 					m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 					id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
+#if QT_VERSION >= 0x040000
 					v2GroupBoxLayout->addWidget(id3v2VersionLabel, 1, 0);
 					v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 1, 1);
+#endif
 				}
 #endif
 				vlayout->addWidget(v2GroupBox);
@@ -312,6 +322,50 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 	}
 
 #ifndef KID3_USE_KCONFIGDIALOG
+#ifndef CONFIG_USE_KDE
+	QWidget* appearancePage = new QWidget;
+	if (appearancePage) {
+		QVBoxLayout* vlayout = new QVBoxLayout(appearancePage);
+		if (vlayout) {
+			vlayout->setMargin(6);
+			vlayout->setSpacing(6);
+#if QT_VERSION >= 0x040000
+			QGridLayout* fontStyleLayout = new QGridLayout;
+			fontStyleLayout->setMargin(2);
+			fontStyleLayout->setSpacing(4);
+#else
+			QGridLayout* fontStyleLayout = new QGridLayout(2, 2, 6);
+			fontStyleLayout->setMargin(16);
+#endif
+
+			m_useApplicationFontCheckBox = new QCheckBox(i18n("Use custom app&lication font"), appearancePage);
+			m_applicationFontButton = new QPushButton(i18n("A&pplication Font..."), appearancePage);
+			m_useApplicationStyleCheckBox = new QCheckBox(i18n("Use custom application &style"), appearancePage);
+			m_applicationStyleComboBox = new QComboBox(appearancePage);
+			if (fontStyleLayout &&
+					m_useApplicationFontCheckBox && m_applicationFontButton &&
+					m_useApplicationStyleCheckBox && m_applicationStyleComboBox) {
+				fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 0, 0);
+				fontStyleLayout->addWidget(m_applicationFontButton, 0, 1);
+				fontStyleLayout->addWidget(m_useApplicationStyleCheckBox, 1, 0);
+				fontStyleLayout->addWidget(m_applicationStyleComboBox, 1, 1);
+				m_applicationStyleComboBox->QCM_addItem(i18n("Unknown"));
+				m_applicationStyleComboBox->QCM_addItems(QStyleFactory::keys());
+				connect(m_applicationFontButton, SIGNAL(clicked()), this, SLOT(slotSelectFont()));
+				connect(m_applicationStyleComboBox, SIGNAL(activated(const QString&)), this, SLOT(slotSelectStyle(const QString&)));
+				connect(m_useApplicationFontCheckBox, SIGNAL(toggled(bool)), m_applicationFontButton, SLOT(setEnabled(bool)));
+				connect(m_useApplicationStyleCheckBox, SIGNAL(toggled(bool)), m_applicationStyleComboBox, SLOT(setEnabled(bool)));
+				vlayout->addLayout(fontStyleLayout);
+			}
+			QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+			vlayout->addItem(vspacer);
+		}
+		tabWidget->addTab(appearancePage, i18n("&Appearance"));
+	}
+	m_fontChanged = false;
+	m_styleChanged = false;
+#endif
+
 	topLayout->addWidget(tabWidget);
 	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
@@ -328,6 +382,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 		connect(helpButton, SIGNAL(clicked()), this, SLOT(slotHelp()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+#ifndef CONFIG_USE_KDE
+		connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotRevertFontAndStyle()));
+#endif
 		topLayout->addLayout(hlayout);
 	}
 #elif KDE_VERSION >= 0x035c00
@@ -380,6 +437,32 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 	m_browserLineEdit->setText(miscCfg->m_browser);
 	m_proxyCheckBox->setChecked(miscCfg->m_useProxy);
 	m_proxyLineEdit->setText(miscCfg->m_proxy);
+#ifndef CONFIG_USE_KDE
+	m_useApplicationFontCheckBox->setChecked(miscCfg->m_useFont);
+	m_applicationFontButton->setEnabled(miscCfg->m_useFont);
+	if (miscCfg->m_style.isEmpty()) {
+		m_useApplicationStyleCheckBox->setChecked(false);
+		m_applicationStyleComboBox->setEnabled(false);
+		m_applicationStyleComboBox->QCM_setCurrentIndex(0);
+	} else {
+		m_useApplicationStyleCheckBox->setChecked(true);
+		m_applicationStyleComboBox->setEnabled(true);
+#if QT_VERSION >= 0x040000
+		int idx = m_applicationStyleComboBox->findText(miscCfg->m_style);
+		if (idx >= 0) {
+			m_applicationStyleComboBox->setCurrentIndex(idx);
+		}
+#else
+		m_applicationStyleComboBox->setCurrentText(miscCfg->m_style);
+#endif
+	}
+
+	// store current font and style
+	m_font = QApplication::font();
+	m_style = miscCfg->m_style;
+	m_fontChanged = false;
+	m_styleChanged = false;
+#endif
 }
 
 /**
@@ -410,6 +493,22 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	miscCfg->m_browser = m_browserLineEdit->text();
 	miscCfg->m_useProxy = m_proxyCheckBox->isChecked();
 	miscCfg->m_proxy = m_proxyLineEdit->text();
+#ifndef CONFIG_USE_KDE
+	if (m_useApplicationFontCheckBox->isChecked()) {
+		QFont font = QApplication::font();
+		miscCfg->m_fontFamily = font.family();
+		miscCfg->m_fontSize = font.pointSize();
+		miscCfg->m_useFont = true;
+	} else {
+		miscCfg->m_useFont = false;
+	}
+	if (!m_useApplicationStyleCheckBox->isChecked() ||
+			m_applicationStyleComboBox->QCM_currentIndex() == 0) {
+		miscCfg->m_style = "";
+	} else {
+		miscCfg->m_style = m_applicationStyleComboBox->currentText();
+	}
+#endif
 }
 
 /**
@@ -419,3 +518,65 @@ void ConfigDialog::slotHelp()
 {
 	Kid3App::displayHelp("configure-kid3");
 }
+
+#ifndef CONFIG_USE_KDE
+/**
+ * Select custom application font.
+ */
+void ConfigDialog::slotSelectFont()
+{
+	bool ok;
+	QFont font = QFontDialog::getFont(&ok, QApplication::font(), this);
+	if (ok) {
+		font.setWeight(QFont::Normal);
+		font.setItalic(false);
+		font.setBold(false);
+		font.setUnderline(false);
+		font.setOverline(false);
+		font.setStrikeOut(false);
+		QApplication::setFont(font
+#if QT_VERSION < 0x040000
+													, true
+#endif
+			);
+		m_fontChanged = true;
+	}
+}
+
+/**
+ * Select custom application style.
+ *
+ * @param key style key
+ */
+void ConfigDialog::slotSelectStyle(const QString& key)
+{
+	if (key != i18n("Unknown") &&
+			QApplication::setStyle(key)) {
+		m_styleChanged = true;
+	}
+}
+
+/**
+ * Revert the font and style to the values in the settings.
+ */
+void ConfigDialog::slotRevertFontAndStyle()
+{
+	if (m_fontChanged) {
+		QApplication::setFont(m_font
+#if QT_VERSION < 0x040000
+													, true
+#endif
+			);
+		m_fontChanged = false;
+	}
+	if (m_styleChanged && !m_style.isEmpty()) {
+		QApplication::setStyle(m_style);
+		m_styleChanged = false;
+	}
+}
+
+#else
+void ConfigDialog::slotSelectFont() {}
+void ConfigDialog::slotSelectStyle(const QString&) {}
+void ConfigDialog::slotRevertFontAndStyle() {}
+#endif

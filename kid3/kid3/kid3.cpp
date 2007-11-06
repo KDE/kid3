@@ -236,14 +236,6 @@ QString Kid3App::s_dirName;
 Kid3App::Kid3App() :
 	m_importDialog(0), m_exportDialog(0), m_numberTracksDialog(0)
 {
-	initFileTypes();
-	initStatusBar();
-	setModified(false);
-	initView();
-	initActions();
-	s_fnFormatCfg.setAsFilenameFormatter();
-
-	resize(sizeHint());
 #ifdef CONFIG_USE_KDE
 #if KDE_VERSION >= 0x035c00
 	m_config = new KConfig;
@@ -265,7 +257,18 @@ Kid3App::Kid3App() :
 		QCM_setWindowIcon(icon);
 	}
 #endif
+	readFontAndStyleOptions();
 #endif
+
+	initFileTypes();
+	initStatusBar();
+	setModified(false);
+	initView();
+	initActions();
+	s_fnFormatCfg.setAsFilenameFormatter();
+
+	resize(sizeHint());
+
 	readOptions();
 }
 
@@ -996,6 +999,26 @@ void Kid3App::closeEvent(QCloseEvent* ce)
 		ce->ignore();
 	}
 }
+
+/**
+ * Read font and style options.
+ */
+void Kid3App::readFontAndStyleOptions()
+{
+	s_miscCfg.readFromConfig(m_config);
+	if (s_miscCfg.m_useFont &&
+			!s_miscCfg.m_fontFamily.isEmpty() && s_miscCfg.m_fontSize > 0) {
+		QApplication::setFont(QFont(s_miscCfg.m_fontFamily, s_miscCfg.m_fontSize)
+#if QT_VERSION < 0x040000
+													, true
+#endif
+			);
+	}
+	if (!s_miscCfg.m_style.isEmpty()) {
+		QApplication::setStyle(s_miscCfg.m_style);
+	}
+}
+
 #endif /* CONFIG_USE_KDE */
 
 /**
