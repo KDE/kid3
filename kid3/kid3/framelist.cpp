@@ -1422,6 +1422,7 @@ bool FrameList::addFrame(bool edit)
 		}
 		if (edit) {
 			if (!editFrame(m_frame)) {
+				m_file->deleteFrameV2(m_frame);
 				return false;
 			}
 		}
