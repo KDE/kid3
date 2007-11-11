@@ -52,6 +52,13 @@ public:
 		ID3v2_4_0 = 1
 	};
 
+	/** Encoding used for ID3v2 frames. */
+	enum TextEncoding {
+		TE_ISO8859_1,
+		TE_UTF16,
+		TE_UTF8
+	};
+
 	/**
 	 * External command in context menu.
 	 */
@@ -195,6 +202,8 @@ public:
 	bool m_hideV2;
 	/** version used for new ID3v2 tags */
 	int m_id3v2Version;
+	/** text encoding used for new ID3v2 tags */
+	int m_textEncoding;
 	/** true if proxy is used */
 	bool m_useProxy;
 	/** proxy used for access */

@@ -87,6 +87,9 @@
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
+/** Default text encoding */
+TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
+
 /**
  * Constructor.
  *
@@ -841,6 +844,22 @@ static bool needsUnicode(const QString& qstr)
 }
 
 /**
+ * Get the configured text encoding.
+ *
+ * @param unicode true if unicode is required
+ *
+ * @return text encoding.
+ */
+static TagLib::String::Type getTextEncodingConfig(bool unicode)
+{
+	TagLib::String::Type enc = TagLibFile::getDefaultTextEncoding();
+	if (unicode && enc == TagLib::String::Latin1) {
+		enc = TagLib::String::UTF16;
+	}
+	return enc;
+}
+
+/**
  * Write a Unicode field if the tag is ID3v2 and Latin-1 is not sufficient.
  *
  * @param tag     tag
@@ -855,15 +874,16 @@ bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String
 	TagLib::ID3v2::Tag* id3v2Tag;
 	if (tag && (id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag)) != 0) {
 		// first check if this string needs to be stored as unicode
-		if (needsUnicode(qstr)) {
+		TagLib::String::Type enc = getTextEncodingConfig(needsUnicode(qstr));
+		if (enc != TagLib::String::Latin1) {
 			TagLib::ByteVector id(frameId);
 			id3v2Tag->removeFrames(id);
 			if (!tstr.isEmpty()) {
 				TagLib::ID3v2::Frame* frame;
 				if (frameId[0] != 'C') {
-					frame = new TagLib::ID3v2::TextIdentificationFrame(id, TagLib::String::UTF16);
+					frame = new TagLib::ID3v2::TextIdentificationFrame(id, enc);
 				} else {
-					frame = new TagLib::ID3v2::CommentsFrame(TagLib::String::UTF16);
+					frame = new TagLib::ID3v2::CommentsFrame(enc);
 				}
 				if (!frame) {
 					return false;
@@ -972,7 +992,21 @@ void TagLibFile::setYearV2(int num)
 {
 	if (makeTagV2Settable() && num >= 0) {
 		if (num != static_cast<int>(m_tagV2->year())) {
-			m_tagV2->setYear(num);
+			if (getDefaultTextEncoding() == TagLib::String::Latin1) {
+				m_tagV2->setYear(num);
+			} else {
+				QString str;
+				if (num != 0) {
+					str.setNum(num);
+				} else {
+					str = "";
+				}
+				TagLib::String tstr = str.isEmpty() ?
+					TagLib::String::null : QSTRING_TO_TSTRING(str);
+				if (!setId3v2Unicode(m_tagV2, str, tstr, "TDRC")) {
+					m_tagV2->setYear(num);
+				}
+			}
 			markTag2Changed();
 		}
 	}
@@ -994,7 +1028,7 @@ void TagLibFile::setTrackNumV2(int num)
 					(numTracks = getTotalNumberOfTracksIfEnabled()) > 0 &&
 					num > 0 &&
 					(frame = new TagLib::ID3v2::TextIdentificationFrame(
-						"TRCK", TagLib::String::Latin1)) != 0) {
+						"TRCK", getDefaultTextEncoding())) != 0) {
 				TagLib::String str = TagLib::String::number(num);
 				str += '/';
 				str += TagLib::String::number(numTracks);
@@ -1012,7 +1046,21 @@ void TagLibFile::setTrackNumV2(int num)
 				id3v2Tag->addFrame(frame);
 #endif
 			} else {
-				m_tagV2->setTrack(num);
+				if (getDefaultTextEncoding() == TagLib::String::Latin1) {
+					m_tagV2->setTrack(num);
+				} else {
+					QString str;
+					if (num != 0) {
+						str.setNum(num);
+					} else {
+						str = "";
+					}
+					TagLib::String tstr = str.isEmpty() ?
+						TagLib::String::null : QSTRING_TO_TSTRING(str);
+					if (!setId3v2Unicode(m_tagV2, str, tstr, "TRCK")) {
+						m_tagV2->setTrack(num);
+					}
+				}
 			}
 			markTag2Changed();
 		}
@@ -1030,7 +1078,9 @@ void TagLibFile::setGenreV2(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->genre())) {
-			m_tagV2->setGenre(tstr);
+			if (!setId3v2Unicode(m_tagV2, str, tstr, "TCON")) {
+				m_tagV2->setGenre(tstr);
+			}
 			markTag2Changed();
 		}
 	}
@@ -2092,8 +2142,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 			self->addTotalNumberOfTracksIfEnabled(text);
 		}
 		setValue(tFrame, QSTRING_TO_TSTRING(text));
-		setTextEncoding(tFrame, needsUnicode(text) ?
-										TagLib::String::UTF16 : TagLib::String::Latin1);
+		setTextEncoding(tFrame, getTextEncodingConfig(needsUnicode(text)));
 	} else {
 		for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
 				 fldIt != frame.getFieldList().end();
@@ -2334,6 +2383,7 @@ static QString getApeName(const Frame& frame)
  */
 bool TagLibFile::addFrameV2(Frame& frame)
 {
+	TagLib::String::Type enc = getDefaultTextEncoding();
 	// Add a new frame.
 	if (makeTagV2Settable()) {
 		TagLib::ID3v2::Tag* id3v2Tag;
@@ -2348,33 +2398,38 @@ bool TagLibFile::addFrameV2(Frame& frame)
 			TagLib::ID3v2::Frame* id3Frame = 0;
 			if (frameId.startsWith("T")) {
 				if (frameId == "TXXX") {
-					id3Frame = new TagLib::ID3v2::UserTextIdentificationFrame;
+					id3Frame = new TagLib::ID3v2::UserTextIdentificationFrame(enc);
 				} else {
 					id3Frame = new TagLib::ID3v2::TextIdentificationFrame(
-						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()),
-						TagLib::String::Latin1);
+						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()), enc);
 					id3Frame->setText(""); // is necessary for createFrame() to work
 				}
 			} else if (frameId == "COMM") {
-				id3Frame = new TagLib::ID3v2::CommentsFrame;
+				id3Frame = new TagLib::ID3v2::CommentsFrame(enc);
 			} else if (frameId == "APIC") {
 				id3Frame = new TagLib::ID3v2::AttachedPictureFrame;
+				if (id3Frame) {
+					((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setTextEncoding(enc);
+				}
 			} else if (frameId == "UFID") {
 				// the bytevector must not be empty
 				id3Frame = new TagLib::ID3v2::UniqueFileIdentifierFrame(
 					TagLib::String(), TagLib::ByteVector(" "));
 			} else if (frameId == "GEOB") {
 				id3Frame = new TagLib::ID3v2::GeneralEncapsulatedObjectFrame;
+				if (id3Frame) {
+					((TagLib::ID3v2::GeneralEncapsulatedObjectFrame*)id3Frame)->setTextEncoding(enc);
+				}
 			} else if (frameId.startsWith("W")) {
 				if (frameId == "WXXX") {
-					id3Frame = new TagLib::ID3v2::UserUrlLinkFrame;
+					id3Frame = new TagLib::ID3v2::UserUrlLinkFrame(enc);
 				} else {
 					id3Frame = new TagLib::ID3v2::UrlLinkFrame(
 						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()));
 					id3Frame->setText("http://"); // is necessary for createFrame() to work
 				}
 			} else if (frameId == "USLT") {
-				id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame;
+				id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
 			}
 			if (id3Frame) {
 				if (!frame.fieldList().empty()) {
@@ -2751,6 +2806,28 @@ void TagLibFile::staticInit()
 	TagLib::FileRef::addFileTypeResolver(new MP2FileTypeResolver);
 }
 
+/**
+ * Set the default text encoding.
+ *
+ * @param textEnc default text encoding
+ */
+void TagLibFile::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
+{
+	// Do not use TagLib::ID3v2::FrameFactory::setDefaultTextEncoding(),
+	// it will change the encoding of existing frames read in, not only
+	// of newly created frames, which is really not what we want!
+	switch (textEnc) {
+		case MiscConfig::TE_ISO8859_1:
+			s_defaultTextEncoding = TagLib::String::Latin1;
+			break;
+		case MiscConfig::TE_UTF16:
+			s_defaultTextEncoding = TagLib::String::UTF16;
+			break;
+		case MiscConfig::TE_UTF8:
+		default:
+			s_defaultTextEncoding = TagLib::String::UTF8;
+	}
+}
 
 /**
  * Create an TagLibFile object if it supports the filename's extension.

@@ -902,6 +902,14 @@ void Kid3App::readOptions()
 	if (s_miscCfg.m_nameFilter.isEmpty()) {
 		createFilterString(&s_miscCfg.m_nameFilter);
 	}
+#ifdef HAVE_ID3LIB
+	Mp3File::setDefaultTextEncoding(
+		static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
+#endif
+#ifdef HAVE_TAGLIB
+	TagLibFile::setDefaultTextEncoding(
+		static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
+#endif
 	s_fnFormatCfg.readFromConfig(m_config);
 	s_id3FormatCfg.readFromConfig(m_config);
 	s_genCfg.readFromConfig(m_config);
@@ -1954,6 +1962,14 @@ void Kid3App::slotSettingsConfigure()
 			if (!s_miscCfg.m_markTruncations) {
 				m_view->frameTableV1()->markRows(0);
 			}
+#ifdef HAVE_ID3LIB
+			Mp3File::setDefaultTextEncoding(
+				static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
+#endif
+#ifdef HAVE_TAGLIB
+			TagLibFile::setDefaultTextEncoding(
+				static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
+#endif
 		}
 	}
 #ifdef KID3_USE_KCONFIGDIALOG

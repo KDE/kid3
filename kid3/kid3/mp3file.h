@@ -31,6 +31,7 @@
 #ifdef HAVE_ID3LIB
 
 #include "taggedfile.h"
+#include "miscconfig.h"
 #include <id3/globals.h> /* ID3_FrameID */
 class ID3_Tag;
 class ID3_Field;
@@ -443,6 +444,19 @@ public:
 	 */
 	virtual QStringList getFrameIds() const;
 
+	/**
+	 * Set the default text encoding.
+	 *
+	 * @param textEnc default text encoding
+	 */
+	static void setDefaultTextEncoding(MiscConfig::TextEncoding textEnc);
+
+	/**
+	 * Get the default text encoding.
+	 * @return default text encoding.
+	 */
+	static ID3_TextEnc getDefaultTextEncoding() { return s_defaultTextEncoding; }
+
 private:
 	/**
 	 * Set the fields in an id3lib frame from the field in the frame.
@@ -460,6 +474,9 @@ private:
 
 	/** ID3v2 tags */
 	ID3_Tag* m_tagV2;
+
+	/** Default text encoding */
+	static ID3_TextEnc s_defaultTextEncoding;
 };
 
 #endif // HAVE_ID3LIB

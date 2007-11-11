@@ -135,6 +135,8 @@ private:
 	QCheckBox* m_totalNumTracksCheckBox;
 	/** Comment field name combo box */
 	QComboBox* m_commentNameComboBox;
+	/** ID3v2 text encoding combo box */
+	QComboBox* m_textEncodingComboBox;
 	/** ID3v2 version combo box */
 	QComboBox* m_id3v2VersionComboBox;
 	/** Filename Format box */

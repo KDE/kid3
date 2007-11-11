@@ -116,17 +116,31 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			if (v2GroupBox) {
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
 				v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
+				QLabel* textEncodingLabel = new QLabel(i18n("Text &encoding:"), v2GroupBox);
+				m_textEncodingComboBox = new QComboBox(v2GroupBox);
 				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
 				m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
 #else
-			QGroupBox* v2GroupBox = new QGroupBox(2, Qt::Vertical, i18n("ID3v2"), tagsPage);
+			QGroupBox* v2GroupBox = new QGroupBox(2, Qt::Horizontal, i18n("ID3v2"), tagsPage);
 			if (v2GroupBox) {
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
-				QHBox* id3v2VersionHBox = new QHBox(v2GroupBox);
-				id3v2VersionHBox->setSpacing(6);
-				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), id3v2VersionHBox);
-				m_id3v2VersionComboBox = new QComboBox(id3v2VersionHBox);
+				v2GroupBox->addSpace(0);
+				QLabel* textEncodingLabel = new QLabel(i18n("Text &encoding:"), v2GroupBox);
+				m_textEncodingComboBox = new QComboBox(v2GroupBox);
+				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
+				m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
 #endif
+				if (textEncodingLabel && m_textEncodingComboBox) {
+					m_textEncodingComboBox->QCM_insertItem(MiscConfig::TE_ISO8859_1, i18n("ISO-8859-1"));
+					m_textEncodingComboBox->QCM_insertItem(MiscConfig::TE_UTF16, i18n("UTF16"));
+					m_textEncodingComboBox->QCM_insertItem(MiscConfig::TE_UTF8, i18n("UTF8"));
+					m_textEncodingComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+					textEncodingLabel->setBuddy(m_textEncodingComboBox);
+#if QT_VERSION >= 0x040000
+					v2GroupBoxLayout->addWidget(textEncodingLabel, 1, 0);
+					v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 1, 1);
+#endif
+				}
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 				if (id3v2VersionLabel && m_id3v2VersionComboBox) {
 					m_id3v2VersionComboBox->QCM_insertItem(MiscConfig::ID3v2_3_0, i18n("ID3v2.3.0 (id3lib)"));
@@ -134,8 +148,8 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 					m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 					id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
 #if QT_VERSION >= 0x040000
-					v2GroupBoxLayout->addWidget(id3v2VersionLabel, 1, 0);
-					v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 1, 1);
+					v2GroupBoxLayout->addWidget(id3v2VersionLabel, 2, 0);
+					v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 2, 1);
 #endif
 				}
 #endif
@@ -431,6 +445,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 	m_commentNameComboBox->setCurrentText(miscCfg->m_commentName);
 #endif
 #endif
+	m_textEncodingComboBox->QCM_setCurrentIndex(miscCfg->m_textEncoding);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	m_id3v2VersionComboBox->QCM_setCurrentIndex(miscCfg->m_id3v2Version);
 #endif
@@ -487,6 +502,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 #ifdef HAVE_VORBIS
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
 #endif
+	miscCfg->m_textEncoding = m_textEncodingComboBox->QCM_currentIndex();
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	miscCfg->m_id3v2Version = m_id3v2VersionComboBox->QCM_currentIndex();
 #endif

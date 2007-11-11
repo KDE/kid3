@@ -61,6 +61,9 @@
 #define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
 #endif
 
+/** Default text encoding */
+ID3_TextEnc Mp3File::s_defaultTextEncoding = ID3TE_ISO8859_1;
+
 /**
  * Constructor.
  *
@@ -441,7 +444,8 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 			if (frame) {
 				ID3_Field* fld = frame->GetField(ID3FN_TEXT);
 				if (fld) {
-					if (allowUnicode && fld->GetEncoding() == ID3TE_ISO8859_1) {
+					ID3_TextEnc enc = Mp3File::getDefaultTextEncoding();
+					if (allowUnicode && enc == ID3TE_ISO8859_1) {
 						// check if information is lost if the string is not unicode
 						uint i, unicode_size = text.length();
 						const QChar* qcarray = text.unicode();
@@ -452,15 +456,16 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 							if (qcarray[i].latin1() == 0)
 #endif
 							{
-								ID3_Field* encfld = frame->GetField(ID3FN_TEXTENC);
-								if (encfld) {
-									encfld->Set(ID3TE_UTF16);
-								}
-								fld->SetEncoding(ID3TE_UTF16);
+								enc = ID3TE_UTF16;
 								break;
 							}
 						}
 					}
+					ID3_Field* encfld = frame->GetField(ID3FN_TEXTENC);
+					if (encfld) {
+						encfld->Set(enc);
+					}
+					fld->SetEncoding(enc);
 					setString(fld, text);
 					tag->AttachFrame(frame);
 				}
@@ -1518,6 +1523,15 @@ bool Mp3File::addFrameV2(Frame& frame)
 	if (id != ID3FID_NOFRAME && m_tagV2) {
 		ID3_Frame* id3Frame = new ID3_Frame(id);
 		if (id3Frame) {
+			ID3_Field* fld = id3Frame->GetField(ID3FN_TEXT);
+			if (fld) {
+				ID3_TextEnc enc = getDefaultTextEncoding();
+				ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
+				if (encfld) {
+					encfld->Set(enc);
+				}
+				fld->SetEncoding(enc);
+			}
 			if (!frame.fieldList().empty()) {
 				setId3v2Frame(id3Frame, frame);
 			}
@@ -1653,6 +1667,18 @@ QStringList Mp3File::getFrameIds() const
 		}
 	}
 	return lst;
+}
+
+/**
+ * Set the default text encoding.
+ *
+ * @param textEnc default text encoding
+ */
+void Mp3File::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
+{
+	// UTF8 encoding is buggy, so UTF16 is used when UTF8 is configured
+	s_defaultTextEncoding = textEnc == MiscConfig::TE_ISO8859_1 ?
+		ID3TE_ISO8859_1 : ID3TE_UTF16;
 }
 
 

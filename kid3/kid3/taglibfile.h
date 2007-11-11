@@ -31,6 +31,7 @@
 #ifdef HAVE_TAGLIB
 
 #include "taggedfile.h"
+#include "miscconfig.h"
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
 #include <taglib/id3v2frame.h>
@@ -471,6 +472,19 @@ public:
 	 */
 	static void staticInit();
 
+	/**
+	 * Set the default text encoding.
+	 *
+	 * @param textEnc default text encoding
+	 */
+	static void setDefaultTextEncoding(MiscConfig::TextEncoding textEnc);
+
+	/**
+	 * Get the default text encoding.
+	 * @return default text encoding.
+	 */
+	static TagLib::String::Type getDefaultTextEncoding() { return s_defaultTextEncoding; }
+
 private:
 	/**
 	 * Modify an ID3v2 frame.
@@ -502,6 +516,9 @@ private:
 	TagLib::Tag* m_tagV1;      /**< ID3v1 tags */
 	TagLib::Tag* m_tagV2;      /**< ID3v2 tags */
 	bool m_fileRead;           /**< true if file has been read */
+
+	/** default text encoding */
+	static TagLib::String::Type s_defaultTextEncoding;
 };
 
 #endif // HAVE_TAGLIB
