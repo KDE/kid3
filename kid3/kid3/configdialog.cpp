@@ -48,6 +48,7 @@
 #include <qvbox.h>
 #endif
 #ifndef CONFIG_USE_KDE
+#include <qapplication.h>
 #include <qfontdialog.h>
 #include <qstylefactory.h>
 #endif
