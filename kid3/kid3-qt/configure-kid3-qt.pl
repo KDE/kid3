@@ -14,7 +14,7 @@ my $topdir = File::Spec->rel2abs(dirname($0). "/..");
 my $lupdate_cmd = "lupdate";
 
 # Read all source files given in the parameter list and copy them to the
-# current directory, replaceing i18n by tr and I18N_NOOP by QT_TR_NOOP.
+# current directory, replaceing i18n by tr and I18N_NOOP by QT_TRANSLATE_NOOP.
 sub createTranslateSources(@)
 {
 	my @sources = @_;
@@ -24,7 +24,7 @@ sub createTranslateSources(@)
 		open OF, ">$outfn" or die "Could not create $outfn: $!\n";
 		while (<IF>) {
 			s/i18n\(/tr(/;
-			s/I18N_NOOP\(/QT_TR_NOOP(/;
+			s/I18N_NOOP\(/QT_TRANSLATE_NOOP("\@default", /;
 			print OF $_;
 		}				
 		close OF;
@@ -295,7 +295,7 @@ if ($from_configure) {
 	}
 }
 
-my $config_h = "#define VERSION \"0.9.9\"\n";
+my $config_h = "#define VERSION \"0.10\"\n";
 my $config_pri;
 if ($prefix) {
 	$config_h .= "#define CFG_PREFIX \"$prefix\"\n";

@@ -1,3 +1,27 @@
+Thu Nov 15 21:52:36 CET 2007  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 0.10
+
+	* New:
+	  + All frames can be edited in tables, not only the standard tags.
+	  + Support for MP4/AAC, MP2, Speex, TrueAudio, and WavPack files.
+	  + Default encoding can be configured.
+	  + Italian translation.
+	  + Support build with KDE 4.
+
+	* Improved:
+	  + Conversion between ID3v2.3 and ID3v2.4 for all supported frames.
+	  + GUI and usability.
+	  + Qt4 version builds without Qt3Support module
+
+	* Fixed:
+	  + Correct kid3-qt icon.
+	  + kid3-qt builds correctly without id3lib or without MusicBrainz.
+	  + Remove deleted user actions from configuration.
+	  + Allow new export/import formats with empty fields.
+	  + Reread file after conversion from ID3v2.4 to ID3v2.3.
+	  + Rename directory does not rename when tags are empty.
+
 Sat May  5 14:22:28 CEST 2007  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.9

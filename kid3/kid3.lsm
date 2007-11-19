@@ -1,17 +1,17 @@
 Begin4
-Title:          Kid3 -- Efficient ID3 Tagger
-Version:        0.9.9
-Entered-date:   2007-10-13
+Title:          Kid3 -- Efficient Audio Tagger
+Version:        0.10
+Entered-date:   2007-11-15
 Description:    ID3 tagger to edit ID3v1.1, ID3v2.3, ID3v2.4, Ogg/Vorbis, FLAC
                 and MPC tags, multiple files, generate tags from file names
                 and vice versa, import and export album data in various formats.
-Keywords:       KDE3 Qt kdemultimedia MP3 ID3 ID3v1 ID3v2 Ogg FLAC MPC
+Keywords:       KDE Qt kdemultimedia MP3 ID3 ID3v1 ID3v2 Ogg FLAC MPC MP4 M4A AAC MP2 Speex TrueAudio WavPack
 Author:         Urs Fleisch <ufleisch@users.sourceforge.net>
 Maintained-by:  Urs Fleisch <ufleisch@users.sourceforge.net>
 Home-page:      http://kid3.sourceforge.net
 Alternate-site: http://www.kde-apps.org/content/show.php?content=10415
 Primary-site:   http://www.sourceforge.net/projects/kid3
-                http://prdownloads.sourceforge.net/kid3/kid3-0.9.9.tar.gz?download
+                http://prdownloads.sourceforge.net/kid3/kid3-0.10.tar.gz?download
 Platform:       Linux, Windows.
 Copying-policy: GPL
 End

@@ -1,10 +1,21 @@
-kid3 (0.9.9-1) unstable; urgency=low
+kid3 (0.10-0) unstable; urgency=low
 
-  * All frames can be directly edited in table
-  * No more dependencies on Qt3Support module when building with Qt 4
-  * Bug fixes.
-	
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 15 Jul 2007 21:26:25 +0200
+  * New upstream release. (Closes: #447699)
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 15 Nov 2007 21:38:58 +0100
+
+kid3 (0.9-4) unstable; urgency=low
+
+  * Fix clean rule to allow package be built twice in a row. (Closes: #442615)
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Wed, 26 Sep 2007 09:22:56 +0200
+
+kid3 (0.9-3) unstable; urgency=low
+
+  * Add patch to use custom import/export formats with empty fields.
+   (Closes: #432953)
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Mon, 16 Jul 2007 20:58:45 +0200
 
 kid3 (0.9-2) unstable; urgency=low
 

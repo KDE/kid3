@@ -1,11 +1,10 @@
-*** TO INSTALL
-
-*** Requirements
+* TO INSTALL
+** Requirements
 
 Qt, optional KDE, id3lib, TagLib, libogg, libvorbis, libvorbisfile, libFLAC++,
-libFLAC, libtunepimp.
+libFLAC, libtunepimp, mp4v2.
 
-*** Linux
+** Linux
 
 *** Compile for KDE
 
@@ -19,6 +18,12 @@ make install
 
 The install directory can be assigned to DESTDIR
 
+*** Compile for KDE 4
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr/lib/kde4/ .
+make
+make install
+
 *** Compile for Qt (no KDE)
 
 cd kid3-qt
@@ -31,7 +36,7 @@ make install
 
 The install directory can be assigned to INSTALL_ROOT
 
-*** Compile with Qt 4
+*** Compile for Qt 4
 
 cd kid3-qt
 ./configure --with-qmake=qmake-qt4
@@ -54,18 +59,18 @@ and the tar.gz archive into the SOURCES directory.
 rpm -ba kid3.spec
  
 
-*** Windows
+** Windows
 
-- Install Qt/Windows Open Source Edition, MinGW and MSYS
-- Compile and install the libraries with MinGW and MSYS: id3lib, libvorbis,
-  libogg, FLAC, TagLib.
-- Install xsltproc and an XSL stylesheet to transform Docbook to HTML
-  (http://sourceforge.net/projects/docbook)
-- Point environment variables to the installed programs:
-  * %MSYSDIR%\bin\perl
-  * %XSLTPROCDIR%\xsltproc
-  * %DOCBOOKDIR%\html\docbook.xsl
-- start win32/buildkid3.bat or build manually:
+ - Install Qt/Windows Open Source Edition, MinGW and MSYS
+ - Compile and install the libraries with MinGW and MSYS: id3lib, libvorbis,
+   libogg, FLAC, TagLib.
+ - Install xsltproc and an XSL stylesheet to transform Docbook to HTML
+   (http://sourceforge.net/projects/docbook)
+ - Point environment variables to the installed programs:
+   * %MSYSDIR%\bin\perl
+   * %XSLTPROCDIR%\xsltproc
+   * %DOCBOOKDIR%\html\docbook.xsl
+ - start win32/buildkid3.bat or build manually:
 
 %MSYSDIR%\bin\perl ../kid3-qt/configure-kid3-qt.pl --generate-ts --prefix= --with-bindir= --with-datarootdir= --with-docdir= --with-translationsdir= --without-musicbrainz --enable-gcc-pch
 mkdir kid3win

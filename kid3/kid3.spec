@@ -6,7 +6,7 @@ Name:         kid3
 License:      GPL
 Group:        Applications/Multimedia
 Summary:      Efficient ID3 tag editor
-Version:      0.9.9
+Version:      0.10
 Release:      1%{?dist}
 URL:          http://kid3.sourceforge.net/
 Source0:      http://downloads.sourceforge.net/kid3/%{name}-%{version}.tar.gz
@@ -29,9 +29,8 @@ With Kid3 you can:
 - Edit ID3v1.1 tags
 - Edit all ID3v2.3 and ID3v2.4 frames
 - Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-- Edit Ogg/Vorbis tags
-- Edit FLAC tags
-- Edit APE tags in MPC files
+- Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+  TrueAudio and WavPack files.
 - Edit tags of multiple files, e.g. the artist, album, year and genre
   of all files of an album typically have the same values and can be
   set together.
@@ -93,9 +92,8 @@ With Kid3 you can:
 - Edit ID3v1.1 tags
 - Edit all ID3v2.3 and ID3v2.4 frames
 - Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-- Edit Ogg/Vorbis tags
-- Edit FLAC tags
-- Edit APE tags in MPC files
+- Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+  TrueAudio and WavPack files.
 - Edit tags of multiple files, e.g. the artist, album, year and genre
   of all files of an album typically have the same values and can be
   set together.

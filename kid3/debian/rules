@@ -58,10 +58,10 @@ build-stamp:
 clean: 
 	dh_testdir
 	dh_testroot
-	[ ! -f Makefile ] || $(MAKE) distclean
 	[ ! -f Makefile ] || $(MAKE) -C kid3-qt distclean
+	[ ! -f Makefile ] || $(MAKE) distclean
 	$(MAKE) -f /usr/share/quilt/quilt.make unpatch
-	-rm -f *-stamp
+	-rm -f *-stamp po/*.gmo kid3-qt/kid3/*.png kid3-qt/kid3/*.svgz
 	dh_clean
 
 install: build
