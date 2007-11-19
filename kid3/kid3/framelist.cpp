@@ -301,7 +301,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
 		layout->setSpacing(2);
 		QStringList strList;
 		while (*strlst) {
-			strList += i18n(*strlst++);
+			strList += QCM_translate(*strlst++);
 		}
 		m_combo->QCM_addItems(strList);
 		layout->addWidget(m_label);
@@ -839,7 +839,7 @@ QWidget* TextFieldControl::createWidget(QWidget* parent)
 	if (m_edit == NULL)
 		return NULL;
 
-	m_edit->setLabel(i18n(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+	m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
 	m_edit->setText(m_field.m_value.toString());
 	return m_edit;
 }
@@ -862,7 +862,7 @@ QWidget* LineFieldControl::createWidget(QWidget* parent)
 {
 	m_edit = new LabeledLineEdit(parent);
 	if (m_edit) {
-		m_edit->setLabel(i18n(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+		m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
 		m_edit->setText(m_field.m_value.toString());
 	}
 	return m_edit;
@@ -886,7 +886,7 @@ QWidget* IntFieldControl::createWidget(QWidget* parent)
 {
 	m_numInp = new LabeledSpinBox(parent);
 	if (m_numInp) {
-		m_numInp->setLabel(i18n(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+		m_numInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
 		m_numInp->setValue(m_field.m_value.toInt());
 	}
 	return m_numInp;
@@ -910,7 +910,7 @@ QWidget* IntComboBoxControl::createWidget(QWidget* parent)
 {
 	m_ptInp = new LabeledComboBox(parent, m_strLst);
 	if (m_ptInp) {
-		m_ptInp->setLabel(i18n(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+		m_ptInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
 		m_ptInp->setCurrentItem(m_field.m_value.toInt());
 	}
 	return m_ptInp;
@@ -936,7 +936,7 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
 	m_bos = new BinaryOpenSave(parent, m_field);
 	if (m_bos) {
-		m_bos->setLabel(i18n(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+		m_bos->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
 	}
 	return m_bos;
 }
@@ -1345,9 +1345,9 @@ bool FrameList::editFrame(Frame& frame)
 	QString name(frame.getName(true));
 	if (!name.isEmpty()) {
 #if QT_VERSION >= 0x040000
-		name = i18n(name.toLatin1().data());
+		name = QCM_translate(name.toLatin1().data());
 #else
-		name = i18n(name);
+		name = QCM_translate(name);
 #endif
 	}
 	if (frame.getFieldList().empty()) {
@@ -1441,19 +1441,48 @@ bool FrameList::addFrame(bool edit)
 }
 
 /**
+ * Get type of frame from name.
+ *
+ * @param name name, spaces and case are ignored
+ *
+ * @return type.
+ */
+static Frame::Type getTypeFromName(QString name)
+{
+	static QMap<QString, int> strNumMap;
+	if (strNumMap.empty()) {
+		// first time initialization
+		for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+			Frame::Type type = static_cast<Frame::Type>(i);
+			strNumMap.insert(QCM_translate(Frame::getNameFromType(type)).remove(' ').QCM_toUpper(),
+											 type);
+		}
+	}
+	QMap<QString, int>::const_iterator it =
+		strNumMap.find(name.remove(' ').QCM_toUpper());
+	if (it != strNumMap.end()) {
+		return static_cast<Frame::Type>(*it);
+	}
+	return Frame::FT_Other;
+}
+
+/**
  * Display a dialog to select a frame type.
  *
  * @return false if no frame selected.
  */
 bool FrameList::selectFrame()
 {
+	// strange, but necessary to get the strings translated with Qt4 without KDE
+	const char* const title = I18N_NOOP("Add Frame");
+	const char* const msg = I18N_NOOP("Select the frame ID");
 	bool ok = false;
 	if (m_file) {
 		QString name = QInputDialog::QCM_getItem(
-			0, i18n("Add Frame"),
-			i18n("Select the frame ID"), m_file->getFrameIds(), 0, true, &ok);
+			0, QCM_translate(title),
+			QCM_translate(msg), m_file->getFrameIds(), 0, true, &ok);
 		if (ok) {
-			Frame::Type type = Frame::getTypeFromName(name);
+			Frame::Type type = getTypeFromName(name);
 			m_frame = Frame(type, "", name, -1);
 		}
 	}

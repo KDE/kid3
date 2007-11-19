@@ -228,6 +228,77 @@ bool OggFile::writeTags(bool, bool*, bool) { return false; }
 #endif // HAVE_VORBIS
 
 /**
+ * Get name of frame from type.
+ *
+ * @param type type
+ *
+ * @return name.
+ */
+static const char* getVorbisNameFromType(Frame::Type type)
+{
+  static const char* const names[] = {
+		"TITLE",           // FT_Title,
+		"ARTIST",          // FT_Artist,
+		"ALBUM",           // FT_Album,
+		"COMMENT",         // FT_Comment,
+		"DATE",            // FT_Date,
+		"TRACKNUMBER",     // FT_Track,
+		"GENRE",           // FT_Genre,
+		                   // FT_LastV1Frame = FT_Track,
+		"ARRANGER",        // FT_Arranger,
+		"AUTHOR",          // FT_Author,
+		"BPM",             // FT_Bpm,
+		"COMPOSER",        // FT_Composer,
+		"CONDUCTOR",       // FT_Conductor,
+		"COPYRIGHT",       // FT_Copyright,
+		"DISCNUMBER",      // FT_Disc,
+		"ENCODED-BY",      // FT_EncodedBy,
+		"ISRC",            // FT_Isrc,
+		"LANGUAGE",        // FT_Language,
+		"LYRICIST",        // FT_Lyricist,
+		"ORIGINALALBUM",   // FT_OriginalAlbum,
+		"ORIGINALARTIST",  // FT_OriginalArtist,
+		"ORIGINALDATE",    // FT_OriginalDate,
+		"PART",            // FT_Part,
+		"PERFORMER",       // FT_Performer,
+		"PUBLISHER",       // FT_Publisher,
+		"SUBTITLE",        // FT_Subtitle,
+		"WEBSITE",         // FT_Website,
+		                   // FT_LastFrame = FT_Website
+	};
+	class not_used { int array_size_check[
+			sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
+			? 1 : -1 ]; };
+	return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";
+}
+
+/**
+ * Get the frame type for a Vorbis name.
+ *
+ * @param name Vorbis tag name
+ *
+ * @return frame type.
+ */
+static Frame::Type getTypeFromVorbisName(QString name)
+{
+	static QMap<QString, int> strNumMap;
+	if (strNumMap.empty()) {
+		// first time initialization
+		for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+			Frame::Type type = static_cast<Frame::Type>(i);
+			strNumMap.insert(getVorbisNameFromType(type), type);
+		}
+		strNumMap.insert("DESCRIPTION", Frame::FT_Comment);
+	}
+	QMap<QString, int>::const_iterator it =
+		strNumMap.find(name.remove(' ').QCM_toUpper());
+	if (it != strNumMap.end()) {
+		return static_cast<Frame::Type>(*it);
+	}
+	return Frame::FT_Other;
+}
+
+/**
  * Remove ID3v2 frames.
  *
  * @param flt filter specifying which frames to remove
@@ -242,7 +313,7 @@ void OggFile::deleteFramesV2(const FrameFilter& flt)
 		for (OggFile::CommentList::iterator it = m_comments.begin();
 				 it != m_comments.end();) {
 			QString name((*it).getName());
-			if (flt.isEnabled(Frame::getTypeFromName(name), name)) {
+			if (flt.isEnabled(getTypeFromVorbisName(name), name)) {
 				it = m_comments.erase(it);
 				changed = true;
 			} else {
@@ -643,7 +714,7 @@ void OggFile::getAllFramesV2(FrameCollection& frames)
 			 it != m_comments.end();
 			 ++it) {
 		name = (*it).getName();
-		Frame::Type type = Frame::getTypeFromName(name);
+		Frame::Type type = getTypeFromVorbisName(name);
 		frames.insert(Frame(type, (*it).getValue(), name, i++));
 	}
 	frames.addMissingStandardFrames();

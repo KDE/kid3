@@ -62,9 +62,6 @@ Frame::~Frame()
  */
 const char* Frame::getNameFromType(Type type)
 {
-	// These names are also used to generate Vorbis field names
-	// by taking the untranslated name in all uppercase letters
-	// and removing spaces.
   static const char* const names[] = {
 		I18N_NOOP("Title"),           // FT_Title,
 		I18N_NOOP("Artist"),          // FT_Artist,
@@ -99,32 +96,6 @@ const char* Frame::getNameFromType(Type type)
 			sizeof(names) / sizeof(names[0]) == FT_LastFrame + 1
 			? 1 : -1 ]; };
 	return type <= FT_LastFrame ? names[type] : "Unknown";
-}
-
-/**
- * Get type of frame from name.
- *
- * @param name name, spaces and case are ignored
- *
- * @return type.
- */
-Frame::Type Frame::getTypeFromName(QString name)
-{
-	static QMap<QString, int> strNumMap;
-	if (strNumMap.empty()) {
-		// first time initialization
-		for (int i = 0; i <= FT_LastFrame; ++i) {
-			Type type = static_cast<Type>(i);
-			strNumMap.insert(QString(getNameFromType(type)).remove(' ').QCM_toUpper(),
-											 type);
-		}
-	}
-	QMap<QString, int>::const_iterator it =
-		strNumMap.find(name.remove(' ').QCM_toUpper());
-	if (it != strNumMap.end()) {
-		return static_cast<Type>(*it);
-	}
-	return FT_Other;
 }
 
 /**

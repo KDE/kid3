@@ -252,15 +252,6 @@ public:
 	 */
 	static const char* getNameFromType(Type type);
 
-	/**
-	 * Get type of frame from name.
-	 *
-	 * @param name name, spaces and case are ignored
-	 *
-	 * @return type.
-	 */
-	static Type getTypeFromName(QString name);
-
 private:
 	friend class TaggedFile;
 	Type m_type;

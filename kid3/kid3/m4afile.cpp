@@ -932,7 +932,7 @@ QStringList M4aFile::getFrameIds() const
 
 	QStringList lst;
 	for (unsigned i = 0; i < sizeof(types) / sizeof(types[0]); ++i) {
-		lst.append(Frame::getNameFromType(types[i]));
+		lst.append(QCM_translate(Frame::getNameFromType(types[i])));
 	}
 	lst << "covr" << "cpil";
 	return lst;

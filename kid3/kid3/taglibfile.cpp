@@ -2340,6 +2340,99 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 }
 
 /**
+ * Get name of frame from type.
+ *
+ * @param type type
+ *
+ * @return name.
+ */
+static const char* getVorbisNameFromType(Frame::Type type)
+{
+  static const char* const names[] = {
+		"TITLE",           // FT_Title,
+		"ARTIST",          // FT_Artist,
+		"ALBUM",           // FT_Album,
+		"COMMENT",         // FT_Comment,
+		"DATE",            // FT_Date,
+		"TRACKNUMBER",     // FT_Track,
+		"GENRE",           // FT_Genre,
+		                   // FT_LastV1Frame = FT_Track,
+		"ARRANGER",        // FT_Arranger,
+		"AUTHOR",          // FT_Author,
+		"BPM",             // FT_Bpm,
+		"COMPOSER",        // FT_Composer,
+		"CONDUCTOR",       // FT_Conductor,
+		"COPYRIGHT",       // FT_Copyright,
+		"DISCNUMBER",      // FT_Disc,
+		"ENCODED-BY",      // FT_EncodedBy,
+		"ISRC",            // FT_Isrc,
+		"LANGUAGE",        // FT_Language,
+		"LYRICIST",        // FT_Lyricist,
+		"ORIGINALALBUM",   // FT_OriginalAlbum,
+		"ORIGINALARTIST",  // FT_OriginalArtist,
+		"ORIGINALDATE",    // FT_OriginalDate,
+		"PART",            // FT_Part,
+		"PERFORMER",       // FT_Performer,
+		"PUBLISHER",       // FT_Publisher,
+		"SUBTITLE",        // FT_Subtitle,
+		"WEBSITE",         // FT_Website,
+		                   // FT_LastFrame = FT_Website
+	};
+	class not_used { int array_size_check[
+			sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
+			? 1 : -1 ]; };
+	return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";
+}
+
+/**
+ * Get the frame type for a Vorbis name.
+ *
+ * @param name Vorbis tag name
+ *
+ * @return frame type.
+ */
+static Frame::Type getTypeFromVorbisName(QString name)
+{
+	static QMap<QString, int> strNumMap;
+	if (strNumMap.empty()) {
+		// first time initialization
+		for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+			Frame::Type type = static_cast<Frame::Type>(i);
+			strNumMap.insert(getVorbisNameFromType(type), type);
+		}
+		strNumMap.insert("DESCRIPTION", Frame::FT_Comment);
+	}
+	QMap<QString, int>::const_iterator it =
+		strNumMap.find(name.remove(' ').QCM_toUpper());
+	if (it != strNumMap.end()) {
+		return static_cast<Frame::Type>(*it);
+	}
+	return Frame::FT_Other;
+}
+
+/**
+ * Get the frame type for an APE name.
+ *
+ * @param name APE tag name
+ *
+ * @return frame type.
+ */
+static Frame::Type getTypeFromApeName(const QString& name)
+{
+	Frame::Type type = getTypeFromVorbisName(name);
+	if (type == Frame::FT_Other) {
+		if (name == "YEAR") {
+			type = Frame::FT_Date;
+		} else if (name == "TRACK") {
+			type = Frame::FT_Track;
+		} else if (name == "ENCODED BY") {
+			type = Frame::FT_EncodedBy;
+		}
+	}
+	return type;
+}
+
+/**
  * Get internal name of a Vorbis frame.
  *
  * @param frame frame
@@ -2348,8 +2441,11 @@ bool TagLibFile::setFrameV2(const Frame& frame)
  */
 static QString getVorbisName(const Frame& frame)
 {
-	if (frame.getType() == Frame::FT_Comment) {
+	Frame::Type type = frame.getType();
+	if (type == Frame::FT_Comment) {
 		return "DESCRIPTION";
+	} else if (type <= Frame::FT_LastFrame) {
+		return getVorbisNameFromType(type);
 	} else {
 		return frame.getName().remove(' ').QCM_toUpper();
 	}
@@ -2364,13 +2460,15 @@ static QString getVorbisName(const Frame& frame)
  */
 static QString getApeName(const Frame& frame)
 {
-	switch (frame.getType()) {
-		case Frame::FT_Date:
-			return "YEAR";
-		case Frame::FT_Track:
-			return "TRACK";
-		default:
-			return frame.getName().QCM_toUpper();
+	Frame::Type type = frame.getType();
+	if (type == Frame::FT_Date) {
+		return "YEAR";
+	} else if (type == Frame::FT_Track) {
+		return "TRACK";
+	} else if (type <= Frame::FT_LastFrame) {
+		return getVorbisNameFromType(type);
+	} else {
+		return frame.getName().QCM_toUpper();
 	}
 }
 
@@ -2552,45 +2650,6 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 
 	// Try the superclass method
 	return TaggedFile::deleteFrameV2(frame);
-}
-
-/**
- * Get the frame type for a Vorbis name.
- *
- * @param name Vorbis tag name
- *
- * @return frame type.
- */
-static Frame::Type getTypeFromVorbisName(const QString& name)
-{
-	Frame::Type type = Frame::getTypeFromName(name);
-	if (type == Frame::FT_Other &&
-			name == "DESCRIPTION") {
-		type = Frame::FT_Comment;
-	}
-	return type;
-}
-
-/**
- * Get the frame type for an APE name.
- *
- * @param name APE tag name
- *
- * @return frame type.
- */
-static Frame::Type getTypeFromApeName(const QString& name)
-{
-	Frame::Type type = Frame::getTypeFromName(name);
-	if (type == Frame::FT_Other) {
-		if (name == "YEAR") {
-			type = Frame::FT_Date;
-		} else if (name == "TRACK") {
-			type = Frame::FT_Track;
-		} else if (name == "ENCODED BY") {
-			type = Frame::FT_EncodedBy;
-		}
-	}
-	return type;
 }
 
 /**

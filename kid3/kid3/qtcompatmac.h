@@ -91,9 +91,17 @@
 #define KCM_readIntListEntry(key) readIntListEntry(key)
 
 #endif
+#define QCM_translate(s) i18n(s)
 #else
 #define i18n(s) tr(s)
-#define I18N_NOOP(s) QT_TR_NOOP(s)
+#define I18N_NOOP(s) QT_TRANSLATE_NOOP("@default", s)
+#if QT_VERSION >= 0x040000
+#include <QCoreApplication>
+#define QCM_translate(s) QCoreApplication::translate("@default", s)
+#else
+#include <qapplication.h>
+#define QCM_translate(s) qApp->translate("@default", s)
+#endif
 #endif
 
 #if QT_VERSION >= 0x040000

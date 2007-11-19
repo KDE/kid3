@@ -42,7 +42,7 @@ isEmpty(CFG_TRANSLATIONSDIR) {
 } else {
   translation.path = $$CFG_TRANSLATIONSDIR
 }
-unix:translation.extra = $(INSTALL_FILE) $$QM_FILES $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
-win32:translation.extra = for %%f in ($$QM_FILES) do $(INSTALL_FILE) %%f $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
+unix:translation.extra = $(INSTALL_FILE) $$QM_FILES $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR; test -f $$[QT_INSTALL_DATA]/translations/qt_de.qm && $(INSTALL_FILE) $$[QT_INSTALL_DATA]/translations/qt_de.qm $$[QT_INSTALL_DATA]/translations/qt_es.qm $$[QT_INSTALL_DATA]/translations/qt_fr.qm $$[QT_INSTALL_DATA]/translations/qt_ru.qm $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
+win32:translation.extra = for %%f in ($$QM_FILES) do $(INSTALL_FILE) %%f $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR & for %%l in (de es fr ru) do $(INSTALL_FILE) $$[QT_INSTALL_DATA]\translations\qt_%%l.qm $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
 
 INSTALLS += translation

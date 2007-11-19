@@ -669,9 +669,9 @@ QString FrameTable::getDisplayName(const QString& str) const
 			return str.left(4);
 		} else {
 #if QT_VERSION >= 0x040000
-			return i18n(str.toLatin1().data());
+			return QCM_translate(str.toLatin1().data());
 #else
-			return i18n(str);
+			return QCM_translate(str);
 #endif
 		}
 	}

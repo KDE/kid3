@@ -375,7 +375,7 @@ void MusicBrainzClient::pollStatus()
 #endif
 				if (statusCode != eLastStatus) {
 					const char* statusText = getFileStatusText(statusCode);
-					emit statusChanged(index, i18n(statusText));
+					emit statusChanged(index, QCM_translate(statusText));
 					if (statusCode == eRecognized) {
 						ImportTrackData trackData;
 						getMetaData(id, trackData);

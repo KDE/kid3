@@ -1145,7 +1145,7 @@ QStringList TaggedFile::getFrameIds() const
 {
 	QStringList lst;
 	for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
-		lst.append(Frame::getNameFromType(static_cast<Frame::Type>(i)));
+		lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(i))));
 	}
 	return lst;
 }
