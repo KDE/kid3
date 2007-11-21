@@ -14,6 +14,9 @@
 /* Define if you have mp4v2 installed */
 #cmakedefine HAVE_MP4V2 1
 
+/* Define to build with MP4GetMetadataByIndex char** argument */
+#cmakedefine HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG 1
+
 /* Set to TunePimp version, undefined if not installed */
 #cmakedefine HAVE_TUNEPIMP ${HAVE_TUNEPIMP}
 

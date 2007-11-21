@@ -89,6 +89,40 @@ AC_SUBST(MP4V2_INCLUDES)
 AC_SUBST(LIB_MP4V2)
 AM_CONDITIONAL(HAVE_MP4V2, test "$have_mp4v2" = "yes")
 
+# Check if MP4GetMetadataByIndex() has char** argument
+if test "$have_mp4v2" = "yes"; then
+  AC_DEFUN([MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG],
+  [
+    AC_MSG_CHECKING([if MP4GetMetadataByIndex has char** argument])
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+  cat > conftest.$ac_ext <<EOF
+#include <mp4.h>
+int main() {
+  MP4FileHandle hFile;
+  u_int32_t index;
+  char* ppName;
+  u_int8_t* ppValue;
+  u_int32_t pValueSize;
+  MP4GetMetadataByIndex(hFile, index, &ppName, &ppValue, &pValueSize);
+  return 0;
+}
+EOF
+    ac_save_CPPFLAGS=$CPPFLAGS
+    CPPFLAGS="$all_includes $CPPFLAGS"
+    if AC_TRY_EVAL(ac_compile); then
+      AC_MSG_RESULT(yes)
+      AC_DEFINE(HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG, 1, [Define to build with MP4GetMetadataByIndex char** argument])
+    else
+      AC_MSG_RESULT(no)
+    fi
+    CPPFLAGS=$ac_save_CPPFLAGS
+  
+    AC_LANG_RESTORE
+  ])
+  MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG
+fi
+
 # mp3 support with id3lib
 AC_ARG_WITH(id3lib, [  --with-id3lib           build with id3lib, default=yes],
   with_id3lib="$withval",

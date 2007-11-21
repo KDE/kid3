@@ -44,6 +44,12 @@
 #include <stdio.h>
 #include <mp4.h>
 
+#if defined MPEG4IP_MAJOR_VERSION && defined MPEG4IP_MINOR_VERSION
+#define MPEG4IP_MAJOR_MINOR_VERSION ((MPEG4IP_MAJOR_VERSION << 8) | MPEG4IP_MINOR_VERSION)
+#else
+#define MPEG4IP_MAJOR_MINOR_VERSION 0x0009
+#endif
+
 /**
  * Constructor.
  *
@@ -80,6 +86,13 @@ static const struct {
 	{ "gnre", Frame::FT_Genre },
 	{ "cpil", Frame::FT_Other },
 	{ "tmpo", Frame::FT_Bpm },
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
+	{ "\251grp", Frame::FT_Other },
+#endif
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
+	{ "aART", Frame::FT_Other },
+	{ "pgap", Frame::FT_Other },
+#endif
 	{ "covr", Frame::FT_Other }
 };
 
@@ -139,6 +152,7 @@ static Frame::Type getTypeForName(const QString& name,
 	return onlyPredefined ? Frame::FT_UnknownFrame : Frame::FT_Other;
 }
 
+#ifndef HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG
 /**
  * Check if a name is a free form field.
  *
@@ -161,6 +175,7 @@ static bool isFreeFormMetadata(MP4FileHandle hFile, const char* name)
 	}
 	return result;
 }
+#endif
 
 /**
  * Get a byte array for a value.
@@ -219,6 +234,12 @@ static QByteArray getValueByteArray(const char* name,
 		QByteArray ba;
 		QCM_duplicate(ba, reinterpret_cast<const char*>(value), size);
 		return ba;
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
+	} else if (std::strcmp(name, "pgap") == 0) {
+		if (size >= 1) {
+			str.setNum(value[0]);
+		}
+#endif
 	} else {
 		QCM_duplicate(str, reinterpret_cast<const char*>(value), size);
 	}
@@ -242,6 +263,52 @@ void M4aFile::readTags(bool force)
 		MP4FileHandle handle = MP4Read(fnIn);
 		if (handle != MP4_INVALID_FILE_HANDLE) {
 			m_fileInfo.read(handle);
+#ifdef HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG
+			static char notFreeFormStr[] = "NOFF";
+			static char freeFormStr[] = "----";
+			char* ppName;
+			u_int8_t* ppValue = 0;
+			u_int32_t pValueSize = 0;
+			u_int32_t index = 0;
+			unsigned numEmptyEntries = 0;
+			for (index = 0; index < 64; ++index) {
+				ppName = notFreeFormStr;
+				bool ok = MP4GetMetadataByIndex(handle, index,
+																				&ppName, &ppValue, &pValueSize);
+				if (ok && ppName && memcmp(ppName, "----", 4) == 0) {
+					// free form tagfield
+					free(ppName);
+					free(ppValue);
+					ppName = freeFormStr;
+					ppValue = 0;
+					pValueSize = 0;
+					ok = MP4GetMetadataByIndex(handle, index,
+																		 &ppName, &ppValue, &pValueSize);
+				}
+				if (ok) {
+					numEmptyEntries = 0;
+					if (ppName) {
+						QString key(ppName);
+						QByteArray ba;
+						if (ppValue && pValueSize > 0) {
+							ba = getValueByteArray(ppName, ppValue, pValueSize);
+						}
+						m_metadata[key] = ba;
+						free(ppName);
+					}
+					free(ppValue);
+					ppName = 0;
+					ppValue = 0;
+					pValueSize = 0;
+				} else {
+					// There are iTunes files with invalid fields in between,
+					// so we stop after 3 invalid indices.
+					if (++numEmptyEntries >= 3) {
+						break;
+					}
+				}
+			}
+#else
 			const char* ppName = 0;
 			u_int8_t* ppValue = 0;
 			u_int32_t pValueSize = 0;
@@ -277,6 +344,7 @@ void M4aFile::readTags(bool force)
 					}
 				}
 			}
+#endif
 			MP4Close(handle);
 		}
 	}
@@ -393,6 +461,17 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 							handle,
 							reinterpret_cast<u_int8_t*>(const_cast<char*>(value.data())),
 							value.size());
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
+					} else if (name == "\251grp") {
+						setOk = MP4SetMetadataGrouping(handle, str);
+#endif
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
+					} else if (name == "aART") {
+						setOk = MP4SetMetadataAlbumArtist(handle, str);
+					} else if (name == "pgap") {
+						u_int8_t pgap = str.toUShort();
+						setOk = MP4SetMetadataPartOfGaplessAlbum(handle, pgap);
+#endif
 					} else {
 						setOk = MP4SetMetadataFreeForm(
 							handle, const_cast<char*>(name.QCM_toUtf8().data()),
@@ -406,10 +485,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 				}
 			}
 
-			if (!MP4Close(handle)) {
-				qDebug("MP4Close failed");
-				ok = false;
-			}
+			MP4Close(handle);
 			if (ok) {
 				// without this, old tags stay in the file marked as free
 				MP4Optimize(fn);
@@ -846,12 +922,17 @@ bool M4aFile::addFrameV2(Frame& frame)
 	}
 	name = frame.getName(true);
 	if (name == "covr") {
-		Frame::Field coverField;
-		coverField.m_id = Frame::Field::ID_Data;
-		coverField.m_value = QByteArray();
-		frame.fieldList().clear();
-		frame.fieldList().push_back(coverField);
-		m_metadata[name] = QByteArray();
+		if (!frame.getFieldList().empty() &&
+				frame.getFieldList().front().m_id == Frame::Field::ID_Data) {
+			m_metadata[name] = frame.getFieldList().front().m_value.toByteArray();
+		} else {
+			Frame::Field coverField;
+			coverField.m_id = Frame::Field::ID_Data;
+			coverField.m_value = QByteArray();
+			frame.fieldList().clear();
+			frame.fieldList().push_back(coverField);
+			m_metadata[name] = QByteArray();
+		}
 	} else {
 		m_metadata[name] = frame.getValue().QCM_toUtf8();
 	}
@@ -935,6 +1016,12 @@ QStringList M4aFile::getFrameIds() const
 		lst.append(QCM_translate(Frame::getNameFromType(types[i])));
 	}
 	lst << "covr" << "cpil";
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
+	lst << "\251grp";
+#endif
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
+	lst << "aART" << "pgap";
+#endif
 	return lst;
 }
 
