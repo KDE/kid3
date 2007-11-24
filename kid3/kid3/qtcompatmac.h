@@ -36,6 +36,17 @@
 #include <kdeversion.h>
 #if KDE_VERSION >= 0x035c00
 
+#define KCM_ICON_document_open "document-open"
+#define KCM_ICON_go_previous "go-previous"
+#define KCM_ICON_go_next "go-next"
+#define KCM_ICON_document_import "document-import"
+#define KCM_ICON_document_export "document-export"
+#define KCM_ICON_media_playlist "media-playlist"
+#define KCM_ICON_preferences_tags "rss-tag"
+#define KCM_ICON_preferences_files "document-save"
+#define KCM_ICON_preferences_useractions "user"
+#define KCM_ICON_preferences_network "network"
+
 #define KCM_setStatusTip setStatusTip
 #define KCM_addUrl addUrl
 #define KCM_KStandardAction KStandardAction
@@ -68,6 +79,17 @@
 #define KCM_readIntListEntry(key) readEntry(key, QList<int>())
 
 #else
+
+#define KCM_ICON_document_open "fileopen"
+#define KCM_ICON_go_previous "previous"
+#define KCM_ICON_go_next "next"
+#define KCM_ICON_document_import "fileimport"
+#define KCM_ICON_document_export "fileexport"
+#define KCM_ICON_media_playlist "player_playlist"
+#define KCM_ICON_preferences_tags "package_multimedia"
+#define KCM_ICON_preferences_files "package_system"
+#define KCM_ICON_preferences_useractions "package_utilities"
+#define KCM_ICON_preferences_network "package_network"
 
 #define KCM_setStatusTip setStatusText
 #define KCM_addUrl addURL

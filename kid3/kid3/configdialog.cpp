@@ -212,7 +212,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			}
 		}
 #ifdef KID3_USE_KCONFIGDIALOG
-		addPage(tagsPage, i18n("Tags"), "package_multimedia");
+		addPage(tagsPage, i18n("Tags"), KCM_ICON_preferences_tags);
 #else
 		tabWidget->addTab(tagsPage, i18n("&Tags"));
 #endif
@@ -246,7 +246,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			}
 		}
 #ifdef KID3_USE_KCONFIGDIALOG
-		addPage(filesPage, i18n("Files"), "package_system");
+		addPage(filesPage, i18n("Files"), KCM_ICON_preferences_files);
 #else
 		tabWidget->addTab(filesPage, i18n("&Files"));
 #endif
@@ -296,7 +296,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			}
 		}
 #ifdef KID3_USE_KCONFIGDIALOG
-		addPage(actionsPage, i18n("User Actions"), "package_utilities");
+		addPage(actionsPage, i18n("User Actions"), KCM_ICON_preferences_useractions);
 #else
 		tabWidget->addTab(actionsPage, i18n("&User Actions"));
 #endif
@@ -330,7 +330,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			vlayout->addItem(vspacer);
 		}
 #ifdef KID3_USE_KCONFIGDIALOG
-		addPage(networkPage, i18n("Network"), "package_network");
+		addPage(networkPage, i18n("Network"), KCM_ICON_preferences_network);
 #else
 		tabWidget->addTab(networkPage, i18n("&Network"));
 #endif

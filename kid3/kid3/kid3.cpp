@@ -342,11 +342,11 @@ void Kid3App::initActions()
 	settingsToolbars->KCM_setStatusTip(i18n("Configure Toolbars"));
 	settingsConfigure->KCM_setStatusTip(i18n("Preferences dialog"));
 
-	KCM_KActionShortcutIcon(fileOpenDirectory, KShortcut("Ctrl+D"), "fileopen",
+	KCM_KActionShortcutIcon(fileOpenDirectory, KShortcut("Ctrl+D"), KCM_ICON_document_open,
 		    i18n("O&pen Directory..."), this,
 		    SLOT(slotFileOpenDirectory()), actionCollection(),
 		    "open_directory");
-	KCM_KActionIcon(fileImport, "fileimport",
+	KCM_KActionIcon(fileImport, KCM_ICON_document_import,
 		    i18n("&Import..."), this,
 		    SLOT(slotImport()), actionCollection(),
 		    "import");
@@ -372,11 +372,11 @@ void Kid3App::initActions()
 		    SLOT(slotImportMusicBrainz()), actionCollection(),
 		    "import_musicbrainz");
 #endif
-	KCM_KActionIcon(fileExport, "fileexport",
+	KCM_KActionIcon(fileExport, KCM_ICON_document_export,
 		    i18n("&Export..."), this,
 		    SLOT(slotExport()), actionCollection(),
 		    "export");
-	KCM_KActionIcon(fileCreatePlaylist, "player_playlist",
+	KCM_KActionIcon(fileCreatePlaylist, KCM_ICON_media_playlist,
 		    i18n("&Create Playlist"), this,
 				SLOT(slotCreatePlaylist()), actionCollection(),
 				"create_playlist");
@@ -417,11 +417,11 @@ void Kid3App::initActions()
 								SLOT(slotSettingsShowHideV2()), actionCollection(),
 								"hide_v2");
 
-	KCM_KActionShortcutIcon(editPreviousFile, KShortcut("Alt+Up"), "previous",
+	KCM_KActionShortcutIcon(editPreviousFile, KShortcut("Alt+Up"), KCM_ICON_go_previous,
 		    i18n("&Previous File"), m_view,
 		    SLOT(selectPreviousFile()), actionCollection(),
 		    "previous_file");
-	KCM_KActionShortcutIcon(editNextFile, KShortcut("Alt+Down"), "next",
+	KCM_KActionShortcutIcon(editNextFile, KShortcut("Alt+Down"), KCM_ICON_go_next,
 		    i18n("&Next File"), m_view,
 		    SLOT(selectNextFile()), actionCollection(),
 		    "next_file");
