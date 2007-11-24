@@ -25,13 +25,14 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>05/05/2007</date>
-<releaseinfo>0.9</releaseinfo>
+<date>2007-11-15</date>
+<releaseinfo>0.10</releaseinfo>
 
 <abstract>
 <para>
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
-in MP3 Dateien. Auch die Tags in Ogg/Vorbis, FLAC und MPC Dateien werden
+in MP3 Dateien. Auch die Tags in Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+TrueAudio und WavPack Dateien werden
 unterstützt. Es ist einfach, Tags in mehreren Dateien auf die gleichen Werte
 zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
 Tags aus den Dateinamen zu generieren oder umgekehrt.
@@ -50,6 +51,13 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 <keyword>FLAC</keyword>
 <keyword>MPC</keyword>
 <keyword>APE</keyword>
+<keyword>Musepack</keyword>
+<keyword>MP4</keyword>
+<keyword>M4A</keyword>
+<keyword>MP2</keyword>
+<keyword>Speex</keyword>
+<keyword>TrueAudio</keyword>
+<keyword>WavPack</keyword>
 </keywordset>
 
 </bookinfo>
@@ -61,8 +69,8 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
 in MP3 Dateien. Diese Tags können zwar mit den meisten MP3 Player
 Programmen editiert werden, jedoch nicht auf eine sehr komfortable und
-effiziente Art. Darüber hinaus werden auch die Tags in Ogg/Vorbis, FLAC
-und MPC Dateien unterstützt.
+effiziente Art. Darüber hinaus werden auch die Tags in Ogg/Vorbis, FLAC,
+MPC, MP4/AAC, MP2, Speex, TrueAudio und WavPack Dateien unterstützt.
 </para>
 <para>
 &kid3; kann weder MP3 grabben noch codieren oder abspielen, es ist darauf
@@ -109,9 +117,8 @@ werden.
 <listitem><para>Editieren von allen ID3v2.3 und ID3v2.4 Frames</para></listitem>
 <listitem><para>Editieren der Tags von mehreren Dateien</para></listitem>
 <listitem><para>Konvertieren zwischen ID3v1 und ID3v2 Tags</para></listitem>
-<listitem><para>Editieren von Ogg/Vorbis Tags</para></listitem>
-<listitem><para>Editieren von FLAC Tags</para></listitem>
-<listitem><para>Editieren von APE Tags in MPC Dateien</para></listitem>
+<listitem><para>Editieren von MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+TrueAudio und WavPack Tags</para></listitem>
 <listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
 <listitem><para>Generieren des Dateinamens aus den Tags</para></listitem>
 <listitem><para>Generieren und Ändern des Verzeichnisnamens aus den Tags</para></listitem>
@@ -199,7 +206,8 @@ Sektionen.
 <para>
 Die Dateiliste enthält die Namen aller Dateien im geöffneten Verzeichnis,
 welche den gewählten Dateinamenfilter (typischerweise <filename>*.mp3
-*.ogg *.flac *.mpc</filename>)
+*.ogg *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx
+*.tta *.wv</filename>)
 erfüllen. Eine einzelne oder mehrere Dateien können ausgewählt werden. Um
 keine Datei auszuwählen, kann in den leeren Bereich unterhalb der
 Dateieinträge geklickt werden. Die Auswahl bestimmt die Dateien, welche
@@ -283,7 +291,8 @@ ausgewählten Format und dem zweiten Tag.
 </para>
 <para>
 <guibutton>Info</guibutton>: Zeigt Informationen über Codierung (MP3,
-Ogg, FLAC, MPC), Bit- und Samplerate, Kanäle und die Länge der Datei an.
+Ogg, FLAC, MPC, MP2, MP4, AAC, Speex, TrueAudio, WavPack),
+Bit- und Samplerate, Kanäle und die Länge der Datei an.
 </para>
 </listitem>
 </varlistentry>
@@ -371,7 +380,7 @@ Eingabefelder ein.
 <para>
 <guibutton>Löschen</guibutton>: Diese Funktion setzt alle Editierfelder auf
 die leeren Werte, entfernt also alle Werte. Die gespeicherte Datei enthält
-dann keine Tag 1 mehr.
+dann kein Tag 1 mehr.
 </para>
 </listitem>
 </varlistentry>
@@ -384,21 +393,18 @@ beschrieben, die Länge der Zeichenketten ist jedoch nicht begrenzt.
 </para>
 <para>
 Beim <guilabel>Stil</guilabel> können nebst den vorgegebenen auch eigene Namen
-verwendet werden - eine Eingabe ins Editierfeld genügt. Soll solch ein eigener
-Stil künftig in der Liste erscheinen, so ist noch <keycap>Enter</keycap> zu
-drücken.
+verwendet werden - eine Eingabe ins Editierfeld genügt.
 </para>
 <para>
-<guilabel>Elemente</guilabel>: Das Tag 2 kann nicht bloß
+Das Tag 2 kann nicht bloß
 dieselben Werte enthalten wie das Tag 1, das Format ist vielmehr auf
 flexible Art aus mehreren Elementen aufgebaut, welche wiederum aus
-verschiedenen Feldern bestehen. Das Elemente Listenfeld zeigt alle Elemente
+verschiedenen Feldern bestehen. Die Tag 2 Tabelle zeigt alle Elemente
 an, welche in der ausgewählten Datei vorhanden sind.
 </para>
 <para>
 <guibutton>Editieren</guibutton>: Ein Fenster wird geöffnet, in welchem
-alle Felder des gewählten Elementes editiert werden können. Dies kann auch
-durch Doppelklick auf den Elementeintrag erreicht werden. Wenn mehrere Dateien
+alle Felder des gewählten Elementes editiert werden können. Wenn mehrere Dateien
 ausgewählt sind, so werden die editierten Felder bei allen ausgewählten
 Dateien angewendet, welche solch ein Element enthalten.
 </para>
@@ -434,7 +440,7 @@ in den ausgewählten Dateien.
 </menuchoice></term>
 <listitem><para><action>Ein Verzeichnis wird geöffnet</action>, und alle Dateien,
 welche den gewählten Dateinamenfilter erfüllen, werden im Dateilistenfeld
-angezeigt.</para></listitem>
+angezeigt. Die gewählte Datei wird selektiert.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -444,6 +450,19 @@ angezeigt.</para></listitem>
 </menuchoice></term>
 <listitem><para><action>Ein kürzlich geöffnetes Verzeichnis wird geöffnet.
 </action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo>
+</shortcut>
+<guimenu>Datei</guimenu>
+<guimenuitem>Verzeichnis öffnen...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Ein Verzeichnis wird geöffnet</action>, und alle Dateien,
+welche den gewählten Dateinamenfilter erfüllen, werden im Dateilistenfeld
+angezeigt.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -482,7 +501,7 @@ url="http://freedb.org">freedb.org</ulink>, von einem MusicBrainz Server,
 von Discogs oder anderen Quellen mit Albumtitellisten zu importieren.
 </para>
 <para id="import-freedb">
-Zum Importieren von einem freedb.org Server wird
+Zum Importieren von einem freedb.org Server wird <guibutton>Von Server:</guibutton>
 <guibutton>gnudb.org</guibutton> oder <guibutton>TrackType.org</guibutton>
 gewählt. Der zu suchende Interpret und der Name
 des Albums können in den zwei oberen Feldern eingegeben werden,
@@ -514,7 +533,7 @@ beschrieben.
 <para id="import-musicbrainz">
 Zum Importieren von einem MusicBrainz Server dient der Dialog, der nach
 Klicken auf <guibutton>Von MusicBrainz Fingerprint</guibutton> erscheint. Wie bei freedb
-können auch hier Server und Proxy ausgewählt werden. Unten ist eine Tabelle,
+kann auch hier der Server ausgewählt werden. Unten ist eine Tabelle,
 welche die importierten Track Daten darstellt. Die rechte Spalte zeigt dabei
 den Zustand der MusicBrainz-Abfrage, welche gleich mit dem Öffnen des Dialogs
 mit "Suche läuft" beginnt. Es folgen dann ein Abfrage des Fingerprints und,
@@ -787,6 +806,59 @@ eine Stückliste für das Album erstellt werden.</para></listitem>
 
 </sect2>
 
+<sect2 id="edit-menu">
+<title>Das Menü Bearbeiten</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Alt</keycap><keycap>A</keycap></keycombo>
+</shortcut>
+<guimenu>Bearbeiten</guimenu>
+<guimenuitem>Alles auswählen</guimenuitem>
+</menuchoice></term>
+<listitem><para>Selektiert alle Dateien.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>A</keycap></keycombo>
+</shortcut>
+<guimenu>Bearbeiten</guimenu>
+<guimenuitem>Abwählen</guimenuitem>
+</menuchoice></term>
+<listitem><para>Deselektiert alle Dateien.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Alt</keycap><keycap>Up</keycap></keycombo>
+</shortcut>
+<guimenu>Bearbeiten</guimenu>
+<guimenuitem>Vorangehende Datei</guimenuitem>
+</menuchoice></term>
+<listitem><para>Selektiert die vorangehende Datei.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Alt</keycap><keycap>Down</keycap></keycombo>
+</shortcut>
+<guimenu>Bearbeiten</guimenu>
+<guimenuitem>Nächste Datei</guimenuitem>
+</menuchoice></term>
+<listitem><para>Selektiert die nächste Datei.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
 <sect2 id="tools-menu">
 <title>Das Menü Extras</title>
 <para>
@@ -898,9 +970,8 @@ nicht unterstützt sind, werden verworfen. Nur Dateien ohne ungesicherte
 </menuchoice></term>
 <listitem><para>
 Wenn in den ausgewählten Dateien ID3v2.4 Tags vorhanden sind, so werden
-sie <action>zu ID3v2.3 Tags konvertiert</action>. Es sollte beachtet werden,
-dass nur die Standard Tags konvertiert werden. Alle anderen Frames werden
-verworfen. Nur Dateien ohne ungesicherte Änderungen werden konvertiert.
+sie <action>zu ID3v2.3 Tags konvertiert</action>. Nur Dateien ohne
+ungesicherte Änderungen werden konvertiert.
 </para></listitem>
 </varlistentry>
 
@@ -976,6 +1047,13 @@ Das Markierungsfeld
 <guilabel>Benutze Format Nummer/Anzahl Stücke</guilabel> bewirkt, dass im
 Tracknummer-Feld bei den ID3v2 Tags nicht bloß die Tracknummer gespeichert
 wird, sondern auch die Gesamtzahl der Stücke im Verzeichnis.
+<guilabel>Text Codierung</guilabel> bestimmt die Codierung von ID3v2
+Elementen und kann
+auf <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel> oder 
+<guilabel>UTF8</guilabel> gesetzt werden. <guilabel>UTF8</guilabel> ist für
+ID3v2.3.0 nicht gültig; wenn dieser Wert gesetzt ist, wird
+stattdessen <guilabel>UTF16</guilabel> verwendet.
+Für ID3v2.4.0 sind alle drei Codierungen möglich.
 <guilabel>Version für neue Tags</guilabel> legt fest, ob neue ID3v2 Tags mit
 der Version 2.3.0 oder 2.4.0 erzeugt werden. Im ersteren Fall wird id3lib
 verwendet, TagLib kommt nur dann zum Einsatz, wenn ein ID3v2.4.0 Tag
@@ -1195,12 +1273,18 @@ url="http://www.kde.org">KDE</ulink> ist empfohlen aber nicht notwendig,
 denn &kid3; kann auch als reine Qt Applikation kompiliert werden. &kid3;
 läuft auf Systemen, wo diese Programmbibliotheken vorhanden sind,
 z.B. auf GNU/Linux und Windows.
-Um Ogg/Vorbis Dateien zu taggen werden libogg, libvorbis und libvorbisfile
-benötigt, für FLAC Dateien libFLAC++ und libFLAC. Für MP3 Dateien
+Um Ogg/Vorbis Dateien zu taggen werden
+<ulink url="http://xiph.org/ogg/">libogg</ulink>,
+<ulink url="http://xiph.org/vorbis/">libvorbis und libvorbisfile</ulink>
+benötigt, für FLAC Dateien <ulink url="http://flac.sourceforge.net">libFLAC++
+und libFLAC</ulink>. Für MP3 Dateien
 wird die <ulink url="http://id3lib.sourceforge.net">id3lib</ulink>
 verwendet. Für diese drei Formate kann auch durch
 die <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>
-verwendet werden, welche zudem auch MPC Dateien unterstützt.
+verwendet werden, welche zudem auch MPC, MP2, Speex, TrueAudio und WavPack
+Dateien unterstützt.
+Für MP4 Dateien wird 
+<ulink url="http://mpeg4ip.sourceforge.net">mp4v2</ulink> benötigt.
 Für MusicBrainz Unterstützung wird
 <ulink url="http://musicbrainz.org/products/tunepimp/">libtunepimp</ulink>
 verwendet. Da momentan kein Tunepimp SDK für Windows existiert, wurde die
@@ -1263,6 +1347,11 @@ werden, was verwendet werden soll. Die Voreinstellung ist
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>
 vorhanden, für Debian-Pakete steht ein <filename>debian</filename> Verzeichnis
 zur Verfügung.
+</para>
+<para>
+Um &kid3; mit KDE 4 zu kompilieren, wird
+<userinput>cmake -DCMAKE_INSTALL_PREFIX=/usr/lib/kde4/ .</userinput> und
+<userinput>make</userinput> benutzt.
 </para>
 <para>
 Um &kid3; als Qt Applikation ohne KDE zu kompilieren, werden

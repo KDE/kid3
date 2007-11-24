@@ -25,13 +25,14 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>05/05/2007</date>
-<releaseinfo>0.9</releaseinfo>
+<date>2007-11-15</date>
+<releaseinfo>0.10</releaseinfo>
 
 <abstract>
 <para>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
-an efficient way. Also tags in Ogg/Vorbis, FLAC and MPC files are supported.
+an efficient way. Also tags in Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+TrueAudio and WavPack files are supported.
 It is easy to set tags of multiple files to the same
 values (e.g. album, artist, year and genre in all files of the same album) and
 generate the tags from the file name or vice versa.
@@ -50,6 +51,13 @@ generate the tags from the file name or vice versa.
 <keyword>FLAC</keyword>
 <keyword>MPC</keyword>
 <keyword>APE</keyword>
+<keyword>Musepack</keyword>
+<keyword>MP4</keyword>
+<keyword>M4A</keyword>
+<keyword>MP2</keyword>
+<keyword>Speex</keyword>
+<keyword>TrueAudio</keyword>
+<keyword>WavPack</keyword>
 </keywordset>
 
 </bookinfo>
@@ -60,8 +68,8 @@ generate the tags from the file name or vice versa.
 <para>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
 an efficient way. These tags can be edited by most MP3 players, but not in
-a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis, FLAC
-and MPC files are supported too.
+a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis, FLAC,
+MPC, MP4/AAC, MP2, Speex, TrueAudio and WavPack files are supported too.
 </para>
 <para>
 &kid3; does not grab, encode nor play
@@ -105,9 +113,8 @@ Please report any problems or feature requests to the author.
 <listitem><para>Edit all ID3v2.3 and ID3v2.4 frames</para></listitem>
 <listitem><para>Edit tags of multiple files</para></listitem>
 <listitem><para>Convert between ID3v1 and ID3v2 tags</para></listitem>
-<listitem><para>Edit Ogg/Vorbis tags</para></listitem>
-<listitem><para>Edit FLAC tags</para></listitem>
-<listitem><para>Edit APE tags in MPC files</para></listitem>
+<listitem><para>Edit MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+TrueAudio and WavPack tags</para></listitem>
 <listitem><para>Generate tags from filename</para></listitem>
 <listitem><para>Generate filename from tags</para></listitem>
 <listitem><para>Generate and change directory names from tags</para></listitem>
@@ -188,7 +195,8 @@ and directory listboxes, the right side contains the <guilabel>Filename</guilabe
 <para>
 The file list contains the names of all the files in the opened
 directory which match the selected file name filter (typically
-<filename>*.mp3 *.ogg *.flac *.mpc</filename>). A single or multiple files can be selected. To
+<filename>*.mp3 *.ogg *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx
+*.tta *.wv</filename>). A single or multiple files can be selected. To
 select no file, click into the empty area after the listbox entries. The
 selection determines the files which are affected by the operations which
 are available by using the buttons described below.
@@ -264,7 +272,8 @@ and the first tag.
 and the second tag.
 </para>
 <para>
-<guibutton>Info</guibutton>: Shows information about the encoding (MP3, Ogg, FLAC, MPC),
+<guibutton>Info</guibutton>: Shows information about the encoding
+(MP3, Ogg, FLAC, MPC, MP2, MP4, AAC, Speex, TrueAudio, WavPack),
 bitrate, sample rate, channels and the length of the file.
 </para>
 </listitem>
@@ -363,18 +372,17 @@ The GUI controls function in the same way as described for the
 <para>
 For the tag 2 <guilabel>Genre</guilabel> you can also use your own names
 besides the genres listed in the combo box, just type the name into the line
-edit. If such a custom genre shall be present in the combo box list in the
-future, type <keycap>Enter</keycap>.
+edit.
 </para>
 <para>
-<guilabel>Frames</guilabel>: The tag 2 can not only contain the same values
+The tag 2 can not only contain the same values
 as the tag 1, the format is built in a flexible way from several frames
-which are themselves composed of several fields. The frames list box shows
+which are themselves composed of several fields. The tag 2 table shows
 all the frames which are available in the selected file.
 </para>
 <para>
 <guibutton>Edit</guibutton>: This will open a window which allows to edit all fields
-of the selected frame. This is equivalent to double clicking on the selected frame.
+of the selected frame.
 If multiple files are selected, the edited fields are applied to all selected files
 which contain such a frame.
 </para>
@@ -406,7 +414,8 @@ works also to add a frame to multiple selected files.
 <guimenuitem>Open...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Opens a directory.</action> All files matching the selected
-file name filter will be displayed in the file listbox.</para></listitem>
+file name filter will be displayed in the file listbox
+and the chosen file is selected.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -415,6 +424,18 @@ file name filter will be displayed in the file listbox.</para></listitem>
 <guimenuitem>Open Recent</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Opens a recently opened directory.</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Open Directory...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens a directory.</action> All files matching the selected
+file name filter will be displayed in the file listbox.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -453,6 +474,7 @@ Discogs  or other sources of album track lists in textual format.
 </para>
 <para id="import-freedb">
 Import from a freedb.org server is possible using a dialog which appears when
+<guibutton>From Server:</guibutton>
 <guibutton>gnudb.org</guibutton> or <guibutton>TrackType.org</guibutton>
 is selected. The artist and album name
 to search for can be entered in the two topmost fields,
@@ -482,7 +504,7 @@ gnudb.org</guibutton>.
 </para>
 <para id="import-musicbrainz">
 Import from a MusicBrainz server is possible using the dialog which appears when
-<guibutton>From MusicBrainz Fingerprint</guibutton> is selected. Server and proxy can be
+<guibutton>From MusicBrainz Fingerprint</guibutton> is selected. The Server can be
 selected as in the freedb import dialog. Below is a table displaying the
 imported track data. The right column shows the state of the MusicBrainz
 query, which starts with "Pending" when the dialog is opened. Then the
@@ -732,6 +754,59 @@ can be used to generate a playlist for an album.</para></listitem>
 
 </sect2>
 
+<sect2 id="edit-menu">
+<title>The Edit Menu</title>
+<para>
+<variablelist>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Alt</keycap><keycap>A</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Select All</guimenuitem>
+</menuchoice></term>
+<listitem><para>Selects all files.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>A</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Deselect</guimenuitem>
+</menuchoice></term>
+<listitem><para>Deselects all files.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Alt</keycap><keycap>Up</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Previous File</guimenuitem>
+</menuchoice></term>
+<listitem><para>Selects the previous file.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo><keycap>Alt</keycap><keycap>Down</keycap></keycombo>
+</shortcut>
+<guimenu>Edit</guimenu>
+<guimenuitem>Next File</guimenuitem>
+</menuchoice></term>
+<listitem><para>Selects the next file.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+</sect2>
+
 <sect2 id="tools-menu">
 <title>The Tools Menu</title>
 <para>
@@ -831,8 +906,7 @@ by TagLib will be discarded. Only files without unsaved changes will be converte
 </menuchoice></term>
 <listitem><para>
 If there are any ID3v2.4 tags in the selected files, they will
-be <action>converted to ID3v2.3</action> tags. Note that only the standard
-tags are converted, all other frames will be discarded. Only files without
+be <action>converted to ID3v2.3</action> tags. Only files without
 unsaved changes will be converted.
 </para></listitem>
 </varlistentry>
@@ -906,6 +980,12 @@ The check box <guilabel>Use track/total number of tracks
 format</guilabel> controls whether the track number field of ID3v2 tags
 contains simply the track number or additionally the total number of tracks in
 the directory.
+<guilabel>Text encoding</guilabel> defines the default encoding used for ID3v2
+frames and can be set
+to <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel>,
+or <guilabel>UTF8</guilabel>. <guilabel>UTF8</guilabel> is not valid for
+ID3v2.3.0 frames; if it is set, <guilabel>UTF16</guilabel> will be used
+instead. For ID3v2.4.0 frames, all three encodings are possible.
 <guilabel>Version used for new tags</guilabel> determines whether new ID3v2
 tags are created as version 2.3.0 or 2.4.0. In the first case, id3lib is used
 as it was in earlier versions of &kid3; and TagLib is only applied when an
@@ -1109,12 +1189,18 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 url="http://www.kde.org">KDE</ulink> is recommended but not necessary, as
 &kid3; can also be compiled as a Qt application. &kid3; can be compiled for
 systems where these libraries are available, e.g. for GNU/Linux and Windows.
-To tag Ogg/Vorbis files, libogg, libvorbis and libvorbisfile are
-required, for FLAC files libFLAC++ and libFLAC.
+
+To tag Ogg/Vorbis
+files, <ulink url="http://xiph.org/ogg/">libogg</ulink>,
+<ulink url="http://xiph.org/vorbis/">libvorbis and libvorbisfile</ulink> are
+required, for FLAC files <ulink url="http://flac.sourceforge.net">libFLAC++
+and libFLAC</ulink>.
 <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> is used for MP3
  files. These three formats are also supported by
 <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
-which can also handle MPC files. 
+which can also handle MPC, MP2, Speex, TrueAudio and WavPack files. 
+<ulink url="http://mpeg4ip.sourceforge.net">mp4v2</ulink> is required for
+MP4 files.
 For MusicBrainz support,
 <ulink url="http://musicbrainz.org/products/tunepimp/">libtunepimp</ulink>
 is used. As there does not exist a tunepimp SDK for Windows at the moment, the
@@ -1173,6 +1259,11 @@ libraries are compiled in. The default is
 Generation of RPM-Packages is supported by the
 file <filename>kid3.spec</filename>, for Debian-Packages,
 a <filename>debian</filename> directory is available.
+</para>
+<para>
+To build &kid3; with KDE 4, use
+<userinput>cmake -DCMAKE_INSTALL_PREFIX=/usr/lib/kde4/ .</userinput> and
+<userinput>make</userinput>.
 </para>
 <para>
 To build &kid3; as a Qt application without KDE, use
