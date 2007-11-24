@@ -179,20 +179,6 @@ public:
 	 */
 	virtual bool eventFilter(QObject* o, QEvent* e);
 
-protected:
-	/**
-	 * Called when a cell is painted.
-	 * Paint the first cell of marked rows with red background.
-	 * @param p painter
-	 * @param row column
-	 * @param col column
-	 * @param cr  cell rectangle
-	 * @param selected true if selected
-	 * @param cg color group
-	 */
-	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr,
-												 bool selected, const QColorGroup& cg);
-
 private:
 	bool m_resizeTable;
 #endif

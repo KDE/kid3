@@ -360,6 +360,12 @@ public:
 	 */
 	virtual int rtti() const { return m_type; }
 
+	/**
+	 * Set red color.
+	 * @param en true to enable
+	 */
+	void setColorRed(bool en);
+
 private:
 	const int m_type;
 };
@@ -428,6 +434,23 @@ QString ValueTableItem::text() const
 	}
 }
 
+/**
+ * Set red color.
+ * @param en true to enable
+ */
+void ValueTableItem::setColorRed(bool en)
+{
+	QWidget* w = table()->cellWidget(row(), col());
+	QLineEdit* le = ::qt_cast<QLineEdit*>(w);
+	if (le) {
+		if (en) {
+			le->setPaletteBackgroundColor(Qt::red);
+		} else {
+			le->unsetPalette();
+		}
+	}
+}
+
 
 /** QTableItem with combo box to edit genres. */
 class GenreTableItem : public QTableItem {
@@ -477,6 +500,12 @@ public:
 	 * @return RttiValue.
 	 */
 	virtual int rtti() const { return RttiValue; }
+
+	/**
+	 * Set red color.
+	 * @param en true to enable
+	 */
+	void setColorRed(bool en);
 };
 
 /**
@@ -593,6 +622,30 @@ QString GenreTableItem::text() const
 		return QTableItem::text();
 	}
 }
+
+/**
+ * Set red color.
+ * @param en true to enable
+ */
+void GenreTableItem::setColorRed(bool en)
+{
+	QWidget* w = table()->cellWidget(row(), col());
+	QComboBox* cb = ::qt_cast<QComboBox*>(w);
+	if (cb) {
+		if (en) {
+			QPalette p = cb->palette();
+#ifdef WIN32
+			p.setColor(QColorGroup::Base, Qt::red);
+#else
+			p.setColor(QColorGroup::Button, Qt::red);
+#endif
+			cb->setPalette(p);
+		} else {
+			cb->unsetPalette();
+		}
+	}
+}
+
 #endif
 
 
@@ -796,6 +849,16 @@ void FrameTable::framesToTable()
 			}
 			setItem(row, CI_Value, ti);
 		}
+		if (row < 8 && ti) {
+			ValueTableItem* vti;
+			GenreTableItem* gti;
+			if ((vti = dynamic_cast<ValueTableItem*>(ti)) != 0) {
+				vti->setColorRed((m_markedRows & (1 << row)) != 0);
+			} else if ((gti = dynamic_cast<GenreTableItem*>(ti)) != 0) {
+				gti->setColorRed((m_markedRows & (1 << row)) != 0);
+			}
+		}
+
 		updateContents();
 
 		++row;
@@ -1078,27 +1141,5 @@ bool FrameTable::eventFilter(QObject* o, QEvent* e)
 QSize FrameTable::sizeHint() const
 {
 	return QScrollView::sizeHint();
-}
-
-/**
- * Called when a cell is painted.
- * Paint the first cell of marked rows with red background.
- * @param p painter
- * @param row column
- * @param col column
- * @param cr  cell rectangle
- * @param selected true if selected
- * @param cg color group
- */
-void FrameTable::paintCell(QPainter* p, int row, int col, const QRect& cr,
-													 bool selected, const QColorGroup& cg)
-{
-	if (col == CI_Value && row < 8 && (m_markedRows & (1 << row)) != 0) {
-		QColorGroup g(cg);
-		g.setColor(QColorGroup::Base, QColor("red"));
-		QTable::paintCell(p, row, col, cr, selected, g);
-	} else {
-		QTable::paintCell(p, row, col, cr, selected, cg);
-	}
 }
 #endif
