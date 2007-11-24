@@ -2424,6 +2424,7 @@ void Kid3App::fileSelected()
  */
 void Kid3App::copyTagsV1()
 {
+	updateCurrentSelection();
 	m_copyTags = m_view->frameTableV1()->frames().copyEnabledFrames(
 		m_view->frameTableV1()->getEnabledFrameFilter(true));
 }
@@ -2433,6 +2434,7 @@ void Kid3App::copyTagsV1()
  */
 void Kid3App::copyTagsV2()
 {
+	updateCurrentSelection();
 	m_copyTags = m_view->frameTableV2()->frames().copyEnabledFrames(
 		m_view->frameTableV2()->getEnabledFrameFilter(true));
 }
