@@ -2701,33 +2701,37 @@ void Kid3App::editFrame()
 		FileListItem* mp3file = m_view->firstFile();
 		bool firstFile = true;
 		QString name;
-		int frameId = -1;
+		TaggedFile* currentFile;
 		while (mp3file != 0) {
 			if (mp3file->isInSelection()) {
+				currentFile = mp3file->getFile();
 				if (firstFile) {
 					firstFile = false;
-					taggedFile = mp3file->getFile();
+					taggedFile = currentFile;
+					m_framelist->setTags(taggedFile);
 					name = m_framelist->getSelectedName();
-					if (!name.isEmpty() && m_framelist->editFrame()) {
-						frameId = m_framelist->getSelectedId();
+					if (!name.isEmpty()) {
+						m_framelist->editFrame();
 					} else {
 						break;
 					}
-				} else {
-					m_framelist->setTags(mp3file->getFile());
-					if (m_framelist->selectByName(name) &&
-							m_framelist->deleteFrame()) {
+				}
+				FrameCollection frames;
+				currentFile->getAllFramesV2(frames);
+				for (FrameCollection::const_iterator it = frames.begin();
+						 it != frames.end();
+						 ++it) {
+					if (it->getName() == name) {
+						currentFile->deleteFrameV2(*it);
+						m_framelist->setTags(currentFile);
 						m_framelist->pasteFrame();
+						break;
 					}
 				}
 			}
 			mp3file = m_view->nextFile();
 		}
-		m_framelist->setTags(taggedFile);
-		if (frameId != -1) {
-			m_framelist->setSelectedId(frameId);
-		}
-		updateModificationState();
+		updateAfterFrameModification(taggedFile);
 	}
 }
 
@@ -2746,32 +2750,30 @@ void Kid3App::deleteFrame()
 		FileListItem* mp3file = m_view->firstFile();
 		bool firstFile = true;
 		QString name;
-		int frameId = -1;
+		TaggedFile* currentFile;
 		while (mp3file != 0) {
 			if (mp3file->isInSelection()) {
+				currentFile = mp3file->getFile();
 				if (firstFile) {
 					firstFile = false;
-					taggedFile = mp3file->getFile();
+					taggedFile = currentFile;
+					m_framelist->setTags(taggedFile);
 					name = m_framelist->getSelectedName();
-					if (!name.isEmpty() && m_framelist->deleteFrame()) {
-						frameId = m_framelist->getSelectedId();
-					} else {
+				}
+				FrameCollection frames;
+				currentFile->getAllFramesV2(frames);
+				for (FrameCollection::const_iterator it = frames.begin();
+						 it != frames.end();
+						 ++it) {
+					if (it->getName() == name) {
+						currentFile->deleteFrameV2(*it);
 						break;
-					}
-				} else {
-					m_framelist->setTags(mp3file->getFile());
-					if (m_framelist->selectByName(name)) {
-						m_framelist->deleteFrame();
 					}
 				}
 			}
 			mp3file = m_view->nextFile();
 		}
-		m_framelist->setTags(taggedFile);
-		if (frameId != -1) {
-			m_framelist->setSelectedId(frameId);
-		}
-		updateModificationState();
+		updateAfterFrameModification(taggedFile);
 	}
 }
 
