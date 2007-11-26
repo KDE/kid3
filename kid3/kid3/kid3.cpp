@@ -1970,6 +1970,10 @@ void Kid3App::slotSettingsConfigure()
 			TagLibFile::setDefaultTextEncoding(
 				static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
 #endif
+#if QT_VERSION < 0x040000
+			m_view->frameTableV1()->triggerUpdateGenres();
+			m_view->frameTableV2()->triggerUpdateGenres();
+#endif
 		}
 	}
 #ifdef KID3_USE_KCONFIGDIALOG

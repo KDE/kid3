@@ -681,7 +681,7 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 #else
 FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	QTable(parent), m_cursorRow(-1), m_cursorColumn(-1),
-	m_markedRows(0), m_id3v1(id3v1), m_resizeTable(false)
+	m_markedRows(0), m_id3v1(id3v1), m_resizeTable(false), m_updateGenres(false)
 {
 	setNumCols(CI_NumColumns);
 	setSelectionMode(NoSelection);
@@ -838,7 +838,8 @@ void FrameTable::framesToTable()
 				(int)ValueTableItem::RttiValue : (int)GenreTableItem::RttiValue;
 		}
 
-		if ((ti = item(row, CI_Value)) != 0 &&
+		if (!(m_updateGenres && (*it).getType() == Frame::FT_Genre) &&
+				(ti = item(row, CI_Value)) != 0 &&
 				ti->rtti() == type) {
 			ti->setText((*it).getValue());
 		} else {
@@ -848,6 +849,10 @@ void FrameTable::framesToTable()
 				ti = new GenreTableItem(this, (*it).getValue());
 			}
 			setItem(row, CI_Value, ti);
+
+			if (m_updateGenres && (*it).getType() == Frame::FT_Genre) {
+				m_updateGenres = false;
+			}
 		}
 		if (row < 8 && ti) {
 			ValueTableItem* vti;

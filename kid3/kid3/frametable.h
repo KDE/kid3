@@ -166,6 +166,11 @@ private:
 #if QT_VERSION < 0x040000
 public:
 	/**
+	 * Trigger update of genres.
+	 */
+	void triggerUpdateGenres() { m_updateGenres = true; }
+
+	/**
 	 * @return preferred size.
 	 */
 	virtual QSize sizeHint() const;
@@ -181,6 +186,7 @@ public:
 
 private:
 	bool m_resizeTable;
+	bool m_updateGenres;
 #endif
 };
 
