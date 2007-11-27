@@ -672,6 +672,7 @@ bool OggFile::addFrameV2(Frame& frame)
 	m_comments.push_back(OggFile::CommentField(name, frame.getValue()));
 	frame.setInternalName(name);
 	frame.setIndex(m_comments.size() - 1);
+	markTag2Changed();
 	return true;
 }
 
@@ -693,6 +694,7 @@ bool OggFile::deleteFrameV2(const Frame& frame)
 		OggFile::CommentList::iterator it = m_comments.at(index);
 		m_comments.erase(it);
 #endif
+		markTag2Changed();
 		return true;
 	}
 

@@ -2554,6 +2554,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #ifdef WIN32
 				delete id3Frame;
 #endif
+				markTag2Changed();
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
@@ -2576,6 +2577,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 				++index;
 			}
 			frame.setIndex(found ? index : -1);
+			markTag2Changed();
 			return true;
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
 			QString name(getApeName(frame));
@@ -2600,6 +2602,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 				++index;
 			}
 			frame.setIndex(found ? index : -1);
+			markTag2Changed();
 			return true;
 		}
 	}
@@ -2627,6 +2630,7 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
 			if (index < static_cast<int>(frameList.size())) {
 				id3v2Tag->removeFrame(frameList[index]);
+				markTag2Changed();
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
@@ -2640,10 +2644,12 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 			// version. Until then, remove all fields with that key.
 			oggTag->removeField(key, QSTRING_TO_TSTRING(frame.getValue()));
 #endif
+			markTag2Changed();
 			return true;
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
 			TagLib::String key = QSTRING_TO_TSTRING(frame.getName(true));
 			apeTag->removeItem(key);
+			markTag2Changed();
 			return true;
 		}
 	}

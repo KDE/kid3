@@ -2714,9 +2714,7 @@ void Kid3App::editFrame()
 					taggedFile = currentFile;
 					m_framelist->setTags(taggedFile);
 					name = m_framelist->getSelectedName();
-					if (!name.isEmpty()) {
-						m_framelist->editFrame();
-					} else {
+					if (name.isEmpty() || !m_framelist->editFrame()) {
 						break;
 					}
 				}

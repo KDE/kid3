@@ -1546,6 +1546,7 @@ bool Mp3File::addFrameV2(Frame& frame)
 				getFieldsFromId3Frame(id3Frame, frame.fieldList());
 				frame.setFieldListFromValue();
 			}
+			markTag2Changed();
 			return true;
 		}
 	}
@@ -1569,6 +1570,7 @@ bool Mp3File::deleteFrameV2(const Frame& frame)
 		ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
 		if (id3Frame) {
 			m_tagV2->RemoveFrame(id3Frame);
+			markTag2Changed();
 			return true;
 		}
 	}

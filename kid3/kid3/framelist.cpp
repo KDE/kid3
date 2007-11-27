@@ -1401,7 +1401,6 @@ bool FrameList::deleteFrame()
 		m_file->deleteFrameV2(frame);
 		readTags();
 		m_frameTable->restoreCursor();
-		m_file->markTag2Changed();
 		return true;
 	}
 	return false;
@@ -1423,6 +1422,7 @@ bool FrameList::addFrame(bool edit)
 		if (edit) {
 			if (!editFrame(m_frame)) {
 				m_file->deleteFrameV2(m_frame);
+				m_file->markTag2Changed(false);
 				return false;
 			}
 		}
@@ -1434,7 +1434,6 @@ bool FrameList::addFrame(bool edit)
 			m_frameTable->ensureCellVisible(m_frameTable->currentRow(), m_frameTable->currentColumn()); 
 #endif
 		}
-		m_file->markTag2Changed();
 		return true;
 	}
 	return false;
@@ -1498,7 +1497,6 @@ bool FrameList::pasteFrame() {
 	if (m_file && m_frame.getType() != Frame::FT_UnknownFrame) {
 		m_file->addFrameV2(m_frame);
 		m_file->setFrameV2(m_frame);
-		m_file->markTag2Changed();
 		return true;
 	}
 	return false;

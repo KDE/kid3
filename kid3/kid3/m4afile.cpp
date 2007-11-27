@@ -936,6 +936,7 @@ bool M4aFile::addFrameV2(Frame& frame)
 	} else {
 		m_metadata[name] = frame.getValue().QCM_toUtf8();
 	}
+	markTag2Changed();
 	return true;
 }
 
@@ -952,6 +953,7 @@ bool M4aFile::deleteFrameV2(const Frame& frame)
 	MetadataMap::iterator it = m_metadata.find(name);
 	if (it != m_metadata.end()) {
 		m_metadata.erase(it);
+		markTag2Changed();
 		return true;
 	}
 
