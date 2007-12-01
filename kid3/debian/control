@@ -32,6 +32,7 @@ Description: KDE MP3 ID3 tag editor
   Homepage: http://kid3.sourceforge.net/
 
 Package: kid3-qt
+Section: sound
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Audio tag editor
