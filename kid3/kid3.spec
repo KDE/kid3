@@ -20,6 +20,7 @@ BuildRequires:  kdelibs-devel
 BuildRequires:  id3lib-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  flac-devel
+BuildRequires:  libmp4v2-devel
 BuildRequires:  libtunepimp-devel
 BuildRequires:  perl(File::Spec)
 
