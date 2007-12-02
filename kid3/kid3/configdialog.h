@@ -137,8 +137,10 @@ private:
 	QComboBox* m_commentNameComboBox;
 	/** ID3v2 text encoding combo box */
 	QComboBox* m_textEncodingComboBox;
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	/** ID3v2 version combo box */
 	QComboBox* m_id3v2VersionComboBox;
+#endif
 	/** Filename Format box */
 	FormatBox* m_fnFormatBox;
 	/** ID3 Format box */

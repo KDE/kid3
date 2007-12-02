@@ -117,20 +117,29 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			if (v2GroupBox) {
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
 				v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 				QLabel* textEncodingLabel = new QLabel(i18n("Text &encoding:"), v2GroupBox);
 				m_textEncodingComboBox = new QComboBox(v2GroupBox);
+#endif
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
 				m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
+#endif
 #else
 			QGroupBox* v2GroupBox = new QGroupBox(2, Qt::Horizontal, i18n("ID3v2"), tagsPage);
 			if (v2GroupBox) {
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
 				v2GroupBox->addSpace(0);
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 				QLabel* textEncodingLabel = new QLabel(i18n("Text &encoding:"), v2GroupBox);
 				m_textEncodingComboBox = new QComboBox(v2GroupBox);
+#endif
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 				QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
 				m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
 #endif
+#endif
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 				if (textEncodingLabel && m_textEncodingComboBox) {
 					m_textEncodingComboBox->QCM_insertItem(MiscConfig::TE_ISO8859_1, i18n("ISO-8859-1"));
 					m_textEncodingComboBox->QCM_insertItem(MiscConfig::TE_UTF16, i18n("UTF16"));
@@ -142,6 +151,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 					v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 1, 1);
 #endif
 				}
+#endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 				if (id3v2VersionLabel && m_id3v2VersionComboBox) {
 					m_id3v2VersionComboBox->QCM_insertItem(MiscConfig::ID3v2_3_0, i18n("ID3v2.3.0 (id3lib)"));
@@ -446,7 +456,9 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 	m_commentNameComboBox->setCurrentText(miscCfg->m_commentName);
 #endif
 #endif
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 	m_textEncodingComboBox->QCM_setCurrentIndex(miscCfg->m_textEncoding);
+#endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	m_id3v2VersionComboBox->QCM_setCurrentIndex(miscCfg->m_id3v2Version);
 #endif
@@ -503,7 +515,9 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 #ifdef HAVE_VORBIS
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
 #endif
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 	miscCfg->m_textEncoding = m_textEncodingComboBox->QCM_currentIndex();
+#endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	miscCfg->m_id3v2Version = m_id3v2VersionComboBox->QCM_currentIndex();
 #endif
