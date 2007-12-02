@@ -683,7 +683,7 @@ MusicBrainzClient::~MusicBrainzClient() {}
 
 #endif // HAVE_TUNEPIMP
 
-#if !(HAVE_TUNEPIMP >= 5)
+#if !(defined HAVE_TUNEPIMP && HAVE_TUNEPIMP >= 5)
 
 LookupQuery::LookupQuery(int, const QString&, unsigned short, const QString&, unsigned short) {}
 LookupQuery::~LookupQuery() {}
