@@ -45,12 +45,7 @@
 const char* const MiscConfig::s_defaultCommentName = "COMMENT";
 
 /** Default value for web browser */
-const char* const MiscConfig::s_defaultBrowser =
-#ifdef CONFIG_USE_KDE
-	"konqueror";
-#else
-	"firefox";
-#endif
+const char* const MiscConfig::s_defaultBrowser = "xdg-open";
 
 /** Default filename format list */
 static const char* fnFmt[] = {
