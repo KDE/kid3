@@ -461,7 +461,12 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 							handle,
 							reinterpret_cast<u_int8_t*>(const_cast<char*>(value.data())),
 							value.size());
-#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
+// While this works on Debian Etch with libmp4v2-dev 1.5.0.1-0.3 from
+// www.debian-multimedia.org, linking on OpenSUSE 10.3 with
+// libmp4v2-devel-1.5.0.1-6 from packman.links2linux.de fails with
+// undefined reference to MP4SetMetadataGrouping. To avoid this,
+// in the line below, 0x105 is replaced by 0x106.
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
 					} else if (name == "\251grp") {
 						setOk = MP4SetMetadataGrouping(handle, str);
 #endif
