@@ -1520,7 +1520,7 @@ bool Mp3File::addFrameV2(Frame& frame)
 	} else {
 		id = getId3libFrameIdForName(frame.getName());
 	}
-	if (id != ID3FID_NOFRAME && m_tagV2) {
+	if (id != ID3FID_NOFRAME && id != ID3FID_SETSUBTITLE && m_tagV2) {
 		ID3_Frame* id3Frame = new ID3_Frame(id);
 		if (id3Frame) {
 			ID3_Field* fld = id3Frame->GetField(ID3FN_TEXT);
@@ -1659,7 +1659,13 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
  */
 QStringList Mp3File::getFrameIds() const
 {
-	QStringList lst(TaggedFile::getFrameIds());
+	QStringList lst;
+	for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
+		if (type != Frame::FT_Part) {
+			lst.append(QCM_translate(Frame::getNameFromType(
+																 static_cast<Frame::Type>(type))));
+		}
+	}
 	for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
 		if (typeStrOfId[i].type == Frame::FT_Other) {
 			const char* s = typeStrOfId[i].str;
