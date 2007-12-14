@@ -126,7 +126,7 @@ sub setTsTranslations($$%)
 # Generate .ts files from .po files.
 sub generateTs()
 {
-	my @languages = ("de", "es", "fr", "ru", "it");
+	my @languages = ("de", "es", "fr", "ru", "it", "pl");
 	my $tmpdir = ".tsdir";
 	mkdir $tmpdir unless -d $tmpdir;
 	mkdir "po" unless -d "po";
