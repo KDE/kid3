@@ -604,6 +604,11 @@ void GenreTableItem::setText(const QString& t)
 	QWidget* w = table()->cellWidget(row(), col());
 	QComboBox* cb = ::qt_cast<QComboBox*>(w);
 	if (cb) {
+		int genreIndex = t.isNull() ? 0 :
+			Genres::getIndex(Genres::getNumber(t));
+		cb->setCurrentItem(
+			Kid3App::s_miscCfg.m_onlyCustomGenres ? 0 :
+			(genreIndex > 0 ? genreIndex : Genres::count + 1));
 		cb->setCurrentText(t);
 	}
 }
