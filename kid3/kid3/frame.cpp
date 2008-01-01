@@ -99,6 +99,32 @@ const char* Frame::getNameFromType(Type type)
 }
 
 /**
+ * Get type of frame from English name.
+ *
+ * @param name name, spaces and case are ignored
+ *
+ * @return type.
+ */
+Frame::Type Frame::getTypeFromName(QString name)
+{
+	static QMap<QString, int> strNumMap;
+	if (strNumMap.empty()) {
+		// first time initialization
+		for (int i = 0; i <= FT_LastFrame; ++i) {
+			Type type = static_cast<Type>(i);
+			strNumMap.insert(QString(getNameFromType(type)).
+											 remove(' ').QCM_toUpper(), type);
+		}
+	}
+	QMap<QString, int>::const_iterator it =
+		strNumMap.find(name.remove(' ').QCM_toUpper());
+	if (it != strNumMap.end()) {
+		return static_cast<Type>(*it);
+	}
+	return FT_Other;
+}
+
+/**
  * Get name of frame.
  *
  * @param internal true to get internal (non-general) name
@@ -237,6 +263,31 @@ void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
 	}
 }
 
+/**
+ * Find a frame by name.
+ *
+ * @param name  the name of the frame to find, if the exact name is not
+ *              found, a case-insensitive search for the first name
+ *              starting with this string is performed
+ *
+ * @return iterator or end() if not found.
+ */
+FrameCollection::iterator FrameCollection::findByName(const QString& name) const
+{
+	Frame::Type type = Frame::getTypeFromName(name);
+	Frame frame(type, "", name, -1);
+	const_iterator it = find(frame);
+	if (it == end()) {
+		QString ucName = name.QCM_toUpper();
+		int len = ucName.length();
+		for (it = begin(); it != end(); ++it) {
+			if (ucName == it->getName().QCM_toUpper().left(len)) {
+				break;
+			}
+		}
+	}
+	return it;
+}
 
 /**
  * Constructor.

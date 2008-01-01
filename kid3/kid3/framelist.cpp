@@ -1440,13 +1440,13 @@ bool FrameList::addFrame(bool edit)
 }
 
 /**
- * Get type of frame from name.
+ * Get type of frame from translated name.
  *
  * @param name name, spaces and case are ignored
  *
  * @return type.
  */
-static Frame::Type getTypeFromName(QString name)
+static Frame::Type getTypeFromTranslatedName(QString name)
 {
 	static QMap<QString, int> strNumMap;
 	if (strNumMap.empty()) {
@@ -1481,7 +1481,7 @@ bool FrameList::selectFrame()
 			0, QCM_translate(title),
 			QCM_translate(msg), m_file->getFrameIds(), 0, true, &ok);
 		if (ok) {
-			Frame::Type type = getTypeFromName(name);
+			Frame::Type type = getTypeFromTranslatedName(name);
 			m_frame = Frame(type, "", name, -1);
 		}
 	}

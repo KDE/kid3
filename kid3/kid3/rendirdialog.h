@@ -45,11 +45,9 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent     parent widget
-	 * @param caption    dialog title
 	 * @param taggedFile file to use for rename preview
 	 */
-	RenDirDialog(QWidget* parent, const QString& caption,
-							 TaggedFile* taggedFile);
+	RenDirDialog(QWidget* parent, TaggedFile* taggedFile);
 
 	/**
 	 * Destructor.
@@ -94,6 +92,27 @@ public:
 	 *         false if operation is finished.
 	 */
 	bool performAction(TaggedFile* taggedFile, bool& again, QString* errorMsg);
+
+	/**
+	 * Set directory format string.
+	 *
+	 * @param fmt directory format
+	 */
+	void setDirectoryFormat(const QString& fmt);
+
+	/**
+	 * Set action.
+	 *
+	 * @param create true to create, false to rename
+	 */ 
+	void setAction(bool create);
+
+	/**
+	 * Set tag source
+	 *
+	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 */
+	void setTagSource(int tagMask);
 
 private slots:
 	/**

@@ -971,89 +971,80 @@ bool Mp3File::hasTagV2() const
 /**
  * Get technical detail information.
  *
- * @return string with detail information,
- *         "" if no information available.
+ * @param info the detail information is returned here
  */
-QString Mp3File::getDetailInfo() const {
+void Mp3File::getDetailInfo(DetailInfo& info) const
+{
 	if (getFilename().right(4).QCM_toLower() == ".aac") {
-		return "AAC";
+		info.valid = true;
+		info.format = "AAC";
+		return;
 	}
-	QString str("");
-	const Mp3_Headerinfo* info = NULL;
+
+	const Mp3_Headerinfo* headerInfo = 0;
 	if (m_tagV1) {
-		info = m_tagV1->GetMp3HeaderInfo();
+		headerInfo = m_tagV1->GetMp3HeaderInfo();
 	} else if (m_tagV2) {
-		info = m_tagV2->GetMp3HeaderInfo();
+		headerInfo = m_tagV2->GetMp3HeaderInfo();
 	}
-	if (info) {
-		switch (info->version) {
+	if (headerInfo) {
+		info.valid = true;
+		switch (headerInfo->version) {
 			case MPEGVERSION_1:
-				str.append("MPEG 1 ");
+				info.format = "MPEG 1 ";
 				break;
 			case MPEGVERSION_2:
-				str.append("MPEG 2 ");
+				info.format = "MPEG 2 ";
 				break;
 			case MPEGVERSION_2_5:
-				str.append("MPEG 2.5 ");
+				info.format = "MPEG 2.5 ";
 				break;
 			default:
 				; // nothing
 		}
-		switch (info->layer) {
+		switch (headerInfo->layer) {
 			case MPEGLAYER_I:
-				str.append("Layer 1 ");
+				info.format += "Layer 1";
 				break;
 			case MPEGLAYER_II:
-				str.append("Layer 2 ");
+				info.format += "Layer 2";
 				break;
 			case MPEGLAYER_III:
-				str.append("Layer 3 ");
+				info.format += "Layer 3";
 				break;
 			default:
 				; // nothing
 		}
-		int kb = info->bitrate;
+		info.bitrate = headerInfo->bitrate / 1000;
 #ifndef HAVE_NO_ID3LIB_VBR
-		if (info->vbr_bitrate > 1000) {
-			str.append("VBR ");
-			kb = info->vbr_bitrate;
+		if (headerInfo->vbr_bitrate > 1000) {
+			info.vbr = true;
+			info.bitrate = headerInfo->vbr_bitrate / 1000;
 		}
 #endif
-		if (kb > 1000 && kb < 999000) {
-			kb /= 1000;
-			QString kbStr;
-			kbStr.setNum(kb);
-			kbStr.append(" kbps ");
-			str.append(kbStr);
-		}
-		int hz = info->frequency;
-		if (hz > 0) {
-			QString hzStr;
-			hzStr.setNum(hz);
-			hzStr.append(" Hz ");
-			str.append(hzStr);
-		}
-		switch (info->channelmode) {
+		info.sampleRate = headerInfo->frequency;
+		switch (headerInfo->channelmode) {
 			case MP3CHANNELMODE_STEREO:
-				str.append("Stereo ");
+				info.channelMode = DetailInfo::CM_Stereo;
+				info.channels = 2;
 				break;
 			case MP3CHANNELMODE_JOINT_STEREO:
-				str.append("Joint Stereo ");
+				info.channelMode = DetailInfo::CM_JointStereo;
+				info.channels = 2;
 				break;
 			case MP3CHANNELMODE_DUAL_CHANNEL:
-				str.append("Dual ");
+				info.channels = 2;
 				break;
 			case MP3CHANNELMODE_SINGLE_CHANNEL:
-				str.append("Single ");
+				info.channels = 1;
 				break;
 			default:
 				; // nothing
 		}
-		if (info->time > 0) {
-			str.append(formatTime(info->time));
-		}
+		info.duration = headerInfo->time;
+	} else {
+		info.valid = false;
 	}
-	return str;
 }
 
 /**

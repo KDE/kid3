@@ -252,6 +252,15 @@ public:
 	 */
 	static const char* getNameFromType(Type type);
 
+	/**
+	 * Get type of frame from English name.
+	 *
+	 * @param name name, spaces and case are ignored
+	 *
+	 * @return type.
+	 */
+	static Type getTypeFromName(QString name);
+
 private:
 	friend class TaggedFile;
 	Type m_type;
@@ -353,6 +362,17 @@ public:
 	 * @param flt filter with enabled frames
 	 */
 	void removeDisabledFrames(const FrameFilter& flt);
+
+	/**
+	 * Find a frame by name.
+	 *
+	 * @param name  the name of the frame to find, if the exact name is not
+	 *              found, a case-insensitive search for the first name
+	 *              starting with this string is performed
+	 *
+	 * @return iterator or end() if not found.
+	 */
+	iterator findByName(const QString& name) const;
 };
 
 #endif // FRAME_H

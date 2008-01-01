@@ -133,6 +133,15 @@ public:
 	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
 
 	/**
+	 * Import from a file.
+	 *
+	 * @param fn file name
+	 *
+	 * @return true if ok.
+	 */
+	bool importFromFile(const QString& fn);
+
+	/**
 	 * List with line formats.
 	 * The following codes are used before the () expressions.
 	 * %s title (song)

@@ -265,22 +265,20 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
 /**
  * Get technical detail information.
  *
- * @return string with detail information,
- *         "" if no information available.
+ * @param info the detail information is returned here
  */
-QString FlacFile::getDetailInfo() const
+void FlacFile::getDetailInfo(DetailInfo& info) const
 {
-	QString str;
 	if (m_fileRead && m_fileInfo.valid) {
-		str = QString("FLAC %1 kbps %2 Hz %3 Channels ").
-			arg(m_fileInfo.bitrate / 1000).
-			arg(m_fileInfo.sampleRate).
-			arg(m_fileInfo.channels);
-		if (m_fileInfo.duration > 0) {
-			str += formatTime(m_fileInfo.duration);
-		}
+		info.valid = true;
+		info.format = "FLAC";
+		info.bitrate = m_fileInfo.bitrate / 1000;
+		info.sampleRate = m_fileInfo.sampleRate;
+		info.channels = m_fileInfo.channels;
+		info.duration = m_fileInfo.duration;
+	} else {
+		info.valid = false;
 	}
-	return str;
 }
 
 /**

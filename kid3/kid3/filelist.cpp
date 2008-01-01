@@ -198,6 +198,16 @@ FileListItem* FileList::next()
 }
 
 /**
+ * Get the current item in the filelist.
+ *
+ * @return current file.
+ */
+FileListItem* FileList::current()
+{
+	return dynamic_cast<FileListItem*>(currentItem());
+}
+
+/**
  * Get the next item in the current directory which contains a file.
  *
  * @param lvItem list view item
@@ -340,9 +350,38 @@ int FileList::numFilesSelected()
 }
 
 /**
- * Select the next file.
+ * Select the first file.
+ *
+ * @return true if a file exists.
  */
-void FileList::selectNextFile()
+bool FileList::selectFirstFile()
+{
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem* item = *QTreeWidgetItemIterator(this);
+	if (item) {
+		clearSelection();
+		setCurrentItem(item);
+		setItemSelected(item, true);
+		return true;
+	}
+#else
+	QListViewItem* item = firstChild();
+	if (item) {
+		clearSelection();
+		setCurrentItem(item);
+		setSelected(item, true);
+		return true;
+	}
+#endif
+	return false;
+}
+
+/**
+ * Select the next file.
+ *
+ * @return true if a next file exists.
+ */
+bool FileList::selectNextFile()
 {
 #if QT_VERSION >= 0x040000
 	QTreeWidgetItem* item = currentItem();
@@ -350,6 +389,7 @@ void FileList::selectNextFile()
 		clearSelection();
 		setCurrentItem(item);
 		setItemSelected(item, true);
+		return true;
 	}
 #else
 	QListViewItem* item = currentItem();
@@ -357,14 +397,18 @@ void FileList::selectNextFile()
 		clearSelection();
 		setCurrentItem(item);
 		setSelected(item, true);
+		return true;
 	}
 #endif
+	return false;
 }
 
 /**
  * Select the previous file.
+ *
+ * @return true if a previous file exists.
  */
-void FileList::selectPreviousFile()
+bool FileList::selectPreviousFile()
 {
 #if QT_VERSION >= 0x040000
 	QTreeWidgetItem* item = currentItem();
@@ -372,6 +416,7 @@ void FileList::selectPreviousFile()
 		clearSelection();
 		setCurrentItem(item);
 		setItemSelected(item, true);
+		return true;
 	}
 #else
 	QListViewItem* item = currentItem();
@@ -379,8 +424,10 @@ void FileList::selectPreviousFile()
 		clearSelection();
 		setCurrentItem(item);
 		setSelected(item, true);
+		return true;
 	}
 #endif
+	return false;
 }
 
 /**

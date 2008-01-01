@@ -68,6 +68,7 @@ class FrameList;
 class ImportDialog;
 class ExportDialog;
 class NumberTracksDialog;
+class RenDirDialog;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -88,10 +89,14 @@ public:
 	/**
 	 * Open directory.
 	 *
-	 * @param dir     directory or file path
-	 * @param confirm if true ask if there are unsaved changes
+	 * @param dir       directory or file path
+	 * @param confirm   if true ask if there are unsaved changes
+	 * @param fileCheck if true and dir in not directory, only open directory
+	 *                  if dir is a valid file path
+	 *
+	 * @return true if ok.
 	 */
-	void openDirectory(QString dir, bool confirm = false);
+	bool openDirectory(QString dir, bool confirm = false, bool fileCheck = false);
 
 	/**
 	 * Process change of selection.
@@ -183,13 +188,51 @@ public:
 
 	/**
 	 * Delete selected frame.
+	 *
+	 * @param frameName name of frame to delete, empty to delete selected frame
 	 */
-	void deleteFrame();
+	void deleteFrame(const QString& frameName = QString::null);
 
 	/**
 	 * Select a frame type and add such a frame to frame list.
+	 *
+	 * @param frame frame to add, if 0 the user has to select and edit the frame
 	 */
-	void addFrame();
+	void addFrame(const Frame* frame = 0);
+
+	/**
+	 * Set the directory name from the tags.
+	 * The directory must not have modified files.
+	 *
+	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 * @param format  directory name format
+	 * @param create  true to create, false to rename
+	 * @param errStr  if not 0, a string describing the error is returned here
+	 *
+	 * @return true if ok.
+	 */
+	bool renameDirectory(int tagMask, const QString& format,
+											 bool create, QString* errStr);
+
+	/**
+	 * Number tracks in selected files of directory.
+	 *
+	 * @param nr start number
+	 * @param destV1 true to set numbers in tag 1
+	 * @param destV2 true to set numbers in tag 2
+	 */
+	void numberTracks(int nr, bool destV1, bool destV2);
+
+	/**
+	 * Export.
+	 *
+	 * @param tagNr  tag number (1 or 2)
+	 * @param path   path of file
+	 * @param fmtIdx index of format
+	 *
+	 * @return true if ok.
+	 */
+	bool exportTags(int tagNr, const QString& path, int fmtIdx);
 
 	/**
 	 * Display help for a topic.
@@ -418,8 +461,10 @@ public slots:
 
 	/**
 	 * Create playlist.
+	 *
+	 * @return true if ok.
 	 */
-	void slotCreatePlaylist();
+	bool slotCreatePlaylist();
 
 	/**
 	 * Import.
@@ -518,12 +563,18 @@ private slots:
 	void setExportData(int src);
 
 private:
+	friend class ScriptInterface;
+
 	/**
 	 * Save all changed files.
 	 *
-	 * @return true
+	 * @param updateGui true to update GUI (controls, status, cursor)
+	 * @param errStr    if not 0, the error string is returned here and
+	 *                  no dialog is displayed
+	 *
+	 * @return true if ok.
 	 */
-	bool saveDirectory();
+	bool saveDirectory(bool updateGui = false, QString* errStr = 0);
 
 	/**
 	 * If anything was modified, save after asking user.
@@ -586,9 +637,38 @@ private:
 	void setupImportDialog();
 
 	/**
+	 * Import tags from the import dialog.
+	 *
+	 * @param destV1 true to set tag 1
+	 * @param destV2 true to set tag 2
+	 */
+	void getTagsFromImportDialog(bool destV1, bool destV2);
+
+	/**
 	 * Execute the import dialog.
 	 */
 	void execImportDialog();
+
+	/**
+	 * Import.
+	 *
+	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 * @param path    path of file
+	 * @param fmtIdx  index of format
+	 *
+	 * @return true if ok.
+	 */
+	bool importTags(int tagMask, const QString& path, int fmtIdx);
+
+	/**
+	 * Perform renaming or creation of directory on files in directory.
+	 *
+	 * @param dialog RenDirDialog instance
+	 * @param errorMsg an error message is returned here
+	 *
+	 * @return true if ok.
+	 */
+	bool performRenameDirectoryAction(RenDirDialog* dialog, QString& errorMsg);
 
 	/**
 	 * Show or hide the ID3V1.1 controls according to the settings and

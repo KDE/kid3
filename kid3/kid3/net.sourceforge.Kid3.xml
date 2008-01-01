@@ -1,0 +1,119 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="net.sourceforge.Kid3">
+    <method name="openDirectory">
+      <arg type="b" direction="out"/>
+      <arg name="path" type="s" direction="in"/>
+    </method>
+    <method name="save">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="getErrorMessage">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="revert">
+    </method>
+    <method name="importFromFile">
+      <arg type="b" direction="out"/>
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="path" type="s" direction="in"/>
+      <arg name="fmtIdx" type="i" direction="in"/>
+    </method>
+    <method name="exportToFile">
+      <arg type="b" direction="out"/>
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="path" type="s" direction="in"/>
+      <arg name="fmtIdx" type="i" direction="in"/>
+    </method>
+    <method name="createPlaylist">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="quit">
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
+    </method>
+    <method name="selectAll">
+    </method>
+    <method name="deselectAll">
+    </method>
+    <method name="firstFile">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="previousFile">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="nextFile">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="expandDirectory">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="applyFilenameFormat">
+    </method>
+    <method name="applyTagFormat">
+    </method>
+    <method name="setDirNameFromTag">
+      <arg type="b" direction="out"/>
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="format" type="s" direction="in"/>
+      <arg name="create" type="b" direction="in"/>
+    </method>
+    <method name="numberTracks">
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="firstTrackNr" type="i" direction="in"/>
+    </method>
+    <method name="getDirectoryName">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="getFileName">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="setFileName">
+      <arg name="name" type="s" direction="in"/>
+    </method>
+    <method name="setFileNameFormat">
+      <arg name="format" type="s" direction="in"/>
+    </method>
+    <method name="setFileNameFromTag">
+      <arg name="tagMask" type="i" direction="in"/>
+    </method>
+    <method name="getFrame">
+      <arg type="s" direction="out"/>
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="name" type="s" direction="in"/>
+    </method>
+    <method name="setFrame">
+      <arg type="b" direction="out"/>
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="name" type="s" direction="in"/>
+      <arg name="value" type="s" direction="in"/>
+    </method>
+    <method name="getTag">
+      <arg type="as" direction="out"/>
+      <arg name="tagMask" type="i" direction="in"/>
+    </method>
+    <method name="getInformation">
+      <arg type="as" direction="out"/>
+    </method>
+    <method name="setTagFromFileName">
+      <arg name="tagMask" type="i" direction="in"/>
+    </method>
+    <method name="setTagFromOtherTag">
+      <arg name="tagMask" type="i" direction="in"/>
+    </method>
+    <method name="copyTag">
+      <arg name="tagMask" type="i" direction="in"/>
+    </method>
+    <method name="pasteTag">
+      <arg name="tagMask" type="i" direction="in"/>
+    </method>
+    <method name="removeTag">
+      <arg name="tagMask" type="i" direction="in"/>
+    </method>
+    <method name="hideTag">
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="hide" type="b" direction="in"/>
+    </method>
+    <method name="reparseConfiguration">
+    </method>
+  </interface>
+</node>

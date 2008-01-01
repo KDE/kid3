@@ -46,15 +46,13 @@
  * Constructor.
  *
  * @param parent     parent widget
- * @param caption    dialog title
  * @param taggedFile file to use for rename preview
  */
-RenDirDialog::RenDirDialog(QWidget* parent, const QString& caption,
-						   TaggedFile* taggedFile) :
+RenDirDialog::RenDirDialog(QWidget* parent, TaggedFile* taggedFile) :
 	QDialog(parent), m_taggedFile(taggedFile)
 {
 	setModal(true);
-	QCM_setWindowTitle(caption);
+	QCM_setWindowTitle(i18n("Rename Directory"));
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
@@ -456,4 +454,46 @@ void RenDirDialog::saveConfig()
 void RenDirDialog::showHelp()
 {
 	Kid3App::displayHelp("rename-directory");
+}
+
+/**
+ * Set directory format string.
+ *
+ * @param fmt directory format
+ */
+void RenDirDialog::setDirectoryFormat(const QString& fmt)
+{
+	m_formatComboBox->setEditText(fmt);
+}
+
+/**
+ * Set action.
+ *
+ * @param create true to create, false to rename
+ */ 
+void RenDirDialog::setAction(bool create)
+{
+	m_actionComboBox->QCM_setCurrentIndex(create ? ActionCreate : ActionRename);
+}
+
+/**
+ * Set tag source
+ *
+ * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+ */
+void RenDirDialog::setTagSource(int tagMask)
+{
+	TagVersion index;
+	switch (tagMask & 3) {
+		case 1:
+			index = TagV1;
+			break;
+		case 2:
+			index = TagV2;
+			break;
+		case 3:
+		default:
+			index = TagV2V1;
+	}
+	m_tagversionComboBox->QCM_setCurrentIndex(index);
 }

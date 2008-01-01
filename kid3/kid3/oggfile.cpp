@@ -581,22 +581,20 @@ QString OggFile::getFileExtension() const
 /**
  * Get technical detail information.
  *
- * @return string with detail information,
- *         "" if no information available.
+ * @param info the detail information is returned here
  */
-QString OggFile::getDetailInfo() const
+void OggFile::getDetailInfo(DetailInfo& info) const
 {
-	QString str;
 	if (m_fileRead && m_fileInfo.valid) {
-		str = QString("Ogg Vorbis %1 kbps %2 Hz %3 Channels ").
-			arg(m_fileInfo.bitrate / 1000).
-			arg(m_fileInfo.sampleRate).
-			arg(m_fileInfo.channels);
-		if (m_fileInfo.duration > 0) {
-			str += formatTime(m_fileInfo.duration);
-		}
+		info.valid = true;
+		info.format = "Ogg Vorbis";
+		info.bitrate = m_fileInfo.bitrate / 1000;
+		info.sampleRate = m_fileInfo.sampleRate;
+		info.channels = m_fileInfo.channels;
+		info.duration = m_fileInfo.duration;
+	} else {
+		info.valid = false;
 	}
-	return str;
 }
 
 /**
@@ -809,7 +807,7 @@ bool OggFile::FileInfo::read(const char* fn)
 	return valid;
 }
 #else // HAVE_VORBIS
-QString OggFile::getDetailInfo() const { return ""; }
+void OggFile::getDetailInfo(DetailInfo& info) const { info.valid = false; }
 unsigned OggFile::getDuration() const { return 0; }
 #endif // HAVE_VORBIS
 

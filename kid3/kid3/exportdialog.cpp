@@ -181,16 +181,13 @@ ExportDialog::~ExportDialog()
 
 /**
  * Export to a file.
+ *
+ * @param fn file name
+ *
+ * @return true if ok.
  */
-void ExportDialog::slotToFile()
+bool ExportDialog::exportToFile(const QString& fn)
 {
-	QString fn =
-#ifdef CONFIG_USE_KDE
-		KFileDialog::getSaveFileName(ImportSelector::getImportDir(),
-																 QString::null, this);
-#else
-	QFileDialog::QCM_getSaveFileName(this, ImportSelector::getImportDir());
-#endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QCM_WriteOnly)) {
@@ -207,8 +204,25 @@ void ExportDialog::slotToFile()
 #endif
 			stream << m_edit->QCM_toPlainText();
 			file.close();
+			return true;
 		}
 	}
+	return false;
+}
+
+/**
+ * Export to a file.
+ */
+void ExportDialog::slotToFile()
+{
+	exportToFile(
+#ifdef CONFIG_USE_KDE
+		KFileDialog::getSaveFileName(ImportSelector::getImportDir(),
+																 QString::null, this)
+#else
+		QFileDialog::QCM_getSaveFileName(this, ImportSelector::getImportDir())
+#endif
+		);
 }
 
 /**

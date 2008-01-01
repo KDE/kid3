@@ -4,7 +4,7 @@ if (HAVE_TAGLIB)
   set(TAGLIBEXT_LIBRARIES taglibext)
 endif (HAVE_TAGLIB)
 
-set(kid3_SRCS filelist.cpp filelistitem.cpp frame.cpp framelist.cpp frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp mp3file.cpp standardtags.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp commandstable.cpp taglibfile.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp)
+set(kid3_SRCS filelist.cpp filelistitem.cpp frame.cpp framelist.cpp frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp mp3file.cpp standardtags.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp commandstable.cpp taglibfile.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp scriptinterface.cpp)
 
 kde4_add_executable(kid3 ${kid3_SRCS})
 
@@ -13,5 +13,6 @@ target_link_libraries(kid3 ${TAGLIBEXT_LIBRARIES} ${BASIC_LIBRARIES} ${ID3LIB_LI
 install(TARGETS kid3 DESTINATION ${BIN_INSTALL_DIR})
 install(FILES kid3.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES kid3ui.rc DESTINATION ${DATA_INSTALL_DIR}/kid3)
+install(FILES net.sourceforge.Kid3.xml DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
 
 kde4_install_icons(${ICON_INSTALL_DIR})

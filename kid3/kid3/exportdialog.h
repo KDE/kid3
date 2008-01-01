@@ -70,12 +70,29 @@ public:
 	 */
 	void setExportData(const ImportTrackDataVector& trackDataVector);
 
+	/**
+	 * Export to a file.
+	 *
+	 * @param fn file name
+	 *
+	 * @return true if ok.
+	 */
+	bool exportToFile(const QString& fn);
+
 signals:
 	/**
 	 * Emitted when new export data has to be provided
 	 * Parameter: SrcV1 for ID3v1 data, SrcV2 for ID3v2 data
 	 */
 	void exportDataRequested(int);
+
+public slots:
+	/**
+	 * Set the format lineedits to the format selected in the combo box.
+	 *
+	 * @param index current index of the combo box
+	 */
+	void setFormatLineEdit(int index);
 
 private slots:
 	/**
@@ -87,13 +104,6 @@ private slots:
 	 * Export to clipboard.
 	 */
 	void slotToClipboard();
-
-	/**
-	 * Set the format lineedits to the format selected in the combo box.
-	 *
-	 * @param index current index of the combo box
-	 */
-	void setFormatLineEdit(int index);
 
 	/**
 	 * Show exported text as preview in editor.

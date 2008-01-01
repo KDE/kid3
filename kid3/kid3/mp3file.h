@@ -367,10 +367,9 @@ public:
 	/**
 	 * Get technical detail information.
 	 *
-	 * @return string with detail information,
-	 *         "" if no information available.
+	 * @param info the detail information is returned here
 	 */
-	virtual QString getDetailInfo() const;
+	virtual void getDetailInfo(DetailInfo& info) const;
 
 	/**
 	 * Get duration of file.

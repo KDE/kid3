@@ -75,6 +75,26 @@ public:
 	};
 
 
+	/** Information about file. */
+	struct DetailInfo {
+		/** Channel mode. */
+		enum ChannelMode { CM_None, CM_Stereo, CM_JointStereo };
+
+		/** Constructor. */
+		DetailInfo() : valid(false), vbr(false), channelMode(CM_None), channels(0),
+									 sampleRate(0), bitrate(0), duration(0) {}
+
+		bool valid;              /**< true if information valid */
+		bool vbr;                /**< true if variable bitrate */
+		QString format;          /**< format description */
+		ChannelMode channelMode; /**< channel mode */
+		unsigned channels;       /**< number of channels > 0 */
+		unsigned sampleRate;     /**< sample rate in Hz > 0 */
+		unsigned bitrate;        /**< 0 < bitrate in kbps < 999 */
+		unsigned long duration;  /**< duration in seconds > 0 */
+	};
+
+
 	/**
 	 * Constructor.
 	 *
@@ -409,10 +429,9 @@ public:
 	/**
 	 * Get technical detail information.
 	 *
-	 * @return string with detail information,
-	 *         "" if no information available.
+	 * @param info the detail information is returned here
 	 */
-	virtual QString getDetailInfo() const = 0;
+	virtual void getDetailInfo(DetailInfo& info) const = 0;
 
 	/**
 	 * Get duration of file.

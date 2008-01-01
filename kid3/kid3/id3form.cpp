@@ -899,6 +899,46 @@ void Id3Form::initView()
 }
 
 /**
+ * Set details info text.
+ *
+ * @param info detail information
+ */
+void Id3Form::setDetailInfo(const TaggedFile::DetailInfo& info)
+{
+	QString str;
+	if (info.valid) {
+		str = info.format;
+		str += ' ';
+		if (info.bitrate > 0 && info.bitrate < 999) {
+			if (info.vbr) str += "VBR ";
+			str += QString::number(info.bitrate);
+			str += " kbps ";
+		}
+		if (info.sampleRate > 0) {
+			str += QString::number(info.sampleRate);
+			str += " Hz ";
+		}
+		switch (info.channelMode) {
+			case TaggedFile::DetailInfo::CM_Stereo:
+				str += "Stereo ";
+				break;
+			case TaggedFile::DetailInfo::CM_JointStereo:
+				str += "Joint Stereo ";
+				break;
+			default:
+				if (info.channels > 0) {
+					str += QString::number(info.channels);
+					str += " Channels ";
+				}
+		}
+		if (info.duration > 0) {
+			str += TaggedFile::formatTime(info.duration);
+		}
+	}
+	m_detailsLabel->setText(str);
+}
+
+/**
  * Select all files.
  */
 void Id3Form::selectAllFiles()
@@ -923,19 +963,33 @@ void Id3Form::deselectAllFiles()
 }
 
 /**
- * Select next file.
+ * Select first file.
+ *
+ * @return true if a file exists.
  */
-void Id3Form::selectNextFile()
+bool Id3Form::selectFirstFile()
 {
-	m_fileListBox->selectNextFile();
+	return m_fileListBox->selectFirstFile();
+}
+
+/**
+ * Select next file.
+ *
+ * @return true if a next file exists.
+ */
+bool Id3Form::selectNextFile()
+{
+	return m_fileListBox->selectNextFile();
 }
 
 /**
  * Select previous file.
+ *
+ * @return true if a previous file exists.
  */
-void Id3Form::selectPreviousFile()
+bool Id3Form::selectPreviousFile()
 {
-	m_fileListBox->selectPreviousFile();
+	return m_fileListBox->selectPreviousFile();
 }
 
 #if QT_VERSION < 0x040000

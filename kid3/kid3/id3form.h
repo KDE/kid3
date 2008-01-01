@@ -34,6 +34,7 @@
 #include "filelist.h"
 #include "dirlist.h"
 #include "standardtags.h"
+#include "taggedfile.h"
 #include "qtcompatmac.h"
 
 class QCheckBox;
@@ -148,6 +149,12 @@ public:
 	QString getFilenameFormat() const { return m_formatComboBox->currentText(); }
 
 	/**
+	 * Set current filename format string.
+	 * @param fmt filename format
+	 */
+	void setFilenameFormat(const QString& fmt) { m_formatComboBox->setEditText(fmt); }
+
+	/**
 	 * Get filename.
 	 */
 	QString getFilename() const { return m_nameLineEdit->text(); }
@@ -172,9 +179,10 @@ public:
 
 	/**
 	 * Set details info text.
-	 * @param text details text
+	 *
+	 * @param info detail information
 	 */
-	void setDetailInfo(const QString& text) { m_detailsLabel->setText(text); }
+	void setDetailInfo(const TaggedFile::DetailInfo& info);
 
 	/**
 	 * Fill directory list.
@@ -206,6 +214,12 @@ public:
 	FileListItem* nextFile() { return m_fileListBox->next(); }
 
 	/**
+	 * Get the next item in the filelist.
+	 * @return next file.
+	 */
+	FileListItem* currentFile() { return m_fileListBox->current(); }
+
+	/**
 	 * Get the first item in the the current directory.
 	 * @return first file.
 	 */
@@ -216,6 +230,12 @@ public:
 	 * @return next file.
 	 */
 	FileListItem* nextFileInDir() { return m_fileListBox->nextInDir(); }
+
+	/**
+	 * Get information about directory.
+	 * @return directory information.
+	 */
+	const DirInfo* getDirInfo() const { return m_fileListBox->getDirInfo(); }
 
 	/**
 	 * Refresh text of all files in file list and check if any file is modified.
@@ -372,14 +392,25 @@ public slots:
 	void deselectAllFiles();
 
 	/**
-	 * Select next file.
+	 * Select first file.
+	 *
+	 * @return true if a file exists.
 	 */
-	void selectNextFile();
+	bool selectFirstFile();
+
+	/**
+	 * Select next file.
+	 *
+	 * @return true if a next file exists.
+	 */
+	bool selectNextFile();
 
 	/**
 	 * Select previous file.
+	 *
+	 * @return true if a previous file exists.
 	 */
-	void selectPreviousFile();
+	bool selectPreviousFile();
 
 signals:
 	/**

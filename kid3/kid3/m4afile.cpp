@@ -828,31 +828,20 @@ QString M4aFile::getFileExtension() const
 /**
  * Get technical detail information.
  *
- * @return string with detail information,
- *         "" if no information available.
+ * @param info the detail information is returned here
  */
-QString M4aFile::getDetailInfo() const
+void M4aFile::getDetailInfo(DetailInfo& info) const
 {
-	QString str;
 	if (m_fileRead && m_fileInfo.valid) {
-		str = "MP4 ";
-		if (m_fileInfo.bitrate > 0 && m_fileInfo.bitrate < 999) {
-			str += QString::number(m_fileInfo.bitrate);
-			str += " kbps ";
-		}
-		if (m_fileInfo.sampleRate > 0) {
-			str += QString::number(m_fileInfo.sampleRate);
-			str += " Hz ";
-		}
-		if (m_fileInfo.channels > 0) {
-			str += QString::number(m_fileInfo.channels);
-			str += " Channels ";
-		}
-		if (m_fileInfo.duration > 0) {
-			str += formatTime(m_fileInfo.duration);
-		}
+		info.valid = true;
+		info.format = "MP4";
+		info.bitrate = m_fileInfo.bitrate;
+		info.sampleRate = m_fileInfo.sampleRate;
+		info.channels = m_fileInfo.channels;
+		info.duration = m_fileInfo.duration;
+	} else {
+		info.valid = false;
 	}
-	return str;
 }
 
 /**

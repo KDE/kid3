@@ -84,6 +84,13 @@ public:
 	FileListItem* next();
 
 	/**
+	 * Get the current item in the filelist.
+	 *
+	 * @return current file.
+	 */
+	FileListItem* current();
+
+	/**
 	 * Get the first item in the the current directory.
 	 *
 	 * @return first file.
@@ -105,14 +112,25 @@ public:
 	int numFilesSelected();
 
 	/**
-	 * Select the next file.
+	 * Select the first file.
+	 *
+	 * @return true if a file exists.
 	 */
-	void selectNextFile();
+	bool selectFirstFile();
+
+	/**
+	 * Select the next file.
+	 *
+	 * @return true if a next file exists.
+	 */
+	bool selectNextFile();
 
 	/**
 	 * Select the previous file.
+	 *
+	 * @return true if a previous file exists.
 	 */
-	void selectPreviousFile();
+	bool selectPreviousFile();
 
 	/**
 	 * Fill the filelist with the files found in a directory.
@@ -130,6 +148,13 @@ public:
 	 * @return true if a file is modified.
 	 */
 	bool updateModificationState();
+
+	/**
+	 * Get information about directory.
+	 *
+	 * @return directory information.
+	 */
+	const DirInfo* getDirInfo() const { return &m_dirInfo; }
 
 	/**
 	 * Fill the filelist with the files found in the directory tree.

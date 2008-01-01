@@ -158,6 +158,12 @@ public:
 	bool pasteFrame();
 
 	/**
+	 * Set the frame in the copy buffer.
+	 * @param frame frame to set
+	 */
+	void setFrame(const Frame& frame) { m_frame = frame; }
+
+	/**
 	 * Get file containing frames.
 	 *
 	 * @return file, NULL if no file selected.

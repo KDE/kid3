@@ -1142,15 +1142,13 @@ bool TagLibFile::hasTagV2() const
 /**
  * Get technical detail information.
  *
- * @return string with detail information,
- *         "" if no information available.
+ * @param info the detail information is returned here
  */
-QString TagLibFile::getDetailInfo() const {
-	QString str;
+void TagLibFile::getDetailInfo(DetailInfo& info) const
+{
 	TagLib::AudioProperties* audioProperties;
 	if (!m_fileRef.isNull() &&
 			(audioProperties = m_fileRef.audioProperties()) != 0) {
-		const char* channelModeStr = 0;
 		TagLib::MPEG::Properties* mpegProperties;
 		TagLib::Vorbis::Properties* oggProperties;
 		TagLib::FLAC::Properties* flacProperties;
@@ -1158,97 +1156,84 @@ QString TagLibFile::getDetailInfo() const {
 		TagLib::Speex::Properties* speexProperties;
 		TagLib::TTA::Properties* ttaProperties;
 		TagLib::WavPack::Properties* wvProperties;
+		info.valid = true;
 		if ((mpegProperties =
 				 dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
 			if (getFilename().right(4).QCM_toLower() == ".aac") {
-				return "AAC";
+				info.format = "AAC";
+				return;
 			}
 			switch (mpegProperties->version()) {
 				case TagLib::MPEG::Header::Version1:
-					str += "MPEG 1 ";
+					info.format = "MPEG 1 ";
 					break;
 				case TagLib::MPEG::Header::Version2:
-					str += "MPEG 2 ";
+					info.format = "MPEG 2 ";
 					break;
 				case TagLib::MPEG::Header::Version2_5:
-					str += "MPEG 2.5 ";
+					info.format = "MPEG 2.5 ";
 					break;
 					//! @todo is there information about VBR.
 			}
 			int layer = mpegProperties->layer();
 			if (layer >= 1 && layer <= 3) {
-				str += "Layer ";
-				str += QString::number(layer);
-				str += ' ';
+				info.format += "Layer ";
+				info.format += QString::number(layer);
 			}
 			switch (mpegProperties->channelMode()) {
 				case TagLib::MPEG::Header::Stereo:
-					channelModeStr = "Stereo ";
+					info.channelMode = DetailInfo::CM_Stereo;
+					info.channels = 2;
 					break;
 				case TagLib::MPEG::Header::JointStereo:
-					channelModeStr = "Joint Stereo ";
+					info.channelMode = DetailInfo::CM_JointStereo;
+					info.channels = 2;
 					break;
 				case TagLib::MPEG::Header::DualChannel:
-					channelModeStr = "Dual ";
+					info.channels = 2;
 					break;
 				case TagLib::MPEG::Header::SingleChannel:
-					channelModeStr = "Single ";
+					info.channels = 1;
 					break;
 			}
 		} else if ((oggProperties =
 								dynamic_cast<TagLib::Vorbis::Properties*>(audioProperties)) !=
 							 0) {
-			str += "Ogg Vorbis ";
+			info.format = "Ogg Vorbis";
 		} else if ((flacProperties =
 								dynamic_cast<TagLib::FLAC::Properties*>(audioProperties)) !=
 							 0) {
-			str += "FLAC ";
+			info.format = "FLAC";
 		} else if ((mpcProperties =
 								dynamic_cast<TagLib::MPC::Properties*>(audioProperties)) != 0) {
-			str += "MPC ";
+			info.format = "MPC";
 		} else if ((speexProperties =
 								dynamic_cast<TagLib::Speex::Properties*>(audioProperties)) != 0) {
-			str += QString("Speex %1 ").arg(speexProperties->speexVersion());
+			info.format = QString("Speex %1").arg(speexProperties->speexVersion());
 		} else if ((ttaProperties =
 								dynamic_cast<TagLib::TTA::Properties*>(audioProperties)) != 0) {
-			str += "True Audio ";
-			str += QString::number(ttaProperties->ttaVersion());
-			str += " ";
-			str += QString::number(ttaProperties->bitsPerSample());
-			str += " bit ";
+			info.format = "True Audio ";
+			info.format += QString::number(ttaProperties->ttaVersion());
+			info.format += " ";
+			info.format += QString::number(ttaProperties->bitsPerSample());
+			info.format += " bit";
 		} else if ((wvProperties =
 								dynamic_cast<TagLib::WavPack::Properties*>(audioProperties)) != 0) {
-			str += "WavPack ";
-			str += QString::number(wvProperties->version(), 16);
-			str += " ";
-			str += QString::number(wvProperties->bitsPerSample());
-			str += " bit ";
+			info.format = "WavPack ";
+			info.format += QString::number(wvProperties->version(), 16);
+			info.format += " ";
+			info.format += QString::number(wvProperties->bitsPerSample());
+			info.format += " bit";
 		}
-		int bitrate = audioProperties->bitrate();
-		if (bitrate > 0 && bitrate < 999) {
-			str += QString::number(bitrate);
-			str += " kbps ";
+		info.bitrate = audioProperties->bitrate();
+		info.sampleRate = audioProperties->sampleRate();
+		if (audioProperties->channels() > 0) {
+			info.channels = audioProperties->channels();
 		}
-		int sampleRate = audioProperties->sampleRate();
-		if (sampleRate > 0) {
-			str += QString::number(sampleRate);
-			str += " Hz ";
-		}
-		if (channelModeStr) {
-			str += channelModeStr;
-		} else {
-			int channels = audioProperties->channels();
-			if (channels > 0) {
-				str += QString::number(channels);
-				str += " Channels ";
-			}
-		}
-		int length = audioProperties->length();
-		if (length > 0) {
-			str += formatTime(length);
-		}
+		info.duration = audioProperties->length();
+	} else {
+		info.valid = false;
 	}
-	return str;
 }
 
 /**

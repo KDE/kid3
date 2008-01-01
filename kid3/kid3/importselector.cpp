@@ -431,17 +431,14 @@ bool ImportSelector::parseHeader(StandardTags& st)
 }
 
 /**
- * Let user select file, assign file contents to text and preview in
- * table.
+ * Import from a file.
+ *
+ * @param fn file name
+ *
+ * @return true if ok.
  */
-void ImportSelector::fromFile()
+bool ImportSelector::importFromFile(const QString& fn)
 {
-	QString fn =
-#ifdef CONFIG_USE_KDE
-		KFileDialog::getOpenFileName(getImportDir(), QString::null, this);
-#else
-		QFileDialog::QCM_getOpenFileName(this, getImportDir());
-#endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QCM_ReadOnly)) {
@@ -459,8 +456,25 @@ void ImportSelector::fromFile()
 				showPreview();
 			}
 			file.close();
+			return true;
 		}
 	}
+	return false;
+}
+
+/**
+ * Let user select file, assign file contents to text and preview in
+ * table.
+ */
+void ImportSelector::fromFile()
+{
+	importFromFile(
+#ifdef CONFIG_USE_KDE
+		KFileDialog::getOpenFileName(getImportDir(), QString::null, this)
+#else
+		QFileDialog::QCM_getOpenFileName(this, getImportDir())
+#endif
+		);
 }
 
 /**
