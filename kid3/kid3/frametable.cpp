@@ -1111,7 +1111,8 @@ bool FrameTable::eventFilter(QObject* o, QEvent* e)
 {
 	if (e && e->type() == QEvent::KeyPress) {
 		QKeyEvent* ke = (QKeyEvent*)e;
-		if (ke->key() == Key_Left || ke->key() == Key_Right) {
+		if (ke->key() == Key_Left || ke->key() == Key_Right ||
+				ke->key() == Key_Home || ke->key() == Key_End) {
 			return false;
 		} else if (ke->key() == Key_Tab || ke->key() == Key_BackTab) {
 			int row = currentRow(), col = currentColumn();
