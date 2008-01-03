@@ -4,6 +4,8 @@ AC_CONFIG_HEADERS([config.h])
 AC_LANG([C++])
 AC_PROG_CXX
 AC_PROG_CXXCPP
+AC_PROG_CC
+AC_CHECK_TOOL(AR, ar)
 
 dnl Check for taglib
 TAGLIB_REQ_VERSION="1.4.0"
@@ -391,17 +393,19 @@ if test -z ${CFG_DB2HTML}; then
 elif test "x${CFG_DB2HTML}" != "xjw"; then
   docbookxsldirs="/usr/share/xml/docbook/stylesheet/nwalsh /usr/share/sgml/docbook/xsl-stylesheets /usr/share/xml/docbook/stylesheet/nwalsh/current /usr/share/xml/docbook/xsl-stylesheets /usr/share/xsl/docbook /usr/share/sgml/docbook/xsl-stylesheets* /usr/share/xml/docbook/stylesheet/nwalsh/1.*"
   for docbookxsldir in $docbookxsldirs; do
-    AC_CHECK_FILE(${docbookxsldir}/html/docbook.xsl,
-      CFG_XSL_STYLESHEET=${docbookxsldir}/html/docbook.xsl; break
-    )
+    if test -f ${docbookxsldir}/html/docbook.xsl; then
+      CFG_XSL_STYLESHEET=${docbookxsldir}/html/docbook.xsl
+      break
+    fi
   done
   if test -z ${CFG_XSL_STYLESHEET}; then
     kde_sharedirs="/usr/share/kde /usr/local/share /usr/share /opt/kde3/share /opt/kde/share $prefix/share"
     test -n "$KDEDIR" && kde_sharedirs="$KDEDIR/share $kde_sharedirs"
     for kde_sharedir in $kde_sharedirs; do
-      AC_CHECK_FILE(${kde_sharedir}/apps/ksgmltools2/docbook/xsl/html/docbook.xsl,
-        CFG_XSL_STYLESHEET=${kde_sharedir}/apps/ksgmltools2/docbook/xsl/html/docbook.xsl; break
-      )
+      if test -f ${kde_sharedir}/apps/ksgmltools2/docbook/xsl/html/docbook.xsl; then
+        CFG_XSL_STYLESHEET=${kde_sharedir}/apps/ksgmltools2/docbook/xsl/html/docbook.xsl
+        break
+      fi
     done
   fi
   if test -z ${CFG_XSL_STYLESHEET}; then
