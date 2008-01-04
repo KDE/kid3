@@ -43,6 +43,8 @@
 #endif
 #include <stdio.h>
 #include <mp4.h>
+#include <cstdlib>
+#include <cstring>
 
 #if defined MPEG4IP_MAJOR_VERSION && defined MPEG4IP_MINOR_VERSION
 #define MPEG4IP_MAJOR_MINOR_VERSION ((MPEG4IP_MAJOR_VERSION << 8) | MPEG4IP_MINOR_VERSION)
