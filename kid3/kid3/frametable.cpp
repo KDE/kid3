@@ -878,8 +878,11 @@ void FrameTable::framesToTable()
 
 /**
  * Set frames from values in table.
+ *
+ * @param setUnchanged if true, also set marked values which are unchanged,
+ *                     which can be used if multiple files are selected
  */
-void FrameTable::tableToFrames()
+void FrameTable::tableToFrames(bool setUnchanged)
 {
 #if QT_VERSION >= 0x040000
 	int row = 0;
@@ -891,7 +894,7 @@ void FrameTable::tableToFrames()
 		if ((twi = item(row, CI_Enable)) != 0 &&
 				twi->checkState() == Qt::Checked &&
 				(twi = item(row, CI_Value)) != 0 &&
-				(value = twi->text()) != (*it).getValue()) {
+				((value = twi->text()) != (*it).getValue() || setUnchanged)) {
 			Frame& frame = const_cast<Frame&>(*it);
 			frame.setValue(value);
 			frame.setValueChanged();
@@ -917,8 +920,9 @@ void FrameTable::tableToFrames()
 			} else {
 				value = text(row, CI_Value);
 			}
-			if (value != (*it).getValue() &&
-					!(value.isEmpty() && (*it).getValue().isEmpty())) {
+			if (setUnchanged ||
+					(value != (*it).getValue() &&
+					 !(value.isEmpty() && (*it).getValue().isEmpty()))) {
 				Frame& frame = const_cast<Frame&>(*it);
 				frame.setValue(value);
 				frame.setValueChanged();

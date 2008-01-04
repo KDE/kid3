@@ -86,8 +86,11 @@ public:
 
 	/**
 	 * Set frames from values in table.
+	 *
+	 * @param setUnchanged if true, also set marked values which are unchanged,
+	 *                     which can be used if multiple files are selected
 	 */
-	void tableToFrames();
+	void tableToFrames(bool setUnchanged = false);
 
 	/**
 	 * Save the current cursor position.

@@ -1063,7 +1063,6 @@ void TaggedFile::setFramesV1(const FrameCollection& frames, bool onlyChanged)
 			 ++it) {
 		if (!onlyChanged || it->isValueChanged()) {
 				setFrameV1(*it);
-				markTag1Changed();
 		}
 	}
 }
@@ -1104,13 +1103,11 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
 			if (it->getIndex() != -1) {
 				// The frame has an index, so the original tag can be modified
 				setFrameV2(*it);
-				markTag2Changed();
 			} else {
 				// The frame does not have an index
 				if (it->getType() <= Frame::FT_LastV1Frame) {
 					// Standard tags can be handled with the basic method
 					TaggedFile::setFrameV2(*it);
-					markTag2Changed();
 				} else {
 					// The frame has to be looked up and modified
 					if (!myFramesValid) {
@@ -1122,13 +1119,11 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
 						Frame myFrame(*it);
 						myFrame.setIndex(myIt->getIndex());
 						setFrameV2(myFrame);
-						markTag2Changed();
 					} else {
 						// Such a frame does not exist, add a new one.
 						Frame myFrame(*it);
 						addFrameV2(myFrame);
 						setFrameV2(myFrame);
-						markTag2Changed();
 					}
 				}
 			}

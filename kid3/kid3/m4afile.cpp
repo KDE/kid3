@@ -589,7 +589,7 @@ void M4aFile::setTextField(const QString& name, const QString& value)
 		QByteArray str = value.QCM_toUtf8();
 		MetadataMap::iterator it = m_metadata.find(name);
 		if (it != m_metadata.end()) {
-			if (*it != str) {
+			if (QString::fromUtf8((*it).data(), (*it).size()) != value) {
 				*it = str;
 				markTag2Changed();
 			}
@@ -883,12 +883,17 @@ bool M4aFile::setFrameV2(const Frame& frame)
 	MetadataMap::iterator it = m_metadata.find(name);
 	if (it != m_metadata.end()) {
 		if (name != "covr") {
-			*it = frame.getValue().QCM_toUtf8();
+			QByteArray str = frame.getValue().QCM_toUtf8();
+			if (*it != str) {
+				*it = str;
+				markTag2Changed();
+			}
 		} else {
 			if (!frame.getFieldList().empty()) {
 				const Frame::Field& fld = frame.getFieldList().front();
 				if (fld.m_id == Frame::Field::ID_Data) {
 					*it = fld.m_value.toByteArray();
+					markTag2Changed();
 				}
 			}
 		}

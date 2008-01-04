@@ -2424,22 +2424,6 @@ void Kid3App::openDrop(QString txt)
 }
 
 /**
- * Set tags in file to tags in GUI controls.
- *
- * @param mp3file file
- */
-void Kid3App::updateTags(TaggedFile* mp3file)
-{
-	m_view->frameTableV1()->tableToFrames();
-	mp3file->setFramesV1(m_view->frameTableV1()->frames());
-	m_view->frameTableV2()->tableToFrames();
-	mp3file->setFramesV2(m_view->frameTableV2()->frames());
-	if (m_view->isFilenameEditEnabled()) {
-		mp3file->setFilename(m_view->getFilename());
-	}
-}
-
-/**
  * Update modification state, caption and listbox entries.
  */
 void Kid3App::updateModificationState()
@@ -2465,12 +2449,32 @@ void Kid3App::updateModificationState()
  */
 void Kid3App::updateCurrentSelection()
 {
+	int numFiles = 0;
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			updateTags(mp3file->getFile());
+			if (++numFiles > 1) {
+				// we are only interested if 0, 1 or multiple files are selected
+				break;
+			}
 		}
 		mp3file = m_view->nextFile();
+	}
+	if (numFiles > 0) {
+		m_view->frameTableV1()->tableToFrames(numFiles > 1);
+		m_view->frameTableV2()->tableToFrames(numFiles > 1);
+		mp3file = m_view->firstFile();
+		while (mp3file != 0) {
+			if (mp3file->isInSelection()) {
+				TaggedFile* taggedFile = mp3file->getFile();
+				taggedFile->setFramesV1(m_view->frameTableV1()->frames());
+				taggedFile->setFramesV2(m_view->frameTableV2()->frames());
+				if (m_view->isFilenameEditEnabled()) {
+					taggedFile->setFilename(m_view->getFilename());
+				}
+			}
+			mp3file = m_view->nextFile();
+		}
 	}
 	updateModificationState();
 }

@@ -2292,6 +2292,7 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 				// However when removing the old frame and adding a new frame,
 				// the indices of all frames get invalid.
 				setId3v2Frame(frameList[index], frame);
+				markTag2Changed();
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
@@ -2312,10 +2313,12 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 					oggTag->addField("TRACKTOTAL", TagLib::String::number(numTracks), true);
 				}
 			}
+			markTag2Changed();
 			return true;
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
 			apeTag->addValue(QSTRING_TO_TSTRING(frame.getName(true)),
 											 QSTRING_TO_TSTRING(frame.getValue()));
+			markTag2Changed();
 			return true;
 		}
 	}

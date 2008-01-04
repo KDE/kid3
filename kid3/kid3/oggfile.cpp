@@ -633,20 +633,31 @@ bool OggFile::setFrameV2(const Frame& frame)
 	if (frame.getType() == Frame::FT_Track) {
 		int numTracks = getTotalNumberOfTracksIfEnabled();
 		if (numTracks > 0) {
-			setTextField("TRACKTOTAL", QString::number(numTracks));
+			QString numTracksStr = QString::number(numTracks);
+			if (getTextField("TRACKTOTAL") != numTracksStr) {
+				setTextField("TRACKTOTAL", numTracksStr);
+				markTag2Changed();
+			}
 		}
 	}
 
 	// If the frame has an index, change that specific frame
 	int index = frame.getIndex();
 	if (index != -1 && index < static_cast<int>(m_comments.size())) {
+		QString value = frame.getValue();
 #if QT_VERSION >= 0x040000
-		m_comments[index].setValue(frame.getValue());
+		if (m_comments[index].getValue() != value) {
+			m_comments[index].setValue(value);
+			markTag2Changed();
+		}
 		return true;
 #else
 		CommentList::iterator it = m_comments.at(index);
 		if (it != m_comments.end()) {
-			(*it).setValue(frame.getValue());
+			if ((*it).getValue() != value) {
+				(*it).setValue(value);
+				markTag2Changed();
+			}
 			return true;
 		}
 #endif

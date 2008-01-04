@@ -584,13 +584,6 @@ private:
 	bool saveModified();
 
 	/**
-	 * Set tags in file to tags in GUI controls.
-	 *
-	 * @param mp3file file
-	 */
-	void updateTags(TaggedFile* mp3file);
-
-	/**
 	 * Update modification state, caption and listbox entries.
 	 */
 	void updateModificationState();
