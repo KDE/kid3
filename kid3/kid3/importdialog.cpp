@@ -86,7 +86,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 		hlayout->addWidget(cancelButton);
 		okButton->setDefault(true);
 		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-		connect(saveButton, SIGNAL(clicked()), m_impsel, SLOT(saveConfig()));
+		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		vlayout->addLayout(hlayout);
@@ -170,6 +170,12 @@ void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
 void ImportDialog::clear()
 {
 	m_impsel->clear();
+
+	if (Kid3App::s_genCfg.m_importWindowWidth > 0 &&
+			Kid3App::s_genCfg.m_importWindowHeight > 0) {
+		resize(Kid3App::s_genCfg.m_importWindowWidth,
+					 Kid3App::s_genCfg.m_importWindowHeight);
+	}
 }
 
 /**
@@ -210,4 +216,12 @@ bool ImportDialog::importFromFile(const QString& fn)
 void ImportDialog::showHelp()
 {
 	Kid3App::displayHelp("import");
+}
+
+/**
+ * Save the local settings to the configuration.
+ */
+void ImportDialog::saveConfig()
+{
+	m_impsel->saveConfig(size().width(), size().height());
 }

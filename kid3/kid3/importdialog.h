@@ -121,6 +121,11 @@ private slots:
 	 */
 	void showHelp();
 
+	/**
+	 * Save the local settings to the configuration.
+	 */
+	void saveConfig();
+
 private:
 	AutoStartSubDialog m_autoStartSubDialog;
 	/** import selector widget */

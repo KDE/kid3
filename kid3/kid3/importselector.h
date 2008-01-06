@@ -142,6 +142,14 @@ public:
 	bool importFromFile(const QString& fn);
 
 	/**
+	 * Save the local settings to the configuration.
+	 *
+	 * @param width  window width
+	 * @param height window height
+	 */
+	void saveConfig(int width, int height);
+
+	/**
 	 * List with line formats.
 	 * The following codes are used before the () expressions.
 	 * %s title (song)
@@ -248,11 +256,6 @@ public slots:
 	 * Match import data with title.
 	 */
 	void matchWithTitle();
-
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
 
 private:
 	enum TabColumn {

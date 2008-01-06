@@ -883,8 +883,11 @@ ImportConfig::ImportDestination ImportSelector::getDestination()
 
 /**
  * Save the local settings to the configuration.
+ *
+ * @param width  window width
+ * @param height window height
  */
-void ImportSelector::saveConfig()
+void ImportSelector::saveConfig(int width, int height)
 {
 	Kid3App::s_genCfg.m_importDest = static_cast<ImportConfig::ImportDestination>(
 		m_destComboBox->QCM_currentIndex());
@@ -898,6 +901,8 @@ void ImportSelector::saveConfig()
 	getTimeDifferenceCheck(Kid3App::s_genCfg.m_enableTimeDifferenceCheck,
 												 Kid3App::s_genCfg.m_maxTimeDifference);
 
+	Kid3App::s_genCfg.m_importWindowWidth = width;
+	Kid3App::s_genCfg.m_importWindowHeight = height;
 }
 
 /**

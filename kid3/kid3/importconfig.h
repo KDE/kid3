@@ -100,6 +100,10 @@ public:
 	bool m_enableTimeDifferenceCheck;
 	/** maximum allowable time difference */
 	int m_maxTimeDifference;
+	/** import window width */
+	int m_importWindowWidth;
+	/** import window height */
+	int m_importWindowHeight;
 
 	/** true to export ID3v1 tags, else ID3v2 tags */
 	bool m_exportSrcV1;
