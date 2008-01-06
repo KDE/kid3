@@ -43,6 +43,7 @@ ImportConfig::ImportConfig(const QString& grp) :
 	GeneralConfig(grp), m_importServer(ImportConfig::ServerFreedb),
 	m_importDest(ImportConfig::DestV1), m_importFormatIdx(0),
 	m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
+	m_importWindowWidth(-1), m_importWindowHeight(-1),
 	m_exportSrcV1(true), m_exportFormatIdx(0),
 	m_exportWindowWidth(-1), m_exportWindowHeight(-1)
 {
@@ -154,6 +155,8 @@ void ImportConfig::writeToConfig(
 	cfg.writeEntry("ImportFormatIdx", m_importFormatIdx);
 	cfg.writeEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
 	cfg.writeEntry("MaxTimeDifference", m_maxTimeDifference);
+	cfg.writeEntry("ImportWindowWidth", m_importWindowWidth);
+	cfg.writeEntry("ImportWindowHeight", m_importWindowHeight);
 
 	cfg.writeEntry("ExportSourceV1", m_exportSrcV1);
 	cfg.writeEntry("ExportFormatNames", m_exportFormatNames);
@@ -173,6 +176,8 @@ void ImportConfig::writeToConfig(
 	config->QCM_writeEntry("/ImportFormatIdx", m_importFormatIdx);
 	config->QCM_writeEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
 	config->QCM_writeEntry("/MaxTimeDifference", m_maxTimeDifference);
+	config->QCM_writeEntry("/ImportWindowWidth", m_importWindowWidth);
+	config->QCM_writeEntry("/ImportWindowHeight", m_importWindowHeight);
 
 	config->QCM_writeEntry("/ExportSourceV1", m_exportSrcV1);
 	config->QCM_writeEntry("/ExportFormatNames", m_exportFormatNames);
@@ -214,6 +219,8 @@ void ImportConfig::readFromConfig(
 	m_importFormatIdx = cfg.KCM_readNumEntry("ImportFormatIdx", m_importFormatIdx);
 	m_enableTimeDifferenceCheck = cfg.KCM_readBoolEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
 	m_maxTimeDifference = cfg.KCM_readNumEntry("MaxTimeDifference", m_maxTimeDifference);
+	m_importWindowWidth = cfg.KCM_readNumEntry("ImportWindowWidth", -1);
+	m_importWindowHeight = cfg.KCM_readNumEntry("ImportWindowHeight", -1);
 
 	m_exportSrcV1 = cfg.KCM_readBoolEntry("ExportSourceV1", m_exportSrcV1);
 	expNames = cfg.KCM_readListEntry("ExportFormatNames");
@@ -245,6 +252,8 @@ void ImportConfig::readFromConfig(
 	m_importFormatIdx = config->QCM_readNumEntry("/ImportFormatIdx", m_importFormatIdx);
 	m_enableTimeDifferenceCheck = config->QCM_readBoolEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
 	m_maxTimeDifference = config->QCM_readNumEntry("/MaxTimeDifference", m_maxTimeDifference);
+	m_importWindowWidth = config->QCM_readNumEntry("/ImportWindowWidth", -1);
+	m_importWindowHeight = config->QCM_readNumEntry("/ImportWindowHeight", -1);
 
 	m_exportSrcV1 = config->QCM_readBoolEntry("/ExportSourceV1", m_exportSrcV1);
 	expNames = config->QCM_readListEntry("/ExportFormatNames");
