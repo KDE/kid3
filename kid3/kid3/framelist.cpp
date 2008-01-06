@@ -1344,6 +1344,12 @@ bool FrameList::editFrame(Frame& frame)
 	bool result = true;
 	QString name(frame.getName(true));
 	if (!name.isEmpty()) {
+		int nlPos = name.QCM_indexOf("\n");
+		if (nlPos > 0) {
+			// probably "TXXX - User defined text information\nDescription" or
+			// "WXXX - User defined URL link\nDescription"
+			name.truncate(nlPos);
+		}
 #if QT_VERSION >= 0x040000
 		name = QCM_translate(name.toLatin1().data());
 #else

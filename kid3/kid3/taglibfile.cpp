@@ -2461,6 +2461,21 @@ static QString getApeName(const Frame& frame)
 }
 
 /**
+ * Check if an ID3v2.4.0 frame ID is valid.
+ *
+ * @param frameId frame ID (4 characters)
+ *
+ * @return true if frame ID is valid.
+ */
+static bool isFrameIdValid(const QString& frameId)
+{
+	Frame::Type type;
+	const char* str;
+	getTypeStringForFrameId(TagLib::ByteVector(frameId.QCM_latin1(), 4), type, str);
+	return type != Frame::FT_UnknownFrame;
+}
+
+/**
  * Add a frame in the tags 2.
  *
  * @param frame frame to add, a field list may be added by this method
@@ -2485,7 +2500,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 			if (frameId.startsWith("T")) {
 				if (frameId == "TXXX") {
 					id3Frame = new TagLib::ID3v2::UserTextIdentificationFrame(enc);
-				} else {
+				} else if (isFrameIdValid(frameId)) {
 					id3Frame = new TagLib::ID3v2::TextIdentificationFrame(
 						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()), enc);
 					id3Frame->setText(""); // is necessary for createFrame() to work
@@ -2509,13 +2524,22 @@ bool TagLibFile::addFrameV2(Frame& frame)
 			} else if (frameId.startsWith("W")) {
 				if (frameId == "WXXX") {
 					id3Frame = new TagLib::ID3v2::UserUrlLinkFrame(enc);
-				} else {
+				} else if (isFrameIdValid(frameId)) {
 					id3Frame = new TagLib::ID3v2::UrlLinkFrame(
 						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()));
 					id3Frame->setText("http://"); // is necessary for createFrame() to work
 				}
 			} else if (frameId == "USLT") {
 				id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
+			}
+			if (!id3Frame) {
+				TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =
+					new TagLib::ID3v2::UserTextIdentificationFrame(enc);
+				txxxFrame->setDescription(QSTRING_TO_TSTRING(frame.getName()));
+				id3Frame = txxxFrame;
+				frame.setInternalName("TXXX - User defined text information");
+			} else {
+				frame.setInternalName(name);
 			}
 			if (id3Frame) {
 				if (!frame.fieldList().empty()) {
@@ -2532,7 +2556,6 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #else
 				id3v2Tag->addFrame(id3Frame);
 #endif
-				frame.setInternalName(name);
 				frame.setIndex(id3v2Tag->frameList().size() - 1);
 				if (frame.fieldList().empty()) {
 					// add field list to frame
@@ -2753,6 +2776,24 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 				getTypeStringForFrameId((*it)->frameID(), type, name);
 				Frame frame(type, TStringToQString((*it)->toString()), name, i++);
 				frame.setValue(getFieldsFromId3Frame(*it, frame.fieldList(), type));
+				if ((*it)->frameID().mid(1, 3) == "XXX") {
+					const Frame::FieldList& fields = frame.getFieldList();
+					for (Frame::FieldList::const_iterator it = fields.begin();
+							 it != fields.end();
+							 ++it) {
+						if ((*it).m_id == Frame::Field::ID_Description) {
+							QString description = (*it).m_value.toString();
+							if (!description.isEmpty()) {
+								if (description.startsWith("QuodLibet::")) {
+									// remove ExFalso/QuodLibet "namespace"
+									description = description.mid(11);
+								}
+								frame.setInternalName(QString(name) + '\n' + description);
+							}
+							break;
+						}
+					}
+				}
 				frames.insert(frame);
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {

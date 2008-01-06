@@ -722,7 +722,12 @@ FrameTable::~FrameTable() {}
 QString FrameTable::getDisplayName(const QString& str) const
 {
 	if (!str.isEmpty()) {
-		if (str.mid(4, 3) == " - ") {
+		int nlPos = str.QCM_indexOf("\n");
+		if (nlPos > 0) {
+			// probably "TXXX - User defined text information\nDescription" or
+			// "WXXX - User defined URL link\nDescription"
+			return str.mid(nlPos + 1);
+		} else if (str.mid(4, 3) == " - ") {
 			// probably "ID3-ID - Description"
 			return str.left(4);
 		} else {

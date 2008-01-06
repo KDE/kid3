@@ -1529,6 +1529,9 @@ bool Mp3File::addFrameV2(Frame& frame)
 		id = getId3libFrameIdForType(frame.getType());
 	} else {
 		id = getId3libFrameIdForName(frame.getName());
+		if (id == ID3FID_NOFRAME) {
+			id = ID3FID_USERTEXT;
+		}
 	}
 	if (id != ID3FID_NOFRAME && id != ID3FID_SETSUBTITLE && m_tagV2) {
 		ID3_Frame* id3Frame = new ID3_Frame(id);
@@ -1541,6 +1544,12 @@ bool Mp3File::addFrameV2(Frame& frame)
 					encfld->Set(enc);
 				}
 				fld->SetEncoding(enc);
+			}
+			if (id == ID3FID_USERTEXT && !frame.getName().startsWith("TXXX")) {
+				fld = id3Frame->GetField(ID3FN_DESCRIPTION);
+				if (fld) {
+					setString(fld, frame.getName());
+				}
 			}
 			if (!frame.fieldList().empty()) {
 				setId3v2Frame(id3Frame, frame);
@@ -1650,6 +1659,21 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
 			getTypeStringForId3libFrameId(id3Frame->GetID(), type, name);
 			Frame frame(type, "", name, i++);
 			frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList()));
+			if (id3Frame->GetID() == ID3FID_USERTEXT ||
+					id3Frame->GetID() == ID3FID_WWWUSER) {
+				const Frame::FieldList& fields = frame.getFieldList();
+				for (Frame::FieldList::const_iterator it = fields.begin();
+						 it != fields.end();
+						 ++it) {
+					if ((*it).m_id == Frame::Field::ID_Description) {
+						QString description = (*it).m_value.toString();
+						if (!description.isEmpty()) {
+							frame.setInternalName(QString(name) + '\n' + description);
+						}
+						break;
+					}
+				}
+			}
 			frames.insert(frame);
 		}
 #ifdef WIN32
