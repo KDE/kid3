@@ -896,6 +896,7 @@ void FrameTable::tableToFrames(bool setUnchanged)
 				(twi = item(row, CI_Value)) != 0 &&
 				((value = twi->text()) != (*it).getValue() || setUnchanged)) {
 			Frame& frame = const_cast<Frame&>(*it);
+			if (value.isNull()) value = "";
 			frame.setValue(value);
 			frame.setValueChanged();
 		}
