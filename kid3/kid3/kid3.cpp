@@ -993,7 +993,7 @@ void Kid3App::saveProperties(KConfigGroup& cfg)
  *
  * @param cfg application configuration
  */
-void Kid3App::readProperties(KConfigGroup& cfg)
+void Kid3App::readProperties(const KConfigGroup& cfg)
 {
 	openDirectory(cfg.readEntry("dirname", ""));
 }

@@ -332,7 +332,7 @@ protected:
 	 */
 	virtual void readProperties(
 #if KDE_VERSION >= 0x035c00
-		KConfigGroup& cfg
+		const KConfigGroup& cfg
 #else
 		KConfig* cfg
 #endif

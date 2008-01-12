@@ -41,11 +41,11 @@
 #define KCM_ICON_go_next "go-next"
 #define KCM_ICON_document_import "document-import"
 #define KCM_ICON_document_export "document-export"
-#define KCM_ICON_media_playlist "media-playlist"
-#define KCM_ICON_preferences_tags "rss-tag"
+#define KCM_ICON_media_playlist "view-media-playlist"
+#define KCM_ICON_preferences_tags "applications-multimedia"
 #define KCM_ICON_preferences_files "document-save"
-#define KCM_ICON_preferences_useractions "user"
-#define KCM_ICON_preferences_network "network"
+#define KCM_ICON_preferences_useractions "preferences-other"
+#define KCM_ICON_preferences_network "preferences-system-network"
 
 #define KCM_setStatusTip setStatusTip
 #define KCM_addUrl addUrl
