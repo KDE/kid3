@@ -249,8 +249,12 @@ void ExportDialog::setFormatLineEdit(int index)
 		m_headerLineEdit->setText(m_formatHeaders[index]);
 		m_trackLineEdit->setText(m_formatTracks[index]);
 		m_trailerLineEdit->setText(m_formatTrailers[index]);
-		showPreview();
+	} else {
+		m_headerLineEdit->clear();
+		m_trackLineEdit->clear();
+		m_trailerLineEdit->clear();
 	}
+	showPreview();
 }
 
 /**
@@ -351,11 +355,18 @@ void ExportDialog::saveConfig()
 {
 	Kid3App::s_genCfg.m_exportSrcV1 = (m_srcComboBox->QCM_currentIndex() == SrcV1);
 	Kid3App::s_genCfg.m_exportFormatIdx = m_formatComboBox->QCM_currentIndex();
-	Kid3App::s_genCfg.m_exportFormatNames[Kid3App::s_genCfg.m_exportFormatIdx] = m_formatComboBox->currentText();
-	Kid3App::s_genCfg.m_exportFormatHeaders[Kid3App::s_genCfg.m_exportFormatIdx] = m_headerLineEdit->text();
-	Kid3App::s_genCfg.m_exportFormatTracks[Kid3App::s_genCfg.m_exportFormatIdx] = m_trackLineEdit->text();
-	Kid3App::s_genCfg.m_exportFormatTrailers[Kid3App::s_genCfg.m_exportFormatIdx] = m_trailerLineEdit->text();
-
+	if (Kid3App::s_genCfg.m_exportFormatIdx < static_cast<int>(Kid3App::s_genCfg.m_exportFormatNames.size())) {
+		Kid3App::s_genCfg.m_exportFormatNames[Kid3App::s_genCfg.m_exportFormatIdx] = m_formatComboBox->currentText();
+		Kid3App::s_genCfg.m_exportFormatHeaders[Kid3App::s_genCfg.m_exportFormatIdx] = m_headerLineEdit->text();
+		Kid3App::s_genCfg.m_exportFormatTracks[Kid3App::s_genCfg.m_exportFormatIdx] = m_trackLineEdit->text();
+		Kid3App::s_genCfg.m_exportFormatTrailers[Kid3App::s_genCfg.m_exportFormatIdx] = m_trailerLineEdit->text();
+	} else {
+		Kid3App::s_genCfg.m_exportFormatIdx = Kid3App::s_genCfg.m_exportFormatNames.size();
+		Kid3App::s_genCfg.m_exportFormatNames.append(m_formatComboBox->currentText());
+		Kid3App::s_genCfg.m_exportFormatHeaders.append(m_headerLineEdit->text());
+		Kid3App::s_genCfg.m_exportFormatTracks.append(m_trackLineEdit->text());
+		Kid3App::s_genCfg.m_exportFormatTrailers.append(m_trailerLineEdit->text());
+	}
 	Kid3App::s_genCfg.m_exportWindowWidth = size().width();
 	Kid3App::s_genCfg.m_exportWindowHeight = size().height();
 }

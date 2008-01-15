@@ -273,10 +273,13 @@ ImportSelector::ImportSelector(
 	butlayout->setMargin(0);
 	butlayout->setSpacing(6);
 	m_fileButton = new QPushButton(i18n("From F&ile"), butbox);
+	m_fileButton->setAutoDefault(false);
 	butlayout->addWidget(m_fileButton);
 	m_clipButton = new QPushButton(i18n("From Clip&board"), butbox);
+	m_clipButton->setAutoDefault(false);
 	butlayout->addWidget(m_clipButton);
 	m_serverButton = new QPushButton(i18n("&From Server:"), butbox);
+	m_serverButton->setAutoDefault(false);
 	butlayout->addWidget(m_serverButton);
 	m_serverComboBox = new QComboBox(butbox);
 	m_serverComboBox->setEditable(false);
@@ -604,8 +607,13 @@ void ImportSelector::fromDiscogs()
  */
 void ImportSelector::setFormatLineEdit(int index)
 {
-	m_headerLineEdit->setText(m_formatHeaders[index]);
-	m_trackLineEdit->setText(m_formatTracks[index]);
+	if (index < static_cast<int>(m_formatHeaders.size())) {
+		m_headerLineEdit->setText(m_formatHeaders[index]);
+		m_trackLineEdit->setText(m_formatTracks[index]);
+	} else {
+		m_headerLineEdit->clear();
+		m_trackLineEdit->clear();
+	}
 }
 
 /**
@@ -895,9 +903,16 @@ void ImportSelector::saveConfig(int width, int height)
 	Kid3App::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
 		m_serverComboBox->QCM_currentIndex());
 	Kid3App::s_genCfg.m_importFormatIdx = m_formatComboBox->QCM_currentIndex();
-	Kid3App::s_genCfg.m_importFormatNames[Kid3App::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
-	Kid3App::s_genCfg.m_importFormatHeaders[Kid3App::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
-	Kid3App::s_genCfg.m_importFormatTracks[Kid3App::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
+	if (Kid3App::s_genCfg.m_importFormatIdx < static_cast<int>(Kid3App::s_genCfg.m_importFormatNames.size())) {
+		Kid3App::s_genCfg.m_importFormatNames[Kid3App::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
+		Kid3App::s_genCfg.m_importFormatHeaders[Kid3App::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
+		Kid3App::s_genCfg.m_importFormatTracks[Kid3App::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
+	} else {
+		Kid3App::s_genCfg.m_importFormatIdx = Kid3App::s_genCfg.m_importFormatNames.size();
+		Kid3App::s_genCfg.m_importFormatNames.append(m_formatComboBox->currentText());
+		Kid3App::s_genCfg.m_importFormatHeaders.append(m_headerLineEdit->text());
+		Kid3App::s_genCfg.m_importFormatTracks.append(m_trackLineEdit->text());
+	}
 	getTimeDifferenceCheck(Kid3App::s_genCfg.m_enableTimeDifferenceCheck,
 												 Kid3App::s_genCfg.m_maxTimeDifference);
 

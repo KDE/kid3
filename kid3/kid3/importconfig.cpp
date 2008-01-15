@@ -281,7 +281,7 @@ void ImportConfig::readFromConfig(
 		if (idx >= 0) {
 			m_importFormatHeaders[idx] = *headersIt;
 			m_importFormatTracks[idx] = *tracksIt;
-		} else {
+		} else if (!(*namesIt).isEmpty()) {
 			m_importFormatNames.append(*namesIt);
 			m_importFormatHeaders.append(*headersIt);
 			m_importFormatTracks.append(*tracksIt);
@@ -304,7 +304,7 @@ void ImportConfig::readFromConfig(
 			m_exportFormatHeaders[idx] = *expHeadersIt;
 			m_exportFormatTracks[idx] = *expTracksIt;
 			m_exportFormatTrailers[idx] = *expTrailersIt;
-		} else {
+		} else if (!(*expNamesIt).isEmpty()) {
 			m_exportFormatNames.append(*expNamesIt);
 			m_exportFormatHeaders.append(*expHeadersIt);
 			m_exportFormatTracks.append(*expTracksIt);
