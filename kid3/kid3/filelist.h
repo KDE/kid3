@@ -168,6 +168,16 @@ public:
 															 FileList* listView,
 															 const QString& fileName = QString());
 
+	/**
+	 * Get help text for format codes supported by formatStringList().
+	 *
+	 * @param onlyRows if true only the <tr> elements are returned,
+	 *                 not the surrounding <table>
+	 *
+	 * @return help text.
+	 */
+	static QString getFormatToolTip(bool onlyRows = false);
+
 signals:
 	/**
 	 * Emitted when some of the selected files have been renamed.

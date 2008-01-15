@@ -632,10 +632,10 @@ QStringList FileList::formatStringList(const QStringList& format)
 		if ((*it).QCM_indexOf('%') == -1) {
 			fmt.push_back(*it);
 		} else {
-			if (*it == "%F") {
+			if (*it == "%F" || *it == "%{files}") {
 				// list of files
 				fmt += files;
-			} else if (*it == "%uF") {
+			} else if (*it == "%uF" || *it == "%{urls}") {
 				// list of URLs or URL
 				QUrl url;
 				url.QCM_setScheme("file");
@@ -648,6 +648,8 @@ QStringList FileList::formatStringList(const QStringList& format)
 			} else {
 				const int numTagCodes = 3;
 				const QChar tagCode[numTagCodes] = { 'f', 'd', 'b' };
+				const QStringList tagLongCodes =
+					(QStringList() << "file" << "directory" << "browser");
 				QString tagStr[numTagCodes];
 				if (!files.empty()) {
 					tagStr[0] = files.front();
@@ -663,14 +665,24 @@ QStringList FileList::formatStringList(const QStringList& format)
 						}
 					}
 				}
-				QString str = StandardTags::replacePercentCodes(*it, tagCode, tagStr, numTagCodes);
+				QString str = StandardTags::replacePercentCodes(
+					*it, tagCode, tagLongCodes, tagStr, numTagCodes);
 
-				int ufPos;
-				if ((ufPos = str.QCM_indexOf("%uf")) != -1 && !files.empty()) {
+				int ufLen = 0;
+				int ufPos = str.QCM_indexOf("%uf");
+				if (ufPos != -1) {
+					ufLen = 3;
+				} else {
+					ufPos = str.QCM_indexOf("%{url}");
+					if (ufPos != -1) {
+						ufLen = 6;
+					}
+				}
+				if (ufPos != -1 && !files.empty()) {
 					QUrl url;
 					url.QCM_setScheme("file");
 					url.QCM_setPath(files.front());
-					str.replace(ufPos, 3, url.toString());
+					str.replace(ufPos, ufLen, url.toString());
 				}
 
 				if (firstSelectedItem) {
@@ -686,6 +698,52 @@ QStringList FileList::formatStringList(const QStringList& format)
 		}
 	}
 	return fmt;
+}
+
+/**
+ * Get help text for format codes supported by formatStringList().
+ *
+ * @param onlyRows if true only the <tr> elements are returned,
+ *                 not the surrounding <table>
+ *
+ * @return help text.
+ */
+QString FileList::getFormatToolTip(bool onlyRows)
+{
+	QString str;
+	if (!onlyRows) str += "<table>\n";
+	str += StandardTags::getFormatToolTip(true);
+
+	str += "<tr><td>%f</td><td>%{file}</td><td>";
+	str += QCM_translate("Filename");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%F</td><td>%{files}</td><td>";
+	str += QCM_translate(I18N_NOOP("Filenames"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%uf</td><td>%{url}</td><td>";
+	str += QCM_translate("URL");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%uF</td><td>%{urls}</td><td>";
+	str += QCM_translate(I18N_NOOP("URLs"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%d</td><td>%{directory}</td><td>";
+	str += QCM_translate(I18N_NOOP("Directory name"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%b</td><td>%{browser}</td><td>";
+	str += QCM_translate("Browser");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
+	str += QCM_translate(I18N_NOOP("Encode as URL"));
+	str += "</td></tr>\n";
+
+	if (!onlyRows) str += "</table>\n";
+	return str;
 }
 
 /**

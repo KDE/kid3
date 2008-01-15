@@ -189,6 +189,7 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_formatComboBox = new QComboBox(filenameGroupBox);
 	m_formatComboBox->setEditable(true);
+	m_formatComboBox->setToolTip(StandardTags::getFormatToolTip());
 	filenameGroupBoxLayout->addWidget(m_formatComboBox, 1, 1);
 
 	QPushButton* fnV2Button =
@@ -318,6 +319,7 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_formatComboBox = new QComboBox(filenameGroupBox);
 	m_formatComboBox->setEditable(true);
+	QToolTip::add(m_formatComboBox, StandardTags::getFormatToolTip());
 	filenameGroupBoxLayout->addWidget(m_formatComboBox, 2, 1);
 
 	QPushButton* fnV2Button =

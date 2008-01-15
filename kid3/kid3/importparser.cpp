@@ -29,6 +29,52 @@
 #include "importparser.h"
 
 /**
+ * Get help text for format codes supported by setFormat().
+ *
+ * @return help text.
+ */
+QString ImportParser::getFormatToolTip()
+{
+	QString str;
+	str += "<table>\n";
+
+	str += "<tr><td>%s</td><td>%{title}</td><td>";
+	str += QCM_translate("Title");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%l</td><td>%{album}</td><td>";
+	str += QCM_translate("Album");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%a</td><td>%{artist}</td><td>";
+	str += QCM_translate("Artist");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%c</td><td>%{comment}</td><td>";
+	str += QCM_translate("Comment");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%y</td><td>%{year}</td><td>";
+	str += QCM_translate("Year");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%t</td><td>%{track}</td><td>";
+	str += QCM_translate("Track");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%g</td><td>%{genre}</td><td>";
+	str += QCM_translate("Genre");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%d</td><td>%{duration}</td><td>";
+	str += QCM_translate("Length");
+	str += "</td></tr>\n";
+
+	str += "</table>\n";
+	return str;
+}
+
+/**
  * Set import format.
  *
  * @param fmt format regexp
@@ -38,6 +84,15 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
 {
 	int percentIdx = 0, nr = 1, lastIdx = fmt.length() - 1;
 	m_pattern = fmt;
+	m_pattern.replace("%{title}", "%s");
+	m_pattern.replace("%{album}", "%l");
+	m_pattern.replace("%{artist}", "%a");
+	m_pattern.replace("%{comment}", "%c");
+	m_pattern.replace("%{year}", "%y");
+	m_pattern.replace("%{track}", "%t");
+	m_pattern.replace("%{tracknumber}", "%t");
+	m_pattern.replace("%{genre}", "%g");
+	m_pattern.replace("%{duration}", "%d");
 	m_titlePos = m_albumPos = m_artistPos = m_commentPos = m_yearPos = m_trackPos =
 		m_genrePos = m_durationPos = -1;
 	while (((percentIdx = m_pattern.QCM_indexOf('%', percentIdx)) >= 0) &&

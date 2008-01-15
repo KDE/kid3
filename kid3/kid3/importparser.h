@@ -71,6 +71,13 @@ public:
 	 */
 	TrackDurationList* getTrackDurations() { return &m_trackDuration; }
 
+	/**
+	 * Get help text for format codes supported by setFormat().
+	 *
+	 * @return help text.
+	 */
+	static QString getFormatToolTip();
+
 private:
 	/** track regexp pattern */
 	QString m_pattern;

@@ -50,6 +50,7 @@
 #include <qapplication.h>
 #include <qclipboard.h>
 #include <qurl.h>
+#include <qtooltip.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QGroupBox>
@@ -59,6 +60,25 @@
 #else
 #include <qgroupbox.h>
 #endif
+
+/**
+ * Get help text for format codes supported by formatString().
+ *
+ * @return help text.
+ */
+static QString getFormatToolTip()
+{
+	QString str;
+	str += "<table>\n";
+	str += ImportTrackData::getFormatToolTip(true);
+
+	str += "<tr><td>%n</td><td>%{tracks}</td><td>";
+	str += QCM_translate(I18N_NOOP("Number of tracks"));
+	str += "</td></tr>\n";
+
+	str += "</table>\n";
+	return str;
+}
 
 /**
  * Constructor.
@@ -92,6 +112,10 @@ ExportDialog::ExportDialog(QWidget* parent) :
 			m_headerLineEdit = new QLineEdit(fmtbox);
 			m_trackLineEdit = new QLineEdit(fmtbox);
 			m_trailerLineEdit = new QLineEdit(fmtbox);
+			QString formatToolTip = getFormatToolTip();
+			QCM_setToolTip(m_headerLineEdit, formatToolTip);
+			QCM_setToolTip(m_trackLineEdit, formatToolTip);
+			QCM_setToolTip(m_trailerLineEdit, formatToolTip);
 #if QT_VERSION >= 0x040000
 			QVBoxLayout* vbox = new QVBoxLayout;
 			vbox->setMargin(2);
@@ -276,11 +300,12 @@ static QString trackDataToString(
 	if (!fmt.isEmpty()) {
 		const int numTagCodes = 1;
 		const QChar tagCode[numTagCodes] = { 'n' };
+		const QStringList tagLongCodes("tracks");
 		QString tagStr[numTagCodes];
 		tagStr[0] = QString::number(numTracks);
 
 		fmt = StandardTags::replacePercentCodes(
-			fmt, tagCode, tagStr, numTagCodes);
+			fmt, tagCode, tagLongCodes, tagStr, numTagCodes);
 	}
 	return fmt;
 }

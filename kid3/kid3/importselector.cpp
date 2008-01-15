@@ -42,6 +42,7 @@
 #include <qbitarray.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
+#include <qtooltip.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QTableWidget>
@@ -257,6 +258,9 @@ ImportSelector::ImportSelector(
 	m_formatComboBox->setEditable(true);
 	m_headerLineEdit = new QLineEdit(fmtbox);
 	m_trackLineEdit = new QLineEdit(fmtbox);
+	QString formatToolTip = ImportParser::getFormatToolTip();
+	QCM_setToolTip(m_headerLineEdit, formatToolTip);
+	QCM_setToolTip(m_trackLineEdit, formatToolTip);
 	connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
 #if QT_VERSION >= 0x040000
 	QVBoxLayout* vbox = new QVBoxLayout;

@@ -29,6 +29,8 @@
 
 #include <qstring.h>
 
+class QStringList;
+
 /** Set of standard tags */
 class StandardTags {
  public:
@@ -116,6 +118,16 @@ class StandardTags {
 	QString formatString(const QString& format, unsigned flags = 0) const;
 
 	/**
+	 * Get help text for format codes supported by formatString().
+	 *
+	 * @param onlyRows if true only the <tr> elements are returned,
+	 *                 not the surrounding <table>
+	 *
+	 * @return help text.
+	 */
+	static QString getFormatToolTip(bool onlyRows = false);
+
+	/**
 	 * Replace escaped characters in a string.
 	 *
 	 * @param format string with escaped two-character-sequences
@@ -129,8 +141,9 @@ class StandardTags {
 	 * Replace percent codes in a string.
 	 *
 	 * @param format string with percent codes
-	 *               (% followed by a single character)
-	 * @param codes        characters following percent
+	 *               (% followed by a single character or %{word})
+	 * @param shortCodes   characters following percent
+	 * @param longCodes    code words in braces following percent
 	 * @param replacements strings with replacements for codes
 	 * @param numCodes     number of elements in codes and replacements
 	 * @param flags        flags: FSF_SupportUrlEncode to support modifier u
@@ -141,7 +154,8 @@ class StandardTags {
 	 * @return string with percent codes replaced
 	 */
 	static QString replacePercentCodes(
-		const QString& format, const QChar* codes,
+		const QString& format, const QChar* shortCodes,
+		const QStringList& longCodes,
 		const QString* replacements, int numCodes,
 		unsigned flags = 0);
 

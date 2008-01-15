@@ -52,6 +52,9 @@ QString ImportTrackData::formatString(const QString& format) const
 		const QChar tagCode[numTagCodes] = {
 	    'f', 'p', 'u', 'd', 'D'
 		};
+		const QStringList tagLongCodes =
+			(QStringList() << "file" << "filepath" << "url" <<
+			 "duration" << "seconds");
 		QString tagStr[numTagCodes];
 
 		QString filename(getAbsFilename());
@@ -77,7 +80,45 @@ QString ImportTrackData::formatString(const QString& format) const
 		tagStr[4] = QString::number(getFileDuration());
 
 		fmt = replaceEscapedChars(fmt);
-		fmt = replacePercentCodes(fmt, tagCode, tagStr, numTagCodes);
+		fmt = replacePercentCodes(fmt, tagCode, tagLongCodes, tagStr, numTagCodes);
 	}
 	return fmt;
+}
+
+/**
+ * Get help text for format codes supported by formatString().
+ *
+ * @param onlyRows if true only the <tr> elements are returned,
+ *                 not the surrounding <table>
+ *
+ * @return help text.
+ */
+QString ImportTrackData::getFormatToolTip(bool onlyRows)
+{
+	QString str;
+	if (!onlyRows) str += "<table>\n";
+	str += StandardTags::getFormatToolTip(true);
+
+	str += "<tr><td>%f</td><td>%{file}</td><td>";
+	str += QCM_translate("Filename");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%p</td><td>%{filepath}</td><td>";
+	str += QCM_translate(I18N_NOOP("Absolute path to file"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%u</td><td>%{url}</td><td>";
+	str += QCM_translate("URL");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%d</td><td>%{duration}</td><td>";
+	str += QCM_translate("Length");
+	str += " &quot;M:S&quot;</td></tr>\n";
+
+	str += "<tr><td>%D</td><td>%{seconds}</td><td>";
+	str += QCM_translate("Length");
+	str += " &quot;S&quot;</td></tr>\n";
+
+	if (!onlyRows) str += "</table>\n";
+	return str;
 }

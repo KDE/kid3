@@ -149,6 +149,7 @@
 #define QCM_setMenuText setText
 #define QCM_setShortcut setShortcut
 #define QCM_addAction(w, a) (w)->addAction(a)
+#define QCM_setToolTip(w, t) (w)->setToolTip(t)
 #define QCM_addSeparator addSeparator
 #define QCM_showMessage showMessage
 #define QCM_clearMessage clearMessage
@@ -219,6 +220,7 @@ namespace QAbstractSocket { enum SocketError {}; }
 #define QCM_setMenuText setMenuText
 #define QCM_setShortcut setAccel
 #define QCM_addAction(w, a) (a)->addTo(w)
+#define QCM_setToolTip(w, t) QToolTip::add(w, t)
 #define QCM_addSeparator insertSeparator
 #define QCM_showMessage message
 #define QCM_clearMessage clear

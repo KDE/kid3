@@ -25,6 +25,8 @@
  */
 
 #include "commandstable.h"
+#include "filelist.h"
+#include <qtooltip.h>
 
 #if QT_VERSION >= 0x040000
 #include <QMenu>
@@ -58,6 +60,7 @@ CommandsTable::CommandsTable(QWidget* parent) :
 	resizeColumnToContents(CI_Confirm);
 	resizeColumnToContents(CI_Output);
 	horizontalHeader()->setResizeMode(CI_Command, QHeaderView::Stretch);
+	horizontalHeaderItem(CI_Command)->setToolTip(FileList::getFormatToolTip());
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(this, SIGNAL(cellActivated(int, int)),
 			this, SLOT(valueChanged(int, int)));
@@ -73,6 +76,7 @@ CommandsTable::CommandsTable(QWidget* parent) :
 	horizontalHeader()->setLabel(CI_Output, i18n("Output"));
 	horizontalHeader()->setLabel(CI_Name, i18n("Name"));
 	horizontalHeader()->setLabel(CI_Command, i18n("Command"));
+	QToolTip::add(horizontalHeader(), FileList::getFormatToolTip());
 	adjustColumn(CI_Confirm);
 	adjustColumn(CI_Output);
 	setColumnStretchable(CI_Command, true);

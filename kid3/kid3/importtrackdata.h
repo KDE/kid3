@@ -111,6 +111,16 @@ public:
 	 */
 	QString formatString(const QString& format) const;
 
+	/**
+	 * Get help text for format codes supported by formatString().
+	 *
+	 * @param onlyRows if true only the <tr> elements are returned,
+	 *                 not the surrounding <table>
+	 *
+	 * @return help text.
+	 */
+	static QString getFormatToolTip(bool onlyRows = false);
+
 private:
 	int m_fileDuration;
 	int m_importDuration;

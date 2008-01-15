@@ -27,6 +27,7 @@
 #include "standardtags.h"
 #include "genres.h"
 #include <qurl.h>
+#include <qstringlist.h>
 #include "qtcompatmac.h"
 
 StandardTags::StandardTags()
@@ -184,8 +185,9 @@ QString StandardTags::replaceEscapedChars(const QString& format)
  * Replace percent codes in a string.
  *
  * @param format string with percent codes
- *               (% followed by a single character)
- * @param codes        characters following percent
+ *               (% followed by a single character or %{word})
+ * @param shortCodes   characters following percent
+ * @param longCodes    code words in braces following percent
  * @param replacements strings with replacements for codes
  * @param numCodes     number of elements in codes and replacements
  * @param flags        flags: FSF_SupportUrlEncode to support modifier u
@@ -196,7 +198,8 @@ QString StandardTags::replaceEscapedChars(const QString& format)
  * @return string with percent codes replaced
  */
 QString StandardTags::replacePercentCodes(
-	const QString& format, const QChar* codes,
+	const QString& format, const QChar* shortCodes,
+	const QStringList& longCodes,
 	const QString* replacements, int numCodes,
 	unsigned flags)
 {
@@ -206,33 +209,52 @@ QString StandardTags::replacePercentCodes(
 			pos = fmt.QCM_indexOf('%', pos);
 			if (pos == -1) break;
 
-			for (int k = 0;; ++k) {
-				if (k >= numCodes) {
-					// invalid code at pos
-					++pos;
-					break;
-				}
-				if ((flags & FSF_SupportUrlEncode) &&
-						fmt[pos + 1] == 'u' && fmt[pos + 2] == codes[k]) {
-					// code found, replace it URL encoded
-					QString enc = replacements[k];
-					QCM_QUrl_encode(enc);
-					fmt.replace(pos, 3, enc);
-					pos += enc.length();
-					break;
-				}
-				if (fmt[pos + 1] == codes[k]) {
-					// code found, replace it
-					QString repl = replacements[k];
-					if (flags & FSF_ReplaceSeparators) {
-						repl.replace('/', '-');
-						repl.replace('\\', '-');
-						repl.replace(':', '-');
+			int codePos = pos + 1;
+			int codeLen = 0;
+			bool urlEncode = false;
+			QString repl;
+			if ((flags & FSF_SupportUrlEncode) && fmt[codePos] == 'u') {
+				++codePos;
+				urlEncode = true;
+			}
+			if (fmt[codePos] == '{') {
+				int closingBracePos = fmt.QCM_indexOf('}', codePos + 1);
+				if (closingBracePos > codePos + 1) {
+					QString longCode =
+						fmt.mid(codePos + 1, closingBracePos - codePos - 1).QCM_toLower();
+					for (int k = 0; k < numCodes; ++k) {
+						if (longCode == longCodes[k]) {
+							// code found, replace it
+							repl = replacements[k];
+							codeLen = closingBracePos - pos + 1;
+							break;
+						}
 					}
-					fmt.replace(pos, 2, repl);
-					pos += repl.length();
-					break;
 				}
+			} else {
+				for (int k = 0; k < numCodes; ++k) {
+					if (fmt[codePos] == shortCodes[k]) {
+						// code found, replace it
+						repl = replacements[k];
+						codeLen = codePos - pos + 1;
+						break;
+					}
+				}
+			}
+
+			if (codeLen > 0) {
+				if (flags & FSF_ReplaceSeparators) {
+					repl.replace('/', '-');
+					repl.replace('\\', '-');
+					repl.replace(':', '-');
+				}
+				if (urlEncode) {
+					QCM_QUrl_encode(repl);
+				}
+				fmt.replace(pos, codeLen, repl);
+				pos += repl.length();
+			} else {
+				++pos;
 			}
 		}
 	}
@@ -266,6 +288,9 @@ QString StandardTags::formatString(const QString& format, unsigned flags) const
 		const QChar tagCode[numTagCodes] = {
 	    's', 'l', 'a', 'c', 'y', 't', 'T', 'g'
 		};
+		const QStringList tagLongCodes =
+			(QStringList() << "title" << "album" << "artist" <<
+			 "comment" << "year" << "track" << "tracknumber" << "genre");
 		QString tagStr[numTagCodes];
 
 		QString yearStr, trackStr;
@@ -280,9 +305,59 @@ QString StandardTags::formatString(const QString& format, unsigned flags) const
 		tagStr[6] = QString::number(track);
 		tagStr[7] = genre;
 
-		return replacePercentCodes(format, tagCode, tagStr, numTagCodes, flags);
+		return replacePercentCodes(format, tagCode, tagLongCodes,
+															 tagStr, numTagCodes, flags);
 	}
 	return format;
+}
+
+/**
+ * Get help text for format codes supported by formatString().
+ *
+ * @param onlyRows if true only the <tr> elements are returned,
+ *                 not the surrounding <table>
+ *
+ * @return help text.
+ */
+QString StandardTags::getFormatToolTip(bool onlyRows)
+{
+	QString str;
+	if (!onlyRows) str += "<table>\n";
+
+	str += "<tr><td>%s</td><td>%{title}</td><td>";
+	str += QCM_translate("Title");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%l</td><td>%{album}</td><td>";
+	str += QCM_translate("Album");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%a</td><td>%{artist}</td><td>";
+	str += QCM_translate("Artist");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%c</td><td>%{comment}</td><td>";
+	str += QCM_translate("Comment");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%y</td><td>%{year}</td><td>";
+	str += QCM_translate("Year");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%t</td><td>%{track}</td><td>";
+	str += QCM_translate("Track");
+	str += " &quot;01&quot;</td></tr>\n";
+
+	str += "<tr><td>%T</td><td>%{tracknumber}</td><td>";
+	str += QCM_translate("Track");
+	str += " &quot;1&quot;</td></tr>\n";
+
+	str += "<tr><td>%g</td><td>%{genre}</td><td>";
+	str += QCM_translate("Genre");
+	str += "</td></tr>\n";
+
+	if (!onlyRows) str += "</table>\n";
+	return str;
 }
 
 
