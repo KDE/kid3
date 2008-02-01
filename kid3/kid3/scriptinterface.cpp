@@ -612,6 +612,7 @@ void ScriptInterface::applyFilenameFormat() {}
 void ScriptInterface::applyTagFormat() {}
 bool ScriptInterface::setDirNameFromTag(int, const QString&, bool) { return false; }
 void ScriptInterface::numberTracks(int, int) {}
+void ScriptInterface::filter(const QString&) {}
 #ifdef HAVE_TAGLIB
 void ScriptInterface::convertToId3v24() {}
 #endif
