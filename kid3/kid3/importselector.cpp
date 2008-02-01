@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -398,6 +398,19 @@ void ImportSelector::setImportServer(ImportConfig::ImportServer server)
 }
 
 /**
+ * Set the format combo box and line edits from the configuration.
+ */
+void ImportSelector::setFormatFromConfig()
+{
+	m_formatHeaders = Kid3App::s_genCfg.m_importFormatHeaders;
+	m_formatTracks = Kid3App::s_genCfg.m_importFormatTracks;
+	m_formatComboBox->clear();
+	m_formatComboBox->QCM_addItems(Kid3App::s_genCfg.m_importFormatNames);
+	m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importFormatIdx);
+	setFormatLineEdit(Kid3App::s_genCfg.m_importFormatIdx);
+}
+
+/**
  * Clear dialog data.
  */
 void ImportSelector::clear()
@@ -410,12 +423,7 @@ void ImportSelector::clear()
 	m_serverComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importServer);
 	m_destComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importDest);
 
-	m_formatHeaders = Kid3App::s_genCfg.m_importFormatHeaders;
-	m_formatTracks = Kid3App::s_genCfg.m_importFormatTracks;
-	m_formatComboBox->clear();
-	m_formatComboBox->QCM_addItems(Kid3App::s_genCfg.m_importFormatNames);
-	m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importFormatIdx);
-	setFormatLineEdit(Kid3App::s_genCfg.m_importFormatIdx);
+	setFormatFromConfig();
 
 	m_mismatchCheckBox->setChecked(Kid3App::s_genCfg.m_enableTimeDifferenceCheck);
 	m_maxDiffSpinBox->setValue(Kid3App::s_genCfg.m_maxTimeDifference);
@@ -922,6 +930,8 @@ void ImportSelector::saveConfig(int width, int height)
 
 	Kid3App::s_genCfg.m_importWindowWidth = width;
 	Kid3App::s_genCfg.m_importWindowHeight = height;
+
+	setFormatFromConfig();
 }
 
 /**

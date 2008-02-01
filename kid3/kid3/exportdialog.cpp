@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 May 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -352,12 +352,10 @@ void ExportDialog::setExportData(const ImportTrackDataVector& trackDataVector)
 }
 
 /**
- * Read the local settings from the configuration.
+ * Set the format combo box and line edits from the configuration.
  */
-void ExportDialog::readConfig()
+void ExportDialog::setFormatFromConfig()
 {
-	m_srcComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_exportSrcV1 ? SrcV1 : SrcV2);
-
 	m_formatHeaders = Kid3App::s_genCfg.m_exportFormatHeaders;
 	m_formatTracks = Kid3App::s_genCfg.m_exportFormatTracks;
 	m_formatTrailers = Kid3App::s_genCfg.m_exportFormatTrailers;
@@ -365,6 +363,16 @@ void ExportDialog::readConfig()
 	m_formatComboBox->QCM_addItems(Kid3App::s_genCfg.m_exportFormatNames);
 	m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_exportFormatIdx);
 	setFormatLineEdit(Kid3App::s_genCfg.m_exportFormatIdx);
+}
+
+/**
+ * Read the local settings from the configuration.
+ */
+void ExportDialog::readConfig()
+{
+	m_srcComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_exportSrcV1 ? SrcV1 : SrcV2);
+
+	setFormatFromConfig();
 
 	if (Kid3App::s_genCfg.m_exportWindowWidth > 0 &&
 			Kid3App::s_genCfg.m_exportWindowHeight > 0) {
@@ -394,6 +402,8 @@ void ExportDialog::saveConfig()
 	}
 	Kid3App::s_genCfg.m_exportWindowWidth = size().width();
 	Kid3App::s_genCfg.m_exportWindowHeight = size().height();
+
+	setFormatFromConfig();
 }
 
 /**

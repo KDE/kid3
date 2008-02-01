@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -275,6 +275,11 @@ private:
 	 * @return true if tags were found.
 	 */
 	bool updateTrackData(ImportSource impSrc);
+
+	/**
+	 * Set the format combo box and line edits from the configuration.
+	 */
+	void setFormatFromConfig();
 
 	/** From File button */
 	QPushButton* m_fileButton;

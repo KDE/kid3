@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 May 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -121,6 +121,11 @@ private slots:
 	void showHelp();
 
 private:
+	/**
+	 * Set the format combo box and line edits from the configuration.
+	 */
+	void setFormatFromConfig();
+
   /** Text editor */
   QTextEdit* m_edit;
 	/** cobobox with formats */
