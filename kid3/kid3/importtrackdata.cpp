@@ -112,11 +112,11 @@ QString ImportTrackData::getFormatToolTip(bool onlyRows)
 	str += "</td></tr>\n";
 
 	str += "<tr><td>%d</td><td>%{duration}</td><td>";
-	str += QCM_translate("Length");
+	str += QCM_translate(I18N_NOOP("Length"));
 	str += " &quot;M:S&quot;</td></tr>\n";
 
 	str += "<tr><td>%D</td><td>%{seconds}</td><td>";
-	str += QCM_translate("Length");
+	str += QCM_translate(I18N_NOOP("Length"));
 	str += " &quot;S&quot;</td></tr>\n";
 
 	if (!onlyRows) str += "</table>\n";

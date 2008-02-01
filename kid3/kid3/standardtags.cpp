@@ -341,7 +341,7 @@ QString StandardTags::getFormatToolTip(bool onlyRows)
 	str += "</td></tr>\n";
 
 	str += "<tr><td>%y</td><td>%{year}</td><td>";
-	str += QCM_translate("Year");
+	str += QCM_translate(I18N_NOOP("Year"));
 	str += "</td></tr>\n";
 
 	str += "<tr><td>%t</td><td>%{track}</td><td>";

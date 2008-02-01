@@ -55,7 +55,7 @@ QString ImportParser::getFormatToolTip()
 	str += "</td></tr>\n";
 
 	str += "<tr><td>%y</td><td>%{year}</td><td>";
-	str += QCM_translate("Year");
+	str += QCM_translate(I18N_NOOP("Year"));
 	str += "</td></tr>\n";
 
 	str += "<tr><td>%t</td><td>%{track}</td><td>";
@@ -67,7 +67,7 @@ QString ImportParser::getFormatToolTip()
 	str += "</td></tr>\n";
 
 	str += "<tr><td>%d</td><td>%{duration}</td><td>";
-	str += QCM_translate("Length");
+	str += QCM_translate(I18N_NOOP("Length"));
 	str += "</td></tr>\n";
 
 	str += "</table>\n";
