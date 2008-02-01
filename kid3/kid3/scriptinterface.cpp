@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Dec 2007
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2007-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,6 +25,7 @@
  */
 
 #include "scriptinterface.h"
+#if QT_VERSION >= 0x040000
 #include <QDBusMessage>
 #include <QDBusConnection>
 #include <QFileInfo>
@@ -33,6 +34,7 @@
 #include "filelistitem.h"
 #include "taggedfile.h"
 #include "frametable.h"
+#include "filefilter.h"
 
 /**
  * Constructor.
@@ -140,7 +142,7 @@ bool ScriptInterface::createPlaylist()
 /**
  * Quit the application.
  */
-Q_NOREPLY void ScriptInterface::quit()
+void ScriptInterface::quit()
 {
 	selectAll();
 	revert();
@@ -259,6 +261,19 @@ bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
 void ScriptInterface::numberTracks(int tagMask, int firstTrackNr)
 {
 	m_app->numberTracks(firstTrackNr, (tagMask & 1) != 0, (tagMask & 2) != 0);
+}
+
+/**
+ * Filter the files.
+ *
+ * @param expression filter expression
+ */
+void ScriptInterface::filter(const QString& expression)
+{
+	FileFilter filter;
+	filter.setFilterExpression(expression);
+	filter.initParser();
+	m_app->applyFilter(filter);
 }
 
 #ifdef HAVE_TAGLIB
@@ -574,3 +589,50 @@ void ScriptInterface::reparseConfiguration()
 {
 	m_app->readOptions();
 }
+
+#else // QT_VERSION >= 0x040000
+
+ScriptInterface::ScriptInterface(Kid3App*) {}
+ScriptInterface::~ScriptInterface() {}
+bool ScriptInterface::openDirectory(const QString&) { return false; }
+bool ScriptInterface::save() { return false; }
+QString ScriptInterface::getErrorMessage() const { return ""; }
+void ScriptInterface::revert() {}
+bool ScriptInterface::importFromFile(int, const QString&, int) { return false; }
+bool ScriptInterface::exportToFile(int, const QString&, int) { return false; }
+bool ScriptInterface::createPlaylist() { return false; }
+void ScriptInterface::quit() {}
+void ScriptInterface::selectAll() {}
+void ScriptInterface::deselectAll() {}
+bool ScriptInterface::firstFile() { return false; }
+bool ScriptInterface::previousFile() { return false; }
+bool ScriptInterface::nextFile() { return false; }
+bool ScriptInterface::expandDirectory() { return false; }
+void ScriptInterface::applyFilenameFormat() {}
+void ScriptInterface::applyTagFormat() {}
+bool ScriptInterface::setDirNameFromTag(int, const QString&, bool) { return false; }
+void ScriptInterface::numberTracks(int, int) {}
+#ifdef HAVE_TAGLIB
+void ScriptInterface::convertToId3v24() {}
+#endif
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+void ScriptInterface::convertToId3v23() {}
+#endif
+QString ScriptInterface::getDirectoryName() { return ""; }
+QString ScriptInterface::getFileName() { return ""; }
+void ScriptInterface::setFileName(const QString&) {}
+void ScriptInterface::setFileNameFormat(const QString&) {}
+void ScriptInterface::setFileNameFromTag(int) {}
+QString ScriptInterface::getFrame(int, const QString&) { return ""; }
+bool ScriptInterface::setFrame(int, const QString&, const QString&) { return false; }
+QStringList ScriptInterface::getTag(int) { return ""; }
+QStringList ScriptInterface::getInformation() { return ""; }
+void ScriptInterface::setTagFromFileName(int) {}
+void ScriptInterface::setTagFromOtherTag(int) {}
+void ScriptInterface::copyTag(int) {}
+void ScriptInterface::pasteTag(int) {}
+void ScriptInterface::removeTag(int) {}
+void ScriptInterface::hideTag(int, bool) {}
+void ScriptInterface::reparseConfiguration() {}
+
+#endif // QT_VERSION >= 0x040000

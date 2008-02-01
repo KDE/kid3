@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,6 +57,7 @@ typedef QMainWindow Kid3AppBaseClass;
 #include "freedbconfig.h"
 #include "discogsconfig.h"
 #include "musicbrainzconfig.h"
+#include "filterconfig.h"
 #include "frame.h"
 
 class KURL;
@@ -69,6 +70,8 @@ class ImportDialog;
 class ExportDialog;
 class NumberTracksDialog;
 class RenDirDialog;
+class FilterDialog;
+class FileFilter;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -263,6 +266,8 @@ public:
 	static DiscogsConfig s_discogsCfg;
 	/** MusicBrainz configuration */
 	static MusicBrainzConfig s_musicBrainzCfg;
+	/** Filter configuration */
+	static FilterConfig s_filterCfg;
 
 protected:
 	/**
@@ -537,6 +542,11 @@ public slots:
 	void slotNumberTracks();
 
 	/**
+	 * Filter.
+	 */
+	void slotFilter();
+
+	/**
 	 * Convert ID3v2.3 to ID3v2.4 tags.
 	 */
 	void slotConvertToId3v24();
@@ -561,6 +571,13 @@ private slots:
 	 *            ExportDialog::SrcV2 to export ID3v2
 	 */
 	void setExportData(int src);
+
+	/**
+	 * Apply a file filter.
+	 *
+	 * @param fileFilter filter to apply.
+	 */
+	void applyFilter(FileFilter& fileFilter);
 
 private:
 	friend class ScriptInterface;
@@ -675,10 +692,26 @@ private:
 	 */
 	void updateHideV2();
 
+	/**
+	 * Set filter state.
+	 *
+	 * @param val true if list is filtered
+	 */
+	void setFiltered(bool val) { m_filtered = val; }
+
+	/**
+	 * Check filter state.
+	 *
+	 * @return true if list is filtered.
+	 */
+	bool isFiltered() { return m_filtered; }
+
 	/** GUI with controls, created by Qt Designer */
 	Id3Form* m_view;
 	/** true if any file was modified */
 	bool m_modified;
+	/** true if list is filtered */
+	bool m_filtered;
 	/** Copy buffer */
 	FrameCollection m_copyTags;
 	/** Import dialog */
@@ -689,6 +722,8 @@ private:
 	ExportDialog* m_exportDialog;
 	/** Number tracks dialog */
 	NumberTracksDialog* m_numberTracksDialog;
+	/** Filter dialog */
+	FilterDialog* m_filterDialog;
 	/** Frame list */
 	FrameList* m_framelist;
 

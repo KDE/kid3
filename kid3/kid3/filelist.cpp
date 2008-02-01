@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -323,6 +323,79 @@ FileListItem* FileList::nextInDir()
 #endif
 	}
 	return m_currentItemInDir;
+}
+
+/**
+ * Get the next item in the filelist which contains a file or a directory.
+ *
+ * @param it list view iterator
+ *
+ * @return next item with file or directory.
+ */
+static FileListItem* getNextItemWithFileOrDir(
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItemIterator& it
+#else
+	QListViewItemIterator& it
+#endif
+	)
+{
+#if QT_VERSION >= 0x040000
+	QTreeWidgetItem* lvItem;
+#else
+	QListViewItem* lvItem;
+#endif
+	while ((lvItem = *it) != 0) {
+		FileListItem* flItem = dynamic_cast<FileListItem*>(lvItem);
+		if (flItem) {
+			return flItem;
+		}
+		++it;
+	}
+	return 0;
+}
+
+/**
+ * Get the first file or directory item in the filelist.
+ *
+ * @return first file.
+ */
+FileListItem* FileList::firstFileOrDir()
+{
+#if QT_VERSION >= 0x040000
+	delete m_iterator;
+	if (topLevelItemCount() > 0) {
+		m_iterator = new QTreeWidgetItemIterator(this);
+		return getNextItemWithFileOrDir(*m_iterator);
+	} else {
+		m_iterator = 0;
+		return 0;
+	}
+#else
+	m_iterator = QListViewItemIterator(this);
+	return getNextItemWithFileOrDir(m_iterator);
+#endif
+}
+
+/**
+ * Get the next file or directory item in the filelist.
+ *
+ * @return next file.
+ */
+FileListItem* FileList::nextFileOrDir()
+{
+#if QT_VERSION >= 0x040000
+	if (m_iterator && **m_iterator) {
+		++*m_iterator;
+		return getNextItemWithFileOrDir(*m_iterator);
+	}
+#else
+	if (*m_iterator) {
+		++m_iterator;
+		return getNextItemWithFileOrDir(m_iterator);
+	}
+#endif
+	return 0;
 }
 
 /**

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -86,6 +86,7 @@
 #include "importdialog.h"
 #include "exportdialog.h"
 #include "numbertracksdialog.h"
+#include "filterdialog.h"
 #include "standardtags.h"
 #include "rendirdialog.h"
 #include "filelistitem.h"
@@ -228,6 +229,7 @@ FreedbConfig Kid3App::s_freedbCfg("Freedb");
 FreedbConfig Kid3App::s_trackTypeCfg("TrackType");
 DiscogsConfig Kid3App::s_discogsCfg("Discogs");
 MusicBrainzConfig Kid3App::s_musicBrainzCfg("MusicBrainz");
+FilterConfig Kid3App::s_filterCfg("Filter");
 
 /** Current directory */
 QString Kid3App::s_dirName;
@@ -238,7 +240,8 @@ QString Kid3App::s_dirName;
  * @param name name
  */
 Kid3App::Kid3App() :
-	m_importDialog(0), m_exportDialog(0), m_numberTracksDialog(0)
+	m_importDialog(0), m_exportDialog(0), m_numberTracksDialog(0),
+	m_filterDialog(0)
 {
 #ifdef CONFIG_USE_KDE
 #if KDE_VERSION >= 0x035c00
@@ -284,6 +287,7 @@ Kid3App::Kid3App() :
 	initFileTypes();
 	initStatusBar();
 	setModified(false);
+	setFiltered(false);
 	initView();
 	initActions();
 	s_fnFormatCfg.setAsFilenameFormatter();
@@ -300,6 +304,7 @@ Kid3App::~Kid3App()
 {
 	delete m_importDialog;
 	delete m_numberTracksDialog;
+	delete m_filterDialog;
 #ifndef CONFIG_USE_KDE
 	delete s_helpBrowser;
 	s_helpBrowser = 0;
@@ -417,6 +422,10 @@ void Kid3App::initActions()
 		    i18n("&Number Tracks..."), this,
 		    SLOT(slotNumberTracks()), actionCollection(),
 		    "number_tracks");
+	KCM_KAction(toolsFilter,
+		    i18n("F&ilter..."), this,
+		    SLOT(slotFilter()), actionCollection(),
+		    "filter");
 #ifdef HAVE_TAGLIB
 	KCM_KAction(toolsConvertToId3v24,
 		    i18n("Convert ID3v2.3 to ID3v2.&4"), this,
@@ -683,6 +692,13 @@ void Kid3App::initActions()
 		connect(toolsNumberTracks, QCM_SIGNAL_triggered,
 			this, SLOT(slotNumberTracks()));
 	}
+	QAction* toolsFilter = new QAction(this);
+	if (toolsFilter) {
+		toolsFilter->setStatusTip(i18n("Filter"));
+		toolsFilter->QCM_setMenuText(i18n("F&ilter..."));
+		connect(toolsFilter, QCM_SIGNAL_triggered,
+			this, SLOT(slotFilter()));
+	}
 #ifdef HAVE_TAGLIB
 	QAction* toolsConvertToId3v24 = new QAction(this);
 	if (toolsConvertToId3v24) {
@@ -771,6 +787,7 @@ void Kid3App::initActions()
 		QCM_addAction(toolsMenu, toolsApplyId3Format);
 		QCM_addAction(toolsMenu, toolsRenameDirectory);
 		QCM_addAction(toolsMenu, toolsNumberTracks);
+		QCM_addAction(toolsMenu, toolsFilter);
 #ifdef HAVE_TAGLIB
 		QCM_addAction(toolsMenu, toolsConvertToId3v24);
 #endif
@@ -875,6 +892,7 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 	if (ok) {
 		m_view->readDirectoryList(dir);
 		setModified(false);
+		setFiltered(false);
 #ifdef CONFIG_USE_KDE
 #if KDE_VERSION >= 0x035c00
 		KUrl url;
@@ -918,6 +936,7 @@ void Kid3App::saveOptions()
 	s_freedbCfg.writeToConfig(m_config);
 	s_trackTypeCfg.writeToConfig(m_config);
 	s_discogsCfg.writeToConfig(m_config);
+	s_filterCfg.writeToConfig(m_config);
 #ifdef HAVE_TUNEPIMP
 	s_musicBrainzCfg.writeToConfig(m_config);
 #endif
@@ -952,6 +971,7 @@ void Kid3App::readOptions()
 		s_trackTypeCfg.m_server = "tracktype.org:80"; // replace default
 	}
 	s_discogsCfg.readFromConfig(m_config);
+	s_filterCfg.readFromConfig(m_config);
 #ifdef HAVE_TUNEPIMP
 	s_musicBrainzCfg.readFromConfig(m_config);
 #endif
@@ -2284,6 +2304,124 @@ void Kid3App::slotNumberTracks()
 	}
 }
 
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+/**
+ * Read file with TagLib if it has an ID3v2.4 tag.
+ *
+ * @param item       file list item, can be updated
+ * @param taggedFile tagged file
+ *
+ * @return tagged file (can be new TagLibFile).
+ */
+static TaggedFile* readWithTagLibIfId3V24(FileListItem* item,
+																					TaggedFile* taggedFile)
+{
+	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
+			!taggedFile->isChanged() &&
+			taggedFile->isTagInformationRead() && taggedFile->hasTagV2() &&
+			taggedFile->getTagFormatV2() == QString::null) {
+		TagLibFile* tagLibFile;
+		if ((tagLibFile = new TagLibFile(
+					 taggedFile->getDirInfo(),
+					 taggedFile->getFilename())) != 0) {
+			item->setFile(tagLibFile);
+			taggedFile = tagLibFile;
+			taggedFile->readTags(false);
+		}
+	}
+	return taggedFile;
+}
+#endif
+
+/**
+ * Apply a file filter.
+ *
+ * @param fileFilter filter to apply.
+ */
+void Kid3App::applyFilter(FileFilter& fileFilter)
+{
+	if (isFiltered()) {
+		const DirInfo* dirInfo = m_view->getDirInfo();
+		if (dirInfo) {
+			m_view->readFileList(dirInfo->getDirname());
+		}
+		setFiltered(false);
+	}
+
+	FileListItem* item = m_view->firstFileOrDir();
+#if QT_VERSION >= 0x040000
+	QList<FileListItem*> itemsToDelete;
+#else
+	QValueList<FileListItem*> itemsToDelete;
+#endif
+	while (item != 0) {
+		if (item->getDirInfo()) {
+#if QT_VERSION >= 0x040000
+			item->setExpanded(true);
+#else
+			item->setOpen(true);
+#endif
+		} else {
+			TaggedFile* taggedFile = item->getFile();
+			if (taggedFile) {
+				taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+				taggedFile = readWithTagLibIfId3V24(item, taggedFile);
+#endif
+				bool ok;
+				bool pass = fileFilter.filter(*taggedFile, &ok);
+				if (!ok) {
+					if (m_filterDialog) {
+						m_filterDialog->showInformation("parse error");
+					}
+					break;
+				}
+				if (m_filterDialog) {
+					m_filterDialog->showInformation(
+						(pass ? QString("+\t") : QString("-\t")) +
+						taggedFile->getFilename());
+				}
+				if (!pass) {
+					itemsToDelete.push_back(item);
+				}
+			}
+		}
+		item = m_view->nextFileOrDir();
+	}
+	if (!itemsToDelete.empty()) {
+#if QT_VERSION >= 0x040000
+		qDeleteAll(itemsToDelete);
+#else
+		for (QValueList<FileListItem*>::iterator it = itemsToDelete.begin();
+				 it != itemsToDelete.end();
+				 ++it) {
+			delete *it;
+		}
+#endif
+		setFiltered(true);
+	}
+	updateModificationState();
+}
+
+/**
+ * Filter.
+ */
+void Kid3App::slotFilter()
+{
+	if (saveModified()) {
+		if (!m_filterDialog) {
+			m_filterDialog = new FilterDialog(0);
+			connect(m_filterDialog, SIGNAL(apply(FileFilter&)),
+							this, SLOT(applyFilter(FileFilter&)));
+		}
+		if (m_filterDialog) {
+			s_filterCfg.setFilenameFormat(m_view->getFilenameFormat());
+			m_filterDialog->readConfig();
+			m_filterDialog->exec();
+		}
+	}
+}
+
 /**
  * Convert ID3v2.3 to ID3v2.4 tags.
  */
@@ -2429,10 +2567,13 @@ void Kid3App::openDrop(QString txt)
 void Kid3App::updateModificationState()
 {
 	setModified(m_view->updateModificationState());
-#ifdef CONFIG_USE_KDE
-	setCaption(s_dirName, isModified());
-#else
 	QString cap(s_dirName);
+	if (isFiltered()) {
+		cap += i18n(" [filtered]");
+	}
+#ifdef CONFIG_USE_KDE
+	setCaption(cap, isModified());
+#else
 	if (isModified()) {
 		cap += i18n(" [modified]");
 	}
@@ -2501,19 +2642,7 @@ void Kid3App::updateGuiControls()
 				taggedFile->readTags(false);
 
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-				if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
-						!taggedFile->isChanged() &&
-						taggedFile->isTagInformationRead() && taggedFile->hasTagV2() &&
-						taggedFile->getTagFormatV2() == QString::null) {
-					TagLibFile* tagLibFile;
-					if ((tagLibFile = new TagLibFile(
-								 taggedFile->getDirInfo(),
-								 taggedFile->getFilename())) != 0) {
-						mp3file->setFile(tagLibFile);
-						taggedFile = tagLibFile;
-						taggedFile->readTags(false);
-					}
-				}
+				taggedFile = readWithTagLibIfId3V24(mp3file, taggedFile);
 #endif
 
 				if (num_files_selected == 0) {

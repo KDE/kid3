@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -103,6 +103,20 @@ public:
 	 * @return next file.
 	 */
 	FileListItem* nextInDir();
+
+	/**
+	 * Get the first file or directory item in the filelist.
+	 *
+	 * @return first file.
+	 */
+	FileListItem* firstFileOrDir();
+
+	/**
+	 * Get the next file or directory item in the filelist.
+	 *
+	 * @return next file.
+	 */
+	FileListItem* nextFileOrDir();
 
 	/**
 	 * Get the number of files selected in the filelist.

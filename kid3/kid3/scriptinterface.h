@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Dec 2007
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2007-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,8 +28,14 @@
 #define SCRIPTINTERFACE_H
 
 #include "config.h"
+#include <qstringlist.h>
+#if QT_VERSION >= 0x040000
 #include <QDBusAbstractAdaptor>
-#include <QStringList>
+typedef QDBusAbstractAdaptor ScriptInterfaceBaseClass;
+#else
+#include <qobject.h>
+typedef QObject ScriptInterfaceBaseClass;
+#endif
 
 class Kid3App;
 
@@ -38,7 +44,7 @@ class Kid3App;
  * Create net.sourceforge.Kid3.xml with:
  * qdbuscpp2xml scriptinterface.h >net.sourceforge.Kid3.xml
  */
-class ScriptInterface: public QDBusAbstractAdaptor
+class ScriptInterface: public ScriptInterfaceBaseClass
 {
 Q_OBJECT
 Q_CLASSINFO("D-Bus Interface", "net.sourceforge.Kid3")
@@ -55,7 +61,7 @@ public:
 	 */
 	virtual ~ScriptInterface();
 
-public Q_SLOTS:
+public slots:
 	/**
 	 * Open file or directory.
 	 *
@@ -115,8 +121,9 @@ public Q_SLOTS:
 
 	/**
 	 * Quit the application.
+	 * Omitted Q_NOREPLY because the Qt 3 moc chokes on it. 
 	 */
-	Q_NOREPLY void quit();
+	void quit();
 
 	/**
 	 * Select all files.
@@ -187,6 +194,13 @@ public Q_SLOTS:
 	 * @param firstTrackNr number to use for fist file
 	 */
 	void numberTracks(int tagMask, int firstTrackNr);
+
+	/**
+	 * Filter the files.
+	 *
+	 * @param expression filter expression
+	 */
+	void filter(const QString& expression);
 
 #ifdef HAVE_TAGLIB
 	/**

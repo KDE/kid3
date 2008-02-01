@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2008  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -230,6 +230,20 @@ public:
 	 * @return next file.
 	 */
 	FileListItem* nextFileInDir() { return m_fileListBox->nextInDir(); }
+
+	/**
+	 * Get the first file or directory item in the filelist.
+	 *
+	 * @return first file.
+	 */
+	FileListItem* firstFileOrDir() { return m_fileListBox->firstFileOrDir(); }
+
+	/**
+	 * Get the next file or directory item in the filelist.
+	 *
+	 * @return next file.
+	 */
+	FileListItem* nextFileOrDir() { return m_fileListBox->nextFileOrDir(); }
 
 	/**
 	 * Get information about directory.
