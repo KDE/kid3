@@ -50,42 +50,48 @@ ImportConfig::ImportConfig(const QString& grp) :
 	/**
 	 * Preset import format regular expressions.
 	 * The following codes are used before the () expressions.
-	 * %s title (song)
-	 * %l album
-	 * %a artist
-	 * %c comment
-	 * %y year
-	 * %t track
-	 * %g genre
+	 * %s %{title} title (song)
+	 * %l %{album} album
+	 * %a %{artist} artist
+	 * %c %{comment} comment
+	 * %y %{year} year
+	 * %t %{track} track, at least two digits
+	 * %T %{tracknumber} track number
+	 * %g %{genre} genre
+	 * %d %{duration} duration mm:ss
+	 * %D %{seconds} duration in seconds
+	 * %f %{file} file name
+	 * %p %{filepath} absolute file path
+	 * %u %{url} URL
+	 * %n %{tracks} number of tracks
 	 */
 	m_importFormatNames.append("CSV unquoted");
 	m_importFormatHeaders.append("");
-	m_importFormatTracks.append("%t(\\d+)\\t%s([^\\r\\n\\t]*)\\t%a([^\\r\\n\\t]*)\\t%l([^\\r\\n\\t]*)\\t%y(\\d+)\\t%g([^\\r\\n\\t]*)\\t%c([^\\r\\n\\t]*)\\t(?:\\d+:)?%d(\\d+:\\d+)");
+	m_importFormatTracks.append("%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t%{album}([^\\r\\n\\t]*)\\t%{year}(\\d+)\\t%{genre}([^\\r\\n\\t]*)\\t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)");
 
 	m_importFormatNames.append("CSV quoted");
 	m_importFormatHeaders.append("");
-	m_importFormatTracks.append("\"?%t(\\d+)\"?\\t\"?%s([^\\r\\n\\t\"]*)\"?\\t\"?%a([^\\r\\n\\t\"]*)\"?\\t\"?%l([^\\r\\n\\t\"]*)\"?\\t\"?%y(\\d+)\"?\\t\"?%g([^\\r\\n\\t\"]*)\"?\\t\"?%c([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%d(\\d+:\\d+)");
-//	m_importFormatTracks.append("\"%t(\\d+)\"\\t\"%s([^\\r\\n]*)\"\\t\"%a([^\\r\\n]*)\"\\t\"%l([^\\r\\n]*)\"\\t\"%y(\\d+)\"\\t\"%g([^\\r\\n]*)\"\\t\"%c([^\\r\\n]*)\"\\t\"%d(\\d+:\\d+)\\.00\"");
+	m_importFormatTracks.append("\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t\"?%{year}(\\d+)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)");
 
 	m_importFormatNames.append("freedb HTML text");
-	m_importFormatHeaders.append("%a(\\S[^\\r\\n/]*\\S)\\s*/\\s*%l(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%y(\\d+)?.*genre:\\s*%g(\\S[^\\r\\n]*\\S)?[\\r\\n]");
-	m_importFormatTracks.append("[\\r\\n]%t(\\d+)[\\.\\s]+%d(\\d+:\\d+)\\s+%s(\\S[^\\r\\n]*\\S)");
+	m_importFormatHeaders.append("%{artist}(\\S[^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n]*\\S)?[\\r\\n]");
+	m_importFormatTracks.append("[\\r\\n]%{track}(\\d+)[\\.\\s]+%{duration}(\\d+:\\d+)\\s+%{title}(\\S[^\\r\\n]*\\S)");
 
 	m_importFormatNames.append("freedb HTML source");
-	m_importFormatHeaders.append("<[^>]+>%a([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%l(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%y(\\d+)?.*genre:\\s*%g(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]");
-	m_importFormatTracks.append("<td[^>]*>\\s*%t(\\d+).</td><td[^>]*>\\s*%d(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%s([^<\\r\\n]+)");
+	m_importFormatHeaders.append("<[^>]+>%{artist}([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]");
+	m_importFormatTracks.append("<td[^>]*>\\s*%{track}(\\d+).</td><td[^>]*>\\s*%{duration}(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%{title}([^<\\r\\n]+)");
 
 	m_importFormatNames.append("Title");
 	m_importFormatHeaders.append("");
-	m_importFormatTracks.append("\\s*%s(\\S[^\\r\\n]*\\S)\\s*");
+	m_importFormatTracks.append("\\s*%{title}(\\S[^\\r\\n]*\\S)\\s*");
 
 	m_importFormatNames.append("Track Title");
 	m_importFormatHeaders.append("");
-	m_importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s*");
+	m_importFormatTracks.append("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S[^\\r\\n]*\\S)\\s*");
 
 	m_importFormatNames.append("Track Title Time");
 	m_importFormatHeaders.append("");
-	m_importFormatTracks.append("\\s*%t(\\d+)[\\.\\s]+%s(\\S[^\\r\\n]*\\S)\\s+%d(\\d+:\\d+)\\s*");
+	m_importFormatTracks.append("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S[^\\r\\n]*\\S)\\s+%{duration}(\\d+:\\d+)\\s*");
 
 	m_importFormatNames.append("Custom Format");
 	m_importFormatHeaders.append("");
@@ -93,32 +99,32 @@ ImportConfig::ImportConfig(const QString& grp) :
 
 	m_exportFormatNames.append("CSV unquoted");
 	m_exportFormatHeaders.append("");
-	m_exportFormatTracks.append("%t\\t%s\\t%a\\t%l\\t%y\\t%g\\t%c\\t%d.00");
+	m_exportFormatTracks.append("%{track}\\t%{title}\\t%{artist}\\t%{album}\\t%{year}\\t%{genre}\\t%{comment}\\t%{duration}.00");
 	m_exportFormatTrailers.append("");
 
 	m_exportFormatNames.append("CSV quoted");
 	m_exportFormatHeaders.append("");
-	m_exportFormatTracks.append("\"%t\"\\t\"%s\"\\t\"%a\"\\t\"%l\"\\t\"%y\"\\t\"%g\"\\t\"%c\"\\t\"%d.00\"");
+	m_exportFormatTracks.append("\"%{track}\"\\t\"%{title}\"\\t\"%{artist}\"\\t\"%{album}\"\\t\"%{year}\"\\t\"%{genre}\"\\t\"%{comment}\"\\t\"%{duration}.00\"");
 	m_exportFormatTrailers.append("");
 
 	m_exportFormatNames.append("Extended M3U");
 	m_exportFormatHeaders.append("#EXTM3U");
-	m_exportFormatTracks.append("#EXTINF:%D,%a - %s\\n%p");
+	m_exportFormatTracks.append("#EXTINF:%{seconds},%{artist} - %{title}\\n%{filepath}");
 	m_exportFormatTrailers.append("");
 
 	m_exportFormatNames.append("Extended PLS");
 	m_exportFormatHeaders.append("[playlist]");
-	m_exportFormatTracks.append("File%T=%p\\nTitle%T=%a - %s\\nLength%T=%D");
-	m_exportFormatTrailers.append("NumberOfEntries=%n\\nVersion=2");
+	m_exportFormatTracks.append("File%{tracknumber}=%{filepath}\\nTitle%{tracknumber}=%{artist} - %{title}\\nLength%{tracknumber}=%{seconds}");
+	m_exportFormatTrailers.append("NumberOfEntries=%{tracks}\\nVersion=2");
 
 	m_exportFormatNames.append("HTML");
-	m_exportFormatHeaders.append("<html>\\n <head>\\n  <title>%a - %l</title>\\n </head>\\n <body>\\n  <h1>%a - %l</h1>\\n  <dl>");
-	m_exportFormatTracks.append("   <dt><a href=\"%u\">%t. %s</a></dt>");
+	m_exportFormatHeaders.append("<html>\\n <head>\\n  <title>%{artist} - %{album}</title>\\n </head>\\n <body>\\n  <h1>%{artist} - %{album}</h1>\\n  <dl>");
+	m_exportFormatTracks.append("   <dt><a href=\"%{url}\">%{track}. %{title}</a></dt>");
 	m_exportFormatTrailers.append("  </dl>\\n </body>\\n</html>");
 
 	m_exportFormatNames.append("Kover XML");
-	m_exportFormatHeaders.append("<kover>\\n <title>\\n  <text><![CDATA[%a ]]></text>\\n  <text><![CDATA[%l]]></text>\\n </title>\\n <content>");
-	m_exportFormatTracks.append("  <text><![CDATA[%t. %s]]></text>");
+	m_exportFormatHeaders.append("<kover>\\n <title>\\n  <text><![CDATA[%{artist} ]]></text>\\n  <text><![CDATA[%{album}]]></text>\\n </title>\\n <content>");
+	m_exportFormatTracks.append("  <text><![CDATA[%{track}. %{title}]]></text>");
 	m_exportFormatTrailers.append(" </content>\\n</kover>");
 
 	m_exportFormatNames.append("Custom Format");

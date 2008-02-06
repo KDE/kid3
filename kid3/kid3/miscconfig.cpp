@@ -49,26 +49,26 @@ const char* const MiscConfig::s_defaultBrowser = "xdg-open";
 
 /** Default filename format list */
 static const char* fnFmt[] = {
-	"%a - %l/%t %s",
-	"%a - %l/%t. %s",
-	"%a - [%y] %l/%t %s",
-	"%a - [%y] %l/%t. %s",
-	"%a/%l/%t %s",
-	"%a/%l/%t. %s",
-	"%a/[%y] %l/%t %s",
-	"%a/[%y] %l/%t. %s",
-	"%l/%t - %a - %s",
-	"%l/%t. %a - %s",
-	"%l/%a - %t - %s",
-	"[%y] %l/%t - %a - %s",
-	"%a - %l - %t - %s",
-	"%a - [%y] %l - %t - %s",
-	"%l/%a - %t - %s",
-	"[%y] %l/%a - %t - %s",
-	"%l/%a - %s",
-	"%l/%a-%s",
-	"%l/(%a) %s",
-	"%a-%s-%l",
+	"%{artist} - %{album}/%{track} %{title}",
+	"%{artist} - %{album}/%{track}. %{title}",
+	"%{artist} - [%{year}] %{album}/%{track} %{title}",
+	"%{artist} - [%{year}] %{album}/%{track}. %{title}",
+	"%{artist}/%{album}/%{track} %{title}",
+	"%{artist}/%{album}/%{track}. %{title}",
+	"%{artist}/[%{year}] %{album}/%{track} %{title}",
+	"%{artist}/[%{year}] %{album}/%{track}. %{title}",
+	"%{album}/%{track} - %{artist} - %{title}",
+	"%{album}/%{track}. %{artist} - %{title}",
+	"%{album}/%{artist} - %{track} - %{title}",
+	"[%{year}] %{album}/%{track} - %{artist} - %{title}",
+	"%{artist} - %{album} - %{track} - %{title}",
+	"%{artist} - [%{year}] %{album} - %{track} - %{title}",
+	"%{album}/%{artist} - %{track} - %{title}",
+	"[%{year}] %{album}/%{artist} - %{track} - %{title}",
+	"%{album}/%{artist} - %{title}",
+	"%{album}/%{artist}-%{title}",
+	"%{album}/(%{artist}) %{title}",
+	"%{artist}-%{title}-%{album}",
 	0
 };
 
@@ -77,12 +77,12 @@ const char** MiscConfig::s_defaultFnFmtList = &fnFmt[0];
 
 /** Default directory format list */
 static const char* dirFmt[] = {
-	"%a - %l",
-	"%a - [%y] %l",
-	"%a/%l",
-	"%a/[%y] %l",
-	"%l",
-	"[%y] %l",
+	"%{artist} - %{album}",
+	"%{artist} - [%{year}] %{album}",
+	"%{artist}/%{album}",
+	"%{artist}/[%{year}] %{album}",
+	"%{album}",
+	"[%{year}] %{album}",
 	0                  // end of StrList
 };
 
@@ -380,27 +380,27 @@ void MiscConfig::readFromConfig(
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand(
 				"Windows Media Player",
-				QString('"') + prgDir + "\\Windows Media Player\\wmplayer.exe\" %F"));
+				QString('"') + prgDir + "\\Windows Media Player\\wmplayer.exe\" %{files}"));
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand(
 				"AlbumArt",
-				QString('"') + prgDir +  "\\Album Cover Art Downloader\\albumart-qt.exe\" %d"));
+				QString('"') + prgDir +  "\\Album Cover Art Downloader\\albumart-qt.exe\" %{directory}"));
 #else
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("xmms", "xmms %F"));
+			MiscConfig::MenuCommand("xmms", "xmms %{files}"));
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("AlbumArt", "albumart-qt %d"));
+			MiscConfig::MenuCommand("AlbumArt", "albumart-qt %{directory}"));
 #endif
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("Google Images", "%b http://images.google.com/images?q=%ua%20%ul"));
+			MiscConfig::MenuCommand("Google Images", "%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}"));
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("Amazon", "%b http://www.amazon.com/s?field-artist=%ua&field-title=%ul"));
+			MiscConfig::MenuCommand("Amazon", "%{browser} http://www.amazon.com/s?field-artist=%u{artist}&field-title=%u{album}"));
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("LyricWiki", "%b http://lyricwiki.org/%ua:%us"));
+			MiscConfig::MenuCommand("LyricWiki", "%{browser} http://lyricwiki.org/%u{artist}:%u{title}"));
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("LeosLyrics", "%b http://www.leoslyrics.com/search.php?search=%ua%20%us&sartist=1&ssongtitle=1"));
+			MiscConfig::MenuCommand("LeosLyrics", "%{browser} http://www.leoslyrics.com/search.php?search=%u{artist}%20%u{title}&sartist=1&ssongtitle=1"));
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("Lyrc", "%b http://lyrc.com.ar/en/tema1en.php?artist=%ua&songname=%us"));
+			MiscConfig::MenuCommand("Lyrc", "%{browser} http://lyrc.com.ar/en/tema1en.php?artist=%u{artist}&songname=%u{title}"));
 	}
 }
 
