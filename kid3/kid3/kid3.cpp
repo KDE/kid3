@@ -2348,6 +2348,10 @@ void Kid3App::applyFilter(FileFilter& fileFilter)
 		setFiltered(false);
 	}
 
+	if (m_filterDialog) {
+		m_filterDialog->clearAbortFlag();
+	}
+
 	FileListItem* item = m_view->firstFileOrDir();
 #if QT_VERSION >= 0x040000
 	QList<FileListItem*> itemsToDelete;
@@ -2387,6 +2391,15 @@ void Kid3App::applyFilter(FileFilter& fileFilter)
 			}
 		}
 		item = m_view->nextFileOrDir();
+#ifdef CONFIG_USE_KDE
+		kapp->processEvents();
+#else
+		qApp->processEvents();
+#endif
+		if (m_filterDialog && m_filterDialog->getAbortFlag()) {
+			itemsToDelete.clear();
+			break;
+		}
 	}
 	if (!itemsToDelete.empty()) {
 #if QT_VERSION >= 0x040000

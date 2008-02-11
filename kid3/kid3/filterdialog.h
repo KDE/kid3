@@ -34,6 +34,7 @@
 
 class QLineEdit;
 class QComboBox;
+class QPushButton;
 
 /**
  * Filter dialog.
@@ -66,6 +67,17 @@ public:
 	 */
 	void showInformation(const QString& text) { m_edit->append(text); }
 
+	/**
+	 * Clear abort flag.
+	 */
+	void clearAbortFlag() { m_aborted = false; }
+
+	/**
+	 * Check if dialog was aborted.
+	 * @return true if aborted.
+	 */
+	bool getAbortFlag() { return m_aborted; }
+
 signals:
 	/**
 	 * Is triggered when the selected @a filter has to be applied.
@@ -96,6 +108,11 @@ private slots:
 	 */
 	void applyFilter();
 
+	/**
+	 * Set abort flag.
+	 */
+	void setAbortFlag();
+
 private:
 	/**
 	 * Set the filter combo box and line edit from the configuration.
@@ -108,12 +125,16 @@ private:
 	QComboBox* m_nameComboBox;
 	/** LineEdit for filter expression */
 	QLineEdit* m_filterLineEdit;
+	/** Apply button */
+	QPushButton* m_applyButton;
 	/** filter names */
 	QStringList m_filterNames;
 	/** filter expressions */
 	QStringList m_filterExpressions;
 	/** file filter used */
 	FileFilter m_fileFilter;
+	/** abort flag */
+	bool m_aborted;
 };
 
 #endif

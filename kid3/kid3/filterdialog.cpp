@@ -55,7 +55,7 @@
  * @param parent parent widget
  */
 FilterDialog::FilterDialog(QWidget* parent) :
-	QDialog(parent)
+	QDialog(parent), m_aborted(false)
 {
 	setModal(true);
 	QCM_setWindowTitle(i18n("Filter"));
@@ -113,15 +113,16 @@ FilterDialog::FilterDialog(QWidget* parent) :
 																						 QSizePolicy::Minimum);
 			hlayout->addItem(hspacer);
 
-			QPushButton* applyButton = new QPushButton(i18n("&Apply"), this);
+			m_applyButton = new QPushButton(i18n("&Apply"), this);
 			QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-			if (applyButton && closeButton) {
-				applyButton->setAutoDefault(false);
+			if (m_applyButton && closeButton) {
+				m_applyButton->setAutoDefault(false);
 				closeButton->setAutoDefault(false);
-				hlayout->addWidget(applyButton);
+				hlayout->addWidget(m_applyButton);
 				hlayout->addWidget(closeButton);
-				connect(applyButton, SIGNAL(clicked()), this, SLOT(applyFilter()));
+				connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyFilter()));
 				connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
+				connect(closeButton, SIGNAL(clicked()), this, SLOT(setAbortFlag()));
 			}
 			vlayout->addLayout(hlayout);
 		}
@@ -142,7 +143,9 @@ void FilterDialog::applyFilter()
 	m_edit->clear();
 	m_fileFilter.setFilterExpression(m_filterLineEdit->text());
 	m_fileFilter.initParser();
+	m_applyButton->setEnabled(false);
 	emit apply(m_fileFilter);
+	m_applyButton->setEnabled(true);
 }
 
 /**
@@ -177,7 +180,9 @@ void FilterDialog::setFiltersFromConfig()
  */
 void FilterDialog::readConfig()
 {
+	clearAbortFlag();
 	m_edit->clear();
+	m_applyButton->setEnabled(true);
 
 	setFiltersFromConfig();
 
@@ -218,4 +223,12 @@ void FilterDialog::saveConfig()
 void FilterDialog::showHelp()
 {
 	Kid3App::displayHelp("filter");
+}
+
+/**
+ * Set abort flag.
+ */
+void FilterDialog::setAbortFlag()
+{
+	m_aborted = true;
 }
