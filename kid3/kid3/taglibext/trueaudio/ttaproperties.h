@@ -30,7 +30,7 @@
 
 namespace TagLib {
 
-  namespace TTA {
+  namespace TrueAudio {
 
     
     static const TagLib::uint HeaderSize = 18;
@@ -46,13 +46,13 @@ namespace TagLib {
     {
     public:
       /*!
-       * Create an instance of TTA::Properties with the data read from the
+       * Create an instance of TrueAudio::Properties with the data read from the
        * ByteVector \a data.
        */
       Properties(const ByteVector &data, long streamLength, ReadStyle style = Average);
 
       /*!
-       * Destroys this TTA::Properties instance.
+       * Destroys this TrueAudio::Properties instance.
        */
       virtual ~Properties();
 

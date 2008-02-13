@@ -31,7 +31,7 @@ TagLib::File *TTAFileTypeResolver::createFile(const char *fileName,
     const char *ext = strrchr(fileName, '.');
     if(ext && !strcasecmp(ext, ".tta"))
     {
-        TagLib::TTA::File *f = new TagLib::TTA::File(fileName, readProperties, propertiesStyle);
+        TagLib::TrueAudio::File *f = new TagLib::TrueAudio::File(fileName, readProperties, propertiesStyle);
         if(f->isValid())
             return f;
         else

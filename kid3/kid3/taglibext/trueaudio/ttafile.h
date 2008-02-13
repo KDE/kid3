@@ -46,7 +46,7 @@ namespace TagLib {
    * properties from the file.
    */
 
-  namespace TTA {
+  namespace TrueAudio {
 
     //! An implementation of TagLib::File with TTA specific methods
 
@@ -130,7 +130,7 @@ namespace TagLib {
        * an ID3v1 tag if one does not exist. If there is already an APE tag, the
        * new ID3v1 tag will be placed after it.
        *
-       * \note The Tag <b>is still</b> owned by the TTA::File and should not be
+       * \note The Tag <b>is still</b> owned by the TrueAudio::File and should not be
        * deleted by the user.  It will be deleted when the file (object) is
        * destroyed.
        */
@@ -144,7 +144,7 @@ namespace TagLib {
        * an ID3v1 tag if one does not exist. If there is already an APE tag, the
        * new ID3v1 tag will be placed after it.
        *
-       * \note The Tag <b>is still</b> owned by the TTA::File and should not be
+       * \note The Tag <b>is still</b> owned by the TrueAudio::File and should not be
        * deleted by the user.  It will be deleted when the file (object) is
        * destroyed.
        */
@@ -158,7 +158,7 @@ namespace TagLib {
        * as their memory will be freed.
        * \note In order to make the removal permanent save() still needs to be called
        */
-      void remove(int tags = AllTags);
+      void strip(int tags = AllTags);
 
     private:
       File(const File &);

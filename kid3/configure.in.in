@@ -35,7 +35,9 @@ else
 fi
 AC_SUBST(TAGLIB_INCLUDES)
 AC_SUBST(LIB_TAGLIB)
+AC_SUBST(TAGLIB_VERSION)
 AM_CONDITIONAL(HAVE_TAGLIB, test "$have_taglib" = "yes")
+AM_CONDITIONAL(TAGLIB_VERSION_14, test "$TAGLIB_VERSION" = "1.4")
 
 # mp4 support with mp4v2
 AC_ARG_WITH(mp4v2, [  --with-mp4v2            build with mp4v2, default=yes],

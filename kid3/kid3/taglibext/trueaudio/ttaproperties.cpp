@@ -34,7 +34,7 @@
 
 using namespace TagLib;
 
-class TTA::Properties::PropertiesPrivate
+class TrueAudio::Properties::PropertiesPrivate
 {
 public:
   PropertiesPrivate(const ByteVector &d, long length, ReadStyle s) :
@@ -63,43 +63,43 @@ public:
 // public members
 ////////////////////////////////////////////////////////////////////////////////
 
-TTA::Properties::Properties(const ByteVector &data, long streamLength, ReadStyle style) : AudioProperties(style)
+TrueAudio::Properties::Properties(const ByteVector &data, long streamLength, ReadStyle style) : AudioProperties(style)
 {
   d = new PropertiesPrivate(data, streamLength, style);
   read();
 }
 
-TTA::Properties::~Properties()
+TrueAudio::Properties::~Properties()
 {
   delete d;
 }
 
-int TTA::Properties::length() const
+int TrueAudio::Properties::length() const
 {
   return d->length;
 }
 
-int TTA::Properties::bitrate() const
+int TrueAudio::Properties::bitrate() const
 {
   return d->bitrate;
 }
 
-int TTA::Properties::sampleRate() const
+int TrueAudio::Properties::sampleRate() const
 {
   return d->sampleRate;
 }
 
-int TTA::Properties::bitsPerSample() const
+int TrueAudio::Properties::bitsPerSample() const
 {
   return d->bitsPerSample;
 }
 
-int TTA::Properties::channels() const
+int TrueAudio::Properties::channels() const
 {
   return d->channels;
 }
 
-int TTA::Properties::ttaVersion() const
+int TrueAudio::Properties::ttaVersion() const
 {
   return d->version;
 }
@@ -108,7 +108,7 @@ int TTA::Properties::ttaVersion() const
 // private members
 ////////////////////////////////////////////////////////////////////////////////
 
-void TTA::Properties::read()
+void TrueAudio::Properties::read()
 {
   if(!d->data.startsWith("TTA"))
     return;

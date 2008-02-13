@@ -41,15 +41,6 @@
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
 												((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION))
 
-#if (TAGLIB_VERSION <= 0x010400)
-/** Defined if TagLib::Ogg::XiphComment::removeField() crashes */
-#define TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
-//#else
-//#define TAGLIB_SUPPORTS_GEOB_FRAMES
-//#define TAGLIB_SUPPORTS_URLLINK_FRAMES
-//#define TAGLIB_SUPPORTS_USLT_FRAMES
-#endif
-
 #if QT_VERSION >= 0x040000
 #define QSTRING_TO_TSTRING(s) TagLib::String(s.toUtf8().data(), TagLib::String::UTF8)
 #else

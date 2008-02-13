@@ -37,7 +37,7 @@
 
 using namespace TagLib;
 
-class TTA::File::FilePrivate
+class TrueAudio::File::FilePrivate
 {
 public:
   FilePrivate(const ID3v2::FrameFactory *frameFactory = ID3v2::FrameFactory::instance()) :
@@ -85,7 +85,7 @@ public:
 // public members
 ////////////////////////////////////////////////////////////////////////////////
 
-TTA::File::File(const char *file, bool readProperties,
+TrueAudio::File::File(const char *file, bool readProperties,
                  Properties::ReadStyle propertiesStyle) : TagLib::File(file)
 {
   d = new FilePrivate;
@@ -93,7 +93,7 @@ TTA::File::File(const char *file, bool readProperties,
     read(readProperties, propertiesStyle);
 }
 
-TTA::File::File(const char *file, ID3v2::FrameFactory *frameFactory,
+TrueAudio::File::File(const char *file, ID3v2::FrameFactory *frameFactory,
                  bool readProperties, Properties::ReadStyle propertiesStyle) :
   TagLib::File(file)
 {
@@ -102,31 +102,31 @@ TTA::File::File(const char *file, ID3v2::FrameFactory *frameFactory,
     read(readProperties, propertiesStyle);
 } 
 
-TTA::File::~File()
+TrueAudio::File::~File()
 {
   delete d;
 }
 
-TagLib::Tag *TTA::File::tag() const
+TagLib::Tag *TrueAudio::File::tag() const
 {
   return d->tag;
 }
 
-TTA::Properties *TTA::File::audioProperties() const
+TrueAudio::Properties *TrueAudio::File::audioProperties() const
 {
   return d->properties;
 }
 
-void TTA::File::setID3v2FrameFactory(const ID3v2::FrameFactory *factory)
+void TrueAudio::File::setID3v2FrameFactory(const ID3v2::FrameFactory *factory)
 {
   d->ID3v2FrameFactory = factory;
 }
  
-bool TTA::File::save()
+bool TrueAudio::File::save()
 {
   if(readOnly()) {
 #if 0
-    debug("TTA::File::save() -- File is read only.");
+    debug("TrueAudio::File::save() -- File is read only.");
 #endif
     return false;
   }
@@ -179,7 +179,7 @@ bool TTA::File::save()
   return true;
 }
 
-ID3v1::Tag *TTA::File::ID3v1Tag(bool create)
+ID3v1::Tag *TrueAudio::File::ID3v1Tag(bool create)
 {
   if(!create || d->ID3v1Tag)
     return d->ID3v1Tag;
@@ -196,7 +196,7 @@ ID3v1::Tag *TTA::File::ID3v1Tag(bool create)
   return d->ID3v1Tag;
 }
 
-ID3v2::Tag *TTA::File::ID3v2Tag(bool create)
+ID3v2::Tag *TrueAudio::File::ID3v2Tag(bool create)
 {
   if(!create || d->ID3v2Tag)
     return d->ID3v2Tag;
@@ -213,7 +213,7 @@ ID3v2::Tag *TTA::File::ID3v2Tag(bool create)
   return d->ID3v2Tag;
 }
 
-void TTA::File::remove(int tags)
+void TrueAudio::File::strip(int tags)
 {
   if(tags & ID3v1) {
     delete d->ID3v1Tag;
@@ -241,7 +241,7 @@ void TTA::File::remove(int tags)
 // private members
 ////////////////////////////////////////////////////////////////////////////////
 
-void TTA::File::read(bool readProperties, Properties::ReadStyle /* propertiesStyle */)
+void TrueAudio::File::read(bool readProperties, Properties::ReadStyle /* propertiesStyle */)
 {
   // Look for an ID3v2 tag
 
@@ -288,16 +288,16 @@ void TTA::File::read(bool readProperties, Properties::ReadStyle /* propertiesSty
   if(readProperties) {
 		if(d->ID3v2Location >= 0) {
 			seek(d->ID3v2Location + d->ID3v2OriginalSize);
-			d->properties = new Properties(readBlock(TTA::HeaderSize),
+			d->properties = new Properties(readBlock(TrueAudio::HeaderSize),
 																		 length() - d->ID3v2OriginalSize);
 		} else {
 			seek(0);
-			d->properties = new Properties(readBlock(TTA::HeaderSize), length());
+			d->properties = new Properties(readBlock(TrueAudio::HeaderSize), length());
 		}
   }
 }
 
-long TTA::File::findID3v1()
+long TrueAudio::File::findID3v1()
 {
   if(!isValid())
     return -1;
@@ -311,7 +311,7 @@ long TTA::File::findID3v1()
   return -1;
 }
 
-long TTA::File::findID3v2()
+long TrueAudio::File::findID3v2()
 {
   if(!isValid())
     return -1;

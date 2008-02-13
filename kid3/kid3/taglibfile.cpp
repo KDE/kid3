@@ -62,28 +62,25 @@
 #include <taglib/attachedpictureframe.h>
 #include <taglib/uniquefileidentifierframe.h>
 
-#ifdef TAGLIB_SUPPORTS_GEOB_FRAMES
-#include <taglib/generalencapsulatedobjectframe.h>
-#else
+#if TAGLIB_VERSION <= 0x010400
 #include "taglibext/generalencapsulatedobjectframe.h"
-#endif
-#ifdef TAGLIB_SUPPORTS_URLLINK_FRAMES
-#include <taglib/urllinkframe.h>
-#else
 #include "taglibext/urllinkframe.h"
-#endif
-#ifdef TAGLIB_SUPPORTS_USLT_FRAMES
-#include <taglib/unsynchronizedlyricsframe.h>
-#else
 #include "taglibext/unsynchronizedlyricsframe.h"
-#endif
-
 #include "taglibext/speex/speexfile.h"
 #include "taglibext/speex/taglib_speexfiletyperesolver.h"
 #include "taglibext/trueaudio/ttafile.h"
 #include "taglibext/trueaudio/taglib_trueaudiofiletyperesolver.h"
 #include "taglibext/wavpack/wvfile.h"
 #include "taglibext/wavpack/taglib_wavpackfiletyperesolver.h"
+#else
+#include <taglib/generalencapsulatedobjectframe.h>
+#include <taglib/urllinkframe.h>
+#include <taglib/unsynchronizedlyricsframe.h>
+#include <taglib/speexfile.h>
+#include <taglib/trueaudiofile.h>
+#include <taglib/wavpackfile.h>
+#endif
+
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
@@ -134,7 +131,7 @@ void TagLibFile::readTags(bool force)
 		TagLib::MPC::File* mpcFile;
 		TagLib::WavPack::File* wvFile;
 #endif
-		TagLib::TTA::File* ttaFile;
+		TagLib::TrueAudio::File* ttaFile;
 		if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 			if (!m_tagV1) {
 				m_tagV1 = mpegFile->ID3v1Tag();
@@ -173,7 +170,7 @@ void TagLibFile::readTags(bool force)
 				markTag2Changed(false);
 			}
 #endif
-		} else if ((ttaFile = dynamic_cast<TagLib::TTA::File*>(file)) != 0) {
+		} else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
 			if (!m_tagV1) {
 				m_tagV1 = ttaFile->ID3v1Tag();
 				markTag1Changed(false);
@@ -267,7 +264,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 		} else {
 			if ((m_tagV2 && (force || isTag2Changed())) ||
 					(m_tagV1 && (force || isTag1Changed()))) {
-				TagLib::TTA::File* ttaFile = dynamic_cast<TagLib::TTA::File*>(file);
+				TagLib::TrueAudio::File* ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file);
 #ifndef MPC_ID3V1
 				// it does not work if there is also an ID3 tag (bug in TagLib?)
 				TagLib::MPC::File* mpcFile = dynamic_cast<TagLib::MPC::File*>(file);
@@ -276,19 +273,19 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 					mpcFile->remove(TagLib::MPC::File::ID3v1 | TagLib::MPC::File::ID3v2);
 					fileChanged = true;
 				} else if (wvFile) {
-					wvFile->remove(TagLib::WavPack::File::ID3v1);
+					wvFile->strip(TagLib::WavPack::File::ID3v1);
 					fileChanged = true;
 				} else
 #endif
 				if (ttaFile) {
 					if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
-						ttaFile->remove(TagLib::TTA::File::ID3v1);
+						ttaFile->strip(TagLib::TrueAudio::File::ID3v1);
 						fileChanged = true;
 						markTag1Changed(false);
 						m_tagV1 = 0;
 					}
 					if (m_tagV2 && (force || isTag2Changed()) && m_tagV2->isEmpty()) {
-						ttaFile->remove(TagLib::TTA::File::ID3v2);
+						ttaFile->strip(TagLib::TrueAudio::File::ID3v2);
 						fileChanged = true;
 						markTag2Changed(false);
 						m_tagV2 = 0;
@@ -630,7 +627,7 @@ bool TagLibFile::makeTagV1Settable()
 			TagLib::MPC::File* mpcFile;
 			TagLib::WavPack::File* wvFile;
 #endif
-			TagLib::TTA::File* ttaFile;
+			TagLib::TrueAudio::File* ttaFile;
 			if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 				m_tagV1 = mpegFile->ID3v1Tag(true);
 			} else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
@@ -641,7 +638,7 @@ bool TagLibFile::makeTagV1Settable()
 			} else if ((wvFile = dynamic_cast<TagLib::WavPack::File*>(file)) != 0) {
 				m_tagV1 = wvFile->ID3v1Tag(true);
 #endif
-			} else if ((ttaFile = dynamic_cast<TagLib::TTA::File*>(file)) != 0) {
+			} else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
 				m_tagV1 = ttaFile->ID3v1Tag(true);
 			}
 		}
@@ -663,7 +660,7 @@ bool TagLibFile::makeTagV2Settable()
 			TagLib::FLAC::File* flacFile;
 			TagLib::MPC::File* mpcFile;
 			TagLib::WavPack::File* wvFile;
-			TagLib::TTA::File* ttaFile;
+			TagLib::TrueAudio::File* ttaFile;
 			if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 				m_tagV2 = mpegFile->ID3v2Tag(true);
 			} else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
@@ -672,7 +669,7 @@ bool TagLibFile::makeTagV2Settable()
 				m_tagV2 = mpcFile->APETag(true);
 			} else if ((wvFile = dynamic_cast<TagLib::WavPack::File*>(file)) != 0) {
 				m_tagV2 = wvFile->APETag(true);
-			} else if ((ttaFile = dynamic_cast<TagLib::TTA::File*>(file)) != 0) {
+			} else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
 				m_tagV2 = ttaFile->ID3v2Tag(true);
 			}
 		}
@@ -1120,7 +1117,7 @@ bool TagLibFile::isTagV1Supported() const
 	return (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0 &&
 					(dynamic_cast<TagLib::MPEG::File*>(file) != 0 ||
 					 dynamic_cast<TagLib::FLAC::File*>(file) != 0 ||
-					 dynamic_cast<TagLib::TTA::File*>(file) != 0
+					 dynamic_cast<TagLib::TrueAudio::File*>(file) != 0
 #ifdef MPC_ID3V1
 					 || dynamic_cast<TagLib::MPC::File*>(file)  != 0
 					 || dynamic_cast<TagLib::WavPack::File*>(file) != 0
@@ -1154,7 +1151,7 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 		TagLib::FLAC::Properties* flacProperties;
 		TagLib::MPC::Properties* mpcProperties;
 		TagLib::Speex::Properties* speexProperties;
-		TagLib::TTA::Properties* ttaProperties;
+		TagLib::TrueAudio::Properties* ttaProperties;
 		TagLib::WavPack::Properties* wvProperties;
 		info.valid = true;
 		if ((mpegProperties =
@@ -1211,7 +1208,7 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 								dynamic_cast<TagLib::Speex::Properties*>(audioProperties)) != 0) {
 			info.format = QString("Speex %1").arg(speexProperties->speexVersion());
 		} else if ((ttaProperties =
-								dynamic_cast<TagLib::TTA::Properties*>(audioProperties)) != 0) {
+								dynamic_cast<TagLib::TrueAudio::Properties*>(audioProperties)) != 0) {
 			info.format = "True Audio ";
 			info.format += QString::number(ttaProperties->ttaVersion());
 			info.format += " ";
@@ -1274,7 +1271,7 @@ QString TagLibFile::getFileExtension() const
 			return ".spx";
 		} else if (dynamic_cast<TagLib::WavPack::File*>(file) != 0) {
 			return ".wv";
-		} else if (dynamic_cast<TagLib::TTA::File*>(file) != 0) {
+		} else if (dynamic_cast<TagLib::TrueAudio::File*>(file) != 0) {
 			return ".tta";
 		}
 	}
@@ -2298,14 +2295,33 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
 			TagLib::String key = QSTRING_TO_TSTRING(frame.getName(true));
 			TagLib::String value = QSTRING_TO_TSTRING(frame.getValue());
-#ifdef TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
+#if TAGLIB_VERSION <= 0x010400
+			// Remove all fields with that key, because TagLib <= 1.4 crashes
+			// using an invalidated iterator after calling erase().
 			oggTag->addField(key, value, true);
 #else
-			// This will crash because TagLib uses an invalidated iterator
-			// after calling erase(). I hope this will be fixed in the next
-			// version. Until then, remove all fields with that key.
-			oggTag->removeField(key, oldValue);
-			oggTag->addField(key, value, false);
+			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
+			if (fieldListMap.contains(key) && fieldListMap[key].size() > 1) {
+				int i = 0;
+				TagLib::String oldValue(TagLib::String::null);
+				for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
+						 it != fieldListMap.end();
+						 ++it) {
+					TagLib::StringList stringList = (*it).second;
+					for (TagLib::StringList::ConstIterator slit = stringList.begin();
+							 slit != stringList.end();
+							 ++slit) {
+						if (i++ == index) {
+							oldValue = *slit;
+							break;
+						}
+					}
+				}
+				oggTag->removeField(key, oldValue);
+				oggTag->addField(key, value, false);
+			} else {
+				oggTag->addField(key, value, true);
+			}
 #endif
 			if (frame.getType() == Frame::FT_Track) {
 				int numTracks = getTotalNumberOfTracksIfEnabled();
@@ -2571,7 +2587,15 @@ bool TagLibFile::addFrameV2(Frame& frame)
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
 			QString name(getVorbisName(frame));
 			TagLib::String tname = QSTRING_TO_TSTRING(name);
-			oggTag->addField(tname, QSTRING_TO_TSTRING(frame.getValue()));
+			TagLib::String tvalue = QSTRING_TO_TSTRING(frame.getValue());
+			if (tvalue.isEmpty()) {
+				tvalue = " "; // empty values are not added by TagLib
+			}
+#if TAGLIB_VERSION <= 0x010400
+			oggTag->addField(tname, tvalue);
+#else
+			oggTag->addField(tname, tvalue, false);
+#endif
 			frame.setInternalName(name);
 
 			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -2585,7 +2609,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 					found = true;
 					break;
 				}
-				++index;
+				index += (*it).second.size();
 			}
 			frame.setIndex(found ? index : -1);
 			markTag2Changed();
@@ -2647,12 +2671,11 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
 			TagLib::String key =
 				QSTRING_TO_TSTRING(frame.getName(true));
-#ifdef TAGLIB_XIPHCOMMENT_REMOVEFIELD_CRASHES
+#if TAGLIB_VERSION <= 0x010400
+			// Remove all fields with that key, because TagLib <= 1.4 crashes
+			// using an invalidated iterator after calling erase().
 			oggTag->removeField(key);
 #else
-			// This will crash because TagLib uses an invalidated iterator
-			// after calling erase(). I hope this will be fixed in the next
-			// version. Until then, remove all fields with that key.
 			oggTag->removeField(key, QSTRING_TO_TSTRING(frame.getValue()));
 #endif
 			markTag2Changed();
@@ -2893,9 +2916,11 @@ QStringList TagLibFile::getFrameIds() const
  */
 void TagLibFile::staticInit()
 {
+#if TAGLIB_VERSION <= 0x010400
 	TagLib::FileRef::addFileTypeResolver(new SpeexFileTypeResolver);
 	TagLib::FileRef::addFileTypeResolver(new WavPackFileTypeResolver);
 	TagLib::FileRef::addFileTypeResolver(new TTAFileTypeResolver);
+#endif
 	TagLib::FileRef::addFileTypeResolver(new AACFileTypeResolver);
 	TagLib::FileRef::addFileTypeResolver(new MP2FileTypeResolver);
 }
