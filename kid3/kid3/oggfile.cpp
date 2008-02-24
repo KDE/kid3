@@ -261,6 +261,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"ORIGINALDATE",    // FT_OriginalDate,
 		"PART",            // FT_Part,
 		"PERFORMER",       // FT_Performer,
+		"UNKNOWN",         // FT_Picture,
 		"PUBLISHER",       // FT_Publisher,
 		"SUBTITLE",        // FT_Subtitle,
 		"WEBSITE",         // FT_Website,
@@ -770,7 +771,12 @@ QStringList OggFile::getFrameIds() const
 		"VOLUME"
 	};
 
-	QStringList lst(TaggedFile::getFrameIds());
+	QStringList lst;
+	for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
+		if (k != Frame::FT_Picture) {
+			lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
+		}
+	}
 	for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
 		lst.append(fieldNames[i]);
 	}

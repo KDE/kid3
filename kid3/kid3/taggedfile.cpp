@@ -1131,20 +1131,6 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
 	}
 }
 
-/**
- * Get a list of frame IDs which can be added.
- *
- * @return list with frame IDs.
- */
-QStringList TaggedFile::getFrameIds() const
-{
-	QStringList lst;
-	for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
-		lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(i))));
-	}
-	return lst;
-}
-
 
 /**
  * Add a file type resolver to the end of a list of resolvers.

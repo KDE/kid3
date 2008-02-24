@@ -95,7 +95,7 @@ static const struct {
 	{ "aART", Frame::FT_Other },
 	{ "pgap", Frame::FT_Other },
 #endif
-	{ "covr", Frame::FT_Other }
+	{ "covr", Frame::FT_Picture }
 };
 
 /**
@@ -132,7 +132,7 @@ static QString getNameForType(Frame::Type type)
  * @param onlyPredefined if true, FT_Unknown is returned for fields which
  *                       are not predefined, else FT_Other
  *
- * @return type, FT_Other for "cpil", "covr",
+ * @return type, FT_Other for "cpil",
  *         FT_Unknown or FT_Other if not predefined field.
  */
 static Frame::Type getTypeForName(const QString& name,
@@ -882,7 +882,7 @@ bool M4aFile::setFrameV2(const Frame& frame)
 	QString name(frame.getName(true));
 	MetadataMap::iterator it = m_metadata.find(name);
 	if (it != m_metadata.end()) {
-		if (name != "covr") {
+		if (frame.getType() != Frame::FT_Picture) {
 			QByteArray str = frame.getValue().QCM_toUtf8();
 			if (*it != str) {
 				*it = str;
@@ -890,10 +890,14 @@ bool M4aFile::setFrameV2(const Frame& frame)
 			}
 		} else {
 			if (!frame.getFieldList().empty()) {
-				const Frame::Field& fld = frame.getFieldList().front();
-				if (fld.m_id == Frame::Field::ID_Data) {
-					*it = fld.m_value.toByteArray();
-					markTag2Changed();
+				for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
+						 fldIt != frame.getFieldList().end();
+						 ++fldIt) {
+					if (fldIt->m_id == Frame::Field::ID_Data) {
+						*it = fldIt->m_value.toByteArray();
+						markTag2Changed();
+						break;
+					}
 				}
 			}
 		}
@@ -922,11 +926,20 @@ bool M4aFile::addFrameV2(Frame& frame)
 		}
 	}
 	name = frame.getName(true);
-	if (name == "covr") {
-		if (!frame.getFieldList().empty() &&
-				frame.getFieldList().front().m_id == Frame::Field::ID_Data) {
-			m_metadata[name] = frame.getFieldList().front().m_value.toByteArray();
-		} else {
+	if (type == Frame::FT_Picture) {
+		bool dataAssigned = false;
+		if (!frame.getFieldList().empty()) {
+			for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
+					 fldIt != frame.getFieldList().end();
+					 ++fldIt) {
+				if (fldIt->m_id == Frame::Field::ID_Data) {
+					m_metadata[name] = fldIt->m_value.toByteArray();
+					dataAssigned = true;
+					break;
+				}
+			}
+		}
+		if (!dataAssigned) {
 			Frame::Field coverField;
 			coverField.m_id = Frame::Field::ID_Data;
 			coverField.m_value = QByteArray();
@@ -977,16 +990,40 @@ void M4aFile::getAllFramesV2(FrameCollection& frames)
 			 ++it) {
 		name = it.key();
 		Frame::Type type = getTypeForName(name);
-		if (name != "covr") {
+		if (type != Frame::FT_Picture) {
 			value = QString::fromUtf8((*it).data(), (*it).size());
 			frames.insert(Frame(type, value, name, -1));
 		} else {
 			Frame frame(type, "", name, -1);
-			Frame::Field coverField;
-			coverField.m_id = Frame::Field::ID_Data;
-			coverField.m_value = QByteArray(*it);
-			frame.fieldList().clear();
-			frame.fieldList().push_back(coverField);
+			Frame::Field field;
+			Frame::FieldList& fields = frame.fieldList();
+			fields.clear();
+
+			field.m_id = Frame::Field::ID_TextEnc;
+			field.m_value = 0; // ID3v2 ISO-8859-1
+			fields.push_back(field);
+
+			// for compatibility with ID3v2.3 id3lib
+			field.m_id = Frame::Field::ID_ImageFormat;
+			field.m_value = QString("");
+			fields.push_back(field);
+
+			field.m_id = Frame::Field::ID_MimeType;
+			field.m_value = QString("image/jpeg");
+			fields.push_back(field);
+
+			field.m_id = Frame::Field::ID_PictureType;
+			field.m_value = 3; // ID3v2 Cover (front)
+			fields.push_back(field);
+
+			field.m_id = Frame::Field::ID_Description;
+			field.m_value = QString("");
+			fields.push_back(field);
+
+			field.m_id = Frame::Field::ID_Data;
+			field.m_value = QByteArray(*it);
+			fields.push_back(field);
+
 			frames.insert(frame);
 		}
 	}
@@ -1011,14 +1048,15 @@ QStringList M4aFile::getFrameIds() const
 		Frame::FT_Bpm,
 		Frame::FT_Composer,
 		Frame::FT_Disc,
-		Frame::FT_EncodedBy
+		Frame::FT_EncodedBy,
+		Frame::FT_Picture
 	};
 
 	QStringList lst;
 	for (unsigned i = 0; i < sizeof(types) / sizeof(types[0]); ++i) {
 		lst.append(QCM_translate(Frame::getNameFromType(types[i])));
 	}
-	lst << "covr" << "cpil";
+	lst << "cpil";
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
 	lst << "\251grp";
 #endif

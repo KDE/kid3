@@ -66,6 +66,7 @@ public:
 		FT_OriginalDate,
 		FT_Part,
 		FT_Performer,
+		FT_Picture,
 		FT_Publisher,
 		FT_Subtitle,
 		FT_Website,

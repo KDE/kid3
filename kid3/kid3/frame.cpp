@@ -87,6 +87,7 @@ const char* Frame::getNameFromType(Type type)
 		I18N_NOOP("Original Date"),   // FT_OriginalDate,
 		I18N_NOOP("Part"),            // FT_Part,
 		I18N_NOOP("Performer"),       // FT_Performer,
+		I18N_NOOP("Picture"),         // FT_Picture,
 		I18N_NOOP("Publisher"),       // FT_Publisher,
 		I18N_NOOP("Subtitle"),        // FT_Subtitle,
 		I18N_NOOP("Website")          // FT_Website,

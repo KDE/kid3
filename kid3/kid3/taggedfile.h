@@ -527,7 +527,7 @@ public:
 	 *
 	 * @return list with frame IDs.
 	 */
-	virtual QStringList getFrameIds() const;
+	virtual QStringList getFrameIds() const = 0;
 
 	/**
 	 * Get all frames in tag 1.

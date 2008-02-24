@@ -1133,7 +1133,7 @@ static const struct TypeStrOfId {
 } typeStrOfId[] = {
 	{ Frame::FT_UnknownFrame,   0 },                                                                   /* ???? */
 	{ Frame::FT_Other,          I18N_NOOP("AENC - Audio encryption") },                                /* AENC */
-	{ Frame::FT_Other,          I18N_NOOP("APIC - Attached picture") },                                /* APIC */
+	{ Frame::FT_Picture,        I18N_NOOP("APIC - Attached picture") },                                /* APIC */
 	{ Frame::FT_Other,          0 },                                                                   /* ASPI */
 	{ Frame::FT_Comment,        I18N_NOOP("COMM - Comments") },                                        /* COMM */
 	{ Frame::FT_Other,          I18N_NOOP("COMR - Commercial") },                                      /* COMR */

@@ -1353,7 +1353,7 @@ static const struct TypeStrOfId {
 	bool supported;
 } typeStrOfId[] = {
 	{ Frame::FT_Other,          I18N_NOOP("AENC - Audio encryption"), false },
-	{ Frame::FT_Other,          I18N_NOOP("APIC - Attached picture"), true },
+	{ Frame::FT_Picture,        I18N_NOOP("APIC - Attached picture"), true },
 	{ Frame::FT_Other,          I18N_NOOP("ASPI - Audio seek point index"), false },
 	{ Frame::FT_Comment,        I18N_NOOP("COMM - Comments"), true },
 	{ Frame::FT_Other,          I18N_NOOP("COMR - Commercial"), false },
@@ -2377,6 +2377,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"ORIGINALDATE",    // FT_OriginalDate,
 		"PART",            // FT_Part,
 		"PERFORMER",       // FT_Performer,
+		"UNKNOWN",         // FT_Picture,
 		"PUBLISHER",       // FT_Publisher,
 		"SUBTITLE",        // FT_Subtitle,
 		"WEBSITE",         // FT_Website,
@@ -2862,9 +2863,14 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
  */
 QStringList TagLibFile::getFrameIds() const
 {
-	QStringList lst(TaggedFile::getFrameIds());
-	TagLib::ID3v2::Tag* id3v2Tag;
-	if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+	TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
+	QStringList lst;
+	for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
+		if (id3v2Tag || k != Frame::FT_Picture) {
+			lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
+		}
+	}
+	if (id3v2Tag) {
 		for (unsigned i = 0; i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]); ++i) {
 			const TypeStrOfId& ts = typeStrOfId[i];
 			if (ts.type == Frame::FT_Other && ts.supported && ts.str) {
