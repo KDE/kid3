@@ -1550,6 +1550,15 @@ bool Mp3File::addFrameV2(Frame& frame)
 				if (fld) {
 					setString(fld, frame.getName());
 				}
+			} else if (id == ID3FID_PICTURE) {
+				fld = id3Frame->GetField(ID3FN_MIMETYPE);
+				if (fld) {
+					setString(fld, "image/jpeg");
+				}
+				fld = id3Frame->GetField(ID3FN_PICTURETYPE);
+				if (fld) {
+					fld->Set(ID3PT_COVERFRONT);
+				}
 			}
 			if (!frame.fieldList().empty()) {
 				setId3v2Frame(id3Frame, frame);

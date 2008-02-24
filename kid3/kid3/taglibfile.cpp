@@ -2528,6 +2528,10 @@ bool TagLibFile::addFrameV2(Frame& frame)
 				id3Frame = new TagLib::ID3v2::AttachedPictureFrame;
 				if (id3Frame) {
 					((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setTextEncoding(enc);
+					((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setMimeType(
+						"image/jpeg");
+					((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setType(
+						TagLib::ID3v2::AttachedPictureFrame::FrontCover);
 				}
 			} else if (frameId == "UFID") {
 				// the bytevector must not be empty
