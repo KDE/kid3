@@ -269,7 +269,7 @@ Id3Form::Id3Form(QWidget* parent)
 		new QPushButton(i18n("Remove"), m_idV2GroupBox);
 	buttonsV2VBoxLayout->addWidget(removeV2PushButton);
 
-	buttonsV2VBoxLayout->insertSpacing(-1, spacing);
+	buttonsV2VBoxLayout->insertSpacing(-1, 8);
 
 	QPushButton* editFramesPushButton =
 		new QPushButton(i18n("Edit"), m_idV2GroupBox);
