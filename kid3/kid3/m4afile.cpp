@@ -893,8 +893,8 @@ bool M4aFile::setFrameV2(const Frame& frame)
 				for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
 						 fldIt != frame.getFieldList().end();
 						 ++fldIt) {
-					if (fldIt->m_id == Frame::Field::ID_Data) {
-						*it = fldIt->m_value.toByteArray();
+					if ((*fldIt).m_id == Frame::Field::ID_Data) {
+						*it = (*fldIt).m_value.toByteArray();
 						markTag2Changed();
 						break;
 					}
@@ -932,8 +932,8 @@ bool M4aFile::addFrameV2(Frame& frame)
 			for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
 					 fldIt != frame.getFieldList().end();
 					 ++fldIt) {
-				if (fldIt->m_id == Frame::Field::ID_Data) {
-					m_metadata[name] = fldIt->m_value.toByteArray();
+				if ((*fldIt).m_id == Frame::Field::ID_Data) {
+					m_metadata[name] = (*fldIt).m_value.toByteArray();
 					dataAssigned = true;
 					break;
 				}
