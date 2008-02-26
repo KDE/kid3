@@ -368,25 +368,99 @@ void ScriptInterface::setFileNameFromTag(int tagMask)
 }
 
 /**
+ * Add the contents of a data file (e.g. a picture) to a frame.
+ *
+ * @param frame    frame
+ * @param fileName name of data file
+ */
+static void addDataFile(Frame& frame, const QString& fileName)
+{
+	if (!fileName.isEmpty()) {
+		QFile file(fileName);
+		if (file.open(QIODevice::ReadOnly)) {
+			size_t size = file.size();
+			char* data = new char[size];
+			if (data) {
+				QDataStream stream(&file);
+				stream.readRawData(data, size);
+				for (Frame::FieldList::iterator fldIt = frame.fieldList().begin();
+						 fldIt != frame.fieldList().end();
+						 ++fldIt) {
+					if (fldIt->m_id == Frame::Field::ID_Data) {
+						fldIt->m_value = QByteArray(data, size);
+						break;
+					}
+				}
+				delete [] data;
+			}
+			file.close();
+		}
+	}
+}
+
+/**
+ * Save the contents of a frame (e.g. a picture) to a data file.
+ *
+ * @param frame    frame
+ * @param fileName name of data file
+ */
+static void saveDataFile(const Frame& frame, const QString& fileName)
+{
+	if (!fileName.isEmpty()) {
+		for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
+				 fldIt != frame.getFieldList().end();
+				 ++fldIt) {
+			if (fldIt->m_id == Frame::Field::ID_Data) {
+				QFile file(fileName);
+				if (file.open(QIODevice::WriteOnly)) {
+					QByteArray ba = fldIt->m_value.toByteArray();
+					QDataStream stream(&file);
+					stream.writeRawData(ba.data(), ba.size());
+					file.close();
+				}
+				break;
+			}
+		}
+	}
+}
+
+/**
  * Get value of frame.
+ * To get binary data like a picture, the name of a file to write can be
+ * added after the @a name, e.g. "Picture:/path/to/file".
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  * @param name    name of frame (e.g. "Artist")
  */
 QString ScriptInterface::getFrame(int tagMask, const QString& name)
 {
-	Frame frame;
+	QString frameName(name);
+	QString dataFileName;
+	int colonIndex = frameName.indexOf(':');
+	if (colonIndex != -1) {
+		dataFileName = frameName.mid(colonIndex + 1);
+		frameName.truncate(colonIndex);
+	}
 	FrameTable* ft = (tagMask & 2) ? m_app->m_view->frameTableV2() :
 		m_app->m_view->frameTableV1();
 	ft->tableToFrames();
-	FrameCollection::iterator it = ft->frames().findByName(name);
-	return it != ft->frames().end() ? it->getValue() : "";
+	FrameCollection::iterator it = ft->frames().findByName(frameName);
+	if (it != ft->frames().end()) {
+		if (!dataFileName.isEmpty()) {
+			saveDataFile(*it, dataFileName);
+		}
+		return it->getValue();
+	} else {
+		return "";
+	}
 }
 
 /**
  * Set value of frame.
  * For tag 2 (@a tagMask 2), if no frame with @a name exists, a new frame
  * is added, if @a value is empty, the frame is deleted.
+ * To add binary data like a picture, a file can be added after the
+ * @a name, e.g. "Picture:/path/to/file".
  *
  * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
  * @param name    name of frame (e.g. "Artist")
@@ -395,11 +469,18 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
 bool ScriptInterface::setFrame(int tagMask, const QString& name,
 													 const QString& value)
 {
+	QString frameName(name);
+	QString dataFileName;
+	int colonIndex = frameName.indexOf(':');
+	if (colonIndex != -1) {
+		dataFileName = frameName.mid(colonIndex + 1);
+		frameName.truncate(colonIndex);
+	}
 	Frame frame;
 	FrameTable* ft = (tagMask & 2) ? m_app->m_view->frameTableV2() :
 		m_app->m_view->frameTableV1();
 	ft->tableToFrames();
-	FrameCollection::iterator it = ft->frames().findByName(name);
+	FrameCollection::iterator it = ft->frames().findByName(frameName);
 	if (it != ft->frames().end()) {
 		if (value.isEmpty() && (tagMask & 2) != 0) {
 			m_app->deleteFrame(it->getName());
@@ -407,13 +488,20 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 			Frame& frame = const_cast<Frame&>(*it);
 			frame.setValue(value);
 			frame.setValueChanged();
+			if (!dataFileName.isEmpty()) {
+				addDataFile(frame, dataFileName);
+			}
 			ft->framesToTable();
 		}
 		return true;
 	} else if (tagMask & 2) {
-		Frame::Type type = Frame::getTypeFromName(name);
-		Frame frame(type, value, name, -1);
+		Frame::Type type = Frame::getTypeFromName(frameName);
+		Frame frame(type, value, frameName, -1);
 		m_app->addFrame(&frame);
+		if (!dataFileName.isEmpty() &&
+				(it = ft->frames().findByName(frameName)) != ft->frames().end()) {
+			addDataFile(const_cast<Frame&>(*it), dataFileName);
+		}
 		return true;
 	}
 	return false;

@@ -256,6 +256,8 @@ public slots:
 
 	/**
 	 * Get value of frame.
+	 * To get binary data like a picture, the name of a file to write can be
+	 * added after the @a name, e.g. "Picture:/path/to/file".
 	 *
 	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
 	 * @param name    name of frame (e.g. "artist")
@@ -266,6 +268,8 @@ public slots:
 	 * Set value of frame.
 	 * For tag 2 (@a tagMask 2), if no frame with @a name exists, a new frame
 	 * is added, if @a value is empty, the frame is deleted.
+	 * To add binary data like a picture, a file can be added after the
+	 * @a name, e.g. "Picture:/path/to/file".
 	 *
 	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
 	 * @param name    name of frame (e.g. "artist")
