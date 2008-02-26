@@ -902,6 +902,16 @@ ImportConfig::ImportDestination ImportSelector::getDestination()
 }
 
 /**
+ * Set import destination.
+ *
+ * @param dest DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both
+ */
+void ImportSelector::setDestination(ImportConfig::ImportDestination dest)
+{
+	m_destComboBox->QCM_setCurrentIndex(dest);
+}
+
+/**
  * Save the local settings to the configuration.
  *
  * @param width  window width

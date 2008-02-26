@@ -1720,6 +1720,7 @@ void Kid3App::setupImportDialog()
 	m_trackDataList.clear();
 	FileListItem* mp3file = m_view->firstFileInDir();
 	bool firstTrack = true;
+	bool tag1Supported = true;
 	while (mp3file != 0) {
 		mp3file->getFile()->readTags(false);
 		if (firstTrack) {
@@ -1731,6 +1732,7 @@ void Kid3App::setupImportDialog()
 			m_trackDataList.m_artist = st.artist;
 			m_trackDataList.m_album = st.album;
 			firstTrack = false;
+			tag1Supported = mp3file->getFile()->isTagV1Supported();
 		}
 		m_trackDataList.push_back(ImportTrackData(mp3file->getFile()->getAbsFilename(),
                                             mp3file->getFile()->getDuration()));
@@ -1744,6 +1746,10 @@ void Kid3App::setupImportDialog()
 	}
 	if (m_importDialog) {
 		m_importDialog->clear();
+		if (!tag1Supported &&
+				m_importDialog->getDestination() == ImportConfig::DestV1) {
+			m_importDialog->setDestination(ImportConfig::DestV2);
+		}
 	}
 }
 

@@ -117,6 +117,13 @@ public:
 	ImportConfig::ImportDestination getDestination();
 
 	/**
+	 * Set import destination.
+	 *
+	 * @param dest DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both
+	 */
+	void setDestination(ImportConfig::ImportDestination dest);
+
+	/**
 	 * Get list with track durations.
 	 *
 	 * @return list with track durations,

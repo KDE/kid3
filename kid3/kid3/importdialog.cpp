@@ -188,6 +188,16 @@ ImportConfig::ImportDestination ImportDialog::getDestination() const
 }
 
 /**
+ * Set import destination.
+ *
+ * @param dest DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both
+ */
+void ImportDialog::setDestination(ImportConfig::ImportDestination dest)
+{
+	m_impsel->setDestination(dest);
+}
+
+/**
  * Set the format lineedits.
  *
  * @param index format index

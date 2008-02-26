@@ -94,6 +94,13 @@ public:
 	ImportConfig::ImportDestination getDestination() const;
 
 	/**
+	 * Set import destination.
+	 *
+	 * @param dest DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both
+	 */
+	void setDestination(ImportConfig::ImportDestination dest);
+
+	/**
 	 * Set the format lineedits.
 	 *
 	 * @param index format index
