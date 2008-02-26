@@ -125,6 +125,8 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 	if (m_albumListBox) {
 		vlayout->addWidget(m_albumListBox);
 #if QT_VERSION >= 0x040000
+		connect(m_albumListBox, SIGNAL(itemClicked(QListWidgetItem*)),
+				this, SLOT(requestTrackList(QListWidgetItem*)));
 		connect(m_albumListBox, SIGNAL(itemActivated(QListWidgetItem*)),
 				this, SLOT(requestTrackList(QListWidgetItem*)));
 #else
