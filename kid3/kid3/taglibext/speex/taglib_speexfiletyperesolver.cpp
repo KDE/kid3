@@ -31,7 +31,7 @@ TagLib::File *SpeexFileTypeResolver::createFile(const char *fileName,
     const char *ext = strrchr(fileName, '.');
     if(ext && !strcasecmp(ext, ".spx"))
     {
-        TagLib::Speex::File *f = new TagLib::Speex::File(fileName, readProperties, propertiesStyle);
+        TagLib::Ogg::Speex::File *f = new TagLib::Ogg::Speex::File(fileName, readProperties, propertiesStyle);
         if(f->isValid())
             return f;
         else

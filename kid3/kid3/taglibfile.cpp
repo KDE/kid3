@@ -1150,7 +1150,7 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 		TagLib::Vorbis::Properties* oggProperties;
 		TagLib::FLAC::Properties* flacProperties;
 		TagLib::MPC::Properties* mpcProperties;
-		TagLib::Speex::Properties* speexProperties;
+		TagLib::Ogg::Speex::Properties* speexProperties;
 		TagLib::TrueAudio::Properties* ttaProperties;
 		TagLib::WavPack::Properties* wvProperties;
 		info.valid = true;
@@ -1205,7 +1205,7 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 								dynamic_cast<TagLib::MPC::Properties*>(audioProperties)) != 0) {
 			info.format = "MPC";
 		} else if ((speexProperties =
-								dynamic_cast<TagLib::Speex::Properties*>(audioProperties)) != 0) {
+								dynamic_cast<TagLib::Ogg::Speex::Properties*>(audioProperties)) != 0) {
 			info.format = QString("Speex %1").arg(speexProperties->speexVersion());
 		} else if ((ttaProperties =
 								dynamic_cast<TagLib::TrueAudio::Properties*>(audioProperties)) != 0) {
@@ -1267,7 +1267,7 @@ QString TagLibFile::getFileExtension() const
 			return ".flac";
 		} else if (dynamic_cast<TagLib::MPC::File*>(file) != 0) {
 			return ".mpc";
-		} else if (dynamic_cast<TagLib::Speex::File*>(file) != 0) {
+		} else if (dynamic_cast<TagLib::Ogg::Speex::File*>(file) != 0) {
 			return ".spx";
 		} else if (dynamic_cast<TagLib::WavPack::File*>(file) != 0) {
 			return ".wv";

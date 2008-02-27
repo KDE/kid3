@@ -30,54 +30,56 @@
 
 namespace TagLib {
 
-  namespace Speex {
+  namespace Ogg {
 
-    class File;
+    namespace Speex {
 
-    //! An implementation of audio property reading for Ogg Speex
+      class File;
 
-    /*!
-     * This reads the data from an Ogg Speex stream found in the AudioProperties
-     * API.
-     */
-
-    class Properties : public AudioProperties
-    {
-    public:
-      /*!
-       * Create an instance of Vorbis::Properties with the data read from the
-       * Vorbis::File \a file.
-       */
-      explicit Properties(File *file, ReadStyle style = Average);
+      //! An implementation of audio property reading for Ogg Speex
 
       /*!
-       * Destroys this VorbisProperties instance.
+       * This reads the data from an Ogg Speex stream found in the AudioProperties
+       * API.
        */
-      virtual ~Properties();
 
-      // Reimplementations.
+      class Properties : public AudioProperties
+      {
+      public:
+        /*!
+         * Create an instance of Vorbis::Properties with the data read from the
+         * Vorbis::File \a file.
+         */
+        explicit Properties(File *file, ReadStyle style = Average);
 
-      virtual int length() const;
-      virtual int bitrate() const;
-      virtual int sampleRate() const;
-      virtual int channels() const;
+        /*!
+         * Destroys this VorbisProperties instance.
+         */
+        virtual ~Properties();
 
-      /*!
-       * Returns the Vorbis version, currently "0" (as specified by the spec).
-       */
-      int speexVersion() const;
+        // Reimplementations.
 
-    private:
-      Properties(const Properties &);
-      Properties &operator=(const Properties &);
+        virtual int length() const;
+        virtual int bitrate() const;
+        virtual int sampleRate() const;
+        virtual int channels() const;
 
-      void read();
+        /*!
+         * Returns the Vorbis version, currently "0" (as specified by the spec).
+         */
+        int speexVersion() const;
 
-      class PropertiesPrivate;
-      PropertiesPrivate *d;
-    };
+      private:
+        Properties(const Properties &);
+        Properties &operator=(const Properties &);
+
+        void read();
+
+        class PropertiesPrivate;
+        PropertiesPrivate *d;
+      };
+    }
   }
-
 }
 
 #endif
