@@ -41,6 +41,7 @@
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
 												((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION))
 
+/** Convert QString @a s to a TagLib::String. */
 #if QT_VERSION >= 0x040000
 #define QSTRING_TO_TSTRING(s) TagLib::String(s.toUtf8().data(), TagLib::String::UTF8)
 #else

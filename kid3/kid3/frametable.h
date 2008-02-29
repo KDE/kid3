@@ -31,6 +31,7 @@
 #include <qstringlist.h>
 #include <qlineedit.h>
 #include "qtcompatmac.h"
+/** The base class depends on the Qt version and is a table widget. */
 #if QT_VERSION >= 0x040000
 #include <QTableWidget>
 typedef QTableWidget FrameTableBaseClass;
@@ -120,7 +121,7 @@ public:
 	/**
 	 * Select the row of the frame with a given name.
 	 *
-	 * @param index name of frame
+	 * @param name name of frame
 	 *
 	 * @return true if found.
 	 */

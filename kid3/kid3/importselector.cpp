@@ -988,7 +988,7 @@ void ImportSelector::maxDiffChanged() {
 /**
  * Move a table row.
  *
- * @param section not used
+ * The first parameter @a section is not used.
  * @param fromIndex index of position moved from
  * @param fromIndex index of position moved to
  */

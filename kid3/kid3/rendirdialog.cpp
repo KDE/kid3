@@ -270,7 +270,7 @@ bool RenDirDialog::renameFile(const QString& oldfn, const QString& newfn,
  * Generate new directory name according to current settings.
  *
  * @param taggedFile file to get information from
- * @param newdir pointer to QString to place old directory name into,
+ * @param olddir pointer to QString to place old directory name into,
  *               NULL if not used
  *
  * @return new directory name.

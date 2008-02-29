@@ -29,6 +29,7 @@
 
 #include "config.h"
 #include <qstringlist.h>
+/** The base class depends on the Qt version and is a D-Bus adaptor. */
 #if QT_VERSION >= 0x040000
 #include <QDBusAbstractAdaptor>
 typedef QDBusAbstractAdaptor ScriptInterfaceBaseClass;
@@ -39,7 +40,7 @@ typedef QObject ScriptInterfaceBaseClass;
 
 class Kid3App;
 
-/*
+/**
  * Adaptor class for interface net.sourceforge.Kid3
  * Create net.sourceforge.Kid3.xml with:
  * qdbuscpp2xml scriptinterface.h >net.sourceforge.Kid3.xml

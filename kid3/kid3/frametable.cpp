@@ -95,6 +95,7 @@ void FrameTableLineEdit::focusInEvent(QFocusEvent* event)
 	QLineEdit::focusInEvent(event);
 }
 
+/** Combo box which sets current table cell in EditType Always. */
 class FrameTableComboBox : public QComboBox {
 public:
 	/**
@@ -1023,7 +1024,7 @@ bool FrameTable::selectFrameWithIndex(int index)
 /**
  * Select the row of the frame with a given name.
  *
- * @param index name of frame
+ * @param name name of frame
  *
  * @return true if found.
  */

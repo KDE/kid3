@@ -72,7 +72,7 @@ bool ExpressionParser::lessPriority(const QString& op1,
 /**
  * Tokenize an expression in reverse polish notation.
  *
- * @param expression with strings, operators, not, and, or, (, ).
+ * @param expr with strings, operators, not, and, or, (, ).
  */
 void ExpressionParser::tokenizeRpn(const QString& expr)
 {

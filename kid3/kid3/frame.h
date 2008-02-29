@@ -107,10 +107,11 @@ public:
 			ID_ContentType
 		};
 
-		int m_id;
-		QVariant m_value;
+		int m_id;         /**< type of field. */
+		QVariant m_value; /**< value of field. */
 	};
 
+	/** list of fields. */
 #if QT_VERSION >= 0x040000
 	typedef QList<Field> FieldList;
 #else

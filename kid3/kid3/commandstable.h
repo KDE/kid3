@@ -28,6 +28,7 @@
 #define COMMANDSTABLE_H
 
 #include "qtcompatmac.h"
+/** The base class depends on the Qt version and is a table widget. */
 #if QT_VERSION >= 0x040000
 #include <QTableWidget>
 typedef QTableWidget CommandsTableBaseClass;

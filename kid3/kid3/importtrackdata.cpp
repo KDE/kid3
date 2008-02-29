@@ -88,8 +88,8 @@ QString ImportTrackData::formatString(const QString& format) const
 /**
  * Get help text for format codes supported by formatString().
  *
- * @param onlyRows if true only the <tr> elements are returned,
- *                 not the surrounding <table>
+ * @param onlyRows if true only the tr elements are returned,
+ *                 not the surrounding table
  *
  * @return help text.
  */

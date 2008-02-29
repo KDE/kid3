@@ -30,6 +30,7 @@
 #include <qstring.h>
 #include <qregexp.h>
 #include "qtcompatmac.h"
+/** The list type depends on the Qt version. */
 #if QT_VERSION >= 0x040000
 #include <QList>
 typedef QList<int> TrackDurationList;

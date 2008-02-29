@@ -69,7 +69,7 @@ public:
 		 *
 		 * @param name display name
 		 * @param cmd  command string with argument codes
-		 * @param config true if confirmation required
+		 * @param confirm true if confirmation required
 		 * @param showOutput true if output of command shall be shown
 		 */
 		explicit MenuCommand(const QString& name = QString::null,

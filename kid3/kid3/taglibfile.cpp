@@ -1170,7 +1170,6 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 				case TagLib::MPEG::Header::Version2_5:
 					info.format = "MPEG 2.5 ";
 					break;
-					//! @todo is there information about VBR.
 			}
 			int layer = mpegProperties->layer();
 			if (layer >= 1 && layer <= 3) {
@@ -2108,6 +2107,7 @@ void setValue(TagLib::ID3v2::AttachedPictureFrame* f, const TagLib::String& text
 /**
  * Set the fields in a TagLib ID3v2 frame.
  *
+ * @param self   this TagLibFile instance
  * @param tFrame TagLib frame to set
  * @param frame  frame with field values
  */

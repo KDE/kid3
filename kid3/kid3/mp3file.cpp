@@ -1226,6 +1226,7 @@ static const struct TypeStrOfId {
 	{ Frame::FT_Other,          I18N_NOOP("WXXX - User defined URL link") }                            /* WXXX */
 };
 
+/** Not instantiated class to check array size at compilation time. */
 class not_used { int array_size_check[
 		sizeof(typeStrOfId) / sizeof(typeStrOfId[0]) == ID3FID_WWWUSER + 1
 		? 1 : -1 ]; };

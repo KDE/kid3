@@ -646,7 +646,7 @@ void Id3Form::fnFromID3V2()
 
 /**
  * Filename line edit is changed.
- * @param contents of line edit
+ * @param txt contents of line edit
  */
 void Id3Form::nameLineEditChanged(const QString& txt)
 {

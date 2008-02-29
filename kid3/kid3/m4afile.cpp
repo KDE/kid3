@@ -46,6 +46,7 @@
 #include <cstdlib>
 #include <cstring>
 
+/** MPEG4IP version as 16-bit hex number with major and minor version. */
 #if defined MPEG4IP_MAJOR_VERSION && defined MPEG4IP_MINOR_VERSION
 #define MPEG4IP_MAJOR_MINOR_VERSION ((MPEG4IP_MAJOR_VERSION << 8) | MPEG4IP_MINOR_VERSION)
 #else

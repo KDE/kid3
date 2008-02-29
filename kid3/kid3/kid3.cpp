@@ -236,8 +236,6 @@ QString Kid3App::s_dirName;
 
 /**
  * Constructor.
- *
- * @param name name
  */
 Kid3App::Kid3App() :
 	m_importDialog(0), m_exportDialog(0), m_numberTracksDialog(0),

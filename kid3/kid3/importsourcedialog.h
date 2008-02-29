@@ -221,6 +221,7 @@ private:
 	const Properties& m_props;
 };
 
+/** The base class depends on the Qt version and is a list widget item. */
 #if QT_VERSION >= 0x040000
 typedef QListWidgetItem AlbumListItemBaseClass;
 #else

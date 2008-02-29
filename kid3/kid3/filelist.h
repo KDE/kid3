@@ -30,6 +30,7 @@
 #include <qstring.h>
 #include <qsize.h>
 #include "qtcompatmac.h"
+/** The base class depends on the Qt version and is a tree widget. */
 #if QT_VERSION >= 0x040000
 #include <QTreeWidget>
 typedef QTreeWidget FileListBaseClass;
@@ -185,8 +186,8 @@ public:
 	/**
 	 * Get help text for format codes supported by formatStringList().
 	 *
-	 * @param onlyRows if true only the <tr> elements are returned,
-	 *                 not the surrounding <table>
+	 * @param onlyRows if true only the tr elements are returned,
+	 *                 not the surrounding table
 	 *
 	 * @return help text.
 	 */

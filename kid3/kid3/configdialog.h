@@ -73,6 +73,7 @@ public:
 	 *
 	 * @param parent  parent widget
 	 * @param caption dialog title
+	 * @param configSkeleton KDE config skeleton
 	 */
 #ifdef KID3_USE_KCONFIGDIALOG
 	ConfigDialog(QWidget* parent, QString& caption,

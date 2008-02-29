@@ -128,7 +128,6 @@ MiscConfig::~MiscConfig() {}
  * Persist configuration.
  *
  * @param config KDE configuration
- * @param group  configuration group
  */
 void MiscConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
@@ -250,7 +249,6 @@ void MiscConfig::writeToConfig(
  * Read persisted configuration.
  *
  * @param config KDE configuration
- * @param group  configuration group
  */
 void MiscConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
@@ -409,7 +407,7 @@ void MiscConfig::readFromConfig(
  *
  * @param name display name
  * @param cmd  command string with argument codes
- * @param config true if confirmation required
+ * @param confirm true if confirmation required
  * @param showOutput true if output of command shall be shown
  */
 MiscConfig::MenuCommand::MenuCommand(const QString& name, const QString& cmd,

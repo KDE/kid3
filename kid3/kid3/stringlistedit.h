@@ -37,6 +37,9 @@ class QListBox;
 #endif
 class QPushButton;
 
+/**
+ * Widget to edit a string list.
+ */
 class StringListEdit : public QWidget {
 Q_OBJECT
 
