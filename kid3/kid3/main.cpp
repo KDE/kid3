@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 	KAboutData aboutData(
 		"kid3", 0, ki18n("Kid3"),
 		VERSION, ki18n(description), KAboutData::License_GPL,
-		ki18n("(c) 2003-2007 Urs Fleisch"), KLocalizedString(), "http://kid3.sourceforge.net",
+		ki18n("(c) 2003-2008 Urs Fleisch"), KLocalizedString(), "http://kid3.sourceforge.net",
 		"ufleisch@users.sourceforge.net");
 	aboutData.addAuthor(ki18n("Urs Fleisch"), KLocalizedString(), "ufleisch@users.sourceforge.net");
 	KCmdLineArgs::init(argc, argv, &aboutData);
@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 	KAboutData aboutData(
 	    "kid3", I18N_NOOP("Kid3"),
 	    VERSION, description, KAboutData::License_GPL,
-	    "(c) 2003-2007 Urs Fleisch", 0, "http://kid3.sourceforge.net",
+	    "(c) 2003-2008 Urs Fleisch", 0, "http://kid3.sourceforge.net",
 	    "ufleisch@users.sourceforge.net");
 	aboutData.addAuthor("Urs Fleisch",0, "ufleisch@users.sourceforge.net");
 	KCmdLineArgs::init(argc, argv, &aboutData);

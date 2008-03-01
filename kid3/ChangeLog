@@ -1,3 +1,26 @@
+Sat Mar  1 15:44:56 CET 2008  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 1.0
+
+	* New:
+	  + File filter.
+	  + D-Bus interface to control application by scripts.
+	  + Long format codes %{title}, %{album}, ... and tooltips for formats.
+	  + Polish translation.
+
+	* Improved:
+	  + GUI and usability.
+	  + Use xdg-open as the default web browser.
+	  + Display description instead of TXXX and WXXX.
+	  + Compilation with GCC 4.3 and compiler detection for kid3-qt.
+	  + Support for TagLib 1.5.
+
+	* Fixed:
+	  + KDE 4 docs in correct directory.
+	  + Crash when TSST frame was added to ID3v2.3.0 tag.
+	  + Disappearing ID3v1 genres.
+	  + Possible crash when import or export format was added.
+
 Thu Nov 15 21:52:36 CET 2007  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.10
