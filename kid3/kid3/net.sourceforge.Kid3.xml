@@ -29,7 +29,6 @@
       <arg type="b" direction="out"/>
     </method>
     <method name="quit">
-      <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
     </method>
     <method name="selectAll">
     </method>
@@ -60,6 +59,9 @@
     <method name="numberTracks">
       <arg name="tagMask" type="i" direction="in"/>
       <arg name="firstTrackNr" type="i" direction="in"/>
+    </method>
+    <method name="filter">
+      <arg name="expression" type="s" direction="in"/>
     </method>
     <method name="getDirectoryName">
       <arg type="s" direction="out"/>
