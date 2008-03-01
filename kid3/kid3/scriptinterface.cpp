@@ -256,7 +256,7 @@ bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
  * Set subsequent track numbers in the selected files.
  *
  * @param tagMask      tag mask (bit 0 for tag 1, bit 1 for tag 2)
- * @param firstTrackNr number to use for fist file
+ * @param firstTrackNr number to use for first file
  */
 void ScriptInterface::numberTracks(int tagMask, int firstTrackNr)
 {
