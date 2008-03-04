@@ -19,6 +19,27 @@
 
 #include <string.h>
 
+#if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) > 0x010400  && defined _WIN32
+
+TagLib::File *MP2FileTypeResolver::createFile(TagLib::FileName fileName,
+        bool readProperties,
+        TagLib::AudioProperties::ReadStyle propertiesStyle) const
+{
+    const wchar_t* wstr = static_cast<const wchar_t*>(fileName);
+    const char* str = static_cast<const char*>(fileName);
+    const wchar_t* wext;
+    const char* ext;
+    if ((wstr && (wext = wcsrchr(fileName, L'.')) != 0 && !wcsicmp(wext, L".mp2")) ||
+        (str  && (ext  = strrchr(fileName,  '.')) != 0 && !strcasecmp(ext, ".mp2")))
+    {
+        return new TagLib::MPEG::File(fileName, readProperties, propertiesStyle);
+    }
+
+    return 0;
+}
+
+#else
+
 TagLib::File *MP2FileTypeResolver::createFile(const char *fileName,
         bool readProperties,
         TagLib::AudioProperties::ReadStyle propertiesStyle) const
@@ -31,3 +52,5 @@ TagLib::File *MP2FileTypeResolver::createFile(const char *fileName,
 
     return 0;
 }
+
+#endif

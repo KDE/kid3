@@ -112,10 +112,20 @@ TagLibFile::~TagLibFile()
  */
 void TagLibFile::readTags(bool force)
 {
-	QCM_QCString fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+	QString fileName = getDirInfo()->getDirname() + QDir::separator() + currentFilename();
+	QCM_QCString fn = QFile::encodeName(fileName);
 
 	if (force || m_fileRef.isNull()) {
+#if TAGLIB_VERSION > 0x010400 && defined _WIN32
+		int fnLen = fileName.length();
+		wchar_t* fnWs = new wchar_t[fnLen + 1];
+		fnWs[fnLen] = 0;
+		fileName.toWCharArray(fnWs);
+		m_fileRef = TagLib::FileRef(TagLib::FileName(fnWs));
+		delete [] fnWs;
+#else
 		m_fileRef = TagLib::FileRef(fn);
+#endif
 		m_tagV1 = 0;
 		m_tagV2 = 0;
 		markTag1Changed(false);

@@ -25,6 +25,17 @@
 #include <tfile.h>
 #include <fileref.h>
 
+#if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) > 0x010400  && defined _WIN32
+
+class AACFileTypeResolver : public TagLib::FileRef::FileTypeResolver
+{
+    TagLib::File *createFile(TagLib::FileName fileName,
+            bool readAudioProperties,
+            TagLib::AudioProperties::ReadStyle audioPropertiesStyle) const;
+    ~AACFileTypeResolver() {}
+};
+
+#else
 
 class AACFileTypeResolver : public TagLib::FileRef::FileTypeResolver
 {
@@ -33,5 +44,7 @@ class AACFileTypeResolver : public TagLib::FileRef::FileTypeResolver
             TagLib::AudioProperties::ReadStyle audioPropertiesStyle) const;
     ~AACFileTypeResolver() {}
 };
+
+#endif
 
 #endif

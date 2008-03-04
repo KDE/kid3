@@ -20,6 +20,17 @@
 #include <tfile.h>
 #include <fileref.h>
 
+#if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) > 0x010400  && defined _WIN32
+
+class MP2FileTypeResolver : public TagLib::FileRef::FileTypeResolver
+{
+    TagLib::File *createFile(TagLib::FileName fileName,
+            bool readAudioProperties,
+            TagLib::AudioProperties::ReadStyle audioPropertiesStyle) const;
+    ~MP2FileTypeResolver() {}
+};
+
+#else
 
 class MP2FileTypeResolver : public TagLib::FileRef::FileTypeResolver
 {
@@ -28,5 +39,7 @@ class MP2FileTypeResolver : public TagLib::FileRef::FileTypeResolver
             TagLib::AudioProperties::ReadStyle audioPropertiesStyle) const;
     ~MP2FileTypeResolver() {}
 };
+
+#endif
 
 #endif
