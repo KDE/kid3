@@ -37,6 +37,7 @@ namespace FLAC {
 		class Chain;
 		class VorbisComment;
 		class StreamInfo;
+		class Picture;
 	};
 };
 
@@ -119,6 +120,64 @@ public:
 	 */
 	virtual QString getFileExtension() const;
 
+#ifdef HAVE_FLAC_PICTURE
+	/**
+	 * Check if file has an ID3v2 tag.
+	 *
+	 * @return true if a V2 tag is available.
+	 * @see isTagInformationRead()
+	 */
+	virtual bool hasTagV2() const;
+
+	/**
+	 * Set a frame in the tags 2.
+	 *
+	 * @param frame frame to set
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool setFrameV2(const Frame& frame);
+
+	/**
+	 * Add a frame in the tags 2.
+	 *
+	 * @param frame frame to add
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool addFrameV2(Frame& frame);
+
+	/**
+	 * Delete a frame in the tags 2.
+	 *
+	 * @param frame frame to delete.
+	 *
+	 * @return true if ok.
+	 */
+	virtual bool deleteFrameV2(const Frame& frame);
+
+	/**
+	 * Remove ID3v2 frames.
+	 *
+	 * @param flt filter specifying which frames to remove
+	 */
+	virtual void deleteFramesV2(const FrameFilter& flt);
+
+	/**
+	 * Get all frames in tag 2.
+	 *
+	 * @param frames frame collection to set.
+	 */
+	virtual void getAllFramesV2(FrameCollection& frames);
+
+	/**
+	 * Get a list of frame IDs which can be added.
+	 *
+	 * @return list with frame IDs.
+	 */
+	virtual QStringList getFrameIds() const;
+#endif // HAVE_FLAC_PICTURE
+
 private:
 	FlacFile(const FlacFile&);
 	FlacFile& operator=(const FlacFile&);
@@ -145,6 +204,16 @@ private:
 	 * @param vc vorbis comment block to set
 	 */
 	void setVorbisComment(FLAC::Metadata::VorbisComment* vc);
+
+#ifdef HAVE_FLAC_PICTURE
+	/** Pictures */
+#if QT_VERSION >= 0x040000
+	typedef QList<Frame> PictureList;
+#else
+	typedef QValueList<Frame> PictureList;
+#endif
+	PictureList m_pictures;
+#endif // HAVE_FLAC_PICTURE
 
 	/** Info about file. */
 	FileInfo m_fileInfo;

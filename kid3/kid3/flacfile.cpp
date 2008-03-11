@@ -30,9 +30,11 @@
 #include "standardtags.h"
 #include "genres.h"
 #include "dirinfo.h"
+#include "pictureframe.h"
 #include <FLAC++/metadata.h>
 #include <qfile.h>
 #include <qdir.h>
+#include <qimage.h>
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -67,6 +69,62 @@ FlacFile::~FlacFile()
 	}
 }
 
+#ifdef HAVE_FLAC_PICTURE
+/**
+ * Get the picture block as a picture frame.
+ *
+ * @param frame frame to set
+ * @param pic   picture block to get
+ */
+static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
+{
+	QByteArray ba;
+	QCM_duplicate(
+		ba,
+		reinterpret_cast<const char*>(pic->get_data()),
+		pic->get_data_length());
+	PictureFrame::setFields(
+		frame,
+		Frame::Field::TE_ISO8859_1,	"",
+		QString::fromAscii(pic->get_mime_type()),
+		static_cast<PictureFrame::PictureType>(pic->get_type()),
+		QString::fromUtf8(
+			reinterpret_cast<const char*>(pic->get_description())),
+		ba);
+	frame.setInternalName("Picture");
+}
+
+/**
+ * Set the picture block with the picture frame.
+ *
+ * @param frame frame to get
+ * @param pic picture block to set
+ */
+static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
+{
+	Frame::Field::TextEncoding enc;
+	PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
+	QString imgFormat, mimeType, description;
+	QByteArray ba;
+	PictureFrame::getFields(frame, enc, imgFormat, mimeType,
+													pictureType, description, ba);
+	QImage image;
+	if (image.loadFromData(ba)) {
+		pic->set_width(image.width());
+		pic->set_height(image.height());
+		pic->set_depth(image.depth());
+		pic->set_colors(image.numColors());
+	}
+	pic->set_mime_type(mimeType.QCM_toAscii());
+	pic->set_type(
+		static_cast<FLAC__StreamMetadata_Picture_Type>(pictureType));
+	pic->set_description(
+		reinterpret_cast<const FLAC__byte*>(
+			static_cast<const char*>(description.QCM_toUtf8())));
+	pic->set_data(reinterpret_cast<const FLAC__byte*>(ba.data()), ba.size());
+}
+#endif // HAVE_FLAC_PICTURE
+
 /**
  * Read tags from file.
  *
@@ -76,6 +134,10 @@ void FlacFile::readTags(bool force)
 {
 	if (force || !m_fileRead) {
 		m_comments.clear();
+#ifdef HAVE_FLAC_PICTURE
+		m_pictures.clear();
+		int pictureNr = 0;
+#endif
 		markTag2Changed(false);
 		m_fileRead = true;
 		QCM_QCString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
@@ -127,6 +189,21 @@ void FlacFile::readTags(bool force)
 								delete proto;
 							}
 						}
+#ifdef HAVE_FLAC_PICTURE
+						else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
+							FLAC::Metadata::Prototype* proto = mdit->get_block();
+							if (proto) {
+								FLAC::Metadata::Picture* pic =
+									dynamic_cast<FLAC::Metadata::Picture*>(proto);
+								if (pic) {
+									Frame frame(Frame::FT_Picture, "", "", pictureNr++);
+									getPicture(frame, pic);
+									m_pictures.push_back(frame);
+								}
+								delete proto;
+							}
+						}
+#endif
 						if (!mdit->next()) {
 							break;
 						}
@@ -162,6 +239,11 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 
 	if (m_fileRead && (force || isTag2Changed()) && m_chain && m_chain->is_valid()) {
 		bool commentsSet = false;
+#ifdef HAVE_FLAC_PICTURE
+		bool pictureSet = false;
+		bool pictureRemoved = false;
+		PictureList::iterator pictureIt = m_pictures.begin();
+#endif
 		m_chain->sort_padding();
 		FLAC::Metadata::Iterator* mdit = new FLAC::Metadata::Iterator;
 		if (mdit) {
@@ -184,6 +266,41 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 						}
 					}
 				}
+#ifdef HAVE_FLAC_PICTURE
+				else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
+					if (pictureIt != m_pictures.end()) {
+						FLAC::Metadata::Prototype* proto = mdit->get_block();
+						if (proto) {
+							FLAC::Metadata::Picture* pic =
+								dynamic_cast<FLAC::Metadata::Picture*>(proto);
+							if (pic) {
+								setPicture(*pictureIt++, pic);
+								pictureSet = true;
+							}
+							delete proto;
+						}
+					} else {
+						mdit->delete_block(false);
+						pictureRemoved = true;
+					}
+				} else if (mdt == FLAC__METADATA_TYPE_PADDING) {
+					if (pictureIt != m_pictures.end()) {
+						FLAC::Metadata::Picture* pic =
+							new FLAC::Metadata::Picture;
+						if (pic) {
+							setPicture(*pictureIt, pic);
+							if (mdit->set_block(pic)) {
+								++pictureIt;
+								pictureSet = true;
+							} else {
+								delete pic;
+							}
+						}
+					} else if (pictureRemoved) {
+						mdit->delete_block(false);
+					}
+				}
+#endif
 				if (!mdit->next()) {
 					if (!commentsSet) {
 						FLAC::Metadata::VorbisComment* vc =
@@ -200,15 +317,38 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 							}
 						}
 					}
+#ifdef HAVE_FLAC_PICTURE
+					while (pictureIt != m_pictures.end()) {
+						FLAC::Metadata::Picture* pic =
+							new FLAC::Metadata::Picture;
+						if (pic) {
+							setPicture(*pictureIt, pic);
+							if (mdit->insert_block_after(pic)) {
+								pictureSet = true;
+							} else {
+								delete pic;
+							}
+						}
+						++pictureIt;
+					}
+#endif
 					break;
 				}
 			}
 			delete mdit;
 		}
+#ifdef HAVE_FLAC_PICTURE
+		if ((commentsSet || pictureSet) &&
+				m_chain->write(!pictureRemoved, preserve)) {
+			markTag2Changed(false);
+		}
+#else
 		if (commentsSet &&
 				m_chain->write(true, preserve)) {
 			markTag2Changed(false);
-		} else {
+		}
+#endif
+		else {
 			return false;
 		}
 	}
@@ -223,6 +363,144 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 	}
 	return true;
 }
+
+#ifdef HAVE_FLAC_PICTURE
+/**
+ * Check if file has an ID3v2 tag.
+ *
+ * @return true if a V2 tag is available.
+ * @see isTagInformationRead()
+ */
+bool FlacFile::hasTagV2() const
+{
+	return OggFile::hasTagV2() || !m_pictures.empty();
+}
+
+/**
+ * Set a frame in the tags 2.
+ *
+ * @param frame frame to set
+ *
+ * @return true if ok.
+ */
+bool FlacFile::setFrameV2(const Frame& frame)
+{
+	if (frame.getType() == Frame::FT_Picture) {
+		int index = frame.getIndex();
+		if (index != -1 && index < static_cast<int>(m_pictures.size())) {
+#if QT_VERSION >= 0x040000
+			PictureList::iterator it = m_pictures.begin() + index;
+#else
+			PictureList::iterator it = m_pictures.at(index);
+#endif
+			if (it != m_pictures.end()) {
+				*it = frame;
+				PictureFrame::setDescription(*it, frame.getValue());
+				markTag2Changed();
+				return true;
+			}
+		}
+	}
+	return OggFile::setFrameV2(frame);
+}
+
+/**
+ * Add a frame in the tags 2.
+ *
+ * @param frame frame to add
+ *
+ * @return true if ok.
+ */
+bool FlacFile::addFrameV2(Frame& frame)
+{
+	if (frame.getType() == Frame::FT_Picture) {
+		if (frame.getFieldList().empty()) {
+			PictureFrame::setFields(
+				frame, Frame::Field::TE_ISO8859_1, "JPG", "image/jpeg",
+				PictureFrame::PT_CoverFront, "", QByteArray());
+		}
+		PictureFrame::setDescription(frame, frame.getValue());
+		frame.setIndex(m_pictures.size());
+		m_pictures.push_back(frame);
+		markTag2Changed();
+		return true;
+	}
+	return OggFile::addFrameV2(frame);
+}
+
+/**
+ * Delete a frame in the tags 2.
+ *
+ * @param frame frame to delete.
+ *
+ * @return true if ok.
+ */
+bool FlacFile::deleteFrameV2(const Frame& frame)
+{
+	if (frame.getType() == Frame::FT_Picture) {
+		int index = frame.getIndex();
+		if (index != -1 && index < static_cast<int>(m_pictures.size())) {
+#if QT_VERSION >= 0x040000
+			m_pictures.removeAt(index);
+#else
+			PictureList::iterator it = m_pictures.at(index);
+			m_pictures.erase(it);
+#endif
+			markTag2Changed();
+			return true;
+		}
+	}
+	return OggFile::deleteFrameV2(frame);
+}
+
+/**
+ * Remove ID3v2 frames.
+ *
+ * @param flt filter specifying which frames to remove
+ */
+void FlacFile::deleteFramesV2(const FrameFilter& flt)
+{
+	if (flt.areAllEnabled() || flt.isEnabled(Frame::FT_Picture)) {
+		m_pictures.clear();
+		markTag2Changed();
+	}
+	OggFile::deleteFramesV2(flt);
+}
+
+/**
+ * Get all frames in tag 2.
+ *
+ * @param frames frame collection to set.
+ */
+void FlacFile::getAllFramesV2(FrameCollection& frames)
+{
+	OggFile::getAllFramesV2(frames);
+	int i = 0;
+	for (PictureList::iterator it = m_pictures.begin();
+			 it != m_pictures.end();
+			 ++it) {
+		(*it).setIndex(i++);
+		frames.insert(*it);
+	}
+}
+
+/**
+ * Get a list of frame IDs which can be added.
+ *
+ * @return list with frame IDs.
+ */
+QStringList FlacFile::getFrameIds() const
+{
+	QStringList lst(OggFile::getFrameIds());
+#if QT_VERSION >= 0x040000
+	QStringList::iterator it = lst.begin() + Frame::FT_Picture;
+#else
+	QStringList::iterator it = lst.at(Frame::FT_Picture);
+#endif
+	lst.insert(it, QCM_translate(Frame::getNameFromType(Frame::FT_Picture)));
+	return lst;
+}
+#endif // HAVE_FLAC_PICTURE
 
 /**
  * Set the vorbis comment block with the comments.

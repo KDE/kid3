@@ -26,3 +26,4 @@
 /* Define if you have FLAC++ installed */
 #cmakedefine HAVE_FLAC 1
 #cmakedefine HAVE_NO_FLAC_STREAMMETADATA_OPERATOR
+#cmakedefine HAVE_FLAC_PICTURE 1

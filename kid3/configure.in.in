@@ -320,3 +320,33 @@ EOF
   ])
   FLAC_CHECK_STREAMMETADATA_OPERATOR
 fi
+
+# Check if FLAC++ has FLAC::Metadata::Picture
+if test "$build_flac" = "yes"; then
+  AC_DEFUN([FLAC_CHECK_METADATA_TYPE_PICTURE],
+  [
+    AC_MSG_CHECKING([for FLAC::Metadata::Picture])
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+  cat > conftest.$ac_ext <<EOF
+#include <FLAC++/metadata.h>
+int main() {
+  FLAC::Metadata::Picture pic;
+  return 0;
+}
+EOF
+
+    ac_save_CPPFLAGS=$CPPFLAGS
+    CPPFLAGS="$all_includes $CPPFLAGS"
+    if AC_TRY_EVAL(ac_compile); then
+      AC_MSG_RESULT(yes)
+      AC_DEFINE(HAVE_FLAC_PICTURE,1,[Define to build with FLAC::Metadata::Picture])
+    else
+      AC_MSG_RESULT(no)
+    fi
+    CPPFLAGS=$ac_save_CPPFLAGS
+  
+    AC_LANG_RESTORE
+  ])
+  FLAC_CHECK_METADATA_TYPE_PICTURE
+fi

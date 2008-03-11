@@ -147,6 +147,7 @@ sub generateTs()
 
 my $have_vorbis = 1;
 my $have_flac = 1;
+my $have_flac_picture = 1;
 my $have_id3lib = 1;
 my $have_taglib = 1;
 my $have_mp4v2 = 1;
@@ -167,6 +168,9 @@ while (my $opt = shift) {
 		$have_vorbis = 0;
   } elsif ($opt eq "--without-flac") {
 		$have_flac = 0;
+		$have_flac_picture = 0;
+  } elsif ($opt eq "--without-flac-picture") {
+		$have_flac_picture = 0;
   } elsif ($opt eq "--without-id3lib") {
 		$have_id3lib = 0;
   } elsif ($opt eq "--without-taglib") {
@@ -211,6 +215,7 @@ while (my $opt = shift) {
 		print "  --without-id3lib       build without id3lib\n";
 		print "  --without-vorbis       build without ogg/vorbis\n";
 		print "  --without-flac         build without FLAC\n";
+		print "  --without-flac-picture build without FLAC picture support\n";
 		print "  --enable-gcc-pch       enable precompiled headers\n";
 		print "  --enable-debug         enables debug symbols\n";
 		print "  --with-qmake=PROGRAM   qmake command [qmake]\n";
@@ -349,6 +354,9 @@ if ($have_flac) {
 	$config_h .= "#define HAVE_FLAC $have_flac\n";
 	$config_pri .= "-lFLAC++ -lFLAC ";
 	$allsys_h .= "#include <FLAC++/metadata.h>\n";
+}
+if ($have_flac_picture) {
+	$config_h .= "#define HAVE_FLAC_PICTURE $have_flac_picture\n";
 }
 if ($have_taglib) {
 	$config_h .= "#define HAVE_TAGLIB $have_taglib\n";
