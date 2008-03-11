@@ -35,6 +35,7 @@
 #include "taggedfile.h"
 #include "frametable.h"
 #include "filefilter.h"
+#include "pictureframe.h"
 
 /**
  * Constructor.
@@ -368,63 +369,6 @@ void ScriptInterface::setFileNameFromTag(int tagMask)
 }
 
 /**
- * Add the contents of a data file (e.g. a picture) to a frame.
- *
- * @param frame    frame
- * @param fileName name of data file
- */
-static void addDataFile(Frame& frame, const QString& fileName)
-{
-	if (!fileName.isEmpty()) {
-		QFile file(fileName);
-		if (file.open(QIODevice::ReadOnly)) {
-			size_t size = file.size();
-			char* data = new char[size];
-			if (data) {
-				QDataStream stream(&file);
-				stream.readRawData(data, size);
-				for (Frame::FieldList::iterator fldIt = frame.fieldList().begin();
-						 fldIt != frame.fieldList().end();
-						 ++fldIt) {
-					if (fldIt->m_id == Frame::Field::ID_Data) {
-						fldIt->m_value = QByteArray(data, size);
-						break;
-					}
-				}
-				delete [] data;
-			}
-			file.close();
-		}
-	}
-}
-
-/**
- * Save the contents of a frame (e.g. a picture) to a data file.
- *
- * @param frame    frame
- * @param fileName name of data file
- */
-static void saveDataFile(const Frame& frame, const QString& fileName)
-{
-	if (!fileName.isEmpty()) {
-		for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
-				 fldIt != frame.getFieldList().end();
-				 ++fldIt) {
-			if (fldIt->m_id == Frame::Field::ID_Data) {
-				QFile file(fileName);
-				if (file.open(QIODevice::WriteOnly)) {
-					QByteArray ba = fldIt->m_value.toByteArray();
-					QDataStream stream(&file);
-					stream.writeRawData(ba.data(), ba.size());
-					file.close();
-				}
-				break;
-			}
-		}
-	}
-}
-
-/**
  * Get value of frame.
  * To get binary data like a picture, the name of a file to write can be
  * added after the @a name, e.g. "Picture:/path/to/file".
@@ -447,7 +391,7 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
 	FrameCollection::iterator it = ft->frames().findByName(frameName);
 	if (it != ft->frames().end()) {
 		if (!dataFileName.isEmpty()) {
-			saveDataFile(*it, dataFileName);
+			PictureFrame::writeDataToFile(*it, dataFileName);
 		}
 		return it->getValue();
 	} else {
@@ -489,7 +433,8 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 			frame.setValue(value);
 			frame.setValueChanged();
 			if (!dataFileName.isEmpty()) {
-				addDataFile(frame, dataFileName);
+				PictureFrame::setDataFromFile(frame, dataFileName);
+				PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
 			}
 			ft->framesToTable();
 		}
@@ -500,7 +445,9 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 		m_app->addFrame(&frame);
 		if (!dataFileName.isEmpty() &&
 				(it = ft->frames().findByName(frameName)) != ft->frames().end()) {
-			addDataFile(const_cast<Frame&>(*it), dataFileName);
+			PictureFrame::setDataFromFile(const_cast<Frame&>(*it), dataFileName);
+			PictureFrame::setMimeTypeFromFileName(const_cast<Frame&>(*it),
+																						dataFileName);
 		}
 		return true;
 	}

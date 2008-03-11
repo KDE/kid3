@@ -30,6 +30,7 @@
 #include "standardtags.h"
 #include "dirinfo.h"
 #include "genres.h"
+#include "pictureframe.h"
 #include <qfile.h>
 #include <qdir.h>
 #if QT_VERSION >= 0x040000
@@ -890,16 +891,8 @@ bool M4aFile::setFrameV2(const Frame& frame)
 				markTag2Changed();
 			}
 		} else {
-			if (!frame.getFieldList().empty()) {
-				for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
-						 fldIt != frame.getFieldList().end();
-						 ++fldIt) {
-					if ((*fldIt).m_id == Frame::Field::ID_Data) {
-						*it = (*fldIt).m_value.toByteArray();
-						markTag2Changed();
-						break;
-					}
-				}
+			if (PictureFrame::getData(frame, *it)) {
+				markTag2Changed();
 			}
 		}
 		return true;
@@ -928,24 +921,8 @@ bool M4aFile::addFrameV2(Frame& frame)
 	}
 	name = frame.getName(true);
 	if (type == Frame::FT_Picture) {
-		bool dataAssigned = false;
-		if (!frame.getFieldList().empty()) {
-			for (Frame::FieldList::const_iterator fldIt = frame.getFieldList().begin();
-					 fldIt != frame.getFieldList().end();
-					 ++fldIt) {
-				if ((*fldIt).m_id == Frame::Field::ID_Data) {
-					m_metadata[name] = (*fldIt).m_value.toByteArray();
-					dataAssigned = true;
-					break;
-				}
-			}
-		}
-		if (!dataAssigned) {
-			Frame::Field coverField;
-			coverField.m_id = Frame::Field::ID_Data;
-			coverField.m_value = QByteArray();
-			frame.fieldList().clear();
-			frame.fieldList().push_back(coverField);
+		if (!PictureFrame::getData(frame, m_metadata[name])) {
+			PictureFrame::setFields(frame);
 			m_metadata[name] = QByteArray();
 		}
 	} else {
@@ -995,36 +972,8 @@ void M4aFile::getAllFramesV2(FrameCollection& frames)
 			value = QString::fromUtf8((*it).data(), (*it).size());
 			frames.insert(Frame(type, value, name, -1));
 		} else {
-			Frame frame(type, "", name, -1);
-			Frame::Field field;
-			Frame::FieldList& fields = frame.fieldList();
-			fields.clear();
-
-			field.m_id = Frame::Field::ID_TextEnc;
-			field.m_value = 0; // ID3v2 ISO-8859-1
-			fields.push_back(field);
-
-			// for compatibility with ID3v2.3 id3lib
-			field.m_id = Frame::Field::ID_ImageFormat;
-			field.m_value = QString("");
-			fields.push_back(field);
-
-			field.m_id = Frame::Field::ID_MimeType;
-			field.m_value = QString("image/jpeg");
-			fields.push_back(field);
-
-			field.m_id = Frame::Field::ID_PictureType;
-			field.m_value = 3; // ID3v2 Cover (front)
-			fields.push_back(field);
-
-			field.m_id = Frame::Field::ID_Description;
-			field.m_value = QString("");
-			fields.push_back(field);
-
-			field.m_id = Frame::Field::ID_Data;
-			field.m_value = QByteArray(*it);
-			fields.push_back(field);
-
+			PictureFrame frame(*it);
+			frame.setInternalName(name);
 			frames.insert(frame);
 		}
 	}

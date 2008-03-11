@@ -107,6 +107,14 @@ public:
 			ID_ContentType
 		};
 
+		/** Text encoding for fields of type ID_TextEnc. */
+		enum TextEncoding {
+			TE_ISO8859_1 = 0,
+			TE_UTF16 = 1,
+			TE_UTF16BE = 2,
+			TE_UTF8 = 3
+		};
+
 		int m_id;         /**< type of field. */
 		QVariant m_value; /**< value of field. */
 	};
@@ -125,6 +133,10 @@ public:
 
 	/**
 	 * Constructor.
+	 * @param type  type
+	 * @param value value
+	 * @param name  internal name
+	 * @param index index inside tag, -1 if unknown
 	 */
 	Frame(Type type, const QString& value, const QString& name, int index);
 
@@ -148,6 +160,12 @@ public:
 	 * @return type.
 	 */
 	Type getType() const { return m_type; }
+
+	/**
+	 * Set type of frame.
+	 * @param type type of frame
+	 */
+	void setType(Type type) { m_type = type; }
 
 	/**
 	 * Get index of frame.
