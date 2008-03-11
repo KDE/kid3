@@ -72,6 +72,7 @@ class NumberTracksDialog;
 class RenDirDialog;
 class FilterDialog;
 class FileFilter;
+class QImage;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -183,6 +184,13 @@ public:
 	 * @param txt URL of directory or file in directory
 	 */
 	void openDrop(QString txt);
+
+	/**
+	 * Add picture on drop.
+	 *
+	 * @param image dropped image.
+	 */
+	void dropImage(const QImage& image);
 
 	/**
 	 * Edit selected frame.

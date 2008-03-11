@@ -34,6 +34,9 @@
 #include <qpushbutton.h>
 #include <qfile.h>
 #include <qinputdialog.h>
+#include <qapplication.h>
+#include <qclipboard.h>
+#include <qbuffer.h>
 #if QT_VERSION >= 0x040000
 #include <QListWidget>
 #include <QVBoxLayout>
@@ -701,20 +704,67 @@ BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
 {
 	QHBoxLayout* layout = new QHBoxLayout(this);
 	m_label = new QLabel(this);
+	m_clipButton = new QPushButton(i18n("From Clip&board"), this);
 	QPushButton* openButton = new QPushButton(i18n("&Import"), this);
 	QPushButton* saveButton = new QPushButton(i18n("&Export"), this);
 	QPushButton* viewButton = new QPushButton(i18n("&View"), this);
-	if (layout && m_label && openButton && saveButton && viewButton) {
+	if (layout && m_label && m_clipButton && openButton && saveButton && viewButton) {
 		layout->setMargin(0);
 		layout->setSpacing(6);
 		layout->addWidget(m_label);
+		layout->addWidget(m_clipButton);
 		layout->addWidget(openButton);
 		layout->addWidget(saveButton);
 		layout->addWidget(viewButton);
+		connect(m_clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
 		connect(openButton, SIGNAL(clicked()), this, SLOT(loadData()));
 		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
 		connect(viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
+		connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(setClipButtonState()));
+		setClipButtonState();
 	}
+}
+
+/**
+ * Enable the "From Clipboard" button if the clipboard contains an image.
+ */
+void BinaryOpenSave::setClipButtonState()
+{
+	QClipboard* cb = QApplication::clipboard();
+	m_clipButton->setEnabled(
+#if QT_VERSION >= 0x040000
+		cb && (cb->mimeData()->hasFormat("image/jpeg") ||
+					 cb->mimeData()->hasImage())
+#else
+		cb && cb->data(QClipboard::Clipboard)->provides("image/jpeg")
+#endif
+		);
+}
+
+/**
+ * Load image from clipboard.
+ */
+void BinaryOpenSave::clipData()
+{
+	QClipboard* cb = QApplication::clipboard();
+#if QT_VERSION >= 0x040000
+	if (cb) {
+		if (cb->mimeData()->hasFormat("image/jpeg")) {
+			m_byteArray = cb->mimeData()->data("image/jpeg");
+			m_isChanged = true;
+		} else if (cb->mimeData()->hasImage()) {
+			QBuffer buffer(&m_byteArray);
+			buffer.open(QIODevice::WriteOnly);
+			cb->image().save(&buffer, "JPG");
+			m_isChanged = true;
+		}
+	}
+#else
+	if (cb && cb->data(QClipboard::Clipboard)->provides("image/jpeg")) {
+		m_byteArray = cb->data(QClipboard::Clipboard)->encodedData("image/jpeg");
+		m_isChanged = true;
+	}
+#endif
 }
 
 /**

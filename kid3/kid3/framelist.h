@@ -35,6 +35,7 @@
 #include "taggedfile.h"
 
 class FrameTable;
+class QPushButton;
 
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
@@ -70,6 +71,16 @@ class BinaryOpenSave : public QWidget {
  
  public slots:
 	/**
+	 * Enable the "From Clipboard" button if the clipboard contains an image.
+	 */
+	void setClipButtonState();
+
+	/**
+	 * Load image from clipboard.
+	 */
+	void clipData();
+
+	/**
 	 * Request name of file to import binary data from.
 	 * The data is imported later when Ok is pressed in the parent dialog.
 	 */
@@ -92,6 +103,8 @@ class BinaryOpenSave : public QWidget {
 	bool m_isChanged;
 	/** Label left of buttons */
 	QLabel* m_label;
+	/** From Clipboard button */
+	QPushButton* m_clipButton;
 };
 
 

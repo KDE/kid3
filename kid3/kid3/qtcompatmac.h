@@ -131,6 +131,7 @@
 #define QCM_WriteOnly QIODevice::WriteOnly
 #define QCM_ReadOnly QIODevice::ReadOnly
 #define QCM_NoButton Qt::NoButton
+#define QCM_CaseInsensitive Qt::CaseInsensitive
 
 #define QCM_indexIn indexIn
 #define QCM_addItems addItems
@@ -166,6 +167,7 @@
 #define QCM_cleanPath cleanPath
 #define QCM_latin1() toLatin1().data()
 #define QCM_toUtf8 toUtf8
+#define QCM_toAscii toAscii
 #define QCM_readBlock read
 #define QCM_writeBlock write
 #define QCM_toPlainText toPlainText
@@ -202,6 +204,7 @@ namespace QAbstractSocket { enum SocketError {}; }
 #define QCM_WriteOnly IO_WriteOnly
 #define QCM_ReadOnly IO_ReadOnly
 #define QCM_NoButton QMessageBox::NoButton
+#define QCM_CaseInsensitive false
 
 #define QCM_indexIn search
 #define QCM_addItems insertStringList
@@ -237,6 +240,7 @@ namespace QAbstractSocket { enum SocketError {}; }
 #define QCM_cleanPath cleanDirPath
 #define QCM_latin1 latin1
 #define QCM_toUtf8 utf8
+#define QCM_toAscii ascii
 #define QCM_readBlock readBlock
 #define QCM_writeBlock writeBlock
 #define QCM_toPlainText text

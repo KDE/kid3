@@ -34,6 +34,7 @@
 #include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qprogressbar.h>
+#include <qimage.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QCloseEvent>
@@ -91,6 +92,7 @@
 #include "rendirdialog.h"
 #include "filelistitem.h"
 #include "dirlist.h"
+#include "pictureframe.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -2562,19 +2564,43 @@ void Kid3App::openDrop(QString txt)
 	}
 	QUrl url(txt);
 	if (!url.path().isEmpty()) {
-		QString dir = url.path().QCM_trimmed();
 #if defined _WIN32 || defined WIN32
-		// There seems to be problems with filenames on Win32,
-		// so correct
-		if (dir[0] == '/' && dir[1] == '/' && dir[3] == '|') {
-			dir[3] = ':';
-			dir.remove(0, 2);
-		} else if (dir[0] == '/' && dir[2] == ':') {
-			dir.remove(0, 1);
-		}
+		QString dir = url.toString();
+#else
+		QString dir = url.path().QCM_trimmed();
 #endif
-		updateCurrentSelection();
-		openDirectory(dir, true);
+		if (dir.endsWith(".jpg", QCM_CaseInsensitive) ||
+				dir.endsWith(".png", QCM_CaseInsensitive)) {
+			PictureFrame frame;
+			if (PictureFrame::setDataFromFile(frame, dir)) {
+				QString fileName(dir);
+				int slashPos = fileName.QCM_lastIndexOf('/');
+				if (slashPos != -1) {
+					fileName = fileName.mid(slashPos + 1);
+				}
+				PictureFrame::setMimeTypeFromFileName(frame, fileName);
+				PictureFrame::setDescription(frame, fileName);
+				addFrame(&frame);
+			}
+		} else {
+			updateCurrentSelection();
+			openDirectory(dir, true);
+		}
+	}
+}
+
+/**
+ * Add picture on drop.
+ *
+ * @param image dropped image.
+ */
+void Kid3App::dropImage(const QImage& image)
+{
+	if (!image.isNull()) {
+		PictureFrame frame;
+		if (PictureFrame::setDataFromImage(frame, image)) {
+			addFrame(&frame);
+		}
 	}
 }
 

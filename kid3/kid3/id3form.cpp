@@ -588,6 +588,11 @@ void Id3Form::dragEnterEvent(QDragEnterEvent* ev)
 void Id3Form::dropEvent(QDropEvent* ev)
 {
 #if QT_VERSION >= 0x040000
+	if (ev->mimeData()->hasImage()) {
+		QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
+		theApp->dropImage(image);
+		return;
+	}
 	QList<QUrl> urls = ev->mimeData()->urls();
 	if (urls.isEmpty())
 		return;
