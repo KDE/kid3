@@ -30,7 +30,7 @@
 #include "config.h"
 #include <qstringlist.h>
 /** The base class depends on the Qt version and is a D-Bus adaptor. */
-#if QT_VERSION >= 0x040000
+#ifdef HAVE_QTDBUS
 #include <QDBusAbstractAdaptor>
 typedef QDBusAbstractAdaptor ScriptInterfaceBaseClass;
 #else

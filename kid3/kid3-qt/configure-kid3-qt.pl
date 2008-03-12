@@ -151,6 +151,7 @@ my $have_flac_picture = 1;
 my $have_id3lib = 1;
 my $have_taglib = 1;
 my $have_mp4v2 = 1;
+my $have_qtdbus = 0;
 my $have_tunepimp = 5;
 my $qmake_cmd = "qmake";
 my $enable_pch = 0;
@@ -177,6 +178,8 @@ while (my $opt = shift) {
 		$have_taglib = 0;
   } elsif ($opt eq "--without-mp4v2") {
 		$have_mp4v2 = 0;
+  } elsif ($opt eq "--with-dbus") {
+		$have_qtdbus = 1;
 	} elsif ($opt eq "--without-musicbrainz") {
 		$have_tunepimp = 0;
 	} elsif (substr($opt, 0, 19) eq "--with-musicbrainz=") {
@@ -216,6 +219,7 @@ while (my $opt = shift) {
 		print "  --without-vorbis       build without ogg/vorbis\n";
 		print "  --without-flac         build without FLAC\n";
 		print "  --without-flac-picture build without FLAC picture support\n";
+		print "  --with-dbus            build with QtDBus\n";
 		print "  --enable-gcc-pch       enable precompiled headers\n";
 		print "  --enable-debug         enables debug symbols\n";
 		print "  --with-qmake=PROGRAM   qmake command [qmake]\n";
@@ -254,6 +258,7 @@ if ($from_configure) {
 	$have_flac = 0;
 	$have_taglib = 0;
 	$have_mp4v2 = 0;
+	$have_qtdbus = 0;
 	$have_tunepimp = 0;
 	$qmake_cmd = "";
 	$lupdate_cmd = "";
@@ -284,6 +289,8 @@ if ($from_configure) {
 				$have_taglib = $1;
 			} elsif (/^#define HAVE_MP4V2 (\d+)$/) {
 				$have_mp4v2 = $1;
+			} elsif (/^#define HAVE_QTDBUS (\d+)$/) {
+				$have_qtdbus = $1;
 			} elsif (/^#define HAVE_TUNEPIMP (\d+)$/) {
 				$have_tunepimp = $1;
 			} elsif (/^#define CFG_QMAKE "(.*)"$/) {
@@ -374,6 +381,10 @@ if ($have_tunepimp) {
 	} else {
 		$allsys_h .= "#include <tunepimp/tp_c.h>\n";
 	}
+}
+if ($have_qtdbus) {
+	$config_h .= "#define HAVE_QTDBUS $have_qtdbus\n";
+	$config_pri .= "\nHAVE_QTDBUS = $have_qtdbus";
 }
 
 $config_pri .= "\nCFG_CONFIG = " .
@@ -527,23 +538,27 @@ if ($generate_ts) {
 }
 
 print "starting $qmake_cmd\n";
-system "$qmake_cmd $topdir/kid3-qt.pro";
-chdir "kid3";
-system "$qmake_cmd $topdir/kid3/kid3.pro";
-chdir "..";
-chdir "po";
-system "$qmake_cmd $topdir/po/po.pro";
-chdir "..";
-chdir "doc";
-mkdir "en" unless -d "en";
-mkdir "de" unless -d "de";
-chdir "en";
-system "$qmake_cmd $topdir/doc/en/en.pro";
-chdir "..";
-chdir "de";
-system "$qmake_cmd $topdir/doc/de/de.pro";
-chdir "..";
-chdir "..";
+if ($^O eq "darwin") {
+	system "$qmake_cmd -spec macx-g++ $topdir/kid3-qt.pro";
+} else {
+	system "$qmake_cmd $topdir/kid3-qt.pro";
+	chdir "kid3";
+	system "$qmake_cmd $topdir/kid3/kid3.pro";
+	chdir "..";
+	chdir "po";
+	system "$qmake_cmd $topdir/po/po.pro";
+	chdir "..";
+	chdir "doc";
+	mkdir "en" unless -d "en";
+	mkdir "de" unless -d "de";
+	chdir "en";
+	system "$qmake_cmd $topdir/doc/en/en.pro";
+	chdir "..";
+	chdir "de";
+	system "$qmake_cmd $topdir/doc/de/de.pro";
+	chdir "..";
+	chdir "..";
+}
 
 if ($enable_pch) {
 # qmake < Qt 4.2 generates a dependency requiring the precompiled header

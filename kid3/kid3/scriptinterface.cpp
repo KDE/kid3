@@ -25,7 +25,7 @@
  */
 
 #include "scriptinterface.h"
-#if QT_VERSION >= 0x040000
+#ifdef HAVE_QTDBUS
 #include <QDBusMessage>
 #include <QDBusConnection>
 #include <QFileInfo>
@@ -625,7 +625,7 @@ void ScriptInterface::reparseConfiguration()
 	m_app->readOptions();
 }
 
-#else // QT_VERSION >= 0x040000
+#else // HAVE_QTDBUS
 
 ScriptInterface::ScriptInterface(Kid3App*) {}
 ScriptInterface::~ScriptInterface() {}
@@ -661,8 +661,8 @@ void ScriptInterface::setFileNameFormat(const QString&) {}
 void ScriptInterface::setFileNameFromTag(int) {}
 QString ScriptInterface::getFrame(int, const QString&) { return ""; }
 bool ScriptInterface::setFrame(int, const QString&, const QString&) { return false; }
-QStringList ScriptInterface::getTag(int) { return ""; }
-QStringList ScriptInterface::getInformation() { return ""; }
+QStringList ScriptInterface::getTag(int) { return QStringList(); }
+QStringList ScriptInterface::getInformation() { return QStringList(); }
 void ScriptInterface::setTagFromFileName(int) {}
 void ScriptInterface::setTagFromOtherTag(int) {}
 void ScriptInterface::copyTag(int) {}
@@ -671,4 +671,4 @@ void ScriptInterface::removeTag(int) {}
 void ScriptInterface::hideTag(int, bool) {}
 void ScriptInterface::reparseConfiguration() {}
 
-#endif // QT_VERSION >= 0x040000
+#endif // HAVE_QTDBUS

@@ -4,7 +4,11 @@ if (HAVE_TAGLIB)
   set(TAGLIBEXT_LIBRARIES taglibext)
 endif (HAVE_TAGLIB)
 
-set(kid3_SRCS filelist.cpp filelistitem.cpp frame.cpp framelist.cpp frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp mp3file.cpp standardtags.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp commandstable.cpp taglibfile.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp scriptinterface.cpp filterconfig.cpp filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp)
+set(kid3_SRCS filelist.cpp filelistitem.cpp frame.cpp framelist.cpp frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp mp3file.cpp standardtags.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp commandstable.cpp taglibfile.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp filterconfig.cpp filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp)
+
+if (HAVE_QTDBUS)
+  set(kid3_SRCS ${kid3_SRCS} scriptinterface.cpp)
+endif (HAVE_QTDBUS)
 
 kde4_add_executable(kid3 ${kid3_SRCS})
 

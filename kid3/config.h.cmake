@@ -27,3 +27,6 @@
 #cmakedefine HAVE_FLAC 1
 #cmakedefine HAVE_NO_FLAC_STREAMMETADATA_OPERATOR
 #cmakedefine HAVE_FLAC_PICTURE 1
+
+/* Define if you have QtDBus installed */
+#cmakedefine HAVE_QTDBUS 1

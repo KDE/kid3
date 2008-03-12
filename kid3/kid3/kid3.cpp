@@ -44,7 +44,7 @@
 #else
 #include <qlayout.h>
 #endif
-#if !defined _WIN32 && !defined WIN32 && QT_VERSION >= 0x040200
+#ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include "scriptinterface.h"
 #endif
@@ -266,7 +266,7 @@ Kid3App::Kid3App() :
 #endif
 	readFontAndStyleOptions();
 #endif
-#if !defined _WIN32 && !defined WIN32 && QT_VERSION >= 0x040200
+#ifdef HAVE_QTDBUS
 	if (QDBusConnection::sessionBus().isConnected()) {
 		QString serviceName("net.sourceforge.kid3");
     QDBusConnection::sessionBus().registerService(serviceName);

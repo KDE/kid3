@@ -61,7 +61,7 @@ contains($$list($$[QT_VERSION]), 4.*) {
     $(INSTALL_FILE) hisc-app-kid3-qt.svgz $(INSTALL_ROOT)$$CFG_DATAROOTDIR/icons/hicolor/scalable/apps/kid3-qt.svgz
     win32:program.extra = $(COPY_FILE) $(DESTDIR_TARGET) $(INSTALL_ROOT)$$CFG_BINDIR
   } else {
-    unix {
+    !isEmpty(HAVE_QTDBUS) {
       CONFIG += qdbus
       SOURCES += scriptinterface.cpp
       HEADERS += scriptinterface.h
