@@ -70,10 +70,12 @@ if test "$with_mp4v2" != "no"; then
      #endif
     ])
   AC_CHECK_LIB(mp4v2, MP4Read, [have_mp4v2=yes], [
-    AC_MSG_WARN([libmp4v2 not found.
+    AC_CHECK_LIB(mp4v2, MP4Close, [have_mp4v2=yes; mp4v2_otherlibs=-lwsock32], [
+      AC_MSG_WARN([libmp4v2 not found.
 Install mp4v2 development package (e.g. mp4v2-dev or libmp4v2-devel)
 or use --without-mp4v2.])
-      ])
+      ], -lwsock32)
+    ])
   CPPFLAGS=$ac_cppflags_save
   CXXFLAGS=$ac_cxxflags_save
   LDFLAGS=$ac_ldflags_save
@@ -84,7 +86,7 @@ if test "$have_mp4v2" = "yes" -a "$have_mp4_h" = "yes"; then
   AC_SUBST(HAVE_MP4V2)
   AC_DEFINE(HAVE_MP4V2, 1, [have mp4v2])
   MP4V2_INCLUDES="-I$mp4v2_dir/include"
-  LIB_MP4V2="-L$mp4v2_dir/lib -lmp4v2"
+  LIB_MP4V2="-L$mp4v2_dir/lib -lmp4v2 $mp4v2_otherlibs"
 else
   LIB_MP4V2=""
   have_mp4v2=no
@@ -133,16 +135,18 @@ AC_ARG_WITH(id3lib, [  --with-id3lib           build with id3lib, default=yes],
 )
 if test "$with_id3lib" != "no"; then
   AC_CHECK_LIB(id3, ID3Tag_Link, [build_id3lib="yes"], [
-    AC_MSG_ERROR([libid3 not found.
+    AC_CHECK_LIB(id3, ID3Tag_Strip, [build_id3lib="yes"; id3_otherlibs=-liconv], [
+      AC_MSG_ERROR([libid3 not found.
 Install id3lib development package (e.g. libid3-3.8.3-dev or id3lib-devel)
 or use --without-id3lib.])
-      ], -lz -lstdc++)
+      ], -lz -lstdc++ -liconv)
+    ], -lz -lstdc++)
 fi
 if test "$build_id3lib" = "yes"; then
   HAVE_ID3LIB=1
   AC_SUBST(HAVE_ID3LIB)
   AC_DEFINE(HAVE_ID3LIB, 1, [have id3lib])
-  LIB_ID3LIB="-lid3"
+  LIB_ID3LIB="-lid3 $id3_otherlibs"
   have_id3lib=yes
 else
   LIB_ID3LIB=""
@@ -254,7 +258,7 @@ if test "$build_vorbis" = "yes"; then
   HAVE_VORBIS=1
   AC_SUBST(HAVE_VORBIS)
   AC_DEFINE(HAVE_VORBIS, 1, [have vorbis])
-  LIB_VORBIS="-lvorbis -lvorbisfile"
+  LIB_VORBIS="-logg -lvorbis -lvorbisfile"
   have_vorbis=yes
 else
   LIB_VORBIS=""
@@ -396,6 +400,34 @@ AC_ARG_WITH(translationsdir, [  --with-translationsdir=DIR translations director
 AC_SUBST(CFG_TRANSLATIONSDIR)
 AC_DEFINE_UNQUOTED(CFG_TRANSLATIONSDIR, "${CFG_TRANSLATIONSDIR}")
 
+AC_ARG_WITH(extra-includes, [  --with-extra-includes=DIR adds non standard include paths],
+  CFG_EXTRA_INCLUDES="${with_extra_includes}",
+  CFG_EXTRA_INCLUDES=
+)
+AC_SUBST(CFG_EXTRA_INCLUDES)
+AC_DEFINE_UNQUOTED(CFG_EXTRA_INCLUDES, "${CFG_EXTRA_INCLUDES}")
+
+AC_ARG_WITH(extra-libs, [  --with-extra-libs=LIB   adds non standard library options],
+  CFG_EXTRA_LIBS="${with_extra_libs}",
+  CFG_EXTRA_LIBS=
+)
+AC_SUBST(CFG_EXTRA_LIBS)
+AC_DEFINE_UNQUOTED(CFG_EXTRA_LIBS, "${CFG_EXTRA_LIBS}")
+
+AC_ARG_WITH(extra-defines, [  --with-extra-defines=D adds non standard defines],
+  CFG_EXTRA_DEFINES="${with_extra_defines}",
+  CFG_EXTRA_DEFINES=
+)
+AC_SUBST(CFG_EXTRA_DEFINES)
+AC_DEFINE_UNQUOTED(CFG_EXTRA_DEFINES, "${CFG_EXTRA_DEFINES}")
+
+AC_ARG_WITH(extra-cxxflags, [  --with-extra-cxxflags=F adds non standard compiler options],
+  CFG_EXTRA_CXXFLAGS="${with_extra_cxxflags}",
+  CFG_EXTRA_CXXFLAGS=
+)
+AC_SUBST(CFG_EXTRA_CXXFLAGS)
+AC_DEFINE_UNQUOTED(CFG_EXTRA_CXXFLAGS, "${CFG_EXTRA_CXXFLAGS}")
+
 AC_ARG_WITH(qmake, [  --with-qmake=PROGRAM    qmake command, default=qmake],
   AC_CHECK_PROG(CFG_QMAKE, ${with_qmake}, ${with_qmake}),
   AC_CHECK_PROGS(CFG_QMAKE, qmake qmake-qt3 qmake-qt4)
@@ -458,7 +490,13 @@ EOF
   AC_FIND_QTDBUS
 fi
 
-AC_CHECK_PROGS(CFG_DB2HTML, jw xsltproc xalan)
+AC_ARG_WITH(db2html, [  --with-db2html=PROGRAM  Docbook to HTML command (e.g. xsltproc, jw, xalan), default=search],
+  CFG_DB2HTML="$withval",
+  CFG_DB2HTML=
+)
+if test -z ${CFG_DB2HTML}; then
+  AC_CHECK_PROGS(CFG_DB2HTML, jw xsltproc xalan)
+fi
 if test -z ${CFG_DB2HTML}; then
   AC_MSG_ERROR([No docbook to HTML converter found, install docbook-utils, xsltproc or xalan])
 elif test "x${CFG_DB2HTML}" != "xjw"; then

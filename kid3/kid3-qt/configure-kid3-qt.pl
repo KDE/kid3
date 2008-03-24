@@ -150,6 +150,7 @@ my $have_flac = 1;
 my $have_flac_picture = 1;
 my $have_id3lib = 1;
 my $have_taglib = 1;
+my $taglib_includes = "-I/usr/include/taglib";
 my $have_mp4v2 = 1;
 my $have_qtdbus = 0;
 my $have_tunepimp = 5;
@@ -161,6 +162,13 @@ my $bindir;
 my $datarootdir;
 my $docdir;
 my $translationsdir;
+my $extra_includes;
+my $extra_libs;
+my $extra_defines;
+my $extra_cxxflags;
+my $db2html;
+my $perl_cmd;
+my $xsl_stylesheet;
 my $from_configure;
 my $generate_ts;
 
@@ -176,6 +184,8 @@ while (my $opt = shift) {
 		$have_id3lib = 0;
   } elsif ($opt eq "--without-taglib") {
 		$have_taglib = 0;
+	} elsif (substr($opt, 0, 23) eq "--with-taglib-includes=") {
+		$taglib_includes = substr($opt, 23);
   } elsif ($opt eq "--without-mp4v2") {
 		$have_mp4v2 = 0;
   } elsif ($opt eq "--with-dbus") {
@@ -200,6 +210,20 @@ while (my $opt = shift) {
 		$docdir = substr($opt, 14);
 	} elsif (substr($opt, 0, 23) eq "--with-translationsdir=") {
 		$translationsdir = substr($opt, 23);
+	} elsif (substr($opt, 0, 22) eq "--with-extra-includes=") {
+		$extra_includes = substr($opt, 22);
+	} elsif (substr($opt, 0, 18) eq "--with-extra-libs=") {
+		$extra_libs = substr($opt, 18);
+	} elsif (substr($opt, 0, 21) eq "--with-extra-defines=") {
+		$extra_defines = substr($opt, 21);
+	} elsif (substr($opt, 0, 22) eq "--with-extra-cxxflags=") {
+		$extra_cxxflags = substr($opt, 22);
+	} elsif (substr($opt, 0, 15) eq "--with-db2html=") {
+		$db2html = substr($opt, 15);
+	} elsif (substr($opt, 0, 22) eq "--with-xsl-stylesheet=") {
+		$xsl_stylesheet = substr($opt, 22);
+	} elsif (substr($opt, 0, 16) eq "--with-perl-cmd=") {
+		$perl_cmd = substr($opt, 16);
 	} elsif ($opt eq "--from-configure") {
 		$from_configure = 1;
 	} elsif ($opt eq "--generate-ts") {
@@ -211,9 +235,17 @@ while (my $opt = shift) {
 		print "  --with-datarootdir=DIR data root [PREFIX/share]\n";
 		print "  --with-docdir=DIR      documentation [DATAROOTDIR/doc/kid3-qt]\n";
 		print "  --with-translationsdir=DIR translations [DATAROOTDIR/kid3-qt/translations]\n";
+		print "  --with-extra-includes=DIR adds non standard include paths\n";
+		print "  --with-extra-libs=LIB  adds non standard library options\n";
+		print "  --with-extra-defines=D adds non standard defines\n";
+		print "  --with-extra-cxxflags=F adds non standard compiler options\n";
+		print "  --with-db2html=PROGRAM Docbook to HTML command (e.g. xsltproc, jw, xalan)\n";
+		print "  --with-xsl-stylesheet=P path to docbook.xsl\n";
+		print "  --with-perl-cmd=PROGRAM perl command\n";
 		print "  --without-musicbrainz  build without MusicBrainz\n";
 		print "  --with-musicbrainz=VER build with MusicBrainz version [5]\n";
 		print "  --without-taglib       build without taglib\n";
+		print "  --with-taglib-includes=I taglib includes [-I/usr/include/taglib]\n";
 		print "  --without-mp4v2        build without mp4v2\n";
 		print "  --without-id3lib       build without id3lib\n";
 		print "  --without-vorbis       build without ogg/vorbis\n";
@@ -329,6 +361,30 @@ if ($translationsdir) {
 	$config_h .= "#define CFG_TRANSLATIONSDIR \"$translationsdir\"\n";
 	$config_pri .= "CFG_TRANSLATIONSDIR = $translationsdir\n";
 }
+if ($taglib_includes) {
+	$config_pri .= "TAGLIB_INCLUDES = $taglib_includes\n";
+}
+if ($extra_includes) {
+	$config_pri .= "CFG_EXTRA_INCLUDES = $extra_includes\n";
+}
+if ($extra_libs) {
+	$config_pri .= "CFG_EXTRA_LIBS = $extra_libs\n";
+}
+if ($extra_defines) {
+	$config_pri .= "CFG_EXTRA_DEFINES = $extra_defines\n";
+}
+if ($extra_cxxflags) {
+	$config_pri .= "CFG_EXTRA_CXXFLAGS = $extra_cxxflags\n";
+}
+if ($db2html) {
+	$config_pri .= "CFG_DB2HTML = $db2html\n";
+}
+if ($xsl_stylesheet) {
+	$config_pri .= "CFG_XSL_STYLESHEET = $xsl_stylesheet\n";
+}
+if ($perl_cmd) {
+	$config_pri .= "CFG_PERL_CMD = $perl_cmd\n";
+}
 $config_pri .= "CFG_LIBS = ";
 
 my $allsys_h = <<"EOF";
@@ -372,6 +428,7 @@ if ($have_taglib) {
 if ($have_mp4v2) {
 	$config_h .= "#define HAVE_MP4V2 $have_mp4v2\n";
 	$config_pri .= "-lmp4v2 ";
+	$config_pri .= "-lwsock32 " if $^O eq "MSWin32" or $^O eq "msys";
 }
 if ($have_tunepimp) {
 	$config_h .= "#define HAVE_TUNEPIMP $have_tunepimp\n";

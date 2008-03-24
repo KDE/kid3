@@ -19,3 +19,14 @@
 #undef CFG_DEBUG
 #undef CFG_QMAKE
 #undef CFG_LUPDATE
+#undef STDC_HEADERS
+#undef HAVE_SYS_TYPES_H
+#undef HAVE_SYS_STAT_H
+#undef HAVE_STDLIB_H
+#undef HAVE_STRING_H
+#undef HAVE_MEMORY_H
+#undef HAVE_STRINGS_H
+#undef HAVE_INTTYPES_H
+#undef HAVE_STDINT_H
+#undef HAVE_UNISTD_H
+#undef HAVE_SYSTEMS_H

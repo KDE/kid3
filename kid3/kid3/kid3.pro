@@ -4,14 +4,28 @@
   error("config.pri not found")
 }
 
+!isEmpty(CFG_EXTRA_DEFINES) {
+  DEFINES += $$CFG_EXTRA_DEFINES
+}
+!isEmpty(CFG_EXTRA_LIBS) {
+  LIBS += $$CFG_EXTRA_LIBS
+}
+!isEmpty(CFG_EXTRA_INCLUDES) {
+  INCLUDEPATH += $$CFG_EXTRA_INCLUDES
+}
+!isEmpty(TAGLIB_INCLUDES) {
+  contains($$list($$[QT_VERSION]), 4.*) {
+    INCLUDEPATH += $$replace(TAGLIB_INCLUDES, -I, "")
+  } else {
+    QMAKE_CXXFLAGS += $$TAGLIB_INCLUDES
+  }
+}
+
 win32 {
-  INCLUDEPATH = %MSYSDIR%\local\include %MSYSDIR%\local\include\taglib
-  DEFINES += ID3LIB_LINKOPTION=1 FLAC__NO_DLL
-  LIBS += -L%MSYSDIR%\local\lib
   RC_FILE = ../win32/kid3win.rc
 }
 unix {
-  INCLUDEPATH = /usr/include/taglib $$PWD
+  INCLUDEPATH += $$PWD
 }
 
 TEMPLATE = app
@@ -33,10 +47,6 @@ contains(CFG_LIBS, -ltag) {
   }
   LIBS += $$TAGLIBEXT_LIB
   POST_TARGETDEPS += $$TAGLIBEXT_LIB
-}
-
-contains(CFG_LIBS, -lmp4v2) {
-  win32: LIBS += -lwsock32
 }
 
 SOURCES = filelist.cpp filelistitem.cpp framelist.cpp frame.cpp frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp mp3file.cpp standardtags.cpp configdialog.cpp  exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp commandstable.cpp taglibfile.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp filterconfig.cpp filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp

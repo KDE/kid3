@@ -6,12 +6,22 @@
 
 contains(CFG_LIBS, -ltag) {
 
+  !isEmpty(CFG_EXTRA_INCLUDES) {
+    INCLUDEPATH += $$CFG_EXTRA_INCLUDES
+  }
+  !isEmpty(TAGLIB_INCLUDES) {
+    contains($$list($$[QT_VERSION]), 4.*) {
+      INCLUDEPATH += $$replace(TAGLIB_INCLUDES, -I, "")
+    } else {
+      QMAKE_CXXFLAGS += $$TAGLIB_INCLUDES
+    }
+  }
   win32 {
-    INCLUDEPATH = %MSYSDIR%\local\include %MSYSDIR%\local\include\taglib $$PWD\..
+    INCLUDEPATH += $$PWD\..
     QMAKE_CXXFLAGS += -I..
   }
   unix {
-    INCLUDEPATH = /usr/include/taglib $$PWD/.. ${OBJECTS_DIR}/..
+    INCLUDEPATH += $$PWD/.. ${OBJECTS_DIR}/..
   }
 
   CONFIG += $$CFG_CONFIG
