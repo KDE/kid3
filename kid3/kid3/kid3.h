@@ -68,6 +68,7 @@ class StandardTags;
 class FrameList;
 class ImportDialog;
 class ExportDialog;
+class RenDirDialog;
 class NumberTracksDialog;
 class RenDirDialog;
 class FilterDialog;
@@ -587,6 +588,11 @@ private slots:
 	 */
 	void applyFilter(FileFilter& fileFilter);
 
+	/**
+	 * Schedule actions to rename a directory.
+	 */
+	void scheduleRenameActions();
+
 private:
 	friend class ScriptInterface;
 
@@ -679,16 +685,6 @@ private:
 	bool importTags(int tagMask, const QString& path, int fmtIdx);
 
 	/**
-	 * Perform renaming or creation of directory on files in directory.
-	 *
-	 * @param dialog RenDirDialog instance
-	 * @param errorMsg an error message is returned here
-	 *
-	 * @return true if ok.
-	 */
-	bool performRenameDirectoryAction(RenDirDialog* dialog, QString& errorMsg);
-
-	/**
 	 * Show or hide the ID3V1.1 controls according to the settings and
 	 * set the menu entries appropriately.
 	 */
@@ -728,6 +724,8 @@ private:
 	ImportTrackDataVector m_trackDataList;
 	/** Export dialog */
 	ExportDialog* m_exportDialog;
+	/** Rename directory dialog */
+	RenDirDialog* m_renDirDialog;
 	/** Number tracks dialog */
 	NumberTracksDialog* m_numberTracksDialog;
 	/** Filter dialog */

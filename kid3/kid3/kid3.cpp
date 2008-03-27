@@ -240,8 +240,8 @@ QString Kid3App::s_dirName;
  * Constructor.
  */
 Kid3App::Kid3App() :
-	m_importDialog(0), m_exportDialog(0), m_numberTracksDialog(0),
-	m_filterDialog(0)
+	m_importDialog(0), m_exportDialog(0), m_renDirDialog(0),
+	m_numberTracksDialog(0), m_filterDialog(0)
 {
 #ifdef CONFIG_USE_KDE
 #if KDE_VERSION >= 0x035c00
@@ -303,6 +303,7 @@ Kid3App::Kid3App() :
 Kid3App::~Kid3App()
 {
 	delete m_importDialog;
+	delete m_renDirDialog;
 	delete m_numberTracksDialog;
 	delete m_filterDialog;
 #ifndef CONFIG_USE_KDE
@@ -2170,32 +2171,69 @@ void Kid3App::slotApplyId3Format()
 	updateGuiControls();
 }
 
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 /**
- * Perform renaming or creation of directory on files in directory.
+ * Read file with TagLib if it has an ID3v2.4 tag.
  *
- * @param dialog RenDirDialog instance
- * @param errorMsg an error message is returned here
+ * @param item       file list item, can be updated
+ * @param taggedFile tagged file
  *
- * @return true if ok.
+ * @return tagged file (can be new TagLibFile).
  */
-bool Kid3App::performRenameDirectoryAction(RenDirDialog* dialog, QString& errorMsg)
+static TaggedFile* readWithTagLibIfId3V24(FileListItem* item,
+																					TaggedFile* taggedFile)
 {
-	FileListItem* mp3file = m_view->firstFileInDir();
-	bool again = false;
-	while (mp3file &&
-				 dialog->performAction(mp3file->getFile(), again, &errorMsg)) {
-		mp3file = m_view->nextFileInDir();
-	}
-	openDirectory(dialog->getNewDirname());
-	if (again) {
-		mp3file = m_view->firstFileInDir();
-		while (mp3file &&
-					 dialog->performAction(mp3file->getFile(), again, &errorMsg)) {
-			mp3file = m_view->nextFileInDir();
+	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
+			!taggedFile->isChanged() &&
+			taggedFile->isTagInformationRead() && taggedFile->hasTagV2() &&
+			taggedFile->getTagFormatV2() == QString::null) {
+		TagLibFile* tagLibFile;
+		if ((tagLibFile = new TagLibFile(
+					 taggedFile->getDirInfo(),
+					 taggedFile->getFilename())) != 0) {
+			item->setFile(tagLibFile);
+			taggedFile = tagLibFile;
+			taggedFile->readTags(false);
 		}
-		openDirectory(dialog->getNewDirname());
 	}
-	return errorMsg.isEmpty();
+	return taggedFile;
+}
+#endif
+
+/**
+ * Schedule actions to rename a directory.
+ */
+void Kid3App::scheduleRenameActions()
+{
+	if (m_renDirDialog) {
+		m_renDirDialog->clearActions();
+		TaggedFile* taggedFile;
+		FileListItem* item = m_view->firstFileOrDir();
+		while (item) {
+			if (item->getDirInfo()) {
+#if QT_VERSION >= 0x040000
+				item->setExpanded(true);
+#else
+				item->setOpen(true);
+#endif
+			} else if ((taggedFile = item->getFile()) != 0) {
+				taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+				taggedFile = readWithTagLibIfId3V24(item, taggedFile);
+#endif
+				m_renDirDialog->scheduleAction(taggedFile);
+			}
+			item = m_view->nextFileOrDir();
+#ifdef CONFIG_USE_KDE
+			kapp->processEvents();
+#else
+			qApp->processEvents();
+#endif
+			if (m_renDirDialog->getAbortFlag()) {
+				break;
+			}
+		}
+	}
 }
 
 /**
@@ -2214,18 +2252,25 @@ bool Kid3App::renameDirectory(int tagMask, const QString& format,
 {
 	bool ok = false;
 	if (!isModified() && m_view->firstFileInDir()) {
-		RenDirDialog* dialog =
-			new RenDirDialog(0, m_view->firstFileInDir()->getFile());
-		if (dialog) {
+		if (!m_renDirDialog) {
+			m_renDirDialog = new RenDirDialog(0);
+			connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
+							this, SLOT(scheduleRenameActions()));
+		}
+		if (m_renDirDialog) {
+			m_renDirDialog->startDialog(m_view->firstFileInDir()->getFile());
+			m_renDirDialog->setTagSource(tagMask);
+			m_renDirDialog->setDirectoryFormat(format);
+			m_renDirDialog->setAction(create);
+			scheduleRenameActions();
+			openDirectory(getDirName());
 			QString errorMsg;
-			dialog->setTagSource(tagMask);
-			dialog->setDirectoryFormat(format);
-			dialog->setAction(create);
-			ok = performRenameDirectoryAction(dialog, errorMsg);
+			m_renDirDialog->performActions(&errorMsg);
+			openDirectory(m_renDirDialog->getNewDirname());
+			ok = errorMsg.isEmpty();
 			if (errStr) {
 				*errStr = errorMsg;
 			}
-			delete dialog;
 		}
 	}
 	return ok;
@@ -2236,20 +2281,49 @@ bool Kid3App::renameDirectory(int tagMask, const QString& format,
  */
 void Kid3App::slotRenameDirectory()
 {
-	if (saveModified() && m_view->firstFileInDir()) {
-		RenDirDialog* dialog =
-			new RenDirDialog(0, m_view->firstFileInDir()->getFile());
-		if (dialog) {
-			if (dialog->exec() == QDialog::Accepted) {
-				QString errorMsg;
-				if (!performRenameDirectoryAction(dialog, errorMsg)) {
-					QMessageBox::warning(0, i18n("File Error"),
-										 i18n("Error while renaming:\n") +
-										 errorMsg,
-										 QMessageBox::Ok, QCM_NoButton);
+	if (saveModified()) {
+		if (!m_renDirDialog) {
+			m_renDirDialog = new RenDirDialog(0);
+			connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
+							this, SLOT(scheduleRenameActions()));
+		}
+		if (m_renDirDialog) {
+			FileListItem* item = m_view->currentFile();
+			if (item && item->isSelected()) {
+				TaggedFile* taggedFile;
+				const DirInfo* dirInfo = item->getDirInfo();
+				if (dirInfo) {
+#if QT_VERSION >= 0x040000
+					item->setExpanded(true);
+#else
+					item->setOpen(true);
+#endif
+				} else if ((taggedFile = item->getFile()) != 0) {
+					dirInfo = taggedFile->getDirInfo();
+				}
+				if (dirInfo) {
+					openDirectory(dirInfo->getDirname());
 				}
 			}
-			delete dialog;
+			item = m_view->firstFileInDir();
+			if (item) {
+				m_renDirDialog->startDialog(item->getFile());
+			} else {
+				m_renDirDialog->startDialog(0, getDirName());
+			}
+			if (m_renDirDialog->exec() == QDialog::Accepted) {
+				openDirectory(getDirName());
+				QString errorMsg;
+				m_renDirDialog->performActions(&errorMsg);
+				openDirectory(m_renDirDialog->getNewDirname());
+				if (!errorMsg.isEmpty()) {
+					QMessageBox::warning(0, i18n("File Error"),
+															 i18n("Error while renaming:\n") +
+															 errorMsg,
+															 QMessageBox::Ok, QCM_NoButton);
+				}
+			}
+
 		}
 	}
 }
@@ -2309,35 +2383,6 @@ void Kid3App::slotNumberTracks()
 		}
 	}
 }
-
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-/**
- * Read file with TagLib if it has an ID3v2.4 tag.
- *
- * @param item       file list item, can be updated
- * @param taggedFile tagged file
- *
- * @return tagged file (can be new TagLibFile).
- */
-static TaggedFile* readWithTagLibIfId3V24(FileListItem* item,
-																					TaggedFile* taggedFile)
-{
-	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
-			!taggedFile->isChanged() &&
-			taggedFile->isTagInformationRead() && taggedFile->hasTagV2() &&
-			taggedFile->getTagFormatV2() == QString::null) {
-		TagLibFile* tagLibFile;
-		if ((tagLibFile = new TagLibFile(
-					 taggedFile->getDirInfo(),
-					 taggedFile->getFilename())) != 0) {
-			item->setFile(tagLibFile);
-			taggedFile = tagLibFile;
-			taggedFile->readTags(false);
-		}
-	}
-	return taggedFile;
-}
-#endif
 
 /**
  * Apply a file filter.

@@ -29,15 +29,31 @@
 
 #include <qdialog.h>
 #include <qstring.h>
+/** Base class for main window. */
+#if QT_VERSION >= 0x040000
+#include <QList>
+#if QT_VERSION >= 0x040300
+#include <QWizard>
+typedef QWizard RenDirDialogBaseClass;
+#else
+typedef QDialog RenDirDialogBaseClass;
+#endif
+#else
+#include <qvaluelist.h>
+#include <qwizard.h>
+typedef QWizard RenDirDialogBaseClass;
+#endif
 
 class QComboBox;
 class QLabel;
 class TaggedFile;
+class QVBoxLayout;
+class QTextEdit;
 
 /**
  * Rename directory dialog.
  */
-class RenDirDialog : public QDialog {
+class RenDirDialog : public RenDirDialogBaseClass {
 Q_OBJECT
 
 public:
@@ -45,9 +61,8 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent     parent widget
-	 * @param taggedFile file to use for rename preview
 	 */
-	RenDirDialog(QWidget* parent, TaggedFile* taggedFile);
+	RenDirDialog(QWidget* parent);
 
 	/**
 	 * Destructor.
@@ -55,9 +70,17 @@ public:
 	~RenDirDialog();
 
 	/**
-	 * Get new directory name.
+	 * Start dialog.
 	 *
-	 * @return new directory name.
+	 * @param taggedFile file to use for rename preview
+	 * @param dirName    if taggedFile is 0, the directory can be set here
+	 */
+	void startDialog(TaggedFile* taggedFile, const QString& dirName = QString());
+
+	/**
+	 * Set new directory name.
+	 *
+	 * @param dir new directory name
 	 */
 	void setNewDirname(const QString& dir);
 
@@ -80,18 +103,25 @@ public:
 	QString generateNewDirname(TaggedFile* taggedFile, QString* olddir);
 
 	/**
-	 * Perform renaming or creation of directory according to current settings.
-	 *
-	 * @param taggedFile file to take directory from and to move
-	 * @param again    is set true if the new directory (getNewDirname())
-	 *                 should be read and processed again
-	 * @param errorMsg if not NULL and an error occurred, a message is appended here,
-	 *                 otherwise it is not touched
-	 *
-	 * @return true if other files can be processed,
-	 *         false if operation is finished.
+	 * Clear the rename actions.
+	 * This method has to be called before scheduling new actions.
 	 */
-	bool performAction(TaggedFile* taggedFile, bool& again, QString* errorMsg);
+	void clearActions();
+
+	/**
+	 * Schedule the actions necessary to rename the directory containing a file.
+	 *
+	 * @param taggedFile file in directory
+	 */
+	void scheduleAction(TaggedFile* taggedFile);
+
+	/**
+	 * Perform the scheduled rename actions.
+	 *
+	 * @param errorMsg if not 0 and an error occurred, a message is appended here,
+	 *                 otherwise it is not touched
+	 */
+	void performActions(QString* errorMsg);
 
 	/**
 	 * Set directory format string.
@@ -114,6 +144,32 @@ public:
 	 */
 	void setTagSource(int tagMask);
 
+	/**
+	 * Check if dialog was aborted.
+	 * @return true if aborted.
+	 */
+	bool getAbortFlag() { return m_aborted; }
+
+protected:
+	/**
+	 * Called when the wizard is canceled.
+	 */
+	virtual void reject();
+
+#if QT_VERSION < 0x040000
+	/**
+	 * Called when the wizard is finished.
+	 */
+	virtual void accept();
+#endif
+
+signals:
+	/**
+	 * Emitted when scheduling of actions using clearActions() followed by
+	 * one or multiple scheduleAction() calls is requested.
+	 */
+	void actionSchedulingRequested();
+
 private slots:
 	/**
 	 * Set new directory name according to current settings.
@@ -130,7 +186,89 @@ private slots:
 	 */
 	void showHelp();
 
+	/**
+	 * Request action scheduling and then accept dialog.
+	 */
+	void requestActionSchedulingAndAccept();
+
+	/**
+	 * Wizard page changed.
+	 */
+	void pageChanged();
+
 private:
+	/**
+	 * An action performed while renaming a directory.
+	 */
+	class RenameAction {
+	public:
+		/** Action type. */
+		enum Type {
+			CreateDirectory,
+			RenameDirectory,
+			RenameFile,
+			ReportError,
+			NumTypes
+		};
+
+		/**
+		 * Constructor.
+		 * @param type type of action
+		 * @param src  source file or directory name
+		 * @param dest destination file or directory name
+		 */
+		RenameAction(Type type, const QString& src, const QString& dest) :
+			m_type(type), m_src(src), m_dest(dest) {}
+
+		/**
+		 * Constructor.
+		 */
+		RenameAction() : m_type(ReportError) {}
+
+		/**
+		 * Destructor.
+		 */
+		~RenameAction() {}
+
+		/**
+		 * Test for equality.
+		 * @param rhs right hand side
+		 * @return true if equal.
+		 */
+		bool operator==(const RenameAction& rhs) const {
+			return m_type == rhs.m_type && m_src == rhs.m_src && m_dest == rhs.m_dest;
+		}
+
+		Type m_type;    /**< type of action */
+		QString m_src;  /**< source file or directory name */
+		QString m_dest; /**< destination file or directory name */
+	};
+
+	/** List of rename actions. */
+#if QT_VERSION >= 0x040000
+	typedef QList<RenameAction> RenameActionList;
+#else
+	typedef QValueList<RenameAction> RenameActionList;
+#endif
+
+	enum Action { ActionRename = 0, ActionCreate = 1 };
+	enum TagVersion { TagV2V1 = 0, TagV1 = 1, TagV2 = 2 };
+
+	/**
+	 * Set up the main wizard page.
+	 *
+	 * @param page    widget
+	 * @param vlayout layout
+	 */
+	void setupMainPage(QWidget* page, QVBoxLayout* vlayout);
+
+	/**
+	 * Set up the preview wizard page.
+	 *
+	 * @param page widget
+	 */
+	void setupPreviewPage(QWidget* page);
+
 	/**
 	 * Create a directory if it does not exist.
 	 *
@@ -169,15 +307,63 @@ private:
 	bool renameFile(const QString& oldfn, const QString& newfn,
 									QString* errorMsg) const;
 
-	enum Action { ActionRename = 0, ActionCreate = 1 };
-	enum TagVersion { TagV2V1 = 0, TagV1 = 1, TagV2 = 2 };
+  /**
+	 * Add a rename action.
+	 *
+	 * @param type type of action
+	 * @param src  source file or directory name
+	 * @param dest destination file or directory name
+	 */
+	void addAction(RenameAction::Type type, const QString& src, const QString& dest);
+
+  /**
+	 * Add a rename action.
+	 *
+	 * @param type type of action
+	 * @param dest destination file or directory name
+	 */
+	void addAction(RenameAction::Type type, const QString& dest);
+
+	/**
+	 * Check if there is already an action scheduled for this source.
+	 *
+	 * @return true if a rename action for the source exists.
+	 */
+	bool actionHasSource(const QString& src) const;
+
+	/**
+	 * Check if there is already an action scheduled for this destination.
+	 *
+	 * @return true if a rename or create action for the destination exists.
+	 */
+	bool actionHasDestination(const QString& dest) const;
+
+	/**
+	 * Replace directory name if there is already a rename action.
+	 *
+	 * @param src directory name, will be replaced if there is a rename action
+	 */
+	void replaceIfAlreadyRenamed(QString& src) const;
+
+	/**
+	 * Clear action preview.
+	 */
+	void clearPreview();
+
+	/**
+	 * Display action preview.
+	 */
+	void displayPreview();
 
 	QComboBox* m_formatComboBox;
 	QComboBox* m_actionComboBox;
 	QComboBox* m_tagversionComboBox;
 	QLabel* m_currentDirLabel;
 	QLabel* m_newDirLabel;
+  QTextEdit* m_edit;
 	TaggedFile* m_taggedFile;
+	RenameActionList m_actions;
+	bool m_aborted;
 };
 
 #endif
