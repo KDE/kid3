@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2007</year>
+<year>2008</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2007-11-15</date>
-<releaseinfo>0.10</releaseinfo>
+<date>2008-03-01</date>
+<releaseinfo>1.0</releaseinfo>
 
 <abstract>
 <para>
@@ -244,13 +244,14 @@ into the filename:
 </para>
 
 <itemizedlist>
-<listitem><para>%s Title (Song)</para></listitem>
-<listitem><para>%a Artist</para></listitem>
-<listitem><para>%l Album</para></listitem>
-<listitem><para>%c Comment</para></listitem>
-<listitem><para>%y Year</para></listitem>
-<listitem><para>%t Track</para></listitem>
-<listitem><para>%g Genre</para></listitem>
+<listitem><para>%s %{title} Title (Song)</para></listitem>
+<listitem><para>%a %{artist} Artist</para></listitem>
+<listitem><para>%l %{album} Album</para></listitem>
+<listitem><para>%c %{comment} Comment</para></listitem>
+<listitem><para>%y %{year} Year</para></listitem>
+<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
 </itemizedlist>
 
 <para>
@@ -566,19 +567,19 @@ the filename format:
 </para>
 
 <itemizedlist>
-<listitem><para>%s Title (Song)</para></listitem>
-<listitem><para>%a Artist</para></listitem>
-<listitem><para>%l Album</para></listitem>
-<listitem><para>%c Comment</para></listitem>
-<listitem><para>%y Year</para></listitem>
-<listitem><para>%t Track</para></listitem>
-<listitem><para>%g Genre</para></listitem>
-<listitem><para>%d Duration</para></listitem>
+<listitem><para>%s %{title} Title (Song)</para></listitem>
+<listitem><para>%a %{artist} Artist</para></listitem>
+<listitem><para>%l %{album} Album</para></listitem>
+<listitem><para>%c %{comment} Comment</para></listitem>
+<listitem><para>%y %{year} Year</para></listitem>
+<listitem><para>%t %{track} Track</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
+<listitem><para>%d %{duration} Duration</para></listitem>
 </itemizedlist>
 
 <para>
 For example, a track regular expression (second line) to import from an 
-.m3u playlist could be "%t(\d+)\s+%s(\S[^\r\n]*)\.mp3[\r\n]". All formats can
+.m3u playlist could be "%{track}(\d+)\s+%{title}(\S[^\r\n]*)\.mp3[\r\n]". All formats can
 be changed by editing the regular expressions and the name and then clicking
 <guibutton>OK</guibutton>. They will be stored in the
 <filename>kid3rc</filename> file in the configuration directory. This file can
@@ -684,20 +685,20 @@ format, and the same codes are used plus some additional codes.
 </para>
 
 <itemizedlist>
-<listitem><para>%s Title (Song)</para></listitem>
-<listitem><para>%a Artist</para></listitem>
-<listitem><para>%l Album</para></listitem>
-<listitem><para>%c Comment</para></listitem>
-<listitem><para>%y Year</para></listitem>
-<listitem><para>%t Track</para></listitem>
-<listitem><para>%T Track, without leading zeroes</para></listitem>
-<listitem><para>%g Genre</para></listitem>
-<listitem><para>%f File name</para></listitem>
-<listitem><para>%p Path</para></listitem>
-<listitem><para>%u URL</para></listitem>
-<listitem><para>%d Duration in minutes:seconds</para></listitem>
-<listitem><para>%D Duration in seconds</para></listitem>
-<listitem><para>%n Number of tracks of the album</para></listitem>
+<listitem><para>%s %{title} Title (Song)</para></listitem>
+<listitem><para>%a %{artist} Artist</para></listitem>
+<listitem><para>%l %{album} Album</para></listitem>
+<listitem><para>%c %{comment} Comment</para></listitem>
+<listitem><para>%y %{year} Year</para></listitem>
+<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
+<listitem><para>%f %{file} File name</para></listitem>
+<listitem><para>%p %{filepath} Path</para></listitem>
+<listitem><para>%u %{url} URL</para></listitem>
+<listitem><para>%d %{duration} Duration in minutes:seconds</para></listitem>
+<listitem><para>%D %{seconds} Duration in seconds</para></listitem>
+<listitem><para>%n %{tracks} Number of tracks of the album</para></listitem>
 </itemizedlist>
 
 <para>
@@ -853,13 +854,14 @@ special codes are used to insert tag values into the directory name:
 </para>
 
 <itemizedlist>
-<listitem><para>%s Title (Song)</para></listitem>
-<listitem><para>%a Artist</para></listitem>
-<listitem><para>%l Album</para></listitem>
-<listitem><para>%c Comment</para></listitem>
-<listitem><para>%y Year</para></listitem>
-<listitem><para>%t Track</para></listitem>
-<listitem><para>%g Genre</para></listitem>
+<listitem><para>%s %{title} Title (Song)</para></listitem>
+<listitem><para>%a %{artist} Artist</para></listitem>
+<listitem><para>%l %{album} Album</para></listitem>
+<listitem><para>%c %{comment} Comment</para></listitem>
+<listitem><para>%y %{year} Year</para></listitem>
+<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
 </itemizedlist>
 
 <para>
@@ -885,6 +887,151 @@ function can <action>number the tracks automatically in ascending
 order</action>. The start number can be set in the dialog. If only part of the
 tracks have to be numbered, they must be selected.
 </para></listitem>
+</varlistentry>
+
+<varlistentry id="filter">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Filter...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>
+The filter can be used to display only those files which match certain
+criteria. This is helpful if you want to organize a large collection and only
+edit those files which are not in the desired scheme. The expression defining
+which files to display uses the same format codes which are used in the file
+name format, import and export.
+</para>
+
+<itemizedlist>
+<listitem><para>%s %{title} Title (Song)</para></listitem>
+<listitem><para>%a %{artist} Artist</para></listitem>
+<listitem><para>%l %{album} Album</para></listitem>
+<listitem><para>%c %{comment} Comment</para></listitem>
+<listitem><para>%y %{year} Year</para></listitem>
+<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
+<listitem><para>%f %{file} File name</para></listitem>
+<listitem><para>%p %{filepath} Absolute path to file</para></listitem>
+<listitem><para>%e %{extension} File extension</para></listitem>
+<listitem><para>%O %{tag1} The format of tag 1 (ID3v1.1 or empty if not
+existiing)</para></listitem>
+<listitem><para>%o %{tag2} The format of tag 2 (ID3v2.3.0, ID3v2.4.0,
+ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, or empty if not existing)</para></listitem>
+<listitem><para>%1a %1{artist}, ... Use the prefix 1 to get values of tag 1</para></listitem>
+<listitem><para>%2a %2{artist}, ... Use the prefix 2 to get values of tag 2</para></listitem>
+</itemizedlist>
+
+<para>
+These codes are replaced with the values for
+the file, and the resulting strings can be compared with the following
+operations:
+</para>
+<itemizedlist>
+<listitem><para>s1 equals s2: true if s1 and s2 are equal.</para></listitem>
+<listitem><para>s1 contains s2: true if s1 contains s2, i.e. s2 is a
+substring of s1.</para></listitem>
+<listitem><para>s matches re: true if s matches the regular expression re.</para></listitem>
+</itemizedlist>
+<para>
+True expressions are replaced by 1, false by 0. True values are represented by
+1, true, on and yes, false values by 0, false, off and no. Boolean operations
+are not, and, or (in this order of precedence) and can be grouped by parentheses.
+</para>
+<para>
+Some filter rules are predefined and can serve as examples for your own
+expressions:
+</para>
+
+<variablelist>
+<varlistentry><term>All</term><listitem>
+<para>
+When the file list is filtered - this is shown by "[filtered]" in the
+window title - and all files shall be displayed again,
+the filtering can be reverted using this filter. It uses an empty expression,
+but a true value would have the same effect.
+</para>
+</listitem></varlistentry>
+
+<varlistentry><term>Filename Tag Mismatch</term><listitem>
+<para><userinput>
+not (%{filepath} contains "%{artist} - %{album}/%{track} %{title}")
+</userinput></para>
+<para>
+Tests if the file path conforms with the file name format. This
+rule is automatically adapted if the file name format changes.
+</para>
+</listitem></varlistentry>
+
+<varlistentry><term>No Tag 1</term><listitem>
+<para><userinput>
+%{tag1} equals ""
+</userinput></para>
+<para>Displays only files which do not have a tag 1.</para>
+</listitem></varlistentry>
+
+<varlistentry><term>No Tag 2</term><listitem>
+<para><userinput>
+%{tag2} equals ""
+</userinput></para>
+<para>Displays only files which do not have a tag 2.</para>
+</listitem></varlistentry>
+
+<varlistentry><term>ID3v2.3.0 Tag</term><listitem>
+<para><userinput>
+%{tag2} equals "ID3v2.3.0"
+</userinput></para>
+<para>Displays only files which have an ID3v2.3.0 tag.</para>
+</listitem></varlistentry>
+
+<varlistentry><term>ID3v2.4.0 Tag</term><listitem>
+<para><userinput>
+%{tag2} equals "ID3v2.4.0"
+</userinput></para>
+<para>Displays only files which have an ID3v2.4.0 tag.</para>
+</listitem></varlistentry>
+
+<varlistentry><term>Tag 1 != Tag 2</term><listitem>
+<para><userinput>
+not (%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist}
+equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals
+%2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre})
+</userinput></para>
+<para>Displays files with differences between tag 1 and tag2.</para>
+</listitem></varlistentry>
+
+<varlistentry><term>Tag 1 == Tag 2</term><listitem>
+<para><userinput>
+%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist}
+equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals
+%2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre}
+</userinput></para>
+<para>Displays files with identical tag 1 and tag 2.</para>
+</listitem></varlistentry>
+
+<varlistentry><term>Custom Filter</term><listitem>
+<para>
+To add your own filter, select this entry. For instance, if you want
+to have a filter for artists starting with "The", replace "Custom Filter"
+with the name "The Bands" and press Enter. Then insert the following
+expression into the line edit:
+</para>
+<para><userinput>
+%{artist} matches "The.*"
+</userinput></para>
+<para>
+Then click <guibutton>Save
+Settings</guibutton>. Click <guibutton>Apply</guibutton> to filter the
+files. All files processed are displayed in the text view, with a "+" for
+those who match the filter and a "-"  for the others. When finished, only the
+files with an artist starting with "The" are displayed, and the window title
+is marked with "[filtered]".
+</para>
+</listitem></varlistentry>
+
+</variablelist>
+</listitem>
 </varlistentry>
 
 <varlistentry id="convert-to-id3v24">
@@ -1056,38 +1203,47 @@ codes:
 </para>
 
 <itemizedlist>
-<listitem><para>%F File paths (a list if multiple files selected)</para></listitem>
-<listitem><para>%f File path to single file</para></listitem>
-<listitem><para>%uF URLs (a list if multiple files selected)</para></listitem>
-<listitem><para>%uf URL to single file</para></listitem>
-<listitem><para>%d Directory</para></listitem>
-<listitem><para>%s Title (Song)</para></listitem>
-<listitem><para>%a Artist</para></listitem>
-<listitem><para>%l Album</para></listitem>
-<listitem><para>%c Comment</para></listitem>
-<listitem><para>%y Year</para></listitem>
-<listitem><para>%t Track</para></listitem>
-<listitem><para>%T Track, without leading zeroes</para></listitem>
-<listitem><para>%g Genre</para></listitem>
-<listitem><para>%b Command to start the web browser</para></listitem>
+<listitem><para>%F %{files} File paths (a list if multiple files selected)</para></listitem>
+<listitem><para>%f %{file} File path to single file</para></listitem>
+<listitem><para>%uF %{urls} URLs (a list if multiple files selected)</para></listitem>
+<listitem><para>%uf %{url} URL to single file</para></listitem>
+<listitem><para>%d %{directory} Directory</para></listitem>
+<listitem><para>%s %{title} Title (Song)</para></listitem>
+<listitem><para>%a %{artist} Artist</para></listitem>
+<listitem><para>%l %{album} Album</para></listitem>
+<listitem><para>%c %{comment} Comment</para></listitem>
+<listitem><para>%y %{year} Year</para></listitem>
+<listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
+<listitem><para>%g %{genre} Genre</para></listitem>
+<listitem><para>%b %{browser} Command to start the web browser</para></listitem>
 </itemizedlist>
 
 <para>
-The command which will be inserted with %b can be defined in the
-<guilabel>Web browser</guilabel> line edit above. Commands starting with %b
+The command which will be inserted with %{browser} can be defined in the
+<guilabel>Web browser</guilabel> line edit above. Commands starting with %{browser}
 can be used to fetch information about the audio files from the web,
 for instance
 <screen width="40">
-<userinput>%b http://lyricwiki.org/%ua:%us</userinput>
+<userinput>%{browser} http://lyricwiki.org/%u{artist}:%u{title}</userinput>
 </screen>
 will query the lyrics for the current song in
-<ulink url="http://www.lyricwiki.org">LyricWiki</ulink>. The "u" in %ua and %us
-is used to URL-encode the artist %a and song %s information. It is easy to
+<ulink url="http://www.lyricwiki.org">LyricWiki</ulink>. The "u" in %u{artist} and %u{title}
+is used to URL-encode the artist %{artist} and song %{title} information. It is easy to
 define your own queries in the same way, e.g. an image search with
 <ulink url="http://www.google.com">Google</ulink>:
 <screen width="40">
-<userinput>%b http://images.google.com/images?q=%ua%20%ul</userinput>
+<userinput>%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}</userinput>
 </screen>
+</para>
+<para>
+To add album cover art to tag 2, you can search for images with Google or
+Amazon using the commands described above. The picture can be added to the tag
+with drag and drop if the browser supports dragging of images. Otherwise, the
+image can be saved to disk, and the image file can be dropped into the &kid3;
+window. You can also add an image with <guibutton>Add</guibutton>, then select
+the Picture frame and import an image file or paste from the
+clipboard. Picture frames are supported for ID3v2, MP4 and FLAC tags.
 </para>
 <para> 
 To add and delete entries in the table, a context menu can be
@@ -1291,6 +1447,486 @@ with Qt 4 in <filename>.config/kid3.sourceforge.net/Kid3.conf</filename>,
 with older releases of Qt, a file <filename>kid3.cfg</filename> is created.
 On Windows, the configuration is stored in the registry.
 </para>
+
+</sect1>
+
+</appendix>
+
+<appendix id="dbus-interface">
+<title>D-Bus Interface</title>
+
+<sect1 id="dbus-examples">
+<title>D-Bus Examples</title>
+
+<para>
+The Qt 4 and KDE 4 versions on Linux offer a D-Bus-Interface to control
+&kid3; by scripts. Scripts can be written in any language with D-Bus-bindings
+(e.g. in Python) and can be added to the <guilabel>User Actions</guilabel> to
+extend the functionality of &kid3;.
+</para>
+
+<para>
+The artist in tag 2 of the current file can be set to the value "One Hit Wonder"
+with the following code:
+</para>
+
+<variablelist>
+<varlistentry><term>Shell</term>
+<listitem>
+<programlisting>
+dbus-send --dest=net.sourceforge.kid3 --print-reply=literal /Kid3 net.sourceforge.Kid3.setFrame int32:2 string:'Artist' string:'One Hit Wonder'
+</programlisting>
+<para>
+or easier with Qt's <command>qdbus</command> (<command>qdbusviewer</command>
+can be used to explore the interface in a GUI):
+</para>
+<programlisting>
+qdbus net.sourceforge.kid3 /Kid3 setFrame 2 Artist 'One Hit Wonder'
+</programlisting>
+</listitem>
+</varlistentry>
+<varlistentry><term>Python</term>
+<listitem>
+<programlisting>
+import dbus
+kid3 = dbus.SessionBus().get_object('net.sourceforge.kid3', '/Kid3')
+kid3.setFrame(2, 'Artist', 'One Hit Wonder')
+</programlisting>
+</listitem>
+</varlistentry>
+<varlistentry><term>Perl</term>
+<listitem>
+<programlisting>
+use Net::DBus;
+$kid3 = Net::DBus->session->get_service("net.sourceforge.kid3")->get_object("/Kid3", "net.sourceforge.Kid3");
+$kid3->setFrame(2, "Artist", "One Hit Wonder");
+</programlisting>
+</listitem>
+</varlistentry>
+</variablelist>
+</sect1>
+
+<sect1 id="dbus-api">
+<title>D-Bus API</title>
+
+<para>
+The D-Bus API is specified
+in <filename>net.sourceforge.Kid3.xml</filename>. The Kid3 interface has the
+following methods:
+</para>
+
+<sect2 id="dbus-openDirectory">
+<title>Open file or directory</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>openDirectory</function></funcdef>
+  <paramdef>string <parameter>path</parameter> path to file or directory</paramdef>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if ok.</para>
+</sect2>
+
+<sect2 id="dbus-save">
+<title>Save all modified files</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>save</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if ok.</para>
+</sect2>
+
+<sect2 id="dbus-getErrorMessage">
+<title>Get a detailed error message provided by some methods</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>string <function>getErrorMessage</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns detailed error message.</para>
+</sect2>
+
+<sect2 id="dbus-revert">
+<title>Revert changes in the selected files</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>revert</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-importFromFile">
+<title>Import tags from a file</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>importFromFile</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>string <parameter>path</parameter> path of file</paramdef>
+  <paramdef>int32 <parameter>fmtIdx</parameter> index of format</paramdef>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if ok.</para>
+</sect2>
+
+<sect2 id="dbus-exportToFile">
+<title>Export tags to a file</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>exportToFile</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>string <parameter>path</parameter> path of file</paramdef>
+  <paramdef>int32 <parameter>fmtIdx</parameter> index of format</paramdef>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if ok.</para>
+</sect2>
+
+<sect2 id="dbus-createPlaylist">
+<title>Create a playlist</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>createPlaylist</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if ok.</para>
+</sect2>
+
+<sect2 id="dbus-quit">
+<title>Quit the application</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>quit</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-selectAll">
+<title>Select all files</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>selectAll</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-deselectAll">
+<title>Deselect all files</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>deselectAll</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-firstFile">
+<title>Select the first file</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>firstFile</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if there is a first file.</para>
+</sect2>
+
+<sect2 id="dbus-previousFile">
+<title>Select the previous file</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>previousFile</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if there is a previous file.</para>
+</sect2>
+
+<sect2 id="dbus-nextFile">
+<title>Select the next file</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>nextFile</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if there is a next file.</para>
+</sect2>
+
+<sect2 id="dbus-expandDirectory">
+<title>Expand or collapse the current file item if it is a directory</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>expandDirectory</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>A file list item is a directory if getFileName() returns a name with
+      '/' as the last character.</para>
+<para>Returns true if current file item is a directory.</para>
+</sect2>
+
+<sect2 id="dbus-applyFilenameFormat">
+<title>Apply the file name format</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>applyFilenameFormat</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-applyTagFormat">
+<title>Apply the tag format</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>applyTagFormat</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-setDirNameFromTag">
+<title>Set the directory name from the tags</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>setDirNameFromTag</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag mask (bit 0 for tag 1, bit 1 for tag 2)</paramdef>
+  <paramdef>string <parameter>format</parameter> directory name format</paramdef>
+  <paramdef>boolean <parameter>create</parameter> true to create, false to rename</paramdef>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if ok, else the error message is available using getErrorMessage().</para>
+</sect2>
+
+<sect2 id="dbus-numberTracks">
+<title>Set subsequent track numbers in the selected files</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>numberTracks</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag mask (bit 0 for tag 1, bit 1 for tag 2)</paramdef>
+  <paramdef>int32 <parameter>firstTrackNr</parameter> number to use for first file</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-filter">
+<title>Filter the files</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>filter</function></funcdef>
+  <paramdef>string <parameter>expression</parameter> filter expression</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-convertToId3v24">
+<title>Convert ID3v2.3 tags to ID3v2.4</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>convertToId3v24</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-convertToId3v23">
+<title>Convert ID3v2.4 tags to ID3v2.3</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>convertToId3v23</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true if ok.</para>
+</sect2>
+
+<sect2 id="dbus-getDirectoryName">
+<title>Get path of directory</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>string <function>getDirectoryName</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns absolute path of directory.</para>
+</sect2>
+
+<sect2 id="dbus-getFileName">
+<title>Get name of current file</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>string <function>getFileName</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Returns true absolute file name, ends with "/" if it is a directory.</para>
+</sect2>
+
+<sect2 id="dbus-setFileName">
+<title>Set name of selected file</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>setFileName</function></funcdef>
+  <paramdef>string <parameter>name</parameter> file name</paramdef>
+</funcprototype>
+</funcsynopsis>
+<para>The file will be renamed when the directory is saved.</para>
+</sect2>
+
+<sect2 id="dbus-setFileNameFormat">
+<title>Set format to use when setting the filename from the tags</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>setFileNameFormat</function></funcdef>
+  <paramdef>string <parameter>format</parameter> file name format</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-setFileNameFromTag">
+<title>Set the file names of the selected files from the tags</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>setFileNameFromTag</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-getFrame">
+<title>Get value of frame</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>string <function>getFrame</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>string <parameter>name</parameter> name of frame (e.g. "artist")</paramdef>
+</funcprototype>
+</funcsynopsis>
+<para>To get binary data like a picture, the name of a file to write can be
+      added after the <parameter>name</parameter>, e.g. "Picture:/path/to/file".</para>
+<para>Returns value of frame.</para>
+</sect2>
+
+<sect2 id="dbus-setFrame">
+<title>Set value of frame</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>setFrame</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>string <parameter>name</parameter> name of frame (e.g. "artist")</paramdef>
+  <paramdef>string <parameter>value</parameter> value of frame</paramdef>
+</funcprototype>
+</funcsynopsis>
+<para>For tag 2 (<parameter>tagMask</parameter> 2), if no frame with <parameter>name</parameter> exists, a new frame
+      is added, if <parameter>value</parameter> is empty, the frame is deleted.
+      To add binary data like a picture, a file can be added after the
+      <parameter>name</parameter>, e.g. "Picture:/path/to/file".</para>
+<para>Returns true if ok.</para>
+</sect2>
+
+<sect2 id="dbus-getTag">
+<title>Get all frames of a tag</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>array of string <function>getTag</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+</funcprototype>
+</funcsynopsis>
+<para>Returns list with alternating frame names and values.</para>
+</sect2>
+
+<sect2 id="dbus-getInformation">
+<title>Get technical information about file</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>array of string <function>getInformation</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Properties are Format, Bitrate, Samplerate, Channels, Duration,
+      Channel Mode, VBR, Tag 1, Tag 2.
+      Properties which are not available are omitted.</para>
+<para>Returns list with alternating property names and values.</para>
+</sect2>
+
+<sect2 id="dbus-setTagFromFileName">
+<title>Set tag from file name</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>setTagFromFileName</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-setTagFromOtherTag">
+<title>Set tag from other tag</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>setTagFromOtherTag</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-copyTag">
+<title>Copy tag</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>copyTag</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-pasteTag">
+<title>Paste tag</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>pasteTag</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-removeTag">
+<title>Remove tag</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>removeTag</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-hideTag">
+<title>Hide or show tag in GUI</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>hideTag</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag bit (1 for tag 1, 2 for tag 2)</paramdef>
+  <paramdef>boolean <parameter>hide</parameter> true to hide tag</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-reparseConfiguration">
+<title>Reparse the configuration</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>reparseConfiguration</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Automated configuration changes are possible by modifying
+      the configuration file and then reparsing the configuration.</para>
+</sect2>
 
 </sect1>
 

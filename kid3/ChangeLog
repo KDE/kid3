@@ -6,12 +6,15 @@ Sat Mar  1 15:44:56 CET 2008  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + File filter.
 	  + D-Bus interface to control application by scripts.
 	  + Long format codes %{title}, %{album}, ... and tooltips for formats.
+	  + Support for FLAC pictures.
 	  + Polish translation.
 
 	* Improved:
 	  + GUI and usability.
+	  + Rename directory wizard.
 	  + Use xdg-open as the default web browser.
 	  + Display description instead of TXXX and WXXX.
+	  + Add pictures to files by drag and drop and from cllipboard.
 	  + Compilation with GCC 4.3 and compiler detection for kid3-qt.
 	  + Support for TagLib 1.5.
 
