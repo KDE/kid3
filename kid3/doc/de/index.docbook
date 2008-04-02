@@ -1511,7 +1511,9 @@ werden, was verwendet werden soll. Die Voreinstellung ist
 </para>
 <para>
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>
-vorhanden, für Debian-Pakete steht ein <filename>debian</filename> Verzeichnis
+vorhanden, für Debian-Pakete stehen die Skripte
+<filename>build-deb-kde3.sh</filename> und
+<filename>build-deb-kde4.sh</filename>
 zur Verfügung.
 </para>
 <para>

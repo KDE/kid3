@@ -1,0 +1,3 @@
+#!/usr/bin/make -f
+
+include debian/cdbs/kde.mk
