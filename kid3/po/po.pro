@@ -15,7 +15,7 @@ win32 {
   QMAKE_LINK    = @echo > /dev/null
 }
 
-QM_FILES = kid3_de.qm kid3_es.qm kid3_fr.qm kid3_ru.qm kid3_it.qm kid3_pl.qm
+QM_FILES = kid3_de.qm kid3_es.qm kid3_fr.qm kid3_ru.qm kid3_it.qm kid3_pl.qm kid3_nl.qm
 QMAKE_CLEAN += $$QM_FILES
 
 isEmpty(CFG_LRELEASE) {
@@ -25,12 +25,12 @@ contains($$list($$[QT_VERSION]), 4.*) {
   ts2qm.input = TS_FILES
   ts2qm.commands = $$CFG_LRELEASE ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
   QMAKE_EXTRA_COMPILERS += ts2qm
-  TS_FILES += kid3_de.ts kid3_es.ts kid3_fr.ts kid3_ru.ts kid3_it.ts kid3_pl.ts
+  TS_FILES += kid3_de.ts kid3_es.ts kid3_fr.ts kid3_ru.ts kid3_it.ts kid3_pl.ts kid3_nl.ts
 } else {
   ts2qm.input = SOURCES
   ts2qm.commands = $$CFG_LRELEASE ${QMAKE_FILE_NAME} -qm ${QMAKE_FILE_OUT}
   QMAKE_EXTRA_UNIX_COMPILERS += ts2qm
-  SOURCES += kid3_de.ts kid3_es.ts kid3_fr.ts kid3_ru.ts kid3_it.ts kid3_pl.ts
+  SOURCES += kid3_de.ts kid3_es.ts kid3_fr.ts kid3_ru.ts kid3_it.ts kid3_pl.ts kid3_nl.ts
 }
 
 ts2qm.output = ${QMAKE_FILE_BASE}.qm
