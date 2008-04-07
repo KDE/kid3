@@ -203,19 +203,15 @@ public slots:
 	 */
 	void filter(const QString& expression);
 
-#ifdef HAVE_TAGLIB
 	/**
 	 * Convert ID3v2.3 tags to ID3v2.4.
 	 */
 	void convertToId3v24();
-#endif
 
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 	/**
 	 * Convert ID3v2.4 tags to ID3v2.3.
 	 */
 	void convertToId3v23();
-#endif
 
 	/**
 	 * Get path of directory.

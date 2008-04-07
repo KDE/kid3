@@ -277,25 +277,25 @@ void ScriptInterface::filter(const QString& expression)
 	m_app->applyFilter(filter);
 }
 
-#ifdef HAVE_TAGLIB
 /**
  * Convert ID3v2.3 tags to ID3v2.4.
  */
 void ScriptInterface::convertToId3v24()
 {
+#ifdef HAVE_TAGLIB
 	m_app->slotConvertToId3v24();
-}
 #endif
+}
 
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 /**
  * Convert ID3v2.4 tags to ID3v2.3.
  */
 void ScriptInterface::convertToId3v23()
 {
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 	m_app->slotConvertToId3v23();
-}
 #endif
+}
 
 /**
  * Get path of directory.
@@ -648,12 +648,8 @@ void ScriptInterface::applyTagFormat() {}
 bool ScriptInterface::setDirNameFromTag(int, const QString&, bool) { return false; }
 void ScriptInterface::numberTracks(int, int) {}
 void ScriptInterface::filter(const QString&) {}
-#ifdef HAVE_TAGLIB
 void ScriptInterface::convertToId3v24() {}
-#endif
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 void ScriptInterface::convertToId3v23() {}
-#endif
 QString ScriptInterface::getDirectoryName() { return ""; }
 QString ScriptInterface::getFileName() { return ""; }
 void ScriptInterface::setFileName(const QString&) {}
