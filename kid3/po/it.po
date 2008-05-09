@@ -1552,7 +1552,7 @@ msgstr "WXXX - Collegamento URL definito dall'utente"
 
 #: musicbrainzclient.cpp:290
 msgid "Metadata Read"
-msgstr "Metadati letti"
+msgstr "Informazioni aggiuntive lette"
 
 #: musicbrainzclient.cpp:292 musicbrainzclient.cpp:595
 msgid "Unrecognized"
