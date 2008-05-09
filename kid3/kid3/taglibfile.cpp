@@ -2888,7 +2888,7 @@ QStringList TagLibFile::getFrameIds() const
 		for (unsigned i = 0; i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]); ++i) {
 			const TypeStrOfId& ts = typeStrOfId[i];
 			if (ts.type == Frame::FT_Other && ts.supported && ts.str) {
-				lst.append(ts.str);
+				lst.append(QCM_translate(ts.str));
 			}
 		}
 	} else {

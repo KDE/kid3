@@ -1714,7 +1714,7 @@ QStringList Mp3File::getFrameIds() const
 		if (typeStrOfId[i].type == Frame::FT_Other) {
 			const char* s = typeStrOfId[i].str;
 			if (s) {
-				lst.append(s);
+				lst.append(QCM_translate(s));
 			}
 		}
 	}
