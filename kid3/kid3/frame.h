@@ -27,6 +27,8 @@
 #ifndef FRAME_H
 #define FRAME_H
 
+#include "formatreplacer.h"
+#include "standardtags.h"
 #include <qstring.h>
 #include <qvariant.h>
 #if QT_VERSION >= 0x040000
@@ -50,6 +52,7 @@ public:
 		FT_Track,
 		FT_Genre,
 		FT_LastV1Frame = FT_Genre,
+		FT_AlbumArtist,
 		FT_Arranger,
 		FT_Author,
 		FT_Bpm,
@@ -61,6 +64,7 @@ public:
 		FT_Isrc,
 		FT_Language,
 		FT_Lyricist,
+		FT_Media,
 		FT_OriginalAlbum,
 		FT_OriginalArtist,
 		FT_OriginalDate,
@@ -68,6 +72,7 @@ public:
 		FT_Performer,
 		FT_Picture,
 		FT_Publisher,
+		FT_Remixer,
 		FT_Subtitle,
 		FT_Website,
 		FT_LastFrame = FT_Website,
@@ -281,6 +286,14 @@ public:
 	 */
 	static Type getTypeFromName(QString name);
 
+	/**
+	 * If a frame contains a string list as a value, it is stored in a single
+	 * string, separated by this special separator character.
+	 *
+	 * @return separator character.
+	 */
+	static char stringListSeparator() { return '|'; }
+
 private:
 	friend class TaggedFile;
 	Type m_type;
@@ -310,12 +323,12 @@ public:
 	 */
 	void enableAll();
 
-  /**
-   * Check if all fields are true.
-   *
-   * @return true if all fields are true.
-   */
-  bool areAllEnabled() const;
+	/**
+	 * Check if all fields are true.
+	 *
+	 * @return true if all fields are true.
+	 */
+	bool areAllEnabled() const;
 
 	/**
 	 * Check if frame is enabled.
@@ -393,6 +406,206 @@ public:
 	 * @return iterator or end() if not found.
 	 */
 	iterator findByName(const QString& name) const;
+
+	/**
+	 * Get value by type.
+	 *
+	 * @param type type
+	 *
+	 * @return value, QString::null if not found.
+	 */
+	QString getValue(Frame::Type type) const;
+
+	/**
+	 * Set value by type.
+	 *
+	 * @param type type
+	 * @param value value, nothing is done if QString::null
+	 */
+	void setValue(Frame::Type type, const QString& value);
+
+	/**
+	 * Get integer value by type.
+	 *
+	 * @param type type
+	 *
+	 * @return value, 0 if empty, -1 if not found.
+	 */
+	int getIntValue(Frame::Type type) const;
+
+	/**
+	 * Set integer value by type.
+	 *
+	 * @param type type
+	 * @param value value, 0 to set empty, nothing is done if -1
+	 */
+	void setIntValue(Frame::Type type, int value);
+
+	/**
+	 * Set standard tag fields.
+	 *
+	 * @param st standard tags
+	 */
+	void setStandardTags(const StandardTags& st);
+
+	/**
+	 * Get standard tag fields.
+	 *
+	 * @param st standard tags
+	 */
+	StandardTags getStandardTags() const;
+
+	/**
+	 * Get artist.
+	 *
+	 * @return artist, QString::null if not found.
+	 */
+	QString getArtist() const { return getValue(Frame::FT_Artist); }
+	
+	/**
+	 * Set artist.
+	 *
+	 * @param artist artist, nothing is done if QString::null
+	 */
+	void setArtist(const QString& artist) { setValue(Frame::FT_Artist, artist); }
+	
+	/**
+	 * Get album.
+	 *
+	 * @return album, QString::null if not found.
+	 */
+	QString getAlbum() const { return getValue(Frame::FT_Album); }
+	
+	/**
+	 * Set album.
+	 *
+	 * @param album album, nothing is done if QString::null
+	 */
+	void setAlbum(const QString& album) { setValue(Frame::FT_Album, album); }
+	
+	/**
+	 * Get title.
+	 *
+	 * @return title, QString::null if not found.
+	 */
+	QString getTitle() const { return getValue(Frame::FT_Title); }
+	
+	/**
+	 * Set title.
+	 *
+	 * @param title title, nothing is done if QString::null
+	 */
+	void setTitle(const QString& title) { setValue(Frame::FT_Title, title); }
+	
+	/**
+	 * Get comment.
+	 *
+	 * @return comment, QString::null if not found.
+	 */
+	QString getComment() const { return getValue(Frame::FT_Comment); }
+	
+	/**
+	 * Set comment.
+	 *
+	 * @param comment comment, nothing is done if QString::null
+	 */
+	void setComment(const QString& comment) { setValue(Frame::FT_Comment, comment); }
+	
+	/**
+	 * Get genre.
+	 *
+	 * @return genre, QString::null if not found.
+	 */
+	QString getGenre() const { return getValue(Frame::FT_Genre); }
+	
+	/**
+	 * Set genre.
+	 *
+	 * @param genre genre, nothing is done if QString::null
+	 */
+	void setGenre(const QString& genre) { setValue(Frame::FT_Genre, genre); }
+	
+	/**
+	 * Get track.
+	 *
+	 * @return track, -1 if not found.
+	 */
+	int getTrack() const { return getIntValue(Frame::FT_Track); }
+	
+	/**
+	 * Set track.
+	 *
+	 * @param track track, nothing is done if -1
+	 */
+	void setTrack(int track) { setIntValue(Frame::FT_Track, track); }
+	
+	/**
+	 * Get year.
+	 *
+	 * @return year, -1 if not found.
+	 */
+	int getYear() const { return getIntValue(Frame::FT_Date); }
+	
+	/**
+	 * Set year.
+	 *
+	 * @param year year, nothing is done if -1
+	 */
+	void setYear(int year) { setIntValue(Frame::FT_Date, year); }
+};
+
+
+/**
+ * Replaces frame format codes in a string.
+ */
+class FrameFormatReplacer : public FormatReplacer {
+public:
+	/**
+	 * Constructor.
+	 *
+	 * @param frames frame collection
+	 * @param str    string with format codes
+	 */
+	explicit FrameFormatReplacer(
+		const FrameCollection& frames, const QString& str = QString());
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~FrameFormatReplacer();
+
+	/**
+	 * Get help text for supported format codes.
+	 *
+	 * @param onlyRows if true only the tr elements are returned,
+	 *                 not the surrounding table
+	 *
+	 * @return help text.
+	 */
+	static QString getToolTip(bool onlyRows = false);
+
+protected:
+	/**
+	 * Replace a format code (one character %c or multiple characters %{chars}).
+	 * Supported format fields:
+	 * %s title (song)
+	 * %l album
+	 * %a artist
+	 * %c comment
+	 * %y year
+	 * %t track, two digits, i.e. leading zero if < 10
+	 * %T track, without leading zeroes
+	 * %g genre
+	 *
+	 * @param code format code
+	 *
+	 * @return replacement string,
+	 *         QString::null if code not found.
+	 */
+	virtual QString getReplacement(const QString& code) const;
+
+private:
+	const FrameCollection& m_frames;
 };
 
 #endif // FRAME_H

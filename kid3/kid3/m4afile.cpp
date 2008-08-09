@@ -94,7 +94,7 @@ static const struct {
 	{ "\251grp", Frame::FT_Other },
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
-	{ "aART", Frame::FT_Other },
+	{ "aART", Frame::FT_AlbumArtist },
 	{ "pgap", Frame::FT_Other },
 #endif
 	{ "covr", Frame::FT_Picture }
@@ -995,6 +995,9 @@ QStringList M4aFile::getFrameIds() const
 		Frame::FT_Date,
 		Frame::FT_Track,
 		Frame::FT_Genre,
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
+		Frame::FT_AlbumArtist,
+#endif
 		Frame::FT_Bpm,
 		Frame::FT_Composer,
 		Frame::FT_Disc,
@@ -1011,7 +1014,7 @@ QStringList M4aFile::getFrameIds() const
 	lst << "\251grp";
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
-	lst << "aART" << "pgap";
+	lst << "pgap";
 #endif
 	return lst;
 }

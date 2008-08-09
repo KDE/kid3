@@ -36,6 +36,8 @@
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QList>
+#else
+#include <qvaluelist.h>
 #endif
 
 class QPushButton;
@@ -44,7 +46,6 @@ class QLineEdit;
 class QCheckBox;
 class QSpinBox;
 class ImportParser;
-class StandardTags;
 class FreedbDialog;
 class TrackTypeDialog;
 class MusicBrainzDialog;
@@ -90,24 +91,24 @@ public:
 	 * Look for album specific information (artist, album, year, genre) in
 	 * a header.
 	 *
-	 * @param st standard tags to put resulting values in,
+	 * @param frames frames to put resulting values in,
 	 *           fields which are not found are not touched.
 	 *
 	 * @return true if one or more field were found.
 	 */
-	bool parseHeader(StandardTags& st);
+	bool parseHeader(FrameCollection& frames);
 
 	/**
-	 * Get next line as standardtags from imported file or clipboard.
+	 * Get next line as frames from imported file or clipboard.
 	 *
-	 * @param st standard tags
+	 * @param frames frames
 	 * @param start true to start with the first line, false for all
 	 *              other lines
 	 *
 	 * @return true if ok (result in st),
 	 *         false if end of file reached.
 	 */
-	bool getNextTags(StandardTags& st, bool start);
+	bool getNextTags(FrameCollection& frames, bool start);
 
 	/**
 	 * Get import destination.
@@ -284,6 +285,19 @@ private:
 	bool updateTrackData(ImportSource impSrc);
 
 	/**
+	 * Clear columns for additional (non-standard) tags.
+	 */
+	void clearAdditionalFrameColumns();
+
+	/**
+	 * Add columns for additional (non-standard) tags.
+	 *
+	 * @param frames frames
+	 * @param row    current table row
+	 */
+	void addAdditionalFrameColumns(const FrameCollection& frames, int row);
+
+	/**
 	 * Set the format combo box and line edits from the configuration.
 	 */
 	void setFormatFromConfig();
@@ -338,6 +352,12 @@ private:
 	ImportSource m_importSource;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
+	/** names for additional tag columns */
+#if QT_VERSION >= 0x040000
+	QList<QString> m_additonalColumnNames;
+#else
+	QValueList<QString> m_additonalColumnNames;
+#endif
 
 	/** Last directory used for import or export. */
 	static QString s_importDir;

@@ -269,11 +269,11 @@ Kid3App::Kid3App() :
 #ifdef HAVE_QTDBUS
 	if (QDBusConnection::sessionBus().isConnected()) {
 		QString serviceName("net.sourceforge.kid3");
-    QDBusConnection::sessionBus().registerService(serviceName);
+		QDBusConnection::sessionBus().registerService(serviceName);
 #ifndef CONFIG_USE_KDE
 		serviceName += '-';
 		serviceName += QString::number(::getpid());
-    QDBusConnection::sessionBus().registerService(serviceName);
+		QDBusConnection::sessionBus().registerService(serviceName);
 #endif
 		new ScriptInterface(this);
 		if (!QDBusConnection::sessionBus().registerObject("/Kid3", this)) {
@@ -1725,18 +1725,22 @@ void Kid3App::setupImportDialog()
 	while (mp3file != 0) {
 		mp3file->getFile()->readTags(false);
 		if (firstTrack) {
-			StandardTags st;
-			mp3file->getFile()->getStandardTagsV2(&st);
-			if (st.artist.isEmpty() && st.album.isEmpty()) {
-				mp3file->getFile()->getStandardTagsV1(&st);
+			FrameCollection frames;
+			mp3file->getFile()->getAllFramesV2(frames);
+			QString artist = frames.getArtist();
+			QString album = frames.getAlbum();
+			if (artist.isEmpty() && album.isEmpty()) {
+				mp3file->getFile()->getAllFramesV1(frames);
+				artist = frames.getArtist();
+				album = frames.getAlbum();
 			}
-			m_trackDataList.m_artist = st.artist;
-			m_trackDataList.m_album = st.album;
+			m_trackDataList.setArtist(artist);
+			m_trackDataList.setAlbum(album);
 			firstTrack = false;
 			tag1Supported = mp3file->getFile()->isTagV1Supported();
 		}
 		m_trackDataList.push_back(ImportTrackData(mp3file->getFile()->getAbsFilename(),
-                                            mp3file->getFile()->getDuration()));
+		                                          mp3file->getFile()->getDuration()));
 		mp3file = m_view->nextFileInDir();
 	}
 
@@ -1763,31 +1767,23 @@ void Kid3App::setupImportDialog()
 void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 {
 	slotStatusMsg(i18n("Import..."));
-	ImportTrackDataVector::const_iterator it = m_trackDataList.begin();
-	StandardTags st1, st2;
-	StandardTagsFilter flt(destV1 ?
-												 m_view->getFilterFromID3V1() :
-												 m_view->getFilterFromID3V2());
+	ImportTrackDataVector::iterator it = m_trackDataList.begin();
+	FrameFilter flt(destV1 ?
+	                m_view->frameTableV1()->getEnabledFrameFilter(true) :
+	                m_view->frameTableV2()->getEnabledFrameFilter(true));
 	bool no_selection = m_view->numFilesSelected() == 0;
 	FileListItem* mp3file = m_view->firstFileInDir();
 	while (mp3file != 0) {
-		mp3file->getFile()->readTags(false);
-		if (destV1) mp3file->getFile()->getStandardTagsV1(&st1);
-		if (destV2) mp3file->getFile()->getStandardTagsV2(&st2);
+		TaggedFile* taggedFile = mp3file->getFile();
+		taggedFile->readTags(false);
 		if (it != m_trackDataList.end()) {
-			if (destV1) (*it).copyActiveTags(st1);
-			if (destV2) (*it).copyActiveTags(st2);
+			it->removeDisabledFrames(flt);
+			formatFramesIfEnabled(*it);
+			if (destV1) taggedFile->setFramesV1(*it, false);
+			if (destV2) taggedFile->setFramesV2(*it, false);
 			++it;
 		} else {
 			break;
-		}
-		if (destV1) {
-			formatStandardTagsIfEnabled(&st1);
-			mp3file->getFile()->setStandardTagsV1(&st1, flt);
-		}
-		if (destV2) {
-			formatStandardTagsIfEnabled(&st2);
-			mp3file->getFile()->setStandardTagsV2(&st2, flt);
 		}
 		mp3file = m_view->nextFileInDir();
 	}
@@ -1918,6 +1914,35 @@ void Kid3App::slotImportMusicBrainz()
 #endif
 }
 
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+/**
+ * Read file with TagLib if it has an ID3v2.4 tag.
+ *
+ * @param item       file list item, can be updated
+ * @param taggedFile tagged file
+ *
+ * @return tagged file (can be new TagLibFile).
+ */
+static TaggedFile* readWithTagLibIfId3V24(FileListItem* item,
+																					TaggedFile* taggedFile)
+{
+	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
+			!taggedFile->isChanged() &&
+			taggedFile->isTagInformationRead() && taggedFile->hasTagV2() &&
+			taggedFile->getTagFormatV2() == QString::null) {
+		TagLibFile* tagLibFile;
+		if ((tagLibFile = new TagLibFile(
+					 taggedFile->getDirInfo(),
+					 taggedFile->getFilename())) != 0) {
+			item->setFile(tagLibFile);
+			taggedFile = tagLibFile;
+			taggedFile->readTags(false);
+		}
+	}
+	return taggedFile;
+}
+#endif
+
 /**
  * Set data to be exported.
  *
@@ -1929,22 +1954,22 @@ void Kid3App::setExportData(int src)
 	if (m_exportDialog) {
 		ImportTrackDataVector trackDataVector;
 		FileListItem* mp3file = m_view->firstFileInDir();
-		bool firstTrack = true;
 		while (mp3file != 0) {
-			mp3file->getFile()->readTags(false);
-			ImportTrackData trackData(mp3file->getFile()->getAbsFilename(),
-																mp3file->getFile()->getDuration());
-			if (src == ExportDialog::SrcV1) {
-				mp3file->getFile()->getStandardTagsV1(&trackData);
-			} else {
-				mp3file->getFile()->getStandardTagsV2(&trackData);
+			TaggedFile* taggedFile = mp3file->getFile();
+			if (taggedFile) {
+				taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+				taggedFile = readWithTagLibIfId3V24(mp3file, taggedFile);
+#endif
+				ImportTrackData trackData(taggedFile->getAbsFilename(),
+																	taggedFile->getDuration());
+				if (src == ExportDialog::SrcV1) {
+					taggedFile->getAllFramesV1(trackData);
+				} else {
+					taggedFile->getAllFramesV2(trackData);
+				}
+				trackDataVector.push_back(trackData);
 			}
-			if (firstTrack) {
-				trackDataVector.m_artist = trackData.artist;
-				trackDataVector.m_album = trackData.album;
-				firstTrack = false;
-			}
-			trackDataVector.push_back(trackData);
 			mp3file = m_view->nextFileInDir();
 		}
 		m_exportDialog->setExportData(trackDataVector);
@@ -2170,35 +2195,6 @@ void Kid3App::slotApplyId3Format()
 	}
 	updateGuiControls();
 }
-
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-/**
- * Read file with TagLib if it has an ID3v2.4 tag.
- *
- * @param item       file list item, can be updated
- * @param taggedFile tagged file
- *
- * @return tagged file (can be new TagLibFile).
- */
-static TaggedFile* readWithTagLibIfId3V24(FileListItem* item,
-																					TaggedFile* taggedFile)
-{
-	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
-			!taggedFile->isChanged() &&
-			taggedFile->isTagInformationRead() && taggedFile->hasTagV2() &&
-			taggedFile->getTagFormatV2() == QString::null) {
-		TagLibFile* tagLibFile;
-		if ((tagLibFile = new TagLibFile(
-					 taggedFile->getDirInfo(),
-					 taggedFile->getFilename())) != 0) {
-			item->setFile(tagLibFile);
-			taggedFile = tagLibFile;
-			taggedFile->readTags(false);
-		}
-	}
-	return taggedFile;
-}
-#endif
 
 /**
  * Schedule actions to rename a directory.

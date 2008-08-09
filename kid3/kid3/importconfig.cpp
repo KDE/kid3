@@ -73,6 +73,44 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_importFormatHeaders.append("");
 	m_importFormatTracks.append("\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t\"?%{year}(\\d+)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)");
 
+	m_importFormatNames.append("CSV more unquoted");
+	m_importFormatHeaders.append("");
+	m_importFormatTracks.append(
+		"%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t"
+		"%{album}([^\\r\\n\\t]*)\\t%{year}(\\d+)\\t%{genre}([^\\r\\n\\t]*)\\"
+		"t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)(?:\\.\\d+)?\\t"
+		"%{album artist}([^\\r\\n\\t]*)\\t%{arranger}([^\\r\\n\\t]*)\\t"
+		"%{author}([^\\r\\n\\t]*)\\t%{bpm}([^\\r\\n\\t]*)\\t"
+		"%{composer}([^\\r\\n\\t]*)\\t%{conductor}([^\\r\\n\\t]*)\\t"
+		"%{copyright}([^\\r\\n\\t]*)\\t%{disc number}([^\\r\\n\\t]*)\\t"
+		"%{encoded-by}([^\\r\\n\\t]*)\\t%{isrc}([^\\r\\n\\t]*)\\t"
+		"%{language}([^\\r\\n\\t]*)\\t%{lyricist}([^\\r\\n\\t]*)\\t"
+		"%{media}([^\\r\\n\\t]*)\\t%{original album}([^\\r\\n\\t]*)\\t"
+		"%{original artist}([^\\r\\n\\t]*)\\t%{original date}([^\\r\\n\\t]*)\\t"
+		"%{part}([^\\r\\n\\t]*)\\t%{performer}([^\\r\\n\\t]*)\\t"
+		"%{publisher}([^\\r\\n\\t]*)\\t%{remixer}([^\\r\\n\\t]*)\\t"
+		"%{subtitle}([^\\r\\n\\t]*)\\t%{website}([^\\r\\n\\t]*)");
+
+	m_importFormatNames.append("CSV more quoted");
+	m_importFormatHeaders.append("");
+	m_importFormatTracks.append(
+		"\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{year}(\\d+)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?(?:\\d+:)?%{duration}(\\d+:\\d+)(?:\\.\\d+)?\"?\\t"
+		"\"?%{album artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{arranger}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{author}([^\\r\\n\\t\"]*)\"?\\t\"?%{bpm}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{composer}([^\\r\\n\\t\"]*)\"?\\t\"?%{conductor}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{copyright}([^\\r\\n\\t\"]*)\"?\\t\"?%{disc number}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{encoded-by}([^\\r\\n\\t\"]*)\"?\\t\"?%{isrc}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{language}([^\\r\\n\\t\"]*)\"?\\t\"?%{lyricist}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{media}([^\\r\\n\\t\"]*)\"?\\t\"?%{original album}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{original artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{original date}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{part}([^\\r\\n\\t\"]*)\"?\\t\"?%{performer}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{publisher}([^\\r\\n\\t\"]*)\"?\\t\"?%{remixer}([^\\r\\n\\t\"]*)\"?\\t"
+		"\"?%{subtitle}([^\\r\\n\\t\"]*)\"?\\t\"?%{website}([^\\r\\n\\t\"]*)");
+
 	m_importFormatNames.append("freedb HTML text");
 	m_importFormatHeaders.append("%{artist}(\\S[^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n]*\\S)?[\\r\\n]");
 	m_importFormatTracks.append("[\\r\\n]%{track}(\\d+)[\\.\\s]+%{duration}(\\d+:\\d+)\\s+%{title}(\\S[^\\r\\n]*\\S)");
@@ -105,6 +143,45 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_exportFormatNames.append("CSV quoted");
 	m_exportFormatHeaders.append("");
 	m_exportFormatTracks.append("\"%{track}\"\\t\"%{title}\"\\t\"%{artist}\"\\t\"%{album}\"\\t\"%{year}\"\\t\"%{genre}\"\\t\"%{comment}\"\\t\"%{duration}.00\"");
+	m_exportFormatTrailers.append("");
+
+	m_exportFormatNames.append("CSV more unquoted");
+	m_exportFormatHeaders.append(
+		"Track\\tTitle\\tArtist\\tAlbum\\tDate\\tGenre\\tComment\\tDuration\\t"
+		"Album Artist\\tArranger\\tAuthor\\tBPM\\tComposer\\t"
+		"Conductor\\tCopyright\\tDisc Number\\tEncoded-by\\tISRC\\t"
+		"Language\\tLyricist\\tMedia\\tOriginal Album\\t"
+		"Original Artist\\tOriginal Date\\tPart\\tPerformer\\t"
+		"Publisher\\tRemixer\\tSubtitle\\tWebsite");
+	m_exportFormatTracks.append(
+		"%{track}\\t%{title}\\t%{artist}\\t%{album}\\t%{year}\\t%{genre}\\t%{comment}\\t"
+		"%{duration}.00\\t"
+		"%{album artist}\\t%{arranger}\\t%{author}\\t%{bpm}\\t%{composer}\\t"
+		"%{conductor}\\t%{copyright}\\t%{disc number}\\t%{encoded-by}\\t%{isrc}\\t"
+		"%{language}\\t%{lyricist}\\t%{media}\\t%{original album}\\t"
+		"%{original artist}\\t%{original date}\\t%{part}\\t%{performer}\\t"
+		"%{publisher}\\t%{remixer}\\t%{subtitle}\\t%{website}");
+	m_exportFormatTrailers.append("");
+
+	m_exportFormatNames.append("CSV more quoted");
+	m_exportFormatHeaders.append(
+		"\"Track\"\\t\"Title\"\\t\"Artist\"\\t\"Album\"\\t\"Date\"\\t"
+		"\"Genre\"\\t\"Comment\"\\t\"Duration\"\\t"
+		"\"Album Artist\"\\t\"Arranger\"\\t\"Author\"\\t\"BPM\"\\t"
+		"\"Composer\"\\t\"Conductor\"\\t\"Copyright\"\\t\"Disc Number\"\\t"
+		"\"Encoded-by\"\\t\"ISRC\"\\t\"Language\"\\t\"Lyricist\"\\t"
+		"\"Media\"\\t\"Original Album\"\\t\"Original Artist\"\\t"
+		"\"Original Date\"\\t\"Part\"\\t\"Performer\"\\t\"Publisher\"\\t"
+		"\"Remixer\"\\t\"Subtitle\"\\t\"Website\"");
+	m_exportFormatTracks.append(
+		"\"%{track}\"\\t\"%{title}\"\\t\"%{artist}\"\\t\"%{album}\"\\t\"%{year}\"\\t"
+		"\"%{genre}\"\\t\"%{comment}\"\\t\"%{duration}.00\"\\t"
+		"\"%{album artist}\"\\t\"%{arranger}\"\\t\"%{author}\"\\t\"%{bpm}\"\\t"
+		"\"%{composer}\"\\t\"%{conductor}\"\\t\"%{copyright}\"\\t\"%{disc number}\"\\t"
+		"\"%{encoded-by}\"\\t\"%{isrc}\"\\t\"%{language}\"\\t\"%{lyricist}\"\\t"
+		"\"%{media}\"\\t\"%{original album}\"\\t\"%{original artist}\"\\t"
+		"\"%{original date}\"\\t\"%{part}\"\\t\"%{performer}\"\\t\"%{publisher}\"\\t"
+		"\"%{remixer}\"\\t\"%{subtitle}\"\\t\"%{website}\"");
 	m_exportFormatTrailers.append("");
 
 	m_exportFormatNames.append("Extended M3U");

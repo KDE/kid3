@@ -346,11 +346,11 @@ void MusicBrainzDialog::apply()
 			if (selectedItem > 0) {
 				const ImportTrackData& selectedData =
 					m_trackResults[index][selectedItem - 1];
-				m_trackDataVector[index].title = selectedData.title;
-				m_trackDataVector[index].artist = selectedData.artist;
-				m_trackDataVector[index].album = selectedData.album;
-				m_trackDataVector[index].track = selectedData.track;
-				m_trackDataVector[index].year = selectedData.year;
+				m_trackDataVector[index].setTitle(selectedData.getTitle());
+				m_trackDataVector[index].setArtist(selectedData.getArtist());
+				m_trackDataVector[index].setAlbum(selectedData.getAlbum());
+				m_trackDataVector[index].setTrack(selectedData.getTrack());
+				m_trackDataVector[index].setYear(selectedData.getYear());
 				m_trackDataVector[index].setImportDuration(
 					selectedData.getImportDuration());
 				newTrackData = true;
@@ -419,14 +419,14 @@ void MusicBrainzDialog::updateFileTrackData(int index)
 	for (ImportTrackDataVector::const_iterator it = m_trackResults[index].begin();
 			 it != m_trackResults[index].end();
 			 ++it) {
-		str.sprintf("%02d ", (*it).track);
-		str += (*it).title;
+		str.sprintf("%02d ", (*it).getTrack());
+		str += (*it).getTitle();
 		str += '/';
-		str += (*it).artist;
+		str += (*it).getArtist();
 		str += " - ";
-		str += (*it).album;
-		if ((*it).year > 0) {
-			str += QString(" [%1]").arg((*it).year);
+		str += (*it).getAlbum();
+		if ((*it).getYear() > 0) {
+			str += QString(" [%1]").arg((*it).getYear());
 		}
 		stringList.push_back(str);
 	}

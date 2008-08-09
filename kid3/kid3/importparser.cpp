@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "standardtags.h"
+#include "frame.h"
 #include "genres.h"
 #include "importparser.h"
 
@@ -82,106 +82,84 @@ QString ImportParser::getFormatToolTip()
  */
 void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
 {
+	static const struct {
+		const char* from;
+		const char* to;
+	} codeToName[] = {
+		{ "%s", "%{title}" },
+		{ "%l", "%{album}" },
+		{ "%a", "%{artist}" },
+		{ "%c", "%{comment}" },
+		{ "%y", "%{date}" },
+		{ "%t", "%{track number}" },
+		{ "%g", "%{genre}" },
+		{ "%d", "%{__duration}" },
+		{ "%{year}", "%{date}" },
+		{ "%{track}", "%{track number}" },
+		{ "%{tracknumber}", "%{track number}" },
+		{ "%{duration}", "%{__duration}" },
+	};
 	int percentIdx = 0, nr = 1, lastIdx = fmt.length() - 1;
 	m_pattern = fmt;
-	m_pattern.replace("%{title}", "%s");
-	m_pattern.replace("%{album}", "%l");
-	m_pattern.replace("%{artist}", "%a");
-	m_pattern.replace("%{comment}", "%c");
-	m_pattern.replace("%{year}", "%y");
-	m_pattern.replace("%{track}", "%t");
-	m_pattern.replace("%{tracknumber}", "%t");
-	m_pattern.replace("%{genre}", "%g");
-	m_pattern.replace("%{duration}", "%d");
-	m_titlePos = m_albumPos = m_artistPos = m_commentPos = m_yearPos = m_trackPos =
-		m_genrePos = m_durationPos = -1;
-	while (((percentIdx = m_pattern.QCM_indexOf('%', percentIdx)) >= 0) &&
-		   (percentIdx < lastIdx)) {
-		switch (
-#if QT_VERSION >= 0x040000
-			m_pattern[percentIdx + 1].toLatin1()
-#else
-			m_pattern[percentIdx + 1].latin1()
-#endif
-			) {
-			case 's':
-				m_titlePos = nr;
-				break;
-			case 'l':
-				m_albumPos = nr;
-				break;
-			case 'a':
-				m_artistPos = nr;
-				break;
-			case 'c':
-				m_commentPos = nr;
-				break;
-			case 'y':
-				m_yearPos = nr;
-				break;
-			case 't':
-				m_trackPos = nr;
-				break;
-			case 'g':
-				m_genrePos = nr;
-				break;
-			case 'd':
-				m_durationPos = nr;
-				break;
-			default:
-				++percentIdx;
-				continue;
-		}
-		++nr;
-		percentIdx += 2;
+	for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
+		m_pattern.replace(codeToName[i].from, codeToName[i].to);
 	}
-	if (enableTrackIncr && m_trackPos == -1) {
+
+	m_codePos.clear();
+	while (((percentIdx = m_pattern.QCM_indexOf("%{", percentIdx)) >= 0) &&
+				 (percentIdx < lastIdx)) {
+		int closingBracePos = m_pattern.QCM_indexOf("}(", percentIdx + 2);
+		if (closingBracePos > percentIdx + 2) {
+			QString code =
+				m_pattern.mid(percentIdx + 2, closingBracePos - percentIdx - 2).QCM_toLower();
+			m_codePos[code] = nr;
+			percentIdx = closingBracePos + 2;
+			++nr;
+		} else {
+			percentIdx += 2;
+		}
+	}
+
+	if (enableTrackIncr && !m_codePos.contains("track number")) {
 		m_trackIncrEnabled = true;
 		m_trackIncrNr = 1;
 	} else {
 		m_trackIncrEnabled = false;
 		m_trackIncrNr = 0;
 	}
+
 #if QT_VERSION >= 0x030100
-	m_pattern.remove(QRegExp("%[slacytgd]"));
+	m_pattern.remove(QRegExp("%\\{[^}]+\\}"));
 #else
-	m_pattern.replace(QRegExp("%[slacytgd]"), "");
+	m_pattern.replace(QRegExp("%\\{[^}]+\\}"), "");
 #endif
 	m_re.setPattern(m_pattern);
 }
-
-/** Get ID3 text field if it is in format */
-#define SET_TEXT_FIELD(name) \
-if (m_##name##Pos != -1) st.name = m_re.cap(m_##name##Pos)
-
-/** Get ID3 integer field if it is in format */
-#define SET_INT_FIELD(name) \
-if (m_##name##Pos != -1) st.name = m_re.cap(m_##name##Pos).toInt()
 
 /**
  * Get next tags in text buffer.
  *
  * @param text text buffer containing data from file or clipboard
- * @param st   standard tags for output
+ * @param frames frames for output
  * @param pos  current position in buffer, will be updated to point
  *             behind current match (to be used for next call)
  * @return true if tags found (pos is index behind match).
  */
-bool ImportParser::getNextTags(const QString& text, StandardTags& st, int& pos)
+bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int& pos)
 {
 	int idx, oldpos = pos;
 	if (m_pattern.isEmpty()) {
 		m_trackDuration.clear();
 		return false;
 	}
-	if (m_durationPos == -1) {
+	if (!m_codePos.contains("__duration")) {
 		m_trackDuration.clear();
 	} else if (pos == 0) {
 		m_trackDuration.clear();
 		int dsp = 0; // "duration search pos"
 		int lastDsp = dsp;
 		while ((idx = m_re.QCM_indexIn(text, dsp)) != -1) {
-			QString durationStr = m_re.cap(m_durationPos);
+			QString durationStr = m_re.cap(m_codePos["__duration"]);
 			int duration;
 			QRegExp durationRe("(\\d+):(\\d+)");
 			if (durationRe.QCM_indexIn(durationStr) != -1) {
@@ -201,16 +179,18 @@ bool ImportParser::getNextTags(const QString& text, StandardTags& st, int& pos)
 		}
 	}
 	if ((idx = m_re.QCM_indexIn(text, pos)) != -1) {
-		SET_TEXT_FIELD(title);
-		SET_TEXT_FIELD(album);
-		SET_TEXT_FIELD(artist);
-		SET_TEXT_FIELD(comment);
-		SET_INT_FIELD(year);
-		SET_INT_FIELD(track);
-		if (m_trackIncrEnabled) {
-			st.track = m_trackIncrNr++;
+		for (QMap<QString, int>::iterator it = m_codePos.begin();
+				 it != m_codePos.end();
+				 ++it) {
+			QString name = it.key();
+			QString str = m_re.cap(*it);
+			if (!str.isEmpty() && !name.startsWith("__")) {
+				frames.insert(Frame(Frame::getTypeFromName(name), str, name, -1));
+			}
 		}
-		SET_TEXT_FIELD(genre);
+		if (m_trackIncrEnabled) {
+			frames.setTrack(m_trackIncrNr++);
+		}
 		pos = idx + m_re.matchedLength();
 		if (pos > oldpos) { /* avoid endless loop */
 			return true;

@@ -63,6 +63,7 @@ public:
 		const char* defaultCgiPath; /**< default CGI path, 0 to disable */
 		const char* helpAnchor;     /**< anchor to online help, 0 to disable */
 		ImportSourceConfig* cfg;    /**< configuration, 0 if not used */
+		bool additionalTags;        /**< additional tags option, false if not used */
 	};
 
 	/**
@@ -132,6 +133,20 @@ public:
 	 * @param cgi CGI path, e.g. "/~cddb/cddb.cgi".
 	 */
 	void setCgiPath(const QString& cgi);
+
+	/**
+	 * Get additional tags option.
+	 *
+	 * @return true if additional tags are enabled.
+	 */
+	bool getAdditionalTags() const;
+
+	/**
+	 * Set additional tags option.
+	 *
+	 * @param enable true if additional tags are enabled
+	 */
+	void setAdditionalTags(bool enable);
 
 	/**
 	 * Set a find string from artist and album information.
@@ -216,6 +231,7 @@ private:
 	QPushButton* m_findButton;
 	QComboBox* m_serverComboBox;
 	QLineEdit* m_cgiLineEdit;
+	QCheckBox* m_additionalTagsCheckBox;
 	QStatusBar* m_statusBar;
 	ImportSourceClient* m_client;
 	const Properties& m_props;

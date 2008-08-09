@@ -42,7 +42,8 @@ static const ImportSourceDialog::Properties props = {
 	"musicbrainz.org:80",
 	0,
 	"import-musicbrainzrelease",
-	&Kid3App::s_musicBrainzCfg
+	&Kid3App::s_musicBrainzCfg,
+	true
 };
 
 
@@ -122,6 +123,107 @@ void MusicBrainzReleaseDialog::parseFindResults(const QByteArray& searchStr)
 }
 
 /**
+ * Fix up attribute strings by separating them by commas and inserting spaces
+ * between camel case words.
+ *
+ * @param str camel case string, e.g. "ElectricGuitar AcousticGuitar"
+ *
+ * @return fixed up string, e.g. "Electric Guitar, Acoustic Guitar".
+ */
+static QString fixUpCamelCase(QString str)
+{
+	str.replace(QRegExp("\\s+"), ", ");
+	return str.replace(QRegExp("([a-z])([A-Z])"), "\\1 \\2");
+}
+
+/**
+ * Add involved people to a frame.
+ * The format used is (should be converted according to tag specifications):
+ * involvee 1 (involvement 1)\n
+ * involvee 2 (involvement 2)\n
+ * ...
+ * involvee n (involvement n)
+ *
+ * @param frames      frame collection
+ * @param type        type of frame
+ * @param involvement involvement (e.g. instrument)
+ * @param involvee    name of involvee (e.g. musician)
+ */
+static void addInvolvedPeople(
+	FrameCollection& frames, Frame::Type type,
+	const QString& involvement, const QString& involvee)
+{
+	QString value = frames.getValue(type);
+	if (!value.isEmpty()) value += Frame::stringListSeparator();
+	value += involvement;
+	value += Frame::stringListSeparator();
+	value += involvee;
+	frames.setValue(type, value);
+}
+
+/**
+ * Set tags from an XML node with a relation list.
+ *
+ * @param node   parent DOM node
+ * @param frames tags will be added to these frames
+ *
+ * @return true if credits found.
+ */
+static bool parseCredits(const QDomNode& node, FrameCollection& frames)
+{
+	bool result = false;
+	QDomElement relationList(node.namedItem("relation-list").toElement());
+	if (!relationList.isNull() && relationList.attribute("target-type") == "Artist") {
+		QDomNode relation(relationList.firstChild());
+		while (!relation.isNull()) {
+			QString artist(relation.toElement().namedItem("artist").toElement().
+										 namedItem("name").toElement().text());
+			if (!artist.isEmpty()) {
+				QString type(relation.toElement().attribute("type"));
+				if (type == "Instrument") {
+					QString attributes(relation.toElement().attribute("attributes"));
+					if (!attributes.isEmpty()) {
+						addInvolvedPeople(frames, Frame::FT_Performer,
+															fixUpCamelCase(attributes), artist);
+					}
+				} else if (type == "Vocal") {
+					addInvolvedPeople(frames, Frame::FT_Performer, type, artist);
+				} else {
+					static const struct {
+						const char* credit;
+						Frame::Type type;
+					} creditToType[] = {
+						{ "Composer", Frame::FT_Composer },
+						{ "Conductor", Frame::FT_Conductor },
+						{ "PerformingOrchestra", Frame::FT_AlbumArtist },
+						{ "Lyricist", Frame::FT_Lyricist },
+						{ "Publisher", Frame::FT_Publisher },
+						{ "Remixer", Frame::FT_Remixer }
+					};
+					bool found = false;
+					for (unsigned i = 0;
+							 i < sizeof(creditToType) / sizeof(creditToType[0]);
+							 ++i) {
+						if (type == creditToType[i].credit) {
+							frames.setValue(creditToType[i].type, artist);
+							found = true;
+							break;
+						}
+					}
+					if (!found && type != "Tribute") {
+						addInvolvedPeople(frames, Frame::FT_Arranger,
+															fixUpCamelCase(type), artist);
+					}
+				}
+			}
+			result = true;
+			relation = relation.nextSibling();
+		}
+	}
+	return result;
+}
+
+/**
  * Parse result of album request and populate m_trackDataVector with results.
  *
  * @param albumStr album data received
@@ -160,45 +262,83 @@ void MusicBrainzReleaseDialog::parseAlbumResults(const QByteArray& albumStr)
 	if (doc.setContent(xmlStr, false)) {
 		QDomElement release =
 			doc.namedItem("metadata").toElement().namedItem("release").toElement();
-		StandardTags stHdr;
-		stHdr.setInactive();
-		stHdr.album = release.namedItem("title").toElement().text();
-		stHdr.artist = release.namedItem("artist").toElement().namedItem("name").toElement().text();
+		FrameCollection framesHdr;
+		framesHdr.setAlbum(release.namedItem("title").toElement().text());
+		framesHdr.setArtist(release.namedItem("artist").toElement().namedItem("name").toElement().text());
+
+		const bool additionalTags = getAdditionalTags();
+		if (additionalTags) {
+			// release year and label can be found in the release-event-list
+			QDomElement releaseEventList(release.namedItem("release-event-list").toElement());
+			if (!releaseEventList.isNull()) {
+				QDomElement event((releaseEventList.namedItem("event").toElement()));
+				if (!event.isNull()) {
+					QString date(event.attribute("date"));
+					QRegExp dateRe("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?");
+					int year = 0;
+					if (dateRe.exactMatch(date)) {
+						year = dateRe.cap(1).toInt();
+					} else {
+						year = date.toInt();
+					}
+					if (year != 0) {
+						framesHdr.setYear(year);
+					}
+					QString label(event.namedItem("label").namedItem("name").toElement().text());
+					if (!label.isEmpty()) {
+						framesHdr.setValue(Frame::FT_Publisher, label);
+					}
+				}
+			}
+
+			parseCredits(release, framesHdr);
+		}
 
 		ImportTrackDataVector::iterator it = m_trackDataVector.begin();
 		bool atTrackDataListEnd = (it == m_trackDataVector.end());
 		int trackNr = 1;
-		StandardTags st(stHdr);
+		FrameCollection frames(framesHdr);
 		QDomElement trackList = release.namedItem("track-list").toElement();
 		for (QDomNode trackNode = trackList.namedItem("track");
 				 !trackNode.isNull();
 				 trackNode = trackNode.nextSibling()) {
 			QDomElement track = trackNode.toElement();
-			st.track = trackNr;
-			st.title = track.namedItem("title").toElement().text();
+			frames.setTrack(trackNr);
+			frames.setTitle(track.namedItem("title").toElement().text());
 			int duration = track.namedItem("duration").toElement().text().toInt() / 1000;
+			if (additionalTags) {
+				QString artist(track.namedItem("artist").toElement().
+											 namedItem("name").toElement().text());
+				if (!artist.isEmpty()) {
+					// use the artist in the header as the album artist
+					// and the artist in the track as the artist
+					frames.setArtist(artist);
+					frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
+				}
+				parseCredits(trackNode, frames);
+			}
 			if (atTrackDataListEnd) {
 				ImportTrackData trackData;
-				trackData.setStandardTags(st);
+				trackData.setFrameCollection(frames);
 				trackData.setImportDuration(duration);
 				m_trackDataVector.push_back(trackData);
 			} else {
-				(*it).setStandardTags(st);
+				(*it).setFrameCollection(frames);
 				(*it).setImportDuration(duration);
 				++it;
 				atTrackDataListEnd = (it == m_trackDataVector.end());
 			}
 			++trackNr;
-			st = stHdr;
+			frames = framesHdr;
 		}
 
 		// handle redundant tracks
-		st.setInactive();
+		frames.clear();
 		while (!atTrackDataListEnd) {
 			if ((*it).getFileDuration() == 0) {
 				it = m_trackDataVector.erase(it);
 			} else {
-				(*it).setStandardTags(st);
+				(*it).setFrameCollection(frames);
 				(*it).setImportDuration(0);
 				++it;
 			}

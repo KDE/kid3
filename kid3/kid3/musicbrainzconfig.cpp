@@ -33,7 +33,8 @@
  *
  * @param grp configuration group
  */
-MusicBrainzConfig::MusicBrainzConfig(const QString& grp) : ImportSourceConfig(grp, false)
+MusicBrainzConfig::MusicBrainzConfig(const QString& grp) :
+	ImportSourceConfig(grp, false, true)
 {
 	m_server = "musicbrainz.org:80";
 }

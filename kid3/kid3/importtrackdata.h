@@ -28,6 +28,7 @@
 #define IMPORTTRACKDATA_H
 
 #include "standardtags.h"
+#include "frame.h"
 #include <qglobal.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
@@ -39,7 +40,7 @@
 /**
  * Track data used for import.
  */
-class ImportTrackData : public StandardTags {
+class ImportTrackData : public FrameCollection {
 public:
 	/**
 	 * Constructor.
@@ -81,14 +82,6 @@ public:
 	void setImportDuration(int duration) { m_importDuration = duration; }
 
 	/**
-	 * Set standard tag fields.
-	 * @param st standard tags
-	 */
-	void setStandardTags(const StandardTags& st) {
-		*(static_cast<StandardTags*>(this)) = st;
-	}
-
-	/**
 	 * Get absolute filename.
 	 *
 	 * @return absolute file path.
@@ -98,18 +91,29 @@ public:
 	/**
 	 * Format a string from track data.
 	 * Supported format fields:
-	 * Those supported by StandardTags::formatString()
-	 * %f filename
-	 * %p path to file
-	 * %u URL of file
-	 * %d duration in minutes:seconds
-	 * %D duration in seconds
+	 * Those supported by TrackDataFormatReplacer::getReplacement()
 	 *
 	 * @param format format specification
 	 *
 	 * @return formatted string.
 	 */
-	QString formatString(const QString& format) const;
+	QString formatString(const QString& format, unsigned numTracks = 0) const;
+
+	/**
+	 * Get frames.
+	 * @return frames.
+	 */
+	FrameCollection& getFrameCollection() {
+		return *(static_cast<FrameCollection*>(this));
+	}
+
+	/**
+	 * Set frames.
+	 * @param frames frames
+	 */
+	void setFrameCollection(const FrameCollection& frames) {
+		*(static_cast<FrameCollection*>(this)) = frames;
+	}
 
 	/**
 	 * Get help text for format codes supported by formatString().
@@ -138,8 +142,89 @@ QValueVector<ImportTrackData>
 #endif
 {
 public:
-	QString m_artist; /**< album artist */
-	QString m_album;  /**< album name */
+	/**
+	 * Get album artist.
+	 * @return album artist.
+	 */
+	QString getArtist() const { return m_artist; }
+
+	/**
+	 * Set album artist.
+	 * @param artist artist
+	 */
+	void setArtist(const QString& artist) { m_artist = artist; }
+
+	/**
+	 * Get album title.
+	 * @return album title.
+	 */
+	QString getAlbum() const { return m_album; }
+
+	/**
+	 * Set album title.
+	 * @param album album
+	 */
+	void setAlbum(const QString& album) { m_album = album; }
+
+private:
+	QString m_artist;
+	QString m_album;
+};
+
+
+/**
+ * Replaces track data format codes in a string.
+ */
+class TrackDataFormatReplacer : public FrameFormatReplacer {
+public:
+	/**
+	 * Constructor.
+	 *
+	 * @param trackData track data
+	 * @param numTracks number of tracks in album
+	 * @param str       string with format codes
+	 */
+	explicit TrackDataFormatReplacer(
+		const ImportTrackData& trackData, unsigned numTracks = 0,
+		const QString& str = QString());
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~TrackDataFormatReplacer();
+
+	/**
+	 * Get help text for supported format codes.
+	 *
+	 * @param onlyRows if true only the tr elements are returned,
+	 *                 not the surrounding table
+	 *
+	 * @return help text.
+	 */
+	static QString getToolTip(bool onlyRows = false);
+
+protected:
+	/**
+	 * Replace a format code (one character %c or multiple characters %{chars}).
+	 * Supported format fields:
+	 * Those supported by FrameFormatReplacer::getReplacement()
+	 * %f filename
+	 * %p path to file
+	 * %u URL of file
+	 * %d duration in minutes:seconds
+	 * %D duration in seconds
+	 * %n number of tracks
+	 *
+	 * @param code format code
+	 *
+	 * @return replacement string,
+	 *         QString::null if code not found.
+	 */
+	virtual QString getReplacement(const QString& code) const;
+
+private:
+	const ImportTrackData& m_trackData;
+	const unsigned m_numTracks;
 };
 
 #endif // IMPORTTRACKDATA_H

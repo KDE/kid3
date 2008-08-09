@@ -51,6 +51,7 @@
 #include <qclipboard.h>
 #include <qurl.h>
 #include <qtooltip.h>
+#include <qmessagebox.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QGroupBox>
@@ -60,25 +61,6 @@
 #else
 #include <qgroupbox.h>
 #endif
-
-/**
- * Get help text for format codes supported by formatString().
- *
- * @return help text.
- */
-static QString getFormatToolTip()
-{
-	QString str;
-	str += "<table>\n";
-	str += ImportTrackData::getFormatToolTip(true);
-
-	str += "<tr><td>%n</td><td>%{tracks}</td><td>";
-	str += QCM_translate(I18N_NOOP("Number of tracks"));
-	str += "</td></tr>\n";
-
-	str += "</table>\n";
-	return str;
-}
 
 /**
  * Constructor.
@@ -112,7 +94,7 @@ ExportDialog::ExportDialog(QWidget* parent) :
 			m_headerLineEdit = new QLineEdit(fmtbox);
 			m_trackLineEdit = new QLineEdit(fmtbox);
 			m_trailerLineEdit = new QLineEdit(fmtbox);
-			QString formatToolTip = getFormatToolTip();
+			QString formatToolTip = ImportTrackData::getFormatToolTip();
 			QCM_setToolTip(m_headerLineEdit, formatToolTip);
 			QCM_setToolTip(m_trackLineEdit, formatToolTip);
 			QCM_setToolTip(m_trailerLineEdit, formatToolTip);
@@ -239,14 +221,21 @@ bool ExportDialog::exportToFile(const QString& fn)
  */
 void ExportDialog::slotToFile()
 {
-	exportToFile(
+	QString fileName =
 #ifdef CONFIG_USE_KDE
 		KFileDialog::getSaveFileName(ImportSelector::getImportDir(),
-																 QString::null, this)
+																 QString::null, this);
 #else
-		QFileDialog::QCM_getSaveFileName(this, ImportSelector::getImportDir())
+		QFileDialog::QCM_getSaveFileName(this, ImportSelector::getImportDir());
 #endif
-		);
+	if (!fileName.isEmpty()) {
+		if (!exportToFile(fileName)) {
+			QMessageBox::warning(
+				0, i18n("File Error"),
+				i18n("Error while writing file:\n") + fileName,
+				QMessageBox::Ok, QCM_NoButton);
+		}
+	}
 }
 
 /**
@@ -282,35 +271,6 @@ void ExportDialog::setFormatLineEdit(int index)
 }
 
 /**
- * Format a string from track data.
- * Supported format fields:
- * Those supported by ImportTrackData::formatString()
- * %n total number of tracks
- *
- * @param trackData track data
- * @param format    format specification
- * @param numTracks total number of tracks
- *
- * @return formatted string.
- */
-static QString trackDataToString(
-	const ImportTrackData& trackData, const QString& format, int numTracks)
-{
-	QString fmt = trackData.formatString(format);
-	if (!fmt.isEmpty()) {
-		const int numTagCodes = 1;
-		const QChar tagCode[numTagCodes] = { 'n' };
-		const QStringList tagLongCodes("tracks");
-		QString tagStr[numTagCodes];
-		tagStr[0] = QString::number(numTracks);
-
-		fmt = StandardTags::replacePercentCodes(
-			fmt, tagCode, tagLongCodes, tagStr, numTagCodes);
-	}
-	return fmt;
-}
-
-/**
  * Show exported text as preview in editor.
  */
 void ExportDialog::showPreview()
@@ -325,15 +285,15 @@ void ExportDialog::showPreview()
 			 it != m_trackDataVector.end();
 			 ++it) {
 		if (trackNr == 0 && !headerFormat.isEmpty()) {
-			m_edit->QCM_insertPlainText(trackDataToString(*it, headerFormat, numTracks));
+			m_edit->QCM_insertPlainText((*it).formatString(headerFormat, numTracks));
 			m_edit->QCM_insertPlainText("\n");
 		}
 		if (!trackFormat.isEmpty()) {
-			m_edit->QCM_insertPlainText(trackDataToString(*it, trackFormat, numTracks));
+			m_edit->QCM_insertPlainText((*it).formatString(trackFormat, numTracks));
 			m_edit->QCM_insertPlainText("\n");
 		}
 		if (trackNr == numTracks - 1 && !trailerFormat.isEmpty()) {
-			m_edit->QCM_insertPlainText(trackDataToString(*it, trailerFormat, numTracks));
+			m_edit->QCM_insertPlainText((*it).formatString(trailerFormat, numTracks));
 			m_edit->QCM_insertPlainText("\n");
 		}
 		++trackNr;

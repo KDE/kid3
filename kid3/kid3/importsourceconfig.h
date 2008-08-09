@@ -41,8 +41,10 @@ public:
 	 *
 	 * @param grp         configuration group
 	 * @param cgiPathUsed true to use CgiPath configuration
+	 * @param additionalTagsUsed true to use AdditionalTags configuration
 	 */
-	ImportSourceConfig(const QString& grp, bool cgiPathUsed = true);
+	ImportSourceConfig(const QString& grp, bool cgiPathUsed = true,
+										 bool additionalTagsUsed = false);
 
 	/**
 	 * Constructor.
@@ -95,6 +97,12 @@ public:
 
 	/** true if CgiPath configuration is used */
 	bool m_cgiPathUsed;
+
+	/** true if additional tags configuration is used */
+	bool m_additionalTagsUsed;
+
+	/** additional tags imported */
+	bool m_additionalTags;
 };
 
 #endif

@@ -33,7 +33,7 @@
  *
  * @param grp configuration group
  */
-DiscogsConfig::DiscogsConfig(const QString& grp) : ImportSourceConfig(grp, false)
+DiscogsConfig::DiscogsConfig(const QString& grp) : ImportSourceConfig(grp, false, true)
 {
 	m_server = "www.discogs.com:80";
 }

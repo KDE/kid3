@@ -53,7 +53,8 @@ static const ImportSourceDialog::Properties props = {
 	"www.gnudb.org:80",
 	"/~cddb/cddb.cgi",
 	"import-freedb",
-	&Kid3App::s_freedbCfg
+	&Kid3App::s_freedbCfg,
+	false
 };
 
 
@@ -195,23 +196,23 @@ static void parseFreedbTrackDurations(
  * Parse the album specific data (artist, album, year, genre) from freedb.org.
  *
  * @param text text buffer containing data from freedb.org
- * @param st   standard tag to put result
+ * @param frames tags to put result
  */
 static void parseFreedbAlbumData(const QString& text,
-																 StandardTags& st)
+																 FrameCollection& frames)
 {
 	QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");
 	if (fdre.QCM_indexIn(text) != -1) {
-		st.artist = fdre.cap(1);
-		st.album = fdre.cap(2);
+		frames.setArtist(fdre.cap(1));
+		frames.setAlbum(fdre.cap(2));
 	}
 	fdre.setPattern("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D");
 	if (fdre.QCM_indexIn(text) != -1) {
-		st.year = fdre.cap(1).toInt();
+		frames.setYear(fdre.cap(1).toInt());
 	}
 	fdre.setPattern("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D");
 	if (fdre.QCM_indexIn(text) != -1) {
-		st.genre = Genres::getName(fdre.cap(1).toInt());
+		frames.setGenre(Genres::getName(fdre.cap(1).toInt()));
 	}
 }
 
@@ -223,13 +224,12 @@ static void parseFreedbAlbumData(const QString& text,
 void FreedbDialog::parseAlbumResults(const QByteArray& albumStr)
 {
 	QString text = QString::fromUtf8(albumStr);
-	StandardTags st_hdr;
-	st_hdr.setInactive();
+	FrameCollection framesHdr;
 	TrackDurationList trackDuration;
 	parseFreedbTrackDurations(text, trackDuration);
-	parseFreedbAlbumData(text, st_hdr);
+	parseFreedbAlbumData(text, framesHdr);
 
-	StandardTags st(st_hdr);
+	FrameCollection frames(framesHdr);
 	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
 	TrackDurationList::const_iterator tdit = trackDuration.begin();
 	bool atTrackDataListEnd = (it == m_trackDataVector.end());
@@ -244,8 +244,8 @@ void FreedbDialog::parseAlbumResults(const QByteArray& albumStr)
 			pos = idx + fdre.matchedLength();
 		}
 		if (pos > oldpos) {
-			st.track = tracknr + 1;
-			st.title = title;
+			frames.setTrack(tracknr + 1);
+			frames.setTitle(title);
 		} else {
 			break;
 		}
@@ -253,25 +253,25 @@ void FreedbDialog::parseAlbumResults(const QByteArray& albumStr)
 			*tdit++ : 0;
 		if (atTrackDataListEnd) {
 			ImportTrackData trackData;
-			trackData.setStandardTags(st);
+			trackData.setFrameCollection(frames);
 			trackData.setImportDuration(duration);
 			m_trackDataVector.push_back(trackData);
 		} else {
-			(*it).setStandardTags(st);
+			(*it).setFrameCollection(frames);
 			(*it).setImportDuration(duration);
 			++it;
 			atTrackDataListEnd = (it == m_trackDataVector.end());
 		}
-		st = st_hdr;
+		frames = framesHdr;
 		oldpos = pos;
 		++tracknr;
 	}
-	st.setInactive();
+	frames.clear();
 	while (!atTrackDataListEnd) {
 		if ((*it).getFileDuration() == 0) {
 			it = m_trackDataVector.erase(it);
 		} else {
-			(*it).setStandardTags(st);
+			(*it).setFrameCollection(frames);
 			(*it).setImportDuration(0);
 			++it;
 		}

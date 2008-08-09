@@ -126,8 +126,8 @@ private:
 	 */
 	void setFormatFromConfig();
 
-  /** Text editor */
-  QTextEdit* m_edit;
+	/** Text editor */
+	QTextEdit* m_edit;
 	/** cobobox with formats */
 	QComboBox* m_formatComboBox;
 	/** LineEdit for header */

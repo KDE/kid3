@@ -31,73 +31,119 @@
 #include <qdir.h>
 
 /**
- * Format a string from track data.
+ * Constructor.
+ *
+ * @param trackData track data
+ * @param numTracks number of tracks in album
+ * @param str       string with format codes
+ */
+TrackDataFormatReplacer::TrackDataFormatReplacer(
+	const ImportTrackData& trackData, unsigned numTracks, const QString& str) :
+	FrameFormatReplacer(trackData, str), m_trackData(trackData),
+	m_numTracks(numTracks) {}
+
+/**
+ * Destructor.
+ */
+TrackDataFormatReplacer::~TrackDataFormatReplacer() {}
+
+/**
+ * Replace a format code (one character %c or multiple characters %{chars}).
  * Supported format fields:
- * Those supported by StandardTags::formatString()
+ * Those supported by FrameFormatReplacer::getReplacement()
  * %f filename
  * %p path to file
  * %u URL of file
  * %d duration in minutes:seconds
  * %D duration in seconds
+ * %n number of tracks
  *
- * @param format format specification
+ * @param code format code
  *
- * @return formatted string.
+ * @return replacement string,
+ *         QString::null if code not found.
  */
-QString ImportTrackData::formatString(const QString& format) const
+QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 {
-	QString fmt = StandardTags::formatString(format);
-	if (!fmt.isEmpty()) {
-		const int numTagCodes = 5;
-		const QChar tagCode[numTagCodes] = {
-	    'f', 'p', 'u', 'd', 'D'
-		};
-		const QStringList tagLongCodes =
-			(QStringList() << "file" << "filepath" << "url" <<
-			 "duration" << "seconds");
-		QString tagStr[numTagCodes];
+	QString result = FrameFormatReplacer::getReplacement(code);
+	if (result.isNull()) {
+		QString name;
 
-		QString filename(getAbsFilename());
-		int sepPos = filename.QCM_lastIndexOf('/');
-		if (sepPos < 0) {
-			sepPos = filename.QCM_lastIndexOf(QDir::separator());
-		}
-		if (sepPos >= 0) {
-			filename.remove(0, sepPos + 1);
-		}
-
-		tagStr[0] = filename;
-		tagStr[1] = getAbsFilename();
-		QUrl url;
-		url.QCM_setPath(tagStr[1]);
-		url.QCM_setScheme("file");
-		tagStr[2] = url.toString(
-#if QT_VERSION < 0x040000
-			true
+		if (code.length() == 1) {
+			static const struct {
+				char shortCode;
+				const char* longCode;
+			} shortToLong[] = {
+				{ 'f', "file" },
+				{ 'p', "filepath" },
+				{ 'u', "url" },
+				{ 'd', "duration" },
+				{ 'D', "seconds" },
+				{ 'n', "tracks" }
+			};
+#if QT_VERSION >= 0x040000
+			const char c = code[0].toLatin1();
+#else
+			const char c = code[0].latin1();
 #endif
-			);
-		tagStr[3] = TaggedFile::formatTime(getFileDuration());
-		tagStr[4] = QString::number(getFileDuration());
+			for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
+				if (shortToLong[i].shortCode == c) {
+					name = shortToLong[i].longCode;
+					break;
+				}
+			}
+		} else if (code.length() > 1) {
+			name = code;
+		}
 
-		fmt = replaceEscapedChars(fmt);
-		fmt = replacePercentCodes(fmt, tagCode, tagLongCodes, tagStr, numTagCodes);
+		if (!name.isNull()) {
+			if (name == "file") {
+				QString filename(m_trackData.getAbsFilename());
+				int sepPos = filename.QCM_lastIndexOf('/');
+				if (sepPos < 0) {
+					sepPos = filename.QCM_lastIndexOf(QDir::separator());
+				}
+				if (sepPos >= 0) {
+					filename.remove(0, sepPos + 1);
+				}
+				result = filename;
+			} else if (name == "filepath") {
+				result = m_trackData.getAbsFilename();
+			} else if (name == "url") {
+				QUrl url;
+				url.QCM_setPath(m_trackData.getAbsFilename());
+				url.QCM_setScheme("file");
+				result = url.toString(
+#if QT_VERSION < 0x040000
+					true
+#endif
+					);
+			} else if (name == "duration") {
+				result = TaggedFile::formatTime(m_trackData.getFileDuration());
+			} else if (name == "seconds") {
+				result = QString::number(m_trackData.getFileDuration());
+			} else if (name == "tracks") {
+				result = QString::number(m_numTracks);
+			}
+		}
 	}
-	return fmt;
+
+	return result;
 }
 
 /**
- * Get help text for format codes supported by formatString().
+ * Get help text for supported format codes.
  *
  * @param onlyRows if true only the tr elements are returned,
  *                 not the surrounding table
  *
  * @return help text.
  */
-QString ImportTrackData::getFormatToolTip(bool onlyRows)
+QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 {
 	QString str;
 	if (!onlyRows) str += "<table>\n";
-	str += StandardTags::getFormatToolTip(true);
+	str += FrameFormatReplacer::getToolTip(true);
 
 	str += "<tr><td>%f</td><td>%{file}</td><td>";
 	str += QCM_translate("Filename");
@@ -119,6 +165,42 @@ QString ImportTrackData::getFormatToolTip(bool onlyRows)
 	str += QCM_translate(I18N_NOOP("Length"));
 	str += " &quot;S&quot;</td></tr>\n";
 
+	str += "<tr><td>%n</td><td>%{tracks}</td><td>";
+	str += QCM_translate(I18N_NOOP("Number of tracks"));
+	str += "</td></tr>\n";
+
 	if (!onlyRows) str += "</table>\n";
 	return str;
+}
+
+
+/**
+ * Format a string from track data.
+ * Supported format fields:
+ * Those supported by TrackDataFormatReplacer::getReplacement()
+ *
+ * @param format    format specification
+ * @param numTracks number of tracks in album
+ *
+ * @return formatted string.
+ */
+QString ImportTrackData::formatString(const QString& format, unsigned numTracks) const
+{
+	TrackDataFormatReplacer fmt(*this, numTracks, format);
+	fmt.replaceEscapedChars();
+	fmt.replacePercentCodes();
+	return fmt.getString();
+}
+
+/**
+ * Get help text for format codes supported by formatString().
+ *
+ * @param onlyRows if true only the tr elements are returned,
+ *                 not the surrounding table
+ *
+ * @return help text.
+ */
+QString ImportTrackData::getFormatToolTip(bool onlyRows)
+{
+	return TrackDataFormatReplacer::getToolTip(onlyRows);
 }

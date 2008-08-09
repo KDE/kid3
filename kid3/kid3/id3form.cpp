@@ -573,7 +573,8 @@ int Id3Form::numFilesSelected()
 void Id3Form::dragEnterEvent(QDragEnterEvent* ev)
 {
 #if QT_VERSION >= 0x040000
-	if (ev->mimeData()->hasFormat("text/uri-list"))
+	if (ev->mimeData()->hasFormat("text/uri-list") ||
+	    ev->mimeData()->hasImage())
 		ev->acceptProposedAction();
 #else
 	ev->accept(QTextDrag::canDecode(ev));

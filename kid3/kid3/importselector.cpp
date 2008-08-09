@@ -56,7 +56,6 @@
 #include <qgroupbox.h>
 #endif
 #include "genres.h"
-#include "standardtags.h"
 #include "freedbdialog.h"
 #include "tracktypedialog.h"
 #include "musicbrainzreleasedialog.h"
@@ -420,6 +419,8 @@ void ImportSelector::clear()
 #else
 	m_tab->setNumRows(0);
 #endif
+	clearAdditionalFrameColumns();
+
 	m_serverComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importServer);
 	m_destComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importDest);
 
@@ -433,16 +434,16 @@ void ImportSelector::clear()
  * Look for album specific information (artist, album, year, genre) in
  * a header.
  *
- * @param st standard tags to put resulting values in,
+ * @param frames frames to put resulting values in,
  *           fields which are not found are not touched.
  *
  * @return true if one or more field were found.
  */
-bool ImportSelector::parseHeader(StandardTags& st)
+bool ImportSelector::parseHeader(FrameCollection& frames)
 {
 	int pos = 0;
 	m_headerParser->setFormat(m_headerLineEdit->text());
-	return m_headerParser->getNextTags(m_text, st, pos);
+	return m_headerParser->getNextTags(m_text, frames, pos);
 }
 
 /**
@@ -555,8 +556,8 @@ void ImportSelector::fromFreedb()
 						this, SLOT(showPreview()));
 	}
 	if (m_freedbDialog) {
-		m_freedbDialog->setArtistAlbum(m_trackDataVector.m_artist,
-																	 m_trackDataVector.m_album);
+		m_freedbDialog->setArtistAlbum(m_trackDataVector.getArtist(),
+																	 m_trackDataVector.getAlbum());
 		(void)m_freedbDialog->exec();
 	}
 }
@@ -572,8 +573,8 @@ void ImportSelector::fromTrackType()
 						this, SLOT(showPreview()));
 	}
 	if (m_trackTypeDialog) {
-		m_trackTypeDialog->setArtistAlbum(m_trackDataVector.m_artist,
-																	 m_trackDataVector.m_album);
+		m_trackTypeDialog->setArtistAlbum(m_trackDataVector.getArtist(),
+																	 m_trackDataVector.getAlbum());
 		(void)m_trackTypeDialog->exec();
 	}
 }
@@ -589,8 +590,8 @@ void ImportSelector::fromMusicBrainzRelease()
 						this, SLOT(showPreview()));
 	}
 	if (m_musicBrainzReleaseDialog) {
-		m_musicBrainzReleaseDialog->setArtistAlbum(m_trackDataVector.m_artist,
-																							 m_trackDataVector.m_album);
+		m_musicBrainzReleaseDialog->setArtistAlbum(m_trackDataVector.getArtist(),
+																							 m_trackDataVector.getAlbum());
 		(void)m_musicBrainzReleaseDialog->exec();
 	}
 }
@@ -606,8 +607,8 @@ void ImportSelector::fromDiscogs()
 						this, SLOT(showPreview()));
 	}
 	if (m_discogsDialog) {
-		m_discogsDialog->setArtistAlbum(m_trackDataVector.m_artist,
-																		m_trackDataVector.m_album);
+		m_discogsDialog->setArtistAlbum(m_trackDataVector.getArtist(),
+																		m_trackDataVector.getAlbum());
 		(void)m_discogsDialog->exec();
 	}
 }
@@ -636,34 +637,33 @@ void ImportSelector::setFormatLineEdit(int index)
  * @return true if tags were found.
  */
 bool ImportSelector::updateTrackData(ImportSource impSrc) {
-	StandardTags st_hdr;
-	st_hdr.setInactive();
+	FrameCollection framesHdr;
 	m_importSource = impSrc;
-	(void)parseHeader(st_hdr);
+	(void)parseHeader(framesHdr);
 
-	StandardTags st(st_hdr);
+	FrameCollection frames(framesHdr);
 	bool start = true;
 	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
 	bool atTrackDataListEnd = (it == m_trackDataVector.end());
-	while (getNextTags(st, start)) {
+	while (getNextTags(frames, start)) {
 		start = false;
 		if (atTrackDataListEnd) {
 			ImportTrackData trackData;
-			trackData.setStandardTags(st);
+			trackData.setFrameCollection(frames);
 			m_trackDataVector.push_back(trackData);
 		} else {
-			(*it).setStandardTags(st);
+			(*it).setFrameCollection(frames);
 			++it;
 			atTrackDataListEnd = (it == m_trackDataVector.end());
 		}
-		st = st_hdr;
+		frames = framesHdr;
 	}
-	st.setInactive();
+	frames.clear();
 	while (!atTrackDataListEnd) {
 		if ((*it).getFileDuration() == 0) {
 			it = m_trackDataVector.erase(it);
 		} else {
-			(*it).setStandardTags(st);
+			(*it).setFrameCollection(frames);
 			(*it).setImportDuration(0);
 			++it;
 		}
@@ -692,11 +692,81 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 }
 
 /**
+ * Clear columns for additional (non-standard) tags.
+ */
+void ImportSelector::clearAdditionalFrameColumns()
+{
+#if QT_VERSION >= 0x040000
+	m_tab->setColumnCount(NumColumns);
+#else
+	m_tab->setNumCols(NumColumns);
+#endif
+	m_additonalColumnNames.clear();
+}
+
+/**
+ * Add columns for additional (non-standard) tags.
+ *
+ * @param frames frames
+ * @param row    current table row
+ */
+void ImportSelector::addAdditionalFrameColumns(const FrameCollection& frames,
+																							 int row)
+{
+	for (FrameCollection::const_iterator it = frames.begin();
+			 it != frames.end();
+			 ++it) {
+		if (it->getType() > Frame::FT_LastV1Frame) {
+			QString name(it->getName().QCM_toLower());
+			const int len = name.length();
+			int idx = 0;
+			while (idx >= 0 && idx < len) {
+				name[idx] = name[idx].QCM_toUpper();
+				idx = name.QCM_indexOf(' ', idx);
+				if (idx >= 0 && idx < len - 1) ++idx;
+			}
+#if QT_VERSION >= 0x040000
+			idx = m_additonalColumnNames.indexOf(name);
+			int col = NumColumns + idx;
+			if (idx == -1) {
+				m_additonalColumnNames.push_back(name);
+				idx = m_additonalColumnNames.size() - 1;
+				col = NumColumns + idx;
+				m_tab->insertColumn(col);
+				m_tab->setHorizontalHeaderItem(col, new QTableWidgetItem(QCM_translate(name.toLatin1().data())));
+			}
+			QTableWidgetItem* twi;
+			QString str = it->getValue();
+			if ((twi = m_tab->item(row, col)) != 0) {
+				twi->setText(str);
+			} else {
+				twi = new QTableWidgetItem(str);
+				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
+				m_tab->setItem(row, col, twi);
+			}
+#else
+			idx = m_additonalColumnNames.findIndex(name);
+			int col = NumColumns + idx;
+			if (idx == -1) {
+				m_additonalColumnNames.push_back(name);
+				idx = m_additonalColumnNames.size() - 1;
+				col = NumColumns + idx;
+				m_tab->insertColumns(col);
+				m_tab->horizontalHeader()->setLabel(col, QCM_translate(name));
+			}
+			m_tab->setText(row, col, it->getValue());
+#endif
+		}
+	}
+}
+
+/**
  * Show fields to import in text as preview in table.
  */
 void ImportSelector::showPreview() {
+	clearAdditionalFrameColumns();
 #if QT_VERSION >= 0x040000
-  m_tab->setRowCount(m_trackDataVector.size());
+	m_tab->setRowCount(m_trackDataVector.size());
 	int row = 0;
 	QStringList vLabels;
 	QString str;
@@ -721,8 +791,8 @@ void ImportSelector::showPreview() {
 			m_tab->setItem(row, LengthColumn, twi);
 		}
 		str.clear();
-		if ((*it).track != -1) {
-			str.setNum((*it).track);
+		if ((*it).getTrack() != -1) {
+			str.setNum((*it).getTrack());
 		}
 		if ((twi = m_tab->item(row, TrackColumn)) != 0) {
 			twi->setText(str);
@@ -732,8 +802,8 @@ void ImportSelector::showPreview() {
 			m_tab->setItem(row, TrackColumn, twi);
 		}
 		str.clear();
-		if (!(*it).title.isNull()) {
-			str = (*it).title;
+		if (!(*it).getTitle().isNull()) {
+			str = (*it).getTitle();
 		}
 		if ((twi = m_tab->item(row, TitleColumn)) != 0) {
 			twi->setText(str);
@@ -743,8 +813,8 @@ void ImportSelector::showPreview() {
 			m_tab->setItem(row, TitleColumn, twi);
 		}
 		str.clear();
-		if (!(*it).artist.isNull()) {
-			str = (*it).artist;
+		if (!(*it).getArtist().isNull()) {
+			str = (*it).getArtist();
 		}
 		if ((twi = m_tab->item(row, ArtistColumn)) != 0) {
 			twi->setText(str);
@@ -754,8 +824,8 @@ void ImportSelector::showPreview() {
 			m_tab->setItem(row, ArtistColumn, twi);
 		}
 		str.clear();
-		if (!(*it).album.isNull()) {
-			str = (*it).album;
+		if (!(*it).getAlbum().isNull()) {
+			str = (*it).getAlbum();
 		}
 		if ((twi = m_tab->item(row, AlbumColumn)) != 0) {
 			twi->setText(str);
@@ -765,8 +835,8 @@ void ImportSelector::showPreview() {
 			m_tab->setItem(row, AlbumColumn, twi);
 		}
 		str.clear();
-		if ((*it).year != -1) {
-			str.setNum((*it).year);
+		if ((*it).getYear() != -1) {
+			str.setNum((*it).getYear());
 		}
 		if ((twi = m_tab->item(row, YearColumn)) != 0) {
 			twi->setText(str);
@@ -776,8 +846,8 @@ void ImportSelector::showPreview() {
 			m_tab->setItem(row, YearColumn, twi);
 		}
 		str.clear();
-		if (!(*it).genre.isNull()) {
-			str = (*it).genre;
+		if (!(*it).getGenre().isNull()) {
+			str = (*it).getGenre();
 		}
 		if ((twi = m_tab->item(row, GenreColumn)) != 0) {
 			twi->setText(str);
@@ -787,8 +857,8 @@ void ImportSelector::showPreview() {
 			m_tab->setItem(row, GenreColumn, twi);
 		}
 		str.clear();
-		if (!(*it).comment.isNull()) {
-			str = (*it).comment;
+		if (!(*it).getComment().isNull()) {
+			str = (*it).getComment();
 		}
 		if ((twi = m_tab->item(row, CommentColumn)) != 0) {
 			twi->setText(str);
@@ -797,6 +867,7 @@ void ImportSelector::showPreview() {
 			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
 			m_tab->setItem(row, CommentColumn, twi);
 		}
+		addAdditionalFrameColumns(*it, row);
 		++row;
 	}
 	m_tab->setVerticalHeaderLabels(vLabels);
@@ -815,26 +886,27 @@ void ImportSelector::showPreview() {
 		int importDuration = (*it).getImportDuration();
 		if (importDuration != 0)
 			m_tab->setText(row, LengthColumn, TaggedFile::formatTime(importDuration));
-		if ((*it).track != -1) {
+		if ((*it).getTrack() != -1) {
 			QString trackStr;
-			trackStr.setNum((*it).track);
+			trackStr.setNum((*it).getTrack());
 			m_tab->setText(row, TrackColumn, trackStr);
 		}
-		if (!(*it).title.isNull())
-			m_tab->setText(row, TitleColumn, (*it).title);
-		if (!(*it).artist.isNull())
-			m_tab->setText(row, ArtistColumn, (*it).artist);
-		if (!(*it).album.isNull())
-			m_tab->setText(row, AlbumColumn, (*it).album);
-		if ((*it).year != -1) {
+		if (!(*it).getTitle().isNull())
+			m_tab->setText(row, TitleColumn, (*it).getTitle());
+		if (!(*it).getArtist().isNull())
+			m_tab->setText(row, ArtistColumn, (*it).getArtist());
+		if (!(*it).getAlbum().isNull())
+			m_tab->setText(row, AlbumColumn, (*it).getAlbum());
+		if ((*it).getYear() != -1) {
 			QString yearStr;
-			yearStr.setNum((*it).year);
+			yearStr.setNum((*it).getYear());
 			m_tab->setText(row, YearColumn, yearStr);
 		}
-		if (!(*it).genre.isNull())
-			m_tab->setText(row, GenreColumn, (*it).genre);
-		if (!(*it).comment.isNull())
-			m_tab->setText(row, CommentColumn, (*it).comment);
+		if (!(*it).getGenre().isNull())
+			m_tab->setText(row, GenreColumn, (*it).getGenre());
+		if (!(*it).getComment().isNull())
+			m_tab->setText(row, CommentColumn, (*it).getComment());
+		addAdditionalFrameColumns(*it, row);
 		++row;
 	}
 #endif
@@ -871,23 +943,23 @@ void ImportSelector::showPreview() {
 }
 
 /**
- * Get next line as standardtags from imported file or clipboard.
+ * Get next line as frames from imported file or clipboard.
  *
- * @param st standard tags
+ * @param frames frames
  * @param start true to start with the first line, false for all
  *              other lines
  *
  * @return true if ok (result in st),
  *         false if end of file reached.
  */
-bool ImportSelector::getNextTags(StandardTags& st, bool start)
+bool ImportSelector::getNextTags(FrameCollection& frames, bool start)
 {
 	static int pos = 0;
 	if (start || pos == 0) {
 		pos = 0;
 		m_trackParser->setFormat(m_trackLineEdit->text(), true);
 	}
-	return m_trackParser->getNextTags(m_text, st, pos);
+	return m_trackParser->getNextTags(m_text, frames, pos);
 }
 
 /**
@@ -1011,8 +1083,8 @@ void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
 		// swap elements but keep file durations and names
 		ImportTrackData fromData(m_trackDataVector[fromIndex]);
 		ImportTrackData toData(m_trackDataVector[toIndex]);
-		m_trackDataVector[fromIndex].setStandardTags(toData);
-		m_trackDataVector[toIndex].setStandardTags(fromData);
+		m_trackDataVector[fromIndex].setFrameCollection(toData.getFrameCollection());
+		m_trackDataVector[toIndex].setFrameCollection(fromData.getFrameCollection());
 		m_trackDataVector[fromIndex].setImportDuration(toData.getImportDuration());
 		m_trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
 		// redisplay the table
@@ -1152,8 +1224,8 @@ void ImportSelector::matchWithLength()
 		if (!failed) {
 			ImportTrackDataVector oldTrackDataVector(m_trackDataVector);
 			for (i = 0; i < numTracks; ++i) {
-				m_trackDataVector[i].setStandardTags(
-					oldTrackDataVector[md[i].assignedFrom]);
+				m_trackDataVector[i].setFrameCollection(
+					oldTrackDataVector[md[i].assignedFrom].getFrameCollection());
 				m_trackDataVector[i].setImportDuration(
 					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
 			}
@@ -1188,8 +1260,8 @@ void ImportSelector::matchWithTrack()
 			if (i >= numTracks) {
 				break;
 			}
-			if ((*it).track > 0 && (*it).track <= static_cast<int>(numTracks)) {
-				md[i].track = (*it).track - 1;
+			if ((*it).getTrack() > 0 && (*it).getTrack() <= static_cast<int>(numTracks)) {
+				md[i].track = (*it).getTrack() - 1;
 			} else {
 				md[i].track = -1;
 			}
@@ -1235,8 +1307,8 @@ void ImportSelector::matchWithTrack()
 		if (!failed) {
 			ImportTrackDataVector oldTrackDataVector(m_trackDataVector);
 			for (i = 0; i < numTracks; ++i) {
-				m_trackDataVector[i].setStandardTags(
-					oldTrackDataVector[md[i].assignedFrom]);
+				m_trackDataVector[i].setFrameCollection(
+					oldTrackDataVector[md[i].assignedFrom].getFrameCollection());
 				m_trackDataVector[i].setImportDuration(
 					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
 			}
@@ -1287,10 +1359,10 @@ void ImportSelector::matchWithTitle()
 					nonWordCharRegExp, fileName.QCM_toLower().
 					replace(nonLetterSpaceRegExp, " "));
 			}
-			if (!(*it).title.isEmpty()) {
+			if (!(*it).getTitle().isEmpty()) {
 				++numImports;
 				md[i].titleWords = QCM_split(
-					nonWordCharRegExp, (*it).title.QCM_toLower().
+					nonWordCharRegExp, (*it).getTitle().QCM_toLower().
 					replace(nonLetterSpaceRegExp, " "));
 			}
 			md[i].assignedTo = -1;
@@ -1368,8 +1440,8 @@ void ImportSelector::matchWithTitle()
 		if (!failed) {
 			ImportTrackDataVector oldTrackDataVector(m_trackDataVector);
 			for (i = 0; i < numTracks; ++i) {
-				m_trackDataVector[i].setStandardTags(
-					oldTrackDataVector[md[i].assignedFrom]);
+				m_trackDataVector[i].setFrameCollection(
+					oldTrackDataVector[md[i].assignedFrom].getFrameCollection());
 				m_trackDataVector[i].setImportDuration(
 					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
 			}

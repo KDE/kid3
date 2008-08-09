@@ -29,6 +29,7 @@
 
 #include <qstring.h>
 #include <qregexp.h>
+#include <qmap.h>
 #include "qtcompatmac.h"
 /** The list type depends on the Qt version. */
 #if QT_VERSION >= 0x040000
@@ -39,7 +40,7 @@ typedef QList<int> TrackDurationList;
 typedef QValueList<int> TrackDurationList;
 #endif
 
-class StandardTags;
+class FrameCollection;
 
 /**
  * Import parser.
@@ -58,12 +59,12 @@ public:
 	 * Get next tags in text buffer.
 	 *
 	 * @param text text buffer containing data from file or clipboard
-	 * @param st   standard tags for output
+	 * @param frames frames for output
 	 * @param pos  current position in buffer, will be updated to point
 	 *             behind current match (to be used for next call)
 	 * @return true if tags found (pos is index behind match).
 	 */
-	bool getNextTags(const QString& text, StandardTags& st, int& pos);
+	bool getNextTags(const QString& text, FrameCollection& frames, int& pos);
 
 	/**
 	 * Get list with track durations.
@@ -88,15 +89,7 @@ private:
 	bool m_trackIncrEnabled;
 	/** automatically incremented track number */
 	int m_trackIncrNr;
-	/** numbers of fields within regexp captures, -1 if not in pattern */
-	int m_titlePos;
-	int m_albumPos;
-	int m_artistPos;
-	int m_commentPos;
-	int m_yearPos;
-	int m_trackPos;
-	int m_genrePos;
-	int m_durationPos;
+	QMap<QString, int> m_codePos;
 	TrackDurationList m_trackDuration;
 };
 

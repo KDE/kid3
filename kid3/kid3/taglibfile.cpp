@@ -1400,15 +1400,15 @@ static const struct TypeStrOfId {
 	{ Frame::FT_EncodedBy,      I18N_NOOP("TENC - Encoded by"), true },
 	{ Frame::FT_Lyricist,       I18N_NOOP("TEXT - Lyricist/Text writer"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TFLT - File type"), true },
-	{ Frame::FT_Other,          I18N_NOOP("TIPL - Involved people list"), true },
+	{ Frame::FT_Arranger,       I18N_NOOP("TIPL - Involved people list"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TIT1 - Content group description"), true },
 	{ Frame::FT_Title,          I18N_NOOP("TIT2 - Title/songname/content description"), true },
 	{ Frame::FT_Subtitle,       I18N_NOOP("TIT3 - Subtitle/Description refinement"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TKEY - Initial key"), true },
 	{ Frame::FT_Language,       I18N_NOOP("TLAN - Language(s)"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TLEN - Length"), true },
-	{ Frame::FT_Other,          I18N_NOOP("TMCL - Musician credits list"), true },
-	{ Frame::FT_Other,          I18N_NOOP("TMED - Media type"), true },
+	{ Frame::FT_Performer,      I18N_NOOP("TMCL - Musician credits list"), true },
+	{ Frame::FT_Media,          I18N_NOOP("TMED - Media type"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TMOO - Mood"), true },
 	{ Frame::FT_OriginalAlbum,  I18N_NOOP("TOAL - Original album/movie/show title"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TOFN - Original filename"), true },
@@ -1416,9 +1416,9 @@ static const struct TypeStrOfId {
 	{ Frame::FT_OriginalArtist, I18N_NOOP("TOPE - Original artist(s)/performer(s)"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TOWN - File owner/licensee"), true },
 	{ Frame::FT_Artist,         I18N_NOOP("TPE1 - Lead performer(s)/Soloist(s)"), true },
-	{ Frame::FT_Performer,      I18N_NOOP("TPE2 - Band/orchestra/accompaniment"), true },
+	{ Frame::FT_AlbumArtist,    I18N_NOOP("TPE2 - Band/orchestra/accompaniment"), true },
 	{ Frame::FT_Conductor,      I18N_NOOP("TPE3 - Conductor/performer refinement"), true },
-	{ Frame::FT_Arranger,       I18N_NOOP("TPE4 - Interpreted, remixed, or otherwise modified by"), true },
+	{ Frame::FT_Remixer,        I18N_NOOP("TPE4 - Interpreted, remixed, or otherwise modified by"), true },
 	{ Frame::FT_Disc,           I18N_NOOP("TPOS - Part of a set"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TPRO - Produced notice"), true },
 	{ Frame::FT_Publisher,      I18N_NOOP("TPUB - Publisher"), true },
@@ -1527,7 +1527,9 @@ static QString getFieldsFromTextFrame(
 		TagLib::StringList slText = tFrame->fieldList();
 		text = slText.size() > 1 ? TStringToQString(slText[1]) : "";
 	} else {
-		text = TStringToQString(tFrame->toString());
+		// if there are multiple items, put them into one string
+		// separated by a special separator.
+		text = TStringToQString(tFrame->fieldList().toString(Frame::stringListSeparator()));
 	}
 	field.m_id = Frame::Field::ID_Text;
 	if (type == Frame::FT_Genre) {
@@ -2114,6 +2116,33 @@ void setValue(TagLib::ID3v2::AttachedPictureFrame* f, const TagLib::String& text
 	f->setDescription(text);
 }
 
+static void setStringOrList(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& text)
+{
+	if (text.find(Frame::stringListSeparator()) == -1) {
+		f->setText(text);
+	} else {
+		f->setText(TagLib::StringList::split(text, Frame::stringListSeparator()));
+	}
+}
+
+template <>
+void setValue(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& text)
+{
+	setStringOrList(f, text);
+}
+
+template <class T>
+void setText(T* f, const TagLib::String& text)
+{
+	f->setText(text);
+}
+
+template <>
+void setText(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& text)
+{
+	setStringOrList(f, text);
+}
+
 /**
  * Set the fields in a TagLib ID3v2 frame.
  *
@@ -2149,7 +2178,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 					} else if (frame.getType() == Frame::FT_Track) {
 						self->addTotalNumberOfTracksIfEnabled(value);
 					}
-					tFrame->setText(QSTRING_TO_TSTRING(value));
+					setText(tFrame, QSTRING_TO_TSTRING(value));
 					break;
 				}
 				case Frame::Field::ID_TextEnc:
@@ -2371,6 +2400,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"TRACKNUMBER",     // FT_Track,
 		"GENRE",           // FT_Genre,
 		                   // FT_LastV1Frame = FT_Track,
+		"ALBUMARTIST",     // FT_AlbumArtist,
 		"ARRANGER",        // FT_Arranger,
 		"AUTHOR",          // FT_Author,
 		"BPM",             // FT_Bpm,
@@ -2382,6 +2412,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"ISRC",            // FT_Isrc,
 		"LANGUAGE",        // FT_Language,
 		"LYRICIST",        // FT_Lyricist,
+		"SOURCEMEDIA",     // FT_Media,
 		"ORIGINALALBUM",   // FT_OriginalAlbum,
 		"ORIGINALARTIST",  // FT_OriginalArtist,
 		"ORIGINALDATE",    // FT_OriginalDate,
@@ -2389,6 +2420,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"PERFORMER",       // FT_Performer,
 		"UNKNOWN",         // FT_Picture,
 		"PUBLISHER",       // FT_Publisher,
+		"REMIXER",         // FT_Remixer,
 		"SUBTITLE",        // FT_Subtitle,
 		"WEBSITE",         // FT_Website,
 		                   // FT_LastFrame = FT_Website
@@ -2893,7 +2925,6 @@ QStringList TagLibFile::getFrameIds() const
 		}
 	} else {
 		static const char* const fieldNames[] = {
-			"ALBUMARTIST",
 			"CATALOGNUMBER",
 			"CONTACT",
 			"DESCRIPTION",
@@ -2913,11 +2944,9 @@ QStringList TagLibFile::getFrameIds() const
 			"PRODUCTNUMBER",
 			"RECORDINGDATE",
 			"RELEASE DATE",
-			"REMIXER",
 			"SOURCE ARTIST",
 			"SOURCE MEDIUM",
 			"SOURCE WORK",
-			"SOURCEMEDIA",
 			"SPARS",
 			"TRACKTOTAL",
 			"VERSION",

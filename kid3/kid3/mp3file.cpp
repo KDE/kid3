@@ -43,6 +43,7 @@
 #include "genres.h"
 #include "dirinfo.h"
 #include "kid3.h"
+#include <cstring>
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -231,6 +232,46 @@ void Mp3File::deleteFramesV1(const FrameFilter& flt)
 }
 
 /**
+ * Fix up a unicode string from id3lib.
+ *
+ * @param str unicode string
+ *
+ * @return string as QString.
+ */
+static QString fixUpUnicode(const unicode_t* str)
+{
+	QString text;
+	if (str && *str) {
+		size_t numChars = 1;
+		while (str[numChars] != 0) ++numChars;
+		QChar* qcarray = new QChar[numChars];
+		if (qcarray) {
+			// Unfortunately, Unicode support in id3lib is rather buggy
+			// in the current version: The codes are mirrored.
+			// In the hope that my patches will be included, I try here
+			// to work around these bugs.
+			size_t i;
+			size_t numZeroes = 0;
+			for (i = 0; i < numChars; i++) {
+				qcarray[i] =
+					UNICODE_SUPPORT_BUGGY ?
+					(ushort)(((str[i] & 0x00ff) << 8) |
+									 ((str[i] & 0xff00) >> 8)) :
+					(ushort)str[i];
+				if (qcarray[i].isNull()) { ++numZeroes; }
+			}
+			// remove a single trailing zero character
+			if (numZeroes == 1 && qcarray[numChars - 1].isNull()) {
+				--numChars;
+			}
+			text = QString(qcarray, numChars);
+			delete [] qcarray;
+		}
+	}
+	return text;
+}
+
+/**
  * Get string from text field.
  *
  * @param field field
@@ -244,37 +285,39 @@ static QString getString(ID3_Field* field)
 	if (field != NULL) {
 		ID3_TextEnc enc = field->GetEncoding();
 		if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
-			const unicode_t* txt = field->GetRawUnicodeText();
-			uint unicode_size = field->Size() / sizeof(unicode_t);
-			if (unicode_size && txt) {
-				QChar* qcarray = new QChar[unicode_size];
-				if (qcarray) {
-					// Unfortunately, Unicode support in id3lib is rather buggy
-					// in the current version: The codes are mirrored.
-					// In the hope that my patches will be included, I try here
-					// to work around these bugs.
-					uint i;
-					uint numZeroes = 0;
-					for (i = 0; i < unicode_size; i++) {
-						qcarray[i] =
-							UNICODE_SUPPORT_BUGGY ?
-							(ushort)(((txt[i] & 0x00ff) << 8) |
-									 ((txt[i] & 0xff00) >> 8)) :
-							(ushort)txt[i];
-						if (qcarray[i].isNull()) { ++numZeroes; }
+			size_t numItems = field->GetNumTextItems();
+			if (numItems <= 1) {
+				text = fixUpUnicode(field->GetRawUnicodeText());
+			} else {
+				// if there are multiple items, put them into one string
+				// separated by a special separator.
+				for (size_t itemNr = 0; itemNr < numItems; ++itemNr) {
+					if (itemNr == 0) {
+						text = fixUpUnicode(field->GetRawUnicodeTextItem(0));
+					} else {
+						text += Frame::stringListSeparator();
+						text += fixUpUnicode(field->GetRawUnicodeTextItem(itemNr));
 					}
-					// remove a single trailing zero character
-					if (numZeroes == 1 && qcarray[unicode_size - 1].isNull()) {
-						--unicode_size;
-					}
-					text = QString(qcarray, unicode_size);
-					delete [] qcarray;
 				}
 			}
 		} else {
 			// (ID3TE_IS_SINGLE_BYTE_ENC(enc))
 			// (enc == ID3TE_ISO8859_1 || enc == ID3TE_UTF8)
-			text = QString(field->GetRawText());
+			size_t numItems = field->GetNumTextItems();
+			if (numItems <= 1) {
+				text = QString(field->GetRawText());
+			} else {
+				// if there are multiple items, put them into one string
+				// separated by a special separator.
+				for (size_t itemNr = 0; itemNr < numItems; ++itemNr) {
+					if (itemNr == 0) {
+						text = field->GetRawTextItem(0);
+					} else {
+						text += Frame::stringListSeparator();
+						text += field->GetRawTextItem(itemNr);
+					}
+				}
+			}
 		}
 	}
 	return text;
@@ -370,6 +413,88 @@ static int getGenreNum(const ID3_Tag* tag)
 }
 
 /**
+ * Allocate a fixed up a unicode string for id3lib.
+ *
+ * @param text string
+ *
+ * @return new allocated unicode string, has to be freed with delete [].
+ */
+static unicode_t* newFixedUpUnicode(const QString& text)
+{
+	// Unfortunately, Unicode support in id3lib is rather buggy in the
+	// current version: The codes are mirrored, a second different
+	// BOM may be added, if the LSB >= 0x80, the MSB is set to 0xff.
+	// If iconv is used (id3lib on Linux), the character do not come
+	// back mirrored, but with a second (different)! BOM 0xfeff and
+	// they are still written in the wrong order (big endian).
+	// In the hope that my patches will be included, I try here to
+	// work around these bugs, but there is no solution for the
+	// LSB >= 0x80 bug.
+	const QChar* qcarray = text.unicode();
+	uint unicode_size = text.length();
+	unicode_t* unicode = new unicode_t[unicode_size + 1];
+	if (unicode) {
+		uint i;
+		for (i = 0; i < unicode_size; i++) {
+			unicode[i] = (ushort)qcarray[i].unicode();
+			if (UNICODE_SUPPORT_BUGGY) {
+				unicode[i] = (ushort)(((unicode[i] & 0x00ff) << 8) |
+				                      ((unicode[i] & 0xff00) >> 8));
+			}
+		}
+		unicode[unicode_size] = 0;
+	}
+	return unicode;
+}
+
+/**
+ * Set string list in text field.
+ *
+ * @param field field
+ * @param lst   string list to set
+ */
+static void setStringList(ID3_Field* field, const QStringList& lst)
+{
+	ID3_TextEnc enc = field->GetEncoding();
+	bool first = true;
+	for (QStringList::const_iterator it = lst.begin(); it != lst.end(); ++it) {
+		if (first) {
+			if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
+				unicode_t* unicode = newFixedUpUnicode(*it);
+				if (unicode) {
+					field->Set(unicode);
+					delete [] unicode;
+				}
+			} else if (enc == ID3TE_UTF8) {
+				field->Set((*it).QCM_toUtf8().data());
+			} else {
+				// enc == ID3TE_ISO8859_1
+				field->Set((*it).QCM_latin1());
+			}
+			first = false;
+		} else {
+			// This will not work with buggy id3lib. A BOM 0xfffe is written before
+			// the first string, but not before the subsequent strings. Prepending a
+			// BOM or changing the byte order does not help when id3lib rewrites
+			// this field when another frame is changed. So you cannot use
+			// string lists with Unicode encoding.
+			if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
+				unicode_t* unicode = newFixedUpUnicode(*it);
+				if (unicode) {
+					field->Add(unicode);
+					delete [] unicode;
+				}
+			} else if (enc == ID3TE_UTF8) {
+				field->Add((*it).QCM_toUtf8().data());
+			} else {
+				// enc == ID3TE_ISO8859_1
+				field->Add((*it).QCM_latin1());
+			}
+		}
+	}
+}
+
+/**
  * Set string in text field.
  *
  * @param field        field
@@ -377,39 +502,23 @@ static int getGenreNum(const ID3_Tag* tag)
  */
 static void setString(ID3_Field* field, const QString& text)
 {
-	ID3_TextEnc enc = field->GetEncoding();
-	// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
-	if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
-		// Unfortunately, Unicode support in id3lib is rather buggy in the
-		// current version: The codes are mirrored, a second different
-		// BOM may be added, if the LSB >= 0x80, the MSB is set to 0xff.
-		// If iconv is used (id3lib on Linux), the character do not come
-		// back mirrored, but with a second (different)! BOM 0xfeff and
-		// they are still written in the wrong order (big endian).
-		// In the hope that my patches will be included, I try here to
-		// work around these bugs, but there is no solution for the
-		// LSB >= 0x80 bug.
-		const QChar* qcarray = text.unicode();
-		uint unicode_size = text.length();
-		unicode_t* unicode = new unicode_t[unicode_size + 1];
-		if (unicode) {
-			uint i;
-			for (i = 0; i < unicode_size; i++) {
-				unicode[i] = (ushort)qcarray[i].unicode();
-				if (UNICODE_SUPPORT_BUGGY) {
-					unicode[i] = (ushort)(((unicode[i] & 0x00ff) << 8) |
-										  ((unicode[i] & 0xff00) >> 8));
-				}
+	if (text.QCM_indexOf(Frame::stringListSeparator()) == -1) {
+		ID3_TextEnc enc = field->GetEncoding();
+		// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
+		if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
+			unicode_t* unicode = newFixedUpUnicode(text);
+			if (unicode) {
+				field->Set(unicode);
+				delete [] unicode;
 			}
-			unicode[unicode_size] = 0;
-			field->Set(unicode);
-			delete [] unicode;
+		} else if (enc == ID3TE_UTF8) {
+			field->Set(text.QCM_toUtf8().data());
+		} else {
+			// enc == ID3TE_ISO8859_1
+			field->Set(text.QCM_latin1());
 		}
-	} else if (enc == ID3TE_UTF8) {
-		field->Set(text.QCM_toUtf8().data());
 	} else {
-		// enc == ID3TE_ISO8859_1
-		field->Set(text.QCM_latin1());
+		setStringList(field, QCM_split(Frame::stringListSeparator(), text));
 	}
 }
 
@@ -1143,7 +1252,7 @@ static const struct TypeStrOfId {
 	{ Frame::FT_Other,          I18N_NOOP("ETCO - Event timing codes") },                              /* ETCO */
 	{ Frame::FT_Other,          I18N_NOOP("GEOB - General encapsulated object") },                     /* GEOB */
 	{ Frame::FT_Other,          I18N_NOOP("GRID - Group identification registration") },               /* GRID */
-	{ Frame::FT_Other,          I18N_NOOP("IPLS - Involved people list") },                            /* IPLS */
+	{ Frame::FT_Arranger,       I18N_NOOP("IPLS - Involved people list") },                            /* IPLS */
 	{ Frame::FT_Other,          I18N_NOOP("LINK - Linked information") },                              /* LINK */
 	{ Frame::FT_Other,          I18N_NOOP("MCDI - Music CD identifier") },                             /* MCDI */
 	{ Frame::FT_Other,          I18N_NOOP("MLLT - MPEG location lookup table") },                      /* MLLT */
@@ -1184,7 +1293,7 @@ static const struct TypeStrOfId {
 	{ Frame::FT_Language,       I18N_NOOP("TLAN - Language(s)") },                                     /* TLAN */
 	{ Frame::FT_Other,          I18N_NOOP("TLEN - Length") },                                          /* TLEN */
 	{ Frame::FT_Other,          0 },                                                                   /* TMCL */
-	{ Frame::FT_Other,          I18N_NOOP("TMED - Media type") },                                      /* TMED */
+	{ Frame::FT_Media,          I18N_NOOP("TMED - Media type") },                                      /* TMED */
 	{ Frame::FT_Other,          0 },                                                                   /* TMOO */
 	{ Frame::FT_OriginalAlbum,  I18N_NOOP("TOAL - Original album/movie/show title") },                 /* TOAL */
 	{ Frame::FT_Other,          I18N_NOOP("TOFN - Original filename") },                               /* TOFN */
@@ -1193,9 +1302,9 @@ static const struct TypeStrOfId {
 	{ Frame::FT_OriginalDate,   I18N_NOOP("TORY - Original release year") },                           /* TORY */
 	{ Frame::FT_Other,          I18N_NOOP("TOWN - File owner/licensee") },                             /* TOWN */
 	{ Frame::FT_Artist,         I18N_NOOP("TPE1 - Lead performer(s)/Soloist(s)") },                    /* TPE1 */
-	{ Frame::FT_Performer,      I18N_NOOP("TPE2 - Band/orchestra/accompaniment") },                    /* TPE2 */
+	{ Frame::FT_AlbumArtist,    I18N_NOOP("TPE2 - Band/orchestra/accompaniment") },                    /* TPE2 */
 	{ Frame::FT_Conductor,      I18N_NOOP("TPE3 - Conductor/performer refinement") },                  /* TPE3 */
-	{ Frame::FT_Arranger,       I18N_NOOP("TPE4 - Interpreted, remixed, or otherwise modified by") },  /* TPE4 */
+	{ Frame::FT_Remixer,        I18N_NOOP("TPE4 - Interpreted, remixed, or otherwise modified by") },  /* TPE4 */
 	{ Frame::FT_Disc,           I18N_NOOP("TPOS - Part of a set") },                                   /* TPOS */
 	{ Frame::FT_Other,          0 },                                                                   /* TPRO */
 	{ Frame::FT_Publisher,      I18N_NOOP("TPUB - Publisher") },                                       /* TPUB */
@@ -1255,6 +1364,11 @@ static void getTypeStringForId3libFrameId(ID3_FrameID id, Frame::Type& type,
  */
 static ID3_FrameID getId3libFrameIdForType(Frame::Type type)
 {
+	// IPLS is mapped to FT_Arranger and FT_Performer
+	if (type == Frame::FT_Performer) {
+		return ID3FID_INVOLVEDPEOPLE;
+	}
+
 	static int typeIdMap[Frame::FT_LastFrame + 1] = { -1, };
 	if (typeIdMap[0] == -1) {
 		// first time initialization

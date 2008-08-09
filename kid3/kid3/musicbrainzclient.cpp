@@ -287,24 +287,24 @@ static const char* getFileStatusText(TPFileStatus statusCode)
 	static const struct id_str_s { TPFileStatus id; const char* str; }
 	id_str[] = {
 #if HAVE_TUNEPIMP >= 4
-    { eMetadataRead,  I18N_NOOP("Metadata Read") },
+		{ eMetadataRead,  I18N_NOOP("Metadata Read") },
 #endif
-    { eUnrecognized,  I18N_NOOP("Unrecognized") },
-    { eRecognized,    I18N_NOOP("Recognized") },
-    { ePending,       I18N_NOOP("Pending") },
+		{ eUnrecognized,  I18N_NOOP("Unrecognized") },
+		{ eRecognized,    I18N_NOOP("Recognized") },
+		{ ePending,       I18N_NOOP("Pending") },
 #if HAVE_TUNEPIMP >= 5
-    { ePUIDLookup,     I18N_NOOP("PUID Lookup") },
-    { ePUIDCollision,  I18N_NOOP("PUID Collision") },
+		{ ePUIDLookup,     I18N_NOOP("PUID Lookup") },
+		{ ePUIDCollision,  I18N_NOOP("PUID Collision") },
 #else
-    { eTRMLookup,     I18N_NOOP("TRM Lookup") },
-    { eTRMCollision,  I18N_NOOP("TRM Collision") },
+		{ eTRMLookup,     I18N_NOOP("TRM Lookup") },
+		{ eTRMCollision,  I18N_NOOP("TRM Collision") },
 #endif
-    { eFileLookup,    I18N_NOOP("File Lookup") },
-    { eUserSelection, I18N_NOOP("User Selection") },
-    { eVerified,      I18N_NOOP("Verified") },
-    { eSaved,         I18N_NOOP("Saved") },
-    { eDeleted,       I18N_NOOP("Deleted") },
-    { eError,         I18N_NOOP("Error") },
+		{ eFileLookup,    I18N_NOOP("File Lookup") },
+		{ eUserSelection, I18N_NOOP("User Selection") },
+		{ eVerified,      I18N_NOOP("Verified") },
+		{ eSaved,         I18N_NOOP("Saved") },
+		{ eDeleted,       I18N_NOOP("Deleted") },
+		{ eError,         I18N_NOOP("Error") },
 		{ eLastStatus,    0 }
 	};
 
@@ -508,15 +508,15 @@ void MusicBrainzClient::getMetaData(int id, ImportTrackData& trackData)
 			tr_Lock(track);
 			md_Clear(data);
 			tr_GetServerMetadata(track, data);
-			trackData.title = QString::fromUtf8(data->track);
-			trackData.artist = QString::fromUtf8(data->artist);
-			trackData.album = QString::fromUtf8(data->album);
-			trackData.track = data->trackNum;
-			trackData.year = data->releaseYear;
+			trackData.setTitle(QString::fromUtf8(data->track));
+			trackData.setArtist(QString::fromUtf8(data->artist));
+			trackData.setAlbum(QString::fromUtf8(data->album));
+			trackData.setTrack(data->trackNum);
+			trackData.setYear(data->releaseYear);
 			// year does not seem to work, so at least we should not
 			// overwrite it with 0
-			if (trackData.year == 0) {
-				trackData.year = -1;
+			if (trackData.getYear() == 0) {
+				trackData.setYear(-1);
 			}
 			trackData.setImportDuration(data->duration / 1000);
 			tr_Unlock(track);
@@ -562,9 +562,9 @@ void MusicBrainzClient::parseLookupResponse(int index, const QByteArray& respons
 			QDomElement track = trackNode.toElement();
 
 			ImportTrackData trackData;
-			trackData.artist =
-				track.namedItem("artist").toElement().namedItem("name").toElement().text();
-			trackData.title = track.namedItem("title").toElement().text();
+			trackData.setArtist(
+				track.namedItem("artist").toElement().namedItem("name").toElement().text());
+			trackData.setTitle(track.namedItem("title").toElement().text());
 
 			for (QDomNode releaseNode =
 						 track.namedItem("release-list").toElement().namedItem("release");
@@ -572,13 +572,13 @@ void MusicBrainzClient::parseLookupResponse(int index, const QByteArray& respons
 					 releaseNode = releaseNode.nextSibling() ) {
 				QDomElement release = releaseNode.toElement();
 
-				trackData.album = release.namedItem("title").toElement().text();
-				trackData.track = -1;
+				trackData.setAlbum(release.namedItem("title").toElement().text());
+				trackData.setTrack(-1);
 				QDomNode releaseTrackNode = release.namedItem("track-list");
 				if (!releaseTrackNode.isNull()) {
 					QDomElement releaseTrack = releaseTrackNode.toElement();
 					if (!releaseTrack.attribute("offset").isEmpty())
-						trackData.track = releaseTrack.attribute("offset").toInt() + 1;
+						trackData.setTrack(releaseTrack.attribute("offset").toInt() + 1);
 				}
 			}
 			trackDataList.append(trackData);

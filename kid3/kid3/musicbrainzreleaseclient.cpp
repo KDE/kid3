@@ -128,7 +128,12 @@ void MusicBrainzReleaseClient::constructTrackListQuery(
 	m_request += cat;
 	m_request += '/';
 	m_request += id;
-	m_request += "/?type=xml&inc=artist+tracks HTTP/1.1\r\nUser-Agent: Kid3/" VERSION "\r\nHost: ";
+	m_request += "/?type=xml&inc=artist+tracks";
+	if (cfg->m_additionalTags) {
+		m_request += "+release-events+artist-rels+release-rels+track-rels+"
+			"track-level-rels+labels";
+	}
+	m_request += " HTTP/1.1\r\nUser-Agent: Kid3/" VERSION "\r\nHost: ";
 	m_request += serverName;
 	m_request += "\r\nConnection: close\r\n\r\n";
 }

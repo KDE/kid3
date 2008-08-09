@@ -55,7 +55,7 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 																			 ImportSourceClient* client,
 																			 const Properties& props)
 	: QDialog(parent), m_trackDataVector(trackDataVector),
-		m_serverComboBox(0), m_cgiLineEdit(0),
+		m_serverComboBox(0), m_cgiLineEdit(0), m_additionalTagsCheckBox(0),
 		m_client(client), m_props(props)
 {
 	setModal(true);
@@ -116,6 +116,10 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 			}
 			vlayout->addLayout(serverLayout);
 		}
+	}
+	if (m_props.additionalTags) {
+		m_additionalTagsCheckBox = new QCheckBox(i18n("&Additional Tags"), this);
+		vlayout->addWidget(m_additionalTagsCheckBox);
 	}
 #if QT_VERSION >= 0x040000
 	m_albumListBox = new QListWidget(this);
@@ -258,6 +262,39 @@ void ImportSourceDialog::setCgiPath(const QString& cgi)
 }
 
 /**
+ * Get additional tags option.
+ *
+ * @return true if additional tags are enabled.
+ */
+bool ImportSourceDialog::getAdditionalTags() const
+{
+	return m_additionalTagsCheckBox ?
+#if QT_VERSION >= 0x040000
+		m_additionalTagsCheckBox->checkState() == Qt::Checked
+#else
+		m_additionalTagsCheckBox->isChecked()
+#endif
+		: false;
+}
+
+/**
+ * Set additional tags option.
+ *
+ * @param enable true if additional tags are enabled
+ */
+void ImportSourceDialog::setAdditionalTags(bool enable)
+{
+	if (m_additionalTagsCheckBox) {
+#if QT_VERSION >= 0x040000
+		m_additionalTagsCheckBox->setCheckState(
+			enable ? Qt::Checked : Qt::Unchecked);
+#else
+		m_additionalTagsCheckBox->setChecked(enable);
+#endif
+	}
+}
+
+/**
  * Get the local configuration.
  *
  * @param cfg configuration
@@ -266,6 +303,7 @@ void ImportSourceDialog::getImportSourceConfig(ImportSourceConfig* cfg) const
 {
 	cfg->m_server = getServer();
 	cfg->m_cgiPath = getCgiPath();
+	cfg->m_additionalTags = getAdditionalTags();
 	cfg->m_windowWidth = size().width();
 	cfg->m_windowHeight = size().height();
 }
@@ -291,6 +329,7 @@ void ImportSourceDialog::setArtistAlbum(const QString& artist, const QString& al
 	if (m_props.cfg) {
 		setServer(m_props.cfg->m_server);
 		setCgiPath(m_props.cfg->m_cgiPath);
+		setAdditionalTags(m_props.cfg->m_additionalTags);
 		if (m_props.cfg->m_windowWidth > 0 && m_props.cfg->m_windowHeight > 0) {
 			resize(m_props.cfg->m_windowWidth, m_props.cfg->m_windowHeight);
 		}

@@ -62,7 +62,7 @@ Frame::~Frame()
  */
 const char* Frame::getNameFromType(Type type)
 {
-  static const char* const names[] = {
+	static const char* const names[] = {
 		I18N_NOOP("Title"),           // FT_Title,
 		I18N_NOOP("Artist"),          // FT_Artist,
 		I18N_NOOP("Album"),           // FT_Album,
@@ -71,6 +71,7 @@ const char* Frame::getNameFromType(Type type)
 		I18N_NOOP("Track Number"),    // FT_Track,
 		I18N_NOOP("Genre"),           // FT_Genre,
 		                              // FT_LastV1Frame = FT_Track,
+		I18N_NOOP("Album Artist"),    // FT_AlbumArtist
 		I18N_NOOP("Arranger"),        // FT_Arranger,
 		I18N_NOOP("Author"),          // FT_Author,
 		I18N_NOOP("BPM"),             // FT_Bpm,
@@ -82,6 +83,7 @@ const char* Frame::getNameFromType(Type type)
 		I18N_NOOP("ISRC"),            // FT_Isrc,
 		I18N_NOOP("Language"),        // FT_Language,
 		I18N_NOOP("Lyricist"),        // FT_Lyricist,
+		I18N_NOOP("Media"),           // FT_Media,
 		I18N_NOOP("Original Album"),  // FT_OriginalAlbum,
 		I18N_NOOP("Original Artist"), // FT_OriginalArtist,
 		I18N_NOOP("Original Date"),   // FT_OriginalDate,
@@ -89,6 +91,7 @@ const char* Frame::getNameFromType(Type type)
 		I18N_NOOP("Performer"),       // FT_Performer,
 		I18N_NOOP("Picture"),         // FT_Picture,
 		I18N_NOOP("Publisher"),       // FT_Publisher,
+		I18N_NOOP("Remixer"),         // FT_Remixer,
 		I18N_NOOP("Subtitle"),        // FT_Subtitle,
 		I18N_NOOP("Website")          // FT_Website,
 		                              // FT_LastFrame = FT_Website
@@ -291,6 +294,107 @@ FrameCollection::iterator FrameCollection::findByName(const QString& name) const
 }
 
 /**
+ * Get value by type.
+ *
+ * @param type type
+ *
+ * @return value, QString::null if not found.
+ */
+QString FrameCollection::getValue(Frame::Type type) const
+{
+	Frame frame(type, "", "", -1);
+	const_iterator it = find(frame);
+	return it != end() ? it->getValue() : QString::null;
+}
+
+/**
+ * Set value by type.
+ *
+ * @param type type
+ * @param value value, nothing is done if QString::null
+ */
+void FrameCollection::setValue(Frame::Type type, const QString& value)
+{
+	if (!value.isNull()) {
+		Frame frame(type, "", "", -1);
+		iterator it = find(frame);
+		if (it != end()) {
+			Frame& frameFound = const_cast<Frame&>(*it);
+			if (frameFound.getValue() != value) {
+				frameFound.setValue(value);
+				frameFound.setValueChanged();
+			}
+		} else {
+			frame.setValue(value);
+			frame.setValueChanged();
+			insert(frame);
+		}
+	}
+}
+
+/**
+ * Get integer value by type.
+ *
+ * @param type type
+ *
+ * @return value, 0 if empty, -1 if not found.
+ */
+int FrameCollection::getIntValue(Frame::Type type) const
+{
+	QString str = getValue(type);
+	return str.isNull() ? -1 : str.toInt();
+}
+
+/**
+ * Set integer value by type.
+ *
+ * @param type type
+ * @param value value, 0 to set empty, nothing is done if -1
+ */
+void FrameCollection::setIntValue(Frame::Type type, int value)
+{
+	if (value != -1) {
+		QString str = value != 0 ? QString::number(value) : QString("");
+		setValue(type, str);
+	}
+}
+
+/**
+ * Set standard tag fields.
+ *
+ * @param st standard tags
+ */
+void FrameCollection::setStandardTags(const StandardTags& st)
+{
+	setTitle(st.title);
+	setArtist(st.artist);
+	setAlbum(st.album);
+	setComment(st.comment);
+	setGenre(st.genre);
+	setYear(st.year);
+	setTrack(st.track);
+}
+
+/**
+ * Get standard tag fields.
+ *
+ * @param st standard tags
+ */
+StandardTags FrameCollection::getStandardTags() const
+{
+	StandardTags st;
+	st.title = getTitle();
+	st.artist = getArtist();
+	st.album = getAlbum();
+	st.comment = getComment();
+	st.genre = getGenre();
+	st.year = getYear();
+	st.track = getTrack();
+	return st;
+}
+
+
+/**
  * Constructor.
  * All frames are disabled
  */
@@ -366,4 +470,144 @@ void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
 			m_disabledOtherFrames.insert(name);
 		}
 	}
+}
+
+
+/**
+ * Constructor.
+ *
+ * @param frames frame collection
+ * @param str    string with format codes
+ */
+FrameFormatReplacer::FrameFormatReplacer(
+	const FrameCollection& frames, const QString& str) :
+	FormatReplacer(str), m_frames(frames) {}
+
+/**
+ * Destructor.
+ */
+FrameFormatReplacer::~FrameFormatReplacer() {}
+
+/**
+ * Replace a format code (one character %c or multiple characters %{chars}).
+ * Supported format fields:
+ * %s title (song)
+ * %l album
+ * %a artist
+ * %c comment
+ * %y year
+ * %t track, two digits, i.e. leading zero if < 10
+ * %T track, without leading zeroes
+ * %g genre
+ *
+ * @param code format code
+ *
+ * @return replacement string,
+ *         QString::null if code not found.
+ */
+QString FrameFormatReplacer::getReplacement(const QString& code) const
+{
+	QString result;
+	QString name;
+
+	if (code.length() == 1) {
+		static const struct {
+			char shortCode;
+			const char* longCode;
+		} shortToLong[] = {
+			{ 's', "title" },
+			{ 'l', "album" },
+			{ 'a', "artist" },
+			{ 'c', "comment" },
+			{ 'y', "year" },
+			{ 't', "track" },
+			{ 'T', "tracknumber" },
+			{ 'g', "genre" }
+		};
+#if QT_VERSION >= 0x040000
+		const char c = code[0].toLatin1();
+#else
+		const char c = code[0].latin1();
+#endif
+		for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
+			if (shortToLong[i].shortCode == c) {
+				name = shortToLong[i].longCode;
+				break;
+			}
+		}
+	} else if (code.length() > 1) {
+		name = code;
+	}
+
+	if (!name.isNull()) {
+		if (name.QCM_toLower() == "year") {
+			name = "date";
+		} else if (name.QCM_toLower() == "tracknumber") {
+			name = "track number";
+		}
+
+		FrameCollection::iterator it = m_frames.findByName(name);
+		if (it != m_frames.end()) {
+			result = it->getValue();
+		}
+
+		if (name.QCM_toLower() == "track") {
+			bool ok;
+			int nr = result.toInt(&ok);
+			if (ok) {
+				result.sprintf("%02d", nr);
+			}
+		}
+	}
+
+	return result;
+}
+
+/**
+ * Get help text for supported format codes.
+ *
+ * @param onlyRows if true only the tr elements are returned,
+ *                 not the surrounding table
+ *
+ * @return help text.
+ */
+QString FrameFormatReplacer::getToolTip(bool onlyRows)
+{
+	QString str;
+	if (!onlyRows) str += "<table>\n";
+
+	str += "<tr><td>%s</td><td>%{title}</td><td>";
+	str += QCM_translate("Title");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%l</td><td>%{album}</td><td>";
+	str += QCM_translate("Album");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%a</td><td>%{artist}</td><td>";
+	str += QCM_translate("Artist");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%c</td><td>%{comment}</td><td>";
+	str += QCM_translate("Comment");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%y</td><td>%{year}</td><td>";
+	str += QCM_translate(I18N_NOOP("Year"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%t</td><td>%{track}</td><td>";
+	str += QCM_translate("Track");
+	str += " &quot;01&quot;</td></tr>\n";
+
+	str += "<tr><td>%T</td><td>%{tracknumber}</td><td>";
+	str += QCM_translate("Track");
+	str += " &quot;1&quot;</td></tr>\n";
+
+	str += "<tr><td>%g</td><td>%{genre}</td><td>";
+	str += QCM_translate("Genre");
+	str += "</td></tr>\n";
+
+	if (!onlyRows) str += "</table>\n";
+	return str;
 }

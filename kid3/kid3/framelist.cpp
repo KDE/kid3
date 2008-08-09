@@ -225,6 +225,28 @@ private:
 };
 
 
+/** Image widget. */
+class ImageWidget : public QWidget {
+public:
+	/**
+	 * Constructor.
+	 *
+	 * @param parent parent widget
+	 * @param img    image to display in window
+	 */
+	ImageWidget(QWidget* parent, QImage* img);
+
+protected:
+	/**
+	 * Paint image, called when window has to be drawn.
+	 */
+	void paintEvent(QPaintEvent*);
+
+private:
+	/** Image to view */
+	QImage* m_image; 
+};
+
 /** Window to view image */
 class ImageViewer : public QDialog {
 public:
@@ -236,15 +258,14 @@ public:
 	 */
 	ImageViewer(QWidget* parent, QImage* img);
 
-protected:
 	/**
-	 * Paint image, called when window has to be drawn.
+	 * Destructor.
 	 */
-	void paintEvent(QPaintEvent*);
+	virtual ~ImageViewer() {}
 
 private:
 	/** image to view */
-	QImage* m_image; 
+	ImageWidget* m_image; 
 };
 
 
@@ -254,7 +275,7 @@ private:
  * @param parent parent widget
  */
 LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
-    QWidget(parent)
+	QWidget(parent)
 {
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	m_label = new QLabel(this);
@@ -274,7 +295,7 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
  * @param parent parent widget
  */
 LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
-    QWidget(parent)
+	QWidget(parent)
 {
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	m_label = new QLabel(this);
@@ -318,7 +339,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
  * @param parent parent widget
  */
 LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
-    QWidget(parent)
+	QWidget(parent)
 {
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	m_label = new QLabel(this);
@@ -337,21 +358,51 @@ LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
  * @param parent parent widget
  * @param img    image to display in window
  */
-ImageViewer::ImageViewer(QWidget* parent, QImage* img) :
-    QDialog(parent), m_image(img)
+ImageWidget::ImageWidget(QWidget* parent, QImage* img) :
+	QWidget(parent), m_image(img)
 {
-	setModal(true);
 	setFixedSize(m_image->width(), m_image->height());
-	QCM_setWindowTitle(i18n("View Picture"));
 }
 
 /**
  * Paint image, called when window has to be drawn.
  */
-void ImageViewer::paintEvent(QPaintEvent*)
+void ImageWidget::paintEvent(QPaintEvent*)
 {
 	QPainter paint(this);
 	paint.drawImage(0, 0, *m_image, 0, 0, m_image->width(), m_image->height());
+}
+
+
+/**
+ * Constructor.
+ *
+ * @param parent parent widget
+ * @param img    image to display in window
+ */
+ImageViewer::ImageViewer(QWidget* parent, QImage* img) :
+	QDialog(parent)
+{
+	setModal(true);
+	QCM_setWindowTitle(i18n("View Picture"));
+	QVBoxLayout* vlayout = new QVBoxLayout(this);
+	if (!vlayout) {
+		return ;
+	}
+	vlayout->setSpacing(6);
+	vlayout->setMargin(6);
+	QHBoxLayout* hlayout = new QHBoxLayout;
+	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+	                                       QSizePolicy::Minimum);
+	m_image = new ImageWidget(this, img);
+	QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+	if (vlayout && hlayout && m_image && closeButton) {
+		vlayout->addWidget(m_image);
+		hlayout->addItem(hspacer);
+		hlayout->addWidget(closeButton);
+		connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+		vlayout->addLayout(hlayout);
+	}
 }
 
 

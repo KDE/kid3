@@ -245,6 +245,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"TRACKNUMBER",     // FT_Track,
 		"GENRE",           // FT_Genre,
 		                   // FT_LastV1Frame = FT_Track,
+		"ALBUMARTIST",     // FT_AlbumArtist,
 		"ARRANGER",        // FT_Arranger,
 		"AUTHOR",          // FT_Author,
 		"BPM",             // FT_Bpm,
@@ -256,6 +257,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"ISRC",            // FT_Isrc,
 		"LANGUAGE",        // FT_Language,
 		"LYRICIST",        // FT_Lyricist,
+		"SOURCEMEDIA",     // FT_Media,
 		"ORIGINALALBUM",   // FT_OriginalAlbum,
 		"ORIGINALARTIST",  // FT_OriginalArtist,
 		"ORIGINALDATE",    // FT_OriginalDate,
@@ -263,6 +265,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"PERFORMER",       // FT_Performer,
 		"UNKNOWN",         // FT_Picture,
 		"PUBLISHER",       // FT_Publisher,
+		"REMIXER",         // FT_Remixer,
 		"SUBTITLE",        // FT_Subtitle,
 		"WEBSITE",         // FT_Website,
 		                   // FT_LastFrame = FT_Website
@@ -297,6 +300,23 @@ static Frame::Type getTypeFromVorbisName(QString name)
 		return static_cast<Frame::Type>(*it);
 	}
 	return Frame::FT_Other;
+}
+
+/**
+ * Get internal name of a Vorbis frame.
+ *
+ * @param frame frame
+ *
+ * @return Vorbis key.
+ */
+static QString getVorbisName(const Frame& frame)
+{
+	Frame::Type type = frame.getType();
+	if (type <= Frame::FT_LastFrame) {
+		return getVorbisNameFromType(type);
+	} else {
+		return frame.getName().remove(' ').QCM_toUpper();
+	}
 }
 
 /**
@@ -678,7 +698,7 @@ bool OggFile::setFrameV2(const Frame& frame)
 bool OggFile::addFrameV2(Frame& frame)
 {
 	// Add a new frame.
-	QString name(frame.getName().remove(' ').QCM_toUpper());
+	QString name(getVorbisName(frame));
 	m_comments.push_back(OggFile::CommentField(name, frame.getValue()));
 	frame.setInternalName(name);
 	frame.setIndex(m_comments.size() - 1);
@@ -740,7 +760,6 @@ void OggFile::getAllFramesV2(FrameCollection& frames)
 QStringList OggFile::getFrameIds() const
 {
 	static const char* const fieldNames[] = {
-		"ALBUMARTIST",
 		"CATALOGNUMBER",
 		"CONTACT",
 		"DESCRIPTION",
@@ -760,11 +779,9 @@ QStringList OggFile::getFrameIds() const
 		"PRODUCTNUMBER",
 		"RECORDINGDATE",
 		"RELEASE DATE",
-		"REMIXER",
 		"SOURCE ARTIST",
 		"SOURCE MEDIUM",
 		"SOURCE WORK",
-		"SOURCEMEDIA",
 		"SPARS",
 		"TRACKTOTAL",
 		"VERSION",
