@@ -234,16 +234,15 @@ void Mp3File::deleteFramesV1(const FrameFilter& flt)
 /**
  * Fix up a unicode string from id3lib.
  *
- * @param str unicode string
+ * @param str      unicode string
+ * @param numChars number of characters in str
  *
  * @return string as QString.
  */
-static QString fixUpUnicode(const unicode_t* str)
+static QString fixUpUnicode(const unicode_t* str, size_t numChars)
 {
 	QString text;
-	if (str && *str) {
-		size_t numChars = 1;
-		while (str[numChars] != 0) ++numChars;
+	if (numChars > 0 && str && *str) {
 		QChar* qcarray = new QChar[numChars];
 		if (qcarray) {
 			// Unfortunately, Unicode support in id3lib is rather buggy
@@ -287,18 +286,16 @@ static QString getString(ID3_Field* field)
 		if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
 			size_t numItems = field->GetNumTextItems();
 			if (numItems <= 1) {
-				text = fixUpUnicode(field->GetRawUnicodeText());
+				text = fixUpUnicode(field->GetRawUnicodeText(),
+				                    field->Size() / sizeof(unicode_t));
 			} else {
 				// if there are multiple items, put them into one string
 				// separated by a special separator.
-				for (size_t itemNr = 0; itemNr < numItems; ++itemNr) {
-					if (itemNr == 0) {
-						text = fixUpUnicode(field->GetRawUnicodeTextItem(0));
-					} else {
-						text += Frame::stringListSeparator();
-						text += fixUpUnicode(field->GetRawUnicodeTextItem(itemNr));
-					}
-				}
+				// ID3_Field::GetRawUnicodeTextItem() returns a pointer to a temporary
+				// object, so I do not use it.
+				text = fixUpUnicode(field->GetRawUnicodeText(),
+				                    field->Size() / sizeof(unicode_t));
+				text.replace('\0', Frame::stringListSeparator());
 			}
 		} else {
 			// (ID3TE_IS_SINGLE_BYTE_ENC(enc))
