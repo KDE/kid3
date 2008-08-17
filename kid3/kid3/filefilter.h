@@ -28,7 +28,7 @@
 #define FILEFILTER_H
 
 #include "expressionparser.h"
-#include "standardtags.h"
+#include "importtrackdata.h"
 #include <qobject.h>
 #include <qstring.h>
 
@@ -104,14 +104,9 @@ private:
 
 	QString m_filterExpression;
 	ExpressionParser m_parser;
-	StandardTags m_standardTags1;
-	StandardTags m_standardTags2;
-	StandardTags m_standardTags12;
-
-	static const int s_numCodes = 5;
-	const QStringList m_longCodes;
-	QChar m_shortCodes[s_numCodes];
-	QString m_replaceStr[s_numCodes];
+	ImportTrackData m_trackData1;
+	ImportTrackData m_trackData2;
+	ImportTrackData m_trackData12;
 };
 
 #endif

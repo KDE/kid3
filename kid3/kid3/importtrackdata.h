@@ -89,11 +89,66 @@ public:
 	QString getAbsFilename() const { return m_absFilename; }
 
 	/**
+	 * Set absolute filename.
+	 *
+	 * @param absFilename absolute file path
+	 */
+	void setAbsFilename(const QString& absFilename) {
+		m_absFilename = absFilename;
+	}
+
+	/**
+	 * Get file extension including the dot.
+	 *
+	 * @return file extension, e.g. ".mp3".
+	 */
+	QString getFileExtension() const;
+
+	/**
+	 * Set file extension.
+	 * @param fileExtension file extension
+	 */
+	void setFileExtension(const QString& fileExtension) {
+		m_fileExtension = fileExtension;
+	}
+
+	/**
+	 * Get the format of tag 1.
+	 *
+	 * @return string describing format of tag 1,
+	 *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
+	 *         QString::null if unknown.
+	 */
+	QString getTagFormatV1() const { return m_tagFormatV1; }
+
+	/**
+	 * Set the format of tag 1.
+	 * @param tagFormatV1 string describing format of tag 1
+	 */
+	void setTagFormatV1(const QString& tagFormatV1) { m_tagFormatV1 = tagFormatV1; }
+
+	/**
+	 * Get the format of tag 2.
+	 *
+	 * @return string describing format of tag 2,
+	 *         e.g. "ID3v2.3", "Vorbis", "APE",
+	 *         QString::null if unknown.
+	 */
+	QString getTagFormatV2() const { return m_tagFormatV2; }
+
+	/**
+	 * Set the format of tag 2.
+	 * @param tagFormatV2 string describing format of tag 2
+	 */
+	void setTagFormatV2(const QString& tagFormatV2) { m_tagFormatV2 = tagFormatV2; }
+
+	/**
 	 * Format a string from track data.
 	 * Supported format fields:
 	 * Those supported by TrackDataFormatReplacer::getReplacement()
 	 *
-	 * @param format format specification
+	 * @param format    format specification
+	 * @param numTracks number of tracks in album
 	 *
 	 * @return formatted string.
 	 */
@@ -129,6 +184,9 @@ private:
 	int m_fileDuration;
 	int m_importDuration;
 	QString m_absFilename;
+	QString m_fileExtension;
+	QString m_tagFormatV1;
+	QString m_tagFormatV2;
 };
 
 /**

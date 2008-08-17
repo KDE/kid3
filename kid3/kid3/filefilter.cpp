@@ -33,15 +33,8 @@
  * Constructor.
  */
 FileFilter::FileFilter() :
-	m_parser(QStringList() << "equals" << "contains" << "matches"),
-	m_longCodes(QStringList() << "file" << "filepath" << "extension" <<
-							"tag1" << "tag2")
+	m_parser(QStringList() << "equals" << "contains" << "matches")
 {
-	m_shortCodes[0] = 'f';
-	m_shortCodes[1] = 'p';
-	m_shortCodes[2] = 'e';
-	m_shortCodes[3] = 'O';
-	m_shortCodes[4] = 'o';
 }
 
 /**
@@ -73,23 +66,18 @@ QString FileFilter::formatString(const QString& format)
 	if (format.QCM_indexOf('%') == -1) {
 		return format;
 	}
-	QString str = m_standardTags12.formatString(format);
-	if (str.QCM_indexOf('%') == -1) {
-		return str;
+	QString str(format);
+	str.replace(QString("%1"), QString("\v1"));
+	str.replace(QString("%2"), QString("\v2"));
+	str = m_trackData12.formatString(str);
+	if (str.QCM_indexOf('\v') != -1) {
+		str.replace(QString("\v2"), QString("%"));
+		str = m_trackData2.formatString(str);
+		if (str.QCM_indexOf('\v') != -1) {
+			str.replace(QString("\v1"), QString("%"));
+			str = m_trackData1.formatString(str);
+		}
 	}
-	str.replace(QString("%2"), QString("%"));
-	str = m_standardTags2.formatString(str);
-	if (str.QCM_indexOf('%') == -1) {
-		return str;
-	}
-	str.replace(QString("%1"), QString("%"));
-	str = m_standardTags1.formatString(str);
-	if (str.QCM_indexOf('%') == -1) {
-		return str;
-	}
-
-	str = StandardTags::replacePercentCodes(str, m_shortCodes, m_longCodes,
-																					m_replaceStr, s_numCodes);
 	return str;
 }
 
@@ -105,27 +93,7 @@ QString FileFilter::getFormatToolTip(bool onlyRows)
 {
 	QString str;
 	if (!onlyRows) str += "<table>\n";
-	str += StandardTags::getFormatToolTip(true);
-
-	str += "<tr><td>%f</td><td>%{file}</td><td>";
-	str += QCM_translate("Filename");
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%p</td><td>%{filepath}</td><td>";
-	str += QCM_translate(I18N_NOOP("Absolute path to file"));
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%e</td><td>%{extension}</td><td>";
-	str += QCM_translate(I18N_NOOP("Extension"));
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%O</td><td>%{tag1}</td><td>";
-	str += QCM_translate("Tag 1");
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%o</td><td>%{tag2}</td><td>";
-	str += QCM_translate("Tag 2");
-	str += "</td></tr>\n";
+	str += TrackDataFormatReplacer::getToolTip(true);
 
 	str += "<tr><td>%1a...</td><td>%1{artist}...</td><td>";
 	str += QCM_translate("Tag 1");
@@ -208,16 +176,17 @@ bool FileFilter::filter(TaggedFile& taggedFile, bool* ok)
 		if (ok) *ok = true;
 		return true;
 	}
-	taggedFile.getStandardTagsV1(&m_standardTags1);
-	taggedFile.getStandardTagsV2(&m_standardTags2);
-	m_standardTags12 = m_standardTags2;
-	m_standardTags12.merge(m_standardTags1);
-
-	m_replaceStr[0] = taggedFile.getFilename();
-	m_replaceStr[1] = taggedFile.getAbsFilename();
-	m_replaceStr[2] = taggedFile.getFileExtension();
-	m_replaceStr[3] = taggedFile.getTagFormatV1();
-	m_replaceStr[4] = taggedFile.getTagFormatV2();
+	m_trackData1.clear();
+	m_trackData1.setAbsFilename(taggedFile.getAbsFilename());
+	m_trackData1.setFileDuration(taggedFile.getDuration());
+	m_trackData1.setFileExtension(taggedFile.getFileExtension());
+	m_trackData1.setTagFormatV1(taggedFile.getTagFormatV1());
+	m_trackData1.setTagFormatV2(taggedFile.getTagFormatV2());
+	m_trackData2 = m_trackData1;
+	taggedFile.getAllFramesV1(m_trackData1);
+	taggedFile.getAllFramesV2(m_trackData2);
+	m_trackData12 = m_trackData2;
+	m_trackData12.merge(m_trackData1);
 
 	bool result = parse();
 	if (m_parser.hasError()) {

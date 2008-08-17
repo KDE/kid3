@@ -79,7 +79,10 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 				{ 'u', "url" },
 				{ 'd', "duration" },
 				{ 'D', "seconds" },
-				{ 'n', "tracks" }
+				{ 'n', "tracks" },
+				{ 'e', "extension" },
+				{ 'O', "tag1" },
+				{ 'o', "tag2" }
 			};
 #if QT_VERSION >= 0x040000
 			const char c = code[0].toLatin1();
@@ -124,6 +127,12 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 				result = QString::number(m_trackData.getFileDuration());
 			} else if (name == "tracks") {
 				result = QString::number(m_numTracks);
+			} else if (name == "extension") {
+				result = m_trackData.getFileExtension();
+			} else if (name == "tag1") {
+				result = m_trackData.getTagFormatV1();
+			} else if (name == "tag2") {
+				result = m_trackData.getTagFormatV2();
 			}
 		}
 	}
@@ -169,6 +178,18 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 	str += QCM_translate(I18N_NOOP("Number of tracks"));
 	str += "</td></tr>\n";
 
+	str += "<tr><td>%e</td><td>%{extension}</td><td>";
+	str += QCM_translate(I18N_NOOP("Extension"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%O</td><td>%{tag1}</td><td>";
+	str += QCM_translate("Tag 1");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%o</td><td>%{tag2}</td><td>";
+	str += QCM_translate("Tag 2");
+	str += "</td></tr>\n";
+
 	if (!onlyRows) str += "</table>\n";
 	return str;
 }
@@ -203,4 +224,19 @@ QString ImportTrackData::formatString(const QString& format, unsigned numTracks)
 QString ImportTrackData::getFormatToolTip(bool onlyRows)
 {
 	return TrackDataFormatReplacer::getToolTip(onlyRows);
+}
+
+/**
+ * Get file extension including the dot.
+ *
+ * @return file extension, e.g. ".mp3".
+ */
+QString ImportTrackData::getFileExtension() const
+{
+	if (!m_fileExtension.isEmpty()) {
+		return m_fileExtension;
+	} else {
+		int dotPos = m_absFilename.QCM_lastIndexOf(".");
+		return dotPos != -1 ? m_absFilename.mid(dotPos) : QString();
+	}
 }
