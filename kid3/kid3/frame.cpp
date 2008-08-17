@@ -80,9 +80,11 @@ const char* Frame::getNameFromType(Type type)
 		I18N_NOOP("Copyright"),       // FT_Copyright,
 		I18N_NOOP("Disc Number"),     // FT_Disc,
 		I18N_NOOP("Encoded-by"),      // FT_EncodedBy,
+		I18N_NOOP("Grouping"),        // FT_Grouping,
 		I18N_NOOP("ISRC"),            // FT_Isrc,
 		I18N_NOOP("Language"),        // FT_Language,
 		I18N_NOOP("Lyricist"),        // FT_Lyricist,
+		I18N_NOOP("Lyrics"),          // FT_Lyrics,
 		I18N_NOOP("Media"),           // FT_Media,
 		I18N_NOOP("Original Album"),  // FT_OriginalAlbum,
 		I18N_NOOP("Original Artist"), // FT_OriginalArtist,
@@ -263,6 +265,34 @@ void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
 			 ++it) {
 		if (!flt.isEnabled(it->getType(), it->getName())) {
 			erase(it);
+		}
+	}
+}
+
+/**
+ * Copy frames which are empty or inactive from other frames.
+ * This can be used to merge two frame collections.
+ *
+ * @param frames other frames
+ */
+void FrameCollection::merge(const FrameCollection& frames)
+{
+	for (const_iterator otherIt = frames.begin();
+			 otherIt != frames.end();
+			 ++otherIt) {
+		iterator it = find(*otherIt);
+		if (it != end()) {
+			QString value(otherIt->getValue());
+			Frame& frameFound = const_cast<Frame&>(*it);
+			if (frameFound.getValue().isEmpty() && !value.isEmpty()) {
+				frameFound.setValue(value);
+				frameFound.setValueChanged();
+			}
+		} else {
+			Frame frame(*otherIt);
+			frame.setIndex(-1);
+			frame.setValueChanged(true);
+			insert(frame);
 		}
 	}
 }

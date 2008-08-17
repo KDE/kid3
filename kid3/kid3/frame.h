@@ -61,9 +61,11 @@ public:
 		FT_Copyright,
 		FT_Disc,
 		FT_EncodedBy,
+		FT_Grouping,
 		FT_Isrc,
 		FT_Language,
 		FT_Lyricist,
+		FT_Lyrics,
 		FT_Media,
 		FT_OriginalAlbum,
 		FT_OriginalArtist,
@@ -350,7 +352,12 @@ public:
 	void enable(Frame::Type type, const QString& name = QString(), bool en = true);
 
 private:
-	enum { FTM_AllFrames = (1 << (Frame::FT_LastFrame + 1)) - 1 };
+	class not_used { int num_frame_types_check[
+			Frame::FT_LastFrame == 31
+			? 1 : -1 ]; };
+	enum { FTM_AllFrames = 0xffffffff };
+	// if FTM_AllFrames is not 31, use
+	// enum { FTM_AllFrames = (1 << (Frame::FT_LastFrame + 1)) - 1 };
 	unsigned long m_enabledFrames;
 	std::set<QString> m_disabledOtherFrames;
 };
@@ -395,6 +402,14 @@ public:
 	 * @param flt filter with enabled frames
 	 */
 	void removeDisabledFrames(const FrameFilter& flt);
+
+	/**
+	 * Copy frames which are empty or inactive from other frames.
+	 * This can be used to merge two frame collections.
+	 *
+	 * @param frames other frames
+	 */
+	void merge(const FrameCollection& frames);
 
 	/**
 	 * Find a frame by name.

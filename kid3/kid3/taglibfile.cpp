@@ -1401,7 +1401,7 @@ static const struct TypeStrOfId {
 	{ Frame::FT_Lyricist,       I18N_NOOP("TEXT - Lyricist/Text writer"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TFLT - File type"), true },
 	{ Frame::FT_Arranger,       I18N_NOOP("TIPL - Involved people list"), true },
-	{ Frame::FT_Other,          I18N_NOOP("TIT1 - Content group description"), true },
+	{ Frame::FT_Grouping,       I18N_NOOP("TIT1 - Content group description"), true },
 	{ Frame::FT_Title,          I18N_NOOP("TIT2 - Title/songname/content description"), true },
 	{ Frame::FT_Subtitle,       I18N_NOOP("TIT3 - Subtitle/Description refinement"), true },
 	{ Frame::FT_Other,          I18N_NOOP("TKEY - Initial key"), true },
@@ -1434,7 +1434,7 @@ static const struct TypeStrOfId {
 	{ Frame::FT_Other,          I18N_NOOP("TXXX - User defined text information"), true },
 	{ Frame::FT_Other,          I18N_NOOP("UFID - Unique file identifier"), true },
 	{ Frame::FT_Other,          I18N_NOOP("USER - Terms of use"), false },
-	{ Frame::FT_Other,          I18N_NOOP("USLT - Unsynchronized lyric/text transcription"), true },
+	{ Frame::FT_Lyrics,         I18N_NOOP("USLT - Unsynchronized lyric/text transcription"), true },
 	{ Frame::FT_Other,          I18N_NOOP("WCOM - Commercial information"), true },
 	{ Frame::FT_Other,          I18N_NOOP("WCOP - Copyright/Legal information"), true },
 	{ Frame::FT_Other,          I18N_NOOP("WOAF - Official audio file webpage"), true },
@@ -2307,82 +2307,6 @@ void TagLibFile::setId3v2Frame(
 }
 
 /**
- * Set a frame in the tags 2.
- *
- * @param frame frame to set
- *
- * @return true if ok.
- */
-bool TagLibFile::setFrameV2(const Frame& frame)
-{
-	// If the frame has an index, change that specific frame
-	int index = frame.getIndex();
-	if (index != -1 && m_tagV2) {
-		TagLib::ID3v2::Tag* id3v2Tag;
-		TagLib::Ogg::XiphComment* oggTag;
-		TagLib::APE::Tag* apeTag;
-		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
-			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
-			if (index < static_cast<int>(frameList.size())) {
-				// This is a hack. The frameList should not be modified directly.
-				// However when removing the old frame and adding a new frame,
-				// the indices of all frames get invalid.
-				setId3v2Frame(frameList[index], frame);
-				markTag2Changed();
-				return true;
-			}
-		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
-			TagLib::String key = QSTRING_TO_TSTRING(frame.getName(true));
-			TagLib::String value = QSTRING_TO_TSTRING(frame.getValue());
-#if TAGLIB_VERSION <= 0x010400
-			// Remove all fields with that key, because TagLib <= 1.4 crashes
-			// using an invalidated iterator after calling erase().
-			oggTag->addField(key, value, true);
-#else
-			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
-			if (fieldListMap.contains(key) && fieldListMap[key].size() > 1) {
-				int i = 0;
-				TagLib::String oldValue(TagLib::String::null);
-				for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
-						 it != fieldListMap.end();
-						 ++it) {
-					TagLib::StringList stringList = (*it).second;
-					for (TagLib::StringList::ConstIterator slit = stringList.begin();
-							 slit != stringList.end();
-							 ++slit) {
-						if (i++ == index) {
-							oldValue = *slit;
-							break;
-						}
-					}
-				}
-				oggTag->removeField(key, oldValue);
-				oggTag->addField(key, value, false);
-			} else {
-				oggTag->addField(key, value, true);
-			}
-#endif
-			if (frame.getType() == Frame::FT_Track) {
-				int numTracks = getTotalNumberOfTracksIfEnabled();
-				if (numTracks > 0) {
-					oggTag->addField("TRACKTOTAL", TagLib::String::number(numTracks), true);
-				}
-			}
-			markTag2Changed();
-			return true;
-		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
-			apeTag->addValue(QSTRING_TO_TSTRING(frame.getName(true)),
-											 QSTRING_TO_TSTRING(frame.getValue()));
-			markTag2Changed();
-			return true;
-		}
-	}
-
-	// Try the superclass method
-	return TaggedFile::setFrameV2(frame);
-}
-
-/**
  * Get name of frame from type.
  *
  * @param type type
@@ -2409,9 +2333,11 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"COPYRIGHT",       // FT_Copyright,
 		"DISCNUMBER",      // FT_Disc,
 		"ENCODED-BY",      // FT_EncodedBy,
+		"GROUPING",        // FT_Grouping,
 		"ISRC",            // FT_Isrc,
 		"LANGUAGE",        // FT_Language,
 		"LYRICIST",        // FT_Lyricist,
+		"LYRICS",          // FT_Lyrics,
 		"SOURCEMEDIA",     // FT_Media,
 		"ORIGINALALBUM",   // FT_OriginalAlbum,
 		"ORIGINALARTIST",  // FT_OriginalArtist,
@@ -2517,6 +2443,82 @@ static QString getApeName(const Frame& frame)
 	} else {
 		return frame.getName().QCM_toUpper();
 	}
+}
+
+/**
+ * Set a frame in the tags 2.
+ *
+ * @param frame frame to set
+ *
+ * @return true if ok.
+ */
+bool TagLibFile::setFrameV2(const Frame& frame)
+{
+	// If the frame has an index, change that specific frame
+	int index = frame.getIndex();
+	if (index != -1 && m_tagV2) {
+		TagLib::ID3v2::Tag* id3v2Tag;
+		TagLib::Ogg::XiphComment* oggTag;
+		TagLib::APE::Tag* apeTag;
+		if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+			const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
+			if (index < static_cast<int>(frameList.size())) {
+				// This is a hack. The frameList should not be modified directly.
+				// However when removing the old frame and adding a new frame,
+				// the indices of all frames get invalid.
+				setId3v2Frame(frameList[index], frame);
+				markTag2Changed();
+				return true;
+			}
+		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+			TagLib::String key = QSTRING_TO_TSTRING(getVorbisName(frame));
+			TagLib::String value = QSTRING_TO_TSTRING(frame.getValue());
+#if TAGLIB_VERSION <= 0x010400
+			// Remove all fields with that key, because TagLib <= 1.4 crashes
+			// using an invalidated iterator after calling erase().
+			oggTag->addField(key, value, true);
+#else
+			const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
+			if (fieldListMap.contains(key) && fieldListMap[key].size() > 1) {
+				int i = 0;
+				TagLib::String oldValue(TagLib::String::null);
+				for (TagLib::Ogg::FieldListMap::ConstIterator it = fieldListMap.begin();
+						 it != fieldListMap.end();
+						 ++it) {
+					TagLib::StringList stringList = (*it).second;
+					for (TagLib::StringList::ConstIterator slit = stringList.begin();
+							 slit != stringList.end();
+							 ++slit) {
+						if (i++ == index) {
+							oldValue = *slit;
+							break;
+						}
+					}
+				}
+				oggTag->removeField(key, oldValue);
+				oggTag->addField(key, value, false);
+			} else {
+				oggTag->addField(key, value, true);
+			}
+#endif
+			if (frame.getType() == Frame::FT_Track) {
+				int numTracks = getTotalNumberOfTracksIfEnabled();
+				if (numTracks > 0) {
+					oggTag->addField("TRACKTOTAL", TagLib::String::number(numTracks), true);
+				}
+			}
+			markTag2Changed();
+			return true;
+		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+			apeTag->addValue(QSTRING_TO_TSTRING(getApeName(frame)),
+											 QSTRING_TO_TSTRING(frame.getValue()));
+			markTag2Changed();
+			return true;
+		}
+	}
+
+	// Try the superclass method
+	return TaggedFile::setFrameV2(frame);
 }
 
 /**

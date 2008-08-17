@@ -91,13 +91,39 @@ static const struct {
 	{ "cpil", Frame::FT_Other },
 	{ "tmpo", Frame::FT_Bpm },
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
-	{ "\251grp", Frame::FT_Other },
+	{ "\251grp", Frame::FT_Grouping },
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
 	{ "aART", Frame::FT_AlbumArtist },
 	{ "pgap", Frame::FT_Other },
 #endif
 	{ "covr", Frame::FT_Picture }
+},
+freeFormNameTypes[] = {
+#if !(MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105)
+	{ "GROUPING", Frame::FT_Grouping },
+#endif
+#if !(MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106)
+	{ "ALBUMARTIST", Frame::FT_AlbumArtist },
+#endif
+	{ "ARRANGER", Frame::FT_Arranger },
+	{ "AUTHOR", Frame::FT_Author },
+	{ "CONDUCTOR", Frame::FT_Conductor },
+	{ "COPYRIGHT", Frame::FT_Copyright },
+	{ "ISRC", Frame::FT_Isrc },
+	{ "LANGUAGE", Frame::FT_Language },
+	{ "LYRICIST", Frame::FT_Lyricist },
+	{ "LYRICS", Frame::FT_Lyrics },
+	{ "SOURCEMEDIA", Frame::FT_Media },
+	{ "ORIGINALALBUM", Frame::FT_OriginalAlbum },
+	{ "ORIGINALARTIST", Frame::FT_OriginalArtist },
+	{ "ORIGINALDATE", Frame::FT_OriginalDate },
+	{ "PART", Frame::FT_Part },
+	{ "PERFORMER", Frame::FT_Performer },
+	{ "PUBLISHER", Frame::FT_Publisher },
+	{ "REMIXER", Frame::FT_Remixer },
+	{ "SUBTITLE", Frame::FT_Subtitle },
+	{ "WEBSITE", Frame::FT_Website }
 };
 
 /**
@@ -116,6 +142,9 @@ static QString getNameForType(Frame::Type type)
 			if (nameTypes[i].type != Frame::FT_Other) {
 				typeNameMap.insert(nameTypes[i].type, nameTypes[i].name);
 			}
+		}
+		for (unsigned i = 0; i < sizeof(freeFormNameTypes) / sizeof(freeFormNameTypes[0]); ++i) {
+			typeNameMap.insert(freeFormNameTypes[i].type, freeFormNameTypes[i].name);
 		}
 	}
 	if (type != Frame::FT_Other) {
@@ -153,7 +182,21 @@ static Frame::Type getTypeForName(const QString& name,
 			return *it;
 		}
 	}
-	return onlyPredefined ? Frame::FT_UnknownFrame : Frame::FT_Other;
+	if (!onlyPredefined) {
+		static QMap<QString, Frame::Type> freeFormNameTypeMap;
+		if (freeFormNameTypeMap.empty()) {
+			// first time initialization
+			for (unsigned i = 0; i < sizeof(freeFormNameTypes) / sizeof(freeFormNameTypes[0]); ++i) {
+				freeFormNameTypeMap.insert(freeFormNameTypes[i].name, freeFormNameTypes[i].type);
+			}
+		}
+		QMap<QString, Frame::Type>::const_iterator it = freeFormNameTypeMap.find(name);
+		if (it != freeFormNameTypeMap.end()) {
+			return *it;
+		}
+		return Frame::FT_Other;
+	}
+	return Frame::FT_UnknownFrame;
 }
 
 #ifndef HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG
@@ -1002,6 +1045,9 @@ QStringList M4aFile::getFrameIds() const
 		Frame::FT_Composer,
 		Frame::FT_Disc,
 		Frame::FT_EncodedBy,
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
+		Frame::FT_Grouping,
+#endif
 		Frame::FT_Picture
 	};
 
@@ -1010,9 +1056,6 @@ QStringList M4aFile::getFrameIds() const
 		lst.append(QCM_translate(Frame::getNameFromType(types[i])));
 	}
 	lst << "cpil";
-#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
-	lst << "\251grp";
-#endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
 	lst << "pgap";
 #endif

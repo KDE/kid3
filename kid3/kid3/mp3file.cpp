@@ -1283,7 +1283,7 @@ static const struct TypeStrOfId {
 	{ Frame::FT_Lyricist,       I18N_NOOP("TEXT - Lyricist/Text writer") },                            /* TEXT */
 	{ Frame::FT_Other,          I18N_NOOP("TFLT - File type") },                                       /* TFLT */
 	{ Frame::FT_Other,          I18N_NOOP("TIME - Time") },                                            /* TIME */
-	{ Frame::FT_Other,          I18N_NOOP("TIT1 - Content group description") },                       /* TIT1 */
+	{ Frame::FT_Grouping,       I18N_NOOP("TIT1 - Content group description") },                       /* TIT1 */
 	{ Frame::FT_Title,          I18N_NOOP("TIT2 - Title/songname/content description") },              /* TIT2 */
 	{ Frame::FT_Subtitle,       I18N_NOOP("TIT3 - Subtitle/Description refinement") },                 /* TIT3 */
 	{ Frame::FT_Other,          I18N_NOOP("TKEY - Initial key") },                                     /* TKEY */
@@ -1320,7 +1320,7 @@ static const struct TypeStrOfId {
 	{ Frame::FT_Date,           I18N_NOOP("TYER - Year") },                                            /* TYER */
 	{ Frame::FT_Other,          I18N_NOOP("UFID - Unique file identifier") },                          /* UFID */
 	{ Frame::FT_Other,          I18N_NOOP("USER - Terms of use") },                                    /* USER */
-	{ Frame::FT_Other,          I18N_NOOP("USLT - Unsynchronized lyric/text transcription") },         /* USLT */
+	{ Frame::FT_Lyrics,         I18N_NOOP("USLT - Unsynchronized lyric/text transcription") },         /* USLT */
 	{ Frame::FT_Other,          I18N_NOOP("WCOM - Commercial information") },                          /* WCOM */
 	{ Frame::FT_Other,          I18N_NOOP("WCOP - Copyright/Legal information") },                     /* WCOP */
 	{ Frame::FT_Other,          I18N_NOOP("WOAF - Official audio file webpage") },                     /* WOAF */
