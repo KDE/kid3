@@ -165,13 +165,6 @@ public:
 
 #if QT_VERSION >= 0x040000
 	/**
-	 * Check if QTreeWidgetItem is selected.
-	 *
-	 * @return true if selected.
-	 */
-	bool isSelected() const;
-
-	/**
 	 * Check if directory is open.
 	 * @return true if open.
 	 */

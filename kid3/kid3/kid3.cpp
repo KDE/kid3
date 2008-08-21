@@ -2721,8 +2721,18 @@ void Kid3App::updateGuiControls()
 	int num_files_selected = 0;
 	bool tagV1Supported = false;
 
+#if QT_VERSION >= 0x040000
+	QList<QTreeWidgetItem*> selItems = m_view->getFileList()->selectedItems();
+#endif
+
 	while (mp3file != 0) {
-		if (mp3file->isSelected()) {
+		if (
+#if QT_VERSION >= 0x040000
+			selItems.contains(mp3file)
+#else
+			mp3file->isSelected()
+#endif
+			) {
 			mp3file->setInSelection(true);
 			TaggedFile* taggedFile = mp3file->getFile();
 			if (taggedFile) {

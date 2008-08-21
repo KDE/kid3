@@ -556,16 +556,3 @@ void FileListItem::setDirName(const QString& dirName)
 		setOpen(false);
 	}
 }
-
-#if QT_VERSION >= 0x040000
-/**
- * Check if QTreeWidgetItem is selected.
- *
- * @return true if selected.
- */
-bool FileListItem::isSelected() const
-{
-	const QTreeWidget* tree = treeWidget();
-	return tree && tree->isItemSelected(this);
-}
-#endif
