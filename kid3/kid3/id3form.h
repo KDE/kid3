@@ -258,6 +258,12 @@ public:
 	bool updateModificationState() { return m_fileListBox->updateModificationState(); }
 
 	/**
+	 * Get file list.
+	 * @return file list.
+	 */
+	FileList* getFileList() { return m_fileListBox; }
+
+	/**
 	 * Get frame list.
 	 * @return frame list.
 	 */
