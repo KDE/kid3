@@ -40,7 +40,7 @@
 #endif
 
 #include "taggedfile.h"
-#include "standardtags.h"
+#include "frame.h"
 #include "kid3.h"
 #include "miscconfig.h"
 #include "rendirdialog.h"
@@ -382,23 +382,23 @@ bool RenDirDialog::renameFile(const QString& oldfn, const QString& newfn,
  */
 QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
 {
-	StandardTags st;
+	FrameCollection frames;
 	taggedFile->readTags(false);
 	switch (m_tagversionComboBox->QCM_currentIndex()) {
 		case TagV1:
-			taggedFile->getStandardTagsV1(&st);
+			taggedFile->getAllFramesV1(frames);
 			break;
 		case TagV2:
-			taggedFile->getStandardTagsV2(&st);
+			taggedFile->getAllFramesV2(frames);
 			break;
 		case TagV2V1:
 		default:
 		{
 			// use merged tags 1 and 2
-			StandardTags st1;
-			taggedFile->getStandardTagsV1(&st1);
-			taggedFile->getStandardTagsV2(&st);
-			st.merge(st1);
+			FrameCollection frames1;
+			taggedFile->getAllFramesV1(frames1);
+			taggedFile->getAllFramesV2(frames);
+			frames.merge(frames1);
 		}
 	}
 	QString newdir(taggedFile->getDirname());
@@ -412,13 +412,14 @@ QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir
 	if (olddir) {
 		*olddir = newdir;
 	}
-	if (!st.isEmptyOrInactive()) {
+	if (!frames.isEmptyOrInactive()) {
 		if (m_actionComboBox->QCM_currentIndex() == ActionRename) {
 			newdir = parentDirectory(newdir);
 		} else if (!newdir.isEmpty()) {
 			newdir.append('/');
 		}
-		newdir.append(taggedFile->formatWithTags(&st, m_formatComboBox->currentText(), true));
+		newdir.append(taggedFile->formatWithTags(
+										frames, m_formatComboBox->currentText(), true));
 	}
 	return newdir;
 }

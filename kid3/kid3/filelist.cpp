@@ -64,6 +64,202 @@
 #endif
 
 /**
+ * Replaces context command format codes in a string.
+ */
+class CommandFormatReplacer : public FrameFormatReplacer {
+public:
+	/**
+	 * Constructor.
+	 *
+	 * @param frames frame collection
+	 * @param str    string with format codes
+	 * @param files  file list
+	 * @param isDir  true if directory
+	 */
+	explicit CommandFormatReplacer(
+		const FrameCollection& frames, const QString& str,
+		const QStringList& files, bool isDir);
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~CommandFormatReplacer();
+
+	/**
+	 * Get help text for supported format codes.
+	 *
+	 * @param onlyRows if true only the tr elements are returned,
+	 *                 not the surrounding table
+	 *
+	 * @return help text.
+	 */
+	static QString getToolTip(bool onlyRows = false);
+
+protected:
+	/**
+	 * Replace a format code (one character %c or multiple characters %{chars}).
+	 * Supported format fields:
+	 * Those supported by FrameFormatReplacer::getReplacement()
+	 * %f %{file} filename
+	 * %d %{directory} directory name
+	 * %b %{browser} the web browser set in the configuration
+	 *
+	 * @param code format code
+	 *
+	 * @return replacement string,
+	 *         QString::null if code not found.
+	 */
+	virtual QString getReplacement(const QString& code) const;
+
+private:
+	const QStringList& m_files;
+	const bool m_isDir;
+};
+
+
+/**
+ * Constructor.
+ *
+ * @param frames frame collection
+ * @param str    string with format codes
+ * @param files  file list
+ * @param isDir  true if directory
+ */
+CommandFormatReplacer::CommandFormatReplacer(
+	const FrameCollection& frames, const QString& str,
+	const QStringList& files, bool isDir) :
+	FrameFormatReplacer(frames, str), m_files(files), m_isDir(isDir) {}
+
+/**
+ * Destructor.
+ */
+CommandFormatReplacer::~CommandFormatReplacer() {}
+
+/**
+ * Replace a format code (one character %c or multiple characters %{chars}).
+ * Supported format fields:
+ * Those supported by FrameFormatReplacer::getReplacement()
+ * %f %{file} filename
+ * %d %{directory} directory name
+ * %b %{browser} the web browser set in the configuration
+ *
+ * @param code format code
+ *
+ * @return replacement string,
+ *         QString::null if code not found.
+ */
+QString CommandFormatReplacer::getReplacement(const QString& code) const
+{
+	QString result = FrameFormatReplacer::getReplacement(code);
+	if (result.isNull()) {
+		QString name;
+
+		if (code.length() == 1) {
+			static const struct {
+				char shortCode;
+				const char* longCode;
+			} shortToLong[] = {
+				{ 'f', "file" },
+				{ 'd', "directory" },
+				{ 'b', "browser" }
+			};
+#if QT_VERSION >= 0x040000
+			const char c = code[0].toLatin1();
+#else
+			const char c = code[0].latin1();
+#endif
+			for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
+				if (shortToLong[i].shortCode == c) {
+					name = shortToLong[i].longCode;
+					break;
+				}
+			}
+		} else if (code.length() > 1) {
+			name = code;
+		}
+
+		if (!name.isNull()) {
+			if (name == "file") {
+				result = m_files.front();
+			} else if (name == "directory") {
+				result = m_files.front();
+				if (!m_isDir) {
+					int sepPos = result.QCM_lastIndexOf('/');
+					if (sepPos < 0) {
+						sepPos = result.QCM_lastIndexOf(QDir::separator());
+					}
+					if (sepPos >= 0) {
+						result.truncate(sepPos);
+					}
+				}
+			} else if (name == "browser") {
+				result = Kid3App::s_miscCfg.m_browser;
+			} else if (name == "url") {
+				if (!m_files.empty()) {
+					QUrl url;
+					url.QCM_setScheme("file");
+					url.QCM_setPath(m_files.front());
+					result = url.toString(
+#if QT_VERSION < 0x040000
+						true
+#endif
+						);
+				}
+			}
+		}
+	}
+
+	return result;
+}
+
+/**
+ * Get help text for supported format codes.
+ *
+ * @param onlyRows if true only the tr elements are returned,
+ *                 not the surrounding table
+ *
+ * @return help text.
+ */
+QString CommandFormatReplacer::getToolTip(bool onlyRows)
+{
+	QString str;
+	if (!onlyRows) str += "<table>\n";
+	str += FrameFormatReplacer::getToolTip(true);
+
+	str += "<tr><td>%f</td><td>%{file}</td><td>";
+	str += QCM_translate("Filename");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%F</td><td>%{files}</td><td>";
+	str += QCM_translate(I18N_NOOP("Filenames"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%uf</td><td>%{url}</td><td>";
+	str += QCM_translate("URL");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%uF</td><td>%{urls}</td><td>";
+	str += QCM_translate(I18N_NOOP("URLs"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%d</td><td>%{directory}</td><td>";
+	str += QCM_translate(I18N_NOOP("Directory name"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%b</td><td>%{browser}</td><td>";
+	str += QCM_translate("Browser");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
+	str += QCM_translate(I18N_NOOP("Encode as URL"));
+	str += "</td></tr>\n";
+
+	if (!onlyRows) str += "</table>\n";
+	return str;
+}
+
+
+/**
  * Constructor.
  * @param parent parent widget
  */
@@ -657,7 +853,7 @@ void FileList::contextMenu(
 /**
  * Format a string list from the selected files.
  * Supported format fields:
- * Those supported by StandardTags::formatString(),
+ * Those supported by FrameFormatReplacer::getReplacement(),
  * when prefixed with u, encoded as URL
  * %f filename
  * %F list of files
@@ -698,6 +894,7 @@ QStringList FileList::formatStringList(const QStringList& format)
 		firstSelectedItem = firstInDir();
 	}
 
+	FrameCollection frames;
 	QStringList fmt;
 	for (QStringList::const_iterator it = format.begin();
 			 it != format.end();
@@ -719,54 +916,18 @@ QStringList FileList::formatStringList(const QStringList& format)
 					fmt.push_back(url.toString());
 				}
 			} else {
-				const int numTagCodes = 3;
-				const QChar tagCode[numTagCodes] = { 'f', 'd', 'b' };
-				const QStringList tagLongCodes =
-					(QStringList() << "file" << "directory" << "browser");
-				QString tagStr[numTagCodes];
-				if (!files.empty()) {
-					tagStr[0] = files.front();
-					tagStr[1] = tagStr[0];
-					tagStr[2] = Kid3App::s_miscCfg.m_browser;
-					if (!dirInfo) {
-						int sepPos = tagStr[1].QCM_lastIndexOf('/');
-						if (sepPos < 0) {
-							sepPos = tagStr[1].QCM_lastIndexOf(QDir::separator());
-						}
-						if (sepPos >= 0) {
-							tagStr[1].truncate(sepPos);
-						}
-					}
-				}
-				QString str = StandardTags::replacePercentCodes(
-					*it, tagCode, tagLongCodes, tagStr, numTagCodes);
-
-				int ufLen = 0;
-				int ufPos = str.QCM_indexOf("%uf");
-				if (ufPos != -1) {
-					ufLen = 3;
-				} else {
-					ufPos = str.QCM_indexOf("%{url}");
-					if (ufPos != -1) {
-						ufLen = 6;
-					}
-				}
-				if (ufPos != -1 && !files.empty()) {
-					QUrl url;
-					url.QCM_setScheme("file");
-					url.QCM_setPath(files.front());
-					str.replace(ufPos, ufLen, url.toString());
-				}
-
 				if (firstSelectedItem) {
 					// use merged tags 1 and 2 to format string
-					StandardTags st1, st2;
-					firstSelectedItem->getFile()->getStandardTagsV1(&st1);
-					firstSelectedItem->getFile()->getStandardTagsV2(&st2);
-					st2.merge(st1);
-					str = st2.formatString(str, StandardTags::FSF_SupportUrlEncode);
+					FrameCollection frames1;
+					firstSelectedItem->getFile()->getAllFramesV1(frames1);
+					firstSelectedItem->getFile()->getAllFramesV2(frames);
+					frames.merge(frames1);
 				}
-				fmt.push_back(str);
+				QString str(*it);
+				str.replace("%uf", "%{url}");
+				CommandFormatReplacer cfr(frames, str, files, dirInfo != 0);
+				cfr.replacePercentCodes(FrameFormatReplacer::FSF_SupportUrlEncode);
+				fmt.push_back(cfr.getString());
 			}
 		}
 	}
@@ -783,40 +944,7 @@ QStringList FileList::formatStringList(const QStringList& format)
  */
 QString FileList::getFormatToolTip(bool onlyRows)
 {
-	QString str;
-	if (!onlyRows) str += "<table>\n";
-	str += StandardTags::getFormatToolTip(true);
-
-	str += "<tr><td>%f</td><td>%{file}</td><td>";
-	str += QCM_translate("Filename");
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%F</td><td>%{files}</td><td>";
-	str += QCM_translate(I18N_NOOP("Filenames"));
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%uf</td><td>%{url}</td><td>";
-	str += QCM_translate("URL");
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%uF</td><td>%{urls}</td><td>";
-	str += QCM_translate(I18N_NOOP("URLs"));
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%d</td><td>%{directory}</td><td>";
-	str += QCM_translate(I18N_NOOP("Directory name"));
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%b</td><td>%{browser}</td><td>";
-	str += QCM_translate("Browser");
-	str += "</td></tr>\n";
-
-	str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
-	str += QCM_translate(I18N_NOOP("Encode as URL"));
-	str += "</td></tr>\n";
-
-	if (!onlyRows) str += "</table>\n";
-	return str;
+	return CommandFormatReplacer::getToolTip(onlyRows);
 }
 
 /**

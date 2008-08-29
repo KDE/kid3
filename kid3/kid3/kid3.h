@@ -64,7 +64,6 @@ class KURL;
 class KUrl;
 class Id3Form;
 class TaggedFile;
-class StandardTags;
 class FrameList;
 class ImportDialog;
 class ExportDialog;
@@ -640,13 +639,6 @@ private:
 	 * @param taggedFile file to modify
 	 */
 	void formatFileNameIfEnabled(TaggedFile* taggedFile) const;
-
-	/**
-	 * Format tags if format while editing is switched on.
-	 *
-	 * @param st standard tags
-	 */
-	void formatStandardTagsIfEnabled(StandardTags* st) const;
 
 	/**
 	 * Format frames if format while editing is switched on.

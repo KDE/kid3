@@ -28,7 +28,6 @@
 #define FRAME_H
 
 #include "formatreplacer.h"
-#include "standardtags.h"
 #include <qstring.h>
 #include <qvariant.h>
 #if QT_VERSION >= 0x040000
@@ -412,6 +411,13 @@ public:
 	void merge(const FrameCollection& frames);
 
 	/**
+	 * Check if the standard tags are empty or inactive.
+	 *
+	 * @return true if empty or inactive.
+	 */
+	bool isEmptyOrInactive() const;
+
+	/**
 	 * Find a frame by name.
 	 *
 	 * @param name  the name of the frame to find, if the exact name is not
@@ -455,20 +461,6 @@ public:
 	 * @param value value, 0 to set empty, nothing is done if -1
 	 */
 	void setIntValue(Frame::Type type, int value);
-
-	/**
-	 * Set standard tag fields.
-	 *
-	 * @param st standard tags
-	 */
-	void setStandardTags(const StandardTags& st);
-
-	/**
-	 * Get standard tag fields.
-	 *
-	 * @param st standard tags
-	 */
-	StandardTags getStandardTags() const;
 
 	/**
 	 * Get artist.

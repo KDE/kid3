@@ -33,7 +33,6 @@
 #include <qlineedit.h>
 #include "filelist.h"
 #include "dirlist.h"
-#include "standardtags.h"
 #include "taggedfile.h"
 #include "qtcompatmac.h"
 
@@ -72,20 +71,6 @@ public:
 	 * Destructor.
 	 */
 	virtual ~Id3Form();
-
-	/**
-	 * Get filter from ID3v1 check boxes.
-	 *
-	 * @return filter.
-	 */
-	StandardTagsFilter getFilterFromID3V1();
-
-	/**
-	 * Get filter from ID3v2 check boxes.
-	 *
-	 * @return filter.
-	 */
-	StandardTagsFilter getFilterFromID3V2();
 
 	/**
 	 * Enable or disable controls requiring ID3v1 tags.

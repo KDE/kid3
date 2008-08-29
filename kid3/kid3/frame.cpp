@@ -261,10 +261,11 @@ FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
 void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
 {
 	for (iterator it = begin();
-			 it != end();
-			 ++it) {
+			 it != end();) {
 		if (!flt.isEnabled(it->getType(), it->getName())) {
-			erase(it);
+			erase(it++);
+		} else {
+			++it;
 		}
 	}
 }
@@ -295,6 +296,23 @@ void FrameCollection::merge(const FrameCollection& frames)
 			insert(frame);
 		}
 	}
+}
+
+/**
+ * Check if the standard tags are empty or inactive.
+ *
+ * @return true if empty or inactive.
+ */
+bool FrameCollection::isEmptyOrInactive() const
+{
+	return 
+		getTitle().isEmpty() &&
+		getArtist().isEmpty() &&
+		getAlbum().isEmpty() && 
+		getComment().isEmpty() &&
+		getYear() <= 0 &&
+		getTrack() <= 0 &&
+		getGenre().isEmpty();
 }
 
 /**
@@ -387,40 +405,6 @@ void FrameCollection::setIntValue(Frame::Type type, int value)
 		QString str = value != 0 ? QString::number(value) : QString("");
 		setValue(type, str);
 	}
-}
-
-/**
- * Set standard tag fields.
- *
- * @param st standard tags
- */
-void FrameCollection::setStandardTags(const StandardTags& st)
-{
-	setTitle(st.title);
-	setArtist(st.artist);
-	setAlbum(st.album);
-	setComment(st.comment);
-	setGenre(st.genre);
-	setYear(st.year);
-	setTrack(st.track);
-}
-
-/**
- * Get standard tag fields.
- *
- * @param st standard tags
- */
-StandardTags FrameCollection::getStandardTags() const
-{
-	StandardTags st;
-	st.title = getTitle();
-	st.artist = getArtist();
-	st.album = getAlbum();
-	st.comment = getComment();
-	st.genre = getGenre();
-	st.year = getYear();
-	st.track = getTrack();
-	return st;
 }
 
 

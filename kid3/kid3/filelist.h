@@ -271,7 +271,7 @@ private:
 	/**
 	 * Format a string list from the selected files.
 	 * Supported format fields:
-	 * Those supported by StandardTags::formatString(),
+	 * Those supported by FrameFormatReplacer::getReplacement(),
 	 * when prefixed with u, encoded as URL
 	 * %f filename
 	 * %F list of files

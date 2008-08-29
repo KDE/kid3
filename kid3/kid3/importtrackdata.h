@@ -27,7 +27,6 @@
 #ifndef IMPORTTRACKDATA_H
 #define IMPORTTRACKDATA_H
 
-#include "standardtags.h"
 #include "frame.h"
 #include <qglobal.h>
 #include "qtcompatmac.h"

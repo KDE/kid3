@@ -39,7 +39,6 @@
 #include <id3.h>
 #endif
 
-#include "standardtags.h"
 #include "genres.h"
 #include "dirinfo.h"
 #include "kid3.h"
@@ -849,7 +848,7 @@ void Mp3File::setTitleV1(const QString& str)
 	if (getTextField(m_tagV1, ID3FID_TITLE) != str &&
 			setTextField(m_tagV1, ID3FID_TITLE, str)) {
 		markTag1Changed();
-		QString s = checkTruncation(str, StandardTags::TF_Title);
+		QString s = checkTruncation(str, 1 << Frame::FT_Title);
 		if (!s.isNull()) setTextField(m_tagV1, ID3FID_TITLE, s);
 	}
 }
@@ -864,7 +863,7 @@ void Mp3File::setArtistV1(const QString& str)
 	if (getTextField(m_tagV1, ID3FID_LEADARTIST) != str &&
 			setTextField(m_tagV1, ID3FID_LEADARTIST, str)) {
 		markTag1Changed();
-		QString s = checkTruncation(str, StandardTags::TF_Artist);
+		QString s = checkTruncation(str, 1 << Frame::FT_Artist);
 		if (!s.isNull()) setTextField(m_tagV1, ID3FID_LEADARTIST, s);
 	}
 }
@@ -879,7 +878,7 @@ void Mp3File::setAlbumV1(const QString& str)
 	if (getTextField(m_tagV1, ID3FID_ALBUM) != str &&
 			setTextField(m_tagV1, ID3FID_ALBUM, str)) {
 		markTag1Changed();
-		QString s = checkTruncation(str, StandardTags::TF_Album);
+		QString s = checkTruncation(str, 1 << Frame::FT_Album);
 		if (!s.isNull()) setTextField(m_tagV1, ID3FID_ALBUM, s);
 	}
 }
@@ -894,7 +893,7 @@ void Mp3File::setCommentV1(const QString& str)
 	if (getTextField(m_tagV1, ID3FID_COMMENT) != str &&
 			setTextField(m_tagV1, ID3FID_COMMENT, str)) {
 		markTag1Changed();
-		QString s = checkTruncation(str, StandardTags::TF_Comment, 28);
+		QString s = checkTruncation(str, 1 << Frame::FT_Comment, 28);
 		if (!s.isNull()) setTextField(m_tagV1, ID3FID_COMMENT, s);
 	}
 }
@@ -920,7 +919,7 @@ void Mp3File::setTrackNumV1(int num)
 {
 	if (setTrackNum(m_tagV1, num)) {
 		markTag1Changed();
-		int n = checkTruncation(num, StandardTags::TF_Track);
+		int n = checkTruncation(num, 1 << Frame::FT_Track);
 		if (n != -1) setTrackNum(m_tagV1, n);
 	}
 }
@@ -939,7 +938,7 @@ void Mp3File::setGenreV1(const QString& str)
 		}
 		// if the string cannot be converted to a number, set the truncation flag
 		checkTruncation(num == 0xff && !str.isEmpty() ? 1 : 0,
-										StandardTags::TF_Genre, 0);
+										1 << Frame::FT_Genre, 0);
 	}
 }
 

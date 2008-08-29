@@ -38,7 +38,6 @@
 #include "generalconfig.h"
 
 class QString;
-class StandardTags;
 
 /**
  * Miscellaneous Configuration.

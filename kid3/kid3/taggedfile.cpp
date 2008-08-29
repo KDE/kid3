@@ -28,7 +28,6 @@
 #include <qstring.h>
 #include <qregexp.h>
 
-#include "standardtags.h"
 #include "kid3.h"
 #include "genres.h"
 #include "dirinfo.h"
@@ -266,124 +265,27 @@ QString TaggedFile::getAbsFilename() const
 }
 
 /**
- * Get ID3v1 tags from file.
- *
- * @param st tags to put result
- */
-void TaggedFile::getStandardTagsV1(StandardTags* st)
-{
-	st->title = getTitleV1();
-	st->artist = getArtistV1();
-	st->album = getAlbumV1();
-	st->comment = getCommentV1();
-	st->year = getYearV1();
-	st->track = getTrackNumV1();
-	st->genre = getGenreV1();
-}
-
-/**
- * Get ID3v2 tags from file.
- *
- * @param st tags to put result
- */
-void TaggedFile::getStandardTagsV2(StandardTags* st)
-{
-	st->title = getTitleV2();
-	st->artist = getArtistV2();
-	st->album = getAlbumV2();
-	st->comment = getCommentV2();
-	st->year = getYearV2();
-	st->track = getTrackNumV2();
-	st->genre = getGenreV2();
-}
-
-/**
- * Set ID3v1 tags.
- *
- * @param st tags to set
- * @param flt filter specifying which fields to set
- */
-void TaggedFile::setStandardTagsV1(const StandardTags* st,
-																	 const StandardTagsFilter& flt)
-{
-	StandardTags oldst;
-	getStandardTagsV1(&oldst);
-	if (flt.m_enableTitle && st->title != oldst.title) {
-		setTitleV1(st->title);
-	}
-	if (flt.m_enableArtist && st->artist != oldst.artist) {
-		setArtistV1(st->artist);
-	}
-	if (flt.m_enableAlbum && st->album != oldst.album) {
-		setAlbumV1(st->album);
-	}
-	if (flt.m_enableComment && st->comment != oldst.comment) {
-		setCommentV1(st->comment);
-	}
-	if (flt.m_enableYear && st->year != oldst.year) {
-		setYearV1(st->year);
-	}
-	if (flt.m_enableTrack && st->track != oldst.track) {
-		setTrackNumV1(st->track);
-	}
-	if (flt.m_enableGenre && st->genre != oldst.genre) {
-		setGenreV1(st->genre);
-	}
-}
-
-/**
- * Set ID3v2 tags.
- *
- * @param st tags to set
- * @param flt filter specifying which fields to set
- */
-void TaggedFile::setStandardTagsV2(const StandardTags* st,
-																	 const StandardTagsFilter& flt)
-{
-	StandardTags oldst;
-	getStandardTagsV2(&oldst);
-	if (flt.m_enableTitle && st->title != oldst.title) {
-		setTitleV2(st->title);
-	}
-	if (flt.m_enableArtist && st->artist != oldst.artist) {
-		setArtistV2(st->artist);
-	}
-	if (flt.m_enableAlbum && st->album != oldst.album) {
-		setAlbumV2(st->album);
-	}
-	if (flt.m_enableComment && st->comment != oldst.comment) {
-		setCommentV2(st->comment);
-	}
-	if (flt.m_enableYear && st->year != oldst.year) {
-		setYearV2(st->year);
-	}
-	if (flt.m_enableTrack && st->track != oldst.track) {
-		setTrackNumV2(st->track);
-	}
-	if (flt.m_enableGenre && st->genre != oldst.genre) {
-		setGenreV2(st->genre);
-	}
-}
-
-/**
  * Remove artist part from album string.
  * This is used when only the album is needed, but the regexp in
  * getTagsFromFilename() matched a "artist - album" string.
  *
  * @param album album string
+ *
+ * @return album with artist removed.
  */
-static void remove_artist(QString& album)
+static QString removeArtist(const QString& album)
 {
-	int pos = album.QCM_indexOf(" - ");
+	QString str(album);
+	int pos = str.QCM_indexOf(" - ");
 	if (pos != -1) {
-		album.remove(0, pos + 3);
+		str.remove(0, pos + 3);
 	}
+	return str;
 }
 
 /**
  * Get tags from filename.
  * Supported formats:
- * with QT3:
  * album/track - artist - song
  * artist - album/track song
  * /artist - album - track - song
@@ -391,10 +293,7 @@ static void remove_artist(QString& album)
  * artist/album/track song
  * album/artist - song
  *
- * with QT2 (only weak regexp support):
- * artist - album/track song
- *
- * @param st  tags to put result
+ * @param frames frames to put result
  * @param fmt format string containing the following codes:
  *            %s title (song)
  *            %l album
@@ -403,7 +302,7 @@ static void remove_artist(QString& album)
  *            %y year
  *            %t track
  */
-void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
+void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt)
 {
 	QRegExp re;
 	QString fn(getAbsFilename());
@@ -435,109 +334,115 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 	// and finally a dot followed by 3 or 4 characters for the extension
 	pattern += "\\..{3,4}$";
 
-	// replace %-codes with regexp capture strings:
-	// %s title, %l album, %a artist, %c comment: string ([^-_\\./ ][^/]*[^-_/ ])
-	// %t track, %y year: number (\\d{1,4})
-	static const int numTagCodes = 6;
-	static const char tagCodes[numTagCodes] = {'s', 'l', 'a', 'c', 't', 'y' };
-	int idxOfCode[numTagCodes];
-	for (int k = 0; k < numTagCodes; ++k) {
-		idxOfCode[k] = 0;
+	static const struct {
+		const char* from;
+		const char* to;
+	} codeToName[] = {
+		{ "%s", "%\\{title\\}" },
+		{ "%l", "%\\{album\\}" },
+		{ "%a", "%\\{artist\\}" },
+		{ "%c", "%\\{comment\\}" },
+		{ "%y", "%\\{date\\}" },
+		{ "%t", "%\\{track number\\}" },
+		{ "%g", "%\\{genre\\}" },
+		{ "%\\{year\\}", "%\\{date\\}" },
+		{ "%\\{track\\}", "%\\{track number\\}" },
+		{ "%\\{tracknumber\\}", "%\\{track number\\}" }
+	};
+	int percentIdx = 0, nr = 1;
+	for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
+		pattern.replace(codeToName[i].from, codeToName[i].to);
 	}
-	int pos = 0;
-	for (int j = 0; j < numTagCodes; ++j) {
-		pos = pattern.QCM_indexOf('%', pos);
-		if (pos == -1) break;
-		++pos;
-		for (int k = 0; k < numTagCodes; ++k) {
-			if (pattern[pos] == tagCodes[k]) {
-				// code found, insert regexp capture
-				if (k < 4) {
-					static const char capStr[] = "([^-_\\./ ][^/]*[^-_/ ])";
-					pattern.replace(--pos, 2, capStr);
-					pos += sizeof(capStr) - 1;
-				} else {
-					static const char capStr[] = "(\\d{1,4})";
-					pattern.replace(--pos, 2, capStr);
-					pos += sizeof(capStr) - 1;
-				}
-				idxOfCode[k] = j + 1;
-				break;
+
+	QMap<QString, int> codePos;
+	while (((percentIdx = pattern.QCM_indexOf("%\\{", percentIdx)) >= 0) &&
+				 (percentIdx < static_cast<int>(pattern.length()) - 1)) {
+		int closingBracePos = pattern.QCM_indexOf("\\}", percentIdx + 3);
+		if (closingBracePos > percentIdx + 3) {
+			QString code =
+				pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3).QCM_toLower();
+			codePos[code] = nr++;
+			if (code == "track number" || code == "date") {
+				pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "(\\d{1,4})");
+				percentIdx += 9;
+			} else {
+				pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "([^-_\\./ ][^/]*[^-_/ ])");
+				percentIdx += 23;
 			}
+		} else {
+			percentIdx += 3;
 		}
 	}
 
 	re.setPattern(pattern);
 	if (re.QCM_indexIn(fileName) != -1) {
-		if (idxOfCode[0])
-			st->title = re.cap(idxOfCode[0]);
-		if (idxOfCode[1])
-			st->album = re.cap(idxOfCode[1]);
-		if (idxOfCode[2])
-			st->artist = re.cap(idxOfCode[2]);
-		if (idxOfCode[3])
-			st->comment = re.cap(idxOfCode[3]);
-		if (idxOfCode[4])
-			st->track = re.cap(idxOfCode[4]).toInt();
-		if (idxOfCode[5])
-			st->year = re.cap(idxOfCode[5]).toInt();
+		for (QMap<QString, int>::iterator it = codePos.begin();
+				 it != codePos.end();
+				 ++it) {
+			QString name = it.key();
+			QString str = re.cap(*it);
+			if (!str.isEmpty()) {
+				if (name == "track number" && str.length() == 2 && str[0] == '0') {
+					// remove leading zero
+					str = str.mid(1);
+				}
+				frames.setValue(Frame::getTypeFromName(name), str);
+			}
+		}
 		return;
 	}
 
 	// album/track - artist - song
 	re.setPattern("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{3,4}$");
 	if (re.QCM_indexIn(fn) != -1) {
-		st->album = re.cap(1);
-		st->track = re.cap(2).toInt();
-		st->artist = re.cap(3);
-		st->title = re.cap(4);
-		remove_artist(st->album);
+		frames.setAlbum(removeArtist(re.cap(1)));
+		frames.setTrack(re.cap(2).toInt());
+		frames.setArtist(re.cap(3));
+		frames.setTitle(re.cap(4));
 		return;
 	}
 	// artist - album/track song
 	re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
 	if (re.QCM_indexIn(fn) != -1) {
-		st->artist = re.cap(1);
-		st->album = re.cap(2);
-		st->track = re.cap(3).toInt();
-		st->title = re.cap(4);
+		frames.setArtist(re.cap(1));
+		frames.setAlbum(re.cap(2));
+		frames.setTrack(re.cap(3).toInt());
+		frames.setTitle(re.cap(4));
 		return;
 	}
 	// /artist - album - track - song
 	re.setPattern("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
 	if (re.QCM_indexIn(fn) != -1) {
-		st->artist = re.cap(1);
-		st->album = re.cap(2);
-		st->track = re.cap(3).toInt();
-		st->title = re.cap(4);
+		frames.setArtist(re.cap(1));
+		frames.setAlbum(re.cap(2));
+		frames.setTrack(re.cap(3).toInt());
+		frames.setTitle(re.cap(4));
 		return;
 	}
 	// album/artist - track - song
 	re.setPattern("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
 	if (re.QCM_indexIn(fn) != -1) {
-		st->album = re.cap(1);
-		st->artist = re.cap(2);
-		st->track = re.cap(3).toInt();
-		st->title = re.cap(4);
-		remove_artist(st->album);
+		frames.setAlbum(removeArtist(re.cap(1)));
+		frames.setArtist(re.cap(2));
+		frames.setTrack(re.cap(3).toInt());
+		frames.setTitle(re.cap(4));
 		return;
 	}
 	// artist/album/track song
 	re.setPattern("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
 	if (re.QCM_indexIn(fn) != -1) {
-		st->artist = re.cap(1);
-		st->album = re.cap(2);
-		st->track = re.cap(3).toInt();
-		st->title = re.cap(4);
+		frames.setArtist(re.cap(1));
+		frames.setAlbum(re.cap(2));
+		frames.setTrack(re.cap(3).toInt());
+		frames.setTitle(re.cap(4));
 		return;
 	}
 	// album/artist - song
 	re.setPattern("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{3,4}$");
 	if (re.QCM_indexIn(fn) != -1) {
-		st->album = re.cap(1);
-		st->artist = re.cap(2);
-		st->title = re.cap(3);
-		remove_artist(st->album);
+		frames.setAlbum(removeArtist(re.cap(1)));
+		frames.setArtist(re.cap(2));
+		frames.setTitle(re.cap(3));
 		return;
 	}
 }
@@ -545,52 +450,42 @@ void TaggedFile::getTagsFromFilename(StandardTags* st, QString fmt)
 /**
  * Create string with tags according to format string.
  *
- * @param st  tags to use to build filename
- * @param fmt format string containing the following codes:
- *            %s title (song)
- *            %l album
- *            %a artist
- *            %c comment
- *            %y year
- *            %t track
- *            %g genre
+ * @param frames    frames to use to build filename
+ * @param str       format string containing codes supported by
+ *                  FrameFormatReplacer::getReplacement()
  * @param isDirname true to generate a directory name
  *
  * @return format string with format codes replaced by tags.
  */
-QString TaggedFile::formatWithTags(const StandardTags* st, QString fmt,
-								   bool isDirname) const
+QString TaggedFile::formatWithTags(const FrameCollection& frames, QString str,
+                                   bool isDirname) const
 {
 	if (!isDirname) {
-		// first remove directory part from fmt
-		const int sepPos = fmt.QCM_lastIndexOf('/');
+		// first remove directory part from str
+		const int sepPos = str.QCM_lastIndexOf('/');
 		if (sepPos >= 0) {
-			fmt.remove(0, sepPos + 1);
+			str.remove(0, sepPos + 1);
 		}
-		// add extension to fmt
-		fmt += getFileExtension();
+		// add extension to str
+		str += getFileExtension();
 	}
 
-	return st->formatString(fmt, isDirname ?
-													StandardTags::FSF_ReplaceSeparators : 0);
+	FrameFormatReplacer fmt(frames, str);
+	fmt.replacePercentCodes(isDirname ?
+	                        FormatReplacer::FSF_ReplaceSeparators : 0);
+	return fmt.getString();
 }
 
 /**
  * Get filename from tags.
  *
- * @param st  tags to use to build filename
- * @param fmt format string containing the following codes:
- *            %s title (song)
- *            %l album
- *            %a artist
- *            %c comment
- *            %y year
- *            %t track
- *            %g genre
+ * @param frames    frames to use to build filename
+ * @param fmt       format string containing codes supported by
+ *                  FrameFormatReplacer::getReplacement()
  */
-void TaggedFile::getFilenameFromTags(const StandardTags* st, QString fmt)
+void TaggedFile::getFilenameFromTags(const FrameCollection& frames, QString fmt)
 {
-	m_newFilename = formatWithTags(st, fmt);
+	m_newFilename = formatWithTags(frames, fmt);
 }
 
 /**
@@ -768,7 +663,7 @@ QString TaggedFile::getTagFormatV2() const
  * @return str truncated to len characters if necessary, else QString::null.
  */
 QString TaggedFile::checkTruncation(
-	const QString& str, StandardTags::TruncationFlag flag, int len)
+	const QString& str, unsigned flag, int len)
 {
 	if (static_cast<int>(str.length()) > len) {
 		QString s = str;
@@ -790,7 +685,7 @@ QString TaggedFile::checkTruncation(
  *
  * @return val truncated to max if necessary, else -1.
  */
-int TaggedFile::checkTruncation(int val, StandardTags::TruncationFlag flag,
+int TaggedFile::checkTruncation(int val, unsigned flag,
 																int max)
 {
 	if (val > max) {
@@ -873,7 +768,10 @@ bool TaggedFile::setFrameV1(const Frame& frame)
 		} else if (frame.isEmpty()) {
 			n = 0;
 		} else {
-			n = frame.m_value.toInt();
+			int slashPos = frame.m_value.QCM_indexOf("/");
+			n = slashPos == -1 ?
+				frame.m_value.toInt() :
+				frame.m_value.left(slashPos).toInt();
 		} 
 	}
 	switch (frame.m_type) {

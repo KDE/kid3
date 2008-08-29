@@ -34,7 +34,6 @@
 #endif
 #include "qtcompatmac.h"
 #include "generalconfig.h"
-#include "standardtags.h"
 #include "formatconfig.h"
 #include "frame.h"
 
@@ -152,19 +151,6 @@ void FormatConfig::formatString(QString& str) const
 	if (dotPos != -1) {
 		str.append(ext);
 	}
-}
-
-/**
- * Format title, artist and album using this configuration.
- *
- * @param st standard tags
- */
-void FormatConfig::formatStandardTags(StandardTags& st) const
-{
-	formatString(st.title);
-	formatString(st.artist);
-	formatString(st.album);
-	formatString(st.comment);
 }
 
 /**

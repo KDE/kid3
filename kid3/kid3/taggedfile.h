@@ -35,7 +35,6 @@
 #else
 #include <qvaluelist.h>
 #endif
-#include "standardtags.h"
 #include "frame.h"
 
 class DirInfo;
@@ -562,41 +561,16 @@ public:
 	void setFramesV2(const FrameCollection& frames, bool onlyChanged = true);
 
 	/**
-	 * Get ID3v1 tags from file.
-	 *
-	 * @param st tags to put result
-	 */
-	void getStandardTagsV1(StandardTags* st);
-
-	/**
-	 * Get ID3v2 tags from file.
-	 *
-	 * @param st tags to put result
-	 */
-	void getStandardTagsV2(StandardTags* st);
-
-	/**
-	 * Set ID3v1 tags.
-	 *
-	 * @param st tags to set
-	 * @param flt filter specifying which fields to set
-	 */
-	void setStandardTagsV1(const StandardTags* st,
-												 const StandardTagsFilter& flt);
-	/**
-	 * Set ID3v2 tags.
-	 *
-	 * @param st tags to set
-	 * @param flt filter specifying which fields to set
-	 */
-	void setStandardTagsV2(const StandardTags* st,
-												 const StandardTagsFilter& flt);
-	/**
 	 * Get tags from filename.
 	 * Supported formats:
+	 * album/track - artist - song
 	 * artist - album/track song
+	 * /artist - album - track - song
+	 * album/artist - track - song
+	 * artist/album/track song
+	 * album/artist - song
 	 *
-	 * @param st  tags to put result
+	 * @param frames frames to put result
 	 * @param fmt format string containing the following codes:
 	 *            %s title (song)
 	 *            %l album
@@ -605,41 +579,29 @@ public:
 	 *            %y year
 	 *            %t track
 	 */
-	void getTagsFromFilename(StandardTags* st, QString fmt);
+	void getTagsFromFilename(FrameCollection& frames, const QString& fmt);
 
 	/**
 	 * Create string with tags according to format string.
 	 *
-	 * @param st  tags to use to build filename
-	 * @param fmt format string containing the following codes:
-	 *            %s title (song)
-	 *            %l album
-	 *            %a artist
-	 *            %c comment
-	 *            %y year
-	 *            %t track
-	 *            %g genre
+	 * @param frames    frames to use to build filename
+	 * @param str       format string containing codes supported by
+	 *                  FrameFormatReplacer::getReplacement()
 	 * @param isDirname true to generate a directory name
 	 *
 	 * @return format string with format codes replaced by tags.
 	 */
-	QString formatWithTags(const StandardTags* st, QString fmt,
+	QString formatWithTags(const FrameCollection& frames, QString str,
 	                       bool isDirname = false) const;
 
 	/**
 	 * Get filename from tags.
 	 *
-	 * @param st  tags to use to build filename
-	 * @param fmt format string containing the following codes:
-	 *            %s title (song)
-	 *            %l album
-	 *            %a artist
-	 *            %c comment
-	 *            %y year
-	 *            %t track
-	 *            %g genre
+	 * @param frames    frames to use to build filename
+	 * @param fmt       format string containing codes supported by
+	 *                  FrameFormatReplacer::getReplacement()
 	 */
-	void getFilenameFromTags(const StandardTags* st, QString fmt);
+	void getFilenameFromTags(const FrameCollection& frames, QString fmt);
 
 	/**
 	 * Check if file is changed.
@@ -788,7 +750,7 @@ protected:
 	 * @return str truncated to len characters if necessary, else QString::null.
 	 */
 	QString checkTruncation(const QString& str,
-													StandardTags::TruncationFlag flag, int len = 30);
+													unsigned flag, int len = 30);
 
 	/**
 	 * Check if a number has to be truncated.
@@ -799,7 +761,7 @@ protected:
 	 *
 	 * @return val truncated to max if necessary, else -1.
 	 */
-	int checkTruncation(int val, StandardTags::TruncationFlag flag,
+	int checkTruncation(int val, unsigned flag,
 											int max = 255);
 
 	/**

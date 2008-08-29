@@ -27,7 +27,6 @@
 #include "flacfile.hpp"
 #ifdef HAVE_FLAC
 
-#include "standardtags.h"
 #include "genres.h"
 #include "dirinfo.h"
 #include "pictureframe.h"

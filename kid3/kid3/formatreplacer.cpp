@@ -102,8 +102,12 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 				if (urlEncode) {
 					QCM_QUrl_encode(repl);
 				}
-				m_str.replace(pos, codeLen, repl);
-				pos += repl.length();
+				if (!repl.isNull() || codeLen > 2) {
+					m_str.replace(pos, codeLen, repl);
+					pos += repl.length();
+				} else {
+					++pos;
+				}
 			} else {
 				++pos;
 			}

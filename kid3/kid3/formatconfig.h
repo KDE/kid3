@@ -32,7 +32,6 @@
 #include <qmap.h>
 
 class QString;
-class StandardTags;
 class FrameCollection;
 
 /**
@@ -76,13 +75,6 @@ public:
 	 * @param str string to format
 	 */
 	void formatString(QString& str) const;
-
-	/**
-	 * Format title, artist and album using this configuration.
-	 *
-	 * @param st standard tags
-	 */
-	void formatStandardTags(StandardTags& st) const;
 
 	/**
 	 * Format frames using this configuration.

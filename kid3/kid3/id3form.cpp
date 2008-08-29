@@ -189,7 +189,7 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_formatComboBox = new QComboBox(filenameGroupBox);
 	m_formatComboBox->setEditable(true);
-	m_formatComboBox->setToolTip(StandardTags::getFormatToolTip());
+	m_formatComboBox->setToolTip(FrameFormatReplacer::getToolTip());
 	filenameGroupBoxLayout->addWidget(m_formatComboBox, 1, 1);
 
 	QPushButton* fnV2Button =
@@ -319,7 +319,7 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_formatComboBox = new QComboBox(filenameGroupBox);
 	m_formatComboBox->setEditable(true);
-	QToolTip::add(m_formatComboBox, StandardTags::getFormatToolTip());
+	QToolTip::add(m_formatComboBox, FrameFormatReplacer::getToolTip());
 	filenameGroupBoxLayout->addWidget(m_formatComboBox, 2, 1);
 
 	QPushButton* fnV2Button =
@@ -701,46 +701,6 @@ void Id3Form::dirSelected(
 	if (!dirPath.isEmpty()) {
 		theApp->openDirectory(dirPath, true);
 	}
-}
-
-/**
- * Get filter from ID3v1 check boxes.
- *
- * @return filter.
- */
-StandardTagsFilter Id3Form::getFilterFromID3V1()
-{
-	StandardTagsFilter flt;
-	FrameFilter frameFilter(m_framesV1Table->getEnabledFrameFilter());
-	flt.m_enableTitle   = frameFilter.isEnabled(Frame::FT_Title);
-	flt.m_enableArtist  = frameFilter.isEnabled(Frame::FT_Artist);
-	flt.m_enableAlbum   = frameFilter.isEnabled(Frame::FT_Album);
-	flt.m_enableComment = frameFilter.isEnabled(Frame::FT_Comment);
-	flt.m_enableYear    = frameFilter.isEnabled(Frame::FT_Date);
-	flt.m_enableTrack   = frameFilter.isEnabled(Frame::FT_Track);
-	flt.m_enableGenre   = frameFilter.isEnabled(Frame::FT_Genre);
-	flt.allFalseToAllTrue();
-	return flt;
-}
-
-/**
- * Get filter from ID3v2 check boxes.
- *
- * @return filter.
- */
-StandardTagsFilter Id3Form::getFilterFromID3V2()
-{
-	StandardTagsFilter flt;
-	FrameFilter frameFilter(m_framesV2Table->getEnabledFrameFilter());
-	flt.m_enableTitle   = frameFilter.isEnabled(Frame::FT_Title);
-	flt.m_enableArtist  = frameFilter.isEnabled(Frame::FT_Artist);
-	flt.m_enableAlbum   = frameFilter.isEnabled(Frame::FT_Album);
-	flt.m_enableComment = frameFilter.isEnabled(Frame::FT_Comment);
-	flt.m_enableYear    = frameFilter.isEnabled(Frame::FT_Date);
-	flt.m_enableTrack   = frameFilter.isEnabled(Frame::FT_Track);
-	flt.m_enableGenre   = frameFilter.isEnabled(Frame::FT_Genre);
-	flt.allFalseToAllTrue();
-	return flt;
 }
 
 /**

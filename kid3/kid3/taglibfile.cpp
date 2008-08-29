@@ -34,7 +34,6 @@
 #include <QByteArray>
 #endif
 
-#include "standardtags.h"
 #include "genres.h"
 #include "dirinfo.h"
 #include "kid3.h"
@@ -698,7 +697,7 @@ void TagLibFile::setTitleV1(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->title())) {
-			QString s = checkTruncation(str, StandardTags::TF_Title);
+			QString s = checkTruncation(str, 1 << Frame::FT_Title);
 			if (!s.isNull())
 				m_tagV1->setTitle(QSTRING_TO_TSTRING(s));
 			else
@@ -719,7 +718,7 @@ void TagLibFile::setArtistV1(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->artist())) {
-			QString s = checkTruncation(str, StandardTags::TF_Artist);
+			QString s = checkTruncation(str, 1 << Frame::FT_Artist);
 			if (!s.isNull())
 				m_tagV1->setArtist(QSTRING_TO_TSTRING(s));
 			else
@@ -740,7 +739,7 @@ void TagLibFile::setAlbumV1(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->album())) {
-			QString s = checkTruncation(str, StandardTags::TF_Album);
+			QString s = checkTruncation(str, 1 << Frame::FT_Album);
 			if (!s.isNull())
 				m_tagV1->setAlbum(QSTRING_TO_TSTRING(s));
 			else
@@ -761,7 +760,7 @@ void TagLibFile::setCommentV1(const QString& str)
 		TagLib::String tstr = str.isEmpty() ?
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV1->comment())) {
-			QString s = checkTruncation(str, StandardTags::TF_Comment, 28);
+			QString s = checkTruncation(str, 1 << Frame::FT_Comment, 28);
 			if (!s.isNull())
 				m_tagV1->setComment(QSTRING_TO_TSTRING(s));
 			else
@@ -795,7 +794,7 @@ void TagLibFile::setTrackNumV1(int num)
 {
 	if (makeTagV1Settable() && num >= 0) {
 		if (num != static_cast<int>(m_tagV1->track())) {
-			int n = checkTruncation(num, StandardTags::TF_Track);
+			int n = checkTruncation(num, 1 << Frame::FT_Track);
 			if (n != -1)
 				m_tagV1->setTrack(n);
 			else
@@ -821,7 +820,7 @@ void TagLibFile::setGenreV1(const QString& str)
 		}
 		// if the string cannot be converted to a number, set the truncation flag
 		checkTruncation(!str.isEmpty() && Genres::getNumber(str) == 0xff ? 1 : 0,
-										StandardTags::TF_Genre, 0);
+										1 << Frame::FT_Genre, 0);
 	}
 }
 
@@ -2596,6 +2595,9 @@ bool TagLibFile::addFrameV2(Frame& frame)
 				}
 			} else if (frameId == "USLT") {
 				id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
+				if (id3Frame) {
+					((TagLib::ID3v2::UnsynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
+				}
 			}
 			if (!id3Frame) {
 				TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =

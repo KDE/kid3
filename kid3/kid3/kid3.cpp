@@ -88,7 +88,6 @@
 #include "exportdialog.h"
 #include "numbertracksdialog.h"
 #include "filterdialog.h"
-#include "standardtags.h"
 #include "rendirdialog.h"
 #include "filelistitem.h"
 #include "dirlist.h"
@@ -2149,7 +2148,6 @@ void Kid3App::slotSettingsConfigure()
  */
 void Kid3App::slotApplyFilenameFormat()
 {
-	StandardTags st;
 	if (m_view->numFilesSelected() == 1) {
 		updateCurrentSelection();
 	}
@@ -2888,20 +2886,21 @@ void Kid3App::pasteTagsV2()
 void Kid3App::getTagsFromFilenameV1()
 {
 	updateCurrentSelection();
-	StandardTags st;
+	FrameCollection frames;
 	FileListItem* mp3file = m_view->firstFile();
 	bool multiselect = m_view->numFilesSelected() > 1;
-	StandardTagsFilter flt(m_view->getFilterFromID3V1());
+	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
 			if (!multiselect && m_view->isFilenameEditEnabled()) {
 				mp3file->getFile()->setFilename(
 					m_view->getFilename());
 			}
-			mp3file->getFile()->getStandardTagsV1(&st);
-			mp3file->getFile()->getTagsFromFilename(&st, m_view->getFilenameFormat());
-			formatStandardTagsIfEnabled(&st);
-			mp3file->getFile()->setStandardTagsV1(&st, flt);
+			mp3file->getFile()->getAllFramesV1(frames);
+			mp3file->getFile()->getTagsFromFilename(frames, m_view->getFilenameFormat());
+			frames.removeDisabledFrames(flt);
+			formatFramesIfEnabled(frames);
+			mp3file->getFile()->setFramesV1(frames);
 		}
 		mp3file = m_view->nextFile();
 	}
@@ -2917,20 +2916,21 @@ void Kid3App::getTagsFromFilenameV1()
 void Kid3App::getTagsFromFilenameV2()
 {
 	updateCurrentSelection();
-	StandardTags st;
+	FrameCollection frames;
 	FileListItem* mp3file = m_view->firstFile();
 	bool multiselect = m_view->numFilesSelected() > 1;
-	StandardTagsFilter flt(m_view->getFilterFromID3V2());
+	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
 			if (!multiselect && m_view->isFilenameEditEnabled()) {
 				mp3file->getFile()->setFilename(
 					m_view->getFilename());
 			}
-			mp3file->getFile()->getStandardTagsV2(&st);
-			mp3file->getFile()->getTagsFromFilename(&st, m_view->getFilenameFormat());
-			formatStandardTagsIfEnabled(&st);
-			mp3file->getFile()->setStandardTagsV2(&st, flt);
+			mp3file->getFile()->getAllFramesV2(frames);
+			mp3file->getFile()->getTagsFromFilename(frames, m_view->getFilenameFormat());
+			frames.removeDisabledFrames(flt);
+			formatFramesIfEnabled(frames);
+			mp3file->getFile()->setFramesV2(frames);
 		}
 		mp3file = m_view->nextFile();
 	}
@@ -2948,20 +2948,20 @@ void Kid3App::getTagsFromFilenameV2()
 void Kid3App::getFilenameFromTags(int tag_version)
 {
 	updateCurrentSelection();
-	StandardTags st;
+	FrameCollection frames;
 	FileListItem* mp3file = m_view->firstFile();
 	bool multiselect = m_view->numFilesSelected() > 1;
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
 			if (tag_version == 2) {
-				mp3file->getFile()->getStandardTagsV2(&st);
+				mp3file->getFile()->getAllFramesV2(frames);
 			}
 			else {
-				mp3file->getFile()->getStandardTagsV1(&st);
+				mp3file->getFile()->getAllFramesV1(frames);
 			}
-			if (!st.isEmptyOrInactive()) {
+			if (!frames.isEmptyOrInactive()) {
 				mp3file->getFile()->getFilenameFromTags(
-					&st, m_view->getFilenameFormat());
+					frames, m_view->getFilenameFormat());
 				formatFileNameIfEnabled(mp3file->getFile());
 				if (!multiselect) {
 					m_view->setFilename(
@@ -2981,14 +2981,15 @@ void Kid3App::getFilenameFromTags(int tag_version)
 void Kid3App::copyV1ToV2()
 {
 	updateCurrentSelection();
-	StandardTags st;
-	StandardTagsFilter flt(m_view->getFilterFromID3V2());
+	FrameCollection frames;
+	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			mp3file->getFile()->getStandardTagsV1(&st);
-			formatStandardTagsIfEnabled(&st);
-			mp3file->getFile()->setStandardTagsV2(&st, flt);
+			mp3file->getFile()->getAllFramesV1(frames);
+			frames.removeDisabledFrames(flt);
+			formatFramesIfEnabled(frames);
+			mp3file->getFile()->setFramesV2(frames, false);
 		}
 		mp3file = m_view->nextFile();
 	}
@@ -3002,14 +3003,15 @@ void Kid3App::copyV1ToV2()
 void Kid3App::copyV2ToV1()
 {
 	updateCurrentSelection();
-	StandardTags st;
-	StandardTagsFilter flt(m_view->getFilterFromID3V1());
+	FrameCollection frames;
+	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
 		if (mp3file->isInSelection()) {
-			mp3file->getFile()->getStandardTagsV2(&st);
-			formatStandardTagsIfEnabled(&st);
-			mp3file->getFile()->setStandardTagsV1(&st, flt);
+			mp3file->getFile()->getAllFramesV2(frames);
+			frames.removeDisabledFrames(flt);
+			formatFramesIfEnabled(frames);
+			mp3file->getFile()->setFramesV1(frames, false);
 		}
 		mp3file = m_view->nextFile();
 	}
@@ -3252,18 +3254,6 @@ void Kid3App::formatFileNameIfEnabled(TaggedFile* taggedFile) const
 		QString fn(taggedFile->getFilename());
 		s_fnFormatCfg.formatString(fn);
 		taggedFile->setFilename(fn);
-	}
-}
-
-/**
- * Format tags if format while editing is switched on.
- *
- * @param st standard tags
- */
-void Kid3App::formatStandardTagsIfEnabled(StandardTags* st) const
-{
-	if (s_id3FormatCfg.m_formatWhileEditing) {
-		s_id3FormatCfg.formatStandardTags(*st);
 	}
 }
 

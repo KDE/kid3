@@ -27,7 +27,6 @@
 #include "oggfile.hpp"
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
-#include "standardtags.h"
 #include "dirinfo.h"
 #include <qfile.h>
 #include <qdir.h>

@@ -27,7 +27,6 @@
 #include "m4afile.h"
 #ifdef HAVE_MP4V2
 
-#include "standardtags.h"
 #include "dirinfo.h"
 #include "genres.h"
 #include "pictureframe.h"
