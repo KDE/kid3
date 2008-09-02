@@ -1512,10 +1512,11 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
 			case QVariant::UInt:
 			{
 				int intVal = fld.m_value.toInt();
-				id3Field->Set(intVal);
 				if (fld.m_id == ID3FN_TEXTENC) {
+					if (intVal == ID3TE_UTF8) intVal = ID3TE_UTF16;
 					enc = static_cast<ID3_TextEnc>(intVal);
 				}
+				id3Field->Set(intVal);
 				break;
 			}
 
