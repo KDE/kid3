@@ -874,8 +874,11 @@ bool TaggedFile::setFrameV2(const Frame& frame)
 		} else if (frame.isEmpty()) {
 			n = 0;
 		} else {
-			n = frame.m_value.toInt();
-		} 
+			int slashPos = frame.m_value.QCM_indexOf("/");
+			n = slashPos == -1 ?
+				frame.m_value.toInt() :
+				frame.m_value.left(slashPos).toInt();
+		}
 	}
 	switch (frame.m_type) {
 		case Frame::FT_Album:
