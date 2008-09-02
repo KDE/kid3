@@ -652,6 +652,9 @@ QString OggFile::getTagFormatV2() const
  */
 bool OggFile::setFrameV2(const Frame& frame)
 {
+	if (frame.getType() == Frame::FT_Picture) {
+		return false;
+	}
 	if (frame.getType() == Frame::FT_Track) {
 		int numTracks = getTotalNumberOfTracksIfEnabled();
 		if (numTracks > 0) {
@@ -698,6 +701,9 @@ bool OggFile::setFrameV2(const Frame& frame)
  */
 bool OggFile::addFrameV2(Frame& frame)
 {
+	if (frame.getType() == Frame::FT_Picture) {
+		return false;
+	}
 	// Add a new frame.
 	QString name(getVorbisName(frame));
 	m_comments.push_back(OggFile::CommentField(name, frame.getValue()));

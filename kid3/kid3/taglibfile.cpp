@@ -2470,6 +2470,9 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+			if (frame.getType() == Frame::FT_Picture) {
+				return false;
+			}
 			TagLib::String key = QSTRING_TO_TSTRING(getVorbisName(frame));
 			TagLib::String value = QSTRING_TO_TSTRING(frame.getValue());
 #if TAGLIB_VERSION <= 0x010400
@@ -2509,6 +2512,9 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 			markTag2Changed();
 			return true;
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+			if (frame.getType() == Frame::FT_Picture) {
+				return false;
+			}
 			apeTag->addValue(QSTRING_TO_TSTRING(getApeName(frame)),
 											 QSTRING_TO_TSTRING(frame.getValue()));
 			markTag2Changed();
@@ -2636,6 +2642,9 @@ bool TagLibFile::addFrameV2(Frame& frame)
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+			if (frame.getType() == Frame::FT_Picture) {
+				return false;
+			}
 			QString name(getVorbisName(frame));
 			TagLib::String tname = QSTRING_TO_TSTRING(name);
 			TagLib::String tvalue = QSTRING_TO_TSTRING(frame.getValue());
@@ -2666,6 +2675,9 @@ bool TagLibFile::addFrameV2(Frame& frame)
 			markTag2Changed();
 			return true;
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
+			if (frame.getType() == Frame::FT_Picture) {
+				return false;
+			}
 			QString name(getApeName(frame));
 			TagLib::String tname = QSTRING_TO_TSTRING(name);
 			TagLib::String tvalue = QSTRING_TO_TSTRING(frame.getValue());
