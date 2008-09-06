@@ -60,6 +60,21 @@
 #include "commandstable.h"
 #include "kid3.h"
 
+enum { TextEncodingV1Latin1Index = 13 };
+
+/**
+ * Remove aliases in braces from text encoding combo box entry.
+ *
+ * @param comboEntry text encoding combo box entry
+ *
+ * @return codec name.
+ */
+static QString getTextEncodingV1CodecName(const QString& comboEntry)
+{
+	int braceIdx = comboEntry.QCM_indexOf(" (");
+	return braceIdx == -1 ? comboEntry : comboEntry.left(braceIdx);
+}
+
 /**
  * Constructor.
  *
@@ -96,20 +111,104 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			vlayout->setSpacing(6);
 #if QT_VERSION >= 0x040000
 			QGroupBox* v1GroupBox = new QGroupBox(i18n("ID3v1"), tagsPage);
-#else
-			QGroupBox* v1GroupBox = new QGroupBox(1, Qt::Horizontal, i18n("ID3v1"), tagsPage);
-#endif
+			QGridLayout* v1GroupBoxLayout = new QGridLayout(v1GroupBox);
+			v1GroupBoxLayout->setMargin(2);
+			v1GroupBoxLayout->setSpacing(4);
 			if (v1GroupBox) {
 				m_markTruncationsCheckBox = new QCheckBox(i18n("&Mark truncated fields"), v1GroupBox);
+				v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+				QLabel* textEncodingV1Label = new QLabel(i18n("Text &encoding:"), v1GroupBox);
+				m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
+#endif
+#else
+			QGroupBox* v1GroupBox = new QGroupBox(2, Qt::Horizontal, i18n("ID3v1"), tagsPage);
+			if (v1GroupBox) {
+				m_markTruncationsCheckBox = new QCheckBox(i18n("&Mark truncated fields"), v1GroupBox);
+				v1GroupBox->addSpace(0);
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+				QLabel* textEncodingV1Label = new QLabel(i18n("Text &encoding:"), v1GroupBox);
+				m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
+#endif
+#endif
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+				if (textEncodingV1Label && m_textEncodingV1ComboBox) {
+					static const char* const codecs[] = {
+						"Apple Roman (macintosh)",
+						"Big5",
+						"big5-0",
+						"Big5-HKSCS",
+						"big5hkscs-0",
+						"EUC-JP",
+						"EUC-KR",
+						"GB18030",
+						"GBK (windows-936)",
+						"hp-roman8",
+						"IBM850",
+						"IBM866",
+						"ISO-2022-JP (JIS7)",
+						"ISO-8859-1 (latin1)",
+						"ISO-8859-2 (latin2)",
+						"ISO-8859-3 (latin3)",
+						"ISO-8859-4 (latin4)",
+						"ISO-8859-5 (cyrillic)",
+						"ISO-8859-6 (arabic)",
+						"ISO-8859-7 (greek)",
+						"ISO-8859-8 (hebrew)",
+						"ISO-8859-9 (latin5)",
+						"ISO-8859-10 (latin6)",
+						"ISO-8859-13 (baltic)",
+						"ISO-8859-14 (latin8, iso-celtic)",
+						"ISO-8859-15 (latin9)",
+						"ISO-8859-16 (latin10)",
+						"ISO-10646-UCS-2 (UTF-16)",
+						"Iscii-Bng",
+						"Iscii-Dev",
+						"Iscii-Gjr",
+						"Iscii-Knd",
+						"Iscii-Mlm",
+						"Iscii-Ori",
+						"Iscii-Pnj",
+						"Iscii-Tlg",
+						"Iscii-Tml",
+						"jisx0201*-0",
+						"KOI8-R",
+						"KOI8-U",
+						"ksc5601.1987-0",
+						"mulelao-1",
+						"Shift_JIS (SJIS, MS_Kanji)",
+						"TIS-620 (ISO 8859-11)",
+						"TSCII",
+						"UTF-8",
+						"windows-1250",
+						"windows-1251",
+						"windows-1252",
+						"windows-1253",
+						"windows-1254",
+						"windows-1255",
+						"windows-1256",
+						"windows-1257",
+						"windows-1258",
+						"WINSAMI2 (WS2)",
+						0
+					};
+					Q_ASSERT(std::strcmp(codecs[TextEncodingV1Latin1Index], "ISO-8859-1 (latin1)") == 0);
+					const char* const* str = codecs;
+					m_textEncodingV1List.clear();
+					while (*str) {
+						m_textEncodingV1List += *str++;
+					}
+					m_textEncodingV1ComboBox->QCM_addItems(m_textEncodingV1List);
+					m_textEncodingV1ComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+					textEncodingV1Label->setBuddy(m_textEncodingV1ComboBox);
 #if QT_VERSION >= 0x040000
-				QHBoxLayout* hbox = new QHBoxLayout;
-				hbox->setMargin(2);
-				hbox->addWidget(m_markTruncationsCheckBox);
-				v1GroupBox->setLayout(hbox);
+					v1GroupBoxLayout->addWidget(textEncodingV1Label, 1, 0);
+					v1GroupBoxLayout->addWidget(m_textEncodingV1ComboBox, 1, 1);
+#endif
+				}
 #endif
 				vlayout->addWidget(v1GroupBox);
 			}
-
 #if QT_VERSION >= 0x040000
 			QGroupBox* v2GroupBox = new QGroupBox(i18n("ID3v2"), tagsPage);
 			QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox);
@@ -458,6 +557,18 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 #endif
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+	int textEncodingV1Index = TextEncodingV1Latin1Index;
+	int index = 0;
+	for (QStringList::const_iterator it = m_textEncodingV1List.begin();
+			 it != m_textEncodingV1List.end();
+			 ++it) {
+		if (getTextEncodingV1CodecName(*it) == miscCfg->m_textEncodingV1) {
+			textEncodingV1Index = index;
+			break;
+		}
+		++index;
+	}
+	m_textEncodingV1ComboBox->QCM_setCurrentIndex(textEncodingV1Index);
 	m_textEncodingComboBox->QCM_setCurrentIndex(miscCfg->m_textEncoding);
 #endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
@@ -517,6 +628,8 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+	miscCfg->m_textEncodingV1 =
+		getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText());
 	miscCfg->m_textEncoding = m_textEncodingComboBox->QCM_currentIndex();
 #endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB

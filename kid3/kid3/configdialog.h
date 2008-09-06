@@ -35,6 +35,7 @@
 #endif
 #endif
 
+#include <qstringlist.h>
 #include "qtcompatmac.h"
 #ifdef KID3_USE_KCONFIGDIALOG
 #include <kconfigdialog.h>
@@ -132,6 +133,10 @@ private:
 	QCheckBox* m_preserveTimeCheckBox;
 	/** Mark truncated fields checkbox */
 	QCheckBox* m_markTruncationsCheckBox;
+	/** ID3v1 text encodings */
+	QStringList m_textEncodingV1List;
+	/** ID3v1 text encoding combo box */
+	QComboBox* m_textEncodingV1ComboBox;
 	/** Use track/total number of tracks format checkbox */
 	QCheckBox* m_totalNumTracksCheckBox;
 	/** Comment field name combo box */

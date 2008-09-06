@@ -29,6 +29,7 @@
 
 #include <qdir.h>
 #include <qstring.h>
+#include <qtextcodec.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QByteArray>
@@ -60,6 +61,9 @@
 /** This will be set for id3lib versions with Unicode bugs. */
 #define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
 #endif
+
+/** Text codec for ID3v1 tags, 0 to use default (ISO 8859-1) */
+const QTextCodec* Mp3File::s_textCodecV1 = 0;
 
 /** Default text encoding */
 ID3_TextEnc Mp3File::s_defaultTextEncoding = ID3TE_ISO8859_1;
@@ -273,11 +277,12 @@ static QString fixUpUnicode(const unicode_t* str, size_t numChars)
  * Get string from text field.
  *
  * @param field field
+ * @param codec text codec to use, 0 for default
  *
  * @return string,
  *         "" if the field does not exist.
  */
-static QString getString(ID3_Field* field)
+static QString getString(ID3_Field* field, const QTextCodec* codec = 0)
 {
 	QString text("");
 	if (field != NULL) {
@@ -301,7 +306,9 @@ static QString getString(ID3_Field* field)
 			// (enc == ID3TE_ISO8859_1 || enc == ID3TE_UTF8)
 			size_t numItems = field->GetNumTextItems();
 			if (numItems <= 1) {
-				text = QString(field->GetRawText());
+				text = codec ?
+					codec->toUnicode(field->GetRawText(), field->Size()) :
+					QString(field->GetRawText());
 			} else {
 				// if there are multiple items, put them into one string
 				// separated by a special separator.
@@ -324,11 +331,13 @@ static QString getString(ID3_Field* field)
  *
  * @param tag ID3 tag
  * @param id  frame ID
+ * @param codec text codec to use, 0 for default
  * @return string,
  *         "" if the field does not exist,
  *         QString::null if the tags do not exist.
  */
-static QString getTextField(const ID3_Tag* tag, ID3_FrameID id)
+static QString getTextField(const ID3_Tag* tag, ID3_FrameID id,
+														const QTextCodec* codec = 0)
 {
 	if (!tag) {
 		return QString::null;
@@ -337,7 +346,7 @@ static QString getTextField(const ID3_Tag* tag, ID3_FrameID id)
 	ID3_Field* fld;
 	ID3_Frame* frame = tag->Find(id);
 	if (frame && ((fld = frame->GetField(ID3FN_TEXT)) != NULL)) {
-		str = getString(fld);
+		str = getString(fld, codec);
 	}
 	return str;
 }
@@ -495,8 +504,10 @@ static void setStringList(ID3_Field* field, const QStringList& lst)
  *
  * @param field        field
  * @param text         text to set
+ * @param codec        text codec to use, 0 for default
  */
-static void setString(ID3_Field* field, const QString& text)
+static void setString(ID3_Field* field, const QString& text,
+											const QTextCodec* codec = 0)
 {
 	if (text.QCM_indexOf(Frame::stringListSeparator()) == -1) {
 		ID3_TextEnc enc = field->GetEncoding();
@@ -511,7 +522,7 @@ static void setString(ID3_Field* field, const QString& text)
 			field->Set(text.QCM_toUtf8().data());
 		} else {
 			// enc == ID3TE_ISO8859_1
-			field->Set(text.QCM_latin1());
+			field->Set(codec ? codec->fromUnicode(text).data() : text.QCM_latin1());
 		}
 	} else {
 		setStringList(field, QCM_split(Frame::stringListSeparator(), text));
@@ -527,12 +538,13 @@ static void setString(ID3_Field* field, const QString& text)
  * @param allowUnicode true to allow setting of Unicode encoding if necessary
  * @param replace      true to replace an existing field
  * @param removeEmpty  true to remove a field if text is empty
+ * @param codec        text codec to use, 0 for default
  *
  * @return true if the field was changed.
  */
 static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 												 bool allowUnicode = false, bool replace = true,
-												 bool removeEmpty = true)
+												 bool removeEmpty = true, const QTextCodec* codec = 0)
 {
 	bool changed = false;
 	if (tag && !text.isNull()) {
@@ -571,7 +583,7 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 						encfld->Set(enc);
 					}
 					fld->SetEncoding(enc);
-					setString(fld, text);
+					setString(fld, text, codec);
 					tag->AttachFrame(frame);
 				}
 			}
@@ -667,7 +679,7 @@ static bool setGenreNum(ID3_Tag* tag, int num)
  */
 QString Mp3File::getTitleV1()
 {
-	return getTextField(m_tagV1, ID3FID_TITLE);
+	return getTextField(m_tagV1, ID3FID_TITLE, s_textCodecV1);
 }
 
 /**
@@ -679,7 +691,7 @@ QString Mp3File::getTitleV1()
  */
 QString Mp3File::getArtistV1()
 {
-	return getTextField(m_tagV1, ID3FID_LEADARTIST);
+	return getTextField(m_tagV1, ID3FID_LEADARTIST, s_textCodecV1);
 }
 
 /**
@@ -691,7 +703,7 @@ QString Mp3File::getArtistV1()
  */
 QString Mp3File::getAlbumV1()
 {
-	return getTextField(m_tagV1, ID3FID_ALBUM);
+	return getTextField(m_tagV1, ID3FID_ALBUM, s_textCodecV1);
 }
 
 /**
@@ -703,7 +715,7 @@ QString Mp3File::getAlbumV1()
  */
 QString Mp3File::getCommentV1()
 {
-	return getTextField(m_tagV1, ID3FID_COMMENT);
+	return getTextField(m_tagV1, ID3FID_COMMENT, s_textCodecV1);
 }
 
 /**
@@ -845,11 +857,11 @@ QString Mp3File::getGenreV2()
  */
 void Mp3File::setTitleV1(const QString& str)
 {
-	if (getTextField(m_tagV1, ID3FID_TITLE) != str &&
-			setTextField(m_tagV1, ID3FID_TITLE, str)) {
+	if (getTextField(m_tagV1, ID3FID_TITLE, s_textCodecV1) != str &&
+			setTextField(m_tagV1, ID3FID_TITLE, str, false, true, true, s_textCodecV1)) {
 		markTag1Changed();
 		QString s = checkTruncation(str, 1 << Frame::FT_Title);
-		if (!s.isNull()) setTextField(m_tagV1, ID3FID_TITLE, s);
+		if (!s.isNull()) setTextField(m_tagV1, ID3FID_TITLE, s, false, true, true, s_textCodecV1);
 	}
 }
 
@@ -860,11 +872,11 @@ void Mp3File::setTitleV1(const QString& str)
  */
 void Mp3File::setArtistV1(const QString& str)
 {
-	if (getTextField(m_tagV1, ID3FID_LEADARTIST) != str &&
-			setTextField(m_tagV1, ID3FID_LEADARTIST, str)) {
+	if (getTextField(m_tagV1, ID3FID_LEADARTIST, s_textCodecV1) != str &&
+			setTextField(m_tagV1, ID3FID_LEADARTIST, str, false, true, true, s_textCodecV1)) {
 		markTag1Changed();
 		QString s = checkTruncation(str, 1 << Frame::FT_Artist);
-		if (!s.isNull()) setTextField(m_tagV1, ID3FID_LEADARTIST, s);
+		if (!s.isNull()) setTextField(m_tagV1, ID3FID_LEADARTIST, s, false, true, true, s_textCodecV1);
 	}
 }
 
@@ -875,11 +887,11 @@ void Mp3File::setArtistV1(const QString& str)
  */
 void Mp3File::setAlbumV1(const QString& str)
 {
-	if (getTextField(m_tagV1, ID3FID_ALBUM) != str &&
-			setTextField(m_tagV1, ID3FID_ALBUM, str)) {
+	if (getTextField(m_tagV1, ID3FID_ALBUM, s_textCodecV1) != str &&
+			setTextField(m_tagV1, ID3FID_ALBUM, str, false, true, true, s_textCodecV1)) {
 		markTag1Changed();
 		QString s = checkTruncation(str, 1 << Frame::FT_Album);
-		if (!s.isNull()) setTextField(m_tagV1, ID3FID_ALBUM, s);
+		if (!s.isNull()) setTextField(m_tagV1, ID3FID_ALBUM, s, false, true, true, s_textCodecV1);
 	}
 }
 
@@ -890,11 +902,11 @@ void Mp3File::setAlbumV1(const QString& str)
  */
 void Mp3File::setCommentV1(const QString& str)
 {
-	if (getTextField(m_tagV1, ID3FID_COMMENT) != str &&
-			setTextField(m_tagV1, ID3FID_COMMENT, str)) {
+	if (getTextField(m_tagV1, ID3FID_COMMENT, s_textCodecV1) != str &&
+			setTextField(m_tagV1, ID3FID_COMMENT, str, false, true, true, s_textCodecV1)) {
 		markTag1Changed();
 		QString s = checkTruncation(str, 1 << Frame::FT_Comment, 28);
-		if (!s.isNull()) setTextField(m_tagV1, ID3FID_COMMENT, s);
+		if (!s.isNull()) setTextField(m_tagV1, ID3FID_COMMENT, s, false, true, true, s_textCodecV1);
 	}
 }
 
@@ -1830,6 +1842,16 @@ QStringList Mp3File::getFrameIds() const
 		}
 	}
 	return lst;
+}
+
+/**
+ * Set the text codec to be used for tag 1.
+ *
+ * @param codec text codec, 0 to use default (ISO 8859-1)
+ */
+void Mp3File::setTextCodecV1(const QTextCodec* codec)
+{
+	s_textCodecV1 = codec;
 }
 
 /**

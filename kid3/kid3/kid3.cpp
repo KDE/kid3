@@ -35,6 +35,7 @@
 #include <qpushbutton.h>
 #include <qprogressbar.h>
 #include <qimage.h>
+#include <qtextcodec.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QCloseEvent>
@@ -943,6 +944,26 @@ void Kid3App::saveOptions()
 }
 
 /**
+ * Set the ID3v1 and ID3v2 text encodings from the configuration.
+ */
+static void setTextEncodings()
+{
+	const QTextCodec* id3v1TextCodec =
+		Kid3App::s_miscCfg.m_textEncodingV1 != "ISO-8859-1" ?
+		QTextCodec::codecForName(Kid3App::s_miscCfg.m_textEncodingV1.QCM_latin1()) : 0;
+#ifdef HAVE_ID3LIB
+	Mp3File::setDefaultTextEncoding(
+		static_cast<MiscConfig::TextEncoding>(Kid3App::s_miscCfg.m_textEncoding));
+	Mp3File::setTextCodecV1(id3v1TextCodec);
+#endif
+#ifdef HAVE_TAGLIB
+	TagLibFile::setDefaultTextEncoding(
+		static_cast<MiscConfig::TextEncoding>(Kid3App::s_miscCfg.m_textEncoding));
+	TagLibFile::setTextCodecV1(id3v1TextCodec);
+#endif
+}
+
+/**
  * Load application options.
  */
 void Kid3App::readOptions()
@@ -951,14 +972,7 @@ void Kid3App::readOptions()
 	if (s_miscCfg.m_nameFilter.isEmpty()) {
 		createFilterString(&s_miscCfg.m_nameFilter);
 	}
-#ifdef HAVE_ID3LIB
-	Mp3File::setDefaultTextEncoding(
-		static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
-#endif
-#ifdef HAVE_TAGLIB
-	TagLibFile::setDefaultTextEncoding(
-		static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
-#endif
+	setTextEncodings();
 	s_fnFormatCfg.readFromConfig(m_config);
 	s_id3FormatCfg.readFromConfig(m_config);
 	s_genCfg.readFromConfig(m_config);
@@ -2124,14 +2138,7 @@ void Kid3App::slotSettingsConfigure()
 			if (!s_miscCfg.m_markTruncations) {
 				m_view->frameTableV1()->markRows(0);
 			}
-#ifdef HAVE_ID3LIB
-			Mp3File::setDefaultTextEncoding(
-				static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
-#endif
-#ifdef HAVE_TAGLIB
-			TagLibFile::setDefaultTextEncoding(
-				static_cast<MiscConfig::TextEncoding>(s_miscCfg.m_textEncoding));
-#endif
+			setTextEncodings();
 #if QT_VERSION < 0x040000
 			m_view->frameTableV1()->triggerUpdateGenres();
 			m_view->frameTableV2()->triggerUpdateGenres();

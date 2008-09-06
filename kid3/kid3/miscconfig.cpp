@@ -110,6 +110,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_hideV1(false),
 	m_hideV2(false),
 	m_id3v2Version(ID3v2_3_0),
+	m_textEncodingV1(""),
 	m_textEncoding(TE_ISO8859_1),
 	m_useProxy(false),
 	m_onlyCustomGenres(false)
@@ -155,6 +156,7 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("HideV1", m_hideV1);
 	cfg.writeEntry("HideV2", m_hideV2);
 	cfg.writeEntry("ID3v2Version", m_id3v2Version);
+	cfg.writeEntry("TextEncodingV1", m_textEncodingV1);
 	cfg.writeEntry("TextEncoding", m_textEncoding);
 	cfg.writeEntry("UseProxy", m_useProxy);
 	cfg.writeEntry("Proxy", m_proxy);
@@ -211,6 +213,7 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/HideV1", m_hideV1);
 	config->QCM_writeEntry("/HideV2", m_hideV2);
 	config->QCM_writeEntry("/ID3v2Version", m_id3v2Version);
+	config->QCM_writeEntry("/TextEncodingV1", m_textEncodingV1);
 	config->QCM_writeEntry("/TextEncoding", m_textEncoding);
 	config->QCM_writeEntry("/UseProxy", m_useProxy);
 	config->QCM_writeEntry("/Proxy", m_proxy);
@@ -281,6 +284,7 @@ void MiscConfig::readFromConfig(
 	m_hideV1 = cfg.KCM_readBoolEntry("HideV1", m_hideV1);
 	m_hideV2 = cfg.KCM_readBoolEntry("HideV2", m_hideV2);
 	m_id3v2Version = cfg.KCM_readNumEntry("ID3v2Version", static_cast<int>(ID3v2_3_0));
+	m_textEncodingV1 = cfg.readEntry("TextEncodingV1", "");
 	m_textEncoding = cfg.KCM_readNumEntry("TextEncoding", static_cast<int>(TE_ISO8859_1));
 	m_useProxy = cfg.KCM_readBoolEntry("UseProxy", m_useProxy);
 	m_proxy = cfg.readEntry("Proxy", m_proxy);
@@ -338,6 +342,7 @@ void MiscConfig::readFromConfig(
 	m_hideV1 = config->QCM_readBoolEntry("/HideV1", m_hideV1);
 	m_hideV2 = config->QCM_readBoolEntry("/HideV2", m_hideV2);
 	m_id3v2Version = config->QCM_readNumEntry("/ID3v2Version", ID3v2_3_0);
+	m_textEncodingV1 = config->QCM_readEntry("/TextEncodingV1", "");
 	m_textEncoding = config->QCM_readNumEntry("/TextEncoding", TE_ISO8859_1);
 	m_useProxy = config->QCM_readBoolEntry("/UseProxy", m_useProxy);
 	m_proxy = config->QCM_readEntry("/Proxy", m_proxy);

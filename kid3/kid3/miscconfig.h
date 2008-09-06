@@ -201,6 +201,8 @@ public:
 	bool m_hideV2;
 	/** version used for new ID3v2 tags */
 	int m_id3v2Version;
+	/** text encoding used for new ID3v1 tags */
+	QString m_textEncodingV1;
 	/** text encoding used for new ID3v2 tags */
 	int m_textEncoding;
 	/** true if proxy is used */

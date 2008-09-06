@@ -48,6 +48,8 @@
 #define QSTRING_TO_TSTRING(s) TagLib::String(s.utf8().data(), TagLib::String::UTF8)
 #endif
 
+class QTextCodec;
+
 
 /** List box item containing tagged file. */
 class TagLibFile : public TaggedFile {
@@ -462,6 +464,13 @@ public:
 	 * Registers file types.
 	 */
 	static void staticInit();
+
+	/**
+	 * Set the text codec to be used for tag 1.
+	 *
+	 * @param codec text codec, 0 to use default (ISO 8859-1)
+	 */
+	static void setTextCodecV1(const QTextCodec* codec);
 
 	/**
 	 * Set the default text encoding.

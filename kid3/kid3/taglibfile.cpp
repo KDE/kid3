@@ -29,6 +29,7 @@
 
 #include <qdir.h>
 #include <qstring.h>
+#include <qtextcodec.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QByteArray>
@@ -82,6 +83,76 @@
 
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
+
+
+/**
+ * Data encoding in ID3v1 tags.
+ */
+class TextCodecStringHandler : public TagLib::ID3v1::StringHandler {
+public:
+	/**
+	 * Constructor.
+	 */
+  TextCodecStringHandler() {}
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~TextCodecStringHandler() {}
+
+	/**
+	 * Decode a string from data.
+	 *
+	 * @param data data to decode
+	 */
+	virtual TagLib::String parse(const TagLib::ByteVector& data) const;
+
+	/**
+	 * Encode a byte vector with the data from a string.
+	 *
+	 * @param s string to encode
+	 */
+	virtual TagLib::ByteVector render(const TagLib::String& s) const;
+
+	/**
+	 * Set text codec.
+	 * @param codec text codec, 0 for default behavior (ISO 8859-1)
+	 */
+	static void setTextCodec(const QTextCodec* codec) { s_codec = codec; }
+
+private:
+  static const QTextCodec* s_codec;
+};
+
+const QTextCodec* TextCodecStringHandler::s_codec = 0;
+
+/**
+ * Decode a string from data.
+ *
+ * @param data data to decode
+ */
+TagLib::String TextCodecStringHandler::parse(const TagLib::ByteVector& data) const
+{
+	return s_codec ?
+		QSTRING_TO_TSTRING(s_codec->toUnicode(data.data(), data.size())).stripWhiteSpace() :
+		TagLib::String(data, TagLib::String::Latin1).stripWhiteSpace();
+}
+
+/**
+ * Encode a byte vector with the data from a string.
+ *
+ * @param s string to encode
+ */
+TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
+{
+	if (s_codec) {
+		QCM_QCString ba(s_codec->fromUnicode(TStringToQString(s)));
+		return TagLib::ByteVector(ba.data(), ba.size());
+	} else {
+		return s.data(TagLib::String::Latin1);
+	}
+}
+
 
 /** Default text encoding */
 TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
@@ -419,7 +490,13 @@ QString TagLibFile::getCommentV1()
 {
 	if (m_tagV1) {
 		TagLib::String str = m_tagV1->comment();
-		return str.isNull() ? QString("") : TStringToQString(str);
+		if (str.isNull()) {
+			return QString("");
+		} else {
+			QString qstr(TStringToQString(str));
+			qstr.truncate(28);
+			return qstr;
+		}
 	} else {
 		return QString::null;
 	}
@@ -2988,6 +3065,18 @@ void TagLibFile::staticInit()
 #endif
 	TagLib::FileRef::addFileTypeResolver(new AACFileTypeResolver);
 	TagLib::FileRef::addFileTypeResolver(new MP2FileTypeResolver);
+
+	TagLib::ID3v1::Tag::setStringHandler(new TextCodecStringHandler);
+}
+
+/**
+ * Set the text codec to be used for tag 1.
+ *
+ * @param codec text codec, 0 to use default (ISO 8859-1)
+ */
+void TagLibFile::setTextCodecV1(const QTextCodec* codec)
+{
+	TextCodecStringHandler::setTextCodec(codec);
 }
 
 /**

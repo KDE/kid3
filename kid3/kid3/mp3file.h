@@ -36,6 +36,7 @@
 class ID3_Tag;
 class ID3_Field;
 class ID3_Frame;
+class QTextCodec;
 
 /** List box item containing MP3 file */
 class Mp3File : public TaggedFile {
@@ -444,6 +445,13 @@ public:
 	virtual QStringList getFrameIds() const;
 
 	/**
+	 * Set the text codec to be used for tag 1.
+	 *
+	 * @param codec text codec, 0 to use default (ISO 8859-1)
+	 */
+	static void setTextCodecV1(const QTextCodec* codec);
+
+	/**
 	 * Set the default text encoding.
 	 *
 	 * @param textEnc default text encoding
@@ -473,6 +481,9 @@ private:
 
 	/** ID3v2 tags */
 	ID3_Tag* m_tagV2;
+
+	/** Text codec for ID3v1 tags, 0 to use default (ISO 8859-1) */
+	static const QTextCodec* s_textCodecV1;
 
 	/** Default text encoding */
 	static ID3_TextEnc s_defaultTextEncoding;
