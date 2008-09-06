@@ -775,9 +775,9 @@ void ImportSelector::showPreview() {
 			 ++it) {
 		QTableWidgetItem* twi;
 		int fileDuration = (*it).getFileDuration();
-		if (fileDuration != 0) {
-			vLabels.append(TaggedFile::formatTime(fileDuration));
-		}
+		vLabels.append(fileDuration != 0 ?
+									 TaggedFile::formatTime(fileDuration) :
+									 QString::number(row + 1));
 		str.clear();
 		int importDuration = (*it).getImportDuration();
 		if (importDuration != 0) {
