@@ -768,10 +768,7 @@ bool TaggedFile::setFrameV1(const Frame& frame)
 		} else if (frame.isEmpty()) {
 			n = 0;
 		} else {
-			int slashPos = frame.m_value.QCM_indexOf("/");
-			n = slashPos == -1 ?
-				frame.m_value.toInt() :
-				frame.m_value.left(slashPos).toInt();
+			n = Frame::numberWithoutTotal(frame.m_value);
 		} 
 	}
 	switch (frame.m_type) {
@@ -874,10 +871,7 @@ bool TaggedFile::setFrameV2(const Frame& frame)
 		} else if (frame.isEmpty()) {
 			n = 0;
 		} else {
-			int slashPos = frame.m_value.QCM_indexOf("/");
-			n = slashPos == -1 ?
-				frame.m_value.toInt() :
-				frame.m_value.left(slashPos).toInt();
+			n = Frame::numberWithoutTotal(frame.m_value);
 		}
 	}
 	switch (frame.m_type) {

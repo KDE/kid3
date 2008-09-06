@@ -194,6 +194,22 @@ void Frame::setFieldListFromValue()
 	}
 }
 
+/**
+ * Convert string (e.g. "track/total number of tracks") to number.
+ *
+ * @param str string to convert
+ * @param ok  if not 0, true is returned here if conversion is ok
+ *
+ * @return number in string ignoring total after slash.
+ */
+int Frame::numberWithoutTotal(const QString& str, bool* ok)
+{
+	int slashPos = str.QCM_indexOf("/");
+	return slashPos == -1 ?
+		str.toInt(ok) :
+		str.left(slashPos).toInt(ok);
+}
+
 
 /**
  * Set values which are different inactive.
@@ -567,7 +583,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 
 		if (name.QCM_toLower() == "track") {
 			bool ok;
-			int nr = result.toInt(&ok);
+			int nr = Frame::numberWithoutTotal(result, &ok);
 			if (ok) {
 				result.sprintf("%02d", nr);
 			}

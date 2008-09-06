@@ -295,6 +295,16 @@ public:
 	 */
 	static char stringListSeparator() { return '|'; }
 
+	/**
+	 * Convert string (e.g. "track/total number of tracks") to number.
+	 *
+	 * @param str string to convert
+	 * @param ok  if not 0, true is returned here if conversion is ok
+	 *
+	 * @return number in string ignoring total after slash.
+	 */
+	static int numberWithoutTotal(const QString& str, bool* ok = 0);
+
 private:
 	friend class TaggedFile;
 	Type m_type;
