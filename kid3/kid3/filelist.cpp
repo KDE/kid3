@@ -1070,8 +1070,7 @@ void FileList::renameFile()
 						QMessageBox::warning(
 							0, i18n("File Error"),
 							i18n("Error while renaming:\n") +
-							i18n("Rename %1 to %2 failed\n").
-							arg(filename).arg(newFileName),
+							KCM_i18n2("Rename %1 to %2 failed\n", filename, newFileName),
 							QMessageBox::Ok, QCM_NoButton);
 					}
 				}
@@ -1107,7 +1106,7 @@ void FileList::renameFile()
 				QMessageBox::warning(
 					0, i18n("File Error"),
 					i18n("Error while renaming:\n") +
-					i18n("Rename %1 to %2 failed\n").arg(fi.fileName()).arg(newDirName),
+					KCM_i18n2("Rename %1 to %2 failed\n", fi.fileName(), newDirName),
 					QMessageBox::Ok, QCM_NoButton);
 			}
 		}
@@ -1149,7 +1148,7 @@ void FileList::deleteFile()
 					KMessageBox::Dangerous) == KMessageBox::Continue)
 #else
 		QString txt = numFiles > 1 ?
-			i18n("Do you really want to delete these %1 items?").arg(numFiles) :
+			KCM_i18n1("Do you really want to delete these %1 items?", numFiles) :
 			i18n("Do you really want to delete this item?");
 		txt += '\n';
 		txt += files.join("\n");
@@ -1213,7 +1212,7 @@ void FileList::deleteFile()
 					i18n("File Error"));
 #else
 				QString txt = files.size() > 1 ?
-					i18n("Error while deleting these %1 items:").arg(files.size()) :
+					KCM_i18n1("Error while deleting these %1 items:", files.size()) :
 					i18n("Error while deleting this item:");
 				txt += '\n';
 				txt += files.join("\n");

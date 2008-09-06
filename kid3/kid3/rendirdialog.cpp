@@ -292,7 +292,7 @@ bool RenDirDialog::createDirectory(const QString& dir,
 		return true;
 	} else {
 		if (errorMsg) {
-			errorMsg->append(i18n("Create directory %1 failed\n").arg(dir));
+			errorMsg->append(KCM_i18n1("Create directory %1 failed\n", dir));
 		}
 		return false;
 	}
@@ -313,13 +313,13 @@ bool RenDirDialog::renameDirectory(
 {
 	if (QFileInfo(newdir).exists()) {
 		if (errorMsg) {
-			errorMsg->append(i18n("File %1 already exists\n").arg(newdir));
+			errorMsg->append(KCM_i18n1("File %1 already exists\n", newdir));
 		}
 		return false;
 	}
 	if (!QFileInfo(olddir).isDir()) {
 		if (errorMsg) {
-			errorMsg->append(i18n("%1 is not a directory\n").arg(olddir));
+			errorMsg->append(KCM_i18n1("%1 is not a directory\n", olddir));
 		}
 		return false;
 	}
@@ -327,7 +327,7 @@ bool RenDirDialog::renameDirectory(
 		return true;
 	} else {
 		if (errorMsg) {
-			errorMsg->append(i18n("Rename %1 to %2 failed\n").arg(olddir).arg(newdir));
+			errorMsg->append(KCM_i18n2("Rename %1 to %2 failed\n", olddir, newdir));
 		}
 		return false;
 	}
@@ -351,13 +351,13 @@ bool RenDirDialog::renameFile(const QString& oldfn, const QString& newfn,
 	}
 	if (QFileInfo(newfn).exists()) {
 		if (errorMsg) {
-			errorMsg->append(i18n("%1 already exists\n").arg(newfn));
+			errorMsg->append(KCM_i18n1("%1 already exists\n", newfn));
 		}
 		return false;
 	}
 	if (!QFileInfo(oldfn).isFile()) {
 		if (errorMsg) {
-			errorMsg->append(i18n("%1 is not a file\n").arg(oldfn));
+			errorMsg->append(KCM_i18n1("%1 is not a file\n", oldfn));
 		}
 		return false;
 	}
@@ -365,7 +365,7 @@ bool RenDirDialog::renameFile(const QString& oldfn, const QString& newfn,
 		return true;
 	} else {
 		if (errorMsg) {
-			errorMsg->append(i18n("Rename %1 to %2 failed\n").arg(oldfn).arg(newfn));
+			errorMsg->append(KCM_i18n2("Rename %1 to %2 failed\n", oldfn, newfn));
 		}
 		return false;
 	}

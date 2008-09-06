@@ -188,7 +188,7 @@ void ImportSourceClient::slotConnectionClosed()
  */
 void ImportSourceClient::slotReadyRead()
 {
-	m_statusBar->QCM_showMessage(i18n("Data received: %1").arg(m_sock->bytesAvailable()));
+	m_statusBar->QCM_showMessage(KCM_i18n1("Data received: %1", m_sock->bytesAvailable()));
 }
 
 /**
