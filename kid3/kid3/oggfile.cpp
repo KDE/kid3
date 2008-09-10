@@ -592,11 +592,11 @@ bool OggFile::hasTagV2() const
 /**
  * Get file extension including the dot.
  *
- * @return file extension ".ogg".
+ * @return file extension ".oga".
  */
 QString OggFile::getFileExtension() const
 {
-	return ".ogg";
+	return ".oga";
 }
 
 #ifdef HAVE_VORBIS
@@ -907,7 +907,8 @@ bool OggFile::CommentList::setValue(const QString& name, const QString& value)
 TaggedFile* OggFile::Resolver::createFile(const DirInfo* di,
 																					const QString& fn) const
 {
-	if (fn.right(4).QCM_toLower() == ".ogg")
+	QString ext = fn.right(4).QCM_toLower();
+	if (ext == ".oga" || ext == ".ogg")
 		return new OggFile(di, fn);
 	else
 		return 0;
@@ -920,7 +921,7 @@ TaggedFile* OggFile::Resolver::createFile(const DirInfo* di,
  */
 QStringList OggFile::Resolver::getSupportedFileExtensions() const
 {
-	return QStringList() << ".ogg";
+	return QStringList() << ".oga" << ".ogg";
 }
 
 #endif // HAVE_VORBIS || define HAVE_FLAC

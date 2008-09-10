@@ -1347,7 +1347,7 @@ QString TagLibFile::getFileExtension() const
 		if (dynamic_cast<TagLib::MPEG::File*>(file) != 0) {
 			return ".mp3";
 		} else if (dynamic_cast<TagLib::Vorbis::File*>(file) != 0) {
-			return ".ogg";
+			return ".oga";
 		} else if (dynamic_cast<TagLib::FLAC::File*>(file) != 0) {
 			return ".flac";
 		} else if (dynamic_cast<TagLib::MPC::File*>(file) != 0) {
@@ -3119,7 +3119,7 @@ TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
 			 && Kid3App::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0
 #endif
 				)
-			|| ext == ".mpc" || ext == ".ogg" || ext == "flac"
+			|| ext == ".mpc" || ext == ".oga" || ext == ".ogg" || ext == "flac"
 			|| ext == ".spx" || ext == ".tta"
 			|| ext.right(3) == ".wv")
 		return new TagLibFile(di, fn);
@@ -3134,7 +3134,7 @@ TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
  */
 QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
 {
-	return QStringList() << ".flac" << ".mp3" << ".mpc" << ".ogg" <<
+	return QStringList() << ".flac" << ".mp3" << ".mpc" << ".oga" << ".ogg" <<
 		".spx" << ".tta" << ".aac" << ".mp2" << ".wv";
 }
 
