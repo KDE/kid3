@@ -250,7 +250,7 @@ public:
 	/**
 	 * Get file extension including the dot.
 	 *
-	 * @return file extension ".oga".
+	 * @return file extension ".ogg".
 	 */
 	virtual QString getFileExtension() const;
 

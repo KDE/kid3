@@ -592,11 +592,11 @@ bool OggFile::hasTagV2() const
 /**
  * Get file extension including the dot.
  *
- * @return file extension ".oga".
+ * @return file extension ".ogg".
  */
 QString OggFile::getFileExtension() const
 {
-	return ".oga";
+	return ".ogg";
 }
 
 #ifdef HAVE_VORBIS

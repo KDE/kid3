@@ -1347,7 +1347,7 @@ QString TagLibFile::getFileExtension() const
 		if (dynamic_cast<TagLib::MPEG::File*>(file) != 0) {
 			return ".mp3";
 		} else if (dynamic_cast<TagLib::Vorbis::File*>(file) != 0) {
-			return ".oga";
+			return ".ogg";
 		} else if (dynamic_cast<TagLib::FLAC::File*>(file) != 0) {
 			return ".flac";
 		} else if (dynamic_cast<TagLib::MPC::File*>(file) != 0) {
