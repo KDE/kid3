@@ -25,8 +25,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2008-03-01</date>
-<releaseinfo>1.0</releaseinfo>
+<date>2008-09-27</date>
+<releaseinfo>1.1</releaseinfo>
 
 <abstract>
 <para>
@@ -524,6 +524,9 @@ Zum Importieren vom Discogs Server wird <guibutton>Discogs</guibutton>
 gewählt. Wie bei <guibutton>Von
 gnudb.org</guibutton> können auch hier Artist und Album eingegeben werden und
 es wird ebenfalls eine Liste mit Alben zur Auswahl gestellt.
+Wenn <guilabel>Zusätzliche Tags</guilabel> markiert ist, werden mehr
+verfügbare Informationen importiert, z.B. Interpreten, Arrangierer oder der
+Herausgeber.
 </para>
 <para id="import-musicbrainzrelease">
 In der gleichen Art kann mit <guibutton>Von MusicBrainz Album</guibutton>
@@ -1199,6 +1202,14 @@ Abgeschnittene Felder und ihre Datei werden rot markiert; die Markierung
 wird entfernt, nachdem das Feld editiert worden ist.
 </para>
 <para>
+Mit <guilabel>Text Codierung</guilabel> für <guilabel>ID3v1</guilabel> kann
+die Codierung, welche für ID3v1 Tags verwendet wird, eingestellt werden.
+Standardmässig wird hier ISO-8859-1 erwartet, daher wird empfohlen, diese
+Einstellung so zu lassen. Da jedoch Tags mit anderer Codierung anzutreffen
+sind, kann hier eine andere Codierung gewählt werden, so dass dann die ID3v1
+Tags nach ID3v2 transferiert werden können, welches Unicode Zeichen unterstüzt.
+</para>
+<para>
 Das Markierungsfeld
 <guilabel>Benutze Format Nummer/Anzahl Stücke</guilabel> bewirkt, dass im
 Tracknummer-Feld bei den ID3v2 Tags nicht bloß die Tracknummer gespeichert
@@ -1452,7 +1463,7 @@ Dateien unterstützt.
 Für MP4 Dateien wird 
 <ulink url="http://mpeg4ip.sourceforge.net">mp4v2</ulink> benötigt.
 Für MusicBrainz Unterstützung wird
-<ulink url="http://musicbrainz.org/products/tunepimp/">libtunepimp</ulink>
+<ulink url="http://musicbrainz.org/doc/libtunepimp">libtunepimp</ulink>
 verwendet. Da momentan kein Tunepimp SDK für Windows existiert, wurde die
 Windows Version ohne MusicBrainz Import kompiliert.
 </para>

@@ -25,8 +25,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2008-03-01</date>
-<releaseinfo>1.0</releaseinfo>
+<date>2008-09-27</date>
+<releaseinfo>1.1</releaseinfo>
 
 <abstract>
 <para>
@@ -496,6 +496,8 @@ can be imported by terminating the import dialog with
 A search on the Discogs server can be performed using
 <guibutton>Discogs</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
 you can enter artist and album and then choose from a list of releases.
+If <guilabel>Additional Tags</guilabel> is marked, more information is
+imported if available, e.g. performers, arrangers, or the publisher.
 </para>
 <para id="import-musicbrainzrelease">
 You can search in the same way in the release database of MusicBrainz
@@ -1123,6 +1125,13 @@ from ID3v2. Truncated fields and the file will be marked red, and the mark
 will be removed after the field has been edited.
 </para>
 <para>
+With <guilabel>Text encoding</guilabel> for <guilabel>ID3v1</guilabel> it is
+possible to set the character set used in ID3v1 tags. This encoding is
+supposed to be ISO-8859-1, so it is recommended to keep this default
+value. However, there are tags around with different encoding, so it can be
+set here and the ID3v1 tags can then be copied to ID3v2 which supports Unicode.
+</para>
+<para>
 The check box <guilabel>Use track/total number of tracks
 format</guilabel> controls whether the track number field of ID3v2 tags
 contains simply the track number or additionally the total number of tracks in
@@ -1358,7 +1367,7 @@ which can also handle MPC, MP2, Speex, TrueAudio and WavPack files.
 <ulink url="http://mpeg4ip.sourceforge.net">mp4v2</ulink> is required for
 MP4 files.
 For MusicBrainz support,
-<ulink url="http://musicbrainz.org/products/tunepimp/">libtunepimp</ulink>
+<ulink url="http://musicbrainz.org/doc/libtunepimp">libtunepimp</ulink>
 is used. As there does not exist a tunepimp SDK for Windows at the moment, the
 Windows version is compiled without MusicBrainz import. 
 </para>

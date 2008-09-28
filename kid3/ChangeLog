@@ -1,3 +1,27 @@
+Sat Sep 27 15:51:35 CEST 2008  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 1.1
+
+	* New:
+	  + Dutch translation.
+	  + New general frame types Album Artist, Grouping, Lyrics, Media,
+	    Remixer.
+	  + Setting character encoding for ID3v1.1 tags.
+	  + Import additional tags from Discogs and MusicBrainz.
+
+	* Improved:
+	  + All frame types (not only Artist, Album, ...) can be used for all
+	    operations (e.g. import, export, tag <-> file name, rename, ...).
+
+	* Fixed:
+	  + Build for KDE 3 without id3lib or TagLib
+	  + Supress using unsupported UTF-8 for ID3v2.3
+	  + Qt 4, KDE 4: Wrong track times in import dialog when some track
+	    times are missing.
+	  + KDE 4: Translations with arguments (%1, %2).
+	  + Windows: Displaying pictures with JPEG plugin.
+	  + MacOS X: Dropping and displaying pictures.
+
 Sat Mar  1 15:44:56 CET 2008  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.0
