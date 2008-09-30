@@ -62,6 +62,7 @@
 
 enum { TextEncodingV1Latin1Index = 13 };
 
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 /**
  * Remove aliases in braces from text encoding combo box entry.
  *
@@ -74,6 +75,7 @@ static QString getTextEncodingV1CodecName(const QString& comboEntry)
 	int braceIdx = comboEntry.QCM_indexOf(" (");
 	return braceIdx == -1 ? comboEntry : comboEntry.left(braceIdx);
 }
+#endif
 
 /**
  * Constructor.

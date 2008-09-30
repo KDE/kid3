@@ -948,9 +948,11 @@ void Kid3App::saveOptions()
  */
 static void setTextEncodings()
 {
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 	const QTextCodec* id3v1TextCodec =
 		Kid3App::s_miscCfg.m_textEncodingV1 != "ISO-8859-1" ?
 		QTextCodec::codecForName(Kid3App::s_miscCfg.m_textEncodingV1.QCM_latin1()) : 0;
+#endif
 #ifdef HAVE_ID3LIB
 	Mp3File::setDefaultTextEncoding(
 		static_cast<MiscConfig::TextEncoding>(Kid3App::s_miscCfg.m_textEncoding));
