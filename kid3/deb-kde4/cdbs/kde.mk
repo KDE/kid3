@@ -1,26 +1,45 @@
-# until bug 377524 resolved.
-include debian/cdbs/cmake.mk
+include /usr/share/cdbs/1/class/cmake.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/rules/patchsys-quilt.mk
-# until bug #423394 resolved.
-include debian/cdbs/utils.mk
+include /usr/share/cdbs/1/rules/utils.mk
+
+DEB_CONFIG_INSTALL_DIR ?= /usr/share/kde4/config
 
 DEB_COMPRESS_EXCLUDE = .dcl .docbook -license .tag .sty .el
 DEB_CMAKE_EXTRA_FLAGS += \
-			$(DEB_CMAKE_DEBUG_FLAGS) \
+			-DCMAKE_BUILD_TYPE=Debian \
 			$(KDE4-ENABLE-FINAL) \
-			-DKDE4_BUILD_TESTS=true \
+			-DKDE4_BUILD_TESTS=false \
 			-DKDE_DISTRIBUTION_TEXT="Kubuntu packages" \
-			-DCONFIG_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/etc/kde4 \
-			-DDATA_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/apps \
-			-DHTML_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/doc/kde4/HTML \
-			-DKCFG_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/config.kcfg \
-			-DLIB_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/lib \
-			-DSYSCONF_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/etc
+			-DCMAKE_SKIP_RPATH=true \
+			-DKDE4_USE_ALWAYS_FULL_RPATH=false \
+			-DCONFIG_INSTALL_DIR=$(DEB_CONFIG_INSTALL_DIR) \
+			-DDATA_INSTALL_DIR=/usr/share/kde4/apps \
+			-DHTML_INSTALL_DIR=/usr/share/doc/kde4/HTML \
+			-DKCFG_INSTALL_DIR=/usr/share/kde4/config.kcfg \
+			-DLIB_INSTALL_DIR=/usr/lib \
+			-DSYSCONF_INSTALL_DIR=/etc
 
-DEB_CMAKE_PREFIX = /usr/lib/kde4
-DEB_DH_INSTALL_ARGS = --sourcedir=debian/tmp
-DEB_DH_SHLIBDEPS_ARGS = -l/usr/lib/kde4/lib/
+# Set the one below to something else than 'yes' to disable linking 
+# with --as-needed (on by default)
+DEB_KDE_LINK_WITH_AS_NEEDED ?= yes
+ifneq (,$(findstring yes, $(DEB_KDE_LINK_WITH_AS_NEEDED)))
+	ifeq (,$(findstring no-as-needed, $(DEB_BUILD_OPTIONS)))
+		DEB_KDE_LINK_WITH_AS_NEEDED := yes
+		DEB_CMAKE_EXTRA_FLAGS += \
+					-DCMAKE_SHARED_LINKER_FLAGS="-Wl,--no-undefined -Wl,--as-needed" \
+					-DCMAKE_MODULE_LINKER_FLAGS="-Wl,--no-undefined -Wl,--as-needed" \
+					-DCMAKE_EXE_LINKER_FLAGS="-Wl,--no-undefined -Wl,--as-needed"
+	else
+		DEB_KDE_LINK_WITH_AS_NEEDED := no
+	endif
+else
+	DEB_KDE_LINK_WITH_AS_NEEDED := no
+endif
+
+#DEB_CMAKE_PREFIX = /usr/lib/kde4
+DEB_DH_INSTALL_SOURCEDIR = debian/tmp
+#DEB_DH_SHLIBDEPS_ARGS = -l/usr/lib/kde4/lib/
 DEB_KDE_ENABLE_FINAL ?=
 #DEB_MAKE_ENVVARS += XDG_CONFIG_DIRS=/etc/xdg XDG_DATA_DIRS=/usr/share
 #DEB_STRIP_EXCLUDE = so
@@ -32,14 +51,6 @@ ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
     else
         KDE4-ENABLE-FINAL =
     endif
-endif
-
-ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	#no optimizations, full debug
-       DEB_CMAKE_DEBUG_FLAGS = -DCMAKE_BUILD_TYPE=debugfull
-else
-	#This is around -O2 -g
-       DEB_CMAKE_DEBUG_FLAGS = -DCMAKE_BUILD_TYPE=relwithdebinfo
 endif
 
 common-build-arch:: debian/stamp-man-pages
@@ -57,12 +68,24 @@ debian/stamp-man-pages:
 clean::
 ifndef THIS_SHOULD_GO_TO_UNSTABLE
 	#guard against experimental uploads to unstable
-	#dpkg-parsechangelog | grep ^Distribution | grep -q experimental
+	#dpkg-parsechangelog | grep ^Distribution | grep -q 'experimental\|UNRELEASED'
 endif
 	rm -rf debian/man/out
 	-rmdir debian/man
 	rm -f debian/stamp-man-pages
 	rm -f CMakeCache.txt
+
+
+$(patsubst %,binary-install/%,$(DEB_PACKAGES)) :: binary-install/%:
+	if test -x /usr/bin/dh_desktop; then dh_desktop -p$(cdbs_curpkg) $(DEB_DH_DESKTOP_ARGS); fi
+	if test -e debian/$(cdbs_curpkg).lintian; then \
+		install -p -D -m644 debian/$(cdbs_curpkg).lintian \
+			debian/$(cdbs_curpkg)/usr/share/lintian/overrides/$(cdbs_curpkg); \
+	fi
+	if test -e debian/$(cdbs_curpkg).presubj; then \
+		install -p -D -m644 debian/$(cdbs_curpkg).presubj \
+			debian/$(cdbs_curpkg)/usr/share/bug/$(cdbs_curpkg)/presubj; \
+	fi
 
 binary-install/$(DEB_SOURCE_PACKAGE)-doc-html::
 	set -e; \
@@ -77,3 +100,9 @@ binary-install/$(DEB_SOURCE_PACKAGE)-doc-html::
 		rm -rf debian/$(DEB_SOURCE_PACKAGE)-doc-html/usr/share/doc/kde/HTML/en/$$pkg; \
 	done
 
+
+# Process "sameVersionDep:" substvars
+DH_SAMEVERSIONDEPS=debian/cdbs/dh_sameversiondeps
+common-binary-predeb-arch common-binary-predeb-indep::
+	@if [ ! -x "$(DH_SAMEVERSIONDEPS)" ]; then chmod a+x "$(DH_SAMEVERSIONDEPS)"; fi
+	$(DH_SAMEVERSIONDEPS)

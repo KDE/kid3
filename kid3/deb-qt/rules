@@ -3,10 +3,6 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-pixmaps = $(CURDIR)/debian/kid3/usr/share/pixmaps
-bindir = $(CURDIR)/debian/kid3/usr/bin
-kdedocs = $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML
-
 INSTALL_DIR = install -p -d -o root -g root -m 755
 INSTALL_FILE = install -p -o root -g root -m 644
 
@@ -32,30 +28,26 @@ endif
 		
 build: build-stamp
 	
--include debian/debiandirs
-
-debian/debiandirs: admin/debianrules
-	perl -w admin/debianrules echodirs > debian/debiandirs
 
 build-stamp:
 	dh_testdir
 
 	$(MAKE) -f /usr/share/quilt/quilt.make patch
 
-	QTDIR=/usr/share/qt3 ./configure \
-	                        --host=$(DEB_HOST_GNU_TYPE) \
-	                        --build=$(DEB_BUILD_GNU_TYPE) \
-	                        $(configkde)
-	$(MAKE)
+	cd kid3-qt; \
+	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
+	            --prefix=/usr; \
+	cd ..
+	$(MAKE) -C kid3-qt
 
 	touch build-stamp
 
 clean: 
 	dh_testdir
 	dh_testroot
-	[ ! -f Makefile ] || $(MAKE) distclean
+	[ ! -f kid3-qt/Makefile ] || $(MAKE) -C kid3-qt distclean
 	$(MAKE) -f /usr/share/quilt/quilt.make unpatch
-	-rm -f *-stamp po/*.gmo
+	-rm -f *-stamp kid3-qt/kid3/*.png kid3-qt/kid3/*.svgz
 	dh_clean
 
 install: build
@@ -65,14 +57,7 @@ install: build
 	dh_installdirs
 
 	# Main install.
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/kid3
-
-	# Make common links for docs.
-	for p in `dh_listpackages`; do \
-	  for i in `find $(kdedocs) -type d -name $$p -not -regex .*/en/$$p`; do \
-	    ln -f -n -s ../../en/common $$i/common; done; done
-
-	perl -w admin/debianrules cleanup
+	$(MAKE) -C kid3-qt install INSTALL_ROOT=$(CURDIR)/debian/kid3-qt
 	
 binary-indep: build install
 

@@ -1423,12 +1423,13 @@ libraries are compiled in. The default is
 </para><para>
 Generation of RPM-Packages is supported by the
 file <filename>kid3.spec</filename>, for Debian-Packages,
-the scripts <filename>build-deb-kde3.sh</filename> and
+the scripts <filename>build-deb-kde3.sh</filename>,
+<filename>build-deb-qt.sh</filename> and
 <filename>build-deb-kde4.sh</filename> are available.
 </para>
 <para>
 To build &kid3; with KDE 4, use
-<userinput>cmake -DCMAKE_INSTALL_PREFIX=/usr/lib/kde4/ .</userinput> and
+<userinput>cmake .</userinput> and
 <userinput>make</userinput>.
 </para>
 <para>

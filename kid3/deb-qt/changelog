@@ -1,0 +1,190 @@
+kid3 (1.1-0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 27 Sep 2008 15:51:35 +0200
+
+kid3 (1.0-0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 01 Mar 2008 15:44:56 +0100
+
+kid3 (0.10-0) unstable; urgency=low
+
+  * New upstream release. (Closes: #447699)
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 15 Nov 2007 21:38:58 +0100
+
+kid3 (0.9-4) unstable; urgency=low
+
+  * Fix clean rule to allow package be built twice in a row. (Closes: #442615)
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Wed, 26 Sep 2007 09:22:56 +0200
+
+kid3 (0.9-3) unstable; urgency=low
+
+  * Add patch to use custom import/export formats with empty fields.
+   (Closes: #432953)
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Mon, 16 Jul 2007 20:58:45 +0200
+
+kid3 (0.9-2) unstable; urgency=low
+
+  [ Mark Purcell ]
+  * Install debian/watch file
+  * Add myself to uploaders
+  * Add debian/rules get-orig-source target for http://buildserver.net
+
+  [Ana Beatriz Guerrero Lopez]
+  * Package split, now it provides: kid3 (integrated with KDE) and kid3-qt 
+    (for non-KDE users).
+  * Improve package descriptions. Thanks Urs!
+  * Added post-release patches: kid3-0.9-desktop, kid3-0.9-kid3-qt-icon and
+    kid3-0.9-remove_user_actions
+  * New needed b-d libvorbis-dev, libtag1-dev, docbook-utils and quilt.
+
+ -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Sun, 08 Jul 2007 05:31:05 +0200
+
+kid3 (0.9-1) unstable; urgency=low
+
+  * New upstream release. (Closes: #423464, #423468, #428872)
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Sun, 17 Jun 2007 23:48:03 +0200
+
+kid3 (0.8.1-3) unstable; urgency=low
+
+  * Rebuild due to FLAC 1.1.4 transition. (Closes: #426651) 
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Tue, 05 Jun 2007 20:19:35 +0100
+
+kid3 (0.8.1-2) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Sat, 19 May 2007 11:36:19 +0100
+
+kid3 (0.8.1-1) experimental; urgency=low
+
+  * New upstream release.
+  * Compiled against libtunepimp 0.5.2. (Closes: #397325)
+  * Removed relibtoolization at build time, does not seem necessary now. 
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Fri, 24 Nov 2006 01:29:55 +0100
+
+kid3 (0.7-3) unstable; urgency=low
+
+  * New maintainter. (Closes: #393170)
+  * Bumped compat to 5.
+  * Added space to homepage pseudo header.
+  * Moved .desktop file to the right place.
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Fri, 27 Oct 2006 19:28:50 +0200
+
+kid3 (0.7-2) unstable; urgency=low
+
+  * Orphaning this package, setting maintainer field to
+    packages@qa.debian.org.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sun, 15 Oct 2006 02:37:49 +0200
+
+kid3 (0.7-1) unstable; urgency=low
+
+  * New upstream version:
+    - Export dialog
+    - Show/hide ID3v1.1/ID3v2.3 (closes: bug#308121)
+    - Custom genres
+    - Automatic track numbering
+    - Improved import (search history, track reordering)
+    - Split filename and tag format into separate options and commands
+  * Bumped Standards-Version to 3.7.2 (no changes).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 13 Jul 2006 12:24:01 +0200
+
+kid3 (0.6-3) unstable; urgency=low
+
+  * The "I am really upset" release: when changing the API of a library,
+    please either provide the two versions of the library, or at least
+    coordinate the changes with other maintainers.
+  * Build-depends on libtunepimp3-dev instead of libtunepimp2-dev.
+  * Fixes to use the new API.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu,  6 Apr 2006 17:17:14 +0200
+
+kid3 (0.6-2) unstable; urgency=low
+
+  * Relibtoolize the package to get rid of a lot of unneeded dependencies,
+    including libfreetype6.
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 24 Nov 2005 12:16:38 +0100
+
+kid3 (0.6-1) unstable; urgency=low
+
+  * Added a patch to remove the old .ogg file when both the tags and the
+    filename are changed. Patch by Urs Fleisch, thanks (closes: 
+    bug#339066).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Mon, 14 Nov 2005 21:14:17 +0100
+
+kid3 (0.6-0) unstable; urgency=low
+
+  * New upstream version: 
+    - support for Ogg/Vorbis and FLAC files (closes: bug#308120)
+    - import from MusicBrainz
+    - usability improvements (closes: bug#308122)
+  * Bumped Standards-Version to 3.6.2 (no changes).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Mon, 31 Oct 2005 10:27:12 +0100
+
+kid3 (0.5-6) unstable; urgency=low
+
+  * Applied a patch from Urs Fleisch to fix a bug appearing when moving
+    a tag from ID3v2 to ID3v1 (closes: bug#320077).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sat, 10 Sep 2005 01:08:30 +0200
+
+kid3 (0.5-5) unstable; urgency=low
+
+  * Tightened the build-dependency on libid3-3.8.3-dev to (>= 3.8.3-4.2)
+    (closes: bug#325611).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Tue, 30 Aug 2005 07:48:14 +0200
+
+kid3 (0.5-4) unstable; urgency=low
+
+  * C++ transition: build-depends on libqt3-mt-dev (>= 3:3.3.4-7) and
+    kdelibs4-dev (>= 4:3.4.2-1).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 18 Aug 2005 10:53:10 +0200
+
+kid3 (0.5-3) unstable; urgency=low
+
+  * Fixed po/de.po (closes: bug#314026). 
+
+ -- Aurelien Jarno <aurel32@debian.org>  Wed, 15 Jun 2005 11:34:40 +0200
+
+kid3 (0.5-2) unstable; urgency=low
+
+  * Included patch #1079111 (from kid3.sf.net) to handle filenames with 
+    accents correctly (closes: bug#291925).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Fri, 28 Jan 2005 02:12:50 +0100
+
+kid3 (0.5-1) unstable; urgency=low
+
+  * New upstream version (closes: bug#273073).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sun, 26 Sep 2004 00:22:06 +0200
+
+kid3 (0.4-2) unstable; urgency=low
+
+  * Improved description (closes: bug#246411). 
+
+ -- Aurelien Jarno <aurel32@debian.org>  Thu, 29 Apr 2004 02:11:57 +0200
+
+kid3 (0.4-1) unstable; urgency=low
+
+  * Initial Release (closes: bug#205938).
+
+ -- Aurelien Jarno <aurel32@debian.org>  Sat, 17 Apr 2004 19:02:02 +0200
+

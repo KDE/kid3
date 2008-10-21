@@ -1,0 +1,140 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Dpkg::Control;
+use Dpkg::Substvars;
+use Dpkg::ErrorHandling;
+use File::Copy;
+
+use Debian::Debhelper::Dh_Lib;
+
+my $namespace = "sameVersionDep";
+my @fields = qw(Depends Recommends Suggests Enhances Pre-Depends);
+my $re_fields = join("|", @fields);
+my $re_pkgname = qr/[a-z0-9][a-z0-9+.-]*/;
+my $re_oursubstvar = qr/\$\{($namespace:($re_pkgname):($re_pkgname)-($re_fields)-($re_pkgname))\}/;
+
+# Global substvars file
+my $g_substvars = new Dpkg::Substvars;
+$g_substvars->parse("debian/substvars") if (-r "debian/substvars");
+
+sub Shlibsvars::new {
+    my ($cls, $package, $control, $substvars_file) = @_;
+    my $self = bless ( {
+        "package" => $package,
+        "control" => $control,
+        "file" => $substvars_file,
+        }, $cls);
+    $self->{substvars} = new Dpkg::Substvars;
+    if (-r $self->{file}) {
+        $self->{substvars}->parse($self->{file});
+    }
+    return $self;
+}
+
+sub Shlibsvars::get_fieldval {
+    my ($self, $field) = @_;
+
+    my $pkg = $self->{control}->get_pkg_by_name($self->{package});
+    return undef if (!defined $pkg || !exists $pkg->{$field});
+
+    # Turn of warnings for substvars runs
+    my $save_quiet = $Dpkg::ErrorHandling::quiet_warnings;
+    $Dpkg::ErrorHandling::quiet_warnings = 1;
+
+    my $val = $pkg->{$field};
+    $val = $self->{substvars}->substvars($val);
+    $val = $g_substvars->substvars($val);
+
+    $Dpkg::ErrorHandling::quiet_warnings = $save_quiet;
+    return $val;
+}
+
+sub Shlibsvars::extract_deps {
+    my ($self, $field, $deppkg) = @_;
+
+    my $val = $self->get_fieldval($field);
+    return undef() unless defined $val;
+
+    # Extract dependency fields we need
+    my @matched_deps;
+    for my $dep (split(/\s*,\s*/, $val)) {
+        if ($dep =~ /^\Q$deppkg\E(?:$|[\W])/) {
+            push @matched_deps, $dep;
+        }
+    }
+    return join(",", @matched_deps);
+}
+
+sub write_substvar($$$$) {
+    my ($pkgname, $varname, $value, $substvars) = @_;
+    my @contents;
+    my $varset = 0;
+
+    my $file = (-r $substvars) ? $substvars : "debian/substvars";
+    if (-r $file) {
+        open(FILE, "<$file") or die "Unable to open substvars file '$file' for reading\n";
+        while (<FILE>) {
+            if (!$varset && /^\s*\Q$varname=\E/) {
+                push @contents, "$varname=$value\n";
+                $varset = 1;
+            } else {
+                push @contents, $_;
+            }
+        }
+        close(FILE);
+    } else {
+        # Fallback to default
+        $file = $substvars;
+    }
+
+    open(FILE, ">$file.tmp") or die "Unable to open substvars file '$file.tmp' for writing\n";
+    for (@contents) {
+        print FILE $_;
+    }
+    if (!$varset) {
+        print FILE "$varname=$value", "\n";
+    }
+    close(FILE);
+
+    File::Copy::move("$file.tmp", "$file");
+}
+
+init();
+
+my $control = new Dpkg::Control;
+my %shlibsvars;
+
+foreach my $package (@{$dh{DOPACKAGES}}) {
+    my $pkg_substvars = sprintf("debian/%ssubstvars", pkgext($package));
+    my $pkg = $control->get_pkg_by_name($package);
+
+    for my $fieldname (@fields) {
+        if (exists $pkg->{$fieldname}) {
+            my $fieldval = $pkg->{$fieldname};
+            my $pkgname = $pkg->{Package};
+
+            while ($fieldval =~ m/\G.*?$re_oursubstvar/g) {
+                my $varname = $1;
+                my $dep2add = $2;
+                my $basepkg = $3;
+                my $deptype = $4;
+                my $deppkg  = $5;
+
+                if (!exists $shlibsvars{$basepkg}) {
+                    my $base_substvars = sprintf("debian/%ssubstvars", pkgext($basepkg));
+                    $shlibsvars{$basepkg} = new Shlibsvars($basepkg, $control, $base_substvars);
+                }
+                my $vars = $shlibsvars{$basepkg};
+                my $deps = $vars->extract_deps($deptype, $deppkg);
+                $deps = "" unless($deps);
+                $deps =~ s/\b\Q$deppkg\E\b/$dep2add/g;
+
+                # Write substvar for the package
+                write_substvar($pkgname, $varname, $deps, $pkg_substvars);
+            }
+        }
+    }
+}
+
+exit 0

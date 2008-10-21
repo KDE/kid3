@@ -30,6 +30,7 @@
 #include <kconfig.h>
 #endif
 
+#include <cstring>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qlabel.h>

@@ -1523,13 +1523,14 @@ werden, was verwendet werden soll. Die Voreinstellung ist
 <para>
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>
 vorhanden, für Debian-Pakete stehen die Skripte
-<filename>build-deb-kde3.sh</filename> und
+<filename>build-deb-kde3.sh</filename>,
+<filename>build-deb-qt.sh</filename> und
 <filename>build-deb-kde4.sh</filename>
 zur Verfügung.
 </para>
 <para>
 Um &kid3; mit KDE 4 zu kompilieren, wird
-<userinput>cmake -DCMAKE_INSTALL_PREFIX=/usr/lib/kde4/ .</userinput> und
+<userinput>cmake .</userinput> und
 <userinput>make</userinput> benutzt.
 </para>
 <para>
