@@ -624,21 +624,21 @@ bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
 				for (int i = 0; i < num; ++i) {
 					albumtrackresult_t* res = *albumTrackResults++;
 					ImportTrackData trackData;
-					trackData.title = QString::fromUtf8(res->name);
+					trackData.setTitle(QString::fromUtf8(res->name));
 #if HAVE_TUNEPIMP >= 4
-					trackData.artist = QString::fromUtf8(res->artist.name);
-					trackData.album = QString::fromUtf8(res->album.name);
-					trackData.year = res->album.releaseYear;
+					trackData.setArtist(QString::fromUtf8(res->artist.name));
+					trackData.setAlbum(QString::fromUtf8(res->album.name));
+					trackData.setYear(res->album.releaseYear);
 #else
-					trackData.artist = QString::fromUtf8(res->artist->name);
-					trackData.album = QString::fromUtf8(res->album->name);
-					trackData.year = res->album->releaseYear;
+					trackData.setArtist(QString::fromUtf8(res->artist->name));
+					trackData.setAlbum(QString::fromUtf8(res->album->name));
+					trackData.setYear(res->album->releaseYear);
 #endif
-					trackData.track = res->trackNum;
+					trackData.setTrack(res->trackNum);
 					// year does not seem to work, so at least we should not
 					// overwrite it with 0
-					if (trackData.year == 0) {
-						trackData.year = -1;
+					if (trackData.getYear() == 0) {
+						trackData.setYear(-1);
 					}
 					trackData.setImportDuration(res->duration / 1000);
 					trackDataList.push_back(trackData);
