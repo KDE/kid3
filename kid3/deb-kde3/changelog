@@ -4,17 +4,25 @@ kid3 (1.1-0) unstable; urgency=low
 
  -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 27 Sep 2008 15:51:35 +0200
 
-kid3 (1.0-0) unstable; urgency=low
+kid3 (1.0-1) unstable; urgency=low
 
-  * New upstream release.
+  * New upstream release:
+    - Includes polish translation. (Closes: #465675)
+  * Add build-depend on libqt3-i18n to build translations.
+  * Update description in control file and manpages.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 01 Mar 2008 15:44:56 +0100
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Tue, 08 Apr 2008 10:32:37 +0200
 
-kid3 (0.10-0) unstable; urgency=low
+kid3 (0.10-1) unstable; urgency=low
 
-  * New upstream release. (Closes: #447699)
+  * New upstream release:
+    - Allow configuration of default charset for new tags. (Closes: #447699)
+  * Remove all the patches added in the 0.9-X uploads.
+  * Move Homepage into control field.
+  * Update Standards-Version to 3.7.3
+  * Add Vcs-Svn and Vcs-Browser fields.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 15 Nov 2007 21:38:58 +0100
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Wed, 05 Dec 2007 00:18:59 +0100
 
 kid3 (0.9-4) unstable; urgency=low
 

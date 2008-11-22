@@ -3,9 +3,9 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-pixmaps = $(CURDIR)/debian/kid3/usr/share/pixmaps
-bindir = $(CURDIR)/debian/kid3/usr/bin
-kdedocs = $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML
+# By default, all binary packages listed in debian/control are build.
+# To build only a subset of the packages, set the variable DH_OPTIONS, e.g.
+# DH_OPTIONS="-p kid3-qt"
 
 INSTALL_DIR = install -p -d -o root -g root -m 755
 INSTALL_FILE = install -p -o root -g root -m 644
@@ -32,30 +32,23 @@ endif
 		
 build: build-stamp
 	
--include debian/debiandirs
-
-debian/debiandirs: admin/debianrules
-	perl -w admin/debianrules echodirs > debian/debiandirs
-
 build-stamp:
 	dh_testdir
 
 	$(MAKE) -f /usr/share/quilt/quilt.make patch
 
-	QTDIR=/usr/share/qt3 ./configure \
-	                        --host=$(DEB_HOST_GNU_TYPE) \
-	                        --build=$(DEB_BUILD_GNU_TYPE) \
-	                        $(configkde)
-	$(MAKE)
+	for p in `dh_listpackages`; do $(MAKE) -f debian/$$p.mk build; done
 
 	touch build-stamp
 
 clean: 
 	dh_testdir
 	dh_testroot
-	[ ! -f Makefile ] || $(MAKE) distclean
+
+	for p in `dh_listpackages`; do $(MAKE) -f debian/$$p.mk clean; done
+
 	$(MAKE) -f /usr/share/quilt/quilt.make unpatch
-	-rm -f *-stamp po/*.gmo
+	-rm -f *-stamp
 	dh_clean
 
 install: build
@@ -64,16 +57,8 @@ install: build
 	dh_clean -k
 	dh_installdirs
 
-	# Main install.
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/kid3
+	for p in `dh_listpackages`; do $(MAKE) -f debian/$$p.mk install; done
 
-	# Make common links for docs.
-	for p in `dh_listpackages`; do \
-	  for i in `find $(kdedocs) -type d -name $$p -not -regex .*/en/$$p`; do \
-	    ln -f -n -s ../../en/common $$i/common; done; done
-
-	perl -w admin/debianrules cleanup
-	
 binary-indep: build install
 
 binary-arch: build install
@@ -96,7 +81,7 @@ binary-arch: build install
 	dh_builddeb
 
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
+.PHONY: build clean binary-indep binary-arch binary install
 
 get-orig-source:
 	@@dh_testdir
