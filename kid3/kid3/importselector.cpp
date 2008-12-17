@@ -870,6 +870,8 @@ void ImportSelector::showPreview() {
 		addAdditionalFrameColumns(*it, row);
 		++row;
 	}
+	m_tab->scrollToTop();
+	m_tab->resizeColumnsToContents();
 	m_tab->setVerticalHeaderLabels(vLabels);
 #else
 	m_tab->setNumRows(0);
@@ -908,6 +910,12 @@ void ImportSelector::showPreview() {
 			m_tab->setText(row, CommentColumn, (*it).getComment());
 		addAdditionalFrameColumns(*it, row);
 		++row;
+	}
+	if (row > 0) {
+		m_tab->ensureCellVisible(0, 0);
+	}
+	for (int col = 0; col < m_tab->numCols(); ++col) {
+		m_tab->adjustColumn(col);
 	}
 #endif
 
