@@ -579,6 +579,10 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 		FrameCollection::iterator it = m_frames.findByName(name);
 		if (it != m_frames.end()) {
 			result = it->getValue();
+			if (result.isNull()) {
+				// code was found, but value is empty
+				result = "";
+			}
 		}
 
 		if (name.QCM_toLower() == "track") {
