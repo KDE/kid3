@@ -2140,6 +2140,11 @@ void Kid3App::slotSettingsConfigure()
 			if (!s_miscCfg.m_markTruncations) {
 				m_view->frameTableV1()->markRows(0);
 			}
+			if (!s_miscCfg.m_markChanges) {
+				m_view->frameTableV1()->markChangedFrames(0);
+				m_view->frameTableV2()->markChangedFrames(0);
+				m_view->markChangedFilename(false);
+			}
 			setTextEncodings();
 #if QT_VERSION < 0x040000
 			m_view->frameTableV1()->triggerUpdateGenres();
@@ -2792,6 +2797,13 @@ void Kid3App::updateGuiControls()
 		if (s_miscCfg.m_markTruncations) {
 			m_view->frameTableV1()->markRows(single_v2_file->getTruncationFlags());
 		}
+		if (s_miscCfg.m_markChanges) {
+			m_view->frameTableV1()->markChangedFrames(
+				single_v2_file->getChangedFramesV1());
+			m_view->frameTableV2()->markChangedFrames(
+				single_v2_file->getChangedFramesV2());
+			m_view->markChangedFilename(single_v2_file->isFilenameChanged());
+		}
 	}
 	else {
 		m_view->setFilenameEditEnabled(false);
@@ -2801,6 +2813,11 @@ void Kid3App::updateGuiControls()
 
 		if (s_miscCfg.m_markTruncations) {
 			m_view->frameTableV1()->markRows(0);
+		}
+		if (s_miscCfg.m_markChanges) {
+			m_view->frameTableV1()->markChangedFrames(0);
+			m_view->frameTableV2()->markChangedFrames(0);
+			m_view->markChangedFilename(false);
 		}
 	}
 	m_view->frameTableV1()->setAllCheckBoxes(num_files_selected == 1);

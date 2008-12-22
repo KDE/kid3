@@ -48,7 +48,8 @@ QValueList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
  */
 TaggedFile::TaggedFile(const DirInfo* di, const QString& fn) :
 	m_dirInfo(di), m_filename(fn), m_newFilename(fn),
-	m_changedV1(false), m_changedV2(false), m_truncation(0)
+	m_changedV1(false), m_changedFramesV1(0),
+	m_changedV2(false), m_changedFramesV2(0), m_truncation(0)
 {
 }
 
@@ -262,6 +263,32 @@ QString TaggedFile::getAbsFilename() const
 {
 	QDir dir(m_dirInfo->getDirname());
 	return QDir::QCM_cleanPath(dir.QCM_absoluteFilePath(m_newFilename));
+}
+
+/**
+ * Mark tag 1 as changed.
+ *
+ * @param type type of changed frame
+ */
+void TaggedFile::markTag1Changed(Frame::Type type)
+{
+	m_changedV1 = true;
+	if (static_cast<unsigned>(type) < sizeof(m_changedFramesV1) * 8) {
+		m_changedFramesV1 |= (1 << type);
+	}
+}
+
+/**
+ * Mark tag 2 as changed.
+ *
+ * @param type type of changed frame
+ */
+void TaggedFile::markTag2Changed(Frame::Type type)
+{
+	m_changedV2 = true;
+	if (static_cast<unsigned>(type) < sizeof(m_changedFramesV2) * 8) {
+		m_changedFramesV2 |= (1 << type);
+	}
 }
 
 /**

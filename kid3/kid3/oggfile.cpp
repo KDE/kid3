@@ -74,7 +74,7 @@ void OggFile::readTags(bool force)
 {
 	if (force || !m_fileRead) {
 		m_comments.clear();
-		markTag2Changed(false);
+		markTag2Unchanged();
 		m_fileRead = true;
 		QCM_QCString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
@@ -205,7 +205,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 		if (!writeOk) {
 			return false;
 		}
-		markTag2Changed(false);
+		markTag2Unchanged();
 		QDir(dirname).remove(tempFilename);
 		if (getFilename() != currentFilename()) {
 			updateCurrentFilename();
@@ -329,7 +329,7 @@ void OggFile::deleteFramesV2(const FrameFilter& flt)
 {
 	if (flt.areAllEnabled()) {
 		m_comments.clear();
-		markTag2Changed();
+		markTag2Changed(Frame::FT_UnknownFrame);
 	} else {
 		bool changed = false;
 		for (OggFile::CommentList::iterator it = m_comments.begin();
@@ -343,7 +343,7 @@ void OggFile::deleteFramesV2(const FrameFilter& flt)
 			}
 		}
 		if (changed) {
-			markTag2Changed();
+			markTag2Changed(Frame::FT_UnknownFrame);
 		}
 	}
 }
@@ -465,12 +465,14 @@ QString OggFile::getTextField(const QString& name) const
  *
  * @param name name
  * @param value value, "" to remove, QString::null to do nothing
+ * @param type frame type
  */
-void OggFile::setTextField(const QString& name, const QString& value)
+void OggFile::setTextField(const QString& name, const QString& value,
+                           Frame::Type type)
 {
 	if (m_fileRead && !value.isNull() &&
 			m_comments.setValue(name, value)) {
-		markTag2Changed();
+		markTag2Changed(type);
 	}
 }
 
@@ -481,7 +483,7 @@ void OggFile::setTextField(const QString& name, const QString& value)
  */
 void OggFile::setTitleV2(const QString& str)
 {
-	setTextField("TITLE", str);
+	setTextField("TITLE", str, Frame::FT_Title);
 }
 
 /**
@@ -491,7 +493,7 @@ void OggFile::setTitleV2(const QString& str)
  */
 void OggFile::setArtistV2(const QString& str)
 {
-	setTextField("ARTIST", str);
+	setTextField("ARTIST", str, Frame::FT_Artist);
 }
 
 /**
@@ -501,7 +503,7 @@ void OggFile::setArtistV2(const QString& str)
  */
 void OggFile::setAlbumV2(const QString& str)
 {
-	setTextField("ALBUM", str);
+	setTextField("ALBUM", str, Frame::FT_Album);
 }
 
 /**
@@ -511,7 +513,7 @@ void OggFile::setAlbumV2(const QString& str)
  */
 void OggFile::setCommentV2(const QString& str)
 {
-	setTextField(getCommentFieldName(), str);
+	setTextField(getCommentFieldName(), str, Frame::FT_Comment);
 }
 
 /**
@@ -528,7 +530,7 @@ void OggFile::setYearV2(int num)
 		} else {
 			str = "";
 		}
-		setTextField("DATE", str);
+		setTextField("DATE", str, Frame::FT_Date);
 	}
 }
 
@@ -548,10 +550,10 @@ void OggFile::setTrackNumV2(int num)
 		} else {
 			str = "";
 		}
-		setTextField("TRACKNUMBER", str);
+		setTextField("TRACKNUMBER", str, Frame::FT_Track);
 		if (numTracks > 0) {
 			str.setNum(numTracks);
-			setTextField("TRACKTOTAL", str);
+			setTextField("TRACKTOTAL", str, Frame::FT_Other);
 		}
 	}
 }
@@ -563,7 +565,7 @@ void OggFile::setTrackNumV2(int num)
  */
 void OggFile::setGenreV2(const QString& str)
 {
-	setTextField("GENRE", str);
+	setTextField("GENRE", str, Frame::FT_Genre);
 }
 
 /**
@@ -660,8 +662,8 @@ bool OggFile::setFrameV2(const Frame& frame)
 		if (numTracks > 0) {
 			QString numTracksStr = QString::number(numTracks);
 			if (getTextField("TRACKTOTAL") != numTracksStr) {
-				setTextField("TRACKTOTAL", numTracksStr);
-				markTag2Changed();
+				setTextField("TRACKTOTAL", numTracksStr, Frame::FT_Other);
+				markTag2Changed(Frame::FT_Other);
 			}
 		}
 	}
@@ -673,7 +675,7 @@ bool OggFile::setFrameV2(const Frame& frame)
 #if QT_VERSION >= 0x040000
 		if (m_comments[index].getValue() != value) {
 			m_comments[index].setValue(value);
-			markTag2Changed();
+			markTag2Changed(frame.getType());
 		}
 		return true;
 #else
@@ -681,7 +683,7 @@ bool OggFile::setFrameV2(const Frame& frame)
 		if (it != m_comments.end()) {
 			if ((*it).getValue() != value) {
 				(*it).setValue(value);
-				markTag2Changed();
+				markTag2Changed(frame.getType());
 			}
 			return true;
 		}
@@ -709,7 +711,7 @@ bool OggFile::addFrameV2(Frame& frame)
 	m_comments.push_back(OggFile::CommentField(name, frame.getValue()));
 	frame.setInternalName(name);
 	frame.setIndex(m_comments.size() - 1);
-	markTag2Changed();
+	markTag2Changed(frame.getType());
 	return true;
 }
 
@@ -731,7 +733,7 @@ bool OggFile::deleteFrameV2(const Frame& frame)
 		OggFile::CommentList::iterator it = m_comments.at(index);
 		m_comments.erase(it);
 #endif
-		markTag2Changed();
+		markTag2Changed(frame.getType());
 		return true;
 	}
 

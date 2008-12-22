@@ -312,6 +312,67 @@ void FrameItemDelegate::setModelData(
  
 #else
 
+/** QCheckTableItem with control of background color. */
+class NameTableItem : public QCheckTableItem {
+public:
+	/**
+	 * Constructor.
+	 * @param table table
+	 * @param text  text
+	 */
+	NameTableItem(QTable* table, const QString& text) :
+		QCheckTableItem(table, text), m_colored(false) {}
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~NameTableItem();
+
+	/**
+	 * Set background colored.
+	 * @param en true to enable
+	 */
+	void setBackgroundColored(bool en) { m_colored = en; }
+
+	/**
+	 * Paint item.
+	 *
+	 * @param p        painter
+	 * @param cg       color group
+	 * @param cr       rectangle
+	 * @param selected true if highlighted
+	 */
+	virtual void paint(QPainter* p, const QColorGroup& cg, const QRect& cr,
+										 bool selected);
+
+private:
+	bool m_colored;
+};
+
+/**
+ * Destructor.
+ */
+NameTableItem::~NameTableItem() {}
+
+/**
+ * Paint item.
+ *
+ * @param p        painter
+ * @param cg       color group
+ * @param cr       rectangle
+ * @param selected true if highlighted
+ */
+void NameTableItem::paint(QPainter* p, const QColorGroup& cg, const QRect& cr,
+													bool selected)
+{
+	QColorGroup g(cg);
+	if (m_colored) {
+		g.setColor(QColorGroup::Base, cg.mid());
+	}
+	QCheckTableItem::paint(p, g, cr, selected);
+}
+
+
 /** QTableItem subclass to align everything (also numbers) left. */
 class ValueTableItem : public QTableItem {
 public:
@@ -664,7 +725,7 @@ void GenreTableItem::setColorRed(bool en)
 #if QT_VERSION >= 0x040000
 FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	QTableWidget(parent), m_cursorRow(-1), m_cursorColumn(-1),
-	m_markedRows(0), m_setCheckBoxes(true), m_id3v1(id3v1)
+	m_markedRows(0), m_changedFrames(0), m_setCheckBoxes(true), m_id3v1(id3v1)
 {
 	setColumnCount(CI_NumColumns);
 	setSelectionMode(SingleSelection);
@@ -687,7 +748,8 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 #else
 FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	QTable(parent), m_cursorRow(-1), m_cursorColumn(-1),
-	m_markedRows(0), m_id3v1(id3v1), m_resizeTable(false), m_updateGenres(false)
+	m_markedRows(0), m_changedFrames(0), m_id3v1(id3v1), m_resizeTable(false),
+	m_updateGenres(false)
 {
 	setNumCols(CI_NumColumns);
 	setSelectionMode(NoSelection);
@@ -699,7 +761,7 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	if (id3v1) {
 		setMinimumHeight((Frame::FT_LastV1Frame + 1) * (rowHeight(0) + 1));
 	}
-	setItem(0, CI_Enable, new QCheckTableItem(this, i18n("Track Number")));
+	setItem(0, CI_Enable, new NameTableItem(this, i18n("Track Number")));
 	adjustColumn(CI_Enable);
 	setColumnStretchable(CI_Value, true);
 	removeRow(0);
@@ -762,6 +824,16 @@ void FrameTable::framesToTable()
 			setItem(row, CI_Enable, twi);
 		}
 		twi->setCheckState(m_setCheckBoxes ? Qt::Checked : Qt::Unchecked);
+		bool frameChanged = 
+			(static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
+			 (m_changedFrames & (1 << (*it).getType())) != 0);
+#if QT_VERSION >= 0x040200
+		twi->setBackground(frameChanged ? QApplication::palette().mid() : Qt::NoBrush);
+#elif QT_VERSION >= 0x040000
+		twi->setBackgroundColor(frameChanged ?
+														QApplication::palette().mid().color() :
+														QApplication::palette().base().color());
+#endif
 
 		int type;
 		if (m_id3v1) {
@@ -812,19 +884,22 @@ void FrameTable::framesToTable()
 	setNumRows(m_frames.size());
 	int row = 0;
 	QTableItem* ti;
-	QCheckTableItem* cti;
+	NameTableItem* nti;
 	for (FrameCollection::const_iterator it = m_frames.begin();
 			 it != m_frames.end();
 			 ++it) {
 		if ((ti = item(row, CI_Enable)) != 0 &&
-				(cti = dynamic_cast<QCheckTableItem*>(ti)) != 0) {
+				(nti = dynamic_cast<NameTableItem*>(ti)) != 0) {
 			ti->setText(getDisplayName((*it).getName()));
 		} else {
-			cti = new QCheckTableItem(this, getDisplayName((*it).getName()));
-			setItem(row, CI_Enable, cti);
+			nti = new NameTableItem(this, getDisplayName((*it).getName()));
+			setItem(row, CI_Enable, nti);
 		}
-		if (cti) {
-			cti->setChecked(m_setCheckBoxes);
+		if (nti) {
+			nti->setChecked(m_setCheckBoxes);
+			nti->setBackgroundColored(
+				static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
+				(m_changedFrames & (1 << (*it).getType())) != 0);
 		}
 
 		int type;

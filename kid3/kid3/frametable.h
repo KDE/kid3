@@ -73,6 +73,12 @@ public:
 	void markRows(unsigned char rowMask) { m_markedRows = rowMask; }
 
 	/**
+	 * Mark changed frames.
+	 * @param frameMask mask with bits of frame types to mark
+	 */
+	void markChangedFrames(unsigned long frameMask) { m_changedFrames = frameMask; }
+
+	/**
 	 * Set all check boxes on or off.
 	 * Will take effect when framesToTable() is called.
 	 *
@@ -163,6 +169,7 @@ private:
 	int m_cursorRow;
 	int m_cursorColumn;
 	unsigned char m_markedRows;
+	unsigned long m_changedFrames;
 	bool m_setCheckBoxes;
 	const bool m_id3v1;
 	FrameCollection m_frames;

@@ -163,6 +163,12 @@ public:
 	void setFilenameEditEnabled(bool en) { m_nameLineEdit->setEnabled(en); }
 
 	/**
+	 * Mark the filename as changed.
+	 * @param en true to mark as changed
+	 */
+	void markChangedFilename(bool en);
+
+	/**
 	 * Set details info text.
 	 *
 	 * @param info detail information
@@ -450,6 +456,7 @@ private:
 
 	FileList* m_fileListBox;
 	QComboBox* m_formatComboBox;
+	QLabel* m_nameLabel;
 	QLineEdit* m_nameLineEdit;
 	QLabel* m_detailsLabel;
 #if QT_VERSION >= 0x040000

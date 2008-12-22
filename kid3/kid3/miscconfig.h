@@ -162,6 +162,8 @@ public:
 	bool m_enableTotalNumberOfTracks;
 	/** true to preserve file time stamps */
 	bool m_preserveTime;
+	/** true to mark changed fields */
+	bool m_markChanges;
 	/** field name used for Vorbis comment entries */
 	QString m_commentName;
 	/** filter of file names to be opened */

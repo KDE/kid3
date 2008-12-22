@@ -612,6 +612,13 @@ public:
 			m_newFilename != m_filename; }
 
 	/**
+	 * Check if filename is changed.
+	 *
+	 * @return true if filename was changed.
+	 */
+	bool isFilenameChanged() const { return m_newFilename != m_filename; }
+
+	/**
 	 * Get absolute filename.
 	 *
 	 * @return absolute file path.
@@ -626,9 +633,27 @@ public:
 
 	/**
 	 * Mark tag 2 as changed.
-	 * @param changed true if tag is changed
+	 *
+	 * @param type type of changed frame
 	 */
-	void markTag2Changed(bool changed = true) { m_changedV2 = changed; }
+	void markTag2Changed(Frame::Type type);
+
+	/**
+	 * Mark tag 2 as unchanged.
+	 */
+	void markTag2Unchanged() { m_changedV2 = false; m_changedFramesV2 = 0; }
+
+	/**
+	 * Get the mask of the frame types changed in tag 1.
+	 * @return mask of frame types.
+	 */
+	unsigned long getChangedFramesV1() const { return m_changedFramesV1; }
+
+	/**
+	 * Get the mask of the frame types changed in tag 2.
+	 * @return mask of frame types.
+	 */
+	unsigned long getChangedFramesV2() const { return m_changedFramesV2; }
 
 	/**
 	 * Get the truncation flags.
@@ -733,11 +758,18 @@ protected:
 
 	/**
 	 * Mark tag 1 as changed.
-	 * @param changed true if tag is changed
+	 *
+	 * @param type type of changed frame
 	 */
-	void markTag1Changed(bool changed = true) {
-		m_changedV1 = changed;
-		if (!m_changedV1) clearTrunctionFlags();
+	void markTag1Changed(Frame::Type type);
+
+	/**
+	 * Mark tag 1 as unchanged.
+	 */
+	void markTag1Unchanged() {
+		m_changedV1 = false;
+		m_changedFramesV1 = 0;
+		clearTrunctionFlags();
 	}
 
 	/**
@@ -781,8 +813,12 @@ private:
 	QString m_newFilename;
 	/** true if ID3v1 tags were changed */
 	bool m_changedV1;
+	/** changed tag 1 frame types */
+	unsigned long m_changedFramesV1;
 	/** true if ID3v2 tags were changed */
 	bool m_changedV2;
+	/** changed tag 2 frame types */
+	unsigned long m_changedFramesV2;
 	/** Truncation flags. */
 	unsigned m_truncation;
 

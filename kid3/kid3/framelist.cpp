@@ -1475,7 +1475,7 @@ bool FrameList::editFrame(Frame& frame)
 	}
 	if (result && m_file) {
 		if (m_file->setFrameV2(frame)) {
-			m_file->markTag2Changed();
+			m_file->markTag2Changed(frame.getType());
 		}
 	}
 	return result;
@@ -1529,7 +1529,7 @@ bool FrameList::addFrame(bool edit)
 		if (edit) {
 			if (!editFrame(m_frame)) {
 				m_file->deleteFrameV2(m_frame);
-				m_file->markTag2Changed(false);
+				m_file->markTag2Unchanged();
 				return false;
 			}
 		}

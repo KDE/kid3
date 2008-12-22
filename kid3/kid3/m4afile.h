@@ -318,8 +318,10 @@ private:
 	 *
 	 * @param name name
 	 * @param value value, "" to remove, QString::null to do nothing
+	 * @param type frame type
 	 */
-	void setTextField(const QString& name, const QString& value);
+	void setTextField(const QString& name, const QString& value,
+	                  Frame::Type type);
 
 	/** true if file has been read. */
 	bool m_fileRead;

@@ -175,8 +175,8 @@ Id3Form::Id3Form(QWidget* parent)
 	filenameGroupBoxLayout->setMargin(margin);
 	filenameGroupBoxLayout->setSpacing(spacing);
 
-	QLabel* nameLabel = new QLabel(i18n("Name:"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(nameLabel, 0, 0);
+	m_nameLabel = new QLabel(i18n("Name:"), filenameGroupBox);
+	filenameGroupBoxLayout->addWidget(m_nameLabel, 0, 0);
 
 	m_nameLineEdit = new QLineEdit(filenameGroupBox);
 	filenameGroupBoxLayout->addWidget(m_nameLineEdit, 0, 1);
@@ -305,8 +305,8 @@ Id3Form::Id3Form(QWidget* parent)
 			0, 0, 0, 2);
 	}
 
-	QLabel* nameLabel = new QLabel(i18n("Name:"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(nameLabel, 1, 0);
+	m_nameLabel = new QLabel(i18n("Name:"), filenameGroupBox);
+	filenameGroupBoxLayout->addWidget(m_nameLabel, 1, 0);
 
 	m_nameLineEdit = new QLineEdit(filenameGroupBox);
 	filenameGroupBoxLayout->addWidget(m_nameLineEdit, 1, 1);
@@ -657,6 +657,26 @@ void Id3Form::fnFromID3V2()
 void Id3Form::nameLineEditChanged(const QString& txt)
 {
 	formatLineEdit(m_nameLineEdit, txt, &theApp->s_fnFormatCfg);
+}
+
+/**
+ * Mark the filename as changed.
+ * @param en true to mark as changed
+ */
+void Id3Form::markChangedFilename(bool en)
+{
+#if QT_VERSION >= 0x040000
+	if (en) {
+		QPalette changedPalette(m_nameLabel->palette());
+		changedPalette.setBrush(QPalette::Active, QPalette::Window, changedPalette.mid());
+		m_nameLabel->setPalette(changedPalette);
+	} else {
+		m_nameLabel->setPalette(QPalette());
+	}
+	m_nameLabel->setAutoFillBackground(en);
+#else
+	m_nameLabel->setBackgroundMode(en ? PaletteMid : PaletteBackground);
+#endif
 }
 
 /**

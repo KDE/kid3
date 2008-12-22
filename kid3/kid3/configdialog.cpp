@@ -344,11 +344,13 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #endif
 			if (saveGroupBox) {
 				m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
+				m_markChangesCheckBox = new QCheckBox(i18n("&Mark changes"), saveGroupBox);
 #if QT_VERSION >= 0x040000
-				QHBoxLayout* hbox = new QHBoxLayout;
-				hbox->setMargin(2);
-				hbox->addWidget(m_preserveTimeCheckBox);
-				saveGroupBox->setLayout(hbox);
+				QVBoxLayout* vbox = new QVBoxLayout;
+				vbox->setMargin(2);
+				vbox->addWidget(m_preserveTimeCheckBox);
+				vbox->addWidget(m_markChangesCheckBox);
+				saveGroupBox->setLayout(vbox);
 #endif
 				vlayout->addWidget(saveGroupBox);
 			}
@@ -543,6 +545,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 	m_markTruncationsCheckBox->setChecked(miscCfg->m_markTruncations);
 	m_totalNumTracksCheckBox->setChecked(miscCfg->m_enableTotalNumberOfTracks);
 	m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
+	m_markChangesCheckBox->setChecked(miscCfg->m_markChanges);
 	m_onlyCustomGenresCheckBox->setChecked(miscCfg->m_onlyCustomGenres);
 	m_genresEdit->setStrings(miscCfg->m_customGenres);
 	m_commandsTable->setCommandList(miscCfg->m_contextMenuCommands);
@@ -624,6 +627,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	miscCfg->m_markTruncations = m_markTruncationsCheckBox->isChecked();
 	miscCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
 	miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
+	miscCfg->m_markChanges = m_markChangesCheckBox->isChecked();
 	miscCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
 	m_genresEdit->getStrings(miscCfg->m_customGenres);
 	m_commandsTable->getCommandList(miscCfg->m_contextMenuCommands);

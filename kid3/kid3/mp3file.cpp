@@ -104,26 +104,26 @@ void Mp3File::readTags(bool force)
 	if (force && m_tagV1) {
 		m_tagV1->Clear();
 		m_tagV1->Link(fn, ID3TT_ID3V1);
-		markTag1Changed(false);
+		markTag1Unchanged();
 	}
 	if (!m_tagV1) {
 		m_tagV1 = new ID3_Tag;
 		if (m_tagV1) {
 			m_tagV1->Link(fn, ID3TT_ID3V1);
-			markTag1Changed(false);
+			markTag1Unchanged();
 		}
 	}
 
 	if (force && m_tagV2) {
 		m_tagV2->Clear();
 		m_tagV2->Link(fn, ID3TT_ID3V2);
-		markTag2Changed(false);
+		markTag2Unchanged();
 	}
 	if (!m_tagV2) {
 		m_tagV2 = new ID3_Tag;
 		if (m_tagV2) {
 			m_tagV2->Link(fn, ID3TT_ID3V2);
-			markTag2Changed(false);
+			markTag2Unchanged();
 		}
 	}
 
@@ -169,24 +169,24 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 	// if there are no frames.
 	if (m_tagV1 && (force || isTag1Changed()) && (m_tagV1->NumFrames() == 0)) {
 		m_tagV1->Strip(ID3TT_ID3V1);
-		markTag1Changed(false);
+		markTag1Unchanged();
 	}
 	// Even after removing all frames, HasV2Tag() still returns true,
 	// so we strip the whole header.
 	if (m_tagV2 && (force || isTag2Changed()) && (m_tagV2->NumFrames() == 0)) {
 		m_tagV2->Strip(ID3TT_ID3V2);
-		markTag2Changed(false);
+		markTag2Unchanged();
 	}
 	// There seems to be a bug in id3lib: If I update an ID3v1 and then
 	// strip the ID3v2 the ID3v1 is removed too and vice versa, so I
 	// first make any stripping and then the updating.
 	if (m_tagV1 && (force || isTag1Changed()) && (m_tagV1->NumFrames() > 0)) {
 		m_tagV1->Update(ID3TT_ID3V1);
-		markTag1Changed(false);
+		markTag1Unchanged();
 	}
 	if (m_tagV2 && (force || isTag2Changed()) && (m_tagV2->NumFrames() > 0)) {
 		m_tagV2->Update(ID3TT_ID3V2);
-		markTag2Changed(false);
+		markTag2Unchanged();
 	}
 
 	// restore time stamp
@@ -226,7 +226,7 @@ void Mp3File::deleteFramesV1(const FrameFilter& flt)
 #else
 			delete iter;
 #endif
-			markTag1Changed();
+			markTag1Changed(Frame::FT_UnknownFrame);
 			clearTrunctionFlags();
 		} else {
 			TaggedFile::deleteFramesV1(flt);
@@ -859,7 +859,7 @@ void Mp3File::setTitleV1(const QString& str)
 {
 	if (getTextField(m_tagV1, ID3FID_TITLE, s_textCodecV1) != str &&
 			setTextField(m_tagV1, ID3FID_TITLE, str, false, true, true, s_textCodecV1)) {
-		markTag1Changed();
+		markTag1Changed(Frame::FT_Title);
 		QString s = checkTruncation(str, 1 << Frame::FT_Title);
 		if (!s.isNull()) setTextField(m_tagV1, ID3FID_TITLE, s, false, true, true, s_textCodecV1);
 	}
@@ -874,7 +874,7 @@ void Mp3File::setArtistV1(const QString& str)
 {
 	if (getTextField(m_tagV1, ID3FID_LEADARTIST, s_textCodecV1) != str &&
 			setTextField(m_tagV1, ID3FID_LEADARTIST, str, false, true, true, s_textCodecV1)) {
-		markTag1Changed();
+		markTag1Changed(Frame::FT_Artist);
 		QString s = checkTruncation(str, 1 << Frame::FT_Artist);
 		if (!s.isNull()) setTextField(m_tagV1, ID3FID_LEADARTIST, s, false, true, true, s_textCodecV1);
 	}
@@ -889,7 +889,7 @@ void Mp3File::setAlbumV1(const QString& str)
 {
 	if (getTextField(m_tagV1, ID3FID_ALBUM, s_textCodecV1) != str &&
 			setTextField(m_tagV1, ID3FID_ALBUM, str, false, true, true, s_textCodecV1)) {
-		markTag1Changed();
+		markTag1Changed(Frame::FT_Album);
 		QString s = checkTruncation(str, 1 << Frame::FT_Album);
 		if (!s.isNull()) setTextField(m_tagV1, ID3FID_ALBUM, s, false, true, true, s_textCodecV1);
 	}
@@ -904,7 +904,7 @@ void Mp3File::setCommentV1(const QString& str)
 {
 	if (getTextField(m_tagV1, ID3FID_COMMENT, s_textCodecV1) != str &&
 			setTextField(m_tagV1, ID3FID_COMMENT, str, false, true, true, s_textCodecV1)) {
-		markTag1Changed();
+		markTag1Changed(Frame::FT_Comment);
 		QString s = checkTruncation(str, 1 << Frame::FT_Comment, 28);
 		if (!s.isNull()) setTextField(m_tagV1, ID3FID_COMMENT, s, false, true, true, s_textCodecV1);
 	}
@@ -918,7 +918,7 @@ void Mp3File::setCommentV1(const QString& str)
 void Mp3File::setYearV1(int num)
 {
 	if (setYear(m_tagV1, num)) {
-		markTag1Changed();
+		markTag1Changed(Frame::FT_Date);
 	}
 }
 
@@ -930,7 +930,7 @@ void Mp3File::setYearV1(int num)
 void Mp3File::setTrackNumV1(int num)
 {
 	if (setTrackNum(m_tagV1, num)) {
-		markTag1Changed();
+		markTag1Changed(Frame::FT_Track);
 		int n = checkTruncation(num, 1 << Frame::FT_Track);
 		if (n != -1) setTrackNum(m_tagV1, n);
 	}
@@ -946,7 +946,7 @@ void Mp3File::setGenreV1(const QString& str)
 	if (!str.isNull()) {
 		int num = Genres::getNumber(str);
 		if (setGenreNum(m_tagV1, num)) {
-			markTag1Changed();
+			markTag1Changed(Frame::FT_Genre);
 		}
 		// if the string cannot be converted to a number, set the truncation flag
 		checkTruncation(num == 0xff && !str.isEmpty() ? 1 : 0,
@@ -963,7 +963,7 @@ void Mp3File::setTitleV2(const QString& str)
 {
 	if (getTextField(m_tagV2, ID3FID_TITLE) != str &&
 			setTextField(m_tagV2, ID3FID_TITLE, str, true)) {
-		markTag2Changed();
+		markTag2Changed(Frame::FT_Title);
 	}
 }
 
@@ -976,7 +976,7 @@ void Mp3File::setArtistV2(const QString& str)
 {
 	if (getTextField(m_tagV2, ID3FID_LEADARTIST) != str &&
 			setTextField(m_tagV2, ID3FID_LEADARTIST, str, true)) {
-		markTag2Changed();
+		markTag2Changed(Frame::FT_Artist);
 	}
 }
 
@@ -989,7 +989,7 @@ void Mp3File::setAlbumV2(const QString& str)
 {
 	if (getTextField(m_tagV2, ID3FID_ALBUM) != str &&
 			setTextField(m_tagV2, ID3FID_ALBUM, str, true)) {
-		markTag2Changed();
+		markTag2Changed(Frame::FT_Album);
 	}
 }
 
@@ -1002,7 +1002,7 @@ void Mp3File::setCommentV2(const QString& str)
 {
 	if (getTextField(m_tagV2, ID3FID_COMMENT) != str &&
 			setTextField(m_tagV2, ID3FID_COMMENT, str, true)) {
-		markTag2Changed();
+		markTag2Changed(Frame::FT_Comment);
 	}
 }
 
@@ -1014,7 +1014,7 @@ void Mp3File::setCommentV2(const QString& str)
 void Mp3File::setYearV2(int num)
 {
 	if (setYear(m_tagV2, num)) {
-		markTag2Changed();
+		markTag2Changed(Frame::FT_Date);
 	}
 }
 
@@ -1027,7 +1027,7 @@ void Mp3File::setTrackNumV2(int num)
 {
 	int numTracks = getTotalNumberOfTracksIfEnabled();
 	if (setTrackNum(m_tagV2, num, numTracks)) {
-		markTag2Changed();
+		markTag2Changed(Frame::FT_Track);
 	}
 }
 
@@ -1042,12 +1042,12 @@ void Mp3File::setGenreV2(const QString& str)
 		int num = Genres::getNumber(str);
 		if (num >= 0 && num != 0xff) {
 			if (setGenreNum(m_tagV2, num)) {
-				markTag2Changed();
+				markTag2Changed(Frame::FT_Genre);
 			}
 		} else {
 			if (getTextField(m_tagV2, ID3FID_CONTENTTYPE) != str &&
 					setTextField(m_tagV2, ID3FID_CONTENTTYPE, str, true)) {
-				markTag2Changed();
+				markTag2Changed(Frame::FT_Genre);
 			}
 		}
 	}
@@ -1615,19 +1615,19 @@ bool Mp3File::setFrameV2(const Frame& frame)
 					}
 					if (getString(fld) != value) {
 						setString(fld, value);
-						markTag2Changed();
+						markTag2Changed(frame.getType());
 					}
 					return true;
 				} else if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
 					if (getString(fld) != value) {
 						fld->Set(value.QCM_latin1());
-						markTag2Changed();
+						markTag2Changed(frame.getType());
 					}
 					return true;
 				}
 			} else {
 				setId3v2Frame(id3Frame, frame);
-				markTag2Changed();
+				markTag2Changed(frame.getType());
 				return true;
 			}
 		}
@@ -1698,7 +1698,7 @@ bool Mp3File::addFrameV2(Frame& frame)
 				getFieldsFromId3Frame(id3Frame, frame.fieldList());
 				frame.setFieldListFromValue();
 			}
-			markTag2Changed();
+			markTag2Changed(frame.getType());
 			return true;
 		}
 	}
@@ -1722,7 +1722,7 @@ bool Mp3File::deleteFrameV2(const Frame& frame)
 		ID3_Frame* id3Frame = getId3v2Frame(m_tagV2, index);
 		if (id3Frame) {
 			m_tagV2->RemoveFrame(id3Frame);
-			markTag2Changed();
+			markTag2Changed(frame.getType());
 			return true;
 		}
 	}
@@ -1751,7 +1751,7 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
 #else
 			delete iter;
 #endif
-			markTag2Changed();
+			markTag2Changed(Frame::FT_UnknownFrame);
 		} else {
 			ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
 			ID3_Frame* frame;
@@ -1769,7 +1769,7 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
 #else
 			delete iter;
 #endif
-			markTag2Changed();
+			markTag2Changed(Frame::FT_UnknownFrame);
 		}
 	}
 }

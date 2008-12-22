@@ -100,6 +100,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_markTruncations(true),
 	m_enableTotalNumberOfTracks(false),
 	m_preserveTime(false),
+	m_markChanges(true),
 	m_commentName(s_defaultCommentName),
 	m_nameFilter(""),
 	m_formatText(s_defaultFnFmtList[0]),
@@ -149,6 +150,7 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("MarkTruncations", m_markTruncations);
 	cfg.writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	cfg.writeEntry("PreserveTime", m_preserveTime);
+	cfg.writeEntry("MarkChanges", m_markChanges);
 	cfg.writeEntry("CommentName", m_commentName);
 	cfg.writeEntry("SplitterSizes", m_splitterSizes);
 	cfg.writeEntry("VSplitterSizes", m_vSplitterSizes);
@@ -191,6 +193,7 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/MarkTruncations", m_markTruncations);
 	config->QCM_writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->QCM_writeEntry("/PreserveTime", m_preserveTime);
+	config->QCM_writeEntry("/MarkChanges", m_markChanges);
 	config->QCM_writeEntry("/CommentName", m_commentName);
 
 #if QT_VERSION >= 0x040000
@@ -273,6 +276,7 @@ void MiscConfig::readFromConfig(
 	m_markTruncations = cfg.KCM_readBoolEntry("MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = cfg.KCM_readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = cfg.KCM_readBoolEntry("PreserveTime", m_preserveTime);
+	m_markChanges = cfg.KCM_readBoolEntry("MarkChanges", m_markChanges);
 	m_commentName = cfg.readEntry("CommentName", s_defaultCommentName);
 	m_formatText =
 	    cfg.readEntry("FormatText2", s_defaultFnFmtList[0]);
@@ -314,6 +318,7 @@ void MiscConfig::readFromConfig(
 	m_markTruncations = config->QCM_readBoolEntry("/MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = config->QCM_readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_preserveTime = config->QCM_readBoolEntry("/PreserveTime", m_preserveTime);
+	m_markChanges = config->QCM_readBoolEntry("/MarkChanges", m_markChanges);
 	m_commentName = config->QCM_readEntry("/CommentName", s_defaultCommentName);
 
 	m_formatText =

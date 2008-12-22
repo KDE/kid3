@@ -131,6 +131,8 @@ protected slots:
 private:
 	/** Preserve timestamp checkbox */
 	QCheckBox* m_preserveTimeCheckBox;
+	/** Mark changes checkbox */
+	QCheckBox* m_markChangesCheckBox;
 	/** Mark truncated fields checkbox */
 	QCheckBox* m_markTruncationsCheckBox;
 	/** ID3v1 text encodings */

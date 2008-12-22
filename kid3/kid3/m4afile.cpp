@@ -301,7 +301,7 @@ void M4aFile::readTags(bool force)
 {
 	if (force || !m_fileRead) {
 		m_metadata.clear();
-		markTag2Changed(false);
+		markTag2Unchanged();
 		m_fileRead = true;
 		QCM_QCString fnIn = QFile::encodeName(
 			getDirInfo()->getDirname() + QDir::separator() + currentFilename());
@@ -540,7 +540,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 			if (ok) {
 				// without this, old tags stay in the file marked as free
 				MP4Optimize(fn);
-				markTag2Changed(false);
+				markTag2Unchanged();
 			}
 
 			// restore time stamp
@@ -574,7 +574,7 @@ void M4aFile::deleteFramesV2(const FrameFilter& flt)
 {
 	if (flt.areAllEnabled()) {
 		m_metadata.clear();
-		markTag2Changed();
+		markTag2Changed(Frame::FT_UnknownFrame);
 	} else {
 		bool changed = false;
 		for (MetadataMap::iterator it = m_metadata.begin();
@@ -594,7 +594,7 @@ void M4aFile::deleteFramesV2(const FrameFilter& flt)
 			}
 		}
 		if (changed) {
-			markTag2Changed();
+			markTag2Changed(Frame::FT_UnknownFrame);
 		}
 	}
 }
@@ -626,8 +626,10 @@ QString M4aFile::getTextField(const QString& name) const
  *
  * @param name name
  * @param value value, "" to remove, QString::null to do nothing
+ * @param type frame type
  */
-void M4aFile::setTextField(const QString& name, const QString& value)
+void M4aFile::setTextField(const QString& name, const QString& value,
+                           Frame::Type type)
 {
 	if (m_fileRead && !value.isNull()) {
 		QByteArray str = value.QCM_toUtf8();
@@ -635,11 +637,11 @@ void M4aFile::setTextField(const QString& name, const QString& value)
 		if (it != m_metadata.end()) {
 			if (QString::fromUtf8((*it).data(), (*it).size()) != value) {
 				*it = str;
-				markTag2Changed();
+				markTag2Changed(type);
 			}
 		} else {
 			m_metadata.insert(name, str);
-			markTag2Changed();
+			markTag2Changed(type);
 		}
 	}
 }
@@ -751,7 +753,7 @@ QString M4aFile::getGenreV2()
  */
 void M4aFile::setTitleV2(const QString& str)
 {
-	setTextField("\251nam", str);
+	setTextField("\251nam", str, Frame::FT_Title);
 }
 
 /**
@@ -761,7 +763,7 @@ void M4aFile::setTitleV2(const QString& str)
  */
 void M4aFile::setArtistV2(const QString& str)
 {
-	setTextField("\251ART", str);
+	setTextField("\251ART", str, Frame::FT_Artist);
 }
 
 /**
@@ -771,7 +773,7 @@ void M4aFile::setArtistV2(const QString& str)
  */
 void M4aFile::setAlbumV2(const QString& str)
 {
-	setTextField("\251alb", str);
+	setTextField("\251alb", str, Frame::FT_Album);
 }
 
 /**
@@ -781,7 +783,7 @@ void M4aFile::setAlbumV2(const QString& str)
  */
 void M4aFile::setCommentV2(const QString& str)
 {
-	setTextField("\251cmt", str);
+	setTextField("\251cmt", str, Frame::FT_Comment);
 }
 
 /**
@@ -792,7 +794,8 @@ void M4aFile::setCommentV2(const QString& str)
 void M4aFile::setYearV2(int num)
 {
 	if (num >= 0) {
-		setTextField("\251day", num != 0 ? QString::number(num) : "");
+		setTextField("\251day", num != 0 ? QString::number(num) : "",
+		             Frame::FT_Date);
 	}
 }
 
@@ -815,7 +818,7 @@ void M4aFile::setTrackNumV2(int num)
 		} else {
 			str = "";
 		}
-		setTextField("trkn", str);
+		setTextField("trkn", str, Frame::FT_Track);
 	}
 }
 
@@ -829,10 +832,10 @@ void M4aFile::setGenreV2(const QString& str)
 	if (str != getGenreV2()) {
 		int genreNum = Genres::getNumber(str);
 		if (genreNum != 255) {
-			setTextField("gnre", str);
+			setTextField("gnre", str, Frame::FT_Genre);
 			m_metadata.remove("\251gen");
 		} else {
-			setTextField("\251gen", str);
+			setTextField("\251gen", str, Frame::FT_Genre);
 			m_metadata.remove("gnre");
 		}
 	}
@@ -930,11 +933,11 @@ bool M4aFile::setFrameV2(const Frame& frame)
 			QByteArray str = frame.getValue().QCM_toUtf8();
 			if (*it != str) {
 				*it = str;
-				markTag2Changed();
+				markTag2Changed(frame.getType());
 			}
 		} else {
 			if (PictureFrame::getData(frame, *it)) {
-				markTag2Changed();
+				markTag2Changed(Frame::FT_Picture);
 			}
 		}
 		return true;
@@ -970,7 +973,7 @@ bool M4aFile::addFrameV2(Frame& frame)
 	} else {
 		m_metadata[name] = frame.getValue().QCM_toUtf8();
 	}
-	markTag2Changed();
+	markTag2Changed(type);
 	return true;
 }
 
@@ -987,7 +990,7 @@ bool M4aFile::deleteFrameV2(const Frame& frame)
 	MetadataMap::iterator it = m_metadata.find(name);
 	if (it != m_metadata.end()) {
 		m_metadata.erase(it);
-		markTag2Changed();
+		markTag2Changed(frame.getType());
 		return true;
 	}
 

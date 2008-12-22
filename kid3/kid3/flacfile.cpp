@@ -137,7 +137,7 @@ void FlacFile::readTags(bool force)
 		m_pictures.clear();
 		int pictureNr = 0;
 #endif
-		markTag2Changed(false);
+		markTag2Unchanged();
 		m_fileRead = true;
 		QCM_QCString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 		m_fileInfo.read(0); // just to start invalid
@@ -339,12 +339,12 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 #ifdef HAVE_FLAC_PICTURE
 		if ((commentsSet || pictureSet) &&
 				m_chain->write(!pictureRemoved, preserve)) {
-			markTag2Changed(false);
+			markTag2Unchanged();
 		}
 #else
 		if (commentsSet &&
 				m_chain->write(true, preserve)) {
-			markTag2Changed(false);
+			markTag2Unchanged();
 		}
 #endif
 		else {
@@ -395,7 +395,7 @@ bool FlacFile::setFrameV2(const Frame& frame)
 			if (it != m_pictures.end()) {
 				*it = frame;
 				PictureFrame::setDescription(*it, frame.getValue());
-				markTag2Changed();
+				markTag2Changed(Frame::FT_Picture);
 				return true;
 			}
 		}
@@ -421,7 +421,7 @@ bool FlacFile::addFrameV2(Frame& frame)
 		PictureFrame::setDescription(frame, frame.getValue());
 		frame.setIndex(m_pictures.size());
 		m_pictures.push_back(frame);
-		markTag2Changed();
+		markTag2Changed(Frame::FT_Picture);
 		return true;
 	}
 	return OggFile::addFrameV2(frame);
@@ -445,7 +445,7 @@ bool FlacFile::deleteFrameV2(const Frame& frame)
 			PictureList::iterator it = m_pictures.at(index);
 			m_pictures.erase(it);
 #endif
-			markTag2Changed();
+			markTag2Changed(Frame::FT_Picture);
 			return true;
 		}
 	}
@@ -461,7 +461,7 @@ void FlacFile::deleteFramesV2(const FrameFilter& flt)
 {
 	if (flt.areAllEnabled() || flt.isEnabled(Frame::FT_Picture)) {
 		m_pictures.clear();
-		markTag2Changed();
+		markTag2Changed(Frame::FT_Picture);
 	}
 	OggFile::deleteFramesV2(flt);
 }
