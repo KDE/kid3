@@ -629,7 +629,7 @@ static bool setYear(ID3_Tag* tag, int num)
 static bool setTrackNum(ID3_Tag* tag, int num, int numTracks = -1)
 {
 	bool changed = false;
-	if (num >= 0) {
+	if (num >= 0 && getTrackNum(tag) != num) {
 		QString str;
 		if (num != 0) {
 			str.setNum(num);
@@ -1041,7 +1041,8 @@ void Mp3File::setGenreV2(const QString& str)
 	if (!str.isNull()) {
 		int num = Genres::getNumber(str);
 		if (num >= 0 && num != 0xff) {
-			if (setGenreNum(m_tagV2, num)) {
+			if (getGenreNum(m_tagV2) != num &&
+					setGenreNum(m_tagV2, num)) {
 				markTag2Changed(Frame::FT_Genre);
 			}
 		} else {
