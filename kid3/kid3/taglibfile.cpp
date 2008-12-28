@@ -1162,7 +1162,27 @@ void TagLibFile::setGenreV2(const QString& str)
 			TagLib::String::null : QSTRING_TO_TSTRING(str);
 		if (!(tstr == m_tagV2->genre())) {
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TCON")) {
-				m_tagV2->setGenre(tstr);
+				TagLib::ID3v2::TextIdentificationFrame* frame;
+				TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
+				if (id3v2Tag && Kid3App::s_miscCfg.m_genreNotNumeric &&
+						(frame = new TagLib::ID3v2::TextIdentificationFrame(
+							"TCON", getDefaultTextEncoding())) != 0) {
+					frame->setText(tstr);
+					id3v2Tag->removeFrames("TCON");
+#ifdef WIN32
+					// freed in Windows DLL => must be allocated in the same DLL
+					TagLib::ID3v2::Frame* dllAllocatedFrame =
+						TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
+					if (dllAllocatedFrame) {
+						id3v2Tag->addFrame(dllAllocatedFrame);
+					}
+					delete frame;
+#else
+					id3v2Tag->addFrame(frame);
+#endif
+				} else {
+					m_tagV2->setGenre(tstr);
+				}
 			}
 			markTag2Changed(Frame::FT_Genre);
 		}
@@ -2234,7 +2254,9 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 	if (frame.isValueChanged() || frame.getFieldList().empty()) {
 		QString text(frame.getValue());
 		if (frame.getType() == Frame::FT_Genre) {
-			text = Genres::getNumberString(text, false);
+			if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+				text = Genres::getNumberString(text, false);
+			}
 		} else if (frame.getType() == Frame::FT_Track) {
 			self->addTotalNumberOfTracksIfEnabled(text);
 		}
@@ -2250,7 +2272,9 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 				{
 					QString value(fld.m_value.toString());
 					if (frame.getType() == Frame::FT_Genre) {
-						value = Genres::getNumberString(value, false);
+						if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+							value = Genres::getNumberString(value, false);
+						}
 					} else if (frame.getType() == Frame::FT_Track) {
 						self->addTotalNumberOfTracksIfEnabled(value);
 					}

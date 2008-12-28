@@ -221,6 +221,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
 				v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+				m_genreNotNumericCheckBox = new QCheckBox(i18n("&Genre as text instead of numeric string"), v2GroupBox);
 				QLabel* textEncodingLabel = new QLabel(i18n("Text &encoding:"), v2GroupBox);
 				m_textEncodingComboBox = new QComboBox(v2GroupBox);
 #endif
@@ -234,6 +235,8 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
 				v2GroupBox->addSpace(0);
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+				m_genreNotNumericCheckBox = new QCheckBox(i18n("&Genre as text instead of numeric string"), v2GroupBox);
+				v2GroupBox->addSpace(0);
 				QLabel* textEncodingLabel = new QLabel(i18n("Text &encoding:"), v2GroupBox);
 				m_textEncodingComboBox = new QComboBox(v2GroupBox);
 #endif
@@ -250,8 +253,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 					m_textEncodingComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 					textEncodingLabel->setBuddy(m_textEncodingComboBox);
 #if QT_VERSION >= 0x040000
-					v2GroupBoxLayout->addWidget(textEncodingLabel, 1, 0);
-					v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 1, 1);
+					v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
+					v2GroupBoxLayout->addWidget(textEncodingLabel, 2, 0);
+					v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 2, 1);
 #endif
 				}
 #endif
@@ -262,8 +266,8 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 					m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 					id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
 #if QT_VERSION >= 0x040000
-					v2GroupBoxLayout->addWidget(id3v2VersionLabel, 2, 0);
-					v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 2, 1);
+					v2GroupBoxLayout->addWidget(id3v2VersionLabel, 3, 0);
+					v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 3, 1);
 #endif
 				}
 #endif
@@ -563,6 +567,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 #endif
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+	m_genreNotNumericCheckBox->setChecked(miscCfg->m_genreNotNumeric);
 	int textEncodingV1Index = TextEncodingV1Latin1Index;
 	int index = 0;
 	for (QStringList::const_iterator it = m_textEncodingV1List.begin();
@@ -635,6 +640,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+	miscCfg->m_genreNotNumeric = m_genreNotNumericCheckBox->isChecked();
 	miscCfg->m_textEncodingV1 =
 		getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText());
 	miscCfg->m_textEncoding = m_textEncodingComboBox->QCM_currentIndex();

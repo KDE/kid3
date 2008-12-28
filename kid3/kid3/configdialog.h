@@ -143,8 +143,12 @@ private:
 	QCheckBox* m_totalNumTracksCheckBox;
 	/** Comment field name combo box */
 	QComboBox* m_commentNameComboBox;
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+	/** Genre as text instead of numeric string checkbox */
+	QCheckBox* m_genreNotNumericCheckBox;
 	/** ID3v2 text encoding combo box */
 	QComboBox* m_textEncodingComboBox;
+#endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	/** ID3v2 version combo box */
 	QComboBox* m_id3v2VersionComboBox;

@@ -1039,7 +1039,10 @@ void Mp3File::setTrackNumV2(int num)
 void Mp3File::setGenreV2(const QString& str)
 {
 	if (!str.isNull()) {
-		int num = Genres::getNumber(str);
+		int num = 0xff;
+		if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+			num = Genres::getNumber(str);
+		}
 		if (num >= 0 && num != 0xff) {
 			if (getGenreNum(m_tagV2) != num &&
 					setGenreNum(m_tagV2, num)) {
@@ -1540,7 +1543,9 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
 				}
 				QString value(fld.m_value.toString());
 				if (id3Id == ID3FID_CONTENTTYPE) {
-					value = Genres::getNumberString(value, true);
+					if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+						value = Genres::getNumberString(value, true);
+					}
 				} else if (id3Id == ID3FID_TRACKNUM) {
 					addTotalNumberOfTracksIfEnabled(value);
 				}
@@ -1590,7 +1595,9 @@ bool Mp3File::setFrameV2(const Frame& frame)
 				if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
 						(fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
 					if (id3Frame->GetID() == ID3FID_CONTENTTYPE) {
-						value = Genres::getNumberString(value, true);
+						if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+							value = Genres::getNumberString(value, true);
+						}
 					} else if (id3Frame->GetID() == ID3FID_TRACKNUM) {
 						addTotalNumberOfTracksIfEnabled(value);
 					}

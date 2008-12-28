@@ -99,6 +99,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	GeneralConfig(group),
 	m_markTruncations(true),
 	m_enableTotalNumberOfTracks(false),
+	m_genreNotNumeric(false),
 	m_preserveTime(false),
 	m_markChanges(true),
 	m_commentName(s_defaultCommentName),
@@ -149,6 +150,7 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("RenameDirectorySource", m_renDirSrc);
 	cfg.writeEntry("MarkTruncations", m_markTruncations);
 	cfg.writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	cfg.writeEntry("GenreNotNumeric", m_genreNotNumeric);
 	cfg.writeEntry("PreserveTime", m_preserveTime);
 	cfg.writeEntry("MarkChanges", m_markChanges);
 	cfg.writeEntry("CommentName", m_commentName);
@@ -192,6 +194,7 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/RenameDirectorySource", m_renDirSrc);
 	config->QCM_writeEntry("/MarkTruncations", m_markTruncations);
 	config->QCM_writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	config->QCM_writeEntry("/GenreNotNumeric", m_genreNotNumeric);
 	config->QCM_writeEntry("/PreserveTime", m_preserveTime);
 	config->QCM_writeEntry("/MarkChanges", m_markChanges);
 	config->QCM_writeEntry("/CommentName", m_commentName);
@@ -275,6 +278,7 @@ void MiscConfig::readFromConfig(
 	m_renDirSrc = cfg.KCM_readBoolEntry("RenameDirectorySource", m_renDirSrc);
 	m_markTruncations = cfg.KCM_readBoolEntry("MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = cfg.KCM_readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	m_genreNotNumeric = cfg.KCM_readBoolEntry("GenreNotNumeric", m_genreNotNumeric);
 	m_preserveTime = cfg.KCM_readBoolEntry("PreserveTime", m_preserveTime);
 	m_markChanges = cfg.KCM_readBoolEntry("MarkChanges", m_markChanges);
 	m_commentName = cfg.readEntry("CommentName", s_defaultCommentName);
@@ -317,6 +321,7 @@ void MiscConfig::readFromConfig(
 	m_renDirSrc = config->QCM_readBoolEntry("/RenameDirectorySource", m_renDirSrc);
 	m_markTruncations = config->QCM_readBoolEntry("/MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = config->QCM_readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	m_genreNotNumeric = config->QCM_readBoolEntry("/GenreNotNumeric", m_genreNotNumeric);
 	m_preserveTime = config->QCM_readBoolEntry("/PreserveTime", m_preserveTime);
 	m_markChanges = config->QCM_readBoolEntry("/MarkChanges", m_markChanges);
 	m_commentName = config->QCM_readEntry("/CommentName", s_defaultCommentName);

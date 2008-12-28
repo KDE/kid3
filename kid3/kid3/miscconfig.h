@@ -160,6 +160,8 @@ public:
 	bool m_markTruncations;
 	/** true to write total number of tracks into track fields */
 	bool m_enableTotalNumberOfTracks;
+	/** true to write genres as text instead of numeric string */
+	bool m_genreNotNumeric;
 	/** true to preserve file time stamps */
 	bool m_preserveTime;
 	/** true to mark changed fields */
