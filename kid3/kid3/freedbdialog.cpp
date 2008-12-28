@@ -30,6 +30,9 @@
 #include "freedbdialog.h"
 #include "genres.h"
 #include "importparser.h"
+#if QT_VERSION < 0x040000
+#include <cstring>
+#endif
 
 static const char* serverList[] = {
 	"www.gnudb.org:80",
@@ -109,7 +112,25 @@ void FreedbDialog::parseFindResults(const QByteArray& searchStr)
 Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
 <a href="http://www.gnudb.org/gnudb/rock/920b810c" target=_blank>Discid: rock / 920b810c</a><br>
 */
-	QString str = QString::fromUtf8(searchStr);
+	bool isUtf8 = false;
+#if QT_VERSION >= 0x040000
+	int charSetPos = searchStr.indexOf("charset=");
+	if (charSetPos != -1) {
+		charSetPos += 8;
+		QByteArray charset(searchStr.mid(charSetPos, 5));
+		isUtf8 = charset == "utf-8" || charset == "UTF-8";
+	}
+#else
+	const char* searchStrData = searchStr.data();
+	char* charSetPtr = std::strstr(searchStrData, "charset=");
+	if (charSetPtr) {
+		charSetPtr += 8;
+		isUtf8 = std::strncmp(charSetPtr, "utf-8", 5) == 0 ||
+		         std::strncmp(charSetPtr, "UTF-8", 5) == 0;
+	}
+#endif
+	QString str = isUtf8 ? QString::fromUtf8(searchStr) :
+	                       QString::fromLatin1(searchStr);
 	QRegExp titleRe("<a href=\"[^\"]+/cd/[^\"]+\"><b>([^<]+)</b></a>");
 	QRegExp catIdRe("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)");
 	QStringList lines = QCM_split(QRegExp("[\\r\\n]+"), str);

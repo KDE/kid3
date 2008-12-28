@@ -121,7 +121,7 @@ void FreedbClient::constructTrackListQuery(
 	m_request += "+";
 	m_request += id;
 	m_request += "&hello=noname+localhost+";
-	m_request += "Kid3+" VERSION "&proto=1 HTTP/1.1\r\nHost: ";
+	m_request += "Kid3+" VERSION "&proto=6 HTTP/1.1\r\nHost: ";
 	m_request += serverName;
 	m_request += "\r\nConnection: close\r\n\r\n";
 }
