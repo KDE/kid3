@@ -69,6 +69,7 @@ void FormatConfig::setAsFilenameFormatter()
 	m_strRepMap["."] = "";
 	m_strRepMap["?"] = "";
 	m_strRepMap["*"] = "";
+	m_strRepMap["\""] = "''";
 	m_strRepMap["ä"] = "ae";
 	m_strRepMap["ö"] = "oe";
 	m_strRepMap["ü"] = "ue";
