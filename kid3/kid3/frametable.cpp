@@ -32,6 +32,7 @@
 #include <QHeaderView>
 #include <QKeyEvent>
 #include <QItemDelegate>
+#include <QApplication>
 #endif
 
 /** Column indices. */
