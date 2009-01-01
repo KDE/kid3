@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03 Mar 2008
  *
- * Copyright (C) 2008  Urs Fleisch
+ * Copyright (C) 2008-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -282,6 +282,15 @@ public:
 	 * @return true if field found and set.
 	 */
 	static bool setMimeTypeFromFileName(Frame& frame, const QString& fileName);
+
+	/**
+	 * Get the URL of an image file.
+	 *
+	 * @param url URL from Google Images, Amazon or direct URL of image file
+	 *
+	 * @return URL of image file, empty if no image URL found.
+	 */
+	static QString getImageUrl(const QString& url);
 
 private:
 	/**

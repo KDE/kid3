@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,23 +27,14 @@
 #ifndef IMPORTSOURCECLIENT_H
 #define IMPORTSOURCECLIENT_H
 
-#include "config.h"
-#include <qobject.h>
-#include <qstring.h>
-#include "qtcompatmac.h"
+#include "httpclient.h"
 
-#if QT_VERSION >= 0x040000
-#include <QTcpSocket>
-#else
-#include <qsocket.h>
-#endif
-class QStatusBar;
 class ImportSourceConfig;
 
 /**
  * Client to connect to server with import data.
  */
-class ImportSourceClient : public QObject
+class ImportSourceClient : public HttpClient
 {
 Q_OBJECT
 
@@ -59,42 +50,28 @@ public:
 	virtual ~ImportSourceClient();
 
 	/**
-	 * Initialize object.
-	 * Has to be called before use.
-	 *
-	 * @param sb status bar to display progress information.
-	 */
-	virtual void init(QStatusBar* sb);
-
-	/**
-	 * Construct a query command in m_request to search on the server.
+	 * Send a query command to search on the server.
 	 * This method has to be reimplemented for the specific search command.
 	 *
 	 * @param cfg      import source configuration
 	 * @param artist   artist to search
 	 * @param album    album to search
-	 * @param dest     the server to connect to is returned here
-	 * @param destPort the port of the server is returned here
 	 */
-	virtual void constructFindQuery(
+	virtual void sendFindQuery(
 		const ImportSourceConfig* cfg,
-		const QString& artist, const QString& album,
-		QString& dest, int& destPort) = 0;
+		const QString& artist, const QString& album) = 0;
 
 	/**
-	 * Construct a query command in m_request to fetch the track list
+	 * Send a query command to fetch the track list
 	 * from the server.
 	 * This method has to be reimplemented for the specific server.
 	 *
 	 * @param cfg      import source configuration
 	 * @param cat      category
 	 * @param id       ID
-	 * @param dest     the server to connect to is returned here
-	 * @param destPort the port of the server is returned here
 	 */
-	virtual void constructTrackListQuery(
-		const ImportSourceConfig* cfg, const QString& cat, const QString& id,
-		QString& dest, int& destPort) = 0;
+	virtual void sendTrackListQuery(
+		const ImportSourceConfig* cfg, const QString& cat, const QString& id) = 0;
 
 	/**
 	 * Find artist, album on server.
@@ -115,46 +92,15 @@ public:
 	 */
 	void getTrackList(const ImportSourceConfig* cfg, QString cat, QString id);
 
-	/**
-	 * Extract name and port from string.
-	 *
-	 * @param namePort input string with "name:port"
-	 * @param name     output string with "name"
-	 * @param port     output integer with port
-	 */
-	static void splitNamePort(const QString& namePort,
-														QString& name, int& port);
-
-private slots:
-	/**
-	 * Display status if host is found.
-	 */
-	void slotHostFound();
-
-	/**
-	 * Display status if connection is established.
-	 */
-	void slotConnected();
-
-	/**
-	 * Read received data when the server has closed the connection.
-	 * The data is sent to other objects via signals.
-	 */
-	void slotConnectionClosed();
-
-	/**
-	 * Display information about read progress.
-	 */
-	void slotReadyRead();
-
-	/**
-	 * Display information about socket error.
-	 */
-#if QT_VERSION >= 0x040000
-	void slotError(QAbstractSocket::SocketError err);
-#else
-	void slotError(int err);
-#endif
+ /**
+	* Encode a query in an URL.
+	* The query is percent-encoded with spaces collapsed and replaced by '+'.
+	*
+	* @param query query to encode
+	*
+	* @return encoded query.
+	*/
+	static QString encodeUrlQuery(const QString& query);
 
 signals:
 	/**
@@ -169,29 +115,16 @@ signals:
 	 */
 	void albumFinished(const QByteArray&);
 
-protected:
+private slots:
 	/**
-	 * Get string with proxy or destination and port.
-	 * If a proxy is set, the proxy is returned, else the real destination.
+	 * Handle response when request is finished.
+	 * The data is sent to other objects via signals.
 	 *
-	 * @param dst real destination
-	 *
-	 * @return "destinationname:port".
+	 * @param rcvStr received data
 	 */
-	static QString getProxyOrDest(const QString& dst);
-
-	/** request to set */
-	QString m_request;
+	void requestFinished(const QByteArray& rcvStr);
 
 private:
-	/** status bar to display progress */
-	QStatusBar* m_statusBar;
-	/** client socket */
-#if QT_VERSION >= 0x040000
-	QTcpSocket* m_sock;
-#else
-	QSocket* m_sock;
-#endif
 	/** type of current request */
 	enum RequestType {
 		RT_None,

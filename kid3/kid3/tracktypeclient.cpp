@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Apr 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -26,8 +26,6 @@
 
 #include "tracktypeclient.h"
 #include "importsourceconfig.h"
-#include <qregexp.h>
-#include <qurl.h>
 
 static const char trackTypeServer[] = "tracktype.org:80";
 
@@ -46,45 +44,20 @@ TrackTypeClient::~TrackTypeClient()
 }
 
 /**
- * Construct a query command in m_request to search on the server.
+ * Send a query command to search on the server.
  *
  * @param cfg      import source configuration
  * @param artist   artist to search
  * @param album    album to search
- * @param dest     the server to connect to is returned here
- * @param destPort the port of the server is returned here
  */
-void TrackTypeClient::constructFindQuery(
+void TrackTypeClient::sendFindQuery(
 	const ImportSourceConfig* cfg,
-	const QString& artist, const QString& album,
-	QString& dest, int& destPort)
+	const QString& artist, const QString& album)
 {
 	// At the moment, only TrackType.org recognizes cddb album commands,
 	// so we always use this server for find queries.
-	QString server(trackTypeServer);
-	QString what = artist + " / " + album;
-	QString destNamePort(getProxyOrDest(server));
-	splitNamePort(destNamePort, dest, destPort);
-	QString serverName;
-	int serverPort;
-	splitNamePort(server, serverName, serverPort);
-	what.replace(QRegExp(" +"), " "); // collapse spaces
-	QCM_QUrl_encode(what);
-	what.replace("%20", "+"); // replace spaces by '+'
-	m_request = "GET ";
-	if (dest != serverName) {
-		m_request += "http://";
-		m_request += serverName;
-		if (serverPort != 80) {
-			m_request += ':';
-			m_request += QString::number(serverPort);
-		}
-	}
-	m_request += cfg->m_cgiPath;
-	m_request += "?cmd=cddb+album+";
-	m_request += what;
-	m_request += "&hello=noname+localhost+";
-	m_request += "Kid3+" VERSION "&proto=6 HTTP/1.1\r\nHost: ";
-	m_request += serverName;
-	m_request += "\r\nConnection: close\r\n\r\n";
+	sendRequest(trackTypeServer,
+							cfg->m_cgiPath + "?cmd=cddb+album+" +
+							encodeUrlQuery(artist + " / " + album) +
+							"&hello=noname+localhost+Kid3+" VERSION "&proto=6");
 }

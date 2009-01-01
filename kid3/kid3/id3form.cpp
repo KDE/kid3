@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -598,14 +598,24 @@ void Id3Form::dropEvent(QDropEvent* ev)
 	if (urls.isEmpty())
 		return;
 	QString text = urls.first().toLocalFile();
-	if (!text.isEmpty())
+	if (!text.isEmpty()) {
+		theApp->openDrop(text);
+	} else {
+		text = urls.first().toString();
+		if (text.startsWith("http://")) {
+			theApp->dropUrl(text);
+		}
+	}
 #else
 	QString text;
-	if (QTextDrag::decode(ev, text))
-#endif
-	{
-		theApp->openDrop(text);
+	if (QTextDrag::decode(ev, text)) {
+		if (text.startsWith("http://")) {
+			theApp->dropUrl(text);
+		} else {
+			theApp->openDrop(text);
+		}
 	}
+#endif
 }
 
 /**

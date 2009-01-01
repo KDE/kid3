@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Apr 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,18 +46,15 @@ public:
 	virtual ~TrackTypeClient();
 
 	/**
-	 * Construct a query command in m_request to search on the server.
+	 * Send a query command to search on the server.
 	 *
 	 * @param cfg      import source configuration
 	 * @param artist   artist to search
 	 * @param album    album to search
-	 * @param dest     the server to connect to is returned here
-	 * @param destPort the port of the server is returned here
 	 */
-	virtual void constructFindQuery(
+	virtual void sendFindQuery(
 		const ImportSourceConfig* cfg,
-		const QString& artist, const QString& album,
-		QString& dest, int& destPort);
+		const QString& artist, const QString& album);
 };
 
 #endif

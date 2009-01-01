@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2008  Urs Fleisch
+ * Copyright (C) 2003-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -90,6 +90,7 @@
 #include "numbertracksdialog.h"
 #include "filterdialog.h"
 #include "rendirdialog.h"
+#include "downloaddialog.h"
 #include "filelistitem.h"
 #include "dirlist.h"
 #include "pictureframe.h"
@@ -241,7 +242,7 @@ QString Kid3App::s_dirName;
  */
 Kid3App::Kid3App() :
 	m_importDialog(0), m_exportDialog(0), m_renDirDialog(0),
-	m_numberTracksDialog(0), m_filterDialog(0)
+	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0)
 {
 #ifdef CONFIG_USE_KDE
 #if KDE_VERSION >= 0x035c00
@@ -306,6 +307,7 @@ Kid3App::~Kid3App()
 	delete m_renDirDialog;
 	delete m_numberTracksDialog;
 	delete m_filterDialog;
+	delete m_downloadDialog;
 #ifndef CONFIG_USE_KDE
 	delete s_helpBrowser;
 	s_helpBrowser = 0;
@@ -2650,6 +2652,42 @@ void Kid3App::dropImage(const QImage& image)
 			addFrame(&frame);
 		}
 	}
+}
+
+/**
+ * Handle URL on drop.
+ *
+ * @param txt dropped URL.
+ */
+void Kid3App::dropUrl(const QString& txt)
+{
+	QString imgurl(PictureFrame::getImageUrl(txt));
+	if (!imgurl.isEmpty()) {
+		if (!m_downloadDialog) {
+			m_downloadDialog = new DownloadDialog(0, i18n("Download"));
+			connect(m_downloadDialog, SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
+							this, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
+		}
+		if (m_downloadDialog) {
+			QUrl url(imgurl);
+			m_downloadDialog->startDownload(url.host(), url.path());
+			m_downloadDialog->exec();
+		}
+	}
+}
+
+/**
+ * Add a downloaded image.
+ *
+ * @param data     HTTP response of download
+ * @param mimeType MIME type of data
+ * @param url      URL of downloaded data
+ */
+void Kid3App::imageDownloaded(const QByteArray& data,
+                              const QString& mimeType, const QString& url)
+{
+	PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
+	addFrame(&frame);
 }
 
 /**

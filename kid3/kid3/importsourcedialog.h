@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -203,6 +203,13 @@ private slots:
 	 * Show help.
 	 */
 	void showHelp();
+
+	/**
+	 * Display message in status bar.
+	 *
+	 * @param msg status message
+	 */
+	void showStatusMessage(const QString& msg);
 
 signals:
 	/**

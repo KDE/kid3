@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -166,7 +166,9 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 	m_statusBar = new QStatusBar(this);
 	if (m_statusBar) {
 		vlayout->addWidget(m_statusBar);
-		m_client->init(m_statusBar);
+		showStatusMessage(i18n("Ready."));
+		connect(m_client, SIGNAL(progress(const QString&, int, int)),
+						this, SLOT(showStatusMessage(const QString&)));
 		connect(m_client, SIGNAL(findFinished(const QByteArray&)),
 				this, SLOT(slotFindFinished(const QByteArray&)));
 		connect(m_client, SIGNAL(albumFinished(const QByteArray&)),
@@ -181,6 +183,16 @@ ImportSourceDialog::~ImportSourceDialog()
 {
 	m_client->disconnect();
 	delete m_client;
+}
+
+/**
+ * Display message in status bar.
+ *
+ * @param msg status message
+ */
+void ImportSourceDialog::showStatusMessage(const QString& msg)
+{
+	m_statusBar->QCM_showMessage(msg);
 }
 
 /**

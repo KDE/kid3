@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2008  Urs Fleisch
+ * Copyright (C) 2003-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -73,6 +73,7 @@ class RenDirDialog;
 class FilterDialog;
 class FileFilter;
 class QImage;
+class DownloadDialog;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -194,6 +195,13 @@ public:
 	 * @param image dropped image.
 	 */
 	void dropImage(const QImage& image);
+
+	/**
+	 * Handle URL on drop.
+	 *
+	 * @param txt dropped URL.
+	 */
+	void dropUrl(const QString& txt);
 
 	/**
 	 * Edit selected frame.
@@ -595,6 +603,16 @@ private slots:
 	 */
 	void scheduleRenameActions();
 
+	/**
+	 * Add a downloaded image.
+	 *
+	 * @param data     HTTP response of download
+	 * @param mimeType MIME type of data
+	 * @param url      URL of downloaded data
+	 */
+	void imageDownloaded(const QByteArray& data,
+	                     const QString& mimeType, const QString& url);
+
 private:
 	friend class ScriptInterface;
 
@@ -725,6 +743,8 @@ private:
 	NumberTracksDialog* m_numberTracksDialog;
 	/** Filter dialog */
 	FilterDialog* m_filterDialog;
+	/** Download dialog */
+	DownloadDialog* m_downloadDialog;
 	/** Frame list */
 	FrameList* m_framelist;
 

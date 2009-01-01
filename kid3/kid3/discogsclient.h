@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,32 +46,26 @@ public:
 	virtual ~DiscogsClient();
 
 	/**
-	 * Construct a query command in m_request to search on the server.
+	 * Send a query command to search on the server.
 	 *
 	 * @param cfg      import source configuration
 	 * @param artist   artist to search
 	 * @param album    album to search
-	 * @param dest     the server to connect to is returned here
-	 * @param destPort the port of the server is returned here
 	 */
-	virtual void constructFindQuery(
+	virtual void sendFindQuery(
 		const ImportSourceConfig* cfg,
-		const QString& artist, const QString& album,
-		QString& dest, int& destPort);
+		const QString& artist, const QString& album);
 
 	/**
-	 * Construct a query command in m_request to fetch the track list
+	 * Send a query command to fetch the track list
 	 * from the server.
 	 *
 	 * @param cfg      import source configuration
 	 * @param cat      category
 	 * @param id       ID
-	 * @param dest     the server to connect to is returned here
-	 * @param destPort the port of the server is returned here
 	 */
-	virtual void constructTrackListQuery(
-		const ImportSourceConfig* cfg, const QString& cat, const QString& id,
-		QString& dest, int& destPort);
+	virtual void sendTrackListQuery(
+		const ImportSourceConfig* cfg, const QString& cat, const QString& id);
 };
 
 #endif
