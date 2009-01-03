@@ -37,6 +37,7 @@
 #include <qapplication.h>
 #include <qclipboard.h>
 #include <qbuffer.h>
+#include <qdesktopwidget.h>
 #if QT_VERSION >= 0x040000
 #include <QListWidget>
 #include <QVBoxLayout>
@@ -225,28 +226,6 @@ private:
 };
 
 
-/** Image widget. */
-class ImageWidget : public QWidget {
-public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 * @param img    image to display in window
-	 */
-	ImageWidget(QWidget* parent, QImage* img);
-
-protected:
-	/**
-	 * Paint image, called when window has to be drawn.
-	 */
-	void paintEvent(QPaintEvent*);
-
-private:
-	/** Image to view */
-	QImage* m_image; 
-};
-
 /** Window to view image */
 class ImageViewer : public QDialog {
 public:
@@ -256,7 +235,7 @@ public:
 	 * @param parent parent widget
 	 * @param img    image to display in window
 	 */
-	ImageViewer(QWidget* parent, QImage* img);
+	ImageViewer(QWidget* parent, const QImage& img);
 
 	/**
 	 * Destructor.
@@ -265,7 +244,7 @@ public:
 
 private:
 	/** image to view */
-	ImageWidget* m_image; 
+	QLabel* m_image; 
 };
 
 
@@ -352,27 +331,6 @@ LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
 	}
 }
 
-/**
- * Constructor.
- *
- * @param parent parent widget
- * @param img    image to display in window
- */
-ImageWidget::ImageWidget(QWidget* parent, QImage* img) :
-	QWidget(parent), m_image(img)
-{
-	setFixedSize(m_image->width(), m_image->height());
-}
-
-/**
- * Paint image, called when window has to be drawn.
- */
-void ImageWidget::paintEvent(QPaintEvent*)
-{
-	QPainter paint(this);
-	paint.drawImage(0, 0, *m_image, 0, 0, m_image->width(), m_image->height());
-}
-
 
 /**
  * Constructor.
@@ -380,7 +338,7 @@ void ImageWidget::paintEvent(QPaintEvent*)
  * @param parent parent widget
  * @param img    image to display in window
  */
-ImageViewer::ImageViewer(QWidget* parent, QImage* img) :
+ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
 	QDialog(parent)
 {
 	setModal(true);
@@ -394,9 +352,27 @@ ImageViewer::ImageViewer(QWidget* parent, QImage* img) :
 	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
-	m_image = new ImageWidget(this, img);
+	m_image = new QLabel(this);
 	QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
 	if (vlayout && hlayout && m_image && closeButton) {
+		m_image->setScaledContents(true);
+		QSize imageSize(img.size());
+		QSize desktopSize(QApplication::desktop()->availableGeometry().size());
+		desktopSize -= QSize(12, 12);
+		if (imageSize.width() > desktopSize.width() ||
+				imageSize.height() > desktopSize.height()) {
+#if QT_VERSION >= 0x040000
+			m_image->setPixmap(QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio)));
+#else
+			m_image->setPixmap(QPixmap(img.scale(desktopSize, QImage::ScaleMin)));
+#endif
+		} else {
+#if QT_VERSION >= 0x040000
+			m_image->setPixmap(QPixmap::fromImage(img));
+#else
+			m_image->setPixmap(QPixmap(img));
+#endif
+		}
 		vlayout->addWidget(m_image);
 		hlayout->addItem(hspacer);
 		hlayout->addWidget(closeButton);
@@ -875,7 +851,7 @@ void BinaryOpenSave::viewData()
 {
 	QImage image;
 	if (image.loadFromData(m_byteArray)) {
-		ImageViewer iv(this, &image);
+		ImageViewer iv(this, image);
 		iv.exec();
 	}
 }
