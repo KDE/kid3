@@ -280,6 +280,10 @@ Id3Form::Id3Form(QWidget* parent)
 	QPushButton* deleteFramesPushButton =
 		new QPushButton(i18n("Delete"), m_idV2GroupBox);
 	buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
+
+	m_pictureLabel = new PictureLabel(this);
+	buttonsV2VBoxLayout->addWidget(m_pictureLabel);
+
 	buttonsV2VBoxLayout->addItem(
 		new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
@@ -385,7 +389,11 @@ Id3Form::Id3Form(QWidget* parent)
 		new QPushButton(i18n("Add"), buttonsV2VBox);
 	QPushButton* deleteFramesPushButton =
 		new QPushButton(i18n("Delete"), buttonsV2VBox);
-	new QWidget(buttonsV2VBox);
+
+	m_pictureLabel = new PictureLabel(buttonsV2VBox);
+
+	QWidget* expandWidget = new QWidget(buttonsV2VBox);
+	expandWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
 
 	rightHalfLayout->insertStretch(-1);
 	scrollView->addChild(m_rightHalfVBox);
@@ -808,6 +816,20 @@ void Id3Form::hideV2(bool hide)
 		m_idV2GroupBox->hide();
 	} else {
 		m_idV2GroupBox->show();
+	}
+}
+
+/**
+ * Hide or show picture.
+ *
+ * @param hide true to hide, false to show
+ */
+void Id3Form::hidePicture(bool hide)
+{
+	if (hide) {
+		m_pictureLabel->hide();
+	} else {
+		m_pictureLabel->show();
 	}
 }
 

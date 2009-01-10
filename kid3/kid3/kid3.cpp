@@ -449,6 +449,10 @@ void Kid3App::initActions()
 		            i18n("Hide Tag &2"), this,
 								SLOT(slotSettingsShowHideV2()), actionCollection(),
 								"hide_v2");
+	KCM_KActionVar(m_settingsShowHidePicture,
+		            i18n("Hide &Picture"), this,
+								SLOT(slotSettingsShowHidePicture()), actionCollection(),
+								"hide_picture");
 
 	KCM_KActionShortcutIcon(editPreviousFile, KShortcut("Alt+Up"), KCM_ICON_go_previous,
 		    i18n("&Previous File"), m_view,
@@ -734,6 +738,13 @@ void Kid3App::initActions()
 		connect(m_settingsShowHideV2, QCM_SIGNAL_triggered,
 			this, SLOT(slotSettingsShowHideV2()));
 	}
+	m_settingsShowHidePicture = new QAction(this);
+	if (m_settingsShowHidePicture) {
+		m_settingsShowHidePicture->setStatusTip(i18n("Hide Picture"));
+		m_settingsShowHidePicture->QCM_setMenuText(i18n("Hide &Picture"));
+		connect(m_settingsShowHidePicture, QCM_SIGNAL_triggered,
+			this, SLOT(slotSettingsShowHidePicture()));
+	}
 	QAction* settingsConfigure = new QAction(this);
 	if (settingsConfigure) {
 		settingsConfigure->setStatusTip(i18n("Configure Kid3"));
@@ -800,6 +811,7 @@ void Kid3App::initActions()
 
 		QCM_addAction(settingsMenu, m_settingsShowHideV1);
 		QCM_addAction(settingsMenu, m_settingsShowHideV2);
+		QCM_addAction(settingsMenu, m_settingsShowHidePicture);
 		settingsMenu->QCM_addSeparator();
 		QCM_addAction(settingsMenu, settingsConfigure);
 
@@ -995,6 +1007,7 @@ void Kid3App::readOptions()
 #endif
 	updateHideV1();
 	updateHideV2();
+	updateHidePicture();
 #ifdef CONFIG_USE_KDE
 	setAutoSaveSettings();
 #if KDE_VERSION >= 0x035c00
@@ -2098,6 +2111,31 @@ void Kid3App::updateHideV2()
 }
 
 /**
+ * Show or hide the picture according to the settings and
+ * set the menu entries appropriately.
+ */
+void Kid3App::updateHidePicture()
+{
+	m_view->hidePicture(s_miscCfg.m_hidePicture);
+	if (s_miscCfg.m_hidePicture) {
+#ifdef CONFIG_USE_KDE
+		m_settingsShowHidePicture->setText(i18n("Show &Picture"));
+#else
+		m_settingsShowHidePicture->setStatusTip(i18n("Show Picture"));
+		m_settingsShowHidePicture->QCM_setMenuText(i18n("Show &Picture"));
+#endif
+
+	} else {
+#ifdef CONFIG_USE_KDE
+		m_settingsShowHidePicture->setText(i18n("Hide &Picture"));
+#else
+		m_settingsShowHidePicture->setStatusTip(i18n("Hide Picture"));
+		m_settingsShowHidePicture->QCM_setMenuText(i18n("Hide &Picture"));
+#endif
+	}
+}
+
+/**
  * Show or hide ID3v1.1 controls.
  */
 void Kid3App::slotSettingsShowHideV1()
@@ -2113,6 +2151,24 @@ void Kid3App::slotSettingsShowHideV2()
 {
 	s_miscCfg.m_hideV2 = !s_miscCfg.m_hideV2;
 	updateHideV2();
+}
+
+/**
+ * Show or hide picture.
+ */
+void Kid3App::slotSettingsShowHidePicture()
+{
+	s_miscCfg.m_hidePicture = !s_miscCfg.m_hidePicture;
+	updateHidePicture();
+#if QT_VERSION >= 0x040000
+	// In Qt3 the picture is displayed too small if Kid3 is started with picture
+	// hidden, and then "Show Picture" is triggered while a file with a picture
+	// is selected. Thus updating the controls is only done for Qt4, in Qt3 the
+	// file has to be selected again for the picture to be shown.
+	if (!s_miscCfg.m_hidePicture) {
+		updateGuiControls();
+	}
+#endif
 }
 
 /**
@@ -2840,6 +2896,17 @@ void Kid3App::updateGuiControls()
 				single_v2_file->getChangedFramesV2());
 			m_view->markChangedFilename(single_v2_file->isFilenameChanged());
 		}
+
+		if (!s_miscCfg.m_hidePicture) {
+			FrameCollection::const_iterator it =
+				m_view->frameTableV2()->frames().find(Frame(Frame::FT_Picture, "", "", -1));
+			if (it == m_view->frameTableV2()->frames().end()) {
+				m_view->setPictureData(0);
+			} else {
+				QByteArray data;
+				m_view->setPictureData(PictureFrame::getData(*it, data) ? &data : 0);
+			}
+		}
 	}
 	else {
 		m_view->setFilenameEditEnabled(false);
@@ -2854,6 +2921,9 @@ void Kid3App::updateGuiControls()
 			m_view->frameTableV1()->markChangedFrames(0);
 			m_view->frameTableV2()->markChangedFrames(0);
 			m_view->markChangedFilename(false);
+		}
+		if (!s_miscCfg.m_hidePicture) {
+			m_view->setPictureData(0);
 		}
 	}
 	m_view->frameTableV1()->setAllCheckBoxes(num_files_selected == 1);

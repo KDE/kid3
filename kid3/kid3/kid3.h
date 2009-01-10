@@ -536,6 +536,11 @@ public slots:
 	void slotSettingsShowHideV2();
 
 	/**
+	 * Show or hide picture.
+	 */
+	void slotSettingsShowHidePicture();
+
+	/**
 	 * Preferences.
 	 */
 	void slotSettingsConfigure();
@@ -710,6 +715,12 @@ private:
 	void updateHideV2();
 
 	/**
+	 * Show or hide the picture according to the settings and
+	 * set the menu entries appropriately.
+	 */
+	void updateHidePicture();
+
+	/**
 	 * Set filter state.
 	 *
 	 * @param val true if list is filtered
@@ -757,10 +768,12 @@ private:
 	KToggleAction* m_viewStatusBar;
 	KAction* m_settingsShowHideV1;
 	KAction* m_settingsShowHideV2;
+	KAction* m_settingsShowHidePicture;
 #else
 	Kid3Settings* m_config;
 	QAction* m_settingsShowHideV1;
 	QAction* m_settingsShowHideV2;
+	QAction* m_settingsShowHidePicture;
 
 	static BrowserDialog* s_helpBrowser;
 #endif

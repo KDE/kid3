@@ -203,6 +203,8 @@ public:
 	bool m_hideV1;
 	/** true to hide ID3v2.3 controls */
 	bool m_hideV2;
+	/** true to hide picture preview */
+	bool m_hidePicture;
 	/** version used for new ID3v2 tags */
 	int m_id3v2Version;
 	/** text encoding used for new ID3v1 tags */

@@ -33,6 +33,7 @@
 #include <qlineedit.h>
 #include "filelist.h"
 #include "dirlist.h"
+#include "picturelabel.h"
 #include "taggedfile.h"
 #include "qtcompatmac.h"
 
@@ -113,6 +114,13 @@ public:
 	void hideV2(bool hide);
 
 	/**
+	 * Hide or show picture.
+	 *
+	 * @param hide true to hide, false to show
+	 */
+	void hidePicture(bool hide);
+
+	/**
 	 * Save the local settings to the configuration.
 	 */
 	void saveConfig();
@@ -167,6 +175,12 @@ public:
 	 * @param en true to mark as changed
 	 */
 	void markChangedFilename(bool en);
+
+	/**
+	 * Set preview picture data.
+	 * @param data picture data, 0 if no picture is available
+	 */
+	void setPictureData(const QByteArray* data) { m_pictureLabel->setData(data); }
 
 	/**
 	 * Set details info text.
@@ -474,6 +488,7 @@ private:
 	QPushButton* m_fnV1Button;
 	QPushButton* m_id3V2PushButton;
 	QWidget* m_rightHalfVBox;
+	PictureLabel* m_pictureLabel;
 
 private slots:
 	/**
