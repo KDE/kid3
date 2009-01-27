@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,6 +28,7 @@
 #define IMPORTCONFIG_H
 
 #include <qstringlist.h>
+#include <qmap.h>
 #include "config.h"
 #include "generalconfig.h"
 
@@ -121,6 +122,19 @@ public:
 	int m_exportWindowWidth;
 	/** export window height */
 	int m_exportWindowHeight;
+
+	/** names of picture sources */
+	QStringList m_pictureSourceNames;
+	/** picture source URLs */
+	QStringList m_pictureSourceUrls;
+	/** selected picture source */
+	int m_pictureSourceIdx;
+	/** Browse cover art window width */
+	int m_browseCoverArtWindowWidth;
+	/** Browse cover art window height */
+	int m_browseCoverArtWindowHeight;
+	/** Mapping for picture URL matching */
+	QMap<QString, QString> m_matchPictureUrlMap;
 };
 
 #endif

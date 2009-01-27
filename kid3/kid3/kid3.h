@@ -67,6 +67,7 @@ class TaggedFile;
 class FrameList;
 class ImportDialog;
 class ExportDialog;
+class BrowseCoverArtDialog;
 class RenDirDialog;
 class NumberTracksDialog;
 class RenDirDialog;
@@ -521,6 +522,11 @@ public slots:
 	void slotImportMusicBrainz();
 
 	/**
+	 * Browse album cover artwork.
+	 */
+	void slotBrowseCoverArt();
+
+	/**
 	 * Export.
 	 */
 	void slotExport();
@@ -746,6 +752,8 @@ private:
 	ImportDialog* m_importDialog;
 	/** Track data list */
 	ImportTrackDataVector m_trackDataList;
+	/** Browse cover art dialog */
+	BrowseCoverArtDialog* m_browseCoverArtDialog;
 	/** Export dialog */
 	ExportDialog* m_exportDialog;
 	/** Rename directory dialog */

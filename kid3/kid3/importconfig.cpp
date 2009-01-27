@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,9 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
 	m_importWindowWidth(-1), m_importWindowHeight(-1),
 	m_exportSrcV1(true), m_exportFormatIdx(0),
-	m_exportWindowWidth(-1), m_exportWindowHeight(-1)
+	m_exportWindowWidth(-1), m_exportWindowHeight(-1),
+	m_pictureSourceIdx(0),
+	m_browseCoverArtWindowWidth(-1), m_browseCoverArtWindowHeight(-1)
 {
 	/**
 	 * Preset import format regular expressions.
@@ -208,6 +210,58 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_exportFormatHeaders.append("");
 	m_exportFormatTracks.append("");
 	m_exportFormatTrailers.append("");
+
+	m_pictureSourceNames.append("Google Images");
+	m_pictureSourceUrls.append("http://images.google.com/images?q=%u{artist}%20%u{album}");
+	m_pictureSourceNames.append("Yahoo Images");
+	m_pictureSourceUrls.append("http://images.search.yahoo.com/search/images?ei=UTF-8&p=%u{artist}%20%u{album}");
+	m_pictureSourceNames.append("Amazon");
+	m_pictureSourceUrls.append("http://www.amazon.com/s?search-alias=aps&field-keywords=%u{artist}+%u{album}");
+	m_pictureSourceNames.append("Amazon.co.uk");
+	m_pictureSourceUrls.append("http://www.amazon.co.uk/s?search-alias=aps&field-keywords=%u{artist}+%u{album}");
+	m_pictureSourceNames.append("Amazon.de");
+	m_pictureSourceUrls.append("http://www.amazon.de/s?search-alias=aps&field-keywords=%u{artist}+%u{album}");
+	m_pictureSourceNames.append("Amazon.fr");
+	m_pictureSourceUrls.append("http://www.amazon.fr/s?search-alias=aps&field-keywords=%u{artist}+%u{album}");
+	m_pictureSourceNames.append("MusicBrainz");
+	m_pictureSourceUrls.append("http://musicbrainz.org/search/textsearch.html?query=%u{artist}+%u{album}&type=release");
+	m_pictureSourceNames.append("Discogs");
+	m_pictureSourceUrls.append("http://www.discogs.com/search?q=%u{artist}+%u{album}");
+	m_pictureSourceNames.append("CD Universe");
+	m_pictureSourceUrls.append("http://www.cduniverse.com/sresult.asp?HT_Search_Info=%u{artist}+%u{album}");
+ 	m_pictureSourceNames.append("Coveralia");
+	m_pictureSourceUrls.append("http://www.coveralia.com/mostrar.php?bus=%u{artist}%20%u{album}&bust=2");
+	m_pictureSourceNames.append("FreeCovers");
+	m_pictureSourceUrls.append("http://www.freecovers.net/search.php?search=%u{artist}+%u{album}&cat=4");
+	m_pictureSourceNames.append("CoverHunt");
+	m_pictureSourceUrls.append("http://www.coverhunt.com/search/%u{artist}+%u{album}");
+	m_pictureSourceNames.append("Yalp!");
+	m_pictureSourceUrls.append("http://search.yalp.alice.it/search/search.html?txtToSearch=%u{artist}%20%u{album}");
+	m_pictureSourceNames.append("HMV");
+	m_pictureSourceUrls.append("http://hmv.com/hmvweb/advancedSearch.do?searchType=2&artist=%u{artist}&title=%u{album}");
+	m_pictureSourceNames.append("CD Baby");
+	m_pictureSourceUrls.append("http://cdbaby.com/found?artist=%u{artist}&album=%u{album}");
+	m_pictureSourceNames.append("Jamendo");
+	m_pictureSourceUrls.append("http://www.jamendo.com/en/search/all/%u{artist}%20%u{album}");
+	m_pictureSourceNames.append("Custom Source");
+	m_pictureSourceUrls.append("");
+
+	m_matchPictureUrlMap["http://images.google.com/.*imgurl=([^&]+)&.*"] =
+		"\\1";
+	m_matchPictureUrlMap["http://rds.yahoo.com/.*%26imgurl=((?:[^%]|%(?!26))+).*"] =
+		"http%253A%252F%252F\\1";
+	m_matchPictureUrlMap["http://rds.yahoo.com/.*&imgurl=([^&]+)&.*"] =
+		"http%3A%2F%2F\\1";
+	m_matchPictureUrlMap["http://(?:www.)?amazon.(?:com|co.uk|de|fr).*/(?:dp|ASIN|images|product|-)/([A-Z0-9]+).*"] =
+		"http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg";
+	m_matchPictureUrlMap["http://musicbrainz.org/misc/redirects/.*&asin=([A-Z0-9]+).*"] =
+		"http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg";
+	m_matchPictureUrlMap["http://www.freecovers.net/view/(\\d+)/([0-9a-f]+)/.*"] =
+		"http://www.freecovers.net/preview/\\1/\\2/big.jpg";
+	m_matchPictureUrlMap["http://cdbaby.com/cd/(\\w)(\\w)(\\w+)"] =
+		"http://cdbaby.name/\\1/\\2/\\1\\2\\3.jpg";
+	m_matchPictureUrlMap["http://www.jamendo.com/en/album/(\\d+)"] =
+		"http://imgjam.com/albums/\\1/covers/1.0.jpg";
 }
 
 /**
@@ -249,6 +303,14 @@ void ImportConfig::writeToConfig(
 	cfg.writeEntry("ExportFormatIdx", m_exportFormatIdx);
 	cfg.writeEntry("ExportWindowWidth", m_exportWindowWidth);
 	cfg.writeEntry("ExportWindowHeight", m_exportWindowHeight);
+
+	cfg.writeEntry("PictureSourceNames", m_pictureSourceNames);
+	cfg.writeEntry("PictureSourceUrls", m_pictureSourceUrls);
+	cfg.writeEntry("PictureSourceIdx", m_pictureSourceIdx);
+	cfg.writeEntry("MatchPictureUrlMapKeys", m_matchPictureUrlMap.keys());
+	cfg.writeEntry("MatchPictureUrlMapValues", m_matchPictureUrlMap.values());
+	cfg.writeEntry("BrowseCoverArtWindowWidth", m_browseCoverArtWindowWidth);
+	cfg.writeEntry("BrowseCoverArtWindowHeight", m_browseCoverArtWindowHeight);
 #else
 	config->beginGroup("/" + m_group);
 	config->QCM_writeEntry("/ImportServer", m_importServer);
@@ -271,6 +333,14 @@ void ImportConfig::writeToConfig(
 	config->QCM_writeEntry("/ExportWindowWidth", m_exportWindowWidth);
 	config->QCM_writeEntry("/ExportWindowHeight", m_exportWindowHeight);
 
+	config->QCM_writeEntry("/PictureSourceNames", m_pictureSourceNames);
+	config->QCM_writeEntry("/PictureSourceUrls", m_pictureSourceUrls);
+	config->QCM_writeEntry("/PictureSourceIdx", m_pictureSourceIdx);
+	config->QCM_writeEntry("/MatchPictureUrlMapKeys", m_matchPictureUrlMap.keys());
+	config->QCM_writeEntry("/MatchPictureUrlMapValues", m_matchPictureUrlMap.values());
+	config->QCM_writeEntry("/BrowseCoverArtWindowWidth", m_browseCoverArtWindowWidth);
+	config->QCM_writeEntry("/BrowseCoverArtWindowHeight", m_browseCoverArtWindowHeight);
+
 	config->endGroup();
 #endif
 }
@@ -289,7 +359,7 @@ void ImportConfig::readFromConfig(
 	)
 {
 	QStringList names, headers, tracks;
-	QStringList expNames, expHeaders, expTracks, expTrailers;
+	QStringList expNames, expHeaders, expTracks, expTrailers, picNames, picUrls;
 #ifdef CONFIG_USE_KDE
 	KCM_KConfigGroup(cfg, config, m_group);
 	m_importServer = static_cast<ImportConfig::ImportServer>(
@@ -314,6 +384,23 @@ void ImportConfig::readFromConfig(
 	m_exportWindowWidth = cfg.KCM_readNumEntry("ExportWindowWidth", -1);
 	m_exportWindowHeight = cfg.KCM_readNumEntry("ExportWindowHeight", -1);
 
+	picNames = cfg.KCM_readListEntry("PictureSourceNames");
+	picUrls = cfg.KCM_readListEntry("PictureSourceUrls");
+	m_pictureSourceIdx = cfg.KCM_readNumEntry("PictureSourceIdx", m_pictureSourceIdx);
+	QStringList keys = cfg.KCM_readListEntry("MatchPictureUrlMapKeys");
+	QStringList values = cfg.KCM_readListEntry("MatchPictureUrlMapValues");
+	if (!keys.empty() && !values.empty()) {
+		QStringList::Iterator itk, itv;
+		m_matchPictureUrlMap.clear();
+		for (itk = keys.begin(), itv = values.begin();
+			 itk != keys.end() && itv != values.end();
+			 ++itk, ++itv) {
+			m_matchPictureUrlMap[*itk] = *itv;
+		}
+	}
+	m_browseCoverArtWindowWidth = cfg.KCM_readNumEntry("BrowseCoverArtWindowWidth", -1);
+	m_browseCoverArtWindowHeight = cfg.KCM_readNumEntry("BrowseCoverArtWindowHeight", -1);
+
 	// KConfig seems to strip empty entries from the end of the string lists,
 	// so we have to append them again.
 	unsigned numNames = names.size();
@@ -323,6 +410,8 @@ void ImportConfig::readFromConfig(
 	while (static_cast<unsigned>(expHeaders.size()) < numExpNames) expHeaders.append("");
 	while (static_cast<unsigned>(expTracks.size()) < numExpNames) expTracks.append("");
 	while (static_cast<unsigned>(expTrailers.size()) < numExpNames) expTrailers.append("");
+	unsigned numPicNames = picNames.size();
+	while (static_cast<unsigned>(picUrls.size()) < numPicNames) picUrls.append("");
 #else
 	config->beginGroup("/" + m_group);
 	m_importServer = static_cast<ImportConfig::ImportServer>(
@@ -346,6 +435,26 @@ void ImportConfig::readFromConfig(
 	m_exportFormatIdx = config->QCM_readNumEntry("/ExportFormatIdx", m_exportFormatIdx);
 	m_exportWindowWidth = config->QCM_readNumEntry("/ExportWindowWidth", -1);
 	m_exportWindowHeight = config->QCM_readNumEntry("/ExportWindowHeight", -1);
+
+	picNames = config->QCM_readListEntry("/PictureSourceNames");
+	picUrls = config->QCM_readListEntry("/PictureSourceUrls");
+	m_pictureSourceIdx = config->QCM_readNumEntry(
+		"/PictureSourceIdx", m_pictureSourceIdx);
+	QStringList keys = config->QCM_readListEntry("/MatchPictureUrlMapKeys");
+	QStringList values = config->QCM_readListEntry("/MatchPictureUrlMapValues");
+	if (!keys.empty() && !values.empty()) {
+		QStringList::Iterator itk, itv;
+		m_matchPictureUrlMap.clear();
+		for (itk = keys.begin(), itv = values.begin();
+			 itk != keys.end() && itv != values.end();
+			 ++itk, ++itv) {
+			m_matchPictureUrlMap[*itk] = *itv;
+		}
+	}
+	m_browseCoverArtWindowWidth = config->QCM_readNumEntry(
+		"/BrowseCoverArtWindowWidth", -1);
+	m_browseCoverArtWindowHeight = config->QCM_readNumEntry(
+		"/BrowseCoverArtWindowHeight", -1);
 
 	config->endGroup();
 #endif
@@ -395,8 +504,27 @@ void ImportConfig::readFromConfig(
 		}
 	}
 
+	QStringList::const_iterator picNamesIt, picUrlsIt;
+	for (picNamesIt = picNames.begin(), picUrlsIt = picUrls.begin();
+			 picNamesIt != picNames.end() && picUrlsIt != picUrls.end();
+			 ++picNamesIt, ++picUrlsIt) {
+#if QT_VERSION >= 0x040000
+		int idx = m_pictureSourceNames.indexOf(*picNamesIt);
+#else
+		int idx = m_pictureSourceNames.findIndex(*picNamesIt);
+#endif
+		if (idx >= 0) {
+			m_pictureSourceUrls[idx] = *picUrlsIt;
+		} else if (!(*picNamesIt).isEmpty()) {
+			m_pictureSourceNames.append(*picNamesIt);
+			m_pictureSourceUrls.append(*picUrlsIt);
+		}
+	}
+
 	if (m_importFormatIdx >= static_cast<int>(m_importFormatNames.size()))
 		m_importFormatIdx = 0;
 	if (m_exportFormatIdx >=  static_cast<int>(m_exportFormatNames.size()))
 		m_exportFormatIdx = 0;
+	if (m_pictureSourceIdx >=  static_cast<int>(m_pictureSourceNames.size()))
+		m_pictureSourceIdx = 0;
 }

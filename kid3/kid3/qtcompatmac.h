@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 31 Oct 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -196,6 +196,7 @@
 #define QCM_getSaveFileName(parent, dir) getSaveFileName(parent, QString(), dir)
 #define QCM_getOpenFileName(parent, dir) getOpenFileName(parent, QString(), dir)
 #define QCM_QUrl_encode(u) u = QUrl::toPercentEncoding(u)
+#define QCM_QUrl_decode(u) u = QUrl::fromPercentEncoding(u.toUtf8())
 #define QCM_setTextFormat_PlainText() setAcceptRichText(false)
 #define QCM_readAllStandardOutput readAllStandardOutput
 #define QCM_readAllStandardError readAllStandardError
@@ -269,6 +270,7 @@ namespace QAbstractSocket { enum SocketError {}; }
 #define QCM_getSaveFileName(parent, dir) getSaveFileName(dir, QString::null, parent)
 #define QCM_getOpenFileName(parent, dir) getOpenFileName(dir, QString::null, parent)
 #define QCM_QUrl_encode(u) QUrl::encode(u)
+#define QCM_QUrl_decode(u) QUrl::decode(u)
 #define QCM_setTextFormat_PlainText() setTextFormat(Qt::PlainText)
 #define QCM_readAllStandardOutput readStdout
 #define QCM_readAllStandardError readStderr

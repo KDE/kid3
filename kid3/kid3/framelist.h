@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -175,6 +175,12 @@ public:
 	 * @param frame frame to set
 	 */
 	void setFrame(const Frame& frame) { m_frame = frame; }
+
+	/**
+	 * Check if the frame in the copy buffer is a picture frame.
+	 * @return true if picture frame.
+	 */
+	bool isPictureFrame() const { return m_frame.getType() == Frame::FT_Picture; }
 
 	/**
 	 * Get file containing frames.

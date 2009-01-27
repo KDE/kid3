@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Jan 2004
  *
- * Copyright (C) 2004-2007  Urs Fleisch
+ * Copyright (C) 2004-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -412,7 +412,7 @@ void MiscConfig::readFromConfig(
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand("Google Images", "%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}"));
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("Amazon", "%{browser} http://www.amazon.com/s?field-artist=%u{artist}&field-title=%u{album}"));
+			MiscConfig::MenuCommand("Amazon", "%{browser} http://www.amazon.com/s?search-alias=aps&field-keywords=%u{artist}+%u{album}"));
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand("LyricWiki", "%{browser} http://lyricwiki.org/%u{artist}:%u{title}"));
 		m_contextMenuCommands.push_back(

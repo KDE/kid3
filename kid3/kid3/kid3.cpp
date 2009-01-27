@@ -86,6 +86,7 @@
 #include "frametable.h"
 #include "configdialog.h"
 #include "importdialog.h"
+#include "browsecoverartdialog.h"
 #include "exportdialog.h"
 #include "numbertracksdialog.h"
 #include "filterdialog.h"
@@ -241,7 +242,8 @@ QString Kid3App::s_dirName;
  * Constructor.
  */
 Kid3App::Kid3App() :
-	m_importDialog(0), m_exportDialog(0), m_renDirDialog(0),
+	m_importDialog(0), m_browseCoverArtDialog(0),
+	m_exportDialog(0), m_renDirDialog(0),
 	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0)
 {
 #ifdef CONFIG_USE_KDE
@@ -308,6 +310,7 @@ Kid3App::~Kid3App()
 	delete m_numberTracksDialog;
 	delete m_filterDialog;
 	delete m_downloadDialog;
+	delete m_browseCoverArtDialog;
 #ifndef CONFIG_USE_KDE
 	delete s_helpBrowser;
 	s_helpBrowser = 0;
@@ -401,6 +404,10 @@ void Kid3App::initActions()
 		    SLOT(slotImportMusicBrainz()), actionCollection(),
 		    "import_musicbrainz");
 #endif
+	KCM_KAction(fileBrowseCoverArt,
+		    i18n("&Browse Cover Art..."), this,
+		    SLOT(slotBrowseCoverArt()), actionCollection(),
+		    "browse_cover_art");
 	KCM_KActionIcon(fileExport, KCM_ICON_document_export,
 		    i18n("&Export..."), this,
 		    SLOT(slotExport()), actionCollection(),
@@ -596,6 +603,13 @@ void Kid3App::initActions()
 			this, SLOT(slotImportMusicBrainz()));
 	}
 #endif
+	QAction* fileBrowseCoverArt = new QAction(this);
+	if (fileBrowseCoverArt) {
+		fileBrowseCoverArt->setStatusTip(i18n("Browse album cover artwork"));
+		fileBrowseCoverArt->QCM_setMenuText(i18n("&Browse Cover Art..."));
+		connect(fileBrowseCoverArt, QCM_SIGNAL_triggered,
+			this, SLOT(slotBrowseCoverArt()));
+	}
 	QAction* fileExport = new QAction(this);
 	if (fileExport) {
 		fileExport->setStatusTip(i18n("Export to file or clipboard"));
@@ -787,6 +801,7 @@ void Kid3App::initActions()
 #ifdef HAVE_TUNEPIMP
 		QCM_addAction(fileMenu, fileImportMusicBrainz);
 #endif
+		QCM_addAction(fileMenu, fileBrowseCoverArt);
 		QCM_addAction(fileMenu, fileExport);
 		QCM_addAction(fileMenu, fileCreatePlaylist);
 		fileMenu->QCM_addSeparator();
@@ -1944,6 +1959,33 @@ void Kid3App::slotImportMusicBrainz()
 #endif
 }
 
+/**
+ * Browse album cover artwork.
+ */
+void Kid3App::slotBrowseCoverArt()
+{
+	if (!m_browseCoverArtDialog) {
+		m_browseCoverArtDialog = new BrowseCoverArtDialog(0);
+	}
+	if (m_browseCoverArtDialog) {
+		FrameCollection frames2;
+		FileListItem* item;
+		TaggedFile* taggedFile;
+		if ((item = m_view->currentFile()) != 0 &&
+				(taggedFile = item->getFile()) != 0) {
+			taggedFile->readTags(false);
+			FrameCollection frames1;
+			taggedFile->getAllFramesV1(frames1);
+			taggedFile->getAllFramesV2(frames2);
+			frames2.merge(frames1);
+		}
+
+		m_browseCoverArtDialog->readConfig();
+		m_browseCoverArtDialog->setFrames(frames2);
+		m_browseCoverArtDialog->exec();
+	}
+}
+
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 /**
  * Read file with TagLib if it has an ID3v2.4 tag.
@@ -2676,6 +2718,7 @@ void Kid3App::openDrop(QString txt)
 		QString dir = url.path().QCM_trimmed();
 #endif
 		if (dir.endsWith(".jpg", QCM_CaseInsensitive) ||
+				dir.endsWith(".jpeg", QCM_CaseInsensitive) ||
 				dir.endsWith(".png", QCM_CaseInsensitive)) {
 			PictureFrame frame;
 			if (PictureFrame::setDataFromFile(frame, dir)) {
@@ -2687,6 +2730,7 @@ void Kid3App::openDrop(QString txt)
 				PictureFrame::setMimeTypeFromFileName(frame, fileName);
 				PictureFrame::setDescription(frame, fileName);
 				addFrame(&frame);
+				updateGuiControls();
 			}
 		} else {
 			updateCurrentSelection();
@@ -2706,6 +2750,7 @@ void Kid3App::dropImage(const QImage& image)
 		PictureFrame frame;
 		if (PictureFrame::setDataFromImage(frame, image)) {
 			addFrame(&frame);
+			updateGuiControls();
 		}
 	}
 }
@@ -2717,7 +2762,7 @@ void Kid3App::dropImage(const QImage& image)
  */
 void Kid3App::dropUrl(const QString& txt)
 {
-	QString imgurl(PictureFrame::getImageUrl(txt));
+	QString imgurl(BrowseCoverArtDialog::getImageUrl(txt));
 	if (!imgurl.isEmpty()) {
 		if (!m_downloadDialog) {
 			m_downloadDialog = new DownloadDialog(0, i18n("Download"));
@@ -2725,9 +2770,16 @@ void Kid3App::dropUrl(const QString& txt)
 							this, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
 		}
 		if (m_downloadDialog) {
-			QUrl url(imgurl);
-			m_downloadDialog->startDownload(url.host(), url.path());
-			m_downloadDialog->exec();
+			int hostPos = imgurl.QCM_indexOf("://");
+			if (hostPos > 0) {
+				int pathPos = imgurl.QCM_indexOf("/", hostPos + 3);
+				if (pathPos > hostPos) {
+					m_downloadDialog->startDownload(
+						imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
+						imgurl.mid(pathPos));
+					m_downloadDialog->exec();
+				}
+			}
 		}
 	}
 }
@@ -2744,6 +2796,7 @@ void Kid3App::imageDownloaded(const QByteArray& data,
 {
 	PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
 	addFrame(&frame);
+	updateGuiControls();
 }
 
 /**
@@ -3327,6 +3380,10 @@ void Kid3App::addFrame(const Frame* frame)
 			if (m_framelist->selectFrame() &&
 					m_framelist->addFrame(true)) {
 				updateAfterFrameModification(taggedFile);
+				if (m_framelist->isPictureFrame()) {
+					// update preview picture
+					updateGuiControls();
+				}
 			}
 		} else {
 			m_framelist->setFrame(*frame);

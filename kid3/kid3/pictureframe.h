@@ -283,15 +283,6 @@ public:
 	 */
 	static bool setMimeTypeFromFileName(Frame& frame, const QString& fileName);
 
-	/**
-	 * Get the URL of an image file.
-	 *
-	 * @param url URL from Google Images, Amazon or direct URL of image file
-	 *
-	 * @return URL of image file, empty if no image URL found.
-	 */
-	static QString getImageUrl(const QString& url);
-
 private:
 	/**
 	 * Set value of a field.

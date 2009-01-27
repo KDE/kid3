@@ -487,59 +487,11 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
  */
 bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName)
 {
-	if (fileName.endsWith(".jpg", QCM_CaseInsensitive)) {
+	if (fileName.endsWith(".jpg", QCM_CaseInsensitive) ||
+			fileName.endsWith(".jpeg", QCM_CaseInsensitive)) {
 		return setMimeType(frame, "image/jpeg") && setImageFormat(frame, "JPG");
 	} else if (fileName.endsWith(".png", QCM_CaseInsensitive)) {
 		return setMimeType(frame, "image/png") && setImageFormat(frame, "PNG");
 	}
 	return false;
-}
-
-/**
- * Get the URL of an image file.
- *
- * @param url URL from Google Images, Amazon or direct URL of image file
- *
- * @return URL of image file, empty if no image URL found.
- */
-QString PictureFrame::getImageUrl(const QString& url)
-{
-	QString imgurl;
-	if (url.startsWith("http://")) {
-		if (url.endsWith(".jpg", QCM_CaseInsensitive) ||
-				url.endsWith(".png", QCM_CaseInsensitive)) {
-			imgurl = url;
-		} else if (url.startsWith("http://images.google.com/")) {
-			int imgurlPos = url.QCM_indexOf("imgurl=");
-			if (imgurlPos != -1) {
-				imgurlPos += 7;
-				int imgurlLen = url.QCM_indexOf('&', imgurlPos);
-				if (imgurlLen != -1) {
-					imgurlLen -= imgurlPos;
-				}
-				imgurl = url.mid(imgurlPos, imgurlLen);
-			}
-		} else if (url.startsWith("http://www.amazon.com/")) {
-			int asinPos = -1;
-			if ((asinPos = url.QCM_indexOf("/dp/")) != -1) {
-				asinPos += 4;
-			} else if ((asinPos = url.QCM_indexOf("/ASIN/")) != -1) {
-				asinPos += 6;
-			} else if ((asinPos = url.QCM_indexOf("/images/")) != -1) {
-				asinPos += 8;
-			} else if ((asinPos = url.QCM_indexOf("/product/")) != -1) {
-				asinPos += 9;
-			}
-			if (asinPos != -1) {
-				int asinLen = url.QCM_indexOf('/', asinPos);
-				if (asinLen != -1) {
-					asinLen -= asinPos;
-				}
-				imgurl = "http://images.amazon.com/images/P/";
-				imgurl += url.mid(asinPos, asinLen);
-				imgurl += ".01._SCLZZZZZZZ_.jpg";
-			}
-		}
-	}
-	return imgurl;
 }
