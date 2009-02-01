@@ -235,6 +235,10 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_pictureSourceUrls.append("http://www.freecovers.net/search.php?search=%u{artist}+%u{album}&cat=4");
 	m_pictureSourceNames.append("CoverHunt");
 	m_pictureSourceUrls.append("http://www.coverhunt.com/search/%u{artist}+%u{album}");
+	m_pictureSourceNames.append("SlothRadio");
+	m_pictureSourceUrls.append("http://www.slothradio.com/covers/?artist=%u{artist}&album=%u{album}");
+	m_pictureSourceNames.append("Albumart");
+	m_pictureSourceUrls.append("http://www.albumart.org/index.php?srchkey=%u{artist}+%u{album}&searchindex=Music");
 	m_pictureSourceNames.append("Yalp!");
 	m_pictureSourceUrls.append("http://search.yalp.alice.it/search/search.html?txtToSearch=%u{artist}%20%u{album}");
 	m_pictureSourceNames.append("HMV");
