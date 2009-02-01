@@ -198,6 +198,14 @@ public:
 	void dropImage(const QImage& image);
 
 	/**
+	 * Download an image file.
+	 *
+	 * @param url           URL of image
+	 * @param allFilesInDir true to add the image to all files in the directory
+	 */
+	void downloadImage(const QString& url, bool allFilesInDir);
+
+	/**
 	 * Handle URL on drop.
 	 *
 	 * @param txt dropped URL.
@@ -746,6 +754,8 @@ private:
 	bool m_modified;
 	/** true if list is filtered */
 	bool m_filtered;
+	/** true to add frame to all files in directory in imageDownloaded() */
+	bool m_downloadToAllFilesInDir;
 	/** Copy buffer */
 	FrameCollection m_copyTags;
 	/** Import dialog */

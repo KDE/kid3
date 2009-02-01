@@ -242,6 +242,7 @@ QString Kid3App::s_dirName;
  * Constructor.
  */
 Kid3App::Kid3App() :
+	m_downloadToAllFilesInDir(false),
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
 	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0)
@@ -1845,6 +1846,11 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 	}
 	slotStatusMsg(i18n("Ready."));
 	QApplication::restoreOverrideCursor();
+
+	if (destV2 && flt.isEnabled(Frame::FT_Picture) &&
+	    !m_trackDataList.getCoverArtUrl().isEmpty()) {
+		downloadImage(m_trackDataList.getCoverArtUrl(), true);
+	}
 }
 
 /**
@@ -2756,13 +2762,14 @@ void Kid3App::dropImage(const QImage& image)
 }
 
 /**
- * Handle URL on drop.
+ * Download an image file.
  *
- * @param txt dropped URL.
+ * @param url           URL of image
+ * @param allFilesInDir true to add the image to all files in the directory
  */
-void Kid3App::dropUrl(const QString& txt)
+void Kid3App::downloadImage(const QString& url, bool allFilesInDir)
 {
-	QString imgurl(BrowseCoverArtDialog::getImageUrl(txt));
+	QString imgurl(BrowseCoverArtDialog::getImageUrl(url));
 	if (!imgurl.isEmpty()) {
 		if (!m_downloadDialog) {
 			m_downloadDialog = new DownloadDialog(0, i18n("Download"));
@@ -2774,6 +2781,7 @@ void Kid3App::dropUrl(const QString& txt)
 			if (hostPos > 0) {
 				int pathPos = imgurl.QCM_indexOf("/", hostPos + 3);
 				if (pathPos > hostPos) {
+					m_downloadToAllFilesInDir = allFilesInDir;
 					m_downloadDialog->startDownload(
 						imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
 						imgurl.mid(pathPos));
@@ -2782,6 +2790,16 @@ void Kid3App::dropUrl(const QString& txt)
 			}
 		}
 	}
+}
+
+/**
+ * Handle URL on drop.
+ *
+ * @param txt dropped URL.
+ */
+void Kid3App::dropUrl(const QString& txt)
+{
+	downloadImage(txt, false);
 }
 
 /**
@@ -2795,7 +2813,18 @@ void Kid3App::imageDownloaded(const QByteArray& data,
                               const QString& mimeType, const QString& url)
 {
 	PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
-	addFrame(&frame);
+	if (m_downloadToAllFilesInDir) {
+		FileListItem* mp3file = m_view->firstFileInDir();
+		while (mp3file != 0) {
+			TaggedFile* taggedFile = mp3file->getFile();
+			taggedFile->readTags(false);
+			taggedFile->addFrameV2(frame);
+			mp3file = m_view->nextFileInDir();
+		}
+		m_downloadToAllFilesInDir = false;
+	} else {
+		addFrame(&frame);
+	}
 	updateGuiControls();
 }
 

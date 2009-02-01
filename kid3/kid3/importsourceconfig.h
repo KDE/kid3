@@ -103,6 +103,9 @@ public:
 
 	/** additional tags imported */
 	bool m_additionalTags;
+
+	/** cover art imported */
+	bool m_coverArt;
 };
 
 #endif

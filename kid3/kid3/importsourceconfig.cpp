@@ -45,7 +45,7 @@ ImportSourceConfig::ImportSourceConfig(const QString& grp, bool cgiPathUsed,
 																			 bool additionalTagsUsed) :
 	GeneralConfig(grp), m_windowWidth(-1), m_windowHeight(-1),
 	m_cgiPathUsed(cgiPathUsed), m_additionalTagsUsed(additionalTagsUsed),
-	m_additionalTags(true)
+	m_additionalTags(true), m_coverArt(true)
 {
 }
 
@@ -78,8 +78,10 @@ void ImportSourceConfig::writeToConfig(
 	cfg.writeEntry("Server", m_server);
 	if (m_cgiPathUsed)
 		cfg.writeEntry("CgiPath", m_cgiPath);
-	if (m_additionalTagsUsed)
+	if (m_additionalTagsUsed) {
 		cfg.writeEntry("AdditionalTags", m_additionalTags);
+		cfg.writeEntry("CoverArt", m_coverArt);
+	}
 	cfg.writeEntry("WindowWidth", m_windowWidth);
 	cfg.writeEntry("WindowHeight", m_windowHeight);
 #else
@@ -87,8 +89,10 @@ void ImportSourceConfig::writeToConfig(
 	config->QCM_writeEntry("/Server", m_server);
 	if (m_cgiPathUsed)
 		config->QCM_writeEntry("/CgiPath", m_cgiPath);
-	if (m_additionalTagsUsed)
+	if (m_additionalTagsUsed) {
 		config->QCM_writeEntry("/AdditionalTags", m_additionalTags);
+		config->QCM_writeEntry("/CoverArt", m_coverArt);
+	}
 	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
 	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
 	config->endGroup();
@@ -113,9 +117,11 @@ void ImportSourceConfig::readFromConfig(
 	m_server = cfg.readEntry("Server", m_server);
 	if (m_cgiPathUsed)
 		m_cgiPath = cfg.readEntry("CgiPath", m_cgiPath);
-	if (m_additionalTagsUsed)
+	if (m_additionalTagsUsed) {
 		m_additionalTags = cfg.KCM_readBoolEntry("AdditionalTags",
 		                                         m_additionalTags);
+		m_coverArt = cfg.KCM_readBoolEntry("CoverArt", m_coverArt);
+	}
 	m_windowWidth = cfg.KCM_readNumEntry("WindowWidth", -1);
 	m_windowHeight = cfg.KCM_readNumEntry("WindowHeight", -1);
 #else
@@ -123,9 +129,11 @@ void ImportSourceConfig::readFromConfig(
 	m_server = config->QCM_readEntry("/Server", m_server);
 	if (m_cgiPathUsed)
 		m_cgiPath = config->QCM_readEntry("/CgiPath", m_cgiPath);
-	if (m_additionalTagsUsed)
+	if (m_additionalTagsUsed) {
 		m_additionalTags = config->QCM_readBoolEntry("/AdditionalTags",
 		                                             m_additionalTags);
+		m_coverArt = config->QCM_readBoolEntry("/CoverArt", m_coverArt);
+	}
 	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
 	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
 	config->endGroup();

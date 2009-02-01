@@ -86,5 +86,8 @@ void MusicBrainzReleaseClient::sendTrackListQuery(
 		path += "+release-events+artist-rels+release-rels+track-rels+"
 			"track-level-rels+labels";
 	}
+	if (cfg->m_coverArt) {
+		path += "+url-rels";
+	}
 	sendRequest(cfg->m_server, path);
 }

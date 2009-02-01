@@ -223,9 +223,22 @@ public:
 	 */
 	void setAlbum(const QString& album) { m_album = album; }
 
+	/**
+	 * Get cover art URL.
+	 * @return cover art URL.
+	 */
+	QString getCoverArtUrl() const { return m_coverArtUrl; }
+
+	/**
+	 * Set cover art URL.
+	 * @param coverArtUrl cover art URL
+	 */
+	void setCoverArtUrl(const QString& coverArtUrl) { m_coverArtUrl = coverArtUrl; }
+
 private:
 	QString m_artist;
 	QString m_album;
+	QString m_coverArtUrl;
 };
 
 

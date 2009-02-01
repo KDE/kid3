@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -384,6 +384,21 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 				creditsStr.replace("<br>", "\n");
 				creditsStr.replace(htmlTagRe, ""); // strip HTML tags
 				parseCredits(creditsStr, framesHdr);
+			}
+		}
+	}
+
+	m_trackDataVector.setCoverArtUrl(QString::null);
+	if (getCoverArt()) {
+		/*
+		 * cover art can be found in image source
+		 */
+		start = str.QCM_indexOf("<img src=\"http://www.discogs.com/image/");
+		if (start >= 0) {
+			start += 10; // skip <img src="
+			end = str.QCM_indexOf("\"", start);
+			if (end > start) {
+				m_trackDataVector.setCoverArtUrl(str.mid(start, end - start));
 			}
 		}
 	}

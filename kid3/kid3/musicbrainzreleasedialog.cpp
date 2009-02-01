@@ -164,61 +164,58 @@ static void addInvolvedPeople(
 /**
  * Set tags from an XML node with a relation list.
  *
- * @param node   parent DOM node
- * @param frames tags will be added to these frames
+ * @param relationList relation-list with target-type Artist
+ * @param frames       tags will be added to these frames
  *
  * @return true if credits found.
  */
-static bool parseCredits(const QDomNode& node, FrameCollection& frames)
+static bool parseCredits(const QDomElement& relationList, FrameCollection& frames)
 {
 	bool result = false;
-	QDomElement relationList(node.namedItem("relation-list").toElement());
-	if (!relationList.isNull() && relationList.attribute("target-type") == "Artist") {
-		QDomNode relation(relationList.firstChild());
-		while (!relation.isNull()) {
-			QString artist(relation.toElement().namedItem("artist").toElement().
-										 namedItem("name").toElement().text());
-			if (!artist.isEmpty()) {
-				QString type(relation.toElement().attribute("type"));
-				if (type == "Instrument") {
-					QString attributes(relation.toElement().attribute("attributes"));
-					if (!attributes.isEmpty()) {
-						addInvolvedPeople(frames, Frame::FT_Performer,
-															fixUpCamelCase(attributes), artist);
-					}
-				} else if (type == "Vocal") {
-					addInvolvedPeople(frames, Frame::FT_Performer, type, artist);
-				} else {
-					static const struct {
-						const char* credit;
-						Frame::Type type;
-					} creditToType[] = {
-						{ "Composer", Frame::FT_Composer },
-						{ "Conductor", Frame::FT_Conductor },
-						{ "PerformingOrchestra", Frame::FT_AlbumArtist },
-						{ "Lyricist", Frame::FT_Lyricist },
-						{ "Publisher", Frame::FT_Publisher },
-						{ "Remixer", Frame::FT_Remixer }
-					};
-					bool found = false;
-					for (unsigned i = 0;
-							 i < sizeof(creditToType) / sizeof(creditToType[0]);
-							 ++i) {
-						if (type == creditToType[i].credit) {
-							frames.setValue(creditToType[i].type, artist);
-							found = true;
-							break;
-						}
-					}
-					if (!found && type != "Tribute") {
-						addInvolvedPeople(frames, Frame::FT_Arranger,
-															fixUpCamelCase(type), artist);
+	QDomNode relation(relationList.firstChild());
+	while (!relation.isNull()) {
+		QString artist(relation.toElement().namedItem("artist").toElement().
+									 namedItem("name").toElement().text());
+		if (!artist.isEmpty()) {
+			QString type(relation.toElement().attribute("type"));
+			if (type == "Instrument") {
+				QString attributes(relation.toElement().attribute("attributes"));
+				if (!attributes.isEmpty()) {
+					addInvolvedPeople(frames, Frame::FT_Performer,
+														fixUpCamelCase(attributes), artist);
+				}
+			} else if (type == "Vocal") {
+				addInvolvedPeople(frames, Frame::FT_Performer, type, artist);
+			} else {
+				static const struct {
+					const char* credit;
+					Frame::Type type;
+				} creditToType[] = {
+					{ "Composer", Frame::FT_Composer },
+					{ "Conductor", Frame::FT_Conductor },
+					{ "PerformingOrchestra", Frame::FT_AlbumArtist },
+					{ "Lyricist", Frame::FT_Lyricist },
+					{ "Publisher", Frame::FT_Publisher },
+					{ "Remixer", Frame::FT_Remixer }
+				};
+				bool found = false;
+				for (unsigned i = 0;
+						 i < sizeof(creditToType) / sizeof(creditToType[0]);
+						 ++i) {
+					if (type == creditToType[i].credit) {
+						frames.setValue(creditToType[i].type, artist);
+						found = true;
+						break;
 					}
 				}
+				if (!found && type != "Tribute") {
+					addInvolvedPeople(frames, Frame::FT_Arranger,
+														fixUpCamelCase(type), artist);
+				}
 			}
-			result = true;
-			relation = relation.nextSibling();
 		}
+		result = true;
+		relation = relation.nextSibling();
 	}
 	return result;
 }
@@ -266,6 +263,16 @@ void MusicBrainzReleaseDialog::parseAlbumResults(const QByteArray& albumStr)
 		framesHdr.setAlbum(release.namedItem("title").toElement().text());
 		framesHdr.setArtist(release.namedItem("artist").toElement().namedItem("name").toElement().text());
 
+		m_trackDataVector.setCoverArtUrl(QString::null);
+		const bool coverArt = getCoverArt();
+		if (coverArt) {
+			QString asin(release.namedItem("asin").toElement().text());
+			if (!asin.isEmpty()) {
+				m_trackDataVector.setCoverArtUrl(
+					QString("http://www.amazon.com/dp/") + asin);
+			}
+		}
+
 		const bool additionalTags = getAdditionalTags();
 		if (additionalTags) {
 			// release year and label can be found in the release-event-list
@@ -290,8 +297,41 @@ void MusicBrainzReleaseDialog::parseAlbumResults(const QByteArray& albumStr)
 					}
 				}
 			}
+		}
 
-			parseCredits(release, framesHdr);
+		if (additionalTags || coverArt) {
+			QDomNode relationListNode(release.firstChild());
+			while (!relationListNode.isNull()) {
+				if (relationListNode.nodeName() == "relation-list") {
+					QDomElement relationList(relationListNode.toElement());
+					if (!relationList.isNull()) {
+						QString targetType(relationList.attribute("target-type"));
+						if (targetType == "Artist") {
+							if (additionalTags) {
+								parseCredits(relationList, framesHdr);
+							}
+						} else if (targetType == "Url") {
+							if (coverArt) {
+								QDomNode relationNode(relationList.firstChild());
+								while (!relationNode.isNull()) {
+									if (relationNode.nodeName() == "relation") {
+										QDomElement relation(relationNode.toElement());
+										if (!relation.isNull()) {
+											QString type(relation.attribute("type"));
+											if (type == "CoverArtLink" || type == "AmazonAsin") {
+												m_trackDataVector.setCoverArtUrl(
+													relation.attribute("target"));
+											}
+										}
+									}
+									relationNode = relationNode.nextSibling();
+								}
+							}
+						}
+					}
+				}
+				relationListNode = relationListNode.nextSibling();
+			}
 		}
 
 		ImportTrackDataVector::iterator it = m_trackDataVector.begin();
@@ -315,7 +355,18 @@ void MusicBrainzReleaseDialog::parseAlbumResults(const QByteArray& albumStr)
 					frames.setArtist(artist);
 					frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
 				}
-				parseCredits(trackNode, frames);
+				QDomNode relationListNode(trackNode.firstChild());
+				while (!relationListNode.isNull()) {
+					if (relationListNode.nodeName() == "relation-list") {
+						QDomElement relationList(relationListNode.toElement());
+						if (!relationList.isNull()) {
+							if (relationList.attribute("target-type") == "Artist") {
+								parseCredits(relationList, frames);
+							}
+						}
+					}
+					relationListNode = relationListNode.nextSibling();
+				}
 			}
 			if (atTrackDataListEnd) {
 				ImportTrackData trackData;

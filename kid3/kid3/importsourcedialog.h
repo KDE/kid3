@@ -149,6 +149,20 @@ public:
 	void setAdditionalTags(bool enable);
 
 	/**
+	 * Get cover art option.
+	 *
+	 * @return true if cover art are enabled.
+	 */
+	bool getCoverArt() const;
+
+	/**
+	 * Set cover art option.
+	 *
+	 * @param enable true if cover art are enabled
+	 */
+	void setCoverArt(bool enable);
+
+	/**
 	 * Set a find string from artist and album information.
 	 *
 	 * @param artist artist
@@ -239,6 +253,7 @@ private:
 	QComboBox* m_serverComboBox;
 	QLineEdit* m_cgiLineEdit;
 	QCheckBox* m_additionalTagsCheckBox;
+	QCheckBox* m_coverArtCheckBox;
 	QStatusBar* m_statusBar;
 	ImportSourceClient* m_client;
 	const Properties& m_props;

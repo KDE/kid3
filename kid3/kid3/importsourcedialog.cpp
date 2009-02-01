@@ -56,7 +56,7 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 																			 const Properties& props)
 	: QDialog(parent), m_trackDataVector(trackDataVector),
 		m_serverComboBox(0), m_cgiLineEdit(0), m_additionalTagsCheckBox(0),
-		m_client(client), m_props(props)
+		m_coverArtCheckBox(0), m_client(client), m_props(props)
 {
 	setModal(true);
 	QCM_setWindowTitle(caption);
@@ -118,8 +118,14 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 		}
 	}
 	if (m_props.additionalTags) {
+		QHBoxLayout* hlayout = new QHBoxLayout;
 		m_additionalTagsCheckBox = new QCheckBox(i18n("&Additional Tags"), this);
-		vlayout->addWidget(m_additionalTagsCheckBox);
+		m_coverArtCheckBox = new QCheckBox(i18n("C&over Art"), this);
+		if (hlayout && m_additionalTagsCheckBox && m_coverArtCheckBox) {
+			hlayout->addWidget(m_additionalTagsCheckBox);
+			hlayout->addWidget(m_coverArtCheckBox);
+			vlayout->addLayout(hlayout);
+		}
 	}
 #if QT_VERSION >= 0x040000
 	m_albumListBox = new QListWidget(this);
@@ -307,6 +313,39 @@ void ImportSourceDialog::setAdditionalTags(bool enable)
 }
 
 /**
+ * Get cover art option.
+ *
+ * @return true if cover art are enabled.
+ */
+bool ImportSourceDialog::getCoverArt() const
+{
+	return m_coverArtCheckBox ?
+#if QT_VERSION >= 0x040000
+		m_coverArtCheckBox->checkState() == Qt::Checked
+#else
+		m_coverArtCheckBox->isChecked()
+#endif
+		: false;
+}
+
+/**
+ * Set cover art option.
+ *
+ * @param enable true if cover art are enabled
+ */
+void ImportSourceDialog::setCoverArt(bool enable)
+{
+	if (m_coverArtCheckBox) {
+#if QT_VERSION >= 0x040000
+		m_coverArtCheckBox->setCheckState(
+			enable ? Qt::Checked : Qt::Unchecked);
+#else
+		m_coverArtCheckBox->setChecked(enable);
+#endif
+	}
+}
+
+/**
  * Get the local configuration.
  *
  * @param cfg configuration
@@ -316,6 +355,7 @@ void ImportSourceDialog::getImportSourceConfig(ImportSourceConfig* cfg) const
 	cfg->m_server = getServer();
 	cfg->m_cgiPath = getCgiPath();
 	cfg->m_additionalTags = getAdditionalTags();
+	cfg->m_coverArt = getCoverArt();
 	cfg->m_windowWidth = size().width();
 	cfg->m_windowHeight = size().height();
 }
@@ -342,6 +382,7 @@ void ImportSourceDialog::setArtistAlbum(const QString& artist, const QString& al
 		setServer(m_props.cfg->m_server);
 		setCgiPath(m_props.cfg->m_cgiPath);
 		setAdditionalTags(m_props.cfg->m_additionalTags);
+		setCoverArt(m_props.cfg->m_coverArt);
 		if (m_props.cfg->m_windowWidth > 0 && m_props.cfg->m_windowHeight > 0) {
 			resize(m_props.cfg->m_windowWidth, m_props.cfg->m_windowHeight);
 		}
