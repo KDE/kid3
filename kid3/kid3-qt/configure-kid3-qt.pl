@@ -23,8 +23,10 @@ sub createTranslateSources(@)
 		my $outfn = basename($file);
 		open OF, ">$outfn" or die "Could not create $outfn: $!\n";
 		while (<IF>) {
-			s/i18n\(/tr(/;
-			s/I18N_NOOP\(/QT_TRANSLATE_NOOP("\@default", /;
+			s/i18n\(/tr(/g;
+			s/KCM_i18n1\(([^,]+), ([^)]+)\)/tr($1).arg($2)/g;
+			s/KCM_i18n2\(([^,]+), ([^,]+), ([^)]+)\)/tr($1).arg($2).arg($3)/g;
+			s/I18N_NOOP\(/QT_TRANSLATE_NOOP("\@default", /g;
 			print OF $_;
 		}				
 		close OF;
@@ -98,19 +100,21 @@ sub setTsTranslations($$%)
 				$source .= "\n$1";
 				$in_source = 0;
 			} else {
-				$source .= "\n$_";
+				my $line = $_;
+				chomp $line;
+				$source .= "\n$line";
 			}
 		} elsif (/<translation/) {
-			$source =~ s/&amp;/&/;
-			$source =~ s/&lt;/</;
-			$source =~ s/&gt;/>/;
-			$source =~ s/\n/\\n/;
+			$source =~ s/&amp;/&/g;
+			$source =~ s/&lt;/</g;
+			$source =~ s/&gt;/>/g;
+			$source =~ s/\n/\\n/g;
 			if (exists $trans{$source}) {
 				$translation = $trans{$source};
-				$translation =~ s/&/&amp;/;
-				$translation =~ s/</&lt;/;
-				$translation =~ s/>/&gt;/;
-				$translation =~ s/\\n/\n/;
+				$translation =~ s/&/&amp;/g;
+				$translation =~ s/</&lt;/g;
+				$translation =~ s/>/&gt;/g;
+				$translation =~ s/\\n/\n/g;
 				s/ type="unfinished"//;
 				s/<\/translation>/$translation<\/translation>/;
 			} else {

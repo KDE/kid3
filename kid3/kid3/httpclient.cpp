@@ -27,6 +27,9 @@
 #include "httpclient.h"
 #include "kid3.h"
 
+/* Only defined for generation of KDE3 translation files */
+#define FOR_KDE3_PO_1 I18N_NOOP("Data received: %1")
+
 /**
  * Constructor.
  */

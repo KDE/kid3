@@ -82,8 +82,9 @@ void PictureLabel::setPicture()
  */
 void PictureLabel::clearPicture()
 {
+	const char* const msg = I18N_NOOP("Drag album\nartwork\nhere");
 	setMargin(6);
-	setText(i18n("Drag album\nartwork\nhere"));
+	setText(QCM_translate(msg));
 }
 
 /**

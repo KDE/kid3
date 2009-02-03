@@ -63,6 +63,10 @@
 #include "taglibfile.h"
 #endif
 
+/* Only defined for generation of KDE3 translation files */
+#define FOR_KDE3_PO_1 I18N_NOOP("Do you really want to delete these %1 items?")
+#define FOR_KDE3_PO_2 I18N_NOOP("Error while deleting these %1 items:")
+
 /**
  * Replaces context command format codes in a string.
  */

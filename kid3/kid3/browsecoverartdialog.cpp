@@ -142,7 +142,9 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
 #endif
 		if (tabbox) {
 			m_matchUrlTable = new ConfigTable(
-				QStringList() << i18n("Match") << i18n("Picture URL"),
+				QStringList()
+				<< i18n("Match")
+				<< i18n("Picture URL"),
 				tabbox);
 #if QT_VERSION >= 0x040000
 			QVBoxLayout* tablayout = new QVBoxLayout;
