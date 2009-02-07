@@ -631,11 +631,11 @@ QString FrameFormatReplacer::getToolTip(bool onlyRows)
 	str += "</td></tr>\n";
 
 	str += "<tr><td>%t</td><td>%{track}</td><td>";
-	str += QCM_translate("Track");
+	str += QCM_translate(I18N_NOOP("Track"));
 	str += " &quot;01&quot;</td></tr>\n";
 
 	str += "<tr><td>%T</td><td>%{tracknumber}</td><td>";
-	str += QCM_translate("Track");
+	str += QCM_translate(I18N_NOOP("Track"));
 	str += " &quot;1&quot;</td></tr>\n";
 
 	str += "<tr><td>%g</td><td>%{genre}</td><td>";
