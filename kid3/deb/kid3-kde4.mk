@@ -3,9 +3,11 @@
 # For Ubuntu <=8.04 use this:
 #DEB_CMAKE_PREFIX = /usr/lib/kde4
 #DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/etc/kde4
+#DEB_HTML_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/doc/kde4/HTML
 # For Ubuntu >=8.10, Debian use this:
 DEB_CMAKE_PREFIX ?= /usr
-DEB_CONFIG_INSTALL_DIR ?= /usr/share/kde4/config
+DEB_CONFIG_INSTALL_DIR ?= $(DEB_CMAKE_PREFIX)/share/kde4/config
+DEB_HTML_INSTALL_DIR ?= $(DEB_CMAKE_PREFIX)/share/doc/kde/HTML
 
 DEB_CMAKE_EXTRA_FLAGS += \
 			-DCMAKE_BUILD_TYPE=Debian \
@@ -16,7 +18,7 @@ DEB_CMAKE_EXTRA_FLAGS += \
 			-DKDE4_USE_ALWAYS_FULL_RPATH=false \
 			-DCONFIG_INSTALL_DIR=$(DEB_CONFIG_INSTALL_DIR) \
 			-DDATA_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/apps \
-			-DHTML_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/doc/kde4/HTML \
+			-DHTML_INSTALL_DIR=$(DEB_HTML_INSTALL_DIR) \
 			-DKCFG_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/config.kcfg \
 			-DLIB_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/lib \
 			-DSYSCONF_INSTALL_DIR=/etc
@@ -58,8 +60,8 @@ build: kid3-kde4.build-stamp
 kid3-kde4.build-stamp:
 	mkdir kid3-kde4; \
 	cd kid3-kde4; \
-	$(CMAKE) .. $(DEB_CMAKE_NORMAL_ARGS) $(DEB_CMAKE_EXTRA_FLAGS)
-	cd ..
+	$(CMAKE) .. $(DEB_CMAKE_NORMAL_ARGS) $(DEB_CMAKE_EXTRA_FLAGS); \
+	cd ..; \
 	$(MAKE) -C kid3-kde4
 
 	touch kid3-kde4.build-stamp
@@ -69,6 +71,6 @@ clean:
 	-rm -rf kid3-kde4.build-stamp kid3-kde4
 
 install: build
-	$(MAKE) -C kid3-kde4 install DESTDIR=$(CURDIR)/debian/kid3-kde4
+	$(MAKE) -C kid3-kde4 install DESTDIR=$(CURDIR)/debian/kid3
 
 .PHONY: build clean install

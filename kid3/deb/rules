@@ -3,9 +3,10 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# By default, all binary packages listed in debian/control are build.
-# To build only a subset of the packages, set the variable DH_OPTIONS, e.g.
-# DH_OPTIONS="-p kid3-qt"
+# For Ubuntu <=8.04 use this:
+#PACKAGE_MAKEFILES = kid3-kde3.mk kid3-qt3.mk
+# For Ubuntu >=8.10, Debian use this:
+PACKAGE_MAKEFILES = kid3-kde4.mk kid3-qt4.mk
 
 INSTALL_DIR = install -p -d -o root -g root -m 755
 INSTALL_FILE = install -p -o root -g root -m 644
@@ -35,9 +36,7 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
-	$(MAKE) -f /usr/share/quilt/quilt.make patch
-
-	for p in `dh_listpackages`; do $(MAKE) -f debian/$$p.mk build; done
+	for p in $(PACKAGE_MAKEFILES); do $(MAKE) -f debian/$$p build; done
 
 	touch build-stamp
 
@@ -45,9 +44,8 @@ clean:
 	dh_testdir
 	dh_testroot
 
-	for p in `dh_listpackages`; do $(MAKE) -f debian/$$p.mk clean; done
+	for p in $(PACKAGE_MAKEFILES); do $(MAKE) -f debian/$$p clean; done
 
-	$(MAKE) -f /usr/share/quilt/quilt.make unpatch
 	-rm -f *-stamp
 	dh_clean
 
@@ -57,7 +55,7 @@ install: build
 	dh_clean -k
 	dh_installdirs
 
-	for p in `dh_listpackages`; do $(MAKE) -f debian/$$p.mk install; done
+	for p in $(PACKAGE_MAKEFILES); do $(MAKE) -f debian/$$p install; done
 
 binary-indep: build install
 
@@ -69,7 +67,8 @@ binary-arch: build install
 	dh_installman
 #	dh_installinfo
 	dh_installchangelogs ChangeLog
-	-dh_icons
+	dh_icons
+	dh_desktop
 	dh_link
 	dh_strip
 	dh_compress --exclude=.docbook

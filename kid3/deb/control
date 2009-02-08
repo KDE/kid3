@@ -3,12 +3,12 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>, Mark Purcell <msp@debian.org>
-Build-Depends: debhelper (>= 5), quilt,
- libid3-3.8.3-dev, libtunepimp-dev | libtunepimp3-dev, libflac++-dev, libvorbis-dev, libtag1-dev,
- libqt3-mt-dev (>> 3.0), kdelibs4-dev (>> 3.0),
- xsltproc, docbook-xsl, libqt3-i18n,
- cmake, kdelibs5-dev (>=4:3.96.0)
-Standards-Version: 3.7.3
+Build-Depends: debhelper (>= 5), xsltproc, docbook-xsl,
+ cmake, libqt4-dev, kdelibs5-dev,
+ libqt3-mt-dev, libqt3-i18n, kdelibs4-dev,
+ libid3-3.8.3-dev, libtunepimp-dev | libtunepimp3-dev, libflac++-dev,
+ libvorbis-dev, libtag1-dev, libmp4v2-dev,
+Standards-Version: 3.8.0
 Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log 
@@ -22,7 +22,7 @@ Description: KDE MP3 ID3 tag editor
   * Edit all ID3v2.3 and ID3v2.4 frames in your MP3 files
   * Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
   * Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
-    TrueAudio and WavPack files.
+    TrueAudio and WavPack files
   * Edit tags of multiple files, e.g. the artist, album, year and genre
     of all files of an album typically have the same values and can be
     set together
@@ -33,7 +33,7 @@ Description: KDE MP3 ID3 tag editor
   * Import and export album data
   * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs
  .
- This package uses KDE 3 libraries, if you do not use KDE 3 you should use kid3-qt or kid3-kde4.
+ This package uses KDE libraries, if you do not use KDE you should use kid3-qt.
 
 Package: kid3-qt
 Section: sound
@@ -45,7 +45,7 @@ Description: Audio tag editor
   * Edit all ID3v2.3 and ID3v2.4 frames in your MP3 files
   * Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
   * Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
-    TrueAudio and WavPack files.
+    TrueAudio and WavPack files
   * Edit tags of multiple files, e.g. the artist, album, year and genre
     of all files of an album typically have the same values and can be
     set together
@@ -57,26 +57,3 @@ Description: Audio tag editor
   * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs
  .
  This package does not use KDE libraries, if you use KDE you should use kid3.
-
-Package: kid3-kde4
-Section: kde
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: KDE audio tag editor
- With Kid3, an ID3 tag editor for KDE you can:
-  * Edit ID3v1.1 tags in your MP3 files
-  * Edit all ID3v2.3 and ID3v2.4 frames in your MP3 files
-  * Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-  * Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
-    TrueAudio and WavPack files.
-  * Edit tags of multiple files, e.g. the artist, album, year and genre
-    of all files of an album typically have the same values and can be
-    set together
-  * Generate tags from filenames
-  * Generate filenames from tags
-  * Generate playlist files
-  * Automatic case conversion and string translation
-  * Import and export album data
-  * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs
- .
- This package uses KDE 4 libraries, if you use KDE 3 you should use kid3.

@@ -1,8 +1,19 @@
-kid3 (1.1-0) unstable; urgency=low
+kid3 (1.1-2) unstable; urgency=low
 
-  * New upstream release.
+  * Build with KDE 4.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 27 Sep 2008 15:51:35 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 07 Feb 2009 12:24:11 +0100
+
+kid3 (1.1-1) unstable; urgency=low
+
+  * New usptream release:
+    - Add support for .oga (Closes: #498352)
+  * Add call to dh_icons and dh_desktop. (Closes: #454526)
+  * Update do debhelper compat 6.
+  * Remove build depend on quilt.
+  * Update to Standards-Version: 3.8.0, no changes required.
+
+ -- Ana Beatriz Guerrero Lopez <ana@debian.org>  Thu, 15 Jan 2009 19:15:40 +0100
 
 kid3 (1.0-1) unstable; urgency=low
 
