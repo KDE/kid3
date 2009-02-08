@@ -561,7 +561,8 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 			if (frame) {
 				ID3_Field* fld = frame->GetField(ID3FN_TEXT);
 				if (fld) {
-					ID3_TextEnc enc = Mp3File::getDefaultTextEncoding();
+					ID3_TextEnc enc = tag->HasV2Tag() ?
+						Mp3File::getDefaultTextEncoding() : ID3TE_ISO8859_1;
 					if (allowUnicode && enc == ID3TE_ISO8859_1) {
 						// check if information is lost if the string is not unicode
 						uint i, unicode_size = text.length();
