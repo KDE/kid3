@@ -103,6 +103,14 @@ public slots:
 	bool importFromFile(int tagMask, const QString& path, int fmtIdx);
 
 	/**
+	 * Download album cover art into the picture frame of the selected files.
+	 *
+	 * @param url           URL of picture file or album art resource
+	 * @param allFilesInDir true to add the image to all files in the directory
+	 */
+	void downloadAlbumArt(const QString& url, bool allFilesInDir);
+
+	/**
 	 * Export tags to a file.
 	 *
 	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
