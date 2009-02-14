@@ -527,6 +527,8 @@ es wird ebenfalls eine Liste mit Alben zur Auswahl gestellt.
 Wenn <guilabel>Zusätzliche Tags</guilabel> markiert ist, werden mehr
 verfügbare Informationen importiert, z.B. Interpreten, Arrangierer oder der
 Herausgeber.
+Wenn <guilabel>Cover-Bilder</guilabel> markiert ist, werden Cover-Bilder
+heruntergeladen, falls vorhanden.
 </para>
 <para id="import-musicbrainzrelease">
 In der gleichen Art kann mit <guibutton>Von MusicBrainz Album</guibutton>
@@ -706,6 +708,50 @@ den <guibutton>Von MusicBrainz Album</guibutton> Dialog.</para></listitem>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
 den <guibutton>Von MusicBrainz Fingerprint</guibutton> Dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry id="browse_pictures">
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>Nach Cover-Bildern suchen...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>
+Der Dialog <action>Nach Cover-Bildern suchen</action> hilft bei der Suche nach
+Album Cover-Bildern. <guilabel>Interpret/Album</guilabel> werden wenn möglich
+aus den Tags übernommen. <guilabel>Quelle</guilabel> stellt eine Vielzahl von
+Websites mit Cover-Bildern zur Verfügung. Unter dem Namen ist die URL mit
+Interpret und Album als Parametern angegeben. Für URL-codierte Werte können
+dabei <userinput>%u{artist}</userinput> und <userinput>%u{album}</userinput>
+angegeben werden oder auch andere Werte aus 
+den Tags, wie in <link linkend="configure-kid3">Kid3 einrichten</link>
+bei <guilabel>Benutzerbefehle</guilabel> beschrieben. Nach "Custom Source"
+können auch eigene Quellen hinzugefügt werden. Dazu wird "Custom Source" durch
+den Namen der Quelle ersetzt, dann Return gedrückt, die URL eingegeben und mit
+<guibutton>Einstellungen speichern</guibutton> gesichert. Das resultierende
+Browser-Kommando wird oben im Dialog dargestellt und nach Drücken des
+<guibutton>Browser</guibutton>-Knopfes ausgeführt. Der Browser, welcher in den
+Einstellungen konfiguriert werden kann, wird mit der gewählten Quelle
+gestartet. Das gewünschte Cover-Bild kann dann aus dem Browser in das &kid3;
+Fenster gezogen werden und wird im Bild-Feld von Tag 2 der selektierten
+Dateien gesetzt.
+</para>
+<para>
+Da nicht alle Browser Drag'n'Drop von Bildern unterstützen und häufig die
+Bilder auf Websites mit einer URL unterlegt sind, erhält &kid3; in solchen
+Fällen bloss die entsprechende URL und nicht das Bild. Wenn die URL auf ein
+Bild zeigt, wird dieses heruntergeladen. Falls die URL jedoch auf sonst eine
+Website hinweist, so muss von dieser auf das gewünschte Cover-Bild geschlossen
+werden. Dies ist die Aufgabe der Tabelle <guilabel>URL
+Ersetzung</guilabel>. Die linke Spalte <guilabel>Vergleich</guilabel> enthält
+einen regulären Ausdruck, welcher mit der URL verglichen wird. Wenn eine
+Übereinstimmung festgestellt wird, so werden die erhaltenen Klammer-Werte im
+Muster der Spalte <guilabel>URL des Bildes</guilabel> ersetzt (\1 usw.). Der
+ersetzte reguläre Ausdrucks enthält dann die URL des Bildes. Auf diese Weise
+können auch Bilder von Amazon, Google Images, usw. per Drag'n'Drop importiert
+werden. Natürlich können auch hier eigene Ersetzungen erfasst werden.
+</para>
+</listitem>
 </varlistentry>
 
 <varlistentry id="export">
@@ -1164,6 +1210,15 @@ ungesicherte Änderungen werden konvertiert.
 <varlistentry>
 <term><menuchoice>
 <guimenu>Einstellungen</guimenu>
+<guimenuitem>Bild ausblenden</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Schaltet die Anzeige des Cover-Bildes ein und aus.
+</action></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Einstellungen</guimenu>
 <guimenuitem>Werkzeugleiste anzeigen</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Schaltet die Anzeige der Werkzeugleiste, welche
@@ -1214,6 +1269,18 @@ Das Markierungsfeld
 <guilabel>Benutze Format Nummer/Anzahl Stücke</guilabel> bewirkt, dass im
 Tracknummer-Feld bei den ID3v2 Tags nicht bloß die Tracknummer gespeichert
 wird, sondern auch die Gesamtzahl der Stücke im Verzeichnis.
+</para>
+<para>
+Wenn <guilabel>Stil als Text statt als Nummer</guilabel> aktiviert ist, werden
+alle Stile als Text gespeichert, auch wenn ein ID3v1-Code für den Stil
+existiert. Ohne diese Einstellungen werden solche Stile als die Nummer des
+entsprechenden ID3v1-Codes gespeichert (in Klammern für ID3v2.3). Der Stil
+Metal wird also abhängig von dieser Option entweder als "Metal" oder als "(9)"
+gespeichert. Stile, für welche kein ID3v1-Code existiert, werden immer als
+Text gespeichert. Der Sinn dieser Option ist es, die Kompatibilität mit
+Geräten zu verbessern, welche die Codes nicht korrekt interpretieren.
+</para>
+<para>
 <guilabel>Text Codierung</guilabel> bestimmt die Codierung von ID3v2
 Elementen und kann
 auf <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel> oder 
@@ -1221,12 +1288,16 @@ auf <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel> oder
 ID3v2.3.0 nicht gültig; wenn dieser Wert gesetzt ist, wird
 stattdessen <guilabel>UTF16</guilabel> verwendet.
 Für ID3v2.4.0 sind alle drei Codierungen möglich.
+</para>
+<para>
 <guilabel>Version für neue Tags</guilabel> legt fest, ob neue ID3v2 Tags mit
 der Version 2.3.0 oder 2.4.0 erzeugt werden. Im ersteren Fall wird id3lib
 verwendet, TagLib kommt nur dann zum Einsatz, wenn ein ID3v2.4.0 Tag
 bearbeitet werden muss. Mit der Einstellung <guilabel>ID3v2.4.0
 (TagLib)</guilabel> wird für MP3-Dateien immer die TagLib verwendet;
 veränderte oder neu erstellte Tags werden dann als ID3v2.4.0 gespeichert.
+</para>
+<para>
 Das Auswahlfeld
 <guilabel>Name des Kommentar-Feldes</guilabel> ist für Ogg/Vorbis und
 FLAC-Dateien relevant und bestimmt den Namen des Feldes, welches für
@@ -1283,6 +1354,10 @@ Maustaste drückt. Ersetzungen werden nur durchgeführt, wenn das
 Auf der Seite <guilabel>Dateien</guilabel>, kann mit dem Markierungsfeld
 <guilabel>Datei-Zeitstempel nicht verändern</guilabel> eingestellt werden,
 dass die Modifikationszeit der Datei nicht verändert wird.
+</para>
+<para>
+Wenn <guilabel>Änderungen markieren</guilabel> aktiviert ist, werden veränderte
+Felder markiert, indem der Hintergrund des Namens grau gesetzt wird.
 </para>
 <para>
 <guilabel>Dateinamen Format</guilabel> enthält Einstellungen für das
@@ -1522,11 +1597,8 @@ werden, was verwendet werden soll. Die Voreinstellung ist
 </para>
 <para>
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>
-vorhanden, für Debian-Pakete stehen die Skripte
-<filename>build-deb-kde3.sh</filename>,
-<filename>build-deb-qt.sh</filename> und
-<filename>build-deb-kde4.sh</filename>
-zur Verfügung.
+vorhanden, für Debian-Pakete steht das Skript
+<filename>build-deb.sh</filename> zur Verfügung.
 </para>
 <para>
 Um &kid3; mit KDE 4 zu kompilieren, wird
@@ -1682,6 +1754,19 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </funcprototype>
 </funcsynopsis>
 <para>Wenn OK wird true zurückgegeben.</para>
+</sect2>
+
+<sect2 id="dbus-downloadAlbumArt">
+<title>Cover-Bild herunterladen</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>downloadAlbumArt</function></funcdef>
+  <paramdef>string <parameter>url</parameter> URL des Bildes oder einer
+  dazugehörigen Website</paramdef>
+  <paramdef>boolean <parameter>allFilesInDir</parameter> falls true, wird das
+  Bild in allen Dateien des Verzeichnisses hinzugefügt</paramdef>
+</funcprototype>
+</funcsynopsis>
 </sect2>
 
 <sect2 id="dbus-exportToFile">

@@ -1,3 +1,21 @@
+Sat Feb 14 17:45:43 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* New:
+	  + Import of album cover art from various sources.
+	  + Mark changed tag fields and filenames.
+	  + Option to store ID3v2 genre as text instead of numeric string.
+
+	* Improved:
+	  + Directory deb to generate Debian packages for KDE 4 and Qt 4 or
+	    KDE 3 and Qt3.
+
+	* Fixed:
+	  + Format replacements %c, %y, ... are replaced with empty
+	    strings if the corresponding field is empty
+	  + Charset for gnudb.org import.
+	  + ID3v1 fields are displayed correctly after saving when the
+	    ID3v2.3 encoding is set to UTF16.
+
 Sat Sep 27 15:51:35 CEST 2008  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.1

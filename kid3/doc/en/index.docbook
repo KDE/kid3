@@ -498,6 +498,8 @@ A search on the Discogs server can be performed using
 you can enter artist and album and then choose from a list of releases.
 If <guilabel>Additional Tags</guilabel> is marked, more information is
 imported if available, e.g. performers, arrangers, or the publisher.
+If <guilabel>Cover Art</guilabel> is marked, cover art will be downloaded if
+available.
 </para>
 <para id="import-musicbrainzrelease">
 You can search in the same way in the release database of MusicBrainz
@@ -658,6 +660,46 @@ dialog.</para></listitem>
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>From MusicBrainz Fingerprint</guibutton>
 dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry id="browse_pictures">
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Browse Cover Art...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+The <action>Browse Cover Art</action> dialog helps to find album cover
+art. <guilabel>Artist/Album</guilabel> is filled from the tags if
+possible. <guilabel>Source</guilabel> offers a variety of websites with album
+cover art. The URL with artist and album as parameters can be found beneath
+the name. URL-encoded values for artist and album can be inserted using
+<userinput>%u{artist}</userinput> and <userinput>%u{album}</userinput>, other
+values from the tags are possible too, as described
+in <link linkend="configure-kid3">Configure Kid3</link>, <guilabel>User
+Actions</guilabel>. More sources can be entered after the entry "Custom
+Source" by replacing "Custom Source" with the source's name, pressing Enter,
+then inserting the URL and finally pressing <guibutton>Save
+Settings</guibutton>. The resulting browser command is displayed at the top of
+the dialog and can be started by clicking <guibutton>Browse</guibutton>. The
+browser, which can be configured in the settings, is started with the selected
+source. A cover image can then be dragged from the browser into the &kid3;
+window and will be set in the picture frame of the selected files.
+</para>
+<para>
+Because not all browsers support drag'n'drop of images and the pictures on
+websites often have a URL, in such cases &kid3; will receive the URL and not
+the picture. If the URL points to a picture, it will be downloaded. However,
+if the URL refers to some other web resource, it has to be translated to the
+corresponding picture. Such mappings are defined in the table <guilabel>URL
+extraction</guilabel>. The left column <guilabel>Match</guilabel> contains a
+regular expression which is compared with the URL. If it matches, the captured
+expressions in parentheses are inserted into the pattern of the
+right <guilabel>Picture URL</guilabel> column (at the positions marked with \1
+etc.). The replaced regular expression contains the URL of the picture. By
+this means cover art can be imported from Amazon, Google Images, etc. using
+drag'n'drop. It is also possible to define your own mappings.
+</para>
+</listitem>
 </varlistentry>
 
 <varlistentry id="export">
@@ -1090,6 +1132,16 @@ unsaved changes will be converted.
 <varlistentry>
 <term><menuchoice>
 <guimenu>Settings</guimenu>
+<guimenuitem>Hide Picture</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles displaying of the album cover art preview
+picture.</action>
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Settings</guimenu>
 <guimenuitem>Show Toolbar</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Toggles displaying of the toolbar</action>, which contains
@@ -1136,18 +1188,34 @@ The check box <guilabel>Use track/total number of tracks
 format</guilabel> controls whether the track number field of ID3v2 tags
 contains simply the track number or additionally the total number of tracks in
 the directory.
+</para>
+<para>
+When <guilabel>Genre as text instead of numeric string</guilabel> is checked,
+all ID3v2 genres will be stored as a text string even if there is a
+corresponding code for ID3v1 genres. If this option is not set, genres for which
+an ID3v1 code exists are stored as the number of the genre code (in
+parentheses for ID3v2.3). Thus the genre Metal is stored as "Metal" or "(9)"
+depending on this option. Genres which are not in the list of ID3v1 genres are
+always stored as a text string. The purpose of this option is improved
+compatibility with devices which do not correctly interpret genre codes.
+</para>
+<para>
 <guilabel>Text encoding</guilabel> defines the default encoding used for ID3v2
 frames and can be set
 to <guilabel>ISO-8859-1</guilabel>, <guilabel>UTF16</guilabel>,
 or <guilabel>UTF8</guilabel>. <guilabel>UTF8</guilabel> is not valid for
 ID3v2.3.0 frames; if it is set, <guilabel>UTF16</guilabel> will be used
 instead. For ID3v2.4.0 frames, all three encodings are possible.
+</para>
+<para>
 <guilabel>Version used for new tags</guilabel> determines whether new ID3v2
 tags are created as version 2.3.0 or 2.4.0. In the first case, id3lib is used
 as it was in earlier versions of &kid3; and TagLib is only applied when an
 ID3v2.4.0 tag is encountered. In the second case, <guilabel>ID3v2.4.0
 (TagLib)</guilabel>, TagLib is generally used for MP3 files; changed or newly
 created tags will then be saved in version 2.4.0.
+</para>
+<para>
 The combo box <guilabel>Comment field name</guilabel> is only
 relevant for Ogg/Vorbis and FLAC files and sets the name of the field used for
 comments. Different applications seem to use different names, "COMMENT" for
@@ -1194,6 +1262,10 @@ right mouse button is clicked.  Replacement is only active, if the
 On the page <guilabel>Files</guilabel> the check box <guilabel>Preserve file
 timestamp</guilabel> can be marked to preserve the file modification time
 stamp.
+</para>
+<para>
+If <guilabel>Mark changes</guilabel> is active, changed fields are marked with
+a light gray label background.
 </para>
 <para>
 <guilabel>Filename Format</guilabel> contains options for the format of the
@@ -1423,9 +1495,7 @@ libraries are compiled in. The default is
 </para><para>
 Generation of RPM-Packages is supported by the
 file <filename>kid3.spec</filename>, for Debian-Packages,
-the scripts <filename>build-deb-kde3.sh</filename>,
-<filename>build-deb-qt.sh</filename> and
-<filename>build-deb-kde4.sh</filename> are available.
+the script <filename>build-deb.sh</filename>is available.
 </para>
 <para>
 To build &kid3; with KDE 4, use
@@ -1580,6 +1650,19 @@ following methods:
 </funcprototype>
 </funcsynopsis>
 <para>Returns true if ok.</para>
+</sect2>
+
+<sect2 id="dbus-downloadAlbumArt">
+<title>Download album cover art</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>downloadAlbumArt</function></funcdef>
+  <paramdef>string <parameter>url</parameter> URL of picture file or album art
+  resource</paramdef>
+  <paramdef>boolean <parameter>allFilesInDir</parameter> true to add the image
+  to all files in the directory</paramdef>
+</funcprototype>
+</funcsynopsis>
 </sect2>
 
 <sect2 id="dbus-exportToFile">
