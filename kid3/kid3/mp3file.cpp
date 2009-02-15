@@ -1118,7 +1118,8 @@ void Mp3File::getDetailInfo(DetailInfo& info) const
 	const Mp3_Headerinfo* headerInfo = 0;
 	if (m_tagV1) {
 		headerInfo = m_tagV1->GetMp3HeaderInfo();
-	} else if (m_tagV2) {
+	}
+	if (!headerInfo && m_tagV2) {
 		headerInfo = m_tagV2->GetMp3HeaderInfo();
 	}
 	if (headerInfo) {
@@ -1193,7 +1194,8 @@ unsigned Mp3File::getDuration() const
 	const Mp3_Headerinfo* info = NULL;
 	if (m_tagV1) {
 		info = m_tagV1->GetMp3HeaderInfo();
-	} else if (m_tagV2) {
+	}
+	if (!info && m_tagV2) {
 		info = m_tagV2->GetMp3HeaderInfo();
 	}
 	if (info && info->time > 0) {
