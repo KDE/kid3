@@ -70,18 +70,18 @@ void DiscogsDialog::parseFindResults(const QByteArray& searchStr)
 	// releases have the format:
 	// <li><a href="/release/761529"><span style="font-size: 11pt;"><em>Amon</em> <em>Amarth</em> - The <em>Avenger</em></span></a><br>
 	QString str = QString::fromUtf8(searchStr);
-	QRegExp idTitleRe("<a href=\"/release/([0-9]+)\">(.+)</a>");
+	QRegExp idTitleRe("<a href=\"/([^/]*/?release)/([0-9]+)\">(.+)</a>");
 	QStringList lines = QCM_split("<p/>", str.remove('\n').remove('\r'));
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		if (idTitleRe.QCM_indexIn(*it) != -1) {
-			QString title(idTitleRe.cap(2));
+			QString title(idTitleRe.cap(3));
 			title.replace(QRegExp("<[^>]+>"), "");
 			new AlbumListItem(
 				m_albumListBox,
 				title,
-				"release",
-				idTitleRe.cap(1));
+				idTitleRe.cap(1),
+				idTitleRe.cap(2));
 		}
 	}
 	m_albumListBox->setFocus();
