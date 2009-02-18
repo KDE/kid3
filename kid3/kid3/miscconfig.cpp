@@ -118,7 +118,8 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_useProxy(false),
 	m_onlyCustomGenres(false)
 #ifndef CONFIG_USE_KDE
-	, m_windowWidth(-1), m_windowHeight(-1), m_useFont(false), m_fontSize(-1)
+	, m_windowX(-1), m_windowY(-1), m_windowWidth(-1), m_windowHeight(-1),
+	m_useFont(false), m_fontSize(-1)
 #endif
 {
 }
@@ -228,6 +229,8 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/Proxy", m_proxy);
 	config->QCM_writeEntry("/Browser", m_browser);
 	config->QCM_writeEntry("/OnlyCustomGenres", m_onlyCustomGenres);
+	config->QCM_writeEntry("/WindowX", m_windowX);
+	config->QCM_writeEntry("/WindowY", m_windowY);
 	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
 	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
 	config->QCM_writeEntry("/UseFont", m_useFont);
@@ -371,6 +374,8 @@ void MiscConfig::readFromConfig(
 	m_browser = config->QCM_readEntry("/Browser", s_defaultBrowser);
 #endif
 	m_onlyCustomGenres = config->QCM_readBoolEntry("/OnlyCustomGenres", m_onlyCustomGenres);
+	m_windowX = config->QCM_readNumEntry("/WindowX", -1);
+	m_windowY = config->QCM_readNumEntry("/WindowY", -1);
 	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
 	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
 	m_useFont = config->QCM_readBoolEntry("/UseFont", m_useFont);

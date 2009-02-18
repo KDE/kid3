@@ -220,6 +220,10 @@ public:
 	/** true to show only custom genres in combo boxes */
 	bool m_onlyCustomGenres;
 #ifndef CONFIG_USE_KDE
+	/** mainwindow x-position */
+	int m_windowX;
+	/** mainwindow y-position */
+	int m_windowY;
 	/** mainwindow width */
 	int m_windowWidth;
 	/** mainwindow height */

@@ -955,6 +955,8 @@ void Kid3App::saveOptions()
 	m_fileOpenRecent->saveEntries(m_config, "Recent Files");
 #endif
 #else
+	s_miscCfg.m_windowX = x();
+	s_miscCfg.m_windowY = y();
 	s_miscCfg.m_windowWidth = size().width();
 	s_miscCfg.m_windowHeight = size().height();
 #endif
@@ -1038,6 +1040,9 @@ void Kid3App::readOptions()
 #else
 	if (s_miscCfg.m_windowWidth != -1 && s_miscCfg.m_windowHeight != -1) {
 		resize(s_miscCfg.m_windowWidth, s_miscCfg.m_windowHeight);
+	}
+	if (s_miscCfg.m_windowX != -1 && s_miscCfg.m_windowY != -1) {
+		move(s_miscCfg.m_windowX, s_miscCfg.m_windowY);
 	}
 #endif
 	m_view->readConfig();
