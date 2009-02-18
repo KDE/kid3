@@ -1,5 +1,5 @@
-AC_INIT(kid3, 1.1)
-VERSION=1.1
+AC_INIT(kid3, 1.2)
+VERSION=1.2
 AC_CONFIG_HEADERS([config.h])
 AC_LANG([C++])
 AC_PROG_CXX

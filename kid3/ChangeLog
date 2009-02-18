@@ -1,4 +1,6 @@
-Sat Feb 14 17:45:43 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Wed Feb 18 21:40:17 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 1.2
 
 	* New:
 	  + Import of album cover art from various sources.
@@ -15,6 +17,9 @@ Sat Feb 14 17:45:43 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Charset for gnudb.org import.
 	  + ID3v1 fields are displayed correctly after saving when the
 	    ID3v2.3 encoding is set to UTF16.
+	  + Correct header information for MP3 files with attached picture
+	    or without ID3v1 tag.
+	  + Adapted to Discogs server update.
 
 Sat Sep 27 15:51:35 CEST 2008  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
