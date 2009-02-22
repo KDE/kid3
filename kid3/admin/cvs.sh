@@ -316,7 +316,7 @@ if test -f configure.in.in; then
    fi
 fi
 if test -z "$VERSION" || test "$VERSION" = "@VERSION@"; then
-     VERSION="\"3.5.6\""
+     VERSION="\"3.5.9\""
 fi
 if test -z "$modulename" || test "$modulename" = "@MODULENAME@"; then
    modulename=`pwd`; 
@@ -537,8 +537,6 @@ if test -z "$EXTRACTRC"; then EXTRACTRC=extractrc ; fi
 if test -z "$PREPARETIPS"; then PREPARETIPS=preparetips ; fi
 export EXTRACTRC PREPARETIPS
 
-kdepotpath=/usr/include/kde/kde.pot
-
 for subdir in $dirs; do
   test -z "$VERBOSE" || echo "Making messages in $subdir"
   (cd $subdir
@@ -556,10 +554,10 @@ for subdir in $dirs; do
    fi
    perl -e '$mes=0; while (<STDIN>) { next if (/^(if\s|else\s|endif)/); if (/^messages:/) { $mes=1; print $_; next; } if ($mes) { if (/$\\(XGETTEXT\)/ && / -o/) { s/ -o \$\(podir\)/ _translatorinfo.cpp -o \$\(podir\)/ } print $_; } else { print $_; } }' < Makefile.am | egrep -v '^include ' > _transMakefile
 
-#   kdepotpath=${includedir:-`kde-config --expandvars --install include`}/kde.pot
-#   if ! test -f $kdepotpath; then
-#	kdepotpath=`kde-config --expandvars --prefix`/include/kde.pot
-#   fi
+   kdepotpath=${includedir:-`kde-config --expandvars --install include`}/kde.pot
+   if ! test -f $kdepotpath; then
+	kdepotpath=`kde-config --expandvars --prefix`/include/kde.pot
+   fi
 
    $MAKE -s -f _transMakefile podir=$podir EXTRACTRC="$EXTRACTRC" PREPARETIPS="$PREPARETIPS" srcdir=. \
 	XGETTEXT="${XGETTEXT:-xgettext} --foreign-user -C -ci18n -ki18n -ktr2i18n -kI18N_NOOP -kI18N_NOOP2 -kaliasLocale -x $kdepotpath" messages

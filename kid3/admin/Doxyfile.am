@@ -72,11 +72,11 @@ uninstall-local: uninstall-apidox
 uninstall-apidox:
 	@if test "$(subdir)" != "."; then \
 		if test -d $(DESTDIR)$(kde_htmldir)/en/$(PACKAGE)-apidocs/$(subdir); then \
-			rm -rfv $(DESTDIR)$(kde_htmldir)/en/$(PACKAGE)-apidocs/$(subdir); \
+			rm -rf $(DESTDIR)$(kde_htmldir)/en/$(PACKAGE)-apidocs/$(subdir); \
 		fi \
 	else \
 		if test -d $(DESTDIR)$(kde_htmldir)/en/$(PACKAGE)-apidocs; then \
-			rm -rfv $(DESTDIR)$(kde_htmldir)/en/$(PACKAGE)-apidocs; \
+			rm -rf $(DESTDIR)$(kde_htmldir)/en/$(PACKAGE)-apidocs; \
 		fi \
 	fi
 
