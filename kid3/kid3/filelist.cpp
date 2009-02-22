@@ -35,6 +35,9 @@
 #if QT_VERSION >= 0x040000
 #include <QMenu>
 #include <QHeaderView>
+#if QT_VERSION >= 0x040300
+#include <QDirIterator>
+#endif
 #else
 #include <qpopupmenu.h>
 #include <qheader.h>
@@ -719,10 +722,14 @@ void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 	int numFiles = 0;
 	FileListItem* last = 0;
 	QDir dir(dirname);
-	QStringList dirContents = dir.entryList(QDir::Dirs) +
 #if QT_VERSION >= 0x040000
-		dir.entryList(Kid3App::s_miscCfg.m_nameFilter.split(' '), QDir::Files);
+	const QDir::Filters dirFilters =
+		QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Files;
+	QStringList nameFilters(Kid3App::s_miscCfg.m_nameFilter.split(' '));
+	QStringList dirContents = dir.entryList(
+		nameFilters, dirFilters, QDir::DirsFirst | QDir::IgnoreCase);
 #else
+	QStringList dirContents = dir.entryList(QDir::Dirs) +
 		dir.entryList(Kid3App::s_miscCfg.m_nameFilter, QDir::Files);
 #endif
 	for (QStringList::Iterator it = dirContents.begin();
@@ -757,6 +764,12 @@ void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
 				}
 				if (last) {
 					last->setDirInfo(new DirInfo(filename));
+#if QT_VERSION >= 0x040300
+					last->setChildIndicatorPolicy(
+						QDirIterator(filename, nameFilters, dirFilters).hasNext() ?
+						QTreeWidgetItem::ShowIndicator :
+						QTreeWidgetItem::DontShowIndicatorWhenChildless);
+#endif
 				}
 			}
 		}
