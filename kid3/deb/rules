@@ -3,13 +3,11 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-# For Ubuntu <=8.04 use this:
-#PACKAGE_MAKEFILES = kid3-kde3.mk kid3-qt3.mk
-# For Ubuntu >=8.10, Debian use this:
+ifneq ($(filter hardy lenny,$(shell lsb_release -cs)),)
+PACKAGE_MAKEFILES = kid3-kde3.mk kid3-qt3.mk
+else
 PACKAGE_MAKEFILES = kid3-kde4.mk kid3-qt4.mk
-
-INSTALL_DIR = install -p -d -o root -g root -m 755
-INSTALL_FILE = install -p -o root -g root -m 644
+endif
 
 DEBVERSION:=$(shell head -n 1 debian/changelog \
                     | sed -e 's/^[^(]*(\([^)]*\)).*/\1/')
@@ -18,11 +16,6 @@ UPVERSION:=$(shell echo $(DEBVERSION) | sed -e 's/^.*://' -e 's/-[0-9.]*$$//' -e
 FILENAME := kid3_$(UPVERSION).orig.tar.gz
 UPFILENAME := kid3-$(UPVERSION).tar.gz
 URL = http://heanet.dl.sourceforge.net/kid3/$(UPFILENAME)
-
-# These are used for cross-compiling and for saving the configure script
-# from having to guess our platform (since we know it already)
-DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -g

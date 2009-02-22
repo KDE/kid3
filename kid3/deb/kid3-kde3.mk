@@ -1,5 +1,18 @@
 #!/usr/bin/make -f
 
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
+CFLAGS = -g3 -O0
+CXXFLAGS = -g3 -O0
+else
+CFLAGS = -g -O2
+CXXFLAGS = -g -O2
+endif
+
 pixmaps = $(CURDIR)/debian/kid3/usr/share/pixmaps
 bindir = $(CURDIR)/debian/kid3/usr/bin
 kdedocs = $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML
