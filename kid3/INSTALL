@@ -47,35 +47,20 @@ cd kid3-qt
 make
 make install
 
-*** Create Debian Packages for KDE 3
+*** Create Debian Packages
 
-Make sure that you have installed all packages listed in deb-kde3/control,
+Make sure that you have installed all packages listed in deb/control,
 section Build-Depends.
 
-./build-deb-kde3.sh
-
-*** Create Debian Packages for Qt
-
-Make sure that you have installed all packages listed in deb-qt/control,
-section Build-Depends.
-
-./build-deb-qt.sh
-
-*** Create Debian Package for KDE 4
-
-Make sure that you have installed all packages listed in deb-kde4/control,
-section Build-Depends.
-
-./build-deb-kde4.sh
+./build-deb.sh
 
 *** Create RPM Package
 
-Eventually change the prefix (/opt/kde3) and the configure arguments in
-kid3.spec. They should work with SUSE. Copy kid3.spec into the SPEC directory
+Copy kid3.spec into the SPEC directory
 and the tar.gz archive into the SOURCES directory.
 
-rpm -ba kid3.spec
- 
+rpmbuild -ba kid3.spec
+
 
 ** Windows
 
