@@ -61,6 +61,7 @@ public:
 	 * Send a HTTP GET request.
 	 *
 	 * @param server host name
+	 * @param path   path of the URL
 	 */
 	void sendRequest(const QString& server, const QString& path);
 

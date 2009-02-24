@@ -45,12 +45,17 @@
 #include "miscconfig.h"
 #include "rendirdialog.h"
 
-/* Only defined for generation of KDE3 translation files */
+/** Only defined for generation of KDE3 translation files */
 #define FOR_KDE3_PO_1 I18N_NOOP("Create directory %1 failed\n")
+/** Only defined for generation of KDE3 translation files */
 #define FOR_KDE3_PO_2 I18N_NOOP("File %1 already exists\n")
+/** Only defined for generation of KDE3 translation files */
 #define FOR_KDE3_PO_3 I18N_NOOP("%1 is not a directory\n")
+/** Only defined for generation of KDE3 translation files */
 #define FOR_KDE3_PO_4 I18N_NOOP("Rename %1 to %2 failed\n")
+/** Only defined for generation of KDE3 translation files */
 #define FOR_KDE3_PO_5 I18N_NOOP("%1 already exists\n")
+/** Only defined for generation of KDE3 translation files */
 #define FOR_KDE3_PO_6 I18N_NOOP("%1 is not a file\n")
 
 /**
