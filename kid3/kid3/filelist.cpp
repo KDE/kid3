@@ -1028,7 +1028,7 @@ void FileList::executeContextCommand(int id)
 void FileList::executeAction(QAction* action)
 {
 	if (action) {
-		QString name = action->text();
+		QString name = action->text().remove('&');
 		int id = 0;
 		for (MiscConfig::MenuCommandList::const_iterator
 					 it = Kid3App::s_miscCfg.m_contextMenuCommands.begin();
