@@ -737,7 +737,7 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	if (id3v1) {
 		setMinimumHeight((Frame::FT_LastV1Frame + 1) * (rowHeight(0) + 1));
 	}
-	QTableWidgetItem* twi = new QTableWidgetItem(i18n("Track Number"));
+	QTableWidgetItem* twi = new QTableWidgetItem(i18n("Track Number") + "WW");
 	twi->setCheckState(Qt::Unchecked);
 	setItem(0, CI_Enable, twi);
 	resizeColumnToContents(CI_Enable);
@@ -762,7 +762,7 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	if (id3v1) {
 		setMinimumHeight((Frame::FT_LastV1Frame + 1) * (rowHeight(0) + 1));
 	}
-	setItem(0, CI_Enable, new NameTableItem(this, i18n("Track Number")));
+	setItem(0, CI_Enable, new NameTableItem(this, i18n("Track Number") + "WW"));
 	adjustColumn(CI_Enable);
 	setColumnStretchable(CI_Value, true);
 	removeRow(0);
