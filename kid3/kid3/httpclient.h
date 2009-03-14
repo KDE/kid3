@@ -47,6 +47,15 @@ class HttpClient : public QObject
 Q_OBJECT
 
 public:
+	/** Connection progress steps. */
+	enum ConnectionSteps {
+		CS_RequestConnection = 0, /**< Send Request */
+		CS_Connecting        = 1, /**< Connecting */
+		CS_HostFound         = 2, /**< Host Found */
+		CS_RequestSent       = 3, /**< Request Sent */
+		CS_EstimatedBytes = 75000 /**< Estimated total number of bytes */
+	};
+
 	/**
 	 * Constructor.
 	 */
@@ -133,7 +142,16 @@ private slots:
 
 private:
 	/**
-	 * Emit a progress signal.
+	 * Emit a progress signal with step/total steps.
+	 *
+	 * @param text       state text
+	 * @param step       current step
+	 * @param totalSteps total number of steps
+	 */
+	void emitProgress(const QString& text, int step, int totalSteps);
+
+	/**
+	 * Emit a progress signal with bytes received/total bytes.
 	 *
 	 * @param text state text
 	 */

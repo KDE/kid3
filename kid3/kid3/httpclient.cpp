@@ -68,7 +68,19 @@ HttpClient::~HttpClient()
 }
 
 /**
- * Emit a progress signal.
+ * Emit a progress signal with step/total steps.
+ *
+ * @param text       state text
+ * @param step       current step
+ * @param totalSteps total number of steps
+ */
+void HttpClient::emitProgress(const QString& text, int step, int totalSteps)
+{
+	emit progress(text, step, totalSteps);
+}
+
+/**
+ * Emit a progress signal with bytes received/total bytes.
  *
  * @param text state text
  */
@@ -124,7 +136,7 @@ void HttpClient::splitNamePort(const QString& namePort,
  */
 void HttpClient::slotHostFound()
 {
-	emitProgress(i18n("Host found..."));
+	emitProgress(i18n("Host found..."), CS_HostFound, CS_EstimatedBytes);
 }
 
 /**
@@ -133,7 +145,7 @@ void HttpClient::slotHostFound()
 void HttpClient::slotConnected()
 {
 	m_sock->QCM_writeBlock(m_request.QCM_latin1(), m_request.length());
-	emitProgress(i18n("Request sent..."));
+	emitProgress(i18n("Request sent..."), CS_RequestSent, CS_EstimatedBytes);
 }
 
 /**
@@ -308,5 +320,5 @@ void HttpClient::sendRequest(const QString& server, const QString& path)
 	m_rcvBodyType = "";
 
 	m_sock->connectToHost(dest, destPort);
-	emitProgress(i18n("Connecting..."));
+	emitProgress(i18n("Connecting..."), CS_Connecting, CS_EstimatedBytes);
 }

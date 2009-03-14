@@ -91,7 +91,9 @@ void DownloadDialog::startDownload(const QString& hostName, const QString& path)
 		m_url += hostName;
 		m_url += path;
 		setLabelText(m_url);
-		updateProgressStatus(i18n("Ready."), 0, 0);
+		updateProgressStatus(i18n("Ready."),
+		                     HttpClient::CS_RequestConnection,
+		                     HttpClient::CS_EstimatedBytes);
 		m_client->sendRequest(hostName, path);
 	}
 }

@@ -2817,20 +2817,22 @@ void Kid3App::dropUrl(const QString& txt)
 void Kid3App::imageDownloaded(const QByteArray& data,
                               const QString& mimeType, const QString& url)
 {
-	PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
-	if (m_downloadToAllFilesInDir) {
-		FileListItem* mp3file = m_view->firstFileInDir();
-		while (mp3file != 0) {
-			TaggedFile* taggedFile = mp3file->getFile();
-			taggedFile->readTags(false);
-			taggedFile->addFrameV2(frame);
-			mp3file = m_view->nextFileInDir();
+	if (mimeType.startsWith("image")) {
+		PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
+		if (m_downloadToAllFilesInDir) {
+			FileListItem* mp3file = m_view->firstFileInDir();
+			while (mp3file != 0) {
+				TaggedFile* taggedFile = mp3file->getFile();
+				taggedFile->readTags(false);
+				taggedFile->addFrameV2(frame);
+				mp3file = m_view->nextFileInDir();
+			}
+			m_downloadToAllFilesInDir = false;
+		} else {
+			addFrame(&frame);
 		}
-		m_downloadToAllFilesInDir = false;
-	} else {
-		addFrame(&frame);
+		updateGuiControls();
 	}
-	updateGuiControls();
 }
 
 /**
