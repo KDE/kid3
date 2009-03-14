@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2009-02-18</date>
+<date>2009-03-14</date>
 <releaseinfo>1.2</releaseinfo>
 
 <abstract>
@@ -267,6 +267,7 @@ Werte aus den Tags im Dateinamen einzusetzen:
 <listitem><para>%c %{comment} Kommentar (Comment)</para></listitem>
 <listitem><para>%y %{year} Jahr (Year)</para></listitem>
 <listitem><para>%t %{track} Nummer (Track, z.B. 01)</para></listitem>
+<listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track, z.B. 1)</para></listitem>
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
 </itemizedlist>
@@ -790,6 +791,7 @@ zusätzliche.
 <listitem><para>%c %{comment} Kommentar (Comment)</para></listitem>
 <listitem><para>%y %{year} Jahr (Year)</para></listitem>
 <listitem><para>%t %{track} Nummer (Track)</para></listitem>
+<listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
 <listitem><para>%f %{file} Dateiname (File name)</para></listitem>
@@ -970,6 +972,7 @@ Werte aus den Tags im Verzeichnisnamen einzusetzen:
 <listitem><para>%c %{comment} Kommentar (Comment)</para></listitem>
 <listitem><para>%y %{year} Jahr (Year)</para></listitem>
 <listitem><para>%t %{track} Nummer (Track))</para></listitem>
+<listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
 </itemizedlist>
@@ -1024,6 +1027,7 @@ und Exportieren verwendet werden.
 <listitem><para>%c %{comment} Kommentar (Comment)</para></listitem>
 <listitem><para>%y %{year} Jahr (Year)</para></listitem>
 <listitem><para>%t %{track} Nummer (Track))</para></listitem>
+<listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
 
@@ -1391,6 +1395,7 @@ folgenden Codes übergeben werden:
 <listitem><para>%c %{comment} Kommentar (Comment)</para></listitem>
 <listitem><para>%y %{year} Jahr (Year)</para></listitem>
 <listitem><para>%t %{track} Nummer (Track)</para></listitem>
+<listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track), ohne führende Null</para></listitem>
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
 <listitem><para>%b %{browser} Kommando zum Starten des Web Browsers</para></listitem>

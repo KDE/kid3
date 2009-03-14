@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2009-02-18</date>
+<date>2009-03-14</date>
 <releaseinfo>1.2</releaseinfo>
 
 <abstract>
@@ -250,6 +250,7 @@ into the filename:
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 </itemizedlist>
@@ -735,6 +736,7 @@ format, and the same codes are used plus some additional codes.
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} File name</para></listitem>
@@ -904,6 +906,7 @@ special codes are used to insert tag values into the directory name:
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 </itemizedlist>
@@ -954,6 +957,7 @@ name format, import and export.
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%f %{file} File name</para></listitem>
@@ -1295,6 +1299,7 @@ codes:
 <listitem><para>%c %{comment} Comment</para></listitem>
 <listitem><para>%y %{year} Year</para></listitem>
 <listitem><para>%t %{track} Track (e.g. 01)</para></listitem>
+<listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>%b %{browser} Command to start the web browser</para></listitem>

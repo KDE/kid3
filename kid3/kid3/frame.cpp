@@ -570,10 +570,20 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 	}
 
 	if (!name.isNull()) {
-		if (name.QCM_toLower() == "year") {
+		QString lcName(name.QCM_toLower());
+		int fieldWidth = 2;
+		if (lcName == "year") {
 			name = "date";
-		} else if (name.QCM_toLower() == "tracknumber") {
+		} else if (lcName == "tracknumber") {
 			name = "track number";
+		} else if (lcName.startsWith("track.") && lcName.length() == 7 &&
+							 lcName[6] >= '0' && lcName[6] <= '9') {
+#if QT_VERSION >= 0x040000
+			fieldWidth = lcName[6].toLatin1() - '0';
+#else
+			fieldWidth = lcName[6].latin1() - '0';
+#endif
+			lcName = name = "track";
 		}
 
 		FrameCollection::iterator it = m_frames.findByName(name);
@@ -585,11 +595,11 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 			}
 		}
 
-		if (name.QCM_toLower() == "track") {
+		if (lcName == "track") {
 			bool ok;
 			int nr = Frame::numberWithoutTotal(result, &ok);
 			if (ok) {
-				result.sprintf("%02d", nr);
+				result.sprintf("%0*d", fieldWidth, nr);
 			}
 		}
 	}
@@ -633,6 +643,10 @@ QString FrameFormatReplacer::getToolTip(bool onlyRows)
 	str += "<tr><td>%t</td><td>%{track}</td><td>";
 	str += QCM_translate(I18N_NOOP("Track"));
 	str += " &quot;01&quot;</td></tr>\n";
+
+	str += "<tr><td>%t</td><td>%{track.3}</td><td>";
+	str += QCM_translate(I18N_NOOP("Track"));
+	str += " &quot;001&quot;</td></tr>\n";
 
 	str += "<tr><td>%T</td><td>%{tracknumber}</td><td>";
 	str += QCM_translate(I18N_NOOP("Track"));

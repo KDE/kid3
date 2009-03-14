@@ -1,4 +1,4 @@
-Wed Feb 18 21:40:17 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Sat Mar 14 12:43:56 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.2
 
@@ -6,6 +6,7 @@ Wed Feb 18 21:40:17 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Import of album cover art from various sources.
 	  + Mark changed tag fields and filenames.
 	  + Option to store ID3v2 genre as text instead of numeric string.
+	  + Track number format with configurable amount of leading zeros.
 
 	* Improved:
 	  + Directory deb to generate Debian packages for KDE 4 and Qt 4 or
