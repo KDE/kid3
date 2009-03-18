@@ -215,6 +215,14 @@ public:
 	bool m_useProxy;
 	/** proxy used for access */
 	QString m_proxy;
+#if QT_VERSION >= 0x040000
+	/** true to use proxy authentication */
+	bool m_useProxyAuthentication;
+	/** proxy user name */
+	QString m_proxyUserName;
+	/** proxy password */
+	QString m_proxyPassword;
+#endif
 	/** web browser substituted for %b */
 	QString m_browser;
 	/** true to show only custom genres in combo boxes */

@@ -30,25 +30,167 @@
 /** Only defined for generation of KDE3 translation files */
 #define FOR_KDE3_PO_1 I18N_NOOP("Data received: %1")
 
+#if QT_VERSION >= 0x040000
+
+/**
+ * Constructor.
+ */
+HttpClient::HttpClient() :
+	m_rcvBodyLen(0)
+{
+	m_http = new QHttp();
+	connect(m_http, SIGNAL(stateChanged(int)),
+					this, SLOT(slotStateChanged(int)));
+	connect(m_http, SIGNAL(dataReadProgress(int, int)),
+					this, SLOT(slotDataReadProgress(int, int)));
+	connect(m_http, SIGNAL(done(bool)),
+					this, SLOT(slotDone(bool)));
+	connect(m_http, SIGNAL(responseHeaderReceived(const QHttpResponseHeader&)),
+					this, SLOT(slotResponseHeaderReceived(const QHttpResponseHeader&)));
+}
+
+/**
+ * Destructor.
+ */
+HttpClient::~HttpClient()
+{
+	m_http->close();
+	m_http->disconnect();
+	delete m_http;
+}
+
+/**
+ * Called when the connection state changes.
+ *
+ * @param state HTTP connection state
+ */
+void HttpClient::slotStateChanged(int state)
+{
+	switch (state) {
+		case QHttp::HostLookup:
+			emitProgress(i18n("Ready."), CS_RequestConnection, CS_EstimatedBytes);
+			break;
+		case QHttp::Connecting:
+			emitProgress(i18n("Connecting..."), CS_Connecting, CS_EstimatedBytes);
+			break;
+		case QHttp::Sending:
+			emitProgress(i18n("Host found..."), CS_HostFound, CS_EstimatedBytes);
+			break;
+		case QHttp::Reading:
+			emitProgress(i18n("Request sent..."), CS_RequestSent, CS_EstimatedBytes);
+			break;
+		case QHttp::Connected:
+			emitProgress(i18n("Ready."), -1, -1);
+			break;
+		case QHttp::Unconnected:
+		case QHttp::Closing:
+		default:
+			;
+	}
+}
+
+/**
+ * Called to report connection progress.
+ *
+ * @param done  bytes received
+ * @param total total bytes, 0 if unknown
+ */
+void HttpClient::slotDataReadProgress(int done, int total)
+{
+	emitProgress(KCM_i18n1("Data received: %1", done), done, total);
+}
+
+/**
+ * Called when the request is finished.
+ *
+ * @param error true if error occurred
+ */
+void HttpClient::slotDone(bool error)
+{
+	if (error) {
+		QHttp::Error err = m_http->error();
+		if (err != QHttp::UnexpectedClose) {
+			QString msg(i18n("Socket error: "));
+			switch (err) {
+				case QHttp::ConnectionRefused:
+					msg += i18n("Connection refused");
+					break;
+				case QHttp::HostNotFound:
+					msg += i18n("Host not found");
+					break;
+				default:
+					msg += m_http->errorString();
+			}
+			emitProgress(msg, -1, -1);
+		}
+	}
+	emit bytesReceived(m_http->readAll());
+	if (!error) {
+		emitProgress(i18n("Ready."), CS_EstimatedBytes, CS_EstimatedBytes);
+	}
+}
+
+/**
+ * Called when the response header is available.
+ *
+ * @param resp HTTP response header
+ */
+void HttpClient::slotResponseHeaderReceived(const QHttpResponseHeader& resp)
+{
+	m_rcvBodyType = resp.contentType();
+	m_rcvBodyLen = resp.contentLength();
+}
+
+/**
+ * Send a HTTP GET request.
+ *
+ * @param server host name
+ * @param path   path of the URL
+ */
+void HttpClient::sendRequest(const QString& server, const QString& path)
+{
+	m_rcvBodyLen = 0;
+	m_rcvBodyType = "";
+	QString dest;
+	int destPort;
+	splitNamePort(server, dest, destPort);
+	m_http->setHost(dest, destPort);
+	QString proxy, username, password;
+	int proxyPort = 0;
+	if (Kid3App::s_miscCfg.m_useProxy) {
+		splitNamePort(Kid3App::s_miscCfg.m_proxy, proxy, proxyPort);
+	}
+	if (Kid3App::s_miscCfg.m_useProxyAuthentication) {
+		username = Kid3App::s_miscCfg.m_proxyUserName;
+		password = Kid3App::s_miscCfg.m_proxyPassword;
+	}
+	m_http->setProxy(proxy, proxyPort, username, password);
+	QHttpRequestHeader header("GET", path);
+	header.setValue("User-Agent", "Kid3/" VERSION);
+	header.setValue("Host", dest);
+	header.setValue("Connection", "close");
+	m_http->request(header);
+}
+
+void HttpClient::slotHostFound() {}
+void HttpClient::slotConnected() {}
+void HttpClient::slotConnectionClosed() {}
+void HttpClient::slotReadyRead() {}
+void HttpClient::slotError(int) {}
+
+#else
+
 /**
  * Constructor.
  */
 HttpClient::HttpClient() :
 	m_rcvIdx(0), m_rcvBodyIdx(0), m_rcvBodyLen(0)
 {
-#if QT_VERSION >= 0x040000
-	m_sock = new QTcpSocket();
-	connect(m_sock, SIGNAL(disconnected()),
-			this, SLOT(slotConnectionClosed()));
-	connect(m_sock, SIGNAL(error(QAbstractSocket::SocketError)),
-			this, SLOT(slotError(QAbstractSocket::SocketError)));
-#else
 	m_sock = new QSocket();
 	connect(m_sock, SIGNAL(connectionClosed()),
 			this, SLOT(slotConnectionClosed()));
 	connect(m_sock, SIGNAL(error(int)),
 			this, SLOT(slotError(int)));
-#endif
 	connect(m_sock, SIGNAL(hostFound()),
 			this, SLOT(slotHostFound()));
 	connect(m_sock, SIGNAL(connected()),
@@ -68,18 +210,6 @@ HttpClient::~HttpClient()
 }
 
 /**
- * Emit a progress signal with step/total steps.
- *
- * @param text       state text
- * @param step       current step
- * @param totalSteps total number of steps
- */
-void HttpClient::emitProgress(const QString& text, int step, int totalSteps)
-{
-	emit progress(text, step, totalSteps);
-}
-
-/**
  * Emit a progress signal with bytes received/total bytes.
  *
  * @param text state text
@@ -87,48 +217,6 @@ void HttpClient::emitProgress(const QString& text, int step, int totalSteps)
 void HttpClient::emitProgress(const QString& text)
 {
 	emit progress(text, m_rcvIdx - m_rcvBodyIdx, m_rcvBodyLen);
-}
-
-/**
- * Get string with proxy or destination and port.
- * If a proxy is set, the proxy is returned, else the real destination.
- *
- * @param dst real destination
- *
- * @return "destinationname:port".
- */
-QString HttpClient::getProxyOrDest(const QString& dst)
-{
-	QString dest;
-	if (Kid3App::s_miscCfg.m_useProxy) {
-		dest = Kid3App::s_miscCfg.m_proxy;
-	}
-	if (dest.isEmpty()) {
-		dest = dst;
-	}
-	return dest;
-}
-
-/**
- * Extract name and port from string.
- *
- * @param namePort input string with "name:port"
- * @param name     output string with "name"
- * @param port     output integer with port
- */
-void HttpClient::splitNamePort(const QString& namePort,
-																 QString& name, int& port)
-{
-	int colPos = namePort.QCM_lastIndexOf(':');
-	if (colPos >= 0) {
-		bool ok;
-		port = namePort.mid(colPos + 1).toInt(&ok);
-		if (!ok) port = 80;
-		name = namePort.left(colPos);
-	} else {
-		name = namePort;
-		port = 80;
-	}
 }
 
 /**
@@ -164,11 +252,7 @@ void HttpClient::readBytesAvailable()
 				m_rcvBuf.resize(m_rcvIdx);
 			}
 			if (m_rcvBodyIdx == 0 && m_rcvBodyLen == 0) {
-#if QT_VERSION >= 0x040000
-				QByteArray& str(m_rcvBuf);
-#else
 				QCString str(m_rcvBuf.data(), m_rcvIdx + 1);
-#endif
 				int contentLengthPos = str.QCM_indexOf("Content-Length:");
 				if (contentLengthPos != -1) {
 					contentLengthPos += 15;
@@ -215,19 +299,14 @@ void HttpClient::readBytesAvailable()
 void HttpClient::slotConnectionClosed()
 {
 	readBytesAvailable();
-#if QT_VERSION >= 0x040000
-	QByteArray body(m_rcvBuf.data() + m_rcvBodyIdx,
-	                m_rcvBuf.size() - m_rcvBodyIdx);
-#else
 	QByteArray body;
 	body.duplicate(m_rcvBuf.data() + m_rcvBodyIdx,
 	               m_rcvBuf.size() - m_rcvBodyIdx);
 	body.resize(m_rcvBuf.size() - m_rcvBodyIdx + 1);
 	body[m_rcvBuf.size() - m_rcvBodyIdx] = '\0';
-#endif
 	emit bytesReceived(body);
 	m_sock->close();
-	emitProgress(i18n("Ready."));
+	emitProgress(i18n("Ready."), CS_EstimatedBytes, CS_EstimatedBytes);
 }
 
 /**
@@ -242,28 +321,6 @@ void HttpClient::slotReadyRead()
 /**
  * Display information about socket error.
  */
-#if QT_VERSION >= 0x040000
-void HttpClient::slotError(QAbstractSocket::SocketError err)
-{
-	if (err == QAbstractSocket::RemoteHostClosedError)
-		return;
-	QString msg(i18n("Socket error: "));
-	switch (err) {
-		case QAbstractSocket::ConnectionRefusedError:
-			msg += i18n("Connection refused");
-			break;
-		case QAbstractSocket::HostNotFoundError:
-			msg += i18n("Host not found");
-			break;
-		case QAbstractSocket::SocketAccessError:
-			msg += i18n("Read failed");
-			break;
-		default:
-			msg += m_sock->errorString();
-	}
-	emitProgress(msg);
-}
-#else
 void HttpClient::slotError(int err)
 {
 	QString msg(i18n("Socket error: "));
@@ -282,7 +339,6 @@ void HttpClient::slotError(int err)
 	}
 	emitProgress(msg);
 }
-#endif
 
 /**
  * Send a HTTP GET request.
@@ -321,4 +377,65 @@ void HttpClient::sendRequest(const QString& server, const QString& path)
 
 	m_sock->connectToHost(dest, destPort);
 	emitProgress(i18n("Connecting..."), CS_Connecting, CS_EstimatedBytes);
+}
+
+/**
+ * Get string with proxy or destination and port.
+ * If a proxy is set, the proxy is returned, else the real destination.
+ *
+ * @param dst real destination
+ *
+ * @return "destinationname:port".
+ */
+QString HttpClient::getProxyOrDest(const QString& dst)
+{
+	QString dest;
+	if (Kid3App::s_miscCfg.m_useProxy) {
+		dest = Kid3App::s_miscCfg.m_proxy;
+	}
+	if (dest.isEmpty()) {
+		dest = dst;
+	}
+	return dest;
+}
+
+void HttpClient::slotStateChanged(int) {}
+void HttpClient::slotDataReadProgress(int, int) {}
+void HttpClient::slotDone(bool) {}
+void HttpClient::slotResponseHeaderReceived(const QHttpResponseHeader&) {}
+
+#endif
+
+/**
+ * Emit a progress signal with step/total steps.
+ *
+ * @param text       state text
+ * @param step       current step
+ * @param totalSteps total number of steps
+ */
+void HttpClient::emitProgress(const QString& text, int step, int totalSteps)
+{
+	emit progress(text, step, totalSteps);
+}
+
+/**
+ * Extract name and port from string.
+ *
+ * @param namePort input string with "name:port"
+ * @param name     output string with "name"
+ * @param port     output integer with port
+ */
+void HttpClient::splitNamePort(const QString& namePort,
+																 QString& name, int& port)
+{
+	int colPos = namePort.QCM_lastIndexOf(':');
+	if (colPos >= 0) {
+		bool ok;
+		port = namePort.mid(colPos + 1).toInt(&ok);
+		if (!ok) port = 80;
+		name = namePort.left(colPos);
+	} else {
+		name = namePort;
+		port = 80;
+	}
 }

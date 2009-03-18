@@ -63,12 +63,14 @@ void DownloadDialog::updateProgressStatus(const QString& msg,
 																					int receivedBytes, int totalBytes)
 {
 	setLabelText(m_url + '\n' + msg);
+	if (receivedBytes >= 0 && totalBytes >= 0) {
 #if QT_VERSION >= 0x040000
-	setRange(0, totalBytes);
-	setValue(receivedBytes);
+		setRange(0, totalBytes);
+		setValue(receivedBytes);
 #else
-	setProgress(receivedBytes, totalBytes);
+		setProgress(receivedBytes, totalBytes);
 #endif
+	}
 }
 
 /**

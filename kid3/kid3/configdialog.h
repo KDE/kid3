@@ -169,6 +169,14 @@ private:
 	QCheckBox* m_proxyCheckBox;
 	/** Proxy line edit */
 	QLineEdit* m_proxyLineEdit;
+#if QT_VERSION >= 0x040000
+	/** Use proxy authentication check box */
+	QCheckBox* m_proxyAuthenticationCheckBox;
+	/** Proxy user name line edit */
+	QLineEdit* m_proxyUserNameLineEdit;
+	/** Proxy password line edit */
+	QLineEdit* m_proxyPasswordLineEdit;
+#endif
 #ifndef CONFIG_USE_KDE
 	QCheckBox* m_useApplicationFontCheckBox;
 	QPushButton* m_applicationFontButton;

@@ -116,6 +116,9 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_textEncodingV1(""),
 	m_textEncoding(TE_ISO8859_1),
 	m_useProxy(false),
+#if QT_VERSION >= 0x040000
+	m_useProxyAuthentication(false),
+#endif
 	m_onlyCustomGenres(false)
 #ifndef CONFIG_USE_KDE
 	, m_windowX(-1), m_windowY(-1), m_windowWidth(-1), m_windowHeight(-1),
@@ -167,6 +170,11 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("TextEncoding", m_textEncoding);
 	cfg.writeEntry("UseProxy", m_useProxy);
 	cfg.writeEntry("Proxy", m_proxy);
+#if QT_VERSION >= 0x040000
+	cfg.writeEntry("UseProxyAuthentication", m_useProxyAuthentication);
+	cfg.writeEntry("ProxyUserName", m_proxyUserName);
+	cfg.writeEntry("ProxyPassword", m_proxyPassword);
+#endif
 	cfg.writeEntry("Browser", m_browser);
 	cfg.writeEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
@@ -227,6 +235,11 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/TextEncoding", m_textEncoding);
 	config->QCM_writeEntry("/UseProxy", m_useProxy);
 	config->QCM_writeEntry("/Proxy", m_proxy);
+#if QT_VERSION >= 0x040000
+	config->QCM_writeEntry("/UseProxyAuthentication", m_useProxyAuthentication);
+	config->QCM_writeEntry("/ProxyUserName", m_proxyUserName);
+	config->QCM_writeEntry("/ProxyPassword", m_proxyPassword);
+#endif
 	config->QCM_writeEntry("/Browser", m_browser);
 	config->QCM_writeEntry("/OnlyCustomGenres", m_onlyCustomGenres);
 	config->QCM_writeEntry("/WindowX", m_windowX);
@@ -303,6 +316,11 @@ void MiscConfig::readFromConfig(
 	m_textEncoding = cfg.KCM_readNumEntry("TextEncoding", static_cast<int>(TE_ISO8859_1));
 	m_useProxy = cfg.KCM_readBoolEntry("UseProxy", m_useProxy);
 	m_proxy = cfg.readEntry("Proxy", m_proxy);
+#if QT_VERSION >= 0x040000
+	m_useProxyAuthentication = cfg.KCM_readBoolEntry("UseProxyAuthentication", m_useProxyAuthentication);
+	m_proxyUserName = cfg.readEntry("ProxyUserName", m_proxyUserName);
+	m_proxyPassword = cfg.readEntry("ProxyPassword", m_proxyPassword);
+#endif
 	m_browser = cfg.readEntry("Browser", s_defaultBrowser);
 	m_onlyCustomGenres = cfg.KCM_readBoolEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
@@ -364,6 +382,11 @@ void MiscConfig::readFromConfig(
 	m_textEncoding = config->QCM_readNumEntry("/TextEncoding", TE_ISO8859_1);
 	m_useProxy = config->QCM_readBoolEntry("/UseProxy", m_useProxy);
 	m_proxy = config->QCM_readEntry("/Proxy", m_proxy);
+#if QT_VERSION >= 0x040000
+	m_useProxyAuthentication = config->QCM_readBoolEntry("/UseProxyAuthentication", m_useProxyAuthentication);
+	m_proxyUserName = config->QCM_readEntry("/ProxyUserName", m_proxyUserName);
+	m_proxyPassword = config->QCM_readEntry("/ProxyPassword", m_proxyPassword);
+#endif
 #if defined _WIN32 || defined WIN32
 	m_browser = config->QCM_readEntry("/Browser", QString());
 	if (m_browser.isEmpty()) {

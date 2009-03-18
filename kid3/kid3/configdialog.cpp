@@ -436,11 +436,29 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				m_proxyCheckBox = new QCheckBox(i18n("&Proxy:"), proxyGroupBox);
 				m_proxyLineEdit = new QLineEdit(proxyGroupBox);
 #if QT_VERSION >= 0x040000
-				QHBoxLayout* hbox = new QHBoxLayout;
-				hbox->setMargin(2);
-				hbox->addWidget(m_proxyCheckBox);
-				hbox->addWidget(m_proxyLineEdit);
-				proxyGroupBox->setLayout(hbox);
+				m_proxyAuthenticationCheckBox = new QCheckBox(i18n("&Use authentication with proxy"), proxyGroupBox);
+				QLabel* proxyUserNameLabel = new QLabel(i18n("Proxy user &name:"), proxyGroupBox);
+				m_proxyUserNameLineEdit = new QLineEdit(proxyGroupBox);
+				proxyUserNameLabel->setBuddy(m_proxyUserNameLineEdit);
+				QLabel* proxyPasswordLabel = new QLabel(i18n("Proxy pass&word:"), proxyGroupBox);
+				m_proxyPasswordLineEdit = new QLineEdit(proxyGroupBox);
+				proxyPasswordLabel->setBuddy(m_proxyPasswordLineEdit);
+				m_proxyPasswordLineEdit->setEchoMode(QLineEdit::Password);
+				QVBoxLayout* vbox = new QVBoxLayout;
+				vbox->setMargin(2);
+				QHBoxLayout* proxyHbox = new QHBoxLayout;
+				proxyHbox->setMargin(2);
+				proxyHbox->addWidget(m_proxyCheckBox);
+				proxyHbox->addWidget(m_proxyLineEdit);
+				vbox->addLayout(proxyHbox);
+				vbox->addWidget(m_proxyAuthenticationCheckBox);
+				QGridLayout* authLayout = new QGridLayout;
+				authLayout->addWidget(proxyUserNameLabel, 0, 0);
+				authLayout->addWidget(m_proxyUserNameLineEdit, 0, 1);
+				authLayout->addWidget(proxyPasswordLabel, 1, 0);
+				authLayout->addWidget(m_proxyPasswordLineEdit, 1, 1);
+				vbox->addLayout(authLayout);
+				proxyGroupBox->setLayout(vbox);
 #endif
 				vlayout->addWidget(proxyGroupBox);
 			}
@@ -588,6 +606,11 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 	m_browserLineEdit->setText(miscCfg->m_browser);
 	m_proxyCheckBox->setChecked(miscCfg->m_useProxy);
 	m_proxyLineEdit->setText(miscCfg->m_proxy);
+#if QT_VERSION >= 0x040000
+	m_proxyAuthenticationCheckBox->setChecked(miscCfg->m_useProxyAuthentication);
+	m_proxyUserNameLineEdit->setText(miscCfg->m_proxyUserName);
+	m_proxyPasswordLineEdit->setText(miscCfg->m_proxyPassword);
+#endif
 #ifndef CONFIG_USE_KDE
 	m_useApplicationFontCheckBox->setChecked(miscCfg->m_useFont);
 	m_applicationFontButton->setEnabled(miscCfg->m_useFont);
@@ -651,6 +674,11 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	miscCfg->m_browser = m_browserLineEdit->text();
 	miscCfg->m_useProxy = m_proxyCheckBox->isChecked();
 	miscCfg->m_proxy = m_proxyLineEdit->text();
+#if QT_VERSION >= 0x040000
+	miscCfg->m_useProxyAuthentication = m_proxyAuthenticationCheckBox->isChecked();
+	miscCfg->m_proxyUserName = m_proxyUserNameLineEdit->text();
+	miscCfg->m_proxyPassword = m_proxyPasswordLineEdit->text();
+#endif
 #ifndef CONFIG_USE_KDE
 	if (m_useApplicationFontCheckBox->isChecked()) {
 		QFont font = QApplication::font();

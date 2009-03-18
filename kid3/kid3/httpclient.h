@@ -32,12 +32,14 @@
 #include "qtcompatmac.h"
 
 #if QT_VERSION >= 0x040000
-#include <QTcpSocket>
+#include <QHttp>
 #include <QByteArray>
 #else
 #include <qsocket.h>
 #include <qcstring.h>
 #endif
+
+class QHttpResponseHeader;
 
 /**
  * Client to connect to HTTP server.
@@ -134,11 +136,37 @@ private slots:
 	/**
 	 * Display information about socket error.
 	 */
-#if QT_VERSION >= 0x040000
-	void slotError(QAbstractSocket::SocketError err);
-#else
 	void slotError(int err);
-#endif
+
+
+	/**
+	 * Called when the connection state changes.
+	 *
+	 * @param state HTTP connection state
+	 */
+	void slotStateChanged(int state);
+
+	/**
+	 * Called to report connection progress.
+	 *
+	 * @param done  bytes received
+	 * @param total total bytes, 0 if unknown
+	 */
+	void slotDataReadProgress(int done, int total);
+
+	/**
+	 * Called when the request is finished.
+	 *
+	 * @param error true if error occurred
+	 */
+	void slotDone(bool error);
+
+	/**
+	 * Called when the response header is available.
+	 *
+	 * @param resp HTTP response header
+	 */
+	void slotResponseHeaderReceived(const QHttpResponseHeader& resp);
 
 private:
 	/**
@@ -172,24 +200,25 @@ private:
 	 */
 	static QString getProxyOrDest(const QString& dst);
 
-	/** request to set */
-	QString m_request;
-	/** client socket */
 #if QT_VERSION >= 0x040000
-	QTcpSocket* m_sock;
+	/** client socket */
+	QHttp* m_http;
 #else
+	/** client socket */
 	QSocket* m_sock;
-#endif
 	/** current index in receive buffer */
 	unsigned long m_rcvIdx;
 	/** index of entity-body in receive buffer, 0 if not available */
 	unsigned long m_rcvBodyIdx;
+	/** receive buffer */
+	QByteArray m_rcvBuf;
+	/** request to set */
+	QString m_request;
+#endif
 	/** content length of entitiy-body, 0 if not available */
 	unsigned long m_rcvBodyLen;
 	/** content type */
 	QString m_rcvBodyType;
-	/** receive buffer */
-	QByteArray m_rcvBuf;
 };
 
 #endif
