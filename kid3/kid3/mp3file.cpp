@@ -551,10 +551,16 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 		ID3_Frame* frame = NULL;
 		bool removeOnly = removeEmpty && text.isEmpty();
 		if (replace || removeOnly) {
-			frame = tag->Find(id);
-			frame = tag->RemoveFrame(frame);
-			delete frame;
-			changed = true;
+			if (id != ID3FID_COMMENT) {
+				frame = tag->Find(id);
+			} else {
+				frame = tag->Find(ID3FID_COMMENT, ID3FN_DESCRIPTION, "");
+			}
+			if (frame) {
+				frame = tag->RemoveFrame(frame);
+				delete frame;
+				changed = true;
+			}
 		}
 		if (!removeOnly && (replace || tag->Find(id) == NULL)) {
 			frame = new ID3_Frame(id);
@@ -1804,7 +1810,8 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
 			Frame frame(type, "", name, i++);
 			frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList()));
 			if (id3Frame->GetID() == ID3FID_USERTEXT ||
-					id3Frame->GetID() == ID3FID_WWWUSER) {
+					id3Frame->GetID() == ID3FID_WWWUSER ||
+					id3Frame->GetID() == ID3FID_COMMENT) {
 				const Frame::FieldList& fields = frame.getFieldList();
 				for (Frame::FieldList::const_iterator it = fields.begin();
 						 it != fields.end();
@@ -1813,6 +1820,7 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
 						QString description = (*it).m_value.toString();
 						if (!description.isEmpty()) {
 							frame.setInternalName(QString(name) + '\n' + description);
+							frame.setType(Frame::FT_Other);
 						}
 						break;
 					}

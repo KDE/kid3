@@ -943,6 +943,26 @@ static TagLib::String::Type getTextEncodingConfig(bool unicode)
 }
 
 /**
+ * Remove the first COMM frame with an empty description.
+ *
+ * @param id3v2Tag ID3v2 tag
+ */
+static void removeCommentFrame(TagLib::ID3v2::Tag* id3v2Tag)
+{
+	const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList("COMM");
+	for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
+			 it != frameList.end();
+			 ++it) {
+		TagLib::ID3v2::CommentsFrame* id3Frame =
+			dynamic_cast<TagLib::ID3v2::CommentsFrame*>(*it);
+		if (id3Frame && id3Frame->description().isEmpty()) {
+			id3v2Tag->removeFrame(id3Frame, true);
+			break;
+		}
+	}
+}
+
+/**
  * Write a Unicode field if the tag is ID3v2 and Latin-1 is not sufficient.
  *
  * @param tag     tag
@@ -958,9 +978,13 @@ bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String
 	if (tag && (id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(tag)) != 0) {
 		// first check if this string needs to be stored as unicode
 		TagLib::String::Type enc = getTextEncodingConfig(needsUnicode(qstr));
-		if (enc != TagLib::String::Latin1) {
-			TagLib::ByteVector id(frameId);
-			id3v2Tag->removeFrames(id);
+		TagLib::ByteVector id(frameId);
+		if (enc != TagLib::String::Latin1 || id == "COMM") {
+			if (id == "COMM") {
+				removeCommentFrame(id3v2Tag);
+			} else {
+				id3v2Tag->removeFrames(id);
+			}
 			if (!tstr.isEmpty()) {
 				TagLib::ID3v2::Frame* frame;
 				if (frameId[0] != 'C') {
@@ -1702,7 +1726,13 @@ static QString getFieldsFromCommFrame(
 
 	field.m_id = Frame::Field::ID_Language;
 	TagLib::ByteVector bvLang = commFrame->language();
-	field.m_value = QString(QCM_QCString(bvLang.data(), bvLang.size() + 1));
+	field.m_value = QString(
+#if QT_VERSION >= 0x040000
+		QByteArray(bvLang.data(), bvLang.size())
+#else
+		QCString(bvLang.data(), bvLang.size() + 1)
+#endif
+		);
 	fields.push_back(field);
 
 	field.m_id = Frame::Field::ID_Description;
@@ -2963,7 +2993,8 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 				getTypeStringForFrameId((*it)->frameID(), type, name);
 				Frame frame(type, TStringToQString((*it)->toString()), name, i++);
 				frame.setValue(getFieldsFromId3Frame(*it, frame.fieldList(), type));
-				if ((*it)->frameID().mid(1, 3) == "XXX") {
+				if ((*it)->frameID().mid(1, 3) == "XXX" ||
+						type == Frame::FT_Comment) {
 					const Frame::FieldList& fields = frame.getFieldList();
 					for (Frame::FieldList::const_iterator it = fields.begin();
 							 it != fields.end();
@@ -2976,6 +3007,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 									description = description.mid(11);
 								}
 								frame.setInternalName(QString(name) + '\n' + description);
+								frame.setType(Frame::FT_Other);
 							}
 							break;
 						}
