@@ -324,6 +324,7 @@ LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
 	m_label = new QLabel(this);
 	m_spinbox = new QSpinBox(this);
 	if (layout && m_label && m_spinbox) {
+		m_spinbox->setRange(0, INT_MAX);
 		layout->setMargin(0);
 		layout->setSpacing(2);
 		layout->addWidget(m_label);
