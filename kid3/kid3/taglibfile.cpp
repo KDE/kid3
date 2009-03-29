@@ -38,6 +38,7 @@
 #include "genres.h"
 #include "dirinfo.h"
 #include "kid3.h"
+#include "attributedata.h"
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -1759,7 +1760,6 @@ static QString getFieldsFromUfidFrame(
 	const TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame,
 	Frame::FieldList& fields)
 {
-	QString text;
 	Frame::Field field;
 	field.m_id = Frame::Field::ID_Owner;
 	field.m_value = TStringToQString(ufidFrame->owner());
@@ -1772,7 +1772,14 @@ static QString getFieldsFromUfidFrame(
 	field.m_value = ba;
 	fields.push_back(field);
 
-	return text;
+	if (!ba.isEmpty()) {
+		QString text(ba);
+		if (ba.size() - text.length() <= 1 &&
+				AttributeData::isHexString(text, 'Z')) {
+			return text;
+		}
+	}
+	return QString();
 }
 
 /**
@@ -2168,6 +2175,14 @@ void setData(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
 	f->setObject(TagLib::ByteVector(ba.data(), ba.size()));
 }
 
+template <>
+void setData(TagLib::ID3v2::UniqueFileIdentifierFrame* f,
+						 const Frame::Field& fld)
+{
+	QByteArray ba(fld.m_value.toByteArray());
+	f->setIdentifier(TagLib::ByteVector(ba.data(), ba.size()));
+}
+
 template <class T>
 void setLanguage(T*, const Frame::Field&) {}
 
@@ -2255,6 +2270,16 @@ template <>
 void setValue(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& text)
 {
 	setStringOrList(f, text);
+}
+
+template <>
+void setValue(TagLib::ID3v2::UniqueFileIdentifierFrame* f, const TagLib::String& text)
+{
+	if (AttributeData::isHexString(TStringToQString(text), 'Z')) {
+		TagLib::ByteVector data(text.data(TagLib::String::Latin1));
+		data.append('\0');
+		f->setIdentifier(data);
+	}
 }
 
 template <class T>

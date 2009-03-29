@@ -43,6 +43,7 @@
 #include "genres.h"
 #include "dirinfo.h"
 #include "kid3.h"
+#include "attributedata.h"
 #include <cstring>
 #include <sys/stat.h>
 #ifdef WIN32
@@ -1641,6 +1642,64 @@ bool Mp3File::setFrameV2(const Frame& frame)
 						markTag2Changed(frame.getType());
 					}
 					return true;
+				} else if (id3Frame->GetID() == ID3FID_PRIVATE &&
+					         (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+					ID3_Field* ownerFld = id3Frame->GetField(ID3FN_OWNER);
+					QString owner;
+					QByteArray newData, oldData;
+					if (ownerFld && !(owner = getString(ownerFld)).isEmpty() &&
+							AttributeData(owner).toByteArray(value, newData)) {
+						QCM_duplicate(oldData,
+						              (const char *)fld->GetRawBinary(),
+						              (unsigned int)fld->Size());
+						if (newData != oldData) {
+							fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
+							         newData.size());
+							markTag2Changed(frame.getType());
+						}
+						return true;
+					}
+				} else if (id3Frame->GetID() == ID3FID_CDID &&
+					         (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+					QByteArray newData, oldData;
+					if (AttributeData::isHexString(value, 'F', "+") &&
+							AttributeData(AttributeData::Utf16).toByteArray(value, newData)) {
+						QCM_duplicate(oldData,
+						              (const char *)fld->GetRawBinary(),
+						              (unsigned int)fld->Size());
+						if (newData != oldData) {
+							fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
+							         newData.size());
+							markTag2Changed(frame.getType());
+						}
+						return true;
+					}
+				} else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID &&
+					         (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
+					QByteArray newData, oldData;
+					if (AttributeData::isHexString(value, 'Z')) {
+#if QT_VERSION >= 0x040000
+						newData = (value + '\0').toLatin1();
+#else
+						newData.duplicate((value + '\0').latin1(), value.length() + 1);
+#endif
+						QCM_duplicate(oldData,
+						              (const char *)fld->GetRawBinary(),
+						              (unsigned int)fld->Size());
+						if (newData != oldData) {
+							fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
+							         newData.size());
+							markTag2Changed(frame.getType());
+						}
+						return true;
+					}
+				} else if (id3Frame->GetID() == ID3FID_POPULARIMETER &&
+					         (fld = id3Frame->GetField(ID3FN_RATING)) != 0) {
+					if (getString(fld) != value) {
+						fld->Set(value.toInt());
+						markTag2Changed(frame.getType());
+					}
+					return true;
 				}
 			} else {
 				setId3v2Frame(id3Frame, frame);
@@ -1812,17 +1871,61 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
 			if (id3Frame->GetID() == ID3FID_USERTEXT ||
 					id3Frame->GetID() == ID3FID_WWWUSER ||
 					id3Frame->GetID() == ID3FID_COMMENT) {
+				QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Description);
+				if (fieldValue.isValid()) {
+					QString description = fieldValue.toString();
+					if (!description.isEmpty()) {
+						frame.setInternalName(QString(name) + '\n' + description);
+						frame.setType(Frame::FT_Other);
+					}
+				}
+			} else if (id3Frame->GetID() == ID3FID_PRIVATE) {
 				const Frame::FieldList& fields = frame.getFieldList();
+				QString owner;
+				QByteArray data;
 				for (Frame::FieldList::const_iterator it = fields.begin();
-						 it != fields.end();
-						 ++it) {
-					if ((*it).m_id == Frame::Field::ID_Description) {
-						QString description = (*it).m_value.toString();
-						if (!description.isEmpty()) {
-							frame.setInternalName(QString(name) + '\n' + description);
-							frame.setType(Frame::FT_Other);
+				     it != fields.end();
+				     ++it) {
+					if ((*it).m_id == Frame::Field::ID_Owner) {
+						owner = (*it).m_value.toString();
+						if (!owner.isEmpty()) {
+							frame.setInternalName(QString(name) + '\n' + owner);
 						}
-						break;
+					} else if ((*it).m_id == Frame::Field::ID_Data) {
+						data = (*it).m_value.toByteArray();
+					}
+				}
+				if (!owner.isEmpty() && !data.isEmpty()) {
+					QString str;
+					if (AttributeData(owner).toString(data, str)) {
+						frame.setValue(str);
+					}
+				}
+			} else if (id3Frame->GetID() == ID3FID_CDID) {
+				QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
+				if (fieldValue.isValid()) {
+					QString str;
+					if (AttributeData(AttributeData::Utf16).toString(fieldValue.toByteArray(), str) &&
+							AttributeData::isHexString(str, 'F', "+")) {
+						frame.setValue(str);
+					}
+				}
+			} else if (id3Frame->GetID() == ID3FID_UNIQUEFILEID) {
+				QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
+				if (fieldValue.isValid()) {
+					QByteArray ba(fieldValue.toByteArray());
+					QString str(ba);
+					if (ba.size() - str.length() <= 1 &&
+							AttributeData::isHexString(str, 'Z')) {
+						frame.setValue(str);
+					}
+				}
+			} else if (id3Frame->GetID() == ID3FID_POPULARIMETER) {
+				QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Rating);
+				if (fieldValue.isValid()) {
+					QString str(fieldValue.toString());
+					if (!str.isEmpty()) {
+						frame.setValue(str);
 					}
 				}
 			}

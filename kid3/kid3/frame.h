@@ -270,6 +270,15 @@ public:
 	FieldList& fieldList() { return m_fieldList; }
 
 	/**
+	 * Get the value of a field.
+	 *
+	 * @param id field ID
+	 *
+	 * @return field value, invalid if field not found.
+	 */
+	QVariant getFieldValue(Field::Id id) const;
+
+	/**
 	 * Get name of frame from type.
 	 *
 	 * @param type type

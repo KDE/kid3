@@ -210,6 +210,25 @@ int Frame::numberWithoutTotal(const QString& str, bool* ok)
 		str.left(slashPos).toInt(ok);
 }
 
+/**
+ * Get the value of a field.
+ *
+ * @param id field ID
+ *
+ * @return field value, invalid if field not found.
+ */
+QVariant Frame::getFieldValue(Field::Id id) const
+{
+	for (FieldList::const_iterator it = m_fieldList.begin();
+			 it != m_fieldList.end();
+			 ++it) {
+		if ((*it).m_id == id) {
+			return (*it).m_value;
+		}
+	}
+	return QVariant();
+}
+
 
 /**
  * Set values which are different inactive.
