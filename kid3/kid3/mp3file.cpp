@@ -552,10 +552,10 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 		ID3_Frame* frame = NULL;
 		bool removeOnly = removeEmpty && text.isEmpty();
 		if (replace || removeOnly) {
-			if (id != ID3FID_COMMENT) {
-				frame = tag->Find(id);
-			} else {
+			if (id == ID3FID_COMMENT && tag->HasV2Tag()) {
 				frame = tag->Find(ID3FID_COMMENT, ID3FN_DESCRIPTION, "");
+			} else {
+				frame = tag->Find(id);
 			}
 			if (frame) {
 				frame = tag->RemoveFrame(frame);
