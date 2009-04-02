@@ -25,7 +25,6 @@
  */
 
 #include "importtrackdata.h"
-#include "taggedfile.h"
 #include <qstring.h>
 #include <qurl.h>
 #include <qdir.h>
@@ -82,7 +81,13 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 				{ 'n', "tracks" },
 				{ 'e', "extension" },
 				{ 'O', "tag1" },
-				{ 'o', "tag2" }
+				{ 'o', "tag2" },
+				{ 'b', "bitrate" },
+				{ 'v', "vbr" },
+				{ 'r', "samplerate" },
+				{ 'm', "mode" },
+				{ 'h', "channels" },
+				{ 'k', "codec" }
 			};
 #if QT_VERSION >= 0x040000
 			const char c = code[0].toLatin1();
@@ -133,6 +138,28 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 				result = m_trackData.getTagFormatV1();
 			} else if (name == "tag2") {
 				result = m_trackData.getTagFormatV2();
+			} else if (name == "bitrate") {
+				result.setNum(m_trackData.getDetailInfo().bitrate);
+			} else if (name == "vbr") {
+				result = m_trackData.getDetailInfo().vbr ? "VBR" : "";
+			} else if (name == "samplerate") {
+				result.setNum(m_trackData.getDetailInfo().sampleRate);
+			} else if (name == "mode") {
+				switch (m_trackData.getDetailInfo().channelMode) {
+					case TaggedFile::DetailInfo::CM_Stereo:
+						result = "Stereo";
+						break;
+					case TaggedFile::DetailInfo::CM_JointStereo:
+						result = "Joint Stereo";
+						break;
+					case TaggedFile::DetailInfo::CM_None:
+					default:
+						result = "";
+				}
+			} else if (name == "channels") {
+				result.setNum(m_trackData.getDetailInfo().channels);
+			} else if (name == "codec") {
+				result = m_trackData.getDetailInfo().format;
 			}
 		}
 	}
@@ -188,6 +215,28 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 
 	str += "<tr><td>%o</td><td>%{tag2}</td><td>";
 	str += QCM_translate("Tag 2");
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%b</td><td>%{bitrate}</td><td>";
+	str += QCM_translate(I18N_NOOP("Bitrate"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%v</td><td>%{vbr}</td><td>";
+	str += QCM_translate(I18N_NOOP("VBR"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%r</td><td>%{samplerate}</td><td>";
+	str += QCM_translate(I18N_NOOP("Samplerate"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%m</td><td>%{mode}</td><td>Stereo, Joint Stereo</td></tr>\n";
+
+	str += "<tr><td>%h</td><td>%{channels}</td><td>";
+	str += QCM_translate(I18N_NOOP("Channels"));
+	str += "</td></tr>\n";
+
+	str += "<tr><td>%k</td><td>%{codec}</td><td>";
+	str += QCM_translate(I18N_NOOP("Codec"));
 	str += "</td></tr>\n";
 
 	if (!onlyRows) str += "</table>\n";

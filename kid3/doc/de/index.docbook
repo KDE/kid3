@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2009-03-14</date>
+<date>2009-04-02</date>
 <releaseinfo>1.2</releaseinfo>
 
 <abstract>
@@ -800,6 +800,20 @@ zusätzliche.
 <listitem><para>%d %{duration} Dauer in Minuten:Sekunden</para></listitem>
 <listitem><para>%D %{seconds} Dauer in Sekunden</para></listitem>
 <listitem><para>%n %{tracks} Anzahl Tracks im Album</para></listitem>
+<listitem><para>%e %{extension} Dateiendung</para></listitem>
+<listitem><para>%O %{tag1} Das Format von Tag 1 (ID3v1.1 oder leer falls nicht
+vorhanden)</para></listitem>
+<listitem><para>%o %{tag2} Das Format von Tag 2 (ID3v2.3.0, ID3v2.4.0,
+ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, oder leer falls nicht
+vorhanden)</para></listitem>
+<listitem><para>%b %{bitrate} Bitrate in kbit/s</para></listitem>
+<listitem><para>%v %{vbr} VBR oder leer (nur für ID3v2.3 mit
+id3lib)</para></listitem>
+<listitem><para>%r %{samplerate} Samplerate in Hz</para></listitem>
+<listitem><para>%m %{mode} Kanalmodus (Stereo oder Joint Stereo)</para></listitem>
+<listitem><para>%h %{channels} Anzahl Kanäle (1 oder 2)</para></listitem>
+<listitem><para>%k %{codec} Codec (z.B. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
+MPC)</para></listitem>
 </itemizedlist>
 
 <para>
@@ -812,7 +826,8 @@ sollten in den Feldern keine Anführungszeichen vorkommen. "Extended M3U" und
 "Extended PLS" erzeugen Stücklisten mit Zusatzinformationen und absoluten
 Pfadnamen. "HTML" dient dazu, eine HTML-Seite mit verlinkten Tracks zu
 erstellen. "Kover XML" generiert eine XML-Datei, welche vom
-Cover-Druck-Programm Kover gelesen werden kann. "Custom Format" schließlich
+Cover-Druck-Programm Kover gelesen werden kann. "Technical Details" liefert
+Informationen über Bitrate, Samplerate, Kanäle, usw. "Custom Format" schließlich
 ist frei für ein eigenes Format. Natürlich können auch die anderen Formate
 beliebig angepasst werden, oder es können noch mehr Formate in der Datei
 <filename>kid3rc</filename> im Konfigurationsverzeichnis hinzugefügt werden.
@@ -1034,11 +1049,19 @@ und Exportieren verwendet werden.
 <listitem><para>%f %{file} Dateiname (File name)</para></listitem>
 <listitem><para>%p %{filepath} Absoluter Pfadname</para></listitem>
 <listitem><para>%e %{extension} Dateiendung</para></listitem>
-<listitem><para>%O %{tag1} Das Format von Tag 1(ID3v1.1 oder leer falls nicht
+<listitem><para>%O %{tag1} Das Format von Tag 1 (ID3v1.1 oder leer falls nicht
 vorhanden)</para></listitem>
 <listitem><para>%o %{tag2} Das Format von Tag 2 (ID3v2.3.0, ID3v2.4.0,
 ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, oder leer falls nicht
 vorhanden)</para></listitem>
+<listitem><para>%b %{bitrate} Bitrate in kbit/s</para></listitem>
+<listitem><para>%v %{vbr} VBR oder leer (nur für ID3v2.3 mit
+id3lib)</para></listitem>
+<listitem><para>%r %{samplerate} Samplerate in Hz</para></listitem>
+<listitem><para>%m %{mode} Kanalmodus (Stereo oder Joint Stereo)</para></listitem>
+<listitem><para>%h %{channels} Anzahl Kanäle (1 oder 2)</para></listitem>
+<listitem><para>%k %{codec} Codec (z.B. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
+MPC)</para></listitem>
 <listitem><para>%1a %1{artist}, ... Der Präfix 1 wird benutzt, um Werte von Tag 1 zu
 erhalten</para></listitem>
 <listitem><para>%2a %2{artist}, ... Der Präfix 2 wird benutzt, um Werte von Tag 2 zu

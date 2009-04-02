@@ -2049,6 +2049,9 @@ void Kid3App::setExportData(int src)
 				trackData.setFileExtension(taggedFile->getFileExtension());
 				trackData.setTagFormatV1(taggedFile->getTagFormatV1());
 				trackData.setTagFormatV2(taggedFile->getTagFormatV2());
+				TaggedFile::DetailInfo info;
+				taggedFile->getDetailInfo(info);
+				trackData.setDetailInfo(info);
 				if (src == ExportDialog::SrcV1) {
 					taggedFile->getAllFramesV1(trackData);
 				} else {

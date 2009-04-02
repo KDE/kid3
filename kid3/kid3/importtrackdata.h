@@ -28,6 +28,7 @@
 #define IMPORTTRACKDATA_H
 
 #include "frame.h"
+#include "taggedfile.h"
 #include <qglobal.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
@@ -142,6 +143,18 @@ public:
 	void setTagFormatV2(const QString& tagFormatV2) { m_tagFormatV2 = tagFormatV2; }
 
 	/**
+	 * Get detail info.
+	 * @return detail info.
+	 */
+	const TaggedFile::DetailInfo& getDetailInfo() const { return m_detailInfo; }
+
+	/**
+	 * Set detail info.
+	 * @param detailInfo detail info
+	 */
+	void setDetailInfo(const TaggedFile::DetailInfo& detailInfo) { m_detailInfo = detailInfo; }
+
+	/**
 	 * Format a string from track data.
 	 * Supported format fields:
 	 * Those supported by TrackDataFormatReplacer::getReplacement()
@@ -186,6 +199,7 @@ private:
 	QString m_fileExtension;
 	QString m_tagFormatV1;
 	QString m_tagFormatV2;
+	TaggedFile::DetailInfo m_detailInfo;
 };
 
 /**

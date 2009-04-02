@@ -206,6 +206,11 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_exportFormatTracks.append("  <text><![CDATA[%{track}. %{title}]]></text>");
 	m_exportFormatTrailers.append(" </content>\\n</kover>");
 
+	m_exportFormatNames.append("Technical Details");
+	m_exportFormatHeaders.append("File\\tBitrate\\tVBR\\tDuration\\tSamplerate\\tChannels\\tMode\\tCodec");
+	m_exportFormatTracks.append("%{file}\\t%{bitrate}\\t%{vbr}\\t%{duration}\\t%{samplerate}\\t%{channels}\\t%{mode}\\t%{codec}");
+	m_exportFormatTrailers.append("");
+
 	m_exportFormatNames.append("Custom Format");
 	m_exportFormatHeaders.append("");
 	m_exportFormatTracks.append("");

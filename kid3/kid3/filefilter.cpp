@@ -187,6 +187,9 @@ bool FileFilter::filter(TaggedFile& taggedFile, bool* ok)
 	taggedFile.getAllFramesV2(m_trackData2);
 	m_trackData12 = m_trackData2;
 	m_trackData12.merge(m_trackData1);
+	TaggedFile::DetailInfo info;
+	taggedFile.getDetailInfo(info);
+	m_trackData12.setDetailInfo(info);
 
 	bool result = parse();
 	if (m_parser.hasError()) {

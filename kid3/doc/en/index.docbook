@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2009-03-14</date>
+<date>2009-04-02</date>
 <releaseinfo>1.2</releaseinfo>
 
 <abstract>
@@ -745,6 +745,19 @@ format, and the same codes are used plus some additional codes.
 <listitem><para>%d %{duration} Duration in minutes:seconds</para></listitem>
 <listitem><para>%D %{seconds} Duration in seconds</para></listitem>
 <listitem><para>%n %{tracks} Number of tracks of the album</para></listitem>
+<listitem><para>%e %{extension} File extension</para></listitem>
+<listitem><para>%O %{tag1} The format of tag 1 (ID3v1.1 or empty if not
+existing)</para></listitem>
+<listitem><para>%o %{tag2} The format of tag 2 (ID3v2.3.0, ID3v2.4.0,
+ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, or empty if not existing)</para></listitem>
+<listitem><para>%b %{bitrate} Bitrate in kbit/s</para></listitem>
+<listitem><para>%v %{vbr} VBR or empty (only for ID3v2.3 with
+id3lib)</para></listitem>
+<listitem><para>%r %{samplerate} Samplerate in Hz</para></listitem>
+<listitem><para>%m %{mode} Channel mode (Stereo or Joint Stereo)</para></listitem>
+<listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
+<listitem><para>%k %{codec} Codec (e.g. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
+MPC)</para></listitem>
 </itemizedlist>
 
 <para>
@@ -756,7 +769,8 @@ the fields shall not contain any double quotes when this format is used.
 "Extended M3U" and "Extended PLS" generate playlists with extended attributes
 and absolute path names. "HTML" can be used to generate an HTML page with
 hyperlinks to the tracks. "Kover XML" creates a file which can be imported by
-the cover printing program Kover. Finally, "Custom Format" is left empty for
+the cover printing program Kover. "Technical Details" provides information
+about bitrate, samplerate, channels, etc. Finally, "Custom Format" is left empty for
 definition of a custom format. You can define more formats of your own by
 adding lines in the file <filename>kid3rc</filename> in the configuration
 directory. The other formats can be adapted to your needs.
@@ -964,9 +978,17 @@ name format, import and export.
 <listitem><para>%p %{filepath} Absolute path to file</para></listitem>
 <listitem><para>%e %{extension} File extension</para></listitem>
 <listitem><para>%O %{tag1} The format of tag 1 (ID3v1.1 or empty if not
-existiing)</para></listitem>
+existing)</para></listitem>
 <listitem><para>%o %{tag2} The format of tag 2 (ID3v2.3.0, ID3v2.4.0,
 ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, or empty if not existing)</para></listitem>
+<listitem><para>%b %{bitrate} Bitrate in kbit/s</para></listitem>
+<listitem><para>%v %{vbr} VBR or empty (only for ID3v2.3 with
+id3lib)</para></listitem>
+<listitem><para>%r %{samplerate} Samplerate in Hz</para></listitem>
+<listitem><para>%m %{mode} Channel mode (Stereo or Joint Stereo)</para></listitem>
+<listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
+<listitem><para>%k %{codec} Codec (e.g. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
+MPC)</para></listitem>
 <listitem><para>%1a %1{artist}, ... Use the prefix 1 to get values of tag 1</para></listitem>
 <listitem><para>%2a %2{artist}, ... Use the prefix 2 to get values of tag 2</para></listitem>
 </itemizedlist>

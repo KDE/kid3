@@ -1,4 +1,4 @@
-Sat Mar 14 12:43:56 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Thu Apr  2 19:44:10 CEST 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.2
 
@@ -12,6 +12,8 @@ Sat Mar 14 12:43:56 CET 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Directory deb to generate Debian packages for KDE 4 and Qt 4 or
 	    KDE 3 and Qt3.
 	  + Proxy authentication with Qt 4.
+	  + Display and editing of COMM, PRIV, UFID, MCDI and POPM frames.
+	  + Technical details (bitrate, codec, ...) for export and filter.
 
 	* Fixed:
 	  + Format replacements %c, %y, ... are replaced with empty
