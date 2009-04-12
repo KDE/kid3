@@ -108,7 +108,7 @@ bool AttributeData::toString(const QByteArray& data, QString& str)
 		case Utf16: {
 			const ushort* unicode = reinterpret_cast<const ushort*>(data.data());
 			int size = data.size() / 2;
-			if (unicode[size - 1] == 0) {
+			while (size > 0 && unicode[size - 1] == 0) {
 				--size;
 			}
 #if QT_VERSION >= 0x040000
