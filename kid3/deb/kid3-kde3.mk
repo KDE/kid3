@@ -49,7 +49,7 @@ install: build
 
 	# Make common links for docs.
 	for i in `find $(kdedocs) -type d -name kid3 -not -regex .*/en/kid3`; do \
-	  ln -f -n -s ../../en/common $$i/common; done; done
+	  ln -f -n -s ../../en/common $$i/common; done
 
 	perl -w admin/debianrules cleanup
 
