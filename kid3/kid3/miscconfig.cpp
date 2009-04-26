@@ -45,7 +45,11 @@
 const char* const MiscConfig::s_defaultCommentName = "COMMENT";
 
 /** Default value for web browser */
+#ifdef __APPLE__
+const char* const MiscConfig::s_defaultBrowser = "open";
+#else
 const char* const MiscConfig::s_defaultBrowser = "xdg-open";
+#endif
 
 /** Default filename format list */
 static const char* fnFmt[] = {
@@ -431,7 +435,7 @@ void MiscConfig::readFromConfig(
 			MiscConfig::MenuCommand(
 				"AlbumArt",
 				QString('"') + prgDir +  "\\Album Cover Art Downloader\\albumart-qt.exe\" %{directory}"));
-#else
+#elif !defined __APPLE__
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand("xmms", "xmms %{files}"));
 		m_contextMenuCommands.push_back(

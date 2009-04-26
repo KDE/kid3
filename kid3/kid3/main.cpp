@@ -142,6 +142,7 @@ int main(int argc, char* argv[])
 #include <qapplication.h>
 #include <qlocale.h>
 #include <qtranslator.h>
+#include <qdir.h>
 
 #include "kid3.h"
 
@@ -174,6 +175,13 @@ int main(int argc, char* argv[])
 #endif
 	kid3_tr.load( QString("kid3_") + locale, "." );
 	app.installTranslator(&kid3_tr);
+
+#ifdef __APPLE__
+ QDir dir(QApplication::applicationDirPath());
+ dir.cdUp();
+ dir.cd("PlugIns");
+ QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
+#endif
 
 	Kid3App* kid3 = new Kid3App();
 	if (kid3) {

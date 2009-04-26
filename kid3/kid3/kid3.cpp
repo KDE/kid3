@@ -264,7 +264,12 @@ Kid3App::Kid3App() :
 #if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
 	QPixmap icon;
 	if (icon.load(QString(CFG_DATAROOTDIR) +
-								"/icons/hicolor/48x48/apps/kid3-qt.png")) {
+#ifndef __APPLE__
+								"/icons/hicolor/48x48/apps/kid3-qt.png"
+#else
+								"/kid3.png"
+#endif
+				)) {
 		QCM_setWindowIcon(icon);
 	}
 #endif

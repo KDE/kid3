@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+	<key>CFBundleIconFile</key>
+	<string>kid3.icns</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleGetInfoString</key>
+	<string>1.2, Copyright © 2003-2009 Urs Fleisch</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleExecutable</key>
+	<string>kid3</string>
+	<key>CFBundleIdentifier</key>
+	<string>net.sourceforge.kid3</string>
+</dict>
+</plist>
