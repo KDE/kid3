@@ -165,11 +165,8 @@ void HttpClient::sendRequest(const QString& server, const QString& path)
 		password = Kid3App::s_miscCfg.m_proxyPassword;
 	}
 	m_http->setProxy(proxy, proxyPort, username, password);
-	QHttpRequestHeader header("GET", path);
-	header.setValue("User-Agent", "Kid3/" VERSION);
-	header.setValue("Host", dest);
-	header.setValue("Connection", "close");
-	m_http->request(header);
+	m_http->setHost(dest, destPort);
+	m_http->get(path);
 }
 
 void HttpClient::slotHostFound() {}
