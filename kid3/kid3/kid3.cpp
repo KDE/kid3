@@ -374,7 +374,11 @@ void Kid3App::initActions()
 	fileSave->KCM_setStatusTip(i18n("Saves the changed files"));
 	fileQuit->KCM_setStatusTip(i18n("Quits the application"));
 	editSelectAll->KCM_setStatusTip(i18n("Select all files"));
+#if KDE_VERSION >= 0x035c00
+	editSelectAll->setShortcut(KShortcut("Alt+Shift+A"));
+#else
 	editSelectAll->setShortcut(KShortcut("Alt+A"));
+#endif
 	editDeselect->KCM_setStatusTip(i18n("Deselect all files"));
 	settingsShortcuts->KCM_setStatusTip(i18n("Configure Shortcuts"));
 	settingsToolbars->KCM_setStatusTip(i18n("Configure Toolbars"));
