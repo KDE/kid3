@@ -122,7 +122,7 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
 	}
 #else
 	const char* searchStrData = searchStr.data();
-	char* charSetPtr = std::strstr(searchStrData, "charset=");
+	const char* charSetPtr = std::strstr(searchStrData, "charset=");
 	if (charSetPtr) {
 		charSetPtr += 8;
 		isUtf8 = std::strncmp(charSetPtr, "utf-8", 5) == 0 ||
