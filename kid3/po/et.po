@@ -1,305 +1,300 @@
-# translation of pl.po to English
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Estonian translation of Kid3
+# This file is put in the public domain.
+# Mihkel Tõnnov <mihhkel@gmail.com>, 2007–2009.
 #
-# Tomasz Argasiński <targasinski@o2.pl>, 2007.
-# Michał Smoczyk <msmoczyk@wp.pl>, 2007.
-# Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: pl\n"
+"Project-Id-Version: Kid3 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-02 19:52+0200\n"
-"PO-Revision-Date: 2009-04-02 20:08+0200\n"
-"Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
-"Language-Team: English <en@li.org>\n"
+"PO-Revision-Date: 2009-06-07 05:26+0300\n"
+"Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Estonian\n"
 
 #: kid3.cpp:2849
 msgid " [filtered]"
-msgstr " [filtrowane]"
+msgstr " [filtreeritud]"
 
 #: kid3.cpp:2855
 msgid " [modified]"
-msgstr " [zmodyfikowane]"
+msgstr " [muudetud]"
 
 #: rendirdialog.cpp:57
 msgid "%1 already exists\n"
-msgstr "%1 już istnieje\n"
+msgstr "\"%1\" on juba olemas\n"
 
 #: rendirdialog.cpp:53
 msgid "%1 is not a directory\n"
-msgstr "%1 nie jest katalogiem\n"
+msgstr "\"%1\" ei ole kataloog\n"
 
 #: rendirdialog.cpp:59
 msgid "%1 is not a file\n"
-msgstr "%1 nie jest plikiem\n"
+msgstr "\"%1\" ei ole fail\n"
 
 #: kid3.cpp:678
 msgid "&About Kid3"
-msgstr "&O programie Kid3"
+msgstr "Kid3 &info"
 
 #: stringlistedit.cpp:56
 msgid "&Add..."
-msgstr "&Dodaj..."
+msgstr "&Lisa..."
 
 #: importsourcedialog.cpp:122
 msgid "&Additional Tags"
-msgstr "Dod&atkowe znaczniki"
+msgstr "&Lisasildid"
 
 #: configdialog.cpp:515
 msgid "&Appearance"
-msgstr "&Wygląd"
+msgstr "Väl&imus"
 
 #: browsecoverartdialog.cpp:91 browsecoverartdialog.cpp:94
 msgid "&Artist/Album"
-msgstr "Wykonawca/&Album"
+msgstr "&Esitaja / Album"
 
 #: kid3.cpp:185
 msgid "&Back"
-msgstr "&Wstecz"
+msgstr "&Tagasi"
 
 #: browsecoverartdialog.cpp:176
 msgid "&Browse"
-msgstr "&Przeglądarka"
+msgstr "&Otsi"
 
 #: kid3.cpp:409 kid3.cpp:610
 msgid "&Browse Cover Art..."
-msgstr "&Pobierz okładkę..."
+msgstr "Kaane&pildi otsimine..."
 
 #: commandstable.cpp:270 commandstable.cpp:285 configtable.cpp:234
 #: configtable.cpp:249
 msgid "&Clear row"
-msgstr "W&yczyść wiersz"
+msgstr "&Puhasta rida"
 
 #: kid3.cpp:766
 msgid "&Configure Kid3..."
-msgstr "&Konfiguracja Kid3..."
+msgstr "Kid3 &seadistamine..."
 
 #: kid3.cpp:417 kid3.cpp:624
 msgid "&Create Playlist"
-msgstr "Stwórz &listę odtwarzania"
+msgstr "Loo &esitusloend"
 
 #: commandstable.cpp:266 commandstable.cpp:281 configtable.cpp:230
 #: configtable.cpp:245
 msgid "&Delete row"
-msgstr "&Usuń wiersz"
+msgstr "&Kustuta rida"
 
 #: numbertracksdialog.cpp:77
 msgid "&Destination:"
-msgstr "&Cel:"
+msgstr "&Sihtkoht:"
 
 #: stringlistedit.cpp:59
 msgid "&Edit..."
-msgstr "&Edycja..."
+msgstr "&Muuda..."
 
 #: framelist.cpp:737
 msgid "&Export"
-msgstr "&Eksportuj"
+msgstr "&Ekspordi"
 
 #: kid3.cpp:413 kid3.cpp:617
 msgid "&Export..."
-msgstr "&Eksportuj..."
+msgstr "&Ekspordi..."
 
 #: configdialog.cpp:361
 msgid "&Filename Format"
-msgstr "&Format nazwy pliku"
+msgstr "&Failinime vorming"
 
 #: configdialog.cpp:370
 msgid "&Files"
-msgstr "&Pliki"
+msgstr "&Failid"
 
 #: filterdialog.cpp:76 filterdialog.cpp:78
 msgid "&Filter"
-msgstr "&Filtr"
+msgstr "&Filter"
 
 #: importsourcedialog.cpp:74
 msgid "&Find"
-msgstr "&Znajdź"
+msgstr "&Otsi"
 
 #: exportdialog.cpp:87 exportdialog.cpp:89
 msgid "&Format"
-msgstr "&Format"
+msgstr "&Vorming"
 
 #: rendirdialog.cpp:184
 msgid "&Format:"
-msgstr "&Format:"
+msgstr "&Vorming:"
 
 #: kid3.cpp:186
 msgid "&Forward"
-msgstr "&Do przodu"
+msgstr "&Edasi"
 
 #: importselector.cpp:284
 msgid "&From Server:"
-msgstr "Z se&rwera:"
+msgstr "&Serverist:"
 
 #: configdialog.cpp:224 configdialog.cpp:238
 msgid "&Genre as text instead of numeric string"
-msgstr "&Gatunek jako tekst"
+msgstr "&Stiili salvestamine numberkoodi asemel tekstina"
 
 #: framelist.cpp:736
 msgid "&Import"
-msgstr "&Importuj"
+msgstr "&Impordi"
 
 #: kid3.cpp:383 kid3.cpp:566
 msgid "&Import..."
-msgstr "&Importuj..."
+msgstr "&Impordi..."
 
 #: commandstable.cpp:262 commandstable.cpp:277 configtable.cpp:226
 #: configtable.cpp:241
 msgid "&Insert row"
-msgstr "&Wstaw wiersz"
+msgstr "&Sisesta rida"
 
 #: importselector.cpp:329
 msgid "&Length"
-msgstr "&Długości"
+msgstr "&Pikkus"
 
 #: configdialog.cpp:351
 msgid "&Mark changes"
-msgstr "&Oznacz zmiany"
+msgstr "&Muudetud väljade esiletõstmine"
 
 #: configdialog.cpp:121 configdialog.cpp:130
 msgid "&Mark truncated fields"
-msgstr "&Oznacz obcięte pola"
+msgstr "&Lühikeseks jäävate väljade esiletõstmine"
 
 #: configdialog.cpp:472
 msgid "&Network"
-msgstr "&Sieć"
+msgstr "&Võrk"
 
 #: kid3.cpp:470 kid3.cpp:663
 msgid "&Next File"
-msgstr "&Następny plik"
+msgstr "&Järgmine fail"
 
 #: kid3.cpp:433 kid3.cpp:713
 msgid "&Number Tracks..."
-msgstr "&Numeruj ścieżki..."
+msgstr "&Lugude nummerdamine..."
 
 #: configdialog.cpp:350
 msgid "&Preserve file timestamp"
-msgstr "&Zachowaj znacznik czasu pliku"
+msgstr "Failide &ajatemplid säilitatakse"
 
 #: kid3.cpp:466 kid3.cpp:655
 msgid "&Previous File"
-msgstr "&Poprzedni plik"
+msgstr "&Eelmine fail"
 
 #: configdialog.cpp:436
 msgid "&Proxy:"
-msgstr "&Pośrednik (proxy):"
+msgstr "&Puhverserver:"
 
 #: filelist.cpp:842 filelist.cpp:855
 msgid "&Rename"
-msgstr "&Zmień nazwę"
+msgstr "&Nimeta ümber"
 
 #: kid3.cpp:429 kid3.cpp:706
 msgid "&Rename Directory..."
-msgstr "Zmień &nazwę katalogu..."
+msgstr "&Kataloogi ümbernimetamine..."
 
 #: browsecoverartdialog.cpp:166 exportdialog.cpp:161 filterdialog.cpp:106
 #: importdialog.cpp:78 importsourcedialog.cpp:153 musicbrainzdialog.cpp:140
 #: rendirdialog.cpp:87 rendirdialog.cpp:106
 msgid "&Save Settings"
-msgstr "&Zapisz ustawienia"
+msgstr "&Salvesta seaded"
 
 #: importsourcedialog.cpp:93 musicbrainzdialog.cpp:73
 msgid "&Server:"
-msgstr "&Serwer:"
+msgstr "&Server:"
 
 #: configdialog.cpp:312
 msgid "&Show only custom genres"
-msgstr "&Pokazuj tylko własne gatunki"
+msgstr "&Näidatakse ainult kohandatud stiile"
 
 #: browsecoverartdialog.cpp:114 browsecoverartdialog.cpp:116
 msgid "&Source"
-msgstr "&Źródło"
+msgstr "&Allikas"
 
 #: exportdialog.cpp:137
 msgid "&Source:"
-msgstr "&Źródło:"
+msgstr "&Allikas:"
 
 #: numbertracksdialog.cpp:64
 msgid "&Start number:"
-msgstr "Liczba &początkowa:"
+msgstr "&Algusnumber:"
 
 #: configdialog.cpp:323
 msgid "&Tag Format"
-msgstr "&Format znacznika"
+msgstr "&Sildivorming"
 
 #: configdialog.cpp:334
 msgid "&Tags"
-msgstr "&Znaczniki"
+msgstr "&Sildid"
 
 #: importselector.cpp:333
 msgid "&Title"
-msgstr "&Tytułu"
+msgstr "&Pealkiri"
 
 #: browsecoverartdialog.cpp:138 browsecoverartdialog.cpp:141
 msgid "&URL extraction"
-msgstr "&URL zamiania"
+msgstr "&URL-i tuvastamine"
 
 #: configdialog.cpp:439
 msgid "&Use authentication with proxy"
-msgstr "&Użyj uwierzytelniania dla proxy"
+msgstr "Puhverserveris &autentimise kasutamine"
 
 #: configdialog.cpp:420
 msgid "&User Actions"
-msgstr "&Działania użytkownika"
+msgstr "&Kasutaja toimingud"
 
 #: configdialog.cpp:229 configdialog.cpp:244
 msgid "&Version used for new tags:"
-msgstr "Wersja używana dla &nowych znaczników:"
+msgstr "Uutes siltides kasutatav &versioon:"
 
 #: framelist.cpp:1101
 msgid "32x32 pixels PNG file icon"
-msgstr "Ikona pliku PNG 32x32 pikseli"
+msgstr "32x32 px PNG-vormingus faili ikoon"
 
 #: framelist.cpp:1117
 msgid "A bright coloured fish"
-msgstr "Jaskrawo pokolorowana ryba"
+msgstr "Värvikirev kala"
 
 #: configdialog.cpp:494
 msgid "A&pplication Font..."
-msgstr "Czcionka &programu..."
+msgstr "&Rakenduse font..."
 
 #: mp3file.cpp:1266 taglibfile.cpp:1485
 msgid "AENC - Audio encryption"
-msgstr "AENC - Szyfrowanie audio"
+msgstr "AENC - audiokrüpteering"
 
 #: mp3file.cpp:1267 taglibfile.cpp:1486
 msgid "APIC - Attached picture"
-msgstr "APIC - Załączony obrazek"
+msgstr "APIC - lisatud pilt"
 
 #: taglibfile.cpp:1487
 msgid "ASPI - Audio seek point index"
-msgstr ""
+msgstr "ASPI - audio otsingupunktiindeks"
 
 #: kid3.cpp:685
 msgid "About &Qt"
-msgstr "Informacje o &Qt"
+msgstr "&Qt info"
 
 #: kid3.cpp:677
 msgid "About Kid3"
-msgstr "O programie Kid3"
+msgstr "Kid3 info"
 
 #: kid3.cpp:684
 msgid "About Qt"
-msgstr "Informacje o Qt"
+msgstr "Qt info"
 
 #: importtrackdata.cpp:189
 msgid "Absolute path to file"
-msgstr "Bezwzględna ścieżka"
+msgstr "Täielik tee faili juurde"
 
 #: framelist.cpp:1560
 msgid "Add Frame"
-msgstr "Dodaj ramkę"
+msgstr "Raami lisamine"
 
 #: stringlistedit.cpp:136
 msgid "Add Item"
-msgstr "Dodaj element"
+msgstr "Lisamine"
 
 #: frame.cpp:68 importselector.cpp:215 importselector.cpp:242
 msgid "Album"
@@ -307,55 +302,55 @@ msgstr "Album"
 
 #: frame.cpp:74
 msgid "Album Artist"
-msgstr "Wykonawca albumu"
+msgstr "Albumi esitaja"
 
 #: kid3.cpp:1422 kid3.cpp:1428
 msgid "All Files (*)"
-msgstr "Wszystkie pliki (*)"
+msgstr "Kõik failid (*.*)"
 
 #: kid3.cpp:1420 kid3.cpp:1424
 msgid "All Supported Files"
-msgstr "Wszystkie obsługiwane pliki"
+msgstr "Kõik toetatud failid"
 
 #: formatbox.cpp:69
 msgid "All first letters uppercase"
-msgstr "Duże wszystkie pierwsze litery"
+msgstr "Iga Sõna Esimene Täht Ülatõstus"
 
 #: formatbox.cpp:63
 msgid "All lowercase"
-msgstr "Wszystko małymi literami"
+msgstr "kõik tähed alatõstus"
 
 #: formatbox.cpp:65
 msgid "All uppercase"
-msgstr "Wszystko dużymi literami"
+msgstr "KÕIK TÄHED ÜLATÕSTUS"
 
 #: kid3.cpp:421 kid3.cpp:692
 msgid "Apply &Filename Format"
-msgstr "Zastosuj formatowanie &nazwy pliku"
+msgstr "Rakenda &failinime vorming"
 
 #: kid3.cpp:425 kid3.cpp:699
 msgid "Apply &Tag Format"
-msgstr "Zastosuj formatowanie &znacznika"
+msgstr "Rakenda &sildivorming"
 
 #: kid3.cpp:691
 msgid "Apply Filename Format"
-msgstr "Zastosuj formatowanie nazwy pliku"
+msgstr "Failinime vormingu rakendamine"
 
 #: kid3.cpp:698
 msgid "Apply Tag Format"
-msgstr "Zastosuj formatowanie znacznika"
+msgstr "Sildivormingu rakendamine"
 
 #: frame.cpp:75
 msgid "Arranger"
-msgstr "Aranżer"
+msgstr "Arranžeerija"
 
 #: frame.cpp:67 importselector.cpp:215 importselector.cpp:241
 msgid "Artist"
-msgstr "Wykonawca"
+msgstr "Esitaja"
 
 #: framelist.cpp:1108
 msgid "Artist/performer"
-msgstr "Artysta/wykonawca"
+msgstr "Esitaja"
 
 #: frame.cpp:76
 msgid "Author"
@@ -363,63 +358,63 @@ msgstr "Autor"
 
 #: frame.cpp:77
 msgid "BPM"
-msgstr "Uderzenia na minutę"
+msgstr "Lööki/min"
 
 #: framelist.cpp:1110
 msgid "Band/Orchestra"
-msgstr "Zespół/orkiestra"
+msgstr "Bänd/orkester"
 
 #: framelist.cpp:1119
 msgid "Band/artist logotype"
-msgstr "Logo zespołu/artysty"
+msgstr "Bändi/esitaja logo"
 
 #: importtrackdata.cpp:221
 msgid "Bitrate"
-msgstr "Szybkość transmisji"
+msgstr "Bitikiirus"
 
 #: browsecoverartdialog.cpp:77 browsecoverartdialog.cpp:323
 msgid "Browse Cover Art"
-msgstr "Pobierz okładkę"
+msgstr "Kaanepildi otsimine"
 
 #: kid3.cpp:609
 msgid "Browse album cover artwork"
-msgstr "Pobierz okładkę"
+msgstr "Avab albumi kaanepildi otsimise dialoogi"
 
 #: configdialog.cpp:381 configdialog.cpp:383
 msgid "Browser"
-msgstr "Przeglądarka"
+msgstr "Veebilehitseja"
 
 #: importsourcedialog.cpp:97
 msgid "C&GI Path:"
-msgstr "Ścieżka C&GI:"
+msgstr "C&GI tee:"
 
 #: externalprocess.cpp:55
 msgid "C&lear"
-msgstr "&Wyczyść"
+msgstr "P&uhasta"
 
 #: importsourcedialog.cpp:123
 msgid "C&over Art"
-msgstr "&Okładek"
+msgstr "&Kaanepilt"
 
 #: mp3file.cpp:1269 taglibfile.cpp:1488
 msgid "COMM - Comments"
-msgstr "COMM - Komentarze"
+msgstr "COMM - kommentaarid"
 
 #: mp3file.cpp:1270 taglibfile.cpp:1489
 msgid "COMR - Commercial"
-msgstr ""
+msgstr "COMR - kommertsteave"
 
 #: formatbox.cpp:55
 msgid "Case conversion:"
-msgstr "Konwersja przypadków:"
+msgstr "Tõstu muutmine:"
 
 #: importtrackdata.cpp:235
 msgid "Channels"
-msgstr "Kanały"
+msgstr "Kanaleid"
 
 #: importselector.cpp:319
 msgid "Check maximum allowable time &difference (sec):"
-msgstr "Sprawdź dopuszczalną &różnicę czasu (sek.):"
+msgstr "Suurim lubatav ajaline erinevus (s):"
 
 #: framelist.cpp:1149
 msgid "Chord"
@@ -427,177 +422,176 @@ msgstr "Akord"
 
 #: browsecoverartdialog.cpp:226
 msgid "Click Browse to start"
-msgstr "Kliknij przycisk Przeglądarka aby uruchomić"
+msgstr "Alustamiseks klõpsa \"Otsi\", see käivitab järgneva:"
 
 #: importtrackdata.cpp:239
 msgid "Codec"
-msgstr "Kodek"
+msgstr "Koodek"
 
 #: commandstable.cpp:59 commandstable.cpp:78
 msgid "Command"
-msgstr "Polecenie"
+msgstr "Käsk"
 
 #: frame.cpp:69 importselector.cpp:216 importselector.cpp:245
 msgid "Comment"
-msgstr "Komentarz"
+msgstr "Kommentaar"
 
 #: configdialog.cpp:283
 msgid "Comment field &name:"
-msgstr "&Nazwa pola komentarza:"
+msgstr "&Kommentaarivälja nimi:"
 
 #: frame.cpp:78 framelist.cpp:1111
 msgid "Composer"
-msgstr "Kompozytor"
+msgstr "Helilooja"
 
 #: frame.cpp:79 framelist.cpp:1109
 msgid "Conductor"
-msgstr "Dyrygent"
+msgstr "Dirigent"
 
 #: kid3.cpp:2235
 msgid "Configure - Kid3"
-msgstr "Konfiguracja - Kid3"
+msgstr "Seadistamine - Kid3"
 
 #: kid3.cpp:765
 msgid "Configure Kid3"
-msgstr "Konfiguracja Kid3"
+msgstr "Kid3 seadistamine"
 
 #: kid3.cpp:374
 msgid "Configure Shortcuts"
-msgstr "Konfiguracja skrótów"
+msgstr "Avab kiirklahvide seadistamise dialoogi"
 
 #: kid3.cpp:375
 msgid "Configure Toolbars"
-msgstr "Konfiguracja pasków narzędzi"
+msgstr "Avab tööriistaribade seadistamise dialoogi"
 
 #: commandstable.cpp:58 commandstable.cpp:75
 msgid "Confirm"
-msgstr "Potwierdź"
+msgstr "Kinnita"
 
 #: httpclient.cpp:74 httpclient.cpp:379
 msgid "Connecting..."
-msgstr "Łączenie..."
+msgstr "Ühendumine..."
 
 #: httpclient.cpp:116 httpclient.cpp:329
 msgid "Connection refused"
-msgstr "Połączenie zostało odrzucone"
+msgstr "Ühendusest keelduti"
 
 #: framelist.cpp:892
 msgid "Content Type"
-msgstr "Typ zawartości"
+msgstr "Sisu tüüp"
 
 #: configdialog.cpp:402 configdialog.cpp:404
 msgid "Context &Menu Commands"
-msgstr "Polecenia &menu kontekstowego"
+msgstr "Kontekst&menüü käsud"
 
 #: kid3.cpp:442 kid3.cpp:728
 msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Konwertuj ID3v2.3 do ID3v2.&4"
+msgstr "Teisenda ID3v2.3 ID3v2.&4-ks"
 
 #: kid3.cpp:727
 msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Konwertuj ID3v2.3 do ID3v2.4"
+msgstr "Teisenda ID3v2.3 ID3v2.4-ks"
 
 #: kid3.cpp:448 kid3.cpp:737
 msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Konwertuj ID3v2.4 do ID3v2.&3"
+msgstr "Teisenda ID3v2.4 ID3v2.&3-ks"
 
 #: kid3.cpp:736
 msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Konwertuj ID3v2.4 do ID3v2.3"
+msgstr "Teisenda ID3v2.4 ID3v2.3-ks"
 
 #: frame.cpp:80
 msgid "Copyright"
-msgstr "Prawa autorskie"
+msgstr "Autoriõigus"
 
 #: externalprocess.cpp:178
 msgid "Could not execute "
-msgstr "Nie można wykonać"
+msgstr "Käivitamine pole võimalik"
 
 #: framelist.cpp:883
 msgid "Counter"
-msgstr "Licznik"
+msgstr "Loendur"
 
 #: framelist.cpp:1104
 msgid "Cover (back)"
-msgstr "Okładka (tył)"
+msgstr "Karbi tagakülg"
 
 #: framelist.cpp:1103
 msgid "Cover (front)"
-msgstr "Okładka (przód)"
+msgstr "Karbi esikülg"
 
 #: rendirdialog.cpp:173
 msgid "Create Directory"
-msgstr "Utwórz katalog"
+msgstr "Kataloogi loomine"
 
 #: kid3.cpp:623
 msgid "Create M3U Playlist"
-msgstr "Utwórz listę odtwarzania M3U"
+msgstr "Loob M3U-esitusnimekirja"
 
 #: rendirdialog.cpp:772
-#, fuzzy
 msgid "Create directory"
-msgstr "Utwórz katalog"
+msgstr "Kataloogi loomine"
 
 #: rendirdialog.cpp:49
 msgid "Create directory %1 failed\n"
-msgstr "Nie można utworzyć katalogu %1\n"
+msgstr "Kataloogi \"%1\" loomine ebaõnnestus\n"
 
 #: kid3.cpp:1752
 msgid "Creating playlist..."
-msgstr "Tworzenie listy odtwarzania..."
+msgstr "Esitusnimekirja loomine..."
 
 #: configdialog.cpp:307 configdialog.cpp:309
 msgid "Custom &Genres"
-msgstr "Własne &gatunki"
+msgstr "&Kohandatud stiilid"
 
 #: importselector.cpp:303
 msgid "D&estination:"
-msgstr "C&el:"
+msgstr "&Sihtkoht:"
 
 #: framelist.cpp:873
 msgid "Data"
-msgstr "Dane"
+msgstr "Andmed"
 
 #: httpclient.cpp:31
 msgid "Data received: %1"
-msgstr "Otrzymano dane: %1"
+msgstr "Vastuvõetud andmed: %1"
 
 #: frame.cpp:70
 msgid "Date"
-msgstr "Data"
+msgstr "Aasta"
 
 #: filelist.cpp:1157 filelist.cpp:1163 filelist.cpp:1180 filelist.cpp:1255
 #: filelist.cpp:1269
 msgid "Delete Files"
-msgstr "Usuń plik"
+msgstr "Failide kustutamine"
 
 #: musicbrainzclient.cpp:306
 msgid "Deleted"
-msgstr "Usunięto"
+msgstr "Kustutatud"
 
 #: framelist.cpp:874
 msgid "Description"
-msgstr "Opis"
+msgstr "Kirjeldus"
 
 #: kid3.cpp:647
 msgid "Dese&lect"
-msgstr "O&dznacz"
+msgstr "Tühista va&lik"
 
 #: kid3.cpp:373 kid3.cpp:646
 msgid "Deselect all files"
-msgstr "Odznacz wszystkie pliki"
+msgstr "Tühistab valiku kõikidel failidel"
 
 #: filelist.cpp:1279 filelist.cpp:1286
 msgid "Directory must be empty.\n"
-msgstr "Katalog musi być pusty.\n"
+msgstr "Kataloog peab olema tühi.\n"
 
 #: filelist.cpp:254
 msgid "Directory name"
-msgstr "Nazwa katalogu"
+msgstr "Kataloogi nimi"
 
 #: frame.cpp:81
 msgid "Disc Number"
-msgstr "Numer płyty"
+msgstr "Plaadi nr"
 
 #: importselector.cpp:291
 msgid "Discogs"
@@ -605,15 +599,15 @@ msgstr "Discogs"
 
 #: filelist.cpp:70
 msgid "Do you really want to delete these %1 items?"
-msgstr "Czy na pewno chcesz usunąć te %1 pozycji?"
+msgstr "Kas tõesti kustutada need %1 elementi?"
 
 #: filelist.cpp:1160 filelist.cpp:1170 filelist.cpp:1253 filelist.cpp:1270
 msgid "Do you really want to delete this item?"
-msgstr "Czy na pewno chcesz usunąć ten element?"
+msgstr "Kas tõesti kustutada see element?"
 
 #: kid3.cpp:2783
 msgid "Download"
-msgstr "Pobieranie"
+msgstr "Allalaadimine"
 
 #: picturelabel.cpp:85
 msgid ""
@@ -621,243 +615,243 @@ msgid ""
 "artwork\n"
 "here"
 msgstr ""
-"Przeciągnij\n"
-"tutaj okładkę\n"
-"albumu"
+"Lohista albumi\n"
+"kaanepilt\n"
+"siia"
 
 #: framelist.cpp:1115
 msgid "During performance"
-msgstr "Podczas występu"
+msgstr "Esituse ajal"
 
 #: framelist.cpp:1114
 msgid "During recording"
-msgstr "Podczas nagrywania"
+msgstr "Lindistamise ajal"
 
 #: mp3file.cpp:1271 taglibfile.cpp:1490
 msgid "ENCR - Encryption method registration"
-msgstr ""
+msgstr "ENCR - krüpteerimismeetodi registreerimine"
 
 #: taglibfile.cpp:1491
 msgid "EQU2 - Equalisation (2)"
-msgstr ""
+msgstr "EQU2 - ekvalaisimine (2)"
 
 #: mp3file.cpp:1273
 msgid "EQUA - Equalization"
-msgstr ""
+msgstr "EQUA - ekvalaisimine"
 
 #: mp3file.cpp:1274 taglibfile.cpp:1492
 msgid "ETCO - Event timing codes"
-msgstr ""
+msgstr "ETCO - sündmuse ajastamise koodid"
 
 #: stringlistedit.cpp:183 stringlistedit.cpp:194
 msgid "Edit Item"
-msgstr "Edytuj element"
+msgstr "Redigeerimine"
 
 #: framelist.cpp:876
 msgid "Email"
-msgstr "E-mail"
+msgstr "E-post"
 
 #: kid3.cpp:353
 msgid "Enables/disables the statusbar"
-msgstr "Włącza/wyłącza pasek stanu"
+msgstr "Lülitab olekuriba näitamist"
 
 #: kid3.cpp:352
 msgid "Enables/disables the toolbar"
-msgstr "Włącza/wyłącza pasek narzędzi"
+msgstr "Lülitab tööriistariba näitamist"
 
 #: browsecoverartdialog.cpp:61 filelist.cpp:262
 msgid "Encode as URL"
-msgstr "Kodowanie URL"
+msgstr "URL-i jaoks sobivas kodeeringus esitaja, ..."
 
 #: frame.cpp:82
 msgid "Encoded-by"
-msgstr "Koder"
+msgstr "Kodeerija"
 
 #: filelist.cpp:1113
 msgid "Enter new directory name:"
-msgstr "Podaj nazwę nowego katalogu:"
+msgstr "Sisesta kataloogi uus nimi:"
 
 #: filelist.cpp:1065
 msgid "Enter new file name:"
-msgstr "Podaj nową nazwę pliku:"
+msgstr "Sisesta faili uus nimi:"
 
 #: filelist.cpp:72
 msgid "Error while deleting these %1 items:"
-msgstr "Błąd podczas usuwania %1 elementów:"
+msgstr "Viga nende %1 elemendi kustutamisel:"
 
 #: filelist.cpp:1226 filelist.cpp:1234 filelist.cpp:1280 filelist.cpp:1287
 msgid "Error while deleting this item:"
-msgstr "Błąd podczas usuwania elementu:"
+msgstr "Viga kustutamisel:"
 
 #: filelist.cpp:1090 filelist.cpp:1126 kid3.cpp:2442
 msgid "Error while renaming:\n"
-msgstr "Błąd podczas zmieniania nazwy:\n"
+msgstr "Viga ümbernimetamisel:\n"
 
 #: exportdialog.cpp:235 kid3.cpp:1203 kid3.cpp:1209
 msgid "Error while writing file:\n"
-msgstr "Błąd podczas zapisu pliku:\n"
+msgstr "Viga kirjutamisel:\n"
 
 #: framelist.cpp:1148
 msgid "Events"
-msgstr "Wydarzenia"
+msgstr "Sündmused"
 
 #: externalprocess.cpp:130
 msgid "Execute "
-msgstr "Wykonaj"
+msgstr "Käivita"
 
 #: kid3.cpp:1575
 msgid "Exiting..."
-msgstr "Kończenie pracy..."
+msgstr "Väljumine..."
 
 #: kid3.cpp:616
 msgid "Export to file or clipboard"
-msgstr "Eksportuj do pliku lub schowka"
+msgstr "Avab lõikepuhvrisse või faili eksportimise dialoogi"
 
 #: importtrackdata.cpp:209
 msgid "Extension"
-msgstr "Rozszerzenie pliku"
+msgstr "Laiend"
 
 #: kid3.cpp:437 kid3.cpp:720
 msgid "F&ilter..."
-msgstr "F&iltr..."
+msgstr "F&iltreeri..."
 
 #: rendirdialog.cpp:51
 msgid "File %1 already exists\n"
-msgstr "Plik %1 już istnieje\n"
+msgstr "Fail \"%1\" on juba olemas\n"
 
 #: exportdialog.cpp:234 filelist.cpp:1089 filelist.cpp:1125 filelist.cpp:1230
 #: filelist.cpp:1238 filelist.cpp:1282 filelist.cpp:1285 kid3.cpp:1205
 #: kid3.cpp:1208 kid3.cpp:2441
 msgid "File Error"
-msgstr "Błąd otwarcia pliku"
+msgstr "Failiviga"
 
 #: musicbrainzclient.cpp:302
 msgid "File Lookup"
-msgstr "Wyszukiwanie pliku"
+msgstr "Faili otsimine..."
 
 #: id3form.cpp:171 id3form.cpp:300
 msgid "File&name"
-msgstr "&Nazwa pliku"
+msgstr "Faili&nimi"
 
 #: framelist.cpp:878 kid3.cpp:513 kid3.cpp:516 kid3.cpp:519
 msgid "Filename"
-msgstr "Nazwa pliku"
+msgstr "Failinimi"
 
 #: filelist.cpp:242
 msgid "Filenames"
-msgstr "Nazwy plików"
+msgstr "Failinimed"
 
 #: filterdialog.cpp:61 kid3.cpp:719
 msgid "Filter"
-msgstr "Filtr"
+msgstr "Filter"
 
 #: formatbox.cpp:67
 msgid "First letter uppercase"
-msgstr "Duża pierwsza litera"
+msgstr "Esimene täht ülatõstus"
 
 #: kid3.cpp:519 kid3.cpp:522 kid3.cpp:525
 msgid "Focus"
-msgstr "Ognisko"
+msgstr "Fookusesse"
 
 #: importselector.cpp:252 importselector.cpp:254 rendirdialog.cpp:78
 #: rendirdialog.cpp:135
 msgid "Format"
-msgstr "Format"
+msgstr "Vorming"
 
 #: formatbox.cpp:51
 msgid "Format while editing"
-msgstr "Formatuj podczas edycji"
+msgstr "Automaatne asendamine"
 
 #: id3form.cpp:187 id3form.cpp:321
 msgid "Format:"
-msgstr "Format:"
+msgstr "Vorming:"
 
 #: kid3.cpp:504 kid3.cpp:507 kid3.cpp:510
 msgid "Frames:"
-msgstr "Ramki:"
+msgstr "Raamid:"
 
 #: formatbox.cpp:74
 msgid "From"
-msgstr "Z"
+msgstr "Asendatav"
 
 #: framelist.cpp:735 importselector.cpp:281
 msgid "From Clip&board"
-msgstr "Ze &schowka"
+msgstr "&Lõikepuhvrist"
 
 #: importselector.cpp:278
 msgid "From F&ile"
-msgstr "Wczytaj z p&liku"
+msgstr "&Failist"
 
 #: id3form.cpp:219 id3form.cpp:254 id3form.cpp:351 id3form.cpp:374
 #: kid3.cpp:474 kid3.cpp:489
 msgid "From Filename"
-msgstr "Wczytaj z nazwy p&liku"
+msgstr "Failinime põhjal"
 
 #: id3form.cpp:184 id3form.cpp:257 id3form.cpp:318 id3form.cpp:375
 #: kid3.cpp:492 kid3.cpp:513 rendirdialog.cpp:177
 msgid "From Tag 1"
-msgstr "Ze znacznika 1"
+msgstr "Silt 1 põhjal"
 
 #: id3form.cpp:196 id3form.cpp:223 id3form.cpp:330 id3form.cpp:353
 #: kid3.cpp:477 kid3.cpp:516 rendirdialog.cpp:178
 msgid "From Tag 2"
-msgstr "Ze znacznika 2"
+msgstr "Silt 2 põhjal"
 
 #: rendirdialog.cpp:176
 msgid "From Tag 2 and Tag 1"
-msgstr "Ze znacznika 1 i znacznika 2"
+msgstr "Siltide 1 ja 2 põhjal"
 
 #: rendirdialog.cpp:216
 msgid "From:"
-msgstr "Z:"
+msgstr "Praegune:"
 
 #: mp3file.cpp:1275 taglibfile.cpp:1493
 msgid "GEOB - General encapsulated object"
-msgstr ""
+msgstr "GEOB - üldine kapseldatud objekt"
 
 #: mp3file.cpp:1276 taglibfile.cpp:1494
 msgid "GRID - Group identification registration"
-msgstr ""
+msgstr "GRID - grupi identifitseerimise registreerimine"
 
 #: frame.cpp:72 importselector.cpp:215 importselector.cpp:244
 msgid "Genre"
-msgstr "Gatunek"
+msgstr "Stiil"
 
 #: frame.cpp:83
 msgid "Grouping"
-msgstr "Grupowanie"
+msgstr "Grupeerimine"
 
 #: kid3.cpp:461 kid3.cpp:759 kid3.cpp:2186 kid3.cpp:2189
 msgid "Hide &Picture"
-msgstr "Ukryj &obrazek"
+msgstr "Peida &kaanepilt"
 
 #: kid3.cpp:758 kid3.cpp:2188
 msgid "Hide Picture"
-msgstr "Ukryj obrazek"
+msgstr "Peida kaanepilt"
 
 #: kid3.cpp:453 kid3.cpp:745 kid3.cpp:2130 kid3.cpp:2133
 msgid "Hide Tag &1"
-msgstr "Ukryj znacznik &1"
+msgstr "Peida silt &1"
 
 #: kid3.cpp:457 kid3.cpp:752 kid3.cpp:2158 kid3.cpp:2161
 msgid "Hide Tag &2"
-msgstr "Ukryj znacznik &2"
+msgstr "Peida silt &2"
 
 #: kid3.cpp:744 kid3.cpp:2132
 msgid "Hide Tag 1"
-msgstr "Ukryj znacznik 1"
+msgstr "Peida silt 1"
 
 #: kid3.cpp:751 kid3.cpp:2160
 msgid "Hide Tag 2"
-msgstr "Ukryj znacznik 2"
+msgstr "Peida silt 2"
 
 #: httpclient.cpp:77 httpclient.cpp:227
 msgid "Host found..."
-msgstr "Znaleziono serwer..."
+msgstr "Host leitud..."
 
 #: httpclient.cpp:119 httpclient.cpp:332
 msgid "Host not found"
-msgstr "Komputer nie został znaleziony"
+msgstr "Hosti ei leitud"
 
 #: configdialog.cpp:116 configdialog.cpp:128
 msgid "ID3v1"
@@ -877,7 +871,7 @@ msgstr "ID3v2.4.0 (TagLib)"
 
 #: mp3file.cpp:1277
 msgid "IPLS - Involved people list"
-msgstr "IPLS - Lista ludzi zaangażowanych"
+msgstr "IPLS - seotud inimeste nimekiri"
 
 #: configdialog.cpp:250 framelist.cpp:1086
 msgid "ISO-8859-1"
@@ -889,67 +883,67 @@ msgstr "ISRC"
 
 #: framelist.cpp:884
 msgid "Identifier"
-msgstr "Identyfikator"
+msgstr "Identifikaator"
 
 #: framelist.cpp:1118
 msgid "Illustration"
-msgstr "Ilustracja"
+msgstr "Illustratsioon"
 
 #: framelist.cpp:881
 msgid "Image format"
-msgstr "Format obrazu"
+msgstr "Pildivorming"
 
 #: kid3.cpp:395 kid3.cpp:587
 msgid "Import from &Discogs..."
-msgstr "Importuj z &Discogs..."
+msgstr "Impordi &Discogs'ist..."
 
 #: kid3.cpp:404 kid3.cpp:602
 msgid "Import from &MusicBrainz Fingerprint..."
-msgstr "Importuj z &MusicBrainz Fingerprint..."
+msgstr "Impordi Music&Brainz'ist sõrmejälje järgi..."
 
 #: kid3.cpp:391 kid3.cpp:580
 msgid "Import from &TrackType.org..."
-msgstr "Importuj z &TrackType.org..."
+msgstr "Impordi &TrackType.org-ist..."
 
 #: kid3.cpp:387 kid3.cpp:573
 msgid "Import from &gnudb.org..."
-msgstr "Importuj z &gnudb.org..."
+msgstr "Impordi &gnudb.org-ist..."
 
 #: kid3.cpp:586
 msgid "Import from Discogs"
-msgstr "Importuj z Discogs"
+msgstr "Impordib metaandmed Discogs'ist"
 
 #: kid3.cpp:399 kid3.cpp:594
 msgid "Import from MusicBrainz &Release..."
-msgstr "Importuj z MusicBrainz &Release..."
+msgstr "Impordi &MusicBrainz'ist albumi järgi..."
 
 #: kid3.cpp:601
 msgid "Import from MusicBrainz Fingerprint"
-msgstr "Importuj z MusicBrainz Fingerprint"
+msgstr "Impordib metaandmed MusicBrainz'ist sõrmejälje alusel"
 
 #: kid3.cpp:593
 msgid "Import from MusicBrainz Release"
-msgstr "Importuj z MusicBrainz Release"
+msgstr "Impordib metaandmed MusicBrainz'ist albumi alusel"
 
 #: kid3.cpp:579
 msgid "Import from TrackType.org"
-msgstr "Importuj z TrackType.org"
+msgstr "Impordib metaandmed TrackType.org-ist"
 
 #: kid3.cpp:565
 msgid "Import from file or clipboard"
-msgstr "Importuj plik ze schowka"
+msgstr "Avab failist või lõikepuhvrist importimise dialoogi"
 
 #: kid3.cpp:572
 msgid "Import from gnudb.org"
-msgstr "Importuj z gnudb.org"
+msgstr "Impordib metaandmed gnudb.org-ist"
 
 #: kid3.cpp:1820
 msgid "Import..."
-msgstr "Importowanie..."
+msgstr "Impordi..."
 
 #: id3form.cpp:199 id3form.cpp:333
 msgid "Info:"
-msgstr "Informacja:"
+msgstr "Info:"
 
 #: id3form.cpp:155 main.cpp:109
 msgid "Kid3"
@@ -957,112 +951,112 @@ msgstr "Kid3"
 
 #: kid3.cpp:671
 msgid "Kid3 &Handbook"
-msgstr "&Podręcznik programu Kid3"
+msgstr "Kid3 &käsiraamat"
 
 #: kid3.cpp:670 kid3.cpp:1679
 msgid "Kid3 Handbook"
-msgstr "Podręcznik programu Kid3"
+msgstr "Kid3 käsiraamat"
 
 #: main.cpp:40
 msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 - Edytor znaczników ID3"
+msgstr "Kid3, ID3-sildistaja"
 
 #: mp3file.cpp:1278 taglibfile.cpp:1495
 msgid "LINK - Linked information"
-msgstr "LINK - Połączona informacja"
+msgstr "LINK - lingitud teave"
 
 #: frame.cpp:85 framelist.cpp:879
 msgid "Language"
-msgstr "Język"
+msgstr "Keel"
 
 #: framelist.cpp:1107
 msgid "Lead artist/lead performer/soloist"
-msgstr "Główny artysta/wykonawca/solista"
+msgstr "Juhtiv esitaja/ettekandja / solist"
 
 #: framelist.cpp:1105
 msgid "Leaflet page"
-msgstr "Strona ulotki"
+msgstr "Voldiku lehekülg"
 
 #: importparser.cpp:70 importselector.cpp:214 importselector.cpp:238
 #: importtrackdata.cpp:197 importtrackdata.cpp:201
 msgid "Length"
-msgstr "Długość"
+msgstr "Pikkus"
 
 #: filefilter.cpp:123
 msgid "Logical AND"
-msgstr "Logiczna AND"
+msgstr "Loogiline NING"
 
 #: filefilter.cpp:127
 msgid "Logical OR"
-msgstr "Logiczna OR"
+msgstr "Loogiline VÕI"
 
 #: filefilter.cpp:131
 msgid "Logical negation"
-msgstr "Logiczna NOT"
+msgstr "Loogiline EI"
 
 #: frame.cpp:86
 msgid "Lyricist"
-msgstr "Tekściarz"
+msgstr "Sõnade autor"
 
 #: framelist.cpp:1112
 msgid "Lyricist/text writer"
-msgstr "Tekściarz/autor tekstu"
+msgstr "Sõnade autor"
 
 #: frame.cpp:87 framelist.cpp:1145
 msgid "Lyrics"
-msgstr "Tekst"
+msgstr "Sõnad"
 
 #: mp3file.cpp:1279 taglibfile.cpp:1496
 msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Identyfikator muzycznego CD"
+msgstr "MCDI - muusika-CD identifikaator"
 
 #: mp3file.cpp:1280 taglibfile.cpp:1497
 msgid "MLLT - MPEG location lookup table"
-msgstr ""
+msgstr "MLLT - MPEG asukohaotsingutabel"
 
 #: framelist.cpp:1132
 msgid "MPEG frames as unit"
-msgstr "Ramki MPEG jako jednostka"
+msgstr "Ühikutena MPEG-kaadrid"
 
 #: browsecoverartdialog.cpp:146
 msgid "Match"
-msgstr "Dopasowanie"
+msgstr "Tulemus"
 
 #: importselector.cpp:327
 msgid "Match with:"
-msgstr "Dopasuj według:"
+msgstr "Sobita:"
 
 #: frame.cpp:88 framelist.cpp:1106
 msgid "Media"
-msgstr "Media (np. strona z nadrukiem na CD)"
+msgstr "Andmekandja"
 
 #: musicbrainzclient.cpp:290
 msgid "Metadata Read"
-msgstr "Odczytywanie metadanych"
+msgstr "Metaandmed loetud"
 
 #: framelist.cpp:1133
 msgid "Milliseconds as unit"
-msgstr "Milisekundy jako jednostka"
+msgstr "Ühikutena millisekundid"
 
 #: framelist.cpp:882
 msgid "Mimetype"
-msgstr "Typ MIME"
+msgstr "MIME-tüüp"
 
 #: stringlistedit.cpp:58
 msgid "Move &Down"
-msgstr "&Przesuń niżej"
+msgstr "Liiguta &alla"
 
 #: stringlistedit.cpp:57
 msgid "Move &Up"
-msgstr "&Przesuń w górę"
+msgstr "Liiguta &üles"
 
 #: framelist.cpp:1147
 msgid "Movement/part name"
-msgstr "Nazwa części/odcinka"
+msgstr "Liikumise/osa nimi"
 
 #: framelist.cpp:1116
 msgid "Movie/video screen capture"
-msgstr "Zrzut ekranu z filmu/video"
+msgstr "Kaader filmist/videost"
 
 #: musicbrainzdialog.cpp:64
 msgid "MusicBrainz"
@@ -1070,60 +1064,60 @@ msgstr "MusicBrainz"
 
 #: importselector.cpp:296
 msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
+msgstr "MusicBrainz: sõrmejälg"
 
 #: importselector.cpp:293
 msgid "MusicBrainz Release"
-msgstr "MusicBrainz Release"
+msgstr "MusicBrainz: album"
 
 #: commandstable.cpp:58 commandstable.cpp:77
 msgid "Name"
-msgstr "Nazwa"
+msgstr "Nimi"
 
 #: id3form.cpp:178 id3form.cpp:312
 msgid "Name:"
-msgstr "Nazwa:"
+msgstr "Nimi:"
 
 #: configdialog.cpp:470
 msgid "Network"
-msgstr "Sieć"
+msgstr "Võrk"
 
 #: rendirdialog.cpp:647
 msgid "New directory name is too different\n"
-msgstr "Nowe nazwa katalogu jest też różne\n"
+msgstr "Uue kataloogi nimi on liiga erinev\n"
 
 #: formatbox.cpp:61
 msgid "No changes"
-msgstr "Bez zmian"
+msgstr "Jäetakse samaks"
 
 #: musicbrainzdialog.cpp:214 musicbrainzdialog.cpp:230
 #: musicbrainzdialog.cpp:417
 msgid "No result"
-msgstr "Brak wyników"
+msgstr "Tulemuseta"
 
 #: musicbrainzdialog.cpp:417
 msgid "No result selected"
-msgstr "Nie wybrano rezultatu"
+msgstr "Tulemust pole valitud"
 
 #: kid3.cpp:712 numbertracksdialog.cpp:55
 msgid "Number Tracks"
-msgstr "Numeruj ścieżki"
+msgstr "Lugude nummerdamine"
 
 #: framelist.cpp:886
 msgid "Number of Bits"
-msgstr "Liczba bitów"
+msgstr "Bittide arv"
 
 #: importtrackdata.cpp:205
 msgid "Number of tracks"
-msgstr "Liczba utworów"
+msgstr "Lugude arv"
 
 #: kid3.cpp:379 kid3.cpp:542
 msgid "O&pen Directory..."
-msgstr "&Otwórz katalog..."
+msgstr "Ava &kataloog..."
 
 #: mp3file.cpp:1281 taglibfile.cpp:1498
 msgid "OWNE - Ownership frame"
-msgstr ""
+msgstr "OWNE - omandus"
 
 #: configdialog.cpp:278 configdialog.cpp:280
 msgid "Ogg/Vorbis"
@@ -1131,553 +1125,551 @@ msgstr "Ogg/Vorbis"
 
 #: kid3.cpp:921
 msgid "Opening directory..."
-msgstr "Otwieranie katalogu..."
+msgstr "Kataloogi avamine..."
 
 #: kid3.cpp:365 kid3.cpp:533 kid3.cpp:541
 msgid "Opens a directory"
-msgstr "Otwiera katalog"
+msgstr "Avab kataloogi valimise dialoogi"
 
 #: kid3.cpp:366
 msgid "Opens a recently used directory"
-msgstr "Otwiera poprzednio używany katalog"
+msgstr "Avab hiljuti kasutatud kataloogi"
 
 #: frame.cpp:89
 msgid "Original Album"
-msgstr "Oryginalny album"
+msgstr "Originaalalbum"
 
 #: frame.cpp:90
 msgid "Original Artist"
-msgstr "Oryg. artysta"
+msgstr "Originaalesitaja"
 
 #: frame.cpp:91
 msgid "Original Date"
-msgstr "Oryginalna data"
+msgstr "Originaali aasta"
 
 #: framelist.cpp:1100 framelist.cpp:1131 framelist.cpp:1144
 msgid "Other"
-msgstr "Inny"
+msgstr "Muu"
 
 #: framelist.cpp:1102
 msgid "Other file icon"
-msgstr "Inna ikona pliku"
+msgstr "Muus vormingus faili ikoon"
 
 #: commandstable.cpp:58 commandstable.cpp:76
 msgid "Output"
-msgstr "Wyjście"
+msgstr "Väljund"
 
 #: framelist.cpp:875
 msgid "Owner"
-msgstr "Właściciel"
+msgstr "Omanik"
 
 #: mp3file.cpp:1283 taglibfile.cpp:1500
 msgid "PCNT - Play counter"
-msgstr "PCNT - Licznik odtworzeń"
+msgstr "PCNT - esitusloendur"
 
 #: mp3file.cpp:1284 taglibfile.cpp:1501
 msgid "POPM - Popularimeter"
-msgstr "POPM - Miernik popularności"
+msgstr "POPM - popularimeeter"
 
 #: mp3file.cpp:1285 taglibfile.cpp:1502
 msgid "POSS - Position synchronisation frame"
-msgstr ""
+msgstr "POSS - asukoha sünkroniseerimine"
 
 #: mp3file.cpp:1282 taglibfile.cpp:1499
 msgid "PRIV - Private frame"
-msgstr "PRIV - Pole prywatne"
+msgstr "PRIV - privaatne"
 
 #: musicbrainzclient.cpp:297
-#, fuzzy
 msgid "PUID Collision"
-msgstr "Kolizja PUID"
+msgstr "PUID-de kokkupõrge"
 
 #: musicbrainzclient.cpp:296
 msgid "PUID Lookup"
-msgstr "Poszukiwanie PUID"
+msgstr "PUID otsimine..."
 
 #: frame.cpp:92
 msgid "Part"
-msgstr "Część"
+msgstr "Osa"
 
 #: framelist.cpp:890
 msgid "Peak Volume Left"
-msgstr ""
+msgstr "Helitugevuse tipp vasakul"
 
 #: framelist.cpp:889
 msgid "Peak Volume Right"
-msgstr ""
+msgstr "Helitugevuse tipp paremal"
 
 #: musicbrainzclient.cpp:294 musicbrainzclient.cpp:339
 msgid "Pending"
-msgstr "Oczekiwanie"
+msgstr "Ootel..."
 
 #: frame.cpp:93
 msgid "Performer"
-msgstr "Wykonawca"
+msgstr "Ettekandja"
 
 #: frame.cpp:94
 msgid "Picture"
-msgstr "Obrazek"
+msgstr "Pilt"
 
 #: framelist.cpp:880
 msgid "Picture Type"
-msgstr "Typ obrazu"
+msgstr "Pildi tüüp"
 
 #: browsecoverartdialog.cpp:147
 msgid "Picture URL"
-msgstr "Obrazek URL"
+msgstr "Pildi URL"
 
 #: kid3.cpp:376
 msgid "Preferences dialog"
-msgstr "Okno opcji"
+msgstr "Avab seadistusdialoogi"
 
 #: rendirdialog.cpp:83 rendirdialog.cpp:139
 msgid "Preview"
-msgstr "Podgląd"
+msgstr "Eelvaade"
 
 #: configdialog.cpp:431 configdialog.cpp:433
 msgid "Proxy"
-msgstr "Pośrednik (proxy)"
+msgstr "Puhverserver"
 
 #: configdialog.cpp:443
 msgid "Proxy pass&word:"
-msgstr "&Hasło dla proxy:"
+msgstr "Puhverserveri &parool:"
 
 #: configdialog.cpp:440
 msgid "Proxy user &name:"
-msgstr "&Użytkownik proxy:"
+msgstr "Puhverserveri &kasutajanimi:"
 
 #: frame.cpp:95
 msgid "Publisher"
-msgstr "Wydawca"
+msgstr "Väljaandja"
 
 #: framelist.cpp:1120
 msgid "Publisher/Studio logotype"
-msgstr "Logo wydawcy/studia"
+msgstr "Väljaandja/stuudio logo"
 
 #: kid3.cpp:370 kid3.cpp:630
 msgid "Quits the application"
-msgstr "Kończy program"
+msgstr "Sulgeb rakenduse"
 
 #: mp3file.cpp:1286 taglibfile.cpp:1503
 msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - Polecany rozmiar bufora"
+msgstr "RBUF - soovituslik puhvrisuurus"
 
 #: taglibfile.cpp:1504
 msgid "RVA2 - Relative volume adjustment (2)"
-msgstr ""
+msgstr "RVA2 - suhteline helitugevuse reguleerimine (2)"
 
 #: mp3file.cpp:1288
 msgid "RVAD - Relative volume adjustment"
-msgstr ""
+msgstr "RVAD - suhteline helitugevuse reguleerimine"
 
 #: mp3file.cpp:1289 taglibfile.cpp:1505
 msgid "RVRB - Reverb"
-msgstr ""
+msgstr "RVRB - reverb"
 
 #: framelist.cpp:877
 msgid "Rating"
-msgstr "Ocena"
+msgstr "Hinnang"
 
 #: kid3.cpp:559
 msgid "Re&vert"
-msgstr "Od&wróć"
+msgstr "E&nnista"
 
 #: httpclient.cpp:335
 msgid "Read failed"
-msgstr "Błąd odczytu"
+msgstr "Lugemine ebaõnnestus"
 
 #: downloaddialog.cpp:96 httpclient.cpp:71 httpclient.cpp:83
 #: httpclient.cpp:129 httpclient.cpp:309 importsourcedialog.cpp:175
 #: kid3.cpp:870 kid3.cpp:941 kid3.cpp:1217 kid3.cpp:1593 kid3.cpp:1608
 #: kid3.cpp:1762 kid3.cpp:1852
 msgid "Ready."
-msgstr "Gotowe."
+msgstr "Valmis."
 
 #: musicbrainzclient.cpp:293 musicbrainzclient.cpp:593
 msgid "Recognized"
-msgstr "Rozpoznano"
+msgstr "Tuvastatud"
 
 #: framelist.cpp:1113
 msgid "Recording Location"
-msgstr "Miejsce nagrania"
+msgstr "Lindistuskoht"
 
 #: frame.cpp:96
 msgid "Remixer"
-msgstr "Remixer"
+msgstr "Remiksija"
 
 #: musicbrainzclient.cpp:342
 msgid "Removed"
-msgstr "Usunięty"
+msgstr "Eemaldatud"
 
 #: rendirdialog.cpp:55
 msgid "Rename %1 to %2 failed\n"
-msgstr "Nie udało się zmienić nazwy %1 na %2\n"
+msgstr "Elemendi \"%1\" ümbernimetamine \"%2-ks\" ebaõnnestus\n"
 
 #: filelist.cpp:1112 kid3.cpp:705 rendirdialog.cpp:72 rendirdialog.cpp:97
 #: rendirdialog.cpp:130 rendirdialog.cpp:172
 msgid "Rename Directory"
-msgstr "Zmień nazwę katalogu"
+msgstr "Kataloogi ümbernimetamine"
 
 #: filelist.cpp:1064
 msgid "Rename File"
-msgstr "Zmień nazwę pliku"
+msgstr "Faili ümbernimetamine"
 
 #: rendirdialog.cpp:773
 msgid "Rename directory"
-msgstr "Zmień nazwę katalogu"
+msgstr "Kataloogi ümbernimetamine"
 
 #: rendirdialog.cpp:774
 msgid "Rename file"
-msgstr "Zmień nazwę pliku"
+msgstr "Faili ümbernimetamine"
 
 #: httpclient.cpp:80 httpclient.cpp:236
 msgid "Request sent..."
-msgstr "Wysłano zapytanie..."
+msgstr "Taotlus saadetud..."
 
 #: kid3.cpp:368 kid3.cpp:558
 msgid "Reverts the changes of all or the selected files"
-msgstr "Przywraca do poprzedniego stanu zmiany we wszystkich wybranych plikach"
+msgstr "Ennistab kõik muutused valitud elementidel"
 
 #: taglibfile.cpp:1506
 msgid "SEEK - Seek frame"
-msgstr ""
+msgstr "SEEK - otsimine"
 
 #: taglibfile.cpp:1507
 msgid "SIGN - Signature frame"
-msgstr ""
+msgstr "SIGN - signatuur"
 
 #: mp3file.cpp:1292 taglibfile.cpp:1508
 msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Zsynchronizowane słowa/tekst"
+msgstr "SYLT - sünkroniseeritud laulusõnad/tekst"
 
 #: mp3file.cpp:1293 taglibfile.cpp:1509
 msgid "SYTC - Synchronized tempo codes"
-msgstr ""
+msgstr "SYTC - sünkroniseeritud tempokoodid"
 
 #: importtrackdata.cpp:229
 msgid "Samplerate"
-msgstr "Próbkowanie"
+msgstr "Diskreetimissagedus"
 
 #: musicbrainzclient.cpp:305
 msgid "Saved"
-msgstr "Zapisano"
+msgstr "Salvestatud"
 
 #: kid3.cpp:369 kid3.cpp:549
 msgid "Saves the changed files"
-msgstr "Zapisuje zmienione pliki"
+msgstr "Salvestab muudetud failid"
 
 #: kid3.cpp:1148
 msgid "Saving directory..."
-msgstr "Zapisywanie katalogu..."
+msgstr "Kataloogi salvestamine..."
 
 #: kid3.cpp:639
 msgid "Select &All"
-msgstr "Zaznacz &wszystko"
+msgstr "&Vali kõik"
 
 #: kid3.cpp:371 kid3.cpp:638
 msgid "Select all files"
-msgstr "Wybierz wszystkie pliki"
+msgstr "Valib kõik failid"
 
 #: kid3.cpp:662
 msgid "Select next file"
-msgstr "Zaznacz następny plik"
+msgstr "Valib järgmise faili"
 
 #: kid3.cpp:654
 msgid "Select previous file"
-msgstr "Zaznacz poprzedni plik"
+msgstr "Valib eelmise faili"
 
 #: framelist.cpp:1561
 msgid "Select the frame ID"
-msgstr "Wybierz identyfikator ramki"
+msgstr "Raami ID:"
 
 #: kid3.cpp:2178 kid3.cpp:2181
 msgid "Show &Picture"
-msgstr "Pokaż &obrazek"
+msgstr "Näita &kaanepilti"
 
 #: kid3.cpp:2180
 msgid "Show Picture"
-msgstr "Pokaż obrazek"
+msgstr "Näita kaanepilti"
 
 #: kid3.cpp:2122 kid3.cpp:2125
 msgid "Show Tag &1"
-msgstr "Pokaż znacznik 1&"
+msgstr "Näita silti &1"
 
 #: kid3.cpp:2150 kid3.cpp:2153
 msgid "Show Tag &2"
-msgstr "Pokaż znacznik &2"
+msgstr "Näita silti &2"
 
 #: kid3.cpp:2124
 msgid "Show Tag 1"
-msgstr "Pokaż znacznik 1"
+msgstr "Näita silti 1"
 
 #: kid3.cpp:2152
 msgid "Show Tag 2"
-msgstr "Pokaż znacznik 2"
+msgstr "Näita silti 2"
 
 #: httpclient.cpp:113 httpclient.cpp:326
 msgid "Socket error: "
-msgstr "Błąd gniazda"
+msgstr "Pesa viga:"
 
 #: musicbrainzdialog.cpp:112 musicbrainzdialog.cpp:130
 msgid "State"
-msgstr "Stan"
+msgstr "Olek"
 
 #: formatbox.cpp:72
 msgid "String replacement:"
-msgstr "Zastępczy ciąg znaków:"
+msgstr "Stringiasendus:"
 
 #: frame.cpp:97
 msgid "Subtitle"
-msgstr "Napisy"
+msgstr "Alapealkiri"
 
 #: importselector.cpp:331
 msgid "T&rack"
-msgstr "Ś&cieżki"
+msgstr "&Loo nr"
 
 #: mp3file.cpp:1294 taglibfile.cpp:1510
 msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - Tytuł albumu/filmu/pokazu"
+msgstr "TALB - albumi/filmi/etenduse pealkiri"
 
 #: mp3file.cpp:1295 taglibfile.cpp:1511
 msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - BPM (uderzeń na minutę)"
+msgstr "TBPM - BPM (lööki minutis)"
 
 #: mp3file.cpp:1296 taglibfile.cpp:1512
 msgid "TCOM - Composer"
-msgstr "TCOM - Kompozytor"
+msgstr "TCOM - helilooja"
 
 #: mp3file.cpp:1297 taglibfile.cpp:1513
 msgid "TCON - Content type"
-msgstr "TCON - Typ zawartości"
+msgstr "TCON - sisu tüüp"
 
 #: mp3file.cpp:1298 taglibfile.cpp:1514
 msgid "TCOP - Copyright message"
-msgstr "TCOP - Informacja o prawach autorskich"
+msgstr "TCOP - autoriõiguse sõnum"
 
 #: mp3file.cpp:1299
 msgid "TDAT - Date"
-msgstr "TDAT - Data"
+msgstr "TDAT - kuupäev"
 
 #: taglibfile.cpp:1515
 msgid "TDEN - Encoding time"
-msgstr "TDEN - Czas zakodowania"
+msgstr "TDEN - kodeerimise aeg"
 
 #: mp3file.cpp:1301 taglibfile.cpp:1516
 msgid "TDLY - Playlist delay"
-msgstr ""
+msgstr "TDLY - esitusnimekirja viivitus"
 
 #: taglibfile.cpp:1517
 msgid "TDOR - Original release time"
-msgstr "TDOR - Oryginalny czas wypuszczenia"
+msgstr "TDOR - originaali väljalaske aeg"
 
 #: taglibfile.cpp:1518
 msgid "TDRC - Recording time"
-msgstr "TDRC - Czas/data nagrania"
+msgstr "TDRC - lindistamise aeg"
 
 #: taglibfile.cpp:1519
 msgid "TDRL - Release time"
-msgstr "TDRL - Czas wypuszczenia"
+msgstr "TDRL - väljalaske aeg"
 
 #: taglibfile.cpp:1520
 msgid "TDTG - Tagging time"
-msgstr "TDTG - Czas zapisania znaczników"
+msgstr "TDTG - sildistamise aeg"
 
 #: mp3file.cpp:1307 taglibfile.cpp:1521
 msgid "TENC - Encoded by"
-msgstr "TENC - Zakodowane przez"
+msgstr "TENC - kodeerija"
 
 #: mp3file.cpp:1308 taglibfile.cpp:1522
 msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - Tekściarz/autor tekstu"
+msgstr "TEXT - sõnade/teksti autor"
 
 #: mp3file.cpp:1309 taglibfile.cpp:1523
 msgid "TFLT - File type"
-msgstr "TFLT - Typ pliku"
+msgstr "TFLT - failitüüp"
 
 #: mp3file.cpp:1310
 msgid "TIME - Time"
-msgstr "TIME - Czas"
+msgstr "TIME - aeg"
 
 #: taglibfile.cpp:1524
 msgid "TIPL - Involved people list"
-msgstr "TIPL - Lista ludzi zaangażowanych"
+msgstr "TIPL -  seotud inimeste nimekiri"
 
 #: mp3file.cpp:1311 taglibfile.cpp:1525
 msgid "TIT1 - Content group description"
-msgstr "TIT1 - Opis zespołu zawartości"
+msgstr "TIT1 - sisu grupi kirjeldus"
 
 #: mp3file.cpp:1312 taglibfile.cpp:1526
 msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - Tytuł/Tytuł utworu/Opis zawartości"
+msgstr "TIT2 - pealkiri / laulu nimi / sisu kirjeldus"
 
 #: mp3file.cpp:1313 taglibfile.cpp:1527
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr ""
+msgstr "TIT3 - alapealkiri / kirjelduse täpsustus"
 
 #: mp3file.cpp:1314 taglibfile.cpp:1528
 msgid "TKEY - Initial key"
-msgstr ""
+msgstr "TKEY - esialgne võti"
 
 #: mp3file.cpp:1315 taglibfile.cpp:1529
 msgid "TLAN - Language(s)"
-msgstr "TLAN - Język(i)"
+msgstr "TLAN - keel(ed)"
 
 #: mp3file.cpp:1316 taglibfile.cpp:1530
 msgid "TLEN - Length"
-msgstr "TLEN - Długość"
+msgstr "TLEN - pikkus"
 
 #: taglibfile.cpp:1531
 msgid "TMCL - Musician credits list"
-msgstr ""
+msgstr "TMCL - muusikute tänunimekiri"
 
 #: mp3file.cpp:1318 taglibfile.cpp:1532
 msgid "TMED - Media type"
-msgstr "TMED - Typ mediów"
+msgstr "TMED - andmekandja tüüp"
 
 #: taglibfile.cpp:1533
 msgid "TMOO - Mood"
-msgstr "TMOO - Nastrój"
+msgstr "TMOO - meeleolu"
 
 #: mp3file.cpp:1320 taglibfile.cpp:1534
 msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Tytuł oryginalnego albumu/filmu/przedstawienia"
+msgstr "TOAL - originaalalbumi/-filmi/-etenduse pealkiri"
 
 #: mp3file.cpp:1321 taglibfile.cpp:1535
 msgid "TOFN - Original filename"
-msgstr "TOFN - Oryginalna nazwa pliku"
+msgstr "TOFN - originaalfailinimi"
 
 #: mp3file.cpp:1322 taglibfile.cpp:1536
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Oryginalny tekściarz(e)/autor(rzy) tekstu"
+msgstr "TOLY - originaalsõnade/-teksti autor"
 
 #: mp3file.cpp:1323 taglibfile.cpp:1537
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Oryginalny artysta/wykonawca"
+msgstr "TOPE - originaalesitaja(d)/-ettekandja(d)"
 
 #: mp3file.cpp:1324
 msgid "TORY - Original release year"
-msgstr "TORY - Oryginalny rok wypuszczenia"
+msgstr "TORY - originaali väljalaske aasta"
 
 #: mp3file.cpp:1325 taglibfile.cpp:1538
 msgid "TOWN - File owner/licensee"
-msgstr "TOWN - Właściciel pliku/licencji"
+msgstr "TOWN - faili omanik/litsenseeritu"
 
 #: mp3file.cpp:1326 taglibfile.cpp:1539
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Główny wykonawca/Solista"
+msgstr "TPE1 - juhtiv(ad) ettekandja(d) / solist(id)"
 
 #: mp3file.cpp:1327 taglibfile.cpp:1540
 msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - Zespół/orkiestra/akompaniament"
+msgstr "TPE2 - bänd/orkester/saateansambel"
 
 #: mp3file.cpp:1328 taglibfile.cpp:1541
 msgid "TPE3 - Conductor/performer refinement"
-msgstr ""
+msgstr "TPE3 - dirigent / esineja täpsustus"
 
 #: mp3file.cpp:1329 taglibfile.cpp:1542
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - Interpretacja, remix lub jakakolwiek modyfikacja przez"
+msgstr "TPE4 - tõlgendaja, remiksija või muul moel muutja"
 
 #: mp3file.cpp:1330 taglibfile.cpp:1543
 msgid "TPOS - Part of a set"
-msgstr "TPOS - Część zestawu"
+msgstr "TPOS - osa komplektist"
 
 #: taglibfile.cpp:1544
 msgid "TPRO - Produced notice"
-msgstr ""
+msgstr "TPRO - tootmismärkus"
 
 #: mp3file.cpp:1332 taglibfile.cpp:1545
 msgid "TPUB - Publisher"
-msgstr "TPUB - Wydawca"
+msgstr "TPUB - väljaandja"
 
 #: mp3file.cpp:1333 taglibfile.cpp:1546
 msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - Numer ścieżki/Pozycja w zestawie"
+msgstr "TRCK - loo nr / asukoht komplektis"
 
 #: mp3file.cpp:1334
 msgid "TRDA - Recording dates"
-msgstr "TRDA - Daty nagrania"
+msgstr "TRDA - lindistuskuupäevad"
 
 #: musicbrainzclient.cpp:300
-#, fuzzy
 msgid "TRM Collision"
-msgstr "Kolizja TRM"
+msgstr "TRM-ide kokkupärge"
 
 #: musicbrainzclient.cpp:299
 msgid "TRM Lookup"
-msgstr "Wyszukiwanie TRM"
+msgstr "TRM-i otsimine..."
 
 #: mp3file.cpp:1335 taglibfile.cpp:1547
 msgid "TRSN - Internet radio station name"
-msgstr "TRSN - Nazwa internetowej stacji radiowej"
+msgstr "TRSN - Interneti-raadiojaama nimi"
 
 #: mp3file.cpp:1336 taglibfile.cpp:1548
 msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - Właściciel internetowej stacji radiowej"
+msgstr "TRSO - Interneti-raadiojaama omanik"
 
 #: mp3file.cpp:1337
 msgid "TSIZ - Size"
-msgstr "TSIZ - Rozmiar"
+msgstr "TSIZ - suurus"
 
 #: taglibfile.cpp:1549
 msgid "TSOA - Album sort order"
-msgstr "TSOA - Porządek sortowania albumów"
+msgstr "TSOA - albumi sorteerimisjärjestus"
 
 #: taglibfile.cpp:1550
 msgid "TSOP - Performer sort order"
-msgstr "TSOP - Porządek sortowania wykonawców"
+msgstr "TSOP - esitaja sorteerimisjärjestus"
 
 #: taglibfile.cpp:1551
 msgid "TSOT - Title sort order"
-msgstr "TSOT - Porządek sortowania tytułów"
+msgstr "TSOT - pealkirja sorteerimisjärjestus"
 
 #: mp3file.cpp:1341 taglibfile.cpp:1552
 msgid "TSRC - ISRC (international standard recording code)"
-msgstr ""
+msgstr "TSRC - ISRC (rahvusvaheline standardsalvestuskood)"
 
 #: mp3file.cpp:1342 taglibfile.cpp:1553
 msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - Oprogramowanie/sprzęt i ustawienia użyte do zakodowania"
+msgstr "TSSE - kodeerimiseks kasutatud tarkvara/riistvara ja sätted"
 
 #: taglibfile.cpp:1554
 msgid "TSST - Set subtitle"
-msgstr ""
+msgstr "TSST - komplekti alapealkiri"
 
 #: mp3file.cpp:1344 taglibfile.cpp:1555
 msgid "TXXX - User defined text information"
-msgstr "TXXX - Informacja tekstowa zdefiniowana przez użytkownika"
+msgstr "TXXX - kasutaja määratud tekstiline info"
 
 #: mp3file.cpp:1345
 msgid "TYER - Year"
-msgstr "TYER - Rok"
+msgstr "TYER - aasta"
 
 #: id3form.cpp:205 id3form.cpp:340 id3form.cpp:763
 msgid "Tag &1"
-msgstr "Znacznik &1"
+msgstr "Silt &1"
 
 #: id3form.cpp:240 id3form.cpp:363 id3form.cpp:778
 msgid "Tag &2"
-msgstr "Znacznik &2"
+msgstr "Silt &2"
 
 #: exportdialog.cpp:142 importselector.cpp:307 kid3.cpp:474 kid3.cpp:477
 #: kid3.cpp:480 kid3.cpp:483 kid3.cpp:486 kid3.cpp:522
 #: numbertracksdialog.cpp:81
 msgid "Tag 1"
-msgstr "Znacznik 1"
+msgstr "Silt 1"
 
 #: importselector.cpp:309 numbertracksdialog.cpp:83
 msgid "Tag 1 and Tag 2"
-msgstr "Znacznik 1 i znacznik 2"
+msgstr "Silt 1 ja silt 2"
 
 #: exportdialog.cpp:143 importselector.cpp:308 kid3.cpp:489 kid3.cpp:492
 #: kid3.cpp:495 kid3.cpp:498 kid3.cpp:501 kid3.cpp:525
 #: numbertracksdialog.cpp:82
 msgid "Tag 2"
-msgstr "Znacznik 2"
+msgstr "Silt 2"
 
 #: configdialog.cpp:332
 msgid "Tags"
-msgstr "Znaczniki"
+msgstr "Sildid"
 
 #: framelist.cpp:871
 msgid "Text"
@@ -1686,72 +1678,72 @@ msgstr "Tekst"
 #: configdialog.cpp:124 configdialog.cpp:133 configdialog.cpp:225
 #: configdialog.cpp:240
 msgid "Text &encoding:"
-msgstr "Kodowanie t&ekstu:"
+msgstr "T&eksti kodeering:"
 
 #: framelist.cpp:870
 msgid "Text Encoding"
-msgstr "Kodowanie tekstu"
+msgstr "Teksti kodeering"
 
 #: framelist.cpp:1146
 msgid "Text transcription"
-msgstr "Transkrypcja tekstu"
+msgstr "Teksti transkriptsioon"
 
 #: kid3.cpp:1242 kid3.cpp:1252
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"Bieżący katalog został zmodyfikowany.\n"
-"Czy chcesz go zapisać?"
+"Kataloogi sisu on muudetud.\n"
+"Kas salvestada see?"
 
 #: browsecoverartdialog.cpp:232
 msgid "Then drag the picture from the browser to Kid3."
-msgstr "Obrazek można przeciągnąć do Kid3."
+msgstr "Seejärel lohista pilt veebilehitsejast Kid3 aknasse."
 
 #: framelist.cpp:891
 msgid "Timestamp Format"
-msgstr "Format znacznika czasu"
+msgstr "Ajatempli vorming"
 
 #: frame.cpp:66 importselector.cpp:214 importselector.cpp:240
 msgid "Title"
-msgstr "Tytuł"
+msgstr "Pealkiri"
 
 #: formatbox.cpp:74
 msgid "To"
-msgstr "Do"
+msgstr "Asendaja"
 
 #: exportdialog.cpp:127
 msgid "To Clip&board"
-msgstr "Do &schowka"
+msgstr "&Lõikepuhvrisse"
 
 #: exportdialog.cpp:121
 msgid "To F&ile"
-msgstr "Do p&liku"
+msgstr "&Faili"
 
 #: rendirdialog.cpp:218
 msgid "To:"
-msgstr "Do:"
+msgstr "Uus:"
 
 #: kid3.cpp:1601
 msgid "Toggle the statusbar..."
-msgstr "Przełączanie paska statusu..."
+msgstr "Lülita olekuriba..."
 
 #: kid3.cpp:1586
 msgid "Toggling toolbar..."
-msgstr "Przełączanie pasków narzędzi"
+msgstr "Tööriistariba lülitamine..."
 
 #: frame.cpp:663 frame.cpp:667 frame.cpp:671 importselector.cpp:214
 #: importselector.cpp:239
 msgid "Track"
-msgstr "Ścieżka"
+msgstr "Loo nr"
 
 #: frame.cpp:71 frametable.cpp:740 frametable.cpp:765
 msgid "Track Number"
-msgstr "Numer ścieżki"
+msgstr "Loo number"
 
 #: musicbrainzdialog.cpp:111 musicbrainzdialog.cpp:129
 msgid "Track Title/Artist - Album"
-msgstr "Tytuł ścieżki/Artysta - Album"
+msgstr "Loo nr Pealkiri/Esitaja - Album"
 
 #: importselector.cpp:290
 msgid "TrackType.org"
@@ -1759,23 +1751,23 @@ msgstr "TrackType.org"
 
 #: framelist.cpp:1150
 msgid "Trivia/pop up"
-msgstr "Trivia/podnoszą"
+msgstr "Trivia/hüpik"
 
 #: filefilter.cpp:115
 msgid "True if string contains substring"
-msgstr "Dopasowanie częściowe"
+msgstr "Tõene, kui string sisaldab alamstringi"
 
 #: filefilter.cpp:119
 msgid "True if string matches regexp"
-msgstr "Dopasowanie WYR_REG"
+msgstr "Tõene, kui string vastab regulaaravaldisele"
 
 #: filefilter.cpp:111
 msgid "True if strings are equal"
-msgstr "łańcuchy są równe"
+msgstr "Tõene, kui stringid on võrdsed"
 
 #: mp3file.cpp:1346 taglibfile.cpp:1556
 msgid "UFID - Unique file identifier"
-msgstr "UFID - Unikalny identyfikator pliku"
+msgstr "UFID - unikaalne faili-identifikaator"
 
 #: framelist.cpp:872
 msgid "URL"
@@ -1783,57 +1775,57 @@ msgstr "URL"
 
 #: filelist.cpp:250
 msgid "URLs"
-msgstr "URL"
+msgstr "URL-id"
 
 #: mp3file.cpp:1347 taglibfile.cpp:1557
 msgid "USER - Terms of use"
-msgstr "USER - Warunki użytkowania"
+msgstr "USER - kasutustingimused"
 
 #: mp3file.cpp:1348 taglibfile.cpp:1558
 msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr ""
+msgstr "USLT - sünkroniseerimata laulusõnad/teksti transkriptsioon"
 
 #: configdialog.cpp:251 framelist.cpp:1087
 msgid "UTF16"
-msgstr "UTF16"
+msgstr "UTF-16"
 
 #: framelist.cpp:1088
 msgid "UTF16BE"
-msgstr "UTF16BE"
+msgstr "UTF-16-BE"
 
 #: configdialog.cpp:252 framelist.cpp:1089
 msgid "UTF8"
-msgstr "UTF8"
+msgstr "UTF-8"
 
 #: configdialog.cpp:504 configdialog.cpp:739 musicbrainzdialog.cpp:215
 #: musicbrainzdialog.cpp:219 musicbrainzdialog.cpp:221
 #: musicbrainzdialog.cpp:232 musicbrainzdialog.cpp:246
 msgid "Unknown"
-msgstr "Nieznany"
+msgstr "Teadmata"
 
 #: musicbrainzclient.cpp:292 musicbrainzclient.cpp:595
 msgid "Unrecognized"
-msgstr "Nie rozpoznano"
+msgstr "Tundmatu"
 
 #: configdialog.cpp:221 configdialog.cpp:235
 msgid "Use &track/total number of tracks format"
-msgstr "Używaj &formatu ścieżka/całkowita liczba ścieżek"
+msgstr "Kasutatakse vormingut \"&loo nr/lugude koguarv\""
 
 #: configdialog.cpp:493
 msgid "Use custom app&lication font"
-msgstr "Użyj własnej &czcionki"
+msgstr "Kohandatud &fondi kasutamine rakenduses"
 
 #: configdialog.cpp:495
 msgid "Use custom application &style"
-msgstr "Używaj własnego programu i &stylu"
+msgstr "Kohandatud &stiili kasutamine rakenduses"
 
 #: configdialog.cpp:418
 msgid "User Actions"
-msgstr "Działania użytkownika"
+msgstr "Kasutaja toimingud"
 
 #: musicbrainzclient.cpp:303 musicbrainzclient.cpp:590
 msgid "User Selection"
-msgstr "Wybór użytkownika"
+msgstr "Kasutaja valik"
 
 #: importtrackdata.cpp:225
 msgid "VBR"
@@ -1841,97 +1833,130 @@ msgstr "VBR"
 
 #: musicbrainzclient.cpp:304
 msgid "Verified"
-msgstr "Zweryfikowano"
+msgstr "Kinnitatud"
 
 #: framelist.cpp:346
 msgid "View Picture"
-msgstr "Pokaż obrazek"
+msgstr "Pilt"
 
 #: framelist.cpp:885
 msgid "Volume Adjustment"
-msgstr "Zmiana głośności"
+msgstr "Helitugevuse korrigeerimine"
 
 #: framelist.cpp:888
 msgid "Volume Change Left"
-msgstr ""
+msgstr "Helitugevuse muutus vasakul"
 
 #: framelist.cpp:887
 msgid "Volume Change Right"
-msgstr ""
+msgstr "Helitugevuse muutus paremal"
 
 #: mp3file.cpp:1349 taglibfile.cpp:1559
 msgid "WCOM - Commercial information"
-msgstr ""
+msgstr "WCOM - kommertsinfo URL"
 
 #: mp3file.cpp:1350 taglibfile.cpp:1560
 msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - Informacja o legalności i prawach autorskich"
+msgstr "WCOP - autoriõiguse / juriidilise teabe URL"
 
 #: mp3file.cpp:1351 taglibfile.cpp:1561
 msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Oficjalna strona internetowa pliku audio"
+msgstr "WOAF - audiofaili ametlik veebileht"
 
 #: mp3file.cpp:1352 taglibfile.cpp:1562
 msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Oficjalna strona internetowa artysty/wykonawcy"
+msgstr "WOAR - esitaja/ettekandja ametlik veebileht"
 
 #: mp3file.cpp:1353 taglibfile.cpp:1563
 msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Oficjalna strona internetowa źródła audio"
+msgstr "WOAS - audioallika ametlik veebileht"
 
 #: mp3file.cpp:1354 taglibfile.cpp:1564
 msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Oficjalna strona internetowa radia internetowego"
+msgstr "WORS - Interneti-raadiojaama ametlik koduleht"
 
 #: mp3file.cpp:1355 taglibfile.cpp:1565
 msgid "WPAY - Payment"
-msgstr "WPAY - Płatność"
+msgstr "WPAY - makse URL"
 
 #: mp3file.cpp:1356 taglibfile.cpp:1566
 msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Oficjalna strona internetowa wydawcy"
+msgstr "WPUB - väljaandja ametlik veebileht"
 
 #: mp3file.cpp:1357 taglibfile.cpp:1567
 msgid "WXXX - User defined URL link"
-msgstr "WXXX - Odnośnik URL zdefiniowany przez użytkownika"
+msgstr "WXXX - kasutaja määratud URL"
 
 #: kid3.cpp:1251
 msgid "Warning - Kid3"
-msgstr "Ostrzeżenie - Kid3"
+msgstr "Hoiatus - Kid3"
 
 #: configdialog.cpp:386
 msgid "Web &browser:"
-msgstr "&Przeglądarka WWW:"
+msgstr "&Veebilehitseja:"
 
 #: frame.cpp:98
 msgid "Website"
-msgstr "Strona WWW"
+msgstr "Veebilehekülg"
 
 #: musicbrainzclient.cpp:414
 msgid "Written"
-msgstr "Zapisano"
+msgstr "Kirjutatud"
 
 #: frame.cpp:659 importparser.cpp:58 importselector.cpp:215
 #: importselector.cpp:243
 msgid "Year"
-msgstr "Rok"
+msgstr "Aasta"
 
 #: _translatorinfo.cpp:3
 msgid ""
 "_: EMAIL OF TRANSLATORS\n"
 "Your emails"
-msgstr "targasinski@o2.pl, msmoczyk@wp.pl"
+msgstr "mihhkel@gmail.com"
 
 #: _translatorinfo.cpp:1
 msgid ""
 "_: NAME OF TRANSLATORS\n"
 "Your names"
-msgstr "Tomasz Argasiński, Michał Smoczyk"
+msgstr "Mihkel Tõnnov"
 
 #: main.cpp:93
 msgid "directory to open"
-msgstr "katalog do otwarcia"
+msgstr "avatav kataloog"
 
 #: importselector.cpp:289
 msgid "gnudb.org"
 msgstr "gnudb.org"
+
+#~ msgid "&Clear cell"
+#~ msgstr "&Tühjenda lahter"
+
+#~ msgid "&View"
+#~ msgstr "&Näita"
+
+#~ msgid "Add"
+#~ msgstr "&Lisa..."
+
+#~ msgid "Edit"
+#~ msgstr "R&edigeeri..."
+
+#
+# Below are overrides for unfitting translations pulled from KDE
+#
+#~ msgid "Hide St&atusbar"
+#~ msgstr "Peida &olekuriba"
+
+#~ msgid "Hide Toolbar"
+#~ msgstr "Peida &tööriistariba"
+
+#~ msgid "Save"
+#~ msgstr "Salvestamine"
+
+#~ msgid "Show St&atusbar"
+#~ msgstr "Näita &olekuriba"
+
+#~ msgid "Show Statusbar"
+#~ msgstr "Näita olekuriba"
+
+#~ msgid "Show Toolbar"
+#~ msgstr "Näita &tööriistariba"

@@ -114,6 +114,7 @@ sub setTsTranslations($$%)
 				$translation =~ s/&/&amp;/g;
 				$translation =~ s/</&lt;/g;
 				$translation =~ s/>/&gt;/g;
+				$translation =~ s/\\"/&quot;/g;
 				$translation =~ s/\\n/\n/g;
 				s/ type="unfinished"//;
 				s/<\/translation>/$translation<\/translation>/;
@@ -130,7 +131,7 @@ sub setTsTranslations($$%)
 # Generate .ts files from .po files.
 sub generateTs()
 {
-	my @languages = ("de", "es", "fr", "ru", "it", "pl", "nl");
+	my @languages = ("de", "es", "fr", "ru", "it", "pl", "nl", "et");
 	my $tmpdir = ".tsdir";
 	mkdir $tmpdir unless -d $tmpdir;
 	mkdir "po" unless -d "po";

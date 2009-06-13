@@ -45,6 +45,7 @@ class ConfigTable;
  */
 class FormatBox : public QGroupBox
 {
+Q_OBJECT
 public:
 	/**
 	 * Constructor.
