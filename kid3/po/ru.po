@@ -18,184 +18,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: kid3.cpp:2849
-msgid " [filtered]"
-msgstr " [фильтровано]"
+#: _translatorinfo.cpp:1
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Егор С. Орлов"
 
-#: kid3.cpp:2855
-msgid " [modified]"
-msgstr " [изменено]"
+#: _translatorinfo.cpp:3
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "Egor.Orlov@avalon.ru"
 
-#: rendirdialog.cpp:57
-msgid "%1 already exists\n"
-msgstr "%1 уже существует\n"
+#: browsecoverartdialog.cpp:61 filelist.cpp:262
+msgid "Encode as URL"
+msgstr "Кодировать URL"
 
-#: rendirdialog.cpp:53
-msgid "%1 is not a directory\n"
-msgstr "%1 - это не каталог\n"
-
-#: rendirdialog.cpp:59
-msgid "%1 is not a file\n"
-msgstr "%1 не является файлом\n"
-
-#: kid3.cpp:678
-msgid "&About Kid3"
-msgstr "&О Kid3"
-
-#: stringlistedit.cpp:56
-msgid "&Add..."
-msgstr "&Добавить..."
-
-#: importsourcedialog.cpp:122
-msgid "&Additional Tags"
-msgstr "&Дополнительные теги"
-
-#: configdialog.cpp:515
-msgid "&Appearance"
-msgstr "&Внешний вид"
+#: browsecoverartdialog.cpp:77 browsecoverartdialog.cpp:323
+msgid "Browse Cover Art"
+msgstr "Найти обложки"
 
 #: browsecoverartdialog.cpp:91 browsecoverartdialog.cpp:94
 msgid "&Artist/Album"
 msgstr "Исполнитель/&Альбом"
 
-#: kid3.cpp:185
-msgid "&Back"
-msgstr "&Дорожка"
+#: browsecoverartdialog.cpp:114 browsecoverartdialog.cpp:116
+msgid "&Source"
+msgstr "&Источник"
 
-#: browsecoverartdialog.cpp:176
-msgid "&Browse"
-msgstr "&Браузер"
+#: browsecoverartdialog.cpp:138 browsecoverartdialog.cpp:141
+msgid "&URL extraction"
+msgstr "Замена &URL"
 
-#: kid3.cpp:409 kid3.cpp:610
-msgid "&Browse Cover Art..."
-msgstr "&Найти обложки..."
+#: browsecoverartdialog.cpp:146
+msgid "Match"
+msgstr "Состязание"
 
-#: commandstable.cpp:270 commandstable.cpp:285 configtable.cpp:234
-#: configtable.cpp:249
-msgid "&Clear row"
-msgstr "&Очистить строку"
-
-#: kid3.cpp:766
-msgid "&Configure Kid3..."
-msgstr "&Настроить Kid3..."
-
-#: kid3.cpp:417 kid3.cpp:624
-msgid "&Create Playlist"
-msgstr "&Cоздать список песен"
-
-#: commandstable.cpp:266 commandstable.cpp:281 configtable.cpp:230
-#: configtable.cpp:245
-msgid "&Delete row"
-msgstr "&Удалить строку"
-
-#: numbertracksdialog.cpp:77
-msgid "&Destination:"
-msgstr "М&есто назначения:"
-
-#: stringlistedit.cpp:59
-msgid "&Edit..."
-msgstr "&Изменить..."
-
-#: framelist.cpp:737
-msgid "&Export"
-msgstr "&Экспорт"
-
-#: kid3.cpp:413 kid3.cpp:617
-msgid "&Export..."
-msgstr "&Экспорт..."
-
-#: configdialog.cpp:361
-msgid "&Filename Format"
-msgstr "&Формат имени файла"
-
-#: configdialog.cpp:370
-msgid "&Files"
-msgstr "&Файлы"
-
-#: filterdialog.cpp:76 filterdialog.cpp:78
-msgid "&Filter"
-msgstr "&Фильтр"
-
-#: importsourcedialog.cpp:74
-msgid "&Find"
-msgstr "&Найти"
-
-#: exportdialog.cpp:87 exportdialog.cpp:89
-msgid "&Format"
-msgstr "&Формат"
-
-#: rendirdialog.cpp:184
-msgid "&Format:"
-msgstr "&Формат:"
-
-#: kid3.cpp:186
-msgid "&Forward"
-msgstr "&Вперёд"
-
-#: importselector.cpp:284
-msgid "&From Server:"
-msgstr "&Из сервер:"
-
-#: configdialog.cpp:224 configdialog.cpp:238
-msgid "&Genre as text instead of numeric string"
-msgstr "&Жанр как текст"
-
-#: framelist.cpp:736
-msgid "&Import"
-msgstr "&Импорт"
-
-#: kid3.cpp:383 kid3.cpp:566
-msgid "&Import..."
-msgstr "&Импорт..."
-
-#: commandstable.cpp:262 commandstable.cpp:277 configtable.cpp:226
-#: configtable.cpp:241
-msgid "&Insert row"
-msgstr "&Вставить строку"
-
-#: importselector.cpp:329
-msgid "&Length"
-msgstr "&Длительность"
-
-#: configdialog.cpp:351
-msgid "&Mark changes"
-msgstr "&Отмечать изменения"
-
-#: configdialog.cpp:121 configdialog.cpp:130
-msgid "&Mark truncated fields"
-msgstr "&Отметить обрезанные структуры"
-
-#: configdialog.cpp:472
-msgid "&Network"
-msgstr "&Сеть"
-
-#: kid3.cpp:470 kid3.cpp:663
-msgid "&Next File"
-msgstr "&Следующий файл"
-
-#: kid3.cpp:433 kid3.cpp:713
-msgid "&Number Tracks..."
-msgstr "&Пронумеровать дорожки по порядку..."
-
-#: configdialog.cpp:350
-msgid "&Preserve file timestamp"
-msgstr "&Сохранять время изменения файлов"
-
-#: kid3.cpp:466 kid3.cpp:655
-msgid "&Previous File"
-msgstr "&Предыдущий файл"
-
-#: configdialog.cpp:436
-msgid "&Proxy:"
-msgstr "&Прокси:"
-
-#: filelist.cpp:842 filelist.cpp:855
-msgid "&Rename"
-msgstr "&Переименовать"
-
-#: kid3.cpp:429 kid3.cpp:706
-msgid "&Rename Directory..."
-msgstr "&Переименовать Каталог..."
+#: browsecoverartdialog.cpp:147
+msgid "Picture URL"
+msgstr "Картинка URL"
 
 #: browsecoverartdialog.cpp:166 exportdialog.cpp:161 filterdialog.cpp:106
 #: importdialog.cpp:78 importsourcedialog.cpp:153 musicbrainzdialog.cpp:140
@@ -203,666 +64,89 @@ msgstr "&Переименовать Каталог..."
 msgid "&Save Settings"
 msgstr "&Сохранить настройки"
 
-#: importsourcedialog.cpp:93 musicbrainzdialog.cpp:73
-msgid "&Server:"
-msgstr "&Сервер:"
-
-#: configdialog.cpp:312
-msgid "&Show only custom genres"
-msgstr "&Показывать только выборочная жанры"
-
-#: browsecoverartdialog.cpp:114 browsecoverartdialog.cpp:116
-msgid "&Source"
-msgstr "&Источник"
-
-#: exportdialog.cpp:137
-msgid "&Source:"
-msgstr "&Источник:"
-
-#: numbertracksdialog.cpp:64
-msgid "&Start number:"
-msgstr "&Число начала:"
-
-#: configdialog.cpp:323
-msgid "&Tag Format"
-msgstr "&Формат тэга"
-
-#: configdialog.cpp:334
-msgid "&Tags"
-msgstr "&Теги"
-
-#: importselector.cpp:333
-msgid "&Title"
-msgstr "&Название"
-
-#: browsecoverartdialog.cpp:138 browsecoverartdialog.cpp:141
-msgid "&URL extraction"
-msgstr "Замена &URL"
-
-#: configdialog.cpp:439
-msgid "&Use authentication with proxy"
-msgstr "&Использовать авторизацию на прокси"
-
-#: configdialog.cpp:420
-msgid "&User Actions"
-msgstr "&Команды пользователя"
-
-#: configdialog.cpp:229 configdialog.cpp:244
-msgid "&Version used for new tags:"
-msgstr "&Версия, используемая для нового тегов:"
-
-#: framelist.cpp:1101
-msgid "32x32 pixels PNG file icon"
-msgstr "Иконка PNG-файла 32x32 точки"
-
-#: framelist.cpp:1117
-msgid "A bright coloured fish"
-msgstr "A bright coloured fish"
-
-#: configdialog.cpp:494
-msgid "A&pplication Font..."
-msgstr "Шрифт &приложения..."
-
-#: mp3file.cpp:1266 taglibfile.cpp:1485
-msgid "AENC - Audio encryption"
-msgstr "AENC - Аудио-кодирование"
-
-#: mp3file.cpp:1267 taglibfile.cpp:1486
-msgid "APIC - Attached picture"
-msgstr "APIC - Прикрепленная картинка"
-
-#: taglibfile.cpp:1487
-msgid "ASPI - Audio seek point index"
-msgstr "ASPI - Audio seek point index"
-
-#: kid3.cpp:685
-msgid "About &Qt"
-msgstr "О &Qt"
-
-#: kid3.cpp:677
-msgid "About Kid3"
-msgstr "О Kid3"
-
-#: kid3.cpp:684
-msgid "About Qt"
-msgstr "О Qt"
-
-#: importtrackdata.cpp:189
-msgid "Absolute path to file"
-msgstr "Абсолютный путь"
-
-#: framelist.cpp:1560
-msgid "Add Frame"
-msgstr "Добавить Фрейм"
-
-#: stringlistedit.cpp:136
-msgid "Add Item"
-msgstr "Добавить элемент"
-
-#: frame.cpp:68 importselector.cpp:215 importselector.cpp:242
-msgid "Album"
-msgstr "Альбом"
-
-#: frame.cpp:74
-msgid "Album Artist"
-msgstr "Исполнитель"
-
-#: kid3.cpp:1422 kid3.cpp:1428
-msgid "All Files (*)"
-msgstr "Все файлы (*)"
-
-#: kid3.cpp:1420 kid3.cpp:1424
-msgid "All Supported Files"
-msgstr "Все поддерживаемые файлы"
-
-#: formatbox.cpp:69
-msgid "All first letters uppercase"
-msgstr "Все первые буквы в верхний регистр"
-
-#: formatbox.cpp:63
-msgid "All lowercase"
-msgstr "Все в нижний регистр"
-
-#: formatbox.cpp:65
-msgid "All uppercase"
-msgstr "Все в верхний регистр"
-
-#: kid3.cpp:421 kid3.cpp:692
-msgid "Apply &Filename Format"
-msgstr "Применить Формат имени &файла"
-
-#: kid3.cpp:425 kid3.cpp:699
-msgid "Apply &Tag Format"
-msgstr "Применить Формат &тэга"
-
-#: kid3.cpp:691
-msgid "Apply Filename Format"
-msgstr "Применить Формат имени файла"
-
-#: kid3.cpp:698
-msgid "Apply Tag Format"
-msgstr "Применить формат тэга"
-
-#: frame.cpp:75
-msgid "Arranger"
-msgstr "Аранжировщик"
-
-#: frame.cpp:67 importselector.cpp:215 importselector.cpp:241
-msgid "Artist"
-msgstr "Исполнитель"
-
-#: framelist.cpp:1108
-msgid "Artist/performer"
-msgstr "Исполнитель"
-
-#: frame.cpp:76
-msgid "Author"
-msgstr "Автор"
-
-#: frame.cpp:77
-msgid "BPM"
-msgstr "BPM"
-
-#: framelist.cpp:1110
-msgid "Band/Orchestra"
-msgstr "Группа/Оркестр"
-
-#: framelist.cpp:1119
-msgid "Band/artist logotype"
-msgstr "Логотип группы/испольнителя"
-
-#: importtrackdata.cpp:221
-msgid "Bitrate"
-msgstr "Битовый поток"
-
-#: browsecoverartdialog.cpp:77 browsecoverartdialog.cpp:323
-msgid "Browse Cover Art"
-msgstr "Найти обложки"
-
-#: kid3.cpp:609
-msgid "Browse album cover artwork"
-msgstr "Найти обложки"
-
-#: configdialog.cpp:381 configdialog.cpp:383
-msgid "Browser"
-msgstr "Браузер"
-
-#: importsourcedialog.cpp:97
-msgid "C&GI Path:"
-msgstr "Путь к C&GI:"
-
-#: externalprocess.cpp:55
-msgid "C&lear"
-msgstr "О&чистить"
-
-#: importsourcedialog.cpp:123
-msgid "C&over Art"
-msgstr "&Обложки"
-
-#: mp3file.cpp:1269 taglibfile.cpp:1488
-msgid "COMM - Comments"
-msgstr "COMM - Комментарии"
-
-#: mp3file.cpp:1270 taglibfile.cpp:1489
-msgid "COMR - Commercial"
-msgstr "COMR - Реклама"
-
-#: formatbox.cpp:55
-msgid "Case conversion:"
-msgstr "Преобразование Регистра:"
-
-#: importtrackdata.cpp:235
-msgid "Channels"
-msgstr "Каналы"
-
-#: importselector.cpp:319
-msgid "Check maximum allowable time &difference (sec):"
-msgstr "Проверить максимальную допустимую &разницу во времени (секунды):"
-
-#: framelist.cpp:1149
-msgid "Chord"
-msgstr "Аккорд"
+#: browsecoverartdialog.cpp:176
+msgid "&Browse"
+msgstr "&Браузер"
 
 #: browsecoverartdialog.cpp:226
 msgid "Click Browse to start"
 msgstr ""
 
-#: importtrackdata.cpp:239
-msgid "Codec"
-msgstr "Кодек"
-
-#: commandstable.cpp:59 commandstable.cpp:78
-msgid "Command"
-msgstr "Команда"
-
-#: frame.cpp:69 importselector.cpp:216 importselector.cpp:245
-msgid "Comment"
-msgstr "Коментарий"
-
-#: configdialog.cpp:283
-msgid "Comment field &name:"
-msgstr "&Имя структур коментэри:"
-
-#: frame.cpp:78 framelist.cpp:1111
-msgid "Composer"
-msgstr "Композитор"
-
-#: frame.cpp:79 framelist.cpp:1109
-msgid "Conductor"
-msgstr "Дирижер"
-
-#: kid3.cpp:2235
-msgid "Configure - Kid3"
-msgstr "Настройка - Kid3"
-
-#: kid3.cpp:765
-msgid "Configure Kid3"
-msgstr "Настроить Kid3"
-
-#: kid3.cpp:374
-msgid "Configure Shortcuts"
-msgstr "Настройка быстрых клавиш"
-
-#: kid3.cpp:375
-msgid "Configure Toolbars"
-msgstr "Настроить инструменты"
+#: browsecoverartdialog.cpp:232
+msgid "Then drag the picture from the browser to Kid3."
+msgstr ""
 
 #: commandstable.cpp:58 commandstable.cpp:75
 msgid "Confirm"
 msgstr "Подтверждение"
 
-#: httpclient.cpp:74 httpclient.cpp:379
-msgid "Connecting..."
-msgstr "Соединение..."
-
-#: httpclient.cpp:116 httpclient.cpp:329
-msgid "Connection refused"
-msgstr "Соединение отвергнуто"
-
-#: framelist.cpp:892
-msgid "Content Type"
-msgstr "Тип Содержимого"
-
-#: configdialog.cpp:402 configdialog.cpp:404
-msgid "Context &Menu Commands"
-msgstr "Элементы контекстного &меню"
-
-#: kid3.cpp:442 kid3.cpp:728
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Преобразуйте ID3v2.3 в ID3v2.&4"
-
-#: kid3.cpp:727
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Преобразуйте ID3v2.3 в ID3v2.4"
-
-#: kid3.cpp:448 kid3.cpp:737
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Преобразуйте ID3v2.4 в ID3v2.&3"
-
-#: kid3.cpp:736
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Преобразуйте ID3v2.4 в ID3v2.3"
-
-#: frame.cpp:80
-msgid "Copyright"
-msgstr "Авторское право"
-
-#: externalprocess.cpp:178
-msgid "Could not execute "
-msgstr "Не удалось запустить "
-
-#: framelist.cpp:883
-msgid "Counter"
-msgstr "Счетчик"
-
-#: framelist.cpp:1104
-msgid "Cover (back)"
-msgstr "Оболочка (Сзади)"
-
-#: framelist.cpp:1103
-msgid "Cover (front)"
-msgstr "Оболочка (Спереди)"
-
-#: rendirdialog.cpp:173
-msgid "Create Directory"
-msgstr "Создать Каталог"
-
-#: kid3.cpp:623
-msgid "Create M3U Playlist"
-msgstr "Создать список M3U"
-
-#: rendirdialog.cpp:772
-msgid "Create directory"
-msgstr "Создать Каталог"
-
-#: rendirdialog.cpp:49
-msgid "Create directory %1 failed\n"
-msgstr "Сбой попытки создания требуемого каталога %1\n"
-
-#: kid3.cpp:1752
-msgid "Creating playlist..."
-msgstr "Создание списка песен..."
-
-#: configdialog.cpp:307 configdialog.cpp:309
-msgid "Custom &Genres"
-msgstr "Выборочная &жанры"
-
-#: importselector.cpp:303
-msgid "D&estination:"
-msgstr "М&есто назначения:"
-
-#: framelist.cpp:873
-msgid "Data"
-msgstr "Дата"
-
-#: httpclient.cpp:31
-msgid "Data received: %1"
-msgstr "Полученные сведения: %1"
-
-#: frame.cpp:70
-msgid "Date"
-msgstr "Дата"
-
-#: filelist.cpp:1157 filelist.cpp:1163 filelist.cpp:1180 filelist.cpp:1255
-#: filelist.cpp:1269
-msgid "Delete Files"
-msgstr "Удалить файлы"
-
-#: musicbrainzclient.cpp:306
-msgid "Deleted"
-msgstr "Удалено"
-
-#: framelist.cpp:874
-msgid "Description"
-msgstr "Описание"
-
-#: kid3.cpp:647
-msgid "Dese&lect"
-msgstr "Отме&нить выбор"
-
-#: kid3.cpp:373 kid3.cpp:646
-msgid "Deselect all files"
-msgstr "Отменить выбор"
-
-#: filelist.cpp:1279 filelist.cpp:1286
-msgid "Directory must be empty.\n"
-msgstr "Каталог должен быть пустым.\n"
-
-#: filelist.cpp:254
-msgid "Directory name"
-msgstr "Имя каталога"
-
-#: frame.cpp:81
-msgid "Disc Number"
-msgstr "Число диска"
-
-#: importselector.cpp:291
-msgid "Discogs"
-msgstr "Discogs"
-
-#: filelist.cpp:70
-msgid "Do you really want to delete these %1 items?"
-msgstr "Вы действительно хотите удалить %1 файла?"
-
-#: filelist.cpp:1160 filelist.cpp:1170 filelist.cpp:1253 filelist.cpp:1270
-msgid "Do you really want to delete this item?"
-msgstr "Вы действительно хотите удалить файл?"
-
-#: kid3.cpp:2783
-msgid "Download"
-msgstr "Закачка"
-
-#: picturelabel.cpp:85
-msgid ""
-"Drag album\n"
-"artwork\n"
-"here"
-msgstr ""
-"Перетащите\n"
-"сюда обложку\n"
-"альбома"
-
-#: framelist.cpp:1115
-msgid "During performance"
-msgstr "Длительность исполнения"
-
-#: framelist.cpp:1114
-msgid "During recording"
-msgstr "Длительность записи"
-
-#: mp3file.cpp:1271 taglibfile.cpp:1490
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - Encryption method registration"
-
-#: taglibfile.cpp:1491
-msgid "EQU2 - Equalisation (2)"
-msgstr "EQU2 - Equalisation (2)"
-
-#: mp3file.cpp:1273
-msgid "EQUA - Equalization"
-msgstr "EQUA - Equalization"
-
-#: mp3file.cpp:1274 taglibfile.cpp:1492
-msgid "ETCO - Event timing codes"
-msgstr "ETCO - Event timing codes"
-
-#: stringlistedit.cpp:183 stringlistedit.cpp:194
-msgid "Edit Item"
-msgstr "Изменить элемент"
-
-#: framelist.cpp:876
-msgid "Email"
-msgstr "Почта"
-
-#: kid3.cpp:353
-msgid "Enables/disables the statusbar"
-msgstr "Включить/выключить строку состояния"
-
-#: kid3.cpp:352
-msgid "Enables/disables the toolbar"
-msgstr "Включить/выключить панель инструментов"
-
-#: browsecoverartdialog.cpp:61 filelist.cpp:262
-msgid "Encode as URL"
-msgstr "Кодировать URL"
-
-#: frame.cpp:82
-msgid "Encoded-by"
-msgstr "Кодировщик"
-
-#: filelist.cpp:1113
-msgid "Enter new directory name:"
-msgstr "Введите новое имя каталога:"
-
-#: filelist.cpp:1065
-msgid "Enter new file name:"
-msgstr "Введите новое имя файла:"
-
-#: filelist.cpp:72
-msgid "Error while deleting these %1 items:"
-msgstr "Не удалось удалить эти %1 пунктов:"
-
-#: filelist.cpp:1226 filelist.cpp:1234 filelist.cpp:1280 filelist.cpp:1287
-msgid "Error while deleting this item:"
-msgstr "Не удалось удалить этот пункт:"
-
-#: filelist.cpp:1090 filelist.cpp:1126 kid3.cpp:2442
-msgid "Error while renaming:\n"
-msgstr "Ошибка переименование:\n"
-
-#: exportdialog.cpp:235 kid3.cpp:1203 kid3.cpp:1209
-msgid "Error while writing file:\n"
-msgstr "Ошибка при записи файла:\n"
-
-#: framelist.cpp:1148
-msgid "Events"
-msgstr "События"
-
-#: externalprocess.cpp:130
-msgid "Execute "
-msgstr "Выполнить "
-
-#: kid3.cpp:1575
-msgid "Exiting..."
-msgstr "Выход..."
-
-#: kid3.cpp:616
-msgid "Export to file or clipboard"
-msgstr "Экспорт в файл или Буфера Обмена"
-
-#: importtrackdata.cpp:209
-msgid "Extension"
-msgstr "Расширение"
-
-#: kid3.cpp:437 kid3.cpp:720
-msgid "F&ilter..."
-msgstr "Ф&ильтр..."
-
-#: rendirdialog.cpp:51
-msgid "File %1 already exists\n"
-msgstr "Файл %1 уже существует\n"
-
-#: exportdialog.cpp:234 filelist.cpp:1089 filelist.cpp:1125 filelist.cpp:1230
-#: filelist.cpp:1238 filelist.cpp:1282 filelist.cpp:1285 kid3.cpp:1205
-#: kid3.cpp:1208 kid3.cpp:2441
-msgid "File Error"
-msgstr "Ошибка файла"
-
-#: musicbrainzclient.cpp:302
-msgid "File Lookup"
-msgstr "Поиск файла"
-
-#: id3form.cpp:171 id3form.cpp:300
-msgid "File&name"
-msgstr "&Имя файла"
-
-#: framelist.cpp:878 kid3.cpp:513 kid3.cpp:516 kid3.cpp:519
-msgid "Filename"
-msgstr "Имя файла"
-
-#: filelist.cpp:242
-msgid "Filenames"
-msgstr "Имена файлов"
-
-#: filterdialog.cpp:61 kid3.cpp:719
-msgid "Filter"
-msgstr "Фильтр"
-
-#: formatbox.cpp:67
-msgid "First letter uppercase"
-msgstr "Первая буква в верхний регистр"
-
-#: kid3.cpp:519 kid3.cpp:522 kid3.cpp:525
-msgid "Focus"
-msgstr "Фокус"
-
-#: importselector.cpp:252 importselector.cpp:254 rendirdialog.cpp:78
-#: rendirdialog.cpp:135
-msgid "Format"
-msgstr "Формат"
-
-#: formatbox.cpp:51
-msgid "Format while editing"
-msgstr "Форматировать при редактировании"
-
-#: id3form.cpp:187 id3form.cpp:321
-msgid "Format:"
-msgstr "Формат:"
-
-#: kid3.cpp:504 kid3.cpp:507 kid3.cpp:510
-msgid "Frames:"
-msgstr "Фреймы:"
-
-#: formatbox.cpp:74
-msgid "From"
-msgstr "От"
-
-#: framelist.cpp:735 importselector.cpp:281
-msgid "From Clip&board"
-msgstr "Из &Буфера Обмена"
-
-#: importselector.cpp:278
-msgid "From F&ile"
-msgstr "Из имени фа&йла"
-
-#: id3form.cpp:219 id3form.cpp:254 id3form.cpp:351 id3form.cpp:374
-#: kid3.cpp:474 kid3.cpp:489
-msgid "From Filename"
-msgstr "Из имени файла"
-
-#: id3form.cpp:184 id3form.cpp:257 id3form.cpp:318 id3form.cpp:375
-#: kid3.cpp:492 kid3.cpp:513 rendirdialog.cpp:177
-msgid "From Tag 1"
-msgstr "Из тег 1"
-
-#: id3form.cpp:196 id3form.cpp:223 id3form.cpp:330 id3form.cpp:353
-#: kid3.cpp:477 kid3.cpp:516 rendirdialog.cpp:178
-msgid "From Tag 2"
-msgstr "Из тег 2"
-
-#: rendirdialog.cpp:176
-msgid "From Tag 2 and Tag 1"
-msgstr "Из тег 2 и тег 1"
-
-#: rendirdialog.cpp:216
-msgid "From:"
-msgstr "От:"
-
-#: mp3file.cpp:1275 taglibfile.cpp:1493
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB - General encapsulated object"
-
-#: mp3file.cpp:1276 taglibfile.cpp:1494
-msgid "GRID - Group identification registration"
-msgstr "GRID - Group identification registration"
-
-#: frame.cpp:72 importselector.cpp:215 importselector.cpp:244
-msgid "Genre"
-msgstr "Жанр"
-
-#: frame.cpp:83
-msgid "Grouping"
-msgstr "Группирование"
-
-#: kid3.cpp:461 kid3.cpp:759 kid3.cpp:2186 kid3.cpp:2189
-msgid "Hide &Picture"
-msgstr "Скрывать &картину"
-
-#: kid3.cpp:758 kid3.cpp:2188
-msgid "Hide Picture"
-msgstr "Скрывать картину"
-
-#: kid3.cpp:453 kid3.cpp:745 kid3.cpp:2130 kid3.cpp:2133
-msgid "Hide Tag &1"
-msgstr "Скрыть тег &1"
-
-#: kid3.cpp:457 kid3.cpp:752 kid3.cpp:2158 kid3.cpp:2161
-msgid "Hide Tag &2"
-msgstr "Скрыть тег &2"
-
-#: kid3.cpp:744 kid3.cpp:2132
-msgid "Hide Tag 1"
-msgstr "Скрыть тег 1"
-
-#: kid3.cpp:751 kid3.cpp:2160
-msgid "Hide Tag 2"
-msgstr "Скрыть тег 2"
-
-#: httpclient.cpp:77 httpclient.cpp:227
-msgid "Host found..."
-msgstr "Сервер найден..."
-
-#: httpclient.cpp:119 httpclient.cpp:332
-msgid "Host not found"
-msgstr "Сервер не найден"
+#: commandstable.cpp:58 commandstable.cpp:76
+msgid "Output"
+msgstr "Вывод"
+
+#: commandstable.cpp:58 commandstable.cpp:77
+msgid "Name"
+msgstr "Имя"
+
+#: commandstable.cpp:59 commandstable.cpp:78
+msgid "Command"
+msgstr "Команда"
+
+#: commandstable.cpp:262 commandstable.cpp:277 configtable.cpp:226
+#: configtable.cpp:241
+msgid "&Insert row"
+msgstr "&Вставить строку"
+
+#: commandstable.cpp:266 commandstable.cpp:281 configtable.cpp:230
+#: configtable.cpp:245
+msgid "&Delete row"
+msgstr "&Удалить строку"
+
+#: commandstable.cpp:270 commandstable.cpp:285 configtable.cpp:234
+#: configtable.cpp:249
+msgid "&Clear row"
+msgstr "&Очистить строку"
 
 #: configdialog.cpp:116 configdialog.cpp:128
 msgid "ID3v1"
 msgstr "ID3v1"
 
+#: configdialog.cpp:121 configdialog.cpp:130
+msgid "&Mark truncated fields"
+msgstr "&Отметить обрезанные структуры"
+
+#: configdialog.cpp:124 configdialog.cpp:133 configdialog.cpp:225
+#: configdialog.cpp:240
+msgid "Text &encoding:"
+msgstr "Кодировка т&екста:"
+
 #: configdialog.cpp:216 configdialog.cpp:233
 msgid "ID3v2"
 msgstr "ID3v2"
+
+#: configdialog.cpp:221 configdialog.cpp:235
+msgid "Use &track/total number of tracks format"
+msgstr "Формат использования &число/количество дорожек"
+
+#: configdialog.cpp:224 configdialog.cpp:238
+msgid "&Genre as text instead of numeric string"
+msgstr "&Жанр как текст"
+
+#: configdialog.cpp:229 configdialog.cpp:244
+msgid "&Version used for new tags:"
+msgstr "&Версия, используемая для нового тегов:"
+
+#: configdialog.cpp:250 framelist.cpp:1086
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: configdialog.cpp:251 framelist.cpp:1087
+msgid "UTF16"
+msgstr "UTF16"
+
+#: configdialog.cpp:252 framelist.cpp:1089
+msgid "UTF8"
+msgstr "UTF8"
 
 #: configdialog.cpp:264
 msgid "ID3v2.3.0 (id3lib)"
@@ -872,118 +156,188 @@ msgstr "ID3v2.3.0 (id3lib)"
 msgid "ID3v2.4.0 (TagLib)"
 msgstr "ID3v2.4.0 (TagLib)"
 
-#: mp3file.cpp:1277
-msgid "IPLS - Involved people list"
-msgstr "IPLS - Involved people list"
+#: configdialog.cpp:278 configdialog.cpp:280
+msgid "Ogg/Vorbis"
+msgstr "Ogg/Vorbis"
 
-#: configdialog.cpp:250 framelist.cpp:1086
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
+#: configdialog.cpp:283
+msgid "Comment field &name:"
+msgstr "&Имя структур коментэри:"
 
-#: frame.cpp:84
-msgid "ISRC"
-msgstr "ISRC"
+#: configdialog.cpp:307 configdialog.cpp:309
+msgid "Custom &Genres"
+msgstr "Выборочная &жанры"
 
-#: framelist.cpp:884
-msgid "Identifier"
-msgstr "Идентификатор"
+#: configdialog.cpp:312
+msgid "&Show only custom genres"
+msgstr "&Показывать только выборочная жанры"
 
-#: framelist.cpp:1118
-msgid "Illustration"
-msgstr "Иллюстрация"
+#: configdialog.cpp:323
+msgid "&Tag Format"
+msgstr "&Формат тэга"
 
-#: framelist.cpp:881
-msgid "Image format"
-msgstr "Формат Картинки"
+#: configdialog.cpp:332
+msgid "Tags"
+msgstr "Теги"
 
-#: kid3.cpp:395 kid3.cpp:587
-msgid "Import from &Discogs..."
-msgstr "Импорт из &Discogs..."
+#: configdialog.cpp:334
+msgid "&Tags"
+msgstr "&Теги"
 
-#: kid3.cpp:404 kid3.cpp:602
-msgid "Import from &MusicBrainz Fingerprint..."
-msgstr "Импорт из &MusicBrainz \"отпечатка пальцев\"..."
+#: configdialog.cpp:350
+msgid "&Preserve file timestamp"
+msgstr "&Сохранять время изменения файлов"
 
-#: kid3.cpp:391 kid3.cpp:580
-msgid "Import from &TrackType.org..."
-msgstr "Импорт из &TrackType.org..."
+#: configdialog.cpp:351
+msgid "&Mark changes"
+msgstr "&Отмечать изменения"
 
-#: kid3.cpp:387 kid3.cpp:573
-msgid "Import from &gnudb.org..."
-msgstr "Импорт из &gnudb.org..."
+#: configdialog.cpp:361
+msgid "&Filename Format"
+msgstr "&Формат имени файла"
 
-#: kid3.cpp:586
-msgid "Import from Discogs"
-msgstr "Импорт из Discogs"
+#: configdialog.cpp:370
+msgid "&Files"
+msgstr "&Файлы"
 
-#: kid3.cpp:399 kid3.cpp:594
-msgid "Import from MusicBrainz &Release..."
-msgstr "Импорт из MusicB&rainz альбом..."
+#: configdialog.cpp:381 configdialog.cpp:383
+msgid "Browser"
+msgstr "Браузер"
 
-#: kid3.cpp:601
-msgid "Import from MusicBrainz Fingerprint"
-msgstr "Импорт из MusicBrainz \"отпечатка пальцев\""
+#: configdialog.cpp:386
+msgid "Web &browser:"
+msgstr "Веб-&браузер:"
 
-#: kid3.cpp:593
-msgid "Import from MusicBrainz Release"
-msgstr "Импорт из MusicBrainz альбом"
+#: configdialog.cpp:402 configdialog.cpp:404
+msgid "Context &Menu Commands"
+msgstr "Элементы контекстного &меню"
 
-#: kid3.cpp:579
-msgid "Import from TrackType.org"
-msgstr "Импорт из TrackType.org"
+#: configdialog.cpp:418
+msgid "User Actions"
+msgstr "Команды пользователя"
 
-#: kid3.cpp:565
-msgid "Import from file or clipboard"
-msgstr "Импортировать файл или буфер обмена"
+#: configdialog.cpp:420
+msgid "&User Actions"
+msgstr "&Команды пользователя"
 
-#: kid3.cpp:572
-msgid "Import from gnudb.org"
-msgstr "Импорт из gnudb.org"
+#: configdialog.cpp:431 configdialog.cpp:433
+msgid "Proxy"
+msgstr "Прокси"
 
-#: kid3.cpp:1820
-msgid "Import..."
-msgstr "Импортирование..."
+#: configdialog.cpp:436
+msgid "&Proxy:"
+msgstr "&Прокси:"
 
-#: id3form.cpp:199 id3form.cpp:333
-msgid "Info:"
-msgstr "Информация:"
+#: configdialog.cpp:439
+msgid "&Use authentication with proxy"
+msgstr "&Использовать авторизацию на прокси"
 
-#: id3form.cpp:155 main.cpp:109
-msgid "Kid3"
-msgstr "Kid3"
+#: configdialog.cpp:440
+msgid "Proxy user &name:"
+msgstr "&Имя пользователя прокси:"
 
-#: kid3.cpp:671
-msgid "Kid3 &Handbook"
-msgstr "&Руководство \"Kid3\""
+#: configdialog.cpp:443
+msgid "Proxy pass&word:"
+msgstr "П&ароль прокси:"
 
-#: kid3.cpp:670 kid3.cpp:1679
-msgid "Kid3 Handbook"
-msgstr "Руководство Kid3"
+#: configdialog.cpp:470
+msgid "Network"
+msgstr "Сеть"
 
-#: main.cpp:40
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 Редактор тэгов ID3"
+#: configdialog.cpp:472
+msgid "&Network"
+msgstr "&Сеть"
 
-#: mp3file.cpp:1278 taglibfile.cpp:1495
-msgid "LINK - Linked information"
-msgstr "LINK - Linked information"
+#: configdialog.cpp:493
+msgid "Use custom app&lication font"
+msgstr "Использовать выбранный &шрифт приложения"
 
-#: frame.cpp:85 framelist.cpp:879
-msgid "Language"
-msgstr "Язык"
+#: configdialog.cpp:494
+msgid "A&pplication Font..."
+msgstr "Шрифт &приложения..."
 
-#: framelist.cpp:1107
-msgid "Lead artist/lead performer/soloist"
-msgstr "Ведущий Исполнитель/Солист"
+#: configdialog.cpp:495
+msgid "Use custom application &style"
+msgstr "Использовать выбранный &стиль приложения"
 
-#: framelist.cpp:1105
-msgid "Leaflet page"
-msgstr "Лист Брошюры"
+#: configdialog.cpp:504 configdialog.cpp:739 musicbrainzdialog.cpp:215
+#: musicbrainzdialog.cpp:219 musicbrainzdialog.cpp:221
+#: musicbrainzdialog.cpp:232 musicbrainzdialog.cpp:246
+msgid "Unknown"
+msgstr "Неизвестен"
 
-#: importparser.cpp:70 importselector.cpp:214 importselector.cpp:238
-#: importtrackdata.cpp:197 importtrackdata.cpp:201
-msgid "Length"
-msgstr "Длительность"
+#: configdialog.cpp:515
+msgid "&Appearance"
+msgstr "&Внешний вид"
+
+#: downloaddialog.cpp:96 httpclient.cpp:71 httpclient.cpp:83
+#: httpclient.cpp:129 httpclient.cpp:309 importsourcedialog.cpp:175
+#: kid3.cpp:870 kid3.cpp:941 kid3.cpp:1217 kid3.cpp:1593 kid3.cpp:1608
+#: kid3.cpp:1762 kid3.cpp:1852
+msgid "Ready."
+msgstr "Готово."
+
+#: exportdialog.cpp:87 exportdialog.cpp:89
+msgid "&Format"
+msgstr "&Формат"
+
+#: exportdialog.cpp:121
+msgid "To F&ile"
+msgstr "В фа&йл"
+
+#: exportdialog.cpp:127
+msgid "To Clip&board"
+msgstr "В &Буфера Обмена"
+
+#: exportdialog.cpp:137
+msgid "&Source:"
+msgstr "&Источник:"
+
+#: exportdialog.cpp:142 importselector.cpp:307 kid3.cpp:474 kid3.cpp:477
+#: kid3.cpp:480 kid3.cpp:483 kid3.cpp:486 kid3.cpp:522
+#: numbertracksdialog.cpp:81
+msgid "Tag 1"
+msgstr "Тег 1"
+
+#: exportdialog.cpp:143 importselector.cpp:308 kid3.cpp:489 kid3.cpp:492
+#: kid3.cpp:495 kid3.cpp:498 kid3.cpp:501 kid3.cpp:525
+#: numbertracksdialog.cpp:82
+msgid "Tag 2"
+msgstr "Тег 2"
+
+#: exportdialog.cpp:234 filelist.cpp:1089 filelist.cpp:1125 filelist.cpp:1230
+#: filelist.cpp:1238 filelist.cpp:1282 filelist.cpp:1285 kid3.cpp:1205
+#: kid3.cpp:1208 kid3.cpp:2441
+msgid "File Error"
+msgstr "Ошибка файла"
+
+#: exportdialog.cpp:235 kid3.cpp:1203 kid3.cpp:1209
+msgid "Error while writing file:\n"
+msgstr "Ошибка при записи файла:\n"
+
+#: externalprocess.cpp:55
+msgid "C&lear"
+msgstr "О&чистить"
+
+#: externalprocess.cpp:130
+msgid "Execute "
+msgstr "Выполнить "
+
+#: externalprocess.cpp:178
+msgid "Could not execute "
+msgstr "Не удалось запустить "
+
+#: filefilter.cpp:111
+msgid "True if strings are equal"
+msgstr "Строки равны"
+
+#: filefilter.cpp:115
+msgid "True if string contains substring"
+msgstr "Подстрока строки"
+
+#: filefilter.cpp:119
+msgid "True if string matches regexp"
+msgstr "Совпадения REGEXP"
 
 #: filefilter.cpp:123
 msgid "Logical AND"
@@ -997,146 +351,203 @@ msgstr "Логическое ИЛИ"
 msgid "Logical negation"
 msgstr "Логического отрицания"
 
-#: frame.cpp:86
-msgid "Lyricist"
-msgstr "Автор"
+#: filelist.cpp:70
+msgid "Do you really want to delete these %1 items?"
+msgstr "Вы действительно хотите удалить %1 файла?"
 
-#: framelist.cpp:1112
-msgid "Lyricist/text writer"
-msgstr "Автор текста"
+#: filelist.cpp:72
+msgid "Error while deleting these %1 items:"
+msgstr "Не удалось удалить эти %1 пунктов:"
 
-#: frame.cpp:87 framelist.cpp:1145
-msgid "Lyrics"
-msgstr "Lyrics"
+#: filelist.cpp:242
+msgid "Filenames"
+msgstr "Имена файлов"
 
-#: mp3file.cpp:1279 taglibfile.cpp:1496
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Music CD identifier"
+#: filelist.cpp:250
+msgid "URLs"
+msgstr "URL"
 
-#: mp3file.cpp:1280 taglibfile.cpp:1497
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - MPEG location lookup table"
+#: filelist.cpp:254
+msgid "Directory name"
+msgstr "Имя каталога"
 
-#: framelist.cpp:1132
-msgid "MPEG frames as unit"
-msgstr "Измерять в MPEG-кадрах"
+#: filelist.cpp:842 filelist.cpp:855
+msgid "&Rename"
+msgstr "&Переименовать"
 
-#: browsecoverartdialog.cpp:146
-msgid "Match"
-msgstr "Состязание"
+#: filelist.cpp:1064
+msgid "Rename File"
+msgstr "Переименовать файл"
 
-#: importselector.cpp:327
-msgid "Match with:"
-msgstr "Состязание с:"
+#: filelist.cpp:1065
+msgid "Enter new file name:"
+msgstr "Введите новое имя файла:"
 
-#: frame.cpp:88 framelist.cpp:1106
-msgid "Media"
-msgstr "Медиа"
+#: filelist.cpp:1090 filelist.cpp:1126 kid3.cpp:2442
+msgid "Error while renaming:\n"
+msgstr "Ошибка переименование:\n"
 
-#: musicbrainzclient.cpp:290
-msgid "Metadata Read"
-msgstr "Чтение метаданных"
+#: filelist.cpp:1112 kid3.cpp:705 rendirdialog.cpp:72 rendirdialog.cpp:97
+#: rendirdialog.cpp:130 rendirdialog.cpp:172
+msgid "Rename Directory"
+msgstr "Переименовать Каталог"
 
-#: framelist.cpp:1133
-msgid "Milliseconds as unit"
-msgstr "Измерять в милисекундах"
+#: filelist.cpp:1113
+msgid "Enter new directory name:"
+msgstr "Введите новое имя каталога:"
 
-#: framelist.cpp:882
-msgid "Mimetype"
-msgstr "Тип MIME"
+#: filelist.cpp:1157 filelist.cpp:1163 filelist.cpp:1180 filelist.cpp:1255
+#: filelist.cpp:1269
+msgid "Delete Files"
+msgstr "Удалить файлы"
 
-#: stringlistedit.cpp:58
-msgid "Move &Down"
-msgstr "Переместить &вниз"
+#: filelist.cpp:1160 filelist.cpp:1170 filelist.cpp:1253 filelist.cpp:1270
+msgid "Do you really want to delete this item?"
+msgstr "Вы действительно хотите удалить файл?"
 
-#: stringlistedit.cpp:57
-msgid "Move &Up"
-msgstr "Переместить вв&ерх"
+#: filelist.cpp:1226 filelist.cpp:1234 filelist.cpp:1280 filelist.cpp:1287
+msgid "Error while deleting this item:"
+msgstr "Не удалось удалить этот пункт:"
 
-#: framelist.cpp:1147
-msgid "Movement/part name"
-msgstr "Movement/part name"
+#: filelist.cpp:1279 filelist.cpp:1286
+msgid "Directory must be empty.\n"
+msgstr "Каталог должен быть пустым.\n"
 
-#: framelist.cpp:1116
-msgid "Movie/video screen capture"
-msgstr "Movie/video screen capture"
+#: filterdialog.cpp:61 kid3.cpp:719
+msgid "Filter"
+msgstr "Фильтр"
 
-#: musicbrainzdialog.cpp:64
-msgid "MusicBrainz"
-msgstr "MusicBrainz"
+#: filterdialog.cpp:76 filterdialog.cpp:78
+msgid "&Filter"
+msgstr "&Фильтр"
 
-#: importselector.cpp:296
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz \"отпечатка пальцев\""
+#: formatbox.cpp:51
+msgid "Format while editing"
+msgstr "Форматировать при редактировании"
 
-#: importselector.cpp:293
-msgid "MusicBrainz Release"
-msgstr "MusicB&rainz альбом"
-
-#: commandstable.cpp:58 commandstable.cpp:77
-msgid "Name"
-msgstr "Имя"
-
-#: id3form.cpp:178 id3form.cpp:312
-msgid "Name:"
-msgstr "Имя:"
-
-#: configdialog.cpp:470
-msgid "Network"
-msgstr "Сеть"
-
-#: rendirdialog.cpp:647
-msgid "New directory name is too different\n"
-msgstr "Новое название каталога слишком отлично\n"
+#: formatbox.cpp:55
+msgid "Case conversion:"
+msgstr "Преобразование Регистра:"
 
 #: formatbox.cpp:61
 msgid "No changes"
 msgstr "Нет изменений"
 
-#: musicbrainzdialog.cpp:214 musicbrainzdialog.cpp:230
-#: musicbrainzdialog.cpp:417
-msgid "No result"
-msgstr "Не удалось найти"
+#: formatbox.cpp:63
+msgid "All lowercase"
+msgstr "Все в нижний регистр"
 
-#: musicbrainzdialog.cpp:417
-msgid "No result selected"
-msgstr "Никакой отобранный результат"
+#: formatbox.cpp:65
+msgid "All uppercase"
+msgstr "Все в верхний регистр"
 
-#: kid3.cpp:712 numbertracksdialog.cpp:55
-msgid "Number Tracks"
-msgstr "Пронумеровать дорожки по порядку"
+#: formatbox.cpp:67
+msgid "First letter uppercase"
+msgstr "Первая буква в верхний регистр"
 
-#: framelist.cpp:886
-msgid "Number of Bits"
-msgstr "Количество Бит"
+#: formatbox.cpp:69
+msgid "All first letters uppercase"
+msgstr "Все первые буквы в верхний регистр"
 
-#: importtrackdata.cpp:205
-msgid "Number of tracks"
-msgstr "Количество дорожек"
+#: formatbox.cpp:72
+msgid "String replacement:"
+msgstr "Замена строк:"
 
-#: kid3.cpp:379 kid3.cpp:542
-msgid "O&pen Directory..."
-msgstr "Открыть &каталог..."
+#: formatbox.cpp:74
+msgid "From"
+msgstr "От"
 
-#: mp3file.cpp:1281 taglibfile.cpp:1498
-msgid "OWNE - Ownership frame"
-msgstr "OWNE - Ownership frame"
+#: formatbox.cpp:74
+msgid "To"
+msgstr "к"
 
-#: configdialog.cpp:278 configdialog.cpp:280
-msgid "Ogg/Vorbis"
-msgstr "Ogg/Vorbis"
+#: frame.cpp:66 importselector.cpp:214 importselector.cpp:240
+msgid "Title"
+msgstr "Название"
 
-#: kid3.cpp:921
-msgid "Opening directory..."
-msgstr "Открытие каталога..."
+#: frame.cpp:67 importselector.cpp:215 importselector.cpp:241
+msgid "Artist"
+msgstr "Исполнитель"
 
-#: kid3.cpp:365 kid3.cpp:533 kid3.cpp:541
-msgid "Opens a directory"
-msgstr "Открыть каталог"
+#: frame.cpp:68 importselector.cpp:215 importselector.cpp:242
+msgid "Album"
+msgstr "Альбом"
 
-#: kid3.cpp:366
-msgid "Opens a recently used directory"
-msgstr "Открыть недавний каталог"
+#: frame.cpp:69 importselector.cpp:216 importselector.cpp:245
+msgid "Comment"
+msgstr "Коментарий"
+
+#: frame.cpp:70
+msgid "Date"
+msgstr "Дата"
+
+#: frame.cpp:71 frametable.cpp:740 frametable.cpp:765
+msgid "Track Number"
+msgstr "Номер дорожки"
+
+#: frame.cpp:72 importselector.cpp:215 importselector.cpp:244
+msgid "Genre"
+msgstr "Жанр"
+
+#: frame.cpp:74
+msgid "Album Artist"
+msgstr "Исполнитель"
+
+#: frame.cpp:75
+msgid "Arranger"
+msgstr "Аранжировщик"
+
+#: frame.cpp:76
+msgid "Author"
+msgstr "Автор"
+
+#: frame.cpp:77
+msgid "BPM"
+msgstr "BPM"
+
+#: frame.cpp:78 framelist.cpp:1111
+msgid "Composer"
+msgstr "Композитор"
+
+#: frame.cpp:79 framelist.cpp:1109
+msgid "Conductor"
+msgstr "Дирижер"
+
+#: frame.cpp:80
+msgid "Copyright"
+msgstr "Авторское право"
+
+#: frame.cpp:81
+msgid "Disc Number"
+msgstr "Число диска"
+
+#: frame.cpp:82
+msgid "Encoded-by"
+msgstr "Кодировщик"
+
+#: frame.cpp:83
+msgid "Grouping"
+msgstr "Группирование"
+
+#: frame.cpp:84
+msgid "ISRC"
+msgstr "ISRC"
+
+#: frame.cpp:85 framelist.cpp:879
+msgid "Language"
+msgstr "Язык"
+
+#: frame.cpp:86
+msgid "Lyricist"
+msgstr "Автор"
+
+#: frame.cpp:87 framelist.cpp:1145
+msgid "Lyrics"
+msgstr "Lyrics"
+
+#: frame.cpp:88 framelist.cpp:1106
+msgid "Media"
+msgstr "Медиа"
 
 #: frame.cpp:89
 msgid "Original Album"
@@ -1150,21 +561,880 @@ msgstr "Первый исполнитель"
 msgid "Original Date"
 msgstr "Первый дата"
 
+#: frame.cpp:92
+msgid "Part"
+msgstr "Часть"
+
+#: frame.cpp:93
+msgid "Performer"
+msgstr "Исполнитель"
+
+#: frame.cpp:94
+msgid "Picture"
+msgstr "Картинка"
+
+#: frame.cpp:95
+msgid "Publisher"
+msgstr "Издательство"
+
+#: frame.cpp:96
+msgid "Remixer"
+msgstr "Перемиксер"
+
+#: frame.cpp:97
+msgid "Subtitle"
+msgstr "Подзаголовок"
+
+#: frame.cpp:98
+msgid "Website"
+msgstr "Веб-сайта"
+
+#: frame.cpp:659 importparser.cpp:58 importselector.cpp:215
+#: importselector.cpp:243
+msgid "Year"
+msgstr "Год"
+
+#: frame.cpp:663 frame.cpp:667 frame.cpp:671 importselector.cpp:214
+#: importselector.cpp:239
+msgid "Track"
+msgstr "Дорожка"
+
+#: framelist.cpp:346
+msgid "View Picture"
+msgstr "Просмотр Картинки"
+
+#: framelist.cpp:735 importselector.cpp:281
+msgid "From Clip&board"
+msgstr "Из &Буфера Обмена"
+
+#: framelist.cpp:736
+msgid "&Import"
+msgstr "&Импорт"
+
+#: framelist.cpp:737
+msgid "&Export"
+msgstr "&Экспорт"
+
+#: framelist.cpp:870
+msgid "Text Encoding"
+msgstr "Кодировка Текста"
+
+#: framelist.cpp:871
+msgid "Text"
+msgstr "Текст"
+
+#: framelist.cpp:872
+msgid "URL"
+msgstr "URL"
+
+#: framelist.cpp:873
+msgid "Data"
+msgstr "Дата"
+
+#: framelist.cpp:874
+msgid "Description"
+msgstr "Описание"
+
+#: framelist.cpp:875
+msgid "Owner"
+msgstr "Владелец"
+
+#: framelist.cpp:876
+msgid "Email"
+msgstr "Почта"
+
+#: framelist.cpp:877
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: framelist.cpp:878 kid3.cpp:513 kid3.cpp:516 kid3.cpp:519
+msgid "Filename"
+msgstr "Имя файла"
+
+#: framelist.cpp:880
+msgid "Picture Type"
+msgstr "Тип Картинки"
+
+#: framelist.cpp:881
+msgid "Image format"
+msgstr "Формат Картинки"
+
+#: framelist.cpp:882
+msgid "Mimetype"
+msgstr "Тип MIME"
+
+#: framelist.cpp:883
+msgid "Counter"
+msgstr "Счетчик"
+
+#: framelist.cpp:884
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: framelist.cpp:885
+msgid "Volume Adjustment"
+msgstr "Корректировка Громкости"
+
+#: framelist.cpp:886
+msgid "Number of Bits"
+msgstr "Количество Бит"
+
+#: framelist.cpp:887
+msgid "Volume Change Right"
+msgstr "Изменить громкость Справа"
+
+#: framelist.cpp:888
+msgid "Volume Change Left"
+msgstr "Изменить громкость Слева"
+
+#: framelist.cpp:889
+msgid "Peak Volume Right"
+msgstr "Максимальная громкость Справа"
+
+#: framelist.cpp:890
+msgid "Peak Volume Left"
+msgstr "Максимальная громкость Слева"
+
+#: framelist.cpp:891
+msgid "Timestamp Format"
+msgstr "Формат отметки о времени"
+
+#: framelist.cpp:892
+msgid "Content Type"
+msgstr "Тип Содержимого"
+
+#: framelist.cpp:1088
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
 #: framelist.cpp:1100 framelist.cpp:1131 framelist.cpp:1144
 msgid "Other"
 msgstr "Другое"
+
+#: framelist.cpp:1101
+msgid "32x32 pixels PNG file icon"
+msgstr "Иконка PNG-файла 32x32 точки"
 
 #: framelist.cpp:1102
 msgid "Other file icon"
 msgstr "Другая Иконка файла"
 
-#: commandstable.cpp:58 commandstable.cpp:76
-msgid "Output"
-msgstr "Вывод"
+#: framelist.cpp:1103
+msgid "Cover (front)"
+msgstr "Оболочка (Спереди)"
 
-#: framelist.cpp:875
-msgid "Owner"
-msgstr "Владелец"
+#: framelist.cpp:1104
+msgid "Cover (back)"
+msgstr "Оболочка (Сзади)"
+
+#: framelist.cpp:1105
+msgid "Leaflet page"
+msgstr "Лист Брошюры"
+
+#: framelist.cpp:1107
+msgid "Lead artist/lead performer/soloist"
+msgstr "Ведущий Исполнитель/Солист"
+
+#: framelist.cpp:1108
+msgid "Artist/performer"
+msgstr "Исполнитель"
+
+#: framelist.cpp:1110
+msgid "Band/Orchestra"
+msgstr "Группа/Оркестр"
+
+#: framelist.cpp:1112
+msgid "Lyricist/text writer"
+msgstr "Автор текста"
+
+#: framelist.cpp:1113
+msgid "Recording Location"
+msgstr "Место записи"
+
+#: framelist.cpp:1114
+msgid "During recording"
+msgstr "Длительность записи"
+
+#: framelist.cpp:1115
+msgid "During performance"
+msgstr "Длительность исполнения"
+
+#: framelist.cpp:1116
+msgid "Movie/video screen capture"
+msgstr "Movie/video screen capture"
+
+#: framelist.cpp:1117
+msgid "A bright coloured fish"
+msgstr "A bright coloured fish"
+
+#: framelist.cpp:1118
+msgid "Illustration"
+msgstr "Иллюстрация"
+
+#: framelist.cpp:1119
+msgid "Band/artist logotype"
+msgstr "Логотип группы/испольнителя"
+
+#: framelist.cpp:1120
+msgid "Publisher/Studio logotype"
+msgstr "Логотип студии записи"
+
+#: framelist.cpp:1132
+msgid "MPEG frames as unit"
+msgstr "Измерять в MPEG-кадрах"
+
+#: framelist.cpp:1133
+msgid "Milliseconds as unit"
+msgstr "Измерять в милисекундах"
+
+#: framelist.cpp:1146
+msgid "Text transcription"
+msgstr "Запись текста"
+
+#: framelist.cpp:1147
+msgid "Movement/part name"
+msgstr "Movement/part name"
+
+#: framelist.cpp:1148
+msgid "Events"
+msgstr "События"
+
+#: framelist.cpp:1149
+msgid "Chord"
+msgstr "Аккорд"
+
+#: framelist.cpp:1150
+msgid "Trivia/pop up"
+msgstr "Trivia/pop up"
+
+#: framelist.cpp:1560
+msgid "Add Frame"
+msgstr "Добавить Фрейм"
+
+#: framelist.cpp:1561
+msgid "Select the frame ID"
+msgstr "Выбрать ID фрейма"
+
+#: httpclient.cpp:31
+msgid "Data received: %1"
+msgstr "Полученные сведения: %1"
+
+#: httpclient.cpp:74 httpclient.cpp:379
+msgid "Connecting..."
+msgstr "Соединение..."
+
+#: httpclient.cpp:77 httpclient.cpp:227
+msgid "Host found..."
+msgstr "Сервер найден..."
+
+#: httpclient.cpp:80 httpclient.cpp:236
+msgid "Request sent..."
+msgstr "Передано..."
+
+#: httpclient.cpp:113 httpclient.cpp:326
+msgid "Socket error: "
+msgstr "Ошибка сокета: "
+
+#: httpclient.cpp:116 httpclient.cpp:329
+msgid "Connection refused"
+msgstr "Соединение отвергнуто"
+
+#: httpclient.cpp:119 httpclient.cpp:332
+msgid "Host not found"
+msgstr "Сервер не найден"
+
+#: httpclient.cpp:335
+msgid "Read failed"
+msgstr "Ошибка чтения"
+
+#: id3form.cpp:155 main.cpp:109
+msgid "Kid3"
+msgstr "Kid3"
+
+#: id3form.cpp:171 id3form.cpp:300
+msgid "File&name"
+msgstr "&Имя файла"
+
+#: id3form.cpp:178 id3form.cpp:312
+msgid "Name:"
+msgstr "Имя:"
+
+#: id3form.cpp:184 id3form.cpp:257 id3form.cpp:318 id3form.cpp:375
+#: kid3.cpp:492 kid3.cpp:513 rendirdialog.cpp:177
+msgid "From Tag 1"
+msgstr "Из тег 1"
+
+#: id3form.cpp:187 id3form.cpp:321
+msgid "Format:"
+msgstr "Формат:"
+
+#: id3form.cpp:196 id3form.cpp:223 id3form.cpp:330 id3form.cpp:353
+#: kid3.cpp:477 kid3.cpp:516 rendirdialog.cpp:178
+msgid "From Tag 2"
+msgstr "Из тег 2"
+
+#: id3form.cpp:199 id3form.cpp:333
+msgid "Info:"
+msgstr "Информация:"
+
+#: id3form.cpp:205 id3form.cpp:340 id3form.cpp:763
+msgid "Tag &1"
+msgstr "Тег &1"
+
+#: id3form.cpp:219 id3form.cpp:254 id3form.cpp:351 id3form.cpp:374
+#: kid3.cpp:474 kid3.cpp:489
+msgid "From Filename"
+msgstr "Из имени файла"
+
+#: id3form.cpp:240 id3form.cpp:363 id3form.cpp:778
+msgid "Tag &2"
+msgstr "Тег &2"
+
+#: importparser.cpp:70 importselector.cpp:214 importselector.cpp:238
+#: importtrackdata.cpp:197 importtrackdata.cpp:201
+msgid "Length"
+msgstr "Длительность"
+
+#: importselector.cpp:252 importselector.cpp:254 rendirdialog.cpp:78
+#: rendirdialog.cpp:135
+msgid "Format"
+msgstr "Формат"
+
+#: importselector.cpp:278
+msgid "From F&ile"
+msgstr "Из имени фа&йла"
+
+#: importselector.cpp:284
+msgid "&From Server:"
+msgstr "&Из сервер:"
+
+#: importselector.cpp:289
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: importselector.cpp:290
+msgid "TrackType.org"
+msgstr "TrackType.org"
+
+#: importselector.cpp:291
+msgid "Discogs"
+msgstr "Discogs"
+
+#: importselector.cpp:293
+msgid "MusicBrainz Release"
+msgstr "MusicB&rainz альбом"
+
+#: importselector.cpp:296
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz \"отпечатка пальцев\""
+
+#: importselector.cpp:303
+msgid "D&estination:"
+msgstr "М&есто назначения:"
+
+#: importselector.cpp:309 numbertracksdialog.cpp:83
+msgid "Tag 1 and Tag 2"
+msgstr "Тег 1 и тег 2"
+
+#: importselector.cpp:319
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Проверить максимальную допустимую &разницу во времени (секунды):"
+
+#: importselector.cpp:327
+msgid "Match with:"
+msgstr "Состязание с:"
+
+#: importselector.cpp:329
+msgid "&Length"
+msgstr "&Длительность"
+
+#: importselector.cpp:331
+msgid "T&rack"
+msgstr "&Дорожка"
+
+#: importselector.cpp:333
+msgid "&Title"
+msgstr "&Название"
+
+#: importsourcedialog.cpp:74
+msgid "&Find"
+msgstr "&Найти"
+
+#: importsourcedialog.cpp:93 musicbrainzdialog.cpp:73
+msgid "&Server:"
+msgstr "&Сервер:"
+
+#: importsourcedialog.cpp:97
+msgid "C&GI Path:"
+msgstr "Путь к C&GI:"
+
+#: importsourcedialog.cpp:122
+msgid "&Additional Tags"
+msgstr "&Дополнительные теги"
+
+#: importsourcedialog.cpp:123
+msgid "C&over Art"
+msgstr "&Обложки"
+
+#: importtrackdata.cpp:189
+msgid "Absolute path to file"
+msgstr "Абсолютный путь"
+
+#: importtrackdata.cpp:205
+msgid "Number of tracks"
+msgstr "Количество дорожек"
+
+#: importtrackdata.cpp:209
+msgid "Extension"
+msgstr "Расширение"
+
+#: importtrackdata.cpp:221
+msgid "Bitrate"
+msgstr "Битовый поток"
+
+#: importtrackdata.cpp:225
+msgid "VBR"
+msgstr "VBR"
+
+#: importtrackdata.cpp:229
+msgid "Samplerate"
+msgstr "Частота дискретизации"
+
+#: importtrackdata.cpp:235
+msgid "Channels"
+msgstr "Каналы"
+
+#: importtrackdata.cpp:239
+msgid "Codec"
+msgstr "Кодек"
+
+#: kid3.cpp:185
+msgid "&Back"
+msgstr "&Дорожка"
+
+#: kid3.cpp:186
+msgid "&Forward"
+msgstr "&Вперёд"
+
+#: kid3.cpp:352
+msgid "Enables/disables the toolbar"
+msgstr "Включить/выключить панель инструментов"
+
+#: kid3.cpp:353
+msgid "Enables/disables the statusbar"
+msgstr "Включить/выключить строку состояния"
+
+#: kid3.cpp:365 kid3.cpp:533 kid3.cpp:541
+msgid "Opens a directory"
+msgstr "Открыть каталог"
+
+#: kid3.cpp:366
+msgid "Opens a recently used directory"
+msgstr "Открыть недавний каталог"
+
+#: kid3.cpp:368 kid3.cpp:558
+msgid "Reverts the changes of all or the selected files"
+msgstr "Отменить изменения всех выделенных файлов"
+
+#: kid3.cpp:369 kid3.cpp:549
+msgid "Saves the changed files"
+msgstr "Сохранить измененные файлы"
+
+#: kid3.cpp:370 kid3.cpp:630
+msgid "Quits the application"
+msgstr "Завершить приложение"
+
+#: kid3.cpp:371 kid3.cpp:638
+msgid "Select all files"
+msgstr "Выделить все"
+
+#: kid3.cpp:373 kid3.cpp:646
+msgid "Deselect all files"
+msgstr "Отменить выбор"
+
+#: kid3.cpp:374
+msgid "Configure Shortcuts"
+msgstr "Настройка быстрых клавиш"
+
+#: kid3.cpp:375
+msgid "Configure Toolbars"
+msgstr "Настроить инструменты"
+
+#: kid3.cpp:376
+msgid "Preferences dialog"
+msgstr "Настройка параметров"
+
+#: kid3.cpp:379 kid3.cpp:542
+msgid "O&pen Directory..."
+msgstr "Открыть &каталог..."
+
+#: kid3.cpp:383 kid3.cpp:566
+msgid "&Import..."
+msgstr "&Импорт..."
+
+#: kid3.cpp:387 kid3.cpp:573
+msgid "Import from &gnudb.org..."
+msgstr "Импорт из &gnudb.org..."
+
+#: kid3.cpp:391 kid3.cpp:580
+msgid "Import from &TrackType.org..."
+msgstr "Импорт из &TrackType.org..."
+
+#: kid3.cpp:395 kid3.cpp:587
+msgid "Import from &Discogs..."
+msgstr "Импорт из &Discogs..."
+
+#: kid3.cpp:399 kid3.cpp:594
+msgid "Import from MusicBrainz &Release..."
+msgstr "Импорт из MusicB&rainz альбом..."
+
+#: kid3.cpp:404 kid3.cpp:602
+msgid "Import from &MusicBrainz Fingerprint..."
+msgstr "Импорт из &MusicBrainz \"отпечатка пальцев\"..."
+
+#: kid3.cpp:409 kid3.cpp:610
+msgid "&Browse Cover Art..."
+msgstr "&Найти обложки..."
+
+#: kid3.cpp:413 kid3.cpp:617
+msgid "&Export..."
+msgstr "&Экспорт..."
+
+#: kid3.cpp:417 kid3.cpp:624
+msgid "&Create Playlist"
+msgstr "&Cоздать список песен"
+
+#: kid3.cpp:421 kid3.cpp:692
+msgid "Apply &Filename Format"
+msgstr "Применить Формат имени &файла"
+
+#: kid3.cpp:425 kid3.cpp:699
+msgid "Apply &Tag Format"
+msgstr "Применить Формат &тэга"
+
+#: kid3.cpp:429 kid3.cpp:706
+msgid "&Rename Directory..."
+msgstr "&Переименовать Каталог..."
+
+#: kid3.cpp:433 kid3.cpp:713
+msgid "&Number Tracks..."
+msgstr "&Пронумеровать дорожки по порядку..."
+
+#: kid3.cpp:437 kid3.cpp:720
+msgid "F&ilter..."
+msgstr "Ф&ильтр..."
+
+#: kid3.cpp:442 kid3.cpp:728
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Преобразуйте ID3v2.3 в ID3v2.&4"
+
+#: kid3.cpp:448 kid3.cpp:737
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Преобразуйте ID3v2.4 в ID3v2.&3"
+
+#: kid3.cpp:453 kid3.cpp:745 kid3.cpp:2130 kid3.cpp:2133
+msgid "Hide Tag &1"
+msgstr "Скрыть тег &1"
+
+#: kid3.cpp:457 kid3.cpp:752 kid3.cpp:2158 kid3.cpp:2161
+msgid "Hide Tag &2"
+msgstr "Скрыть тег &2"
+
+#: kid3.cpp:461 kid3.cpp:759 kid3.cpp:2186 kid3.cpp:2189
+msgid "Hide &Picture"
+msgstr "Скрывать &картину"
+
+#: kid3.cpp:466 kid3.cpp:655
+msgid "&Previous File"
+msgstr "&Предыдущий файл"
+
+#: kid3.cpp:470 kid3.cpp:663
+msgid "&Next File"
+msgstr "&Следующий файл"
+
+#: kid3.cpp:504 kid3.cpp:507 kid3.cpp:510
+msgid "Frames:"
+msgstr "Фреймы:"
+
+#: kid3.cpp:519 kid3.cpp:522 kid3.cpp:525
+msgid "Focus"
+msgstr "Фокус"
+
+#: kid3.cpp:559
+msgid "Re&vert"
+msgstr "&Отменить"
+
+#: kid3.cpp:565
+msgid "Import from file or clipboard"
+msgstr "Импортировать файл или буфер обмена"
+
+#: kid3.cpp:572
+msgid "Import from gnudb.org"
+msgstr "Импорт из gnudb.org"
+
+#: kid3.cpp:579
+msgid "Import from TrackType.org"
+msgstr "Импорт из TrackType.org"
+
+#: kid3.cpp:586
+msgid "Import from Discogs"
+msgstr "Импорт из Discogs"
+
+#: kid3.cpp:593
+msgid "Import from MusicBrainz Release"
+msgstr "Импорт из MusicBrainz альбом"
+
+#: kid3.cpp:601
+msgid "Import from MusicBrainz Fingerprint"
+msgstr "Импорт из MusicBrainz \"отпечатка пальцев\""
+
+#: kid3.cpp:609
+msgid "Browse album cover artwork"
+msgstr "Найти обложки"
+
+#: kid3.cpp:616
+msgid "Export to file or clipboard"
+msgstr "Экспорт в файл или Буфера Обмена"
+
+#: kid3.cpp:623
+msgid "Create M3U Playlist"
+msgstr "Создать список M3U"
+
+#: kid3.cpp:639
+msgid "Select &All"
+msgstr "Выделить &все"
+
+#: kid3.cpp:647
+msgid "Dese&lect"
+msgstr "Отме&нить выбор"
+
+#: kid3.cpp:654
+msgid "Select previous file"
+msgstr "Предыдущий файл"
+
+#: kid3.cpp:662
+msgid "Select next file"
+msgstr "Следующий файл"
+
+#: kid3.cpp:670 kid3.cpp:1679
+msgid "Kid3 Handbook"
+msgstr "Руководство Kid3"
+
+#: kid3.cpp:671
+msgid "Kid3 &Handbook"
+msgstr "&Руководство \"Kid3\""
+
+#: kid3.cpp:677
+msgid "About Kid3"
+msgstr "О Kid3"
+
+#: kid3.cpp:678
+msgid "&About Kid3"
+msgstr "&О Kid3"
+
+#: kid3.cpp:684
+msgid "About Qt"
+msgstr "О Qt"
+
+#: kid3.cpp:685
+msgid "About &Qt"
+msgstr "О &Qt"
+
+#: kid3.cpp:691
+msgid "Apply Filename Format"
+msgstr "Применить Формат имени файла"
+
+#: kid3.cpp:698
+msgid "Apply Tag Format"
+msgstr "Применить формат тэга"
+
+#: kid3.cpp:712 numbertracksdialog.cpp:55
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки по порядку"
+
+#: kid3.cpp:727
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Преобразуйте ID3v2.3 в ID3v2.4"
+
+#: kid3.cpp:736
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Преобразуйте ID3v2.4 в ID3v2.3"
+
+#: kid3.cpp:744 kid3.cpp:2132
+msgid "Hide Tag 1"
+msgstr "Скрыть тег 1"
+
+#: kid3.cpp:751 kid3.cpp:2160
+msgid "Hide Tag 2"
+msgstr "Скрыть тег 2"
+
+#: kid3.cpp:758 kid3.cpp:2188
+msgid "Hide Picture"
+msgstr "Скрывать картину"
+
+#: kid3.cpp:765
+msgid "Configure Kid3"
+msgstr "Настроить Kid3"
+
+#: kid3.cpp:766
+msgid "&Configure Kid3..."
+msgstr "&Настроить Kid3..."
+
+#: kid3.cpp:921
+msgid "Opening directory..."
+msgstr "Открытие каталога..."
+
+#: kid3.cpp:1148
+msgid "Saving directory..."
+msgstr "Сохранение каталога..."
+
+#: kid3.cpp:1242 kid3.cpp:1252
+msgid ""
+"The current directory has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Текущий каталог был изменен.\n"
+"Хотите сохранить его?"
+
+#: kid3.cpp:1251
+msgid "Warning - Kid3"
+msgstr "Предупреждение - Kid3"
+
+#: kid3.cpp:1420 kid3.cpp:1424
+msgid "All Supported Files"
+msgstr "Все поддерживаемые файлы"
+
+#: kid3.cpp:1422 kid3.cpp:1428
+msgid "All Files (*)"
+msgstr "Все файлы (*)"
+
+#: kid3.cpp:1575
+msgid "Exiting..."
+msgstr "Выход..."
+
+#: kid3.cpp:1586
+msgid "Toggling toolbar..."
+msgstr "Переключение панели инструментов..."
+
+#: kid3.cpp:1601
+msgid "Toggle the statusbar..."
+msgstr "Переключение строки состояния..."
+
+#: kid3.cpp:1752
+msgid "Creating playlist..."
+msgstr "Создание списка песен..."
+
+#: kid3.cpp:1820
+msgid "Import..."
+msgstr "Импортирование..."
+
+#: kid3.cpp:2122 kid3.cpp:2125
+msgid "Show Tag &1"
+msgstr "Показывать тег &1"
+
+#: kid3.cpp:2124
+msgid "Show Tag 1"
+msgstr "Показывать тег 1"
+
+#: kid3.cpp:2150 kid3.cpp:2153
+msgid "Show Tag &2"
+msgstr "Показывать тег &2"
+
+#: kid3.cpp:2152
+msgid "Show Tag 2"
+msgstr "Показывать тег 2"
+
+#: kid3.cpp:2178 kid3.cpp:2181
+msgid "Show &Picture"
+msgstr "Показывать &картину"
+
+#: kid3.cpp:2180
+msgid "Show Picture"
+msgstr "Показывать картину"
+
+#: kid3.cpp:2235
+msgid "Configure - Kid3"
+msgstr "Настройка - Kid3"
+
+#: kid3.cpp:2783
+msgid "Download"
+msgstr "Закачка"
+
+#: kid3.cpp:2849
+msgid " [filtered]"
+msgstr " [фильтровано]"
+
+#: kid3.cpp:2855
+msgid " [modified]"
+msgstr " [изменено]"
+
+#: main.cpp:40
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 Редактор тэгов ID3"
+
+#: main.cpp:93
+msgid "directory to open"
+msgstr "каталог для открытия"
+
+#: mp3file.cpp:1266 taglibfile.cpp:1485
+msgid "AENC - Audio encryption"
+msgstr "AENC - Аудио-кодирование"
+
+#: mp3file.cpp:1267 taglibfile.cpp:1486
+msgid "APIC - Attached picture"
+msgstr "APIC - Прикрепленная картинка"
+
+#: mp3file.cpp:1269 taglibfile.cpp:1488
+msgid "COMM - Comments"
+msgstr "COMM - Комментарии"
+
+#: mp3file.cpp:1270 taglibfile.cpp:1489
+msgid "COMR - Commercial"
+msgstr "COMR - Реклама"
+
+#: mp3file.cpp:1271 taglibfile.cpp:1490
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Encryption method registration"
+
+#: mp3file.cpp:1273
+msgid "EQUA - Equalization"
+msgstr "EQUA - Equalization"
+
+#: mp3file.cpp:1274 taglibfile.cpp:1492
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Event timing codes"
+
+#: mp3file.cpp:1275 taglibfile.cpp:1493
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - General encapsulated object"
+
+#: mp3file.cpp:1276 taglibfile.cpp:1494
+msgid "GRID - Group identification registration"
+msgstr "GRID - Group identification registration"
+
+#: mp3file.cpp:1277
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Involved people list"
+
+#: mp3file.cpp:1278 taglibfile.cpp:1495
+msgid "LINK - Linked information"
+msgstr "LINK - Linked information"
+
+#: mp3file.cpp:1279 taglibfile.cpp:1496
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Music CD identifier"
+
+#: mp3file.cpp:1280 taglibfile.cpp:1497
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG location lookup table"
+
+#: mp3file.cpp:1281 taglibfile.cpp:1498
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Ownership frame"
+
+#: mp3file.cpp:1282 taglibfile.cpp:1499
+msgid "PRIV - Private frame"
+msgstr "PRIV - Private frame"
 
 #: mp3file.cpp:1283 taglibfile.cpp:1500
 msgid "PCNT - Play counter"
@@ -1178,89 +1448,9 @@ msgstr "POPM - Popularimeter"
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - Position synchronisation frame"
 
-#: mp3file.cpp:1282 taglibfile.cpp:1499
-msgid "PRIV - Private frame"
-msgstr "PRIV - Private frame"
-
-#: musicbrainzclient.cpp:297
-msgid "PUID Collision"
-msgstr "Столкновение PUID"
-
-#: musicbrainzclient.cpp:296
-msgid "PUID Lookup"
-msgstr "Поиск PUID"
-
-#: frame.cpp:92
-msgid "Part"
-msgstr "Часть"
-
-#: framelist.cpp:890
-msgid "Peak Volume Left"
-msgstr "Максимальная громкость Слева"
-
-#: framelist.cpp:889
-msgid "Peak Volume Right"
-msgstr "Максимальная громкость Справа"
-
-#: musicbrainzclient.cpp:294 musicbrainzclient.cpp:339
-msgid "Pending"
-msgstr "В ожидании"
-
-#: frame.cpp:93
-msgid "Performer"
-msgstr "Исполнитель"
-
-#: frame.cpp:94
-msgid "Picture"
-msgstr "Картинка"
-
-#: framelist.cpp:880
-msgid "Picture Type"
-msgstr "Тип Картинки"
-
-#: browsecoverartdialog.cpp:147
-msgid "Picture URL"
-msgstr "Картинка URL"
-
-#: kid3.cpp:376
-msgid "Preferences dialog"
-msgstr "Настройка параметров"
-
-#: rendirdialog.cpp:83 rendirdialog.cpp:139
-msgid "Preview"
-msgstr "Просмотр"
-
-#: configdialog.cpp:431 configdialog.cpp:433
-msgid "Proxy"
-msgstr "Прокси"
-
-#: configdialog.cpp:443
-msgid "Proxy pass&word:"
-msgstr "П&ароль прокси:"
-
-#: configdialog.cpp:440
-msgid "Proxy user &name:"
-msgstr "&Имя пользователя прокси:"
-
-#: frame.cpp:95
-msgid "Publisher"
-msgstr "Издательство"
-
-#: framelist.cpp:1120
-msgid "Publisher/Studio logotype"
-msgstr "Логотип студии записи"
-
-#: kid3.cpp:370 kid3.cpp:630
-msgid "Quits the application"
-msgstr "Завершить приложение"
-
 #: mp3file.cpp:1286 taglibfile.cpp:1503
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - Recommended buffer size"
-
-#: taglibfile.cpp:1504
-msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVA2 - Relative volume adjustment (2)"
 
 #: mp3file.cpp:1288
 msgid "RVAD - Relative volume adjustment"
@@ -1270,78 +1460,6 @@ msgstr "RVAD - Relative volume adjustment"
 msgid "RVRB - Reverb"
 msgstr "RVRB - Reverb"
 
-#: framelist.cpp:877
-msgid "Rating"
-msgstr "Рейтинг"
-
-#: kid3.cpp:559
-msgid "Re&vert"
-msgstr "&Отменить"
-
-#: httpclient.cpp:335
-msgid "Read failed"
-msgstr "Ошибка чтения"
-
-#: downloaddialog.cpp:96 httpclient.cpp:71 httpclient.cpp:83
-#: httpclient.cpp:129 httpclient.cpp:309 importsourcedialog.cpp:175
-#: kid3.cpp:870 kid3.cpp:941 kid3.cpp:1217 kid3.cpp:1593 kid3.cpp:1608
-#: kid3.cpp:1762 kid3.cpp:1852
-msgid "Ready."
-msgstr "Готово."
-
-#: musicbrainzclient.cpp:293 musicbrainzclient.cpp:593
-msgid "Recognized"
-msgstr "Признанный"
-
-#: framelist.cpp:1113
-msgid "Recording Location"
-msgstr "Место записи"
-
-#: frame.cpp:96
-msgid "Remixer"
-msgstr "Перемиксер"
-
-#: musicbrainzclient.cpp:342
-msgid "Removed"
-msgstr "Удалён"
-
-#: rendirdialog.cpp:55
-msgid "Rename %1 to %2 failed\n"
-msgstr "Ошибка переименование из %1 в %2\n"
-
-#: filelist.cpp:1112 kid3.cpp:705 rendirdialog.cpp:72 rendirdialog.cpp:97
-#: rendirdialog.cpp:130 rendirdialog.cpp:172
-msgid "Rename Directory"
-msgstr "Переименовать Каталог"
-
-#: filelist.cpp:1064
-msgid "Rename File"
-msgstr "Переименовать файл"
-
-#: rendirdialog.cpp:773
-msgid "Rename directory"
-msgstr "Переименовать Каталог"
-
-#: rendirdialog.cpp:774
-msgid "Rename file"
-msgstr "Переименовать файл"
-
-#: httpclient.cpp:80 httpclient.cpp:236
-msgid "Request sent..."
-msgstr "Передано..."
-
-#: kid3.cpp:368 kid3.cpp:558
-msgid "Reverts the changes of all or the selected files"
-msgstr "Отменить изменения всех выделенных файлов"
-
-#: taglibfile.cpp:1506
-msgid "SEEK - Seek frame"
-msgstr "SEEK - Seek frame"
-
-#: taglibfile.cpp:1507
-msgid "SIGN - Signature frame"
-msgstr "SIGN - Signature frame"
-
 #: mp3file.cpp:1292 taglibfile.cpp:1508
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - Synchronized lyric/text"
@@ -1349,86 +1467,6 @@ msgstr "SYLT - Synchronized lyric/text"
 #: mp3file.cpp:1293 taglibfile.cpp:1509
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - Synchronized tempo codes"
-
-#: importtrackdata.cpp:229
-msgid "Samplerate"
-msgstr "Частота дискретизации"
-
-#: musicbrainzclient.cpp:305
-msgid "Saved"
-msgstr "Сохранено"
-
-#: kid3.cpp:369 kid3.cpp:549
-msgid "Saves the changed files"
-msgstr "Сохранить измененные файлы"
-
-#: kid3.cpp:1148
-msgid "Saving directory..."
-msgstr "Сохранение каталога..."
-
-#: kid3.cpp:639
-msgid "Select &All"
-msgstr "Выделить &все"
-
-#: kid3.cpp:371 kid3.cpp:638
-msgid "Select all files"
-msgstr "Выделить все"
-
-#: kid3.cpp:662
-msgid "Select next file"
-msgstr "Следующий файл"
-
-#: kid3.cpp:654
-msgid "Select previous file"
-msgstr "Предыдущий файл"
-
-#: framelist.cpp:1561
-msgid "Select the frame ID"
-msgstr "Выбрать ID фрейма"
-
-#: kid3.cpp:2178 kid3.cpp:2181
-msgid "Show &Picture"
-msgstr "Показывать &картину"
-
-#: kid3.cpp:2180
-msgid "Show Picture"
-msgstr "Показывать картину"
-
-#: kid3.cpp:2122 kid3.cpp:2125
-msgid "Show Tag &1"
-msgstr "Показывать тег &1"
-
-#: kid3.cpp:2150 kid3.cpp:2153
-msgid "Show Tag &2"
-msgstr "Показывать тег &2"
-
-#: kid3.cpp:2124
-msgid "Show Tag 1"
-msgstr "Показывать тег 1"
-
-#: kid3.cpp:2152
-msgid "Show Tag 2"
-msgstr "Показывать тег 2"
-
-#: httpclient.cpp:113 httpclient.cpp:326
-msgid "Socket error: "
-msgstr "Ошибка сокета: "
-
-#: musicbrainzdialog.cpp:112 musicbrainzdialog.cpp:130
-msgid "State"
-msgstr "Состояние"
-
-#: formatbox.cpp:72
-msgid "String replacement:"
-msgstr "Замена строк:"
-
-#: frame.cpp:97
-msgid "Subtitle"
-msgstr "Подзаголовок"
-
-#: importselector.cpp:331
-msgid "T&rack"
-msgstr "&Дорожка"
 
 #: mp3file.cpp:1294 taglibfile.cpp:1510
 msgid "TALB - Album/Movie/Show title"
@@ -1454,29 +1492,9 @@ msgstr "TCOP - Copyright message"
 msgid "TDAT - Date"
 msgstr "TDAT - Date"
 
-#: taglibfile.cpp:1515
-msgid "TDEN - Encoding time"
-msgstr "TDEN - Encoding time"
-
 #: mp3file.cpp:1301 taglibfile.cpp:1516
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - Playlist delay"
-
-#: taglibfile.cpp:1517
-msgid "TDOR - Original release time"
-msgstr "TDOR - Original release time"
-
-#: taglibfile.cpp:1518
-msgid "TDRC - Recording time"
-msgstr "TDRC - Recording time"
-
-#: taglibfile.cpp:1519
-msgid "TDRL - Release time"
-msgstr "TDRL - Release time"
-
-#: taglibfile.cpp:1520
-msgid "TDTG - Tagging time"
-msgstr "TDTG - Tagging time"
 
 #: mp3file.cpp:1307 taglibfile.cpp:1521
 msgid "TENC - Encoded by"
@@ -1493,10 +1511,6 @@ msgstr "TFLT - File type"
 #: mp3file.cpp:1310
 msgid "TIME - Time"
 msgstr "TIME - Time"
-
-#: taglibfile.cpp:1524
-msgid "TIPL - Involved people list"
-msgstr "TIPL - Involved people list"
 
 #: mp3file.cpp:1311 taglibfile.cpp:1525
 msgid "TIT1 - Content group description"
@@ -1522,17 +1536,9 @@ msgstr "TLAN - Язык(и)"
 msgid "TLEN - Length"
 msgstr "TLEN - Длина"
 
-#: taglibfile.cpp:1531
-msgid "TMCL - Musician credits list"
-msgstr "TMCL - Musician credits list"
-
 #: mp3file.cpp:1318 taglibfile.cpp:1532
 msgid "TMED - Media type"
 msgstr "TMED - Тип носителя"
-
-#: taglibfile.cpp:1533
-msgid "TMOO - Mood"
-msgstr "TMOO - Mood"
 
 #: mp3file.cpp:1320 taglibfile.cpp:1534
 msgid "TOAL - Original album/movie/show title"
@@ -1578,10 +1584,6 @@ msgstr "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgid "TPOS - Part of a set"
 msgstr "TPOS - Part of a set"
 
-#: taglibfile.cpp:1544
-msgid "TPRO - Produced notice"
-msgstr "TPRO - Produced notice"
-
 #: mp3file.cpp:1332 taglibfile.cpp:1545
 msgid "TPUB - Publisher"
 msgstr "TPUB - Publisher"
@@ -1593,14 +1595,6 @@ msgstr "TRCK - Track number/Position in set"
 #: mp3file.cpp:1334
 msgid "TRDA - Recording dates"
 msgstr "TRDA - Recording dates"
-
-#: musicbrainzclient.cpp:300
-msgid "TRM Collision"
-msgstr "Столкновение TRM"
-
-#: musicbrainzclient.cpp:299
-msgid "TRM Lookup"
-msgstr "Поиск TRM"
 
 #: mp3file.cpp:1335 taglibfile.cpp:1547
 msgid "TRSN - Internet radio station name"
@@ -1614,18 +1608,6 @@ msgstr "TRSO - Internet radio station owner"
 msgid "TSIZ - Size"
 msgstr "TSIZ - Size"
 
-#: taglibfile.cpp:1549
-msgid "TSOA - Album sort order"
-msgstr "TSOA - Album sort order"
-
-#: taglibfile.cpp:1550
-msgid "TSOP - Performer sort order"
-msgstr "TSOP - Performer sort order"
-
-#: taglibfile.cpp:1551
-msgid "TSOT - Title sort order"
-msgstr "TSOT - Title sort order"
-
 #: mp3file.cpp:1341 taglibfile.cpp:1552
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ISRC (international standard recording code)"
@@ -1633,10 +1615,6 @@ msgstr "TSRC - ISRC (international standard recording code)"
 #: mp3file.cpp:1342 taglibfile.cpp:1553
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - Software/Hardware and settings used for encoding"
-
-#: taglibfile.cpp:1554
-msgid "TSST - Set subtitle"
-msgstr "TSST - Set subtitle"
 
 #: mp3file.cpp:1344 taglibfile.cpp:1555
 msgid "TXXX - User defined text information"
@@ -1646,139 +1624,9 @@ msgstr "TXXX - User defined text information"
 msgid "TYER - Year"
 msgstr "TYER - Year"
 
-#: id3form.cpp:205 id3form.cpp:340 id3form.cpp:763
-msgid "Tag &1"
-msgstr "Тег &1"
-
-#: id3form.cpp:240 id3form.cpp:363 id3form.cpp:778
-msgid "Tag &2"
-msgstr "Тег &2"
-
-#: exportdialog.cpp:142 importselector.cpp:307 kid3.cpp:474 kid3.cpp:477
-#: kid3.cpp:480 kid3.cpp:483 kid3.cpp:486 kid3.cpp:522
-#: numbertracksdialog.cpp:81
-msgid "Tag 1"
-msgstr "Тег 1"
-
-#: importselector.cpp:309 numbertracksdialog.cpp:83
-msgid "Tag 1 and Tag 2"
-msgstr "Тег 1 и тег 2"
-
-#: exportdialog.cpp:143 importselector.cpp:308 kid3.cpp:489 kid3.cpp:492
-#: kid3.cpp:495 kid3.cpp:498 kid3.cpp:501 kid3.cpp:525
-#: numbertracksdialog.cpp:82
-msgid "Tag 2"
-msgstr "Тег 2"
-
-#: configdialog.cpp:332
-msgid "Tags"
-msgstr "Теги"
-
-#: framelist.cpp:871
-msgid "Text"
-msgstr "Текст"
-
-#: configdialog.cpp:124 configdialog.cpp:133 configdialog.cpp:225
-#: configdialog.cpp:240
-msgid "Text &encoding:"
-msgstr "Кодировка т&екста:"
-
-#: framelist.cpp:870
-msgid "Text Encoding"
-msgstr "Кодировка Текста"
-
-#: framelist.cpp:1146
-msgid "Text transcription"
-msgstr "Запись текста"
-
-#: kid3.cpp:1242 kid3.cpp:1252
-msgid ""
-"The current directory has been modified.\n"
-"Do you want to save it?"
-msgstr ""
-"Текущий каталог был изменен.\n"
-"Хотите сохранить его?"
-
-#: browsecoverartdialog.cpp:232
-msgid "Then drag the picture from the browser to Kid3."
-msgstr ""
-
-#: framelist.cpp:891
-msgid "Timestamp Format"
-msgstr "Формат отметки о времени"
-
-#: frame.cpp:66 importselector.cpp:214 importselector.cpp:240
-msgid "Title"
-msgstr "Название"
-
-#: formatbox.cpp:74
-msgid "To"
-msgstr "к"
-
-#: exportdialog.cpp:127
-msgid "To Clip&board"
-msgstr "В &Буфера Обмена"
-
-#: exportdialog.cpp:121
-msgid "To F&ile"
-msgstr "В фа&йл"
-
-#: rendirdialog.cpp:218
-msgid "To:"
-msgstr "На:"
-
-#: kid3.cpp:1601
-msgid "Toggle the statusbar..."
-msgstr "Переключение строки состояния..."
-
-#: kid3.cpp:1586
-msgid "Toggling toolbar..."
-msgstr "Переключение панели инструментов..."
-
-#: frame.cpp:663 frame.cpp:667 frame.cpp:671 importselector.cpp:214
-#: importselector.cpp:239
-msgid "Track"
-msgstr "Дорожка"
-
-#: frame.cpp:71 frametable.cpp:740 frametable.cpp:765
-msgid "Track Number"
-msgstr "Номер дорожки"
-
-#: musicbrainzdialog.cpp:111 musicbrainzdialog.cpp:129
-msgid "Track Title/Artist - Album"
-msgstr "Число Название/Исполнитель - Альбом"
-
-#: importselector.cpp:290
-msgid "TrackType.org"
-msgstr "TrackType.org"
-
-#: framelist.cpp:1150
-msgid "Trivia/pop up"
-msgstr "Trivia/pop up"
-
-#: filefilter.cpp:115
-msgid "True if string contains substring"
-msgstr "Подстрока строки"
-
-#: filefilter.cpp:119
-msgid "True if string matches regexp"
-msgstr "Совпадения REGEXP"
-
-#: filefilter.cpp:111
-msgid "True if strings are equal"
-msgstr "Строки равны"
-
 #: mp3file.cpp:1346 taglibfile.cpp:1556
 msgid "UFID - Unique file identifier"
 msgstr "UFID - Unique file identifier"
-
-#: framelist.cpp:872
-msgid "URL"
-msgstr "URL"
-
-#: filelist.cpp:250
-msgid "URLs"
-msgstr "URL"
 
 #: mp3file.cpp:1347 taglibfile.cpp:1557
 msgid "USER - Terms of use"
@@ -1787,72 +1635,6 @@ msgstr "USER - Terms of use"
 #: mp3file.cpp:1348 taglibfile.cpp:1558
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - Unsynchronized lyric/text transcription"
-
-#: configdialog.cpp:251 framelist.cpp:1087
-msgid "UTF16"
-msgstr "UTF16"
-
-#: framelist.cpp:1088
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-#: configdialog.cpp:252 framelist.cpp:1089
-msgid "UTF8"
-msgstr "UTF8"
-
-#: configdialog.cpp:504 configdialog.cpp:739 musicbrainzdialog.cpp:215
-#: musicbrainzdialog.cpp:219 musicbrainzdialog.cpp:221
-#: musicbrainzdialog.cpp:232 musicbrainzdialog.cpp:246
-msgid "Unknown"
-msgstr "Неизвестен"
-
-#: musicbrainzclient.cpp:292 musicbrainzclient.cpp:595
-msgid "Unrecognized"
-msgstr "Непризнанный"
-
-#: configdialog.cpp:221 configdialog.cpp:235
-msgid "Use &track/total number of tracks format"
-msgstr "Формат использования &число/количество дорожек"
-
-#: configdialog.cpp:493
-msgid "Use custom app&lication font"
-msgstr "Использовать выбранный &шрифт приложения"
-
-#: configdialog.cpp:495
-msgid "Use custom application &style"
-msgstr "Использовать выбранный &стиль приложения"
-
-#: configdialog.cpp:418
-msgid "User Actions"
-msgstr "Команды пользователя"
-
-#: musicbrainzclient.cpp:303 musicbrainzclient.cpp:590
-msgid "User Selection"
-msgstr "Выбор"
-
-#: importtrackdata.cpp:225
-msgid "VBR"
-msgstr "VBR"
-
-#: musicbrainzclient.cpp:304
-msgid "Verified"
-msgstr "Проверено"
-
-#: framelist.cpp:346
-msgid "View Picture"
-msgstr "Просмотр Картинки"
-
-#: framelist.cpp:885
-msgid "Volume Adjustment"
-msgstr "Корректировка Громкости"
-
-#: framelist.cpp:888
-msgid "Volume Change Left"
-msgstr "Изменить громкость Слева"
-
-#: framelist.cpp:887
-msgid "Volume Change Right"
-msgstr "Изменить громкость Справа"
 
 #: mp3file.cpp:1349 taglibfile.cpp:1559
 msgid "WCOM - Commercial information"
@@ -1890,43 +1672,262 @@ msgstr "WPUB - Official publisher webpage"
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - User defined URL link"
 
-#: kid3.cpp:1251
-msgid "Warning - Kid3"
-msgstr "Предупреждение - Kid3"
+#: musicbrainzclient.cpp:290
+msgid "Metadata Read"
+msgstr "Чтение метаданных"
 
-#: configdialog.cpp:386
-msgid "Web &browser:"
-msgstr "Веб-&браузер:"
+#: musicbrainzclient.cpp:292 musicbrainzclient.cpp:595
+msgid "Unrecognized"
+msgstr "Непризнанный"
 
-#: frame.cpp:98
-msgid "Website"
-msgstr "Веб-сайта"
+#: musicbrainzclient.cpp:293 musicbrainzclient.cpp:593
+msgid "Recognized"
+msgstr "Признанный"
+
+#: musicbrainzclient.cpp:294 musicbrainzclient.cpp:339
+msgid "Pending"
+msgstr "В ожидании"
+
+#: musicbrainzclient.cpp:296
+msgid "PUID Lookup"
+msgstr "Поиск PUID"
+
+#: musicbrainzclient.cpp:297
+msgid "PUID Collision"
+msgstr "Столкновение PUID"
+
+#: musicbrainzclient.cpp:299
+msgid "TRM Lookup"
+msgstr "Поиск TRM"
+
+#: musicbrainzclient.cpp:300
+msgid "TRM Collision"
+msgstr "Столкновение TRM"
+
+#: musicbrainzclient.cpp:302
+msgid "File Lookup"
+msgstr "Поиск файла"
+
+#: musicbrainzclient.cpp:303 musicbrainzclient.cpp:590
+msgid "User Selection"
+msgstr "Выбор"
+
+#: musicbrainzclient.cpp:304
+msgid "Verified"
+msgstr "Проверено"
+
+#: musicbrainzclient.cpp:305
+msgid "Saved"
+msgstr "Сохранено"
+
+#: musicbrainzclient.cpp:306
+msgid "Deleted"
+msgstr "Удалено"
+
+#: musicbrainzclient.cpp:342
+msgid "Removed"
+msgstr "Удалён"
 
 #: musicbrainzclient.cpp:414
 msgid "Written"
 msgstr "Записан"
 
-#: frame.cpp:659 importparser.cpp:58 importselector.cpp:215
-#: importselector.cpp:243
-msgid "Year"
-msgstr "Год"
+#: musicbrainzdialog.cpp:64
+msgid "MusicBrainz"
+msgstr "MusicBrainz"
 
-#: _translatorinfo.cpp:3
+#: musicbrainzdialog.cpp:111 musicbrainzdialog.cpp:129
+msgid "Track Title/Artist - Album"
+msgstr "Число Название/Исполнитель - Альбом"
+
+#: musicbrainzdialog.cpp:112 musicbrainzdialog.cpp:130
+msgid "State"
+msgstr "Состояние"
+
+#: musicbrainzdialog.cpp:214 musicbrainzdialog.cpp:230
+#: musicbrainzdialog.cpp:417
+msgid "No result"
+msgstr "Не удалось найти"
+
+#: musicbrainzdialog.cpp:417
+msgid "No result selected"
+msgstr "Никакой отобранный результат"
+
+#: numbertracksdialog.cpp:64
+msgid "&Start number:"
+msgstr "&Число начала:"
+
+#: numbertracksdialog.cpp:77
+msgid "&Destination:"
+msgstr "М&есто назначения:"
+
+#: picturelabel.cpp:85
 msgid ""
-"_: EMAIL OF TRANSLATORS\n"
-"Your emails"
-msgstr "Egor.Orlov@avalon.ru"
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Перетащите\n"
+"сюда обложку\n"
+"альбома"
 
-#: _translatorinfo.cpp:1
-msgid ""
-"_: NAME OF TRANSLATORS\n"
-"Your names"
-msgstr "Егор С. Орлов"
+#: rendirdialog.cpp:49
+msgid "Create directory %1 failed\n"
+msgstr "Сбой попытки создания требуемого каталога %1\n"
 
-#: main.cpp:93
-msgid "directory to open"
-msgstr "каталог для открытия"
+#: rendirdialog.cpp:51
+msgid "File %1 already exists\n"
+msgstr "Файл %1 уже существует\n"
 
-#: importselector.cpp:289
-msgid "gnudb.org"
-msgstr "gnudb.org"
+#: rendirdialog.cpp:53
+msgid "%1 is not a directory\n"
+msgstr "%1 - это не каталог\n"
+
+#: rendirdialog.cpp:55
+msgid "Rename %1 to %2 failed\n"
+msgstr "Ошибка переименование из %1 в %2\n"
+
+#: rendirdialog.cpp:57
+msgid "%1 already exists\n"
+msgstr "%1 уже существует\n"
+
+#: rendirdialog.cpp:59
+msgid "%1 is not a file\n"
+msgstr "%1 не является файлом\n"
+
+#: rendirdialog.cpp:83 rendirdialog.cpp:139
+msgid "Preview"
+msgstr "Просмотр"
+
+#: rendirdialog.cpp:173
+msgid "Create Directory"
+msgstr "Создать Каталог"
+
+#: rendirdialog.cpp:176
+msgid "From Tag 2 and Tag 1"
+msgstr "Из тег 2 и тег 1"
+
+#: rendirdialog.cpp:184
+msgid "&Format:"
+msgstr "&Формат:"
+
+#: rendirdialog.cpp:216
+msgid "From:"
+msgstr "От:"
+
+#: rendirdialog.cpp:218
+msgid "To:"
+msgstr "На:"
+
+#: rendirdialog.cpp:647
+msgid "New directory name is too different\n"
+msgstr "Новое название каталога слишком отлично\n"
+
+#: rendirdialog.cpp:772
+msgid "Create directory"
+msgstr "Создать Каталог"
+
+#: rendirdialog.cpp:773
+msgid "Rename directory"
+msgstr "Переименовать Каталог"
+
+#: rendirdialog.cpp:774
+msgid "Rename file"
+msgstr "Переименовать файл"
+
+#: stringlistedit.cpp:56
+msgid "&Add..."
+msgstr "&Добавить..."
+
+#: stringlistedit.cpp:57
+msgid "Move &Up"
+msgstr "Переместить вв&ерх"
+
+#: stringlistedit.cpp:58
+msgid "Move &Down"
+msgstr "Переместить &вниз"
+
+#: stringlistedit.cpp:59
+msgid "&Edit..."
+msgstr "&Изменить..."
+
+#: stringlistedit.cpp:136
+msgid "Add Item"
+msgstr "Добавить элемент"
+
+#: stringlistedit.cpp:183 stringlistedit.cpp:194
+msgid "Edit Item"
+msgstr "Изменить элемент"
+
+#: taglibfile.cpp:1487
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - Audio seek point index"
+
+#: taglibfile.cpp:1491
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - Equalisation (2)"
+
+#: taglibfile.cpp:1504
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - Relative volume adjustment (2)"
+
+#: taglibfile.cpp:1506
+msgid "SEEK - Seek frame"
+msgstr "SEEK - Seek frame"
+
+#: taglibfile.cpp:1507
+msgid "SIGN - Signature frame"
+msgstr "SIGN - Signature frame"
+
+#: taglibfile.cpp:1515
+msgid "TDEN - Encoding time"
+msgstr "TDEN - Encoding time"
+
+#: taglibfile.cpp:1517
+msgid "TDOR - Original release time"
+msgstr "TDOR - Original release time"
+
+#: taglibfile.cpp:1518
+msgid "TDRC - Recording time"
+msgstr "TDRC - Recording time"
+
+#: taglibfile.cpp:1519
+msgid "TDRL - Release time"
+msgstr "TDRL - Release time"
+
+#: taglibfile.cpp:1520
+msgid "TDTG - Tagging time"
+msgstr "TDTG - Tagging time"
+
+#: taglibfile.cpp:1524
+msgid "TIPL - Involved people list"
+msgstr "TIPL - Involved people list"
+
+#: taglibfile.cpp:1531
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - Musician credits list"
+
+#: taglibfile.cpp:1533
+msgid "TMOO - Mood"
+msgstr "TMOO - Mood"
+
+#: taglibfile.cpp:1544
+msgid "TPRO - Produced notice"
+msgstr "TPRO - Produced notice"
+
+#: taglibfile.cpp:1549
+msgid "TSOA - Album sort order"
+msgstr "TSOA - Album sort order"
+
+#: taglibfile.cpp:1550
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - Performer sort order"
+
+#: taglibfile.cpp:1551
+msgid "TSOT - Title sort order"
+msgstr "TSOT - Title sort order"
+
+#: taglibfile.cpp:1554
+msgid "TSST - Set subtitle"
+msgstr "TSST - Set subtitle"
+
