@@ -1,43 +1,4 @@
 
-msgid "&File"
-msgstr "&Fail"
-
-msgid "&Open..."
-msgstr "&Ava..."
-
-msgid "&Save"
-msgstr "&Salvesta"
-
-msgid "&Quit"
-msgstr "&Välju"
-
-msgid "&Help"
-msgstr "&Abi"
-
-msgid "Open"
-msgstr "Ava"
-
-msgid "Copy"
-msgstr "Kopeeri"
-
-msgid "Paste"
-msgstr "Aseta"
-
-msgid "Remove"
-msgstr "Eemalda"
-
-msgid "Edit"
-msgstr "Redigeerimine"
-
-msgid "&Edit"
-msgstr "&Redigeerimine"
-
-msgid "Add"
-msgstr "Lisa"
-
-msgid "Delete"
-msgstr "Kustuta"
-
 msgid "Look &in:"
 msgstr "&Asukoht:"
 
@@ -50,23 +11,8 @@ msgstr "Faili &tüüp:"
 msgid "Cancel"
 msgstr "Loobu"
 
-msgid "Import"
-msgstr "Impordi"
-
-msgid "Export"
-msgstr "Eksport"
-
-msgid "&View"
-msgstr "&Vaade"
-
 msgid "Revert"
 msgstr "Lähtesta"
-
-msgid "&Tools"
-msgstr "&Tööriistad"
-
-msgid "&Settings"
-msgstr "&Seadistused"
 
 msgid "Back"
 msgstr "Tagasi"
@@ -74,23 +20,8 @@ msgstr "Tagasi"
 msgid "Close"
 msgstr "Sulge"
 
-msgid "&Apply"
-msgstr "&Rakenda"
-
-msgid "&Cancel"
-msgstr "&Loobu"
-
-msgid "&Close"
-msgstr "S&ulge"
-
-msgid "Error"
-msgstr "Viga"
-
 msgid "&Open"
 msgstr "&Ava"
-
-msgid "Save"
-msgstr "Salvesta"
 
 msgid "&Yes"
 msgstr "&Jah"
@@ -103,19 +34,4 @@ msgstr "Jah"
 
 msgid "No"
 msgstr "Ei"
-
-msgid "Files"
-msgstr "Failid"
-
-msgid "&OK"
-msgid "&OK"
-
-msgid "&Delete"
-msgstr "&Kustuta"
-
-msgid "Warning"
-msgstr "Hoiatus"
-
-msgid "&Remove"
-msgstr "&Eemalda"
 

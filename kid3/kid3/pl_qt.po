@@ -1,43 +1,4 @@
 
-msgid "&File"
-msgstr "&Plik"
-
-msgid "&Open..."
-msgstr "&Otwórz..."
-
-msgid "&Save"
-msgstr "&Zapisz"
-
-msgid "&Quit"
-msgstr "Za&kończ"
-
-msgid "&Help"
-msgstr "Pomo&c"
-
-msgid "Open"
-msgstr "Otwórz"
-
-msgid "Copy"
-msgstr "Kopiuj"
-
-msgid "Paste"
-msgstr "Wklej"
-
-msgid "Remove"
-msgstr "Usuń"
-
-msgid "Edit"
-msgstr "Edycja"
-
-msgid "&Edit"
-msgstr "&Edycja"
-
-msgid "Add"
-msgstr "Dodaj"
-
-msgid "Delete"
-msgstr "Usuń"
-
 msgid "Look &in:"
 msgstr "&Szukaj w:"
 
@@ -50,23 +11,8 @@ msgstr "&Typ pliku:"
 msgid "Cancel"
 msgstr "Anuluj"
 
-msgid "Import"
-msgstr "Importuj"
-
-msgid "Export"
-msgstr "Eksportuj"
-
-msgid "&View"
-msgstr "&Widok"
-
 msgid "Revert"
 msgstr "Przywróć"
-
-msgid "&Tools"
-msgstr "&Narzędzia"
-
-msgid "&Settings"
-msgstr "&Ustawienia"
 
 msgid "Back"
 msgstr "Wstecz"
@@ -74,23 +20,8 @@ msgstr "Wstecz"
 msgid "Close"
 msgstr "Zamknij"
 
-msgid "&Apply"
-msgstr "&Zastosuj"
-
-msgid "&Cancel"
-msgstr "&Anuluj"
-
-msgid "&Close"
-msgstr "Z&amknij"
-
-msgid "Error"
-msgstr "Błąd"
-
 msgid "&Open"
 msgstr "&Otwórz"
-
-msgid "Save"
-msgstr "Zapisz"
 
 msgid "&Yes"
 msgstr "&Tak"
@@ -103,19 +34,4 @@ msgstr "Tak"
 
 msgid "No"
 msgstr "Nie"
-
-msgid "Files"
-msgstr "Pliki"
-
-msgid "&OK"
-msgstr "&OK"
-
-msgid "&Delete"
-msgstr "U&suń"
-
-msgid "Warning"
-msgstr "Ostrzeżenie"
-
-msgid "&Remove"
-msgstr "&Usuń"
 
