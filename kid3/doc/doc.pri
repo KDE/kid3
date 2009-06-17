@@ -23,12 +23,12 @@ contains($$list($$[QT_VERSION]), 4.*) {
 
 db2html.output = kid3_${QMAKE_TARGET}.html
 isEmpty(CFG_DB2HTML) {
-  exists(/usr/bin/jw) {
-    CFG_DB2HTML = jw
-  } else:exists(/usr/bin/xsltproc) {
+  exists(/usr/bin/xsltproc) {
     CFG_DB2HTML = xsltproc
   } else:exists(/usr/bin/xalan) {
     CFG_DB2HTML = xalan
+  } else:exists(/usr/bin/jw) {
+    CFG_DB2HTML = jw
   }
 }
 !isEmpty(CFG_PERL_CMD) {

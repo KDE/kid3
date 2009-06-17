@@ -495,7 +495,7 @@ AC_ARG_WITH(db2html, [  --with-db2html=PROGRAM  Docbook to HTML command (e.g. xs
   CFG_DB2HTML=
 )
 if test -z ${CFG_DB2HTML}; then
-  AC_CHECK_PROGS(CFG_DB2HTML, jw xsltproc xalan)
+  AC_CHECK_PROGS(CFG_DB2HTML, xsltproc xalan jw)
 fi
 if test -z ${CFG_DB2HTML}; then
   AC_MSG_ERROR([No docbook to HTML converter found, install docbook-utils, xsltproc or xalan])
