@@ -2893,17 +2893,6 @@ void Kid3App::updateGuiControls()
 				single_v2_file->getChangedFramesV2());
 			m_view->markChangedFilename(single_v2_file->isFilenameChanged());
 		}
-
-		if (!s_miscCfg.m_hidePicture) {
-			FrameCollection::const_iterator it =
-				m_view->frameTableV2()->frames().find(Frame(Frame::FT_Picture, "", "", -1));
-			if (it == m_view->frameTableV2()->frames().end()) {
-				m_view->setPictureData(0);
-			} else {
-				QByteArray data;
-				m_view->setPictureData(PictureFrame::getData(*it, data) ? &data : 0);
-			}
-		}
 	}
 	else {
 		m_view->setFilenameEditEnabled(false);
@@ -2919,8 +2908,16 @@ void Kid3App::updateGuiControls()
 			m_view->frameTableV2()->markChangedFrames(0);
 			m_view->markChangedFilename(false);
 		}
-		if (!s_miscCfg.m_hidePicture) {
+	}
+	if (!s_miscCfg.m_hidePicture) {
+		FrameCollection::const_iterator it =
+			m_view->frameTableV2()->frames().find(Frame(Frame::FT_Picture, "", "", -1));
+		if (it == m_view->frameTableV2()->frames().end() ||
+				it->isInactive()) {
 			m_view->setPictureData(0);
+		} else {
+			QByteArray data;
+			m_view->setPictureData(PictureFrame::getData(*it, data) ? &data : 0);
 		}
 	}
 	m_view->frameTableV1()->setAllCheckBoxes(num_files_selected == 1);

@@ -25,6 +25,7 @@
  */
 
 #include "frame.h"
+#include "pictureframe.h"
 #include <qmap.h>
 #include "qtcompatmac.h"
 
@@ -237,6 +238,7 @@ QVariant Frame::getFieldValue(Field::Id id) const
  */
 void FrameCollection::filterDifferent(const FrameCollection& others)
 {
+	QByteArray frameData, othersData;
 	for (iterator it = begin(); it != end(); ++it) {
 		Frame& frame = const_cast<Frame&>(*it);
 		// This frame list is not tied to a specific file, so the
@@ -245,7 +247,12 @@ void FrameCollection::filterDifferent(const FrameCollection& others)
 		if (!frame.isInactive()) {
 			iterator othersIt = others.find(frame);
 			if (othersIt == others.end() ||
-					frame.getValue() != othersIt->getValue()) {
+					(frame.getType() != Frame::FT_Picture &&
+					 frame.getValue() != othersIt->getValue()) ||
+					(frame.getType() == Frame::FT_Picture &&
+					 !(PictureFrame::getData(frame, frameData) &&
+						 PictureFrame::getData(*othersIt, othersData) &&
+						 frameData == othersData))) {
 				frame.setInactive();
 			}
 		}
