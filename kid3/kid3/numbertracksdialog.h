@@ -67,6 +67,11 @@ public:
 
 private slots:
 	/**
+	 * Save the local settings to the configuration.
+	 */
+	void saveConfig();
+
+	/**
 	 * Show help.
 	 */
 	void showHelp();

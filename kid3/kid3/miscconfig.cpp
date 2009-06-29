@@ -113,6 +113,8 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_dirFormatText(s_defaultDirFmtList[0]),
 	m_dirFormatItem(0),
 	m_renDirSrc(0),
+	m_numberTracksDst(0),
+	m_numberTracksStart(1),
 	m_hideV1(false),
 	m_hideV2(false),
 	m_hidePicture(false),
@@ -157,6 +159,8 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("DirFormatItem", m_dirFormatItem);
 	cfg.writeEntry("DirFormatText", m_dirFormatText);
 	cfg.writeEntry("RenameDirectorySource", m_renDirSrc);
+	cfg.writeEntry("NumberTracksDestination", m_numberTracksDst);
+	cfg.writeEntry("NumberTracksStartNumber", m_numberTracksStart);
 	cfg.writeEntry("MarkTruncations", m_markTruncations);
 	cfg.writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	cfg.writeEntry("GenreNotNumeric", m_genreNotNumeric);
@@ -207,6 +211,8 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/DirFormatItem", m_dirFormatItem);
 	config->QCM_writeEntry("/DirFormatText", m_dirFormatText);
 	config->QCM_writeEntry("/RenameDirectorySource", m_renDirSrc);
+	config->QCM_writeEntry("/NumberTracksDestination", m_numberTracksDst);
+	config->QCM_writeEntry("/NumberTracksStartNumber", m_numberTracksStart);
 	config->QCM_writeEntry("/MarkTruncations", m_markTruncations);
 	config->QCM_writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	config->QCM_writeEntry("/GenreNotNumeric", m_genreNotNumeric);
@@ -299,6 +305,8 @@ void MiscConfig::readFromConfig(
 	m_dirFormatItem =
 	    cfg.KCM_readNumEntry("DirFormatItem", 0);
 	m_renDirSrc = cfg.KCM_readBoolEntry("RenameDirectorySource", m_renDirSrc);
+	m_numberTracksDst = cfg.KCM_readNumEntry("NumberTracksDestination", 0);
+	m_numberTracksStart = cfg.KCM_readNumEntry("NumberTracksStartNumber", 1);
 	m_markTruncations = cfg.KCM_readBoolEntry("MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = cfg.KCM_readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_genreNotNumeric = cfg.KCM_readBoolEntry("GenreNotNumeric", m_genreNotNumeric);
@@ -348,6 +356,8 @@ void MiscConfig::readFromConfig(
 	m_dirFormatItem =
 	    config->QCM_readNumEntry("/DirFormatItem", 0);
 	m_renDirSrc = config->QCM_readBoolEntry("/RenameDirectorySource", m_renDirSrc);
+	m_numberTracksDst = config->QCM_readNumEntry("/NumberTracksDestination", 0);
+	m_numberTracksStart = config->QCM_readNumEntry("/NumberTracksStartNumber", 1);
 	m_markTruncations = config->QCM_readBoolEntry("/MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = config->QCM_readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
 	m_genreNotNumeric = config->QCM_readBoolEntry("/GenreNotNumeric", m_genreNotNumeric);

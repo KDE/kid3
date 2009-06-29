@@ -180,6 +180,10 @@ public:
 	int m_dirFormatItem;
 	/** rename directory from tags 1, tags 2, or both */
 	int m_renDirSrc;
+	/** number tracks in tags 1, tags 2, or both */
+	int m_numberTracksDst;
+	/** number tracks start number */
+	int m_numberTracksStart;
 #if QT_VERSION >= 0x040000
 	/** List of splitter sizes. */
 	typedef QList<int> SizesList;

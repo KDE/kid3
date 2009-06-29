@@ -65,7 +65,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 			m_trackSpinBox = new QSpinBox(this);
 			if (trackLabel && m_trackSpinBox) {
 				m_trackSpinBox->QCM_setMaximum(999);
-				m_trackSpinBox->setValue(1);
+				m_trackSpinBox->setValue(Kid3App::s_miscCfg.m_numberTracksStart);
 				trackLayout->addWidget(trackLabel);
 				trackLayout->addWidget(m_trackSpinBox);
 				trackLabel->setBuddy(m_trackSpinBox);
@@ -81,6 +81,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 				m_destComboBox->QCM_insertItem(DestV1, i18n("Tag 1"));
 				m_destComboBox->QCM_insertItem(DestV2, i18n("Tag 2"));
 				m_destComboBox->QCM_insertItem(DestV1V2, i18n("Tag 1 and Tag 2"));
+				m_destComboBox->QCM_setCurrentIndex(Kid3App::s_miscCfg.m_numberTracksDst);
 				trackLayout->addWidget(destLabel);
 				trackLayout->addWidget(m_destComboBox);
 				destLabel->setBuddy(m_destComboBox);
@@ -95,6 +96,12 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 			if (helpButton) {
 				hlayout->addWidget(helpButton);
 				connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+			}
+			QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+			if (saveButton) {
+				saveButton->setAutoDefault(false);
+				hlayout->addWidget(saveButton);
+				connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 			}
 			QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 																						 QSizePolicy::Minimum);
@@ -137,6 +144,15 @@ int NumberTracksDialog::getStartNumber() const
 NumberTracksDialog::Destination NumberTracksDialog::getDestination() const
 {
 	return static_cast<Destination>(m_destComboBox->QCM_currentIndex());
+}
+
+/**
+ * Save the local settings to the configuration.
+ */
+void NumberTracksDialog::saveConfig()
+{
+	Kid3App::s_miscCfg.m_numberTracksDst = m_destComboBox->QCM_currentIndex();
+	Kid3App::s_miscCfg.m_numberTracksStart = m_trackSpinBox->value();
 }
 
 /**
