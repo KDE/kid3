@@ -304,7 +304,7 @@ void MiscConfig::readFromConfig(
 	    cfg.KCM_readNumEntry("FormatItem", 0);
 	m_dirFormatItem =
 	    cfg.KCM_readNumEntry("DirFormatItem", 0);
-	m_renDirSrc = cfg.KCM_readBoolEntry("RenameDirectorySource", m_renDirSrc);
+	m_renDirSrc = cfg.KCM_readNumEntry("RenameDirectorySource", 0);
 	m_numberTracksDst = cfg.KCM_readNumEntry("NumberTracksDestination", 0);
 	m_numberTracksStart = cfg.KCM_readNumEntry("NumberTracksStartNumber", 1);
 	m_markTruncations = cfg.KCM_readBoolEntry("MarkTruncations", m_markTruncations);
@@ -355,7 +355,7 @@ void MiscConfig::readFromConfig(
 	    config->QCM_readNumEntry("/FormatItem", 0);
 	m_dirFormatItem =
 	    config->QCM_readNumEntry("/DirFormatItem", 0);
-	m_renDirSrc = config->QCM_readBoolEntry("/RenameDirectorySource", m_renDirSrc);
+	m_renDirSrc = config->QCM_readNumEntry("/RenameDirectorySource", 0);
 	m_numberTracksDst = config->QCM_readNumEntry("/NumberTracksDestination", 0);
 	m_numberTracksStart = config->QCM_readNumEntry("/NumberTracksStartNumber", 1);
 	m_markTruncations = config->QCM_readBoolEntry("/MarkTruncations", m_markTruncations);
