@@ -726,7 +726,8 @@ void GenreTableItem::setColorRed(bool en)
 #if QT_VERSION >= 0x040000
 FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	QTableWidget(parent), m_cursorRow(-1), m_cursorColumn(-1),
-	m_markedRows(0), m_changedFrames(0), m_setCheckBoxes(true), m_id3v1(id3v1)
+	m_markedRows(0), m_changedFrames(0), m_setCheckBoxes(true), m_id3v1(id3v1),
+	m_currentEditor(0)
 {
 	setColumnCount(CI_NumColumns);
 	setSelectionMode(SingleSelection);
@@ -745,6 +746,7 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	removeRow(0);
 	setItemDelegate(new FrameItemDelegate(this));
 	setEditTriggers(AllEditTriggers);
+	viewport()->installEventFilter(this); // keep track of editors
 }
 #else
 FrameTable::FrameTable(QWidget* parent, bool id3v1) :
@@ -967,6 +969,7 @@ void FrameTable::framesToTable()
 void FrameTable::tableToFrames(bool setUnchanged)
 {
 #if QT_VERSION >= 0x040000
+	acceptEdit(); // commit edits from open editors in the table
 	int row = 0;
 	for (FrameCollection::iterator it = m_frames.begin();
 			 it != m_frames.end();
@@ -1183,7 +1186,52 @@ void FrameTable::triggerResize()
 #endif
 }
 
-#if QT_VERSION < 0x040000
+#if QT_VERSION >= 0x040000
+/**
+ * Filters events if this object has been installed as an event filter
+ * for the watched object.
+ * This method is reimplemented to keep track of the current open editor.
+ * It has to be installed on the viewport of the table.
+ * @param event event
+ * @return true to filter event out.
+ */
+bool FrameTable::eventFilter(QObject*, QEvent* event)
+{
+	if (event) {
+		QEvent::Type type = event->type();
+		if (type == QEvent::ChildAdded) {
+			QObject* obj = ((QChildEvent*)event)->child();
+			if (obj && obj->isWidgetType()) {
+				m_currentEditor = (QWidget*)obj;
+			}
+		} else if (type == QEvent::ChildRemoved) {
+			if (m_currentEditor == ((QChildEvent*)event)->child()) {
+				m_currentEditor = 0;
+			}
+		}
+	}
+	return false;
+}
+
+/**
+ * Commit data from the current editor.
+ * This is used to avoid loosing the changes in open editors e.g. when
+ * the file is changed using Alt-Up or Alt-Down.
+ *
+ * @return true if data was committed.
+ */
+bool FrameTable::acceptEdit()
+{
+	if ((state() == QAbstractItemView::EditingState) && m_currentEditor) {
+		commitData(m_currentEditor);
+		//  close editor to avoid being stuck in QAbstractItemView::NoState
+		closeEditor(m_currentEditor, QAbstractItemDelegate::NoHint);
+		return true;
+	}
+	return false;
+}
+
+#else
 /**
  * Filters events if this object has been installed as an event filter
  * for the watched object.

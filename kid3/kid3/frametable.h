@@ -174,7 +174,31 @@ private:
 	const bool m_id3v1;
 	FrameCollection m_frames;
 
-#if QT_VERSION < 0x040000
+#if QT_VERSION >= 0x040000
+public:
+	/**
+	 * Filters events if this object has been installed as an event filter
+	 * for the watched object.
+	 * This method is reimplemented to keep track of the current open editor.
+	 * It has to be installed on the viewport of the table.
+	 * @param watched watched object
+	 * @param event   event
+	 * @return true to filter event out.
+	 */
+	virtual bool eventFilter(QObject* watched, QEvent* event);
+
+	/**
+	 * Commit data from the current editor.
+	 * This is used to avoid loosing the changes in open editors e.g. when
+	 * the file is changed using Alt-Up or Alt-Down.
+	 *
+	 * @return true if data was committed.
+	 */
+	bool acceptEdit();
+
+private:
+	QWidget* m_currentEditor;
+#else
 public:
 	/**
 	 * Trigger update of genres.
