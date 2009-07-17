@@ -50,11 +50,21 @@ if(WITH_MP4V2)
    /usr/local/include/
   )
 
+  find_path(MP4V2_MP4V2_INCLUDE_DIR mp4v2/mp4v2.h
+   /usr/include/
+   /usr/local/include/
+  )
+
   find_library(MP4V2_LIBRARIES NAMES mp4v2
    PATHS
    /usr/lib
    /usr/local/lib
   )
+
+  if (MP4V2_MP4V2_INCLUDE_DIR)
+    set(MP4V2_INCLUDE_DIR MP4V2_MP4V2_INCLUDE_DIR)
+    set(HAVE_MP4V2_MP4V2_H 1)
+  endif (MP4V2_MP4V2_INCLUDE_DIR)
 
   if (MP4V2_INCLUDE_DIR AND MP4V2_LIBRARIES)
     message(STATUS "mp4v2 found: ${MP4V2_LIBRARIES}")
@@ -63,7 +73,11 @@ if(WITH_MP4V2)
 
     set(_CMAKE_REQUIRED_LIBRARIES_TMP ${CMAKE_REQUIRED_LIBRARIES})
     set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ${MP4V2_LIBRARIES})
-    CHECK_CXX_SOURCE_COMPILES("#include <mp4.h>\nint main() {\n  MP4FileHandle hFile;\n  u_int32_t index;\n  char* ppName;\n  u_int8_t* ppValue;\n  u_int32_t pValueSize;\n  MP4GetMetadataByIndex(hFile, index, &ppName, &ppValue, &pValueSize);\n  return 0;\n}\n" HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG)
+    if (MP4V2_MP4V2_INCLUDE_DIR)
+      CHECK_CXX_SOURCE_COMPILES("#include <mp4v2/mp4v2.h>\nint main() {\n  MP4FileHandle hFile;\n  uint32_t index;\n  char* ppName;\n  uint8_t* ppValue;\n  uint32_t pValueSize;\n  MP4GetMetadataByIndex(hFile, index, &ppName, &ppValue, &pValueSize);\n  return 0;\n}\n" HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG)
+    else (MP4V2_MP4V2_INCLUDE_DIR)
+      CHECK_CXX_SOURCE_COMPILES("#include <mp4.h>\nint main() {\n  MP4FileHandle hFile;\n  u_int32_t index;\n  char* ppName;\n  u_int8_t* ppValue;\n  u_int32_t pValueSize;\n  MP4GetMetadataByIndex(hFile, index, &ppName, &ppValue, &pValueSize);\n  return 0;\n}\n" HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG)
+    endif (MP4V2_MP4V2_INCLUDE_DIR)
     set(CMAKE_REQUIRED_LIBRARIES ${_CMAKE_REQUIRED_LIBRARIES_TMP})
 
   else (MP4V2_INCLUDE_DIR AND MP4V2_LIBRARIES)

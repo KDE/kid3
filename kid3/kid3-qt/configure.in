@@ -69,6 +69,7 @@ if test "$with_mp4v2" != "no"; then
      # include <systems.h>
      #endif
     ])
+  AC_CHECK_HEADERS(mp4v2/mp4v2.h, [have_mp4v2_mp4v2_h=yes])
   AC_CHECK_LIB(mp4v2, MP4Read, [have_mp4v2=yes], [
     AC_CHECK_LIB(mp4v2, MP4Close, [have_mp4v2=yes; mp4v2_otherlibs=-lwsock32], [
       AC_MSG_WARN([libmp4v2 not found.
@@ -81,7 +82,7 @@ or use --without-mp4v2.])
   LDFLAGS=$ac_ldflags_save
   AC_LANG_RESTORE
 fi
-if test "$have_mp4v2" = "yes" -a "$have_mp4_h" = "yes"; then
+if test "$have_mp4v2" = "yes" -a \( "$have_mp4_h" = "yes" -o "$have_mp4v2_mp4v2_h" = "yes" \); then
   HAVE_MP4V2=1
   AC_SUBST(HAVE_MP4V2)
   AC_DEFINE(HAVE_MP4V2, 1, [have mp4v2])
@@ -101,8 +102,16 @@ if test "$have_mp4v2" = "yes"; then
     AC_MSG_CHECKING([if MP4GetMetadataByIndex has char** argument])
     AC_LANG_SAVE
     AC_LANG_CPLUSPLUS
-  cat > conftest.$ac_ext <<EOF
+    cat confdefs.h >conftest.$ac_ext
+    cat >> conftest.$ac_ext <<EOF
+#ifdef HAVE_SYS_TYPES_H
+#include <sys/types.h>
+#endif
+#ifdef HAVE_MP4V2_MP4V2_H
+#include <mp4v2/mp4v2.h>
+#else
 #include <mp4.h>
+#endif
 int main() {
   MP4FileHandle hFile;
   u_int32_t index;

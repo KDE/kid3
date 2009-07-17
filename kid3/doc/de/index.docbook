@@ -1564,7 +1564,7 @@ die <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>
 verwendet werden, welche zudem auch MPC, MP2, Speex, TrueAudio und WavPack
 Dateien unterstützt.
 Für MP4 Dateien wird 
-<ulink url="http://mpeg4ip.sourceforge.net">mp4v2</ulink> benötigt.
+<ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> benötigt.
 Für MusicBrainz Unterstützung wird
 <ulink url="http://musicbrainz.org/doc/libtunepimp">libtunepimp</ulink>
 verwendet. Da momentan kein Tunepimp SDK für Windows existiert, wurde die

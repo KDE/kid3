@@ -1463,7 +1463,7 @@ and libFLAC</ulink>.
  files. These three formats are also supported by
 <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
 which can also handle MPC, MP2, Speex, TrueAudio and WavPack files. 
-<ulink url="http://mpeg4ip.sourceforge.net">mp4v2</ulink> is required for
+<ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> is required for
 MP4 files.
 For MusicBrainz support,
 <ulink url="http://musicbrainz.org/doc/libtunepimp">libtunepimp</ulink>

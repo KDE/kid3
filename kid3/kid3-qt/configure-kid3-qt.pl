@@ -157,6 +157,7 @@ my $have_id3lib = 1;
 my $have_taglib = 1;
 my $taglib_includes = "-I/usr/include/taglib";
 my $have_mp4v2 = 1;
+my $have_mp4v2_mp4v2_h = 1;
 my $have_qtdbus = 0;
 my $have_tunepimp = 5;
 my $qmake_cmd = "qmake";
@@ -193,6 +194,7 @@ while (my $opt = shift) {
 		$taglib_includes = substr($opt, 23);
   } elsif ($opt eq "--without-mp4v2") {
 		$have_mp4v2 = 0;
+		$have_mp4v2_mp4v2_h = 0;
   } elsif ($opt eq "--with-dbus") {
 		$have_qtdbus = 1;
 	} elsif ($opt eq "--without-musicbrainz") {
@@ -295,6 +297,7 @@ if ($from_configure) {
 	$have_flac = 0;
 	$have_taglib = 0;
 	$have_mp4v2 = 0;
+	$have_mp4v2_mp4v2_h = 0;
 	$have_qtdbus = 0;
 	$have_tunepimp = 0;
 	$qmake_cmd = "";
@@ -326,6 +329,8 @@ if ($from_configure) {
 				$have_taglib = $1;
 			} elsif (/^#define HAVE_MP4V2 (\d+)$/) {
 				$have_mp4v2 = $1;
+			} elsif (/^#define HAVE_MP4V2_MP4V2_H (\d+)$/) {
+				$have_mp4v2_mp4v2_h = $1;
 			} elsif (/^#define HAVE_QTDBUS (\d+)$/) {
 				$have_qtdbus = $1;
 			} elsif (/^#define HAVE_TUNEPIMP (\d+)$/) {
@@ -437,6 +442,9 @@ if ($have_mp4v2) {
 	$config_h .= "#define HAVE_MP4V2 $have_mp4v2\n";
 	$config_pri .= "-lmp4v2 ";
 	$config_pri .= "-lwsock32 " if $^O eq "MSWin32" or $^O eq "msys";
+	if ($have_mp4v2_mp4v2_h) {
+		$config_h .= "#define HAVE_MP4V2_MP4V2_H $have_mp4v2_mp4v2_h\n";
+	}
 }
 if ($have_tunepimp) {
 	$config_h .= "#define HAVE_TUNEPIMP $have_tunepimp\n";

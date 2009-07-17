@@ -28,10 +28,8 @@
 test -d source || mkdir source
 cd source
 
-test -f faad2_2.0.0+cvs20040908+mp4v2+bmp-0ubuntu3.6.06.1.diff.gz ||
-wget http://archive.ubuntu.com/ubuntu/pool/multiverse/f/faad2/faad2_2.0.0+cvs20040908+mp4v2+bmp-0ubuntu3.6.06.1.diff.gz
-test -f faad2_2.0.0+cvs20040908+mp4v2+bmp.orig.tar.gz ||
-wget http://archive.ubuntu.com/ubuntu/pool/multiverse/f/faad2/faad2_2.0.0+cvs20040908+mp4v2+bmp.orig.tar.gz
+test -f mp4v2-1.9.1.tar.bz2 ||
+wget http://mp4v2.googlecode.com/files/mp4v2-1.9.1.tar.bz2
 
 test -f flac_1.2.1-1.2.diff.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-1.2.diff.gz
@@ -65,193 +63,6 @@ wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.3.orig.tar.gz
 
 
 # Create patch files
-
-test -f faad2_2.0.0_mac.patch ||
-cat >faad2_2.0.0_mac.patch <<"EOF"
-diff -ru faad2.orig/common/mp4v2/mp4util.h faad2/common/mp4v2/mp4util.h
---- faad2.orig/common/mp4v2/mp4util.h	2003-06-29 23:41:00.000000000 +0200
-+++ faad2/common/mp4v2/mp4util.h	2009-04-18 07:37:27.000000000 +0200
-@@ -22,6 +22,9 @@
- #ifndef __MP4_UTIL_INCLUDED__
- #define __MP4_UTIL_INCLUDED__
- #include <assert.h>
-+#ifdef __APPLE__
-+#include <sys/time.h>
-+#endif
- 
- #ifndef ASSERT
- #ifdef NDEBUG
-diff -ru faad2.orig/common/mp4v2/systems.h faad2/common/mp4v2/systems.h
---- faad2.orig/common/mp4v2/systems.h	2009-04-22 22:38:40.000000000 +0200
-+++ faad2/common/mp4v2/systems.h	2009-04-18 07:59:13.000000000 +0200
-@@ -37,6 +37,14 @@
- #include <win32_ver.h>
- #endif
- #define NEED_SDL_VIDEO_IN_MAIN_THREAD
-+#elif defined __APPLE__
-+#ifndef PACKAGE
-+#define PACKAGE "mpeg4ip"
-+#endif
-+#ifndef VERSION
-+#define VERSION "0.9.8.6"
-+#endif
-+#define HAVE_STDINT_H
- #else
- #undef PACKAGE
- #undef VERSION
-EOF
-
-test -f faad2_2.0.0_mingw.patch ||
-cat >faad2_2.0.0_mingw.patch <<"EOF"
-diff -ru faad2.orig/common/mp4ff/mp4ff_int_types.h faad2/common/mp4ff/mp4ff_int_types.h
---- faad2.orig/common/mp4ff/mp4ff_int_types.h	Fri Nov  2 06:37:08 2007
-+++ faad2/common/mp4ff/mp4ff_int_types.h	Sun Nov  4 12:10:52 2007
-@@ -1,7 +1,7 @@
- #ifndef _MP4FF_INT_TYPES_H_
- #define _MP4FF_INT_TYPES_H_
- 
--#ifdef _WIN32
-+#if defined(_WIN32) && !defined(__MINGW32__)
- 
- typedef char int8_t;
- typedef unsigned char uint8_t;
-@@ -20,4 +20,4 @@
- #endif
- 
- 
--#endif
-\ No newline at end of file
-+#endif
-diff -ru faad2.orig/common/mp4v2/systems.h faad2/common/mp4v2/systems.h
---- faad2.orig/common/mp4v2/systems.h	Fri Nov  2 06:40:12 2007
-+++ faad2/common/mp4v2/systems.h	Sun Nov  4 12:11:32 2007
-@@ -26,7 +26,16 @@
- #ifdef WIN32
- #define HAVE_IN_PORT_T
- #define HAVE_SOCKLEN_T
-+#ifdef __MINGW32__
-+#ifndef PACKAGE
-+#define PACKAGE "mpeg4ip"
-+#endif
-+#ifndef VERSION
-+#define VERSION "0.9.8.6"
-+#endif
-+#else
- #include <win32_ver.h>
-+#endif
- #define NEED_SDL_VIDEO_IN_MAIN_THREAD
- #else
- #undef PACKAGE
-@@ -49,6 +58,14 @@
- #include <time.h>
- #include <limits.h>
- 
-+#ifdef __MINGW32__
-+#include <stdint.h>
-+#include <ctype.h>
-+typedef unsigned __int64 u_int64_t;
-+typedef unsigned __int32 u_int32_t;
-+typedef unsigned __int16 u_int16_t;
-+typedef unsigned __int8 u_int8_t;
-+#else
- typedef unsigned __int64 uint64_t;
- typedef unsigned __int32 uint32_t;
- typedef unsigned __int16 uint16_t;
-@@ -64,6 +81,7 @@
- typedef unsigned short in_port_t;
- typedef int socklen_t;
- typedef int ssize_t;
-+#endif
- #define snprintf _snprintf
- #define strncasecmp _strnicmp
- #define strcasecmp _stricmp
-@@ -95,7 +113,9 @@
- }
- #endif
- 
-+#ifndef __MINGW32__
- #define PATH_MAX MAX_PATH
-+#endif
- #define MAX_UINT64 -1
- #define LLD "%I64d"
- #define LLU "%I64u"
-@@ -114,7 +134,7 @@
- #define LOG_INFO 6
- #define LOG_DEBUG 7
- 
--#if     !__STDC__ && _INTEGRAL_MAX_BITS >= 64
-+#if     (!__STDC__ || defined __MINGW32__) && _INTEGRAL_MAX_BITS >= 64
- #define VAR_TO_FPOS(fpos, var) (fpos) = (var)
- #define FPOS_TO_VAR(fpos, typed, var) (var) = (typed)(_FPOSOFF(fpos))
- #else
-diff -ru faad2.orig/libfaad/common.h faad2/libfaad/common.h
---- faad2.orig/libfaad/common.h	Fri Nov  2 06:37:08 2007
-+++ faad2/libfaad/common.h	Sun Nov  4 12:10:12 2007
-@@ -303,6 +303,7 @@
-     }
-   #elif (defined(__i386__) && defined(__GNUC__))
-     #define HAS_LRINTF
-+#if !defined __MINGW32__ && !defined __APPLE__
-     // from http://www.stereopsis.com/FPU.html
-     static INLINE int lrintf(float f)
-     {
-@@ -314,6 +315,7 @@
-             : "m" (f));
-         return i;
-     }
-+#endif
-   #endif
- 
- 
-EOF
-
-test -f faad2-mkinstalldirs.diff ||
-cat >faad2-mkinstalldirs.diff <<"EOF"
-diff -ruN faad2.orig/mkinstalldirs faad2/mkinstalldirs
---- faad2.orig/mkinstalldirs	Thu Jan  1 00:00:00 1970
-+++ faad2/mkinstalldirs	Mon Mar  3 23:26:04 2008
-@@ -0,0 +1,40 @@
-+#! /bin/sh
-+# mkinstalldirs --- make directory hierarchy
-+# Author: Noah Friedman <friedman@prep.ai.mit.edu>
-+# Created: 1993-05-16
-+# Public domain
-+
-+# $Id: mkinstalldirs,v 1.1 1999/11/01 04:12:39 scott Exp $
-+
-+errstatus=0
-+
-+for file
-+do
-+   set fnord `echo ":$file" | sed -ne 's/^:\//#/;s/^://;s/\// /g;s/^#/\//;p'`
-+   shift
-+
-+   pathcomp=
-+   for d
-+   do
-+     pathcomp="$pathcomp$d"
-+     case "$pathcomp" in
-+       -* ) pathcomp=./$pathcomp ;;
-+     esac
-+
-+     if test ! -d "$pathcomp"; then
-+        echo "mkdir $pathcomp"
-+
-+        mkdir "$pathcomp" || lasterr=$?
-+
-+        if test ! -d "$pathcomp"; then
-+  	  errstatus=$lasterr
-+        fi
-+     fi
-+
-+     pathcomp="$pathcomp/"
-+   done
-+done
-+
-+exit $errstatus
-+
-+# mkinstalldirs ends here
-EOF
 
 test -f fink_flac.patch ||
 cat >fink_flac.patch <<"EOF"
@@ -478,19 +289,8 @@ fi
 
 # mp4v2
 
-if ! test -d faad2; then
-tar xzf source/faad2_2.0.0+cvs20040908+mp4v2+bmp.orig.tar.gz
-cd faad2/
-gunzip -c ../source/faad2_2.0.0+cvs20040908+mp4v2+bmp-0ubuntu3.6.06.1.diff.gz | patch -p1
-patch -p1 <debian/patches/01_systems.h.diff 
-patch -p1 <debian/patches/04_mp4ff.h_fix.diff 
-patch -p1 <debian/patches/06_pure_virtual_fix.diff 
-patch -p1 <debian/patches/07_remove_static.diff 
-patch -p0 <debian/patches/09_amd64.diff
-patch -p1 <../source/faad2_2.0.0_mingw.patch
-patch -p1 <../source/faad2-mkinstalldirs.diff
-patch -p1 <../source/faad2_2.0.0_mac.patch
-cd ..
+if ! test -d mp4v2-1.9.1; then
+tar xjf mp4v2-1.9.1.tar.bz2
 fi
 
 
@@ -567,21 +367,12 @@ cd ../..
 
 # mp4v2
 
-cd faad2/
-aclocal
-automake
-autoconf
-if ! test -f configure.orig; then
-  mv configure configure.orig
-  sed 's/  PKG_CHECK_MODULES(BMP, bmp)/#  PKG_CHECK_MODULES(BMP, bmp)/' configure.orig >configure
-  chmod +x configure
-fi
-test -f Makefile || ./configure --with-mp4v2 --without-xmms --without-bmp --enable-shared=no --enable-static=yes
-make
+cd mp4v2-1.9.1/
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/faad2-2.0.0.tgz usr
+tar czf ../../bin/mp4v2-1.9.1.tgz usr
 cd ../..
 
 
@@ -597,7 +388,7 @@ tar xzf bin/libvorbis-1.2.0.tgz -C /
 tar xzf bin/flac-1.2.1.tgz -C /
 tar xzf bin/id3lib-3.8.3.tgz -C /
 tar xzf bin/taglib-1.5.tgz -C /
-tar xzf bin/faad2-2.0.0.tgz -C /
+tar xzf bin/mp4v2-1.9.1.tgz -C /
 
 if test $(uname) = "Darwin"; then
   sudo chmod go-w /usr/local

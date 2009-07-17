@@ -42,12 +42,18 @@
 #include <utime.h>
 #endif
 #include <stdio.h>
+#ifdef HAVE_MP4V2_MP4V2_H
+#include <mp4v2/mp4v2.h>
+#else
 #include <mp4.h>
+#endif
 #include <cstdlib>
 #include <cstring>
 
 /** MPEG4IP version as 16-bit hex number with major and minor version. */
-#if defined MPEG4IP_MAJOR_VERSION && defined MPEG4IP_MINOR_VERSION
+#if defined MP4V2_PROJECT_version_major && defined MP4V2_PROJECT_version_minor
+#define MPEG4IP_MAJOR_MINOR_VERSION ((MP4V2_PROJECT_version_major << 8) | MP4V2_PROJECT_version_minor)
+#elif defined MPEG4IP_MAJOR_VERSION && defined MPEG4IP_MINOR_VERSION
 #define MPEG4IP_MAJOR_MINOR_VERSION ((MPEG4IP_MAJOR_VERSION << 8) | MPEG4IP_MINOR_VERSION)
 #else
 #define MPEG4IP_MAJOR_MINOR_VERSION 0x0009
@@ -96,6 +102,38 @@ static const struct {
 	{ "aART", Frame::FT_AlbumArtist },
 	{ "pgap", Frame::FT_Other },
 #endif
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+	{ "cprt", Frame::FT_Copyright },
+	{ "\251lyr", Frame::FT_Lyrics },
+	{ "tvsh", Frame::FT_Other },
+	{ "tvnn", Frame::FT_Other },
+	{ "tven", Frame::FT_Other },
+	{ "tvsn", Frame::FT_Other },
+	{ "tves", Frame::FT_Other },
+	{ "desc", Frame::FT_Other },
+	{ "ldes", Frame::FT_Other },
+	{ "sonm", Frame::FT_Other },
+	{ "soar", Frame::FT_Other },
+	{ "soaa", Frame::FT_Other },
+	{ "soal", Frame::FT_Other },
+	{ "soco", Frame::FT_Other },
+	{ "sosn", Frame::FT_Other },
+	{ "\251enc", Frame::FT_Other },
+	{ "purd", Frame::FT_Other },
+	{ "pcst", Frame::FT_Other },
+	{ "keyw", Frame::FT_Other },
+	{ "catg", Frame::FT_Other },
+	{ "hdvd", Frame::FT_Other },
+	{ "stik", Frame::FT_Other },
+	{ "rtng", Frame::FT_Other },
+	{ "apID", Frame::FT_Other },
+	{ "akID", Frame::FT_Other },
+	{ "sfID", Frame::FT_Other },
+	{ "cnID", Frame::FT_Other },
+	{ "atID", Frame::FT_Other },
+	{ "plID", Frame::FT_Other },
+	{ "geID", Frame::FT_Other },
+#endif
 	{ "covr", Frame::FT_Picture }
 },
 freeFormNameTypes[] = {
@@ -108,11 +146,15 @@ freeFormNameTypes[] = {
 	{ "ARRANGER", Frame::FT_Arranger },
 	{ "AUTHOR", Frame::FT_Author },
 	{ "CONDUCTOR", Frame::FT_Conductor },
+#if !(MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109)
 	{ "COPYRIGHT", Frame::FT_Copyright },
+#endif
 	{ "ISRC", Frame::FT_Isrc },
 	{ "LANGUAGE", Frame::FT_Language },
 	{ "LYRICIST", Frame::FT_Lyricist },
+#if !(MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109)
 	{ "LYRICS", Frame::FT_Lyrics },
+#endif
 	{ "SOURCEMEDIA", Frame::FT_Media },
 	{ "ORIGINALALBUM", Frame::FT_OriginalAlbum },
 	{ "ORIGINALARTIST", Frame::FT_OriginalArtist },
@@ -211,8 +253,8 @@ static bool isFreeFormMetadata(MP4FileHandle hFile, const char* name)
 {
 	bool result = false;
 	if (getTypeForName(name, true) == Frame::FT_UnknownFrame) {
-		u_int8_t* pValue = 0;
-		u_int32_t valueSize = 0;
+		uint8_t* pValue = 0;
+		uint32_t valueSize = 0;
 		result = MP4GetMetadataFreeForm(hFile, const_cast<char*>(name),
 																		&pValue, &valueSize);
 		if (pValue && valueSize > 0) {
@@ -233,7 +275,7 @@ static bool isFreeFormMetadata(MP4FileHandle hFile, const char* name)
  * @return byte array with string representation.
  */
 static QByteArray getValueByteArray(const char* name,
-																		const u_int8_t* value, u_int32_t size)
+																		const uint8_t* value, uint32_t size)
 {
 	QCM_QCString str;
 	if (name[0] == '\251') {
@@ -286,6 +328,97 @@ static QByteArray getValueByteArray(const char* name,
 			str.setNum(value[0]);
 		}
 #endif
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+	} else if (std::strcmp(name, "tvsn") == 0) {
+		if (size >= 4) {
+			uint val = value[3] + (value[2] << 8) + (value[1] << 16) + (value[0] << 24);
+			if (val > 0) {
+				str.setNum(val);
+			}
+		}
+	} else if (std::strcmp(name, "tves") == 0) {
+		if (size >= 4) {
+			uint val = value[3] + (value[2] << 8) +
+				(value[1] << 16) + (value[0] << 24);
+			if (val > 0) {
+				str.setNum(val);
+			}
+		}
+	} else if (std::strcmp(name, "pcst") == 0) {
+		if (size >= 1) {
+			str.setNum(value[0]);
+		}
+	} else if (std::strcmp(name, "hdvd") == 0) {
+		if (size >= 1) {
+			str.setNum(value[0]);
+		}
+	} else if (std::strcmp(name, "stik") == 0) {
+		if (size >= 1) {
+			str.setNum(value[0]);
+		}
+	} else if (std::strcmp(name, "rtng") == 0) {
+		if (size >= 1) {
+			str.setNum(value[0]);
+		}
+	} else if (std::strcmp(name, "akID") == 0) {
+		if (size >= 1) {
+			str.setNum(value[0]);
+		}
+	} else if (std::strcmp(name, "sfID") == 0) {
+		if (size >= 4) {
+			uint val = value[3] + (value[2] << 8) +
+				(value[1] << 16) + (value[0] << 24);
+			if (val > 0) {
+				str.setNum(val);
+			}
+		}
+	} else if (std::strcmp(name, "cnID") == 0) {
+		if (size >= 4) {
+			uint val = value[3] + (value[2] << 8) +
+				(value[1] << 16) + (value[0] << 24);
+			if (val > 0) {
+				str.setNum(val);
+			}
+		}
+	} else if (std::strcmp(name, "atID") == 0) {
+		if (size >= 4) {
+			uint val = value[3] + (value[2] << 8) +
+				(value[1] << 16) + (value[0] << 24);
+			if (val > 0) {
+				str.setNum(val);
+			}
+		}
+	} else if (std::strcmp(name, "plID") == 0) {
+		if (size >= 8) {
+#if QT_VERSION >= 0x040000
+			qulonglong val = (qulonglong)value[7] + ((qulonglong)value[6] << 8) +
+				((qulonglong)value[5] << 16) + ((qulonglong)value[4] << 24) +
+				((qulonglong)value[3] << 32) + ((qulonglong)value[2] << 40) +
+				((qulonglong)value[1] << 48) + ((qulonglong)value[0] << 56);
+			if (val > 0) {
+				str.setNum(val);
+			}
+#else
+			Q_ULLONG val = (Q_ULLONG)value[7] + ((Q_ULLONG)value[6] << 8) +
+				((Q_ULLONG)value[5] << 16) + ((Q_ULLONG)value[4] << 24) +
+				((Q_ULLONG)value[3] << 32) + ((Q_ULLONG)value[2] << 40) +
+				((Q_ULLONG)value[1] << 48) + ((Q_ULLONG)value[0] << 56);
+			if (val > 0) {
+				QString qstr;
+				qstr.setNum(val);
+				str = qstr;
+			}
+#endif
+		}
+	} else if (std::strcmp(name, "geID") == 0) {
+		if (size >= 4) {
+			uint val = value[3] + (value[2] << 8) +
+				(value[1] << 16) + (value[0] << 24);
+			if (val > 0) {
+				str.setNum(val);
+			}
+		}
+#endif
 	} else {
 		QCM_duplicate(str, reinterpret_cast<const char*>(value), size);
 	}
@@ -309,13 +442,37 @@ void M4aFile::readTags(bool force)
 		MP4FileHandle handle = MP4Read(fnIn);
 		if (handle != MP4_INVALID_FILE_HANDLE) {
 			m_fileInfo.read(handle);
-#ifdef HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+    MP4ItmfItemList* list = MP4ItmfGetItems(handle);
+    if (list) {
+			for (uint32_t i = 0; i < list->size; ++i) {
+				MP4ItmfItem& item = list->elements[i];
+				const char* key = 0;
+				if (memcmp(item.code, "----", 4) == 0) {
+					// free form tagfield
+					if (item.name) {
+						key = item.name;
+					}
+				} else {
+					key = item.code;
+				}
+				if (key) {
+					QByteArray ba;
+					if (item.dataList.size > 0 && item.dataList.elements[0].value && item.dataList.elements[0].valueSize > 0) {
+						ba = getValueByteArray(key, item.dataList.elements[0].value, item.dataList.elements[0].valueSize);
+					}
+					m_metadata[key] = ba;
+				}
+			}
+			MP4ItmfItemListFree(list);
+    }
+#elif defined HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG
 			static char notFreeFormStr[] = "NOFF";
 			static char freeFormStr[] = "----";
 			char* ppName;
-			u_int8_t* ppValue = 0;
-			u_int32_t pValueSize = 0;
-			u_int32_t index = 0;
+			uint8_t* ppValue = 0;
+			uint32_t pValueSize = 0;
+			uint32_t index = 0;
 			unsigned numEmptyEntries = 0;
 			for (index = 0; index < 64; ++index) {
 				ppName = notFreeFormStr;
@@ -356,9 +513,9 @@ void M4aFile::readTags(bool force)
 			}
 #else
 			const char* ppName = 0;
-			u_int8_t* ppValue = 0;
-			u_int32_t pValueSize = 0;
-			u_int32_t index = 0;
+			uint8_t* ppValue = 0;
+			uint32_t pValueSize = 0;
+			uint32_t index = 0;
 			unsigned numEmptyEntries = 0;
 			for (index = 0; index < 64; ++index) {
 				if (MP4GetMetadataByIndex(handle, index,
@@ -437,8 +594,19 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 
     MP4FileHandle handle = MP4Modify(fn);
     if (handle != MP4_INVALID_FILE_HANDLE) {
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+			MP4ItmfItemList* list = MP4ItmfGetItems(handle);
+			if (list) {
+				for (uint32_t i = 0; i < list->size; ++i) {
+					MP4ItmfRemoveItem(handle, &list->elements[i]);
+				}
+				MP4ItmfItemListFree(list);
+			}
+			const MP4Tags* tags = MP4TagsAlloc();
+#else
 			// return code is not checked because it will fail if no metadata exists
 			MP4MetadataDelete(handle);
+#endif
 
 			for (MetadataMap::const_iterator it = m_metadata.begin();
 					 it != m_metadata.end();
@@ -451,6 +619,155 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 #else
 					QCString str(value.data(), value.size() + 1);
 #endif
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+					if (name == "\251nam") {
+						MP4TagsSetName(tags, str);
+					} else if (name == "\251ART") {
+						MP4TagsSetArtist(tags, str);
+					} else if (name == "\251wrt") {
+						MP4TagsSetComposer(tags, str);
+					} else if (name == "\251cmt") {
+						MP4TagsSetComments(tags, str);
+					} else if (name == "\251too") {
+						MP4TagsSetEncodingTool(tags, str);
+					} else if (name == "\251day") {
+						MP4TagsSetReleaseDate(tags, str);
+					} else if (name == "\251alb") {
+						MP4TagsSetAlbum(tags, str);
+					} else if (name == "trkn") {
+						MP4TagTrack indexTotal;
+						int slashPos = str.QCM_indexOf('/');
+						if (slashPos != -1) {
+							indexTotal.total = str.mid(slashPos + 1).toUShort();
+							indexTotal.index = str.mid(0, slashPos).toUShort();
+						} else {
+							indexTotal.total = 0;
+							indexTotal.index = str.toUShort();
+						}
+						MP4TagsSetTrack(tags, &indexTotal);
+					} else if (name == "disk") {
+						MP4TagDisk indexTotal;
+						int slashPos = str.QCM_indexOf('/');
+						if (slashPos != -1) {
+							indexTotal.total = str.mid(slashPos + 1).toUShort();
+							indexTotal.index = str.mid(0, slashPos).toUShort();
+						} else {
+							indexTotal.total = 0;
+							indexTotal.index = str.toUShort();
+						}
+						MP4TagsSetDisk(tags, &indexTotal);
+					} else if (name == "\251gen" || name == "gnre") {
+						MP4TagsSetGenre(tags, str);
+					} else if (name == "tmpo") {
+						uint16_t tempo = str.toUShort();
+						MP4TagsSetTempo(tags, &tempo);
+					} else if (name == "cpil") {
+						uint8_t cpl = str.toUShort();
+						MP4TagsSetCompilation(tags, &cpl);
+					} else if (name == "covr") {
+						MP4TagArtwork artwork;
+						artwork.data = value.data();
+						artwork.size = value.size();
+						artwork.type = MP4_ART_UNDEFINED;
+						MP4TagsAddArtwork(tags, &artwork);
+					} else if (name == "\251grp") {
+						MP4TagsSetGrouping(tags, str);
+					} else if (name == "aART") {
+						MP4TagsSetAlbumArtist(tags, str);
+					} else if (name == "pgap") {
+						uint8_t pgap = str.toUShort();
+						MP4TagsSetGapless(tags, &pgap);
+					} else if (name == "tvsh") {
+						MP4TagsSetTVShow(tags, str);
+					} else if (name == "tvnn") {
+						MP4TagsSetTVNetwork(tags, str);
+					} else if (name == "tven") {
+						MP4TagsSetTVEpisodeID(tags, str);
+					} else if (name == "tvsn") {
+						uint32_t val = str.toULong();
+						MP4TagsSetTVSeason(tags, &val);
+					} else if (name == "tves") {
+						uint32_t val = str.toULong();
+						MP4TagsSetTVEpisode(tags, &val);
+					} else if (name == "desc") {
+						MP4TagsSetDescription(tags, str);
+					} else if (name == "ldes") {
+						MP4TagsSetLongDescription(tags, str);
+					} else if (name == "\251lyr") {
+						MP4TagsSetLyrics(tags, str);
+					} else if (name == "sonm") {
+						MP4TagsSetSortName(tags, str);
+					} else if (name == "soar") {
+						MP4TagsSetSortArtist(tags, str);
+					} else if (name == "soaa") {
+						MP4TagsSetSortAlbumArtist(tags, str);
+					} else if (name == "soal") {
+						MP4TagsSetSortAlbum(tags, str);
+					} else if (name == "soco") {
+						MP4TagsSetSortComposer(tags, str);
+					} else if (name == "sosn") {
+						MP4TagsSetSortTVShow(tags, str);
+					} else if (name == "cprt") {
+						MP4TagsSetCopyright(tags, str);
+					} else if (name == "\251enc") {
+						MP4TagsSetEncodedBy(tags, str);
+					} else if (name == "purd") {
+						MP4TagsSetPurchaseDate(tags, str);
+					} else if (name == "pcst") {
+						uint8_t val = str.toUShort();
+						MP4TagsSetPodcast(tags, &val);
+					} else if (name == "keyw") {
+						MP4TagsSetKeywords(tags, str);
+					} else if (name == "catg") {
+						MP4TagsSetCategory(tags, str);
+					} else if (name == "hdvd") {
+						uint8_t val = str.toUShort();
+						MP4TagsSetHDVideo(tags, &val);
+					} else if (name == "stik") {
+						uint8_t val = str.toUShort();
+						MP4TagsSetMediaType(tags, &val);
+					} else if (name == "rtng") {
+						uint8_t val = str.toUShort();
+						MP4TagsSetContentRating(tags, &val);
+					} else if (name == "apID") {
+						MP4TagsSetITunesAccount(tags, str);
+					} else if (name == "akID") {
+						uint8_t val = str.toUShort();
+						MP4TagsSetITunesAccountType(tags, &val);
+					} else if (name == "sfID") {
+						uint32_t val = str.toULong();
+						MP4TagsSetITunesCountry(tags, &val);
+					} else if (name == "cnID") {
+						uint32_t val = str.toULong();
+						MP4TagsSetCNID(tags, &val);
+					} else if (name == "atID") {
+						uint32_t val = str.toULong();
+						MP4TagsSetATID(tags, &val);
+					} else if (name == "plID") {
+#if QT_VERSION >= 0x040000
+						uint64_t val = str.toULongLong();
+#else
+						uint64_t val = QString(str).toULongLong();
+#endif
+						MP4TagsSetPLID(tags, &val);
+					} else if (name == "geID") {
+						uint32_t val = str.toULong();
+						MP4TagsSetGEID(tags, &val);
+					} else {
+						MP4ItmfItem* item = MP4ItmfItemAlloc("----", 1);
+						item->mean = strdup("com.apple.iTunes");
+						item->name = strdup(name.QCM_toUtf8().data());
+
+						MP4ItmfData& data = item->dataList.elements[0];
+						data.typeCode = MP4_ITMF_BT_UTF8;
+						data.valueSize = value.size();
+						data.value = reinterpret_cast<uint8_t*>(malloc(data.valueSize));
+						memcpy(data.value, value.data(), data.valueSize);
+
+						MP4ItmfAddItem(handle, item);
+						MP4ItmfItemFree(item);
+					}
+#else
 					bool setOk;
 					if (name == "\251nam") {
 						setOk = MP4SetMetadataName(handle, str);
@@ -475,7 +792,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 					} else if (name == "\251alb") {
 						setOk = MP4SetMetadataAlbum(handle, str);
 					} else if (name == "trkn") {
-						u_int16_t track = 0, totalTracks = 0;
+						uint16_t track = 0, totalTracks = 0;
 						int slashPos = str.QCM_indexOf('/');
 						if (slashPos != -1) {
 							totalTracks = str.mid(slashPos + 1).toUShort();
@@ -485,7 +802,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 						}
 						setOk = MP4SetMetadataTrack(handle, track, totalTracks);
 					} else if (name == "disk") {
-						u_int16_t disk = 0, totalDisks = 0;
+						uint16_t disk = 0, totalDisks = 0;
 						int slashPos = str.QCM_indexOf('/');
 						if (slashPos != -1) {
 							totalDisks = str.mid(slashPos + 1).toUShort();
@@ -497,15 +814,15 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 					} else if (name == "\251gen" || name == "gnre") {
 						setOk = MP4SetMetadataGenre(handle, str);
 					} else if (name == "tmpo") {
-						u_int16_t tempo = str.toUShort();
+						uint16_t tempo = str.toUShort();
 						setOk = MP4SetMetadataTempo(handle, tempo);
 					} else if (name == "cpil") {
-						u_int8_t cpl = str.toUShort();
+						uint8_t cpl = str.toUShort();
 						setOk = MP4SetMetadataCompilation(handle, cpl);
 					} else if (name == "covr") {
 						setOk = MP4SetMetadataCoverArt(
 							handle,
-							reinterpret_cast<u_int8_t*>(const_cast<char*>(value.data())),
+							reinterpret_cast<uint8_t*>(const_cast<char*>(value.data())),
 							value.size());
 // While this works on Debian Etch with libmp4v2-dev 1.5.0.1-0.3 from
 // www.debian-multimedia.org, linking on OpenSUSE 10.3 with
@@ -520,21 +837,27 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 					} else if (name == "aART") {
 						setOk = MP4SetMetadataAlbumArtist(handle, str);
 					} else if (name == "pgap") {
-						u_int8_t pgap = str.toUShort();
+						uint8_t pgap = str.toUShort();
 						setOk = MP4SetMetadataPartOfGaplessAlbum(handle, pgap);
 #endif
 					} else {
 						setOk = MP4SetMetadataFreeForm(
 							handle, const_cast<char*>(name.QCM_toUtf8().data()),
-							reinterpret_cast<u_int8_t*>(const_cast<char*>(value.data())),
+							reinterpret_cast<uint8_t*>(const_cast<char*>(value.data())),
 							value.size());
 					}
 					if (!setOk) {
 						qDebug("MP4SetMetadata %s failed", name.QCM_latin1());
 						ok = false;
 					}
+#endif
 				}
 			}
+
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+			MP4TagsStore(tags, handle);
+			MP4TagsFree(tags);
+#endif
 
 			MP4Close(handle);
 			if (ok) {
@@ -1045,10 +1368,16 @@ QStringList M4aFile::getFrameIds() const
 #endif
 		Frame::FT_Bpm,
 		Frame::FT_Composer,
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+		Frame::FT_Copyright,
+#endif
 		Frame::FT_Disc,
 		Frame::FT_EncodedBy,
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
 		Frame::FT_Grouping,
+#endif
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+		Frame::FT_Lyrics,
 #endif
 		Frame::FT_Picture
 	};
@@ -1060,6 +1389,13 @@ QStringList M4aFile::getFrameIds() const
 	lst << "cpil";
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
 	lst << "pgap";
+#endif
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+	lst << "akID" << "apID" << "atID" << "catg" << "cnID" << "desc" <<
+		"\251enc" << "geID" << "hdvd" << "keyw" << "ldes" << "pcst" <<
+		"plID" << "purd" << "rtng" << "sfID" << "soaa" << "soal" <<
+		"soar" << "soco" << "sonm" << "sosn" << "stik" << "tven" <<
+		"tves" << "tvnn" << "tvsh" << "tvsn";
 #endif
 	return lst;
 }
@@ -1073,8 +1409,8 @@ QStringList M4aFile::getFrameIds() const
 bool M4aFile::FileInfo::read(MP4FileHandle handle)
 {
 	valid = false;
-	u_int32_t numTracks = MP4GetNumberOfTracks(handle);
-	for (u_int32_t i = 0; i < numTracks; ++i) {
+	uint32_t numTracks = MP4GetNumberOfTracks(handle);
+	for (uint32_t i = 0; i < numTracks; ++i) {
 		MP4TrackId trackId = MP4FindTrackId(handle, i);
 		const char* trackType = MP4GetTrackType(handle, trackId);
 		if (std::strcmp(trackType, MP4_AUDIO_TRACK_TYPE) == 0) {
@@ -1084,7 +1420,11 @@ bool M4aFile::FileInfo::read(MP4FileHandle handle)
 			duration = MP4ConvertFromTrackDuration(
 				handle, trackId,
 				MP4GetTrackDuration(handle, trackId), MP4_MSECS_TIME_SCALE) / 1000;
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+			channels = MP4GetTrackAudioChannels(handle, trackId);
+#else
 			channels = 2;
+#endif
 			break;
 		}
 	}
