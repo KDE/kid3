@@ -131,7 +131,8 @@ sub setTsTranslations($$%)
 # Generate .ts files from .po files.
 sub generateTs()
 {
-	my @languages = ("de", "es", "fr", "ru", "it", "pl", "nl", "et");
+	my @pofiles = glob "$topdir/po/*.po";
+	my @languages = map { /^.*\W(\w+)\.po$/ } @pofiles;
 	my $tmpdir = ".tsdir";
 	mkdir $tmpdir unless -d $tmpdir;
 	mkdir "po" unless -d "po";
@@ -141,8 +142,7 @@ sub generateTs()
 	system "$lupdate_cmd " . join ' ', glob "*.cpp" . " -ts ". join ' ', map { "kid3_". $_ . ".ts" } @languages;
 	foreach my $lang (@languages) { 
 		setTsTranslations("kid3_$lang.ts", "../po/kid3_$lang.ts",
-											(getPoTranslations("$topdir/po/$lang.po"),
-											 getPoTranslations("$topdir/kid3/${lang}_qt.po")));
+											getPoTranslations("$topdir/po/$lang.po"));
 	}
 	unlink <*>;
 	chdir "..";
