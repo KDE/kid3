@@ -1,10 +1,10 @@
 [Desktop Entry]
 Name=Kid3
-Exec=kid3 -caption "%c" %i
+Exec=kid3 %f
 Icon=kid3
 Type=Application
-DocPath=kid3/index.html
-MimeType=audio/x-mp3;audio/x-mpegurl;application/ogg;audio/x-flac;audio/x-flac+ogg;audio/x-vorbis+ogg;audio/x-speex+ogg;audio/x-oggflac;audio/x-musepack;audio/x-aac;audio/x-mp4;audio/x-m4a;audio/x-speex;audio/x-tta;audio/x-wavpack;
-GenericName=ID3 Tagger
+X-DocPath=kid3/index.html
+MimeType=audio/x-mp3;audio/x-mpegurl;application/ogg;audio/x-flac;audio/x-flac+ogg;audio/x-vorbis+ogg;audio/x-speex+ogg;audio/x-oggflac;audio/x-musepack;audio/x-aac;audio/x-mp4;audio/x-m4a;audio/x-speex;audio/x-tta;audio/x-wavpack;x-directory/normal;inode/directory;
+GenericName=Audio Tagger
 Terminal=false
-Categories=AudioVideo;KDE;
+Categories=Qt;KDE;AudioVideo;Audio;AudioVideoEditing;

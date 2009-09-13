@@ -572,9 +572,10 @@ if (open IF, "$topdir/kid3/kid3.desktop") {
 	open OF, ">$fn" or die "Cannot open $fn: $!\n";
 	while (<IF>) {
 		s/^Name=Kid3$/Name=Kid3-qt/;
-		s/^Exec=kid3.*$/Exec=kid3-qt/;
+		s/^Exec=kid3/Exec=kid3-qt/;
 		s/^Icon=kid3$/Icon=kid3-qt/;
-		print OF $_;
+		s/^Categories=Qt;KDE/Categories=Qt/;
+		print OF $_ unless /^X-DocPath/;
 	}
 	print "creating $fn\n";
 	close OF;
