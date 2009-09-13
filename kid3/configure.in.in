@@ -265,7 +265,7 @@ if test "$build_vorbis" = "yes"; then
   HAVE_VORBIS=1
   AC_SUBST(HAVE_VORBIS)
   AC_DEFINE(HAVE_VORBIS, 1, [have vorbis])
-  LIB_VORBIS="-lvorbis -lvorbisfile"
+  LIB_VORBIS="-lvorbis -lvorbisfile -logg"
   have_vorbis=yes
 else
   LIB_VORBIS=""
