@@ -574,6 +574,16 @@ int Id3Form::numFilesSelected()
 }
 
 /**
+ * Get the number of files or directories selected in the file list box.
+ *
+ * @return number of files or directories selected.
+ */
+int Id3Form::numFilesOrDirsSelected()
+{
+	return m_fileListBox->numFilesOrDirsSelected();
+}
+
+/**
  * Accept drag.
  *
  * @param ev drag event.

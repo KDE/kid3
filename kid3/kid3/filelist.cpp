@@ -627,6 +627,30 @@ int FileList::numFilesSelected()
 }
 
 /**
+ * Get the number of files or directories selected in the filelist.
+ *
+ * @return number of files or directories selected.
+ */
+int FileList::numFilesOrDirsSelected()
+{
+	int numSelected = 0;
+#if QT_VERSION >= 0x040000
+	if (topLevelItemCount() <= 0) {
+		return 0;
+	}
+	QTreeWidgetItemIterator it(this, QTreeWidgetItemIterator::Selected);
+#else
+	QListViewItemIterator it(this, QListViewItemIterator::Selected);
+#endif
+	FileListItem* item;
+	while ((item = getNextItemWithFileOrDir(it)) != 0) {
+		++numSelected;
+		++it;
+	}
+	return numSelected;
+}
+
+/**
  * Select the first file.
  *
  * @return true if a file exists.

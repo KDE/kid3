@@ -127,6 +127,13 @@ public:
 	int numFilesSelected();
 
 	/**
+	 * Get the number of files or directories selected in the filelist.
+	 *
+	 * @return number of files or directories selected.
+	 */
+	int numFilesOrDirsSelected();
+
+	/**
 	 * Select the first file.
 	 *
 	 * @return true if a file exists.

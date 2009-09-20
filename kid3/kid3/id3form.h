@@ -350,6 +350,13 @@ public slots:
 	int numFilesSelected();
 
 	/**
+	 * Get the number of files or directories selected in the file list box.
+	 *
+	 * @return number of files or directories selected.
+	 */
+	int numFilesOrDirsSelected();
+
+	/**
 	 * Frame list button Edit.
 	 */
 	void editFrame();
