@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2009-04-02</date>
+<date>2009-09-23</date>
 <releaseinfo>1.2</releaseinfo>
 
 <abstract>
@@ -843,18 +843,79 @@ wobei <guibutton>OK</guibutton> die aktuellen Einstellungen übernimmt.
 </para></listitem> 
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="create-playlist">
 <term><menuchoice>
 <guimenu>Datei</guimenu>
-<guimenuitem>Stückliste erstellen</guimenuitem>
+<guimenuitem>Stückliste erstellen...</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Erzeugt eine M3U Stückliste.</action> Die Datei wird im
-geöffneten Verzeichnis gespeichert und trägt denselben Namen wie das
-Verzeichnis, gefolgt von einer .m3u Erweiterung. Diese Datei enthält bloß
-die Namen der im Dateilistenfeld angezeigten Dateien, keine speziellen
-EXTM3U oder EXTINFO Zeilen werden generiert. Wenn alle Dateien eines Albums
-in einem separaten Verzeichnis gespeichert werden, kann mit dieser Funktion
-eine Stückliste für das Album erstellt werden.</para></listitem>
+<listitem><para><action>Erzeugt eine Stückliste.</action> Das Format und der
+Inhalt der Stückliste können mit verschiedenen Optionen bestimmt werden.
+</para> 
+<para>
+<guibutton>Wie Verzeichnisname</guibutton> generiert den Dateinamen der
+Wiedergabeliste aus dem Namen des Verzeichnisses. Es kann aber auch ein
+<guibutton>Format</guibutton> mit Werten aus den Tags benutzt werden,
+z.B. "%{artist} - %{album}", um die Namen von Interpret und Album im
+Dateinamen zu haben. Es können dieselben Format Codes wie bei
+<link linkend="export">Exportieren</link> verwendet werden. Die
+Dateierweiterung richtet sich nach dem Format der Stückliste.
+</para>
+<para>
+Wo die Wiedergabeliste erstellt wird, kann bestimmt werden mit der
+Auswahlliste <guilabel>Erstelle in</guilabel> 
+<variablelist>
+<varlistentry><term>Aktuellem Verzeichnis</term>
+<listitem><para>Die Stückliste wird im aktuellen Verzeichnis erstellt und
+enthält nur Dateien aus diesem Verzeichnis.</para></listitem></varlistentry>
+<varlistentry><term>Jedem Ordner</term>
+<listitem><para>In jedem Verzeichnis, welches gelistete Dateien enthält, wird
+eine eigene Stückliste erstellt, welche die Dateien aus dem jeweiligen
+Verzeichnis enthält.
+</para></listitem></varlistentry>
+<varlistentry><term>Basisordner</term>
+<listitem><para>Nur eine einzige Stückliste wird im Basisverzeichnis (d.h. dem
+Verzeichnis der Dateiliste) erstellt, und sie enthält die gelisteten
+Dateien aus dem Basisverzeichnis und allen Unterverzeichnissen.
+</para></listitem></varlistentry>
+</variablelist>
+</para>
+<para>
+Das <guilabel>Format</guilabel> der Wiedergabeliste kann
+<guilabel>M3U</guilabel>, <guilabel>PLS</guilabel> oder
+<guilabel>XSPF</guilabel> sein.
+</para>
+<para>
+<guibutton>Nur ausgewählte Dateien einfügen</guibutton> führt dazu, dass nur
+ausgewählte Dateien in der Stückliste erscheinen. Wenn ein Verzeichnis
+ausgewählt ist, so gelten all seine Dateien ebenfalls als selektiert.
+Wenn diese Option nicht aktiviert ist, gelangen alle Audio-Dateien in die
+Stückliste.
+</para>
+<para>
+<guibutton>Sortiere nach Dateiname</guibutton> ordnet die Dateien wie üblich
+nach dem Dateinamen in der Wiedergabeliste an. Mit <guibutton>Sortiere nach
+Tag-Feld</guibutton> ist es möglich, eine Format-Zeichenkette mit Tag-Werten
+für die Sortierung zu verwenden. "%{track.3}" kann beispielsweise benutzt
+werden, um nach der Tracknummer zu sortieren (".3" wird verwendet, um 3
+Stellen mit führenden Nullen zu kriegen, und somit korrekt nach der Nummer zu
+sortieren). Es ist auch möglich, mehrere Codes zu verwenden,
+z.B. "%{genre}%{year}", um nach einer Zeichenkette aus Stil und Jahr zu
+sortieren.
+</para>
+<para>
+Die Einträge in der Stückliste sind relative oder absolute Pfadangaben, je
+nachdem ob <guibutton>Benutze relativen Pfad für Dateien in der Wiedergabeliste</guibutton> oder
+<guibutton>Benutze vollen Pfad für Dateien in der Wiedergabeliste</guibutton>
+gesetzt ist.
+</para>
+<para>
+<guibutton>Nur Liste der Dateien schreiben</guibutton> führt dazu, dass die
+Stückliste nur die Pfade zu den Dateien enthält. Wünscht man zusätzliche
+Informationen, so steht <guibutton>Schreibe Informationen mit</guibutton>
+einer Format-Zeichenfolge zur Verfügung, und es wird eine erweiterte
+Stückliste generiert.
+</para> 
+</listitem>
 </varlistentry>
 
 <varlistentry>

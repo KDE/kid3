@@ -58,12 +58,14 @@ typedef QMainWindow Kid3AppBaseClass;
 #include "discogsconfig.h"
 #include "musicbrainzconfig.h"
 #include "filterconfig.h"
+#include "playlistconfig.h"
 #include "frame.h"
 
 class KURL;
 class KUrl;
 class Id3Form;
 class TaggedFile;
+class FileListItem;
 class FrameList;
 class ImportDialog;
 class ExportDialog;
@@ -75,6 +77,7 @@ class FilterDialog;
 class FileFilter;
 class QImage;
 class DownloadDialog;
+class PlaylistDialog;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -278,6 +281,17 @@ public:
 	 */
 	static QString getDirName() { return s_dirName; }
 
+	/**
+	 * Read file with TagLib if it has an ID3v2.4 tag.
+	 *
+	 * @param item       file list item, can be updated
+	 * @param taggedFile tagged file
+	 *
+	 * @return tagged file (can be new TagLibFile).
+	 */
+	static TaggedFile* readWithTagLibIfId3V24(FileListItem* item,
+																						TaggedFile* taggedFile);
+
 	/** Filename format configuration */
 	static FormatConfig s_fnFormatCfg;
 	/** ID3 format configuration */
@@ -296,6 +310,8 @@ public:
 	static MusicBrainzConfig s_musicBrainzCfg;
 	/** Filter configuration */
 	static FilterConfig s_filterCfg;
+	/** Playlist configuration */
+	static PlaylistConfig s_playlistCfg;
 
 protected:
 	/**
@@ -491,6 +507,11 @@ public slots:
 	 * @param text message
 	 */
 	void slotStatusMsg(const QString& text);
+
+	/**
+	 * Show playlist dialog.
+	 */
+	void slotPlaylistDialog();
 
 	/**
 	 * Create playlist.
@@ -717,6 +738,15 @@ private:
 	bool importTags(int tagMask, const QString& path, int fmtIdx);
 
 	/**
+	 * Write playlist according to playlist configuration.
+	 *
+	 * @param cfg playlist configuration to use
+	 *
+	 * @return true if ok.
+	 */
+	bool writePlaylist(const PlaylistConfig& cfg);
+
+	/**
 	 * Show or hide the ID3V1.1 controls according to the settings and
 	 * set the menu entries appropriately.
 	 */
@@ -774,6 +804,8 @@ private:
 	FilterDialog* m_filterDialog;
 	/** Download dialog */
 	DownloadDialog* m_downloadDialog;
+	/** Playlist dialog */
+	PlaylistDialog* m_playlistDialog;
 	/** Frame list */
 	FrameList* m_framelist;
 

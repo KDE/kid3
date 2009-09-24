@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Feb 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -243,6 +243,29 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 	return str;
 }
 
+
+/**
+ * Constructor.
+ * All fields except the import duration are set from the tagged file,
+ * which should be read using readTags() before. The frames are merged
+ * from tag 2 and tag 1 (where tag 2 is not set).
+ *
+ * @param taggedFile tagged file providing track data
+ */
+ImportTrackData::ImportTrackData(TaggedFile& taggedFile) :
+	m_fileDuration(taggedFile.getDuration()),
+	m_importDuration(0),
+	m_absFilename(taggedFile.getAbsFilename()),
+	m_fileExtension(taggedFile.getFileExtension()),
+	m_tagFormatV1(taggedFile.getTagFormatV1()),
+	m_tagFormatV2(taggedFile.getTagFormatV2())
+{
+	taggedFile.getDetailInfo(m_detailInfo);
+	FrameCollection framesV1;
+	taggedFile.getAllFramesV1(framesV1);
+	taggedFile.getAllFramesV2(*this);
+	merge(framesV1);
+}
 
 /**
  * Format a string from track data.

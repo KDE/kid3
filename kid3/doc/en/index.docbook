@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2009-04-02</date>
+<date>2009-09-23</date>
 <releaseinfo>1.2</releaseinfo>
 
 <abstract>
@@ -781,22 +781,77 @@ or <guilabel>ID3v2</guilabel>) can be selected with a combo
 box. Pushing <guibutton>To File</guibutton> or
 <guibutton>To Clipboard</guibutton> stores the data in a file or on the
 clipboard. <guibutton>OK</guibutton> and <guibutton>Cancel</guibutton> close
-the dialog, whereat <guibutton>OK</guibutton> accepts the current dialog
+the dialog, whereas <guibutton>OK</guibutton> accepts the current dialog
 settings.
 </para></listitem> 
 </varlistentry>
 
-<varlistentry>
+<varlistentry id="create-playlist">
 <term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Create Playlist</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Creates an M3U playlist.</action> The file will be stored in
-the opened directory and have the same name as the directory, followed by
-an .m3u extension. The file simply contains the names of the files displayed
-in the file listbox, no special EXTM3U or EXTINFO lines are generated.
-If all files of an album are stored in a separate directory, this function
-can be used to generate a playlist for an album.</para></listitem>
+<listitem><para>
+<action>Creates a playlist.</action> The format and contents of the playlist
+can be set by various options.</para>
+<para>
+The name of the playlist can be the <guibutton>Same as directory
+name</guibutton> or use a <guibutton>Format</guibutton> with values
+from the tags, e.g. "%{artist} - %{album}" to have the artist and album
+name in the playlist file name. The format codes are the same as for
+<link linkend="export">Export</link>. The extension depends on the playlist
+format.
+</para>
+<para>
+The location of the generated playlist is determined by the selection of
+the <guilabel>Create in</guilabel> combo box.
+<variablelist>
+<varlistentry><term>Current directory</term>
+<listitem><para>The playlist is created in the current directory and contains
+only files of the current directory.</para></listitem></varlistentry>
+<varlistentry><term>Every directory</term>
+<listitem><para>A playlist is created in every directory which contains
+listed files, and each playlist contains the files of that directory.
+</para></listitem></varlistentry>
+<varlistentry><term>Top-level directory</term>
+<listitem><para>Only one playlist is created in the top-level
+directory (i.e. the directory of the file list) and it contains the listed
+files of the top-level directory and all of its sub-directories.
+</para></listitem></varlistentry>
+</variablelist>
+</para>
+<para>
+The <guilabel>Format</guilabel> of the playlist can
+be <guilabel>M3U</guilabel>, <guilabel>PLS</guilabel> or
+<guilabel>XSPF</guilabel>.
+</para>
+<para>
+If <guibutton>Include only the selected files</guibutton> is checked, only the
+selected files will be included in the playlist. If a directory is selected,
+all of its files are selected. If this check box is not activated, all audio
+files are included in the playlist.
+</para>
+<para>
+<guibutton>Sort by file name</guibutton> selects the usual case where the
+files are ordered by file name. With <guibutton>Sort by tag field</guibutton>,
+it is possible to sort by a format string with values from tag fields. For
+instance, "%{track.3}" can be used to sort by track number (the ".3" is used
+to get three digits with leading zeros because strings are used for
+sorting). It is also possible to use multiple fields, e.g. "%{genre}%{year}"
+to sort using a string composed of genre and year.
+</para>
+<para>
+The playlist entries will have relative or absolute file paths depending on
+whether <guibutton>Use relative path for files in playlist</guibutton> or
+<guibutton>Use full path for files in playlist</guibutton> is set.
+</para>
+<para>
+When <guibutton>Write only list of files</guibutton> is set, the playlist
+will only contain the paths to the files. To generate an extended playlist
+with additional information, a format string can be set using
+the <guibutton>Write info using</guibutton> control.
+</para> 
+</listitem>
 </varlistentry>
 
 <varlistentry>

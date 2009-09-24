@@ -92,6 +92,8 @@
 #include "filterdialog.h"
 #include "rendirdialog.h"
 #include "downloaddialog.h"
+#include "playlistdialog.h"
+#include "playlistcreator.h"
 #include "filelistitem.h"
 #include "dirlist.h"
 #include "pictureframe.h"
@@ -130,6 +132,7 @@ FreedbConfig Kid3App::s_trackTypeCfg("TrackType");
 DiscogsConfig Kid3App::s_discogsCfg("Discogs");
 MusicBrainzConfig Kid3App::s_musicBrainzCfg("MusicBrainz");
 FilterConfig Kid3App::s_filterCfg("Filter");
+PlaylistConfig Kid3App::s_playlistCfg("Playlist");
 
 /** Current directory */
 QString Kid3App::s_dirName;
@@ -141,7 +144,8 @@ Kid3App::Kid3App() :
 	m_downloadToAllFilesInDir(false),
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
-	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0)
+	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0),
+	m_playlistDialog(0)
 {
 #ifdef CONFIG_USE_KDE
 #if KDE_VERSION >= 0x035c00
@@ -213,6 +217,7 @@ Kid3App::~Kid3App()
 	delete m_filterDialog;
 	delete m_downloadDialog;
 	delete m_browseCoverArtDialog;
+	delete m_playlistDialog;
 #ifndef CONFIG_USE_KDE
 	delete s_helpBrowser;
 	s_helpBrowser = 0;
@@ -319,8 +324,8 @@ void Kid3App::initActions()
 		    SLOT(slotExport()), actionCollection(),
 		    "export");
 	KCM_KActionIcon(fileCreatePlaylist, KCM_ICON_media_playlist,
-		    i18n("&Create Playlist"), this,
-				SLOT(slotCreatePlaylist()), actionCollection(),
+		    i18n("&Create Playlist..."), this,
+				SLOT(slotPlaylistDialog()), actionCollection(),
 				"create_playlist");
 	KCM_KAction(toolsApplyFilenameFormat,
 		    i18n("Apply &Filename Format"), this,
@@ -526,9 +531,9 @@ void Kid3App::initActions()
 	QAction* fileCreatePlaylist = new QAction(this);
 	if (fileCreatePlaylist) {
 		fileCreatePlaylist->setStatusTip(i18n("Create M3U Playlist"));
-		fileCreatePlaylist->QCM_setMenuText(i18n("&Create Playlist"));
+		fileCreatePlaylist->QCM_setMenuText(i18n("&Create Playlist..."));
 		connect(fileCreatePlaylist, QCM_SIGNAL_triggered,
-			this, SLOT(slotCreatePlaylist()));
+			this, SLOT(slotPlaylistDialog()));
 	}
 	QAction* fileQuit = new QAction(this);
 	if (fileQuit) {
@@ -875,6 +880,7 @@ void Kid3App::saveOptions()
 	s_trackTypeCfg.writeToConfig(m_config);
 	s_discogsCfg.writeToConfig(m_config);
 	s_filterCfg.writeToConfig(m_config);
+	s_playlistCfg.writeToConfig(m_config);
 #ifdef HAVE_TUNEPIMP
 	s_musicBrainzCfg.writeToConfig(m_config);
 #endif
@@ -925,6 +931,7 @@ void Kid3App::readOptions()
 	}
 	s_discogsCfg.readFromConfig(m_config);
 	s_filterCfg.readFromConfig(m_config);
+	s_playlistCfg.readFromConfig(m_config);
 #ifdef HAVE_TUNEPIMP
 	s_musicBrainzCfg.readFromConfig(m_config);
 #endif
@@ -1641,32 +1648,94 @@ void Kid3App::slotStatusMsg(const QString& text)
 }
 
 /**
+ * Show playlist dialog.
+ */
+void Kid3App::slotPlaylistDialog()
+{
+	if (!m_playlistDialog) {
+		m_playlistDialog = new PlaylistDialog(0);
+	}
+	if (m_playlistDialog) {
+		m_playlistDialog->readConfig();
+		if (m_playlistDialog->exec() == QDialog::Accepted) {
+			PlaylistConfig cfg;
+			m_playlistDialog->getCurrentConfig(cfg);
+			writePlaylist(cfg);
+		}
+	}
+}
+
+/**
+ * Write playlist according to playlist configuration.
+ *
+ * @param cfg playlist configuration to use
+ *
+ * @return true if ok.
+ */
+bool Kid3App::writePlaylist(const PlaylistConfig& cfg)
+{
+	PlaylistCreator plCtr(m_view->getDirInfo()->getDirname(), cfg);
+	QString selectedDirPrefix;
+	FileListItem* item = cfg.m_location == PlaylistConfig::PL_CurrentDirectory ?
+		m_view->firstFileInDir() : m_view->firstFileOrDir();
+	bool noSelection = !cfg.m_onlySelectedFiles ||
+		m_view->numFilesOrDirsSelected() == 0;
+	bool ok = true;
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	slotStatusMsg(i18n("Creating playlist..."));
+	while (item != 0) {
+		PlaylistCreator::Item plItem(item, plCtr);
+		bool inSelectedDir = false;
+		if (cfg.m_location != PlaylistConfig::PL_CurrentDirectory &&
+				plItem.isDir()) {
+			if (!selectedDirPrefix.isEmpty()) {
+				if (plItem.getDirName().startsWith(selectedDirPrefix)) {
+					inSelectedDir = true;
+				} else {
+					selectedDirPrefix = "";
+				}
+			}
+			if (inSelectedDir || noSelection || item->isSelected()) {
+				// if directory is selected, all its files are selected
+#if QT_VERSION >= 0x040000
+				item->setExpanded(true);
+#else
+				item->setOpen(true);
+#endif
+				if (!inSelectedDir) {
+					selectedDirPrefix = plItem.getDirName();
+				}
+			}
+		} else if (plItem.isFile()) {
+			QString dirName = plItem.getDirName();
+			if (!selectedDirPrefix.isEmpty()) {
+				if (dirName.startsWith(selectedDirPrefix)) {
+					inSelectedDir = true;
+				} else {
+					selectedDirPrefix = "";
+				}
+			}
+			if (inSelectedDir || noSelection || item->isSelected()) {
+				ok = plItem.add() && ok;
+			}
+		}
+		item = cfg.m_location == PlaylistConfig::PL_CurrentDirectory ?
+			m_view->nextFileInDir() : m_view->nextFileOrDir();
+	}
+	ok = plCtr.write() && ok;
+	slotStatusMsg(i18n("Ready."));
+	QApplication::restoreOverrideCursor();
+	return ok;
+}
+
+/**
  * Create playlist.
  *
  * @return true if ok.
  */
 bool Kid3App::slotCreatePlaylist()
 {
-	FileListItem* mp3file = m_view->firstFileInDir();
-	if (!(mp3file && mp3file->getFile())) return false;
-	QDir dir(mp3file->getFile()->getDirname());
-	QString dirname = dir.QCM_absolutePath();
-	QString fn = dirname + QDir::separator() + dir.dirName() + ".m3u";
-	QFile file(fn);
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	slotStatusMsg(i18n("Creating playlist..."));
-	bool ok = file.open(QCM_WriteOnly);
-	if (ok) {
-		QTextStream stream(&file);
-		while (mp3file != 0) {
-			stream << mp3file->getFile()->getFilename() << "\n";
-			mp3file = m_view->nextFileInDir();
-		}
-		file.close();
-	}
-	slotStatusMsg(i18n("Ready."));
-	QApplication::restoreOverrideCursor();
-	return ok;
+	return writePlaylist(s_playlistCfg);
 }
 
 /**
@@ -1911,7 +1980,7 @@ void Kid3App::slotBrowseCoverArt()
  *
  * @return tagged file (can be new TagLibFile).
  */
-static TaggedFile* readWithTagLibIfId3V24(FileListItem* item,
+TaggedFile* Kid3App::readWithTagLibIfId3V24(FileListItem* item,
 																					TaggedFile* taggedFile)
 {
 	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&

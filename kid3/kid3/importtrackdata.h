@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 7 Jul 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2009  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,6 +51,16 @@ public:
 													 int fileDuration = 0) :
 		m_fileDuration(fileDuration), m_importDuration(0),
 		m_absFilename(absFilename) {}
+
+	/**
+	 * Constructor.
+	 * All fields except the import duration are set from the tagged file,
+	 * which should be read using readTags() before. The frames are merged
+	 * from tag 2 and tag 1 (where tag 2 is not set).
+	 *
+	 * @param taggedFile tagged file providing track data
+	 */
+	ImportTrackData(TaggedFile& taggedFile);
 
 	/**
 	 * Destructor.
