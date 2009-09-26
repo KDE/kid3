@@ -1,0 +1,2144 @@
+# translation of Kid3 to Türkçe
+# This file is put in the public domain.
+#
+# Mehmet Yilmaz SUSLU <yilmazsuslu@gmail.com>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: kid3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-10-21 13:14+0200\n"
+"PO-Revision-Date: 2006-12-25 02:01+0200\n"
+"Last-Translator: Mehmet Yilmaz SUSLU <yilmazsuslu@gmail.com>\n"
+"Language-Team: Türkçe <tr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: browsecoverartdialog.cpp:61 filelist.cpp:262
+msgid "Encode as URL"
+msgstr ""
+
+#: browsecoverartdialog.cpp:77 browsecoverartdialog.cpp:323
+msgid "Browse Cover Art"
+msgstr "Kapak Resimlerini Al"
+
+#: browsecoverartdialog.cpp:91 browsecoverartdialog.cpp:94
+msgid "&Artist/Album"
+msgstr "Sanatçı/&Albüm"
+
+#: browsecoverartdialog.cpp:114 browsecoverartdialog.cpp:116
+msgid "&Source"
+msgstr "&Kaynak"
+
+#: browsecoverartdialog.cpp:138 browsecoverartdialog.cpp:141
+msgid "&URL extraction"
+msgstr ""
+
+#: browsecoverartdialog.cpp:146
+msgid "Match"
+msgstr "Eşleşme"
+
+#: browsecoverartdialog.cpp:147
+msgid "Picture URL"
+msgstr ""
+
+#: browsecoverartdialog.cpp:160 configdialog.cpp:525 exportdialog.cpp:155
+#: filterdialog.cpp:100 importdialog.cpp:77 importsourcedialog.cpp:152
+#: kid3.cpp:686 kid3.cpp:698 musicbrainzdialog.cpp:139
+#: numbertracksdialog.cpp:95 playlistdialog.cpp:259 rendirdialog.cpp:105
+msgid "&Help"
+msgstr "&Yardım"
+
+#: browsecoverartdialog.cpp:166 exportdialog.cpp:161 filterdialog.cpp:106
+#: importdialog.cpp:78 importsourcedialog.cpp:153 musicbrainzdialog.cpp:140
+#: numbertracksdialog.cpp:100 playlistdialog.cpp:263 rendirdialog.cpp:87
+#: rendirdialog.cpp:106
+msgid "&Save Settings"
+msgstr "&Ayarları Kaydet"
+
+#: browsecoverartdialog.cpp:176
+msgid "&Browse"
+msgstr "&Gözat"
+
+#: browsecoverartdialog.cpp:177 configdialog.cpp:527 editframedialog.cpp:71
+#: editframefieldsdialog.cpp:994 importdialog.cpp:80 musicbrainzdialog.cpp:143
+#: numbertracksdialog.cpp:115 playlistdialog.cpp:274 rendirdialog.cpp:108
+msgid "&Cancel"
+msgstr "İ&ptal"
+
+#: browsecoverartdialog.cpp:226
+msgid "Click Browse to start"
+msgstr ""
+
+#: browsecoverartdialog.cpp:232
+msgid "Then drag the picture from the browser to Kid3."
+msgstr ""
+
+#: browserdialog.cpp:83
+msgid "&Back"
+msgstr "&Geri"
+
+#: browserdialog.cpp:84
+msgid "&Forward"
+msgstr "İle&ri"
+
+#: browserdialog.cpp:85 exportdialog.cpp:171 externalprocess.cpp:58
+#: filterdialog.cpp:117 imageviewer.cpp:61 importsourcedialog.cpp:154
+msgid "&Close"
+msgstr "&Kapat"
+
+#: commandstable.cpp:58 commandstable.cpp:75
+msgid "Confirm"
+msgstr "Onayla"
+
+#: commandstable.cpp:58 commandstable.cpp:76
+msgid "Output"
+msgstr "Çıktı"
+
+#: commandstable.cpp:58 commandstable.cpp:77
+msgid "Name"
+msgstr "İsim"
+
+#: commandstable.cpp:59 commandstable.cpp:78
+msgid "Command"
+msgstr "Komut"
+
+#: commandstable.cpp:262 commandstable.cpp:277 configtable.cpp:226
+#: configtable.cpp:241
+msgid "&Insert row"
+msgstr "Satır Ekle"
+
+#: commandstable.cpp:266 commandstable.cpp:281 configtable.cpp:230
+#: configtable.cpp:245
+msgid "&Delete row"
+msgstr "Satır Sil"
+
+#: commandstable.cpp:270 commandstable.cpp:285 configtable.cpp:234
+#: configtable.cpp:249
+msgid "&Clear row"
+msgstr "Satırı Temizle"
+
+#: configdialog.cpp:116 configdialog.cpp:128
+msgid "ID3v1"
+msgstr "ID3v1"
+
+#: configdialog.cpp:121 configdialog.cpp:130
+msgid "&Mark truncated fields"
+msgstr ""
+
+#: configdialog.cpp:124 configdialog.cpp:133 configdialog.cpp:225
+#: configdialog.cpp:240
+msgid "Text &encoding:"
+msgstr "M&etin kodlama:"
+
+#: configdialog.cpp:216 configdialog.cpp:233
+msgid "ID3v2"
+msgstr "ID3v2"
+
+#: configdialog.cpp:221 configdialog.cpp:235
+msgid "Use &track/total number of tracks format"
+msgstr "Parça/Toplam Parça Sayısı biçimini kullan"
+
+#: configdialog.cpp:224 configdialog.cpp:238
+msgid "&Genre as text instead of numeric string"
+msgstr ""
+
+#: configdialog.cpp:229 configdialog.cpp:244
+msgid "&Version used for new tags:"
+msgstr "Yeni tag'lar için kullanılan sürüm:"
+
+#: configdialog.cpp:250 editframefieldsdialog.cpp:862
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: configdialog.cpp:251 editframefieldsdialog.cpp:863
+msgid "UTF16"
+msgstr "UTF16"
+
+#: configdialog.cpp:252 editframefieldsdialog.cpp:865
+msgid "UTF8"
+msgstr "UTF8"
+
+#: configdialog.cpp:264
+msgid "ID3v2.3.0 (id3lib)"
+msgstr "ID3v2.3.0 (id3lib)"
+
+#: configdialog.cpp:265
+msgid "ID3v2.4.0 (TagLib)"
+msgstr "ID3v2.4.0 (TagLib)"
+
+#: configdialog.cpp:278 configdialog.cpp:280
+msgid "Ogg/Vorbis"
+msgstr "Ogg/Vorbis"
+
+#: configdialog.cpp:283
+msgid "Comment field &name:"
+msgstr ""
+
+#: configdialog.cpp:307 configdialog.cpp:309
+msgid "Custom &Genres"
+msgstr ""
+
+#: configdialog.cpp:312
+msgid "&Show only custom genres"
+msgstr ""
+
+#: configdialog.cpp:323
+msgid "&Tag Format"
+msgstr "Tag Biçimi"
+
+#: configdialog.cpp:332
+msgid "Tags"
+msgstr "Etiketler"
+
+#: configdialog.cpp:334
+msgid "&Tags"
+msgstr "E&tiketler"
+
+#: configdialog.cpp:345 configdialog.cpp:347
+msgid "Save"
+msgstr "Kaydet"
+
+#: configdialog.cpp:350
+msgid "&Preserve file timestamp"
+msgstr "Dosya timestamp değerini sakla"
+
+#: configdialog.cpp:351
+msgid "&Mark changes"
+msgstr ""
+
+#: configdialog.cpp:361
+msgid "&Filename Format"
+msgstr "&Dosya adı Biçimi"
+
+#: configdialog.cpp:368
+msgid "Files"
+msgstr "Dosyalar"
+
+#: configdialog.cpp:370
+msgid "&Files"
+msgstr "&Dosyalar"
+
+#: configdialog.cpp:381 configdialog.cpp:383
+msgid "Browser"
+msgstr "Gözat"
+
+#: configdialog.cpp:386
+msgid "Web &browser:"
+msgstr "İnternet &Tarayıcısı:"
+
+#: configdialog.cpp:402 configdialog.cpp:404
+msgid "Context &Menu Commands"
+msgstr "Açılır Menü Komutları"
+
+#: configdialog.cpp:418
+msgid "User Actions"
+msgstr "Kullanıcı Eylemleri"
+
+#: configdialog.cpp:420
+msgid "&User Actions"
+msgstr "K&ullanıcı Eylemleri"
+
+#: configdialog.cpp:431 configdialog.cpp:433
+msgid "Proxy"
+msgstr "Vekil Sunucu"
+
+#: configdialog.cpp:436
+msgid "&Proxy:"
+msgstr "&Vekil Sunucu:"
+
+#: configdialog.cpp:439
+msgid "&Use authentication with proxy"
+msgstr "Vekil s&unucu ile yetkilendirme kullan"
+
+#: configdialog.cpp:440
+msgid "Proxy user &name:"
+msgstr "Vekil su&nucu kullanıcı adı:"
+
+#: configdialog.cpp:443
+msgid "Proxy pass&word:"
+msgstr "&Vekil sunucu parolası:"
+
+#: configdialog.cpp:470
+msgid "Network"
+msgstr "Ağ"
+
+#: configdialog.cpp:472
+msgid "&Network"
+msgstr "&Ağ"
+
+#: configdialog.cpp:493
+msgid "Use custom app&lication font"
+msgstr "Uygulama için özel yazıyüzü kullan"
+
+#: configdialog.cpp:494
+msgid "A&pplication Font..."
+msgstr ""
+
+#: configdialog.cpp:495
+msgid "Use custom application &style"
+msgstr ""
+
+#: configdialog.cpp:504 configdialog.cpp:739 musicbrainzdialog.cpp:215
+#: musicbrainzdialog.cpp:219 musicbrainzdialog.cpp:221
+#: musicbrainzdialog.cpp:232 musicbrainzdialog.cpp:246
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: configdialog.cpp:515
+msgid "&Appearance"
+msgstr "&Görünüm"
+
+#: configdialog.cpp:526 editframedialog.cpp:70 editframefieldsdialog.cpp:993
+#: importdialog.cpp:79 musicbrainzdialog.cpp:141 numbertracksdialog.cpp:110
+#: playlistdialog.cpp:271 rendirdialog.cpp:107
+msgid "&OK"
+msgstr "&Tamam"
+
+#: downloaddialog.cpp:96 httpclient.cpp:71 httpclient.cpp:83
+#: httpclient.cpp:129 httpclient.cpp:306 importsourcedialog.cpp:175
+#: kid3.cpp:780 kid3.cpp:851 kid3.cpp:1129 kid3.cpp:1505 kid3.cpp:1520
+#: kid3.cpp:1726 kid3.cpp:1826
+msgid "Ready."
+msgstr "Hazır."
+
+#: editframefieldsdialog.cpp:518 importselector.cpp:281
+msgid "From Clip&board"
+msgstr "Panodan"
+
+#: editframefieldsdialog.cpp:519
+msgid "&Import"
+msgstr "Al"
+
+#: editframefieldsdialog.cpp:520
+msgid "&Export"
+msgstr "Ver"
+
+#: editframefieldsdialog.cpp:521
+msgid "&View"
+msgstr "Görü&nüm"
+
+#: editframefieldsdialog.cpp:653
+msgid "Text Encoding"
+msgstr "Karakter Kodlaması"
+
+#: editframefieldsdialog.cpp:654
+msgid "Text"
+msgstr "Metin"
+
+#: editframefieldsdialog.cpp:655
+msgid "URL"
+msgstr "URL"
+
+#: editframefieldsdialog.cpp:656
+msgid "Data"
+msgstr "Veri"
+
+#: editframefieldsdialog.cpp:657
+msgid "Description"
+msgstr "Açıklama"
+
+#: editframefieldsdialog.cpp:658
+msgid "Owner"
+msgstr "Sahibi"
+
+#: editframefieldsdialog.cpp:659
+msgid "Email"
+msgstr "E-posta"
+
+#: editframefieldsdialog.cpp:660
+msgid "Rating"
+msgstr "Puan"
+
+#: editframefieldsdialog.cpp:661 kid3.cpp:423 kid3.cpp:426 kid3.cpp:429
+msgid "Filename"
+msgstr "Dosya Adı"
+
+#: editframefieldsdialog.cpp:662 frame.cpp:86
+msgid "Language"
+msgstr "Dil"
+
+#: editframefieldsdialog.cpp:663
+msgid "Picture Type"
+msgstr "Resim Tipi"
+
+#: editframefieldsdialog.cpp:664
+msgid "Image format"
+msgstr "Görüntü Formatı"
+
+#: editframefieldsdialog.cpp:665
+msgid "Mimetype"
+msgstr "Mime-türü"
+
+#: editframefieldsdialog.cpp:666
+msgid "Counter"
+msgstr "Sayaç"
+
+#: editframefieldsdialog.cpp:667
+msgid "Identifier"
+msgstr "Tanımlayıcı"
+
+#: editframefieldsdialog.cpp:668
+msgid "Volume Adjustment"
+msgstr "Ses seviyesi ayarı"
+
+#: editframefieldsdialog.cpp:669
+msgid "Number of Bits"
+msgstr "Bit sayısı"
+
+#: editframefieldsdialog.cpp:670
+msgid "Volume Change Right"
+msgstr "Sağ Ses Seviyesi Değişimi"
+
+#: editframefieldsdialog.cpp:671
+msgid "Volume Change Left"
+msgstr "Sol Ses Seviyesi Değişimi"
+
+#: editframefieldsdialog.cpp:672
+msgid "Peak Volume Right"
+msgstr "Sağ Üst Ses Sınırı"
+
+#: editframefieldsdialog.cpp:673
+msgid "Peak Volume Left"
+msgstr "Sol Üst Ses Sınırı"
+
+#: editframefieldsdialog.cpp:674
+msgid "Timestamp Format"
+msgstr "Timestamp biçimi"
+
+#: editframefieldsdialog.cpp:675
+msgid "Content Type"
+msgstr "İçerik Türü"
+
+#: editframefieldsdialog.cpp:864
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+#: editframefieldsdialog.cpp:876 editframefieldsdialog.cpp:907
+#: editframefieldsdialog.cpp:920
+msgid "Other"
+msgstr "Diğer"
+
+#: editframefieldsdialog.cpp:877
+msgid "32x32 pixels PNG file icon"
+msgstr "32x32 piksel PNG dosya ikonu"
+
+#: editframefieldsdialog.cpp:878
+msgid "Other file icon"
+msgstr "Diğer dosya ikonu"
+
+#: editframefieldsdialog.cpp:879
+msgid "Cover (front)"
+msgstr "Ön Kapak"
+
+#: editframefieldsdialog.cpp:880
+msgid "Cover (back)"
+msgstr "Arka Kapak"
+
+#: editframefieldsdialog.cpp:881
+msgid "Leaflet page"
+msgstr "Broşür Sayfası"
+
+#: editframefieldsdialog.cpp:882 frame.cpp:89
+msgid "Media"
+msgstr "Ortam"
+
+#: editframefieldsdialog.cpp:883
+msgid "Lead artist/lead performer/soloist"
+msgstr "Ana Sanatçı/Söyleyen/Solist"
+
+#: editframefieldsdialog.cpp:884
+msgid "Artist/performer"
+msgstr "Sanatçı/Söyleyen"
+
+#: editframefieldsdialog.cpp:885 frame.cpp:80
+msgid "Conductor"
+msgstr "Orkestra Şefi"
+
+#: editframefieldsdialog.cpp:886
+msgid "Band/Orchestra"
+msgstr "Grup/Orkestra"
+
+#: editframefieldsdialog.cpp:887 frame.cpp:79
+msgid "Composer"
+msgstr "Besteci"
+
+#: editframefieldsdialog.cpp:888
+msgid "Lyricist/text writer"
+msgstr "Söz yazarı"
+
+#: editframefieldsdialog.cpp:889
+msgid "Recording Location"
+msgstr "Kayıt Yeri"
+
+#: editframefieldsdialog.cpp:890
+msgid "During recording"
+msgstr "Kayıt sırasında"
+
+#: editframefieldsdialog.cpp:891
+msgid "During performance"
+msgstr "Şarkı söylenirken"
+
+#: editframefieldsdialog.cpp:892
+msgid "Movie/video screen capture"
+msgstr "Film / Video"
+
+#: editframefieldsdialog.cpp:893
+msgid "A bright coloured fish"
+msgstr "Parlak bir renkli balık"
+
+#: editframefieldsdialog.cpp:894
+msgid "Illustration"
+msgstr "İllüstrasyon"
+
+#: editframefieldsdialog.cpp:895
+msgid "Band/artist logotype"
+msgstr "Grup/sanatçı Logosu"
+
+#: editframefieldsdialog.cpp:896
+msgid "Publisher/Studio logotype"
+msgstr "Yapımcı/Stüdyo Logosu"
+
+#: editframefieldsdialog.cpp:908
+msgid "MPEG frames as unit"
+msgstr "Birim olarak MPEG çerçeveleri"
+
+#: editframefieldsdialog.cpp:909
+msgid "Milliseconds as unit"
+msgstr "MBirim olarak milisaniye"
+
+#: editframefieldsdialog.cpp:921 frame.cpp:88
+msgid "Lyrics"
+msgstr "Şarkı Sözleri"
+
+#: editframefieldsdialog.cpp:922
+msgid "Text transcription"
+msgstr "Yazı Çevrimi"
+
+#: editframefieldsdialog.cpp:923
+msgid "Movement/part name"
+msgstr "Hareket/Bölüm adı"
+
+#: editframefieldsdialog.cpp:924
+msgid "Events"
+msgstr "Olaylar"
+
+#: editframefieldsdialog.cpp:925
+msgid "Chord"
+msgstr "Akor"
+
+#: editframefieldsdialog.cpp:926
+msgid "Trivia/pop up"
+msgstr "Trivia/pop up"
+
+#: exportdialog.cpp:74
+msgid "Export"
+msgstr "Dışa Aktar"
+
+#: exportdialog.cpp:87 exportdialog.cpp:89
+msgid "&Format"
+msgstr "&Biçim"
+
+#: exportdialog.cpp:121
+msgid "To F&ile"
+msgstr "Dosyaya"
+
+#: exportdialog.cpp:127
+msgid "To Clip&board"
+msgstr "Panoya"
+
+#: exportdialog.cpp:137
+msgid "&Source:"
+msgstr "Kaynak:"
+
+#: exportdialog.cpp:142 importselector.cpp:307 kid3.cpp:384 kid3.cpp:387
+#: kid3.cpp:390 kid3.cpp:393 kid3.cpp:396 kid3.cpp:432
+#: numbertracksdialog.cpp:81
+msgid "Tag 1"
+msgstr "Tag 1"
+
+#: exportdialog.cpp:143 importselector.cpp:308 kid3.cpp:399 kid3.cpp:402
+#: kid3.cpp:405 kid3.cpp:408 kid3.cpp:411 kid3.cpp:435
+#: numbertracksdialog.cpp:82
+msgid "Tag 2"
+msgstr "Tag 2"
+
+#: exportdialog.cpp:234 filelist.cpp:1113 filelist.cpp:1149 filelist.cpp:1254
+#: filelist.cpp:1262 filelist.cpp:1306 filelist.cpp:1309 kid3.cpp:1117
+#: kid3.cpp:1120 kid3.cpp:2415
+msgid "File Error"
+msgstr "Dosya Hatası"
+
+#: exportdialog.cpp:235 kid3.cpp:1115 kid3.cpp:1121
+msgid "Error while writing file:\n"
+msgstr "Dosyaya yazılırken hata:\n"
+
+#: externalprocess.cpp:55
+msgid "C&lear"
+msgstr "Temiz&le"
+
+#: externalprocess.cpp:130
+msgid "Execute "
+msgstr "Çalıştır"
+
+#: externalprocess.cpp:178
+msgid "Could not execute "
+msgstr "Çalıştırılamadı "
+
+#: filefilter.cpp:111
+msgid "True if strings are equal"
+msgstr ""
+
+#: filefilter.cpp:115
+msgid "True if string contains substring"
+msgstr ""
+
+#: filefilter.cpp:119
+msgid "True if string matches regexp"
+msgstr ""
+
+#: filefilter.cpp:123
+msgid "Logical AND"
+msgstr ""
+
+#: filefilter.cpp:127
+msgid "Logical OR"
+msgstr ""
+
+#: filefilter.cpp:131
+msgid "Logical negation"
+msgstr ""
+
+#: filelist.cpp:70
+msgid "Do you really want to delete these %1 items?"
+msgstr ""
+
+#: filelist.cpp:72
+msgid "Error while deleting these %1 items:"
+msgstr ""
+
+#: filelist.cpp:242
+msgid "Filenames"
+msgstr "Dosya isimleri"
+
+#: filelist.cpp:250
+msgid "URLs"
+msgstr "URL'ler"
+
+#: filelist.cpp:254
+msgid "Directory name"
+msgstr "Dizin adı"
+
+#: filelist.cpp:866 filelist.cpp:879
+msgid "&Rename"
+msgstr "Ad Değişti&r"
+
+#: filelist.cpp:867 filelist.cpp:880
+msgid "&Delete"
+msgstr "&Sil"
+
+#: filelist.cpp:1088
+msgid "Rename File"
+msgstr "Dosya Adını Değiştir"
+
+#: filelist.cpp:1089
+msgid "Enter new file name:"
+msgstr "Lütfen yeni dosya ismi yazın:"
+
+#: filelist.cpp:1114 filelist.cpp:1150 kid3.cpp:2416
+msgid "Error while renaming:\n"
+msgstr "İsim değiştirirken hata:\n"
+
+#: filelist.cpp:1136 kid3.cpp:615 rendirdialog.cpp:72 rendirdialog.cpp:97
+#: rendirdialog.cpp:130 rendirdialog.cpp:172
+msgid "Rename Directory"
+msgstr "Dizini Yeniden Adlandır"
+
+#: filelist.cpp:1137
+msgid "Enter new directory name:"
+msgstr ""
+
+#: filelist.cpp:1178 filelist.cpp:1184 filelist.cpp:1194 filelist.cpp:1277
+#: filelist.cpp:1294
+msgid "Do you really want to delete this item?"
+msgid_plural "Do you really want to delete these %1 items?"
+msgstr[0] ""
+msgstr[1] ""
+
+#: filelist.cpp:1181 filelist.cpp:1187 filelist.cpp:1204 filelist.cpp:1279
+#: filelist.cpp:1293
+msgid "Delete Files"
+msgstr "Dosyaları Sil"
+
+#: filelist.cpp:1247 filelist.cpp:1250 filelist.cpp:1258 filelist.cpp:1304
+#: filelist.cpp:1311
+msgid "Error while deleting this item:"
+msgid_plural "Error while deleting these %1 items:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: filelist.cpp:1303 filelist.cpp:1310
+msgid "Directory must be empty.\n"
+msgstr ""
+
+#: filterdialog.cpp:61 kid3.cpp:629
+msgid "Filter"
+msgstr "Filtre"
+
+#: filterdialog.cpp:76 filterdialog.cpp:78
+msgid "&Filter"
+msgstr "&Filtre"
+
+#: filterdialog.cpp:116 musicbrainzdialog.cpp:142
+msgid "&Apply"
+msgstr "&Uygula"
+
+#: formatbox.cpp:51
+msgid "Format while editing"
+msgstr "Düzenleme şekli"
+
+#: formatbox.cpp:55
+msgid "Case conversion:"
+msgstr ""
+
+#: formatbox.cpp:61
+msgid "No changes"
+msgstr "Değişiklik Yok"
+
+#: formatbox.cpp:63
+msgid "All lowercase"
+msgstr "Tümü küçük harf"
+
+#: formatbox.cpp:65
+msgid "All uppercase"
+msgstr "Tümü BÜYÜK harf"
+
+#: formatbox.cpp:67
+msgid "First letter uppercase"
+msgstr "Cümlenin ilk harfi büyük"
+
+#: formatbox.cpp:69
+msgid "All first letters uppercase"
+msgstr "Kelimelerin ilk harfi büyük"
+
+#: formatbox.cpp:72
+msgid "String replacement:"
+msgstr ""
+
+#: formatbox.cpp:74
+msgid "From"
+msgstr "Şuradan"
+
+#: formatbox.cpp:74
+msgid "To"
+msgstr "Şuraya"
+
+#: frame.cpp:67 importselector.cpp:214 importselector.cpp:240
+msgid "Title"
+msgstr "Şarkı Adı"
+
+#: frame.cpp:68 importselector.cpp:215 importselector.cpp:241
+msgid "Artist"
+msgstr "Sanatçı"
+
+#: frame.cpp:69 importselector.cpp:215 importselector.cpp:242
+msgid "Album"
+msgstr "Albüm"
+
+#: frame.cpp:70 importselector.cpp:216 importselector.cpp:245
+msgid "Comment"
+msgstr "Yorum"
+
+#: frame.cpp:71
+msgid "Date"
+msgstr "Tarih"
+
+#: frame.cpp:72 frametable.cpp:741 frametable.cpp:767
+msgid "Track Number"
+msgstr "Parça Numarası"
+
+#: frame.cpp:73 importselector.cpp:215 importselector.cpp:244
+msgid "Genre"
+msgstr "Tarz"
+
+#: frame.cpp:75
+msgid "Album Artist"
+msgstr "Albüm Sanatçısı"
+
+#: frame.cpp:76
+msgid "Arranger"
+msgstr "Düzenleyen"
+
+#: frame.cpp:77
+msgid "Author"
+msgstr "Yazar"
+
+#: frame.cpp:78
+msgid "BPM"
+msgstr "BPM"
+
+#: frame.cpp:81
+msgid "Copyright"
+msgstr "Telif"
+
+#: frame.cpp:82
+msgid "Disc Number"
+msgstr "Disk Numarası"
+
+#: frame.cpp:83
+msgid "Encoded-by"
+msgstr "Kodlandı"
+
+#: frame.cpp:84
+msgid "Grouping"
+msgstr "Gruplama"
+
+#: frame.cpp:85
+msgid "ISRC"
+msgstr "ISRC"
+
+#: frame.cpp:87
+msgid "Lyricist"
+msgstr "Söz Yazar"
+
+#: frame.cpp:90
+msgid "Original Album"
+msgstr "Asıl Albüm"
+
+#: frame.cpp:91
+msgid "Original Artist"
+msgstr "Asıl Sanatçı"
+
+#: frame.cpp:92
+msgid "Original Date"
+msgstr "Asıl Tarih"
+
+#: frame.cpp:93
+msgid "Part"
+msgstr "Bölüm"
+
+#: frame.cpp:94
+msgid "Performer"
+msgstr "Sanatçı"
+
+#: frame.cpp:95
+msgid "Picture"
+msgstr "Resim"
+
+#: frame.cpp:96
+msgid "Publisher"
+msgstr "Yayıncı"
+
+#: frame.cpp:97
+msgid "Remixer"
+msgstr ""
+
+#: frame.cpp:98
+msgid "Subtitle"
+msgstr "Altyazı"
+
+#: frame.cpp:99
+msgid "Website"
+msgstr "Web Sitesi"
+
+#: frame.cpp:666 importparser.cpp:58 importselector.cpp:215
+#: importselector.cpp:243
+msgid "Year"
+msgstr "Yıl"
+
+#: frame.cpp:670 frame.cpp:674 frame.cpp:678 importselector.cpp:214
+#: importselector.cpp:239
+msgid "Track"
+msgstr "Parça No"
+
+#: framelist.cpp:334
+msgid "Add Frame"
+msgstr "Çerçeve Ekle"
+
+#: framelist.cpp:335
+msgid "Select the frame ID"
+msgstr "Çerçeve numarasını seç"
+
+#: httpclient.cpp:31
+msgid "Data received: %1"
+msgstr "Alınan veri:"
+
+#: httpclient.cpp:74 httpclient.cpp:376
+msgid "Connecting..."
+msgstr "Bağlanıyor..."
+
+#: httpclient.cpp:77 httpclient.cpp:224
+msgid "Host found..."
+msgstr "Sunucu bulundu... "
+
+#: httpclient.cpp:80 httpclient.cpp:233
+msgid "Request sent..."
+msgstr "İstek gönderildi..."
+
+#: httpclient.cpp:113 httpclient.cpp:323
+msgid "Socket error: "
+msgstr "Soket hatası:"
+
+#: httpclient.cpp:116 httpclient.cpp:326
+msgid "Connection refused"
+msgstr "Bağlantı reddedildi"
+
+#: httpclient.cpp:119 httpclient.cpp:329
+msgid "Host not found"
+msgstr "Sunucu bulunamadı"
+
+#: httpclient.cpp:332
+msgid "Read failed"
+msgstr "Okunamadı"
+
+#: id3form.cpp:155 main.cpp:56 main.cpp:109
+msgid "Kid3"
+msgstr "Kid3"
+
+#: id3form.cpp:171 id3form.cpp:300
+msgid "File&name"
+msgstr "Dosya Adı"
+
+#: id3form.cpp:178 id3form.cpp:312
+msgid "Name:"
+msgstr "İsim:"
+
+#: id3form.cpp:184 id3form.cpp:257 id3form.cpp:318 id3form.cpp:375
+#: kid3.cpp:402 kid3.cpp:423 rendirdialog.cpp:177
+msgid "From Tag 1"
+msgstr "Tag 1'den"
+
+#: id3form.cpp:187 id3form.cpp:321
+msgid "Format:"
+msgstr "Biçim:"
+
+#: id3form.cpp:196 id3form.cpp:223 id3form.cpp:330 id3form.cpp:353
+#: kid3.cpp:387 kid3.cpp:426 rendirdialog.cpp:178
+msgid "From Tag 2"
+msgstr "Tag 2'den"
+
+#: id3form.cpp:199 id3form.cpp:333
+msgid "Info:"
+msgstr "Bilgi:"
+
+#: id3form.cpp:205 id3form.cpp:340 id3form.cpp:773
+msgid "Tag &1"
+msgstr "Tag &1"
+
+#: id3form.cpp:219 id3form.cpp:254 id3form.cpp:351 id3form.cpp:374
+#: kid3.cpp:384 kid3.cpp:399
+msgid "From Filename"
+msgstr "Dosya adından"
+
+#: id3form.cpp:226 id3form.cpp:261 id3form.cpp:355 id3form.cpp:377
+#: kid3.cpp:390 kid3.cpp:405
+msgid "Copy"
+msgstr "Kopyala"
+
+#: id3form.cpp:230 id3form.cpp:265 id3form.cpp:357 id3form.cpp:379
+#: kid3.cpp:393 kid3.cpp:408
+msgid "Paste"
+msgstr "Yapıştır"
+
+#: id3form.cpp:234 id3form.cpp:269 id3form.cpp:359 id3form.cpp:381
+#: kid3.cpp:396 kid3.cpp:411
+msgid "Remove"
+msgstr "Kaldır"
+
+#: id3form.cpp:240 id3form.cpp:363 id3form.cpp:788
+msgid "Tag &2"
+msgstr "Tag &2"
+
+#: id3form.cpp:275 id3form.cpp:387 kid3.cpp:414
+msgid "Edit"
+msgstr "Düzen"
+
+#: id3form.cpp:278 id3form.cpp:389 kid3.cpp:417
+msgid "Add"
+msgstr "Ekle"
+
+#: id3form.cpp:281 id3form.cpp:391 kid3.cpp:420
+msgid "Delete"
+msgstr "Sil"
+
+#: imageviewer.cpp:50
+msgid "View Picture"
+msgstr "Resmi Göster"
+
+#: importparser.cpp:70 importselector.cpp:214 importselector.cpp:238
+#: importtrackdata.cpp:197 importtrackdata.cpp:201
+msgid "Length"
+msgstr "Süre"
+
+#: importselector.cpp:252 importselector.cpp:254 rendirdialog.cpp:78
+#: rendirdialog.cpp:135
+msgid "Format"
+msgstr "Biçim"
+
+#: importselector.cpp:278
+msgid "From F&ile"
+msgstr "Dosyadan"
+
+#: importselector.cpp:284
+msgid "&From Server:"
+msgstr "&Sunucudan:"
+
+#: importselector.cpp:289
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: importselector.cpp:290
+msgid "TrackType.org"
+msgstr "TrackType.org"
+
+#: importselector.cpp:291
+msgid "Discogs"
+msgstr "Discogs"
+
+#: importselector.cpp:293
+msgid "MusicBrainz Release"
+msgstr "MusicBrainz Sürümünden"
+
+#: importselector.cpp:296
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Parmak İzinden"
+
+#: importselector.cpp:303
+msgid "D&estination:"
+msgstr "Hedef:"
+
+#: importselector.cpp:309 numbertracksdialog.cpp:83
+msgid "Tag 1 and Tag 2"
+msgstr "Tag 1 ve Tag 2"
+
+#: importselector.cpp:319
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Kabul edilebilir en fazla süre farkı (saniye):"
+
+#: importselector.cpp:327
+msgid "Match with:"
+msgstr "Şununla eşleştir:"
+
+#: importselector.cpp:329
+msgid "&Length"
+msgstr "Süre"
+
+#: importselector.cpp:331
+msgid "T&rack"
+msgstr "&Parça No"
+
+#: importselector.cpp:333
+msgid "&Title"
+msgstr "Şarkı adı"
+
+#: importsourcedialog.cpp:74
+msgid "&Find"
+msgstr "B&ul"
+
+#: importsourcedialog.cpp:93 musicbrainzdialog.cpp:73
+msgid "&Server:"
+msgstr "Su&nucu:"
+
+#: importsourcedialog.cpp:97
+msgid "C&GI Path:"
+msgstr "C&GI Yolu:"
+
+#: importsourcedialog.cpp:122
+msgid "&Additional Tags"
+msgstr "&Ek Özellikler"
+
+#: importsourcedialog.cpp:123
+msgid "C&over Art"
+msgstr "&Albüm Kapağı"
+
+#: importtrackdata.cpp:189
+msgid "Absolute path to file"
+msgstr ""
+
+#: importtrackdata.cpp:205
+msgid "Number of tracks"
+msgstr "Parça Sayısı"
+
+#: importtrackdata.cpp:209
+msgid "Extension"
+msgstr "Uzantı"
+
+#: importtrackdata.cpp:221
+msgid "Bitrate"
+msgstr "Örnekleme hızı"
+
+#: importtrackdata.cpp:225
+msgid "VBR"
+msgstr "VBR"
+
+#: importtrackdata.cpp:229
+msgid "Samplerate"
+msgstr "Örnekleme oranı"
+
+#: importtrackdata.cpp:235
+msgid "Channels"
+msgstr "Kanallar"
+
+#: importtrackdata.cpp:239
+msgid "Codec"
+msgstr "Kodlayıcı"
+
+#: kid3.cpp:258
+msgid "Enables/disables the toolbar"
+msgstr "Araç çubuğunu açar/kapatır"
+
+#: kid3.cpp:259
+msgid "Enables/disables the statusbar"
+msgstr "Durum çubuğunu açar/kapatır"
+
+#: kid3.cpp:271 kid3.cpp:443 kid3.cpp:451
+msgid "Opens a directory"
+msgstr "Bir dizin açar"
+
+#: kid3.cpp:272
+msgid "Opens a recently used directory"
+msgstr "Son kullanılan dizini açar"
+
+#: kid3.cpp:274 kid3.cpp:468
+msgid "Reverts the changes of all or the selected files"
+msgstr "Seçilen veya tüm dosyalardaki değişiklikleri geri alır"
+
+#: kid3.cpp:275 kid3.cpp:459
+msgid "Saves the changed files"
+msgstr "Değiştirilen dosyaları kaydeder"
+
+#: kid3.cpp:276 kid3.cpp:540
+msgid "Quits the application"
+msgstr "Programdan çıkar"
+
+#: kid3.cpp:277 kid3.cpp:548
+msgid "Select all files"
+msgstr "Tüm Dosyaları Seç"
+
+#: kid3.cpp:283 kid3.cpp:556
+msgid "Deselect all files"
+msgstr "Hiçbir dosyayı seçme"
+
+#: kid3.cpp:284
+msgid "Configure Shortcuts"
+msgstr "Kısayolları yapılandır"
+
+#: kid3.cpp:285
+msgid "Configure Toolbars"
+msgstr "Araç Çubuğunu Yapılandır"
+
+#: kid3.cpp:286
+msgid "Preferences dialog"
+msgstr "Özellikler Penceresi"
+
+#: kid3.cpp:289 kid3.cpp:452
+msgid "O&pen Directory..."
+msgstr "&Klasör Aç..."
+
+#: kid3.cpp:293 kid3.cpp:476
+msgid "&Import..."
+msgstr "Al..."
+
+#: kid3.cpp:297 kid3.cpp:483
+msgid "Import from &gnudb.org..."
+msgstr "&gnudb.org'dan Al... "
+
+#: kid3.cpp:301 kid3.cpp:490
+msgid "Import from &TrackType.org..."
+msgstr "&TrackType.org'dan Al... "
+
+#: kid3.cpp:305 kid3.cpp:497
+msgid "Import from &Discogs..."
+msgstr "&Discogs'den Al..."
+
+#: kid3.cpp:309 kid3.cpp:504
+msgid "Import from MusicBrainz &Release..."
+msgstr "MusicBrainz Sü&rümünden Al..."
+
+#: kid3.cpp:314 kid3.cpp:512
+msgid "Import from &MusicBrainz Fingerprint..."
+msgstr "&MusicBrainz Parmak İzinden Al..."
+
+#: kid3.cpp:319 kid3.cpp:520
+msgid "&Browse Cover Art..."
+msgstr "&Kapak Resimlerini Al..."
+
+#: kid3.cpp:323 kid3.cpp:527
+msgid "&Export..."
+msgstr "Dışa Aktar..."
+
+#: kid3.cpp:327 kid3.cpp:534
+msgid "&Create Playlist..."
+msgstr "Playlist &Yarat..."
+
+#: kid3.cpp:331 kid3.cpp:602
+msgid "Apply &Filename Format"
+msgstr "Dosya Adı Biçimini Uygula"
+
+#: kid3.cpp:335 kid3.cpp:609
+msgid "Apply &Tag Format"
+msgstr "Tag Biçimini Uygula"
+
+#: kid3.cpp:339 kid3.cpp:616
+msgid "&Rename Directory..."
+msgstr "Dizini Yeniden Adlandır"
+
+#: kid3.cpp:343 kid3.cpp:623
+msgid "&Number Tracks..."
+msgstr "Parça Numarları..."
+
+#: kid3.cpp:347 kid3.cpp:630
+msgid "F&ilter..."
+msgstr "F&iltre..."
+
+#: kid3.cpp:352 kid3.cpp:638
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "ID3v2.3 dönüştürmek için ID3v2.&4"
+
+#: kid3.cpp:358 kid3.cpp:647
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "ID3v2.4 dönüştürmek için ID3v2.&3"
+
+#: kid3.cpp:363 kid3.cpp:655 kid3.cpp:2104 kid3.cpp:2107
+msgid "Hide Tag &1"
+msgstr "Tag 1'i Gizle"
+
+#: kid3.cpp:367 kid3.cpp:662 kid3.cpp:2132 kid3.cpp:2135
+msgid "Hide Tag &2"
+msgstr "Tag 2'yi Gizle"
+
+#: kid3.cpp:371 kid3.cpp:669 kid3.cpp:2160 kid3.cpp:2163
+msgid "Hide &Picture"
+msgstr "Resim &Gizle"
+
+#: kid3.cpp:376 kid3.cpp:565
+msgid "&Previous File"
+msgstr "Önceki Dosya"
+
+#: kid3.cpp:380 kid3.cpp:573
+msgid "&Next File"
+msgstr "Sonraki Dosya"
+
+#: kid3.cpp:414 kid3.cpp:417 kid3.cpp:420
+msgid "Frames:"
+msgstr "Çerçeve:"
+
+#: kid3.cpp:429 kid3.cpp:432 kid3.cpp:435
+msgid "Focus"
+msgstr "Odaklama"
+
+#: kid3.cpp:444
+msgid "&Open..."
+msgstr "&Aç..."
+
+#: kid3.cpp:460
+msgid "&Save"
+msgstr "&Kaydet"
+
+#: kid3.cpp:469
+msgid "Re&vert"
+msgstr "Geri Al"
+
+#: kid3.cpp:475
+msgid "Import from file or clipboard"
+msgstr "Dosya veya Pano'dan Al"
+
+#: kid3.cpp:482
+msgid "Import from gnudb.org"
+msgstr "gnudb.org'dan Al"
+
+#: kid3.cpp:489
+msgid "Import from TrackType.org"
+msgstr "TrackType.org'dan Al"
+
+#: kid3.cpp:496
+msgid "Import from Discogs"
+msgstr "Discogs'den Al"
+
+#: kid3.cpp:503
+msgid "Import from MusicBrainz Release"
+msgstr "MusicBrainz Sürümünden Al"
+
+#: kid3.cpp:511
+msgid "Import from MusicBrainz Fingerprint"
+msgstr "MusicBrainz Parmak İzinden Al"
+
+#: kid3.cpp:519
+msgid "Browse album cover artwork"
+msgstr "Kapak resimlerini al"
+
+#: kid3.cpp:526
+msgid "Export to file or clipboard"
+msgstr "Dosya veya Panoya Ver"
+
+#: kid3.cpp:533
+msgid "Create M3U Playlist"
+msgstr "M3U Playlist Dosyası Yarat"
+
+#: kid3.cpp:541
+msgid "&Quit"
+msgstr "Çı&k"
+
+#: kid3.cpp:549
+msgid "Select &All"
+msgstr "Tümünü Seç"
+
+#: kid3.cpp:557
+msgid "Dese&lect"
+msgstr "&Seçme"
+
+#: kid3.cpp:564
+msgid "Select previous file"
+msgstr "Önceki dosya"
+
+#: kid3.cpp:572
+msgid "Select next file"
+msgstr "Sonraki dosya"
+
+#: kid3.cpp:580 kid3.cpp:1591
+msgid "Kid3 Handbook"
+msgstr "Kid3 El Kitabı"
+
+#: kid3.cpp:581
+msgid "Kid3 &Handbook"
+msgstr "Kid3 El &Kitabı"
+
+#: kid3.cpp:587
+msgid "About Kid3"
+msgstr "Kid3 Hakkında"
+
+#: kid3.cpp:588
+msgid "&About Kid3"
+msgstr "Kid3 &Hakkında"
+
+#: kid3.cpp:594
+msgid "About Qt"
+msgstr "Qt Hakkında"
+
+#: kid3.cpp:595
+msgid "About &Qt"
+msgstr "&Qt Hakkında"
+
+#: kid3.cpp:601
+msgid "Apply Filename Format"
+msgstr "Dosya Adı Yapısını Uygula"
+
+#: kid3.cpp:608
+msgid "Apply Tag Format"
+msgstr "Tag Yapısını Uygula"
+
+#: kid3.cpp:622 numbertracksdialog.cpp:55
+msgid "Number Tracks"
+msgstr "Parça Numaraları"
+
+#: kid3.cpp:637
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 dönüştürmek için ID3v2.4"
+
+#: kid3.cpp:646
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 dönüştürmek için ID3v2.3"
+
+#: kid3.cpp:654 kid3.cpp:2106
+msgid "Hide Tag 1"
+msgstr "Tag 1'i Gizle"
+
+#: kid3.cpp:661 kid3.cpp:2134
+msgid "Hide Tag 2"
+msgstr "Tag 2'yi Gizle"
+
+#: kid3.cpp:668 kid3.cpp:2162
+msgid "Hide Picture"
+msgstr "Resim Gizle"
+
+#: kid3.cpp:675
+msgid "Configure Kid3"
+msgstr "Kid3'ü Yapılandır"
+
+#: kid3.cpp:676
+msgid "&Configure Kid3..."
+msgstr "Kid3'ü Yapılandır..."
+
+#. i18n: file: kid3ui.rc:4
+#. i18n: ectx: Menu (file)
+#: kid3.cpp:682 kid3.cpp:690 rc.cpp:3
+msgid "&File"
+msgstr "&Dosya"
+
+#. i18n: file: kid3ui.rc:16
+#. i18n: ectx: Menu (edit)
+#: kid3.cpp:683 kid3.cpp:692 rc.cpp:6
+msgid "&Edit"
+msgstr "Dü&zen"
+
+#. i18n: file: kid3ui.rc:20
+#. i18n: ectx: Menu (tools)
+#: kid3.cpp:684 kid3.cpp:694 rc.cpp:9
+msgid "&Tools"
+msgstr "&Araçlar"
+
+#. i18n: file: kid3ui.rc:29
+#. i18n: ectx: Menu (settings)
+#: kid3.cpp:685 kid3.cpp:696 rc.cpp:12
+msgid "&Settings"
+msgstr "Ayarla&r"
+
+#: kid3.cpp:831
+msgid "Opening directory..."
+msgstr "Dizin Açılıyor..."
+
+#: kid3.cpp:1060
+msgid "Saving directory..."
+msgstr "Dizin kaydediliyor..."
+
+#: kid3.cpp:1154 kid3.cpp:1164
+msgid ""
+"The current directory has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"İçinde bulunduğunuz dizin değiştirildi.\n"
+"Kaydetmek istiyor musunuz?"
+
+#: kid3.cpp:1156
+msgid "Warning"
+msgstr "Uyarı"
+
+#: kid3.cpp:1163
+msgid "Warning - Kid3"
+msgstr "Uyarı - Kid3"
+
+#: kid3.cpp:1332 kid3.cpp:1336
+msgid "All Supported Files"
+msgstr "Desteklenen Bütün Dosyalar"
+
+#: kid3.cpp:1334 kid3.cpp:1340
+msgid "All Files (*)"
+msgstr "Tüm Dosyalar (*)"
+
+#: kid3.cpp:1368
+msgid "Open"
+msgstr "Aç"
+
+#: kid3.cpp:1487
+msgid "Exiting..."
+msgstr "Çıkılıyor..."
+
+#: kid3.cpp:1498
+msgid "Toggling toolbar..."
+msgstr "Araç çubuğu açılıp/kapanıyor..."
+
+#: kid3.cpp:1513
+msgid "Toggle the statusbar..."
+msgstr "Durum çubuğu açılı/kapatılıyor..."
+
+#: kid3.cpp:1685
+msgid "Creating playlist..."
+msgstr "Playlist Yaratılıyor..."
+
+#: kid3.cpp:1773
+msgid "Import"
+msgstr "Al"
+
+#: kid3.cpp:1794
+msgid "Import..."
+msgstr "Al..."
+
+#: kid3.cpp:2096 kid3.cpp:2099
+msgid "Show Tag &1"
+msgstr "Tag &1'i Göster"
+
+#: kid3.cpp:2098
+msgid "Show Tag 1"
+msgstr "Tag 1'i Göster"
+
+#: kid3.cpp:2124 kid3.cpp:2127
+msgid "Show Tag &2"
+msgstr "Tag &2'yi Göster"
+
+#: kid3.cpp:2126
+msgid "Show Tag 2"
+msgstr "Tag 2'yi Göster"
+
+#: kid3.cpp:2152 kid3.cpp:2155
+msgid "Show &Picture"
+msgstr "Resim &Göster"
+
+#: kid3.cpp:2154
+msgid "Show Picture"
+msgstr "Resim Göster"
+
+#: kid3.cpp:2209
+msgid "Configure - Kid3"
+msgstr "Yapılandır - Kid3"
+
+#: kid3.cpp:2757
+msgid "Download"
+msgstr "İndir"
+
+#: kid3.cpp:2823
+msgid " [filtered]"
+msgstr " [süzgeci]"
+
+#: kid3.cpp:2829
+msgid " [modified]"
+msgstr " [değişti]"
+
+#: main.cpp:40
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 ID3 Düzenleyici"
+
+#: main.cpp:58
+msgid "(c) 2003-2009 Urs Fleisch"
+msgstr "(c) 2003-2009 Urs Fleisch"
+
+#: main.cpp:60
+msgid "Urs Fleisch"
+msgstr "Urs Fleisch"
+
+#: main.cpp:64 main.cpp:93
+msgid "directory to open"
+msgstr "açılacak dizin"
+
+#: mp3file.cpp:1266 taglibfile.cpp:1485
+msgid "AENC - Audio encryption"
+msgstr "AENC - Ses şifreleme"
+
+#: mp3file.cpp:1267 taglibfile.cpp:1486
+msgid "APIC - Attached picture"
+msgstr "APIC - İliştirilmiş Resim"
+
+#: mp3file.cpp:1269 taglibfile.cpp:1488
+msgid "COMM - Comments"
+msgstr "COMM - Yorumlar"
+
+#: mp3file.cpp:1270 taglibfile.cpp:1489
+msgid "COMR - Commercial"
+msgstr "COMR - Ticari"
+
+#: mp3file.cpp:1271 taglibfile.cpp:1490
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Şifreleme yöntemi kaydı"
+
+#: mp3file.cpp:1273
+msgid "EQUA - Equalization"
+msgstr "EQUA - Ekolayzır"
+
+#: mp3file.cpp:1274 taglibfile.cpp:1492
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Olay zamanlama kodekleri"
+
+#: mp3file.cpp:1275 taglibfile.cpp:1493
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - Genel kapsülleme nesnesi"
+
+#: mp3file.cpp:1276 taglibfile.cpp:1494
+msgid "GRID - Group identification registration"
+msgstr "GRID - Grup tanımlama kaydı"
+
+#: mp3file.cpp:1277
+msgid "IPLS - Involved people list"
+msgstr "IPLS - İlgili kişi listesi"
+
+#: mp3file.cpp:1278 taglibfile.cpp:1495
+msgid "LINK - Linked information"
+msgstr "LINK - Bağlanmış bilgi"
+
+#: mp3file.cpp:1279 taglibfile.cpp:1496
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Ses CD'si tanımlayıcı"
+
+#: mp3file.cpp:1280 taglibfile.cpp:1497
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG konumu şema tablosu"
+
+#: mp3file.cpp:1281 taglibfile.cpp:1498
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Sahip çerçeve"
+
+#: mp3file.cpp:1282 taglibfile.cpp:1499
+msgid "PRIV - Private frame"
+msgstr "PRIV - Özel çerçeve"
+
+#: mp3file.cpp:1283 taglibfile.cpp:1500
+msgid "PCNT - Play counter"
+msgstr "PCNT - Çalma sayacı"
+
+#: mp3file.cpp:1284 taglibfile.cpp:1501
+msgid "POPM - Popularimeter"
+msgstr "POPM - Popülerlik ölçümü"
+
+#: mp3file.cpp:1285 taglibfile.cpp:1502
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Pozisyon senkronizasyon çerçevesi"
+
+#: mp3file.cpp:1286 taglibfile.cpp:1503
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Önerilen tampon bellek boyutu"
+
+#: mp3file.cpp:1288
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Bağıl ses düzeyi ayarı"
+
+#: mp3file.cpp:1289 taglibfile.cpp:1505
+msgid "RVRB - Reverb"
+msgstr "RVRB - Reverb"
+
+#: mp3file.cpp:1292 taglibfile.cpp:1508
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Senkronize edilmiş şarkı sözü/metin"
+
+#: mp3file.cpp:1293 taglibfile.cpp:1509
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Senkronize edilmiş tempo açıcıları"
+
+#: mp3file.cpp:1294 taglibfile.cpp:1510
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Albüm/Film/Gösteri Adı"
+
+#: mp3file.cpp:1295 taglibfile.cpp:1511
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (Dakikada Vuruş Sayısı)"
+
+#: mp3file.cpp:1296 taglibfile.cpp:1512
+msgid "TCOM - Composer"
+msgstr "TCOM - Besteci"
+
+#: mp3file.cpp:1297 taglibfile.cpp:1513
+msgid "TCON - Content type"
+msgstr "TCON - İçerik tipi"
+
+#: mp3file.cpp:1298 taglibfile.cpp:1514
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Telif hakkı mesajı"
+
+#: mp3file.cpp:1299
+msgid "TDAT - Date"
+msgstr "TDAT - Tarih"
+
+#: mp3file.cpp:1301 taglibfile.cpp:1516
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Şarkı listesi gecikmesi"
+
+#: mp3file.cpp:1307 taglibfile.cpp:1521
+msgid "TENC - Encoded by"
+msgstr "TENC - Sıkıştıran"
+
+#: mp3file.cpp:1308 taglibfile.cpp:1522
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Söz yazarı"
+
+#: mp3file.cpp:1309 taglibfile.cpp:1523
+msgid "TFLT - File type"
+msgstr "TFLT - Dosya tipi"
+
+#: mp3file.cpp:1310
+msgid "TIME - Time"
+msgstr "TIME - Zaman"
+
+#: mp3file.cpp:1311 taglibfile.cpp:1525
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - İçerik grubu açıklaması"
+
+#: mp3file.cpp:1312 taglibfile.cpp:1526
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Şarkı adı / İçerik açıklaması"
+
+#: mp3file.cpp:1313 taglibfile.cpp:1527
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Alt yazı / Açıklama düzeltmesi"
+
+#: mp3file.cpp:1314 taglibfile.cpp:1528
+msgid "TKEY - Initial key"
+msgstr "TKEY - İlk anahtar"
+
+#: mp3file.cpp:1315 taglibfile.cpp:1529
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Dil(ler)"
+
+#: mp3file.cpp:1316 taglibfile.cpp:1530
+msgid "TLEN - Length"
+msgstr "TLEN - Süre"
+
+#: mp3file.cpp:1318 taglibfile.cpp:1532
+msgid "TMED - Media type"
+msgstr "TMED - Ortam türü"
+
+#: mp3file.cpp:1320 taglibfile.cpp:1534
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Orjinal Albüm / Film / Gösteri adı"
+
+#: mp3file.cpp:1321 taglibfile.cpp:1535
+msgid "TOFN - Original filename"
+msgstr "TOFN - Orjinal dosya adı"
+
+#: mp3file.cpp:1322 taglibfile.cpp:1536
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Orjinal söz yazar(lar)ı"
+
+#: mp3file.cpp:1323 taglibfile.cpp:1537
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Orjinal sanatçı adı"
+
+#: mp3file.cpp:1324
+msgid "TORY - Original release year"
+msgstr "TORY - Orjinal piyasaya çıkış yılı"
+
+#: mp3file.cpp:1325 taglibfile.cpp:1538
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - Dosyanın lisans sahibi"
+
+#: mp3file.cpp:1326 taglibfile.cpp:1539
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Ana sanatçı(lar) / Söyleyen(ler)"
+
+#: mp3file.cpp:1327 taglibfile.cpp:1540
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Grup / Orkestra / Misafir Sanatçı"
+
+#: mp3file.cpp:1328 taglibfile.cpp:1541
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Orkestra şefi / Söyleyen düzeltme"
+
+#: mp3file.cpp:1329 taglibfile.cpp:1542
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Yorumlayan / Tekrar düzenleyen veya değiştiren"
+
+#: mp3file.cpp:1330 taglibfile.cpp:1543
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Bir seri'nin parçası"
+
+#: mp3file.cpp:1332 taglibfile.cpp:1545
+msgid "TPUB - Publisher"
+msgstr "TPUB - Yayımcı"
+
+#: mp3file.cpp:1333 taglibfile.cpp:1546
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Seri'nin Parça / Konum Numarası"
+
+#: mp3file.cpp:1334
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Kayıt tarihleri"
+
+#: mp3file.cpp:1335 taglibfile.cpp:1547
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - İnternet radyo istasyonu adı"
+
+#: mp3file.cpp:1336 taglibfile.cpp:1548
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - İnternet radyo istasyonu sahibi"
+
+#: mp3file.cpp:1337
+msgid "TSIZ - Size"
+msgstr "TSIZ - Büyüklük"
+
+#: mp3file.cpp:1341 taglibfile.cpp:1552
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (Uluslararası standart kayıt kodu)"
+
+#: mp3file.cpp:1342 taglibfile.cpp:1553
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Sıkıştırma için kullanılan yazılım / donanım ve ayarlar"
+
+#: mp3file.cpp:1344 taglibfile.cpp:1555
+msgid "TXXX - User defined text information"
+msgstr "TXXX - Kullanıcı tanımlı metin bilgisi"
+
+#: mp3file.cpp:1345
+msgid "TYER - Year"
+msgstr "TYER - Yıl"
+
+#: mp3file.cpp:1346 taglibfile.cpp:1556
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Benzersiz dosya tanımlayıcısı"
+
+#: mp3file.cpp:1347 taglibfile.cpp:1557
+msgid "USER - Terms of use"
+msgstr "USER - Kullanım şartları"
+
+#: mp3file.cpp:1348 taglibfile.cpp:1558
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Senkronize edilmemiş söz çevrim yazısı"
+
+#: mp3file.cpp:1349 taglibfile.cpp:1559
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Ticari bilgi"
+
+#: mp3file.cpp:1350 taglibfile.cpp:1560
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Telif Hakkı / Kanuni bilgi"
+
+#: mp3file.cpp:1351 taglibfile.cpp:1561
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Ses dosyası'nın resmi internet sitesi"
+
+#: mp3file.cpp:1352 taglibfile.cpp:1562
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Sanatçı'nın / Şarkıcı'nın resmi web sitesi"
+
+#: mp3file.cpp:1353 taglibfile.cpp:1563
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Ses dosyasının resmi internet adresi"
+
+#: mp3file.cpp:1354 taglibfile.cpp:1564
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - İnternet radyo istasyonu'nun resmi adresi"
+
+#: mp3file.cpp:1355 taglibfile.cpp:1565
+msgid "WPAY - Payment"
+msgstr "WPAY - Ödeme"
+
+#: mp3file.cpp:1356 taglibfile.cpp:1566
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Resmi yayımcı"
+
+#: mp3file.cpp:1357 taglibfile.cpp:1567
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - Kullanıcı tanımlı URL bağlantısı"
+
+#: musicbrainzclient.cpp:290
+msgid "Metadata Read"
+msgstr "Meta-verisi Oku"
+
+#: musicbrainzclient.cpp:292 musicbrainzclient.cpp:595
+msgid "Unrecognized"
+msgstr "Tanımlanamayan"
+
+#: musicbrainzclient.cpp:293 musicbrainzclient.cpp:593
+msgid "Recognized"
+msgstr "Tanımlanan"
+
+#: musicbrainzclient.cpp:294 musicbrainzclient.cpp:339
+msgid "Pending"
+msgstr "Bekliyor"
+
+#: musicbrainzclient.cpp:296
+msgid "PUID Lookup"
+msgstr "PUID Görünümü"
+
+#: musicbrainzclient.cpp:297
+msgid "PUID Collision"
+msgstr "PUID Çakışması"
+
+#: musicbrainzclient.cpp:299
+msgid "TRM Lookup"
+msgstr "TRM Görünümü"
+
+#: musicbrainzclient.cpp:300
+msgid "TRM Collision"
+msgstr "TRM Çakışması"
+
+#: musicbrainzclient.cpp:302
+msgid "File Lookup"
+msgstr "Dosya Görünümü"
+
+#: musicbrainzclient.cpp:303 musicbrainzclient.cpp:590
+msgid "User Selection"
+msgstr "Kullanıcı Seçimi"
+
+#: musicbrainzclient.cpp:304
+msgid "Verified"
+msgstr "Doğrulandı"
+
+#: musicbrainzclient.cpp:305
+msgid "Saved"
+msgstr "Kaydedildi"
+
+#: musicbrainzclient.cpp:306
+msgid "Deleted"
+msgstr "Silindi"
+
+#: musicbrainzclient.cpp:307 rendirdialog.cpp:775
+msgid "Error"
+msgstr "Hata"
+
+#: musicbrainzclient.cpp:342
+msgid "Removed"
+msgstr "Kaldırıldı"
+
+#: musicbrainzclient.cpp:414
+msgid "Written"
+msgstr "Yazıldı"
+
+#: musicbrainzdialog.cpp:64
+msgid "MusicBrainz"
+msgstr "MusicBrainz"
+
+#: musicbrainzdialog.cpp:111 musicbrainzdialog.cpp:129
+msgid "Track Title/Artist - Album"
+msgstr "Şarkı Adı / Sanatçı - Albüm"
+
+#: musicbrainzdialog.cpp:112 musicbrainzdialog.cpp:130
+msgid "State"
+msgstr "Konum"
+
+#: musicbrainzdialog.cpp:214 musicbrainzdialog.cpp:230
+#: musicbrainzdialog.cpp:417
+msgid "No result"
+msgstr "Sonuç yok"
+
+#: musicbrainzdialog.cpp:417
+msgid "No result selected"
+msgstr "Hiç sonuç seçilmedi"
+
+#: numbertracksdialog.cpp:64
+msgid "&Start number:"
+msgstr "Başlangıç numarası:"
+
+#: numbertracksdialog.cpp:77
+msgid "&Destination:"
+msgstr "Hedef:"
+
+#: picturelabel.cpp:85
+msgid ""
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Albüm kapak\n"
+"resmini buraya\n"
+"sürükleyin"
+
+#: playlistdialog.cpp:61
+msgid "Create Playlist"
+msgstr "Playlist Yarat"
+
+#: playlistdialog.cpp:202
+msgid "Playlist File Name"
+msgstr ""
+
+#: playlistdialog.cpp:203
+msgid "Same as &directory name"
+msgstr ""
+
+#: playlistdialog.cpp:205 rendirdialog.cpp:184
+msgid "&Format:"
+msgstr "&Biçim:"
+
+#: playlistdialog.cpp:214
+msgid "Cr&eate in:"
+msgstr "&Oluşturulacak:"
+
+#: playlistdialog.cpp:218
+msgid "Current directory"
+msgstr "Mevcut dizin"
+
+#: playlistdialog.cpp:219
+msgid "Every directory"
+msgstr ""
+
+#: playlistdialog.cpp:220
+msgid "Top-level directory"
+msgstr ""
+
+#: playlistdialog.cpp:221
+msgid "Playlist Content"
+msgstr ""
+
+#: playlistdialog.cpp:222
+msgid "For&mat:"
+msgstr "Biçi&m:"
+
+#: playlistdialog.cpp:225
+msgid "Incl&ude only the selected files"
+msgstr ""
+
+#: playlistdialog.cpp:226
+msgid "Sort by file &name"
+msgstr ""
+
+#: playlistdialog.cpp:228
+msgid "Sort by &tag field"
+msgstr ""
+
+#: playlistdialog.cpp:242
+msgid "Use &relative path for files in playlist"
+msgstr ""
+
+#: playlistdialog.cpp:244
+msgid "Use full p&ath for files in playlist"
+msgstr ""
+
+#: playlistdialog.cpp:245
+msgid "Write only &list of files"
+msgstr ""
+
+#: playlistdialog.cpp:247
+msgid "Write &info using"
+msgstr ""
+
+#: rendirdialog.cpp:49
+msgid "Create directory %1 failed\n"
+msgstr " %1 dizinini yaratma başarısız\n"
+
+#: rendirdialog.cpp:51
+msgid "File %1 already exists\n"
+msgstr "Zaten %1 adında bir dosya var\n"
+
+#: rendirdialog.cpp:53
+msgid "%1 is not a directory\n"
+msgstr "%1 dosyası bir dizin değil\n"
+
+#: rendirdialog.cpp:55
+msgid "Rename %1 to %2 failed\n"
+msgstr "%1 ismi %2 şeklinde değiştirilemedi\n"
+
+#: rendirdialog.cpp:57
+msgid "%1 already exists\n"
+msgstr "%1 adında bir dosya zaten var\n"
+
+#: rendirdialog.cpp:59
+msgid "%1 is not a file\n"
+msgstr "%1 bir dosya değil\n"
+
+#: rendirdialog.cpp:83 rendirdialog.cpp:139
+msgid "Preview"
+msgstr "Önizleme"
+
+#: rendirdialog.cpp:173
+msgid "Create Directory"
+msgstr "Dizin Yarat"
+
+#: rendirdialog.cpp:176
+msgid "From Tag 2 and Tag 1"
+msgstr "Tag 2 ve Tag 1'den"
+
+#: rendirdialog.cpp:216
+msgid "From:"
+msgstr "Şuradan:"
+
+#: rendirdialog.cpp:218
+msgid "To:"
+msgstr "Şuraya:"
+
+#: rendirdialog.cpp:647
+msgid "New directory name is too different\n"
+msgstr "Yeni dizin ismi çok farklı\n"
+
+#: rendirdialog.cpp:772
+msgid "Create directory"
+msgstr "Dizin Yarat"
+
+#: rendirdialog.cpp:773
+msgid "Rename directory"
+msgstr "Dizini Yeniden Adlandır"
+
+#: rendirdialog.cpp:774
+msgid "Rename file"
+msgstr "Dosya adını değiştir"
+
+#: stringlistedit.cpp:56
+msgid "&Add..."
+msgstr "&Ekle..."
+
+#: stringlistedit.cpp:57
+msgid "Move &Up"
+msgstr "&Yukarı Taşı"
+
+#: stringlistedit.cpp:58
+msgid "Move &Down"
+msgstr "&Aşağı Taşı"
+
+#: stringlistedit.cpp:59
+msgid "&Edit..."
+msgstr "Dü&zen..."
+
+#: stringlistedit.cpp:60
+msgid "&Remove"
+msgstr "Ka&ldır"
+
+#: stringlistedit.cpp:136
+msgid "Add Item"
+msgstr "Öğe Ekle"
+
+#: stringlistedit.cpp:183 stringlistedit.cpp:194
+msgid "Edit Item"
+msgstr "Öğeyi Düzenle"
+
+#: taglibfile.cpp:1487
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - Ses tarama nokta indeksi"
+
+#: taglibfile.cpp:1491
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - Ekolayzır (2)"
+
+#: taglibfile.cpp:1504
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - Bağıl ses düzeyi ayarı (2)"
+
+#: taglibfile.cpp:1506
+msgid "SEEK - Seek frame"
+msgstr "SEEK - Tarama çerçevesi"
+
+#: taglibfile.cpp:1507
+msgid "SIGN - Signature frame"
+msgstr "SIGN - İmza çerçevesi"
+
+#: taglibfile.cpp:1515
+msgid "TDEN - Encoding time"
+msgstr "TDEN - Sıkıştırma süresi"
+
+#: taglibfile.cpp:1517
+msgid "TDOR - Original release time"
+msgstr "TDOR - Orjinal piyasaya çıkış zamanı"
+
+#: taglibfile.cpp:1518
+msgid "TDRC - Recording time"
+msgstr "TDRC - Kayıt süresi"
+
+#: taglibfile.cpp:1519
+msgid "TDRL - Release time"
+msgstr "TDRL - Piyasaya çıkış zamanı"
+
+#: taglibfile.cpp:1520
+msgid "TDTG - Tagging time"
+msgstr "TDTG - Etiketleme zamanı"
+
+#: taglibfile.cpp:1524
+msgid "TIPL - Involved people list"
+msgstr "TIPL - İlgili kişi listesi"
+
+#: taglibfile.cpp:1531
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - Katkıda bulunan müzisyenler listesi"
+
+#: taglibfile.cpp:1533
+msgid "TMOO - Mood"
+msgstr "TMOO - Duruş"
+
+#: taglibfile.cpp:1544
+msgid "TPRO - Produced notice"
+msgstr "TPRO - Üretilmiş uyarı"
+
+#: taglibfile.cpp:1549
+msgid "TSOA - Album sort order"
+msgstr "TSOA - Albüm sıralaması"
+
+#: taglibfile.cpp:1550
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - Söyleyen sıralaması"
+
+#: taglibfile.cpp:1551
+msgid "TSOT - Title sort order"
+msgstr "TSOT - Başlık sıralaması"
+
+#: taglibfile.cpp:1554
+msgid "TSST - Set subtitle"
+msgstr "TSST - Alt yazı ayarla"
+
+#. i18n: file: kid3ui.rc:36
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:15
+msgid "Main Toolbar"
+msgstr "Ana Araç Çubuğu"
+
+#: rc.cpp:16
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Mehmet Yilmaz SÜSLÜ"
+
+#: rc.cpp:17
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "yilmazsuslu@gmail.com"
