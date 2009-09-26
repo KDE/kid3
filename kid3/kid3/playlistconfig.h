@@ -97,7 +97,7 @@ public:
 	bool m_useFileNameFormat;
 	/** Include only selected files if true, else all files */
 	bool m_onlySelectedFiles;
-	/* Sort by tag field if true, else file name */
+	/** Sort by tag field if true, else file name */
 	bool m_useSortTagField;
 	/** Use full path for files in playlist if true, else relative path */
 	bool m_useFullPath;

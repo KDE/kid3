@@ -108,7 +108,6 @@ void PlaylistConfig::readFromConfig(
 #endif
 	)
 {
-	QStringList names, expressions;
 #ifdef CONFIG_USE_KDE
 	KCM_KConfigGroup(cfg, config, m_group);
 	m_useFileNameFormat = cfg.KCM_readBoolEntry("UseFileNameFormat",
