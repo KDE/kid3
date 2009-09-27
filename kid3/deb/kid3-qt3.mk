@@ -33,6 +33,5 @@ clean:
 
 install: build
 	$(MAKE) -C kid3-qt3 install INSTALL_ROOT=$(CURDIR)/debian/kid3-qt
-	chmod 644 $(CURDIR)/debian/kid3-qt/usr/share/kid3-qt/translations/qt_*.qm
 
 .PHONY: build clean install

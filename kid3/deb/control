@@ -3,13 +3,14 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>, Mark Purcell <msp@debian.org>
+ Patrick Matthäi <pmatthaei@debian.org>
 Build-Depends: debhelper (>= 5), xsltproc, docbook-xsl, lsb-release,
 # Ubuntu: libmp4v2-dev,
 # KDE4: cmake, libqt4-dev, kdelibs5-dev,
 # KDE3: libqt3-mt-dev, libqt3-i18n, kdelibs4-dev,
  libid3-3.8.3-dev, libtunepimp-dev, libflac++-dev,
  libvorbis-dev, libtag1-dev
-Standards-Version: 3.8.0
+Standards-Version: 3.8.1
 Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log 

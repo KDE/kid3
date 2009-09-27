@@ -6,7 +6,7 @@ Name:         kid3
 License:      GPL
 Group:        Applications/Multimedia
 Summary:      Efficient ID3 tag editor
-Version:      1.2
+Version:      1.3
 Release:      1%{?dist}
 URL:          http://kid3.sourceforge.net/
 Source0:      http://downloads.sourceforge.net/kid3/%{name}-%{version}.tar.gz
@@ -19,7 +19,6 @@ BuildRequires:  flac-devel
 BuildRequires:  libtunepimp-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  libmp4v2-devel
-BuildRequires:  perl(File::Spec)
 BuildRequires:  gettext
 Requires:       xdg-utils
 
@@ -49,7 +48,6 @@ Authors: Urs Fleisch
 %prep
 [ ${RPM_BUILD_ROOT} != "/" ] && rm -rf ${RPM_BUILD_ROOT}
 %setup -q
-sed -i -e 's|/lib /usr/lib\b|/%{_lib} %{_libdir}|g' configure # lib64 rpaths
 
 %build
 mkdir kde-build

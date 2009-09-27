@@ -1,8 +1,25 @@
-kid3 (1.2-0) unstable; urgency=low
+kid3 (1.3-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 02 Apr 2009 19:44:10 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 26 Sep 2009 06:34:10 +0200
+
+kid3 (1.2-1) unstable; urgency=low
+
+  [ Ana Beatriz Guerrero Lopez ]
+  * New upstream release, switch to Qt3 and KDE 4.
+    Closes: #526313
+  * Update copyright years.
+
+  [ Patrick Matthäi ]
+  * Some minor packaging cleanups (remove useless whitespaces at EOL etc.).
+  * Bump Standards-Version to 3.8.1 (no changes needed).
+  * Add myself to uploaders.
+  * Refer in debian/copyright to the GPL-2 file instead of GPL.
+    This fixes the lintian warning copyright-refers-to-symlink-license.
+  * Adjust build dependencies, so that kid3 builds against Qt4 and KDE4 libs.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 20 May 2009 16:12:30 +0200
 
 kid3 (1.1-1) unstable; urgency=low
 
