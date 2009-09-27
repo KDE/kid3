@@ -2146,3 +2146,15 @@ msgstr "Kenny Verstraete"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "verstraete_kenny@skynet.be"
+
+#: rc.cpp:18
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Kenny Verstraete"
+
+#: rc.cpp:19
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "verstraete_kenny@skynet.be"

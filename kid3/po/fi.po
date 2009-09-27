@@ -2144,3 +2144,15 @@ msgstr "Tommi Nieminen"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "translator@legisign.org"
+
+#: rc.cpp:18
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Tommi Nieminen"
+
+#: rc.cpp:19
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "translator@legisign.org"

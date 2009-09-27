@@ -2148,3 +2148,15 @@ msgstr "Sergio Cambra"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "runico@users.berlios.de"
+
+#: rc.cpp:18
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Sergio Cambra"
+
+#: rc.cpp:19
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "runico@users.berlios.de"

@@ -10,9 +10,13 @@ cd ${BASEDIR}
 # we use simple sorting to make sure the lines do not jump around too much from system to system
 find . -name '*.rc' -o -name '*.ui' -o -name '*.kcfg' | sort > ${WDIR}/rcfiles.list
 xargs --arg-file=${WDIR}/rcfiles.list extractrc > ${WDIR}/rc.cpp
-# additional string for KAboutData
+# additional string for KDE 4 KAboutData
 echo 'i18nc("NAME OF TRANSLATORS","Your names");' >> ${WDIR}/rc.cpp
 echo 'i18nc("EMAIL OF TRANSLATORS","Your emails");' >> ${WDIR}/rc.cpp
+# additional string for KDE 3 KAboutData (using printf because echo with back slashes
+# behaves differently in bash and dash)
+printf 'i18n("_: NAME OF TRANSLATORS\\nYour names");\n' >> ${WDIR}/rc.cpp
+printf 'i18n("_: EMAIL OF TRANSLATORS\\nYour emails");\n' >> ${WDIR}/rc.cpp
 cd ${WDIR}
 echo "Done preparing rc files"
 

@@ -2146,3 +2146,15 @@ msgstr "Urs Fleisch"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "ufleisch@users.sourceforge.net"
+
+#: rc.cpp:18
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Urs Fleisch"
+
+#: rc.cpp:19
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "ufleisch@users.sourceforge.net"

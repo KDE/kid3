@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2009-06-15 21:52+0200\n"
-"PO-Revision-Date: 2009-06-15 23:01+0200\n"
-"Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
-"Language-Team: English <en@li.org>\n"
+"POT-Creation-Date: 2009-09-24 06:40+0200\n"
+"PO-Revision-Date: 2009-09-26 17:18+0300\n"
+"Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
+"Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -88,7 +88,7 @@ msgstr "&Edasi"
 #: browserdialog.cpp:85 exportdialog.cpp:171 externalprocess.cpp:58
 #: filterdialog.cpp:117 imageviewer.cpp:61 importsourcedialog.cpp:154
 msgid "&Close"
-msgstr "S&ulge"
+msgstr "&Sulge"
 
 #: commandstable.cpp:58 commandstable.cpp:75
 msgid "Confirm"
@@ -677,8 +677,8 @@ msgstr "Failide kustutamine"
 #: filelist.cpp:1311
 msgid "Error while deleting this item:"
 msgid_plural "Error while deleting these %1 items:"
-msgstr[0] "Viga kustutamisel:"
-msgstr[1] "Viga nende %1 elemendi kustutamisel:"
+msgstr[0] "Viga elemendi kustutamisel:"
+msgstr[1] "Viga %1 elemendi kustutamisel:"
 
 #: filelist.cpp:1303 filelist.cpp:1310
 msgid "Directory must be empty.\n"
@@ -954,11 +954,11 @@ msgstr "Silt &2"
 
 #: id3form.cpp:275 id3form.cpp:387 kid3.cpp:414
 msgid "Edit"
-msgstr "Redigeerimine"
+msgstr "R&edigeeri..."
 
 #: id3form.cpp:278 id3form.cpp:389 kid3.cpp:417
 msgid "Add"
-msgstr "Lisa"
+msgstr "&Lisa..."
 
 #: id3form.cpp:281 id3form.cpp:391 kid3.cpp:420
 msgid "Delete"
@@ -1124,11 +1124,11 @@ msgstr "Tühistab valiku kõikidel failidel"
 
 #: kid3.cpp:284
 msgid "Configure Shortcuts"
-msgstr "Avab kiirklahvide seadistamise dialoogi"
+msgstr "Kiirklahvide seadistamine"
 
 #: kid3.cpp:285
 msgid "Configure Toolbars"
-msgstr "Avab tööriistaribade seadistamise dialoogi"
+msgstr "Tööriistaribade seadistamine"
 
 #: kid3.cpp:286
 msgid "Preferences dialog"
@@ -1420,7 +1420,7 @@ msgstr "Kõik failid (*.*)"
 
 #: kid3.cpp:1368
 msgid "Open"
-msgstr "Ava"
+msgstr "Avamine"
 
 #: kid3.cpp:1487
 msgid "Exiting..."
@@ -1440,7 +1440,7 @@ msgstr "Esitusnimekirja loomine..."
 
 #: kid3.cpp:1773
 msgid "Import"
-msgstr "Impordi"
+msgstr "Import"
 
 #: kid3.cpp:1794
 msgid "Import..."
@@ -1903,15 +1903,15 @@ msgstr ""
 
 #: playlistdialog.cpp:61
 msgid "Create Playlist"
-msgstr "Loo esitusloend"
+msgstr "Esitusloendi loomine"
 
 #: playlistdialog.cpp:202
 msgid "Playlist File Name"
-msgstr ""
+msgstr "Esitusloendi failinimi"
 
 #: playlistdialog.cpp:203
 msgid "Same as &directory name"
-msgstr ""
+msgstr "Sama mis &kataloogil"
 
 #: playlistdialog.cpp:205 rendirdialog.cpp:184
 msgid "&Format:"
@@ -1919,7 +1919,7 @@ msgstr "&Vorming:"
 
 #: playlistdialog.cpp:214
 msgid "Cr&eate in:"
-msgstr ""
+msgstr "Loomis&koht:"
 
 #: playlistdialog.cpp:218
 msgid "Current directory"
@@ -1927,15 +1927,15 @@ msgstr "Jooksev kataloog"
 
 #: playlistdialog.cpp:219
 msgid "Every directory"
-msgstr ""
+msgstr "Iga kataloog"
 
 #: playlistdialog.cpp:220
 msgid "Top-level directory"
-msgstr ""
+msgstr "Tipptaseme kataloog"
 
 #: playlistdialog.cpp:221
 msgid "Playlist Content"
-msgstr ""
+msgstr "Esitusloendi sisu"
 
 #: playlistdialog.cpp:222
 msgid "For&mat:"
@@ -1943,31 +1943,31 @@ msgstr "Vor&ming:"
 
 #: playlistdialog.cpp:225
 msgid "Incl&ude only the selected files"
-msgstr ""
+msgstr "Kaasatakse &ainult valitud failid"
 
 #: playlistdialog.cpp:226
 msgid "Sort by file &name"
-msgstr ""
+msgstr "Sorditakse &failinime järgi"
 
 #: playlistdialog.cpp:228
 msgid "Sort by &tag field"
-msgstr ""
+msgstr "Sorditakse sildi &välja järgi"
 
 #: playlistdialog.cpp:242
 msgid "Use &relative path for files in playlist"
-msgstr ""
+msgstr "Failinimedes kasutatakse &suhtelisi teid"
 
 #: playlistdialog.cpp:244
 msgid "Use full p&ath for files in playlist"
-msgstr ""
+msgstr "Failinimedes kasutatakse &täielikke teid"
 
 #: playlistdialog.cpp:245
 msgid "Write only &list of files"
-msgstr ""
+msgstr "Kirjutatakse ainult failide &loend"
 
 #: playlistdialog.cpp:247
 msgid "Write &info using"
-msgstr ""
+msgstr "Kirjutatakse &info:"
 
 #: rendirdialog.cpp:49
 msgid "Create directory %1 failed\n"
@@ -2143,4 +2143,16 @@ msgstr "Mihkel Tõnnov"
 #: rc.cpp:17
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
+msgstr "mihhkel@gmail.com"
+
+#: rc.cpp:18
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Mihkel Tõnnov"
+
+#: rc.cpp:19
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
 msgstr "mihhkel@gmail.com"
