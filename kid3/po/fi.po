@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kid3 1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2009-06-15 21:52+0200\n"
-"PO-Revision-Date: 2009-09-02 19:53+0200\n"
+"PO-Revision-Date: 2009-09-27 19:53+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: browsecoverartdialog.cpp:61 filelist.cpp:262
 msgid "Encode as URL"
-msgstr ""
+msgstr "Koodaa URLiksi"
 
 #: browsecoverartdialog.cpp:77 browsecoverartdialog.cpp:323
 msgid "Browse Cover Art"
@@ -391,19 +391,19 @@ msgstr "Bittien määrä"
 
 #: editframefieldsdialog.cpp:670
 msgid "Volume Change Right"
-msgstr ""
+msgstr "Äänenvoimakkuuden säätö (oikea)"
 
 #: editframefieldsdialog.cpp:671
 msgid "Volume Change Left"
-msgstr ""
+msgstr "Äänenvoimakkuuden säätö (vasen)"
 
 #: editframefieldsdialog.cpp:672
 msgid "Peak Volume Right"
-msgstr ""
+msgstr "Enimmäisäänenvoimakkuus (oikea)"
 
 #: editframefieldsdialog.cpp:673
 msgid "Peak Volume Left"
-msgstr ""
+msgstr "Enimmäisäänenvoimakkuus (vasen)"
 
 #: editframefieldsdialog.cpp:674
 msgid "Timestamp Format"
@@ -1907,11 +1907,11 @@ msgstr "Luo soittolista"
 
 #: playlistdialog.cpp:202
 msgid "Playlist File Name"
-msgstr ""
+msgstr "Soittolistatiedoston nimi"
 
 #: playlistdialog.cpp:203
 msgid "Same as &directory name"
-msgstr ""
+msgstr "Käytä &kansion nimeä"
 
 #: playlistdialog.cpp:205 rendirdialog.cpp:184
 msgid "&Format:"
@@ -1919,23 +1919,23 @@ msgstr "&Muoto:"
 
 #: playlistdialog.cpp:214
 msgid "Cr&eate in:"
-msgstr ""
+msgstr "&Luo kansioon:"
 
 #: playlistdialog.cpp:218
 msgid "Current directory"
-msgstr "Nykyinen hakemisto"
+msgstr "Nykyinen kansio"
 
 #: playlistdialog.cpp:219
 msgid "Every directory"
-msgstr ""
+msgstr "Jokainen kansio"
 
 #: playlistdialog.cpp:220
 msgid "Top-level directory"
-msgstr ""
+msgstr "Ylimmän tason kansio"
 
 #: playlistdialog.cpp:221
 msgid "Playlist Content"
-msgstr ""
+msgstr "Soittolistan sisältö"
 
 #: playlistdialog.cpp:222
 msgid "For&mat:"
@@ -1943,31 +1943,31 @@ msgstr "&Muoto:"
 
 #: playlistdialog.cpp:225
 msgid "Incl&ude only the selected files"
-msgstr ""
+msgstr "S&isällytä vain valitut tiedostot"
 
 #: playlistdialog.cpp:226
 msgid "Sort by file &name"
-msgstr ""
+msgstr "Lajittele tiedosto&nimen mukaan"
 
 #: playlistdialog.cpp:228
 msgid "Sort by &tag field"
-msgstr ""
+msgstr "Lajittele ta&gin mukaan"
 
 #: playlistdialog.cpp:242
 msgid "Use &relative path for files in playlist"
-msgstr ""
+msgstr "Käytä soittolistan tiedostoille s&uhteellista polkua"
 
 #: playlistdialog.cpp:244
 msgid "Use full p&ath for files in playlist"
-msgstr ""
+msgstr "Käyttä soittolistan tiedostoille &täyttä polkua"
 
 #: playlistdialog.cpp:245
 msgid "Write only &list of files"
-msgstr ""
+msgstr "Kirjoita &vain tiedostoluettelo"
 
 #: playlistdialog.cpp:247
 msgid "Write &info using"
-msgstr ""
+msgstr "Kirjoita tieto k&äyttäen"
 
 #: rendirdialog.cpp:49
 msgid "Create directory %1 failed\n"
@@ -2107,7 +2107,7 @@ msgstr ""
 
 #: taglibfile.cpp:1533
 msgid "TMOO - Mood"
-msgstr ""
+msgstr "TMOO – Tunnelma"
 
 #: taglibfile.cpp:1544
 msgid "TPRO - Produced notice"
