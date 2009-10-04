@@ -36,6 +36,8 @@
 #include <qptrlist.h>
 #endif
 
+class TaggedFile;
+
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
  Q_OBJECT
@@ -67,7 +69,19 @@ class BinaryOpenSave : public QWidget {
 	 * @return byte array.
 	 */
 	const QByteArray& getData() const { return m_byteArray; }
- 
+
+	/**
+	 * Set default directory name.
+	 * @param defaultDir default directory name
+	 */
+	void setDefaultDir(const QString& defaultDir) { m_defaultDir = defaultDir; }
+
+	/**
+	 * Set default file name.
+	 * @param defaultFile default file name
+	 */
+	void setDefaultFile(const QString& defaultFile) { m_defaultFile = defaultFile; }
+
  public slots:
 	/**
 	 * Enable the "From Clipboard" button if the clipboard contains an image.
@@ -104,6 +118,10 @@ class BinaryOpenSave : public QWidget {
 	QLabel* m_label;
 	/** From Clipboard button */
 	QPushButton* m_clipButton;
+	/** Default directory name */
+	QString m_defaultDir;
+	/** Default file name */
+	QString m_defaultFile;
 };
 
 
@@ -150,12 +168,13 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param parent  parent widget
-	 * @param caption caption
-	 * @param fields  fields to edit
+	 * @param parent     parent widget
+	 * @param caption    caption
+	 * @param frame      frame with fields to edit
+	 * @param taggedFile file
 	 */
 	EditFrameFieldsDialog(QWidget* parent, const QString& caption,
-												const Frame::FieldList& fields);
+												const Frame& frame, const TaggedFile* taggedFile);
 
 	/**
 	 * Destructor.

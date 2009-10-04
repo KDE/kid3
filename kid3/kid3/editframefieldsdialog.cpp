@@ -27,6 +27,8 @@
 #include "editframefieldsdialog.h"
 #include "kid3.h"
 #include "imageviewer.h"
+#include "taggedfile.h"
+#include "dirinfo.h"
 #include <qpushbutton.h>
 #include <qimage.h>
 #include <qclipboard.h>
@@ -475,8 +477,9 @@ public:
 	 * Constructor.
 	 * @param field field to edit
 	 */
-	BinFieldControl(Frame::Field& field) :
-		Mp3FieldControl(field) {}
+	BinFieldControl(Frame::Field& field,
+									const Frame& frame, const TaggedFile* taggedFile) :
+		Mp3FieldControl(field), m_frame(frame), m_taggedFile(taggedFile) {}
 
 	/**
 	 * Destructor.
@@ -500,6 +503,8 @@ public:
 protected:
 	/** Import, Export, View buttons */
 	BinaryOpenSave* m_bos;
+	const Frame& m_frame;
+	const TaggedFile* m_taggedFile;
 };
 
 
@@ -586,9 +591,11 @@ void BinaryOpenSave::loadData()
 {
 #ifdef CONFIG_USE_KDE
 	QString loadfilename = KFileDialog::getOpenFileName(
-		Kid3App::getDirName(), QString::null, this);
+		m_defaultDir.isEmpty() ? Kid3App::getDirName() : m_defaultDir,
+		QString::null, this);
 #else
-	QString loadfilename = QFileDialog::QCM_getOpenFileName(this, Kid3App::getDirName());
+	QString loadfilename = QFileDialog::QCM_getOpenFileName(
+		this, m_defaultDir.isEmpty() ? Kid3App::getDirName() : m_defaultDir);
 #endif
 	if (!loadfilename.isEmpty()) {
 		QFile file(loadfilename);
@@ -612,11 +619,18 @@ void BinaryOpenSave::loadData()
  */
 void BinaryOpenSave::saveData()
 {
+	QString dir = m_defaultDir.isEmpty() ? Kid3App::getDirName() : m_defaultDir;
+	if (!m_defaultFile.isEmpty()) {
+		QChar separator = QDir::separator();
+		if (!dir.endsWith(separator)) {
+			dir += separator;
+		}
+		dir += m_defaultFile;
+	}
 #ifdef CONFIG_USE_KDE
-	QString fn = KFileDialog::getSaveFileName(Kid3App::getDirName(), QString::null,
-																						this);
+	QString fn = KFileDialog::getSaveFileName(dir, QString::null, this);
 #else
-	QString fn = QFileDialog::QCM_getSaveFileName(this, Kid3App::getDirName());
+	QString fn = QFileDialog::QCM_getSaveFileName(this, dir);
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
@@ -798,6 +812,12 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
 	m_bos = new BinaryOpenSave(parent, m_field);
 	if (m_bos) {
 		m_bos->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+		if (m_taggedFile && m_taggedFile->getDirInfo()) {
+			m_bos->setDefaultDir(m_taggedFile->getDirInfo()->getDirname());
+		}
+		if (m_frame.getType() == Frame::FT_Picture) {
+			m_bos->setDefaultFile("folder.jpg");
+		}
 	}
 	return m_bos;
 }
@@ -829,13 +849,15 @@ const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
 /**
  * Constructor.
  *
- * @param parent  parent widget
- * @param caption caption
- * @param fields  fields to edit
+ * @param parent     parent widget
+ * @param caption    caption
+ * @param frame      frame with fields to edit
+ * @param taggedFile file
  */
-EditFrameFieldsDialog::EditFrameFieldsDialog(QWidget* parent, const QString& caption,
-											const Frame::FieldList& fields) :
-	QDialog(parent), m_fields(fields)
+EditFrameFieldsDialog::EditFrameFieldsDialog(
+	QWidget* parent, const QString& caption,
+	const Frame& frame, const TaggedFile* taggedFile) :
+	QDialog(parent), m_fields(frame.getFieldList())
 {
 	setModal(true);
 	QCM_setWindowTitle(caption);
@@ -962,7 +984,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(QWidget* parent, const QString& cap
 				case QVariant::ByteArray:
 				{
 					BinFieldControl* binctl =
-						new BinFieldControl(fld);
+						new BinFieldControl(fld, frame, taggedFile);
 					if (binctl) {
 						m_fieldcontrols.append(binctl);
 					}

@@ -217,7 +217,7 @@ bool FrameList::editFrame(Frame& frame)
 		}
 	} else {
 		EditFrameFieldsDialog* dialog =
-			new EditFrameFieldsDialog(0, name, frame.getFieldList());
+			new EditFrameFieldsDialog(0, name, frame, m_file);
 		result = dialog && dialog->exec() == QDialog::Accepted;
 		if (result) {
 			frame.setFieldList(dialog->getUpdatedFieldList());
