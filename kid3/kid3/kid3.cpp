@@ -1385,7 +1385,9 @@ void Kid3App::slotFileOpen()
 			if (start != -1 && end != -1 && end > start) {
 				filter = filter.mid(start + 1, end - start - 1);
 			}
-			s_miscCfg.m_nameFilter = filter;
+			if (!filter.isEmpty()) {
+				s_miscCfg.m_nameFilter = filter;
+			}
 			openDirectory(dir);
 		}
 	}
