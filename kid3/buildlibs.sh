@@ -41,20 +41,18 @@ wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-7
 test -f id3lib3.8.3_3.8.3.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3.orig.tar.gz
 
-test -f libogg_1.1.3-2.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.3-2.diff.gz
-test -f libogg_1.1.3.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.3.orig.tar.gz
+test -f libogg_1.1.4~dfsg-1.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.4~dfsg-1.diff.gz
+test -f libogg_1.1.4~dfsg.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.4~dfsg.orig.tar.gz
 
-test -f libvorbis_1.2.0.dfsg-3.1.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.2.0.dfsg-3.1.diff.gz
-test -f libvorbis_1.2.0.dfsg.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.2.0.dfsg.orig.tar.gz
+test -f libvorbis-1.2.3.tar.gz ||
+wget http://downloads.xiph.org/releases/vorbis/libvorbis-1.2.3.tar.gz
 
-test -f taglib_1.5-6.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.5-6.diff.gz
-test -f taglib_1.5.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.5.orig.tar.gz
+test -f taglib_1.6-3.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6-3.diff.gz
+test -f taglib_1.6.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.orig.tar.gz
 
 test -f zlib_1.2.3-13.diff.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.3-13.diff.gz
@@ -197,22 +195,6 @@ diff -ru id3lib-3.8.3.orig/include/id3/globals.h id3lib-3.8.3/include/id3/global
  #  define LINKOPTION_USE_DYNAMIC    3 //if your project links id3lib dynamic
 EOF
 
-test -f taglib-1.5-no_declspec.diff ||
-cat >taglib-1.5-no_declspec.diff <<"EOF"
-diff -ru taglib-1.5.orig/taglib/taglib_export.h taglib-1.5/taglib/taglib_export.h
---- taglib-1.5.orig/taglib/taglib_export.h	Mon Feb  4 15:14:46 2008
-+++ taglib-1.5/taglib/taglib_export.h	Mon Mar  3 20:07:58 2008
-@@ -26,7 +26,7 @@
- #ifndef TAGLIB_EXPORT_H
- #define TAGLIB_EXPORT_H
- 
--#if defined(_WIN32) || defined(_WIN64)
-+#if (defined(_WIN32) || defined(_WIN64)) && !defined __MINGW32__
- #ifdef MAKE_TAGLIB_LIB
- #define TAGLIB_EXPORT __declspec(dllexport)
- #else
-EOF
-
 cd ..
 
 
@@ -232,22 +214,18 @@ fi
 
 # libogg
 
-if ! test -d libogg-1.1.3; then
-tar xzf source/libogg_1.1.3.orig.tar.gz
-cd libogg-1.1.3/
-gunzip -c ../source/libogg_1.1.3-2.diff.gz | patch -p1
+if ! test -d libogg-1.1.4~dfsg.orig; then
+tar xzf source/libogg_1.1.4~dfsg.orig.tar.gz
+cd libogg-1.1.4~dfsg.orig/
+gunzip -c ../source/libogg_1.1.4~dfsg-1.diff.gz | patch -p1
 for f in debian/patches/*.diff; do patch -p0 <$f; done
 cd ..
 fi
 
 # libvorbis
 
-if ! test -d libvorbis-1.2.0; then
-tar xzf source/libvorbis_1.2.0.dfsg.orig.tar.gz
-cd libvorbis-1.2.0/
-gunzip -c ../source/libvorbis_1.2.0.dfsg-3.1.diff.gz | patch -p1
-for f in debian/patches/*.diff; do patch -p1 <$f; done
-cd ..
+if ! test -d libvorbis-1.2.3; then
+tar xzf source/libvorbis-1.2.3.tar.gz
 fi
 
 # libflac
@@ -278,19 +256,18 @@ fi
 
 # taglib
 
-if ! test -d taglib-1.5; then
-tar xzf source/taglib_1.5.orig.tar.gz
-cd taglib-1.5/
-gunzip -c ../source/taglib_1.5-6.diff.gz | patch -p1
+if ! test -d taglib-1.6; then
+tar xzf source/taglib_1.6.orig.tar.gz
+cd taglib-1.6/
+gunzip -c ../source/taglib_1.6-3.diff.gz | patch -p1
 for f in debian/patches/general/*.diff; do patch -p1 <$f; done
-patch -p1 <../source/taglib-1.5-no_declspec.diff
 cd ..
 fi
 
 # mp4v2
 
 if ! test -d mp4v2-1.9.1; then
-tar xjf mp4v2-1.9.1.tar.bz2
+tar xjf source/mp4v2-1.9.1.tar.bz2
 fi
 
 
@@ -311,24 +288,24 @@ cd ../../..
 
 # libogg
 
-cd libogg-1.1.3/
+cd libogg-1.1.4~dfsg.orig/
 test -f Makefile || ./configure --enable-shared=no --enable-static=yes
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libogg-1.1.3.tgz usr
+tar czf ../../bin/libogg-1.1.4.tgz usr
 cd ../..
 
 # libvorbis
 
-cd libvorbis-1.2.0/
+cd libvorbis-1.2.3/
 test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=/usr/local
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libvorbis-1.2.0.tgz usr
+tar czf ../../bin/libvorbis-1.2.3.tgz usr
 cd ../..
 
 # libflac
@@ -356,13 +333,13 @@ cd ../..
 
 # taglib
 
-cd taglib-1.5/
-test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes
+cd taglib-1.6/
+test -f Makefile || CPPFLAGS="-I/usr/local/include -DTAGLIB_STATIC" LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes --enable-mp4 --enable-asf
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/taglib-1.5.tgz usr
+tar czf ../../bin/taglib-1.6.tgz usr
 cd ../..
 
 # mp4v2
@@ -378,18 +355,32 @@ cd ../..
 
 # Install to root directory
 
-if test $(uname) = "Darwin"; then
-  sudo chmod go+w /usr/local
+BUILDROOT=/
+if test $(uname) = "Linux"; then
+  test -d buildroot || mkdir buildroot
+  BUILDROOT=`pwd`/buildroot/
+  # Static build can be tested from Linux in kid3 directory
+  if ! test -d kid3; then
+    mkdir kid3
+    cat >kid3/build.sh <<"EOF"
+BUILDPREFIX=$(cd ..; pwd)/buildroot/usr/local
+../../kid3/kid3-qt/configure --prefix= --with-bindir= --with-datarootdir= --with-docdir= --with-translationsdir= --without-musicbrainz --enable-debug --enable-gcc-pch --with-qmake=qmake-qt4 --with-extra-includes="$BUILDPREFIX/include $BUILDPREFIX/include/taglib" --with-extra-defines="ID3LIB_LINKOPTION=1 FLAC__NO_DLL" --with-extra-libs="-L$BUILDPREFIX/lib"
+sed -i 's#-L/usr/lib##g; s#-I/usr/include/taglib##g' kid3/Makefile
+EOF
+    chmod +x kid3/build.sh
+  fi
+elif test $(uname) = "Darwin"; then
+  sudo chmod go+w ${BUILDROOT}usr/local
 fi
 
-tar xzf bin/zlib-1.2.3.tgz -C /
-tar xzf bin/libogg-1.1.3.tgz -C /
-tar xzf bin/libvorbis-1.2.0.tgz -C /
-tar xzf bin/flac-1.2.1.tgz -C /
-tar xzf bin/id3lib-3.8.3.tgz -C /
-tar xzf bin/taglib-1.5.tgz -C /
-tar xzf bin/mp4v2-1.9.1.tgz -C /
+tar xzf bin/zlib-1.2.3.tgz -C $BUILDROOT
+tar xzf bin/libogg-1.1.4.tgz -C $BUILDROOT
+tar xzf bin/libvorbis-1.2.3.tgz -C $BUILDROOT
+tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
+tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.6.tgz -C $BUILDROOT
+tar xzf bin/mp4v2-1.9.1.tgz -C $BUILDROOT
 
 if test $(uname) = "Darwin"; then
-  sudo chmod go-w /usr/local
+  sudo chmod go-w ${BUILDROOT}usr/local
 fi

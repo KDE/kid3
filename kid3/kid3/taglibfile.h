@@ -32,6 +32,7 @@
 
 #include "taggedfile.h"
 #include "miscconfig.h"
+#include <taglib/taglib.h>
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
 #include <taglib/id3v2frame.h>
