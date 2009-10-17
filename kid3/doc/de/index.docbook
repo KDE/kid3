@@ -1218,6 +1218,13 @@ equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals
 <para>Es werden Dateien mit identischen Tag 1 und Tag 2 angezeigt.</para>
 </listitem></varlistentry>
 
+<varlistentry><term>No Picture</term><listitem>
+<para><userinput>
+%{picture} equals ""
+</userinput></para>
+<para>Es werden nur Dateien ohne Bild angezeigt.</para>
+</listitem></varlistentry>
+
 <varlistentry><term>Custom Filter</term><listitem>
 <para>
 Dieser Eintrag kann verwendet werden, um einen eigenen Filter hinzuzufügen. Um

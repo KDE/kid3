@@ -1135,6 +1135,13 @@ equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals
 <para>Displays files with identical tag 1 and tag 2.</para>
 </listitem></varlistentry>
 
+<varlistentry><term>No Picture</term><listitem>
+<para><userinput>
+%{picture} equals ""
+</userinput></para>
+<para>Displays only files which do not have a picture.</para>
+</listitem></varlistentry>
+
 <varlistentry><term>Custom Filter</term><listitem>
 <para>
 To add your own filter, select this entry. For instance, if you want

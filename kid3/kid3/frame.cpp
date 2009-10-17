@@ -619,6 +619,14 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 				// code was found, but value is empty
 				result = "";
 			}
+			if (it->getType() == Frame::FT_Picture && result.isEmpty()) {
+				QVariant fieldValue = it->getFieldValue(Frame::Field::ID_Data);
+				if (fieldValue.isValid() && fieldValue.toByteArray().size() > 0) {
+					// If there is a picture without description, return "1", so that
+					// an empty value indicates "no picture"
+					result = "1";
+				}				
+			}
 		}
 
 		if (lcName == "track") {
