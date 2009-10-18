@@ -41,8 +41,9 @@ HttpClient::HttpClient() :
 	m_http = new QHttp();
 	connect(m_http, SIGNAL(stateChanged(int)),
 					this, SLOT(slotStateChanged(int)));
-	connect(m_http, SIGNAL(dataReadProgress(int, int)),
-					this, SLOT(slotDataReadProgress(int, int)));
+	// some downloads do not work if the progress bar is updated!?
+	// connect(m_http, SIGNAL(dataReadProgress(int, int)),
+	// 				this, SLOT(slotDataReadProgress(int, int)));
 	connect(m_http, SIGNAL(done(bool)),
 					this, SLOT(slotDone(bool)));
 	connect(m_http, SIGNAL(responseHeaderReceived(const QHttpResponseHeader&)),
