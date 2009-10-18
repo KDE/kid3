@@ -68,20 +68,22 @@ DiscogsDialog::~DiscogsDialog()
 void DiscogsDialog::parseFindResults(const QByteArray& searchStr)
 {
 	// releases have the format:
-	// <li><a href="/release/761529"><span style="font-size: 11pt;"><em>Amon</em> <em>Amarth</em> - The <em>Avenger</em></span></a><br>
+	// <div><a href="/Amon-Amarth-The-Avenger/release/398878"><em>Amon</em> <em>Amarth</em> - <em>The</em> <em>Avenger</em></a></div>
 	QString str = QString::fromUtf8(searchStr);
 	QRegExp idTitleRe("<a href=\"/([^/]*/?release)/([0-9]+)\">(.+)</a>");
-	QStringList lines = QCM_split("<p/>", str.remove('\n').remove('\r'));
+	QStringList lines = QCM_split("\n", str.remove('\r'));
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		if (idTitleRe.QCM_indexIn(*it) != -1) {
 			QString title(idTitleRe.cap(3));
 			title.replace(QRegExp("<[^>]+>"), "");
-			new AlbumListItem(
-				m_albumListBox,
-				title,
-				idTitleRe.cap(1),
-				idTitleRe.cap(2));
+			if (!title.isEmpty()) {
+				new AlbumListItem(
+					m_albumListBox,
+					title,
+					idTitleRe.cap(1),
+					idTitleRe.cap(2));
+			}
 		}
 	}
 	m_albumListBox->setFocus();
@@ -247,11 +249,12 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 {
 	QRegExp nlSpaceRe("[\r\n]+\\s*");
 	QRegExp htmlTagRe("<[^>]+>");
+	QRegExp atDiscogsRe("\\s*\\([^)]+\\) at Discogs$");
 	QString str = QString::fromUtf8(albumStr);
 	FrameCollection framesHdr;
 	/*
 	 * artist and album can be found in the title:
-<title>Amon Amarth - The Avenger</title>
+<title>Amon Amarth - The Avenger (CD, Album, Dig) at Discogs</title>
 	 */
 	int end = 0;
 	int start = str.QCM_indexOf("<title>");
@@ -260,6 +263,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 		end = str.QCM_indexOf("</title>", start);
 		if (end > start) {
 			QString titleStr = str.mid(start, end - start);
+			titleStr.replace(atDiscogsRe, "");
 			titleStr.replace(nlSpaceRe, " "); // reduce new lines and space after them
 			start = 0;
 			end = titleStr.QCM_indexOf(" - ", start);
@@ -272,12 +276,12 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 	}
 	/*
 	 * the year can be found in "Released:"
-<tr><td align=right>Released:</td><td>1999</td></tr>
+<div class="head">Released:</div><div class="content">02 Nov 1999</div>
 	 */
 	start = str.QCM_indexOf("Released:");
 	if (start >= 0) {
 		start += 9; // skip "Released:"
-		end = str.QCM_indexOf("</tr>", start);
+		end = str.QCM_indexOf("</div>", start + 1);
 		if (end > start) {
 			QString yearStr = str.mid(start, end - start);
 			yearStr.replace(nlSpaceRe, ""); // strip new lines and space after them
@@ -290,13 +294,13 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 	}
 	/*
 	 * the genre can be found in "Genre:" or "Style:" (lines with only whitespace in between):
-<tr><td align=right>Genre:</td><td>
+<div class="head">Genre:</div><div class="content">
       Rock
-</td></tr>
-<tr><td align=right>Style:</td><td>
-    Death Metal, 
-    Heavy Metal
-</td></tr>
+</div>
+<div class="head">Style:</div><div class="content">
+    Viking Metal, 
+    Death Metal
+</div>
 	 */
 	// All genres found are checked for an ID3v1 number, starting with those
 	// in the Style field.
@@ -306,7 +310,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 		start = str.QCM_indexOf(fields[i]);
 		if (start >= 0) {
 			start += qstrlen(fields[i]); // skip field
-			end = str.QCM_indexOf("</tr>", start);
+			end = str.QCM_indexOf("</div>", start + 1);
 			if (end > start) {
 				QString genreStr = str.mid(start, end - start);
 				genreStr.replace(nlSpaceRe, ""); // strip new lines and space after them
@@ -344,7 +348,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 		start = str.QCM_indexOf("Label:");
 		if (start >= 0) {
 			start += 6; // skip "Label:"
-			end = str.QCM_indexOf("</tr>", start);
+			end = str.QCM_indexOf("</div>", start + 1);
 			if (end > start) {
 				QString labelStr = str.mid(start, end - start);
 				labelStr.replace(nlSpaceRe, ""); // strip new lines and space after them
@@ -362,7 +366,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 		start = str.QCM_indexOf("Format:");
 		if (start >= 0) {
 			start += 7; // skip "Format:"
-			end = str.QCM_indexOf("</tr>", start);
+			end = str.QCM_indexOf("</div>", start + 1);
 			if (end > start) {
 				QString mediaStr = str.mid(start, end - start);
 				mediaStr.replace(nlSpaceRe, ""); // strip new lines and space after them
@@ -372,16 +376,16 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 		}
 
 		/*
-		 * credits can be found in "Credits:"
+		 * credits can be found in "Credits"
 		 */
-		start = str.QCM_indexOf("Credits:");
+		start = str.QCM_indexOf("<h1>Credits</h1>");
 		if (start >= 0) {
-			start += 8; // skip "Credits:"
-			end = str.QCM_indexOf("</tr>", start);
+			start += 16; // skip "Credits"
+			end = str.QCM_indexOf("</div>", start + 1);
 			if (end > start) {
 				QString creditsStr = str.mid(start, end - start);
 				creditsStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-				creditsStr.replace("<br>", "\n");
+				creditsStr.replace("<br />", "\n");
 				creditsStr.replace(htmlTagRe, ""); // strip HTML tags
 				parseCredits(creditsStr, framesHdr);
 			}
@@ -405,19 +409,24 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 
 	/*
 	 * album tracks have the format (lines with only whitespace in between):
-<b>Tracklisting:</b><br>
-<table border=0 cellpadding=2 cellspacing=2>
-  <tr>
-    <td nowrap align="left">1</td>
+<h1>Tracklist</h1>
+<div class="section_content">
+<table>
+  <tr class="first">
+    <td class="track_pos">1</td>
       <td>&nbsp;</td>
-    <td>Bleed For Ancient Gods (4:31)</td>
+    <td class="track_title">Bleed For Ancient Gods</td>
+    <td class="track_duration">4:31</td>
+    <td class="track_itunes"></td>
   </tr>
+  <tr>
+    <td class="track_pos">2</td>
 (..)
 </table>
 	 *
 	 * Variations: strange track numbers, no durations, links instead of tracks
 	 */
-	start = str.QCM_indexOf("Tracklisting:");
+	start = str.QCM_indexOf("<h1>Tracklist</h1>");
 	if (start >= 0) {
 		end = str.QCM_indexOf("</table>", start);
 		if (end > start) {
@@ -426,60 +435,53 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			str.replace(nlSpaceRe, "");
 
 			FrameCollection frames(framesHdr);
-			QRegExp titleTimeRe("(.+)\\s+\\((\\d+):(\\d+)\\)");
+			QRegExp posRe("<td class=\"track_pos\">(\\d+)</td>");
+			QRegExp artistsRe("<td class=\"track_artists\"><a href=\"/artist/[^>]+>([^<]+)</a>");
+			QRegExp titleRe("<td class=\"track_title\">([^<]+)</td>");
+			QRegExp durationRe("<td class=\"track_duration\">(\\d+):(\\d+)</td>");
+			QRegExp indexRe("<td class=\"track_index\">([^<]+)$");
 			ImportTrackDataVector::iterator it = m_trackDataVector.begin();
 			bool atTrackDataListEnd = (it == m_trackDataVector.end());
 			int trackNr = 1;
 			start = 0;
 			while ((end = str.QCM_indexOf("</td></tr>", start)) > start) {
-				int titleStart = str.QCM_lastIndexOf("<td>", end);
-				if (titleStart > start) {
-					titleStart += 4; // skip <td>
-				} else {
-					break;
+				QString trackDataStr = str.mid(start, end - start);
+				QString title;
+				int duration = 0;
+				int pos = trackNr;
+				if (titleRe.QCM_indexIn(trackDataStr) >= 0) {
+					title = titleRe.cap(1);
 				}
-				QString title(str.mid(titleStart, end - titleStart));
+				if (durationRe.QCM_indexIn(trackDataStr) >= 0) {
+					duration = durationRe.cap(1).toInt() * 60 +
+						durationRe.cap(2).toInt();
+				}
+				if (posRe.QCM_indexIn(trackDataStr) >= 0) {
+					pos = posRe.cap(1).toInt();
+				}
 				if (additionalTags) {
-					int artistStart = str.QCM_indexOf("<a href=\"/artist/", start);
-					if (artistStart > start && artistStart < titleStart) {
-						artistStart = str.QCM_indexOf('>', artistStart);
-						if (artistStart > start && artistStart < titleStart) {
-							++artistStart; // skip '>'
-							int artistEnd = str.QCM_indexOf("</a>", artistStart);
-							if (artistEnd > artistStart && artistEnd < titleStart) {
-								// use the artist in the header as the album artist
-								// and the artist in the track as the artist
-								frames.setArtist(
-									fixUpArtist(str.mid(artistStart, artistEnd - artistStart)));
-								frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
-							}
-						}
+					if (artistsRe.QCM_indexIn(trackDataStr) >= 0) {
+						// use the artist in the header as the album artist
+						// and the artist in the track as the artist
+						frames.setArtist(
+							fixUpArtist(artistsRe.cap(1)));
+						frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
 					}
 				}
 				start = end + 10; // skip </td></tr>
-				if (title.QCM_indexOf("</") != -1 || title.QCM_indexOf("<a href") != -1) {
-					// strange entry instead of track => skip
+				if (indexRe.QCM_indexIn(trackDataStr) >= 0) {
 					if (additionalTags) {
-						if (title.startsWith("<b>") && title.endsWith("</b>")) {
-							// a bold title is a set subtitle
-							QString subtitle(title.mid(3, title.length() - 7));
-							subtitle.remove(htmlTagRe); // strip HTML tags
-							// remove duration
-							subtitle.remove(QRegExp("\\s*\\(\\d+:\\d+\\)$"));
-							framesHdr.setValue(Frame::FT_Part, subtitle);
-							frames.setValue(Frame::FT_Part, subtitle);
-						}
+						QString subtitle(indexRe.cap(1));
+						framesHdr.setValue(Frame::FT_Part, subtitle);
+						frames.setValue(Frame::FT_Part, subtitle);
 					}
 					continue;
 				}
-
 				if (additionalTags) {
-					int nextEnd, nextTitleStart = -1;
-					if ((nextEnd = str.QCM_indexOf("</td></tr>", start)) > start &&
-							(nextTitleStart = str.QCM_lastIndexOf("<td>", nextEnd)) > start) {
-						QString nextTitle(str.mid(nextTitleStart, nextEnd - nextTitleStart));
-						if (nextTitle.QCM_indexOf("</") != -1 ||
-								nextTitle.QCM_indexOf("<a href") != -1) {
+					int nextEnd = str.QCM_indexOf("</td></tr>", start);
+					if (nextEnd > start) {
+						QString nextTitle(str.mid(start, nextEnd - start));
+						if (nextTitle.QCM_indexOf("<tr class=\"track_extra_artists\">") != -1) {
 							// additional track info like "Music By, Lyrics By - "
 							nextTitle.replace("<br>", "\n");
 							nextTitle.replace(htmlTagRe, ""); // strip HTML tags
@@ -491,13 +493,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 					}
 				}
 
-				int duration = 0;
-				if (titleTimeRe.exactMatch(title)) {
-					duration = titleTimeRe.cap(2).toInt() * 60 +
-						titleTimeRe.cap(3).toInt();
-					title = titleTimeRe.cap(1);
-				}
-				frames.setTrack(trackNr);
+				frames.setTrack(pos);
 				frames.setTitle(title);
 				if (atTrackDataListEnd) {
 					ImportTrackData trackData;
