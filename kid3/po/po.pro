@@ -23,6 +23,7 @@ TS_FILES = $$LANGS
 TS_FILES ~= s/^(.*)$/kid3_\1.ts/g
 contains($$list($$[QT_VERSION]), 4.*) {
   for(l, LANGS): exists($$[QT_INSTALL_DATA]/translations/qt_$${l}.qm): QT_QM_FILES += $${l}
+  for(l, LANGS): exists($$[QT_INSTALL_DATA]/translations/qt_$${l}.ts): TS_FILES += $$[QT_INSTALL_DATA]/translations/qt_$${l}.ts
 }
 QMAKE_CLEAN += $$QM_FILES
 
@@ -51,7 +52,12 @@ isEmpty(CFG_TRANSLATIONSDIR) {
 }
 contains($$list($$[QT_VERSION]), 4.*) {
   unix:translation.extra = $(INSTALL_FILE) $$QM_FILES $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR; for l in $$QT_QM_FILES; do $(INSTALL_FILE) $$[QT_INSTALL_DATA]/translations/qt_\$\${l}.qm $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR; done; true
-  win32:translation.extra = for %%f in ($$QM_FILES) do $(INSTALL_FILE) %%f $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR & for %%l in ($$QT_QM_FILES) do $(INSTALL_FILE) $$[QT_INSTALL_DATA]\translations\qt_%%l.qm $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
+  win32 {
+    translation.extra = for %%f in ($$QM_FILES) do $(INSTALL_FILE) %%f $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
+    !isEmpty(QT_QM_FILES) {
+      translation.extra += & for %%l in ($$QT_QM_FILES) do $(INSTALL_FILE) $$[QT_INSTALL_DATA]\translations\qt_%%l.qm $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
+    }
+  }
 } else {
   unix:translation.extra = $(INSTALL_FILE) $$QM_FILES $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR; true
   win32:translation.extra = for %%f in ($$QM_FILES) do $(INSTALL_FILE) %%f $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR

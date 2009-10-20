@@ -6,6 +6,9 @@
 
 contains(CFG_LIBS, -ltag) {
 
+  !isEmpty(CFG_EXTRA_DEFINES) {
+    DEFINES += $$CFG_EXTRA_DEFINES
+  }
   !isEmpty(CFG_EXTRA_INCLUDES) {
     INCLUDEPATH += $$CFG_EXTRA_INCLUDES
   }

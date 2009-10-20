@@ -278,7 +278,7 @@ test -d bin || mkdir bin
 # zlib
 
 cd zlib-1.2.3/zlib-1.2.3
-test -f Makefile || ./configure
+./configure
 make
 mkdir -p inst/usr/local
 make install prefix=`pwd`/inst/usr/local
