@@ -2769,7 +2769,7 @@ void Kid3App::downloadImage(const QString& url, bool allFilesInDir)
 					m_downloadDialog->startDownload(
 						imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
 						imgurl.mid(pathPos));
-					m_downloadDialog->exec();
+					m_downloadDialog->show();
 				}
 			}
 		}
