@@ -36,10 +36,10 @@ PRECOMPILED_HEADER = $$CFG_PRECOMPILED_HEADER
 
 contains(CFG_LIBS, -ltag) {
   win32 {
-    release {
-      TAGLIBEXT_LIB = taglibext\release\libtaglibext.a
-    } else {
+    build_pass:CONFIG(debug, debug|release) {
       TAGLIBEXT_LIB = taglibext\debug\libtaglibext.a
+    } else {
+      TAGLIBEXT_LIB = taglibext\release\libtaglibext.a
     }
   }
   unix {
