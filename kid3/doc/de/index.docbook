@@ -32,7 +32,7 @@
 <para>
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
 in MP3 Dateien. Auch die Tags in Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
-TrueAudio und WavPack Dateien werden
+TrueAudio, WavPack, WMA, WAV und AIFF Dateien werden
 unterstützt. Es ist einfach, Tags in mehreren Dateien auf die gleichen Werte
 zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
 Tags aus den Dateinamen zu generieren oder umgekehrt.
@@ -1632,8 +1632,8 @@ und libFLAC</ulink>. Für MP3 Dateien
 wird die <ulink url="http://id3lib.sourceforge.net">id3lib</ulink>
 verwendet. Für diese drei Formate kann auch durch
 die <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>
-verwendet werden, welche zudem auch MPC, MP2, Speex, TrueAudio und WavPack
-Dateien unterstützt.
+verwendet werden, welche zudem auch MPC, MP2, Speex, TrueAudio, WavPack,
+WMA, WAV, AIFF und MP4 Dateien unterstützt.
 Für MP4 Dateien wird 
 <ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> benötigt.
 Für MusicBrainz Unterstützung wird
