@@ -1,9 +1,10 @@
-Sat Sep 26 06:34:10 CEST 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Fri Oct 23 20:55:17 CEST 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.3
 
 	* New:
 	  + Advanced playlist dialog.
+	  + Support for WMA/ASF, AIFF and WAV files.
 	  + Estonian, Finnish and Turkish translations.
 
 	* Improved:
@@ -11,11 +12,14 @@ Sat Sep 26 06:34:10 CEST 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	    the changes are preserved.
 	  + Translation system.
 	  + Settings in Number Tracks dialog can be saved.
-	  + Support for libmp4v2 1.9.
+	  + Filter files without attached pictures.
+	  + Support for libmp4v2 1.9 and TagLib 1.6.
 
 	* Fixed:
 	  + Show album art when multiple files are selected.
 	  + From Tag 2 option can be restored in Rename Directory dialog.
+	  + Picture download.
+	  + Adapted to Discogs server update.
 
 Thu Apr  2 19:44:10 CEST 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 

@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2009-09-26</date>
+<date>2009-10-23</date>
 <releaseinfo>1.3</releaseinfo>
 
 <abstract>
@@ -58,6 +58,9 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 <keyword>Speex</keyword>
 <keyword>TrueAudio</keyword>
 <keyword>WavPack</keyword>
+<keyword>WMA</keyword>
+<keyword>WAV</keyword>
+<keyword>AIFF</keyword>
 </keywordset>
 
 </bookinfo>
@@ -70,7 +73,7 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 in MP3 Dateien. Diese Tags können zwar mit den meisten MP3 Player
 Programmen editiert werden, jedoch nicht auf eine sehr komfortable und
 effiziente Art. Darüber hinaus werden auch die Tags in Ogg/Vorbis, FLAC,
-MPC, MP4/AAC, MP2, Speex, TrueAudio und WavPack Dateien unterstützt.
+MPC, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV und AIFF Dateien unterstützt.
 </para>
 <para>
 &kid3; kann weder MP3 grabben noch codieren oder abspielen, es ist darauf
@@ -118,7 +121,7 @@ werden.
 <listitem><para>Editieren der Tags von mehreren Dateien</para></listitem>
 <listitem><para>Konvertieren zwischen ID3v1 und ID3v2 Tags</para></listitem>
 <listitem><para>Editieren von MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
-TrueAudio und WavPack Tags</para></listitem>
+TrueAudio, WavPack, WMA, WAV und AIFF Tags</para></listitem>
 <listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
 <listitem><para>Generieren des Dateinamens aus den Tags</para></listitem>
 <listitem><para>Generieren und Ändern des Verzeichnisnamens aus den Tags</para></listitem>
@@ -207,7 +210,7 @@ Sektionen.
 Die Dateiliste enthält die Namen aller Dateien im geöffneten Verzeichnis,
 welche den gewählten Dateinamenfilter (typischerweise <filename>*.mp3
 *.ogg *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx
-*.tta *.wv</filename>)
+*.tta *.wv *.wma *.wav *.aiff</filename>)
 erfüllen. Eine einzelne oder mehrere Dateien können ausgewählt werden. Um
 keine Datei auszuwählen, kann in den leeren Bereich unterhalb der
 Dateieinträge geklickt werden. Die Auswahl bestimmt die Dateien, welche
@@ -293,7 +296,7 @@ ausgewählten Format und dem zweiten Tag.
 </para>
 <para>
 <guibutton>Info</guibutton>: Zeigt Informationen über Codierung (MP3,
-Ogg, FLAC, MPC, MP2, MP4, AAC, Speex, TrueAudio, WavPack),
+Ogg, FLAC, MPC, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
 Bit- und Samplerate, Kanäle und die Länge der Datei an.
 </para>
 </listitem>
@@ -804,7 +807,7 @@ zusätzliche.
 <listitem><para>%O %{tag1} Das Format von Tag 1 (ID3v1.1 oder leer falls nicht
 vorhanden)</para></listitem>
 <listitem><para>%o %{tag2} Das Format von Tag 2 (ID3v2.3.0, ID3v2.4.0,
-ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, oder leer falls nicht
+ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, ASF oder leer falls nicht
 vorhanden)</para></listitem>
 <listitem><para>%b %{bitrate} Bitrate in kbit/s</para></listitem>
 <listitem><para>%v %{vbr} VBR oder leer (nur für ID3v2.3 mit
@@ -813,7 +816,7 @@ id3lib)</para></listitem>
 <listitem><para>%m %{mode} Kanalmodus (Stereo oder Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Anzahl Kanäle (1 oder 2)</para></listitem>
 <listitem><para>%k %{codec} Codec (z.B. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
-MPC)</para></listitem>
+MPC, ASF, AIFF, WAV)</para></listitem>
 </itemizedlist>
 
 <para>
@@ -1113,7 +1116,7 @@ und Exportieren verwendet werden.
 <listitem><para>%O %{tag1} Das Format von Tag 1 (ID3v1.1 oder leer falls nicht
 vorhanden)</para></listitem>
 <listitem><para>%o %{tag2} Das Format von Tag 2 (ID3v2.3.0, ID3v2.4.0,
-ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, oder leer falls nicht
+ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, ASF oder leer falls nicht
 vorhanden)</para></listitem>
 <listitem><para>%b %{bitrate} Bitrate in kbit/s</para></listitem>
 <listitem><para>%v %{vbr} VBR oder leer (nur für ID3v2.3 mit
@@ -1122,7 +1125,7 @@ id3lib)</para></listitem>
 <listitem><para>%m %{mode} Kanalmodus (Stereo oder Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Anzahl Kanäle (1 oder 2)</para></listitem>
 <listitem><para>%k %{codec} Codec (z.B. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
-MPC)</para></listitem>
+MPC, ASF, AIFF, WAV)</para></listitem>
 <listitem><para>%1a %1{artist}, ... Der Präfix 1 wird benutzt, um Werte von Tag 1 zu
 erhalten</para></listitem>
 <listitem><para>%2a %2{artist}, ... Der Präfix 2 wird benutzt, um Werte von Tag 2 zu
