@@ -7,15 +7,18 @@ License:      GPL
 Group:        Applications/Multimedia
 Summary:      Efficient ID3 tag editor
 Version:      1.3
-Release:      1%{?dist}
+Release:      2%{?dist}
 URL:          http://kid3.sourceforge.net/
 Source0:      http://downloads.sourceforge.net/kid3/%{name}-%{version}.tar.gz
 BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  kdelibs4-devel
+# OpenSUSE: BuildRequires:  libkde4-devel
 BuildRequires:  cmake
 BuildRequires:  id3lib-devel
+# Mandriva: BuildRequires:  libid3lib3.8-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  flac-devel
+# Mandriva: BuildRequires:  libflac++-devel
 BuildRequires:  libtunepimp-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  libmp4v2-devel
@@ -86,8 +89,8 @@ find $RPM_BUILD_ROOT -type f -o -name "*.so" -exec strip "{}" \;
 %{_datadir}/icons/hicolor/scalable/apps/kid3.svgz
 %{_datadir}/dbus-1/interfaces/*.xml
 %{_datadir}/kde4/apps/kid3/
-%{_datadir}/doc/kde4/HTML/en/kid3/
-%{_datadir}/doc/kde4/HTML/de/kid3/
+%{_datadir}/doc/kde/HTML/en/kid3/
+%{_datadir}/doc/kde/HTML/de/kid3/
 %{_datadir}/locale/it/LC_MESSAGES/kid3.mo
 %{_datadir}/locale/nl/LC_MESSAGES/kid3.mo
 %{_datadir}/locale/fr/LC_MESSAGES/kid3.mo
@@ -95,6 +98,9 @@ find $RPM_BUILD_ROOT -type f -o -name "*.so" -exec strip "{}" \;
 %{_datadir}/locale/es/LC_MESSAGES/kid3.mo
 %{_datadir}/locale/pl/LC_MESSAGES/kid3.mo
 %{_datadir}/locale/de/LC_MESSAGES/kid3.mo
+%{_datadir}/locale/et/LC_MESSAGES/kid3.mo
+%{_datadir}/locale/fi/LC_MESSAGES/kid3.mo
+%{_datadir}/locale/tr/LC_MESSAGES/kid3.mo
 %{_mandir}/man1/kid3.1*
 
 
