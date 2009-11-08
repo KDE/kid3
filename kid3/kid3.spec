@@ -7,7 +7,7 @@ License:      GPL
 Group:        Applications/Multimedia
 Summary:      Efficient ID3 tag editor
 Version:      1.3
-Release:      2%{?dist}
+Release:      1%{?dist}
 URL:          http://kid3.sourceforge.net/
 Source0:      http://downloads.sourceforge.net/kid3/%{name}-%{version}.tar.gz
 BuildRoot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -91,16 +91,7 @@ find $RPM_BUILD_ROOT -type f -o -name "*.so" -exec strip "{}" \;
 %{_datadir}/kde4/apps/kid3/
 %{_datadir}/doc/kde/HTML/en/kid3/
 %{_datadir}/doc/kde/HTML/de/kid3/
-%{_datadir}/locale/it/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/nl/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/fr/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/ru/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/es/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/pl/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/de/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/et/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/fi/LC_MESSAGES/kid3.mo
-%{_datadir}/locale/tr/LC_MESSAGES/kid3.mo
+%{_datadir}/locale/*/LC_MESSAGES/kid3.mo
 %{_mandir}/man1/kid3.1*
 
 
