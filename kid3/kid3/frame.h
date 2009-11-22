@@ -230,6 +230,17 @@ public:
 	void setInactive() { m_value = QString::null; }
 
 	/**
+	 * Check if frame represents different frames in multiple files.
+	 * @return true if different.
+	 */
+	bool isDifferent() const { return m_value == differentRepresentation(); }
+
+	/**
+	 * Represents different frames in multiple files.
+	 */
+	void setDifferent() { m_value = differentRepresentation(); }
+
+	/**
 	 * Check if value is changed.
 	 * @return true if changed.
 	 */
@@ -240,6 +251,13 @@ public:
 	 * @param changed true to mark as changed
 	 */
 	void setValueChanged(bool changed = true) { m_valueChanged = changed; }
+
+	/**
+	 * Set value as string and mark it as changed if it is changed.
+	 * This method will avoid setting "different" representations.
+	 * @param value value as string
+	 */
+	void setValueIfChanged(const QString& value);
 
 	/**
 	 * Set the value from a field in the field list.
@@ -316,6 +334,13 @@ public:
 
 private:
 	friend class TaggedFile;
+
+	/**
+	 * Get representation of different frames in multiple files.
+	 * @return "different" representation.
+	 */
+	static QChar differentRepresentation() { return QChar(0x2260); }
+
 	Type m_type;
 	int m_index;
 	bool m_valueChanged;

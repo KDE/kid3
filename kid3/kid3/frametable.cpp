@@ -982,8 +982,7 @@ void FrameTable::tableToFrames(bool setUnchanged)
 				((value = twi->text()) != (*it).getValue() || setUnchanged)) {
 			Frame& frame = const_cast<Frame&>(*it);
 			if (value.isNull()) value = "";
-			frame.setValue(value);
-			frame.setValueChanged();
+			frame.setValueIfChanged(value);
 		}
 		++row;
 	}
@@ -1010,8 +1009,7 @@ void FrameTable::tableToFrames(bool setUnchanged)
 					(value != (*it).getValue() &&
 					 !(value.isEmpty() && (*it).getValue().isEmpty()))) {
 				Frame& frame = const_cast<Frame&>(*it);
-				frame.setValue(value);
-				frame.setValueChanged();
+				frame.setValueIfChanged(value);
 			}
 		}
 		++row;

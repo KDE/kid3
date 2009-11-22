@@ -117,11 +117,8 @@ public:
 
 	/**
 	 * Update files of current selection.
-	 *
-	 * @param onlyIfSingleFileSelected if true, the selection is only updated
-	 *                                 if a single file is selected
 	 */
-	void updateCurrentSelection(bool onlyIfSingleFileSelected = false);
+	void updateCurrentSelection();
 
 	/**
 	 * Copy tags 1 into copy buffer.

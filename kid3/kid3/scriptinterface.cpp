@@ -441,8 +441,7 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 			m_app->deleteFrame(it->getName());
 		} else {
 			Frame& frame = const_cast<Frame&>(*it);
-			frame.setValue(value);
-			frame.setValueChanged();
+			frame.setValueIfChanged(value);
 			if (!dataFileName.isEmpty()) {
 				PictureFrame::setDataFromFile(frame, dataFileName);
 				PictureFrame::setMimeTypeFromFileName(frame, dataFileName);

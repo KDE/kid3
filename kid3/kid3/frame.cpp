@@ -230,6 +230,22 @@ QVariant Frame::getFieldValue(Field::Id id) const
 	return QVariant();
 }
 
+/**
+ * Set value as string and mark it as changed if it is changed.
+ * This method will avoid setting "different" representations.
+ * @param value value as string
+ */
+void Frame::setValueIfChanged(const QString& value)
+{
+	if (value != differentRepresentation()) {
+		QString oldValue(getValue());
+		if (value != oldValue && !(value.isEmpty() && oldValue.isEmpty())) {
+			setValue(value);
+			setValueChanged();
+		}
+	}
+}
+
 
 /**
  * Set values which are different inactive.
@@ -244,17 +260,15 @@ void FrameCollection::filterDifferent(const FrameCollection& others)
 		// This frame list is not tied to a specific file, so the
 		// index is not valid.
 		frame.setIndex(-1);
-		if (!frame.isInactive()) {
-			iterator othersIt = others.find(frame);
-			if (othersIt == others.end() ||
-					(frame.getType() != Frame::FT_Picture &&
-					 frame.getValue() != othersIt->getValue()) ||
-					(frame.getType() == Frame::FT_Picture &&
-					 !(PictureFrame::getData(frame, frameData) &&
-						 PictureFrame::getData(*othersIt, othersData) &&
-						 frameData == othersData))) {
-				frame.setInactive();
-			}
+		iterator othersIt = others.find(frame);
+		if (othersIt == others.end() ||
+				(frame.getType() != Frame::FT_Picture &&
+				 frame.getValue() != othersIt->getValue()) ||
+				(frame.getType() == Frame::FT_Picture &&
+				 !(PictureFrame::getData(frame, frameData) &&
+					 PictureFrame::getData(*othersIt, othersData) &&
+					 frameData == othersData))) {
+			frame.setDifferent();
 		}
 	}
 }
@@ -328,8 +342,7 @@ void FrameCollection::merge(const FrameCollection& frames)
 			QString value(otherIt->getValue());
 			Frame& frameFound = const_cast<Frame&>(*it);
 			if (frameFound.getValue().isEmpty() && !value.isEmpty()) {
-				frameFound.setValue(value);
-				frameFound.setValueChanged();
+				frameFound.setValueIfChanged(value);
 			}
 		} else {
 			Frame frame(*otherIt);
@@ -410,13 +423,9 @@ void FrameCollection::setValue(Frame::Type type, const QString& value)
 		iterator it = find(frame);
 		if (it != end()) {
 			Frame& frameFound = const_cast<Frame&>(*it);
-			if (frameFound.getValue() != value) {
-				frameFound.setValue(value);
-				frameFound.setValueChanged();
-			}
+			frameFound.setValueIfChanged(value);
 		} else {
-			frame.setValue(value);
-			frame.setValueChanged();
+			frame.setValueIfChanged(value);
 			insert(frame);
 		}
 	}

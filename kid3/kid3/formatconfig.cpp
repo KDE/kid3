@@ -168,12 +168,8 @@ void FormatConfig::formatFrames(FrameCollection& frames) const
 		if (frame.getType() != Frame::FT_Genre) {
 			QString value(frame.getValue());
 			if (!value.isEmpty()) {
-				QString oldValue(value);
 				formatString(value);
-				if (value != oldValue) {
-					frame.setValue(value);
-					frame.setValueChanged();
-				}
+				frame.setValueIfChanged(value);
 			}
 		}
 	}

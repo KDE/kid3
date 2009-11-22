@@ -2252,7 +2252,7 @@ void Kid3App::slotSettingsConfigure()
  */
 void Kid3App::slotApplyFilenameFormat()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FileListItem* mp3file = m_view->firstFile();
 	bool no_selection = m_view->numFilesSelected() == 0;
 	while (mp3file != 0) {
@@ -2274,7 +2274,7 @@ void Kid3App::slotApplyFilenameFormat()
 void Kid3App::slotApplyId3Format()
 {
 	FrameCollection frames;
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FrameFilter fltV1(m_view->frameTableV1()->getEnabledFrameFilter(true));
 	FrameFilter fltV2(m_view->frameTableV2()->getEnabledFrameFilter(true));
 	FileListItem* mp3file = m_view->firstFile();
@@ -2434,7 +2434,7 @@ void Kid3App::slotRenameDirectory()
  */
 void Kid3App::numberTracks(int nr, bool destV1, bool destV2)
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FileListItem* mp3file = m_view->firstFileInDir();
 	bool no_selection = m_view->numFilesSelected() == 0;
 	while (mp3file != 0) {
@@ -2589,7 +2589,7 @@ void Kid3App::slotFilter()
 void Kid3App::slotConvertToId3v24()
 {
 #ifdef HAVE_TAGLIB
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FileListItem* item = m_view->firstFile();
 	while (item != 0) {
 		TaggedFile* taggedFile;
@@ -2643,7 +2643,7 @@ void Kid3App::slotConvertToId3v24()
 void Kid3App::slotConvertToId3v23()
 {
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FileListItem* item = m_view->firstFile();
 	while (item != 0) {
 		TaggedFile* taggedFile;
@@ -2840,11 +2840,8 @@ void Kid3App::updateModificationState()
 
 /**
  * Update files of current selection.
- *
- * @param onlyIfSingleFileSelected if true, the selection is only updated
- *                                 if a single file is selected
  */
-void Kid3App::updateCurrentSelection(bool onlyIfSingleFileSelected)
+void Kid3App::updateCurrentSelection()
 {
 	int numFiles = 0;
 	FileListItem* mp3file = m_view->firstFile();
@@ -2856,9 +2853,6 @@ void Kid3App::updateCurrentSelection(bool onlyIfSingleFileSelected)
 			}
 		}
 		mp3file = m_view->nextFile();
-	}
-	if (onlyIfSingleFileSelected && numFiles != 1) {
-		return;
 	}
 	if (numFiles > 0) {
 		m_view->frameTableV1()->tableToFrames(numFiles > 1);
@@ -2887,10 +2881,9 @@ void Kid3App::updateCurrentSelection(bool onlyIfSingleFileSelected)
 void Kid3App::updateGuiControls()
 {
 	FileListItem* mp3file = m_view->firstFile();
-	FileListItem* singleItem = 0;
 	TaggedFile* single_v2_file = 0;
-	TaggedFile* firstMp3File = 0;
-	int num_files_selected = 0;
+	int num_v1_selected = 0;
+	int num_v2_selected = 0;
 	bool tagV1Supported = false;
 
 #if QT_VERSION >= 0x040000
@@ -2914,28 +2907,29 @@ void Kid3App::updateGuiControls()
 				taggedFile = readWithTagLibIfId3V24(mp3file, taggedFile);
 #endif
 
-				if (num_files_selected == 0) {
-					taggedFile->getAllFramesV1(m_view->frameTableV1()->frames());
+				if (taggedFile->isTagV1Supported()) {
+					if (num_v1_selected == 0) {
+						taggedFile->getAllFramesV1(m_view->frameTableV1()->frames());
+					}
+					else {
+						FrameCollection fileFrames;
+						taggedFile->getAllFramesV1(fileFrames);
+						m_view->frameTableV1()->frames().filterDifferent(fileFrames);
+					}
+					++num_v1_selected;
+					tagV1Supported = true;
+				}
+				if (num_v2_selected == 0) {
 					taggedFile->getAllFramesV2(m_view->frameTableV2()->frames());
 					single_v2_file = taggedFile;
-					singleItem = mp3file;
-					firstMp3File = taggedFile;
 				}
 				else {
 					FrameCollection fileFrames;
-					taggedFile->getAllFramesV1(fileFrames);
-					m_view->frameTableV1()->frames().filterDifferent(fileFrames);
-					fileFrames.clear();
 					taggedFile->getAllFramesV2(fileFrames);
 					m_view->frameTableV2()->frames().filterDifferent(fileFrames);
 					single_v2_file = 0;
-					singleItem = 0;
 				}
-				++num_files_selected;
-
-				if (taggedFile->isTagV1Supported()) {
-					tagV1Supported = true;
-				}
+				++num_v2_selected;
 			}
 		}
 		else {
@@ -2991,13 +2985,13 @@ void Kid3App::updateGuiControls()
 			m_view->setPictureData(PictureFrame::getData(*it, data) ? &data : 0);
 		}
 	}
-	m_view->frameTableV1()->setAllCheckBoxes(num_files_selected == 1);
+	m_view->frameTableV1()->setAllCheckBoxes(num_v1_selected == 1);
 	m_view->frameTableV1()->framesToTable();
-	m_view->frameTableV2()->setAllCheckBoxes(num_files_selected == 1);
+	m_view->frameTableV2()->setAllCheckBoxes(num_v2_selected == 1);
 	m_view->frameTableV2()->framesToTable();
 	updateModificationState();
 
-	if (num_files_selected == 0) {
+	if (num_v1_selected == 0 && num_v2_selected == 0) {
 		tagV1Supported = true;
 	}
 	m_view->enableControlsV1(tagV1Supported);
@@ -3020,7 +3014,7 @@ void Kid3App::fileSelected()
  */
 void Kid3App::copyTagsV1()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	m_copyTags = m_view->frameTableV1()->frames().copyEnabledFrames(
 		m_view->frameTableV1()->getEnabledFrameFilter(true));
 }
@@ -3030,7 +3024,7 @@ void Kid3App::copyTagsV1()
  */
 void Kid3App::copyTagsV2()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	m_copyTags = m_view->frameTableV2()->frames().copyEnabledFrames(
 		m_view->frameTableV2()->getEnabledFrameFilter(true));
 }
@@ -3040,7 +3034,7 @@ void Kid3App::copyTagsV2()
  */
 void Kid3App::pasteTagsV1()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
 													 m_view->frameTableV1()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
@@ -3060,7 +3054,7 @@ void Kid3App::pasteTagsV1()
  */
 void Kid3App::pasteTagsV2()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
 													 m_view->frameTableV2()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
@@ -3082,7 +3076,7 @@ void Kid3App::pasteTagsV2()
  */
 void Kid3App::getTagsFromFilenameV1()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FrameCollection frames;
 	FileListItem* mp3file = m_view->firstFile();
 	bool multiselect = m_view->numFilesSelected() > 1;
@@ -3112,7 +3106,7 @@ void Kid3App::getTagsFromFilenameV1()
  */
 void Kid3App::getTagsFromFilenameV2()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FrameCollection frames;
 	FileListItem* mp3file = m_view->firstFile();
 	bool multiselect = m_view->numFilesSelected() > 1;
@@ -3177,7 +3171,7 @@ void Kid3App::getFilenameFromTags(int tag_version)
  */
 void Kid3App::copyV1ToV2()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FrameCollection frames;
 	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
 	FileListItem* mp3file = m_view->firstFile();
@@ -3199,7 +3193,7 @@ void Kid3App::copyV1ToV2()
  */
 void Kid3App::copyV2ToV1()
 {
-	updateCurrentSelection(true);
+	updateCurrentSelection();
 	FrameCollection frames;
 	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
 	FileListItem* mp3file = m_view->firstFile();
