@@ -23,6 +23,11 @@ typedef size_t (*vcedit_read_func)(void *, size_t, size_t, void *);
 typedef size_t (*vcedit_write_func)(const void *, size_t, size_t, void *);
 
 typedef struct {
+	long *streams;
+	size_t streams_len;
+} vcedit_serial_nos;
+
+typedef struct {
 	ogg_sync_state		*oy;
 	ogg_stream_state	*os;
 
@@ -32,17 +37,19 @@ typedef struct {
 	vcedit_read_func read;
 	vcedit_write_func write;
 
-	void		*in;
-	long		serial;
-	unsigned char	*mainbuf;
-	unsigned char	*bookbuf;
-	int		mainlen;
-	int		booklen;
-	char 	    *lasterror;
+	void		  *in;
+	int serial;
+	vcedit_serial_nos serials;
+	unsigned char	  *mainbuf;
+	unsigned char	  *bookbuf;
+	int	          mainlen;
+	int	          booklen;
+	char   *lasterror;
 	char   *vendor;
 	int prevW;
 	int extrapage;
 	int eosin;
+        struct vcedit_buffer_chain *sidebuf;
 } vcedit_state;
 
 extern vcedit_state *	vcedit_new_state(void);

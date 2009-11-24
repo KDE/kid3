@@ -28,6 +28,10 @@
 #define PICTUREFRAME_H
 
 #include "frame.h"
+#include "config.h"
+#if QT_VERSION >= 0x040000 || defined CONFIG_USE_KDE
+#define HAVE_BASE64_ENCODING
+#endif
 
 class QImage;
 
@@ -282,6 +286,24 @@ public:
 	 * @return true if field found and set.
 	 */
 	static bool setMimeTypeFromFileName(Frame& frame, const QString& fileName);
+
+#ifdef HAVE_BASE64_ENCODING
+	/**
+	 * Set picture from a base64 string.
+	 *
+	 * @param frame       frame to set
+	 * @param base64Value base64 string
+	 */
+	static void setFieldsFromBase64(Frame& frame, const QString& base64Value);
+
+	/**
+	 * Get picture to a base64 string.
+	 *
+	 * @param frame       frame to get
+	 * @param base64Value base64 string to set
+	 */
+	static void getFieldsToBase64(const Frame& frame, QString& base64Value);
+#endif // HAVE_BASE64_ENCODING
 
 private:
 	/**

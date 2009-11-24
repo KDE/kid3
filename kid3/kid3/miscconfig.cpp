@@ -107,6 +107,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_preserveTime(false),
 	m_markChanges(true),
 	m_commentName(s_defaultCommentName),
+	m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
 	m_nameFilter(""),
 	m_formatText(s_defaultFnFmtList[0]),
 	m_formatItem(0),
@@ -167,6 +168,7 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("PreserveTime", m_preserveTime);
 	cfg.writeEntry("MarkChanges", m_markChanges);
 	cfg.writeEntry("CommentName", m_commentName);
+	cfg.writeEntry("PictureNameItem", m_pictureNameItem);
 	cfg.writeEntry("SplitterSizes", m_splitterSizes);
 	cfg.writeEntry("VSplitterSizes", m_vSplitterSizes);
 	cfg.writeEntry("CustomGenres", m_customGenres);
@@ -219,6 +221,7 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/PreserveTime", m_preserveTime);
 	config->QCM_writeEntry("/MarkChanges", m_markChanges);
 	config->QCM_writeEntry("/CommentName", m_commentName);
+	config->QCM_writeEntry("/PictureNameItem", m_pictureNameItem);
 
 #if QT_VERSION >= 0x040000
 	QList<int>::const_iterator it;
@@ -313,6 +316,8 @@ void MiscConfig::readFromConfig(
 	m_preserveTime = cfg.KCM_readBoolEntry("PreserveTime", m_preserveTime);
 	m_markChanges = cfg.KCM_readBoolEntry("MarkChanges", m_markChanges);
 	m_commentName = cfg.readEntry("CommentName", s_defaultCommentName);
+	m_pictureNameItem = cfg.KCM_readNumEntry("PictureNameItem",
+	    static_cast<int>(VP_METADATA_BLOCK_PICTURE));
 	m_formatText =
 	    cfg.readEntry("FormatText2", s_defaultFnFmtList[0]);
 	m_dirFormatText =
@@ -364,6 +369,7 @@ void MiscConfig::readFromConfig(
 	m_preserveTime = config->QCM_readBoolEntry("/PreserveTime", m_preserveTime);
 	m_markChanges = config->QCM_readBoolEntry("/MarkChanges", m_markChanges);
 	m_commentName = config->QCM_readEntry("/CommentName", s_defaultCommentName);
+	m_pictureNameItem = config->QCM_readNumEntry("/PictureNameItem", VP_METADATA_BLOCK_PICTURE);
 
 	m_formatText =
 	    config->QCM_readEntry("/FormatText2", s_defaultFnFmtList[0]);

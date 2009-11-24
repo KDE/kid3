@@ -282,7 +282,10 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			if (vorbisGroupBox) {
 				QLabel* commentNameLabel = new QLabel(i18n("Comment field &name:"), vorbisGroupBox);
 				m_commentNameComboBox = new QComboBox(vorbisGroupBox);
-				if (commentNameLabel && m_commentNameComboBox) {
+				QLabel* pictureNameLabel = new QLabel(i18n("&Picture field name:"), vorbisGroupBox);
+				m_pictureNameComboBox = new QComboBox(vorbisGroupBox);
+				if (commentNameLabel && m_commentNameComboBox &&
+						pictureNameLabel && m_pictureNameComboBox) {
 					m_commentNameComboBox->setEditable(true);
 					QStringList items;
 					items += "COMMENT";
@@ -290,13 +293,19 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 					m_commentNameComboBox->QCM_addItems(items);
 					m_commentNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
 					commentNameLabel->setBuddy(m_commentNameComboBox);
+					m_pictureNameComboBox->QCM_addItems(QStringList() << "METADATA_BLOCK_PICTURE" << "COVERART");
+					m_pictureNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+					pictureNameLabel->setBuddy(m_pictureNameComboBox);
 				}
 #if QT_VERSION >= 0x040000
-				QHBoxLayout* hbox = new QHBoxLayout;
-				hbox->setMargin(2);
-				hbox->addWidget(commentNameLabel);
-				hbox->addWidget(m_commentNameComboBox);
-				vorbisGroupBox->setLayout(hbox);
+				QGridLayout* vorbisGroupBoxLayout = new QGridLayout(vorbisGroupBox);
+				vorbisGroupBoxLayout->setMargin(2);
+				vorbisGroupBoxLayout->setSpacing(4);
+				vorbisGroupBoxLayout->addWidget(commentNameLabel, 0, 0);
+				vorbisGroupBoxLayout->addWidget(m_commentNameComboBox, 0, 1);
+				vorbisGroupBoxLayout->addWidget(pictureNameLabel, 1, 0);
+				vorbisGroupBoxLayout->addWidget(m_pictureNameComboBox, 1, 1);
+				vorbisGroupBox->setLayout(vorbisGroupBoxLayout);
 #endif
 				vlayout->addWidget(vorbisGroupBox);
 			}
@@ -583,6 +592,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 #else
 	m_commentNameComboBox->setCurrentText(miscCfg->m_commentName);
 #endif
+	m_pictureNameComboBox->QCM_setCurrentIndex(miscCfg->m_pictureNameItem);
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 	m_genreNotNumericCheckBox->setChecked(miscCfg->m_genreNotNumeric);
@@ -661,6 +671,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	m_commandsTable->getCommandList(miscCfg->m_contextMenuCommands);
 #ifdef HAVE_VORBIS
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
+	miscCfg->m_pictureNameItem = m_pictureNameComboBox->QCM_currentIndex();
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 	miscCfg->m_genreNotNumeric = m_genreNotNumericCheckBox->isChecked();

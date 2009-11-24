@@ -28,6 +28,9 @@
 #include <qfile.h>
 #include <qimage.h>
 #include <qbuffer.h>
+#if QT_VERSION < 0x040000 && defined CONFIG_USE_KDE
+#include <kmdcodec.h>
+#endif
 #include "qtcompatmac.h"
 
 /**
@@ -495,3 +498,176 @@ bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName
 	}
 	return false;
 }
+
+#ifdef HAVE_BASE64_ENCODING
+/**
+ * Get a 32-bit number from a byte array stored in big-endian order.
+ *
+ * @param data byte array
+ * @param index index of first byte in data
+ *
+ * @return big endian 32-bit value.
+ */
+static unsigned long getBigEndianULongFromByteArray(const QByteArray& data,
+                                                    int index)
+{
+	return
+		 ((unsigned char)data[index + 3] & 0xff)        |
+		(((unsigned char)data[index + 2] & 0xff) << 8)  |
+		(((unsigned char)data[index + 1] & 0xff) << 16) |
+		(((unsigned char)data[index + 0] & 0xff) << 24);
+}
+
+/**
+ * Render a 32-bit number to a byte array in big-endian order.
+ *
+ * @param value 32-bit value
+ * @param data  byte array
+ * @param index index of first byte in data
+ */
+static void renderBigEndianULongToByteArray(unsigned long value,
+                                            QByteArray& data, int index)
+{
+	data[index + 3] = value & 0xff;
+	value >>= 8;
+	data[index + 2] = value & 0xff;
+	value >>= 8;
+	data[index + 1] = value & 0xff;
+	value >>= 8;
+	data[index + 0] = value & 0xff;
+}
+
+/**
+ * Copy characters into a byte array.
+ *
+ * @param str   source string
+ * @param data  destination byte array
+ * @param index index of first byte in data
+ * @param len   number of bytes to copy
+ */
+static void renderCharsToByteArray(const char* str, QByteArray& data,
+                                   int index, int len)
+{
+	for (int i = 0; i < len; ++i) {
+		data[index++] = *str++;
+	}
+}
+
+/**
+ * Set picture from a base64 string.
+ *
+ * @param frame       frame to set
+ * @param base64Value base64 string
+ */
+void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
+{
+#if QT_VERSION >= 0x040000
+	QByteArray ba = QByteArray::fromBase64(base64Value.toAscii());
+#elif defined CONFIG_USE_KDE
+	QByteArray ba;
+	QCString baBase64(base64Value.ascii());
+	KCodecs::base64Decode(baBase64, ba);
+#endif
+	PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
+	QString mimeType("image/jpeg");
+	QString description("");
+	if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
+		unsigned long baSize = static_cast<unsigned long>(ba.size());
+		if (baSize < 32) return;
+		int index = 0;
+		pictureType = static_cast<PictureFrame::PictureType>(
+			getBigEndianULongFromByteArray(ba, index));
+		index += 4;
+		unsigned long mimeLen = getBigEndianULongFromByteArray(ba, index);
+		index += 4;
+		if (baSize < index + mimeLen + 24) return;
+		mimeType = QString::fromAscii(ba.data() + index, mimeLen);
+		index += mimeLen;
+		unsigned long descLen = getBigEndianULongFromByteArray(ba, index);
+		index += 4;
+		if (baSize < index + descLen + 20) return;
+		description = QString::fromUtf8(ba.data() + index, descLen);
+		index += descLen;
+		index += 16; // width, height, depth, number of colors
+		unsigned long picLen = getBigEndianULongFromByteArray(ba, index);
+		index += 4;
+		if (baSize < index + picLen) return;
+#if QT_VERSION >= 0x040000
+		ba = ba.mid(index);
+#else
+		ba.duplicate(ba.data() + index, picLen);
+#endif
+	}
+	PictureFrame::setFields(
+		frame, Frame::Field::TE_UTF8,	"", mimeType,
+		pictureType, description, ba);
+}
+
+/**
+ * Get picture to a base64 string.
+ *
+ * @param frame       frame to get
+ * @param base64Value base64 string to set
+ */
+void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
+{
+	Frame::Field::TextEncoding enc;
+	PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
+	QString imgFormat, mimeType, description;
+	QByteArray pic;
+	PictureFrame::getFields(frame, enc, imgFormat, mimeType,
+	                        pictureType, description, pic);
+	if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
+		QCM_QCString mimeStr = mimeType.QCM_toAscii();
+		QCM_QCString descStr = description.QCM_toUtf8();
+		int mimeLen = mimeStr.length();
+		int descLen = descStr.length();
+		int picLen = pic.size();
+		QByteArray ba(32 + mimeLen + descLen + picLen
+#if QT_VERSION >= 0x040000
+		               , '\0'
+#endif
+		               );
+		int index = 0;
+		renderBigEndianULongToByteArray(pictureType, ba, index);
+		index += 4;
+		renderBigEndianULongToByteArray(mimeLen, ba, index);
+		index += 4;
+		renderCharsToByteArray(mimeStr, ba, index, mimeLen);
+		index += mimeLen;
+		renderBigEndianULongToByteArray(descLen, ba, index);
+		index += 4;
+		renderCharsToByteArray(descStr, ba, index, descLen);
+		index += descLen;
+
+		int width = 0, height = 0, depth = 0, numColors = 0;
+		QImage image;
+		if (image.loadFromData(pic)) {
+			width = image.width();
+			height = image.height();
+			depth = image.depth();
+			numColors = image.numColors();
+		}
+		renderBigEndianULongToByteArray(width, ba, index);
+		index += 4;
+		renderBigEndianULongToByteArray(height, ba, index);
+		index += 4;
+		renderBigEndianULongToByteArray(depth, ba, index);
+		index += 4;
+		renderBigEndianULongToByteArray(numColors, ba, index);
+		index += 4;
+
+		renderBigEndianULongToByteArray(picLen, ba, index);
+		index += 4;
+		renderCharsToByteArray(pic.data(), ba, index, picLen);
+		pic = ba;
+	}
+#if QT_VERSION >= 0x040000
+	base64Value = pic.toBase64();
+#elif defined CONFIG_USE_KDE
+	QByteArray picBase64;
+	KCodecs::base64Encode(pic, picBase64);
+	base64Value = QString(picBase64);
+#endif
+}
+#endif // HAVE_BASE64_ENCODING

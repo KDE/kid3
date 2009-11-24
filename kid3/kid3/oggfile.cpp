@@ -28,6 +28,8 @@
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
 #include "dirinfo.h"
+#include "pictureframe.h"
+#include "kid3.h"
 #include <qfile.h>
 #include <qdir.h>
 #if QT_VERSION >= 0x040000
@@ -264,7 +266,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 		"ORIGINALDATE",    // FT_OriginalDate,
 		"PART",            // FT_Part,
 		"PERFORMER",       // FT_Performer,
-		"UNKNOWN",         // FT_Picture,
+		"METADATA_BLOCK_PICTURE", // FT_Picture,
 		"PUBLISHER",       // FT_Publisher,
 		"REMIXER",         // FT_Remixer,
 		"SUBTITLE",        // FT_Subtitle,
@@ -274,6 +276,10 @@ static const char* getVorbisNameFromType(Frame::Type type)
 	class not_used { int array_size_check[
 			sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
 			? 1 : -1 ]; };
+	if (type == Frame::FT_Picture &&
+			Kid3App::s_miscCfg.m_pictureNameItem == MiscConfig::VP_COVERART) {
+		return "COVERART";
+	}
 	return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";
 }
 
@@ -294,6 +300,7 @@ static Frame::Type getTypeFromVorbisName(QString name)
 			strNumMap.insert(getVorbisNameFromType(type), type);
 		}
 		strNumMap.insert("DESCRIPTION", Frame::FT_Comment);
+		strNumMap.insert("COVERART", Frame::FT_Picture);
 	}
 	QMap<QString, int>::const_iterator it =
 		strNumMap.find(name.remove(' ').QCM_toUpper());
@@ -654,9 +661,6 @@ QString OggFile::getTagFormatV2() const
  */
 bool OggFile::setFrameV2(const Frame& frame)
 {
-	if (frame.getType() == Frame::FT_Picture) {
-		return false;
-	}
 	if (frame.getType() == Frame::FT_Track) {
 		int numTracks = getTotalNumberOfTracksIfEnabled();
 		if (numTracks > 0) {
@@ -672,6 +676,18 @@ bool OggFile::setFrameV2(const Frame& frame)
 	int index = frame.getIndex();
 	if (index != -1 && index < static_cast<int>(m_comments.size())) {
 		QString value = frame.getValue();
+		if (frame.getType() == Frame::FT_Picture) {
+#ifdef HAVE_BASE64_ENCODING
+			PictureFrame::getFieldsToBase64(frame, value);
+			if (!value.isEmpty() && frame.getName(true) == "COVERART") {
+				QString mimeType;
+				PictureFrame::getMimeType(frame, mimeType);
+				setTextField("COVERARTMIME", mimeType, Frame::FT_Other);
+			}
+#else
+			return false;
+#endif
+		}
 #if QT_VERSION >= 0x040000
 		if (m_comments[index].getValue() != value) {
 			m_comments[index].setValue(value);
@@ -703,12 +719,23 @@ bool OggFile::setFrameV2(const Frame& frame)
  */
 bool OggFile::addFrameV2(Frame& frame)
 {
-	if (frame.getType() == Frame::FT_Picture) {
-		return false;
-	}
 	// Add a new frame.
 	QString name(getVorbisName(frame));
-	m_comments.push_back(OggFile::CommentField(name, frame.getValue()));
+	QString value(frame.getValue());
+	if (frame.getType() == Frame::FT_Picture) {
+#ifdef HAVE_BASE64_ENCODING
+		if (frame.getFieldList().empty()) {
+			PictureFrame::setFields(
+				frame, Frame::Field::TE_ISO8859_1, "", "image/jpeg",
+				PictureFrame::PT_CoverFront, "", QByteArray());
+		}
+		frame.setInternalName(name);
+		PictureFrame::getFieldsToBase64(frame, value);
+#else
+		return false;
+#endif
+	}
+	m_comments.push_back(OggFile::CommentField(name, value));
 	frame.setInternalName(name);
 	frame.setIndex(m_comments.size() - 1);
 	markTag2Changed(frame.getType());
@@ -756,6 +783,16 @@ void OggFile::getAllFramesV2(FrameCollection& frames)
 			 ++it) {
 		name = (*it).getName();
 		Frame::Type type = getTypeFromVorbisName(name);
+#ifdef HAVE_BASE64_ENCODING
+		if (type == Frame::FT_Picture) {
+			Frame frame(type, "", name, i++);
+			PictureFrame::setFieldsFromBase64(frame, (*it).getValue());
+			if (name == "COVERART") {
+				PictureFrame::setMimeType(frame, getTextField("COVERARTMIME"));
+			}
+			frames.insert(frame);
+		} else
+#endif
 		frames.insert(Frame(type, (*it).getValue(), name, i++));
 	}
 	frames.addMissingStandardFrames();
@@ -799,9 +836,10 @@ QStringList OggFile::getFrameIds() const
 
 	QStringList lst;
 	for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-		if (k != Frame::FT_Picture) {
+#ifndef HAVE_BASE64_ENCODING
+		if (k != Frame::FT_Picture)
+#endif
 			lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
-		}
 	}
 	for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
 		lst.append(fieldNames[i]);

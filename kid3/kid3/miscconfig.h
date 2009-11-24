@@ -58,6 +58,12 @@ public:
 		TE_UTF8
 	};
 
+	/** Name for Vorbis picture. */
+	enum VorbisPictureName {
+		VP_METADATA_BLOCK_PICTURE,
+		VP_COVERART
+	};
+
 	/**
 	 * External command in context menu.
 	 */
@@ -168,6 +174,8 @@ public:
 	bool m_markChanges;
 	/** field name used for Vorbis comment entries */
 	QString m_commentName;
+	/** index of field name used for Vorbis picture entries */
+	int m_pictureNameItem;
 	/** filter of file names to be opened */
 	QString m_nameFilter;
 	/** filename format */
