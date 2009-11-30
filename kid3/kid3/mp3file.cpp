@@ -575,12 +575,14 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 						uint i, unicode_size = text.length();
 						const QChar* qcarray = text.unicode();
 						for (i = 0; i < unicode_size; i++) {
+							char ch = qcarray[i].
 #if QT_VERSION >= 0x040000
-							if (qcarray[i].toLatin1() == 0)
+								toLatin1()
 #else
-							if (qcarray[i].latin1() == 0)
+								latin1()
 #endif
-							{
+								;
+							if (ch == 0 || (ch & 0x80) != 0) {
 								enc = ID3TE_UTF16;
 								break;
 							}
@@ -1616,19 +1618,21 @@ bool Mp3File::setFrameV2(const Frame& frame)
 						uint i, unicode_size = value.length();
 						const QChar* qcarray = value.unicode();
 						for (i = 0; i < unicode_size; i++) {
+							char ch = qcarray[i].
 #if QT_VERSION >= 0x040000
-							if (qcarray[i].toLatin1() == 0)
+								toLatin1()
 #else
-								if (qcarray[i].latin1() == 0)
+								latin1()
 #endif
-								{
-									ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
-									if (encfld) {
-										encfld->Set(ID3TE_UTF16);
-									}
-									fld->SetEncoding(ID3TE_UTF16);
-									break;
+								;
+							if (ch == 0 || (ch & 0x80) != 0) {
+								ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
+								if (encfld) {
+									encfld->Set(ID3TE_UTF16);
 								}
+								fld->SetEncoding(ID3TE_UTF16);
+								break;
+							}
 						}
 					}
 					if (getString(fld) != value) {

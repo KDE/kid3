@@ -930,12 +930,14 @@ static bool needsUnicode(const QString& qstr)
 	uint unicodeSize = qstr.length();
 	const QChar* qcarray = qstr.unicode();
 	for (uint i = 0; i < unicodeSize; ++i) {
+		char ch = qcarray[i].
 #if QT_VERSION >= 0x040000
-		if (qcarray[i].toLatin1() == 0)
+			toLatin1()
 #else
-		if (qcarray[i].latin1() == 0)
+			latin1()
 #endif
-		{
+			;
+		if (ch == 0 || (ch & 0x80) != 0) {
 			result = true;
 			break;
 		}
@@ -954,7 +956,7 @@ static TagLib::String::Type getTextEncodingConfig(bool unicode)
 {
 	TagLib::String::Type enc = TagLibFile::getDefaultTextEncoding();
 	if (unicode && enc == TagLib::String::Latin1) {
-		enc = TagLib::String::UTF16;
+		enc = TagLib::String::UTF8;
 	}
 	return enc;
 }
