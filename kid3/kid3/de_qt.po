@@ -18,7 +18,7 @@ msgid "Back"
 msgstr "Zurück"
 
 msgid "Close"
-msgstr "Schliessen"
+msgstr "Schließen"
 
 msgid "&Open"
 msgstr "&Öffnen"

@@ -90,7 +90,7 @@ msgstr "Nach &vorne"
 #: browserdialog.cpp:85 exportdialog.cpp:171 externalprocess.cpp:58
 #: filterdialog.cpp:117 imageviewer.cpp:61 importsourcedialog.cpp:154
 msgid "&Close"
-msgstr "&Schliessen"
+msgstr "&Schließen"
 
 #: commandstable.cpp:58 commandstable.cpp:75
 msgid "Confirm"
