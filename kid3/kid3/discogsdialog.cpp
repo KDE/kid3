@@ -426,7 +426,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 	 *
 	 * Variations: strange track numbers, no durations, links instead of tracks
 	 */
-	start = str.QCM_indexOf("<h1>Tracklist</h1>");
+	start = str.QCM_indexOf(">Tracklist</");
 	if (start >= 0) {
 		end = str.QCM_indexOf("</table>", start);
 		if (end > start) {
