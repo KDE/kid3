@@ -38,7 +38,7 @@ static const ImportSourceDialog::Properties props = {
 	serverList,
 	"tracktype.org:80",
 	"/~cddb/cddb.cgi",
-	"import-tracktype",
+	"import-freedb",
 	&Kid3App::s_trackTypeCfg,
 	false
 };
