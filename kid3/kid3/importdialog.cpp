@@ -116,6 +116,10 @@ int ImportDialog::exec()
 			show();
 			m_impsel->fromDiscogs();
 			break;
+		case ASD_Amazon:
+			show();
+			m_impsel->fromAmazon();
+			break;
 		case ASD_MusicBrainzRelease:
 			show();
 			m_impsel->fromMusicBrainzRelease();
@@ -149,6 +153,9 @@ void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
 			break;
 		case ASD_Discogs:
 			server = ImportConfig::ServerDiscogs;
+			break;
+		case ASD_Amazon:
+			server = ImportConfig::ServerAmazon;
 			break;
 		case ASD_MusicBrainzRelease:
 			server = ImportConfig::ServerMusicBrainzRelease;

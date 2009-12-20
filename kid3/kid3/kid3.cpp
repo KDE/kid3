@@ -130,6 +130,7 @@ FormatConfig Kid3App::s_id3FormatCfg("Id3Format");
 FreedbConfig Kid3App::s_freedbCfg("Freedb");
 FreedbConfig Kid3App::s_trackTypeCfg("TrackType");
 DiscogsConfig Kid3App::s_discogsCfg("Discogs");
+AmazonConfig Kid3App::s_amazonCfg("Amazon");
 MusicBrainzConfig Kid3App::s_musicBrainzCfg("MusicBrainz");
 FilterConfig Kid3App::s_filterCfg("Filter");
 PlaylistConfig Kid3App::s_playlistCfg("Playlist");
@@ -305,6 +306,10 @@ void Kid3App::initActions()
 		    i18n("Import from &Discogs..."), this,
 		    SLOT(slotImportDiscogs()), actionCollection(),
 		    "import_discogs");
+	KCM_KAction(fileImportAmazon,
+		    i18n("Import from &Amazon..."), this,
+		    SLOT(slotImportAmazon()), actionCollection(),
+		    "import_amazon");
 	KCM_KAction(fileImportMusicBrainzRelease,
 		    i18n("Import from MusicBrainz &Release..."), this,
 		    SLOT(slotImportMusicBrainzRelease()), actionCollection(),
@@ -497,6 +502,13 @@ void Kid3App::initActions()
 		fileImportDiscogs->QCM_setMenuText(i18n("Import from &Discogs..."));
 		connect(fileImportDiscogs, QCM_SIGNAL_triggered,
 			this, SLOT(slotImportDiscogs()));
+	}
+	QAction* fileImportAmazon = new QAction(this);
+	if (fileImportAmazon) {
+		fileImportAmazon->setStatusTip(i18n("Import from Amazon"));
+		fileImportAmazon->QCM_setMenuText(i18n("Import from &Amazon..."));
+		connect(fileImportAmazon, QCM_SIGNAL_triggered,
+			this, SLOT(slotImportAmazon()));
 	}
 	QAction* fileImportMusicBrainzRelease = new QAction(this);
 	if (fileImportMusicBrainzRelease) {
@@ -708,6 +720,7 @@ void Kid3App::initActions()
 		QCM_addAction(fileMenu, fileImportFreedb);
 		QCM_addAction(fileMenu, fileImportTrackType);
 		QCM_addAction(fileMenu, fileImportDiscogs);
+		QCM_addAction(fileMenu, fileImportAmazon);
 		QCM_addAction(fileMenu, fileImportMusicBrainzRelease);
 #ifdef HAVE_TUNEPIMP
 		QCM_addAction(fileMenu, fileImportMusicBrainz);
@@ -879,6 +892,7 @@ void Kid3App::saveOptions()
 	s_freedbCfg.writeToConfig(m_config);
 	s_trackTypeCfg.writeToConfig(m_config);
 	s_discogsCfg.writeToConfig(m_config);
+	s_amazonCfg.writeToConfig(m_config);
 	s_filterCfg.writeToConfig(m_config);
 	s_playlistCfg.writeToConfig(m_config);
 #ifdef HAVE_TUNEPIMP
@@ -930,6 +944,7 @@ void Kid3App::readOptions()
 		s_trackTypeCfg.m_server = "tracktype.org:80"; // replace default
 	}
 	s_discogsCfg.readFromConfig(m_config);
+	s_amazonCfg.readFromConfig(m_config);
 	s_filterCfg.readFromConfig(m_config);
 	s_playlistCfg.readFromConfig(m_config);
 #ifdef HAVE_TUNEPIMP
@@ -1916,6 +1931,18 @@ void Kid3App::slotImportDiscogs()
 	setupImportDialog();
 	if (m_importDialog) {
 		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Discogs);
+		execImportDialog();
+	}
+}
+
+/**
+ * Import from Amazon.
+ */
+void Kid3App::slotImportAmazon()
+{
+	setupImportDialog();
+	if (m_importDialog) {
+		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Amazon);
 		execImportDialog();
 	}
 }

@@ -100,7 +100,8 @@ Die Tag-Information für ganze Alben kann über
 <ulink url="http://gnudb.org">gnudb.org</ulink>, <ulink
 url="http://tracktype.org">TrackType.org</ulink>, <ulink
 url="http://musicbrainz.org">MusicBrainz</ulink>, <ulink
-url="http://discogs.com">Discogs</ulink> oder von anderen Quellen mit
+url="http://discogs.com">Discogs</ulink>, <ulink
+url="http://www.amazon.com">Amazon</ulink> oder von anderen Quellen mit
 Albuminformationen importiert werden. Das verwendete Format ist mit regulären
 Ausdrücken frei konfigurierbar.
 </para>
@@ -130,7 +131,8 @@ TrueAudio, WavPack, WMA, WAV und AIFF Tags</para></listitem>
 <listitem><para>Import von <ulink url="http://gnudb.org">gnudb.org</ulink>,
 <ulink url="http://tracktype.org">TrackType.org</ulink>,
 <ulink url="http://musicbrainz.org">MusicBrainz</ulink>,
-<ulink url="http://discogs.com">Discogs</ulink>
+<ulink url="http://discogs.com">Discogs</ulink>,
+<ulink url="http://www.amazon.com">Amazon</ulink>
 und anderen Quellen</para></listitem>
 <listitem><para>Export als CSV, HTML, Stückliste, Kover XML oder in
 anderen Formaten. Exportierte CSV-Dateien können wieder importiert
@@ -503,7 +505,7 @@ den ausgewählten Dateien.</para></listitem>
 <listitem><para>Der <action>Import Dialog</action> wird verwendet, um Daten
 direkt von einem freedb.org Server, von der Web-Schnittstelle von <ulink
 url="http://freedb.org">freedb.org</ulink>, von einem MusicBrainz Server,
-von Discogs oder anderen Quellen mit Albumtitellisten zu importieren.
+von Discogs, Amazon oder anderen Quellen mit Albumtitellisten zu importieren.
 </para>
 <para id="import-freedb">
 Zum Importieren von einem freedb.org Server wird <guibutton>Von Server:</guibutton>
@@ -525,6 +527,17 @@ können sie mit <guibutton>OK</guibutton> importiert werden.
 </para>
 <para id="import-discogs">
 Zum Importieren vom Discogs Server wird <guibutton>Discogs</guibutton>
+gewählt. Wie bei <guibutton>Von
+gnudb.org</guibutton> können auch hier Artist und Album eingegeben werden und
+es wird ebenfalls eine Liste mit Alben zur Auswahl gestellt.
+Wenn <guilabel>Zusätzliche Tags</guilabel> markiert ist, werden mehr
+verfügbare Informationen importiert, z.B. Interpreten, Arrangierer oder der
+Herausgeber.
+Wenn <guilabel>Cover-Bilder</guilabel> markiert ist, werden Cover-Bilder
+heruntergeladen, falls vorhanden.
+</para>
+<para id="import-amazon">
+Zum Importieren von Amazon wird <guibutton>Amazon</guibutton>
 gewählt. Wie bei <guibutton>Von
 gnudb.org</guibutton> können auch hier Artist und Album eingegeben werden und
 es wird ebenfalls eine Liste mit Alben zur Auswahl gestellt.
@@ -690,6 +703,17 @@ den <guibutton>TrackType.org</guibutton> Dialog.</para></listitem>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
 den <guibutton>Discogs</guibutton> Dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>Importieren von Amazon...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Importieren von Amazon.</action>
+Dieser Menüpunkt öffnet denselben Import Dialog
+wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
+den <guibutton>Amazon</guibutton> Dialog.</para></listitem> 
 </varlistentry>
 
 <varlistentry>

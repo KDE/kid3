@@ -98,7 +98,8 @@ The tag information for full albums can be taken from
 <ulink url="http://gnudb.org">gnudb.org</ulink>, <ulink
 url="http://tracktype.org">TrackType.org</ulink>, <ulink
 url="http://musicbrainz.org">MusicBrainz</ulink>,  <ulink
-url="http://discogs.com">Discogs</ulink> or other sources of
+url="http://discogs.com">Discogs</ulink>, <ulink
+url="http://www.amazon.com">Amazon</ulink> or other sources of
 track lists. The import format is freely configurable by regular expressions.
 </para>
 <para>
@@ -126,7 +127,8 @@ TrueAudio, WavPack, WMA, WAV and AIFF tags</para></listitem>
 <listitem><para>Import from <ulink url="http://gnudb.org">gnudb.org</ulink>,
 <ulink url="http://tracktype.org">TrackType.org</ulink>,
 <ulink url="http://musicbrainz.org">MusicBrainz</ulink>,
-<ulink url="http://discogs.com">Discogs</ulink>
+<ulink url="http://discogs.com">Discogs</ulink>,
+<ulink url="http://www.amazon.com">Amazon</ulink>
 and other data sources</para></listitem>
 <listitem><para>Export as CSV, HTML, playlist, Kover XML and other
 formats. Exported CSV files can be imported again.</para></listitem>
@@ -475,7 +477,7 @@ reverted, else only the changes of the selected files are reverted.
 <listitem><para>The <action>Import dialog</action> can be used to import data
 directly from a freedb.org server, from the Web-interface of <ulink
 url="http://freedb.org">freedb.org</ulink>, from a MusicBrainz server, from
-Discogs  or other sources of album track lists in textual format.
+Discogs, Amazon or other sources of album track lists in textual format.
 </para>
 <para id="import-freedb">
 Import from a freedb.org server is possible using a dialog which appears when
@@ -499,6 +501,15 @@ can be imported by terminating the import dialog with
 <para id="import-discogs">
 A search on the Discogs server can be performed using
 <guibutton>Discogs</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
+you can enter artist and album and then choose from a list of releases.
+If <guilabel>Additional Tags</guilabel> is marked, more information is
+imported if available, e.g. performers, arrangers, or the publisher.
+If <guilabel>Cover Art</guilabel> is marked, cover art will be downloaded if
+available.
+</para>
+<para id="import-amazon">
+A search on Amazon can be performed using
+<guibutton>Amazon</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
 you can enter artist and album and then choose from a list of releases.
 If <guilabel>Additional Tags</guilabel> is marked, more information is
 imported if available, e.g. performers, arrangers, or the publisher.
@@ -640,6 +651,30 @@ dialog.</para></listitem>
 <listitem><para><action>Import from the TrackType.org server.</action> This menu
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>TrackType.org</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from Discogs...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from the Discogs server.</action>
+This menu item opens the same import dialog as
+<guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>From Discogs</guibutton>
+dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Import from Amazon...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Import from Amazon.</action>
+This menu item opens the same import dialog as
+<guimenuitem>Import...</guimenuitem>, but
+opens directly the <guibutton>From Amazon</guibutton>
 dialog.</para></listitem> 
 </varlistentry>
 

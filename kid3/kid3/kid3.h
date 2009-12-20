@@ -56,6 +56,7 @@ typedef QMainWindow Kid3AppBaseClass;
 #include "miscconfig.h"
 #include "freedbconfig.h"
 #include "discogsconfig.h"
+#include "amazonconfig.h"
 #include "musicbrainzconfig.h"
 #include "filterconfig.h"
 #include "playlistconfig.h"
@@ -303,6 +304,8 @@ public:
 	static FreedbConfig s_trackTypeCfg;
 	/** Discogs configuration */
 	static DiscogsConfig s_discogsCfg;
+	/** Amazon configuration */
+	static AmazonConfig s_amazonCfg;
 	/** MusicBrainz configuration */
 	static MusicBrainzConfig s_musicBrainzCfg;
 	/** Filter configuration */
@@ -536,6 +539,11 @@ public slots:
 	 * Import from Discogs.
 	 */
 	void slotImportDiscogs();
+
+	/**
+	 * Import from Amazon.
+	 */
+	void slotImportAmazon();
 
 	/**
 	 * Import from MusicBrainz release database.

@@ -43,7 +43,7 @@ public:
 	/** Import servers */
 	enum ImportServer {
 		ServerFreedb, ServerTrackType, ServerDiscogs,
-		ServerMusicBrainzRelease, ServerMusicBrainzFingerprint
+		ServerAmazon, ServerMusicBrainzRelease, ServerMusicBrainzFingerprint
 	};
 
 	/**

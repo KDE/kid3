@@ -60,6 +60,7 @@
 #include "tracktypedialog.h"
 #include "musicbrainzreleasedialog.h"
 #include "discogsdialog.h"
+#include "amazondialog.h"
 #include "kid3.h"
 #include "taggedfile.h"
 #include "importselector.h"
@@ -198,6 +199,7 @@ ImportSelector::ImportSelector(
 	m_trackTypeDialog = 0;
 	m_musicBrainzReleaseDialog = 0;
 	m_discogsDialog = 0;
+	m_amazonDialog = 0;
 #ifdef HAVE_TUNEPIMP
 	m_musicBrainzDialog = 0;
 #endif
@@ -289,6 +291,8 @@ ImportSelector::ImportSelector(
 	m_serverComboBox->QCM_insertItem(ImportConfig::ServerFreedb, i18n("gnudb.org"));
 	m_serverComboBox->QCM_insertItem(ImportConfig::ServerTrackType, i18n("TrackType.org"));
 	m_serverComboBox->QCM_insertItem(ImportConfig::ServerDiscogs, i18n("Discogs"));
+	m_serverComboBox->QCM_insertItem(ImportConfig::ServerAmazon,
+																	 i18n("Amazon"));
 	m_serverComboBox->QCM_insertItem(ImportConfig::ServerMusicBrainzRelease,
 																	 i18n("MusicBrainz Release"));
 #ifdef HAVE_TUNEPIMP
@@ -376,6 +380,11 @@ ImportSelector::~ImportSelector()
 		m_discogsDialog->disconnect();
 		delete m_discogsDialog;
 		m_discogsDialog = 0;
+	}
+	if (m_amazonDialog) {
+		m_amazonDialog->disconnect();
+		delete m_amazonDialog;
+		m_amazonDialog = 0;
 	}
 #ifdef HAVE_TUNEPIMP
 	if (m_musicBrainzDialog) {
@@ -535,6 +544,9 @@ void ImportSelector::fromServer()
 			case ImportConfig::ServerDiscogs:
 				fromDiscogs();
 				break;
+			case ImportConfig::ServerAmazon:
+				fromAmazon();
+				break;
 			case ImportConfig::ServerMusicBrainzRelease:
 				fromMusicBrainzRelease();
 				break;
@@ -610,6 +622,23 @@ void ImportSelector::fromDiscogs()
 		m_discogsDialog->setArtistAlbum(m_trackDataVector.getArtist(),
 																		m_trackDataVector.getAlbum());
 		(void)m_discogsDialog->exec();
+	}
+}
+
+/**
+ * Import from www.amazon.com and preview in table.
+ */
+void ImportSelector::fromAmazon()
+{
+	if (!m_amazonDialog) {
+		m_amazonDialog = new AmazonDialog(this, m_trackDataVector);
+		connect(m_amazonDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
+	}
+	if (m_amazonDialog) {
+		m_amazonDialog->setArtistAlbum(m_trackDataVector.getArtist(),
+																		m_trackDataVector.getAlbum());
+		(void)m_amazonDialog->exec();
 	}
 }
 

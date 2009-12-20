@@ -51,6 +51,7 @@ class TrackTypeDialog;
 class MusicBrainzDialog;
 class MusicBrainzReleaseDialog;
 class DiscogsDialog;
+class AmazonDialog;
 class ImportTable;
 
 /**
@@ -239,6 +240,11 @@ public slots:
 	void fromDiscogs();
 
 	/**
+	 * Import from www.amazon.com and preview in table.
+	 */
+	void fromAmazon();
+
+	/**
 	 * Set the format lineedits to the format selected in the combo box.
 	 *
 	 * @param index current index of the combo box
@@ -348,6 +354,8 @@ private:
 	MusicBrainzReleaseDialog* m_musicBrainzReleaseDialog;
 	/** Discogs import dialog */
 	DiscogsDialog* m_discogsDialog;
+	/** Amazon import dialog */
+	AmazonDialog* m_amazonDialog;
 	/** import source */
 	ImportSource m_importSource;
 	/** track data */

@@ -33,7 +33,7 @@ Description: KDE MP3 ID3 tag editor
   * Generate playlist files
   * Automatic case conversion and string translation
   * Import and export album data
-  * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs
+  * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
  .
  This package uses KDE libraries, if you do not use KDE you should use kid3-qt.
 
@@ -56,6 +56,6 @@ Description: Audio tag editor
   * Generate playlist files
   * Automatic case conversion and string translation
   * Import and export album data
-  * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs
+  * Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
  .
  This package does not use KDE libraries, if you use KDE you should use kid3.

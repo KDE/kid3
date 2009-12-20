@@ -41,7 +41,7 @@ With Kid3 you can:
 - Generate playlist files
 - Automatic case conversion and string translation
 - Import and export album data
-- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs
+- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
 
 This package uses KDE libraries, if you do not use KDE you should use kid3-qt.
 
@@ -115,7 +115,7 @@ With Kid3 you can:
 - Generate playlist files
 - Automatic case conversion and string translation
 - Import and export album data
-- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs
+- Import from gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon
 
 This package does not use KDE libraries, if you use KDE you should use kid3.
 

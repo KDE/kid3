@@ -55,6 +55,7 @@ public:
 		ASD_Freedb,
 		ASD_TrackType,
 		ASD_Discogs,
+		ASD_Amazon,
 		ASD_MusicBrainzRelease,
 		ASD_MusicBrainz
 	};
