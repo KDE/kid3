@@ -182,6 +182,14 @@ public:
 	QString m_formatText;
 	/** index of filename format selected */
 	int m_formatItem;
+	/** filename formats */
+	QStringList m_formatItems;
+	/** from filename format */
+	QString m_formatFromFilenameText;
+	/** index of from filename format selected */
+	int m_formatFromFilenameItem;
+	/** from filename formats */
+	QStringList m_formatFromFilenameItems;
 	/** directory name format */
 	QString m_dirFormatText;
 	/** index of directory name format selected */

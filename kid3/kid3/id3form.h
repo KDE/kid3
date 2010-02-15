@@ -148,6 +148,22 @@ public:
 	void setFilenameFormat(const QString& fmt) { m_formatComboBox->setEditText(fmt); }
 
 	/**
+	 * Get current from filename format string.
+	 * @return filename format.
+	 */
+	QString getFromFilenameFormat() const {
+		return m_formatFromFilenameComboBox->currentText();
+	}
+
+	/**
+	 * Set current from filename format string.
+	 * @param fmt filename format
+	 */
+	void setFromFilenameFormat(const QString& fmt) {
+		m_formatFromFilenameComboBox->setEditText(fmt);
+	}
+
+	/**
 	 * Get filename.
 	 */
 	QString getFilename() const { return m_nameLineEdit->text(); }
@@ -477,6 +493,7 @@ private:
 
 	FileList* m_fileListBox;
 	QComboBox* m_formatComboBox;
+	QComboBox* m_formatFromFilenameComboBox;
 	QLabel* m_nameLabel;
 	QLineEdit* m_nameLineEdit;
 	QLabel* m_detailsLabel;

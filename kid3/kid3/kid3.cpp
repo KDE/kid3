@@ -3115,7 +3115,8 @@ void Kid3App::getTagsFromFilenameV1()
 					m_view->getFilename());
 			}
 			mp3file->getFile()->getAllFramesV1(frames);
-			mp3file->getFile()->getTagsFromFilename(frames, m_view->getFilenameFormat());
+			mp3file->getFile()->getTagsFromFilename(frames,
+			                                        m_view->getFromFilenameFormat());
 			frames.removeDisabledFrames(flt);
 			formatFramesIfEnabled(frames);
 			mp3file->getFile()->setFramesV1(frames);
@@ -3145,7 +3146,8 @@ void Kid3App::getTagsFromFilenameV2()
 					m_view->getFilename());
 			}
 			mp3file->getFile()->getAllFramesV2(frames);
-			mp3file->getFile()->getTagsFromFilename(frames, m_view->getFilenameFormat());
+			mp3file->getFile()->getTagsFromFilename(frames,
+			                                        m_view->getFromFilenameFormat());
 			frames.removeDisabledFrames(flt);
 			formatFramesIfEnabled(frames);
 			mp3file->getFile()->setFramesV2(frames);

@@ -179,12 +179,10 @@ Id3Form::Id3Form(QWidget* parent)
 	filenameGroupBoxLayout->addWidget(m_nameLabel, 0, 0);
 
 	m_nameLineEdit = new QLineEdit(filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_nameLineEdit, 0, 1);
+	filenameGroupBoxLayout->addWidget(m_nameLineEdit, 0, 1, 1, 2);
 
-	m_fnV1Button = new QPushButton(i18n("From Tag 1"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_fnV1Button, 0, 2);
-
-	QLabel* formatLabel = new QLabel(i18n("Format:"), filenameGroupBox);
+	QLabel* formatLabel = new QLabel(i18n("Format:") + QChar(0x2191),
+	                                 filenameGroupBox);
 	filenameGroupBoxLayout->addWidget(formatLabel, 1, 0);
 
 	m_formatComboBox = new QComboBox(filenameGroupBox);
@@ -192,15 +190,27 @@ Id3Form::Id3Form(QWidget* parent)
 	m_formatComboBox->setToolTip(FrameFormatReplacer::getToolTip());
 	filenameGroupBoxLayout->addWidget(m_formatComboBox, 1, 1);
 
+	m_fnV1Button = new QPushButton(i18n("From Tag 1"), filenameGroupBox);
+	filenameGroupBoxLayout->addWidget(m_fnV1Button, 1, 2);
+
+	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
+	                                             filenameGroupBox);
+	filenameGroupBoxLayout->addWidget(formatFromFilenameLabel, 2, 0);
+
+	m_formatFromFilenameComboBox = new QComboBox(filenameGroupBox);
+	m_formatFromFilenameComboBox->setEditable(true);
+	m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
+	filenameGroupBoxLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
+
 	QPushButton* fnV2Button =
 		new QPushButton(i18n("From Tag 2"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(fnV2Button, 1, 2);
+	filenameGroupBoxLayout->addWidget(fnV2Button, 2, 2);
 
 	QLabel* infoLabel = new QLabel(i18n("Info:"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(infoLabel, 2, 0);
+	filenameGroupBoxLayout->addWidget(infoLabel, 3, 0);
 
 	m_detailsLabel = new QLabel(filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_detailsLabel, 2, 1, 1, 2);
+	filenameGroupBoxLayout->addWidget(m_detailsLabel, 3, 1, 1, 2);
 
 	m_idV1GroupBox = new QGroupBox(i18n("Tag &1"), m_rightHalfVBox);
 	m_idV1GroupBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -301,7 +311,7 @@ Id3Form::Id3Form(QWidget* parent)
 	filenameGroupBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	rightHalfLayout->addWidget(filenameGroupBox);
 	QGridLayout* filenameGroupBoxLayout =
-		new QGridLayout(filenameGroupBox, 4, 3, margin, spacing);
+		new QGridLayout(filenameGroupBox, 5, 3, margin, spacing);
 	int fontHeight = filenameGroupBox->fontMetrics().height();
 	if (fontHeight > 0 && fontHeight < 100) {
 		filenameGroupBoxLayout->addMultiCell(
@@ -314,27 +324,41 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_nameLineEdit = new QLineEdit(filenameGroupBox);
 	filenameGroupBoxLayout->addWidget(m_nameLineEdit, 1, 1);
+	// using "filenameGroupBoxLayout->addMultiCellWidget(m_nameLineEdit, 1, 1, 1, 2)"
+	// makes the first column wide?!
 
-	m_fnV1Button = new QPushButton(i18n("From Tag 1"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_fnV1Button, 1, 2);
-
-	QLabel* formatLabel = new QLabel(i18n("Format:"), filenameGroupBox);
+	QLabel* formatLabel = new QLabel(i18n("Format:") + QChar(0x2191),
+	                                 filenameGroupBox);
 	filenameGroupBoxLayout->addWidget(formatLabel, 2, 0);
 
 	m_formatComboBox = new QComboBox(filenameGroupBox);
 	m_formatComboBox->setEditable(true);
+	m_formatComboBox->setDuplicatesEnabled(false);
 	QToolTip::add(m_formatComboBox, FrameFormatReplacer::getToolTip());
 	filenameGroupBoxLayout->addWidget(m_formatComboBox, 2, 1);
 
+	m_fnV1Button = new QPushButton(i18n("From Tag 1"), filenameGroupBox);
+	filenameGroupBoxLayout->addWidget(m_fnV1Button, 2, 2);
+
+	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
+	                                             filenameGroupBox);
+	filenameGroupBoxLayout->addWidget(formatFromFilenameLabel, 3, 0);
+
+	m_formatFromFilenameComboBox = new QComboBox(filenameGroupBox);
+	m_formatFromFilenameComboBox->setEditable(true);
+	m_formatFromFilenameComboBox->setDuplicatesEnabled(false);
+	QToolTip::add(m_formatFromFilenameComboBox, FrameFormatReplacer::getToolTip());
+	filenameGroupBoxLayout->addWidget(m_formatFromFilenameComboBox, 3, 1);
+
 	QPushButton* fnV2Button =
 		new QPushButton(i18n("From Tag 2"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(fnV2Button, 2, 2);
+	filenameGroupBoxLayout->addWidget(fnV2Button, 3, 2);
 
 	QLabel* infoLabel = new QLabel(i18n("Info:"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(infoLabel, 3, 0);
+	filenameGroupBoxLayout->addWidget(infoLabel, 4, 0);
 
 	m_detailsLabel = new QLabel(filenameGroupBox);
-	filenameGroupBoxLayout->addMultiCellWidget(m_detailsLabel, 3, 3, 1, 2);
+	filenameGroupBoxLayout->addMultiCellWidget(m_detailsLabel, 4, 4, 1, 2);
 
 	m_idV1GroupBox =
 		new QGroupBox(2, Qt::Horizontal, i18n("Tag &1"), m_rightHalfVBox);
@@ -448,7 +472,8 @@ Id3Form::Id3Form(QWidget* parent)
 	setTabOrder(m_dirListBox, filenameGroupBox);
 	setTabOrder(filenameGroupBox, m_nameLineEdit);
 	setTabOrder(m_nameLineEdit, m_formatComboBox);
-	setTabOrder(m_formatComboBox, m_fnV1Button);
+	setTabOrder(m_formatComboBox, m_formatFromFilenameComboBox);
+	setTabOrder(m_formatFromFilenameComboBox, m_fnV1Button);
 	setTabOrder(m_fnV1Button, fnV2Button);
 	setTabOrder(fnV2Button, m_framesV1Table);
 	setTabOrder(m_framesV1Table, filenameV1PushButton);
@@ -868,6 +893,26 @@ void Id3Form::setFocusV2()
 }
 
 /**
+ * Get the items from a combo box.
+ *
+ * @param comboBox combo box
+ *
+ * @return item texts from combo box.
+ */
+static QStringList getItemsFromComboBox(const QComboBox* comboBox)
+{
+	QStringList lst;
+	for (int i = 0; i < comboBox->count(); ++i) {
+#if QT_VERSION >= 0x040000
+		lst += comboBox->itemText(i);
+#else
+		lst += comboBox->text(i);
+#endif
+	}
+	return lst;
+}
+
+/**
  * Save the local settings to the configuration.
  */
 void Id3Form::saveConfig()
@@ -876,6 +921,10 @@ void Id3Form::saveConfig()
 	Kid3App::s_miscCfg.m_vSplitterSizes = m_vSplitter->sizes();
 	Kid3App::s_miscCfg.m_formatItem = m_formatComboBox->QCM_currentIndex();
 	Kid3App::s_miscCfg.m_formatText = m_formatComboBox->currentText();
+	Kid3App::s_miscCfg.m_formatItems = getItemsFromComboBox(m_formatComboBox);
+	Kid3App::s_miscCfg.m_formatFromFilenameItem = m_formatFromFilenameComboBox->QCM_currentIndex();
+	Kid3App::s_miscCfg.m_formatFromFilenameText = m_formatFromFilenameComboBox->currentText();
+	Kid3App::s_miscCfg.m_formatFromFilenameItems = getItemsFromComboBox(m_formatFromFilenameComboBox);
 }
 
 /**
@@ -905,13 +954,30 @@ void Id3Form::readConfig()
 #endif
 			<< 451 << 109);
 	}
+	if (!Kid3App::s_miscCfg.m_formatItems.isEmpty()) {
+		m_formatComboBox->clear();
+		m_formatComboBox->QCM_addItems(Kid3App::s_miscCfg.m_formatItems);
+	}
+	if (!Kid3App::s_miscCfg.m_formatFromFilenameItems.isEmpty()) {
+		m_formatFromFilenameComboBox->clear();
+		m_formatFromFilenameComboBox->QCM_addItems(Kid3App::s_miscCfg.m_formatFromFilenameItems);
+	}
 #if QT_VERSION >= 0x040000
 	m_formatComboBox->setItemText(Kid3App::s_miscCfg.m_formatItem,
 																Kid3App::s_miscCfg.m_formatText);
 	m_formatComboBox->setCurrentIndex(Kid3App::s_miscCfg.m_formatItem);
+	m_formatFromFilenameComboBox->setItemText(
+		Kid3App::s_miscCfg.m_formatFromFilenameItem,
+		Kid3App::s_miscCfg.m_formatFromFilenameText);
+	m_formatFromFilenameComboBox->setCurrentIndex(
+		Kid3App::s_miscCfg.m_formatFromFilenameItem);
 #else
 	m_formatComboBox->setCurrentItem(Kid3App::s_miscCfg.m_formatItem);
 	m_formatComboBox->setCurrentText(Kid3App::s_miscCfg.m_formatText);
+	m_formatFromFilenameComboBox->setCurrentItem(
+		Kid3App::s_miscCfg.m_formatFromFilenameItem);
+	m_formatFromFilenameComboBox->setCurrentText(
+		Kid3App::s_miscCfg.m_formatFromFilenameText);
 #endif
 }
 
@@ -926,6 +992,7 @@ void Id3Form::initView()
 		strList += *sl;
 	}
 	m_formatComboBox->QCM_addItems(strList);
+	m_formatFromFilenameComboBox->QCM_addItems(strList);
 }
 
 /**

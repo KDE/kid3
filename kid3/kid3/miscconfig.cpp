@@ -111,6 +111,8 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_nameFilter(""),
 	m_formatText(s_defaultFnFmtList[0]),
 	m_formatItem(0),
+	m_formatFromFilenameText(s_defaultFnFmtList[0]),
+	m_formatFromFilenameItem(0),
 	m_dirFormatText(s_defaultDirFmtList[0]),
 	m_dirFormatItem(0),
 	m_renDirSrc(0),
@@ -156,7 +158,11 @@ void MiscConfig::writeToConfig(
 	KCM_KConfigGroup(cfg, config, m_group);
 	cfg.writeEntry("NameFilter2", m_nameFilter);
 	cfg.writeEntry("FormatItem", m_formatItem);
+	cfg.writeEntry("FormatItems", m_formatItems);
 	cfg.writeEntry("FormatText2", m_formatText);
+	cfg.writeEntry("FormatFromFilenameItem", m_formatFromFilenameItem);
+	cfg.writeEntry("FormatFromFilenameItems", m_formatFromFilenameItems);
+	cfg.writeEntry("FormatFromFilenameText", m_formatFromFilenameText);
 	cfg.writeEntry("DirFormatItem", m_dirFormatItem);
 	cfg.writeEntry("DirFormatText", m_dirFormatText);
 	cfg.writeEntry("RenameDirectorySource", m_renDirSrc);
@@ -209,7 +215,11 @@ void MiscConfig::writeToConfig(
 	config->beginGroup("/" + m_group);
 	config->QCM_writeEntry("/NameFilter2", m_nameFilter);
 	config->QCM_writeEntry("/FormatItem", m_formatItem);
+	config->QCM_writeEntry("/FormatItems", m_formatItems);
 	config->QCM_writeEntry("/FormatText2", m_formatText);
+	config->QCM_writeEntry("/FormatFromFilenameItem", m_formatFromFilenameItem);
+	config->QCM_writeEntry("/FormatFromFilenameItems", m_formatFromFilenameItems);
+	config->QCM_writeEntry("/FormatFromFilenameText", m_formatFromFilenameText);
 	config->QCM_writeEntry("/DirFormatItem", m_dirFormatItem);
 	config->QCM_writeEntry("/DirFormatText", m_dirFormatText);
 	config->QCM_writeEntry("/RenameDirectorySource", m_renDirSrc);
@@ -305,6 +315,12 @@ void MiscConfig::readFromConfig(
 	    cfg.readEntry("NameFilter2", "");
 	m_formatItem =
 	    cfg.KCM_readNumEntry("FormatItem", 0);
+	m_formatItems =
+	    cfg.KCM_readListEntry("FormatItems");
+	m_formatFromFilenameItem =
+	    cfg.KCM_readNumEntry("FormatFromFilenameItem", 0);
+	m_formatFromFilenameItems =
+	    cfg.KCM_readListEntry("FormatFromFilenameItems");
 	m_dirFormatItem =
 	    cfg.KCM_readNumEntry("DirFormatItem", 0);
 	m_renDirSrc = cfg.KCM_readNumEntry("RenameDirectorySource", 0);
@@ -320,6 +336,8 @@ void MiscConfig::readFromConfig(
 	    static_cast<int>(VP_METADATA_BLOCK_PICTURE));
 	m_formatText =
 	    cfg.readEntry("FormatText2", s_defaultFnFmtList[0]);
+	m_formatFromFilenameText =
+	    cfg.readEntry("FormatFromFilenameText", s_defaultFnFmtList[0]);
 	m_dirFormatText =
 	    cfg.readEntry("DirFormatText", s_defaultDirFmtList[0]);
 	m_splitterSizes = cfg.KCM_readIntListEntry("SplitterSizes");
@@ -358,6 +376,12 @@ void MiscConfig::readFromConfig(
 	    config->QCM_readEntry("/NameFilter2", "");
 	m_formatItem =
 	    config->QCM_readNumEntry("/FormatItem", 0);
+	m_formatItems =
+	    config->QCM_readListEntry("/FormatItems");
+	m_formatFromFilenameItem =
+	    config->QCM_readNumEntry("/FormatFromFilenameItem", 0);
+	m_formatFromFilenameItems =
+	    config->QCM_readListEntry("/FormatFromFilenameItems");
 	m_dirFormatItem =
 	    config->QCM_readNumEntry("/DirFormatItem", 0);
 	m_renDirSrc = config->QCM_readNumEntry("/RenameDirectorySource", 0);
@@ -373,6 +397,8 @@ void MiscConfig::readFromConfig(
 
 	m_formatText =
 	    config->QCM_readEntry("/FormatText2", s_defaultFnFmtList[0]);
+	m_formatFromFilenameText =
+	    config->QCM_readEntry("/FormatFromFilenameText", s_defaultFnFmtList[0]);
 	m_dirFormatText =
 	    config->QCM_readEntry("/DirFormatText", s_defaultDirFmtList[0]);
 	m_splitterSizes.clear();
