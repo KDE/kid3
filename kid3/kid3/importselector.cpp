@@ -901,6 +901,7 @@ void ImportSelector::showPreview() {
 	}
 	m_tab->scrollToTop();
 	m_tab->resizeColumnsToContents();
+	m_tab->resizeRowsToContents();
 	m_tab->setVerticalHeaderLabels(vLabels);
 #else
 	m_tab->setNumRows(0);
