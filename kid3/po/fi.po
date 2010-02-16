@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Kid3 1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2009-06-15 21:52+0200\n"
-"PO-Revision-Date: 2009-09-27 19:53+0200\n"
-"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
+"PO-Revision-Date: 2010-02-15 21:39+0200\n"
+"Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -228,7 +228,7 @@ msgstr "Selain"
 
 #: configdialog.cpp:386
 msgid "Web &browser:"
-msgstr "&Seittiselain:"
+msgstr "&Web-selain:"
 
 #: configdialog.cpp:402 configdialog.cpp:404
 msgid "Context &Menu Commands"
@@ -1000,11 +1000,11 @@ msgstr "Discogs"
 
 #: importselector.cpp:293
 msgid "MusicBrainz Release"
-msgstr "MusicBrainz Relese"
+msgstr "MusicBrainzin julkaisu"
 
 #: importselector.cpp:296
 msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
+msgstr "MusicBrainzin sormenjälki"
 
 #: importselector.cpp:303
 msgid "D&estination:"
@@ -1084,7 +1084,7 @@ msgstr "Kanavat"
 
 #: importtrackdata.cpp:239
 msgid "Codec"
-msgstr "Kodekki"
+msgstr "Koodekki"
 
 #: kid3.cpp:258
 msgid "Enables/disables the toolbar"
@@ -1160,7 +1160,7 @@ msgstr "Tuo MusicBrainzin &julkaisuista..."
 
 #: kid3.cpp:314 kid3.cpp:512
 msgid "Import from &MusicBrainz Fingerprint..."
-msgstr "Tuo MusicBrain&zin Fingerprintistä..."
+msgstr "Tuo MusicBrain&zin sormenjäljestä..."
 
 #: kid3.cpp:319 kid3.cpp:520
 msgid "&Browse Cover Art..."
@@ -1260,11 +1260,11 @@ msgstr "Tuo Discogsista"
 
 #: kid3.cpp:503
 msgid "Import from MusicBrainz Release"
-msgstr "Tuo MusicBrainzin julkaisuista"
+msgstr "Tuo MusicBrainzin julkaisusta"
 
 #: kid3.cpp:511
 msgid "Import from MusicBrainz Fingerprint"
-msgstr "Tuo MusicBrainzin Fingerprintist"
+msgstr "Tuo MusicBrainzin sormenjäljestä"
 
 #: kid3.cpp:519
 msgid "Browse album cover artwork"
@@ -1448,7 +1448,7 @@ msgstr "Tuo..."
 
 #: kid3.cpp:2096 kid3.cpp:2099
 msgid "Show Tag &1"
-msgstr "Nyt &1-tagi"
+msgstr "Näytä &1-tagi"
 
 #: kid3.cpp:2098
 msgid "Show Tag 1"
@@ -1456,7 +1456,7 @@ msgstr "Näytä 1-tagi"
 
 #: kid3.cpp:2124 kid3.cpp:2127
 msgid "Show Tag &2"
-msgstr "Nyt &2-tagi"
+msgstr "Näytä &2-tagi"
 
 #: kid3.cpp:2126
 msgid "Show Tag 2"
@@ -1584,7 +1584,7 @@ msgstr "RVAD – Äänenvoimakkuuden suhteellinen säätö"
 
 #: mp3file.cpp:1289 taglibfile.cpp:1505
 msgid "RVRB - Reverb"
-msgstr ""
+msgstr "RVRB – Kaikuefekti"
 
 #: mp3file.cpp:1292 taglibfile.cpp:1508
 msgid "SYLT - Synchronized lyric/text"
@@ -1752,7 +1752,7 @@ msgstr "TYER – Vuosi"
 
 #: mp3file.cpp:1346 taglibfile.cpp:1556
 msgid "UFID - Unique file identifier"
-msgstr "UFID – Tiedoston ainukertainen tunniste"
+msgstr "UFID – Tiedoston ainutkertainen tunniste"
 
 #: mp3file.cpp:1347 taglibfile.cpp:1557
 msgid "USER - Terms of use"
@@ -1959,7 +1959,7 @@ msgstr "Käytä soittolistan tiedostoille s&uhteellista polkua"
 
 #: playlistdialog.cpp:244
 msgid "Use full p&ath for files in playlist"
-msgstr "Käyttä soittolistan tiedostoille &täyttä polkua"
+msgstr "Käytä soittolistan tiedostoille &täyttä polkua"
 
 #: playlistdialog.cpp:245
 msgid "Write only &list of files"
@@ -2103,7 +2103,7 @@ msgstr "TIPL – Mukana olleiden henkilöiden luettelo"
 
 #: taglibfile.cpp:1531
 msgid "TMCL - Musician credits list"
-msgstr ""
+msgstr "TMCL – Ansioituneiden muusikkojen luettelo"
 
 #: taglibfile.cpp:1533
 msgid "TMOO - Mood"
@@ -2138,21 +2138,21 @@ msgstr "Päätyökalupalkki"
 #: rc.cpp:16
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Tommi Nieminen"
+msgstr "Tommi Nieminen, Ville Skyttä"
 
 #: rc.cpp:17
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "translator@legisign.org"
+msgstr "translator@legisign.org, ville.skytta@iki.fi"
 
 #: rc.cpp:18
 msgid ""
 "_: NAME OF TRANSLATORS\n"
 "Your names"
-msgstr "Tommi Nieminen"
+msgstr "Tommi Nieminen, Ville Skyttä"
 
 #: rc.cpp:19
 msgid ""
 "_: EMAIL OF TRANSLATORS\n"
 "Your emails"
-msgstr "translator@legisign.org"
+msgstr "translator@legisign.org, ville.skytta@iki.fi"
