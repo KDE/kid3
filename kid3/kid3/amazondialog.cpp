@@ -421,5 +421,12 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 			}
 			atTrackDataListEnd = (it == m_trackDataVector.end());
 		}
+	} else if (!framesHdr.empty()) {
+		// if there are no track data, fill frame header data
+		for (ImportTrackDataVector::iterator it = m_trackDataVector.begin();
+				 it != m_trackDataVector.end();
+				 ++it) {
+			(*it).setFrameCollection(framesHdr);
+		}
 	}
 }
