@@ -2987,7 +2987,9 @@ void Kid3App::updateGuiControls()
 		}
 	}
 	else {
-		m_view->setFilenameEditEnabled(false);
+		if (num_v2_selected > 1) {
+			m_view->setFilenameEditEnabled(false);
+		}
 		m_view->setDetailInfo(info);
 		m_view->setTagFormatV1(QString::null);
 		m_view->setTagFormatV2(QString::null);
