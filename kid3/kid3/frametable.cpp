@@ -28,11 +28,16 @@
 #include "kid3.h"
 #include "genres.h"
 #include <qcombobox.h>
+#include <qaction.h>
+#include <qpoint.h>
 #if QT_VERSION >= 0x040000
 #include <QHeaderView>
 #include <QKeyEvent>
 #include <QItemDelegate>
 #include <QApplication>
+#include <QMenu>
+#else
+#include <qpopupmenu.h>
 #endif
 
 /** Column indices. */
@@ -747,6 +752,9 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	setItemDelegate(new FrameItemDelegate(this));
 	setEditTriggers(AllEditTriggers);
 	viewport()->installEventFilter(this); // keep track of editors
+	setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
+			this, SLOT(customContextMenu(const QPoint&)));
 }
 #else
 FrameTable::FrameTable(QWidget* parent, bool id3v1) :
@@ -768,6 +776,8 @@ FrameTable::FrameTable(QWidget* parent, bool id3v1) :
 	adjustColumn(CI_Enable);
 	setColumnStretchable(CI_Value, true);
 	removeRow(0);
+	connect(this, SIGNAL(contextMenuRequested(int, int, const QPoint&)),
+			this, SLOT(contextMenu(int, int, const QPoint&)));
 }
 #endif
 
@@ -1286,4 +1296,121 @@ QSize FrameTable::sizeHint() const
 {
 	return QScrollView::sizeHint();
 }
+#endif
+
+
+/**
+ * Set the check state of all frames in the table.
+ *
+ * @param checked true to check the frames
+ */
+void FrameTable::setAllCheckStates(bool checked)
+{
+#if QT_VERSION >= 0x040000
+	for (int row = 0; row < rowCount(); ++row) {
+		QTableWidgetItem* twi = item(row, CI_Enable);
+		if (twi) {
+			twi->setCheckState(checked ? Qt::Checked : Qt::Unchecked);
+		}
+	}
+#else
+	for (int row = 0; row < numRows(); ++row) {
+		QTableItem* ti = item(row, CI_Enable);
+		if (ti) {
+			NameTableItem* nti = dynamic_cast<NameTableItem*>(ti);
+			if (nti) {
+				nti->setChecked(checked);
+			}
+		}
+	}
+#endif
+}
+
+/**
+ * Select all frames in the table.
+ */
+void FrameTable::selectAllFrames()
+{
+	setAllCheckStates(true);
+}
+
+/**
+ * Deselect all frames in the table.
+ */
+void FrameTable::deselectAllFrames()
+{
+	setAllCheckStates(false);
+}
+
+/**
+ * Execute a context menu action.
+ *
+ * @param action action of selected menu
+ */
+#if QT_VERSION >= 0x040000
+void FrameTable::executeAction(QAction* action)
+{
+	if (action) {
+		int cmd = action->data().toInt();
+		switch (cmd) {
+			case 0:
+				selectAllFrames();
+				break;
+			case 1:
+			default:
+				deselectAllFrames();
+				break;
+		}
+	}
+}
+#else
+void FrameTable::executeAction(QAction*) {}
+#endif
+
+/**
+ * Display context menu.
+ *
+ * @param row row at which context menu is displayed
+ * @param col column at which context menu is displayed
+ * @param pos position where context menu is drawn on screen
+ */
+void FrameTable::contextMenu(int row, int col, const QPoint& pos)
+{
+	if (col == 0 && row >= 0) {
+#if QT_VERSION >= 0x040000
+		QMenu menu(this);
+		QAction* action = menu.addAction(i18n("&Select all"));
+		if (action) action->setData(0);
+		action = menu.addAction(i18n("&Deselect all"));
+		if (action) action->setData(1);
+		connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
+#else
+		QPopupMenu menu(this);
+		menu.insertItem(i18n("&Select all"), this, SLOT(selectAllFrames()));
+		menu.insertItem(i18n("&Deselect all"), this, SLOT(deselectAllFrames()));
+#endif
+		menu.setMouseTracking(true);
+		menu.exec(pos);
+	}
+}
+
+#if QT_VERSION >= 0x040000
+/**
+ * Display custom context menu.
+ *
+ * @param pos position where context menu is drawn on screen
+ */
+void FrameTable::customContextMenu(const QPoint& pos)
+{
+	QTableWidgetItem* item = itemAt(pos);
+	if (item) {
+#if QT_VERSION >= 0x040200
+		contextMenu(item->row(), item->column(), mapToGlobal(pos));
+#else
+		contextMenu(currentRow(), currentColumn(), mapToGlobal(pos));
+#endif
+	}
+}
+#else
+void FrameTable::customContextMenu(const QPoint&) {}
 #endif

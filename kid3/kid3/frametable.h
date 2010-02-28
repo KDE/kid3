@@ -40,6 +40,9 @@ typedef QTableWidget FrameTableBaseClass;
 typedef QTable FrameTableBaseClass;
 #endif
 
+class QAction;
+class QPoint;
+
 /**
  * Table to edit frames.
  */
@@ -154,6 +157,40 @@ public slots:
 	 */
 	void triggerResize();
 
+private slots:
+	/**
+	 * Select all frames in the table.
+	 */
+	void selectAllFrames();
+
+	/**
+	 * Deselect all frames in the table.
+	 */
+	void deselectAllFrames();
+
+	/**
+	 * Execute a context menu action.
+	 *
+	 * @param action action of selected menu
+	 */
+	void executeAction(QAction* action);
+
+	/**
+	 * Display context menu.
+	 *
+	 * @param row row at which context menu is displayed
+	 * @param col column at which context menu is displayed
+	 * @param pos position where context menu is drawn on screen
+	 */
+	void contextMenu(int row, int /* col */, const QPoint& pos);
+
+	/**
+	 * Display custom context menu.
+	 *
+	 * @param pos position where context menu is drawn on screen
+	 */
+	void customContextMenu(const QPoint& pos);
+
 private:
 	/**
 	 * Get a display representation of the a frame name.
@@ -165,6 +202,13 @@ private:
 	 * @return display representation of name.
 	 */
 	QString getDisplayName(const QString& str) const;
+
+	/**
+	 * Set the check state of all frames in the table.
+	 *
+	 * @param checked true to check the frames
+	 */
+	void setAllCheckStates(bool checked);
 
 	int m_cursorRow;
 	int m_cursorColumn;
