@@ -1,3 +1,22 @@
+Sun Feb 28 15:50:51 CET 2010  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 1.4
+
+	* New:
+	  + Support for cover art in Ogg files.
+	  + Import from Amazon.
+	  + Separate formats for "to filename" and "from filename".
+	  + Czech translation.
+
+	* Improved:
+	  + Use of UTF8 and UTF16 encoding when non-ASCII characters are used.
+	  + GUI and usability.
+
+	* Fixed:
+	  + Correctly set tags when tags of multiple files are selected,
+	    edited, and then copied to the other tag.
+	  + Adapted to Discogs server update.
+
 Fri Oct 23 20:55:17 CEST 2009  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.3

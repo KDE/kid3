@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2009  Urs Fleisch
+ * Copyright (C) 2003-2010  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1634,7 +1634,7 @@ void Kid3App::slotHelpAbout()
 	QMessageBox::about(
 		(Kid3App*)parent(), "Kid3",
 		"Kid3 " VERSION
-		"\n(c) 2003-2009 Urs Fleisch\nufleisch@users.sourceforge.net");
+		"\n(c) 2003-2010 Urs Fleisch\nufleisch@users.sourceforge.net");
 }
 
 /**

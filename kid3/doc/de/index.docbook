@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2009</year>
+<year>2010</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2009-10-23</date>
-<releaseinfo>1.3</releaseinfo>
+<date>2010-02-28</date>
+<releaseinfo>1.4</releaseinfo>
 
 <abstract>
 <para>
@@ -278,7 +278,8 @@ Werte aus den Tags im Dateinamen einzusetzen:
 </itemizedlist>
 
 <para>
-Dieses Format wird auch verwendet, um die Tags aus dem Dateinamen zu
+Ein zweites <guilabel>Format</guilabel> Auswahlfeld (mit Pfeil runter)
+wird verwendet, um die Tags aus dem Dateinamen zu
 generieren. Falls der Dateinamen nicht diesem Format entspricht, werden noch
 einige andere, gängige Formate ausprobiert.
 </para>
@@ -1426,6 +1427,15 @@ FLAC-Dateien relevant und bestimmt den Namen des Feldes, welches für
 Kommentare verwendet wird. Hier scheinen verschiedene Anwendungen
 unterschiedliche Namen zu verwenden, "COMMENT" wird beispielsweise von xmms
 benutzt, während amaroK "DESCRIPTION" verwendet.
+</para>
+<para>
+Das Format von Bildern in Ogg/Vorbis-Dateien wird bestimmt durch
+<guilabel>Name des Bild-Feldes</guilabel> und kann
+<guilabel>METADATA_BLOCK_PICTURE</guilabel> oder <guilabel>COVERART</guilabel>
+sein. Das erstere ist der offizielle Standard und benutzt dasselbe Format wie
+Bilder in FLAC-Dateien. Bei COVERART handelt es sich um eine frühere,
+inoffizielle Methode, um Bilder in Vorbis-Tags zu codieren. Manche Player
+benutzen dieses Feld.
 </para>
 <para>
 <guilabel>Eigene Stile</guilabel> kann zur Definition von Stilen benutzt werden,

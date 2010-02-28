@@ -41,24 +41,23 @@ wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-7
 test -f id3lib3.8.3_3.8.3.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3.orig.tar.gz
 
-test -f libogg_1.1.4~dfsg-1.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.4~dfsg-1.diff.gz
+test -f libogg_1.1.4~dfsg-2.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.4~dfsg-2.diff.gz
 test -f libogg_1.1.4~dfsg.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.4~dfsg.orig.tar.gz
 
 test -f libvorbis-1.2.3.tar.gz ||
 wget http://downloads.xiph.org/releases/vorbis/libvorbis-1.2.3.tar.gz
 
-test -f taglib_1.6-3.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6-3.diff.gz
-test -f taglib_1.6.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.orig.tar.gz
+test -f taglib_1.6.1-1.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.1-1.debian.tar.gz
+test -f taglib_1.6.1.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.1.orig.tar.gz
 
-test -f zlib_1.2.3-13.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.3-13.diff.gz
-test -f zlib_1.2.3.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.3.orig.tar.gz
-
+test -f zlib_1.2.3.4.dfsg-3.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.3.4.dfsg-3.debian.tar.gz
+test -f zlib_1.2.3.4.dfsg.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.3.4.dfsg.orig.tar.gz
 
 # Create patch files
 
@@ -202,14 +201,12 @@ cd ..
 
 # zlib
 
-if ! test -d zlib-1.2.3; then
-tar xzf source/zlib_1.2.3.orig.tar.gz
-cd zlib-1.2.3/
-gunzip -c ../source/zlib_1.2.3-13.diff.gz | patch -p1
-tar xzf upstream/tarballs/zlib-1.2.3.tar.gz
-cd zlib-1.2.3/
-for f in ../debian/patches/*; do patch -p1 <$f; done
-cd ../..
+if ! test -d zlib_1.2.3.4.dfsg; then
+tar xzf source/zlib_1.2.3.4.dfsg.orig.tar.gz
+cd zlib_1.2.3.4.dfsg/
+tar xzf ../source/zlib_1.2.3.4.dfsg-3.debian.tar.gz
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+cd ..
 fi
 
 # libogg
@@ -217,7 +214,7 @@ fi
 if ! test -d libogg-1.1.4~dfsg.orig; then
 tar xzf source/libogg_1.1.4~dfsg.orig.tar.gz
 cd libogg-1.1.4~dfsg.orig/
-gunzip -c ../source/libogg_1.1.4~dfsg-1.diff.gz | patch -p1
+gunzip -c ../source/libogg_1.1.4~dfsg-2.diff.gz | patch -p1
 for f in debian/patches/*.diff; do patch -p0 <$f; done
 cd ..
 fi
@@ -256,10 +253,10 @@ fi
 
 # taglib
 
-if ! test -d taglib-1.6; then
-tar xzf source/taglib_1.6.orig.tar.gz
-cd taglib-1.6/
-gunzip -c ../source/taglib_1.6-3.diff.gz | patch -p1
+if ! test -d taglib-1.6.1; then
+tar xzf source/taglib_1.6.1.orig.tar.gz
+cd taglib-1.6.1/
+tar xzf ../source/taglib_1.6.1-1.debian.tar.gz
 for f in debian/patches/general/*.diff; do patch -p1 <$f; done
 cd ..
 fi
@@ -277,14 +274,14 @@ test -d bin || mkdir bin
 
 # zlib
 
-cd zlib-1.2.3/zlib-1.2.3
+cd zlib_1.2.3.4.dfsg/
 ./configure
 make
 mkdir -p inst/usr/local
 make install prefix=`pwd`/inst/usr/local
 cd inst
-tar czf ../../../bin/zlib-1.2.3.tgz usr
-cd ../../..
+tar czf ../../bin/zlib-1.2.3.4.tgz usr
+cd ../..
 
 # libogg
 
@@ -333,13 +330,13 @@ cd ../..
 
 # taglib
 
-cd taglib-1.6/
+cd taglib-1.6.1/
 test -f Makefile || CPPFLAGS="-I/usr/local/include -DTAGLIB_STATIC" LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes --enable-mp4 --enable-asf
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/taglib-1.6.tgz usr
+tar czf ../../bin/taglib-1.6.1.tgz usr
 cd ../..
 
 # mp4v2
@@ -364,8 +361,8 @@ if test $(uname) = "Linux"; then
     mkdir kid3
     cat >kid3/build.sh <<"EOF"
 BUILDPREFIX=$(cd ..; pwd)/buildroot/usr/local
-../../kid3/kid3-qt/configure --prefix= --with-bindir= --with-datarootdir= --with-docdir= --with-translationsdir= --without-musicbrainz --enable-debug --enable-gcc-pch --with-qmake=qmake-qt4 --with-extra-includes="$BUILDPREFIX/include $BUILDPREFIX/include/taglib" --with-extra-defines="ID3LIB_LINKOPTION=1 FLAC__NO_DLL" --with-extra-libs="-L$BUILDPREFIX/lib"
-sed -i 's#-L/usr/lib##g; s#-I/usr/include/taglib##g' kid3/Makefile
+../../kid3/kid3-qt/configure --prefix= --with-bindir= --with-datarootdir= --with-docdir= --with-translationsdir= --without-musicbrainz --enable-debug --enable-gcc-pch --with-qmake=qmake-qt4 --with-extra-includes=$BUILDPREFIX/include --with-taglib-includes=-I$BUILDPREFIX/include/taglib --with-extra-defines="ID3LIB_LINKOPTION=1 FLAC__NO_DLL" --with-extra-libs="-L$BUILDPREFIX/lib"
+sed -i 's#-L/usr/lib##g' kid3/Makefile
 EOF
     chmod +x kid3/build.sh
   fi
@@ -373,12 +370,12 @@ elif test $(uname) = "Darwin"; then
   sudo chmod go+w ${BUILDROOT}usr/local
 fi
 
-tar xzf bin/zlib-1.2.3.tgz -C $BUILDROOT
+tar xzf bin/zlib-1.2.3.4.tgz -C $BUILDROOT
 tar xzf bin/libogg-1.1.4.tgz -C $BUILDROOT
 tar xzf bin/libvorbis-1.2.3.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.6.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.6.1.tgz -C $BUILDROOT
 tar xzf bin/mp4v2-1.9.1.tgz -C $BUILDROOT
 
 if test $(uname) = "Darwin"; then
