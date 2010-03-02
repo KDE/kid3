@@ -55,7 +55,8 @@ contains($$list($$[QT_VERSION]), 4.*) {
   win32 {
     translation.extra = for %%f in ($$QM_FILES) do $(INSTALL_FILE) %%f $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
     !isEmpty(QT_QM_FILES) {
-      translation.extra += & for %%l in ($$QT_QM_FILES) do $(INSTALL_FILE) $$[QT_INSTALL_DATA]\translations\qt_%%l.qm $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
+      QT_INSTALL_DATA = $$[QT_INSTALL_DATA]
+      translation.extra += & for %%l in ($$QT_QM_FILES) do $(INSTALL_FILE) $$replace(QT_INSTALL_DATA, /, \)\translations\qt_%%l.qm $(INSTALL_ROOT)$$CFG_TRANSLATIONSDIR
     }
   }
 } else {

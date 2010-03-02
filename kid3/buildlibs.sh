@@ -275,10 +275,11 @@ test -d bin || mkdir bin
 # zlib
 
 cd zlib_1.2.3.4.dfsg/
-./configure
+CFLAGS="-O3 -Wall -DNO_FSEEKO" ./configure --static
 make
+sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
 mkdir -p inst/usr/local
-make install prefix=`pwd`/inst/usr/local
+make install -f Makefile.inst prefix=`pwd`/inst/usr/local
 cd inst
 tar czf ../../bin/zlib-1.2.3.4.tgz usr
 cd ../..
