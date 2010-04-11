@@ -3,14 +3,15 @@
 #
 # Tommi Nieminen <translator@legisign.org>, 2009.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
+# Ville Skyttä <ville.skytta@iki.fi>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge."
 "net/tracker/?group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2010-02-28 14:33+0100\n"
-"PO-Revision-Date: 2010-02-28 15:12+0100\n"
-"Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
+"PO-Revision-Date: 2010-03-06 13:37+0200\n"
+"Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,7 +184,7 @@ msgstr "K&ommenttikentän nimi:"
 
 #: configdialog.cpp:285
 msgid "&Picture field name:"
-msgstr "&Kuvankentän nimi:"
+msgstr "&Kuvakentän nimi:"
 
 #: configdialog.cpp:316 configdialog.cpp:318
 msgid "Custom &Genres"
