@@ -479,7 +479,7 @@ void MiscConfig::readFromConfig(
 				QString('"') + prgDir +  "\\Album Cover Art Downloader\\albumart-qt.exe\" %{directory}"));
 #elif !defined __APPLE__
 		m_contextMenuCommands.push_back(
-			MiscConfig::MenuCommand("xmms", "xmms %{files}"));
+			MiscConfig::MenuCommand("Amarok", "amarok %{files}"));
 		m_contextMenuCommands.push_back(
 			MiscConfig::MenuCommand("AlbumArt", "albumart-qt %{directory}"));
 #endif
