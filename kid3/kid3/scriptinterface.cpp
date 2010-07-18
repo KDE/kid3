@@ -431,34 +431,37 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 		dataFileName = frameName.mid(colonIndex + 1);
 		frameName.truncate(colonIndex);
 	}
-	Frame frame;
 	FrameTable* ft = (tagMask & 2) ? m_app->m_view->frameTableV2() :
 		m_app->m_view->frameTableV1();
 	ft->tableToFrames();
 	FrameCollection::iterator it = ft->frames().findByName(frameName);
 	if (it != ft->frames().end()) {
-		if (value.isEmpty() && (tagMask & 2) != 0) {
+		if (it->getType() == Frame::FT_Picture && !dataFileName.isEmpty() &&
+				(tagMask & 2) != 0) {
+			m_app->deleteFrame(it->getName());
+			PictureFrame frame;
+			PictureFrame::setDescription(frame, value);					
+			PictureFrame::setDataFromFile(frame, dataFileName);
+			PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
+			m_app->addFrame(&frame);
+		} else if (value.isEmpty() && (tagMask & 2) != 0) {
 			m_app->deleteFrame(it->getName());
 		} else {
 			Frame& frame = const_cast<Frame&>(*it);
 			frame.setValueIfChanged(value);
-			if (!dataFileName.isEmpty()) {
-				PictureFrame::setDataFromFile(frame, dataFileName);
-				PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
-			}
 			ft->framesToTable();
 		}
 		return true;
 	} else if (tagMask & 2) {
 		Frame::Type type = Frame::getTypeFromName(frameName);
 		Frame frame(type, value, frameName, -1);
-		m_app->addFrame(&frame);
-		if (!dataFileName.isEmpty() &&
-				(it = ft->frames().findByName(frameName)) != ft->frames().end()) {
-			PictureFrame::setDataFromFile(const_cast<Frame&>(*it), dataFileName);
-			PictureFrame::setMimeTypeFromFileName(const_cast<Frame&>(*it),
-																						dataFileName);
+		if (type == Frame::FT_Picture && !dataFileName.isEmpty()) {
+			PictureFrame::setFields(frame);
+			PictureFrame::setDescription(frame, value);					
+			PictureFrame::setDataFromFile(frame, dataFileName);
+			PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
 		}
+		m_app->addFrame(&frame);
 		return true;
 	}
 	return false;
