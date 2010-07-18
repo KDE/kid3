@@ -2004,7 +2004,7 @@ void Kid3App::slotBrowseCoverArt()
 /**
  * Read file with TagLib if it has an ID3v2.4 tag.
  *
- * @param item       file list item, can be updated
+ * @param item       file list item, can be updated if not null
  * @param taggedFile tagged file
  *
  * @return tagged file (can be new TagLibFile).
@@ -2020,7 +2020,8 @@ TaggedFile* Kid3App::readWithTagLibIfId3V24(FileListItem* item,
 		if ((tagLibFile = new TagLibFile(
 					 taggedFile->getDirInfo(),
 					 taggedFile->getFilename())) != 0) {
-			item->setFile(tagLibFile);
+			if (item)
+				item->setFile(tagLibFile);
 			taggedFile = tagLibFile;
 			taggedFile->readTags(false);
 		}
@@ -2509,45 +2510,39 @@ void Kid3App::slotNumberTracks()
 }
 
 /**
- * Apply a file filter.
+ * Apply a file filter to a directory.
  *
- * @param fileFilter filter to apply.
+ * @param fileFilter filter to apply
+ * @param dirContents directory contents, will be filled with results
+ *
+ * @return true if ok, false if aborted.
  */
-void Kid3App::applyFilter(FileFilter& fileFilter)
+bool Kid3App::applyFilterToDir(FileFilter& fileFilter, DirContents* dirContents)
 {
-	if (isFiltered()) {
-		const DirInfo* dirInfo = m_view->getDirInfo();
-		if (dirInfo) {
-			m_view->readFileList(dirInfo->getDirname());
-		}
-		setFiltered(false);
-	}
-
-	if (m_filterDialog) {
-		m_filterDialog->clearAbortFlag();
-	}
-
-	FileListItem* item = m_view->firstFileOrDir();
+	bool ok = true;
+	int numFiles = 0;
+	QString dirname = dirContents->getDirname();
+	QDir dir(dirname);
 #if QT_VERSION >= 0x040000
-	QList<FileListItem*> itemsToDelete;
+	const QDir::Filters dirFilters =
+		QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Files;
+	QStringList nameFilters(Kid3App::s_miscCfg.m_nameFilter.split(' '));
+	QStringList dirEntries = dir.entryList(
+		nameFilters, dirFilters, QDir::DirsFirst | QDir::IgnoreCase);
 #else
-	QValueList<FileListItem*> itemsToDelete;
+	QStringList dirEntries = dir.entryList(QDir::Dirs) +
+		dir.entryList(Kid3App::s_miscCfg.m_nameFilter, QDir::Files);
 #endif
-	while (item != 0) {
-		if (item->getDirInfo()) {
-#if QT_VERSION >= 0x040000
-			item->setExpanded(true);
-#else
-			item->setOpen(true);
-#endif
-		} else {
-			TaggedFile* taggedFile = item->getFile();
+	for (QStringList::Iterator it = dirEntries.begin();
+			 it != dirEntries.end(); ++it) {
+		QString filename = dirname + QDir::separator() + *it;
+		if (!QFileInfo(filename).isDir()) {
+			TaggedFile* taggedFile = TaggedFile::createFile(dirContents, *it);
 			if (taggedFile) {
 				taggedFile->readTags(false);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-				taggedFile = readWithTagLibIfId3V24(item, taggedFile);
+				taggedFile = readWithTagLibIfId3V24(0, taggedFile);
 #endif
-				bool ok;
 				bool pass = fileFilter.filter(*taggedFile, &ok);
 				if (!ok) {
 					if (m_filterDialog) {
@@ -2557,37 +2552,65 @@ void Kid3App::applyFilter(FileFilter& fileFilter)
 				}
 				if (m_filterDialog) {
 					m_filterDialog->showInformation(
-						(pass ? QString("+\t") : QString("-\t")) +
-						taggedFile->getFilename());
+						(pass ? QString("+\t") : QString("-\t")) + *it);
 				}
-				if (!pass) {
-					itemsToDelete.push_back(item);
+				if (pass) {
+					dirContents->files().append(*it);
+				}
+				++numFiles;
+				delete taggedFile;
+			}
+		} else {
+			if (*it != "." && *it != "..") {
+				DirContents* subDirContents = new DirContents(filename);
+				ok = applyFilterToDir(fileFilter, subDirContents);
+				if (subDirContents->getFiles().size() > 0 ||
+						subDirContents->getDirs().size() > 0) {
+					dirContents->dirs().append(subDirContents);
+				} else {
+					delete subDirContents; 
+				}
+				if (!ok) {
+					break;
 				}
 			}
 		}
-		item = m_view->nextFileOrDir();
+	}
+	dirContents->setNumFiles(numFiles);
+
 #ifdef CONFIG_USE_KDE
-		kapp->processEvents();
+	kapp->processEvents();
 #else
-		qApp->processEvents();
+	qApp->processEvents();
 #endif
-		if (m_filterDialog && m_filterDialog->getAbortFlag()) {
-			itemsToDelete.clear();
-			break;
-		}
+	return ok && !(m_filterDialog && m_filterDialog->getAbortFlag());
+}
+
+/**
+ * Apply a file filter.
+ *
+ * @param fileFilter filter to apply.
+ */
+void Kid3App::applyFilter(FileFilter& fileFilter)
+{
+	const DirInfo* dirInfo = m_view->getDirInfo();
+	if (!dirInfo) return;
+	QString dirname = dirInfo->getDirname();
+
+	if (isFiltered()) {
+		m_view->readFileList(dirname);
+		setFiltered(false);
 	}
-	if (!itemsToDelete.empty()) {
-#if QT_VERSION >= 0x040000
-		qDeleteAll(itemsToDelete);
-#else
-		for (QValueList<FileListItem*>::iterator it = itemsToDelete.begin();
-				 it != itemsToDelete.end();
-				 ++it) {
-			delete *it;
-		}
-#endif
-		setFiltered(true);
+
+	if (m_filterDialog) {
+		m_filterDialog->clearAbortFlag();
 	}
+
+	DirContents dirContents(dirname);
+	applyFilterToDir(fileFilter, &dirContents);
+
+	m_view->getFileList()->setFromDirContents(dirContents);
+	setFiltered(true);
 	updateModificationState();
 }
 
@@ -3368,10 +3391,14 @@ void Kid3App::deleteFrame(const QString& frameName)
 	updateCurrentSelection();
 	TaggedFile* taggedFile = getSelectedFile();
 	m_framelist->reloadTags();
-	if (taggedFile && m_framelist->deleteFrame()) {
-		updateAfterFrameModification(taggedFile);
-	} else if (!taggedFile) {
-		// multiple files selected
+	if (taggedFile && frameName.isEmpty()) {
+		// delete selected frame from single file
+		if (!m_framelist->deleteFrame()) {
+			// frame not found
+			return;
+		}
+	} else {
+		// multiple files selected or frame name specified
 		FileListItem* mp3file = m_view->firstFile();
 		bool firstFile = true;
 		QString name;
@@ -3399,8 +3426,8 @@ void Kid3App::deleteFrame(const QString& frameName)
 			}
 			mp3file = m_view->nextFile();
 		}
-		updateAfterFrameModification(taggedFile);
 	}
+	updateAfterFrameModification(taggedFile);
 }
 
 /**
@@ -3413,19 +3440,19 @@ void Kid3App::addFrame(const Frame* frame)
 	updateCurrentSelection();
 	TaggedFile* taggedFile = getSelectedFile();
 	if (taggedFile) {
+		bool frameAdded;
 		if (!frame) {
-			if (m_framelist->selectFrame() &&
-					m_framelist->addFrame(true)) {
-				updateAfterFrameModification(taggedFile);
-				if (m_framelist->isPictureFrame()) {
-					// update preview picture
-					updateGuiControls();
-				}
-			}
+			frameAdded = m_framelist->selectFrame() &&
+				m_framelist->addFrame(true);
 		} else {
 			m_framelist->setFrame(*frame);
-			if (m_framelist->pasteFrame()) {
-				updateAfterFrameModification(taggedFile);
+			frameAdded = m_framelist->pasteFrame();
+		}
+		if (frameAdded) {
+			updateAfterFrameModification(taggedFile);
+			if (m_framelist->isPictureFrame()) {
+				// update preview picture
+				updateGuiControls();
 			}
 		}
 	} else {

@@ -823,6 +823,67 @@ bool FileList::readDir(const QString& name, const QString& fileName)
 }
 
 /**
+ * Fill the filelist with the files from a DirContents tree.
+ *
+ * @param dirContents recursive information about directory and files
+ * @param item        parent directory item or 0 if top-level
+ * @param listView    parent list view if top-level, else 0
+ */
+static void setSubDirectoryFromDirContents(
+	const DirContents& dirContents, FileListItem* item, FileList* listView)
+{
+	const DirInfo* dirInfo =
+		listView ? listView->getDirInfo() : item->getDirInfo();
+	QString dirname = dirContents.getDirname();
+	FileListItem* last = 0;
+	for (DirContents::DirContentsList::const_iterator it =
+				 dirContents.getDirs().begin();
+			 it != dirContents.getDirs().end(); ++it) {
+		if (item) {
+			last = new FileListItem(item, last, 0);
+		} else if (listView) {
+			last = new FileListItem(listView, last, 0);
+		}
+		if (last) {
+			const DirContents& subDirContents = *(*it);
+			last->setDirInfo(
+				new DirInfo(subDirContents.getDirname(), subDirContents.getNumFiles()));
+			setSubDirectoryFromDirContents(subDirContents, last, 0);
+#if QT_VERSION >= 0x040000
+			last->setExpanded(true);
+#else
+			last->setOpen(true);
+#endif
+		}
+	}
+	for (QStringList::const_iterator it = dirContents.getFiles().begin();
+			 it != dirContents.getFiles().end(); ++it) {
+		QString filename = dirname + QDir::separator() + *it;
+		TaggedFile* taggedFile = TaggedFile::createFile(dirInfo, *it);
+		if (taggedFile) {
+			if (item) {
+				last = new FileListItem(item, last, taggedFile);
+			} else if (listView) {
+				last = new FileListItem(listView, last, taggedFile);
+			}
+		}
+	}
+}
+
+/**
+ * Fill the filelist with the files from a DirContents tree.
+ *
+ * @param dirContents recursive information about directory and files
+ */
+void FileList::setFromDirContents(const DirContents& dirContents)
+{
+	clear();
+	m_dirInfo.setDirname(dirContents.getDirname());
+	m_dirInfo.setNumFiles(dirContents.getNumFiles());
+	setSubDirectoryFromDirContents(dirContents, 0, this);
+}
+
+/**
  * Refresh text of all files in listview and check if any file is modified.
  *
  * @return true if a file is modified.

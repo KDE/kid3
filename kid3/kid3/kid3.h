@@ -79,6 +79,7 @@ class FileFilter;
 class QImage;
 class DownloadDialog;
 class PlaylistDialog;
+class DirContents;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -282,7 +283,7 @@ public:
 	/**
 	 * Read file with TagLib if it has an ID3v2.4 tag.
 	 *
-	 * @param item       file list item, can be updated
+	 * @param item       file list item, can be updated if not null
 	 * @param taggedFile tagged file
 	 *
 	 * @return tagged file (can be new TagLibFile).
@@ -768,6 +769,16 @@ private:
 	 * set the menu entries appropriately.
 	 */
 	void updateHidePicture();
+
+	/**
+	 * Apply a file filter to a directory.
+	 *
+	 * @param fileFilter filter to apply
+	 * @param dirContents directory contents, will be filled with results
+	 *
+	 * @return true if ok, false if aborted.
+	 */
+	bool applyFilterToDir(FileFilter& fileFilter, DirContents* dirContents);
 
 	/**
 	 * Set filter state.

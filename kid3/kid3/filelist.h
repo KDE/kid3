@@ -165,6 +165,13 @@ public:
 	bool readDir(const QString& name, const QString& fileName = QString());
 
 	/**
+	 * Fill the filelist with the files from a DirContents tree.
+	 *
+	 * @param dirContents recursive information about directory and files
+	 */
+	void setFromDirContents(const DirContents& dirContents);
+
+	/**
 	 * Refresh text of all files in listview and check if any file is modified.
 	 *
 	 * @return true if a file is modified.
