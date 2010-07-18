@@ -296,6 +296,13 @@ public:
 	 */
 	QVariant getFieldValue(Field::Id id) const;
 
+#ifdef DEBUG
+	/**
+	 * Dump contents of frame to debug console.
+	 */
+	void dump() const;
+#endif
+
 	/**
 	 * Get name of frame from type.
 	 *
@@ -421,9 +428,9 @@ public:
 	/**
 	 * Set values which are different inactive.
 	 *
-	 * @param others frames to compare
+	 * @param others frames to compare, will be modified!
 	 */
-	void filterDifferent(const FrameCollection& others);
+	void filterDifferent(FrameCollection& others);
 
 	/**
 	 * Add standard frames which are missing.
@@ -603,6 +610,13 @@ public:
 	 * @param year year, nothing is done if -1
 	 */
 	void setYear(int year) { setIntValue(Frame::FT_Date, year); }
+
+#ifdef DEBUG
+	/**
+	 * Dump contents of frame collection to debug console.
+	 */
+	void dump() const;
+#endif
 };
 
 

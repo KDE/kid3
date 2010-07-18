@@ -246,13 +246,130 @@ void Frame::setValueIfChanged(const QString& value)
 	}
 }
 
+#ifdef DEBUG
+/**
+ * Convert frame type to string.
+ * @param type frame type
+ * @return string representation of type.
+ */
+static const char* frameTypeToString(Frame::Type type)
+{
+	static const char* const typeStr[] = {
+		"FT_Title",
+		"FT_Artist",
+		"FT_Album",
+		"FT_Comment",
+		"FT_Date",
+		"FT_Track",
+		"FT_Genre",
+		"FT_AlbumArtist",
+		"FT_Arranger",
+		"FT_Author",
+		"FT_Bpm",
+		"FT_Composer",
+		"FT_Conductor",
+		"FT_Copyright",
+		"FT_Disc",
+		"FT_EncodedBy",
+		"FT_Grouping",
+		"FT_Isrc",
+		"FT_Language",
+		"FT_Lyricist",
+		"FT_Lyrics",
+		"FT_Media",
+		"FT_OriginalAlbum",
+		"FT_OriginalArtist",
+		"FT_OriginalDate",
+		"FT_Part",
+		"FT_Performer",
+		"FT_Picture",
+		"FT_Publisher",
+		"FT_Remixer",
+		"FT_Subtitle",
+		"FT_Website",
+		"FT_Other",
+		"FT_UnknownFrame"
+	};
+	return type >= 0 && (unsigned)type <= sizeof(typeStr) / sizeof(typeStr[0]) ?
+		typeStr[type] : "ILLEGAL";
+}
+
+/**
+ * Convert field id to string.
+ * @param id field id
+ * @return string representation of id.
+ */
+static const char* fieldIdToString(int id)
+{
+	static const char* const idStr[] = {
+		"ID_NoField",
+		"ID_TextEnc",
+		"ID_Text",
+		"ID_Url",
+		"ID_Data",
+		"ID_Description",
+		"ID_Owner",
+		"ID_Email",
+		"ID_Rating",
+		"ID_Filename",
+		"ID_Language",
+		"ID_PictureType",
+		"ID_ImageFormat",
+		"ID_MimeType",
+		"ID_Counter",
+		"ID_Id",
+		"ID_VolumeAdj",
+		"ID_NumBits",
+		"ID_VolChgRight",
+		"ID_VolChgLeft",
+		"ID_PeakVolRight",
+		"ID_PeakVolLeft",
+		"ID_TimestampFormat",
+		"ID_ContentType"
+	};
+	return id >= 0 && (unsigned)id <= sizeof(idStr) / sizeof(idStr[0]) ?
+		idStr[id] : "ILLEGAL";
+}
+
+/**
+ * Get string representation of variant.
+ * @param val variant value
+ * @return string representation.
+ */
+static QString variantToString(const QVariant& val)
+{
+	if (val.type() == QVariant::ByteArray) {
+		return QString("ByteArray of %1 bytes").arg(val.toByteArray().size());
+	} else {
+		return val.toString();
+	}
+}
+
+/**
+ * Dump contents of frame to debug console.
+ */
+void Frame::dump() const
+{
+	qDebug("Frame: name=%s, value=%s, type=%s, index=%d, valueChanged=%u",
+				 m_name.QCM_latin1(), m_value.QCM_latin1(), frameTypeToString(m_type), m_index,
+				 m_valueChanged);
+	qDebug("  fields=");
+	for (FieldList::const_iterator it = m_fieldList.begin();
+			 it != m_fieldList.end();
+			 ++it) {
+		qDebug("  Field: id=%s, value=%s", fieldIdToString((*it).m_id),
+					 variantToString((*it).m_value).QCM_latin1());
+	}
+}
+#endif
+
 
 /**
  * Set values which are different inactive.
  *
- * @param others frames to compare
+ * @param others frames to compare, will be modified
  */
-void FrameCollection::filterDifferent(const FrameCollection& others)
+void FrameCollection::filterDifferent(FrameCollection& others)
 {
 	QByteArray frameData, othersData;
 	for (iterator it = begin(); it != end(); ++it) {
@@ -269,6 +386,24 @@ void FrameCollection::filterDifferent(const FrameCollection& others)
 					 PictureFrame::getData(*othersIt, othersData) &&
 					 frameData == othersData))) {
 			frame.setDifferent();
+		}
+		if (othersIt != others.end()) {
+			// Mark frame as already handled using index -2, used below.
+			// This is probably faster than removing the frame.
+			const_cast<Frame&>(*othersIt).setIndex(-2);
+		}
+	}
+
+	// Insert frames which are in others but not in this (not marked as already
+	// handled by index -2) as different frames.
+	for (iterator othersIt = others.begin();
+			 othersIt != others.end();
+			 ++othersIt) {
+		if (othersIt->getIndex() != -2) {
+			Frame& frame = const_cast<Frame&>(*othersIt);
+			frame.setIndex(-1);
+			frame.setDifferent();
+			insert(frame);
 		}
 	}
 }
@@ -457,6 +592,21 @@ void FrameCollection::setIntValue(Frame::Type type, int value)
 		setValue(type, str);
 	}
 }
+
+#ifdef DEBUG
+/**
+ * Dump contents of frame collection to debug console.
+ */
+void FrameCollection::dump() const
+{
+	qDebug("FrameCollection:");
+	for (const_iterator it = begin();
+			 it != end();
+			 ++it) {
+		(*it).dump();
+	}
+}
+#endif
 
 
 /**
