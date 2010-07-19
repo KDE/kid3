@@ -185,6 +185,28 @@ public:
 	 */
 	const DirInfo* getDirInfo() const { return &m_dirInfo; }
 
+#if QT_VERSION >= 0x040000
+	/**
+	 * Get the stored current selection.
+	 * @return stored selection.
+	 */
+	const QList<QTreeWidgetItem*>& getCurrentSelection() const {
+		return m_currentSelection;
+	}
+
+	/**
+	 * Clear the stored current selection.
+	 */
+	void clearCurrentSelection() { m_currentSelection.clear(); }
+
+	/**
+	 * Update the stored current selection with the list of all selected items.
+	 */
+	void updateCurrentSelection() {
+		m_currentSelection = selectedItems();
+	}
+#endif
+
 	/**
 	 * Fill the filelist with the files found in the directory tree.
 	 *
@@ -317,6 +339,9 @@ private:
 	FileListItem* m_currentItemInDir;
 	/** Process for context menu commands */
 	ExternalProcess* m_process;
+#if QT_VERSION >= 0x040000
+	QList<QTreeWidgetItem*> m_currentSelection;
+#endif
 };
 
 #endif // FILELIST_H

@@ -154,14 +154,26 @@ public:
 	 *
 	 * @param val true to set file selected.
 	 */
-	void setInSelection(bool val) { m_selected = val; }
+	void setInSelection(bool val) {
+#if QT_VERSION >= 0x040000
+		setSelected(val);
+#else
+		m_selected = val;
+#endif
+	}
 
 	/**
 	 * Check if file is marked selected.
 	 *
 	 * @return true if file is marked selected.
 	 */
-	bool isInSelection() { return m_selected; }
+	bool isInSelection() {
+#if QT_VERSION >= 0x040000
+		return isSelected();
+#else
+		return m_selected;
+#endif
+	}
 
 #if QT_VERSION >= 0x040000
 	/**
@@ -192,8 +204,10 @@ private:
 	/** information about directory if item represents directory */
 	DirInfo* m_dirInfo;
 
+#if QT_VERSION < 0x040000
 	/** true if file is marked selected */
 	bool m_selected;
+#endif
 
 	/** pointer to pixmap for modified file */
 	static QPixmap* modifiedPixmap;

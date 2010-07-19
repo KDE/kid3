@@ -2893,6 +2893,31 @@ void Kid3App::updateModificationState()
  */
 void Kid3App::updateCurrentSelection()
 {
+#if QT_VERSION >= 0x040000
+	const QList<QTreeWidgetItem*>& selItems =
+		m_view->getFileList()->getCurrentSelection();
+	int numFiles = selItems.size();
+	if (numFiles > 0) {
+		m_view->frameTableV1()->tableToFrames(numFiles > 1);
+		m_view->frameTableV2()->tableToFrames(numFiles > 1);
+		for (QList<QTreeWidgetItem*>::const_iterator it = selItems.begin();
+				 it != selItems.end();
+				 ++it) {
+			FileListItem* item = dynamic_cast<FileListItem*>(*it);
+			if (item) {
+				TaggedFile* taggedFile = item->getFile();
+				if (taggedFile) {
+					taggedFile->setFramesV1(m_view->frameTableV1()->frames());
+					taggedFile->setFramesV2(m_view->frameTableV2()->frames());
+					if (m_view->isFilenameEditEnabled()) {
+						taggedFile->setFilename(m_view->getFilename());
+					}
+				}
+			}
+		}
+	}
+	updateModificationState();
+#else
 	int numFiles = 0;
 	FileListItem* mp3file = m_view->firstFile();
 	while (mp3file != 0) {
@@ -2921,6 +2946,7 @@ void Kid3App::updateCurrentSelection()
 		}
 	}
 	updateModificationState();
+#endif
 }
 
 /**
@@ -2930,24 +2956,64 @@ void Kid3App::updateCurrentSelection()
  */
 void Kid3App::updateGuiControls()
 {
+#if QT_VERSION >= 0x040000
+	TaggedFile* single_v2_file = 0;
+	int num_v1_selected = 0;
+	int num_v2_selected = 0;
+	bool tagV1Supported = false;
+
+	m_view->getFileList()->updateCurrentSelection();
+	const QList<QTreeWidgetItem*>& selItems =
+		m_view->getFileList()->getCurrentSelection();
+
+	for (QList<QTreeWidgetItem*>::const_iterator it = selItems.begin();
+			 it != selItems.end();
+			 ++it) {
+		FileListItem* mp3file = dynamic_cast<FileListItem*>(*it);
+		if (mp3file) {
+			TaggedFile* taggedFile = mp3file->getFile();
+			if (taggedFile) {
+				taggedFile->readTags(false);
+
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+				taggedFile = readWithTagLibIfId3V24(mp3file, taggedFile);
+#endif
+
+				if (taggedFile->isTagV1Supported()) {
+					if (num_v1_selected == 0) {
+						taggedFile->getAllFramesV1(m_view->frameTableV1()->frames());
+					}
+					else {
+						FrameCollection fileFrames;
+						taggedFile->getAllFramesV1(fileFrames);
+						m_view->frameTableV1()->frames().filterDifferent(fileFrames);
+					}
+					++num_v1_selected;
+					tagV1Supported = true;
+				}
+				if (num_v2_selected == 0) {
+					taggedFile->getAllFramesV2(m_view->frameTableV2()->frames());
+					single_v2_file = taggedFile;
+				}
+				else {
+					FrameCollection fileFrames;
+					taggedFile->getAllFramesV2(fileFrames);
+					m_view->frameTableV2()->frames().filterDifferent(fileFrames);
+					single_v2_file = 0;
+				}
+				++num_v2_selected;
+			}
+		}
+	}
+#else
 	FileListItem* mp3file = m_view->firstFile();
 	TaggedFile* single_v2_file = 0;
 	int num_v1_selected = 0;
 	int num_v2_selected = 0;
 	bool tagV1Supported = false;
 
-#if QT_VERSION >= 0x040000
-	QList<QTreeWidgetItem*> selItems = m_view->getFileList()->selectedItems();
-#endif
-
 	while (mp3file != 0) {
-		if (
-#if QT_VERSION >= 0x040000
-			selItems.contains(mp3file)
-#else
-			mp3file->isSelected()
-#endif
-			) {
+		if (mp3file->isSelected()) {
 			mp3file->setInSelection(true);
 			TaggedFile* taggedFile = mp3file->getFile();
 			if (taggedFile) {
@@ -2987,6 +3053,7 @@ void Kid3App::updateGuiControls()
 		}
 		mp3file = m_view->nextFile();
 	}
+#endif
 
 	TaggedFile::DetailInfo info;
 	if (single_v2_file) {
