@@ -387,10 +387,11 @@ void FrameCollection::filterDifferent(FrameCollection& others)
 					 frameData == othersData))) {
 			frame.setDifferent();
 		}
-		if (othersIt != others.end()) {
-			// Mark frame as already handled using index -2, used below.
-			// This is probably faster than removing the frame.
+		while (othersIt != others.end() && !(frame < *othersIt)) {
+			// Mark equal frames as already handled using index -2, used below.
+			// This is probably faster than removing the frames.
 			const_cast<Frame&>(*othersIt).setIndex(-2);
+			++othersIt;
 		}
 	}
 
