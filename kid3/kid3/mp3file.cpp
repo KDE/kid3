@@ -1220,7 +1220,11 @@ unsigned Mp3File::getDuration() const
  */
 QString Mp3File::getFileExtension() const
 {
-	return ".mp3";
+	QString ext(getFilename().right(4).QCM_toLower());
+	if (ext == ".aac" || ext == ".mp2")
+		return ext;
+	else
+		return ".mp3";
 }
 
 /**
