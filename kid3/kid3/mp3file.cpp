@@ -1608,7 +1608,13 @@ bool Mp3File::setFrameV2(const Frame& frame)
 			if (frame.isValueChanged() || frame.getFieldList().empty()) {
 				QString value(frame.getValue());
 				ID3_Field* fld;
-				if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
+				if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
+					if (getString(fld) != value) {
+						fld->Set(value.QCM_latin1());
+						markTag2Changed(frame.getType());
+					}
+					return true;
+				} else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
 						(fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
 					if (id3Frame->GetID() == ID3FID_CONTENTTYPE) {
 						if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
@@ -1641,12 +1647,6 @@ bool Mp3File::setFrameV2(const Frame& frame)
 					}
 					if (getString(fld) != value) {
 						setString(fld, value);
-						markTag2Changed(frame.getType());
-					}
-					return true;
-				} else if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
-					if (getString(fld) != value) {
-						fld->Set(value.QCM_latin1());
 						markTag2Changed(frame.getType());
 					}
 					return true;
