@@ -1216,6 +1216,13 @@ bool FrameTable::eventFilter(QObject*, QEvent* event)
 			if (m_currentEditor == ((QChildEvent*)event)->child()) {
 				m_currentEditor = 0;
 			}
+		} else if (type == QEvent::WindowDeactivate) {
+			// this is done to avoid losing focus when the window is deactivated
+			// while editing a cell (i.e. the cell is not closed by pressing Enter)
+			if ((state() == QAbstractItemView::EditingState) && m_currentEditor) {
+				commitData(m_currentEditor);
+				closeEditor(m_currentEditor, QAbstractItemDelegate::EditPreviousItem);
+			}
 		}
 	}
 	return false;
