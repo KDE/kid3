@@ -554,12 +554,14 @@ void OggFile::setTrackNumV2(int num)
 		if (num != 0) {
 			numTracks = getTotalNumberOfTracksIfEnabled();
 			str.setNum(num);
+			formatTrackNumberIfEnabled(str, false);
 		} else {
 			str = "";
 		}
 		setTextField("TRACKNUMBER", str, Frame::FT_Track);
 		if (numTracks > 0) {
 			str.setNum(numTracks);
+			formatTrackNumberIfEnabled(str, false);
 			setTextField("TRACKTOTAL", str, Frame::FT_Other);
 		}
 	}
@@ -665,6 +667,7 @@ bool OggFile::setFrameV2(const Frame& frame)
 		int numTracks = getTotalNumberOfTracksIfEnabled();
 		if (numTracks > 0) {
 			QString numTracksStr = QString::number(numTracks);
+			formatTrackNumberIfEnabled(numTracksStr, false);
 			if (getTextField("TRACKTOTAL") != numTracksStr) {
 				setTextField("TRACKTOTAL", numTracksStr, Frame::FT_Other);
 				markTag2Changed(Frame::FT_Other);
@@ -687,6 +690,8 @@ bool OggFile::setFrameV2(const Frame& frame)
 #else
 			return false;
 #endif
+		} else if (frame.getType() == Frame::FT_Track) {
+			formatTrackNumberIfEnabled(value, false);
 		}
 #if QT_VERSION >= 0x040000
 		if (m_comments[index].getValue() != value) {

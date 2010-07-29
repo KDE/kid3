@@ -622,22 +622,42 @@ int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 }
 
 /**
- * Add the total number of tracks to the track number if enabled.
+ * Format the track number (digits, total number of tracks) if enabled.
  *
- * @param value string containing track number,
- *              "/t" with t = total number of tracks will be appended
- *              if enabled and value contains a number
+ * @param value    string containing track number, will be modified
+ * @param addTotal true to add total number of tracks if enabled
+ *                 "/t" with t = total number of tracks will be appended
+ *                 if enabled and value contains a number
  */
-void TaggedFile::addTotalNumberOfTracksIfEnabled(QString& value) const
+void TaggedFile::formatTrackNumberIfEnabled(QString& value, bool addTotal) const
 {
-	int numTracks = getTotalNumberOfTracksIfEnabled();
-	if (numTracks > 0) {
+	int numDigits = getTrackNumberDigits();
+	int numTracks = addTotal ? getTotalNumberOfTracksIfEnabled() : -1;
+	if (numTracks > 0 || numDigits > 1) {
 		bool ok;
 		int trackNr = value.toInt(&ok);
 		if (ok && trackNr > 0) {
-			value = QString("%1/%2").arg(trackNr).arg(numTracks);
+			if (numTracks > 0) {
+				value.sprintf("%0*d/%0*d", numDigits, trackNr, numDigits, numTracks);
+			} else {
+				value.sprintf("%0*d", numDigits, trackNr);
+			}
 		}
 	}
+}
+
+/**
+ * Get the number of track number digits configured.
+ *
+ * @return track number digits,
+ *         1 if invalid or unavailable.
+ */
+int TaggedFile::getTrackNumberDigits() const
+{
+	int numDigits = Kid3App::s_miscCfg.m_trackNumberDigits;
+	if (numDigits < 1 || numDigits > 5)
+		numDigits = 1;
+	return numDigits;
 }
 
 /**

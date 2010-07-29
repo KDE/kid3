@@ -54,6 +54,7 @@ class QString;
 class QWidget;
 class QComboBox;
 class QLineEdit;
+class QSpinBox;
 
 /** Base class for configuration dialog. */
 #ifdef KID3_USE_KCONFIGDIALOG
@@ -155,6 +156,8 @@ private:
 	/** ID3v2 version combo box */
 	QComboBox* m_id3v2VersionComboBox;
 #endif
+	/** Number of digits in track number spin box */
+	QSpinBox* m_trackNumberDigitsSpinBox;
 	/** Filename Format box */
 	FormatBox* m_fnFormatBox;
 	/** ID3 Format box */

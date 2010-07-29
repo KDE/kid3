@@ -633,19 +633,29 @@ static bool setYear(ID3_Tag* tag, int num)
  * @param tag ID3 tag
  * @param num number to set, 0 to remove field.
  * @param numTracks total number of tracks, -1 to ignore
+ * @param numDigits number of digits, -1 to ignore
  *
  * @return true if the field was changed.
  */
-static bool setTrackNum(ID3_Tag* tag, int num, int numTracks = -1)
+static bool setTrackNum(ID3_Tag* tag, int num, int numTracks = -1,
+                        int numDigits = -1)
 {
 	bool changed = false;
 	if (num >= 0 && getTrackNum(tag) != num) {
 		QString str;
 		if (num != 0) {
-			str.setNum(num);
+			if (numDigits > 0) {
+				str.sprintf("%0*d", numDigits, num);
+			} else {
+				str.setNum(num);
+			}
 			if (numTracks > 0) {
 				str += '/';
-				str += QString::number(numTracks);
+				if (numDigits > 0) {
+					str += QString().sprintf("%0*d", numDigits, numTracks);
+				} else {
+					str += QString::number(numTracks);
+				}
 			}
 		} else {
 			str = "";
@@ -1036,7 +1046,8 @@ void Mp3File::setYearV2(int num)
 void Mp3File::setTrackNumV2(int num)
 {
 	int numTracks = getTotalNumberOfTracksIfEnabled();
-	if (setTrackNum(m_tagV2, num, numTracks)) {
+	int numDigits = getTrackNumberDigits();
+	if (setTrackNum(m_tagV2, num, numTracks, numDigits)) {
 		markTag2Changed(Frame::FT_Track);
 	}
 }
@@ -1563,7 +1574,7 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
 						value = Genres::getNumberString(value, true);
 					}
 				} else if (id3Id == ID3FID_TRACKNUM) {
-					addTotalNumberOfTracksIfEnabled(value);
+					formatTrackNumberIfEnabled(value, true);
 				}
 				setString(id3Field, value);
 				break;
@@ -1621,7 +1632,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
 							value = Genres::getNumberString(value, true);
 						}
 					} else if (id3Frame->GetID() == ID3FID_TRACKNUM) {
-						addTotalNumberOfTracksIfEnabled(value);
+						formatTrackNumberIfEnabled(value, true);
 					}
 					if (fld->GetEncoding() == ID3TE_ISO8859_1) {
 						// check if information is lost if the string is not unicode

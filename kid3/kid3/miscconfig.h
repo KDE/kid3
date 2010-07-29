@@ -231,6 +231,8 @@ public:
 	QString m_textEncodingV1;
 	/** text encoding used for new ID3v2 tags */
 	int m_textEncoding;
+	/** number of digits in track number */
+	int m_trackNumberDigits;
 	/** true if proxy is used */
 	bool m_useProxy;
 	/** proxy used for access */

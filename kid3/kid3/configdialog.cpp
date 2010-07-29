@@ -39,6 +39,7 @@
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qtabwidget.h>
+#include <qspinbox.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QVBoxLayout>
@@ -245,6 +246,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
 #endif
 #endif
+				QLabel* trackNumberDigitsLabel = new QLabel(i18n("Track number &digits:"), v2GroupBox);
+				m_trackNumberDigitsSpinBox = new QSpinBox(v2GroupBox);
+				m_trackNumberDigitsSpinBox->QCM_setMaximum(5);
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 				if (textEncodingLabel && m_textEncodingComboBox) {
 					m_textEncodingComboBox->QCM_insertItem(MiscConfig::TE_ISO8859_1, i18n("ISO-8859-1"));
@@ -271,6 +275,13 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 #endif
 				}
 #endif
+				if (trackNumberDigitsLabel && m_trackNumberDigitsSpinBox) {
+					trackNumberDigitsLabel->setBuddy(m_trackNumberDigitsSpinBox);
+#if QT_VERSION >= 0x040000
+					v2GroupBoxLayout->addWidget(trackNumberDigitsLabel, 4, 0);
+					v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 4, 1);
+#endif
+				}
 				vlayout->addWidget(v2GroupBox);
 			}
 #ifdef HAVE_VORBIS
@@ -613,6 +624,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	m_id3v2VersionComboBox->QCM_setCurrentIndex(miscCfg->m_id3v2Version);
 #endif
+	m_trackNumberDigitsSpinBox->setValue(miscCfg->m_trackNumberDigits);
 	m_browserLineEdit->setText(miscCfg->m_browser);
 	m_proxyCheckBox->setChecked(miscCfg->m_useProxy);
 	m_proxyLineEdit->setText(miscCfg->m_proxy);
@@ -682,6 +694,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 	miscCfg->m_id3v2Version = m_id3v2VersionComboBox->QCM_currentIndex();
 #endif
+	miscCfg->m_trackNumberDigits = m_trackNumberDigitsSpinBox->value();
 	miscCfg->m_browser = m_browserLineEdit->text();
 	miscCfg->m_useProxy = m_proxyCheckBox->isChecked();
 	miscCfg->m_proxy = m_proxyLineEdit->text();

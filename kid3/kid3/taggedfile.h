@@ -662,13 +662,14 @@ public:
 	unsigned getTruncationFlags() const { return m_truncation; }
 
 	/**
-	 * Add the total number of tracks to the track number if enabled.
+	 * Format the track number (digits, total number of tracks) if enabled.
 	 *
-	 * @param value string containing track number,
-	 *              "/t" with t = total number of tracks will be appended
-	 *              if enabled and value contains a number
+	 * @param value    string containing track number, will be modified
+	 * @param addTotal true to add total number of tracks if enabled
+	 *                 "/t" with t = total number of tracks will be appended
+	 *                 if enabled and value contains a number
 	 */
-	void addTotalNumberOfTracksIfEnabled(QString& value) const;
+	void formatTrackNumberIfEnabled(QString& value, bool addTotal) const;
 
 	/**
 	 * Format a time string "h:mm:ss".
@@ -738,6 +739,14 @@ protected:
 	*         -1 if disabled or unavailable.
 	*/
 	int getTotalNumberOfTracksIfEnabled() const;
+
+	/**
+	 * Get the number of track number digits configured.
+	 *
+	 * @return track number digits,
+	 *         1 if invalid or unavailable.
+	 */
+	int getTrackNumberDigits() const;
 
 	/**
 	 * Get current filename.

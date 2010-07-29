@@ -1147,46 +1147,39 @@ void TagLibFile::setTrackNumV2(int num)
 {
 	if (makeTagV2Settable() && num >= 0) {
 		if (num != static_cast<int>(m_tagV2->track())) {
-			int numTracks;
-			TagLib::ID3v2::TextIdentificationFrame* frame;
 			TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
-			if (id3v2Tag &&
-					(numTracks = getTotalNumberOfTracksIfEnabled()) > 0 &&
-					num > 0 &&
-					(frame = new TagLib::ID3v2::TextIdentificationFrame(
-						"TRCK", getDefaultTextEncoding())) != 0) {
-				TagLib::String str = TagLib::String::number(num);
-				str += '/';
-				str += TagLib::String::number(numTracks);
-				frame->setText(str);
-				id3v2Tag->removeFrames("TRCK");
-#ifdef WIN32
-				// freed in Windows DLL => must be allocated in the same DLL
-				TagLib::ID3v2::Frame* dllAllocatedFrame =
-					TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
-				if (dllAllocatedFrame) {
-					id3v2Tag->addFrame(dllAllocatedFrame);
-				}
-				delete frame;
-#else
-				id3v2Tag->addFrame(frame);
-#endif
-			} else {
-				if (getDefaultTextEncoding() == TagLib::String::Latin1) {
-					m_tagV2->setTrack(num);
+			if (id3v2Tag) {
+				TagLib::ID3v2::TextIdentificationFrame* frame;
+				QString str;
+				if (num != 0) {
+					str.setNum(num);
+					formatTrackNumberIfEnabled(str, true);
 				} else {
-					QString str;
-					if (num != 0) {
-						str.setNum(num);
-					} else {
-						str = "";
-					}
-					TagLib::String tstr = str.isEmpty() ?
-						TagLib::String::null : QSTRING_TO_TSTRING(str);
-					if (!setId3v2Unicode(m_tagV2, str, tstr, "TRCK")) {
-						m_tagV2->setTrack(num);
-					}
+					str = "";
 				}
+				TagLib::String tstr = str.isEmpty() ?
+					TagLib::String::null : QSTRING_TO_TSTRING(str);
+				if (!setId3v2Unicode(m_tagV2, str, tstr, "TRCK") &&
+						(frame = new TagLib::ID3v2::TextIdentificationFrame(
+							"TRCK", getDefaultTextEncoding())) != 0) {
+					frame->setText(tstr);
+					id3v2Tag->removeFrames("TRCK");
+#ifdef WIN32
+					// freed in Windows DLL => must be allocated in the same DLL
+					TagLib::ID3v2::Frame* dllAllocatedFrame =
+						TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
+					if (dllAllocatedFrame) {
+						id3v2Tag->addFrame(dllAllocatedFrame);
+					}
+					delete frame;
+#else
+					id3v2Tag->addFrame(frame);
+#endif
+				} else {
+					m_tagV2->setTrack(num);
+				}
+			} else {
+				m_tagV2->setTrack(num);
 			}
 			markTag2Changed(Frame::FT_Track);
 		}
@@ -2510,7 +2503,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 				text = Genres::getNumberString(text, false);
 			}
 		} else if (frame.getType() == Frame::FT_Track) {
-			self->addTotalNumberOfTracksIfEnabled(text);
+			self->formatTrackNumberIfEnabled(text, true);
 		}
 		setValue(tFrame, QSTRING_TO_TSTRING(text));
 		setTextEncoding(tFrame, getTextEncodingConfig(needsUnicode(text)));
@@ -2528,7 +2521,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 							value = Genres::getNumberString(value, false);
 						}
 					} else if (frame.getType() == Frame::FT_Track) {
-						self->addTotalNumberOfTracksIfEnabled(value);
+						self->formatTrackNumberIfEnabled(value, true);
 					}
 					setText(tFrame, QSTRING_TO_TSTRING(value));
 					break;

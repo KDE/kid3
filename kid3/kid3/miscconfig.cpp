@@ -124,6 +124,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_id3v2Version(ID3v2_3_0),
 	m_textEncodingV1(""),
 	m_textEncoding(TE_ISO8859_1),
+	m_trackNumberDigits(1),
 	m_useProxy(false),
 #if QT_VERSION >= 0x040000
 	m_useProxyAuthentication(false),
@@ -184,6 +185,7 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("ID3v2Version", m_id3v2Version);
 	cfg.writeEntry("TextEncodingV1", m_textEncodingV1);
 	cfg.writeEntry("TextEncoding", m_textEncoding);
+	cfg.writeEntry("TrackNumberDigits", m_trackNumberDigits);
 	cfg.writeEntry("UseProxy", m_useProxy);
 	cfg.writeEntry("Proxy", m_proxy);
 #if QT_VERSION >= 0x040000
@@ -256,6 +258,7 @@ void MiscConfig::writeToConfig(
 	config->QCM_writeEntry("/ID3v2Version", m_id3v2Version);
 	config->QCM_writeEntry("/TextEncodingV1", m_textEncodingV1);
 	config->QCM_writeEntry("/TextEncoding", m_textEncoding);
+	config->QCM_writeEntry("/TrackNumberDigits", m_trackNumberDigits);
 	config->QCM_writeEntry("/UseProxy", m_useProxy);
 	config->QCM_writeEntry("/Proxy", m_proxy);
 #if QT_VERSION >= 0x040000
@@ -349,6 +352,7 @@ void MiscConfig::readFromConfig(
 	m_id3v2Version = cfg.KCM_readNumEntry("ID3v2Version", static_cast<int>(ID3v2_3_0));
 	m_textEncodingV1 = cfg.readEntry("TextEncodingV1", "");
 	m_textEncoding = cfg.KCM_readNumEntry("TextEncoding", static_cast<int>(TE_ISO8859_1));
+	m_trackNumberDigits = cfg.KCM_readNumEntry("TrackNumberDigits", 1);
 	m_useProxy = cfg.KCM_readBoolEntry("UseProxy", m_useProxy);
 	m_proxy = cfg.readEntry("Proxy", m_proxy);
 #if QT_VERSION >= 0x040000
@@ -426,6 +430,7 @@ void MiscConfig::readFromConfig(
 	m_id3v2Version = config->QCM_readNumEntry("/ID3v2Version", ID3v2_3_0);
 	m_textEncodingV1 = config->QCM_readEntry("/TextEncodingV1", "");
 	m_textEncoding = config->QCM_readNumEntry("/TextEncoding", TE_ISO8859_1);
+	m_trackNumberDigits = config->QCM_readNumEntry("/TrackNumberDigits", 1);
 	m_useProxy = config->QCM_readBoolEntry("/UseProxy", m_useProxy);
 	m_proxy = config->QCM_readEntry("/Proxy", m_proxy);
 #if QT_VERSION >= 0x040000
