@@ -39,9 +39,7 @@
 #include "dirinfo.h"
 #include "kid3.h"
 #include "attributedata.h"
-#ifdef TAGLIB_ASF_PICTURES_WORK
 #include "pictureframe.h"
-#endif
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -2817,6 +2815,9 @@ static QString getApeName(const Frame& frame)
 /** Type of data in MP4 frame. */
 enum Mp4ValueType {
 	MVT_ByteArray,
+#if TAGLIB_VERSION >= 0x010602
+	MVT_CoverArt,
+#endif
 	MVT_String,
 	MVT_Bool,
 	MVT_Int,
@@ -2878,7 +2879,11 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
 	{ "atID", Frame::FT_Other, MVT_ByteArray },
 	{ "plID", Frame::FT_Other, MVT_ByteArray },
 	{ "geID", Frame::FT_Other, MVT_ByteArray },
+#if TAGLIB_VERSION >= 0x010602
+	{ "covr", Frame::FT_Picture, MVT_CoverArt },
+#else
 	{ "covr", Frame::FT_Picture, MVT_ByteArray },
+#endif
 	{ "ARRANGER", Frame::FT_Arranger, MVT_String },
 	{ "AUTHOR", Frame::FT_Author, MVT_String },
 	{ "CONDUCTOR", Frame::FT_Conductor, MVT_String },
@@ -3056,6 +3061,25 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
 			}
 			return TagLib::MP4::Item(str1.toInt(), str2.toInt());
 		}
+#if TAGLIB_VERSION >= 0x010602
+		case MVT_CoverArt:
+		{
+			QByteArray ba;
+			TagLib::MP4::CoverArt::Format format = TagLib::MP4::CoverArt::JPEG;
+			if (PictureFrame::getData(frame, ba)) {
+				QString mimeType;
+				if (PictureFrame::getMimeType(frame, mimeType) && 
+						mimeType == "image/png") {
+					format = TagLib::MP4::CoverArt::PNG;
+				}
+			}
+			TagLib::MP4::CoverArt coverArt(format,
+																		 TagLib::ByteVector(ba.data(), ba.size()));
+			TagLib::MP4::CoverArtList coverArtList;
+			coverArtList.append(coverArt);
+			return TagLib::MP4::Item(coverArtList);
+		}
+#endif
 		case MVT_ByteArray:
 		default:
 			// binary data and album art are not handled by TagLib
@@ -3220,7 +3244,7 @@ static void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
 	}
 }
 
-#ifdef TAGLIB_ASF_PICTURES_WORK
+#if TAGLIB_VERSION >= 0x010602
 /**
  * Get a picture frame from the bytes in a WM/Picture frame.
  * The WM/Picture frame has the following data:
@@ -3300,7 +3324,7 @@ static void renderAsfPicture(const Frame& frame, TagLib::ByteVector& data)
 	data.append(TagLib::ByteVector(2, 0));
 	data.append(TagLib::ByteVector(picture.data(), picture.size()));
 }
-#endif // TAGLIB_ASF_PICTURES_WORK
+#endif
 
 /**
  * Get an ASF attribute for a frame.
@@ -3339,13 +3363,13 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
 					return TagLib::ASF::Attribute(TagLib::ByteVector(ba.data(), ba.size()));
 				}
 			}
-#ifdef TAGLIB_ASF_PICTURES_WORK
+#if TAGLIB_VERSION >= 0x010602
 			else {
 				TagLib::ByteVector bv;
 				renderAsfPicture(frame, bv); 
 				return TagLib::ASF::Attribute(bv);
 			}
-#endif // TAGLIB_ASF_PICTURES_WORK
+#endif
 	}
 	return TagLib::ASF::Attribute();
 }
@@ -3447,7 +3471,7 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 #endif
 #ifdef TAGLIB_WITH_ASF
 		} else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tagV2)) != 0) {
-#ifndef TAGLIB_ASF_PICTURES_WORK
+#if !(TAGLIB_VERSION >= 0x010602)
 			if (frame.getType() == Frame::FT_Picture) {
 				return false;
 			}
@@ -3700,6 +3724,12 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
 		} else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tagV2)) != 0) {
+#if TAGLIB_VERSION >= 0x010602
+			if (frame.getType() == Frame::FT_Picture &&
+					frame.getFieldList().empty()) {
+				PictureFrame::setFields(frame);
+			}
+#endif
 			TagLib::String name;
 			TagLib::MP4::Item item = getMp4ItemForFrame(frame, name);
 			if (!item.isValid()) {
@@ -3726,7 +3756,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #endif
 #ifdef TAGLIB_WITH_ASF
 		} else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tagV2)) != 0) {
-#ifdef TAGLIB_ASF_PICTURES_WORK
+#if TAGLIB_VERSION >= 0x010602
 			if (frame.getType() == Frame::FT_Picture &&
 					frame.getFieldList().empty()) {
 				PictureFrame::setFields(frame);
@@ -3739,7 +3769,8 @@ bool TagLibFile::addFrameV2(Frame& frame)
 			TagLib::String name;
 			TagLib::ASF::Attribute::AttributeTypes valueType;
 			getAsfTypeForFrame(frame, name, valueType);
-			if (valueType == TagLib::ASF::Attribute::BytesType) {
+			if (valueType == TagLib::ASF::Attribute::BytesType &&
+					frame.getType() != Frame::FT_Picture) {
 				Frame::Field field;
 				field.m_id = Frame::Field::ID_Data;
 				field.m_value = QByteArray();
@@ -4146,6 +4177,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 				Mp4ValueType valueType;
 				getMp4TypeForName(name, type, valueType);
 				QString value;
+				bool frameAlreadyInserted = false;
 				switch (valueType) {
 					case MVT_String:
 					{
@@ -4169,13 +4201,34 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 						}
 						break;
 					}
+#if TAGLIB_VERSION >= 0x010602
+					case MVT_CoverArt:
+					{
+						TagLib::MP4::CoverArtList coverArtList = (*it).second.toCoverArtList();
+						if (coverArtList.size() > 0) {
+							const TagLib::MP4::CoverArt& coverArt = coverArtList.front();
+							TagLib::ByteVector bv = coverArt.data();
+							Frame frame(type, "", TStringToQString(name), i++);
+							PictureFrame::setFields(
+								frame, Frame::Field::TE_ISO8859_1,
+								coverArt.format() == TagLib::MP4::CoverArt::PNG ? "PNG" : "JPG",
+								coverArt.format() == TagLib::MP4::CoverArt::PNG ?
+								"image/png" : "image/jpeg",
+								PictureFrame::PT_CoverFront, "", QByteArray(bv.data(), bv.size()));
+							frames.insert(frame);
+							frameAlreadyInserted = true;
+						}
+						break;
+					}
+#endif
 					case MVT_ByteArray:
 					default:
 						// binary data and album art are not handled by TagLib
 						value = "";
 				}
-				frames.insert(
-					Frame(type, value, TStringToQString(name), i++));
+				if (!frameAlreadyInserted)
+					frames.insert(
+						Frame(type, value, TStringToQString(name), i++));
 			}
 #endif
 #ifdef TAGLIB_WITH_ASF
@@ -4252,7 +4305,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 						field.m_value = ba;
 						frame.fieldList().push_back(field);
 					}
-#ifdef TAGLIB_ASF_PICTURES_WORK
+#if TAGLIB_VERSION >= 0x010602
 					++i;
 					if (type == Frame::FT_Picture) {
 						parseAsfPicture((*ait).toByteVector(), frame);
@@ -4336,7 +4389,7 @@ QStringList TagLibFile::getFrameIds() const
 			type = static_cast<Frame::Type>(k);
 			getAsfNameForType(type, name, valueType);
 			if (!name.isEmpty()
-#ifndef TAGLIB_ASF_PICTURES_WORK
+#if !(TAGLIB_VERSION >= 0x010602)
 					&& type != Frame::FT_Picture
 #endif
 				) {
