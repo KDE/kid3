@@ -96,6 +96,10 @@
 #include <taglib/privateframe.h>
 #endif
 
+#if TAGLIB_VERSION > 0x010603
+#include <taglib/apefile.h>
+#endif
+
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
@@ -227,6 +231,9 @@ void TagLibFile::readTags(bool force)
 		TagLib::WavPack::File* wvFile;
 #endif
 		TagLib::TrueAudio::File* ttaFile;
+#if TAGLIB_VERSION > 0x010603
+		TagLib::APE::File* apeFile;
+#endif
 		if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 			if (!m_tagV1) {
 				m_tagV1 = mpegFile->ID3v1Tag();
@@ -274,6 +281,17 @@ void TagLibFile::readTags(bool force)
 				m_tagV2 = ttaFile->ID3v2Tag();
 				markTag2Unchanged();
 			}
+#if TAGLIB_VERSION > 0x010603
+		} else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
+			if (!m_tagV1) {
+				m_tagV1 = apeFile->ID3v1Tag();
+				markTag1Unchanged();
+			}
+			if (!m_tagV2) {
+				m_tagV2 = apeFile->APETag();
+				markTag2Unchanged();
+			}
+#endif
 		} else {
 			m_tagV1 = 0;
 			markTag1Unchanged();
@@ -360,6 +378,9 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 			if ((m_tagV2 && (force || isTag2Changed())) ||
 					(m_tagV1 && (force || isTag1Changed()))) {
 				TagLib::TrueAudio::File* ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file);
+#if TAGLIB_VERSION > 0x010603
+				TagLib::APE::File* apeFile = dynamic_cast<TagLib::APE::File*>(file);
+#endif
 #ifndef MPC_ID3V1
 				// it does not work if there is also an ID3 tag (bug in TagLib?)
 				TagLib::MPC::File* mpcFile = dynamic_cast<TagLib::MPC::File*>(file);
@@ -386,6 +407,22 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 						m_tagV2 = 0;
 					}
 				}
+#if TAGLIB_VERSION > 0x010603
+				if (apeFile) {
+					if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
+						apeFile->strip(TagLib::APE::File::ID3v1);
+						fileChanged = true;
+						markTag1Unchanged();
+						m_tagV1 = 0;
+					}
+					if (m_tagV2 && (force || isTag2Changed()) && m_tagV2->isEmpty()) {
+						apeFile->strip(TagLib::APE::File::APE);
+						fileChanged = true;
+						markTag2Unchanged();
+						m_tagV2 = 0;
+					}
+				}
+#endif
 				if (m_fileRef.save()) {
 					fileChanged = true;
 					markTag1Unchanged();
@@ -729,6 +766,9 @@ bool TagLibFile::makeTagV1Settable()
 			TagLib::WavPack::File* wvFile;
 #endif
 			TagLib::TrueAudio::File* ttaFile;
+#if TAGLIB_VERSION > 0x010603
+			TagLib::APE::File* apeFile;
+#endif
 			if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 				m_tagV1 = mpegFile->ID3v1Tag(true);
 			} else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
@@ -741,6 +781,10 @@ bool TagLibFile::makeTagV1Settable()
 #endif
 			} else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
 				m_tagV1 = ttaFile->ID3v1Tag(true);
+#if TAGLIB_VERSION > 0x010603
+			} else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
+				m_tagV1 = apeFile->ID3v1Tag(true);
+#endif
 			}
 		}
 	}
@@ -762,6 +806,9 @@ bool TagLibFile::makeTagV2Settable()
 			TagLib::MPC::File* mpcFile;
 			TagLib::WavPack::File* wvFile;
 			TagLib::TrueAudio::File* ttaFile;
+#if TAGLIB_VERSION > 0x010603
+			TagLib::APE::File* apeFile;
+#endif
 			if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
 				m_tagV2 = mpegFile->ID3v2Tag(true);
 			} else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
@@ -772,6 +819,10 @@ bool TagLibFile::makeTagV2Settable()
 				m_tagV2 = wvFile->APETag(true);
 			} else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
 				m_tagV2 = ttaFile->ID3v2Tag(true);
+#if TAGLIB_VERSION > 0x010603
+			} else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
+				m_tagV2 = apeFile->APETag(true);
+#endif
 			}
 		}
 	}
@@ -1262,6 +1313,9 @@ bool TagLibFile::isTagV1Supported() const
 					 || dynamic_cast<TagLib::MPC::File*>(file)  != 0
 					 || dynamic_cast<TagLib::WavPack::File*>(file) != 0
 #endif
+#if TAGLIB_VERSION > 0x010603
+					 || dynamic_cast<TagLib::APE::File*>(file) != 0
+#endif
 						));
 }
 
@@ -1293,6 +1347,9 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 		TagLib::Ogg::Speex::Properties* speexProperties;
 		TagLib::TrueAudio::Properties* ttaProperties;
 		TagLib::WavPack::Properties* wvProperties;
+#if TAGLIB_VERSION > 0x010603
+		TagLib::APE::Properties* apeProperties;
+#endif
 		info.valid = true;
 		if ((mpegProperties =
 				 dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
@@ -1374,6 +1431,14 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 		} else if (dynamic_cast<TagLib::RIFF::WAV::Properties*>(audioProperties) != 0) {
 			info.format = "WAV";
 #endif
+#if TAGLIB_VERSION > 0x010603
+		} else if ((apeProperties =
+								dynamic_cast<TagLib::APE::Properties*>(audioProperties)) != 0) {
+			info.format = QString("APE %1.%2 %3 bit").
+				arg(apeProperties->version() / 1000).
+				arg(apeProperties->version() % 1000).
+				arg(apeProperties->bitsPerSample());
+#endif
 		}
 		info.bitrate = audioProperties->bitrate();
 		info.sampleRate = audioProperties->sampleRate();
@@ -1437,6 +1502,10 @@ QString TagLibFile::getFileExtension() const
 			return ".aiff";
 		} else if (dynamic_cast<TagLib::RIFF::WAV::File*>(file) != 0) {
 			return ".wav";
+#endif
+#if TAGLIB_VERSION > 0x010603
+		} else if (dynamic_cast<TagLib::APE::File*>(file) != 0) {
+			return ".ape";
 #endif
 		}
 	}
@@ -4522,6 +4591,9 @@ TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
 #endif
 			|| ext == ".aif" || ext ==  "aiff" || ext ==  ".wav"
 #endif
+#if TAGLIB_VERSION > 0x010603
+			|| ext == ".ape"
+#endif
 			|| ext.right(3) == ".wv")
 		return new TagLibFile(di, fn);
 	else
@@ -4545,6 +4617,9 @@ QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
 		".wma" << ".asf" <<
 #endif
 		".aif" << ".aiff" << ".wav" <<
+#endif
+#if TAGLIB_VERSION > 0x010603
+		".ape" <<
 #endif
 		".wv";
 }
