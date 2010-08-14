@@ -3341,6 +3341,7 @@ static bool parseAsfPicture(const TagLib::ByteVector& data, Frame& frame)
 	if (picSize > len - 9)
 		return false;
 	uint offset = 5;
+#if QT_VERSION >= 0x040000
 	QString mimeType = QString::fromUtf16(
 		reinterpret_cast<const ushort*>(data.mid(offset, len - offset).data()));
 	offset += mimeType.length() * 2 + 2;
@@ -3352,13 +3353,45 @@ static bool parseAsfPicture(const TagLib::ByteVector& data, Frame& frame)
 	if (offset > len)
 		return false;
 	TagLib::ByteVector picture = data.mid(offset, len - offset);
-
-	frame.setType(Frame::FT_Picture);
 	PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, "JPG",
 													mimeType,
 													static_cast<PictureFrame::PictureType>(pictureType),
 													description,
 													QByteArray(picture.data(), picture.size()));
+#else
+	QString mimeType, description;
+	const ushort* unicode = reinterpret_cast<const ushort*>(data.data() + offset);
+	uint unicodeLen = 0;
+	while (unicode[unicodeLen] != 0) {
+		++unicodeLen;
+		if (unicodeLen > (len - offset) / 2 - 2) {
+			return false;
+		}
+	}
+	mimeType.setUnicodeCodes(unicode, unicodeLen);
+	offset += unicodeLen * 2 + 2;
+	unicode += unicodeLen + 1;
+	unicodeLen = 0;
+	while (unicode[unicodeLen] != 0) {
+		++unicodeLen;
+		if (unicodeLen > (len - offset) / 2) {
+			return false;
+		}
+	}
+	description.setUnicodeCodes(unicode, unicodeLen);
+	if (description.isNull()) {
+		description = "";
+	}
+	offset += unicodeLen * 2 + 2;
+	QByteArray picture;
+	picture.duplicate(data.data() + offset, len - offset);
+	PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, "JPG",
+													mimeType,
+													static_cast<PictureFrame::PictureType>(pictureType),
+													description,
+													picture);
+#endif
+	frame.setType(Frame::FT_Picture);
 	return true;
 }
 
@@ -4278,12 +4311,14 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 							const TagLib::MP4::CoverArt& coverArt = coverArtList.front();
 							TagLib::ByteVector bv = coverArt.data();
 							Frame frame(type, "", TStringToQString(name), i++);
+							QByteArray ba;
+							QCM_duplicate(ba, bv.data(), bv.size());
 							PictureFrame::setFields(
 								frame, Frame::Field::TE_ISO8859_1,
 								coverArt.format() == TagLib::MP4::CoverArt::PNG ? "PNG" : "JPG",
 								coverArt.format() == TagLib::MP4::CoverArt::PNG ?
 								"image/png" : "image/jpeg",
-								PictureFrame::PT_CoverFront, "", QByteArray(bv.data(), bv.size()));
+								PictureFrame::PT_CoverFront, "", ba);
 							frames.insert(frame);
 							frameAlreadyInserted = true;
 						}
