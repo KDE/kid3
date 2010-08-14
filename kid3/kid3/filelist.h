@@ -263,6 +263,16 @@ private slots:
 	void executeAction(QAction* action);
 
 	/**
+	 * Expand all folders.
+	 */
+	void expandAll();
+
+	/**
+	 * Collapse all folders.
+	 */
+	void collapseAll();
+
+	/**
 	 * Rename the selected file(s).
 	 */
 	void renameFile();
@@ -326,6 +336,13 @@ private:
 	 * @return formatted string list.
 	 */
 	QStringList formatStringList(const QStringList& format);
+
+	/**
+	 * Expand or collapse all folders.
+	 *
+	 * @param expand true to expand, false to collapse
+	 */
+	void setAllExpanded(bool expand);
 
 	/** information about directory */
 	DirInfo m_dirInfo;

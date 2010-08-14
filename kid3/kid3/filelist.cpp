@@ -924,6 +924,8 @@ void FileList::contextMenu(
 	if (item && !Kid3App::s_miscCfg.m_contextMenuCommands.empty()) {
 #if QT_VERSION >= 0x040000
 		QMenu menu(this);
+		menu.addAction(i18n("&Expand all"), this, SLOT(expandAll()));
+		menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
 		menu.addAction(i18n("&Rename"), this, SLOT(renameFile()));
 		menu.addAction(i18n("&Delete"), this, SLOT(deleteFile()));
 		int id = 0;
@@ -937,6 +939,8 @@ void FileList::contextMenu(
 		connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
 #else
 		QPopupMenu menu(this);
+		menu.insertItem(i18n("&Expand all"), this, SLOT(expandAll()));
+		menu.insertItem(i18n("&Collapse all"), this, SLOT(collapseAll()));
 		menu.insertItem(i18n("&Rename"), this, SLOT(renameFile()));
 		menu.insertItem(i18n("&Delete"), this, SLOT(deleteFile()));
 		int id = 0;
@@ -1130,6 +1134,40 @@ void FileList::executeAction(QAction* action)
 #else
 void FileList::executeAction(QAction*) {}
 #endif
+
+/**
+ * Expand or collapse all folders.
+ *
+ * @param expand true to expand, false to collapse
+ */
+void FileList::setAllExpanded(bool expand)
+{
+	FileListItem* item = firstFileOrDir();
+	while (item != 0) {
+#if QT_VERSION >= 0x040000
+		item->setExpanded(expand);
+#else
+		item->setOpen(expand);
+#endif
+		item = nextFileOrDir();
+	}
+}
+
+/**
+ * Expand all folders.
+ */
+void FileList::expandAll()
+{
+	setAllExpanded(true);
+}
+
+/**
+ * Collapse all folders.
+ */
+void FileList::collapseAll()
+{
+	setAllExpanded(false);
+}
 
 /**
  * Rename the selected file(s).
