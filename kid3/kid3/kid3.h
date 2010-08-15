@@ -47,6 +47,7 @@ typedef KMainWindow Kid3AppBaseClass;
 #include "generalconfig.h" // Kid3Settings
 class QAction;
 class BrowserDialog;
+class RecentFilesMenu;
 /** Base class for main window. */
 typedef QMainWindow Kid3AppBaseClass;
 #endif
@@ -452,6 +453,13 @@ public slots:
 	void slotFileOpenRecentUrl(const KUrl& url);
 
 	/**
+	 * Open recent directory.
+	 *
+	 * @param dir directory to open
+	 */
+	void slotFileOpenRecentDirectory(const QString& dir);
+
+	/**
 	 * Quit application.
 	 */
 	void slotViewToolBar();
@@ -837,6 +845,7 @@ private:
 	KAction* m_settingsShowHidePicture;
 #else
 	Kid3Settings* m_config;
+	RecentFilesMenu* m_fileOpenRecent;
 	QAction* m_settingsShowHideV1;
 	QAction* m_settingsShowHideV2;
 	QAction* m_settingsShowHidePicture;

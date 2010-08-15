@@ -118,6 +118,7 @@
 #endif
 
 #ifndef CONFIG_USE_KDE
+#include "recentfilesmenu.h"
 #include "browserdialog.h"
 
 BrowserDialog* Kid3App::s_helpBrowser = 0;
@@ -711,6 +712,18 @@ void Kid3App::initActions()
 #endif
 	if (fileMenu && editMenu && toolsMenu && settingsMenu && helpMenu) {
 		QCM_addAction(fileMenu, fileOpen);
+		m_fileOpenRecent = new RecentFilesMenu(fileMenu);
+		if (m_fileOpenRecent) {
+			connect(m_fileOpenRecent, SIGNAL(loadFile(const QString&)),
+							this, SLOT(slotFileOpenRecentDirectory(const QString&)));
+#if QT_VERSION >= 0x040000
+			m_fileOpenRecent->setStatusTip(i18n("Opens a recently used directory"));
+			m_fileOpenRecent->setTitle(i18n("Open &Recent"));
+			fileMenu->addMenu(m_fileOpenRecent);
+#else
+			fileMenu->insertItem(i18n("Open &Recent"), m_fileOpenRecent);
+#endif
+		}
 		QCM_addAction(fileMenu, fileOpenDirectory);
 		fileMenu->QCM_addSeparator();
 		QCM_addAction(fileMenu, fileSave);
@@ -857,6 +870,7 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 		m_fileOpenRecent->KCM_addUrl(url);
 		setCaption(dir, false);
 #else
+		m_fileOpenRecent->addDirectory(dir);
 		QCM_setWindowTitle(dir + " - Kid3");
 #endif
 		s_dirName = dir;
@@ -878,6 +892,7 @@ void Kid3App::saveOptions()
 	m_fileOpenRecent->saveEntries(m_config, "Recent Files");
 #endif
 #else
+	m_fileOpenRecent->saveEntries(m_config);
 	s_miscCfg.m_windowX = x();
 	s_miscCfg.m_windowY = y();
 	s_miscCfg.m_windowWidth = size().width();
@@ -965,6 +980,7 @@ void Kid3App::readOptions()
 	m_viewStatusBar->setChecked(!statusBar()->isHidden());
 #endif
 #else
+	m_fileOpenRecent->loadEntries(m_config);
 	if (s_miscCfg.m_windowWidth != -1 && s_miscCfg.m_windowHeight != -1) {
 		resize(s_miscCfg.m_windowWidth, s_miscCfg.m_windowHeight);
 	}
@@ -1446,6 +1462,7 @@ void Kid3App::slotFileOpenRecentUrl(const KUrl& url)
 }
 
 void Kid3App::slotFileOpenRecent(const KURL&) {}
+void Kid3App::slotFileOpenRecentDirectory(const QString&) {}
 #else
 void Kid3App::slotFileOpenRecent(const KURL& url)
 {
@@ -1455,10 +1472,17 @@ void Kid3App::slotFileOpenRecent(const KURL& url)
 }
 
 void Kid3App::slotFileOpenRecentUrl(const KUrl&) {}
+void Kid3App::slotFileOpenRecentDirectory(const QString&) {}
 #endif
 #else /* CONFIG_USE_KDE */
 void Kid3App::slotFileOpenRecent(const KURL&) {}
 void Kid3App::slotFileOpenRecentUrl(const KUrl&) {}
+
+void Kid3App::slotFileOpenRecentDirectory(const QString& dir)
+{
+	updateCurrentSelection();
+	openDirectory(dir, true);
+}
 #endif /* CONFIG_USE_KDE */
 
 /**
