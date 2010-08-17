@@ -417,7 +417,7 @@ if ($have_id3lib) {
 	$config_h .= "#define HAVE_ID3LIB $have_id3lib\n";
 	$config_pri .= "-lid3 ";
 	if ($^O eq "darwin") {
-		$config_pri .= "-liconv ";
+		$config_pri .= "-liconv -lz ";
 	}
 #  $allsys_h .= "#include <id3.h>\n#include <id3/tag.h>\n";
 }
