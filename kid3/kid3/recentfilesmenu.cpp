@@ -116,7 +116,7 @@ void RecentFilesMenu::updateRecentFileActions()
 			 ++it) {
 		QAction* act = new QAction(this);
 #if QT_VERSION >= 0x040000
-		act->setText(i18n("&%1 %2").arg(++i).arg(*it));
+		act->setText(QString("&%1 %2").arg(++i).arg(*it));
 		act->setData(*it);
 #else
 		act->setText(*it);
