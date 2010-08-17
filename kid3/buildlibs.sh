@@ -31,33 +31,35 @@ cd source
 test -f mp4v2-1.9.1.tar.bz2 ||
 wget http://mp4v2.googlecode.com/files/mp4v2-1.9.1.tar.bz2
 
-test -f flac_1.2.1-1.2.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-1.2.diff.gz
+test -f flac_1.2.1-3.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-3.diff.gz
 test -f flac_1.2.1.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1.orig.tar.gz
 
-test -f id3lib3.8.3_3.8.3-7.2.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-7.2.diff.gz
+test -f id3lib3.8.3_3.8.3-13.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-13.debian.tar.gz
 test -f id3lib3.8.3_3.8.3.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3.orig.tar.gz
 
-test -f libogg_1.1.4~dfsg-2.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.4~dfsg-2.diff.gz
-test -f libogg_1.1.4~dfsg.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.1.4~dfsg.orig.tar.gz
+test -f libogg_1.2.0~dfsg-1.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.2.0~dfsg-1.diff.gz
+test -f libogg_1.2.0~dfsg.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.2.0~dfsg.orig.tar.gz
 
-test -f libvorbis-1.2.3.tar.gz ||
-wget http://downloads.xiph.org/releases/vorbis/libvorbis-1.2.3.tar.gz
+test -f libvorbis_1.3.1-1.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.1-1.diff.gz
+test -f libvorbis_1.3.1.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.1.orig.tar.gz
 
-test -f taglib_1.6.1-1.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.1-1.debian.tar.gz
-test -f taglib_1.6.1.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.1.orig.tar.gz
+test -f taglib_1.6.3-1.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.3-1.debian.tar.gz
+test -f taglib_1.6.3.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.3.orig.tar.gz
 
-test -f zlib_1.2.3.4.dfsg-3.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.3.4.dfsg-3.debian.tar.gz
-test -f zlib_1.2.3.4.dfsg.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.3.4.dfsg.orig.tar.gz
+test -f zlib_1.2.5.dfsg-1.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg-1.debian.tar.gz
+test -f zlib_1.2.5.dfsg.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg.orig.tar.gz
 
 # Create patch files
 
@@ -201,28 +203,30 @@ cd ..
 
 # zlib
 
-if ! test -d zlib_1.2.3.4.dfsg; then
-tar xzf source/zlib_1.2.3.4.dfsg.orig.tar.gz
-cd zlib_1.2.3.4.dfsg/
-tar xzf ../source/zlib_1.2.3.4.dfsg-3.debian.tar.gz
+if ! test -d zlib-1.2.5.dfsg; then
+tar xzf source/zlib_1.2.5.dfsg.orig.tar.gz
+cd zlib-1.2.5.dfsg/
+tar xzf ../source/zlib_1.2.5.dfsg-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 
 # libogg
 
-if ! test -d libogg-1.1.4~dfsg.orig; then
-tar xzf source/libogg_1.1.4~dfsg.orig.tar.gz
-cd libogg-1.1.4~dfsg.orig/
-gunzip -c ../source/libogg_1.1.4~dfsg-2.diff.gz | patch -p1
-for f in debian/patches/*.diff; do patch -p0 <$f; done
+if ! test -d libogg-1.2.0~dfsg; then
+tar xzf source/libogg_1.2.0~dfsg.orig.tar.gz
+cd libogg-1.2.0~dfsg/
+gunzip -c ../source/libogg_1.2.0~dfsg-1.diff.gz | patch -p1
 cd ..
 fi
 
 # libvorbis
 
-if ! test -d libvorbis-1.2.3; then
-tar xzf source/libvorbis-1.2.3.tar.gz
+if ! test -d libvorbis-1.3.1.orig; then
+tar xzf source/libvorbis_1.3.1.orig.tar.gz
+cd libvorbis-1.3.1/
+gunzip -c ../source/libvorbis_1.3.1-1.diff.gz | patch -p1
+cd ..
 fi
 
 # libflac
@@ -230,7 +234,7 @@ fi
 if ! test -d flac-1.2.1; then
 tar xzf source/flac_1.2.1.orig.tar.gz
 cd flac-1.2.1/
-gunzip -c ../source/flac_1.2.1-1.2.diff.gz | patch -p1
+gunzip -c ../source/flac_1.2.1-3.diff.gz | patch -p1
 for f in debian/patches/*.dpatch; do patch -p1 <$f; done
 patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
 if test $(uname) = "Darwin"; then
@@ -246,18 +250,18 @@ fi
 if ! test -d id3lib-3.8.3; then
 tar xzf source/id3lib3.8.3_3.8.3.orig.tar.gz
 cd id3lib-3.8.3/
-gunzip -c ../source/id3lib3.8.3_3.8.3-7.2.diff.gz | patch -p1
+tar xzf ../source/id3lib3.8.3_3.8.3-13.debian.tar.gz
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
 cd ..
 fi
 
 # taglib
 
-if ! test -d taglib-1.6.1; then
-tar xzf source/taglib_1.6.1.orig.tar.gz
-cd taglib-1.6.1/
-tar xzf ../source/taglib_1.6.1-1.debian.tar.gz
-for f in debian/patches/general/*.diff; do patch -p1 <$f; done
+if ! test -d taglib-1.6.3; then
+tar xzf source/taglib_1.6.3.orig.tar.gz
+cd taglib-1.6.3/
+tar xzf ../source/taglib_1.6.3-1.debian.tar.gz
 cd ..
 fi
 
@@ -274,36 +278,40 @@ test -d bin || mkdir bin
 
 # zlib
 
-cd zlib_1.2.3.4.dfsg/
+cd zlib-1.2.5.dfsg/
+if test $(uname) = "MINGW32_NT-5.1"; then
+make -f win32/Makefile.gcc
+make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib
+else
 CFLAGS="-O3 -Wall -DNO_FSEEKO" ./configure --static
-make
 sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
 mkdir -p inst/usr/local
 make install -f Makefile.inst prefix=`pwd`/inst/usr/local
+fi
 cd inst
-tar czf ../../bin/zlib-1.2.3.4.tgz usr
+tar czf ../../bin/zlib-1.2.5.tgz usr
 cd ../..
 
 # libogg
 
-cd libogg-1.1.4~dfsg.orig/
+cd libogg-1.2.0~dfsg/
 test -f Makefile || ./configure --enable-shared=no --enable-static=yes
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libogg-1.1.4.tgz usr
+tar czf ../../bin/libogg-1.2.0.tgz usr
 cd ../..
 
 # libvorbis
 
-cd libvorbis-1.2.3/
+cd libvorbis-1.3.1/
 test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=/usr/local
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libvorbis-1.2.3.tgz usr
+tar czf ../../bin/libvorbis-1.3.1.tgz usr
 cd ../..
 
 # libflac
@@ -331,13 +339,14 @@ cd ../..
 
 # taglib
 
-cd taglib-1.6.1/
+cd taglib-1.6.3/
+#test -f Makefile || cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON
 test -f Makefile || CPPFLAGS="-I/usr/local/include -DTAGLIB_STATIC" LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes --enable-mp4 --enable-asf
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/taglib-1.6.1.tgz usr
+tar czf ../../bin/taglib-1.6.3.tgz usr
 cd ../..
 
 # mp4v2
@@ -371,12 +380,12 @@ elif test $(uname) = "Darwin"; then
   sudo chmod go+w ${BUILDROOT}usr/local
 fi
 
-tar xzf bin/zlib-1.2.3.4.tgz -C $BUILDROOT
-tar xzf bin/libogg-1.1.4.tgz -C $BUILDROOT
-tar xzf bin/libvorbis-1.2.3.tgz -C $BUILDROOT
+tar xzf bin/zlib-1.2.5.tgz -C $BUILDROOT
+tar xzf bin/libogg-1.2.0.tgz -C $BUILDROOT
+tar xzf bin/libvorbis-1.3.1.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.6.1.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.6.3.tgz -C $BUILDROOT
 tar xzf bin/mp4v2-1.9.1.tgz -C $BUILDROOT
 
 if test $(uname) = "Darwin"; then
