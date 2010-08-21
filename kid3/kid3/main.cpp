@@ -157,6 +157,10 @@ int main(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
+#if QT_VERSION >= 0x040000
+	Q_INIT_RESOURCE(kid3);
+#endif
+
 	QApplication app(argc, argv);
 	QString locale(QLocale::system().name());
 

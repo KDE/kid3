@@ -118,6 +118,9 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_renDirSrc(0),
 	m_numberTracksDst(0),
 	m_numberTracksStart(1),
+#if !defined CONFIG_USE_KDE && QT_VERSION >= 0x040000
+	m_hideToolBar(false),
+#endif
 	m_hideV1(false),
 	m_hideV2(false),
 	m_hidePicture(false),
@@ -252,6 +255,9 @@ void MiscConfig::writeToConfig(
 		config->QCM_writeEntry("/VSplitterSize" + QString::number(i), *it);
 	}
 	config->QCM_writeEntry("/CustomGenres", m_customGenres);
+#if QT_VERSION >= 0x040000
+	config->QCM_writeEntry("/HideToolBar", m_hideToolBar);
+#endif
 	config->QCM_writeEntry("/HideV1", m_hideV1);
 	config->QCM_writeEntry("/HideV2", m_hideV2);
 	config->QCM_writeEntry("/HidePicture", m_hidePicture);
@@ -424,6 +430,9 @@ void MiscConfig::readFromConfig(
 		}
 	}
 	m_customGenres = config->QCM_readListEntry("/CustomGenres");
+#if QT_VERSION >= 0x040000
+	m_hideToolBar = config->QCM_readBoolEntry("/HideToolBar", m_hideToolBar);
+#endif
 	m_hideV1 = config->QCM_readBoolEntry("/HideV1", m_hideV1);
 	m_hideV2 = config->QCM_readBoolEntry("/HideV2", m_hideV2);
 	m_hidePicture = config->QCM_readBoolEntry("/HidePicture", m_hidePicture);

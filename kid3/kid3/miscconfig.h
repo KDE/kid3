@@ -219,6 +219,10 @@ public:
 	MenuCommandList m_contextMenuCommands;
 	/** custom genres for ID3v2.3 */
 	QStringList m_customGenres;
+#if !defined CONFIG_USE_KDE && QT_VERSION >= 0x040000
+	/** true to hide toolbar */
+	bool m_hideToolBar;
+#endif
 	/** true to hide ID3v1.1 controls */
 	bool m_hideV1;
 	/** true to hide ID3v2.3 controls */

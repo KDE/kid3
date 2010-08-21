@@ -42,8 +42,12 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QMenu>
+#include <QIcon>
+#include <QToolBar>
+#define QACTION_SET_ICON(a, i) a->setIcon(QIcon(i))
 #else
 #include <qlayout.h>
+#define QACTION_SET_ICON(a, i) 
 #endif
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
@@ -449,6 +453,7 @@ void Kid3App::initActions()
 		fileOpen->setStatusTip(i18n("Opens a directory"));
 		fileOpen->QCM_setMenuText(i18n("&Open..."));
 		fileOpen->QCM_setShortcut(Qt::CTRL + Qt::Key_O);
+		QACTION_SET_ICON(fileOpen, ":/images/document-open.png");
 		connect(fileOpen, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileOpen()));
 	}
@@ -457,6 +462,7 @@ void Kid3App::initActions()
 		fileOpenDirectory->setStatusTip(i18n("Opens a directory"));
 		fileOpenDirectory->QCM_setMenuText(i18n("O&pen Directory..."));
 		fileOpenDirectory->QCM_setShortcut(Qt::CTRL + Qt::Key_D);
+		QACTION_SET_ICON(fileOpenDirectory, ":/images/document-open.png");
 		connect(fileOpenDirectory, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileOpenDirectory()));
 	}
@@ -465,6 +471,7 @@ void Kid3App::initActions()
 		fileSave->setStatusTip(i18n("Saves the changed files"));
 		fileSave->QCM_setMenuText(i18n("&Save"));
 		fileSave->QCM_setShortcut(Qt::CTRL + Qt::Key_S);
+		QACTION_SET_ICON(fileSave, ":/images/document-save.png");
 		connect(fileSave, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileSave()));
 	}
@@ -473,6 +480,7 @@ void Kid3App::initActions()
 		fileRevert->setStatusTip(
 		    i18n("Reverts the changes of all or the selected files"));
 		fileRevert->QCM_setMenuText(i18n("Re&vert"));
+		QACTION_SET_ICON(fileRevert, ":/images/document-revert.png");
 		connect(fileRevert, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileRevert()));
 	}
@@ -480,6 +488,7 @@ void Kid3App::initActions()
 	if (fileImport) {
 		fileImport->setStatusTip(i18n("Import from file or clipboard"));
 		fileImport->QCM_setMenuText(i18n("&Import..."));
+		QACTION_SET_ICON(fileImport, ":/images/document-import.png");
 		connect(fileImport, QCM_SIGNAL_triggered,
 			this, SLOT(slotImport()));
 	}
@@ -538,6 +547,7 @@ void Kid3App::initActions()
 	if (fileExport) {
 		fileExport->setStatusTip(i18n("Export to file or clipboard"));
 		fileExport->QCM_setMenuText(i18n("&Export..."));
+		QACTION_SET_ICON(fileExport, ":/images/document-export.png");
 		connect(fileExport, QCM_SIGNAL_triggered,
 			this, SLOT(slotExport()));
 	}
@@ -545,6 +555,7 @@ void Kid3App::initActions()
 	if (fileCreatePlaylist) {
 		fileCreatePlaylist->setStatusTip(i18n("Create M3U Playlist"));
 		fileCreatePlaylist->QCM_setMenuText(i18n("&Create Playlist..."));
+		QACTION_SET_ICON(fileCreatePlaylist, ":/images/view-media-playlist.png");
 		connect(fileCreatePlaylist, QCM_SIGNAL_triggered,
 			this, SLOT(slotPlaylistDialog()));
 	}
@@ -553,6 +564,7 @@ void Kid3App::initActions()
 		fileQuit->setStatusTip(i18n("Quits the application"));
 		fileQuit->QCM_setMenuText(i18n("&Quit"));
 		fileQuit->QCM_setShortcut(Qt::CTRL + Qt::Key_Q);
+		QACTION_SET_ICON(fileQuit, ":/images/application-exit.png");
 		connect(fileQuit, QCM_SIGNAL_triggered,
 			this, SLOT(slotFileQuit()));
 	}
@@ -561,6 +573,7 @@ void Kid3App::initActions()
 		editSelectAll->setStatusTip(i18n("Select all files"));
 		editSelectAll->QCM_setMenuText(i18n("Select &All"));
 		editSelectAll->QCM_setShortcut(Qt::ALT + Qt::Key_A);
+		QACTION_SET_ICON(editSelectAll, ":/images/edit-select-all.png");
 		connect(editSelectAll, QCM_SIGNAL_triggered,
 			m_view, SLOT(selectAllFiles()));
 	}
@@ -577,6 +590,7 @@ void Kid3App::initActions()
 		editPreviousFile->setStatusTip(i18n("Select previous file"));
 		editPreviousFile->QCM_setMenuText(i18n("&Previous File"));
 		editPreviousFile->QCM_setShortcut(Qt::ALT + Qt::Key_Up);
+		QACTION_SET_ICON(editPreviousFile, ":/images/go-previous.png");
 		connect(editPreviousFile, QCM_SIGNAL_triggered,
 			m_view, SLOT(selectPreviousFile()));
 	}
@@ -585,6 +599,7 @@ void Kid3App::initActions()
 		editNextFile->setStatusTip(i18n("Select next file"));
 		editNextFile->QCM_setMenuText(i18n("&Next File"));
 		editNextFile->QCM_setShortcut(Qt::ALT + Qt::Key_Down);
+		QACTION_SET_ICON(editNextFile, ":/images/go-next.png");
 		connect(editNextFile, QCM_SIGNAL_triggered,
 			m_view, SLOT(selectNextFile()));
 	}
@@ -592,6 +607,7 @@ void Kid3App::initActions()
 	if (helpHandbook) {
 		helpHandbook->setStatusTip(i18n("Kid3 Handbook"));
 		helpHandbook->QCM_setMenuText(i18n("Kid3 &Handbook"));
+		QACTION_SET_ICON(helpHandbook, ":/images/help-contents.png");
 		connect(helpHandbook, QCM_SIGNAL_triggered,
 			this, SLOT(slotHelpHandbook()));
 	}
@@ -687,10 +703,30 @@ void Kid3App::initActions()
 	if (settingsConfigure) {
 		settingsConfigure->setStatusTip(i18n("Configure Kid3"));
 		settingsConfigure->QCM_setMenuText(i18n("&Configure Kid3..."));
+		QACTION_SET_ICON(settingsConfigure, ":/images/configure.png");
 		connect(settingsConfigure, QCM_SIGNAL_triggered,
 			this, SLOT(slotSettingsConfigure()));
 	}
 #if QT_VERSION >= 0x040000
+	QToolBar* toolBar = new QToolBar(this);
+	toolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+	toolBar->addAction(fileOpen);
+	toolBar->addAction(fileSave);
+	toolBar->addAction(fileRevert);
+	toolBar->addAction(fileCreatePlaylist);
+	toolBar->addAction(editPreviousFile);
+	toolBar->addAction(editNextFile);
+	toolBar->addAction(settingsConfigure);
+	addToolBar(toolBar);
+	m_viewToolBar = toolBar->toggleViewAction();
+	if (m_viewToolBar) {
+		m_viewToolBar->setStatusTip(i18n("Enables/disables the toolbar"));
+		m_viewToolBar->setText(i18n("Show &Toolbar"));
+	}
+	if (s_miscCfg.m_hideToolBar)
+		toolBar->hide();
+	m_viewToolBar->setChecked(!s_miscCfg.m_hideToolBar);
+
 	QMenuBar* menubar = menuBar();
 	QMenu* fileMenu = menubar->addMenu(i18n("&File"));
 	QMenu* editMenu = menubar->addMenu(i18n("&Edit"));
@@ -719,6 +755,7 @@ void Kid3App::initActions()
 #if QT_VERSION >= 0x040000
 			m_fileOpenRecent->setStatusTip(i18n("Opens a recently used directory"));
 			m_fileOpenRecent->setTitle(i18n("Open &Recent"));
+			m_fileOpenRecent->setIcon(QIcon(":/images/document-open-recent.png"));
 			fileMenu->addMenu(m_fileOpenRecent);
 #else
 			fileMenu->insertItem(i18n("Open &Recent"), m_fileOpenRecent);
@@ -759,6 +796,10 @@ void Kid3App::initActions()
 #endif
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 		QCM_addAction(toolsMenu, toolsConvertToId3v23);
+#endif
+
+#if QT_VERSION >= 0x040000
+		QCM_addAction(settingsMenu, m_viewToolBar);
 #endif
 
 		QCM_addAction(settingsMenu, m_settingsShowHideV1);
@@ -893,6 +934,9 @@ void Kid3App::saveOptions()
 #endif
 #else
 	m_fileOpenRecent->saveEntries(m_config);
+#if QT_VERSION >= 0x040000
+	s_miscCfg.m_hideToolBar = !m_viewToolBar->isChecked();
+#endif
 	s_miscCfg.m_windowX = x();
 	s_miscCfg.m_windowY = y();
 	s_miscCfg.m_windowWidth = size().width();

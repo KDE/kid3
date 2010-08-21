@@ -38,7 +38,7 @@ CLEANFILES = allsys.h allsys.h.gch
 noinst_HEADERS = configdialog.h exportdialog.h filelist.h filelistitem.h formatbox.h formatconfig.h frame.h framelist.h frametable.h freedbclient.h freedbconfig.h freedbdialog.h generalconfig.h genres.h id3form.h importconfig.h importdialog.h importparser.h importselector.h kid3.h miscconfig.h m4afile.h mp3file.h rendirdialog.h dirlist.h taggedfile.h musicbrainzclient.h musicbrainzconfig.h musicbrainzdialog.h numbertracksdialog.h oggfile.hpp vcedit.h flacfile.hpp commandstable.h taglibfile.h importsourceconfig.h importsourcedialog.h importsourceclient.h discogsdialog.h discogsclient.h discogsconfig.h musicbrainzreleasedialog.h musicbrainzreleaseclient.h qtcompatmac.h dirinfo.h externalprocess.h stringlistedit.h tracktypedialog.h tracktypeclient.h scriptinterface.h filterconfig.h filterdialog.h filefilter.h expressionparser.h pictureframe.h formatreplacer.h httpclient.h downloaddialog.h picturelabel.h browsecoverartdialog.h configtable.h attributedata.h browserdialog.h imageviewer.h editframedialog.h editframefieldsdialog.h playlistdialog.h playlistconfig.h playlistcreator.h amazondialog.h amazonclient.h amazonconfig.h recentfilesmenu.h
 
 # additional files in distribution
-EXTRA_DIST = kid3.desktop kid3ui.rc hi16-app-kid3.png hi32-app-kid3.png hi48-app-kid3.png hisc-app-kid3.svgz de_qt.po ru_qt.po es_qt.po fr_qt.po it_qt.po pl_qt.po nl_qt.po et_qt.po
+EXTRA_DIST = kid3.desktop kid3ui.rc hi16-app-kid3.png hi32-app-kid3.png hi48-app-kid3.png hisc-app-kid3.svgz de_qt.po ru_qt.po es_qt.po fr_qt.po it_qt.po pl_qt.po nl_qt.po et_qt.po images/*
 
 # generate precompiled header allsys.h.gch for GCC 3.4
 pch:

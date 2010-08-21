@@ -846,6 +846,9 @@ private:
 #else
 	Kid3Settings* m_config;
 	RecentFilesMenu* m_fileOpenRecent;
+#if QT_VERSION >= 0x040000
+	QAction* m_viewToolBar;
+#endif
 	QAction* m_settingsShowHideV1;
 	QAction* m_settingsShowHideV2;
 	QAction* m_settingsShowHidePicture;

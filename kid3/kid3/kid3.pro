@@ -95,3 +95,5 @@ contains($$list($$[QT_VERSION]), 4.*) {
 }
 
 INSTALLS += program
+
+RESOURCES = kid3.qrc
