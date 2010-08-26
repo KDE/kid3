@@ -159,6 +159,7 @@ my $taglib_includes = "-I/usr/include/taglib";
 my $have_mp4v2 = 1;
 my $have_mp4v2_mp4v2_h = 1;
 my $have_qtdbus = 0;
+my $have_phonon = 1;
 my $have_tunepimp = 5;
 my $qmake_cmd = "qmake";
 my $enable_pch = 0;
@@ -197,6 +198,8 @@ while (my $opt = shift) {
 		$have_mp4v2_mp4v2_h = 0;
   } elsif ($opt eq "--with-dbus") {
 		$have_qtdbus = 1;
+  } elsif ($opt eq "--without-phonon") {
+		$have_phonon = 0;
 	} elsif ($opt eq "--without-musicbrainz") {
 		$have_tunepimp = 0;
 	} elsif (substr($opt, 0, 19) eq "--with-musicbrainz=") {
@@ -299,6 +302,7 @@ if ($from_configure) {
 	$have_mp4v2 = 0;
 	$have_mp4v2_mp4v2_h = 0;
 	$have_qtdbus = 0;
+	$have_phonon = 0;
 	$have_tunepimp = 0;
 	$qmake_cmd = "";
 	$lupdate_cmd = "";
@@ -333,6 +337,8 @@ if ($from_configure) {
 				$have_mp4v2_mp4v2_h = $1;
 			} elsif (/^#define HAVE_QTDBUS (\d+)$/) {
 				$have_qtdbus = $1;
+			} elsif (/^#define HAVE_PHONON (\d+)$/) {
+				$have_phonon = $1;
 			} elsif (/^#define HAVE_TUNEPIMP (\d+)$/) {
 				$have_tunepimp = $1;
 			} elsif (/^#define CFG_QMAKE "(.*)"$/) {
@@ -458,6 +464,10 @@ if ($have_tunepimp) {
 if ($have_qtdbus) {
 	$config_h .= "#define HAVE_QTDBUS $have_qtdbus\n";
 	$config_pri .= "\nHAVE_QTDBUS = $have_qtdbus";
+}
+if ($have_phonon) {
+	$config_h .= "#define HAVE_PHONON $have_phonon\n";
+	$config_pri .= "\nHAVE_PHONON = $have_phonon";
 }
 
 $config_pri .= "\nCFG_CONFIG = " .

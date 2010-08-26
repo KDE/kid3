@@ -499,6 +499,45 @@ EOF
   AC_FIND_QTDBUS
 fi
 
+dnl Check for Phonon
+AC_ARG_WITH(phonon, [  --with-phonon           build with Phonon, default=yes],
+  with_phonon="$withval",
+  with_phonon=yes
+)
+if test "$with_phonon" != "no"; then
+  AC_DEFUN([AC_FIND_PHONON],
+  [
+    AC_MSG_CHECKING([for libphonon])
+    mkdir phonontest
+    cat >phonontest/phonontest.pro <<EOF
+TEMPLATE = app
+QT += phonon
+SOURCES += phonontest.cpp
+EOF
+    cat >phonontest/phonontest.cpp <<EOF
+#include <Phonon/Path>
+int main() {
+  Phonon::Path p;
+  return 0;
+}
+EOF
+    cd phonontest
+    ${CFG_QMAKE} && make >/dev/null 2>&1
+    phonon_result=$?
+    cd ..
+    rm -rf phonontest
+    if test $phonon_result -eq 0; then
+      AC_MSG_RESULT(yes)
+      HAVE_PHONON=1
+      AC_SUBST(HAVE_PHONON)
+      AC_DEFINE(HAVE_PHONON, 1, [Define to build with libphonon])
+    else
+      AC_MSG_RESULT(no)
+    fi
+  ])
+  AC_FIND_PHONON
+fi
+
 AC_ARG_WITH(db2html, [  --with-db2html=PROGRAM  Docbook to HTML command (e.g. xsltproc, jw, xalan), default=search],
   CFG_DB2HTML="$withval",
   CFG_DB2HTML=

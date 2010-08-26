@@ -44,6 +44,9 @@ class QAction;
 class FileListItem;
 class TaggedFile;
 class ExternalProcess;
+#ifdef HAVE_PHONON
+class PlayDialog;
+#endif
 
 /**
  * List of files to operate on.
@@ -283,6 +286,11 @@ private slots:
 	void deleteFile();
 
 	/**
+	 * Play the selected file.
+	 */
+	void playAudio();
+
+	/**
 	 * Expand an item.
 	 *
 	 * @param item item
@@ -358,6 +366,9 @@ private:
 	ExternalProcess* m_process;
 #if QT_VERSION >= 0x040000
 	QList<QTreeWidgetItem*> m_currentSelection;
+#endif
+#ifdef HAVE_PHONON
+	PlayDialog* m_playDialog;
 #endif
 };
 

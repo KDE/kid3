@@ -33,3 +33,6 @@
 
 /* Define if you have QtDBus installed */
 #cmakedefine HAVE_QTDBUS 1
+
+/* Define if you have Phonon installed */
+#cmakedefine HAVE_PHONON 1

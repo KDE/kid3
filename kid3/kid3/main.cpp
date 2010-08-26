@@ -162,6 +162,9 @@ int main(int argc, char* argv[])
 #endif
 
 	QApplication app(argc, argv);
+#if QT_VERSION >= 0x040000
+	app.setApplicationName("Kid3");
+#endif
 	QString locale(QLocale::system().name());
 
 	// translation file for Qt
