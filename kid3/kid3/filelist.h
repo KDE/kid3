@@ -238,6 +238,12 @@ signals:
 	 */
 	void selectedFilesRenamed();
 
+public slots:
+	/**
+	 * Play the selected file.
+	 */
+	void playAudio();
+
 private slots:
 	/**
 	 * Display a context menu with operations for selected files.
@@ -284,11 +290,6 @@ private slots:
 	 * Delete the selected file(s).
 	 */
 	void deleteFile();
-
-	/**
-	 * Play the selected file.
-	 */
-	void playAudio();
 
 	/**
 	 * Expand an item.

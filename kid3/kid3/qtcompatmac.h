@@ -46,6 +46,7 @@
 #define KCM_ICON_preferences_files "document-save"
 #define KCM_ICON_preferences_useractions "preferences-other"
 #define KCM_ICON_preferences_network "preferences-system-network"
+#define KCM_ICON_media_playback_start "media-playback-start"
 
 #define KCM_setStatusTip setStatusTip
 #define KCM_addUrl addUrl
@@ -93,6 +94,7 @@
 #define KCM_ICON_preferences_files "package_system"
 #define KCM_ICON_preferences_useractions "package_utilities"
 #define KCM_ICON_preferences_network "package_network"
+#define KCM_ICON_media_playback_start "player_play"
 
 #define KCM_setStatusTip setStatusText
 #define KCM_addUrl addURL

@@ -369,6 +369,12 @@ void Kid3App::initActions()
 		    SLOT(slotConvertToId3v23()), actionCollection(),
 		    "convert_to_id3v23");
 #endif
+#ifdef HAVE_PHONON
+	KCM_KActionIcon(toolsPlay, KCM_ICON_media_playback_start,
+		    i18n("&Play"), this,
+		    SLOT(slotPlay()), actionCollection(),
+		    "play");
+#endif
 	KCM_KActionVar(m_settingsShowHideV1,
 		            i18n("Hide Tag &1"), this,
 								SLOT(slotSettingsShowHideV1()), actionCollection(),
@@ -678,6 +684,16 @@ void Kid3App::initActions()
 			this, SLOT(slotConvertToId3v23()));
 	}
 #endif
+#ifdef HAVE_PHONON
+	QAction* toolsPlay = new QAction(this);
+	if (toolsPlay) {
+		toolsPlay->setStatusTip(i18n("Play"));
+		toolsPlay->QCM_setMenuText(i18n("&Play"));
+		QACTION_SET_ICON(toolsPlay, style()->standardIcon(QStyle::SP_MediaPlay));
+		connect(toolsPlay, QCM_SIGNAL_triggered,
+			this, SLOT(slotPlay()));
+	}
+#endif
 	m_settingsShowHideV1 = new QAction(this);
 	if (m_settingsShowHideV1) {
 		m_settingsShowHideV1->setStatusTip(i18n("Hide Tag 1"));
@@ -716,6 +732,9 @@ void Kid3App::initActions()
 	toolBar->addAction(fileCreatePlaylist);
 	toolBar->addAction(editPreviousFile);
 	toolBar->addAction(editNextFile);
+#ifdef HAVE_PHONON
+	toolBar->addAction(toolsPlay);
+#endif
 	toolBar->addAction(settingsConfigure);
 	addToolBar(toolBar);
 	m_viewToolBar = toolBar->toggleViewAction();
@@ -796,6 +815,9 @@ void Kid3App::initActions()
 #endif
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 		QCM_addAction(toolsMenu, toolsConvertToId3v23);
+#endif
+#ifdef HAVE_PHONON
+		QCM_addAction(toolsMenu, toolsPlay);
 #endif
 
 #if QT_VERSION >= 0x040000
@@ -2804,6 +2826,16 @@ void Kid3App::slotConvertToId3v23()
 		item = m_view->nextFile();
 	}
 	updateGuiControls();
+#endif
+}
+
+/**
+ * Play audio file.
+ */
+void Kid3App::slotPlay()
+{
+#ifdef HAVE_PHONON
+	m_view->getFileList()->playAudio();
 #endif
 }
 

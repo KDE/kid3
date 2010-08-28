@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kid3" version="9">
+<kpartgui name="kid3" version="10">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="open_directory" append="open_merge"/>
@@ -26,6 +26,7 @@
     <Action name="filter"/>
     <Action name="convert_to_id3v24"/>
     <Action name="convert_to_id3v23"/>
+    <Action name="play"/>
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
     <Action name="hide_v1" append="show_merge"/>
@@ -41,5 +42,6 @@
   <Action name="create_playlist" />
   <Action name="previous_file" />
   <Action name="next_file" />
+  <Action name="play" />
 </ToolBar>
 </kpartgui>

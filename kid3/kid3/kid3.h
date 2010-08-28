@@ -630,6 +630,11 @@ public slots:
 	void slotConvertToId3v23();
 
 	/**
+	 * Play audio file.
+	 */
+	void slotPlay();
+
+	/**
 	 * Update GUI controls from the tags in the files.
 	 * The new selection is stored and the GUI controls and frame list
 	 * updated accordingly (filtered for multiple selection).
