@@ -48,44 +48,50 @@ static const QString zeroTime(" 0:00");
  *
  * @param parent parent widget
  */
-PlayDialog::PlayDialog(QWidget* parent) : QDialog(parent), m_fileNr(-1)
+PlayDialog::PlayDialog(QWidget* parent) : QDockWidget(parent), m_fileNr(-1)
 {
+	setObjectName("Kid3Player");
+	QWidget* widget = new QWidget(this);
+
 	m_playIcon = style()->standardIcon(QStyle::SP_MediaPlay);
 	m_pauseIcon = style()->standardIcon(QStyle::SP_MediaPause);
 
-	m_mediaObject = new Phonon::MediaObject(this);
+	m_mediaObject = new Phonon::MediaObject(widget);
 	m_mediaObject->setTickInterval(1000);
-	m_audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, this);
+	m_audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, widget);
 	Phonon::createPath(m_mediaObject, m_audioOutput);
 
-	m_playOrPauseAction = new QAction(m_playIcon, i18n("Play/Pause"), this);
+	m_playOrPauseAction = new QAction(m_playIcon, i18n("Play/Pause"), widget);
 	m_stopAction = new QAction(
-		style()->standardIcon(QStyle::SP_MediaStop), i18n("Stop playback"), this);
+		style()->standardIcon(QStyle::SP_MediaStop), i18n("Stop playback"), widget);
 	m_previousAction = new QAction(
-		style()->standardIcon(QStyle::SP_MediaSkipBackward), i18n("Previous Track"), this);
+		style()->standardIcon(QStyle::SP_MediaSkipBackward), i18n("Previous Track"), widget);
 	m_nextAction = new QAction(
-		style()->standardIcon(QStyle::SP_MediaSkipForward), i18n("Next Track"), this);
+		style()->standardIcon(QStyle::SP_MediaSkipForward), i18n("Next Track"), widget);
 
-	QToolBar* toolbar = new QToolBar(this);
+	QToolBar* toolbar = new QToolBar(widget);
 	toolbar->addAction(m_playOrPauseAction);
 	toolbar->addAction(m_stopAction);
 	toolbar->addAction(m_previousAction);
 	toolbar->addAction(m_nextAction);
 
-	Phonon::SeekSlider* seekSlider = new Phonon::SeekSlider(this);
+	Phonon::SeekSlider* seekSlider = new Phonon::SeekSlider(widget);
 	seekSlider->setMediaObject(m_mediaObject);
-	Phonon::VolumeSlider* volumeSlider = new Phonon::VolumeSlider(this);
+	Phonon::VolumeSlider* volumeSlider = new Phonon::VolumeSlider(widget);
 	volumeSlider->setAudioOutput(m_audioOutput);
 
-	m_timeLcd = new QLCDNumber(this);
+	m_timeLcd = new QLCDNumber(widget);
 	m_timeLcd->setSegmentStyle(QLCDNumber::Flat);
+	m_timeLcd->setFrameStyle(QFrame::NoFrame);
 	m_timeLcd->display(zeroTime);
 
-	QHBoxLayout *hlayout = new QHBoxLayout(this);
+	QHBoxLayout *hlayout = new QHBoxLayout(widget);
 	hlayout->addWidget(toolbar);
 	hlayout->addWidget(seekSlider);
 	hlayout->addWidget(volumeSlider);
 	hlayout->addWidget(m_timeLcd);
+
+	setWidget(widget);
 
 	connect(m_mediaObject, SIGNAL(tick(qint64)), this, SLOT(tick(qint64)));
 	connect(m_mediaObject, SIGNAL(stateChanged(Phonon::State, Phonon::State)),

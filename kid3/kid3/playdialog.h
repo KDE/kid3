@@ -28,13 +28,16 @@
 #define PLAYDIALOG_H
 
 #include "config.h"
-#include <qdialog.h>
 
 #ifdef HAVE_PHONON
 
+#include <QDockWidget>
 #include <QStringList>
 #include <QIcon>
 #include <phonon/phononnamespace.h>
+
+/** Base class for player. */
+typedef QDockWidget PlayDialogBaseClass;
 
 class QAction;
 class QLCDNumber;
@@ -49,6 +52,10 @@ namespace Phonon
 
 #else // HAVE_PHONON
 
+#include <qdialog.h>
+/** Base class for player. */
+typedef QDialog PlayDialogBaseClass;
+
 #if QT_VERSION < 0x040000
 typedef Q_INT64 qint64;
 #endif
@@ -59,7 +66,7 @@ namespace Phonon { enum State {}; }
 /**
  * Audio player dialog.
  */
-class PlayDialog : public QDialog {
+class PlayDialog : public PlayDialogBaseClass {
 Q_OBJECT
 
 #ifdef HAVE_PHONON

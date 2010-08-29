@@ -80,6 +80,9 @@ class FileFilter;
 class QImage;
 class DownloadDialog;
 class PlaylistDialog;
+#ifdef HAVE_PHONON
+class PlayDialog;
+#endif
 class DirContents;
 
 /** Kid3 application */
@@ -632,7 +635,7 @@ public slots:
 	/**
 	 * Play audio file.
 	 */
-	void slotPlay();
+	void slotPlayAudio();
 
 	/**
 	 * Update GUI controls from the tags in the files.
@@ -835,6 +838,10 @@ private:
 	DownloadDialog* m_downloadDialog;
 	/** Playlist dialog */
 	PlaylistDialog* m_playlistDialog;
+#ifdef HAVE_PHONON
+	/** Play dialog */
+	PlayDialog* m_playDialog;
+#endif
 	/** Frame list */
 	FrameList* m_framelist;
 

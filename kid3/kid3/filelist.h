@@ -41,12 +41,10 @@ class QAction;
 #endif
 #include "dirinfo.h"
 
+class Kid3App;
 class FileListItem;
 class TaggedFile;
 class ExternalProcess;
-#ifdef HAVE_PHONON
-class PlayDialog;
-#endif
 
 /**
  * List of files to operate on.
@@ -59,8 +57,9 @@ public:
 	/**
 	 * Constructor.
 	 * @param parent parent widget
+	 * @param app    application widget
 	 */
-	FileList(QWidget* parent = 0);
+	FileList(QWidget* parent, Kid3App* app);
 
 	/**
 	 * Destructor.
@@ -238,12 +237,6 @@ signals:
 	 */
 	void selectedFilesRenamed();
 
-public slots:
-	/**
-	 * Play the selected file.
-	 */
-	void playAudio();
-
 private slots:
 	/**
 	 * Display a context menu with operations for selected files.
@@ -368,9 +361,7 @@ private:
 #if QT_VERSION >= 0x040000
 	QList<QTreeWidgetItem*> m_currentSelection;
 #endif
-#ifdef HAVE_PHONON
-	PlayDialog* m_playDialog;
-#endif
+	Kid3App* m_app;
 };
 
 #endif // FILELIST_H

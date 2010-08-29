@@ -65,9 +65,6 @@
 #ifdef HAVE_TAGLIB
 #include "taglibfile.h"
 #endif
-#ifdef HAVE_PHONON
-#include "playdialog.h"
-#endif
 
 /** Only defined for generation of KDE3 translation files */
 #define FOR_KDE3_PO_1 I18N_NOOP("Do you really want to delete these %1 items?")
@@ -273,17 +270,15 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
 /**
  * Constructor.
  * @param parent parent widget
+ * @param app    application widget
  */
-FileList::FileList(QWidget* parent) :
+FileList::FileList(QWidget* parent, Kid3App* app) :
 #if QT_VERSION >= 0x040000
 	QTreeWidget(parent), m_iterator(0),
 #else
 	QListView(parent),
 #endif
-	m_currentItemInDir(0), m_process(0)
-#ifdef HAVE_PHONON
-	, m_playDialog(0)
-#endif
+	m_currentItemInDir(0), m_process(0), m_app(app)
 {
 #if QT_VERSION >= 0x040000
 	setSelectionMode(ExtendedSelection);
@@ -316,9 +311,6 @@ FileList::~FileList()
 	delete m_process;
 #if QT_VERSION >= 0x040000
 	delete m_iterator;
-#endif
-#ifdef HAVE_PHONON
-	delete m_playDialog;
 #endif
 }
 
@@ -938,7 +930,7 @@ void FileList::contextMenu(
 		menu.addAction(i18n("&Rename"), this, SLOT(renameFile()));
 		menu.addAction(i18n("&Delete"), this, SLOT(deleteFile()));
 #ifdef HAVE_PHONON
-		menu.addAction(i18n("&Play"), this, SLOT(playAudio()));
+		menu.addAction(i18n("&Play"), m_app, SLOT(slotPlayAudio()));
 #endif
 		int id = 0;
 		for (MiscConfig::MenuCommandList::const_iterator
@@ -956,7 +948,7 @@ void FileList::contextMenu(
 		menu.insertItem(i18n("&Rename"), this, SLOT(renameFile()));
 		menu.insertItem(i18n("&Delete"), this, SLOT(deleteFile()));
 #ifdef HAVE_PHONON
-		menu.insertItem(i18n("&Play"), this, SLOT(playAudio()));
+		menu.insertItem(i18n("&Play"), m_app, SLOT(slotPlayAudio()));
 #endif
 		int id = 0;
 		for (MiscConfig::MenuCommandList::const_iterator
@@ -1428,47 +1420,6 @@ void FileList::deleteFile()
 			}
 		}
 	}
-}
-
-/**
- * Play the selected file.
- */
-void FileList::playAudio()
-{
-#ifdef HAVE_PHONON
-	QStringList files;
-	int fileNr = 0;
-	FileListItem* item = first();
-
-	if (numFilesSelected() > 1) {
-		// play only the selected files if more than one is selected
-		while (item != 0) {
-			if (item->isInSelection()) {
-				files.push_back(item->getFile()->getAbsFilename());
-			}
-			item = next();
-		}
-	} else {
-		// play all files if none or only one is selected
-		int idx = 0;
-		while (item != 0) {
-			files.push_back(item->getFile()->getAbsFilename());
-			if (item->isInSelection()) {
-				fileNr = idx;
-			}
-			item = next();
-			++idx;
-		}
-	}
-
-	if (!m_playDialog) {
-		m_playDialog = new PlayDialog(0);
-	} else {
-		m_playDialog->raise();
-	}
-	m_playDialog->setFiles(files, fileNr);
-	m_playDialog->show();
-#endif
 }
 
 #if QT_VERSION >= 0x040000

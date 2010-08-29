@@ -155,7 +155,7 @@ Id3Form::Id3Form(QWidget* parent)
 	QCM_setWindowTitle(i18n("Kid3"));
 
 	m_vSplitter = new QSplitter(Qt::Vertical, this);
-	m_fileListBox = new FileList(m_vSplitter);
+	m_fileListBox = new FileList(m_vSplitter, theApp);
 	m_dirListBox = new DirList(m_vSplitter);
 
 #if QT_VERSION >= 0x040000

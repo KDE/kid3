@@ -116,6 +116,9 @@
 #ifdef HAVE_TAGLIB
 #include "taglibfile.h"
 #endif
+#ifdef HAVE_PHONON
+#include "playdialog.h"
+#endif
 
 #ifdef KID3_USE_KCONFIGDIALOG
 #include <kconfigskeleton.h>
@@ -152,6 +155,9 @@ Kid3App::Kid3App() :
 	m_exportDialog(0), m_renDirDialog(0),
 	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0),
 	m_playlistDialog(0)
+#ifdef HAVE_PHONON
+	, m_playDialog(0)
+#endif
 {
 #ifdef CONFIG_USE_KDE
 #if KDE_VERSION >= 0x035c00
@@ -227,6 +233,9 @@ Kid3App::~Kid3App()
 #ifndef CONFIG_USE_KDE
 	delete s_helpBrowser;
 	s_helpBrowser = 0;
+#endif
+#ifdef HAVE_PHONON
+	delete m_playDialog;
 #endif
 }
 
@@ -372,7 +381,7 @@ void Kid3App::initActions()
 #ifdef HAVE_PHONON
 	KCM_KActionIcon(toolsPlay, KCM_ICON_media_playback_start,
 		    i18n("&Play"), this,
-		    SLOT(slotPlay()), actionCollection(),
+		    SLOT(slotPlayAudio()), actionCollection(),
 		    "play");
 #endif
 	KCM_KActionVar(m_settingsShowHideV1,
@@ -691,7 +700,7 @@ void Kid3App::initActions()
 		toolsPlay->QCM_setMenuText(i18n("&Play"));
 		QACTION_SET_ICON(toolsPlay, style()->standardIcon(QStyle::SP_MediaPlay));
 		connect(toolsPlay, QCM_SIGNAL_triggered,
-			this, SLOT(slotPlay()));
+			this, SLOT(slotPlayAudio()));
 	}
 #endif
 	m_settingsShowHideV1 = new QAction(this);
@@ -2832,12 +2841,47 @@ void Kid3App::slotConvertToId3v23()
 /**
  * Play audio file.
  */
-void Kid3App::slotPlay()
+void Kid3App::slotPlayAudio()
 {
 #ifdef HAVE_PHONON
-	m_view->getFileList()->playAudio();
+	QStringList files;
+	int fileNr = 0;
+	FileListItem* item = m_view->firstFile();
+
+	if (m_view->numFilesSelected() > 1) {
+		// play only the selected files if more than one is selected
+		while (item != 0) {
+			if (item->isInSelection()) {
+				files.push_back(item->getFile()->getAbsFilename());
+			}
+			item = m_view->nextFile();
+		}
+	} else {
+		// play all files if none or only one is selected
+		int idx = 0;
+		while (item != 0) {
+			files.push_back(item->getFile()->getAbsFilename());
+			if (item->isInSelection()) {
+				fileNr = idx;
+			}
+			item = m_view->nextFile();
+			++idx;
+		}
+	}
+
+	if (!m_playDialog) {
+		m_playDialog = new PlayDialog(this);
+		m_playDialog->setAllowedAreas(
+			Qt::TopDockWidgetArea | Qt::BottomDockWidgetArea);
+		addDockWidget(Qt::BottomDockWidgetArea, m_playDialog);
+	} else {
+		m_playDialog->raise();
+	}
+	m_playDialog->setFiles(files, fileNr);
+	m_playDialog->show();
 #endif
 }
+
 
 /**
  * Open directory on drop.
