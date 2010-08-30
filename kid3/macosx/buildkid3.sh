@@ -1,5 +1,5 @@
 #!/bin/sh
-perl ../kid3-qt/configure-kid3-qt.pl --generate-ts --prefix= --with-bindir= --with-datarootdir=Kid3.app/Contents/Resources --with-docdir=Kid3.app/Contents/Resources --with-translationsdir=Kid3.app/Contents/Resources --without-musicbrainz --enable-gcc-pch --with-db2html="xsltproc --novalid --nonet" --with-xsl-stylesheet=$HOME/docbook-xsl-1.72.0/html/docbook.xsl --with-extra-includes=/usr/local/include --with-taglib-includes=-I/usr/local/include/taglib --with-extra-libs=-L/usr/local/lib
+perl ../kid3-qt/configure-kid3-qt.pl --generate-ts --prefix= --with-bindir= --with-datarootdir=Kid3.app/Contents/Resources --with-docdir=Kid3.app/Contents/Resources --with-translationsdir=Kid3.app/Contents/Resources --without-musicbrainz --without-phonon --enable-gcc-pch --with-db2html="xsltproc --novalid --nonet" --with-xsl-stylesheet=$HOME/docbook-xsl-1.72.0/html/docbook.xsl --with-extra-includes=/usr/local/include --with-taglib-includes=-I/usr/local/include/taglib --with-extra-libs=-L/usr/local/lib
 make
 
 echo "Creating bundle"
