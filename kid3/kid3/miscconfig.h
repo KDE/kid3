@@ -223,6 +223,10 @@ public:
 	/** true to hide toolbar */
 	bool m_hideToolBar;
 #endif
+	/** true to automatically hide unused tags */
+	bool m_autoHideTags;
+	/** true to hide file controls */
+	bool m_hideFile;
 	/** true to hide ID3v1.1 controls */
 	bool m_hideV1;
 	/** true to hide ID3v2.3 controls */

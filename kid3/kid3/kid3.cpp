@@ -64,6 +64,7 @@
 #include <kmessagebox.h>
 #include <kfiledialog.h>
 #if KDE_VERSION >= 0x035c00
+#include <ktoggleaction.h>
 #include <kstandardaction.h>
 #include <kshortcutsdialog.h>
 #include <krecentfilesaction.h>
@@ -384,19 +385,14 @@ void Kid3App::initActions()
 		    SLOT(slotPlayAudio()), actionCollection(),
 		    "play");
 #endif
-	KCM_KActionVar(m_settingsShowHideV1,
-		            i18n("Hide Tag &1"), this,
-								SLOT(slotSettingsShowHideV1()), actionCollection(),
-								"hide_v1");
-	KCM_KActionVar(m_settingsShowHideV2,
-		            i18n("Hide Tag &2"), this,
-								SLOT(slotSettingsShowHideV2()), actionCollection(),
-								"hide_v2");
-	KCM_KActionVar(m_settingsShowHidePicture,
-		            i18n("Hide &Picture"), this,
-								SLOT(slotSettingsShowHidePicture()), actionCollection(),
-								"hide_picture");
-
+	KCM_KToggleActionVar(m_settingsShowHidePicture,
+		    i18n("Show &Picture"), this,
+		    SLOT(slotSettingsShowHidePicture()),
+		    actionCollection(), "hide_picture");
+	KCM_KToggleActionVar(m_settingsAutoHideTags,
+		    i18n("Auto &Hide Tags"), this,
+		    SLOT(slotSettingsAutoHideTags()),
+		    actionCollection(), "auto_hide_tags");
 	KCM_KActionShortcutIcon(editPreviousFile, KShortcut("Alt+Up"), KCM_ICON_go_previous,
 		    i18n("&Previous File"), m_view,
 		    SLOT(selectPreviousFile()), actionCollection(),
@@ -703,26 +699,29 @@ void Kid3App::initActions()
 			this, SLOT(slotPlayAudio()));
 	}
 #endif
-	m_settingsShowHideV1 = new QAction(this);
-	if (m_settingsShowHideV1) {
-		m_settingsShowHideV1->setStatusTip(i18n("Hide Tag 1"));
-		m_settingsShowHideV1->QCM_setMenuText(i18n("Hide Tag &1"));
-		connect(m_settingsShowHideV1, QCM_SIGNAL_triggered,
-			this, SLOT(slotSettingsShowHideV1()));
-	}
-	m_settingsShowHideV2 = new QAction(this);
-	if (m_settingsShowHideV2) {
-		m_settingsShowHideV2->setStatusTip(i18n("Hide Tag 2"));
-		m_settingsShowHideV2->QCM_setMenuText(i18n("Hide Tag &2"));
-		connect(m_settingsShowHideV2, QCM_SIGNAL_triggered,
-			this, SLOT(slotSettingsShowHideV2()));
-	}
 	m_settingsShowHidePicture = new QAction(this);
 	if (m_settingsShowHidePicture) {
-		m_settingsShowHidePicture->setStatusTip(i18n("Hide Picture"));
-		m_settingsShowHidePicture->QCM_setMenuText(i18n("Hide &Picture"));
+		m_settingsShowHidePicture->setStatusTip(i18n("Show Picture"));
+		m_settingsShowHidePicture->QCM_setMenuText(i18n("Show &Picture"));
+#if QT_VERSION >= 0x040000
+		m_settingsShowHidePicture->setCheckable(true);
+#else
+		m_settingsShowHidePicture->setToggleAction(true);
+#endif
 		connect(m_settingsShowHidePicture, QCM_SIGNAL_triggered,
 			this, SLOT(slotSettingsShowHidePicture()));
+	}
+	m_settingsAutoHideTags = new QAction(this);
+	if (m_settingsAutoHideTags) {
+		m_settingsAutoHideTags->setStatusTip(i18n("Auto Hide Tags"));
+		m_settingsAutoHideTags->QCM_setMenuText(i18n("Auto &Hide Tags"));
+#if QT_VERSION >= 0x040000
+		m_settingsAutoHideTags->setCheckable(true);
+#else
+		m_settingsAutoHideTags->setToggleAction(true);
+#endif
+		connect(m_settingsAutoHideTags, QCM_SIGNAL_triggered,
+			this, SLOT(slotSettingsAutoHideTags()));
 	}
 	QAction* settingsConfigure = new QAction(this);
 	if (settingsConfigure) {
@@ -734,7 +733,6 @@ void Kid3App::initActions()
 	}
 #if QT_VERSION >= 0x040000
 	QToolBar* toolBar = new QToolBar(this);
-	toolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 	toolBar->addAction(fileOpen);
 	toolBar->addAction(fileSave);
 	toolBar->addAction(fileRevert);
@@ -833,9 +831,8 @@ void Kid3App::initActions()
 		QCM_addAction(settingsMenu, m_viewToolBar);
 #endif
 
-		QCM_addAction(settingsMenu, m_settingsShowHideV1);
-		QCM_addAction(settingsMenu, m_settingsShowHideV2);
 		QCM_addAction(settingsMenu, m_settingsShowHidePicture);
+		QCM_addAction(settingsMenu, m_settingsAutoHideTags);
 		settingsMenu->QCM_addSeparator();
 		QCM_addAction(settingsMenu, settingsConfigure);
 
@@ -1040,11 +1037,10 @@ void Kid3App::readOptions()
 #ifdef HAVE_TUNEPIMP
 	s_musicBrainzCfg.readFromConfig(m_config);
 #endif
-	updateHideV1();
-	updateHideV2();
-	updateHidePicture();
 #ifdef CONFIG_USE_KDE
 	setAutoSaveSettings();
+	m_settingsShowHidePicture->setChecked(!s_miscCfg.m_hidePicture);
+	m_settingsAutoHideTags->setChecked(s_miscCfg.m_autoHideTags);
 #if KDE_VERSION >= 0x035c00
 	m_fileOpenRecent->loadEntries(KConfigGroup(m_config,"Recent Files"));
 #else
@@ -1055,6 +1051,13 @@ void Kid3App::readOptions()
 	m_viewStatusBar->setChecked(!statusBar()->isHidden());
 #endif
 #else
+#if QT_VERSION >= 0x040000
+	m_settingsShowHidePicture->setChecked(!s_miscCfg.m_hidePicture);
+	m_settingsAutoHideTags->setChecked(s_miscCfg.m_autoHideTags);
+#else
+	m_settingsShowHidePicture->setOn(!s_miscCfg.m_hidePicture);
+	m_settingsAutoHideTags->setOn(s_miscCfg.m_autoHideTags);
+#endif
 	m_fileOpenRecent->loadEntries(m_config);
 	if (s_miscCfg.m_windowWidth != -1 && s_miscCfg.m_windowHeight != -1) {
 		resize(s_miscCfg.m_windowWidth, s_miscCfg.m_windowHeight);
@@ -2214,102 +2217,21 @@ void Kid3App::slotExport()
 }
 
 /**
- * Show or hide the ID3V1.1 controls according to the settings and
- * set the menu entries appropriately.
+ * Toggle auto hiding of tags.
  */
-void Kid3App::updateHideV1()
+void Kid3App::slotSettingsAutoHideTags()
 {
-	m_view->hideV1(s_miscCfg.m_hideV1);
-	if (s_miscCfg.m_hideV1) {
 #ifdef CONFIG_USE_KDE
-		m_settingsShowHideV1->setText(i18n("Show Tag &1"));
+	s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isChecked();
 #else
-		m_settingsShowHideV1->setStatusTip(i18n("Show Tag 1"));
-		m_settingsShowHideV1->QCM_setMenuText(i18n("Show Tag &1"));
-#endif
-
-	} else {
-#ifdef CONFIG_USE_KDE
-		m_settingsShowHideV1->setText(i18n("Hide Tag &1"));
-#else
-		m_settingsShowHideV1->setStatusTip(i18n("Hide Tag 1"));
-		m_settingsShowHideV1->QCM_setMenuText(i18n("Hide Tag &1"));
-#endif
-	}
 #if QT_VERSION >= 0x040000
-	m_view->adjustRightHalfBoxSize();
-#endif
-}
-
-/**
- * Show or hide the ID3V2.3 controls according to the settings and
- * set the menu entries appropriately.
- */
-void Kid3App::updateHideV2()
-{
-	m_view->hideV2(s_miscCfg.m_hideV2);
-	if (s_miscCfg.m_hideV2) {
-#ifdef CONFIG_USE_KDE
-		m_settingsShowHideV2->setText(i18n("Show Tag &2"));
+	s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isChecked();
 #else
-		m_settingsShowHideV2->setStatusTip(i18n("Show Tag 2"));
-		m_settingsShowHideV2->QCM_setMenuText(i18n("Show Tag &2"));
+	s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isOn();
 #endif
-
-	} else {
-#ifdef CONFIG_USE_KDE
-		m_settingsShowHideV2->setText(i18n("Hide Tag &2"));
-#else
-		m_settingsShowHideV2->setStatusTip(i18n("Hide Tag 2"));
-		m_settingsShowHideV2->QCM_setMenuText(i18n("Hide Tag &2"));
 #endif
-	}
-#if QT_VERSION >= 0x040000
-	m_view->adjustRightHalfBoxSize();
-#endif
-}
-
-/**
- * Show or hide the picture according to the settings and
- * set the menu entries appropriately.
- */
-void Kid3App::updateHidePicture()
-{
-	m_view->hidePicture(s_miscCfg.m_hidePicture);
-	if (s_miscCfg.m_hidePicture) {
-#ifdef CONFIG_USE_KDE
-		m_settingsShowHidePicture->setText(i18n("Show &Picture"));
-#else
-		m_settingsShowHidePicture->setStatusTip(i18n("Show Picture"));
-		m_settingsShowHidePicture->QCM_setMenuText(i18n("Show &Picture"));
-#endif
-
-	} else {
-#ifdef CONFIG_USE_KDE
-		m_settingsShowHidePicture->setText(i18n("Hide &Picture"));
-#else
-		m_settingsShowHidePicture->setStatusTip(i18n("Hide Picture"));
-		m_settingsShowHidePicture->QCM_setMenuText(i18n("Hide &Picture"));
-#endif
-	}
-}
-
-/**
- * Show or hide ID3v1.1 controls.
- */
-void Kid3App::slotSettingsShowHideV1()
-{
-	s_miscCfg.m_hideV1 = !s_miscCfg.m_hideV1;
-	updateHideV1();
-}
-
-/**
- * Show or hide ID3v2.3 controls.
- */
-void Kid3App::slotSettingsShowHideV2()
-{
-	s_miscCfg.m_hideV2 = !s_miscCfg.m_hideV2;
-	updateHideV2();
+	updateCurrentSelection();
+	updateGuiControls();
 }
 
 /**
@@ -2317,8 +2239,17 @@ void Kid3App::slotSettingsShowHideV2()
  */
 void Kid3App::slotSettingsShowHidePicture()
 {
-	s_miscCfg.m_hidePicture = !s_miscCfg.m_hidePicture;
-	updateHidePicture();
+#ifdef CONFIG_USE_KDE
+	s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isChecked();
+#else
+#if QT_VERSION >= 0x040000
+	s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isChecked();
+#else
+	s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isOn();
+#endif
+#endif
+
+	m_view->hidePicture(s_miscCfg.m_hidePicture);
 #if QT_VERSION >= 0x040000
 	// In Qt3 the picture is displayed too small if Kid3 is started with picture
 	// hidden, and then "Show Picture" is triggered while a file with a picture
@@ -3105,6 +3036,8 @@ void Kid3App::updateGuiControls()
 	int num_v1_selected = 0;
 	int num_v2_selected = 0;
 	bool tagV1Supported = false;
+	bool hasTagV1 = false;
+	bool hasTagV2 = false;
 
 	m_view->getFileList()->updateCurrentSelection();
 	const QList<QTreeWidgetItem*>& selItems =
@@ -3146,6 +3079,9 @@ void Kid3App::updateGuiControls()
 					single_v2_file = 0;
 				}
 				++num_v2_selected;
+
+				hasTagV1 = hasTagV1 || taggedFile->hasTagV1();
+				hasTagV2 = hasTagV2 || taggedFile->hasTagV2();
 			}
 		}
 	}
@@ -3155,6 +3091,8 @@ void Kid3App::updateGuiControls()
 	int num_v1_selected = 0;
 	int num_v2_selected = 0;
 	bool tagV1Supported = false;
+	bool hasTagV1 = false;
+	bool hasTagV2 = false;
 
 	while (mp3file != 0) {
 		if (mp3file->isSelected()) {
@@ -3190,6 +3128,9 @@ void Kid3App::updateGuiControls()
 					single_v2_file = 0;
 				}
 				++num_v2_selected;
+
+				hasTagV1 = hasTagV1 || taggedFile->hasTagV1();
+				hasTagV2 = hasTagV2 || taggedFile->hasTagV2();
 			}
 		}
 		else {
@@ -3258,6 +3199,35 @@ void Kid3App::updateGuiControls()
 		tagV1Supported = true;
 	}
 	m_view->enableControlsV1(tagV1Supported);
+
+	if (s_miscCfg.m_autoHideTags) {
+		// If a tag is supposed to be absent, make sure that there is really no
+		// unsaved data in the tag.
+		if (!hasTagV1 && tagV1Supported) {
+			FrameCollection& frames = m_view->frameTableV1()->frames();
+			for (FrameCollection::iterator it = frames.begin();
+					 it != frames.end();
+					 ++it) {
+				if (!(*it).getValue().isEmpty()) {
+					hasTagV1 = true;
+					break;
+				}
+			}
+		}
+		if (!hasTagV2) {
+			FrameCollection& frames = m_view->frameTableV2()->frames();
+			for (FrameCollection::iterator it = frames.begin();
+					 it != frames.end();
+					 ++it) {
+				if (!(*it).getValue().isEmpty()) {
+					hasTagV2 = true;
+					break;
+				}
+			}
+		}
+		m_view->hideV1(!hasTagV1);
+		m_view->hideV2(!hasTagV2);
+	}
 }
 
 /**

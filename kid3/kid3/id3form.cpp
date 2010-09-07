@@ -26,12 +26,14 @@
 
 #include <qcheckbox.h>
 #include <qpushbutton.h>
+#include <qtoolbutton.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qsplitter.h>
 #include <qdir.h>
 #include <qframe.h>
+#include <qpixmap.h>
 
 #if QT_VERSION >= 0x040000
 #include <QListWidget>
@@ -40,14 +42,12 @@
 #include <QDragEnterEvent>
 #include <QLabel>
 #include <QGridLayout>
-#include <QGroupBox>
 #include <QScrollArea>
 #include <QUrl>
 #include <QApplication>
 #else
 #include <qdragobject.h>
 #include <qlistbox.h>
-#include <qgroupbox.h>
 #include <qvbox.h>
 #endif
 
@@ -62,6 +62,41 @@
 #include "miscconfig.h"
 #include "formatconfig.h"
 #include "id3form.h"
+
+/** Collapse pixmap, will be allocated in constructor */
+QPixmap* Id3Form::s_collapsePixmap = 0;
+/** Expand pixmap, will be allocated in constructor */
+QPixmap* Id3Form::s_expandPixmap = 0;
+
+/** picture for collapse pixmap */
+static const char* const collapse_xpm[] = {
+	"7 7 3 1",
+	" 	c None",
+	".	c #FFFFFF",
+	"+	c #000000",
+	".......",
+	".......",
+	".......",
+	".+++++.",
+	".......",
+	".......",
+	"......."
+};
+
+/** picture for expand pixmap */
+static const char* const expand_xpm[] = {
+	"7 7 3 1",
+	" 	c None",
+	".	c #FFFFFF",
+	"+	c #000000",
+	".......",
+	"...+...",
+	"...+...",
+	".+++++.",
+	"...+...",
+	"...+...",
+	"......."
+};
 
 #if QT_VERSION < 0x040000
 /**
@@ -147,9 +182,16 @@ Id3Form::Id3Form(QWidget* parent)
 	const int margin = 12;
 	const int spacing = 2;
 #else
-	const int margin = 16;
+	const int margin = 4;
 	const int spacing = 6;
 #endif
+
+	if (!s_collapsePixmap) {
+		s_collapsePixmap = new QPixmap((const char**)collapse_xpm);
+	}
+	if (!s_expandPixmap) {
+		s_expandPixmap = new QPixmap((const char**)expand_xpm);
+	}
 
 	setAcceptDrops(true);
 	QCM_setWindowTitle(i18n("Kid3"));
@@ -167,128 +209,151 @@ Id3Form::Id3Form(QWidget* parent)
 	rightHalfLayout->setSpacing(2);
 	rightHalfLayout->setMargin(2);
 
-	QGroupBox* filenameGroupBox =
-		new QGroupBox(i18n("File&name"), m_rightHalfVBox);
-	filenameGroupBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	rightHalfLayout->addWidget(filenameGroupBox);
-	QGridLayout* filenameGroupBoxLayout = new QGridLayout(filenameGroupBox);
-	filenameGroupBoxLayout->setMargin(margin);
-	filenameGroupBoxLayout->setSpacing(spacing);
+	m_fileButton = new QToolButton(m_rightHalfVBox);
+	m_fileButton->setIcon(*s_collapsePixmap);
+	m_fileButton->setAutoRaise(true);
+	m_fileLabel = new QLabel(i18n("F&ile"), m_rightHalfVBox);
+	QHBoxLayout* fileButtonLayout = new QHBoxLayout;
+	fileButtonLayout->addWidget(m_fileButton);
+	fileButtonLayout->addWidget(m_fileLabel);
+	rightHalfLayout->addLayout(fileButtonLayout);
 
-	m_nameLabel = new QLabel(i18n("Name:"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_nameLabel, 0, 0);
+	m_fileWidget = new QWidget(m_rightHalfVBox);
+	m_fileWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	rightHalfLayout->addWidget(m_fileWidget);
+	QGridLayout* fileLayout = new QGridLayout(m_fileWidget);
+	fileLayout->setMargin(margin);
+	fileLayout->setSpacing(spacing);
 
-	m_nameLineEdit = new QLineEdit(filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_nameLineEdit, 0, 1, 1, 2);
+	m_nameLabel = new QLabel(i18n("Name:"), m_fileWidget);
+	fileLayout->addWidget(m_nameLabel, 0, 0);
+
+	m_nameLineEdit = new QLineEdit(m_fileWidget);
+	fileLayout->addWidget(m_nameLineEdit, 0, 1, 1, 2);
+	m_fileLabel->setBuddy(m_nameLineEdit);
 
 	QLabel* formatLabel = new QLabel(i18n("Format:") + QChar(0x2191),
-	                                 filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(formatLabel, 1, 0);
+	                                 m_fileWidget);
+	fileLayout->addWidget(formatLabel, 1, 0);
 
-	m_formatComboBox = new QComboBox(filenameGroupBox);
+	m_formatComboBox = new QComboBox(m_fileWidget);
 	m_formatComboBox->setEditable(true);
 	m_formatComboBox->setToolTip(FrameFormatReplacer::getToolTip());
-	filenameGroupBoxLayout->addWidget(m_formatComboBox, 1, 1);
+	fileLayout->addWidget(m_formatComboBox, 1, 1);
 
-	m_fnV1Button = new QPushButton(i18n("From Tag 1"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_fnV1Button, 1, 2);
+	m_fnV1Button = new QPushButton(i18n("From Tag 1"), m_fileWidget);
+	fileLayout->addWidget(m_fnV1Button, 1, 2);
 
 	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
-	                                             filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(formatFromFilenameLabel, 2, 0);
+	                                             m_fileWidget);
+	fileLayout->addWidget(formatFromFilenameLabel, 2, 0);
 
-	m_formatFromFilenameComboBox = new QComboBox(filenameGroupBox);
+	m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
 	m_formatFromFilenameComboBox->setEditable(true);
 	m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
-	filenameGroupBoxLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
+	fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
 	QPushButton* fnV2Button =
-		new QPushButton(i18n("From Tag 2"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(fnV2Button, 2, 2);
+		new QPushButton(i18n("From Tag 2"), m_fileWidget);
+	fileLayout->addWidget(fnV2Button, 2, 2);
 
-	QLabel* infoLabel = new QLabel(i18n("Info:"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(infoLabel, 3, 0);
+	m_tag1Button = new QToolButton(m_rightHalfVBox);
+	m_tag1Button->setIcon(*s_collapsePixmap);
+	m_tag1Button->setAutoRaise(true);
+	m_tag1Label = new QLabel(i18n("Tag &1"), m_rightHalfVBox);
+	QHBoxLayout* tag1ButtonLayout = new QHBoxLayout;
+	tag1ButtonLayout->addWidget(m_tag1Button);
+	tag1ButtonLayout->addWidget(m_tag1Label);
+	rightHalfLayout->addLayout(tag1ButtonLayout);
 
-	m_detailsLabel = new QLabel(filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_detailsLabel, 3, 1, 1, 2);
+	m_tag1Widget = new QWidget(m_rightHalfVBox);
+	m_tag1Widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	rightHalfLayout->addWidget(m_tag1Widget, 100);
 
-	m_idV1GroupBox = new QGroupBox(i18n("Tag &1"), m_rightHalfVBox);
-	m_idV1GroupBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	rightHalfLayout->addWidget(m_idV1GroupBox, 100);
-
-	QHBoxLayout* idV1HBoxLayout = new QHBoxLayout(m_idV1GroupBox);
+	QHBoxLayout* idV1HBoxLayout = new QHBoxLayout(m_tag1Widget);
 	idV1HBoxLayout->setMargin(margin);
 	idV1HBoxLayout->setSpacing(spacing);
-	m_framesV1Table = new FrameTable(m_idV1GroupBox, true);
+	m_framesV1Table = new FrameTable(m_tag1Widget, true);
 	idV1HBoxLayout->addWidget(m_framesV1Table, 100);
+	m_tag1Label->setBuddy(m_framesV1Table);
 
 	QVBoxLayout* buttonsV1VBoxLayout = new QVBoxLayout;
 	idV1HBoxLayout->addLayout(buttonsV1VBoxLayout);
 
 	QPushButton* filenameV1PushButton =
-		new QPushButton(i18n("From Filename"), m_idV1GroupBox);
+		new QPushButton(i18n("From Filename"), m_tag1Widget);
 	buttonsV1VBoxLayout->addWidget(filenameV1PushButton);
 
 	QPushButton* id3V1PushButton =
-		new QPushButton(i18n("From Tag 2"), m_idV1GroupBox);
+		new QPushButton(i18n("From Tag 2"), m_tag1Widget);
 	buttonsV1VBoxLayout->addWidget(id3V1PushButton);
 
-	QPushButton* copyV1PushButton = new QPushButton(i18n("Copy"), m_idV1GroupBox);
+	QPushButton* copyV1PushButton = new QPushButton(i18n("Copy"), m_tag1Widget);
 	buttonsV1VBoxLayout->addWidget(copyV1PushButton);
 
 	QPushButton* pasteV1PushButton =
-		new QPushButton(i18n("Paste"), m_idV1GroupBox);
+		new QPushButton(i18n("Paste"), m_tag1Widget);
 	buttonsV1VBoxLayout->addWidget(pasteV1PushButton);
 
 	QPushButton* removeV1PushButton =
-		new QPushButton(i18n("Remove"), m_idV1GroupBox);
+		new QPushButton(i18n("Remove"), m_tag1Widget);
 	buttonsV1VBoxLayout->addWidget(removeV1PushButton);
 
 	buttonsV1VBoxLayout->addItem(
 		new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
-	m_idV2GroupBox = new QGroupBox(i18n("Tag &2"), m_rightHalfVBox);
-	rightHalfLayout->addWidget(m_idV2GroupBox, 100);
+	m_tag2Button = new QToolButton(m_rightHalfVBox);
+	m_tag2Button->setIcon(*s_collapsePixmap);
+	m_tag2Button->setAutoRaise(true);
+	m_tag2Label = new QLabel(i18n("Tag &2"), m_rightHalfVBox);
+	QHBoxLayout* tag2ButtonLayout = new QHBoxLayout;
+	tag2ButtonLayout->addWidget(m_tag2Button);
+	tag2ButtonLayout->addWidget(m_tag2Label);
+	rightHalfLayout->addLayout(tag2ButtonLayout);
 
-	QHBoxLayout* idV2HBoxLayout = new QHBoxLayout(m_idV2GroupBox);
+	m_tag2Widget = new QWidget(m_rightHalfVBox);
+	rightHalfLayout->addWidget(m_tag2Widget, 100);
+
+	QHBoxLayout* idV2HBoxLayout = new QHBoxLayout(m_tag2Widget);
 	idV2HBoxLayout->setMargin(margin);
 	idV2HBoxLayout->setSpacing(spacing);
-	m_framesV2Table = new FrameTable(m_idV2GroupBox, false);
+	m_framesV2Table = new FrameTable(m_tag2Widget, false);
 	m_framelist = new FrameList(m_framesV2Table);
 	idV2HBoxLayout->addWidget(m_framesV2Table);
+	m_tag2Label->setBuddy(m_framesV2Table);
 
 	QVBoxLayout* buttonsV2VBoxLayout = new QVBoxLayout;
 	idV2HBoxLayout->addLayout(buttonsV2VBoxLayout);
 
 	QPushButton* filenameV2PushButton =
-		new QPushButton(i18n("From Filename"), m_idV2GroupBox);
+		new QPushButton(i18n("From Filename"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(filenameV2PushButton);
 
-	m_id3V2PushButton = new QPushButton(i18n("From Tag 1"), m_idV2GroupBox);
+	m_id3V2PushButton = new QPushButton(i18n("From Tag 1"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(m_id3V2PushButton);
 
 	QPushButton* copyV2PushButton =
-		new QPushButton(i18n("Copy"), m_idV2GroupBox);
+		new QPushButton(i18n("Copy"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(copyV2PushButton);
 
 	QPushButton* pasteV2PushButton =
-		new QPushButton(i18n("Paste"), m_idV2GroupBox);
+		new QPushButton(i18n("Paste"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(pasteV2PushButton);
 
 	QPushButton* removeV2PushButton =
-		new QPushButton(i18n("Remove"), m_idV2GroupBox);
+		new QPushButton(i18n("Remove"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(removeV2PushButton);
 
 	buttonsV2VBoxLayout->insertSpacing(-1, 8);
 
 	QPushButton* editFramesPushButton =
-		new QPushButton(i18n("Edit"), m_idV2GroupBox);
+		new QPushButton(i18n("Edit"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(editFramesPushButton);
 	QPushButton* framesAddPushButton =
-		new QPushButton(i18n("Add"), m_idV2GroupBox);
+		new QPushButton(i18n("Add"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(framesAddPushButton);
 	QPushButton* deleteFramesPushButton =
-		new QPushButton(i18n("Delete"), m_idV2GroupBox);
+		new QPushButton(i18n("Delete"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
 
 	m_pictureLabel = new PictureLabel(this);
@@ -307,69 +372,84 @@ Id3Form::Id3Form(QWidget* parent)
 	rightHalfLayout->setSpacing(2);
 	rightHalfLayout->setMargin(2);
 
-	QGroupBox* filenameGroupBox = new QGroupBox(i18n("File&name"), m_rightHalfVBox);
-	filenameGroupBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	rightHalfLayout->addWidget(filenameGroupBox);
-	QGridLayout* filenameGroupBoxLayout =
-		new QGridLayout(filenameGroupBox, 5, 3, margin, spacing);
-	int fontHeight = filenameGroupBox->fontMetrics().height();
+	m_fileButton = new QToolButton(m_rightHalfVBox);
+	m_fileButton->setIconSet(*s_collapsePixmap);
+	m_fileButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	m_fileButton->setAutoRaise(true);
+	m_fileLabel = new QLabel(i18n("F&ile"), m_rightHalfVBox);
+	QHBoxLayout* fileButtonLayout = new QHBoxLayout;
+	fileButtonLayout->addWidget(m_fileButton);
+	fileButtonLayout->addWidget(m_fileLabel);
+	rightHalfLayout->addLayout(fileButtonLayout);
+
+	m_fileWidget = new QWidget(m_rightHalfVBox);
+	rightHalfLayout->addWidget(m_fileWidget);
+	m_fileWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	QGridLayout* fileLayout =
+		new QGridLayout(m_fileWidget, 4, 3, margin, spacing);
+	int fontHeight = m_fileWidget->fontMetrics().height();
 	if (fontHeight > 0 && fontHeight < 100) {
-		filenameGroupBoxLayout->addMultiCell(
+		fileLayout->addMultiCell(
 			new QSpacerItem(1, fontHeight / 2, QSizePolicy::Fixed, QSizePolicy::Fixed),
 			0, 0, 0, 2);
 	}
 
-	m_nameLabel = new QLabel(i18n("Name:"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_nameLabel, 1, 0);
+	m_nameLabel = new QLabel(i18n("Name:"), m_fileWidget);
+	fileLayout->addWidget(m_nameLabel, 1, 0);
 
-	m_nameLineEdit = new QLineEdit(filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_nameLineEdit, 1, 1);
-	// using "filenameGroupBoxLayout->addMultiCellWidget(m_nameLineEdit, 1, 1, 1, 2)"
+	m_nameLineEdit = new QLineEdit(m_fileWidget);
+	fileLayout->addWidget(m_nameLineEdit, 1, 1);
+	// using "fileLayout->addMultiCellWidget(m_nameLineEdit, 1, 1, 1, 2)"
 	// makes the first column wide?!
+	m_fileLabel->setBuddy(m_nameLineEdit);
 
 	QLabel* formatLabel = new QLabel(i18n("Format:") + QChar(0x2191),
-	                                 filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(formatLabel, 2, 0);
+	                                 m_fileWidget);
+	fileLayout->addWidget(formatLabel, 2, 0);
 
-	m_formatComboBox = new QComboBox(filenameGroupBox);
+	m_formatComboBox = new QComboBox(m_fileWidget);
 	m_formatComboBox->setEditable(true);
 	m_formatComboBox->setDuplicatesEnabled(false);
 	QToolTip::add(m_formatComboBox, FrameFormatReplacer::getToolTip());
-	filenameGroupBoxLayout->addWidget(m_formatComboBox, 2, 1);
+	fileLayout->addWidget(m_formatComboBox, 2, 1);
 
-	m_fnV1Button = new QPushButton(i18n("From Tag 1"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(m_fnV1Button, 2, 2);
+	m_fnV1Button = new QPushButton(i18n("From Tag 1"), m_fileWidget);
+	fileLayout->addWidget(m_fnV1Button, 2, 2);
 
 	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
-	                                             filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(formatFromFilenameLabel, 3, 0);
+	                                             m_fileWidget);
+	fileLayout->addWidget(formatFromFilenameLabel, 3, 0);
 
-	m_formatFromFilenameComboBox = new QComboBox(filenameGroupBox);
+	m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
 	m_formatFromFilenameComboBox->setEditable(true);
 	m_formatFromFilenameComboBox->setDuplicatesEnabled(false);
 	QToolTip::add(m_formatFromFilenameComboBox, FrameFormatReplacer::getToolTip());
-	filenameGroupBoxLayout->addWidget(m_formatFromFilenameComboBox, 3, 1);
+	fileLayout->addWidget(m_formatFromFilenameComboBox, 3, 1);
 
 	QPushButton* fnV2Button =
-		new QPushButton(i18n("From Tag 2"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(fnV2Button, 3, 2);
+		new QPushButton(i18n("From Tag 2"), m_fileWidget);
+	fileLayout->addWidget(fnV2Button, 3, 2);
 
-	QLabel* infoLabel = new QLabel(i18n("Info:"), filenameGroupBox);
-	filenameGroupBoxLayout->addWidget(infoLabel, 4, 0);
+	m_tag1Button = new QToolButton(m_rightHalfVBox);
+	m_tag1Button->setIconSet(*s_collapsePixmap);
+	m_tag1Button->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	m_tag1Button->setAutoRaise(true);
+	m_tag1Label = new QLabel(i18n("Tag &1"), m_rightHalfVBox);
+	QHBoxLayout* tag1ButtonLayout = new QHBoxLayout;
+	tag1ButtonLayout->addWidget(m_tag1Button);
+	tag1ButtonLayout->addWidget(m_tag1Label);
+	rightHalfLayout->addLayout(tag1ButtonLayout);
+	QHBox* tag1HBox = new QHBox(m_rightHalfVBox);
+	tag1HBox->setMargin(margin);
+	tag1HBox->setSpacing(spacing);
+	m_tag1Widget = tag1HBox;
+	m_tag1Widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+	rightHalfLayout->addWidget(m_tag1Widget, 100);
 
-	m_detailsLabel = new QLabel(filenameGroupBox);
-	filenameGroupBoxLayout->addMultiCellWidget(m_detailsLabel, 4, 4, 1, 2);
+	m_framesV1Table = new FrameTable(m_tag1Widget, true);
+	m_tag1Label->setBuddy(m_framesV1Table);
 
-	m_idV1GroupBox =
-		new QGroupBox(2, Qt::Horizontal, i18n("Tag &1"), m_rightHalfVBox);
-	m_idV1GroupBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	m_idV1GroupBox->setInsideMargin(margin);
-	m_idV1GroupBox->setInsideSpacing(spacing);
-	rightHalfLayout->addWidget(m_idV1GroupBox, 100);
-
-	m_framesV1Table = new FrameTable(m_idV1GroupBox, true);
-
-	QVBox* buttonsV1VBox = new QVBox(m_idV1GroupBox);
+	QVBox* buttonsV1VBox = new QVBox(m_tag1Widget);
 	buttonsV1VBox->setSpacing(spacing);
 	QPushButton* filenameV1PushButton =
 		new QPushButton(i18n("From Filename"), buttonsV1VBox);
@@ -383,16 +463,26 @@ Id3Form::Id3Form(QWidget* parent)
 		new QPushButton(i18n("Remove"), buttonsV1VBox);
 	new QWidget(buttonsV1VBox);
 
-	m_idV2GroupBox =
-		new QGroupBox(2, Qt::Horizontal, i18n("Tag &2"), m_rightHalfVBox);
-	m_idV2GroupBox->setInsideMargin(margin);
-	m_idV2GroupBox->setInsideSpacing(spacing);
-	rightHalfLayout->addWidget(m_idV2GroupBox, 100);
+	m_tag2Button = new QToolButton(m_rightHalfVBox);
+	m_tag2Button->setIconSet(*s_collapsePixmap);
+	m_tag2Button->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	m_tag2Button->setAutoRaise(true);
+	m_tag2Label = new QLabel(i18n("Tag &2"), m_rightHalfVBox);
+	QHBoxLayout* tag2ButtonLayout = new QHBoxLayout;
+	tag2ButtonLayout->addWidget(m_tag2Button);
+	tag2ButtonLayout->addWidget(m_tag2Label);
+	rightHalfLayout->addLayout(tag2ButtonLayout);
+	QHBox* tag2HBox = new QHBox(m_rightHalfVBox);
+	tag2HBox->setMargin(margin);
+	tag2HBox->setSpacing(spacing);
+	m_tag2Widget = tag2HBox;
+	rightHalfLayout->addWidget(m_tag2Widget, 100);
 
-	m_framesV2Table = new FrameTable(m_idV2GroupBox, false);
+	m_framesV2Table = new FrameTable(m_tag2Widget, false);
+	m_tag2Label->setBuddy(m_framesV2Table);
 	m_framelist = new FrameList(m_framesV2Table);
 
-	QVBox* buttonsV2VBox = new QVBox(m_idV2GroupBox);
+	QVBox* buttonsV2VBox = new QVBox(m_tag2Widget);
 	buttonsV2VBox->setSpacing(spacing);
 	QPushButton* filenameV2PushButton =
 		new QPushButton(i18n("From Filename"), buttonsV2VBox);
@@ -466,11 +556,14 @@ Id3Form::Id3Form(QWidget* parent)
 #endif
 	connect(m_fileListBox, SIGNAL(selectedFilesRenamed()),
 					SIGNAL(selectedFilesRenamed()));
+	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));
+	connect(m_tag1Button, SIGNAL(clicked()), this, SLOT(showHideTag1()));
+	connect(m_tag2Button, SIGNAL(clicked()), this, SLOT(showHideTag2()));
 
 	// tab order
 	setTabOrder(m_fileListBox, m_dirListBox);
-	setTabOrder(m_dirListBox, filenameGroupBox);
-	setTabOrder(filenameGroupBox, m_nameLineEdit);
+	setTabOrder(m_dirListBox, m_fileWidget);
+	setTabOrder(m_fileWidget, m_nameLineEdit);
 	setTabOrder(m_nameLineEdit, m_formatComboBox);
 	setTabOrder(m_formatComboBox, m_formatFromFilenameComboBox);
 	setTabOrder(m_formatFromFilenameComboBox, m_fnV1Button);
@@ -785,7 +878,7 @@ void Id3Form::enableControlsV1(bool enable)
 {
 	m_fnV1Button->setEnabled(enable);
 	m_id3V2PushButton->setEnabled(enable);
-	m_idV1GroupBox->setEnabled(enable);
+	m_tag1Widget->setEnabled(enable);
 }
 
 /**
@@ -800,7 +893,7 @@ void Id3Form::setTagFormatV1(const QString& str)
 		txt += ": ";
 		txt += str;
 	}
-	m_idV1GroupBox->setTitle(txt);
+	m_tag1Label->setText(txt);
 }
 
 /**
@@ -815,7 +908,7 @@ void Id3Form::setTagFormatV2(const QString& str)
 		txt += ": ";
 		txt += str;
 	}
-	m_idV2GroupBox->setTitle(txt);
+	m_tag2Label->setText(txt);
 }
 
 /**
@@ -827,6 +920,22 @@ void Id3Form::adjustRightHalfBoxSize()
 }
 
 /**
+ * Hide or show file controls.
+ *
+ * @param hide true to hide, false to show
+ */
+void Id3Form::hideFile(bool hide)
+{
+	if (hide) {
+		m_fileWidget->hide();
+		m_fileButton->QCM_setIconSet(*s_expandPixmap);
+	} else {
+		m_fileWidget->show();
+		m_fileButton->QCM_setIconSet(*s_collapsePixmap);
+	}
+}
+
+/**
  * Hide or show tag 1 controls.
  *
  * @param hide true to hide, false to show
@@ -834,9 +943,11 @@ void Id3Form::adjustRightHalfBoxSize()
 void Id3Form::hideV1(bool hide)
 {
 	if (hide) {
-		m_idV1GroupBox->hide();
+		m_tag1Widget->hide();
+		m_tag1Button->QCM_setIconSet(*s_expandPixmap);
 	} else {
-		m_idV1GroupBox->show();
+		m_tag1Widget->show();
+		m_tag1Button->QCM_setIconSet(*s_collapsePixmap);
 	}
 }
 
@@ -848,10 +959,36 @@ void Id3Form::hideV1(bool hide)
 void Id3Form::hideV2(bool hide)
 {
 	if (hide) {
-		m_idV2GroupBox->hide();
+		m_tag2Widget->hide();
+		m_tag2Button->QCM_setIconSet(*s_expandPixmap);
 	} else {
-		m_idV2GroupBox->show();
+		m_tag2Widget->show();
+		m_tag2Button->QCM_setIconSet(*s_collapsePixmap);
 	}
+}
+
+/**
+ * Toggle visibility of file controls.
+ */
+void Id3Form::showHideFile()
+{
+	hideFile(!m_fileWidget->isHidden());
+}
+
+/**
+ * Toggle visibility of tag 1 controls.
+ */
+void Id3Form::showHideTag1()
+{
+	hideV1(!m_tag1Widget->isHidden());
+}
+
+/**
+ * Toggle visibility of tag 2 controls.
+ */
+void Id3Form::showHideTag2()
+{
+	hideV2(!m_tag2Widget->isHidden());
 }
 
 /**
@@ -925,6 +1062,11 @@ void Id3Form::saveConfig()
 	Kid3App::s_miscCfg.m_formatFromFilenameItem = m_formatFromFilenameComboBox->QCM_currentIndex();
 	Kid3App::s_miscCfg.m_formatFromFilenameText = m_formatFromFilenameComboBox->currentText();
 	Kid3App::s_miscCfg.m_formatFromFilenameItems = getItemsFromComboBox(m_formatFromFilenameComboBox);
+	if (!Kid3App::s_miscCfg.m_autoHideTags) {
+		Kid3App::s_miscCfg.m_hideFile = m_fileWidget->isHidden();
+		Kid3App::s_miscCfg.m_hideV1 = m_tag1Widget->isHidden();
+		Kid3App::s_miscCfg.m_hideV2 = m_tag2Widget->isHidden();
+	}
 }
 
 /**
@@ -979,6 +1121,12 @@ void Id3Form::readConfig()
 	m_formatFromFilenameComboBox->setCurrentText(
 		Kid3App::s_miscCfg.m_formatFromFilenameText);
 #endif
+	if (!Kid3App::s_miscCfg.m_autoHideTags) {
+		hideFile(Kid3App::s_miscCfg.m_hideFile);
+		hideV1(Kid3App::s_miscCfg.m_hideV1);
+		hideV2(Kid3App::s_miscCfg.m_hideV2);
+	}
+	hidePicture(Kid3App::s_miscCfg.m_hidePicture);
 }
 
 /**
@@ -1032,7 +1180,12 @@ void Id3Form::setDetailInfo(const TaggedFile::DetailInfo& info)
 			str += TaggedFile::formatTime(info.duration);
 		}
 	}
-	m_detailsLabel->setText(str);
+	if (!str.isEmpty()) {
+		str = i18n("F&ile") + ": " + str;
+	} else {
+		str = i18n("F&ile");
+	}
+	m_fileLabel->setText(str);
 }
 
 /**

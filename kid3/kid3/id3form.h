@@ -39,10 +39,12 @@
 
 class QCheckBox;
 class QPushButton;
+class QToolButton;
 class QSpinBox;
 class FormatConfig;
 class QGridLayout;
 class QGroupBox;
+class QPixmap;
 #if QT_VERSION >= 0x040000
 class QListWidget;
 class QListWidgetItem;
@@ -98,6 +100,13 @@ public:
 	 * Adjust the size of the right half box.
 	 */
 	void adjustRightHalfBoxSize();
+
+	/**
+	 * Hide or show file controls.
+	 *
+	 * @param hide true to hide, false to show
+	 */
+	void hideFile(bool hide);
 
 	/**
 	 * Hide or show tag 1 controls.
@@ -496,7 +505,6 @@ private:
 	QComboBox* m_formatFromFilenameComboBox;
 	QLabel* m_nameLabel;
 	QLineEdit* m_nameLineEdit;
-	QLabel* m_detailsLabel;
 #if QT_VERSION >= 0x040000
 	QListWidget* m_framesListBox;
 #else
@@ -507,12 +515,24 @@ private:
 	FrameTable* m_framesV1Table;
 	FrameTable* m_framesV2Table;
 	QSplitter* m_vSplitter;
-	QGroupBox* m_idV1GroupBox;
-	QGroupBox* m_idV2GroupBox;
+	QWidget* m_fileWidget;
+	QWidget* m_tag1Widget;
+	QWidget* m_tag2Widget;
+	QToolButton* m_fileButton;
+	QToolButton* m_tag1Button;
+	QToolButton* m_tag2Button;
+	QLabel* m_fileLabel;
+	QLabel* m_tag1Label;
+	QLabel* m_tag2Label;
 	QPushButton* m_fnV1Button;
 	QPushButton* m_id3V2PushButton;
 	QWidget* m_rightHalfVBox;
 	PictureLabel* m_pictureLabel;
+
+	/** Collapse pixmap, will be allocated in constructor */
+	static QPixmap* s_collapsePixmap;
+	/** Expand pixmap, will be allocated in constructor */
+	static QPixmap* s_expandPixmap;
 
 private slots:
 	/**
@@ -528,6 +548,21 @@ private slots:
 	 * @param ev drop event.
 	 */
 	void dropEvent(QDropEvent* ev);
+
+	/**
+	 * Toggle visibility of file controls.
+	 */
+	void showHideFile();
+
+	/**
+	 * Toggle visibility of tag 1 controls.
+	 */
+	void showHideTag1();
+
+	/**
+	 * Toggle visibility of tag 2 controls.
+	 */
+	void showHideTag2();
 };
 
 #endif // ID3FORM_H

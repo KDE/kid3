@@ -578,14 +578,9 @@ public slots:
 	void slotExport();
 
 	/**
-	 * Show or hide ID3v1.1 controls.
+	 * Toggle auto hiding of tags.
 	 */
-	void slotSettingsShowHideV1();
-
-	/**
-	 * Show or hide ID3v2.3 controls.
-	 */
-	void slotSettingsShowHideV2();
+	void slotSettingsAutoHideTags();
 
 	/**
 	 * Show or hide picture.
@@ -769,24 +764,6 @@ private:
 	bool writePlaylist(const PlaylistConfig& cfg);
 
 	/**
-	 * Show or hide the ID3V1.1 controls according to the settings and
-	 * set the menu entries appropriately.
-	 */
-	void updateHideV1();
-
-	/**
-	 * Show or hide the ID3V2.3 controls according to the settings and
-	 * set the menu entries appropriately.
-	 */
-	void updateHideV2();
-
-	/**
-	 * Show or hide the picture according to the settings and
-	 * set the menu entries appropriately.
-	 */
-	void updateHidePicture();
-
-	/**
 	 * Apply a file filter to a directory.
 	 *
 	 * @param fileFilter filter to apply
@@ -852,17 +829,15 @@ private:
 	KRecentFilesAction* m_fileOpenRecent;
 	KToggleAction* m_viewToolBar;
 	KToggleAction* m_viewStatusBar;
-	KAction* m_settingsShowHideV1;
-	KAction* m_settingsShowHideV2;
-	KAction* m_settingsShowHidePicture;
+	KToggleAction* m_settingsAutoHideTags;
+	KToggleAction* m_settingsShowHidePicture;
 #else
 	Kid3Settings* m_config;
 	RecentFilesMenu* m_fileOpenRecent;
 #if QT_VERSION >= 0x040000
 	QAction* m_viewToolBar;
 #endif
-	QAction* m_settingsShowHideV1;
-	QAction* m_settingsShowHideV2;
+	QAction* m_settingsAutoHideTags;
 	QAction* m_settingsShowHidePicture;
 
 	static BrowserDialog* s_helpBrowser;

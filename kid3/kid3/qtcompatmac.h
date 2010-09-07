@@ -73,6 +73,11 @@
 	KAction* var = new KAction(text, this); \
 	parent->addAction(name, var); \
 	connect(var, SIGNAL(triggered()), rcvr, slot)
+#define KCM_KToggleActionVar(var, text, rcvr, slot, parent, name)	\
+	var = new KToggleAction(text, this); \
+	var->setCheckable(true); \
+	parent->addAction(name, var); \
+	connect(var, SIGNAL(triggered()), rcvr, slot)
 #define KCM_KConfigGroup(var, cfgptr, name) KConfigGroup var = cfgptr->group(name)
 #define KCM_readBoolEntry readEntry
 #define KCM_readNumEntry readEntry
@@ -111,6 +116,8 @@
 	var = new KAction(text, 0, rcvr, slot, parent, name)
 #define KCM_KAction(var, text, rcvr, slot, parent, name)	\
 	new KAction(text, 0, rcvr, slot, parent, name)
+#define KCM_KToggleActionVar(var, text, rcvr, slot, parent, name)	\
+	var = new KToggleAction(text, 0, rcvr, slot, parent, name)
 #define KCM_KConfigGroup(var, cfgptr, name) KConfig& var = *cfgptr; cfgptr->setGroup(name)
 #define KCM_readBoolEntry readBoolEntry
 #define KCM_readNumEntry readNumEntry
@@ -205,6 +212,7 @@
 #define QCM_readAll readAll
 #define QCM_setIcon setIcon
 #define QCM_QCString QByteArray
+#define QCM_setIconSet setIcon
 
 #else
 
@@ -279,6 +287,7 @@ namespace QAbstractSocket { enum SocketError {}; }
 #define QCM_readAll read
 #define QCM_setIcon setPixmap
 #define QCM_QCString QCString
+#define QCM_setIconSet setIconSet
 
 #endif
 

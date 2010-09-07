@@ -121,6 +121,8 @@ MiscConfig::MiscConfig(const QString& group) :
 #if !defined CONFIG_USE_KDE && QT_VERSION >= 0x040000
 	m_hideToolBar(false),
 #endif
+	m_autoHideTags(true),
+	m_hideFile(false),
 	m_hideV1(false),
 	m_hideV2(false),
 	m_hidePicture(false),
@@ -182,6 +184,8 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("SplitterSizes", m_splitterSizes);
 	cfg.writeEntry("VSplitterSizes", m_vSplitterSizes);
 	cfg.writeEntry("CustomGenres", m_customGenres);
+	cfg.writeEntry("AutoHideTags", m_autoHideTags);
+	cfg.writeEntry("HideFile", m_hideFile);
 	cfg.writeEntry("HideV1", m_hideV1);
 	cfg.writeEntry("HideV2", m_hideV2);
 	cfg.writeEntry("HidePicture", m_hidePicture);
@@ -258,6 +262,8 @@ void MiscConfig::writeToConfig(
 #if QT_VERSION >= 0x040000
 	config->QCM_writeEntry("/HideToolBar", m_hideToolBar);
 #endif
+	config->QCM_writeEntry("/AutoHideTags", m_autoHideTags);
+	config->QCM_writeEntry("/HideFile", m_hideFile);
 	config->QCM_writeEntry("/HideV1", m_hideV1);
 	config->QCM_writeEntry("/HideV2", m_hideV2);
 	config->QCM_writeEntry("/HidePicture", m_hidePicture);
@@ -352,6 +358,8 @@ void MiscConfig::readFromConfig(
 	m_splitterSizes = cfg.KCM_readIntListEntry("SplitterSizes");
 	m_vSplitterSizes = cfg.KCM_readIntListEntry("VSplitterSizes");
 	m_customGenres = cfg.KCM_readListEntry("CustomGenres");
+	m_autoHideTags = cfg.KCM_readBoolEntry("AutoHideTags", m_autoHideTags);
+	m_hideFile = cfg.KCM_readBoolEntry("HideFile", m_hideFile);
 	m_hideV1 = cfg.KCM_readBoolEntry("HideV1", m_hideV1);
 	m_hideV2 = cfg.KCM_readBoolEntry("HideV2", m_hideV2);
 	m_hidePicture = cfg.KCM_readBoolEntry("HidePicture", m_hidePicture);
@@ -433,6 +441,8 @@ void MiscConfig::readFromConfig(
 #if QT_VERSION >= 0x040000
 	m_hideToolBar = config->QCM_readBoolEntry("/HideToolBar", m_hideToolBar);
 #endif
+	m_autoHideTags = config->QCM_readBoolEntry("/AutoHideTags", m_autoHideTags);
+	m_hideFile = config->QCM_readBoolEntry("/HideFile", m_hideFile);
 	m_hideV1 = config->QCM_readBoolEntry("/HideV1", m_hideV1);
 	m_hideV2 = config->QCM_readBoolEntry("/HideV2", m_hideV2);
 	m_hidePicture = config->QCM_readBoolEntry("/HidePicture", m_hidePicture);

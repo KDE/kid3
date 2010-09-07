@@ -29,9 +29,8 @@
     <Action name="play"/>
   </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
-    <Action name="hide_v1" append="show_merge"/>
-    <Action name="hide_v2" append="show_merge"/>
     <Action name="hide_picture" append="show_merge"/>
+    <Action name="auto_hide_tags" append="show_merge"/>
     <DefineGroup name="show_merge"/>
   </Menu>
 </MenuBar>
