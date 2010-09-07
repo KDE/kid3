@@ -118,7 +118,7 @@
 #include "taglibfile.h"
 #endif
 #ifdef HAVE_PHONON
-#include "playdialog.h"
+#include "playtoolbar.h"
 #endif
 
 #ifdef KID3_USE_KCONFIGDIALOG
@@ -157,7 +157,7 @@ Kid3App::Kid3App() :
 	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0),
 	m_playlistDialog(0)
 #ifdef HAVE_PHONON
-	, m_playDialog(0)
+	, m_playToolBar(0)
 #endif
 {
 #ifdef CONFIG_USE_KDE
@@ -236,7 +236,7 @@ Kid3App::~Kid3App()
 	s_helpBrowser = 0;
 #endif
 #ifdef HAVE_PHONON
-	delete m_playDialog;
+	delete m_playToolBar;
 #endif
 }
 
@@ -2800,16 +2800,13 @@ void Kid3App::slotPlayAudio()
 		}
 	}
 
-	if (!m_playDialog) {
-		m_playDialog = new PlayDialog(this);
-		m_playDialog->setAllowedAreas(
-			Qt::TopDockWidgetArea | Qt::BottomDockWidgetArea);
-		addDockWidget(Qt::BottomDockWidgetArea, m_playDialog);
-	} else {
-		m_playDialog->raise();
+	if (!m_playToolBar) {
+		m_playToolBar = new PlayToolBar(this);
+		m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
+		addToolBar(Qt::BottomToolBarArea, m_playToolBar);
 	}
-	m_playDialog->setFiles(files, fileNr);
-	m_playDialog->show();
+	m_playToolBar->setFiles(files, fileNr);
+	m_playToolBar->show();
 #endif
 }
 

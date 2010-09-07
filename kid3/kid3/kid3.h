@@ -81,7 +81,7 @@ class QImage;
 class DownloadDialog;
 class PlaylistDialog;
 #ifdef HAVE_PHONON
-class PlayDialog;
+class PlayToolBar;
 #endif
 class DirContents;
 
@@ -816,8 +816,8 @@ private:
 	/** Playlist dialog */
 	PlaylistDialog* m_playlistDialog;
 #ifdef HAVE_PHONON
-	/** Play dialog */
-	PlayDialog* m_playDialog;
+	/** Play toolbar */
+	PlayToolBar* m_playToolBar;
 #endif
 	/** Frame list */
 	FrameList* m_framelist;

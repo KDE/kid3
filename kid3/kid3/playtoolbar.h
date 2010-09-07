@@ -1,6 +1,6 @@
 /**
- * \file playdialog.h
- * Audio player dialog.
+ * \file playtoolbar.h
+ * Audio player toolbar.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,23 +24,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PLAYDIALOG_H
-#define PLAYDIALOG_H
+#ifndef PLAYTOOLBAR_H
+#define PLAYTOOLBAR_H
 
 #include "config.h"
+#include <qtoolbar.h>
 
 #ifdef HAVE_PHONON
 
-#include <QDockWidget>
 #include <QStringList>
 #include <QIcon>
 #include <phonon/phononnamespace.h>
 
-/** Base class for player. */
-typedef QDockWidget PlayDialogBaseClass;
-
 class QAction;
 class QLCDNumber;
+class QLabel;
 
 namespace Phonon
 {
@@ -52,10 +50,6 @@ namespace Phonon
 
 #else // HAVE_PHONON
 
-#include <qdialog.h>
-/** Base class for player. */
-typedef QDialog PlayDialogBaseClass;
-
 #if QT_VERSION < 0x040000
 typedef Q_INT64 qint64;
 #endif
@@ -64,9 +58,9 @@ namespace Phonon { enum State {}; }
 #endif // HAVE_PHONON
 
 /**
- * Audio player dialog.
+ * Audio player toolbar.
  */
-class PlayDialog : public PlayDialogBaseClass {
+class PlayToolBar : public QToolBar {
 Q_OBJECT
 
 #ifdef HAVE_PHONON
@@ -76,12 +70,12 @@ public:
 	 *
 	 * @param parent parent widget
 	 */
-	PlayDialog(QWidget* parent);
+	PlayToolBar(QWidget* parent);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~PlayDialog();
+	virtual ~PlayToolBar();
 
 	/**
 	 * Set files to be played.
@@ -173,6 +167,7 @@ private:
 	QAction* m_nextAction;
 
 	QLCDNumber* m_timeLcd;
+	QLabel* m_titleLabel;
 
 	QStringList m_files;
 	int m_fileNr;

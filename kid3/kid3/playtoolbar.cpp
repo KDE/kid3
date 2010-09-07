@@ -1,6 +1,6 @@
 /**
- * \file playdialog.cpp
- * Audio player dialog.
+ * \file playtoolbar.cpp
+ * Audio player toolbar.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,18 +24,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "playdialog.h"
+#include "playtoolbar.h"
 
 #ifdef HAVE_PHONON
 
 #include "qtcompatmac.h"
 #include <QAction>
-#include <QToolBar>
 #include <QLCDNumber>
 #include <QHBoxLayout>
 #include <QFileInfo>
 #include <QApplication>
 #include <QStyle>
+#include <QLabel>
 #include <phonon/audiooutput.h>
 #include <phonon/mediaobject.h>
 #include <phonon/seekslider.h>
@@ -48,50 +48,52 @@ static const QString zeroTime(" 0:00");
  *
  * @param parent parent widget
  */
-PlayDialog::PlayDialog(QWidget* parent) : QDockWidget(parent), m_fileNr(-1)
+PlayToolBar::PlayToolBar(QWidget* parent) : QToolBar(parent), m_fileNr(-1)
 {
 	setObjectName("Kid3Player");
-	QWidget* widget = new QWidget(this);
 
 	m_playIcon = style()->standardIcon(QStyle::SP_MediaPlay);
 	m_pauseIcon = style()->standardIcon(QStyle::SP_MediaPause);
 
-	m_mediaObject = new Phonon::MediaObject(widget);
+	m_mediaObject = new Phonon::MediaObject(this);
 	m_mediaObject->setTickInterval(1000);
-	m_audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, widget);
+	m_audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory, this);
 	Phonon::createPath(m_mediaObject, m_audioOutput);
 
-	m_playOrPauseAction = new QAction(m_playIcon, i18n("Play/Pause"), widget);
+	m_playOrPauseAction = new QAction(m_playIcon, i18n("Play/Pause"), this);
 	m_stopAction = new QAction(
-		style()->standardIcon(QStyle::SP_MediaStop), i18n("Stop playback"), widget);
+		style()->standardIcon(QStyle::SP_MediaStop), i18n("Stop playback"), this);
 	m_previousAction = new QAction(
-		style()->standardIcon(QStyle::SP_MediaSkipBackward), i18n("Previous Track"), widget);
+		style()->standardIcon(QStyle::SP_MediaSkipBackward), i18n("Previous Track"), this);
 	m_nextAction = new QAction(
-		style()->standardIcon(QStyle::SP_MediaSkipForward), i18n("Next Track"), widget);
+		style()->standardIcon(QStyle::SP_MediaSkipForward), i18n("Next Track"), this);
+	QAction* closeAction = new QAction(
+		style()->standardIcon(QStyle::SP_TitleBarCloseButton), i18n("Close"), this);
 
-	QToolBar* toolbar = new QToolBar(widget);
-	toolbar->addAction(m_playOrPauseAction);
-	toolbar->addAction(m_stopAction);
-	toolbar->addAction(m_previousAction);
-	toolbar->addAction(m_nextAction);
+	m_titleLabel = new QLabel(this);
+	m_titleLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
-	Phonon::SeekSlider* seekSlider = new Phonon::SeekSlider(widget);
+	Phonon::SeekSlider* seekSlider = new Phonon::SeekSlider(this);
 	seekSlider->setMediaObject(m_mediaObject);
-	Phonon::VolumeSlider* volumeSlider = new Phonon::VolumeSlider(widget);
+	seekSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	Phonon::VolumeSlider* volumeSlider = new Phonon::VolumeSlider(this);
 	volumeSlider->setAudioOutput(m_audioOutput);
+	volumeSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-	m_timeLcd = new QLCDNumber(widget);
+	m_timeLcd = new QLCDNumber(this);
 	m_timeLcd->setSegmentStyle(QLCDNumber::Flat);
 	m_timeLcd->setFrameStyle(QFrame::NoFrame);
 	m_timeLcd->display(zeroTime);
 
-	QHBoxLayout *hlayout = new QHBoxLayout(widget);
-	hlayout->addWidget(toolbar);
-	hlayout->addWidget(seekSlider);
-	hlayout->addWidget(volumeSlider);
-	hlayout->addWidget(m_timeLcd);
-
-	setWidget(widget);
+	addWidget(m_titleLabel);
+	addAction(m_playOrPauseAction);
+	addAction(m_stopAction);
+	addAction(m_previousAction);
+	addAction(m_nextAction);
+	addWidget(seekSlider);
+	addWidget(volumeSlider);
+	addWidget(m_timeLcd);
+	addAction(closeAction);
 
 	connect(m_mediaObject, SIGNAL(tick(qint64)), this, SLOT(tick(qint64)));
 	connect(m_mediaObject, SIGNAL(stateChanged(Phonon::State, Phonon::State)),
@@ -105,12 +107,13 @@ PlayDialog::PlayDialog(QWidget* parent) : QDockWidget(parent), m_fileNr(-1)
 	connect(m_stopAction, SIGNAL(triggered()), this, SLOT(stop()));
 	connect(m_previousAction, SIGNAL(triggered()), this, SLOT(previous()));
 	connect(m_nextAction, SIGNAL(triggered()), this, SLOT(next()));
+	connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
 }
 
 /**
  * Destructor.
   */
-PlayDialog::~PlayDialog()
+PlayToolBar::~PlayToolBar()
 {
 }
 
@@ -120,7 +123,7 @@ PlayDialog::~PlayDialog()
  * @param files  paths to files
  * @param fileNr index of file to play (default 0)
  */
-void PlayDialog::setFiles(const QStringList& files, int fileNr)
+void PlayToolBar::setFiles(const QStringList& files, int fileNr)
 {
 	m_files = files;
 	playTrack(fileNr);
@@ -132,7 +135,7 @@ void PlayDialog::setFiles(const QStringList& files, int fileNr)
  * @param fileNr index in list of files set with setFiles()
  * @param play   true to play track
  */
-void PlayDialog::selectTrack(int fileNr, bool play)
+void PlayToolBar::selectTrack(int fileNr, bool play)
 {
 	if (fileNr >= 0 && fileNr < m_files.size()) {
 		m_fileNr = fileNr;
@@ -158,7 +161,7 @@ void PlayDialog::selectTrack(int fileNr, bool play)
  *
  * @param fileNr index in list of files set with setFiles()
  */
-void PlayDialog::playTrack(int fileNr)
+void PlayToolBar::playTrack(int fileNr)
 {
 	selectTrack(fileNr, true);
 }
@@ -166,7 +169,7 @@ void PlayDialog::playTrack(int fileNr)
 /**
  * Stop sound when window is closed.
  */
-void PlayDialog::closeEvent(QCloseEvent*)
+void PlayToolBar::closeEvent(QCloseEvent*)
 {
 	stop();
 }
@@ -174,7 +177,7 @@ void PlayDialog::closeEvent(QCloseEvent*)
 /**
  * Toggle between play and pause.
  */
-void PlayDialog::playOrPause()
+void PlayToolBar::playOrPause()
 {
 	switch (m_mediaObject->state()) {
 		case Phonon::PlayingState:
@@ -194,13 +197,13 @@ void PlayDialog::playOrPause()
 /**
  * Update display and button state when the current source is changed.
  */
-void PlayDialog::currentSourceChanged()
+void PlayToolBar::currentSourceChanged()
 {
 	if (m_fileNr >= 0 && m_fileNr < m_files.size()) {
 		m_playOrPauseAction->setIcon(m_pauseIcon);
 		m_timeLcd->display(zeroTime);
 		QFileInfo fi(m_files[m_fileNr]);
-		setWindowTitle(fi.fileName());
+		m_titleLabel->setText(fi.fileName());
 
 		m_previousAction->setEnabled(m_fileNr > 0);
 		m_nextAction->setEnabled(m_fileNr + 1 < m_files.size());
@@ -210,7 +213,7 @@ void PlayDialog::currentSourceChanged()
 /**
  * Stop playback.
  */
-void PlayDialog::stop()
+void PlayToolBar::stop()
 {
 	m_mediaObject->stop();
 	m_mediaObject->clearQueue();
@@ -223,7 +226,7 @@ void PlayDialog::stop()
  *
  * @param msec time in ms
  */
-void PlayDialog::tick(qint64 msec)
+void PlayToolBar::tick(qint64 msec)
 {
 	int minutes = (msec / (60 * 1000)) % 60;
 	int seconds = (msec / 1000) % 60;
@@ -236,7 +239,7 @@ void PlayDialog::tick(qint64 msec)
  *
  * @param newState new Phonon state
  */
-void PlayDialog::stateChanged(Phonon::State newState)
+void PlayToolBar::stateChanged(Phonon::State newState)
 {
 	switch (newState) {
 		case Phonon::ErrorState:
@@ -268,7 +271,7 @@ void PlayDialog::stateChanged(Phonon::State newState)
 /**
  * Queue next track when the current track is about to finish.
  */
-void PlayDialog::aboutToFinish()
+void PlayToolBar::aboutToFinish()
 {
 	int nextFileNr = m_fileNr + 1;
 	if (nextFileNr >= 0 && nextFileNr < m_files.size()) {
@@ -281,7 +284,7 @@ void PlayDialog::aboutToFinish()
 /**
  * Select previous track.
  */
-void PlayDialog::previous()
+void PlayToolBar::previous()
 {
 	if (m_fileNr > 0)
 		selectTrack(m_fileNr - 1, m_mediaObject->state() == Phonon::PlayingState);
@@ -290,7 +293,7 @@ void PlayDialog::previous()
 /**
  * Select next track.
  */
-void PlayDialog::next()
+void PlayToolBar::next()
 {
 	if (m_fileNr + 1 < m_files.size())
 		selectTrack(m_fileNr + 1, m_mediaObject->state() == Phonon::PlayingState);
@@ -298,13 +301,13 @@ void PlayDialog::next()
 
 #else // HAVE_PHONON
 
-void PlayDialog::playOrPause() {}
-void PlayDialog::currentSourceChanged() {}
-void PlayDialog::stop() {}
-void PlayDialog::tick(qint64) {}
-void PlayDialog::stateChanged(Phonon::State) {}
-void PlayDialog::aboutToFinish() {}
-void PlayDialog::previous() {}
-void PlayDialog::next() {}
+void PlayToolBar::playOrPause() {}
+void PlayToolBar::currentSourceChanged() {}
+void PlayToolBar::stop() {}
+void PlayToolBar::tick(qint64) {}
+void PlayToolBar::stateChanged(Phonon::State) {}
+void PlayToolBar::aboutToFinish() {}
+void PlayToolBar::previous() {}
+void PlayToolBar::next() {}
 
 #endif // HAVE_PHONON
