@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2010-09-09 18:45+0200\n"
 "PO-Revision-Date: 2010-09-09 20:22+0200\n"
 "Last-Translator: ChungYu, Hsu <chungyu.hsu@gmail.com>\n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"Language-Team: Traditional Chinese Translation Team <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -144,11 +144,11 @@ msgstr "ID3v2"
 
 #: configdialog.cpp:222 configdialog.cpp:236
 msgid "Use &track/total number of tracks format"
-msgstr ""
+msgstr "使用「音軌/音軌總數」的格式(&T)"
 
 #: configdialog.cpp:225 configdialog.cpp:239
 msgid "&Genre as text instead of numeric string"
-msgstr ""
+msgstr "將曲風視做文字而不是數字字串(&G)"
 
 #: configdialog.cpp:230 configdialog.cpp:245
 msgid "&Version used for new tags:"
@@ -240,11 +240,11 @@ msgstr "瀏覽"
 
 #: configdialog.cpp:406
 msgid "Web &browser:"
-msgstr "網頁瀏覽器(&b)"
+msgstr "網頁瀏覽器(&B)"
 
 #: configdialog.cpp:422 configdialog.cpp:424
 msgid "Context &Menu Commands"
-msgstr "自訂 命令/動作 清單"
+msgstr "內文選單指令(&M)"
 
 #: configdialog.cpp:438
 msgid "User Actions"
@@ -419,7 +419,7 @@ msgstr ""
 
 #: editframefieldsdialog.cpp:688
 msgid "Timestamp Format"
-msgstr ""
+msgstr "時間格式"
 
 #: editframefieldsdialog.cpp:689
 msgid "Content Type"
@@ -516,7 +516,7 @@ msgstr "出版商╱錄音室標誌"
 
 #: editframefieldsdialog.cpp:930
 msgid "MPEG frames as unit"
-msgstr ""
+msgstr "以 MPEG 訊框為單位"
 
 #: editframefieldsdialog.cpp:931
 msgid "Milliseconds as unit"
@@ -878,11 +878,11 @@ msgstr "音軌"
 
 #: framelist.cpp:334
 msgid "Add Frame"
-msgstr ""
+msgstr "新增訊框"
 
 #: framelist.cpp:335
 msgid "Select the frame ID"
-msgstr ""
+msgstr "選擇訊框代碼"
 
 #: frametable.cpp:1389 frametable.cpp:1396
 msgid "&Select all"
@@ -1046,7 +1046,7 @@ msgstr "標籤 1 與 標籤 2"
 
 #: importselector.cpp:323
 msgid "Check maximum allowable time &difference (sec):"
-msgstr ""
+msgstr "請勾選最大可允許的時間差異(單位為秒)(&D)："
 
 #: importselector.cpp:331
 msgid "Match with:"
@@ -1222,7 +1222,7 @@ msgstr "更改目錄名稱...(&R)"
 
 #: kid3.cpp:363 kid3.cpp:663
 msgid "&Number Tracks..."
-msgstr ""
+msgstr "音軌編號(&N)..."
 
 #: kid3.cpp:367 kid3.cpp:670
 msgid "F&ilter..."
@@ -1242,7 +1242,7 @@ msgstr "顯示圖片(&P)"
 
 #: kid3.cpp:393 kid3.cpp:717
 msgid "Auto &Hide Tags"
-msgstr "自動隱藏(&H)"
+msgstr "自動隱藏標籤(&H)"
 
 #: kid3.cpp:397 kid3.cpp:602
 msgid "&Previous File"
@@ -1254,7 +1254,7 @@ msgstr "下一個檔案(&N)"
 
 #: kid3.cpp:435 kid3.cpp:438 kid3.cpp:441
 msgid "Frames:"
-msgstr ""
+msgstr "訊框："
 
 #: kid3.cpp:450 kid3.cpp:453 kid3.cpp:456
 msgid "Focus"
@@ -1366,7 +1366,7 @@ msgstr "套用 Tag 格式"
 
 #: kid3.cpp:662 numbertracksdialog.cpp:55
 msgid "Number Tracks"
-msgstr ""
+msgstr "音軌編號"
 
 #: kid3.cpp:677
 msgid "Convert ID3v2.3 to ID3v2.4"
@@ -1386,7 +1386,7 @@ msgstr "顯示圖片"
 
 #: kid3.cpp:716
 msgid "Auto Hide Tags"
-msgstr "自動隱藏"
+msgstr "自動隱藏標籤"
 
 #: kid3.cpp:728
 msgid "Configure Kid3"
@@ -1734,7 +1734,7 @@ msgstr "TPUB - 發行者"
 
 #: mp3file.cpp:1350 taglibfile.cpp:1660
 msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - 曲目編號/位置"
+msgstr "TRCK - 音軌編號/位置"
 
 #: mp3file.cpp:1351
 msgid "TRDA - Recording dates"
@@ -1997,11 +1997,11 @@ msgstr "停止播放"
 
 #: playtoolbar.cpp:67
 msgid "Previous Track"
-msgstr "上一曲目"
+msgstr "上一音軌"
 
 #: playtoolbar.cpp:69
 msgid "Next Track"
-msgstr "下一曲目"
+msgstr "下一音軌"
 
 #: playtoolbar.cpp:71
 msgid "Close"
@@ -2101,7 +2101,7 @@ msgstr "編輯項目"
 
 #: taglibfile.cpp:1601
 msgid "ASPI - Audio seek point index"
-msgstr ""
+msgstr "ASPI - 音效搜尋點索引"
 
 #: taglibfile.cpp:1605
 msgid "EQU2 - Equalisation (2)"
@@ -2109,43 +2109,43 @@ msgstr ""
 
 #: taglibfile.cpp:1618
 msgid "RVA2 - Relative volume adjustment (2)"
-msgstr ""
+msgstr "RVA2 - 相對音量調整 (2)"
 
 #: taglibfile.cpp:1620
 msgid "SEEK - Seek frame"
-msgstr ""
+msgstr "SEEK - 尋找訊框"
 
 #: taglibfile.cpp:1621
 msgid "SIGN - Signature frame"
-msgstr ""
+msgstr "SIGN - 簽章訊框"
 
 #: taglibfile.cpp:1629
 msgid "TDEN - Encoding time"
-msgstr ""
+msgstr "TDEN - 編碼時間"
 
 #: taglibfile.cpp:1631
 msgid "TDOR - Original release time"
-msgstr ""
+msgstr "TDOR - 原始發行時間"
 
 #: taglibfile.cpp:1632
 msgid "TDRC - Recording time"
-msgstr ""
+msgstr "TDRC - 錄音時間"
 
 #: taglibfile.cpp:1633
 msgid "TDRL - Release time"
-msgstr ""
+msgstr "TDRL - 發行時間"
 
 #: taglibfile.cpp:1634
 msgid "TDTG - Tagging time"
-msgstr ""
+msgstr "TDTG - 標籤時間 "
 
 #: taglibfile.cpp:1638
 msgid "TIPL - Involved people list"
-msgstr ""
+msgstr "TIPL - 參與人員清單"
 
 #: taglibfile.cpp:1645
 msgid "TMCL - Musician credits list"
-msgstr ""
+msgstr "TMCL - 音樂誌謝清單"
 
 #: taglibfile.cpp:1647
 msgid "TMOO - Mood"
@@ -2165,11 +2165,11 @@ msgstr ""
 
 #: taglibfile.cpp:1665
 msgid "TSOT - Title sort order"
-msgstr ""
+msgstr "TSOT - 標題排序順序"
 
 #: taglibfile.cpp:1668
 msgid "TSST - Set subtitle"
-msgstr ""
+msgstr "TSST - 設定字幕"
 
 #. i18n: file: kid3ui.rc:37
 #. i18n: ectx: ToolBar (mainToolBar)
