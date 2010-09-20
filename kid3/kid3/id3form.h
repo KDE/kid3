@@ -525,6 +525,7 @@ private:
 	QLabel* m_tag1Label;
 	QLabel* m_tag2Label;
 	QPushButton* m_fnV1Button;
+	QPushButton* m_toTagV1Button;
 	QPushButton* m_id3V2PushButton;
 	QWidget* m_rightHalfVBox;
 	PictureLabel* m_pictureLabel;

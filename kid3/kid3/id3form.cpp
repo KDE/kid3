@@ -229,7 +229,7 @@ Id3Form::Id3Form(QWidget* parent)
 	fileLayout->addWidget(m_nameLabel, 0, 0);
 
 	m_nameLineEdit = new QLineEdit(m_fileWidget);
-	fileLayout->addWidget(m_nameLineEdit, 0, 1, 1, 2);
+	fileLayout->addWidget(m_nameLineEdit, 0, 1, 1, 4);
 	m_fileLabel->setBuddy(m_nameLineEdit);
 
 	QLabel* formatLabel = new QLabel(i18n("Format:") + QChar(0x2191),
@@ -241,8 +241,12 @@ Id3Form::Id3Form(QWidget* parent)
 	m_formatComboBox->setToolTip(FrameFormatReplacer::getToolTip());
 	fileLayout->addWidget(m_formatComboBox, 1, 1);
 
-	m_fnV1Button = new QPushButton(i18n("From Tag 1"), m_fileWidget);
-	fileLayout->addWidget(m_fnV1Button, 1, 2);
+	QLabel* fromTagLabel = new QLabel(i18n("From:"), m_fileWidget);
+	fileLayout->addWidget(fromTagLabel, 1, 2);
+	m_fnV1Button = new QPushButton(i18n("Tag 1"), m_fileWidget);
+	fileLayout->addWidget(m_fnV1Button, 1, 3);
+	QPushButton* fnV2Button = new QPushButton(i18n("Tag 2"), m_fileWidget);
+	fileLayout->addWidget(fnV2Button, 1, 4);
 
 	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
 	                                             m_fileWidget);
@@ -253,9 +257,14 @@ Id3Form::Id3Form(QWidget* parent)
 	m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
 	fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
-	QPushButton* fnV2Button =
-		new QPushButton(i18n("From Tag 2"), m_fileWidget);
-	fileLayout->addWidget(fnV2Button, 2, 2);
+	QLabel* toTagLabel = new QLabel(i18n("To:"), m_fileWidget);
+	fileLayout->addWidget(toTagLabel, 2, 2);
+	m_toTagV1Button =
+		new QPushButton(i18n("Tag 1"), m_fileWidget);
+	fileLayout->addWidget(m_toTagV1Button, 2, 3);
+	QPushButton* toTagV2Button =
+		new QPushButton(i18n("Tag 2"), m_fileWidget);
+	fileLayout->addWidget(toTagV2Button, 2, 4);
 
 	m_tag1Button = new QToolButton(m_rightHalfVBox);
 	m_tag1Button->setIcon(*s_collapsePixmap);
@@ -279,10 +288,6 @@ Id3Form::Id3Form(QWidget* parent)
 
 	QVBoxLayout* buttonsV1VBoxLayout = new QVBoxLayout;
 	idV1HBoxLayout->addLayout(buttonsV1VBoxLayout);
-
-	QPushButton* filenameV1PushButton =
-		new QPushButton(i18n("From Filename"), m_tag1Widget);
-	buttonsV1VBoxLayout->addWidget(filenameV1PushButton);
 
 	QPushButton* id3V1PushButton =
 		new QPushButton(i18n("From Tag 2"), m_tag1Widget);
@@ -324,10 +329,6 @@ Id3Form::Id3Form(QWidget* parent)
 
 	QVBoxLayout* buttonsV2VBoxLayout = new QVBoxLayout;
 	idV2HBoxLayout->addLayout(buttonsV2VBoxLayout);
-
-	QPushButton* filenameV2PushButton =
-		new QPushButton(i18n("From Filename"), m_tag2Widget);
-	buttonsV2VBoxLayout->addWidget(filenameV2PushButton);
 
 	m_id3V2PushButton = new QPushButton(i18n("From Tag 1"), m_tag2Widget);
 	buttonsV2VBoxLayout->addWidget(m_id3V2PushButton);
@@ -386,49 +387,49 @@ Id3Form::Id3Form(QWidget* parent)
 	rightHalfLayout->addWidget(m_fileWidget);
 	m_fileWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	QGridLayout* fileLayout =
-		new QGridLayout(m_fileWidget, 4, 3, margin, spacing);
-	int fontHeight = m_fileWidget->fontMetrics().height();
-	if (fontHeight > 0 && fontHeight < 100) {
-		fileLayout->addMultiCell(
-			new QSpacerItem(1, fontHeight / 2, QSizePolicy::Fixed, QSizePolicy::Fixed),
-			0, 0, 0, 2);
-	}
-
+		new QGridLayout(m_fileWidget, 3, 4, margin, spacing);
 	m_nameLabel = new QLabel(i18n("Name:"), m_fileWidget);
-	fileLayout->addWidget(m_nameLabel, 1, 0);
+	fileLayout->addWidget(m_nameLabel, 0, 0);
 
 	m_nameLineEdit = new QLineEdit(m_fileWidget);
-	fileLayout->addWidget(m_nameLineEdit, 1, 1);
-	// using "fileLayout->addMultiCellWidget(m_nameLineEdit, 1, 1, 1, 2)"
-	// makes the first column wide?!
+	fileLayout->addMultiCellWidget(m_nameLineEdit, 0, 0, 1, 4);
 	m_fileLabel->setBuddy(m_nameLineEdit);
 
 	QLabel* formatLabel = new QLabel(i18n("Format:") + QChar(0x2191),
 	                                 m_fileWidget);
-	fileLayout->addWidget(formatLabel, 2, 0);
+	fileLayout->addWidget(formatLabel, 1, 0);
 
 	m_formatComboBox = new QComboBox(m_fileWidget);
 	m_formatComboBox->setEditable(true);
 	m_formatComboBox->setDuplicatesEnabled(false);
 	QToolTip::add(m_formatComboBox, FrameFormatReplacer::getToolTip());
-	fileLayout->addWidget(m_formatComboBox, 2, 1);
+	fileLayout->addWidget(m_formatComboBox, 1, 1);
 
-	m_fnV1Button = new QPushButton(i18n("From Tag 1"), m_fileWidget);
-	fileLayout->addWidget(m_fnV1Button, 2, 2);
+	QLabel* fromTagLabel = new QLabel(i18n("From:"), m_fileWidget);
+	fileLayout->addWidget(fromTagLabel, 1, 2);
+	m_fnV1Button = new QPushButton(i18n("Tag 1"), m_fileWidget);
+	fileLayout->addWidget(m_fnV1Button, 1, 3);
+	QPushButton* fnV2Button = new QPushButton(i18n("Tag 2"), m_fileWidget);
+	fileLayout->addWidget(fnV2Button, 1, 4);
 
 	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
 	                                             m_fileWidget);
-	fileLayout->addWidget(formatFromFilenameLabel, 3, 0);
+	fileLayout->addWidget(formatFromFilenameLabel, 2, 0);
 
 	m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
 	m_formatFromFilenameComboBox->setEditable(true);
 	m_formatFromFilenameComboBox->setDuplicatesEnabled(false);
 	QToolTip::add(m_formatFromFilenameComboBox, FrameFormatReplacer::getToolTip());
-	fileLayout->addWidget(m_formatFromFilenameComboBox, 3, 1);
+	fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
-	QPushButton* fnV2Button =
-		new QPushButton(i18n("From Tag 2"), m_fileWidget);
-	fileLayout->addWidget(fnV2Button, 3, 2);
+	QLabel* toTagLabel = new QLabel(i18n("To:"), m_fileWidget);
+	fileLayout->addWidget(toTagLabel, 2, 2);
+	m_toTagV1Button =
+		new QPushButton(i18n("Tag 1"), m_fileWidget);
+	fileLayout->addWidget(m_toTagV1Button, 2, 3);
+	QPushButton* toTagV2Button =
+		new QPushButton(i18n("Tag 2"), m_fileWidget);
+	fileLayout->addWidget(toTagV2Button, 2, 4);
 
 	m_tag1Button = new QToolButton(m_rightHalfVBox);
 	m_tag1Button->setIconSet(*s_collapsePixmap);
@@ -451,8 +452,6 @@ Id3Form::Id3Form(QWidget* parent)
 
 	QVBox* buttonsV1VBox = new QVBox(m_tag1Widget);
 	buttonsV1VBox->setSpacing(spacing);
-	QPushButton* filenameV1PushButton =
-		new QPushButton(i18n("From Filename"), buttonsV1VBox);
 	QPushButton* id3V1PushButton =
 		new QPushButton(i18n("From Tag 2"), buttonsV1VBox);
 	QPushButton* copyV1PushButton =
@@ -484,8 +483,6 @@ Id3Form::Id3Form(QWidget* parent)
 
 	QVBox* buttonsV2VBox = new QVBox(m_tag2Widget);
 	buttonsV2VBox->setSpacing(spacing);
-	QPushButton* filenameV2PushButton =
-		new QPushButton(i18n("From Filename"), buttonsV2VBox);
 	m_id3V2PushButton = new QPushButton(i18n("From Tag 1"), buttonsV2VBox);
 	QPushButton* copyV2PushButton =
 		new QPushButton(i18n("Copy"), buttonsV2VBox);
@@ -514,14 +511,10 @@ Id3Form::Id3Form(QWidget* parent)
 #endif
 
 	// signals and slots connections
-	connect(filenameV1PushButton, SIGNAL(clicked()), this,
-			SLOT(fromFilenameV1()));
 	connect(id3V1PushButton, SIGNAL(clicked()), this, SLOT(fromID3V1()));
 	connect(copyV1PushButton, SIGNAL(clicked()), this, SLOT(copyV1()));
 	connect(pasteV1PushButton, SIGNAL(clicked()), this, SLOT(pasteV1()));
 	connect(removeV1PushButton, SIGNAL(clicked()), this, SLOT(removeV1()));
-	connect(filenameV2PushButton, SIGNAL(clicked()), this,
-			SLOT(fromFilenameV2()));
 	connect(m_id3V2PushButton, SIGNAL(clicked()), this, SLOT(fromID3V2()));
 	connect(copyV2PushButton, SIGNAL(clicked()), this, SLOT(copyV2()));
 	connect(pasteV2PushButton, SIGNAL(clicked()), this, SLOT(pasteV2()));
@@ -539,6 +532,8 @@ Id3Form::Id3Form(QWidget* parent)
 	connect(editFramesPushButton, SIGNAL(clicked()), this, SLOT(editFrame()));
 	connect(m_fnV1Button, SIGNAL(clicked()), this, SLOT(fnFromID3V1()));
 	connect(fnV2Button, SIGNAL(clicked()), this, SLOT(fnFromID3V2()));
+	connect(m_toTagV1Button, SIGNAL(clicked()), this, SLOT(fromFilenameV1()));
+	connect(toTagV2Button, SIGNAL(clicked()), this, SLOT(fromFilenameV2()));
 	connect(m_nameLineEdit, SIGNAL(textChanged(const QString&)), this,
 			SLOT(nameLineEditChanged(const QString&)));
 #if QT_VERSION >= 0x040000
@@ -562,27 +557,26 @@ Id3Form::Id3Form(QWidget* parent)
 
 	// tab order
 	setTabOrder(m_fileListBox, m_dirListBox);
-	setTabOrder(m_dirListBox, m_fileWidget);
-	setTabOrder(m_fileWidget, m_nameLineEdit);
+	setTabOrder(m_dirListBox, m_nameLineEdit);
 	setTabOrder(m_nameLineEdit, m_formatComboBox);
 	setTabOrder(m_formatComboBox, m_formatFromFilenameComboBox);
 	setTabOrder(m_formatFromFilenameComboBox, m_fnV1Button);
 	setTabOrder(m_fnV1Button, fnV2Button);
-	setTabOrder(fnV2Button, m_framesV1Table);
-	setTabOrder(m_framesV1Table, filenameV1PushButton);
-	setTabOrder(filenameV1PushButton, id3V1PushButton);
+	setTabOrder(fnV2Button, m_toTagV1Button);
+	setTabOrder(m_toTagV1Button, toTagV2Button);
+	setTabOrder(toTagV2Button, id3V1PushButton);
 	setTabOrder(id3V1PushButton, copyV1PushButton);
 	setTabOrder(copyV1PushButton, pasteV1PushButton);
 	setTabOrder(pasteV1PushButton, removeV1PushButton);
-	setTabOrder(removeV1PushButton, m_framesV2Table);
-	setTabOrder(m_framesV2Table, filenameV2PushButton);
-	setTabOrder(filenameV2PushButton, m_id3V2PushButton);
+	setTabOrder(removeV1PushButton, m_id3V2PushButton);
 	setTabOrder(m_id3V2PushButton, copyV2PushButton);
 	setTabOrder(copyV2PushButton, pasteV2PushButton);
 	setTabOrder(pasteV2PushButton, removeV2PushButton);
 	setTabOrder(removeV2PushButton, editFramesPushButton);
 	setTabOrder(editFramesPushButton, framesAddPushButton);
 	setTabOrder(framesAddPushButton, deleteFramesPushButton);
+	setTabOrder(deleteFramesPushButton, m_framesV1Table);
+	setTabOrder(m_framesV1Table, m_framesV2Table);
 }
 
 /**
@@ -877,6 +871,7 @@ void Id3Form::dirSelected(
 void Id3Form::enableControlsV1(bool enable)
 {
 	m_fnV1Button->setEnabled(enable);
+	m_toTagV1Button->setEnabled(enable);
 	m_id3V2PushButton->setEnabled(enable);
 	m_tag1Widget->setEnabled(enable);
 }
