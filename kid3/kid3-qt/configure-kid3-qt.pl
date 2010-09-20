@@ -603,7 +603,7 @@ $fn = "doc/fixdocbook.pl";
 open OF, ">$fn" or die "Cannot open $fn: $!\n";
 print OF <<"EOF";
 #!/bin/perl -n
-s/"-\\/\\/KDE\\/\\/DTD DocBook XML V4.1-Based Variant V1.0\\/\\/EN" "dtd\\/kdex.dtd"/"-\\/\\/OASIS\\/\\/DTD DocBook XML V4.1.2\\/\\/EN" "http:\\/\\/www.oasis-open.org\\/docbook\\/xml\\/4.1.2\\/docbookx.dtd"/;
+s/"-\\/\\/KDE\\/\\/DTD DocBook XML V4.2-Based Variant V1.1\\/\\/EN" "dtd\\/kdex.dtd"/"-\\/\\/OASIS\\/\\/DTD DocBook XML V4.2\\/\\/EN" "http:\\/\\/www.oasis-open.org\\/docbook\\/xml\\/4.2\\/docbookx.dtd"/;
 s/<!ENTITY % German "INCLUDE">/<!ENTITY language "de">/;
 s/<!ENTITY % English "INCLUDE">/<!ENTITY language "en">/;
 s/ufleisch@/ufleisch at /g;
