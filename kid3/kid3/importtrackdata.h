@@ -224,6 +224,16 @@ QValueVector<ImportTrackData>
 {
 public:
 	/**
+	 * Clear vector and associated data.
+	 */
+	void clearData() {
+		clear();
+		m_artist = QString();
+		m_album = QString();
+		m_coverArtUrl = QString();
+	}
+
+	/**
 	 * Get album artist.
 	 * @return album artist.
 	 */

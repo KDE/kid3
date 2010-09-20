@@ -1862,7 +1862,7 @@ bool Kid3App::slotCreatePlaylist()
  */
 void Kid3App::setupImportDialog()
 {
-	m_trackDataList.clear();
+	m_trackDataList.clearData();
 	FileListItem* mp3file = m_view->firstFileInDir();
 	bool firstTrack = true;
 	bool tag1Supported = true;
