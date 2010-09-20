@@ -167,6 +167,54 @@ void Kid3ScrollView::addChild(QWidget* child, int x, int y)
 }
 #endif
 
+
+/**
+ * Event filter for double click on picture label.
+ */
+class PictureDblClickHandler : public QObject
+{
+public:
+	/**
+	 * Constructor.
+	 */
+	PictureDblClickHandler(Kid3App* app) : m_app(app) {}
+	virtual ~PictureDblClickHandler() {}
+
+protected:
+	/**
+	 * Event filter function, calls Kid3App::editOrAddPicture().
+	 *
+	 * @param obj watched object
+	 * @param event event for object
+	 *
+	 * @return true if event is filtered.
+	 */
+	virtual bool eventFilter(QObject* obj, QEvent* event);
+
+private:
+	Kid3App* m_app;
+};
+
+/**
+ * Event filter function, calls Kid3App::editOrAddPicture() on double click.
+ *
+ * @param obj watched object
+ * @param event event for object
+ *
+ * @return true if event is filtered.
+ */
+bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
+{
+	if (event->type() == QEvent::MouseButtonDblClick) {
+		m_app->editOrAddPicture();
+		return true;
+	} else {
+		// standard event processing
+		return QObject::eventFilter(obj, event);
+	}
+}
+
+
 /** 
  * Constructs an Id3Form as a child of 'parent', with the 
  * name 'name' and widget flags set to 'f'.
@@ -358,6 +406,7 @@ Id3Form::Id3Form(QWidget* parent)
 	buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
 
 	m_pictureLabel = new PictureLabel(this);
+	m_pictureLabel->installEventFilter(new PictureDblClickHandler(theApp));
 	buttonsV2VBoxLayout->addWidget(m_pictureLabel);
 
 	buttonsV2VBoxLayout->addItem(
@@ -502,6 +551,7 @@ Id3Form::Id3Form(QWidget* parent)
 		new QPushButton(i18n("Delete"), buttonsV2VBox);
 
 	m_pictureLabel = new PictureLabel(buttonsV2VBox);
+	m_pictureLabel->installEventFilter(new PictureDblClickHandler(theApp));
 
 	QWidget* expandWidget = new QWidget(buttonsV2VBox);
 	expandWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);

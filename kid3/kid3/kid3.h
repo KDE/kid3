@@ -234,8 +234,10 @@ public:
 	 * Select a frame type and add such a frame to frame list.
 	 *
 	 * @param frame frame to add, if 0 the user has to select and edit the frame
+	 * @param edit  if frame is set and edit is true, the user can edit the frame
+	 *              before it is added
 	 */
-	void addFrame(const Frame* frame = 0);
+	void addFrame(const Frame* frame = 0, bool edit = false);
 
 	/**
 	 * Set the directory name from the tags.
@@ -270,6 +272,11 @@ public:
 	 * @return true if ok.
 	 */
 	bool exportTags(int tagNr, const QString& path, int fmtIdx);
+
+	/**
+	 * Edit a picture frame if one exists or add a new one.
+	 */
+	void editOrAddPicture();
 
 	/**
 	 * Display help for a topic.

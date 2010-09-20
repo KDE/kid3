@@ -3612,8 +3612,10 @@ void Kid3App::deleteFrame(const QString& frameName)
  * Select a frame type and add such a frame to frame list.
  *
  * @param frame frame to add, if 0 the user has to select and edit the frame
+ * @param edit  if frame is set and edit is true, the user can edit the frame
+ *              before it is added
  */
-void Kid3App::addFrame(const Frame* frame)
+void Kid3App::addFrame(const Frame* frame, bool edit)
 {
 	updateCurrentSelection();
 	TaggedFile* taggedFile = getSelectedFile();
@@ -3622,6 +3624,9 @@ void Kid3App::addFrame(const Frame* frame)
 		if (!frame) {
 			frameAdded = m_framelist->selectFrame() &&
 				m_framelist->addFrame(true);
+		} else if (edit) {
+			m_framelist->setFrame(*frame);
+			frameAdded = m_framelist->addFrame(true);
 		} else {
 			m_framelist->setFrame(*frame);
 			frameAdded = m_framelist->pasteFrame();
@@ -3651,6 +3656,13 @@ void Kid3App::addFrame(const Frame* frame)
 						} else {
 							break;
 						}
+					} else if (edit) {
+						m_framelist->setFrame(*frame);
+						if (m_framelist->addFrame(edit)) {
+							frameId = m_framelist->getSelectedId();
+						} else {
+							break;
+						}
 					} else {
 						m_framelist->setFrame(*frame);
 						if (m_framelist->pasteFrame()) {
@@ -3671,6 +3683,19 @@ void Kid3App::addFrame(const Frame* frame)
 			m_framelist->setSelectedId(frameId);
 		}
 		updateModificationState();
+	}
+}
+
+/**
+ * Edit a picture frame if one exists or add a new one.
+ */
+void Kid3App::editOrAddPicture()
+{
+	if (m_framelist->selectByName("Picture")) {
+		editFrame();
+	} else {
+		PictureFrame frame;
+		addFrame(&frame, true);
 	}
 }
 
