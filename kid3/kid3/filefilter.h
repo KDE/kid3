@@ -59,6 +59,12 @@ public:
 	}
 
 	/**
+	 * Check if filter expression is empty.
+	 * @return true if filter expression is empty.
+	 */
+	bool isEmptyFilterExpression() const { return m_filterExpression.isEmpty(); }
+
+	/**
 	 * Initialize the parser.
 	 * This method has to be called before the first call to parse()
 	 * and afterwards when the expression has been changed.

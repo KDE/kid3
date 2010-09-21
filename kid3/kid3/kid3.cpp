@@ -2676,7 +2676,7 @@ void Kid3App::applyFilter(FileFilter& fileFilter)
 	applyFilterToDir(fileFilter, &dirContents);
 
 	m_view->getFileList()->setFromDirContents(dirContents);
-	setFiltered(true);
+	setFiltered(!fileFilter.isEmptyFilterExpression());
 	updateModificationState();
 }
 
