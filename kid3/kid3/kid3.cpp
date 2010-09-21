@@ -44,9 +44,11 @@
 #include <QMenu>
 #include <QIcon>
 #include <QToolBar>
+/** Set action icon for Qt 4 */
 #define QACTION_SET_ICON(a, i) a->setIcon(QIcon(i))
 #else
 #include <qlayout.h>
+/** Do not set an action icon for Qt 3 */
 #define QACTION_SET_ICON(a, i) 
 #endif
 #ifdef HAVE_QTDBUS

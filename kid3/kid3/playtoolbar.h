@@ -51,9 +51,13 @@ namespace Phonon
 #else // HAVE_PHONON
 
 #if QT_VERSION < 0x040000
+/** 64-bit signed integer */
 typedef Q_INT64 qint64;
 #endif
-namespace Phonon { enum State {}; }
+namespace Phonon {
+	/** empty enum to make generated moc files compile without Phonon */
+	enum State {};
+}
 
 #endif // HAVE_PHONON
 

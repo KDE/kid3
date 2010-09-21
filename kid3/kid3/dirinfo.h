@@ -91,6 +91,7 @@ public:
 	 * Constructor.
 	 *
 	 * @param dirname  directory name
+	 * @param numFiles number of tagged files in directory
 	 */
 	explicit DirContents(const QString& dirname = QString::null, int numFiles = 0) :
 		DirInfo(dirname, numFiles)

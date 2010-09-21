@@ -475,7 +475,9 @@ class BinFieldControl : public Mp3FieldControl {
 public:
 	/**
 	 * Constructor.
-	 * @param field field to edit
+	 * @param field      field to edit
+	 * @param frame      frame with fields to edit
+	 * @param taggedFile file
 	 */
 	BinFieldControl(Frame::Field& field,
 									const Frame& frame, const TaggedFile* taggedFile) :
@@ -503,7 +505,9 @@ public:
 protected:
 	/** Import, Export, View buttons */
 	BinaryOpenSave* m_bos;
+	/** frame with fields to edit */
 	const Frame& m_frame;
+	/** tagged file */
 	const TaggedFile* m_taggedFile;
 };
 
