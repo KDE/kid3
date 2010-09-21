@@ -245,6 +245,7 @@ void PlayToolBar::stateChanged(Phonon::State newState)
 		case Phonon::ErrorState:
 			m_playOrPauseAction->setEnabled(false);
 			m_stopAction->setEnabled(false);
+			emit errorMessage(m_mediaObject->errorString());
 			break;
 		case Phonon::PlayingState:
 			m_playOrPauseAction->setEnabled(true);

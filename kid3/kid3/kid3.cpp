@@ -2840,6 +2840,8 @@ void Kid3App::slotPlayAudio()
 		m_playToolBar = new PlayToolBar(this);
 		m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
 		addToolBar(Qt::BottomToolBarArea, m_playToolBar);
+		connect(m_playToolBar, SIGNAL(errorMessage(const QString&)),
+						this, SLOT(slotStatusMsg(const QString&)));
 	}
 	m_playToolBar->setFiles(files, fileNr);
 	m_playToolBar->show();

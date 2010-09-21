@@ -93,6 +93,12 @@ public:
 	void playTrack(int fileNr);
 
 #endif // HAVE_PHONON
+signals:
+	/**
+	 * Emitted when an error occurs.
+	 * Parameter: description of error
+	 */
+	void errorMessage(const QString& msg);
 
 private slots:
 	/**
