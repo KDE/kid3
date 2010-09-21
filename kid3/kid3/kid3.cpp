@@ -699,6 +699,18 @@ void Kid3App::initActions()
 			this, SLOT(slotPlayAudio()));
 	}
 #endif
+	m_viewStatusBar = new QAction(this);
+	if (m_viewStatusBar) {
+		m_viewStatusBar->setStatusTip(i18n("Enables/disables the statusbar"));
+		m_viewStatusBar->QCM_setMenuText(i18n("Show St&atusbar"));
+#if QT_VERSION >= 0x040000
+		m_viewStatusBar->setCheckable(true);
+#else
+		m_viewStatusBar->setToggleAction(true);
+#endif
+		connect(m_viewStatusBar, QCM_SIGNAL_triggered,
+			this, SLOT(slotViewStatusBar()));
+	}
 	m_settingsShowHidePicture = new QAction(this);
 	if (m_settingsShowHidePicture) {
 		m_settingsShowHidePicture->setStatusTip(i18n("Show Picture"));
@@ -831,6 +843,7 @@ void Kid3App::initActions()
 		QCM_addAction(settingsMenu, m_viewToolBar);
 #endif
 
+		QCM_addAction(settingsMenu, m_viewStatusBar);
 		QCM_addAction(settingsMenu, m_settingsShowHidePicture);
 		QCM_addAction(settingsMenu, m_settingsAutoHideTags);
 		settingsMenu->QCM_addSeparator();
@@ -1051,10 +1064,14 @@ void Kid3App::readOptions()
 	m_viewStatusBar->setChecked(!statusBar()->isHidden());
 #endif
 #else
+	if (s_miscCfg.m_hideStatusBar)
+		statusBar()->hide();
 #if QT_VERSION >= 0x040000
+	m_viewStatusBar->setChecked(!s_miscCfg.m_hideStatusBar);
 	m_settingsShowHidePicture->setChecked(!s_miscCfg.m_hidePicture);
 	m_settingsAutoHideTags->setChecked(s_miscCfg.m_autoHideTags);
 #else
+	m_viewStatusBar->setOn(!s_miscCfg.m_hideStatusBar);
 	m_settingsShowHidePicture->setOn(!s_miscCfg.m_hidePicture);
 	m_settingsAutoHideTags->setOn(s_miscCfg.m_autoHideTags);
 #endif
@@ -1695,9 +1712,28 @@ void Kid3App::slotHelpAboutQt() {}
 #else /* CONFIG_USE_KDE */
 
 void Kid3App::slotViewToolBar() {}
-void Kid3App::slotViewStatusBar() {}
 void Kid3App::slotSettingsShortcuts() {}
 void Kid3App::slotSettingsToolbars() {}
+
+/**
+ * Turn status bar on or off.
+ */
+void Kid3App::slotViewStatusBar()
+{
+#if QT_VERSION >= 0x040000
+	s_miscCfg.m_hideStatusBar = !m_viewStatusBar->isChecked();
+#else
+	s_miscCfg.m_hideStatusBar = !m_viewStatusBar->isOn();
+#endif
+	slotStatusMsg(i18n("Toggle the statusbar..."));
+	if(s_miscCfg.m_hideStatusBar) {
+		statusBar()->hide();
+	}
+	else {
+		statusBar()->show();
+	}
+	slotStatusMsg(i18n("Ready."));
+}
 
 /**
  * Display help for a topic.

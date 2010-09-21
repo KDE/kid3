@@ -844,6 +844,7 @@ private:
 #if QT_VERSION >= 0x040000
 	QAction* m_viewToolBar;
 #endif
+	QAction* m_viewStatusBar;
 	QAction* m_settingsAutoHideTags;
 	QAction* m_settingsShowHidePicture;
 

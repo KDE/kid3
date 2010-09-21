@@ -118,8 +118,11 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_renDirSrc(0),
 	m_numberTracksDst(0),
 	m_numberTracksStart(1),
-#if !defined CONFIG_USE_KDE && QT_VERSION >= 0x040000
+#ifndef CONFIG_USE_KDE
+#if QT_VERSION >= 0x040000
 	m_hideToolBar(false),
+#endif
+	m_hideStatusBar(false),
 #endif
 	m_autoHideTags(true),
 	m_hideFile(false),
@@ -262,6 +265,7 @@ void MiscConfig::writeToConfig(
 #if QT_VERSION >= 0x040000
 	config->QCM_writeEntry("/HideToolBar", m_hideToolBar);
 #endif
+	config->QCM_writeEntry("/HideStatusBar", m_hideStatusBar);
 	config->QCM_writeEntry("/AutoHideTags", m_autoHideTags);
 	config->QCM_writeEntry("/HideFile", m_hideFile);
 	config->QCM_writeEntry("/HideV1", m_hideV1);
@@ -441,6 +445,7 @@ void MiscConfig::readFromConfig(
 #if QT_VERSION >= 0x040000
 	m_hideToolBar = config->QCM_readBoolEntry("/HideToolBar", m_hideToolBar);
 #endif
+	m_hideStatusBar = config->QCM_readBoolEntry("/HideStatusBar", m_hideStatusBar);
 	m_autoHideTags = config->QCM_readBoolEntry("/AutoHideTags", m_autoHideTags);
 	m_hideFile = config->QCM_readBoolEntry("/HideFile", m_hideFile);
 	m_hideV1 = config->QCM_readBoolEntry("/HideV1", m_hideV1);

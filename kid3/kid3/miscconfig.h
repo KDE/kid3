@@ -219,9 +219,13 @@ public:
 	MenuCommandList m_contextMenuCommands;
 	/** custom genres for ID3v2.3 */
 	QStringList m_customGenres;
-#if !defined CONFIG_USE_KDE && QT_VERSION >= 0x040000
+#ifndef CONFIG_USE_KDE
+#if QT_VERSION >= 0x040000
 	/** true to hide toolbar */
 	bool m_hideToolBar;
+#endif
+	/** true to hide statusbar */
+	bool m_hideStatusBar;
 #endif
 	/** true to automatically hide unused tags */
 	bool m_autoHideTags;
