@@ -1,6 +1,6 @@
 /**
  * \file recentfilesmenu.cpp
- * Menu to open a recent files.
+ * Menu to open recent files.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -167,5 +167,9 @@ void RecentFilesMenu::clearList()
 	m_files.clear();
 	updateRecentFileActions();
 }
+#else // !CONFIG_USE_KDE
+
+void RecentFilesMenu::openRecentFile() {}
+void RecentFilesMenu::clearList(){}
 
 #endif // !CONFIG_USE_KDE

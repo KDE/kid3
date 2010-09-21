@@ -1,6 +1,6 @@
 /**
  * \file recentfilesmenu.h
- * Menu to open a recent files.
+ * Menu to open recent files.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -11,8 +11,6 @@
 #define RECENTFILESMENU_H
 
 #include "config.h"
-
-#ifndef CONFIG_USE_KDE
 
 #include <qstringlist.h>
 
@@ -27,9 +25,13 @@ typedef QMenu RecentFilesMenuBaseClass;
 typedef QPopupMenu RecentFilesMenuBaseClass;
 #endif
 
+/**
+ * Menu to open recent files.
+ */
 class RecentFilesMenu : public RecentFilesMenuBaseClass
 {
 Q_OBJECT
+#ifndef CONFIG_USE_KDE
 public:
 	/**
 	 * Constructor.
@@ -63,6 +65,7 @@ public:
    * @param config configuration settings
    */
 	void loadEntries(Kid3Settings* config);
+#endif // !CONFIG_USE_KDE
 
 signals:
 	/**
@@ -82,6 +85,7 @@ private slots:
 	 */
 	void clearList();
 
+#ifndef CONFIG_USE_KDE
 private:
 	/**
 	 * Update the recent file actions.
@@ -89,8 +93,7 @@ private:
 	void updateRecentFileActions();
 
 	QStringList m_files;
-};
-
 #endif // !CONFIG_USE_KDE
+};
 
 #endif // RECENTFILESMENU_H
