@@ -286,6 +286,8 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_formatComboBox = new QComboBox(m_fileWidget);
 	m_formatComboBox->setEditable(true);
+	m_formatComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
+	m_formatComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	m_formatComboBox->setToolTip(FrameFormatReplacer::getToolTip());
 	fileLayout->addWidget(m_formatComboBox, 1, 1);
 
@@ -302,6 +304,8 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
 	m_formatFromFilenameComboBox->setEditable(true);
+	m_formatFromFilenameComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
+	m_formatFromFilenameComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
 	fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
@@ -451,6 +455,7 @@ Id3Form::Id3Form(QWidget* parent)
 	m_formatComboBox = new QComboBox(m_fileWidget);
 	m_formatComboBox->setEditable(true);
 	m_formatComboBox->setDuplicatesEnabled(false);
+	m_formatComboBox->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 	QToolTip::add(m_formatComboBox, FrameFormatReplacer::getToolTip());
 	fileLayout->addWidget(m_formatComboBox, 1, 1);
 
@@ -468,6 +473,7 @@ Id3Form::Id3Form(QWidget* parent)
 	m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
 	m_formatFromFilenameComboBox->setEditable(true);
 	m_formatFromFilenameComboBox->setDuplicatesEnabled(false);
+	m_formatFromFilenameComboBox->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 	QToolTip::add(m_formatFromFilenameComboBox, FrameFormatReplacer::getToolTip());
 	fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
