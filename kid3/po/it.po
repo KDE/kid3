@@ -6,12 +6,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2010-09-09 18:45+0200\n"
-"PO-Revision-Date: 2010-09-09 21:01+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"group_id=70849&atid=529221\n"
+"POT-Creation-Date: 2010-09-21 18:53+0200\n"
+"PO-Revision-Date: 2010-09-21 13:52+0200\n"
 "Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,7 +49,7 @@ msgstr "URL dell'immagine"
 
 #: browsecoverartdialog.cpp:160 configdialog.cpp:545 exportdialog.cpp:155
 #: filterdialog.cpp:100 importdialog.cpp:77 importsourcedialog.cpp:152
-#: kid3.cpp:761 kid3.cpp:773 musicbrainzdialog.cpp:139
+#: kid3.cpp:773 kid3.cpp:785 musicbrainzdialog.cpp:139
 #: numbertracksdialog.cpp:95 playlistdialog.cpp:259 rendirdialog.cpp:105
 msgid "&Help"
 msgstr "Ai&uto"
@@ -310,8 +311,8 @@ msgstr "&OK"
 
 #: downloaddialog.cpp:96 httpclient.cpp:71 httpclient.cpp:83
 #: httpclient.cpp:129 httpclient.cpp:306 importsourcedialog.cpp:175
-#: kid3.cpp:875 kid3.cpp:947 kid3.cpp:1238 kid3.cpp:1624 kid3.cpp:1639
-#: kid3.cpp:1845 kid3.cpp:1945
+#: kid3.cpp:888 kid3.cpp:960 kid3.cpp:1255 kid3.cpp:1641 kid3.cpp:1656
+#: kid3.cpp:1735 kid3.cpp:1881 kid3.cpp:1981
 msgid "Ready."
 msgstr "Pronto."
 
@@ -564,25 +565,27 @@ msgstr "Negli Ap&punti"
 msgid "&Source:"
 msgstr "Ori&gine:"
 
-#: exportdialog.cpp:142 importselector.cpp:311 kid3.cpp:405 kid3.cpp:408
+#: exportdialog.cpp:142 id3form.cpp:296 id3form.cpp:315 id3form.cpp:464
+#: id3form.cpp:483 importselector.cpp:311 kid3.cpp:405 kid3.cpp:408
 #: kid3.cpp:411 kid3.cpp:414 kid3.cpp:417 kid3.cpp:453
 #: numbertracksdialog.cpp:81
 msgid "Tag 1"
 msgstr "Tag 1"
 
-#: exportdialog.cpp:143 importselector.cpp:312 kid3.cpp:420 kid3.cpp:423
+#: exportdialog.cpp:143 id3form.cpp:298 id3form.cpp:318 id3form.cpp:466
+#: id3form.cpp:486 importselector.cpp:312 kid3.cpp:420 kid3.cpp:423
 #: kid3.cpp:426 kid3.cpp:429 kid3.cpp:432 kid3.cpp:456
 #: numbertracksdialog.cpp:82
 msgid "Tag 2"
 msgstr "Tag 2"
 
 #: exportdialog.cpp:234 filelist.cpp:1219 filelist.cpp:1255 filelist.cpp:1360
-#: filelist.cpp:1368 filelist.cpp:1412 filelist.cpp:1415 kid3.cpp:1226
-#: kid3.cpp:1229 kid3.cpp:2475
+#: filelist.cpp:1368 filelist.cpp:1412 filelist.cpp:1415 kid3.cpp:1243
+#: kid3.cpp:1246 kid3.cpp:2511
 msgid "File Error"
 msgstr "Errore del file"
 
-#: exportdialog.cpp:235 kid3.cpp:1224 kid3.cpp:1230
+#: exportdialog.cpp:235 kid3.cpp:1241 kid3.cpp:1247
 msgid "Error while writing file:\n"
 msgstr "Errore durante la scrittura del file:\n"
 
@@ -670,7 +673,7 @@ msgstr "Rinomina file"
 msgid "Enter new file name:"
 msgstr "Digita nuovo nome file:"
 
-#: filelist.cpp:1220 filelist.cpp:1256 kid3.cpp:2476
+#: filelist.cpp:1220 filelist.cpp:1256 kid3.cpp:2512
 msgid "Error while renaming:\n"
 msgstr "Errore durante la rinomina:\n"
 
@@ -924,69 +927,72 @@ msgstr "Host non trovato"
 msgid "Read failed"
 msgstr "Lettura fallita"
 
-#: id3form.cpp:197 main.cpp:56 main.cpp:109
+#: id3form.cpp:245 main.cpp:56 main.cpp:109
 msgid "Kid3"
 msgstr "Kid3"
 
-#: id3form.cpp:215 id3form.cpp:379 id3form.cpp:1184 id3form.cpp:1186
+#: id3form.cpp:263 id3form.cpp:433 id3form.cpp:1235 id3form.cpp:1237
 msgid "F&ile"
 msgstr "F&ile"
 
-#: id3form.cpp:228 id3form.cpp:397
+#: id3form.cpp:276 id3form.cpp:444
 msgid "Name:"
 msgstr "Nome:"
 
-#: id3form.cpp:235 id3form.cpp:247 id3form.cpp:406 id3form.cpp:419
+#: id3form.cpp:283 id3form.cpp:301 id3form.cpp:451 id3form.cpp:469
 msgid "Format:"
 msgstr "Formato:"
 
-#: id3form.cpp:244 id3form.cpp:332 id3form.cpp:416 id3form.cpp:489
-#: kid3.cpp:423 kid3.cpp:444 rendirdialog.cpp:177
-msgid "From Tag 1"
-msgstr "Da Tag 1"
+#: id3form.cpp:294 id3form.cpp:462 rendirdialog.cpp:216
+msgid "From:"
+msgstr "Da:"
 
-#: id3form.cpp:257 id3form.cpp:288 id3form.cpp:430 id3form.cpp:457
-#: kid3.cpp:408 kid3.cpp:447 rendirdialog.cpp:178
-msgid "From Tag 2"
-msgstr "Da Tag 2"
+#: id3form.cpp:312 id3form.cpp:480 rendirdialog.cpp:218
+msgid "To:"
+msgstr "A:"
 
-#: id3form.cpp:263 id3form.cpp:437 id3form.cpp:891
+#: id3form.cpp:324 id3form.cpp:493 id3form.cpp:942
 msgid "Tag &1"
 msgstr "Tag &1"
 
-#: id3form.cpp:284 id3form.cpp:329 id3form.cpp:455 id3form.cpp:488
-#: kid3.cpp:405 kid3.cpp:420
-msgid "From Filename"
-msgstr "Dal Nome file"
+#: id3form.cpp:345 id3form.cpp:511 kid3.cpp:408 kid3.cpp:447
+#: rendirdialog.cpp:178
+msgid "From Tag 2"
+msgstr "Da Tag 2"
 
-#: id3form.cpp:291 id3form.cpp:336 id3form.cpp:459 id3form.cpp:491
+#: id3form.cpp:348 id3form.cpp:389 id3form.cpp:513 id3form.cpp:543
 #: kid3.cpp:411 kid3.cpp:426
 msgid "Copy"
 msgstr "Copia"
 
-#: id3form.cpp:295 id3form.cpp:340 id3form.cpp:461 id3form.cpp:493
+#: id3form.cpp:352 id3form.cpp:393 id3form.cpp:515 id3form.cpp:545
 #: kid3.cpp:414 kid3.cpp:429
 msgid "Paste"
 msgstr "Incolla"
 
-#: id3form.cpp:299 id3form.cpp:344 id3form.cpp:463 id3form.cpp:495
+#: id3form.cpp:356 id3form.cpp:397 id3form.cpp:517 id3form.cpp:547
 #: kid3.cpp:417 kid3.cpp:432
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: id3form.cpp:308 id3form.cpp:470 id3form.cpp:906
+#: id3form.cpp:365 id3form.cpp:524 id3form.cpp:957
 msgid "Tag &2"
 msgstr "Tag &2"
 
-#: id3form.cpp:350 id3form.cpp:501 kid3.cpp:435
+#: id3form.cpp:385 id3form.cpp:541 kid3.cpp:423 kid3.cpp:444
+#: rendirdialog.cpp:177
+msgid "From Tag 1"
+msgstr "Da Tag 1"
+
+#: id3form.cpp:403 id3form.cpp:553 kid3.cpp:435
 msgid "Edit"
 msgstr "Modifica"
 
-#: id3form.cpp:353 id3form.cpp:503 kid3.cpp:438
+#: id3form.cpp:406 id3form.cpp:555 kid3.cpp:438
 msgid "Add"
 msgstr "Aggiungi"
 
-#: id3form.cpp:356 id3form.cpp:505 kid3.cpp:441
+#: id3form.cpp:409 id3form.cpp:557 kid3.cpp:441
 msgid "Delete"
 msgstr "Elimina"
 
@@ -1116,11 +1122,11 @@ msgstr "Canali"
 msgid "Codec"
 msgstr "Codec"
 
-#: kid3.cpp:274 kid3.cpp:749
+#: kid3.cpp:274 kid3.cpp:761
 msgid "Enables/disables the toolbar"
 msgstr "Attiva/disattiva la barra degli strumenti"
 
-#: kid3.cpp:275
+#: kid3.cpp:275 kid3.cpp:704
 msgid "Enables/disables the statusbar"
 msgstr "Attiva/disattiva la barra di stato"
 
@@ -1128,7 +1134,7 @@ msgstr "Attiva/disattiva la barra di stato"
 msgid "Opens a directory"
 msgstr "Apre una cartella"
 
-#: kid3.cpp:288 kid3.cpp:782
+#: kid3.cpp:288 kid3.cpp:794
 msgid "Opens a recently used directory"
 msgstr "Apre una cartella usata di recente"
 
@@ -1236,11 +1242,11 @@ msgstr "Converti ID3v2.3 in ID3v2.&4"
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Converti ID3v2.4 in ID3v2.&3"
 
-#: kid3.cpp:389 kid3.cpp:705
+#: kid3.cpp:389 kid3.cpp:717
 msgid "Show &Picture"
 msgstr "Mostra &immagine"
 
-#: kid3.cpp:393 kid3.cpp:717
+#: kid3.cpp:393 kid3.cpp:729
 msgid "Auto &Hide Tags"
 msgstr "&Nascondi automaticamente"
 
@@ -1251,6 +1257,10 @@ msgstr "File &precedente"
 #: kid3.cpp:401 kid3.cpp:611
 msgid "&Next File"
 msgstr "File &successivo"
+
+#: kid3.cpp:405 kid3.cpp:420
+msgid "From Filename"
+msgstr "Dal Nome file"
 
 #: kid3.cpp:435 kid3.cpp:438 kid3.cpp:441
 msgid "Frames:"
@@ -1332,7 +1342,7 @@ msgstr "Seleziona file precedente"
 msgid "Select next file"
 msgstr "Seleziona file successivo"
 
-#: kid3.cpp:619 kid3.cpp:1710
+#: kid3.cpp:619 kid3.cpp:1746
 msgid "Kid3 Handbook"
 msgstr "Manuale di Kid3"
 
@@ -1380,63 +1390,67 @@ msgstr "Converti ID3v2.4 in ID3v2.3"
 msgid "Play"
 msgstr "Riproduci"
 
-#: kid3.cpp:704
+#: kid3.cpp:705
+msgid "Show St&atusbar"
+msgstr "Mostra la barra di st&ato"
+
+#: kid3.cpp:716
 msgid "Show Picture"
 msgstr "Mostra immagine"
 
-#: kid3.cpp:716
+#: kid3.cpp:728
 msgid "Auto Hide Tags"
 msgstr "Nascondi automaticamente"
 
-#: kid3.cpp:728
+#: kid3.cpp:740
 msgid "Configure Kid3"
 msgstr "Configura Kid3"
 
-#: kid3.cpp:729
+#: kid3.cpp:741
 msgid "&Configure Kid3..."
 msgstr "&Configura Kid3..."
 
-#: kid3.cpp:750
+#: kid3.cpp:762
 msgid "Show &Toolbar"
 msgstr "Mostra la barra degli &strumenti"
 
 #. i18n: file: kid3ui.rc:4
 #. i18n: ectx: Menu (file)
-#: kid3.cpp:757 kid3.cpp:765 rc.cpp:3
+#: kid3.cpp:769 kid3.cpp:777 rc.cpp:3
 msgid "&File"
 msgstr "&File"
 
 #. i18n: file: kid3ui.rc:17
 #. i18n: ectx: Menu (edit)
-#: kid3.cpp:758 kid3.cpp:767 rc.cpp:6
+#: kid3.cpp:770 kid3.cpp:779 rc.cpp:6
 msgid "&Edit"
 msgstr "&Modifica"
 
 #. i18n: file: kid3ui.rc:21
 #. i18n: ectx: Menu (tools)
-#: kid3.cpp:759 kid3.cpp:769 rc.cpp:9
+#: kid3.cpp:771 kid3.cpp:781 rc.cpp:9
 msgid "&Tools"
 msgstr "S&trumenti"
 
 #. i18n: file: kid3ui.rc:31
 #. i18n: ectx: Menu (settings)
-#: kid3.cpp:760 kid3.cpp:771 rc.cpp:12
+#: kid3.cpp:772 kid3.cpp:783 rc.cpp:12
 msgid "&Settings"
 msgstr "Imp&ostazioni"
 
-#: kid3.cpp:783 kid3.cpp:787
+#: kid3.cpp:795 kid3.cpp:799
 msgid "Open &Recent"
 msgstr "Apri &recenti"
 
-#: kid3.cpp:926
+#: kid3.cpp:939
 msgid "Opening directory..."
 msgstr "Apertura cartella in corso..."
 
-#: kid3.cpp:1169
+#: kid3.cpp:1186
 msgid "Saving directory..."
 msgstr "Salvataggio cartella in corso..."
 
-#: kid3.cpp:1263 kid3.cpp:1273
+#: kid3.cpp:1280 kid3.cpp:1290
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -1444,63 +1458,63 @@ msgstr ""
 "La cartella corrente è stata modificata.\n"
 "Vuoi salvare la cartella?"
 
-#: kid3.cpp:1265
+#: kid3.cpp:1282
 msgid "Warning"
 msgstr "Avvertimento"
 
-#: kid3.cpp:1272
+#: kid3.cpp:1289
 msgid "Warning - Kid3"
 msgstr "Attenzione - Kid3"
 
-#: kid3.cpp:1441 kid3.cpp:1445
+#: kid3.cpp:1458 kid3.cpp:1462
 msgid "All Supported Files"
 msgstr "Tutti i file supportati"
 
-#: kid3.cpp:1443 kid3.cpp:1449
+#: kid3.cpp:1460 kid3.cpp:1466
 msgid "All Files (*)"
 msgstr "Tutti i file (*)"
 
-#: kid3.cpp:1477
+#: kid3.cpp:1494
 msgid "Open"
 msgstr "Apri"
 
-#: kid3.cpp:1606
+#: kid3.cpp:1623
 msgid "Exiting..."
 msgstr "Uscita in corso..."
 
-#: kid3.cpp:1617
+#: kid3.cpp:1634
 msgid "Toggling toolbar..."
 msgstr "Cambiamento barra strumenti in corso..."
 
-#: kid3.cpp:1632
+#: kid3.cpp:1649 kid3.cpp:1728
 msgid "Toggle the statusbar..."
 msgstr "Cambiamento barra di stato in corso..."
 
-#: kid3.cpp:1804
+#: kid3.cpp:1840
 msgid "Creating playlist..."
 msgstr "Creazione playlist in corso..."
 
-#: kid3.cpp:1892
+#: kid3.cpp:1928
 msgid "Import"
 msgstr "Importa"
 
-#: kid3.cpp:1913
+#: kid3.cpp:1949
 msgid "Import..."
 msgstr "Importa..."
 
-#: kid3.cpp:2269
+#: kid3.cpp:2305
 msgid "Configure - Kid3"
 msgstr "Configura - Kid3"
 
-#: kid3.cpp:2881
+#: kid3.cpp:2919
 msgid "Download"
 msgstr "Scaricamento"
 
-#: kid3.cpp:2947
+#: kid3.cpp:2985
 msgid " [filtered]"
 msgstr " [filtrato]"
 
-#: kid3.cpp:2953
+#: kid3.cpp:2991
 msgid " [modified]"
 msgstr " [modificato]"
 
@@ -2046,14 +2060,6 @@ msgstr "Crea cartella"
 #: rendirdialog.cpp:176
 msgid "From Tag 2 and Tag 1"
 msgstr "Da Tag 2 e Tag 1"
-
-#: rendirdialog.cpp:216
-msgid "From:"
-msgstr "Da:"
-
-#: rendirdialog.cpp:218
-msgid "To:"
-msgstr "A:"
 
 #: rendirdialog.cpp:647
 msgid "New directory name is too different\n"
