@@ -37,7 +37,7 @@ isEmpty(CFG_DB2HTML) {
   PERL = perl
 }
 contains(CFG_DB2HTML, jw) {
-  db2html.commands = $$PERL -n ../fixdocbook.pl <${QMAKE_FILE_NAME} >${QMAKE_FILE_BASE}.sgml; jw -f docbook -b html -u ${QMAKE_FILE_BASE}.sgml; mv ${QMAKE_FILE_BASE}.html ${QMAKE_FILE_OUT}
+  db2html.commands = $$PERL -n ../fixdocbook.pl <${QMAKE_FILE_NAME} >${QMAKE_FILE_BASE}.sgml; jw -f docbook -b html -u ${QMAKE_FILE_BASE}.sgml; $$PERL -n ../fixhtml.pl ${QMAKE_FILE_BASE}.html >${QMAKE_FILE_OUT}
 } else {
   isEmpty(CFG_XSL_STYLESHEET) {
     exists(/usr/share/xml/docbook/stylesheet/nwalsh/html/docbook.xsl) {
@@ -47,11 +47,11 @@ contains(CFG_DB2HTML, jw) {
     }
   }
   contains(CFG_DB2HTML, xsltproc) {
-    db2html.commands = $$PERL -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | $$CFG_DB2HTML $$CFG_XSL_STYLESHEET - >${QMAKE_FILE_OUT}
+    db2html.commands = $$PERL -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | $$CFG_DB2HTML $$CFG_XSL_STYLESHEET - | $$PERL -n ../fixhtml.pl >${QMAKE_FILE_OUT}
   } else:contains(CFG_DB2HTML, xalan) {
-    db2html.commands = $$PERL -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | $$CFG_DB2HTML -xsl $$CFG_XSL_STYLESHEET -out ${QMAKE_FILE_OUT}
+    db2html.commands = $$PERL -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | $$CFG_DB2HTML -xsl $$CFG_XSL_STYLESHEET -out ${QMAKE_FILE_BASE}.html; $$PERL -n ../fixhtml.pl ${QMAKE_FILE_BASE}.html >${QMAKE_FILE_OUT}
   } else {
-    db2html.commands = $$PERL -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | $$CFG_DB2HTML $$CFG_XSL_STYLESHEET - >${QMAKE_FILE_OUT}
+    db2html.commands = $$PERL -n ../fixdocbook.pl <${QMAKE_FILE_NAME} | $$CFG_DB2HTML $$CFG_XSL_STYLESHEET - | $$PERL -n ../fixhtml.pl >${QMAKE_FILE_OUT}
   }
 }
 

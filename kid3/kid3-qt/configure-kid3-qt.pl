@@ -355,7 +355,7 @@ if ($from_configure) {
 	}
 }
 
-my $config_h = "#define VERSION \"1.4\"\n";
+my $config_h = "#define VERSION \"1.5\"\n";
 my $config_pri;
 if ($prefix) {
 	$config_h .= "#define CFG_PREFIX \"$prefix\"\n";
@@ -602,7 +602,7 @@ mkdir "doc" unless -d "doc";
 $fn = "doc/fixdocbook.pl";
 open OF, ">$fn" or die "Cannot open $fn: $!\n";
 print OF <<"EOF";
-#!/bin/perl -n
+#!/usr/bin/perl -n
 s/"-\\/\\/KDE\\/\\/DTD DocBook XML V4.2-Based Variant V1.1\\/\\/EN" "dtd\\/kdex.dtd"/"-\\/\\/OASIS\\/\\/DTD DocBook XML V4.2\\/\\/EN" "http:\\/\\/www.oasis-open.org\\/docbook\\/xml\\/4.2\\/docbookx.dtd"/;
 s/<!ENTITY % German "INCLUDE">/<!ENTITY language "de">/;
 s/<!ENTITY % English "INCLUDE">/<!ENTITY language "en">/;
@@ -611,6 +611,30 @@ s/&FDLNotice;/<para><ulink url="http:\\/\\/www.gnu.org\\/licenses\\/licenses.htm
 s/&underFDL;/<para><ulink url="http:\\/\\/www.gnu.org\\/licenses\\/licenses.html#FDL">FDL<\\/ulink><\\/para>/g;
 s/&underGPL;/<para><ulink url="http:\\/\\/www.gnu.org\\/licenses\\/licenses.html#GPL">GPL<\\/ulink><\\/para>/g;
 s/&documentation.index;//g;
+print;
+EOF
+print "creating $fn\n";
+close OF;
+
+$fn = "doc/fixhtml.pl";
+open OF, ">$fn" or die "Cannot open $fn: $!\n";
+print OF <<"EOF";
+#!/usr/bin/perl -n
+s/^><TITLE\$/><meta http-equiv="content-type" content="text\\/html; charset=UTF-8"\\n><TITLE/ms;
+s/<\\/title/<\\/title>\\
+<style type="text\\/css">\\
+body { font-family: Arial, Helvetica, sans-serif; color: #000000; background: #ffffff; }\\
+h1, h2, h3, h4 { text-align: left; font-weight: bold; color: #f7800a; background: transparent; }\\
+a:link { color: #0057ae; }\\
+pre { display: block; color: #000000; background: #f9f9f9; border: #2f6fab dashed; border-width: 1px; overflow: auto; line-height: 1.1em; }\\
+dt { font-weight: bold; color: #0057ae; }\\
+p { text-align: justify; }\\
+li { text-align: left; }\\
+.guibutton, .guilabel, .guimenu, .guimenuitem { font-family: Arial, Helvetica, sans-serif; color: #000000; background: #dcdcdc; }\\
+.application { font-weight: bold; }\\
+.command { font-family: "Courier New", Courier, monospace; }\\
+.filename { font-style: italic; }\\
+<\\/style/i;
 print;
 EOF
 print "creating $fn\n";

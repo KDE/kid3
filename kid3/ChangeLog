@@ -1,3 +1,33 @@
+Sun Sep 26 14:14:55 CEST 2010  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 1.5
+
+	* New:
+	  + Versions without KDE (kid3-qt, Windows, Mac OS X) now have also
+	    icons, a toolbar, and functions "Open Recent", "Show Statusbar".
+	  + A simple audio player is available via "Tools" and context menu.
+	  + Option "Auto Hide Tags" to hide unused tags.
+	  + Option to set number of digits in track number.
+	  + Support for cover art in WMA files.
+	  + Context menu items "Expand all" and "Collapse all".
+	  + Double click on picture to add or edit cover art.
+	  + Chinese translation.
+
+	* Improved:
+	  + Faster filter.
+	  + Frame difference shows all frames of the selected files.
+	  + The buttons "From Filename" are now beside the corresponding
+	    format and named "To Tag 1" and "To Tag 2". The buttons
+	    "From Tag 1" and "From Tag 2" are beside their format.
+
+	* Fixed:
+	  + Setting pictures using D-Bus function setFrame().
+	  + Correct extensions for ".aac" and ".mp2" files when generating
+	    filenames from tags.
+	  + Correct setting of URL field in WXXX frames when set in table.
+	  + Do not lose focus in frame tables when window is deactivated.
+	  + MIME types, documentation adapted for KDE 4.5.
+
 Sun Feb 28 15:50:51 CET 2010  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.4

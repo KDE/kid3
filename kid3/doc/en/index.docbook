@@ -25,8 +25,8 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2010-02-28</date>
-<releaseinfo>1.4</releaseinfo>
+<date>2010-09-26</date>
+<releaseinfo>1.5</releaseinfo>
 
 <abstract>
 <para>
@@ -75,7 +75,7 @@ a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis, FLAC,
 MPC, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV and AIFF files are supported too.
 </para>
 <para>
-&kid3; does not grab, encode nor play
+&kid3; does not grab nor encode
 MP3 files, but it is targeted to edit the ID3 tags of all files of an album
 in an efficient way, i.e. with as few mouse clicks and key strokes as
 possible. Where most other programs can edit either ID3v1 or ID3v2 tags,
@@ -161,7 +161,7 @@ These files have no tags yet and we want to generate them using &kid3;. We use
 select one of the files in this directory. All files will be displayed in the
 file listbox. Lazy as we are, we want to use the information in the directory
 and file names to generate tags. Therefore we select all files, then click the
-<guibutton>From Filename</guibutton> button in the <guilabel>Tag 1</guilabel>
+<guilabel>To:</guilabel> <guibutton>Tag 1</guibutton> button in the <guilabel>File</guilabel>
 section. This will set the title, artist, album and track values in all files.
 To set the year and genre values of all files, we keep all files selected and
 type in "2002" for the <guilabel>Year</guilabel> and select "Pop" from the
@@ -189,7 +189,7 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <title>The GUI Elements</title>
 <para>
 The &kid3; GUI is separated in five sections: At the left are the file
-and directory listboxes, the right side contains the <guilabel>Filename</guilabel>,
+and directory listboxes, the right side contains the <guilabel>File</guilabel>,
 <guilabel>Tag 1</guilabel> and <guilabel>Tag 2</guilabel> sections.
 </para>
 
@@ -218,6 +218,32 @@ subdirectories, operations can be executed on files in different directories,
 which is useful if the music collection is organized with a folder for each
 artist containing folders for albums of this artist.
 </para>
+<para>
+Clicking the right mouse button inside the file list opens a context menu with
+the following commands:
+<itemizedlist>
+<listitem><para>
+<guimenuitem>Expand all</guimenuitem>: Expands all folder trees
+</para></listitem>
+<listitem><para>
+<guimenuitem>Collapse all</guimenuitem>: Collapses all folder trees
+</para></listitem>
+<listitem><para>
+<guimenuitem>Rename</guimenuitem>: Changes the name of a file
+</para></listitem>
+<listitem><para>
+<guimenuitem>Delete</guimenuitem>: Deletes a file
+</para></listitem>
+<listitem><para>
+<guimenuitem>Play</guimenuitem>: Plays a file,
+see <link linkend="play">Play</link>
+</para></listitem>
+<listitem><para>The subsequent entries are user commands, which can be defined
+in the <guilabel>User Actions</guilabel> tab of
+<link linkend="configure-kid3">Configure Kid3</link>.
+</para></listitem>
+</itemizedlist>
+</para>
 </listitem>
 </varlistentry>
 
@@ -233,9 +259,16 @@ without using the <guimenuitem>Open...</guimenuitem> command or drag and drop.
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Filename</guilabel></term>
+<term><guilabel>File</guilabel></term>
 
-<listitem><para>The <guilabel>Name</guilabel> line edit contains the name of the file
+<listitem>
+<para>
+Shows information about the encoding
+(MP3, Ogg, FLAC, MPC, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
+bitrate, sample rate, channels and the length of the file.
+</para>
+<para>
+The <guilabel>Name</guilabel> line edit contains the name of the file
 (if only a single file is selected). If this name is changed, the file will
 be renamed when the Save command is used.
 </para>
@@ -272,17 +305,27 @@ Some commonly used filename formats are already available in the combo box,
 but it is also possible to type in some special format into the line edit.
 </para>
 <para>
-<guibutton>From Tag 1</guibutton>: Sets the filename using the selected format
-and the first tag.
+<guilabel>From:</guilabel> <guibutton>Tag 1</guibutton>,
+<guibutton>Tag 2</guibutton>: Sets the filename using the selected format
+and the first tag or the second tag, respectively.
 </para>
 <para>
-<guibutton>From Tag 2</guibutton>: Sets the filename using the selected format
-and the second tag.
-</para>
-<para>
-<guibutton>Info</guibutton>: Shows information about the encoding
-(MP3, Ogg, FLAC, MPC, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
-bitrate, sample rate, channels and the length of the file.
+<guilabel>To:</guilabel> <guibutton>Tag 1</guibutton>,
+<guibutton>Tag 2</guibutton>: The tags are set from the filename.
+First, the format specified in <guilabel>Format</guilabel> is used. If the
+existing filename does not match this format, the following formats
+are tried:
+<itemizedlist>
+<listitem><para><filename>Artist - Album/Track Song</filename></para></listitem>
+<listitem><para><filename>Album/Track - Artist - Song</filename></para></listitem>
+<listitem><para><filename>/Artist - Album - Track - Song</filename></para></listitem>
+<listitem><para><filename>Album/Artist - Track - Song</filename></para></listitem>
+<listitem><para><filename>Album/Artist - Song</filename></para></listitem>
+<listitem><para><filename>Artist/Album/Track Song</filename></para></listitem>
+</itemizedlist>
+If a single file is selected, the GUI controls are filled with the values
+extracted from the filename. If multiple files are selected, the tags of the
+files are directly set according to the filenames.
 </para>
 </listitem>
 </varlistentry>
@@ -326,27 +369,10 @@ selected files when the selection is changed and can be saved using the
 </para>
 <para>
 The check boxes also control the operation of most commands affecting the
-tags, such as copy, paste and transfer between V1 and V2 tags. To make it
+tags, such as copy, paste and transfer between tags 1 and 2. To make it
 easier to use with multiple files where all check boxes are unchecked, these
 commands behave in the same way when all check boxes are checked and when all
 check boxes are unchecked.
-</para>
-<para>
-<guibutton>From Filename</guibutton>: The tags are set from the filename.
-First, the format specified in <guilabel>Format</guilabel> is used. If the
-existing filename does not match this format, the following formats
-are tried:
-<itemizedlist>
-<listitem><para><filename>Artist - Album/Track Song</filename></para></listitem>
-<listitem><para><filename>Album/Track - Artist - Song</filename></para></listitem>
-<listitem><para><filename>/Artist - Album - Track - Song</filename></para></listitem>
-<listitem><para><filename>Album/Artist - Track - Song</filename></para></listitem>
-<listitem><para><filename>Album/Artist - Song</filename></para></listitem>
-<listitem><para><filename>Artist/Album/Track Song</filename></para></listitem>
-</itemizedlist>
-If a single file is selected, the GUI controls are filled with the values
-extracted from the filename. If multiple files are selected, the tags of the
-files are directly set according to the filenames.
 </para>
 <para>
 <guibutton>From Tag 2</guibutton>: The tag 1 fields are set from the
@@ -401,6 +427,12 @@ works also to add a frame to multiple selected files.
 </para>
 <para>
 <guibutton>Delete</guibutton>: Deletes the selected frame in the selected files.
+</para>
+<para>
+<guilabel>Drag album artwork here</guilabel> is shown if the file does not
+contain embedded cover art. A picture can be added using drag and drop from a
+browser or file manager and will be displayed here. Picture frames can be
+edited or added by double clicking on this control.
 </para>
 </listitem>
 </varlistentry>
@@ -560,7 +592,8 @@ Clipboard</guibutton> button and the imported tracks will be displayed in the
 preview table at the top of the dialog. If you are satisfied with the imported
 data, terminate the dialog with <guibutton>OK</guibutton>, which will insert
 the data into the tags of the current directory. The destination
-(<guilabel>ID3v1</guilabel> or <guilabel>ID3v2</guilabel>) can be selected
+(<guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> or
+<guilabel>Tag 1 and Tag 2</guilabel>) can be selected
 with a combo box. The files in the current directory should be in the correct
 track order to get their tags assigned. This is the case if they are numbered.
 </para>
@@ -815,8 +848,8 @@ adding lines in the file <filename>kid3rc</filename> in the configuration
 directory. The other formats can be adapted to your needs.
 </para>
 <para>
-The source of the tags to generate the export data (<guilabel>ID3v1</guilabel>
-or <guilabel>ID3v2</guilabel>) can be selected with a combo
+The source of the tags to generate the export data (<guilabel>Tag 1</guilabel>
+or <guilabel>Tag 2</guilabel>) can be selected with a combo
 box. Pushing <guibutton>To File</guibutton> or
 <guibutton>To Clipboard</guibutton> stores the data in a file or on the
 clipboard. <guibutton>OK</guibutton> and <guibutton>Cancel</guibutton> close
@@ -1024,8 +1057,9 @@ If a directory separator "/" is found in the format, multiple directories are
 created. If you want to create a new directory instead of renaming the current
 directory, select <guilabel>Create Directory</guilabel> instead of
 <guilabel>Rename Directory</guilabel>. The source of the tag information can
-be chosen between <guilabel>From ID3v1</guilabel> and <guilabel>From
-ID3v2</guilabel>. A preview for the rename operation performed on the first
+be chosen between <guilabel>From Tag 1 and Tag 2</guilabel>,
+<guilabel>From Tag 1</guilabel> and <guilabel>From Tag 2</guilabel>.
+A preview for the rename operation performed on the first
 file can be seen in the <guilabel>From</guilabel> and <guilabel>To</guilabel>
 sections of the dialog.
 </para></listitem>
@@ -1229,6 +1263,22 @@ unsaved changes will be converted.
 </para></listitem>
 </varlistentry>
 
+<varlistentry id="play">
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Play</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+This opens a simple toolbar to play audio files. It contains buttons for the
+basic operations (<guibutton>Play/Pause</guibutton>,
+<guibutton>Stop playback</guibutton>, <guibutton>Previous Track</guibutton>,
+<guibutton>Next Track</guibutton>, <guibutton>Close</guibutton>),
+sliders for position and volume and a display of the current position.
+If multiple files are selected, the selected tracks are played, else all
+files will be played.
+</para></listitem>
+</varlistentry>
+
 </variablelist>
 </para>
 </sect2>
@@ -1241,19 +1291,18 @@ unsaved changes will be converted.
 <varlistentry>
 <term><menuchoice>
 <guimenu>Settings</guimenu>
-<guimenuitem>Hide Tag 1</guimenuitem>
+<guimenuitem>Show Toolbar</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles displaying of the Tag 1 section.</action>
-</para></listitem>
+<listitem><para><action>Toggles displaying of the toolbar.</action></para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><menuchoice>
 <guimenu>Settings</guimenu>
-<guimenuitem>Hide Tag 2</guimenuitem>
+<guimenuitem>Show Statusbar</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles displaying of the Tag 2 section.</action>
-</para></listitem>
+<listitem><para><action>Toggles displaying of the statusbar</action>, which displays
+longer actions such as opening or saving a directory.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1269,19 +1318,15 @@ picture.</action>
 <varlistentry>
 <term><menuchoice>
 <guimenu>Settings</guimenu>
-<guimenuitem>Show Toolbar</guimenuitem>
+<guimenuitem>Auto Hide Tags</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles displaying of the toolbar</action>, which contains
-icons to open and save a directory.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenu>Settings</guimenu>
-<guimenuitem>Show Statusbar</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Toggles displaying of the statusbar</action>, which displays
-longer actions such as opening or saving a directory.</para></listitem>
+<listitem><para>
+Empty tags are automatically hidden if this option is active.
+The <guilabel>File</guilabel>, <guilabel>Tag 1</guilabel>
+and <guilabel>Tag 2</guilabel> sections can be manually collapsed and expanded
+by clicking on the corresponding
+<guibutton>-</guibutton>/<guibutton>+</guibutton> buttons.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="configure-kid3">
@@ -1341,6 +1386,11 @@ as it was in earlier versions of &kid3; and TagLib is only applied when an
 ID3v2.4.0 tag is encountered. In the second case, <guilabel>ID3v2.4.0
 (TagLib)</guilabel>, TagLib is generally used for MP3 files; changed or newly
 created tags will then be saved in version 2.4.0.
+</para>
+<para>
+<guilabel>Track number digits</guilabel> is the number of digits in Track
+Number fields. Leading zeros are used to pad. For instance, with a value of 2
+the track number 5 is set as "05".
 </para>
 <para>
 The combo box <guilabel>Comment field name</guilabel> is only
@@ -1456,11 +1506,9 @@ define your own queries in the same way, e.g. an image search with
 <para>
 To add album cover art to tag 2, you can search for images with Google or
 Amazon using the commands described above. The picture can be added to the tag
-with drag and drop if the browser supports dragging of images. Otherwise, the
-image can be saved to disk, and the image file can be dropped into the &kid3;
-window. You can also add an image with <guibutton>Add</guibutton>, then select
+with drag and drop. You can also add an image with <guibutton>Add</guibutton>, then select
 the Picture frame and import an image file or paste from the
-clipboard. Picture frames are supported for ID3v2, MP4 and FLAC tags.
+clipboard. Picture frames are supported for ID3v2, MP4, FLAC, Ogg and ASF tags.
 </para>
 <para> 
 To add and delete entries in the table, a context menu can be
@@ -1561,7 +1609,8 @@ Program written by Urs Fleisch <email>ufleisch@users.sourceforge.net</email>
 &kid3; needs <ulink url="http://www.trolltech.com/qt/">Qt</ulink>. <ulink
 url="http://www.kde.org">KDE</ulink> is recommended but not necessary, as
 &kid3; can also be compiled as a Qt application. &kid3; can be compiled for
-systems where these libraries are available, e.g. for GNU/Linux and Windows.
+systems where these libraries are available, e.g. for GNU/Linux, Windows
+and Mac OS X.
 
 To tag Ogg/Vorbis
 files, <ulink url="http://xiph.org/ogg/">libogg</ulink>,
@@ -1569,11 +1618,12 @@ files, <ulink url="http://xiph.org/ogg/">libogg</ulink>,
 required, for FLAC files <ulink url="http://flac.sourceforge.net">libFLAC++
 and libFLAC</ulink>.
 <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> is used for MP3
- files. These three formats are also supported by
-<ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
-which can also handle MPC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF and MP4 files. 
+ files.
 <ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> is required for
 MP4 files.
+These four formats are also supported by
+<ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
+which can also handle MPC, MP2, Speex, TrueAudio, WavPack, WMA, WAV and AIFF files. 
 For MusicBrainz support,
 <ulink url="http://musicbrainz.org/doc/libtunepimp">libtunepimp</ulink>
 is used. As there does not exist a tunepimp SDK for Windows at the moment, the
@@ -1595,7 +1645,54 @@ You can compile &kid3; with or without KDE. Without KDE, &kid3; is a
 simple Qt application and lacks some configuration and session features.
 </para>
 <para>
-Go into the top directory and type 
+For a KDE 4 version, go into the top directory and type 
+<screen width="40">
+<prompt>%</prompt> <userinput>cmake .</userinput>
+<prompt>%</prompt> <userinput>make</userinput>
+<prompt>%</prompt> <userinput>make install</userinput>
+</screen>
+</para>
+<para>
+To compile for different versions of Qt or KDE, set the corresponding
+<userinput>configure</userinput> options.
+</para>
+<para>
+If not all libraries are present, &kid3; is built with reduced functionality.
+So you should take care to have all desired development packages installed.
+On the other side, <userinput>cmake</userinput>-options control which
+libraries are compiled in. The default is
+<userinput>-D WITH_TAGLIB:BOOL=ON -D WITH_MP4V2:BOOL=ON -D WITH_ID3LIB:BOOL=ON
+-D WITH_TUNEPIMP:BOOL=ON -D WITH_VORBIS:BOOL=ON -D WITH_FLAC:BOOL=ON
+</userinput>. These options can be disabled using
+<userinput>OFF</userinput>.
+</para>
+<para>
+To build &kid3; as a Qt application without KDE, use
+<userinput>configure</userinput> and <userinput>make</userinput>
+from the <filename>kid3-qt</filename> directory. The
+<userinput>configure</userinput> script can be generated with
+<userinput>autoconf</userinput>.
+<screen width="40">
+<prompt>%</prompt> <userinput>cd kid3-qt</userinput>
+<prompt>%</prompt> <userinput>./configure</userinput>
+<prompt>%</prompt> <userinput>make</userinput>
+<prompt>%</prompt> <userinput>make install</userinput>
+</screen>
+</para>
+<para>
+Available options are
+<userinput>--with-kde --with-id3lib --with-vorbis --with-flac --with-taglib
+--with-musicbrainz</userinput> and can be disabled using <userinput>--without-
+</userinput>. If multiple versions of Qt are installed, the version can be set
+e.g. using <userinput>--with-qmake=qmake-qt4</userinput>.
+</para>
+<para>
+Generation of RPM-Packages is supported by the
+file <filename>kid3.spec</filename>, for Debian-Packages,
+the script <filename>build-deb.sh</filename>is available.
+</para>
+<para>
+To build &kid3; with KDE 3, use <command>configure</command>:
 <screen width="40">
 <prompt>%</prompt> <userinput>./configure</userinput>
 <prompt>%</prompt> <userinput>make</userinput>
@@ -1610,44 +1707,18 @@ If the sources are downloaded from Subversion, the
 </screen>
 </para>
 <para>
-To compile for different versions of Qt or KDE, set the corresponding
-<userinput>configure</userinput> options.
-</para>
-<para>
 To speed up compilation, &kid3; can use precompiled headers with GCC
 3.4 and above. Start <userinput>configure</userinput> with the option
 <userinput>--enable-gcc-pch</userinput> (and setting CC and CXX to gcc and g++
 of GCC 3.4 if it is not the default compiler). Then create a precompiled system
 include file with <userinput>make pch</userinput>.
 </para>
+
 <para>
-If not all libraries are present, &kid3; is built with reduced functionality.
-So you should take care to have all desired development packages installed.
-On the other side, <userinput>configure</userinput>-options control which
-libraries are compiled in. The default is
-<userinput>--with-kde --with-id3lib --with-vorbis --with-flac --with-taglib
---with-musicbrainz</userinput>. These options can be disabled using
-<userinput>--without-</userinput>.
-</para><para>
-Generation of RPM-Packages is supported by the
-file <filename>kid3.spec</filename>, for Debian-Packages,
-the script <filename>build-deb.sh</filename>is available.
-</para>
-<para>
-To build &kid3; with KDE 4, use
-<userinput>cmake .</userinput> and
-<userinput>make</userinput>.
-</para>
-<para>
-To build &kid3; as a Qt application without KDE, use
-<userinput>configure</userinput> and <userinput>make</userinput>
-from the <filename>kid3-qt</filename> directory. The
-<userinput>configure</userinput> script can be generated with
-<userinput>autoconf</userinput>.
-</para>
-<para>
-The Qt application can also be compiled for Windows.
-<userinput>buildkid3.bat</userinput> can be used to configure and build.
+The Qt application can also be compiled for Windows and Mac OS X.
+The scripts in the folders <filename>win32</filename> and
+<filename>macosx</filename>  can be used to build and create packages.
+The libraries can be installed using <filename>buildlibs.sh</filename>.
 </para>
 
 </sect1>
@@ -1691,14 +1762,17 @@ with the following code:
 <varlistentry><term>Shell</term>
 <listitem>
 <programlisting>
-dbus-send --dest=net.sourceforge.kid3 --print-reply=literal /Kid3 net.sourceforge.Kid3.setFrame int32:2 string:'Artist' string:'One Hit Wonder'
+dbus-send --dest=net.sourceforge.kid3 --print-reply=literal \
+/Kid3 net.sourceforge.Kid3.setFrame int32:2 string:'Artist' \
+string:'One Hit Wonder'
 </programlisting>
 <para>
 or easier with Qt's <command>qdbus</command> (<command>qdbusviewer</command>
 can be used to explore the interface in a GUI):
 </para>
 <programlisting>
-qdbus net.sourceforge.kid3 /Kid3 setFrame 2 Artist 'One Hit Wonder'
+qdbus net.sourceforge.kid3 /Kid3 setFrame 2 Artist \
+'One Hit Wonder'
 </programlisting>
 </listitem>
 </varlistentry>
@@ -1706,7 +1780,8 @@ qdbus net.sourceforge.kid3 /Kid3 setFrame 2 Artist 'One Hit Wonder'
 <listitem>
 <programlisting>
 import dbus
-kid3 = dbus.SessionBus().get_object('net.sourceforge.kid3', '/Kid3')
+kid3 = dbus.SessionBus().get_object(
+  'net.sourceforge.kid3', '/Kid3')
 kid3.setFrame(2, 'Artist', 'One Hit Wonder')
 </programlisting>
 </listitem>
@@ -1715,7 +1790,9 @@ kid3.setFrame(2, 'Artist', 'One Hit Wonder')
 <listitem>
 <programlisting>
 use Net::DBus;
-$kid3 = Net::DBus->session->get_service("net.sourceforge.kid3")->get_object("/Kid3", "net.sourceforge.Kid3");
+$kid3 = Net::DBus->session->get_service(
+  "net.sourceforge.kid3")->get_object(
+  "/Kid3", "net.sourceforge.Kid3");
 $kid3->setFrame(2, "Artist", "One Hit Wonder");
 </programlisting>
 </listitem>
