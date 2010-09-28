@@ -1208,24 +1208,25 @@ void TagLibFile::setTrackNumV2(int num)
 				}
 				TagLib::String tstr = str.isEmpty() ?
 					TagLib::String::null : QSTRING_TO_TSTRING(str);
-				if (!setId3v2Unicode(m_tagV2, str, tstr, "TRCK") &&
-						(frame = new TagLib::ID3v2::TextIdentificationFrame(
-							"TRCK", getDefaultTextEncoding())) != 0) {
-					frame->setText(tstr);
-					id3v2Tag->removeFrames("TRCK");
+				if (!setId3v2Unicode(m_tagV2, str, tstr, "TRCK")) {
+					if ((frame = new TagLib::ID3v2::TextIdentificationFrame(
+								 "TRCK", getDefaultTextEncoding())) != 0) {
+						frame->setText(tstr);
+						id3v2Tag->removeFrames("TRCK");
 #ifdef WIN32
-					// freed in Windows DLL => must be allocated in the same DLL
-					TagLib::ID3v2::Frame* dllAllocatedFrame =
-						TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
-					if (dllAllocatedFrame) {
-						id3v2Tag->addFrame(dllAllocatedFrame);
-					}
-					delete frame;
+						// freed in Windows DLL => must be allocated in the same DLL
+						TagLib::ID3v2::Frame* dllAllocatedFrame =
+							TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
+						if (dllAllocatedFrame) {
+							id3v2Tag->addFrame(dllAllocatedFrame);
+						}
+						delete frame;
 #else
-					id3v2Tag->addFrame(frame);
+						id3v2Tag->addFrame(frame);
 #endif
-				} else {
-					m_tagV2->setTrack(num);
+					} else {
+						m_tagV2->setTrack(num);
+					}
 				}
 			} else {
 				m_tagV2->setTrack(num);
