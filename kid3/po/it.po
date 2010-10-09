@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2010-09-21 18:53+0200\n"
-"PO-Revision-Date: 2010-09-21 13:52+0200\n"
-"Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
+"POT-Creation-Date: 2010-10-09 15:15+0200\n"
+"PO-Revision-Date: 2010-10-08 14:35+0100\n"
+"Last-Translator: Giacomo Margarito <giacomomargarito@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,11 @@ msgstr ""
 
 #: browsecoverartdialog.cpp:61 filelist.cpp:262
 msgid "Encode as URL"
-msgstr "Codificare URL"
+msgstr "Codifica come URL"
 
 #: browsecoverartdialog.cpp:77 browsecoverartdialog.cpp:323
 msgid "Browse Cover Art"
-msgstr "Preleva copertina"
+msgstr "Cerca la copertina"
 
 #: browsecoverartdialog.cpp:91 browsecoverartdialog.cpp:94
 msgid "&Artist/Album"
@@ -33,11 +33,11 @@ msgstr "&Artista/Album"
 
 #: browsecoverartdialog.cpp:114 browsecoverartdialog.cpp:116
 msgid "&Source"
-msgstr "Ori&gine"
+msgstr "&Origine"
 
 #: browsecoverartdialog.cpp:138 browsecoverartdialog.cpp:141
 msgid "&URL extraction"
-msgstr "Sostituzione &URL"
+msgstr "&Estrazione dell'URL"
 
 #: browsecoverartdialog.cpp:146
 msgid "Match"
@@ -63,7 +63,7 @@ msgstr "&Salva impostazioni"
 
 #: browsecoverartdialog.cpp:176
 msgid "&Browse"
-msgstr "&Browser"
+msgstr "&Sfoglia"
 
 #: browsecoverartdialog.cpp:177 configdialog.cpp:547 editframedialog.cpp:71
 #: editframefieldsdialog.cpp:1016 importdialog.cpp:80
@@ -74,11 +74,11 @@ msgstr "&Annulla"
 
 #: browsecoverartdialog.cpp:226
 msgid "Click Browse to start"
-msgstr "Fai click sul pulsante Browser per lanciare"
+msgstr "Fai click sul pulsante Sfoglia per avviare"
 
 #: browsecoverartdialog.cpp:232
 msgid "Then drag the picture from the browser to Kid3."
-msgstr "Poi trascina el immagen del navigatore sui Kid3."
+msgstr "Poi trascina l'immagine dal browser su Kid3."
 
 #: browserdialog.cpp:83
 msgid "&Back"
@@ -243,7 +243,7 @@ msgstr "&Browser web:"
 
 #: configdialog.cpp:422 configdialog.cpp:424
 msgid "Context &Menu Commands"
-msgstr "Comandi &menu di contesto"
+msgstr "Comandi &menu contestuale"
 
 #: configdialog.cpp:438
 msgid "User Actions"
@@ -398,7 +398,7 @@ msgstr "Regolazione volume"
 
 #: editframefieldsdialog.cpp:683
 msgid "Number of Bits"
-msgstr "Numero di bit"
+msgstr "Numero di Bit"
 
 #: editframefieldsdialog.cpp:684
 msgid "Volume Change Right"
@@ -499,7 +499,7 @@ msgstr "Cattura schermo/film"
 
 #: editframefieldsdialog.cpp:915
 msgid "A bright coloured fish"
-msgstr "A bright coloured fish"
+msgstr "Un pesce dai colori vivaci"
 
 #: editframefieldsdialog.cpp:916
 msgid "Illustration"
@@ -603,15 +603,15 @@ msgstr "Non eseguire "
 
 #: filefilter.cpp:111
 msgid "True if strings are equal"
-msgstr "Stringhe sono uguali"
+msgstr "True se le stringhe sono uguali"
 
 #: filefilter.cpp:115
 msgid "True if string contains substring"
-msgstr "Sottostringa della stringa"
+msgstr "True se la stringa contiene una sottostringa"
 
 #: filefilter.cpp:119
 msgid "True if string matches regexp"
-msgstr "Modello REGEXP nella stringa"
+msgstr "True se la stringa corrisponde ad una regexp"
 
 #: filefilter.cpp:123
 msgid "Logical AND"
@@ -623,11 +623,11 @@ msgstr "O logico"
 
 #: filefilter.cpp:131
 msgid "Logical negation"
-msgstr "NON logico"
+msgstr "Negazione logica"
 
 #: filelist.cpp:70
 msgid "Do you really want to delete these %1 items?"
-msgstr "Vuoi davvero eliminare questi %1 elementi?"
+msgstr "Volete davvero eliminare questi %1 elementi?"
 
 #: filelist.cpp:72
 msgid "Error while deleting these %1 items:"
@@ -690,8 +690,8 @@ msgstr "Digita nuovo nome cartella:"
 #: filelist.cpp:1400
 msgid "Do you really want to delete this item?"
 msgid_plural "Do you really want to delete these %1 items?"
-msgstr[0] "Vuoi davvero eliminare questo elemento?"
-msgstr[1] "Vuoi davvero eliminare questi %1 elementi?"
+msgstr[0] "Volete davvero eliminare questo elemento?"
+msgstr[1] "Volete davvero eliminare questi %1 elementi?"
 
 #: filelist.cpp:1287 filelist.cpp:1293 filelist.cpp:1310 filelist.cpp:1385
 #: filelist.cpp:1399
@@ -1455,8 +1455,8 @@ msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"La cartella corrente è stata modificata.\n"
-"Vuoi salvare la cartella?"
+"La cartella in uso è stata modificata.\n"
+"Volete salvarla?"
 
 #: kid3.cpp:1282
 msgid "Warning"
@@ -1508,7 +1508,7 @@ msgstr "Configura - Kid3"
 
 #: kid3.cpp:2919
 msgid "Download"
-msgstr "Scaricamento"
+msgstr "Scarica"
 
 #: kid3.cpp:2985
 msgid " [filtered]"
@@ -2191,19 +2191,19 @@ msgstr "Valter Mura"
 #: rc.cpp:17
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "valtermura@yahoo.it"
+msgstr "valtermura@yahoo.it, giacomomargarito@gmail.com"
 
 #: rc.cpp:18
 msgid ""
 "_: NAME OF TRANSLATORS\n"
 "Your names"
-msgstr "Valter Mura"
+msgstr "Valter Mura, Giacomo Margarito"
 
 #: rc.cpp:19
 msgid ""
 "_: EMAIL OF TRANSLATORS\n"
 "Your emails"
-msgstr "valtermura@yahoo.it"
+msgstr "valtermura@yahoo.it, giacomomargarito@gmail.com"
 
 #~ msgid "File&name"
 #~ msgstr "&Nome file"
