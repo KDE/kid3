@@ -980,10 +980,15 @@ void Kid3App::saveOptions()
 #if QT_VERSION >= 0x040000
 	s_miscCfg.m_hideToolBar = !m_viewToolBar->isChecked();
 #endif
+#if QT_VERSION >= 0x040200
+	s_miscCfg.m_geometry = saveGeometry();
+	s_miscCfg.m_windowState = saveState();
+#else
 	s_miscCfg.m_windowX = x();
 	s_miscCfg.m_windowY = y();
 	s_miscCfg.m_windowWidth = size().width();
 	s_miscCfg.m_windowHeight = size().height();
+#endif
 #endif
 	m_view->saveConfig();
 
@@ -1078,12 +1083,17 @@ void Kid3App::readOptions()
 	m_settingsAutoHideTags->setOn(s_miscCfg.m_autoHideTags);
 #endif
 	m_fileOpenRecent->loadEntries(m_config);
+#if QT_VERSION >= 0x040200
+	restoreGeometry(s_miscCfg.m_geometry);
+	restoreState(s_miscCfg.m_windowState);
+#else
 	if (s_miscCfg.m_windowWidth != -1 && s_miscCfg.m_windowHeight != -1) {
 		resize(s_miscCfg.m_windowWidth, s_miscCfg.m_windowHeight);
 	}
 	if (s_miscCfg.m_windowX != -1 && s_miscCfg.m_windowY != -1) {
 		move(s_miscCfg.m_windowX, s_miscCfg.m_windowY);
 	}
+#endif
 #endif
 	m_view->readConfig();
 }

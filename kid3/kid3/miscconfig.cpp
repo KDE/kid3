@@ -139,7 +139,11 @@ MiscConfig::MiscConfig(const QString& group) :
 #endif
 	m_onlyCustomGenres(false)
 #ifndef CONFIG_USE_KDE
+#if QT_VERSION >= 0x040200
+	,
+#else
 	, m_windowX(-1), m_windowY(-1), m_windowWidth(-1), m_windowHeight(-1),
+#endif
 	m_useFont(false), m_fontSize(-1)
 #endif
 {
@@ -284,10 +288,15 @@ void MiscConfig::writeToConfig(
 #endif
 	config->QCM_writeEntry("/Browser", m_browser);
 	config->QCM_writeEntry("/OnlyCustomGenres", m_onlyCustomGenres);
+#if QT_VERSION >= 0x040200
+	config->setValue("/Geometry", m_geometry);
+	config->setValue("/WindowState", m_windowState);
+#else
 	config->QCM_writeEntry("/WindowX", m_windowX);
 	config->QCM_writeEntry("/WindowY", m_windowY);
 	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
 	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
+#endif
 	config->QCM_writeEntry("/UseFont", m_useFont);
 	config->QCM_writeEntry("/FontFamily", m_fontFamily);
 	config->QCM_writeEntry("/FontSize", m_fontSize);
@@ -472,10 +481,15 @@ void MiscConfig::readFromConfig(
 	m_browser = config->QCM_readEntry("/Browser", s_defaultBrowser);
 #endif
 	m_onlyCustomGenres = config->QCM_readBoolEntry("/OnlyCustomGenres", m_onlyCustomGenres);
+#if QT_VERSION >= 0x040200
+	m_geometry = config->value("/Geometry").toByteArray();
+	m_windowState = config->value("/WindowState").toByteArray();
+#else
 	m_windowX = config->QCM_readNumEntry("/WindowX", -1);
 	m_windowY = config->QCM_readNumEntry("/WindowY", -1);
 	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
 	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
+#endif
 	m_useFont = config->QCM_readBoolEntry("/UseFont", m_useFont);
 	m_fontFamily = config->QCM_readEntry("/FontFamily", m_fontFamily);
 	m_fontSize = config->QCM_readNumEntry("/FontSize", -1);

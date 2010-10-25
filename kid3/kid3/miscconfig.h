@@ -262,6 +262,12 @@ public:
 	/** true to show only custom genres in combo boxes */
 	bool m_onlyCustomGenres;
 #ifndef CONFIG_USE_KDE
+#if QT_VERSION >= 0x040200
+	/** mainwindow geometry */
+	QByteArray m_geometry;
+	/** mainwindow state */
+	QByteArray m_windowState;
+#else
 	/** mainwindow x-position */
 	int m_windowX;
 	/** mainwindow y-position */
@@ -270,6 +276,7 @@ public:
 	int m_windowWidth;
 	/** mainwindow height */
 	int m_windowHeight;
+#endif
 	/** true if custom application font is used */
 	bool m_useFont;
 	/** custom application font family */
