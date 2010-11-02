@@ -424,7 +424,8 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 (..)
 </table>
 	 *
-	 * Variations: strange track numbers, no durations, links instead of tracks
+	 * Variations: strange track numbers, no durations, links instead of tracks,
+	 * only "track" instead of "track_title", align attribute in "track_duration"
 	 */
 	start = str.QCM_indexOf(">Tracklist</");
 	if (start >= 0) {
@@ -437,14 +438,15 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			FrameCollection frames(framesHdr);
 			QRegExp posRe("<td class=\"track_pos\">(\\d+)</td>");
 			QRegExp artistsRe("<td class=\"track_artists\"><a href=\"/artist/[^>]+>([^<]+)</a>");
-			QRegExp titleRe("<td class=\"track_title\">([^<]+)</td>");
-			QRegExp durationRe("<td class=\"track_duration\">(\\d+):(\\d+)</td>");
+			QRegExp titleRe("<td class=\"track(?:_title)?\">([^<]+)</td>");
+			QRegExp durationRe("<td class=\"track_duration\"[^>]*>(\\d+):(\\d+)</td>");
 			QRegExp indexRe("<td class=\"track_index\">([^<]+)$");
+			QRegExp rowEndRe("</td>[\\s\\r\\n]*</tr>");
 			ImportTrackDataVector::iterator it = m_trackDataVector.begin();
 			bool atTrackDataListEnd = (it == m_trackDataVector.end());
 			int trackNr = 1;
 			start = 0;
-			while ((end = str.QCM_indexOf("</td></tr>", start)) > start) {
+			while ((end = rowEndRe.QCM_indexIn(str, start)) > start) {
 				QString trackDataStr = str.mid(start, end - start);
 				QString title;
 				int duration = 0;
@@ -478,7 +480,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 					continue;
 				}
 				if (additionalTags) {
-					int nextEnd = str.QCM_indexOf("</td></tr>", start);
+					int nextEnd = rowEndRe.QCM_indexIn(str, start);
 					if (nextEnd > start) {
 						QString nextTitle(str.mid(start, nextEnd - start));
 						if (nextTitle.QCM_indexOf("<tr class=\"track_extra_artists\">") != -1) {
@@ -493,20 +495,22 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 					}
 				}
 
-				frames.setTrack(pos);
-				frames.setTitle(title);
-				if (atTrackDataListEnd) {
-					ImportTrackData trackData;
-					trackData.setFrameCollection(frames);
-					trackData.setImportDuration(duration);
-					m_trackDataVector.push_back(trackData);
-				} else {
-					(*it).setFrameCollection(frames);
-					(*it).setImportDuration(duration);
-					++it;
-					atTrackDataListEnd = (it == m_trackDataVector.end());
+				if (!title.isEmpty() || duration != 0) {
+					frames.setTrack(pos);
+					frames.setTitle(title);
+					if (atTrackDataListEnd) {
+						ImportTrackData trackData;
+						trackData.setFrameCollection(frames);
+						trackData.setImportDuration(duration);
+						m_trackDataVector.push_back(trackData);
+					} else {
+						(*it).setFrameCollection(frames);
+						(*it).setImportDuration(duration);
+						++it;
+						atTrackDataListEnd = (it == m_trackDataVector.end());
+					}
+					++trackNr;
 				}
-				++trackNr;
 				frames = framesHdr;
 			}
 
