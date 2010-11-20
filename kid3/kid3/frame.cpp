@@ -757,19 +757,22 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 
 	if (!name.isNull()) {
 		QString lcName(name.QCM_toLower());
-		int fieldWidth = 2;
+		int fieldWidth = lcName == "track" ? 2 : -1;
 		if (lcName == "year") {
 			name = "date";
 		} else if (lcName == "tracknumber") {
 			name = "track number";
-		} else if (lcName.startsWith("track.") && lcName.length() == 7 &&
-							 lcName[6] >= '0' && lcName[6] <= '9') {
+		}
+		int len = lcName.length();
+		if (len > 2 && lcName[len - 2] == '.' &&
+				lcName[len - 1] >= '0' && lcName[len - 1] <= '9') {
 #if QT_VERSION >= 0x040000
-			fieldWidth = lcName[6].toLatin1() - '0';
+			fieldWidth = lcName[len - 1].toLatin1() - '0';
 #else
-			fieldWidth = lcName[6].latin1() - '0';
+			fieldWidth = lcName[len - 1].latin1() - '0';
 #endif
-			lcName = name = "track";
+			lcName.truncate(len - 2);
+			name.truncate(len - 2);
 		}
 
 		FrameCollection::iterator it = m_frames.findByName(name);
@@ -789,7 +792,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 			}
 		}
 
-		if (lcName == "track") {
+		if (fieldWidth > 0) {
 			bool ok;
 			int nr = Frame::numberWithoutTotal(result, &ok);
 			if (ok) {
