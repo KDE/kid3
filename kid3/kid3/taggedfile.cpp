@@ -413,7 +413,8 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 					// remove leading zero
 					str = str.mid(1);
 				}
-				frames.setValue(Frame::getTypeFromName(name), str);
+				if (name != "ignore")
+					frames.setValue(Frame::getTypeFromName(name), str);
 			}
 		}
 		return;
