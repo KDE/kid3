@@ -294,8 +294,10 @@ Id3Form::Id3Form(QWidget* parent)
 	QLabel* fromTagLabel = new QLabel(i18n("From:"), m_fileWidget);
 	fileLayout->addWidget(fromTagLabel, 1, 2);
 	m_fnV1Button = new QPushButton(i18n("Tag 1"), m_fileWidget);
+	m_fnV1Button->setToolTip(i18n("Filename from Tag 1"));
 	fileLayout->addWidget(m_fnV1Button, 1, 3);
 	QPushButton* fnV2Button = new QPushButton(i18n("Tag 2"), m_fileWidget);
+	fnV2Button->setToolTip(i18n("Filename from Tag 2"));
 	fileLayout->addWidget(fnV2Button, 1, 4);
 
 	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
@@ -313,9 +315,11 @@ Id3Form::Id3Form(QWidget* parent)
 	fileLayout->addWidget(toTagLabel, 2, 2);
 	m_toTagV1Button =
 		new QPushButton(i18n("Tag 1"), m_fileWidget);
+	m_toTagV1Button->setToolTip(i18n("Tag 1 from Filename"));
 	fileLayout->addWidget(m_toTagV1Button, 2, 3);
 	QPushButton* toTagV2Button =
 		new QPushButton(i18n("Tag 2"), m_fileWidget);
+	toTagV2Button->setToolTip(i18n("Tag 2 from Filename"));
 	fileLayout->addWidget(toTagV2Button, 2, 4);
 
 	m_tag1Button = new QToolButton(m_rightHalfVBox);
@@ -462,8 +466,10 @@ Id3Form::Id3Form(QWidget* parent)
 	QLabel* fromTagLabel = new QLabel(i18n("From:"), m_fileWidget);
 	fileLayout->addWidget(fromTagLabel, 1, 2);
 	m_fnV1Button = new QPushButton(i18n("Tag 1"), m_fileWidget);
+	QToolTip::add(m_fnV1Button, i18n("Filename from Tag 1"));
 	fileLayout->addWidget(m_fnV1Button, 1, 3);
 	QPushButton* fnV2Button = new QPushButton(i18n("Tag 2"), m_fileWidget);
+	QToolTip::add(fnV2Button, i18n("Filename from Tag 2"));
 	fileLayout->addWidget(fnV2Button, 1, 4);
 
 	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
@@ -481,9 +487,11 @@ Id3Form::Id3Form(QWidget* parent)
 	fileLayout->addWidget(toTagLabel, 2, 2);
 	m_toTagV1Button =
 		new QPushButton(i18n("Tag 1"), m_fileWidget);
+	QToolTip::add(m_toTagV1Button, i18n("Tag 1 from Filename"));
 	fileLayout->addWidget(m_toTagV1Button, 2, 3);
 	QPushButton* toTagV2Button =
 		new QPushButton(i18n("Tag 2"), m_fileWidget);
+	QToolTip::add(toTagV2Button, i18n("Tag 2 from Filename"));
 	fileLayout->addWidget(toTagV2Button, 2, 4);
 
 	m_tag1Button = new QToolButton(m_rightHalfVBox);
