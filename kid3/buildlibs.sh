@@ -317,7 +317,11 @@ cd ../..
 # libflac
 
 cd flac-1.2.1/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=/usr/local
+configure_args="--enable-shared=no --enable-static=yes --with-ogg=/usr/local"
+if test $(uname) = "Darwin"; then
+  configure_args="$configure_args --disable-asm-optimizations"
+fi
+test -f Makefile || ./configure $configure_args
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
