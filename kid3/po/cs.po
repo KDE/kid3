@@ -3,20 +3,21 @@
 #
 # Pavel Fric <pavelfric@seznam.cz>, 2009.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
+# Pavel Fric <fripohled@blogspot.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2010-09-21 18:53+0200\n"
-"PO-Revision-Date: 2010-09-21 13:54+0200\n"
-"Last-Translator: Urs Fleisch <ufleisch@users.sourceforge.net>\n"
+"PO-Revision-Date: 2010-12-08 21:19+0100\n"
+"Last-Translator: Pavel Fric <fripohled@blogspot.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: browsecoverartdialog.cpp:61 filelist.cpp:262
@@ -95,7 +96,7 @@ msgstr "&Zavřít"
 
 #: commandstable.cpp:58 commandstable.cpp:75
 msgid "Confirm"
-msgstr "Potvrdit"
+msgstr "Potvrzení"
 
 #: commandstable.cpp:58 commandstable.cpp:76
 msgid "Output"
@@ -155,7 +156,7 @@ msgstr "&Verze používaná pro nové značky:"
 
 #: configdialog.cpp:249
 msgid "Track number &digits:"
-msgstr "Číslo skladby &počet číslic:"
+msgstr "&Počet číslic v čísle skladby:"
 
 #: configdialog.cpp:254 editframefieldsdialog.cpp:884
 msgid "ISO-8859-1"
@@ -183,11 +184,11 @@ msgstr "Ogg/Vorbis"
 
 #: configdialog.cpp:294
 msgid "Comment field &name:"
-msgstr "&Název pole s poznámkou"
+msgstr "&Název pole s poznámkou:"
 
 #: configdialog.cpp:296
 msgid "&Picture field name:"
-msgstr "Název pole s &obrázek:"
+msgstr "Název pole s &obrázkem:"
 
 #: configdialog.cpp:327 configdialog.cpp:329
 msgid "Custom &Genres"
@@ -239,7 +240,7 @@ msgstr "Prohlížeč"
 
 #: configdialog.cpp:406
 msgid "Web &browser:"
-msgstr "&Prohlížeč světové počítačové sítě:"
+msgstr "&Prohlížeč internetu:"
 
 #: configdialog.cpp:422 configdialog.cpp:424
 msgid "Context &Menu Commands"
@@ -755,11 +756,11 @@ msgstr "Nahrazení řetězce:"
 
 #: formatbox.cpp:74
 msgid "From"
-msgstr "Od"
+msgstr "Z"
 
 #: formatbox.cpp:74
 msgid "To"
-msgstr "Do"
+msgstr "Na"
 
 #: frame.cpp:67 importselector.cpp:216 importselector.cpp:242
 msgid "Title"
