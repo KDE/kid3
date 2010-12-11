@@ -2532,17 +2532,38 @@ void Kid3App::slotRenameDirectory()
 }
 
 /**
+ * Get number of tracks in current directory.
+ *
+ * @return number of tracks, 0 if not found.
+ */
+int Kid3App::getTotalNumberOfTracksInDir()
+{
+	FileListItem* item = m_view->firstFileInDir();
+	if (item) {
+		const DirInfo* dirInfo = item->getFile()->getDirInfo();
+		if (dirInfo) {
+			return dirInfo->getNumFiles();
+		}
+	}
+	return 0;
+}
+
+/**
  * Number tracks in selected files of directory.
  *
  * @param nr start number
+ * @param total total number of tracks, used if >0
  * @param destV1 true to set numbers in tag 1
  * @param destV2 true to set numbers in tag 2
  */
-void Kid3App::numberTracks(int nr, bool destV1, bool destV2)
+void Kid3App::numberTracks(int nr, int total, bool destV1, bool destV2)
 {
 	updateCurrentSelection();
 	FileListItem* mp3file = m_view->firstFileInDir();
 	bool no_selection = m_view->numFilesSelected() == 0;
+	int numDigits = Kid3App::s_miscCfg.m_trackNumberDigits;
+	if (numDigits < 1 || numDigits > 5)
+		numDigits = 1;
 	while (mp3file != 0) {
 		if (no_selection || mp3file->isInSelection()) {
 			mp3file->getFile()->readTags(false);
@@ -2553,9 +2574,32 @@ void Kid3App::numberTracks(int nr, bool destV1, bool destV2)
 				}
 			}
 			if (destV2) {
-				int oldnr = mp3file->getFile()->getTrackNumV2();
-				if (nr != oldnr) {
-					mp3file->getFile()->setTrackNumV2(nr);
+				// For tag 2 the frame is written, so that we have control over the
+				// format and the total number of tracks, and it is possible to change
+				// the format even if the numbers stay the same.
+				TaggedFile* taggedFile = mp3file->getFile();
+				if (taggedFile) {
+					QString value;
+					if (total > 0) {
+						value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
+					} else {
+						value.sprintf("%0*d", numDigits, nr);
+					}
+					FrameCollection frames;
+					taggedFile->getAllFramesV2(frames);
+					Frame frame(Frame::FT_Track, "", "", -1);
+					FrameCollection::const_iterator it = frames.find(frame);
+					if (it != frames.end()) {
+						frame = *it;
+						frame.setValueIfChanged(value);
+						if (frame.isValueChanged()) {
+							taggedFile->setFrameV2(frame);
+						}
+					} else {
+						frame.setValue(value);
+						frame.setInternalName(Frame::getNameFromType(Frame::FT_Track));
+						taggedFile->setFrameV2(frame);
+					}
 				}
 			}
 			++nr;
@@ -2574,6 +2618,9 @@ void Kid3App::slotNumberTracks()
 		m_numberTracksDialog = new NumberTracksDialog(0);
 	}
 	if (m_numberTracksDialog) {
+		m_numberTracksDialog->setTotalNumberOfTracks(
+			getTotalNumberOfTracksInDir(),
+			Kid3App::s_miscCfg.m_enableTotalNumberOfTracks);
 		if (m_numberTracksDialog->exec() == QDialog::Accepted) {
 			int nr = m_numberTracksDialog->getStartNumber();
 			bool destV1 =
@@ -2582,7 +2629,12 @@ void Kid3App::slotNumberTracks()
 			bool destV2 =
 				m_numberTracksDialog->getDestination() == NumberTracksDialog::DestV2 ||
 				m_numberTracksDialog->getDestination() == NumberTracksDialog::DestV1V2;
-			numberTracks(nr, destV1, destV2);
+			bool totalEnabled;
+			int total = m_numberTracksDialog->getTotalNumberOfTracks(&totalEnabled);
+			if (!totalEnabled)
+				total = 0;
+			Kid3App::s_miscCfg.m_enableTotalNumberOfTracks = totalEnabled;
+			numberTracks(nr, total, destV1, destV2);
 		}
 	}
 }

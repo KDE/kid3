@@ -31,6 +31,7 @@
 
 class QSpinBox;
 class QComboBox;
+class QCheckBox;
 
 /**
  * Number tracks dialog.
@@ -65,6 +66,23 @@ public:
 	 */
 	Destination getDestination() const;
 
+	/**
+	 * Set the total number of tracks.
+	 *
+	 * @param numTracks number of tracks
+	 * @param enable    true to enable setting of total
+	 */
+	void setTotalNumberOfTracks(int numTracks, bool enable);
+
+	/**
+	 * Get the total number of tracks.
+	 *
+	 * @param enable true is returned here if total number of tracks is checked
+	 *
+	 * @return number of tracks entered
+	 */
+	int getTotalNumberOfTracks(bool* enable) const;
+
 private slots:
 	/**
 	 * Save the local settings to the configuration.
@@ -81,6 +99,10 @@ private:
 	QSpinBox* m_trackSpinBox;
 	/** combobox with destination */
 	QComboBox* m_destComboBox;
+	/** total number of tracks checkbox */
+	QCheckBox* m_totalNumTracksCheckBox;
+	/** spinbox with total number of tracks */
+	QSpinBox* m_totalNumTrackSpinBox;
 };
 
 #endif

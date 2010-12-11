@@ -272,7 +272,7 @@ bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
  */
 void ScriptInterface::numberTracks(int tagMask, int firstTrackNr)
 {
-	m_app->numberTracks(firstTrackNr, (tagMask & 1) != 0, (tagMask & 2) != 0);
+	m_app->numberTracks(firstTrackNr, 0, (tagMask & 1) != 0, (tagMask & 2) != 0);
 }
 
 /**

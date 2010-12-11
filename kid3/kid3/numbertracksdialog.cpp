@@ -36,6 +36,7 @@
 #include <qspinbox.h>
 #include <qstring.h>
 #include <qcombobox.h>
+#include <qcheckbox.h>
 #include "qtcompatmac.h"
 #if QT_VERSION >= 0x040000
 #include <QVBoxLayout>
@@ -87,6 +88,22 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 				destLabel->setBuddy(m_destComboBox);
 			}
 			vlayout->addLayout(trackLayout);
+		}
+
+		QHBoxLayout* totalLayout = new QHBoxLayout;
+		if (totalLayout) {
+			totalLayout->setSpacing(6);
+			m_totalNumTracksCheckBox = new QCheckBox("&Total number of tracks:", this);
+			m_totalNumTrackSpinBox = new QSpinBox(this);
+			if (m_totalNumTracksCheckBox && m_totalNumTrackSpinBox) {
+				m_totalNumTrackSpinBox->QCM_setMaximum(999);
+				totalLayout->addWidget(m_totalNumTracksCheckBox);
+				totalLayout->addWidget(m_totalNumTrackSpinBox);
+			}
+			QSpacerItem* totalSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+																								 QSizePolicy::Minimum);
+			totalLayout->addItem(totalSpacer);
+			vlayout->addLayout(totalLayout);
 		}
 
 		QHBoxLayout* hlayout = new QHBoxLayout;
@@ -161,4 +178,29 @@ void NumberTracksDialog::saveConfig()
 void NumberTracksDialog::showHelp()
 {
 	Kid3App::displayHelp("number-tracks");
+}
+
+/**
+ * Set the total number of tracks.
+ *
+ * @param numTracks number of tracks
+ * @param enable    true to enable setting of total
+ */
+void NumberTracksDialog::setTotalNumberOfTracks(int numTracks, bool enable)
+{
+	m_totalNumTrackSpinBox->setValue(numTracks);
+	m_totalNumTracksCheckBox->setChecked(enable);
+}
+
+/**
+ * Get the total number of tracks.
+ *
+ * @param enable true is returned here if total number of tracks is checked
+ *
+ * @return number of tracks entered
+ */
+int NumberTracksDialog::getTotalNumberOfTracks(bool* enable) const
+{
+	*enable = m_totalNumTracksCheckBox->isChecked();
+	return m_totalNumTrackSpinBox->value();
 }
