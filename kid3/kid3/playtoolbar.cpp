@@ -51,6 +51,7 @@ static const QString zeroTime(" 0:00");
 PlayToolBar::PlayToolBar(QWidget* parent) : QToolBar(parent), m_fileNr(-1)
 {
 	setObjectName("Kid3Player");
+	setWindowTitle(i18n("Play"));
 
 	m_playIcon = style()->standardIcon(QStyle::SP_MediaPlay);
 	m_pauseIcon = style()->standardIcon(QStyle::SP_MediaPause);
