@@ -438,7 +438,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			FrameCollection frames(framesHdr);
 			QRegExp posRe("<td class=\"track_pos\">(\\d+)</td>");
 			QRegExp artistsRe("<td class=\"track_artists\"><a href=\"/artist/[^>]+>([^<]+)</a>");
-			QRegExp titleRe("<td class=\"track(?:_title)?\">([^<]+)</td>");
+			QRegExp titleRe("<(?:td|a) class=\"track(?:_title)?\"[^>]*>([^<]+)</(?:td|a)>");
 			QRegExp durationRe("<td class=\"track_duration\"[^>]*>(\\d+):(\\d+)</td>");
 			QRegExp indexRe("<td class=\"track_index\">([^<]+)$");
 			QRegExp rowEndRe("</td>[\\s\\r\\n]*</tr>");
