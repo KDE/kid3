@@ -170,6 +170,24 @@ public:
 	 */
 	void setArtistAlbum(const QString& artist, const QString& album);
 
+	/**
+	 * Replace HTML entities in a string.
+	 *
+	 * @param str string with HTML entities (e.g. &quot;)
+	 *
+	 * @return string with replaced HTML entities.
+	 */
+	static QString replaceHtmlEntities(QString str);
+
+	/**
+	 * Replace HTML entities and remove HTML tags.
+	 *
+	 * @param str string containing HTML
+	 *
+	 * @return clean up string
+	 */
+	static QString removeHtml(QString str);
+
 private slots:
 	/**
 	 * Query a search for a keyword from the server.

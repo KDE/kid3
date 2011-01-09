@@ -486,3 +486,33 @@ void ImportSourceDialog::showHelp()
 		Kid3App::displayHelp(m_props.helpAnchor);
 	}
 }
+
+/**
+ * Replace HTML entities in a string.
+ *
+ * @param str string with HTML entities (e.g. &quot;)
+ *
+ * @return string with replaced HTML entities.
+ */
+QString ImportSourceDialog::replaceHtmlEntities(QString str)
+{
+	str.replace("&quot;", "\"");
+	str.replace("&nbsp;", " ");
+	str.replace("&lt;", "<");
+	str.replace("&gt;", ">");
+	str.replace("&amp;", "&");
+	return str;
+}
+
+/**
+ * Replace HTML entities and remove HTML tags.
+ *
+ * @param str string containing HTML
+ *
+ * @return clean up string
+ */
+QString ImportSourceDialog::removeHtml(QString str)
+{
+	QRegExp htmlTagRe("<[^>]+>");
+	return replaceHtmlEntities(str.remove(htmlTagRe)).QCM_trimmed();
+}

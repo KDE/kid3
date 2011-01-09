@@ -69,36 +69,6 @@ AmazonDialog::~AmazonDialog()
 }
 
 /**
- * Replace HTML entities in a string.
- *
- * @param str string with HTML entities (e.g. &quot;)
- *
- * @return string with replaced HTML entities.
- */
-static QString replaceHtmlEntities(QString str)
-{
-	str.replace("&quot;", "\"");
-	str.replace("&nbsp;", " ");
-	str.replace("&lt;", "<");
-	str.replace("&gt;", ">");
-	str.replace("&amp;", "&");
-	return str;
-}
-
-/**
- * Replace HTML entities and remove HTML tags.
- *
- * @param str string containing HTML
- *
- * @return clean up string
- */
-static QString removeHtml(QString str)
-{
-	QRegExp htmlTagRe("<[^>]+>");
-	return replaceHtmlEntities(str.remove(htmlTagRe)).QCM_trimmed();
-}
-
-/**
  * Process finished findCddbAlbum request.
  *
  * @param searchStr search data received

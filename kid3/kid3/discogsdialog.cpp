@@ -105,7 +105,8 @@ static QString fixUpArtist(QString str)
 	str.remove(QRegExp("[*\\s]*\\(\\d+\\)\\(tracks:[^)]+\\)"));
 	str.replace(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\) / "), " / ");
 	str.replace(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\),"), ",");
-	return str.remove(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)$"));
+	str.remove(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)$"));
+	return ImportSourceDialog::removeHtml(str);
 }
 
 
@@ -248,7 +249,6 @@ static bool parseCredits(const QString& str, FrameCollection& frames)
 void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 {
 	QRegExp nlSpaceRe("[\r\n]+\\s*");
-	QRegExp htmlTagRe("<[^>]+>");
 	QRegExp atDiscogsRe("\\s*\\([^)]+\\) at Discogs$");
 	QString str = QString::fromUtf8(albumStr);
 	FrameCollection framesHdr;
@@ -271,7 +271,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 				framesHdr.setArtist(fixUpArtist(titleStr.mid(start, end - start)));
 				start = end + 3; // skip " - "
 			}
-			framesHdr.setAlbum(titleStr.mid(start));
+			framesHdr.setAlbum(removeHtml(titleStr.mid(start)));
 		}
 	}
 	/*
@@ -285,7 +285,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 		if (end > start) {
 			QString yearStr = str.mid(start, end - start);
 			yearStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-			yearStr.replace(htmlTagRe, ""); // strip HTML tags
+			yearStr = removeHtml(yearStr); // strip HTML tags and entities
 			QRegExp yearRe("(\\d{4})"); // this should skip day and month numbers
 			if (yearRe.QCM_indexIn(yearStr) >= 0) {
 				framesHdr.setYear(yearRe.cap(1).toInt());
@@ -314,7 +314,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			if (end > start) {
 				QString genreStr = str.mid(start, end - start);
 				genreStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-				genreStr.replace(htmlTagRe, ""); // strip HTML tags
+				genreStr = removeHtml(genreStr); // strip HTML tags and entities
 				if (genreStr.QCM_indexOf(',') >= 0) {
 					genreList += QCM_split(QRegExp(",\\s*"), genreStr);
 				} else {
@@ -352,7 +352,6 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			if (end > start) {
 				QString labelStr = str.mid(start, end - start);
 				labelStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-				labelStr.replace(htmlTagRe, ""); // strip HTML tags
 				labelStr = fixUpArtist(labelStr);
 				if (labelStr != "Not On Label") {
 					framesHdr.setValue(Frame::FT_Publisher, labelStr);
@@ -370,7 +369,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			if (end > start) {
 				QString mediaStr = str.mid(start, end - start);
 				mediaStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-				mediaStr.replace(htmlTagRe, ""); // strip HTML tags
+				mediaStr = removeHtml(mediaStr); // strip HTML tags and entities
 				framesHdr.setValue(Frame::FT_Media, mediaStr);
 			}
 		}
@@ -386,7 +385,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 				QString creditsStr = str.mid(start, end - start);
 				creditsStr.replace(nlSpaceRe, ""); // strip new lines and space after them
 				creditsStr.replace("<br />", "\n");
-				creditsStr.replace(htmlTagRe, ""); // strip HTML tags
+				creditsStr = removeHtml(creditsStr); // strip HTML tags and entities
 				parseCredits(creditsStr, framesHdr);
 			}
 		}
@@ -486,8 +485,8 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 						if (nextTitle.QCM_indexOf("<tr class=\"track_extra_artists\">") != -1) {
 							// additional track info like "Music By, Lyrics By - "
 							nextTitle.replace("<br>", "\n");
-							nextTitle.replace(htmlTagRe, ""); // strip HTML tags
 							nextTitle.remove("&nbsp;");
+							nextTitle = removeHtml(nextTitle); // strip HTML tags and entities
 							if (parseCredits(nextTitle, frames)) {
 								start = nextEnd + 10; // skip </td></tr>
 							}
