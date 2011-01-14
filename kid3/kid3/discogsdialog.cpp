@@ -451,7 +451,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 				int duration = 0;
 				int pos = trackNr;
 				if (titleRe.QCM_indexIn(trackDataStr) >= 0) {
-					title = titleRe.cap(1);
+					title = removeHtml(titleRe.cap(1));
 				}
 				if (durationRe.QCM_indexIn(trackDataStr) >= 0) {
 					duration = durationRe.cap(1).toInt() * 60 +
@@ -472,7 +472,7 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 				start = end + 10; // skip </td></tr>
 				if (indexRe.QCM_indexIn(trackDataStr) >= 0) {
 					if (additionalTags) {
-						QString subtitle(indexRe.cap(1));
+						QString subtitle(removeHtml(indexRe.cap(1)));
 						framesHdr.setValue(Frame::FT_Part, subtitle);
 						frames.setValue(Frame::FT_Part, subtitle);
 					}

@@ -501,6 +501,14 @@ QString ImportSourceDialog::replaceHtmlEntities(QString str)
 	str.replace("&lt;", "<");
 	str.replace("&gt;", ">");
 	str.replace("&amp;", "&");
+
+	QRegExp numEntityRe("&#(\\d+);");
+	int pos = 0;
+	while ((pos = numEntityRe.QCM_indexIn(str, pos)) != -1) {
+		str.replace(pos, numEntityRe.matchedLength(),
+								QChar(numEntityRe.cap(1).toInt()));
+		pos += numEntityRe.matchedLength();
+	}
 	return str;
 }
 
