@@ -2,21 +2,21 @@
 # This file is put in the public domain.
 #
 # Valter Mura <valtermura@yahoo.it>, 2007.
-# Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010.
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2010-10-09 15:15+0200\n"
-"PO-Revision-Date: 2010-10-08 14:35+0100\n"
-"Last-Translator: Giacomo Margarito <giacomomargarito@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?group_id=70849&atid=529221\n"
+"POT-Creation-Date: 2011-01-15 14:20+0100\n"
+"PO-Revision-Date: 2011-01-15 14:33+0100\n"
+"Last-Translator: \n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: browsecoverartdialog.cpp:61 filelist.cpp:262
@@ -49,14 +49,14 @@ msgstr "URL dell'immagine"
 
 #: browsecoverartdialog.cpp:160 configdialog.cpp:545 exportdialog.cpp:155
 #: filterdialog.cpp:100 importdialog.cpp:77 importsourcedialog.cpp:152
-#: kid3.cpp:773 kid3.cpp:785 musicbrainzdialog.cpp:139
-#: numbertracksdialog.cpp:95 playlistdialog.cpp:259 rendirdialog.cpp:105
+#: kid3.cpp:775 kid3.cpp:787 musicbrainzdialog.cpp:139
+#: numbertracksdialog.cpp:112 playlistdialog.cpp:259 rendirdialog.cpp:105
 msgid "&Help"
 msgstr "Ai&uto"
 
 #: browsecoverartdialog.cpp:166 exportdialog.cpp:161 filterdialog.cpp:106
 #: importdialog.cpp:78 importsourcedialog.cpp:153 musicbrainzdialog.cpp:140
-#: numbertracksdialog.cpp:100 playlistdialog.cpp:263 rendirdialog.cpp:87
+#: numbertracksdialog.cpp:117 playlistdialog.cpp:263 rendirdialog.cpp:87
 #: rendirdialog.cpp:106
 msgid "&Save Settings"
 msgstr "&Salva impostazioni"
@@ -66,8 +66,8 @@ msgid "&Browse"
 msgstr "&Sfoglia"
 
 #: browsecoverartdialog.cpp:177 configdialog.cpp:547 editframedialog.cpp:71
-#: editframefieldsdialog.cpp:1016 importdialog.cpp:80
-#: musicbrainzdialog.cpp:143 numbertracksdialog.cpp:115 playlistdialog.cpp:274
+#: editframefieldsdialog.cpp:1020 importdialog.cpp:80
+#: musicbrainzdialog.cpp:143 numbertracksdialog.cpp:132 playlistdialog.cpp:274
 #: rendirdialog.cpp:108
 msgid "&Cancel"
 msgstr "&Annulla"
@@ -157,15 +157,15 @@ msgstr "&Versione usata per i nuovi tag:"
 msgid "Track number &digits:"
 msgstr "&Numero di cifre in campo della traccia:"
 
-#: configdialog.cpp:254 editframefieldsdialog.cpp:884
+#: configdialog.cpp:254 editframefieldsdialog.cpp:888
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: configdialog.cpp:255 editframefieldsdialog.cpp:885
+#: configdialog.cpp:255 editframefieldsdialog.cpp:889
 msgid "UTF16"
 msgstr "UTF16"
 
-#: configdialog.cpp:256 editframefieldsdialog.cpp:887
+#: configdialog.cpp:256 editframefieldsdialog.cpp:891
 msgid "UTF8"
 msgstr "UTF8"
 
@@ -303,245 +303,245 @@ msgstr "Sconosciuto"
 msgid "&Appearance"
 msgstr "&Aspetto"
 
-#: configdialog.cpp:546 editframedialog.cpp:70 editframefieldsdialog.cpp:1015
-#: importdialog.cpp:79 musicbrainzdialog.cpp:141 numbertracksdialog.cpp:110
+#: configdialog.cpp:546 editframedialog.cpp:70 editframefieldsdialog.cpp:1019
+#: importdialog.cpp:79 musicbrainzdialog.cpp:141 numbertracksdialog.cpp:127
 #: playlistdialog.cpp:271 rendirdialog.cpp:107
 msgid "&OK"
 msgstr "&OK"
 
 #: downloaddialog.cpp:96 httpclient.cpp:71 httpclient.cpp:83
 #: httpclient.cpp:129 httpclient.cpp:306 importsourcedialog.cpp:175
-#: kid3.cpp:888 kid3.cpp:960 kid3.cpp:1255 kid3.cpp:1641 kid3.cpp:1656
-#: kid3.cpp:1735 kid3.cpp:1881 kid3.cpp:1981
+#: kid3.cpp:890 kid3.cpp:962 kid3.cpp:1267 kid3.cpp:1653 kid3.cpp:1668
+#: kid3.cpp:1747 kid3.cpp:1893 kid3.cpp:1993
 msgid "Ready."
 msgstr "Pronto."
 
-#: editframefieldsdialog.cpp:523 importselector.cpp:283
+#: editframefieldsdialog.cpp:527 importselector.cpp:283
 msgid "From Clip&board"
 msgstr "Dagli a&ppunti"
 
-#: editframefieldsdialog.cpp:524
+#: editframefieldsdialog.cpp:528
 msgid "&Import"
 msgstr "&Importa"
 
-#: editframefieldsdialog.cpp:525
+#: editframefieldsdialog.cpp:529
 msgid "&Export"
 msgstr "&Esporta"
 
-#: editframefieldsdialog.cpp:526
+#: editframefieldsdialog.cpp:530
 msgid "&View"
 msgstr "Visuali&zza"
 
-#: editframefieldsdialog.cpp:667
+#: editframefieldsdialog.cpp:671
 msgid "Text Encoding"
 msgstr "Codifica del testo"
 
-#: editframefieldsdialog.cpp:668
+#: editframefieldsdialog.cpp:672
 msgid "Text"
 msgstr "Testo"
 
-#: editframefieldsdialog.cpp:669
+#: editframefieldsdialog.cpp:673
 msgid "URL"
 msgstr "URL"
 
-#: editframefieldsdialog.cpp:670
+#: editframefieldsdialog.cpp:674
 msgid "Data"
 msgstr "Dati"
 
-#: editframefieldsdialog.cpp:671
+#: editframefieldsdialog.cpp:675
 msgid "Description"
 msgstr "Descrizione"
 
-#: editframefieldsdialog.cpp:672
+#: editframefieldsdialog.cpp:676
 msgid "Owner"
 msgstr "Proprietario"
 
-#: editframefieldsdialog.cpp:673
+#: editframefieldsdialog.cpp:677
 msgid "Email"
 msgstr "E-mail"
 
-#: editframefieldsdialog.cpp:674
+#: editframefieldsdialog.cpp:678
 msgid "Rating"
 msgstr "Giudizio"
 
-#: editframefieldsdialog.cpp:675 kid3.cpp:444 kid3.cpp:447 kid3.cpp:450
+#: editframefieldsdialog.cpp:679 kid3.cpp:446 kid3.cpp:449 kid3.cpp:452
 msgid "Filename"
 msgstr "Nome file"
 
-#: editframefieldsdialog.cpp:676 frame.cpp:86
+#: editframefieldsdialog.cpp:680 frame.cpp:86
 msgid "Language"
 msgstr "Lingua"
 
-#: editframefieldsdialog.cpp:677
+#: editframefieldsdialog.cpp:681
 msgid "Picture Type"
 msgstr "Tipo immagine"
 
-#: editframefieldsdialog.cpp:678
+#: editframefieldsdialog.cpp:682
 msgid "Image format"
 msgstr "Formato immagine"
 
-#: editframefieldsdialog.cpp:679
+#: editframefieldsdialog.cpp:683
 msgid "Mimetype"
 msgstr "Tipo MIME"
 
-#: editframefieldsdialog.cpp:680
+#: editframefieldsdialog.cpp:684
 msgid "Counter"
 msgstr "Contatore"
 
-#: editframefieldsdialog.cpp:681
+#: editframefieldsdialog.cpp:685
 msgid "Identifier"
 msgstr "Identificatore"
 
-#: editframefieldsdialog.cpp:682
+#: editframefieldsdialog.cpp:686
 msgid "Volume Adjustment"
 msgstr "Regolazione volume"
 
-#: editframefieldsdialog.cpp:683
+#: editframefieldsdialog.cpp:687
 msgid "Number of Bits"
 msgstr "Numero di Bit"
 
-#: editframefieldsdialog.cpp:684
+#: editframefieldsdialog.cpp:688
 msgid "Volume Change Right"
 msgstr "Cambia volume destro"
 
-#: editframefieldsdialog.cpp:685
+#: editframefieldsdialog.cpp:689
 msgid "Volume Change Left"
 msgstr "Cambia volume sinistro"
 
-#: editframefieldsdialog.cpp:686
+#: editframefieldsdialog.cpp:690
 msgid "Peak Volume Right"
 msgstr "Picco volume destro"
 
-#: editframefieldsdialog.cpp:687
+#: editframefieldsdialog.cpp:691
 msgid "Peak Volume Left"
 msgstr "Picco volume sinistro"
 
-#: editframefieldsdialog.cpp:688
+#: editframefieldsdialog.cpp:692
 msgid "Timestamp Format"
 msgstr "Formato data/ora"
 
-#: editframefieldsdialog.cpp:689
+#: editframefieldsdialog.cpp:693
 msgid "Content Type"
 msgstr "Tipo di contenuto"
 
-#: editframefieldsdialog.cpp:886
+#: editframefieldsdialog.cpp:890
 msgid "UTF16BE"
 msgstr "UTF16BE"
 
-#: editframefieldsdialog.cpp:898 editframefieldsdialog.cpp:929
-#: editframefieldsdialog.cpp:942
+#: editframefieldsdialog.cpp:902 editframefieldsdialog.cpp:933
+#: editframefieldsdialog.cpp:946
 msgid "Other"
 msgstr "Altro"
 
-#: editframefieldsdialog.cpp:899
+#: editframefieldsdialog.cpp:903
 msgid "32x32 pixels PNG file icon"
 msgstr "Icona file PNG da 32x32 pixel"
 
-#: editframefieldsdialog.cpp:900
+#: editframefieldsdialog.cpp:904
 msgid "Other file icon"
 msgstr "Altra icona file"
 
-#: editframefieldsdialog.cpp:901
+#: editframefieldsdialog.cpp:905
 msgid "Cover (front)"
 msgstr "Copertina (fronte)"
 
-#: editframefieldsdialog.cpp:902
+#: editframefieldsdialog.cpp:906
 msgid "Cover (back)"
 msgstr "Copertina (retro)"
 
-#: editframefieldsdialog.cpp:903
+#: editframefieldsdialog.cpp:907
 msgid "Leaflet page"
 msgstr "Pagina dépliant"
 
-#: editframefieldsdialog.cpp:904 frame.cpp:89
+#: editframefieldsdialog.cpp:908 frame.cpp:89
 msgid "Media"
 msgstr "Media"
 
-#: editframefieldsdialog.cpp:905
+#: editframefieldsdialog.cpp:909
 msgid "Lead artist/lead performer/soloist"
 msgstr "Artista principale/interprete principale/solista"
 
-#: editframefieldsdialog.cpp:906
+#: editframefieldsdialog.cpp:910
 msgid "Artist/performer"
 msgstr "Artista/interprete"
 
-#: editframefieldsdialog.cpp:907 frame.cpp:80
+#: editframefieldsdialog.cpp:911 frame.cpp:80
 msgid "Conductor"
 msgstr "Direttore d'orchestra"
 
-#: editframefieldsdialog.cpp:908
+#: editframefieldsdialog.cpp:912
 msgid "Band/Orchestra"
 msgstr "Band/Orchestra"
 
-#: editframefieldsdialog.cpp:909 frame.cpp:79
+#: editframefieldsdialog.cpp:913 frame.cpp:79
 msgid "Composer"
 msgstr "Compositore"
 
-#: editframefieldsdialog.cpp:910
+#: editframefieldsdialog.cpp:914
 msgid "Lyricist/text writer"
 msgstr "Paroliere/scrittore testi"
 
-#: editframefieldsdialog.cpp:911
+#: editframefieldsdialog.cpp:915
 msgid "Recording Location"
 msgstr "Luogo d'incisione"
 
-#: editframefieldsdialog.cpp:912
+#: editframefieldsdialog.cpp:916
 msgid "During recording"
 msgstr "Durante la registrazione"
 
-#: editframefieldsdialog.cpp:913
+#: editframefieldsdialog.cpp:917
 msgid "During performance"
 msgstr "Durante l'esecuzione"
 
-#: editframefieldsdialog.cpp:914
+#: editframefieldsdialog.cpp:918
 msgid "Movie/video screen capture"
 msgstr "Cattura schermo/film"
 
-#: editframefieldsdialog.cpp:915
+#: editframefieldsdialog.cpp:919
 msgid "A bright coloured fish"
 msgstr "Un pesce dai colori vivaci"
 
-#: editframefieldsdialog.cpp:916
+#: editframefieldsdialog.cpp:920
 msgid "Illustration"
 msgstr "Illustrazione"
 
-#: editframefieldsdialog.cpp:917
+#: editframefieldsdialog.cpp:921
 msgid "Band/artist logotype"
 msgstr "Logo Gruppo/artista"
 
-#: editframefieldsdialog.cpp:918
+#: editframefieldsdialog.cpp:922
 msgid "Publisher/Studio logotype"
 msgstr "Logo Editore/Studio"
 
-#: editframefieldsdialog.cpp:930
+#: editframefieldsdialog.cpp:934
 msgid "MPEG frames as unit"
 msgstr "Frame MPEG come unità"
 
-#: editframefieldsdialog.cpp:931
+#: editframefieldsdialog.cpp:935
 msgid "Milliseconds as unit"
 msgstr "Millisecondi come unità"
 
-#: editframefieldsdialog.cpp:943 frame.cpp:88
+#: editframefieldsdialog.cpp:947 frame.cpp:88
 msgid "Lyrics"
 msgstr "Testi"
 
-#: editframefieldsdialog.cpp:944
+#: editframefieldsdialog.cpp:948
 msgid "Text transcription"
 msgstr "Trascrizione testo"
 
-#: editframefieldsdialog.cpp:945
+#: editframefieldsdialog.cpp:949
 msgid "Movement/part name"
 msgstr "Nome movimento/parte"
 
-#: editframefieldsdialog.cpp:946
+#: editframefieldsdialog.cpp:950
 msgid "Events"
 msgstr "Eventi"
 
-#: editframefieldsdialog.cpp:947
+#: editframefieldsdialog.cpp:951
 msgid "Chord"
 msgstr "Accordo"
 
-#: editframefieldsdialog.cpp:948
+#: editframefieldsdialog.cpp:952
 msgid "Trivia/pop up"
 msgstr "Trivia/pop up"
 
@@ -565,27 +565,27 @@ msgstr "Negli Ap&punti"
 msgid "&Source:"
 msgstr "Ori&gine:"
 
-#: exportdialog.cpp:142 id3form.cpp:296 id3form.cpp:315 id3form.cpp:464
-#: id3form.cpp:483 importselector.cpp:311 kid3.cpp:405 kid3.cpp:408
-#: kid3.cpp:411 kid3.cpp:414 kid3.cpp:417 kid3.cpp:453
-#: numbertracksdialog.cpp:81
+#: exportdialog.cpp:142 id3form.cpp:296 id3form.cpp:317 id3form.cpp:468
+#: id3form.cpp:489 importselector.cpp:311 kid3.cpp:407 kid3.cpp:410
+#: kid3.cpp:413 kid3.cpp:416 kid3.cpp:419 kid3.cpp:455
+#: numbertracksdialog.cpp:82
 msgid "Tag 1"
 msgstr "Tag 1"
 
-#: exportdialog.cpp:143 id3form.cpp:298 id3form.cpp:318 id3form.cpp:466
-#: id3form.cpp:486 importselector.cpp:312 kid3.cpp:420 kid3.cpp:423
-#: kid3.cpp:426 kid3.cpp:429 kid3.cpp:432 kid3.cpp:456
-#: numbertracksdialog.cpp:82
+#: exportdialog.cpp:143 id3form.cpp:299 id3form.cpp:321 id3form.cpp:471
+#: id3form.cpp:493 importselector.cpp:312 kid3.cpp:422 kid3.cpp:425
+#: kid3.cpp:428 kid3.cpp:431 kid3.cpp:434 kid3.cpp:458
+#: numbertracksdialog.cpp:83
 msgid "Tag 2"
 msgstr "Tag 2"
 
 #: exportdialog.cpp:234 filelist.cpp:1219 filelist.cpp:1255 filelist.cpp:1360
-#: filelist.cpp:1368 filelist.cpp:1412 filelist.cpp:1415 kid3.cpp:1243
-#: kid3.cpp:1246 kid3.cpp:2511
+#: filelist.cpp:1368 filelist.cpp:1412 filelist.cpp:1415 kid3.cpp:1255
+#: kid3.cpp:1258 kid3.cpp:2523
 msgid "File Error"
 msgstr "Errore del file"
 
-#: exportdialog.cpp:235 kid3.cpp:1241 kid3.cpp:1247
+#: exportdialog.cpp:235 kid3.cpp:1253 kid3.cpp:1259
 msgid "Error while writing file:\n"
 msgstr "Errore durante la scrittura del file:\n"
 
@@ -661,7 +661,7 @@ msgstr "&Rinomina"
 msgid "&Delete"
 msgstr "&Elimina"
 
-#: filelist.cpp:933 filelist.cpp:951 kid3.cpp:384 kid3.cpp:696
+#: filelist.cpp:933 filelist.cpp:951 kid3.cpp:386 kid3.cpp:698
 msgid "&Play"
 msgstr "&Riproduci"
 
@@ -673,11 +673,11 @@ msgstr "Rinomina file"
 msgid "Enter new file name:"
 msgstr "Digita nuovo nome file:"
 
-#: filelist.cpp:1220 filelist.cpp:1256 kid3.cpp:2512
+#: filelist.cpp:1220 filelist.cpp:1256 kid3.cpp:2524
 msgid "Error while renaming:\n"
 msgstr "Errore durante la rinomina:\n"
 
-#: filelist.cpp:1242 kid3.cpp:655 rendirdialog.cpp:72 rendirdialog.cpp:97
+#: filelist.cpp:1242 kid3.cpp:657 rendirdialog.cpp:72 rendirdialog.cpp:97
 #: rendirdialog.cpp:130 rendirdialog.cpp:172
 msgid "Rename Directory"
 msgstr "Rinomina cartella"
@@ -709,7 +709,7 @@ msgstr[1] "Errore durante l'eliminazione di questi %1 elementi:"
 msgid "Directory must be empty.\n"
 msgstr "La cartella deve essere vuota.\n"
 
-#: filterdialog.cpp:61 kid3.cpp:669
+#: filterdialog.cpp:61 kid3.cpp:671
 msgid "Filter"
 msgstr "Filtro"
 
@@ -869,12 +869,12 @@ msgstr "Sottotitolo"
 msgid "Website"
 msgstr "Sito web"
 
-#: frame.cpp:834 importparser.cpp:58 importselector.cpp:217
+#: frame.cpp:837 importparser.cpp:58 importselector.cpp:217
 #: importselector.cpp:245
 msgid "Year"
 msgstr "Anno"
 
-#: frame.cpp:838 frame.cpp:842 frame.cpp:846 importselector.cpp:216
+#: frame.cpp:841 frame.cpp:845 frame.cpp:849 importselector.cpp:216
 #: importselector.cpp:241
 msgid "Track"
 msgstr "Traccia"
@@ -931,68 +931,84 @@ msgstr "Lettura fallita"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: id3form.cpp:263 id3form.cpp:433 id3form.cpp:1235 id3form.cpp:1237
+#: id3form.cpp:263 id3form.cpp:437 id3form.cpp:1243 id3form.cpp:1245
 msgid "F&ile"
 msgstr "F&ile"
 
-#: id3form.cpp:276 id3form.cpp:444
+#: id3form.cpp:276 id3form.cpp:448
 msgid "Name:"
 msgstr "Nome:"
 
-#: id3form.cpp:283 id3form.cpp:301 id3form.cpp:451 id3form.cpp:469
+#: id3form.cpp:283 id3form.cpp:303 id3form.cpp:455 id3form.cpp:475
 msgid "Format:"
 msgstr "Formato:"
 
-#: id3form.cpp:294 id3form.cpp:462 rendirdialog.cpp:216
+#: id3form.cpp:294 id3form.cpp:466 rendirdialog.cpp:216
 msgid "From:"
 msgstr "Da:"
 
-#: id3form.cpp:312 id3form.cpp:480 rendirdialog.cpp:218
+#: id3form.cpp:297 id3form.cpp:469
+msgid "Filename from Tag 1"
+msgstr "Nome file da Tag 1"
+
+#: id3form.cpp:300 id3form.cpp:472
+msgid "Filename from Tag 2"
+msgstr "Nome file da Tag 2"
+
+#: id3form.cpp:314 id3form.cpp:486 rendirdialog.cpp:218
 msgid "To:"
 msgstr "A:"
 
-#: id3form.cpp:324 id3form.cpp:493 id3form.cpp:942
+#: id3form.cpp:318 id3form.cpp:490
+msgid "Tag 1 from Filename"
+msgstr "Tag 1 dal Nome file"
+
+#: id3form.cpp:322 id3form.cpp:494
+msgid "Tag 2 from Filename"
+msgstr "Tag 2 dal Nome file"
+
+#: id3form.cpp:328 id3form.cpp:501 id3form.cpp:950
 msgid "Tag &1"
 msgstr "Tag &1"
 
-#: id3form.cpp:345 id3form.cpp:511 kid3.cpp:408 kid3.cpp:447
+#: id3form.cpp:349 id3form.cpp:519 kid3.cpp:410 kid3.cpp:449
 #: rendirdialog.cpp:178
 msgid "From Tag 2"
 msgstr "Da Tag 2"
 
-#: id3form.cpp:348 id3form.cpp:389 id3form.cpp:513 id3form.cpp:543
-#: kid3.cpp:411 kid3.cpp:426
+#: id3form.cpp:352 id3form.cpp:393 id3form.cpp:521 id3form.cpp:551
+#: kid3.cpp:413 kid3.cpp:428
 msgid "Copy"
 msgstr "Copia"
 
-#: id3form.cpp:352 id3form.cpp:393 id3form.cpp:515 id3form.cpp:545
-#: kid3.cpp:414 kid3.cpp:429
+#: id3form.cpp:356 id3form.cpp:397 id3form.cpp:523 id3form.cpp:553
+#: kid3.cpp:416 kid3.cpp:431
 msgid "Paste"
 msgstr "Incolla"
 
-#: id3form.cpp:356 id3form.cpp:397 id3form.cpp:517 id3form.cpp:547
-#: kid3.cpp:417 kid3.cpp:432
+#: id3form.cpp:360 id3form.cpp:401 id3form.cpp:525 id3form.cpp:555
+#: kid3.cpp:419 kid3.cpp:434
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: id3form.cpp:365 id3form.cpp:524 id3form.cpp:957
+#: id3form.cpp:369 id3form.cpp:532 id3form.cpp:965
 msgid "Tag &2"
 msgstr "Tag &2"
 
-#: id3form.cpp:385 id3form.cpp:541 kid3.cpp:423 kid3.cpp:444
+#: id3form.cpp:389 id3form.cpp:549 kid3.cpp:425 kid3.cpp:446
 #: rendirdialog.cpp:177
 msgid "From Tag 1"
 msgstr "Da Tag 1"
 
-#: id3form.cpp:403 id3form.cpp:553 kid3.cpp:435
+#: id3form.cpp:407 id3form.cpp:561 kid3.cpp:437
 msgid "Edit"
 msgstr "Modifica"
 
-#: id3form.cpp:406 id3form.cpp:555 kid3.cpp:438
+#: id3form.cpp:410 id3form.cpp:563 kid3.cpp:440
 msgid "Add"
 msgstr "Aggiungi"
 
-#: id3form.cpp:409 id3form.cpp:557 kid3.cpp:441
+#: id3form.cpp:413 id3form.cpp:565 kid3.cpp:443
 msgid "Delete"
 msgstr "Elimina"
 
@@ -1046,7 +1062,7 @@ msgstr "MusicBrainz Fingerprint"
 msgid "D&estination:"
 msgstr "D&estinazione:"
 
-#: importselector.cpp:313 numbertracksdialog.cpp:83
+#: importselector.cpp:313 numbertracksdialog.cpp:84
 msgid "Tag 1 and Tag 2"
 msgstr "Tag 1 e Tag 2"
 
@@ -1122,335 +1138,335 @@ msgstr "Canali"
 msgid "Codec"
 msgstr "Codec"
 
-#: kid3.cpp:274 kid3.cpp:761
+#: kid3.cpp:276 kid3.cpp:763
 msgid "Enables/disables the toolbar"
 msgstr "Attiva/disattiva la barra degli strumenti"
 
-#: kid3.cpp:275 kid3.cpp:704
+#: kid3.cpp:277 kid3.cpp:706
 msgid "Enables/disables the statusbar"
 msgstr "Attiva/disattiva la barra di stato"
 
-#: kid3.cpp:287 kid3.cpp:464 kid3.cpp:473
+#: kid3.cpp:289 kid3.cpp:466 kid3.cpp:475
 msgid "Opens a directory"
 msgstr "Apre una cartella"
 
-#: kid3.cpp:288 kid3.cpp:794
+#: kid3.cpp:290 kid3.cpp:796
 msgid "Opens a recently used directory"
 msgstr "Apre una cartella usata di recente"
 
-#: kid3.cpp:290 kid3.cpp:492
+#: kid3.cpp:292 kid3.cpp:494
 msgid "Reverts the changes of all or the selected files"
 msgstr "Annulla le modifiche eseguite su tutti i file o quelli selezionati"
 
-#: kid3.cpp:291 kid3.cpp:482
+#: kid3.cpp:293 kid3.cpp:484
 msgid "Saves the changed files"
 msgstr "Salva i file modificati"
 
-#: kid3.cpp:292 kid3.cpp:575
+#: kid3.cpp:294 kid3.cpp:577
 msgid "Quits the application"
 msgstr "Esce dall'applicazione"
 
-#: kid3.cpp:293 kid3.cpp:584
+#: kid3.cpp:295 kid3.cpp:586
 msgid "Select all files"
 msgstr "Seleziona tutti i file"
 
-#: kid3.cpp:299 kid3.cpp:593
+#: kid3.cpp:301 kid3.cpp:595
 msgid "Deselect all files"
 msgstr "Deseleziona tutti i file"
 
-#: kid3.cpp:300
+#: kid3.cpp:302
 msgid "Configure Shortcuts"
 msgstr "Configura le scorciatoie"
 
-#: kid3.cpp:301
+#: kid3.cpp:303
 msgid "Configure Toolbars"
 msgstr "Configura la barra degli strumenti"
 
-#: kid3.cpp:302
+#: kid3.cpp:304
 msgid "Preferences dialog"
 msgstr "Preferenze"
 
-#: kid3.cpp:305 kid3.cpp:474
+#: kid3.cpp:307 kid3.cpp:476
 msgid "O&pen Directory..."
 msgstr "A&pri cartella..."
 
-#: kid3.cpp:309 kid3.cpp:501
+#: kid3.cpp:311 kid3.cpp:503
 msgid "&Import..."
 msgstr "&Importa..."
 
-#: kid3.cpp:313 kid3.cpp:509
+#: kid3.cpp:315 kid3.cpp:511
 msgid "Import from &gnudb.org..."
 msgstr "Importa da &gnudb.org..."
 
-#: kid3.cpp:317 kid3.cpp:516
+#: kid3.cpp:319 kid3.cpp:518
 msgid "Import from &TrackType.org..."
 msgstr "Importa da &TrackType.org..."
 
-#: kid3.cpp:321 kid3.cpp:523
+#: kid3.cpp:323 kid3.cpp:525
 msgid "Import from &Discogs..."
 msgstr "Importa da &Discogs..."
 
-#: kid3.cpp:325 kid3.cpp:530
+#: kid3.cpp:327 kid3.cpp:532
 msgid "Import from &Amazon..."
 msgstr "Importa da &Amazon..."
 
-#: kid3.cpp:329 kid3.cpp:537
+#: kid3.cpp:331 kid3.cpp:539
 msgid "Import from MusicBrainz &Release..."
 msgstr "Import da MusicBrainz &Release..."
 
-#: kid3.cpp:334 kid3.cpp:545
+#: kid3.cpp:336 kid3.cpp:547
 msgid "Import from &MusicBrainz Fingerprint..."
 msgstr "Import da &MusicBrainz Fingerprint..."
 
-#: kid3.cpp:339 kid3.cpp:553
+#: kid3.cpp:341 kid3.cpp:555
 msgid "&Browse Cover Art..."
 msgstr "&Preleva copertina..."
 
-#: kid3.cpp:343 kid3.cpp:560
+#: kid3.cpp:345 kid3.cpp:562
 msgid "&Export..."
 msgstr "&Esporta..."
 
-#: kid3.cpp:347 kid3.cpp:568
+#: kid3.cpp:349 kid3.cpp:570
 msgid "&Create Playlist..."
 msgstr "&Crea Playlist..."
 
-#: kid3.cpp:351 kid3.cpp:642
+#: kid3.cpp:353 kid3.cpp:644
 msgid "Apply &Filename Format"
 msgstr "Applica formato Nome &file"
 
-#: kid3.cpp:355 kid3.cpp:649
+#: kid3.cpp:357 kid3.cpp:651
 msgid "Apply &Tag Format"
 msgstr "Applica formato &Tag"
 
-#: kid3.cpp:359 kid3.cpp:656
+#: kid3.cpp:361 kid3.cpp:658
 msgid "&Rename Directory..."
 msgstr "&Rinomina cartella..."
 
-#: kid3.cpp:363 kid3.cpp:663
+#: kid3.cpp:365 kid3.cpp:665
 msgid "&Number Tracks..."
 msgstr "&Numero tracce..."
 
-#: kid3.cpp:367 kid3.cpp:670
+#: kid3.cpp:369 kid3.cpp:672
 msgid "F&ilter..."
 msgstr "F&iltro..."
 
-#: kid3.cpp:372 kid3.cpp:678
+#: kid3.cpp:374 kid3.cpp:680
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Converti ID3v2.3 in ID3v2.&4"
 
-#: kid3.cpp:378 kid3.cpp:687
+#: kid3.cpp:380 kid3.cpp:689
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Converti ID3v2.4 in ID3v2.&3"
 
-#: kid3.cpp:389 kid3.cpp:717
+#: kid3.cpp:391 kid3.cpp:719
 msgid "Show &Picture"
 msgstr "Mostra &immagine"
 
-#: kid3.cpp:393 kid3.cpp:729
+#: kid3.cpp:395 kid3.cpp:731
 msgid "Auto &Hide Tags"
 msgstr "&Nascondi automaticamente"
 
-#: kid3.cpp:397 kid3.cpp:602
+#: kid3.cpp:399 kid3.cpp:604
 msgid "&Previous File"
 msgstr "File &precedente"
 
-#: kid3.cpp:401 kid3.cpp:611
+#: kid3.cpp:403 kid3.cpp:613
 msgid "&Next File"
 msgstr "File &successivo"
 
-#: kid3.cpp:405 kid3.cpp:420
+#: kid3.cpp:407 kid3.cpp:422
 msgid "From Filename"
 msgstr "Dal Nome file"
 
-#: kid3.cpp:435 kid3.cpp:438 kid3.cpp:441
+#: kid3.cpp:437 kid3.cpp:440 kid3.cpp:443
 msgid "Frames:"
 msgstr "Frame:"
 
-#: kid3.cpp:450 kid3.cpp:453 kid3.cpp:456
+#: kid3.cpp:452 kid3.cpp:455 kid3.cpp:458
 msgid "Focus"
 msgstr "Punto focale"
 
-#: kid3.cpp:465
+#: kid3.cpp:467
 msgid "&Open..."
 msgstr "&Apri..."
 
-#: kid3.cpp:483
+#: kid3.cpp:485
 msgid "&Save"
 msgstr "&Salva"
 
-#: kid3.cpp:493
+#: kid3.cpp:495
 msgid "Re&vert"
 msgstr "Ri&pristina"
 
-#: kid3.cpp:500
+#: kid3.cpp:502
 msgid "Import from file or clipboard"
 msgstr "Importa da file o dagli appunti"
 
-#: kid3.cpp:508
+#: kid3.cpp:510
 msgid "Import from gnudb.org"
 msgstr "Importa da gnudb.org"
 
-#: kid3.cpp:515
+#: kid3.cpp:517
 msgid "Import from TrackType.org"
 msgstr "Importa da TrackType.org"
 
-#: kid3.cpp:522
+#: kid3.cpp:524
 msgid "Import from Discogs"
 msgstr "Importa da Discogs"
 
-#: kid3.cpp:529
+#: kid3.cpp:531
 msgid "Import from Amazon"
 msgstr "Importa da Amazon"
 
-#: kid3.cpp:536
+#: kid3.cpp:538
 msgid "Import from MusicBrainz Release"
 msgstr "Importa da MusicBrainz Release"
 
-#: kid3.cpp:544
+#: kid3.cpp:546
 msgid "Import from MusicBrainz Fingerprint"
 msgstr "Importa da MusicBrainz Fingerprint"
 
-#: kid3.cpp:552
+#: kid3.cpp:554
 msgid "Browse album cover artwork"
 msgstr "Preleva copertina"
 
-#: kid3.cpp:559
+#: kid3.cpp:561
 msgid "Export to file or clipboard"
 msgstr "Esporta in un file o negli appunti"
 
-#: kid3.cpp:567
+#: kid3.cpp:569
 msgid "Create M3U Playlist"
 msgstr "Crea Playlist M3U"
 
-#: kid3.cpp:576
+#: kid3.cpp:578
 msgid "&Quit"
 msgstr "&Esci"
 
-#: kid3.cpp:585
+#: kid3.cpp:587
 msgid "Select &All"
 msgstr "Seleziona &tutto"
 
-#: kid3.cpp:594
+#: kid3.cpp:596
 msgid "Dese&lect"
 msgstr "Dese&leziona"
 
-#: kid3.cpp:601
+#: kid3.cpp:603
 msgid "Select previous file"
 msgstr "Seleziona file precedente"
 
-#: kid3.cpp:610
+#: kid3.cpp:612
 msgid "Select next file"
 msgstr "Seleziona file successivo"
 
-#: kid3.cpp:619 kid3.cpp:1746
+#: kid3.cpp:621 kid3.cpp:1758
 msgid "Kid3 Handbook"
 msgstr "Manuale di Kid3"
 
-#: kid3.cpp:620
+#: kid3.cpp:622
 msgid "Kid3 &Handbook"
 msgstr "&Manuale di Kid3"
 
-#: kid3.cpp:627
+#: kid3.cpp:629
 msgid "About Kid3"
 msgstr "Informazioni su Kid3"
 
-#: kid3.cpp:628
+#: kid3.cpp:630
 msgid "&About Kid3"
 msgstr "&Informazioni su Kid3"
 
-#: kid3.cpp:634
+#: kid3.cpp:636
 msgid "About Qt"
 msgstr "Informazioni su Qt"
 
-#: kid3.cpp:635
+#: kid3.cpp:637
 msgid "About &Qt"
 msgstr "Informazioni su &Qt"
 
-#: kid3.cpp:641
+#: kid3.cpp:643
 msgid "Apply Filename Format"
 msgstr "Applica formato Nome file"
 
-#: kid3.cpp:648
+#: kid3.cpp:650
 msgid "Apply Tag Format"
 msgstr "Applica formato Tag"
 
-#: kid3.cpp:662 numbertracksdialog.cpp:55
+#: kid3.cpp:664 numbertracksdialog.cpp:56
 msgid "Number Tracks"
 msgstr "Numero tracce"
 
-#: kid3.cpp:677
+#: kid3.cpp:679
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Converti ID3v2.3 in ID3v2.4"
 
-#: kid3.cpp:686
+#: kid3.cpp:688
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Converti ID3v2.4 in ID3v2.3"
 
-#: kid3.cpp:695
+#: kid3.cpp:697 playtoolbar.cpp:54
 msgid "Play"
 msgstr "Riproduci"
 
-#: kid3.cpp:705
+#: kid3.cpp:707
 msgid "Show St&atusbar"
 msgstr "Mostra la barra di st&ato"
 
-#: kid3.cpp:716
+#: kid3.cpp:718
 msgid "Show Picture"
 msgstr "Mostra immagine"
 
-#: kid3.cpp:728
+#: kid3.cpp:730
 msgid "Auto Hide Tags"
 msgstr "Nascondi automaticamente"
 
-#: kid3.cpp:740
+#: kid3.cpp:742
 msgid "Configure Kid3"
 msgstr "Configura Kid3"
 
-#: kid3.cpp:741
+#: kid3.cpp:743
 msgid "&Configure Kid3..."
 msgstr "&Configura Kid3..."
 
-#: kid3.cpp:762
+#: kid3.cpp:764
 msgid "Show &Toolbar"
 msgstr "Mostra la barra degli &strumenti"
 
 #. i18n: file: kid3ui.rc:4
 #. i18n: ectx: Menu (file)
-#: kid3.cpp:769 kid3.cpp:777 rc.cpp:3
+#: kid3.cpp:771 kid3.cpp:779 rc.cpp:3
 msgid "&File"
 msgstr "&File"
 
 #. i18n: file: kid3ui.rc:17
 #. i18n: ectx: Menu (edit)
-#: kid3.cpp:770 kid3.cpp:779 rc.cpp:6
+#: kid3.cpp:772 kid3.cpp:781 rc.cpp:6
 msgid "&Edit"
 msgstr "&Modifica"
 
 #. i18n: file: kid3ui.rc:21
 #. i18n: ectx: Menu (tools)
-#: kid3.cpp:771 kid3.cpp:781 rc.cpp:9
+#: kid3.cpp:773 kid3.cpp:783 rc.cpp:9
 msgid "&Tools"
 msgstr "S&trumenti"
 
 #. i18n: file: kid3ui.rc:31
 #. i18n: ectx: Menu (settings)
-#: kid3.cpp:772 kid3.cpp:783 rc.cpp:12
+#: kid3.cpp:774 kid3.cpp:785 rc.cpp:12
 msgid "&Settings"
 msgstr "Imp&ostazioni"
 
-#: kid3.cpp:795 kid3.cpp:799
+#: kid3.cpp:797 kid3.cpp:801
 msgid "Open &Recent"
 msgstr "Apri &recenti"
 
-#: kid3.cpp:939
+#: kid3.cpp:941
 msgid "Opening directory..."
 msgstr "Apertura cartella in corso..."
 
-#: kid3.cpp:1186
+#: kid3.cpp:1198
 msgid "Saving directory..."
 msgstr "Salvataggio cartella in corso..."
 
-#: kid3.cpp:1280 kid3.cpp:1290
+#: kid3.cpp:1292 kid3.cpp:1302
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -1458,63 +1474,63 @@ msgstr ""
 "La cartella in uso è stata modificata.\n"
 "Volete salvarla?"
 
-#: kid3.cpp:1282
+#: kid3.cpp:1294
 msgid "Warning"
 msgstr "Avvertimento"
 
-#: kid3.cpp:1289
+#: kid3.cpp:1301
 msgid "Warning - Kid3"
 msgstr "Attenzione - Kid3"
 
-#: kid3.cpp:1458 kid3.cpp:1462
+#: kid3.cpp:1470 kid3.cpp:1474
 msgid "All Supported Files"
 msgstr "Tutti i file supportati"
 
-#: kid3.cpp:1460 kid3.cpp:1466
+#: kid3.cpp:1472 kid3.cpp:1478
 msgid "All Files (*)"
 msgstr "Tutti i file (*)"
 
-#: kid3.cpp:1494
+#: kid3.cpp:1506
 msgid "Open"
 msgstr "Apri"
 
-#: kid3.cpp:1623
+#: kid3.cpp:1635
 msgid "Exiting..."
 msgstr "Uscita in corso..."
 
-#: kid3.cpp:1634
+#: kid3.cpp:1646
 msgid "Toggling toolbar..."
 msgstr "Cambiamento barra strumenti in corso..."
 
-#: kid3.cpp:1649 kid3.cpp:1728
+#: kid3.cpp:1661 kid3.cpp:1740
 msgid "Toggle the statusbar..."
 msgstr "Cambiamento barra di stato in corso..."
 
-#: kid3.cpp:1840
+#: kid3.cpp:1852
 msgid "Creating playlist..."
 msgstr "Creazione playlist in corso..."
 
-#: kid3.cpp:1928
+#: kid3.cpp:1940
 msgid "Import"
 msgstr "Importa"
 
-#: kid3.cpp:1949
+#: kid3.cpp:1961
 msgid "Import..."
 msgstr "Importa..."
 
-#: kid3.cpp:2305
+#: kid3.cpp:2317
 msgid "Configure - Kid3"
 msgstr "Configura - Kid3"
 
-#: kid3.cpp:2919
+#: kid3.cpp:2983
 msgid "Download"
 msgstr "Scarica"
 
-#: kid3.cpp:2985
+#: kid3.cpp:3049
 msgid " [filtered]"
 msgstr " [filtrato]"
 
-#: kid3.cpp:2991
+#: kid3.cpp:3055
 msgid " [modified]"
 msgstr " [modificato]"
 
@@ -1534,23 +1550,23 @@ msgstr "Urs Fleisch"
 msgid "directory to open"
 msgstr "cartella da aprire"
 
-#: mp3file.cpp:1283 taglibfile.cpp:1599
+#: mp3file.cpp:1283 taglibfile.cpp:1600
 msgid "AENC - Audio encryption"
 msgstr "AENC - Cifratura audio"
 
-#: mp3file.cpp:1284 taglibfile.cpp:1600
+#: mp3file.cpp:1284 taglibfile.cpp:1601
 msgid "APIC - Attached picture"
 msgstr "APIC - Immagine allegata"
 
-#: mp3file.cpp:1286 taglibfile.cpp:1602
+#: mp3file.cpp:1286 taglibfile.cpp:1603
 msgid "COMM - Comments"
 msgstr "COMM - Commenti"
 
-#: mp3file.cpp:1287 taglibfile.cpp:1603
+#: mp3file.cpp:1287 taglibfile.cpp:1604
 msgid "COMR - Commercial"
 msgstr "COMR - Commerciale"
 
-#: mp3file.cpp:1288 taglibfile.cpp:1604
+#: mp3file.cpp:1288 taglibfile.cpp:1605
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - Registrazione metodo di cifratura"
 
@@ -1558,15 +1574,15 @@ msgstr "ENCR - Registrazione metodo di cifratura"
 msgid "EQUA - Equalization"
 msgstr "EQUA - Equalizzazione"
 
-#: mp3file.cpp:1291 taglibfile.cpp:1606
+#: mp3file.cpp:1291 taglibfile.cpp:1607
 msgid "ETCO - Event timing codes"
 msgstr "ETCO - Codici temporali degli eventi"
 
-#: mp3file.cpp:1292 taglibfile.cpp:1607
+#: mp3file.cpp:1292 taglibfile.cpp:1608
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - Oggetto incapsulato di tipo generale"
 
-#: mp3file.cpp:1293 taglibfile.cpp:1608
+#: mp3file.cpp:1293 taglibfile.cpp:1609
 msgid "GRID - Group identification registration"
 msgstr "GRID - Registrazione identificazione gruppo"
 
@@ -1574,39 +1590,39 @@ msgstr "GRID - Registrazione identificazione gruppo"
 msgid "IPLS - Involved people list"
 msgstr "IPLS - Elenco persone coinvolte"
 
-#: mp3file.cpp:1295 taglibfile.cpp:1609
+#: mp3file.cpp:1295 taglibfile.cpp:1610
 msgid "LINK - Linked information"
 msgstr "LINK - Informazione collegata"
 
-#: mp3file.cpp:1296 taglibfile.cpp:1610
+#: mp3file.cpp:1296 taglibfile.cpp:1611
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - Identificatore CD musicale"
 
-#: mp3file.cpp:1297 taglibfile.cpp:1611
+#: mp3file.cpp:1297 taglibfile.cpp:1612
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - Tabella ricerca posizione MPEG"
 
-#: mp3file.cpp:1298 taglibfile.cpp:1612
+#: mp3file.cpp:1298 taglibfile.cpp:1613
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - Frame appartenenza"
 
-#: mp3file.cpp:1299 taglibfile.cpp:1613
+#: mp3file.cpp:1299 taglibfile.cpp:1614
 msgid "PRIV - Private frame"
 msgstr "PRIV - Frame privato"
 
-#: mp3file.cpp:1300 taglibfile.cpp:1614
+#: mp3file.cpp:1300 taglibfile.cpp:1615
 msgid "PCNT - Play counter"
 msgstr "PCNT - Contatore esecuzione"
 
-#: mp3file.cpp:1301 taglibfile.cpp:1615
+#: mp3file.cpp:1301 taglibfile.cpp:1616
 msgid "POPM - Popularimeter"
 msgstr "POPM - Indicatore di popolarità"
 
-#: mp3file.cpp:1302 taglibfile.cpp:1616
+#: mp3file.cpp:1302 taglibfile.cpp:1617
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - Frame sincronizzazione posizione"
 
-#: mp3file.cpp:1303 taglibfile.cpp:1617
+#: mp3file.cpp:1303 taglibfile.cpp:1618
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - Dimensione buffer raccomandata"
 
@@ -1614,35 +1630,35 @@ msgstr "RBUF - Dimensione buffer raccomandata"
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - Regolazione volume relativo"
 
-#: mp3file.cpp:1306 taglibfile.cpp:1619
+#: mp3file.cpp:1306 taglibfile.cpp:1620
 msgid "RVRB - Reverb"
 msgstr "RVRB - Riverbero"
 
-#: mp3file.cpp:1309 taglibfile.cpp:1622
+#: mp3file.cpp:1309 taglibfile.cpp:1623
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - Lirica/testo sincronizzato"
 
-#: mp3file.cpp:1310 taglibfile.cpp:1623
+#: mp3file.cpp:1310 taglibfile.cpp:1624
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - Codici tempo sincronizzati"
 
-#: mp3file.cpp:1311 taglibfile.cpp:1624
+#: mp3file.cpp:1311 taglibfile.cpp:1625
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - Titolo Album/Film/Show"
 
-#: mp3file.cpp:1312 taglibfile.cpp:1625
+#: mp3file.cpp:1312 taglibfile.cpp:1626
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM (battute al minuto)"
 
-#: mp3file.cpp:1313 taglibfile.cpp:1626
+#: mp3file.cpp:1313 taglibfile.cpp:1627
 msgid "TCOM - Composer"
 msgstr "TCOM - Compositore"
 
-#: mp3file.cpp:1314 taglibfile.cpp:1627
+#: mp3file.cpp:1314 taglibfile.cpp:1628
 msgid "TCON - Content type"
 msgstr "TCON - Tipo contenuto"
 
-#: mp3file.cpp:1315 taglibfile.cpp:1628
+#: mp3file.cpp:1315 taglibfile.cpp:1629
 msgid "TCOP - Copyright message"
 msgstr "TCOP - Messaggio di copyright"
 
@@ -1650,19 +1666,19 @@ msgstr "TCOP - Messaggio di copyright"
 msgid "TDAT - Date"
 msgstr "TDAT - Data"
 
-#: mp3file.cpp:1318 taglibfile.cpp:1630
+#: mp3file.cpp:1318 taglibfile.cpp:1631
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - Ritardo playlist"
 
-#: mp3file.cpp:1324 taglibfile.cpp:1635
+#: mp3file.cpp:1324 taglibfile.cpp:1636
 msgid "TENC - Encoded by"
 msgstr "TENC - Codificato da"
 
-#: mp3file.cpp:1325 taglibfile.cpp:1636
+#: mp3file.cpp:1325 taglibfile.cpp:1637
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - Paroliere/Scrittore testi"
 
-#: mp3file.cpp:1326 taglibfile.cpp:1637
+#: mp3file.cpp:1326 taglibfile.cpp:1638
 msgid "TFLT - File type"
 msgstr "TFLT - Tipo di file"
 
@@ -1670,47 +1686,47 @@ msgstr "TFLT - Tipo di file"
 msgid "TIME - Time"
 msgstr "TIME - Ora"
 
-#: mp3file.cpp:1328 taglibfile.cpp:1639
+#: mp3file.cpp:1328 taglibfile.cpp:1640
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - Descrizione contenuto gruppo"
 
-#: mp3file.cpp:1329 taglibfile.cpp:1640
+#: mp3file.cpp:1329 taglibfile.cpp:1641
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - Descrizione titolo/nome brano/contenuto"
 
-#: mp3file.cpp:1330 taglibfile.cpp:1641
+#: mp3file.cpp:1330 taglibfile.cpp:1642
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 - Miglioramento sottotitolo/descrizione"
 
-#: mp3file.cpp:1331 taglibfile.cpp:1642
+#: mp3file.cpp:1331 taglibfile.cpp:1643
 msgid "TKEY - Initial key"
 msgstr "TKEY - Chiave iniziale"
 
-#: mp3file.cpp:1332 taglibfile.cpp:1643
+#: mp3file.cpp:1332 taglibfile.cpp:1644
 msgid "TLAN - Language(s)"
 msgstr "TLAN - Lingua/e"
 
-#: mp3file.cpp:1333 taglibfile.cpp:1644
+#: mp3file.cpp:1333 taglibfile.cpp:1645
 msgid "TLEN - Length"
 msgstr "TLEN - Lunghezza"
 
-#: mp3file.cpp:1335 taglibfile.cpp:1646
+#: mp3file.cpp:1335 taglibfile.cpp:1647
 msgid "TMED - Media type"
 msgstr "TMED - Tipo di media"
 
-#: mp3file.cpp:1337 taglibfile.cpp:1648
+#: mp3file.cpp:1337 taglibfile.cpp:1649
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - Titolo album originale/film/show"
 
-#: mp3file.cpp:1338 taglibfile.cpp:1649
+#: mp3file.cpp:1338 taglibfile.cpp:1650
 msgid "TOFN - Original filename"
 msgstr "TOFN - Nome file originale"
 
-#: mp3file.cpp:1339 taglibfile.cpp:1650
+#: mp3file.cpp:1339 taglibfile.cpp:1651
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - Paroliere/i originale/i - Scrittore/i testo"
 
-#: mp3file.cpp:1340 taglibfile.cpp:1651
+#: mp3file.cpp:1340 taglibfile.cpp:1652
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - Artista/i originale/i - interprete/i"
 
@@ -1718,35 +1734,35 @@ msgstr "TOPE - Artista/i originale/i - interprete/i"
 msgid "TORY - Original release year"
 msgstr "TORY - Anno originale di pubblicazione"
 
-#: mp3file.cpp:1342 taglibfile.cpp:1652
+#: mp3file.cpp:1342 taglibfile.cpp:1653
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - Proprietario/licenziatario file"
 
-#: mp3file.cpp:1343 taglibfile.cpp:1653
+#: mp3file.cpp:1343 taglibfile.cpp:1654
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - Interprete/i principale/i - Solista/i"
 
-#: mp3file.cpp:1344 taglibfile.cpp:1654
+#: mp3file.cpp:1344 taglibfile.cpp:1655
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - Band/orchestra/accompagnamento"
 
-#: mp3file.cpp:1345 taglibfile.cpp:1655
+#: mp3file.cpp:1345 taglibfile.cpp:1656
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 - Miglioramento direttore d'orchestra/interprete"
 
-#: mp3file.cpp:1346 taglibfile.cpp:1656
+#: mp3file.cpp:1346 taglibfile.cpp:1657
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - Interpretato, re-mixato, o comunque modificato da"
 
-#: mp3file.cpp:1347 taglibfile.cpp:1657
+#: mp3file.cpp:1347 taglibfile.cpp:1658
 msgid "TPOS - Part of a set"
 msgstr "TPOS - Parte di una serie"
 
-#: mp3file.cpp:1349 taglibfile.cpp:1659
+#: mp3file.cpp:1349 taglibfile.cpp:1660
 msgid "TPUB - Publisher"
 msgstr "TPUB - Editore"
 
-#: mp3file.cpp:1350 taglibfile.cpp:1660
+#: mp3file.cpp:1350 taglibfile.cpp:1661
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - Numero traccia/Posizione nella serie"
 
@@ -1754,11 +1770,11 @@ msgstr "TRCK - Numero traccia/Posizione nella serie"
 msgid "TRDA - Recording dates"
 msgstr "TRDA - Date registrazione"
 
-#: mp3file.cpp:1352 taglibfile.cpp:1661
+#: mp3file.cpp:1352 taglibfile.cpp:1662
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - Nome stazione radio Internet"
 
-#: mp3file.cpp:1353 taglibfile.cpp:1662
+#: mp3file.cpp:1353 taglibfile.cpp:1663
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - Proprietario stazione radio Internet"
 
@@ -1766,15 +1782,15 @@ msgstr "TRSO - Proprietario stazione radio Internet"
 msgid "TSIZ - Size"
 msgstr "TSIZ - Dimensione"
 
-#: mp3file.cpp:1358 taglibfile.cpp:1666
+#: mp3file.cpp:1358 taglibfile.cpp:1667
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ISRC (Codice registrazione internazionale standard)"
 
-#: mp3file.cpp:1359 taglibfile.cpp:1667
+#: mp3file.cpp:1359 taglibfile.cpp:1668
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - Software/Hardware e impostazioni utilizzati per la codifica"
 
-#: mp3file.cpp:1361 taglibfile.cpp:1669
+#: mp3file.cpp:1361 taglibfile.cpp:1670
 msgid "TXXX - User defined text information"
 msgstr "TXXX - Informazione di testo definita dall'utente"
 
@@ -1782,51 +1798,51 @@ msgstr "TXXX - Informazione di testo definita dall'utente"
 msgid "TYER - Year"
 msgstr "TYER - Anno"
 
-#: mp3file.cpp:1363 taglibfile.cpp:1670
+#: mp3file.cpp:1363 taglibfile.cpp:1671
 msgid "UFID - Unique file identifier"
 msgstr "UFID - Identificatore unico di file"
 
-#: mp3file.cpp:1364 taglibfile.cpp:1671
+#: mp3file.cpp:1364 taglibfile.cpp:1672
 msgid "USER - Terms of use"
 msgstr "USER - Condizioni di utilizzo"
 
-#: mp3file.cpp:1365 taglibfile.cpp:1672
+#: mp3file.cpp:1365 taglibfile.cpp:1673
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - Lirica non sincronizzata/trascrizione testo"
 
-#: mp3file.cpp:1366 taglibfile.cpp:1673
+#: mp3file.cpp:1366 taglibfile.cpp:1674
 msgid "WCOM - Commercial information"
 msgstr "WCOM - Informazioni commerciali"
 
-#: mp3file.cpp:1367 taglibfile.cpp:1674
+#: mp3file.cpp:1367 taglibfile.cpp:1675
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - Informazioni di copyright/legali"
 
-#: mp3file.cpp:1368 taglibfile.cpp:1675
+#: mp3file.cpp:1368 taglibfile.cpp:1676
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - Pagina web ufficiale del file audio"
 
-#: mp3file.cpp:1369 taglibfile.cpp:1676
+#: mp3file.cpp:1369 taglibfile.cpp:1677
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - Pagina web ufficiale dell'artista/interprete"
 
-#: mp3file.cpp:1370 taglibfile.cpp:1677
+#: mp3file.cpp:1370 taglibfile.cpp:1678
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS - Pagina web ufficiale della sorgente audio"
 
-#: mp3file.cpp:1371 taglibfile.cpp:1678
+#: mp3file.cpp:1371 taglibfile.cpp:1679
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS - Home page ufficiale della stazione radio internet"
 
-#: mp3file.cpp:1372 taglibfile.cpp:1679
+#: mp3file.cpp:1372 taglibfile.cpp:1680
 msgid "WPAY - Payment"
 msgstr "WPAY - Pagamento"
 
-#: mp3file.cpp:1373 taglibfile.cpp:1680
+#: mp3file.cpp:1373 taglibfile.cpp:1681
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - Pagina web ufficiale dell'editore"
 
-#: mp3file.cpp:1374 taglibfile.cpp:1681
+#: mp3file.cpp:1374 taglibfile.cpp:1682
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - Collegamento URL definito dall'utente"
 
@@ -1915,11 +1931,11 @@ msgstr "Nessun risultato"
 msgid "No result selected"
 msgstr "Nessun risultato selezionato"
 
-#: numbertracksdialog.cpp:64
+#: numbertracksdialog.cpp:65
 msgid "&Start number:"
 msgstr "Numero &inizio:"
 
-#: numbertracksdialog.cpp:77
+#: numbertracksdialog.cpp:78
 msgid "&Destination:"
 msgstr "&Destinazione:"
 
@@ -2001,23 +2017,23 @@ msgstr "Scrivi solo la &lista dei file"
 msgid "Write &info using"
 msgstr "Scrivi le &informazioni usando"
 
-#: playtoolbar.cpp:63
+#: playtoolbar.cpp:64
 msgid "Play/Pause"
 msgstr "Riproduci/Pausa"
 
-#: playtoolbar.cpp:65
+#: playtoolbar.cpp:66
 msgid "Stop playback"
 msgstr "Interrompi la riproduzione"
 
-#: playtoolbar.cpp:67
+#: playtoolbar.cpp:68
 msgid "Previous Track"
 msgstr "Traccia precedente"
 
-#: playtoolbar.cpp:69
+#: playtoolbar.cpp:70
 msgid "Next Track"
 msgstr "Prossima traccia"
 
-#: playtoolbar.cpp:71
+#: playtoolbar.cpp:72
 msgid "Close"
 msgstr "Chiudi"
 
@@ -2105,75 +2121,75 @@ msgstr "Aggiungi elemento"
 msgid "Edit Item"
 msgstr "Modifica elemento"
 
-#: taglibfile.cpp:1601
+#: taglibfile.cpp:1602
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Indice punto di ricerca audio"
 
-#: taglibfile.cpp:1605
+#: taglibfile.cpp:1606
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Equalizzazione (2)"
 
-#: taglibfile.cpp:1618
+#: taglibfile.cpp:1619
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Regolazione volume relativo (2)"
 
-#: taglibfile.cpp:1620
+#: taglibfile.cpp:1621
 msgid "SEEK - Seek frame"
 msgstr "SEEK - Frame ricerca"
 
-#: taglibfile.cpp:1621
+#: taglibfile.cpp:1622
 msgid "SIGN - Signature frame"
 msgstr "SIGN - Frame firma"
 
-#: taglibfile.cpp:1629
+#: taglibfile.cpp:1630
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Tempo di codifica"
 
-#: taglibfile.cpp:1631
+#: taglibfile.cpp:1632
 msgid "TDOR - Original release time"
 msgstr "TDOR - Data originale di pubblicazione"
 
-#: taglibfile.cpp:1632
+#: taglibfile.cpp:1633
 msgid "TDRC - Recording time"
 msgstr "TDRC - Tempo di registrazione"
 
-#: taglibfile.cpp:1633
+#: taglibfile.cpp:1634
 msgid "TDRL - Release time"
 msgstr "TDRL - Data di pubblicazione"
 
-#: taglibfile.cpp:1634
+#: taglibfile.cpp:1635
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Tempo creazione tag"
 
-#: taglibfile.cpp:1638
+#: taglibfile.cpp:1639
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Elenco persone coinvolte"
 
-#: taglibfile.cpp:1645
+#: taglibfile.cpp:1646
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - Elenco ringraziamenti musicisti"
 
-#: taglibfile.cpp:1647
+#: taglibfile.cpp:1648
 msgid "TMOO - Mood"
 msgstr "TMOO - Mood"
 
-#: taglibfile.cpp:1658
+#: taglibfile.cpp:1659
 msgid "TPRO - Produced notice"
 msgstr "TPRO - Indicatore copyright produttore"
 
-#: taglibfile.cpp:1663
+#: taglibfile.cpp:1664
 msgid "TSOA - Album sort order"
 msgstr "TSOA - Ordinamento per album"
 
-#: taglibfile.cpp:1664
+#: taglibfile.cpp:1665
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - Ordinamento per interprete"
 
-#: taglibfile.cpp:1665
+#: taglibfile.cpp:1666
 msgid "TSOT - Title sort order"
 msgstr "TSOT - Ordinamento per titolo"
 
-#: taglibfile.cpp:1668
+#: taglibfile.cpp:1669
 msgid "TSST - Set subtitle"
 msgstr "TSST - Imposta sottotitolo"
 

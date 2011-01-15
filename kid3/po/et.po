@@ -2,22 +2,22 @@
 # This file is put in the public domain.
 #
 # Mihkel Tõnnov <mihhkel@gmail.com>, 2007–2009.
-# Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 1.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2010-10-02 21:30+0200\n"
-"PO-Revision-Date: 2010-09-29 15:40+0300\n"
-"Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?group_id=70849&atid=529221\n"
+"POT-Creation-Date: 2011-01-15 14:20+0100\n"
+"PO-Revision-Date: 2011-01-15 14:28+0100\n"
+"Last-Translator: \n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Estonian\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: browsecoverartdialog.cpp:61 filelist.cpp:262
@@ -51,13 +51,13 @@ msgstr "Pildi URL"
 #: browsecoverartdialog.cpp:160 configdialog.cpp:545 exportdialog.cpp:155
 #: filterdialog.cpp:100 importdialog.cpp:77 importsourcedialog.cpp:152
 #: kid3.cpp:775 kid3.cpp:787 musicbrainzdialog.cpp:139
-#: numbertracksdialog.cpp:95 playlistdialog.cpp:259 rendirdialog.cpp:105
+#: numbertracksdialog.cpp:112 playlistdialog.cpp:259 rendirdialog.cpp:105
 msgid "&Help"
 msgstr "&Abi"
 
 #: browsecoverartdialog.cpp:166 exportdialog.cpp:161 filterdialog.cpp:106
 #: importdialog.cpp:78 importsourcedialog.cpp:153 musicbrainzdialog.cpp:140
-#: numbertracksdialog.cpp:100 playlistdialog.cpp:263 rendirdialog.cpp:87
+#: numbertracksdialog.cpp:117 playlistdialog.cpp:263 rendirdialog.cpp:87
 #: rendirdialog.cpp:106
 msgid "&Save Settings"
 msgstr "&Salvesta seaded"
@@ -68,7 +68,7 @@ msgstr "&Otsi"
 
 #: browsecoverartdialog.cpp:177 configdialog.cpp:547 editframedialog.cpp:71
 #: editframefieldsdialog.cpp:1020 importdialog.cpp:80
-#: musicbrainzdialog.cpp:143 numbertracksdialog.cpp:115 playlistdialog.cpp:274
+#: musicbrainzdialog.cpp:143 numbertracksdialog.cpp:132 playlistdialog.cpp:274
 #: rendirdialog.cpp:108
 msgid "&Cancel"
 msgstr "&Loobu"
@@ -305,15 +305,15 @@ msgid "&Appearance"
 msgstr "Väl&imus"
 
 #: configdialog.cpp:546 editframedialog.cpp:70 editframefieldsdialog.cpp:1019
-#: importdialog.cpp:79 musicbrainzdialog.cpp:141 numbertracksdialog.cpp:110
+#: importdialog.cpp:79 musicbrainzdialog.cpp:141 numbertracksdialog.cpp:127
 #: playlistdialog.cpp:271 rendirdialog.cpp:107
 msgid "&OK"
 msgstr "&OK"
 
 #: downloaddialog.cpp:96 httpclient.cpp:71 httpclient.cpp:83
 #: httpclient.cpp:129 httpclient.cpp:306 importsourcedialog.cpp:175
-#: kid3.cpp:890 kid3.cpp:962 kid3.cpp:1257 kid3.cpp:1643 kid3.cpp:1658
-#: kid3.cpp:1737 kid3.cpp:1883 kid3.cpp:1983
+#: kid3.cpp:890 kid3.cpp:962 kid3.cpp:1267 kid3.cpp:1653 kid3.cpp:1668
+#: kid3.cpp:1747 kid3.cpp:1893 kid3.cpp:1993
 msgid "Ready."
 msgstr "Valmis."
 
@@ -566,27 +566,27 @@ msgstr "&Lõikepuhvrisse"
 msgid "&Source:"
 msgstr "&Allikas:"
 
-#: exportdialog.cpp:142 id3form.cpp:296 id3form.cpp:315 id3form.cpp:464
-#: id3form.cpp:483 importselector.cpp:311 kid3.cpp:407 kid3.cpp:410
+#: exportdialog.cpp:142 id3form.cpp:296 id3form.cpp:317 id3form.cpp:468
+#: id3form.cpp:489 importselector.cpp:311 kid3.cpp:407 kid3.cpp:410
 #: kid3.cpp:413 kid3.cpp:416 kid3.cpp:419 kid3.cpp:455
-#: numbertracksdialog.cpp:81
+#: numbertracksdialog.cpp:82
 msgid "Tag 1"
 msgstr "Silt 1"
 
-#: exportdialog.cpp:143 id3form.cpp:298 id3form.cpp:318 id3form.cpp:466
-#: id3form.cpp:486 importselector.cpp:312 kid3.cpp:422 kid3.cpp:425
+#: exportdialog.cpp:143 id3form.cpp:299 id3form.cpp:321 id3form.cpp:471
+#: id3form.cpp:493 importselector.cpp:312 kid3.cpp:422 kid3.cpp:425
 #: kid3.cpp:428 kid3.cpp:431 kid3.cpp:434 kid3.cpp:458
-#: numbertracksdialog.cpp:82
+#: numbertracksdialog.cpp:83
 msgid "Tag 2"
 msgstr "Silt 2"
 
 #: exportdialog.cpp:234 filelist.cpp:1219 filelist.cpp:1255 filelist.cpp:1360
-#: filelist.cpp:1368 filelist.cpp:1412 filelist.cpp:1415 kid3.cpp:1245
-#: kid3.cpp:1248 kid3.cpp:2513
+#: filelist.cpp:1368 filelist.cpp:1412 filelist.cpp:1415 kid3.cpp:1255
+#: kid3.cpp:1258 kid3.cpp:2523
 msgid "File Error"
 msgstr "Failiviga"
 
-#: exportdialog.cpp:235 kid3.cpp:1243 kid3.cpp:1249
+#: exportdialog.cpp:235 kid3.cpp:1253 kid3.cpp:1259
 msgid "Error while writing file:\n"
 msgstr "Viga kirjutamisel:\n"
 
@@ -674,7 +674,7 @@ msgstr "Faili ümbernimetamine"
 msgid "Enter new file name:"
 msgstr "Sisesta faili uus nimi:"
 
-#: filelist.cpp:1220 filelist.cpp:1256 kid3.cpp:2514
+#: filelist.cpp:1220 filelist.cpp:1256 kid3.cpp:2524
 msgid "Error while renaming:\n"
 msgstr "Viga ümbernimetamisel:\n"
 
@@ -870,12 +870,12 @@ msgstr "Alapealkiri"
 msgid "Website"
 msgstr "Veebilehekülg"
 
-#: frame.cpp:834 importparser.cpp:58 importselector.cpp:217
+#: frame.cpp:837 importparser.cpp:58 importselector.cpp:217
 #: importselector.cpp:245
 msgid "Year"
 msgstr "Aasta"
 
-#: frame.cpp:838 frame.cpp:842 frame.cpp:846 importselector.cpp:216
+#: frame.cpp:841 frame.cpp:845 frame.cpp:849 importselector.cpp:216
 #: importselector.cpp:241
 msgid "Track"
 msgstr "Loo nr"
@@ -932,68 +932,84 @@ msgstr "Lugemine ebaõnnestus"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: id3form.cpp:263 id3form.cpp:433 id3form.cpp:1235 id3form.cpp:1237
+#: id3form.cpp:263 id3form.cpp:437 id3form.cpp:1243 id3form.cpp:1245
 msgid "F&ile"
 msgstr "Fa&il"
 
-#: id3form.cpp:276 id3form.cpp:444
+#: id3form.cpp:276 id3form.cpp:448
 msgid "Name:"
 msgstr "Nimi:"
 
-#: id3form.cpp:283 id3form.cpp:301 id3form.cpp:451 id3form.cpp:469
+#: id3form.cpp:283 id3form.cpp:303 id3form.cpp:455 id3form.cpp:475
 msgid "Format:"
 msgstr "Vorming:"
 
-#: id3form.cpp:294 id3form.cpp:462 rendirdialog.cpp:216
+#: id3form.cpp:294 id3form.cpp:466 rendirdialog.cpp:216
 msgid "From:"
 msgstr "Siit:"
 
-#: id3form.cpp:312 id3form.cpp:480 rendirdialog.cpp:218
+#: id3form.cpp:297 id3form.cpp:469
+msgid "Filename from Tag 1"
+msgstr "Failinimi silt 1 põhjal"
+
+#: id3form.cpp:300 id3form.cpp:472
+msgid "Filename from Tag 2"
+msgstr "Failinimi silt 2 põhjal"
+
+#: id3form.cpp:314 id3form.cpp:486 rendirdialog.cpp:218
 msgid "To:"
 msgstr "Siia:"
 
-#: id3form.cpp:324 id3form.cpp:493 id3form.cpp:942
+#: id3form.cpp:318 id3form.cpp:490
+msgid "Tag 1 from Filename"
+msgstr "Silt 1 failinime põhjal"
+
+#: id3form.cpp:322 id3form.cpp:494
+msgid "Tag 2 from Filename"
+msgstr "Silt 2 failinime põhjal"
+
+#: id3form.cpp:328 id3form.cpp:501 id3form.cpp:950
 msgid "Tag &1"
 msgstr "Silt &1"
 
-#: id3form.cpp:345 id3form.cpp:511 kid3.cpp:410 kid3.cpp:449
+#: id3form.cpp:349 id3form.cpp:519 kid3.cpp:410 kid3.cpp:449
 #: rendirdialog.cpp:178
 msgid "From Tag 2"
 msgstr "Silt 2 põhjal"
 
-#: id3form.cpp:348 id3form.cpp:389 id3form.cpp:513 id3form.cpp:543
+#: id3form.cpp:352 id3form.cpp:393 id3form.cpp:521 id3form.cpp:551
 #: kid3.cpp:413 kid3.cpp:428
 msgid "Copy"
 msgstr "Kopeeri"
 
-#: id3form.cpp:352 id3form.cpp:393 id3form.cpp:515 id3form.cpp:545
+#: id3form.cpp:356 id3form.cpp:397 id3form.cpp:523 id3form.cpp:553
 #: kid3.cpp:416 kid3.cpp:431
 msgid "Paste"
 msgstr "Aseta"
 
-#: id3form.cpp:356 id3form.cpp:397 id3form.cpp:517 id3form.cpp:547
+#: id3form.cpp:360 id3form.cpp:401 id3form.cpp:525 id3form.cpp:555
 #: kid3.cpp:419 kid3.cpp:434
 msgid "Remove"
 msgstr "Eemalda"
 
-#: id3form.cpp:365 id3form.cpp:524 id3form.cpp:957
+#: id3form.cpp:369 id3form.cpp:532 id3form.cpp:965
 msgid "Tag &2"
 msgstr "Silt &2"
 
-#: id3form.cpp:385 id3form.cpp:541 kid3.cpp:425 kid3.cpp:446
+#: id3form.cpp:389 id3form.cpp:549 kid3.cpp:425 kid3.cpp:446
 #: rendirdialog.cpp:177
 msgid "From Tag 1"
 msgstr "Silt 1 põhjal"
 
-#: id3form.cpp:403 id3form.cpp:553 kid3.cpp:437
+#: id3form.cpp:407 id3form.cpp:561 kid3.cpp:437
 msgid "Edit"
 msgstr "R&edigeeri..."
 
-#: id3form.cpp:406 id3form.cpp:555 kid3.cpp:440
+#: id3form.cpp:410 id3form.cpp:563 kid3.cpp:440
 msgid "Add"
 msgstr "&Lisa..."
 
-#: id3form.cpp:409 id3form.cpp:557 kid3.cpp:443
+#: id3form.cpp:413 id3form.cpp:565 kid3.cpp:443
 msgid "Delete"
 msgstr "Kustuta"
 
@@ -1047,7 +1063,7 @@ msgstr "MusicBrainz: sõrmejälg"
 msgid "D&estination:"
 msgstr "&Sihtkoht:"
 
-#: importselector.cpp:313 numbertracksdialog.cpp:83
+#: importselector.cpp:313 numbertracksdialog.cpp:84
 msgid "Tag 1 and Tag 2"
 msgstr "Silt 1 ja silt 2"
 
@@ -1343,7 +1359,7 @@ msgstr "Valib eelmise faili"
 msgid "Select next file"
 msgstr "Valib järgmise faili"
 
-#: kid3.cpp:621 kid3.cpp:1748
+#: kid3.cpp:621 kid3.cpp:1758
 msgid "Kid3 Handbook"
 msgstr "Kid3 käsiraamat"
 
@@ -1375,7 +1391,7 @@ msgstr "Rakendab failinime vormingu"
 msgid "Apply Tag Format"
 msgstr "Rakendab sildivormingu"
 
-#: kid3.cpp:664 numbertracksdialog.cpp:55
+#: kid3.cpp:664 numbertracksdialog.cpp:56
 msgid "Number Tracks"
 msgstr "Lugude nummerdamine"
 
@@ -1387,7 +1403,7 @@ msgstr "Teisendab ID3v2.3 sildid ID3v2.4-ks"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Teisendab ID3v2.4 sildid ID3v2.3-ks"
 
-#: kid3.cpp:697
+#: kid3.cpp:697 playtoolbar.cpp:54
 msgid "Play"
 msgstr "Mängib valitud lugu"
 
@@ -1447,11 +1463,11 @@ msgstr "Viimati avat&ud"
 msgid "Opening directory..."
 msgstr "Kataloogi avamine..."
 
-#: kid3.cpp:1188
+#: kid3.cpp:1198
 msgid "Saving directory..."
 msgstr "Kataloogi salvestamine..."
 
-#: kid3.cpp:1282 kid3.cpp:1292
+#: kid3.cpp:1292 kid3.cpp:1302
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -1459,63 +1475,63 @@ msgstr ""
 "Kataloogi sisu on muudetud.\n"
 "Kas salvestada see?"
 
-#: kid3.cpp:1284
+#: kid3.cpp:1294
 msgid "Warning"
 msgstr "Hoiatus"
 
-#: kid3.cpp:1291
+#: kid3.cpp:1301
 msgid "Warning - Kid3"
 msgstr "Hoiatus - Kid3"
 
-#: kid3.cpp:1460 kid3.cpp:1464
+#: kid3.cpp:1470 kid3.cpp:1474
 msgid "All Supported Files"
 msgstr "Kõik toetatud failid"
 
-#: kid3.cpp:1462 kid3.cpp:1468
+#: kid3.cpp:1472 kid3.cpp:1478
 msgid "All Files (*)"
 msgstr "Kõik failid (*.*)"
 
-#: kid3.cpp:1496
+#: kid3.cpp:1506
 msgid "Open"
 msgstr "Avamine"
 
-#: kid3.cpp:1625
+#: kid3.cpp:1635
 msgid "Exiting..."
 msgstr "Väljumine..."
 
-#: kid3.cpp:1636
+#: kid3.cpp:1646
 msgid "Toggling toolbar..."
 msgstr "Tööriistariba lülitamine..."
 
-#: kid3.cpp:1651 kid3.cpp:1730
+#: kid3.cpp:1661 kid3.cpp:1740
 msgid "Toggle the statusbar..."
 msgstr "Lülita olekuriba..."
 
-#: kid3.cpp:1842
+#: kid3.cpp:1852
 msgid "Creating playlist..."
 msgstr "Esitusnimekirja loomine..."
 
-#: kid3.cpp:1930
+#: kid3.cpp:1940
 msgid "Import"
 msgstr "Import"
 
-#: kid3.cpp:1951
+#: kid3.cpp:1961
 msgid "Import..."
 msgstr "Impordi..."
 
-#: kid3.cpp:2307
+#: kid3.cpp:2317
 msgid "Configure - Kid3"
 msgstr "Seadistamine - Kid3"
 
-#: kid3.cpp:2921
+#: kid3.cpp:2983
 msgid "Download"
 msgstr "Allalaadimine"
 
-#: kid3.cpp:2987
+#: kid3.cpp:3049
 msgid " [filtered]"
 msgstr " [filtreeritud]"
 
-#: kid3.cpp:2993
+#: kid3.cpp:3055
 msgid " [modified]"
 msgstr " [muudetud]"
 
@@ -1916,11 +1932,11 @@ msgstr "Tulemuseta"
 msgid "No result selected"
 msgstr "Tulemust pole valitud"
 
-#: numbertracksdialog.cpp:64
+#: numbertracksdialog.cpp:65
 msgid "&Start number:"
 msgstr "&Algusnumber:"
 
-#: numbertracksdialog.cpp:77
+#: numbertracksdialog.cpp:78
 msgid "&Destination:"
 msgstr "&Sihtkoht:"
 
@@ -2002,23 +2018,23 @@ msgstr "Kirjutatakse ainult failide &loend"
 msgid "Write &info using"
 msgstr "Kirjutatakse &info:"
 
-#: playtoolbar.cpp:63
+#: playtoolbar.cpp:64
 msgid "Play/Pause"
 msgstr "Esitus/paus"
 
-#: playtoolbar.cpp:65
+#: playtoolbar.cpp:66
 msgid "Stop playback"
 msgstr "Peata esitus"
 
-#: playtoolbar.cpp:67
+#: playtoolbar.cpp:68
 msgid "Previous Track"
 msgstr "Eelmine lugu"
 
-#: playtoolbar.cpp:69
+#: playtoolbar.cpp:70
 msgid "Next Track"
 msgstr "Järgmine lugu"
 
-#: playtoolbar.cpp:71
+#: playtoolbar.cpp:72
 msgid "Close"
 msgstr "Sulge"
 
