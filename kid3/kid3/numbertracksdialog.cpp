@@ -93,7 +93,8 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 		QHBoxLayout* totalLayout = new QHBoxLayout;
 		if (totalLayout) {
 			totalLayout->setSpacing(6);
-			m_totalNumTracksCheckBox = new QCheckBox("&Total number of tracks:", this);
+			m_totalNumTracksCheckBox = new QCheckBox(i18n("&Total number of tracks:"),
+																							 this);
 			m_totalNumTrackSpinBox = new QSpinBox(this);
 			if (m_totalNumTracksCheckBox && m_totalNumTrackSpinBox) {
 				m_totalNumTrackSpinBox->QCM_setMaximum(999);
