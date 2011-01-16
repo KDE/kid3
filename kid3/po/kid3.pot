@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2011-01-15 14:20+0100\n"
+"POT-Creation-Date: 2011-01-15 17:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,13 +50,13 @@ msgstr ""
 #: browsecoverartdialog.cpp:160 configdialog.cpp:545 exportdialog.cpp:155
 #: filterdialog.cpp:100 importdialog.cpp:77 importsourcedialog.cpp:152
 #: kid3.cpp:775 kid3.cpp:787 musicbrainzdialog.cpp:139
-#: numbertracksdialog.cpp:112 playlistdialog.cpp:259 rendirdialog.cpp:105
+#: numbertracksdialog.cpp:113 playlistdialog.cpp:259 rendirdialog.cpp:105
 msgid "&Help"
 msgstr ""
 
 #: browsecoverartdialog.cpp:166 exportdialog.cpp:161 filterdialog.cpp:106
 #: importdialog.cpp:78 importsourcedialog.cpp:153 musicbrainzdialog.cpp:140
-#: numbertracksdialog.cpp:117 playlistdialog.cpp:263 rendirdialog.cpp:87
+#: numbertracksdialog.cpp:118 playlistdialog.cpp:263 rendirdialog.cpp:87
 #: rendirdialog.cpp:106
 msgid "&Save Settings"
 msgstr ""
@@ -67,7 +67,7 @@ msgstr ""
 
 #: browsecoverartdialog.cpp:177 configdialog.cpp:547 editframedialog.cpp:71
 #: editframefieldsdialog.cpp:1020 importdialog.cpp:80
-#: musicbrainzdialog.cpp:143 numbertracksdialog.cpp:132 playlistdialog.cpp:274
+#: musicbrainzdialog.cpp:143 numbertracksdialog.cpp:133 playlistdialog.cpp:274
 #: rendirdialog.cpp:108
 msgid "&Cancel"
 msgstr ""
@@ -304,7 +304,7 @@ msgid "&Appearance"
 msgstr ""
 
 #: configdialog.cpp:546 editframedialog.cpp:70 editframefieldsdialog.cpp:1019
-#: importdialog.cpp:79 musicbrainzdialog.cpp:141 numbertracksdialog.cpp:127
+#: importdialog.cpp:79 musicbrainzdialog.cpp:141 numbertracksdialog.cpp:128
 #: playlistdialog.cpp:271 rendirdialog.cpp:107
 msgid "&OK"
 msgstr ""
@@ -1537,7 +1537,7 @@ msgid "Kid3 ID3 Tagger"
 msgstr ""
 
 #: main.cpp:58
-msgid "(c) 2003-2010 Urs Fleisch"
+msgid "(c) 2003-2011 Urs Fleisch"
 msgstr ""
 
 #: main.cpp:60
@@ -1935,6 +1935,10 @@ msgstr ""
 
 #: numbertracksdialog.cpp:78
 msgid "&Destination:"
+msgstr ""
+
+#: numbertracksdialog.cpp:96
+msgid "&Total number of tracks:"
 msgstr ""
 
 #: picturelabel.cpp:85
