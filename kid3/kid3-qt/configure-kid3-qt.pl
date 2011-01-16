@@ -355,7 +355,7 @@ if ($from_configure) {
 	}
 }
 
-my $config_h = "#define VERSION \"1.5\"\n";
+my $config_h = "#define VERSION \"1.6\"\n";
 my $config_pri;
 if ($prefix) {
 	$config_h .= "#define CFG_PREFIX \"$prefix\"\n";

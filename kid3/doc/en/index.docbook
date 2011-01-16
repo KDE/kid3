@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2010</year>
+<year>2011</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2010-09-26</date>
-<releaseinfo>1.5</releaseinfo>
+<date>2011-01-15</date>
+<releaseinfo>1.6</releaseinfo>
 
 <abstract>
 <para>
@@ -291,6 +291,7 @@ into the filename:
 <listitem><para>%t %{track.n} Track with field width n (e.g. 001 for %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Track (without leading zeroes, e.g. 1)</para></listitem>
 <listitem><para>%g %{genre} Genre</para></listitem>
+<listitem><para>%g %{ignore} Ignored when generating tags from the file name</para></listitem>
 </itemizedlist>
 
 <para>
@@ -1075,6 +1076,9 @@ If the track numbers in the tags are not set or have the wrong values, this
 function can <action>number the tracks automatically in ascending
 order</action>. The start number can be set in the dialog. If only part of the
 tracks have to be numbered, they must be selected.
+</para><para>
+When <guilabel>Total number of tracks</guilabel> is checked, the number
+of tracks will also be set in the tags.
 </para></listitem>
 </varlistentry>
 

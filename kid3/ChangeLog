@@ -1,3 +1,19 @@
+Sat Jan 15 16:52:22 CET 2011  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 1.6
+
+	* Improved:
+	  + The total number of tracks can be set in the "Number Tracks"
+	    dialog.
+	  + All numeric fields can be padded with zeros.
+	  + Parts of the filename can be ignored when generating tags from
+	    the filename.
+	  + Updated Estonian, Italian and Czech translations.
+
+	* Fixed:
+	  + Track number digits option works now with ID3v2.4 and UTF8/UTF16.
+	  + Adapted to Discogs server update.
+
 Sun Sep 26 14:14:55 CEST 2010  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.5
@@ -198,7 +214,7 @@ Tue Nov 21 23:39:09 CET 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Fixed:
 	  + A new Custom genre was added on termination.
-	
+
 Sat Nov 11 11:02:44 CET 2006  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.8
@@ -273,7 +289,7 @@ Mon Jul 26 20:05:14 CEST 2004  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	* Rename and create directories from tags
 
 	* Display information about tags, bitrate, length, ...
-	
+
 Sat Jan 24 13:39:44 CET 2004  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 0.4
@@ -305,7 +321,7 @@ Sat Oct 18 16:40:42 CEST 2003  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Improved Unicode support, however some bugs in id3lib have to be
 	  fixed before this is of real use
-	
+
 Sat Sep 06 2003 Egor S. Orlov <oes@altlinux.ru> 0.2.1-alt0.1
 	* Added russian translation
 

@@ -1784,7 +1784,7 @@ void Kid3App::slotHelpAbout()
 	QMessageBox::about(
 		(Kid3App*)parent(), "Kid3",
 		"Kid3 " VERSION
-		"\n(c) 2003-2010 Urs Fleisch\nufleisch@users.sourceforge.net");
+		"\n(c) 2003-2011 Urs Fleisch\nufleisch@users.sourceforge.net");
 }
 
 /**

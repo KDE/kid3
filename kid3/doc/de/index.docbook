@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2010</year>
+<year>2011</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2010-09-26</date>
-<releaseinfo>1.5</releaseinfo>
+<date>2011-01-15</date>
+<releaseinfo>1.6</releaseinfo>
 
 <abstract>
 <para>
@@ -309,6 +309,7 @@ Werte aus den Tags im Dateinamen einzusetzen:
 <listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track, z.B. 1)</para></listitem>
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
+<listitem><para>%g %{ignore} Wird ignoriert wenn Tags aus dem Dateinamen erzeugt werden</para></listitem>
 </itemizedlist>
 
 <para>
@@ -1141,6 +1142,9 @@ lassen sich mit dieser Funktion <action>die Tracks automatisch aufsteigend
 nummerieren</action>. Im Dialog kann die <guilabel>Startnummer</guilabel>
 angegeben werden. Falls nur ein Teil der Tracks nummeriert werden soll, so
 sind diese vorgängig auszuwählen.
+</para><para>
+Wenn <guilabel>Anzahl Stücke</guilabel> markiert ist, wird auch
+die Anzahl Tracks in den Tags gesetzt.
 </para></listitem>
 </varlistentry>
 
