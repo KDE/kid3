@@ -2152,7 +2152,9 @@ void Kid3App::slotBrowseCoverArt()
 
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 /**
- * Read file with TagLib if it has an ID3v2.4 tag.
+ * Read file with TagLib if it has an ID3v2.4 or ID3v2.2 tag.
+ * ID3v2.2 files are also read with TagLib because id3lib corrupts
+ * images in ID3v2.2 tags.
  *
  * @param item       file list item, can be updated if not null
  * @param taggedFile tagged file
@@ -2164,16 +2166,18 @@ TaggedFile* Kid3App::readWithTagLibIfId3V24(FileListItem* item,
 {
 	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
 			!taggedFile->isChanged() &&
-			taggedFile->isTagInformationRead() && taggedFile->hasTagV2() &&
-			taggedFile->getTagFormatV2() == QString::null) {
-		TagLibFile* tagLibFile;
-		if ((tagLibFile = new TagLibFile(
-					 taggedFile->getDirInfo(),
-					 taggedFile->getFilename())) != 0) {
-			if (item)
-				item->setFile(tagLibFile);
-			taggedFile = tagLibFile;
-			taggedFile->readTags(false);
+			taggedFile->isTagInformationRead() && taggedFile->hasTagV2()) {
+		QString id3v2Version = taggedFile->getTagFormatV2();
+		if (id3v2Version.isNull() || id3v2Version == "ID3v2.2.0") {
+			TagLibFile* tagLibFile;
+			if ((tagLibFile = new TagLibFile(
+					taggedFile->getDirInfo(),
+					taggedFile->getFilename())) != 0) {
+				if (item)
+					item->setFile(tagLibFile);
+				taggedFile = tagLibFile;
+				taggedFile->readTags(false);
+			}
 		}
 	}
 	return taggedFile;
