@@ -421,21 +421,13 @@ int OggFile::getYearV2()
 /**
  * Get ID3v2 track.
  *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
+ * @return string,
+ *         "" if the field does not exist,
+ *         QString::null if the tags do not exist.
  */
-int OggFile::getTrackNumV2()
+QString OggFile::getTrackV2()
 {
-	QString str = getTextField("TRACKNUMBER");
-	if (str.isNull()) return -1;
-	if (str.isEmpty()) return 0;
-	// handle "track/total number of tracks" format
-	int slashPos = str.QCM_indexOf('/');
-	if (slashPos != -1) {
-		str.truncate(slashPos);
-	}
-	return str.toInt();
+	return getTextField("TRACKNUMBER");
 }
 
 /**
@@ -544,15 +536,17 @@ void OggFile::setYearV2(int num)
 /**
  * Set ID3v2 track.
  *
- * @param num number to set, 0 to remove field, < 0 to ignore.
+ * @param track string to set, "" to remove field, QString::null to ignore.
  */
-void OggFile::setTrackNumV2(int num)
+void OggFile::setTrackV2(const QString& track)
 {
+	int numTracks;
+	int num = splitNumberAndTotal(track, &numTracks);
 	if (num >= 0) {
 		QString str;
-		int numTracks = -1;
 		if (num != 0) {
-			numTracks = getTotalNumberOfTracksIfEnabled();
+			if (numTracks != 0)
+				numTracks = getTotalNumberOfTracksIfEnabled();
 			str.setNum(num);
 			formatTrackNumberIfEnabled(str, false);
 		} else {

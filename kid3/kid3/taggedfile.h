@@ -337,11 +337,11 @@ public:
 	/**
 	 * Get ID3v2 track.
 	 *
-	 * @return number,
-	 *         0 if the field does not exist,
-	 *         -1 if the tags do not exist.
+	 * @return string,
+	 *         "" if the field does not exist,
+	 *         QString::null if the tags do not exist.
 	 */
-	virtual int getTrackNumV2() = 0;
+	virtual QString getTrackV2() = 0;
 
 	/**
 	 * Remove ID3v2 frames.
@@ -397,9 +397,9 @@ public:
 	/**
 	 * Set ID3v2 track.
 	 *
-	 * @param num number to set, 0 to remove field.
+	 * @param track string to set, "" to remove field, QString::null to ignore.
 	 */
-	virtual void setTrackNumV2(int num) = 0;
+	virtual void setTrackV2(const QString& track) = 0;
 
 	/**
 	 * Set ID3v2 genre as text.
@@ -662,6 +662,16 @@ public:
 	unsigned getTruncationFlags() const { return m_truncation; }
 
 	/**
+	 * Format track number/total number of tracks with configured digits.
+	 *
+	 * @param num track number, <= 0 if empty
+	 * @param numTracks total number of tracks, <= 0 to disable
+	 *
+	 * @return formatted "track/total" string.
+	 */
+	QString trackNumberString(int num, int numTracks) const;
+
+	/**
 	 * Format the track number (digits, total number of tracks) if enabled.
 	 *
 	 * @param value    string containing track number, will be modified
@@ -732,12 +742,22 @@ protected:
 	 */
 	QString getCommentFieldName() const;
 
- /**
-	* Get the total number of tracks if it is enabled.
-	*
-	* @return total number of tracks,
-	*         -1 if disabled or unavailable.
-	*/
+	/**
+	 * Split a track string into number and total.
+	 *
+	 * @param str track
+	 * @param total the total is returned here if found, else 0
+	 *
+	 * @return number, 0 if parsing failed, -1 if str is null
+	 */
+	static int splitNumberAndTotal(const QString& str, int* total=0);
+
+	/**
+	 * Get the total number of tracks if it is enabled.
+	 *
+	 * @return total number of tracks,
+	 *         -1 if disabled or unavailable.
+	 */
 	int getTotalNumberOfTracksIfEnabled() const;
 
 	/**

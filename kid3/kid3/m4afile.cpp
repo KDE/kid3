@@ -1036,21 +1036,13 @@ int M4aFile::getYearV2()
 /**
  * Get ID3v2 track.
  *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
+ * @return string,
+ *         "" if the field does not exist,
+ *         QString::null if the tags do not exist.
  */
-int M4aFile::getTrackNumV2()
+QString M4aFile::getTrackV2()
 {
-	QString str(getTextField("trkn"));
-	if (!str.isNull()) {
-		int slashPos = str.QCM_indexOf('/');
-		if (slashPos != -1) {
-			str.truncate(slashPos);
-		}
-		return str.toInt();
-	}
-	return -1;
+	return getTextField("trkn");
 }
 
 /**
@@ -1125,15 +1117,18 @@ void M4aFile::setYearV2(int num)
 /**
  * Set ID3v2 track.
  *
- * @param num number to set, 0 to remove field, < 0 to ignore.
+ * @param track string to set, "" to remove field, QString::null to ignore.
  */
-void M4aFile::setTrackNumV2(int num)
+void M4aFile::setTrackV2(const QString& track)
 {
+	int numTracks;
+	int num = splitNumberAndTotal(track, &numTracks);
 	if (num >= 0) {
 		QString str;
 		if (num != 0) {
 			str.setNum(num);
-			int numTracks = getTotalNumberOfTracksIfEnabled();
+			if (numTracks == 0)
+				numTracks = getTotalNumberOfTracksIfEnabled();
 			if (numTracks > 0) {
 				str += '/';
 				str += QString::number(numTracks);

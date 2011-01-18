@@ -608,6 +608,30 @@ QString TaggedFile::getCommentFieldName() const
 }
 
 /**
+ * Split a track string into number and total.
+ *
+ * @param str track
+ * @param total the total is returned here if found, else 0
+ *
+ * @return number, 0 if parsing failed, -1 if str is null
+ */
+int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
+{
+	if (*total)
+		*total = 0;
+	if (str.isNull())
+		return -1;
+
+	int slashPos = str.QCM_indexOf('/');
+	if (slashPos == -1)
+		return str.toInt();
+
+	if (total)
+		*total = str.mid(slashPos + 1).toInt();
+	return str.left(slashPos).toInt();
+}
+
+/**
  * Get the total number of tracks if it is enabled.
  *
  * @return total number of tracks,
@@ -620,6 +644,38 @@ int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 		numTracks = m_dirInfo->getNumFiles();
 	}
 	return numTracks;
+}
+
+/**
+ * Format track number/total number of tracks with configured digits.
+ *
+ * @param num track number, <= 0 if empty
+ * @param numTracks total number of tracks, <= 0 to disable
+ *
+ * @return formatted "track/total" string.
+ */
+QString TaggedFile::trackNumberString(int num, int numTracks) const
+{
+	int numDigits = getTrackNumberDigits();
+	QString str;
+	if (num != 0) {
+		if (numDigits > 0) {
+			str.sprintf("%0*d", numDigits, num);
+		} else {
+			str.setNum(num);
+		}
+		if (numTracks > 0) {
+			str += '/';
+			if (numDigits > 0) {
+				str += QString().sprintf("%0*d", numDigits, numTracks);
+			} else {
+				str += QString::number(numTracks);
+			}
+		}
+	} else {
+		str = "";
+	}
+	return str;
 }
 
 /**
@@ -673,7 +729,7 @@ void TaggedFile::deleteFramesV2(const FrameFilter& flt)
 	if (flt.isEnabled(Frame::FT_Album))   setAlbumV2("");
 	if (flt.isEnabled(Frame::FT_Comment)) setCommentV2("");
 	if (flt.isEnabled(Frame::FT_Date))    setYearV2(0);
-	if (flt.isEnabled(Frame::FT_Track))   setTrackNumV2(0);
+	if (flt.isEnabled(Frame::FT_Track))   setTrackV2("");
 	if (flt.isEnabled(Frame::FT_Genre))   setGenreV2("");
 }
 
@@ -882,8 +938,7 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
 			frame.m_value = getTitleV2();
 			break;
 		case Frame::FT_Track:
-			n = getTrackNumV2();
-			number = true;
+			frame.m_value = getTrackV2();
 			break;
 		default:
 			// maybe handled in a subclass
@@ -912,8 +967,7 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
 bool TaggedFile::setFrameV2(const Frame& frame)
 {
 	int n = -1;
-	if (frame.m_type == Frame::FT_Date ||
-			frame.m_type == Frame::FT_Track) {
+	if (frame.m_type == Frame::FT_Date) {
 		if (frame.isInactive()) {
 			n = -1;
 		} else if (frame.isEmpty()) {
@@ -942,7 +996,7 @@ bool TaggedFile::setFrameV2(const Frame& frame)
 			setTitleV2(frame.m_value);
 			break;
 		case Frame::FT_Track:
-			setTrackNumV2(n);
+			setTrackV2(frame.m_value);
 			break;
 		default:
 			// maybe handled in a subclass

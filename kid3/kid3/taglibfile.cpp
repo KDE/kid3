@@ -690,16 +690,20 @@ int TagLibFile::getYearV2()
 /**
  * Get ID3v2 track.
  *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
+ * @return string,
+ *         "" if the field does not exist,
+ *         QString::null if the tags do not exist.
  */
-int TagLibFile::getTrackNumV2()
+QString TagLibFile::getTrackV2()
 {
 	if (m_tagV2) {
-		return m_tagV2->track();
+		int nr = m_tagV2->track();
+		if (nr == 0)
+			return "";
+		else
+			return QString::number(nr);
 	} else {
-		return -1;
+		return QString::null;
 	}
 }
 
@@ -1190,22 +1194,20 @@ void TagLibFile::setYearV2(int num)
 /**
  * Set ID3v2 track.
  *
- * @param num number to set, 0 to remove field.
+ * @param track string to set, "" to remove field, QString::null to ignore.
  */
-void TagLibFile::setTrackNumV2(int num)
+void TagLibFile::setTrackV2(const QString& track)
 {
+	int numTracks;
+	int num = splitNumberAndTotal(track, &numTracks);
+	if (numTracks == 0)
+		numTracks = getTotalNumberOfTracksIfEnabled();
 	if (makeTagV2Settable() && num >= 0) {
+		QString str = trackNumberString(num, numTracks);
 		if (num != static_cast<int>(m_tagV2->track())) {
 			TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
 			if (id3v2Tag) {
 				TagLib::ID3v2::TextIdentificationFrame* frame;
-				QString str;
-				if (num != 0) {
-					str.setNum(num);
-					formatTrackNumberIfEnabled(str, true);
-				} else {
-					str = "";
-				}
 				TagLib::String tstr = str.isEmpty() ?
 					TagLib::String::null : QSTRING_TO_TSTRING(str);
 				if (!setId3v2Unicode(m_tagV2, str, tstr, "TRCK")) {

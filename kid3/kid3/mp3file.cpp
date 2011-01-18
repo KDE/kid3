@@ -632,34 +632,15 @@ static bool setYear(ID3_Tag* tag, int num)
  *
  * @param tag ID3 tag
  * @param num number to set, 0 to remove field.
- * @param numTracks total number of tracks, -1 to ignore
- * @param numDigits number of digits, -1 to ignore
+ * @param numTracks total number of tracks, <=0 to ignore
  *
  * @return true if the field was changed.
  */
-static bool setTrackNum(ID3_Tag* tag, int num, int numTracks = -1,
-                        int numDigits = -1)
+bool Mp3File::setTrackNum(ID3_Tag* tag, int num, int numTracks) const
 {
 	bool changed = false;
 	if (num >= 0 && getTrackNum(tag) != num) {
-		QString str;
-		if (num != 0) {
-			if (numDigits > 0) {
-				str.sprintf("%0*d", numDigits, num);
-			} else {
-				str.setNum(num);
-			}
-			if (numTracks > 0) {
-				str += '/';
-				if (numDigits > 0) {
-					str += QString().sprintf("%0*d", numDigits, numTracks);
-				} else {
-					str += QString::number(numTracks);
-				}
-			}
-		} else {
-			str = "";
-		}
+		QString str = trackNumberString(num, numTracks);
 		changed = getTextField(tag, ID3FID_TRACKNUM) != str &&
 		          setTextField(tag, ID3FID_TRACKNUM, str);
 	}
@@ -844,13 +825,13 @@ int Mp3File::getYearV2()
 /**
  * Get ID3v2 track.
  *
- * @return number,
- *         0 if the field does not exist,
- *         -1 if the tags do not exist.
+ * @return string,
+ *         "" if the field does not exist,
+ *         QString::null if the tags do not exist.
  */
-int Mp3File::getTrackNumV2()
+QString Mp3File::getTrackV2()
 {
-	return getTrackNum(m_tagV2);
+	return getTextField(m_tagV2, ID3FID_TRACKNUM);
 }
 
 /**
@@ -1041,13 +1022,15 @@ void Mp3File::setYearV2(int num)
 /**
  * Set ID3v2 track.
  *
- * @param num number to set, 0 to remove field.
+ * @param track string to set, "" to remove field, QString::null to ignore.
  */
-void Mp3File::setTrackNumV2(int num)
+void Mp3File::setTrackV2(const QString& track)
 {
-	int numTracks = getTotalNumberOfTracksIfEnabled();
-	int numDigits = getTrackNumberDigits();
-	if (setTrackNum(m_tagV2, num, numTracks, numDigits)) {
+	int numTracks;
+	int num = splitNumberAndTotal(track, &numTracks);
+	if (numTracks == 0)
+		numTracks = getTotalNumberOfTracksIfEnabled();
+	if (setTrackNum(m_tagV2, num, numTracks)) {
 		markTag2Changed(Frame::FT_Track);
 	}
 }

@@ -151,11 +151,11 @@ public:
 	/**
 	 * Get ID3v2 track.
 	 *
-	 * @return number,
-	 *         0 if the field does not exist,
-	 *         -1 if the tags do not exist.
+	 * @return string,
+	 *         "" if the field does not exist,
+	 *         QString::null if the tags do not exist.
 	 */
-	virtual int getTrackNumV2();
+	virtual QString getTrackV2();
 
 	/**
 	 * Get ID3v2 genre as text.
@@ -204,9 +204,9 @@ public:
 	/**
 	 * Set ID3v2 track.
 	 *
-	 * @param num number to set, 0 to remove field.
+	 * @param track string to set, "" to remove field, QString::null to ignore.
 	 */
-	virtual void setTrackNumV2(int num);
+	virtual void setTrackV2(const QString& track);
 
 	/**
 	 * Set ID3v2 genre as text.
