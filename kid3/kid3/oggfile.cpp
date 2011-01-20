@@ -545,8 +545,6 @@ void OggFile::setTrackV2(const QString& track)
 	if (num >= 0) {
 		QString str;
 		if (num != 0) {
-			if (numTracks != 0)
-				numTracks = getTotalNumberOfTracksIfEnabled();
 			str.setNum(num);
 			formatTrackNumberIfEnabled(str, false);
 		} else {

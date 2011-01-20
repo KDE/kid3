@@ -1200,8 +1200,6 @@ void TagLibFile::setTrackV2(const QString& track)
 {
 	int numTracks;
 	int num = splitNumberAndTotal(track, &numTracks);
-	if (numTracks == 0)
-		numTracks = getTotalNumberOfTracksIfEnabled();
 	if (makeTagV2Settable() && num >= 0) {
 		QString str = trackNumberString(num, numTracks);
 		if (num != static_cast<int>(m_tagV2->track())) {

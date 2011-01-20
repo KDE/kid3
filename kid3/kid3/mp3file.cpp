@@ -1028,8 +1028,6 @@ void Mp3File::setTrackV2(const QString& track)
 {
 	int numTracks;
 	int num = splitNumberAndTotal(track, &numTracks);
-	if (numTracks == 0)
-		numTracks = getTotalNumberOfTracksIfEnabled();
 	if (setTrackNum(m_tagV2, num, numTracks)) {
 		markTag2Changed(Frame::FT_Track);
 	}
