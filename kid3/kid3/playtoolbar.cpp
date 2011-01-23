@@ -36,6 +36,7 @@
 #include <QApplication>
 #include <QStyle>
 #include <QLabel>
+#include <QSplitter>
 #include <phonon/audiooutput.h>
 #include <phonon/mediaobject.h>
 #include <phonon/seekslider.h>
@@ -71,12 +72,13 @@ PlayToolBar::PlayToolBar(QWidget* parent) : QToolBar(parent), m_fileNr(-1)
 	QAction* closeAction = new QAction(
 		style()->standardIcon(QStyle::SP_TitleBarCloseButton), i18n("Close"), this);
 
-	m_titleLabel = new QLabel(this);
-	m_titleLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+	QSplitter* splitter = new QSplitter(this);
+	m_titleLabel = new QLabel(splitter);
 
-	Phonon::SeekSlider* seekSlider = new Phonon::SeekSlider(this);
+	Phonon::SeekSlider* seekSlider = new Phonon::SeekSlider(splitter);
 	seekSlider->setMediaObject(m_mediaObject);
 	seekSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	seekSlider->setIconVisible(false);
 	Phonon::VolumeSlider* volumeSlider = new Phonon::VolumeSlider(this);
 	volumeSlider->setAudioOutput(m_audioOutput);
 	volumeSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -86,12 +88,11 @@ PlayToolBar::PlayToolBar(QWidget* parent) : QToolBar(parent), m_fileNr(-1)
 	m_timeLcd->setFrameStyle(QFrame::NoFrame);
 	m_timeLcd->display(zeroTime);
 
-	addWidget(m_titleLabel);
 	addAction(m_playOrPauseAction);
 	addAction(m_stopAction);
 	addAction(m_previousAction);
 	addAction(m_nextAction);
-	addWidget(seekSlider);
+	addWidget(splitter);
 	addWidget(volumeSlider);
 	addWidget(m_timeLcd);
 	addAction(closeAction);
