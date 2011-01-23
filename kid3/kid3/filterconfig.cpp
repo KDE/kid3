@@ -51,6 +51,7 @@ FilterConfig::FilterConfig(const QString& grp) :
 		"Filename Tag Mismatch" <<
 		"No Tag 1" <<
 		"No Tag 2" <<
+		"ID3v2.2.0 Tag" <<
 		"ID3v2.3.0 Tag" <<
 		"ID3v2.4.0 Tag" <<
 		"Tag 1 != Tag 2" <<
@@ -62,6 +63,7 @@ FilterConfig::FilterConfig(const QString& grp) :
 		"not (%{filepath} contains \"%{artist} - %{album}/%{track} %{title}\")" <<
 		"%{tag1} equals \"\"" <<
 		"%{tag2} equals \"\"" <<
+		"%{tag2} equals \"ID3v2.2.0\"" <<
 		"%{tag2} equals \"ID3v2.3.0\"" <<
 		"%{tag2} equals \"ID3v2.4.0\"" <<
 		"not (%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre})" <<
