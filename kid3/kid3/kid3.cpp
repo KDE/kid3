@@ -747,6 +747,7 @@ void Kid3App::initActions()
 	}
 #if QT_VERSION >= 0x040000
 	QToolBar* toolBar = new QToolBar(this);
+	toolBar->setObjectName("MainToolbar");
 	toolBar->addAction(fileOpen);
 	toolBar->addAction(fileSave);
 	toolBar->addAction(fileRevert);
