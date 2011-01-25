@@ -1338,16 +1338,13 @@ bool Kid3App::saveModified()
 void Kid3App::cleanup()
 {
 #ifndef CONFIG_USE_KDE
-#ifdef _MSC_VER
-	// A _BLOCK_TYPE_IS_VALID assertion pops up if config is deleted
-	// on Windows, MSVC 2005, Qt 4.1.2
+#if QT_VERSION >= 0x030100
 	m_config->sync();
 #else
 	delete m_config;
 #endif
 #elif KDE_VERSION >= 0x035c00
 	m_config->sync();
-	delete m_config;
 #endif
 	TaggedFile::staticCleanup();
 }
