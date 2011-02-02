@@ -10,145 +10,13 @@ use File::Basename;
 use File::Spec;
 use File::Copy;
 
-my $topdir = File::Spec->rel2abs(dirname($0). "/..");
-my $lupdate_cmd = "lupdate";
-
-# Read all source files given in the parameter list and copy them to the
-# current directory, replaceing i18n by tr and I18N_NOOP by QT_TRANSLATE_NOOP.
-sub createTranslateSources(@)
-{
-	my @sources = @_;
-	foreach my $file (@sources) {
-		open IF, $file or die "Could not open $file: $!\n";
-		my $outfn = basename($file);
-		open OF, ">$outfn" or die "Could not create $outfn: $!\n";
-		while (<IF>) {
-			s/i18n\(/tr(/g;
-			s/KCM_i18n1\(([^,]+), ([^)]+)\)/tr($1).arg($2)/g;
-			s/KCM_i18n2\(([^,]+), ([^,]+), ([^)]+)\)/tr($1).arg($2).arg($3)/g;
-			s/I18N_NOOP\(/QT_TRANSLATE_NOOP("\@default", /g;
-			print OF $_;
-		}				
-		close OF;
-		close IF;
-	}
+my $topdir;
+my $lupdate_cmd;
+BEGIN {
+ $topdir = File::Spec->rel2abs(dirname($0). "/..");
+ $lupdate_cmd = "lupdate";
 }
-
-# Read all translations from a .po file, fill them into an associative
-# array.
-sub getPoTranslations($)
-{
-	my $fn = shift;
-	my $msgid;
-	my $msgstr;
-	my $in_msgid = 0;
-	my $in_msgstr = 0;
-	my %trans;
-	open IF, $fn or die "Could not open $fn: $!\n";
-	while (<IF>) {
-		s/\r\n/\n/;
-		if (/^msgid "(.*)"$/) {
-			if ($msgid) {
-				$trans{$msgid} = $msgstr;
-			}
-			$msgid = $1;
-			$msgstr = "";
-			$in_msgid = 1;
-			$in_msgstr = 0;
-		}
-		if (/^msgstr "(.*)"$/) {
-			$msgstr = $1;
-			$in_msgid = 0;
-			$in_msgstr = 1;
-		}
-		if (/^"(.+)"$/) {
-			if ($in_msgid) {
-				$msgid .= $1;
-			} elsif ($in_msgstr) {
-				$msgstr .= $1;
-			}
-		}
-	}
-	close IF;
-	if ($msgid) {
-		$trans{$msgid} = $msgstr;
-	}
-	return %trans;
-}
-
-# Set the translations in a .ts file replacing & by &amp;, < by &lt; and > by &gt;.
-sub setTsTranslations($$%)
-{
-	my $infn = shift;
-	my $outfn = shift;
-	my %trans = @_;
-	my $source;
-	my $translation;
-	my $in_source = 0;
-	open IF, $infn or die "Could not open $infn: $!\n";
-	open OF, ">$outfn" or die "Could not create $outfn: $!\n";
-	while (<IF>) {
-		s/\r\n/\n/;
-		if (/<source>(.*)<\/source>/) {
-			$source = $1;
-			$in_source = 0;
-		} elsif (/<source>(.*)$/) {
-			$source = $1;
-			$in_source = 1;
-		} elsif ($in_source) {
-			if (/^(.*)<\/source>/) {
-				$source .= "\n$1";
-				$in_source = 0;
-			} else {
-				my $line = $_;
-				chomp $line;
-				$source .= "\n$line";
-			}
-		} elsif (/<translation/) {
-			$source =~ s/&amp;/&/g;
-			$source =~ s/&lt;/</g;
-			$source =~ s/&gt;/>/g;
-			$source =~ s/\n/\\n/g;
-			if (exists $trans{$source}) {
-				$translation = $trans{$source};
-				$translation =~ s/&/&amp;/g;
-				$translation =~ s/</&lt;/g;
-				$translation =~ s/>/&gt;/g;
-				$translation =~ s/\\"/&quot;/g;
-				$translation =~ s/\\n/\n/g;
-				s/ type="unfinished"//;
-				s/<\/translation>/$translation<\/translation>/;
-			} else {
-				print "Could not find translation for \"$source\"\n";
-			}
-		}
-		print OF $_;
-	}
-	close OF;
-	close IF;
-}
-
-# Generate .ts files from .po files.
-sub generateTs()
-{
-	my @pofiles = glob "$topdir/po/*.po";
-	my @languages = map { /^.*\W(\w+)\.po$/ } @pofiles;
-	my $tmpdir = ".tsdir";
-	mkdir $tmpdir unless -d $tmpdir;
-	mkdir "po" unless -d "po";
-	chdir $tmpdir or die "Could not change to $tmpdir: $!\n";
-	my @sources = glob "$topdir/kid3/*.cpp";
-	createTranslateSources(@sources);
-	system "$lupdate_cmd " . join ' ', glob "*.cpp" . " -ts ". join ' ', map { "kid3_". $_ . ".ts" } @languages;
-	foreach my $lang (@languages) { 
-		setTsTranslations("kid3_$lang.ts", "../po/kid3_$lang.ts",
-											getPoTranslations("$topdir/po/$lang.po"));
-	}
-	unlink <*>;
-	chdir "..";
-	rmdir $tmpdir;
-}
-
+require "$topdir/po/po2ts.pl";
 
 my $have_vorbis = 1;
 my $have_flac = 1;
@@ -598,51 +466,12 @@ copy("$topdir/kid3/hi32-app-kid3.png", "kid3/hi32-app-kid3-qt.png");
 copy("$topdir/kid3/hi48-app-kid3.png", "kid3/hi48-app-kid3-qt.png");
 copy("$topdir/kid3/hisc-app-kid3.svgz", "kid3/hisc-app-kid3-qt.svgz");
 
-mkdir "doc" unless -d "doc";
-$fn = "doc/fixdocbook.pl";
-open OF, ">$fn" or die "Cannot open $fn: $!\n";
-print OF <<"EOF";
-#!/usr/bin/perl -n
-s/"-\\/\\/KDE\\/\\/DTD DocBook XML V4.2-Based Variant V1.1\\/\\/EN" "dtd\\/kdex.dtd"/"-\\/\\/OASIS\\/\\/DTD DocBook XML V4.2\\/\\/EN" "http:\\/\\/www.oasis-open.org\\/docbook\\/xml\\/4.2\\/docbookx.dtd"/;
-s/<!ENTITY % German "INCLUDE">/<!ENTITY language "de">/;
-s/<!ENTITY % English "INCLUDE">/<!ENTITY language "en">/;
-s/ufleisch@/ufleisch at /g;
-s/&FDLNotice;/<para><ulink url="http:\\/\\/www.gnu.org\\/licenses\\/licenses.html#FDL">FDL<\\/ulink><\\/para>/g;
-s/&underFDL;/<para><ulink url="http:\\/\\/www.gnu.org\\/licenses\\/licenses.html#FDL">FDL<\\/ulink><\\/para>/g;
-s/&underGPL;/<para><ulink url="http:\\/\\/www.gnu.org\\/licenses\\/licenses.html#GPL">GPL<\\/ulink><\\/para>/g;
-s/&documentation.index;//g;
-print;
-EOF
-print "creating $fn\n";
-close OF;
-
-$fn = "doc/fixhtml.pl";
-open OF, ">$fn" or die "Cannot open $fn: $!\n";
-print OF <<"EOF";
-#!/usr/bin/perl -n
-s/^><TITLE\$/><meta http-equiv="content-type" content="text\\/html; charset=UTF-8"\\n><TITLE/ms;
-s/<\\/title/<\\/title>\\
-<style type="text\\/css">\\
-body { font-family: Arial, Helvetica, sans-serif; color: #000000; background: #ffffff; }\\
-h1, h2, h3, h4 { text-align: left; font-weight: bold; color: #f7800a; background: transparent; }\\
-a:link { color: #0057ae; }\\
-pre { display: block; color: #000000; background: #f9f9f9; border: #2f6fab dashed; border-width: 1px; overflow: auto; line-height: 1.1em; }\\
-dt { font-weight: bold; color: #0057ae; }\\
-p { text-align: justify; }\\
-li { text-align: left; }\\
-.guibutton, .guilabel, .guimenu, .guimenuitem { font-family: Arial, Helvetica, sans-serif; color: #000000; background: #dcdcdc; }\\
-.application { font-weight: bold; }\\
-.command { font-family: "Courier New", Courier, monospace; }\\
-.filename { font-style: italic; }\\
-<\\/style/i;
-print;
-EOF
-print "creating $fn\n";
-close OF;
-
 if ($generate_ts) {
 	print "creating .ts files\n";
-	generateTs();
+	mkdir "po" unless -d "po";
+	chdir "po";
+	po2ts::generateTs($lupdate_cmd, "$topdir/po", "$topdir/kid3");
+	chdir "..";
 }
 
 print "starting $qmake_cmd\n";
@@ -656,6 +485,7 @@ if ($^O eq "darwin") {
 	chdir "po";
 	system "$qmake_cmd $topdir/po/po.pro";
 	chdir "..";
+	mkdir "doc" unless -d "doc";
 	chdir "doc";
 	mkdir "en" unless -d "en";
 	mkdir "de" unless -d "de";

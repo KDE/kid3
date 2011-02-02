@@ -36,3 +36,7 @@
 
 /* Define if you have Phonon installed */
 #cmakedefine HAVE_PHONON 1
+
+#cmakedefine CFG_DATAROOTDIR "@CFG_DATAROOTDIR@"
+#cmakedefine CFG_DOCDIR "@CFG_DOCDIR@"
+#cmakedefine CFG_TRANSLATIONSDIR "@CFG_TRANSLATIONSDIR@"
