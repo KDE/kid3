@@ -1658,7 +1658,7 @@ For a KDE 4 version, go into the top directory and type
 </para>
 <para>
 To compile for different versions of Qt or KDE, set the corresponding
-<userinput>configure</userinput> options.
+<userinput>cmake</userinput> options.
 </para>
 <para>
 If not all libraries are present, &kid3; is built with reduced functionality.
@@ -1671,57 +1671,19 @@ libraries are compiled in. The default is
 <userinput>OFF</userinput>.
 </para>
 <para>
-To build &kid3; as a Qt application without KDE, use
-<userinput>configure</userinput> and <userinput>make</userinput>
-from the <filename>kid3-qt</filename> directory. The
-<userinput>configure</userinput> script can be generated with
-<userinput>autoconf</userinput>.
-<screen width="40">
-<prompt>%</prompt> <userinput>cd kid3-qt</userinput>
-<prompt>%</prompt> <userinput>./configure</userinput>
-<prompt>%</prompt> <userinput>make</userinput>
-<prompt>%</prompt> <userinput>make install</userinput>
-</screen>
-</para>
-<para>
-Available options are
-<userinput>--with-kde --with-id3lib --with-vorbis --with-flac --with-taglib
---with-musicbrainz</userinput> and can be disabled using <userinput>--without-
-</userinput>. If multiple versions of Qt are installed, the version can be set
-e.g. using <userinput>--with-qmake=qmake-qt4</userinput>.
+To build &kid3; as a Qt application without KDE, use the
+<userinput>cmake</userinput> option <userinput>-DWITH_KDE=OFF</userinput>.
 </para>
 <para>
 Generation of RPM-Packages is supported by the
 file <filename>kid3.spec</filename>, for Debian-Packages,
 the script <filename>build-deb.sh</filename>is available.
 </para>
-<para>
-To build &kid3; with KDE 3, use <command>configure</command>:
-<screen width="40">
-<prompt>%</prompt> <userinput>./configure</userinput>
-<prompt>%</prompt> <userinput>make</userinput>
-<prompt>%</prompt> <userinput>make install</userinput>
-</screen>
-</para>
-<para>
-If the sources are downloaded from Subversion, the
-<userinput>configure</userinput> script can be built with 
-<screen width="40">
-<prompt>%</prompt> <userinput>make -f Makefile.cvs</userinput>
-</screen>
-</para>
-<para>
-To speed up compilation, &kid3; can use precompiled headers with GCC
-3.4 and above. Start <userinput>configure</userinput> with the option
-<userinput>--enable-gcc-pch</userinput> (and setting CC and CXX to gcc and g++
-of GCC 3.4 if it is not the default compiler). Then create a precompiled system
-include file with <userinput>make pch</userinput>.
-</para>
 
 <para>
 The Qt application can also be compiled for Windows and Mac OS X.
 The scripts in the folders <filename>win32</filename> and
-<filename>macosx</filename>  can be used to build and create packages.
+<filename>macosx</filename> can be used to build and create packages.
 The libraries can be installed using <filename>buildlibs.sh</filename>.
 </para>
 

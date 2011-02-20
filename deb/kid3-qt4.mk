@@ -6,32 +6,40 @@ DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-CONFIGURE_DEBUG_OPTIONS = --enable-debug
+DEB_CMAKE_EXTRA_FLAGS += -DCMAKE_BUILD_TYPE=Debug
+else
+DEB_CMAKE_EXTRA_FLAGS += -DCMAKE_BUILD_TYPE=Release
 endif
 
-QMAKE = qmake-qt4
-DEB_CONFIGURE_PREFIX = /usr
+DEB_CMAKE_PREFIX ?= /usr
+
+DEB_CMAKE_EXTRA_FLAGS += \
+			-DWITH_KDE=OFF \
+			-DWITH_DATAROOTDIR=share \
+			-DWITH_DOCDIR=share/doc/kid3-qt \
+			-DWITH_TRANSLATIONSDIR=share/kid3-qt/translations \
+			-DWITH_BINDIR=bin
+
+CMAKE = cmake
+DEB_CMAKE_INSTALL_PREFIX = $(DEB_CMAKE_PREFIX)
+DEB_CMAKE_NORMAL_ARGS = -DCMAKE_INSTALL_PREFIX="$(DEB_CMAKE_INSTALL_PREFIX)" -DCMAKE_C_COMPILER:FILEPATH="$(CC)" -DCMAKE_CXX_COMPILER:FILEPATH="$(CXX)" -DCMAKE_C_FLAGS="$(CFLAGS)" -DCMAKE_CXX_FLAGS="$(CXXFLAGS)" -DCMAKE_SKIP_RPATH=ON -DCMAKE_VERBOSE_MAKEFILE=ON
 
 build: kid3-qt4.build-stamp
 
-kid3-qt/configure: kid3-qt/configure.in
-	cd kid3-qt && autoconf
-
-kid3-qt4.build-stamp: kid3-qt/configure
+kid3-qt4.build-stamp:
 	mkdir kid3-qt4; \
 	cd kid3-qt4; \
-	../kid3-qt/configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
-	            --prefix=$(DEB_CONFIGURE_PREFIX) --with-qmake=$(QMAKE) $(CONFIGURE_DEBUG_OPTIONS); \
+	$(CMAKE) .. $(DEB_CMAKE_NORMAL_ARGS) $(DEB_CMAKE_EXTRA_FLAGS); \
 	cd ..; \
 	$(MAKE) -C kid3-qt4
 
 	touch kid3-qt4.build-stamp
 
 clean: 
-	[ ! -f kid3-qt4/Makefile ] || $(MAKE) -C kid3-qt4 distclean
+	[ ! -f kid3-qt4/Makefile ] || $(MAKE) -C kid3-qt4 clean
 	-rm -rf kid3-qt4.build-stamp kid3-qt4
 
 install: build
-	$(MAKE) -C kid3-qt4 install INSTALL_ROOT=$(CURDIR)/debian/kid3-qt
+	$(MAKE) -C kid3-qt4 install DESTDIR=$(CURDIR)/debian/kid3-qt
 
 .PHONY: build clean install

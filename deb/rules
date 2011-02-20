@@ -3,11 +3,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-ifneq ($(filter hardy lenny,$(shell lsb_release -cs)),)
-PACKAGE_MAKEFILES = kid3-kde3.mk kid3-qt3.mk
-else
 PACKAGE_MAKEFILES = kid3-kde4.mk kid3-qt4.mk
-endif
 
 DEBVERSION:=$(shell head -n 1 debian/changelog \
                     | sed -e 's/^[^(]*(\([^)]*\)).*/\1/')
@@ -23,9 +19,9 @@ endif
 ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 	INSTALL_PROGRAM += -s
 endif
-		
+
 build: build-stamp
-	
+
 build-stamp:
 	dh_testdir
 
@@ -33,7 +29,7 @@ build-stamp:
 
 	touch build-stamp
 
-clean: 
+clean:
 	dh_testdir
 	dh_testroot
 

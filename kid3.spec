@@ -61,17 +61,14 @@ cd ..
 
 mkdir qt-build
 cd qt-build; \
-../kid3-qt/configure --prefix=/usr; \
+cmake -DWITH_KDE=OFF -DCMAKE_SKIP_RPATH=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..; \
 make %{?_smp_mflags}; \
 cd ..
 
 %install
-# qmake generates wrong relative paths if the build and prefix are below /usr.
-# This fixes the case for prefix /usr
-find qt-build -name Makefile -exec sed -i 's|$(INSTALL_ROOT)\(../\)\{6,7\}|$(INSTALL_ROOT)/usr/|g' {} \;
 mkdir -p ${RPM_BUILD_ROOT}/%{_defaultdocdir}
 make -C kde-build install DESTDIR=${RPM_BUILD_ROOT}
-make -C qt-build install INSTALL_ROOT=${RPM_BUILD_ROOT}
+make -C qt-build install DESTDIR=${RPM_BUILD_ROOT}
 install -Dpm 644 deb/kid3.1 $RPM_BUILD_ROOT%{_mandir}/man1/kid3.1
 
 test -d $RPM_BUILD_ROOT/usr/bin && strip $RPM_BUILD_ROOT/usr/bin/*
