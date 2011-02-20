@@ -25,12 +25,8 @@
  */
 
 #include "editframedialog.h"
-#include <qpushbutton.h>
-#if QT_VERSION >= 0x040000
+#include <QPushButton>
 #include <QVBoxLayout>
-#else
-#include <qlayout.h>
-#endif
 
 /**
  * Constructor.
@@ -44,23 +40,15 @@ EditFrameDialog::EditFrameDialog(QWidget* parent, const QString& caption,
 	QDialog(parent)
 {
 	setModal(true);
-	QCM_setWindowTitle(caption);
+	setWindowTitle(caption);
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (vlayout) {
 		vlayout->setSpacing(6);
 		vlayout->setMargin(6);
 		m_edit = new QTextEdit(this);
 		if (m_edit) {
-			m_edit->QCM_setPlainText(text);
-#if QT_VERSION >= 0x040200
+			m_edit->setPlainText(text);
 			m_edit->moveCursor(QTextCursor::End);
-#elif QT_VERSION >= 0x040000
-			QTextCursor cursor = m_edit->textCursor();
-			cursor.movePosition(QTextCursor::End);
-			m_edit->setTextCursor(cursor);
-#else
-			m_edit->moveCursor(QTextEdit::MoveEnd, false);
-#endif
 			vlayout->addWidget(m_edit);
 		}
 	}
@@ -78,11 +66,7 @@ EditFrameDialog::EditFrameDialog(QWidget* parent, const QString& caption,
 		connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		vlayout->addLayout(hlayout);
 	}
-#if QT_VERSION >= 0x040000
 	setMinimumWidth(400);
-#else
-	resize(400, -1);
-#endif
 }
 
 /**

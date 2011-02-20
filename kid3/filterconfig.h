@@ -27,7 +27,7 @@
 #ifndef FILTERCONFIG_H
 #define FILTERCONFIG_H
 
-#include <qstringlist.h>
+#include <QStringList>
 #include "config.h"
 #include "generalconfig.h"
 

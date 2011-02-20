@@ -27,22 +27,14 @@
 #ifndef CONFIGTABLE_H
 #define CONFIGTABLE_H
 
-#include <qmap.h>
-#include "qtcompatmac.h"
-/** The base class depends on the Qt version and is a table widget. */
-#if QT_VERSION >= 0x040000
+#include <QMap>
 #include <QTableWidget>
-typedef QTableWidget ConfigTableBaseClass;
-#else 
-#include <qtable.h>
-typedef QTable ConfigTableBaseClass;
-class QAction;
-#endif
+#include "qtcompatmac.h"
 
 /**
  * Table with context menu to add and remove rows.
  */
-class ConfigTable : public ConfigTableBaseClass {
+class ConfigTable : public QTableWidget {
 Q_OBJECT
 
 public:

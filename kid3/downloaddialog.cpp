@@ -26,7 +26,7 @@
 
 #include "downloaddialog.h"
 #include "httpclient.h"
-#include <qstring.h>
+#include <QString>
 #include "qtcompatmac.h"
 
 /**
@@ -38,7 +38,7 @@
 DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption) :
 	QProgressDialog(parent), m_client(0)
 {
-	QCM_setWindowTitle(caption);
+	setWindowTitle(caption);
 	connect(this, SIGNAL(canceled()),
 					this, SLOT(cancelDownload()));
 }
@@ -64,12 +64,8 @@ void DownloadDialog::updateProgressStatus(const QString& msg,
 {
 	setLabelText(m_url + '\n' + msg);
 	if (receivedBytes >= 0 && totalBytes >= 0) {
-#if QT_VERSION >= 0x040000
 		setRange(0, totalBytes);
 		setValue(receivedBytes);
-#else
-		setProgress(receivedBytes, totalBytes);
-#endif
 	}
 }
 

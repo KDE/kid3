@@ -32,7 +32,7 @@
 
 #include "taggedfile.h"
 #include "qtcompatmac.h"
-#include <qmap.h>
+#include <QMap>
 
 /** MPEG-4 audio file */
 class M4aFile : public TaggedFile {

@@ -207,11 +207,7 @@ private:
 
 #ifdef HAVE_FLAC_PICTURE
 	/** Pictures */
-#if QT_VERSION >= 0x040000
 	typedef QList<Frame> PictureList;
-#else
-	typedef QValueList<Frame> PictureList;
-#endif
 	PictureList m_pictures;
 #endif // HAVE_FLAC_PICTURE
 

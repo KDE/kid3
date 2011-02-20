@@ -27,18 +27,10 @@
 #ifndef FILELIST_H
 #define FILELIST_H
 
-#include <qstring.h>
-#include <qsize.h>
-#include "qtcompatmac.h"
-/** The base class depends on the Qt version and is a tree widget. */
-#if QT_VERSION >= 0x040000
+#include <QString>
+#include <QSize>
 #include <QTreeWidget>
-typedef QTreeWidget FileListBaseClass;
-#else
-#include <qlistview.h>
-typedef QListView FileListBaseClass;
-class QAction;
-#endif
+#include "qtcompatmac.h"
 #include "dirinfo.h"
 
 class Kid3App;
@@ -49,7 +41,7 @@ class ExternalProcess;
 /**
  * List of files to operate on.
  */
-class FileList : public FileListBaseClass
+class FileList : public QTreeWidget
 {
 Q_OBJECT
 
@@ -187,7 +179,6 @@ public:
 	 */
 	const DirInfo* getDirInfo() const { return &m_dirInfo; }
 
-#if QT_VERSION >= 0x040000
 	/**
 	 * Get the stored current selection.
 	 * @return stored selection.
@@ -207,7 +198,6 @@ public:
 	void updateCurrentSelection() {
 		m_currentSelection = selectedItems();
 	}
-#endif
 
 	/**
 	 * Fill the filelist with the files found in the directory tree.
@@ -244,11 +234,7 @@ private slots:
 	 * @param item list box item
 	 * @param pos  position where context menu is drawn on screen
 	 */
-#if QT_VERSION >= 0x040000
 	void contextMenu(QTreeWidgetItem* item, const QPoint& pos);
-#else
-	void contextMenu(QListViewItem* item, const QPoint& pos);
-#endif
 
 	/**
 	 * Execute a context menu command.
@@ -349,18 +335,12 @@ private:
 	/** information about directory */
 	DirInfo m_dirInfo;
 	/** iterator pointing to current file */
-#if QT_VERSION >= 0x040000
 	QTreeWidgetItemIterator* m_iterator;
-#else
-	QListViewItemIterator m_iterator;
-#endif
 	/** current item in current directory */
 	FileListItem* m_currentItemInDir;
 	/** Process for context menu commands */
 	ExternalProcess* m_process;
-#if QT_VERSION >= 0x040000
 	QList<QTreeWidgetItem*> m_currentSelection;
-#endif
 	Kid3App* m_app;
 };
 

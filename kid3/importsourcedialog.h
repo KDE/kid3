@@ -29,14 +29,10 @@
 
 #include "config.h"
 #include "importtrackdata.h"
-#include <qdialog.h>
-#include <qstring.h>
+#include <QDialog>
+#include <QString>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QListWidget>
-#else
-#include <qlistbox.h>
-#endif
 
 class QLineEdit;
 class QComboBox;
@@ -213,11 +209,7 @@ private slots:
 	 *
 	 * @param li list box item containing an AlbumListItem
 	 */
-#if QT_VERSION >= 0x040000
 	void requestTrackList(QListWidgetItem* li);
-#else
-	void requestTrackList(QListBoxItem* li);
-#endif
 
 	/**
 	 * Request track list from server.
@@ -250,11 +242,7 @@ signals:
 	void trackDataUpdated();
 
 protected:
-#if QT_VERSION >= 0x040000
 	QListWidget* m_albumListBox; /**< list box with albums to select */
-#else
-	QListBox* m_albumListBox; /**< list box with albums to select */
-#endif
 	ImportTrackDataVector& m_trackDataVector; /**< vector with tracks to import */
 
 private:
@@ -277,17 +265,10 @@ private:
 	const Properties& m_props;
 };
 
-/** The base class depends on the Qt version and is a list widget item. */
-#if QT_VERSION >= 0x040000
-typedef QListWidgetItem AlbumListItemBaseClass;
-#else
-typedef QListBoxText AlbumListItemBaseClass;
-#endif
-
 /**
  * QListBoxItem subclass for album list.
  */
-class AlbumListItem : public AlbumListItemBaseClass {
+class AlbumListItem : public QListWidgetItem {
 public:
 	/**
 	 * Constructor.
@@ -296,15 +277,9 @@ public:
 	 * @param cat     category
 	 * @param idStr   ID
 	 */
-#if QT_VERSION >= 0x040000
 	AlbumListItem(QListWidget* listbox, const QString& text,
 				  const QString& cat, const QString& idStr) : 
 		QListWidgetItem(text, listbox), m_category(cat), m_id(idStr) {}
-#else
-	AlbumListItem(QListBox* listbox, const QString& text,
-				  const QString& cat, const QString& idStr) : 
-		QListBoxText(listbox, text), m_category(cat), m_id(idStr) {}
-#endif
 
 	/**
 	 * Get category.

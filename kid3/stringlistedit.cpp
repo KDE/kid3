@@ -25,15 +25,11 @@
  */
 
 #include "stringlistedit.h"
-#include <qpushbutton.h>
-#include <qlineedit.h>
-#include <qinputdialog.h>
-#include <qlayout.h>
-#if QT_VERSION >= 0x040000
+#include <QPushButton>
+#include <QLineEdit>
+#include <QInputDialog>
+#include <QLayout>
 #include <QListWidget>
-#else
-#include <qlistbox.h>
-#endif
 
 /**
  * Constructor.
@@ -44,11 +40,7 @@ StringListEdit::StringListEdit(QWidget* parent) :
 	QWidget(parent)
 {
 	QHBoxLayout* hlayout = new QHBoxLayout(this);
-#if QT_VERSION >= 0x040000
 	m_stringListBox = new QListWidget(this);
-#else
-	m_stringListBox = new QListBox(this);
-#endif
 	if (hlayout && m_stringListBox) {
 		hlayout->setSpacing(6);
 		hlayout->addWidget(m_stringListBox);
@@ -72,14 +64,8 @@ StringListEdit::StringListEdit(QWidget* parent) :
 			connect(m_moveDownPushButton, SIGNAL(clicked()), this, SLOT(moveDownItem()));
 			connect(m_editPushButton, SIGNAL(clicked()), this, SLOT(editItem()));
 			connect(m_removePushButton, SIGNAL(clicked()), this, SLOT(removeItem()));
-#if QT_VERSION >= 0x040000
 			connect(m_stringListBox, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(setButtonEnableState()));
 			connect(m_stringListBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(editItem()));
-#else
-			connect(m_stringListBox, SIGNAL(currentChanged(QListBoxItem*)), this, SLOT(setButtonEnableState()));
-			connect(m_stringListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(editItem()));
-			connect(m_stringListBox, SIGNAL(returnPressed(QListBoxItem*)), this, SLOT(editItem()));
-#endif
 
 			setButtonEnableState();
 			hlayout->addLayout(vlayout);
@@ -102,7 +88,7 @@ StringListEdit::~StringListEdit()
 void StringListEdit::setStrings(const QStringList& strList)
 {
 	m_stringListBox->clear();
-	m_stringListBox->QCM_addItems(strList);
+	m_stringListBox->addItems(strList);
 }
 
 /**
@@ -113,17 +99,9 @@ void StringListEdit::setStrings(const QStringList& strList)
 void StringListEdit::getStrings(QStringList& strList) const
 {
 	strList.clear();
-#if QT_VERSION >= 0x040000
 	for (int i = 0; i < m_stringListBox->count(); ++i) {
 		strList.append(m_stringListBox->item(i)->text());
 	}
-#else
-	QListBoxItem* item = m_stringListBox->firstItem();
-	while (item) {
-		strList.append(item->text());
-		item = item->next();
-	}
-#endif
 }
 
 /**
@@ -132,11 +110,11 @@ void StringListEdit::getStrings(QStringList& strList) const
 void StringListEdit::addItem()
 {
 	bool ok;
-	QString txt = QInputDialog::QCM_getText(
+	QString txt = QInputDialog::getText(
 		this, i18n("Add Item"), QString::null, QLineEdit::Normal,
 		QString::null, &ok);
 	if (ok && !txt.isEmpty()) {
-		m_stringListBox->QCM_addItem(txt);
+		m_stringListBox->addItem(txt);
 	}
 }
 
@@ -145,7 +123,6 @@ void StringListEdit::addItem()
  */
 void StringListEdit::removeItem()
 {
-#if QT_VERSION >= 0x040000
 	int idx = m_stringListBox->currentRow();
 	QListWidgetItem* lwi = m_stringListBox->item(idx);
 	if (idx >= 0 && lwi) {
@@ -157,17 +134,6 @@ void StringListEdit::removeItem()
 		}
 		setButtonEnableState();
 	}
-#else
-	int idx = m_stringListBox->currentItem();
-	if (idx >= 0 && m_stringListBox->isSelected(idx)) {
-		m_stringListBox->removeItem(idx);
-		if (idx < static_cast<int>(m_stringListBox->count())) {
-			m_stringListBox->setSelected(idx, true);
-		} else if (idx > 0 && idx - 1 < static_cast<int>(m_stringListBox->count())) {
-			m_stringListBox->setSelected(idx - 1, true);
-		}
-	}
-#endif
 }
 
 /**
@@ -175,7 +141,6 @@ void StringListEdit::removeItem()
  */
 void StringListEdit::editItem()
 {
-#if QT_VERSION >= 0x040000
 	QListWidgetItem* lwi = m_stringListBox->currentItem();
 	if (lwi) {
 		bool ok;
@@ -186,18 +151,6 @@ void StringListEdit::editItem()
 			lwi->setText(txt);
 		}
 	}
-#else
-	int idx = m_stringListBox->currentItem();
-	if (idx >= 0 && m_stringListBox->isSelected(idx)) {
-		bool ok;
-		QString txt = QInputDialog::getText(
-			i18n("Edit Item"), QString::null, QLineEdit::Normal,
-			m_stringListBox->text(idx), &ok, this);
-		if (ok && !txt.isEmpty()) {
-			m_stringListBox->changeItem(txt, idx);
-		}
-	}
-#endif
 }
 
 /**
@@ -205,7 +158,6 @@ void StringListEdit::editItem()
  */
 void StringListEdit::moveUpItem()
 {
-#if QT_VERSION >= 0x040000
 	int idx = m_stringListBox->currentRow();
 	QListWidgetItem* lwi = m_stringListBox->item(idx);
 	if (idx > 0 && lwi) {
@@ -213,15 +165,6 @@ void StringListEdit::moveUpItem()
 		m_stringListBox->clearSelection();
 		m_stringListBox->setCurrentRow(idx - 1);
 	}
-#else
-	int idx = m_stringListBox->currentItem();
-	if (idx > 0 && m_stringListBox->isSelected(idx)) {
-		QString txt = m_stringListBox->text(idx);
-		m_stringListBox->removeItem(idx);
-		m_stringListBox->insertItem(txt, idx - 1);
-		m_stringListBox->setSelected(idx - 1, true);
-	}
-#endif
 }
 
 /**
@@ -229,7 +172,6 @@ void StringListEdit::moveUpItem()
  */
 void StringListEdit::moveDownItem()
 {
-#if QT_VERSION >= 0x040000
 	int idx = m_stringListBox->currentRow();
 	QListWidgetItem* lwi = m_stringListBox->item(idx);
 	if (idx >= 0 && idx < static_cast<int>(m_stringListBox->count()) - 1 &&
@@ -238,16 +180,6 @@ void StringListEdit::moveDownItem()
 		m_stringListBox->clearSelection();
 		m_stringListBox->setCurrentRow(idx + 1);
 	}
-#else
-	int idx = m_stringListBox->currentItem();
-	if (idx >= 0 && idx < static_cast<int>(m_stringListBox->count()) - 1 &&
-			m_stringListBox->isSelected(idx)) {
-		QString txt = m_stringListBox->text(idx);
-		m_stringListBox->removeItem(idx);
-		m_stringListBox->insertItem(txt, idx + 1);
-		m_stringListBox->setSelected(idx + 1, true);
-	}
-#endif
 }
 
 /**
@@ -255,14 +187,9 @@ void StringListEdit::moveDownItem()
  */
 void StringListEdit::setButtonEnableState()
 {
-#if QT_VERSION >= 0x040000
 	int idx = m_stringListBox->currentRow();
 	QListWidgetItem* lwi = m_stringListBox->item(idx);
 	if (!lwi) idx = -1;
-#else
-	int idx = m_stringListBox->currentItem();
-	if (!m_stringListBox->isSelected(idx)) idx = -1;
-#endif
 	m_moveUpPushButton->setEnabled(idx > 0);
 	m_moveDownPushButton->setEnabled(
 		idx >= 0 &&

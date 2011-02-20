@@ -29,7 +29,7 @@
 
 #include "config.h"
 #include "generalconfig.h"
-#include <qmap.h>
+#include <QMap>
 
 class QString;
 class FrameCollection;

@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qregexp.h>
-#include <qdom.h>
+#include <QRegExp>
+#include <QDomDocument>
 #include "kid3.h"
 #include "amazonclient.h"
 #include "amazondialog.h"
@@ -87,12 +87,12 @@ void AmazonDialog::parseFindResults(const QByteArray& searchStr)
 	QRegExp catIdTitleArtistRe(
 		"<a href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"
 		"<span class=\"srTitle\">([^<]+)<.*>\\s*by\\s*(?:<[^>]+>)?([^<]+)<");
-	QStringList lines = QCM_split(QRegExp("\\n{2,}"), str.remove('\r'));
+	QStringList lines = str.remove('\r').split(QRegExp("\\n{2,}"));
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		QString line(*it);
 		line.remove('\n');
-		if (catIdTitleArtistRe.QCM_indexIn(line) != -1) {
+		if (catIdTitleArtistRe.indexIn(line) != -1) {
 			new AlbumListItem(
 				m_albumListBox,
 				removeHtml(catIdTitleArtistRe.cap(4)) + " - " +
@@ -146,13 +146,13 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 	FrameCollection framesHdr;
 	// search for 'id="btAsinTitle"', text after '>' until ' [' or '<' => album
 	int end = 0;
-	int start = str.QCM_indexOf("id=\"btAsinTitle\"");
+	int start = str.indexOf("id=\"btAsinTitle\"");
 	if (start >= 0) {
-		start = str.QCM_indexOf(">", start);
+		start = str.indexOf(">", start);
 		if (start >= 0) {
-			end = str.QCM_indexOf("<", start);
+			end = str.indexOf("<", start);
 			if (end > start) {
-				int bracketPos = str.QCM_indexOf(" [", start);
+				int bracketPos = str.indexOf(" [", start);
 				if (bracketPos >= 0 && bracketPos < end) {
 					end = bracketPos;
 				}
@@ -160,11 +160,11 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 					replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
 
 				// next '<a href=', text after '>' until '<' => artist
-				start = str.QCM_indexOf("<a href=", end);
+				start = str.indexOf("<a href=", end);
 				if (start >= 0) {
-					start = str.QCM_indexOf(">", start);
+					start = str.indexOf(">", start);
 					if (start >= 0) {
-						end = str.QCM_indexOf("<", start);
+						end = str.indexOf("<", start);
 						if (end > start) {
 							framesHdr.setArtist(
 								replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
@@ -178,63 +178,63 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 	// search for >Product Details<, >Original Release Date:<, >Label:<
 	const bool additionalTags = getAdditionalTags();
 	QString albumArtist;
-	start = str.QCM_indexOf(">Product Details<");
+	start = str.indexOf(">Product Details<");
 	if (start >= 0) {
-		int detailStart = str.QCM_indexOf(">Original Release Date:<", start);
+		int detailStart = str.indexOf(">Original Release Date:<", start);
 		if (detailStart < 0) {
-			detailStart  = str.QCM_indexOf(">Audio CD<", start);
+			detailStart  = str.indexOf(">Audio CD<", start);
 		}
 		if (detailStart >= 0) {
-			int detailEnd = str.QCM_indexOf("\n", detailStart + 10);
+			int detailEnd = str.indexOf("\n", detailStart + 10);
 			if (detailEnd > detailStart + 10) {
 				QRegExp yearRe("(\\d{4})");
-				if (yearRe.QCM_indexIn(
+				if (yearRe.indexIn(
 							str.mid(detailStart + 10, detailEnd - detailStart - 11)) >= 0) {
 					framesHdr.setYear(yearRe.cap(1).toInt());
 				}
 			}
 		}
 		if (additionalTags) {
-			detailStart = str.QCM_indexOf(">Label:<", start);
+			detailStart = str.indexOf(">Label:<", start);
 			if (detailStart > 0) {
-				int detailEnd = str.QCM_indexOf("\n", detailStart + 8);
+				int detailEnd = str.indexOf("\n", detailStart + 8);
 				if (detailEnd > detailStart + 8) {
 					QRegExp labelRe(">\\s*([^<]+)<");
-					if (labelRe.QCM_indexIn(
+					if (labelRe.indexIn(
 								str.mid(detailStart + 8, detailEnd - detailStart - 9)) >= 0) {
 						framesHdr.setValue(Frame::FT_Publisher, removeHtml(labelRe.cap(1)));
 					}
 				}
 			}
-			detailStart = str.QCM_indexOf(">Performer:<", start);
+			detailStart = str.indexOf(">Performer:<", start);
 			if (detailStart > 0) {
-				int detailEnd = str.QCM_indexOf("</li>", detailStart + 12);
+				int detailEnd = str.indexOf("</li>", detailStart + 12);
 				if (detailEnd > detailStart + 12) {
 					framesHdr.setValue(
 						Frame::FT_Performer,
 						removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11)));
 				}
 			}
-			detailStart = str.QCM_indexOf(">Orchestra:<", start);
+			detailStart = str.indexOf(">Orchestra:<", start);
 			if (detailStart > 0) {
-				int detailEnd = str.QCM_indexOf("</li>", detailStart + 12);
+				int detailEnd = str.indexOf("</li>", detailStart + 12);
 				if (detailEnd > detailStart + 12) {
 					albumArtist =
 						removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11));
 				}
 			}
-			detailStart = str.QCM_indexOf(">Conductor:<", start);
+			detailStart = str.indexOf(">Conductor:<", start);
 			if (detailStart > 0) {
-				int detailEnd = str.QCM_indexOf("</li>", detailStart + 12);
+				int detailEnd = str.indexOf("</li>", detailStart + 12);
 				if (detailEnd > detailStart + 12) {
 					framesHdr.setValue(
 						Frame::FT_Conductor,
 						removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11)));
 				}
 			}
-			detailStart = str.QCM_indexOf(">Composer:<", start);
+			detailStart = str.indexOf(">Composer:<", start);
 			if (detailStart > 0) {
-				int detailEnd = str.QCM_indexOf("</li>", detailStart + 11);
+				int detailEnd = str.indexOf("</li>", detailStart + 11);
 				if (detailEnd > detailStart + 11) {
 					framesHdr.setValue(
 						Frame::FT_Composer,
@@ -246,11 +246,11 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 
 	if (getCoverArt()) {
 		// <input type="hidden" id="ASIN" name="ASIN" value="B0025AY48W" />
-		start = str.QCM_indexOf("id=\"ASIN\"");
+		start = str.indexOf("id=\"ASIN\"");
 		if (start > 0) {
-			start = str.QCM_indexOf("value=\"", start);
+			start = str.indexOf("value=\"", start);
 			if (start > 0) {
-				end = str.QCM_indexOf("\"", start + 7);
+				end = str.indexOf("\"", start + 7);
 				if (end > start) {
 					m_trackDataVector.setCoverArtUrl(
 						QString("http://www.amazon.com/dp/") +
@@ -261,15 +261,15 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 	}
 
 	bool hasTitleCol = false;
-	bool hasArtist = str.QCM_indexOf("<td>Song Title</td><td>Artist</td>") != -1;
+	bool hasArtist = str.indexOf("<td>Song Title</td><td>Artist</td>") != -1;
 	// search 'class="titleCol"', next '<a href=', text after '>' until '<'
 	// => title
 	// if not found: alternatively look for 'class="listRow'
-	start = str.QCM_indexOf("class=\"titleCol\"");
+	start = str.indexOf("class=\"titleCol\"");
 	if (start >= 0) {
 		hasTitleCol = true;
 	} else {
-		start = str.QCM_indexOf("class=\"listRow");
+		start = str.indexOf("class=\"listRow");
 	}
 	if (start >= 0) {
 		QRegExp durationRe("(\\d+):(\\d+)");
@@ -283,27 +283,27 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 			QString artist;
 			int duration = 0;
 			if (hasTitleCol) {
-				end = str.QCM_indexOf("\n", start);
+				end = str.indexOf("\n", start);
 				if (end > start) {
 					QString line = str.mid(start, end - start);
-					int titleStart = line.QCM_indexOf("<a href=");
+					int titleStart = line.indexOf("<a href=");
 					if (titleStart >= 0) {
-						titleStart = line.QCM_indexOf(">", titleStart);
+						titleStart = line.indexOf(">", titleStart);
 						if (titleStart >= 0) {
-							int titleEnd = line.QCM_indexOf("<", titleStart);
+							int titleEnd = line.indexOf("<", titleStart);
 							if (titleEnd > titleStart) {
 								title = line.mid(titleStart + 1, titleEnd - titleStart - 1);
 								// if there was an Artist title,
 								// search for artist in a second titleCol
 								if (hasArtist) {
 									int artistStart =
-										line.QCM_indexOf("class=\"titleCol\"", titleEnd);
+										line.indexOf("class=\"titleCol\"", titleEnd);
 									if (artistStart >= 0) {
-										artistStart = line.QCM_indexOf("<a href=", artistStart);
+										artistStart = line.indexOf("<a href=", artistStart);
 										if (artistStart >= 0) {
-											artistStart = line.QCM_indexOf(">", artistStart);
+											artistStart = line.indexOf(">", artistStart);
 											if (artistStart >= 0) {
-												int artistEnd = line.QCM_indexOf("<", artistStart);
+												int artistEnd = line.indexOf("<", artistStart);
 												if (artistEnd > artistStart) {
 													artist = line.mid(
 														artistStart + 1, artistEnd - artistStart - 1);
@@ -318,13 +318,13 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 								// search for next 'class="', if it is 'class="runtimeCol"',
 								// text after '>' until '<' => duration
 								int runtimeStart =
-									line.QCM_indexOf("class=\"runtimeCol\"", titleEnd);
+									line.indexOf("class=\"runtimeCol\"", titleEnd);
 								if (runtimeStart >= 0) {
-									runtimeStart = line.QCM_indexOf(">", runtimeStart + 18);
+									runtimeStart = line.indexOf(">", runtimeStart + 18);
 									if (runtimeStart >= 0) {
-										int runtimeEnd = line.QCM_indexOf("<", runtimeStart);
+										int runtimeEnd = line.indexOf("<", runtimeStart);
 										if (runtimeEnd > runtimeStart) {
-											if (durationRe.QCM_indexIn(
+											if (durationRe.indexIn(
 														line.mid(runtimeStart + 1,
 																		 runtimeEnd - runtimeStart - 1)) >= 0) {
 												duration = durationRe.cap(1).toInt() * 60 +
@@ -333,7 +333,7 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 										}
 									}
 								}
-								start = str.QCM_indexOf("class=\"titleCol\"", end);
+								start = str.indexOf("class=\"titleCol\"", end);
 							} else {
 								start = -1;
 							}
@@ -342,13 +342,13 @@ void AmazonDialog::parseAlbumResults(const QByteArray& albumStr)
 				}
 			} else {
 				// 'class="listRow' found
-				start = str.QCM_indexOf("<td>", start);
+				start = str.indexOf("<td>", start);
 				if (start >= 0) {
-					end = str.QCM_indexOf("</td>", start);
+					end = str.indexOf("</td>", start);
 					if (end > start &&
-							nrTitleRe.QCM_indexIn(str.mid(start + 4, end - start - 4)) >= 0) {
+							nrTitleRe.indexIn(str.mid(start + 4, end - start - 4)) >= 0) {
 						title = nrTitleRe.cap(1);
-						start = str.QCM_indexOf("class=\"listRow", end);
+						start = str.indexOf("class=\"listRow", end);
 					} else {
 						start = -1; 
 					}

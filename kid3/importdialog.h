@@ -30,7 +30,7 @@
 #include "config.h"
 #include "importtrackdata.h"
 #include "importconfig.h"
-#include <qdialog.h>
+#include <QDialog>
 
 class ImportSelector;
 class FreedbConfig;

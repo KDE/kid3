@@ -27,8 +27,8 @@
 #ifndef IMPORTCONFIG_H
 #define IMPORTCONFIG_H
 
-#include <qstringlist.h>
-#include <qmap.h>
+#include <QStringList>
+#include <QMap>
 #include "config.h"
 #include "generalconfig.h"
 

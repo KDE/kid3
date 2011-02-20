@@ -27,7 +27,7 @@
 #ifndef IMAGEVIEWER_H
 #define IMAGEVIEWER_H
 
-#include <qdialog.h>
+#include <QDialog>
 
 class QImage;
 class QLabel;

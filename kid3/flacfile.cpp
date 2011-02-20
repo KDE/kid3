@@ -31,9 +31,9 @@
 #include "dirinfo.h"
 #include "pictureframe.h"
 #include <FLAC++/metadata.h>
-#include <qfile.h>
-#include <qdir.h>
-#include <qimage.h>
+#include <QFile>
+#include <QDir>
+#include <QImage>
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -43,9 +43,7 @@
 #include <cstdio>
 #include <cmath>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QByteArray>
-#endif
 
 /**
  * Constructor.
@@ -77,10 +75,7 @@ FlacFile::~FlacFile()
  */
 static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
 {
-	QByteArray ba;
-	QCM_duplicate(
-		ba,
-		reinterpret_cast<const char*>(pic->get_data()),
+	QByteArray ba(reinterpret_cast<const char*>(pic->get_data()),
 		pic->get_data_length());
 	PictureFrame::setFields(
 		frame,
@@ -114,12 +109,12 @@ static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
 		pic->set_depth(image.depth());
 		pic->set_colors(image.numColors());
 	}
-	pic->set_mime_type(mimeType.QCM_toAscii());
+	pic->set_mime_type(mimeType.toAscii());
 	pic->set_type(
 		static_cast<FLAC__StreamMetadata_Picture_Type>(pictureType));
 	pic->set_description(
 		reinterpret_cast<const FLAC__byte*>(
-			static_cast<const char*>(description.QCM_toUtf8())));
+			static_cast<const char*>(description.toUtf8())));
 	pic->set_data(reinterpret_cast<const FLAC__byte*>(ba.data()), ba.size());
 }
 #endif // HAVE_FLAC_PICTURE
@@ -139,7 +134,7 @@ void FlacFile::readTags(bool force)
 #endif
 		markTag2Unchanged();
 		m_fileRead = true;
-		QCM_QCString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+		QByteArray fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 		m_fileInfo.read(0); // just to start invalid
 		if (!m_chain) {
 			m_chain = new FLAC::Metadata::Chain;
@@ -173,11 +168,11 @@ void FlacFile::readTags(bool force)
 											QString name =
 												QString::fromUtf8(entry.get_field_name(),
 																					entry.get_field_name_length()).
-												QCM_trimmed().QCM_toUpper();
+												trimmed().toUpper();
 											QString value =
 												QString::fromUtf8(entry.get_field_value(),
 																					entry.get_field_value_length()).
-												QCM_trimmed();
+												trimmed();
 											if (!value.isEmpty()) {
 												m_comments.push_back(
 													CommentField(name, value));
@@ -387,11 +382,7 @@ bool FlacFile::setFrameV2(const Frame& frame)
 	if (frame.getType() == Frame::FT_Picture) {
 		int index = frame.getIndex();
 		if (index != -1 && index < static_cast<int>(m_pictures.size())) {
-#if QT_VERSION >= 0x040000
 			PictureList::iterator it = m_pictures.begin() + index;
-#else
-			PictureList::iterator it = m_pictures.at(index);
-#endif
 			if (it != m_pictures.end()) {
 				*it = frame;
 				PictureFrame::setDescription(*it, frame.getValue());
@@ -439,12 +430,7 @@ bool FlacFile::deleteFrameV2(const Frame& frame)
 	if (frame.getType() == Frame::FT_Picture) {
 		int index = frame.getIndex();
 		if (index != -1 && index < static_cast<int>(m_pictures.size())) {
-#if QT_VERSION >= 0x040000
 			m_pictures.removeAt(index);
-#else
-			PictureList::iterator it = m_pictures.at(index);
-			m_pictures.erase(it);
-#endif
 			markTag2Changed(Frame::FT_Picture);
 			return true;
 		}
@@ -491,11 +477,7 @@ void FlacFile::getAllFramesV2(FrameCollection& frames)
 QStringList FlacFile::getFrameIds() const
 {
 	QStringList lst(OggFile::getFrameIds());
-#if QT_VERSION >= 0x040000
 	QStringList::iterator it = lst.begin() + Frame::FT_Picture;
-#else
-	QStringList::iterator it = lst.at(Frame::FT_Picture);
-#endif
 	lst.insert(it, QCM_translate(Frame::getNameFromType(Frame::FT_Picture)));
 	return lst;
 }
@@ -528,10 +510,10 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
 		if (!value.isEmpty()) {
 			// The number of bytes - not characters - has to be passed to the
 			// Entry constructor, thus qstrlen is used.
-		  QCM_QCString valueCStr = value.QCM_toUtf8();
+		  QByteArray valueCStr = value.toUtf8();
 			vc->insert_comment(vc->get_num_comments(),
 				FLAC::Metadata::VorbisComment::Entry(
-					name.QCM_latin1(), valueCStr, qstrlen(valueCStr)));
+					name.toLatin1().data(), valueCStr, qstrlen(valueCStr)));
 			++it;
 		} else {
 			it = m_comments.erase(it);
@@ -614,7 +596,7 @@ bool FlacFile::FileInfo::read(FLAC::Metadata::StreamInfo* si)
 TaggedFile* FlacFile::Resolver::createFile(const DirInfo* di,
 																					const QString& fn) const
 {
-	if (fn.right(5).QCM_toLower() == ".flac")
+	if (fn.right(5).toLower() == ".flac")
 		return new FlacFile(di, fn);
 	else
 		return 0;

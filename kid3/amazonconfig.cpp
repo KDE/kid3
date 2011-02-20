@@ -25,7 +25,7 @@
  */
 
 #include "amazonconfig.h"
-#include <qstring.h>
+#include <QString>
 
 /**
  * Constructor.

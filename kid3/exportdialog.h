@@ -27,8 +27,8 @@
 #ifndef EXPORTDIALOG_H
 #define EXPORTDIALOG_H
 
-#include <qdialog.h>
-#include <qstringlist.h>
+#include <QDialog>
+#include <QStringList>
 #include "importtrackdata.h"
 
 class QTextEdit;

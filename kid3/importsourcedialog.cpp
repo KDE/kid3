@@ -24,18 +24,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qstatusbar.h>
-#include <qregexp.h>
-#if QT_VERSION >= 0x040000
+#include <QLayout>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLabel>
+#include <QStatusBar>
+#include <QRegExp>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#endif
 #include "importsourceconfig.h"
 #include "importsourceclient.h"
 #include "importsourcedialog.h"
@@ -59,7 +57,7 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 		m_coverArtCheckBox(0), m_client(client), m_props(props)
 {
 	setModal(true);
-	QCM_setWindowTitle(caption);
+	setWindowTitle(caption);
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
@@ -103,7 +101,7 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 				for (const char** sl = m_props.serverList; *sl != 0; ++sl) {
 					strList += *sl;
 				}
-				m_serverComboBox->QCM_addItems(strList);
+				m_serverComboBox->addItems(strList);
 			}
 			m_serverComboBox->setEditable(true);
 			serverLayout->addWidget(serverLabel);
@@ -127,24 +125,13 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 			vlayout->addLayout(hlayout);
 		}
 	}
-#if QT_VERSION >= 0x040000
 	m_albumListBox = new QListWidget(this);
-#else
-	m_albumListBox = new QListBox(this);
-#endif
 	if (m_albumListBox) {
 		vlayout->addWidget(m_albumListBox);
-#if QT_VERSION >= 0x040000
 		connect(m_albumListBox, SIGNAL(itemClicked(QListWidgetItem*)),
 				this, SLOT(requestTrackList(QListWidgetItem*)));
 		connect(m_albumListBox, SIGNAL(itemActivated(QListWidgetItem*)),
 				this, SLOT(requestTrackList(QListWidgetItem*)));
-#else
-		connect(m_albumListBox, SIGNAL(selectionChanged(QListBoxItem*)),
-				this, SLOT(requestTrackList(QListBoxItem*)));
-		connect(m_albumListBox, SIGNAL(selected(int)),
-				this, SLOT(requestTrackList(int)));
-#endif
 	}
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
@@ -198,7 +185,7 @@ ImportSourceDialog::~ImportSourceDialog()
  */
 void ImportSourceDialog::showStatusMessage(const QString& msg)
 {
-	m_statusBar->QCM_showMessage(msg);
+	m_statusBar->showMessage(msg);
 }
 
 /**
@@ -235,7 +222,6 @@ QString ImportSourceDialog::getServer() const
 void ImportSourceDialog::setServer(const QString& srv)
 {
 	if (m_serverComboBox) {
-#if QT_VERSION >= 0x040000
 		int idx = m_serverComboBox->findText(srv);
 		if (idx >= 0) {
 			m_serverComboBox->setCurrentIndex(idx);
@@ -243,9 +229,6 @@ void ImportSourceDialog::setServer(const QString& srv)
 			m_serverComboBox->addItem(srv);
 			m_serverComboBox->setCurrentIndex(m_serverComboBox->count() - 1);
 		}
-#else
-		m_serverComboBox->setCurrentText(srv);
-#endif
 	}
 }
 
@@ -287,11 +270,7 @@ void ImportSourceDialog::setCgiPath(const QString& cgi)
 bool ImportSourceDialog::getAdditionalTags() const
 {
 	return m_additionalTagsCheckBox ?
-#if QT_VERSION >= 0x040000
 		m_additionalTagsCheckBox->checkState() == Qt::Checked
-#else
-		m_additionalTagsCheckBox->isChecked()
-#endif
 		: false;
 }
 
@@ -303,12 +282,8 @@ bool ImportSourceDialog::getAdditionalTags() const
 void ImportSourceDialog::setAdditionalTags(bool enable)
 {
 	if (m_additionalTagsCheckBox) {
-#if QT_VERSION >= 0x040000
 		m_additionalTagsCheckBox->setCheckState(
 			enable ? Qt::Checked : Qt::Unchecked);
-#else
-		m_additionalTagsCheckBox->setChecked(enable);
-#endif
 	}
 }
 
@@ -320,11 +295,7 @@ void ImportSourceDialog::setAdditionalTags(bool enable)
 bool ImportSourceDialog::getCoverArt() const
 {
 	return m_coverArtCheckBox ?
-#if QT_VERSION >= 0x040000
 		m_coverArtCheckBox->checkState() == Qt::Checked
-#else
-		m_coverArtCheckBox->isChecked()
-#endif
 		: false;
 }
 
@@ -336,12 +307,8 @@ bool ImportSourceDialog::getCoverArt() const
 void ImportSourceDialog::setCoverArt(bool enable)
 {
 	if (m_coverArtCheckBox) {
-#if QT_VERSION >= 0x040000
 		m_coverArtCheckBox->setCheckState(
 			enable ? Qt::Checked : Qt::Unchecked);
-#else
-		m_coverArtCheckBox->setChecked(enable);
-#endif
 	}
 }
 
@@ -389,7 +356,6 @@ void ImportSourceDialog::setArtistAlbum(const QString& artist, const QString& al
 	}
 
 	if (!(artist.isEmpty() && album.isEmpty())) {
-#if QT_VERSION >= 0x040000
 		int idx = m_artistLineEdit->findText(artist);
 		if (idx >= 0) {
 			m_artistLineEdit->setCurrentIndex(idx);
@@ -404,10 +370,6 @@ void ImportSourceDialog::setArtistAlbum(const QString& artist, const QString& al
 			m_albumLineEdit->addItem(album);
 			m_albumLineEdit->setCurrentIndex(m_albumLineEdit->count() - 1);
 		}
-#else
-		m_artistLineEdit->setCurrentText(artist);
-		m_albumLineEdit->setCurrentText(album);
-#endif
 		QLineEdit* lineEdit = m_artistLineEdit->lineEdit();
 		if (lineEdit) {
 			lineEdit->selectAll();
@@ -453,11 +415,7 @@ void ImportSourceDialog::slotAlbumFinished(const QByteArray& albumStr)
  *
  * @param li list box item containing an AlbumListItem
  */
-#if QT_VERSION >= 0x040000
 void ImportSourceDialog::requestTrackList(QListWidgetItem* li)
-#else
-void ImportSourceDialog::requestTrackList(QListBoxItem* li)
-#endif
 {
 	AlbumListItem* ali;
 	if ((ali = dynamic_cast<AlbumListItem *>(li)) != 0) {
@@ -504,7 +462,7 @@ QString ImportSourceDialog::replaceHtmlEntities(QString str)
 
 	QRegExp numEntityRe("&#(\\d+);");
 	int pos = 0;
-	while ((pos = numEntityRe.QCM_indexIn(str, pos)) != -1) {
+	while ((pos = numEntityRe.indexIn(str, pos)) != -1) {
 		str.replace(pos, numEntityRe.matchedLength(),
 								QChar(numEntityRe.cap(1).toInt()));
 		pos += numEntityRe.matchedLength();
@@ -522,5 +480,5 @@ QString ImportSourceDialog::replaceHtmlEntities(QString str)
 QString ImportSourceDialog::removeHtml(QString str)
 {
 	QRegExp htmlTagRe("<[^>]+>");
-	return replaceHtmlEntities(str.remove(htmlTagRe)).QCM_trimmed();
+	return replaceHtmlEntities(str.remove(htmlTagRe)).trimmed();
 }

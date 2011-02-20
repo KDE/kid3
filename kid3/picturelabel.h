@@ -10,13 +10,9 @@
 #ifndef PICTURELABEL_H
 #define PICTURELABEL_H
 
-#include <qlabel.h>
-#include <qpixmap.h>
-#if QT_VERSION >= 0x040000
+#include <QLabel>
+#include <QPixmap>
 #include <QByteArray>
-#else
-#include <qcstring.h> 
-#endif
 
 /**
  * Label for picture preview.

@@ -28,24 +28,20 @@
 #include "kid3.h"
 #include "externalprocess.h"
 #include "configtable.h"
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qtextedit.h>
-#include <qstring.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qtooltip.h>
-#include <qmessagebox.h>
-#include <qregexp.h>
-#include <qurl.h>
+#include <QLayout>
+#include <QPushButton>
+#include <QTextEdit>
+#include <QString>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QToolTip>
+#include <QMessageBox>
+#include <QRegExp>
+#include <QUrl>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#else
-#include <qgroupbox.h>
-#endif
 
 /**
  * Get help text for supported format codes.
@@ -74,7 +70,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
 	QDialog(parent), m_process(0)
 {
 	setModal(true);
-	QCM_setWindowTitle(i18n("Browse Cover Art"));
+	setWindowTitle(i18n("Browse Cover Art"));
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (vlayout) {
@@ -87,22 +83,15 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
 			vlayout->addWidget(m_edit);
 		}
 
-#if QT_VERSION >= 0x040000
 		QGroupBox* artistAlbumBox = new QGroupBox(i18n("&Artist/Album"), this);
-#else
-		QGroupBox* artistAlbumBox = new QGroupBox(2, Qt::Horizontal,
-		                                          i18n("&Artist/Album"), this);
-#endif
 		if (artistAlbumBox) {
 			m_artistLineEdit = new QLineEdit(artistAlbumBox);
 			m_albumLineEdit = new QLineEdit(artistAlbumBox);
-#if QT_VERSION >= 0x040000
 			QHBoxLayout* hbox = new QHBoxLayout;
 			hbox->setMargin(2);
 			hbox->addWidget(m_artistLineEdit);
 			hbox->addWidget(m_albumLineEdit);
 			artistAlbumBox->setLayout(hbox);
-#endif
 			vlayout->addWidget(artistAlbumBox);
 			connect(m_artistLineEdit, SIGNAL(returnPressed()),
 							this, SLOT(showPreview()));
@@ -110,23 +99,17 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
 							this, SLOT(showPreview()));
 		}
 
-#if QT_VERSION >= 0x040000
 		QGroupBox* srcbox = new QGroupBox(i18n("&Source"), this);
-#else
-		QGroupBox* srcbox = new QGroupBox(2, Qt::Vertical, i18n("&Source"), this);
-#endif
 		if (srcbox) {
 			m_sourceComboBox = new QComboBox(srcbox);
 			m_sourceComboBox->setEditable(true);
 			m_urlLineEdit = new QLineEdit(srcbox);
-			QCM_setToolTip(m_urlLineEdit, getToolTip());
-#if QT_VERSION >= 0x040000
+			m_urlLineEdit->setToolTip(getToolTip());
 			QVBoxLayout* vbox = new QVBoxLayout;
 			vbox->setMargin(2);
 			vbox->addWidget(m_sourceComboBox);
 			vbox->addWidget(m_urlLineEdit);
 			srcbox->setLayout(vbox);
-#endif
 			vlayout->addWidget(srcbox);
 			connect(m_sourceComboBox, SIGNAL(activated(int)), this,
 							SLOT(setSourceLineEdit(int)));
@@ -134,24 +117,17 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
 							this, SLOT(showPreview()));
 		}
 
-#if QT_VERSION >= 0x040000
 		QGroupBox* tabbox = new QGroupBox(i18n("&URL extraction"), this);
-#else
-		QGroupBox* tabbox = new QGroupBox(1, Qt::Vertical,
-		                                  i18n("&URL extraction"), this);
-#endif
 		if (tabbox) {
 			m_matchUrlTable = new ConfigTable(
 				QStringList()
 				<< i18n("Match")
 				<< i18n("Picture URL"),
 				tabbox);
-#if QT_VERSION >= 0x040000
 			QVBoxLayout* tablayout = new QVBoxLayout;
 			tablayout->setMargin(2);
 			tablayout->addWidget(m_matchUrlTable);
 			tabbox->setLayout(tablayout);
-#endif
 			vlayout->addWidget(tabbox);
 		}
 		QHBoxLayout* hlayout = new QHBoxLayout;
@@ -257,8 +233,8 @@ void BrowseCoverArtDialog::setSourceFromConfig()
 {
 	m_urls = Kid3App::s_genCfg.m_pictureSourceUrls;
 	m_sourceComboBox->clear();
-	m_sourceComboBox->QCM_addItems(Kid3App::s_genCfg.m_pictureSourceNames);
-	m_sourceComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_pictureSourceIdx);
+	m_sourceComboBox->addItems(Kid3App::s_genCfg.m_pictureSourceNames);
+	m_sourceComboBox->setCurrentIndex(Kid3App::s_genCfg.m_pictureSourceIdx);
 	setSourceLineEdit(Kid3App::s_genCfg.m_pictureSourceIdx);
 }
 
@@ -282,7 +258,7 @@ void BrowseCoverArtDialog::readConfig()
  */
 void BrowseCoverArtDialog::saveConfig()
 {
-	Kid3App::s_genCfg.m_pictureSourceIdx = m_sourceComboBox->QCM_currentIndex();
+	Kid3App::s_genCfg.m_pictureSourceIdx = m_sourceComboBox->currentIndex();
 	if (Kid3App::s_genCfg.m_pictureSourceIdx <
 			static_cast<int>(Kid3App::s_genCfg.m_pictureSourceNames.size())) {
 		Kid3App::s_genCfg.m_pictureSourceNames[Kid3App::s_genCfg.m_pictureSourceIdx] =
@@ -339,9 +315,9 @@ QString BrowseCoverArtDialog::getImageUrl(const QString& url)
 {
 	QString imgurl;
 	if (url.startsWith("http://")) {
-		if (url.endsWith(".jpg", QCM_CaseInsensitive) ||
-				url.endsWith(".jpeg", QCM_CaseInsensitive) ||
-				url.endsWith(".png", QCM_CaseInsensitive)) {
+		if (url.endsWith(".jpg", Qt::CaseInsensitive) ||
+				url.endsWith(".jpeg", Qt::CaseInsensitive) ||
+				url.endsWith(".png", Qt::CaseInsensitive)) {
 			imgurl = url;
 		}
 		else {
@@ -354,13 +330,13 @@ QString BrowseCoverArtDialog::getImageUrl(const QString& url)
 					QString pictureUrl(url);
 					imgurl = url;
 					imgurl.replace(re, *it);
-					if (imgurl.QCM_indexOf("%25") != -1) {
+					if (imgurl.indexOf("%25") != -1) {
 						// double URL encoded: first decode
-						QCM_QUrl_decode(imgurl);
+						imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
 					}
-					if (imgurl.QCM_indexOf("%2F") != -1) {
+					if (imgurl.indexOf("%2F") != -1) {
 						// URL encoded: decode
-						QCM_QUrl_decode(imgurl);
+						imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
 					}
 					break;
 				}

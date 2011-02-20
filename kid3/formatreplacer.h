@@ -10,7 +10,7 @@
 #ifndef FORMATREPLACER_H
 #define FORMATREPLACER_H
 
-#include <qstring.h>
+#include <QString>
 
 /**
  * Replaces format codes in a string.

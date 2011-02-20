@@ -30,20 +30,15 @@
 #include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kdeversion.h>
+#include <kxmlguiwindow.h>
 class KAction;
 class KRecentFilesAction;
 class KToggleAction;
 /** Base class for main window. */
-#if KDE_VERSION >= 0x035c00
-#include <kxmlguiwindow.h>
 typedef KXmlGuiWindow Kid3AppBaseClass;
 #else
-#include <kmainwindow.h>
-typedef KMainWindow Kid3AppBaseClass;
-#endif
-#else
 #include "qtcompatmac.h"
-#include <qmainwindow.h>
+#include <QMainWindow>
 #include "generalconfig.h" // Kid3Settings
 class QAction;
 class BrowserDialog;
@@ -379,26 +374,14 @@ protected:
 	 *
 	 * @param cfg application configuration
 	 */
-	virtual void saveProperties(
-#if KDE_VERSION >= 0x035c00
-		KConfigGroup& cfg
-#else
-		KConfig* cfg
-#endif
-		);
+	virtual void saveProperties(KConfigGroup& cfg);
 
 	/**
 	 * Reads the session config file and restores the application's state.
 	 *
 	 * @param cfg application configuration
 	 */
-	virtual void readProperties(
-#if KDE_VERSION >= 0x035c00
-		const KConfigGroup& cfg
-#else
-		KConfig* cfg
-#endif
-		);
+	virtual void readProperties(const KConfigGroup& cfg);
 
 #else
 	/**
@@ -454,13 +437,6 @@ public slots:
 	 *
 	 * @param url URL of directory to open
 	 */
-	void slotFileOpenRecent(const KURL& url);
-
-	/**
-	 * Open recent directory.
-	 *
-	 * @param url URL of directory to open
-	 */
 	void slotFileOpenRecentUrl(const KUrl& url);
 
 	/**
@@ -469,11 +445,6 @@ public slots:
 	 * @param dir directory to open
 	 */
 	void slotFileOpenRecentDirectory(const QString& dir);
-
-	/**
-	 * Quit application.
-	 */
-	void slotViewToolBar();
 
 	/**
 	 * Turn status bar on or off.
@@ -849,9 +820,7 @@ private:
 #else
 	Kid3Settings* m_config;
 	RecentFilesMenu* m_fileOpenRecent;
-#if QT_VERSION >= 0x040000
 	QAction* m_viewToolBar;
-#endif
 	QAction* m_viewStatusBar;
 	QAction* m_settingsAutoHideTags;
 	QAction* m_settingsShowHidePicture;

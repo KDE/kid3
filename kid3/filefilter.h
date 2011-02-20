@@ -29,8 +29,8 @@
 
 #include "expressionparser.h"
 #include "importtrackdata.h"
-#include <qobject.h>
-#include <qstring.h>
+#include <QObject>
+#include <QString>
 
 class TaggedFile;
 

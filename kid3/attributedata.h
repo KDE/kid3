@@ -27,10 +27,8 @@
 #ifndef ATTRIBUTEDATA_H
 #define ATTRIBUTEDATA_H
 
-#include <qstring.h>
-#if QT_VERSION >= 0x040000
+#include <QString>
 #include <QByteArray>
-#endif
 
 /** Attribute data used e.g. by Windows Media Player. */
 class AttributeData {

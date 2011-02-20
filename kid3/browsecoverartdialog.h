@@ -27,8 +27,8 @@
 #ifndef BROWSECOVERARTDIALOG_H
 #define BROWSECOVERARTDIALOG_H
 
-#include <qdialog.h>
-#include <qstringlist.h>
+#include <QDialog>
+#include <QStringList>
 #include "frame.h"
 
 class QTextEdit;

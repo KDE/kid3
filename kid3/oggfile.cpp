@@ -30,11 +30,9 @@
 #include "dirinfo.h"
 #include "pictureframe.h"
 #include "kid3.h"
-#include <qfile.h>
-#include <qdir.h>
-#if QT_VERSION >= 0x040000
+#include <QFile>
+#include <QDir>
 #include <QByteArray>
-#endif
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -78,7 +76,7 @@ void OggFile::readTags(bool force)
 		m_comments.clear();
 		markTag2Unchanged();
 		m_fileRead = true;
-		QCM_QCString fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+		QByteArray fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
 		if (m_fileInfo.read(fnIn)) {
 			FILE* fpIn = ::fopen(fnIn, "rb");
@@ -92,12 +90,12 @@ void OggFile::readTags(bool force)
 								QString userComment =
 									QString::fromUtf8(vc->user_comments[i],
 																		vc->comment_lengths[i]);
-								int equalPos = userComment.QCM_indexOf('=');
+								int equalPos = userComment.indexOf('=');
 								if (equalPos != -1) {
 									QString name(
-										userComment.left(equalPos).QCM_trimmed().QCM_toUpper());
+										userComment.left(equalPos).trimmed().toUpper());
 									QString value(
-										userComment.mid(equalPos + 1).QCM_trimmed());
+										userComment.mid(equalPos + 1).trimmed());
 									if (!value.isEmpty()) {
 										m_comments.push_back(CommentField(name, value));
 									}
@@ -143,9 +141,9 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 		if (!renameFile(currentFilename(), tempFilename)) {
 			return false;
 		}
-		QCM_QCString fnIn = QFile::encodeName(dirname + QDir::separator() +
+		QByteArray fnIn = QFile::encodeName(dirname + QDir::separator() +
 																					tempFilename);
-		QCM_QCString fnOut = QFile::encodeName(dirname + QDir::separator() +
+		QByteArray fnOut = QFile::encodeName(dirname + QDir::separator() +
 																					 getFilename());
 		FILE* fpIn = ::fopen(fnIn, "rb");
 		if (fpIn) {
@@ -181,8 +179,8 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 								if (!value.isEmpty()) {
 									::vorbis_comment_add_tag(
 										vc,
-										const_cast<char*>(name.QCM_latin1()),
-										const_cast<char*>((const char*)value.QCM_toUtf8().data()));
+										const_cast<char*>(name.toLatin1().data()),
+										const_cast<char*>((const char*)value.toUtf8().data()));
 									++it;
 								} else {
 									it = m_comments.erase(it);
@@ -303,7 +301,7 @@ static Frame::Type getTypeFromVorbisName(QString name)
 		strNumMap.insert("COVERART", Frame::FT_Picture);
 	}
 	QMap<QString, int>::const_iterator it =
-		strNumMap.find(name.remove(' ').QCM_toUpper());
+		strNumMap.find(name.remove(' ').toUpper());
 	if (it != strNumMap.end()) {
 		return static_cast<Frame::Type>(*it);
 	}
@@ -323,7 +321,7 @@ static QString getVorbisName(const Frame& frame)
 	if (type <= Frame::FT_LastFrame) {
 		return getVorbisNameFromType(type);
 	} else {
-		return frame.getName().remove(' ').QCM_toUpper();
+		return frame.getName().remove(' ').toUpper();
 	}
 }
 
@@ -672,35 +670,20 @@ bool OggFile::setFrameV2(const Frame& frame)
 	if (index != -1 && index < static_cast<int>(m_comments.size())) {
 		QString value = frame.getValue();
 		if (frame.getType() == Frame::FT_Picture) {
-#ifdef HAVE_BASE64_ENCODING
 			PictureFrame::getFieldsToBase64(frame, value);
 			if (!value.isEmpty() && frame.getName(true) == "COVERART") {
 				QString mimeType;
 				PictureFrame::getMimeType(frame, mimeType);
 				setTextField("COVERARTMIME", mimeType, Frame::FT_Other);
 			}
-#else
-			return false;
-#endif
 		} else if (frame.getType() == Frame::FT_Track) {
 			formatTrackNumberIfEnabled(value, false);
 		}
-#if QT_VERSION >= 0x040000
 		if (m_comments[index].getValue() != value) {
 			m_comments[index].setValue(value);
 			markTag2Changed(frame.getType());
 		}
 		return true;
-#else
-		CommentList::iterator it = m_comments.at(index);
-		if (it != m_comments.end()) {
-			if ((*it).getValue() != value) {
-				(*it).setValue(value);
-				markTag2Changed(frame.getType());
-			}
-			return true;
-		}
-#endif
 	}
 
 	// Try the superclass method
@@ -720,7 +703,6 @@ bool OggFile::addFrameV2(Frame& frame)
 	QString name(getVorbisName(frame));
 	QString value(frame.getValue());
 	if (frame.getType() == Frame::FT_Picture) {
-#ifdef HAVE_BASE64_ENCODING
 		if (frame.getFieldList().empty()) {
 			PictureFrame::setFields(
 				frame, Frame::Field::TE_ISO8859_1, "", "image/jpeg",
@@ -728,9 +710,6 @@ bool OggFile::addFrameV2(Frame& frame)
 		}
 		frame.setInternalName(name);
 		PictureFrame::getFieldsToBase64(frame, value);
-#else
-		return false;
-#endif
 	}
 	m_comments.push_back(OggFile::CommentField(name, value));
 	frame.setInternalName(name);
@@ -751,12 +730,7 @@ bool OggFile::deleteFrameV2(const Frame& frame)
 	// If the frame has an index, delete that specific frame
 	int index = frame.getIndex();
 	if (index != -1 && index < static_cast<int>(m_comments.size())) {
-#if QT_VERSION >= 0x040000
 		m_comments.removeAt(index);
-#else
-		OggFile::CommentList::iterator it = m_comments.at(index);
-		m_comments.erase(it);
-#endif
 		markTag2Changed(frame.getType());
 		return true;
 	}
@@ -780,7 +754,6 @@ void OggFile::getAllFramesV2(FrameCollection& frames)
 			 ++it) {
 		name = (*it).getName();
 		Frame::Type type = getTypeFromVorbisName(name);
-#ifdef HAVE_BASE64_ENCODING
 		if (type == Frame::FT_Picture) {
 			Frame frame(type, "", name, i++);
 			PictureFrame::setFieldsFromBase64(frame, (*it).getValue());
@@ -788,9 +761,9 @@ void OggFile::getAllFramesV2(FrameCollection& frames)
 				PictureFrame::setMimeType(frame, getTextField("COVERARTMIME"));
 			}
 			frames.insert(frame);
-		} else
-#endif
-		frames.insert(Frame(type, (*it).getValue(), name, i++));
+		} else {
+			frames.insert(Frame(type, (*it).getValue(), name, i++));
+		}
 	}
 	frames.addMissingStandardFrames();
 }
@@ -833,10 +806,7 @@ QStringList OggFile::getFrameIds() const
 
 	QStringList lst;
 	for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-#ifndef HAVE_BASE64_ENCODING
-		if (k != Frame::FT_Picture)
-#endif
-			lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
+		lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
 	}
 	for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
 		lst.append(fieldNames[i]);
@@ -944,7 +914,7 @@ bool OggFile::CommentList::setValue(const QString& name, const QString& value)
 TaggedFile* OggFile::Resolver::createFile(const DirInfo* di,
 																					const QString& fn) const
 {
-	QString ext = fn.right(4).QCM_toLower();
+	QString ext = fn.right(4).toLower();
 	if (ext == ".oga" || ext == ".ogg")
 		return new OggFile(di, fn);
 	else

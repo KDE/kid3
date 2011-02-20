@@ -24,18 +24,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qcheckbox.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qsplitter.h>
-#include <qdir.h>
-#include <qframe.h>
-#include <qpixmap.h>
+#include <QCheckBox>
+#include <QPushButton>
+#include <QToolButton>
+#include <QSpinBox>
+#include <QLayout>
+#include <QToolTip>
+#include <QSplitter>
+#include <QDir>
+#include <QFrame>
+#include <QPixmap>
 
-#if QT_VERSION >= 0x040000
 #include <QListWidget>
 #include <QVBoxLayout>
 #include <QDropEvent>
@@ -45,11 +44,6 @@
 #include <QScrollArea>
 #include <QUrl>
 #include <QApplication>
-#else
-#include <qdragobject.h>
-#include <qlistbox.h>
-#include <qvbox.h>
-#endif
 
 /** Shortcut for pointer to parent (application) widget. */
 #define theApp ((Kid3App *)parentWidget())
@@ -97,75 +91,6 @@ static const char* const expand_xpm[] = {
 	"...+...",
 	"......."
 };
-
-#if QT_VERSION < 0x040000
-/**
- * A QScrollView which returns the sizeHint of its child.
- * This is necessary to get a reasonable default size of the window.
- */
-class Kid3ScrollView: public QScrollView {
-public:
-	/**
-	 * Constructor.
-	 * @param parent parent widget
-	 * @param name   name
-	 * @param f      window flags
-	 */
-	Kid3ScrollView(QWidget* parent = 0, const char* name = 0, Qt::WFlags f = 0);
-	/**
-	 * Constructor.
-	 * @param parent  parent widget
-	 * @param _client client widget
-	 */
-	Kid3ScrollView(QWidget* parent, QWidget *_client);
-	/**
-	 * Get size hint.
-	 * @return size hint.
-	 */
-	virtual QSize sizeHint() const;
-	/**
-	 * Add child widget.
-	 * @param child child widget
-	 * @param x     x-coordinate
-	 * @param y     y-coordinate
-	 */
-	virtual void addChild(QWidget* child, int x = 0, int y = 0);
-private:
-	QWidget* client;
-};
-
-/**
- * Constructor.
- *
- * @param parent parent widget
- * @see QScrollView
- */
-Kid3ScrollView::Kid3ScrollView(QWidget* parent, const char* name, Qt::WFlags f)
-	: QScrollView(parent, name, f), client(0) {}
-
-/**
- * Returns the recommended size for the widget by using the sizeHint of
- * the child.
- *
- * @return recommended size.
- */
-QSize Kid3ScrollView::sizeHint() const
-{
-	return client ? client->sizeHint() : QScrollView::sizeHint();
-}
-
-/**
- * Add a single widget to the ScrollView.
- * The widget's parent should be the ScrollView's viewport.
- *
- * @param child child widget
- */
-void Kid3ScrollView::addChild(QWidget* child, int x, int y)
-{
-	client = child;
-	QScrollView::addChild(child, x, y);
-}
-#endif
 
 
 /**
@@ -223,16 +148,8 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 Id3Form::Id3Form(QWidget* parent)
 	: QSplitter(parent)
 {
-#if QT_VERSION >= 0x040200
 	const int margin = 6;
 	const int spacing = 2;
-#elif QT_VERSION >= 0x040000
-	const int margin = 12;
-	const int spacing = 2;
-#else
-	const int margin = 4;
-	const int spacing = 6;
-#endif
 
 	if (!s_collapsePixmap) {
 		s_collapsePixmap = new QPixmap((const char**)collapse_xpm);
@@ -242,13 +159,12 @@ Id3Form::Id3Form(QWidget* parent)
 	}
 
 	setAcceptDrops(true);
-	QCM_setWindowTitle(i18n("Kid3"));
+	setWindowTitle(i18n("Kid3"));
 
 	m_vSplitter = new QSplitter(Qt::Vertical, this);
 	m_fileListBox = new FileList(m_vSplitter, theApp);
 	m_dirListBox = new DirList(m_vSplitter);
 
-#if QT_VERSION >= 0x040000
 	m_rightHalfVBox = new QWidget;
 	QScrollArea* scrollView = new QScrollArea(this);
 	scrollView->setWidget(m_rightHalfVBox);
@@ -421,158 +337,6 @@ Id3Form::Id3Form(QWidget* parent)
 		new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	rightHalfLayout->insertStretch(-1);
-#else
-	Kid3ScrollView* scrollView = new Kid3ScrollView(this);
-	scrollView->setResizePolicy(QScrollView::AutoOneFit);
-	scrollView->setFrameStyle(QFrame::NoFrame);
-	m_rightHalfVBox = new QWidget(scrollView->viewport());
-	QVBoxLayout* rightHalfLayout = new QVBoxLayout(m_rightHalfVBox);
-	rightHalfLayout->setSpacing(2);
-	rightHalfLayout->setMargin(2);
-
-	m_fileButton = new QToolButton(m_rightHalfVBox);
-	m_fileButton->setIconSet(*s_collapsePixmap);
-	m_fileButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	m_fileButton->setAutoRaise(true);
-	m_fileLabel = new QLabel(i18n("F&ile"), m_rightHalfVBox);
-	QHBoxLayout* fileButtonLayout = new QHBoxLayout;
-	fileButtonLayout->addWidget(m_fileButton);
-	fileButtonLayout->addWidget(m_fileLabel);
-	rightHalfLayout->addLayout(fileButtonLayout);
-
-	m_fileWidget = new QWidget(m_rightHalfVBox);
-	rightHalfLayout->addWidget(m_fileWidget);
-	m_fileWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	QGridLayout* fileLayout =
-		new QGridLayout(m_fileWidget, 3, 4, margin, spacing);
-	m_nameLabel = new QLabel(i18n("Name:"), m_fileWidget);
-	fileLayout->addWidget(m_nameLabel, 0, 0);
-
-	m_nameLineEdit = new QLineEdit(m_fileWidget);
-	fileLayout->addMultiCellWidget(m_nameLineEdit, 0, 0, 1, 4);
-	m_fileLabel->setBuddy(m_nameLineEdit);
-
-	QLabel* formatLabel = new QLabel(i18n("Format:") + QChar(0x2191),
-	                                 m_fileWidget);
-	fileLayout->addWidget(formatLabel, 1, 0);
-
-	m_formatComboBox = new QComboBox(m_fileWidget);
-	m_formatComboBox->setEditable(true);
-	m_formatComboBox->setDuplicatesEnabled(false);
-	m_formatComboBox->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-	QToolTip::add(m_formatComboBox, FrameFormatReplacer::getToolTip());
-	fileLayout->addWidget(m_formatComboBox, 1, 1);
-
-	QLabel* fromTagLabel = new QLabel(i18n("From:"), m_fileWidget);
-	fileLayout->addWidget(fromTagLabel, 1, 2);
-	m_fnV1Button = new QPushButton(i18n("Tag 1"), m_fileWidget);
-	QToolTip::add(m_fnV1Button, i18n("Filename from Tag 1"));
-	fileLayout->addWidget(m_fnV1Button, 1, 3);
-	QPushButton* fnV2Button = new QPushButton(i18n("Tag 2"), m_fileWidget);
-	QToolTip::add(fnV2Button, i18n("Filename from Tag 2"));
-	fileLayout->addWidget(fnV2Button, 1, 4);
-
-	QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
-	                                             m_fileWidget);
-	fileLayout->addWidget(formatFromFilenameLabel, 2, 0);
-
-	m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
-	m_formatFromFilenameComboBox->setEditable(true);
-	m_formatFromFilenameComboBox->setDuplicatesEnabled(false);
-	m_formatFromFilenameComboBox->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
-	QToolTip::add(m_formatFromFilenameComboBox, FrameFormatReplacer::getToolTip());
-	fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
-
-	QLabel* toTagLabel = new QLabel(i18n("To:"), m_fileWidget);
-	fileLayout->addWidget(toTagLabel, 2, 2);
-	m_toTagV1Button =
-		new QPushButton(i18n("Tag 1"), m_fileWidget);
-	QToolTip::add(m_toTagV1Button, i18n("Tag 1 from Filename"));
-	fileLayout->addWidget(m_toTagV1Button, 2, 3);
-	QPushButton* toTagV2Button =
-		new QPushButton(i18n("Tag 2"), m_fileWidget);
-	QToolTip::add(toTagV2Button, i18n("Tag 2 from Filename"));
-	fileLayout->addWidget(toTagV2Button, 2, 4);
-
-	m_tag1Button = new QToolButton(m_rightHalfVBox);
-	m_tag1Button->setIconSet(*s_collapsePixmap);
-	m_tag1Button->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	m_tag1Button->setAutoRaise(true);
-	m_tag1Label = new QLabel(i18n("Tag &1"), m_rightHalfVBox);
-	QHBoxLayout* tag1ButtonLayout = new QHBoxLayout;
-	tag1ButtonLayout->addWidget(m_tag1Button);
-	tag1ButtonLayout->addWidget(m_tag1Label);
-	rightHalfLayout->addLayout(tag1ButtonLayout);
-	QHBox* tag1HBox = new QHBox(m_rightHalfVBox);
-	tag1HBox->setMargin(margin);
-	tag1HBox->setSpacing(spacing);
-	m_tag1Widget = tag1HBox;
-	m_tag1Widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	rightHalfLayout->addWidget(m_tag1Widget, 100);
-
-	m_framesV1Table = new FrameTable(m_tag1Widget, true);
-	m_tag1Label->setBuddy(m_framesV1Table);
-
-	QVBox* buttonsV1VBox = new QVBox(m_tag1Widget);
-	buttonsV1VBox->setSpacing(spacing);
-	QPushButton* id3V1PushButton =
-		new QPushButton(i18n("From Tag 2"), buttonsV1VBox);
-	QPushButton* copyV1PushButton =
-		new QPushButton(i18n("Copy"), buttonsV1VBox);
-	QPushButton* pasteV1PushButton =
-		new QPushButton(i18n("Paste"), buttonsV1VBox);
-	QPushButton* removeV1PushButton =
-		new QPushButton(i18n("Remove"), buttonsV1VBox);
-	new QWidget(buttonsV1VBox);
-
-	m_tag2Button = new QToolButton(m_rightHalfVBox);
-	m_tag2Button->setIconSet(*s_collapsePixmap);
-	m_tag2Button->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	m_tag2Button->setAutoRaise(true);
-	m_tag2Label = new QLabel(i18n("Tag &2"), m_rightHalfVBox);
-	QHBoxLayout* tag2ButtonLayout = new QHBoxLayout;
-	tag2ButtonLayout->addWidget(m_tag2Button);
-	tag2ButtonLayout->addWidget(m_tag2Label);
-	rightHalfLayout->addLayout(tag2ButtonLayout);
-	QHBox* tag2HBox = new QHBox(m_rightHalfVBox);
-	tag2HBox->setMargin(margin);
-	tag2HBox->setSpacing(spacing);
-	m_tag2Widget = tag2HBox;
-	rightHalfLayout->addWidget(m_tag2Widget, 100);
-
-	m_framesV2Table = new FrameTable(m_tag2Widget, false);
-	m_tag2Label->setBuddy(m_framesV2Table);
-	m_framelist = new FrameList(m_framesV2Table);
-
-	QVBox* buttonsV2VBox = new QVBox(m_tag2Widget);
-	buttonsV2VBox->setSpacing(spacing);
-	m_id3V2PushButton = new QPushButton(i18n("From Tag 1"), buttonsV2VBox);
-	QPushButton* copyV2PushButton =
-		new QPushButton(i18n("Copy"), buttonsV2VBox);
-	QPushButton* pasteV2PushButton =
-		new QPushButton(i18n("Paste"), buttonsV2VBox);
-	QPushButton* removeV2PushButton =
-		new QPushButton(i18n("Remove"), buttonsV2VBox);
-
-	QWidget* spacer = new QWidget(buttonsV2VBox);
-	spacer->setMaximumHeight(spacing);
-
-	QPushButton* editFramesPushButton =
-		new QPushButton(i18n("Edit"), buttonsV2VBox);
-	QPushButton* framesAddPushButton =
-		new QPushButton(i18n("Add"), buttonsV2VBox);
-	QPushButton* deleteFramesPushButton =
-		new QPushButton(i18n("Delete"), buttonsV2VBox);
-
-	m_pictureLabel = new PictureLabel(buttonsV2VBox);
-	m_pictureLabel->installEventFilter(new PictureDblClickHandler(theApp));
-
-	QWidget* expandWidget = new QWidget(buttonsV2VBox);
-	expandWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
-
-	rightHalfLayout->insertStretch(-1);
-	scrollView->addChild(m_rightHalfVBox);
-#endif
 
 	// signals and slots connections
 	connect(id3V1PushButton, SIGNAL(clicked()), this, SLOT(fromID3V1()));
@@ -583,13 +347,8 @@ Id3Form::Id3Form(QWidget* parent)
 	connect(copyV2PushButton, SIGNAL(clicked()), this, SLOT(copyV2()));
 	connect(pasteV2PushButton, SIGNAL(clicked()), this, SLOT(pasteV2()));
 	connect(removeV2PushButton, SIGNAL(clicked()), this, SLOT(removeV2()));
-#if QT_VERSION >= 0x040000
 	connect(m_fileListBox, SIGNAL(itemSelectionChanged()), this,
 			SLOT(fileSelected()));
-#else
-	connect(m_fileListBox, SIGNAL(selectionChanged()), this,
-			SLOT(fileSelected()));
-#endif
 	connect(framesAddPushButton, SIGNAL(clicked()), this, SLOT(addFrame()));
 	connect(deleteFramesPushButton, SIGNAL(clicked()), this,
 			SLOT(deleteFrame()));
@@ -600,19 +359,8 @@ Id3Form::Id3Form(QWidget* parent)
 	connect(toTagV2Button, SIGNAL(clicked()), this, SLOT(fromFilenameV2()));
 	connect(m_nameLineEdit, SIGNAL(textChanged(const QString&)), this,
 			SLOT(nameLineEditChanged(const QString&)));
-#if QT_VERSION >= 0x040000
 	connect(m_dirListBox, SIGNAL(itemActivated(QListWidgetItem*)), this,
 			SLOT(dirSelected(QListWidgetItem*)));
-#else
-	connect(m_dirListBox, SIGNAL(doubleClicked(QListBoxItem *)), this,
-			SLOT(dirSelected(QListBoxItem *)));
-	connect(m_dirListBox, SIGNAL(returnPressed(QListBoxItem *)), this,
-			SLOT(dirSelected(QListBoxItem *)));
-	connect(this, SIGNAL(windowResized()),
-					m_framesV1Table, SLOT(triggerResize())); 
-	connect(this, SIGNAL(windowResized()),
-					m_framesV2Table, SLOT(triggerResize())); 
-#endif
 	connect(m_fileListBox, SIGNAL(selectedFilesRenamed()),
 					SIGNAL(selectedFilesRenamed()));
 	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));
@@ -766,13 +514,9 @@ int Id3Form::numFilesOrDirsSelected()
  */
 void Id3Form::dragEnterEvent(QDragEnterEvent* ev)
 {
-#if QT_VERSION >= 0x040000
 	if (ev->mimeData()->hasFormat("text/uri-list") ||
 	    ev->mimeData()->hasImage())
 		ev->acceptProposedAction();
-#else
-	ev->accept(QTextDrag::canDecode(ev));
-#endif
 }
 
 /**
@@ -782,7 +526,6 @@ void Id3Form::dragEnterEvent(QDragEnterEvent* ev)
  */
 void Id3Form::dropEvent(QDropEvent* ev)
 {
-#if QT_VERSION >= 0x040000
 	if (ev->mimeData()->hasImage()) {
 		QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
 		theApp->dropImage(image);
@@ -800,16 +543,6 @@ void Id3Form::dropEvent(QDropEvent* ev)
 			theApp->dropUrl(text);
 		}
 	}
-#else
-	QString text;
-	if (QTextDrag::decode(ev, text)) {
-		if (text.startsWith("http://")) {
-			theApp->dropUrl(text);
-		} else {
-			theApp->openDrop(text);
-		}
-	}
-#endif
 }
 
 /**
@@ -869,7 +602,6 @@ void Id3Form::nameLineEditChanged(const QString& txt)
  */
 void Id3Form::markChangedFilename(bool en)
 {
-#if QT_VERSION >= 0x040000
 	if (en) {
 		QPalette changedPalette(m_nameLabel->palette());
 		changedPalette.setBrush(QPalette::Active, QPalette::Window, changedPalette.mid());
@@ -878,9 +610,6 @@ void Id3Form::markChangedFilename(bool en)
 		m_nameLabel->setPalette(QPalette());
 	}
 	m_nameLabel->setAutoFillBackground(en);
-#else
-	m_nameLabel->setBackgroundMode(en ? PaletteMid : PaletteBackground);
-#endif
 }
 
 /**
@@ -909,19 +638,13 @@ void Id3Form::formatLineEdit(QLineEdit* le, const QString& txt,
  *
  * @param item selected item
  */
-void Id3Form::dirSelected(
-#if QT_VERSION >= 0x040000
-	QListWidgetItem*
-#else
-	QListBoxItem*
-#endif
-	item) {
+void Id3Form::dirSelected(QListWidgetItem* item) {
 	QDir dir(m_dirListBox->getDirname() + QDir::separator() +
 					 item->text());
 	m_dirListBox->setEntryToSelect(
 		item->text() == ".." ? QDir(m_dirListBox->getDirname()).dirName() :
 		QString::null);
-	QString dirPath = dir.QCM_absolutePath();
+	QString dirPath = dir.absolutePath();
 	if (!dirPath.isEmpty()) {
 		theApp->openDirectory(dirPath, true);
 	}
@@ -987,10 +710,10 @@ void Id3Form::hideFile(bool hide)
 {
 	if (hide) {
 		m_fileWidget->hide();
-		m_fileButton->QCM_setIconSet(*s_expandPixmap);
+		m_fileButton->setIcon(*s_expandPixmap);
 	} else {
 		m_fileWidget->show();
-		m_fileButton->QCM_setIconSet(*s_collapsePixmap);
+		m_fileButton->setIcon(*s_collapsePixmap);
 	}
 }
 
@@ -1003,10 +726,10 @@ void Id3Form::hideV1(bool hide)
 {
 	if (hide) {
 		m_tag1Widget->hide();
-		m_tag1Button->QCM_setIconSet(*s_expandPixmap);
+		m_tag1Button->setIcon(*s_expandPixmap);
 	} else {
 		m_tag1Widget->show();
-		m_tag1Button->QCM_setIconSet(*s_collapsePixmap);
+		m_tag1Button->setIcon(*s_collapsePixmap);
 	}
 }
 
@@ -1019,10 +742,10 @@ void Id3Form::hideV2(bool hide)
 {
 	if (hide) {
 		m_tag2Widget->hide();
-		m_tag2Button->QCM_setIconSet(*s_expandPixmap);
+		m_tag2Button->setIcon(*s_expandPixmap);
 	} else {
 		m_tag2Widget->show();
-		m_tag2Button->QCM_setIconSet(*s_collapsePixmap);
+		m_tag2Button->setIcon(*s_collapsePixmap);
 	}
 }
 
@@ -1099,11 +822,7 @@ static QStringList getItemsFromComboBox(const QComboBox* comboBox)
 {
 	QStringList lst;
 	for (int i = 0; i < comboBox->count(); ++i) {
-#if QT_VERSION >= 0x040000
 		lst += comboBox->itemText(i);
-#else
-		lst += comboBox->text(i);
-#endif
 	}
 	return lst;
 }
@@ -1115,10 +834,10 @@ void Id3Form::saveConfig()
 {
 	Kid3App::s_miscCfg.m_splitterSizes = sizes();
 	Kid3App::s_miscCfg.m_vSplitterSizes = m_vSplitter->sizes();
-	Kid3App::s_miscCfg.m_formatItem = m_formatComboBox->QCM_currentIndex();
+	Kid3App::s_miscCfg.m_formatItem = m_formatComboBox->currentIndex();
 	Kid3App::s_miscCfg.m_formatText = m_formatComboBox->currentText();
 	Kid3App::s_miscCfg.m_formatItems = getItemsFromComboBox(m_formatComboBox);
-	Kid3App::s_miscCfg.m_formatFromFilenameItem = m_formatFromFilenameComboBox->QCM_currentIndex();
+	Kid3App::s_miscCfg.m_formatFromFilenameItem = m_formatFromFilenameComboBox->currentIndex();
 	Kid3App::s_miscCfg.m_formatFromFilenameText = m_formatFromFilenameComboBox->currentText();
 	Kid3App::s_miscCfg.m_formatFromFilenameItems = getItemsFromComboBox(m_formatFromFilenameComboBox);
 	if (!Kid3App::s_miscCfg.m_autoHideTags) {
@@ -1136,34 +855,21 @@ void Id3Form::readConfig()
 	if (!Kid3App::s_miscCfg.m_splitterSizes.empty()) {
 		setSizes(Kid3App::s_miscCfg.m_splitterSizes);
 	} else {
-		setSizes(
-#if QT_VERSION >= 0x040000
-			QList<int>()
-#else
-			QValueList<int>()
-#endif
-			<< 307 << 601);
+		setSizes(QList<int>() << 307 << 601);
 	}
 	if (!Kid3App::s_miscCfg.m_vSplitterSizes.empty()) {
 		m_vSplitter->setSizes(Kid3App::s_miscCfg.m_vSplitterSizes);
 	} else {
-		m_vSplitter->setSizes(
-#if QT_VERSION >= 0x040000
-			QList<int>()
-#else
-			QValueList<int>()
-#endif
-			<< 451 << 109);
+		m_vSplitter->setSizes(QList<int>() << 451 << 109);
 	}
 	if (!Kid3App::s_miscCfg.m_formatItems.isEmpty()) {
 		m_formatComboBox->clear();
-		m_formatComboBox->QCM_addItems(Kid3App::s_miscCfg.m_formatItems);
+		m_formatComboBox->addItems(Kid3App::s_miscCfg.m_formatItems);
 	}
 	if (!Kid3App::s_miscCfg.m_formatFromFilenameItems.isEmpty()) {
 		m_formatFromFilenameComboBox->clear();
-		m_formatFromFilenameComboBox->QCM_addItems(Kid3App::s_miscCfg.m_formatFromFilenameItems);
+		m_formatFromFilenameComboBox->addItems(Kid3App::s_miscCfg.m_formatFromFilenameItems);
 	}
-#if QT_VERSION >= 0x040000
 	m_formatComboBox->setItemText(Kid3App::s_miscCfg.m_formatItem,
 																Kid3App::s_miscCfg.m_formatText);
 	m_formatComboBox->setCurrentIndex(Kid3App::s_miscCfg.m_formatItem);
@@ -1172,14 +878,6 @@ void Id3Form::readConfig()
 		Kid3App::s_miscCfg.m_formatFromFilenameText);
 	m_formatFromFilenameComboBox->setCurrentIndex(
 		Kid3App::s_miscCfg.m_formatFromFilenameItem);
-#else
-	m_formatComboBox->setCurrentItem(Kid3App::s_miscCfg.m_formatItem);
-	m_formatComboBox->setCurrentText(Kid3App::s_miscCfg.m_formatText);
-	m_formatFromFilenameComboBox->setCurrentItem(
-		Kid3App::s_miscCfg.m_formatFromFilenameItem);
-	m_formatFromFilenameComboBox->setCurrentText(
-		Kid3App::s_miscCfg.m_formatFromFilenameText);
-#endif
 	if (!Kid3App::s_miscCfg.m_autoHideTags) {
 		hideFile(Kid3App::s_miscCfg.m_hideFile);
 		hideV1(Kid3App::s_miscCfg.m_hideV1);
@@ -1198,8 +896,8 @@ void Id3Form::initView()
 	for (const char** sl = MiscConfig::s_defaultFnFmtList; *sl != 0; ++sl) {
 		strList += *sl;
 	}
-	m_formatComboBox->QCM_addItems(strList);
-	m_formatFromFilenameComboBox->QCM_addItems(strList);
+	m_formatComboBox->addItems(strList);
+	m_formatFromFilenameComboBox->addItems(strList);
 }
 
 /**
@@ -1252,11 +950,7 @@ void Id3Form::setDetailInfo(const TaggedFile::DetailInfo& info)
  */
 void Id3Form::selectAllFiles()
 {
-	m_fileListBox->selectAll(
-#if QT_VERSION < 0x040000
-		true
-#endif
-		);
+	m_fileListBox->selectAll();
 }
 
 /**
@@ -1264,11 +958,7 @@ void Id3Form::selectAllFiles()
  */
 void Id3Form::deselectAllFiles()
 {
-#if QT_VERSION >= 0x040000
 	m_fileListBox->clearSelection();
-#else
-	m_fileListBox->selectAll(false);
-#endif
 }
 
 /**
@@ -1300,15 +990,3 @@ bool Id3Form::selectPreviousFile()
 {
 	return m_fileListBox->selectPreviousFile();
 }
-
-#if QT_VERSION < 0x040000
-/**
- * Called when the widget is resized.
- * @param ev resize event
- */
-void Id3Form::resizeEvent(QResizeEvent* ev)
-{
-	emit windowResized();
-	QSplitter::resizeEvent(ev);
-}
-#endif

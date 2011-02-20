@@ -28,7 +28,7 @@
 #define IMPORTSOURCECONFIG_H
 
 #include "generalconfig.h"
-#include <qstring.h>
+#include <QString>
 
 /**
  * Freedb configuration.

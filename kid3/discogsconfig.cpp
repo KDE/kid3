@@ -25,7 +25,7 @@
  */
 
 #include "discogsconfig.h"
-#include <qstring.h>
+#include <QString>
 
 /**
  * Constructor.

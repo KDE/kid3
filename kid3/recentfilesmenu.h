@@ -10,26 +10,15 @@
 #ifndef RECENTFILESMENU_H
 #define RECENTFILESMENU_H
 
+#include <QStringList>
+#include <QMenu>
 #include "config.h"
-
-#include <qstringlist.h>
-
 #include "generalconfig.h"
-
-/** Base class for main window. */
-#if QT_VERSION >= 0x040000
-#include <qmenu.h>
-typedef QMenu RecentFilesMenuBaseClass;
-#else
-#include <qpopupmenu.h>
-typedef QPopupMenu RecentFilesMenuBaseClass;
-#endif
 
 /**
  * Menu to open recent files.
  */
-class RecentFilesMenu : public RecentFilesMenuBaseClass
-{
+class RecentFilesMenu : public QMenu {
 Q_OBJECT
 #ifndef CONFIG_USE_KDE
 public:

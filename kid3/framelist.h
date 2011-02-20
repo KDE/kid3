@@ -27,11 +27,9 @@
 #ifndef FRAMELIST_H
 #define FRAMELIST_H
 
-#include <qlabel.h>
+#include <QLabel>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QByteArray>
-#endif
 #include "taggedfile.h"
 
 class FrameTable;

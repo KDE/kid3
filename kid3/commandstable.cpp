@@ -26,14 +26,10 @@
 
 #include "commandstable.h"
 #include "filelist.h"
-#include <qtooltip.h>
+#include <QToolTip>
 
-#if QT_VERSION >= 0x040000
 #include <QMenu>
 #include <QHeaderView>
-#else 
-#include <qpopupmenu.h>
-#endif
 
 /** Column indices. */
 enum ColumnIndex {
@@ -49,7 +45,6 @@ enum ColumnIndex {
  *
  * @param parent parent widget
  */
-#if QT_VERSION >= 0x040000
 CommandsTable::CommandsTable(QWidget* parent) :
 	QTableWidget(parent)
 {
@@ -67,26 +62,6 @@ CommandsTable::CommandsTable(QWidget* parent) :
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
 			this, SLOT(customContextMenu(const QPoint&)));
 }
-#else
-CommandsTable::CommandsTable(QWidget* parent) :
-	QTable(parent)
-{
-	setNumCols(CI_NumColumns);
-	horizontalHeader()->setLabel(CI_Confirm, i18n("Confirm"));
-	horizontalHeader()->setLabel(CI_Output, i18n("Output"));
-	horizontalHeader()->setLabel(CI_Name, i18n("Name"));
-	horizontalHeader()->setLabel(CI_Command, i18n("Command"));
-	QToolTip::add(horizontalHeader(), FileList::getFormatToolTip());
-	adjustColumn(CI_Confirm);
-	adjustColumn(CI_Output);
-	setColumnStretchable(CI_Command, true);
-
-	connect(this, SIGNAL(valueChanged(int, int)),
-			this, SLOT(valueChanged(int, int)));
-	connect(this, SIGNAL(contextMenuRequested(int, int, const QPoint&)),
-			this, SLOT(contextMenu(int, int, const QPoint&)));
-}
-#endif
 
 /**
  * Destructor.
@@ -102,7 +77,6 @@ CommandsTable::~CommandsTable() {}
  * @param row table row of changed item
  * @param col table column of changed item
  */
-#if QT_VERSION >= 0x040000
 void CommandsTable::valueChanged(int row, int col)
 {
 	QTableWidgetItem* twi;
@@ -117,20 +91,6 @@ void CommandsTable::valueChanged(int row, int col)
 		}
 	}
 }
-#else
-void CommandsTable::valueChanged(int row, int col)
-{
-	if (row == numRows() - 1 && col == CI_Command) {
-		if (text(row, col).isEmpty()) {
-			if (row != 0) {
-				deleteRow(row);
-			}
-		} else {
-			addRow(row);
-		}
-	}
-}
-#endif
 
 /**
  * Insert a new row into the table.
@@ -139,7 +99,6 @@ void CommandsTable::valueChanged(int row, int col)
  */
 void CommandsTable::addRow(int row)
 {
-#if QT_VERSION >= 0x040000
 	insertRow(row + 1);
 
 	QTableWidgetItem* twi;
@@ -164,11 +123,6 @@ void CommandsTable::addRow(int row)
 		twi->setText("");
 	else
 		setItem(row + 1, CI_Command, new QTableWidgetItem(""));
-#else
-	insertRows(row + 1);
-	setItem(row + 1, CI_Confirm, new QCheckTableItem(this, ""));
-	setItem(row + 1, CI_Output, new QCheckTableItem(this, ""));
-#endif
 }
 
 /**
@@ -178,9 +132,7 @@ void CommandsTable::addRow(int row)
  */
 void CommandsTable::deleteRow(int row)
 {
-#if QT_VERSION >= 0x040000
 	if (rowCount() <= 1) return;
-#endif
 	removeRow(row);
 }
 
@@ -191,7 +143,6 @@ void CommandsTable::deleteRow(int row)
  */
 void CommandsTable::clearRow(int row)
 {
-#if QT_VERSION >= 0x040000
 	QTableWidgetItem* twi = item(row, CI_Name);
 	if (twi) twi->setText("");
 	twi = item(row, CI_Command);
@@ -200,20 +151,6 @@ void CommandsTable::clearRow(int row)
 	if (twi) twi->setCheckState(Qt::Unchecked);
 	twi = item(row, CI_Output);
 	if (twi) twi->setCheckState(Qt::Unchecked);
-#else
-	setText(row, CI_Name, "");
-	setText(row, CI_Command, "");
-	QTableItem* ti = item(row, CI_Confirm);
-	QCheckTableItem* cti = dynamic_cast<QCheckTableItem*>(ti);
-	if (cti) {
-		cti->setChecked(false);
-	}
-	ti = item(row, CI_Output);
-	cti = dynamic_cast<QCheckTableItem*>(ti);
-	if (cti) {
-		cti->setChecked(false);
-	}
-#endif
 }
 
 /**
@@ -221,7 +158,6 @@ void CommandsTable::clearRow(int row)
  *
  * @param action action of selected menu
  */
-#if QT_VERSION >= 0x040000
 void CommandsTable::executeAction(QAction* action)
 {
 	if (action) {
@@ -242,9 +178,6 @@ void CommandsTable::executeAction(QAction* action)
 		}
 	}
 }
-#else
-void CommandsTable::executeAction(QAction*) {}
-#endif
 
 /**
  * Display context menu.
@@ -255,7 +188,6 @@ void CommandsTable::executeAction(QAction*) {}
  */
 void CommandsTable::contextMenu(int row, int /* col */, const QPoint& pos)
 {
-#if QT_VERSION >= 0x040000
 	QMenu menu(this);
 	QAction* action;
 	if (row >= -1) {
@@ -271,26 +203,10 @@ void CommandsTable::contextMenu(int row, int /* col */, const QPoint& pos)
 		if (action) action->setData((row << 2) | 2);
 	}
 	connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
-#else
-	QPopupMenu menu(this);
-	if (row >= -1) {
-		menu.insertItem(i18n("&Insert row"), this, SLOT(addRow(int)), 0, 0);
-		menu.setItemParameter(0, row);
-	}
-	if (row >= 0) {
-		menu.insertItem(i18n("&Delete row"), this, SLOT(deleteRow(int)), 0, 1);
-		menu.setItemParameter(1, row);
-	}
-	if (row >= 0) {
-		menu.insertItem(i18n("&Clear row"), this, SLOT(clearRow(int)), 0, 2);
-		menu.setItemParameter(2, row);
-	}
-#endif
 	menu.setMouseTracking(true);
 	menu.exec(pos);
 }
 
-#if QT_VERSION >= 0x040000
 /**
  * Display custom context menu.
  *
@@ -300,28 +216,20 @@ void CommandsTable::customContextMenu(const QPoint& pos)
 {
 	QTableWidgetItem* item = itemAt(pos);
 	if (item) {
-#if QT_VERSION >= 0x040200
 		contextMenu(item->row(), item->column(), mapToGlobal(pos));
-#else
-		contextMenu(currentRow(), currentColumn(), mapToGlobal(pos));
-#endif
 	}
 }
-#else
-void CommandsTable::customContextMenu(const QPoint&) {}
-#endif
 
 /**
  * Set the table from the command list.
  *
  * @param cmdList command list
  */
-void CommandsTable::setCommandList(const MiscConfig::MenuCommandList& cmdList)
+void CommandsTable::setCommandList(const QList<MiscConfig::MenuCommand>& cmdList)
 {
-#if QT_VERSION >= 0x040000
 	setRowCount(0);
 	int row = 0;
-	for (MiscConfig::MenuCommandList::const_iterator it = cmdList.begin();
+	for (QList<MiscConfig::MenuCommand>::const_iterator it = cmdList.begin();
 			 it != cmdList.end();
 			 ++it) {
 		if (!(*it).getCommand().isEmpty()) {
@@ -351,34 +259,6 @@ void CommandsTable::setCommandList(const MiscConfig::MenuCommandList& cmdList)
 		// no commands => show at least one row
 		addRow(-1);
 	}
-#else
-	setNumRows(0);
-	int row = 0;
-	for (MiscConfig::MenuCommandList::const_iterator it = cmdList.begin();
-			 it != cmdList.end();
-			 ++it) {
-		if (!(*it).getCommand().isEmpty()) {
-			insertRows(row);
-			QCheckTableItem* cti = new QCheckTableItem(this, "");
-			if (cti) {
-				cti->setChecked((*it).mustBeConfirmed());
-				setItem(row, CI_Confirm, cti);
-			}
-			cti = new QCheckTableItem(this, "");
-			if (cti) {
-				cti->setChecked((*it).outputShown());
-				setItem(row, CI_Output, cti);
-			}
-			setText(row, CI_Name, (*it).getName());
-			setText(row, CI_Command, (*it).getCommand());
-			++row;
-		}
-	}
-	if (row == 0) {
-		// no commands => show at least one row
-		addRow(-1);
-	}
-#endif
 }
 
 /**
@@ -386,9 +266,8 @@ void CommandsTable::setCommandList(const MiscConfig::MenuCommandList& cmdList)
  *
  * @param cmdList the command list is returned here
  */
-void CommandsTable::getCommandList(MiscConfig::MenuCommandList& cmdList) const
+void CommandsTable::getCommandList(QList<MiscConfig::MenuCommand>& cmdList) const
 {
-#if QT_VERSION >= 0x040000
 	cmdList.clear();
 	int nrRows = rowCount();
 	for (int row = 0; row < nrRows; ++row) {
@@ -416,34 +295,4 @@ void CommandsTable::getCommandList(MiscConfig::MenuCommandList& cmdList) const
 			}
 		}
 	}
-#else
-	cmdList.clear();
-	int nrRows = numRows();
-	for (int row = 0; row < nrRows; ++row) {
-		QString cmd = text(row, CI_Command);
-		if (!cmd.isEmpty()) {
-			QString name = text(row, CI_Name);
-			if (name.isEmpty()) {
-				name = cmd;
-			}
-			bool confirm = false;
-			bool showOutput = false;
-			QTableItem* ti = item(row, CI_Confirm);
-			QCheckTableItem* cti = dynamic_cast<QCheckTableItem*>(ti);
-			if (cti) {
-				if (cti->isChecked()) {
-					confirm = true;
-				}
-			}
-			ti = item(row, CI_Output);
-			cti = dynamic_cast<QCheckTableItem*>(ti);
-			if (cti) {
-				if (cti->isChecked()) {
-					showOutput = true;
-				}
-			}
-			cmdList.push_back(MiscConfig::MenuCommand(name, cmd, confirm, showOutput));
-		}
-	}
-#endif
 }

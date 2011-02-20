@@ -24,15 +24,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qregexp.h>
+#include <QRegExp>
 #include "kid3.h"
 #include "freedbclient.h"
 #include "freedbdialog.h"
 #include "genres.h"
 #include "importparser.h"
-#if QT_VERSION < 0x040000
-#include <cstring>
-#endif
 
 static const char* serverList[] = {
 	"www.gnudb.org:80",
@@ -113,43 +110,33 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
 <a href="http://www.gnudb.org/gnudb/rock/920b810c" target=_blank>Discid: rock / 920b810c</a><br>
 */
 	bool isUtf8 = false;
-#if QT_VERSION >= 0x040000
 	int charSetPos = searchStr.indexOf("charset=");
 	if (charSetPos != -1) {
 		charSetPos += 8;
 		QByteArray charset(searchStr.mid(charSetPos, 5));
 		isUtf8 = charset == "utf-8" || charset == "UTF-8";
 	}
-#else
-	const char* searchStrData = searchStr.data();
-	const char* charSetPtr = std::strstr(searchStrData, "charset=");
-	if (charSetPtr) {
-		charSetPtr += 8;
-		isUtf8 = std::strncmp(charSetPtr, "utf-8", 5) == 0 ||
-		         std::strncmp(charSetPtr, "UTF-8", 5) == 0;
-	}
-#endif
 	QString str = isUtf8 ? QString::fromUtf8(searchStr) :
 	                       QString::fromLatin1(searchStr);
 	QRegExp titleRe("<a href=\"[^\"]+/cd/[^\"]+\"><b>([^<]+)</b></a>");
 	QRegExp catIdRe("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)");
-	QStringList lines = QCM_split(QRegExp("[\\r\\n]+"), str);
+	QStringList lines = str.split(QRegExp("[\\r\\n]+"));
 	QString title;
 	bool inEntries = false;
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		if (inEntries) {
-			if (titleRe.QCM_indexIn(*it) != -1) {
+			if (titleRe.indexIn(*it) != -1) {
 				title = titleRe.cap(1);
 			}
-			if (catIdRe.QCM_indexIn(*it) != -1) {
+			if (catIdRe.indexIn(*it) != -1) {
 				new AlbumListItem(
 					m_albumListBox,
 					title,
 					catIdRe.cap(1),
 					catIdRe.cap(2));
 			}
-		} else if ((*it).QCM_indexOf(" albums found:") != -1) {
+		} else if ((*it).indexOf(" albums found:") != -1) {
 			inEntries = true;
 		}
 	}
@@ -185,16 +172,16 @@ static void parseFreedbTrackDurations(
 	trackDuration.clear();
 	QRegExp discLenRe("Disc length:\\s*\\d+");
 	int discLenPos, len;
-	discLenPos = discLenRe.QCM_indexIn(text, 0);
+	discLenPos = discLenRe.indexIn(text, 0);
 	if (discLenPos != -1) {
 		len = discLenRe.matchedLength();
 		discLenPos += 12;
 		int discLen = text.mid(discLenPos, len - 12).toInt();
-		int trackOffsetPos = text.QCM_indexOf("Track frame offsets", 0);
+		int trackOffsetPos = text.indexOf("Track frame offsets", 0);
 		if (trackOffsetPos != -1) {
 			QRegExp re("#\\s*\\d+");
 			int lastOffset = -1;
-			while ((trackOffsetPos = re.QCM_indexIn(text, trackOffsetPos)) != -1 &&
+			while ((trackOffsetPos = re.indexIn(text, trackOffsetPos)) != -1 &&
 						 trackOffsetPos < discLenPos) {
 				len = re.matchedLength();
 				trackOffsetPos += 1;
@@ -223,16 +210,16 @@ static void parseFreedbAlbumData(const QString& text,
 																 FrameCollection& frames)
 {
 	QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");
-	if (fdre.QCM_indexIn(text) != -1) {
+	if (fdre.indexIn(text) != -1) {
 		frames.setArtist(fdre.cap(1));
 		frames.setAlbum(fdre.cap(2));
 	}
 	fdre.setPattern("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D");
-	if (fdre.QCM_indexIn(text) != -1) {
+	if (fdre.indexIn(text) != -1) {
 		frames.setYear(fdre.cap(1).toInt());
 	}
 	fdre.setPattern("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D");
-	if (fdre.QCM_indexIn(text) != -1) {
+	if (fdre.indexIn(text) != -1) {
 		frames.setGenre(Genres::getName(fdre.cap(1).toInt()));
 	}
 }
@@ -260,7 +247,7 @@ void FreedbDialog::parseAlbumResults(const QByteArray& albumStr)
 	for (;;) {
 		QRegExp fdre(QString("TTITLE%1=([^\\r\\n]+)[\\r\\n]").arg(tracknr));
 		QString title;
-		while ((idx = fdre.QCM_indexIn(text, pos)) != -1) {
+		while ((idx = fdre.indexIn(text, pos)) != -1) {
 			title += fdre.cap(1);
 			pos = idx + fdre.matchedLength();
 		}

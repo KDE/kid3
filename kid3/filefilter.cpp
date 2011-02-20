@@ -26,7 +26,7 @@
 
 #include "filefilter.h"
 #include "taggedfile.h"
-#include <qregexp.h>
+#include <QRegExp>
 #include "qtcompatmac.h"
 
 /**
@@ -63,17 +63,17 @@ void FileFilter::initParser()
  */
 QString FileFilter::formatString(const QString& format)
 {
-	if (format.QCM_indexOf('%') == -1) {
+	if (format.indexOf('%') == -1) {
 		return format;
 	}
 	QString str(format);
 	str.replace(QString("%1"), QString("\v1"));
 	str.replace(QString("%2"), QString("\v2"));
 	str = m_trackData12.formatString(str);
-	if (str.QCM_indexOf('\v') != -1) {
+	if (str.indexOf('\v') != -1) {
 		str.replace(QString("\v2"), QString("%"));
 		str = m_trackData2.formatString(str);
-		if (str.QCM_indexOf('\v') != -1) {
+		if (str.indexOf('\v') != -1) {
 			str.replace(QString("\v1"), QString("%"));
 			str = m_trackData1.formatString(str);
 		}
@@ -151,7 +151,7 @@ bool FileFilter::parse()
 		if (op == "equals") {
 			m_parser.pushBool(var1 == var2);
 		} else if (op == "contains") {
-			m_parser.pushBool(var2.QCM_indexOf(var1) >= 0);
+			m_parser.pushBool(var2.indexOf(var1) >= 0);
 		} else if (op == "matches") {
 			m_parser.pushBool(QRegExp(var1).exactMatch(var2));
 		}

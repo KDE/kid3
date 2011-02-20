@@ -27,7 +27,7 @@
 #ifndef PLAYLISTDIALOG_H
 #define PLAYLISTDIALOG_H
 
-#include <qdialog.h>
+#include <QDialog>
 
 class QRadioButton;
 class QCheckBox;

@@ -31,23 +31,19 @@
 #endif
 
 #include "kid3.h"
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <qstring.h>
-#include <qtextedit.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qtooltip.h>
+#include <QLayout>
+#include <QPushButton>
+#include <QLabel>
+#include <QSpinBox>
+#include <QString>
+#include <QTextEdit>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QToolTip>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#else
-#include <qgroupbox.h>
-#endif
 
 /**
  * Constructor.
@@ -58,7 +54,7 @@ FilterDialog::FilterDialog(QWidget* parent) :
 	QDialog(parent), m_aborted(false)
 {
 	setModal(true);
-	QCM_setWindowTitle(i18n("Filter"));
+	setWindowTitle(i18n("Filter"));
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (vlayout) {
@@ -68,27 +64,21 @@ FilterDialog::FilterDialog(QWidget* parent) :
 		if (m_edit) {
 			m_edit->setReadOnly(true);
 			m_edit->setTabStopWidth(20);
-			m_edit->QCM_setTextFormat_PlainText();
+			m_edit->setAcceptRichText(false);
 			vlayout->addWidget(m_edit);
 		}
 
-#if QT_VERSION >= 0x040000
 		QGroupBox* fltbox = new QGroupBox(i18n("&Filter"), this);
-#else
-		QGroupBox* fltbox = new QGroupBox(2, Qt::Vertical, i18n("&Filter"), this);
-#endif
 		if (fltbox) {
 			m_nameComboBox = new QComboBox(fltbox);
 			m_nameComboBox->setEditable(true);
 			m_filterLineEdit = new QLineEdit(fltbox);
-			QCM_setToolTip(m_filterLineEdit, FileFilter::getFormatToolTip());
-#if QT_VERSION >= 0x040000
+			m_filterLineEdit->setToolTip(FileFilter::getFormatToolTip());
 			QVBoxLayout* vbox = new QVBoxLayout;
 			vbox->setMargin(2);
 			vbox->addWidget(m_nameComboBox);
 			vbox->addWidget(m_filterLineEdit);
 			fltbox->setLayout(vbox);
-#endif
 			vlayout->addWidget(fltbox);
 			connect(m_nameComboBox, SIGNAL(activated(int)), this,
 							SLOT(setFilterLineEdit(int)));
@@ -170,8 +160,8 @@ void FilterDialog::setFiltersFromConfig()
 	m_filterNames = Kid3App::s_filterCfg.m_filterNames;
 	m_filterExpressions = Kid3App::s_filterCfg.m_filterExpressions;
 	m_nameComboBox->clear();
-	m_nameComboBox->QCM_addItems(Kid3App::s_filterCfg.m_filterNames);
-	m_nameComboBox->QCM_setCurrentIndex(Kid3App::s_filterCfg.m_filterIdx);
+	m_nameComboBox->addItems(Kid3App::s_filterCfg.m_filterNames);
+	m_nameComboBox->setCurrentIndex(Kid3App::s_filterCfg.m_filterIdx);
 	setFilterLineEdit(Kid3App::s_filterCfg.m_filterIdx);
 }
 
@@ -198,7 +188,7 @@ void FilterDialog::readConfig()
  */
 void FilterDialog::saveConfig()
 {
-	Kid3App::s_filterCfg.m_filterIdx = m_nameComboBox->QCM_currentIndex();
+	Kid3App::s_filterCfg.m_filterIdx = m_nameComboBox->currentIndex();
 	if (Kid3App::s_filterCfg.m_filterIdx <
 			static_cast<int>(Kid3App::s_filterCfg.m_filterNames.size())) {
 		Kid3App::s_filterCfg.m_filterNames[Kid3App::s_filterCfg.m_filterIdx] =

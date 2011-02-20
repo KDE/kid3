@@ -28,17 +28,10 @@
 #define FRAMETABLE_H
 
 #include "frame.h"
-#include <qstringlist.h>
-#include <qlineedit.h>
-#include "qtcompatmac.h"
-/** The base class depends on the Qt version and is a table widget. */
-#if QT_VERSION >= 0x040000
+#include <QStringList>
+#include <QLineEdit>
 #include <QTableWidget>
-typedef QTableWidget FrameTableBaseClass;
-#else 
-#include <qtable.h>
-typedef QTable FrameTableBaseClass;
-#endif
+#include "qtcompatmac.h"
 
 class QAction;
 class QPoint;
@@ -46,7 +39,7 @@ class QPoint;
 /**
  * Table to edit frames.
  */
-class FrameTable : public FrameTableBaseClass {
+class FrameTable : public QTableWidget {
 Q_OBJECT
 
 public:
@@ -151,12 +144,6 @@ public:
 	 */
 	FrameCollection& frames() { return m_frames; }
 
-public slots:
-	/**
-	 * Called to trigger resizing in the next call to framesToTable().
-	 */
-	void triggerResize();
-
 private slots:
 	/**
 	 * Select all frames in the table.
@@ -218,7 +205,6 @@ private:
 	const bool m_id3v1;
 	FrameCollection m_frames;
 
-#if QT_VERSION >= 0x040000
 public:
 	/**
 	 * Filters events if this object has been installed as an event filter
@@ -242,31 +228,6 @@ public:
 
 private:
 	QWidget* m_currentEditor;
-#else
-public:
-	/**
-	 * Trigger update of genres.
-	 */
-	void triggerUpdateGenres() { m_updateGenres = true; }
-
-	/**
-	 * @return preferred size.
-	 */
-	virtual QSize sizeHint() const;
-
-	/**
-	 * Filters events if this object has been installed as an event filter
-	 * for the watched object.
-	 * @param o watched object
-	 * @param e event
-	 * @return true to filter event out.
-	 */
-	virtual bool eventFilter(QObject* o, QEvent* e);
-
-private:
-	bool m_resizeTable;
-	bool m_updateGenres;
-#endif
 };
 
 /** Line edit with automatic tag formatting. */
@@ -283,26 +244,6 @@ public:
 	 * Destructor.
 	 */
 	virtual ~FrameTableLineEdit();
-
-#if QT_VERSION < 0x040000
-	/**
-	 * Set the table item using this line edit.
-	 * @param ti table item
-	 */
-	void setTableItem(const QTableItem* ti) { m_tableItem = ti; }
-
-protected:
-	/**
-	 * Called when the widget gets the keyboard focus.
-	 * Used to set the current table cell, because this is not done
-	 * when using EditType Always.
-	 * @param event focus event
-	 */
-	virtual void focusInEvent(QFocusEvent* event);
-
-private:
-	const QTableItem* m_tableItem;
-#endif
 
 private slots:
 	/**

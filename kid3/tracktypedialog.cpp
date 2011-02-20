@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qregexp.h>
+#include <QRegExp>
 #include "kid3.h"
 #include "tracktypeclient.h"
 #include "tracktypedialog.h"
@@ -85,7 +85,7 @@ theoretically, but never seen
 */
 	QString str = QString::fromUtf8(searchStr);
 	QRegExp catIdTitleRe("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)");
-	QStringList lines = QCM_split(QRegExp("[\\r\\n]+"), str);
+	QStringList lines = str.split(QRegExp("[\\r\\n]+"));
 	bool inEntries = false;
 	m_albumListBox->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
@@ -101,7 +101,7 @@ theoretically, but never seen
 					catIdTitleRe.cap(2));
 			}
 		} else {
-			if ((*it).startsWith("21") && (*it).QCM_indexOf(" match") != -1) {
+			if ((*it).startsWith("21") && (*it).indexOf(" match") != -1) {
 				inEntries = true;
 			} else if ((*it).startsWith("200 ")) {
 				if (catIdTitleRe.exactMatch((*it).mid(4))) {

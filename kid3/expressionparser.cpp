@@ -57,13 +57,8 @@ ExpressionParser::~ExpressionParser()
 bool ExpressionParser::lessPriority(const QString& op1,
 																		const QString& op2) const
 {
-#if QT_VERSION >= 0x040000
 	int index1 = m_operators.indexOf(op1);
 	int index2 = m_operators.indexOf(op2);
-#else
-	int index1 = m_operators.findIndex(op1);
-	int index2 = m_operators.findIndex(op2);
-#endif
 	if (op1 == "(") return true;
 	if (index1 >= 0 && index2 >= 0) return index1 >= index2;
 	return false;

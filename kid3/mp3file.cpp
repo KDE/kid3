@@ -27,13 +27,11 @@
 #include "mp3file.h"
 #ifdef HAVE_ID3LIB
 
-#include <qdir.h>
-#include <qstring.h>
-#include <qtextcodec.h>
+#include <QDir>
+#include <QString>
+#include <QTextCodec>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QByteArray>
-#endif
 
 #include <id3/tag.h>
 #ifdef WIN32
@@ -100,7 +98,7 @@ Mp3File::~Mp3File()
  */
 void Mp3File::readTags(bool force)
 {
-	QCM_QCString fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+	QByteArray fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
 	if (force && m_tagV1) {
 		m_tagV1->Clear();
@@ -152,7 +150,7 @@ bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 	}
 
 	// store time stamp if it has to be preserved
-	QCM_QCString fn;
+	QByteArray fn;
 	bool setUtime = false;
 	struct utimbuf times;
 	if (preserve) {
@@ -382,7 +380,7 @@ static int getTrackNum(const ID3_Tag* tag)
 	if (str.isNull()) return -1;
 	if (str.isEmpty()) return 0;
 	// handle "track/total number of tracks" format
-	int slashPos = str.QCM_indexOf('/');
+	int slashPos = str.indexOf('/');
 	if (slashPos != -1) {
 		str.truncate(slashPos);
 	}
@@ -403,7 +401,7 @@ static int getGenreNum(const ID3_Tag* tag)
 	if (str.isNull()) return -1;
 	if (str.isEmpty()) return 0xff;
 	int cpPos = 0, n = 0xff;
-	if ((str[0] == '(') && ((cpPos = str.QCM_indexOf(')', 2)) > 1)) {
+	if ((str[0] == '(') && ((cpPos = str.indexOf(')', 2)) > 1)) {
 		bool ok;
 		n = str.mid(1, cpPos - 1).toInt(&ok);
 		if (!ok || n > 0xff) {
@@ -472,10 +470,10 @@ static void setStringList(ID3_Field* field, const QStringList& lst)
 					delete [] unicode;
 				}
 			} else if (enc == ID3TE_UTF8) {
-				field->Set((*it).QCM_toUtf8().data());
+				field->Set((*it).toUtf8().data());
 			} else {
 				// enc == ID3TE_ISO8859_1
-				field->Set((*it).QCM_latin1());
+				field->Set((*it).toLatin1().data());
 			}
 			first = false;
 		} else {
@@ -491,10 +489,10 @@ static void setStringList(ID3_Field* field, const QStringList& lst)
 					delete [] unicode;
 				}
 			} else if (enc == ID3TE_UTF8) {
-				field->Add((*it).QCM_toUtf8().data());
+				field->Add((*it).toUtf8().data());
 			} else {
 				// enc == ID3TE_ISO8859_1
-				field->Add((*it).QCM_latin1());
+				field->Add((*it).toLatin1().data());
 			}
 		}
 	}
@@ -510,7 +508,7 @@ static void setStringList(ID3_Field* field, const QStringList& lst)
 static void setString(ID3_Field* field, const QString& text,
 											const QTextCodec* codec = 0)
 {
-	if (text.QCM_indexOf(Frame::stringListSeparator()) == -1) {
+	if (text.indexOf(Frame::stringListSeparator()) == -1) {
 		ID3_TextEnc enc = field->GetEncoding();
 		// (ID3TE_IS_DOUBLE_BYTE_ENC(enc))
 		if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
@@ -520,13 +518,13 @@ static void setString(ID3_Field* field, const QString& text,
 				delete [] unicode;
 			}
 		} else if (enc == ID3TE_UTF8) {
-			field->Set(text.QCM_toUtf8().data());
+			field->Set(text.toUtf8().data());
 		} else {
 			// enc == ID3TE_ISO8859_1
-			field->Set(codec ? codec->fromUnicode(text).data() : text.QCM_latin1());
+			field->Set(codec ? codec->fromUnicode(text).data() : text.toLatin1().data());
 		}
 	} else {
-		setStringList(field, QCM_split(Frame::stringListSeparator(), text));
+		setStringList(field, text.split(Frame::stringListSeparator()));
 	}
 }
 
@@ -575,13 +573,7 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
 						uint i, unicode_size = text.length();
 						const QChar* qcarray = text.unicode();
 						for (i = 0; i < unicode_size; i++) {
-							char ch = qcarray[i].
-#if QT_VERSION >= 0x040000
-								toLatin1()
-#else
-								latin1()
-#endif
-								;
+							char ch = qcarray[i].toLatin1();
 							if (ch == 0 || (ch & 0x80) != 0) {
 								enc = ID3TE_UTF16;
 								break;
@@ -1110,7 +1102,7 @@ bool Mp3File::hasTagV2() const
  */
 void Mp3File::getDetailInfo(DetailInfo& info) const
 {
-	if (getFilename().right(4).QCM_toLower() == ".aac") {
+	if (getFilename().right(4).toLower() == ".aac") {
 		info.valid = true;
 		info.format = "AAC";
 		return;
@@ -1212,7 +1204,7 @@ unsigned Mp3File::getDuration() const
  */
 QString Mp3File::getFileExtension() const
 {
-	QString ext(getFilename().right(4).QCM_toLower());
+	QString ext(getFilename().right(4).toLower());
 	if (ext == ".aac" || ext == ".mp2")
 		return ext;
 	else
@@ -1413,7 +1405,7 @@ static ID3_FrameID getId3libFrameIdForType(Frame::Type type)
 static ID3_FrameID getId3libFrameIdForName(const QString& name)
 {
 	if (name.length() >= 4) {
-		const char* nameStr = name.QCM_latin1();
+		const char* nameStr = name.toLatin1().data();
 		for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
 			const char* s = typeStrOfId[i].str;
 			if (s && ::strncmp(s, nameStr, 4) == 0) {
@@ -1448,9 +1440,7 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
 			field.m_value = id3Field->Get();
 		}
 		else if (type == ID3FTY_BINARY) {
-			QByteArray ba;
-			QCM_duplicate(ba,
-										(const char *)id3Field->GetRawBinary(),
+			QByteArray ba((const char *)id3Field->GetRawBinary(),
 										(unsigned int)id3Field->Size());
 			field.m_value = ba;
 		}
@@ -1602,7 +1592,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
 				ID3_Field* fld;
 				if ((fld = id3Frame->GetField(ID3FN_URL)) != 0) {
 					if (getString(fld) != value) {
-						fld->Set(value.QCM_latin1());
+						fld->Set(value.toLatin1().data());
 						markTag2Changed(frame.getType());
 					}
 					return true;
@@ -1620,13 +1610,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
 						uint i, unicode_size = value.length();
 						const QChar* qcarray = value.unicode();
 						for (i = 0; i < unicode_size; i++) {
-							char ch = qcarray[i].
-#if QT_VERSION >= 0x040000
-								toLatin1()
-#else
-								latin1()
-#endif
-								;
+							char ch = qcarray[i].toLatin1();
 							if (ch == 0 || (ch & 0x80) != 0) {
 								ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
 								if (encfld) {
@@ -1649,9 +1633,8 @@ bool Mp3File::setFrameV2(const Frame& frame)
 					QByteArray newData, oldData;
 					if (ownerFld && !(owner = getString(ownerFld)).isEmpty() &&
 							AttributeData(owner).toByteArray(value, newData)) {
-						QCM_duplicate(oldData,
-						              (const char *)fld->GetRawBinary(),
-						              (unsigned int)fld->Size());
+						oldData = QByteArray((const char *)fld->GetRawBinary(),
+																 (unsigned int)fld->Size());
 						if (newData != oldData) {
 							fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
 							         newData.size());
@@ -1664,9 +1647,8 @@ bool Mp3File::setFrameV2(const Frame& frame)
 					QByteArray newData, oldData;
 					if (AttributeData::isHexString(value, 'F', "+") &&
 							AttributeData(AttributeData::Utf16).toByteArray(value, newData)) {
-						QCM_duplicate(oldData,
-						              (const char *)fld->GetRawBinary(),
-						              (unsigned int)fld->Size());
+						oldData = QByteArray((const char *)fld->GetRawBinary(),
+																 (unsigned int)fld->Size());
 						if (newData != oldData) {
 							fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
 							         newData.size());
@@ -1678,14 +1660,9 @@ bool Mp3File::setFrameV2(const Frame& frame)
 					         (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
 					QByteArray newData, oldData;
 					if (AttributeData::isHexString(value, 'Z')) {
-#if QT_VERSION >= 0x040000
 						newData = (value + '\0').toLatin1();
-#else
-						newData.duplicate((value + '\0').latin1(), value.length() + 1);
-#endif
-						QCM_duplicate(oldData,
-						              (const char *)fld->GetRawBinary(),
-						              (unsigned int)fld->Size());
+						oldData = QByteArray((const char *)fld->GetRawBinary(),
+																 (unsigned int)fld->Size());
 						if (newData != oldData) {
 							fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
 							         newData.size());
@@ -2000,7 +1977,7 @@ void Mp3File::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
 TaggedFile* Mp3File::Resolver::createFile(const DirInfo* di,
 																					const QString& fn) const
 {
-	QString ext = fn.right(4).QCM_toLower();
+	QString ext = fn.right(4).toLower();
 	if ((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_TAGLIB
 			&& Kid3App::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0

@@ -27,24 +27,14 @@
 #ifndef DIRLIST_H
 #define DIRLIST_H
 
-#include <qstring.h>
+#include <QString>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QListWidget>
-#else
-#include <qlistbox.h>
-#endif
 
 /**
  * List of directories to operate on.
  */
-class DirList : public
-#if QT_VERSION >= 0x040000
-QListWidget
-#else
-QListBox
-#endif
-{
+class DirList : public QListWidget {
 public:
 	/**
 	 * Constructor.

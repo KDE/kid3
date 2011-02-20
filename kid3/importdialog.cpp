@@ -29,18 +29,14 @@
 #include <kconfig.h>
 #endif
 
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
-#include <qspinbox.h>
-#include <qstring.h>
-#if QT_VERSION >= 0x040000
+#include <QLayout>
+#include <QPushButton>
+#include <QLabel>
+#include <QCheckBox>
+#include <QSpinBox>
+#include <QString>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#else
-#include <qhbox.h>
-#endif
 #include "importselector.h"
 #include "importdialog.h"
 #include "kid3.h"
@@ -60,7 +56,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	m_trackDataVector(trackDataList)
 {
 	setModal(true);
-	QCM_setWindowTitle(caption);
+	setWindowTitle(caption);
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {

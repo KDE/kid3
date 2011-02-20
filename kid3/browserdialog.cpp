@@ -27,16 +27,12 @@
 #include "browserdialog.h"
 
 #ifndef CONFIG_USE_KDE
-#include <qtextbrowser.h>
-#include <qlocale.h>
-#include <qdir.h>
-#include <qpushbutton.h>
+#include <QTextBrowser>
+#include <QLocale>
+#include <QDir>
+#include <QPushButton>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QVBoxLayout>
-#else
-#include <qlayout.h>
-#endif
 
 /**
  * Constructor.
@@ -47,7 +43,7 @@
 BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 	: QDialog(parent)
 {
-	QCM_setWindowTitle(caption);
+	setWindowTitle(caption);
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
 		return ;
@@ -61,8 +57,8 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 	docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
 	docPaths += QString(CFG_DOCDIR) + "/kid3_en.html";
 #endif
-	docPaths += QDir::QCM_currentPath() + "/kid3_" + lang + ".html";
-	docPaths += QDir::QCM_currentPath() + "/kid3_en.html";
+	docPaths += QDir::currentPath() + "/kid3_" + lang + ".html";
+	docPaths += QDir::currentPath() + "/kid3_en.html";
 	for (QStringList::const_iterator it = docPaths.begin();
 			 it != docPaths.end();
 			 ++it) {
@@ -70,11 +66,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 		if (QFile::exists(m_filename)) break;
 	}
 	m_textBrowser = new QTextBrowser(this);
-#if QT_VERSION >= 0x040000
 	m_textBrowser->setSource(QUrl::fromLocalFile(m_filename));
-#else
-	m_textBrowser->setSource(m_filename);
-#endif
 	vlayout->addWidget(m_textBrowser);
 
 	QHBoxLayout* hlayout = new QHBoxLayout;
@@ -116,17 +108,9 @@ BrowserDialog::~BrowserDialog()
  */
 void BrowserDialog::goToAnchor(const QString& anchor)
 {
-#if QT_VERSION >= 0x040000
 	QUrl url = QUrl::fromLocalFile(m_filename);
 	url.setFragment(anchor);
 	m_textBrowser->setSource(url);
-#else
-	if (!anchor.isEmpty()) {
-		m_textBrowser->setSource(m_filename + '#' + anchor);
-	} else {
-		m_textBrowser->setSource(m_filename);
-	}
-#endif
 }
 
 #else // CONFIG_USE_KDE

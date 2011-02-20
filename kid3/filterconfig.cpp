@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qstring.h>
+#include <QString>
 #include "qtcompatmac.h"
 #include "filterconfig.h"
 
@@ -91,7 +91,7 @@ void FilterConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	cfg.writeEntry("FilterNames", m_filterNames);
 	cfg.writeEntry("FilterExpressions", m_filterExpressions);
 	cfg.writeEntry("FilterIdx", m_filterIdx);
@@ -99,11 +99,11 @@ void FilterConfig::writeToConfig(
 	cfg.writeEntry("WindowHeight", m_windowHeight);
 #else
 	config->beginGroup("/" + m_group);
-	config->QCM_writeEntry("/FilterNames", m_filterNames);
-	config->QCM_writeEntry("/FilterExpressions", m_filterExpressions);
-	config->QCM_writeEntry("/FilterIdx", m_filterIdx);
-	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
-	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
+	config->setValue("/FilterNames", QVariant(m_filterNames));
+	config->setValue("/FilterExpressions", QVariant(m_filterExpressions));
+	config->setValue("/FilterIdx", QVariant(m_filterIdx));
+	config->setValue("/WindowWidth", QVariant(m_windowWidth));
+	config->setValue("/WindowHeight", QVariant(m_windowHeight));
 
 	config->endGroup();
 #endif
@@ -124,12 +124,12 @@ void FilterConfig::readFromConfig(
 {
 	QStringList names, expressions;
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
-	names = cfg.KCM_readListEntry("FilterNames");
-	expressions = cfg.KCM_readListEntry("FilterExpressions");
-	m_filterIdx = cfg.KCM_readNumEntry("FilterIdx", m_filterIdx);
-	m_windowWidth = cfg.KCM_readNumEntry("WindowWidth", -1);
-	m_windowHeight = cfg.KCM_readNumEntry("WindowHeight", -1);
+	KConfigGroup cfg = config->group(m_group);
+	names = cfg.readEntry("FilterNames", QStringList());
+	expressions = cfg.readEntry("FilterExpressions", QStringList());
+	m_filterIdx = cfg.readEntry("FilterIdx", m_filterIdx);
+	m_windowWidth = cfg.readEntry("WindowWidth", -1);
+	m_windowHeight = cfg.readEntry("WindowHeight", -1);
 
 	// KConfig seems to strip empty entries from the end of the string lists,
 	// so we have to append them again.
@@ -138,11 +138,11 @@ void FilterConfig::readFromConfig(
 		expressions.append("");
 #else
 	config->beginGroup("/" + m_group);
-	names = config->QCM_readListEntry("/FilterNames");
-	expressions = config->QCM_readListEntry("/FilterExpressions");
-	m_filterIdx = config->QCM_readNumEntry("/FilterIdx", m_filterIdx);
-	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
-	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
+	names = config->value("/FilterNames").toStringList();
+	expressions = config->value("/FilterExpressions").toStringList();
+	m_filterIdx = config->value("/FilterIdx", m_filterIdx).toInt();
+	m_windowWidth = config->value("/WindowWidth", -1).toInt();
+	m_windowHeight = config->value("/WindowHeight", -1).toInt();
 
 	config->endGroup();
 #endif
@@ -151,11 +151,7 @@ void FilterConfig::readFromConfig(
 	for (namesIt = names.begin(), expressionsIt = expressions.begin();
 			 namesIt != names.end() && expressionsIt != expressions.end();
 			 ++namesIt, ++expressionsIt) {
-#if QT_VERSION >= 0x040000
 		int idx = m_filterNames.indexOf(*namesIt);
-#else
-		int idx = m_filterNames.findIndex(*namesIt);
-#endif
 		if (idx >= 0) {
 			m_filterExpressions[idx] = *expressionsIt;
 		} else if (!(*namesIt).isEmpty()) {
@@ -175,11 +171,7 @@ void FilterConfig::readFromConfig(
  */
 void FilterConfig::setFilenameFormat(const QString& format)
 {
-#if QT_VERSION >= 0x040000
 	int idx = m_filterNames.indexOf("Filename Tag Mismatch");
-#else
-	int idx = m_filterNames.findIndex("Filename Tag Mismatch");
-#endif
 	if (idx != -1) {
 		m_filterExpressions[idx] = QString("not (%{filepath} contains \"") +
 			format + "\")";

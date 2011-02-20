@@ -27,13 +27,11 @@
 #include "taglibfile.h"
 #ifdef HAVE_TAGLIB
 
-#include <qdir.h>
-#include <qstring.h>
-#include <qtextcodec.h>
+#include <QDir>
+#include <QString>
+#include <QTextCodec>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QByteArray>
-#endif
 
 #include "genres.h"
 #include "dirinfo.h"
@@ -165,7 +163,7 @@ TagLib::String TextCodecStringHandler::parse(const TagLib::ByteVector& data) con
 TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
 {
 	if (s_codec) {
-		QCM_QCString ba(s_codec->fromUnicode(TStringToQString(s)));
+		QByteArray ba(s_codec->fromUnicode(TStringToQString(s)));
 		return TagLib::ByteVector(ba.data(), ba.size());
 	} else {
 		return s.data(TagLib::String::Latin1);
@@ -202,7 +200,7 @@ TagLibFile::~TagLibFile()
 void TagLibFile::readTags(bool force)
 {
 	QString fileName = getDirInfo()->getDirname() + QDir::separator() + currentFilename();
-	QCM_QCString fn = QFile::encodeName(fileName);
+	QByteArray fn = QFile::encodeName(fileName);
 
 	if (force || m_fileRef.isNull()) {
 #if TAGLIB_VERSION > 0x010400 && defined _WIN32
@@ -326,7 +324,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 	}
 
 	// store time stamp if it has to be preserved
-	QCM_QCString fn;
+	QByteArray fn;
 	bool setUtime = false;
 	struct utimbuf times;
 	if (preserve) {
@@ -721,7 +719,7 @@ static QString getGenreString(const TagLib::String& str)
 		QString qs = TStringToQString(str);
 		int cpPos = 0, n = 0xff;
 		bool ok = false;
-		if (qs[0] == '(' && (cpPos = qs.QCM_indexOf(')', 2)) > 1) {
+		if (qs[0] == '(' && (cpPos = qs.indexOf(')', 2)) > 1) {
 			n = qs.mid(1, cpPos - 1).toInt(&ok);
 			if (!ok || n > 0xff) {
 				n = 0xff;
@@ -983,13 +981,7 @@ static bool needsUnicode(const QString& qstr)
 	uint unicodeSize = qstr.length();
 	const QChar* qcarray = qstr.unicode();
 	for (uint i = 0; i < unicodeSize; ++i) {
-		char ch = qcarray[i].
-#if QT_VERSION >= 0x040000
-			toLatin1()
-#else
-			latin1()
-#endif
-			;
+		char ch = qcarray[i].toLatin1();
 		if (ch == 0 || (ch & 0x80) != 0) {
 			result = true;
 			break;
@@ -1354,7 +1346,7 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 		info.valid = true;
 		if ((mpegProperties =
 				 dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
-			if (getFilename().right(4).QCM_toLower() == ".aac") {
+			if (getFilename().right(4).toLower() == ".aac") {
 				info.format = "AAC";
 				return;
 			}
@@ -1816,7 +1808,7 @@ static QString getFieldsFromApicFrame(
 	field.m_id = Frame::Field::ID_Data;
 	TagLib::ByteVector pic = apicFrame->picture();
 	QByteArray ba;
-	QCM_duplicate(ba, pic.data(), pic.size());
+	ba = QByteArray(pic.data(), pic.size());
 	field.m_value = ba;
 	fields.push_back(field);
 
@@ -1842,13 +1834,7 @@ static QString getFieldsFromCommFrame(
 
 	field.m_id = Frame::Field::ID_Language;
 	TagLib::ByteVector bvLang = commFrame->language();
-	field.m_value = QString(
-#if QT_VERSION >= 0x040000
-		QByteArray(bvLang.data(), bvLang.size())
-#else
-		QCString(bvLang.data(), bvLang.size() + 1)
-#endif
-		);
+	field.m_value = QString(QByteArray(bvLang.data(), bvLang.size()));
 	fields.push_back(field);
 
 	field.m_id = Frame::Field::ID_Description;
@@ -1883,7 +1869,7 @@ static QString getFieldsFromUfidFrame(
 	field.m_id = Frame::Field::ID_Id;
 	TagLib::ByteVector id = ufidFrame->identifier();
 	QByteArray ba;
-	QCM_duplicate(ba, id.data(), id.size());
+	ba = QByteArray(id.data(), id.size());
 	field.m_value = ba;
 	fields.push_back(field);
 
@@ -1931,7 +1917,7 @@ static QString getFieldsFromGeobFrame(
 	field.m_id = Frame::Field::ID_Data;
 	TagLib::ByteVector obj = geobFrame->object();
 	QByteArray ba;
-	QCM_duplicate(ba, obj.data(), obj.size());
+	ba = QByteArray(obj.data(), obj.size());
 	field.m_value = ba;
 	fields.push_back(field);
 
@@ -2009,7 +1995,7 @@ static QString getFieldsFromUsltFrame(
 
 	field.m_id = Frame::Field::ID_Language;
 	TagLib::ByteVector bvLang = usltFrame->language();
-	field.m_value = QString(QCM_QCString(bvLang.data(), bvLang.size() + 1));
+	field.m_value = QString(QByteArray(bvLang.data(), bvLang.size() + 1));
 	fields.push_back(field);
 
 	field.m_id = Frame::Field::ID_Description;
@@ -2047,7 +2033,7 @@ static QString getFieldsFromPrivFrame(
 	field.m_id = Frame::Field::ID_Data;
 	TagLib::ByteVector data = privFrame->data();
 	QByteArray ba;
-	QCM_duplicate(ba, data.data(), data.size());
+	ba = QByteArray(data.data(), data.size());
 	field.m_value = ba;
 	fields.push_back(field);
 
@@ -2105,7 +2091,7 @@ static QString getFieldsFromUnknownFrame(
 	field.m_id = Frame::Field::ID_Data;
 	TagLib::ByteVector dat = unknownFrame->render();
 	QByteArray ba;
-	QCM_duplicate(ba, dat.data(), dat.size());
+	ba = QByteArray(dat.data(), dat.size());
 	field.m_value = ba;
 	fields.push_back(field);
 	return QString();
@@ -2218,7 +2204,7 @@ static TagLib::ByteVector languageCodeByteVector(QString str)
 			str += ' ';
 		}
 	}
-	return TagLib::ByteVector(str.QCM_latin1(), str.length());
+	return TagLib::ByteVector(str.toLatin1().data(), str.length());
 }
 
 /**
@@ -2812,7 +2798,7 @@ static Frame::Type getTypeFromVorbisName(QString name)
 		strNumMap.insert("DESCRIPTION", Frame::FT_Comment);
 	}
 	QMap<QString, int>::const_iterator it =
-		strNumMap.find(name.remove(' ').QCM_toUpper());
+		strNumMap.find(name.remove(' ').toUpper());
 	if (it != strNumMap.end()) {
 		return static_cast<Frame::Type>(*it);
 	}
@@ -2856,7 +2842,7 @@ static QString getVorbisName(const Frame& frame)
 	} else if (type <= Frame::FT_LastFrame) {
 		return getVorbisNameFromType(type);
 	} else {
-		return frame.getName().remove(' ').QCM_toUpper();
+		return frame.getName().remove(' ').toUpper();
 	}
 }
 
@@ -2877,7 +2863,7 @@ static QString getApeName(const Frame& frame)
 	} else if (type <= Frame::FT_LastFrame) {
 		return getVorbisNameFromType(type);
 	} else {
-		return frame.getName().QCM_toUpper();
+		return frame.getName().toUpper();
 	}
 }
 
@@ -3124,7 +3110,7 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
 		case MVT_IntPair:
 		{
 			QString str1 = frame.getValue(), str2 = "0";
-			int slashPos = str1.QCM_indexOf('/');
+			int slashPos = str1.indexOf('/');
 			if (slashPos != -1) {
 				str1.truncate(slashPos);
 				str2 = str1.mid(slashPos + 1);
@@ -3342,7 +3328,6 @@ static bool parseAsfPicture(const TagLib::ByteVector& data, Frame& frame)
 	if (picSize > len - 9)
 		return false;
 	uint offset = 5;
-#if QT_VERSION >= 0x040000
 	QString mimeType = QString::fromUtf16(
 		reinterpret_cast<const ushort*>(data.mid(offset, len - offset).data()));
 	offset += mimeType.length() * 2 + 2;
@@ -3359,39 +3344,6 @@ static bool parseAsfPicture(const TagLib::ByteVector& data, Frame& frame)
 													static_cast<PictureFrame::PictureType>(pictureType),
 													description,
 													QByteArray(picture.data(), picture.size()));
-#else
-	QString mimeType, description;
-	const ushort* unicode = reinterpret_cast<const ushort*>(data.data() + offset);
-	uint unicodeLen = 0;
-	while (unicode[unicodeLen] != 0) {
-		++unicodeLen;
-		if (unicodeLen > (len - offset) / 2 - 2) {
-			return false;
-		}
-	}
-	mimeType.setUnicodeCodes(unicode, unicodeLen);
-	offset += unicodeLen * 2 + 2;
-	unicode += unicodeLen + 1;
-	unicodeLen = 0;
-	while (unicode[unicodeLen] != 0) {
-		++unicodeLen;
-		if (unicodeLen > (len - offset) / 2) {
-			return false;
-		}
-	}
-	description.setUnicodeCodes(unicode, unicodeLen);
-	if (description.isNull()) {
-		description = "";
-	}
-	offset += unicodeLen * 2 + 2;
-	QByteArray picture;
-	picture.duplicate(data.data() + offset, len - offset);
-	PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, "JPG",
-													mimeType,
-													static_cast<PictureFrame::PictureType>(pictureType),
-													description,
-													picture);
-#endif
 	frame.setType(Frame::FT_Picture);
 	return true;
 }
@@ -3651,7 +3603,7 @@ static bool isFrameIdValid(const QString& frameId)
 {
 	Frame::Type type;
 	const char* str;
-	getTypeStringForFrameId(TagLib::ByteVector(frameId.QCM_latin1(), 4), type, str);
+	getTypeStringForFrameId(TagLib::ByteVector(frameId.toLatin1().data(), 4), type, str);
 	return type != Frame::FT_UnknownFrame;
 }
 
@@ -3690,7 +3642,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 					id3Frame = new TagLib::ID3v2::UserTextIdentificationFrame(enc);
 				} else if (isFrameIdValid(frameId)) {
 					id3Frame = new TagLib::ID3v2::TextIdentificationFrame(
-						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()), enc);
+						TagLib::ByteVector(frameId.toLatin1().data(), frameId.length()), enc);
 					id3Frame->setText(""); // is necessary for createFrame() to work
 				}
 			} else if (frameId == "COMM") {
@@ -3718,7 +3670,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 					id3Frame = new TagLib::ID3v2::UserUrlLinkFrame(enc);
 				} else if (isFrameIdValid(frameId)) {
 					id3Frame = new TagLib::ID3v2::UrlLinkFrame(
-						TagLib::ByteVector(frameId.QCM_latin1(), frameId.length()));
+						TagLib::ByteVector(frameId.toLatin1().data(), frameId.length()));
 					id3Frame->setText("http://"); // is necessary for createFrame() to work
 				}
 			} else if (frameId == "USLT") {
@@ -4313,7 +4265,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 							TagLib::ByteVector bv = coverArt.data();
 							Frame frame(type, "", TStringToQString(name), i++);
 							QByteArray ba;
-							QCM_duplicate(ba, bv.data(), bv.size());
+							ba = QByteArray(bv.data(), bv.size());
 							PictureFrame::setFields(
 								frame, Frame::Field::TE_ISO8859_1,
 								coverArt.format() == TagLib::MP4::CoverArt::PNG ? "PNG" : "JPG",
@@ -4397,7 +4349,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 						default:
 						{
 							TagLib::ByteVector bv = (*ait).toByteVector();
-							QCM_duplicate(ba, bv.data(), bv.size());
+							ba = QByteArray(bv.data(), bv.size());
 							value = "";
 							AttributeData(TStringToQString(name)).toString(ba, value);
 						}
@@ -4610,7 +4562,7 @@ void TagLibFile::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
 TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
 																					const QString& fn) const
 {
-	QString ext = fn.right(4).QCM_toLower();
+	QString ext = fn.right(4).toLower();
 	if (((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_ID3LIB
 			 && Kid3App::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0

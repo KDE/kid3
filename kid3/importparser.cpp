@@ -106,12 +106,12 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
 	}
 
 	m_codePos.clear();
-	while (((percentIdx = m_pattern.QCM_indexOf("%{", percentIdx)) >= 0) &&
+	while (((percentIdx = m_pattern.indexOf("%{", percentIdx)) >= 0) &&
 				 (percentIdx < lastIdx)) {
-		int closingBracePos = m_pattern.QCM_indexOf("}(", percentIdx + 2);
+		int closingBracePos = m_pattern.indexOf("}(", percentIdx + 2);
 		if (closingBracePos > percentIdx + 2) {
 			QString code =
-				m_pattern.mid(percentIdx + 2, closingBracePos - percentIdx - 2).QCM_toLower();
+				m_pattern.mid(percentIdx + 2, closingBracePos - percentIdx - 2).toLower();
 			m_codePos[code] = nr;
 			percentIdx = closingBracePos + 2;
 			++nr;
@@ -128,11 +128,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
 		m_trackIncrNr = 0;
 	}
 
-#if QT_VERSION >= 0x030100
 	m_pattern.remove(QRegExp("%\\{[^}]+\\}"));
-#else
-	m_pattern.replace(QRegExp("%\\{[^}]+\\}"), "");
-#endif
 	m_re.setPattern(m_pattern);
 }
 
@@ -158,11 +154,11 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
 		m_trackDuration.clear();
 		int dsp = 0; // "duration search pos"
 		int lastDsp = dsp;
-		while ((idx = m_re.QCM_indexIn(text, dsp)) != -1) {
+		while ((idx = m_re.indexIn(text, dsp)) != -1) {
 			QString durationStr = m_re.cap(m_codePos["__duration"]);
 			int duration;
 			QRegExp durationRe("(\\d+):(\\d+)");
-			if (durationRe.QCM_indexIn(durationStr) != -1) {
+			if (durationRe.indexIn(durationStr) != -1) {
 				duration = durationRe.cap(1).toInt() * 60 +
 					durationRe.cap(2).toInt();
 			} else {
@@ -178,7 +174,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
 			}
 		}
 	}
-	if ((idx = m_re.QCM_indexIn(text, pos)) != -1) {
+	if ((idx = m_re.indexIn(text, pos)) != -1) {
 		for (QMap<QString, int>::iterator it = m_codePos.begin();
 				 it != m_codePos.end();
 				 ++it) {

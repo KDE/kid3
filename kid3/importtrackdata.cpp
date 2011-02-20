@@ -25,9 +25,9 @@
  */
 
 #include "importtrackdata.h"
-#include <qstring.h>
-#include <qurl.h>
-#include <qdir.h>
+#include <QString>
+#include <QUrl>
+#include <QDir>
 
 /**
  * Constructor.
@@ -89,11 +89,7 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 				{ 'h', "channels" },
 				{ 'k', "codec" }
 			};
-#if QT_VERSION >= 0x040000
 			const char c = code[0].toLatin1();
-#else
-			const char c = code[0].latin1();
-#endif
 			for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
 				if (shortToLong[i].shortCode == c) {
 					name = shortToLong[i].longCode;
@@ -107,9 +103,9 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 		if (!name.isNull()) {
 			if (name == "file") {
 				QString filename(m_trackData.getAbsFilename());
-				int sepPos = filename.QCM_lastIndexOf('/');
+				int sepPos = filename.lastIndexOf('/');
 				if (sepPos < 0) {
-					sepPos = filename.QCM_lastIndexOf(QDir::separator());
+					sepPos = filename.lastIndexOf(QDir::separator());
 				}
 				if (sepPos >= 0) {
 					filename.remove(0, sepPos + 1);
@@ -119,13 +115,9 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 				result = m_trackData.getAbsFilename();
 			} else if (name == "url") {
 				QUrl url;
-				url.QCM_setPath(m_trackData.getAbsFilename());
-				url.QCM_setScheme("file");
-				result = url.toString(
-#if QT_VERSION < 0x040000
-					true
-#endif
-					);
+				url.setPath(m_trackData.getAbsFilename());
+				url.setScheme("file");
+				result = url.toString();
 			} else if (name == "duration") {
 				result = TaggedFile::formatTime(m_trackData.getFileDuration());
 			} else if (name == "seconds") {
@@ -308,7 +300,7 @@ QString ImportTrackData::getFileExtension() const
 	if (!m_fileExtension.isEmpty()) {
 		return m_fileExtension;
 	} else {
-		int dotPos = m_absFilename.QCM_lastIndexOf(".");
+		int dotPos = m_absFilename.lastIndexOf(".");
 		return dotPos != -1 ? m_absFilename.mid(dotPos) : QString();
 	}
 }

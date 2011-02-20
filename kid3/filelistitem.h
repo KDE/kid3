@@ -27,13 +27,9 @@
 #ifndef FILELISTITEM_H
 #define FILELISTITEM_H
 
-#include <qpixmap.h>
+#include <QPixmap>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QTreeWidget>
-#else
-#include <qlistview.h>
-#endif
 
 class QPainter;
 class TaggedFile;
@@ -41,13 +37,7 @@ class DirInfo;
 class FileList;
 
 /** List box item containing tagged file */
-class FileListItem : public
-#if QT_VERSION >= 0x040000
-QTreeWidgetItem
-#else
-QListViewItem
-#endif
-{
+class FileListItem : public QTreeWidgetItem {
 public:
 	/**
 	 * Constructor.
@@ -71,25 +61,6 @@ public:
 	 * Destructor.
 	 */
 	virtual ~FileListItem();
-
-#if QT_VERSION < 0x040000
-	/**
-	 * Paints the contents of one column of an item.
-	 *
-   * @param p      painter
-   * @param cg     color group
-   * @param column number of column
-   * @param width  width
-   * @param align  alignment
-   */
-	virtual void paintCell(QPainter* p, const QColorGroup& cg,
-												 int column, int width, int align);
-
-	/**
-	 * Called before showing the item.
-	 */
-	virtual void setup();
-#endif
 
 	/**
 	 * Opens or closes an item.
@@ -155,11 +126,7 @@ public:
 	 * @param val true to set file selected.
 	 */
 	void setInSelection(bool val) {
-#if QT_VERSION >= 0x040000
 		setSelected(val);
-#else
-		m_selected = val;
-#endif
 	}
 
 	/**
@@ -168,20 +135,14 @@ public:
 	 * @return true if file is marked selected.
 	 */
 	bool isInSelection() {
-#if QT_VERSION >= 0x040000
 		return isSelected();
-#else
-		return m_selected;
-#endif
 	}
 
-#if QT_VERSION >= 0x040000
 	/**
 	 * Check if directory is open.
 	 * @return true if open.
 	 */
 	bool isOpen() const { return m_isOpen; }
-#endif
 
 private:
 	FileListItem(const FileListItem&);
@@ -193,21 +154,14 @@ private:
 	 */
 	void init();
 
-#if QT_VERSION >= 0x040000
 	/** true if directory open. */
 	bool m_isOpen;
-#endif
 
 	/** the tagged file represented by this item */
 	TaggedFile* m_file;
 
 	/** information about directory if item represents directory */
 	DirInfo* m_dirInfo;
-
-#if QT_VERSION < 0x040000
-	/** true if file is marked selected */
-	bool m_selected;
-#endif
 
 	/** pointer to pixmap for modified file */
 	static QPixmap* modifiedPixmap;

@@ -26,12 +26,8 @@
 
 #include "configtable.h"
 
-#if QT_VERSION >= 0x040000
 #include <QMenu>
 #include <QHeaderView>
-#else 
-#include <qpopupmenu.h>
-#endif
 
 /** Column indices. */
 enum ColumnIndex {
@@ -48,7 +44,6 @@ enum ColumnIndex {
  * @param labels column labels
  * @param parent parent widget
  */
-#if QT_VERSION >= 0x040000
 ConfigTable::ConfigTable(const QStringList& labels, QWidget* parent) :
 	QTableWidget(parent)
 {
@@ -63,23 +58,6 @@ ConfigTable::ConfigTable(const QStringList& labels, QWidget* parent) :
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
 			this, SLOT(customContextMenu(const QPoint&)));
 }
-#else
-ConfigTable::ConfigTable(const QStringList& labels, QWidget* parent) :
-	QTable(parent)
-{
-	const int numColumns = labels.size();
-	setNumRows(1);
-	setNumCols(numColumns);
-	setColumnLabels(labels);
-	for (int col = 0; col < numColumns; ++col) {
-		setColumnStretchable(col, true);
-	}
-	connect(this, SIGNAL(valueChanged(int, int)),
-			this, SLOT(valueChanged(int, int)));
-	connect(this, SIGNAL(contextMenuRequested(int, int, const QPoint&)),
-			this, SLOT(contextMenu(int, int, const QPoint&)));
-}
-#endif
 
 /**
  * Destructor.
@@ -95,7 +73,6 @@ ConfigTable::~ConfigTable() {}
  * @param row table row of changed item
  * @param col table column of changed item
  */
-#if QT_VERSION >= 0x040000
 void ConfigTable::valueChanged(int row, int col)
 {
 	QTableWidgetItem* twi;
@@ -110,20 +87,6 @@ void ConfigTable::valueChanged(int row, int col)
 		}
 	}
 }
-#else
-void ConfigTable::valueChanged(int row, int col)
-{
-	if (row == numRows() - 1 && col == numCols() - 1) {
-		if (text(row, col).isEmpty()) {
-			if (row != 0) {
-				deleteRow(row);
-			}
-		} else {
-			addRow(row);
-		}
-	}
-}
-#endif
 
 /**
  * Insert a new row into the table.
@@ -132,7 +95,6 @@ void ConfigTable::valueChanged(int row, int col)
  */
 void ConfigTable::addRow(int row)
 {
-#if QT_VERSION >= 0x040000
 	insertRow(row + 1);
 
 	QTableWidgetItem* twi;
@@ -142,9 +104,6 @@ void ConfigTable::addRow(int row)
 		else
 			setItem(row + 1, col, new QTableWidgetItem(""));
 	}
-#else
-	insertRows(row + 1);
-#endif
 }
 
 /**
@@ -154,9 +113,7 @@ void ConfigTable::addRow(int row)
  */
 void ConfigTable::deleteRow(int row)
 {
-#if QT_VERSION >= 0x040000
 	if (rowCount() <= 1) return;
-#endif
 	removeRow(row);
 }
 
@@ -167,17 +124,11 @@ void ConfigTable::deleteRow(int row)
  */
 void ConfigTable::clearRow(int row)
 {
-#if QT_VERSION >= 0x040000
 	QTableWidgetItem* twi;
 	for (int col = 0; col < columnCount(); ++col) {
 		twi = item(row, col);
 		if (twi) twi->setText("");
 	}
-#else
-	for (int col = 0; col < numCols(); ++col) {
-		setText(row, col, "");
-	}
-#endif
 }
 
 /**
@@ -185,7 +136,6 @@ void ConfigTable::clearRow(int row)
  *
  * @param action action of selected menu
  */
-#if QT_VERSION >= 0x040000
 void ConfigTable::executeAction(QAction* action)
 {
 	if (action) {
@@ -206,9 +156,6 @@ void ConfigTable::executeAction(QAction* action)
 		}
 	}
 }
-#else
-void ConfigTable::executeAction(QAction*) {}
-#endif
 
 /**
  * Display context menu.
@@ -219,7 +166,6 @@ void ConfigTable::executeAction(QAction*) {}
  */
 void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
 {
-#if QT_VERSION >= 0x040000
 	QMenu menu(this);
 	QAction* action;
 	if (row >= -1) {
@@ -235,26 +181,10 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
 		if (action) action->setData((row << 2) | 2);
 	}
 	connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
-#else
-	QPopupMenu menu(this);
-	if (row >= -1) {
-		menu.insertItem(i18n("&Insert row"), this, SLOT(addRow(int)), 0, 0);
-		menu.setItemParameter(0, row);
-	}
-	if (row >= 0) {
-		menu.insertItem(i18n("&Delete row"), this, SLOT(deleteRow(int)), 0, 1);
-		menu.setItemParameter(1, row);
-	}
-	if (row >= 0) {
-		menu.insertItem(i18n("&Clear row"), this, SLOT(clearRow(int)), 0, 2);
-		menu.setItemParameter(2, row);
-	}
-#endif
 	menu.setMouseTracking(true);
 	menu.exec(pos);
 }
 
-#if QT_VERSION >= 0x040000
 /**
  * Display custom context menu.
  *
@@ -264,16 +194,9 @@ void ConfigTable::customContextMenu(const QPoint& pos)
 {
 	QTableWidgetItem* item = itemAt(pos);
 	if (item) {
-#if QT_VERSION >= 0x040200
 		contextMenu(item->row(), item->column(), mapToGlobal(pos));
-#else
-		contextMenu(currentRow(), currentColumn(), mapToGlobal(pos));
-#endif
 	}
 }
-#else
-void ConfigTable::customContextMenu(const QPoint&) {}
-#endif
 
 /**
  * Set the values from a map.
@@ -284,7 +207,6 @@ void ConfigTable::fromMap(const QMap<QString, QString>& map)
 {
 	int i;
 	QMap<QString, QString>::ConstIterator it;
-#if QT_VERSION >= 0x040000
 	if (columnCount() < 2) return;
 	QTableWidgetItem* twi;
 	for (i = 0, it = map.begin(); it != map.end(); ++it, ++i) {
@@ -316,23 +238,6 @@ void ConfigTable::fromMap(const QMap<QString, QString>& map)
 		setItem(i, 1, new QTableWidgetItem(""));
 
 	int row = rowCount();
-#else
-	if (numCols() < 2) return;
-	for (i = 0, it = map.begin(); it != map.end(); ++it, ++i) {
-		if (numRows() <= i) {
-			insertRows(i);
-		}
-		setText(i, 0, it.key());
-		setText(i, 1, it.data());
-	}
-	if (numRows() <= i) {
-		insertRows(i);
-	}
-	// add an empty row as last row and remove all rows below
-	setText(i, 0, "");
-	setText(i, 1, "");
-	int row = numRows();
-#endif
 	while (--row > i) {
 		removeRow(row);
 	}
@@ -346,7 +251,6 @@ void ConfigTable::fromMap(const QMap<QString, QString>& map)
 void ConfigTable::toMap(QMap<QString, QString>& map) const
 {
 	map.clear();
-#if QT_VERSION >= 0x040000
 	if (columnCount() < 2) return;
 	for (int i = 0; i < rowCount(); ++i) {
 		QString key;
@@ -357,13 +261,4 @@ void ConfigTable::toMap(QMap<QString, QString>& map) const
 			map[key] = twi->text();
 		}
 	}
-#else
-	if (numCols() < 2) return;
-	for (int i = 0; i < numRows(); ++i) {
-		QString key(text(i, 0));
-		if (!key.isNull() && !key.isEmpty()) {
-			map[key] = text(i, 1);
-		}
-	}
-#endif
 }

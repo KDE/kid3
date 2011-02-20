@@ -27,8 +27,8 @@
 #ifndef DOWNLOADDIALOG_H
 #define DOWNLOADDIALOG_H
 
-#include <qprogressdialog.h>
-#include <qstring.h>
+#include <QProgressDialog>
+#include <QString>
 
 class HttpClient;
 

@@ -27,9 +27,9 @@
 #ifndef FILTERDIALOG_H
 #define FILTERDIALOG_H
 
-#include <qdialog.h>
-#include <qstringlist.h>
-#include <qtextedit.h>
+#include <QDialog>
+#include <QStringList>
+#include <QTextEdit>
 #include "filefilter.h"
 
 class QLineEdit;

@@ -25,12 +25,9 @@
  */
 
 #include "pictureframe.h"
-#include <qfile.h>
-#include <qimage.h>
-#include <qbuffer.h>
-#if QT_VERSION < 0x040000 && defined CONFIG_USE_KDE
-#include <kmdcodec.h>
-#endif
+#include <QFile>
+#include <QImage>
+#include <QBuffer>
 #include "qtcompatmac.h"
 
 /**
@@ -419,14 +416,14 @@ bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
 	bool result = false;
 	if (!fileName.isEmpty()) {
 		QFile file(fileName);
-		if (file.open(QCM_ReadOnly)) {
+		if (file.open(QIODevice::ReadOnly)) {
 			size_t size = file.size();
 			char* data = new char[size];
 			if (data) {
 				QDataStream stream(&file);
-				stream.QCM_readRawData(data, size);
+				stream.readRawData(data, size);
 				QByteArray ba;
-				QCM_duplicate(ba, data, size);
+				ba = QByteArray(data, size);
 				result = setData(frame, ba);
 				delete [] data;
 			}
@@ -447,12 +444,8 @@ bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
 bool PictureFrame::setDataFromImage(Frame& frame, const QImage& image)
 {
 	QByteArray ba;
-#if QT_VERSION >= 0x040000
 	QBuffer buffer(&ba);
-#else
-	QBuffer buffer(ba);
-#endif
-	buffer.open(QCM_WriteOnly);
+	buffer.open(QIODevice::WriteOnly);
 	image.save(&buffer, "JPG");
 	return setData(frame, ba);
 }
@@ -470,9 +463,9 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
 	QByteArray ba;
 	if (getData(frame, ba)) {
 		QFile file(fileName);
-		if (file.open(QCM_WriteOnly)) {
+		if (file.open(QIODevice::WriteOnly)) {
 			QDataStream stream(&file);
-			stream.QCM_writeRawData(ba.data(), ba.size());
+			stream.writeRawData(ba.data(), ba.size());
 			file.close();
 			return true;
 		}
@@ -490,16 +483,15 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
  */
 bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName)
 {
-	if (fileName.endsWith(".jpg", QCM_CaseInsensitive) ||
-			fileName.endsWith(".jpeg", QCM_CaseInsensitive)) {
+	if (fileName.endsWith(".jpg", Qt::CaseInsensitive) ||
+			fileName.endsWith(".jpeg", Qt::CaseInsensitive)) {
 		return setMimeType(frame, "image/jpeg") && setImageFormat(frame, "JPG");
-	} else if (fileName.endsWith(".png", QCM_CaseInsensitive)) {
+	} else if (fileName.endsWith(".png", Qt::CaseInsensitive)) {
 		return setMimeType(frame, "image/png") && setImageFormat(frame, "PNG");
 	}
 	return false;
 }
 
-#ifdef HAVE_BASE64_ENCODING
 /**
  * Get a 32-bit number from a byte array stored in big-endian order.
  *
@@ -561,13 +553,7 @@ static void renderCharsToByteArray(const char* str, QByteArray& data,
  */
 void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
 {
-#if QT_VERSION >= 0x040000
 	QByteArray ba = QByteArray::fromBase64(base64Value.toAscii());
-#elif defined CONFIG_USE_KDE
-	QByteArray ba;
-	QCString baBase64(base64Value.ascii());
-	KCodecs::base64Decode(baBase64, ba);
-#endif
 	PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
 	QString mimeType("image/jpeg");
 	QString description("");
@@ -592,11 +578,7 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
 		unsigned long picLen = getBigEndianULongFromByteArray(ba, index);
 		index += 4;
 		if (baSize < index + picLen) return;
-#if QT_VERSION >= 0x040000
 		ba = ba.mid(index);
-#else
-		ba.duplicate(ba.data() + index, picLen);
-#endif
 	}
 	PictureFrame::setFields(
 		frame, Frame::Field::TE_UTF8,	"", mimeType,
@@ -618,16 +600,12 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
 	PictureFrame::getFields(frame, enc, imgFormat, mimeType,
 	                        pictureType, description, pic);
 	if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
-		QCM_QCString mimeStr = mimeType.QCM_toAscii();
-		QCM_QCString descStr = description.QCM_toUtf8();
+		QByteArray mimeStr = mimeType.toAscii();
+		QByteArray descStr = description.toUtf8();
 		int mimeLen = mimeStr.length();
 		int descLen = descStr.length();
 		int picLen = pic.size();
-		QByteArray ba(32 + mimeLen + descLen + picLen
-#if QT_VERSION >= 0x040000
-		               , '\0'
-#endif
-		               );
+		QByteArray ba(32 + mimeLen + descLen + picLen, '\0');
 		int index = 0;
 		renderBigEndianULongToByteArray(pictureType, ba, index);
 		index += 4;
@@ -662,12 +640,5 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
 		renderCharsToByteArray(pic.data(), ba, index, picLen);
 		pic = ba;
 	}
-#if QT_VERSION >= 0x040000
 	base64Value = pic.toBase64();
-#elif defined CONFIG_USE_KDE
-	QByteArray picBase64;
-	KCodecs::base64Encode(pic, picBase64);
-	base64Value = QString(picBase64);
-#endif
 }
-#endif // HAVE_BASE64_ENCODING

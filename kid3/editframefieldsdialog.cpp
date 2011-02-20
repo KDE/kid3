@@ -29,27 +29,23 @@
 #include "imageviewer.h"
 #include "taggedfile.h"
 #include "dirinfo.h"
-#include <qpushbutton.h>
-#include <qimage.h>
-#include <qclipboard.h>
-#include <qtextedit.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qspinbox.h>
-#include <qapplication.h>
-#include <qfile.h>
-#include <qbuffer.h>
+#include <QPushButton>
+#include <QImage>
+#include <QClipboard>
+#include <QTextEdit>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QApplication>
+#include <QFile>
+#include <QBuffer>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QVBoxLayout>
 #include <QMimeData>
-#else
-#include <qlayout.h>
-#endif
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
 #else
-#include <qfiledialog.h>
+#include <QFileDialog>
 #endif
 
 /** QTextEdit with label above */
@@ -68,7 +64,7 @@ public:
 	 * @return text.
 	 */
 	QString text() const {
-		return m_edit->QCM_toPlainText();
+		return m_edit->toPlainText();
 	}
 
 	/**
@@ -77,7 +73,7 @@ public:
 	 * @param txt text
 	 */
 	void setText(const QString& txt) {
-		m_edit->QCM_setPlainText(txt);
+		m_edit->setPlainText(txt);
 	}
 
 	/**
@@ -151,7 +147,7 @@ public:
 	 * @return index.
 	 */
 	int currentItem() const {
-		return m_combo->QCM_currentIndex();
+		return m_combo->currentIndex();
 	}
 
 	/**
@@ -160,7 +156,7 @@ public:
 	 * @param idx index
 	 */
 	void setCurrentItem(int idx) {
-		m_combo->QCM_setCurrentIndex(idx);
+		m_combo->setCurrentIndex(idx);
 	}
 
 	/**
@@ -231,7 +227,7 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
 	if (layout && m_label && m_edit) {
 		layout->setMargin(0);
 		layout->setSpacing(2);
-		m_edit->QCM_setTextFormat_PlainText();
+		m_edit->setAcceptRichText(false);
 		layout->addWidget(m_label);
 		layout->addWidget(m_edit);
 	}
@@ -275,7 +271,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
 		while (*strlst) {
 			strList += QCM_translate(*strlst++);
 		}
-		m_combo->QCM_addItems(strList);
+		m_combo->addItems(strList);
 		layout->addWidget(m_label);
 		layout->addWidget(m_combo);
 	}
@@ -552,13 +548,8 @@ void BinaryOpenSave::setClipButtonState()
 {
 	QClipboard* cb = QApplication::clipboard();
 	m_clipButton->setEnabled(
-#if QT_VERSION >= 0x040000
 		cb && (cb->mimeData()->hasFormat("image/jpeg") ||
-					 cb->mimeData()->hasImage())
-#else
-		cb && cb->data(QClipboard::Clipboard)->provides("image/jpeg")
-#endif
-		);
+					 cb->mimeData()->hasImage()));
 }
 
 /**
@@ -567,7 +558,6 @@ void BinaryOpenSave::setClipButtonState()
 void BinaryOpenSave::clipData()
 {
 	QClipboard* cb = QApplication::clipboard();
-#if QT_VERSION >= 0x040000
 	if (cb) {
 		if (cb->mimeData()->hasFormat("image/jpeg")) {
 			m_byteArray = cb->mimeData()->data("image/jpeg");
@@ -579,12 +569,6 @@ void BinaryOpenSave::clipData()
 			m_isChanged = true;
 		}
 	}
-#else
-	if (cb && cb->data(QClipboard::Clipboard)->provides("image/jpeg")) {
-		m_byteArray = cb->data(QClipboard::Clipboard)->encodedData("image/jpeg");
-		m_isChanged = true;
-	}
-#endif
 }
 
 /**
@@ -598,18 +582,18 @@ void BinaryOpenSave::loadData()
 		m_defaultDir.isEmpty() ? Kid3App::getDirName() : m_defaultDir,
 		QString::null, this);
 #else
-	QString loadfilename = QFileDialog::QCM_getOpenFileName(
-		this, m_defaultDir.isEmpty() ? Kid3App::getDirName() : m_defaultDir);
+	QString loadfilename = QFileDialog::getOpenFileName(
+		this, QString(), m_defaultDir.isEmpty() ? Kid3App::getDirName() : m_defaultDir);
 #endif
 	if (!loadfilename.isEmpty()) {
 		QFile file(loadfilename);
-		if (file.open(QCM_ReadOnly)) {
+		if (file.open(QIODevice::ReadOnly)) {
 			size_t size = file.size();
 			char* data = new char[size];
 			if (data) {
 				QDataStream stream(&file);
-				stream.QCM_readRawData(data, size);
-				QCM_duplicate(m_byteArray, data, size);
+				stream.readRawData(data, size);
+				m_byteArray = QByteArray(data, size);
 				m_isChanged = true;
 				delete [] data;
 			}
@@ -634,13 +618,13 @@ void BinaryOpenSave::saveData()
 #ifdef CONFIG_USE_KDE
 	QString fn = KFileDialog::getSaveFileName(dir, QString::null, this);
 #else
-	QString fn = QFileDialog::QCM_getSaveFileName(this, dir);
+	QString fn = QFileDialog::getSaveFileName(this, QString(), dir);
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
-		if (file.open(QCM_WriteOnly)) {
+		if (file.open(QIODevice::WriteOnly)) {
 			QDataStream stream(&file);
-			stream.QCM_writeRawData(m_byteArray.data(), m_byteArray.size());
+			stream.writeRawData(m_byteArray.data(), m_byteArray.size());
 			file.close();
 		}
 	}
@@ -834,18 +818,10 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
  */
 const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
 {
-#if QT_VERSION >= 0x040000
 	QListIterator<FieldControl*> it(m_fieldcontrols);
 	while (it.hasNext()) {
 		it.next()->updateTag();
 	}
-#else
-	FieldControl* fldCtl = m_fieldcontrols.first();
-	while (fldCtl != NULL) {
-		fldCtl->updateTag();
-		fldCtl = m_fieldcontrols.next();
-	}
-#endif
 	return m_fields;
 }
 
@@ -864,12 +840,8 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
 	QDialog(parent), m_fields(frame.getFieldList())
 {
 	setModal(true);
-	QCM_setWindowTitle(caption);
-#if QT_VERSION >= 0x040000
+	setWindowTitle(caption);
 	qDeleteAll(m_fieldcontrols);
-#else
-	m_fieldcontrols.setAutoDelete(true);
-#endif
 	m_fieldcontrols.clear();
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (vlayout) {
@@ -1000,18 +972,10 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
 			}
 		}
 
-#if QT_VERSION >= 0x040000
 		QListIterator<FieldControl*> it(m_fieldcontrols);
 		while (it.hasNext()) {
 			vlayout->addWidget(it.next()->createWidget(this));
 		}
-#else
-		FieldControl* fldCtl = m_fieldcontrols.first();
-		while (fldCtl != NULL) {
-			vlayout->addWidget(fldCtl->createWidget(this));
-			fldCtl = m_fieldcontrols.next();
-		}
-#endif
 	}
 	QHBoxLayout* hlayout = new QHBoxLayout;
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
@@ -1027,11 +991,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		vlayout->addLayout(hlayout);
 	}
-#if QT_VERSION >= 0x040000
 	setMinimumWidth(525);
-#else
-	resize(525, -1);
-#endif
 }
 
 /**
@@ -1039,9 +999,6 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
  */
 EditFrameFieldsDialog::~EditFrameFieldsDialog()
 {
-#if QT_VERSION >= 0x040000
 	qDeleteAll(m_fieldcontrols);
 	m_fieldcontrols.clear();
-#endif
 }
-

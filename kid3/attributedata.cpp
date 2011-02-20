@@ -25,7 +25,7 @@
  */
 
 #include "attributedata.h"
-#include <qmap.h>
+#include <QMap>
 #include "qtcompatmac.h"
 
 /**
@@ -111,20 +111,12 @@ bool AttributeData::toString(const QByteArray& data, QString& str)
 			while (size > 0 && unicode[size - 1] == 0) {
 				--size;
 			}
-#if QT_VERSION >= 0x040000
 			str = QString::fromUtf16(unicode, size);
-#else
-			str.setUnicodeCodes(unicode, size);
-#endif
 			return true;
 		}
 		case Guid:
 			if (data.size() == 16) {
-#if QT_VERSION >= 0x040000
 				str.clear();
-#else
-				str.truncate(0);
-#endif
 				for (int i = 0; i < 16; ++i) {
 					if (i == 4 || i == 6 || i == 8 || i == 10) {
 						str += '-';
@@ -169,29 +161,20 @@ bool AttributeData::toByteArray(const QString& str, QByteArray& data)
 {
 	switch (m_type) {
 		case Utf16: {
-#if QT_VERSION >= 0x040000
 			const ushort* unicode = str.utf16();
-#else
-			const ushort* unicode = str.ucs2();
-#endif
-			QCM_duplicate(data, reinterpret_cast<const char*>(unicode),
+			data = QByteArray(reinterpret_cast<const char*>(unicode),
 			              (str.length() + 1) * 2);
 			return true;
 		}
 		case Guid: {
-			QString hexStr(str.QCM_toUpper());
+			QString hexStr(str.toUpper());
 			hexStr.remove('-');
 			if (hexStr.length() == 32) {
 				unsigned char buf[16];
 				unsigned char* bufPtr = buf;
 				for (int i = 0; i < 32;) {
-#if QT_VERSION >= 0x040000
 					unsigned char h = (unsigned char)hexStr[i++].toLatin1();
 					unsigned char l = (unsigned char)hexStr[i++].toLatin1();
-#else
-					unsigned char h = (unsigned char)hexStr[i++].latin1();
-					unsigned char l = (unsigned char)hexStr[i++].latin1();
-#endif
 					if (!((h >= '0' && h <= '9') || (h >= 'A' && h <= 'F')) ||
 							!((l >= '0' && l <= '9') || (l >= 'A' && l <= 'F'))) {
 						return false;
@@ -199,7 +182,7 @@ bool AttributeData::toByteArray(const QString& str, QByteArray& data)
 					*bufPtr++ = ((h >= 'A' ? h + 10 - 'A' : h - '0') << 4) |
 					  (l >= 'A' ? l + 10 - 'A' : l - '0');
 				}
-				QCM_duplicate(data, reinterpret_cast<char*>(buf), 16);
+				data = QByteArray(reinterpret_cast<char*>(buf), 16);
 				return true;
 			}
 			break;
@@ -242,13 +225,9 @@ bool AttributeData::isHexString(const QString& str, char lastAllowedLetter,
 		return false;
 	}
 	for (int i = 0; i < static_cast<int>(str.length()); ++i) {
-#if QT_VERSION >= 0x040000
 		char c = str[i].toLatin1();
-#else
-		char c = str[i].latin1();
-#endif
 		if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= lastAllowedLetter) ||
-					additionalChars.QCM_indexOf(c) != -1)) {
+					additionalChars.indexOf(c) != -1)) {
 			return false;
 		}
 	}

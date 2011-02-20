@@ -9,32 +9,7 @@
 
 #include "picturelabel.h"
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QHash>
-#else
-#include <qimage.h>
-
-/**
- * ELF hash function.
- *
- * @param key bytes for which hash is calculated
- *
- * @return hash value for key.
- */
-static uint qHash(const QByteArray& key)
-{
-	uint hash = 0, x = 0;
-	for (uint i = 0; i < key.size(); ++i) {
-		hash = (hash << 4) + key[i];
-		if ((x = hash & 0xF0000000L) != 0) {
-			hash ^= x >> 24;
-		}
-		hash &= ~x;
-	}
-	return hash;
-}
-
-#endif
 
 /**
  * Constructor.
@@ -43,12 +18,8 @@ static uint qHash(const QByteArray& key)
  */
 PictureLabel::PictureLabel(QWidget* parent) : QLabel(parent), m_pixmapHash(0)
 {
-#if QT_VERSION >= 0x040000
 	setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 	setWordWrap(true);
-#else
-	setAlignment(Qt::AlignHCenter | Qt::AlignVCenter | Qt::WordBreak);
-#endif
 	clearPicture();
 }
 
@@ -98,7 +69,6 @@ void PictureLabel::setData(const QByteArray* data)
 		uint hash = qHash(*data);
 		if (hash != m_pixmapHash) {
 			// creating new pixmap
-#if QT_VERSION >= 0x040000
 			if (m_pixmap.loadFromData(*data)) {
 				m_pixmap = m_pixmap.scaled(width(), height(), Qt::KeepAspectRatio);
 				m_pixmapHash = hash;
@@ -106,17 +76,6 @@ void PictureLabel::setData(const QByteArray* data)
 			} else {
 				clearPicture();
 			}
-#else
-			QImage image;
-			if (image.loadFromData(*data)) {
-				m_pixmap.convertFromImage(image.scale(width(), height(),
-				                                      QImage::ScaleMin));
-				m_pixmapHash = hash;
-				setPicture();
-			} else {
-				clearPicture();
-			}
-#endif
 		} else {
 			if (!pixmap()) {
 				// using cached pixmap

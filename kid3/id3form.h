@@ -27,10 +27,10 @@
 #ifndef ID3FORM_H
 #define ID3FORM_H
 
-#include <qsplitter.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qlineedit.h>
+#include <QSplitter>
+#include <QLabel>
+#include <QComboBox>
+#include <QLineEdit>
 #include "filelist.h"
 #include "dirlist.h"
 #include "picturelabel.h"
@@ -45,13 +45,8 @@ class FormatConfig;
 class QGridLayout;
 class QGroupBox;
 class QPixmap;
-#if QT_VERSION >= 0x040000
 class QListWidget;
 class QListWidgetItem;
-#else
-class QListBox;
-class QListBoxItem;
-#endif
 class FrameList;
 class FrameTable;
 
@@ -417,11 +412,7 @@ public slots:
 	 *
 	 * @param item selected item
 	 */
-#if QT_VERSION >= 0x040000
 	void dirSelected(QListWidgetItem* item);
-#else
-	void dirSelected(QListBoxItem* item);
-#endif
 
 	/**
 	 * Set focus on filename controls.
@@ -480,15 +471,6 @@ signals:
 	 */
 	void windowResized();
 
-protected:
-#if QT_VERSION < 0x040000
-	/**
-	 * Called when the widget is resized.
-	 * @param ev resize event
-	 */
-	virtual void resizeEvent(QResizeEvent* ev);
-#endif
-
 private:
 	/**
 	 * Format string within line edit.
@@ -505,11 +487,7 @@ private:
 	QComboBox* m_formatFromFilenameComboBox;
 	QLabel* m_nameLabel;
 	QLineEdit* m_nameLineEdit;
-#if QT_VERSION >= 0x040000
 	QListWidget* m_framesListBox;
-#else
-	QListBox* m_framesListBox;
-#endif
 	DirList* m_dirListBox;
 	FrameList* m_framelist;
 	FrameTable* m_framesV1Table;

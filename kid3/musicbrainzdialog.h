@@ -30,17 +30,12 @@
 #include "config.h"
 
 #include "importtrackdata.h"
-#include <qdialog.h>
-#include <qstring.h>
+#include <QDialog>
+#include <QString>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QVector>
-class QTableWidget;
-#else
-#include <qvaluevector.h>
-class QTable;
-#endif
 
+class QTableWidget;
 class QLineEdit;
 class QComboBox;
 class QPushButton;
@@ -199,20 +194,12 @@ private:
 	void stopClient();
 
 	QComboBox* m_serverComboBox;
-#if QT_VERSION >= 0x040000
 	QTableWidget* m_albumTable;
-#else
-	QTable* m_albumTable;
-#endif
 	QStatusBar* m_statusBar;
 	QTimer* m_timer;
 	MusicBrainzClient* m_client;
 	ImportTrackDataVector& m_trackDataVector;
-#if QT_VERSION >= 0x040000
 	QVector<ImportTrackDataVector> m_trackResults;
-#else
-	QValueVector<ImportTrackDataVector> m_trackResults;
-#endif
 #endif // HAVE_TUNEPIMP
 };
 

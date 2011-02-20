@@ -68,7 +68,7 @@ void PlaylistConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	cfg.writeEntry("UseFileNameFormat", m_useFileNameFormat);
 	cfg.writeEntry("OnlySelectedFiles", m_onlySelectedFiles);
 	cfg.writeEntry("UseSortTagField", m_useSortTagField);
@@ -81,16 +81,16 @@ void PlaylistConfig::writeToConfig(
 	cfg.writeEntry("InfoFormat", m_infoFormat);
 #else
 	config->beginGroup("/" + m_group);
-	config->QCM_writeEntry("/UseFileNameFormat", m_useFileNameFormat);
-	config->QCM_writeEntry("/OnlySelectedFiles", m_onlySelectedFiles);
-	config->QCM_writeEntry("/UseSortTagField", m_useSortTagField);
-	config->QCM_writeEntry("/UseFullPath", m_useFullPath);
-	config->QCM_writeEntry("/WriteInfo", m_writeInfo);
-	config->QCM_writeEntry("/Location", static_cast<int>(m_location));
-	config->QCM_writeEntry("/Format", static_cast<int>(m_format));
-	config->QCM_writeEntry("/FileNameFormat", m_fileNameFormat);
-	config->QCM_writeEntry("/SortTagField", m_sortTagField);
-	config->QCM_writeEntry("/InfoFormat", m_infoFormat);
+	config->setValue("/UseFileNameFormat", QVariant(m_useFileNameFormat));
+	config->setValue("/OnlySelectedFiles", QVariant(m_onlySelectedFiles));
+	config->setValue("/UseSortTagField", QVariant(m_useSortTagField));
+	config->setValue("/UseFullPath", QVariant(m_useFullPath));
+	config->setValue("/WriteInfo", QVariant(m_writeInfo));
+	config->setValue("/Location", QVariant(static_cast<int>(m_location)));
+	config->setValue("/Format", QVariant(static_cast<int>(m_format)));
+	config->setValue("/FileNameFormat", QVariant(m_fileNameFormat));
+	config->setValue("/SortTagField", QVariant(m_sortTagField));
+	config->setValue("/InfoFormat", QVariant(m_infoFormat));
 	config->endGroup();
 #endif
 }
@@ -109,39 +109,39 @@ void PlaylistConfig::readFromConfig(
 	)
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
-	m_useFileNameFormat = cfg.KCM_readBoolEntry("UseFileNameFormat",
+	KConfigGroup cfg = config->group(m_group);
+	m_useFileNameFormat = cfg.readEntry("UseFileNameFormat",
 	  m_useFileNameFormat);
-	m_onlySelectedFiles = cfg.KCM_readBoolEntry("OnlySelectedFiles",
+	m_onlySelectedFiles = cfg.readEntry("OnlySelectedFiles",
 	  m_onlySelectedFiles);
-	m_useSortTagField = cfg.KCM_readBoolEntry("UseSortTagField",
+	m_useSortTagField = cfg.readEntry("UseSortTagField",
 	  m_useSortTagField);
-	m_useFullPath = cfg.KCM_readBoolEntry("UseFullPath", m_useFullPath);
-	m_writeInfo = cfg.KCM_readBoolEntry("WriteInfo", m_writeInfo);
-	m_location = static_cast<PlaylistLocation>(cfg.KCM_readNumEntry("Location",
+	m_useFullPath = cfg.readEntry("UseFullPath", m_useFullPath);
+	m_writeInfo = cfg.readEntry("WriteInfo", m_writeInfo);
+	m_location = static_cast<PlaylistLocation>(cfg.readEntry("Location",
 	  static_cast<int>(m_location)));
-	m_format = static_cast<PlaylistFormat>(cfg.KCM_readNumEntry("Format",
+	m_format = static_cast<PlaylistFormat>(cfg.readEntry("Format",
 	  static_cast<int>(m_format)));
 	m_fileNameFormat = cfg.readEntry("FileNameFormat", m_fileNameFormat);
 	m_sortTagField = cfg.readEntry("SortTagField", m_sortTagField);
 	m_infoFormat = cfg.readEntry("InfoFormat", m_infoFormat);
 #else
 	config->beginGroup("/" + m_group);
-	m_useFileNameFormat = config->QCM_readBoolEntry("/UseFileNameFormat",
-	  m_useFileNameFormat);
-	m_onlySelectedFiles = config->QCM_readBoolEntry("/OnlySelectedFiles",
-	  m_onlySelectedFiles);
-	m_useSortTagField = config->QCM_readBoolEntry("/UseSortTagField",
-	  m_useSortTagField);
-	m_useFullPath = config->QCM_readBoolEntry("/UseFullPath", m_useFullPath);
-	m_writeInfo = config->QCM_readBoolEntry("/WriteInfo", m_writeInfo);
-	m_location = static_cast<PlaylistLocation>(config->QCM_readNumEntry("Location",
-	  static_cast<int>(m_location)));
-	m_format = static_cast<PlaylistFormat>(config->QCM_readNumEntry("Format",
-	  static_cast<int>(m_format)));
-	m_fileNameFormat = config->QCM_readEntry("/FileNameFormat", m_fileNameFormat);
-	m_sortTagField = config->QCM_readEntry("/SortTagField", m_sortTagField);
-	m_infoFormat = config->QCM_readEntry("/InfoFormat", m_infoFormat);
+	m_useFileNameFormat = config->value("/UseFileNameFormat",
+																			m_useFileNameFormat).toBool();
+	m_onlySelectedFiles = config->value("/OnlySelectedFiles",
+																			m_onlySelectedFiles).toBool();
+	m_useSortTagField = config->value("/UseSortTagField",
+																		m_useSortTagField).toBool();
+	m_useFullPath = config->value("/UseFullPath", m_useFullPath).toBool();
+	m_writeInfo = config->value("/WriteInfo", m_writeInfo).toBool();
+	m_location = static_cast<PlaylistLocation>(config->value("Location",
+		static_cast<int>(m_location)).toInt());
+	m_format = static_cast<PlaylistFormat>(config->value("Format",
+		static_cast<int>(m_format)).toInt());
+	m_fileNameFormat = config->value("/FileNameFormat", m_fileNameFormat).toString();
+	m_sortTagField = config->value("/SortTagField", m_sortTagField).toString();
+	m_infoFormat = config->value("/InfoFormat", m_infoFormat).toString();
 	config->endGroup();
 #endif
 }

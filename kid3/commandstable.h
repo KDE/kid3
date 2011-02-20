@@ -28,21 +28,13 @@
 #define COMMANDSTABLE_H
 
 #include "qtcompatmac.h"
-/** The base class depends on the Qt version and is a table widget. */
-#if QT_VERSION >= 0x040000
 #include <QTableWidget>
-typedef QTableWidget CommandsTableBaseClass;
-#else 
-#include <qtable.h>
-typedef QTable CommandsTableBaseClass;
-class QAction;
-#endif
 #include "miscconfig.h"
 
 /**
  * Context menu commands configuration table.
  */
-class CommandsTable : public CommandsTableBaseClass {
+class CommandsTable : public QTableWidget {
 Q_OBJECT
 
 public:
@@ -63,14 +55,14 @@ public:
 	 *
 	 * @param cmdList command list
 	 */
-	void setCommandList(const MiscConfig::MenuCommandList& cmdList);
+	void setCommandList(const QList<MiscConfig::MenuCommand>& cmdList);
 
 	/**
 	 * Get the command list from the table.
 	 *
 	 * @param cmdList the command list is returned here
 	 */
-	void getCommandList(MiscConfig::MenuCommandList& cmdList) const;
+	void getCommandList(QList<MiscConfig::MenuCommand>& cmdList) const;
 
 public slots:
 	/**

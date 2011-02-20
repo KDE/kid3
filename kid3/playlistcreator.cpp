@@ -32,10 +32,10 @@
 #include "importtrackdata.h"
 #include "kid3.h"
 #include "qtcompatmac.h"
-#include <qdir.h>
-#include <qurl.h>
-#include <qfile.h>
-#include <qtextstream.h>
+#include <QDir>
+#include <QUrl>
+#include <QFile>
+#include <QTextStream>
 
 /**
  * Constructor.
@@ -65,7 +65,7 @@ bool PlaylistCreator::write()
 	bool ok = true;
 	if (!m_playlistFileName.isEmpty()) {
 		QFile file(m_playlistDirName + m_playlistFileName);
-		ok = file.open(QCM_WriteOnly);
+		ok = file.open(QIODevice::WriteOnly);
 		if (ok) {
 			QTextStream stream(&file);
 
@@ -108,14 +108,8 @@ bool PlaylistCreator::write()
 					QString line = "<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\"";
 					if (!m_cfg.m_useFullPath) {
 						QUrl url(m_playlistDirName);
-						url.QCM_setScheme("file");
-						line += QString(" xml:base=\"%1\"").arg(
-#if QT_VERSION >= 0x040000
-							url.toEncoded().data()
-#else
-							url.toString(true, true)
-#endif
-							);
+						url.setScheme("file");
+						line += QString(" xml:base=\"%1\"").arg(url.toEncoded().data());
 					}
 					line += ">\n";
 					stream << line;
@@ -127,15 +121,10 @@ bool PlaylistCreator::write()
 						stream << "    <track>\n";
 						QUrl url((*it).filePath);
 						if (m_cfg.m_useFullPath) {
-							url.QCM_setScheme("file");
+							url.setScheme("file");
 						}
 						stream << QString("      <location>%1</location>\n").arg(
-#if QT_VERSION >= 0x040000
-							url.toEncoded().data()
-#else
-							url.toString(true, m_cfg.m_useFullPath)
-#endif
-							);
+							url.toEncoded().data());
 						if (m_cfg.m_writeInfo) {
 							// the info is already formatted in the case of XSPF
 							stream << (*it).info;

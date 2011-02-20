@@ -11,8 +11,8 @@
 
 #ifndef CONFIG_USE_KDE
 
-#include <qaction.h>
-#include <qdir.h>
+#include <QAction>
+#include <QDir>
 #include "qtcompatmac.h"
 
 static const int MAX_RECENT_FILES = 10;
@@ -22,8 +22,7 @@ static const int MAX_RECENT_FILES = 10;
  *
  * @param parent parent widget
  */
-RecentFilesMenu::RecentFilesMenu(QWidget* parent) :
-	RecentFilesMenuBaseClass(parent)
+RecentFilesMenu::RecentFilesMenu(QWidget* parent) : QMenu(parent)
 {
 }
 
@@ -46,7 +45,6 @@ void RecentFilesMenu::addDirectory(const QString& dir)
 		return;
 
 	// first remove the path if it already exists
-#if QT_VERSION >= 0x040000
 	int pathIdx = m_files.indexOf(path);
 	if (pathIdx != -1) {
 		m_files.removeAt(pathIdx);
@@ -56,14 +54,6 @@ void RecentFilesMenu::addDirectory(const QString& dir)
 	if (m_files.size() > MAX_RECENT_FILES) {
 		m_files.removeLast();
 	}
-#else
-	m_files.remove(path);
-
-	m_files.prepend(path);
-	if (static_cast<int>(m_files.size()) > MAX_RECENT_FILES) {
-		m_files.pop_back();
-	}
-#endif
 
 	updateRecentFileActions();
 }
@@ -76,7 +66,7 @@ void RecentFilesMenu::addDirectory(const QString& dir)
 void RecentFilesMenu::saveEntries(Kid3Settings* config)
 {
 	config->beginGroup("/Recent Files");
-	config->QCM_writeEntry("Files", m_files);
+	config->setValue("Files", QVariant(m_files));
 	config->endGroup();
 }
 
@@ -88,18 +78,12 @@ void RecentFilesMenu::saveEntries(Kid3Settings* config)
 void RecentFilesMenu::loadEntries(Kid3Settings* config)
 {
 	config->beginGroup("/Recent Files");
-	m_files = config->QCM_readListEntry("Files");
+	m_files = config->value("Files").toStringList();
 	config->endGroup();
 
-#if QT_VERSION >= 0x040000
 	while (m_files.size() > MAX_RECENT_FILES) {
 		m_files.removeLast();
 	}
-#else
-	while (static_cast<int>(m_files.size()) > MAX_RECENT_FILES) {
-		m_files.pop_back();
-	}
-#endif
 
 	updateRecentFileActions();
 }
@@ -115,26 +99,17 @@ void RecentFilesMenu::updateRecentFileActions()
 			 it != m_files.end();
 			 ++it) {
 		QAction* act = new QAction(this);
-#if QT_VERSION >= 0x040000
 		act->setText(QString("&%1 %2").arg(++i).arg(*it));
 		act->setData(*it);
-#else
-		act->setText(*it);
-		++i;
-#endif
-		connect(act, QCM_SIGNAL_triggered, this, SLOT(openRecentFile()));
-		QCM_addAction(this, act);
+		connect(act, SIGNAL(triggered()), this, SLOT(openRecentFile()));
+		this->addAction(act);
 	}
 	if (i > 0) {
-#if QT_VERSION >= 0x040000
 		addSeparator();
-#else
-		insertSeparator();
-#endif
 		QAction* clearListAction = new QAction(this);
-		clearListAction->QCM_setMenuText(i18n("&Clear List"));
-		connect(clearListAction, QCM_SIGNAL_triggered, this, SLOT(clearList()));
-		QCM_addAction(this, clearListAction);
+		clearListAction->setText(i18n("&Clear List"));
+		connect(clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
+		this->addAction(clearListAction);
 		setEnabled(true);
 	} else {
 		setEnabled(false);
@@ -146,17 +121,10 @@ void RecentFilesMenu::updateRecentFileActions()
  */
 void RecentFilesMenu::openRecentFile()
 {
-#if QT_VERSION >= 0x040000
 	QAction* action = qobject_cast<QAction*>(sender());
 	if (action) {
 		emit loadFile(action->data().toString());
 	}
-#else
-	const QAction* action = dynamic_cast<const QAction*>(sender());
-	if (action) {
-		emit loadFile(action->text());
-	}
-#endif
 }
 
 /**

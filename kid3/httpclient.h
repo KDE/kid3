@@ -27,17 +27,12 @@
 #ifndef HTTPCLIENT_H
 #define HTTPCLIENT_H
 
-#include <qobject.h>
-#include <qstring.h>
+#include <QObject>
+#include <QString>
 #include "qtcompatmac.h"
 
-#if QT_VERSION >= 0x040000
 #include <QHttp>
 #include <QByteArray>
-#else
-#include <qsocket.h>
-#include <qcstring.h>
-#endif
 
 class QHttpResponseHeader;
 
@@ -113,33 +108,6 @@ signals:
 
 private slots:
 	/**
-	 * Display status if host is found.
-	 */
-	void slotHostFound();
-
-	/**
-	 * Display status if connection is established.
-	 */
-	void slotConnected();
-
-	/**
-	 * Read received data when the server has closed the connection.
-	 * A bytesReceived() signal is emitted.
-	 */
-	void slotConnectionClosed();
-
-	/**
-	 * Display information about read progress.
-	 */
-	void slotReadyRead();
-
-	/**
-	 * Display information about socket error.
-	 */
-	void slotError(int err);
-
-
-	/**
 	 * Called when the connection state changes.
 	 *
 	 * @param state HTTP connection state
@@ -200,21 +168,8 @@ private:
 	 */
 	static QString getProxyOrDest(const QString& dst);
 
-#if QT_VERSION >= 0x040000
 	/** client socket */
 	QHttp* m_http;
-#else
-	/** client socket */
-	QSocket* m_sock;
-	/** current index in receive buffer */
-	unsigned long m_rcvIdx;
-	/** index of entity-body in receive buffer, 0 if not available */
-	unsigned long m_rcvBodyIdx;
-	/** receive buffer */
-	QByteArray m_rcvBuf;
-	/** request to set */
-	QString m_request;
-#endif
 	/** content length of entitiy-body, 0 if not available */
 	unsigned long m_rcvBodyLen;
 	/** content type */

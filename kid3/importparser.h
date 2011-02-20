@@ -27,18 +27,13 @@
 #ifndef IMPORTPARSER_H
 #define IMPORTPARSER_H
 
-#include <qstring.h>
-#include <qregexp.h>
-#include <qmap.h>
+#include <QString>
+#include <QRegExp>
+#include <QMap>
 #include "qtcompatmac.h"
 /** The list type depends on the Qt version. */
-#if QT_VERSION >= 0x040000
 #include <QList>
 typedef QList<int> TrackDurationList;
-#else
-#include <qvaluelist.h>
-typedef QValueList<int> TrackDurationList;
-#endif
 
 class FrameCollection;
 

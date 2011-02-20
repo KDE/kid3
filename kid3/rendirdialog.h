@@ -27,22 +27,12 @@
 #ifndef RENDIRDIALOG_H
 #define RENDIRDIALOG_H
 
-#include <qdialog.h>
-#include <qstring.h>
+#include <QDialog>
+#include <QString>
 /** Base class for main window. */
-#if QT_VERSION >= 0x040000
 #include <QList>
-#if QT_VERSION >= 0x040300
 #include <QWizard>
 typedef QWizard RenDirDialogBaseClass;
-#else
-typedef QDialog RenDirDialogBaseClass;
-#endif
-#else
-#include <qvaluelist.h>
-#include <qwizard.h>
-typedef QWizard RenDirDialogBaseClass;
-#endif
 
 class QComboBox;
 class QLabel;
@@ -156,13 +146,6 @@ protected:
 	 */
 	virtual void reject();
 
-#if QT_VERSION < 0x040000
-	/**
-	 * Called when the wizard is finished.
-	 */
-	virtual void accept();
-#endif
-
 signals:
 	/**
 	 * Emitted when scheduling of actions using clearActions() followed by
@@ -245,11 +228,7 @@ private:
 	};
 
 	/** List of rename actions. */
-#if QT_VERSION >= 0x040000
 	typedef QList<RenameAction> RenameActionList;
-#else
-	typedef QValueList<RenameAction> RenameActionList;
-#endif
 
 	enum Action { ActionRename = 0, ActionCreate = 1 };
 	enum TagVersion { TagV2V1 = 0, TagV1 = 1, TagV2 = 2 };

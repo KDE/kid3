@@ -30,18 +30,16 @@
 #include <kconfig.h>
 #endif
 
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <qstring.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
+#include <QLayout>
+#include <QPushButton>
+#include <QLabel>
+#include <QSpinBox>
+#include <QString>
+#include <QComboBox>
+#include <QCheckBox>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#endif
 #include "kid3.h"
 
 /**
@@ -53,7 +51,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 	QDialog(parent)
 {
 	setModal(true);
-	QCM_setWindowTitle(i18n("Number Tracks"));
+	setWindowTitle(i18n("Number Tracks"));
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (vlayout) {
@@ -65,7 +63,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 			QLabel* trackLabel = new QLabel(i18n("&Start number:"), this);
 			m_trackSpinBox = new QSpinBox(this);
 			if (trackLabel && m_trackSpinBox) {
-				m_trackSpinBox->QCM_setMaximum(999);
+				m_trackSpinBox->setMaximum(999);
 				m_trackSpinBox->setValue(Kid3App::s_miscCfg.m_numberTracksStart);
 				trackLayout->addWidget(trackLabel);
 				trackLayout->addWidget(m_trackSpinBox);
@@ -79,10 +77,10 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 			m_destComboBox = new QComboBox(this);
 			if (destLabel && m_destComboBox) {
 				m_destComboBox->setEditable(false);
-				m_destComboBox->QCM_insertItem(DestV1, i18n("Tag 1"));
-				m_destComboBox->QCM_insertItem(DestV2, i18n("Tag 2"));
-				m_destComboBox->QCM_insertItem(DestV1V2, i18n("Tag 1 and Tag 2"));
-				m_destComboBox->QCM_setCurrentIndex(Kid3App::s_miscCfg.m_numberTracksDst);
+				m_destComboBox->insertItem(DestV1, i18n("Tag 1"));
+				m_destComboBox->insertItem(DestV2, i18n("Tag 2"));
+				m_destComboBox->insertItem(DestV1V2, i18n("Tag 1 and Tag 2"));
+				m_destComboBox->setCurrentIndex(Kid3App::s_miscCfg.m_numberTracksDst);
 				trackLayout->addWidget(destLabel);
 				trackLayout->addWidget(m_destComboBox);
 				destLabel->setBuddy(m_destComboBox);
@@ -97,7 +95,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 																							 this);
 			m_totalNumTrackSpinBox = new QSpinBox(this);
 			if (m_totalNumTracksCheckBox && m_totalNumTrackSpinBox) {
-				m_totalNumTrackSpinBox->QCM_setMaximum(999);
+				m_totalNumTrackSpinBox->setMaximum(999);
 				totalLayout->addWidget(m_totalNumTracksCheckBox);
 				totalLayout->addWidget(m_totalNumTrackSpinBox);
 			}
@@ -161,7 +159,7 @@ int NumberTracksDialog::getStartNumber() const
  */
 NumberTracksDialog::Destination NumberTracksDialog::getDestination() const
 {
-	return static_cast<Destination>(m_destComboBox->QCM_currentIndex());
+	return static_cast<Destination>(m_destComboBox->currentIndex());
 }
 
 /**
@@ -169,7 +167,7 @@ NumberTracksDialog::Destination NumberTracksDialog::getDestination() const
  */
 void NumberTracksDialog::saveConfig()
 {
-	Kid3App::s_miscCfg.m_numberTracksDst = m_destComboBox->QCM_currentIndex();
+	Kid3App::s_miscCfg.m_numberTracksDst = m_destComboBox->currentIndex();
 	Kid3App::s_miscCfg.m_numberTracksStart = m_trackSpinBox->value();
 }
 

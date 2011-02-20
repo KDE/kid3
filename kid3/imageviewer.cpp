@@ -25,17 +25,13 @@
  */
 
 #include "imageviewer.h"
-#include <qimage.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qapplication.h>
-#include <qdesktopwidget.h>
+#include <QImage>
+#include <QLabel>
+#include <QPushButton>
+#include <QApplication>
+#include <QDesktopWidget>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QVBoxLayout>
-#else
-#include <qlayout.h>
-#endif
 
 /**
  * Constructor.
@@ -47,7 +43,7 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
 	QDialog(parent)
 {
 	setModal(true);
-	QCM_setWindowTitle(i18n("View Picture"));
+	setWindowTitle(i18n("View Picture"));
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	if (!vlayout) {
 		return ;
@@ -66,17 +62,9 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
 		desktopSize -= QSize(12, 12);
 		if (imageSize.width() > desktopSize.width() ||
 				imageSize.height() > desktopSize.height()) {
-#if QT_VERSION >= 0x040000
 			m_image->setPixmap(QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio)));
-#else
-			m_image->setPixmap(QPixmap(img.scale(desktopSize, QImage::ScaleMin)));
-#endif
 		} else {
-#if QT_VERSION >= 0x040000
 			m_image->setPixmap(QPixmap::fromImage(img));
-#else
-			m_image->setPixmap(QPixmap(img));
-#endif
 		}
 		vlayout->addWidget(m_image);
 		hlayout->addItem(hspacer);

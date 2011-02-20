@@ -25,9 +25,9 @@
  */
 
 #include "importsourceclient.h"
-#include <qregexp.h>
-#include <qstatusbar.h>
-#include <qurl.h>
+#include <QRegExp>
+#include <QStatusBar>
+#include <QUrl>
 
 #include "importsourceconfig.h"
 #include "kid3.h"
@@ -108,7 +108,7 @@ QString ImportSourceClient::encodeUrlQuery(const QString& query)
 {
 	QString result(query);
 	result.replace(QRegExp(" +"), " "); // collapse spaces
-	QCM_QUrl_encode(result);
+	result = QUrl::toPercentEncoding(result);
 	result.replace("%20", "+"); // replace spaces by '+'
 	return result;
 }

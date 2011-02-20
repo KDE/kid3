@@ -27,8 +27,8 @@
 #ifndef EDITFRAMEDIALOG_H
 #define EDITFRAMEDIALOG_H
 
-#include <qdialog.h>
-#include <qtextedit.h>
+#include <QDialog>
+#include <QTextEdit>
 #include "qtcompatmac.h"
 
 class QPushButton;
@@ -57,14 +57,14 @@ public:
 	 * @param text text
 	 */
 	void setText(const QString& text) {
-		m_edit->QCM_setPlainText(text);
+		m_edit->setPlainText(text);
 	}
 
 	/**
 	 * Get edited text.
 	 * @return text.
 	 */
-	QString getText() const { return m_edit->QCM_toPlainText(); }
+	QString getText() const { return m_edit->toPlainText(); }
 
 private:
 	QTextEdit* m_edit;

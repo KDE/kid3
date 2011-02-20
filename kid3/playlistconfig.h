@@ -27,7 +27,7 @@
 #ifndef PLAYLISTCONFIG_H
 #define PLAYLISTCONFIG_H
 
-#include <qstring.h>
+#include <QString>
 #include "config.h"
 #include "generalconfig.h"
 

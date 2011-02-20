@@ -25,7 +25,7 @@
  */
 
 #include "importsourceconfig.h"
-#include <qglobal.h>
+#include <QtGlobal>
 #include "qtcompatmac.h"
 
 #ifdef CONFIG_USE_KDE
@@ -74,7 +74,7 @@ void ImportSourceConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	cfg.writeEntry("Server", m_server);
 	if (m_cgiPathUsed)
 		cfg.writeEntry("CgiPath", m_cgiPath);
@@ -86,15 +86,15 @@ void ImportSourceConfig::writeToConfig(
 	cfg.writeEntry("WindowHeight", m_windowHeight);
 #else
 	config->beginGroup("/" + m_group);
-	config->QCM_writeEntry("/Server", m_server);
+	config->setValue("/Server", QVariant(m_server));
 	if (m_cgiPathUsed)
-		config->QCM_writeEntry("/CgiPath", m_cgiPath);
+		config->setValue("/CgiPath", QVariant(m_cgiPath));
 	if (m_additionalTagsUsed) {
-		config->QCM_writeEntry("/AdditionalTags", m_additionalTags);
-		config->QCM_writeEntry("/CoverArt", m_coverArt);
+		config->setValue("/AdditionalTags", QVariant(m_additionalTags));
+		config->setValue("/CoverArt", QVariant(m_coverArt));
 	}
-	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
-	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
+	config->setValue("/WindowWidth", QVariant(m_windowWidth));
+	config->setValue("/WindowHeight", QVariant(m_windowHeight));
 	config->endGroup();
 #endif
 }
@@ -113,29 +113,29 @@ void ImportSourceConfig::readFromConfig(
 	)
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	m_server = cfg.readEntry("Server", m_server);
 	if (m_cgiPathUsed)
 		m_cgiPath = cfg.readEntry("CgiPath", m_cgiPath);
 	if (m_additionalTagsUsed) {
-		m_additionalTags = cfg.KCM_readBoolEntry("AdditionalTags",
+		m_additionalTags = cfg.readEntry("AdditionalTags",
 		                                         m_additionalTags);
-		m_coverArt = cfg.KCM_readBoolEntry("CoverArt", m_coverArt);
+		m_coverArt = cfg.readEntry("CoverArt", m_coverArt);
 	}
-	m_windowWidth = cfg.KCM_readNumEntry("WindowWidth", -1);
-	m_windowHeight = cfg.KCM_readNumEntry("WindowHeight", -1);
+	m_windowWidth = cfg.readEntry("WindowWidth", -1);
+	m_windowHeight = cfg.readEntry("WindowHeight", -1);
 #else
 	config->beginGroup("/" + m_group);
-	m_server = config->QCM_readEntry("/Server", m_server);
+	m_server = config->value("/Server", m_server).toString();
 	if (m_cgiPathUsed)
-		m_cgiPath = config->QCM_readEntry("/CgiPath", m_cgiPath);
+		m_cgiPath = config->value("/CgiPath", m_cgiPath).toString();
 	if (m_additionalTagsUsed) {
-		m_additionalTags = config->QCM_readBoolEntry("/AdditionalTags",
-		                                             m_additionalTags);
-		m_coverArt = config->QCM_readBoolEntry("/CoverArt", m_coverArt);
+		m_additionalTags = config->value("/AdditionalTags",
+																		 m_additionalTags).toBool();
+		m_coverArt = config->value("/CoverArt", m_coverArt).toBool();
 	}
-	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
-	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
+	m_windowWidth = config->value("/WindowWidth", -1).toInt();
+	m_windowHeight = config->value("/WindowHeight", -1).toInt();
 	config->endGroup();
 #endif
 }

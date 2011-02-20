@@ -28,11 +28,7 @@
 #define FORMATBOX_H
 
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QGroupBox>
-#else
-#include <qgroupbox.h>
-#endif
 
 class QComboBox;
 class QCheckBox;

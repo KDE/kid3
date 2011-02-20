@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qregexp.h>
-#include <qdom.h>
+#include <QRegExp>
+#include <QDomDocument>
 #include "kid3.h"
 #include "musicbrainzreleaseclient.h"
 #include "musicbrainzreleasedialog.h"
@@ -87,15 +87,9 @@ void MusicBrainzReleaseDialog::parseFindResults(const QByteArray& searchStr)
 			<track-list count="11"/>
 		</release>
 	*/
-#if QT_VERSION >= 0x040000
 	int start = searchStr.indexOf("<?xml");
 	int end = searchStr.indexOf("</metadata>");
 	QByteArray xmlStr = searchStr;
-#else
-	QCString xmlStr(searchStr.data(), searchStr.size());
-	int start = xmlStr.find("<?xml");
-	int end = xmlStr.find("</metadata>");
-#endif
 	if (start >= 0 && end > start) {
 		xmlStr = xmlStr.mid(start, end + 11 - start);
 	}
@@ -242,19 +236,10 @@ void MusicBrainzReleaseDialog::parseAlbumResults(const QByteArray& albumStr)
 				<duration>319173</duration>
 			</track>
 	*/
-#if QT_VERSION >= 0x040000
 	int start = albumStr.indexOf("<?xml");
 	int end = albumStr.indexOf("</metadata>");
 	QByteArray xmlStr = start >= 0 && end > start ?
 		albumStr.mid(start, end + 11 - start) : albumStr;
-#else
-	QCString xmlStr(albumStr.data(), albumStr.size());
-	int start = xmlStr.find("<?xml");
-	int end = xmlStr.find("</metadata>");
-	if (start >= 0 && end > start) {
-		xmlStr = xmlStr.mid(start, end + 11 - start);
-	}
-#endif
 	QDomDocument doc;
 	if (doc.setContent(xmlStr, false)) {
 		QDomElement release =

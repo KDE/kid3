@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qdialog.h>
-#include <qinputdialog.h>
+#include <QDialog>
+#include <QInputDialog>
 
 #include "taggedfile.h"
 #include "framelist.h"
@@ -36,7 +36,7 @@
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
 #else
-#include <qfiledialog.h>
+#include <QFileDialog>
 #endif
 
 
@@ -196,17 +196,13 @@ bool FrameList::editFrame(Frame& frame)
 	bool result = true;
 	QString name(frame.getName(true));
 	if (!name.isEmpty()) {
-		int nlPos = name.QCM_indexOf("\n");
+		int nlPos = name.indexOf("\n");
 		if (nlPos > 0) {
 			// probably "TXXX - User defined text information\nDescription" or
 			// "WXXX - User defined URL link\nDescription"
 			name.truncate(nlPos);
 		}
-#if QT_VERSION >= 0x040000
 		name = QCM_translate(name.toLatin1().data());
-#else
-		name = QCM_translate(name);
-#endif
 	}
 	if (frame.getFieldList().empty()) {
 		EditFrameDialog* dialog =
@@ -288,9 +284,6 @@ bool FrameList::addFrame(bool edit)
 		readTags(); // refresh listbox
 		if (index != -1) {
 			setSelectedId(index);
-#if QT_VERSION < 0x040000
-			m_frameTable->ensureCellVisible(m_frameTable->currentRow(), m_frameTable->currentColumn()); 
-#endif
 		}
 		return true;
 	}
@@ -311,12 +304,12 @@ static Frame::Type getTypeFromTranslatedName(QString name)
 		// first time initialization
 		for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
 			Frame::Type type = static_cast<Frame::Type>(i);
-			strNumMap.insert(QCM_translate(Frame::getNameFromType(type)).remove(' ').QCM_toUpper(),
+			strNumMap.insert(QCM_translate(Frame::getNameFromType(type)).remove(' ').toUpper(),
 											 type);
 		}
 	}
 	QMap<QString, int>::const_iterator it =
-		strNumMap.find(name.remove(' ').QCM_toUpper());
+		strNumMap.find(name.remove(' ').toUpper());
 	if (it != strNumMap.end()) {
 		return static_cast<Frame::Type>(*it);
 	}
@@ -335,7 +328,7 @@ bool FrameList::selectFrame()
 	const char* const msg = I18N_NOOP("Select the frame ID");
 	bool ok = false;
 	if (m_file) {
-		QString name = QInputDialog::QCM_getItem(
+		QString name = QInputDialog::getItem(
 			0, QCM_translate(title),
 			QCM_translate(msg), m_file->getFrameIds(), 0, true, &ok);
 		if (ok) {

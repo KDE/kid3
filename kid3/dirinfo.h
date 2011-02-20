@@ -80,13 +80,6 @@ private:
  */
 class DirContents : public DirInfo {
 public:
-	/** List of directory contents */
-#if QT_VERSION >= 0x040000
-	typedef QList<DirContents*> DirContentsList;
-#else
-	typedef QValueList<DirContents*> DirContentsList;
-#endif
-
 	/**
 	 * Constructor.
 	 *
@@ -103,28 +96,20 @@ public:
 	 */
 	~DirContents()
 	{
-#if QT_VERSION >= 0x040000
 		qDeleteAll(m_dirs);
-#else
-		for (DirContentsList::iterator it = m_dirs.begin();
-				 it != m_dirs.end();
-				 ++it) {
-			delete *it;
-		}
-#endif
 	}
 
  /**
   * Get directories.
   * @return directories.
   */
-	const DirContentsList& getDirs() const { return m_dirs; }
+	const QList<DirContents*>& getDirs() const { return m_dirs; }
 
  /**
   * Reference to directories.
   * @return directories.
   */
-	DirContentsList& dirs() { return m_dirs; }
+	QList<DirContents*>& dirs() { return m_dirs; }
 
  /**
   * Get file names.
@@ -139,7 +124,7 @@ public:
 	QStringList& files() { return m_files; }
 
 private:
-	DirContentsList m_dirs;
+	QList<DirContents*> m_dirs;
 	QStringList m_files;
 };
 

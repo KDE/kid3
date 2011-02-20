@@ -32,11 +32,7 @@
 
 #include "taggedfile.h"
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QList>
-#else
-#include <qvaluelist.h>
-#endif
 
 
  /** List box item containing OGG file */
@@ -334,13 +330,7 @@ protected:
 	};
 
 	/** Vorbis comment list. */
-	class CommentList : public
-#if QT_VERSION >= 0x040000
-	QList<CommentField>
-#else
-	QValueList<CommentField>
-#endif
-	{
+	class CommentList : public QList<CommentField> {
 	public:
 		/** Constructor. */
 		CommentList() {}

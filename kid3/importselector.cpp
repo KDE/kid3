@@ -28,33 +28,28 @@
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
 #else
-#include <qfiledialog.h>
+#include <QFileDialog>
 #endif
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qapplication.h>
-#include <qclipboard.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qlineedit.h>
-#include <qbitarray.h>
-#include <qcheckbox.h>
-#include <qspinbox.h>
-#include <qtooltip.h>
+#include <QLayout>
+#include <QPushButton>
+#include <QFile>
+#include <QTextStream>
+#include <QApplication>
+#include <QClipboard>
+#include <QLabel>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QBitArray>
+#include <QCheckBox>
+#include <QSpinBox>
+#include <QToolTip>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QList>
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QGroupBox>
-#else
-#include <qtable.h>
-#include <qgroupbox.h>
-#endif
 #include "genres.h"
 #include "freedbdialog.h"
 #include "tracktypedialog.h"
@@ -73,25 +68,13 @@
  * Table used for import data.
  * Subclassed to be able to change the cell colors.
  */
-class ImportTable: public
-#if QT_VERSION >= 0x040000
-QTableWidget
-#else
-QTable
-#endif
-{
+class ImportTable: public QTableWidget {
 public:
 	/**
 	 * Constructor.
 	 * @param parent parent widget
 	 */
-	ImportTable(QWidget* parent = 0) :
-#if QT_VERSION >= 0x040000
-		QTableWidget(parent)
-#else
-		QTable(parent)
-#endif
-		{}
+	ImportTable(QWidget* parent = 0) : QTableWidget(parent) {}
 
 	/**
 	 * Constructor.
@@ -100,28 +83,17 @@ public:
 	 * @param parent  parent widget
 	 */
 	ImportTable(int numRows, int numCols, QWidget* parent = 0) :
-#if QT_VERSION >= 0x040000
-		QTableWidget(numRows, numCols, parent)
-#else
-		QTable(numRows, numCols, parent)
-#endif
-		{} 
+		QTableWidget(numRows, numCols, parent) {} 
 
 	/**
 	 * Clear marked rows.
 	 */
 	void clearMarks() {
 		m_markedRows.fill(false);
-#if QT_VERSION >= 0x040000
 		for (int row = 0; row < rowCount(); ++row) {
 			QTableWidgetItem* twi = item(row, 0);
-#if QT_VERSION >= 0x040200
 			if (twi) twi->setBackground(Qt::NoBrush);
-#else
-			if (twi) twi->setBackgroundColor(QColor());
-#endif
 		}
-#endif
 	}
 
 	/**
@@ -133,13 +105,8 @@ public:
 		if (static_cast<unsigned>(m_markedRows.size()) <= row)
 			m_markedRows.resize(row + 1);
 		m_markedRows.setBit(row);
-#if QT_VERSION >= 0x040200
 		QTableWidgetItem* twi = item(row, 0);
 		if (twi) twi->setBackground(Qt::red);
-#elif QT_VERSION >= 0x040000
-		QTableWidgetItem* twi = item(row, 0);
-		if (twi) twi->setBackgroundColor(Qt::red);
-#endif
 	}
 
 	/**
@@ -151,29 +118,6 @@ public:
 		return static_cast<unsigned>(m_markedRows.size()) > row &&
 			m_markedRows.testBit(row);
 	}
-
-protected:
-	/**
-	 * Called when a cell is painted.
-	 * Paint the first cell of marked rows with red background.
-	 * @param p painter
-	 * @param row column
-	 * @param col column
-	 * @param cr  cell rectangle
-	 * @param selected true if selected
-	 * @param cg color group
-	 */
-#if QT_VERSION < 0x040000
-	virtual void paintCell(QPainter* p, int row, int col, const QRect& cr, bool selected, const QColorGroup& cg) {
-		if (col == 0 && isRowMarked(row)) {
-			QColorGroup g(cg);
-			g.setColor(QColorGroup::Base, QColor("red"));
-			QTable::paintCell(p, row, col, cr, selected, g);
-		} else {
-			QTable::paintCell(p, row, col, cr, selected, cg);
-		}
-	}
-#endif
 
 private:
 	QBitArray m_markedRows;
@@ -209,7 +153,6 @@ ImportSelector::ImportSelector(
 	QVBoxLayout* vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(6);
 	vboxLayout->setMargin(6);
-#if QT_VERSION >= 0x040000
 	m_tab = new ImportTable(0, NumColumns, this);
 	m_tab->setSelectionMode(QAbstractItemView::NoSelection);
 	m_tab->setHorizontalHeaderLabels(
@@ -221,56 +164,25 @@ ImportSelector::ImportSelector(
 	QHeaderView* vHeader = m_tab->verticalHeader();
 	if (vHeader) {
 		vHeader->setMovable(true);
-		vHeader->setResizeMode(
-#if QT_VERSION >= 0x040200
-			QHeaderView::ResizeToContents
-#else
-			QHeaderView::Stretch
-#endif
-			);
+		vHeader->setResizeMode(QHeaderView::ResizeToContents);
 	}
-#else
-	m_tab = new ImportTable(0, NumColumns, this);
-	m_tab->setReadOnly(true);
-	m_tab->setFocusStyle(QTable::FollowStyle);
-	m_tab->setRowMovingEnabled(true);
-	m_tab->setSelectionMode(QTable::NoSelection);
-	QHeader* hHeader = m_tab->horizontalHeader();
-	QHeader* vHeader = m_tab->verticalHeader();
-	hHeader->setLabel(LengthColumn, i18n("Length"));
-	hHeader->setLabel(TrackColumn, i18n("Track"));
-	hHeader->setLabel(TitleColumn, i18n("Title"));
-	hHeader->setLabel(ArtistColumn, i18n("Artist"));
-	hHeader->setLabel(AlbumColumn, i18n("Album"));
-	hHeader->setLabel(YearColumn, i18n("Year"));
-	hHeader->setLabel(GenreColumn, i18n("Genre"));
-	hHeader->setLabel(CommentColumn, i18n("Comment"));
-	m_tab->adjustColumn(TrackColumn);
-	m_tab->adjustColumn(YearColumn);
-#endif
 	vboxLayout->addWidget(m_tab);
 
-#if QT_VERSION >= 0x040000
 	QGroupBox* fmtbox = new QGroupBox(i18n("Format"), this);
-#else
-	QGroupBox* fmtbox = new QGroupBox(3, Qt::Vertical, i18n("Format"), this);
-#endif
 	m_formatComboBox = new QComboBox(fmtbox);
 	m_formatComboBox->setEditable(true);
 	m_headerLineEdit = new QLineEdit(fmtbox);
 	m_trackLineEdit = new QLineEdit(fmtbox);
 	QString formatToolTip = ImportParser::getFormatToolTip();
-	QCM_setToolTip(m_headerLineEdit, formatToolTip);
-	QCM_setToolTip(m_trackLineEdit, formatToolTip);
+	m_headerLineEdit->setToolTip(formatToolTip);
+	m_trackLineEdit->setToolTip(formatToolTip);
 	connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
-#if QT_VERSION >= 0x040000
 	QVBoxLayout* vbox = new QVBoxLayout;
 	vbox->setMargin(2);
 	vbox->addWidget(m_formatComboBox);
 	vbox->addWidget(m_headerLineEdit);
 	vbox->addWidget(m_trackLineEdit);
 	fmtbox->setLayout(vbox);
-#endif
 	vboxLayout->addWidget(fmtbox);
 
 	QWidget* butbox = new QWidget(this);
@@ -288,15 +200,15 @@ ImportSelector::ImportSelector(
 	butlayout->addWidget(m_serverButton);
 	m_serverComboBox = new QComboBox(butbox);
 	m_serverComboBox->setEditable(false);
-	m_serverComboBox->QCM_insertItem(ImportConfig::ServerFreedb, i18n("gnudb.org"));
-	m_serverComboBox->QCM_insertItem(ImportConfig::ServerTrackType, i18n("TrackType.org"));
-	m_serverComboBox->QCM_insertItem(ImportConfig::ServerDiscogs, i18n("Discogs"));
-	m_serverComboBox->QCM_insertItem(ImportConfig::ServerAmazon,
+	m_serverComboBox->insertItem(ImportConfig::ServerFreedb, i18n("gnudb.org"));
+	m_serverComboBox->insertItem(ImportConfig::ServerTrackType, i18n("TrackType.org"));
+	m_serverComboBox->insertItem(ImportConfig::ServerDiscogs, i18n("Discogs"));
+	m_serverComboBox->insertItem(ImportConfig::ServerAmazon,
 																	 i18n("Amazon"));
-	m_serverComboBox->QCM_insertItem(ImportConfig::ServerMusicBrainzRelease,
+	m_serverComboBox->insertItem(ImportConfig::ServerMusicBrainzRelease,
 																	 i18n("MusicBrainz Release"));
 #ifdef HAVE_TUNEPIMP
-	m_serverComboBox->QCM_insertItem(ImportConfig::ServerMusicBrainzFingerprint,
+	m_serverComboBox->insertItem(ImportConfig::ServerMusicBrainzFingerprint,
 																	 i18n("MusicBrainz Fingerprint"));
 #endif
 	butlayout->addWidget(m_serverComboBox);
@@ -308,9 +220,9 @@ ImportSelector::ImportSelector(
 	butlayout->addWidget(destLabel);
 	m_destComboBox = new QComboBox(butbox);
 	m_destComboBox->setEditable(false);
-	m_destComboBox->QCM_insertItem(ImportConfig::DestV1, i18n("Tag 1"));
-	m_destComboBox->QCM_insertItem(ImportConfig::DestV2, i18n("Tag 2"));
-	m_destComboBox->QCM_insertItem(ImportConfig::DestV1V2, i18n("Tag 1 and Tag 2"));
+	m_destComboBox->insertItem(ImportConfig::DestV1, i18n("Tag 1"));
+	m_destComboBox->insertItem(ImportConfig::DestV2, i18n("Tag 2"));
+	m_destComboBox->insertItem(ImportConfig::DestV1V2, i18n("Tag 1 and Tag 2"));
 	destLabel->setBuddy(m_destComboBox);
 	butlayout->addWidget(m_destComboBox);
 	vboxLayout->addWidget(butbox);
@@ -323,7 +235,7 @@ ImportSelector::ImportSelector(
 		i18n("Check maximum allowable time &difference (sec):"), matchBox);
 	matchLayout->addWidget(m_mismatchCheckBox);
 	m_maxDiffSpinBox = new QSpinBox(matchBox);
-	m_maxDiffSpinBox->QCM_setMaximum(9999);
+	m_maxDiffSpinBox->setMaximum(9999);
 	matchLayout->addWidget(m_maxDiffSpinBox);
 	QSpacerItem* matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 																						 QSizePolicy::Minimum);
@@ -345,11 +257,7 @@ ImportSelector::ImportSelector(
 	connect(m_lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
 	connect(m_trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
 	connect(m_titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
-#if QT_VERSION >= 0x040000
 	connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
-#else
-	connect(vHeader, SIGNAL(indexChange(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
-#endif
 	connect(m_mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
 	connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
 }
@@ -402,7 +310,7 @@ ImportSelector::~ImportSelector()
  */
 void ImportSelector::setImportServer(ImportConfig::ImportServer server)
 {
-	m_serverComboBox->QCM_setCurrentIndex(server);
+	m_serverComboBox->setCurrentIndex(server);
 }
 
 /**
@@ -413,8 +321,8 @@ void ImportSelector::setFormatFromConfig()
 	m_formatHeaders = Kid3App::s_genCfg.m_importFormatHeaders;
 	m_formatTracks = Kid3App::s_genCfg.m_importFormatTracks;
 	m_formatComboBox->clear();
-	m_formatComboBox->QCM_addItems(Kid3App::s_genCfg.m_importFormatNames);
-	m_formatComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importFormatIdx);
+	m_formatComboBox->addItems(Kid3App::s_genCfg.m_importFormatNames);
+	m_formatComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importFormatIdx);
 	setFormatLineEdit(Kid3App::s_genCfg.m_importFormatIdx);
 }
 
@@ -423,15 +331,11 @@ void ImportSelector::setFormatFromConfig()
  */
 void ImportSelector::clear()
 {
-#if QT_VERSION >= 0x040000
 	m_tab->setRowCount(0);
-#else
-	m_tab->setNumRows(0);
-#endif
 	clearAdditionalFrameColumns();
 
-	m_serverComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importServer);
-	m_destComboBox->QCM_setCurrentIndex(Kid3App::s_genCfg.m_importDest);
+	m_serverComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importServer);
+	m_destComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importDest);
 
 	setFormatFromConfig();
 
@@ -466,16 +370,10 @@ bool ImportSelector::importFromFile(const QString& fn)
 {
 	if (!fn.isEmpty()) {
 		QFile file(fn);
-		if (file.open(QCM_ReadOnly)) {
-			setImportDir(
-#if QT_VERSION >= 0x040000
-				QFileInfo(file).dir().path()
-#else
-				QFileInfo(file).dirPath(true)
-#endif
-				);
+		if (file.open(QIODevice::ReadOnly)) {
+			setImportDir(QFileInfo(file).dir().path());
 			QTextStream stream(&file);
-			m_text = stream.QCM_readAll();
+			m_text = stream.readAll();
 			if (!m_text.isNull()) {
 				updateTrackData(File);
 				showPreview();
@@ -497,7 +395,7 @@ void ImportSelector::fromFile()
 #ifdef CONFIG_USE_KDE
 		KFileDialog::getOpenFileName(getImportDir(), QString::null, this)
 #else
-		QFileDialog::QCM_getOpenFileName(this, getImportDir())
+		QFileDialog::getOpenFileName(this, QString(), getImportDir())
 #endif
 		);
 }
@@ -508,7 +406,6 @@ void ImportSelector::fromFile()
 void ImportSelector::fromClipboard()
 {
 	QClipboard* cb = QApplication::clipboard();
-#if QT_VERSION >= 0x030100
 	m_text = cb->text(QClipboard::Clipboard);
 	if (!m_text.isNull() && updateTrackData(Clipboard)) {
 		showPreview();
@@ -519,13 +416,6 @@ void ImportSelector::fromClipboard()
 			showPreview();
 		}
 	}
-#else
-	m_text = cb->text();
-	if (!m_text.isNull()) {
-		updateTrackData(Clipboard);
-		showPreview();
-	}
-#endif
 }
 
 /**
@@ -534,7 +424,7 @@ void ImportSelector::fromClipboard()
 void ImportSelector::fromServer()
 {
 	if (m_serverComboBox) {
-		switch (m_serverComboBox->QCM_currentIndex()) {
+		switch (m_serverComboBox->currentIndex()) {
 			case ImportConfig::ServerFreedb:
 				fromFreedb();
 				break;
@@ -725,11 +615,7 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
  */
 void ImportSelector::clearAdditionalFrameColumns()
 {
-#if QT_VERSION >= 0x040000
 	m_tab->setColumnCount(NumColumns);
-#else
-	m_tab->setNumCols(NumColumns);
-#endif
 	m_additonalColumnNames.clear();
 }
 
@@ -746,15 +632,14 @@ void ImportSelector::addAdditionalFrameColumns(const FrameCollection& frames,
 			 it != frames.end();
 			 ++it) {
 		if (it->getType() > Frame::FT_LastV1Frame) {
-			QString name(it->getName().QCM_toLower());
+			QString name(it->getName().toLower());
 			const int len = name.length();
 			int idx = 0;
 			while (idx >= 0 && idx < len) {
-				name[idx] = name[idx].QCM_toUpper();
-				idx = name.QCM_indexOf(' ', idx);
+				name[idx] = name[idx].toUpper();
+				idx = name.indexOf(' ', idx);
 				if (idx >= 0 && idx < len - 1) ++idx;
 			}
-#if QT_VERSION >= 0x040000
 			idx = m_additonalColumnNames.indexOf(name);
 			int col = NumColumns + idx;
 			if (idx == -1) {
@@ -773,18 +658,6 @@ void ImportSelector::addAdditionalFrameColumns(const FrameCollection& frames,
 				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
 				m_tab->setItem(row, col, twi);
 			}
-#else
-			idx = m_additonalColumnNames.findIndex(name);
-			int col = NumColumns + idx;
-			if (idx == -1) {
-				m_additonalColumnNames.push_back(name);
-				idx = m_additonalColumnNames.size() - 1;
-				col = NumColumns + idx;
-				m_tab->insertColumns(col);
-				m_tab->horizontalHeader()->setLabel(col, QCM_translate(name));
-			}
-			m_tab->setText(row, col, it->getValue());
-#endif
 		}
 	}
 }
@@ -794,7 +667,6 @@ void ImportSelector::addAdditionalFrameColumns(const FrameCollection& frames,
  */
 void ImportSelector::showPreview() {
 	clearAdditionalFrameColumns();
-#if QT_VERSION >= 0x040000
 	m_tab->setRowCount(m_trackDataVector.size());
 	int row = 0;
 	QStringList vLabels;
@@ -903,51 +775,6 @@ void ImportSelector::showPreview() {
 	m_tab->resizeColumnsToContents();
 	m_tab->resizeRowsToContents();
 	m_tab->setVerticalHeaderLabels(vLabels);
-#else
-	m_tab->setNumRows(0);
-	int row = 0;
-	QHeader* vHeader = m_tab->verticalHeader();
-	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
-			 it != m_trackDataVector.end();
-			 ++it) {
-		m_tab->setNumRows(row + 1);
-		int fileDuration = (*it).getFileDuration();
-		if (fileDuration != 0) {
-			vHeader->setLabel(row, TaggedFile::formatTime(fileDuration));
-		}
-		int importDuration = (*it).getImportDuration();
-		if (importDuration != 0)
-			m_tab->setText(row, LengthColumn, TaggedFile::formatTime(importDuration));
-		if ((*it).getTrack() != -1) {
-			QString trackStr;
-			trackStr.setNum((*it).getTrack());
-			m_tab->setText(row, TrackColumn, trackStr);
-		}
-		if (!(*it).getTitle().isNull())
-			m_tab->setText(row, TitleColumn, (*it).getTitle());
-		if (!(*it).getArtist().isNull())
-			m_tab->setText(row, ArtistColumn, (*it).getArtist());
-		if (!(*it).getAlbum().isNull())
-			m_tab->setText(row, AlbumColumn, (*it).getAlbum());
-		if ((*it).getYear() != -1) {
-			QString yearStr;
-			yearStr.setNum((*it).getYear());
-			m_tab->setText(row, YearColumn, yearStr);
-		}
-		if (!(*it).getGenre().isNull())
-			m_tab->setText(row, GenreColumn, (*it).getGenre());
-		if (!(*it).getComment().isNull())
-			m_tab->setText(row, CommentColumn, (*it).getComment());
-		addAdditionalFrameColumns(*it, row);
-		++row;
-	}
-	if (row > 0) {
-		m_tab->ensureCellVisible(0, 0);
-	}
-	for (int col = 0; col < m_tab->numCols(); ++col) {
-		m_tab->adjustColumn(col);
-	}
-#endif
 
 	// make time difference check
 	m_tab->clearMarks();
@@ -1008,7 +835,7 @@ bool ImportSelector::getNextTags(FrameCollection& frames, bool start)
 ImportConfig::ImportDestination ImportSelector::getDestination()
 {
 	return static_cast<ImportConfig::ImportDestination>(
-		m_destComboBox->QCM_currentIndex());
+		m_destComboBox->currentIndex());
 }
 
 /**
@@ -1018,7 +845,7 @@ ImportConfig::ImportDestination ImportSelector::getDestination()
  */
 void ImportSelector::setDestination(ImportConfig::ImportDestination dest)
 {
-	m_destComboBox->QCM_setCurrentIndex(dest);
+	m_destComboBox->setCurrentIndex(dest);
 }
 
 /**
@@ -1030,11 +857,11 @@ void ImportSelector::setDestination(ImportConfig::ImportDestination dest)
 void ImportSelector::saveConfig(int width, int height)
 {
 	Kid3App::s_genCfg.m_importDest = static_cast<ImportConfig::ImportDestination>(
-		m_destComboBox->QCM_currentIndex());
+		m_destComboBox->currentIndex());
 
 	Kid3App::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
-		m_serverComboBox->QCM_currentIndex());
-	Kid3App::s_genCfg.m_importFormatIdx = m_formatComboBox->QCM_currentIndex();
+		m_serverComboBox->currentIndex());
+	Kid3App::s_genCfg.m_importFormatIdx = m_formatComboBox->currentIndex();
 	if (Kid3App::s_genCfg.m_importFormatIdx < static_cast<int>(Kid3App::s_genCfg.m_importFormatNames.size())) {
 		Kid3App::s_genCfg.m_importFormatNames[Kid3App::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
 		Kid3App::s_genCfg.m_importFormatHeaders[Kid3App::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
@@ -1103,7 +930,6 @@ void ImportSelector::maxDiffChanged() {
  * @param fromIndex index of position moved to
  */
 void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
-#if QT_VERSION >= 0x040000
 	QHeaderView* vHeader = m_tab->verticalHeader();
 	if (vHeader) {
 		// revert movement, but avoid recursion
@@ -1111,11 +937,6 @@ void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
 		vHeader->moveSection(toIndex, fromIndex);
 		connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
 	}
-#else
-	if (toIndex > fromIndex && toIndex > 0) {
-		--toIndex;
-	}
-#endif
 	int numTracks = static_cast<int>(m_trackDataVector.size());
 	if (fromIndex < numTracks && toIndex < numTracks) {
 		// swap elements but keep file durations and names
@@ -1386,22 +1207,20 @@ void ImportSelector::matchWithTitle()
 			QString fileName = (*it).getAbsFilename();
 			if (!fileName.isEmpty()) {
 				++numFiles;
-				int startIndex = fileName.QCM_lastIndexOf(QDir::separator()) + 1;
-				int endIndex = fileName.QCM_lastIndexOf('.');
+				int startIndex = fileName.lastIndexOf(QDir::separator()) + 1;
+				int endIndex = fileName.lastIndexOf('.');
 				if (endIndex > startIndex) {
 					fileName = fileName.mid(startIndex, endIndex - startIndex);
 				} else {
 					fileName = fileName.mid(startIndex);
 				}
-				md[i].fileWords = QCM_split(
-					nonWordCharRegExp, fileName.QCM_toLower().
-					replace(nonLetterSpaceRegExp, " "));
+				md[i].fileWords = fileName.toLower().
+					replace(nonLetterSpaceRegExp, " ").split(nonWordCharRegExp);
 			}
 			if (!(*it).getTitle().isEmpty()) {
 				++numImports;
-				md[i].titleWords = QCM_split(
-					nonWordCharRegExp, (*it).getTitle().QCM_toLower().
-					replace(nonLetterSpaceRegExp, " "));
+				md[i].titleWords = (*it).getTitle().toLower().
+					replace(nonLetterSpaceRegExp, " ").split(nonWordCharRegExp);
 			}
 			md[i].assignedTo = -1;
 			md[i].assignedFrom = -1;

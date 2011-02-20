@@ -27,14 +27,10 @@
 #ifndef STRINGLISTEDIT_H
 #define STRINGLISTEDIT_H
 
-#include <qwidget.h>
+#include <QWidget>
 #include "qtcompatmac.h"
 
-#if QT_VERSION >= 0x040000
 class QListWidget;
-#else
-class QListBox;
-#endif
 class QPushButton;
 
 /**
@@ -102,11 +98,7 @@ public slots:
 	void setButtonEnableState();
 
 private:
-#if QT_VERSION >= 0x040000
 	QListWidget* m_stringListBox;
-#else
-	QListBox* m_stringListBox;
-#endif
 	QPushButton* m_addPushButton;
 	QPushButton* m_moveUpPushButton;
 	QPushButton* m_moveDownPushButton;

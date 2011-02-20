@@ -28,13 +28,13 @@
 #define SCRIPTINTERFACE_H
 
 #include "config.h"
-#include <qstringlist.h>
+#include <QStringList>
 /** The base class depends on the Qt version and is a D-Bus adaptor. */
 #ifdef HAVE_QTDBUS
 #include <QDBusAbstractAdaptor>
 typedef QDBusAbstractAdaptor ScriptInterfaceBaseClass;
 #else
-#include <qobject.h>
+#include <QObject>
 typedef QObject ScriptInterfaceBaseClass;
 #endif
 

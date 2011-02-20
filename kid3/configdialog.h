@@ -28,19 +28,13 @@
 #define CONFIGDIALOG_H
 
 #include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <kdeversion.h>
-#if KDE_VERSION >= 0x30200
-#define KID3_USE_KCONFIGDIALOG
-#endif
-#endif
 
-#include <qstringlist.h>
+#include <QStringList>
 #include "qtcompatmac.h"
-#ifdef KID3_USE_KCONFIGDIALOG
+#ifdef CONFIG_USE_KDE
 #include <kconfigdialog.h>
 #else
-#include <qdialog.h>
+#include <QDialog>
 #endif
 #include "formatconfig.h"
 
@@ -57,7 +51,7 @@ class QLineEdit;
 class QSpinBox;
 
 /** Base class for configuration dialog. */
-#ifdef KID3_USE_KCONFIGDIALOG
+#ifdef CONFIG_USE_KDE
 typedef KConfigDialog ConfigDialogBaseClass;
 #else
 typedef QDialog ConfigDialogBaseClass;
@@ -77,7 +71,7 @@ public:
 	 * @param caption dialog title
 	 * @param configSkeleton KDE config skeleton
 	 */
-#ifdef KID3_USE_KCONFIGDIALOG
+#ifdef CONFIG_USE_KDE
 	ConfigDialog(QWidget* parent, QString& caption,
 							 KConfigSkeleton* configSkeleton);
 #else
@@ -174,14 +168,12 @@ private:
 	QCheckBox* m_proxyCheckBox;
 	/** Proxy line edit */
 	QLineEdit* m_proxyLineEdit;
-#if QT_VERSION >= 0x040000
 	/** Use proxy authentication check box */
 	QCheckBox* m_proxyAuthenticationCheckBox;
 	/** Proxy user name line edit */
 	QLineEdit* m_proxyUserNameLineEdit;
 	/** Proxy password line edit */
 	QLineEdit* m_proxyPasswordLineEdit;
-#endif
 #ifndef CONFIG_USE_KDE
 	QCheckBox* m_useApplicationFontCheckBox;
 	QPushButton* m_applicationFontButton;

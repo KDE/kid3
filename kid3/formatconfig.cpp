@@ -29,8 +29,8 @@
 #include <kconfig.h>
 #include <kconfigskeleton.h>
 #else
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QString>
+#include <QStringList>
 #endif
 #include "qtcompatmac.h"
 #include "generalconfig.h"
@@ -90,7 +90,7 @@ void FormatConfig::formatString(QString& str) const
 	int dotPos = -1;
 	if (m_filenameFormatter) {
 		/* Do not format the extension if it is a filename */
-		dotPos = str.QCM_lastIndexOf('.');
+		dotPos = str.lastIndexOf('.');
 		if (dotPos != -1) {
 			ext = str.right(str.length() - dotPos);
 			str = str.left(dotPos);
@@ -99,13 +99,13 @@ void FormatConfig::formatString(QString& str) const
 	if (m_caseConversion != NoChanges) {
 		switch (m_caseConversion) {
 			case AllLowercase:
-				str = str.QCM_toLower();
+				str = str.toLower();
 				break;
 			case AllUppercase:
-				str = str.QCM_toUpper();
+				str = str.toUpper();
 				break;
 			case FirstLetterUppercase:
-				str = str.at(0).QCM_toUpper() + str.right(str.length() - 1).QCM_toLower();
+				str = str.at(0).toUpper() + str.right(str.length() - 1).toLower();
 				break;
 			case AllFirstLettersUppercase: {
 				QString newstr;
@@ -118,9 +118,9 @@ void FormatConfig::formatString(QString& str) const
 						newstr.append(ch);
 					} else if (wordstart) {
 						wordstart = false;
-						newstr.append(ch.QCM_toUpper());
+						newstr.append(ch.toUpper());
 					} else {
-						newstr.append(ch.QCM_toLower());
+						newstr.append(ch.toLower());
 					}
 				}
 				str = newstr;
@@ -133,19 +133,7 @@ void FormatConfig::formatString(QString& str) const
 	if (m_strRepEnabled) {
 		QMap<QString, QString>::ConstIterator it;
 		for (it = m_strRepMap.begin(); it != m_strRepMap.end(); ++it) {
-#if QT_VERSION >= 0x030100
 			str.replace(it.key(), *it);
-#else
-			QString key(it.key()), data(it.data());
-			int pos = 0, keylen = key.length();
-			int datalen = data.length();
-			while (pos < (int)str.length()) {
-				pos = str.QCM_indexOf(key);
-				if (pos == -1) break;
-				str.replace(pos, keylen, data);
-				pos += datalen;
-			}
-#endif
 		}
 	}
 	/* append extension if it was removed */
@@ -189,7 +177,7 @@ void FormatConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	cfg.writeEntry("FormatWhileEditing", m_formatWhileEditing);
 	cfg.writeEntry("CaseConversion", static_cast<int>(m_caseConversion));
 	cfg.writeEntry("StrRepEnabled", m_strRepEnabled);
@@ -197,11 +185,11 @@ void FormatConfig::writeToConfig(
 	cfg.writeEntry("StrRepMapValues", m_strRepMap.values());
 #else
 	config->beginGroup("/" + m_group);
-	config->QCM_writeEntry("/FormatWhileEditing", m_formatWhileEditing);
-	config->QCM_writeEntry("/CaseConversion", m_caseConversion);
-	config->QCM_writeEntry("/StrRepEnabled", m_strRepEnabled);
-	config->QCM_writeEntry("/StrRepMapKeys", m_strRepMap.keys());
-	config->QCM_writeEntry("/StrRepMapValues", m_strRepMap.values());
+	config->setValue("/FormatWhileEditing", QVariant(m_formatWhileEditing));
+	config->setValue("/CaseConversion", QVariant(m_caseConversion));
+	config->setValue("/StrRepEnabled", QVariant(m_strRepEnabled));
+	config->setValue("/StrRepMapKeys", QVariant(m_strRepMap.keys()));
+	config->setValue("/StrRepMapValues", QVariant(m_strRepMap.values()));
 	config->endGroup();
 #endif
 }
@@ -220,13 +208,13 @@ void FormatConfig::readFromConfig(
 	)
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
-	m_formatWhileEditing = cfg.KCM_readBoolEntry("FormatWhileEditing", m_formatWhileEditing);
-	m_caseConversion = (CaseConversion)cfg.KCM_readNumEntry("CaseConversion",
+	KConfigGroup cfg = config->group(m_group);
+	m_formatWhileEditing = cfg.readEntry("FormatWhileEditing", m_formatWhileEditing);
+	m_caseConversion = (CaseConversion)cfg.readEntry("CaseConversion",
 														  (int)m_caseConversion);
-	m_strRepEnabled = cfg.KCM_readBoolEntry("StrRepEnabled", m_strRepEnabled);
-	QStringList keys = cfg.KCM_readListEntry("StrRepMapKeys");
-	QStringList values = cfg.KCM_readListEntry("StrRepMapValues");
+	m_strRepEnabled = cfg.readEntry("StrRepEnabled", m_strRepEnabled);
+	QStringList keys = cfg.readEntry("StrRepMapKeys", QStringList());
+	QStringList values = cfg.readEntry("StrRepMapValues", QStringList());
 	if (!keys.empty() && !values.empty()) {
 		QStringList::Iterator itk, itv;
 		m_strRepMap.clear();
@@ -238,12 +226,12 @@ void FormatConfig::readFromConfig(
 	}
 #else
 	config->beginGroup("/" + m_group);
-	m_formatWhileEditing = config->QCM_readBoolEntry("/FormatWhileEditing", m_formatWhileEditing);
-	m_caseConversion = (CaseConversion)config->QCM_readNumEntry("/CaseConversion",
-														  (int)m_caseConversion);
-	m_strRepEnabled = config->QCM_readBoolEntry("/StrRepEnabled", m_strRepEnabled);
-	QStringList keys = config->QCM_readListEntry("/StrRepMapKeys");
-	QStringList values = config->QCM_readListEntry("/StrRepMapValues");
+	m_formatWhileEditing = config->value("/FormatWhileEditing", m_formatWhileEditing).toBool();
+	m_caseConversion = (CaseConversion)config->value("/CaseConversion",
+																									 (int)m_caseConversion).toInt();
+	m_strRepEnabled = config->value("/StrRepEnabled", m_strRepEnabled).toBool();
+	QStringList keys = config->value("/StrRepMapKeys").toStringList();
+	QStringList values = config->value("/StrRepMapValues").toStringList();
 	if (!keys.empty() && !values.empty()) {
 		QStringList::Iterator itk, itv;
 		m_strRepMap.clear();

@@ -28,43 +28,13 @@
 #define GENERALCONFIG_H
 
 #include "config.h"
-#include <qstring.h>
+#include <QString>
 
 #ifdef CONFIG_USE_KDE
 class KConfig;
 #else
-#if QT_VERSION >= 0x030100
-#include <qsettings.h>
+#include <QSettings>
 typedef QSettings Kid3Settings;
-#else
-#include <qmap.h>
-#include <qstringlist.h>
-
-/** Quick and dirty replacement for QSettings */
-class Kid3Settings {
-public:
-	enum Scope { User, Global };
-	Kid3Settings();
-	~Kid3Settings();
-	void setPath(const QString&, const QString&, Scope = Global);
-	void beginGroup(const QString& grp);
-	void endGroup();
-	void writeEntry(const QString& key, int val);
-	void writeEntry(const QString& key, bool val);
-	void writeEntry(const QString& key, const QString& val);
-	void writeEntry(const QString& key, const QStringList& val);
-	void writeEntry(const QString& key, const QMap<QString, QString>& val);
-	QString readEntry(const QString& key, const QString& dflt = QString::null);
-	int readNumEntry(const QString& key, int dflt = 0);
-	bool readBoolEntry(const QString& key, bool dflt = 0);
-	QStringList readListEntry(const QString& key);
-	QMap<QString, QString> readMapEntry(const QString& key, const QMap<QString, QString>& dflt);
-	bool removeEntry(const QString& key);
-private:
-	QMap<QString, QString> m_map;
-	QString m_group;
-};
-#endif
 #endif
 
 /**

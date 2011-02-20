@@ -24,9 +24,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qdir.h>
-#include <qstring.h>
-#include <qregexp.h>
+#include <QDir>
+#include <QString>
+#include <QRegExp>
 
 #include "kid3.h"
 #include "genres.h"
@@ -34,11 +34,7 @@
 #include "taggedfile.h"
 #include <sys/stat.h>
 
-#if QT_VERSION >= 0x040000
 QList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
-#else
-QValueList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
-#endif
 
 /**
  * Constructor.
@@ -262,7 +258,7 @@ bool TaggedFile::isTagV1Supported() const
 QString TaggedFile::getAbsFilename() const
 {
 	QDir dir(m_dirInfo->getDirname());
-	return QDir::QCM_cleanPath(dir.QCM_absoluteFilePath(m_newFilename));
+	return QDir::cleanPath(dir.absoluteFilePath(m_newFilename));
 }
 
 /**
@@ -303,7 +299,7 @@ void TaggedFile::markTag2Changed(Frame::Type type)
 static QString removeArtist(const QString& album)
 {
 	QString str(album);
-	int pos = str.QCM_indexOf(" - ");
+	int pos = str.indexOf(" - ");
 	if (pos != -1) {
 		str.remove(0, pos + 3);
 	}
@@ -340,11 +336,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 	// in the filename.
 	QString fileName(fn);
 	if (!fmt.contains('_')) {
-#if QT_VERSION >= 0x030100
 		fileName.replace(QChar('_'), QChar(' '));
-#else
-		fileName.replace(QRegExp("_"), QChar(' '));
-#endif
 	}
 
 	// escape regexp characters
@@ -382,12 +374,12 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 	}
 
 	QMap<QString, int> codePos;
-	while (((percentIdx = pattern.QCM_indexOf("%\\{", percentIdx)) >= 0) &&
+	while (((percentIdx = pattern.indexOf("%\\{", percentIdx)) >= 0) &&
 				 (percentIdx < static_cast<int>(pattern.length()) - 1)) {
-		int closingBracePos = pattern.QCM_indexOf("\\}", percentIdx + 3);
+		int closingBracePos = pattern.indexOf("\\}", percentIdx + 3);
 		if (closingBracePos > percentIdx + 3) {
 			QString code =
-				pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3).QCM_toLower();
+				pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3).toLower();
 			codePos[code] = nr++;
 			if (code == "track number" || code == "date") {
 				pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "(\\d{1,4})");
@@ -402,7 +394,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 	}
 
 	re.setPattern(pattern);
-	if (re.QCM_indexIn(fileName) != -1) {
+	if (re.indexIn(fileName) != -1) {
 		for (QMap<QString, int>::iterator it = codePos.begin();
 				 it != codePos.end();
 				 ++it) {
@@ -422,7 +414,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 
 	// album/track - artist - song
 	re.setPattern("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.QCM_indexIn(fn) != -1) {
+	if (re.indexIn(fn) != -1) {
 		frames.setAlbum(removeArtist(re.cap(1)));
 		frames.setTrack(re.cap(2).toInt());
 		frames.setArtist(re.cap(3));
@@ -431,7 +423,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 	}
 	// artist - album/track song
 	re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.QCM_indexIn(fn) != -1) {
+	if (re.indexIn(fn) != -1) {
 		frames.setArtist(re.cap(1));
 		frames.setAlbum(re.cap(2));
 		frames.setTrack(re.cap(3).toInt());
@@ -440,7 +432,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 	}
 	// /artist - album - track - song
 	re.setPattern("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.QCM_indexIn(fn) != -1) {
+	if (re.indexIn(fn) != -1) {
 		frames.setArtist(re.cap(1));
 		frames.setAlbum(re.cap(2));
 		frames.setTrack(re.cap(3).toInt());
@@ -449,7 +441,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 	}
 	// album/artist - track - song
 	re.setPattern("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.QCM_indexIn(fn) != -1) {
+	if (re.indexIn(fn) != -1) {
 		frames.setAlbum(removeArtist(re.cap(1)));
 		frames.setArtist(re.cap(2));
 		frames.setTrack(re.cap(3).toInt());
@@ -458,7 +450,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 	}
 	// artist/album/track song
 	re.setPattern("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.QCM_indexIn(fn) != -1) {
+	if (re.indexIn(fn) != -1) {
 		frames.setArtist(re.cap(1));
 		frames.setAlbum(re.cap(2));
 		frames.setTrack(re.cap(3).toInt());
@@ -467,7 +459,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 	}
 	// album/artist - song
 	re.setPattern("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{3,4}$");
-	if (re.QCM_indexIn(fn) != -1) {
+	if (re.indexIn(fn) != -1) {
 		frames.setAlbum(removeArtist(re.cap(1)));
 		frames.setArtist(re.cap(2));
 		frames.setTitle(re.cap(3));
@@ -490,7 +482,7 @@ QString TaggedFile::formatWithTags(const FrameCollection& frames, QString str,
 {
 	if (!isDirname) {
 		// first remove directory part from str
-		const int sepPos = str.QCM_lastIndexOf('/');
+		const int sepPos = str.lastIndexOf('/');
 		if (sepPos >= 0) {
 			str.remove(0, sepPos + 1);
 		}
@@ -552,7 +544,7 @@ QString TaggedFile::formatTime(unsigned seconds)
 bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 {
 	QString dirname = m_dirInfo->getDirname();
-	if (fnNew.QCM_toLower() == fnOld.QCM_toLower()) {
+	if (fnNew.toLower() == fnOld.toLower()) {
 		// If the filenames only differ in case, the new file is reported to
 		// already exist on case insensitive filesystems (e.g. Windows),
 		// so it is checked if the new file is really the old file by
@@ -560,12 +552,12 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 		// another file would be overwritten and an error is reported.
 		if (QFile::exists(dirname + QDir::separator() + fnNew)) {
 			struct stat statOld, statNew;
-			if (::stat((dirname + QDir::separator() + fnOld).QCM_latin1(), &statOld) == 0 &&
-					::stat((dirname + QDir::separator() + fnNew).QCM_latin1(), &statNew) == 0 &&
+			if (::stat((dirname + QDir::separator() + fnOld).toLatin1().data(), &statOld) == 0 &&
+					::stat((dirname + QDir::separator() + fnNew).toLatin1().data(), &statNew) == 0 &&
 					!(statOld.st_ino == statNew.st_ino &&
 						statOld.st_dev == statNew.st_dev)) {
-				qDebug("rename(%s, %s): %s already exists", fnOld.QCM_latin1(),
-							 fnNew.QCM_latin1(), fnNew.QCM_latin1());
+				qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
+							 fnNew.toLatin1().data(), fnNew.toLatin1().data());
 				return false;
 			}
 		}
@@ -576,22 +568,22 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 		QString temp_filename(fnNew);
 		temp_filename.append("_CASE");
 		if (!QDir(dirname).rename(fnOld, temp_filename)) {
-			qDebug("rename(%s, %s) failed", fnOld.QCM_latin1(),
-					   temp_filename.QCM_latin1());
+			qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
+					   temp_filename.toLatin1().data());
 			return false;
 		}
 		if (!QDir(dirname).rename(temp_filename, fnNew)) {
-			qDebug("rename(%s, %s) failed", temp_filename.QCM_latin1(),
-					   fnNew.QCM_latin1());
+			qDebug("rename(%s, %s) failed", temp_filename.toLatin1().data(),
+					   fnNew.toLatin1().data());
 			return false;
 		}
 	} else if (QFile::exists(dirname + QDir::separator() + fnNew)) {
-		qDebug("rename(%s, %s): %s already exists", fnOld.QCM_latin1(),
-					 fnNew.QCM_latin1(), fnNew.QCM_latin1());
+		qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
+					 fnNew.toLatin1().data(), fnNew.toLatin1().data());
 		return false;
 	} else if (!QDir(dirname).rename(fnOld, fnNew)) {
-		qDebug("rename(%s, %s) failed", fnOld.QCM_latin1(),
-					 fnNew.QCM_latin1());
+		qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
+					 fnNew.toLatin1().data());
 		return false;
 	}
 	return true;
@@ -622,7 +614,7 @@ int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
 	if (str.isNull())
 		return -1;
 
-	int slashPos = str.QCM_indexOf('/');
+	int slashPos = str.indexOf('/');
 	if (slashPos == -1)
 		return str.toInt();
 
@@ -1151,13 +1143,9 @@ void TaggedFile::addResolver(const Resolver* resolver)
 TaggedFile* TaggedFile::createFile(const DirInfo* di, const QString& fn)
 {
 	TaggedFile* taggedFile = 0;
-	for (
-#if QT_VERSION >= 0x040000
-		QList<const Resolver*>::const_iterator
-#else
-		QValueList<const Resolver*>::const_iterator
-#endif
-			it = s_resolvers.begin(); it != s_resolvers.end(); ++it) {
+	for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
+			 it != s_resolvers.end();
+			 ++it) {
 		taggedFile = (*it)->createFile(di, fn);
 		if (taggedFile) break;
 	}
@@ -1173,13 +1161,9 @@ TaggedFile* TaggedFile::createFile(const DirInfo* di, const QString& fn)
 QStringList TaggedFile::getSupportedFileExtensions()
 {
 	QStringList extensions;
-	for (
-#if QT_VERSION >= 0x040000
-		QList<const Resolver*>::const_iterator
-#else
-		QValueList<const Resolver*>::const_iterator
-#endif
-			it = s_resolvers.begin(); it != s_resolvers.end(); ++it) {
+	for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
+			 it != s_resolvers.end();
+			 ++it) {
 		extensions += (*it)->getSupportedFileExtensions();
 	}
 
@@ -1204,14 +1188,6 @@ QStringList TaggedFile::getSupportedFileExtensions()
  */
 void TaggedFile::staticCleanup()
 {
-#if QT_VERSION >= 0x040000
 	qDeleteAll(s_resolvers);
-#else
-	for (QValueList<const Resolver*>::const_iterator it = s_resolvers.begin();
-			 it != s_resolvers.end();
-			 ++it) {
-		delete *it;
-	}
-#endif
 	s_resolvers.clear();
 }

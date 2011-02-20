@@ -8,7 +8,7 @@
  */
 
 #include "formatreplacer.h"
-#include <qurl.h>
+#include <QUrl>
 #include "qtcompatmac.h"
 
 /**
@@ -38,7 +38,7 @@ void FormatReplacer::replaceEscapedChars()
 			'\n', '\t', '\r', '\\', '\a', '\b', '\f', '\v'};
 
 		for (int pos = 0; pos < static_cast<int>(m_str.length());) {
-			pos = m_str.QCM_indexOf('\\', pos);
+			pos = m_str.indexOf('\\', pos);
 			if (pos == -1) break;
 			++pos;
 			for (int k = 0;; ++k) {
@@ -69,7 +69,7 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 {
 	if (!m_str.isEmpty()) {
 		for (int pos = 0; pos < static_cast<int>(m_str.length());) {
-			pos = m_str.QCM_indexOf('%', pos);
+			pos = m_str.indexOf('%', pos);
 			if (pos == -1) break;
 
 			int codePos = pos + 1;
@@ -81,10 +81,10 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 				urlEncode = true;
 			}
 			if (m_str[codePos] == '{') {
-				int closingBracePos = m_str.QCM_indexOf('}', codePos + 1);
+				int closingBracePos = m_str.indexOf('}', codePos + 1);
 				if (closingBracePos > codePos + 1) {
 					QString longCode =
-						m_str.mid(codePos + 1, closingBracePos - codePos - 1).QCM_toLower();
+						m_str.mid(codePos + 1, closingBracePos - codePos - 1).toLower();
 					repl = getReplacement(longCode);
 					codeLen = closingBracePos - pos + 1;
 				}
@@ -100,7 +100,7 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 					repl.replace(':', '-');
 				}
 				if (urlEncode) {
-					QCM_QUrl_encode(repl);
+					repl = QUrl::toPercentEncoding(repl);
 				}
 				if (!repl.isNull() || codeLen > 2) {
 					m_str.replace(pos, codeLen, repl);

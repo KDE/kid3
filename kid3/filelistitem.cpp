@@ -30,10 +30,10 @@
 #include "dirinfo.h"
 #include "kid3.h"
 
-#include <qapplication.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qfileinfo.h>
+#include <QApplication>
+#include <QPainter>
+#include <QPixmap>
+#include <QFileInfo>
 
 /** Empty pixmap, will be allocated in constructor */
 QPixmap* FileListItem::nullPixmap = 0;
@@ -292,11 +292,7 @@ static const char* folder_open_xpm[]={
  */
 FileListItem::FileListItem(FileList* parent, FileListItem* after,
 													 TaggedFile* file) :
-#if QT_VERSION >= 0x040000
 	QTreeWidgetItem(parent, after),
-#else
-	QListViewItem(parent, after),
-#endif
 	m_file(file), m_dirInfo(0)
 {
 	init();
@@ -311,11 +307,7 @@ FileListItem::FileListItem(FileList* parent, FileListItem* after,
  */
 FileListItem::FileListItem(FileListItem* parent, FileListItem* after,
 													 TaggedFile* file) :
-#if QT_VERSION >= 0x040000
 	QTreeWidgetItem(parent, after), m_isOpen(false),
-#else
-	QListViewItem(parent, after),
-#endif
 	m_file(file), m_dirInfo(0)
 {
 	init();
@@ -372,7 +364,6 @@ FileListItem::~FileListItem()
 	delete m_dirInfo;
 }
 
-#if QT_VERSION >= 0x040000
 /**
  * Opens or closes an item.
  *
@@ -392,60 +383,6 @@ void FileListItem::setOpen(bool o)
 		updateIcons();
 	}
 }
-#else
-/**
- * Paints the contents of one column of an item.
- *
- * @param p      painter
- * @param cg     color group
- * @param column number of column
- * @param width  width
- * @param align  alignment
- */
-void FileListItem::paintCell(QPainter* p, const QColorGroup& cg,
-														 int column, int width, int align)
-{
-	if (Kid3App::s_miscCfg.m_markTruncations &&
-			column == 0 && m_file && m_file->getTruncationFlags() != 0) {
-		QColorGroup g(cg);
-		g.setColor(QColorGroup::Base, Qt::red);
-		QListViewItem::paintCell(p, g, column, width, align);
-	} else {
-		QListViewItem::paintCell(p, cg, column, width, align);
-	}
-}
-
-/**
- * Opens or closes an item.
- *
- * @param o true to open
- */
-void FileListItem::setOpen(bool o)
-{
-	if (m_dirInfo) {
-		setPixmap(0, o ? *folderOpenPixmap : *folderClosedPixmap);
-
-		if (o && !childCount()) {
-			listView()->setUpdatesEnabled(false);
-			FileList::readSubDirectory(m_dirInfo, this, 0);
-			listView()->setUpdatesEnabled(true);
-		}
-		updateIcons();
-	}
-	QListViewItem::setOpen(o);
-}
-
-/**
- * Called before showing the item.
- */
-void FileListItem::setup()
-{
-	if (!m_file) {
-		setExpandable(true);
-	}
-	QListViewItem::setup();
-}
-#endif
 
 /**
  * Set tagged file.
@@ -494,7 +431,7 @@ void FileListItem::updateIcons()
 {
 	if (m_file) {
 		if (m_file->isChanged()) {
-			QCM_setIcon(0, *modifiedPixmap);
+			setIcon(0, *modifiedPixmap);
 		} else {
 			static const QPixmap* tagpm[] = {
 				notagPixmap, v1Pixmap, v2Pixmap, v1v2Pixmap, nullPixmap
@@ -511,23 +448,14 @@ void FileListItem::updateIcons()
 					tagpmIdx |= 2;
 				}
 			}
-			QCM_setIcon(0, *tagpm[tagpmIdx]);
+			setIcon(0, *tagpm[tagpmIdx]);
 		}
-#if QT_VERSION >= 0x040200
 		if (Kid3App::s_miscCfg.m_markTruncations &&
 				m_file->getTruncationFlags() != 0) {
 			setBackground(0, Qt::red);
 		} else {
 			setBackground(0, Qt::NoBrush);
 		}
-#elif QT_VERSION >= 0x040000
-		if (Kid3App::s_miscCfg.m_markTruncations &&
-				m_file->getTruncationFlags() != 0) {
-			setBackgroundColor(0, Qt::red);
-		} else {
-			setBackgroundColor(0, QColor());
-		}
-#endif
 	}
 }
 

@@ -25,20 +25,16 @@
  */
 
 #include "dirlist.h"
-#include <qfileinfo.h>
-#include <qdir.h>
-#include <qstringlist.h>
+#include <QFileInfo>
+#include <QDir>
+#include <QStringList>
 
 /**
  * Constructor.
  * @param parent parent widget
  */
 DirList::DirList(QWidget* parent) :
-#if QT_VERSION >= 0x040000
 	QListWidget(parent)
-#else
-	QListBox(parent)
-#endif
 {}
 
 /**
@@ -58,15 +54,11 @@ bool DirList::readDir(const QString& name) {
 		clear();
 		m_dirname = name;
 		QDir dir(file.filePath());
-		QCM_addItems(dir.entryList(QDir::Dirs | QDir::Drives));
+		addItems(dir.entryList(QDir::Dirs | QDir::Drives));
 		if (!m_entryToSelect.isEmpty()) {
-#if QT_VERSION >= 0x040000
 			QList<QListWidgetItem*> items =
 				findItems(m_entryToSelect, Qt::MatchStartsWith);
 			QListWidgetItem* lbi = items.empty() ? 0 : items.front();
-#else
-			QListBoxItem* lbi = findItem(m_entryToSelect);
-#endif
 			if (lbi) {
 				setCurrentItem(lbi);
 			}

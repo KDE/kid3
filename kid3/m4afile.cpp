@@ -30,11 +30,9 @@
 #include "dirinfo.h"
 #include "genres.h"
 #include "pictureframe.h"
-#include <qfile.h>
-#include <qdir.h>
-#if QT_VERSION >= 0x040000
+#include <QFile>
+#include <QDir>
 #include <QByteArray>
-#endif
 #include <sys/stat.h>
 #ifdef WIN32
 #include <sys/utime.h>
@@ -277,9 +275,9 @@ static bool isFreeFormMetadata(MP4FileHandle hFile, const char* name)
 static QByteArray getValueByteArray(const char* name,
 																		const uint8_t* value, uint32_t size)
 {
-	QCM_QCString str;
+	QByteArray str;
 	if (name[0] == '\251') {
-		QCM_duplicate(str, reinterpret_cast<const char*>(value), size);
+		str = QByteArray(reinterpret_cast<const char*>(value), size);
 	} else if (std::strcmp(name, "trkn") == 0) {
 		if (size >= 6) {
 			unsigned track = value[3] + (value[2] << 8);
@@ -287,7 +285,7 @@ static QByteArray getValueByteArray(const char* name,
 			str.setNum(track);
 			if (totalTracks > 0) {
 				str += '/';
-				str += QCM_QCString().setNum(totalTracks);
+				str += QByteArray().setNum(totalTracks);
 			}
 		}
 	} else if (std::strcmp(name, "disk") == 0) {
@@ -297,7 +295,7 @@ static QByteArray getValueByteArray(const char* name,
 			str.setNum(disk);
 			if (totalDisks > 0) {
 				str += '/';
-				str += QCM_QCString().setNum(totalDisks);
+				str += QByteArray().setNum(totalDisks);
 			}
 		}
 	} else if (std::strcmp(name, "gnre") == 0) {
@@ -320,7 +318,7 @@ static QByteArray getValueByteArray(const char* name,
 		}
 	} else if (std::strcmp(name, "covr") == 0) {
 		QByteArray ba;
-		QCM_duplicate(ba, reinterpret_cast<const char*>(value), size);
+		ba = QByteArray(reinterpret_cast<const char*>(value), size);
 		return ba;
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
 	} else if (std::strcmp(name, "pgap") == 0) {
@@ -390,7 +388,6 @@ static QByteArray getValueByteArray(const char* name,
 		}
 	} else if (std::strcmp(name, "plID") == 0) {
 		if (size >= 8) {
-#if QT_VERSION >= 0x040000
 			qulonglong val = (qulonglong)value[7] + ((qulonglong)value[6] << 8) +
 				((qulonglong)value[5] << 16) + ((qulonglong)value[4] << 24) +
 				((qulonglong)value[3] << 32) + ((qulonglong)value[2] << 40) +
@@ -398,17 +395,6 @@ static QByteArray getValueByteArray(const char* name,
 			if (val > 0) {
 				str.setNum(val);
 			}
-#else
-			Q_ULLONG val = (Q_ULLONG)value[7] + ((Q_ULLONG)value[6] << 8) +
-				((Q_ULLONG)value[5] << 16) + ((Q_ULLONG)value[4] << 24) +
-				((Q_ULLONG)value[3] << 32) + ((Q_ULLONG)value[2] << 40) +
-				((Q_ULLONG)value[1] << 48) + ((Q_ULLONG)value[0] << 56);
-			if (val > 0) {
-				QString qstr;
-				qstr.setNum(val);
-				str = qstr;
-			}
-#endif
 		}
 	} else if (std::strcmp(name, "geID") == 0) {
 		if (size >= 4) {
@@ -420,7 +406,7 @@ static QByteArray getValueByteArray(const char* name,
 		}
 #endif
 	} else {
-		QCM_duplicate(str, reinterpret_cast<const char*>(value), size);
+		str = QByteArray(reinterpret_cast<const char*>(value), size);
 	}
 	return str;
 }
@@ -436,7 +422,7 @@ void M4aFile::readTags(bool force)
 		m_metadata.clear();
 		markTag2Unchanged();
 		m_fileRead = true;
-		QCM_QCString fnIn = QFile::encodeName(
+		QByteArray fnIn = QFile::encodeName(
 			getDirInfo()->getDirname() + QDir::separator() + currentFilename());
 
 		MP4FileHandle handle = MP4Read(fnIn);
@@ -578,7 +564,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 	}
 
 	if (m_fileRead && (force || isTag2Changed())) {
-		QCM_QCString fn = QFile::encodeName(fnStr);
+		QByteArray fn = QFile::encodeName(fnStr);
 
 		// store time stamp if it has to be preserved
 		bool setUtime = false;
@@ -614,11 +600,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 				const QByteArray& value = *it;
 				if (!value.isEmpty()) {
 					const QString& name = it.key();
-#if QT_VERSION >= 0x040000
 					const QByteArray& str = value;
-#else
-					QCString str(value.data(), value.size() + 1);
-#endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
 					if (name == "\251nam") {
 						MP4TagsSetName(tags, str);
@@ -636,7 +618,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 						MP4TagsSetAlbum(tags, str);
 					} else if (name == "trkn") {
 						MP4TagTrack indexTotal;
-						int slashPos = str.QCM_indexOf('/');
+						int slashPos = str.indexOf('/');
 						if (slashPos != -1) {
 							indexTotal.total = str.mid(slashPos + 1).toUShort();
 							indexTotal.index = str.mid(0, slashPos).toUShort();
@@ -647,7 +629,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 						MP4TagsSetTrack(tags, &indexTotal);
 					} else if (name == "disk") {
 						MP4TagDisk indexTotal;
-						int slashPos = str.QCM_indexOf('/');
+						int slashPos = str.indexOf('/');
 						if (slashPos != -1) {
 							indexTotal.total = str.mid(slashPos + 1).toUShort();
 							indexTotal.index = str.mid(0, slashPos).toUShort();
@@ -744,11 +726,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 						uint32_t val = str.toULong();
 						MP4TagsSetATID(tags, &val);
 					} else if (name == "plID") {
-#if QT_VERSION >= 0x040000
 						uint64_t val = str.toULongLong();
-#else
-						uint64_t val = QString(str).toULongLong();
-#endif
 						MP4TagsSetPLID(tags, &val);
 					} else if (name == "geID") {
 						uint32_t val = str.toULong();
@@ -756,7 +734,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 					} else {
 						MP4ItmfItem* item = MP4ItmfItemAlloc("----", 1);
 						item->mean = strdup("com.apple.iTunes");
-						item->name = strdup(name.QCM_toUtf8().data());
+						item->name = strdup(name.toUtf8().data());
 
 						MP4ItmfData& data = item->dataList.elements[0];
 						data.typeCode = MP4_ITMF_BT_UTF8;
@@ -784,7 +762,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 						if (year > 0) {
 							if (year < 1000) year += 2000;
 							else if (year > 9999) year = 9999;
-							setOk = MP4SetMetadataYear(handle, QCM_QCString().setNum(year));
+							setOk = MP4SetMetadataYear(handle, QByteArray().setNum(year));
 							if (setOk) setYearV2(year);
 						} else {
 							setOk = true;
@@ -793,7 +771,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 						setOk = MP4SetMetadataAlbum(handle, str);
 					} else if (name == "trkn") {
 						uint16_t track = 0, totalTracks = 0;
-						int slashPos = str.QCM_indexOf('/');
+						int slashPos = str.indexOf('/');
 						if (slashPos != -1) {
 							totalTracks = str.mid(slashPos + 1).toUShort();
 							track = str.mid(0, slashPos).toUShort();
@@ -803,7 +781,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 						setOk = MP4SetMetadataTrack(handle, track, totalTracks);
 					} else if (name == "disk") {
 						uint16_t disk = 0, totalDisks = 0;
-						int slashPos = str.QCM_indexOf('/');
+						int slashPos = str.indexOf('/');
 						if (slashPos != -1) {
 							totalDisks = str.mid(slashPos + 1).toUShort();
 							disk = str.mid(0, slashPos).toUShort();
@@ -842,12 +820,12 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 #endif
 					} else {
 						setOk = MP4SetMetadataFreeForm(
-							handle, const_cast<char*>(name.QCM_toUtf8().data()),
+							handle, const_cast<char*>(name.toUtf8().data()),
 							reinterpret_cast<uint8_t*>(const_cast<char*>(value.data())),
 							value.size());
 					}
 					if (!setOk) {
-						qDebug("MP4SetMetadata %s failed", name.QCM_latin1());
+						qDebug("MP4SetMetadata %s failed", name.toLatin1().data());
 						ok = false;
 					}
 #endif
@@ -905,12 +883,7 @@ void M4aFile::deleteFramesV2(const FrameFilter& flt)
 			QString name(it.key());
 			Frame::Type type = getTypeForName(name);
 			if (flt.isEnabled(type, name)) {
-#if QT_VERSION >= 0x040000
 				it = m_metadata.erase(it);
-#else
-				m_metadata.erase(it);
-				++it;
-#endif
 				changed = true;
 			} else {
 				++it;
@@ -955,7 +928,7 @@ void M4aFile::setTextField(const QString& name, const QString& value,
                            Frame::Type type)
 {
 	if (m_fileRead && !value.isNull()) {
-		QByteArray str = value.QCM_toUtf8();
+		QByteArray str = value.toUtf8();
 		MetadataMap::iterator it = m_metadata.find(name);
 		if (it != m_metadata.end()) {
 			if (QString::fromUtf8((*it).data(), (*it).size()) != value) {
@@ -1248,7 +1221,7 @@ bool M4aFile::setFrameV2(const Frame& frame)
 	MetadataMap::iterator it = m_metadata.find(name);
 	if (it != m_metadata.end()) {
 		if (frame.getType() != Frame::FT_Picture) {
-			QByteArray str = frame.getValue().QCM_toUtf8();
+			QByteArray str = frame.getValue().toUtf8();
 			if (*it != str) {
 				*it = str;
 				markTag2Changed(frame.getType());
@@ -1289,7 +1262,7 @@ bool M4aFile::addFrameV2(Frame& frame)
 			m_metadata[name] = QByteArray();
 		}
 	} else {
-		m_metadata[name] = frame.getValue().QCM_toUtf8();
+		m_metadata[name] = frame.getValue().toUtf8();
 	}
 	markTag2Changed(type);
 	return true;
@@ -1438,7 +1411,7 @@ bool M4aFile::FileInfo::read(MP4FileHandle handle)
 TaggedFile* M4aFile::Resolver::createFile(const DirInfo* di,
 																					const QString& fn) const
 {
-	QString ext = fn.right(4).QCM_toLower();
+	QString ext = fn.right(4).toLower();
 	if (ext == ".m4a" || ext == ".m4b" || ext == ".m4p" || ext == ".mp4" ||
 			ext == ".m4v" || ext == "mp4v")
 		return new M4aFile(di, fn);

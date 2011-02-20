@@ -25,14 +25,12 @@
  */
 
 #include "externalprocess.h"
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qmessagebox.h>
-#include <qprocess.h>
+#include <QLayout>
+#include <QPushButton>
+#include <QMessageBox>
+#include <QProcess>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QTextCursor>
-#endif
 #include "taggedfile.h"
 #include "dirinfo.h"
 
@@ -78,15 +76,7 @@ ExternalProcess::OutputViewer::~OutputViewer() {}
  */
 void ExternalProcess::OutputViewer::scrollToBottom()
 {
-#if QT_VERSION >= 0x040200
 	m_textEdit->moveCursor(QTextCursor::End);
-#elif QT_VERSION >= 0x040000
-	QTextCursor cursor = m_textEdit->textCursor();
-	cursor.movePosition(QTextCursor::End);
-	m_textEdit->setTextCursor(cursor);
-#else
-	m_textEdit->scrollToBottom();
-#endif
 }
 
 
@@ -119,13 +109,7 @@ ExternalProcess::~ExternalProcess()
 void ExternalProcess::launchCommand(const QString& name, const QStringList& args,
 																		bool confirm, bool showOutput)
 {
-	if (confirm &&
-#if QT_VERSION >= 0x030100
-			QMessageBox::question
-#else
-			QMessageBox::warning
-#endif
-			(
+	if (confirm && QMessageBox::question(
 				m_parent, name,
 				i18n("Execute ") + args.join(" ") + "?",
 				QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok) {
@@ -135,48 +119,39 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 		m_process = new QProcess(m_parent);
 	}
 	if (m_process) {
-#if QT_VERSION >= 0x040000
 		if (m_process->state() != QProcess::NotRunning) {
 			m_process = new QProcess(m_parent);
 		}
-#else
-		m_process->setArguments(args);
-#endif
 
 		if (showOutput) {
 			if (!m_outputViewer) {
 				m_outputViewer = new OutputViewer(0);
 			}
 			if (m_outputViewer) {
-				connect(m_process, QCM_SIGNAL_readyReadStandardOutput,
+				connect(m_process, SIGNAL(readyReadStandardOutput()),
 								this, SLOT(readFromStdout()));
-				connect(m_process, QCM_SIGNAL_readyReadStandardError,
+				connect(m_process, SIGNAL(readyReadStandardError()),
 								this, SLOT(readFromStderr()));
-				m_outputViewer->QCM_setWindowTitle(name);
+				m_outputViewer->setWindowTitle(name);
 				m_outputViewer->show();
 				m_outputViewer->raise();
 				m_outputViewer->scrollToBottom();
 			}
 		} else {
-			disconnect(m_process, QCM_SIGNAL_readyReadStandardOutput,
+			disconnect(m_process, SIGNAL(readyReadStandardOutput()),
 								 this, SLOT(readFromStdout()));
-			disconnect(m_process, QCM_SIGNAL_readyReadStandardError,
+			disconnect(m_process, SIGNAL(readyReadStandardError()),
 								 this, SLOT(readFromStderr()));
 		}
 
-#if QT_VERSION >= 0x040000
 		QStringList arguments = args;
 		QString program = arguments.takeFirst();
 		m_process->start(program, arguments);
-		if (!m_process->waitForStarted(10000))
-#else
-		if (!m_process->launch(QString("")))
-#endif
-		{
+		if (!m_process->waitForStarted(10000)) {
 			QMessageBox::warning(
 				m_parent, name,
 				i18n("Could not execute ") + args.join(" "),
-				QMessageBox::Ok, QCM_NoButton);
+				QMessageBox::Ok, Qt::NoButton);
 		}
 	}
 }
@@ -186,7 +161,7 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
  */
 void ExternalProcess::readFromStdout()
 {
-	m_outputViewer->append(m_process->QCM_readAllStandardOutput());
+	m_outputViewer->append(m_process->readAllStandardOutput());
 }
 
 /**
@@ -194,5 +169,5 @@ void ExternalProcess::readFromStdout()
  */
 void ExternalProcess::readFromStderr()
 {
-	m_outputViewer->append(m_process->QCM_readAllStandardError());
+	m_outputViewer->append(m_process->readAllStandardError());
 }

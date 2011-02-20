@@ -25,7 +25,7 @@
  */
 
 #include "config.h"
-#include <qfile.h>
+#include <QFile>
 #ifdef CONFIG_USE_KDE
 
 #include <kdeversion.h>
@@ -38,8 +38,6 @@
 
 /** Description for application */
 static const char* description = I18N_NOOP("Kid3 ID3 Tagger");
-
-#if KDE_VERSION >= 0x035c00
 
 /**
  * Main program.
@@ -87,62 +85,10 @@ int main(int argc, char* argv[])
 
 #else
 
-/** Command line options */
-static KCmdLineOptions options[] =
-{
-	{ "+[Dir]", I18N_NOOP("directory to open"), 0 },
-	{ 0, 0, 0 }
-};
-
-/**
- * Main program.
- *
- * @param argc number of arguments including command name
- * @param argv arguments, argv[0] is command name
- *
- * @return exit code of application.
- */
-
-int main(int argc, char* argv[])
-{
-	KAboutData aboutData(
-	    "kid3", I18N_NOOP("Kid3"),
-	    VERSION, description, KAboutData::License_GPL,
-	    "(c) 2003-2011 Urs Fleisch", 0, "http://kid3.sourceforge.net",
-	    "ufleisch@users.sourceforge.net");
-	aboutData.addAuthor("Urs Fleisch",0, "ufleisch@users.sourceforge.net");
-	KCmdLineArgs::init(argc, argv, &aboutData);
-	KCmdLineArgs::addCmdLineOptions(options);
-	KApplication app;
-
-	if (app.isRestored()) {
-		RESTORE(Kid3App);
-	}
-	else {
-		Kid3App* kid3 = new Kid3App();
-		if (kid3) {
-			kid3->show();
-
-			KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
-
-			if (args->count()) {
-				kid3->openDirectory(QFile::decodeName(args->arg(0)));
-			}
-			args->clear();
-		}
-	}
-
-	return app.exec();
-}
-
-#endif
-
-#else
-
-#include <qapplication.h>
-#include <qlocale.h>
-#include <qtranslator.h>
-#include <qdir.h>
+#include <QApplication>
+#include <QLocale>
+#include <QTranslator>
+#include <QDir>
 
 #include "kid3.h"
 
@@ -157,14 +103,10 @@ int main(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
-#if QT_VERSION >= 0x040000
 	Q_INIT_RESOURCE(kid3);
-#endif
 
 	QApplication app(argc, argv);
-#if QT_VERSION >= 0x040000
 	app.setApplicationName("Kid3");
-#endif
 	QString locale(QLocale::system().name());
 
 	// translation file for Qt
@@ -193,9 +135,6 @@ int main(int argc, char* argv[])
 	Kid3App* kid3 = new Kid3App();
 	if (kid3) {
 		kid3->show();
-#if QT_VERSION < 0x040000
-		app.setMainWidget(kid3);
-#endif
 		if (argc > 1) {
 			kid3->openDirectory(QFile::decodeName(argv[1]));
 		}

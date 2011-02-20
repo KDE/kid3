@@ -29,19 +29,14 @@
 
 #include "config.h"
 
-#include <qobject.h>
+#include <QObject>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QByteArray>
 #include <QTcpSocket>
-#else
-#include <qcstring.h>
-#include <qsocket.h>
-#endif
 
 #ifdef HAVE_TUNEPIMP
 #if HAVE_TUNEPIMP >= 5
-#include <qbuffer.h>
+#include <QBuffer>
 #include <tunepimp-0.5/tp_c.h>
 #else
 #include <tunepimp/tp_c.h>
@@ -101,11 +96,7 @@ private slots:
 	/**
 	 * Error on socket connection.
 	 */
-#if QT_VERSION >= 0x040000
 	void socketError(QAbstractSocket::SocketError err);
-#else
-	void socketError(int);
-#endif
 	/**
 	 * Read received data when the server has closed the connection.
 	 */
@@ -145,11 +136,7 @@ private:
 	 */ 
 	int m_currentFile;
 	FileQuery* m_fileQueries;
-#if QT_VERSION >= 0x040000
 	QTcpSocket* m_sock;
-#else
-	QSocket* m_sock;
-#endif
 	QString m_request;
 #endif
 };

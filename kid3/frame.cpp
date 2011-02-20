@@ -26,7 +26,7 @@
 
 #include "frame.h"
 #include "pictureframe.h"
-#include <qmap.h>
+#include <QMap>
 #include "qtcompatmac.h"
 
 /**
@@ -120,11 +120,11 @@ Frame::Type Frame::getTypeFromName(QString name)
 		for (int i = 0; i <= FT_LastFrame; ++i) {
 			Type type = static_cast<Type>(i);
 			strNumMap.insert(QString(getNameFromType(type)).
-											 remove(' ').QCM_toUpper(), type);
+											 remove(' ').toUpper(), type);
 		}
 	}
 	QMap<QString, int>::const_iterator it =
-		strNumMap.find(name.remove(' ').QCM_toUpper());
+		strNumMap.find(name.remove(' ').toUpper());
 	if (it != strNumMap.end()) {
 		return static_cast<Type>(*it);
 	}
@@ -205,7 +205,7 @@ void Frame::setFieldListFromValue()
  */
 int Frame::numberWithoutTotal(const QString& str, bool* ok)
 {
-	int slashPos = str.QCM_indexOf("/");
+	int slashPos = str.indexOf("/");
 	return slashPos == -1 ?
 		str.toInt(ok) :
 		str.left(slashPos).toInt(ok);
@@ -351,14 +351,14 @@ static QString variantToString(const QVariant& val)
 void Frame::dump() const
 {
 	qDebug("Frame: name=%s, value=%s, type=%s, index=%d, valueChanged=%u",
-				 m_name.QCM_latin1(), m_value.QCM_latin1(), frameTypeToString(m_type), m_index,
+				 m_name.toLatin1().data(), m_value.toLatin1().data(), frameTypeToString(m_type), m_index,
 				 m_valueChanged);
 	qDebug("  fields=");
 	for (FieldList::const_iterator it = m_fieldList.begin();
 			 it != m_fieldList.end();
 			 ++it) {
 		qDebug("  Field: id=%s, value=%s", fieldIdToString((*it).m_id),
-					 variantToString((*it).m_value).QCM_latin1());
+					 variantToString((*it).m_value).toLatin1().data());
 	}
 }
 #endif
@@ -521,10 +521,10 @@ FrameCollection::iterator FrameCollection::findByName(const QString& name) const
 	Frame frame(type, "", name, -1);
 	const_iterator it = find(frame);
 	if (it == end()) {
-		QString ucName = name.QCM_toUpper();
+		QString ucName = name.toUpper();
 		int len = ucName.length();
 		for (it = begin(); it != end(); ++it) {
-			if (ucName == it->getName().QCM_toUpper().left(len)) {
+			if (ucName == it->getName().toUpper().left(len)) {
 				break;
 			}
 		}
@@ -740,11 +740,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 			{ 'T', "tracknumber" },
 			{ 'g', "genre" }
 		};
-#if QT_VERSION >= 0x040000
 		const char c = code[0].toLatin1();
-#else
-		const char c = code[0].latin1();
-#endif
 		for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
 			if (shortToLong[i].shortCode == c) {
 				name = shortToLong[i].longCode;
@@ -756,7 +752,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 	}
 
 	if (!name.isNull()) {
-		QString lcName(name.QCM_toLower());
+		QString lcName(name.toLower());
 		int fieldWidth = lcName == "track" ? 2 : -1;
 		if (lcName == "year") {
 			name = "date";
@@ -766,11 +762,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 		int len = lcName.length();
 		if (len > 2 && lcName[len - 2] == '.' &&
 				lcName[len - 1] >= '0' && lcName[len - 1] <= '9') {
-#if QT_VERSION >= 0x040000
 			fieldWidth = lcName[len - 1].toLatin1() - '0';
-#else
-			fieldWidth = lcName[len - 1].latin1() - '0';
-#endif
 			lcName.truncate(len - 2);
 			name.truncate(len - 2);
 		}

@@ -27,7 +27,7 @@
 #ifndef NUMBERTRACKSDIALOG_H
 #define NUMBERTRACKSDIALOG_H
 
-#include <qdialog.h>
+#include <QDialog>
 
 class QSpinBox;
 class QComboBox;

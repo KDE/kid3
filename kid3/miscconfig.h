@@ -27,13 +27,9 @@
 #ifndef MISCCONFIG_H
 #define MISCCONFIG_H
 
-#include <qstringlist.h>
+#include <QStringList>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QList>
-#else
-#include <qvaluelist.h>
-#endif
 #include "config.h"
 #include "generalconfig.h"
 
@@ -200,30 +196,17 @@ public:
 	int m_numberTracksDst;
 	/** number tracks start number */
 	int m_numberTracksStart;
-#if QT_VERSION >= 0x040000
-	/** List of splitter sizes. */
-	typedef QList<int> SizesList;
-	/** List of menu commands */
-	typedef QList<MenuCommand> MenuCommandList;
-#else
-	/** List of splitter sizes. */
-	typedef QValueList<int> SizesList;
-	/** List of menu commands */
-	typedef QValueList<MenuCommand> MenuCommandList;
-#endif
 	/** size of splitter in main window */
-	SizesList m_splitterSizes;
+	QList<int> m_splitterSizes;
 	/** size of file/dirlist splitter */
-	SizesList m_vSplitterSizes;
+	QList<int> m_vSplitterSizes;
 	/** commands available in context menu */
-	MenuCommandList m_contextMenuCommands;
+	QList<MenuCommand> m_contextMenuCommands;
 	/** custom genres for ID3v2.3 */
 	QStringList m_customGenres;
 #ifndef CONFIG_USE_KDE
-#if QT_VERSION >= 0x040000
 	/** true to hide toolbar */
 	bool m_hideToolBar;
-#endif
 	/** true to hide statusbar */
 	bool m_hideStatusBar;
 #endif
@@ -249,34 +232,21 @@ public:
 	bool m_useProxy;
 	/** proxy used for access */
 	QString m_proxy;
-#if QT_VERSION >= 0x040000
 	/** true to use proxy authentication */
 	bool m_useProxyAuthentication;
 	/** proxy user name */
 	QString m_proxyUserName;
 	/** proxy password */
 	QString m_proxyPassword;
-#endif
 	/** web browser substituted for %b */
 	QString m_browser;
 	/** true to show only custom genres in combo boxes */
 	bool m_onlyCustomGenres;
 #ifndef CONFIG_USE_KDE
-#if QT_VERSION >= 0x040200
 	/** mainwindow geometry */
 	QByteArray m_geometry;
 	/** mainwindow state */
 	QByteArray m_windowState;
-#else
-	/** mainwindow x-position */
-	int m_windowX;
-	/** mainwindow y-position */
-	int m_windowY;
-	/** mainwindow width */
-	int m_windowWidth;
-	/** mainwindow height */
-	int m_windowHeight;
-#endif
 	/** true if custom application font is used */
 	bool m_useFont;
 	/** custom application font family */

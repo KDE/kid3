@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qstring.h>
+#include <QString>
 #include "qtcompatmac.h"
 #include "importconfig.h"
 
@@ -292,7 +292,7 @@ void ImportConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	cfg.writeEntry("ImportServer", static_cast<int>(m_importServer));
 	cfg.writeEntry("ImportDestination", static_cast<int>(m_importDest));
 	cfg.writeEntry("ImportFormatNames", m_importFormatNames);
@@ -322,33 +322,33 @@ void ImportConfig::writeToConfig(
 	cfg.writeEntry("BrowseCoverArtWindowHeight", m_browseCoverArtWindowHeight);
 #else
 	config->beginGroup("/" + m_group);
-	config->QCM_writeEntry("/ImportServer", m_importServer);
-	config->QCM_writeEntry("/ImportDestination", m_importDest);
-	config->QCM_writeEntry("/ImportFormatNames", m_importFormatNames);
-	config->QCM_writeEntry("/ImportFormatHeaders", m_importFormatHeaders);
-	config->QCM_writeEntry("/ImportFormatTracks", m_importFormatTracks);
-	config->QCM_writeEntry("/ImportFormatIdx", m_importFormatIdx);
-	config->QCM_writeEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-	config->QCM_writeEntry("/MaxTimeDifference", m_maxTimeDifference);
-	config->QCM_writeEntry("/ImportWindowWidth", m_importWindowWidth);
-	config->QCM_writeEntry("/ImportWindowHeight", m_importWindowHeight);
+	config->setValue("/ImportServer", QVariant(m_importServer));
+	config->setValue("/ImportDestination", QVariant(m_importDest));
+	config->setValue("/ImportFormatNames", QVariant(m_importFormatNames));
+	config->setValue("/ImportFormatHeaders", QVariant(m_importFormatHeaders));
+	config->setValue("/ImportFormatTracks", QVariant(m_importFormatTracks));
+	config->setValue("/ImportFormatIdx", QVariant(m_importFormatIdx));
+	config->setValue("/EnableTimeDifferenceCheck", QVariant(m_enableTimeDifferenceCheck));
+	config->setValue("/MaxTimeDifference", QVariant(m_maxTimeDifference));
+	config->setValue("/ImportWindowWidth", QVariant(m_importWindowWidth));
+	config->setValue("/ImportWindowHeight", QVariant(m_importWindowHeight));
 
-	config->QCM_writeEntry("/ExportSourceV1", m_exportSrcV1);
-	config->QCM_writeEntry("/ExportFormatNames", m_exportFormatNames);
-	config->QCM_writeEntry("/ExportFormatHeaders", m_exportFormatHeaders);
-	config->QCM_writeEntry("/ExportFormatTracks", m_exportFormatTracks);
-	config->QCM_writeEntry("/ExportFormatTrailers", m_exportFormatTrailers);
-	config->QCM_writeEntry("/ExportFormatIdx", m_exportFormatIdx);
-	config->QCM_writeEntry("/ExportWindowWidth", m_exportWindowWidth);
-	config->QCM_writeEntry("/ExportWindowHeight", m_exportWindowHeight);
+	config->setValue("/ExportSourceV1", QVariant(m_exportSrcV1));
+	config->setValue("/ExportFormatNames", QVariant(m_exportFormatNames));
+	config->setValue("/ExportFormatHeaders", QVariant(m_exportFormatHeaders));
+	config->setValue("/ExportFormatTracks", QVariant(m_exportFormatTracks));
+	config->setValue("/ExportFormatTrailers", QVariant(m_exportFormatTrailers));
+	config->setValue("/ExportFormatIdx", QVariant(m_exportFormatIdx));
+	config->setValue("/ExportWindowWidth", QVariant(m_exportWindowWidth));
+	config->setValue("/ExportWindowHeight", QVariant(m_exportWindowHeight));
 
-	config->QCM_writeEntry("/PictureSourceNames", m_pictureSourceNames);
-	config->QCM_writeEntry("/PictureSourceUrls", m_pictureSourceUrls);
-	config->QCM_writeEntry("/PictureSourceIdx", m_pictureSourceIdx);
-	config->QCM_writeEntry("/MatchPictureUrlMapKeys", m_matchPictureUrlMap.keys());
-	config->QCM_writeEntry("/MatchPictureUrlMapValues", m_matchPictureUrlMap.values());
-	config->QCM_writeEntry("/BrowseCoverArtWindowWidth", m_browseCoverArtWindowWidth);
-	config->QCM_writeEntry("/BrowseCoverArtWindowHeight", m_browseCoverArtWindowHeight);
+	config->setValue("/PictureSourceNames", QVariant(m_pictureSourceNames));
+	config->setValue("/PictureSourceUrls", QVariant(m_pictureSourceUrls));
+	config->setValue("/PictureSourceIdx", QVariant(m_pictureSourceIdx));
+	config->setValue("/MatchPictureUrlMapKeys", QVariant(m_matchPictureUrlMap.keys()));
+	config->setValue("/MatchPictureUrlMapValues", QVariant(m_matchPictureUrlMap.values()));
+	config->setValue("/BrowseCoverArtWindowWidth", QVariant(m_browseCoverArtWindowWidth));
+	config->setValue("/BrowseCoverArtWindowHeight", QVariant(m_browseCoverArtWindowHeight));
 
 	config->endGroup();
 #endif
@@ -370,34 +370,34 @@ void ImportConfig::readFromConfig(
 	QStringList names, headers, tracks;
 	QStringList expNames, expHeaders, expTracks, expTrailers, picNames, picUrls;
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	m_importServer = static_cast<ImportConfig::ImportServer>(
-		cfg.KCM_readNumEntry("ImportServer", static_cast<int>(m_importServer)));
+		cfg.readEntry("ImportServer", static_cast<int>(m_importServer)));
 	m_importDest = static_cast<ImportConfig::ImportDestination>(
-		cfg.KCM_readNumEntry("ImportDestination", static_cast<int>(m_importDest)));
-	names = cfg.KCM_readListEntry("ImportFormatNames");
-	headers = cfg.KCM_readListEntry("ImportFormatHeaders");
-	tracks = cfg.KCM_readListEntry("ImportFormatTracks");
-	m_importFormatIdx = cfg.KCM_readNumEntry("ImportFormatIdx", m_importFormatIdx);
-	m_enableTimeDifferenceCheck = cfg.KCM_readBoolEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-	m_maxTimeDifference = cfg.KCM_readNumEntry("MaxTimeDifference", m_maxTimeDifference);
-	m_importWindowWidth = cfg.KCM_readNumEntry("ImportWindowWidth", -1);
-	m_importWindowHeight = cfg.KCM_readNumEntry("ImportWindowHeight", -1);
+		cfg.readEntry("ImportDestination", static_cast<int>(m_importDest)));
+	names = cfg.readEntry("ImportFormatNames", QStringList());
+	headers = cfg.readEntry("ImportFormatHeaders", QStringList());
+	tracks = cfg.readEntry("ImportFormatTracks", QStringList());
+	m_importFormatIdx = cfg.readEntry("ImportFormatIdx", m_importFormatIdx);
+	m_enableTimeDifferenceCheck = cfg.readEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
+	m_maxTimeDifference = cfg.readEntry("MaxTimeDifference", m_maxTimeDifference);
+	m_importWindowWidth = cfg.readEntry("ImportWindowWidth", -1);
+	m_importWindowHeight = cfg.readEntry("ImportWindowHeight", -1);
 
-	m_exportSrcV1 = cfg.KCM_readBoolEntry("ExportSourceV1", m_exportSrcV1);
-	expNames = cfg.KCM_readListEntry("ExportFormatNames");
-	expHeaders = cfg.KCM_readListEntry("ExportFormatHeaders");
-	expTracks = cfg.KCM_readListEntry("ExportFormatTracks");
-	expTrailers = cfg.KCM_readListEntry("ExportFormatTrailers");
-	m_exportFormatIdx = cfg.KCM_readNumEntry("ExportFormatIdx", m_exportFormatIdx);
-	m_exportWindowWidth = cfg.KCM_readNumEntry("ExportWindowWidth", -1);
-	m_exportWindowHeight = cfg.KCM_readNumEntry("ExportWindowHeight", -1);
+	m_exportSrcV1 = cfg.readEntry("ExportSourceV1", m_exportSrcV1);
+	expNames = cfg.readEntry("ExportFormatNames", QStringList());
+	expHeaders = cfg.readEntry("ExportFormatHeaders", QStringList());
+	expTracks = cfg.readEntry("ExportFormatTracks", QStringList());
+	expTrailers = cfg.readEntry("ExportFormatTrailers", QStringList());
+	m_exportFormatIdx = cfg.readEntry("ExportFormatIdx", m_exportFormatIdx);
+	m_exportWindowWidth = cfg.readEntry("ExportWindowWidth", -1);
+	m_exportWindowHeight = cfg.readEntry("ExportWindowHeight", -1);
 
-	picNames = cfg.KCM_readListEntry("PictureSourceNames");
-	picUrls = cfg.KCM_readListEntry("PictureSourceUrls");
-	m_pictureSourceIdx = cfg.KCM_readNumEntry("PictureSourceIdx", m_pictureSourceIdx);
-	QStringList keys = cfg.KCM_readListEntry("MatchPictureUrlMapKeys");
-	QStringList values = cfg.KCM_readListEntry("MatchPictureUrlMapValues");
+	picNames = cfg.readEntry("PictureSourceNames", QStringList());
+	picUrls = cfg.readEntry("PictureSourceUrls", QStringList());
+	m_pictureSourceIdx = cfg.readEntry("PictureSourceIdx", m_pictureSourceIdx);
+	QStringList keys = cfg.readEntry("MatchPictureUrlMapKeys", QStringList());
+	QStringList values = cfg.readEntry("MatchPictureUrlMapValues", QStringList());
 	if (!keys.empty() && !values.empty()) {
 		QStringList::Iterator itk, itv;
 		m_matchPictureUrlMap.clear();
@@ -407,8 +407,8 @@ void ImportConfig::readFromConfig(
 			m_matchPictureUrlMap[*itk] = *itv;
 		}
 	}
-	m_browseCoverArtWindowWidth = cfg.KCM_readNumEntry("BrowseCoverArtWindowWidth", -1);
-	m_browseCoverArtWindowHeight = cfg.KCM_readNumEntry("BrowseCoverArtWindowHeight", -1);
+	m_browseCoverArtWindowWidth = cfg.readEntry("BrowseCoverArtWindowWidth", -1);
+	m_browseCoverArtWindowHeight = cfg.readEntry("BrowseCoverArtWindowHeight", -1);
 
 	// KConfig seems to strip empty entries from the end of the string lists,
 	// so we have to append them again.
@@ -424,33 +424,33 @@ void ImportConfig::readFromConfig(
 #else
 	config->beginGroup("/" + m_group);
 	m_importServer = static_cast<ImportConfig::ImportServer>(
-		config->QCM_readNumEntry("/ImportServer", m_importServer));
+		config->value("/ImportServer", m_importServer).toInt());
 	m_importDest = static_cast<ImportConfig::ImportDestination>(
-		config->QCM_readNumEntry("/ImportDestination", m_importDest));
-	names = config->QCM_readListEntry("/ImportFormatNames");
-	headers = config->QCM_readListEntry("/ImportFormatHeaders");
-	tracks = config->QCM_readListEntry("/ImportFormatTracks");
-	m_importFormatIdx = config->QCM_readNumEntry("/ImportFormatIdx", m_importFormatIdx);
-	m_enableTimeDifferenceCheck = config->QCM_readBoolEntry("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-	m_maxTimeDifference = config->QCM_readNumEntry("/MaxTimeDifference", m_maxTimeDifference);
-	m_importWindowWidth = config->QCM_readNumEntry("/ImportWindowWidth", -1);
-	m_importWindowHeight = config->QCM_readNumEntry("/ImportWindowHeight", -1);
+		config->value("/ImportDestination", m_importDest).toInt());
+	names = config->value("/ImportFormatNames").toStringList();
+	headers = config->value("/ImportFormatHeaders").toStringList();
+	tracks = config->value("/ImportFormatTracks").toStringList();
+	m_importFormatIdx = config->value("/ImportFormatIdx", m_importFormatIdx).toInt();
+	m_enableTimeDifferenceCheck = config->value("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck).toBool();
+	m_maxTimeDifference = config->value("/MaxTimeDifference", m_maxTimeDifference).toInt();
+	m_importWindowWidth = config->value("/ImportWindowWidth", -1).toInt();
+	m_importWindowHeight = config->value("/ImportWindowHeight", -1).toInt();
 
-	m_exportSrcV1 = config->QCM_readBoolEntry("/ExportSourceV1", m_exportSrcV1);
-	expNames = config->QCM_readListEntry("/ExportFormatNames");
-	expHeaders = config->QCM_readListEntry("/ExportFormatHeaders");
-	expTracks = config->QCM_readListEntry("/ExportFormatTracks");
-	expTrailers = config->QCM_readListEntry("/ExportFormatTrailers");
-	m_exportFormatIdx = config->QCM_readNumEntry("/ExportFormatIdx", m_exportFormatIdx);
-	m_exportWindowWidth = config->QCM_readNumEntry("/ExportWindowWidth", -1);
-	m_exportWindowHeight = config->QCM_readNumEntry("/ExportWindowHeight", -1);
+	m_exportSrcV1 = config->value("/ExportSourceV1", m_exportSrcV1).toBool();
+	expNames = config->value("/ExportFormatNames").toStringList();
+	expHeaders = config->value("/ExportFormatHeaders").toStringList();
+	expTracks = config->value("/ExportFormatTracks").toStringList();
+	expTrailers = config->value("/ExportFormatTrailers").toStringList();
+	m_exportFormatIdx = config->value("/ExportFormatIdx", m_exportFormatIdx).toInt();
+	m_exportWindowWidth = config->value("/ExportWindowWidth", -1).toInt();
+	m_exportWindowHeight = config->value("/ExportWindowHeight", -1).toInt();
 
-	picNames = config->QCM_readListEntry("/PictureSourceNames");
-	picUrls = config->QCM_readListEntry("/PictureSourceUrls");
-	m_pictureSourceIdx = config->QCM_readNumEntry(
-		"/PictureSourceIdx", m_pictureSourceIdx);
-	QStringList keys = config->QCM_readListEntry("/MatchPictureUrlMapKeys");
-	QStringList values = config->QCM_readListEntry("/MatchPictureUrlMapValues");
+	picNames = config->value("/PictureSourceNames").toStringList();
+	picUrls = config->value("/PictureSourceUrls").toStringList();
+	m_pictureSourceIdx = config->value(
+		"/PictureSourceIdx", m_pictureSourceIdx).toInt();
+	QStringList keys = config->value("/MatchPictureUrlMapKeys").toStringList();
+	QStringList values = config->value("/MatchPictureUrlMapValues").toStringList();
 	if (!keys.empty() && !values.empty()) {
 		QStringList::Iterator itk, itv;
 		m_matchPictureUrlMap.clear();
@@ -460,10 +460,10 @@ void ImportConfig::readFromConfig(
 			m_matchPictureUrlMap[*itk] = *itv;
 		}
 	}
-	m_browseCoverArtWindowWidth = config->QCM_readNumEntry(
-		"/BrowseCoverArtWindowWidth", -1);
-	m_browseCoverArtWindowHeight = config->QCM_readNumEntry(
-		"/BrowseCoverArtWindowHeight", -1);
+	m_browseCoverArtWindowWidth = config->value(
+		"/BrowseCoverArtWindowWidth", -1).toInt();
+	m_browseCoverArtWindowHeight = config->value(
+		"/BrowseCoverArtWindowHeight", -1).toInt();
 
 	config->endGroup();
 #endif
@@ -474,11 +474,7 @@ void ImportConfig::readFromConfig(
 			 namesIt != names.end() && headersIt != headers.end() &&
 				 tracksIt != tracks.end();
 			 ++namesIt, ++headersIt, ++tracksIt) {
-#if QT_VERSION >= 0x040000
 		int idx = m_importFormatNames.indexOf(*namesIt);
-#else
-		int idx = m_importFormatNames.findIndex(*namesIt);
-#endif
 		if (idx >= 0) {
 			m_importFormatHeaders[idx] = *headersIt;
 			m_importFormatTracks[idx] = *tracksIt;
@@ -496,11 +492,7 @@ void ImportConfig::readFromConfig(
 			 expNamesIt != expNames.end() && expHeadersIt != expHeaders.end() &&
 				 expTracksIt != expTracks.end() && expTrailersIt != expTrailers.end();
 			 ++expNamesIt, ++expHeadersIt, ++expTracksIt, ++expTrailersIt) {
-#if QT_VERSION >= 0x040000
 		int idx = m_exportFormatNames.indexOf(*expNamesIt);
-#else
-		int idx = m_exportFormatNames.findIndex(*expNamesIt);
-#endif
 		if (idx >= 0) {
 			m_exportFormatHeaders[idx] = *expHeadersIt;
 			m_exportFormatTracks[idx] = *expTracksIt;
@@ -517,11 +509,7 @@ void ImportConfig::readFromConfig(
 	for (picNamesIt = picNames.begin(), picUrlsIt = picUrls.begin();
 			 picNamesIt != picNames.end() && picUrlsIt != picUrls.end();
 			 ++picNamesIt, ++picUrlsIt) {
-#if QT_VERSION >= 0x040000
 		int idx = m_pictureSourceNames.indexOf(*picNamesIt);
-#else
-		int idx = m_pictureSourceNames.findIndex(*picNamesIt);
-#endif
 		if (idx >= 0) {
 			m_pictureSourceUrls[idx] = *picUrlsIt;
 		} else if (!(*picNamesIt).isEmpty()) {

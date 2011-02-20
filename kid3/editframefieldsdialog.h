@@ -27,14 +27,10 @@
 #ifndef EDITFRAMEFIELDSDIALOG_H
 #define EDITFRAMEFIELDSDIALOG_H
 
-#include <qdialog.h>
-#include <qlabel.h>
+#include <QDialog>
+#include <QLabel>
 #include "frame.h"
-#if QT_VERSION >= 0x040000
 #include <QList>
-#else
-#include <qptrlist.h>
-#endif
 
 class TaggedFile;
 
@@ -154,13 +150,6 @@ public:
 };
 
 
-/** List of field control pointers. */
-#if QT_VERSION >= 0x040000
-typedef QList<FieldControl*> FieldControlList;
-#else
-typedef QPtrList<FieldControl> FieldControlList;
-#endif
-
 /** Field edit dialog */
 class EditFrameFieldsDialog : public QDialog {
 Q_OBJECT
@@ -190,7 +179,7 @@ public:
 
 private:
 	Frame::FieldList m_fields;
-	FieldControlList m_fieldcontrols; 
+	QList<FieldControl*> m_fieldcontrols; 
 };
 
 #endif // EDITFRAMEFIELDSDIALOG_H

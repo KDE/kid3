@@ -27,8 +27,8 @@
 #ifndef PLAYLISTCREATOR_H
 #define PLAYLISTCREATOR_H
 
-#include <qstring.h>
-#include <qmap.h>
+#include <QString>
+#include <QMap>
 
 class FileListItem;
 class DirInfo;

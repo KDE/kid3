@@ -30,15 +30,11 @@
 #include "importtrackdata.h"
 #include "importparser.h"
 #include "importconfig.h"
-#include <qwidget.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QWidget>
+#include <QString>
+#include <QStringList>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QList>
-#else
-#include <qvaluelist.h>
-#endif
 
 class QPushButton;
 class QComboBox;
@@ -361,11 +357,7 @@ private:
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
 	/** names for additional tag columns */
-#if QT_VERSION >= 0x040000
 	QList<QString> m_additonalColumnNames;
-#else
-	QValueList<QString> m_additonalColumnNames;
-#endif
 
 	/** Last directory used for import or export. */
 	static QString s_importDir;

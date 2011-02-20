@@ -24,16 +24,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qstring.h>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QString>
 #include "formatconfig.h"
 #include "formatbox.h"
 #include "configtable.h"
-#if QT_VERSION >= 0x040000
 #include <QVBoxLayout>
-#endif
 
 /**
  * Constructor.
@@ -42,11 +40,7 @@
  * @param parent parent widget
  */
 FormatBox::FormatBox(const QString& title, QWidget* parent) :
-#if QT_VERSION >= 0x040000
 	QGroupBox(title, parent)
-#else
-	QGroupBox(5, Qt::Vertical, title, parent)
-#endif
 {
 	m_formatEditingCheckBox = new QCheckBox(i18n("Format while editing"),
 																					this);
@@ -57,15 +51,15 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 	m_caseConvComboBox = new QComboBox(this);
 	m_caseConvComboBox->setEditable(false);
 	m_caseConvComboBox->clear();
-	m_caseConvComboBox->QCM_insertItem(FormatConfig::NoChanges,
+	m_caseConvComboBox->insertItem(FormatConfig::NoChanges,
 																		 i18n("No changes"));
-	m_caseConvComboBox->QCM_insertItem(FormatConfig::AllLowercase,
+	m_caseConvComboBox->insertItem(FormatConfig::AllLowercase,
 																		 i18n("All lowercase"));
-	m_caseConvComboBox->QCM_insertItem(FormatConfig::AllUppercase,
+	m_caseConvComboBox->insertItem(FormatConfig::AllUppercase,
 																		 i18n("All uppercase"));
-	m_caseConvComboBox->QCM_insertItem(FormatConfig::FirstLetterUppercase,
+	m_caseConvComboBox->insertItem(FormatConfig::FirstLetterUppercase,
 																		 i18n("First letter uppercase"));
-	m_caseConvComboBox->QCM_insertItem(FormatConfig::AllFirstLettersUppercase,
+	m_caseConvComboBox->insertItem(FormatConfig::AllFirstLettersUppercase,
 																		 i18n("All first letters uppercase"));
 
 	m_strRepCheckBox = new QCheckBox(this);
@@ -73,7 +67,6 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 	m_strReplTable = new ConfigTable(
 		QStringList() << i18n("From") << i18n("To"),
 		this);
-#if QT_VERSION >= 0x040000
 	QVBoxLayout* vbox = new QVBoxLayout;
 	vbox->setMargin(2);
 	vbox->addWidget(m_formatEditingCheckBox);
@@ -82,7 +75,6 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 	vbox->addWidget(m_strRepCheckBox);
 	vbox->addWidget(m_strReplTable);
 	setLayout(vbox);
-#endif
 }
 
 /**
@@ -98,7 +90,7 @@ FormatBox::~FormatBox() {}
 void FormatBox::fromFormatConfig(const FormatConfig* cfg)
 {
 	m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
-	m_caseConvComboBox->QCM_setCurrentIndex(cfg->m_caseConversion);
+	m_caseConvComboBox->setCurrentIndex(cfg->m_caseConversion);
 	m_strRepCheckBox->setChecked(cfg->m_strRepEnabled);
 	m_strReplTable->fromMap(cfg->m_strRepMap);
 }
@@ -112,7 +104,7 @@ void FormatBox::toFormatConfig(FormatConfig* cfg) const
 {
 	cfg->m_formatWhileEditing = m_formatEditingCheckBox->isChecked();
 	cfg->m_caseConversion =
-		(FormatConfig::CaseConversion)m_caseConvComboBox->QCM_currentIndex();
+		(FormatConfig::CaseConversion)m_caseConvComboBox->currentIndex();
 	if (cfg->m_caseConversion >= FormatConfig::NumCaseConversions) {
 		cfg->m_caseConversion = FormatConfig::NoChanges;
 	}

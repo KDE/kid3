@@ -28,13 +28,9 @@
 #define FRAME_H
 
 #include "formatreplacer.h"
-#include <qstring.h>
-#include <qvariant.h>
-#if QT_VERSION >= 0x040000
+#include <QString>
+#include <QVariant>
 #include <QList>
-#else
-#include <qvaluelist.h>
-#endif
 #include <set>
 
 /** Generalized frame. */
@@ -126,11 +122,7 @@ public:
 	};
 
 	/** list of fields. */
-#if QT_VERSION >= 0x040000
 	typedef QList<Field> FieldList;
-#else
-	typedef QValueList<Field> FieldList;
-#endif
 
 	/**
 	 * Constructor.

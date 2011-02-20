@@ -29,13 +29,9 @@
 
 #include "frame.h"
 #include "taggedfile.h"
-#include <qglobal.h>
+#include <QtGlobal>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QVector>
-#else
-#include <qvaluevector.h>
-#endif
 
 /**
  * Track data used for import.
@@ -215,13 +211,7 @@ private:
 /**
  * Vector containing tracks to import and artist, album names.
  */
-class ImportTrackDataVector : public
-#if QT_VERSION >= 0x040000
-QVector<ImportTrackData>
-#else
-QValueVector<ImportTrackData>
-#endif
-{
+class ImportTrackDataVector : public QVector<ImportTrackData> {
 public:
 	/**
 	 * Clear vector and associated data.

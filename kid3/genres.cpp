@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qstring.h>
-#include <qmap.h>
+#include <QString>
+#include <QMap>
 #include "qtcompatmac.h"
 #include "genres.h"
 
@@ -410,7 +410,7 @@ QString Genres::getNameString(const QString& str)
 	if (!str.isEmpty()) {
 		int cpPos, n;
 		bool ok;
-		if ((str[0] == '(') && ((cpPos = str.QCM_indexOf(')', 2)) > 1)) {
+		if ((str[0] == '(') && ((cpPos = str.indexOf(')', 2)) > 1)) {
 			n = str.mid(1, cpPos - 1).toInt(&ok);
 			if (ok && n <= 0xff) {
 				return getName(n);

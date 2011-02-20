@@ -27,14 +27,10 @@
 #ifndef TAGGEDFILE_H
 #define TAGGEDFILE_H
 
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QString>
+#include <QStringList>
 #include "qtcompatmac.h"
-#if QT_VERSION >= 0x040000
 #include <QList>
-#else
-#include <qvaluelist.h>
-#endif
 #include "frame.h"
 
 class DirInfo;
@@ -851,11 +847,7 @@ private:
 	/** Truncation flags. */
 	unsigned m_truncation;
 
-#if QT_VERSION >= 0x040000
 	static QList<const Resolver*> s_resolvers;
-#else
-	static QValueList<const Resolver*> s_resolvers;
-#endif
 };
 
 #endif // TAGGEDFILE_H

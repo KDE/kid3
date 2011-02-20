@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <qstring.h>
+#include <QString>
 #include "qtcompatmac.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
@@ -32,7 +32,7 @@
 #include <kconfig.h>
 #include <kconfigskeleton.h>
 #else
-#include <qfile.h>
+#include <QFile>
 #endif
 
 #include "generalconfig.h"
@@ -119,9 +119,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_numberTracksDst(0),
 	m_numberTracksStart(1),
 #ifndef CONFIG_USE_KDE
-#if QT_VERSION >= 0x040000
 	m_hideToolBar(false),
-#endif
 	m_hideStatusBar(false),
 #endif
 	m_autoHideTags(true),
@@ -134,17 +132,10 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_textEncoding(TE_ISO8859_1),
 	m_trackNumberDigits(1),
 	m_useProxy(false),
-#if QT_VERSION >= 0x040000
 	m_useProxyAuthentication(false),
-#endif
 	m_onlyCustomGenres(false)
 #ifndef CONFIG_USE_KDE
-#if QT_VERSION >= 0x040200
-	,
-#else
-	, m_windowX(-1), m_windowY(-1), m_windowWidth(-1), m_windowHeight(-1),
-#endif
-	m_useFont(false), m_fontSize(-1)
+	, m_useFont(false), m_fontSize(-1)
 #endif
 {
 }
@@ -168,7 +159,7 @@ void MiscConfig::writeToConfig(
 	) const
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	cfg.writeEntry("NameFilter2", m_nameFilter);
 	cfg.writeEntry("FormatItem", m_formatItem);
 	cfg.writeEntry("FormatItems", m_formatItems);
@@ -202,17 +193,15 @@ void MiscConfig::writeToConfig(
 	cfg.writeEntry("TrackNumberDigits", m_trackNumberDigits);
 	cfg.writeEntry("UseProxy", m_useProxy);
 	cfg.writeEntry("Proxy", m_proxy);
-#if QT_VERSION >= 0x040000
 	cfg.writeEntry("UseProxyAuthentication", m_useProxyAuthentication);
 	cfg.writeEntry("ProxyUserName", m_proxyUserName);
 	cfg.writeEntry("ProxyPassword", m_proxyPassword);
-#endif
 	cfg.writeEntry("Browser", m_browser);
 	cfg.writeEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
-	KCM_KConfigGroup(menuCmdCfg, config, "MenuCommands");
+	KConfigGroup menuCmdCfg = config->group("MenuCommands");
 	int cmdNr = 1;
-	for (MiscConfig::MenuCommandList::const_iterator
+	for (QList<MenuCommand>::const_iterator
 				 it = m_contextMenuCommands.begin();
 			 it != m_contextMenuCommands.end();
 			 ++it) {
@@ -220,7 +209,7 @@ void MiscConfig::writeToConfig(
 	}
 	// delete entries which are no longer used
 	for (;;) {
-		QStringList strList = menuCmdCfg.KCM_readListEntry(QString("Command%1").arg(cmdNr));
+		QStringList strList = menuCmdCfg.readEntry(QString("Command%1").arg(cmdNr), QStringList());
 		if (strList.empty()) {
 			break;
 		}
@@ -229,95 +218,80 @@ void MiscConfig::writeToConfig(
 	}
 #else
 	config->beginGroup("/" + m_group);
-	config->QCM_writeEntry("/NameFilter2", m_nameFilter);
-	config->QCM_writeEntry("/FormatItem", m_formatItem);
-	config->QCM_writeEntry("/FormatItems", m_formatItems);
-	config->QCM_writeEntry("/FormatText2", m_formatText);
-	config->QCM_writeEntry("/FormatFromFilenameItem", m_formatFromFilenameItem);
-	config->QCM_writeEntry("/FormatFromFilenameItems", m_formatFromFilenameItems);
-	config->QCM_writeEntry("/FormatFromFilenameText", m_formatFromFilenameText);
-	config->QCM_writeEntry("/DirFormatItem", m_dirFormatItem);
-	config->QCM_writeEntry("/DirFormatText", m_dirFormatText);
-	config->QCM_writeEntry("/RenameDirectorySource", m_renDirSrc);
-	config->QCM_writeEntry("/NumberTracksDestination", m_numberTracksDst);
-	config->QCM_writeEntry("/NumberTracksStartNumber", m_numberTracksStart);
-	config->QCM_writeEntry("/MarkTruncations", m_markTruncations);
-	config->QCM_writeEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
-	config->QCM_writeEntry("/GenreNotNumeric", m_genreNotNumeric);
-	config->QCM_writeEntry("/PreserveTime", m_preserveTime);
-	config->QCM_writeEntry("/MarkChanges", m_markChanges);
-	config->QCM_writeEntry("/CommentName", m_commentName);
-	config->QCM_writeEntry("/PictureNameItem", m_pictureNameItem);
+	config->setValue("/NameFilter2", QVariant(m_nameFilter));
+	config->setValue("/FormatItem", QVariant(m_formatItem));
+	config->setValue("/FormatItems", QVariant(m_formatItems));
+	config->setValue("/FormatText2", QVariant(m_formatText));
+	config->setValue("/FormatFromFilenameItem", QVariant(m_formatFromFilenameItem));
+	config->setValue("/FormatFromFilenameItems", QVariant(m_formatFromFilenameItems));
+	config->setValue("/FormatFromFilenameText", QVariant(m_formatFromFilenameText));
+	config->setValue("/DirFormatItem", QVariant(m_dirFormatItem));
+	config->setValue("/DirFormatText", QVariant(m_dirFormatText));
+	config->setValue("/RenameDirectorySource", QVariant(m_renDirSrc));
+	config->setValue("/NumberTracksDestination", QVariant(m_numberTracksDst));
+	config->setValue("/NumberTracksStartNumber", QVariant(m_numberTracksStart));
+	config->setValue("/MarkTruncations", QVariant(m_markTruncations));
+	config->setValue("/EnableTotalNumberOfTracks", QVariant(m_enableTotalNumberOfTracks));
+	config->setValue("/GenreNotNumeric", QVariant(m_genreNotNumeric));
+	config->setValue("/PreserveTime", QVariant(m_preserveTime));
+	config->setValue("/MarkChanges", QVariant(m_markChanges));
+	config->setValue("/CommentName", QVariant(m_commentName));
+	config->setValue("/PictureNameItem", QVariant(m_pictureNameItem));
 
-#if QT_VERSION >= 0x040000
 	QList<int>::const_iterator it;
-#else
-	QValueList<int>::const_iterator it;
-#endif
 	int i;
 	for (it = m_splitterSizes.begin(), i = 0;
 		 it != m_splitterSizes.end();
 		 ++it, ++i) {
-		config->QCM_writeEntry("/SplitterSize" + QString::number(i), *it);
+		config->setValue("/SplitterSize" + QString::number(i), QVariant(*it));
 	}
 	for (it = m_vSplitterSizes.begin(), i = 0;
 		 it != m_vSplitterSizes.end();
 		 ++it, ++i) {
-		config->QCM_writeEntry("/VSplitterSize" + QString::number(i), *it);
+		config->setValue("/VSplitterSize" + QString::number(i), QVariant(*it));
 	}
-	config->QCM_writeEntry("/CustomGenres", m_customGenres);
-#if QT_VERSION >= 0x040000
-	config->QCM_writeEntry("/HideToolBar", m_hideToolBar);
-#endif
-	config->QCM_writeEntry("/HideStatusBar", m_hideStatusBar);
-	config->QCM_writeEntry("/AutoHideTags", m_autoHideTags);
-	config->QCM_writeEntry("/HideFile", m_hideFile);
-	config->QCM_writeEntry("/HideV1", m_hideV1);
-	config->QCM_writeEntry("/HideV2", m_hideV2);
-	config->QCM_writeEntry("/HidePicture", m_hidePicture);
-	config->QCM_writeEntry("/ID3v2Version", m_id3v2Version);
-	config->QCM_writeEntry("/TextEncodingV1", m_textEncodingV1);
-	config->QCM_writeEntry("/TextEncoding", m_textEncoding);
-	config->QCM_writeEntry("/TrackNumberDigits", m_trackNumberDigits);
-	config->QCM_writeEntry("/UseProxy", m_useProxy);
-	config->QCM_writeEntry("/Proxy", m_proxy);
-#if QT_VERSION >= 0x040000
-	config->QCM_writeEntry("/UseProxyAuthentication", m_useProxyAuthentication);
-	config->QCM_writeEntry("/ProxyUserName", m_proxyUserName);
-	config->QCM_writeEntry("/ProxyPassword", m_proxyPassword);
-#endif
-	config->QCM_writeEntry("/Browser", m_browser);
-	config->QCM_writeEntry("/OnlyCustomGenres", m_onlyCustomGenres);
-#if QT_VERSION >= 0x040200
+	config->setValue("/CustomGenres", QVariant(m_customGenres));
+	config->setValue("/HideToolBar", QVariant(m_hideToolBar));
+	config->setValue("/HideStatusBar", QVariant(m_hideStatusBar));
+	config->setValue("/AutoHideTags", QVariant(m_autoHideTags));
+	config->setValue("/HideFile", QVariant(m_hideFile));
+	config->setValue("/HideV1", QVariant(m_hideV1));
+	config->setValue("/HideV2", QVariant(m_hideV2));
+	config->setValue("/HidePicture", QVariant(m_hidePicture));
+	config->setValue("/ID3v2Version", QVariant(m_id3v2Version));
+	config->setValue("/TextEncodingV1", QVariant(m_textEncodingV1));
+	config->setValue("/TextEncoding", QVariant(m_textEncoding));
+	config->setValue("/TrackNumberDigits", QVariant(m_trackNumberDigits));
+	config->setValue("/UseProxy", QVariant(m_useProxy));
+	config->setValue("/Proxy", QVariant(m_proxy));
+	config->setValue("/UseProxyAuthentication", QVariant(m_useProxyAuthentication));
+	config->setValue("/ProxyUserName", QVariant(m_proxyUserName));
+	config->setValue("/ProxyPassword", QVariant(m_proxyPassword));
+	config->setValue("/Browser", QVariant(m_browser));
+	config->setValue("/OnlyCustomGenres", QVariant(m_onlyCustomGenres));
 	config->setValue("/Geometry", m_geometry);
 	config->setValue("/WindowState", m_windowState);
-#else
-	config->QCM_writeEntry("/WindowX", m_windowX);
-	config->QCM_writeEntry("/WindowY", m_windowY);
-	config->QCM_writeEntry("/WindowWidth", m_windowWidth);
-	config->QCM_writeEntry("/WindowHeight", m_windowHeight);
-#endif
-	config->QCM_writeEntry("/UseFont", m_useFont);
-	config->QCM_writeEntry("/FontFamily", m_fontFamily);
-	config->QCM_writeEntry("/FontSize", m_fontSize);
-	config->QCM_writeEntry("/Style", m_style);
+	config->setValue("/UseFont", QVariant(m_useFont));
+	config->setValue("/FontFamily", QVariant(m_fontFamily));
+	config->setValue("/FontSize", QVariant(m_fontSize));
+	config->setValue("/Style", QVariant(m_style));
 	config->endGroup();
 
 	config->beginGroup("/MenuCommands");
 	int cmdNr = 1;
-	for (MiscConfig::MenuCommandList::const_iterator
+	for (QList<MenuCommand>::const_iterator
 				 it = m_contextMenuCommands.begin();
 			 it != m_contextMenuCommands.end();
 			 ++it) {
-		config->QCM_writeEntry(QString("/Command%1").arg(cmdNr++), (*it).toStringList());
+		config->setValue(QString("/Command%1").arg(cmdNr++), QVariant((*it).toStringList()));
 	}
 	// delete entries which are no longer used
 	for (;;) {
-		QStringList strList = config->QCM_readListEntry(QString("/Command%1").arg(cmdNr));
+		QStringList strList = config->value(QString("/Command%1").arg(cmdNr)).toStringList();
 		if (strList.empty()) {
 			break;
 		}
-		config->QCM_removeEntry(QString("/Command%1").arg(cmdNr));
+		config->remove(QString("/Command%1").arg(cmdNr));
 		++cmdNr;
 	}
 	config->endGroup();
@@ -338,29 +312,29 @@ void MiscConfig::readFromConfig(
 	)
 {
 #ifdef CONFIG_USE_KDE
-	KCM_KConfigGroup(cfg, config, m_group);
+	KConfigGroup cfg = config->group(m_group);
 	m_nameFilter =
 	    cfg.readEntry("NameFilter2", "");
 	m_formatItem =
-	    cfg.KCM_readNumEntry("FormatItem", 0);
+	    cfg.readEntry("FormatItem", 0);
 	m_formatItems =
-	    cfg.KCM_readListEntry("FormatItems");
+	    cfg.readEntry("FormatItems", QStringList());
 	m_formatFromFilenameItem =
-	    cfg.KCM_readNumEntry("FormatFromFilenameItem", 0);
+	    cfg.readEntry("FormatFromFilenameItem", 0);
 	m_formatFromFilenameItems =
-	    cfg.KCM_readListEntry("FormatFromFilenameItems");
+	    cfg.readEntry("FormatFromFilenameItems", QStringList());
 	m_dirFormatItem =
-	    cfg.KCM_readNumEntry("DirFormatItem", 0);
-	m_renDirSrc = cfg.KCM_readNumEntry("RenameDirectorySource", 0);
-	m_numberTracksDst = cfg.KCM_readNumEntry("NumberTracksDestination", 0);
-	m_numberTracksStart = cfg.KCM_readNumEntry("NumberTracksStartNumber", 1);
-	m_markTruncations = cfg.KCM_readBoolEntry("MarkTruncations", m_markTruncations);
-	m_enableTotalNumberOfTracks = cfg.KCM_readBoolEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
-	m_genreNotNumeric = cfg.KCM_readBoolEntry("GenreNotNumeric", m_genreNotNumeric);
-	m_preserveTime = cfg.KCM_readBoolEntry("PreserveTime", m_preserveTime);
-	m_markChanges = cfg.KCM_readBoolEntry("MarkChanges", m_markChanges);
+	    cfg.readEntry("DirFormatItem", 0);
+	m_renDirSrc = cfg.readEntry("RenameDirectorySource", 0);
+	m_numberTracksDst = cfg.readEntry("NumberTracksDestination", 0);
+	m_numberTracksStart = cfg.readEntry("NumberTracksStartNumber", 1);
+	m_markTruncations = cfg.readEntry("MarkTruncations", m_markTruncations);
+	m_enableTotalNumberOfTracks = cfg.readEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
+	m_genreNotNumeric = cfg.readEntry("GenreNotNumeric", m_genreNotNumeric);
+	m_preserveTime = cfg.readEntry("PreserveTime", m_preserveTime);
+	m_markChanges = cfg.readEntry("MarkChanges", m_markChanges);
 	m_commentName = cfg.readEntry("CommentName", s_defaultCommentName);
-	m_pictureNameItem = cfg.KCM_readNumEntry("PictureNameItem",
+	m_pictureNameItem = cfg.readEntry("PictureNameItem",
 	    static_cast<int>(VP_METADATA_BLOCK_PICTURE));
 	m_formatText =
 	    cfg.readEntry("FormatText2", s_defaultFnFmtList[0]);
@@ -368,33 +342,31 @@ void MiscConfig::readFromConfig(
 	    cfg.readEntry("FormatFromFilenameText", s_defaultFnFmtList[0]);
 	m_dirFormatText =
 	    cfg.readEntry("DirFormatText", s_defaultDirFmtList[0]);
-	m_splitterSizes = cfg.KCM_readIntListEntry("SplitterSizes");
-	m_vSplitterSizes = cfg.KCM_readIntListEntry("VSplitterSizes");
-	m_customGenres = cfg.KCM_readListEntry("CustomGenres");
-	m_autoHideTags = cfg.KCM_readBoolEntry("AutoHideTags", m_autoHideTags);
-	m_hideFile = cfg.KCM_readBoolEntry("HideFile", m_hideFile);
-	m_hideV1 = cfg.KCM_readBoolEntry("HideV1", m_hideV1);
-	m_hideV2 = cfg.KCM_readBoolEntry("HideV2", m_hideV2);
-	m_hidePicture = cfg.KCM_readBoolEntry("HidePicture", m_hidePicture);
-	m_id3v2Version = cfg.KCM_readNumEntry("ID3v2Version", static_cast<int>(ID3v2_3_0));
+	m_splitterSizes = cfg.readEntry("SplitterSizes", QList<int>());
+	m_vSplitterSizes = cfg.readEntry("VSplitterSizes", QList<int>());
+	m_customGenres = cfg.readEntry("CustomGenres", QStringList());
+	m_autoHideTags = cfg.readEntry("AutoHideTags", m_autoHideTags);
+	m_hideFile = cfg.readEntry("HideFile", m_hideFile);
+	m_hideV1 = cfg.readEntry("HideV1", m_hideV1);
+	m_hideV2 = cfg.readEntry("HideV2", m_hideV2);
+	m_hidePicture = cfg.readEntry("HidePicture", m_hidePicture);
+	m_id3v2Version = cfg.readEntry("ID3v2Version", static_cast<int>(ID3v2_3_0));
 	m_textEncodingV1 = cfg.readEntry("TextEncodingV1", "");
-	m_textEncoding = cfg.KCM_readNumEntry("TextEncoding", static_cast<int>(TE_ISO8859_1));
-	m_trackNumberDigits = cfg.KCM_readNumEntry("TrackNumberDigits", 1);
-	m_useProxy = cfg.KCM_readBoolEntry("UseProxy", m_useProxy);
+	m_textEncoding = cfg.readEntry("TextEncoding", static_cast<int>(TE_ISO8859_1));
+	m_trackNumberDigits = cfg.readEntry("TrackNumberDigits", 1);
+	m_useProxy = cfg.readEntry("UseProxy", m_useProxy);
 	m_proxy = cfg.readEntry("Proxy", m_proxy);
-#if QT_VERSION >= 0x040000
-	m_useProxyAuthentication = cfg.KCM_readBoolEntry("UseProxyAuthentication", m_useProxyAuthentication);
+	m_useProxyAuthentication = cfg.readEntry("UseProxyAuthentication", m_useProxyAuthentication);
 	m_proxyUserName = cfg.readEntry("ProxyUserName", m_proxyUserName);
 	m_proxyPassword = cfg.readEntry("ProxyPassword", m_proxyPassword);
-#endif
 	m_browser = cfg.readEntry("Browser", s_defaultBrowser);
-	m_onlyCustomGenres = cfg.KCM_readBoolEntry("OnlyCustomGenres", m_onlyCustomGenres);
+	m_onlyCustomGenres = cfg.readEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
 	m_contextMenuCommands.clear();
-	KCM_KConfigGroup(menuCmdCfg, config, "MenuCommands");
+	KConfigGroup menuCmdCfg = config->group("MenuCommands");
 	int cmdNr = 1;
 	for (;;) {
-		QStringList strList = menuCmdCfg.KCM_readListEntry(QString("Command%1").arg(cmdNr));
+		QStringList strList = menuCmdCfg.readEntry(QString("Command%1").arg(cmdNr), QStringList());
 		if (strList.empty()) {
 			break;
 		}
@@ -404,37 +376,37 @@ void MiscConfig::readFromConfig(
 #else
 	config->beginGroup("/" + m_group);
 	m_nameFilter =
-	    config->QCM_readEntry("/NameFilter2", "");
+	    config->value("/NameFilter2", "").toString();
 	m_formatItem =
-	    config->QCM_readNumEntry("/FormatItem", 0);
+	    config->value("/FormatItem", 0).toInt();
 	m_formatItems =
-	    config->QCM_readListEntry("/FormatItems");
+	    config->value("/FormatItems").toStringList();
 	m_formatFromFilenameItem =
-	    config->QCM_readNumEntry("/FormatFromFilenameItem", 0);
+	    config->value("/FormatFromFilenameItem", 0).toInt();
 	m_formatFromFilenameItems =
-	    config->QCM_readListEntry("/FormatFromFilenameItems");
+	    config->value("/FormatFromFilenameItems").toStringList();
 	m_dirFormatItem =
-	    config->QCM_readNumEntry("/DirFormatItem", 0);
-	m_renDirSrc = config->QCM_readNumEntry("/RenameDirectorySource", 0);
-	m_numberTracksDst = config->QCM_readNumEntry("/NumberTracksDestination", 0);
-	m_numberTracksStart = config->QCM_readNumEntry("/NumberTracksStartNumber", 1);
-	m_markTruncations = config->QCM_readBoolEntry("/MarkTruncations", m_markTruncations);
-	m_enableTotalNumberOfTracks = config->QCM_readBoolEntry("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
-	m_genreNotNumeric = config->QCM_readBoolEntry("/GenreNotNumeric", m_genreNotNumeric);
-	m_preserveTime = config->QCM_readBoolEntry("/PreserveTime", m_preserveTime);
-	m_markChanges = config->QCM_readBoolEntry("/MarkChanges", m_markChanges);
-	m_commentName = config->QCM_readEntry("/CommentName", s_defaultCommentName);
-	m_pictureNameItem = config->QCM_readNumEntry("/PictureNameItem", VP_METADATA_BLOCK_PICTURE);
+	    config->value("/DirFormatItem", 0).toInt();
+	m_renDirSrc = config->value("/RenameDirectorySource", 0).toInt();
+	m_numberTracksDst = config->value("/NumberTracksDestination", 0).toInt();
+	m_numberTracksStart = config->value("/NumberTracksStartNumber", 1).toInt();
+	m_markTruncations = config->value("/MarkTruncations", m_markTruncations).toBool();
+	m_enableTotalNumberOfTracks = config->value("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks).toBool();
+	m_genreNotNumeric = config->value("/GenreNotNumeric", m_genreNotNumeric).toBool();
+	m_preserveTime = config->value("/PreserveTime", m_preserveTime).toBool();
+	m_markChanges = config->value("/MarkChanges", m_markChanges).toBool();
+	m_commentName = config->value("/CommentName", s_defaultCommentName).toString();
+	m_pictureNameItem = config->value("/PictureNameItem", VP_METADATA_BLOCK_PICTURE).toInt();
 
 	m_formatText =
-	    config->QCM_readEntry("/FormatText2", s_defaultFnFmtList[0]);
+	    config->value("/FormatText2", s_defaultFnFmtList[0]).toString();
 	m_formatFromFilenameText =
-	    config->QCM_readEntry("/FormatFromFilenameText", s_defaultFnFmtList[0]);
+	    config->value("/FormatFromFilenameText", s_defaultFnFmtList[0]).toString();
 	m_dirFormatText =
-	    config->QCM_readEntry("/DirFormatText", s_defaultDirFmtList[0]);
+	    config->value("/DirFormatText", s_defaultDirFmtList[0]).toString();
 	m_splitterSizes.clear();
 	for (int i = 0; i < 5; ++i) {
-		int val = config->QCM_readNumEntry("/SplitterSize" + QString::number(i), -1);
+		int val = config->value("/SplitterSize" + QString::number(i), -1).toInt();
 		if (val != -1) {
 			m_splitterSizes.push_back(val);
 		} else {
@@ -443,64 +415,53 @@ void MiscConfig::readFromConfig(
 	}
 	m_vSplitterSizes.clear();
 	for (int j = 0; j < 5; ++j) {
-		int val = config->QCM_readNumEntry("/VSplitterSize" + QString::number(j), -1);
+		int val = config->value("/VSplitterSize" + QString::number(j), -1).toInt();
 		if (val != -1) {
 			m_vSplitterSizes.push_back(val);
 		} else {
 			break;
 		}
 	}
-	m_customGenres = config->QCM_readListEntry("/CustomGenres");
-#if QT_VERSION >= 0x040000
-	m_hideToolBar = config->QCM_readBoolEntry("/HideToolBar", m_hideToolBar);
-#endif
-	m_hideStatusBar = config->QCM_readBoolEntry("/HideStatusBar", m_hideStatusBar);
-	m_autoHideTags = config->QCM_readBoolEntry("/AutoHideTags", m_autoHideTags);
-	m_hideFile = config->QCM_readBoolEntry("/HideFile", m_hideFile);
-	m_hideV1 = config->QCM_readBoolEntry("/HideV1", m_hideV1);
-	m_hideV2 = config->QCM_readBoolEntry("/HideV2", m_hideV2);
-	m_hidePicture = config->QCM_readBoolEntry("/HidePicture", m_hidePicture);
-	m_id3v2Version = config->QCM_readNumEntry("/ID3v2Version", ID3v2_3_0);
-	m_textEncodingV1 = config->QCM_readEntry("/TextEncodingV1", "");
-	m_textEncoding = config->QCM_readNumEntry("/TextEncoding", TE_ISO8859_1);
-	m_trackNumberDigits = config->QCM_readNumEntry("/TrackNumberDigits", 1);
-	m_useProxy = config->QCM_readBoolEntry("/UseProxy", m_useProxy);
-	m_proxy = config->QCM_readEntry("/Proxy", m_proxy);
-#if QT_VERSION >= 0x040000
-	m_useProxyAuthentication = config->QCM_readBoolEntry("/UseProxyAuthentication", m_useProxyAuthentication);
-	m_proxyUserName = config->QCM_readEntry("/ProxyUserName", m_proxyUserName);
-	m_proxyPassword = config->QCM_readEntry("/ProxyPassword", m_proxyPassword);
-#endif
+	m_customGenres = config->value("/CustomGenres").toStringList();
+	m_hideToolBar = config->value("/HideToolBar", m_hideToolBar).toBool();
+	m_hideStatusBar = config->value("/HideStatusBar", m_hideStatusBar).toBool();
+	m_autoHideTags = config->value("/AutoHideTags", m_autoHideTags).toBool();
+	m_hideFile = config->value("/HideFile", m_hideFile).toBool();
+	m_hideV1 = config->value("/HideV1", m_hideV1).toBool();
+	m_hideV2 = config->value("/HideV2", m_hideV2).toBool();
+	m_hidePicture = config->value("/HidePicture", m_hidePicture).toBool();
+	m_id3v2Version = config->value("/ID3v2Version", ID3v2_3_0).toInt();
+	m_textEncodingV1 = config->value("/TextEncodingV1", "").toString();
+	m_textEncoding = config->value("/TextEncoding", TE_ISO8859_1).toInt();
+	m_trackNumberDigits = config->value("/TrackNumberDigits", 1).toInt();
+	m_useProxy = config->value("/UseProxy", m_useProxy).toBool();
+	m_proxy = config->value("/Proxy", m_proxy).toString();
+	m_useProxyAuthentication = config->value("/UseProxyAuthentication", m_useProxyAuthentication).toBool();
+	m_proxyUserName = config->value("/ProxyUserName", m_proxyUserName).toString();
+	m_proxyPassword = config->value("/ProxyPassword", m_proxyPassword).toString();
 #if defined _WIN32 || defined WIN32
-	m_browser = config->QCM_readEntry("/Browser", QString());
+	m_browser = config->value("/Browser", QString().toString());
 	if (m_browser.isEmpty()) {
 		m_browser = ::getenv("ProgramFiles");
 		m_browser += "\\Internet Explorer\\IEXPLORE.EXE";
 	}
 #else
-	m_browser = config->QCM_readEntry("/Browser", s_defaultBrowser);
+	m_browser = config->value("/Browser", s_defaultBrowser).toString();
 #endif
-	m_onlyCustomGenres = config->QCM_readBoolEntry("/OnlyCustomGenres", m_onlyCustomGenres);
-#if QT_VERSION >= 0x040200
+	m_onlyCustomGenres = config->value("/OnlyCustomGenres", m_onlyCustomGenres).toBool();
 	m_geometry = config->value("/Geometry").toByteArray();
 	m_windowState = config->value("/WindowState").toByteArray();
-#else
-	m_windowX = config->QCM_readNumEntry("/WindowX", -1);
-	m_windowY = config->QCM_readNumEntry("/WindowY", -1);
-	m_windowWidth = config->QCM_readNumEntry("/WindowWidth", -1);
-	m_windowHeight = config->QCM_readNumEntry("/WindowHeight", -1);
-#endif
-	m_useFont = config->QCM_readBoolEntry("/UseFont", m_useFont);
-	m_fontFamily = config->QCM_readEntry("/FontFamily", m_fontFamily);
-	m_fontSize = config->QCM_readNumEntry("/FontSize", -1);
-	m_style = config->QCM_readEntry("/Style", m_style);
+	m_useFont = config->value("/UseFont", m_useFont).toBool();
+	m_fontFamily = config->value("/FontFamily", m_fontFamily).toString();
+	m_fontSize = config->value("/FontSize", -1).toInt();
+	m_style = config->value("/Style", m_style).toString();
 	config->endGroup();
 
 	m_contextMenuCommands.clear();
 	config->beginGroup("/MenuCommands");
 	int cmdNr = 1;
 	for (;;) {
-		QStringList strList = config->QCM_readListEntry(QString("/Command%1").arg(cmdNr));
+		QStringList strList = config->value(QString("/Command%1").arg(cmdNr)).toStringList();
 		if (strList.empty()) {
 			break;
 		}
