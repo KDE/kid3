@@ -1767,53 +1767,13 @@ werden, was verwendet werden soll. Die Voreinstellung ist
 <userinput>OFF</userinput> gesetzt werden.
 </para>
 <para>
-Um &kid3; als Qt Applikation ohne KDE zu kompilieren, werden
-<userinput>configure</userinput> und <userinput>make</userinput> aus dem
-<filename>kid3-qt</filename> Verzeichnis benutzt. Das
-<userinput>configure</userinput> Skript kann mit <userinput>autoconf</userinput>
-erstellt werden.
-<screen width="40">
-<prompt>%</prompt> <userinput>cd kid3-qt</userinput>
-<prompt>%</prompt> <userinput>./configure</userinput>
-<prompt>%</prompt> <userinput>make</userinput>
-<prompt>%</prompt> <userinput>make install</userinput>
-</screen>
-</para>
-<para>
-Die Optionen sind hier
-<userinput>--with-kde --with-id3lib --with-vorbis --with-flac --with-taglib
---with-musicbrainz</userinput> und können mit <userinput>--without-</userinput>
-deaktiviert werden. Wenn verschiedene Versionen von Qt vorhanden sind, kann die
-Version z.B. über <userinput>--with-qmake=qmake-qt4</userinput> angegeben werden.
+Um &kid3; als Qt Applikation ohne KDE zu kompilieren, wird die
+<userinput>cmake</userinput> Option <userinput>-DWITH_KDE=OFF</userinput> benutzt.
 </para>
 <para>
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>
 vorhanden, für Debian-Pakete steht das Skript
 <filename>build-deb.sh</filename> zur Verfügung.
-</para>
-<para>
-Um &kid3; mit KDE 3 zu kompilieren, wird <command>configure</command> verwendet:
-<screen width="40">
-<prompt>%</prompt> <userinput>./configure</userinput>
-<prompt>%</prompt> <userinput>make</userinput>
-<prompt>%</prompt> <userinput>make install</userinput>
-</screen>
-</para>
-<para>
-Wenn der Quellcode über Subversion geholt wird, kann das
-<userinput>configure</userinput> Skript erstellt werden mit
-<screen width="40">
-<prompt>%</prompt> <userinput>make -f Makefile.cvs</userinput>
-</screen>
-</para>
-<para>
-Um die Kompilation etwas zu beschleunigen, kann &kid3; ab GCC 3.4 eine
-vorkompilierte Include-Datei verwenden. Dazu wird
-<userinput>configure</userinput> mit der Option
-<userinput>--enable-gcc-pch</userinput> (und Zuweisen von gcc und g++ von GCC
-3.4 zu CC und CXX falls GCC 3.4 nicht der Default Compiler ist) gestartet. Das
-vorkompilierte System-Include wird dann mit <userinput>make pch</userinput>
-generiert.
 </para>
 
 <para>

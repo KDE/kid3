@@ -8,15 +8,9 @@ CFLAGS = -g -O2
 CXXFLAGS = -g -O2
 endif
 
-ifneq ($(filter hardy,$(shell lsb_release -cs)),)
-DEB_CMAKE_PREFIX = /usr/lib/kde4
-DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/etc/kde4
-DEB_HTML_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/doc/kde4/HTML
-else
 DEB_CMAKE_PREFIX ?= /usr
 DEB_CONFIG_INSTALL_DIR ?= $(DEB_CMAKE_PREFIX)/share/kde4/config
 DEB_HTML_INSTALL_DIR ?= $(DEB_CMAKE_PREFIX)/share/doc/kde/HTML
-endif
 
 DEB_CMAKE_EXTRA_FLAGS += \
 			-DCMAKE_BUILD_TYPE=Debian \
