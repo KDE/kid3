@@ -18,7 +18,7 @@ macro (kid3_create_handbook _docbook)
       DEPENDS ${_input}
     )
     add_custom_command(OUTPUT ${_tmp_html}
-      COMMAND ${XSLTPROC} ${_docbook_xsl} ${_tmp_xml} >${_tmp_html}
+      COMMAND ${XSLTPROC} --novalid --nonet ${_docbook_xsl} ${_tmp_xml} >${_tmp_html}
       DEPENDS ${_tmp_xml}
     )
     add_custom_command(OUTPUT ${_output}
@@ -29,7 +29,7 @@ macro (kid3_create_handbook _docbook)
     add_custom_command(OUTPUT ${_output}
       COMMAND 
         ${PERL_EXECUTABLE} ${_fixdocbook_pl} <${_input} |
-        ${XSLTPROC} ${_docbook_xsl} - |
+        ${XSLTPROC} --novalid --nonet ${_docbook_xsl} - |
         ${PERL_EXECUTABLE} -n ${_fixhtml_pl} >${_output}
       DEPENDS ${_input}
     )

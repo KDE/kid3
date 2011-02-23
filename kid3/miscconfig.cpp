@@ -440,7 +440,7 @@ void MiscConfig::readFromConfig(
 	m_proxyUserName = config->value("/ProxyUserName", m_proxyUserName).toString();
 	m_proxyPassword = config->value("/ProxyPassword", m_proxyPassword).toString();
 #if defined _WIN32 || defined WIN32
-	m_browser = config->value("/Browser", QString().toString());
+	m_browser = config->value("/Browser", QString()).toString();
 	if (m_browser.isEmpty()) {
 		m_browser = ::getenv("ProgramFiles");
 		m_browser += "\\Internet Explorer\\IEXPLORE.EXE";
