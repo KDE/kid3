@@ -26,11 +26,16 @@ set(WITH_ID3LIB ON CACHE BOOL "build with id3lib")
 set(WITH_VORBIS ON CACHE BOOL "build with Ogg/Vorbis")
 set(WITH_FLAC ON CACHE BOOL "build with FLAC")
 set(WITH_TUNEPIMP ON CACHE BOOL "build with TunePimp")
+set(WITH_GCC_PCH OFF CACHE BOOL "enable precompiled headers")
 if (APPLE OR WIN32)
   set(WITH_KDE OFF CACHE BOOL "build with KDE libraries")
 else (APPLE OR WIN32)
   set(WITH_KDE ON CACHE BOOL "build with KDE libraries")
 endif (APPLE OR WIN32)
+
+if (WITH_GCC_PCH)
+include(GccPchMacros.cmake)
+endif (WITH_GCC_PCH)
 
 if (WITH_KDE)
 

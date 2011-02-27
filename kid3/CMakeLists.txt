@@ -10,6 +10,23 @@ if (HAVE_QTDBUS)
   set(kid3_SRCS ${kid3_SRCS} scriptinterface.cpp)
 endif (HAVE_QTDBUS)
 
+if (WITH_GCC_PCH)
+  if (WITH_KDE)
+    set(_includeRegex "#include <[Qkcp]")
+  else (WITH_KDE)
+    set(_includeRegex "#include <[Qcp]")
+  endif (WITH_KDE)
+  if (CMAKE_BUILD_TYPE MATCHES Debug)
+    set(_additionalFlags "-g -DQT_DEBUG -D_REENTRANT")
+  else (CMAKE_BUILD_TYPE MATCHES Debug)
+    set(_additionalFlags "-O3 -DQT_NO_DEBUG -D_REENTRANT -DNDEBUG")
+  endif (CMAKE_BUILD_TYPE MATCHES Debug)
+  ADD_PCH_HEADERFILE_RULE(${CMAKE_CURRENT_BINARY_DIR}/allsys.h
+                          ${CMAKE_CURRENT_SOURCE_DIR} ${_includeRegex})
+  ADD_PCH_RULE(allsys.h kid3_SRCS ${_additionalFlags})
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Winvalid-pch -include allsys.h")
+endif (WITH_GCC_PCH)
+
 if (WITH_KDE)
 
 kde4_add_executable(kid3 ${kid3_SRCS})
