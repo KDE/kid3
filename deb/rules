@@ -3,7 +3,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-PACKAGE_MAKEFILES = kid3-kde4.mk kid3-qt4.mk
+kdedocs = $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML
 
 DEBVERSION:=$(shell head -n 1 debian/changelog \
                     | sed -e 's/^[^(]*(\([^)]*\)).*/\1/')
@@ -12,6 +12,11 @@ UPVERSION:=$(shell echo $(DEBVERSION) | sed -e 's/^.*://' -e 's/-[0-9.]*$$//' -e
 FILENAME := kid3_$(UPVERSION).orig.tar.gz
 UPFILENAME := kid3-$(UPVERSION).tar.gz
 URL = http://heanet.dl.sourceforge.net/kid3/$(UPFILENAME)
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 
 ifneq (,$(findstring debug,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -g
@@ -22,19 +27,61 @@ endif
 
 build: build-stamp
 
+DEB_CMAKE_PREFIX = /usr
+DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/kde4/config
+DEB_HTML_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/doc/kde/HTML
+
+CMAKE_KDE4_FLAGS += \
+	-DCMAKE_SKIP_RPATH=true \
+	-DKDE4_USE_ALWAYS_FULL_RPATH=false \
+	-DWITH_MP4V2=false \
+	-DSYSCONF_INSTALL_DIR=/etc \
+	-DCMAKE_INSTALL_PREFIX=$(DEB_CMAKE_PREFIX) \
+	-DCONFIG_INSTALL_DIR=$(DEB_CONFIG_INSTALL_DIR) \
+	-DDATA_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/apps \
+	-DHTML_INSTALL_DIR=$(DEB_HTML_INSTALL_DIR) \
+	-DKCFG_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/share/kde4/config.kcfg \
+	-DLIB_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/lib
+
+CMAKE_QT4_FLAGS = \
+  -DCMAKE_SKIP_RPATH=ON \
+  -DCMAKE_INSTALL_PREFIX="$(DEB_CMAKE_PREFIX)" \
+  -DCMAKE_C_COMPILER:FILEPATH="$(CC)" \
+  -DCMAKE_CXX_COMPILER:FILEPATH="$(CXX)" \
+  -DCMAKE_C_FLAGS="$(CFLAGS)" \
+  -DCMAKE_CXX_FLAGS="$(CXXFLAGS)" \
+  -DCMAKE_VERBOSE_MAKEFILE=ON \
+  -DWITH_MP4V2=OFF \
+  -DWITH_KDE=OFF \
+  -DWITH_DATAROOTDIR=share \
+  -DWITH_DOCDIR=share/doc/kid3-qt \
+  -DWITH_TRANSLATIONSDIR=share/kid3-qt/translations \
+  -DWITH_BINDIR=bin
+
+ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
+CMAKE_QT4_FLAGS += -DCMAKE_BUILD_TYPE=Debug
+else
+CMAKE_QT4_FLAGS += -DCMAKE_BUILD_TYPE=Release
+endif
+
 build-stamp:
 	dh_testdir
-
-	for p in $(PACKAGE_MAKEFILES); do $(MAKE) -f debian/$$p build; done
-
+	# KDE4 build.
+	mkdir kid3-kde4
+	cd kid3-kde4 && cmake .. $(CMAKE_KDE4_FLAGS)
+	$(MAKE) -C kid3-kde4
+	# Qt4 build.
+	mkdir kid3-qt4
+	cd kid3-qt4 && cmake .. $(CMAKE_QT4_FLAGS)
+	$(MAKE) -C kid3-qt4
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
-
-	for p in $(PACKAGE_MAKEFILES); do $(MAKE) -f debian/$$p clean; done
-
+	[ ! -f kid3-kde4/Makefile ] || $(MAKE) -C kid3-kde4 clean
+	[ ! -f kid3-qt4/Makefile ] || $(MAKE) -C kid3-qt4 clean
+	-rm -rf kid3-kde4 kid3-qt4
 	-rm -f *-stamp
 	dh_clean
 
@@ -43,8 +90,13 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
-
-	for p in $(PACKAGE_MAKEFILES); do $(MAKE) -f debian/$$p install; done
+	# Main install.
+	$(MAKE) -C kid3-kde4 install DESTDIR=$(CURDIR)/debian/kid3
+	$(MAKE) -C kid3-qt4 install DESTDIR=$(CURDIR)/debian/kid3-qt
+	# Make common links for docs.
+	for p in `dh_listpackages`; do \
+	  for i in `find $(kdedocs) -type d -name $$p -not -regex .*/en/$$p`; do \
+	    ln -f -n -s ../../en/common $$i/common; done; done
 
 binary-indep: build install
 
@@ -54,10 +106,8 @@ binary-arch: build install
 	dh_installdocs -A AUTHORS NEWS README
 	dh_installmenu
 	dh_installman
-#	dh_installinfo
 	dh_installchangelogs ChangeLog
 	dh_icons
-	dh_desktop
 	dh_link
 	dh_strip
 	dh_compress --exclude=.docbook

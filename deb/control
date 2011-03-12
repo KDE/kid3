@@ -2,16 +2,15 @@ Source: kid3
 Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
-Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>, Mark Purcell <msp@debian.org>
+Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>, Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
-Build-Depends: debhelper (>= 5), xsltproc, docbook-xsl, lsb-release,
- cmake, libqt4-dev, kdelibs5-dev,
- libid3-3.8.3-dev, libtunepimp-dev, libflac++-dev,
- libvorbis-dev, libtag1-dev
-Standards-Version: 3.8.1
+Build-Depends: debhelper (>= 6), libqt4-dev, kdelibs5-dev, cmake,
+ libid3-3.8.3-dev, libtunepimp-dev, libflac++-dev, libvorbis-dev,
+ libtag1-dev, xsltproc, docbook-xsl, lsb-release
+Standards-Version: 3.9.1
 Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/
-Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log 
+Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log
 
 Package: kid3
 Architecture: any
