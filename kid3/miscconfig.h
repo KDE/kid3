@@ -98,10 +98,22 @@ public:
 		const QString& getName() const { return m_name; }
 
 		/**
+		 * Set the display name.
+		 * @param name display name
+		 */
+		void setName(const QString& name) { m_name = name; }
+
+		/**
 		 * Get the command string.
 		 * @return command string.
 		 */
 		const QString& getCommand() const { return m_cmd; }
+
+		/**
+		 * Set the command string.
+		 * @param cmd command string.
+		 */
+		void setCommand(const QString& cmd) { m_cmd = cmd; }
 
 		/**
 		 * Check if command must be confirmed.
@@ -110,10 +122,22 @@ public:
 		bool mustBeConfirmed() const { return m_confirm; }
 
 		/**
+		 * Set if command must be confirmed.
+		 * @param confirm true if command has to be confirmed
+		 */
+		void setMustBeConfirmed(bool confirm) { m_confirm = confirm; }
+
+		/**
 		 * Check if command output has to be shown.
 		 * @return true if command output has to be shown.
 		 */
 		bool outputShown() const { return m_showOutput; }
+
+		/**
+		 * Set if command output has to be shown.
+		 * @param showOutput true if command output has to be shown
+		 */
+		void setOutputShown(bool showOutput) { m_showOutput = showOutput; }
 
 	private:
 		QString m_name;

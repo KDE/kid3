@@ -55,6 +55,7 @@
 #include "miscconfig.h"
 #include "stringlistedit.h"
 #include "commandstable.h"
+#include "commandstablemodel.h"
 #include "kid3.h"
 
 enum { TextEncodingV1Latin1Index = 13 };
@@ -351,7 +352,11 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
 			QGroupBox* commandsGroupBox = new QGroupBox(i18n("Context &Menu Commands"), actionsPage);
 			if (commandsGroupBox) {
+				m_commandsTableModel = new CommandsTableModel(commandsGroupBox);
 				m_commandsTable = new CommandsTable(commandsGroupBox);
+				m_commandsTable->setModel(m_commandsTableModel);
+				m_commandsTable->setHorizontalResizeModes(
+					m_commandsTableModel->getHorizontalResizeModes());
 				QHBoxLayout* hbox = new QHBoxLayout;
 				hbox->setMargin(2);
 				hbox->addWidget(m_commandsTable);
@@ -500,7 +505,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 	m_markChangesCheckBox->setChecked(miscCfg->m_markChanges);
 	m_onlyCustomGenresCheckBox->setChecked(miscCfg->m_onlyCustomGenres);
 	m_genresEdit->setStrings(miscCfg->m_customGenres);
-	m_commandsTable->setCommandList(miscCfg->m_contextMenuCommands);
+	m_commandsTableModel->setCommandList(miscCfg->m_contextMenuCommands);
 #ifdef HAVE_VORBIS
 	int idx = m_commentNameComboBox->findText(miscCfg->m_commentName);
 	if (idx >= 0) {
@@ -580,7 +585,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	miscCfg->m_markChanges = m_markChangesCheckBox->isChecked();
 	miscCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
 	m_genresEdit->getStrings(miscCfg->m_customGenres);
-	m_commandsTable->getCommandList(miscCfg->m_contextMenuCommands);
+	miscCfg->m_contextMenuCommands = m_commandsTableModel->getCommandList();
 #ifdef HAVE_VORBIS
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();
 	miscCfg->m_pictureNameItem = m_pictureNameComboBox->currentIndex();

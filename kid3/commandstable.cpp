@@ -25,20 +25,10 @@
  */
 
 #include "commandstable.h"
-#include "filelist.h"
-#include <QToolTip>
-
-#include <QMenu>
 #include <QHeaderView>
-
-/** Column indices. */
-enum ColumnIndex {
-	CI_Confirm,
-	CI_Output,
-	CI_Name,
-	CI_Command,
-	CI_NumColumns
-};
+#include <QToolTip>
+#include <QMenu>
+#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -46,19 +36,9 @@ enum ColumnIndex {
  * @param parent parent widget
  */
 CommandsTable::CommandsTable(QWidget* parent) :
-	QTableWidget(parent)
+	QTableView(parent)
 {
-	setColumnCount(CI_NumColumns);
-	setHorizontalHeaderLabels(
-		QStringList() << i18n("Confirm") << i18n("Output") << i18n("Name") <<
-		i18n("Command"));
-	resizeColumnToContents(CI_Confirm);
-	resizeColumnToContents(CI_Output);
-	horizontalHeader()->setResizeMode(CI_Command, QHeaderView::Stretch);
-	horizontalHeaderItem(CI_Command)->setToolTip(FileList::getFormatToolTip());
 	setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this, SIGNAL(cellActivated(int, int)),
-			this, SLOT(valueChanged(int, int)));
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
 			this, SLOT(customContextMenu(const QPoint&)));
 }
@@ -69,27 +49,16 @@ CommandsTable::CommandsTable(QWidget* parent) :
 CommandsTable::~CommandsTable() {}
 
 /**
- * Called when a value in the table is changed.
- * If the command cell in the last row is changed to a non-empty
- * value, a new row is added. If it is changed to an empty value,
- * the row is deleted.
- *
- * @param row table row of changed item
- * @param col table column of changed item
+ * Set the resize modes to be used for the columns.
+ * @param resizeModes list of resize modes for the columns
  */
-void CommandsTable::valueChanged(int row, int col)
+void CommandsTable::setHorizontalResizeModes(
+	const QList<QHeaderView::ResizeMode>& resizeModes)
 {
-	QTableWidgetItem* twi;
-	if (row == rowCount() - 1 && col == CI_Command &&
-			(twi = item(row, col)) != 0) {
-		if (twi->text().isEmpty()) {
-			if (row != 0) {
-				deleteRow(row);
-			}
-		} else {
-			addRow(row);
-		}
-	}
+	QHeaderView* header = horizontalHeader();
+	int col = 0;
+	foreach (QHeaderView::ResizeMode mode, resizeModes)
+		header->setResizeMode(col++, mode);
 }
 
 /**
@@ -99,30 +68,7 @@ void CommandsTable::valueChanged(int row, int col)
  */
 void CommandsTable::addRow(int row)
 {
-	insertRow(row + 1);
-
-	QTableWidgetItem* twi;
-	if ((twi = item(row + 1, CI_Confirm)) == 0) {
-		twi = new QTableWidgetItem;
-		setItem(row + 1, CI_Confirm, twi);
-	}
-	twi->setCheckState(Qt::Unchecked);
-
-	if ((twi = item(row + 1, CI_Output)) == 0) {
-		twi = new QTableWidgetItem;
-		setItem(row + 1, CI_Output, twi);
-	}
-	twi->setCheckState(Qt::Unchecked);
-
-	if ((twi = item(row + 1, CI_Name)) != 0)
-		twi->setText("");
-	else
-		setItem(row + 1, CI_Name, new QTableWidgetItem(""));
-
-	if ((twi = item(row + 1, CI_Command)) != 0)
-		twi->setText("");
-	else
-		setItem(row + 1, CI_Command, new QTableWidgetItem(""));
+	model()->insertRow(row + 1);
 }
 
 /**
@@ -132,8 +78,9 @@ void CommandsTable::addRow(int row)
  */
 void CommandsTable::deleteRow(int row)
 {
-	if (rowCount() <= 1) return;
-	removeRow(row);
+	if (model()->rowCount() <= 1)
+		return;
+	model()->removeRow(row);
 }
 
 /**
@@ -143,14 +90,8 @@ void CommandsTable::deleteRow(int row)
  */
 void CommandsTable::clearRow(int row)
 {
-	QTableWidgetItem* twi = item(row, CI_Name);
-	if (twi) twi->setText("");
-	twi = item(row, CI_Command);
-	if (twi) twi->setText("");
-	twi = item(row, CI_Confirm);
-	if (twi) twi->setCheckState(Qt::Unchecked);
-	twi = item(row, CI_Output);
-	if (twi) twi->setCheckState(Qt::Unchecked);
+	if (row < model()->rowCount() && model()->removeRow(row))
+		model()->insertRow(row);
 }
 
 /**
@@ -214,85 +155,8 @@ void CommandsTable::contextMenu(int row, int /* col */, const QPoint& pos)
  */
 void CommandsTable::customContextMenu(const QPoint& pos)
 {
-	QTableWidgetItem* item = itemAt(pos);
-	if (item) {
-		contextMenu(item->row(), item->column(), mapToGlobal(pos));
-	}
-}
-
-/**
- * Set the table from the command list.
- *
- * @param cmdList command list
- */
-void CommandsTable::setCommandList(const QList<MiscConfig::MenuCommand>& cmdList)
-{
-	setRowCount(0);
-	int row = 0;
-	for (QList<MiscConfig::MenuCommand>::const_iterator it = cmdList.begin();
-			 it != cmdList.end();
-			 ++it) {
-		if (!(*it).getCommand().isEmpty()) {
-			insertRow(row);
-			QTableWidgetItem* cti = new QTableWidgetItem;
-			if (cti) {
-				cti->setCheckState((*it).mustBeConfirmed() ? Qt::Checked : Qt::Unchecked);
-				setItem(row, CI_Confirm, cti);
-			}
-			cti = new QTableWidgetItem;
-			if (cti) {
-				cti->setCheckState((*it).outputShown() ? Qt::Checked : Qt::Unchecked);
-				setItem(row, CI_Output, cti);
-			}
-			cti = new QTableWidgetItem((*it).getName());
-			if (cti) {
-				setItem(row, CI_Name, cti);
-			}
-			cti = new QTableWidgetItem((*it).getCommand());
-			if (cti) {
-				setItem(row, CI_Command, cti);
-			}
-			++row;
-		}
-	}
-	if (row == 0) {
-		// no commands => show at least one row
-		addRow(-1);
-	}
-}
-
-/**
- * Get the command list from the table.
- *
- * @param cmdList the command list is returned here
- */
-void CommandsTable::getCommandList(QList<MiscConfig::MenuCommand>& cmdList) const
-{
-	cmdList.clear();
-	int nrRows = rowCount();
-	for (int row = 0; row < nrRows; ++row) {
-		QTableWidgetItem* twi = item(row, CI_Command);
-		if (twi) {
-			QString cmd = twi->text();
-			if (!cmd.isEmpty()) {
-				twi = item(row, CI_Name);
-				QString name;
-				if (twi) name = twi->text();
-				if (name.isEmpty()) {
-					name = cmd;
-				}
-				bool confirm = false;
-				bool showOutput = false;
-				twi = item(row, CI_Confirm);
-				if (twi && twi->checkState() == Qt::Checked) {
-					confirm = true;
-				}
-				twi = item(row, CI_Output);
-				if (twi && twi->checkState() == Qt::Checked) {
-					showOutput = true;
-				}
-				cmdList.push_back(MiscConfig::MenuCommand(name, cmd, confirm, showOutput));
-			}
-		}
+	QModelIndex index = indexAt(pos);
+	if (index.isValid()) {
+		contextMenu(index.row(), index.column(), mapToGlobal(pos));
 	}
 }

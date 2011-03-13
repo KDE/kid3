@@ -44,6 +44,7 @@ class FormatConfig;
 class MiscConfig;
 class StringListEdit;
 class CommandsTable;
+class CommandsTableModel;
 class QString;
 class QWidget;
 class QComboBox;
@@ -162,6 +163,8 @@ private:
 	StringListEdit* m_genresEdit;
 	/** Commands table */
 	CommandsTable* m_commandsTable;
+	/** Commands table model */
+	CommandsTableModel* m_commandsTableModel;
 	/** Browser line edit */
 	QLineEdit* m_browserLineEdit;
 	/** Use proxy check box */

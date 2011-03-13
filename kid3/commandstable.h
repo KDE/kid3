@@ -27,14 +27,12 @@
 #ifndef COMMANDSTABLE_H
 #define COMMANDSTABLE_H
 
-#include "qtcompatmac.h"
-#include <QTableWidget>
-#include "miscconfig.h"
+#include <QTableView>
 
 /**
  * Context menu commands configuration table.
  */
-class CommandsTable : public QTableWidget {
+class CommandsTable : public QTableView {
 Q_OBJECT
 
 public:
@@ -51,31 +49,12 @@ public:
 	virtual ~CommandsTable();
 
 	/**
-	 * Set the table from the command list.
-	 *
-	 * @param cmdList command list
+	 * Set the resize modes to be used for the columns.
+	 * @param resizeModes list of resize modes for the columns
 	 */
-	void setCommandList(const QList<MiscConfig::MenuCommand>& cmdList);
-
-	/**
-	 * Get the command list from the table.
-	 *
-	 * @param cmdList the command list is returned here
-	 */
-	void getCommandList(QList<MiscConfig::MenuCommand>& cmdList) const;
+	void setHorizontalResizeModes(const QList<QHeaderView::ResizeMode>& resizeModes);
 
 public slots:
-	/**
-	 * Called when a value in the table is changed.
-	 * If the command cell in the last row is changed to a non-empty
-	 * value, a new row is added. If it is changed to an empty value,
-	 * the row is deleted.
-	 *
-	 * @param row table row of changed item
-	 * @param col table column of changed item
-	 */
-	void valueChanged(int row, int col);
-
 	/**
 	 * Insert a new row into the table.
 	 *
