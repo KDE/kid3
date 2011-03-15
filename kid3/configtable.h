@@ -1,12 +1,12 @@
 /**
  * \file configtable.h
- * Table with context menu to add and remove rows.
+ * Table with context menu to add, delete and clear rows.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 13 Jan 2009
+ * \date 10 Oct 2005
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2005-2007  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,24 +27,21 @@
 #ifndef CONFIGTABLE_H
 #define CONFIGTABLE_H
 
-#include <QMap>
-#include <QTableWidget>
-#include "qtcompatmac.h"
+#include <QTableView>
 
 /**
- * Table with context menu to add and remove rows.
+ * Context menu commands configuration table.
  */
-class ConfigTable : public QTableWidget {
+class ConfigTable : public QTableView {
 Q_OBJECT
 
 public:
 	/**
 	 * Constructor.
 	 *
-	 * @param labels column labels
 	 * @param parent parent widget
 	 */
-	ConfigTable(const QStringList& labels, QWidget* parent = 0);
+	ConfigTable(QWidget* parent = 0);
 
 	/**
 	 * Destructor.
@@ -52,31 +49,12 @@ public:
 	virtual ~ConfigTable();
 
 	/**
-	 * Set the values from a map.
-	 *
-	 * @param map map with keys and values
+	 * Set the resize modes to be used for the columns.
+	 * @param resizeModes list of resize modes for the columns
 	 */
-	void fromMap(const QMap<QString, QString>& map);
-
-	/**
-	 * Store the values in a map.
-	 *
-	 * @param map to be filled
-	 */
-	void toMap(QMap<QString, QString>& map) const;
+	void setHorizontalResizeModes(const QList<QHeaderView::ResizeMode>& resizeModes);
 
 public slots:
-	/**
-	 * Called when a value in the table is changed.
-	 * If the command cell in the last row is changed to a non-empty
-	 * value, a new row is added. If it is changed to an empty value,
-	 * the row is deleted.
-	 *
-	 * @param row table row of changed item
-	 * @param col table column of changed item
-	 */
-	void valueChanged(int row, int col);
-
 	/**
 	 * Insert a new row into the table.
 	 *

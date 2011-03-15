@@ -28,6 +28,7 @@
 #include "kid3.h"
 #include "externalprocess.h"
 #include "configtable.h"
+#include "configtablemodel.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QTextEdit>
@@ -119,11 +120,13 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
 
 		QGroupBox* tabbox = new QGroupBox(i18n("&URL extraction"), this);
 		if (tabbox) {
-			m_matchUrlTable = new ConfigTable(
-				QStringList()
-				<< i18n("Match")
-				<< i18n("Picture URL"),
-				tabbox);
+			m_matchUrlTable = new ConfigTable(tabbox);
+			m_matchUrlTableModel = new ConfigTableModel(tabbox);
+			m_matchUrlTableModel->setLabels(
+				QStringList() << i18n("Match") << i18n("Picture URL"));
+			m_matchUrlTable->setModel(m_matchUrlTableModel);
+			m_matchUrlTable->setHorizontalResizeModes(
+					m_matchUrlTableModel->getHorizontalResizeModes());
 			QVBoxLayout* tablayout = new QVBoxLayout;
 			tablayout->setMargin(2);
 			tablayout->addWidget(m_matchUrlTable);
@@ -244,7 +247,7 @@ void BrowseCoverArtDialog::setSourceFromConfig()
 void BrowseCoverArtDialog::readConfig()
 {
 	setSourceFromConfig();
-	m_matchUrlTable->fromMap(Kid3App::s_genCfg.m_matchPictureUrlMap);
+	m_matchUrlTableModel->setMap(Kid3App::s_genCfg.m_matchPictureUrlMap);
 
 	if (Kid3App::s_genCfg.m_browseCoverArtWindowWidth > 0 &&
 			Kid3App::s_genCfg.m_browseCoverArtWindowHeight > 0) {
@@ -271,7 +274,7 @@ void BrowseCoverArtDialog::saveConfig()
 		Kid3App::s_genCfg.m_pictureSourceNames.append(m_sourceComboBox->currentText());
 		Kid3App::s_genCfg.m_pictureSourceUrls.append(m_urlLineEdit->text());
 	}
-	m_matchUrlTable->toMap(Kid3App::s_genCfg.m_matchPictureUrlMap);
+	Kid3App::s_genCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
 	Kid3App::s_genCfg.m_browseCoverArtWindowWidth = size().width();
 	Kid3App::s_genCfg.m_browseCoverArtWindowHeight = size().height();
 

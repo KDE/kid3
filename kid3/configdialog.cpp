@@ -54,7 +54,7 @@
 #include "formatbox.h"
 #include "miscconfig.h"
 #include "stringlistedit.h"
-#include "commandstable.h"
+#include "configtable.h"
 #include "commandstablemodel.h"
 #include "kid3.h"
 
@@ -353,7 +353,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 			QGroupBox* commandsGroupBox = new QGroupBox(i18n("Context &Menu Commands"), actionsPage);
 			if (commandsGroupBox) {
 				m_commandsTableModel = new CommandsTableModel(commandsGroupBox);
-				m_commandsTable = new CommandsTable(commandsGroupBox);
+				m_commandsTable = new ConfigTable(commandsGroupBox);
 				m_commandsTable->setModel(m_commandsTableModel);
 				m_commandsTable->setHorizontalResizeModes(
 					m_commandsTableModel->getHorizontalResizeModes());

@@ -1,12 +1,12 @@
 /**
  * \file configtable.cpp
- * Context menu commands configuration table.
+ * Table with context menu to add, delete and clear rows.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 13 Jan 2009
+ * \date 10 Oct 2005
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2005-2007  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,36 +25,20 @@
  */
 
 #include "configtable.h"
-
-#include <QMenu>
 #include <QHeaderView>
-
-/** Column indices. */
-enum ColumnIndex {
-	CI_Confirm,
-	CI_Output,
-	CI_Name,
-	CI_Command,
-	CI_NumColumns
-};
+#include <QToolTip>
+#include <QMenu>
+#include "qtcompatmac.h"
 
 /**
  * Constructor.
  *
- * @param labels column labels
  * @param parent parent widget
  */
-ConfigTable::ConfigTable(const QStringList& labels, QWidget* parent) :
-	QTableWidget(parent)
+ConfigTable::ConfigTable(QWidget* parent) :
+	QTableView(parent)
 {
-	const int numColumns = labels.size();
-	setRowCount(1);
-	setColumnCount(numColumns);
-	setHorizontalHeaderLabels(labels);
-	horizontalHeader()->setResizeMode(QHeaderView::Stretch);
 	setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this, SIGNAL(cellActivated(int, int)),
-			this, SLOT(valueChanged(int, int)));
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
 			this, SLOT(customContextMenu(const QPoint&)));
 }
@@ -65,27 +49,16 @@ ConfigTable::ConfigTable(const QStringList& labels, QWidget* parent) :
 ConfigTable::~ConfigTable() {}
 
 /**
- * Called when a value in the table is changed.
- * If the command cell in the last row is changed to a non-empty
- * value, a new row is added. If it is changed to an empty value,
- * the row is deleted.
- *
- * @param row table row of changed item
- * @param col table column of changed item
+ * Set the resize modes to be used for the columns.
+ * @param resizeModes list of resize modes for the columns
  */
-void ConfigTable::valueChanged(int row, int col)
+void ConfigTable::setHorizontalResizeModes(
+	const QList<QHeaderView::ResizeMode>& resizeModes)
 {
-	QTableWidgetItem* twi;
-	if (row == rowCount() - 1 && col == columnCount() - 1 &&
-			(twi = item(row, col)) != 0) {
-		if (twi->text().isEmpty()) {
-			if (row != 0) {
-				deleteRow(row);
-			}
-		} else {
-			addRow(row);
-		}
-	}
+	QHeaderView* header = horizontalHeader();
+	int col = 0;
+	foreach (QHeaderView::ResizeMode mode, resizeModes)
+		header->setResizeMode(col++, mode);
 }
 
 /**
@@ -95,15 +68,7 @@ void ConfigTable::valueChanged(int row, int col)
  */
 void ConfigTable::addRow(int row)
 {
-	insertRow(row + 1);
-
-	QTableWidgetItem* twi;
-	for (int col = 0; col < columnCount(); ++col) {
-		if ((twi = item(row + 1, col)) != 0)
-			twi->setText("");
-		else
-			setItem(row + 1, col, new QTableWidgetItem(""));
-	}
+	model()->insertRow(row + 1);
 }
 
 /**
@@ -113,8 +78,9 @@ void ConfigTable::addRow(int row)
  */
 void ConfigTable::deleteRow(int row)
 {
-	if (rowCount() <= 1) return;
-	removeRow(row);
+	if (model()->rowCount() <= 1)
+		return;
+	model()->removeRow(row);
 }
 
 /**
@@ -124,11 +90,8 @@ void ConfigTable::deleteRow(int row)
  */
 void ConfigTable::clearRow(int row)
 {
-	QTableWidgetItem* twi;
-	for (int col = 0; col < columnCount(); ++col) {
-		twi = item(row, col);
-		if (twi) twi->setText("");
-	}
+	if (row < model()->rowCount() && model()->removeRow(row))
+		model()->insertRow(row);
 }
 
 /**
@@ -192,73 +155,8 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
  */
 void ConfigTable::customContextMenu(const QPoint& pos)
 {
-	QTableWidgetItem* item = itemAt(pos);
-	if (item) {
-		contextMenu(item->row(), item->column(), mapToGlobal(pos));
-	}
-}
-
-/**
- * Set the values from a map.
- *
- * @param map map with keys and values
- */
-void ConfigTable::fromMap(const QMap<QString, QString>& map)
-{
-	int i;
-	QMap<QString, QString>::ConstIterator it;
-	if (columnCount() < 2) return;
-	QTableWidgetItem* twi;
-	for (i = 0, it = map.begin(); it != map.end(); ++it, ++i) {
-		if (rowCount() <= i) {
-			insertRow(i);
-		}
-		if ((twi = item(i, 0)) != 0)
-			twi->setText(it.key());
-		else
-			setItem(i, 0, new QTableWidgetItem(it.key()));
-
-		if ((twi = item(i, 1)) != 0)
-			twi->setText(*it);
-		else
-			setItem(i, 1, new QTableWidgetItem(*it));
-	}
-	if (rowCount() <= i) {
-		insertRow(i);
-	}
-	// add an empty row as last row and remove all rows below
-	if ((twi = item(i, 0)) != 0)
-		twi->setText("");
-	else
-		setItem(i, 0, new QTableWidgetItem(""));
-
-	if ((twi = item(i, 1)) != 0)
-		twi->setText("");
-	else
-		setItem(i, 1, new QTableWidgetItem(""));
-
-	int row = rowCount();
-	while (--row > i) {
-		removeRow(row);
-	}
-}
-
-/**
- * Store the values in a map.
- *
- * @param map to be filled
- */
-void ConfigTable::toMap(QMap<QString, QString>& map) const
-{
-	map.clear();
-	if (columnCount() < 2) return;
-	for (int i = 0; i < rowCount(); ++i) {
-		QString key;
-		QTableWidgetItem* twi;
-		if ((twi = item(i, 0)) != 0 &&
-				!(key = twi->text()).isEmpty() &&
-				(twi = item(i, 1)) != 0) {
-			map[key] = twi->text();
-		}
+	QModelIndex index = indexAt(pos);
+	if (index.isValid()) {
+		contextMenu(index.row(), index.column(), mapToGlobal(pos));
 	}
 }

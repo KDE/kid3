@@ -43,7 +43,7 @@ class QCheckBox;
 class FormatConfig;
 class MiscConfig;
 class StringListEdit;
-class CommandsTable;
+class ConfigTable;
 class CommandsTableModel;
 class QString;
 class QWidget;
@@ -162,7 +162,7 @@ private:
 	/** List of custom genres */
 	StringListEdit* m_genresEdit;
 	/** Commands table */
-	CommandsTable* m_commandsTable;
+	ConfigTable* m_commandsTable;
 	/** Commands table model */
 	CommandsTableModel* m_commandsTableModel;
 	/** Browser line edit */

@@ -35,6 +35,7 @@ class QCheckBox;
 class QString;
 class FormatConfig;
 class ConfigTable;
+class ConfigTableModel;
 
 /**
  * Group box containing format options.
@@ -74,6 +75,7 @@ private:
 	QComboBox* m_caseConvComboBox;
 	QCheckBox* m_strRepCheckBox;
 	ConfigTable* m_strReplTable;
+	ConfigTableModel* m_strReplTableModel;
 	QCheckBox* m_formatEditingCheckBox;
 };
 

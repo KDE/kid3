@@ -4,7 +4,26 @@ if (HAVE_TAGLIB)
   set(TAGLIBEXT_LIBRARIES taglibext)
 endif (HAVE_TAGLIB)
 
-set(kid3_SRCS filelist.cpp filelistitem.cpp frame.cpp framelist.cpp frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp mp3file.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp commandstable.cpp commandstablemodel.cpp taglibfile.cpp importsourceconfig.cpp importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp filterconfig.cpp filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp formatreplacer.cpp httpclient.cpp downloaddialog.cpp picturelabel.cpp browsecoverartdialog.cpp configtable.cpp attributedata.cpp browserdialog.cpp imageviewer.cpp editframedialog.cpp editframefieldsdialog.cpp playlistdialog.cpp playlistconfig.cpp playlistcreator.cpp amazondialog.cpp amazonclient.cpp amazonconfig.cpp recentfilesmenu.cpp playtoolbar.cpp)
+set(kid3_SRCS filelist.cpp filelistitem.cpp frame.cpp framelist.cpp
+	frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp
+	mp3file.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp
+	importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp
+	importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp
+	freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp
+	musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp
+	numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp
+	commandstablemodel.cpp taglibfile.cpp importsourceconfig.cpp
+	importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp
+	discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp
+	musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp
+	stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp filterconfig.cpp
+	filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp
+	formatreplacer.cpp httpclient.cpp downloaddialog.cpp picturelabel.cpp
+	browsecoverartdialog.cpp configtable.cpp configtablemodel.cpp
+	attributedata.cpp browserdialog.cpp imageviewer.cpp editframedialog.cpp
+	editframefieldsdialog.cpp playlistdialog.cpp playlistconfig.cpp
+	playlistcreator.cpp amazondialog.cpp amazonclient.cpp amazonconfig.cpp
+	recentfilesmenu.cpp playtoolbar.cpp)
 
 if (HAVE_QTDBUS)
   set(kid3_SRCS ${kid3_SRCS} scriptinterface.cpp)
@@ -31,7 +50,9 @@ if (WITH_KDE)
 
 kde4_add_executable(kid3 ${kid3_SRCS})
 
-target_link_libraries(kid3 ${TAGLIBEXT_LIBRARIES} ${BASIC_LIBRARIES} ${ID3LIB_LIBRARIES} ${TAGLIB_LIBRARIES} ${VORBIS_LIBRARIES} ${FLAC_LIBRARIES} ${TUNEPIMP_LIBRARIES} ${MP4V2_LIBRARIES})
+target_link_libraries(kid3 ${TAGLIBEXT_LIBRARIES} ${BASIC_LIBRARIES}
+	${ID3LIB_LIBRARIES} ${TAGLIB_LIBRARIES} ${VORBIS_LIBRARIES} ${FLAC_LIBRARIES}
+	${TUNEPIMP_LIBRARIES} ${MP4V2_LIBRARIES})
 
 install(TARGETS kid3 DESTINATION ${BIN_INSTALL_DIR})
 install(FILES kid3.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
@@ -48,7 +69,8 @@ if (APPLE)
   set(MACOSX_BUNDLE_SHORT_VERSION_STRING "1.6")
   set(MACOSX_BUNDLE_GUI_IDENTIFIER "net.sourceforge.kid3")
   set(MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2003-2011 Urs Fleisch")
-  set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/../macosx/kid3.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+	set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/../macosx/kid3.icns
+		PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
   set(kid3_SRCS ${kid3_SRCS} ${CMAKE_CURRENT_SOURCE_DIR}/../macosx/kid3.icns)
 elseif (WIN32)
   if (MINGW)
@@ -65,23 +87,36 @@ endif (APPLE)
 if (UNIX AND NOT APPLE)
   # install desktop file and icons for Linux
   add_custom_command(OUTPUT kid3-qt.desktop
-    COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixdesktop.pl <${CMAKE_CURRENT_SOURCE_DIR}/kid3.desktop >kid3-qt.desktop
+		COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixdesktop.pl
+			<${CMAKE_CURRENT_SOURCE_DIR}/kid3.desktop >kid3-qt.desktop
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/kid3.desktop
   )
   add_custom_target("desktop-file" ALL DEPENDS kid3-qt.desktop)
-  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop DESTINATION "${WITH_DATAROOTDIR}/applications")
-  install(FILES hisc-app-kid3.svgz DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps"
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop
+		DESTINATION "${WITH_DATAROOTDIR}/applications")
+	install(FILES hisc-app-kid3.svgz
+					DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps"
           RENAME kid3-qt.svgz)
-  install(FILES hi48-app-kid3.png DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/48x48/apps"
+	install(FILES hi48-app-kid3.png
+					DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/48x48/apps"
           RENAME kid3-qt.png)
-  install(FILES hi32-app-kid3.png DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/32x32/apps"
+	install(FILES hi32-app-kid3.png
+					DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/32x32/apps"
           RENAME kid3-qt.png)
-  install(FILES hi16-app-kid3.png DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/16x16/apps"
+	install(FILES hi16-app-kid3.png
+					DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/16x16/apps"
           RENAME kid3-qt.png)
 endif (UNIX AND NOT APPLE)
 
 # Run moc on Q_OBJECT header files
-set(kid3_MOC_HDRS filelist.h frametable.h id3form.h kid3.h configdialog.h exportdialog.h formatbox.h importdialog.h importselector.h rendirdialog.h musicbrainzdialog.h musicbrainzclient.h numbertracksdialog.h commandstable.h importsourcedialog.h importsourceclient.h externalprocess.h stringlistedit.h filterdialog.h filefilter.h httpclient.h downloaddialog.h browsecoverartdialog.h configtable.h browserdialog.h imageviewer.h editframedialog.h editframefieldsdialog.h playlistdialog.h recentfilesmenu.h playtoolbar.h)
+set(kid3_MOC_HDRS filelist.h frametable.h id3form.h kid3.h configdialog.h
+	exportdialog.h formatbox.h importdialog.h importselector.h rendirdialog.h
+	musicbrainzdialog.h musicbrainzclient.h numbertracksdialog.h
+	importsourcedialog.h importsourceclient.h externalprocess.h stringlistedit.h
+	filterdialog.h filefilter.h httpclient.h downloaddialog.h
+	browsecoverartdialog.h configtable.h browserdialog.h imageviewer.h
+	editframedialog.h editframefieldsdialog.h playlistdialog.h recentfilesmenu.h
+	playtoolbar.h)
 if (HAVE_QTDBUS)
   set(kid3_MOC_HDRS ${kid3_MOC_HDRS} scriptinterface.h)
 endif (HAVE_QTDBUS)
@@ -90,9 +125,13 @@ qt4_wrap_cpp(kid3_GEN_MOC_HDRS ${kid3_MOC_HDRS})
 add_definitions(${QT_DEFINITIONS})
 set(kid3_RESOURCES kid3.qrc)
 qt4_add_resources(kid3_GEN_RCS ${kid3_RESOURCES})
-add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32 ${kid3_SRCS} ${kid3_GEN_MOC_HDRS} ${kid3_GEN_RCS})
+add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32 ${kid3_SRCS}
+	${kid3_GEN_MOC_HDRS} ${kid3_GEN_RCS})
 
-target_link_libraries(${KID3_EXECUTABLE} ${TAGLIBEXT_LIBRARIES} ${BASIC_LIBRARIES} ${ID3LIB_LIBRARIES} ${TAGLIB_LIBRARIES} ${VORBIS_LIBRARIES} ${FLAC_LIBRARIES} ${TUNEPIMP_LIBRARIES} ${MP4V2_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${KID3_EXECUTABLE} ${TAGLIBEXT_LIBRARIES}
+	${BASIC_LIBRARIES} ${ID3LIB_LIBRARIES} ${TAGLIB_LIBRARIES} ${VORBIS_LIBRARIES}
+	${FLAC_LIBRARIES} ${TUNEPIMP_LIBRARIES} ${MP4V2_LIBRARIES}
+	${CMAKE_THREAD_LIBS_INIT})
 
 install(TARGETS ${KID3_EXECUTABLE}
   BUNDLE DESTINATION .
@@ -119,7 +158,8 @@ if (APPLE OR WIN32)
                    PATTERN "*jpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
   if (HAVE_PHONON)
-    install(DIRECTORY "${QT_PLUGINS_DIR}/phonon_backend" DESTINATION ${plugin_dest_dir}
+		install(DIRECTORY "${QT_PLUGINS_DIR}/phonon_backend"
+			DESTINATION ${plugin_dest_dir}
       FILES_MATCHING
         PATTERN "*d4${CMAKE_SHARED_LIBRARY_SUFFIX}" EXCLUDE
         PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")

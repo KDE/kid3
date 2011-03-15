@@ -31,6 +31,7 @@
 #include "formatconfig.h"
 #include "formatbox.h"
 #include "configtable.h"
+#include "configtablemodel.h"
 #include <QVBoxLayout>
 
 /**
@@ -64,9 +65,13 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 
 	m_strRepCheckBox = new QCheckBox(this);
 	m_strRepCheckBox->setText(i18n("String replacement:"));
-	m_strReplTable = new ConfigTable(
-		QStringList() << i18n("From") << i18n("To"),
-		this);
+	m_strReplTable = new ConfigTable(this);
+	m_strReplTableModel = new ConfigTableModel(this);
+	m_strReplTableModel->setLabels(
+		QStringList() << i18n("From") << i18n("To"));
+	m_strReplTable->setModel(m_strReplTableModel);
+	m_strReplTable->setHorizontalResizeModes(
+			m_strReplTableModel->getHorizontalResizeModes());
 	QVBoxLayout* vbox = new QVBoxLayout;
 	vbox->setMargin(2);
 	vbox->addWidget(m_formatEditingCheckBox);
@@ -92,7 +97,7 @@ void FormatBox::fromFormatConfig(const FormatConfig* cfg)
 	m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
 	m_caseConvComboBox->setCurrentIndex(cfg->m_caseConversion);
 	m_strRepCheckBox->setChecked(cfg->m_strRepEnabled);
-	m_strReplTable->fromMap(cfg->m_strRepMap);
+	m_strReplTableModel->setMap(cfg->m_strRepMap);
 }
 
 /**
@@ -109,5 +114,5 @@ void FormatBox::toFormatConfig(FormatConfig* cfg) const
 		cfg->m_caseConversion = FormatConfig::NoChanges;
 	}
 	cfg->m_strRepEnabled = m_strRepCheckBox->isChecked();
-	m_strReplTable->toMap(cfg->m_strRepMap);
+	cfg->m_strRepMap = m_strReplTableModel->getMap();
 }

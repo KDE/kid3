@@ -36,6 +36,7 @@ class QLineEdit;
 class QComboBox;
 class ExternalProcess;
 class ConfigTable;
+class ConfigTableModel;
 
 /**
  * Browse cover art dialog.
@@ -126,6 +127,8 @@ private:
 	QLineEdit* m_urlLineEdit;
 	/** Table to extract picture URL */
 	ConfigTable* m_matchUrlTable;
+	/** Table model to extract picture URL */
+	ConfigTableModel* m_matchUrlTableModel;
 	/** URLs */
 	QStringList m_urls;
 	/** Formatted URL */
