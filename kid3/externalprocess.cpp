@@ -109,6 +109,9 @@ ExternalProcess::~ExternalProcess()
 void ExternalProcess::launchCommand(const QString& name, const QStringList& args,
 																		bool confirm, bool showOutput)
 {
+	if (args.isEmpty())
+		return;
+
 	if (confirm && QMessageBox::question(
 				m_parent, name,
 				i18n("Execute ") + args.join(" ") + "?",
