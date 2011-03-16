@@ -28,6 +28,8 @@
 #define CONFIGTABLE_H
 
 #include <QTableView>
+#include <QList>
+#include <QHeaderView>
 
 /**
  * Context menu commands configuration table.

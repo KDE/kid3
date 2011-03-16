@@ -25,7 +25,6 @@
  */
 
 #include "configtable.h"
-#include <QHeaderView>
 #include <QToolTip>
 #include <QMenu>
 #include "qtcompatmac.h"
