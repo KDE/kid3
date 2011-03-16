@@ -228,7 +228,9 @@ QMap<QString, QString> ConfigTableModel::getMap() const
 	for (QList<QPair<QString, QString> >::const_iterator it = m_keyValues.constBegin();
 			it != m_keyValues.constEnd();
 			++it) {
-		map.insert(it->first, it->second);
+		if (!it->first.isEmpty()) {
+			map.insert(it->first, it->second);
+		}
 	}
 	return map;
 }

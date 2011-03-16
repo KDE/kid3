@@ -274,5 +274,13 @@ void CommandsTableModel::setCommandList(
  */
 QList<MiscConfig::MenuCommand> CommandsTableModel::getCommandList() const
 {
-	return m_cmdList;
+	QList<MiscConfig::MenuCommand> cmdList;
+	for (QList<MiscConfig::MenuCommand>::const_iterator it = m_cmdList.constBegin();
+			 it != m_cmdList.constEnd();
+			 ++it) {
+		if (!it->getName().isEmpty()) {
+			cmdList.append(*it);
+		}
+	}
+	return cmdList;
 }
