@@ -44,6 +44,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
+#include <QStringListModel>
 #ifndef CONFIG_USE_KDE
 #include <QApplication>
 #include <QFontDialog>
@@ -276,11 +277,12 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 				QGroupBox* genresGroupBox = new QGroupBox(i18n("Custom &Genres"), tagsPage);
 				if (genresGroupBox) {
 					m_onlyCustomGenresCheckBox = new QCheckBox(i18n("&Show only custom genres"), genresGroupBox);
-					m_genresEdit = new StringListEdit(genresGroupBox);
+					m_genresEditModel = new QStringListModel(genresGroupBox);
+					StringListEdit* genresEdit = new StringListEdit(m_genresEditModel, genresGroupBox);
 					QVBoxLayout* vbox = new QVBoxLayout;
 					vbox->setMargin(2);
 					vbox->addWidget(m_onlyCustomGenresCheckBox);
-					vbox->addWidget(m_genresEdit);
+					vbox->addWidget(genresEdit);
 					genresGroupBox->setLayout(vbox);
 					hlayout->addWidget(genresGroupBox);
 				}
@@ -504,7 +506,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 	m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
 	m_markChangesCheckBox->setChecked(miscCfg->m_markChanges);
 	m_onlyCustomGenresCheckBox->setChecked(miscCfg->m_onlyCustomGenres);
-	m_genresEdit->setStrings(miscCfg->m_customGenres);
+	m_genresEditModel->setStringList(miscCfg->m_customGenres);
 	m_commandsTableModel->setCommandList(miscCfg->m_contextMenuCommands);
 #ifdef HAVE_VORBIS
 	int idx = m_commentNameComboBox->findText(miscCfg->m_commentName);
@@ -584,7 +586,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 	miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
 	miscCfg->m_markChanges = m_markChangesCheckBox->isChecked();
 	miscCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
-	m_genresEdit->getStrings(miscCfg->m_customGenres);
+	miscCfg->m_customGenres = m_genresEditModel->stringList();
 	miscCfg->m_contextMenuCommands = m_commandsTableModel->getCommandList();
 #ifdef HAVE_VORBIS
 	miscCfg->m_commentName = m_commentNameComboBox->currentText();

@@ -42,7 +42,6 @@ class FormatBox;
 class QCheckBox;
 class FormatConfig;
 class MiscConfig;
-class StringListEdit;
 class ConfigTable;
 class CommandsTableModel;
 class QString;
@@ -50,6 +49,7 @@ class QWidget;
 class QComboBox;
 class QLineEdit;
 class QSpinBox;
+class QStringListModel;
 
 /** Base class for configuration dialog. */
 #ifdef CONFIG_USE_KDE
@@ -159,8 +159,8 @@ private:
 	FormatBox* m_id3FormatBox;
 	/** Only custom genres checkbox */
 	QCheckBox* m_onlyCustomGenresCheckBox;
-	/** List of custom genres */
-	StringListEdit* m_genresEdit;
+	/** Model with list of custom genres */
+	QStringListModel* m_genresEditModel;
 	/** Commands table */
 	ConfigTable* m_commandsTable;
 	/** Commands table model */

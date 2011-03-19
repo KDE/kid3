@@ -30,8 +30,9 @@
 #include <QWidget>
 #include "qtcompatmac.h"
 
-class QListWidget;
+class QListView;
 class QPushButton;
+class QAbstractItemModel;
 
 /**
  * Widget to edit a string list.
@@ -43,28 +44,15 @@ public:
 	/**
 	 * Constructor.
 	 *
+	 * @param model item model, e.g. a QStringListModel
 	 * @param parent parent widget
 	 */
-	StringListEdit(QWidget* parent = 0);
+	explicit StringListEdit(QAbstractItemModel* model, QWidget* parent = 0);
 
 	/**
 	 * Destructor.
 	 */
 	~StringListEdit();
-
-	/**
-	 * Set the string list in the list box.
-	 *
-	 * @param strList string list
-	 */
-	void setStrings(const QStringList& strList);
-
-	/**
-	 * Store the string list from the list box.
-	 *
-	 * @param strList the string list is stored here
-	 */
-	void getStrings(QStringList& strList) const;
 
 public slots:
 	/**
@@ -98,7 +86,7 @@ public slots:
 	void setButtonEnableState();
 
 private:
-	QListWidget* m_stringListBox;
+	QListView* m_stringListBox;
 	QPushButton* m_addPushButton;
 	QPushButton* m_moveUpPushButton;
 	QPushButton* m_moveDownPushButton;
