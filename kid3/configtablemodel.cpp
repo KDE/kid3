@@ -151,7 +151,7 @@ int ConfigTableModel::columnCount(const QModelIndex& parent) const
  * @return true if successful
  */
 bool ConfigTableModel::insertRows(int row, int count,
-												const QModelIndex& parent)
+												const QModelIndex&)
 {
 	beginInsertRows(QModelIndex(), row, row + count - 1);
 	for (int i = 0; i < count; ++i)
@@ -168,7 +168,7 @@ bool ConfigTableModel::insertRows(int row, int count,
  * @return true if successful
  */
 bool ConfigTableModel::removeRows(int row, int count,
-												const QModelIndex& parent)
+												const QModelIndex&)
 {
 	beginRemoveRows(QModelIndex(), row, row + count - 1);
 	for (int i = 0; i < count; ++i)
