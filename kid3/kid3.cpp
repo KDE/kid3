@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2010  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,6 +43,7 @@
 #include <QMenu>
 #include <QIcon>
 #include <QToolBar>
+#include <QFileSystemModel>
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include "scriptinterface.h"
@@ -137,6 +138,7 @@ QString Kid3App::s_dirName;
  * Constructor.
  */
 Kid3App::Kid3App() :
+	m_fileSystemModel(new QFileSystemModel(this)),
 	m_downloadToAllFilesInDir(false),
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
@@ -146,6 +148,7 @@ Kid3App::Kid3App() :
 	, m_playToolBar(0)
 #endif
 {
+	m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
 #ifdef CONFIG_USE_KDE
 	m_config = new KConfig;
 #else
@@ -844,9 +847,11 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	slotStatusMsg(i18n("Opening directory..."));
+
+	QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
 	bool ok = m_view->readFileList(dir, fileName);
 	if (ok) {
-		m_view->readDirectoryList(dir);
+		m_view->readDirectoryList(rootIndex);
 		setModified(false);
 		setFiltered(false);
 #ifdef CONFIG_USE_KDE

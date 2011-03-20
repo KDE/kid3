@@ -9,7 +9,7 @@ set(kid3_SRCS filelist.cpp filelistitem.cpp frame.cpp framelist.cpp
 	mp3file.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp
 	importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp
 	importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp
-	freedbclient.cpp rendirdialog.cpp dirlist.cpp taggedfile.cpp
+	freedbclient.cpp rendirdialog.cpp dirlist.cpp dirproxymodel.cpp taggedfile.cpp
 	musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp
 	numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp
 	commandstablemodel.cpp taglibfile.cpp importsourceconfig.cpp

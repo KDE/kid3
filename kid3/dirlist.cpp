@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Jul 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,16 +25,14 @@
  */
 
 #include "dirlist.h"
-#include <QFileInfo>
-#include <QDir>
-#include <QStringList>
+#include <QAbstractProxyModel>
 
 /**
  * Constructor.
  * @param parent parent widget
  */
 DirList::DirList(QWidget* parent) :
-	QListWidget(parent)
+	QListView(parent)
 {}
 
 /**
@@ -45,23 +43,16 @@ DirList::~DirList() {}
 /**
  * Fill the dirlist with the directories found in a directory.
  *
- * @param name path of directory
+ * @param index index of path in filesystem model
  * @return false if name is not directory path, else true.
  */
-bool DirList::readDir(const QString& name) {
-	QFileInfo file(name);
-	if(file.isDir()) {
-		clear();
-		m_dirname = name;
-		QDir dir(file.filePath());
-		addItems(dir.entryList(QDir::Dirs | QDir::Drives));
-		if (!m_entryToSelect.isEmpty()) {
-			QList<QListWidgetItem*> items =
-				findItems(m_entryToSelect, Qt::MatchStartsWith);
-			QListWidgetItem* lbi = items.empty() ? 0 : items.front();
-			if (lbi) {
-				setCurrentItem(lbi);
-			}
+bool DirList::readDir(const QModelIndex& index) {
+	QAbstractProxyModel* proxyModel = qobject_cast<QAbstractProxyModel*>(model());
+	QModelIndex rootIndex = proxyModel ? proxyModel->mapFromSource(index) : index;
+	if (rootIndex.isValid()) {
+		setRootIndex(rootIndex);
+		if (m_entryToSelect.isValid()) {
+			setCurrentIndex(m_entryToSelect);
 		}
 		return true;
 	}

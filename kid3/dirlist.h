@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Jul 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,14 +27,12 @@
 #ifndef DIRLIST_H
 #define DIRLIST_H
 
-#include <QString>
-#include "qtcompatmac.h"
-#include <QListWidget>
+#include <QListView>
 
 /**
  * List of directories to operate on.
  */
-class DirList : public QListWidget {
+class DirList : public QListView {
 public:
 	/**
 	 * Constructor.
@@ -50,30 +48,23 @@ public:
 	/**
 	 * Fill the dirlist with the directories found in a directory.
 	 *
-	 * @param name path of directory
+	 * @param index index of path in filesystem model
 	 * @return false if name is not directory path, else true.
 	 */
-	bool readDir(const QString& name);
+	bool readDir(const QModelIndex& index);
 
 	/**
-	 * Get path of directory.
+	 * Set index of entry to select in next call to readDir().
 	 *
-	 * @return absolute path of directory.
+	 * @param index model index of entry to select
 	 */
-	QString getDirname() const { return m_dirname; }
-
-	/**
-	 * Set name of entry to select in next call to readDir().
-	 *
-	 * @param str name of entry to select
-	 */
-	void setEntryToSelect(const QString& str) { m_entryToSelect = str; }
+	void setEntryToSelect(const QPersistentModelIndex& index) {
+		m_entryToSelect = index;
+	}
 
 private:
-	/** path of directory */
-	QString m_dirname;
 	/** entry to select in readDir() */
-	QString m_entryToSelect;
+	QPersistentModelIndex m_entryToSelect;
 };
 
 #endif // DIRLIST_H

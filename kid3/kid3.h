@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2009  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -79,6 +79,7 @@ class PlaylistDialog;
 class PlayToolBar;
 #endif
 class DirContents;
+class QFileSystemModel;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -273,6 +274,12 @@ public:
 	 * Edit a picture frame if one exists or add a new one.
 	 */
 	void editOrAddPicture();
+
+	/**
+	 * Get file system model.
+	 * @return file system model.
+	 */
+	QFileSystemModel* getFileSystemModel() { return m_fileSystemModel; }
 
 	/**
 	 * Display help for a topic.
@@ -775,6 +782,8 @@ private:
 
 	/** GUI with controls, created by Qt Designer */
 	Id3Form* m_view;
+	/** model of filesystem */
+	QFileSystemModel* m_fileSystemModel;
 	/** true if any file was modified */
 	bool m_modified;
 	/** true if list is filtered */

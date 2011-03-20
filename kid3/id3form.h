@@ -211,10 +211,10 @@ public:
 
 	/**
 	 * Fill directory list.
-	 * @param dir path of directory
+	 * @param index index of directory in filesystem model
 	 * @return false if name is not directory path, else true.
 	 */
-	bool readDirectoryList(const QString& dir) { return m_dirListBox->readDir(dir); }
+	bool readDirectoryList(const QModelIndex& index) { return m_dirListBox->readDir(index); }
 
 	/**
 	 * Fill file list.
@@ -410,9 +410,9 @@ public slots:
 	/**
 	 * Directory list box directory selected.
 	 *
-	 * @param item selected item
+	 * @param index selected item
 	 */
-	void dirSelected(QListWidgetItem* item);
+	void dirSelected(const QModelIndex& index);
 
 	/**
 	 * Set focus on filename controls.

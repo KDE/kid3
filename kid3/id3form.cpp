@@ -44,6 +44,7 @@
 #include <QScrollArea>
 #include <QUrl>
 #include <QApplication>
+#include <QFileSystemModel>
 
 /** Shortcut for pointer to parent (application) widget. */
 #define theApp ((Kid3App *)parentWidget())
@@ -56,6 +57,7 @@
 #include "miscconfig.h"
 #include "formatconfig.h"
 #include "id3form.h"
+#include "dirproxymodel.h"
 
 /** Collapse pixmap, will be allocated in constructor */
 QPixmap* Id3Form::s_collapsePixmap = 0;
@@ -164,6 +166,9 @@ Id3Form::Id3Form(QWidget* parent)
 	m_vSplitter = new QSplitter(Qt::Vertical, this);
 	m_fileListBox = new FileList(m_vSplitter, theApp);
 	m_dirListBox = new DirList(m_vSplitter);
+	DirProxyModel* dirProxyModel = new DirProxyModel(m_vSplitter);
+	dirProxyModel->setSourceModel(theApp->getFileSystemModel());
+	m_dirListBox->setModel(dirProxyModel);
 
 	m_rightHalfVBox = new QWidget;
 	QScrollArea* scrollView = new QScrollArea(this);
@@ -359,8 +364,8 @@ Id3Form::Id3Form(QWidget* parent)
 	connect(toTagV2Button, SIGNAL(clicked()), this, SLOT(fromFilenameV2()));
 	connect(m_nameLineEdit, SIGNAL(textChanged(const QString&)), this,
 			SLOT(nameLineEditChanged(const QString&)));
-	connect(m_dirListBox, SIGNAL(itemActivated(QListWidgetItem*)), this,
-			SLOT(dirSelected(QListWidgetItem*)));
+	connect(m_dirListBox, SIGNAL(activated(QModelIndex)), this,
+			SLOT(dirSelected(QModelIndex)));
 	connect(m_fileListBox, SIGNAL(selectedFilesRenamed()),
 					SIGNAL(selectedFilesRenamed()));
 	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));
@@ -638,14 +643,12 @@ void Id3Form::formatLineEdit(QLineEdit* le, const QString& txt,
  *
  * @param item selected item
  */
-void Id3Form::dirSelected(QListWidgetItem* item) {
-	QDir dir(m_dirListBox->getDirname() + QDir::separator() +
-					 item->text());
-	m_dirListBox->setEntryToSelect(
-		item->text() == ".." ? QDir(m_dirListBox->getDirname()).dirName() :
-		QString::null);
-	QString dirPath = dir.absolutePath();
+void Id3Form::dirSelected(const QModelIndex& index)
+{
+	QString dirPath = index.data(QFileSystemModel::FilePathRole).toString();
 	if (!dirPath.isEmpty()) {
+		m_dirListBox->setEntryToSelect(
+				dirPath.endsWith("..") ? index.parent() : QModelIndex());
 		theApp->openDirectory(dirPath, true);
 	}
 }
