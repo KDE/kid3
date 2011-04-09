@@ -395,7 +395,11 @@ void ImportSelector::fromFile()
 #ifdef CONFIG_USE_KDE
 		KFileDialog::getOpenFileName(getImportDir(), QString::null, this)
 #else
-		QFileDialog::getOpenFileName(this, QString(), getImportDir())
+		QFileDialog::getOpenFileName(this, QString(), getImportDir()
+#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+			, QString(), 0, QFileDialog::DontUseNativeDialog
+#endif
+			)
 #endif
 		);
 }

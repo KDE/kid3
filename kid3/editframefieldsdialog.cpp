@@ -28,7 +28,6 @@
 #include "kid3.h"
 #include "imageviewer.h"
 #include "taggedfile.h"
-#include "dirinfo.h"
 #include <QPushButton>
 #include <QImage>
 #include <QClipboard>
@@ -583,7 +582,12 @@ void BinaryOpenSave::loadData()
 		QString::null, this);
 #else
 	QString loadfilename = QFileDialog::getOpenFileName(
-		this, QString(), m_defaultDir.isEmpty() ? Kid3App::getDirName() : m_defaultDir);
+		this, QString(),
+		m_defaultDir.isEmpty() ? Kid3App::getDirName() : m_defaultDir
+#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+		, QString(), 0, QFileDialog::DontUseNativeDialog
+#endif
+		);
 #endif
 	if (!loadfilename.isEmpty()) {
 		QFile file(loadfilename);
@@ -618,7 +622,11 @@ void BinaryOpenSave::saveData()
 #ifdef CONFIG_USE_KDE
 	QString fn = KFileDialog::getSaveFileName(dir, QString::null, this);
 #else
-	QString fn = QFileDialog::getSaveFileName(this, QString(), dir);
+	QString fn = QFileDialog::getSaveFileName(this, QString(), dir
+#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+		, QString(), 0, QFileDialog::DontUseNativeDialog
+#endif
+		);
 #endif
 	if (!fn.isEmpty()) {
 		QFile file(fn);
@@ -800,8 +808,8 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
 	m_bos = new BinaryOpenSave(parent, m_field);
 	if (m_bos) {
 		m_bos->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-		if (m_taggedFile && m_taggedFile->getDirInfo()) {
-			m_bos->setDefaultDir(m_taggedFile->getDirInfo()->getDirname());
+		if (m_taggedFile) {
+			m_bos->setDefaultDir(m_taggedFile->getDirname());
 		}
 		if (m_frame.getType() == Frame::FT_Picture) {
 			m_bos->setDefaultFile("folder.jpg");

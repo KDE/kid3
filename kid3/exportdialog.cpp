@@ -209,7 +209,11 @@ void ExportDialog::slotToFile()
 		KFileDialog::getSaveFileName(ImportSelector::getImportDir(),
 																 QString::null, this);
 #else
-		QFileDialog::getSaveFileName(this, QString(), ImportSelector::getImportDir());
+		QFileDialog::getSaveFileName(this, QString(), ImportSelector::getImportDir()
+#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+			, QString(), 0, QFileDialog::DontUseNativeDialog
+#endif
+			);
 #endif
 	if (!fileName.isEmpty()) {
 		if (!exportToFile(fileName)) {

@@ -44,6 +44,7 @@
 #include <QIcon>
 #include <QToolBar>
 #include <QFileSystemModel>
+#include <QQueue>
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include "scriptinterface.h"
@@ -90,7 +91,8 @@
 #include "downloaddialog.h"
 #include "playlistdialog.h"
 #include "playlistcreator.h"
-#include "filelistitem.h"
+#include "fileproxymodel.h"
+#include "modeliterator.h"
 #include "dirlist.h"
 #include "pictureframe.h"
 #ifdef HAVE_ID3LIB
@@ -836,20 +838,24 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 		return false;
 	}
 	QFileInfo file(dir);
-	QString fileName;
+	QString filePath;
 	if (!file.isDir()) {
 		if (fileCheck && !file.isFile()) {
 			return false;
 		}
 		dir = file.dir().path();
-		fileName = file.fileName();
+		filePath = file.filePath();
 	}
 
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	slotStatusMsg(i18n("Opening directory..."));
 
+	QStringList nameFilters(s_miscCfg.m_nameFilter.split(' '));
+	m_fileSystemModel->setNameFilters(nameFilters);
+	m_fileSystemModel->setNameFilterDisables(false);
 	QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
-	bool ok = m_view->readFileList(dir, fileName);
+	QModelIndex fileIndex = m_fileSystemModel->index(filePath);
+	bool ok = m_view->readFileList(rootIndex, fileIndex);
 	if (ok) {
 		m_view->readDirectoryList(rootIndex);
 		setModified(false);
@@ -1042,14 +1048,14 @@ bool Kid3App::saveDirectory(bool updateGui, QString* errStr)
 
 	QStringList errorFiles;
 	int numFiles = 0, totalFiles = 0;
-	FileListItem* mp3file = m_view->firstFile();
 	// Get number of files to be saved to display correct progressbar
-	while (mp3file != 0) {
-		if (mp3file->getFile()->isChanged()) {
+	TaggedFileIterator countIt(m_view->getFileList()->rootIndex());
+	while (countIt.hasNext()) {
+		if (countIt.next()->isChanged()) {
 			++totalFiles;
 		}
-		mp3file = m_view->nextFile();
 	}
+
 	QProgressBar* progress = new QProgressBar();
 	statusBar()->addPermanentWidget(progress);
 	progress->setMinimum(0);
@@ -1060,16 +1066,13 @@ bool Kid3App::saveDirectory(bool updateGui, QString* errStr)
 #else
 	qApp->processEvents();
 #endif
-	mp3file = m_view->firstFile();
-	while (mp3file != 0) {
+	TaggedFileIterator it(m_view->getFileList()->rootIndex());
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
 		bool renamed = false;
-		if (!mp3file->getFile()->writeTags(false, &renamed, s_miscCfg.m_preserveTime)) {
-			errorFiles.push_back(mp3file->getFile()->getFilename());
+		if (!taggedFile->writeTags(false, &renamed, s_miscCfg.m_preserveTime)) {
+			errorFiles.push_back(taggedFile->getFilename());
 		}
-		if (renamed) {
-			mp3file->updateText();
-		}
-		mp3file = m_view->nextFile();
 		++numFiles;
 		progress->setValue(numFiles);
 	}
@@ -1328,7 +1331,12 @@ void Kid3App::slotFileOpen()
 		}
 #else
 		dir = QFileDialog::getOpenFileName(
-			this, QString(), s_dirName, flt, &filter);
+			this, QString(), s_dirName, flt, &filter
+#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+			// filter does not work with the KDE style file dialog
+			, QFileDialog::DontUseNativeDialog
+#endif
+			);
 #endif
 		if (!dir.isEmpty()) {
 			int start = filter.indexOf('('), end = filter.indexOf(')');
@@ -1354,7 +1362,11 @@ void Kid3App::slotFileOpenDirectory()
 #ifdef CONFIG_USE_KDE
 		dir = KFileDialog::getExistingDirectory(s_dirName, this);
 #else
-		dir = QFileDialog::getExistingDirectory(this, QString(), s_dirName);
+		dir = QFileDialog::getExistingDirectory(this, QString(), s_dirName
+#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+			, QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
+#endif
+			);
 #endif
 		if (!dir.isEmpty()) {
 			openDirectory(dir);
@@ -1392,15 +1404,17 @@ void Kid3App::slotFileOpenRecentDirectory(const QString& dir)
  */
 void Kid3App::slotFileRevert()
 {
-	FileListItem* mp3file = m_view->firstFile();
-	bool no_selection = m_view->numFilesSelected() == 0;
-	while (mp3file != 0) {
-		if (no_selection || mp3file->isInSelection()) {
-			mp3file->getFile()->readTags(true);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																true);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(true);
+		// update icon
+		m_view->getFileList()->dataChanged(taggedFile->getIndex(),
+																			 taggedFile->getIndex());
 	}
-	if (!no_selection) {
+	if (!it.hasNoSelection()) {
 		m_view->frameTableV1()->frames().clear();
 		m_view->frameTableV1()->framesToTable();
 		m_view->frameTableV2()->frames().clear();
@@ -1584,18 +1598,33 @@ void Kid3App::slotPlaylistDialog()
  */
 bool Kid3App::writePlaylist(const PlaylistConfig& cfg)
 {
-	PlaylistCreator plCtr(m_view->getDirInfo()->getDirname(), cfg);
+	PlaylistCreator plCtr(m_view->getDirPath(), cfg);
 	QString selectedDirPrefix;
-	FileListItem* item = cfg.m_location == PlaylistConfig::PL_CurrentDirectory ?
-		m_view->firstFileInDir() : m_view->firstFileOrDir();
-	bool noSelection = !cfg.m_onlySelectedFiles ||
-		m_view->numFilesOrDirsSelected() == 0;
+	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
+	bool noSelection = !cfg.m_onlySelectedFiles || !selectModel->hasSelection();
 	bool ok = true;
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	slotStatusMsg(i18n("Creating playlist..."));
-	while (item != 0) {
-		PlaylistCreator::Item plItem(item, plCtr);
+	QModelIndex firstIndex;
+	if (cfg.m_location == PlaylistConfig::PL_CurrentDirectory) {
+		// Get first child of parent of current index.
+		firstIndex = m_view->getFileList()->currentIndex();
+		if (!firstIndex.model()->hasChildren())
+			firstIndex = firstIndex.parent();
+		firstIndex = firstIndex.model()->index(0, 0, firstIndex);
+	} else {
+		m_view->getFileList()->expandAll();
+		firstIndex = m_view->getFileList()->rootIndex();
+	}
+	ModelIterator it(firstIndex);
+	while (it.hasNext()) {
+		QModelIndex index = it.next();
+		PlaylistCreator::Item plItem(index, plCtr);
 		bool inSelectedDir = false;
+		if (cfg.m_location == PlaylistConfig::PL_CurrentDirectory &&
+				plItem.isDir())
+			break;
+
 		if (cfg.m_location != PlaylistConfig::PL_CurrentDirectory &&
 				plItem.isDir()) {
 			if (!selectedDirPrefix.isEmpty()) {
@@ -1605,9 +1634,8 @@ bool Kid3App::writePlaylist(const PlaylistConfig& cfg)
 					selectedDirPrefix = "";
 				}
 			}
-			if (inSelectedDir || noSelection || item->isSelected()) {
+			if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
 				// if directory is selected, all its files are selected
-				item->setExpanded(true);
 				if (!inSelectedDir) {
 					selectedDirPrefix = plItem.getDirName();
 				}
@@ -1621,12 +1649,10 @@ bool Kid3App::writePlaylist(const PlaylistConfig& cfg)
 					selectedDirPrefix = "";
 				}
 			}
-			if (inSelectedDir || noSelection || item->isSelected()) {
+			if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
 				ok = plItem.add() && ok;
 			}
 		}
-		item = cfg.m_location == PlaylistConfig::PL_CurrentDirectory ?
-			m_view->nextFileInDir() : m_view->nextFileOrDir();
 	}
 	ok = plCtr.write() && ok;
 	slotStatusMsg(i18n("Ready."));
@@ -1650,29 +1676,29 @@ bool Kid3App::slotCreatePlaylist()
 void Kid3App::setupImportDialog()
 {
 	m_trackDataList.clearData();
-	FileListItem* mp3file = m_view->firstFileInDir();
 	bool firstTrack = true;
 	bool tag1Supported = true;
-	while (mp3file != 0) {
-		mp3file->getFile()->readTags(false);
+	TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentIndex());
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
 		if (firstTrack) {
 			FrameCollection frames;
-			mp3file->getFile()->getAllFramesV2(frames);
+			taggedFile->getAllFramesV2(frames);
 			QString artist = frames.getArtist();
 			QString album = frames.getAlbum();
 			if (artist.isEmpty() && album.isEmpty()) {
-				mp3file->getFile()->getAllFramesV1(frames);
+				taggedFile->getAllFramesV1(frames);
 				artist = frames.getArtist();
 				album = frames.getAlbum();
 			}
 			m_trackDataList.setArtist(artist);
 			m_trackDataList.setAlbum(album);
 			firstTrack = false;
-			tag1Supported = mp3file->getFile()->isTagV1Supported();
+			tag1Supported = taggedFile->isTagV1Supported();
 		}
-		m_trackDataList.push_back(ImportTrackData(mp3file->getFile()->getAbsFilename(),
-		                                          mp3file->getFile()->getDuration()));
-		mp3file = m_view->nextFileInDir();
+		m_trackDataList.push_back(ImportTrackData(taggedFile->getAbsFilename(),
+																							taggedFile->getDuration()));
 	}
 
 	if (!m_importDialog) {
@@ -1702,10 +1728,9 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 	FrameFilter flt(destV1 ?
 	                m_view->frameTableV1()->getEnabledFrameFilter(true) :
 	                m_view->frameTableV2()->getEnabledFrameFilter(true));
-	bool no_selection = m_view->numFilesSelected() == 0;
-	FileListItem* mp3file = m_view->firstFileInDir();
-	while (mp3file != 0) {
-		TaggedFile* taggedFile = mp3file->getFile();
+	TaggedFileOfDirectoryIterator tfit(m_view->getFileList()->currentIndex());
+	while (tfit.hasNext()) {
+		TaggedFile* taggedFile = tfit.next();
 		taggedFile->readTags(false);
 		if (it != m_trackDataList.end()) {
 			it->removeDisabledFrames(flt);
@@ -1716,9 +1741,8 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 		} else {
 			break;
 		}
-		mp3file = m_view->nextFileInDir();
 	}
-	if (!no_selection) {
+	if (m_view->getFileList()->selectionModel()->hasSelection()) {
 		m_view->frameTableV1()->frames().clear();
 		m_view->frameTableV1()->framesToTable();
 		m_view->frameTableV2()->frames().clear();
@@ -1872,10 +1896,8 @@ void Kid3App::slotBrowseCoverArt()
 	}
 	if (m_browseCoverArtDialog) {
 		FrameCollection frames2;
-		FileListItem* item;
-		TaggedFile* taggedFile;
-		if ((item = m_view->currentFile()) != 0 &&
-				(taggedFile = item->getFile()) != 0) {
+		QModelIndex index = m_view->currentFile();
+		if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
 			taggedFile->readTags(false);
 			FrameCollection frames1;
 			taggedFile->getAllFramesV1(frames1);
@@ -1889,40 +1911,6 @@ void Kid3App::slotBrowseCoverArt()
 	}
 }
 
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-/**
- * Read file with TagLib if it has an ID3v2.4 or ID3v2.2 tag.
- * ID3v2.2 files are also read with TagLib because id3lib corrupts
- * images in ID3v2.2 tags.
- *
- * @param item       file list item, can be updated if not null
- * @param taggedFile tagged file
- *
- * @return tagged file (can be new TagLibFile).
- */
-TaggedFile* Kid3App::readWithTagLibIfId3V24(FileListItem* item,
-																					TaggedFile* taggedFile)
-{
-	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
-			!taggedFile->isChanged() &&
-			taggedFile->isTagInformationRead() && taggedFile->hasTagV2()) {
-		QString id3v2Version = taggedFile->getTagFormatV2();
-		if (id3v2Version.isNull() || id3v2Version == "ID3v2.2.0") {
-			TagLibFile* tagLibFile;
-			if ((tagLibFile = new TagLibFile(
-					taggedFile->getDirInfo(),
-					taggedFile->getFilename())) != 0) {
-				if (item)
-					item->setFile(tagLibFile);
-				taggedFile = tagLibFile;
-				taggedFile->readTags(false);
-			}
-		}
-	}
-	return taggedFile;
-}
-#endif
-
 /**
  * Set data to be exported.
  *
@@ -1933,30 +1921,27 @@ void Kid3App::setExportData(int src)
 {
 	if (m_exportDialog) {
 		ImportTrackDataVector trackDataVector;
-		FileListItem* mp3file = m_view->firstFileInDir();
-		while (mp3file != 0) {
-			TaggedFile* taggedFile = mp3file->getFile();
-			if (taggedFile) {
-				taggedFile->readTags(false);
+		TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentIndex());
+		while (it.hasNext()) {
+			TaggedFile* taggedFile = it.next();
+			taggedFile->readTags(false);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-				taggedFile = readWithTagLibIfId3V24(mp3file, taggedFile);
+			taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
 #endif
-				ImportTrackData trackData(taggedFile->getAbsFilename(),
-																	taggedFile->getDuration());
-				trackData.setFileExtension(taggedFile->getFileExtension());
-				trackData.setTagFormatV1(taggedFile->getTagFormatV1());
-				trackData.setTagFormatV2(taggedFile->getTagFormatV2());
-				TaggedFile::DetailInfo info;
-				taggedFile->getDetailInfo(info);
-				trackData.setDetailInfo(info);
-				if (src == ExportDialog::SrcV1) {
-					taggedFile->getAllFramesV1(trackData);
-				} else {
-					taggedFile->getAllFramesV2(trackData);
-				}
-				trackDataVector.push_back(trackData);
+			ImportTrackData trackData(taggedFile->getAbsFilename(),
+																taggedFile->getDuration());
+			trackData.setFileExtension(taggedFile->getFileExtension());
+			trackData.setTagFormatV1(taggedFile->getTagFormatV1());
+			trackData.setTagFormatV2(taggedFile->getTagFormatV2());
+			TaggedFile::DetailInfo info;
+			taggedFile->getDetailInfo(info);
+			trackData.setDetailInfo(info);
+			if (src == ExportDialog::SrcV1) {
+				taggedFile->getAllFramesV1(trackData);
+			} else {
+				taggedFile->getAllFramesV2(trackData);
 			}
-			mp3file = m_view->nextFileInDir();
+			trackDataVector.push_back(trackData);
 		}
 		m_exportDialog->setExportData(trackDataVector);
 	}
@@ -2088,17 +2073,15 @@ void Kid3App::slotSettingsConfigure()
 void Kid3App::slotApplyFilenameFormat()
 {
 	updateCurrentSelection();
-	FileListItem* mp3file = m_view->firstFile();
-	bool no_selection = m_view->numFilesSelected() == 0;
-	while (mp3file != 0) {
-		if (no_selection || mp3file->isInSelection()) {
-			mp3file->getFile()->readTags(false);
-			QString str;
-			str = mp3file->getFile()->getFilename();
-			s_fnFormatCfg.formatString(str);
-			mp3file->getFile()->setFilename(str);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																true);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		QString fn = taggedFile->getFilename();
+		s_fnFormatCfg.formatString(fn);
+		taggedFile->setFilename(fn);
 	}
 	updateGuiControls();
 }
@@ -2112,22 +2095,20 @@ void Kid3App::slotApplyId3Format()
 	updateCurrentSelection();
 	FrameFilter fltV1(m_view->frameTableV1()->getEnabledFrameFilter(true));
 	FrameFilter fltV2(m_view->frameTableV2()->getEnabledFrameFilter(true));
-	FileListItem* mp3file = m_view->firstFile();
-	bool no_selection = m_view->numFilesSelected() == 0;
-	while (mp3file != 0) {
-		if (no_selection || mp3file->isInSelection()) {
-			TaggedFile* taggedFile = mp3file->getFile();
-			taggedFile->readTags(false);
-			taggedFile->getAllFramesV1(frames);
-			frames.removeDisabledFrames(fltV1);
-			s_id3FormatCfg.formatFrames(frames);
-			taggedFile->setFramesV1(frames);
-			taggedFile->getAllFramesV2(frames);
-			frames.removeDisabledFrames(fltV2);
-			s_id3FormatCfg.formatFrames(frames);
-			taggedFile->setFramesV2(frames);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																true);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		taggedFile->getAllFramesV1(frames);
+		frames.removeDisabledFrames(fltV1);
+		s_id3FormatCfg.formatFrames(frames);
+		taggedFile->setFramesV1(frames);
+		taggedFile->getAllFramesV2(frames);
+		frames.removeDisabledFrames(fltV2);
+		s_id3FormatCfg.formatFrames(frames);
+		taggedFile->setFramesV2(frames);
 	}
 	updateGuiControls();
 }
@@ -2139,19 +2120,15 @@ void Kid3App::scheduleRenameActions()
 {
 	if (m_renDirDialog) {
 		m_renDirDialog->clearActions();
-		TaggedFile* taggedFile;
-		FileListItem* item = m_view->firstFileOrDir();
-		while (item) {
-			if (item->getDirInfo()) {
-				item->setExpanded(true);
-			} else if ((taggedFile = item->getFile()) != 0) {
-				taggedFile->readTags(false);
+		m_view->getFileList()->expandAll();
+		TaggedFileIterator it(m_view->getFileList()->rootIndex());
+		while (it.hasNext()) {
+			TaggedFile* taggedFile = it.next();
+			taggedFile->readTags(false);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-				taggedFile = readWithTagLibIfId3V24(item, taggedFile);
+			taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
 #endif
-				m_renDirDialog->scheduleAction(taggedFile);
-			}
-			item = m_view->nextFileOrDir();
+			m_renDirDialog->scheduleAction(taggedFile);
 #ifdef CONFIG_USE_KDE
 			kapp->processEvents();
 #else
@@ -2179,14 +2156,16 @@ bool Kid3App::renameDirectory(int tagMask, const QString& format,
 															bool create, QString* errStr)
 {
 	bool ok = false;
-	if (!isModified() && m_view->firstFileInDir()) {
+	TaggedFile* taggedFile =
+		TaggedFileOfDirectoryIterator::first(m_view->getFileList()->currentIndex());
+	if (!isModified() && taggedFile) {
 		if (!m_renDirDialog) {
 			m_renDirDialog = new RenDirDialog(0);
 			connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
 							this, SLOT(scheduleRenameActions()));
 		}
 		if (m_renDirDialog) {
-			m_renDirDialog->startDialog(m_view->firstFileInDir()->getFile());
+			m_renDirDialog->startDialog(taggedFile);
 			m_renDirDialog->setTagSource(tagMask);
 			m_renDirDialog->setDirectoryFormat(format);
 			m_renDirDialog->setAction(create);
@@ -2216,22 +2195,19 @@ void Kid3App::slotRenameDirectory()
 							this, SLOT(scheduleRenameActions()));
 		}
 		if (m_renDirDialog) {
-			FileListItem* item = m_view->currentFile();
-			if (item && item->isSelected()) {
-				TaggedFile* taggedFile;
-				const DirInfo* dirInfo = item->getDirInfo();
-				if (dirInfo) {
-					item->setExpanded(true);
-				} else if ((taggedFile = item->getFile()) != 0) {
-					dirInfo = taggedFile->getDirInfo();
-				}
-				if (dirInfo) {
-					openDirectory(dirInfo->getDirname());
-				}
+			QModelIndex index = m_view->currentFile();
+			QString dirName = FileProxyModel::getPathIfIndexOfDir(index);
+			if (!dirName.isNull()) {
+				m_view->getFileList()->expand(index);
+			} else if (TaggedFile* taggedFile =
+								 FileProxyModel::getTaggedFileOfIndex(index)) {
+				dirName = taggedFile->getDirname();
 			}
-			item = m_view->firstFileInDir();
-			if (item) {
-				m_renDirDialog->startDialog(item->getFile());
+			if (!dirName.isEmpty()) {
+				openDirectory(dirName);
+			}
+			if (TaggedFile* taggedFile = TaggedFileOfDirectoryIterator::first(index)) {
+				m_renDirDialog->startDialog(taggedFile);
 			} else {
 				m_renDirDialog->startDialog(0, getDirName());
 			}
@@ -2259,12 +2235,9 @@ void Kid3App::slotRenameDirectory()
  */
 int Kid3App::getTotalNumberOfTracksInDir()
 {
-	FileListItem* item = m_view->firstFileInDir();
-	if (item) {
-		const DirInfo* dirInfo = item->getFile()->getDirInfo();
-		if (dirInfo) {
-			return dirInfo->getNumFiles();
-		}
+	if (TaggedFile* taggedFile = TaggedFileOfDirectoryIterator::first(
+			m_view->getFileList()->currentIndex())) {
+		return taggedFile->getTotalNumberOfTracksInDir();
 	}
 	return 0;
 }
@@ -2280,52 +2253,50 @@ int Kid3App::getTotalNumberOfTracksInDir()
 void Kid3App::numberTracks(int nr, int total, bool destV1, bool destV2)
 {
 	updateCurrentSelection();
-	FileListItem* mp3file = m_view->firstFileInDir();
-	bool no_selection = m_view->numFilesSelected() == 0;
 	int numDigits = Kid3App::s_miscCfg.m_trackNumberDigits;
 	if (numDigits < 1 || numDigits > 5)
 		numDigits = 1;
-	while (mp3file != 0) {
-		if (no_selection || mp3file->isInSelection()) {
-			mp3file->getFile()->readTags(false);
-			if (destV1) {
-				int oldnr = mp3file->getFile()->getTrackNumV1();
-				if (nr != oldnr) {
-					mp3file->getFile()->setTrackNumV1(nr);
-				}
+
+	QModelIndex curIdx(m_view->getFileList()->currentIndex());
+	SelectedTaggedFileOfDirectoryIterator it(m_view->getFileList()->currentIndex(),
+																m_view->getFileList()->selectionModel(),
+																true);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		if (destV1) {
+			int oldnr = taggedFile->getTrackNumV1();
+			if (nr != oldnr) {
+				taggedFile->setTrackNumV1(nr);
 			}
-			if (destV2) {
-				// For tag 2 the frame is written, so that we have control over the
-				// format and the total number of tracks, and it is possible to change
-				// the format even if the numbers stay the same.
-				TaggedFile* taggedFile = mp3file->getFile();
-				if (taggedFile) {
-					QString value;
-					if (total > 0) {
-						value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
-					} else {
-						value.sprintf("%0*d", numDigits, nr);
-					}
-					FrameCollection frames;
-					taggedFile->getAllFramesV2(frames);
-					Frame frame(Frame::FT_Track, "", "", -1);
-					FrameCollection::const_iterator it = frames.find(frame);
-					if (it != frames.end()) {
-						frame = *it;
-						frame.setValueIfChanged(value);
-						if (frame.isValueChanged()) {
-							taggedFile->setFrameV2(frame);
-						}
-					} else {
-						frame.setValue(value);
-						frame.setInternalName(Frame::getNameFromType(Frame::FT_Track));
-						taggedFile->setFrameV2(frame);
-					}
-				}
-			}
-			++nr;
 		}
-		mp3file = m_view->nextFileInDir();
+		if (destV2) {
+			// For tag 2 the frame is written, so that we have control over the
+			// format and the total number of tracks, and it is possible to change
+			// the format even if the numbers stay the same.
+			QString value;
+			if (total > 0) {
+				value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
+			} else {
+				value.sprintf("%0*d", numDigits, nr);
+			}
+			FrameCollection frames;
+			taggedFile->getAllFramesV2(frames);
+			Frame frame(Frame::FT_Track, "", "", -1);
+			FrameCollection::const_iterator it = frames.find(frame);
+			if (it != frames.end()) {
+				frame = *it;
+				frame.setValueIfChanged(value);
+				if (frame.isValueChanged()) {
+					taggedFile->setFrameV2(frame);
+				}
+			} else {
+				frame.setValue(value);
+				frame.setInternalName(Frame::getNameFromType(Frame::FT_Track));
+				taggedFile->setFrameV2(frame);
+			}
+		}
+		++nr;
 	}
 	updateGuiControls();
 }
@@ -2364,72 +2335,50 @@ void Kid3App::slotNumberTracks()
  * Apply a file filter to a directory.
  *
  * @param fileFilter filter to apply
- * @param dirContents directory contents, will be filled with results
+ * @param model the model to be filtered
+ * @param rootIndex model index of root directory
  *
  * @return true if ok, false if aborted.
  */
-bool Kid3App::applyFilterToDir(FileFilter& fileFilter, DirContents* dirContents)
+bool Kid3App::applyFilterToModel(FileFilter& fileFilter, FileProxyModel* model,
+																 const QModelIndex& rootIndex)
 {
 	bool ok = true;
-	int numFiles = 0;
-	QString dirname = dirContents->getDirname();
-	QDir dir(dirname);
-	const QDir::Filters dirFilters =
-		QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Files;
-	QStringList nameFilters(Kid3App::s_miscCfg.m_nameFilter.split(' '));
-	QStringList dirEntries = dir.entryList(
-		nameFilters, dirFilters, QDir::DirsFirst | QDir::IgnoreCase);
-	for (QStringList::Iterator it = dirEntries.begin();
-			 it != dirEntries.end(); ++it) {
-		QString filename = dirname + QDir::separator() + *it;
-		if (!QFileInfo(filename).isDir()) {
-			TaggedFile* taggedFile = TaggedFile::createFile(dirContents, *it);
-			if (taggedFile) {
-				taggedFile->readTags(false);
+	unsigned numFiles = 0;
+	TaggedFileIterator it(rootIndex);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+
+		taggedFile->readTags(false);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-				taggedFile = readWithTagLibIfId3V24(0, taggedFile);
+		taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
 #endif
-				bool pass = fileFilter.filter(*taggedFile, &ok);
-				if (!ok) {
-					if (m_filterDialog) {
-						m_filterDialog->showInformation("parse error");
-					}
-					break;
-				}
-				if (m_filterDialog) {
-					m_filterDialog->showInformation(
-						(pass ? QString("+\t") : QString("-\t")) + *it);
-				}
-				if (pass) {
-					dirContents->files().append(*it);
-				}
-				++numFiles;
-				delete taggedFile;
+		bool pass = fileFilter.filter(*taggedFile, &ok);
+		if (!ok) {
+			if (m_filterDialog) {
+				m_filterDialog->showInformation("parse error");
 			}
-		} else {
-			if (*it != "." && *it != "..") {
-				DirContents* subDirContents = new DirContents(filename);
-				ok = applyFilterToDir(fileFilter, subDirContents);
-				if (subDirContents->getFiles().size() > 0 ||
-						subDirContents->getDirs().size() > 0) {
-					dirContents->dirs().append(subDirContents);
-				} else {
-					delete subDirContents; 
-				}
-				if (!ok) {
-					break;
-				}
-			}
+			break;
+		}
+		if (m_filterDialog) {
+			m_filterDialog->showInformation(
+				(pass ? QString("+\t") : QString("-\t")) + taggedFile->getFilename());
+		}
+		if (!pass)
+			model->filterOutIndex(taggedFile->getIndex());
+
+		if (++numFiles == 8) {
+			numFiles = 0;
+#ifdef CONFIG_USE_KDE
+			kapp->processEvents();
+#else
+			qApp->processEvents();
+#endif
+			if (m_filterDialog && m_filterDialog->getAbortFlag())
+				break;
 		}
 	}
-	dirContents->setNumFiles(numFiles);
-
-#ifdef CONFIG_USE_KDE
-	kapp->processEvents();
-#else
-	qApp->processEvents();
-#endif
-	return ok && !(m_filterDialog && m_filterDialog->getAbortFlag());
+	return false;
 }
 
 /**
@@ -2439,23 +2388,22 @@ bool Kid3App::applyFilterToDir(FileFilter& fileFilter, DirContents* dirContents)
  */
 void Kid3App::applyFilter(FileFilter& fileFilter)
 {
-	const DirInfo* dirInfo = m_view->getDirInfo();
-	if (!dirInfo) return;
-	QString dirname = dirInfo->getDirname();
+	QModelIndex rootIndex(m_view->getFileList()->rootIndex());
+	FileProxyModel* model =
+			qobject_cast<FileProxyModel*>(m_view->getFileList()->model());
+	if (!rootIndex.isValid() || !model)
+		return;
 
-	if (isFiltered()) {
-		m_view->readFileList(dirname);
-		setFiltered(false);
-	}
+	model->disableFilteringOutIndexes();
+	setFiltered(false);
 
 	if (m_filterDialog) {
 		m_filterDialog->clearAbortFlag();
 	}
 
-	DirContents dirContents(dirname);
-	applyFilterToDir(fileFilter, &dirContents);
+	applyFilterToModel(fileFilter, model, rootIndex);
 
-	m_view->getFileList()->setFromDirContents(dirContents);
+	model->applyFilteringOutIndexes();
 	setFiltered(!fileFilter.isEmptyFilterExpression());
 	updateModificationState();
 }
@@ -2486,48 +2434,39 @@ void Kid3App::slotConvertToId3v24()
 {
 #ifdef HAVE_TAGLIB
 	updateCurrentSelection();
-	FileListItem* item = m_view->firstFile();
-	while (item != 0) {
-		TaggedFile* taggedFile;
-		if (item->isInSelection() &&
-				(taggedFile = item->getFile()) != 0) {
-			taggedFile->readTags(false);
-			if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
-				QString tagFmt = taggedFile->getTagFormatV2();
-				if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] < '4') {
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
+			QString tagFmt = taggedFile->getTagFormatV2();
+			if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] < '4') {
 #ifdef HAVE_ID3LIB
-					if (dynamic_cast<Mp3File*>(taggedFile) != 0) {
-						FrameCollection frames;
-						taggedFile->getAllFramesV2(frames);
-						FrameFilter flt;
-						flt.enableAll();
-						taggedFile->deleteFramesV2(flt);
+				if (dynamic_cast<Mp3File*>(taggedFile) != 0) {
+					FrameCollection frames;
+					taggedFile->getAllFramesV2(frames);
+					FrameFilter flt;
+					flt.enableAll();
+					taggedFile->deleteFramesV2(flt);
 
-						// The file has to be read with TagLib to write ID3v2.4 tags
-						TagLibFile* tagLibFile;
-						if ((tagLibFile = new TagLibFile(
-									 taggedFile->getDirInfo(),
-									 taggedFile->getFilename())) != 0) {
-							item->setFile(tagLibFile);
-							taggedFile = tagLibFile;
-							taggedFile->readTags(false);
-						}
+					// The file has to be read with TagLib to write ID3v2.4 tags
+					taggedFile = FileProxyModel::readWithTagLib(taggedFile);
 
-						// Restore the frames
-						FrameFilter frameFlt;
-						frameFlt.enableAll();
-						taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
-					}
+					// Restore the frames
+					FrameFilter frameFlt;
+					frameFlt.enableAll();
+					taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
+				}
 #endif
 
-					// Write the file with TagLib, it always writes ID3v2.4 tags
-					bool renamed;
-					taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
-					taggedFile->readTags(true);
-				}
+				// Write the file with TagLib, it always writes ID3v2.4 tags
+				bool renamed;
+				taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
+				taggedFile->readTags(true);
 			}
 		}
-		item = m_view->nextFile();
 	}
 	updateGuiControls();
 #endif
@@ -2540,46 +2479,37 @@ void Kid3App::slotConvertToId3v23()
 {
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 	updateCurrentSelection();
-	FileListItem* item = m_view->firstFile();
-	while (item != 0) {
-		TaggedFile* taggedFile;
-		if (item->isInSelection() &&
-				(taggedFile = item->getFile()) != 0) {
-			taggedFile->readTags(false);
-			if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
-				QString tagFmt = taggedFile->getTagFormatV2();
-				if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3') {
-					if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
-						FrameCollection frames;
-						taggedFile->getAllFramesV2(frames);
-						FrameFilter flt;
-						flt.enableAll();
-						taggedFile->deleteFramesV2(flt);
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
+			QString tagFmt = taggedFile->getTagFormatV2();
+			if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3') {
+				if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
+					FrameCollection frames;
+					taggedFile->getAllFramesV2(frames);
+					FrameFilter flt;
+					flt.enableAll();
+					taggedFile->deleteFramesV2(flt);
 
-						// The file has to be read with id3lib to write ID3v2.3 tags
-						Mp3File* id3libFile;
-						if ((id3libFile = new Mp3File(
-									 taggedFile->getDirInfo(),
-									 taggedFile->getFilename())) != 0) {
-							item->setFile(id3libFile);
-							taggedFile = id3libFile;
-							taggedFile->readTags(false);
-						}
+					// The file has to be read with id3lib to write ID3v2.3 tags
+					taggedFile = FileProxyModel::readWithId3Lib(taggedFile);
 
-						// Restore the frames
-						FrameFilter frameFlt;
-						frameFlt.enableAll();
-						taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
-					}
-
-					// Write the file with id3lib, it always writes ID3v2.3 tags
-					bool renamed;
-					taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
-					taggedFile->readTags(true);
+					// Restore the frames
+					FrameFilter frameFlt;
+					frameFlt.enableAll();
+					taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
 				}
+
+				// Write the file with id3lib, it always writes ID3v2.3 tags
+				bool renamed;
+				taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
+				taggedFile->readTags(true);
 			}
 		}
-		item = m_view->nextFile();
 	}
 	updateGuiControls();
 #endif
@@ -2593,26 +2523,29 @@ void Kid3App::slotPlayAudio()
 #ifdef HAVE_PHONON
 	QStringList files;
 	int fileNr = 0;
-	FileListItem* item = m_view->firstFile();
-
-	if (m_view->numFilesSelected() > 1) {
+	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
+	if (selectModel->selectedIndexes().size() > 1) {
 		// play only the selected files if more than one is selected
-		while (item != 0) {
-			if (item->isInSelection()) {
-				files.push_back(item->getFile()->getAbsFilename());
-			}
-			item = m_view->nextFile();
+		SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																	m_view->getFileList()->selectionModel(),
+																	false);
+		while (it.hasNext()) {
+			files.append(it.next()->getAbsFilename());
 		}
 	} else {
 		// play all files if none or only one is selected
 		int idx = 0;
-		while (item != 0) {
-			files.push_back(item->getFile()->getAbsFilename());
-			if (item->isInSelection()) {
-				fileNr = idx;
+		QModelIndex rootIndex(m_view->getFileList()->rootIndex());
+		ModelIterator it(rootIndex);
+		while (it.hasNext()) {
+			QModelIndex index = it.next();
+			if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+				files.append(taggedFile->getAbsFilename());
+				if (selectModel->isSelected(index)) {
+					fileNr = idx;
+				}
+				++idx;
 			}
-			item = m_view->nextFile();
-			++idx;
 		}
 	}
 
@@ -2739,12 +2672,11 @@ void Kid3App::imageDownloaded(const QByteArray& data,
 	if (mimeType.startsWith("image")) {
 		PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
 		if (m_downloadToAllFilesInDir) {
-			FileListItem* mp3file = m_view->firstFileInDir();
-			while (mp3file != 0) {
-				TaggedFile* taggedFile = mp3file->getFile();
+			TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentIndex());
+			while (it.hasNext()) {
+				TaggedFile* taggedFile = it.next();
 				taggedFile->readTags(false);
 				taggedFile->addFrameV2(frame);
-				mp3file = m_view->nextFileInDir();
 			}
 			m_downloadToAllFilesInDir = false;
 		} else {
@@ -2759,7 +2691,16 @@ void Kid3App::imageDownloaded(const QByteArray& data,
  */
 void Kid3App::updateModificationState()
 {
-	setModified(m_view->updateModificationState());
+	bool modified = false;
+	TaggedFileIterator it(m_view->getFileList()->rootIndex());
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		if (taggedFile->isChanged()) {
+			modified = true;
+			break;
+		}
+	}
+	setModified(modified);
 	QString cap(s_dirName);
 	if (isFiltered()) {
 		cap += i18n(" [filtered]");
@@ -2783,24 +2724,20 @@ void Kid3App::updateModificationState()
  */
 void Kid3App::updateCurrentSelection()
 {
-	const QList<QTreeWidgetItem*>& selItems =
+	const QList<QPersistentModelIndex>& selItems =
 		m_view->getFileList()->getCurrentSelection();
 	int numFiles = selItems.size();
 	if (numFiles > 0) {
 		m_view->frameTableV1()->tableToFrames(numFiles > 1);
 		m_view->frameTableV2()->tableToFrames(numFiles > 1);
-		for (QList<QTreeWidgetItem*>::const_iterator it = selItems.begin();
+		for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
 				 it != selItems.end();
 				 ++it) {
-			FileListItem* item = dynamic_cast<FileListItem*>(*it);
-			if (item) {
-				TaggedFile* taggedFile = item->getFile();
-				if (taggedFile) {
-					taggedFile->setFramesV1(m_view->frameTableV1()->frames());
-					taggedFile->setFramesV2(m_view->frameTableV2()->frames());
-					if (m_view->isFilenameEditEnabled()) {
-						taggedFile->setFilename(m_view->getFilename());
-					}
+			if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
+				taggedFile->setFramesV1(m_view->frameTableV1()->frames());
+				taggedFile->setFramesV2(m_view->frameTableV2()->frames());
+				if (m_view->isFilenameEditEnabled()) {
+					taggedFile->setFilename(m_view->getFilename());
 				}
 			}
 		}
@@ -2823,49 +2760,46 @@ void Kid3App::updateGuiControls()
 	bool hasTagV2 = false;
 
 	m_view->getFileList()->updateCurrentSelection();
-	const QList<QTreeWidgetItem*>& selItems =
-		m_view->getFileList()->getCurrentSelection();
+	const QList<QPersistentModelIndex>& selItems =
+			m_view->getFileList()->getCurrentSelection();
 
-	for (QList<QTreeWidgetItem*>::const_iterator it = selItems.begin();
+	for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
 			 it != selItems.end();
 			 ++it) {
-		FileListItem* mp3file = dynamic_cast<FileListItem*>(*it);
-		if (mp3file) {
-			TaggedFile* taggedFile = mp3file->getFile();
-			if (taggedFile) {
-				taggedFile->readTags(false);
+		TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it);
+		if (taggedFile) {
+			taggedFile->readTags(false);
 
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-				taggedFile = readWithTagLibIfId3V24(mp3file, taggedFile);
+			taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
 #endif
 
-				if (taggedFile->isTagV1Supported()) {
-					if (num_v1_selected == 0) {
-						taggedFile->getAllFramesV1(m_view->frameTableV1()->frames());
-					}
-					else {
-						FrameCollection fileFrames;
-						taggedFile->getAllFramesV1(fileFrames);
-						m_view->frameTableV1()->frames().filterDifferent(fileFrames);
-					}
-					++num_v1_selected;
-					tagV1Supported = true;
-				}
-				if (num_v2_selected == 0) {
-					taggedFile->getAllFramesV2(m_view->frameTableV2()->frames());
-					single_v2_file = taggedFile;
+			if (taggedFile->isTagV1Supported()) {
+				if (num_v1_selected == 0) {
+					taggedFile->getAllFramesV1(m_view->frameTableV1()->frames());
 				}
 				else {
 					FrameCollection fileFrames;
-					taggedFile->getAllFramesV2(fileFrames);
-					m_view->frameTableV2()->frames().filterDifferent(fileFrames);
-					single_v2_file = 0;
+					taggedFile->getAllFramesV1(fileFrames);
+					m_view->frameTableV1()->frames().filterDifferent(fileFrames);
 				}
-				++num_v2_selected;
-
-				hasTagV1 = hasTagV1 || taggedFile->hasTagV1();
-				hasTagV2 = hasTagV2 || taggedFile->hasTagV2();
+				++num_v1_selected;
+				tagV1Supported = true;
 			}
+			if (num_v2_selected == 0) {
+				taggedFile->getAllFramesV2(m_view->frameTableV2()->frames());
+				single_v2_file = taggedFile;
+			}
+			else {
+				FrameCollection fileFrames;
+				taggedFile->getAllFramesV2(fileFrames);
+				m_view->frameTableV2()->frames().filterDifferent(fileFrames);
+				single_v2_file = 0;
+			}
+			++num_v2_selected;
+
+			hasTagV1 = hasTagV1 || taggedFile->hasTagV1();
+			hasTagV2 = hasTagV2 || taggedFile->hasTagV2();
 		}
 	}
 
@@ -3000,12 +2934,11 @@ void Kid3App::pasteTagsV1()
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
 													 m_view->frameTableV1()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
-	FileListItem* mp3file = m_view->firstFile();
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			mp3file->getFile()->setFramesV1(frames, false);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																false);
+	while (it.hasNext()) {
+		it.next()->setFramesV1(frames, false);
 	}
 	// update controls with filtered data
 	updateGuiControls();
@@ -3020,12 +2953,11 @@ void Kid3App::pasteTagsV2()
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
 													 m_view->frameTableV2()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
-	FileListItem* mp3file = m_view->firstFile();
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			mp3file->getFile()->setFramesV2(frames, false);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																false);
+	while (it.hasNext()) {
+		it.next()->setFramesV2(frames, false);
 	}
 	// update controls with filtered data
 	updateGuiControls();
@@ -3040,23 +2972,23 @@ void Kid3App::getTagsFromFilenameV1()
 {
 	updateCurrentSelection();
 	FrameCollection frames;
-	FileListItem* mp3file = m_view->firstFile();
-	bool multiselect = m_view->numFilesSelected() > 1;
+	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																selectModel,
+																false);
+	bool multiselect = selectModel->selectedIndexes().size() > 1;
 	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			if (!multiselect && m_view->isFilenameEditEnabled()) {
-				mp3file->getFile()->setFilename(
-					m_view->getFilename());
-			}
-			mp3file->getFile()->getAllFramesV1(frames);
-			mp3file->getFile()->getTagsFromFilename(frames,
-			                                        m_view->getFromFilenameFormat());
-			frames.removeDisabledFrames(flt);
-			formatFramesIfEnabled(frames);
-			mp3file->getFile()->setFramesV1(frames);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		if (!multiselect && m_view->isFilenameEditEnabled()) {
+			taggedFile->setFilename(m_view->getFilename());
 		}
-		mp3file = m_view->nextFile();
+		taggedFile->getAllFramesV1(frames);
+		taggedFile->getTagsFromFilename(frames,
+																		m_view->getFromFilenameFormat());
+		frames.removeDisabledFrames(flt);
+		formatFramesIfEnabled(frames);
+		taggedFile->setFramesV1(frames);
 	}
 	// update controls with filtered data
 	updateGuiControls();
@@ -3071,23 +3003,23 @@ void Kid3App::getTagsFromFilenameV2()
 {
 	updateCurrentSelection();
 	FrameCollection frames;
-	FileListItem* mp3file = m_view->firstFile();
-	bool multiselect = m_view->numFilesSelected() > 1;
+	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																selectModel,
+																false);
+	bool multiselect = selectModel->selectedIndexes().size() > 1;
 	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			if (!multiselect && m_view->isFilenameEditEnabled()) {
-				mp3file->getFile()->setFilename(
-					m_view->getFilename());
-			}
-			mp3file->getFile()->getAllFramesV2(frames);
-			mp3file->getFile()->getTagsFromFilename(frames,
-			                                        m_view->getFromFilenameFormat());
-			frames.removeDisabledFrames(flt);
-			formatFramesIfEnabled(frames);
-			mp3file->getFile()->setFramesV2(frames);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		if (!multiselect && m_view->isFilenameEditEnabled()) {
+			taggedFile->setFilename(m_view->getFilename());
 		}
-		mp3file = m_view->nextFile();
+		taggedFile->getAllFramesV2(frames);
+		taggedFile->getTagsFromFilename(frames,
+																		m_view->getFromFilenameFormat());
+		frames.removeDisabledFrames(flt);
+		formatFramesIfEnabled(frames);
+		taggedFile->setFramesV2(frames);
 	}
 	// update controls with filtered data
 	updateGuiControls();
@@ -3104,27 +3036,25 @@ void Kid3App::getFilenameFromTags(int tag_version)
 {
 	updateCurrentSelection();
 	FrameCollection frames;
-	FileListItem* mp3file = m_view->firstFile();
-	bool multiselect = m_view->numFilesSelected() > 1;
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			if (tag_version == 2) {
-				mp3file->getFile()->getAllFramesV2(frames);
-			}
-			else {
-				mp3file->getFile()->getAllFramesV1(frames);
-			}
-			if (!frames.isEmptyOrInactive()) {
-				mp3file->getFile()->getFilenameFromTags(
-					frames, m_view->getFilenameFormat());
-				formatFileNameIfEnabled(mp3file->getFile());
-				if (!multiselect) {
-					m_view->setFilename(
-						mp3file->getFile()->getFilename());
-				}
+	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																selectModel,
+																false);
+	bool multiselect = selectModel->selectedIndexes().size() > 1;
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		if (tag_version == 2) {
+			taggedFile->getAllFramesV2(frames);
+		} else {
+			taggedFile->getAllFramesV1(frames);
+		}
+		if (!frames.isEmptyOrInactive()) {
+			taggedFile->getFilenameFromTags(frames, m_view->getFilenameFormat());
+			formatFileNameIfEnabled(taggedFile);
+			if (!multiselect) {
+				m_view->setFilename(taggedFile->getFilename());
 			}
 		}
-		mp3file = m_view->nextFile();
 	}
 	// update controls with filtered data
 	updateGuiControls();
@@ -3138,15 +3068,15 @@ void Kid3App::copyV1ToV2()
 	updateCurrentSelection();
 	FrameCollection frames;
 	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
-	FileListItem* mp3file = m_view->firstFile();
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			mp3file->getFile()->getAllFramesV1(frames);
-			frames.removeDisabledFrames(flt);
-			formatFramesIfEnabled(frames);
-			mp3file->getFile()->setFramesV2(frames, false);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->getAllFramesV1(frames);
+		frames.removeDisabledFrames(flt);
+		formatFramesIfEnabled(frames);
+		taggedFile->setFramesV2(frames, false);
 	}
 	// update controls with filtered data
 	updateGuiControls();
@@ -3160,15 +3090,15 @@ void Kid3App::copyV2ToV1()
 	updateCurrentSelection();
 	FrameCollection frames;
 	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
-	FileListItem* mp3file = m_view->firstFile();
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			mp3file->getFile()->getAllFramesV2(frames);
-			frames.removeDisabledFrames(flt);
-			formatFramesIfEnabled(frames);
-			mp3file->getFile()->setFramesV1(frames, false);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->getAllFramesV2(frames);
+		frames.removeDisabledFrames(flt);
+		formatFramesIfEnabled(frames);
+		taggedFile->setFramesV1(frames, false);
 	}
 	// update controls with filtered data
 	updateGuiControls();
@@ -3181,12 +3111,11 @@ void Kid3App::removeTagsV1()
 {
 	updateCurrentSelection();
 	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
-	FileListItem* mp3file = m_view->firstFile();
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			mp3file->getFile()->deleteFramesV1(flt);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																false);
+	while (it.hasNext()) {
+		it.next()->deleteFramesV1(flt);
 	}
 	updateGuiControls();
 }
@@ -3198,12 +3127,11 @@ void Kid3App::removeTagsV2()
 {
 	updateCurrentSelection();
 	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
-	FileListItem* mp3file = m_view->firstFile();
-	while (mp3file != 0) {
-		if (mp3file->isInSelection()) {
-			mp3file->getFile()->deleteFramesV2(flt);
-		}
-		mp3file = m_view->nextFile();
+	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
+																m_view->getFileList()->selectionModel(),
+																false);
+	while (it.hasNext()) {
+		it.next()->deleteFramesV2(flt);
 	}
 	updateGuiControls();
 }
@@ -3230,18 +3158,12 @@ void Kid3App::updateAfterFrameModification(TaggedFile* taggedFile)
  */
 TaggedFile* Kid3App::getSelectedFile()
 {
-	TaggedFile* taggedFile = 0;
-	if (m_view->numFilesSelected() == 1) {
-		FileListItem* mp3file = m_view->firstFile();
-		while (mp3file != 0) {
-			if (mp3file->isInSelection()) {
-				taggedFile = mp3file->getFile();
-				break;
-			}
-			mp3file = m_view->nextFile();
-		}
-	}
-	return taggedFile;
+	QModelIndexList selItems(
+			m_view->getFileList()->selectionModel()->selectedIndexes());
+	if (selItems.size() != 1)
+		return 0;
+
+	return FileProxyModel::getTaggedFileOfIndex(selItems.first());
 }
 
 /**
@@ -3256,36 +3178,34 @@ void Kid3App::editFrame()
 		updateAfterFrameModification(taggedFile);
 	} else if (!taggedFile) {
 		// multiple files selected
-		FileListItem* mp3file = m_view->firstFile();
 		bool firstFile = true;
 		QString name;
-		TaggedFile* currentFile;
-		while (mp3file != 0) {
-			if (mp3file->isInSelection()) {
-				currentFile = mp3file->getFile();
-				if (firstFile) {
-					firstFile = false;
-					taggedFile = currentFile;
-					m_framelist->setTags(taggedFile);
-					name = m_framelist->getSelectedName();
-					if (name.isEmpty() || !m_framelist->editFrame()) {
-						break;
-					}
-				}
-				FrameCollection frames;
-				currentFile->getAllFramesV2(frames);
-				for (FrameCollection::const_iterator it = frames.begin();
-						 it != frames.end();
-						 ++it) {
-					if (it->getName() == name) {
-						currentFile->deleteFrameV2(*it);
-						m_framelist->setTags(currentFile);
-						m_framelist->pasteFrame();
-						break;
-					}
+		SelectedTaggedFileIterator tfit(m_view->getFileList()->rootIndex(),
+																		m_view->getFileList()->selectionModel(),
+																		false);
+		while (tfit.hasNext()) {
+			TaggedFile* currentFile = tfit.next();
+			if (firstFile) {
+				firstFile = false;
+				taggedFile = currentFile;
+				m_framelist->setTags(taggedFile);
+				name = m_framelist->getSelectedName();
+				if (name.isEmpty() || !m_framelist->editFrame()) {
+					break;
 				}
 			}
-			mp3file = m_view->nextFile();
+			FrameCollection frames;
+			currentFile->getAllFramesV2(frames);
+			for (FrameCollection::const_iterator it = frames.begin();
+					 it != frames.end();
+					 ++it) {
+				if (it->getName() == name) {
+					currentFile->deleteFrameV2(*it);
+					m_framelist->setTags(currentFile);
+					m_framelist->pasteFrame();
+					break;
+				}
+			}
 		}
 		updateAfterFrameModification(taggedFile);
 	}
@@ -3309,32 +3229,30 @@ void Kid3App::deleteFrame(const QString& frameName)
 		}
 	} else {
 		// multiple files selected or frame name specified
-		FileListItem* mp3file = m_view->firstFile();
 		bool firstFile = true;
 		QString name;
-		TaggedFile* currentFile;
-		while (mp3file != 0) {
-			if (mp3file->isInSelection()) {
-				currentFile = mp3file->getFile();
-				if (firstFile) {
-					firstFile = false;
-					taggedFile = currentFile;
-					m_framelist->setTags(taggedFile);
-					name = frameName.isEmpty() ? m_framelist->getSelectedName() :
-						frameName;
-				}
-				FrameCollection frames;
-				currentFile->getAllFramesV2(frames);
-				for (FrameCollection::const_iterator it = frames.begin();
-						 it != frames.end();
-						 ++it) {
-					if (it->getName() == name) {
-						currentFile->deleteFrameV2(*it);
-						break;
-					}
+		SelectedTaggedFileIterator tfit(m_view->getFileList()->rootIndex(),
+																		m_view->getFileList()->selectionModel(),
+																		false);
+		while (tfit.hasNext()) {
+			TaggedFile* currentFile = tfit.next();
+			if (firstFile) {
+				firstFile = false;
+				taggedFile = currentFile;
+				m_framelist->setTags(taggedFile);
+				name = frameName.isEmpty() ? m_framelist->getSelectedName() :
+					frameName;
+			}
+			FrameCollection frames;
+			currentFile->getAllFramesV2(frames);
+			for (FrameCollection::const_iterator it = frames.begin();
+					 it != frames.end();
+					 ++it) {
+				if (it->getName() == name) {
+					currentFile->deleteFrameV2(*it);
+					break;
 				}
 			}
-			mp3file = m_view->nextFile();
 		}
 	}
 	updateAfterFrameModification(taggedFile);
@@ -3372,43 +3290,43 @@ void Kid3App::addFrame(const Frame* frame, bool edit)
 		}
 	} else {
 		// multiple files selected
-		FileListItem* mp3file = m_view->firstFile();
 		bool firstFile = true;
 		int frameId = -1;
-		while (mp3file != 0) {
-			if (mp3file->isInSelection()) {
-				if (firstFile) {
-					firstFile = false;
-					taggedFile = mp3file->getFile();
-					m_framelist->setTags(mp3file->getFile());
-					if (!frame) {
-						if (m_framelist->selectFrame() &&
-								m_framelist->addFrame(true)) {
-							frameId = m_framelist->getSelectedId();
-						} else {
-							break;
-						}
-					} else if (edit) {
-						m_framelist->setFrame(*frame);
-						if (m_framelist->addFrame(edit)) {
-							frameId = m_framelist->getSelectedId();
-						} else {
-							break;
-						}
+		SelectedTaggedFileIterator tfit(m_view->getFileList()->rootIndex(),
+																		m_view->getFileList()->selectionModel(),
+																		false);
+		while (tfit.hasNext()) {
+			TaggedFile* currentFile = tfit.next();
+			if (firstFile) {
+				firstFile = false;
+				taggedFile = currentFile;
+				m_framelist->setTags(currentFile);
+				if (!frame) {
+					if (m_framelist->selectFrame() &&
+							m_framelist->addFrame(true)) {
+						frameId = m_framelist->getSelectedId();
 					} else {
-						m_framelist->setFrame(*frame);
-						if (m_framelist->pasteFrame()) {
-							frameId = m_framelist->getSelectedId();
-						} else {
-							break;
-						}
+						break;
+					}
+				} else if (edit) {
+					m_framelist->setFrame(*frame);
+					if (m_framelist->addFrame(edit)) {
+						frameId = m_framelist->getSelectedId();
+					} else {
+						break;
 					}
 				} else {
-					m_framelist->setTags(mp3file->getFile());
-					m_framelist->pasteFrame();
+					m_framelist->setFrame(*frame);
+					if (m_framelist->pasteFrame()) {
+						frameId = m_framelist->getSelectedId();
+					} else {
+						break;
+					}
 				}
+			} else {
+				m_framelist->setTags(currentFile);
+				m_framelist->pasteFrame();
 			}
-			mp3file = m_view->nextFile();
 		}
 		m_framelist->setTags(taggedFile);
 		if (frameId != -1) {
