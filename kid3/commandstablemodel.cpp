@@ -208,11 +208,10 @@ int CommandsTableModel::columnCount(const QModelIndex& parent) const
  * @param row rows are inserted before this row, if 0 at the begin,
  * if rowCount() at the end
  * @param count number of rows to insert
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool CommandsTableModel::insertRows(int row, int count,
-												const QModelIndex& parent)
+												const QModelIndex&)
 {
 	beginInsertRows(QModelIndex(), row, row + count - 1);
 	for (int i = 0; i < count; ++i)
@@ -225,11 +224,10 @@ bool CommandsTableModel::insertRows(int row, int count,
  * Remove rows.
  * @param row rows are removed starting with this row
  * @param count number of rows to remove
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool CommandsTableModel::removeRows(int row, int count,
-												const QModelIndex& parent)
+												const QModelIndex&)
 {
 	beginRemoveRows(QModelIndex(), row, row + count - 1);
 	for (int i = 0; i < count; ++i)

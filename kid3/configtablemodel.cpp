@@ -28,7 +28,6 @@
 
 /**
  * Constructor.
- * @param labels column labels
  * @param parent parent widget
  */
 ConfigTableModel::ConfigTableModel(QObject* parent) :
@@ -201,7 +200,6 @@ void ConfigTableModel::setLabels(const QStringList& labels)
 /**
  * Set the model from a map.
  *
- * @param labels column labels
  * @param map map with keys and values
  */
 void ConfigTableModel::setMap(const QMap<QString, QString>& map)
