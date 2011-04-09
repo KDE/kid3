@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Oct 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,12 +42,14 @@ public:
 		/**
 		 * Create an M4aFile object if it supports the filename's extension.
 		 *
-		 * @param di directory information
+		 * @param dn directory name
 		 * @param fn filename
+		 * @param idx model index
 		 *
 		 * @return tagged file, 0 if type not supported.
 		 */
-		virtual TaggedFile* createFile(const DirInfo* di, const QString& fn) const;
+		virtual TaggedFile* createFile(const QString& dn, const QString& fn,
+																	 const QPersistentModelIndex& idx) const;
 
 		/**
 		 * Get a list with all extensions supported by M4aFile.
@@ -61,10 +63,12 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param di directory information
+	 * @param dn directory name
 	 * @param fn filename
+	 * @param idx model index
 	 */
-	M4aFile(const DirInfo* di, const QString& fn);
+	M4aFile(const QString& dn, const QString& fn,
+					const QPersistentModelIndex& idx);
 
 	/**
 	 * Destructor.

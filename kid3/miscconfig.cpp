@@ -36,7 +36,6 @@
 #endif
 
 #include "generalconfig.h"
-#include "filelist.h"
 #include "taggedfile.h"
 #include "rendirdialog.h"
 #include "miscconfig.h"

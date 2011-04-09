@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2009
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2009-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -26,11 +26,9 @@
 
 #include "playlistcreator.h"
 #include "playlistconfig.h"
-#include "filelistitem.h"
 #include "taggedfile.h"
-#include "dirinfo.h"
 #include "importtrackdata.h"
-#include "kid3.h"
+#include "fileproxymodel.h"
 #include "qtcompatmac.h"
 #include <QDir>
 #include <QUrl>
@@ -150,21 +148,22 @@ bool PlaylistCreator::write()
 /**
  * Constructor.
  *
- * @param item item in file list
+ * @param index model index
  * @param ctr  associated playlist creator
  */
-PlaylistCreator::Item::Item(FileListItem* item, PlaylistCreator& ctr) :
-		m_ctr(ctr), m_item(item), m_dirInfo(item->getDirInfo()),
-		m_taggedFile(item->getFile()), m_trackData(0)
+PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr) :
+		m_ctr(ctr), m_isDir(false),
+		m_taggedFile(FileProxyModel::getTaggedFileOfIndex(index)), m_trackData(0)
 {
-	QChar separator = QDir::separator();
-	if (m_dirInfo) {
-		m_dirName = m_dirInfo->getDirname();
-	} else if (m_taggedFile) {
+	if (m_taggedFile) {
 		m_dirName = m_taggedFile->getDirname();
-		if (!m_dirName.endsWith(separator)) {
-			m_dirName += separator;
-		}
+	} else {
+		m_dirName = FileProxyModel::getPathIfIndexOfDir(index);
+		m_isDir = !m_dirName.isNull();
+	}
+	QChar separator = QDir::separator();
+	if (!m_dirName.endsWith(separator)) {
+		m_dirName += separator;
 	}
 	// fix double separators
 	m_dirName.replace(QString(separator) + separator, separator);
@@ -190,13 +189,12 @@ QString PlaylistCreator::Item::formatString(const QString& format)
 	if (!m_trackData) {
 		m_taggedFile->readTags(false);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-		m_taggedFile = Kid3App::readWithTagLibIfId3V24(m_item, m_taggedFile);
+		m_taggedFile = FileProxyModel::readWithTagLibIfId3V24(m_taggedFile);
 #endif
 		m_trackData = new ImportTrackData(*m_taggedFile);
 	}
 	return m_trackData->formatString(
-		format,
-		m_taggedFile->getDirInfo() ? m_taggedFile->getDirInfo()->getNumFiles() : 0);
+		format, m_taggedFile->getTotalNumberOfTracksInDir());
 }
 
 /**

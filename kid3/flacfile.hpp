@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Oct 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,12 +49,14 @@ public:
 		/**
 		 * Create an FlacFile object if it supports the filename's extension.
 		 *
-		 * @param di directory information
+		 * @param dn directory name
 		 * @param fn filename
+		 * @param idx model index
 		 *
 		 * @return tagged file, 0 if type not supported.
 		 */
-		virtual TaggedFile* createFile(const DirInfo* di, const QString& fn) const;
+		virtual TaggedFile* createFile(const QString& dn, const QString& fn,
+																	 const QPersistentModelIndex& idx) const;
 
 		/**
 		 * Get a list with all extensions supported by FlacFile.
@@ -68,10 +70,12 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param di directory information
+	 * @param dn directory name
 	 * @param fn filename
+	 * @param idx model index
 	 */
-	FlacFile(const DirInfo* di, const QString& fn);
+	FlacFile(const QString& dn, const QString& fn,
+					 const QPersistentModelIndex& idx);
 
 	/**
 	 * Destructor.

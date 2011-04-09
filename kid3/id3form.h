@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2008  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -218,69 +218,20 @@ public:
 
 	/**
 	 * Fill file list.
-	 * @param dir      path of directory
-	 * @param fileName name of file to select (optional, else empty)
+	 * @param dirIndex index of directory in filesystem model
+	 * @param fileIndex index of file to select in filesystem model (optional,
+	 * else invalid)
 	 * @return false if name is not directory path, else true.
 	 */
-	bool readFileList(const QString& dir, const QString& fileName = QString()) {
-		return m_fileListBox->readDir(dir, fileName);
+	bool readFileList(const QModelIndex& dirIndex, const QModelIndex& fileIndex = QModelIndex()) {
+		return m_fileListBox->readDir(dirIndex, fileIndex);
 	}
 
 	/**
-	 * Get the first item in the filelist.
-	 * @return first file.
+	 * Get directory path.
+	 * @return directory path.
 	 */
-	FileListItem* firstFile() { return m_fileListBox->first(); }
-
-	/**
-	 * Get the next item in the filelist.
-	 * @return next file.
-	 */
-	FileListItem* nextFile() { return m_fileListBox->next(); }
-
-	/**
-	 * Get the next item in the filelist.
-	 * @return next file.
-	 */
-	FileListItem* currentFile() { return m_fileListBox->current(); }
-
-	/**
-	 * Get the first item in the the current directory.
-	 * @return first file.
-	 */
-	FileListItem* firstFileInDir() { return m_fileListBox->firstInDir(); }
-
-	/**
-	 * Get the next item in the current directory.
-	 * @return next file.
-	 */
-	FileListItem* nextFileInDir() { return m_fileListBox->nextInDir(); }
-
-	/**
-	 * Get the first file or directory item in the filelist.
-	 *
-	 * @return first file.
-	 */
-	FileListItem* firstFileOrDir() { return m_fileListBox->firstFileOrDir(); }
-
-	/**
-	 * Get the next file or directory item in the filelist.
-	 *
-	 * @return next file.
-	 */
-	FileListItem* nextFileOrDir() { return m_fileListBox->nextFileOrDir(); }
-
-	/**
-	 * Get information about directory.
-	 * @return directory information.
-	 */
-	const DirInfo* getDirInfo() const { return m_fileListBox->getDirInfo(); }
-
-	/**
-	 * Refresh text of all files in file list and check if any file is modified.
-	 * @return true if a file is modified.
-	 */
-	bool updateModificationState() { return m_fileListBox->updateModificationState(); }
+	QString getDirPath() const { return m_fileListBox->getDirPath(); }
 
 	/**
 	 * Get file list.
@@ -361,20 +312,6 @@ public slots:
 	 * File list box file selected
 	 */
 	void fileSelected();
-
-	/**
-	 * Get number of files selected in file list box.
-	 *
-	 * @return number of files selected.
-	 */
-	int numFilesSelected();
-
-	/**
-	 * Get the number of files or directories selected in the file list box.
-	 *
-	 * @return number of files or directories selected.
-	 */
-	int numFilesOrDirsSelected();
 
 	/**
 	 * Frame list button Edit.
@@ -459,17 +396,6 @@ public slots:
 	 * @return true if a previous file exists.
 	 */
 	bool selectPreviousFile();
-
-signals:
-	/**
-	 * Emitted when some of the selected files have been renamed.
-	 */
-	void selectedFilesRenamed();
-
-	/**
-	 * Emitted when the window is resized.
-	 */
-	void windowResized();
 
 private:
 	/**

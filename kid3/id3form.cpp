@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2009  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,7 +49,6 @@
 /** Shortcut for pointer to parent (application) widget. */
 #define theApp ((Kid3App *)parentWidget())
 
-#include "filelist.h"
 #include "framelist.h"
 #include "frametable.h"
 #include "genres.h"
@@ -58,6 +57,7 @@
 #include "formatconfig.h"
 #include "id3form.h"
 #include "dirproxymodel.h"
+#include "fileproxymodel.h"
 
 /** Collapse pixmap, will be allocated in constructor */
 QPixmap* Id3Form::s_collapsePixmap = 0;
@@ -142,7 +142,7 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 }
 
 
-/** 
+/**
  * Constructs an Id3Form as a child of 'parent', with the 
  * name 'name' and widget flags set to 'f'.
  * @param parent parent widget
@@ -165,6 +165,9 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_vSplitter = new QSplitter(Qt::Vertical, this);
 	m_fileListBox = new FileList(m_vSplitter, theApp);
+	FileProxyModel* fileProxyModel = new FileProxyModel(m_vSplitter);
+	fileProxyModel->setSourceModel(theApp->getFileSystemModel());
+	m_fileListBox->setModel(fileProxyModel);
 	m_dirListBox = new DirList(m_vSplitter);
 	DirProxyModel* dirProxyModel = new DirProxyModel(m_vSplitter);
 	dirProxyModel->setSourceModel(theApp->getFileSystemModel());
@@ -352,8 +355,9 @@ Id3Form::Id3Form(QWidget* parent)
 	connect(copyV2PushButton, SIGNAL(clicked()), this, SLOT(copyV2()));
 	connect(pasteV2PushButton, SIGNAL(clicked()), this, SLOT(pasteV2()));
 	connect(removeV2PushButton, SIGNAL(clicked()), this, SLOT(removeV2()));
-	connect(m_fileListBox, SIGNAL(itemSelectionChanged()), this,
-			SLOT(fileSelected()));
+	connect(m_fileListBox->selectionModel(),
+					SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+					this, SLOT(fileSelected()));
 	connect(framesAddPushButton, SIGNAL(clicked()), this, SLOT(addFrame()));
 	connect(deleteFramesPushButton, SIGNAL(clicked()), this,
 			SLOT(deleteFrame()));
@@ -366,8 +370,6 @@ Id3Form::Id3Form(QWidget* parent)
 			SLOT(nameLineEditChanged(const QString&)));
 	connect(m_dirListBox, SIGNAL(activated(QModelIndex)), this,
 			SLOT(dirSelected(QModelIndex)));
-	connect(m_fileListBox, SIGNAL(selectedFilesRenamed()),
-					SIGNAL(selectedFilesRenamed()));
 	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(showHideFile()));
 	connect(m_tag1Button, SIGNAL(clicked()), this, SLOT(showHideTag1()));
 	connect(m_tag2Button, SIGNAL(clicked()), this, SLOT(showHideTag2()));
@@ -490,26 +492,6 @@ void Id3Form::removeV1()
 void Id3Form::fileSelected()
 {
 	theApp->fileSelected();
-}
-
-/**
- * Get number of files selected in file list box.
- *
- * @return number of files selected.
- */
-int Id3Form::numFilesSelected()
-{
-	return m_fileListBox->numFilesSelected();
-}
-
-/**
- * Get the number of files or directories selected in the file list box.
- *
- * @return number of files or directories selected.
- */
-int Id3Form::numFilesOrDirsSelected()
-{
-	return m_fileListBox->numFilesOrDirsSelected();
 }
 
 /**
@@ -641,7 +623,7 @@ void Id3Form::formatLineEdit(QLineEdit* le, const QString& txt,
 /**
  * Directory list box directory selected.
  *
- * @param item selected item
+ * @param index selected item
  */
 void Id3Form::dirSelected(const QModelIndex& index)
 {

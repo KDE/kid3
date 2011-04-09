@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Sep 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,8 +30,8 @@
 
 #include "kid3.h"
 #include "genres.h"
-#include "dirinfo.h"
 #include "taggedfile.h"
+#include "modeliterator.h"
 #include <sys/stat.h>
 
 QList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
@@ -39,11 +39,13 @@ QList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
 /**
  * Constructor.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  */
-TaggedFile::TaggedFile(const DirInfo* di, const QString& fn) :
-	m_dirInfo(di), m_filename(fn), m_newFilename(fn),
+TaggedFile::TaggedFile(const QString& dn, const QString& fn,
+											 const QPersistentModelIndex& idx) :
+	m_dirname(dn), m_filename(fn), m_newFilename(fn), m_index(idx),
 	m_changedV1(false), m_changedFramesV1(0),
 	m_changedV2(false), m_changedFramesV2(0), m_truncation(0)
 {
@@ -54,16 +56,6 @@ TaggedFile::TaggedFile(const DirInfo* di, const QString& fn) :
  */
 TaggedFile::~TaggedFile()
 {
-}
-
-/**
- * Get directory name.
- *
- * @return directory name
- */
-QString TaggedFile::getDirname() const
-{
-	return m_dirInfo->getDirname();
 }
 
 /**
@@ -257,7 +249,7 @@ bool TaggedFile::isTagV1Supported() const
  */
 QString TaggedFile::getAbsFilename() const
 {
-	QDir dir(m_dirInfo->getDirname());
+	QDir dir(m_dirname);
 	return QDir::cleanPath(dir.absoluteFilePath(m_newFilename));
 }
 
@@ -543,17 +535,16 @@ QString TaggedFile::formatTime(unsigned seconds)
  */
 bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 {
-	QString dirname = m_dirInfo->getDirname();
 	if (fnNew.toLower() == fnOld.toLower()) {
 		// If the filenames only differ in case, the new file is reported to
 		// already exist on case insensitive filesystems (e.g. Windows),
 		// so it is checked if the new file is really the old file by
 		// comparing inodes and devices. If the files are not the same,
 		// another file would be overwritten and an error is reported.
-		if (QFile::exists(dirname + QDir::separator() + fnNew)) {
+		if (QFile::exists(m_dirname + QDir::separator() + fnNew)) {
 			struct stat statOld, statNew;
-			if (::stat((dirname + QDir::separator() + fnOld).toLatin1().data(), &statOld) == 0 &&
-					::stat((dirname + QDir::separator() + fnNew).toLatin1().data(), &statNew) == 0 &&
+			if (::stat((m_dirname + QDir::separator() + fnOld).toLatin1().data(), &statOld) == 0 &&
+					::stat((m_dirname + QDir::separator() + fnNew).toLatin1().data(), &statNew) == 0 &&
 					!(statOld.st_ino == statNew.st_ino &&
 						statOld.st_dev == statNew.st_dev)) {
 				qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
@@ -567,21 +558,21 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 		// insensitive filesystems (e.g. Windows).
 		QString temp_filename(fnNew);
 		temp_filename.append("_CASE");
-		if (!QDir(dirname).rename(fnOld, temp_filename)) {
+		if (!QDir(m_dirname).rename(fnOld, temp_filename)) {
 			qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
 					   temp_filename.toLatin1().data());
 			return false;
 		}
-		if (!QDir(dirname).rename(temp_filename, fnNew)) {
+		if (!QDir(m_dirname).rename(temp_filename, fnNew)) {
 			qDebug("rename(%s, %s) failed", temp_filename.toLatin1().data(),
 					   fnNew.toLatin1().data());
 			return false;
 		}
-	} else if (QFile::exists(dirname + QDir::separator() + fnNew)) {
+	} else if (QFile::exists(m_dirname + QDir::separator() + fnNew)) {
 		qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
 					 fnNew.toLatin1().data(), fnNew.toLatin1().data());
 		return false;
-	} else if (!QDir(dirname).rename(fnOld, fnNew)) {
+	} else if (!QDir(m_dirname).rename(fnOld, fnNew)) {
 		qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
 					 fnNew.toLatin1().data());
 		return false;
@@ -624,6 +615,25 @@ int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
 }
 
 /**
+ * Get the total number of tracks in the directory.
+ *
+ * @return total number of tracks, -1 if unavailable.
+ */
+int TaggedFile::getTotalNumberOfTracksInDir() const {
+	int numTracks = -1;
+	QModelIndex parentIdx = m_index.parent();
+	if (parentIdx.isValid()) {
+		numTracks = 0;
+		TaggedFileOfDirectoryIterator it(parentIdx);
+		while (it.hasNext()) {
+			it.next();
+			++numTracks;
+		}
+	}
+	return numTracks;
+}
+
+/**
  * Get the total number of tracks if it is enabled.
  *
  * @return total number of tracks,
@@ -631,11 +641,8 @@ int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
  */
 int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 {
-	int numTracks = -1;
-	if (Kid3App::s_miscCfg.m_enableTotalNumberOfTracks) {
-		numTracks = m_dirInfo->getNumFiles();
-	}
-	return numTracks;
+	return Kid3App::s_miscCfg.m_enableTotalNumberOfTracks
+			? getTotalNumberOfTracksInDir() : -1;
 }
 
 /**
@@ -1135,18 +1142,20 @@ void TaggedFile::addResolver(const Resolver* resolver)
  * Create a TaggedFile subclass using the first successful resolver.
  * @see addResolver()
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  *
  * @return tagged file, 0 if type not supported.
  */
-TaggedFile* TaggedFile::createFile(const DirInfo* di, const QString& fn)
+TaggedFile* TaggedFile::createFile(const QString& dn, const QString& fn,
+																	 const QPersistentModelIndex& idx)
 {
 	TaggedFile* taggedFile = 0;
 	for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
 			 it != s_resolvers.end();
 			 ++it) {
-		taggedFile = (*it)->createFile(di, fn);
+		taggedFile = (*it)->createFile(dn, fn, idx);
 		if (taggedFile) break;
 	}
 	return taggedFile;

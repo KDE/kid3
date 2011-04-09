@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Oct 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,7 +28,6 @@
 #ifdef HAVE_FLAC
 
 #include "genres.h"
-#include "dirinfo.h"
 #include "pictureframe.h"
 #include <FLAC++/metadata.h>
 #include <QFile>
@@ -48,11 +47,13 @@
 /**
  * Constructor.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  */
-FlacFile::FlacFile(const DirInfo* di, const QString& fn) :
-	OggFile(di, fn), m_chain(0)
+FlacFile::FlacFile(const QString& dn, const QString& fn,
+									 const QPersistentModelIndex& idx) :
+	OggFile(dn, fn, idx), m_chain(0)
 {
 }
 
@@ -134,7 +135,7 @@ void FlacFile::readTags(bool force)
 #endif
 		markTag2Unchanged();
 		m_fileRead = true;
-		QByteArray fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+		QByteArray fnIn = QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
 		m_fileInfo.read(0); // just to start invalid
 		if (!m_chain) {
 			m_chain = new FLAC::Metadata::Chain;
@@ -227,7 +228,7 @@ void FlacFile::readTags(bool force)
 bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 {
 	if (isChanged() &&
-		!QFileInfo(getDirInfo()->getDirname() + QDir::separator() + currentFilename()).isWritable()) {
+		!QFileInfo(getDirname() + QDir::separator() + currentFilename()).isWritable()) {
 		return false;
 	}
 
@@ -588,16 +589,17 @@ bool FlacFile::FileInfo::read(FLAC::Metadata::StreamInfo* si)
 /**
  * Create an FlacFile object if it supports the filename's extension.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  *
  * @return tagged file, 0 if type not supported.
  */
-TaggedFile* FlacFile::Resolver::createFile(const DirInfo* di,
-																					const QString& fn) const
+TaggedFile* FlacFile::Resolver::createFile(const QString& dn, const QString& fn,
+		const QPersistentModelIndex& idx) const
 {
 	if (fn.right(5).toLower() == ".flac")
-		return new FlacFile(di, fn);
+		return new FlacFile(dn, fn, idx);
 	else
 		return 0;
 }

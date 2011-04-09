@@ -34,7 +34,6 @@
 #include <QByteArray>
 
 #include "genres.h"
-#include "dirinfo.h"
 #include "kid3.h"
 #include "attributedata.h"
 #include "pictureframe.h"
@@ -177,11 +176,13 @@ TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
 /**
  * Constructor.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  */
-TagLibFile::TagLibFile(const DirInfo* di, const QString& fn) :
-	TaggedFile(di, fn), m_tagV1(0), m_tagV2(0), m_fileRead(false)
+TagLibFile::TagLibFile(const QString& dn, const QString& fn,
+											 const QPersistentModelIndex& idx) :
+	TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0), m_fileRead(false)
 {
 }
 
@@ -199,7 +200,7 @@ TagLibFile::~TagLibFile()
  */
 void TagLibFile::readTags(bool force)
 {
-	QString fileName = getDirInfo()->getDirname() + QDir::separator() + currentFilename();
+	QString fileName = getDirname() + QDir::separator() + currentFilename();
 	QByteArray fn = QFile::encodeName(fileName);
 
 	if (force || m_fileRef.isNull()) {
@@ -318,7 +319,7 @@ void TagLibFile::readTags(bool force)
  */
 bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 {
-	QString fnStr(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+	QString fnStr(getDirname() + QDir::separator() + currentFilename());
 	if (isChanged() && !QFileInfo(fnStr).isWritable()) {
 		return false;
 	}
@@ -4554,13 +4555,14 @@ void TagLibFile::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
 /**
  * Create an TagLibFile object if it supports the filename's extension.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  *
  * @return tagged file, 0 if type not supported.
  */
-TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
-																					const QString& fn) const
+TaggedFile* TagLibFile::Resolver::createFile(
+	const QString& dn, const QString& fn, const QPersistentModelIndex& idx) const
 {
 	QString ext = fn.right(4).toLower();
 	if (((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
@@ -4583,7 +4585,7 @@ TaggedFile* TagLibFile::Resolver::createFile(const DirInfo* di,
 			|| ext == ".ape"
 #endif
 			|| ext.right(3) == ".wv")
-		return new TagLibFile(di, fn);
+		return new TagLibFile(dn, fn, idx);
 	else
 		return 0;
 }

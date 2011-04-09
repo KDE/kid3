@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2008  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,22 +27,16 @@
 #ifndef FILELIST_H
 #define FILELIST_H
 
-#include <QString>
-#include <QSize>
-#include <QTreeWidget>
-#include "qtcompatmac.h"
-#include "dirinfo.h"
+#include <QTreeView>
+#include <QList>
 
 class Kid3App;
-class FileListItem;
-class TaggedFile;
 class ExternalProcess;
 
 /**
  * List of files to operate on.
  */
-class FileList : public QTreeWidget
-{
+class FileList : public QTreeView {
 Q_OBJECT
 
 public:
@@ -63,69 +57,6 @@ public:
 	 * @return recommended size.
 	 */
 	virtual QSize sizeHint() const;
-
-	/**
-	 * Get the first item in the filelist.
-	 *
-	 * @return first file.
-	 */
-	FileListItem* first();
-
-	/**
-	 * Get the next item in the filelist.
-	 *
-	 * @return next file.
-	 */
-	FileListItem* next();
-
-	/**
-	 * Get the current item in the filelist.
-	 *
-	 * @return current file.
-	 */
-	FileListItem* current();
-
-	/**
-	 * Get the first item in the the current directory.
-	 *
-	 * @return first file.
-	 */
-	FileListItem* firstInDir();
-
-	/**
-	 * Get the next item in the current directory.
-	 *
-	 * @return next file.
-	 */
-	FileListItem* nextInDir();
-
-	/**
-	 * Get the first file or directory item in the filelist.
-	 *
-	 * @return first file.
-	 */
-	FileListItem* firstFileOrDir();
-
-	/**
-	 * Get the next file or directory item in the filelist.
-	 *
-	 * @return next file.
-	 */
-	FileListItem* nextFileOrDir();
-
-	/**
-	 * Get the number of files selected in the filelist.
-	 *
-	 * @return number of files selected.
-	 */
-	int numFilesSelected();
-
-	/**
-	 * Get the number of files or directories selected in the filelist.
-	 *
-	 * @return number of files or directories selected.
-	 */
-	int numFilesOrDirsSelected();
 
 	/**
 	 * Select the first file.
@@ -151,39 +82,26 @@ public:
 	/**
 	 * Fill the filelist with the files found in a directory.
 	 *
-	 * @param name     path of directory
-	 * @param fileName name of file to select (optional, else empty)
+	 * @param dirIndex index of directory in filesystem model
+	 * @param fileIndex index of file to select in filesystem model (optional,
+	 * else invalid)
 	 *
 	 * @return false if name is not directory path, else true.
 	 */
-	bool readDir(const QString& name, const QString& fileName = QString());
+	bool readDir(const QModelIndex& dirIndex,
+							 const QModelIndex& fileIndex=QModelIndex());
 
 	/**
-	 * Fill the filelist with the files from a DirContents tree.
-	 *
-	 * @param dirContents recursive information about directory and files
+	 * Get directory path.
+	 * @return directory path.
 	 */
-	void setFromDirContents(const DirContents& dirContents);
-
-	/**
-	 * Refresh text of all files in listview and check if any file is modified.
-	 *
-	 * @return true if a file is modified.
-	 */
-	bool updateModificationState();
-
-	/**
-	 * Get information about directory.
-	 *
-	 * @return directory information.
-	 */
-	const DirInfo* getDirInfo() const { return &m_dirInfo; }
+	QString getDirPath() const;
 
 	/**
 	 * Get the stored current selection.
 	 * @return stored selection.
 	 */
-	const QList<QTreeWidgetItem*>& getCurrentSelection() const {
+	const QList<QPersistentModelIndex>& getCurrentSelection() const {
 		return m_currentSelection;
 	}
 
@@ -195,21 +113,15 @@ public:
 	/**
 	 * Update the stored current selection with the list of all selected items.
 	 */
-	void updateCurrentSelection() {
-		m_currentSelection = selectedItems();
-	}
+	void updateCurrentSelection();
 
 	/**
-	 * Fill the filelist with the files found in the directory tree.
-	 *
-	 * @param dirInfo  information  about directory
-	 * @param item     parent directory item or 0 if top-level
-	 * @param listView parent list view if top-level, else 0
-	 * @param fileName name of file to select (optional, else empty)
+	 * Get current index or root index if current index is invalid.
+	 * @return current index, root index if not valid.
 	 */
-	static void readSubDirectory(DirInfo* dirInfo, FileListItem* item,
-															 FileList* listView,
-															 const QString& fileName = QString());
+	QModelIndex currentOrRootIndex() const {
+		return currentIndex().isValid() ? currentIndex() : rootIndex();
+	}
 
 	/**
 	 * Get help text for format codes supported by formatStringList().
@@ -221,20 +133,14 @@ public:
 	 */
 	static QString getFormatToolTip(bool onlyRows = false);
 
-signals:
-	/**
-	 * Emitted when some of the selected files have been renamed.
-	 */
-	void selectedFilesRenamed();
-
 private slots:
 	/**
 	 * Display a context menu with operations for selected files.
 	 *
-	 * @param item list box item
-	 * @param pos  position where context menu is drawn on screen
+	 * @param index index of item
+	 * @param pos   position where context menu is drawn on screen
 	 */
-	void contextMenu(QTreeWidgetItem* item, const QPoint& pos);
+	void contextMenu(const QModelIndex& index, const QPoint& pos);
 
 	/**
 	 * Execute a context menu command.
@@ -251,56 +157,14 @@ private slots:
 	void executeAction(QAction* action);
 
 	/**
-	 * Expand all folders.
-	 */
-	void expandAll();
-
-	/**
-	 * Collapse all folders.
-	 */
-	void collapseAll();
-
-	/**
-	 * Rename the selected file(s).
-	 */
-	void renameFile();
-
-	/**
-	 * Delete the selected file(s).
-	 */
-	void deleteFile();
-
-	/**
-	 * Expand an item.
-	 *
-	 * @param item item
-	 */
-	void expandItem(QTreeWidgetItem* item);
-
-	/**
-	 * Collapse an item.
-	 *
-	 * @param item item
-	 */
-	void collapseItem(QTreeWidgetItem* item);
-
-	/**
 	 * Display a custom context menu with operations for selected files.
 	 *
 	 * @param pos  position where context menu is drawn on screen
 	 */
 	void customContextMenu(const QPoint& pos);
 
-	/**
-	 * Expand or collapse an item which has no children.
-	 *
-	 * @param item item
-	 */
-	void expandOrCollapseEmptyItem(QTreeWidgetItem* item);
-
 private:
-	FileList(const FileList&);
-	FileList& operator=(const FileList&);
+	Q_DISABLE_COPY(FileList)
 
 	/**
 	 * Format a string list from the selected files.
@@ -325,22 +189,9 @@ private:
 	 */
 	QStringList formatStringList(const QStringList& format);
 
-	/**
-	 * Expand or collapse all folders.
-	 *
-	 * @param expand true to expand, false to collapse
-	 */
-	void setAllExpanded(bool expand);
-
-	/** information about directory */
-	DirInfo m_dirInfo;
-	/** iterator pointing to current file */
-	QTreeWidgetItemIterator* m_iterator;
-	/** current item in current directory */
-	FileListItem* m_currentItemInDir;
 	/** Process for context menu commands */
 	ExternalProcess* m_process;
-	QList<QTreeWidgetItem*> m_currentSelection;
+	QList<QPersistentModelIndex> m_currentSelection;
 	Kid3App* m_app;
 };
 

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Sep 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,9 +31,8 @@
 #include <QStringList>
 #include "qtcompatmac.h"
 #include <QList>
+#include <QPersistentModelIndex>
 #include "frame.h"
-
-class DirInfo;
 
 /** Base class for tagged files. */
 class TaggedFile {
@@ -54,12 +53,14 @@ public:
 		/**
 		 * Create a TaggedFile subclass depending on the file extension.
 		 *
-		 * @param di directory information
+		 * @param dn directory name
 		 * @param fn filename
+		 * @param idx model index
 		 *
 		 * @return tagged file, 0 if type not supported.
 		 */
-		virtual TaggedFile* createFile(const DirInfo* di, const QString& fn) const = 0;
+		virtual TaggedFile* createFile(const QString& dn, const QString& fn,
+																	 const QPersistentModelIndex& idx) const = 0;
 
 		/**
 		 * Get a list with all extensions (e.g. ".mp3") supported by TaggedFile subclass.
@@ -93,10 +94,12 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param di directory information
+	 * @param dn directory name
 	 * @param fn filename
+	 * @param idx model index
 	 */
-	TaggedFile(const DirInfo* di, const QString& fn);
+	TaggedFile(const QString& dn, const QString& fn,
+						 const QPersistentModelIndex& idx);
 
 	/**
 	 * Destructor.
@@ -122,14 +125,7 @@ public:
 	 *
 	 * @return directory name
 	 */
-	QString getDirname() const;
-
-	/**
-	 * Get information about directory.
-	 *
-	 * @return directory information.
-	 */
-	const DirInfo* getDirInfo() const { return m_dirInfo; }
+	QString getDirname() const { return m_dirname; }
 
 	/**
 	 * Read tags from file.
@@ -678,6 +674,19 @@ public:
 	void formatTrackNumberIfEnabled(QString& value, bool addTotal) const;
 
 	/**
+	 * Get the total number of tracks in the directory.
+	 *
+	 * @return total number of tracks, -1 if unavailable.
+	 */
+	int getTotalNumberOfTracksInDir() const;
+
+	/**
+	 * Get index of tagged file in model.
+	 * @return index
+	 */
+	const QPersistentModelIndex& getIndex() const { return m_index; }
+
+	/**
 	 * Format a time string "h:mm:ss".
 	 * If the time is less than an hour, the hour is not put into the
 	 * string and the minute is not padded with zeroes.
@@ -699,12 +708,14 @@ public:
 	 * Create a TaggedFile subclass using the first successful resolver.
 	 * @see addResolver()
 	 *
-	 * @param di directory information
+	 * @param dn directory name
 	 * @param fn filename
+	 * @param idx model index
 	 *
 	 * @return tagged file, 0 if type not supported.
 	 */
-	static TaggedFile* createFile(const DirInfo* di, const QString& fn);
+	static TaggedFile* createFile(const QString& dn, const QString& fn,
+																const QPersistentModelIndex& idx);
 
 	/**
 	 * Get a list with all extensions (e.g. ".mp3") supported by the resolvers.
@@ -748,7 +759,7 @@ protected:
 	 */
 	static int splitNumberAndTotal(const QString& str, int* total=0);
 
-	/**
+		/**
 	 * Get the total number of tracks if it is enabled.
 	 *
 	 * @return total number of tracks,
@@ -830,12 +841,14 @@ private:
 	TaggedFile(const TaggedFile&);
 	TaggedFile& operator=(const TaggedFile&);
 
-	/** Directory information */
-	const DirInfo* m_dirInfo;
+	/** Directory name */
+	QString m_dirname;
 	/** File name */
 	QString m_filename;
 	/** New file name */
 	QString m_newFilename;
+	/** Index of file in model */
+	QPersistentModelIndex m_index;
 	/** true if ID3v1 tags were changed */
 	bool m_changedV1;
 	/** changed tag 1 frame types */

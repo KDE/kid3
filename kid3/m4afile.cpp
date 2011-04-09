@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Oct 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,7 +27,6 @@
 #include "m4afile.h"
 #ifdef HAVE_MP4V2
 
-#include "dirinfo.h"
 #include "genres.h"
 #include "pictureframe.h"
 #include <QFile>
@@ -60,11 +59,13 @@
 /**
  * Constructor.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  */
-M4aFile::M4aFile(const DirInfo* di, const QString& fn) :
-	TaggedFile(di, fn), m_fileRead(false)
+M4aFile::M4aFile(const QString& dn, const QString& fn,
+								 const QPersistentModelIndex& idx) :
+	TaggedFile(dn, fn, idx), m_fileRead(false)
 {
 }
 
@@ -423,7 +424,7 @@ void M4aFile::readTags(bool force)
 		markTag2Unchanged();
 		m_fileRead = true;
 		QByteArray fnIn = QFile::encodeName(
-			getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+			getDirname() + QDir::separator() + currentFilename());
 
 		MP4FileHandle handle = MP4Read(fnIn);
 		if (handle != MP4_INVALID_FILE_HANDLE) {
@@ -557,8 +558,7 @@ void M4aFile::readTags(bool force)
 bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 {
 	bool ok = true;
-	QString fnStr(getDirInfo()->getDirname() + QDir::separator() +
-								currentFilename());
+	QString fnStr(getDirname() + QDir::separator() + currentFilename());
 	if (isChanged() && !QFileInfo(fnStr).isWritable()) {
 		return false;
 	}
@@ -1403,18 +1403,19 @@ bool M4aFile::FileInfo::read(MP4FileHandle handle)
 /**
  * Create an M4aFile object if it supports the filename's extension.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  *
  * @return tagged file, 0 if type not supported.
  */
-TaggedFile* M4aFile::Resolver::createFile(const DirInfo* di,
-																					const QString& fn) const
+TaggedFile* M4aFile::Resolver::createFile(const QString& dn, const QString& fn,
+		const QPersistentModelIndex& idx) const
 {
 	QString ext = fn.right(4).toLower();
 	if (ext == ".m4a" || ext == ".m4b" || ext == ".m4p" || ext == ".mp4" ||
 			ext == ".m4v" || ext == "mp4v")
-		return new M4aFile(di, fn);
+		return new M4aFile(dn, fn, idx);
 	else
 		return 0;
 }

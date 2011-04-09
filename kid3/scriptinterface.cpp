@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Dec 2007
  *
- * Copyright (C) 2007-2008  Urs Fleisch
+ * Copyright (C) 2007-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,11 +31,12 @@
 #include <QFileInfo>
 #include "kid3.h"
 #include "id3form.h"
-#include "filelistitem.h"
 #include "taggedfile.h"
 #include "frametable.h"
 #include "filefilter.h"
 #include "pictureframe.h"
+#include "fileproxymodel.h"
+#include "modeliterator.h"
 
 /**
  * Constructor.
@@ -216,12 +217,10 @@ bool ScriptInterface::nextFile()
  */
 bool ScriptInterface::expandDirectory()
 {
-	FileListItem* item = m_app->m_view->currentFile();
-	if (item) {
-		if (item->getDirInfo()) {
-			item->setExpanded(true);
-			return true;
-		}
+	QModelIndex index = m_app->m_view->getFileList()->currentIndex();
+	if (!FileProxyModel::getPathIfIndexOfDir(index).isNull()) {
+		m_app->m_view->getFileList()->expand(index);
+		return true;
 	}
 	return false;
 }
@@ -315,8 +314,7 @@ void ScriptInterface::convertToId3v23()
  */
 QString ScriptInterface::getDirectoryName()
 {
-	const DirInfo* dirinfo = m_app->m_view->getDirInfo();
-	return dirinfo ? dirinfo->getDirname() : "";
+	return m_app->m_view->getDirPath();
 }
 
 /**
@@ -326,19 +324,14 @@ QString ScriptInterface::getDirectoryName()
  */
 QString ScriptInterface::getFileName()
 {
-	FileListItem* item = m_app->m_view->currentFile();
-	if (item) {
-		const DirInfo* dirinfo = item->getDirInfo();
-		if (dirinfo) {
-			QString dirname = dirinfo->getDirname();
-			if (!dirname.endsWith('/')) dirname += '/';
-			return dirname;
-		} else {
-			TaggedFile* taggedFile = item->getFile();
-			if (taggedFile) {
-				return taggedFile->getAbsFilename();
-			}
-		}
+	QModelIndex index = m_app->m_view->getFileList()->currentIndex();
+	QString dirname = FileProxyModel::getPathIfIndexOfDir(index);
+	if (!dirname.isNull()) {
+		if (!dirname.endsWith('/')) dirname += '/';
+		return dirname;
+	} else if (TaggedFile* taggedFile =
+						 FileProxyModel::getTaggedFileOfIndex(index)) {
+		return taggedFile->getAbsFilename();
 	}
 	return "";
 }
@@ -500,44 +493,41 @@ QStringList ScriptInterface::getTag(int tagMask)
 QStringList ScriptInterface::getInformation()
 {
 	QStringList lst;
-	FileListItem* item = m_app->m_view->currentFile();
-	if (item) {
-		TaggedFile* taggedFile = item->getFile();
-		if (taggedFile) {
-			TaggedFile::DetailInfo info;
-			taggedFile->getDetailInfo(info);
-			if (info.valid) {
-				lst << "Format" << info.format;
-				if (info.bitrate > 0 && info.bitrate < 999) {
-					lst << "Bitrate" << QString::number(info.bitrate);
-				}
-				if (info.sampleRate > 0) {
-					lst << "Samplerate" << QString::number(info.sampleRate);
-				}
-				if (info.channels > 0) {
-					lst << "Channels" << QString::number(info.channels);
-				}
-				if (info.duration > 0) {
-					lst << "Duration" << QString::number(info.duration);
-				}
-				if (info.channelMode == TaggedFile::DetailInfo::CM_Stereo ||
-						info.channelMode == TaggedFile::DetailInfo::CM_JointStereo) {
-					lst << "Channel Mode" <<
-						(info.channelMode == TaggedFile::DetailInfo::CM_Stereo ?
-						 "Stereo" : "Joint Stereo");
-				}
-				if (info.vbr) {
-					lst << "VBR" << "1";
-				}
+	QModelIndex index = m_app->m_view->getFileList()->currentIndex();
+	if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+		TaggedFile::DetailInfo info;
+		taggedFile->getDetailInfo(info);
+		if (info.valid) {
+			lst << "Format" << info.format;
+			if (info.bitrate > 0 && info.bitrate < 999) {
+				lst << "Bitrate" << QString::number(info.bitrate);
 			}
-			QString tag1 = taggedFile->getTagFormatV1();
-			if (!tag1.isEmpty()) {
-				lst << "Tag 1" << tag1;
+			if (info.sampleRate > 0) {
+				lst << "Samplerate" << QString::number(info.sampleRate);
 			}
-			QString tag2 = taggedFile->getTagFormatV2();
-			if (!tag2.isEmpty()) {
-				lst << "Tag 2" << tag2;
+			if (info.channels > 0) {
+				lst << "Channels" << QString::number(info.channels);
 			}
+			if (info.duration > 0) {
+				lst << "Duration" << QString::number(info.duration);
+			}
+			if (info.channelMode == TaggedFile::DetailInfo::CM_Stereo ||
+					info.channelMode == TaggedFile::DetailInfo::CM_JointStereo) {
+				lst << "Channel Mode" <<
+					(info.channelMode == TaggedFile::DetailInfo::CM_Stereo ?
+					 "Stereo" : "Joint Stereo");
+			}
+			if (info.vbr) {
+				lst << "VBR" << "1";
+			}
+		}
+		QString tag1 = taggedFile->getTagFormatV1();
+		if (!tag1.isEmpty()) {
+			lst << "Tag 1" << tag1;
+		}
+		QString tag2 = taggedFile->getTagFormatV2();
+		if (!tag2.isEmpty()) {
+			lst << "Tag 2" << tag2;
 		}
 	}
 	return lst;

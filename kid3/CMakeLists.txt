@@ -4,7 +4,8 @@ if (HAVE_TAGLIB)
   set(TAGLIBEXT_LIBRARIES taglibext)
 endif (HAVE_TAGLIB)
 
-set(kid3_SRCS filelist.cpp filelistitem.cpp frame.cpp framelist.cpp
+set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
+	modeliterator.cpp taggedfileiconprovider.cpp
 	frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp
 	mp3file.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp
 	importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp
@@ -116,7 +117,7 @@ set(kid3_MOC_HDRS filelist.h frametable.h id3form.h kid3.h configdialog.h
 	filterdialog.h filefilter.h httpclient.h downloaddialog.h
 	browsecoverartdialog.h configtable.h browserdialog.h imageviewer.h
 	editframedialog.h editframefieldsdialog.h playlistdialog.h recentfilesmenu.h
-	playtoolbar.h)
+	playtoolbar.h fileproxymodel.h)
 if (HAVE_QTDBUS)
   set(kid3_MOC_HDRS ${kid3_MOC_HDRS} scriptinterface.h)
 endif (HAVE_QTDBUS)

@@ -32,6 +32,7 @@
 #include <QTextStream>
 #include <QCursor>
 #include <QMessageBox>
+#include <QInputDialog>
 #include <QPushButton>
 #include <QProgressBar>
 #include <QImage>
@@ -44,7 +45,6 @@
 #include <QIcon>
 #include <QToolBar>
 #include <QFileSystemModel>
-#include <QQueue>
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include "scriptinterface.h"
@@ -814,8 +814,6 @@ void Kid3App::initView()
 		setCentralWidget(m_view);
 		m_view->initView();
 		m_framelist = m_view->getFrameList();
-		connect(m_view, SIGNAL(selectedFilesRenamed()),
-						this, SLOT(updateGuiControls()));
 	}
 }
 
@@ -1599,61 +1597,67 @@ void Kid3App::slotPlaylistDialog()
 bool Kid3App::writePlaylist(const PlaylistConfig& cfg)
 {
 	PlaylistCreator plCtr(m_view->getDirPath(), cfg);
-	QString selectedDirPrefix;
 	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
-	bool noSelection = !cfg.m_onlySelectedFiles || !selectModel->hasSelection();
+	bool noSelection = !cfg.m_onlySelectedFiles || !selectModel ||
+										 !selectModel->hasSelection();
 	bool ok = true;
+	QModelIndex rootIndex;
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	slotStatusMsg(i18n("Creating playlist..."));
-	QModelIndex firstIndex;
+
 	if (cfg.m_location == PlaylistConfig::PL_CurrentDirectory) {
 		// Get first child of parent of current index.
-		firstIndex = m_view->getFileList()->currentIndex();
-		if (!firstIndex.model()->hasChildren())
-			firstIndex = firstIndex.parent();
-		firstIndex = firstIndex.model()->index(0, 0, firstIndex);
+		rootIndex = m_view->getFileList()->currentOrRootIndex();
+		if (rootIndex.model() && rootIndex.model()->rowCount(rootIndex) <= 0)
+			rootIndex = rootIndex.parent();
+		if (const QAbstractItemModel* model = rootIndex.model()) {
+			for (int row = 0; row < model->rowCount(rootIndex); ++row) {
+				QModelIndex index = model->index(row, 0, rootIndex);
+				PlaylistCreator::Item plItem(index, plCtr);
+				if (plItem.isFile() &&
+						(noSelection || selectModel->isSelected(index))) {
+					ok = plItem.add() && ok;
+				}
+			}
+		}
 	} else {
-		m_view->getFileList()->expandAll();
-		firstIndex = m_view->getFileList()->rootIndex();
-	}
-	ModelIterator it(firstIndex);
-	while (it.hasNext()) {
-		QModelIndex index = it.next();
-		PlaylistCreator::Item plItem(index, plCtr);
-		bool inSelectedDir = false;
-		if (cfg.m_location == PlaylistConfig::PL_CurrentDirectory &&
-				plItem.isDir())
-			break;
-
-		if (cfg.m_location != PlaylistConfig::PL_CurrentDirectory &&
-				plItem.isDir()) {
-			if (!selectedDirPrefix.isEmpty()) {
-				if (plItem.getDirName().startsWith(selectedDirPrefix)) {
-					inSelectedDir = true;
-				} else {
-					selectedDirPrefix = "";
+		QString selectedDirPrefix;
+		rootIndex = m_view->getFileList()->rootIndex();
+		ModelIterator it(rootIndex);
+		while (it.hasNext()) {
+			QModelIndex index = it.next();
+			PlaylistCreator::Item plItem(index, plCtr);
+			bool inSelectedDir = false;
+			if (plItem.isDir()) {
+				if (!selectedDirPrefix.isEmpty()) {
+					if (plItem.getDirName().startsWith(selectedDirPrefix)) {
+						inSelectedDir = true;
+					} else {
+						selectedDirPrefix = "";
+					}
 				}
-			}
-			if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
-				// if directory is selected, all its files are selected
-				if (!inSelectedDir) {
-					selectedDirPrefix = plItem.getDirName();
+				if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
+					// if directory is selected, all its files are selected
+					if (!inSelectedDir) {
+						selectedDirPrefix = plItem.getDirName();
+					}
 				}
-			}
-		} else if (plItem.isFile()) {
-			QString dirName = plItem.getDirName();
-			if (!selectedDirPrefix.isEmpty()) {
-				if (dirName.startsWith(selectedDirPrefix)) {
-					inSelectedDir = true;
-				} else {
-					selectedDirPrefix = "";
+			} else if (plItem.isFile()) {
+				QString dirName = plItem.getDirName();
+				if (!selectedDirPrefix.isEmpty()) {
+					if (dirName.startsWith(selectedDirPrefix)) {
+						inSelectedDir = true;
+					} else {
+						selectedDirPrefix = "";
+					}
 				}
-			}
-			if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
-				ok = plItem.add() && ok;
+				if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
+					ok = plItem.add() && ok;
+				}
 			}
 		}
 	}
+
 	ok = plCtr.write() && ok;
 	slotStatusMsg(i18n("Ready."));
 	QApplication::restoreOverrideCursor();
@@ -1678,7 +1682,7 @@ void Kid3App::setupImportDialog()
 	m_trackDataList.clearData();
 	bool firstTrack = true;
 	bool tag1Supported = true;
-	TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentIndex());
+	TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentOrRootIndex());
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
 		taggedFile->readTags(false);
@@ -1728,7 +1732,8 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 	FrameFilter flt(destV1 ?
 	                m_view->frameTableV1()->getEnabledFrameFilter(true) :
 	                m_view->frameTableV2()->getEnabledFrameFilter(true));
-	TaggedFileOfDirectoryIterator tfit(m_view->getFileList()->currentIndex());
+	TaggedFileOfDirectoryIterator tfit(
+			m_view->getFileList()->currentOrRootIndex());
 	while (tfit.hasNext()) {
 		TaggedFile* taggedFile = tfit.next();
 		taggedFile->readTags(false);
@@ -1742,7 +1747,8 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 			break;
 		}
 	}
-	if (m_view->getFileList()->selectionModel()->hasSelection()) {
+	if (m_view->getFileList()->selectionModel() &&
+			m_view->getFileList()->selectionModel()->hasSelection()) {
 		m_view->frameTableV1()->frames().clear();
 		m_view->frameTableV1()->framesToTable();
 		m_view->frameTableV2()->frames().clear();
@@ -1896,7 +1902,7 @@ void Kid3App::slotBrowseCoverArt()
 	}
 	if (m_browseCoverArtDialog) {
 		FrameCollection frames2;
-		QModelIndex index = m_view->currentFile();
+		QModelIndex index = m_view->getFileList()->currentIndex();
 		if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
 			taggedFile->readTags(false);
 			FrameCollection frames1;
@@ -1921,7 +1927,8 @@ void Kid3App::setExportData(int src)
 {
 	if (m_exportDialog) {
 		ImportTrackDataVector trackDataVector;
-		TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentIndex());
+		TaggedFileOfDirectoryIterator it(
+				m_view->getFileList()->currentOrRootIndex());
 		while (it.hasNext()) {
 			TaggedFile* taggedFile = it.next();
 			taggedFile->readTags(false);
@@ -2120,7 +2127,6 @@ void Kid3App::scheduleRenameActions()
 {
 	if (m_renDirDialog) {
 		m_renDirDialog->clearActions();
-		m_view->getFileList()->expandAll();
 		TaggedFileIterator it(m_view->getFileList()->rootIndex());
 		while (it.hasNext()) {
 			TaggedFile* taggedFile = it.next();
@@ -2157,7 +2163,8 @@ bool Kid3App::renameDirectory(int tagMask, const QString& format,
 {
 	bool ok = false;
 	TaggedFile* taggedFile =
-		TaggedFileOfDirectoryIterator::first(m_view->getFileList()->currentIndex());
+		TaggedFileOfDirectoryIterator::first(
+				m_view->getFileList()->currentOrRootIndex());
 	if (!isModified() && taggedFile) {
 		if (!m_renDirDialog) {
 			m_renDirDialog = new RenDirDialog(0);
@@ -2195,7 +2202,7 @@ void Kid3App::slotRenameDirectory()
 							this, SLOT(scheduleRenameActions()));
 		}
 		if (m_renDirDialog) {
-			QModelIndex index = m_view->currentFile();
+			QModelIndex index = m_view->getFileList()->currentOrRootIndex();
 			QString dirName = FileProxyModel::getPathIfIndexOfDir(index);
 			if (!dirName.isNull()) {
 				m_view->getFileList()->expand(index);
@@ -2236,7 +2243,7 @@ void Kid3App::slotRenameDirectory()
 int Kid3App::getTotalNumberOfTracksInDir()
 {
 	if (TaggedFile* taggedFile = TaggedFileOfDirectoryIterator::first(
-			m_view->getFileList()->currentIndex())) {
+			m_view->getFileList()->currentOrRootIndex())) {
 		return taggedFile->getTotalNumberOfTracksInDir();
 	}
 	return 0;
@@ -2257,10 +2264,10 @@ void Kid3App::numberTracks(int nr, int total, bool destV1, bool destV2)
 	if (numDigits < 1 || numDigits > 5)
 		numDigits = 1;
 
-	QModelIndex curIdx(m_view->getFileList()->currentIndex());
-	SelectedTaggedFileOfDirectoryIterator it(m_view->getFileList()->currentIndex(),
-																m_view->getFileList()->selectionModel(),
-																true);
+	SelectedTaggedFileOfDirectoryIterator it(
+			m_view->getFileList()->currentOrRootIndex(),
+			m_view->getFileList()->selectionModel(),
+			true);
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
 		taggedFile->readTags(false);
@@ -2340,9 +2347,11 @@ void Kid3App::slotNumberTracks()
  *
  * @return true if ok, false if aborted.
  */
-bool Kid3App::applyFilterToModel(FileFilter& fileFilter, FileProxyModel* model,
+bool Kid3App::applyFilterToDir(FileFilter& fileFilter, FileProxyModel* model,
 																 const QModelIndex& rootIndex)
 {
+	if (!model)
+		return false;
 	bool ok = true;
 	unsigned numFiles = 0;
 	TaggedFileIterator it(rootIndex);
@@ -2401,7 +2410,7 @@ void Kid3App::applyFilter(FileFilter& fileFilter)
 		m_filterDialog->clearAbortFlag();
 	}
 
-	applyFilterToModel(fileFilter, model, rootIndex);
+	applyFilterToDir(fileFilter, model, rootIndex);
 
 	model->applyFilteringOutIndexes();
 	setFiltered(!fileFilter.isEmptyFilterExpression());
@@ -2524,7 +2533,7 @@ void Kid3App::slotPlayAudio()
 	QStringList files;
 	int fileNr = 0;
 	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
-	if (selectModel->selectedIndexes().size() > 1) {
+	if (selectModel && selectModel->selectedIndexes().size() > 1) {
 		// play only the selected files if more than one is selected
 		SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																	m_view->getFileList()->selectionModel(),
@@ -2541,7 +2550,7 @@ void Kid3App::slotPlayAudio()
 			QModelIndex index = it.next();
 			if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
 				files.append(taggedFile->getAbsFilename());
-				if (selectModel->isSelected(index)) {
+				if (selectModel && selectModel->isSelected(index)) {
 					fileNr = idx;
 				}
 				++idx;
@@ -2672,7 +2681,8 @@ void Kid3App::imageDownloaded(const QByteArray& data,
 	if (mimeType.startsWith("image")) {
 		PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
 		if (m_downloadToAllFilesInDir) {
-			TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentIndex());
+			TaggedFileOfDirectoryIterator it(
+					m_view->getFileList()->currentOrRootIndex());
 			while (it.hasNext()) {
 				TaggedFile* taggedFile = it.next();
 				taggedFile->readTags(false);
@@ -2697,7 +2707,8 @@ void Kid3App::updateModificationState()
 		TaggedFile* taggedFile = it.next();
 		if (taggedFile->isChanged()) {
 			modified = true;
-			break;
+			m_view->getFileList()->dataChanged(taggedFile->getIndex(),
+																				 taggedFile->getIndex());
 		}
 	}
 	setModified(modified);
@@ -2976,7 +2987,7 @@ void Kid3App::getTagsFromFilenameV1()
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																selectModel,
 																false);
-	bool multiselect = selectModel->selectedIndexes().size() > 1;
+	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
 	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
@@ -3007,7 +3018,7 @@ void Kid3App::getTagsFromFilenameV2()
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																selectModel,
 																false);
-	bool multiselect = selectModel->selectedIndexes().size() > 1;
+	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
 	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
@@ -3040,7 +3051,7 @@ void Kid3App::getFilenameFromTags(int tag_version)
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																selectModel,
 																false);
-	bool multiselect = selectModel->selectedIndexes().size() > 1;
+	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
 		if (tag_version == 2) {
@@ -3158,6 +3169,8 @@ void Kid3App::updateAfterFrameModification(TaggedFile* taggedFile)
  */
 TaggedFile* Kid3App::getSelectedFile()
 {
+	if (!m_view->getFileList()->selectionModel())
+		return 0;
 	QModelIndexList selItems(
 			m_view->getFileList()->selectionModel()->selectedIndexes());
 	if (selItems.size() != 1)
@@ -3372,5 +3385,148 @@ void Kid3App::formatFramesIfEnabled(FrameCollection& frames) const
 {
 	if (s_id3FormatCfg.m_formatWhileEditing) {
 		s_id3FormatCfg.formatFrames(frames);
+	}
+}
+
+/**
+ * Rename the selected file(s).
+ */
+void Kid3App::renameFile()
+{
+	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
+	FileProxyModel* model =
+			qobject_cast<FileProxyModel*>(m_view->getFileList()->model());
+	if (!selectModel || !model)
+		return;
+
+	QList<QPersistentModelIndex> selItems;
+	foreach (QModelIndex index, selectModel->selectedIndexes())
+		selItems.append(index);
+	foreach (QPersistentModelIndex index, selItems) {
+		bool isDir = false;
+		TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index);
+		QString absFilename, dirName, fileName;
+		if (taggedFile) {
+			absFilename = taggedFile->getAbsFilename();
+			dirName = taggedFile->getDirname();
+			fileName = taggedFile->getFilename();
+		} else {
+			QFileInfo fi(model->fileInfo(index));
+			absFilename = fi.filePath();
+			dirName = fi.dir().path();
+			fileName = fi.fileName();
+			isDir = model->isDir(index);
+		}
+		bool ok;
+		QString newFileName = QInputDialog::getText(
+			this,
+			i18n("Rename File"),
+			i18n("Enter new file name:"),
+			QLineEdit::Normal, fileName, &ok);
+		if (ok && !newFileName.isEmpty() && newFileName != fileName) {
+			if (taggedFile) {
+				if (taggedFile->isChanged()) {
+					taggedFile->setFilename(newFileName);
+					if (selItems.size() == 1)
+						m_view->setFilename(newFileName);
+					continue;
+				}
+				// This will close the file.
+				// The file must be closed before renaming on Windows.
+				FileProxyModel::releaseTaggedFileOfIndex(index);
+			}
+			QString newPath = dirName + '/' + newFileName;
+			if (!QDir().rename(absFilename, newPath)) {
+				QMessageBox::warning(
+					0, i18n("File Error"),
+					i18n("Error while renaming:\n") +
+					KCM_i18n2("Rename %1 to %2 failed\n", fileName, newFileName),
+					QMessageBox::Ok, Qt::NoButton);
+			}
+		}
+	}
+}
+
+/**
+ * Delete the selected file(s).
+ */
+void Kid3App::deleteFile()
+{
+	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
+	FileProxyModel* model =
+			qobject_cast<FileProxyModel*>(m_view->getFileList()->model());
+	if (!selectModel || !model)
+		return;
+
+	QStringList files;
+	QList<QPersistentModelIndex> selItems;
+	foreach (QModelIndex index, selectModel->selectedIndexes())
+		selItems.append(index);
+	foreach (QPersistentModelIndex index, selItems) {
+		files.append(model->filePath(index));
+	}
+
+	unsigned numFiles = files.size();
+	if (numFiles > 0) {
+#ifdef CONFIG_USE_KDE
+		if (KMessageBox::warningContinueCancelList(
+					this,
+					i18np("Do you really want to delete this item?",
+								"Do you really want to delete these %1 items?", numFiles),
+					files,
+					i18n("Delete Files"),
+					KStandardGuiItem::del(), KStandardGuiItem::cancel(), QString(),
+					KMessageBox::Dangerous) == KMessageBox::Continue)
+#else
+		QString txt = numFiles > 1 ?
+			KCM_i18n1("Do you really want to delete these %1 items?", numFiles) :
+			i18n("Do you really want to delete this item?");
+		txt += '\n';
+		txt += files.join("\n");
+		if (QMessageBox::question(
+				this, i18n("Delete Files"), txt,
+				QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
+#endif
+		{
+			bool rmdirError = false;
+			files.clear();
+			foreach (QPersistentModelIndex index, selItems) {
+				QString absFilename(model->filePath(index));
+				if (model->isDir(index)) {
+					if (!model->rmdir(index)) {
+						rmdirError = true;
+						files.append(absFilename);
+					}
+				} else {
+					if (FileProxyModel::getTaggedFileOfIndex(index)) {
+						// This will close the file.
+						// The file must be closed before deleting on Windows.
+						FileProxyModel::releaseTaggedFileOfIndex(index);
+					}
+					if (!model->remove(index)) {
+						files.append(absFilename);
+					}
+				}
+			}
+			if (!files.isEmpty()) {
+				QString txt;
+				if (rmdirError)
+					txt += i18n("Directory must be empty.\n");
+#ifdef CONFIG_USE_KDE
+				txt += i18np("Error while deleting this item:",
+										 "Error while deleting these %1 items:", files.size());
+				KMessageBox::errorList(0, txt, files, i18n("File Error"));
+#else
+				txt += files.size() > 1 ?
+					KCM_i18n1("Error while deleting these %1 items:", files.size()) :
+					i18n("Error while deleting this item:");
+				txt += '\n';
+				txt += files.join("\n");
+				QMessageBox::warning(
+					0, i18n("File Error"), txt,
+					QMessageBox::Ok, Qt::NoButton);
+#endif
+			}
+		}
 	}
 }

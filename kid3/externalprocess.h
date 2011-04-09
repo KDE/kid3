@@ -35,7 +35,6 @@
 
 class QProcess;
 class TaggedFile;
-class DirInfo;
 
 /**
  * Handler for external process.

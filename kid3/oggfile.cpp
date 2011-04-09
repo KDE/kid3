@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Sep 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,7 +27,6 @@
 #include "oggfile.hpp"
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
-#include "dirinfo.h"
 #include "pictureframe.h"
 #include "kid3.h"
 #include <QFile>
@@ -49,11 +48,13 @@
 /**
  * Constructor.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  */
-OggFile::OggFile(const DirInfo* di, const QString& fn) :
-	TaggedFile(di, fn), m_fileRead(false)
+OggFile::OggFile(const QString& dn, const QString& fn,
+								 const QPersistentModelIndex& idx) :
+	TaggedFile(dn, fn, idx), m_fileRead(false)
 {
 }
 
@@ -76,7 +77,7 @@ void OggFile::readTags(bool force)
 		m_comments.clear();
 		markTag2Unchanged();
 		m_fileRead = true;
-		QByteArray fnIn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+		QByteArray fnIn = QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
 
 		if (m_fileInfo.read(fnIn)) {
 			FILE* fpIn = ::fopen(fnIn, "rb");
@@ -128,7 +129,7 @@ void OggFile::readTags(bool force)
  */
 bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 {
-	QString dirname = getDirInfo()->getDirname();
+	QString dirname = getDirname();
 	if (isChanged() &&
 		!QFileInfo(dirname + QDir::separator() + currentFilename()).isWritable()) {
 		return false;
@@ -906,17 +907,18 @@ bool OggFile::CommentList::setValue(const QString& name, const QString& value)
 /**
  * Create an OggFile object if it supports the filename's extension.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  *
  * @return tagged file, 0 if type not supported.
  */
-TaggedFile* OggFile::Resolver::createFile(const DirInfo* di,
-																					const QString& fn) const
+TaggedFile* OggFile::Resolver::createFile(const QString& dn, const QString& fn,
+		const QPersistentModelIndex& idx) const
 {
 	QString ext = fn.right(4).toLower();
 	if (ext == ".oga" || ext == ".ogg")
-		return new OggFile(di, fn);
+		return new OggFile(dn, fn, idx);
 	else
 		return 0;
 }

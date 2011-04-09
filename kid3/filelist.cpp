@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2008  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,40 +24,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
+#include "filelist.h"
 #include <QFileInfo>
 #include <QDir>
 #include <QStringList>
-#include <QMessageBox>
-#include <QInputDialog>
 #include <QUrl>
-#include <QRegExp>
 #include <QMenu>
 #include <QHeaderView>
-#include <QDirIterator>
-#ifdef CONFIG_USE_KDE
-#include <kdeversion.h>
-#include <kmessagebox.h>
-#endif
-
-#include "taggedfile.h"
-#include "filelist.h"
-#include "filelistitem.h"
+#include "fileproxymodel.h"
+#include "modeliterator.h"
 #include "kid3.h"
 #include "externalprocess.h"
 #include "qtcompatmac.h"
-#ifdef HAVE_ID3LIB
-#include "mp3file.h"
-#endif
-#ifdef HAVE_VORBIS
-#include "oggfile.hpp"
-#endif
-#ifdef HAVE_FLAC
-#include "flacfile.hpp"
-#endif
-#ifdef HAVE_TAGLIB
-#include "taglibfile.h"
-#endif
+
+namespace {
 
 /**
  * Replaces context command format codes in a string.
@@ -246,6 +226,8 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
 	return str;
 }
 
+} // anonymous namespace
+
 
 /**
  * Constructor.
@@ -253,21 +235,13 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
  * @param app    application widget
  */
 FileList::FileList(QWidget* parent, Kid3App* app) :
-	QTreeWidget(parent), m_iterator(0),
-	m_currentItemInDir(0), m_process(0), m_app(app)
+	QTreeView(parent), m_process(0), m_app(app)
 {
 	setSelectionMode(ExtendedSelection);
 	setSortingEnabled(false);
-	setColumnCount(1);
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
 			this, SLOT(customContextMenu(const QPoint&)));
-	connect(this, SIGNAL(itemExpanded(QTreeWidgetItem*)),
-					this, SLOT(expandItem(QTreeWidgetItem*)));
-	connect(this, SIGNAL(itemCollapsed(QTreeWidgetItem*)),
-					this, SLOT(collapseItem(QTreeWidgetItem*)));
-	connect(this, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)),
-					this, SLOT(expandOrCollapseEmptyItem(QTreeWidgetItem*)));
 	header()->hide();
 }
 
@@ -277,7 +251,6 @@ FileList::FileList(QWidget* parent, Kid3App* app) :
 FileList::~FileList()
 {
 	delete m_process;
-	delete m_iterator;
 }
 
 /**
@@ -287,237 +260,7 @@ FileList::~FileList()
 QSize FileList::sizeHint() const
 {
 	return QSize(fontMetrics().maxWidth() * 25,
-							 QTreeWidget::sizeHint().height());
-}
-
-/**
- * Get the next item in the filelist which contains a file.
- *
- * @param it list view iterator
- *
- * @return next item with file.
- */
-static FileListItem* getNextItemWithFile(QTreeWidgetItemIterator& it)
-{
-	QTreeWidgetItem* lvItem;
-	while ((lvItem = *it) != 0) {
-		FileListItem* flItem = dynamic_cast<FileListItem*>(lvItem);
-		if (flItem && flItem->getFile()) {
-			return flItem;
-		}
-		++it;
-	}
-	return 0;
-}
-
-/**
- * Get the first item in the filelist.
- *
- * @return first file.
- */
-FileListItem* FileList::first()
-{
-	delete m_iterator;
-	if (topLevelItemCount() > 0) {
-		m_iterator = new QTreeWidgetItemIterator(this);
-		return getNextItemWithFile(*m_iterator);
-	} else {
-		m_iterator = 0;
-		return 0;
-	}
-}
-
-/**
- * Get the next item in the filelist.
- *
- * @return next file.
- */
-FileListItem* FileList::next()
-{
-	if (m_iterator && **m_iterator) {
-		++*m_iterator;
-		return getNextItemWithFile(*m_iterator);
-	}
-	return 0;
-}
-
-/**
- * Get the current item in the filelist.
- *
- * @return current file.
- */
-FileListItem* FileList::current()
-{
-	return dynamic_cast<FileListItem*>(currentItem());
-}
-
-/**
- * Get the next item in the current directory which contains a file.
- *
- * @param lvItem list view item
- *
- * @return next item with file.
- */
-static FileListItem* getNextItemWithFileInDir(QTreeWidgetItem* lvItem)
-{
-	while (lvItem) {
-		FileListItem* flItem = dynamic_cast<FileListItem*>(lvItem);
-		if (flItem && flItem->getFile()) {
-			return flItem;
-		}
-		QTreeWidgetItem* parent = lvItem->parent();
-		QTreeWidgetItemIterator it(lvItem);
-		lvItem = *(++it);
-		if (lvItem && lvItem->parent() != parent) {
-			lvItem = 0;
-		}
-	}
-	return 0;
-}
-
-/**
- * Get the first item in the the current directory.
- *
- * @return first file.
- */
-FileListItem* FileList::firstInDir()
-{
-	// try to get the currently selected directory
-	if (topLevelItemCount() <= 0) {
-		m_currentItemInDir = 0;
-		return 0;
-	}
-	QTreeWidgetItemIterator it(this, QTreeWidgetItemIterator::Selected);
-	FileListItem* item = dynamic_cast<FileListItem*>(*it);
-	if (item &&
-		 (item->getDirInfo() ||
-			(item->getFile() &&
-			 (item = dynamic_cast<FileListItem*>(item->parent())) != 0))) {
-		m_currentItemInDir =
-			getNextItemWithFileInDir(item->child(0));
-	} else {
-		// if not found, get the first child of the list view
-		m_currentItemInDir =
-			getNextItemWithFileInDir(topLevelItem(0));
-	}
-
-	// if still not found, get the first file in the list view
-	if (!m_currentItemInDir) {
-		it = QTreeWidgetItemIterator(this);
-		m_currentItemInDir = getNextItemWithFile(it);
-	}
-
-	return m_currentItemInDir;
-}
-
-/**
- * Get the next item in the current directory.
- *
- * @return next file.
- */
-FileListItem* FileList::nextInDir()
-{
-	if (m_currentItemInDir) {
-		QTreeWidgetItem* parent = m_currentItemInDir->parent();
-		QTreeWidgetItemIterator it(m_currentItemInDir);
-		QTreeWidgetItem* nextSibling = *(++it);
-		if (nextSibling && nextSibling->parent() != parent) {
-			nextSibling = 0;
-		}
-		m_currentItemInDir = getNextItemWithFileInDir(nextSibling);
-	}
-	return m_currentItemInDir;
-}
-
-/**
- * Get the next item in the filelist which contains a file or a directory.
- *
- * @param it list view iterator
- *
- * @return next item with file or directory.
- */
-static FileListItem* getNextItemWithFileOrDir(QTreeWidgetItemIterator& it)
-{
-	QTreeWidgetItem* lvItem;
-	while ((lvItem = *it) != 0) {
-		FileListItem* flItem = dynamic_cast<FileListItem*>(lvItem);
-		if (flItem) {
-			return flItem;
-		}
-		++it;
-	}
-	return 0;
-}
-
-/**
- * Get the first file or directory item in the filelist.
- *
- * @return first file.
- */
-FileListItem* FileList::firstFileOrDir()
-{
-	delete m_iterator;
-	if (topLevelItemCount() > 0) {
-		m_iterator = new QTreeWidgetItemIterator(this);
-		return getNextItemWithFileOrDir(*m_iterator);
-	} else {
-		m_iterator = 0;
-		return 0;
-	}
-}
-
-/**
- * Get the next file or directory item in the filelist.
- *
- * @return next file.
- */
-FileListItem* FileList::nextFileOrDir()
-{
-	if (m_iterator && **m_iterator) {
-		++*m_iterator;
-		return getNextItemWithFileOrDir(*m_iterator);
-	}
-	return 0;
-}
-
-/**
- * Get the number of files selected in the filelist.
- *
- * @return number of files selected.
- */
-int FileList::numFilesSelected()
-{
-	int numSelected = 0;
-	if (topLevelItemCount() <= 0) {
-		return 0;
-	}
-	QTreeWidgetItemIterator it(this, QTreeWidgetItemIterator::Selected);
-	FileListItem* item;
-	while ((item = getNextItemWithFile(it)) != 0) {
-		++numSelected;
-		++it;
-	}
-	return numSelected;
-}
-
-/**
- * Get the number of files or directories selected in the filelist.
- *
- * @return number of files or directories selected.
- */
-int FileList::numFilesOrDirsSelected()
-{
-	int numSelected = 0;
-	if (topLevelItemCount() <= 0) {
-		return 0;
-	}
-	QTreeWidgetItemIterator it(this, QTreeWidgetItemIterator::Selected);
-	FileListItem* item;
-	while ((item = getNextItemWithFileOrDir(it)) != 0) {
-		++numSelected;
-		++it;
-	}
-	return numSelected;
+							 QTreeView::sizeHint().height());
 }
 
 /**
@@ -527,14 +270,8 @@ int FileList::numFilesOrDirsSelected()
  */
 bool FileList::selectFirstFile()
 {
-	QTreeWidgetItem* item = *QTreeWidgetItemIterator(this);
-	if (item) {
-		clearSelection();
-		setCurrentItem(item);
-		setItemSelected(item, true);
-		return true;
-	}
-	return false;
+	setCurrentIndex(rootIndex());
+	return selectNextFile();
 }
 
 /**
@@ -544,14 +281,28 @@ bool FileList::selectFirstFile()
  */
 bool FileList::selectNextFile()
 {
-	QTreeWidgetItem* item = currentItem();
-	if (item && (item = *(++QTreeWidgetItemIterator(item))) != 0) {
-		clearSelection();
-		setCurrentItem(item);
-		setItemSelected(item, true);
-		return true;
+	if (!model())
+		return false;
+	QModelIndex current(currentIndex()), next;
+	if (model()->rowCount(current) > 0) {
+		// to first child
+		next = model()->index(0, 0, current);
+	} else {
+		QModelIndex parent = current;
+		while (!next.isValid() && parent.isValid()) {
+			// to next sibling or next sibling of parent
+			int row = parent.row();
+			parent = parent.parent();
+			if (row + 1 < model()->rowCount(parent)) {
+				// to next sibling
+				next = model()->index(row + 1, 0, parent);
+			}
+		}
 	}
-	return false;
+	if (!next.isValid())
+		return false;
+	setCurrentIndex(next);
+	return true;
 }
 
 /**
@@ -561,186 +312,95 @@ bool FileList::selectNextFile()
  */
 bool FileList::selectPreviousFile()
 {
-	QTreeWidgetItem* item = currentItem();
-	if (item && (item = *(--QTreeWidgetItemIterator(item))) != 0) {
-		clearSelection();
-		setCurrentItem(item);
-		setItemSelected(item, true);
-		return true;
-	}
-	return false;
-}
-
-/**
- * Fill the filelist with the files found in the directory tree.
- *
- * @param dirInfo  information  about directory
- * @param item     parent directory item or 0 if top-level
- * @param listView parent list view if top-level, else 0
- * @param fileName name of file to select (optional, else empty)
- */
-void FileList::readSubDirectory(DirInfo* dirInfo, FileListItem* item,
-																FileList* listView, const QString& fileName)
-{
-	if (!dirInfo) return;
-	QString dirname = dirInfo->getDirname();
-	int numFiles = 0;
-	FileListItem* last = 0;
-	QDir dir(dirname);
-	const QDir::Filters dirFilters =
-		QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Files;
-	QStringList nameFilters(Kid3App::s_miscCfg.m_nameFilter.split(' '));
-	QStringList dirContents = dir.entryList(
-		nameFilters, dirFilters, QDir::DirsFirst | QDir::IgnoreCase);
-	for (QStringList::Iterator it = dirContents.begin();
-			 it != dirContents.end(); ++it) {
-		QString filename = dirname + QDir::separator() + *it;
-		if (!QFileInfo(filename).isDir()) {
-			TaggedFile* taggedFile = TaggedFile::createFile(dirInfo, *it);
-			if (taggedFile) {
-				if (item) {
-					last = new FileListItem(item, last, taggedFile);
-				} else if (listView) {
-					last = new FileListItem(listView, last, taggedFile);
-				}
-				if (!fileName.isEmpty() && fileName == *it && last && listView) {
-					listView->clearSelection();
-					listView->setCurrentItem(last);
-					listView->setItemSelected(last, true);
-				}
-				++numFiles;
-			}
-		} else {
-			if (*it != "." && *it != "..") {
-				if (item) {
-					last = new FileListItem(item, last, 0);
-				} else if (listView) {
-					last = new FileListItem(listView, last, 0);
-				}
-				if (last) {
-					last->setDirInfo(new DirInfo(filename));
-					last->setChildIndicatorPolicy(
-						QDirIterator(filename, nameFilters, dirFilters).hasNext() ?
-						QTreeWidgetItem::ShowIndicator :
-						QTreeWidgetItem::DontShowIndicatorWhenChildless);
-				}
-			}
+	if (!model())
+		return false;
+	QModelIndex current(currentIndex()), previous;
+	int row = current.row() - 1;
+	if (row >= 0) {
+		// to last leafnode of previous sibling
+		previous = current.sibling(row, 0);
+		row = model()->rowCount(previous) - 1;
+		while (row >= 0) {
+			previous = model()->index(row, 0, previous);
+			row = model()->rowCount(previous) - 1;
 		}
+	} else {
+		// to parent
+		previous = current.parent();
 	}
-	dirInfo->setNumFiles(numFiles);
+	if (!previous.isValid() || previous == rootIndex())
+		return false;
+	setCurrentIndex(previous);
+	return true;
 }
 
 /**
  * Fill the filelist with the files found in a directory.
  *
- * @param name     path of directory
- * @param fileName name of file to select (optional, else empty)
+ * @param dirIndex index of directory in filesystem model
+ * @param fileIndex index of file to select in filesystem model (optional,
+ * else invalid)
  *
  * @return false if name is not directory path, else true.
  */
-bool FileList::readDir(const QString& name, const QString& fileName)
-{
-	QFileInfo file(name);
-	if(file.isDir()) {
-		clear();
-		m_dirInfo.setDirname(file.absoluteFilePath());
-		readSubDirectory(&m_dirInfo, 0, this, fileName);
+bool FileList::readDir(const QModelIndex& dirIndex,
+												const QModelIndex& fileIndex) {
+	QAbstractProxyModel* proxyModel = qobject_cast<QAbstractProxyModel*>(model());
+	QModelIndex rootIndex = proxyModel ? proxyModel->mapFromSource(dirIndex) : dirIndex;
+	if (rootIndex.isValid()) {
+		setRootIndex(rootIndex);
+		if (fileIndex.isValid()) {
+			QModelIndex index = proxyModel ? proxyModel->mapFromSource(fileIndex) : fileIndex;
+			if (index.isValid()) {
+				setCurrentIndex(index);
+			}
+		} else {
+			setCurrentIndex(rootIndex);
+			// Make sure that this invisible root index item is not selected
+			if (selectionModel())
+				selectionModel()->clearSelection();
+		}
 		return true;
 	}
 	return false;
 }
 
 /**
- * Fill the filelist with the files from a DirContents tree.
- *
- * @param dirContents recursive information about directory and files
- * @param item        parent directory item or 0 if top-level
- * @param listView    parent list view if top-level, else 0
+ * Get directory path.
+ * @return directory path.
  */
-static void setSubDirectoryFromDirContents(
-	const DirContents& dirContents, FileListItem* item, FileList* listView)
+QString FileList::getDirPath() const
 {
-	const DirInfo* dirInfo =
-		listView ? listView->getDirInfo() : item->getDirInfo();
-	QString dirname = dirContents.getDirname();
-	FileListItem* last = 0;
-	for (QList<DirContents*>::const_iterator it =
-				 dirContents.getDirs().begin();
-			 it != dirContents.getDirs().end(); ++it) {
-		if (item) {
-			last = new FileListItem(item, last, 0);
-		} else if (listView) {
-			last = new FileListItem(listView, last, 0);
-		}
-		if (last) {
-			const DirContents& subDirContents = *(*it);
-			last->setDirInfo(
-				new DirInfo(subDirContents.getDirname(), subDirContents.getNumFiles()));
-			setSubDirectoryFromDirContents(subDirContents, last, 0);
-			last->setExpanded(true);
-		}
-	}
-	for (QStringList::const_iterator it = dirContents.getFiles().begin();
-			 it != dirContents.getFiles().end(); ++it) {
-		QString filename = dirname + QDir::separator() + *it;
-		TaggedFile* taggedFile = TaggedFile::createFile(dirInfo, *it);
-		if (taggedFile) {
-			if (item) {
-				last = new FileListItem(item, last, taggedFile);
-			} else if (listView) {
-				last = new FileListItem(listView, last, taggedFile);
-			}
-		}
-	}
+	return FileProxyModel::getPathIfIndexOfDir(rootIndex());
 }
 
 /**
- * Fill the filelist with the files from a DirContents tree.
- *
- * @param dirContents recursive information about directory and files
+ * Update the stored current selection with the list of all selected items.
  */
-void FileList::setFromDirContents(const DirContents& dirContents)
+void FileList::updateCurrentSelection()
 {
-	clear();
-	m_dirInfo.setDirname(dirContents.getDirname());
-	m_dirInfo.setNumFiles(dirContents.getNumFiles());
-	setSubDirectoryFromDirContents(dirContents, 0, this);
-}
-
-/**
- * Refresh text of all files in listview and check if any file is modified.
- *
- * @return true if a file is modified.
- */
-bool FileList::updateModificationState()
-{
-	FileListItem* item = first();
-	bool modified = false;
-	while (item != 0) {
-		if (item->getFile()->isChanged()) {
-			modified = true;
-		}
-		item->updateIcons();
-		item = next();
+	if (!selectionModel())
+		return;
+	m_currentSelection.clear();
+	foreach (QModelIndex index, selectionModel()->selectedIndexes()) {
+		m_currentSelection.append(QPersistentModelIndex(index));
 	}
-	update();
-	return modified;
 }
 
 /**
  * Display a context menu with operations for selected files.
  *
- * @param item list box item
- * @param pos  position where context menu is drawn on screen
+ * @param index index of item
+ * @param pos   position where context menu is drawn on screen
  */
-void FileList::contextMenu(QTreeWidgetItem* item, const QPoint& pos)
+void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
-	if (item && !Kid3App::s_miscCfg.m_contextMenuCommands.empty()) {
+	if (index.isValid() && !Kid3App::s_miscCfg.m_contextMenuCommands.empty()) {
 		QMenu menu(this);
 		menu.addAction(i18n("&Expand all"), this, SLOT(expandAll()));
 		menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
-		menu.addAction(i18n("&Rename"), this, SLOT(renameFile()));
-		menu.addAction(i18n("&Delete"), this, SLOT(deleteFile()));
+		menu.addAction(i18n("&Rename"), m_app, SLOT(renameFile()));
+		menu.addAction(i18n("&Delete"), m_app, SLOT(deleteFile()));
 #ifdef HAVE_PHONON
 		menu.addAction(i18n("&Play"), m_app, SLOT(slotPlayAudio()));
 #endif
@@ -782,24 +442,25 @@ void FileList::contextMenu(QTreeWidgetItem* item, const QPoint& pos)
 QStringList FileList::formatStringList(const QStringList& format)
 {
 	QStringList files;
-	FileListItem* firstSelectedItem = 0;
-	FileListItem* item = first();
-	while (item != 0) {
-		if (item->isInSelection()) {
-			if (!firstSelectedItem) {
-				firstSelectedItem = item;
+	TaggedFile* firstSelectedFile = 0;
+	QModelIndexList selItems(selectionModel()
+			 ? selectionModel()->selectedIndexes() : QModelIndexList());
+	foreach (QModelIndex index, selItems) {
+		if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+			if (!firstSelectedFile) {
+				firstSelectedFile = taggedFile;
 			}
-			files.push_back(item->getFile()->getAbsFilename());
+			files.append(taggedFile->getAbsFilename());
 		}
-		item = next();
 	}
 
-	const DirInfo* dirInfo = 0;
-	if (files.empty() &&
-			(item = dynamic_cast<FileListItem*>(currentItem())) != 0 &&
-			(dirInfo = item->getDirInfo()) != 0) {
-		files.push_back(dirInfo->getDirname());
-		firstSelectedItem = firstInDir();
+	QString dirPath;
+	if (files.isEmpty() && !selItems.isEmpty()) {
+		dirPath = FileProxyModel::getPathIfIndexOfDir(selItems.first());
+		if (!dirPath.isNull()) {
+			files.append(dirPath);
+			firstSelectedFile = TaggedFileOfDirectoryIterator::first(selItems.first());
+		}
 	}
 
 	FrameCollection frames;
@@ -824,16 +485,16 @@ QStringList FileList::formatStringList(const QStringList& format)
 					fmt.push_back(url.toString());
 				}
 			} else {
-				if (firstSelectedItem) {
+				if (firstSelectedFile) {
 					// use merged tags 1 and 2 to format string
 					FrameCollection frames1;
-					firstSelectedItem->getFile()->getAllFramesV1(frames1);
-					firstSelectedItem->getFile()->getAllFramesV2(frames);
+					firstSelectedFile->getAllFramesV1(frames1);
+					firstSelectedFile->getAllFramesV2(frames);
 					frames.merge(frames1);
 				}
 				QString str(*it);
 				str.replace("%uf", "%{url}");
-				CommandFormatReplacer cfr(frames, str, files, dirInfo != 0);
+				CommandFormatReplacer cfr(frames, str, files, !dirPath.isNull());
 				cfr.replacePercentCodes(FrameFormatReplacer::FSF_SupportUrlEncode);
 				fmt.push_back(cfr.getString());
 			}
@@ -933,286 +594,11 @@ void FileList::executeAction(QAction* action)
 }
 
 /**
- * Expand or collapse all folders.
- *
- * @param expand true to expand, false to collapse
- */
-void FileList::setAllExpanded(bool expand)
-{
-	FileListItem* item = firstFileOrDir();
-	while (item != 0) {
-		item->setExpanded(expand);
-		item = nextFileOrDir();
-	}
-}
-
-/**
- * Expand all folders.
- */
-void FileList::expandAll()
-{
-	setAllExpanded(true);
-}
-
-/**
- * Collapse all folders.
- */
-void FileList::collapseAll()
-{
-	setAllExpanded(false);
-}
-
-/**
- * Rename the selected file(s).
- */
-void FileList::renameFile()
-{
-	bool fileSelected = false;
-	bool fileRenamed = false;
-	FileListItem* item = first();
-	TaggedFile* taggedFile;
-	while (item != 0) {
-		if (item->isInSelection() &&
-				(taggedFile = item->getFile()) != 0) {
-			bool ok;
-			QString newFileName = QInputDialog::getText(
-				this,
-				i18n("Rename File"),
-				i18n("Enter new file name:"),
-				QLineEdit::Normal, taggedFile->getFilename(), &ok);
-			if (ok && !newFileName.isEmpty()) {
-				if (taggedFile->isChanged()) {
-					taggedFile->setFilename(newFileName);
-					fileRenamed = true;
-				} else {
-					QString newPath = taggedFile->getDirname() + '/' + newFileName;
-					const DirInfo* dirInfo = taggedFile->getDirInfo();
-					QString absFilename = taggedFile->getAbsFilename();
-					QString filename = taggedFile->getFilename();
-					// This will close the file.
-					// The file must be closed before renaming on Windows.
-					item->setFile(0);
-					if (QDir().rename(absFilename, newPath)) {
-						TaggedFile* newTaggedFile =
-							TaggedFile::createFile(dirInfo, newFileName);
-						if (newTaggedFile) {
-							item->setFile(newTaggedFile);
-							fileRenamed = true;
-						}
-					} else {
-						item->setFile(TaggedFile::createFile(dirInfo, filename));
-						QMessageBox::warning(
-							0, i18n("File Error"),
-							i18n("Error while renaming:\n") +
-							KCM_i18n2("Rename %1 to %2 failed\n", filename, newFileName),
-							QMessageBox::Ok, Qt::NoButton);
-					}
-				}
-			}
-			fileSelected = true;
-		}
-		item = next();
-	}
-	if (fileRenamed) {
-		emit selectedFilesRenamed();
-	}
-
-	const DirInfo* dirInfo;
-	if (!fileSelected &&
-			(item = dynamic_cast<FileListItem*>(currentItem())) != 0 &&
-			(dirInfo = item->getDirInfo()) != 0) {
-		QFileInfo fi(dirInfo->getDirname());
-		bool ok;
-		QString newDirName = QInputDialog::getText(
-			this,
-			i18n("Rename Directory"),
-			i18n("Enter new directory name:"),
-			QLineEdit::Normal, fi.fileName(), &ok);
-		if (ok && !newDirName.isEmpty()) {
-			QString newPath = fi.dir().path() + '/' + newDirName;
-			if (QDir().rename(dirInfo->getDirname(), newPath)) {
-				item->setDirName(newPath);
-			} else {
-				QMessageBox::warning(
-					0, i18n("File Error"),
-					i18n("Error while renaming:\n") +
-					KCM_i18n2("Rename %1 to %2 failed\n", fi.fileName(), newDirName),
-					QMessageBox::Ok, Qt::NoButton);
-			}
-		}
-	}
-}
-
-/**
- * Delete the selected file(s).
- */
-void FileList::deleteFile()
-{
-	QStringList files;
-	FileListItem* item = first();
-	while (item != 0) {
-		if (item->isInSelection()) {
-			files.push_back(item->getFile()->getAbsFilename());
-		}
-		item = next();
-	}
-
-	unsigned numFiles = files.size();
-	if (numFiles > 0) {
-#ifdef CONFIG_USE_KDE
-		if (KMessageBox::warningContinueCancelList(
-					this,
-					i18np("Do you really want to delete this item?",
-								"Do you really want to delete these %1 items?", numFiles),
-					files,
-					i18n("Delete Files"),
-					KStandardGuiItem::del(), KStandardGuiItem::cancel(), QString(),
-					KMessageBox::Dangerous) == KMessageBox::Continue)
-#else
-		QString txt = numFiles > 1 ?
-			KCM_i18n1("Do you really want to delete these %1 items?", numFiles) :
-			i18n("Do you really want to delete this item?");
-		txt += '\n';
-		txt += files.join("\n");
-		if (QMessageBox::question(
-				this, i18n("Delete Files"), txt,
-				QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
-#endif
-		{
-			QList<QTreeWidgetItem*> itemsToDelete;
-			files.clear();
-			FileListItem* item = first();
-			while (item != 0) {
-				FileListItem* nextItem = next();
-				if (item->isInSelection()) {
-					TaggedFile* taggedFile = item->getFile();
-					if (taggedFile) {
-						const DirInfo* dirInfo = taggedFile->getDirInfo();
-						QString absFilename = taggedFile->getAbsFilename();
-						QString filename = taggedFile->getFilename();
-						// This will close the file.
-						// The file must be closed before deleting on Windows.
-						item->setFile(0);
-						if (QDir().remove(absFilename)) {
-							itemsToDelete.append(item);
-						} else {
-							item->setFile(TaggedFile::createFile(dirInfo, filename));
-							files.push_back(absFilename);
-						}
-					}
-				}
-				item = nextItem;
-			}
-			qDeleteAll(itemsToDelete);
-			itemsToDelete.clear();
-			if (!files.empty()) {
-#ifdef CONFIG_USE_KDE
-				KMessageBox::errorList(
-					0,
-					i18np("Error while deleting this item:",
-								"Error while deleting these %1 items:", files.size()),
-					files,
-					i18n("File Error"));
-#else
-				QString txt = files.size() > 1 ?
-					KCM_i18n1("Error while deleting these %1 items:", files.size()) :
-					i18n("Error while deleting this item:");
-				txt += '\n';
-				txt += files.join("\n");
-				QMessageBox::warning(
-					0, i18n("File Error"), txt,
-					QMessageBox::Ok, Qt::NoButton);
-#endif
-			}
-		}
-	}
-
-	const DirInfo* dirInfo;
-	if (numFiles == 0 &&
-			(item = dynamic_cast<FileListItem*>(currentItem())) != 0 &&
-			(dirInfo = item->getDirInfo()) != 0) {
-		if (
-#ifdef CONFIG_USE_KDE
-			KMessageBox::warningContinueCancelList(
-				this,
-				i18n("Do you really want to delete this item?"),
-				QStringList(dirInfo->getDirname()),
-				i18n("Delete Files"),
-				KStandardGuiItem::del(), KStandardGuiItem::cancel(), QString(),
-				KMessageBox::Dangerous) == KMessageBox::Continue
-#else
-			QMessageBox::question(
-				this, i18n("Delete Files"),
-				i18n("Do you really want to delete this item?") + '\n' + dirInfo->getDirname(),
-				QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok
-#endif
-			) {
-			if (QDir().rmdir(dirInfo->getDirname())) {
-				delete item;
-			} else {
-#ifdef CONFIG_USE_KDE
-				KMessageBox::errorList(
-					0, i18n("Directory must be empty.\n") +
-					i18n("Error while deleting this item:"),
-					QStringList(dirInfo->getDirname()),
-					i18n("File Error"));
-#else
-				QMessageBox::warning(
-					0, i18n("File Error"),
-					i18n("Directory must be empty.\n") +
-					i18n("Error while deleting this item:") + '\n' + dirInfo->getDirname(),
-					QMessageBox::Ok, Qt::NoButton);
-#endif
-			}
-		}
-	}
-}
-
-/**
- * Expand an item.
- *
- * @param item item
- */
-void FileList::expandItem(QTreeWidgetItem* item)
-{
-	FileListItem* fli = dynamic_cast<FileListItem*>(item);
-	if (fli) {
-		fli->setOpen(true);
-	}
-}
-
-/**
- * Collapse an item.
- *
- * @param item item
- */
-void FileList::collapseItem(QTreeWidgetItem* item)
-{
-	FileListItem* fli = dynamic_cast<FileListItem*>(item);
-	if (fli) {
-		fli->setOpen(false);
-	}
-}
-
-/**
  * Display a custom context menu with operations for selected files.
  *
  * @param pos  position where context menu is drawn on screen
  */
 void FileList::customContextMenu(const QPoint& pos)
 {
-	contextMenu(currentItem(), mapToGlobal(pos));
-}
-
-/**
- * Expand or collapse an item which has no children.
- *
- * @param item item
- */
-void FileList::expandOrCollapseEmptyItem(QTreeWidgetItem* item)
-{
-	FileListItem* fli = dynamic_cast<FileListItem*>(item);
-	if (fli && fli->getDirInfo() && !item->childCount()) {
-		fli->setOpen(!fli->isOpen());
-	}
+	contextMenu(currentIndex(), mapToGlobal(pos));
 }

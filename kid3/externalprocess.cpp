@@ -32,7 +32,6 @@
 #include "qtcompatmac.h"
 #include <QTextCursor>
 #include "taggedfile.h"
-#include "dirinfo.h"
 
 /**
  * Constructor.

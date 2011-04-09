@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,7 +39,6 @@
 #endif
 
 #include "genres.h"
-#include "dirinfo.h"
 #include "kid3.h"
 #include "attributedata.h"
 #include <cstring>
@@ -70,11 +69,13 @@ ID3_TextEnc Mp3File::s_defaultTextEncoding = ID3TE_ISO8859_1;
 /**
  * Constructor.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  */
-Mp3File::Mp3File(const DirInfo* di, const QString& fn) :
-	TaggedFile(di, fn), m_tagV1(0), m_tagV2(0)
+Mp3File::Mp3File(const QString& dn, const QString& fn,
+								 const QPersistentModelIndex& idx) :
+	TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0)
 {
 }
 
@@ -98,7 +99,7 @@ Mp3File::~Mp3File()
  */
 void Mp3File::readTags(bool force)
 {
-	QByteArray fn = QFile::encodeName(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+	QByteArray fn = QFile::encodeName(getDirname() + QDir::separator() + currentFilename());
 
 	if (force && m_tagV1) {
 		m_tagV1->Clear();
@@ -144,7 +145,7 @@ void Mp3File::readTags(bool force)
  */
 bool Mp3File::writeTags(bool force, bool* renamed, bool preserve)
 {
-	QString fnStr(getDirInfo()->getDirname() + QDir::separator() + currentFilename());
+	QString fnStr(getDirname() + QDir::separator() + currentFilename());
 	if (isChanged() && !QFileInfo(fnStr).isWritable()) {
 		return false;
 	}
@@ -1969,13 +1970,14 @@ void Mp3File::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
 /**
  * Create an Mp3File object if it supports the filename's extension.
  *
- * @param di directory information
+ * @param dn directory name
  * @param fn filename
+ * @param idx model index
  *
  * @return tagged file, 0 if type not supported.
  */
-TaggedFile* Mp3File::Resolver::createFile(const DirInfo* di,
-																					const QString& fn) const
+TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
+		const QPersistentModelIndex& idx) const
 {
 	QString ext = fn.right(4).toLower();
 	if ((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
@@ -1983,7 +1985,7 @@ TaggedFile* Mp3File::Resolver::createFile(const DirInfo* di,
 			&& Kid3App::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
 #endif
 		)
-		return new Mp3File(di, fn);
+		return new Mp3File(dn, fn, idx);
 	else
 		return 0;
 }

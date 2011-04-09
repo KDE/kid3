@@ -62,7 +62,6 @@ class KURL;
 class KUrl;
 class Id3Form;
 class TaggedFile;
-class FileListItem;
 class FrameList;
 class ImportDialog;
 class ExportDialog;
@@ -80,6 +79,7 @@ class PlayToolBar;
 #endif
 class DirContents;
 class QFileSystemModel;
+class FileProxyModel;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -293,17 +293,6 @@ public:
 	 * @return directory.
 	 */
 	static QString getDirName() { return s_dirName; }
-
-	/**
-	 * Read file with TagLib if it has an ID3v2.4 tag.
-	 *
-	 * @param item       file list item, can be updated if not null
-	 * @param taggedFile tagged file
-	 *
-	 * @return tagged file (can be new TagLibFile).
-	 */
-	static TaggedFile* readWithTagLibIfId3V24(FileListItem* item,
-																						TaggedFile* taggedFile);
 
 	/** Filename format configuration */
 	static FormatConfig s_fnFormatCfg;
@@ -625,6 +614,16 @@ public slots:
 	 */
 	void updateGuiControls();
 
+	/**
+	 * Rename the selected file(s).
+	 */
+	void renameFile();
+
+	/**
+	 * Delete the selected file(s).
+	 */
+	void deleteFile();
+
 private slots:
 	/**
 	 * Set data to be exported.
@@ -760,11 +759,13 @@ private:
 	 * Apply a file filter to a directory.
 	 *
 	 * @param fileFilter filter to apply
-	 * @param dirContents directory contents, will be filled with results
+	 * @param model the model to be filtered
+	 * @param rootIndex model index of root directory
 	 *
 	 * @return true if ok, false if aborted.
 	 */
-	bool applyFilterToDir(FileFilter& fileFilter, DirContents* dirContents);
+	bool applyFilterToDir(FileFilter& fileFilter, FileProxyModel* model,
+												const QModelIndex& rootIndex);
 
 	/**
 	 * Set filter state.

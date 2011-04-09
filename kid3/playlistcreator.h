@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2009
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2009-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,8 +30,7 @@
 #include <QString>
 #include <QMap>
 
-class FileListItem;
-class DirInfo;
+class QModelIndex;
 class TaggedFile;
 class ImportTrackData;
 class PlaylistConfig;
@@ -51,10 +50,10 @@ public:
 		/**
 		 * Constructor.
 		 *
-		 * @param item item in file list
+		 * @param index model index
 		 * @param ctr  associated playlist creator
 		 */
-		Item(FileListItem* item, PlaylistCreator& ctr);
+		Item(const QModelIndex& index, PlaylistCreator& ctr);
 
 		/**
 		 * Destructor.
@@ -65,7 +64,7 @@ public:
 		 * Check if item is a directory.
 		 * @return true if item is directory.
 		 */
-		bool isDir() const { return m_dirInfo != 0; }
+		bool isDir() const { return m_isDir; }
 
 		/**
 		 * Check if item is a tagged file.
@@ -99,8 +98,7 @@ public:
 		QString formatString(const QString& format);
 
 		PlaylistCreator& m_ctr;
-		FileListItem* m_item;
-		const DirInfo* m_dirInfo;
+		bool m_isDir;
 		TaggedFile* m_taggedFile;
 		ImportTrackData* m_trackData;
 		QString m_dirName;
