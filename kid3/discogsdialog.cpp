@@ -435,10 +435,10 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 			str.replace(nlSpaceRe, "");
 
 			FrameCollection frames(framesHdr);
-			QRegExp posRe("<td class=\"track_pos\">(\\d+)</td>");
+			QRegExp posRe("<td [^>]*class=\"track_pos\">(\\d+)</td>");
 			QRegExp artistsRe("<td class=\"track_artists\"><a href=\"/artist/[^>]+>([^<]+)</a>");
-			QRegExp titleRe("<(?:td|a) class=\"track(?:_title)?\"[^>]*>([^<]+)</(?:td|a)>");
-			QRegExp durationRe("<td class=\"track_duration\"[^>]*>(\\d+):(\\d+)</td>");
+			QRegExp titleRe("class=\"track_title\"[^>]*>([^<]+)<");
+			QRegExp durationRe("<td [^>]*class=\"track_duration\"[^>]*>(?:<span>)?(\\d+):(\\d+)</");
 			QRegExp indexRe("<td class=\"track_index\">([^<]+)$");
 			QRegExp rowEndRe("</td>[\\s\\r\\n]*</tr>");
 			ImportTrackDataVector::iterator it = m_trackDataVector.begin();
@@ -479,17 +479,18 @@ void DiscogsDialog::parseAlbumResults(const QByteArray& albumStr)
 					continue;
 				}
 				if (additionalTags) {
-					int nextEnd = rowEndRe.indexIn(str, start);
-					if (nextEnd > start) {
-						QString nextTitle(str.mid(start, nextEnd - start));
-						if (nextTitle.indexOf("<tr class=\"track_extra_artists\">") != -1) {
+					int blockquoteStart = trackDataStr.indexOf("<blockquote>");
+					if (blockquoteStart >= 0) {
+						blockquoteStart += 12;
+						int blockquoteEnd = trackDataStr.indexOf("</blockquote>",
+																										 blockquoteStart);
+						if (blockquoteEnd > blockquoteStart) {
+							QString blockquoteStr(trackDataStr.mid(blockquoteStart,
+								blockquoteEnd - blockquoteStart));
 							// additional track info like "Music By, Lyrics By - "
-							nextTitle.replace("<br>", "\n");
-							nextTitle.remove("&nbsp;");
-							nextTitle = removeHtml(nextTitle); // strip HTML tags and entities
-							if (parseCredits(nextTitle, frames)) {
-								start = nextEnd + 10; // skip </td></tr>
-							}
+							blockquoteStr.replace("<br />", "\n");
+							blockquoteStr = removeHtml(blockquoteStr);
+							parseCredits(blockquoteStr, frames);
 						}
 					}
 				}

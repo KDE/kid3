@@ -459,6 +459,8 @@ QString ImportSourceDialog::replaceHtmlEntities(QString str)
 	str.replace("&lt;", "<");
 	str.replace("&gt;", ">");
 	str.replace("&amp;", "&");
+	str.replace("&times;", QString(QChar(0xd7)));
+	str.replace("&ndash;", "-");
 
 	QRegExp numEntityRe("&#(\\d+);");
 	int pos = 0;
