@@ -160,7 +160,9 @@ public:
 	 */
 	static QString getFormatToolTip(bool onlyRows = false);
 
-private:
+protected:
+	friend class ImportTrackDataVector;
+
 	/**
 	 * Get tagged file associated with this track data.
 	 * @return tagged file, 0 if none assigned.
@@ -179,36 +181,25 @@ public:
 	/**
 	 * Clear vector and associated data.
 	 */
-	void clearData() {
-		clear();
-		m_artist = QString();
-		m_album = QString();
-		m_coverArtUrl = QString();
-	}
+	void clearData();
 
 	/**
 	 * Get album artist.
 	 * @return album artist.
 	 */
-	QString getArtist() const { return m_artist; }
-
-	/**
-	 * Set album artist.
-	 * @param artist artist
-	 */
-	void setArtist(const QString& artist) { m_artist = artist; }
+	QString getArtist() const;
 
 	/**
 	 * Get album title.
 	 * @return album title.
 	 */
-	QString getAlbum() const { return m_album; }
+	QString getAlbum() const;
 
 	/**
-	 * Set album title.
-	 * @param album album
+	 * Check if tag 1 is supported in the first track.
+	 * @return true if tag 1 is supported.
 	 */
-	void setAlbum(const QString& album) { m_album = album; }
+	bool isTagV1Supported() const;
 
 	/**
 	 * Get cover art URL.
@@ -223,8 +214,13 @@ public:
 	void setCoverArtUrl(const QString& coverArtUrl) { m_coverArtUrl = coverArtUrl; }
 
 private:
-	QString m_artist;
-	QString m_album;
+	/**
+	 * Get frame from first track.
+	 * @param type frame type
+	 * @return value of frame.
+	 */
+	QString getFrame(Frame::Type type) const;
+
 	QString m_coverArtUrl;
 };
 

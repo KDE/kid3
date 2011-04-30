@@ -1680,27 +1680,10 @@ bool Kid3App::slotCreatePlaylist()
 void Kid3App::setupImportDialog()
 {
 	m_trackDataList.clearData();
-	bool firstTrack = true;
-	bool tag1Supported = true;
 	TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentOrRootIndex());
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
 		taggedFile->readTags(false);
-		if (firstTrack) {
-			FrameCollection frames;
-			taggedFile->getAllFramesV2(frames);
-			QString artist = frames.getArtist();
-			QString album = frames.getAlbum();
-			if (artist.isEmpty() && album.isEmpty()) {
-				taggedFile->getAllFramesV1(frames);
-				artist = frames.getArtist();
-				album = frames.getAlbum();
-			}
-			m_trackDataList.setArtist(artist);
-			m_trackDataList.setAlbum(album);
-			firstTrack = false;
-			tag1Supported = taggedFile->isTagV1Supported();
-		}
 		m_trackDataList.push_back(ImportTrackData(
 																*taggedFile, ImportTrackData::TagNone));
 	}
@@ -1712,7 +1695,7 @@ void Kid3App::setupImportDialog()
 	}
 	if (m_importDialog) {
 		m_importDialog->clear();
-		if (!tag1Supported &&
+		if (!m_trackDataList.isTagV1Supported() &&
 				m_importDialog->getDestination() == ImportConfig::DestV1) {
 			m_importDialog->setDestination(ImportConfig::DestV2);
 		}

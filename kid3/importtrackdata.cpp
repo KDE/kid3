@@ -395,3 +395,71 @@ QString ImportTrackData::getFileExtension() const
 		return dotPos != -1 ? absFilename.mid(dotPos) : QString();
 	}
 }
+
+
+/**
+ * Clear vector and associated data.
+ */
+void ImportTrackDataVector::clearData()
+{
+	clear();
+	m_coverArtUrl = QString();
+}
+
+/**
+ * Get album artist.
+ * @return album artist.
+ */
+QString ImportTrackDataVector::getArtist() const
+{
+	return getFrame(Frame::FT_Artist);
+}
+
+/**
+ * Get album title.
+ * @return album title.
+ */
+QString ImportTrackDataVector::getAlbum() const
+{
+	return getFrame(Frame::FT_Album);
+}
+
+/**
+ * Check if tag 1 is supported in the first track.
+ * @return true if tag 1 is supported.
+ */
+bool ImportTrackDataVector::isTagV1Supported() const
+{
+	if (!isEmpty()) {
+		TaggedFile* taggedFile = at(0).getTaggedFile();
+		if (taggedFile) {
+			return taggedFile->isTagV1Supported();
+		}
+	}
+	return true;
+}
+
+/**
+ * Get frame from first track.
+ * @param type frame type
+ * @return value of frame.
+ */
+QString ImportTrackDataVector::getFrame(Frame::Type type) const
+{
+	QString result;
+	if (!isEmpty()) {
+		const ImportTrackData& trackData = at(0);
+		result = trackData.getValue(type);
+		if (!result.isEmpty())
+			return result;
+		TaggedFile* taggedFile = trackData.getTaggedFile();
+		FrameCollection frames;
+		taggedFile->getAllFramesV2(frames);
+		result = frames.getValue(type);
+		if (!result.isEmpty())
+			return result;
+		taggedFile->getAllFramesV1(frames);
+		result = frames.getValue(type);
+	}
+	return result;
+}
