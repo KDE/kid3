@@ -176,20 +176,9 @@ bool FileFilter::filter(TaggedFile& taggedFile, bool* ok)
 		if (ok) *ok = true;
 		return true;
 	}
-	m_trackData1.clear();
-	m_trackData1.setAbsFilename(taggedFile.getAbsFilename());
-	m_trackData1.setFileDuration(taggedFile.getDuration());
-	m_trackData1.setFileExtension(taggedFile.getFileExtension());
-	m_trackData1.setTagFormatV1(taggedFile.getTagFormatV1());
-	m_trackData1.setTagFormatV2(taggedFile.getTagFormatV2());
-	m_trackData2 = m_trackData1;
-	taggedFile.getAllFramesV1(m_trackData1);
-	taggedFile.getAllFramesV2(m_trackData2);
-	m_trackData12 = m_trackData2;
-	m_trackData12.merge(m_trackData1);
-	TaggedFile::DetailInfo info;
-	taggedFile.getDetailInfo(info);
-	m_trackData12.setDetailInfo(info);
+	m_trackData1 = ImportTrackData(taggedFile, ImportTrackData::TagV1);
+	m_trackData2 = ImportTrackData(taggedFile, ImportTrackData::TagV2);
+	m_trackData12 = ImportTrackData(taggedFile, ImportTrackData::TagV2V1);
 
 	bool result = parse();
 	if (m_parser.hasError()) {

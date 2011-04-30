@@ -28,6 +28,7 @@
 #include <QString>
 #include <QUrl>
 #include <QDir>
+#include "fileproxymodel.h"
 
 /**
  * Constructor.
@@ -101,6 +102,8 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 		}
 
 		if (!name.isNull()) {
+			TaggedFile::DetailInfo info;
+			m_trackData.getDetailInfo(info);
 			if (name == "file") {
 				QString filename(m_trackData.getAbsFilename());
 				int sepPos = filename.lastIndexOf('/');
@@ -131,13 +134,13 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 			} else if (name == "tag2") {
 				result = m_trackData.getTagFormatV2();
 			} else if (name == "bitrate") {
-				result.setNum(m_trackData.getDetailInfo().bitrate);
+				result.setNum(info.bitrate);
 			} else if (name == "vbr") {
-				result = m_trackData.getDetailInfo().vbr ? "VBR" : "";
+				result = info.vbr ? "VBR" : "";
 			} else if (name == "samplerate") {
-				result.setNum(m_trackData.getDetailInfo().sampleRate);
+				result.setNum(info.sampleRate);
 			} else if (name == "mode") {
-				switch (m_trackData.getDetailInfo().channelMode) {
+				switch (info.channelMode) {
 					case TaggedFile::DetailInfo::CM_Stereo:
 						result = "Stereo";
 						break;
@@ -149,9 +152,9 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 						result = "";
 				}
 			} else if (name == "channels") {
-				result.setNum(m_trackData.getDetailInfo().channels);
+				result.setNum(info.channels);
 			} else if (name == "codec") {
-				result = m_trackData.getDetailInfo().format;
+				result = info.format;
 			}
 		}
 	}
@@ -238,25 +241,107 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 
 /**
  * Constructor.
+ */
+ImportTrackData::ImportTrackData() :
+	m_importDuration(0)
+{}
+
+/**
+ * Constructor.
  * All fields except the import duration are set from the tagged file,
- * which should be read using readTags() before. The frames are merged
- * from tag 2 and tag 1 (where tag 2 is not set).
+ * which should be read using readTags() before.
  *
  * @param taggedFile tagged file providing track data
+ * @param tagVersion source of frames
  */
-ImportTrackData::ImportTrackData(TaggedFile& taggedFile) :
-	m_fileDuration(taggedFile.getDuration()),
-	m_importDuration(0),
-	m_absFilename(taggedFile.getAbsFilename()),
-	m_fileExtension(taggedFile.getFileExtension()),
-	m_tagFormatV1(taggedFile.getTagFormatV1()),
-	m_tagFormatV2(taggedFile.getTagFormatV2())
+ImportTrackData::ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
+	m_taggedFileIndex(taggedFile.getIndex()),
+	m_importDuration(0)
 {
-	taggedFile.getDetailInfo(m_detailInfo);
-	FrameCollection framesV1;
-	taggedFile.getAllFramesV1(framesV1);
-	taggedFile.getAllFramesV2(*this);
-	merge(framesV1);
+	switch (tagVersion) {
+	case TagV1:
+		taggedFile.getAllFramesV1(*this);
+		break;
+	case TagV2:
+		taggedFile.getAllFramesV2(*this);
+		break;
+	case TagV2V1:
+	{
+		FrameCollection framesV1;
+		taggedFile.getAllFramesV1(framesV1);
+		taggedFile.getAllFramesV2(*this);
+		merge(framesV1);
+		break;
+	}
+	case TagNone:
+		;
+	}
+}
+
+/**
+ * Get tagged file associated with this track data.
+ * @return tagged file, 0 if none assigned.
+ */
+TaggedFile* ImportTrackData::getTaggedFile() const {
+	return FileProxyModel::getTaggedFileOfIndex(m_taggedFileIndex);
+}
+
+/**
+ * Get duration of file.
+ * @return duration of file.
+ */
+int ImportTrackData::getFileDuration() const
+{
+	TaggedFile* taggedFile = getTaggedFile();
+	return taggedFile ? taggedFile->getDuration() : 0;
+}
+
+/**
+ * Get absolute filename.
+ *
+ * @return absolute file path.
+ */
+QString ImportTrackData::getAbsFilename() const
+{
+	TaggedFile* taggedFile = getTaggedFile();
+	return taggedFile ? taggedFile->getAbsFilename() : QString();
+}
+
+/**
+ * Get the format of tag 1.
+ *
+ * @return string describing format of tag 1,
+ *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
+ *         QString::null if unknown.
+ */
+QString ImportTrackData::getTagFormatV1() const
+{
+	TaggedFile* taggedFile = getTaggedFile();
+	return taggedFile ? taggedFile->getTagFormatV1() : QString();
+}
+
+/**
+ * Get the format of tag 2.
+ *
+ * @return string describing format of tag 2,
+ *         e.g. "ID3v2.3", "Vorbis", "APE",
+ *         QString::null if unknown.
+ */
+QString ImportTrackData::getTagFormatV2() const
+{
+	TaggedFile* taggedFile = getTaggedFile();
+	return taggedFile ? taggedFile->getTagFormatV2() : QString();
+}
+
+/**
+ * Get detail info.
+ * @param info the detail information is returned here
+ */
+void ImportTrackData::getDetailInfo(TaggedFile::DetailInfo& info) const
+{
+	if (TaggedFile* taggedFile = getTaggedFile()) {
+		taggedFile->getDetailInfo(info);
+	}
 }
 
 /**
@@ -297,10 +382,16 @@ QString ImportTrackData::getFormatToolTip(bool onlyRows)
  */
 QString ImportTrackData::getFileExtension() const
 {
-	if (!m_fileExtension.isEmpty()) {
-		return m_fileExtension;
+	QString fileExtension;
+	QString absFilename;
+	if (TaggedFile* taggedFile = getTaggedFile()) {
+		fileExtension = taggedFile->getFileExtension();
+		absFilename = taggedFile->getAbsFilename();
+	}
+	if (!fileExtension.isEmpty()) {
+		return fileExtension;
 	} else {
-		int dotPos = m_absFilename.lastIndexOf(".");
-		return dotPos != -1 ? m_absFilename.mid(dotPos) : QString();
+		int dotPos = absFilename.lastIndexOf(".");
+		return dotPos != -1 ? absFilename.mid(dotPos) : QString();
 	}
 }

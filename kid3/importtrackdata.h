@@ -38,25 +38,28 @@
  */
 class ImportTrackData : public FrameCollection {
 public:
+	/** Tag version contained in track data. */
+	enum TagVersion {
+		TagNone = 0, /**< Empty or imported and not from a tag */
+		TagV1 = 1,   /**< From tag 1 */
+		TagV2 = 2,   /**< From tag 2 */
+		TagV2V1 = 3  /**< Merged from tag 2 and tag 1 (where tag 2 is not set) */
+	};
+
 	/**
 	 * Constructor.
-	 * @param absFilename  absolute filename
-	 * @param fileDuration duration in seconds
 	 */
-	explicit ImportTrackData(const QString& absFilename = QString::null,
-													 int fileDuration = 0) :
-		m_fileDuration(fileDuration), m_importDuration(0),
-		m_absFilename(absFilename) {}
+	ImportTrackData();
 
 	/**
 	 * Constructor.
 	 * All fields except the import duration are set from the tagged file,
-	 * which should be read using readTags() before. The frames are merged
-	 * from tag 2 and tag 1 (where tag 2 is not set).
+	 * which should be read using readTags() before.
 	 *
 	 * @param taggedFile tagged file providing track data
+	 * @param tagVersion source of frames
 	 */
-	ImportTrackData(TaggedFile& taggedFile);
+	ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion);
 
 	/**
 	 * Destructor.
@@ -67,13 +70,7 @@ public:
 	 * Get duration of file.
 	 * @return duration of file.
 	 */
-	int getFileDuration() const { return m_fileDuration; }
-
-	/**
-	 * Set duration of file.
-	 * @param duration duration of file
-	 */
-	void setFileDuration(int duration) { m_fileDuration = duration; }
+	int getFileDuration() const;
 
 	/**
 	 * Get duration of import.
@@ -92,16 +89,7 @@ public:
 	 *
 	 * @return absolute file path.
 	 */
-	QString getAbsFilename() const { return m_absFilename; }
-
-	/**
-	 * Set absolute filename.
-	 *
-	 * @param absFilename absolute file path
-	 */
-	void setAbsFilename(const QString& absFilename) {
-		m_absFilename = absFilename;
-	}
+	QString getAbsFilename() const;
 
 	/**
 	 * Get file extension including the dot.
@@ -111,27 +99,13 @@ public:
 	QString getFileExtension() const;
 
 	/**
-	 * Set file extension.
-	 * @param fileExtension file extension
-	 */
-	void setFileExtension(const QString& fileExtension) {
-		m_fileExtension = fileExtension;
-	}
-
-	/**
 	 * Get the format of tag 1.
 	 *
 	 * @return string describing format of tag 1,
 	 *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
 	 *         QString::null if unknown.
 	 */
-	QString getTagFormatV1() const { return m_tagFormatV1; }
-
-	/**
-	 * Set the format of tag 1.
-	 * @param tagFormatV1 string describing format of tag 1
-	 */
-	void setTagFormatV1(const QString& tagFormatV1) { m_tagFormatV1 = tagFormatV1; }
+	QString getTagFormatV1() const;
 
 	/**
 	 * Get the format of tag 2.
@@ -140,25 +114,13 @@ public:
 	 *         e.g. "ID3v2.3", "Vorbis", "APE",
 	 *         QString::null if unknown.
 	 */
-	QString getTagFormatV2() const { return m_tagFormatV2; }
-
-	/**
-	 * Set the format of tag 2.
-	 * @param tagFormatV2 string describing format of tag 2
-	 */
-	void setTagFormatV2(const QString& tagFormatV2) { m_tagFormatV2 = tagFormatV2; }
+	QString getTagFormatV2() const;
 
 	/**
 	 * Get detail info.
-	 * @return detail info.
+	 * @param info the detail information is returned here
 	 */
-	const TaggedFile::DetailInfo& getDetailInfo() const { return m_detailInfo; }
-
-	/**
-	 * Set detail info.
-	 * @param detailInfo detail info
-	 */
-	void setDetailInfo(const TaggedFile::DetailInfo& detailInfo) { m_detailInfo = detailInfo; }
+	void getDetailInfo(TaggedFile::DetailInfo& info) const;
 
 	/**
 	 * Format a string from track data.
@@ -199,13 +161,14 @@ public:
 	static QString getFormatToolTip(bool onlyRows = false);
 
 private:
-	int m_fileDuration;
+	/**
+	 * Get tagged file associated with this track data.
+	 * @return tagged file, 0 if none assigned.
+	 */
+	TaggedFile* getTaggedFile() const;
+
+	QPersistentModelIndex m_taggedFileIndex;
 	int m_importDuration;
-	QString m_absFilename;
-	QString m_fileExtension;
-	QString m_tagFormatV1;
-	QString m_tagFormatV2;
-	TaggedFile::DetailInfo m_detailInfo;
 };
 
 /**

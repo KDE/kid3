@@ -1701,8 +1701,8 @@ void Kid3App::setupImportDialog()
 			firstTrack = false;
 			tag1Supported = taggedFile->isTagV1Supported();
 		}
-		m_trackDataList.push_back(ImportTrackData(taggedFile->getAbsFilename(),
-																							taggedFile->getDuration()));
+		m_trackDataList.push_back(ImportTrackData(
+																*taggedFile, ImportTrackData::TagNone));
 	}
 
 	if (!m_importDialog) {
@@ -1935,20 +1935,11 @@ void Kid3App::setExportData(int src)
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 			taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
 #endif
-			ImportTrackData trackData(taggedFile->getAbsFilename(),
-																taggedFile->getDuration());
-			trackData.setFileExtension(taggedFile->getFileExtension());
-			trackData.setTagFormatV1(taggedFile->getTagFormatV1());
-			trackData.setTagFormatV2(taggedFile->getTagFormatV2());
-			TaggedFile::DetailInfo info;
-			taggedFile->getDetailInfo(info);
-			trackData.setDetailInfo(info);
-			if (src == ExportDialog::SrcV1) {
-				taggedFile->getAllFramesV1(trackData);
-			} else {
-				taggedFile->getAllFramesV2(trackData);
-			}
-			trackDataVector.push_back(trackData);
+			trackDataVector.push_back(
+				ImportTrackData(
+					*taggedFile,
+					src == ExportDialog::SrcV1 ? ImportTrackData::TagV1
+																		 : ImportTrackData::TagV2));
 		}
 		m_exportDialog->setExportData(trackDataVector);
 	}

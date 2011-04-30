@@ -191,7 +191,7 @@ QString PlaylistCreator::Item::formatString(const QString& format)
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 		m_taggedFile = FileProxyModel::readWithTagLibIfId3V24(m_taggedFile);
 #endif
-		m_trackData = new ImportTrackData(*m_taggedFile);
+		m_trackData = new ImportTrackData(*m_taggedFile, ImportTrackData::TagV2V1);
 	}
 	return m_trackData->formatString(
 		format, m_taggedFile->getTotalNumberOfTracksInDir());
