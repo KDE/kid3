@@ -28,7 +28,7 @@
 #define IMPORTSOURCEDIALOG_H
 
 #include "config.h"
-#include "importtrackdata.h"
+#include "trackdata.h"
 #include <QDialog>
 #include <QString>
 #include "qtcompatmac.h"

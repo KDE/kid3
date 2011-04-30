@@ -1,12 +1,12 @@
 /**
- * \file importtrackdata.cpp
- * Track data used for import.
+ * \file trackdata.cpp
+ * Track data, frames with association to tagged file.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
  * \date 23 Feb 2007
  *
- * Copyright (C) 2007-2009  Urs Fleisch
+ * Copyright (C) 2007-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "importtrackdata.h"
+#include "trackdata.h"
 #include <QString>
 #include <QUrl>
 #include <QDir>
@@ -38,7 +38,7 @@
  * @param str       string with format codes
  */
 TrackDataFormatReplacer::TrackDataFormatReplacer(
-	const ImportTrackData& trackData, unsigned numTracks, const QString& str) :
+	const TrackData& trackData, unsigned numTracks, const QString& str) :
 	FrameFormatReplacer(trackData, str), m_trackData(trackData),
 	m_numTracks(numTracks) {}
 
@@ -242,8 +242,7 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 /**
  * Constructor.
  */
-ImportTrackData::ImportTrackData() :
-	m_importDuration(0)
+TrackData::TrackData()
 {}
 
 /**
@@ -254,9 +253,8 @@ ImportTrackData::ImportTrackData() :
  * @param taggedFile tagged file providing track data
  * @param tagVersion source of frames
  */
-ImportTrackData::ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
-	m_taggedFileIndex(taggedFile.getIndex()),
-	m_importDuration(0)
+TrackData::TrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
+	m_taggedFileIndex(taggedFile.getIndex())
 {
 	switch (tagVersion) {
 	case TagV1:
@@ -282,7 +280,7 @@ ImportTrackData::ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion) 
  * Get tagged file associated with this track data.
  * @return tagged file, 0 if none assigned.
  */
-TaggedFile* ImportTrackData::getTaggedFile() const {
+TaggedFile* TrackData::getTaggedFile() const {
 	return FileProxyModel::getTaggedFileOfIndex(m_taggedFileIndex);
 }
 
@@ -290,7 +288,7 @@ TaggedFile* ImportTrackData::getTaggedFile() const {
  * Get duration of file.
  * @return duration of file.
  */
-int ImportTrackData::getFileDuration() const
+int TrackData::getFileDuration() const
 {
 	TaggedFile* taggedFile = getTaggedFile();
 	return taggedFile ? taggedFile->getDuration() : 0;
@@ -301,7 +299,7 @@ int ImportTrackData::getFileDuration() const
  *
  * @return absolute file path.
  */
-QString ImportTrackData::getAbsFilename() const
+QString TrackData::getAbsFilename() const
 {
 	TaggedFile* taggedFile = getTaggedFile();
 	return taggedFile ? taggedFile->getAbsFilename() : QString();
@@ -314,7 +312,7 @@ QString ImportTrackData::getAbsFilename() const
  *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
  *         QString::null if unknown.
  */
-QString ImportTrackData::getTagFormatV1() const
+QString TrackData::getTagFormatV1() const
 {
 	TaggedFile* taggedFile = getTaggedFile();
 	return taggedFile ? taggedFile->getTagFormatV1() : QString();
@@ -327,7 +325,7 @@ QString ImportTrackData::getTagFormatV1() const
  *         e.g. "ID3v2.3", "Vorbis", "APE",
  *         QString::null if unknown.
  */
-QString ImportTrackData::getTagFormatV2() const
+QString TrackData::getTagFormatV2() const
 {
 	TaggedFile* taggedFile = getTaggedFile();
 	return taggedFile ? taggedFile->getTagFormatV2() : QString();
@@ -337,7 +335,7 @@ QString ImportTrackData::getTagFormatV2() const
  * Get detail info.
  * @param info the detail information is returned here
  */
-void ImportTrackData::getDetailInfo(TaggedFile::DetailInfo& info) const
+void TrackData::getDetailInfo(TaggedFile::DetailInfo& info) const
 {
 	if (TaggedFile* taggedFile = getTaggedFile()) {
 		taggedFile->getDetailInfo(info);
@@ -354,7 +352,7 @@ void ImportTrackData::getDetailInfo(TaggedFile::DetailInfo& info) const
  *
  * @return formatted string.
  */
-QString ImportTrackData::formatString(const QString& format, unsigned numTracks) const
+QString TrackData::formatString(const QString& format, unsigned numTracks) const
 {
 	TrackDataFormatReplacer fmt(*this, numTracks, format);
 	fmt.replaceEscapedChars();
@@ -370,7 +368,7 @@ QString ImportTrackData::formatString(const QString& format, unsigned numTracks)
  *
  * @return help text.
  */
-QString ImportTrackData::getFormatToolTip(bool onlyRows)
+QString TrackData::getFormatToolTip(bool onlyRows)
 {
 	return TrackDataFormatReplacer::getToolTip(onlyRows);
 }
@@ -380,7 +378,7 @@ QString ImportTrackData::getFormatToolTip(bool onlyRows)
  *
  * @return file extension, e.g. ".mp3".
  */
-QString ImportTrackData::getFileExtension() const
+QString TrackData::getFileExtension() const
 {
 	QString fileExtension;
 	QString absFilename;

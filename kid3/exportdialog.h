@@ -29,7 +29,7 @@
 
 #include <QDialog>
 #include <QStringList>
-#include "importtrackdata.h"
+#include "trackdata.h"
 
 class QTextEdit;
 class QLineEdit;

@@ -28,7 +28,7 @@
 #define IMPORTDIALOG_H
 
 #include "config.h"
-#include "importtrackdata.h"
+#include "trackdata.h"
 #include "importconfig.h"
 #include <QDialog>
 

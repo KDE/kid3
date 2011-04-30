@@ -42,7 +42,7 @@
 #include <QGroupBox>
 
 #include "kid3.h"
-#include "importtrackdata.h"
+#include "trackdata.h"
 
 /**
  * Constructor.

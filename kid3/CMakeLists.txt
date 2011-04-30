@@ -16,7 +16,7 @@ set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
 	commandstablemodel.cpp taglibfile.cpp importsourceconfig.cpp
 	importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp
 	discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp
-	musicbrainzreleaseclient.cpp externalprocess.cpp importtrackdata.cpp
+	musicbrainzreleaseclient.cpp externalprocess.cpp trackdata.cpp
 	stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp filterconfig.cpp
 	filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp
 	formatreplacer.cpp httpclient.cpp downloaddialog.cpp picturelabel.cpp

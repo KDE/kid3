@@ -27,7 +27,7 @@
 #ifndef IMPORTSELECTOR_H
 #define IMPORTSELECTOR_H
 
-#include "importtrackdata.h"
+#include "trackdata.h"
 #include "importparser.h"
 #include "importconfig.h"
 #include <QWidget>

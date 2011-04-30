@@ -46,7 +46,7 @@ class RecentFilesMenu;
 /** Base class for main window. */
 typedef QMainWindow Kid3AppBaseClass;
 #endif
-#include "importtrackdata.h"
+#include "trackdata.h"
 #include "formatconfig.h"
 #include "importconfig.h"
 #include "miscconfig.h"

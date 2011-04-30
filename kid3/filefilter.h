@@ -28,7 +28,7 @@
 #define FILEFILTER_H
 
 #include "expressionparser.h"
-#include "importtrackdata.h"
+#include "trackdata.h"
 #include <QObject>
 #include <QString>
 

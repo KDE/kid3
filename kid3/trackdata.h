@@ -1,12 +1,12 @@
 /**
- * \file importtrackdata.h
- * Track data used for import.
+ * \file trackdata.h
+ * Track data, frames with association to tagged file.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
  * \date 7 Jul 2005
  *
- * Copyright (C) 2005-2009  Urs Fleisch
+ * Copyright (C) 2005-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTTRACKDATA_H
-#define IMPORTTRACKDATA_H
+#ifndef TRACKDATA_H
+#define TRACKDATA_H
 
 #include "frame.h"
 #include "taggedfile.h"
@@ -34,9 +34,9 @@
 #include <QVector>
 
 /**
- * Track data used for import.
+ * Track data, frames with association to tagged file.
  */
-class ImportTrackData : public FrameCollection {
+class TrackData : public FrameCollection {
 public:
 	/** Tag version contained in track data. */
 	enum TagVersion {
@@ -49,40 +49,23 @@ public:
 	/**
 	 * Constructor.
 	 */
-	ImportTrackData();
+	TrackData();
 
 	/**
 	 * Constructor.
-	 * All fields except the import duration are set from the tagged file,
+	 * All fields are set from the tagged file,
 	 * which should be read using readTags() before.
 	 *
 	 * @param taggedFile tagged file providing track data
 	 * @param tagVersion source of frames
 	 */
-	ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion);
-
-	/**
-	 * Destructor.
-	 */
-	~ImportTrackData() {}
+	TrackData(TaggedFile& taggedFile, TagVersion tagVersion);
 
 	/**
 	 * Get duration of file.
 	 * @return duration of file.
 	 */
 	int getFileDuration() const;
-
-	/**
-	 * Get duration of import.
-	 * @return duration of import.
-	 */
-	int getImportDuration() const { return m_importDuration; }
-
-	/**
-	 * Set duration of import.
-	 * @param duration duration of import
-	 */
-	void setImportDuration(int duration) { m_importDuration = duration; }
 
 	/**
 	 * Get absolute filename.
@@ -169,7 +152,44 @@ protected:
 	 */
 	TaggedFile* getTaggedFile() const;
 
+private:
 	QPersistentModelIndex m_taggedFileIndex;
+};
+
+/**
+ * Track data used for import.
+ */
+class ImportTrackData : public TrackData {
+public:
+	/**
+	 * Constructor.
+	 */
+	ImportTrackData() : m_importDuration(0) {}
+
+	/**
+	 * Constructor.
+	 * All fields except the import duration are set from the tagged file,
+	 * which should be read using readTags() before.
+	 *
+	 * @param taggedFile tagged file providing track data
+	 * @param tagVersion source of frames
+	 */
+	ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
+		TrackData(taggedFile, tagVersion), m_importDuration(0) {}
+
+	/**
+	 * Get duration of import.
+	 * @return duration of import.
+	 */
+	int getImportDuration() const { return m_importDuration; }
+
+	/**
+	 * Set duration of import.
+	 * @param duration duration of import
+	 */
+	void setImportDuration(int duration) { m_importDuration = duration; }
+
+private:
 	int m_importDuration;
 };
 
@@ -238,7 +258,7 @@ public:
 	 * @param str       string with format codes
 	 */
 	explicit TrackDataFormatReplacer(
-		const ImportTrackData& trackData, unsigned numTracks = 0,
+		const TrackData& trackData, unsigned numTracks = 0,
 		const QString& str = QString());
 
 	/**
@@ -276,8 +296,8 @@ protected:
 	virtual QString getReplacement(const QString& code) const;
 
 private:
-	const ImportTrackData& m_trackData;
+	const TrackData& m_trackData;
 	const unsigned m_numTracks;
 };
 
-#endif // IMPORTTRACKDATA_H
+#endif // TRACKDATA_H

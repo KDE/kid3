@@ -27,7 +27,7 @@
 #include "playlistcreator.h"
 #include "playlistconfig.h"
 #include "taggedfile.h"
-#include "importtrackdata.h"
+#include "trackdata.h"
 #include "fileproxymodel.h"
 #include "qtcompatmac.h"
 #include <QDir>

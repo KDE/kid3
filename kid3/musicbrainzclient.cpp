@@ -33,7 +33,7 @@
 #include <QDomDocument>
 #endif
 #include "freedbclient.h"
-#include "importtrackdata.h"
+#include "trackdata.h"
 
 #if HAVE_TUNEPIMP >= 5
 /**
