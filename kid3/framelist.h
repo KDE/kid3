@@ -33,6 +33,7 @@
 #include "taggedfile.h"
 
 class FrameTable;
+class FrameTableModel;
 class QPushButton;
 
 /**
@@ -44,8 +45,9 @@ public:
 	 * Constructor.
 	 *
 	 * @param ft frame table
+	 * @param ftm frame table model
 	 */
-	FrameList(FrameTable* ft);
+	FrameList(FrameTable* ft, FrameTableModel* ftm);
 
 	/**
 	 * Destructor.
@@ -197,6 +199,7 @@ private:
 	Frame m_frame;
 
 	FrameTable* m_frameTable;
+	FrameTableModel* m_frameTableModel;
 
 private:
 	FrameList(const FrameList&);

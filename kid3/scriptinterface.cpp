@@ -32,7 +32,7 @@
 #include "kid3.h"
 #include "id3form.h"
 #include "taggedfile.h"
-#include "frametable.h"
+#include "frametablemodel.h"
 #include "filefilter.h"
 #include "pictureframe.h"
 #include "fileproxymodel.h"
@@ -389,10 +389,9 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
 		dataFileName = frameName.mid(colonIndex + 1);
 		frameName.truncate(colonIndex);
 	}
-	FrameTable* ft = (tagMask & 2) ? m_app->m_view->frameTableV2() :
-		m_app->m_view->frameTableV1();
-	ft->tableToFrames();
-	FrameCollection::iterator it = ft->frames().findByName(frameName);
+	FrameTableModel* ft = (tagMask & 2) ? m_app->m_view->frameModelV2() :
+		m_app->m_view->frameModelV1();
+	FrameCollection::const_iterator it = ft->frames().findByName(frameName);
 	if (it != ft->frames().end()) {
 		if (!dataFileName.isEmpty()) {
 			PictureFrame::writeDataToFile(*it, dataFileName);
@@ -424,11 +423,11 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 		dataFileName = frameName.mid(colonIndex + 1);
 		frameName.truncate(colonIndex);
 	}
-	FrameTable* ft = (tagMask & 2) ? m_app->m_view->frameTableV2() :
-		m_app->m_view->frameTableV1();
-	ft->tableToFrames();
-	FrameCollection::iterator it = ft->frames().findByName(frameName);
-	if (it != ft->frames().end()) {
+	FrameTableModel* ft = (tagMask & 2) ? m_app->m_view->frameModelV2() :
+		m_app->m_view->frameModelV1();
+	FrameCollection frames(ft->frames());
+	FrameCollection::iterator it = frames.findByName(frameName);
+	if (it != frames.end()) {
 		if (it->getType() == Frame::FT_Picture && !dataFileName.isEmpty() &&
 				(tagMask & 2) != 0) {
 			m_app->deleteFrame(it->getName());
@@ -442,7 +441,7 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 		} else {
 			Frame& frame = const_cast<Frame&>(*it);
 			frame.setValueIfChanged(value);
-			ft->framesToTable();
+			ft->transferFrames(frames);
 		}
 		return true;
 	} else if (tagMask & 2) {
@@ -470,9 +469,8 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 QStringList ScriptInterface::getTag(int tagMask)
 {
 	QStringList lst;
-	FrameTable* ft = (tagMask & 2) ? m_app->m_view->frameTableV2() :
-		m_app->m_view->frameTableV1();
-	ft->tableToFrames();
+	FrameTableModel* ft = (tagMask & 2) ? m_app->m_view->frameModelV2() :
+		m_app->m_view->frameModelV1();
 	for (FrameCollection::const_iterator it = ft->frames().begin();
 			 it != ft->frames().end();
 			 ++it) {

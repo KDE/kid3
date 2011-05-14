@@ -51,6 +51,7 @@
 
 #include "framelist.h"
 #include "frametable.h"
+#include "frametablemodel.h"
 #include "genres.h"
 #include "kid3.h"
 #include "miscconfig.h"
@@ -262,7 +263,8 @@ Id3Form::Id3Form(QWidget* parent)
 	QHBoxLayout* idV1HBoxLayout = new QHBoxLayout(m_tag1Widget);
 	idV1HBoxLayout->setMargin(margin);
 	idV1HBoxLayout->setSpacing(spacing);
-	m_framesV1Table = new FrameTable(m_tag1Widget, true);
+	m_framesV1Model = new FrameTableModel(true, m_tag1Widget);
+	m_framesV1Table = new FrameTable(m_framesV1Model, m_tag1Widget);
 	idV1HBoxLayout->addWidget(m_framesV1Table, 100);
 	m_tag1Label->setBuddy(m_framesV1Table);
 
@@ -302,8 +304,9 @@ Id3Form::Id3Form(QWidget* parent)
 	QHBoxLayout* idV2HBoxLayout = new QHBoxLayout(m_tag2Widget);
 	idV2HBoxLayout->setMargin(margin);
 	idV2HBoxLayout->setSpacing(spacing);
-	m_framesV2Table = new FrameTable(m_tag2Widget, false);
-	m_framelist = new FrameList(m_framesV2Table);
+	m_framesV2Model = new FrameTableModel(false, m_tag2Widget);
+	m_framesV2Table = new FrameTable(m_framesV2Model, m_tag2Widget);
+	m_framelist = new FrameList(m_framesV2Table, m_framesV2Model);
 	idV2HBoxLayout->addWidget(m_framesV2Table);
 	m_tag2Label->setBuddy(m_framesV2Table);
 

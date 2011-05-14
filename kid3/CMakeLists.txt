@@ -6,7 +6,7 @@ endif (HAVE_TAGLIB)
 
 set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
 	modeliterator.cpp taggedfileiconprovider.cpp
-	frametable.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp
+	frametable.cpp frametablemodel.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp
 	mp3file.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp
 	importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp
 	importconfig.cpp miscconfig.cpp freedbdialog.cpp freedbconfig.cpp
@@ -110,7 +110,7 @@ if (UNIX AND NOT APPLE)
 endif (UNIX AND NOT APPLE)
 
 # Run moc on Q_OBJECT header files
-set(kid3_MOC_HDRS filelist.h frametable.h id3form.h kid3.h configdialog.h
+set(kid3_MOC_HDRS filelist.h frametable.h frametablemodel.h id3form.h kid3.h configdialog.h
 	exportdialog.h formatbox.h importdialog.h importselector.h rendirdialog.h
 	musicbrainzdialog.h musicbrainzclient.h numbertracksdialog.h
 	importsourcedialog.h importsourceclient.h externalprocess.h stringlistedit.h

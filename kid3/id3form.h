@@ -49,6 +49,7 @@ class QListWidget;
 class QListWidgetItem;
 class FrameList;
 class FrameTable;
+class FrameTableModel;
 
 /**
  * Main widget.
@@ -246,6 +247,18 @@ public:
 	FrameList* getFrameList() { return m_framelist; }
 
 	/**
+	 * Get tag 1 frame table model.
+	 * @return frame table.
+	 */
+	FrameTableModel* frameModelV1() { return m_framesV1Model; }
+
+	/**
+	 * Get tag 2 frame table model.
+	 * @return frame table.
+	 */
+	FrameTableModel* frameModelV2() { return m_framesV2Model; }
+
+	/**
 	 * Get tag 1 frame table.
 	 * @return frame table.
 	 */
@@ -416,6 +429,8 @@ private:
 	QListWidget* m_framesListBox;
 	DirList* m_dirListBox;
 	FrameList* m_framelist;
+	FrameTableModel* m_framesV1Model;
+	FrameTableModel* m_framesV2Model;
 	FrameTable* m_framesV1Table;
 	FrameTable* m_framesV2Table;
 	QSplitter* m_vSplitter;

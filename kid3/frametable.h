@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Sep 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,73 +27,31 @@
 #ifndef FRAMETABLE_H
 #define FRAMETABLE_H
 
-#include "frame.h"
-#include <QStringList>
-#include <QLineEdit>
-#include <QTableWidget>
-#include "qtcompatmac.h"
+#include <QTableView>
 
 class QAction;
 class QPoint;
+class FrameTableModel;
 
 /**
  * Table to edit frames.
  */
-class FrameTable : public QTableWidget {
+class FrameTable : public QTableView {
 Q_OBJECT
 
 public:
 	/**
 	 * Constructor.
 	 *
+	 * @param model frame table model
 	 * @param parent parent widget
-	 * @param id3v1  true if table for ID3v1 frames
 	 */
-	explicit FrameTable(QWidget* parent = 0, bool id3v1 = false);
+	explicit FrameTable(FrameTableModel* model, QWidget* parent = 0);
 
 	/**
 	 * Destructor.
 	 */
 	virtual ~FrameTable();
-
-	/**
-	 * Check if table is for ID3v1 frames.
-	 * @return true if for ID3v1.
-	 */
-	bool isId3v1() const { return m_id3v1; }
-
-	/**
-	 * Mark rows.
-	 * @param rowMask mask with bits of rows to mark
-	 */
-	void markRows(unsigned char rowMask) { m_markedRows = rowMask; }
-
-	/**
-	 * Mark changed frames.
-	 * @param frameMask mask with bits of frame types to mark
-	 */
-	void markChangedFrames(unsigned long frameMask) { m_changedFrames = frameMask; }
-
-	/**
-	 * Set all check boxes on or off.
-	 * Will take effect when framesToTable() is called.
-	 *
-	 * @param val true to set check boxes on.
-	 */
-	void setAllCheckBoxes(bool val) { m_setCheckBoxes = val; }
-
-	/**
-	 * Display frames in table.
-	 */
-	void framesToTable();
-
-	/**
-	 * Set frames from values in table.
-	 *
-	 * @param setUnchanged if true, also set marked values which are unchanged,
-	 *                     which can be used if multiple files are selected
-	 */
-	void tableToFrames(bool setUnchanged = false);
 
 	/**
 	 * Save the current cursor position.
@@ -105,107 +63,6 @@ public:
 	 */
 	void restoreCursor();
 
-	/**
-	 * Get current frame.
-	 * @return frame, 0 if no frame.
-	 */
-	const Frame* getCurrentFrame() const;
-
-	/**
-	 * Select the row of the frame with a given index.
-	 *
-	 * @param index index of frame
-	 *
-	 * @return true if found.
-	 */
-	bool selectFrameWithIndex(int index);
-
-	/**
-	 * Select the row of the frame with a given name.
-	 *
-	 * @param name name of frame
-	 *
-	 * @return true if found.
-	 */
-	bool selectFrameWithName(const QString& name);
-
-	/**
-	 * Get filter with enabled frames.
-	 *
-	 * @param allDisabledToAllEnabled true to enable all if all are disabled
-	 *
-	 * @return filter with enabled frames.
-	 */
-	FrameFilter getEnabledFrameFilter(bool allDisabledToAllEnabled = false) const;
-
-	/**
-	 * Get reference to frame collection.
-	 * @return frame collection.
-	 */
-	FrameCollection& frames() { return m_frames; }
-
-private slots:
-	/**
-	 * Select all frames in the table.
-	 */
-	void selectAllFrames();
-
-	/**
-	 * Deselect all frames in the table.
-	 */
-	void deselectAllFrames();
-
-	/**
-	 * Execute a context menu action.
-	 *
-	 * @param action action of selected menu
-	 */
-	void executeAction(QAction* action);
-
-	/**
-	 * Display context menu.
-	 *
-	 * @param row row at which context menu is displayed
-	 * @param col column at which context menu is displayed
-	 * @param pos position where context menu is drawn on screen
-	 */
-	void contextMenu(int row, int /* col */, const QPoint& pos);
-
-	/**
-	 * Display custom context menu.
-	 *
-	 * @param pos position where context menu is drawn on screen
-	 */
-	void customContextMenu(const QPoint& pos);
-
-private:
-	/**
-	 * Get a display representation of the a frame name.
-	 * For ID3v2-IDs with description, only the ID is returned.
-	 * Other non-empty strings are translated.
-	 *
-	 * @param str frame name
-	 *
-	 * @return display representation of name.
-	 */
-	QString getDisplayName(const QString& str) const;
-
-	/**
-	 * Set the check state of all frames in the table.
-	 *
-	 * @param checked true to check the frames
-	 */
-	void setAllCheckStates(bool checked);
-
-	int m_cursorRow;
-	int m_cursorColumn;
-	unsigned char m_markedRows;
-	unsigned long m_changedFrames;
-	bool m_setCheckBoxes;
-	const bool m_id3v1;
-	FrameCollection m_frames;
-
-public:
 	/**
 	 * Filters events if this object has been installed as an event filter
 	 * for the watched object.
@@ -226,31 +83,27 @@ public:
 	 */
 	bool acceptEdit();
 
-private:
-	QWidget* m_currentEditor;
-};
-
-/** Line edit with automatic tag formatting. */
-class FrameTableLineEdit : public QLineEdit {
-Q_OBJECT
-public:
-	/**
-	 * Constructor.
-	 * @param parent parent widget
-	 */
-	FrameTableLineEdit(QWidget* parent);
-
-	/**
-	 * Destructor.
-	 */
-	virtual ~FrameTableLineEdit();
-
 private slots:
 	/**
-	 * Format text if enabled.
-	 * @param txt text to format and set in line edit
+	 * Display context menu.
+	 *
+	 * @param row row at which context menu is displayed
+	 * @param col column at which context menu is displayed
+	 * @param pos position where context menu is drawn on screen
 	 */
-	void formatTextIfEnabled(const QString& txt);
+	void contextMenu(int row, int col, const QPoint& pos);
+
+	/**
+	 * Display custom context menu.
+	 *
+	 * @param pos position where context menu is drawn on screen
+	 */
+	void customContextMenu(const QPoint& pos);
+
+private:
+	int m_cursorRow;
+	int m_cursorColumn;
+	QWidget* m_currentEditor;
 };
 
 #endif // FRAMETABLE_H

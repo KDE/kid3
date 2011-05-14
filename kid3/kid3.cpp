@@ -80,6 +80,7 @@
 #include "id3form.h"
 #include "genres.h"
 #include "framelist.h"
+#include "frametablemodel.h"
 #include "frametable.h"
 #include "configdialog.h"
 #include "importdialog.h"
@@ -1413,10 +1414,8 @@ void Kid3App::slotFileRevert()
 																			 taggedFile->getIndex());
 	}
 	if (!it.hasNoSelection()) {
-		m_view->frameTableV1()->frames().clear();
-		m_view->frameTableV1()->framesToTable();
-		m_view->frameTableV2()->frames().clear();
-		m_view->frameTableV2()->framesToTable();
+		m_view->frameModelV1()->clearFrames();
+		m_view->frameModelV2()->clearFrames();
 		m_view->setFilenameEditEnabled(false);
 		fileSelected();
 	}
@@ -1713,8 +1712,8 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 	slotStatusMsg(i18n("Import..."));
 	ImportTrackDataVector::iterator it = m_trackDataList.begin();
 	FrameFilter flt(destV1 ?
-	                m_view->frameTableV1()->getEnabledFrameFilter(true) :
-	                m_view->frameTableV2()->getEnabledFrameFilter(true));
+									m_view->frameModelV1()->getEnabledFrameFilter(true) :
+									m_view->frameModelV2()->getEnabledFrameFilter(true));
 	TaggedFileOfDirectoryIterator tfit(
 			m_view->getFileList()->currentOrRootIndex());
 	while (tfit.hasNext()) {
@@ -1732,10 +1731,8 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 	}
 	if (m_view->getFileList()->selectionModel() &&
 			m_view->getFileList()->selectionModel()->hasSelection()) {
-		m_view->frameTableV1()->frames().clear();
-		m_view->frameTableV1()->framesToTable();
-		m_view->frameTableV2()->frames().clear();
-		m_view->frameTableV2()->framesToTable();
+		m_view->frameModelV1()->clearFrames();
+		m_view->frameModelV2()->clearFrames();
 		m_view->setFilenameEditEnabled(false);
 		fileSelected();
 	}
@@ -2033,11 +2030,11 @@ void Kid3App::slotSettingsConfigure()
 			m_config->sync();
 #endif
 			if (!s_miscCfg.m_markTruncations) {
-				m_view->frameTableV1()->markRows(0);
+				m_view->frameModelV1()->markRows(0);
 			}
 			if (!s_miscCfg.m_markChanges) {
-				m_view->frameTableV1()->markChangedFrames(0);
-				m_view->frameTableV2()->markChangedFrames(0);
+				m_view->frameModelV1()->markChangedFrames(0);
+				m_view->frameModelV2()->markChangedFrames(0);
 				m_view->markChangedFilename(false);
 			}
 			setTextEncodings();
@@ -2074,8 +2071,8 @@ void Kid3App::slotApplyId3Format()
 {
 	FrameCollection frames;
 	updateCurrentSelection();
-	FrameFilter fltV1(m_view->frameTableV1()->getEnabledFrameFilter(true));
-	FrameFilter fltV2(m_view->frameTableV2()->getEnabledFrameFilter(true));
+	FrameFilter fltV1(m_view->frameModelV1()->getEnabledFrameFilter(true));
+	FrameFilter fltV2(m_view->frameModelV2()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																m_view->getFileList()->selectionModel(),
 																true);
@@ -2713,14 +2710,14 @@ void Kid3App::updateCurrentSelection()
 		m_view->getFileList()->getCurrentSelection();
 	int numFiles = selItems.size();
 	if (numFiles > 0) {
-		m_view->frameTableV1()->tableToFrames(numFiles > 1);
-		m_view->frameTableV2()->tableToFrames(numFiles > 1);
+		m_view->frameTableV1()->acceptEdit();
+		m_view->frameTableV2()->acceptEdit();
 		for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
 				 it != selItems.end();
 				 ++it) {
 			if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
-				taggedFile->setFramesV1(m_view->frameTableV1()->frames());
-				taggedFile->setFramesV2(m_view->frameTableV2()->frames());
+				taggedFile->setFramesV1(m_view->frameModelV1()->frames());
+				taggedFile->setFramesV2(m_view->frameModelV2()->frames());
 				if (m_view->isFilenameEditEnabled()) {
 					taggedFile->setFilename(m_view->getFilename());
 				}
@@ -2761,24 +2758,28 @@ void Kid3App::updateGuiControls()
 
 			if (taggedFile->isTagV1Supported()) {
 				if (num_v1_selected == 0) {
-					taggedFile->getAllFramesV1(m_view->frameTableV1()->frames());
+					FrameCollection frames;
+					taggedFile->getAllFramesV1(frames);
+					m_view->frameModelV1()->transferFrames(frames);
 				}
 				else {
 					FrameCollection fileFrames;
 					taggedFile->getAllFramesV1(fileFrames);
-					m_view->frameTableV1()->frames().filterDifferent(fileFrames);
+					m_view->frameModelV1()->filterDifferent(fileFrames);
 				}
 				++num_v1_selected;
 				tagV1Supported = true;
 			}
 			if (num_v2_selected == 0) {
-				taggedFile->getAllFramesV2(m_view->frameTableV2()->frames());
+				FrameCollection frames;
+				taggedFile->getAllFramesV2(frames);
+				m_view->frameModelV2()->transferFrames(frames);
 				single_v2_file = taggedFile;
 			}
 			else {
 				FrameCollection fileFrames;
 				taggedFile->getAllFramesV2(fileFrames);
-				m_view->frameTableV2()->frames().filterDifferent(fileFrames);
+				m_view->frameModelV2()->filterDifferent(fileFrames);
 				single_v2_file = 0;
 			}
 			++num_v2_selected;
@@ -2799,12 +2800,12 @@ void Kid3App::updateGuiControls()
 		m_view->setTagFormatV2(single_v2_file->getTagFormatV2());
 
 		if (s_miscCfg.m_markTruncations) {
-			m_view->frameTableV1()->markRows(single_v2_file->getTruncationFlags());
+			m_view->frameModelV1()->markRows(single_v2_file->getTruncationFlags());
 		}
 		if (s_miscCfg.m_markChanges) {
-			m_view->frameTableV1()->markChangedFrames(
+			m_view->frameModelV1()->markChangedFrames(
 				single_v2_file->getChangedFramesV1());
-			m_view->frameTableV2()->markChangedFrames(
+			m_view->frameModelV2()->markChangedFrames(
 				single_v2_file->getChangedFramesV2());
 			m_view->markChangedFilename(single_v2_file->isFilenameChanged());
 		}
@@ -2818,18 +2819,18 @@ void Kid3App::updateGuiControls()
 		m_view->setTagFormatV2(QString::null);
 
 		if (s_miscCfg.m_markTruncations) {
-			m_view->frameTableV1()->markRows(0);
+			m_view->frameModelV1()->markRows(0);
 		}
 		if (s_miscCfg.m_markChanges) {
-			m_view->frameTableV1()->markChangedFrames(0);
-			m_view->frameTableV2()->markChangedFrames(0);
+			m_view->frameModelV1()->markChangedFrames(0);
+			m_view->frameModelV2()->markChangedFrames(0);
 			m_view->markChangedFilename(false);
 		}
 	}
 	if (!s_miscCfg.m_hidePicture) {
 		FrameCollection::const_iterator it =
-			m_view->frameTableV2()->frames().find(Frame(Frame::FT_Picture, "", "", -1));
-		if (it == m_view->frameTableV2()->frames().end() ||
+			m_view->frameModelV2()->frames().find(Frame(Frame::FT_Picture, "", "", -1));
+		if (it == m_view->frameModelV2()->frames().end() ||
 				it->isInactive()) {
 			m_view->setPictureData(0);
 		} else {
@@ -2837,10 +2838,8 @@ void Kid3App::updateGuiControls()
 			m_view->setPictureData(PictureFrame::getData(*it, data) ? &data : 0);
 		}
 	}
-	m_view->frameTableV1()->setAllCheckBoxes(num_v1_selected == 1);
-	m_view->frameTableV1()->framesToTable();
-	m_view->frameTableV2()->setAllCheckBoxes(num_v2_selected == 1);
-	m_view->frameTableV2()->framesToTable();
+	m_view->frameModelV1()->setAllCheckStates(num_v1_selected == 1);
+	m_view->frameModelV2()->setAllCheckStates(num_v2_selected == 1);
 	updateModificationState();
 
 	if (num_v1_selected == 0 && num_v2_selected == 0) {
@@ -2852,7 +2851,7 @@ void Kid3App::updateGuiControls()
 		// If a tag is supposed to be absent, make sure that there is really no
 		// unsaved data in the tag.
 		if (!hasTagV1 && tagV1Supported) {
-			FrameCollection& frames = m_view->frameTableV1()->frames();
+			const FrameCollection& frames = m_view->frameModelV1()->frames();
 			for (FrameCollection::iterator it = frames.begin();
 					 it != frames.end();
 					 ++it) {
@@ -2863,7 +2862,7 @@ void Kid3App::updateGuiControls()
 			}
 		}
 		if (!hasTagV2) {
-			FrameCollection& frames = m_view->frameTableV2()->frames();
+			const FrameCollection& frames = m_view->frameModelV2()->frames();
 			for (FrameCollection::iterator it = frames.begin();
 					 it != frames.end();
 					 ++it) {
@@ -2896,8 +2895,8 @@ void Kid3App::fileSelected()
 void Kid3App::copyTagsV1()
 {
 	updateCurrentSelection();
-	m_copyTags = m_view->frameTableV1()->frames().copyEnabledFrames(
-		m_view->frameTableV1()->getEnabledFrameFilter(true));
+	m_copyTags = m_view->frameModelV1()->frames().copyEnabledFrames(
+		m_view->frameModelV1()->getEnabledFrameFilter(true));
 }
 
 /**
@@ -2906,8 +2905,8 @@ void Kid3App::copyTagsV1()
 void Kid3App::copyTagsV2()
 {
 	updateCurrentSelection();
-	m_copyTags = m_view->frameTableV2()->frames().copyEnabledFrames(
-		m_view->frameTableV2()->getEnabledFrameFilter(true));
+	m_copyTags = m_view->frameModelV2()->frames().copyEnabledFrames(
+		m_view->frameModelV2()->getEnabledFrameFilter(true));
 }
 
 /**
@@ -2917,7 +2916,7 @@ void Kid3App::pasteTagsV1()
 {
 	updateCurrentSelection();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
-													 m_view->frameTableV1()->getEnabledFrameFilter(true)));
+													 m_view->frameModelV1()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																m_view->getFileList()->selectionModel(),
@@ -2936,7 +2935,7 @@ void Kid3App::pasteTagsV2()
 {
 	updateCurrentSelection();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
-													 m_view->frameTableV2()->getEnabledFrameFilter(true)));
+													 m_view->frameModelV2()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																m_view->getFileList()->selectionModel(),
@@ -2962,7 +2961,7 @@ void Kid3App::getTagsFromFilenameV1()
 																selectModel,
 																false);
 	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
-	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
+	FrameFilter flt(m_view->frameModelV1()->getEnabledFrameFilter(true));
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
 		if (!multiselect && m_view->isFilenameEditEnabled()) {
@@ -2993,7 +2992,7 @@ void Kid3App::getTagsFromFilenameV2()
 																selectModel,
 																false);
 	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
-	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
+	FrameFilter flt(m_view->frameModelV2()->getEnabledFrameFilter(true));
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
 		if (!multiselect && m_view->isFilenameEditEnabled()) {
@@ -3052,7 +3051,7 @@ void Kid3App::copyV1ToV2()
 {
 	updateCurrentSelection();
 	FrameCollection frames;
-	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
+	FrameFilter flt(m_view->frameModelV2()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																m_view->getFileList()->selectionModel(),
 																false);
@@ -3074,7 +3073,7 @@ void Kid3App::copyV2ToV1()
 {
 	updateCurrentSelection();
 	FrameCollection frames;
-	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
+	FrameFilter flt(m_view->frameModelV1()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																m_view->getFileList()->selectionModel(),
 																false);
@@ -3095,7 +3094,7 @@ void Kid3App::copyV2ToV1()
 void Kid3App::removeTagsV1()
 {
 	updateCurrentSelection();
-	FrameFilter flt(m_view->frameTableV1()->getEnabledFrameFilter(true));
+	FrameFilter flt(m_view->frameModelV1()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																m_view->getFileList()->selectionModel(),
 																false);
@@ -3111,7 +3110,7 @@ void Kid3App::removeTagsV1()
 void Kid3App::removeTagsV2()
 {
 	updateCurrentSelection();
-	FrameFilter flt(m_view->frameTableV2()->getEnabledFrameFilter(true));
+	FrameFilter flt(m_view->frameModelV2()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																m_view->getFileList()->selectionModel(),
 																false);
@@ -3129,8 +3128,9 @@ void Kid3App::removeTagsV2()
 void Kid3App::updateAfterFrameModification(TaggedFile* taggedFile)
 {
 	if (taggedFile) {
-		taggedFile->getAllFramesV2(m_view->frameTableV2()->frames());
-		m_view->frameTableV2()->framesToTable();
+		FrameCollection frames;
+		taggedFile->getAllFramesV2(frames);
+		m_view->frameModelV2()->transferFrames(frames);
 		updateModificationState();
 	}
 }

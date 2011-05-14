@@ -30,6 +30,7 @@
 #include "taggedfile.h"
 #include "framelist.h"
 #include "frametable.h"
+#include "frametablemodel.h"
 #include "editframedialog.h"
 #include "editframefieldsdialog.h"
 #include "kid3.h"
@@ -44,9 +45,10 @@
  * Constructor.
  *
  * @param ft frame table
+ * @param ftm frame table model
  */
-FrameList::FrameList(FrameTable* ft) :
-	m_file(0), m_frameTable(ft)
+FrameList::FrameList(FrameTable* ft, FrameTableModel* ftm) :
+	m_file(0), m_frameTable(ft), m_frameTableModel(ftm)
 {
 }
 
@@ -60,8 +62,7 @@ FrameList::~FrameList() {}
  */
 void FrameList::clear()
 {
-	m_frameTable->frames().clear();
-	m_frameTable->framesToTable();
+	m_frameTableModel->clearFrames();
 	m_file = 0;
 }
 
@@ -93,7 +94,8 @@ void FrameList::reloadTags()
  */
 int FrameList::getSelectedId() const
 {
-	const Frame* currentFrame = m_frameTable->getCurrentFrame();
+	const Frame* currentFrame =
+		m_frameTableModel->getFrameOfIndex(m_frameTable->currentIndex());
 	return currentFrame ? currentFrame->getIndex() : -1;
 }
 
@@ -106,7 +108,8 @@ int FrameList::getSelectedId() const
  */
 bool FrameList::getSelectedFrame(Frame& frame) const
 {
-	const Frame* currentFrame = m_frameTable->getCurrentFrame();
+	const Frame* currentFrame =
+		m_frameTableModel->getFrameOfIndex(m_frameTable->currentIndex());
 	if (currentFrame) {
 		frame = *currentFrame;
 		return true;
@@ -121,7 +124,9 @@ bool FrameList::getSelectedFrame(Frame& frame) const
  */
 void FrameList::setSelectedId(int id)
 {
-	m_frameTable->selectFrameWithIndex(id);
+	m_frameTable->setCurrentIndex(
+		m_frameTableModel->index(
+			m_frameTableModel->getRowWithFrameIndex(id), 0));
 }
 
 /**
@@ -131,7 +136,8 @@ void FrameList::setSelectedId(int id)
  */
 QString FrameList::getSelectedName() const
 {
-	const Frame* currentFrame = m_frameTable->getCurrentFrame();
+	const Frame* currentFrame =
+		m_frameTableModel->getFrameOfIndex(m_frameTable->currentIndex());
 	return currentFrame ? currentFrame->getName() : QString::null;
 }
 
@@ -144,7 +150,12 @@ QString FrameList::getSelectedName() const
  */
 bool FrameList::selectByName(const QString& name)
 {
-	return m_frameTable->selectFrameWithName(name);
+	int row = m_frameTableModel->getRowWithFrameName(name);
+	if (row < 0)
+		return false;
+
+	m_frameTable->setCurrentIndex(m_frameTableModel->index(row, 0));
+	return true;
 }
 
 /**
@@ -152,9 +163,8 @@ bool FrameList::selectByName(const QString& name)
  */
 void FrameList::clearListBox()
 {
-	if (m_frameTable) {
-		m_frameTable->frames().clear();
-		m_frameTable->framesToTable();
+	if (m_frameTableModel) {
+		m_frameTableModel->clearFrames();
 	}
 }
 
@@ -166,8 +176,9 @@ void FrameList::clearListBox()
 void FrameList::readTags()
 {
 	if (m_file) {
-		m_file->getAllFramesV2(m_frameTable->frames());
-		m_frameTable->framesToTable();
+		FrameCollection frames;
+		m_file->getAllFramesV2(frames);
+		m_frameTableModel->transferFrames(frames);
 	}
 }
 
