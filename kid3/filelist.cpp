@@ -292,6 +292,10 @@ bool FileList::selectNextFile()
 		while (!next.isValid() && parent.isValid()) {
 			// to next sibling or next sibling of parent
 			int row = parent.row();
+			if (parent == rootIndex()) {
+				// do not move beyond root index
+				return false;
+			}
 			parent = parent.parent();
 			if (row + 1 < model()->rowCount(parent)) {
 				// to next sibling
