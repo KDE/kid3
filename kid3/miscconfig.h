@@ -28,7 +28,6 @@
 #define MISCCONFIG_H
 
 #include <QStringList>
-#include "qtcompatmac.h"
 #include <QList>
 #include "config.h"
 #include "generalconfig.h"

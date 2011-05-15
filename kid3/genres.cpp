@@ -24,10 +24,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "genres.h"
 #include <QString>
 #include <QMap>
 #include "qtcompatmac.h"
-#include "genres.h"
 
 /**
  * Alphabetic list of genres, starts with unknown (empty) entry.

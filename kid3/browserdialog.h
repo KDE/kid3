@@ -27,7 +27,6 @@
 #ifndef BROWSERDIALOG_H
 #define BROWSERDIALOG_H
 
-#include "config.h"
 #include <QDialog>
 
 class QTextBrowser;

@@ -29,11 +29,9 @@
 
 #include <QObject>
 #include <QString>
-#include "qtcompatmac.h"
 
-#include <QHttp>
-#include <QByteArray>
-
+class QByteArray;
+class QHttp;
 class QHttpResponseHeader;
 
 /**

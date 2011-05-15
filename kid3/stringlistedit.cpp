@@ -30,6 +30,7 @@
 #include <QInputDialog>
 #include <QLayout>
 #include <QListView>
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

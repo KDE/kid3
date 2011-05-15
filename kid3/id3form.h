@@ -28,25 +28,22 @@
 #define ID3FORM_H
 
 #include <QSplitter>
-#include <QLabel>
-#include <QComboBox>
 #include <QLineEdit>
+#include <QComboBox>
 #include "filelist.h"
 #include "dirlist.h"
 #include "picturelabel.h"
 #include "taggedfile.h"
-#include "qtcompatmac.h"
 
+class QLabel;
 class QCheckBox;
 class QPushButton;
 class QToolButton;
 class QSpinBox;
-class FormatConfig;
 class QGridLayout;
 class QGroupBox;
 class QPixmap;
-class QListWidget;
-class QListWidgetItem;
+class FormatConfig;
 class FrameList;
 class FrameTable;
 class FrameTableModel;
@@ -426,7 +423,6 @@ private:
 	QComboBox* m_formatFromFilenameComboBox;
 	QLabel* m_nameLabel;
 	QLineEdit* m_nameLineEdit;
-	QListWidget* m_framesListBox;
 	DirList* m_dirListBox;
 	FrameList* m_framelist;
 	FrameTableModel* m_framesV1Model;

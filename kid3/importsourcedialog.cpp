@@ -24,6 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "importsourcedialog.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QLineEdit>
@@ -36,8 +37,9 @@
 #include <QHBoxLayout>
 #include "importsourceconfig.h"
 #include "importsourceclient.h"
-#include "importsourcedialog.h"
 #include "kid3.h"
+#include "trackdata.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

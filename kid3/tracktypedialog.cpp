@@ -24,10 +24,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "tracktypedialog.h"
 #include <QRegExp>
 #include "kid3.h"
 #include "tracktypeclient.h"
-#include "tracktypedialog.h"
 
 static const char* serverList[] = {
 	"tracktype.org:80",

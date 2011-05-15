@@ -24,15 +24,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "taggedfile.h"
 #include <QDir>
 #include <QString>
 #include <QRegExp>
-
+#include <sys/stat.h>
 #include "kid3.h"
 #include "genres.h"
-#include "taggedfile.h"
 #include "modeliterator.h"
-#include <sys/stat.h>
 
 QList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
 

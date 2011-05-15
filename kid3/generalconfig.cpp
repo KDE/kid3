@@ -24,12 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
 #include "generalconfig.h"
-
-#ifdef CONFIG_USE_KDE
-#include <kconfig.h>
-#endif
 
 /**
  * Constructor.

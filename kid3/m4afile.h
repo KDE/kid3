@@ -31,7 +31,6 @@
 #ifdef HAVE_MP4V2
 
 #include "taggedfile.h"
-#include "qtcompatmac.h"
 #include <QMap>
 
 /** MPEG-4 audio file */

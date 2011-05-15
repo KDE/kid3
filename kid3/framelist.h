@@ -27,14 +27,13 @@
 #ifndef FRAMELIST_H
 #define FRAMELIST_H
 
-#include <QLabel>
-#include "qtcompatmac.h"
-#include <QByteArray>
-#include "taggedfile.h"
+#include <QObject>
+#include "frame.h"
 
+class QPushButton;
 class FrameTable;
 class FrameTableModel;
-class QPushButton;
+class TaggedFile;
 
 /**
  * List of frames.

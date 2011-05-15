@@ -37,10 +37,10 @@
 #include <QString>
 #include <QComboBox>
 #include <QCheckBox>
-#include "qtcompatmac.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "kid3.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

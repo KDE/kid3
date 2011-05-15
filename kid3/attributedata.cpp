@@ -26,7 +26,6 @@
 
 #include "attributedata.h"
 #include <QMap>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.

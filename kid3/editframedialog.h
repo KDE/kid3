@@ -29,7 +29,6 @@
 
 #include <QDialog>
 #include <QTextEdit>
-#include "qtcompatmac.h"
 
 class QPushButton;
 

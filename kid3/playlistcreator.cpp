@@ -25,15 +25,15 @@
  */
 
 #include "playlistcreator.h"
-#include "playlistconfig.h"
-#include "taggedfile.h"
-#include "trackdata.h"
-#include "fileproxymodel.h"
-#include "qtcompatmac.h"
 #include <QDir>
 #include <QUrl>
 #include <QFile>
 #include <QTextStream>
+#include "playlistconfig.h"
+#include "taggedfile.h"
+#include "trackdata.h"
+#include "fileproxymodel.h"
+#include "config.h"
 
 /**
  * Constructor.

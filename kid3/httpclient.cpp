@@ -25,7 +25,11 @@
  */
 
 #include "httpclient.h"
+#include <QHttp>
+#include <QByteArray>
 #include "kid3.h"
+#include "qtcompatmac.h"
+
 
 /**
  * Constructor.

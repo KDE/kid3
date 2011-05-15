@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "miscconfig.h"
 #include <QString>
-#include "qtcompatmac.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kdeversion.h>
@@ -38,7 +38,6 @@
 #include "generalconfig.h"
 #include "taggedfile.h"
 #include "rendirdialog.h"
-#include "miscconfig.h"
 
 /** Default value for comment name */
 const char* const MiscConfig::s_defaultCommentName = "COMMENT";

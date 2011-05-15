@@ -28,7 +28,6 @@
  */
 
 #include "expressionparser.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.

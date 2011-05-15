@@ -8,8 +8,9 @@
  */
 
 #include "picturelabel.h"
-#include "qtcompatmac.h"
 #include <QHash>
+#include <QByteArray>
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

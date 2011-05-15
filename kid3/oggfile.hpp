@@ -30,9 +30,8 @@
 #include "config.h"
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
-#include "taggedfile.h"
-#include "qtcompatmac.h"
 #include <QList>
+#include "taggedfile.h"
 
 
  /** List box item containing OGG file */

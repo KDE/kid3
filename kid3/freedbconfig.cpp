@@ -25,7 +25,8 @@
  */
 
 #include "freedbconfig.h"
-#include <QString>
+
+class QString;
 
 /**
  * Constructor.

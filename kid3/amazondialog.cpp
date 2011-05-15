@@ -24,11 +24,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "amazondialog.h"
 #include <QRegExp>
 #include <QDomDocument>
 #include "kid3.h"
 #include "amazonclient.h"
-#include "amazondialog.h"
 
 static const char* serverList[] = {
 	// Parsing only works with English text

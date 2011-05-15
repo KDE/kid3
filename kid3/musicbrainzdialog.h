@@ -27,13 +27,11 @@
 #ifndef MUSICBRAINZDIALOG_H
 #define MUSICBRAINZDIALOG_H
 
-#include "config.h"
-
-#include "trackdata.h"
 #include <QDialog>
 #include <QString>
-#include "qtcompatmac.h"
 #include <QVector>
+#include "trackdata.h"
+#include "config.h"
 
 class QTableWidget;
 class QLineEdit;

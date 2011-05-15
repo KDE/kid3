@@ -24,9 +24,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "importparser.h"
 #include "frame.h"
 #include "genres.h"
-#include "importparser.h"
+#include "qtcompatmac.h"
 
 /**
  * Get help text for format codes supported by setFormat().

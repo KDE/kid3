@@ -30,24 +30,22 @@
 #include <QDir>
 #include <QString>
 #include <QTextCodec>
-#include "qtcompatmac.h"
 #include <QByteArray>
 
+#include <cstring>
+#include <sys/stat.h>
 #include <id3/tag.h>
 #ifdef WIN32
 #include <id3.h>
+#include <sys/utime.h>
+#else
+#include <utime.h>
 #endif
 
 #include "genres.h"
 #include "kid3.h"
 #include "attributedata.h"
-#include <cstring>
-#include <sys/stat.h>
-#ifdef WIN32
-#include <sys/utime.h>
-#else
-#include <utime.h>
-#endif
+#include "qtcompatmac.h"
 
 #ifdef WIN32
 /**

@@ -30,19 +30,17 @@
 #include "config.h"
 
 #include <QObject>
-#include "qtcompatmac.h"
-#include <QByteArray>
 #include <QTcpSocket>
 
 #ifdef HAVE_TUNEPIMP
 #if HAVE_TUNEPIMP >= 5
-#include <QBuffer>
 #include <tunepimp-0.5/tp_c.h>
 #else
 #include <tunepimp/tp_c.h>
 #endif
 #endif // HAVE_TUNEPIMP
 
+class QByteArray;
 class ImportTrackData;
 class ImportTrackDataVector;
 

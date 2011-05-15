@@ -12,7 +12,8 @@
 
 #include <QLabel>
 #include <QPixmap>
-#include <QByteArray>
+
+class QByteArray;
 
 /**
  * Label for picture preview.

@@ -9,7 +9,6 @@
 
 #include "formatreplacer.h"
 #include <QUrl>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.

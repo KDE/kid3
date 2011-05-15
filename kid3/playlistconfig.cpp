@@ -25,7 +25,7 @@
  */
 
 #include "playlistconfig.h"
-#include "qtcompatmac.h"
+#include "config.h"
 
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>

@@ -27,7 +27,6 @@
 #ifndef FORMATBOX_H
 #define FORMATBOX_H
 
-#include "qtcompatmac.h"
 #include <QGroupBox>
 
 class QComboBox;

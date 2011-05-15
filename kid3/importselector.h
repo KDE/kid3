@@ -27,14 +27,10 @@
 #ifndef IMPORTSELECTOR_H
 #define IMPORTSELECTOR_H
 
-#include "trackdata.h"
-#include "importparser.h"
 #include "importconfig.h"
 #include <QWidget>
 #include <QString>
 #include <QStringList>
-#include "qtcompatmac.h"
-#include <QList>
 
 class QPushButton;
 class QComboBox;
@@ -49,6 +45,8 @@ class MusicBrainzReleaseDialog;
 class DiscogsDialog;
 class AmazonDialog;
 class ImportTable;
+class ImportTrackDataVector;
+class FrameCollection;
 
 /**
  * Import selector widget.
@@ -127,7 +125,7 @@ public:
 	 * @return list with track durations,
 	 *         0 if no track durations found.
 	 */
-	TrackDurationList* getTrackDurations();
+	QList<int>* getTrackDurations();
 
 	/**
 	 * Get time difference check configuration.
@@ -357,7 +355,7 @@ private:
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
 	/** names for additional tag columns */
-	QList<QString> m_additonalColumnNames;
+	QStringList m_additonalColumnNames;
 
 	/** Last directory used for import or export. */
 	static QString s_importDir;

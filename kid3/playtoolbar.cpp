@@ -28,7 +28,6 @@
 
 #ifdef HAVE_PHONON
 
-#include "qtcompatmac.h"
 #include <QAction>
 #include <QLCDNumber>
 #include <QHBoxLayout>
@@ -41,6 +40,7 @@
 #include <phonon/mediaobject.h>
 #include <phonon/seekslider.h>
 #include <phonon/volumeslider.h>
+#include "qtcompatmac.h"
 
 static const QString zeroTime(" 0:00");
 

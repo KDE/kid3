@@ -33,6 +33,7 @@
 #include "taggedfile.h"
 #include "miscconfig.h"
 #include <id3/globals.h> /* ID3_FrameID */
+
 class ID3_Tag;
 class ID3_Field;
 class ID3_Frame;

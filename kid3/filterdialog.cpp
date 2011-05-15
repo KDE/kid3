@@ -36,7 +36,6 @@
 #include <QLabel>
 #include <QSpinBox>
 #include <QString>
-#include <QTextEdit>
 #include <QLineEdit>
 #include <QComboBox>
 #include <QToolTip>

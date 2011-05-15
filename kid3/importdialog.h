@@ -27,10 +27,10 @@
 #ifndef IMPORTDIALOG_H
 #define IMPORTDIALOG_H
 
+#include <QDialog>
 #include "config.h"
 #include "trackdata.h"
 #include "importconfig.h"
-#include <QDialog>
 
 class ImportSelector;
 class FreedbConfig;

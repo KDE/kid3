@@ -27,6 +27,7 @@
 #include "editframedialog.h"
 #include <QPushButton>
 #include <QVBoxLayout>
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

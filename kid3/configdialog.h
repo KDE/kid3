@@ -30,7 +30,6 @@
 #include "config.h"
 
 #include <QStringList>
-#include "qtcompatmac.h"
 #ifdef CONFIG_USE_KDE
 #include <kconfigdialog.h>
 #else

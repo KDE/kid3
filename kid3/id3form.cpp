@@ -24,6 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "id3form.h"
 #include <QCheckBox>
 #include <QPushButton>
 #include <QToolButton>
@@ -35,7 +36,6 @@
 #include <QFrame>
 #include <QPixmap>
 
-#include <QListWidget>
 #include <QVBoxLayout>
 #include <QDropEvent>
 #include <QDragEnterEvent>
@@ -56,9 +56,9 @@
 #include "kid3.h"
 #include "miscconfig.h"
 #include "formatconfig.h"
-#include "id3form.h"
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
+#include "qtcompatmac.h"
 
 /** Collapse pixmap, will be allocated in constructor */
 QPixmap* Id3Form::s_collapsePixmap = 0;

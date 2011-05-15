@@ -30,13 +30,13 @@
 #include "config.h"
 #ifdef HAVE_TAGLIB
 
+#include <QtGlobal>
 #include "taggedfile.h"
 #include "miscconfig.h"
 #include <taglib/taglib.h>
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
 #include <taglib/id3v2frame.h>
-#include <QtGlobal>
 
 /** TagLib version in with 8 bits for major, minor and patch version. */
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \

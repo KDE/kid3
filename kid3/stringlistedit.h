@@ -28,7 +28,6 @@
 #define STRINGLISTEDIT_H
 
 #include <QWidget>
-#include "qtcompatmac.h"
 
 class QListView;
 class QPushButton;

@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
+#include "kid3.h"
 #include <QDir>
 #include <QPrinter>
 #include <QPainter>
@@ -45,6 +45,7 @@
 #include <QIcon>
 #include <QToolBar>
 #include <QFileSystemModel>
+#include "config.h"
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include "scriptinterface.h"
@@ -76,7 +77,6 @@
 #include <QFileDialog>
 #endif
 
-#include "kid3.h"
 #include "id3form.h"
 #include "genres.h"
 #include "framelist.h"

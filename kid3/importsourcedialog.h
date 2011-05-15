@@ -28,10 +28,8 @@
 #define IMPORTSOURCEDIALOG_H
 
 #include "config.h"
-#include "trackdata.h"
 #include <QDialog>
 #include <QString>
-#include "qtcompatmac.h"
 #include <QListWidget>
 
 class QLineEdit;
@@ -41,6 +39,7 @@ class QCheckBox;
 class QStatusBar;
 class ImportSourceConfig;
 class ImportSourceClient;
+class ImportTrackDataVector;
 
 /**
  * Generic dialog to import from an external source.

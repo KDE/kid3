@@ -28,7 +28,6 @@
 #include <QFile>
 #include <QImage>
 #include <QBuffer>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.

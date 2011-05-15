@@ -30,8 +30,8 @@
 #include <QPushButton>
 #include <QApplication>
 #include <QDesktopWidget>
-#include "qtcompatmac.h"
 #include <QVBoxLayout>
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

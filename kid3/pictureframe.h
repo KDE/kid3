@@ -28,7 +28,6 @@
 #define PICTUREFRAME_H
 
 #include "frame.h"
-#include "config.h"
 
 class QImage;
 

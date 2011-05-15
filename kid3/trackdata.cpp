@@ -29,6 +29,7 @@
 #include <QUrl>
 #include <QDir>
 #include "fileproxymodel.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

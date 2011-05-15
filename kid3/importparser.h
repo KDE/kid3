@@ -30,10 +30,7 @@
 #include <QString>
 #include <QRegExp>
 #include <QMap>
-#include "qtcompatmac.h"
-/** The list type depends on the Qt version. */
 #include <QList>
-typedef QList<int> TrackDurationList;
 
 class FrameCollection;
 
@@ -66,7 +63,7 @@ public:
 	 *
 	 * @return list with track durations.
 	 */
-	TrackDurationList* getTrackDurations() { return &m_trackDuration; }
+	QList<int>* getTrackDurations() { return &m_trackDuration; }
 
 	/**
 	 * Get help text for format codes supported by setFormat().
@@ -85,7 +82,7 @@ private:
 	/** automatically incremented track number */
 	int m_trackIncrNr;
 	QMap<QString, int> m_codePos;
-	TrackDurationList m_trackDuration;
+	QList<int> m_trackDuration;
 };
 
 #endif

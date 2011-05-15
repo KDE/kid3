@@ -34,6 +34,7 @@
 #endif
 #include "freedbclient.h"
 #include "trackdata.h"
+#include "qtcompatmac.h"
 
 #if HAVE_TUNEPIMP >= 5
 /**

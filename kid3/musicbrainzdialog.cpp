@@ -42,6 +42,7 @@
 #include <QHBoxLayout>
 #include "kid3.h"
 #include "musicbrainzclient.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

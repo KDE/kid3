@@ -27,12 +27,9 @@
 #ifndef RENDIRDIALOG_H
 #define RENDIRDIALOG_H
 
-#include <QDialog>
 #include <QString>
-/** Base class for main window. */
 #include <QList>
 #include <QWizard>
-typedef QWizard RenDirDialogBaseClass;
 
 class QComboBox;
 class QLabel;
@@ -43,7 +40,7 @@ class QTextEdit;
 /**
  * Rename directory dialog.
  */
-class RenDirDialog : public RenDirDialogBaseClass {
+class RenDirDialog : public QWizard {
 Q_OBJECT
 
 public:

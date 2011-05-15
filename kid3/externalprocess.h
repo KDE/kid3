@@ -27,13 +27,12 @@
 #ifndef EXTERNALPROCESS_H
 #define EXTERNALPROCESS_H
 
-#include <QString>
-#include <QStringList>
 #include <QDialog>
 #include <QTextEdit>
-#include "qtcompatmac.h"
 
 class QProcess;
+class QString;
+class QStringList;
 class TaggedFile;
 
 /**

@@ -24,10 +24,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "discogsdialog.h"
 #include <QRegExp>
 #include "kid3.h"
 #include "discogsclient.h"
-#include "discogsdialog.h"
 #include "genres.h"
 
 static const ImportSourceDialog::Properties props = {

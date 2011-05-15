@@ -26,6 +26,7 @@
 
 #include "commandstablemodel.h"
 #include "filelist.h"
+#include "qtcompatmac.h"
 
 /** Column indices. */
 enum ColumnIndex {

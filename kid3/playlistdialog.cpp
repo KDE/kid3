@@ -36,13 +36,13 @@
 #include <QButtonGroup>
 #include <QFrame>
 #include <QToolTip>
-#include "qtcompatmac.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
 
 #include "kid3.h"
 #include "trackdata.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

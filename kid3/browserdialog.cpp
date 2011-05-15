@@ -25,6 +25,7 @@
  */
 
 #include "browserdialog.h"
+#include "config.h"
 
 #ifndef CONFIG_USE_KDE
 #include <QTextBrowser>

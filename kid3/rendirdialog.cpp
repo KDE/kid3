@@ -24,6 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "rendirdialog.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QComboBox>
@@ -32,7 +33,6 @@
 #include <QApplication>
 #include <QTextEdit>
 #include <QCursor>
-#include "qtcompatmac.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
@@ -41,7 +41,7 @@
 #include "frame.h"
 #include "kid3.h"
 #include "miscconfig.h"
-#include "rendirdialog.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -744,5 +744,5 @@ void RenDirDialog::pageChanged()
 void RenDirDialog::reject()
 {
 	m_aborted = true;
-	RenDirDialogBaseClass::reject();
+	QWizard::reject();
 }

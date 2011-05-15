@@ -24,10 +24,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QString>
-#include "qtcompatmac.h"
 #include "importconfig.h"
-
+#include <QString>
+#include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
 #include <kconfigskeleton.h>

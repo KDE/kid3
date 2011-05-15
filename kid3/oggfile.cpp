@@ -27,8 +27,6 @@
 #include "oggfile.hpp"
 #if defined HAVE_VORBIS || defined HAVE_FLAC
 
-#include "pictureframe.h"
-#include "kid3.h"
 #include <QFile>
 #include <QDir>
 #include <QByteArray>
@@ -41,9 +39,12 @@
 #include <stdio.h>
 #include <math.h>
 #ifdef HAVE_VORBIS
-#include "vcedit.h"
 #include <vorbis/vorbisfile.h>
+#include "vcedit.h"
 #endif
+#include "pictureframe.h"
+#include "kid3.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

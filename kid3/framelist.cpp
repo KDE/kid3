@@ -24,16 +24,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "framelist.h"
 #include <QDialog>
 #include <QInputDialog>
 
 #include "taggedfile.h"
-#include "framelist.h"
 #include "frametable.h"
 #include "frametablemodel.h"
 #include "editframedialog.h"
 #include "editframefieldsdialog.h"
 #include "kid3.h"
+#include "qtcompatmac.h"
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
 #else

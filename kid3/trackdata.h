@@ -27,11 +27,9 @@
 #ifndef TRACKDATA_H
 #define TRACKDATA_H
 
+#include <QVector>
 #include "frame.h"
 #include "taggedfile.h"
-#include <QtGlobal>
-#include "qtcompatmac.h"
-#include <QVector>
 
 /**
  * Track data, frames with association to tagged file.

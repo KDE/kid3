@@ -24,6 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "importdialog.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
@@ -38,8 +39,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "importselector.h"
-#include "importdialog.h"
 #include "kid3.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

@@ -25,8 +25,8 @@
  */
 
 #include "frame.h"
-#include "pictureframe.h"
 #include <QMap>
+#include "pictureframe.h"
 #include "qtcompatmac.h"
 
 /**

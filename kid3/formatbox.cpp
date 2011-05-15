@@ -24,15 +24,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "formatbox.h"
 #include <QLabel>
 #include <QComboBox>
 #include <QCheckBox>
 #include <QString>
+#include <QVBoxLayout>
 #include "formatconfig.h"
-#include "formatbox.h"
 #include "configtable.h"
 #include "configtablemodel.h"
-#include <QVBoxLayout>
+#include "qtcompatmac.h"
 
 /**
  * Constructor.

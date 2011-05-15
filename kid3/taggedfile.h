@@ -29,7 +29,6 @@
 
 #include <QString>
 #include <QStringList>
-#include "qtcompatmac.h"
 #include <QList>
 #include <QPersistentModelIndex>
 #include "frame.h"

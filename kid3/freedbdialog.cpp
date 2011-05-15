@@ -24,10 +24,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "freedbdialog.h"
 #include <QRegExp>
 #include "kid3.h"
 #include "freedbclient.h"
-#include "freedbdialog.h"
 #include "genres.h"
 #include "importparser.h"
 
@@ -151,7 +151,7 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
  */
 static void parseFreedbTrackDurations(
 	const QString& text,
-	TrackDurationList& trackDuration)
+	QList<int>& trackDuration)
 {
 /* Example freedb format:
    # Track frame offsets:
@@ -233,13 +233,13 @@ void FreedbDialog::parseAlbumResults(const QByteArray& albumStr)
 {
 	QString text = QString::fromUtf8(albumStr);
 	FrameCollection framesHdr;
-	TrackDurationList trackDuration;
+	QList<int> trackDuration;
 	parseFreedbTrackDurations(text, trackDuration);
 	parseFreedbAlbumData(text, framesHdr);
 
 	FrameCollection frames(framesHdr);
 	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-	TrackDurationList::const_iterator tdit = trackDuration.begin();
+	QList<int>::const_iterator tdit = trackDuration.begin();
 	bool atTrackDataListEnd = (it == m_trackDataVector.end());
 	int pos = 0;
 	int idx, oldpos = pos;

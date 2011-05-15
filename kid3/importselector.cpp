@@ -24,6 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "importselector.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
@@ -43,7 +44,6 @@
 #include <QCheckBox>
 #include <QSpinBox>
 #include <QToolTip>
-#include "qtcompatmac.h"
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QList>
@@ -58,7 +58,9 @@
 #include "amazondialog.h"
 #include "kid3.h"
 #include "taggedfile.h"
-#include "importselector.h"
+#include "trackdata.h"
+#include "importparser.h"
+#include "qtcompatmac.h"
 #ifdef HAVE_TUNEPIMP
 #include "musicbrainzdialog.h"
 #include "musicbrainzconfig.h"
@@ -595,10 +597,10 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 
 	if (!start) {
 		/* start is false => tags were found */
-		TrackDurationList* trackDuration = getTrackDurations();
+		QList<int>* trackDuration = getTrackDurations();
 		if (trackDuration) {
 			it = m_trackDataVector.begin();
-			for (TrackDurationList::const_iterator tdit = trackDuration->begin();
+			for (QList<int>::const_iterator tdit = trackDuration->begin();
 					 tdit != trackDuration->end();
 					 ++tdit) {
 				if (it != m_trackDataVector.end()) {
@@ -891,9 +893,9 @@ void ImportSelector::saveConfig(int width, int height)
  * @return list with track durations,
  *         0 if no track durations found.
  */
-TrackDurationList* ImportSelector::getTrackDurations()
+QList<int>* ImportSelector::getTrackDurations()
 {
-	TrackDurationList* lst = 0;
+	QList<int>* lst = 0;
 	if (m_headerParser && ((lst = m_headerParser->getTrackDurations()) != 0) &&
 			(lst->size() > 0)) {
 		return lst;

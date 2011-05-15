@@ -29,6 +29,8 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QProcess>
+#include <QString>
+#include <QStringList>
 #include "qtcompatmac.h"
 #include <QTextCursor>
 #include "taggedfile.h"

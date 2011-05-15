@@ -24,11 +24,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "musicbrainzreleasedialog.h"
 #include <QRegExp>
 #include <QDomDocument>
 #include "kid3.h"
 #include "musicbrainzreleaseclient.h"
-#include "musicbrainzreleasedialog.h"
 
 static const char* serverList[] = {
 	"musicbrainz.org:80",

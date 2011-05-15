@@ -24,6 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "formatconfig.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
@@ -32,9 +33,7 @@
 #include <QString>
 #include <QStringList>
 #endif
-#include "qtcompatmac.h"
 #include "generalconfig.h"
-#include "formatconfig.h"
 #include "frame.h"
 
 /**
