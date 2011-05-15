@@ -537,7 +537,6 @@ QWidget* FrameItemDelegate::createEditor(
 	QWidget* parent, const QStyleOptionViewItem& option,
 	const QModelIndex& index) const
 {
-//	FrameTable2* ft = qobject_cast<FrameTable2*>(this->parent());
 	int row = index.row();
 	int col = index.column();
 	if (col == FrameTableModel::CI_Value && row >= 0) {

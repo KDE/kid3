@@ -34,7 +34,7 @@
 #include "frame.h"
 
 /**
- * Context menu commands configuration table model.
+ * Model for table with frames.
  */
 class FrameTableModel : public QAbstractTableModel {
 	Q_OBJECT
@@ -318,7 +318,7 @@ class FrameItemDelegate : public QItemDelegate {
 public:
 	/**
 	 * Constructor.
-	 * @param parent parent QTableWidget
+	 * @param parent parent QTableView
 	 */
 	FrameItemDelegate(QObject* parent) : QItemDelegate(parent) {}
 
