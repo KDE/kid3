@@ -30,13 +30,15 @@
 #include "config.h"
 #include <QDialog>
 #include <QString>
-#include <QListWidget>
+#include <QStandardItem>
 
 class QLineEdit;
 class QComboBox;
 class QPushButton;
 class QCheckBox;
 class QStatusBar;
+class QListView;
+class QStandardItemModel;
 class ImportSourceConfig;
 class ImportSourceClient;
 class ImportTrackDataVector;
@@ -206,16 +208,16 @@ private slots:
 	/**
 	 * Request track list from server.
 	 *
-	 * @param li list box item containing an AlbumListItem
+	 * @param li standard item containing an AlbumListItem
 	 */
-	void requestTrackList(QListWidgetItem* li);
+	void requestTrackList(QStandardItem* li);
 
 	/**
 	 * Request track list from server.
 	 *
-	 * @param index index of list box item containing an AlbumListItem
+	 * @param index model index of list containing an AlbumListItem
 	 */
-	void requestTrackList(int index);
+	void requestTrackList(const QModelIndex& index);
 
 	/**
 	 * Save the local settings to the configuration.
@@ -241,7 +243,8 @@ signals:
 	void trackDataUpdated();
 
 protected:
-	QListWidget* m_albumListBox; /**< list box with albums to select */
+	QListView* m_albumListBox; /**< list box with albums to select */
+	QStandardItemModel* m_albumListModel; /**< albums to select */
 	ImportTrackDataVector& m_trackDataVector; /**< vector with tracks to import */
 
 private:
@@ -265,36 +268,34 @@ private:
 };
 
 /**
- * QListBoxItem subclass for album list.
+ * QStandardItem subclass for album list.
  */
-class AlbumListItem : public QListWidgetItem {
+class AlbumListItem : public QStandardItem {
 public:
 	/**
 	 * Constructor.
-	 * @param listbox listbox
 	 * @param text    title
 	 * @param cat     category
 	 * @param idStr   ID
 	 */
-	AlbumListItem(QListWidget* listbox, const QString& text,
+	AlbumListItem(const QString& text,
 				  const QString& cat, const QString& idStr) : 
-		QListWidgetItem(text, listbox), m_category(cat), m_id(idStr) {}
+		QStandardItem(text) {
+		setData(cat, Qt::UserRole + 1);
+		setData(idStr, Qt::UserRole + 2);
+	}
 
 	/**
 	 * Get category.
 	 * @return category.
 	 */
-	QString getCategory() const { return m_category; }
+	QString getCategory() const { return data(Qt::UserRole + 1).toString(); }
 
 	/**
 	 * Get ID.
 	 * @return ID.
 	 */
-	QString getId() const { return m_id; }
-
-private:
-	QString m_category;
-	QString m_id;
+	QString getId() const { return data(Qt::UserRole + 2).toString(); }
 };
 
 #endif

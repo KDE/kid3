@@ -123,9 +123,9 @@ public:
 	 * Get list with track durations.
 	 *
 	 * @return list with track durations,
-	 *         0 if no track durations found.
+	 *         empty if no track durations found.
 	 */
-	QList<int>* getTrackDurations();
+	QList<int> getTrackDurations();
 
 	/**
 	 * Get time difference check configuration.

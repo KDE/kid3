@@ -26,6 +26,7 @@
 
 #include "musicbrainzreleasedialog.h"
 #include <QRegExp>
+#include <QListView>
 #include <QDomDocument>
 #include "kid3.h"
 #include "musicbrainzreleaseclient.h"
@@ -95,7 +96,7 @@ void MusicBrainzReleaseDialog::parseFindResults(const QByteArray& searchStr)
 	}
 	QDomDocument doc;
 	if (doc.setContent(xmlStr, false)) {
-		m_albumListBox->clear();
+		m_albumListModel->clear();
 		QDomElement releaseList =
 			doc.namedItem("metadata").toElement().namedItem("release-list").toElement();
 		for (QDomNode releaseNode = releaseList.namedItem("release");
@@ -106,11 +107,10 @@ void MusicBrainzReleaseDialog::parseFindResults(const QByteArray& searchStr)
 			QString title = release.namedItem("title").toElement().text();
 			QDomElement artist = release.namedItem("artist").toElement();
 			QString name = artist.namedItem("name").toElement().text();
-			new AlbumListItem(
-				m_albumListBox,
+			m_albumListModel->appendRow(new AlbumListItem(
 				name + " - " + title,
 				"release",
-				id);
+				id));
 		}
 		m_albumListBox->setFocus();
 	}

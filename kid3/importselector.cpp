@@ -597,11 +597,11 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 
 	if (!start) {
 		/* start is false => tags were found */
-		QList<int>* trackDuration = getTrackDurations();
-		if (trackDuration) {
+		QList<int> trackDuration = getTrackDurations();
+		if (!trackDuration.isEmpty()) {
 			it = m_trackDataVector.begin();
-			for (QList<int>::const_iterator tdit = trackDuration->begin();
-					 tdit != trackDuration->end();
+			for (QList<int>::const_iterator tdit = trackDuration.begin();
+					 tdit != trackDuration.end();
 					 ++tdit) {
 				if (it != m_trackDataVector.end()) {
 					(*it).setImportDuration(*tdit);
@@ -891,20 +891,17 @@ void ImportSelector::saveConfig(int width, int height)
  * Get list with track durations.
  *
  * @return list with track durations,
- *         0 if no track durations found.
+ *         empty if no track durations found.
  */
-QList<int>* ImportSelector::getTrackDurations()
+QList<int> ImportSelector::getTrackDurations()
 {
-	QList<int>* lst = 0;
-	if (m_headerParser && ((lst = m_headerParser->getTrackDurations()) != 0) &&
-			(lst->size() > 0)) {
-		return lst;
-	} else if (m_trackParser && ((lst = m_trackParser->getTrackDurations()) != 0) &&
-						 (lst->size() > 0)) {
-		return lst;
-	} else {
-		return 0;
+	QList<int> lst;
+	if (m_headerParser) {
+		lst = m_headerParser->getTrackDurations();
+	} else if (m_trackParser) {
+		lst = m_trackParser->getTrackDurations();
 	}
+	return lst;
 }
 
 /**

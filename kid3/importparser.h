@@ -63,7 +63,7 @@ public:
 	 *
 	 * @return list with track durations.
 	 */
-	QList<int>* getTrackDurations() { return &m_trackDuration; }
+	QList<int> getTrackDurations() { return m_trackDuration; }
 
 	/**
 	 * Get help text for format codes supported by setFormat().

@@ -26,6 +26,7 @@
 
 #include "discogsdialog.h"
 #include <QRegExp>
+#include <QListView>
 #include "kid3.h"
 #include "discogsclient.h"
 #include "genres.h"
@@ -72,17 +73,16 @@ void DiscogsDialog::parseFindResults(const QByteArray& searchStr)
 	QString str = QString::fromUtf8(searchStr);
 	QRegExp idTitleRe("<a href=\"/([^/]*/?release)/([0-9]+)\">(.+)</a>");
 	QStringList lines = str.remove('\r').split("\n");
-	m_albumListBox->clear();
+	m_albumListModel->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		if (idTitleRe.indexIn(*it) != -1) {
 			QString title(idTitleRe.cap(3));
 			title.replace(QRegExp("<[^>]+>"), "");
 			if (!title.isEmpty()) {
-				new AlbumListItem(
-					m_albumListBox,
+				m_albumListModel->appendRow(new AlbumListItem(
 					title,
 					idTitleRe.cap(1),
-					idTitleRe.cap(2));
+					idTitleRe.cap(2)));
 			}
 		}
 	}

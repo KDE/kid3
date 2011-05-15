@@ -26,6 +26,7 @@
 
 #include "tracktypedialog.h"
 #include <QRegExp>
+#include <QListView>
 #include "kid3.h"
 #include "tracktypeclient.h"
 
@@ -87,29 +88,27 @@ theoretically, but never seen
 	QRegExp catIdTitleRe("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)");
 	QStringList lines = str.split(QRegExp("[\\r\\n]+"));
 	bool inEntries = false;
-	m_albumListBox->clear();
+	m_albumListModel->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		if (*it == ".") {
 			break;
 		}
 		if (inEntries) {
 			if (catIdTitleRe.exactMatch(*it)) {
-				new AlbumListItem(
-					m_albumListBox,
+				m_albumListModel->appendRow(new AlbumListItem(
 					catIdTitleRe.cap(3),
 					catIdTitleRe.cap(1),
-					catIdTitleRe.cap(2));
+					catIdTitleRe.cap(2)));
 			}
 		} else {
 			if ((*it).startsWith("21") && (*it).indexOf(" match") != -1) {
 				inEntries = true;
 			} else if ((*it).startsWith("200 ")) {
 				if (catIdTitleRe.exactMatch((*it).mid(4))) {
-					new AlbumListItem(
-						m_albumListBox,
+					m_albumListModel->appendRow(new AlbumListItem(
 						catIdTitleRe.cap(3),
 						catIdTitleRe.cap(1),
-						catIdTitleRe.cap(2));
+						catIdTitleRe.cap(2)));
 				}
 			}
 		}

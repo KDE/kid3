@@ -35,6 +35,8 @@
 #include <QRegExp>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QListView>
+#include <QStandardItemModel>
 #include "importsourceconfig.h"
 #include "importsourceclient.h"
 #include "kid3.h"
@@ -127,13 +129,14 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent, QString caption,
 			vlayout->addLayout(hlayout);
 		}
 	}
-	m_albumListBox = new QListWidget(this);
-	if (m_albumListBox) {
+	m_albumListModel = new QStandardItemModel(this);
+	m_albumListBox = new QListView(this);
+	if (m_albumListModel && m_albumListBox) {
+		m_albumListBox->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		m_albumListBox->setModel(m_albumListModel);
 		vlayout->addWidget(m_albumListBox);
-		connect(m_albumListBox, SIGNAL(itemClicked(QListWidgetItem*)),
-				this, SLOT(requestTrackList(QListWidgetItem*)));
-		connect(m_albumListBox, SIGNAL(itemActivated(QListWidgetItem*)),
-				this, SLOT(requestTrackList(QListWidgetItem*)));
+		connect(m_albumListBox, SIGNAL(activated(QModelIndex)),
+				this, SLOT(requestTrackList(QModelIndex)));
 	}
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
@@ -195,7 +198,7 @@ void ImportSourceDialog::showStatusMessage(const QString& msg)
  */
 void ImportSourceDialog::clear()
 {
-	m_albumListBox->clear();
+	m_albumListModel->clear();
 }
 
 /**
@@ -415,12 +418,11 @@ void ImportSourceDialog::slotAlbumFinished(const QByteArray& albumStr)
 /**
  * Request track list from server.
  *
- * @param li list box item containing an AlbumListItem
+ * @param li standard item containing an AlbumListItem
  */
-void ImportSourceDialog::requestTrackList(QListWidgetItem* li)
+void ImportSourceDialog::requestTrackList(QStandardItem* li)
 {
-	AlbumListItem* ali;
-	if ((ali = dynamic_cast<AlbumListItem *>(li)) != 0) {
+	if (AlbumListItem* ali = dynamic_cast<AlbumListItem*>(li)) {
 		ImportSourceConfig cfg;
 		getImportSourceConfig(&cfg);
 		m_client->getTrackList(&cfg, ali->getCategory(), ali->getId());
@@ -430,11 +432,11 @@ void ImportSourceDialog::requestTrackList(QListWidgetItem* li)
 /**
  * Request track list from server.
  *
- * @param index index of list box item containing an AlbumListItem
+ * @param index model index of list containing an AlbumListItem
  */
-void ImportSourceDialog::requestTrackList(int index)
+void ImportSourceDialog::requestTrackList(const QModelIndex& index)
 {
-	requestTrackList(m_albumListBox->item(index));
+	requestTrackList(m_albumListModel->itemFromIndex(index));
 }
 
 /**

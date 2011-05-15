@@ -26,6 +26,7 @@
 
 #include "freedbdialog.h"
 #include <QRegExp>
+#include <QListView>
 #include "kid3.h"
 #include "freedbclient.h"
 #include "genres.h"
@@ -123,18 +124,17 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
 	QStringList lines = str.split(QRegExp("[\\r\\n]+"));
 	QString title;
 	bool inEntries = false;
-	m_albumListBox->clear();
+	m_albumListModel->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		if (inEntries) {
 			if (titleRe.indexIn(*it) != -1) {
 				title = titleRe.cap(1);
 			}
 			if (catIdRe.indexIn(*it) != -1) {
-				new AlbumListItem(
-					m_albumListBox,
+				m_albumListModel->appendRow(new AlbumListItem(
 					title,
 					catIdRe.cap(1),
-					catIdRe.cap(2));
+					catIdRe.cap(2)));
 			}
 		} else if ((*it).indexOf(" albums found:") != -1) {
 			inEntries = true;

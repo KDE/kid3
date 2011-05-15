@@ -26,6 +26,7 @@
 
 #include "amazondialog.h"
 #include <QRegExp>
+#include <QListView>
 #include <QDomDocument>
 #include "kid3.h"
 #include "amazonclient.h"
@@ -88,17 +89,16 @@ void AmazonDialog::parseFindResults(const QByteArray& searchStr)
 		"<a href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"
 		"<span class=\"srTitle\">([^<]+)<.*>\\s*by\\s*(?:<[^>]+>)?([^<]+)<");
 	QStringList lines = str.remove('\r').split(QRegExp("\\n{2,}"));
-	m_albumListBox->clear();
+	m_albumListModel->clear();
 	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
 		QString line(*it);
 		line.remove('\n');
 		if (catIdTitleArtistRe.indexIn(line) != -1) {
-			new AlbumListItem(
-				m_albumListBox,
+			m_albumListModel->appendRow(new AlbumListItem(
 				removeHtml(catIdTitleArtistRe.cap(4)) + " - " +
 				removeHtml(catIdTitleArtistRe.cap(3)),
 				catIdTitleArtistRe.cap(1),
-				catIdTitleArtistRe.cap(2));
+				catIdTitleArtistRe.cap(2)));
 		}
 	}
 	m_albumListBox->setFocus();
