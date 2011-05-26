@@ -37,6 +37,8 @@ class QComboBox;
 class QLineEdit;
 class QCheckBox;
 class QSpinBox;
+class QTableView;
+class TrackDataModel;
 class ImportParser;
 class FreedbDialog;
 class TrackTypeDialog;
@@ -44,7 +46,6 @@ class MusicBrainzDialog;
 class MusicBrainzReleaseDialog;
 class DiscogsDialog;
 class AmazonDialog;
-class ImportTable;
 class ImportTrackDataVector;
 class FrameCollection;
 
@@ -266,11 +267,6 @@ public slots:
 	void matchWithTitle();
 
 private:
-	enum TabColumn {
-		LengthColumn, TrackColumn, TitleColumn, ArtistColumn,
-		AlbumColumn, YearColumn, GenreColumn, CommentColumn, NumColumns
-	};
-
 	enum ImportSource {
 		None, File, Clipboard
 	};
@@ -283,19 +279,6 @@ private:
 	 * @return true if tags were found.
 	 */
 	bool updateTrackData(ImportSource impSrc);
-
-	/**
-	 * Clear columns for additional (non-standard) tags.
-	 */
-	void clearAdditionalFrameColumns();
-
-	/**
-	 * Add columns for additional (non-standard) tags.
-	 *
-	 * @param frames frames
-	 * @param row    current table row
-	 */
-	void addAdditionalFrameColumns(const FrameCollection& frames, int row);
 
 	/**
 	 * Set the format combo box and line edits from the configuration.
@@ -315,7 +298,9 @@ private:
 	/** Match with Title button */
 	QPushButton* m_titleButton;
 	/** Preview table */
-	ImportTable* m_tab;
+	QTableView* m_trackDataTable;
+	/** Track data model */
+	TrackDataModel* m_trackDataModel;
 	/** contents of imported file/clipboard */
 	QString m_text;
 	/** combobox with import servers */
@@ -354,8 +339,6 @@ private:
 	ImportSource m_importSource;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
-	/** names for additional tag columns */
-	QStringList m_additonalColumnNames;
 
 	/** Last directory used for import or export. */
 	static QString s_importDir;

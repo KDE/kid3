@@ -16,7 +16,7 @@ set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
 	commandstablemodel.cpp taglibfile.cpp importsourceconfig.cpp
 	importsourcedialog.cpp importsourceclient.cpp discogsdialog.cpp
 	discogsclient.cpp discogsconfig.cpp musicbrainzreleasedialog.cpp
-	musicbrainzreleaseclient.cpp externalprocess.cpp trackdata.cpp
+	musicbrainzreleaseclient.cpp externalprocess.cpp trackdata.cpp trackdatamodel.cpp
 	stringlistedit.cpp tracktypedialog.cpp tracktypeclient.cpp filterconfig.cpp
 	filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp
 	formatreplacer.cpp httpclient.cpp downloaddialog.cpp picturelabel.cpp
@@ -117,7 +117,7 @@ set(kid3_MOC_HDRS filelist.h frametable.h frametablemodel.h id3form.h kid3.h con
 	filterdialog.h filefilter.h httpclient.h downloaddialog.h
 	browsecoverartdialog.h configtable.h browserdialog.h imageviewer.h
 	editframedialog.h editframefieldsdialog.h playlistdialog.h recentfilesmenu.h
-	playtoolbar.h fileproxymodel.h)
+	playtoolbar.h fileproxymodel.h trackdatamodel.h)
 if (HAVE_QTDBUS)
   set(kid3_MOC_HDRS ${kid3_MOC_HDRS} scriptinterface.h)
 endif (HAVE_QTDBUS)

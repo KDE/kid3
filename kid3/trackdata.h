@@ -73,6 +73,13 @@ public:
 	QString getAbsFilename() const;
 
 	/**
+	 * Get filename.
+	 *
+	 * @return filename.
+	 */
+	QString getFilename() const;
+
+	/**
 	 * Get file extension including the dot.
 	 *
 	 * @return file extension, e.g. ".mp3".

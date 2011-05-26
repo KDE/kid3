@@ -307,6 +307,17 @@ QString TrackData::getAbsFilename() const
 }
 
 /**
+ * Get filename.
+ *
+ * @return filename.
+ */
+QString TrackData::getFilename() const
+{
+	TaggedFile* taggedFile = getTaggedFile();
+	return taggedFile ? taggedFile->getFilename() : QString();
+}
+
+/**
  * Get the format of tag 1.
  *
  * @return string describing format of tag 1,

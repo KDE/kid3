@@ -232,6 +232,17 @@ public:
 	 */
 	void filterDifferent(FrameCollection& others);
 
+	/**
+	 * Get a display representation of the a frame name.
+	 * For ID3v2-IDs with description, only the ID is returned.
+	 * Other non-empty strings are translated.
+	 *
+	 * @param str frame name
+	 *
+	 * @return display representation of name.
+	 */
+	static QString getDisplayName(const QString& str);
+
 public slots:
 	/**
 	 * Select all frames in the table.
@@ -244,17 +255,6 @@ public slots:
 	void deselectAllFrames();
 
 private:
-	/**
-	 * Get a display representation of the a frame name.
-	 * For ID3v2-IDs with description, only the ID is returned.
-	 * Other non-empty strings are translated.
-	 *
-	 * @param str frame name
-	 *
-	 * @return display representation of name.
-	 */
-	QString getDisplayName(const QString& str) const;
-
 	/**
 	 * Get the frame at a specific position in the collection.
 	 * @param row position of frame

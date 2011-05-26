@@ -76,7 +76,7 @@ Qt::ItemFlags FrameTableModel::flags(const QModelIndex& index) const
  *
  * @return display representation of name.
  */
-QString FrameTableModel::getDisplayName(const QString& str) const
+QString FrameTableModel::getDisplayName(const QString& str)
 {
 	if (!str.isEmpty()) {
 		int nlPos = str.indexOf("\n");
@@ -539,12 +539,11 @@ QWidget* FrameItemDelegate::createEditor(
 {
 	int row = index.row();
 	int col = index.column();
-	if (col == FrameTableModel::CI_Value && row >= 0) {
+	const FrameTableModel* ftModel =
+		qobject_cast<const FrameTableModel*>(index.model());
+	if (row >= 0 && (col == FrameTableModel::CI_Value || !ftModel)) {
 		Frame::Type type = static_cast<Frame::Type>(
-			index.sibling(row, FrameTableModel::CI_Enable).
-					data(FrameTableModel::FrameTypeRole).toInt());
-		const FrameTableModel* ftModel =
-			qobject_cast<const FrameTableModel*>(index.model());
+			index.data(FrameTableModel::FrameTypeRole).toInt());
 		bool id3v1 = ftModel && ftModel->isId3v1();
 		if (type == Frame::FT_Genre) {
 			QComboBox* cb = new QComboBox(parent);

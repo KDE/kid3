@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2008  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,7 +44,7 @@
 #include <QCheckBox>
 #include <QSpinBox>
 #include <QToolTip>
-#include <QTableWidget>
+#include <QTableView>
 #include <QHeaderView>
 #include <QList>
 #include <QHBoxLayout>
@@ -60,70 +60,13 @@
 #include "taggedfile.h"
 #include "trackdata.h"
 #include "importparser.h"
+#include "trackdatamodel.h"
+#include "frametablemodel.h"
 #include "qtcompatmac.h"
 #ifdef HAVE_TUNEPIMP
 #include "musicbrainzdialog.h"
 #include "musicbrainzconfig.h"
 #endif
-
-/**
- * Table used for import data.
- * Subclassed to be able to change the cell colors.
- */
-class ImportTable: public QTableWidget {
-public:
-	/**
-	 * Constructor.
-	 * @param parent parent widget
-	 */
-	ImportTable(QWidget* parent = 0) : QTableWidget(parent) {}
-
-	/**
-	 * Constructor.
-	 * @param numRows number of rows
-	 * @param numCols number of columns
-	 * @param parent  parent widget
-	 */
-	ImportTable(int numRows, int numCols, QWidget* parent = 0) :
-		QTableWidget(numRows, numCols, parent) {} 
-
-	/**
-	 * Clear marked rows.
-	 */
-	void clearMarks() {
-		m_markedRows.fill(false);
-		for (int row = 0; row < rowCount(); ++row) {
-			QTableWidgetItem* twi = item(row, 0);
-			if (twi) twi->setBackground(Qt::NoBrush);
-		}
-	}
-
-	/**
-	 * Mark a row.
-	 * This first cell of such a row will have a red background.
-	 * @param row number of row
-	 */
-	void markRow(unsigned row) {
-		if (static_cast<unsigned>(m_markedRows.size()) <= row)
-			m_markedRows.resize(row + 1);
-		m_markedRows.setBit(row);
-		QTableWidgetItem* twi = item(row, 0);
-		if (twi) twi->setBackground(Qt::red);
-	}
-
-	/**
-	 * Check if a row is marked.
-	 * @param row number of row
-	 * @return true if row is marked.
-	 */
-	bool isRowMarked(unsigned row) const {
-		return static_cast<unsigned>(m_markedRows.size()) > row &&
-			m_markedRows.testBit(row);
-	}
-
-private:
-	QBitArray m_markedRows;
-};
 
 
 /** Last directory used for import or export. */
@@ -155,20 +98,16 @@ ImportSelector::ImportSelector(
 	QVBoxLayout* vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(6);
 	vboxLayout->setMargin(6);
-	m_tab = new ImportTable(0, NumColumns, this);
-	m_tab->setSelectionMode(QAbstractItemView::NoSelection);
-	m_tab->setHorizontalHeaderLabels(
-		QStringList() << i18n("Length") << i18n("Track") << i18n("Title") <<
-		i18n("Artist") << i18n("Album") << i18n("Year") << i18n("Genre") <<
-		i18n("Comment"));
-	m_tab->resizeColumnToContents(TrackColumn);
-	m_tab->resizeColumnToContents(YearColumn);
-	QHeaderView* vHeader = m_tab->verticalHeader();
-	if (vHeader) {
-		vHeader->setMovable(true);
-		vHeader->setResizeMode(QHeaderView::ResizeToContents);
-	}
-	vboxLayout->addWidget(m_tab);
+	m_trackDataModel = new TrackDataModel(this);
+	m_trackDataTable = new QTableView(this);
+	m_trackDataTable->setModel(m_trackDataModel);
+	m_trackDataTable->resizeColumnsToContents();
+	m_trackDataTable->verticalHeader()->setMovable(true);
+	m_trackDataTable->horizontalHeader()->setMovable(true);
+	m_trackDataTable->setItemDelegateForColumn(6, new FrameItemDelegate(this));
+	connect(m_trackDataTable->verticalHeader(), SIGNAL(sectionMoved(int, int, int)),
+					this, SLOT(moveTableRow(int, int, int)));
+	vboxLayout->addWidget(m_trackDataTable);
 
 	QGroupBox* fmtbox = new QGroupBox(i18n("Format"), this);
 	m_formatComboBox = new QComboBox(fmtbox);
@@ -259,7 +198,6 @@ ImportSelector::ImportSelector(
 	connect(m_lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
 	connect(m_trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
 	connect(m_titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
-	connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
 	connect(m_mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
 	connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
 }
@@ -333,8 +271,7 @@ void ImportSelector::setFormatFromConfig()
  */
 void ImportSelector::clear()
 {
-	m_tab->setRowCount(0);
-	clearAdditionalFrameColumns();
+	m_trackDataModel->setTrackData(ImportTrackDataVector());
 
 	m_serverComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importServer);
 	m_destComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importDest);
@@ -617,200 +554,18 @@ bool ImportSelector::updateTrackData(ImportSource impSrc) {
 }
 
 /**
- * Clear columns for additional (non-standard) tags.
- */
-void ImportSelector::clearAdditionalFrameColumns()
-{
-	m_tab->setColumnCount(NumColumns);
-	m_additonalColumnNames.clear();
-}
-
-/**
- * Add columns for additional (non-standard) tags.
- *
- * @param frames frames
- * @param row    current table row
- */
-void ImportSelector::addAdditionalFrameColumns(const FrameCollection& frames,
-																							 int row)
-{
-	for (FrameCollection::const_iterator it = frames.begin();
-			 it != frames.end();
-			 ++it) {
-		if (it->getType() > Frame::FT_LastV1Frame) {
-			QString name(it->getName().toLower());
-			const int len = name.length();
-			int idx = 0;
-			while (idx >= 0 && idx < len) {
-				name[idx] = name[idx].toUpper();
-				idx = name.indexOf(' ', idx);
-				if (idx >= 0 && idx < len - 1) ++idx;
-			}
-			idx = m_additonalColumnNames.indexOf(name);
-			int col = NumColumns + idx;
-			if (idx == -1) {
-				m_additonalColumnNames.push_back(name);
-				idx = m_additonalColumnNames.size() - 1;
-				col = NumColumns + idx;
-				m_tab->insertColumn(col);
-				m_tab->setHorizontalHeaderItem(col, new QTableWidgetItem(QCM_translate(name.toLatin1().data())));
-			}
-			QTableWidgetItem* twi;
-			QString str = it->getValue();
-			if ((twi = m_tab->item(row, col)) != 0) {
-				twi->setText(str);
-			} else {
-				twi = new QTableWidgetItem(str);
-				twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-				m_tab->setItem(row, col, twi);
-			}
-		}
-	}
-}
-
-/**
  * Show fields to import in text as preview in table.
  */
 void ImportSelector::showPreview() {
-	clearAdditionalFrameColumns();
-	m_tab->setRowCount(m_trackDataVector.size());
-	int row = 0;
-	QStringList vLabels;
-	QString str;
-	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
-			 it != m_trackDataVector.end();
-			 ++it) {
-		QTableWidgetItem* twi;
-		int fileDuration = (*it).getFileDuration();
-		vLabels.append(fileDuration != 0 ?
-									 TaggedFile::formatTime(fileDuration) :
-									 QString::number(row + 1));
-		str.clear();
-		int importDuration = (*it).getImportDuration();
-		if (importDuration != 0) {
-			str = TaggedFile::formatTime(importDuration);
-		}
-		if ((twi = m_tab->item(row, LengthColumn)) != 0) {
-			twi->setText(str);
-		} else {
-			twi = new QTableWidgetItem(str);
-			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-			m_tab->setItem(row, LengthColumn, twi);
-		}
-		str.clear();
-		if ((*it).getTrack() != -1) {
-			str.setNum((*it).getTrack());
-		}
-		if ((twi = m_tab->item(row, TrackColumn)) != 0) {
-			twi->setText(str);
-		} else {
-			twi = new QTableWidgetItem(str);
-			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-			m_tab->setItem(row, TrackColumn, twi);
-		}
-		str.clear();
-		if (!(*it).getTitle().isNull()) {
-			str = (*it).getTitle();
-		}
-		if ((twi = m_tab->item(row, TitleColumn)) != 0) {
-			twi->setText(str);
-		} else {
-			twi = new QTableWidgetItem(str);
-			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-			m_tab->setItem(row, TitleColumn, twi);
-		}
-		str.clear();
-		if (!(*it).getArtist().isNull()) {
-			str = (*it).getArtist();
-		}
-		if ((twi = m_tab->item(row, ArtistColumn)) != 0) {
-			twi->setText(str);
-		} else {
-			twi = new QTableWidgetItem(str);
-			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-			m_tab->setItem(row, ArtistColumn, twi);
-		}
-		str.clear();
-		if (!(*it).getAlbum().isNull()) {
-			str = (*it).getAlbum();
-		}
-		if ((twi = m_tab->item(row, AlbumColumn)) != 0) {
-			twi->setText(str);
-		} else {
-			twi = new QTableWidgetItem(str);
-			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-			m_tab->setItem(row, AlbumColumn, twi);
-		}
-		str.clear();
-		if ((*it).getYear() != -1) {
-			str.setNum((*it).getYear());
-		}
-		if ((twi = m_tab->item(row, YearColumn)) != 0) {
-			twi->setText(str);
-		} else {
-			twi = new QTableWidgetItem(str);
-			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-			m_tab->setItem(row, YearColumn, twi);
-		}
-		str.clear();
-		if (!(*it).getGenre().isNull()) {
-			str = (*it).getGenre();
-		}
-		if ((twi = m_tab->item(row, GenreColumn)) != 0) {
-			twi->setText(str);
-		} else {
-			twi = new QTableWidgetItem(str);
-			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-			m_tab->setItem(row, GenreColumn, twi);
-		}
-		str.clear();
-		if (!(*it).getComment().isNull()) {
-			str = (*it).getComment();
-		}
-		if ((twi = m_tab->item(row, CommentColumn)) != 0) {
-			twi->setText(str);
-		} else {
-			twi = new QTableWidgetItem(str);
-			twi->setFlags(twi->flags() & ~Qt::ItemIsEditable);
-			m_tab->setItem(row, CommentColumn, twi);
-		}
-		addAdditionalFrameColumns(*it, row);
-		++row;
-	}
-	m_tab->scrollToTop();
-	m_tab->resizeColumnsToContents();
-	m_tab->resizeRowsToContents();
-	m_tab->setVerticalHeaderLabels(vLabels);
-
 	// make time difference check
-	m_tab->clearMarks();
 	bool diffCheckEnable;
 	int maxDiff;
 	getTimeDifferenceCheck(diffCheckEnable, maxDiff);
-	if (diffCheckEnable) {
-		bool tracksAvailable = false;
-		row = 0;
-		for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
-				 it != m_trackDataVector.end();
-				 ++it) {
-			int fileDuration = (*it).getFileDuration();
-			int importDuration = (*it).getImportDuration();
-			if (fileDuration != 0 && importDuration != 0) {
-				int diff = fileDuration > importDuration ?
-					fileDuration - importDuration : importDuration - fileDuration;
-				if (diff > maxDiff) {
-					m_tab->markRow(row);
-				}
-				tracksAvailable = true;
-			}
-			if (tracksAvailable &&
-					((fileDuration == 0 && importDuration != 0) ||
-					 (fileDuration != 0 && importDuration == 0))) {
-				m_tab->markRow(row);
-			}
-			++row;
-		}
-	}
+	m_trackDataModel->setTimeDifferenceCheck(diffCheckEnable, maxDiff);
+	m_trackDataModel->setTrackData(m_trackDataVector);
+	m_trackDataTable->scrollToTop();
+	m_trackDataTable->resizeColumnsToContents();
+	m_trackDataTable->resizeRowsToContents();
 }
 
 /**
@@ -933,7 +688,7 @@ void ImportSelector::maxDiffChanged() {
  * @param fromIndex index of position moved to
  */
 void ImportSelector::moveTableRow(int, int fromIndex, int toIndex) {
-	QHeaderView* vHeader = m_tab->verticalHeader();
+	QHeaderView* vHeader = qobject_cast<QHeaderView*>(sender());
 	if (vHeader) {
 		// revert movement, but avoid recursion
 		disconnect(vHeader, SIGNAL(sectionMoved(int, int, int)), 0, 0);
