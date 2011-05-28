@@ -5,7 +5,7 @@ if (HAVE_TAGLIB)
 endif (HAVE_TAGLIB)
 
 set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
-	modeliterator.cpp taggedfileiconprovider.cpp
+	modeliterator.cpp taggedfileiconprovider.cpp comboboxdelegate.cpp
 	frametable.cpp frametablemodel.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp
 	mp3file.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp
 	importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp

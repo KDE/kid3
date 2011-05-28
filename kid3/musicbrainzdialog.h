@@ -33,7 +33,8 @@
 #include "trackdata.h"
 #include "config.h"
 
-class QTableWidget;
+class QTableView;
+class QStandardItemModel;
 class QLineEdit;
 class QComboBox;
 class QPushButton;
@@ -66,7 +67,7 @@ public:
 
 #ifdef HAVE_TUNEPIMP
 	/**
-	 * Initialize the table.
+	 * Initialize the table model.
 	 * Has to be called before reusing the dialog with new track data.
 	 */
 	void initTable();
@@ -172,7 +173,7 @@ private slots:
 	 *
 	 * @param row table row
 	 */
-	void showFilenameInStatusBar(int row);
+	void showFilenameInStatusBar(const QModelIndex& index);
 
 #ifdef HAVE_TUNEPIMP
 private:
@@ -192,7 +193,8 @@ private:
 	void stopClient();
 
 	QComboBox* m_serverComboBox;
-	QTableWidget* m_albumTable;
+	QTableView* m_albumTable;
+	QStandardItemModel* m_albumTableModel;
 	QStatusBar* m_statusBar;
 	QTimer* m_timer;
 	MusicBrainzClient* m_client;
