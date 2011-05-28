@@ -26,6 +26,7 @@
 
 #include "config.h"
 #include <QFile>
+#include <QDesktopServices>
 #ifdef CONFIG_USE_KDE
 
 #include <kdeversion.h>
@@ -73,9 +74,8 @@ int main(int argc, char* argv[])
 
 			KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
-			if (args->count()) {
-				kid3->openDirectory(args->arg(0));
-			}
+			kid3->openDirectory(args->count() ? args->arg(0) :
+					QDesktopServices::storageLocation(QDesktopServices::MusicLocation));
 			args->clear();
 		}
 	}
@@ -132,12 +132,11 @@ int main(int argc, char* argv[])
  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
-	Kid3App* kid3 = new Kid3App();
+	Kid3App* kid3 = new Kid3App;
 	if (kid3) {
 		kid3->show();
-		if (argc > 1) {
-			kid3->openDirectory(QFile::decodeName(argv[1]));
-		}
+		kid3->openDirectory(argc > 1 ? QFile::decodeName(argv[1]) :
+				QDesktopServices::storageLocation(QDesktopServices::MusicLocation));
 	}
 	return app.exec();
 }
