@@ -682,6 +682,12 @@ private:
 	void updateModificationState();
 
 	/**
+	 * Set window title with information from directory, filter and modification
+	 * state.
+	 */
+	void updateWindowCaption();
+
+	/**
 	 * Update ID3v2 tags in GUI controls from file displayed in frame list.
 	 *
 	 * @param taggedFile the selected file

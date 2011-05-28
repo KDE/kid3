@@ -770,7 +770,7 @@ void Kid3App::initActions()
 		helpMenu->addAction(helpAbout);
 		helpMenu->addAction(helpAboutQt);
 	}
-	setWindowTitle("Kid3");
+	updateWindowCaption();
 #endif
 }
 
@@ -863,12 +863,11 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 		KUrl url;
 		url.setPath(dir);
 		m_fileOpenRecent->addUrl(url);
-		setCaption(dir, false);
 #else
 		m_fileOpenRecent->addDirectory(dir);
-		setWindowTitle(dir + " - Kid3");
 #endif
 		s_dirName = dir;
+		updateWindowCaption();
 	}
 	slotStatusMsg(i18n("Ready."));
 	QApplication::restoreOverrideCursor();
@@ -2683,7 +2682,16 @@ void Kid3App::updateModificationState()
 		}
 	}
 	setModified(modified);
-	QString cap(s_dirName);
+	updateWindowCaption();
+}
+
+/**
+ * Set window title with information from directory, filter and modification
+ * state.
+ */
+void Kid3App::updateWindowCaption()
+{
+	QString cap(QDir(s_dirName).dirName());
 	if (isFiltered()) {
 		cap += i18n(" [filtered]");
 	}
