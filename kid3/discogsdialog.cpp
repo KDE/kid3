@@ -103,8 +103,9 @@ static QString fixUpArtist(QString str)
 	str.replace("*,", ",");
 	str.remove(QRegExp("\\*$"));
 	str.remove(QRegExp("[*\\s]*\\(\\d+\\)\\(tracks:[^)]+\\)"));
-	str.replace(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\) / "), " / ");
-	str.replace(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\),"), ",");
+	str.replace(QRegExp(
+		"[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)(\\s*/\\s*,|\\s*&amp;|\\s*And|\\s*and)"),
+		"\\1");
 	str.remove(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)$"));
 	return ImportSourceDialog::removeHtml(str);
 }
