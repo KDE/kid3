@@ -10,10 +10,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge."
 "net/tracker/?group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2011-01-15 17:21+0100\n"
-"PO-Revision-Date: 2011-01-15 17:31+0100\n"
-"Last-Translator: \n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2011-05-30 09:15+0200\n"
+"Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
+"Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -149,7 +149,7 @@ msgstr "Numeroi &raidat muodossa raita/kaikkiaan"
 
 #: configdialog.cpp:225 configdialog.cpp:239
 msgid "&Genre as text instead of numeric string"
-msgstr "Genre &tekstinä numerojonon sijaan"
+msgstr "&Tyylilaji tekstinä numerojonon sijaan"
 
 #: configdialog.cpp:230 configdialog.cpp:245
 msgid "&Version used for new tags:"
@@ -193,15 +193,15 @@ msgstr "&Kuvakentän nimi:"
 
 #: configdialog.cpp:327 configdialog.cpp:329
 msgid "Custom &Genres"
-msgstr "Omat &genret"
+msgstr "Omat t&yylilajit"
 
 #: configdialog.cpp:332
 msgid "&Show only custom genres"
-msgstr "Näytä &vain omat genret"
+msgstr "Näytä &vain omat tyylilajit"
 
 #: configdialog.cpp:343
 msgid "&Tag Format"
-msgstr "&Tagin muoto"
+msgstr "Ta&gin muoto"
 
 #: configdialog.cpp:352
 msgid "Tags"
@@ -473,7 +473,7 @@ msgstr "Kapellimestari"
 
 #: editframefieldsdialog.cpp:912
 msgid "Band/Orchestra"
-msgstr "Yhtye/Orkesteri"
+msgstr "Yhtye/orkesteri"
 
 #: editframefieldsdialog.cpp:913 frame.cpp:79
 msgid "Composer"
@@ -541,7 +541,7 @@ msgstr "Tapahtumat"
 
 #: editframefieldsdialog.cpp:951
 msgid "Chord"
-msgstr "Jänne"
+msgstr "Sointu"
 
 #: editframefieldsdialog.cpp:952
 msgid "Trivia/pop up"
@@ -1574,7 +1574,7 @@ msgstr "ENCR – Salausmenetelmän rekisteröinti"
 
 #: mp3file.cpp:1290
 msgid "EQUA - Equalization"
-msgstr "EQUA – Ekvalisointi"
+msgstr "EQUA – Ekvalisointi"
 
 #: mp3file.cpp:1291 taglibfile.cpp:1607
 msgid "ETCO - Event timing codes"
@@ -1594,7 +1594,7 @@ msgstr "IPLS – Mukana olleiden henkilöiden luettelo"
 
 #: mp3file.cpp:1295 taglibfile.cpp:1610
 msgid "LINK - Linked information"
-msgstr "LINK – Linkattu tieto"
+msgstr "LINK – Linkattu tieto"
 
 #: mp3file.cpp:1296 taglibfile.cpp:1611
 msgid "MCDI - Music CD identifier"
@@ -1638,7 +1638,7 @@ msgstr "RVRB – Kaikuefekti"
 
 #: mp3file.cpp:1309 taglibfile.cpp:1623
 msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT – Tahdistettu sanoitus/teksti"
+msgstr "SYLT – Tahdistettu sanoitus/teksti"
 
 #: mp3file.cpp:1310 taglibfile.cpp:1624
 msgid "SYTC - Synchronized tempo codes"
@@ -1646,7 +1646,7 @@ msgstr "SYTC – Tahdistetut tempokoodit"
 
 #: mp3file.cpp:1311 taglibfile.cpp:1625
 msgid "TALB - Album/Movie/Show title"
-msgstr "TALB – Levyn/Elokuvan/Sarjan otsikko"
+msgstr "TALB – Levyn/elokuvan/sarjan otsikko"
 
 #: mp3file.cpp:1312 taglibfile.cpp:1626
 msgid "TBPM - BPM (beats per minute)"
@@ -1654,19 +1654,19 @@ msgstr "TBPM – BPM (iskua minuutissa)"
 
 #: mp3file.cpp:1313 taglibfile.cpp:1627
 msgid "TCOM - Composer"
-msgstr "TCOM – Säveltäjä"
+msgstr "TCOM – Säveltäjä"
 
 #: mp3file.cpp:1314 taglibfile.cpp:1628
 msgid "TCON - Content type"
-msgstr "TCON – Sisältötyyppi"
+msgstr "TCON – Sisältötyyppi"
 
 #: mp3file.cpp:1315 taglibfile.cpp:1629
 msgid "TCOP - Copyright message"
-msgstr "TCOP – Tekijänoikeustiedote"
+msgstr "TCOP – Tekijänoikeustiedote"
 
 #: mp3file.cpp:1316
 msgid "TDAT - Date"
-msgstr "TDAT – Päiväys"
+msgstr "TDAT – Päiväys"
 
 #: mp3file.cpp:1318 taglibfile.cpp:1631
 msgid "TDLY - Playlist delay"
@@ -1674,11 +1674,11 @@ msgstr "TDLY – Soittolistan viive"
 
 #: mp3file.cpp:1324 taglibfile.cpp:1636
 msgid "TENC - Encoded by"
-msgstr "TENC – Koodaaja"
+msgstr "TENC – Koodaaja"
 
 #: mp3file.cpp:1325 taglibfile.cpp:1637
 msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT – Sanoittaja/Tekstin kirjoittaja"
+msgstr "TEXT – Sanoittaja/tekstin kirjoittaja"
 
 #: mp3file.cpp:1326 taglibfile.cpp:1638
 msgid "TFLT - File type"
@@ -1686,7 +1686,7 @@ msgstr "TFLT – Tiedoston tyyppi"
 
 #: mp3file.cpp:1327
 msgid "TIME - Time"
-msgstr "TIME – Aika"
+msgstr "TIME – Aika"
 
 #: mp3file.cpp:1328 taglibfile.cpp:1640
 msgid "TIT1 - Content group description"
@@ -1694,23 +1694,23 @@ msgstr "TIT1 – Sisältöryhmän kuvaus"
 
 #: mp3file.cpp:1329 taglibfile.cpp:1641
 msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 – Otsikon/kappaleen nimen/sisällön kuvaus"
+msgstr "TIT2 – Otsikon/kappaleen nimen/sisällön kuvaus"
 
 #: mp3file.cpp:1330 taglibfile.cpp:1642
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 – Tekstitys/Kuvauksen täsmennys"
+msgstr "TIT3 – Tekstitys/kuvauksen täsmennys"
 
 #: mp3file.cpp:1331 taglibfile.cpp:1643
 msgid "TKEY - Initial key"
-msgstr ""
+msgstr "TKEY – Alkusävellaji"
 
 #: mp3file.cpp:1332 taglibfile.cpp:1644
 msgid "TLAN - Language(s)"
-msgstr "TLAN – Kieli tai kielet"
+msgstr "TLAN – Kieli tai kielet"
 
 #: mp3file.cpp:1333 taglibfile.cpp:1645
 msgid "TLEN - Length"
-msgstr "TLEN – Kesto"
+msgstr "TLEN – Kesto"
 
 #: mp3file.cpp:1335 taglibfile.cpp:1647
 msgid "TMED - Media type"
@@ -1718,7 +1718,7 @@ msgstr "TMED – Mediatyyppi"
 
 #: mp3file.cpp:1337 taglibfile.cpp:1649
 msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL – Alkuperäinen levyn/elokuvan/sarjan otsikko"
+msgstr "TOAL – Alkuperäinen levyn/elokuvan/sarjan otsikko"
 
 #: mp3file.cpp:1338 taglibfile.cpp:1650
 msgid "TOFN - Original filename"
@@ -1742,7 +1742,7 @@ msgstr "TOWN – Tiedoston omistaja/lisenssi"
 
 #: mp3file.cpp:1343 taglibfile.cpp:1654
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 – Pääesiintyjä(t)/Sooloartisti(t)"
+msgstr "TPE1 – Pääesiintyjä(t)/sooloartisti(t)"
 
 #: mp3file.cpp:1344 taglibfile.cpp:1655
 msgid "TPE2 - Band/orchestra/accompaniment"
@@ -1758,7 +1758,7 @@ msgstr "TPE4 – Tulkinnut, uudelleen miksannut tai muuten muokannut"
 
 #: mp3file.cpp:1347 taglibfile.cpp:1658
 msgid "TPOS - Part of a set"
-msgstr "TPOS – Osa joukkoa"
+msgstr "TPOS – Osa joukkoa"
 
 #: mp3file.cpp:1349 taglibfile.cpp:1660
 msgid "TPUB - Publisher"
@@ -1766,7 +1766,7 @@ msgstr "TPUB – Julkaisija"
 
 #: mp3file.cpp:1350 taglibfile.cpp:1661
 msgid "TRCK - Track number/Position in set"
-msgstr "TRCK – Kappaleen raita/Sijainti joukossa"
+msgstr "TRCK – Kappaleen raita/sijainti joukossa"
 
 #: mp3file.cpp:1351
 msgid "TRDA - Recording dates"
@@ -1774,7 +1774,7 @@ msgstr "TRDA – Tallennuspäivät"
 
 #: mp3file.cpp:1352 taglibfile.cpp:1662
 msgid "TRSN - Internet radio station name"
-msgstr "TRSN – Internetin radioaseman nimi"
+msgstr "TRSN – Internet-radioaseman nimi"
 
 #: mp3file.cpp:1353 taglibfile.cpp:1663
 msgid "TRSO - Internet radio station owner"
@@ -1790,7 +1790,7 @@ msgstr "TSRC – ISRC (kansainvälinen standardi nauhoituskoodi)"
 
 #: mp3file.cpp:1359 taglibfile.cpp:1668
 msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE – Koodauksessa käytetty ohjelmisto tai laitteisto sekä asetukset"
+msgstr "TSSE – Koodauksessa käytetty ohjelmisto tai laitteisto sekä asetukset"
 
 #: mp3file.cpp:1361 taglibfile.cpp:1670
 msgid "TXXX - User defined text information"
@@ -1806,7 +1806,7 @@ msgstr "UFID – Tiedoston ainutkertainen tunniste"
 
 #: mp3file.cpp:1364 taglibfile.cpp:1672
 msgid "USER - Terms of use"
-msgstr "USER – Käyttöehdot"
+msgstr "USER – Käyttöehdot"
 
 #: mp3file.cpp:1365 taglibfile.cpp:1673
 msgid "USLT - Unsynchronized lyric/text transcription"
@@ -1814,7 +1814,7 @@ msgstr "USLT – Tahdistamaton sanoitus tai tekstitranskriptio"
 
 #: mp3file.cpp:1366 taglibfile.cpp:1674
 msgid "WCOM - Commercial information"
-msgstr "WCOM – Kaupallinen tieto"
+msgstr "WCOM – Kaupallinen tieto"
 
 #: mp3file.cpp:1367 taglibfile.cpp:1675
 msgid "WCOP - Copyright/Legal information"
@@ -1866,19 +1866,19 @@ msgstr "Odottaa"
 
 #: musicbrainzclient.cpp:296
 msgid "PUID Lookup"
-msgstr ""
+msgstr "PUID-haku"
 
 #: musicbrainzclient.cpp:297
 msgid "PUID Collision"
-msgstr ""
+msgstr "PUID-törmäys"
 
 #: musicbrainzclient.cpp:299
 msgid "TRM Lookup"
-msgstr ""
+msgstr "TRM-haku"
 
 #: musicbrainzclient.cpp:300
 msgid "TRM Collision"
-msgstr ""
+msgstr "TRM-törmäys"
 
 #: musicbrainzclient.cpp:302
 msgid "File Lookup"
@@ -1918,7 +1918,7 @@ msgstr "MusicBrainz"
 
 #: musicbrainzdialog.cpp:111 musicbrainzdialog.cpp:129
 msgid "Track Title/Artist - Album"
-msgstr "Kappaleen nimi/artisti – Levy"
+msgstr "Kappaleen nimi/artisti - levy"
 
 #: musicbrainzdialog.cpp:112 musicbrainzdialog.cpp:130
 msgid "State"
@@ -2141,11 +2141,11 @@ msgstr "RVA2 – Suhteellinen äänenvoimakkuuden säätö (2)"
 
 #: taglibfile.cpp:1621
 msgid "SEEK - Seek frame"
-msgstr "SEEK – Hakukehys"
+msgstr "SEEK – Hakukehys"
 
 #: taglibfile.cpp:1622
 msgid "SIGN - Signature frame"
-msgstr "SIGN – Allekirjoituskehys"
+msgstr "SIGN – Allekirjoituskehys"
 
 #: taglibfile.cpp:1630
 msgid "TDEN - Encoding time"
@@ -2181,11 +2181,11 @@ msgstr "TMOO – Tunnelma"
 
 #: taglibfile.cpp:1659
 msgid "TPRO - Produced notice"
-msgstr ""
+msgstr "TPRO – Tuotantoilmoitus"
 
 #: taglibfile.cpp:1664
 msgid "TSOA - Album sort order"
-msgstr "TSOA – Levyjen lajittelujärjestys"
+msgstr "TSOA – Levyjen lajittelujärjestys"
 
 #: taglibfile.cpp:1665
 msgid "TSOP - Performer sort order"
@@ -2193,7 +2193,7 @@ msgstr "TSOP – Esittäjien lajittelujärjestys"
 
 #: taglibfile.cpp:1666
 msgid "TSOT - Title sort order"
-msgstr "TSOT – Nimikkeiden lajittelujärjestys"
+msgstr "TSOT – Nimikkeiden lajittelujärjestys"
 
 #: taglibfile.cpp:1669
 msgid "TSST - Set subtitle"
