@@ -42,7 +42,7 @@
  * @param parent parent object
  */
 FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
-	m_iconProvider(new TaggedFileIconProvider)
+	m_iconProvider(new TaggedFileIconProvider), m_fsModel(0)
 {
 	connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)),
 					this, SLOT(updateInsertedRows(QModelIndex,int,int)));
@@ -54,10 +54,9 @@ FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
  */
 QFileInfo FileProxyModel::fileInfo(const QModelIndex& index) const
 {
-	if (const QFileSystemModel* fsModel =
-			qobject_cast<QFileSystemModel*>(sourceModel())) {
+	if (m_fsModel) {
 		QModelIndex sourceIndex(mapToSource(index));
-		return fsModel->fileInfo(sourceIndex);
+		return m_fsModel->fileInfo(sourceIndex);
 	}
 	return QFileInfo();
 }
@@ -68,10 +67,9 @@ QFileInfo FileProxyModel::fileInfo(const QModelIndex& index) const
  */
 QString FileProxyModel::filePath(const QModelIndex& index) const
 {
-	if (const QFileSystemModel* fsModel =
-			qobject_cast<QFileSystemModel*>(sourceModel())) {
+	if (m_fsModel) {
 		QModelIndex sourceIndex(mapToSource(index));
-		return fsModel->filePath(sourceIndex);
+		return m_fsModel->filePath(sourceIndex);
 	}
 	return QString();
 }
@@ -82,10 +80,9 @@ QString FileProxyModel::filePath(const QModelIndex& index) const
  */
 bool FileProxyModel::isDir(const QModelIndex& index) const
 {
-	if (const QFileSystemModel* fsModel =
-			qobject_cast<QFileSystemModel*>(sourceModel())) {
+	if (m_fsModel) {
 		QModelIndex sourceIndex(mapToSource(index));
-		return fsModel->isDir(sourceIndex);
+		return m_fsModel->isDir(sourceIndex);
 	}
 	return false;
 }
@@ -96,10 +93,9 @@ bool FileProxyModel::isDir(const QModelIndex& index) const
  */
 bool FileProxyModel::remove(const QModelIndex& index) const
 {
-	if (const QFileSystemModel* fsModel =
-			qobject_cast<QFileSystemModel*>(sourceModel())) {
+	if (m_fsModel) {
 		QModelIndex sourceIndex(mapToSource(index));
-		return fsModel->remove(sourceIndex);
+		return m_fsModel->remove(sourceIndex);
 	}
 	return false;
 }
@@ -110,10 +106,9 @@ bool FileProxyModel::remove(const QModelIndex& index) const
  */
 bool FileProxyModel::rmdir(const QModelIndex& index) const
 {
-	if (const QFileSystemModel* fsModel =
-			qobject_cast<QFileSystemModel*>(sourceModel())) {
+	if (m_fsModel) {
 		QModelIndex sourceIndex(mapToSource(index));
-		return fsModel->rmdir(sourceIndex);
+		return m_fsModel->rmdir(sourceIndex);
 	}
 	return false;
 }
@@ -186,7 +181,16 @@ bool FileProxyModel::filterAcceptsRow(
 				return false;
 		}
 		QString item(srcIndex.data().toString());
-		return item != "." && item != "..";
+		if (item == "." || item == "..")
+			return false;
+		if (m_extensions.isEmpty() || !m_fsModel || m_fsModel->isDir(srcIndex))
+			return true;
+		for (QStringList::const_iterator it = m_extensions.begin();
+				 it != m_extensions.end();
+				 ++it) {
+			if (item.endsWith(*it, Qt::CaseInsensitive))
+				return true;
+		}
 	}
 	return false;
 }
@@ -233,6 +237,41 @@ bool FileProxyModel::setData(const QModelIndex& index, const QVariant& value,
 		return storeTaggedFileVariant(index, value);
 	}
 	return QSortFilterProxyModel::setData(index, value, role);
+}
+
+/**
+ * Set source model.
+ * @param sourceModel source model, must be QFileSystemModel
+ */
+void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
+{
+	m_fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
+	Q_ASSERT_X(m_fsModel != 0 , "setSourceModel",
+						 "sourceModel is not QFileSystemModel");
+	QSortFilterProxyModel::setSourceModel(sourceModel);
+}
+
+/**
+ * Sets the name filters to apply against the existing files.
+ * @param filters list of strings containing wildcards like "*.mp3"
+ */
+void FileProxyModel::setNameFilters(const QStringList& filters)
+{
+	QRegExp wildcardRe("\\.\\w+");
+	QSet<QString> exts;
+	foreach (QString filter, filters) {
+		int pos = 0;
+		while ((pos = wildcardRe.indexIn(filter, pos)) != -1) {
+			int len = wildcardRe.matchedLength();
+			exts.insert(filter.mid(pos, len).toLower());
+			pos += len;
+		}
+	}
+	QStringList oldExtensions(m_extensions);
+	m_extensions = exts.toList();
+	if (m_extensions != oldExtensions) {
+		invalidateFilter();
+	}
 }
 
 /**

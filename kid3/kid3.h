@@ -80,6 +80,7 @@ class PlayToolBar;
 class DirContents;
 class QFileSystemModel;
 class FileProxyModel;
+class DirProxyModel;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -280,6 +281,18 @@ public:
 	 * @return file system model.
 	 */
 	QFileSystemModel* getFileSystemModel() { return m_fileSystemModel; }
+
+	/**
+	 * Get file proxy model.
+	 * @return file proxy model.
+	 */
+	FileProxyModel* getFileProxyModel() { return m_fileProxyModel; }
+
+	/**
+	 * Get directory proxy model.
+	 * @return directory proxy model.
+	 */
+	DirProxyModel* getDirProxyModel() { return m_dirProxyModel; }
 
 	/**
 	 * Display help for a topic.
@@ -791,6 +804,8 @@ private:
 	Id3Form* m_view;
 	/** model of filesystem */
 	QFileSystemModel* m_fileSystemModel;
+	FileProxyModel* m_fileProxyModel;
+	DirProxyModel* m_dirProxyModel;
 	/** true if any file was modified */
 	bool m_modified;
 	/** true if list is filtered */

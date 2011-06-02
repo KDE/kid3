@@ -166,13 +166,9 @@ Id3Form::Id3Form(QWidget* parent)
 
 	m_vSplitter = new QSplitter(Qt::Vertical, this);
 	m_fileListBox = new FileList(m_vSplitter, theApp);
-	FileProxyModel* fileProxyModel = new FileProxyModel(m_vSplitter);
-	fileProxyModel->setSourceModel(theApp->getFileSystemModel());
-	m_fileListBox->setModel(fileProxyModel);
+	m_fileListBox->setModel(theApp->getFileProxyModel());
 	m_dirListBox = new DirList(m_vSplitter);
-	DirProxyModel* dirProxyModel = new DirProxyModel(m_vSplitter);
-	dirProxyModel->setSourceModel(theApp->getFileSystemModel());
-	m_dirListBox->setModel(dirProxyModel);
+	m_dirListBox->setModel(theApp->getDirProxyModel());
 
 	m_rightHalfVBox = new QWidget;
 	QScrollArea* scrollView = new QScrollArea(this);

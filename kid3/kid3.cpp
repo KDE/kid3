@@ -93,6 +93,7 @@
 #include "playlistdialog.h"
 #include "playlistcreator.h"
 #include "fileproxymodel.h"
+#include "dirproxymodel.h"
 #include "modeliterator.h"
 #include "dirlist.h"
 #include "pictureframe.h"
@@ -142,6 +143,8 @@ QString Kid3App::s_dirName;
  */
 Kid3App::Kid3App() :
 	m_fileSystemModel(new QFileSystemModel(this)),
+	m_fileProxyModel(new FileProxyModel(this)),
+	m_dirProxyModel(new DirProxyModel(this)),
 	m_downloadToAllFilesInDir(false),
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
@@ -152,6 +155,8 @@ Kid3App::Kid3App() :
 #endif
 {
 	m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
+	m_fileProxyModel->setSourceModel(m_fileSystemModel);
+	m_dirProxyModel->setSourceModel(m_fileSystemModel);
 #ifdef CONFIG_USE_KDE
 	m_config = new KConfig;
 #else
@@ -850,8 +855,7 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 	slotStatusMsg(i18n("Opening directory..."));
 
 	QStringList nameFilters(s_miscCfg.m_nameFilter.split(' '));
-	m_fileSystemModel->setNameFilters(nameFilters);
-	m_fileSystemModel->setNameFilterDisables(false);
+	m_fileProxyModel->setNameFilters(nameFilters);
 	QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
 	QModelIndex fileIndex = m_fileSystemModel->index(filePath);
 	bool ok = m_view->readFileList(rootIndex, fileIndex);

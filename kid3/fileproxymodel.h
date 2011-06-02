@@ -31,6 +31,7 @@
 #include <QHash>
 #include <QSet>
 #include <QFileInfo>
+#include <QStringList>
 
 class QFileSystemModel;
 class TaggedFile;
@@ -95,6 +96,18 @@ public:
 	 */
 	virtual bool setData(const QModelIndex& index, const QVariant& value,
 											 int role=Qt::EditRole);
+
+	/**
+	 * Set source model.
+	 * @param sourceModel source model, must be QFileSystemModel
+	 */
+	virtual void setSourceModel(QAbstractItemModel* sourceModel);
+
+	/**
+	 * Sets the name filters to apply against the existing files.
+	 * @param filters list of strings containing wildcards like "*.mp3"
+	 */
+	void setNameFilters(const QStringList& filters);
 
 	/**
 	 * Filter out a model index.
@@ -264,6 +277,8 @@ private:
 	QHash<QPersistentModelIndex, TaggedFile*> m_taggedFiles;
 	QSet<QPersistentModelIndex> m_filteredOut;
 	TaggedFileIconProvider* m_iconProvider;
+	QFileSystemModel* m_fsModel;
+	QStringList m_extensions;
 };
 
 Q_DECLARE_METATYPE(TaggedFile*)
