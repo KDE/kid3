@@ -23,6 +23,9 @@
 # buildkid3.sh (Mac). A binary package can be created using createpkg.bat,
 # or createpkg.sh respectively.
 
+kernel=$(uname)
+test ${kernel:0:5} = "MINGW" && kernel="MINGW"
+
 # Download sources
 
 test -d source || mkdir source
@@ -36,25 +39,25 @@ wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-3.diff.gz
 test -f flac_1.2.1.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1.orig.tar.gz
 
-test -f id3lib3.8.3_3.8.3-13.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-13.debian.tar.gz
+test -f id3lib3.8.3_3.8.3-14.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-14.debian.tar.gz
 test -f id3lib3.8.3_3.8.3.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3.orig.tar.gz
 
-test -f libogg_1.2.0~dfsg-1.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.2.0~dfsg-1.diff.gz
-test -f libogg_1.2.0~dfsg.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.2.0~dfsg.orig.tar.gz
+test -f libogg_1.2.2~dfsg-1.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.2.2~dfsg-1.diff.gz
+test -f libogg_1.2.2~dfsg.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.2.2~dfsg.orig.tar.gz
 
-test -f libvorbis_1.3.1-1.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.1-1.diff.gz
-test -f libvorbis_1.3.1.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.1.orig.tar.gz
+test -f libvorbis_1.3.2-1.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2-1.diff.gz
+test -f libvorbis_1.3.2.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
 
-test -f taglib_1.6.3-1.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.3-1.debian.tar.gz
-test -f taglib_1.6.3.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.6.3.orig.tar.gz
+test -f taglib_1.7-1.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7-1.debian.tar.gz
+test -f taglib_1.7.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7.orig.tar.gz
 
 test -f zlib_1.2.5.dfsg-1.debian.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg-1.debian.tar.gz
@@ -213,19 +216,19 @@ fi
 
 # libogg
 
-if ! test -d libogg-1.2.0~dfsg; then
-tar xzf source/libogg_1.2.0~dfsg.orig.tar.gz
-cd libogg-1.2.0~dfsg/
-gunzip -c ../source/libogg_1.2.0~dfsg-1.diff.gz | patch -p1
+if ! test -d libogg-1.2.2~dfsg; then
+tar xzf source/libogg_1.2.2~dfsg.orig.tar.gz
+cd libogg-1.2.2~dfsg/
+gunzip -c ../source/libogg_1.2.2~dfsg-1.diff.gz | patch -p1
 cd ..
 fi
 
 # libvorbis
 
-if ! test -d libvorbis-1.3.1.orig; then
-tar xzf source/libvorbis_1.3.1.orig.tar.gz
-cd libvorbis-1.3.1/
-gunzip -c ../source/libvorbis_1.3.1-1.diff.gz | patch -p1
+if ! test -d libvorbis-1.3.2.orig; then
+tar xzf source/libvorbis_1.3.2.orig.tar.gz
+cd libvorbis-1.3.2/
+gunzip -c ../source/libvorbis_1.3.2-1.diff.gz | patch -p1
 cd ..
 fi
 
@@ -237,7 +240,7 @@ cd flac-1.2.1/
 gunzip -c ../source/flac_1.2.1-3.diff.gz | patch -p1
 for f in debian/patches/*.dpatch; do patch -p1 <$f; done
 patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
-if test $(uname) = "Darwin"; then
+if test $kernel = "Darwin"; then
 patch -p1 <../source/fink_flac.patch
 patch -p0 <patches/ltmain.sh.patch
 patch -p0 <patches/nasm.h.patch
@@ -250,7 +253,7 @@ fi
 if ! test -d id3lib-3.8.3; then
 tar xzf source/id3lib3.8.3_3.8.3.orig.tar.gz
 cd id3lib-3.8.3/
-tar xzf ../source/id3lib3.8.3_3.8.3-13.debian.tar.gz
+tar xzf ../source/id3lib3.8.3_3.8.3-14.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
 cd ..
@@ -258,10 +261,11 @@ fi
 
 # taglib
 
-if ! test -d taglib-1.6.3; then
-tar xzf source/taglib_1.6.3.orig.tar.gz
-cd taglib-1.6.3/
-tar xzf ../source/taglib_1.6.3-1.debian.tar.gz
+if ! test -d taglib-1.7; then
+tar xzf source/taglib_1.7.orig.tar.gz
+cd taglib-1.7/
+tar xzf ../source/taglib_1.7-1.debian.tar.gz
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 
@@ -274,12 +278,22 @@ fi
 
 # Build from sources
 
+# Uncomment for debug build
+#ENABLE_DEBUG=--enable-debug
+#CMAKE_BUILD_TYPE_DEBUG="-DCMAKE_BUILD_TYPE=Debug"
+
+if test $kernel = "MINGW"; then
+CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
+elif test $kernel = "Darwin"; then
+CMAKE_OPTIONS="-G \"Unix Makefiles\""
+fi
+
 test -d bin || mkdir bin
 
 # zlib
 
 cd zlib-1.2.5.dfsg/
-if test $(uname) = "MINGW32_NT-5.1"; then
+if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
 make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib
 else
@@ -294,31 +308,31 @@ cd ../..
 
 # libogg
 
-cd libogg-1.2.0~dfsg/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes
+cd libogg-1.2.2~dfsg/
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libogg-1.2.0.tgz usr
+tar czf ../../bin/libogg-1.2.2.tgz usr
 cd ../..
 
 # libvorbis
 
-cd libvorbis-1.3.1/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=/usr/local
+cd libvorbis-1.3.2/
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=/usr/local $ENABLE_DEBUG
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libvorbis-1.3.1.tgz usr
+tar czf ../../bin/libvorbis-1.3.2.tgz usr
 cd ../..
 
 # libflac
 
 cd flac-1.2.1/
-configure_args="--enable-shared=no --enable-static=yes --with-ogg=/usr/local"
-if test $(uname) = "Darwin"; then
+configure_args="--enable-shared=no --enable-static=yes --with-ogg=/usr/local $ENABLE_DEBUG"
+if test $kernel = "Darwin"; then
   configure_args="$configure_args --disable-asm-optimizations"
 fi
 test -f Makefile || ./configure $configure_args
@@ -333,7 +347,7 @@ cd ../..
 
 cd id3lib-3.8.3/
 autoconf
-test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes
+test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG
 SED=sed make
 mkdir inst
 make install DESTDIR=`pwd`/inst
@@ -343,20 +357,29 @@ cd ../..
 
 # taglib
 
-cd taglib-1.6.3/
-#test -f Makefile || cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON
-test -f Makefile || CPPFLAGS="-I/usr/local/include -DTAGLIB_STATIC" LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes --enable-mp4 --enable-asf
+cd taglib-1.7/
+test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/taglib-1.6.3.tgz usr
+if test $kernel = "MINGW" && test -d prg; then
+  rm -rf usr
+  mv prg/msys usr
+  rmdir prg
+fi
+tar czf ../../bin/taglib-1.7.tgz usr
 cd ../..
 
 # mp4v2
 
 cd mp4v2-1.9.1/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch
+# When getting from SVN with svn checkout http://mp4v2.googlecode.com/svn/trunk/ mp4v2-svn
+# libtoolize
+# aclocal
+# automake --add-missing
+# autoconf
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch $ENABLE_DEBUG
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
@@ -367,7 +390,7 @@ cd ../..
 # Install to root directory
 
 BUILDROOT=/
-if test $(uname) = "Linux"; then
+if test $kernel = "Linux"; then
   test -d buildroot || mkdir buildroot
   BUILDROOT=`pwd`/buildroot/
   # Static build can be tested from Linux in kid3 directory
@@ -375,23 +398,22 @@ if test $(uname) = "Linux"; then
     mkdir kid3
     cat >kid3/build.sh <<"EOF"
 BUILDPREFIX=$(cd ..; pwd)/buildroot/usr/local
-../../kid3/kid3-qt/configure --prefix= --with-bindir= --with-datarootdir= --with-docdir= --with-translationsdir= --without-musicbrainz --enable-debug --enable-gcc-pch --with-qmake=qmake-qt4 --with-extra-includes=$BUILDPREFIX/include --with-taglib-includes=-I$BUILDPREFIX/include/taglib --with-extra-defines="ID3LIB_LINKOPTION=1 FLAC__NO_DLL" --with-extra-libs="-L$BUILDPREFIX/lib"
-sed -i 's#-L/usr/lib##g' kid3/Makefile
+cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L$BUILDPREFIX/lib -ltag" -DTAGLIB_CFLAGS:STRING="-I$BUILDPREFIX/include/taglib -DTAGLIB_STATIC" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=$BUILDPREFIX/bin -DCMAKE_BUILD_TYPE=Debug -DWITH_GCC_PCH=OFF -DWITH_KDE=OFF -DWITH_TUNEPIMP=OFF -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
 EOF
     chmod +x kid3/build.sh
   fi
-elif test $(uname) = "Darwin"; then
+elif test $kernel = "Darwin"; then
   sudo chmod go+w ${BUILDROOT}usr/local
 fi
 
 tar xzf bin/zlib-1.2.5.tgz -C $BUILDROOT
-tar xzf bin/libogg-1.2.0.tgz -C $BUILDROOT
-tar xzf bin/libvorbis-1.3.1.tgz -C $BUILDROOT
+tar xzf bin/libogg-1.2.2.tgz -C $BUILDROOT
+tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.6.3.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.7.tgz -C $BUILDROOT
 tar xzf bin/mp4v2-1.9.1.tgz -C $BUILDROOT
 
-if test $(uname) = "Darwin"; then
+if test $kernel = "Darwin"; then
   sudo chmod go-w ${BUILDROOT}usr/local
 fi
