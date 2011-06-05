@@ -838,7 +838,7 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 	if (confirm && !saveModified()) {
 		return false;
 	}
-	if (dir.isNull() || dir.isEmpty()) {
+	if (dir.isEmpty()) {
 		return false;
 	}
 	QFileInfo file(dir);
@@ -847,8 +847,10 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 		if (fileCheck && !file.isFile()) {
 			return false;
 		}
-		dir = file.dir().path();
-		filePath = file.filePath();
+		dir = file.absolutePath();
+		filePath = file.absoluteFilePath();
+	} else {
+		dir = QDir(dir).absolutePath();
 	}
 
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
