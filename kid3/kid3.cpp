@@ -1152,6 +1152,9 @@ bool Kid3App::saveModified()
 			break;
 
 		case No:
+			if (m_view->getFileList()->selectionModel())
+				m_view->getFileList()->selectionModel()->clearSelection();
+			slotFileRevert();
 			setModified(false);
 			completed=true;
 			break;

@@ -630,6 +630,7 @@ void Id3Form::dirSelected(const QModelIndex& index)
 	if (!dirPath.isEmpty()) {
 		m_dirListBox->setEntryToSelect(
 				dirPath.endsWith("..") ? index.parent() : QModelIndex());
+		theApp->updateCurrentSelection();
 		theApp->openDirectory(dirPath, true);
 	}
 }
