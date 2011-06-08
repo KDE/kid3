@@ -93,13 +93,63 @@
 #include <taglib/privateframe.h>
 #endif
 
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 #include <taglib/apefile.h>
 #endif
 
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
+namespace {
+
+#if TAGLIB_VERSION >= 0x010700
+/**
+ * Set a picture frame from a FLAC picture.
+ *
+ * @param pic FLAC picture
+ * @param frame the picture frame is returned here
+ */
+void flacPictureToFrame(const TagLib::FLAC::Picture* pic, Frame& frame)
+{
+	TagLib::ByteVector picData(pic->data());
+	PictureFrame::setFields(
+		frame, Frame::Field::TE_ISO8859_1, "JPG", TStringToQString(pic->mimeType()),
+		static_cast<PictureFrame::PictureType>(pic->type()),
+		TStringToQString(pic->description()),
+		QByteArray(picData.data(), picData.size()));
+}
+
+/**
+ * Set a FLAC picture from a frame.
+ *
+ * @param frame picture frame
+ * @param pic the FLAC picture to set
+ */
+void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
+{
+	Frame::Field::TextEncoding enc;
+	QString imgFormat;
+	QString mimeType;
+	PictureFrame::PictureType pictureType;
+	QString description;
+	QByteArray data;
+	PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
+													description, data);
+	pic->setType(static_cast<TagLib::FLAC::Picture::Type>(pictureType));
+	pic->setMimeType(QSTRING_TO_TSTRING(mimeType));
+	pic->setDescription(QSTRING_TO_TSTRING(description));
+	pic->setData(TagLib::ByteVector(data.data(), data.size()));
+	QImage image;
+	if (image.loadFromData(data)) {
+		pic->setWidth(image.width());
+		pic->setHeight(image.height());
+		pic->setColorDepth(image.depth());
+		pic->setNumColors(image.numColors());
+	}
+}
+#endif
+
+}
 
 /**
  * Data encoding in ID3v1 tags.
@@ -219,6 +269,11 @@ void TagLibFile::readTags(bool force)
 		markTag1Unchanged();
 		markTag2Unchanged();
 		m_fileRead = true;
+
+#if TAGLIB_VERSION >= 0x010700
+		m_pictures.clear();
+		m_pictures.setRead(false);
+#endif
 	}
 
 	TagLib::File* file;
@@ -230,7 +285,7 @@ void TagLibFile::readTags(bool force)
 		TagLib::WavPack::File* wvFile;
 #endif
 		TagLib::TrueAudio::File* ttaFile;
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 		TagLib::APE::File* apeFile;
 #endif
 		if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
@@ -251,6 +306,20 @@ void TagLibFile::readTags(bool force)
 				m_tagV2 = flacFile->xiphComment();
 				markTag2Unchanged();
 			}
+#if TAGLIB_VERSION >= 0x010700
+			if (!m_pictures.isRead()) {
+				TagLib::List<TagLib::FLAC::Picture*> pics(flacFile->pictureList());
+				int i = 0;
+				for (TagLib::List<TagLib::FLAC::Picture*>::ConstIterator it =
+				     pics.begin(); it != pics.end(); ++it) {
+					PictureFrame frame;
+					flacPictureToFrame(*it, frame);
+					frame.setIndex(i++);
+					m_pictures.append(frame);
+				}
+				m_pictures.setRead(true);
+			}
+#endif
 #ifdef MPC_ID3V1
 		} else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
 			if (!m_tagV1) {
@@ -280,7 +349,7 @@ void TagLibFile::readTags(bool force)
 				m_tagV2 = ttaFile->ID3v2Tag();
 				markTag2Unchanged();
 			}
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 		} else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
 			if (!m_tagV1) {
 				m_tagV1 = apeFile->ID3v1Tag();
@@ -377,7 +446,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 			if ((m_tagV2 && (force || isTag2Changed())) ||
 					(m_tagV1 && (force || isTag1Changed()))) {
 				TagLib::TrueAudio::File* ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file);
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 				TagLib::APE::File* apeFile = dynamic_cast<TagLib::APE::File*>(file);
 #endif
 #ifndef MPC_ID3V1
@@ -406,7 +475,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 						m_tagV2 = 0;
 					}
 				}
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 				if (apeFile) {
 					if (m_tagV1 && (force || isTag1Changed()) && m_tagV1->isEmpty()) {
 						apeFile->strip(TagLib::APE::File::ID3v1);
@@ -419,6 +488,17 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 						fileChanged = true;
 						markTag2Unchanged();
 						m_tagV2 = 0;
+					}
+				}
+#endif
+#if TAGLIB_VERSION >= 0x010700
+				if (TagLib::FLAC::File* flacFile =
+						dynamic_cast<TagLib::FLAC::File*>(file)) {
+					flacFile->removePictures();
+					foreach (const Frame& frame, m_pictures) {
+						TagLib::FLAC::Picture* pic = new TagLib::FLAC::Picture;
+						frameToFlacPicture(frame, pic);
+						flacFile->addPicture(pic);
 					}
 				}
 #endif
@@ -769,7 +849,7 @@ bool TagLibFile::makeTagV1Settable()
 			TagLib::WavPack::File* wvFile;
 #endif
 			TagLib::TrueAudio::File* ttaFile;
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 			TagLib::APE::File* apeFile;
 #endif
 			if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
@@ -784,7 +864,7 @@ bool TagLibFile::makeTagV1Settable()
 #endif
 			} else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
 				m_tagV1 = ttaFile->ID3v1Tag(true);
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 			} else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
 				m_tagV1 = apeFile->ID3v1Tag(true);
 #endif
@@ -809,7 +889,7 @@ bool TagLibFile::makeTagV2Settable()
 			TagLib::MPC::File* mpcFile;
 			TagLib::WavPack::File* wvFile;
 			TagLib::TrueAudio::File* ttaFile;
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 			TagLib::APE::File* apeFile;
 #endif
 			if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
@@ -822,7 +902,7 @@ bool TagLibFile::makeTagV2Settable()
 				m_tagV2 = wvFile->APETag(true);
 			} else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
 				m_tagV2 = ttaFile->ID3v2Tag(true);
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 			} else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
 				m_tagV2 = apeFile->APETag(true);
 #endif
@@ -1307,7 +1387,7 @@ bool TagLibFile::isTagV1Supported() const
 					 || dynamic_cast<TagLib::MPC::File*>(file)  != 0
 					 || dynamic_cast<TagLib::WavPack::File*>(file) != 0
 #endif
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 					 || dynamic_cast<TagLib::APE::File*>(file) != 0
 #endif
 						));
@@ -1341,7 +1421,7 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 		TagLib::Ogg::Speex::Properties* speexProperties;
 		TagLib::TrueAudio::Properties* ttaProperties;
 		TagLib::WavPack::Properties* wvProperties;
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 		TagLib::APE::Properties* apeProperties;
 #endif
 		info.valid = true;
@@ -1425,7 +1505,7 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 		} else if (dynamic_cast<TagLib::RIFF::WAV::Properties*>(audioProperties) != 0) {
 			info.format = "WAV";
 #endif
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 		} else if ((apeProperties =
 								dynamic_cast<TagLib::APE::Properties*>(audioProperties)) != 0) {
 			info.format = QString("APE %1.%2 %3 bit").
@@ -1497,7 +1577,7 @@ QString TagLibFile::getFileExtension() const
 		} else if (dynamic_cast<TagLib::RIFF::WAV::File*>(file) != 0) {
 			return ".wav";
 #endif
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 		} else if (dynamic_cast<TagLib::APE::File*>(file) != 0) {
 			return ".ape";
 #endif
@@ -3466,6 +3546,22 @@ bool TagLibFile::setFrameV2(const Frame& frame)
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
 			if (frame.getType() == Frame::FT_Picture) {
+#if TAGLIB_VERSION >= 0x010700
+				if (m_pictures.isRead()) {
+					int index = frame.getIndex();
+					if (index >= 0 && index < m_pictures.size()) {
+						Frame newFrame(frame);
+						PictureFrame::setDescription(newFrame, frame.getValue());
+						if (PictureFrame::areFieldsEqual(m_pictures[index], newFrame)) {
+							m_pictures[index].setValueChanged(false);
+						} else {
+							m_pictures[index] = newFrame;
+							markTag2Changed(Frame::FT_Picture);
+						}
+						return true;
+					}
+				}
+#endif
 				return false;
 			}
 			TagLib::String key = QSTRING_TO_TSTRING(getVorbisName(frame));
@@ -3718,6 +3814,20 @@ bool TagLibFile::addFrameV2(Frame& frame)
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
 			if (frame.getType() == Frame::FT_Picture) {
+#if TAGLIB_VERSION >= 0x010700
+				if (m_pictures.isRead()) {
+					if (frame.getFieldList().empty()) {
+						PictureFrame::setFields(
+							frame, Frame::Field::TE_ISO8859_1, "JPG", "image/jpeg",
+							PictureFrame::PT_CoverFront, "", QByteArray());
+					}
+					PictureFrame::setDescription(frame, frame.getValue());
+					frame.setIndex(m_pictures.size());
+					m_pictures.append(frame);
+					markTag2Changed(Frame::FT_Picture);
+					return true;
+				}
+#endif
 				return false;
 			}
 			QString name(getVorbisName(frame));
@@ -3892,6 +4002,18 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
 				return true;
 			}
 		} else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tagV2)) != 0) {
+#if TAGLIB_VERSION >= 0x010700
+			if (frame.getType() == Frame::FT_Picture) {
+				if (m_pictures.isRead()) {
+					int index = frame.getIndex();
+					if (index >= 0 && index < m_pictures.size()) {
+						m_pictures.removeAt(index);
+						markTag2Changed(Frame::FT_Picture);
+						return true;
+					}
+				}
+			}
+#endif
 			TagLib::String key =
 				QSTRING_TO_TSTRING(frame.getName(true));
 #if TAGLIB_VERSION <= 0x010400
@@ -4206,6 +4328,13 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 																 name, i++));
 				}
 			}
+#if TAGLIB_VERSION >= 0x010700
+			if (m_pictures.isRead()) {
+				foreach (Frame frame, m_pictures) {
+					frames.insert(frame);
+				}
+			}
+#endif
 		} else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
 			const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
 			int i = 0;
@@ -4490,8 +4619,13 @@ QStringList TagLibFile::getFrameIds() const
 			"VERSION",
 			"VOLUME"
 		};
+#if TAGLIB_VERSION >= 0x010700
+		const bool picturesSupported = m_pictures.isRead();
+#else
+		const bool picturesSupported = false;
+#endif
 		for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-			if (k != Frame::FT_Picture) {
+			if (k != Frame::FT_Picture || picturesSupported) {
 				lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
 			}
 		}
@@ -4581,7 +4715,7 @@ TaggedFile* TagLibFile::Resolver::createFile(
 #endif
 			|| ext == ".aif" || ext ==  "aiff" || ext ==  ".wav"
 #endif
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 			|| ext == ".ape"
 #endif
 			|| ext.right(3) == ".wv")
@@ -4608,7 +4742,7 @@ QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
 #endif
 		".aif" << ".aiff" << ".wav" <<
 #endif
-#if TAGLIB_VERSION > 0x010603
+#if TAGLIB_VERSION >= 0x010700
 		".ape" <<
 #endif
 		".wv";

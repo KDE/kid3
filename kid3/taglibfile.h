@@ -518,6 +518,20 @@ private:
 	TagLib::Tag* m_tagV2;      /**< ID3v2 tags */
 	bool m_fileRead;           /**< true if file has been read */
 
+#if TAGLIB_VERSION >= 0x010700
+	class Pictures : public QList<Frame> {
+	public:
+		Pictures() : m_read(false) {}
+		bool isRead() const { return m_read; }
+		void setRead(bool read) { m_read = read; }
+
+	private:
+		bool m_read;
+	};
+
+	Pictures m_pictures;
+#endif
+
 	/** default text encoding */
 	static TagLib::String::Type s_defaultTextEncoding;
 };
