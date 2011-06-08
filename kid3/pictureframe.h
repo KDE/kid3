@@ -124,6 +124,14 @@ public:
 												QString& description, QByteArray& data);
 
 	/**
+	 * Check if all the fields of two picture frames are equal.
+	 * @param f1 first picture frame
+	 * @param f2 second picture frame
+	 * @return true if equal.
+	 */
+	static bool areFieldsEqual(const Frame& f1, const Frame& f2);
+
+	/**
 	 * Set text encoding.
 	 *
 	 * @param frame frame to set

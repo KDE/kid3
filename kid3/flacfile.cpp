@@ -385,9 +385,14 @@ bool FlacFile::setFrameV2(const Frame& frame)
 		if (index != -1 && index < static_cast<int>(m_pictures.size())) {
 			PictureList::iterator it = m_pictures.begin() + index;
 			if (it != m_pictures.end()) {
-				*it = frame;
-				PictureFrame::setDescription(*it, frame.getValue());
-				markTag2Changed(Frame::FT_Picture);
+				Frame newFrame(frame);
+				PictureFrame::setDescription(newFrame, frame.getValue());
+				if (PictureFrame::areFieldsEqual(*it, newFrame)) {
+					it->setValueChanged(false);
+				} else {
+					*it = newFrame;
+					markTag2Changed(Frame::FT_Picture);
+				}
 				return true;
 			}
 		}

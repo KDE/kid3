@@ -170,6 +170,27 @@ void PictureFrame::getFields(const Frame& frame,
 }
 
 /**
+ * Check if all the fields of two picture frames are equal.
+ * @param f1 first picture frame
+ * @param f2 second picture frame
+ * @return true if equal.
+ */
+bool PictureFrame::areFieldsEqual(const Frame& f1, const Frame& f2)
+{
+	Field::TextEncoding enc1, enc2;
+	QString imgFormat1, imgFormat2;
+	QString mimeType1, mimeType2;
+	PictureType pictureType1, pictureType2;
+	QString description1, description2;
+	QByteArray data1, data2;
+	getFields(f1, enc1, imgFormat1, mimeType1, pictureType1, description1, data1);
+	getFields(f2, enc2, imgFormat2, mimeType2, pictureType2, description2, data2);
+	return (data1 == data2 && description1 == description2 &&
+					mimeType1 == mimeType2 && pictureType1 == pictureType2 &&
+					imgFormat1 == imgFormat2 && enc1 == enc2);
+}
+
+/**
  * Set value of a field.
  *
  * @param frame frame to set
