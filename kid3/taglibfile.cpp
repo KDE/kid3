@@ -3193,8 +3193,8 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
 			QString str1 = frame.getValue(), str2 = "0";
 			int slashPos = str1.indexOf('/');
 			if (slashPos != -1) {
-				str1.truncate(slashPos);
 				str2 = str1.mid(slashPos + 1);
+				str1.truncate(slashPos);
 			}
 			return TagLib::MP4::Item(str1.toInt(), str2.toInt());
 		}
