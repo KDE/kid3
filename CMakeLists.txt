@@ -21,7 +21,7 @@
 project(kid3)
 
 set(WITH_TAGLIB ON CACHE BOOL "build with TagLib")
-set(WITH_MP4V2 ON CACHE BOOL "build with mp4v2")
+set(WITH_MP4V2 OFF CACHE BOOL "build with mp4v2")
 set(WITH_ID3LIB ON CACHE BOOL "build with id3lib")
 set(WITH_VORBIS ON CACHE BOOL "build with Ogg/Vorbis")
 set(WITH_FLAC ON CACHE BOOL "build with FLAC")
