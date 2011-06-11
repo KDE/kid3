@@ -2977,10 +2977,11 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
 	{ "\251day", Frame::FT_Date, MVT_String },
 	{ "\251too", Frame::FT_EncodedBy, MVT_String },
 	{ "\251cmt", Frame::FT_Comment, MVT_String },
+	{ "gnre", Frame::FT_Genre, MVT_String },
+	// (c)gen is after gnre so that it is used in the maps because TagLib uses it
 	{ "\251gen", Frame::FT_Genre, MVT_String },
 	{ "trkn", Frame::FT_Track, MVT_IntPair },
 	{ "disk", Frame::FT_Disc, MVT_IntPair },
-	{ "gnre", Frame::FT_Genre, MVT_String },
 	{ "cpil", Frame::FT_Other, MVT_Bool },
 	{ "tmpo", Frame::FT_Bpm, MVT_Int },
 	{ "\251grp", Frame::FT_Grouping, MVT_String },
