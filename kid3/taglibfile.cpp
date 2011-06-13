@@ -2958,7 +2958,10 @@ enum Mp4ValueType {
 	MVT_String,
 	MVT_Bool,
 	MVT_Int,
-	MVT_IntPair
+	MVT_IntPair,
+	MVT_Byte,
+	MVT_UInt,
+	MVT_LongLong
 };
 
 /** MP4 name, frame type and value type. */
@@ -2992,8 +2995,8 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
 	{ "tvsh", Frame::FT_Other, MVT_String },
 	{ "tvnn", Frame::FT_Other, MVT_String },
 	{ "tven", Frame::FT_Other, MVT_String },
-	{ "tvsn", Frame::FT_Other, MVT_ByteArray },
-	{ "tves", Frame::FT_Other, MVT_ByteArray },
+	{ "tvsn", Frame::FT_Other, MVT_UInt },
+	{ "tves", Frame::FT_Other, MVT_UInt },
 	{ "desc", Frame::FT_Other, MVT_String },
 	{ "ldes", Frame::FT_Other, MVT_String },
 	{ "sonm", Frame::FT_Other, MVT_String },
@@ -3007,16 +3010,16 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
 	{ "pcst", Frame::FT_Other, MVT_Bool },
 	{ "keyw", Frame::FT_Other, MVT_String },
 	{ "catg", Frame::FT_Other, MVT_String },
-	{ "hdvd", Frame::FT_Other, MVT_ByteArray },
-	{ "stik", Frame::FT_Other, MVT_ByteArray },
-	{ "rtng", Frame::FT_Other, MVT_ByteArray },
+	{ "hdvd", Frame::FT_Other, MVT_Bool },
+	{ "stik", Frame::FT_Other, MVT_Byte },
+	{ "rtng", Frame::FT_Other, MVT_Byte },
 	{ "apID", Frame::FT_Other, MVT_String },
-	{ "akID", Frame::FT_Other, MVT_ByteArray },
-	{ "sfID", Frame::FT_Other, MVT_ByteArray },
-	{ "cnID", Frame::FT_Other, MVT_ByteArray },
-	{ "atID", Frame::FT_Other, MVT_ByteArray },
-	{ "plID", Frame::FT_Other, MVT_ByteArray },
-	{ "geID", Frame::FT_Other, MVT_ByteArray },
+	{ "akID", Frame::FT_Other, MVT_Byte },
+	{ "sfID", Frame::FT_Other, MVT_UInt },
+	{ "cnID", Frame::FT_Other, MVT_UInt },
+	{ "atID", Frame::FT_Other, MVT_UInt },
+	{ "plID", Frame::FT_Other, MVT_LongLong },
+	{ "geID", Frame::FT_Other, MVT_UInt },
 #if TAGLIB_VERSION >= 0x010602
 	{ "covr", Frame::FT_Picture, MVT_CoverArt },
 #else
@@ -3217,6 +3220,14 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
 			coverArtList.append(coverArt);
 			return TagLib::MP4::Item(coverArtList);
 		}
+#endif
+#ifdef HAVE_TAGLIB_MP4_UINTTYPES
+		case MVT_Byte:
+			return TagLib::MP4::Item(static_cast<uchar>(frame.getValue().toInt()));
+		case MVT_UInt:
+			return TagLib::MP4::Item(frame.getValue().toUInt());
+		case MVT_LongLong:
+			return TagLib::MP4::Item(frame.getValue().toLongLong());
 #endif
 		case MVT_ByteArray:
 		default:
@@ -4408,6 +4419,17 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 						}
 						break;
 					}
+#endif
+#ifdef HAVE_TAGLIB_MP4_UINTTYPES
+					case MVT_Byte:
+						value.setNum((*it).second.toByte());
+						break;
+					case MVT_UInt:
+						value.setNum((*it).second.toUInt());
+						break;
+					case MVT_LongLong:
+						value.setNum((*it).second.toLongLong());
+						break;
 #endif
 					case MVT_ByteArray:
 					default:
