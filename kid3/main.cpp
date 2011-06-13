@@ -26,7 +26,7 @@
 
 #include "config.h"
 #include <QFile>
-#include <QDesktopServices>
+#include <QDir>
 #ifdef CONFIG_USE_KDE
 
 #include <kdeversion.h>
@@ -74,8 +74,7 @@ int main(int argc, char* argv[])
 
 			KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
-			kid3->openDirectory(args->count() ? args->arg(0) :
-					QDesktopServices::storageLocation(QDesktopServices::MusicLocation));
+			kid3->openDirectory(args->count() ? args->arg(0) : QDir::currentPath());
 			args->clear();
 		}
 	}
@@ -88,7 +87,6 @@ int main(int argc, char* argv[])
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
-#include <QDir>
 
 #include "kid3.h"
 
@@ -136,7 +134,7 @@ int main(int argc, char* argv[])
 	if (kid3) {
 		kid3->show();
 		kid3->openDirectory(argc > 1 ? QFile::decodeName(argv[1]) :
-				QDesktopServices::storageLocation(QDesktopServices::MusicLocation));
+												QDir::currentPath());
 	}
 	return app.exec();
 }
