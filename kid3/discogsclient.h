@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2009  Urs Fleisch
+ * Copyright (C) 2006-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,23 +27,56 @@
 #ifndef DISCOGSCLIENT_H
 #define DISCOGSCLIENT_H
 
-#include "importsourceclient.h"
+#include "importsource.h"
 
 /**
  * Discogs client.
  */
-class DiscogsClient : public ImportSourceClient
+class DiscogsClient : public ImportSource
 {
 public:
 	/**
 	 * Constructor.
+	 *
+	 * @param parent          parent object
+	 * @param trackDataVector track data to be filled with imported values
 	 */
-	DiscogsClient();
+	DiscogsClient(QObject* parent,
+								ImportTrackDataVector& trackDataVector);
 
 	/**
 	 * Destructor.
 	 */
 	virtual ~DiscogsClient();
+
+	/**
+	 * Name of import source.
+	 * @return name.
+	 */
+	virtual QString name() const;
+
+	/** anchor to online help, 0 to disable */
+	virtual const char* helpAnchor() const;
+
+	/** configuration, 0 if not used */
+	virtual ImportSourceConfig* cfg() const;
+
+	/** additional tags option, false if not used */
+	virtual bool additionalTags() const;
+
+	/**
+	 * Process finished findCddbAlbum request.
+	 *
+	 * @param searchStr search data received
+	 */
+	virtual void parseFindResults(const QByteArray& searchStr);
+
+	/**
+	 * Parse result of album request and populate m_trackDataVector with results.
+	 *
+	 * @param albumStr album data received
+	 */
+	virtual void parseAlbumResults(const QByteArray& albumStr);
 
 	/**
 	 * Send a query command to search on the server.

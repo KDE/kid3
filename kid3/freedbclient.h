@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Jan 2004
  *
- * Copyright (C) 2004-2009  Urs Fleisch
+ * Copyright (C) 2004-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,23 +27,62 @@
 #ifndef FREEDBCLIENT_H
 #define FREEDBCLIENT_H
 
-#include "importsourceclient.h"
+#include "importsource.h"
 
 /**
  * freedb.org client.
  */
-class FreedbClient : public ImportSourceClient
+class FreedbClient : public ImportSource
 {
 public:
 	/**
 	 * Constructor.
+	 *
+	 * @param parent          parent object
+	 * @param trackDataVector track data to be filled with imported values
 	 */
-	FreedbClient();
+	FreedbClient(QObject* parent,
+							 ImportTrackDataVector& trackDataVector);
 
 	/**
 	 * Destructor.
 	 */
 	virtual ~FreedbClient();
+
+	/**
+	 * Name of import source.
+	 * @return name.
+	 */
+	virtual QString name() const;
+
+	/** NULL-terminated array of server strings, 0 if not used */
+	virtual const char** serverList() const;
+
+	/** default server, 0 to disable */
+	virtual const char* defaultServer() const;
+
+	/** default CGI path, 0 to disable */
+	virtual const char* defaultCgiPath() const;
+
+	/** anchor to online help, 0 to disable */
+	virtual const char* helpAnchor() const;
+
+	/** configuration, 0 if not used */
+	virtual ImportSourceConfig* cfg() const;
+
+	/**
+	 * Process finished findCddbAlbum request.
+	 *
+	 * @param searchStr search data received
+	 */
+	virtual void parseFindResults(const QByteArray& searchStr);
+
+	/**
+	 * Parse result of album request and populate m_trackDataVector with results.
+	 *
+	 * @param albumStr album data received
+	 */
+	virtual void parseAlbumResults(const QByteArray& albumStr);
 
 	/**
 	 * Send a query command to search on the server.

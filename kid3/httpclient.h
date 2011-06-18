@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2009  Urs Fleisch
+ * Copyright (C) 2008-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -53,8 +53,10 @@ public:
 
 	/**
 	 * Constructor.
+	 *
+	 * @param parent  parent object
 	 */
-	HttpClient();
+	explicit HttpClient(QObject* parent = 0);
 
 	/**
 	 * Destructor.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2009  Urs Fleisch
+ * Copyright (C) 2006-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,10 +34,13 @@
 
 /**
  * Constructor.
+ *
+ * @param parent  parent object
  */
-ImportSourceClient::ImportSourceClient() :
- m_requestType(RT_None)
+ImportSourceClient::ImportSourceClient(QObject* parent) :
+	HttpClient(parent), m_requestType(RT_None)
 {
+	setObjectName("ImportSourceClient");
 	connect(this, SIGNAL(bytesReceived(const QByteArray&)),
 					this, SLOT(requestFinished(const QByteArray&)));
 }

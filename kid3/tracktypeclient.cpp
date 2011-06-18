@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Apr 2007
  *
- * Copyright (C) 2007-2009  Urs Fleisch
+ * Copyright (C) 2007-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -26,14 +26,21 @@
 
 #include "tracktypeclient.h"
 #include "importsourceconfig.h"
+#include "kid3.h"
 
 static const char trackTypeServer[] = "tracktype.org:80";
 
 /**
  * Constructor.
+ *
+ * @param parent          parent object
+ * @param trackDataVector track data to be filled with imported values
  */
-TrackTypeClient::TrackTypeClient()
+TrackTypeClient::TrackTypeClient(QObject* parent,
+																 ImportTrackDataVector& trackDataVector) :
+	FreedbClient(parent, trackDataVector)
 {
+	setObjectName("TrackTypeClient");
 }
 
 /**
@@ -41,6 +48,78 @@ TrackTypeClient::TrackTypeClient()
  */
 TrackTypeClient::~TrackTypeClient()
 {
+}
+
+/**
+ * Name of import source.
+ * @return name.
+ */
+QString TrackTypeClient::name() const { return "TrackType"; }
+
+/** NULL-terminated array of server strings, 0 if not used */
+const char** TrackTypeClient::serverList() const
+{
+	static const char* servers[] = {
+		"tracktype.org:80",
+		0                  // end of StrList
+	};
+	return servers;
+}
+
+/** default server, 0 to disable */
+const char* TrackTypeClient::defaultServer() const { return "tracktype.org:80"; }
+
+/** configuration, 0 if not used */
+ImportSourceConfig* TrackTypeClient::cfg() const { return &Kid3App::s_trackTypeCfg; }
+
+/**
+ * Process finished findCddbAlbum request.
+ *
+ * @param searchStr search data received
+ */
+void TrackTypeClient::parseFindResults(const QByteArray& searchStr)
+{
+/*
+210 exact matches found
+categ discid dtitle
+(more matches...)
+.
+or
+211 close matches found
+rock 920b810c Catharsis / Imago
+.
+theoretically, but never seen
+200	categ discid dtitle
+*/
+	QString str = QString::fromUtf8(searchStr);
+	QRegExp catIdTitleRe("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)");
+	QStringList lines = str.split(QRegExp("[\\r\\n]+"));
+	bool inEntries = false;
+	m_albumListModel->clear();
+	for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
+		if (*it == ".") {
+			break;
+		}
+		if (inEntries) {
+			if (catIdTitleRe.exactMatch(*it)) {
+				m_albumListModel->appendRow(new AlbumListItem(
+					catIdTitleRe.cap(3),
+					catIdTitleRe.cap(1),
+					catIdTitleRe.cap(2)));
+			}
+		} else {
+			if ((*it).startsWith("21") && (*it).indexOf(" match") != -1) {
+				inEntries = true;
+			} else if ((*it).startsWith("200 ")) {
+				if (catIdTitleRe.exactMatch((*it).mid(4))) {
+					m_albumListModel->appendRow(new AlbumListItem(
+						catIdTitleRe.cap(3),
+						catIdTitleRe.cap(1),
+						catIdTitleRe.cap(2)));
+				}
+			}
+		}
+	}
 }
 
 /**

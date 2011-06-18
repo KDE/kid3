@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2008  Urs Fleisch
+ * Copyright (C) 2003-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,12 +40,14 @@ class QSpinBox;
 class QTableView;
 class TrackDataModel;
 class ImportParser;
-class FreedbDialog;
-class TrackTypeDialog;
+class FreedbClient;
+class TrackTypeClient;
 class MusicBrainzDialog;
-class MusicBrainzReleaseDialog;
-class DiscogsDialog;
-class AmazonDialog;
+class MusicBrainzReleaseClient;
+class DiscogsClient;
+class AmazonClient;
+class ImportSource;
+class ImportSourceDialog;
 class ImportTrackDataVector;
 class FrameCollection;
 
@@ -267,7 +269,7 @@ public slots:
 	void matchWithTitle();
 
 private:
-	enum ImportSource {
+	enum ImportSourceType {
 		None, File, Clipboard
 	};
 
@@ -278,12 +280,19 @@ private:
 	 *
 	 * @return true if tags were found.
 	 */
-	bool updateTrackData(ImportSource impSrc);
+	bool updateTrackData(ImportSourceType impSrc);
 
 	/**
 	 * Set the format combo box and line edits from the configuration.
 	 */
 	void setFormatFromConfig();
+
+	/**
+	 * Display dialog with import source.
+	 *
+	 * @param source import source
+	 */
+	void displayImportSourceDialog(ImportSource* source);
 
 	/** From File button */
 	QPushButton* m_fileButton;
@@ -323,20 +332,22 @@ private:
 	QStringList m_formatHeaders;
 	/** track format regexps */
 	QStringList m_formatTracks;
-	/** freedb.org import dialog */
-	FreedbDialog* m_freedbDialog;
-	/** TrackType.org import dialog */
-	TrackTypeDialog* m_trackTypeDialog;
+	/** freedb.org importer */
+	FreedbClient* m_freedbClient;
+	/** TrackType.org importer */
+	TrackTypeClient* m_trackTypeClient;
 	/** MusicBrainz import dialog */
 	MusicBrainzDialog* m_musicBrainzDialog;
-	/** MusicBrainz release import dialog */
-	MusicBrainzReleaseDialog* m_musicBrainzReleaseDialog;
-	/** Discogs import dialog */
-	DiscogsDialog* m_discogsDialog;
-	/** Amazon import dialog */
-	AmazonDialog* m_amazonDialog;
+	/** MusicBrainz release importer */
+	MusicBrainzReleaseClient* m_musicBrainzReleaseClient;
+	/** Discogs importer */
+	DiscogsClient* m_discogsClient;
+	/** Amazon importer */
+	AmazonClient* m_amazonClient;
+	/** Import source dialog */
+	ImportSourceDialog* m_importSourceDialog;
 	/** import source */
-	ImportSource m_importSource;
+	ImportSourceType m_importSource;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
 

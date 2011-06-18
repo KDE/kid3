@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Apr 2007
  *
- * Copyright (C) 2007-2009  Urs Fleisch
+ * Copyright (C) 2007-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,13 +37,39 @@ class TrackTypeClient : public FreedbClient
 public:
 	/**
 	 * Constructor.
+	 *
+	 * @param parent          parent object
+	 * @param trackDataVector track data to be filled with imported values
 	 */
-	TrackTypeClient();
+	TrackTypeClient(QObject* parent,
+									ImportTrackDataVector& trackDataVector);
 
 	/**
 	 * Destructor.
 	 */
 	virtual ~TrackTypeClient();
+
+	/**
+	 * Name of import source.
+	 * @return name.
+	 */
+	virtual QString name() const;
+
+	/** NULL-terminated array of server strings, 0 if not used */
+	virtual const char** serverList() const;
+
+	/** default server, 0 to disable */
+	virtual const char* defaultServer() const;
+
+	/** configuration, 0 if not used */
+	virtual ImportSourceConfig* cfg() const;
+
+	/**
+	 * Process finished findCddbAlbum request.
+	 *
+	 * @param searchStr search data received
+	 */
+	virtual void parseFindResults(const QByteArray& searchStr);
 
 	/**
 	 * Send a query command to search on the server.

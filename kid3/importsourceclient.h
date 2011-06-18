@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2009  Urs Fleisch
+ * Copyright (C) 2006-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,8 +41,10 @@ Q_OBJECT
 public:
 	/**
 	 * Constructor.
+	 *
+	 * @param parent  parent object
 	 */
-	ImportSourceClient();
+	explicit ImportSourceClient(QObject* parent = 0);
 
 	/**
 	 * Destructor.

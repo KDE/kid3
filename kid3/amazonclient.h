@@ -1,12 +1,12 @@
 /**
  * \file amazonclient.h
- * Amazon database client.
+ * Amazon database import source.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2009-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,23 +27,62 @@
 #ifndef AMAZONCLIENT_H
 #define AMAZONCLIENT_H
 
-#include "importsourceclient.h"
+#include "importsource.h"
 
 /**
- * Amazon database client.
+ * Amazon import source.
  */
-class AmazonClient : public ImportSourceClient
+class AmazonClient : public ImportSource
 {
 public:
 	/**
 	 * Constructor.
+	 *
+	 * @param parent          parent object
+	 * @param trackDataVector track data to be filled with imported values
 	 */
-	AmazonClient();
+	AmazonClient(QObject* parent,
+							 ImportTrackDataVector& trackDataVector);
 
 	/**
 	 * Destructor.
 	 */
 	virtual ~AmazonClient();
+
+	/**
+	 * Name of import source.
+	 * @return name.
+	 */
+	virtual QString name() const;
+
+	/** NULL-terminated array of server strings, 0 if not used */
+	virtual const char** serverList() const;
+
+	/** default server, 0 to disable */
+	virtual const char* defaultServer() const;
+
+	/** anchor to online help, 0 to disable */
+	virtual const char* helpAnchor() const;
+
+	/** configuration, 0 if not used */
+	virtual ImportSourceConfig* cfg() const;
+
+	/** additional tags option, false if not used */
+	virtual bool additionalTags() const;
+
+	/**
+	 * Process finished findCddbAlbum request.
+	 *
+	 * @param searchStr search data received
+	 */
+	virtual void parseFindResults(const QByteArray& searchStr);
+
+	/**
+	 * Parse result of album request and populate m_trackDataVector with results.
+	 *
+	 * @param albumStr album data received
+	 */
+	virtual void parseAlbumResults(const QByteArray& albumStr);
 
 	/**
 	 * Send a query command to search on the server.

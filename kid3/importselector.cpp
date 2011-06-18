@@ -51,11 +51,12 @@
 #include <QGridLayout>
 #include <QGroupBox>
 #include "genres.h"
-#include "freedbdialog.h"
-#include "tracktypedialog.h"
-#include "musicbrainzreleasedialog.h"
-#include "discogsdialog.h"
-#include "amazondialog.h"
+#include "freedbclient.h"
+#include "tracktypeclient.h"
+#include "musicbrainzreleaseclient.h"
+#include "discogsclient.h"
+#include "amazonclient.h"
+#include "importsourcedialog.h"
 #include "kid3.h"
 #include "taggedfile.h"
 #include "trackdata.h"
@@ -84,11 +85,13 @@ ImportSelector::ImportSelector(
 	QWidget(parent),
 	m_trackDataVector(trackDataList)
 {
-	m_freedbDialog = 0;
-	m_trackTypeDialog = 0;
-	m_musicBrainzReleaseDialog = 0;
-	m_discogsDialog = 0;
-	m_amazonDialog = 0;
+	setObjectName("ImportSelector");
+	m_freedbClient = 0;
+	m_trackTypeClient = 0;
+	m_musicBrainzReleaseClient = 0;
+	m_discogsClient = 0;
+	m_amazonClient = 0;
+	m_importSourceDialog = 0;
 #ifdef HAVE_TUNEPIMP
 	m_musicBrainzDialog = 0;
 #endif
@@ -209,37 +212,14 @@ ImportSelector::~ImportSelector()
 {
 	delete m_headerParser;
 	delete m_trackParser;
-	if (m_freedbDialog) {
-		m_freedbDialog->disconnect();
-		delete m_freedbDialog;
-		m_freedbDialog = 0;
-	}
-	if (m_trackTypeDialog) {
-		m_trackTypeDialog->disconnect();
-		delete m_trackTypeDialog;
-		m_trackTypeDialog = 0;
-	}
-	if (m_musicBrainzReleaseDialog) {
-		m_musicBrainzReleaseDialog->disconnect();
-		delete m_musicBrainzReleaseDialog;
-		m_musicBrainzReleaseDialog = 0;
-	}
-	if (m_discogsDialog) {
-		m_discogsDialog->disconnect();
-		delete m_discogsDialog;
-		m_discogsDialog = 0;
-	}
-	if (m_amazonDialog) {
-		m_amazonDialog->disconnect();
-		delete m_amazonDialog;
-		m_amazonDialog = 0;
-	}
+	delete m_importSourceDialog;
+	delete m_freedbClient;
+	delete m_trackTypeClient;
+	delete m_musicBrainzReleaseClient;
+	delete m_discogsClient;
+	delete m_amazonClient;
 #ifdef HAVE_TUNEPIMP
-	if (m_musicBrainzDialog) {
-		m_musicBrainzDialog->disconnect();
-		delete m_musicBrainzDialog;
-		m_musicBrainzDialog = 0;
-	}
+	delete m_musicBrainzDialog;
 #endif
 }
 
@@ -391,20 +371,35 @@ void ImportSelector::fromServer()
 }
 
 /**
+ * Display dialog with import source.
+ *
+ * @param source import source
+ */
+void ImportSelector::displayImportSourceDialog(ImportSource* source)
+{
+	if (!m_importSourceDialog) {
+		m_importSourceDialog = new ImportSourceDialog(this);
+		connect(m_importSourceDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
+	}
+	if (m_importSourceDialog) {
+		m_importSourceDialog->setImportSource(source);
+		m_importSourceDialog->setArtistAlbum(m_trackDataVector.getArtist(),
+																		m_trackDataVector.getAlbum());
+		(void)m_importSourceDialog->exec();
+	}
+}
+
+
+/**
  * Import from freedb.org and preview in table.
  */
 void ImportSelector::fromFreedb()
 {
-	if (!m_freedbDialog) {
-		m_freedbDialog = new FreedbDialog(this, m_trackDataVector);
-		connect(m_freedbDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
+	if (!m_freedbClient) {
+		m_freedbClient = new FreedbClient(this, m_trackDataVector);
 	}
-	if (m_freedbDialog) {
-		m_freedbDialog->setArtistAlbum(m_trackDataVector.getArtist(),
-																	 m_trackDataVector.getAlbum());
-		(void)m_freedbDialog->exec();
-	}
+	displayImportSourceDialog(m_freedbClient);
 }
 
 /**
@@ -412,16 +407,10 @@ void ImportSelector::fromFreedb()
  */
 void ImportSelector::fromTrackType()
 {
-	if (!m_trackTypeDialog) {
-		m_trackTypeDialog = new TrackTypeDialog(this, m_trackDataVector);
-		connect(m_trackTypeDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
+	if (!m_trackTypeClient) {
+		m_trackTypeClient = new TrackTypeClient(this, m_trackDataVector);
 	}
-	if (m_trackTypeDialog) {
-		m_trackTypeDialog->setArtistAlbum(m_trackDataVector.getArtist(),
-																	 m_trackDataVector.getAlbum());
-		(void)m_trackTypeDialog->exec();
-	}
+	displayImportSourceDialog(m_trackTypeClient);
 }
 
 /**
@@ -429,16 +418,11 @@ void ImportSelector::fromTrackType()
  */
 void ImportSelector::fromMusicBrainzRelease()
 {
-	if (!m_musicBrainzReleaseDialog) {
-		m_musicBrainzReleaseDialog = new MusicBrainzReleaseDialog(this, m_trackDataVector);
-		connect(m_musicBrainzReleaseDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
+	if (!m_musicBrainzReleaseClient) {
+		m_musicBrainzReleaseClient =
+				new MusicBrainzReleaseClient(this, m_trackDataVector);
 	}
-	if (m_musicBrainzReleaseDialog) {
-		m_musicBrainzReleaseDialog->setArtistAlbum(m_trackDataVector.getArtist(),
-																							 m_trackDataVector.getAlbum());
-		(void)m_musicBrainzReleaseDialog->exec();
-	}
+	displayImportSourceDialog(m_musicBrainzReleaseClient);
 }
 
 /**
@@ -446,16 +430,10 @@ void ImportSelector::fromMusicBrainzRelease()
  */
 void ImportSelector::fromDiscogs()
 {
-	if (!m_discogsDialog) {
-		m_discogsDialog = new DiscogsDialog(this, m_trackDataVector);
-		connect(m_discogsDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
+	if (!m_discogsClient) {
+		m_discogsClient = new DiscogsClient(this, m_trackDataVector);
 	}
-	if (m_discogsDialog) {
-		m_discogsDialog->setArtistAlbum(m_trackDataVector.getArtist(),
-																		m_trackDataVector.getAlbum());
-		(void)m_discogsDialog->exec();
-	}
+	displayImportSourceDialog(m_discogsClient);
 }
 
 /**
@@ -463,16 +441,10 @@ void ImportSelector::fromDiscogs()
  */
 void ImportSelector::fromAmazon()
 {
-	if (!m_amazonDialog) {
-		m_amazonDialog = new AmazonDialog(this, m_trackDataVector);
-		connect(m_amazonDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
+	if (!m_amazonClient) {
+		m_amazonClient = new AmazonClient(this, m_trackDataVector);
 	}
-	if (m_amazonDialog) {
-		m_amazonDialog->setArtistAlbum(m_trackDataVector.getArtist(),
-																		m_trackDataVector.getAlbum());
-		(void)m_amazonDialog->exec();
-	}
+	displayImportSourceDialog(m_amazonClient);
 }
 
 /**
@@ -498,7 +470,7 @@ void ImportSelector::setFormatLineEdit(int index)
  *
  * @return true if tags were found.
  */
-bool ImportSelector::updateTrackData(ImportSource impSrc) {
+bool ImportSelector::updateTrackData(ImportSourceType impSrc) {
 	FrameCollection framesHdr;
 	m_importSource = impSrc;
 	(void)parseHeader(framesHdr);

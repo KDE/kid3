@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2009  Urs Fleisch
+ * Copyright (C) 2006-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,14 +33,15 @@
 #include <QStandardItem>
 
 class QLineEdit;
+class QLabel;
 class QComboBox;
 class QPushButton;
 class QCheckBox;
 class QStatusBar;
 class QListView;
 class QStandardItemModel;
+class ImportSource;
 class ImportSourceConfig;
-class ImportSourceClient;
 class ImportTrackDataVector;
 
 /**
@@ -52,30 +53,11 @@ Q_OBJECT
 
 public:
 	/**
-	 * Properties of dialog.
-	 */
-	struct Properties {
-		const char** serverList;    /**< NULL-terminated array of server strings, 0 if not used */
-		const char* defaultServer;  /**< default server, 0 to disable */
-		const char* defaultCgiPath; /**< default CGI path, 0 to disable */
-		const char* helpAnchor;     /**< anchor to online help, 0 to disable */
-		ImportSourceConfig* cfg;    /**< configuration, 0 if not used */
-		bool additionalTags;        /**< additional tags option, false if not used */
-	};
-
-	/**
 	 * Constructor.
 	 *
 	 * @param parent  parent widget
-	 * @param caption dialog title
-	 * @param trackDataVector track data to be filled with imported values
-	 * @param client  client to use, this object takes ownership of it
-	 * @param props   constant dialog properties, must exist while dialog exists
 	 */
-	ImportSourceDialog(QWidget* parent, QString caption,
-										 ImportTrackDataVector& trackDataVector,
-										 ImportSourceClient* client,
-										 const Properties& props);
+	explicit ImportSourceDialog(QWidget* parent);
 
 	/**
 	 * Destructor.
@@ -83,25 +65,11 @@ public:
 	virtual ~ImportSourceDialog();
 
 	/**
-	 * Parse result of find request and populate m_albumListBox with results.
-	 * This method has to be reimplemented for the specific result data.
+	 * Set importer to be used.
 	 *
-	 * @param searchStr search data received
+	 * @param source  import source to use
 	 */
-	virtual void parseFindResults(const QByteArray& searchStr) = 0;
-
-	/**
-	 * Parse result of album request and populate m_trackDataVector with results.
-	 * This method has to be reimplemented for the specific result data.
-	 *
-	 * @param albumStr album data received
-	 */
-	virtual void parseAlbumResults(const QByteArray& albumStr) = 0;
-
-	/**
-	 * Clear dialog data.
-	 */
-	void clear();
+	void setImportSource(ImportSource* source);
 
 	/**
 	 * Get string with server and port.
@@ -167,24 +135,6 @@ public:
 	 */
 	void setArtistAlbum(const QString& artist, const QString& album);
 
-	/**
-	 * Replace HTML entities in a string.
-	 *
-	 * @param str string with HTML entities (e.g. &quot;)
-	 *
-	 * @return string with replaced HTML entities.
-	 */
-	static QString replaceHtmlEntities(QString str);
-
-	/**
-	 * Replace HTML entities and remove HTML tags.
-	 *
-	 * @param str string containing HTML
-	 *
-	 * @return clean up string
-	 */
-	static QString removeHtml(QString str);
-
 private slots:
 	/**
 	 * Query a search for a keyword from the server.
@@ -244,8 +194,6 @@ signals:
 
 protected:
 	QListView* m_albumListBox; /**< list box with albums to select */
-	QStandardItemModel* m_albumListModel; /**< albums to select */
-	ImportTrackDataVector& m_trackDataVector; /**< vector with tracks to import */
 
 private:
 	/**
@@ -258,44 +206,16 @@ private:
 	QComboBox* m_artistLineEdit;
 	QComboBox* m_albumLineEdit;
 	QPushButton* m_findButton;
+	QLabel* m_serverLabel;
 	QComboBox* m_serverComboBox;
+	QLabel* m_cgiLabel;
 	QLineEdit* m_cgiLineEdit;
 	QCheckBox* m_additionalTagsCheckBox;
 	QCheckBox* m_coverArtCheckBox;
+	QPushButton* m_helpButton;
+	QPushButton* m_saveButton;
 	QStatusBar* m_statusBar;
-	ImportSourceClient* m_client;
-	const Properties& m_props;
-};
-
-/**
- * QStandardItem subclass for album list.
- */
-class AlbumListItem : public QStandardItem {
-public:
-	/**
-	 * Constructor.
-	 * @param text    title
-	 * @param cat     category
-	 * @param idStr   ID
-	 */
-	AlbumListItem(const QString& text,
-				  const QString& cat, const QString& idStr) : 
-		QStandardItem(text) {
-		setData(cat, Qt::UserRole + 1);
-		setData(idStr, Qt::UserRole + 2);
-	}
-
-	/**
-	 * Get category.
-	 * @return category.
-	 */
-	QString getCategory() const { return data(Qt::UserRole + 1).toString(); }
-
-	/**
-	 * Get ID.
-	 * @return ID.
-	 */
-	QString getId() const { return data(Qt::UserRole + 2).toString(); }
+	ImportSource* m_source;
 };
 
 #endif

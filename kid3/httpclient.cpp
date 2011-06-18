@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2009  Urs Fleisch
+ * Copyright (C) 2008-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,10 +33,12 @@
 
 /**
  * Constructor.
+ *
+ * @param parent  parent object
  */
-HttpClient::HttpClient() :
-	m_rcvBodyLen(0)
+HttpClient::HttpClient(QObject* parent) : QObject(parent), m_rcvBodyLen(0)
 {
+	setObjectName("HttpClient");
 	m_http = new QHttp();
 	connect(m_http, SIGNAL(stateChanged(int)),
 					this, SLOT(slotStateChanged(int)));
