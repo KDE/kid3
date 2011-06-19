@@ -164,6 +164,13 @@ private slots:
 	void showPreview();
 
 	/**
+	 * Show fields to import in text as preview in table.
+	 * This method also marks that an import was made and thus switching the tag
+	 * version is no longer possible.
+	 */
+	void showPreviewAfterImport();
+
+	/**
 	 * Match import data with length.
 	 */
 	void matchWithLength();
@@ -213,6 +220,16 @@ private slots:
 	 */
 	void hideSubdialogs();
 
+	/**
+	 * Called when the destination combo box value is changed.
+	 */
+	void changeTagDestination();
+
+	/**
+	 * Called when OK is clicked.
+	 */
+	void onOkButtonClicked();
+
 private:
 	/**
 	 * Get time difference check configuration.
@@ -223,12 +240,15 @@ private:
 	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
 
 	/**
-	 * Display dialog with import source.
+	 * Display server import dialog.
 	 *
 	 * @param source import source
 	 */
-	void displayImportSourceDialog(ServerImporter* source);
+	void displayServerImportDialog(ServerImporter* source);
 
+	/** true if an import has been made, reset by clear() */
+	bool m_trackDataImported;
+	/** Subdialog to open when starting */
 	AutoStartSubDialog m_autoStartSubDialog;
 	/** Preview table */
 	QTableView* m_trackDataTable;

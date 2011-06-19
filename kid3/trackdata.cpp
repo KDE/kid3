@@ -473,3 +473,37 @@ QString ImportTrackDataVector::getFrame(Frame::Type type) const
 	}
 	return result;
 }
+
+/**
+ * Read the tags from the files.
+ * This can be used to fill the track data with another tag version.
+ *
+ * @param tagVersion tag version to read
+ */
+void ImportTrackDataVector::readTags(ImportTrackData::TagVersion tagVersion)
+{
+	for (iterator it = begin(); it != end(); ++it) {
+		TaggedFile* taggedFile = it->getTaggedFile();
+		if (taggedFile->isChanged()) {
+			qDebug("changed: %s", qPrintable(taggedFile->getFilename()));
+		}
+		switch (tagVersion) {
+		case ImportTrackData::TagV1:
+			taggedFile->getAllFramesV1(*it);
+			break;
+		case ImportTrackData::TagV2:
+			taggedFile->getAllFramesV2(*it);
+			break;
+		case ImportTrackData::TagV2V1:
+		{
+			FrameCollection framesV1;
+			taggedFile->getAllFramesV1(framesV1);
+			taggedFile->getAllFramesV2(*it);
+			it->merge(framesV1);
+			break;
+		}
+		case ImportTrackData::TagNone:
+			;
+		}
+	}
+}

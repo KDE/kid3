@@ -1686,13 +1686,27 @@ bool Kid3App::slotCreatePlaylist()
  */
 void Kid3App::setupImportDialog()
 {
+	TrackData::TagVersion tagVersion = TrackData::TagNone;
+	switch (s_genCfg.m_importDest) {
+	case ImportConfig::DestV1:
+		tagVersion = TrackData::TagV1;
+		break;
+	case ImportConfig::DestV2:
+		tagVersion = TrackData::TagV2;
+		break;
+	case ImportConfig::DestV1V2:
+		tagVersion = TrackData::TagV2V1;
+	}
+
 	m_trackDataList.clearData();
 	TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentOrRootIndex());
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
 		taggedFile->readTags(false);
-		m_trackDataList.push_back(ImportTrackData(
-																*taggedFile, ImportTrackData::TagNone));
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+		taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+#endif
+		m_trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
 	}
 
 	if (!m_importDialog) {

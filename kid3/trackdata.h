@@ -238,6 +238,14 @@ public:
 	 */
 	void setCoverArtUrl(const QString& coverArtUrl) { m_coverArtUrl = coverArtUrl; }
 
+	/**
+	 * Read the tags from the files.
+	 * This can be used to fill the track data with another tag version.
+	 *
+	 * @param tagVersion tag version to read
+	 */
+	void readTags(ImportTrackData::TagVersion tagVersion);
+
 private:
 	/**
 	 * Get frame from first track.

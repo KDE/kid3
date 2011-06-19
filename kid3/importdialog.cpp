@@ -79,7 +79,7 @@
  */
 ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 													 ImportTrackDataVector& trackDataList) :
-	QDialog(parent),
+	QDialog(parent), m_trackDataImported(false),
 	m_autoStartSubDialog(ASD_None),
 	m_trackDataVector(trackDataList)
 {
@@ -149,6 +149,8 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	m_destComboBox->insertItem(ImportConfig::DestV1, i18n("Tag 1"));
 	m_destComboBox->insertItem(ImportConfig::DestV2, i18n("Tag 2"));
 	m_destComboBox->insertItem(ImportConfig::DestV1V2, i18n("Tag 1 and Tag 2"));
+	connect(m_destComboBox, SIGNAL(activated(int)),
+					this, SLOT(changeTagDestination()));
 	destLabel->setBuddy(m_destComboBox);
 	butlayout->addWidget(m_destComboBox);
 	vlayout->addWidget(butbox);
@@ -201,7 +203,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 		hlayout->addWidget(cancelButton);
 		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+		connect(okButton, SIGNAL(clicked()), this, SLOT(onOkButtonClicked()));
 		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 		vlayout->addLayout(hlayout);
 	}
@@ -261,23 +263,23 @@ void ImportDialog::fromText()
 	if (!m_textImportDialog) {
 		m_textImportDialog = new TextImportDialog(this, m_trackDataVector);
 		connect(m_textImportDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
+						this, SLOT(showPreviewAfterImport()));
 	}
 	m_textImportDialog->clear();
 	m_textImportDialog->show();
 }
 
 /**
- * Display dialog with import source.
+ * Display server import dialog.
  *
  * @param source import source
  */
-void ImportDialog::displayImportSourceDialog(ServerImporter* source)
+void ImportDialog::displayServerImportDialog(ServerImporter* source)
 {
 	if (!m_serverImportDialog) {
 		m_serverImportDialog = new ServerImportDialog(this);
 		connect(m_serverImportDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
+						this, SLOT(showPreviewAfterImport()));
 	}
 	if (m_serverImportDialog) {
 		m_serverImportDialog->setImportSource(source);
@@ -306,7 +308,7 @@ void ImportDialog::fromFreedb()
 	if (!m_freedbImporter) {
 		m_freedbImporter = new FreedbImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_freedbImporter);
+	displayServerImportDialog(m_freedbImporter);
 }
 
 /**
@@ -317,7 +319,7 @@ void ImportDialog::fromTrackType()
 	if (!m_trackTypeImporter) {
 		m_trackTypeImporter = new TrackTypeImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_trackTypeImporter);
+	displayServerImportDialog(m_trackTypeImporter);
 }
 
 /**
@@ -329,7 +331,7 @@ void ImportDialog::fromMusicBrainzRelease()
 		m_musicBrainzReleaseImporter =
 				new MusicBrainzReleaseImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_musicBrainzReleaseImporter);
+	displayServerImportDialog(m_musicBrainzReleaseImporter);
 }
 
 /**
@@ -340,7 +342,7 @@ void ImportDialog::fromDiscogs()
 	if (!m_discogsImporter) {
 		m_discogsImporter = new DiscogsImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_discogsImporter);
+	displayServerImportDialog(m_discogsImporter);
 }
 
 /**
@@ -351,7 +353,7 @@ void ImportDialog::fromAmazon()
 	if (!m_amazonImporter) {
 		m_amazonImporter = new AmazonImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_amazonImporter);
+	displayServerImportDialog(m_amazonImporter);
 }
 
 /**
@@ -363,7 +365,7 @@ void ImportDialog::fromMusicBrainz()
 	if (!m_musicBrainzDialog) {
 		m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataVector);
 		connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
+						this, SLOT(showPreviewAfterImport()));
 	}
 	if (m_musicBrainzDialog) {
 		m_musicBrainzDialog->initTable();
@@ -449,6 +451,7 @@ void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
  */
 void ImportDialog::clear()
 {
+	m_trackDataImported = false;
 	m_trackDataModel->setTrackData(ImportTrackDataVector());
 
 	m_serverComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importServer);
@@ -462,12 +465,15 @@ void ImportDialog::clear()
 		resize(Kid3App::s_genCfg.m_importWindowWidth,
 					 Kid3App::s_genCfg.m_importWindowHeight);
 	}
+
+	showPreview();
 }
 
 /**
  * Show fields to import in text as preview in table.
  */
-void ImportDialog::showPreview() {
+void ImportDialog::showPreview()
+{
 	// make time difference check
 	bool diffCheckEnable;
 	int maxDiff;
@@ -477,6 +483,17 @@ void ImportDialog::showPreview() {
 	m_trackDataTable->scrollToTop();
 	m_trackDataTable->resizeColumnsToContents();
 	m_trackDataTable->resizeRowsToContents();
+}
+
+/**
+ * Show fields to import in text as preview in table.
+ * This method also marks that an import was made and thus switching the tag
+ * version is no longer possible.
+ */
+void ImportDialog::showPreviewAfterImport()
+{
+	m_trackDataImported = true;
+	showPreview();
 }
 
 /**
@@ -571,6 +588,42 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
 		m_trackDataVector[fromIndex].setImportDuration(toData.getImportDuration());
 		m_trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
 		// redisplay the table
+		showPreview();
+	}
+}
+
+/**
+ * Called when OK is clicked.
+ */
+void ImportDialog::onOkButtonClicked()
+{
+	// Set changes made in the table in the track data.
+	m_trackDataVector = m_trackDataModel->getTrackData();
+	accept();
+}
+
+/**
+ * Called when the destination combo box value is changed.
+ */
+void ImportDialog::changeTagDestination()
+{
+	// Prevent switching of track data after an import.
+	if (!m_trackDataImported) {
+		ImportConfig::ImportDestination dest = getDestination();
+
+		TrackData::TagVersion tagVersion = TrackData::TagNone;
+		switch (dest) {
+		case ImportConfig::DestV1:
+			tagVersion = TrackData::TagV1;
+			break;
+		case ImportConfig::DestV2:
+			tagVersion = TrackData::TagV2;
+			break;
+		case ImportConfig::DestV1V2:
+			tagVersion = TrackData::TagV2V1;
+		}
+
+		m_trackDataVector.readTags(tagVersion);
 		showPreview();
 	}
 }
