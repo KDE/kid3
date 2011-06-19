@@ -1,6 +1,6 @@
 /**
- * \file importsourceconfig.cpp
- * Configuration for import source.
+ * \file serverimporterconfig.cpp
+ * Configuration for server import.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "importsourceconfig.h"
+#include "serverimporterconfig.h"
 #include <QtGlobal>
 #include "qtcompatmac.h"
 
@@ -41,8 +41,8 @@
  * @param cgiPathUsed true to use CgiPath configuration
  * @param additionalTagsUsed true to use AdditionalTags configuration
  */
-ImportSourceConfig::ImportSourceConfig(const QString& grp, bool cgiPathUsed,
-																			 bool additionalTagsUsed) :
+ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
+																					 bool additionalTagsUsed) :
 	GeneralConfig(grp), m_windowWidth(-1), m_windowHeight(-1),
 	m_cgiPathUsed(cgiPathUsed), m_additionalTagsUsed(additionalTagsUsed),
 	m_additionalTags(true), m_coverArt(true)
@@ -53,19 +53,19 @@ ImportSourceConfig::ImportSourceConfig(const QString& grp, bool cgiPathUsed,
  * Constructor.
  * Used to create temporary configuration.
  */
-ImportSourceConfig::ImportSourceConfig() : GeneralConfig("Temporary") {}
+ServerImporterConfig::ServerImporterConfig() : GeneralConfig("Temporary") {}
 
 /**
  * Destructor.
  */
-ImportSourceConfig::~ImportSourceConfig() {}
+ServerImporterConfig::~ServerImporterConfig() {}
 
 /**
  * Persist configuration.
  *
  * @param config KDE configuration
  */
-void ImportSourceConfig::writeToConfig(
+void ServerImporterConfig::writeToConfig(
 #ifdef CONFIG_USE_KDE
 	KConfig* config
 #else
@@ -104,7 +104,7 @@ void ImportSourceConfig::writeToConfig(
  *
  * @param config KDE configuration
  */
-void ImportSourceConfig::readFromConfig(
+void ServerImporterConfig::readFromConfig(
 #ifdef CONFIG_USE_KDE
 	KConfig* config
 #else

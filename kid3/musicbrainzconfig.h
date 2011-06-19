@@ -27,12 +27,12 @@
 #ifndef MUSICBRAINZCONFIG_H
 #define MUSICBRAINZCONFIG_H
 
-#include "importsourceconfig.h"
+#include "serverimporterconfig.h"
 
 /**
  * MusicBrainz configuration.
  */
-class MusicBrainzConfig : public ImportSourceConfig {
+class MusicBrainzConfig : public ServerImporterConfig {
 public:
 	/**
 	 * Constructor.

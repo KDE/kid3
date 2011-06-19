@@ -1,6 +1,6 @@
 /**
- * \file discogsclient.cpp
- * Discogs client.
+ * \file discogsimporter.cpp
+ * Discogs importer.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "discogsclient.h"
-#include "importsourceconfig.h"
+#include "discogsimporter.h"
+#include "serverimporterconfig.h"
 #include "kid3.h"
 #include "genres.h"
 
@@ -37,17 +37,17 @@ static const char discogsServer[] = "www.discogs.com:80";
  * @param parent          parent object
  * @param trackDataVector track data to be filled with imported values
  */
-DiscogsClient::DiscogsClient(QObject* parent,
-														 ImportTrackDataVector& trackDataVector) :
-	ImportSource(parent, trackDataVector)
+DiscogsImporter::DiscogsImporter(QObject* parent,
+																 ImportTrackDataVector& trackDataVector) :
+	ServerImporter(parent, trackDataVector)
 {
-	setObjectName("DiscogsClient");
+	setObjectName("DiscogsImporter");
 }
 
 /**
  * Destructor.
  */
-DiscogsClient::~DiscogsClient()
+DiscogsImporter::~DiscogsImporter()
 {
 }
 
@@ -55,23 +55,23 @@ DiscogsClient::~DiscogsClient()
  * Name of import source.
  * @return name.
  */
-QString DiscogsClient::name() const { return "Discogs"; }
+QString DiscogsImporter::name() const { return "Discogs"; }
 
 /** anchor to online help, 0 to disable */
-const char* DiscogsClient::helpAnchor() const { return "import-discogs"; }
+const char* DiscogsImporter::helpAnchor() const { return "import-discogs"; }
 
 /** configuration, 0 if not used */
-ImportSourceConfig* DiscogsClient::cfg() const { return &Kid3App::s_discogsCfg; }
+ServerImporterConfig* DiscogsImporter::config() const { return &Kid3App::s_discogsCfg; }
 
 /** additional tags option, false if not used */
-bool DiscogsClient::additionalTags() const { return true; }
+bool DiscogsImporter::additionalTags() const { return true; }
 
 /**
  * Process finished findCddbAlbum request.
  *
  * @param searchStr search data received
  */
-void DiscogsClient::parseFindResults(const QByteArray& searchStr)
+void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
 {
 	// releases have the format:
 	// <div><a href="/Amon-Amarth-The-Avenger/release/398878"><em>Amon</em> <em>Amarth</em> - <em>The</em> <em>Avenger</em></a></div>
@@ -111,7 +111,7 @@ static QString fixUpArtist(QString str)
 		"[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)(\\s*/\\s*,|\\s*&amp;|\\s*And|\\s*and)"),
 		"\\1");
 	str.remove(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)$"));
-	return ImportSource::removeHtml(str);
+	return ServerImporter::removeHtml(str);
 }
 
 
@@ -251,7 +251,7 @@ static bool parseCredits(const QString& str, FrameCollection& frames)
  *
  * @param albumStr album data received
  */
-void DiscogsClient::parseAlbumResults(const QByteArray& albumStr)
+void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 {
 	QRegExp nlSpaceRe("[\r\n]+\\s*");
 	QRegExp atDiscogsRe("\\s*\\([^)]+\\) at Discogs$");
@@ -542,8 +542,8 @@ void DiscogsClient::parseAlbumResults(const QByteArray& albumStr)
  * @param artist   artist to search
  * @param album    album to search
  */
-void DiscogsClient::sendFindQuery(
-	const ImportSourceConfig*,
+void DiscogsImporter::sendFindQuery(
+	const ServerImporterConfig*,
 	const QString& artist, const QString& album)
 {
 	/*
@@ -563,8 +563,8 @@ void DiscogsClient::sendFindQuery(
  * @param cat      category
  * @param id       ID
  */
-void DiscogsClient::sendTrackListQuery(
-	const ImportSourceConfig*, const QString& cat, const QString& id)
+void DiscogsImporter::sendTrackListQuery(
+	const ServerImporterConfig*, const QString& cat, const QString& id)
 {
 	/*
 	 * Query looks like this:

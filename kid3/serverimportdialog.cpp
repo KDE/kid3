@@ -1,6 +1,6 @@
 /**
- * \file importsourcedialog.cpp
- * Generic dialog to import from an external source.
+ * \file serverimportdialog.cpp
+ * Generic dialog to import from a server.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "importsourcedialog.h"
+#include "serverimportdialog.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QLineEdit>
@@ -36,8 +36,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QListView>
-#include "importsource.h"
-#include "importsourceconfig.h"
+#include "serverimporter.h"
+#include "serverimporterconfig.h"
 #include "kid3.h"
 #include "trackdata.h"
 #include "qtcompatmac.h"
@@ -47,11 +47,11 @@
  *
  * @param parent  parent widget
  */
-ImportSourceDialog::ImportSourceDialog(QWidget* parent) : QDialog(parent),
+ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
 		m_serverComboBox(0), m_cgiLineEdit(0), m_additionalTagsCheckBox(0),
 		m_coverArtCheckBox(0), m_source(0)
 {
-	setObjectName("ImportSourceDialog");
+	setObjectName("ServerImportDialog");
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	vlayout->setSpacing(6);
@@ -126,7 +126,7 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent) : QDialog(parent),
 /**
  * Destructor.
  */
-ImportSourceDialog::~ImportSourceDialog()
+ServerImportDialog::~ServerImportDialog()
 {
 }
 
@@ -135,7 +135,7 @@ ImportSourceDialog::~ImportSourceDialog()
  *
  * @param source  import source to use
  */
-void ImportSourceDialog::setImportSource(ImportSource* source)
+void ServerImportDialog::setImportSource(ServerImporter* source)
 {
 	if (m_source) {
 		disconnect(m_source, SIGNAL(progress(const QString&, int, int)),
@@ -194,7 +194,7 @@ void ImportSourceDialog::setImportSource(ImportSource* source)
 		} else {
 			m_helpButton->hide();
 		}
-		if (m_source->cfg()) {
+		if (m_source->config()) {
 			m_saveButton->show();
 		} else {
 			m_saveButton->hide();
@@ -207,7 +207,7 @@ void ImportSourceDialog::setImportSource(ImportSource* source)
  *
  * @param msg status message
  */
-void ImportSourceDialog::showStatusMessage(const QString& msg)
+void ServerImportDialog::showStatusMessage(const QString& msg)
 {
 	m_statusBar->showMessage(msg);
 }
@@ -217,7 +217,7 @@ void ImportSourceDialog::showStatusMessage(const QString& msg)
  *
  * @return "servername:port".
  */
-QString ImportSourceDialog::getServer() const
+QString ServerImportDialog::getServer() const
 {
 	if (m_serverComboBox) {
 		QString server(m_serverComboBox->currentText());
@@ -235,7 +235,7 @@ QString ImportSourceDialog::getServer() const
  *
  * @param srv "servername:port"
  */
-void ImportSourceDialog::setServer(const QString& srv)
+void ServerImportDialog::setServer(const QString& srv)
 {
 	if (m_serverComboBox) {
 		int idx = m_serverComboBox->findText(srv);
@@ -253,7 +253,7 @@ void ImportSourceDialog::setServer(const QString& srv)
  *
  * @return CGI path, e.g. "/~cddb/cddb.cgi".
  */
-QString ImportSourceDialog::getCgiPath() const
+QString ServerImportDialog::getCgiPath() const
 {
 	if (m_cgiLineEdit) {
 		QString cgi(m_cgiLineEdit->text());
@@ -271,7 +271,7 @@ QString ImportSourceDialog::getCgiPath() const
  *
  * @param cgi CGI path, e.g. "/~cddb/cddb.cgi".
  */
-void ImportSourceDialog::setCgiPath(const QString& cgi)
+void ServerImportDialog::setCgiPath(const QString& cgi)
 {
 	if (m_cgiLineEdit) {
 		m_cgiLineEdit->setText(cgi);
@@ -283,7 +283,7 @@ void ImportSourceDialog::setCgiPath(const QString& cgi)
  *
  * @return true if additional tags are enabled.
  */
-bool ImportSourceDialog::getAdditionalTags() const
+bool ServerImportDialog::getAdditionalTags() const
 {
 	return m_additionalTagsCheckBox ?
 		m_additionalTagsCheckBox->checkState() == Qt::Checked
@@ -295,7 +295,7 @@ bool ImportSourceDialog::getAdditionalTags() const
  *
  * @param enable true if additional tags are enabled
  */
-void ImportSourceDialog::setAdditionalTags(bool enable)
+void ServerImportDialog::setAdditionalTags(bool enable)
 {
 	if (m_additionalTagsCheckBox) {
 		m_additionalTagsCheckBox->setCheckState(
@@ -308,7 +308,7 @@ void ImportSourceDialog::setAdditionalTags(bool enable)
  *
  * @return true if cover art are enabled.
  */
-bool ImportSourceDialog::getCoverArt() const
+bool ServerImportDialog::getCoverArt() const
 {
 	return m_coverArtCheckBox ?
 		m_coverArtCheckBox->checkState() == Qt::Checked
@@ -320,7 +320,7 @@ bool ImportSourceDialog::getCoverArt() const
  *
  * @param enable true if cover art are enabled
  */
-void ImportSourceDialog::setCoverArt(bool enable)
+void ServerImportDialog::setCoverArt(bool enable)
 {
 	if (m_coverArtCheckBox) {
 		m_coverArtCheckBox->setCheckState(
@@ -333,7 +333,7 @@ void ImportSourceDialog::setCoverArt(bool enable)
  *
  * @param cfg configuration
  */
-void ImportSourceDialog::getImportSourceConfig(ImportSourceConfig* cfg) const
+void ServerImportDialog::getImportSourceConfig(ServerImporterConfig* cfg) const
 {
 	cfg->m_server = getServer();
 	cfg->m_cgiPath = getCgiPath();
@@ -346,10 +346,10 @@ void ImportSourceDialog::getImportSourceConfig(ImportSourceConfig* cfg) const
 /**
  * Save the local settings to the configuration.
  */
-void ImportSourceDialog::saveConfig()
+void ServerImportDialog::saveConfig()
 {
-	if (m_source && m_source->cfg()) {
-		getImportSourceConfig(m_source->cfg());
+	if (m_source && m_source->config()) {
+		getImportSourceConfig(m_source->config());
 	}
 }
 
@@ -359,10 +359,10 @@ void ImportSourceDialog::saveConfig()
  * @param artist artist
  * @param album  album
  */
-void ImportSourceDialog::setArtistAlbum(const QString& artist, const QString& album)
+void ServerImportDialog::setArtistAlbum(const QString& artist, const QString& album)
 {
-	if (m_source && m_source->cfg()) {
-		ImportSourceConfig* cf = m_source->cfg();
+	if (m_source && m_source->config()) {
+		ServerImporterConfig* cf = m_source->config();
 		setServer(cf->m_server);
 		setCgiPath(cf->m_cgiPath);
 		setAdditionalTags(cf->m_additionalTags);
@@ -398,9 +398,9 @@ void ImportSourceDialog::setArtistAlbum(const QString& artist, const QString& al
 /**
  * Query a search for a keyword from the server.
  */
-void ImportSourceDialog::slotFind()
+void ServerImportDialog::slotFind()
 {
-	ImportSourceConfig cfg;
+	ServerImporterConfig cfg;
 	getImportSourceConfig(&cfg);
 	if (m_source)
 		m_source->find(&cfg, m_artistLineEdit->currentText(),
@@ -412,7 +412,7 @@ void ImportSourceDialog::slotFind()
  *
  * @param searchStr search data received
  */
-void ImportSourceDialog::slotFindFinished(const QByteArray& searchStr)
+void ServerImportDialog::slotFindFinished(const QByteArray& searchStr)
 {
 	if (m_source)
 		m_source->parseFindResults(searchStr);
@@ -424,7 +424,7 @@ void ImportSourceDialog::slotFindFinished(const QByteArray& searchStr)
  *
  * @param albumStr album track data received
  */
-void ImportSourceDialog::slotAlbumFinished(const QByteArray& albumStr)
+void ServerImportDialog::slotAlbumFinished(const QByteArray& albumStr)
 {
 	if (m_source) {
 		m_source->setAdditionalTags(getAdditionalTags());
@@ -439,10 +439,10 @@ void ImportSourceDialog::slotAlbumFinished(const QByteArray& albumStr)
  *
  * @param li standard item containing an AlbumListItem
  */
-void ImportSourceDialog::requestTrackList(QStandardItem* li)
+void ServerImportDialog::requestTrackList(QStandardItem* li)
 {
 	if (AlbumListItem* ali = dynamic_cast<AlbumListItem*>(li)) {
-		ImportSourceConfig cfg;
+		ServerImporterConfig cfg;
 		getImportSourceConfig(&cfg);
 		if (m_source)
 			m_source->getTrackList(&cfg, ali->getCategory(), ali->getId());
@@ -454,7 +454,7 @@ void ImportSourceDialog::requestTrackList(QStandardItem* li)
  *
  * @param index model index of list containing an AlbumListItem
  */
-void ImportSourceDialog::requestTrackList(const QModelIndex& index)
+void ServerImportDialog::requestTrackList(const QModelIndex& index)
 {
 	if (m_source)
 		requestTrackList(m_source->getAlbumListModel()->itemFromIndex(index));
@@ -463,7 +463,7 @@ void ImportSourceDialog::requestTrackList(const QModelIndex& index)
 /**
  * Show help.
  */
-void ImportSourceDialog::showHelp()
+void ServerImportDialog::showHelp()
 {
 	if (m_source && m_source->helpAnchor()) {
 		Kid3App::displayHelp(m_source->helpAnchor());

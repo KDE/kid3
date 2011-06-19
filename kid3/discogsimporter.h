@@ -1,6 +1,6 @@
 /**
- * \file discogsclient.h
- * Discogs client.
+ * \file discogsimporter.h
+ * Discogs importer.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,15 +24,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DISCOGSCLIENT_H
-#define DISCOGSCLIENT_H
+#ifndef DISCOGSIMPORTER_H
+#define DISCOGSIMPORTER_H
 
-#include "importsource.h"
+#include "serverimporter.h"
 
 /**
- * Discogs client.
+ * Discogs importer.
  */
-class DiscogsClient : public ImportSource
+class DiscogsImporter : public ServerImporter
 {
 public:
 	/**
@@ -41,13 +41,13 @@ public:
 	 * @param parent          parent object
 	 * @param trackDataVector track data to be filled with imported values
 	 */
-	DiscogsClient(QObject* parent,
-								ImportTrackDataVector& trackDataVector);
+	DiscogsImporter(QObject* parent,
+									ImportTrackDataVector& trackDataVector);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~DiscogsClient();
+	virtual ~DiscogsImporter();
 
 	/**
 	 * Name of import source.
@@ -59,7 +59,7 @@ public:
 	virtual const char* helpAnchor() const;
 
 	/** configuration, 0 if not used */
-	virtual ImportSourceConfig* cfg() const;
+	virtual ServerImporterConfig* config() const;
 
 	/** additional tags option, false if not used */
 	virtual bool additionalTags() const;
@@ -86,7 +86,7 @@ public:
 	 * @param album    album to search
 	 */
 	virtual void sendFindQuery(
-		const ImportSourceConfig* cfg,
+		const ServerImporterConfig* cfg,
 		const QString& artist, const QString& album);
 
 	/**
@@ -98,7 +98,7 @@ public:
 	 * @param id       ID
 	 */
 	virtual void sendTrackListQuery(
-		const ImportSourceConfig* cfg, const QString& cat, const QString& id);
+		const ServerImporterConfig* cfg, const QString& cat, const QString& id);
 };
 
 #endif

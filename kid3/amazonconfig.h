@@ -27,12 +27,12 @@
 #ifndef AMAZONCONFIG_H
 #define AMAZONCONFIG_H
 
-#include "importsourceconfig.h"
+#include "serverimporterconfig.h"
 
 /**
  * Amazon configuration.
  */
-class AmazonConfig : public ImportSourceConfig {
+class AmazonConfig : public ServerImporterConfig {
 public:
 	/**
 	 * Constructor.

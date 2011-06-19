@@ -27,12 +27,12 @@
 #ifndef FREEDBCONFIG_H
 #define FREEDBCONFIG_H
 
-#include "importsourceconfig.h"
+#include "serverimporterconfig.h"
 
 /**
  * Freedb configuration.
  */
-class FreedbConfig : public ImportSourceConfig {
+class FreedbConfig : public ServerImporterConfig {
 public:
 	/**
 	 * Constructor.

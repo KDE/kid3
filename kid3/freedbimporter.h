@@ -1,12 +1,12 @@
 /**
- * \file musicbrainzreleaseclient.h
- * MusicBrainz release database client.
+ * \file freedbimporter.h
+ * freedb.org importer.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 13 Oct 2006
+ * \date 18 Jan 2004
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2004-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,15 +24,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MUSICBRAINZRELEASECLIENT_H
-#define MUSICBRAINZRELEASECLIENT_H
+#ifndef FREEDBIMPORTER_H
+#define FREEDBIMPORTER_H
 
-#include "importsource.h"
+#include "serverimporter.h"
 
 /**
- * MusicBrainz release database client.
+ * freedb.org importer.
  */
-class MusicBrainzReleaseClient : public ImportSource
+class FreedbImporter : public ServerImporter
 {
 public:
 	/**
@@ -41,13 +41,13 @@ public:
 	 * @param parent          parent object
 	 * @param trackDataVector track data to be filled with imported values
 	 */
-	MusicBrainzReleaseClient(QObject* parent,
-													 ImportTrackDataVector& trackDataVector);
+	FreedbImporter(QObject* parent,
+								 ImportTrackDataVector& trackDataVector);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~MusicBrainzReleaseClient();
+	virtual ~FreedbImporter();
 
 	/**
 	 * Name of import source.
@@ -61,14 +61,14 @@ public:
 	/** default server, 0 to disable */
 	virtual const char* defaultServer() const;
 
+	/** default CGI path, 0 to disable */
+	virtual const char* defaultCgiPath() const;
+
 	/** anchor to online help, 0 to disable */
 	virtual const char* helpAnchor() const;
 
 	/** configuration, 0 if not used */
-	virtual ImportSourceConfig* cfg() const;
-
-	/** additional tags option, false if not used */
-	virtual bool additionalTags() const;
+	virtual ServerImporterConfig* config() const;
 
 	/**
 	 * Process finished findCddbAlbum request.
@@ -92,7 +92,7 @@ public:
 	 * @param album    album to search
 	 */
 	virtual void sendFindQuery(
-		const ImportSourceConfig* cfg,
+		const ServerImporterConfig* cfg,
 		const QString& artist, const QString& album);
 
 	/**
@@ -104,7 +104,7 @@ public:
 	 * @param id       ID
 	 */
 	virtual void sendTrackListQuery(
-		const ImportSourceConfig* cfg, const QString& cat, const QString& id);
+		const ServerImporterConfig* cfg, const QString& cat, const QString& id);
 };
 
 #endif

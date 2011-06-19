@@ -40,14 +40,14 @@ class QSpinBox;
 class QTableView;
 class TrackDataModel;
 class ImportParser;
-class FreedbClient;
-class TrackTypeClient;
+class FreedbImporter;
+class TrackTypeImporter;
 class MusicBrainzDialog;
-class MusicBrainzReleaseClient;
-class DiscogsClient;
-class AmazonClient;
-class ImportSource;
-class ImportSourceDialog;
+class MusicBrainzReleaseImporter;
+class DiscogsImporter;
+class AmazonImporter;
+class ServerImporter;
+class ServerImportDialog;
 class ImportTrackDataVector;
 class FrameCollection;
 
@@ -274,7 +274,7 @@ public slots:
 	void hideSubdialogs();
 
 private:
-	enum ImportSourceType {
+	enum ImportSource {
 		None, File, Clipboard
 	};
 
@@ -285,7 +285,7 @@ private:
 	 *
 	 * @return true if tags were found.
 	 */
-	bool updateTrackData(ImportSourceType impSrc);
+	bool updateTrackData(ImportSource impSrc);
 
 	/**
 	 * Set the format combo box and line edits from the configuration.
@@ -297,7 +297,7 @@ private:
 	 *
 	 * @param source import source
 	 */
-	void displayImportSourceDialog(ImportSource* source);
+	void displayImportSourceDialog(ServerImporter* source);
 
 	/** From File button */
 	QPushButton* m_fileButton;
@@ -338,21 +338,21 @@ private:
 	/** track format regexps */
 	QStringList m_formatTracks;
 	/** freedb.org importer */
-	FreedbClient* m_freedbClient;
+	FreedbImporter* m_freedbClient;
 	/** TrackType.org importer */
-	TrackTypeClient* m_trackTypeClient;
+	TrackTypeImporter* m_trackTypeClient;
 	/** MusicBrainz import dialog */
 	MusicBrainzDialog* m_musicBrainzDialog;
 	/** MusicBrainz release importer */
-	MusicBrainzReleaseClient* m_musicBrainzReleaseClient;
+	MusicBrainzReleaseImporter* m_musicBrainzReleaseClient;
 	/** Discogs importer */
-	DiscogsClient* m_discogsClient;
+	DiscogsImporter* m_discogsClient;
 	/** Amazon importer */
-	AmazonClient* m_amazonClient;
+	AmazonImporter* m_amazonClient;
 	/** Import source dialog */
-	ImportSourceDialog* m_importSourceDialog;
+	ServerImportDialog* m_importSourceDialog;
 	/** import source */
-	ImportSourceType m_importSource;
+	ImportSource m_importSource;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
 

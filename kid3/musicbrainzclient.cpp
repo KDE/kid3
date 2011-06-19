@@ -32,7 +32,7 @@
 #if HAVE_TUNEPIMP >= 5
 #include <QDomDocument>
 #endif
-#include "freedbclient.h"
+#include "freedbimporter.h"
 #include "trackdata.h"
 #include "qtcompatmac.h"
 
@@ -412,11 +412,11 @@ void MusicBrainzClient::setConfig(
 {
 	int port;
 	QString ip;
-	FreedbClient::splitNamePort(server, ip, port);
+	FreedbImporter::splitNamePort(server, ip, port);
 	tp_SetServer(m_tp, ip.toLatin1().data(), port);
 
 	if (useProxy) {
-		FreedbClient::splitNamePort(proxy, ip, port);
+		FreedbImporter::splitNamePort(proxy, ip, port);
 		tp_SetProxy(m_tp, ip.toLatin1().data(), port);
 	}	else {
 		tp_SetProxy(m_tp, "", 80);

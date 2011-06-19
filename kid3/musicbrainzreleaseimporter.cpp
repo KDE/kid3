@@ -1,6 +1,6 @@
 /**
- * \file musicbrainzreleaseclient.cpp
- * MusicBrainz release database client.
+ * \file musicbrainzreleaseimporter.cpp
+ * MusicBrainz release database importer.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,9 +24,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "musicbrainzreleaseclient.h"
+#include "musicbrainzreleaseimporter.h"
 #include <QDomDocument>
-#include "importsourceconfig.h"
+#include "serverimporterconfig.h"
 #include "kid3.h"
 
 /**
@@ -35,17 +35,17 @@
  * @param parent          parent object
  * @param trackDataVector track data to be filled with imported values
  */
-MusicBrainzReleaseClient::MusicBrainzReleaseClient(
+MusicBrainzReleaseImporter::MusicBrainzReleaseImporter(
 	QObject* parent, ImportTrackDataVector& trackDataVector) :
-	ImportSource(parent, trackDataVector)
+	ServerImporter(parent, trackDataVector)
 {
-	setObjectName("MusicBrainzReleaseClient");
+	setObjectName("MusicBrainzReleaseImporter");
 }
 
 /**
  * Destructor.
  */
-MusicBrainzReleaseClient::~MusicBrainzReleaseClient()
+MusicBrainzReleaseImporter::~MusicBrainzReleaseImporter()
 {
 }
 
@@ -53,10 +53,10 @@ MusicBrainzReleaseClient::~MusicBrainzReleaseClient()
  * Name of import source.
  * @return name.
  */
-QString MusicBrainzReleaseClient::name() const { return "MusicBrainz"; }
+QString MusicBrainzReleaseImporter::name() const { return "MusicBrainz"; }
 
 /** NULL-terminated array of server strings, 0 if not used */
-const char** MusicBrainzReleaseClient::serverList() const
+const char** MusicBrainzReleaseImporter::serverList() const
 {
 	static const char* servers[] = {
 		"musicbrainz.org:80",
@@ -68,29 +68,29 @@ const char** MusicBrainzReleaseClient::serverList() const
 }
 
 /** default server, 0 to disable */
-const char* MusicBrainzReleaseClient::defaultServer() const {
+const char* MusicBrainzReleaseImporter::defaultServer() const {
 	return "musicbrainz.org:80";
 }
 
 /** anchor to online help, 0 to disable */
-const char* MusicBrainzReleaseClient::helpAnchor() const {
+const char* MusicBrainzReleaseImporter::helpAnchor() const {
 	return "import-musicbrainzrelease";
 }
 
 /** configuration, 0 if not used */
-ImportSourceConfig* MusicBrainzReleaseClient::cfg() const {
+ServerImporterConfig* MusicBrainzReleaseImporter::config() const {
 	return &Kid3App::s_musicBrainzCfg;
 }
 
 /** additional tags option, false if not used */
-bool MusicBrainzReleaseClient::additionalTags() const { return true; }
+bool MusicBrainzReleaseImporter::additionalTags() const { return true; }
 
 /**
  * Process finished findCddbAlbum request.
  *
  * @param searchStr search data received
  */
-void MusicBrainzReleaseClient::parseFindResults(const QByteArray& searchStr)
+void MusicBrainzReleaseImporter::parseFindResults(const QByteArray& searchStr)
 {
 	/*
 <metadata>
@@ -234,7 +234,7 @@ static bool parseCredits(const QDomElement& relationList, FrameCollection& frame
  *
  * @param albumStr album data received
  */
-void MusicBrainzReleaseClient::parseAlbumResults(const QByteArray& albumStr)
+void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
 {
 	/*
 <metadata>
@@ -405,8 +405,8 @@ void MusicBrainzReleaseClient::parseAlbumResults(const QByteArray& albumStr)
  * @param artist   artist to search
  * @param album    album to search
  */
-void MusicBrainzReleaseClient::sendFindQuery(
-	const ImportSourceConfig* cfg,
+void MusicBrainzReleaseImporter::sendFindQuery(
+	const ServerImporterConfig* cfg,
 	const QString& artist, const QString& album)
 {
 	/*
@@ -427,8 +427,8 @@ void MusicBrainzReleaseClient::sendFindQuery(
  * @param cat      category
  * @param id       ID
  */
-void MusicBrainzReleaseClient::sendTrackListQuery(
-	const ImportSourceConfig* cfg, const QString& cat, const QString& id)
+void MusicBrainzReleaseImporter::sendTrackListQuery(
+	const ServerImporterConfig* cfg, const QString& cat, const QString& id)
 {
 	/*
 	 * Query looks like this:

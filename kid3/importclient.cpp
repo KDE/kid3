@@ -1,5 +1,5 @@
 /**
- * \file importsourceclient.cpp
+ * \file importclient.cpp
  * Client to connect to server with import data.
  *
  * \b Project: Kid3
@@ -24,12 +24,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "importsourceclient.h"
+#include "importclient.h"
 #include <QRegExp>
 #include <QStatusBar>
 #include <QUrl>
 
-#include "importsourceconfig.h"
+#include "serverimporterconfig.h"
 #include "kid3.h"
 
 /**
@@ -37,10 +37,10 @@
  *
  * @param parent  parent object
  */
-ImportSourceClient::ImportSourceClient(QObject* parent) :
+ImportClient::ImportClient(QObject* parent) :
 	HttpClient(parent), m_requestType(RT_None)
 {
-	setObjectName("ImportSourceClient");
+	setObjectName("ImportClient");
 	connect(this, SIGNAL(bytesReceived(const QByteArray&)),
 					this, SLOT(requestFinished(const QByteArray&)));
 }
@@ -48,7 +48,7 @@ ImportSourceClient::ImportSourceClient(QObject* parent) :
 /**
  * Destructor.
  */
-ImportSourceClient::~ImportSourceClient()
+ImportClient::~ImportClient()
 {
 }
 
@@ -59,7 +59,7 @@ ImportSourceClient::~ImportSourceClient()
  * @param artist artist to search
  * @param album  album to search
  */
-void ImportSourceClient::find(const ImportSourceConfig* cfg,
+void ImportClient::find(const ServerImporterConfig* cfg,
 															const QString& artist, const QString& album)
 {
 	sendFindQuery(cfg, artist, album);
@@ -72,7 +72,7 @@ void ImportSourceClient::find(const ImportSourceConfig* cfg,
  *
  * @param rcvStr received data
  */
-void ImportSourceClient::requestFinished(const QByteArray& rcvStr)
+void ImportClient::requestFinished(const QByteArray& rcvStr)
 {
 	switch (m_requestType) {
 		case RT_Album:
@@ -93,7 +93,7 @@ void ImportSourceClient::requestFinished(const QByteArray& rcvStr)
  * @param cat category
  * @param id  ID
  */
-void ImportSourceClient::getTrackList(const ImportSourceConfig* cfg, QString cat, QString id)
+void ImportClient::getTrackList(const ServerImporterConfig* cfg, QString cat, QString id)
 {
 	sendTrackListQuery(cfg, cat, id);
 	m_requestType = RT_Album;
@@ -107,7 +107,7 @@ void ImportSourceClient::getTrackList(const ImportSourceConfig* cfg, QString cat
  *
  * @return encoded query.
  */
-QString ImportSourceClient::encodeUrlQuery(const QString& query)
+QString ImportClient::encodeUrlQuery(const QString& query)
 {
 	QString result(query);
 	result.replace(QRegExp(" +"), " "); // collapse spaces

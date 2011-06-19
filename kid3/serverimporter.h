@@ -1,6 +1,6 @@
 /**
- * \file importsource.h
- * Generic baseclass to import from an external source.
+ * \file serverimporter.h
+ * Generic baseclass to import from a server.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,22 +24,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTSOURCE_H
-#define IMPORTSOURCE_H
+#ifndef SERVERIMPORTER_H
+#define SERVERIMPORTER_H
 
-#include "importsourceclient.h"
+#include "importclient.h"
 #include <QString>
 #include <QStandardItem>
 
 class QStandardItemModel;
-class ImportSourceConfig;
-class ImportSourceClient;
+class ServerImporterConfig;
+class ImportClient;
 class ImportTrackDataVector;
 
 /**
  * Generic baseclass to import from an external source.
  */
-class ImportSource : public ImportSourceClient
+class ServerImporter : public ImportClient
 {
 	Q_OBJECT
 
@@ -50,13 +50,13 @@ public:
 	 * @param parent  parent object
 	 * @param trackDataVector track data to be filled with imported values
 	 */
-	ImportSource(QObject* parent,
-							 ImportTrackDataVector& trackDataVector);
+	ServerImporter(QObject* parent,
+								 ImportTrackDataVector& trackDataVector);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~ImportSource();
+	virtual ~ServerImporter();
 
 	/**
 	 * Name of import source.
@@ -77,7 +77,7 @@ public:
 	virtual const char* helpAnchor() const;
 
 	/** configuration, 0 if not used */
-	virtual ImportSourceConfig* cfg() const;
+	virtual ServerImporterConfig* config() const;
 
 	/** additional tags option, false if not used */
 	virtual bool additionalTags() const;

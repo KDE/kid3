@@ -27,12 +27,12 @@
 #ifndef DISCOGSCONFIG_H
 #define DISCOGSCONFIG_H
 
-#include "importsourceconfig.h"
+#include "serverimporterconfig.h"
 
 /**
  * Discogs configuration.
  */
-class DiscogsConfig : public ImportSourceConfig {
+class DiscogsConfig : public ServerImporterConfig {
 public:
 	/**
 	 * Constructor.

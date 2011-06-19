@@ -1,12 +1,12 @@
 /**
- * \file freedbclient.h
- * freedb.org client.
+ * \file amazonimporter.h
+ * Amazon database importer.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 18 Jan 2004
+ * \date 13 Dec 2009
  *
- * Copyright (C) 2004-2011  Urs Fleisch
+ * Copyright (C) 2009-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,15 +24,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FREEDBCLIENT_H
-#define FREEDBCLIENT_H
+#ifndef AMAZONIMPORTER_H
+#define AMAZONIMPORTER_H
 
-#include "importsource.h"
+#include "serverimporter.h"
 
 /**
- * freedb.org client.
+ * Amazon importer.
  */
-class FreedbClient : public ImportSource
+class AmazonImporter : public ServerImporter
 {
 public:
 	/**
@@ -41,13 +41,13 @@ public:
 	 * @param parent          parent object
 	 * @param trackDataVector track data to be filled with imported values
 	 */
-	FreedbClient(QObject* parent,
-							 ImportTrackDataVector& trackDataVector);
+	AmazonImporter(QObject* parent,
+								 ImportTrackDataVector& trackDataVector);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~FreedbClient();
+	virtual ~AmazonImporter();
 
 	/**
 	 * Name of import source.
@@ -61,14 +61,14 @@ public:
 	/** default server, 0 to disable */
 	virtual const char* defaultServer() const;
 
-	/** default CGI path, 0 to disable */
-	virtual const char* defaultCgiPath() const;
-
 	/** anchor to online help, 0 to disable */
 	virtual const char* helpAnchor() const;
 
 	/** configuration, 0 if not used */
-	virtual ImportSourceConfig* cfg() const;
+	virtual ServerImporterConfig* config() const;
+
+	/** additional tags option, false if not used */
+	virtual bool additionalTags() const;
 
 	/**
 	 * Process finished findCddbAlbum request.
@@ -92,7 +92,7 @@ public:
 	 * @param album    album to search
 	 */
 	virtual void sendFindQuery(
-		const ImportSourceConfig* cfg,
+		const ServerImporterConfig* cfg,
 		const QString& artist, const QString& album);
 
 	/**
@@ -104,7 +104,7 @@ public:
 	 * @param id       ID
 	 */
 	virtual void sendTrackListQuery(
-		const ImportSourceConfig* cfg, const QString& cat, const QString& id);
+		const ServerImporterConfig* cfg, const QString& cat, const QString& id);
 };
 
 #endif

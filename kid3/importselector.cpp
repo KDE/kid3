@@ -51,12 +51,12 @@
 #include <QGridLayout>
 #include <QGroupBox>
 #include "genres.h"
-#include "freedbclient.h"
-#include "tracktypeclient.h"
-#include "musicbrainzreleaseclient.h"
-#include "discogsclient.h"
-#include "amazonclient.h"
-#include "importsourcedialog.h"
+#include "freedbimporter.h"
+#include "tracktypeimporter.h"
+#include "musicbrainzreleaseimporter.h"
+#include "discogsimporter.h"
+#include "amazonimporter.h"
+#include "serverimportdialog.h"
 #include "kid3.h"
 #include "taggedfile.h"
 #include "trackdata.h"
@@ -375,10 +375,10 @@ void ImportSelector::fromServer()
  *
  * @param source import source
  */
-void ImportSelector::displayImportSourceDialog(ImportSource* source)
+void ImportSelector::displayImportSourceDialog(ServerImporter* source)
 {
 	if (!m_importSourceDialog) {
-		m_importSourceDialog = new ImportSourceDialog(this);
+		m_importSourceDialog = new ServerImportDialog(this);
 		connect(m_importSourceDialog, SIGNAL(trackDataUpdated()),
 						this, SLOT(showPreview()));
 	}
@@ -397,7 +397,7 @@ void ImportSelector::displayImportSourceDialog(ImportSource* source)
 void ImportSelector::fromFreedb()
 {
 	if (!m_freedbClient) {
-		m_freedbClient = new FreedbClient(this, m_trackDataVector);
+		m_freedbClient = new FreedbImporter(this, m_trackDataVector);
 	}
 	displayImportSourceDialog(m_freedbClient);
 }
@@ -408,7 +408,7 @@ void ImportSelector::fromFreedb()
 void ImportSelector::fromTrackType()
 {
 	if (!m_trackTypeClient) {
-		m_trackTypeClient = new TrackTypeClient(this, m_trackDataVector);
+		m_trackTypeClient = new TrackTypeImporter(this, m_trackDataVector);
 	}
 	displayImportSourceDialog(m_trackTypeClient);
 }
@@ -420,7 +420,7 @@ void ImportSelector::fromMusicBrainzRelease()
 {
 	if (!m_musicBrainzReleaseClient) {
 		m_musicBrainzReleaseClient =
-				new MusicBrainzReleaseClient(this, m_trackDataVector);
+				new MusicBrainzReleaseImporter(this, m_trackDataVector);
 	}
 	displayImportSourceDialog(m_musicBrainzReleaseClient);
 }
@@ -431,7 +431,7 @@ void ImportSelector::fromMusicBrainzRelease()
 void ImportSelector::fromDiscogs()
 {
 	if (!m_discogsClient) {
-		m_discogsClient = new DiscogsClient(this, m_trackDataVector);
+		m_discogsClient = new DiscogsImporter(this, m_trackDataVector);
 	}
 	displayImportSourceDialog(m_discogsClient);
 }
@@ -442,7 +442,7 @@ void ImportSelector::fromDiscogs()
 void ImportSelector::fromAmazon()
 {
 	if (!m_amazonClient) {
-		m_amazonClient = new AmazonClient(this, m_trackDataVector);
+		m_amazonClient = new AmazonImporter(this, m_trackDataVector);
 	}
 	displayImportSourceDialog(m_amazonClient);
 }
@@ -470,7 +470,7 @@ void ImportSelector::setFormatLineEdit(int index)
  *
  * @return true if tags were found.
  */
-bool ImportSelector::updateTrackData(ImportSourceType impSrc) {
+bool ImportSelector::updateTrackData(ImportSource impSrc) {
 	FrameCollection framesHdr;
 	m_importSource = impSrc;
 	(void)parseHeader(framesHdr);

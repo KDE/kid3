@@ -10,20 +10,20 @@ set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
 	mp3file.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp
 	importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp
 	importconfig.cpp miscconfig.cpp freedbconfig.cpp
-	freedbclient.cpp rendirdialog.cpp dirlist.cpp dirproxymodel.cpp taggedfile.cpp
+	freedbimporter.cpp rendirdialog.cpp dirlist.cpp dirproxymodel.cpp taggedfile.cpp
 	musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp
 	numbertracksdialog.cpp oggfile.cpp vcedit.c flacfile.cpp
-	commandstablemodel.cpp taglibfile.cpp importsourceconfig.cpp
-	importsourcedialog.cpp importsourceclient.cpp importsource.cpp
-	discogsclient.cpp discogsconfig.cpp
-	musicbrainzreleaseclient.cpp externalprocess.cpp trackdata.cpp trackdatamodel.cpp
-	stringlistedit.cpp tracktypeclient.cpp filterconfig.cpp
+	commandstablemodel.cpp taglibfile.cpp serverimporterconfig.cpp
+	serverimportdialog.cpp importclient.cpp serverimporter.cpp
+	discogsimporter.cpp discogsconfig.cpp
+	musicbrainzreleaseimporter.cpp externalprocess.cpp trackdata.cpp trackdatamodel.cpp
+	stringlistedit.cpp tracktypeimporter.cpp filterconfig.cpp
 	filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp
 	formatreplacer.cpp httpclient.cpp downloaddialog.cpp picturelabel.cpp
 	browsecoverartdialog.cpp configtable.cpp configtablemodel.cpp
 	attributedata.cpp browserdialog.cpp imageviewer.cpp editframedialog.cpp
 	editframefieldsdialog.cpp playlistdialog.cpp playlistconfig.cpp
-	playlistcreator.cpp amazonclient.cpp amazonconfig.cpp
+	playlistcreator.cpp amazonimporter.cpp amazonconfig.cpp
 	recentfilesmenu.cpp playtoolbar.cpp)
 
 if (HAVE_QTDBUS)
@@ -113,7 +113,7 @@ endif (UNIX AND NOT APPLE)
 set(kid3_MOC_HDRS filelist.h frametable.h frametablemodel.h id3form.h kid3.h configdialog.h
 	exportdialog.h formatbox.h importdialog.h importselector.h rendirdialog.h
 	musicbrainzdialog.h musicbrainzclient.h numbertracksdialog.h
-	importsourcedialog.h importsourceclient.h importsource.h externalprocess.h stringlistedit.h
+	serverimportdialog.h importclient.h serverimporter.h externalprocess.h stringlistedit.h
 	filterdialog.h filefilter.h httpclient.h downloaddialog.h
 	browsecoverartdialog.h configtable.h browserdialog.h imageviewer.h
 	editframedialog.h editframefieldsdialog.h playlistdialog.h recentfilesmenu.h

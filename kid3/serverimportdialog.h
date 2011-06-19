@@ -1,6 +1,6 @@
 /**
- * \file importsourcedialog.h
- * Generic dialog to import from an external source.
+ * \file serverimportdialog.h
+ * Generic dialog to import from a server.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTSOURCEDIALOG_H
-#define IMPORTSOURCEDIALOG_H
+#ifndef SERVERIMPORTDIALOG_H
+#define SERVERIMPORTDIALOG_H
 
 #include "config.h"
 #include <QDialog>
@@ -40,14 +40,14 @@ class QCheckBox;
 class QStatusBar;
 class QListView;
 class QStandardItemModel;
-class ImportSource;
-class ImportSourceConfig;
+class ServerImporter;
+class ServerImporterConfig;
 class ImportTrackDataVector;
 
 /**
  * Generic dialog to import from an external source.
  */
-class ImportSourceDialog : public QDialog
+class ServerImportDialog : public QDialog
 {
 Q_OBJECT
 
@@ -57,19 +57,19 @@ public:
 	 *
 	 * @param parent  parent widget
 	 */
-	explicit ImportSourceDialog(QWidget* parent);
+	explicit ServerImportDialog(QWidget* parent);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~ImportSourceDialog();
+	virtual ~ServerImportDialog();
 
 	/**
 	 * Set importer to be used.
 	 *
 	 * @param source  import source to use
 	 */
-	void setImportSource(ImportSource* source);
+	void setImportSource(ServerImporter* source);
 
 	/**
 	 * Get string with server and port.
@@ -201,7 +201,7 @@ private:
 	 *
 	 * @param cfg configuration
 	 */
-	void getImportSourceConfig(ImportSourceConfig* cfg) const;
+	void getImportSourceConfig(ServerImporterConfig* cfg) const;
 
 	QComboBox* m_artistLineEdit;
 	QComboBox* m_albumLineEdit;
@@ -215,7 +215,7 @@ private:
 	QPushButton* m_helpButton;
 	QPushButton* m_saveButton;
 	QStatusBar* m_statusBar;
-	ImportSource* m_source;
+	ServerImporter* m_source;
 };
 
 #endif

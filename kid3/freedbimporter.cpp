@@ -1,6 +1,6 @@
 /**
- * \file freedbclient.cpp
- * freedb.org client.
+ * \file freedbimporter.cpp
+ * freedb.org importer.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "freedbclient.h"
-#include "importsourceconfig.h"
+#include "freedbimporter.h"
+#include "serverimporterconfig.h"
 #include "kid3.h"
 #include "genres.h"
 
@@ -37,17 +37,17 @@ static const char gnudbServer[] = "www.gnudb.org:80";
  * @param parent          parent object
  * @param trackDataVector track data to be filled with imported values
  */
-FreedbClient::FreedbClient(QObject* parent,
-													 ImportTrackDataVector& trackDataVector) :
-	ImportSource(parent, trackDataVector)
+FreedbImporter::FreedbImporter(QObject* parent,
+															 ImportTrackDataVector& trackDataVector) :
+	ServerImporter(parent, trackDataVector)
 {
-	setObjectName("FreedbClient");
+	setObjectName("FreedbImporter");
 }
 
 /**
  * Destructor.
  */
-FreedbClient::~FreedbClient()
+FreedbImporter::~FreedbImporter()
 {
 }
 
@@ -55,10 +55,10 @@ FreedbClient::~FreedbClient()
  * Name of import source.
  * @return name.
  */
-QString FreedbClient::name() const { return "gnudb.org"; }
+QString FreedbImporter::name() const { return "gnudb.org"; }
 
 /** NULL-terminated array of server strings, 0 if not used */
-const char** FreedbClient::serverList() const
+const char** FreedbImporter::serverList() const
 {
 	static const char* servers[] = {
 		"www.gnudb.org:80",
@@ -80,23 +80,23 @@ const char** FreedbClient::serverList() const
 }
 
 /** default server, 0 to disable */
-const char* FreedbClient::defaultServer() const { return "www.gnudb.org:80"; }
+const char* FreedbImporter::defaultServer() const { return "www.gnudb.org:80"; }
 
 /** default CGI path, 0 to disable */
-const char* FreedbClient::defaultCgiPath() const { return "/~cddb/cddb.cgi"; }
+const char* FreedbImporter::defaultCgiPath() const { return "/~cddb/cddb.cgi"; }
 
 /** anchor to online help, 0 to disable */
-const char* FreedbClient::helpAnchor() const { return "import-freedb"; }
+const char* FreedbImporter::helpAnchor() const { return "import-freedb"; }
 
 /** configuration, 0 if not used */
-ImportSourceConfig* FreedbClient::cfg() const { return &Kid3App::s_freedbCfg; }
+ServerImporterConfig* FreedbImporter::config() const { return &Kid3App::s_freedbCfg; }
 
 /**
  * Process finished findCddbAlbum request.
  *
  * @param searchStr search data received
  */
-void FreedbClient::parseFindResults(const QByteArray& searchStr)
+void FreedbImporter::parseFindResults(const QByteArray& searchStr)
 {
 /*
 <h2>Search Results, 1 albums found:</h2>
@@ -223,7 +223,7 @@ static void parseFreedbAlbumData(const QString& text,
  *
  * @param albumStr album data received
  */
-void FreedbClient::parseAlbumResults(const QByteArray& albumStr)
+void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
 {
 	QString text = QString::fromUtf8(albumStr);
 	FrameCollection framesHdr;
@@ -288,8 +288,8 @@ void FreedbClient::parseAlbumResults(const QByteArray& albumStr)
  * @param artist   artist to search
  * @param album    album to search
  */
-void FreedbClient::sendFindQuery(
-	const ImportSourceConfig*,
+void FreedbImporter::sendFindQuery(
+	const ServerImporterConfig*,
 	const QString& artist, const QString& album)
 {
 	// At the moment, only www.gnudb.org has a working search
@@ -306,8 +306,8 @@ void FreedbClient::sendFindQuery(
  * @param cat      category
  * @param id       ID
  */
-void FreedbClient::sendTrackListQuery(
-	const ImportSourceConfig* cfg, const QString& cat, const QString& id)
+void FreedbImporter::sendTrackListQuery(
+	const ServerImporterConfig* cfg, const QString& cat, const QString& id)
 {
 	sendRequest(cfg->m_server,
 							cfg->m_cgiPath + "?cmd=cddb+read+" + cat + "+" + id +

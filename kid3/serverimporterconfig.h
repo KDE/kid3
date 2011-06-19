@@ -1,6 +1,6 @@
 /**
- * \file importsourceconfig.h
- * Configuration for import source.
+ * \file serverimporterconfig.h
+ * Configuration for server import.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTSOURCECONFIG_H
-#define IMPORTSOURCECONFIG_H
+#ifndef SERVERIMPORTERCONFIG_H
+#define SERVERIMPORTERCONFIG_H
 
 #include "generalconfig.h"
 #include <QString>
@@ -33,7 +33,7 @@
 /**
  * Freedb configuration.
  */
-class ImportSourceConfig : public GeneralConfig {
+class ServerImporterConfig : public GeneralConfig {
 public:
 	/**
 	 * Constructor.
@@ -43,19 +43,19 @@ public:
 	 * @param cgiPathUsed true to use CgiPath configuration
 	 * @param additionalTagsUsed true to use AdditionalTags configuration
 	 */
-	ImportSourceConfig(const QString& grp, bool cgiPathUsed = true,
-										 bool additionalTagsUsed = false);
+	ServerImporterConfig(const QString& grp, bool cgiPathUsed = true,
+											 bool additionalTagsUsed = false);
 
 	/**
 	 * Constructor.
 	 * Used to create temporary configuration.
 	 */
-	ImportSourceConfig();
+	ServerImporterConfig();
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~ImportSourceConfig();
+	virtual ~ServerImporterConfig();
 
 	/**
 	 * Persist configuration.

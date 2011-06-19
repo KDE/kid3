@@ -1,6 +1,6 @@
 /**
- * \file amazonclient.cpp
- * Amazon database import source.
+ * \file amazonimporter.cpp
+ * Amazon database importer.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "amazonclient.h"
+#include "amazonimporter.h"
 #include <QRegExp>
 #include <QDomDocument>
 #include "kid3.h"
@@ -36,18 +36,18 @@
  * @param parent          parent object
  * @param trackDataVector track data to be filled with imported values
  */
-AmazonClient::AmazonClient(
+AmazonImporter::AmazonImporter(
 	QObject* parent,
 	ImportTrackDataVector& trackDataVector)
-	: ImportSource(parent, trackDataVector)
+	: ServerImporter(parent, trackDataVector)
 {
-	setObjectName("AmazonClient");
+	setObjectName("AmazonImporter");
 }
 
 /**
  * Destructor.
  */
-AmazonClient::~AmazonClient()
+AmazonImporter::~AmazonImporter()
 {
 }
 
@@ -55,10 +55,10 @@ AmazonClient::~AmazonClient()
  * Name of import source.
  * @return name.
  */
-QString AmazonClient::name() const { return "Amazon"; }
+QString AmazonImporter::name() const { return "Amazon"; }
 
 /** NULL-terminated array of server strings, 0 if not used */
-const char** AmazonClient::serverList() const
+const char** AmazonImporter::serverList() const
 {
 	static const char* servers[] = {
 		// Parsing only works with English text
@@ -70,23 +70,23 @@ const char** AmazonClient::serverList() const
 }
 
 /** default server, 0 to disable */
-const char* AmazonClient::defaultServer() const { return "www.amazon.com:80"; }
+const char* AmazonImporter::defaultServer() const { return "www.amazon.com:80"; }
 
 /** anchor to online help, 0 to disable */
-const char* AmazonClient::helpAnchor() const { return "import-amazon"; }
+const char* AmazonImporter::helpAnchor() const { return "import-amazon"; }
 
 /** configuration, 0 if not used */
-ImportSourceConfig* AmazonClient::cfg() const { return &Kid3App::s_amazonCfg; }
+ServerImporterConfig* AmazonImporter::config() const { return &Kid3App::s_amazonCfg; }
 
 /** additional tags option, false if not used */
-bool AmazonClient::additionalTags() const { return true; }
+bool AmazonImporter::additionalTags() const { return true; }
 
 /**
  * Process finished findCddbAlbum request.
  *
  * @param searchStr search data received
  */
-void AmazonClient::parseFindResults(const QByteArray& searchStr)
+void AmazonImporter::parseFindResults(const QByteArray& searchStr)
 {
 	/* products have the following format (depending on browser):
 <td class="dataColumn"><table cellpadding="0" cellspacing="0" border="0"><tr><td>                      
@@ -120,7 +120,7 @@ void AmazonClient::parseFindResults(const QByteArray& searchStr)
  *
  * @param albumStr album data received
  */
-void AmazonClient::parseAlbumResults(const QByteArray& albumStr)
+void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 {
 	/*
 		title (empty lines removed):
@@ -419,8 +419,8 @@ void AmazonClient::parseAlbumResults(const QByteArray& albumStr)
  * @param artist   artist to search
  * @param album    album to search
  */
-void AmazonClient::sendFindQuery(
-	const ImportSourceConfig* cfg,
+void AmazonImporter::sendFindQuery(
+	const ServerImporterConfig* cfg,
 	const QString& artist, const QString& album)
 {
 	/*
@@ -441,8 +441,8 @@ void AmazonClient::sendFindQuery(
  * @param cat      category
  * @param id       ID
  */
-void AmazonClient::sendTrackListQuery(
-	const ImportSourceConfig* cfg, const QString& cat, const QString& id)
+void AmazonImporter::sendTrackListQuery(
+	const ServerImporterConfig* cfg, const QString& cat, const QString& id)
 {
 	/*
 	 * Query looks like this:

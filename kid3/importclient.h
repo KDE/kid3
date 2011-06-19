@@ -1,5 +1,5 @@
 /**
- * \file importsourceclient.h
+ * \file importclient.h
  * Client to connect to server with import data.
  *
  * \b Project: Kid3
@@ -24,17 +24,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IMPORTSOURCECLIENT_H
-#define IMPORTSOURCECLIENT_H
+#ifndef IMPORTCLIENT_H
+#define IMPORTCLIENT_H
 
 #include "httpclient.h"
 
-class ImportSourceConfig;
+class ServerImporterConfig;
 
 /**
  * Client to connect to server with import data.
  */
-class ImportSourceClient : public HttpClient
+class ImportClient : public HttpClient
 {
 Q_OBJECT
 
@@ -44,12 +44,12 @@ public:
 	 *
 	 * @param parent  parent object
 	 */
-	explicit ImportSourceClient(QObject* parent = 0);
+	explicit ImportClient(QObject* parent = 0);
 
 	/**
 	 * Destructor.
 	 */
-	virtual ~ImportSourceClient();
+	virtual ~ImportClient();
 
 	/**
 	 * Send a query command to search on the server.
@@ -60,7 +60,7 @@ public:
 	 * @param album    album to search
 	 */
 	virtual void sendFindQuery(
-		const ImportSourceConfig* cfg,
+		const ServerImporterConfig* cfg,
 		const QString& artist, const QString& album) = 0;
 
 	/**
@@ -73,7 +73,7 @@ public:
 	 * @param id       ID
 	 */
 	virtual void sendTrackListQuery(
-		const ImportSourceConfig* cfg, const QString& cat, const QString& id) = 0;
+		const ServerImporterConfig* cfg, const QString& cat, const QString& id) = 0;
 
 	/**
 	 * Find artist, album on server.
@@ -82,7 +82,7 @@ public:
 	 * @param artist artist to search
 	 * @param album  album to search
 	 */
-	void find(const ImportSourceConfig* cfg,
+	void find(const ServerImporterConfig* cfg,
 						const QString& artist, const QString& album);
 
 	/**
@@ -92,7 +92,7 @@ public:
 	 * @param cat category
 	 * @param id  ID
 	 */
-	void getTrackList(const ImportSourceConfig* cfg, QString cat, QString id);
+	void getTrackList(const ServerImporterConfig* cfg, QString cat, QString id);
 
  /**
 	* Encode a query in an URL.

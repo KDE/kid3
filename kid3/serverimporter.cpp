@@ -1,6 +1,6 @@
 /**
- * \file importsource.cpp
- * Generic baseclass to import from an external source.
+ * \file serverimporter.cpp
+ * Generic baseclass to import from a server.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,10 +24,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "importsource.h"
+#include "serverimporter.h"
 #include <QStandardItemModel>
-#include "importsourceconfig.h"
-#include "importsourceclient.h"
+#include "serverimporterconfig.h"
+#include "importclient.h"
 #include "kid3.h"
 #include "trackdata.h"
 #include "qtcompatmac.h"
@@ -38,45 +38,45 @@
  * @param parent  parent object
  * @param trackDataVector track data to be filled with imported values
  */
-ImportSource::ImportSource(QObject* parent,
-													 ImportTrackDataVector& trackDataVector)
-	: ImportSourceClient(parent),
+ServerImporter::ServerImporter(QObject* parent,
+															 ImportTrackDataVector& trackDataVector)
+	: ImportClient(parent),
 		m_albumListModel(new QStandardItemModel(this)),
 		m_trackDataVector(trackDataVector),
 		m_additionalTagsEnabled(false), m_coverArtEnabled(false)
 {
-	setObjectName("ImportSource");
+	setObjectName("ServerImporter");
 }
 
 /**
  * Destructor.
  */
-ImportSource::~ImportSource()
+ServerImporter::~ServerImporter()
 {
 }
 
 /** NULL-terminated array of server strings, 0 if not used */
-const char** ImportSource::serverList() const { return 0; }
+const char** ServerImporter::serverList() const { return 0; }
 
 /** default server, 0 to disable */
-const char* ImportSource::defaultServer() const { return 0; }
+const char* ServerImporter::defaultServer() const { return 0; }
 
 /** default CGI path, 0 to disable */
-const char* ImportSource::defaultCgiPath() const { return 0; }
+const char* ServerImporter::defaultCgiPath() const { return 0; }
 
 /** anchor to online help, 0 to disable */
-const char* ImportSource::helpAnchor() const { return 0; }
+const char* ServerImporter::helpAnchor() const { return 0; }
 
 /** configuration, 0 if not used */
-ImportSourceConfig* ImportSource::cfg() const { return 0; }
+ServerImporterConfig* ServerImporter::config() const { return 0; }
 
 /** additional tags option, false if not used */
-bool ImportSource::additionalTags() const { return false; }
+bool ServerImporter::additionalTags() const { return false; }
 
 /**
  * Clear model data.
  */
-void ImportSource::clear()
+void ServerImporter::clear()
 {
 	m_albumListModel->clear();
 }
@@ -88,7 +88,7 @@ void ImportSource::clear()
  *
  * @return string with replaced HTML entities.
  */
-QString ImportSource::replaceHtmlEntities(QString str)
+QString ServerImporter::replaceHtmlEntities(QString str)
 {
 	str.replace("&quot;", "\"");
 	str.replace("&nbsp;", " ");
@@ -115,7 +115,7 @@ QString ImportSource::replaceHtmlEntities(QString str)
  *
  * @return clean up string
  */
-QString ImportSource::removeHtml(QString str)
+QString ServerImporter::removeHtml(QString str)
 {
 	QRegExp htmlTagRe("<[^>]+>");
 	return replaceHtmlEntities(str.remove(htmlTagRe)).trimmed();
