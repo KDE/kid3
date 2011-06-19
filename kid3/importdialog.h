@@ -32,10 +32,26 @@
 #include "trackdata.h"
 #include "importconfig.h"
 
-class ImportSelector;
-class FreedbConfig;
+class QString;
+class QPushButton;
+class QComboBox;
+class QLineEdit;
 class QCheckBox;
 class QSpinBox;
+class QTableView;
+class TrackDataModel;
+class FreedbImporter;
+class TrackTypeImporter;
+class MusicBrainzDialog;
+class MusicBrainzReleaseImporter;
+class DiscogsImporter;
+class AmazonImporter;
+class ServerImporter;
+class ServerImportDialog;
+class TextImportDialog;
+class ImportTrackDataVector;
+class FrameCollection;
+class FreedbConfig;
 #ifdef HAVE_TUNEPIMP
 class MusicBrainzConfig;
 #endif
@@ -118,10 +134,129 @@ private slots:
 	 */
 	void saveConfig();
 
+	/**
+	 * Called when the maximum time difference value is changed.
+	 */
+	void maxDiffChanged();
+
+	/**
+	 * Move a table row.
+	 *
+	 * The first parameter @a section is not used.
+	 * @param fromIndex index of position moved from
+	 * @param toIndex   index of position moved to
+	 */
+	void moveTableRow(int, int fromIndex, int toIndex);
+
+	/**
+	 * Import from server and preview in table.
+	 */
+	void fromServer();
+
+	/**
+	 * Import from text.
+	 */
+	void fromText();
+
+	/**
+	 * Show fields to import in text as preview in table.
+	 */
+	void showPreview();
+
+	/**
+	 * Match import data with length.
+	 */
+	void matchWithLength();
+
+	/**
+	 * Match import data with track number.
+	 */
+	void matchWithTrack();
+
+	/**
+	 * Match import data with title.
+	 */
+	void matchWithTitle();
+
+	/**
+	 * Import from freedb.org and preview in table.
+	 */
+	void fromFreedb();
+
+	/**
+	 * Import from TrackType.org and preview in table.
+	 */
+	void fromTrackType();
+
+	/**
+	 * Import from MusicBrainz and preview in table.
+	 */
+	void fromMusicBrainz();
+
+	/**
+	 * Import from MusicBrainz release database and preview in table.
+	 */
+	void fromMusicBrainzRelease();
+
+	/**
+	 * Import from www.discogs.com and preview in table.
+	 */
+	void fromDiscogs();
+
+	/**
+	 * Import from www.amazon.com and preview in table.
+	 */
+	void fromAmazon();
+
+	/**
+	 * Hide subdialogs.
+	 */
+	void hideSubdialogs();
+
 private:
+	/**
+	 * Get time difference check configuration.
+	 *
+	 * @param enable  true if check is enabled
+	 * @param maxDiff maximum allowed time difference
+	 */
+	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
+
+	/**
+	 * Display dialog with import source.
+	 *
+	 * @param source import source
+	 */
+	void displayImportSourceDialog(ServerImporter* source);
+
 	AutoStartSubDialog m_autoStartSubDialog;
-	/** import selector widget */
-	ImportSelector* m_impsel;
+	/** Preview table */
+	QTableView* m_trackDataTable;
+	/** Track data model */
+	TrackDataModel* m_trackDataModel;
+	/** combobox with import servers */
+	QComboBox* m_serverComboBox;
+	/** combobox with import destinations */
+	QComboBox* m_destComboBox;
+	QCheckBox* m_mismatchCheckBox;
+	QSpinBox* m_maxDiffSpinBox;
+	/** freedb.org importer */
+	FreedbImporter* m_freedbImporter;
+	/** TrackType.org importer */
+	TrackTypeImporter* m_trackTypeImporter;
+	/** MusicBrainz import dialog */
+	MusicBrainzDialog* m_musicBrainzDialog;
+	/** MusicBrainz release importer */
+	MusicBrainzReleaseImporter* m_musicBrainzReleaseImporter;
+	/** Discogs importer */
+	DiscogsImporter* m_discogsImporter;
+	/** Amazon importer */
+	AmazonImporter* m_amazonImporter;
+	/** Server import dialog */
+	ServerImportDialog* m_serverImportDialog;
+	/** Text import dialog */
+	TextImportDialog* m_textImportDialog;
+	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
 };
 

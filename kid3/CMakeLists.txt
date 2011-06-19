@@ -8,7 +8,7 @@ set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
 	modeliterator.cpp taggedfileiconprovider.cpp comboboxdelegate.cpp
 	frametable.cpp frametablemodel.cpp genres.cpp id3form.cpp kid3.cpp main.cpp m4afile.cpp
 	mp3file.cpp configdialog.cpp exportdialog.cpp formatconfig.cpp formatbox.cpp
-	importdialog.cpp importselector.cpp importparser.cpp generalconfig.cpp
+	importdialog.cpp importparser.cpp generalconfig.cpp
 	importconfig.cpp miscconfig.cpp freedbconfig.cpp
 	freedbimporter.cpp rendirdialog.cpp dirlist.cpp dirproxymodel.cpp taggedfile.cpp
 	musicbrainzdialog.cpp musicbrainzconfig.cpp musicbrainzclient.cpp
@@ -24,7 +24,8 @@ set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
 	attributedata.cpp browserdialog.cpp imageviewer.cpp editframedialog.cpp
 	editframefieldsdialog.cpp playlistdialog.cpp playlistconfig.cpp
 	playlistcreator.cpp amazonimporter.cpp amazonconfig.cpp
-	recentfilesmenu.cpp playtoolbar.cpp textimporter.cpp textimportdialog.cpp)
+	recentfilesmenu.cpp playtoolbar.cpp textimporter.cpp textimportdialog.cpp
+	trackdatamatcher.cpp)
 
 if (HAVE_QTDBUS)
   set(kid3_SRCS ${kid3_SRCS} scriptinterface.cpp)
@@ -111,7 +112,7 @@ endif (UNIX AND NOT APPLE)
 
 # Run moc on Q_OBJECT header files
 set(kid3_MOC_HDRS filelist.h frametable.h frametablemodel.h id3form.h kid3.h configdialog.h
-	exportdialog.h formatbox.h importdialog.h importselector.h rendirdialog.h
+	exportdialog.h formatbox.h importdialog.h rendirdialog.h
 	musicbrainzdialog.h musicbrainzclient.h numbertracksdialog.h
 	serverimportdialog.h importclient.h serverimporter.h externalprocess.h stringlistedit.h
 	filterdialog.h filefilter.h httpclient.h downloaddialog.h
