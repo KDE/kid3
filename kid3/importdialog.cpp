@@ -203,28 +203,6 @@ void ImportDialog::setDestination(ImportConfig::ImportDestination dest)
 }
 
 /**
- * Set the format lineedits.
- *
- * @param index format index
- */
-void ImportDialog::setFormatLineEdit(int index)
-{
-	return m_impsel->setFormatLineEdit(index);
-}
-
-/**
- * Import from a file.
- *
- * @param fn file name
- *
- * @return true if ok.
- */
-bool ImportDialog::importFromFile(const QString& fn)
-{
-	return m_impsel->importFromFile(fn);
-}
-
-/**
  * Show help.
  */
 void ImportDialog::showHelp()

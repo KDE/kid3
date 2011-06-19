@@ -135,6 +135,9 @@ public:
 	int m_browseCoverArtWindowHeight;
 	/** Mapping for picture URL matching */
 	QMap<QString, QString> m_matchPictureUrlMap;
+
+	/** Last directory used for import or export. */
+	QString m_importDir;
 };
 
 #endif

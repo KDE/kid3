@@ -748,17 +748,6 @@ private:
 	void execImportDialog();
 
 	/**
-	 * Import.
-	 *
-	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
-	 * @param path    path of file
-	 * @param fmtIdx  index of format
-	 *
-	 * @return true if ok.
-	 */
-	bool importTags(int tagMask, const QString& path, int fmtIdx);
-
-	/**
 	 * Write playlist according to playlist configuration.
 	 *
 	 * @param cfg playlist configuration to use

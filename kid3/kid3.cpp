@@ -1773,29 +1773,6 @@ void Kid3App::execImportDialog()
 
 /**
  * Import.
- *
- * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
- * @param path    path of file
- * @param fmtIdx  index of format
- *
- * @return true if ok.
- */
-bool Kid3App::importTags(int tagMask, const QString& path, int fmtIdx)
-{
-	setupImportDialog();
-	if (m_importDialog) {
-		m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_None);
-		m_importDialog->setFormatLineEdit(fmtIdx);
-		if (m_importDialog->importFromFile(path)) {
-			getTagsFromImportDialog((tagMask & 1) != 0, (tagMask & 2) != 0);
-			return true;
-		}
-	}
-	return false;
-}
-
-/**
- * Import.
  */
 void Kid3App::slotImport()
 {

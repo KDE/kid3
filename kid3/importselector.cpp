@@ -25,18 +25,8 @@
  */
 
 #include "importselector.h"
-#include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <kfiledialog.h>
-#else
-#include <QFileDialog>
-#endif
 #include <QLayout>
 #include <QPushButton>
-#include <QFile>
-#include <QTextStream>
-#include <QApplication>
-#include <QClipboard>
 #include <QLabel>
 #include <QComboBox>
 #include <QLineEdit>
@@ -50,6 +40,7 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QGroupBox>
+#include <QDir>
 #include "genres.h"
 #include "freedbimporter.h"
 #include "tracktypeimporter.h"
@@ -57,21 +48,18 @@
 #include "discogsimporter.h"
 #include "amazonimporter.h"
 #include "serverimportdialog.h"
+#include "textimportdialog.h"
 #include "kid3.h"
 #include "taggedfile.h"
 #include "trackdata.h"
-#include "importparser.h"
 #include "trackdatamodel.h"
 #include "frametablemodel.h"
 #include "qtcompatmac.h"
+#include "config.h"
 #ifdef HAVE_TUNEPIMP
 #include "musicbrainzdialog.h"
 #include "musicbrainzconfig.h"
 #endif
-
-
-/** Last directory used for import or export. */
-QString ImportSelector::s_importDir;
 
 /**
  * Constructor.
@@ -86,18 +74,16 @@ ImportSelector::ImportSelector(
 	m_trackDataVector(trackDataList)
 {
 	setObjectName("ImportSelector");
-	m_freedbClient = 0;
-	m_trackTypeClient = 0;
-	m_musicBrainzReleaseClient = 0;
-	m_discogsClient = 0;
-	m_amazonClient = 0;
-	m_importSourceDialog = 0;
+	m_freedbImporter = 0;
+	m_trackTypeImporter = 0;
+	m_musicBrainzReleaseImporter = 0;
+	m_discogsImporter = 0;
+	m_amazonImporter = 0;
+	m_serverImportDialog = 0;
+	m_textImportDialog = 0;
 #ifdef HAVE_TUNEPIMP
 	m_musicBrainzDialog = 0;
 #endif
-	m_importSource = None;
-	m_headerParser = new ImportParser();
-	m_trackParser = new ImportParser();
 	QVBoxLayout* vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(6);
 	vboxLayout->setMargin(6);
@@ -112,36 +98,17 @@ ImportSelector::ImportSelector(
 					this, SLOT(moveTableRow(int, int, int)));
 	vboxLayout->addWidget(m_trackDataTable);
 
-	QGroupBox* fmtbox = new QGroupBox(i18n("Format"), this);
-	m_formatComboBox = new QComboBox(fmtbox);
-	m_formatComboBox->setEditable(true);
-	m_headerLineEdit = new QLineEdit(fmtbox);
-	m_trackLineEdit = new QLineEdit(fmtbox);
-	QString formatToolTip = ImportParser::getFormatToolTip();
-	m_headerLineEdit->setToolTip(formatToolTip);
-	m_trackLineEdit->setToolTip(formatToolTip);
-	connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
-	QVBoxLayout* vbox = new QVBoxLayout;
-	vbox->setMargin(2);
-	vbox->addWidget(m_formatComboBox);
-	vbox->addWidget(m_headerLineEdit);
-	vbox->addWidget(m_trackLineEdit);
-	fmtbox->setLayout(vbox);
-	vboxLayout->addWidget(fmtbox);
-
 	QWidget* butbox = new QWidget(this);
 	QHBoxLayout* butlayout = new QHBoxLayout(butbox);
 	butlayout->setMargin(0);
 	butlayout->setSpacing(6);
-	m_fileButton = new QPushButton(i18n("From F&ile"), butbox);
-	m_fileButton->setAutoDefault(false);
-	butlayout->addWidget(m_fileButton);
-	m_clipButton = new QPushButton(i18n("From Clip&board"), butbox);
-	m_clipButton->setAutoDefault(false);
-	butlayout->addWidget(m_clipButton);
-	m_serverButton = new QPushButton(i18n("&From Server:"), butbox);
-	m_serverButton->setAutoDefault(false);
-	butlayout->addWidget(m_serverButton);
+	QPushButton* fileButton = new QPushButton(i18n("From F&ile/Clipboard..."),
+																						butbox);
+	fileButton->setAutoDefault(false);
+	butlayout->addWidget(fileButton);
+	QPushButton* serverButton = new QPushButton(i18n("&From Server:"), butbox);
+	serverButton->setAutoDefault(false);
+	butlayout->addWidget(serverButton);
 	m_serverComboBox = new QComboBox(butbox);
 	m_serverComboBox->setEditable(false);
 	m_serverComboBox->insertItem(ImportConfig::ServerFreedb, i18n("gnudb.org"));
@@ -186,21 +153,20 @@ ImportSelector::ImportSelector(
 	matchLayout->addItem(matchSpacer);
 	QLabel* matchLabel = new QLabel(i18n("Match with:"), matchBox);
 	matchLayout->addWidget(matchLabel);
-	m_lengthButton = new QPushButton(i18n("&Length"), matchBox);
-	matchLayout->addWidget(m_lengthButton);
-	m_trackButton = new QPushButton(i18n("T&rack"), matchBox);
-	matchLayout->addWidget(m_trackButton);
-	m_titleButton = new QPushButton(i18n("&Title"), matchBox);
-	matchLayout->addWidget(m_titleButton);
+	QPushButton* lengthButton = new QPushButton(i18n("&Length"), matchBox);
+	matchLayout->addWidget(lengthButton);
+	QPushButton* trackButton = new QPushButton(i18n("T&rack"), matchBox);
+	matchLayout->addWidget(trackButton);
+	QPushButton* titleButton = new QPushButton(i18n("&Title"), matchBox);
+	matchLayout->addWidget(titleButton);
 	vboxLayout->addWidget(matchBox);
 
-	connect(m_fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
-	connect(m_clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
-	connect(m_serverButton, SIGNAL(clicked()), this, SLOT(fromServer()));
+	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromText()));
+	connect(serverButton, SIGNAL(clicked()), this, SLOT(fromServer()));
 	connect(m_serverComboBox, SIGNAL(activated(int)), this, SLOT(fromServer()));
-	connect(m_lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
-	connect(m_trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
-	connect(m_titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
+	connect(lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
+	connect(trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
+	connect(titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
 	connect(m_mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
 	connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
 }
@@ -210,14 +176,13 @@ ImportSelector::ImportSelector(
  */
 ImportSelector::~ImportSelector()
 {
-	delete m_headerParser;
-	delete m_trackParser;
-	delete m_importSourceDialog;
-	delete m_freedbClient;
-	delete m_trackTypeClient;
-	delete m_musicBrainzReleaseClient;
-	delete m_discogsClient;
-	delete m_amazonClient;
+	delete m_textImportDialog;
+	delete m_serverImportDialog;
+	delete m_freedbImporter;
+	delete m_trackTypeImporter;
+	delete m_musicBrainzReleaseImporter;
+	delete m_discogsImporter;
+	delete m_amazonImporter;
 #ifdef HAVE_TUNEPIMP
 	delete m_musicBrainzDialog;
 #endif
@@ -234,19 +199,6 @@ void ImportSelector::setImportServer(ImportConfig::ImportServer server)
 }
 
 /**
- * Set the format combo box and line edits from the configuration.
- */
-void ImportSelector::setFormatFromConfig()
-{
-	m_formatHeaders = Kid3App::s_genCfg.m_importFormatHeaders;
-	m_formatTracks = Kid3App::s_genCfg.m_importFormatTracks;
-	m_formatComboBox->clear();
-	m_formatComboBox->addItems(Kid3App::s_genCfg.m_importFormatNames);
-	m_formatComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importFormatIdx);
-	setFormatLineEdit(Kid3App::s_genCfg.m_importFormatIdx);
-}
-
-/**
  * Clear dialog data.
  */
 void ImportSelector::clear()
@@ -256,89 +208,8 @@ void ImportSelector::clear()
 	m_serverComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importServer);
 	m_destComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importDest);
 
-	setFormatFromConfig();
-
 	m_mismatchCheckBox->setChecked(Kid3App::s_genCfg.m_enableTimeDifferenceCheck);
 	m_maxDiffSpinBox->setValue(Kid3App::s_genCfg.m_maxTimeDifference);
-}
-
-/**
- * Look for album specific information (artist, album, year, genre) in
- * a header.
- *
- * @param frames frames to put resulting values in,
- *           fields which are not found are not touched.
- *
- * @return true if one or more field were found.
- */
-bool ImportSelector::parseHeader(FrameCollection& frames)
-{
-	int pos = 0;
-	m_headerParser->setFormat(m_headerLineEdit->text());
-	return m_headerParser->getNextTags(m_text, frames, pos);
-}
-
-/**
- * Import from a file.
- *
- * @param fn file name
- *
- * @return true if ok.
- */
-bool ImportSelector::importFromFile(const QString& fn)
-{
-	if (!fn.isEmpty()) {
-		QFile file(fn);
-		if (file.open(QIODevice::ReadOnly)) {
-			setImportDir(QFileInfo(file).dir().path());
-			QTextStream stream(&file);
-			m_text = stream.readAll();
-			if (!m_text.isNull()) {
-				updateTrackData(File);
-				showPreview();
-			}
-			file.close();
-			return true;
-		}
-	}
-	return false;
-}
-
-/**
- * Let user select file, assign file contents to text and preview in
- * table.
- */
-void ImportSelector::fromFile()
-{
-	importFromFile(
-#ifdef CONFIG_USE_KDE
-		KFileDialog::getOpenFileName(getImportDir(), QString::null, this)
-#else
-		QFileDialog::getOpenFileName(this, QString(), getImportDir()
-#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
-			, QString(), 0, QFileDialog::DontUseNativeDialog
-#endif
-			)
-#endif
-		);
-}
-
-/**
- * Assign clipboard contents to text and preview in table.
- */
-void ImportSelector::fromClipboard()
-{
-	QClipboard* cb = QApplication::clipboard();
-	m_text = cb->text(QClipboard::Clipboard);
-	if (!m_text.isNull() && updateTrackData(Clipboard)) {
-		showPreview();
-	} else {
-		m_text = cb->text(QClipboard::Selection);
-		if (!m_text.isNull()) {
-			updateTrackData(Clipboard);
-			showPreview();
-		}
-	}
 }
 
 /**
@@ -371,22 +242,36 @@ void ImportSelector::fromServer()
 }
 
 /**
+ * Import from text.
+ */
+void ImportSelector::fromText()
+{
+	if (!m_textImportDialog) {
+		m_textImportDialog = new TextImportDialog(this, m_trackDataVector);
+		connect(m_textImportDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
+	}
+	m_textImportDialog->clear();
+	m_textImportDialog->show();
+}
+
+/**
  * Display dialog with import source.
  *
  * @param source import source
  */
 void ImportSelector::displayImportSourceDialog(ServerImporter* source)
 {
-	if (!m_importSourceDialog) {
-		m_importSourceDialog = new ServerImportDialog(this);
-		connect(m_importSourceDialog, SIGNAL(trackDataUpdated()),
+	if (!m_serverImportDialog) {
+		m_serverImportDialog = new ServerImportDialog(this);
+		connect(m_serverImportDialog, SIGNAL(trackDataUpdated()),
 						this, SLOT(showPreview()));
 	}
-	if (m_importSourceDialog) {
-		m_importSourceDialog->setImportSource(source);
-		m_importSourceDialog->setArtistAlbum(m_trackDataVector.getArtist(),
+	if (m_serverImportDialog) {
+		m_serverImportDialog->setImportSource(source);
+		m_serverImportDialog->setArtistAlbum(m_trackDataVector.getArtist(),
 																		m_trackDataVector.getAlbum());
-		m_importSourceDialog->show();
+		m_serverImportDialog->show();
 	}
 }
 
@@ -396,10 +281,10 @@ void ImportSelector::displayImportSourceDialog(ServerImporter* source)
  */
 void ImportSelector::fromFreedb()
 {
-	if (!m_freedbClient) {
-		m_freedbClient = new FreedbImporter(this, m_trackDataVector);
+	if (!m_freedbImporter) {
+		m_freedbImporter = new FreedbImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_freedbClient);
+	displayImportSourceDialog(m_freedbImporter);
 }
 
 /**
@@ -407,10 +292,10 @@ void ImportSelector::fromFreedb()
  */
 void ImportSelector::fromTrackType()
 {
-	if (!m_trackTypeClient) {
-		m_trackTypeClient = new TrackTypeImporter(this, m_trackDataVector);
+	if (!m_trackTypeImporter) {
+		m_trackTypeImporter = new TrackTypeImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_trackTypeClient);
+	displayImportSourceDialog(m_trackTypeImporter);
 }
 
 /**
@@ -418,11 +303,11 @@ void ImportSelector::fromTrackType()
  */
 void ImportSelector::fromMusicBrainzRelease()
 {
-	if (!m_musicBrainzReleaseClient) {
-		m_musicBrainzReleaseClient =
+	if (!m_musicBrainzReleaseImporter) {
+		m_musicBrainzReleaseImporter =
 				new MusicBrainzReleaseImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_musicBrainzReleaseClient);
+	displayImportSourceDialog(m_musicBrainzReleaseImporter);
 }
 
 /**
@@ -430,10 +315,10 @@ void ImportSelector::fromMusicBrainzRelease()
  */
 void ImportSelector::fromDiscogs()
 {
-	if (!m_discogsClient) {
-		m_discogsClient = new DiscogsImporter(this, m_trackDataVector);
+	if (!m_discogsImporter) {
+		m_discogsImporter = new DiscogsImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_discogsClient);
+	displayImportSourceDialog(m_discogsImporter);
 }
 
 /**
@@ -441,88 +326,10 @@ void ImportSelector::fromDiscogs()
  */
 void ImportSelector::fromAmazon()
 {
-	if (!m_amazonClient) {
-		m_amazonClient = new AmazonImporter(this, m_trackDataVector);
+	if (!m_amazonImporter) {
+		m_amazonImporter = new AmazonImporter(this, m_trackDataVector);
 	}
-	displayImportSourceDialog(m_amazonClient);
-}
-
-/**
- * Set the format lineedits to the format selected in the combo box.
- *
- * @param index current index of the combo box
- */
-void ImportSelector::setFormatLineEdit(int index)
-{
-	if (index < static_cast<int>(m_formatHeaders.size())) {
-		m_headerLineEdit->setText(m_formatHeaders[index]);
-		m_trackLineEdit->setText(m_formatTracks[index]);
-	} else {
-		m_headerLineEdit->clear();
-		m_trackLineEdit->clear();
-	}
-}
-
-/**
- * Update track data list with imported tags.
- *
- * @param impSrc import source
- *
- * @return true if tags were found.
- */
-bool ImportSelector::updateTrackData(ImportSource impSrc) {
-	FrameCollection framesHdr;
-	m_importSource = impSrc;
-	(void)parseHeader(framesHdr);
-
-	FrameCollection frames(framesHdr);
-	bool start = true;
-	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-	bool atTrackDataListEnd = (it == m_trackDataVector.end());
-	while (getNextTags(frames, start)) {
-		start = false;
-		if (atTrackDataListEnd) {
-			ImportTrackData trackData;
-			trackData.setFrameCollection(frames);
-			m_trackDataVector.push_back(trackData);
-		} else {
-			(*it).setFrameCollection(frames);
-			++it;
-			atTrackDataListEnd = (it == m_trackDataVector.end());
-		}
-		frames = framesHdr;
-	}
-	frames.clear();
-	while (!atTrackDataListEnd) {
-		if ((*it).getFileDuration() == 0) {
-			it = m_trackDataVector.erase(it);
-		} else {
-			(*it).setFrameCollection(frames);
-			(*it).setImportDuration(0);
-			++it;
-		}
-		atTrackDataListEnd = (it == m_trackDataVector.end());
-	}
-
-	if (!start) {
-		/* start is false => tags were found */
-		QList<int> trackDuration = getTrackDurations();
-		if (!trackDuration.isEmpty()) {
-			it = m_trackDataVector.begin();
-			for (QList<int>::const_iterator tdit = trackDuration.begin();
-					 tdit != trackDuration.end();
-					 ++tdit) {
-				if (it != m_trackDataVector.end()) {
-					(*it).setImportDuration(*tdit);
-					++it;
-				} else {
-					break;
-				}
-			}
-		}
-		return true;
-	}
-	return false;
+	displayImportSourceDialog(m_amazonImporter);
 }
 
 /**
@@ -538,26 +345,6 @@ void ImportSelector::showPreview() {
 	m_trackDataTable->scrollToTop();
 	m_trackDataTable->resizeColumnsToContents();
 	m_trackDataTable->resizeRowsToContents();
-}
-
-/**
- * Get next line as frames from imported file or clipboard.
- *
- * @param frames frames
- * @param start true to start with the first line, false for all
- *              other lines
- *
- * @return true if ok (result in st),
- *         false if end of file reached.
- */
-bool ImportSelector::getNextTags(FrameCollection& frames, bool start)
-{
-	static int pos = 0;
-	if (start || pos == 0) {
-		pos = 0;
-		m_trackParser->setFormat(m_trackLineEdit->text(), true);
-	}
-	return m_trackParser->getNextTags(m_text, frames, pos);
 }
 
 /**
@@ -594,41 +381,11 @@ void ImportSelector::saveConfig(int width, int height)
 
 	Kid3App::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
 		m_serverComboBox->currentIndex());
-	Kid3App::s_genCfg.m_importFormatIdx = m_formatComboBox->currentIndex();
-	if (Kid3App::s_genCfg.m_importFormatIdx < static_cast<int>(Kid3App::s_genCfg.m_importFormatNames.size())) {
-		Kid3App::s_genCfg.m_importFormatNames[Kid3App::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
-		Kid3App::s_genCfg.m_importFormatHeaders[Kid3App::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
-		Kid3App::s_genCfg.m_importFormatTracks[Kid3App::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
-	} else {
-		Kid3App::s_genCfg.m_importFormatIdx = Kid3App::s_genCfg.m_importFormatNames.size();
-		Kid3App::s_genCfg.m_importFormatNames.append(m_formatComboBox->currentText());
-		Kid3App::s_genCfg.m_importFormatHeaders.append(m_headerLineEdit->text());
-		Kid3App::s_genCfg.m_importFormatTracks.append(m_trackLineEdit->text());
-	}
 	getTimeDifferenceCheck(Kid3App::s_genCfg.m_enableTimeDifferenceCheck,
 												 Kid3App::s_genCfg.m_maxTimeDifference);
 
 	Kid3App::s_genCfg.m_importWindowWidth = width;
 	Kid3App::s_genCfg.m_importWindowHeight = height;
-
-	setFormatFromConfig();
-}
-
-/**
- * Get list with track durations.
- *
- * @return list with track durations,
- *         empty if no track durations found.
- */
-QList<int> ImportSelector::getTrackDurations()
-{
-	QList<int> lst;
-	if (m_headerParser) {
-		lst = m_headerParser->getTrackDurations();
-	} else if (m_trackParser) {
-		lst = m_trackParser->getTrackDurations();
-	}
-	return lst;
 }
 
 /**
@@ -1044,6 +801,8 @@ void ImportSelector::matchWithTitle()
  */
 void ImportSelector::hideSubdialogs()
 {
-	if (m_importSourceDialog)
-		m_importSourceDialog->hide();
+	if (m_serverImportDialog)
+		m_serverImportDialog->hide();
+	if (m_textImportDialog)
+		m_textImportDialog->hide();
 }

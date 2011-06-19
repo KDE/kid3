@@ -36,7 +36,6 @@
 #include "taggedfile.h"
 #include "genres.h"
 #include "kid3.h"
-#include "importselector.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QLabel>
@@ -187,9 +186,7 @@ bool ExportDialog::exportToFile(const QString& fn)
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QIODevice::WriteOnly)) {
-			ImportSelector::setImportDir(
-				QFileInfo(file).dir().path()
-				);
+			Kid3App::s_genCfg.m_importDir = QFileInfo(file).dir().path();
 			QTextStream stream(&file);
 			stream << m_edit->toPlainText();
 			file.close();
@@ -206,10 +203,10 @@ void ExportDialog::slotToFile()
 {
 	QString fileName =
 #ifdef CONFIG_USE_KDE
-		KFileDialog::getSaveFileName(ImportSelector::getImportDir(),
+		KFileDialog::getSaveFileName(Kid3App::s_genCfg.m_importDir,
 																 QString::null, this);
 #else
-		QFileDialog::getSaveFileName(this, QString(), ImportSelector::getImportDir()
+		QFileDialog::getSaveFileName(this, QString(), Kid3App::s_genCfg.m_importDir
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
 			, QString(), 0, QFileDialog::DontUseNativeDialog
 #endif

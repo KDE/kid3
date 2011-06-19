@@ -114,7 +114,11 @@ void ScriptInterface::revert()
  */
 bool ScriptInterface::importFromFile(int tagMask, const QString& path, int fmtIdx)
 {
-	return m_app->importTags(tagMask, path, fmtIdx);
+	//! @todo implement with TextImporter and import context.
+	Q_UNUSED(tagMask)
+	Q_UNUSED(path)
+	Q_UNUSED(fmtIdx)
+	return false;
 }
 
 /**

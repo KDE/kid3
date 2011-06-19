@@ -39,7 +39,6 @@ class QCheckBox;
 class QSpinBox;
 class QTableView;
 class TrackDataModel;
-class ImportParser;
 class FreedbImporter;
 class TrackTypeImporter;
 class MusicBrainzDialog;
@@ -48,6 +47,7 @@ class DiscogsImporter;
 class AmazonImporter;
 class ServerImporter;
 class ServerImportDialog;
+class TextImportDialog;
 class ImportTrackDataVector;
 class FrameCollection;
 
@@ -86,29 +86,6 @@ public:
 	void clear();
 
 	/**
-	 * Look for album specific information (artist, album, year, genre) in
-	 * a header.
-	 *
-	 * @param frames frames to put resulting values in,
-	 *           fields which are not found are not touched.
-	 *
-	 * @return true if one or more field were found.
-	 */
-	bool parseHeader(FrameCollection& frames);
-
-	/**
-	 * Get next line as frames from imported file or clipboard.
-	 *
-	 * @param frames frames
-	 * @param start true to start with the first line, false for all
-	 *              other lines
-	 *
-	 * @return true if ok (result in st),
-	 *         false if end of file reached.
-	 */
-	bool getNextTags(FrameCollection& frames, bool start);
-
-	/**
 	 * Get import destination.
 	 *
 	 * @return DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both.
@@ -123,29 +100,12 @@ public:
 	void setDestination(ImportConfig::ImportDestination dest);
 
 	/**
-	 * Get list with track durations.
-	 *
-	 * @return list with track durations,
-	 *         empty if no track durations found.
-	 */
-	QList<int> getTrackDurations();
-
-	/**
 	 * Get time difference check configuration.
 	 *
 	 * @param enable  true if check is enabled
 	 * @param maxDiff maximum allowed time difference
 	 */ 
 	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
-
-	/**
-	 * Import from a file.
-	 *
-	 * @param fn file name
-	 *
-	 * @return true if ok.
-	 */
-	bool importFromFile(const QString& fn);
 
 	/**
 	 * Save the local settings to the configuration.
@@ -155,62 +115,7 @@ public:
 	 */
 	void saveConfig(int width, int height);
 
-	/**
-	 * List with line formats.
-	 * The following codes are used before the () expressions.
-	 * %s title (song)
-	 * %l album
-	 * %a artist
-	 * %c comment
-	 * %y year
-	 * %t track
-	 * %g genre
-	 */
-	static const char** s_lineFmtList;
-
-	/**
-	 * Get last directory used for import or export.
-	 * @return import directory.
-	 */
-	static QString getImportDir() { return s_importDir; }
-
-	/**
-	 * Set last directory used for import or export.
-	 * @param dir import directory
-	 */
-	static void setImportDir(const QString& dir) { s_importDir = dir; }
-
 public slots:
-	/**
-	 * Called when the maximum time difference value is changed.
-	 */
-	void maxDiffChanged();
-
-	/**
-	 * Move a table row.
-	 *
-	 * The first parameter @a section is not used.
-	 * @param fromIndex index of position moved from
-	 * @param toIndex   index of position moved to
-	 */
-	void moveTableRow(int, int fromIndex, int toIndex);
-
-	/**
-	 * Let user select file, assign file contents to text and preview in
-	 * table.
-	 */
-	void fromFile();
-
-	/**
-	 * Assign clipboard contents to text and preview in table.
-	 */
-	void fromClipboard();
-
-	/**
-	 * Import from server and preview in table.
-	 */
-	void fromServer();
-
 	/**
 	 * Import from freedb.org and preview in table.
 	 */
@@ -242,11 +147,34 @@ public slots:
 	void fromAmazon();
 
 	/**
-	 * Set the format lineedits to the format selected in the combo box.
-	 *
-	 * @param index current index of the combo box
+	 * Hide subdialogs.
 	 */
-	void setFormatLineEdit(int index);
+	void hideSubdialogs();
+
+private slots:
+	/**
+	 * Called when the maximum time difference value is changed.
+	 */
+	void maxDiffChanged();
+
+	/**
+	 * Move a table row.
+	 *
+	 * The first parameter @a section is not used.
+	 * @param fromIndex index of position moved from
+	 * @param toIndex   index of position moved to
+	 */
+	void moveTableRow(int, int fromIndex, int toIndex);
+
+	/**
+	 * Import from server and preview in table.
+	 */
+	void fromServer();
+
+	/**
+	 * Import from text.
+	 */
+	void fromText();
 
 	/**
 	 * Show fields to import in text as preview in table.
@@ -268,30 +196,7 @@ public slots:
 	 */
 	void matchWithTitle();
 
-	/**
-	 * Hide subdialogs.
-	 */
-	void hideSubdialogs();
-
 private:
-	enum ImportSource {
-		None, File, Clipboard
-	};
-
-	/**
-	 * Update track data list with imported tags.
-	 *
-	 * @param impSrc import source
-	 *
-	 * @return true if tags were found.
-	 */
-	bool updateTrackData(ImportSource impSrc);
-
-	/**
-	 * Set the format combo box and line edits from the configuration.
-	 */
-	void setFormatFromConfig();
-
 	/**
 	 * Display dialog with import source.
 	 *
@@ -299,65 +204,34 @@ private:
 	 */
 	void displayImportSourceDialog(ServerImporter* source);
 
-	/** From File button */
-	QPushButton* m_fileButton;
-	/** From Clipboard button */
-	QPushButton* m_clipButton;
-	/** From Server button */
-	QPushButton* m_serverButton;
-	/** Match with Length button */
-	QPushButton* m_lengthButton;
-	/** Match with Track button */
-	QPushButton* m_trackButton;
-	/** Match with Title button */
-	QPushButton* m_titleButton;
 	/** Preview table */
 	QTableView* m_trackDataTable;
 	/** Track data model */
 	TrackDataModel* m_trackDataModel;
-	/** contents of imported file/clipboard */
-	QString m_text;
 	/** combobox with import servers */
 	QComboBox* m_serverComboBox;
 	/** combobox with import destinations */
 	QComboBox* m_destComboBox;
-	/** combobox with import formats */
-	QComboBox* m_formatComboBox;
-	/** LineEdit for header regexp */
-	QLineEdit* m_headerLineEdit;
-	/** LineEdit for track regexp */
-	QLineEdit* m_trackLineEdit;
 	QCheckBox* m_mismatchCheckBox;
 	QSpinBox* m_maxDiffSpinBox;
-	/** header parser object */
-	ImportParser* m_headerParser;
-	/** track parser object */
-	ImportParser* m_trackParser;
-	/** header format regexps */
-	QStringList m_formatHeaders;
-	/** track format regexps */
-	QStringList m_formatTracks;
 	/** freedb.org importer */
-	FreedbImporter* m_freedbClient;
+	FreedbImporter* m_freedbImporter;
 	/** TrackType.org importer */
-	TrackTypeImporter* m_trackTypeClient;
+	TrackTypeImporter* m_trackTypeImporter;
 	/** MusicBrainz import dialog */
 	MusicBrainzDialog* m_musicBrainzDialog;
 	/** MusicBrainz release importer */
-	MusicBrainzReleaseImporter* m_musicBrainzReleaseClient;
+	MusicBrainzReleaseImporter* m_musicBrainzReleaseImporter;
 	/** Discogs importer */
-	DiscogsImporter* m_discogsClient;
+	DiscogsImporter* m_discogsImporter;
 	/** Amazon importer */
-	AmazonImporter* m_amazonClient;
-	/** Import source dialog */
-	ServerImportDialog* m_importSourceDialog;
-	/** import source */
-	ImportSource m_importSource;
+	AmazonImporter* m_amazonImporter;
+	/** Server import dialog */
+	ServerImportDialog* m_serverImportDialog;
+	/** Text import dialog */
+	TextImportDialog* m_textImportDialog;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
-
-	/** Last directory used for import or export. */
-	static QString s_importDir;
 };
 
 #endif

@@ -101,22 +101,6 @@ public:
 	 */
 	void setDestination(ImportConfig::ImportDestination dest);
 
-	/**
-	 * Set the format lineedits.
-	 *
-	 * @param index format index
-	 */
-	void setFormatLineEdit(int index);
-
-	/**
-	 * Import from a file.
-	 *
-	 * @param fn file name
-	 *
-	 * @return true if ok.
-	 */
-	bool importFromFile(const QString& fn);
-
 public slots:
 	/**
 	 * Shows the dialog as a modal dialog.
