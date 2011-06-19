@@ -268,6 +268,11 @@ public slots:
 	 */
 	void matchWithTitle();
 
+	/**
+	 * Hide subdialogs.
+	 */
+	void hideSubdialogs();
+
 private:
 	enum ImportSourceType {
 		None, File, Clipboard

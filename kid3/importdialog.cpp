@@ -66,6 +66,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
 	m_impsel = new ImportSelector(this, m_trackDataVector);
+	connect(this, SIGNAL(finished(int)), m_impsel, SLOT(hideSubdialogs()));
 	vlayout->addWidget(m_impsel);
 
 	QHBoxLayout* hlayout = new QHBoxLayout;

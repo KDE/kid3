@@ -386,7 +386,7 @@ void ImportSelector::displayImportSourceDialog(ImportSource* source)
 		m_importSourceDialog->setImportSource(source);
 		m_importSourceDialog->setArtistAlbum(m_trackDataVector.getArtist(),
 																		m_trackDataVector.getAlbum());
-		(void)m_importSourceDialog->exec();
+		m_importSourceDialog->show();
 	}
 }
 
@@ -1037,4 +1037,13 @@ void ImportSelector::matchWithTitle()
 
 		delete [] md;
 	}
+}
+
+/**
+ * Hide subdialogs.
+ */
+void ImportSelector::hideSubdialogs()
+{
+	if (m_importSourceDialog)
+		m_importSourceDialog->hide();
 }

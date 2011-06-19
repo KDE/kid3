@@ -52,7 +52,6 @@ ImportSourceDialog::ImportSourceDialog(QWidget* parent) : QDialog(parent),
 		m_coverArtCheckBox(0), m_source(0)
 {
 	setObjectName("ImportSourceDialog");
-	setModal(true);
 
 	QVBoxLayout* vlayout = new QVBoxLayout(this);
 	vlayout->setSpacing(6);
