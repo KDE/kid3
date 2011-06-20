@@ -182,7 +182,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
 			QString name = it.key();
 			QString str = m_re.cap(*it);
 			if (!str.isEmpty() && !name.startsWith("__")) {
-				frames.insert(Frame(Frame::getTypeFromName(name), str, name, -1));
+				frames.setValue(Frame::getTypeFromName(name), str);
 			}
 		}
 		if (m_trackIncrEnabled) {

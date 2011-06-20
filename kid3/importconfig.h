@@ -106,6 +106,15 @@ public:
 	/** import window height */
 	int m_importWindowHeight;
 
+	/** Names of import tags formats */
+	QStringList m_importTagsNames;
+	/** Expressions for tag import sources */
+	QStringList m_importTagsSources;
+	/** regexp describing extraction from import tag sources */
+	QStringList m_importTagsExtractions;
+	/** selected import tags format */
+	int m_importTagsIdx;
+
 	/** true to export ID3v1 tags, else ID3v2 tags */
 	bool m_exportSrcV1;
 	/** Names of export formats */

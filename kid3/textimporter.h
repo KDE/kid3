@@ -62,6 +62,18 @@ public:
 	bool updateTrackData(const QString& text,
 											 const QString& headerFormat, const QString& trackFormat);
 
+	/**
+	 * Import text from tags to other tags.
+	 *
+	 * @param sourceFormat format to create source text
+	 * @param extractionFormat regular expression to extract other tags
+	 * @param trackDataVector track data to process
+	 */
+	static void importFromTags(
+		const QString& sourceFormat,
+		const QString& extractionFormat,
+		ImportTrackDataVector& trackDataVector);
+
 private:
 	/**
 	 * Look for album specific information (artist, album, year, genre) in

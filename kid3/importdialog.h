@@ -49,6 +49,7 @@ class AmazonImporter;
 class ServerImporter;
 class ServerImportDialog;
 class TextImportDialog;
+class TagImportDialog;
 class ImportTrackDataVector;
 class FrameCollection;
 class FreedbConfig;
@@ -157,6 +158,11 @@ private slots:
 	 * Import from text.
 	 */
 	void fromText();
+
+	/**
+	 * Import from tags.
+	 */
+	void fromTags();
 
 	/**
 	 * Show fields to import in text as preview in table.
@@ -276,6 +282,8 @@ private:
 	ServerImportDialog* m_serverImportDialog;
 	/** Text import dialog */
 	TextImportDialog* m_textImportDialog;
+	/** Tag import dialog */
+	TagImportDialog* m_tagImportDialog;
 	/** track data */
 	ImportTrackDataVector& m_trackDataVector;
 };

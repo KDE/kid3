@@ -171,3 +171,26 @@ QList<int> TextImporter::getTrackDurations()
 	return lst;
 }
 
+/**
+ * Import text from tags to other tags.
+ *
+ * @param sourceFormat format to create source text
+ * @param extractionFormat regular expression to extract other tags
+ * @param trackDataVector track data to process
+ */
+void TextImporter::importFromTags(
+	const QString& sourceFormat,
+	const QString& extractionFormat,
+	ImportTrackDataVector& trackDataVector)
+{
+	ImportParser parser;
+	parser.setFormat(extractionFormat);
+	for (ImportTrackDataVector::iterator it = trackDataVector.begin();
+			 it != trackDataVector.end();
+			 ++it) {
+		TrackData& trackData = *it;
+		QString text(trackData.formatString(sourceFormat));
+		int pos = 0;
+		parser.getNextTags(text, trackData, pos);
+	}
+}

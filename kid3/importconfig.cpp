@@ -43,6 +43,7 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_importDest(ImportConfig::DestV1), m_importFormatIdx(0),
 	m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
 	m_importWindowWidth(-1), m_importWindowHeight(-1),
+	m_importTagsIdx(0),
 	m_exportSrcV1(true), m_exportFormatIdx(0),
 	m_exportWindowWidth(-1), m_exportWindowHeight(-1),
 	m_pictureSourceIdx(0),
@@ -145,6 +146,38 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_exportFormatHeaders.append("");
 	m_exportFormatTracks.append("\"%{track}\"\\t\"%{title}\"\\t\"%{artist}\"\\t\"%{album}\"\\t\"%{year}\"\\t\"%{genre}\"\\t\"%{comment}\"\\t\"%{duration}.00\"");
 	m_exportFormatTrailers.append("");
+
+	m_importTagsNames.append("Artist to Album Artist");
+	m_importTagsSources.append("%{artist}");
+	m_importTagsExtractions.append("%{albumartist}(.+)");
+
+	m_importTagsNames.append("Album Artist to Artist");
+	m_importTagsSources.append("%{albumartist}");
+	m_importTagsExtractions.append("%{artist}(.+)");
+
+	m_importTagsNames.append("Artist to Composer");
+	m_importTagsSources.append("%{artist}");
+	m_importTagsExtractions.append("%{composer}(.+)");
+
+	m_importTagsNames.append("Artist to Conductor");
+	m_importTagsSources.append("%{artist}");
+	m_importTagsExtractions.append("%{conductor}(.+)");
+
+	m_importTagsNames.append("Track Number from Title");
+	m_importTagsSources.append("%{title}");
+	m_importTagsExtractions.append("\\s*%{track}(\\d+)[\\.\\s]+%{title}(.*\\S)\\s*");
+
+	m_importTagsNames.append("Track Number to Title");
+	m_importTagsSources.append("%{track} %{title}");
+	m_importTagsExtractions.append("%{title}(.+)");
+
+	m_importTagsNames.append("Subtitle from Title");
+	m_importTagsSources.append("%{title}");
+	m_importTagsExtractions.append("%{subtitle}(.+) - ");
+
+	m_importTagsNames.append("Custom Format");
+	m_importTagsSources.append("");
+	m_importTagsExtractions.append("");
 
 	m_exportFormatNames.append("CSV more unquoted");
 	m_exportFormatHeaders.append(
@@ -303,6 +336,11 @@ void ImportConfig::writeToConfig(
 	cfg.writeEntry("ImportWindowWidth", m_importWindowWidth);
 	cfg.writeEntry("ImportWindowHeight", m_importWindowHeight);
 
+	cfg.writeEntry("ImportTagsNames", m_importTagsNames);
+	cfg.writeEntry("ImportTagsSources", m_importTagsSources);
+	cfg.writeEntry("ImportTagsExtractions", m_importTagsExtractions);
+	cfg.writeEntry("ImportTagsIdx", m_importTagsIdx);
+
 	cfg.writeEntry("ExportSourceV1", m_exportSrcV1);
 	cfg.writeEntry("ExportFormatNames", m_exportFormatNames);
 	cfg.writeEntry("ExportFormatHeaders", m_exportFormatHeaders);
@@ -331,6 +369,11 @@ void ImportConfig::writeToConfig(
 	config->setValue("/MaxTimeDifference", QVariant(m_maxTimeDifference));
 	config->setValue("/ImportWindowWidth", QVariant(m_importWindowWidth));
 	config->setValue("/ImportWindowHeight", QVariant(m_importWindowHeight));
+
+	config->setValue("/ImportTagsNames", QVariant(m_importTagsNames));
+	config->setValue("/ImportTagsSources", QVariant(m_importTagsSources));
+	config->setValue("/ImportTagsExtractions", QVariant(m_importTagsExtractions));
+	config->setValue("/ImportTagsIdx", QVariant(m_importTagsIdx));
 
 	config->setValue("/ExportSourceV1", QVariant(m_exportSrcV1));
 	config->setValue("/ExportFormatNames", QVariant(m_exportFormatNames));
@@ -367,6 +410,7 @@ void ImportConfig::readFromConfig(
 	)
 {
 	QStringList names, headers, tracks;
+	QStringList tagsNames, tagsSources, tagsExtractions;
 	QStringList expNames, expHeaders, expTracks, expTrailers, picNames, picUrls;
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);
@@ -382,6 +426,11 @@ void ImportConfig::readFromConfig(
 	m_maxTimeDifference = cfg.readEntry("MaxTimeDifference", m_maxTimeDifference);
 	m_importWindowWidth = cfg.readEntry("ImportWindowWidth", -1);
 	m_importWindowHeight = cfg.readEntry("ImportWindowHeight", -1);
+
+	tagsNames = cfg.readEntry("ImportTagsNames", QStringList());
+	tagsSources = cfg.readEntry("ImportTagsSources", QStringList());
+	tagsExtractions = cfg.readEntry("ImportTagsExtractions", QStringList());
+	m_importTagsIdx = cfg.readEntry("ImportTagsIdx", m_importTagsIdx);
 
 	m_exportSrcV1 = cfg.readEntry("ExportSourceV1", m_exportSrcV1);
 	expNames = cfg.readEntry("ExportFormatNames", QStringList());
@@ -435,6 +484,11 @@ void ImportConfig::readFromConfig(
 	m_importWindowWidth = config->value("/ImportWindowWidth", -1).toInt();
 	m_importWindowHeight = config->value("/ImportWindowHeight", -1).toInt();
 
+	tagsNames = config->value("/ImportTagsNames").toStringList();
+	tagsSources = config->value("/ImportTagsSources").toStringList();
+	tagsExtractions = config->value("/ImportTagsExtractions").toStringList();
+	m_importTagsIdx = config->value("/ImportTagsIdx", m_importTagsIdx).toInt();
+
 	m_exportSrcV1 = config->value("/ExportSourceV1", m_exportSrcV1).toBool();
 	expNames = config->value("/ExportFormatNames").toStringList();
 	expHeaders = config->value("/ExportFormatHeaders").toStringList();
@@ -484,6 +538,23 @@ void ImportConfig::readFromConfig(
 		}
 	}
 
+	QStringList::const_iterator tagsNamesIt, sourcesIt, extractionsIt;
+	for (tagsNamesIt = tagsNames.begin(), sourcesIt = tagsSources.begin(),
+				 extractionsIt = tagsExtractions.begin();
+			 tagsNamesIt != tagsNames.end() && sourcesIt != tagsSources.end() &&
+				 extractionsIt != tagsExtractions.end();
+			 ++tagsNamesIt, ++sourcesIt, ++extractionsIt) {
+		int idx = m_importTagsNames.indexOf(*tagsNamesIt);
+		if (idx >= 0) {
+			m_importTagsSources[idx] = *sourcesIt;
+			m_importTagsExtractions[idx] = *extractionsIt;
+		} else if (!(*tagsNamesIt).isEmpty()) {
+			m_importTagsNames.append(*tagsNamesIt);
+			m_importTagsSources.append(*sourcesIt);
+			m_importTagsExtractions.append(*extractionsIt);
+		}
+	}
+
 	QStringList::const_iterator expNamesIt, expHeadersIt, expTracksIt,
 		expTrailersIt;
 	for (expNamesIt = expNames.begin(), expHeadersIt = expHeaders.begin(),
@@ -519,6 +590,8 @@ void ImportConfig::readFromConfig(
 
 	if (m_importFormatIdx >= static_cast<int>(m_importFormatNames.size()))
 		m_importFormatIdx = 0;
+	if (m_importTagsIdx >= static_cast<int>(m_importTagsNames.size()))
+		m_importTagsIdx = 0;
 	if (m_exportFormatIdx >=  static_cast<int>(m_exportFormatNames.size()))
 		m_exportFormatIdx = 0;
 	if (m_pictureSourceIdx >=  static_cast<int>(m_pictureSourceNames.size()))

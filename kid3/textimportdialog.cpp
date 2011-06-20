@@ -26,7 +26,7 @@
 
 #include "textimportdialog.h"
 #include <QHBoxLayout>
-#include <QGroupBox>
+#include <QFormLayout>
 #include <QComboBox>
 #include <QLineEdit>
 #include <QPushButton>
@@ -56,29 +56,26 @@ TextImportDialog::TextImportDialog(QWidget* parent,
 	QDialog(parent), m_textImporter(new TextImporter(trackDataVector))
 {
 	setObjectName("TextImportDialog");
-	setWindowTitle(i18n("Import"));
+	setWindowTitle(i18n("Import from File/Clipboard"));
 	setSizeGripEnabled(true);
 
 	QVBoxLayout* vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(6);
 	vboxLayout->setMargin(6);
 
-	QGroupBox* fmtbox = new QGroupBox(i18n("Format"), this);
-	m_formatComboBox = new QComboBox(fmtbox);
+	m_formatComboBox = new QComboBox(this);
 	m_formatComboBox->setEditable(true);
-	m_headerLineEdit = new QLineEdit(fmtbox);
-	m_trackLineEdit = new QLineEdit(fmtbox);
+	m_headerLineEdit = new QLineEdit(this);
+	m_trackLineEdit = new QLineEdit(this);
 	QString formatToolTip = ImportParser::getFormatToolTip();
 	m_headerLineEdit->setToolTip(formatToolTip);
 	m_trackLineEdit->setToolTip(formatToolTip);
 	connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
-	QVBoxLayout* vbox = new QVBoxLayout;
-	vbox->setMargin(2);
-	vbox->addWidget(m_formatComboBox);
-	vbox->addWidget(m_headerLineEdit);
-	vbox->addWidget(m_trackLineEdit);
-	fmtbox->setLayout(vbox);
-	vboxLayout->addWidget(fmtbox);
+	QFormLayout* formatLayout = new QFormLayout;
+	formatLayout->addRow(i18n("Format:"), m_formatComboBox);
+	formatLayout->addRow(i18n("Header:"), m_headerLineEdit);
+	formatLayout->addRow(i18n("Tracks:"), m_trackLineEdit);
+	vboxLayout->addLayout(formatLayout);
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
 	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);

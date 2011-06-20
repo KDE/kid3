@@ -56,6 +56,7 @@
 #include "amazonimporter.h"
 #include "serverimportdialog.h"
 #include "textimportdialog.h"
+#include "tagimportdialog.h"
 #include "kid3.h"
 #include "taggedfile.h"
 #include "trackdata.h"
@@ -94,6 +95,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	m_amazonImporter = 0;
 	m_serverImportDialog = 0;
 	m_textImportDialog = 0;
+	m_tagImportDialog = 0;
 #ifdef HAVE_TUNEPIMP
 	m_musicBrainzDialog = 0;
 #endif
@@ -121,6 +123,10 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 																						butbox);
 	fileButton->setAutoDefault(false);
 	butlayout->addWidget(fileButton);
+	QPushButton* tagsButton = new QPushButton(i18n("From T&ags..."),
+																						butbox);
+	tagsButton->setAutoDefault(false);
+	butlayout->addWidget(tagsButton);
 	QPushButton* serverButton = new QPushButton(i18n("&From Server:"), butbox);
 	serverButton->setAutoDefault(false);
 	butlayout->addWidget(serverButton);
@@ -182,6 +188,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	vlayout->addWidget(matchBox);
 
 	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromText()));
+	connect(tagsButton, SIGNAL(clicked()), this, SLOT(fromTags()));
 	connect(serverButton, SIGNAL(clicked()), this, SLOT(fromServer()));
 	connect(m_serverComboBox, SIGNAL(activated(int)), this, SLOT(fromServer()));
 	connect(lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
@@ -220,6 +227,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 ImportDialog::~ImportDialog()
 {
 	delete m_textImportDialog;
+	delete m_tagImportDialog;
 	delete m_serverImportDialog;
 	delete m_freedbImporter;
 	delete m_trackTypeImporter;
@@ -275,6 +283,20 @@ void ImportDialog::fromText()
 }
 
 /**
+ * Import from tags.
+ */
+void ImportDialog::fromTags()
+{
+	if (!m_tagImportDialog) {
+		m_tagImportDialog = new TagImportDialog(this, m_trackDataVector);
+		connect(m_tagImportDialog, SIGNAL(trackDataUpdated()),
+						this, SLOT(showPreview()));
+	}
+	m_tagImportDialog->clear();
+	m_tagImportDialog->show();
+}
+
+/**
  * Display server import dialog.
  *
  * @param source import source
@@ -303,6 +325,8 @@ void ImportDialog::hideSubdialogs()
 		m_serverImportDialog->hide();
 	if (m_textImportDialog)
 		m_textImportDialog->hide();
+	if (m_tagImportDialog)
+		m_tagImportDialog->hide();
 }
 
 /**
