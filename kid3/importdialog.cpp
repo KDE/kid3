@@ -171,10 +171,13 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	QLabel* matchLabel = new QLabel(i18n("Match with:"), matchBox);
 	matchLayout->addWidget(matchLabel);
 	QPushButton* lengthButton = new QPushButton(i18n("&Length"), matchBox);
+	lengthButton->setAutoDefault(false);
 	matchLayout->addWidget(lengthButton);
 	QPushButton* trackButton = new QPushButton(i18n("T&rack"), matchBox);
+	trackButton->setAutoDefault(false);
 	matchLayout->addWidget(trackButton);
 	QPushButton* titleButton = new QPushButton(i18n("&Title"), matchBox);
+	titleButton->setAutoDefault(false);
 	matchLayout->addWidget(titleButton);
 	vlayout->addWidget(matchBox);
 
@@ -192,21 +195,23 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
 	                                       QSizePolicy::Minimum);
 	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+	helpButton->setAutoDefault(false);
 	QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+	saveButton->setAutoDefault(false);
 	QPushButton* okButton = new QPushButton(i18n("&OK"), this);
+	okButton->setAutoDefault(false);
 	QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-	if (hlayout && helpButton && okButton && saveButton && cancelButton) {
-		hlayout->addWidget(helpButton);
-		hlayout->addWidget(saveButton);
-		hlayout->addItem(hspacer);
-		hlayout->addWidget(okButton);
-		hlayout->addWidget(cancelButton);
-		connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-		connect(okButton, SIGNAL(clicked()), this, SLOT(onOkButtonClicked()));
-		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-		vlayout->addLayout(hlayout);
-	}
+	cancelButton->setAutoDefault(false);
+	hlayout->addWidget(helpButton);
+	hlayout->addWidget(saveButton);
+	hlayout->addItem(hspacer);
+	hlayout->addWidget(okButton);
+	hlayout->addWidget(cancelButton);
+	connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+	connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(onOkButtonClicked()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	vlayout->addLayout(hlayout);
 }
 
 /**

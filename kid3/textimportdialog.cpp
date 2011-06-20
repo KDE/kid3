@@ -82,19 +82,24 @@ TextImportDialog::TextImportDialog(QWidget* parent,
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
 	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+	helpButton->setAutoDefault(false);
 	buttonLayout->addWidget(helpButton);
 	connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 	QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+	saveButton->setAutoDefault(false);
 	buttonLayout->addWidget(saveButton);
 	connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
 	buttonLayout->addStretch();
 	QPushButton* fileButton = new QPushButton(i18n("From F&ile"), this);
+	fileButton->setAutoDefault(false);
 	buttonLayout->addWidget(fileButton);
 	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
 	QPushButton* clipButton = new QPushButton(i18n("From Clip&board"), this);
+	clipButton->setAutoDefault(false);
 	buttonLayout->addWidget(clipButton);
 	connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
 	QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+	closeButton->setAutoDefault(false);
 	buttonLayout->addWidget(closeButton);
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	vboxLayout->addLayout(buttonLayout);
