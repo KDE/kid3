@@ -169,7 +169,16 @@ void MusicBrainzDialog::initTable()
 {
 	setServer(Kid3App::s_musicBrainzCfg.m_server);
 
-	unsigned numRows = m_trackDataModel->rowCount();
+	unsigned numRows = 0;
+	const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
+	for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
+			 it != trackDataVector.constEnd();
+			 ++it) {
+		if (it->isEnabled()) {
+			++numRows;
+		}
+	}
+
 	m_trackResults.resize(numRows);
 	m_albumTableModel->setRowCount(numRows);
 	for (unsigned i = 0; i < numRows; ++i) {
@@ -191,7 +200,7 @@ void MusicBrainzDialog::initTable()
  */
 void MusicBrainzDialog::clearResults()
 {
-	unsigned numRows = m_trackDataModel->rowCount();
+	unsigned numRows = m_trackResults.size();
 	for (unsigned i = 0; i < numRows; ++i) {
 		m_trackResults[i].clear();
 		setFileStatus(i, i18n("Unknown"));
@@ -278,8 +287,9 @@ void MusicBrainzDialog::reject()
 void MusicBrainzDialog::apply()
 {
 	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+	ImportTrackDataVector::iterator it = trackDataVector.begin();
 	bool newTrackData = false;
-	unsigned numRows = trackDataVector.size();
+	unsigned numRows = m_albumTableModel->rowCount();
 	for (unsigned index = 0; index < numRows; ++index) {
 		QModelIndex idx(m_albumTableModel->index(index, 0));
 		if (idx.isValid()) {
@@ -288,13 +298,19 @@ void MusicBrainzDialog::apply()
 			if (selectedItem > 0) {
 				const ImportTrackData& selectedData =
 					m_trackResults[index][selectedItem - 1];
-				trackDataVector[index].setTitle(selectedData.getTitle());
-				trackDataVector[index].setArtist(selectedData.getArtist());
-				trackDataVector[index].setAlbum(selectedData.getAlbum());
-				trackDataVector[index].setTrack(selectedData.getTrack());
-				trackDataVector[index].setYear(selectedData.getYear());
-				trackDataVector[index].setImportDuration(
-					selectedData.getImportDuration());
+				while (it != trackDataVector.end() && !it->isEnabled()) {
+					++it;
+				}
+				if (it == trackDataVector.end()) {
+					break;
+				}
+				it->setTitle(selectedData.getTitle());
+				it->setArtist(selectedData.getArtist());
+				it->setAlbum(selectedData.getAlbum());
+				it->setTrack(selectedData.getTrack());
+				it->setYear(selectedData.getYear());
+				it->setImportDuration(selectedData.getImportDuration());
+				++it;
 				newTrackData = true;
 			}
 		}
@@ -457,14 +473,21 @@ void MusicBrainzDialog::showFilenameInStatusBar(const QModelIndex& index)
 {
 	if (m_statusBar) {
 		int row = index.row();
-		const ImportTrackDataVector& trackDataVector(
-					m_trackDataModel->trackData());
-		unsigned numRows = trackDataVector.size();
-		if (row >= 0 && row < static_cast<int>(numRows)) {
-			m_statusBar->showMessage(trackDataVector.at(row).getFilename());
-		} else {
-			m_statusBar->clearMessage();
+
+		int rowNr = 0;
+		const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
+		for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
+				 it != trackDataVector.constEnd();
+				 ++it) {
+			if (it->isEnabled()) {
+				if (rowNr == row) {
+					m_statusBar->showMessage(it->getFilename());
+					return;
+				}
+				++rowNr;
+			}
 		}
+		m_statusBar->clearMessage();
 	}
 }
 

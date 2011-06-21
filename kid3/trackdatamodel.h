@@ -28,7 +28,6 @@
 #define TRACKDATAMODEL_H
 
 #include <QAbstractTableModel>
-#include <QBitArray>
 #include <QList>
 #include "trackdata.h"
 
@@ -158,6 +157,13 @@ public:
 	 */
 	virtual bool removeColumns(int column, int count,
 														 const QModelIndex& parent=QModelIndex());
+
+	/**
+	 * Set the check state of all tracks in the table.
+	 *
+	 * @param checked true to check the tracks
+	 */
+	void setAllCheckStates(bool checked);
 
 	/**
 	 * Set time difference check configuration.

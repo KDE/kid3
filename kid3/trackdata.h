@@ -180,7 +180,7 @@ public:
 	 * @param tagVersion source of frames
 	 */
 	ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
-		TrackData(taggedFile, tagVersion), m_importDuration(0) {}
+		TrackData(taggedFile, tagVersion), m_importDuration(0), m_enabled(true) {}
 
 	/**
 	 * Get duration of import.
@@ -194,8 +194,21 @@ public:
 	 */
 	void setImportDuration(int duration) { m_importDuration = duration; }
 
+	/**
+	 * Check if track is enabled.
+	 * @return true if enabled (true is default).
+	 */
+	bool isEnabled() const { return m_enabled; }
+
+	/**
+	 * Enable or disable track.
+	 * @param enabled true to enable
+	 */
+	void setEnabled(bool enabled) { m_enabled = enabled; }
+
 private:
 	int m_importDuration;
+	bool m_enabled;
 };
 
 /**

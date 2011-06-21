@@ -448,11 +448,13 @@ void MusicBrainzClient::addFiles()
 	for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
 			 it != trackDataVector.constEnd();
 			 ++it) {
+		if (it->isEnabled()) {
 #if HAVE_TUNEPIMP >= 4
-		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()), 0);
+			m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()), 0);
 #else
-		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()));
+			m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()));
 #endif
+		}
 	}
 }
 

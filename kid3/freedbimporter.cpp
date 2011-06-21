@@ -261,10 +261,16 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
 			trackData.setImportDuration(duration);
 			trackDataVector.push_back(trackData);
 		} else {
-			(*it).setFrameCollection(frames);
-			(*it).setImportDuration(duration);
-			++it;
-			atTrackDataListEnd = (it == trackDataVector.end());
+			while (!atTrackDataListEnd && !it->isEnabled()) {
+				++it;
+				atTrackDataListEnd = (it == trackDataVector.end());
+			}
+			if (!atTrackDataListEnd) {
+				(*it).setFrameCollection(frames);
+				(*it).setImportDuration(duration);
+				++it;
+				atTrackDataListEnd = (it == trackDataVector.end());
+			}
 		}
 		frames = framesHdr;
 		oldpos = pos;
@@ -272,11 +278,15 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
 	}
 	frames.clear();
 	while (!atTrackDataListEnd) {
-		if ((*it).getFileDuration() == 0) {
-			it = trackDataVector.erase(it);
+		if (it->isEnabled()) {
+			if ((*it).getFileDuration() == 0) {
+				it = trackDataVector.erase(it);
+			} else {
+				(*it).setFrameCollection(frames);
+				(*it).setImportDuration(0);
+				++it;
+			}
 		} else {
-			(*it).setFrameCollection(frames);
-			(*it).setImportDuration(0);
 			++it;
 		}
 		atTrackDataListEnd = (it == trackDataVector.end());

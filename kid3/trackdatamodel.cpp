@@ -57,6 +57,9 @@ Qt::ItemFlags TrackDataModel::flags(const QModelIndex& index) const
 		if (m_frameTypes.at(index.column()) < FT_FirstTrackProperty) {
 			theFlags |= Qt::ItemIsEditable;
 		}
+		if (index.column() == 0) {
+			theFlags |= Qt::ItemIsUserCheckable;
+		}
 	}
 	return theFlags;
 }
@@ -116,6 +119,9 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
 				return diff > m_maxDiff ? QBrush(Qt::red) : Qt::NoBrush;
 			}
 		}
+	} else if (role == Qt::CheckStateRole && index.column() == 0) {
+		return m_trackDataVector.at(index.row()).isEnabled()
+				? Qt::Checked : Qt::Unchecked;
 	}
 	return QVariant();
 }
@@ -152,6 +158,13 @@ bool TrackDataModel::setData(const QModelIndex& index,
 		} else {
 			frame.setValueIfChanged(valueStr);
 			trackData.insert(frame);
+		}
+		return true;
+	} else if (role == Qt::CheckStateRole && index.column() == 0) {
+		bool isChecked(value.toInt() == Qt::Checked);
+		if (isChecked != m_trackDataVector.at(index.row()).isEnabled()) {
+			m_trackDataVector[index.row()].setEnabled(isChecked);
+			emit dataChanged(index, index);
 		}
 		return true;
 	}
@@ -287,6 +300,18 @@ bool TrackDataModel::removeColumns(int column, int count,
 		m_frameTypes.removeAt(column);
 	endRemoveColumns();
 	return true;
+}
+
+/**
+ * Set the check state of all tracks in the table.
+ *
+ * @param checked true to check the tracks
+ */
+void TrackDataModel::setAllCheckStates(bool checked)
+{
+	for (int row = 0; row < rowCount(); ++row) {
+		m_trackDataVector[row].setEnabled(checked);
+	}
 }
 
 /**

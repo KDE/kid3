@@ -376,10 +376,16 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
 				trackData.setImportDuration(duration);
 				trackDataVector.push_back(trackData);
 			} else {
-				(*it).setFrameCollection(frames);
-				(*it).setImportDuration(duration);
-				++it;
-				atTrackDataListEnd = (it == trackDataVector.end());
+				while (!atTrackDataListEnd && !it->isEnabled()) {
+					++it;
+					atTrackDataListEnd = (it == trackDataVector.end());
+				}
+				if (!atTrackDataListEnd) {
+					(*it).setFrameCollection(frames);
+					(*it).setImportDuration(duration);
+					++it;
+					atTrackDataListEnd = (it == trackDataVector.end());
+				}
 			}
 			++trackNr;
 			frames = framesHdr;
@@ -388,11 +394,15 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
 		// handle redundant tracks
 		frames.clear();
 		while (!atTrackDataListEnd) {
-			if ((*it).getFileDuration() == 0) {
-				it = trackDataVector.erase(it);
+			if (it->isEnabled()) {
+				if ((*it).getFileDuration() == 0) {
+					it = trackDataVector.erase(it);
+				} else {
+					(*it).setFrameCollection(frames);
+					(*it).setImportDuration(0);
+					++it;
+				}
 			} else {
-				(*it).setFrameCollection(frames);
-				(*it).setImportDuration(0);
 				++it;
 			}
 			atTrackDataListEnd = (it == trackDataVector.end());
