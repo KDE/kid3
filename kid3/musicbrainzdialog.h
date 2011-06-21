@@ -30,7 +30,6 @@
 #include <QDialog>
 #include <QString>
 #include <QVector>
-#include "trackdata.h"
 #include "config.h"
 
 class QTableView;
@@ -41,6 +40,10 @@ class QPushButton;
 class QCheckBox;
 class QTimer;
 class QStatusBar;
+class QModelIndex;
+class TrackDataModel;
+class ImportTrackData;
+class ImportTrackDataVector;
 class MusicBrainzConfig;
 class MusicBrainzClient;
 
@@ -55,11 +58,11 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent          parent widget
-	 * @param trackDataVector track data to be filled with imported values,
+	 * @param trackDataModel track data to be filled with imported values,
 	 *                        is passed with filenames set
 	 */
 	MusicBrainzDialog(QWidget* parent,
-										ImportTrackDataVector& trackDataVector);
+										TrackDataModel* trackDataModel);
 	/**
 	 * Destructor.
 	 */
@@ -89,7 +92,7 @@ public:
 
 signals:
 	/**
-	 * Emitted when the m_trackDataVector was updated with new imported data.
+	 * Emitted when the m_trackDataModel was updated with new imported data.
 	 */
 	void trackDataUpdated();
 
@@ -198,7 +201,7 @@ private:
 	QStatusBar* m_statusBar;
 	QTimer* m_timer;
 	MusicBrainzClient* m_client;
-	ImportTrackDataVector& m_trackDataVector;
+	TrackDataModel* m_trackDataModel;
 	QVector<ImportTrackDataVector> m_trackResults;
 #endif // HAVE_TUNEPIMP
 };

@@ -39,10 +39,10 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent          parent object
-	 * @param trackDataVector track data to be filled with imported values
+	 * @param trackDataModel track data to be filled with imported values
 	 */
 	FreedbImporter(QObject* parent,
-								 ImportTrackDataVector& trackDataVector);
+								 TrackDataModel* trackDataModel);
 
 	/**
 	 * Destructor.
@@ -78,7 +78,7 @@ public:
 	virtual void parseFindResults(const QByteArray& searchStr);
 
 	/**
-	 * Parse result of album request and populate m_trackDataVector with results.
+	 * Parse result of album request and populate m_trackDataModel with results.
 	 *
 	 * @param albumStr album data received
 	 */

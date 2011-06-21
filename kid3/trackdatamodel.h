@@ -165,10 +165,7 @@ public:
 	 * @param enable  true to enable check
 	 * @param maxDiff maximum allowed time difference
 	 */
-	void setTimeDifferenceCheck(bool enable, int maxDiff) {
-		m_diffCheckEnabled = enable;
-		m_maxDiff = maxDiff;
-	}
+	void setTimeDifferenceCheck(bool enable, int maxDiff);
 
 	/**
 	 * Get frame for index.
@@ -188,6 +185,12 @@ public:
 	 * @return track data
 	 */
 	ImportTrackDataVector getTrackData() const;
+
+	/**
+	 * Constant reference to track data.
+	 * @return track data
+	 */
+	const ImportTrackDataVector& trackData() const { return m_trackDataVector; }
 
 private:
 	ImportTrackDataVector m_trackDataVector;

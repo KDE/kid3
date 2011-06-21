@@ -28,16 +28,16 @@
 #include <QStringList>
 #include <QRegExp>
 #include <QDir>
-#include "trackdata.h"
+#include "trackdatamodel.h"
 
 /**
  * Match import data with length.
  *
- * @param trackDataVector tracks to match
+ * @param trackDataModel tracks to match
  * @param diffCheckEnable true if time difference check is enabled
  * @param maxDiff maximum allowed time difference
  */
-bool TrackDataMatcher::matchWithLength(ImportTrackDataVector& trackDataVector,
+bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
 																			 bool diffCheckEnable, int maxDiff)
 {
 	struct MatchData {
@@ -48,6 +48,7 @@ bool TrackDataMatcher::matchWithLength(ImportTrackDataVector& trackDataVector,
 	};
 
 	bool failed = false;
+	ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
 	unsigned numTracks = trackDataVector.size();
 	if (numTracks > 0) {
 		MatchData* md = new MatchData[numTracks];
@@ -150,6 +151,7 @@ bool TrackDataMatcher::matchWithLength(ImportTrackDataVector& trackDataVector,
 				trackDataVector[i].setImportDuration(
 					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
 			}
+			trackDataModel->setTrackData(trackDataVector);
 		}
 
 		delete [] md;
@@ -160,9 +162,9 @@ bool TrackDataMatcher::matchWithLength(ImportTrackDataVector& trackDataVector,
 /**
  * Match import data with track number.
  *
- * @param trackDataVector tracks to match
+ * @param trackDataModel tracks to match
  */
-bool TrackDataMatcher::matchWithTrack(ImportTrackDataVector& trackDataVector)
+bool TrackDataMatcher::matchWithTrack(TrackDataModel* trackDataModel)
 {
 	struct MatchData {
 		int track;        // track number starting with 0
@@ -171,6 +173,7 @@ bool TrackDataMatcher::matchWithTrack(ImportTrackDataVector& trackDataVector)
 	};
 
 	bool failed = false;
+	ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
 	unsigned numTracks = trackDataVector.size();
 	if (numTracks > 0) {
 		MatchData* md = new MatchData[numTracks];
@@ -235,6 +238,7 @@ bool TrackDataMatcher::matchWithTrack(ImportTrackDataVector& trackDataVector)
 				trackDataVector[i].setImportDuration(
 					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
 			}
+			trackDataModel->setTrackData(trackDataVector);
 		}
 
 		delete [] md;
@@ -245,9 +249,9 @@ bool TrackDataMatcher::matchWithTrack(ImportTrackDataVector& trackDataVector)
 /**
  * Match import data with title.
  *
- * @param trackDataVector tracks to match
+ * @param trackDataModel tracks to match
  */
-bool TrackDataMatcher::matchWithTitle(ImportTrackDataVector& trackDataVector)
+bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
 {
 	struct MatchData {
 		QStringList fileWords;  // words in file name
@@ -257,6 +261,7 @@ bool TrackDataMatcher::matchWithTitle(ImportTrackDataVector& trackDataVector)
 	};
 
 	bool failed = false;
+	ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
 	unsigned numTracks = trackDataVector.size();
 	if (numTracks > 0) {
 		MatchData* md = new MatchData[numTracks];
@@ -368,6 +373,7 @@ bool TrackDataMatcher::matchWithTitle(ImportTrackDataVector& trackDataVector)
 				trackDataVector[i].setImportDuration(
 					oldTrackDataVector[md[i].assignedFrom].getImportDuration());
 			}
+			trackDataModel->setTrackData(trackDataVector);
 		}
 
 		delete [] md;

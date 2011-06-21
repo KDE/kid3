@@ -34,11 +34,11 @@ static const char trackTypeServer[] = "tracktype.org:80";
  * Constructor.
  *
  * @param parent          parent object
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
 TrackTypeImporter::TrackTypeImporter(QObject* parent,
-																		 ImportTrackDataVector& trackDataVector) :
-	FreedbImporter(parent, trackDataVector)
+																		 TrackDataModel* trackDataModel) :
+	FreedbImporter(parent, trackDataModel)
 {
 	setObjectName("TrackTypeImporter");
 }

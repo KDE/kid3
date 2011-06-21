@@ -32,6 +32,7 @@
 #include <QPushButton>
 #include "textimporter.h"
 #include "importparser.h"
+#include "trackdatamodel.h"
 #include "kid3.h"
 #include "qtcompatmac.h"
 
@@ -39,11 +40,11 @@
  * Constructor.
  *
  * @param parent  parent widget
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
 TagImportDialog::TagImportDialog(QWidget* parent,
-																 ImportTrackDataVector& trackDataVector) :
-	QDialog(parent), m_trackDataVector(trackDataVector)
+																 TrackDataModel* trackDataModel) :
+	QDialog(parent), m_trackDataModel(trackDataModel)
 {
 	setObjectName("TagImportDialog");
 	setWindowTitle(i18n("Import from Tags"));
@@ -108,9 +109,11 @@ void TagImportDialog::clear()
  */
 void TagImportDialog::apply()
 {
+	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
 	TextImporter::importFromTags(m_sourceLineEdit->text(),
 															 m_extractionLineEdit->text(),
-															 m_trackDataVector);
+															 trackDataVector);
+	m_trackDataModel->setTrackData(trackDataVector);
 	emit trackDataUpdated();
 }
 

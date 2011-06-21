@@ -26,6 +26,7 @@
 
 #include "freedbimporter.h"
 #include "serverimporterconfig.h"
+#include "trackdatamodel.h"
 #include "kid3.h"
 #include "genres.h"
 
@@ -35,11 +36,11 @@ static const char gnudbServer[] = "www.gnudb.org:80";
  * Constructor.
  *
  * @param parent          parent object
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
 FreedbImporter::FreedbImporter(QObject* parent,
-															 ImportTrackDataVector& trackDataVector) :
-	ServerImporter(parent, trackDataVector)
+															 TrackDataModel* trackDataModel) :
+	ServerImporter(parent, trackDataModel)
 {
 	setObjectName("FreedbImporter");
 }
@@ -219,7 +220,7 @@ static void parseFreedbAlbumData(const QString& text,
 }
 
 /**
- * Parse result of album request and populate m_trackDataVector with results.
+ * Parse result of album request and populate m_trackDataModel with results.
  *
  * @param albumStr album data received
  */
@@ -231,10 +232,11 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
 	parseFreedbTrackDurations(text, trackDuration);
 	parseFreedbAlbumData(text, framesHdr);
 
+	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
 	FrameCollection frames(framesHdr);
-	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
+	ImportTrackDataVector::iterator it = trackDataVector.begin();
 	QList<int>::const_iterator tdit = trackDuration.begin();
-	bool atTrackDataListEnd = (it == m_trackDataVector.end());
+	bool atTrackDataListEnd = (it == trackDataVector.end());
 	int pos = 0;
 	int idx, oldpos = pos;
 	int tracknr = 0;
@@ -257,12 +259,12 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
 			ImportTrackData trackData;
 			trackData.setFrameCollection(frames);
 			trackData.setImportDuration(duration);
-			m_trackDataVector.push_back(trackData);
+			trackDataVector.push_back(trackData);
 		} else {
 			(*it).setFrameCollection(frames);
 			(*it).setImportDuration(duration);
 			++it;
-			atTrackDataListEnd = (it == m_trackDataVector.end());
+			atTrackDataListEnd = (it == trackDataVector.end());
 		}
 		frames = framesHdr;
 		oldpos = pos;
@@ -271,14 +273,15 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
 	frames.clear();
 	while (!atTrackDataListEnd) {
 		if ((*it).getFileDuration() == 0) {
-			it = m_trackDataVector.erase(it);
+			it = trackDataVector.erase(it);
 		} else {
 			(*it).setFrameCollection(frames);
 			(*it).setImportDuration(0);
 			++it;
 		}
-		atTrackDataListEnd = (it == m_trackDataVector.end());
+		atTrackDataListEnd = (it == trackDataVector.end());
 	}
+	m_trackDataModel->setTrackData(trackDataVector);
 }
 
 /**

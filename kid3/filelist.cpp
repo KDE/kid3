@@ -33,6 +33,7 @@
 #include <QHeaderView>
 #include "fileproxymodel.h"
 #include "modeliterator.h"
+#include "taggedfile.h"
 #include "kid3.h"
 #include "externalprocess.h"
 #include "qtcompatmac.h"

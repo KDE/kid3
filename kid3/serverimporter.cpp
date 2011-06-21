@@ -36,13 +36,13 @@
  * Constructor.
  *
  * @param parent  parent object
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
 ServerImporter::ServerImporter(QObject* parent,
-															 ImportTrackDataVector& trackDataVector)
+															 TrackDataModel* trackDataModel)
 	: ImportClient(parent),
 		m_albumListModel(new QStandardItemModel(this)),
-		m_trackDataVector(trackDataVector),
+		m_trackDataModel(trackDataModel),
 		m_additionalTagsEnabled(false), m_coverArtEnabled(false)
 {
 	setObjectName("ServerImporter");

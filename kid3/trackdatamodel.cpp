@@ -290,6 +290,20 @@ bool TrackDataModel::removeColumns(int column, int count,
 }
 
 /**
+ * Set time difference check configuration.
+ *
+ * @param enable  true to enable check
+ * @param maxDiff maximum allowed time difference
+ */
+void TrackDataModel::setTimeDifferenceCheck(bool enable, int maxDiff) {
+	bool changed = m_diffCheckEnabled != enable || m_maxDiff != maxDiff;
+	m_diffCheckEnabled = enable;
+	m_maxDiff = maxDiff;
+	if (changed)
+		emit dataChanged(index(0,0), index(rowCount() - 1, 0));
+}
+
+/**
  * Get frame for index.
  * @param index model index
  * @return frame, 0 if no frame.

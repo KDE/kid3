@@ -75,14 +75,14 @@
  *
  * @param parent        parent widget
  * @param caption       dialog title
- * @param trackDataList track data to be filled with imported values,
+ * @param trackDataModel track data to be filled with imported values,
  *                      is passed with durations of files set
  */
 ImportDialog::ImportDialog(QWidget* parent, QString& caption,
-													 ImportTrackDataVector& trackDataList) :
+													 TrackDataModel* trackDataModel) :
 	QDialog(parent), m_trackDataImported(false),
 	m_autoStartSubDialog(ASD_None),
-	m_trackDataVector(trackDataList)
+	m_trackDataModel(trackDataModel)
 {
 	setObjectName("ImportDialog");
 	setModal(true);
@@ -104,7 +104,6 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	vlayout->setSpacing(6);
 	vlayout->setMargin(6);
 
-	m_trackDataModel = new TrackDataModel(this);
 	m_trackDataTable = new QTableView(this);
 	m_trackDataTable->setModel(m_trackDataModel);
 	m_trackDataTable->resizeColumnsToContents();
@@ -216,7 +215,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	hlayout->addWidget(cancelButton);
 	connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 	connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(onOkButtonClicked()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	vlayout->addLayout(hlayout);
 }
@@ -274,7 +273,7 @@ void ImportDialog::fromServer()
 void ImportDialog::fromText()
 {
 	if (!m_textImportDialog) {
-		m_textImportDialog = new TextImportDialog(this, m_trackDataVector);
+		m_textImportDialog = new TextImportDialog(this, m_trackDataModel);
 		connect(m_textImportDialog, SIGNAL(trackDataUpdated()),
 						this, SLOT(showPreviewAfterImport()));
 	}
@@ -288,7 +287,7 @@ void ImportDialog::fromText()
 void ImportDialog::fromTags()
 {
 	if (!m_tagImportDialog) {
-		m_tagImportDialog = new TagImportDialog(this, m_trackDataVector);
+		m_tagImportDialog = new TagImportDialog(this, m_trackDataModel);
 		connect(m_tagImportDialog, SIGNAL(trackDataUpdated()),
 						this, SLOT(showPreview()));
 	}
@@ -310,8 +309,9 @@ void ImportDialog::displayServerImportDialog(ServerImporter* source)
 	}
 	if (m_serverImportDialog) {
 		m_serverImportDialog->setImportSource(source);
-		m_serverImportDialog->setArtistAlbum(m_trackDataVector.getArtist(),
-																		m_trackDataVector.getAlbum());
+		m_serverImportDialog->setArtistAlbum(
+					m_trackDataModel->trackData().getArtist(),
+					m_trackDataModel->trackData().getAlbum());
 		m_serverImportDialog->show();
 	}
 }
@@ -335,7 +335,7 @@ void ImportDialog::hideSubdialogs()
 void ImportDialog::fromFreedb()
 {
 	if (!m_freedbImporter) {
-		m_freedbImporter = new FreedbImporter(this, m_trackDataVector);
+		m_freedbImporter = new FreedbImporter(this, m_trackDataModel);
 	}
 	displayServerImportDialog(m_freedbImporter);
 }
@@ -346,7 +346,7 @@ void ImportDialog::fromFreedb()
 void ImportDialog::fromTrackType()
 {
 	if (!m_trackTypeImporter) {
-		m_trackTypeImporter = new TrackTypeImporter(this, m_trackDataVector);
+		m_trackTypeImporter = new TrackTypeImporter(this, m_trackDataModel);
 	}
 	displayServerImportDialog(m_trackTypeImporter);
 }
@@ -358,7 +358,7 @@ void ImportDialog::fromMusicBrainzRelease()
 {
 	if (!m_musicBrainzReleaseImporter) {
 		m_musicBrainzReleaseImporter =
-				new MusicBrainzReleaseImporter(this, m_trackDataVector);
+				new MusicBrainzReleaseImporter(this, m_trackDataModel);
 	}
 	displayServerImportDialog(m_musicBrainzReleaseImporter);
 }
@@ -369,7 +369,7 @@ void ImportDialog::fromMusicBrainzRelease()
 void ImportDialog::fromDiscogs()
 {
 	if (!m_discogsImporter) {
-		m_discogsImporter = new DiscogsImporter(this, m_trackDataVector);
+		m_discogsImporter = new DiscogsImporter(this, m_trackDataModel);
 	}
 	displayServerImportDialog(m_discogsImporter);
 }
@@ -380,7 +380,7 @@ void ImportDialog::fromDiscogs()
 void ImportDialog::fromAmazon()
 {
 	if (!m_amazonImporter) {
-		m_amazonImporter = new AmazonImporter(this, m_trackDataVector);
+		m_amazonImporter = new AmazonImporter(this, m_trackDataModel);
 	}
 	displayServerImportDialog(m_amazonImporter);
 }
@@ -392,7 +392,7 @@ void ImportDialog::fromMusicBrainz()
 {
 #ifdef HAVE_TUNEPIMP
 	if (!m_musicBrainzDialog) {
-		m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataVector);
+		m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataModel);
 		connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
 						this, SLOT(showPreviewAfterImport()));
 	}
@@ -481,7 +481,6 @@ void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
 void ImportDialog::clear()
 {
 	m_trackDataImported = false;
-	m_trackDataModel->setTrackData(ImportTrackDataVector());
 
 	m_serverComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importServer);
 	m_destComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importDest);
@@ -508,7 +507,6 @@ void ImportDialog::showPreview()
 	int maxDiff;
 	getTimeDifferenceCheck(diffCheckEnable, maxDiff);
 	m_trackDataModel->setTimeDifferenceCheck(diffCheckEnable, maxDiff);
-	m_trackDataModel->setTrackData(m_trackDataVector);
 	m_trackDataTable->scrollToTop();
 	m_trackDataTable->resizeColumnsToContents();
 	m_trackDataTable->resizeRowsToContents();
@@ -607,28 +605,20 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
 		vHeader->moveSection(toIndex, fromIndex);
 		connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
 	}
-	int numTracks = static_cast<int>(m_trackDataVector.size());
+	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+	int numTracks = static_cast<int>(trackDataVector.size());
 	if (fromIndex < numTracks && toIndex < numTracks) {
 		// swap elements but keep file durations and names
-		ImportTrackData fromData(m_trackDataVector[fromIndex]);
-		ImportTrackData toData(m_trackDataVector[toIndex]);
-		m_trackDataVector[fromIndex].setFrameCollection(toData.getFrameCollection());
-		m_trackDataVector[toIndex].setFrameCollection(fromData.getFrameCollection());
-		m_trackDataVector[fromIndex].setImportDuration(toData.getImportDuration());
-		m_trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
+		ImportTrackData fromData(trackDataVector[fromIndex]);
+		ImportTrackData toData(trackDataVector[toIndex]);
+		trackDataVector[fromIndex].setFrameCollection(toData.getFrameCollection());
+		trackDataVector[toIndex].setFrameCollection(fromData.getFrameCollection());
+		trackDataVector[fromIndex].setImportDuration(toData.getImportDuration());
+		trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
+		m_trackDataModel->setTrackData(trackDataVector);
 		// redisplay the table
 		showPreview();
 	}
-}
-
-/**
- * Called when OK is clicked.
- */
-void ImportDialog::onOkButtonClicked()
-{
-	// Set changes made in the table in the track data.
-	m_trackDataVector = m_trackDataModel->getTrackData();
-	accept();
 }
 
 /**
@@ -652,7 +642,9 @@ void ImportDialog::changeTagDestination()
 			tagVersion = TrackData::TagV2V1;
 		}
 
-		m_trackDataVector.readTags(tagVersion);
+		ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+		trackDataVector.readTags(tagVersion);
+		m_trackDataModel->setTrackData(trackDataVector);
 		showPreview();
 	}
 }
@@ -665,7 +657,7 @@ void ImportDialog::matchWithLength()
 	bool diffCheckEnable;
 	int maxDiff;
 	getTimeDifferenceCheck(diffCheckEnable, maxDiff);
-	if (TrackDataMatcher::matchWithLength(m_trackDataVector, diffCheckEnable, maxDiff))
+	if (TrackDataMatcher::matchWithLength(m_trackDataModel, diffCheckEnable, maxDiff))
 		showPreview();
 }
 
@@ -674,7 +666,7 @@ void ImportDialog::matchWithLength()
  */
 void ImportDialog::matchWithTrack()
 {
-	if (TrackDataMatcher::matchWithTrack(m_trackDataVector))
+	if (TrackDataMatcher::matchWithTrack(m_trackDataModel))
 		showPreview();
 }
 
@@ -683,6 +675,6 @@ void ImportDialog::matchWithTrack()
  */
 void ImportDialog::matchWithTitle()
 {
-	if (TrackDataMatcher::matchWithTitle(m_trackDataVector))
+	if (TrackDataMatcher::matchWithTitle(m_trackDataModel))
 		showPreview();
 }

@@ -26,6 +26,7 @@
 
 #include "discogsimporter.h"
 #include "serverimporterconfig.h"
+#include "trackdatamodel.h"
 #include "kid3.h"
 #include "genres.h"
 
@@ -35,11 +36,11 @@ static const char discogsServer[] = "www.discogs.com:80";
  * Constructor.
  *
  * @param parent          parent object
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
 DiscogsImporter::DiscogsImporter(QObject* parent,
-																 ImportTrackDataVector& trackDataVector) :
-	ServerImporter(parent, trackDataVector)
+																 TrackDataModel* trackDataModel) :
+	ServerImporter(parent, trackDataModel)
 {
 	setObjectName("DiscogsImporter");
 }
@@ -247,7 +248,7 @@ static bool parseCredits(const QString& str, FrameCollection& frames)
 }
 
 /**
- * Parse result of album request and populate m_trackDataVector with results.
+ * Parse result of album request and populate m_trackDataModel with results.
  *
  * @param albumStr album data received
  */
@@ -396,7 +397,8 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 		}
 	}
 
-	m_trackDataVector.setCoverArtUrl(QString::null);
+	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+	trackDataVector.setCoverArtUrl(QString::null);
 	if (getCoverArt()) {
 		/*
 		 * cover art can be found in image source
@@ -406,7 +408,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 			start += 10; // skip <img src="
 			end = str.indexOf("\"", start);
 			if (end > start) {
-				m_trackDataVector.setCoverArtUrl(str.mid(start, end - start));
+				trackDataVector.setCoverArtUrl(str.mid(start, end - start));
 			}
 		}
 	}
@@ -446,8 +448,8 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 			QRegExp durationRe("<td [^>]*class=\"track_duration\"[^>]*>(?:<span>)?(\\d+):(\\d+)</");
 			QRegExp indexRe("<td class=\"track_index\">([^<]+)$");
 			QRegExp rowEndRe("</td>[\\s\\r\\n]*</tr>");
-			ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-			bool atTrackDataListEnd = (it == m_trackDataVector.end());
+			ImportTrackDataVector::iterator it = trackDataVector.begin();
+			bool atTrackDataListEnd = (it == trackDataVector.end());
 			int trackNr = 1;
 			start = 0;
 			while ((end = rowEndRe.indexIn(str, start)) > start) {
@@ -507,12 +509,12 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 						ImportTrackData trackData;
 						trackData.setFrameCollection(frames);
 						trackData.setImportDuration(duration);
-						m_trackDataVector.push_back(trackData);
+						trackDataVector.push_back(trackData);
 					} else {
 						(*it).setFrameCollection(frames);
 						(*it).setImportDuration(duration);
 						++it;
-						atTrackDataListEnd = (it == m_trackDataVector.end());
+						atTrackDataListEnd = (it == trackDataVector.end());
 					}
 					++trackNr;
 				}
@@ -523,16 +525,17 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 			frames.clear();
 			while (!atTrackDataListEnd) {
 				if ((*it).getFileDuration() == 0) {
-					it = m_trackDataVector.erase(it);
+					it = trackDataVector.erase(it);
 				} else {
 					(*it).setFrameCollection(frames);
 					(*it).setImportDuration(0);
 					++it;
 				}
-				atTrackDataListEnd = (it == m_trackDataVector.end());
+				atTrackDataListEnd = (it == trackDataVector.end());
 			}
 		}
 	}
+	m_trackDataModel->setTrackData(trackDataVector);
 }
 
 /**

@@ -43,19 +43,20 @@
 #include "kid3.h"
 #include "musicbrainzclient.h"
 #include "comboboxdelegate.h"
+#include "trackdatamodel.h"
 #include "qtcompatmac.h"
 
 /**
  * Constructor.
  *
  * @param parent          parent widget
- * @param trackDataVector track data to be filled with imported values,
+ * @param trackDataModel track data to be filled with imported values,
  *                        is passed with filenames set
  */
 MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
-																		 ImportTrackDataVector& trackDataVector)
+																		 TrackDataModel* trackDataModel)
 	: QDialog(parent), m_statusBar(0),
-		m_timer(0), m_client(0), m_trackDataVector(trackDataVector)
+		m_timer(0), m_client(0), m_trackDataModel(trackDataModel)
 {
 	setModal(true);
 	setWindowTitle(i18n("MusicBrainz"));
@@ -168,7 +169,7 @@ void MusicBrainzDialog::initTable()
 {
 	setServer(Kid3App::s_musicBrainzCfg.m_server);
 
-	unsigned numRows = m_trackDataVector.size();
+	unsigned numRows = m_trackDataModel->rowCount();
 	m_trackResults.resize(numRows);
 	m_albumTableModel->setRowCount(numRows);
 	for (unsigned i = 0; i < numRows; ++i) {
@@ -190,7 +191,7 @@ void MusicBrainzDialog::initTable()
  */
 void MusicBrainzDialog::clearResults()
 {
-	unsigned numRows = m_trackDataVector.size();
+	unsigned numRows = m_trackDataModel->rowCount();
 	for (unsigned i = 0; i < numRows; ++i) {
 		m_trackResults[i].clear();
 		setFileStatus(i, i18n("Unknown"));
@@ -217,7 +218,7 @@ void MusicBrainzDialog::startClient()
 {
 	clearResults();
 	if (!m_client) {
-		m_client = new MusicBrainzClient(m_trackDataVector);
+		m_client = new MusicBrainzClient(m_trackDataModel);
 		setClientConfig();
 		connect(m_client, SIGNAL(statusChanged(int, QString)),
 						this, SLOT(setFileStatus(int, QString)));
@@ -276,8 +277,9 @@ void MusicBrainzDialog::reject()
  */
 void MusicBrainzDialog::apply()
 {
+	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
 	bool newTrackData = false;
-	unsigned numRows = m_trackDataVector.size();
+	unsigned numRows = trackDataVector.size();
 	for (unsigned index = 0; index < numRows; ++index) {
 		QModelIndex idx(m_albumTableModel->index(index, 0));
 		if (idx.isValid()) {
@@ -286,18 +288,19 @@ void MusicBrainzDialog::apply()
 			if (selectedItem > 0) {
 				const ImportTrackData& selectedData =
 					m_trackResults[index][selectedItem - 1];
-				m_trackDataVector[index].setTitle(selectedData.getTitle());
-				m_trackDataVector[index].setArtist(selectedData.getArtist());
-				m_trackDataVector[index].setAlbum(selectedData.getAlbum());
-				m_trackDataVector[index].setTrack(selectedData.getTrack());
-				m_trackDataVector[index].setYear(selectedData.getYear());
-				m_trackDataVector[index].setImportDuration(
+				trackDataVector[index].setTitle(selectedData.getTitle());
+				trackDataVector[index].setArtist(selectedData.getArtist());
+				trackDataVector[index].setAlbum(selectedData.getAlbum());
+				trackDataVector[index].setTrack(selectedData.getTrack());
+				trackDataVector[index].setYear(selectedData.getYear());
+				trackDataVector[index].setImportDuration(
 					selectedData.getImportDuration());
 				newTrackData = true;
 			}
 		}
 	}
 	if (newTrackData) {
+		m_trackDataModel->setTrackData(trackDataVector);
 		emit trackDataUpdated();
 	}
 }
@@ -454,9 +457,11 @@ void MusicBrainzDialog::showFilenameInStatusBar(const QModelIndex& index)
 {
 	if (m_statusBar) {
 		int row = index.row();
-		unsigned numRows = m_trackDataVector.size();
+		const ImportTrackDataVector& trackDataVector(
+					m_trackDataModel->trackData());
+		unsigned numRows = trackDataVector.size();
 		if (row >= 0 && row < static_cast<int>(numRows)) {
-			m_statusBar->showMessage(m_trackDataVector[row].getFilename());
+			m_statusBar->showMessage(trackDataVector.at(row).getFilename());
 		} else {
 			m_statusBar->clearMessage();
 		}

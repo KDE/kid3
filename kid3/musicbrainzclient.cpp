@@ -33,7 +33,7 @@
 #include <QDomDocument>
 #endif
 #include "freedbimporter.h"
-#include "trackdata.h"
+#include "trackdatamodel.h"
 #include "qtcompatmac.h"
 
 #if HAVE_TUNEPIMP >= 5
@@ -180,11 +180,11 @@ void LookupQuery::socketConnectionClosed()
 /**
  * Constructor.
  *
- * @param trackDataList track data to be filled with imported values,
+ * @param trackDataModel track data to be filled with imported values,
  *                      is passed with filenames set
  */
-MusicBrainzClient::MusicBrainzClient(ImportTrackDataVector& trackDataList) :
-	m_trackDataVector(trackDataList), m_tp(0), m_ids(0), m_numFiles(0)
+MusicBrainzClient::MusicBrainzClient(TrackDataModel* trackDataModel) :
+	m_trackDataModel(trackDataModel), m_tp(0), m_ids(0), m_numFiles(0)
 #if HAVE_TUNEPIMP >= 5
 	, m_lookupQuery(0)
 #endif
@@ -251,7 +251,7 @@ QString MusicBrainzClient::getFilename(int id) const
 {
 	int idx = getIndexOfId(id);
 	if (idx >= 0) {
-		return m_trackDataVector[idx].getAbsFilename();
+		return m_trackDataModel->trackData().at(idx).getAbsFilename();
 	}
 	return QString::null;
 }
@@ -431,7 +431,8 @@ void MusicBrainzClient::addFiles()
 	if (m_ids) {
 		removeFiles();
 	}
-	m_numFiles = m_trackDataVector.size();
+	const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
+	m_numFiles = trackDataVector.size();
 	m_ids = new int[m_numFiles];
 #if HAVE_TUNEPIMP >= 5
 	char serverName[80], proxyName[80];
@@ -444,8 +445,8 @@ void MusicBrainzClient::addFiles()
 					this, SLOT(parseLookupResponse(int, const QByteArray&)));
 #endif
 	int i = 0;
-	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
-			 it != m_trackDataVector.end();
+	for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
+			 it != trackDataVector.constEnd();
 			 ++it) {
 #if HAVE_TUNEPIMP >= 4
 		m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()), 0);

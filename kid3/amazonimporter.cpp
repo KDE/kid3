@@ -27,6 +27,7 @@
 #include "amazonimporter.h"
 #include <QRegExp>
 #include <QDomDocument>
+#include "trackdatamodel.h"
 #include "kid3.h"
 
 
@@ -34,12 +35,12 @@
  * Constructor.
  *
  * @param parent          parent object
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
 AmazonImporter::AmazonImporter(
 	QObject* parent,
-	ImportTrackDataVector& trackDataVector)
-	: ServerImporter(parent, trackDataVector)
+	TrackDataModel* trackDataModel)
+	: ServerImporter(parent, trackDataModel)
 {
 	setObjectName("AmazonImporter");
 }
@@ -116,7 +117,7 @@ void AmazonImporter::parseFindResults(const QByteArray& searchStr)
 }
 
 /**
- * Parse result of album request and populate m_trackDataVector with results.
+ * Parse result of album request and populate m_trackDataModel with results.
  *
  * @param albumStr album data received
  */
@@ -255,6 +256,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 		}
 	}
 
+	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
 	if (getCoverArt()) {
 		// <input type="hidden" id="ASIN" name="ASIN" value="B0025AY48W" />
 		start = str.indexOf("id=\"ASIN\"");
@@ -263,7 +265,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 			if (start > 0) {
 				end = str.indexOf("\"", start + 7);
 				if (end > start) {
-					m_trackDataVector.setCoverArtUrl(
+					trackDataVector.setCoverArtUrl(
 						QString("http://www.amazon.com/dp/") +
 						str.mid(start + 7, end - start - 7));
 				}
@@ -286,8 +288,8 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 		QRegExp durationRe("(\\d+):(\\d+)");
 		QRegExp nrTitleRe("\\s*\\d+\\.\\s+(.*\\S)");
 		FrameCollection frames(framesHdr);
-		ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-		bool atTrackDataListEnd = (it == m_trackDataVector.end());
+		ImportTrackDataVector::iterator it = trackDataVector.begin();
+		bool atTrackDataListEnd = (it == trackDataVector.end());
 		int trackNr = 1;
 		while (start >= 0) {
 			QString title;
@@ -378,12 +380,12 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 					ImportTrackData trackData;
 					trackData.setFrameCollection(frames);
 					trackData.setImportDuration(duration);
-					m_trackDataVector.push_back(trackData);
+					trackDataVector.push_back(trackData);
 				} else {
 					(*it).setFrameCollection(frames);
 					(*it).setImportDuration(duration);
 					++it;
-					atTrackDataListEnd = (it == m_trackDataVector.end());
+					atTrackDataListEnd = (it == trackDataVector.end());
 				}
 				++trackNr;
 				frames = framesHdr;
@@ -394,22 +396,23 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 		frames.clear();
 		while (!atTrackDataListEnd) {
 			if ((*it).getFileDuration() == 0) {
-				it = m_trackDataVector.erase(it);
+				it = trackDataVector.erase(it);
 			} else {
 				(*it).setFrameCollection(frames);
 				(*it).setImportDuration(0);
 				++it;
 			}
-			atTrackDataListEnd = (it == m_trackDataVector.end());
+			atTrackDataListEnd = (it == trackDataVector.end());
 		}
 	} else if (!framesHdr.empty()) {
 		// if there are no track data, fill frame header data
-		for (ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-				 it != m_trackDataVector.end();
+		for (ImportTrackDataVector::iterator it = trackDataVector.begin();
+				 it != trackDataVector.end();
 				 ++it) {
 			(*it).setFrameCollection(framesHdr);
 		}
 	}
+	m_trackDataModel->setTrackData(trackDataVector);
 }
 
 /**

@@ -31,6 +31,7 @@
 
 class ImportTrackDataVector;
 class ImportParser;
+class TrackDataModel;
 class FrameCollection;
 
 /**
@@ -41,9 +42,9 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param trackDataVector track data to be filled with imported values
+	 * @param trackDataModel track data to be filled with imported values
 	 */
-	explicit TextImporter(ImportTrackDataVector& trackDataVector);
+	explicit TextImporter(TrackDataModel* trackDataModel);
 
 	/**
 	 * Destructor.
@@ -117,7 +118,7 @@ private:
 	/** track parser object */
 	ImportParser* m_trackParser;
 	/** track data */
-	ImportTrackDataVector& m_trackDataVector;
+	TrackDataModel* m_trackDataModel;
 };
 
 #endif

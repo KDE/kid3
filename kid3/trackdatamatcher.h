@@ -27,7 +27,7 @@
 #ifndef TRACKDATAMATCHER_H
 #define TRACKDATAMATCHER_H
 
-class ImportTrackDataVector;
+class TrackDataModel;
 
 /**
  * Shuffle imported tracks to optimize match with length, track or title.
@@ -37,26 +37,26 @@ namespace TrackDataMatcher {
 /**
  * Match import data with length.
  *
- * @param trackDataVector tracks to match
+ * @param trackDataModel tracks to match
  * @param diffCheckEnable true if time difference check is enabled
  * @param maxDiff maximum allowed time difference
  */
-bool matchWithLength(ImportTrackDataVector& trackDataVector,
+bool matchWithLength(TrackDataModel* trackDataModel,
 										 bool diffCheckEnable, int maxDiff);
 
 /**
  * Match import data with track number.
  *
- * @param trackDataVector tracks to match
+ * @param trackDataModel tracks to match
  */
-bool matchWithTrack(ImportTrackDataVector& trackDataVector);
+bool matchWithTrack(TrackDataModel* trackDataModel);
 
 /**
  * Match import data with title.
  *
- * @param trackDataVector tracks to match
+ * @param trackDataModel tracks to match
  */
-bool matchWithTitle(ImportTrackDataVector& trackDataVector);
+bool matchWithTitle(TrackDataModel* trackDataModel);
 
 }
 

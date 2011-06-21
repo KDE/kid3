@@ -43,6 +43,7 @@
 class QByteArray;
 class ImportTrackData;
 class ImportTrackDataVector;
+class TrackDataModel;
 
 /**
  * A HTTP query to a musicbrainz server for HAVE_TUNEPIMP >= 5.
@@ -151,10 +152,10 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param trackDataList track data to be filled with imported values,
+	 * @param trackDataModel track data to be filled with imported values,
 	 *                      is passed with filenames set
 	 */
-	explicit MusicBrainzClient(ImportTrackDataVector& trackDataList);
+	explicit MusicBrainzClient(TrackDataModel* trackDataModel);
 	/**
 	 * Destructor.
 	 */
@@ -252,7 +253,7 @@ private:
 	 */
 	bool getResults(int id, ImportTrackDataVector& trackDataList);
 
-	ImportTrackDataVector& m_trackDataVector;
+	TrackDataModel* m_trackDataModel;
 	tunepimp_t m_tp;
 	int* m_ids;
 	int m_numFiles;

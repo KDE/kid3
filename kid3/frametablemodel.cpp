@@ -114,7 +114,6 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
 			return it->getValue();
 	} else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
 		return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
-		return false;
 	} else if (role == Qt::BackgroundColorRole) {
 		if (index.column() == CI_Enable) {
 			return Kid3App::s_miscCfg.m_markChanges &&

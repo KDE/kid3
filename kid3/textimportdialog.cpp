@@ -49,11 +49,11 @@
  * Constructor.
  *
  * @param parent  parent widget
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
 TextImportDialog::TextImportDialog(QWidget* parent,
-																	 ImportTrackDataVector& trackDataVector) :
-	QDialog(parent), m_textImporter(new TextImporter(trackDataVector))
+																	 TrackDataModel* trackDataModel) :
+	QDialog(parent), m_textImporter(new TextImporter(trackDataModel))
 {
 	setObjectName("TextImportDialog");
 	setWindowTitle(i18n("Import from File/Clipboard"));

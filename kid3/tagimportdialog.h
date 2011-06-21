@@ -34,7 +34,7 @@ class QLineEdit;
 class QLabel;
 class QComboBox;
 class QPushButton;
-class ImportTrackDataVector;
+class TrackDataModel;
 
 /**
  * Dialog to import from a text (file or clipboard).
@@ -47,10 +47,10 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent  parent widget
-	 * @param trackDataVector track data to be filled with imported values
+	 * @param trackDataModel track data to be filled with imported values
 	 */
 	explicit TagImportDialog(QWidget* parent,
-														ImportTrackDataVector& trackDataVector);
+													 TrackDataModel* trackDataModel);
 
 	/**
 	 * Destructor.
@@ -108,7 +108,7 @@ private:
 	/** Extraction regexps */
 	QStringList m_formatExtractions;
 
-	ImportTrackDataVector& m_trackDataVector;
+	TrackDataModel* m_trackDataModel;
 };
 
 #endif

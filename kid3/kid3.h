@@ -46,7 +46,6 @@ class RecentFilesMenu;
 /** Base class for main window. */
 typedef QMainWindow Kid3AppBaseClass;
 #endif
-#include "trackdata.h"
 #include "formatconfig.h"
 #include "importconfig.h"
 #include "miscconfig.h"
@@ -79,8 +78,10 @@ class PlayToolBar;
 #endif
 class DirContents;
 class QFileSystemModel;
+class QModelIndex;
 class FileProxyModel;
 class DirProxyModel;
+class TrackDataModel;
 
 /** Kid3 application */
 class Kid3App : public Kid3AppBaseClass
@@ -795,6 +796,8 @@ private:
 	QFileSystemModel* m_fileSystemModel;
 	FileProxyModel* m_fileProxyModel;
 	DirProxyModel* m_dirProxyModel;
+	/** Track data model */
+	TrackDataModel* m_trackDataModel;
 	/** true if any file was modified */
 	bool m_modified;
 	/** true if list is filtered */
@@ -805,8 +808,6 @@ private:
 	FrameCollection m_copyTags;
 	/** Import dialog */
 	ImportDialog* m_importDialog;
-	/** Track data list */
-	ImportTrackDataVector m_trackDataList;
 	/** Browse cover art dialog */
 	BrowseCoverArtDialog* m_browseCoverArtDialog;
 	/** Export dialog */

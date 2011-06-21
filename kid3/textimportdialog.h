@@ -35,7 +35,7 @@ class QLabel;
 class QComboBox;
 class QPushButton;
 class TextImporter;
-class ImportTrackDataVector;
+class TrackDataModel;
 
 /**
  * Dialog to import from a text (file or clipboard).
@@ -48,10 +48,10 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent  parent widget
-	 * @param trackDataVector track data to be filled with imported values
+	 * @param trackDataModel track data to be filled with imported values
 	 */
 	explicit TextImportDialog(QWidget* parent,
-														ImportTrackDataVector& trackDataVector);
+														TrackDataModel* trackDataModel);
 
 	/**
 	 * Destructor.

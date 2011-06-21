@@ -95,6 +95,7 @@
 #include "fileproxymodel.h"
 #include "dirproxymodel.h"
 #include "modeliterator.h"
+#include "trackdatamodel.h"
 #include "dirlist.h"
 #include "pictureframe.h"
 #ifdef HAVE_ID3LIB
@@ -145,6 +146,7 @@ Kid3App::Kid3App() :
 	m_fileSystemModel(new QFileSystemModel(this)),
 	m_fileProxyModel(new FileProxyModel(this)),
 	m_dirProxyModel(new DirProxyModel(this)),
+	m_trackDataModel(new TrackDataModel(this)),
 	m_downloadToAllFilesInDir(false),
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
@@ -1698,7 +1700,7 @@ void Kid3App::setupImportDialog()
 		tagVersion = TrackData::TagV2V1;
 	}
 
-	m_trackDataList.clearData();
+	ImportTrackDataVector trackDataList;
 	TaggedFileOfDirectoryIterator it(m_view->getFileList()->currentOrRootIndex());
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
@@ -1706,17 +1708,18 @@ void Kid3App::setupImportDialog()
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 		taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
 #endif
-		m_trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
+		trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
 	}
+	m_trackDataModel->setTrackData(trackDataList);
 
 	if (!m_importDialog) {
 		QString caption(i18n("Import"));
 		m_importDialog =
-			new ImportDialog(NULL, caption, m_trackDataList);
+			new ImportDialog(NULL, caption, m_trackDataModel);
 	}
 	if (m_importDialog) {
 		m_importDialog->clear();
-		if (!m_trackDataList.isTagV1Supported() &&
+		if (!trackDataList.isTagV1Supported() &&
 				m_importDialog->getDestination() == ImportConfig::DestV1) {
 			m_importDialog->setDestination(ImportConfig::DestV2);
 		}
@@ -1732,7 +1735,8 @@ void Kid3App::setupImportDialog()
 void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 {
 	slotStatusMsg(i18n("Import..."));
-	ImportTrackDataVector::iterator it = m_trackDataList.begin();
+	ImportTrackDataVector trackDataList(m_trackDataModel->getTrackData());
+	ImportTrackDataVector::iterator it = trackDataList.begin();
 	FrameFilter flt(destV1 ?
 									m_view->frameModelV1()->getEnabledFrameFilter(true) :
 									m_view->frameModelV2()->getEnabledFrameFilter(true));
@@ -1741,7 +1745,7 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 	while (tfit.hasNext()) {
 		TaggedFile* taggedFile = tfit.next();
 		taggedFile->readTags(false);
-		if (it != m_trackDataList.end()) {
+		if (it != trackDataList.end()) {
 			it->removeDisabledFrames(flt);
 			formatFramesIfEnabled(*it);
 			if (destV1) taggedFile->setFramesV1(*it, false);
@@ -1765,8 +1769,8 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 	QApplication::restoreOverrideCursor();
 
 	if (destV2 && flt.isEnabled(Frame::FT_Picture) &&
-	    !m_trackDataList.getCoverArtUrl().isEmpty()) {
-		downloadImage(m_trackDataList.getCoverArtUrl(), true);
+			!trackDataList.getCoverArtUrl().isEmpty()) {
+		downloadImage(trackDataList.getCoverArtUrl(), true);
 	}
 }
 

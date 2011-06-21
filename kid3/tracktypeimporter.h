@@ -39,10 +39,10 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent          parent object
-	 * @param trackDataVector track data to be filled with imported values
+	 * @param trackDataModel track data to be filled with imported values
 	 */
 	TrackTypeImporter(QObject* parent,
-										ImportTrackDataVector& trackDataVector);
+										TrackDataModel* trackDataModel);
 
 	/**
 	 * Destructor.

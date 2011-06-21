@@ -29,7 +29,6 @@
 
 #include <QDialog>
 #include "config.h"
-#include "trackdata.h"
 #include "importconfig.h"
 
 class QString;
@@ -82,11 +81,11 @@ public:
 	 *
 	 * @param parent        parent widget
 	 * @param caption       dialog title
-	 * @param trackDataList track data to be filled with imported values,
+	 * @param trackDataModel track data to be filled with imported values,
 	 *                      is passed with durations of files set
 	 */
 	ImportDialog(QWidget* parent, QString& caption,
-							 ImportTrackDataVector& trackDataList);
+							 TrackDataModel* trackDataModel);
 	/**
 	 * Destructor.
 	 */
@@ -231,11 +230,6 @@ private slots:
 	 */
 	void changeTagDestination();
 
-	/**
-	 * Called when OK is clicked.
-	 */
-	void onOkButtonClicked();
-
 private:
 	/**
 	 * Get time difference check configuration.
@@ -284,8 +278,6 @@ private:
 	TextImportDialog* m_textImportDialog;
 	/** Tag import dialog */
 	TagImportDialog* m_tagImportDialog;
-	/** track data */
-	ImportTrackDataVector& m_trackDataVector;
 };
 
 #endif

@@ -26,17 +26,17 @@
 
 #include "textimporter.h"
 #include "importparser.h"
-#include "trackdata.h"
+#include "trackdatamodel.h"
 
 /**
  * Constructor.
  *
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
-TextImporter::TextImporter(ImportTrackDataVector& trackDataVector) :
+TextImporter::TextImporter(TrackDataModel* trackDataModel) :
 	m_headerParser(new ImportParser),
 	m_trackParser(new ImportParser),
-	m_trackDataVector(trackDataVector)
+	m_trackDataModel(trackDataModel)
 {
 }
 
@@ -86,42 +86,43 @@ bool TextImporter::updateTrackData(
 
 	FrameCollection frames(framesHdr);
 	bool start = true;
-	ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-	bool atTrackDataListEnd = (it == m_trackDataVector.end());
+	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+	ImportTrackDataVector::iterator it = trackDataVector.begin();
+	bool atTrackDataListEnd = (it == trackDataVector.end());
 	while (getNextTags(frames, start)) {
 		start = false;
 		if (atTrackDataListEnd) {
 			ImportTrackData trackData;
 			trackData.setFrameCollection(frames);
-			m_trackDataVector.push_back(trackData);
+			trackDataVector.push_back(trackData);
 		} else {
 			(*it).setFrameCollection(frames);
 			++it;
-			atTrackDataListEnd = (it == m_trackDataVector.end());
+			atTrackDataListEnd = (it == trackDataVector.end());
 		}
 		frames = framesHdr;
 	}
 	frames.clear();
 	while (!atTrackDataListEnd) {
 		if ((*it).getFileDuration() == 0) {
-			it = m_trackDataVector.erase(it);
+			it = trackDataVector.erase(it);
 		} else {
 			(*it).setFrameCollection(frames);
 			(*it).setImportDuration(0);
 			++it;
 		}
-		atTrackDataListEnd = (it == m_trackDataVector.end());
+		atTrackDataListEnd = (it == trackDataVector.end());
 	}
 
 	if (!start) {
 		/* start is false => tags were found */
 		QList<int> trackDuration = getTrackDurations();
 		if (!trackDuration.isEmpty()) {
-			it = m_trackDataVector.begin();
+			it = trackDataVector.begin();
 			for (QList<int>::const_iterator tdit = trackDuration.begin();
 					 tdit != trackDuration.end();
 					 ++tdit) {
-				if (it != m_trackDataVector.end()) {
+				if (it != trackDataVector.end()) {
 					(*it).setImportDuration(*tdit);
 					++it;
 				} else {
@@ -129,6 +130,7 @@ bool TextImporter::updateTrackData(
 				}
 			}
 		}
+		m_trackDataModel->setTrackData(trackDataVector);
 		return true;
 	}
 	return false;

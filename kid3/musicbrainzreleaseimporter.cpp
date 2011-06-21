@@ -27,17 +27,18 @@
 #include "musicbrainzreleaseimporter.h"
 #include <QDomDocument>
 #include "serverimporterconfig.h"
+#include "trackdatamodel.h"
 #include "kid3.h"
 
 /**
  * Constructor.
  *
  * @param parent          parent object
- * @param trackDataVector track data to be filled with imported values
+ * @param trackDataModel track data to be filled with imported values
  */
 MusicBrainzReleaseImporter::MusicBrainzReleaseImporter(
-	QObject* parent, ImportTrackDataVector& trackDataVector) :
-	ServerImporter(parent, trackDataVector)
+	QObject* parent, TrackDataModel* trackDataModel) :
+	ServerImporter(parent, trackDataModel)
 {
 	setObjectName("MusicBrainzReleaseImporter");
 }
@@ -230,7 +231,7 @@ static bool parseCredits(const QDomElement& relationList, FrameCollection& frame
 }
 
 /**
- * Parse result of album request and populate m_trackDataVector with results.
+ * Parse result of album request and populate m_trackDataModel with results.
  *
  * @param albumStr album data received
  */
@@ -263,12 +264,13 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
 		framesHdr.setAlbum(release.namedItem("title").toElement().text());
 		framesHdr.setArtist(release.namedItem("artist").toElement().namedItem("name").toElement().text());
 
-		m_trackDataVector.setCoverArtUrl(QString::null);
+		ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+		trackDataVector.setCoverArtUrl(QString::null);
 		const bool coverArt = getCoverArt();
 		if (coverArt) {
 			QString asin(release.namedItem("asin").toElement().text());
 			if (!asin.isEmpty()) {
-				m_trackDataVector.setCoverArtUrl(
+				trackDataVector.setCoverArtUrl(
 					QString("http://www.amazon.com/dp/") + asin);
 			}
 		}
@@ -319,7 +321,7 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
 										if (!relation.isNull()) {
 											QString type(relation.attribute("type"));
 											if (type == "CoverArtLink" || type == "AmazonAsin") {
-												m_trackDataVector.setCoverArtUrl(
+												trackDataVector.setCoverArtUrl(
 													relation.attribute("target"));
 											}
 										}
@@ -334,8 +336,8 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
 			}
 		}
 
-		ImportTrackDataVector::iterator it = m_trackDataVector.begin();
-		bool atTrackDataListEnd = (it == m_trackDataVector.end());
+		ImportTrackDataVector::iterator it = trackDataVector.begin();
+		bool atTrackDataListEnd = (it == trackDataVector.end());
 		int trackNr = 1;
 		FrameCollection frames(framesHdr);
 		QDomElement trackList = release.namedItem("track-list").toElement();
@@ -372,12 +374,12 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
 				ImportTrackData trackData;
 				trackData.setFrameCollection(frames);
 				trackData.setImportDuration(duration);
-				m_trackDataVector.push_back(trackData);
+				trackDataVector.push_back(trackData);
 			} else {
 				(*it).setFrameCollection(frames);
 				(*it).setImportDuration(duration);
 				++it;
-				atTrackDataListEnd = (it == m_trackDataVector.end());
+				atTrackDataListEnd = (it == trackDataVector.end());
 			}
 			++trackNr;
 			frames = framesHdr;
@@ -387,14 +389,15 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
 		frames.clear();
 		while (!atTrackDataListEnd) {
 			if ((*it).getFileDuration() == 0) {
-				it = m_trackDataVector.erase(it);
+				it = trackDataVector.erase(it);
 			} else {
 				(*it).setFrameCollection(frames);
 				(*it).setImportDuration(0);
 				++it;
 			}
-			atTrackDataListEnd = (it == m_trackDataVector.end());
+			atTrackDataListEnd = (it == trackDataVector.end());
 		}
+		m_trackDataModel->setTrackData(trackDataVector);
 	}
 }
 

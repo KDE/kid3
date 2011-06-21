@@ -34,7 +34,7 @@
 class QStandardItemModel;
 class ServerImporterConfig;
 class ImportClient;
-class ImportTrackDataVector;
+class TrackDataModel;
 
 /**
  * Generic baseclass to import from an external source.
@@ -48,10 +48,10 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent  parent object
-	 * @param trackDataVector track data to be filled with imported values
+	 * @param trackDataModel track data to be filled with imported values
 	 */
 	ServerImporter(QObject* parent,
-								 ImportTrackDataVector& trackDataVector);
+								 TrackDataModel* trackDataModel);
 
 	/**
 	 * Destructor.
@@ -91,7 +91,7 @@ public:
 	virtual void parseFindResults(const QByteArray& searchStr) = 0;
 
 	/**
-	 * Parse result of album request and populate m_trackDataVector with results.
+	 * Parse result of album request and populate m_trackDataModel with results.
 	 * This method has to be reimplemented for the specific result data.
 	 *
 	 * @param albumStr album data received
@@ -158,7 +158,7 @@ public:
 
 protected:
 	QStandardItemModel* m_albumListModel; /**< albums to select */
-	ImportTrackDataVector& m_trackDataVector; /**< vector with tracks to import */
+	TrackDataModel* m_trackDataModel; /**< model with tracks to import */
 
 private:
 	bool m_additionalTagsEnabled;
