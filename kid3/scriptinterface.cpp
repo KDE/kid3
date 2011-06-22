@@ -129,7 +129,8 @@ bool ScriptInterface::importFromFile(int tagMask, const QString& path, int fmtId
  */
 void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
 {
-	m_app->downloadImage(url, allFilesInDir);
+	m_app->downloadImage(url, allFilesInDir
+		? Kid3App::ImageForAllFilesInDirectory : Kid3App::ImageForSelectedFiles);
 }
 
 /**

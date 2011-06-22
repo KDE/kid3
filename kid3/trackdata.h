@@ -139,6 +139,12 @@ public:
 	}
 
 	/**
+	 * Get tagged file associated with this track data.
+	 * @return tagged file, 0 if none assigned.
+	 */
+	TaggedFile* getTaggedFile() const;
+
+	/**
 	 * Get help text for format codes supported by formatString().
 	 *
 	 * @param onlyRows if true only the tr elements are returned,
@@ -147,15 +153,6 @@ public:
 	 * @return help text.
 	 */
 	static QString getFormatToolTip(bool onlyRows = false);
-
-protected:
-	friend class ImportTrackDataVector;
-
-	/**
-	 * Get tagged file associated with this track data.
-	 * @return tagged file, 0 if none assigned.
-	 */
-	TaggedFile* getTaggedFile() const;
 
 private:
 	QPersistentModelIndex m_taggedFileIndex;

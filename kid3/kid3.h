@@ -89,6 +89,13 @@ class Kid3App : public Kid3AppBaseClass
 Q_OBJECT
 
 public:
+	/** Destination for downloadImage(). */
+	enum DownloadImageDestination {
+		ImageForSelectedFiles,         /**< only for current file */
+		ImageForAllFilesInDirectory, /**< for all files in directory */
+		ImageForImportTrackData      /**< for enabled files in m_trackDataModel */
+	};
+
 	/**
 	 * Constructor.
 	 */
@@ -204,10 +211,10 @@ public:
 	/**
 	 * Download an image file.
 	 *
-	 * @param url           URL of image
-	 * @param allFilesInDir true to add the image to all files in the directory
+	 * @param url  URL of image
+	 * @param dest specifies affected files
 	 */
-	void downloadImage(const QString& url, bool allFilesInDir);
+	void downloadImage(const QString& url, DownloadImageDestination dest);
 
 	/**
 	 * Handle URL on drop.
@@ -802,8 +809,8 @@ private:
 	bool m_modified;
 	/** true if list is filtered */
 	bool m_filtered;
-	/** true to add frame to all files in directory in imageDownloaded() */
-	bool m_downloadToAllFilesInDir;
+	/** Affected files to add frame in imageDownloaded() */
+	DownloadImageDestination m_downloadImageDest;
 	/** Copy buffer */
 	FrameCollection m_copyTags;
 	/** Import dialog */

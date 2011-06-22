@@ -147,7 +147,7 @@ Kid3App::Kid3App() :
 	m_fileProxyModel(new FileProxyModel(this)),
 	m_dirProxyModel(new DirProxyModel(this)),
 	m_trackDataModel(new TrackDataModel(this)),
-	m_downloadToAllFilesInDir(false),
+	m_downloadImageDest(ImageForSelectedFiles),
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
 	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0),
@@ -1770,7 +1770,7 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 
 	if (destV2 && flt.isEnabled(Frame::FT_Picture) &&
 			!trackDataList.getCoverArtUrl().isEmpty()) {
-		downloadImage(trackDataList.getCoverArtUrl(), true);
+		downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
 	}
 }
 
@@ -2604,10 +2604,10 @@ void Kid3App::dropImage(const QImage& image)
 /**
  * Download an image file.
  *
- * @param url           URL of image
- * @param allFilesInDir true to add the image to all files in the directory
+ * @param url  URL of image
+ * @param dest specifies affected files
  */
-void Kid3App::downloadImage(const QString& url, bool allFilesInDir)
+void Kid3App::downloadImage(const QString& url, DownloadImageDestination dest)
 {
 	QString imgurl(BrowseCoverArtDialog::getImageUrl(url));
 	if (!imgurl.isEmpty()) {
@@ -2621,7 +2621,7 @@ void Kid3App::downloadImage(const QString& url, bool allFilesInDir)
 			if (hostPos > 0) {
 				int pathPos = imgurl.indexOf("/", hostPos + 3);
 				if (pathPos > hostPos) {
-					m_downloadToAllFilesInDir = allFilesInDir;
+					m_downloadImageDest = dest;
 					m_downloadDialog->startDownload(
 						imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
 						imgurl.mid(pathPos));
@@ -2639,7 +2639,7 @@ void Kid3App::downloadImage(const QString& url, bool allFilesInDir)
  */
 void Kid3App::dropUrl(const QString& txt)
 {
-	downloadImage(txt, false);
+	downloadImage(txt, ImageForSelectedFiles);
 }
 
 /**
@@ -2654,7 +2654,7 @@ void Kid3App::imageDownloaded(const QByteArray& data,
 {
 	if (mimeType.startsWith("image")) {
 		PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
-		if (m_downloadToAllFilesInDir) {
+		if (m_downloadImageDest == ImageForAllFilesInDirectory) {
 			TaggedFileOfDirectoryIterator it(
 					m_view->getFileList()->currentOrRootIndex());
 			while (it.hasNext()) {
@@ -2662,10 +2662,23 @@ void Kid3App::imageDownloaded(const QByteArray& data,
 				taggedFile->readTags(false);
 				taggedFile->addFrameV2(frame);
 			}
-			m_downloadToAllFilesInDir = false;
+		} else if (m_downloadImageDest == ImageForImportTrackData) {
+			const ImportTrackDataVector& trackDataVector(
+						m_trackDataModel->trackData());
+			for (ImportTrackDataVector::const_iterator it =
+					 trackDataVector.constBegin();
+					 it != trackDataVector.constEnd();
+					 ++it) {
+				TaggedFile* taggedFile;
+				if (it->isEnabled() && (taggedFile = it->getTaggedFile()) != 0) {
+					taggedFile->readTags(false);
+					taggedFile->addFrameV2(frame);
+				}
+			}
 		} else {
 			addFrame(&frame);
 		}
+		m_downloadImageDest = ImageForSelectedFiles;
 		updateGuiControls();
 	}
 }
