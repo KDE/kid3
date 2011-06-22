@@ -483,7 +483,13 @@ void ImportDialog::clear()
 	m_trackDataImported = false;
 
 	m_serverComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importServer);
-	m_destComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importDest);
+	ImportConfig::ImportDestination importDest = Kid3App::s_genCfg.m_importDest;
+	m_destComboBox->setCurrentIndex(importDest);
+	if (importDest == ImportConfig::DestV1 &&
+			!m_trackDataModel->trackData().isTagV1Supported()) {
+		m_destComboBox->setCurrentIndex(ImportConfig::DestV2);
+		changeTagDestination();
+	}
 
 	m_mismatchCheckBox->setChecked(Kid3App::s_genCfg.m_enableTimeDifferenceCheck);
 	m_maxDiffSpinBox->setValue(Kid3App::s_genCfg.m_maxTimeDifference);

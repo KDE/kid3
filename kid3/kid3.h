@@ -738,6 +738,19 @@ private:
 	void formatFramesIfEnabled(FrameCollection& frames) const;
 
 	/**
+	 * Set track data model with tagged files of directory.
+	 */
+	void filesToTrackDataModel();
+
+	/**
+	 * Set tagged files of directory from track data model.
+	 *
+	 * @param destV1 true to set tag 1
+	 * @param destV2 true to set tag 2
+	 */
+	void trackDataModelToFiles(bool destV1, bool destV2);
+
+	/**
 	 * Update track data and create import dialog.
 	 */
 	void setupImportDialog();
@@ -754,6 +767,17 @@ private:
 	 * Execute the import dialog.
 	 */
 	void execImportDialog();
+
+	/**
+	 * Import.
+	 *
+	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 * @param path    path of file
+	 * @param fmtIdx  index of format
+	 *
+	 * @return true if ok.
+	 */
+	bool importTags(int tagMask, const QString& path, int fmtIdx);
 
 	/**
 	 * Write playlist according to playlist configuration.

@@ -98,6 +98,7 @@
 #include "trackdatamodel.h"
 #include "dirlist.h"
 #include "pictureframe.h"
+#include "textimporter.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -1684,9 +1685,9 @@ bool Kid3App::slotCreatePlaylist()
 }
 
 /**
- * Update track data and create import dialog.
+ * Set track data model with tagged files of directory.
  */
-void Kid3App::setupImportDialog()
+void Kid3App::filesToTrackDataModel()
 {
 	TrackData::TagVersion tagVersion = TrackData::TagNone;
 	switch (s_genCfg.m_importDest) {
@@ -1711,30 +1712,16 @@ void Kid3App::setupImportDialog()
 		trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
 	}
 	m_trackDataModel->setTrackData(trackDataList);
-
-	if (!m_importDialog) {
-		QString caption(i18n("Import"));
-		m_importDialog =
-			new ImportDialog(NULL, caption, m_trackDataModel);
-	}
-	if (m_importDialog) {
-		m_importDialog->clear();
-		if (!trackDataList.isTagV1Supported() &&
-				m_importDialog->getDestination() == ImportConfig::DestV1) {
-			m_importDialog->setDestination(ImportConfig::DestV2);
-		}
-	}
 }
 
 /**
- * Import tags from the import dialog.
+ * Set tagged files of directory from track data model.
  *
  * @param destV1 true to set tag 1
  * @param destV2 true to set tag 2
  */
-void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
+void Kid3App::trackDataModelToFiles(bool destV1, bool destV2)
 {
-	slotStatusMsg(i18n("Import..."));
 	ImportTrackDataVector trackDataList(m_trackDataModel->getTrackData());
 	ImportTrackDataVector::iterator it = trackDataList.begin();
 	FrameFilter flt(destV1 ?
@@ -1755,6 +1742,37 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 			break;
 		}
 	}
+
+	if (destV2 && flt.isEnabled(Frame::FT_Picture) &&
+			!trackDataList.getCoverArtUrl().isEmpty()) {
+		downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
+	}
+}
+
+/**
+ * Update track data and create import dialog.
+ */
+void Kid3App::setupImportDialog()
+{
+	filesToTrackDataModel();
+	if (!m_importDialog) {
+		QString caption(i18n("Import"));
+		m_importDialog =
+			new ImportDialog(NULL, caption, m_trackDataModel);
+	}
+	m_importDialog->clear();
+}
+
+/**
+ * Import tags from the import dialog.
+ *
+ * @param destV1 true to set tag 1
+ * @param destV2 true to set tag 2
+ */
+void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
+{
+	slotStatusMsg(i18n("Import..."));
+	trackDataModelToFiles(destV1, destV2);
 	if (m_view->getFileList()->selectionModel() &&
 			m_view->getFileList()->selectionModel()->hasSelection()) {
 		m_view->frameModelV1()->clearFrames();
@@ -1767,11 +1785,6 @@ void Kid3App::getTagsFromImportDialog(bool destV1, bool destV2)
 	}
 	slotStatusMsg(i18n("Ready."));
 	QApplication::restoreOverrideCursor();
-
-	if (destV2 && flt.isEnabled(Frame::FT_Picture) &&
-			!trackDataList.getCoverArtUrl().isEmpty()) {
-		downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
-	}
 }
 
 /**
@@ -1787,6 +1800,32 @@ void Kid3App::execImportDialog()
 		              m_importDialog->getDestination() == ImportConfig::DestV1V2;
 		getTagsFromImportDialog(destV1, destV2);
 	}
+}
+
+/**
+ * Import.
+ *
+ * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+ * @param path    path of file
+ * @param fmtIdx  index of format
+ *
+ * @return true if ok.
+ */
+bool Kid3App::importTags(int tagMask, const QString& path, int fmtIdx)
+{
+	filesToTrackDataModel();
+	QFile file(path);
+	if (file.open(QIODevice::ReadOnly) &&
+			fmtIdx < Kid3App::s_genCfg.m_importFormatHeaders.size()) {
+		TextImporter(m_trackDataModel).updateTrackData(
+			QTextStream(&file).readAll(),
+			Kid3App::s_genCfg.m_importFormatHeaders.at(fmtIdx),
+			Kid3App::s_genCfg.m_importFormatTracks.at(fmtIdx));
+		file.close();
+		trackDataModelToFiles((tagMask & 1) != 0, (tagMask & 2) != 0);
+		return true;
+	}
+	return false;
 }
 
 /**
