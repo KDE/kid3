@@ -193,7 +193,7 @@ QVariant TrackDataModel::headerData(
 		} else {
 			switch (type) {
 			case FT_FilePath:
-				return i18n("Path");
+				return i18n("Absolute path to file");
 			case FT_FileName:
 				return i18n("Filename");
 			case FT_Duration:
@@ -359,7 +359,8 @@ const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
 void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
 {
 	static const int initFrameTypes[] = {
-		FT_ImportDuration, Frame::FT_Track, Frame::FT_Title,
+		FT_ImportDuration, FT_FileName, FT_FilePath,
+		Frame::FT_Track, Frame::FT_Title,
 		Frame::FT_Artist, Frame::FT_Album, Frame::FT_Date, Frame::FT_Genre,
 		Frame::FT_Comment
 	};
@@ -429,3 +430,26 @@ ImportTrackDataVector TrackDataModel::getTrackData() const
 {
 	return m_trackDataVector;
 }
+
+/**
+ * Get the frame type for a column.
+ * @param column model column
+ * @return frame type of Frame::Type or TrackDataModel::TrackProperties,
+ *         -1 if column invalid.
+ */
+int TrackDataModel::frameTypeForColumn(int column) const
+{
+	return column < m_frameTypes.size() ? m_frameTypes.at(column) : -1;
+}
+
+/**
+ * Get column for a frame type.
+ * @param frameType frame type of Frame::Type or
+ *                  TrackDataModel::TrackProperties.
+ * @return model column, -1 if not found.
+ */
+int TrackDataModel::columnForFrameType(int frameType) const
+{
+	return m_frameTypes.indexOf(frameType);
+}
+

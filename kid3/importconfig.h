@@ -101,6 +101,8 @@ public:
 	bool m_enableTimeDifferenceCheck;
 	/** maximum allowable time difference */
 	int m_maxTimeDifference;
+	/** visible optional columns in import table */
+	quint64 m_importVisibleColumns;
 	/** import window width */
 	int m_importWindowWidth;
 	/** import window height */

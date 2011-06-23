@@ -48,6 +48,7 @@
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QDir>
+#include <QMenu>
 #include "genres.h"
 #include "freedbimporter.h"
 #include "tracktypeimporter.h"
@@ -70,6 +71,20 @@
 #include "musicbrainzconfig.h"
 #endif
 
+namespace {
+
+/**
+ * Get list of frame types whose visibility can be changed using a context menu.
+ * @return list of frame types of Frame::Type or
+ *         TrackDataModel::TrackProperties.
+ */
+QList<int> checkableFrameTypes() {
+	return QList<int>()
+			<< TrackDataModel::FT_FileName << TrackDataModel::FT_FilePath;
+}
+
+}
+
 /**
  * Constructor.
  *
@@ -81,7 +96,7 @@
 ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 													 TrackDataModel* trackDataModel) :
 	QDialog(parent), m_trackDataImported(false),
-	m_autoStartSubDialog(ASD_None),
+	m_autoStartSubDialog(ASD_None), m_columnVisibility(0ULL),
 	m_trackDataModel(trackDataModel)
 {
 	setObjectName("ImportDialog");
@@ -107,11 +122,16 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	m_trackDataTable = new QTableView(this);
 	m_trackDataTable->setModel(m_trackDataModel);
 	m_trackDataTable->resizeColumnsToContents();
+	m_trackDataTable->setItemDelegateForColumn(6, new FrameItemDelegate(this));
 	m_trackDataTable->verticalHeader()->setMovable(true);
 	m_trackDataTable->horizontalHeader()->setMovable(true);
-	m_trackDataTable->setItemDelegateForColumn(6, new FrameItemDelegate(this));
+	m_trackDataTable->horizontalHeader()->setContextMenuPolicy(
+				Qt::CustomContextMenu);
 	connect(m_trackDataTable->verticalHeader(), SIGNAL(sectionMoved(int, int, int)),
 					this, SLOT(moveTableRow(int, int, int)));
+	connect(m_trackDataTable->horizontalHeader(),
+					SIGNAL(customContextMenuRequested(QPoint)),
+			this, SLOT(showTableHeaderContextMenu(QPoint)));
 	vlayout->addWidget(m_trackDataTable);
 
 	QWidget* butbox = new QWidget(this);
@@ -493,6 +513,17 @@ void ImportDialog::clear()
 
 	m_mismatchCheckBox->setChecked(Kid3App::s_genCfg.m_enableTimeDifferenceCheck);
 	m_maxDiffSpinBox->setValue(Kid3App::s_genCfg.m_maxTimeDifference);
+	m_columnVisibility = Kid3App::s_genCfg.m_importVisibleColumns;
+
+	foreach (int frameType, checkableFrameTypes()) {
+		if (frameType < 64) {
+			int column = m_trackDataModel->columnForFrameType(frameType);
+			if (column != -1) {
+				m_trackDataTable->setColumnHidden(
+							column, (m_columnVisibility & (1ULL << frameType)) == 0ULL);
+			}
+		}
+	}
 
 	if (Kid3App::s_genCfg.m_importWindowWidth > 0 &&
 			Kid3App::s_genCfg.m_importWindowHeight > 0) {
@@ -570,6 +601,7 @@ void ImportDialog::saveConfig()
 		m_serverComboBox->currentIndex());
 	getTimeDifferenceCheck(Kid3App::s_genCfg.m_enableTimeDifferenceCheck,
 												 Kid3App::s_genCfg.m_maxTimeDifference);
+	Kid3App::s_genCfg.m_importVisibleColumns = m_columnVisibility;
 
 	Kid3App::s_genCfg.m_importWindowWidth = size().width();
 	Kid3App::s_genCfg.m_importWindowHeight = size().height();
@@ -683,4 +715,59 @@ void ImportDialog::matchWithTitle()
 {
 	if (TrackDataMatcher::matchWithTitle(m_trackDataModel))
 		showPreview();
+}
+
+/**
+ * Display custom context menu for horizontal table header.
+ *
+ * @param pos position where context menu is drawn on screen
+ */
+void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
+{
+	if (QWidget* widget = qobject_cast<QWidget*>(sender())) {
+		QMenu menu(widget);
+		foreach (int frameType, checkableFrameTypes()) {
+			int column = m_trackDataModel->columnForFrameType(frameType);
+			if (column != -1) {
+				QAction* action = new QAction(&menu);
+				action->setText(
+							m_trackDataModel->headerData(column, Qt::Horizontal).toString());
+				action->setData(frameType);
+				action->setCheckable(true);
+				action->setChecked((m_columnVisibility & (1ULL << frameType)) != 0ULL);
+				connect(action, SIGNAL(triggered(bool)),
+								this, SLOT(toggleTableColumnVisibility(bool)));
+				menu.addAction(action);
+			}
+		}
+		menu.setMouseTracking(true);
+		menu.exec(widget->mapToGlobal(pos));
+	}
+}
+
+/**
+ * Toggle visibility of table column.
+ *
+ * @param visible true to make column visible
+ */
+void ImportDialog::toggleTableColumnVisibility(bool visible)
+{
+	if (QAction* action = qobject_cast<QAction*>(sender())) {
+		bool ok;
+		int frameType = action->data().toInt(&ok);
+		if (ok && frameType < 64) {
+			if (visible) {
+				m_columnVisibility |= 1ULL << frameType;
+			} else {
+				m_columnVisibility &= ~(1ULL << frameType);
+			}
+			int column = m_trackDataModel->columnForFrameType(frameType);
+			if (column != -1) {
+				m_trackDataTable->setColumnHidden(column, !visible);
+			}
+		}
+		if (visible) {
+			m_trackDataTable->resizeColumnsToContents();
+		}
+	}
 }

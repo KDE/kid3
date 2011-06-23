@@ -230,6 +230,20 @@ private slots:
 	 */
 	void changeTagDestination();
 
+	/**
+	 * Display custom context menu for horizontal table header.
+	 *
+	 * @param pos position where context menu is drawn on screen
+	 */
+	void showTableHeaderContextMenu(const QPoint& pos);
+
+	/**
+	 * Toggle visibility of table column.
+	 *
+	 * @param visible true to make column visible
+	 */
+	void toggleTableColumnVisibility(bool visible);
+
 private:
 	/**
 	 * Get time difference check configuration.
@@ -250,6 +264,8 @@ private:
 	bool m_trackDataImported;
 	/** Subdialog to open when starting */
 	AutoStartSubDialog m_autoStartSubDialog;
+	/** Mask for visibility of optional columns */
+	quint64 m_columnVisibility;
 	/** Preview table */
 	QTableView* m_trackDataTable;
 	/** Track data model */

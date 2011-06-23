@@ -42,6 +42,7 @@ ImportConfig::ImportConfig(const QString& grp) :
 	GeneralConfig(grp), m_importServer(ImportConfig::ServerFreedb),
 	m_importDest(ImportConfig::DestV1), m_importFormatIdx(0),
 	m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
+	m_importVisibleColumns(0ULL),
 	m_importWindowWidth(-1), m_importWindowHeight(-1),
 	m_importTagsIdx(0),
 	m_exportSrcV1(true), m_exportFormatIdx(0),
@@ -333,6 +334,7 @@ void ImportConfig::writeToConfig(
 	cfg.writeEntry("ImportFormatIdx", m_importFormatIdx);
 	cfg.writeEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
 	cfg.writeEntry("MaxTimeDifference", m_maxTimeDifference);
+	cfg.writeEntry("ImportVisibleColumns", m_importVisibleColumns);
 	cfg.writeEntry("ImportWindowWidth", m_importWindowWidth);
 	cfg.writeEntry("ImportWindowHeight", m_importWindowHeight);
 
@@ -367,6 +369,7 @@ void ImportConfig::writeToConfig(
 	config->setValue("/ImportFormatIdx", QVariant(m_importFormatIdx));
 	config->setValue("/EnableTimeDifferenceCheck", QVariant(m_enableTimeDifferenceCheck));
 	config->setValue("/MaxTimeDifference", QVariant(m_maxTimeDifference));
+	config->setValue("/ImportVisibleColumns", QVariant(m_importVisibleColumns));
 	config->setValue("/ImportWindowWidth", QVariant(m_importWindowWidth));
 	config->setValue("/ImportWindowHeight", QVariant(m_importWindowHeight));
 
@@ -424,6 +427,7 @@ void ImportConfig::readFromConfig(
 	m_importFormatIdx = cfg.readEntry("ImportFormatIdx", m_importFormatIdx);
 	m_enableTimeDifferenceCheck = cfg.readEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
 	m_maxTimeDifference = cfg.readEntry("MaxTimeDifference", m_maxTimeDifference);
+	m_importVisibleColumns = cfg.readEntry("ImportVisibleColumns", m_importVisibleColumns);
 	m_importWindowWidth = cfg.readEntry("ImportWindowWidth", -1);
 	m_importWindowHeight = cfg.readEntry("ImportWindowHeight", -1);
 
@@ -481,6 +485,7 @@ void ImportConfig::readFromConfig(
 	m_importFormatIdx = config->value("/ImportFormatIdx", m_importFormatIdx).toInt();
 	m_enableTimeDifferenceCheck = config->value("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck).toBool();
 	m_maxTimeDifference = config->value("/MaxTimeDifference", m_maxTimeDifference).toInt();
+	m_importVisibleColumns = config->value("/ImportVisibleColumns", m_importVisibleColumns).toULongLong();
 	m_importWindowWidth = config->value("/ImportWindowWidth", -1).toInt();
 	m_importWindowHeight = config->value("/ImportWindowHeight", -1).toInt();
 

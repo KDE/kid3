@@ -198,6 +198,22 @@ public:
 	 */
 	const ImportTrackDataVector& trackData() const { return m_trackDataVector; }
 
+	/**
+	 * Get the frame type for a column.
+	 * @param column model column
+	 * @return frame type of Frame::Type or TrackDataModel::TrackProperties,
+	 *         -1 if column invalid.
+	 */
+	int frameTypeForColumn(int column) const;
+
+	/**
+	 * Get column for a frame type.
+	 * @param frameType frame type of Frame::Type or
+	 *                  TrackDataModel::TrackProperties.
+	 * @return model column, -1 if not found.
+	 */
+	int columnForFrameType(int frameType) const;
+
 private:
 	ImportTrackDataVector m_trackDataVector;
 	QList<int> m_frameTypes;
