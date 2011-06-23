@@ -26,7 +26,6 @@
 
 #include "config.h"
 #include <QFile>
-#include <QDir>
 #ifdef CONFIG_USE_KDE
 
 #include <kdeversion.h>
@@ -74,7 +73,9 @@ int main(int argc, char* argv[])
 
 			KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
-			kid3->openDirectory(args->count() ? args->arg(0) : QDir::currentPath());
+			if (args->count()) {
+				kid3->openDirectory(args->arg(0));
+			}
 			args->clear();
 		}
 	}
@@ -87,6 +88,7 @@ int main(int argc, char* argv[])
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QDir>
 
 #include "kid3.h"
 
@@ -133,8 +135,9 @@ int main(int argc, char* argv[])
 	Kid3App* kid3 = new Kid3App;
 	if (kid3) {
 		kid3->show();
-		kid3->openDirectory(argc > 1 ? QFile::decodeName(argv[1]) :
-												QDir::currentPath());
+		if (argc > 1) {
+			kid3->openDirectory(QFile::decodeName(argv[1]));
+		}
 	}
 	return app.exec();
 }

@@ -157,7 +157,6 @@ Kid3App::Kid3App() :
 	, m_playToolBar(0)
 #endif
 {
-	m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
 	m_fileProxyModel->setSourceModel(m_fileSystemModel);
 	m_dirProxyModel->setSourceModel(m_fileSystemModel);
 #ifdef CONFIG_USE_KDE
@@ -861,6 +860,7 @@ bool Kid3App::openDirectory(QString dir, bool confirm, bool fileCheck)
 
 	QStringList nameFilters(s_miscCfg.m_nameFilter.split(' '));
 	m_fileProxyModel->setNameFilters(nameFilters);
+	m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
 	QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
 	QModelIndex fileIndex = m_fileSystemModel->index(filePath);
 	bool ok = m_view->readFileList(rootIndex, fileIndex);
@@ -2747,7 +2747,10 @@ void Kid3App::updateModificationState()
  */
 void Kid3App::updateWindowCaption()
 {
-	QString cap(QDir(s_dirName).dirName());
+	QString cap;
+	if (!s_dirName.isEmpty()) {
+		cap += QDir(s_dirName).dirName();
+	}
 	if (isFiltered()) {
 		cap += i18n(" [filtered]");
 	}
