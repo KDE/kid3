@@ -243,6 +243,10 @@ FileList::FileList(QWidget* parent, Kid3App* app) :
 	setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
 			this, SLOT(customContextMenu(const QPoint&)));
+#ifdef HAVE_PHONON
+	connect(this, SIGNAL(doubleClicked(QModelIndex)),
+					this, SLOT(playIfTaggedFile(QModelIndex)));
+#endif
 	header()->hide();
 }
 
@@ -606,4 +610,18 @@ void FileList::executeAction(QAction* action)
 void FileList::customContextMenu(const QPoint& pos)
 {
 	contextMenu(currentIndex(), mapToGlobal(pos));
+}
+
+/**
+ * Play item if it is a tagged file.
+ *
+ * @param index model index of item
+ */
+void FileList::playIfTaggedFile(const QModelIndex& index)
+{
+#ifdef HAVE_PHONON
+	if (FileProxyModel::getTaggedFileOfIndex(index)) {
+		m_app->slotPlayAudio();
+	}
+#endif
 }

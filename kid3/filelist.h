@@ -163,6 +163,13 @@ private slots:
 	 */
 	void customContextMenu(const QPoint& pos);
 
+	/**
+	 * Play item if it is a tagged file.
+	 *
+	 * @param index model index of item
+	 */
+	void playIfTaggedFile(const QModelIndex& index);
+
 private:
 	Q_DISABLE_COPY(FileList)
 
