@@ -215,6 +215,12 @@ public:
 	const FrameCollection& frames() const { return m_frames; }
 
 	/**
+	 * Get enabled frames.
+	 * @return frame collection with enabled frames.
+	 */
+	FrameCollection getEnabledFrames() const;
+
+	/**
 	 * Clear frame collection.
 	 */
 	void clearFrames();

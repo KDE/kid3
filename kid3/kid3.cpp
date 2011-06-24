@@ -2779,12 +2779,14 @@ void Kid3App::updateCurrentSelection()
 	if (numFiles > 0) {
 		m_view->frameTableV1()->acceptEdit();
 		m_view->frameTableV2()->acceptEdit();
+		FrameCollection framesV1(m_view->frameModelV1()->getEnabledFrames());
+		FrameCollection framesV2(m_view->frameModelV2()->getEnabledFrames());
 		for (QList<QPersistentModelIndex>::const_iterator it = selItems.begin();
 				 it != selItems.end();
 				 ++it) {
 			if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(*it)) {
-				taggedFile->setFramesV1(m_view->frameModelV1()->frames());
-				taggedFile->setFramesV2(m_view->frameModelV2()->frames());
+				taggedFile->setFramesV1(framesV1);
+				taggedFile->setFramesV2(framesV2);
 				if (m_view->isFilenameEditEnabled()) {
 					taggedFile->setFilename(m_view->getFilename());
 				}

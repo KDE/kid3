@@ -385,6 +385,27 @@ FrameFilter FrameTableModel::getEnabledFrameFilter(
 }
 
 /**
+ * Get enabled frames.
+ * @return frame collection with enabled frames.
+ */
+FrameCollection FrameTableModel::getEnabledFrames() const
+{
+	FrameCollection enabledFrames;
+	const int numberRows = m_frameSelected.size();
+	int row = 0;
+	for (FrameCollection::const_iterator it = m_frames.begin();
+			 it != m_frames.end();
+			 ++it) {
+		if (row >= numberRows) break;
+		if (m_frameSelected.at(row)) {
+			enabledFrames.insert(*it);
+		}
+		++row;
+	}
+	return enabledFrames;
+}
+
+/**
  * Clear frame collection.
  */
 void FrameTableModel::clearFrames()
