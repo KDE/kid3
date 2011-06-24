@@ -28,10 +28,12 @@
 #include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kconfig.h>
+#include <kicon.h>
 #endif
 
 #include <QLayout>
 #include <QPushButton>
+#include <QToolButton>
 #include <QLabel>
 #include <QCheckBox>
 #include <QSpinBox>
@@ -95,7 +97,7 @@ QList<int> checkableFrameTypes() {
  */
 ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 													 TrackDataModel* trackDataModel) :
-	QDialog(parent), m_trackDataImported(false),
+	QDialog(parent),
 	m_autoStartSubDialog(ASD_None), m_columnVisibility(0ULL),
 	m_trackDataModel(trackDataModel)
 {
@@ -174,10 +176,20 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	m_destComboBox->insertItem(ImportConfig::DestV1, i18n("Tag 1"));
 	m_destComboBox->insertItem(ImportConfig::DestV2, i18n("Tag 2"));
 	m_destComboBox->insertItem(ImportConfig::DestV1V2, i18n("Tag 1 and Tag 2"));
-	connect(m_destComboBox, SIGNAL(activated(int)),
-					this, SLOT(changeTagDestination()));
 	destLabel->setBuddy(m_destComboBox);
 	butlayout->addWidget(m_destComboBox);
+	QToolButton* revertButton = new QToolButton(butbox);
+	revertButton->setIcon(
+#ifdef CONFIG_USE_KDE
+				KIcon("document-revert")
+#else
+				QIcon(":/images/document-revert.png")
+#endif
+				);
+	revertButton->setToolTip(i18n("Revert"));
+	connect(revertButton, SIGNAL(clicked()),
+					this, SLOT(changeTagDestination()));
+	butlayout->addWidget(revertButton);
 	vlayout->addWidget(butbox);
 
 	QWidget* matchBox = new QWidget(this);
@@ -295,7 +307,7 @@ void ImportDialog::fromText()
 	if (!m_textImportDialog) {
 		m_textImportDialog = new TextImportDialog(this, m_trackDataModel);
 		connect(m_textImportDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreviewAfterImport()));
+						this, SLOT(showPreview()));
 	}
 	m_textImportDialog->clear();
 	m_textImportDialog->show();
@@ -325,7 +337,7 @@ void ImportDialog::displayServerImportDialog(ServerImporter* source)
 	if (!m_serverImportDialog) {
 		m_serverImportDialog = new ServerImportDialog(this);
 		connect(m_serverImportDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreviewAfterImport()));
+						this, SLOT(showPreview()));
 	}
 	if (m_serverImportDialog) {
 		m_serverImportDialog->setImportSource(source);
@@ -414,7 +426,7 @@ void ImportDialog::fromMusicBrainz()
 	if (!m_musicBrainzDialog) {
 		m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataModel);
 		connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreviewAfterImport()));
+						this, SLOT(showPreview()));
 	}
 	if (m_musicBrainzDialog) {
 		m_musicBrainzDialog->initTable();
@@ -500,8 +512,6 @@ void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
  */
 void ImportDialog::clear()
 {
-	m_trackDataImported = false;
-
 	m_serverComboBox->setCurrentIndex(Kid3App::s_genCfg.m_importServer);
 	ImportConfig::ImportDestination importDest = Kid3App::s_genCfg.m_importDest;
 	m_destComboBox->setCurrentIndex(importDest);
@@ -547,17 +557,6 @@ void ImportDialog::showPreview()
 	m_trackDataTable->scrollToTop();
 	m_trackDataTable->resizeColumnsToContents();
 	m_trackDataTable->resizeRowsToContents();
-}
-
-/**
- * Show fields to import in text as preview in table.
- * This method also marks that an import was made and thus switching the tag
- * version is no longer possible.
- */
-void ImportDialog::showPreviewAfterImport()
-{
-	m_trackDataImported = true;
-	showPreview();
 }
 
 /**
@@ -664,27 +663,24 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
  */
 void ImportDialog::changeTagDestination()
 {
-	// Prevent switching of track data after an import.
-	if (!m_trackDataImported) {
-		ImportConfig::ImportDestination dest = getDestination();
+	ImportConfig::ImportDestination dest = getDestination();
 
-		TrackData::TagVersion tagVersion = TrackData::TagNone;
-		switch (dest) {
-		case ImportConfig::DestV1:
-			tagVersion = TrackData::TagV1;
-			break;
-		case ImportConfig::DestV2:
-			tagVersion = TrackData::TagV2;
-			break;
-		case ImportConfig::DestV1V2:
-			tagVersion = TrackData::TagV2V1;
-		}
-
-		ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-		trackDataVector.readTags(tagVersion);
-		m_trackDataModel->setTrackData(trackDataVector);
-		showPreview();
+	TrackData::TagVersion tagVersion = TrackData::TagNone;
+	switch (dest) {
+	case ImportConfig::DestV1:
+		tagVersion = TrackData::TagV1;
+		break;
+	case ImportConfig::DestV2:
+		tagVersion = TrackData::TagV2;
+		break;
+	case ImportConfig::DestV1V2:
+		tagVersion = TrackData::TagV2V1;
 	}
+
+	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+	trackDataVector.readTags(tagVersion);
+	m_trackDataModel->setTrackData(trackDataVector);
+	showPreview();
 }
 
 /**

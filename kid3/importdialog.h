@@ -169,13 +169,6 @@ private slots:
 	void showPreview();
 
 	/**
-	 * Show fields to import in text as preview in table.
-	 * This method also marks that an import was made and thus switching the tag
-	 * version is no longer possible.
-	 */
-	void showPreviewAfterImport();
-
-	/**
 	 * Match import data with length.
 	 */
 	void matchWithLength();
@@ -260,8 +253,6 @@ private:
 	 */
 	void displayServerImportDialog(ServerImporter* source);
 
-	/** true if an import has been made, reset by clear() */
-	bool m_trackDataImported;
 	/** Subdialog to open when starting */
 	AutoStartSubDialog m_autoStartSubDialog;
 	/** Mask for visibility of optional columns */
