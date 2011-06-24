@@ -153,6 +153,13 @@ bool FrameTableModel::setData(const QModelIndex& index,
 			if (valueStr.isNull()) valueStr = "";
 			frame.setValueIfChanged(valueStr);
 			emit dataChanged(index, index);
+
+			// Automatically set the checkbox when a value is changed
+			if (!m_frameSelected.at(index.row())) {
+				m_frameSelected[index.row()] = true;
+				QModelIndex checkIndex(index.sibling(index.row(), CI_Enable));
+				emit dataChanged(checkIndex, checkIndex);
+			}
 		}
 		return true;
 	} else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
