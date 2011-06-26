@@ -539,8 +539,7 @@ den ausgewählten Dateien.</para></listitem>
 <guimenuitem>Importieren...</guimenuitem>
 </menuchoice></term>
 <listitem><para>Der <action>Import Dialog</action> wird verwendet, um Daten
-direkt von einem freedb.org Server, von der Web-Schnittstelle von <ulink
-url="http://freedb.org">freedb.org</ulink>, von einem MusicBrainz Server,
+direkt von einem freedb.org Server, von einem MusicBrainz Server,
 von Discogs, Amazon oder anderen Quellen mit Albumtitellisten zu importieren.
 </para>
 <para id="import-freedb">
@@ -555,10 +554,7 @@ Die Track Daten eines Albums
 werden nach Auswahl geladen, der verwendete freedb.org Server kann
 gewählt werden, ebenso der CGI Pfad. Die
 importierten Daten werden in der Vorschau des Import Dialogfensters
-dargestellt. Um wieder in jenem Fenster zu arbeiten, muss der gnudb.org
-Dialog beendet werden - später kann er wieder mit <guibutton>Von
-gnudb.org</guibutton> geöffnet werden, und sein Inhalt wird
-wiederhergestellt. Wenn man mit den Daten in der Vorschau zufrieden ist,
+dargestellt. Wenn man mit den Daten in der Vorschau zufrieden ist,
 können sie mit <guibutton>OK</guibutton> importiert werden.
 </para>
 <para id="import-discogs">
@@ -608,8 +604,10 @@ Dialog. Das Schließen des Dialogs kann eine Weile dauern, da noch die ganze
 MusicBrainz-Maschinerie runtergefahren werden muss.
 </para>
 
-<para>
-Zum Importieren von Albumdaten in Textform stehen mehrere vorkonfigurierte
+<para id="import-text">
+Zum Importieren von Albumdaten in Textform öffnet man einen Unterdialog
+mit <guibutton>Von Datei/Clipboard</guibutton>.
+Dort stehen mehrere vorkonfigurierte
 Formate zur Verfügung. Die ersten zwei, "CSV unquoted" und "CSV quoted",
 dienen dazu, Daten welche über die Export Funktion exportiert wurden, wieder
 zu importieren. Diese Daten können natürlich von einer Tabellenkalkulation
@@ -660,7 +658,7 @@ Felddaten zu extrahieren und werden von einem &kid3;-spezifischen Feldcode
 eingeleitet. Die Codes sind dieselben wie beim Dateinamenformat:
 </para>
 
-<itemizedlist>
+<itemizedlist id="format-codes">
 <listitem><para>%s %{title} Titel (Song)</para></listitem>
 <listitem><para>%a %{artist} Interpret (Artist)</para></listitem>
 <listitem><para>%l %{album} Album</para></listitem>
@@ -701,9 +699,68 @@ werden müssen, so kann ein Track nach Drücken der Steuerungs-Taste
 und dann an die gewünschte Stelle gezogen werden.
 </para>
 <para>
+Wenn der Import Dialog geöffnet wird, enthält die Tabelle die aktuell
+vorhandenen Werte der Tags. Der Tag Typ (Tag 1, Tag 2, Tag 1 und Tag 2) kann
+über das <guilabel>Ziel</guilabel> Auswahlfeld selektiert werden. Der Knopf
+rechts von diesem Auswahlfeld dient dazu, die Tabelle auf die in den Tags
+gespeicherten Werte zurückzusetzen. Über die Markierungsfelder in der ersten
+Tabellenspalte können die Stücke gewählt werden, deren Tags importiert werden
+sollen. Dies kann z.B. dann nützlich sein, wenn ein Verzeichnis alle Stücke
+eines Doppelalbums enthält, aber bloss die Stücke der zweiten CD importiert
+werden sollen.
+</para>
+<para>
+Um die Dateien, welche importiert werden, zu identifizieren, können die
+Dateinamen oder die vollständigen Pfade in der Tabelle dargestellt
+werden. Diese Einstellung ist über das Kontextmenü, welches bei Rechtsklick
+auf die Kopfzeile erscheint, möglich.
+</para>
+<para>
 Wie in fast allen Dialogen dient der <guibutton>Einstellungen
 speichern</guibutton> Knopf dazu, die dialogspezifischen Optionen und die
 Fenstergröße persistent zu speichern.
+</para>
+
+<para id="import-tags">
+<guibutton>Von Tags</guibutton> führt zu einem Unterdialog, mit welchem sich
+Tag Frames mit dem Inhalt aus anderen Tag Frames füllen lassen. Dies kann
+dazu benutzt werden, um einfach Informationen zwischen Tags zu kopieren
+oder einen Teil des Inhaltes eines Tag Frames zu extrahieren und in einem
+anderen Tag Frame einzufügen.
+</para>
+<para>
+Wie beim <link linkend="import-text">Import von Datei/Clipboard</link>
+stehen frei konfigurierbare Formate zur Verfügung, um verschiedene Operationen
+durchzuführen. Vorkonfigurierte Formate erlauben es beispielsweise, den Wert
+des Interpreten zum Album Interpreten, Komponisten oder Leiter zu kopieren,
+bei Titeln, welche die Tracknummer enthalten, diese zu extrahieren und im
+Tracknummer-Frame zu speichern. Ebenso lässt sich ein Untertitel aus dem
+Titel extrahieren.
+</para>
+<para>
+Das Erstellen eines eigenen Importformates wird im folgenden anhand eines
+Beispieles erklärt. Die Information im Untertitel soll auch im Kommentar
+gesetzt werden. Dazu wird das <guilabel>Format</guilabel> "Custom Format"
+ausgewählt und ein neuer Name gesetzt, in diesem Beispiel also "Subtitle to
+Comment". Das Format wird hinzugefügt, indem man
+im <guilabel>Format</guilabel>-Editierfeld die Enter Taste drückt. Nun gibt
+man unter <guilabel>Quelle</guilabel> "%{subtitle}" und
+unter <guilabel>Ermittlung</guilabel> "%{comment}(.*)" ein und
+klickt <guibutton>Einstellungen speichern</guibutton>.
+</para>
+<para>
+Der Ausdruck in <guilabel>Quelle</guilabel> kann aus
+<link linkend="format-codes">Format Codes</link> für beliebige Tag Frames
+bestehen, wobei natürlich auch mehrere Codes verwendet werden können, um den
+Inhalt verschiedener Frames zu kombinieren. Für jeden Track wird aus den Tags
+und dem <guilabel>Quelle</guilabel> Format ein Text erzeugt, und auf diesen
+wird dann der reguläre Ausdruck aus <guilabel>Ermittlung</guilabel>
+angewendet, um neue Tag Werte zu setzen. Dieser reguläre Ausdruck enthält
+Klammerkonstrukte "(..)", um Felddaten zu extrahieren, und die
+Klammer-Konstrukte werden vom Format Code des Tag Frames eingeleitet. Es
+funktioniert also gleich wie bei den Formaten
+zum <link linkend="import-text">Import von Datei/Clipboard
+</link>.
 </para>
 </listitem>
 </varlistentry>

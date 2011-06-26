@@ -509,8 +509,7 @@ reverted, else only the changes of the selected files are reverted.
 <guimenuitem>Import...</guimenuitem>
 </menuchoice></term>
 <listitem><para>The <action>Import dialog</action> can be used to import data
-directly from a freedb.org server, from the Web-interface of <ulink
-url="http://freedb.org">freedb.org</ulink>, from a MusicBrainz server, from
+directly from a freedb.org server, from a MusicBrainz server, from
 Discogs, Amazon or other sources of album track lists in textual format.
 </para>
 <para id="import-freedb">
@@ -523,12 +522,10 @@ the albums which match the
 query will be displayed when <guibutton>Find</guibutton> is clicked and the
 results from <ulink url="http://www.gnudb.org">www.gnudb.org</ulink> are
 received. Importing the track data for an album is
-done by selecting the album in the list. The freedb.org server to import from
-can be selected as well as the CGI path. The
-imported data is displayed in the preview table of the import dialog. To work
-in that dialog again, the gnudb.org dialog has to be closed - it can be
-reopened later by clicking <guibutton>gnudb.org</guibutton> again and
-its contents will be restored. When satisfied with the displayed tracks, they
+done by double-clicking the album in the list. The freedb.org server to import
+from can be selected as well as the CGI path. The
+imported data is displayed in the preview table of the import dialog.
+When satisfied with the displayed tracks, they
 can be imported by terminating the import dialog with
 <guibutton>OK</guibutton>.
 </para>
@@ -572,8 +569,10 @@ of them has to be selected by the user.
 data, <guibutton>Cancel</guibutton> closes the dialog. The closing can take a
 while since the whole MusicBrainz machinery has to be shut down.
 </para>
-<para>
-For the import of textual data, several preconfigured import formats are
+
+<para id="import-text">
+For the import of textual data, <guibutton>From File/Clipboard</guibutton>
+opens a subdialog, where several preconfigured import formats are
 available. The first two, "CSV unquoted" and "CSV quoted" can be used to
 import data which was exported by the Export dialog. The CSV data can be
 edited with a spreadsheet, and shall be written using tabs as
@@ -620,7 +619,7 @@ codes to specify which field to capture. The codes are the same as used for
 the filename format:
 </para>
 
-<itemizedlist>
+<itemizedlist id="format-codes">
 <listitem><para>%s %{title} Title (Song)</para></listitem>
 <listitem><para>%a %{artist} Artist</para></listitem>
 <listitem><para>%l %{album} Album</para></listitem>
@@ -659,9 +658,57 @@ dragged with the left mouse button and the <keycap>Ctrl</keycap> key hold
 down, and then dropped at the new location.
 </para>
 <para>
+When the import dialog is opened, it contains the actual contents of the
+tags. The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the 
+<guilabel>Destination</guilabel> combo box. The button on the right of this
+combo box can be used to revert the table to the current contents of the
+tags. The checkboxes in the first table column can be used to select the
+tracks which are imported. This can be useful if a folder contains the tracks
+of both CDs of a double CD and only the tracks of the second CD have to be
+imported.
+</para>
+<para>
+To identify the tracks which are imported, it is possible to display the file
+names or the full paths to the files using the context menu of the table header.
+</para>
+<para>
 Almost all dialogs feature a <guibutton>Save Settings</guibutton> button,
 which can be used to store the dialog specific settings and the window size
 persistently.
+</para>
+
+<para id="import-tags">
+<guibutton>From Tags</guibutton> leads to a subdialog to set tag frames from
+the contents of other tag frames. This can be used to simply copy information
+between tags or extract a part from one frame and insert it in another.
+</para>
+<para>
+As in the <link linkend="import-text">import from file/clipboard</link>,
+there are freely configurable formats to perform different operations. Already
+preconfigured are formats to copy the Album value to Album Artist, Composer or
+Conductor, and to extract the Track Number from Title fields which contain a
+number. There is also a format to extract a Subtitle from a Title field.
+</para>
+<para>
+The following example explains how to add a custom format, which sets the
+information from the Subtitle field also in the Comment field. Select the
+"Custom Format" in <guilabel>Format</guilabel> and set a new name, e.g.
+"Subtitle to Comment". The new format is added by pressing the Enter key
+inside the <guilabel>Format</guilabel> control. Then enter "%{subtitle}" in
+<guilabel>Source</guilabel> and "%{comment}(.*)" for
+<guilabel>Extraction</guilabel> and click <guibutton>Save
+Settings</guibutton>. 
+</para>
+<para>
+The expression in <guilabel>Source</guilabel> can contain
+<link linkend="format-codes">format codes</link> for arbitrary tag frames,
+multiple codes can be used to combine the contents from different frames. For
+each track, a text is generated from its tags using the <guilabel>Source
+</guilabel> format, and the regular expression from
+<guilabel>Extraction</guilabel> is applied to this text to set new values for
+the tags. Format codes are used before the capturing parentheses to specify
+the tag frame where the captured text shall be stored. It works in the same
+way as for the <link linkend="import-text">import from file/clipboard</link>.
 </para>
 </listitem>
 </varlistentry>

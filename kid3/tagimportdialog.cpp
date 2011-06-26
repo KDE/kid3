@@ -171,5 +171,5 @@ void TagImportDialog::saveConfig()
  */
 void TagImportDialog::showHelp()
 {
-	Kid3App::displayHelp("import");
+	Kid3App::displayHelp("import-tags");
 }

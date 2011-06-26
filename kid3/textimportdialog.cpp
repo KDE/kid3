@@ -232,5 +232,5 @@ void TextImportDialog::saveConfig()
  */
 void TextImportDialog::showHelp()
 {
-	Kid3App::displayHelp("import");
+	Kid3App::displayHelp("import-text");
 }
