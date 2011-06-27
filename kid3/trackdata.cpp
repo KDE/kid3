@@ -35,13 +35,11 @@
  * Constructor.
  *
  * @param trackData track data
- * @param numTracks number of tracks in album
  * @param str       string with format codes
  */
 TrackDataFormatReplacer::TrackDataFormatReplacer(
-	const TrackData& trackData, unsigned numTracks, const QString& str) :
-	FrameFormatReplacer(trackData, str), m_trackData(trackData),
-	m_numTracks(numTracks) {}
+	const TrackData& trackData, const QString& str) :
+	FrameFormatReplacer(trackData, str), m_trackData(trackData) {}
 
 /**
  * Destructor.
@@ -127,7 +125,7 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 			} else if (name == "seconds") {
 				result = QString::number(m_trackData.getFileDuration());
 			} else if (name == "tracks") {
-				result = QString::number(m_numTracks);
+				result = QString::number(m_trackData.getTotalNumberOfTracksInDir());
 			} else if (name == "extension") {
 				result = m_trackData.getFileExtension();
 			} else if (name == "tag1") {
@@ -360,13 +358,12 @@ void TrackData::getDetailInfo(TaggedFile::DetailInfo& info) const
  * Those supported by TrackDataFormatReplacer::getReplacement()
  *
  * @param format    format specification
- * @param numTracks number of tracks in album
  *
  * @return formatted string.
  */
-QString TrackData::formatString(const QString& format, unsigned numTracks) const
+QString TrackData::formatString(const QString& format) const
 {
-	TrackDataFormatReplacer fmt(*this, numTracks, format);
+	TrackDataFormatReplacer fmt(*this, format);
 	fmt.replaceEscapedChars();
 	fmt.replacePercentCodes();
 	return fmt.getString();
@@ -404,6 +401,17 @@ QString TrackData::getFileExtension() const
 		int dotPos = absFilename.lastIndexOf(".");
 		return dotPos != -1 ? absFilename.mid(dotPos) : QString();
 	}
+}
+
+/**
+ * Get the total number of tracks in the directory.
+ *
+ * @return total number of tracks, -1 if unavailable.
+ */
+int TrackData::getTotalNumberOfTracksInDir() const
+{
+	TaggedFile* taggedFile = getTaggedFile();
+	return taggedFile ? taggedFile->getTotalNumberOfTracksInDir() : -1;
 }
 
 
@@ -484,9 +492,6 @@ void ImportTrackDataVector::readTags(ImportTrackData::TagVersion tagVersion)
 {
 	for (iterator it = begin(); it != end(); ++it) {
 		if (TaggedFile* taggedFile = it->getTaggedFile()) {
-			if (taggedFile->isChanged()) {
-				qDebug("changed: %s", qPrintable(taggedFile->getFilename()));
-			}
 			switch (tagVersion) {
 			case ImportTrackData::TagV1:
 				taggedFile->getAllFramesV1(*it);

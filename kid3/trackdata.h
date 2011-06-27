@@ -87,6 +87,13 @@ public:
 	QString getFileExtension() const;
 
 	/**
+	 * Get the total number of tracks in the directory.
+	 *
+	 * @return total number of tracks, -1 if unavailable.
+	 */
+	int getTotalNumberOfTracksInDir() const;
+
+	/**
 	 * Get the format of tag 1.
 	 *
 	 * @return string describing format of tag 1,
@@ -116,11 +123,10 @@ public:
 	 * Those supported by TrackDataFormatReplacer::getReplacement()
 	 *
 	 * @param format    format specification
-	 * @param numTracks number of tracks in album
 	 *
 	 * @return formatted string.
 	 */
-	QString formatString(const QString& format, unsigned numTracks = 0) const;
+	QString formatString(const QString& format) const;
 
 	/**
 	 * Get frames.
@@ -277,11 +283,10 @@ public:
 	 * Constructor.
 	 *
 	 * @param trackData track data
-	 * @param numTracks number of tracks in album
 	 * @param str       string with format codes
 	 */
 	explicit TrackDataFormatReplacer(
-		const TrackData& trackData, unsigned numTracks = 0,
+		const TrackData& trackData,
 		const QString& str = QString());
 
 	/**
@@ -320,7 +325,6 @@ protected:
 
 private:
 	const TrackData& m_trackData;
-	const unsigned m_numTracks;
 };
 
 #endif // TRACKDATA_H

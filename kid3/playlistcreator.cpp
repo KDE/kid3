@@ -193,8 +193,7 @@ QString PlaylistCreator::Item::formatString(const QString& format)
 #endif
 		m_trackData = new ImportTrackData(*m_taggedFile, ImportTrackData::TagV2V1);
 	}
-	return m_trackData->formatString(
-		format, m_taggedFile->getTotalNumberOfTracksInDir());
+	return m_trackData->formatString(format);
 }
 
 /**

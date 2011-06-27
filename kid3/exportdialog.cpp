@@ -265,15 +265,15 @@ void ExportDialog::showPreview()
 			 it != m_trackDataVector.end();
 			 ++it) {
 		if (trackNr == 0 && !headerFormat.isEmpty()) {
-			m_edit->insertPlainText((*it).formatString(headerFormat, numTracks));
+			m_edit->insertPlainText((*it).formatString(headerFormat));
 			m_edit->insertPlainText("\n");
 		}
 		if (!trackFormat.isEmpty()) {
-			m_edit->insertPlainText((*it).formatString(trackFormat, numTracks));
+			m_edit->insertPlainText((*it).formatString(trackFormat));
 			m_edit->insertPlainText("\n");
 		}
 		if (trackNr == numTracks - 1 && !trailerFormat.isEmpty()) {
-			m_edit->insertPlainText((*it).formatString(trailerFormat, numTracks));
+			m_edit->insertPlainText((*it).formatString(trailerFormat));
 			m_edit->insertPlainText("\n");
 		}
 		++trackNr;
