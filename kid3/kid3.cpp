@@ -3088,7 +3088,6 @@ void Kid3App::getTagsFromFilenameV2()
 void Kid3App::getFilenameFromTags(int tag_version)
 {
 	updateCurrentSelection();
-	FrameCollection frames;
 	QItemSelectionModel* selectModel = m_view->getFileList()->selectionModel();
 	SelectedTaggedFileIterator it(m_view->getFileList()->rootIndex(),
 																selectModel,
@@ -3096,13 +3095,11 @@ void Kid3App::getFilenameFromTags(int tag_version)
 	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
-		if (tag_version == 2) {
-			taggedFile->getAllFramesV2(frames);
-		} else {
-			taggedFile->getAllFramesV1(frames);
-		}
-		if (!frames.isEmptyOrInactive()) {
-			taggedFile->getFilenameFromTags(frames, m_view->getFilenameFormat());
+		TrackData trackData(*taggedFile,
+												tag_version == 2 ? TrackData::TagV2 : TrackData::TagV1);
+		if (!trackData.isEmptyOrInactive()) {
+			taggedFile->setFilename(
+						trackData.formatFilenameFromTags(m_view->getFilenameFormat()));
 			formatFileNameIfEnabled(taggedFile);
 			if (!multiselect) {
 				m_view->setFilename(taggedFile->getFilename());

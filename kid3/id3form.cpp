@@ -52,6 +52,7 @@
 #include "framelist.h"
 #include "frametable.h"
 #include "frametablemodel.h"
+#include "trackdata.h"
 #include "genres.h"
 #include "kid3.h"
 #include "miscconfig.h"
@@ -209,7 +210,7 @@ Id3Form::Id3Form(QWidget* parent)
 	m_formatComboBox->setEditable(true);
 	m_formatComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
 	m_formatComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-	m_formatComboBox->setToolTip(FrameFormatReplacer::getToolTip());
+	m_formatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
 	fileLayout->addWidget(m_formatComboBox, 1, 1);
 
 	QLabel* fromTagLabel = new QLabel(i18n("From:"), m_fileWidget);

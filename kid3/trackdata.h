@@ -129,6 +129,17 @@ public:
 	QString formatString(const QString& format) const;
 
 	/**
+	 * Create filename from tags according to format string.
+	 *
+	 * @param str       format string containing codes supported by
+	 *                  TrackDataFormatReplacer::getReplacement()
+	 * @param isDirname true to generate a directory name
+	 *
+	 * @return format string with format codes replaced by tags.
+	 */
+	QString formatFilenameFromTags(QString str, bool isDirname = false) const;
+
+	/**
 	 * Get frames.
 	 * @return frames.
 	 */

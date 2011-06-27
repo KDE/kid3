@@ -573,28 +573,6 @@ public:
 	void getTagsFromFilename(FrameCollection& frames, const QString& fmt);
 
 	/**
-	 * Create string with tags according to format string.
-	 *
-	 * @param frames    frames to use to build filename
-	 * @param str       format string containing codes supported by
-	 *                  FrameFormatReplacer::getReplacement()
-	 * @param isDirname true to generate a directory name
-	 *
-	 * @return format string with format codes replaced by tags.
-	 */
-	QString formatWithTags(const FrameCollection& frames, QString str,
-	                       bool isDirname = false) const;
-
-	/**
-	 * Get filename from tags.
-	 *
-	 * @param frames    frames to use to build filename
-	 * @param fmt       format string containing codes supported by
-	 *                  FrameFormatReplacer::getReplacement()
-	 */
-	void getFilenameFromTags(const FrameCollection& frames, QString fmt);
-
-	/**
 	 * Check if file is changed.
 	 *
 	 * @return true if file was changed.

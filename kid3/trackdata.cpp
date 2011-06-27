@@ -370,6 +370,33 @@ QString TrackData::formatString(const QString& format) const
 }
 
 /**
+ * Create filename from tags according to format string.
+ *
+ * @param str       format string containing codes supported by
+ *                  TrackDataFormatReplacer::getReplacement()
+ * @param isDirname true to generate a directory name
+ *
+ * @return format string with format codes replaced by tags.
+ */
+QString TrackData::formatFilenameFromTags(QString str, bool isDirname) const
+{
+	if (!isDirname) {
+		// first remove directory part from str
+		const int sepPos = str.lastIndexOf('/');
+		if (sepPos >= 0) {
+			str.remove(0, sepPos + 1);
+		}
+		// add extension to str
+		str += getFileExtension();
+	}
+
+	TrackDataFormatReplacer fmt(*this, str);
+	fmt.replacePercentCodes(isDirname ?
+													FormatReplacer::FSF_ReplaceSeparators : 0);
+	return fmt.getString();
+}
+
+/**
  * Get help text for format codes supported by formatString().
  *
  * @param onlyRows if true only the tr elements are returned,

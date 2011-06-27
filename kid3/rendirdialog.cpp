@@ -39,6 +39,7 @@
 
 #include "taggedfile.h"
 #include "frame.h"
+#include "trackdata.h"
 #include "kid3.h"
 #include "miscconfig.h"
 #include "qtcompatmac.h"
@@ -309,25 +310,19 @@ bool RenDirDialog::renameFile(const QString& oldfn, const QString& newfn,
  */
 QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
 {
-	FrameCollection frames;
-	taggedFile->readTags(false);
+	TrackData::TagVersion tagVersion;
 	switch (m_tagversionComboBox->currentIndex()) {
-		case TagV1:
-			taggedFile->getAllFramesV1(frames);
-			break;
-		case TagV2:
-			taggedFile->getAllFramesV2(frames);
-			break;
-		case TagV2V1:
-		default:
-		{
-			// use merged tags 1 and 2
-			FrameCollection frames1;
-			taggedFile->getAllFramesV1(frames1);
-			taggedFile->getAllFramesV2(frames);
-			frames.merge(frames1);
-		}
+	case TagV1:
+		tagVersion = TrackData::TagV1;
+		break;
+	case TagV2:
+		tagVersion = TrackData::TagV2;
+		break;
+	case TagV2V1:
+	default:
+		tagVersion = TrackData::TagV2V1;
 	}
+	TrackData trackData(*taggedFile, tagVersion);
 	QString newdir(taggedFile->getDirname());
 #ifdef WIN32
 	newdir.replace('\\', '/');
@@ -339,14 +334,14 @@ QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir
 	if (olddir) {
 		*olddir = newdir;
 	}
-	if (!frames.isEmptyOrInactive()) {
+	if (!trackData.isEmptyOrInactive()) {
 		if (m_actionComboBox->currentIndex() == ActionRename) {
 			newdir = parentDirectory(newdir);
 		} else if (!newdir.isEmpty()) {
 			newdir.append('/');
 		}
-		newdir.append(taggedFile->formatWithTags(
-										frames, m_formatComboBox->currentText(), true));
+		newdir.append(trackData.formatFilenameFromTags(
+										m_formatComboBox->currentText(), true));
 	}
 	return newdir;
 }

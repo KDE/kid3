@@ -459,47 +459,6 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
 }
 
 /**
- * Create string with tags according to format string.
- *
- * @param frames    frames to use to build filename
- * @param str       format string containing codes supported by
- *                  FrameFormatReplacer::getReplacement()
- * @param isDirname true to generate a directory name
- *
- * @return format string with format codes replaced by tags.
- */
-QString TaggedFile::formatWithTags(const FrameCollection& frames, QString str,
-                                   bool isDirname) const
-{
-	if (!isDirname) {
-		// first remove directory part from str
-		const int sepPos = str.lastIndexOf('/');
-		if (sepPos >= 0) {
-			str.remove(0, sepPos + 1);
-		}
-		// add extension to str
-		str += getFileExtension();
-	}
-
-	FrameFormatReplacer fmt(frames, str);
-	fmt.replacePercentCodes(isDirname ?
-	                        FormatReplacer::FSF_ReplaceSeparators : 0);
-	return fmt.getString();
-}
-
-/**
- * Get filename from tags.
- *
- * @param frames    frames to use to build filename
- * @param fmt       format string containing codes supported by
- *                  FrameFormatReplacer::getReplacement()
- */
-void TaggedFile::getFilenameFromTags(const FrameCollection& frames, QString fmt)
-{
-	m_newFilename = formatWithTags(frames, fmt);
-}
-
-/**
  * Format a time string "h:mm:ss".
  * If the time is less than an hour, the hour is not put into the
  * string and the minute is not padded with zeroes.
