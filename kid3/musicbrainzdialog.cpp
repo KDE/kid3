@@ -493,7 +493,7 @@ void MusicBrainzDialog::showFilenameInStatusBar(const QModelIndex& index)
 
 #else // HAVE_TUNEPIMP
 
-MusicBrainzDialog::MusicBrainzDialog(QWidget*, ImportTrackDataVector&) {}
+MusicBrainzDialog::MusicBrainzDialog(QWidget*, TrackDataModel*) {}
 MusicBrainzDialog::~MusicBrainzDialog() {}
 int MusicBrainzDialog::exec() { return 0; }
 void MusicBrainzDialog::accept() {}

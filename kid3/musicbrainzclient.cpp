@@ -657,7 +657,7 @@ bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
 
 #else // HAVE_TUNEPIMP
 
-MusicBrainzClient::MusicBrainzClient(ImportTrackDataVector&) {}
+MusicBrainzClient::MusicBrainzClient(TrackDataModel*) {}
 MusicBrainzClient::~MusicBrainzClient() {}
 
 #endif // HAVE_TUNEPIMP
