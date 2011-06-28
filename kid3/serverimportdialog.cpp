@@ -171,6 +171,7 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
 				for (const char** sl = m_source->serverList(); *sl != 0; ++sl) {
 					strList += *sl;
 				}
+				m_serverComboBox->clear();
 				m_serverComboBox->addItems(strList);
 			}
 		} else {
