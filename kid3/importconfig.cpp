@@ -176,6 +176,10 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_importTagsSources.append("%{title}");
 	m_importTagsExtractions.append("%{subtitle}(.+) - ");
 
+	m_importTagsNames.append("Title Annotation to Comment");
+	m_importTagsSources.append("%{title}");
+	m_importTagsExtractions.append("%{title}(.+) +\\(%{comment}((?:Bonus|Remix)[^)]*)\\)");
+
 	m_importTagsNames.append("Custom Format");
 	m_importTagsSources.append("");
 	m_importTagsExtractions.append("");
