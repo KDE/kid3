@@ -246,6 +246,34 @@ void Frame::setValueIfChanged(const QString& value)
 	}
 }
 
+/**
+ * Check if the fields in another frame are equal.
+ *
+ * @param other other frame
+ *
+ * @return true if equal.
+ */
+bool Frame::isEqual(const Frame& other) const
+{
+	if (getType() != other.getType() || getValue() != other.getValue())
+		return false;
+
+	const FieldList& otherFieldList = other.getFieldList();
+	if (m_fieldList.size() != otherFieldList.size())
+		return false;
+
+	FieldList::const_iterator thisIt, otherIt;
+	for (thisIt = m_fieldList.constBegin(), otherIt = otherFieldList.constBegin();
+			 thisIt != m_fieldList.constEnd() && otherIt != otherFieldList.constEnd();
+			 ++thisIt, ++otherIt) {
+		if (thisIt->m_id != otherIt->m_id || thisIt->m_value != otherIt->m_value) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 #ifdef DEBUG
 /**
  * Convert frame type to string.
@@ -533,6 +561,24 @@ FrameCollection::iterator FrameCollection::findByName(const QString& name) const
 }
 
 /**
+ * Find a frame by index.
+ *
+ * @param index the index in the frame, see \ref Frame::getIndex()
+ *
+ * @return iterator or end() if not found.
+ */
+FrameCollection::iterator FrameCollection::findByIndex(int index) const
+{
+	const_iterator it;
+	for (it = begin(); it != end(); ++it) {
+		if (it->getIndex() == index) {
+			break;
+		}
+	}
+	return it;
+}
+
+/**
  * Get value by type.
  *
  * @param type type
@@ -591,6 +637,23 @@ void FrameCollection::setIntValue(Frame::Type type, int value)
 	if (value != -1) {
 		QString str = value != 0 ? QString::number(value) : QString("");
 		setValue(type, str);
+	}
+}
+
+/**
+ * Compare the frames with another frame collection and mark the value as
+ * changed on frames which are different.
+ *
+ * @param other other frame collection
+ */
+void FrameCollection::markChangedFrames(const FrameCollection& other)
+{
+	for (FrameCollection::iterator it = begin(); it != end(); ++it) {
+		iterator otherIt = it->getIndex() != -1
+				? other.findByIndex(it->getIndex())
+				: other.find(*it);
+		Frame& frame = const_cast<Frame&>(*it);
+		frame.setValueChanged(!(otherIt != other.end() && otherIt->isEqual(*it)));
 	}
 }
 

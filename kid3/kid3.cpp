@@ -1736,7 +1736,12 @@ void Kid3App::trackDataModelToFiles(bool destV1, bool destV2)
 			it->removeDisabledFrames(flt);
 			formatFramesIfEnabled(*it);
 			if (destV1) taggedFile->setFramesV1(*it, false);
-			if (destV2) taggedFile->setFramesV2(*it, false);
+			if (destV2) {
+				FrameCollection oldFrames;
+				taggedFile->getAllFramesV2(oldFrames);
+				it->markChangedFrames(oldFrames);
+				taggedFile->setFramesV2(*it, true);
+			}
 			++it;
 		} else {
 			break;

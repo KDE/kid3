@@ -288,6 +288,15 @@ public:
 	 */
 	QVariant getFieldValue(Field::Id id) const;
 
+	/**
+	 * Check if the fields in another frame are equal.
+	 *
+	 * @param other other frame
+	 *
+	 * @return true if equal.
+	 */
+	bool isEqual(const Frame& other) const;
+
 #ifdef DEBUG
 	/**
 	 * Dump contents of frame to debug console.
@@ -472,6 +481,15 @@ public:
 	iterator findByName(const QString& name) const;
 
 	/**
+	 * Find a frame by index.
+	 *
+	 * @param index the index in the frame, see \ref Frame::getIndex()
+	 *
+	 * @return iterator or end() if not found.
+	 */
+	iterator findByIndex(int index) const;
+
+	/**
 	 * Get value by type.
 	 *
 	 * @param type type
@@ -602,6 +620,14 @@ public:
 	 * @param year year, nothing is done if -1
 	 */
 	void setYear(int year) { setIntValue(Frame::FT_Date, year); }
+
+	/**
+	 * Compare the frames with another frame collection and mark the value as
+	 * changed on frames which are different.
+	 *
+	 * @param other other frame collection
+	 */
+	void markChangedFrames(const FrameCollection& other);
 
 #ifdef DEBUG
 	/**
