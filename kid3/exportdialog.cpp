@@ -33,10 +33,6 @@
 #include <QFileDialog>
 #endif
 
-#include "taggedfile.h"
-#include "genres.h"
-#include "configstore.h"
-#include "kid3mainwindow.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QLabel>
@@ -52,11 +48,15 @@
 #include <QUrl>
 #include <QToolTip>
 #include <QMessageBox>
-#include "qtcompatmac.h"
 #include <QGroupBox>
 #include <QTextStream>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include "taggedfile.h"
+#include "genres.h"
+#include "configstore.h"
+#include "contexthelp.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -352,5 +352,5 @@ void ExportDialog::saveConfig()
  */
 void ExportDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("export");
+	ContextHelp::displayHelp("export");
 }

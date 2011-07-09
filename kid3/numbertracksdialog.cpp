@@ -40,7 +40,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
 #include "qtcompatmac.h"
 
 /**
@@ -177,7 +177,7 @@ void NumberTracksDialog::saveConfig()
  */
 void NumberTracksDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("number-tracks");
+	ContextHelp::displayHelp("number-tracks");
 }
 
 /**

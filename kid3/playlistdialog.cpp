@@ -41,7 +41,7 @@
 #include <QGroupBox>
 
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
 #include "trackdata.h"
 #include "qtcompatmac.h"
 
@@ -282,5 +282,5 @@ void PlaylistDialog::saveConfig() const
  */
 void PlaylistDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("create-playlist");
+	ContextHelp::displayHelp("create-playlist");
 }

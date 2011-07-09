@@ -40,7 +40,6 @@ typedef KXmlGuiWindow Kid3MainWindowBaseClass;
 #include "qtcompatmac.h"
 #include <QMainWindow>
 class QAction;
-class BrowserDialog;
 class RecentFilesMenu;
 /** Base class for main window. */
 typedef QMainWindow Kid3MainWindowBaseClass;
@@ -293,13 +292,6 @@ public:
 	 * @return directory proxy model.
 	 */
 	DirProxyModel* getDirProxyModel() { return m_dirProxyModel; }
-
-	/**
-	 * Display help for a topic.
-	 *
-	 * @param anchor anchor in help document
-	 */
-	static void displayHelp(const QString& anchor = QString::null);
 
 	/**
 	 * Get directory name.
@@ -844,8 +836,6 @@ private:
 	QAction* m_viewStatusBar;
 	QAction* m_settingsAutoHideTags;
 	QAction* m_settingsShowHidePicture;
-
-	static BrowserDialog* s_helpBrowser;
 #endif
 
 	/** Current directory */

@@ -34,7 +34,7 @@
 #include "importparser.h"
 #include "trackdatamodel.h"
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
 #include "qtcompatmac.h"
 
 /**
@@ -172,5 +172,5 @@ void TagImportDialog::saveConfig()
  */
 void TagImportDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("import-tags");
+	ContextHelp::displayHelp("import-tags");
 }

@@ -61,7 +61,7 @@
 #include "textimportdialog.h"
 #include "tagimportdialog.h"
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
 #include "taggedfile.h"
 #include "trackdata.h"
 #include "trackdatamodel.h"
@@ -586,7 +586,7 @@ void ImportDialog::setDestination(ImportConfig::ImportDestination dest)
  */
 void ImportDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("import");
+	ContextHelp::displayHelp("import");
 }
 
 /**

@@ -43,7 +43,7 @@
 #include "textimporter.h"
 #include "importparser.h"
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
 #include "qtcompatmac.h"
 
 /**
@@ -233,5 +233,5 @@ void TextImportDialog::saveConfig()
  */
 void TextImportDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("import-text");
+	ContextHelp::displayHelp("import-text");
 }

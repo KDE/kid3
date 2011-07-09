@@ -41,7 +41,7 @@
 #include "frame.h"
 #include "trackdata.h"
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
 #include "miscconfig.h"
 #include "qtcompatmac.h"
 
@@ -607,7 +607,7 @@ void RenDirDialog::saveConfig()
  */
 void RenDirDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("rename-directory");
+	ContextHelp::displayHelp("rename-directory");
 }
 
 /**

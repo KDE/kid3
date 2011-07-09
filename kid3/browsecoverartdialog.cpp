@@ -39,7 +39,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
 #include "externalprocess.h"
 #include "configtable.h"
 #include "configtablemodel.h"
@@ -287,7 +287,7 @@ void BrowseCoverArtDialog::saveConfig()
  */
 void BrowseCoverArtDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("browse_pictures");
+	ContextHelp::displayHelp("browse_pictures");
 }
 
 /**

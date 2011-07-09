@@ -41,7 +41,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
 #include "musicbrainzclient.h"
 #include "comboboxdelegate.h"
 #include "trackdatamodel.h"
@@ -462,7 +462,7 @@ void MusicBrainzDialog::saveConfig()
  */
 void MusicBrainzDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("import-musicbrainz");
+	ContextHelp::displayHelp("import-musicbrainz");
 }
 
 /**

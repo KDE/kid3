@@ -38,12 +38,12 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QToolTip>
-#include "qtcompatmac.h"
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "configstore.h"
-#include "kid3mainwindow.h"
+#include "contexthelp.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -212,7 +212,7 @@ void FilterDialog::saveConfig()
  */
 void FilterDialog::showHelp()
 {
-	Kid3MainWindow::displayHelp("filter");
+	ContextHelp::displayHelp("filter");
 }
 
 /**

@@ -64,7 +64,6 @@
 #include <kstandardaction.h>
 #include <kshortcutsdialog.h>
 #include <krecentfilesaction.h>
-#include <ktoolinvocation.h>
 #include <kactioncollection.h>
 #include <kedittoolbar.h>
 #include <kconfigskeleton.h>
@@ -75,6 +74,7 @@
 #include <QStatusBar>
 #include <QMessageBox>
 #include <QFileDialog>
+#include "recentfilesmenu.h"
 #endif
 
 #include "kid3form.h"
@@ -100,6 +100,7 @@
 #include "pictureframe.h"
 #include "textimporter.h"
 #include "configstore.h"
+#include "contexthelp.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -117,13 +118,6 @@
 #endif
 #ifdef HAVE_PHONON
 #include "playtoolbar.h"
-#endif
-
-#ifndef CONFIG_USE_KDE
-#include "recentfilesmenu.h"
-#include "browserdialog.h"
-
-BrowserDialog* Kid3MainWindow::s_helpBrowser = 0;
 #endif
 
 /** Current directory */
@@ -207,10 +201,6 @@ Kid3MainWindow::~Kid3MainWindow()
 	delete m_downloadDialog;
 	delete m_browseCoverArtDialog;
 	delete m_playlistDialog;
-#ifndef CONFIG_USE_KDE
-	delete s_helpBrowser;
-	s_helpBrowser = 0;
-#endif
 #ifdef HAVE_PHONON
 	delete m_playToolBar;
 #endif
@@ -1150,6 +1140,7 @@ void Kid3MainWindow::cleanup()
 {
 	m_configStore->sync();
 	TaggedFile::staticCleanup();
+	ContextHelp::staticCleanup();
 }
 
 /**
@@ -1440,16 +1431,6 @@ void Kid3MainWindow::slotSettingsToolbars()
 	}
 }
 
-/**
- * Display help for a topic.
- *
- * @param anchor anchor in help document
- */
-void Kid3MainWindow::displayHelp(const QString& anchor)
-{
-	KToolInvocation::invokeHelp(anchor);
-}
-
 void Kid3MainWindow::slotHelpHandbook() {}
 void Kid3MainWindow::slotHelpAbout() {}
 void Kid3MainWindow::slotHelpAboutQt() {}
@@ -1476,32 +1457,11 @@ void Kid3MainWindow::slotViewStatusBar()
 }
 
 /**
- * Display help for a topic.
- *
- * @param anchor anchor in help document
- */
-void Kid3MainWindow::displayHelp(const QString& anchor)
-{
-	if (!s_helpBrowser) {
-		QString caption(i18n("Kid3 Handbook"));
-		s_helpBrowser =
-			new BrowserDialog(NULL, caption);
-	}
-	if (s_helpBrowser) { 
-		s_helpBrowser->goToAnchor(anchor);
-		s_helpBrowser->setModal(!anchor.isEmpty());
-		if (s_helpBrowser->isHidden()) {
-			s_helpBrowser->show();
-		}
-	}
-}
-
-/**
  * Display handbook.
  */
 void Kid3MainWindow::slotHelpHandbook()
 {
-	displayHelp();
+	ContextHelp::displayHelp();
 }
 
 /**

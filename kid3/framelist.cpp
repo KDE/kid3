@@ -33,7 +33,6 @@
 #include "frametablemodel.h"
 #include "editframedialog.h"
 #include "editframefieldsdialog.h"
-#include "kid3mainwindow.h"
 #include "qtcompatmac.h"
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
