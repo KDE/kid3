@@ -34,7 +34,7 @@
 #include <kaboutdata.h>
 #include <klocale.h>
 
-#include "kid3.h"
+#include "kid3mainwindow.h"
 
 /** Description for application */
 static const char* description = I18N_NOOP("Kid3 ID3 Tagger");
@@ -64,10 +64,10 @@ int main(int argc, char* argv[])
 	KApplication app;
 
 	if (app.isSessionRestored()) {
-		RESTORE(Kid3App);
+		RESTORE(Kid3MainWindow);
 	}
 	else {
-		Kid3App* kid3 = new Kid3App;
+		Kid3MainWindow* kid3 = new Kid3MainWindow;
 		if (kid3) {
 			kid3->show();
 
@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
 #include <QTranslator>
 #include <QDir>
 
-#include "kid3.h"
+#include "kid3mainwindow.h"
 
 /**
  * Main program.
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
-	Kid3App* kid3 = new Kid3App;
+	Kid3MainWindow* kid3 = new Kid3MainWindow;
 	if (kid3) {
 		kid3->show();
 		if (argc > 1) {

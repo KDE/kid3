@@ -1,6 +1,6 @@
 /**
- * \file kid3.h
- * Kid3 application.
+ * \file kid3mainwindow.h
+ * Kid3 main window.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,8 +24,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef KID3_H
-#define KID3_H
+#ifndef KID3MAINWINDOW_H
+#define KID3MAINWINDOW_H
 
 #include "config.h"
 #ifdef CONFIG_USE_KDE
@@ -35,7 +35,7 @@ class KAction;
 class KRecentFilesAction;
 class KToggleAction;
 /** Base class for main window. */
-typedef KXmlGuiWindow Kid3AppBaseClass;
+typedef KXmlGuiWindow Kid3MainWindowBaseClass;
 #else
 #include "qtcompatmac.h"
 #include <QMainWindow>
@@ -44,7 +44,7 @@ class QAction;
 class BrowserDialog;
 class RecentFilesMenu;
 /** Base class for main window. */
-typedef QMainWindow Kid3AppBaseClass;
+typedef QMainWindow Kid3MainWindowBaseClass;
 #endif
 #include "formatconfig.h"
 #include "importconfig.h"
@@ -59,7 +59,7 @@ typedef QMainWindow Kid3AppBaseClass;
 
 class KURL;
 class KUrl;
-class Id3Form;
+class Kid3Form;
 class TaggedFile;
 class FrameList;
 class ImportDialog;
@@ -83,8 +83,8 @@ class FileProxyModel;
 class DirProxyModel;
 class TrackDataModel;
 
-/** Kid3 application */
-class Kid3App : public Kid3AppBaseClass
+/** Kid3 main window */
+class Kid3MainWindow : public Kid3MainWindowBaseClass
 {
 Q_OBJECT
 
@@ -99,12 +99,12 @@ public:
 	/**
 	 * Constructor.
 	 */
-	Kid3App();
+	Kid3MainWindow();
 
 	/**
 	 * Destructor.
 	 */
-	~Kid3App();
+	~Kid3MainWindow();
 
 	/**
 	 * Open directory.
@@ -821,8 +821,8 @@ private:
 	 */
 	bool isFiltered() { return m_filtered; }
 
-	/** GUI with controls, created by Qt Designer */
-	Id3Form* m_view;
+	/** GUI with controls */
+	Kid3Form* m_form;
 	/** model of filesystem */
 	QFileSystemModel* m_fileSystemModel;
 	FileProxyModel* m_fileProxyModel;
@@ -884,4 +884,4 @@ private:
 	static QString s_dirName;
 };
 
-#endif /* KID3_H */
+#endif /* KID3MAINWINDOW_H */

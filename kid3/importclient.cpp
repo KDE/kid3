@@ -30,7 +30,7 @@
 #include <QUrl>
 
 #include "serverimporterconfig.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 
 /**
  * Constructor.

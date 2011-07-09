@@ -38,7 +38,7 @@ typedef QDBusAbstractAdaptor ScriptInterfaceBaseClass;
 typedef QObject ScriptInterfaceBaseClass;
 #endif
 
-class Kid3App;
+class Kid3MainWindow;
 
 /**
  * Adaptor class for interface net.sourceforge.Kid3
@@ -55,7 +55,7 @@ public:
 	 *
 	 * @param parent parent application object
 	 */
-	ScriptInterface(Kid3App* parent);
+	ScriptInterface(Kid3MainWindow* parent);
 
 	/**
 	 * Destructor.
@@ -352,7 +352,7 @@ public slots:
 	void reparseConfiguration();
 
 private:
-	Kid3App* m_app;
+	Kid3MainWindow* m_mainWin;
 	QString m_errorMsg;
 };
 

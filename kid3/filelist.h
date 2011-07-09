@@ -30,7 +30,7 @@
 #include <QTreeView>
 #include <QList>
 
-class Kid3App;
+class Kid3MainWindow;
 class ExternalProcess;
 
 /**
@@ -45,7 +45,7 @@ public:
 	 * @param parent parent widget
 	 * @param app    application widget
 	 */
-	FileList(QWidget* parent, Kid3App* app);
+	FileList(QWidget* parent, Kid3MainWindow* app);
 
 	/**
 	 * Destructor.
@@ -199,7 +199,7 @@ private:
 	/** Process for context menu commands */
 	ExternalProcess* m_process;
 	QList<QPersistentModelIndex> m_currentSelection;
-	Kid3App* m_app;
+	Kid3MainWindow* m_mainWin;
 };
 
 #endif // FILELIST_H

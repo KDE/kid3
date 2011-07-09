@@ -34,7 +34,7 @@
 #include "fileproxymodel.h"
 #include "modeliterator.h"
 #include "taggedfile.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "externalprocess.h"
 #include "qtcompatmac.h"
 
@@ -166,7 +166,7 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
 					}
 				}
 			} else if (name == "browser") {
-				result = Kid3App::s_miscCfg.m_browser;
+				result = Kid3MainWindow::s_miscCfg.m_browser;
 			} else if (name == "url") {
 				if (!m_files.empty()) {
 					QUrl url;
@@ -235,8 +235,8 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
  * @param parent parent widget
  * @param app    application widget
  */
-FileList::FileList(QWidget* parent, Kid3App* app) :
-	QTreeView(parent), m_process(0), m_app(app)
+FileList::FileList(QWidget* parent, Kid3MainWindow* app) :
+	QTreeView(parent), m_process(0), m_mainWin(app)
 {
 	setSelectionMode(ExtendedSelection);
 	setSortingEnabled(false);
@@ -404,19 +404,19 @@ void FileList::updateCurrentSelection()
  */
 void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
-	if (index.isValid() && !Kid3App::s_miscCfg.m_contextMenuCommands.empty()) {
+	if (index.isValid() && !Kid3MainWindow::s_miscCfg.m_contextMenuCommands.empty()) {
 		QMenu menu(this);
 		menu.addAction(i18n("&Expand all"), this, SLOT(expandAll()));
 		menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
-		menu.addAction(i18n("&Rename"), m_app, SLOT(renameFile()));
-		menu.addAction(i18n("&Delete"), m_app, SLOT(deleteFile()));
+		menu.addAction(i18n("&Rename"), m_mainWin, SLOT(renameFile()));
+		menu.addAction(i18n("&Delete"), m_mainWin, SLOT(deleteFile()));
 #ifdef HAVE_PHONON
-		menu.addAction(i18n("&Play"), m_app, SLOT(slotPlayAudio()));
+		menu.addAction(i18n("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
 		int id = 0;
 		for (QList<MiscConfig::MenuCommand>::const_iterator
-					 it = Kid3App::s_miscCfg.m_contextMenuCommands.begin();
-				 it != Kid3App::s_miscCfg.m_contextMenuCommands.end();
+					 it = Kid3MainWindow::s_miscCfg.m_contextMenuCommands.begin();
+				 it != Kid3MainWindow::s_miscCfg.m_contextMenuCommands.end();
 				 ++it) {
 			menu.addAction((*it).getName());
 			++id;
@@ -532,9 +532,9 @@ QString FileList::getFormatToolTip(bool onlyRows)
  */
 void FileList::executeContextCommand(int id)
 {
-	if (id < static_cast<int>(Kid3App::s_miscCfg.m_contextMenuCommands.size())) {
+	if (id < static_cast<int>(Kid3MainWindow::s_miscCfg.m_contextMenuCommands.size())) {
 		QStringList args;
-		const MiscConfig::MenuCommand& menuCmd = Kid3App::s_miscCfg.m_contextMenuCommands[id];
+		const MiscConfig::MenuCommand& menuCmd = Kid3MainWindow::s_miscCfg.m_contextMenuCommands[id];
 		QString cmd = menuCmd.getCommand();
 
 		int len = cmd.length();
@@ -590,8 +590,8 @@ void FileList::executeAction(QAction* action)
 		QString name = action->text().remove('&');
 		int id = 0;
 		for (QList<MiscConfig::MenuCommand>::const_iterator
-					 it = Kid3App::s_miscCfg.m_contextMenuCommands.begin();
-				 it != Kid3App::s_miscCfg.m_contextMenuCommands.end();
+					 it = Kid3MainWindow::s_miscCfg.m_contextMenuCommands.begin();
+				 it != Kid3MainWindow::s_miscCfg.m_contextMenuCommands.end();
 				 ++it) {
 			if (name == (*it).getName()) {
 				executeContextCommand(id);
@@ -621,7 +621,7 @@ void FileList::playIfTaggedFile(const QModelIndex& index)
 {
 #ifdef HAVE_PHONON
 	if (FileProxyModel::getTaggedFileOfIndex(index)) {
-		m_app->slotPlayAudio();
+		m_mainWin->slotPlayAudio();
 	}
 #endif
 }

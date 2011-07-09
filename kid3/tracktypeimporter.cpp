@@ -26,7 +26,7 @@
 
 #include "tracktypeimporter.h"
 #include "serverimporterconfig.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 
 static const char trackTypeServer[] = "tracktype.org:80";
 
@@ -70,7 +70,7 @@ const char** TrackTypeImporter::serverList() const
 const char* TrackTypeImporter::defaultServer() const { return "tracktype.org:80"; }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* TrackTypeImporter::config() const { return &Kid3App::s_trackTypeCfg; }
+ServerImporterConfig* TrackTypeImporter::config() const { return &Kid3MainWindow::s_trackTypeCfg; }
 
 /**
  * Process finished findCddbAlbum request.

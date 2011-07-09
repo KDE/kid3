@@ -40,7 +40,7 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "trackdata.h"
 #include "qtcompatmac.h"
 
@@ -228,23 +228,23 @@ PlaylistDialog::~PlaylistDialog()
 void PlaylistDialog::readConfig()
 {
 	m_fileNameFormatButton->setChecked(
-		Kid3App::s_playlistCfg.m_useFileNameFormat);
+		Kid3MainWindow::s_playlistCfg.m_useFileNameFormat);
 	m_sameAsDirNameButton->setChecked(
-		!Kid3App::s_playlistCfg.m_useFileNameFormat);
+		!Kid3MainWindow::s_playlistCfg.m_useFileNameFormat);
 	m_onlySelectedFilesCheckBox->setChecked(
-		Kid3App::s_playlistCfg.m_onlySelectedFiles);
-	m_sortTagFieldButton->setChecked(Kid3App::s_playlistCfg.m_useSortTagField);
-	m_sortFileNameButton->setChecked(!Kid3App::s_playlistCfg.m_useSortTagField);
-	m_fullPathButton->setChecked(Kid3App::s_playlistCfg.m_useFullPath);
-	m_relPathButton->setChecked(!Kid3App::s_playlistCfg.m_useFullPath);
-	m_writeInfoButton->setChecked(Kid3App::s_playlistCfg.m_writeInfo);
-	m_writeListButton->setChecked(!Kid3App::s_playlistCfg.m_writeInfo);
-	m_locationComboBox->setCurrentIndex(Kid3App::s_playlistCfg.m_location);
-	m_formatComboBox->setCurrentIndex(Kid3App::s_playlistCfg.m_format);
+		Kid3MainWindow::s_playlistCfg.m_onlySelectedFiles);
+	m_sortTagFieldButton->setChecked(Kid3MainWindow::s_playlistCfg.m_useSortTagField);
+	m_sortFileNameButton->setChecked(!Kid3MainWindow::s_playlistCfg.m_useSortTagField);
+	m_fullPathButton->setChecked(Kid3MainWindow::s_playlistCfg.m_useFullPath);
+	m_relPathButton->setChecked(!Kid3MainWindow::s_playlistCfg.m_useFullPath);
+	m_writeInfoButton->setChecked(Kid3MainWindow::s_playlistCfg.m_writeInfo);
+	m_writeListButton->setChecked(!Kid3MainWindow::s_playlistCfg.m_writeInfo);
+	m_locationComboBox->setCurrentIndex(Kid3MainWindow::s_playlistCfg.m_location);
+	m_formatComboBox->setCurrentIndex(Kid3MainWindow::s_playlistCfg.m_format);
 	m_fileNameFormatComboBox->setEditText(
-		Kid3App::s_playlistCfg.m_fileNameFormat);
-	m_sortTagFieldComboBox->setEditText(Kid3App::s_playlistCfg.m_sortTagField);
-	m_writeInfoComboBox->setEditText(Kid3App::s_playlistCfg.m_infoFormat);
+		Kid3MainWindow::s_playlistCfg.m_fileNameFormat);
+	m_sortTagFieldComboBox->setEditText(Kid3MainWindow::s_playlistCfg.m_sortTagField);
+	m_writeInfoComboBox->setEditText(Kid3MainWindow::s_playlistCfg.m_infoFormat);
 }
 
 /**
@@ -273,7 +273,7 @@ void PlaylistDialog::getCurrentConfig(PlaylistConfig& cfg) const
  */
 void PlaylistDialog::saveConfig() const
 {
-	getCurrentConfig(Kid3App::s_playlistCfg);
+	getCurrentConfig(Kid3MainWindow::s_playlistCfg);
 }
 
 /**
@@ -281,5 +281,5 @@ void PlaylistDialog::saveConfig() const
  */
 void PlaylistDialog::showHelp()
 {
-	Kid3App::displayHelp("create-playlist");
+	Kid3MainWindow::displayHelp("create-playlist");
 }

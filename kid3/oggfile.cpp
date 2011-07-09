@@ -43,7 +43,7 @@
 #include "vcedit.h"
 #endif
 #include "pictureframe.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "qtcompatmac.h"
 
 /**
@@ -277,7 +277,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
 			sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
 			? 1 : -1 ]; };
 	if (type == Frame::FT_Picture &&
-			Kid3App::s_miscCfg.m_pictureNameItem == MiscConfig::VP_COVERART) {
+			Kid3MainWindow::s_miscCfg.m_pictureNameItem == MiscConfig::VP_COVERART) {
 		return "COVERART";
 	}
 	return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";

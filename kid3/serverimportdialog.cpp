@@ -38,7 +38,7 @@
 #include <QListView>
 #include "serverimporter.h"
 #include "serverimporterconfig.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "trackdata.h"
 #include "qtcompatmac.h"
 
@@ -467,6 +467,6 @@ void ServerImportDialog::requestTrackList(const QModelIndex& index)
 void ServerImportDialog::showHelp()
 {
 	if (m_source && m_source->helpAnchor()) {
-		Kid3App::displayHelp(m_source->helpAnchor());
+		Kid3MainWindow::displayHelp(m_source->helpAnchor());
 	}
 }

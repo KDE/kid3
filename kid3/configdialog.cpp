@@ -57,7 +57,7 @@
 #include "stringlistedit.h"
 #include "configtable.h"
 #include "commandstablemodel.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 
 enum { TextEncodingV1Latin1Index = 13 };
 
@@ -631,7 +631,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
  */
 void ConfigDialog::slotHelp()
 {
-	Kid3App::displayHelp("configure-kid3");
+	Kid3MainWindow::displayHelp("configure-kid3");
 }
 
 #ifndef CONFIG_USE_KDE

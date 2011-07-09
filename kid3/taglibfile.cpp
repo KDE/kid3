@@ -34,7 +34,7 @@
 #include <QByteArray>
 
 #include "genres.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "attributedata.h"
 #include "pictureframe.h"
 #include <sys/stat.h>
@@ -1323,7 +1323,7 @@ void TagLibFile::setGenreV2(const QString& str)
 			if (!setId3v2Unicode(m_tagV2, str, tstr, "TCON")) {
 				TagLib::ID3v2::TextIdentificationFrame* frame;
 				TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
-				if (id3v2Tag && Kid3App::s_miscCfg.m_genreNotNumeric &&
+				if (id3v2Tag && Kid3MainWindow::s_miscCfg.m_genreNotNumeric &&
 						(frame = new TagLib::ID3v2::TextIdentificationFrame(
 							"TCON", getDefaultTextEncoding())) != 0) {
 					frame->setText(tstr);
@@ -2634,7 +2634,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 	if (frame.isValueChanged() || frame.getFieldList().empty()) {
 		QString text(frame.getValue());
 		if (frame.getType() == Frame::FT_Genre) {
-			if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+			if (!Kid3MainWindow::s_miscCfg.m_genreNotNumeric) {
 				text = Genres::getNumberString(text, false);
 			}
 		} else if (frame.getType() == Frame::FT_Track) {
@@ -2652,7 +2652,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
 				{
 					QString value(fld.m_value.toString());
 					if (frame.getType() == Frame::FT_Genre) {
-						if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+						if (!Kid3MainWindow::s_miscCfg.m_genreNotNumeric) {
 							value = Genres::getNumberString(value, false);
 						}
 					} else if (frame.getType() == Frame::FT_Track) {
@@ -4724,7 +4724,7 @@ TaggedFile* TagLibFile::Resolver::createFile(
 	QString ext = fn.right(4).toLower();
 	if (((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_ID3LIB
-			 && Kid3App::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0
+			 && Kid3MainWindow::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0
 #endif
 				)
 			|| ext == ".mpc" || ext == ".oga" || ext == ".ogg" || ext == "flac"

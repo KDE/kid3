@@ -27,7 +27,7 @@
 #include "taggedfileiconprovider.h"
 #include <QPixmap>
 #include "taggedfile.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 
 /* The bitmaps are stored here instead of using KDE bitmaps to make
 	 it work for the Qt only versions. */
@@ -249,7 +249,7 @@ QIcon TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
 QColor TaggedFileIconProvider::backgroundForTaggedFile(
 		const TaggedFile* taggedFile) {
 	if (taggedFile &&
-			Kid3App::s_miscCfg.m_markTruncations &&
+			Kid3MainWindow::s_miscCfg.m_markTruncations &&
 			taggedFile->getTruncationFlags() != 0)
 		return Qt::red;
 	return QColor();

@@ -43,7 +43,7 @@
 #endif
 
 #include "genres.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "attributedata.h"
 #include "qtcompatmac.h"
 
@@ -1033,7 +1033,7 @@ void Mp3File::setGenreV2(const QString& str)
 {
 	if (!str.isNull()) {
 		int num = 0xff;
-		if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+		if (!Kid3MainWindow::s_miscCfg.m_genreNotNumeric) {
 			num = Genres::getNumber(str);
 		}
 		if (num >= 0 && num != 0xff) {
@@ -1540,7 +1540,7 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
 				}
 				QString value(fld.m_value.toString());
 				if (id3Id == ID3FID_CONTENTTYPE) {
-					if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+					if (!Kid3MainWindow::s_miscCfg.m_genreNotNumeric) {
 						value = Genres::getNumberString(value, true);
 					}
 				} else if (id3Id == ID3FID_TRACKNUM) {
@@ -1598,7 +1598,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
 				} else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
 						(fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
 					if (id3Frame->GetID() == ID3FID_CONTENTTYPE) {
-						if (!Kid3App::s_miscCfg.m_genreNotNumeric) {
+						if (!Kid3MainWindow::s_miscCfg.m_genreNotNumeric) {
 							value = Genres::getNumberString(value, true);
 						}
 					} else if (id3Frame->GetID() == ID3FID_TRACKNUM) {
@@ -1980,7 +1980,7 @@ TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
 	QString ext = fn.right(4).toLower();
 	if ((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_TAGLIB
-			&& Kid3App::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
+			&& Kid3MainWindow::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
 #endif
 		)
 		return new Mp3File(dn, fn, idx);

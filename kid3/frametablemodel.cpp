@@ -27,7 +27,7 @@
 #include "frametablemodel.h"
 #include <QApplication>
 #include <QComboBox>
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "genres.h"
 #include "qtcompatmac.h"
 
@@ -116,7 +116,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
 		return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
 	} else if (role == Qt::BackgroundColorRole) {
 		if (index.column() == CI_Enable) {
-			return Kid3App::s_miscCfg.m_markChanges &&
+			return Kid3MainWindow::s_miscCfg.m_markChanges &&
 				(it->isValueChanged() ||
 				(static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
 				 (m_changedFrames & (1 << (*it).getType())) != 0))
@@ -541,9 +541,9 @@ FrameTableLineEdit::~FrameTableLineEdit() {}
  */
 void FrameTableLineEdit::formatTextIfEnabled(const QString& txt)
 {
-	if (Kid3App::s_id3FormatCfg.m_formatWhileEditing) {
+	if (Kid3MainWindow::s_id3FormatCfg.m_formatWhileEditing) {
 		QString str(txt);
-		Kid3App::s_id3FormatCfg.formatString(str);
+		Kid3MainWindow::s_id3FormatCfg.formatString(str);
 		if (str != txt) {
 			int curPos = cursorPosition();
 			setText(str);
@@ -585,22 +585,22 @@ QWidget* FrameItemDelegate::createEditor(
 				for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
 					strList += *sl;
 				}
-				if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
+				if (Kid3MainWindow::s_miscCfg.m_onlyCustomGenres) {
 					cb->addItem("");
 				} else {
 					cb->addItems(strList);
 				}
 				if (id3v1) {
 					for (QStringList::const_iterator it =
-								 Kid3App::s_miscCfg.m_customGenres.begin();
-							 it != Kid3App::s_miscCfg.m_customGenres.end();
+								 Kid3MainWindow::s_miscCfg.m_customGenres.begin();
+							 it != Kid3MainWindow::s_miscCfg.m_customGenres.end();
 							 ++it) {
 						if (Genres::getNumber(*it) != 255) {
 							cb->addItem(*it);
 						}
 					}
 				} else {
-					cb->addItems(Kid3App::s_miscCfg.m_customGenres);
+					cb->addItems(Kid3MainWindow::s_miscCfg.m_customGenres);
 				}
 			}
 			return cb;
@@ -629,7 +629,7 @@ void FrameItemDelegate::setEditorData(
 		QString genreStr(index.model()->data(index).toString());
 		int genreIndex = genreStr.isNull() ? 0 :
 			Genres::getIndex(Genres::getNumber(genreStr));
-		if (Kid3App::s_miscCfg.m_onlyCustomGenres) {
+		if (Kid3MainWindow::s_miscCfg.m_onlyCustomGenres) {
 			genreIndex = cb->findText(genreStr);
 			if (genreIndex < 0) genreIndex = 0;
 		} else if (genreIndex <= 0) {

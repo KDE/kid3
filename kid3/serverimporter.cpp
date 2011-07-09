@@ -28,7 +28,7 @@
 #include <QStandardItemModel>
 #include "serverimporterconfig.h"
 #include "importclient.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "trackdata.h"
 #include "qtcompatmac.h"
 

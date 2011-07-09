@@ -27,7 +27,7 @@
 #include "discogsimporter.h"
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "genres.h"
 
 static const char discogsServer[] = "www.discogs.com:80";
@@ -62,7 +62,7 @@ QString DiscogsImporter::name() const { return "Discogs"; }
 const char* DiscogsImporter::helpAnchor() const { return "import-discogs"; }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* DiscogsImporter::config() const { return &Kid3App::s_discogsCfg; }
+ServerImporterConfig* DiscogsImporter::config() const { return &Kid3MainWindow::s_discogsCfg; }
 
 /** additional tags option, false if not used */
 bool DiscogsImporter::additionalTags() const { return true; }

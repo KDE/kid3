@@ -29,8 +29,8 @@
 #include <QDBusMessage>
 #include <QDBusConnection>
 #include <QFileInfo>
-#include "kid3.h"
-#include "id3form.h"
+#include "kid3mainwindow.h"
+#include "kid3form.h"
 #include "taggedfile.h"
 #include "frametablemodel.h"
 #include "filefilter.h"
@@ -43,8 +43,8 @@
  *
  * @param parent parent object
  */
-ScriptInterface::ScriptInterface(Kid3App* parent) :
-	QDBusAbstractAdaptor(parent), m_app(parent)
+ScriptInterface::ScriptInterface(Kid3MainWindow* parent) :
+	QDBusAbstractAdaptor(parent), m_mainWin(parent)
 {
 	setAutoRelaySignals(true);
 }
@@ -65,7 +65,7 @@ ScriptInterface::~ScriptInterface()
  */
 bool ScriptInterface::openDirectory(const QString& path)
 {
-	return m_app->openDirectory(path, false, true);
+	return m_mainWin->openDirectory(path, false, true);
 }
 
 /**
@@ -76,7 +76,7 @@ bool ScriptInterface::openDirectory(const QString& path)
  */
 bool ScriptInterface::save()
 {
-	if (m_app->saveDirectory(true, &m_errorMsg)) {
+	if (m_mainWin->saveDirectory(true, &m_errorMsg)) {
 		m_errorMsg.clear();
 		return true;
 	} else {
@@ -100,7 +100,7 @@ QString ScriptInterface::getErrorMessage() const
  */
 void ScriptInterface::revert()
 {
-	m_app->slotFileRevert();
+	m_mainWin->slotFileRevert();
 }
 
 /**
@@ -114,7 +114,7 @@ void ScriptInterface::revert()
  */
 bool ScriptInterface::importFromFile(int tagMask, const QString& path, int fmtIdx)
 {
-	return m_app->importTags(tagMask, path, fmtIdx);
+	return m_mainWin->importTags(tagMask, path, fmtIdx);
 }
 
 /**
@@ -125,8 +125,8 @@ bool ScriptInterface::importFromFile(int tagMask, const QString& path, int fmtId
  */
 void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
 {
-	m_app->downloadImage(url, allFilesInDir
-		? Kid3App::ImageForAllFilesInDirectory : Kid3App::ImageForSelectedFiles);
+	m_mainWin->downloadImage(url, allFilesInDir
+		? Kid3MainWindow::ImageForAllFilesInDirectory : Kid3MainWindow::ImageForSelectedFiles);
 }
 
 /**
@@ -140,7 +140,7 @@ void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
  */
 bool ScriptInterface::exportToFile(int tagMask, const QString& path, int fmtIdx)
 {
-	return m_app->exportTags(tagMask, path, fmtIdx);
+	return m_mainWin->exportTags(tagMask, path, fmtIdx);
 }
 
 /**
@@ -150,7 +150,7 @@ bool ScriptInterface::exportToFile(int tagMask, const QString& path, int fmtIdx)
  */
 bool ScriptInterface::createPlaylist()
 {
-	return m_app->slotCreatePlaylist();
+	return m_mainWin->slotCreatePlaylist();
 }
 
 /**
@@ -160,7 +160,7 @@ void ScriptInterface::quit()
 {
 	selectAll();
 	revert();
-	m_app->slotFileQuit();
+	m_mainWin->slotFileQuit();
 }
 
 /**
@@ -168,7 +168,7 @@ void ScriptInterface::quit()
  */
 void ScriptInterface::selectAll()
 {
-	m_app->m_view->selectAllFiles();
+	m_mainWin->m_form->selectAllFiles();
 }
 
 /**
@@ -176,7 +176,7 @@ void ScriptInterface::selectAll()
  */
 void ScriptInterface::deselectAll()
 {
-	m_app->m_view->deselectAllFiles();
+	m_mainWin->m_form->deselectAllFiles();
 }
 
 /**
@@ -186,7 +186,7 @@ void ScriptInterface::deselectAll()
  */
 bool ScriptInterface::firstFile()
 {
-	return m_app->m_view->selectFirstFile();
+	return m_mainWin->m_form->selectFirstFile();
 }
 
 /**
@@ -196,7 +196,7 @@ bool ScriptInterface::firstFile()
  */
 bool ScriptInterface::previousFile()
 {
-	return m_app->m_view->selectPreviousFile();
+	return m_mainWin->m_form->selectPreviousFile();
 }
 
 /**
@@ -206,7 +206,7 @@ bool ScriptInterface::previousFile()
  */
 bool ScriptInterface::nextFile()
 {
-	return m_app->m_view->selectNextFile();
+	return m_mainWin->m_form->selectNextFile();
 }
 
 /**
@@ -218,9 +218,9 @@ bool ScriptInterface::nextFile()
  */
 bool ScriptInterface::expandDirectory()
 {
-	QModelIndex index = m_app->m_view->getFileList()->currentIndex();
+	QModelIndex index = m_mainWin->m_form->getFileList()->currentIndex();
 	if (!FileProxyModel::getPathIfIndexOfDir(index).isNull()) {
-		m_app->m_view->getFileList()->expand(index);
+		m_mainWin->m_form->getFileList()->expand(index);
 		return true;
 	}
 	return false;
@@ -231,7 +231,7 @@ bool ScriptInterface::expandDirectory()
  */
 void ScriptInterface::applyFilenameFormat()
 {
-	m_app->slotApplyFilenameFormat();
+	m_mainWin->slotApplyFilenameFormat();
 }
 
 /**
@@ -239,7 +239,7 @@ void ScriptInterface::applyFilenameFormat()
  */
 void ScriptInterface::applyTagFormat()
 {
-	m_app->slotApplyId3Format();
+	m_mainWin->slotApplyId3Format();
 }
 
 /**
@@ -255,7 +255,7 @@ void ScriptInterface::applyTagFormat()
 bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
 																		bool create)
 {
-	if (m_app->renameDirectory(tagMask, format, create, &m_errorMsg)) {
+	if (m_mainWin->renameDirectory(tagMask, format, create, &m_errorMsg)) {
 		m_errorMsg.clear();
 		return true;
 	} else {
@@ -272,7 +272,7 @@ bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
  */
 void ScriptInterface::numberTracks(int tagMask, int firstTrackNr)
 {
-	m_app->numberTracks(firstTrackNr, 0, (tagMask & 1) != 0, (tagMask & 2) != 0);
+	m_mainWin->numberTracks(firstTrackNr, 0, (tagMask & 1) != 0, (tagMask & 2) != 0);
 }
 
 /**
@@ -285,7 +285,7 @@ void ScriptInterface::filter(const QString& expression)
 	FileFilter filter;
 	filter.setFilterExpression(expression);
 	filter.initParser();
-	m_app->applyFilter(filter);
+	m_mainWin->applyFilter(filter);
 }
 
 /**
@@ -294,7 +294,7 @@ void ScriptInterface::filter(const QString& expression)
 void ScriptInterface::convertToId3v24()
 {
 #ifdef HAVE_TAGLIB
-	m_app->slotConvertToId3v24();
+	m_mainWin->slotConvertToId3v24();
 #endif
 }
 
@@ -304,7 +304,7 @@ void ScriptInterface::convertToId3v24()
 void ScriptInterface::convertToId3v23()
 {
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
-	m_app->slotConvertToId3v23();
+	m_mainWin->slotConvertToId3v23();
 #endif
 }
 
@@ -315,7 +315,7 @@ void ScriptInterface::convertToId3v23()
  */
 QString ScriptInterface::getDirectoryName()
 {
-	return m_app->m_view->getDirPath();
+	return m_mainWin->m_form->getDirPath();
 }
 
 /**
@@ -325,7 +325,7 @@ QString ScriptInterface::getDirectoryName()
  */
 QString ScriptInterface::getFileName()
 {
-	QModelIndex index = m_app->m_view->getFileList()->currentIndex();
+	QModelIndex index = m_mainWin->m_form->getFileList()->currentIndex();
 	QString dirname = FileProxyModel::getPathIfIndexOfDir(index);
 	if (!dirname.isNull()) {
 		if (!dirname.endsWith('/')) dirname += '/';
@@ -346,7 +346,7 @@ QString ScriptInterface::getFileName()
 void ScriptInterface::setFileName(const QString& name)
 {
 	QFileInfo fi(name);
-	m_app->m_view->setFilename(fi.fileName());
+	m_mainWin->m_form->setFilename(fi.fileName());
 }
 
 /**
@@ -357,7 +357,7 @@ void ScriptInterface::setFileName(const QString& name)
  */
 void ScriptInterface::setFileNameFormat(const QString& format)
 {
-	m_app->m_view->setFilenameFormat(format);
+	m_mainWin->m_form->setFilenameFormat(format);
 }
 
 /**
@@ -369,7 +369,7 @@ void ScriptInterface::setFileNameFormat(const QString& format)
 void ScriptInterface::setFileNameFromTag(int tagMask)
 {
 	if (tagMask == 1 || tagMask == 2) {
-		m_app->getFilenameFromTags(tagMask);
+		m_mainWin->getFilenameFromTags(tagMask);
 	}
 }
 
@@ -390,8 +390,8 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
 		dataFileName = frameName.mid(colonIndex + 1);
 		frameName.truncate(colonIndex);
 	}
-	FrameTableModel* ft = (tagMask & 2) ? m_app->m_view->frameModelV2() :
-		m_app->m_view->frameModelV1();
+	FrameTableModel* ft = (tagMask & 2) ? m_mainWin->m_form->frameModelV2() :
+		m_mainWin->m_form->frameModelV1();
 	FrameCollection::const_iterator it = ft->frames().findByName(frameName);
 	if (it != ft->frames().end()) {
 		if (!dataFileName.isEmpty()) {
@@ -424,21 +424,21 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 		dataFileName = frameName.mid(colonIndex + 1);
 		frameName.truncate(colonIndex);
 	}
-	FrameTableModel* ft = (tagMask & 2) ? m_app->m_view->frameModelV2() :
-		m_app->m_view->frameModelV1();
+	FrameTableModel* ft = (tagMask & 2) ? m_mainWin->m_form->frameModelV2() :
+		m_mainWin->m_form->frameModelV1();
 	FrameCollection frames(ft->frames());
 	FrameCollection::iterator it = frames.findByName(frameName);
 	if (it != frames.end()) {
 		if (it->getType() == Frame::FT_Picture && !dataFileName.isEmpty() &&
 				(tagMask & 2) != 0) {
-			m_app->deleteFrame(it->getName());
+			m_mainWin->deleteFrame(it->getName());
 			PictureFrame frame;
 			PictureFrame::setDescription(frame, value);					
 			PictureFrame::setDataFromFile(frame, dataFileName);
 			PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
-			m_app->addFrame(&frame);
+			m_mainWin->addFrame(&frame);
 		} else if (value.isEmpty() && (tagMask & 2) != 0) {
-			m_app->deleteFrame(it->getName());
+			m_mainWin->deleteFrame(it->getName());
 		} else {
 			Frame& frame = const_cast<Frame&>(*it);
 			frame.setValueIfChanged(value);
@@ -454,7 +454,7 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 			PictureFrame::setDataFromFile(frame, dataFileName);
 			PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
 		}
-		m_app->addFrame(&frame);
+		m_mainWin->addFrame(&frame);
 		return true;
 	}
 	return false;
@@ -470,8 +470,8 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 QStringList ScriptInterface::getTag(int tagMask)
 {
 	QStringList lst;
-	FrameTableModel* ft = (tagMask & 2) ? m_app->m_view->frameModelV2() :
-		m_app->m_view->frameModelV1();
+	FrameTableModel* ft = (tagMask & 2) ? m_mainWin->m_form->frameModelV2() :
+		m_mainWin->m_form->frameModelV1();
 	for (FrameCollection::const_iterator it = ft->frames().begin();
 			 it != ft->frames().end();
 			 ++it) {
@@ -492,7 +492,7 @@ QStringList ScriptInterface::getTag(int tagMask)
 QStringList ScriptInterface::getInformation()
 {
 	QStringList lst;
-	QModelIndex index = m_app->m_view->getFileList()->currentIndex();
+	QModelIndex index = m_mainWin->m_form->getFileList()->currentIndex();
 	if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
 		TaggedFile::DetailInfo info;
 		taggedFile->getDetailInfo(info);
@@ -540,9 +540,9 @@ QStringList ScriptInterface::getInformation()
 void ScriptInterface::setTagFromFileName(int tagMask)
 {
 	if (tagMask & 1) {
-		m_app->getTagsFromFilenameV1();
+		m_mainWin->getTagsFromFilenameV1();
 	} else if (tagMask & 2) {
-		m_app->getTagsFromFilenameV2();
+		m_mainWin->getTagsFromFilenameV2();
 	}
 }
 
@@ -554,9 +554,9 @@ void ScriptInterface::setTagFromFileName(int tagMask)
 void ScriptInterface::setTagFromOtherTag(int tagMask)
 {
 	if (tagMask & 1) {
-		m_app->copyV2ToV1();
+		m_mainWin->copyV2ToV1();
 	} else if (tagMask & 2) {
-		m_app->copyV1ToV2();
+		m_mainWin->copyV1ToV2();
 	}
 }
 
@@ -568,9 +568,9 @@ void ScriptInterface::setTagFromOtherTag(int tagMask)
 void ScriptInterface::copyTag(int tagMask)
 {
 	if (tagMask & 1) {
-		m_app->copyTagsV1();
+		m_mainWin->copyTagsV1();
 	} else if (tagMask & 2) {
-		m_app->copyTagsV2();
+		m_mainWin->copyTagsV2();
 	}
 }
 
@@ -582,9 +582,9 @@ void ScriptInterface::copyTag(int tagMask)
 void ScriptInterface::pasteTag(int tagMask)
 {
 	if (tagMask & 1) {
-		m_app->pasteTagsV1();
+		m_mainWin->pasteTagsV1();
 	} else if (tagMask & 2) {
-		m_app->pasteTagsV2();
+		m_mainWin->pasteTagsV2();
 	}
 }
 
@@ -596,9 +596,9 @@ void ScriptInterface::pasteTag(int tagMask)
 void ScriptInterface::removeTag(int tagMask)
 {
 	if (tagMask & 1) {
-		m_app->removeTagsV1();
+		m_mainWin->removeTagsV1();
 	} else if (tagMask & 2) {
-		m_app->removeTagsV2();
+		m_mainWin->removeTagsV2();
 	}
 }
 
@@ -611,9 +611,9 @@ void ScriptInterface::removeTag(int tagMask)
 void ScriptInterface::hideTag(int tagMask, bool hide)
 {
 	if (tagMask & 1) {
-		m_app->m_view->hideV1(hide);
+		m_mainWin->m_form->hideV1(hide);
 	} else if (tagMask & 2) {
-		m_app->m_view->hideV2(hide);
+		m_mainWin->m_form->hideV2(hide);
 	}
 }
 
@@ -624,12 +624,12 @@ void ScriptInterface::hideTag(int tagMask, bool hide)
  */
 void ScriptInterface::reparseConfiguration()
 {
-	m_app->readOptions();
+	m_mainWin->readOptions();
 }
 
 #else // HAVE_QTDBUS
 
-ScriptInterface::ScriptInterface(Kid3App*) {}
+ScriptInterface::ScriptInterface(Kid3MainWindow*) {}
 ScriptInterface::~ScriptInterface() {}
 bool ScriptInterface::openDirectory(const QString&) { return false; }
 bool ScriptInterface::save() { return false; }

@@ -25,7 +25,7 @@
  */
 
 #include "browsecoverartdialog.h"
-#include "kid3.h"
+#include "kid3mainwindow.h"
 #include "externalprocess.h"
 #include "configtable.h"
 #include "configtablemodel.h"
@@ -204,7 +204,7 @@ void BrowseCoverArtDialog::showPreview()
 	QString txt("<p><b>");
 	txt += i18n("Click Browse to start");
 	txt += "</b></p><p><tt>";
-	txt += Kid3App::s_miscCfg.m_browser;
+	txt += Kid3MainWindow::s_miscCfg.m_browser;
 	txt += " ";
 	txt += m_url;
 	txt += "</tt></p><p><b>";
@@ -234,11 +234,11 @@ void BrowseCoverArtDialog::setFrames(const FrameCollection& frames)
  */
 void BrowseCoverArtDialog::setSourceFromConfig()
 {
-	m_urls = Kid3App::s_genCfg.m_pictureSourceUrls;
+	m_urls = Kid3MainWindow::s_genCfg.m_pictureSourceUrls;
 	m_sourceComboBox->clear();
-	m_sourceComboBox->addItems(Kid3App::s_genCfg.m_pictureSourceNames);
-	m_sourceComboBox->setCurrentIndex(Kid3App::s_genCfg.m_pictureSourceIdx);
-	setSourceLineEdit(Kid3App::s_genCfg.m_pictureSourceIdx);
+	m_sourceComboBox->addItems(Kid3MainWindow::s_genCfg.m_pictureSourceNames);
+	m_sourceComboBox->setCurrentIndex(Kid3MainWindow::s_genCfg.m_pictureSourceIdx);
+	setSourceLineEdit(Kid3MainWindow::s_genCfg.m_pictureSourceIdx);
 }
 
 /**
@@ -247,12 +247,12 @@ void BrowseCoverArtDialog::setSourceFromConfig()
 void BrowseCoverArtDialog::readConfig()
 {
 	setSourceFromConfig();
-	m_matchUrlTableModel->setMap(Kid3App::s_genCfg.m_matchPictureUrlMap);
+	m_matchUrlTableModel->setMap(Kid3MainWindow::s_genCfg.m_matchPictureUrlMap);
 
-	if (Kid3App::s_genCfg.m_browseCoverArtWindowWidth > 0 &&
-			Kid3App::s_genCfg.m_browseCoverArtWindowHeight > 0) {
-		resize(Kid3App::s_genCfg.m_browseCoverArtWindowWidth,
-					 Kid3App::s_genCfg.m_browseCoverArtWindowHeight);
+	if (Kid3MainWindow::s_genCfg.m_browseCoverArtWindowWidth > 0 &&
+			Kid3MainWindow::s_genCfg.m_browseCoverArtWindowHeight > 0) {
+		resize(Kid3MainWindow::s_genCfg.m_browseCoverArtWindowWidth,
+					 Kid3MainWindow::s_genCfg.m_browseCoverArtWindowHeight);
 	}
 }
 
@@ -261,22 +261,22 @@ void BrowseCoverArtDialog::readConfig()
  */
 void BrowseCoverArtDialog::saveConfig()
 {
-	Kid3App::s_genCfg.m_pictureSourceIdx = m_sourceComboBox->currentIndex();
-	if (Kid3App::s_genCfg.m_pictureSourceIdx <
-			static_cast<int>(Kid3App::s_genCfg.m_pictureSourceNames.size())) {
-		Kid3App::s_genCfg.m_pictureSourceNames[Kid3App::s_genCfg.m_pictureSourceIdx] =
+	Kid3MainWindow::s_genCfg.m_pictureSourceIdx = m_sourceComboBox->currentIndex();
+	if (Kid3MainWindow::s_genCfg.m_pictureSourceIdx <
+			static_cast<int>(Kid3MainWindow::s_genCfg.m_pictureSourceNames.size())) {
+		Kid3MainWindow::s_genCfg.m_pictureSourceNames[Kid3MainWindow::s_genCfg.m_pictureSourceIdx] =
 			m_sourceComboBox->currentText();
-		Kid3App::s_genCfg.m_pictureSourceUrls[Kid3App::s_genCfg.m_pictureSourceIdx] =
+		Kid3MainWindow::s_genCfg.m_pictureSourceUrls[Kid3MainWindow::s_genCfg.m_pictureSourceIdx] =
 			m_urlLineEdit->text();
 	} else {
-		Kid3App::s_genCfg.m_pictureSourceIdx =
-			Kid3App::s_genCfg.m_pictureSourceNames.size();
-		Kid3App::s_genCfg.m_pictureSourceNames.append(m_sourceComboBox->currentText());
-		Kid3App::s_genCfg.m_pictureSourceUrls.append(m_urlLineEdit->text());
+		Kid3MainWindow::s_genCfg.m_pictureSourceIdx =
+			Kid3MainWindow::s_genCfg.m_pictureSourceNames.size();
+		Kid3MainWindow::s_genCfg.m_pictureSourceNames.append(m_sourceComboBox->currentText());
+		Kid3MainWindow::s_genCfg.m_pictureSourceUrls.append(m_urlLineEdit->text());
 	}
-	Kid3App::s_genCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
-	Kid3App::s_genCfg.m_browseCoverArtWindowWidth = size().width();
-	Kid3App::s_genCfg.m_browseCoverArtWindowHeight = size().height();
+	Kid3MainWindow::s_genCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
+	Kid3MainWindow::s_genCfg.m_browseCoverArtWindowWidth = size().width();
+	Kid3MainWindow::s_genCfg.m_browseCoverArtWindowHeight = size().height();
 
 	setSourceFromConfig();
 }
@@ -286,7 +286,7 @@ void BrowseCoverArtDialog::saveConfig()
  */
 void BrowseCoverArtDialog::showHelp()
 {
-	Kid3App::displayHelp("browse_pictures");
+	Kid3MainWindow::displayHelp("browse_pictures");
 }
 
 /**
@@ -300,7 +300,7 @@ void BrowseCoverArtDialog::accept()
 	if (m_process) {
 		m_process->launchCommand(
 			i18n("Browse Cover Art"),
-			QStringList() << Kid3App::s_miscCfg.m_browser << m_url);
+			QStringList() << Kid3MainWindow::s_miscCfg.m_browser << m_url);
 	}
 	QDialog::accept();
 }
@@ -325,8 +325,8 @@ QString BrowseCoverArtDialog::getImageUrl(const QString& url)
 		}
 		else {
 			for (QMap<QString, QString>::ConstIterator it =
-						 Kid3App::s_genCfg.m_matchPictureUrlMap.begin();
-					 it != Kid3App::s_genCfg.m_matchPictureUrlMap.end();
+						 Kid3MainWindow::s_genCfg.m_matchPictureUrlMap.begin();
+					 it != Kid3MainWindow::s_genCfg.m_matchPictureUrlMap.end();
 					 ++it) {
 				QRegExp re(it.key());
 				if (re.exactMatch(url)) {
