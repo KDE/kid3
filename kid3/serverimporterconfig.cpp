@@ -65,13 +65,7 @@ ServerImporterConfig::~ServerImporterConfig() {}
  *
  * @param config KDE configuration
  */
-void ServerImporterConfig::writeToConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	) const
+void ServerImporterConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);
@@ -104,13 +98,7 @@ void ServerImporterConfig::writeToConfig(
  *
  * @param config KDE configuration
  */
-void ServerImporterConfig::readFromConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	)
+void ServerImporterConfig::readFromConfig(Kid3Settings* config)
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);

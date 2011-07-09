@@ -27,7 +27,7 @@
 #include "httpclient.h"
 #include <QHttp>
 #include <QByteArray>
-#include "kid3mainwindow.h"
+#include "configstore.h"
 #include "qtcompatmac.h"
 
 
@@ -158,12 +158,12 @@ void HttpClient::sendRequest(const QString& server, const QString& path)
 	m_http->setHost(dest, destPort);
 	QString proxy, username, password;
 	int proxyPort = 0;
-	if (Kid3MainWindow::s_miscCfg.m_useProxy) {
-		splitNamePort(Kid3MainWindow::s_miscCfg.m_proxy, proxy, proxyPort);
+	if (ConfigStore::s_miscCfg.m_useProxy) {
+		splitNamePort(ConfigStore::s_miscCfg.m_proxy, proxy, proxyPort);
 	}
-	if (Kid3MainWindow::s_miscCfg.m_useProxyAuthentication) {
-		username = Kid3MainWindow::s_miscCfg.m_proxyUserName;
-		password = Kid3MainWindow::s_miscCfg.m_proxyPassword;
+	if (ConfigStore::s_miscCfg.m_useProxyAuthentication) {
+		username = ConfigStore::s_miscCfg.m_proxyUserName;
+		password = ConfigStore::s_miscCfg.m_proxyPassword;
 	}
 	m_http->setProxy(proxy, proxyPort, username, password);
 	m_http->setHost(dest, destPort);

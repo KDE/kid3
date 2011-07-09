@@ -72,26 +72,14 @@ public:
 	 *
 	 * @param config KDE configuration
 	 */
-	virtual void writeToConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig* config
-#else
-		Kid3Settings* config
-#endif
-		) const;
+	virtual void writeToConfig(Kid3Settings* config) const;
 
 	/**
 	 * Read persisted configuration.
 	 *
 	 * @param config KDE configuration
 	 */
-	virtual void readFromConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig* config
-#else
-		Kid3Settings* config
-#endif
-		);
+	virtual void readFromConfig(Kid3Settings* config);
 
 	/** Use file name format if true, else directory name */
 	bool m_useFileNameFormat;

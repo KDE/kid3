@@ -27,7 +27,7 @@
 #include "freedbimporter.h"
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
-#include "kid3mainwindow.h"
+#include "configstore.h"
 #include "genres.h"
 
 static const char gnudbServer[] = "www.gnudb.org:80";
@@ -90,7 +90,7 @@ const char* FreedbImporter::defaultCgiPath() const { return "/~cddb/cddb.cgi"; }
 const char* FreedbImporter::helpAnchor() const { return "import-freedb"; }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* FreedbImporter::config() const { return &Kid3MainWindow::s_freedbCfg; }
+ServerImporterConfig* FreedbImporter::config() const { return &ConfigStore::s_freedbCfg; }
 
 /**
  * Process finished findCddbAlbum request.

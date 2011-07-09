@@ -60,6 +60,7 @@
 #include "serverimportdialog.h"
 #include "textimportdialog.h"
 #include "tagimportdialog.h"
+#include "configstore.h"
 #include "kid3mainwindow.h"
 #include "taggedfile.h"
 #include "trackdata.h"
@@ -512,8 +513,8 @@ void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
  */
 void ImportDialog::clear()
 {
-	m_serverComboBox->setCurrentIndex(Kid3MainWindow::s_genCfg.m_importServer);
-	ImportConfig::ImportDestination importDest = Kid3MainWindow::s_genCfg.m_importDest;
+	m_serverComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importServer);
+	ImportConfig::ImportDestination importDest = ConfigStore::s_genCfg.m_importDest;
 	m_destComboBox->setCurrentIndex(importDest);
 	if (importDest == ImportConfig::DestV1 &&
 			!m_trackDataModel->trackData().isTagV1Supported()) {
@@ -521,9 +522,9 @@ void ImportDialog::clear()
 		changeTagDestination();
 	}
 
-	m_mismatchCheckBox->setChecked(Kid3MainWindow::s_genCfg.m_enableTimeDifferenceCheck);
-	m_maxDiffSpinBox->setValue(Kid3MainWindow::s_genCfg.m_maxTimeDifference);
-	m_columnVisibility = Kid3MainWindow::s_genCfg.m_importVisibleColumns;
+	m_mismatchCheckBox->setChecked(ConfigStore::s_genCfg.m_enableTimeDifferenceCheck);
+	m_maxDiffSpinBox->setValue(ConfigStore::s_genCfg.m_maxTimeDifference);
+	m_columnVisibility = ConfigStore::s_genCfg.m_importVisibleColumns;
 
 	foreach (int frameType, checkableFrameTypes()) {
 		if (frameType < 64) {
@@ -535,10 +536,10 @@ void ImportDialog::clear()
 		}
 	}
 
-	if (Kid3MainWindow::s_genCfg.m_importWindowWidth > 0 &&
-			Kid3MainWindow::s_genCfg.m_importWindowHeight > 0) {
-		resize(Kid3MainWindow::s_genCfg.m_importWindowWidth,
-					 Kid3MainWindow::s_genCfg.m_importWindowHeight);
+	if (ConfigStore::s_genCfg.m_importWindowWidth > 0 &&
+			ConfigStore::s_genCfg.m_importWindowHeight > 0) {
+		resize(ConfigStore::s_genCfg.m_importWindowWidth,
+					 ConfigStore::s_genCfg.m_importWindowHeight);
 	}
 
 	showPreview();
@@ -593,17 +594,17 @@ void ImportDialog::showHelp()
  */
 void ImportDialog::saveConfig()
 {
-	Kid3MainWindow::s_genCfg.m_importDest = static_cast<ImportConfig::ImportDestination>(
+	ConfigStore::s_genCfg.m_importDest = static_cast<ImportConfig::ImportDestination>(
 				m_destComboBox->currentIndex());
 
-	Kid3MainWindow::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
+	ConfigStore::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
 		m_serverComboBox->currentIndex());
-	getTimeDifferenceCheck(Kid3MainWindow::s_genCfg.m_enableTimeDifferenceCheck,
-												 Kid3MainWindow::s_genCfg.m_maxTimeDifference);
-	Kid3MainWindow::s_genCfg.m_importVisibleColumns = m_columnVisibility;
+	getTimeDifferenceCheck(ConfigStore::s_genCfg.m_enableTimeDifferenceCheck,
+												 ConfigStore::s_genCfg.m_maxTimeDifference);
+	ConfigStore::s_genCfg.m_importVisibleColumns = m_columnVisibility;
 
-	Kid3MainWindow::s_genCfg.m_importWindowWidth = size().width();
-	Kid3MainWindow::s_genCfg.m_importWindowHeight = size().height();
+	ConfigStore::s_genCfg.m_importWindowWidth = size().width();
+	ConfigStore::s_genCfg.m_importWindowHeight = size().height();
 }
 
 /**

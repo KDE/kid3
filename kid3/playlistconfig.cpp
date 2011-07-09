@@ -59,13 +59,7 @@ PlaylistConfig::~PlaylistConfig() {}
  *
  * @param config KDE configuration
  */
-void PlaylistConfig::writeToConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	) const
+void PlaylistConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);
@@ -100,13 +94,7 @@ void PlaylistConfig::writeToConfig(
  *
  * @param config KDE configuration
  */
-void PlaylistConfig::readFromConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	)
+void PlaylistConfig::readFromConfig(Kid3Settings* config)
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);

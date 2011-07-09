@@ -35,6 +35,7 @@
 #include "modeliterator.h"
 #include "taggedfile.h"
 #include "kid3mainwindow.h"
+#include "configstore.h"
 #include "externalprocess.h"
 #include "qtcompatmac.h"
 
@@ -166,7 +167,7 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
 					}
 				}
 			} else if (name == "browser") {
-				result = Kid3MainWindow::s_miscCfg.m_browser;
+				result = ConfigStore::s_miscCfg.m_browser;
 			} else if (name == "url") {
 				if (!m_files.empty()) {
 					QUrl url;
@@ -235,8 +236,8 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
  * @param parent parent widget
  * @param app    application widget
  */
-FileList::FileList(QWidget* parent, Kid3MainWindow* app) :
-	QTreeView(parent), m_process(0), m_mainWin(app)
+FileList::FileList(QWidget* parent, Kid3MainWindow* mainWin) :
+	QTreeView(parent), m_process(0), m_mainWin(mainWin)
 {
 	setSelectionMode(ExtendedSelection);
 	setSortingEnabled(false);
@@ -404,7 +405,7 @@ void FileList::updateCurrentSelection()
  */
 void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
-	if (index.isValid() && !Kid3MainWindow::s_miscCfg.m_contextMenuCommands.empty()) {
+	if (index.isValid() && !ConfigStore::s_miscCfg.m_contextMenuCommands.empty()) {
 		QMenu menu(this);
 		menu.addAction(i18n("&Expand all"), this, SLOT(expandAll()));
 		menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
@@ -415,8 +416,8 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 #endif
 		int id = 0;
 		for (QList<MiscConfig::MenuCommand>::const_iterator
-					 it = Kid3MainWindow::s_miscCfg.m_contextMenuCommands.begin();
-				 it != Kid3MainWindow::s_miscCfg.m_contextMenuCommands.end();
+					 it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
+				 it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
 				 ++it) {
 			menu.addAction((*it).getName());
 			++id;
@@ -532,9 +533,9 @@ QString FileList::getFormatToolTip(bool onlyRows)
  */
 void FileList::executeContextCommand(int id)
 {
-	if (id < static_cast<int>(Kid3MainWindow::s_miscCfg.m_contextMenuCommands.size())) {
+	if (id < static_cast<int>(ConfigStore::s_miscCfg.m_contextMenuCommands.size())) {
 		QStringList args;
-		const MiscConfig::MenuCommand& menuCmd = Kid3MainWindow::s_miscCfg.m_contextMenuCommands[id];
+		const MiscConfig::MenuCommand& menuCmd = ConfigStore::s_miscCfg.m_contextMenuCommands[id];
 		QString cmd = menuCmd.getCommand();
 
 		int len = cmd.length();
@@ -590,8 +591,8 @@ void FileList::executeAction(QAction* action)
 		QString name = action->text().remove('&');
 		int id = 0;
 		for (QList<MiscConfig::MenuCommand>::const_iterator
-					 it = Kid3MainWindow::s_miscCfg.m_contextMenuCommands.begin();
-				 it != Kid3MainWindow::s_miscCfg.m_contextMenuCommands.end();
+					 it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
+				 it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
 				 ++it) {
 			if (name == (*it).getName()) {
 				executeContextCommand(id);

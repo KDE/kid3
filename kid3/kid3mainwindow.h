@@ -39,22 +39,12 @@ typedef KXmlGuiWindow Kid3MainWindowBaseClass;
 #else
 #include "qtcompatmac.h"
 #include <QMainWindow>
-#include "generalconfig.h" // Kid3Settings
 class QAction;
 class BrowserDialog;
 class RecentFilesMenu;
 /** Base class for main window. */
 typedef QMainWindow Kid3MainWindowBaseClass;
 #endif
-#include "formatconfig.h"
-#include "importconfig.h"
-#include "miscconfig.h"
-#include "freedbconfig.h"
-#include "discogsconfig.h"
-#include "amazonconfig.h"
-#include "musicbrainzconfig.h"
-#include "filterconfig.h"
-#include "playlistconfig.h"
 #include "frame.h"
 
 class KURL;
@@ -73,9 +63,11 @@ class FileFilter;
 class QImage;
 class DownloadDialog;
 class PlaylistDialog;
+class PlaylistConfig;
 #ifdef HAVE_PHONON
 class PlayToolBar;
 #endif
+class ConfigStore;
 class DirContents;
 class QFileSystemModel;
 class QModelIndex;
@@ -314,29 +306,6 @@ public:
 	 * @return directory.
 	 */
 	static QString getDirName() { return s_dirName; }
-
-	/** Filename format configuration */
-	static FormatConfig s_fnFormatCfg;
-	/** ID3 format configuration */
-	static FormatConfig s_id3FormatCfg;
-	/** Import configuration */
-	static ImportConfig s_genCfg;
-	/** Miscellaneous configuration */
-	static MiscConfig s_miscCfg;
-	/** Freedb configuration */
-	static FreedbConfig s_freedbCfg;
-	/** TrackType configuration */
-	static FreedbConfig s_trackTypeCfg;
-	/** Discogs configuration */
-	static DiscogsConfig s_discogsCfg;
-	/** Amazon configuration */
-	static AmazonConfig s_amazonCfg;
-	/** MusicBrainz configuration */
-	static MusicBrainzConfig s_musicBrainzCfg;
-	/** Filter configuration */
-	static FilterConfig s_filterCfg;
-	/** Playlist configuration */
-	static PlaylistConfig s_playlistCfg;
 
 protected:
 	/**
@@ -859,10 +828,10 @@ private:
 #endif
 	/** Frame list */
 	FrameList* m_framelist;
+	/** Configuration */
+	ConfigStore* m_configStore;
 
 #ifdef CONFIG_USE_KDE
-	/** the configuration object of the application */
-	KConfig* m_config;
 	/** Actions */
 	KRecentFilesAction* m_fileOpenRecent;
 	KToggleAction* m_viewToolBar;
@@ -870,7 +839,6 @@ private:
 	KToggleAction* m_settingsAutoHideTags;
 	KToggleAction* m_settingsShowHidePicture;
 #else
-	Kid3Settings* m_config;
 	RecentFilesMenu* m_fileOpenRecent;
 	QAction* m_viewToolBar;
 	QAction* m_viewStatusBar;

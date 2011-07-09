@@ -33,6 +33,7 @@
 #include "textimporter.h"
 #include "importparser.h"
 #include "trackdatamodel.h"
+#include "configstore.h"
 #include "kid3mainwindow.h"
 #include "qtcompatmac.h"
 
@@ -122,12 +123,12 @@ void TagImportDialog::apply()
  */
 void TagImportDialog::setFormatFromConfig()
 {
-	m_formatSources = Kid3MainWindow::s_genCfg.m_importTagsSources;
-	m_formatExtractions = Kid3MainWindow::s_genCfg.m_importTagsExtractions;
+	m_formatSources = ConfigStore::s_genCfg.m_importTagsSources;
+	m_formatExtractions = ConfigStore::s_genCfg.m_importTagsExtractions;
 	m_formatComboBox->clear();
-	m_formatComboBox->addItems(Kid3MainWindow::s_genCfg.m_importTagsNames);
-	m_formatComboBox->setCurrentIndex(Kid3MainWindow::s_genCfg.m_importTagsIdx);
-	setFormatLineEdit(Kid3MainWindow::s_genCfg.m_importTagsIdx);
+	m_formatComboBox->addItems(ConfigStore::s_genCfg.m_importTagsNames);
+	m_formatComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importTagsIdx);
+	setFormatLineEdit(ConfigStore::s_genCfg.m_importTagsIdx);
 }
 
 /**
@@ -151,16 +152,16 @@ void TagImportDialog::setFormatLineEdit(int index)
  */
 void TagImportDialog::saveConfig()
 {
-	Kid3MainWindow::s_genCfg.m_importTagsIdx = m_formatComboBox->currentIndex();
-	if (Kid3MainWindow::s_genCfg.m_importTagsIdx < static_cast<int>(Kid3MainWindow::s_genCfg.m_importTagsNames.size())) {
-		Kid3MainWindow::s_genCfg.m_importTagsNames[Kid3MainWindow::s_genCfg.m_importTagsIdx] = m_formatComboBox->currentText();
-		Kid3MainWindow::s_genCfg.m_importTagsSources[Kid3MainWindow::s_genCfg.m_importTagsIdx] = m_sourceLineEdit->text();
-		Kid3MainWindow::s_genCfg.m_importTagsExtractions[Kid3MainWindow::s_genCfg.m_importTagsIdx] = m_extractionLineEdit->text();
+	ConfigStore::s_genCfg.m_importTagsIdx = m_formatComboBox->currentIndex();
+	if (ConfigStore::s_genCfg.m_importTagsIdx < static_cast<int>(ConfigStore::s_genCfg.m_importTagsNames.size())) {
+		ConfigStore::s_genCfg.m_importTagsNames[ConfigStore::s_genCfg.m_importTagsIdx] = m_formatComboBox->currentText();
+		ConfigStore::s_genCfg.m_importTagsSources[ConfigStore::s_genCfg.m_importTagsIdx] = m_sourceLineEdit->text();
+		ConfigStore::s_genCfg.m_importTagsExtractions[ConfigStore::s_genCfg.m_importTagsIdx] = m_extractionLineEdit->text();
 	} else {
-		Kid3MainWindow::s_genCfg.m_importTagsIdx = Kid3MainWindow::s_genCfg.m_importTagsNames.size();
-		Kid3MainWindow::s_genCfg.m_importTagsNames.append(m_formatComboBox->currentText());
-		Kid3MainWindow::s_genCfg.m_importTagsSources.append(m_sourceLineEdit->text());
-		Kid3MainWindow::s_genCfg.m_importTagsExtractions.append(m_extractionLineEdit->text());
+		ConfigStore::s_genCfg.m_importTagsIdx = ConfigStore::s_genCfg.m_importTagsNames.size();
+		ConfigStore::s_genCfg.m_importTagsNames.append(m_formatComboBox->currentText());
+		ConfigStore::s_genCfg.m_importTagsSources.append(m_sourceLineEdit->text());
+		ConfigStore::s_genCfg.m_importTagsExtractions.append(m_extractionLineEdit->text());
 	}
 
 	setFormatFromConfig();

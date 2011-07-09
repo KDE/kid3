@@ -35,6 +35,7 @@
 
 #include "taggedfile.h"
 #include "genres.h"
+#include "configstore.h"
 #include "kid3mainwindow.h"
 #include <QLayout>
 #include <QPushButton>
@@ -186,7 +187,7 @@ bool ExportDialog::exportToFile(const QString& fn)
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QIODevice::WriteOnly)) {
-			Kid3MainWindow::s_genCfg.m_importDir = QFileInfo(file).dir().path();
+			ConfigStore::s_genCfg.m_importDir = QFileInfo(file).dir().path();
 			QTextStream stream(&file);
 			stream << m_edit->toPlainText();
 			file.close();
@@ -203,10 +204,10 @@ void ExportDialog::slotToFile()
 {
 	QString fileName =
 #ifdef CONFIG_USE_KDE
-		KFileDialog::getSaveFileName(Kid3MainWindow::s_genCfg.m_importDir,
+		KFileDialog::getSaveFileName(ConfigStore::s_genCfg.m_importDir,
 																 QString::null, this);
 #else
-		QFileDialog::getSaveFileName(this, QString(), Kid3MainWindow::s_genCfg.m_importDir
+		QFileDialog::getSaveFileName(this, QString(), ConfigStore::s_genCfg.m_importDir
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
 			, QString(), 0, QFileDialog::DontUseNativeDialog
 #endif
@@ -296,13 +297,13 @@ void ExportDialog::setExportData(const ImportTrackDataVector& trackDataVector)
  */
 void ExportDialog::setFormatFromConfig()
 {
-	m_formatHeaders = Kid3MainWindow::s_genCfg.m_exportFormatHeaders;
-	m_formatTracks = Kid3MainWindow::s_genCfg.m_exportFormatTracks;
-	m_formatTrailers = Kid3MainWindow::s_genCfg.m_exportFormatTrailers;
+	m_formatHeaders = ConfigStore::s_genCfg.m_exportFormatHeaders;
+	m_formatTracks = ConfigStore::s_genCfg.m_exportFormatTracks;
+	m_formatTrailers = ConfigStore::s_genCfg.m_exportFormatTrailers;
 	m_formatComboBox->clear();
-	m_formatComboBox->addItems(Kid3MainWindow::s_genCfg.m_exportFormatNames);
-	m_formatComboBox->setCurrentIndex(Kid3MainWindow::s_genCfg.m_exportFormatIdx);
-	setFormatLineEdit(Kid3MainWindow::s_genCfg.m_exportFormatIdx);
+	m_formatComboBox->addItems(ConfigStore::s_genCfg.m_exportFormatNames);
+	m_formatComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_exportFormatIdx);
+	setFormatLineEdit(ConfigStore::s_genCfg.m_exportFormatIdx);
 }
 
 /**
@@ -310,14 +311,14 @@ void ExportDialog::setFormatFromConfig()
  */
 void ExportDialog::readConfig()
 {
-	m_srcComboBox->setCurrentIndex(Kid3MainWindow::s_genCfg.m_exportSrcV1 ? SrcV1 : SrcV2);
+	m_srcComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_exportSrcV1 ? SrcV1 : SrcV2);
 
 	setFormatFromConfig();
 
-	if (Kid3MainWindow::s_genCfg.m_exportWindowWidth > 0 &&
-			Kid3MainWindow::s_genCfg.m_exportWindowHeight > 0) {
-		resize(Kid3MainWindow::s_genCfg.m_exportWindowWidth,
-					 Kid3MainWindow::s_genCfg.m_exportWindowHeight);
+	if (ConfigStore::s_genCfg.m_exportWindowWidth > 0 &&
+			ConfigStore::s_genCfg.m_exportWindowHeight > 0) {
+		resize(ConfigStore::s_genCfg.m_exportWindowWidth,
+					 ConfigStore::s_genCfg.m_exportWindowHeight);
 	}
 }
 
@@ -326,22 +327,22 @@ void ExportDialog::readConfig()
  */
 void ExportDialog::saveConfig()
 {
-	Kid3MainWindow::s_genCfg.m_exportSrcV1 = (m_srcComboBox->currentIndex() == SrcV1);
-	Kid3MainWindow::s_genCfg.m_exportFormatIdx = m_formatComboBox->currentIndex();
-	if (Kid3MainWindow::s_genCfg.m_exportFormatIdx < static_cast<int>(Kid3MainWindow::s_genCfg.m_exportFormatNames.size())) {
-		Kid3MainWindow::s_genCfg.m_exportFormatNames[Kid3MainWindow::s_genCfg.m_exportFormatIdx] = m_formatComboBox->currentText();
-		Kid3MainWindow::s_genCfg.m_exportFormatHeaders[Kid3MainWindow::s_genCfg.m_exportFormatIdx] = m_headerLineEdit->text();
-		Kid3MainWindow::s_genCfg.m_exportFormatTracks[Kid3MainWindow::s_genCfg.m_exportFormatIdx] = m_trackLineEdit->text();
-		Kid3MainWindow::s_genCfg.m_exportFormatTrailers[Kid3MainWindow::s_genCfg.m_exportFormatIdx] = m_trailerLineEdit->text();
+	ConfigStore::s_genCfg.m_exportSrcV1 = (m_srcComboBox->currentIndex() == SrcV1);
+	ConfigStore::s_genCfg.m_exportFormatIdx = m_formatComboBox->currentIndex();
+	if (ConfigStore::s_genCfg.m_exportFormatIdx < static_cast<int>(ConfigStore::s_genCfg.m_exportFormatNames.size())) {
+		ConfigStore::s_genCfg.m_exportFormatNames[ConfigStore::s_genCfg.m_exportFormatIdx] = m_formatComboBox->currentText();
+		ConfigStore::s_genCfg.m_exportFormatHeaders[ConfigStore::s_genCfg.m_exportFormatIdx] = m_headerLineEdit->text();
+		ConfigStore::s_genCfg.m_exportFormatTracks[ConfigStore::s_genCfg.m_exportFormatIdx] = m_trackLineEdit->text();
+		ConfigStore::s_genCfg.m_exportFormatTrailers[ConfigStore::s_genCfg.m_exportFormatIdx] = m_trailerLineEdit->text();
 	} else {
-		Kid3MainWindow::s_genCfg.m_exportFormatIdx = Kid3MainWindow::s_genCfg.m_exportFormatNames.size();
-		Kid3MainWindow::s_genCfg.m_exportFormatNames.append(m_formatComboBox->currentText());
-		Kid3MainWindow::s_genCfg.m_exportFormatHeaders.append(m_headerLineEdit->text());
-		Kid3MainWindow::s_genCfg.m_exportFormatTracks.append(m_trackLineEdit->text());
-		Kid3MainWindow::s_genCfg.m_exportFormatTrailers.append(m_trailerLineEdit->text());
+		ConfigStore::s_genCfg.m_exportFormatIdx = ConfigStore::s_genCfg.m_exportFormatNames.size();
+		ConfigStore::s_genCfg.m_exportFormatNames.append(m_formatComboBox->currentText());
+		ConfigStore::s_genCfg.m_exportFormatHeaders.append(m_headerLineEdit->text());
+		ConfigStore::s_genCfg.m_exportFormatTracks.append(m_trackLineEdit->text());
+		ConfigStore::s_genCfg.m_exportFormatTrailers.append(m_trailerLineEdit->text());
 	}
-	Kid3MainWindow::s_genCfg.m_exportWindowWidth = size().width();
-	Kid3MainWindow::s_genCfg.m_exportWindowHeight = size().height();
+	ConfigStore::s_genCfg.m_exportWindowWidth = size().width();
+	ConfigStore::s_genCfg.m_exportWindowHeight = size().height();
 
 	setFormatFromConfig();
 }

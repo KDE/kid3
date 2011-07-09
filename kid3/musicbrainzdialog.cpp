@@ -40,6 +40,7 @@
 #include <QHeaderView>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include "configstore.h"
 #include "kid3mainwindow.h"
 #include "musicbrainzclient.h"
 #include "comboboxdelegate.h"
@@ -167,7 +168,7 @@ MusicBrainzDialog::~MusicBrainzDialog()
  */
 void MusicBrainzDialog::initTable()
 {
-	setServer(Kid3MainWindow::s_musicBrainzCfg.m_server);
+	setServer(ConfigStore::s_musicBrainzCfg.m_server);
 
 	unsigned numRows = 0;
 	const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
@@ -216,7 +217,7 @@ void MusicBrainzDialog::setClientConfig()
 	if (m_client) {
 		m_client->setConfig(
 			getServer(),
-			Kid3MainWindow::s_miscCfg.m_proxy, Kid3MainWindow::s_miscCfg.m_useProxy);
+			ConfigStore::s_miscCfg.m_proxy, ConfigStore::s_miscCfg.m_useProxy);
 	}
 }
 
@@ -453,7 +454,7 @@ void MusicBrainzDialog::setServer(const QString& srv)
  */
 void MusicBrainzDialog::saveConfig()
 {
-	Kid3MainWindow::s_musicBrainzCfg.m_server = getServer();
+	ConfigStore::s_musicBrainzCfg.m_server = getServer();
 }
 
 /**

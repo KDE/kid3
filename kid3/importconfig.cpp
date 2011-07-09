@@ -320,13 +320,7 @@ ImportConfig::~ImportConfig() {}
  *
  * @param config KDE configuration
  */
-void ImportConfig::writeToConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	) const
+void ImportConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);
@@ -408,13 +402,7 @@ void ImportConfig::writeToConfig(
  *
  * @param config KDE configuration
  */
-void ImportConfig::readFromConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	)
+void ImportConfig::readFromConfig(Kid3Settings* config)
 {
 	QStringList names, headers, tracks;
 	QStringList tagsNames, tagsSources, tagsExtractions;

@@ -39,6 +39,7 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include "configstore.h"
 #include "kid3mainwindow.h"
 #include "qtcompatmac.h"
 
@@ -64,7 +65,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 			m_trackSpinBox = new QSpinBox(this);
 			if (trackLabel && m_trackSpinBox) {
 				m_trackSpinBox->setMaximum(999);
-				m_trackSpinBox->setValue(Kid3MainWindow::s_miscCfg.m_numberTracksStart);
+				m_trackSpinBox->setValue(ConfigStore::s_miscCfg.m_numberTracksStart);
 				trackLayout->addWidget(trackLabel);
 				trackLayout->addWidget(m_trackSpinBox);
 				trackLabel->setBuddy(m_trackSpinBox);
@@ -80,7 +81,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 				m_destComboBox->insertItem(DestV1, i18n("Tag 1"));
 				m_destComboBox->insertItem(DestV2, i18n("Tag 2"));
 				m_destComboBox->insertItem(DestV1V2, i18n("Tag 1 and Tag 2"));
-				m_destComboBox->setCurrentIndex(Kid3MainWindow::s_miscCfg.m_numberTracksDst);
+				m_destComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_numberTracksDst);
 				trackLayout->addWidget(destLabel);
 				trackLayout->addWidget(m_destComboBox);
 				destLabel->setBuddy(m_destComboBox);
@@ -167,8 +168,8 @@ NumberTracksDialog::Destination NumberTracksDialog::getDestination() const
  */
 void NumberTracksDialog::saveConfig()
 {
-	Kid3MainWindow::s_miscCfg.m_numberTracksDst = m_destComboBox->currentIndex();
-	Kid3MainWindow::s_miscCfg.m_numberTracksStart = m_trackSpinBox->value();
+	ConfigStore::s_miscCfg.m_numberTracksDst = m_destComboBox->currentIndex();
+	ConfigStore::s_miscCfg.m_numberTracksStart = m_trackSpinBox->value();
 }
 
 /**

@@ -99,6 +99,7 @@
 #include "dirlist.h"
 #include "pictureframe.h"
 #include "textimporter.h"
+#include "configstore.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -125,18 +126,6 @@
 BrowserDialog* Kid3MainWindow::s_helpBrowser = 0;
 #endif
 
-MiscConfig Kid3MainWindow::s_miscCfg("General Options");
-ImportConfig Kid3MainWindow::s_genCfg("General Options");
-FormatConfig Kid3MainWindow::s_fnFormatCfg("FilenameFormat");
-FormatConfig Kid3MainWindow::s_id3FormatCfg("Id3Format");
-FreedbConfig Kid3MainWindow::s_freedbCfg("Freedb");
-FreedbConfig Kid3MainWindow::s_trackTypeCfg("TrackType");
-DiscogsConfig Kid3MainWindow::s_discogsCfg("Discogs");
-AmazonConfig Kid3MainWindow::s_amazonCfg("Amazon");
-MusicBrainzConfig Kid3MainWindow::s_musicBrainzCfg("MusicBrainz");
-FilterConfig Kid3MainWindow::s_filterCfg("Filter");
-PlaylistConfig Kid3MainWindow::s_playlistCfg("Playlist");
-
 /** Current directory */
 QString Kid3MainWindow::s_dirName;
 
@@ -152,18 +141,15 @@ Kid3MainWindow::Kid3MainWindow() :
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
 	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0),
-	m_playlistDialog(0)
+	m_playlistDialog(0),
 #ifdef HAVE_PHONON
-	, m_playToolBar(0)
+	m_playToolBar(0),
 #endif
+	m_configStore(new ConfigStore)
 {
 	m_fileProxyModel->setSourceModel(m_fileSystemModel);
 	m_dirProxyModel->setSourceModel(m_fileSystemModel);
-#ifdef CONFIG_USE_KDE
-	m_config = new KConfig;
-#else
-	m_config = new Kid3Settings(QSettings::UserScope, "kid3.sourceforge.net", "Kid3");
-	m_config->beginGroup("/kid3");
+#ifndef CONFIG_USE_KDE
 #if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
 	QPixmap icon;
 	if (icon.load(QString(CFG_DATAROOTDIR) +
@@ -202,7 +188,7 @@ Kid3MainWindow::Kid3MainWindow() :
 	setFiltered(false);
 	initView();
 	initActions();
-	s_fnFormatCfg.setAsFilenameFormatter();
+	ConfigStore::s_fnFormatCfg.setAsFilenameFormatter();
 
 	resize(sizeHint());
 
@@ -228,6 +214,7 @@ Kid3MainWindow::~Kid3MainWindow()
 #ifdef HAVE_PHONON
 	delete m_playToolBar;
 #endif
+	delete m_configStore;
 }
 
 /**
@@ -704,9 +691,9 @@ void Kid3MainWindow::initActions()
 		m_viewToolBar->setStatusTip(i18n("Enables/disables the toolbar"));
 		m_viewToolBar->setText(i18n("Show &Toolbar"));
 	}
-	if (s_miscCfg.m_hideToolBar)
+	if (ConfigStore::s_miscCfg.m_hideToolBar)
 		toolBar->hide();
-	m_viewToolBar->setChecked(!s_miscCfg.m_hideToolBar);
+	m_viewToolBar->setChecked(!ConfigStore::s_miscCfg.m_hideToolBar);
 
 	QMenuBar* menubar = menuBar();
 	QMenu* fileMenu = menubar->addMenu(i18n("&File"));
@@ -858,7 +845,7 @@ bool Kid3MainWindow::openDirectory(QString dir, bool confirm, bool fileCheck)
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	slotStatusMsg(i18n("Opening directory..."));
 
-	QStringList nameFilters(s_miscCfg.m_nameFilter.split(' '));
+	QStringList nameFilters(ConfigStore::s_miscCfg.m_nameFilter.split(' '));
 	m_fileProxyModel->setNameFilters(nameFilters);
 	m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
 	QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
@@ -889,28 +876,16 @@ bool Kid3MainWindow::openDirectory(QString dir, bool confirm, bool fileCheck)
 void Kid3MainWindow::saveOptions()
 {
 #ifdef CONFIG_USE_KDE
-	m_fileOpenRecent->saveEntries(KConfigGroup(m_config, "Recent Files"));
+	m_fileOpenRecent->saveEntries(KConfigGroup(m_configStore->getSettings(),
+																						 "Recent Files"));
 #else
-	m_fileOpenRecent->saveEntries(m_config);
-	s_miscCfg.m_hideToolBar = !m_viewToolBar->isChecked();
-	s_miscCfg.m_geometry = saveGeometry();
-	s_miscCfg.m_windowState = saveState();
+	m_fileOpenRecent->saveEntries(m_configStore->getSettings());
+	ConfigStore::s_miscCfg.m_hideToolBar = !m_viewToolBar->isChecked();
+	ConfigStore::s_miscCfg.m_geometry = saveGeometry();
+	ConfigStore::s_miscCfg.m_windowState = saveState();
 #endif
 	m_form->saveConfig();
-
-	s_miscCfg.writeToConfig(m_config);
-	s_fnFormatCfg.writeToConfig(m_config);
-	s_id3FormatCfg.writeToConfig(m_config);
-	s_genCfg.writeToConfig(m_config);
-	s_freedbCfg.writeToConfig(m_config);
-	s_trackTypeCfg.writeToConfig(m_config);
-	s_discogsCfg.writeToConfig(m_config);
-	s_amazonCfg.writeToConfig(m_config);
-	s_filterCfg.writeToConfig(m_config);
-	s_playlistCfg.writeToConfig(m_config);
-#ifdef HAVE_TUNEPIMP
-	s_musicBrainzCfg.writeToConfig(m_config);
-#endif
+	m_configStore->writeToConfig();
 }
 
 /**
@@ -920,17 +895,17 @@ static void setTextEncodings()
 {
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 	const QTextCodec* id3v1TextCodec =
-		Kid3MainWindow::s_miscCfg.m_textEncodingV1 != "ISO-8859-1" ?
-		QTextCodec::codecForName(Kid3MainWindow::s_miscCfg.m_textEncodingV1.toLatin1().data()) : 0;
+		ConfigStore::s_miscCfg.m_textEncodingV1 != "ISO-8859-1" ?
+		QTextCodec::codecForName(ConfigStore::s_miscCfg.m_textEncodingV1.toLatin1().data()) : 0;
 #endif
 #ifdef HAVE_ID3LIB
 	Mp3File::setDefaultTextEncoding(
-		static_cast<MiscConfig::TextEncoding>(Kid3MainWindow::s_miscCfg.m_textEncoding));
+		static_cast<MiscConfig::TextEncoding>(ConfigStore::s_miscCfg.m_textEncoding));
 	Mp3File::setTextCodecV1(id3v1TextCodec);
 #endif
 #ifdef HAVE_TAGLIB
 	TagLibFile::setDefaultTextEncoding(
-		static_cast<MiscConfig::TextEncoding>(Kid3MainWindow::s_miscCfg.m_textEncoding));
+		static_cast<MiscConfig::TextEncoding>(ConfigStore::s_miscCfg.m_textEncoding));
 	TagLibFile::setTextCodecV1(id3v1TextCodec);
 #endif
 }
@@ -940,43 +915,32 @@ static void setTextEncodings()
  */
 void Kid3MainWindow::readOptions()
 {
-	s_miscCfg.readFromConfig(m_config);
-	if (s_miscCfg.m_nameFilter.isEmpty()) {
-		createFilterString(&s_miscCfg.m_nameFilter);
+	m_configStore->readFromConfig();
+	if (ConfigStore::s_miscCfg.m_nameFilter.isEmpty()) {
+		createFilterString(&ConfigStore::s_miscCfg.m_nameFilter);
 	}
 	setTextEncodings();
-	s_fnFormatCfg.readFromConfig(m_config);
-	s_id3FormatCfg.readFromConfig(m_config);
-	s_genCfg.readFromConfig(m_config);
-	s_freedbCfg.readFromConfig(m_config);
-	if (s_freedbCfg.m_server == "freedb2.org:80") {
-		s_freedbCfg.m_server = "www.gnudb.org:80"; // replace old default
+	if (ConfigStore::s_freedbCfg.m_server == "freedb2.org:80") {
+		ConfigStore::s_freedbCfg.m_server = "www.gnudb.org:80"; // replace old default
 	}
-	s_trackTypeCfg.readFromConfig(m_config);
-	if (s_trackTypeCfg.m_server == "gnudb.gnudb.org:80") {
-		s_trackTypeCfg.m_server = "tracktype.org:80"; // replace default
+	if (ConfigStore::s_trackTypeCfg.m_server == "gnudb.gnudb.org:80") {
+		ConfigStore::s_trackTypeCfg.m_server = "tracktype.org:80"; // replace default
 	}
-	s_discogsCfg.readFromConfig(m_config);
-	s_amazonCfg.readFromConfig(m_config);
-	s_filterCfg.readFromConfig(m_config);
-	s_playlistCfg.readFromConfig(m_config);
-#ifdef HAVE_TUNEPIMP
-	s_musicBrainzCfg.readFromConfig(m_config);
-#endif
 #ifdef CONFIG_USE_KDE
 	setAutoSaveSettings();
-	m_settingsShowHidePicture->setChecked(!s_miscCfg.m_hidePicture);
-	m_settingsAutoHideTags->setChecked(s_miscCfg.m_autoHideTags);
-	m_fileOpenRecent->loadEntries(KConfigGroup(m_config,"Recent Files"));
+	m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
+	m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
+	m_fileOpenRecent->loadEntries(KConfigGroup(m_configStore->getSettings(),
+																						 "Recent Files"));
 #else
-	if (s_miscCfg.m_hideStatusBar)
+	if (ConfigStore::s_miscCfg.m_hideStatusBar)
 		statusBar()->hide();
-	m_viewStatusBar->setChecked(!s_miscCfg.m_hideStatusBar);
-	m_settingsShowHidePicture->setChecked(!s_miscCfg.m_hidePicture);
-	m_settingsAutoHideTags->setChecked(s_miscCfg.m_autoHideTags);
-	m_fileOpenRecent->loadEntries(m_config);
-	restoreGeometry(s_miscCfg.m_geometry);
-	restoreState(s_miscCfg.m_windowState);
+	m_viewStatusBar->setChecked(!ConfigStore::s_miscCfg.m_hideStatusBar);
+	m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
+	m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
+	m_fileOpenRecent->loadEntries(m_configStore->getSettings());
+	restoreGeometry(ConfigStore::s_miscCfg.m_geometry);
+	restoreState(ConfigStore::s_miscCfg.m_windowState);
 #endif
 	m_form->readConfig();
 }
@@ -1024,13 +988,15 @@ void Kid3MainWindow::closeEvent(QCloseEvent* ce)
  */
 void Kid3MainWindow::readFontAndStyleOptions()
 {
-	s_miscCfg.readFromConfig(m_config);
-	if (s_miscCfg.m_useFont &&
-			!s_miscCfg.m_fontFamily.isEmpty() && s_miscCfg.m_fontSize > 0) {
-		QApplication::setFont(QFont(s_miscCfg.m_fontFamily, s_miscCfg.m_fontSize));
+	ConfigStore::s_miscCfg.readFromConfig(m_configStore->getSettings());
+	if (ConfigStore::s_miscCfg.m_useFont &&
+			!ConfigStore::s_miscCfg.m_fontFamily.isEmpty() &&
+			ConfigStore::s_miscCfg.m_fontSize > 0) {
+		QApplication::setFont(QFont(ConfigStore::s_miscCfg.m_fontFamily,
+																ConfigStore::s_miscCfg.m_fontSize));
 	}
-	if (!s_miscCfg.m_style.isEmpty()) {
-		QApplication::setStyle(s_miscCfg.m_style);
+	if (!ConfigStore::s_miscCfg.m_style.isEmpty()) {
+		QApplication::setStyle(ConfigStore::s_miscCfg.m_style);
 	}
 }
 
@@ -1077,7 +1043,8 @@ bool Kid3MainWindow::saveDirectory(bool updateGui, QString* errStr)
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
 		bool renamed = false;
-		if (!taggedFile->writeTags(false, &renamed, s_miscCfg.m_preserveTime)) {
+		if (!taggedFile->writeTags(false, &renamed,
+															 ConfigStore::s_miscCfg.m_preserveTime)) {
 			errorFiles.push_back(taggedFile->getFilename());
 		}
 		++numFiles;
@@ -1181,11 +1148,7 @@ bool Kid3MainWindow::saveModified()
  */
 void Kid3MainWindow::cleanup()
 {
-#ifndef CONFIG_USE_KDE
-	m_config->sync();
-#else
-	m_config->sync();
-#endif
+	m_configStore->sync();
 	TaggedFile::staticCleanup();
 }
 
@@ -1354,7 +1317,7 @@ void Kid3MainWindow::slotFileOpen()
 				filter = filter.mid(start + 1, end - start - 1);
 			}
 			if (!filter.isEmpty()) {
-				s_miscCfg.m_nameFilter = filter;
+				ConfigStore::s_miscCfg.m_nameFilter = filter;
 			}
 			openDirectory(dir);
 		}
@@ -1501,9 +1464,9 @@ void Kid3MainWindow::slotSettingsToolbars() {}
  */
 void Kid3MainWindow::slotViewStatusBar()
 {
-	s_miscCfg.m_hideStatusBar = !m_viewStatusBar->isChecked();
+	ConfigStore::s_miscCfg.m_hideStatusBar = !m_viewStatusBar->isChecked();
 	slotStatusMsg(i18n("Toggle the statusbar..."));
-	if(s_miscCfg.m_hideStatusBar) {
+	if(ConfigStore::s_miscCfg.m_hideStatusBar) {
 		statusBar()->hide();
 	}
 	else {
@@ -1681,7 +1644,7 @@ bool Kid3MainWindow::writePlaylist(const PlaylistConfig& cfg)
  */
 bool Kid3MainWindow::slotCreatePlaylist()
 {
-	return writePlaylist(s_playlistCfg);
+	return writePlaylist(ConfigStore::s_playlistCfg);
 }
 
 /**
@@ -1690,7 +1653,7 @@ bool Kid3MainWindow::slotCreatePlaylist()
 void Kid3MainWindow::filesToTrackDataModel()
 {
 	TrackData::TagVersion tagVersion = TrackData::TagNone;
-	switch (s_genCfg.m_importDest) {
+	switch (ConfigStore::s_genCfg.m_importDest) {
 	case ImportConfig::DestV1:
 		tagVersion = TrackData::TagV1;
 		break;
@@ -1821,11 +1784,11 @@ bool Kid3MainWindow::importTags(int tagMask, const QString& path, int fmtIdx)
 	filesToTrackDataModel();
 	QFile file(path);
 	if (file.open(QIODevice::ReadOnly) &&
-			fmtIdx < Kid3MainWindow::s_genCfg.m_importFormatHeaders.size()) {
+			fmtIdx < ConfigStore::s_genCfg.m_importFormatHeaders.size()) {
 		TextImporter(m_trackDataModel).updateTrackData(
 			QTextStream(&file).readAll(),
-			Kid3MainWindow::s_genCfg.m_importFormatHeaders.at(fmtIdx),
-			Kid3MainWindow::s_genCfg.m_importFormatTracks.at(fmtIdx));
+			ConfigStore::s_genCfg.m_importFormatHeaders.at(fmtIdx),
+			ConfigStore::s_genCfg.m_importFormatTracks.at(fmtIdx));
 		file.close();
 		trackDataModelToFiles((tagMask & 1) != 0, (tagMask & 2) != 0);
 		return true;
@@ -2007,7 +1970,7 @@ void Kid3MainWindow::slotExport()
 	m_exportDialog = new ExportDialog(0);
 	if (m_exportDialog) {
 		m_exportDialog->readConfig();
-		setExportData(s_genCfg.m_exportSrcV1 ?
+		setExportData(ConfigStore::s_genCfg.m_exportSrcV1 ?
 									ExportDialog::SrcV1 : ExportDialog::SrcV2);
 		connect(m_exportDialog, SIGNAL(exportDataRequested(int)),
 						this, SLOT(setExportData(int)));
@@ -2023,9 +1986,9 @@ void Kid3MainWindow::slotExport()
 void Kid3MainWindow::slotSettingsAutoHideTags()
 {
 #ifdef CONFIG_USE_KDE
-	s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isChecked();
+	ConfigStore::s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isChecked();
 #else
-	s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isChecked();
+	ConfigStore::s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isChecked();
 #endif
 	updateCurrentSelection();
 	updateGuiControls();
@@ -2037,17 +2000,17 @@ void Kid3MainWindow::slotSettingsAutoHideTags()
 void Kid3MainWindow::slotSettingsShowHidePicture()
 {
 #ifdef CONFIG_USE_KDE
-	s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isChecked();
+	ConfigStore::s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isChecked();
 #else
-	s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isChecked();
+	ConfigStore::s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isChecked();
 #endif
 
-	m_form->hidePicture(s_miscCfg.m_hidePicture);
+	m_form->hidePicture(ConfigStore::s_miscCfg.m_hidePicture);
 	// In Qt3 the picture is displayed too small if Kid3 is started with picture
 	// hidden, and then "Show Picture" is triggered while a file with a picture
 	// is selected. Thus updating the controls is only done for Qt4, in Qt3 the
 	// file has to be selected again for the picture to be shown.
-	if (!s_miscCfg.m_hidePicture) {
+	if (!ConfigStore::s_miscCfg.m_hidePicture) {
 		updateGuiControls();
 	}
 }
@@ -2067,19 +2030,17 @@ void Kid3MainWindow::slotSettingsConfigure()
 		new ConfigDialog(NULL, caption);
 #endif
 	if (dialog) {
-		dialog->setConfig(&s_fnFormatCfg, &s_id3FormatCfg, &s_miscCfg);
+		dialog->setConfig(&ConfigStore::s_fnFormatCfg,
+											&ConfigStore::s_id3FormatCfg, &ConfigStore::s_miscCfg);
 		if (dialog->exec() == QDialog::Accepted) {
-			dialog->getConfig(&s_fnFormatCfg, &s_id3FormatCfg, &s_miscCfg);
-			s_fnFormatCfg.writeToConfig(m_config);
-			s_id3FormatCfg.writeToConfig(m_config);
-			s_miscCfg.writeToConfig(m_config);
-#ifdef CONFIG_USE_KDE
-			m_config->sync();
-#endif
-			if (!s_miscCfg.m_markTruncations) {
+			dialog->getConfig(&ConfigStore::s_fnFormatCfg,
+												&ConfigStore::s_id3FormatCfg, &ConfigStore::s_miscCfg);
+			m_configStore->writeToConfig();
+			m_configStore->sync();
+			if (!ConfigStore::s_miscCfg.m_markTruncations) {
 				m_form->frameModelV1()->markRows(0);
 			}
-			if (!s_miscCfg.m_markChanges) {
+			if (!ConfigStore::s_miscCfg.m_markChanges) {
 				m_form->frameModelV1()->markChangedFrames(0);
 				m_form->frameModelV2()->markChangedFrames(0);
 				m_form->markChangedFilename(false);
@@ -2105,7 +2066,7 @@ void Kid3MainWindow::slotApplyFilenameFormat()
 		TaggedFile* taggedFile = it.next();
 		taggedFile->readTags(false);
 		QString fn = taggedFile->getFilename();
-		s_fnFormatCfg.formatString(fn);
+		ConfigStore::s_fnFormatCfg.formatString(fn);
 		taggedFile->setFilename(fn);
 	}
 	updateGuiControls();
@@ -2128,11 +2089,11 @@ void Kid3MainWindow::slotApplyId3Format()
 		taggedFile->readTags(false);
 		taggedFile->getAllFramesV1(frames);
 		frames.removeDisabledFrames(fltV1);
-		s_id3FormatCfg.formatFrames(frames);
+		ConfigStore::s_id3FormatCfg.formatFrames(frames);
 		taggedFile->setFramesV1(frames);
 		taggedFile->getAllFramesV2(frames);
 		frames.removeDisabledFrames(fltV2);
-		s_id3FormatCfg.formatFrames(frames);
+		ConfigStore::s_id3FormatCfg.formatFrames(frames);
 		taggedFile->setFramesV2(frames);
 	}
 	updateGuiControls();
@@ -2278,7 +2239,7 @@ int Kid3MainWindow::getTotalNumberOfTracksInDir()
 void Kid3MainWindow::numberTracks(int nr, int total, bool destV1, bool destV2)
 {
 	updateCurrentSelection();
-	int numDigits = Kid3MainWindow::s_miscCfg.m_trackNumberDigits;
+	int numDigits = ConfigStore::s_miscCfg.m_trackNumberDigits;
 	if (numDigits < 1 || numDigits > 5)
 		numDigits = 1;
 
@@ -2337,7 +2298,7 @@ void Kid3MainWindow::slotNumberTracks()
 	if (m_numberTracksDialog) {
 		m_numberTracksDialog->setTotalNumberOfTracks(
 			getTotalNumberOfTracksInDir(),
-			Kid3MainWindow::s_miscCfg.m_enableTotalNumberOfTracks);
+			ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks);
 		if (m_numberTracksDialog->exec() == QDialog::Accepted) {
 			int nr = m_numberTracksDialog->getStartNumber();
 			bool destV1 =
@@ -2350,7 +2311,7 @@ void Kid3MainWindow::slotNumberTracks()
 			int total = m_numberTracksDialog->getTotalNumberOfTracks(&totalEnabled);
 			if (!totalEnabled)
 				total = 0;
-			Kid3MainWindow::s_miscCfg.m_enableTotalNumberOfTracks = totalEnabled;
+			ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks = totalEnabled;
 			numberTracks(nr, total, destV1, destV2);
 		}
 	}
@@ -2447,7 +2408,7 @@ void Kid3MainWindow::slotFilter()
 							this, SLOT(applyFilter(FileFilter&)));
 		}
 		if (m_filterDialog) {
-			s_filterCfg.setFilenameFormat(m_form->getFilenameFormat());
+			ConfigStore::s_filterCfg.setFilenameFormat(m_form->getFilenameFormat());
 			m_filterDialog->readConfig();
 			m_filterDialog->exec();
 		}
@@ -2490,7 +2451,7 @@ void Kid3MainWindow::slotConvertToId3v24()
 
 				// Write the file with TagLib, it always writes ID3v2.4 tags
 				bool renamed;
-				taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
+				taggedFile->writeTags(true, &renamed, ConfigStore::s_miscCfg.m_preserveTime);
 				taggedFile->readTags(true);
 			}
 		}
@@ -2533,7 +2494,7 @@ void Kid3MainWindow::slotConvertToId3v23()
 
 				// Write the file with id3lib, it always writes ID3v2.3 tags
 				bool renamed;
-				taggedFile->writeTags(true, &renamed, s_miscCfg.m_preserveTime);
+				taggedFile->writeTags(true, &renamed, ConfigStore::s_miscCfg.m_preserveTime);
 				taggedFile->readTags(true);
 			}
 		}
@@ -2873,10 +2834,10 @@ void Kid3MainWindow::updateGuiControls()
 		m_form->setTagFormatV1(single_v2_file->getTagFormatV1());
 		m_form->setTagFormatV2(single_v2_file->getTagFormatV2());
 
-		if (s_miscCfg.m_markTruncations) {
+		if (ConfigStore::s_miscCfg.m_markTruncations) {
 			m_form->frameModelV1()->markRows(single_v2_file->getTruncationFlags());
 		}
-		if (s_miscCfg.m_markChanges) {
+		if (ConfigStore::s_miscCfg.m_markChanges) {
 			m_form->frameModelV1()->markChangedFrames(
 				single_v2_file->getChangedFramesV1());
 			m_form->frameModelV2()->markChangedFrames(
@@ -2892,16 +2853,16 @@ void Kid3MainWindow::updateGuiControls()
 		m_form->setTagFormatV1(QString::null);
 		m_form->setTagFormatV2(QString::null);
 
-		if (s_miscCfg.m_markTruncations) {
+		if (ConfigStore::s_miscCfg.m_markTruncations) {
 			m_form->frameModelV1()->markRows(0);
 		}
-		if (s_miscCfg.m_markChanges) {
+		if (ConfigStore::s_miscCfg.m_markChanges) {
 			m_form->frameModelV1()->markChangedFrames(0);
 			m_form->frameModelV2()->markChangedFrames(0);
 			m_form->markChangedFilename(false);
 		}
 	}
-	if (!s_miscCfg.m_hidePicture) {
+	if (!ConfigStore::s_miscCfg.m_hidePicture) {
 		FrameCollection::const_iterator it =
 			m_form->frameModelV2()->frames().find(Frame(Frame::FT_Picture, "", "", -1));
 		if (it == m_form->frameModelV2()->frames().end() ||
@@ -2921,7 +2882,7 @@ void Kid3MainWindow::updateGuiControls()
 	}
 	m_form->enableControlsV1(tagV1Supported);
 
-	if (s_miscCfg.m_autoHideTags) {
+	if (ConfigStore::s_miscCfg.m_autoHideTags) {
 		// If a tag is supposed to be absent, make sure that there is really no
 		// unsaved data in the tag.
 		if (!hasTagV1 && tagV1Supported) {
@@ -3414,9 +3375,9 @@ void Kid3MainWindow::editOrAddPicture()
  */
 void Kid3MainWindow::formatFileNameIfEnabled(TaggedFile* taggedFile) const
 {
-	if (s_fnFormatCfg.m_formatWhileEditing) {
+	if (ConfigStore::s_fnFormatCfg.m_formatWhileEditing) {
 		QString fn(taggedFile->getFilename());
-		s_fnFormatCfg.formatString(fn);
+		ConfigStore::s_fnFormatCfg.formatString(fn);
 		taggedFile->setFilename(fn);
 	}
 }
@@ -3428,8 +3389,8 @@ void Kid3MainWindow::formatFileNameIfEnabled(TaggedFile* taggedFile) const
  */
 void Kid3MainWindow::formatFramesIfEnabled(FrameCollection& frames) const
 {
-	if (s_id3FormatCfg.m_formatWhileEditing) {
-		s_id3FormatCfg.formatFrames(frames);
+	if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
+		ConfigStore::s_id3FormatCfg.formatFrames(frames);
 	}
 }
 

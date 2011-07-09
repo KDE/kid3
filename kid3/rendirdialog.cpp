@@ -40,6 +40,7 @@
 #include "taggedfile.h"
 #include "frame.h"
 #include "trackdata.h"
+#include "configstore.h"
 #include "kid3mainwindow.h"
 #include "miscconfig.h"
 #include "qtcompatmac.h"
@@ -120,10 +121,10 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
 		}
 		m_formatComboBox->addItems(strList);
 		m_formatComboBox->setEditable(true);
-		m_formatComboBox->setItemText(Kid3MainWindow::s_miscCfg.m_dirFormatItem,
-																	Kid3MainWindow::s_miscCfg.m_dirFormatText);
-		m_formatComboBox->setCurrentIndex(Kid3MainWindow::s_miscCfg.m_dirFormatItem);
-		m_tagversionComboBox->setCurrentIndex(Kid3MainWindow::s_miscCfg.m_renDirSrc);
+		m_formatComboBox->setItemText(ConfigStore::s_miscCfg.m_dirFormatItem,
+																	ConfigStore::s_miscCfg.m_dirFormatText);
+		m_formatComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_dirFormatItem);
+		m_tagversionComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_renDirSrc);
 		formatLabel->setBuddy(m_formatComboBox);
 		formatLayout->addWidget(formatLabel);
 		formatLayout->addWidget(m_formatComboBox);
@@ -596,9 +597,9 @@ void RenDirDialog::performActions(QString* errorMsg)
  */
 void RenDirDialog::saveConfig()
 {
-	Kid3MainWindow::s_miscCfg.m_dirFormatItem = m_formatComboBox->currentIndex();
-	Kid3MainWindow::s_miscCfg.m_dirFormatText = m_formatComboBox->currentText();
-	Kid3MainWindow::s_miscCfg.m_renDirSrc = m_tagversionComboBox->currentIndex();
+	ConfigStore::s_miscCfg.m_dirFormatItem = m_formatComboBox->currentIndex();
+	ConfigStore::s_miscCfg.m_dirFormatText = m_formatComboBox->currentText();
+	ConfigStore::s_miscCfg.m_renDirSrc = m_tagversionComboBox->currentIndex();
 }
 
 /**

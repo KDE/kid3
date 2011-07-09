@@ -29,7 +29,7 @@
 #include <QString>
 #include <QRegExp>
 #include <sys/stat.h>
-#include "kid3mainwindow.h"
+#include "configstore.h"
 #include "genres.h"
 #include "modeliterator.h"
 
@@ -545,7 +545,7 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
  */
 QString TaggedFile::getCommentFieldName() const
 {
-	return Kid3MainWindow::s_miscCfg.m_commentName;
+	return ConfigStore::s_miscCfg.m_commentName;
 }
 
 /**
@@ -599,7 +599,7 @@ int TaggedFile::getTotalNumberOfTracksInDir() const {
  */
 int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 {
-	return Kid3MainWindow::s_miscCfg.m_enableTotalNumberOfTracks
+	return ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks
 			? getTotalNumberOfTracksInDir() : -1;
 }
 
@@ -668,7 +668,7 @@ void TaggedFile::formatTrackNumberIfEnabled(QString& value, bool addTotal) const
  */
 int TaggedFile::getTrackNumberDigits() const
 {
-	int numDigits = Kid3MainWindow::s_miscCfg.m_trackNumberDigits;
+	int numDigits = ConfigStore::s_miscCfg.m_trackNumberDigits;
 	if (numDigits < 1 || numDigits > 5)
 		numDigits = 1;
 	return numDigits;

@@ -69,13 +69,13 @@ void FormatConfig::setAsFilenameFormatter()
 	m_strRepMap["?"] = "";
 	m_strRepMap["*"] = "";
 	m_strRepMap["\""] = "''";
-	m_strRepMap["ä"] = "ae";
-	m_strRepMap["ö"] = "oe";
-	m_strRepMap["ü"] = "ue";
-	m_strRepMap["Ä"] = "Ae";
-	m_strRepMap["Ö"] = "Oe";
-	m_strRepMap["Ü"] = "Ue";
-	m_strRepMap["ß"] = "ss";
+	m_strRepMap[QChar(0xe4)] = "ae";
+	m_strRepMap[QChar(0xf6)] = "oe";
+	m_strRepMap[QChar(0xfc)] = "ue";
+	m_strRepMap[QChar(0xc4)] = "Ae";
+	m_strRepMap[QChar(0xd6)] = "Oe";
+	m_strRepMap[QChar(0xdc)] = "Ue";
+	m_strRepMap[QChar(0xdf)] = "ss";
 }
 
 /**
@@ -167,13 +167,7 @@ void FormatConfig::formatFrames(FrameCollection& frames) const
  *
  * @param config KDE configuration
  */
-void FormatConfig::writeToConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	) const
+void FormatConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);
@@ -198,13 +192,7 @@ void FormatConfig::writeToConfig(
  *
  * @param config KDE configuration
  */
-void FormatConfig::readFromConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	)
+void FormatConfig::readFromConfig(Kid3Settings* config)
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);

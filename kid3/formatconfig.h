@@ -88,26 +88,14 @@ public:
 	 *
 	 * @param config KDE configuration
 	 */
-	virtual void writeToConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig* config
-#else
-		Kid3Settings* config
-#endif
-		) const;
+	virtual void writeToConfig(Kid3Settings* config) const;
 
 	/**
 	 * Read persisted configuration.
 	 *
 	 * @param config KDE configuration
 	 */
-	virtual void readFromConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig* config
-#else
-		Kid3Settings* config
-#endif
-		);
+	virtual void readFromConfig(Kid3Settings* config);
 
 	/** true to enable formating in line edits */
 	bool m_formatWhileEditing;

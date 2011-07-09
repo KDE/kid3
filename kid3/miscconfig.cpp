@@ -148,13 +148,7 @@ MiscConfig::~MiscConfig() {}
  *
  * @param config KDE configuration
  */
-void MiscConfig::writeToConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	) const
+void MiscConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);
@@ -301,13 +295,7 @@ void MiscConfig::writeToConfig(
  *
  * @param config KDE configuration
  */
-void MiscConfig::readFromConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	)
+void MiscConfig::readFromConfig(Kid3Settings* config)
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);

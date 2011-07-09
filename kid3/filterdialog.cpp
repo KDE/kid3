@@ -30,7 +30,6 @@
 #include <kconfig.h>
 #endif
 
-#include "kid3mainwindow.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QLabel>
@@ -43,6 +42,8 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include "configstore.h"
+#include "kid3mainwindow.h"
 
 /**
  * Constructor.
@@ -156,12 +157,12 @@ void FilterDialog::setFilterLineEdit(int index)
  */
 void FilterDialog::setFiltersFromConfig()
 {
-	m_filterNames = Kid3MainWindow::s_filterCfg.m_filterNames;
-	m_filterExpressions = Kid3MainWindow::s_filterCfg.m_filterExpressions;
+	m_filterNames = ConfigStore::s_filterCfg.m_filterNames;
+	m_filterExpressions = ConfigStore::s_filterCfg.m_filterExpressions;
 	m_nameComboBox->clear();
-	m_nameComboBox->addItems(Kid3MainWindow::s_filterCfg.m_filterNames);
-	m_nameComboBox->setCurrentIndex(Kid3MainWindow::s_filterCfg.m_filterIdx);
-	setFilterLineEdit(Kid3MainWindow::s_filterCfg.m_filterIdx);
+	m_nameComboBox->addItems(ConfigStore::s_filterCfg.m_filterNames);
+	m_nameComboBox->setCurrentIndex(ConfigStore::s_filterCfg.m_filterIdx);
+	setFilterLineEdit(ConfigStore::s_filterCfg.m_filterIdx);
 }
 
 /**
@@ -175,10 +176,10 @@ void FilterDialog::readConfig()
 
 	setFiltersFromConfig();
 
-	if (Kid3MainWindow::s_filterCfg.m_windowWidth > 0 &&
-			Kid3MainWindow::s_filterCfg.m_windowHeight > 0) {
-		resize(Kid3MainWindow::s_filterCfg.m_windowWidth,
-					 Kid3MainWindow::s_filterCfg.m_windowHeight);
+	if (ConfigStore::s_filterCfg.m_windowWidth > 0 &&
+			ConfigStore::s_filterCfg.m_windowHeight > 0) {
+		resize(ConfigStore::s_filterCfg.m_windowWidth,
+					 ConfigStore::s_filterCfg.m_windowHeight);
 	}
 }
 
@@ -187,21 +188,21 @@ void FilterDialog::readConfig()
  */
 void FilterDialog::saveConfig()
 {
-	Kid3MainWindow::s_filterCfg.m_filterIdx = m_nameComboBox->currentIndex();
-	if (Kid3MainWindow::s_filterCfg.m_filterIdx <
-			static_cast<int>(Kid3MainWindow::s_filterCfg.m_filterNames.size())) {
-		Kid3MainWindow::s_filterCfg.m_filterNames[Kid3MainWindow::s_filterCfg.m_filterIdx] =
+	ConfigStore::s_filterCfg.m_filterIdx = m_nameComboBox->currentIndex();
+	if (ConfigStore::s_filterCfg.m_filterIdx <
+			static_cast<int>(ConfigStore::s_filterCfg.m_filterNames.size())) {
+		ConfigStore::s_filterCfg.m_filterNames[ConfigStore::s_filterCfg.m_filterIdx] =
 			m_nameComboBox->currentText();
-		Kid3MainWindow::s_filterCfg.m_filterExpressions[Kid3MainWindow::s_filterCfg.m_filterIdx] =
+		ConfigStore::s_filterCfg.m_filterExpressions[ConfigStore::s_filterCfg.m_filterIdx] =
 			m_filterLineEdit->text();
 	} else {
-		Kid3MainWindow::s_filterCfg.m_filterIdx =
-			Kid3MainWindow::s_filterCfg.m_filterNames.size();
-		Kid3MainWindow::s_filterCfg.m_filterNames.append(m_nameComboBox->currentText());
-		Kid3MainWindow::s_filterCfg.m_filterExpressions.append(m_filterLineEdit->text());
+		ConfigStore::s_filterCfg.m_filterIdx =
+			ConfigStore::s_filterCfg.m_filterNames.size();
+		ConfigStore::s_filterCfg.m_filterNames.append(m_nameComboBox->currentText());
+		ConfigStore::s_filterCfg.m_filterExpressions.append(m_filterLineEdit->text());
 	}
-	Kid3MainWindow::s_filterCfg.m_windowWidth = size().width();
-	Kid3MainWindow::s_filterCfg.m_windowHeight = size().height();
+	ConfigStore::s_filterCfg.m_windowWidth = size().width();
+	ConfigStore::s_filterCfg.m_windowHeight = size().height();
 
 	setFiltersFromConfig();
 }

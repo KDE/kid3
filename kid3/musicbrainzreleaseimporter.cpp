@@ -28,7 +28,7 @@
 #include <QDomDocument>
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
-#include "kid3mainwindow.h"
+#include "configstore.h"
 
 /**
  * Constructor.
@@ -80,7 +80,7 @@ const char* MusicBrainzReleaseImporter::helpAnchor() const {
 
 /** configuration, 0 if not used */
 ServerImporterConfig* MusicBrainzReleaseImporter::config() const {
-	return &Kid3MainWindow::s_musicBrainzCfg;
+	return &ConfigStore::s_musicBrainzCfg;
 }
 
 /** additional tags option, false if not used */

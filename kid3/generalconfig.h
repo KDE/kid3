@@ -31,7 +31,8 @@
 #include <QString>
 
 #ifdef CONFIG_USE_KDE
-class KConfig;
+#include <kconfig.h>
+typedef KConfig Kid3Settings;
 #else
 #include <QSettings>
 typedef QSettings Kid3Settings;
@@ -60,26 +61,14 @@ public:
 	 *
 	 * @param config KDE configuration
 	 */
-	virtual void writeToConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig* config
-#else
-		Kid3Settings* config
-#endif
-		) const = 0;
+	virtual void writeToConfig(Kid3Settings* config) const = 0;
 
 	/**
 	 * Read persisted configuration.
 	 *
 	 * @param config KDE configuration
 	 */
-	virtual void readFromConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig* config
-#else
-		Kid3Settings* config
-#endif
-		) = 0;
+	virtual void readFromConfig(Kid3Settings* config) = 0;
 
 protected:
 	/** Configuration group. */

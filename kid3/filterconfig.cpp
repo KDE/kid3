@@ -82,13 +82,7 @@ FilterConfig::~FilterConfig() {}
  *
  * @param config KDE configuration
  */
-void FilterConfig::writeToConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	) const
+void FilterConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);
@@ -114,13 +108,7 @@ void FilterConfig::writeToConfig(
  *
  * @param config KDE configuration
  */
-void FilterConfig::readFromConfig(
-#ifdef CONFIG_USE_KDE
-	KConfig* config
-#else
-	Kid3Settings* config
-#endif
-	)
+void FilterConfig::readFromConfig(Kid3Settings* config)
 {
 	QStringList names, expressions;
 #ifdef CONFIG_USE_KDE

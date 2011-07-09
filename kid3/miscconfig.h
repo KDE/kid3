@@ -160,26 +160,14 @@ public:
 	 *
 	 * @param config KDE configuration
 	 */
-	void writeToConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig* config
-#else
-		Kid3Settings* config
-#endif
-		) const;
+	void writeToConfig(Kid3Settings* config) const;
 
 	/**
 	 * Read persisted configuration.
 	 *
 	 * @param config KDE configuration
 	 */
-	void readFromConfig(
-#ifdef CONFIG_USE_KDE
-		KConfig* config
-#else
-		Kid3Settings* config
-#endif
-		);
+	void readFromConfig(Kid3Settings* config);
 
 	/** true to mark truncated ID3v1.1 fields */
 	bool m_markTruncations;

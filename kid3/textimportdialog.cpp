@@ -42,6 +42,7 @@
 #endif
 #include "textimporter.h"
 #include "importparser.h"
+#include "configstore.h"
 #include "kid3mainwindow.h"
 #include "qtcompatmac.h"
 
@@ -122,12 +123,12 @@ void TextImportDialog::clear()
  */
 void TextImportDialog::setFormatFromConfig()
 {
-	m_formatHeaders = Kid3MainWindow::s_genCfg.m_importFormatHeaders;
-	m_formatTracks = Kid3MainWindow::s_genCfg.m_importFormatTracks;
+	m_formatHeaders = ConfigStore::s_genCfg.m_importFormatHeaders;
+	m_formatTracks = ConfigStore::s_genCfg.m_importFormatTracks;
 	m_formatComboBox->clear();
-	m_formatComboBox->addItems(Kid3MainWindow::s_genCfg.m_importFormatNames);
-	m_formatComboBox->setCurrentIndex(Kid3MainWindow::s_genCfg.m_importFormatIdx);
-	setFormatLineEdit(Kid3MainWindow::s_genCfg.m_importFormatIdx);
+	m_formatComboBox->addItems(ConfigStore::s_genCfg.m_importFormatNames);
+	m_formatComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importFormatIdx);
+	setFormatLineEdit(ConfigStore::s_genCfg.m_importFormatIdx);
 }
 
 /**
@@ -142,7 +143,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
 	if (!fn.isEmpty()) {
 		QFile file(fn);
 		if (file.open(QIODevice::ReadOnly)) {
-			Kid3MainWindow::s_genCfg.m_importDir = QFileInfo(file).dir().path();
+			ConfigStore::s_genCfg.m_importDir = QFileInfo(file).dir().path();
 			QTextStream stream(&file);
 			QString text = stream.readAll();
 			if (!text.isNull() &&
@@ -165,9 +166,9 @@ void TextImportDialog::fromFile()
 {
 	importFromFile(
 #ifdef CONFIG_USE_KDE
-		KFileDialog::getOpenFileName(Kid3MainWindow::s_genCfg.m_importDir, QString::null, this)
+		KFileDialog::getOpenFileName(ConfigStore::s_genCfg.m_importDir, QString::null, this)
 #else
-		QFileDialog::getOpenFileName(this, QString(), Kid3MainWindow::s_genCfg.m_importDir
+		QFileDialog::getOpenFileName(this, QString(), ConfigStore::s_genCfg.m_importDir
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
 			, QString(), 0, QFileDialog::DontUseNativeDialog
 #endif
@@ -212,16 +213,16 @@ void TextImportDialog::setFormatLineEdit(int index)
  */
 void TextImportDialog::saveConfig()
 {
-	Kid3MainWindow::s_genCfg.m_importFormatIdx = m_formatComboBox->currentIndex();
-	if (Kid3MainWindow::s_genCfg.m_importFormatIdx < static_cast<int>(Kid3MainWindow::s_genCfg.m_importFormatNames.size())) {
-		Kid3MainWindow::s_genCfg.m_importFormatNames[Kid3MainWindow::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
-		Kid3MainWindow::s_genCfg.m_importFormatHeaders[Kid3MainWindow::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
-		Kid3MainWindow::s_genCfg.m_importFormatTracks[Kid3MainWindow::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
+	ConfigStore::s_genCfg.m_importFormatIdx = m_formatComboBox->currentIndex();
+	if (ConfigStore::s_genCfg.m_importFormatIdx < static_cast<int>(ConfigStore::s_genCfg.m_importFormatNames.size())) {
+		ConfigStore::s_genCfg.m_importFormatNames[ConfigStore::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
+		ConfigStore::s_genCfg.m_importFormatHeaders[ConfigStore::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
+		ConfigStore::s_genCfg.m_importFormatTracks[ConfigStore::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
 	} else {
-		Kid3MainWindow::s_genCfg.m_importFormatIdx = Kid3MainWindow::s_genCfg.m_importFormatNames.size();
-		Kid3MainWindow::s_genCfg.m_importFormatNames.append(m_formatComboBox->currentText());
-		Kid3MainWindow::s_genCfg.m_importFormatHeaders.append(m_headerLineEdit->text());
-		Kid3MainWindow::s_genCfg.m_importFormatTracks.append(m_trackLineEdit->text());
+		ConfigStore::s_genCfg.m_importFormatIdx = ConfigStore::s_genCfg.m_importFormatNames.size();
+		ConfigStore::s_genCfg.m_importFormatNames.append(m_formatComboBox->currentText());
+		ConfigStore::s_genCfg.m_importFormatHeaders.append(m_headerLineEdit->text());
+		ConfigStore::s_genCfg.m_importFormatTracks.append(m_trackLineEdit->text());
 	}
 
 	setFormatFromConfig();
