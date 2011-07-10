@@ -61,14 +61,6 @@ ConfigStore::~ConfigStore()
 }
 
 /**
- * Persist unsaved settings.
- */
-void ConfigStore::sync()
-{
-	m_config->sync();
-}
-
-/**
  * Persist configuration.
  */
 void ConfigStore::writeToConfig()

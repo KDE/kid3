@@ -54,11 +54,6 @@ public:
 	~ConfigStore();
 
 	/**
-	 * Persist unsaved settings.
-	 */
-	void sync();
-
-	/**
 	 * Persist configuration.
 	 */
 	void writeToConfig();

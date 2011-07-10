@@ -1,0 +1,537 @@
+/**
+ * \file kid3application.cpp
+ * Kid3 application logic, independent of GUI.
+ *
+ * \b Project: Kid3
+ * \author Urs Fleisch
+ * \date 10 Jul 2011
+ *
+ * Copyright (C) 2011  Urs Fleisch
+ *
+ * This file is part of Kid3.
+ *
+ * Kid3 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Kid3 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "kid3application.h"
+#include <QFileSystemModel>
+#include <QItemSelectionModel>
+#include <QTextCodec>
+#include "fileproxymodel.h"
+#include "dirproxymodel.h"
+#include "modeliterator.h"
+#include "trackdatamodel.h"
+#include "frametablemodel.h"
+#include "configstore.h"
+#include "playlistcreator.h"
+#include "qtcompatmac.h"
+#include "config.h"
+#ifdef HAVE_ID3LIB
+#include "mp3file.h"
+#endif
+#ifdef HAVE_VORBIS
+#include "oggfile.hpp"
+#endif
+#ifdef HAVE_FLAC
+#include "flacfile.hpp"
+#endif
+#ifdef HAVE_MP4V2
+#include "m4afile.h"
+#endif
+#ifdef HAVE_TAGLIB
+#include "taglibfile.h"
+#endif
+
+/** Current directory */
+QString Kid3Application::s_dirName;
+
+/**
+ * Constructor.
+ * @param parent parent object
+ */
+Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
+	m_fileSystemModel(new QFileSystemModel(this)),
+	m_fileProxyModel(new FileProxyModel(this)),
+	m_dirProxyModel(new DirProxyModel(this)),
+	m_fileSelectionModel(new QItemSelectionModel(m_fileProxyModel, this)),
+	m_trackDataModel(new TrackDataModel(this)),
+	m_framesV1Model(new FrameTableModel(true, this)),
+	m_framesV2Model(new FrameTableModel(false, this)),
+	m_configStore(new ConfigStore)
+{
+	m_fileProxyModel->setSourceModel(m_fileSystemModel);
+	m_dirProxyModel->setSourceModel(m_fileSystemModel);
+
+	initFileTypes();
+	setModified(false);
+	setFiltered(false);
+	ConfigStore::s_fnFormatCfg.setAsFilenameFormatter();
+}
+
+/**
+ * Destructor.
+ */
+Kid3Application::~Kid3Application()
+{
+	delete m_configStore;
+}
+
+/**
+ * Init file types.
+ */
+void Kid3Application::initFileTypes()
+{
+#ifdef HAVE_ID3LIB
+	TaggedFile::addResolver(new Mp3File::Resolver);
+#endif
+#ifdef HAVE_VORBIS
+	TaggedFile::addResolver(new OggFile::Resolver);
+#endif
+#ifdef HAVE_FLAC
+	TaggedFile::addResolver(new FlacFile::Resolver);
+#endif
+#ifdef HAVE_MP4V2
+	TaggedFile::addResolver(new M4aFile::Resolver);
+#endif
+#ifdef HAVE_TAGLIB
+	TagLibFile::staticInit();
+	TaggedFile::addResolver(new TagLibFile::Resolver);
+#endif
+}
+
+/**
+ * Get settings.
+ * @return settings.
+ */
+Kid3Settings* Kid3Application::getSettings() const
+{
+	return m_configStore->getSettings();
+}
+
+/**
+ * Save settings to the configuration.
+ */
+void Kid3Application::saveConfig()
+{
+	m_configStore->writeToConfig();
+	m_configStore->getSettings()->sync();
+}
+
+/**
+ * Read settings from the configuration.
+ */
+void Kid3Application::readConfig()
+{
+	m_configStore->readFromConfig();
+	if (ConfigStore::s_miscCfg.m_nameFilter.isEmpty()) {
+		createFilterString(&ConfigStore::s_miscCfg.m_nameFilter);
+	}
+	setTextEncodings();
+	if (ConfigStore::s_freedbCfg.m_server == "freedb2.org:80") {
+		ConfigStore::s_freedbCfg.m_server = "www.gnudb.org:80"; // replace old default
+	}
+	if (ConfigStore::s_trackTypeCfg.m_server == "gnudb.gnudb.org:80") {
+		ConfigStore::s_trackTypeCfg.m_server = "tracktype.org:80"; // replace default
+	}
+}
+
+/**
+ * Open directory.
+ *
+ * @param dir       directory or file path
+ * @param fileCheck if true and dir in not directory, only open directory
+ *                  if dir is a valid file path
+ *
+ * @return true if ok, directoryOpened() is emitted.
+ */
+bool Kid3Application::openDirectory(QString dir, bool fileCheck)
+{
+	if (dir.isEmpty()) {
+		return false;
+	}
+	QFileInfo file(dir);
+	QString filePath;
+	if (!file.isDir()) {
+		if (fileCheck && !file.isFile()) {
+			return false;
+		}
+		dir = file.absolutePath();
+		filePath = file.absoluteFilePath();
+	} else {
+		dir = QDir(dir).absolutePath();
+	}
+
+	QStringList nameFilters(ConfigStore::s_miscCfg.m_nameFilter.split(' '));
+	m_fileProxyModel->setNameFilters(nameFilters);
+	m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
+	QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
+	QModelIndex fileIndex = m_fileSystemModel->index(filePath);
+	bool ok = rootIndex.isValid();
+	if (ok) {
+		setModified(false);
+		setFiltered(false);
+		setDirName(dir);
+		m_fileProxyModelRootIndex = m_fileProxyModel->mapFromSource(rootIndex);
+		emit directoryOpened(rootIndex, fileIndex);
+	}
+	return ok;
+}
+
+/**
+ * Get directory path of opened directory.
+ * @return directory path.
+ */
+QString Kid3Application::getDirPath() const
+{
+	return FileProxyModel::getPathIfIndexOfDir(m_fileProxyModelRootIndex);
+}
+
+/**
+ * Get current index in file proxy model or root index if current index is
+ * invalid.
+ * @return current index, root index if not valid.
+ */
+QModelIndex Kid3Application::currentOrRootIndex() const
+{
+	QModelIndex index(m_fileSelectionModel->currentIndex());
+	if (index.isValid())
+		return index;
+	else
+		return m_fileProxyModelRootIndex;
+}
+
+/**
+ * Save all changed files.
+ * saveStarted() and saveProgress() are emitted while saving files.
+ *
+ * @return list of files with error, empty if ok.
+ */
+QStringList Kid3Application::saveDirectory()
+{
+	QStringList errorFiles;
+	int numFiles = 0, totalFiles = 0;
+	// Get number of files to be saved to display correct progressbar
+	TaggedFileIterator countIt(m_fileProxyModelRootIndex);
+	while (countIt.hasNext()) {
+		if (countIt.next()->isChanged()) {
+			++totalFiles;
+		}
+	}
+	emit saveStarted(totalFiles);
+
+	TaggedFileIterator it(m_fileProxyModelRootIndex);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		bool renamed = false;
+		if (!taggedFile->writeTags(false, &renamed,
+															 ConfigStore::s_miscCfg.m_preserveTime)) {
+			errorFiles.push_back(taggedFile->getFilename());
+		}
+		++numFiles;
+		emit saveProgress(numFiles);
+	}
+
+	return errorFiles;
+}
+
+/**
+ * Write playlist according to playlist configuration.
+ *
+ * @param cfg playlist configuration to use
+ *
+ * @return true if ok.
+ */
+bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
+{
+	PlaylistCreator plCtr(getDirPath(), cfg);
+	QItemSelectionModel* selectModel = getFileSelectionModel();
+	bool noSelection = !cfg.m_onlySelectedFiles || !selectModel ||
+										 !selectModel->hasSelection();
+	bool ok = true;
+	QModelIndex rootIndex;
+
+	if (cfg.m_location == PlaylistConfig::PL_CurrentDirectory) {
+		// Get first child of parent of current index.
+		rootIndex = currentOrRootIndex();
+		if (rootIndex.model() && rootIndex.model()->rowCount(rootIndex) <= 0)
+			rootIndex = rootIndex.parent();
+		if (const QAbstractItemModel* model = rootIndex.model()) {
+			for (int row = 0; row < model->rowCount(rootIndex); ++row) {
+				QModelIndex index = model->index(row, 0, rootIndex);
+				PlaylistCreator::Item plItem(index, plCtr);
+				if (plItem.isFile() &&
+						(noSelection || selectModel->isSelected(index))) {
+					ok = plItem.add() && ok;
+				}
+			}
+		}
+	} else {
+		QString selectedDirPrefix;
+		rootIndex = getRootIndex();
+		ModelIterator it(rootIndex);
+		while (it.hasNext()) {
+			QModelIndex index = it.next();
+			PlaylistCreator::Item plItem(index, plCtr);
+			bool inSelectedDir = false;
+			if (plItem.isDir()) {
+				if (!selectedDirPrefix.isEmpty()) {
+					if (plItem.getDirName().startsWith(selectedDirPrefix)) {
+						inSelectedDir = true;
+					} else {
+						selectedDirPrefix = "";
+					}
+				}
+				if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
+					// if directory is selected, all its files are selected
+					if (!inSelectedDir) {
+						selectedDirPrefix = plItem.getDirName();
+					}
+				}
+			} else if (plItem.isFile()) {
+				QString dirName = plItem.getDirName();
+				if (!selectedDirPrefix.isEmpty()) {
+					if (dirName.startsWith(selectedDirPrefix)) {
+						inSelectedDir = true;
+					} else {
+						selectedDirPrefix = "";
+					}
+				}
+				if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
+					ok = plItem.add() && ok;
+				}
+			}
+		}
+	}
+
+	ok = plCtr.write() && ok;
+	return ok;
+}
+
+#ifndef WIN32
+/**
+ * Get all combinations with lower- and uppercase characters.
+ *
+ * @param str original string
+ *
+ * @return string with all combinations, separated by spaces.
+ */
+static QString lowerUpperCaseCombinations(const QString& str)
+{
+	QString result;
+	QString lc(str.toLower());
+	QString uc(str.toUpper());
+
+	// get a mask of all alphabetic characters in the string
+	unsigned char numChars = 0, charMask = 0, posMask = 1;
+	int numPos = lc.length();
+	if (numPos > 8) numPos = 8;
+	for (int pos = 0; pos < numPos; ++pos, posMask <<= 1) {
+		if (lc[pos] >= 'a' && lc[pos] <= 'z') {
+			charMask |= posMask;
+			++numChars;
+		}
+	}
+
+	int numCombinations = 1 << numChars;
+	for (int comb = 0; comb < numCombinations; ++comb) {
+		posMask = 1;
+		int combMask = 1;
+		if (!result.isEmpty()) {
+			result += ' ';
+		}
+		for (int pos = 0; pos < numPos; ++pos, posMask <<= 1) {
+			if (charMask & posMask) {
+				if (comb & combMask) {
+					result += uc[pos];
+				} else {
+					result += lc[pos];
+				}
+				combMask <<= 1;
+			} else {
+				result += lc[pos];
+			}
+		}
+	}
+
+	return result;
+}
+#endif
+
+/**
+ * Create a filter string for the file dialog.
+ * The filter string contains entries for all supported types.
+ *
+ * @param defaultNameFilter if not 0, return default name filter here
+ *
+ * @return filter string.
+ */
+QString Kid3Application::createFilterString(QString* defaultNameFilter) const
+{
+	QStringList extensions = TaggedFile::getSupportedFileExtensions();
+	QString result, allCombinations;
+	for (QStringList::const_iterator it = extensions.begin();
+			 it != extensions.end();
+			 ++it) {
+		QString text = (*it).mid(1).toUpper();
+		QString lowerExt = '*' + *it;
+#ifdef WIN32
+		const QString& combinations = lowerExt;
+#else
+		QString combinations = lowerUpperCaseCombinations(lowerExt);
+#endif
+		if (!allCombinations.isEmpty()) {
+			allCombinations += ' ';
+		}
+		allCombinations += combinations;
+#ifdef CONFIG_USE_KDE
+		result += combinations;
+		result += '|';
+		result += text;
+		result += " (";
+		result += lowerExt;
+		result += ")\n";
+#else
+		result += text;
+		result += " (";
+		result += combinations;
+		result += ");;";
+#endif
+	}
+
+#ifdef CONFIG_USE_KDE
+	QString allExt = allCombinations;
+	allExt += '|';
+	allExt += i18n("All Supported Files");
+	allExt += '\n';
+	result = allExt + result + "*|" + i18n("All Files (*)");
+#else
+	QString allExt = i18n("All Supported Files");
+	allExt += " (";
+	allExt += allCombinations;
+	allExt += ");;";
+	result = allExt + result + i18n("All Files (*)");
+#endif
+
+	if (defaultNameFilter) {
+		*defaultNameFilter = allCombinations;
+	}
+
+	return result;
+}
+
+/**
+ * Set the ID3v1 and ID3v2 text encodings from the configuration.
+ */
+void Kid3Application::setTextEncodings()
+{
+#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
+	const QTextCodec* id3v1TextCodec =
+		ConfigStore::s_miscCfg.m_textEncodingV1 != "ISO-8859-1" ?
+		QTextCodec::codecForName(ConfigStore::s_miscCfg.m_textEncodingV1.toLatin1().data()) : 0;
+#endif
+#ifdef HAVE_ID3LIB
+	Mp3File::setDefaultTextEncoding(
+		static_cast<MiscConfig::TextEncoding>(ConfigStore::s_miscCfg.m_textEncoding));
+	Mp3File::setTextCodecV1(id3v1TextCodec);
+#endif
+#ifdef HAVE_TAGLIB
+	TagLibFile::setDefaultTextEncoding(
+		static_cast<MiscConfig::TextEncoding>(ConfigStore::s_miscCfg.m_textEncoding));
+	TagLibFile::setTextCodecV1(id3v1TextCodec);
+#endif
+}
+
+/**
+ * Convert ID3v2.3 to ID3v2.4 tags.
+ */
+void Kid3Application::convertToId3v24()
+{
+#ifdef HAVE_TAGLIB
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
+			QString tagFmt = taggedFile->getTagFormatV2();
+			if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] < '4') {
+#ifdef HAVE_ID3LIB
+				if (dynamic_cast<Mp3File*>(taggedFile) != 0) {
+					FrameCollection frames;
+					taggedFile->getAllFramesV2(frames);
+					FrameFilter flt;
+					flt.enableAll();
+					taggedFile->deleteFramesV2(flt);
+
+					// The file has to be read with TagLib to write ID3v2.4 tags
+					taggedFile = FileProxyModel::readWithTagLib(taggedFile);
+
+					// Restore the frames
+					FrameFilter frameFlt;
+					frameFlt.enableAll();
+					taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
+				}
+#endif
+
+				// Write the file with TagLib, it always writes ID3v2.4 tags
+				bool renamed;
+				taggedFile->writeTags(true, &renamed, ConfigStore::s_miscCfg.m_preserveTime);
+				taggedFile->readTags(true);
+			}
+		}
+	}
+#endif
+}
+
+/**
+ * Convert ID3v2.4 to ID3v2.3 tags.
+ */
+void Kid3Application::convertToId3v23()
+{
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
+			QString tagFmt = taggedFile->getTagFormatV2();
+			if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3') {
+				if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
+					FrameCollection frames;
+					taggedFile->getAllFramesV2(frames);
+					FrameFilter flt;
+					flt.enableAll();
+					taggedFile->deleteFramesV2(flt);
+
+					// The file has to be read with id3lib to write ID3v2.3 tags
+					taggedFile = FileProxyModel::readWithId3Lib(taggedFile);
+
+					// Restore the frames
+					FrameFilter frameFlt;
+					frameFlt.enableAll();
+					taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
+				}
+
+				// Write the file with id3lib, it always writes ID3v2.3 tags
+				bool renamed;
+				taggedFile->writeTags(true, &renamed, ConfigStore::s_miscCfg.m_preserveTime);
+				taggedFile->readTags(true);
+			}
+		}
+	}
+#endif
+}

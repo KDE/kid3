@@ -47,6 +47,7 @@ class FormatConfig;
 class FrameList;
 class FrameTable;
 class FrameTableModel;
+class Kid3Application;
 
 /**
  * Main widget.
@@ -59,9 +60,10 @@ public:
 	/** 
 	 * Constructs an Id3Form as a child of 'parent', with the 
 	 * name 'name' and widget flags set to 'f'.
+	 * @param app application
 	 * @param parent parent widget
 	 */
-	Kid3Form(QWidget* parent = 0);
+	explicit Kid3Form(Kid3Application* app, QWidget* parent = 0);
 
 	/**
 	 * Destructor.
@@ -208,24 +210,6 @@ public:
 	void setDetailInfo(const TaggedFile::DetailInfo& info);
 
 	/**
-	 * Fill directory list.
-	 * @param index index of directory in filesystem model
-	 * @return false if name is not directory path, else true.
-	 */
-	bool readDirectoryList(const QModelIndex& index) { return m_dirListBox->readDir(index); }
-
-	/**
-	 * Fill file list.
-	 * @param dirIndex index of directory in filesystem model
-	 * @param fileIndex index of file to select in filesystem model (optional,
-	 * else invalid)
-	 * @return false if name is not directory path, else true.
-	 */
-	bool readFileList(const QModelIndex& dirIndex, const QModelIndex& fileIndex = QModelIndex()) {
-		return m_fileListBox->readDir(dirIndex, fileIndex);
-	}
-
-	/**
 	 * Get directory path.
 	 * @return directory path.
 	 */
@@ -242,18 +226,6 @@ public:
 	 * @return frame list.
 	 */
 	FrameList* getFrameList() { return m_framelist; }
-
-	/**
-	 * Get tag 1 frame table model.
-	 * @return frame table.
-	 */
-	FrameTableModel* frameModelV1() { return m_framesV1Model; }
-
-	/**
-	 * Get tag 2 frame table model.
-	 * @return frame table.
-	 */
-	FrameTableModel* frameModelV2() { return m_framesV2Model; }
 
 	/**
 	 * Get tag 1 frame table.
@@ -407,6 +379,15 @@ public slots:
 	 */
 	bool selectPreviousFile();
 
+	/**
+	 * Set the root index of the directory and file lists.
+	 *
+	 * @param directoryIndex root index of directory in file system model
+	 * @param fileIndex index of file to select
+	 */
+	void setDirectoryIndex(const QModelIndex& directoryIndex,
+												 const QModelIndex& fileIndex);
+
 private:
 	/**
 	 * Format string within line edit.
@@ -425,8 +406,6 @@ private:
 	QLineEdit* m_nameLineEdit;
 	DirList* m_dirListBox;
 	FrameList* m_framelist;
-	FrameTableModel* m_framesV1Model;
-	FrameTableModel* m_framesV2Model;
 	FrameTable* m_framesV1Table;
 	FrameTable* m_framesV2Table;
 	QSplitter* m_vSplitter;
@@ -444,6 +423,7 @@ private:
 	QPushButton* m_id3V2PushButton;
 	QWidget* m_rightHalfVBox;
 	PictureLabel* m_pictureLabel;
+	Kid3Application* m_app;
 
 	/** Collapse pixmap, will be allocated in constructor */
 	static QPixmap* s_collapsePixmap;

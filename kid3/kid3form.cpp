@@ -60,6 +60,7 @@
 #include "formatconfig.h"
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
+#include "kid3application.h"
 #include "qtcompatmac.h"
 
 /** Collapse pixmap, will be allocated in constructor */
@@ -148,10 +149,11 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 /**
  * Constructs an Id3Form as a child of 'parent', with the 
  * name 'name' and widget flags set to 'f'.
+ * @param app application
  * @param parent parent widget
  */
-Kid3Form::Kid3Form(QWidget* parent)
-	: QSplitter(parent)
+Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
+ : QSplitter(parent), m_app(app)
 {
 	const int margin = 6;
 	const int spacing = 2;
@@ -168,9 +170,13 @@ Kid3Form::Kid3Form(QWidget* parent)
 
 	m_vSplitter = new QSplitter(Qt::Vertical, this);
 	m_fileListBox = new FileList(m_vSplitter, mainWin);
-	m_fileListBox->setModel(mainWin->getFileProxyModel());
+	m_fileListBox->setModel(m_app->getFileProxyModel());
+	m_fileListBox->setSelectionModel(m_app->getFileSelectionModel());
 	m_dirListBox = new DirList(m_vSplitter);
-	m_dirListBox->setModel(mainWin->getDirProxyModel());
+	m_dirListBox->setModel(m_app->getDirProxyModel());
+
+	connect(m_app, SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
+					this, SLOT(setDirectoryIndex(QModelIndex,QModelIndex)));
 
 	m_rightHalfVBox = new QWidget;
 	QScrollArea* scrollView = new QScrollArea(this);
@@ -261,8 +267,7 @@ Kid3Form::Kid3Form(QWidget* parent)
 	QHBoxLayout* idV1HBoxLayout = new QHBoxLayout(m_tag1Widget);
 	idV1HBoxLayout->setMargin(margin);
 	idV1HBoxLayout->setSpacing(spacing);
-	m_framesV1Model = new FrameTableModel(true, m_tag1Widget);
-	m_framesV1Table = new FrameTable(m_framesV1Model, m_tag1Widget);
+	m_framesV1Table = new FrameTable(m_app->frameModelV1(), m_tag1Widget);
 	idV1HBoxLayout->addWidget(m_framesV1Table, 100);
 	m_tag1Label->setBuddy(m_framesV1Table);
 
@@ -302,9 +307,8 @@ Kid3Form::Kid3Form(QWidget* parent)
 	QHBoxLayout* idV2HBoxLayout = new QHBoxLayout(m_tag2Widget);
 	idV2HBoxLayout->setMargin(margin);
 	idV2HBoxLayout->setSpacing(spacing);
-	m_framesV2Model = new FrameTableModel(false, m_tag2Widget);
-	m_framesV2Table = new FrameTable(m_framesV2Model, m_tag2Widget);
-	m_framelist = new FrameList(m_framesV2Table, m_framesV2Model);
+	m_framesV2Table = new FrameTable(m_app->frameModelV2(), m_tag2Widget);
+	m_framelist = new FrameList(m_framesV2Table, m_app->frameModelV2());
 	idV2HBoxLayout->addWidget(m_framesV2Table);
 	m_tag2Label->setBuddy(m_framesV2Table);
 
@@ -976,4 +980,17 @@ bool Kid3Form::selectNextFile()
 bool Kid3Form::selectPreviousFile()
 {
 	return m_fileListBox->selectPreviousFile();
+}
+
+/**
+ * Set the root index of the directory and file lists.
+ *
+ * @param directoryIndex root index of directory in file system model
+ * @param fileIndex index of file to select
+ */
+void Kid3Form::setDirectoryIndex(const QModelIndex& directoryIndex,
+																 const QModelIndex& fileIndex)
+{
+	m_fileListBox->readDir(directoryIndex, fileIndex);
+	m_dirListBox->readDir(directoryIndex);
 }

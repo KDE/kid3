@@ -25,9 +25,6 @@
  */
 
 #include "editframefieldsdialog.h"
-#include "kid3mainwindow.h"
-#include "imageviewer.h"
-#include "taggedfile.h"
 #include <QPushButton>
 #include <QImage>
 #include <QClipboard>
@@ -38,9 +35,13 @@
 #include <QApplication>
 #include <QFile>
 #include <QBuffer>
-#include "qtcompatmac.h"
 #include <QVBoxLayout>
 #include <QMimeData>
+#include "kid3application.h"
+#include "imageviewer.h"
+#include "taggedfile.h"
+#include "qtcompatmac.h"
+#include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
 #else
@@ -578,12 +579,12 @@ void BinaryOpenSave::loadData()
 {
 #ifdef CONFIG_USE_KDE
 	QString loadfilename = KFileDialog::getOpenFileName(
-		m_defaultDir.isEmpty() ? Kid3MainWindow::getDirName() : m_defaultDir,
+		m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
 		QString::null, this);
 #else
 	QString loadfilename = QFileDialog::getOpenFileName(
 		this, QString(),
-		m_defaultDir.isEmpty() ? Kid3MainWindow::getDirName() : m_defaultDir
+		m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
 		, QString(), 0, QFileDialog::DontUseNativeDialog
 #endif
@@ -611,7 +612,7 @@ void BinaryOpenSave::loadData()
  */
 void BinaryOpenSave::saveData()
 {
-	QString dir = m_defaultDir.isEmpty() ? Kid3MainWindow::getDirName() : m_defaultDir;
+	QString dir = m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir;
 	if (!m_defaultFile.isEmpty()) {
 		QChar separator = QDir::separator();
 		if (!dir.endsWith(separator)) {

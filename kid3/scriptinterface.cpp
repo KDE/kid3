@@ -30,6 +30,7 @@
 #include <QDBusConnection>
 #include <QFileInfo>
 #include "kid3mainwindow.h"
+#include "kid3application.h"
 #include "kid3form.h"
 #include "taggedfile.h"
 #include "frametablemodel.h"
@@ -42,9 +43,10 @@
  * Constructor.
  *
  * @param parent parent object
+ * @param app application
  */
-ScriptInterface::ScriptInterface(Kid3MainWindow* parent) :
-	QDBusAbstractAdaptor(parent), m_mainWin(parent)
+ScriptInterface::ScriptInterface(Kid3MainWindow* parent, Kid3Application* app) :
+	QDBusAbstractAdaptor(parent), m_mainWin(parent), m_app(app)
 {
 	setAutoRelaySignals(true);
 }
@@ -390,8 +392,8 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
 		dataFileName = frameName.mid(colonIndex + 1);
 		frameName.truncate(colonIndex);
 	}
-	FrameTableModel* ft = (tagMask & 2) ? m_mainWin->m_form->frameModelV2() :
-		m_mainWin->m_form->frameModelV1();
+	FrameTableModel* ft = (tagMask & 2) ? m_app->frameModelV2() :
+		m_app->frameModelV1();
 	FrameCollection::const_iterator it = ft->frames().findByName(frameName);
 	if (it != ft->frames().end()) {
 		if (!dataFileName.isEmpty()) {
@@ -424,8 +426,8 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 		dataFileName = frameName.mid(colonIndex + 1);
 		frameName.truncate(colonIndex);
 	}
-	FrameTableModel* ft = (tagMask & 2) ? m_mainWin->m_form->frameModelV2() :
-		m_mainWin->m_form->frameModelV1();
+	FrameTableModel* ft = (tagMask & 2) ? m_app->frameModelV2() :
+		m_app->frameModelV1();
 	FrameCollection frames(ft->frames());
 	FrameCollection::iterator it = frames.findByName(frameName);
 	if (it != frames.end()) {
@@ -470,8 +472,8 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 QStringList ScriptInterface::getTag(int tagMask)
 {
 	QStringList lst;
-	FrameTableModel* ft = (tagMask & 2) ? m_mainWin->m_form->frameModelV2() :
-		m_mainWin->m_form->frameModelV1();
+	FrameTableModel* ft = (tagMask & 2) ? m_app->frameModelV2() :
+		m_app->frameModelV1();
 	for (FrameCollection::const_iterator it = ft->frames().begin();
 			 it != ft->frames().end();
 			 ++it) {

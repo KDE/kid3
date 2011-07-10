@@ -49,6 +49,7 @@ typedef QMainWindow Kid3MainWindowBaseClass;
 class KURL;
 class KUrl;
 class Kid3Form;
+class Kid3Application;
 class TaggedFile;
 class FrameList;
 class ImportDialog;
@@ -275,40 +276,11 @@ public:
 	 */
 	void editOrAddPicture();
 
-	/**
-	 * Get file system model.
-	 * @return file system model.
-	 */
-	QFileSystemModel* getFileSystemModel() { return m_fileSystemModel; }
-
-	/**
-	 * Get file proxy model.
-	 * @return file proxy model.
-	 */
-	FileProxyModel* getFileProxyModel() { return m_fileProxyModel; }
-
-	/**
-	 * Get directory proxy model.
-	 * @return directory proxy model.
-	 */
-	DirProxyModel* getDirProxyModel() { return m_dirProxyModel; }
-
-	/**
-	 * Get directory name.
-	 * @return directory.
-	 */
-	static QString getDirName() { return s_dirName; }
-
 protected:
 	/**
 	 * Init menu and toolbar actions.
 	 */
 	void initActions();
-
-	/**
-	 * Init file types.
-	 */
-	void initFileTypes();
 
 	/**
 	 * Init status bar.
@@ -325,16 +297,6 @@ protected:
 	 * Our destructor may not be called, so cleanup is done here.
 	 */
 	void cleanup();
-
-	/**
-	 * Create a filter string for the file dialog.
-	 * The filter string contains entries for all supported types.
-	 *
-	 * @param defaultNameFilter if not 0, return default name filter here
-	 *
-	 * @return filter string.
-	 */
-	QString createFilterString(QString* defaultNameFilter = 0) const;
 
 	/**
 	 * Update modification state before closing.
@@ -384,20 +346,6 @@ protected:
 	 * Load application options.
 	 */
 	void readOptions();
-
-	/**
-	 * Set modification state.
-	 *
-	 * @param val true if a file is modified
-	 */
-	void setModified(bool val) { m_modified = val; }
-
-	/**
-	 * Check modification state.
-	 *
-	 * @return true if a file is modified.
-	 */
-	bool isModified() { return m_modified; }
 
 public slots:
 	/**
@@ -768,32 +716,10 @@ private:
 	bool applyFilterToDir(FileFilter& fileFilter, FileProxyModel* model,
 												const QModelIndex& rootIndex);
 
-	/**
-	 * Set filter state.
-	 *
-	 * @param val true if list is filtered
-	 */
-	void setFiltered(bool val) { m_filtered = val; }
-
-	/**
-	 * Check filter state.
-	 *
-	 * @return true if list is filtered.
-	 */
-	bool isFiltered() { return m_filtered; }
-
 	/** GUI with controls */
 	Kid3Form* m_form;
-	/** model of filesystem */
-	QFileSystemModel* m_fileSystemModel;
-	FileProxyModel* m_fileProxyModel;
-	DirProxyModel* m_dirProxyModel;
-	/** Track data model */
-	TrackDataModel* m_trackDataModel;
-	/** true if any file was modified */
-	bool m_modified;
-	/** true if list is filtered */
-	bool m_filtered;
+	/** Application logic */
+	Kid3Application* m_app;
 	/** Affected files to add frame in imageDownloaded() */
 	DownloadImageDestination m_downloadImageDest;
 	/** Copy buffer */
@@ -820,8 +746,6 @@ private:
 #endif
 	/** Frame list */
 	FrameList* m_framelist;
-	/** Configuration */
-	ConfigStore* m_configStore;
 
 #ifdef CONFIG_USE_KDE
 	/** Actions */
@@ -837,9 +761,6 @@ private:
 	QAction* m_settingsAutoHideTags;
 	QAction* m_settingsShowHidePicture;
 #endif
-
-	/** Current directory */
-	static QString s_dirName;
 };
 
 #endif /* KID3MAINWINDOW_H */
