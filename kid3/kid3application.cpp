@@ -35,6 +35,7 @@
 #include "frametablemodel.h"
 #include "configstore.h"
 #include "playlistcreator.h"
+#include "downloadclient.h"
 #include "qtcompatmac.h"
 #include "config.h"
 #ifdef HAVE_ID3LIB
@@ -68,7 +69,9 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
 	m_trackDataModel(new TrackDataModel(this)),
 	m_framesV1Model(new FrameTableModel(true, this)),
 	m_framesV2Model(new FrameTableModel(false, this)),
-	m_configStore(new ConfigStore)
+	m_configStore(new ConfigStore),
+	m_downloadClient(new DownloadClient(this)),
+	m_downloadImageDest(ImageForSelectedFiles)
 {
 	m_fileProxyModel->setSourceModel(m_fileSystemModel);
 	m_dirProxyModel->setSourceModel(m_fileSystemModel);
@@ -316,6 +319,168 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
 
 	ok = plCtr.write() && ok;
 	return ok;
+}
+
+/**
+ * Set track data model with tagged files of directory.
+ */
+void Kid3Application::filesToTrackDataModel()
+{
+	TrackData::TagVersion tagVersion = TrackData::TagNone;
+	switch (ConfigStore::s_genCfg.m_importDest) {
+	case ImportConfig::DestV1:
+		tagVersion = TrackData::TagV1;
+		break;
+	case ImportConfig::DestV2:
+		tagVersion = TrackData::TagV2;
+		break;
+	case ImportConfig::DestV1V2:
+		tagVersion = TrackData::TagV2V1;
+	}
+
+	ImportTrackDataVector trackDataList;
+	TaggedFileOfDirectoryIterator it(currentOrRootIndex());
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+		taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+#endif
+		trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
+	}
+	getTrackDataModel()->setTrackData(trackDataList);
+}
+
+/**
+ * Set tagged files of directory from track data model.
+ *
+ * @param destV1 true to set tag 1
+ * @param destV2 true to set tag 2
+ */
+void Kid3Application::trackDataModelToFiles(bool destV1, bool destV2)
+{
+	ImportTrackDataVector trackDataList(getTrackDataModel()->getTrackData());
+	ImportTrackDataVector::iterator it = trackDataList.begin();
+	FrameFilter flt(destV1 ?
+									frameModelV1()->getEnabledFrameFilter(true) :
+									frameModelV2()->getEnabledFrameFilter(true));
+	TaggedFileOfDirectoryIterator tfit(currentOrRootIndex());
+	while (tfit.hasNext()) {
+		TaggedFile* taggedFile = tfit.next();
+		taggedFile->readTags(false);
+		if (it != trackDataList.end()) {
+			it->removeDisabledFrames(flt);
+			formatFramesIfEnabled(*it);
+			if (destV1) taggedFile->setFramesV1(*it, false);
+			if (destV2) {
+				FrameCollection oldFrames;
+				taggedFile->getAllFramesV2(oldFrames);
+				it->markChangedFrames(oldFrames);
+				taggedFile->setFramesV2(*it, true);
+			}
+			++it;
+		} else {
+			break;
+		}
+	}
+
+	if (destV2 && flt.isEnabled(Frame::FT_Picture) &&
+			!trackDataList.getCoverArtUrl().isEmpty()) {
+		downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
+	}
+}
+
+/**
+ * Download an image file.
+ *
+ * @param url  URL of image
+ * @param dest specifies affected files
+ */
+void Kid3Application::downloadImage(const QString& url, DownloadImageDestination dest)
+{
+	QString imgurl(getImageUrl(url));
+	if (!imgurl.isEmpty()) {
+		int hostPos = imgurl.indexOf("://");
+		if (hostPos > 0) {
+			int pathPos = imgurl.indexOf("/", hostPos + 3);
+			if (pathPos > hostPos) {
+				m_downloadImageDest = dest;
+				m_downloadClient->startDownload(
+					imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
+					imgurl.mid(pathPos));
+			}
+		}
+	}
+}
+
+/**
+ * Format a filename if format while editing is switched on.
+ *
+ * @param taggedFile file to modify
+ */
+void Kid3Application::formatFileNameIfEnabled(TaggedFile* taggedFile) const
+{
+	if (ConfigStore::s_fnFormatCfg.m_formatWhileEditing) {
+		QString fn(taggedFile->getFilename());
+		ConfigStore::s_fnFormatCfg.formatString(fn);
+		taggedFile->setFilename(fn);
+	}
+}
+
+/**
+ * Format frames if format while editing is switched on.
+ *
+ * @param frames frames
+ */
+void Kid3Application::formatFramesIfEnabled(FrameCollection& frames) const
+{
+	if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
+		ConfigStore::s_id3FormatCfg.formatFrames(frames);
+	}
+}
+
+/**
+ * Get the URL of an image file.
+ * The input URL is transformed using the match picture URL table to
+ * get the URL of an image file.
+ *
+ * @param url URL from image drag
+ *
+ * @return URL of image file, empty if no image URL found.
+ */
+QString Kid3Application::getImageUrl(const QString& url)
+{
+	QString imgurl;
+	if (url.startsWith("http://")) {
+		if (url.endsWith(".jpg", Qt::CaseInsensitive) ||
+				url.endsWith(".jpeg", Qt::CaseInsensitive) ||
+				url.endsWith(".png", Qt::CaseInsensitive)) {
+			imgurl = url;
+		}
+		else {
+			for (QMap<QString, QString>::ConstIterator it =
+						 ConfigStore::s_genCfg.m_matchPictureUrlMap.begin();
+					 it != ConfigStore::s_genCfg.m_matchPictureUrlMap.end();
+					 ++it) {
+				QRegExp re(it.key());
+				if (re.exactMatch(url)) {
+					QString pictureUrl(url);
+					imgurl = url;
+					imgurl.replace(re, *it);
+					if (imgurl.indexOf("%25") != -1) {
+						// double URL encoded: first decode
+						imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
+					}
+					if (imgurl.indexOf("%2F") != -1) {
+						// URL encoded: decode
+						imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
+					}
+					break;
+				}
+			}
+		}
+	}
+	return imgurl;
 }
 
 #ifndef WIN32

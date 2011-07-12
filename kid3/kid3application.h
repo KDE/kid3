@@ -40,6 +40,9 @@ class TrackDataModel;
 class FrameTableModel;
 class ConfigStore;
 class PlaylistConfig;
+class DownloadClient;
+class TaggedFile;
+class FrameCollection;
 
 /**
  * Kid3 application logic, independent of GUI.
@@ -47,6 +50,13 @@ class PlaylistConfig;
 class Kid3Application : public QObject {
 	Q_OBJECT
 public:
+	/** Destination for downloadImage(). */
+	enum DownloadImageDestination {
+		ImageForSelectedFiles,         /**< only for current file */
+		ImageForAllFilesInDirectory, /**< for all files in directory */
+		ImageForImportTrackData      /**< for enabled files in m_trackDataModel */
+	};
+
 	/**
 	 * Constructor.
 	 * @param parent parent object
@@ -104,6 +114,12 @@ public:
 	 * @return settings.
 	 */
 	Kid3Settings* getSettings() const;
+
+	/**
+	 * Get download client.
+	 * @return download client.
+	 */
+	DownloadClient* getDownloadClient() { return m_downloadClient; }
 
 	/**
 	 * Get current index in file proxy model or root index if current index is
@@ -165,6 +181,41 @@ public:
 	bool writePlaylist(const PlaylistConfig& cfg);
 
 	/**
+	 * Set track data model with tagged files of directory.
+	 */
+	void filesToTrackDataModel();
+
+	/**
+	 * Set tagged files of directory from track data model.
+	 *
+	 * @param destV1 true to set tag 1
+	 * @param destV2 true to set tag 2
+	 */
+	void trackDataModelToFiles(bool destV1, bool destV2);
+
+	/**
+	 * Download an image file.
+	 *
+	 * @param url  URL of image
+	 * @param dest specifies affected files
+	 */
+	void downloadImage(const QString& url, DownloadImageDestination dest);
+
+	/**
+	 * Format a filename if format while editing is switched on.
+	 *
+	 * @param taggedFile file to modify
+	 */
+	void formatFileNameIfEnabled(TaggedFile* taggedFile) const;
+
+	/**
+	 * Format frames if format while editing is switched on.
+	 *
+	 * @param frames frames
+	 */
+	void formatFramesIfEnabled(FrameCollection& frames) const;
+
+	/**
 	 * Convert ID3v2.3 to ID3v2.4 tags.
 	 */
 	void convertToId3v24();
@@ -183,6 +234,14 @@ public:
 	 * @return filter string.
 	 */
 	QString createFilterString(QString* defaultNameFilter = 0) const;
+
+	/**
+	 * Get image destination set by downloadImage().
+	 * @return image destination.
+	 */
+	DownloadImageDestination getDownloadImageDestination() const {
+		return m_downloadImageDest;
+	}
 
 	/**
 	 * Set modification state.
@@ -229,6 +288,17 @@ public:
 	 */
 	static void setTextEncodings();
 
+	/**
+	 * Get the URL of an image file.
+	 * The input URL is transformed using the match picture URL table to
+	 * get the URL of an image file.
+	 *
+	 * @param url URL from image drag
+	 *
+	 * @return URL of image file, empty if no image URL found.
+	 */
+	static QString getImageUrl(const QString& url);
+
 signals:
 	/**
 	 * Emitted when a new directory is opened.
@@ -269,6 +339,10 @@ private:
 	FrameTableModel* m_framesV2Model;
 	/** Configuration */
 	ConfigStore* m_configStore;
+	/** Download client */
+	DownloadClient* m_downloadClient;
+	/** Affected files to add frame when downloading image */
+	DownloadImageDestination m_downloadImageDest;
 	/** true if any file was modified */
 	bool m_modified;
 	/** true if list is filtered */

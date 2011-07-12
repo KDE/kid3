@@ -61,7 +61,6 @@ class RenDirDialog;
 class FilterDialog;
 class FileFilter;
 class QImage;
-class DownloadClient;
 class DownloadDialog;
 class PlaylistDialog;
 class PlaylistConfig;
@@ -82,13 +81,6 @@ class Kid3MainWindow : public Kid3MainWindowBaseClass
 Q_OBJECT
 
 public:
-	/** Destination for downloadImage(). */
-	enum DownloadImageDestination {
-		ImageForSelectedFiles,         /**< only for current file */
-		ImageForAllFilesInDirectory, /**< for all files in directory */
-		ImageForImportTrackData      /**< for enabled files in m_trackDataModel */
-	};
-
 	/**
 	 * Constructor.
 	 */
@@ -200,14 +192,6 @@ public:
 	 * @param image dropped image.
 	 */
 	void dropImage(const QImage& image);
-
-	/**
-	 * Download an image file.
-	 *
-	 * @param url  URL of image
-	 * @param dest specifies affected files
-	 */
-	void downloadImage(const QString& url, DownloadImageDestination dest);
 
 	/**
 	 * Handle URL on drop.
@@ -634,33 +618,6 @@ private:
 	TaggedFile* getSelectedFile();
 	
 	/**
-	 * Format a filename if format while editing is switched on.
-	 *
-	 * @param taggedFile file to modify
-	 */
-	void formatFileNameIfEnabled(TaggedFile* taggedFile) const;
-
-	/**
-	 * Format frames if format while editing is switched on.
-	 *
-	 * @param frames frames
-	 */
-	void formatFramesIfEnabled(FrameCollection& frames) const;
-
-	/**
-	 * Set track data model with tagged files of directory.
-	 */
-	void filesToTrackDataModel();
-
-	/**
-	 * Set tagged files of directory from track data model.
-	 *
-	 * @param destV1 true to set tag 1
-	 * @param destV2 true to set tag 2
-	 */
-	void trackDataModelToFiles(bool destV1, bool destV2);
-
-	/**
 	 * Update track data and create import dialog.
 	 */
 	void setupImportDialog();
@@ -721,8 +678,6 @@ private:
 	Kid3Form* m_form;
 	/** Application logic */
 	Kid3Application* m_app;
-	/** Affected files to add frame in imageDownloaded() */
-	DownloadImageDestination m_downloadImageDest;
 	/** Copy buffer */
 	FrameCollection m_copyTags;
 	/** Import dialog */
@@ -737,8 +692,6 @@ private:
 	NumberTracksDialog* m_numberTracksDialog;
 	/** Filter dialog */
 	FilterDialog* m_filterDialog;
-	/** Download client */
-	DownloadClient* m_downloadClient;
 	/** Download dialog */
 	DownloadDialog* m_downloadDialog;
 	/** Playlist dialog */

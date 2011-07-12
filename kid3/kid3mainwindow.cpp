@@ -125,26 +125,25 @@
  */
 Kid3MainWindow::Kid3MainWindow() :
 	m_app(new Kid3Application(this)),
-	m_downloadImageDest(ImageForSelectedFiles),
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
 	m_numberTracksDialog(0), m_filterDialog(0),
-	m_downloadClient(new DownloadClient(this)),
 	m_downloadDialog(new DownloadDialog(this, i18n("Download"))),
 	m_playlistDialog(0)
 #ifdef HAVE_PHONON
 	, m_playToolBar(0)
 #endif
 {
-	connect(m_downloadClient, SIGNAL(progress(QString,int,int)),
+	DownloadClient* downloadClient = m_app->getDownloadClient();
+	connect(downloadClient, SIGNAL(progress(QString,int,int)),
 					m_downloadDialog, SLOT(updateProgressStatus(QString,int,int)));
-	connect(m_downloadClient, SIGNAL(downloadStarted(QString)),
+	connect(downloadClient, SIGNAL(downloadStarted(QString)),
 					m_downloadDialog, SLOT(showStartOfDownload(QString)));
-	connect(m_downloadClient, SIGNAL(aborted()),
+	connect(downloadClient, SIGNAL(aborted()),
 					m_downloadDialog, SLOT(reset()));
 	connect(m_downloadDialog, SIGNAL(canceled()),
-					m_downloadClient, SLOT(cancelDownload()));
-	connect(m_downloadClient, SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
+					downloadClient, SLOT(cancelDownload()));
+	connect(downloadClient, SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
 					this, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
 
 #ifndef CONFIG_USE_KDE
@@ -1341,81 +1340,11 @@ bool Kid3MainWindow::slotCreatePlaylist()
 }
 
 /**
- * Set track data model with tagged files of directory.
- */
-void Kid3MainWindow::filesToTrackDataModel()
-{
-	TrackData::TagVersion tagVersion = TrackData::TagNone;
-	switch (ConfigStore::s_genCfg.m_importDest) {
-	case ImportConfig::DestV1:
-		tagVersion = TrackData::TagV1;
-		break;
-	case ImportConfig::DestV2:
-		tagVersion = TrackData::TagV2;
-		break;
-	case ImportConfig::DestV1V2:
-		tagVersion = TrackData::TagV2V1;
-	}
-
-	ImportTrackDataVector trackDataList;
-	TaggedFileOfDirectoryIterator it(m_form->getFileList()->currentOrRootIndex());
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		taggedFile->readTags(false);
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-		taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
-#endif
-		trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
-	}
-	m_app->getTrackDataModel()->setTrackData(trackDataList);
-}
-
-/**
- * Set tagged files of directory from track data model.
- *
- * @param destV1 true to set tag 1
- * @param destV2 true to set tag 2
- */
-void Kid3MainWindow::trackDataModelToFiles(bool destV1, bool destV2)
-{
-	ImportTrackDataVector trackDataList(m_app->getTrackDataModel()->getTrackData());
-	ImportTrackDataVector::iterator it = trackDataList.begin();
-	FrameFilter flt(destV1 ?
-									m_app->frameModelV1()->getEnabledFrameFilter(true) :
-									m_app->frameModelV2()->getEnabledFrameFilter(true));
-	TaggedFileOfDirectoryIterator tfit(
-			m_form->getFileList()->currentOrRootIndex());
-	while (tfit.hasNext()) {
-		TaggedFile* taggedFile = tfit.next();
-		taggedFile->readTags(false);
-		if (it != trackDataList.end()) {
-			it->removeDisabledFrames(flt);
-			formatFramesIfEnabled(*it);
-			if (destV1) taggedFile->setFramesV1(*it, false);
-			if (destV2) {
-				FrameCollection oldFrames;
-				taggedFile->getAllFramesV2(oldFrames);
-				it->markChangedFrames(oldFrames);
-				taggedFile->setFramesV2(*it, true);
-			}
-			++it;
-		} else {
-			break;
-		}
-	}
-
-	if (destV2 && flt.isEnabled(Frame::FT_Picture) &&
-			!trackDataList.getCoverArtUrl().isEmpty()) {
-		downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
-	}
-}
-
-/**
  * Update track data and create import dialog.
  */
 void Kid3MainWindow::setupImportDialog()
 {
-	filesToTrackDataModel();
+	m_app->filesToTrackDataModel();
 	if (!m_importDialog) {
 		QString caption(i18n("Import"));
 		m_importDialog =
@@ -1433,7 +1362,7 @@ void Kid3MainWindow::setupImportDialog()
 void Kid3MainWindow::getTagsFromImportDialog(bool destV1, bool destV2)
 {
 	slotStatusMsg(i18n("Import..."));
-	trackDataModelToFiles(destV1, destV2);
+	m_app->trackDataModelToFiles(destV1, destV2);
 	if (m_form->getFileList()->selectionModel() &&
 			m_form->getFileList()->selectionModel()->hasSelection()) {
 		m_app->frameModelV1()->clearFrames();
@@ -1474,7 +1403,7 @@ void Kid3MainWindow::execImportDialog()
  */
 bool Kid3MainWindow::importTags(int tagMask, const QString& path, int fmtIdx)
 {
-	filesToTrackDataModel();
+	m_app->filesToTrackDataModel();
 	QFile file(path);
 	if (file.open(QIODevice::ReadOnly) &&
 			fmtIdx < ConfigStore::s_genCfg.m_importFormatHeaders.size()) {
@@ -1483,7 +1412,7 @@ bool Kid3MainWindow::importTags(int tagMask, const QString& path, int fmtIdx)
 			ConfigStore::s_genCfg.m_importFormatHeaders.at(fmtIdx),
 			ConfigStore::s_genCfg.m_importFormatTracks.at(fmtIdx));
 		file.close();
-		trackDataModelToFiles((tagMask & 1) != 0, (tagMask & 2) != 0);
+		m_app->trackDataModelToFiles((tagMask & 1) != 0, (tagMask & 2) != 0);
 		return true;
 	}
 	return false;
@@ -2235,36 +2164,13 @@ void Kid3MainWindow::dropImage(const QImage& image)
 }
 
 /**
- * Download an image file.
- *
- * @param url  URL of image
- * @param dest specifies affected files
- */
-void Kid3MainWindow::downloadImage(const QString& url, DownloadImageDestination dest)
-{
-	QString imgurl(BrowseCoverArtDialog::getImageUrl(url));
-	if (!imgurl.isEmpty()) {
-		int hostPos = imgurl.indexOf("://");
-		if (hostPos > 0) {
-			int pathPos = imgurl.indexOf("/", hostPos + 3);
-			if (pathPos > hostPos) {
-				m_downloadImageDest = dest;
-				m_downloadClient->startDownload(
-					imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
-					imgurl.mid(pathPos));
-			}
-		}
-	}
-}
-
-/**
  * Handle URL on drop.
  *
  * @param txt dropped URL.
  */
 void Kid3MainWindow::dropUrl(const QString& txt)
 {
-	downloadImage(txt, ImageForSelectedFiles);
+	m_app->downloadImage(txt, Kid3Application::ImageForSelectedFiles);
 }
 
 /**
@@ -2279,7 +2185,8 @@ void Kid3MainWindow::imageDownloaded(const QByteArray& data,
 {
 	if (mimeType.startsWith("image")) {
 		PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
-		if (m_downloadImageDest == ImageForAllFilesInDirectory) {
+		if (m_app->getDownloadImageDestination() ==
+				Kid3Application::ImageForAllFilesInDirectory) {
 			TaggedFileOfDirectoryIterator it(
 					m_form->getFileList()->currentOrRootIndex());
 			while (it.hasNext()) {
@@ -2287,7 +2194,8 @@ void Kid3MainWindow::imageDownloaded(const QByteArray& data,
 				taggedFile->readTags(false);
 				taggedFile->addFrameV2(frame);
 			}
-		} else if (m_downloadImageDest == ImageForImportTrackData) {
+		} else if (m_app->getDownloadImageDestination() ==
+							 Kid3Application::ImageForImportTrackData) {
 			const ImportTrackDataVector& trackDataVector(
 						m_app->getTrackDataModel()->trackData());
 			for (ImportTrackDataVector::const_iterator it =
@@ -2303,7 +2211,6 @@ void Kid3MainWindow::imageDownloaded(const QByteArray& data,
 		} else {
 			addFrame(&frame);
 		}
-		m_downloadImageDest = ImageForSelectedFiles;
 		updateGuiControls();
 	}
 }
@@ -2572,7 +2479,7 @@ void Kid3MainWindow::pasteTagsV1()
 	updateCurrentSelection();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
 													 m_app->frameModelV1()->getEnabledFrameFilter(true)));
-	formatFramesIfEnabled(frames);
+	m_app->formatFramesIfEnabled(frames);
 	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
 																m_form->getFileList()->selectionModel(),
 																false);
@@ -2591,7 +2498,7 @@ void Kid3MainWindow::pasteTagsV2()
 	updateCurrentSelection();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
 													 m_app->frameModelV2()->getEnabledFrameFilter(true)));
-	formatFramesIfEnabled(frames);
+	m_app->formatFramesIfEnabled(frames);
 	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
 																m_form->getFileList()->selectionModel(),
 																false);
@@ -2626,7 +2533,7 @@ void Kid3MainWindow::getTagsFromFilenameV1()
 		taggedFile->getTagsFromFilename(frames,
 																		m_form->getFromFilenameFormat());
 		frames.removeDisabledFrames(flt);
-		formatFramesIfEnabled(frames);
+		m_app->formatFramesIfEnabled(frames);
 		taggedFile->setFramesV1(frames);
 	}
 	// update controls with filtered data
@@ -2657,7 +2564,7 @@ void Kid3MainWindow::getTagsFromFilenameV2()
 		taggedFile->getTagsFromFilename(frames,
 																		m_form->getFromFilenameFormat());
 		frames.removeDisabledFrames(flt);
-		formatFramesIfEnabled(frames);
+		m_app->formatFramesIfEnabled(frames);
 		taggedFile->setFramesV2(frames);
 	}
 	// update controls with filtered data
@@ -2686,7 +2593,7 @@ void Kid3MainWindow::getFilenameFromTags(int tag_version)
 		if (!trackData.isEmptyOrInactive()) {
 			taggedFile->setFilename(
 						trackData.formatFilenameFromTags(m_form->getFilenameFormat()));
-			formatFileNameIfEnabled(taggedFile);
+			m_app->formatFileNameIfEnabled(taggedFile);
 			if (!multiselect) {
 				m_form->setFilename(taggedFile->getFilename());
 			}
@@ -2711,7 +2618,7 @@ void Kid3MainWindow::copyV1ToV2()
 		TaggedFile* taggedFile = it.next();
 		taggedFile->getAllFramesV1(frames);
 		frames.removeDisabledFrames(flt);
-		formatFramesIfEnabled(frames);
+		m_app->formatFramesIfEnabled(frames);
 		taggedFile->setFramesV2(frames, false);
 	}
 	// update controls with filtered data
@@ -2733,7 +2640,7 @@ void Kid3MainWindow::copyV2ToV1()
 		TaggedFile* taggedFile = it.next();
 		taggedFile->getAllFramesV2(frames);
 		frames.removeDisabledFrames(flt);
-		formatFramesIfEnabled(frames);
+		m_app->formatFramesIfEnabled(frames);
 		taggedFile->setFramesV1(frames, false);
 	}
 	// update controls with filtered data
@@ -2985,32 +2892,6 @@ void Kid3MainWindow::editOrAddPicture()
 	} else {
 		PictureFrame frame;
 		addFrame(&frame, true);
-	}
-}
-
-/**
- * Format a filename if format while editing is switched on.
- *
- * @param taggedFile file to modify
- */
-void Kid3MainWindow::formatFileNameIfEnabled(TaggedFile* taggedFile) const
-{
-	if (ConfigStore::s_fnFormatCfg.m_formatWhileEditing) {
-		QString fn(taggedFile->getFilename());
-		ConfigStore::s_fnFormatCfg.formatString(fn);
-		taggedFile->setFilename(fn);
-	}
-}
-
-/**
- * Format frames if format while editing is switched on.
- *
- * @param frames frames
- */
-void Kid3MainWindow::formatFramesIfEnabled(FrameCollection& frames) const
-{
-	if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
-		ConfigStore::s_id3FormatCfg.formatFrames(frames);
 	}
 }
 
