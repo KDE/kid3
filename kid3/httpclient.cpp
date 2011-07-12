@@ -171,6 +171,14 @@ void HttpClient::sendRequest(const QString& server, const QString& path)
 }
 
 /**
+ * Abort request.
+ */
+void HttpClient::abort()
+{
+	m_http->abort();
+}
+
+/**
  * Emit a progress signal with step/total steps.
  *
  * @param text       state text

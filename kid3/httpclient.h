@@ -72,6 +72,11 @@ public:
 	void sendRequest(const QString& server, const QString& path);
 
 	/**
+	 * Abort request.
+	 */
+	void abort();
+
+	/**
 	 * Get content length.
 	 * @return size of body in bytes, 0 if unknown.
 	 */

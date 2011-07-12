@@ -89,6 +89,7 @@
 #include "numbertracksdialog.h"
 #include "filterdialog.h"
 #include "rendirdialog.h"
+#include "downloadclient.h"
 #include "downloaddialog.h"
 #include "playlistdialog.h"
 #include "fileproxymodel.h"
@@ -127,12 +128,25 @@ Kid3MainWindow::Kid3MainWindow() :
 	m_downloadImageDest(ImageForSelectedFiles),
 	m_importDialog(0), m_browseCoverArtDialog(0),
 	m_exportDialog(0), m_renDirDialog(0),
-	m_numberTracksDialog(0), m_filterDialog(0), m_downloadDialog(0),
+	m_numberTracksDialog(0), m_filterDialog(0),
+	m_downloadClient(new DownloadClient(this)),
+	m_downloadDialog(new DownloadDialog(this, i18n("Download"))),
 	m_playlistDialog(0)
 #ifdef HAVE_PHONON
 	, m_playToolBar(0)
 #endif
 {
+	connect(m_downloadClient, SIGNAL(progress(QString,int,int)),
+					m_downloadDialog, SLOT(updateProgressStatus(QString,int,int)));
+	connect(m_downloadClient, SIGNAL(downloadStarted(QString)),
+					m_downloadDialog, SLOT(showStartOfDownload(QString)));
+	connect(m_downloadClient, SIGNAL(aborted()),
+					m_downloadDialog, SLOT(reset()));
+	connect(m_downloadDialog, SIGNAL(canceled()),
+					m_downloadClient, SLOT(cancelDownload()));
+	connect(m_downloadClient, SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
+					this, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
+
 #ifndef CONFIG_USE_KDE
 #if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
 	QPixmap icon;
@@ -184,7 +198,6 @@ Kid3MainWindow::~Kid3MainWindow()
 	delete m_renDirDialog;
 	delete m_numberTracksDialog;
 	delete m_filterDialog;
-	delete m_downloadDialog;
 	delete m_browseCoverArtDialog;
 	delete m_playlistDialog;
 #ifdef HAVE_PHONON
@@ -2231,22 +2244,14 @@ void Kid3MainWindow::downloadImage(const QString& url, DownloadImageDestination 
 {
 	QString imgurl(BrowseCoverArtDialog::getImageUrl(url));
 	if (!imgurl.isEmpty()) {
-		if (!m_downloadDialog) {
-			m_downloadDialog = new DownloadDialog(0, i18n("Download"));
-			connect(m_downloadDialog, SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
-							this, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
-		}
-		if (m_downloadDialog) {
-			int hostPos = imgurl.indexOf("://");
-			if (hostPos > 0) {
-				int pathPos = imgurl.indexOf("/", hostPos + 3);
-				if (pathPos > hostPos) {
-					m_downloadImageDest = dest;
-					m_downloadDialog->startDownload(
-						imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
-						imgurl.mid(pathPos));
-					m_downloadDialog->show();
-				}
+		int hostPos = imgurl.indexOf("://");
+		if (hostPos > 0) {
+			int pathPos = imgurl.indexOf("/", hostPos + 3);
+			if (pathPos > hostPos) {
+				m_downloadImageDest = dest;
+				m_downloadClient->startDownload(
+					imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
+					imgurl.mid(pathPos));
 			}
 		}
 	}

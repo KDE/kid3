@@ -20,7 +20,7 @@ set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
 	musicbrainzreleaseimporter.cpp externalprocess.cpp trackdata.cpp trackdatamodel.cpp
 	stringlistedit.cpp tracktypeimporter.cpp filterconfig.cpp
 	filterdialog.cpp filefilter.cpp expressionparser.cpp pictureframe.cpp
-	formatreplacer.cpp httpclient.cpp downloaddialog.cpp picturelabel.cpp
+	formatreplacer.cpp httpclient.cpp downloaddialog.cpp downloadclient.cpp picturelabel.cpp
 	browsecoverartdialog.cpp configtable.cpp configtablemodel.cpp
 	attributedata.cpp browserdialog.cpp imageviewer.cpp editframedialog.cpp
 	editframefieldsdialog.cpp playlistdialog.cpp playlistconfig.cpp
@@ -117,7 +117,7 @@ set(kid3_MOC_HDRS filelist.h frametable.h frametablemodel.h kid3application.h
 	exportdialog.h formatbox.h importdialog.h rendirdialog.h
 	musicbrainzdialog.h musicbrainzclient.h numbertracksdialog.h
 	serverimportdialog.h importclient.h serverimporter.h externalprocess.h stringlistedit.h
-	filterdialog.h filefilter.h httpclient.h downloaddialog.h
+	filterdialog.h filefilter.h httpclient.h downloaddialog.h downloadclient.h
 	browsecoverartdialog.h configtable.h browserdialog.h imageviewer.h
 	editframedialog.h editframefieldsdialog.h playlistdialog.h recentfilesmenu.h
 	playtoolbar.h fileproxymodel.h trackdatamodel.h textimportdialog.h

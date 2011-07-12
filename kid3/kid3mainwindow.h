@@ -61,6 +61,7 @@ class RenDirDialog;
 class FilterDialog;
 class FileFilter;
 class QImage;
+class DownloadClient;
 class DownloadDialog;
 class PlaylistDialog;
 class PlaylistConfig;
@@ -736,6 +737,8 @@ private:
 	NumberTracksDialog* m_numberTracksDialog;
 	/** Filter dialog */
 	FilterDialog* m_filterDialog;
+	/** Download client */
+	DownloadClient* m_downloadClient;
 	/** Download dialog */
 	DownloadDialog* m_downloadDialog;
 	/** Playlist dialog */

@@ -25,9 +25,7 @@
  */
 
 #include "downloaddialog.h"
-#include "httpclient.h"
 #include <QString>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -36,11 +34,9 @@
  * @param caption dialog title
  */
 DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption) :
-	QProgressDialog(parent), m_client(0)
+	QProgressDialog(parent)
 {
 	setWindowTitle(caption);
-	connect(this, SIGNAL(canceled()),
-					this, SLOT(cancelDownload()));
 }
 
 /**
@@ -48,8 +44,16 @@ DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption) :
  */
 DownloadDialog::~DownloadDialog()
 {
-	delete m_client;
-	m_client = 0;
+}
+
+/**
+ * Show dialog to report start of download.
+ * @param url URL of download
+ */
+void DownloadDialog::showStartOfDownload(const QString& url)
+{
+	m_url = url;
+	setLabelText(url);
 }
 
 /**
@@ -66,55 +70,5 @@ void DownloadDialog::updateProgressStatus(const QString& msg,
 	if (receivedBytes >= 0 && totalBytes >= 0) {
 		setRange(0, totalBytes);
 		setValue(receivedBytes);
-	}
-}
-
-/**
- * Send a download request.
- *
- * @param hostName server
- * @param path     path on server
- */
-void DownloadDialog::startDownload(const QString& hostName, const QString& path)
-{
-	if (!m_client) {
-		m_client = new HttpClient;
-		connect(m_client, SIGNAL(bytesReceived(const QByteArray&)),
-						this, SLOT(requestFinished(const QByteArray&)));
-		connect(m_client, SIGNAL(progress(const QString&, int, int)),
-						this, SLOT(updateProgressStatus(const QString&, int, int)));
-	}
-	if (m_client) {
-		m_url = "http://";
-		m_url += hostName;
-		m_url += path;
-		setLabelText(m_url);
-		updateProgressStatus(i18n("Ready."),
-		                     HttpClient::CS_RequestConnection,
-		                     HttpClient::CS_EstimatedBytes);
-		m_client->sendRequest(hostName, path);
-	}
-}
-
-/**
- * Cancel a download.
- */
-void DownloadDialog::cancelDownload()
-{
-	delete m_client;
-	m_client = 0;
-	reset();
-}
-
-/**
- * Handle response when request is finished.
- * downloadFinished() is emitted.
- *
- * @param data received data
- */
-void DownloadDialog::requestFinished(const QByteArray& data)
-{
-	if (!wasCanceled()) {
-		emit downloadFinished(data, m_client->getContentType(), m_url);
 	}
 }

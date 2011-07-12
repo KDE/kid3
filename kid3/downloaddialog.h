@@ -30,13 +30,22 @@
 #include <QProgressDialog>
 #include <QString>
 
-class HttpClient;
-
 /**
  * Dialog displayed during a download.
+ *
+ * The download dialog can be used together with the DownloadClient to get
+ * progress feedback. These two objects have to be connected in the following
+ * way (DownloadClient to DownloadDialog):
+ * - progress() to updateProgressStatus(),
+ * - downloadStarted() to showStartOfDownload(),
+ * - cancelDownload() from canceled(),
+ * - aborted() to reset().
+ *
+ * A download is started with DownloadClient::startDownload() and termination
+ * signaled by DownloadClient::downloadFinished().
  */
 class DownloadDialog : public QProgressDialog {
-Q_OBJECT
+	Q_OBJECT
 
 public:
 	/**
@@ -52,28 +61,12 @@ public:
 	 */
 	virtual ~DownloadDialog();
 
-  /**
-   * Send a download request.
-   *
-   * @param hostName server
-   * @param path     path on server
-   */
-	void startDownload(const QString& hostName, const QString& path);
-
 public slots:
 	/**
-	 * Cancel a download.
+	 * Show dialog to report start of download.
+	 * @param url URL of download
 	 */
-	void cancelDownload();
-
-private slots:
-	/**
-	 * Handle response when request is finished.
-	 * downloadFinished() is emitted.
-	 *
-	 * @param data received data
-	 */
-	void requestFinished(const QByteArray& data);
+	void showStartOfDownload(const QString& url);
 
 	/**
 	 * Display progress status.
@@ -84,15 +77,7 @@ private slots:
 	 */
 	void updateProgressStatus(const QString& msg, int receivedBytes, int totalBytes);
 
-signals:
-	/**
-	 * Emitted when download finished.
-	 * Parameter: bytes containing download, content type, URL
-	 */
-	void downloadFinished(const QByteArray&, const QString&, const QString&);
-
 private:
-	HttpClient* m_client;
 	QString m_url;
 };
 

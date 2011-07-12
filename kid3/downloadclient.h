@@ -1,0 +1,101 @@
+/**
+ * \file downloadclient.h
+ * Client to download via http.
+ *
+ * \b Project: Kid3
+ * \author Urs Fleisch
+ * \date 12 Jun 2011
+ *
+ * Copyright (C) 2011  Urs Fleisch
+ *
+ * This file is part of Kid3.
+ *
+ * Kid3 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Kid3 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef DOWNLOADCLIENT_H
+#define DOWNLOADCLIENT_H
+
+#include <QString>
+#include "httpclient.h"
+
+/**
+ * Client to download via HTTP.
+ * @see DownloadDialog
+ */
+class DownloadClient : public HttpClient {
+	Q_OBJECT
+public:
+	/**
+	 * Constructor.
+	 *
+	 * @param parent parent object
+	 */
+	explicit DownloadClient(QObject* parent = 0);
+
+	/**
+	 * Destructor.
+	 */
+	virtual ~DownloadClient();
+
+	/**
+	 * Send a download request.
+	 *
+	 * @param hostName server
+	 * @param path     path on server
+	 */
+	void startDownload(const QString& hostName, const QString& path);
+
+public slots:
+	/**
+	 * Cancel a download.
+	 */
+	void cancelDownload();
+
+signals:
+	/**
+	 * Emitted when download is started
+	 * @param url URL of download
+	 */
+	void downloadStarted(const QString& url);
+
+	/**
+	 * Emitted when download finished.
+	 * @param data bytes containing download
+	 * @param contentType content type
+	 * @param url URL
+	 */
+	void downloadFinished(const QByteArray& data, const QString& contentType,
+												const QString& url);
+
+	/**
+	 * Emitted when a download is aborted.
+	 */
+	void aborted();
+
+private slots:
+	/**
+	 * Handle response when request is finished.
+	 * downloadFinished() is emitted.
+	 *
+	 * @param data received data
+	 */
+	void requestFinished(const QByteArray& data);
+
+private:
+	QString m_url;
+	bool m_canceled;
+};
+
+#endif // DOWNLOADCLIENT_H
