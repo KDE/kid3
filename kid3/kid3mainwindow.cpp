@@ -1680,16 +1680,7 @@ void Kid3MainWindow::slotSettingsConfigure()
 void Kid3MainWindow::slotApplyFilenameFormat()
 {
 	updateCurrentSelection();
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																true);
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		taggedFile->readTags(false);
-		QString fn = taggedFile->getFilename();
-		ConfigStore::s_fnFormatCfg.formatString(fn);
-		taggedFile->setFilename(fn);
-	}
+	m_app->applyFilenameFormat();
 	updateGuiControls();
 }
 
@@ -1698,25 +1689,8 @@ void Kid3MainWindow::slotApplyFilenameFormat()
  */
 void Kid3MainWindow::slotApplyId3Format()
 {
-	FrameCollection frames;
 	updateCurrentSelection();
-	FrameFilter fltV1(m_app->frameModelV1()->getEnabledFrameFilter(true));
-	FrameFilter fltV2(m_app->frameModelV2()->getEnabledFrameFilter(true));
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																true);
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		taggedFile->readTags(false);
-		taggedFile->getAllFramesV1(frames);
-		frames.removeDisabledFrames(fltV1);
-		ConfigStore::s_id3FormatCfg.formatFrames(frames);
-		taggedFile->setFramesV1(frames);
-		taggedFile->getAllFramesV2(frames);
-		frames.removeDisabledFrames(fltV2);
-		ConfigStore::s_id3FormatCfg.formatFrames(frames);
-		taggedFile->setFramesV2(frames);
-	}
+	m_app->applyId3Format();
 	updateGuiControls();
 }
 
@@ -1836,20 +1810,6 @@ void Kid3MainWindow::slotRenameDirectory()
 }
 
 /**
- * Get number of tracks in current directory.
- *
- * @return number of tracks, 0 if not found.
- */
-int Kid3MainWindow::getTotalNumberOfTracksInDir()
-{
-	if (TaggedFile* taggedFile = TaggedFileOfDirectoryIterator::first(
-			m_form->getFileList()->currentOrRootIndex())) {
-		return taggedFile->getTotalNumberOfTracksInDir();
-	}
-	return 0;
-}
-
-/**
  * Number tracks in selected files of directory.
  *
  * @param nr start number
@@ -1918,7 +1878,7 @@ void Kid3MainWindow::slotNumberTracks()
 	}
 	if (m_numberTracksDialog) {
 		m_numberTracksDialog->setTotalNumberOfTracks(
-			getTotalNumberOfTracksInDir(),
+			m_app->getTotalNumberOfTracksInDir(),
 			ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks);
 		if (m_numberTracksDialog->exec() == QDialog::Accepted) {
 			int nr = m_numberTracksDialog->getStartNumber();
@@ -2457,8 +2417,7 @@ void Kid3MainWindow::fileSelected()
 void Kid3MainWindow::copyTagsV1()
 {
 	updateCurrentSelection();
-	m_copyTags = m_app->frameModelV1()->frames().copyEnabledFrames(
-		m_app->frameModelV1()->getEnabledFrameFilter(true));
+	m_app->copyTagsV1();
 }
 
 /**
@@ -2467,8 +2426,7 @@ void Kid3MainWindow::copyTagsV1()
 void Kid3MainWindow::copyTagsV2()
 {
 	updateCurrentSelection();
-	m_copyTags = m_app->frameModelV2()->frames().copyEnabledFrames(
-		m_app->frameModelV2()->getEnabledFrameFilter(true));
+	m_app->copyTagsV2();
 }
 
 /**
@@ -2477,15 +2435,7 @@ void Kid3MainWindow::copyTagsV2()
 void Kid3MainWindow::pasteTagsV1()
 {
 	updateCurrentSelection();
-	FrameCollection frames(m_copyTags.copyEnabledFrames(
-													 m_app->frameModelV1()->getEnabledFrameFilter(true)));
-	m_app->formatFramesIfEnabled(frames);
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																false);
-	while (it.hasNext()) {
-		it.next()->setFramesV1(frames, false);
-	}
+	m_app->pasteTagsV1();
 	// update controls with filtered data
 	updateGuiControls();
 }
@@ -2496,15 +2446,7 @@ void Kid3MainWindow::pasteTagsV1()
 void Kid3MainWindow::pasteTagsV2()
 {
 	updateCurrentSelection();
-	FrameCollection frames(m_copyTags.copyEnabledFrames(
-													 m_app->frameModelV2()->getEnabledFrameFilter(true)));
-	m_app->formatFramesIfEnabled(frames);
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																false);
-	while (it.hasNext()) {
-		it.next()->setFramesV2(frames, false);
-	}
+	m_app->pasteTagsV2();
 	// update controls with filtered data
 	updateGuiControls();
 }
@@ -2609,18 +2551,7 @@ void Kid3MainWindow::getFilenameFromTags(int tag_version)
 void Kid3MainWindow::copyV1ToV2()
 {
 	updateCurrentSelection();
-	FrameCollection frames;
-	FrameFilter flt(m_app->frameModelV2()->getEnabledFrameFilter(true));
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																false);
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		taggedFile->getAllFramesV1(frames);
-		frames.removeDisabledFrames(flt);
-		m_app->formatFramesIfEnabled(frames);
-		taggedFile->setFramesV2(frames, false);
-	}
+	m_app->copyV1ToV2();
 	// update controls with filtered data
 	updateGuiControls();
 }
@@ -2631,18 +2562,7 @@ void Kid3MainWindow::copyV1ToV2()
 void Kid3MainWindow::copyV2ToV1()
 {
 	updateCurrentSelection();
-	FrameCollection frames;
-	FrameFilter flt(m_app->frameModelV1()->getEnabledFrameFilter(true));
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																false);
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		taggedFile->getAllFramesV2(frames);
-		frames.removeDisabledFrames(flt);
-		m_app->formatFramesIfEnabled(frames);
-		taggedFile->setFramesV1(frames, false);
-	}
+	m_app->copyV2ToV1();
 	// update controls with filtered data
 	updateGuiControls();
 }
@@ -2653,13 +2573,7 @@ void Kid3MainWindow::copyV2ToV1()
 void Kid3MainWindow::removeTagsV1()
 {
 	updateCurrentSelection();
-	FrameFilter flt(m_app->frameModelV1()->getEnabledFrameFilter(true));
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																false);
-	while (it.hasNext()) {
-		it.next()->deleteFramesV1(flt);
-	}
+	m_app->removeTagsV1();
 	updateGuiControls();
 }
 
@@ -2669,13 +2583,7 @@ void Kid3MainWindow::removeTagsV1()
 void Kid3MainWindow::removeTagsV2()
 {
 	updateCurrentSelection();
-	FrameFilter flt(m_app->frameModelV2()->getEnabledFrameFilter(true));
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																false);
-	while (it.hasNext()) {
-		it.next()->deleteFramesV2(flt);
-	}
+	m_app->removeTagsV2();
 	updateGuiControls();
 }
 

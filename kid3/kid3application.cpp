@@ -28,6 +28,7 @@
 #include <QFileSystemModel>
 #include <QItemSelectionModel>
 #include <QTextCodec>
+#include <QUrl>
 #include "fileproxymodel.h"
 #include "dirproxymodel.h"
 #include "modeliterator.h"
@@ -437,6 +438,178 @@ void Kid3Application::formatFramesIfEnabled(FrameCollection& frames) const
 	if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
 		ConfigStore::s_id3FormatCfg.formatFrames(frames);
 	}
+}
+
+/**
+ * Apply filename format.
+ */
+void Kid3Application::applyFilenameFormat()
+{
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																true);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		QString fn = taggedFile->getFilename();
+		ConfigStore::s_fnFormatCfg.formatString(fn);
+		taggedFile->setFilename(fn);
+	}
+}
+
+/**
+ * Apply ID3 format.
+ */
+void Kid3Application::applyId3Format()
+{
+	FrameCollection frames;
+	FrameFilter fltV1(frameModelV1()->getEnabledFrameFilter(true));
+	FrameFilter fltV2(frameModelV2()->getEnabledFrameFilter(true));
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																true);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		taggedFile->getAllFramesV1(frames);
+		frames.removeDisabledFrames(fltV1);
+		ConfigStore::s_id3FormatCfg.formatFrames(frames);
+		taggedFile->setFramesV1(frames);
+		taggedFile->getAllFramesV2(frames);
+		frames.removeDisabledFrames(fltV2);
+		ConfigStore::s_id3FormatCfg.formatFrames(frames);
+		taggedFile->setFramesV2(frames);
+	}
+}
+
+/**
+ * Copy tags 1 into copy buffer.
+ */
+void Kid3Application::copyTagsV1()
+{
+	m_copyTags = frameModelV1()->frames().copyEnabledFrames(
+		frameModelV1()->getEnabledFrameFilter(true));
+}
+
+/**
+ * Copy tags 2 into copy buffer.
+ */
+void Kid3Application::copyTagsV2()
+{
+	m_copyTags = frameModelV2()->frames().copyEnabledFrames(
+		frameModelV2()->getEnabledFrameFilter(true));
+}
+
+/**
+ * Paste from copy buffer to ID3v1 tags.
+ */
+void Kid3Application::pasteTagsV1()
+{
+	FrameCollection frames(m_copyTags.copyEnabledFrames(
+												 frameModelV1()->getEnabledFrameFilter(true)));
+	formatFramesIfEnabled(frames);
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																false);
+	while (it.hasNext()) {
+		it.next()->setFramesV1(frames, false);
+	}
+}
+
+/**
+ * Paste from copy buffer to ID3v2 tags.
+ */
+void Kid3Application::pasteTagsV2()
+{
+	FrameCollection frames(m_copyTags.copyEnabledFrames(
+												 frameModelV2()->getEnabledFrameFilter(true)));
+	formatFramesIfEnabled(frames);
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																false);
+	while (it.hasNext()) {
+		it.next()->setFramesV2(frames, false);
+	}
+}
+
+/**
+ * Copy ID3v1 tags to ID3v2 tags of selected files.
+ */
+void Kid3Application::copyV1ToV2()
+{
+	FrameCollection frames;
+	FrameFilter flt(frameModelV2()->getEnabledFrameFilter(true));
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->getAllFramesV1(frames);
+		frames.removeDisabledFrames(flt);
+		formatFramesIfEnabled(frames);
+		taggedFile->setFramesV2(frames, false);
+	}
+}
+
+/**
+ * Copy ID3v2 tags to ID3v1 tags of selected files.
+ */
+void Kid3Application::copyV2ToV1()
+{
+	FrameCollection frames;
+	FrameFilter flt(frameModelV1()->getEnabledFrameFilter(true));
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->getAllFramesV2(frames);
+		frames.removeDisabledFrames(flt);
+		formatFramesIfEnabled(frames);
+		taggedFile->setFramesV1(frames, false);
+	}
+}
+
+/**
+ * Remove ID3v1 tags in selected files.
+ */
+void Kid3Application::removeTagsV1()
+{
+	FrameFilter flt(frameModelV1()->getEnabledFrameFilter(true));
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																false);
+	while (it.hasNext()) {
+		it.next()->deleteFramesV1(flt);
+	}
+}
+
+/**
+ * Remove ID3v2 tags in selected files.
+ */
+void Kid3Application::removeTagsV2()
+{
+	FrameFilter flt(frameModelV2()->getEnabledFrameFilter(true));
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																false);
+	while (it.hasNext()) {
+		it.next()->deleteFramesV2(flt);
+	}
+}
+
+/**
+ * Get number of tracks in current directory.
+ *
+ * @return number of tracks, 0 if not found.
+ */
+int Kid3Application::getTotalNumberOfTracksInDir()
+{
+	if (TaggedFile* taggedFile = TaggedFileOfDirectoryIterator::first(
+			currentOrRootIndex())) {
+		return taggedFile->getTotalNumberOfTracksInDir();
+	}
+	return 0;
 }
 
 /**

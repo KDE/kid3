@@ -29,6 +29,7 @@
 
 #include <QObject>
 #include <QPersistentModelIndex>
+#include "frame.h"
 #include "generalconfig.h"
 
 class QFileSystemModel;
@@ -42,7 +43,6 @@ class ConfigStore;
 class PlaylistConfig;
 class DownloadClient;
 class TaggedFile;
-class FrameCollection;
 
 /**
  * Kid3 application logic, independent of GUI.
@@ -226,6 +226,63 @@ public:
 	void convertToId3v23();
 
 	/**
+	 * Apply filename format.
+	 */
+	void applyFilenameFormat();
+
+	/**
+	 * Apply ID3 format.
+	 */
+	void applyId3Format();
+
+	/**
+	 * Copy tags 1 into copy buffer.
+	 */
+	void copyTagsV1();
+
+	/**
+	 * Copy tags 2 into copy buffer.
+	 */
+	void copyTagsV2();
+
+	/**
+	 * Paste from copy buffer to ID3v1 tags.
+	 */
+	void pasteTagsV1();
+
+	/**
+	 * Paste from copy buffer to ID3v2 tags.
+	 */
+	void pasteTagsV2();
+
+	/**
+	 * Copy ID3v1 tags to ID3v2 tags of selected files.
+	 */
+	void copyV1ToV2();
+
+	/**
+	 * Copy ID3v2 tags to ID3v1 tags of selected files.
+	 */
+	void copyV2ToV1();
+
+	/**
+	 * Remove ID3v1 tags in selected files.
+	 */
+	void removeTagsV1();
+
+	/**
+	 * Remove ID3v2 tags in selected files.
+	 */
+	void removeTagsV2();
+
+	/**
+	 * Get number of tracks in current directory.
+	 *
+	 * @return number of tracks, 0 if not found.
+	 */
+	int getTotalNumberOfTracksInDir();
+
+	/**
 	 * Create a filter string for the file dialog.
 	 * The filter string contains entries for all supported types.
 	 *
@@ -343,6 +400,8 @@ private:
 	DownloadClient* m_downloadClient;
 	/** Affected files to add frame when downloading image */
 	DownloadImageDestination m_downloadImageDest;
+	/** Copy buffer */
+	FrameCollection m_copyTags;
 	/** true if any file was modified */
 	bool m_modified;
 	/** true if list is filtered */

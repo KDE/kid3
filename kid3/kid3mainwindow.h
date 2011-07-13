@@ -656,13 +656,6 @@ private:
 	bool writePlaylist(const PlaylistConfig& cfg);
 
 	/**
-	 * Get number of tracks in current directory.
-	 *
-	 * @return number of tracks, 0 if not found.
-	 */
-	int getTotalNumberOfTracksInDir();
-
-	/**
 	 * Apply a file filter to a directory.
 	 *
 	 * @param fileFilter filter to apply
@@ -678,8 +671,6 @@ private:
 	Kid3Form* m_form;
 	/** Application logic */
 	Kid3Application* m_app;
-	/** Copy buffer */
-	FrameCollection m_copyTags;
 	/** Import dialog */
 	ImportDialog* m_importDialog;
 	/** Browse cover art dialog */
