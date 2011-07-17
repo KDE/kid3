@@ -54,16 +54,6 @@ public:
 	virtual ~FrameTable();
 
 	/**
-	 * Save the current cursor position.
-	 */
-	void saveCursor();
-
-	/**
-	 * Restore the cursor position saved with saveCursor().
-	 */
-	void restoreCursor();
-
-	/**
 	 * Filters events if this object has been installed as an event filter
 	 * for the watched object.
 	 * This method is reimplemented to keep track of the current open editor.
@@ -101,8 +91,6 @@ private slots:
 	void customContextMenu(const QPoint& pos);
 
 private:
-	int m_cursorRow;
-	int m_cursorColumn;
 	QWidget* m_currentEditor;
 };
 

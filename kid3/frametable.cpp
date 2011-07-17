@@ -40,7 +40,7 @@
  * @param parent parent widget
  */
 FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
-	QTableView(parent), m_cursorRow(-1), m_cursorColumn(-1), m_currentEditor(0)
+	QTableView(parent), m_currentEditor(0)
 {
 	setModel(model);
 	setSelectionMode(SingleSelection);
@@ -76,32 +76,6 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
  * Destructor.
  */
 FrameTable::~FrameTable() {}
-
-/**
- * Save the current cursor position.
- */
-void FrameTable::saveCursor()
-{
-	m_cursorRow = currentIndex().row();
-	m_cursorColumn = currentIndex().column();
-}
-
-/**
- * Restore the cursor position saved with saveCursor().
- */
-void FrameTable::restoreCursor()
-{
-	const QAbstractItemModel* itemModel = model();
-	if (itemModel) {
-		int lastRow = itemModel->rowCount() - 1;
-		if (m_cursorRow >= 0 && m_cursorColumn >= 0 && lastRow >= 0) {
-			if (m_cursorRow > lastRow) {
-				m_cursorRow = lastRow;
-			}
-			setCurrentIndex(itemModel->index(m_cursorRow, m_cursorColumn));
-		}
-	}
-}
 
 /**
  * Filters events if this object has been installed as an event filter

@@ -110,6 +110,20 @@ public:
 	FrameTableModel* frameModelV2() { return m_framesV2Model; }
 
 	/**
+	 * Get selection model of tag 1 frame table model.
+	 */
+	QItemSelectionModel* getFramesV1SelectionModel() {
+		return m_framesV1SelectionModel;
+	}
+
+	/**
+	 * Get selection model of tag 2 frame table model.
+	 */
+	QItemSelectionModel* getFramesV2SelectionModel() {
+		return m_framesV2SelectionModel;
+	}
+
+	/**
 	 * Get settings.
 	 * @return settings.
 	 */
@@ -394,6 +408,8 @@ private:
 	TrackDataModel* m_trackDataModel;
 	FrameTableModel* m_framesV1Model;
 	FrameTableModel* m_framesV2Model;
+	QItemSelectionModel* m_framesV1SelectionModel;
+	QItemSelectionModel* m_framesV2SelectionModel;
 	/** Configuration */
 	ConfigStore* m_configStore;
 	/** Download client */

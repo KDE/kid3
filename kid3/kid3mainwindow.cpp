@@ -2313,7 +2313,7 @@ void Kid3MainWindow::updateGuiControls()
 
 	TaggedFile::DetailInfo info;
 	if (single_v2_file) {
-		m_framelist->setTags(single_v2_file);
+		m_framelist->setTaggedFile(single_v2_file);
 		m_form->setFilenameEditEnabled(true);
 		m_form->setFilename(single_v2_file->getFilename());
 		single_v2_file->getDetailInfo(info);
@@ -2621,13 +2621,58 @@ TaggedFile* Kid3MainWindow::getSelectedFile()
 }
 
 /**
+ * Get type of frame from translated name.
+ *
+ * @param name name, spaces and case are ignored
+ *
+ * @return type.
+ */
+static Frame::Type getTypeFromTranslatedName(QString name)
+{
+	static QMap<QString, int> strNumMap;
+	if (strNumMap.empty()) {
+		// first time initialization
+		for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+			Frame::Type type = static_cast<Frame::Type>(i);
+			strNumMap.insert(QCM_translate(Frame::getNameFromType(type)).remove(' ').toUpper(),
+											 type);
+		}
+	}
+	QMap<QString, int>::const_iterator it =
+		strNumMap.find(name.remove(' ').toUpper());
+	if (it != strNumMap.end()) {
+		return static_cast<Frame::Type>(*it);
+	}
+	return Frame::FT_Other;
+}
+
+/**
+ * Display a dialog to select a frame type.
+ *
+ * @return false if no frame selected.
+ */
+bool Kid3MainWindow::selectFrame()
+{
+	bool ok = false;
+	if (TaggedFile* taggedFile = m_framelist->getTaggedFile()) {
+		QString name = QInputDialog::getItem(
+			this, i18n("Add Frame"),
+			i18n("Select the frame ID"), taggedFile->getFrameIds(), 0, true, &ok);
+		if (ok) {
+			Frame::Type type = getTypeFromTranslatedName(name);
+			m_framelist->setFrame(Frame(type, "", name, -1));
+		}
+	}
+	return ok;
+}
+
+/**
  * Edit selected frame.
  */
 void Kid3MainWindow::editFrame()
 {
 	updateCurrentSelection();
 	TaggedFile* taggedFile = getSelectedFile();
-	m_framelist->reloadTags();
 	if (taggedFile && m_framelist->editFrame()) {
 		updateAfterFrameModification(taggedFile);
 	} else if (!taggedFile) {
@@ -2642,7 +2687,7 @@ void Kid3MainWindow::editFrame()
 			if (firstFile) {
 				firstFile = false;
 				taggedFile = currentFile;
-				m_framelist->setTags(taggedFile);
+				m_framelist->setTaggedFile(taggedFile);
 				name = m_framelist->getSelectedName();
 				if (name.isEmpty() || !m_framelist->editFrame()) {
 					break;
@@ -2655,7 +2700,7 @@ void Kid3MainWindow::editFrame()
 					 ++it) {
 				if (it->getName() == name) {
 					currentFile->deleteFrameV2(*it);
-					m_framelist->setTags(currentFile);
+					m_framelist->setTaggedFile(currentFile);
 					m_framelist->pasteFrame();
 					break;
 				}
@@ -2674,7 +2719,6 @@ void Kid3MainWindow::deleteFrame(const QString& frameName)
 {
 	updateCurrentSelection();
 	TaggedFile* taggedFile = getSelectedFile();
-	m_framelist->reloadTags();
 	if (taggedFile && frameName.isEmpty()) {
 		// delete selected frame from single file
 		if (!m_framelist->deleteFrame()) {
@@ -2693,7 +2737,7 @@ void Kid3MainWindow::deleteFrame(const QString& frameName)
 			if (firstFile) {
 				firstFile = false;
 				taggedFile = currentFile;
-				m_framelist->setTags(taggedFile);
+				m_framelist->setTaggedFile(taggedFile);
 				name = frameName.isEmpty() ? m_framelist->getSelectedName() :
 					frameName;
 			}
@@ -2726,7 +2770,7 @@ void Kid3MainWindow::addFrame(const Frame* frame, bool edit)
 	if (taggedFile) {
 		bool frameAdded;
 		if (!frame) {
-			frameAdded = m_framelist->selectFrame() &&
+			frameAdded = selectFrame() &&
 				m_framelist->addFrame(true);
 		} else if (edit) {
 			m_framelist->setFrame(*frame);
@@ -2754,9 +2798,9 @@ void Kid3MainWindow::addFrame(const Frame* frame, bool edit)
 			if (firstFile) {
 				firstFile = false;
 				taggedFile = currentFile;
-				m_framelist->setTags(currentFile);
+				m_framelist->setTaggedFile(currentFile);
 				if (!frame) {
-					if (m_framelist->selectFrame() &&
+					if (selectFrame() &&
 							m_framelist->addFrame(true)) {
 						frameId = m_framelist->getSelectedId();
 					} else {
@@ -2778,11 +2822,11 @@ void Kid3MainWindow::addFrame(const Frame* frame, bool edit)
 					}
 				}
 			} else {
-				m_framelist->setTags(currentFile);
+				m_framelist->setTaggedFile(currentFile);
 				m_framelist->pasteFrame();
 			}
 		}
-		m_framelist->setTags(taggedFile);
+		m_framelist->setTaggedFile(taggedFile);
 		if (frameId != -1) {
 			m_framelist->setSelectedId(frameId);
 		}

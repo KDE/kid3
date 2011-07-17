@@ -201,6 +201,13 @@ public:
 	void dropUrl(const QString& txt);
 
 	/**
+	 * Display a dialog to select a frame type.
+	 *
+	 * @return false if no frame selected.
+	 */
+	bool selectFrame();
+
+	/**
 	 * Edit selected frame.
 	 */
 	void editFrame();

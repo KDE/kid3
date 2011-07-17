@@ -30,8 +30,7 @@
 #include <QObject>
 #include "frame.h"
 
-class QPushButton;
-class FrameTable;
+class QItemSelectionModel;
 class FrameTableModel;
 class TaggedFile;
 
@@ -43,10 +42,10 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param ft frame table
 	 * @param ftm frame table model
+	 * @param selModel item selection model
 	 */
-	FrameList(FrameTable* ft, FrameTableModel* ftm);
+	FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel);
 
 	/**
 	 * Destructor.
@@ -54,18 +53,17 @@ public:
 	~FrameList();
 
 	/**
-	 * Clear listbox and file reference.
-	 */
-	void clear();
-
-	/**
-	 * Set file and fill the list box with its frames.
-	 * The listbox has to be set with setListBox() before calling this
-	 * function.
+	 * Set tagged file.
 	 *
 	 * @param taggedFile file
 	 */
-	void setTags(TaggedFile* taggedFile);
+	void setTaggedFile(TaggedFile* taggedFile) { m_taggedFile = taggedFile; }
+
+	/**
+	 * Get tagged file.
+	 * @return tagged file.
+	 */
+	TaggedFile* getTaggedFile() const { return m_taggedFile; }
 
 	/**
 	 * Create dialog to edit the selected frame and update the fields
@@ -111,25 +109,6 @@ public:
 	bool isPictureFrame() const { return m_frame.getType() == Frame::FT_Picture; }
 
 	/**
-	 * Get file containing frames.
-	 *
-	 * @return file, NULL if no file selected.
-	 */
-	TaggedFile* getFile() const;
-
-	/**
-	 * Reload the frame list, keeping the same row selected.
-	 */
-	void reloadTags();
-
-	/**
-	 * Display a dialog to select a frame type.
-	 *
-	 * @return false if no frame selected.
-	 */
-	bool selectFrame();
-
-	/**
 	 * Get the name of the selected frame.
 	 *
 	 * @return name, QString::null if nothing selected.
@@ -154,6 +133,27 @@ public:
 	int getSelectedId() const;
 
 	/**
+	 * Select the frame by ID.
+	 *
+	 * @param id ID of frame to select
+	 */
+	void setSelectedId(int id);
+
+private:
+	FrameList(const FrameList&);
+	FrameList& operator=(const FrameList&);
+
+	/**
+	 * Save the current cursor position.
+	 */
+	void saveCursor();
+
+	/**
+	 * Restore the cursor position saved with saveCursor().
+	 */
+	void restoreCursor();
+
+	/**
 	 * Get frame of selected frame list item.
 	 *
 	 * @param frame the selected frame is returned here
@@ -163,24 +163,9 @@ public:
 	bool getSelectedFrame(Frame& frame) const;
 
 	/**
-	 * Select the frame by ID.
-	 *
-	 * @param id ID of frame to select
+	 * Set the frame table model from the tagged file.
 	 */
-	void setSelectedId(int id);
-
-	/**
-	 * Clear list box.
-	 */
-	void clearListBox();
-
-private:
-	/**
-	 * Fill listbox with frame descriptions.
-	 * Before using this method, the listbox and file have to be set.
-	 * @see setListBox(), setTags()
-	 */
-	void readTags();
+	void setModelFromTaggedFile();
 
 	/**
 	 * Create dialog to edit a frame and update the fields
@@ -193,16 +178,15 @@ private:
 	bool editFrame(Frame& frame);
 
 	/** File containing tags */
-	TaggedFile* m_file;
+	TaggedFile* m_taggedFile;
 	/** Frame used to add, edit and paste */
 	Frame m_frame;
 
-	FrameTable* m_frameTable;
 	FrameTableModel* m_frameTableModel;
+	QItemSelectionModel* m_selectionModel;
 
-private:
-	FrameList(const FrameList&);
-	FrameList& operator=(const FrameList&);
+	int m_cursorRow;
+	int m_cursorColumn;
 };
 
 #endif // FRAMELIST_H

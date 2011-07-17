@@ -70,6 +70,8 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
 	m_trackDataModel(new TrackDataModel(this)),
 	m_framesV1Model(new FrameTableModel(true, this)),
 	m_framesV2Model(new FrameTableModel(false, this)),
+	m_framesV1SelectionModel(new QItemSelectionModel(m_framesV1Model, this)),
+	m_framesV2SelectionModel(new QItemSelectionModel(m_framesV2Model, this)),
 	m_configStore(new ConfigStore),
 	m_downloadClient(new DownloadClient(this)),
 	m_downloadImageDest(ImageForSelectedFiles)

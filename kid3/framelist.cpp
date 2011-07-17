@@ -26,7 +26,7 @@
 
 #include "framelist.h"
 #include <QDialog>
-#include <QInputDialog>
+#include <QItemSelectionModel>
 
 #include "taggedfile.h"
 #include "frametable.h"
@@ -34,21 +34,16 @@
 #include "editframedialog.h"
 #include "editframefieldsdialog.h"
 #include "qtcompatmac.h"
-#ifdef CONFIG_USE_KDE
-#include <kfiledialog.h>
-#else
-#include <QFileDialog>
-#endif
-
 
 /**
  * Constructor.
  *
- * @param ft frame table
  * @param ftm frame table model
+ * @param selModel item selection model
  */
-FrameList::FrameList(FrameTable* ft, FrameTableModel* ftm) :
-	m_file(0), m_frameTable(ft), m_frameTableModel(ftm)
+FrameList::FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel) :
+	m_taggedFile(0), m_frameTableModel(ftm), m_selectionModel(selModel),
+	m_cursorRow(-1), m_cursorColumn(-1)
 {
 }
 
@@ -56,35 +51,6 @@ FrameList::FrameList(FrameTable* ft, FrameTableModel* ftm) :
  * Destructor.
  */
 FrameList::~FrameList() {}
-
-/**
- * Clear listbox and file reference.
- */
-void FrameList::clear()
-{
-	m_frameTableModel->clearFrames();
-	m_file = 0;
-}
-
-/**
- * Get file containing frames.
- *
- * @return file, NULL if no file selected.
- */
-TaggedFile* FrameList::getFile() const
-{
-	return m_file;
-}
-
-/**
- * Reload the frame list, keeping the same row selected.
- */
-void FrameList::reloadTags()
-{
-	m_frameTable->saveCursor();
-	setTags(m_file);
-	m_frameTable->restoreCursor();
-}
 
 /**
  * Get ID of selected frame list item.
@@ -95,7 +61,7 @@ void FrameList::reloadTags()
 int FrameList::getSelectedId() const
 {
 	const Frame* currentFrame =
-		m_frameTableModel->getFrameOfIndex(m_frameTable->currentIndex());
+		m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
 	return currentFrame ? currentFrame->getIndex() : -1;
 }
 
@@ -109,7 +75,7 @@ int FrameList::getSelectedId() const
 bool FrameList::getSelectedFrame(Frame& frame) const
 {
 	const Frame* currentFrame =
-		m_frameTableModel->getFrameOfIndex(m_frameTable->currentIndex());
+		m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
 	if (currentFrame) {
 		frame = *currentFrame;
 		return true;
@@ -124,9 +90,10 @@ bool FrameList::getSelectedFrame(Frame& frame) const
  */
 void FrameList::setSelectedId(int id)
 {
-	m_frameTable->setCurrentIndex(
+	m_selectionModel->setCurrentIndex(
 		m_frameTableModel->index(
-			m_frameTableModel->getRowWithFrameIndex(id), 0));
+			m_frameTableModel->getRowWithFrameIndex(id), 0),
+				QItemSelectionModel::SelectCurrent);
 }
 
 /**
@@ -137,7 +104,7 @@ void FrameList::setSelectedId(int id)
 QString FrameList::getSelectedName() const
 {
 	const Frame* currentFrame =
-		m_frameTableModel->getFrameOfIndex(m_frameTable->currentIndex());
+		m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
 	return currentFrame ? currentFrame->getName() : QString::null;
 }
 
@@ -154,44 +121,21 @@ bool FrameList::selectByName(const QString& name)
 	if (row < 0)
 		return false;
 
-	m_frameTable->setCurrentIndex(m_frameTableModel->index(row, 0));
+	m_selectionModel->setCurrentIndex(m_frameTableModel->index(row, 0),
+																		QItemSelectionModel::SelectCurrent);
 	return true;
 }
 
 /**
- * Clear list box.
+ * Set the frame table model from the tagged file.
  */
-void FrameList::clearListBox()
+void FrameList::setModelFromTaggedFile()
 {
-	if (m_frameTableModel) {
-		m_frameTableModel->clearFrames();
-	}
-}
-
-/**
- * Fill listbox with frame descriptions.
- * Before using this method, the listbox and file have to be set.
- * @see setListBox(), setTags()
- */
-void FrameList::readTags()
-{
-	if (m_file) {
+	if (m_taggedFile) {
 		FrameCollection frames;
-		m_file->getAllFramesV2(frames);
+		m_taggedFile->getAllFramesV2(frames);
 		m_frameTableModel->transferFrames(frames);
 	}
-}
-
-/**
- * Set file and fill the list box with its frames.
- * The listbox has to be set with setListBox() before calling this
- * function.
- *
- * @param taggedFile file
- */
-void FrameList::setTags(TaggedFile* taggedFile)
-{
-	m_file = taggedFile;
 }
 
 /**
@@ -224,16 +168,16 @@ bool FrameList::editFrame(Frame& frame)
 		}
 	} else {
 		EditFrameFieldsDialog* dialog =
-			new EditFrameFieldsDialog(0, name, frame, m_file);
+			new EditFrameFieldsDialog(0, name, frame, m_taggedFile);
 		result = dialog && dialog->exec() == QDialog::Accepted;
 		if (result) {
 			frame.setFieldList(dialog->getUpdatedFieldList());
 			frame.setValueFromFieldList();
 		}
 	}
-	if (result && m_file) {
-		if (m_file->setFrameV2(frame)) {
-			m_file->markTag2Changed(frame.getType());
+	if (result && m_taggedFile) {
+		if (m_taggedFile->setFrameV2(frame)) {
+			m_taggedFile->markTag2Changed(frame.getType());
 		}
 	}
 	return result;
@@ -260,12 +204,12 @@ bool FrameList::editFrame()
  */
 bool FrameList::deleteFrame()
 {
-	m_frameTable->saveCursor();
+	saveCursor();
 	Frame frame;
-	if (getSelectedFrame(frame) && m_file) {
-		m_file->deleteFrameV2(frame);
-		readTags();
-		m_frameTable->restoreCursor();
+	if (getSelectedFrame(frame) && m_taggedFile) {
+		m_taggedFile->deleteFrameV2(frame);
+		setModelFromTaggedFile();
+		restoreCursor();
 		return true;
 	}
 	return false;
@@ -280,19 +224,19 @@ bool FrameList::deleteFrame()
  */
 bool FrameList::addFrame(bool edit)
 {
-	if (m_file) {
-		if (!m_file->addFrameV2(m_frame)) {
+	if (m_taggedFile) {
+		if (!m_taggedFile->addFrameV2(m_frame)) {
 			return false;
 		}
 		if (edit) {
 			if (!editFrame(m_frame)) {
-				m_file->deleteFrameV2(m_frame);
-				m_file->markTag2Unchanged();
+				m_taggedFile->deleteFrameV2(m_frame);
+				m_taggedFile->markTag2Unchanged();
 				return false;
 			}
 		}
 		int index = m_frame.getIndex();
-		readTags(); // refresh listbox
+		setModelFromTaggedFile();
 		if (index != -1) {
 			setSelectedId(index);
 		}
@@ -302,64 +246,40 @@ bool FrameList::addFrame(bool edit)
 }
 
 /**
- * Get type of frame from translated name.
- *
- * @param name name, spaces and case are ignored
- *
- * @return type.
- */
-static Frame::Type getTypeFromTranslatedName(QString name)
-{
-	static QMap<QString, int> strNumMap;
-	if (strNumMap.empty()) {
-		// first time initialization
-		for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
-			Frame::Type type = static_cast<Frame::Type>(i);
-			strNumMap.insert(QCM_translate(Frame::getNameFromType(type)).remove(' ').toUpper(),
-											 type);
-		}
-	}
-	QMap<QString, int>::const_iterator it =
-		strNumMap.find(name.remove(' ').toUpper());
-	if (it != strNumMap.end()) {
-		return static_cast<Frame::Type>(*it);
-	}
-	return Frame::FT_Other;
-}
-
-/**
- * Display a dialog to select a frame type.
- *
- * @return false if no frame selected.
- */
-bool FrameList::selectFrame()
-{
-	// strange, but necessary to get the strings translated with Qt4 without KDE
-	const char* const title = I18N_NOOP("Add Frame");
-	const char* const msg = I18N_NOOP("Select the frame ID");
-	bool ok = false;
-	if (m_file) {
-		QString name = QInputDialog::getItem(
-			0, QCM_translate(title),
-			QCM_translate(msg), m_file->getFrameIds(), 0, true, &ok);
-		if (ok) {
-			Frame::Type type = getTypeFromTranslatedName(name);
-			m_frame = Frame(type, "", name, -1);
-		}
-	}
-	return ok;
-}
-
-/**
  * Paste the selected frame from the copy buffer.
  *
  * @return true if frame pasted.
  */
 bool FrameList::pasteFrame() {
-	if (m_file && m_frame.getType() != Frame::FT_UnknownFrame) {
-		m_file->addFrameV2(m_frame);
-		m_file->setFrameV2(m_frame);
+	if (m_taggedFile && m_frame.getType() != Frame::FT_UnknownFrame) {
+		m_taggedFile->addFrameV2(m_frame);
+		m_taggedFile->setFrameV2(m_frame);
 		return true;
 	}
 	return false;
+}
+
+/**
+ * Save the current cursor position.
+ */
+void FrameList::saveCursor()
+{
+	m_cursorRow = m_selectionModel->currentIndex().row();
+	m_cursorColumn = m_selectionModel->currentIndex().column();
+}
+
+/**
+ * Restore the cursor position saved with saveCursor().
+ */
+void FrameList::restoreCursor()
+{
+	int lastRow = m_frameTableModel->rowCount() - 1;
+	if (m_cursorRow >= 0 && m_cursorColumn >= 0 && lastRow >= 0) {
+		if (m_cursorRow > lastRow) {
+			m_cursorRow = lastRow;
+		}
+		m_selectionModel->setCurrentIndex(
+			m_frameTableModel->index(m_cursorRow, m_cursorColumn),
+			QItemSelectionModel::SelectCurrent);
+	}
 }
