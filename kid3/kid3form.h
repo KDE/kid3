@@ -140,34 +140,6 @@ public:
 	void initView();
 
 	/**
-	 * Get current filename format string.
-	 * @return filename format.
-	 */
-	QString getFilenameFormat() const { return m_formatComboBox->currentText(); }
-
-	/**
-	 * Set current filename format string.
-	 * @param fmt filename format
-	 */
-	void setFilenameFormat(const QString& fmt) { m_formatComboBox->setEditText(fmt); }
-
-	/**
-	 * Get current from filename format string.
-	 * @return filename format.
-	 */
-	QString getFromFilenameFormat() const {
-		return m_formatFromFilenameComboBox->currentText();
-	}
-
-	/**
-	 * Set current from filename format string.
-	 * @param fmt filename format
-	 */
-	void setFromFilenameFormat(const QString& fmt) {
-		m_formatFromFilenameComboBox->setEditText(fmt);
-	}
-
-	/**
 	 * Get filename.
 	 */
 	QString getFilename() const { return m_nameLineEdit->text(); }
@@ -240,61 +212,6 @@ public:
 	FrameTable* frameTableV2() { return m_framesV2Table; }
 
 public slots:
-	/**
-	 * Button ID3v1 From Filename.
-	 */
-	void fromFilenameV1();
-
-	/**
-	 * Button ID3v2 From Filename.
-	 */
-	void fromFilenameV2();
-
-	/**
-	 * Button ID3v2 From ID3v1.
-	 */
-	void fromID3V2();
-
-	/**
-	 * Button ID3v1 From ID3v2.
-	 */
-	void fromID3V1();
-
-	/**
-	 * Button ID3v1 Copy.
-	 */
-	void copyV1();
-
-	/**
-	 * Button ID3v2 Copy.
-	 */
-	void copyV2();
-
-	/**
-	 * Button ID3v2 Remove.
-	 */
-	void removeV2();
-
-	/**
-	 * Button ID3v1 Paste.
-	 */
-	void pasteV1();
-
-	/**
-	 * Button ID3v2 Paste.
-	 */
-	void pasteV2();
-
-	/**
-	 * Button ID3v1 Remove.
-	 */
-	void removeV1();
-
-	/**
-	 * File list box file selected
-	 */
-	void fileSelected();
-
 	/**
 	 * Frame list button Edit.
 	 */

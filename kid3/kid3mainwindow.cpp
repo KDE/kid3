@@ -146,6 +146,11 @@ Kid3MainWindow::Kid3MainWindow() :
 	connect(downloadClient, SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
 					this, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
 
+	connect(m_app, SIGNAL(fileSelectionUpdateRequested()),
+					this, SLOT(updateCurrentSelection()));
+	connect(m_app, SIGNAL(selectedFilesUpdated()),
+					this, SLOT(updateGuiControls()));
+
 #ifndef CONFIG_USE_KDE
 #if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
 	QPixmap icon;
@@ -286,10 +291,10 @@ void Kid3MainWindow::initActions()
 	connect(fileCreatePlaylist, SIGNAL(triggered()), this, SLOT(slotPlaylistDialog()));
 	KAction* toolsApplyFilenameFormat = new KAction(i18n("Apply &Filename Format"), this);
 	actionCollection()->addAction("apply_filename_format", toolsApplyFilenameFormat);
-	connect(toolsApplyFilenameFormat, SIGNAL(triggered()), this, SLOT(slotApplyFilenameFormat()));
+	connect(toolsApplyFilenameFormat, SIGNAL(triggered()), m_app, SLOT(applyFilenameFormat()));
 	KAction* toolsApplyId3Format = new KAction(i18n("Apply &Tag Format"), this);
 	actionCollection()->addAction("apply_id3_format", toolsApplyId3Format);
-	connect(toolsApplyId3Format, SIGNAL(triggered()), this, SLOT(slotApplyId3Format()));
+	connect(toolsApplyId3Format, SIGNAL(triggered()), m_app, SLOT(applyId3Format()));
 	KAction* toolsRenameDirectory = new KAction(i18n("&Rename Directory..."), this);
 	actionCollection()->addAction("rename_directory", toolsRenameDirectory);
 	connect(toolsRenameDirectory, SIGNAL(triggered()), this, SLOT(slotRenameDirectory()));
@@ -302,12 +307,12 @@ void Kid3MainWindow::initActions()
 #ifdef HAVE_TAGLIB
 	KAction* toolsConvertToId3v24 = new KAction(i18n("Convert ID3v2.3 to ID3v2.&4"), this);
 	actionCollection()->addAction("convert_to_id3v24", toolsConvertToId3v24);
-	connect(toolsConvertToId3v24, SIGNAL(triggered()), this, SLOT(slotConvertToId3v24()));
+	connect(toolsConvertToId3v24, SIGNAL(triggered()), m_app, SLOT(convertToId3v24()));
 #endif
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 	KAction* toolsConvertToId3v23 = new KAction(i18n("Convert ID3v2.4 to ID3v2.&3"), this);
 	actionCollection()->addAction("convert_to_id3v23", toolsConvertToId3v23);
-	connect(toolsConvertToId3v23, SIGNAL(triggered()), this, SLOT(slotConvertToId3v23()));
+	connect(toolsConvertToId3v23, SIGNAL(triggered()), m_app, SLOT(convertToId3v23()));
 #endif
 #ifdef HAVE_PHONON
 	KAction* toolsPlay = new KAction(KIcon("media-playback-start"), i18n("&Play"), this);
@@ -570,14 +575,14 @@ void Kid3MainWindow::initActions()
 		toolsApplyFilenameFormat->setStatusTip(i18n("Apply Filename Format"));
 		toolsApplyFilenameFormat->setText(i18n("Apply &Filename Format"));
 		connect(toolsApplyFilenameFormat, SIGNAL(triggered()),
-			this, SLOT(slotApplyFilenameFormat()));
+			m_app, SLOT(applyFilenameFormat()));
 	}
 	QAction* toolsApplyId3Format = new QAction(this);
 	if (toolsApplyId3Format) {
 		toolsApplyId3Format->setStatusTip(i18n("Apply Tag Format"));
 		toolsApplyId3Format->setText(i18n("Apply &Tag Format"));
 		connect(toolsApplyId3Format, SIGNAL(triggered()),
-			this, SLOT(slotApplyId3Format()));
+			m_app, SLOT(applyId3Format()));
 	}
 	QAction* toolsRenameDirectory = new QAction(this);
 	if (toolsRenameDirectory) {
@@ -606,7 +611,7 @@ void Kid3MainWindow::initActions()
 		toolsConvertToId3v24->setStatusTip(i18n("Convert ID3v2.3 to ID3v2.4"));
 		toolsConvertToId3v24->setText(i18n("Convert ID3v2.3 to ID3v2.&4"));
 		connect(toolsConvertToId3v24, SIGNAL(triggered()),
-			this, SLOT(slotConvertToId3v24()));
+			m_app, SLOT(convertToId3v24()));
 	}
 #endif
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
@@ -615,7 +620,7 @@ void Kid3MainWindow::initActions()
 		toolsConvertToId3v23->setStatusTip(i18n("Convert ID3v2.4 to ID3v2.3"));
 		toolsConvertToId3v23->setText(i18n("Convert ID3v2.4 to ID3v2.&3"));
 		connect(toolsConvertToId3v23, SIGNAL(triggered()),
-			this, SLOT(slotConvertToId3v23()));
+			m_app, SLOT(convertToId3v23()));
 	}
 #endif
 #ifdef HAVE_PHONON
@@ -1172,7 +1177,8 @@ void Kid3MainWindow::slotFileRevert()
 		m_app->frameModelV1()->clearFrames();
 		m_app->frameModelV2()->clearFrames();
 		m_form->setFilenameEditEnabled(false);
-		fileSelected();
+		updateCurrentSelection();
+		updateGuiControls();
 	}
 	else {
 		updateModificationState();
@@ -1368,7 +1374,8 @@ void Kid3MainWindow::getTagsFromImportDialog(bool destV1, bool destV2)
 		m_app->frameModelV1()->clearFrames();
 		m_app->frameModelV2()->clearFrames();
 		m_form->setFilenameEditEnabled(false);
-		fileSelected();
+		updateCurrentSelection();
+		updateGuiControls();
 	}
 	else {
 		updateModificationState();
@@ -1675,26 +1682,6 @@ void Kid3MainWindow::slotSettingsConfigure()
 }
 
 /**
- * Apply filename format.
- */
-void Kid3MainWindow::slotApplyFilenameFormat()
-{
-	updateCurrentSelection();
-	m_app->applyFilenameFormat();
-	updateGuiControls();
-}
-
-/**
- * Apply ID3 format.
- */
-void Kid3MainWindow::slotApplyId3Format()
-{
-	updateCurrentSelection();
-	m_app->applyId3Format();
-	updateGuiControls();
-}
-
-/**
  * Schedule actions to rename a directory.
  */
 void Kid3MainWindow::scheduleRenameActions()
@@ -1989,35 +1976,12 @@ void Kid3MainWindow::slotFilter()
 							this, SLOT(applyFilter(FileFilter&)));
 		}
 		if (m_filterDialog) {
-			ConfigStore::s_filterCfg.setFilenameFormat(m_form->getFilenameFormat());
+			ConfigStore::s_filterCfg.setFilenameFormat(
+						m_app->getTagsToFilenameFormat());
 			m_filterDialog->readConfig();
 			m_filterDialog->exec();
 		}
 	}
-}
-
-/**
- * Convert ID3v2.3 to ID3v2.4 tags.
- */
-void Kid3MainWindow::slotConvertToId3v24()
-{
-#ifdef HAVE_TAGLIB
-	updateCurrentSelection();
-	m_app->convertToId3v24();
-	updateGuiControls();
-#endif
-}
-
-/**
- * Convert ID3v2.4 to ID3v2.3 tags.
- */
-void Kid3MainWindow::slotConvertToId3v23()
-{
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
-	updateCurrentSelection();
-	m_app->convertToId3v23();
-	updateGuiControls();
-#endif
 }
 
 /**
@@ -2397,194 +2361,6 @@ void Kid3MainWindow::updateGuiControls()
 		m_form->hideV1(!hasTagV1);
 		m_form->hideV2(!hasTagV2);
 	}
-}
-
-/**
- * Process change of selection.
- * The files of the current selection are updated.
- * The new selection is stored and the GUI controls and frame list
- * updated accordingly (filtered for multiple selection).
- */
-void Kid3MainWindow::fileSelected()
-{
-	updateCurrentSelection();
-	updateGuiControls();
-}
-
-/**
- * Copy tags 1 into copy buffer.
- */
-void Kid3MainWindow::copyTagsV1()
-{
-	updateCurrentSelection();
-	m_app->copyTagsV1();
-}
-
-/**
- * Copy tags 2 into copy buffer.
- */
-void Kid3MainWindow::copyTagsV2()
-{
-	updateCurrentSelection();
-	m_app->copyTagsV2();
-}
-
-/**
- * Paste from copy buffer to ID3v1 tags.
- */
-void Kid3MainWindow::pasteTagsV1()
-{
-	updateCurrentSelection();
-	m_app->pasteTagsV1();
-	// update controls with filtered data
-	updateGuiControls();
-}
-
-/**
- * Paste from copy buffer to ID3v2 tags.
- */
-void Kid3MainWindow::pasteTagsV2()
-{
-	updateCurrentSelection();
-	m_app->pasteTagsV2();
-	// update controls with filtered data
-	updateGuiControls();
-}
-
-/**
- * Set ID3v1 tags according to filename.
- * If a single file is selected the tags in the GUI controls
- * are set, else the tags in the multiple selected files.
- */
-void Kid3MainWindow::getTagsFromFilenameV1()
-{
-	updateCurrentSelection();
-	FrameCollection frames;
-	QItemSelectionModel* selectModel = m_form->getFileList()->selectionModel();
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																selectModel,
-																false);
-	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
-	FrameFilter flt(m_app->frameModelV1()->getEnabledFrameFilter(true));
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		if (!multiselect && m_form->isFilenameEditEnabled()) {
-			taggedFile->setFilename(m_form->getFilename());
-		}
-		taggedFile->getAllFramesV1(frames);
-		taggedFile->getTagsFromFilename(frames,
-																		m_form->getFromFilenameFormat());
-		frames.removeDisabledFrames(flt);
-		m_app->formatFramesIfEnabled(frames);
-		taggedFile->setFramesV1(frames);
-	}
-	// update controls with filtered data
-	updateGuiControls();
-}
-
-/**
- * Set ID3v2 tags according to filename.
- * If a single file is selected the tags in the GUI controls
- * are set, else the tags in the multiple selected files.
- */
-void Kid3MainWindow::getTagsFromFilenameV2()
-{
-	updateCurrentSelection();
-	FrameCollection frames;
-	QItemSelectionModel* selectModel = m_form->getFileList()->selectionModel();
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																selectModel,
-																false);
-	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
-	FrameFilter flt(m_app->frameModelV2()->getEnabledFrameFilter(true));
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		if (!multiselect && m_form->isFilenameEditEnabled()) {
-			taggedFile->setFilename(m_form->getFilename());
-		}
-		taggedFile->getAllFramesV2(frames);
-		taggedFile->getTagsFromFilename(frames,
-																		m_form->getFromFilenameFormat());
-		frames.removeDisabledFrames(flt);
-		m_app->formatFramesIfEnabled(frames);
-		taggedFile->setFramesV2(frames);
-	}
-	// update controls with filtered data
-	updateGuiControls();
-}
-
-/**
- * Set filename according to tags.
- * If a single file is selected the tags in the GUI controls
- * are used, else the tags in the multiple selected files.
- *
- * @param tag_version 1=ID3v1, 2=ID3v2
- */
-void Kid3MainWindow::getFilenameFromTags(int tag_version)
-{
-	updateCurrentSelection();
-	QItemSelectionModel* selectModel = m_form->getFileList()->selectionModel();
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																selectModel,
-																false);
-	bool multiselect = selectModel && selectModel->selectedIndexes().size() > 1;
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		TrackData trackData(*taggedFile,
-												tag_version == 2 ? TrackData::TagV2 : TrackData::TagV1);
-		if (!trackData.isEmptyOrInactive()) {
-			taggedFile->setFilename(
-						trackData.formatFilenameFromTags(m_form->getFilenameFormat()));
-			m_app->formatFileNameIfEnabled(taggedFile);
-			if (!multiselect) {
-				m_form->setFilename(taggedFile->getFilename());
-			}
-		}
-	}
-	// update controls with filtered data
-	updateGuiControls();
-}
-
-/**
- * Copy ID3v1 tags to ID3v2 tags of selected files.
- */
-void Kid3MainWindow::copyV1ToV2()
-{
-	updateCurrentSelection();
-	m_app->copyV1ToV2();
-	// update controls with filtered data
-	updateGuiControls();
-}
-
-/**
- * Copy ID3v2 tags to ID3v1 tags of selected files.
- */
-void Kid3MainWindow::copyV2ToV1()
-{
-	updateCurrentSelection();
-	m_app->copyV2ToV1();
-	// update controls with filtered data
-	updateGuiControls();
-}
-
-/**
- * Remove ID3v1 tags in selected files.
- */
-void Kid3MainWindow::removeTagsV1()
-{
-	updateCurrentSelection();
-	m_app->removeTagsV1();
-	updateGuiControls();
-}
-
-/**
- * Remove ID3v2 tags in selected files.
- */
-void Kid3MainWindow::removeTagsV2()
-{
-	updateCurrentSelection();
-	m_app->removeTagsV2();
-	updateGuiControls();
 }
 
 /**

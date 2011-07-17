@@ -79,6 +79,10 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
 	m_fileProxyModel->setSourceModel(m_fileSystemModel);
 	m_dirProxyModel->setSourceModel(m_fileSystemModel);
 
+	connect(m_fileSelectionModel,
+					SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+					this, SLOT(fileSelected()));
+
 	initFileTypes();
 	setModified(false);
 	setFiltered(false);
@@ -447,6 +451,7 @@ void Kid3Application::formatFramesIfEnabled(FrameCollection& frames) const
  */
 void Kid3Application::applyFilenameFormat()
 {
+	emit fileSelectionUpdateRequested();
 	SelectedTaggedFileIterator it(getRootIndex(),
 																getFileSelectionModel(),
 																true);
@@ -457,6 +462,7 @@ void Kid3Application::applyFilenameFormat()
 		ConfigStore::s_fnFormatCfg.formatString(fn);
 		taggedFile->setFilename(fn);
 	}
+	emit selectedFilesUpdated();
 }
 
 /**
@@ -464,6 +470,7 @@ void Kid3Application::applyFilenameFormat()
  */
 void Kid3Application::applyId3Format()
 {
+	emit fileSelectionUpdateRequested();
 	FrameCollection frames;
 	FrameFilter fltV1(frameModelV1()->getEnabledFrameFilter(true));
 	FrameFilter fltV2(frameModelV2()->getEnabledFrameFilter(true));
@@ -482,6 +489,7 @@ void Kid3Application::applyId3Format()
 		ConfigStore::s_id3FormatCfg.formatFrames(frames);
 		taggedFile->setFramesV2(frames);
 	}
+	emit selectedFilesUpdated();
 }
 
 /**
@@ -489,6 +497,7 @@ void Kid3Application::applyId3Format()
  */
 void Kid3Application::copyTagsV1()
 {
+	emit fileSelectionUpdateRequested();
 	m_copyTags = frameModelV1()->frames().copyEnabledFrames(
 		frameModelV1()->getEnabledFrameFilter(true));
 }
@@ -498,6 +507,7 @@ void Kid3Application::copyTagsV1()
  */
 void Kid3Application::copyTagsV2()
 {
+	emit fileSelectionUpdateRequested();
 	m_copyTags = frameModelV2()->frames().copyEnabledFrames(
 		frameModelV2()->getEnabledFrameFilter(true));
 }
@@ -507,6 +517,7 @@ void Kid3Application::copyTagsV2()
  */
 void Kid3Application::pasteTagsV1()
 {
+	emit fileSelectionUpdateRequested();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
 												 frameModelV1()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
@@ -516,6 +527,7 @@ void Kid3Application::pasteTagsV1()
 	while (it.hasNext()) {
 		it.next()->setFramesV1(frames, false);
 	}
+	emit selectedFilesUpdated();
 }
 
 /**
@@ -523,6 +535,7 @@ void Kid3Application::pasteTagsV1()
  */
 void Kid3Application::pasteTagsV2()
 {
+	emit fileSelectionUpdateRequested();
 	FrameCollection frames(m_copyTags.copyEnabledFrames(
 												 frameModelV2()->getEnabledFrameFilter(true)));
 	formatFramesIfEnabled(frames);
@@ -532,6 +545,7 @@ void Kid3Application::pasteTagsV2()
 	while (it.hasNext()) {
 		it.next()->setFramesV2(frames, false);
 	}
+	emit selectedFilesUpdated();
 }
 
 /**
@@ -539,6 +553,7 @@ void Kid3Application::pasteTagsV2()
  */
 void Kid3Application::copyV1ToV2()
 {
+	emit fileSelectionUpdateRequested();
 	FrameCollection frames;
 	FrameFilter flt(frameModelV2()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(getRootIndex(),
@@ -551,6 +566,7 @@ void Kid3Application::copyV1ToV2()
 		formatFramesIfEnabled(frames);
 		taggedFile->setFramesV2(frames, false);
 	}
+	emit selectedFilesUpdated();
 }
 
 /**
@@ -558,6 +574,7 @@ void Kid3Application::copyV1ToV2()
  */
 void Kid3Application::copyV2ToV1()
 {
+	emit fileSelectionUpdateRequested();
 	FrameCollection frames;
 	FrameFilter flt(frameModelV1()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(getRootIndex(),
@@ -570,6 +587,7 @@ void Kid3Application::copyV2ToV1()
 		formatFramesIfEnabled(frames);
 		taggedFile->setFramesV1(frames, false);
 	}
+	emit selectedFilesUpdated();
 }
 
 /**
@@ -577,6 +595,7 @@ void Kid3Application::copyV2ToV1()
  */
 void Kid3Application::removeTagsV1()
 {
+	emit fileSelectionUpdateRequested();
 	FrameFilter flt(frameModelV1()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(getRootIndex(),
 																getFileSelectionModel(),
@@ -584,6 +603,7 @@ void Kid3Application::removeTagsV1()
 	while (it.hasNext()) {
 		it.next()->deleteFramesV1(flt);
 	}
+	emit selectedFilesUpdated();
 }
 
 /**
@@ -591,6 +611,7 @@ void Kid3Application::removeTagsV1()
  */
 void Kid3Application::removeTagsV2()
 {
+	emit fileSelectionUpdateRequested();
 	FrameFilter flt(frameModelV2()->getEnabledFrameFilter(true));
 	SelectedTaggedFileIterator it(getRootIndex(),
 																getFileSelectionModel(),
@@ -598,6 +619,119 @@ void Kid3Application::removeTagsV2()
 	while (it.hasNext()) {
 		it.next()->deleteFramesV2(flt);
 	}
+	emit selectedFilesUpdated();
+}
+
+/**
+ * Set ID3v1 tags according to filename.
+ * If a single file is selected the tags in the GUI controls
+ * are set, else the tags in the multiple selected files.
+ */
+void Kid3Application::getTagsFromFilenameV1()
+{
+	emit fileSelectionUpdateRequested();
+	FrameCollection frames;
+	QItemSelectionModel* selectModel = getFileSelectionModel();
+	SelectedTaggedFileIterator it(getRootIndex(),
+																selectModel,
+																false);
+	FrameFilter flt(frameModelV1()->getEnabledFrameFilter(true));
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->getAllFramesV1(frames);
+		taggedFile->getTagsFromFilename(frames, m_filenameToTagsFormat);
+		frames.removeDisabledFrames(flt);
+		formatFramesIfEnabled(frames);
+		taggedFile->setFramesV1(frames);
+	}
+	emit selectedFilesUpdated();
+}
+
+/**
+ * Set ID3v2 tags according to filename.
+ * If a single file is selected the tags in the GUI controls
+ * are set, else the tags in the multiple selected files.
+ */
+void Kid3Application::getTagsFromFilenameV2()
+{
+	emit fileSelectionUpdateRequested();
+	FrameCollection frames;
+	QItemSelectionModel* selectModel = getFileSelectionModel();
+	SelectedTaggedFileIterator it(getRootIndex(),
+																selectModel,
+																false);
+	FrameFilter flt(frameModelV2()->getEnabledFrameFilter(true));
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->getAllFramesV2(frames);
+		taggedFile->getTagsFromFilename(frames, m_filenameToTagsFormat);
+		frames.removeDisabledFrames(flt);
+		formatFramesIfEnabled(frames);
+		taggedFile->setFramesV2(frames);
+	}
+	emit selectedFilesUpdated();
+}
+
+/**
+ * Set filename according to tags.
+ * If a single file is selected the tags in the GUI controls
+ * are used, else the tags in the multiple selected files.
+ *
+ * @param tag_version 1=ID3v1, 2=ID3v2
+ */
+void Kid3Application::getFilenameFromTags(int tag_version)
+{
+	emit fileSelectionUpdateRequested();
+	QItemSelectionModel* selectModel = getFileSelectionModel();
+	SelectedTaggedFileIterator it(getRootIndex(),
+																selectModel,
+																false);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		TrackData trackData(*taggedFile,
+												tag_version == 2 ? TrackData::TagV2 : TrackData::TagV1);
+		if (!trackData.isEmptyOrInactive()) {
+			taggedFile->setFilename(
+						trackData.formatFilenameFromTags(m_tagsToFilenameFormat));
+			formatFileNameIfEnabled(taggedFile);
+		}
+	}
+	emit selectedFilesUpdated();
+}
+
+
+/**
+ * Set format used to generate filename from tags.
+ * When changed, filenameToTagsFormatChanged() is emitted.
+ * @param format format
+ */
+void Kid3Application::setFilenameToTagsFormat(const QString& format) {
+	if (m_filenameToTagsFormat != format) {
+		m_filenameToTagsFormat = format;
+		emit filenameToTagsFormatChanged(format);
+	}
+}
+
+/**
+ * Set format used to generate tags from filename.
+ * When changed, tagsToFilenameFormatChanged() is emitted.
+ * @param format format
+ */
+void Kid3Application::setTagsToFilenameFormat(const QString& format) {
+	if (m_tagsToFilenameFormat != format) {
+		m_tagsToFilenameFormat = format;
+		emit tagsToFilenameFormatChanged(format);
+	}
+}
+
+/**
+ * Process change of selection.
+ * The GUI is signaled to update the current selection and the controls.
+ */
+void Kid3Application::fileSelected()
+{
+	emit fileSelectionUpdateRequested();
+	emit selectedFilesUpdated();
 }
 
 /**
@@ -798,6 +932,7 @@ void Kid3Application::setTextEncodings()
 void Kid3Application::convertToId3v24()
 {
 #ifdef HAVE_TAGLIB
+	emit fileSelectionUpdateRequested();
 	SelectedTaggedFileIterator it(getRootIndex(),
 																getFileSelectionModel(),
 																false);
@@ -832,6 +967,7 @@ void Kid3Application::convertToId3v24()
 			}
 		}
 	}
+	emit selectedFilesUpdated();
 #endif
 }
 
@@ -841,6 +977,7 @@ void Kid3Application::convertToId3v24()
 void Kid3Application::convertToId3v23()
 {
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+	emit fileSelectionUpdateRequested();
 	SelectedTaggedFileIterator it(getRootIndex(),
 																getFileSelectionModel(),
 																false);
@@ -873,5 +1010,6 @@ void Kid3Application::convertToId3v23()
 			}
 		}
 	}
+	emit selectedFilesUpdated();
 #endif
 }

@@ -234,7 +234,7 @@ bool ScriptInterface::expandDirectory()
  */
 void ScriptInterface::applyFilenameFormat()
 {
-	m_mainWin->slotApplyFilenameFormat();
+	m_app->applyFilenameFormat();
 }
 
 /**
@@ -242,7 +242,7 @@ void ScriptInterface::applyFilenameFormat()
  */
 void ScriptInterface::applyTagFormat()
 {
-	m_mainWin->slotApplyId3Format();
+	m_app->applyId3Format();
 }
 
 /**
@@ -297,7 +297,7 @@ void ScriptInterface::filter(const QString& expression)
 void ScriptInterface::convertToId3v24()
 {
 #ifdef HAVE_TAGLIB
-	m_mainWin->slotConvertToId3v24();
+	m_app->convertToId3v24();
 #endif
 }
 
@@ -307,7 +307,7 @@ void ScriptInterface::convertToId3v24()
 void ScriptInterface::convertToId3v23()
 {
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
-	m_mainWin->slotConvertToId3v23();
+	m_app->convertToId3v23();
 #endif
 }
 
@@ -360,7 +360,7 @@ void ScriptInterface::setFileName(const QString& name)
  */
 void ScriptInterface::setFileNameFormat(const QString& format)
 {
-	m_mainWin->m_form->setFilenameFormat(format);
+	m_app->setTagsToFilenameFormat(format);
 }
 
 /**
@@ -372,7 +372,7 @@ void ScriptInterface::setFileNameFormat(const QString& format)
 void ScriptInterface::setFileNameFromTag(int tagMask)
 {
 	if (tagMask == 1 || tagMask == 2) {
-		m_mainWin->getFilenameFromTags(tagMask);
+		m_app->getFilenameFromTags(tagMask);
 	}
 }
 
@@ -543,9 +543,9 @@ QStringList ScriptInterface::getInformation()
 void ScriptInterface::setTagFromFileName(int tagMask)
 {
 	if (tagMask & 1) {
-		m_mainWin->getTagsFromFilenameV1();
+		m_app->getTagsFromFilenameV1();
 	} else if (tagMask & 2) {
-		m_mainWin->getTagsFromFilenameV2();
+		m_app->getTagsFromFilenameV2();
 	}
 }
 
@@ -557,9 +557,9 @@ void ScriptInterface::setTagFromFileName(int tagMask)
 void ScriptInterface::setTagFromOtherTag(int tagMask)
 {
 	if (tagMask & 1) {
-		m_mainWin->copyV2ToV1();
+		m_app->copyV2ToV1();
 	} else if (tagMask & 2) {
-		m_mainWin->copyV1ToV2();
+		m_app->copyV1ToV2();
 	}
 }
 
@@ -571,9 +571,9 @@ void ScriptInterface::setTagFromOtherTag(int tagMask)
 void ScriptInterface::copyTag(int tagMask)
 {
 	if (tagMask & 1) {
-		m_mainWin->copyTagsV1();
+		m_app->copyTagsV1();
 	} else if (tagMask & 2) {
-		m_mainWin->copyTagsV2();
+		m_app->copyTagsV2();
 	}
 }
 
@@ -585,9 +585,9 @@ void ScriptInterface::copyTag(int tagMask)
 void ScriptInterface::pasteTag(int tagMask)
 {
 	if (tagMask & 1) {
-		m_mainWin->pasteTagsV1();
+		m_app->pasteTagsV1();
 	} else if (tagMask & 2) {
-		m_mainWin->pasteTagsV2();
+		m_app->pasteTagsV2();
 	}
 }
 
@@ -599,9 +599,9 @@ void ScriptInterface::pasteTag(int tagMask)
 void ScriptInterface::removeTag(int tagMask)
 {
 	if (tagMask & 1) {
-		m_mainWin->removeTagsV1();
+		m_app->removeTagsV1();
 	} else if (tagMask & 2) {
-		m_mainWin->removeTagsV2();
+		m_app->removeTagsV2();
 	}
 }
 

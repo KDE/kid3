@@ -230,66 +230,6 @@ public:
 	void formatFramesIfEnabled(FrameCollection& frames) const;
 
 	/**
-	 * Convert ID3v2.3 to ID3v2.4 tags.
-	 */
-	void convertToId3v24();
-
-	/**
-	 * Convert ID3v2.4 to ID3v2.3 tags.
-	 */
-	void convertToId3v23();
-
-	/**
-	 * Apply filename format.
-	 */
-	void applyFilenameFormat();
-
-	/**
-	 * Apply ID3 format.
-	 */
-	void applyId3Format();
-
-	/**
-	 * Copy tags 1 into copy buffer.
-	 */
-	void copyTagsV1();
-
-	/**
-	 * Copy tags 2 into copy buffer.
-	 */
-	void copyTagsV2();
-
-	/**
-	 * Paste from copy buffer to ID3v1 tags.
-	 */
-	void pasteTagsV1();
-
-	/**
-	 * Paste from copy buffer to ID3v2 tags.
-	 */
-	void pasteTagsV2();
-
-	/**
-	 * Copy ID3v1 tags to ID3v2 tags of selected files.
-	 */
-	void copyV1ToV2();
-
-	/**
-	 * Copy ID3v2 tags to ID3v1 tags of selected files.
-	 */
-	void copyV2ToV1();
-
-	/**
-	 * Remove ID3v1 tags in selected files.
-	 */
-	void removeTagsV1();
-
-	/**
-	 * Remove ID3v2 tags in selected files.
-	 */
-	void removeTagsV2();
-
-	/**
 	 * Get number of tracks in current directory.
 	 *
 	 * @return number of tracks, 0 if not found.
@@ -343,6 +283,14 @@ public:
 	bool isFiltered() { return m_filtered; }
 
 	/**
+	 * Set format used to generate tags from filename.
+	 * @param format format
+	 */
+	QString getTagsToFilenameFormat() const {
+		return m_tagsToFilenameFormat;
+	}
+
+	/**
 	 * Get directory name.
 	 * @return directory.
 	 */
@@ -370,6 +318,108 @@ public:
 	 */
 	static QString getImageUrl(const QString& url);
 
+public slots:
+	/**
+	 * Apply filename format.
+	 */
+	void applyFilenameFormat();
+
+	/**
+	 * Apply ID3 format.
+	 */
+	void applyId3Format();
+
+	/**
+	 * Convert ID3v2.3 to ID3v2.4 tags.
+	 */
+	void convertToId3v24();
+
+	/**
+	 * Convert ID3v2.4 to ID3v2.3 tags.
+	 */
+	void convertToId3v23();
+
+	/**
+	 * Copy tags 1 into copy buffer.
+	 */
+	void copyTagsV1();
+
+	/**
+	 * Copy tags 2 into copy buffer.
+	 */
+	void copyTagsV2();
+
+	/**
+	 * Paste from copy buffer to ID3v1 tags.
+	 */
+	void pasteTagsV1();
+
+	/**
+	 * Paste from copy buffer to ID3v2 tags.
+	 */
+	void pasteTagsV2();
+
+	/**
+	 * Copy ID3v1 tags to ID3v2 tags of selected files.
+	 */
+	void copyV1ToV2();
+
+	/**
+	 * Copy ID3v2 tags to ID3v1 tags of selected files.
+	 */
+	void copyV2ToV1();
+
+	/**
+	 * Remove ID3v1 tags in selected files.
+	 */
+	void removeTagsV1();
+
+	/**
+	 * Remove ID3v2 tags in selected files.
+	 */
+	void removeTagsV2();
+
+	/**
+	 * Set ID3v1 tags according to filename.
+	 * If a single file is selected the tags in the GUI controls
+	 * are set, else the tags in the multiple selected files.
+	 */
+	void getTagsFromFilenameV1();
+
+	/**
+	 * Set ID3v2 tags according to filename.
+	 * If a single file is selected the tags in the GUI controls
+	 * are set, else the tags in the multiple selected files.
+	 */
+	void getTagsFromFilenameV2();
+
+	/**
+	 * Set format used to generate filename from tags.
+	 * @param format format
+	 */
+	void setFilenameToTagsFormat(const QString& format);
+
+	/**
+	 * Set format used to generate tags from filename.
+	 * @param format format
+	 */
+	void setTagsToFilenameFormat(const QString& format);
+
+	/**
+	 * Set filename according to tags.
+	 * If a single file is selected the tags in the GUI controls
+	 * are used, else the tags in the multiple selected files.
+	 *
+	 * @param tag_version 1=ID3v1, 2=ID3v2
+	 */
+	void getFilenameFromTags(int tag_version);
+
+	/**
+	 * Process change of selection.
+	 * The GUI is signaled to update the current selection and the controls.
+	 */
+	void fileSelected();
+
 signals:
 	/**
 	 * Emitted when a new directory is opened.
@@ -391,7 +441,31 @@ signals:
 	 */
 	void saveProgress(int numFiles);
 
-public slots:
+	/**
+	 * Emitted before an operation on the selected files is performed.
+	 * The GUI should update the files of the current selection when
+	 * receiving this signal.
+	 */
+	void fileSelectionUpdateRequested();
+
+	/**
+	 * Emitted after an operation on the selected files has been performed.
+	 * The GUI should update its controls from the tags in the files when
+	 * receiving this signal.
+	 */
+	void selectedFilesUpdated();
+
+	/**
+	 * Emitted when setFilenameToTagsFormat() changed.
+	 * @param format new format
+	 */
+	void filenameToTagsFormatChanged(const QString& format);
+
+	/**
+	 * Emitted when setTagsToFilenameFormat() changed.
+	 * @param format new format
+	 */
+	void tagsToFilenameFormatChanged(const QString& format);
 
 private:
 	/**
@@ -424,6 +498,11 @@ private:
 	bool m_filtered;
 	/** Root index in file proxy model */
 	QPersistentModelIndex m_fileProxyModelRootIndex;
+	/** Format to generate tags from filename */
+	QString m_filenameToTagsFormat;
+	/** Format to generate filename from tags */
+	QString m_tagsToFilenameFormat;
+
 	/** Current directory */
 	static QString s_dirName;
 };

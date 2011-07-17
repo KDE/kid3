@@ -218,6 +218,10 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 	m_formatComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
 	m_formatComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	m_formatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
+	connect(m_formatComboBox, SIGNAL(editTextChanged(QString)),
+					m_app, SLOT(setTagsToFilenameFormat(QString)));
+	connect(m_app, SIGNAL(tagsToFilenameFormatChanged(QString)),
+					m_formatComboBox, SLOT(setEditText(QString)));
 	fileLayout->addWidget(m_formatComboBox, 1, 1);
 
 	QLabel* fromTagLabel = new QLabel(i18n("From:"), m_fileWidget);
@@ -238,6 +242,10 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 	m_formatFromFilenameComboBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
 	m_formatFromFilenameComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 	m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
+	connect(m_formatFromFilenameComboBox, SIGNAL(editTextChanged(QString)),
+					m_app, SLOT(setFilenameToTagsFormat(QString)));
+	connect(m_app, SIGNAL(filenameToTagsFormatChanged(QString)),
+					m_formatFromFilenameComboBox, SLOT(setEditText(QString)));
 	fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
 	QLabel* toTagLabel = new QLabel(i18n("To:"), m_fileWidget);
@@ -355,25 +363,24 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 	rightHalfLayout->insertStretch(-1);
 
 	// signals and slots connections
-	connect(id3V1PushButton, SIGNAL(clicked()), this, SLOT(fromID3V1()));
-	connect(copyV1PushButton, SIGNAL(clicked()), this, SLOT(copyV1()));
-	connect(pasteV1PushButton, SIGNAL(clicked()), this, SLOT(pasteV1()));
-	connect(removeV1PushButton, SIGNAL(clicked()), this, SLOT(removeV1()));
-	connect(m_id3V2PushButton, SIGNAL(clicked()), this, SLOT(fromID3V2()));
-	connect(copyV2PushButton, SIGNAL(clicked()), this, SLOT(copyV2()));
-	connect(pasteV2PushButton, SIGNAL(clicked()), this, SLOT(pasteV2()));
-	connect(removeV2PushButton, SIGNAL(clicked()), this, SLOT(removeV2()));
-	connect(m_fileListBox->selectionModel(),
-					SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-					this, SLOT(fileSelected()));
+	connect(id3V1PushButton, SIGNAL(clicked()), m_app, SLOT(copyV2ToV1()));
+	connect(copyV1PushButton, SIGNAL(clicked()), m_app, SLOT(copyTagsV1()));
+	connect(pasteV1PushButton, SIGNAL(clicked()), m_app, SLOT(pasteTagsV1()));
+	connect(removeV1PushButton, SIGNAL(clicked()), m_app, SLOT(removeTagsV1()));
+	connect(m_id3V2PushButton, SIGNAL(clicked()), m_app, SLOT(copyV1ToV2()));
+	connect(copyV2PushButton, SIGNAL(clicked()), m_app, SLOT(copyTagsV2()));
+	connect(pasteV2PushButton, SIGNAL(clicked()), m_app, SLOT(pasteTagsV2()));
+	connect(removeV2PushButton, SIGNAL(clicked()), m_app, SLOT(removeTagsV2()));
 	connect(framesAddPushButton, SIGNAL(clicked()), this, SLOT(addFrame()));
 	connect(deleteFramesPushButton, SIGNAL(clicked()), this,
 			SLOT(deleteFrame()));
 	connect(editFramesPushButton, SIGNAL(clicked()), this, SLOT(editFrame()));
 	connect(m_fnV1Button, SIGNAL(clicked()), this, SLOT(fnFromID3V1()));
 	connect(fnV2Button, SIGNAL(clicked()), this, SLOT(fnFromID3V2()));
-	connect(m_toTagV1Button, SIGNAL(clicked()), this, SLOT(fromFilenameV1()));
-	connect(toTagV2Button, SIGNAL(clicked()), this, SLOT(fromFilenameV2()));
+	connect(m_toTagV1Button, SIGNAL(clicked()),
+					m_app, SLOT(getTagsFromFilenameV1()));
+	connect(toTagV2Button, SIGNAL(clicked()),
+					m_app, SLOT(getTagsFromFilenameV2()));
 	connect(m_nameLineEdit, SIGNAL(textChanged(const QString&)), this,
 			SLOT(nameLineEditChanged(const QString&)));
 	connect(m_dirListBox, SIGNAL(activated(QModelIndex)), this,
@@ -412,94 +419,6 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 Kid3Form::~Kid3Form()
 {
 	delete m_framelist;
-}
-
-/**
- * Button ID3v1 From Filename.
- */
-void Kid3Form::fromFilenameV1()
-{
-	mainWin->getTagsFromFilenameV1();
-}
-
-/**
- * Button ID3v2 From Filename.
- */
-void Kid3Form::fromFilenameV2()
-{
-	mainWin->getTagsFromFilenameV2();
-}
-
-/**
- * Button ID3v2 From ID3v1.
- */
-void Kid3Form::fromID3V2()
-{
-	mainWin->copyV1ToV2();
-}
-
-/**
- * Button ID3v1 From ID3v2.
- */
-void Kid3Form::fromID3V1()
-{
-	mainWin->copyV2ToV1();
-}
-
-/**
- * Button ID3v1 Copy.
- */
-void Kid3Form::copyV1()
-{
-	mainWin->copyTagsV1();
-}
-
-/**
- * Button ID3v2 Copy.
- */
-void Kid3Form::copyV2()
-{
-	mainWin->copyTagsV2();
-}
-
-/**
- * Button ID3v2 Remove.
- */
-void Kid3Form::removeV2()
-{
-	mainWin->removeTagsV2();
-}
-
-/**
- * Button ID3v1 Paste.
- */
-void Kid3Form::pasteV1()
-{
-	mainWin->pasteTagsV1();
-}
-
-/**
- * Button ID3v2 Paste.
- */
-void Kid3Form::pasteV2()
-{
-	mainWin->pasteTagsV2();
-}
-
-/**
- * Button ID3v1 Remove.
- */
-void Kid3Form::removeV1()
-{
-	mainWin->removeTagsV1();
-}
-
-/**
- * File list box file selected
- */
-void Kid3Form::fileSelected()
-{
-	mainWin->fileSelected();
 }
 
 /**
@@ -570,7 +489,7 @@ void Kid3Form::deleteFrame()
 
 void Kid3Form::fnFromID3V1()
 {
-	mainWin->getFilenameFromTags(1);
+	m_app->getFilenameFromTags(1);
 }
 
 /**
@@ -579,7 +498,7 @@ void Kid3Form::fnFromID3V1()
 
 void Kid3Form::fnFromID3V2()
 {
-	mainWin->getFilenameFromTags(2);
+	m_app->getFilenameFromTags(2);
 }
 
 /**

@@ -104,82 +104,6 @@ public:
 	bool openDirectory(QString dir, bool confirm = false, bool fileCheck = false);
 
 	/**
-	 * Process change of selection.
-	 * The files of the current selection are updated.
-	 * The new selection is stored and the GUI controls and frame list
-	 * updated accordingly (filtered for multiple selection).
-	 */
-	void fileSelected();
-
-	/**
-	 * Update files of current selection.
-	 */
-	void updateCurrentSelection();
-
-	/**
-	 * Copy tags 1 into copy buffer.
-	 */
-	void copyTagsV1();
-
-	/**
-	 * Copy tags 2 into copy buffer.
-	 */
-	void copyTagsV2();
-
-	/**
-	 * Paste from copy buffer to ID3v1 tags.
-	 */
-	void pasteTagsV1();
-
-	/**
-	 * Paste from copy buffer to ID3v2 tags.
-	 */
-	void pasteTagsV2();
-
-	/**
-	 * Set ID3v1 tags according to filename.
-	 * If a single file is selected the tags in the GUI controls
-	 * are set, else the tags in the multiple selected files.
-	 */
-	void getTagsFromFilenameV1();
-
-	/**
-	 * Set ID3v2 tags according to filename.
-	 * If a single file is selected the tags in the GUI controls
-	 * are set, else the tags in the multiple selected files.
-	 */
-	void getTagsFromFilenameV2();
-
-	/**
-	 * Set filename according to tags.
-	 * If a single file is selected the tags in the GUI controls
-	 * are used, else the tags in the multiple selected files.
-	 *
-	 * @param tag_version 1=ID3v1, 2=ID3v2
-	 */
-	void getFilenameFromTags(int tag_version);
-
-	/**
-	 * Copy ID3v1 tags to ID3v2 tags of selected files.
-	 */
-	void copyV1ToV2();
-
-	/**
-	 * Copy ID3v2 tags to ID3v1 tags of selected files.
-	 */
-	void copyV2ToV1();
-
-	/**
-	 * Remove ID3v1 tags in selected files.
-	 */
-	void removeTagsV1();
-
-	/**
-	 * Remove ID3v2 tags in selected files.
-	 */
-	void removeTagsV2();
-
-	/**
 	 * Open directory on drop.
 	 *
 	 * @param txt URL of directory or file in directory
@@ -490,16 +414,6 @@ public slots:
 	void slotSettingsConfigure();
 
 	/**
-	 * Apply filename format.
-	 */
-	void slotApplyFilenameFormat();
-
-	/**
-	 * Apply ID3 format.
-	 */
-	void slotApplyId3Format();
-
-	/**
 	 * Rename directory.
 	 */
 	void slotRenameDirectory();
@@ -515,19 +429,14 @@ public slots:
 	void slotFilter();
 
 	/**
-	 * Convert ID3v2.3 to ID3v2.4 tags.
-	 */
-	void slotConvertToId3v24();
-
-	/**
-	 * Convert ID3v2.4 to ID3v2.3 tags.
-	 */
-	void slotConvertToId3v23();
-
-	/**
 	 * Play audio file.
 	 */
 	void slotPlayAudio();
+
+	/**
+	 * Update files of current selection.
+	 */
+	void updateCurrentSelection();
 
 	/**
 	 * Update GUI controls from the tags in the files.
