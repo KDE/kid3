@@ -43,6 +43,8 @@ class ConfigStore;
 class PlaylistConfig;
 class DownloadClient;
 class TaggedFile;
+class FrameList;
+class IFrameEditor;
 
 /**
  * Kid3 application logic, independent of GUI.
@@ -122,6 +124,12 @@ public:
 	QItemSelectionModel* getFramesV2SelectionModel() {
 		return m_framesV2SelectionModel;
 	}
+
+	/**
+	 * Get frame list.
+	 * @return frame list.
+	 */
+	FrameList* getFrameList() { return m_framelist; }
 
 	/**
 	 * Get settings.
@@ -230,6 +238,27 @@ public:
 	void formatFramesIfEnabled(FrameCollection& frames) const;
 
 	/**
+	 * Open directory on drop.
+	 *
+	 * @param txt URL of directory or file in directory
+	 */
+	void openDrop(QString txt);
+
+	/**
+	 * Add picture on drop.
+	 *
+	 * @param image dropped image.
+	 */
+	void dropImage(const QImage& image);
+
+	/**
+	 * Handle URL on drop.
+	 *
+	 * @param txt dropped URL.
+	 */
+	void dropUrl(const QString& txt);
+
+	/**
 	 * Get number of tracks in current directory.
 	 *
 	 * @return number of tracks, 0 if not found.
@@ -289,6 +318,14 @@ public:
 	QString getTagsToFilenameFormat() const {
 		return m_tagsToFilenameFormat;
 	}
+
+	/**
+	 * Get the selected file.
+	 *
+	 * @return the selected file,
+	 *         0 if not exactly one file is selected
+	 */
+	TaggedFile* getSelectedFile();
 
 	/**
 	 * Get directory name.
@@ -415,6 +452,46 @@ public slots:
 	void getFilenameFromTags(int tag_version);
 
 	/**
+	 * Edit selected frame.
+	 *
+	 * @param frameEditor editor for frame fields
+	 */
+	void editFrame(IFrameEditor* frameEditor);
+
+	/**
+	 * Delete selected frame.
+	 *
+	 * @param frameName name of frame to delete, empty to delete selected frame
+	 */
+	void deleteFrame(const QString& frameName = QString());
+
+	/**
+	 * Select a frame type and add such a frame to frame list.
+	 *
+	 * @param frame frame to add, if 0 the user has to select and edit the frame
+	 * @param frameEditor editor for frame fields, if not null and a frame
+	 * is set, the user can edit the frame before it is added
+	 */
+	void addFrame(const Frame* frame, IFrameEditor* frameEditor = 0);
+
+	/**
+	 * Edit a picture frame if one exists or add a new one.
+	 *
+	 * @param frameEditor editor for frame fields
+	 */
+	void editOrAddPicture(IFrameEditor* frameEditor);
+
+	/**
+	 * Add a downloaded image.
+	 *
+	 * @param data     HTTP response of download
+	 * @param mimeType MIME type of data
+	 * @param url      URL of downloaded data
+	 */
+	void imageDownloaded(const QByteArray& data,
+											 const QString& mimeType, const QString& url);
+
+	/**
 	 * Process change of selection.
 	 * The GUI is signaled to update the current selection and the controls.
 	 */
@@ -428,6 +505,12 @@ signals:
 	 */
 	void directoryOpened(const QModelIndex& directoryIndex,
 											 const QModelIndex& fileIndex);
+
+	/**
+	 * Emitted when a confirmed opening of a directory or file is requested.
+	 * @param dir directory or file path
+	 */
+	void confirmedOpenDirectoryRequested(const QString& dir);
 
 	/**
 	 * Emitted when saving files is started.
@@ -456,6 +539,21 @@ signals:
 	void selectedFilesUpdated();
 
 	/**
+	 * Emitted after a frame of a tagged file has been modified.
+	 * The GUI should update the corresponding controls when receiving this
+	 * signal.
+	 *
+	 * @param taggedFile tagged file with modified frame
+	 */
+	void frameModified(TaggedFile* taggedFile);
+
+	/**
+	 * Emitted after a file has been modified.
+	 * The GUI should update its modification state when receiving this signal.
+	 */
+	void fileModified();
+
+	/**
 	 * Emitted when setFilenameToTagsFormat() changed.
 	 * @param format new format
 	 */
@@ -473,6 +571,16 @@ private:
 	*/
 	void initFileTypes();
 
+	/**
+	 * Let the user select and edit a frame type and then edit the frame.
+	 * Add the frame if the edits are accepted.
+	 *
+	 * @param frameEditor frame editor
+	 *
+	 * @return true if edits accepted.
+	 */
+	bool selectAddAndEditFrame(IFrameEditor* frameEditor);
+
 	/** model of filesystem */
 	QFileSystemModel* m_fileSystemModel;
 	FileProxyModel* m_fileProxyModel;
@@ -484,6 +592,8 @@ private:
 	FrameTableModel* m_framesV2Model;
 	QItemSelectionModel* m_framesV1SelectionModel;
 	QItemSelectionModel* m_framesV2SelectionModel;
+	/** Frame list */
+	FrameList* m_framelist;
 	/** Configuration */
 	ConfigStore* m_configStore;
 	/** Download client */

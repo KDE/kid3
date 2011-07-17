@@ -49,7 +49,6 @@
 /** Shortcut for pointer to parent main window. */
 #define mainWin ((Kid3MainWindow*)parentWidget())
 
-#include "framelist.h"
 #include "frametable.h"
 #include "frametablemodel.h"
 #include "trackdata.h"
@@ -108,7 +107,8 @@ public:
 	/**
 	 * Constructor.
 	 */
-	PictureDblClickHandler(Kid3MainWindow* app) : m_mainWin(app) {}
+	PictureDblClickHandler(Kid3Application* app, IFrameEditor* frameEditor) :
+		m_app(app), m_frameEditor(frameEditor) {}
 	virtual ~PictureDblClickHandler() {}
 
 protected:
@@ -123,7 +123,8 @@ protected:
 	virtual bool eventFilter(QObject* obj, QEvent* event);
 
 private:
-	Kid3MainWindow* m_mainWin;
+	Kid3Application* m_app;
+	IFrameEditor* m_frameEditor;
 };
 
 /**
@@ -137,7 +138,7 @@ private:
 bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 {
 	if (event->type() == QEvent::MouseButtonDblClick) {
-		m_mainWin->editOrAddPicture();
+		m_app->editOrAddPicture(m_frameEditor);
 		return true;
 	} else {
 		// standard event processing
@@ -318,8 +319,6 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 	idV2HBoxLayout->setSpacing(spacing);
 	m_framesV2Table = new FrameTable(m_app->frameModelV2(), m_tag2Widget);
 	m_framesV2Table->setSelectionModel(m_app->getFramesV2SelectionModel());
-	m_framelist = new FrameList(m_app->frameModelV2(),
-															m_app->getFramesV2SelectionModel());
 	idV2HBoxLayout->addWidget(m_framesV2Table);
 	m_tag2Label->setBuddy(m_framesV2Table);
 
@@ -354,7 +353,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 	buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
 
 	m_pictureLabel = new PictureLabel(this);
-	m_pictureLabel->installEventFilter(new PictureDblClickHandler(mainWin));
+	m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app, mainWin));
 	buttonsV2VBoxLayout->addWidget(m_pictureLabel);
 
 	buttonsV2VBoxLayout->addItem(
@@ -418,7 +417,6 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
  */
 Kid3Form::~Kid3Form()
 {
-	delete m_framelist;
 }
 
 /**
@@ -442,7 +440,7 @@ void Kid3Form::dropEvent(QDropEvent* ev)
 {
 	if (ev->mimeData()->hasImage()) {
 		QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
-		mainWin->dropImage(image);
+		m_app->dropImage(image);
 		return;
 	}
 	QList<QUrl> urls = ev->mimeData()->urls();
@@ -450,11 +448,11 @@ void Kid3Form::dropEvent(QDropEvent* ev)
 		return;
 	QString text = urls.first().toLocalFile();
 	if (!text.isEmpty()) {
-		mainWin->openDrop(text);
+		m_app->openDrop(text);
 	} else {
 		text = urls.first().toString();
 		if (text.startsWith("http://")) {
-			mainWin->dropUrl(text);
+			m_app->dropUrl(text);
 		}
 	}
 }
@@ -464,7 +462,7 @@ void Kid3Form::dropEvent(QDropEvent* ev)
  */
 void Kid3Form::editFrame()
 {
-	mainWin->editFrame();
+	m_app->editFrame(mainWin);
 }
 
 /**
@@ -472,7 +470,7 @@ void Kid3Form::editFrame()
  */
 void Kid3Form::addFrame()
 {
-	mainWin->addFrame();
+	m_app->addFrame(0, mainWin);
 }
 
 /**
@@ -480,7 +478,7 @@ void Kid3Form::addFrame()
  */
 void Kid3Form::deleteFrame()
 {
-	mainWin->deleteFrame();
+	m_app->deleteFrame();
 }
 
 /**
@@ -559,7 +557,7 @@ void Kid3Form::dirSelected(const QModelIndex& index)
 		m_dirListBox->setEntryToSelect(
 				dirPath.endsWith("..") ? index.parent() : QModelIndex());
 		mainWin->updateCurrentSelection();
-		mainWin->openDirectory(dirPath, true);
+		mainWin->confirmedOpenDirectory(dirPath);
 	}
 }
 

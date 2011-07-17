@@ -92,6 +92,8 @@
 #include "downloadclient.h"
 #include "downloaddialog.h"
 #include "playlistdialog.h"
+#include "editframedialog.h"
+#include "editframefieldsdialog.h"
 #include "fileproxymodel.h"
 #include "dirproxymodel.h"
 #include "modeliterator.h"
@@ -144,12 +146,20 @@ Kid3MainWindow::Kid3MainWindow() :
 	connect(m_downloadDialog, SIGNAL(canceled()),
 					downloadClient, SLOT(cancelDownload()));
 	connect(downloadClient, SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
-					this, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
+					m_app, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
 
 	connect(m_app, SIGNAL(fileSelectionUpdateRequested()),
 					this, SLOT(updateCurrentSelection()));
 	connect(m_app, SIGNAL(selectedFilesUpdated()),
 					this, SLOT(updateGuiControls()));
+	connect(m_app, SIGNAL(frameModified(TaggedFile*)),
+					this, SLOT(updateAfterFrameModification(TaggedFile*)));
+	connect(m_app, SIGNAL(fileModified()),
+					this, SLOT(updateModificationState()));
+	connect(m_app, SIGNAL(confirmedOpenDirectoryRequested(QString)),
+					this, SLOT(confirmedOpenDirectory(QString)));
+	connect(m_app, SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
+					this, SLOT(onDirectoryOpened()));
 
 #ifndef CONFIG_USE_KDE
 #if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
@@ -337,34 +347,34 @@ void Kid3MainWindow::initActions()
 	connect(editNextFile, SIGNAL(triggered()), m_form, SLOT(selectNextFile()));
 	KAction* actionV1FromFilename = new KAction(i18n("Tag 1") + ": " + i18n("From Filename"), this);
 	actionCollection()->addAction("v1_from_filename", actionV1FromFilename);
-	connect(actionV1FromFilename, SIGNAL(triggered()), m_form, SLOT(fromFilenameV1()));
+	connect(actionV1FromFilename, SIGNAL(triggered()), m_app, SLOT(getTagsFromFilenameV1()));
 	KAction* actionV1FromV2 = new KAction(i18n("Tag 1") + ": " + i18n("From Tag 2"), this);
 	actionCollection()->addAction("v1_from_v2", actionV1FromV2);
-	connect(actionV1FromV2, SIGNAL(triggered()), m_form, SLOT(fromID3V1()));
+	connect(actionV1FromV2, SIGNAL(triggered()), m_app, SLOT(copyV2ToV1()));
 	KAction* actionV1Copy = new KAction(i18n("Tag 1") + ": " + i18n("Copy"), this);
 	actionCollection()->addAction("v1_copy", actionV1Copy);
-	connect(actionV1Copy, SIGNAL(triggered()), m_form, SLOT(copyV1()));
+	connect(actionV1Copy, SIGNAL(triggered()), m_app, SLOT(copyTagsV1()));
 	KAction* actionV1Paste = new KAction(i18n("Tag 1") + ": " + i18n("Paste"), this);
 	actionCollection()->addAction("v1_paste", actionV1Paste);
-	connect(actionV1Paste, SIGNAL(triggered()), m_form, SLOT(pasteV1()));
+	connect(actionV1Paste, SIGNAL(triggered()), m_app, SLOT(pasteTagsV1()));
 	KAction* actionV1Remove = new KAction(i18n("Tag 1") + ": " + i18n("Remove"), this);
 	actionCollection()->addAction("v1_remove", actionV1Remove);
-	connect(actionV1Remove, SIGNAL(triggered()), m_form, SLOT(removeV1()));
+	connect(actionV1Remove, SIGNAL(triggered()), m_app, SLOT(removeTagsV1()));
 	KAction* actionV2FromFilename = new KAction(i18n("Tag 2") + ": " + i18n("From Filename"), this);
 	actionCollection()->addAction("v2_from_filename", actionV2FromFilename);
-	connect(actionV2FromFilename, SIGNAL(triggered()), m_form, SLOT(fromFilenameV2()));
+	connect(actionV2FromFilename, SIGNAL(triggered()), m_app, SLOT(getTagsFromFilenameV2()));
 	KAction* actionV2FromV1 = new KAction(i18n("Tag 2") + ": " + i18n("From Tag 1"), this);
 	actionCollection()->addAction("v2_from_v1", actionV2FromV1);
-	connect(actionV2FromV1, SIGNAL(triggered()), m_form, SLOT(fromID3V2()));
+	connect(actionV2FromV1, SIGNAL(triggered()), m_app, SLOT(copyV1ToV2()));
 	KAction* actionV2Copy = new KAction(i18n("Tag 2") + ": " + i18n("Copy"), this);
 	actionCollection()->addAction("v2_copy", actionV2Copy);
-	connect(actionV2Copy, SIGNAL(triggered()), m_form, SLOT(copyV2()));
+	connect(actionV2Copy, SIGNAL(triggered()), m_app, SLOT(copyTagsV2()));
 	KAction* actionV2Paste = new KAction(i18n("Tag 2") + ": " + i18n("Paste"), this);
 	actionCollection()->addAction("v2_paste", actionV2Paste);
-	connect(actionV2Paste, SIGNAL(triggered()), m_form, SLOT(pasteV2()));
+	connect(actionV2Paste, SIGNAL(triggered()), m_app, SLOT(pasteTagsV2()));
 	KAction* actionV2Remove = new KAction(i18n("Tag 2") + ": " + i18n("Remove"), this);
 	actionCollection()->addAction("v2_remove", actionV2Remove);
-	connect(actionV2Remove, SIGNAL(triggered()), m_form, SLOT(removeV2()));
+	connect(actionV2Remove, SIGNAL(triggered()), m_app, SLOT(removeTagsV2()));
 	KAction* actionFramesEdit = new KAction(i18n("Frames:") + " " + i18n("Edit"), this);
 	actionCollection()->addAction("frames_edit", actionFramesEdit);
 	connect(actionFramesEdit, SIGNAL(triggered()), m_form, SLOT(editFrame()));
@@ -777,42 +787,43 @@ void Kid3MainWindow::initView()
 	if (m_form) {
 		setCentralWidget(m_form);
 		m_form->initView();
-		m_framelist = m_form->getFrameList();
+		m_framelist = m_app->getFrameList();
 	}
 }
 
 /**
- * Open directory.
- *
- * @param dir       directory or file path
- * @param confirm   if true ask if there are unsaved changes
- * @param fileCheck if true and dir in not directory, only open directory
- *                  if dir is a valid file path
- *
- * @return true if ok.
+ * Update the recent file list and the caption when a new directory
+ * is opened.
  */
-bool Kid3MainWindow::openDirectory(QString dir, bool confirm, bool fileCheck)
+void Kid3MainWindow::onDirectoryOpened()
 {
-	if (confirm && !saveModified()) {
-		return false;
+#ifdef CONFIG_USE_KDE
+	KUrl url;
+	url.setPath(m_app->getDirName());
+	m_fileOpenRecent->addUrl(url);
+#else
+	m_fileOpenRecent->addDirectory(m_app->getDirName());
+#endif
+	updateWindowCaption();
+}
+
+/**
+ * Open directory, user has to confirm if current directory modified.
+ *
+ * @param dir directory or file path
+ */
+void Kid3MainWindow::confirmedOpenDirectory(const QString& dir)
+{
+	if (!saveModified()) {
+		return;
 	}
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	slotStatusMsg(i18n("Opening directory..."));
 
-	bool ok = m_app->openDirectory(dir, fileCheck);
-	if (ok) {
-#ifdef CONFIG_USE_KDE
-		KUrl url;
-		url.setPath(dir);
-		m_fileOpenRecent->addUrl(url);
-#else
-		m_fileOpenRecent->addDirectory(dir);
-#endif
-		updateWindowCaption();
-	}
+	m_app->openDirectory(dir, false);
+
 	slotStatusMsg(i18n("Ready."));
 	QApplication::restoreOverrideCursor();
-	return ok;
 }
 
 /**
@@ -876,7 +887,7 @@ void Kid3MainWindow::saveProperties(KConfigGroup& cfg)
  */
 void Kid3MainWindow::readProperties(const KConfigGroup& cfg)
 {
-	openDirectory(cfg.readEntry("dirname", ""));
+	m_app->openDirectory(cfg.readEntry("dirname", ""));
 }
 
 #else /* CONFIG_USE_KDE */
@@ -1105,7 +1116,7 @@ void Kid3MainWindow::slotFileOpen()
 			if (!filter.isEmpty()) {
 				ConfigStore::s_miscCfg.m_nameFilter = filter;
 			}
-			openDirectory(dir);
+			m_app->openDirectory(dir);
 		}
 	}
 }
@@ -1128,7 +1139,7 @@ void Kid3MainWindow::slotFileOpenDirectory()
 			);
 #endif
 		if (!dir.isEmpty()) {
-			openDirectory(dir);
+			m_app->openDirectory(dir);
 		}
 	}
 }
@@ -1143,7 +1154,7 @@ void Kid3MainWindow::slotFileOpenRecentUrl(const KUrl& url)
 {
 	updateCurrentSelection();
 	QString dir = url.path();
-	openDirectory(dir, true);
+	confirmedOpenDirectory(dir);
 }
 
 void Kid3MainWindow::slotFileOpenRecentDirectory(const QString&) {}
@@ -1153,7 +1164,7 @@ void Kid3MainWindow::slotFileOpenRecentUrl(const KUrl&) {}
 void Kid3MainWindow::slotFileOpenRecentDirectory(const QString& dir)
 {
 	updateCurrentSelection();
-	openDirectory(dir, true);
+	confirmedOpenDirectory(dir);
 }
 #endif /* CONFIG_USE_KDE */
 
@@ -1738,10 +1749,10 @@ bool Kid3MainWindow::renameDirectory(int tagMask, const QString& format,
 			m_renDirDialog->setDirectoryFormat(format);
 			m_renDirDialog->setAction(create);
 			scheduleRenameActions();
-			openDirectory(m_app->getDirName());
+			m_app->openDirectory(m_app->getDirName());
 			QString errorMsg;
 			m_renDirDialog->performActions(&errorMsg);
-			openDirectory(m_renDirDialog->getNewDirname());
+			m_app->openDirectory(m_renDirDialog->getNewDirname());
 			ok = errorMsg.isEmpty();
 			if (errStr) {
 				*errStr = errorMsg;
@@ -1772,7 +1783,7 @@ void Kid3MainWindow::slotRenameDirectory()
 				dirName = taggedFile->getDirname();
 			}
 			if (!dirName.isEmpty()) {
-				openDirectory(dirName);
+				m_app->openDirectory(dirName);
 			}
 			if (TaggedFile* taggedFile = TaggedFileOfDirectoryIterator::first(index)) {
 				m_renDirDialog->startDialog(taggedFile);
@@ -1780,10 +1791,10 @@ void Kid3MainWindow::slotRenameDirectory()
 				m_renDirDialog->startDialog(0, m_app->getDirName());
 			}
 			if (m_renDirDialog->exec() == QDialog::Accepted) {
-				openDirectory(m_app->getDirName());
+				m_app->openDirectory(m_app->getDirName());
 				QString errorMsg;
 				m_renDirDialog->performActions(&errorMsg);
-				openDirectory(m_renDirDialog->getNewDirname());
+				m_app->openDirectory(m_renDirDialog->getNewDirname());
 				if (!errorMsg.isEmpty()) {
 					QMessageBox::warning(0, i18n("File Error"),
 															 i18n("Error while renaming:\n") +
@@ -2030,115 +2041,6 @@ void Kid3MainWindow::slotPlayAudio()
 #endif
 }
 
-
-/**
- * Open directory on drop.
- *
- * @param txt URL of directory or file in directory
- */
-void Kid3MainWindow::openDrop(QString txt)
-{
-	int lfPos = txt.indexOf('\n');
-	if (lfPos > 0 && lfPos < (int)txt.length() - 1) {
-		txt.truncate(lfPos + 1);
-	}
-	QUrl url(txt);
-	if (!url.path().isEmpty()) {
-#if defined _WIN32 || defined WIN32
-		QString dir = url.toString();
-#else
-		QString dir = url.path().trimmed();
-#endif
-		if (dir.endsWith(".jpg", Qt::CaseInsensitive) ||
-				dir.endsWith(".jpeg", Qt::CaseInsensitive) ||
-				dir.endsWith(".png", Qt::CaseInsensitive)) {
-			PictureFrame frame;
-			if (PictureFrame::setDataFromFile(frame, dir)) {
-				QString fileName(dir);
-				int slashPos = fileName.lastIndexOf('/');
-				if (slashPos != -1) {
-					fileName = fileName.mid(slashPos + 1);
-				}
-				PictureFrame::setMimeTypeFromFileName(frame, fileName);
-				PictureFrame::setDescription(frame, fileName);
-				addFrame(&frame);
-				updateGuiControls();
-			}
-		} else {
-			updateCurrentSelection();
-			openDirectory(dir, true);
-		}
-	}
-}
-
-/**
- * Add picture on drop.
- *
- * @param image dropped image.
- */
-void Kid3MainWindow::dropImage(const QImage& image)
-{
-	if (!image.isNull()) {
-		PictureFrame frame;
-		if (PictureFrame::setDataFromImage(frame, image)) {
-			addFrame(&frame);
-			updateGuiControls();
-		}
-	}
-}
-
-/**
- * Handle URL on drop.
- *
- * @param txt dropped URL.
- */
-void Kid3MainWindow::dropUrl(const QString& txt)
-{
-	m_app->downloadImage(txt, Kid3Application::ImageForSelectedFiles);
-}
-
-/**
- * Add a downloaded image.
- *
- * @param data     HTTP response of download
- * @param mimeType MIME type of data
- * @param url      URL of downloaded data
- */
-void Kid3MainWindow::imageDownloaded(const QByteArray& data,
-                              const QString& mimeType, const QString& url)
-{
-	if (mimeType.startsWith("image")) {
-		PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
-		if (m_app->getDownloadImageDestination() ==
-				Kid3Application::ImageForAllFilesInDirectory) {
-			TaggedFileOfDirectoryIterator it(
-					m_form->getFileList()->currentOrRootIndex());
-			while (it.hasNext()) {
-				TaggedFile* taggedFile = it.next();
-				taggedFile->readTags(false);
-				taggedFile->addFrameV2(frame);
-			}
-		} else if (m_app->getDownloadImageDestination() ==
-							 Kid3Application::ImageForImportTrackData) {
-			const ImportTrackDataVector& trackDataVector(
-						m_app->getTrackDataModel()->trackData());
-			for (ImportTrackDataVector::const_iterator it =
-					 trackDataVector.constBegin();
-					 it != trackDataVector.constEnd();
-					 ++it) {
-				TaggedFile* taggedFile;
-				if (it->isEnabled() && (taggedFile = it->getTaggedFile()) != 0) {
-					taggedFile->readTags(false);
-					taggedFile->addFrameV2(frame);
-				}
-			}
-		} else {
-			addFrame(&frame);
-		}
-		updateGuiControls();
-	}
-}
-
 /**
  * Update modification state, caption and listbox entries.
  */
@@ -2379,24 +2281,6 @@ void Kid3MainWindow::updateAfterFrameModification(TaggedFile* taggedFile)
 }
 
 /**
- * Get the selected file.
- *
- * @return the selected file,
- *         0 if not exactly one file is selected
- */
-TaggedFile* Kid3MainWindow::getSelectedFile()
-{
-	if (!m_form->getFileList()->selectionModel())
-		return 0;
-	QModelIndexList selItems(
-			m_form->getFileList()->selectionModel()->selectedIndexes());
-	if (selItems.size() != 1)
-		return 0;
-
-	return FileProxyModel::getTaggedFileOfIndex(selItems.first());
-}
-
-/**
  * Get type of frame from translated name.
  *
  * @param name name, spaces and case are ignored
@@ -2423,204 +2307,75 @@ static Frame::Type getTypeFromTranslatedName(QString name)
 }
 
 /**
- * Display a dialog to select a frame type.
+ * Let user select a frame type.
+ *
+ * @param frame is filled with the selected frame if true is returned
+ * @param taggedFile tagged file for which frame has to be selected
  *
  * @return false if no frame selected.
  */
-bool Kid3MainWindow::selectFrame()
+bool Kid3MainWindow::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 {
 	bool ok = false;
-	if (TaggedFile* taggedFile = m_framelist->getTaggedFile()) {
+	if (taggedFile && frame) {
 		QString name = QInputDialog::getItem(
 			this, i18n("Add Frame"),
 			i18n("Select the frame ID"), taggedFile->getFrameIds(), 0, true, &ok);
 		if (ok) {
 			Frame::Type type = getTypeFromTranslatedName(name);
-			m_framelist->setFrame(Frame(type, "", name, -1));
+			*frame = Frame(type, "", name, -1);
 		}
 	}
 	return ok;
 }
 
 /**
- * Edit selected frame.
- */
-void Kid3MainWindow::editFrame()
-{
-	updateCurrentSelection();
-	TaggedFile* taggedFile = getSelectedFile();
-	if (taggedFile && m_framelist->editFrame()) {
-		updateAfterFrameModification(taggedFile);
-	} else if (!taggedFile) {
-		// multiple files selected
-		bool firstFile = true;
-		QString name;
-		SelectedTaggedFileIterator tfit(m_form->getFileList()->rootIndex(),
-																		m_form->getFileList()->selectionModel(),
-																		false);
-		while (tfit.hasNext()) {
-			TaggedFile* currentFile = tfit.next();
-			if (firstFile) {
-				firstFile = false;
-				taggedFile = currentFile;
-				m_framelist->setTaggedFile(taggedFile);
-				name = m_framelist->getSelectedName();
-				if (name.isEmpty() || !m_framelist->editFrame()) {
-					break;
-				}
-			}
-			FrameCollection frames;
-			currentFile->getAllFramesV2(frames);
-			for (FrameCollection::const_iterator it = frames.begin();
-					 it != frames.end();
-					 ++it) {
-				if (it->getName() == name) {
-					currentFile->deleteFrameV2(*it);
-					m_framelist->setTaggedFile(currentFile);
-					m_framelist->pasteFrame();
-					break;
-				}
-			}
-		}
-		updateAfterFrameModification(taggedFile);
-	}
-}
-
-/**
- * Delete selected frame.
+ * Create dialog to edit a frame and update the fields
+ * if Ok is returned.
  *
- * @param frameName name of frame to delete, empty to delete selected frame
- */
-void Kid3MainWindow::deleteFrame(const QString& frameName)
-{
-	updateCurrentSelection();
-	TaggedFile* taggedFile = getSelectedFile();
-	if (taggedFile && frameName.isEmpty()) {
-		// delete selected frame from single file
-		if (!m_framelist->deleteFrame()) {
-			// frame not found
-			return;
-		}
-	} else {
-		// multiple files selected or frame name specified
-		bool firstFile = true;
-		QString name;
-		SelectedTaggedFileIterator tfit(m_form->getFileList()->rootIndex(),
-																		m_form->getFileList()->selectionModel(),
-																		false);
-		while (tfit.hasNext()) {
-			TaggedFile* currentFile = tfit.next();
-			if (firstFile) {
-				firstFile = false;
-				taggedFile = currentFile;
-				m_framelist->setTaggedFile(taggedFile);
-				name = frameName.isEmpty() ? m_framelist->getSelectedName() :
-					frameName;
-			}
-			FrameCollection frames;
-			currentFile->getAllFramesV2(frames);
-			for (FrameCollection::const_iterator it = frames.begin();
-					 it != frames.end();
-					 ++it) {
-				if (it->getName() == name) {
-					currentFile->deleteFrameV2(*it);
-					break;
-				}
-			}
-		}
-	}
-	updateAfterFrameModification(taggedFile);
-}
-
-/**
- * Select a frame type and add such a frame to frame list.
+ * @param frame frame to edit
+ * @param taggedFile tagged file where frame has to be set
  *
- * @param frame frame to add, if 0 the user has to select and edit the frame
- * @param edit  if frame is set and edit is true, the user can edit the frame
- *              before it is added
+ * @return true if Ok selected in dialog.
  */
-void Kid3MainWindow::addFrame(const Frame* frame, bool edit)
+bool Kid3MainWindow::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
 {
-	updateCurrentSelection();
-	TaggedFile* taggedFile = getSelectedFile();
-	if (taggedFile) {
-		bool frameAdded;
-		if (!frame) {
-			frameAdded = selectFrame() &&
-				m_framelist->addFrame(true);
-		} else if (edit) {
-			m_framelist->setFrame(*frame);
-			frameAdded = m_framelist->addFrame(true);
-		} else {
-			m_framelist->setFrame(*frame);
-			frameAdded = m_framelist->pasteFrame();
-		}
-		if (frameAdded) {
-			updateAfterFrameModification(taggedFile);
-			if (m_framelist->isPictureFrame()) {
-				// update preview picture
-				updateGuiControls();
-			}
-		}
-	} else {
-		// multiple files selected
-		bool firstFile = true;
-		int frameId = -1;
-		SelectedTaggedFileIterator tfit(m_form->getFileList()->rootIndex(),
-																		m_form->getFileList()->selectionModel(),
-																		false);
-		while (tfit.hasNext()) {
-			TaggedFile* currentFile = tfit.next();
-			if (firstFile) {
-				firstFile = false;
-				taggedFile = currentFile;
-				m_framelist->setTaggedFile(currentFile);
-				if (!frame) {
-					if (selectFrame() &&
-							m_framelist->addFrame(true)) {
-						frameId = m_framelist->getSelectedId();
-					} else {
-						break;
-					}
-				} else if (edit) {
-					m_framelist->setFrame(*frame);
-					if (m_framelist->addFrame(edit)) {
-						frameId = m_framelist->getSelectedId();
-					} else {
-						break;
-					}
-				} else {
-					m_framelist->setFrame(*frame);
-					if (m_framelist->pasteFrame()) {
-						frameId = m_framelist->getSelectedId();
-					} else {
-						break;
-					}
-				}
-			} else {
-				m_framelist->setTaggedFile(currentFile);
-				m_framelist->pasteFrame();
-			}
-		}
-		m_framelist->setTaggedFile(taggedFile);
-		if (frameId != -1) {
-			m_framelist->setSelectedId(frameId);
-		}
-		updateModificationState();
-	}
-}
+	if (!frame || !taggedFile)
+		return false;
 
-/**
- * Edit a picture frame if one exists or add a new one.
- */
-void Kid3MainWindow::editOrAddPicture()
-{
-	if (m_framelist->selectByName("Picture")) {
-		editFrame();
-	} else {
-		PictureFrame frame;
-		addFrame(&frame, true);
+	bool result = true;
+	QString name(frame->getName(true));
+	if (!name.isEmpty()) {
+		int nlPos = name.indexOf("\n");
+		if (nlPos > 0) {
+			// probably "TXXX - User defined text information\nDescription" or
+			// "WXXX - User defined URL link\nDescription"
+			name.truncate(nlPos);
+		}
+		name = QCM_translate(name.toLatin1().data());
 	}
+	if (frame->getFieldList().empty()) {
+		EditFrameDialog* dialog =
+			new EditFrameDialog(this, name, frame->getValue());
+		result = dialog && dialog->exec() == QDialog::Accepted;
+		if (result) {
+			frame->setValue(dialog->getText());
+		}
+	} else {
+		EditFrameFieldsDialog* dialog =
+			new EditFrameFieldsDialog(this, name, *frame, taggedFile);
+		result = dialog && dialog->exec() == QDialog::Accepted;
+		if (result) {
+			frame->setFieldList(dialog->getUpdatedFieldList());
+			frame->setValueFromFieldList();
+		}
+	}
+	if (result) {
+		if (taggedFile->setFrameV2(*frame)) {
+			taggedFile->markTag2Changed(frame->getType());
+		}
+	}
+	return result;
 }
 
 /**

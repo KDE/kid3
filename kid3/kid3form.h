@@ -44,7 +44,6 @@ class QGridLayout;
 class QGroupBox;
 class QPixmap;
 class FormatConfig;
-class FrameList;
 class FrameTable;
 class FrameTableModel;
 class Kid3Application;
@@ -194,12 +193,6 @@ public:
 	FileList* getFileList() { return m_fileListBox; }
 
 	/**
-	 * Get frame list.
-	 * @return frame list.
-	 */
-	FrameList* getFrameList() { return m_framelist; }
-
-	/**
 	 * Get tag 1 frame table.
 	 * @return frame table.
 	 */
@@ -322,7 +315,6 @@ private:
 	QLabel* m_nameLabel;
 	QLineEdit* m_nameLineEdit;
 	DirList* m_dirListBox;
-	FrameList* m_framelist;
 	FrameTable* m_framesV1Table;
 	FrameTable* m_framesV2Table;
 	QSplitter* m_vSplitter;

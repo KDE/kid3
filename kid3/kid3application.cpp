@@ -34,9 +34,12 @@
 #include "modeliterator.h"
 #include "trackdatamodel.h"
 #include "frametablemodel.h"
+#include "framelist.h"
+#include "pictureframe.h"
 #include "configstore.h"
 #include "playlistcreator.h"
 #include "downloadclient.h"
+#include "iframeeditor.h"
 #include "qtcompatmac.h"
 #include "config.h"
 #ifdef HAVE_ID3LIB
@@ -72,6 +75,7 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
 	m_framesV2Model(new FrameTableModel(false, this)),
 	m_framesV1SelectionModel(new QItemSelectionModel(m_framesV1Model, this)),
 	m_framesV2SelectionModel(new QItemSelectionModel(m_framesV2Model, this)),
+	m_framelist(new FrameList(m_framesV2Model, m_framesV2SelectionModel)),
 	m_configStore(new ConfigStore),
 	m_downloadClient(new DownloadClient(this)),
 	m_downloadImageDest(ImageForSelectedFiles)
@@ -699,7 +703,6 @@ void Kid3Application::getFilenameFromTags(int tag_version)
 	emit selectedFilesUpdated();
 }
 
-
 /**
  * Set format used to generate filename from tags.
  * When changed, filenameToTagsFormatChanged() is emitted.
@@ -721,6 +724,337 @@ void Kid3Application::setTagsToFilenameFormat(const QString& format) {
 	if (m_tagsToFilenameFormat != format) {
 		m_tagsToFilenameFormat = format;
 		emit tagsToFilenameFormatChanged(format);
+	}
+}
+
+/**
+ * Get the selected file.
+ *
+ * @return the selected file,
+ *         0 if not exactly one file is selected
+ */
+TaggedFile* Kid3Application::getSelectedFile()
+{
+	QModelIndexList selItems(
+			m_fileSelectionModel->selectedIndexes());
+	if (selItems.size() != 1)
+		return 0;
+
+	return FileProxyModel::getTaggedFileOfIndex(selItems.first());
+}
+
+
+/**
+ * Edit selected frame.
+ *
+ * @param frameEditor editor for frame fields
+ */
+void Kid3Application::editFrame(IFrameEditor* frameEditor)
+{
+	emit fileSelectionUpdateRequested();
+	TaggedFile* taggedFile = getSelectedFile();
+	if (const Frame* selectedFrame = frameModelV2()->getFrameOfIndex(
+				getFramesV2SelectionModel()->currentIndex())) {
+		Frame frame(*selectedFrame);
+		if (taggedFile && frameEditor->editFrameOfTaggedFile(&frame, taggedFile)) {
+			emit frameModified(taggedFile);
+		} else if (!taggedFile) {
+			// multiple files selected
+			bool firstFile = true;
+			QString name;
+			SelectedTaggedFileIterator tfit(getRootIndex(),
+																			getFileSelectionModel(),
+																			false);
+			while (tfit.hasNext()) {
+				TaggedFile* currentFile = tfit.next();
+				if (firstFile) {
+					firstFile = false;
+					taggedFile = currentFile;
+					m_framelist->setTaggedFile(taggedFile);
+					name = m_framelist->getSelectedName();
+					if (name.isEmpty() ||
+							!frameEditor->editFrameOfTaggedFile(&frame, taggedFile)) {
+						break;
+					}
+					m_framelist->setFrame(frame);
+				}
+				FrameCollection frames;
+				currentFile->getAllFramesV2(frames);
+				for (FrameCollection::const_iterator it = frames.begin();
+						 it != frames.end();
+						 ++it) {
+					if (it->getName() == name) {
+						currentFile->deleteFrameV2(*it);
+						m_framelist->setTaggedFile(currentFile);
+						m_framelist->pasteFrame();
+						break;
+					}
+				}
+			}
+			emit frameModified(taggedFile);
+		}
+	}
+}
+
+/**
+ * Delete selected frame.
+ *
+ * @param frameName name of frame to delete, empty to delete selected frame
+ */
+void Kid3Application::deleteFrame(const QString& frameName)
+{
+	emit fileSelectionUpdateRequested();
+	TaggedFile* taggedFile = getSelectedFile();
+	if (taggedFile && frameName.isEmpty()) {
+		// delete selected frame from single file
+		if (!m_framelist->deleteFrame()) {
+			// frame not found
+			return;
+		}
+	} else {
+		// multiple files selected or frame name specified
+		bool firstFile = true;
+		QString name;
+		SelectedTaggedFileIterator tfit(getRootIndex(),
+																		getFileSelectionModel(),
+																		false);
+		while (tfit.hasNext()) {
+			TaggedFile* currentFile = tfit.next();
+			if (firstFile) {
+				firstFile = false;
+				taggedFile = currentFile;
+				m_framelist->setTaggedFile(taggedFile);
+				name = frameName.isEmpty() ? m_framelist->getSelectedName() :
+					frameName;
+			}
+			FrameCollection frames;
+			currentFile->getAllFramesV2(frames);
+			for (FrameCollection::const_iterator it = frames.begin();
+					 it != frames.end();
+					 ++it) {
+				if (it->getName() == name) {
+					currentFile->deleteFrameV2(*it);
+					break;
+				}
+			}
+		}
+	}
+	emit frameModified(taggedFile);
+}
+
+/**
+ * Let the user select and edit a frame type and then edit the frame.
+ * Add the frame if the edits are accepted.
+ *
+ * @param frameEditor frame editor
+ *
+ * @return true if edits accepted.
+ */
+bool Kid3Application::selectAddAndEditFrame(IFrameEditor* frameEditor)
+{
+	if (TaggedFile* taggedFile = m_framelist->getTaggedFile()) {
+		Frame frame;
+		if (frameEditor->selectFrame(&frame, taggedFile)) {
+			m_framelist->setFrame(frame);
+			return m_framelist->addAndEditFrame(frameEditor);
+		}
+	}
+	return false;
+}
+
+/**
+ * Select a frame type and add such a frame to frame list.
+ *
+ * @param frame frame to add, if 0 the user has to select and edit the frame
+ * @param frameEditor editor for frame fields, if not null and a frame
+ * is set, the user can edit the frame before it is added
+ */
+void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
+{
+	emit fileSelectionUpdateRequested();
+	TaggedFile* taggedFile = getSelectedFile();
+	if (taggedFile) {
+		bool frameAdded;
+		if (!frame) {
+			frameAdded = selectAddAndEditFrame(frameEditor);
+		} else if (frameEditor) {
+			m_framelist->setFrame(*frame);
+			frameAdded = m_framelist->addAndEditFrame(frameEditor);
+		} else {
+			m_framelist->setFrame(*frame);
+			frameAdded = m_framelist->pasteFrame();
+		}
+		if (frameAdded) {
+			emit frameModified(taggedFile);
+			if (m_framelist->isPictureFrame()) {
+				// update preview picture
+				emit selectedFilesUpdated();
+			}
+		}
+	} else {
+		// multiple files selected
+		bool firstFile = true;
+		int frameId = -1;
+		SelectedTaggedFileIterator tfit(getRootIndex(),
+																		getFileSelectionModel(),
+																		false);
+		while (tfit.hasNext()) {
+			TaggedFile* currentFile = tfit.next();
+			if (firstFile) {
+				firstFile = false;
+				taggedFile = currentFile;
+				m_framelist->setTaggedFile(currentFile);
+				if (!frame) {
+					if (selectAddAndEditFrame(frameEditor)) {
+						frameId = m_framelist->getSelectedId();
+					} else {
+						break;
+					}
+				} else if (frameEditor) {
+					m_framelist->setFrame(*frame);
+					if (m_framelist->addAndEditFrame(frameEditor)) {
+						frameId = m_framelist->getSelectedId();
+					} else {
+						break;
+					}
+				} else {
+					m_framelist->setFrame(*frame);
+					if (m_framelist->pasteFrame()) {
+						frameId = m_framelist->getSelectedId();
+					} else {
+						break;
+					}
+				}
+			} else {
+				m_framelist->setTaggedFile(currentFile);
+				m_framelist->pasteFrame();
+			}
+		}
+		m_framelist->setTaggedFile(taggedFile);
+		if (frameId != -1) {
+			m_framelist->setSelectedId(frameId);
+		}
+		emit fileModified();
+	}
+}
+
+/**
+ * Edit a picture frame if one exists or add a new one.
+ *
+ * @param frameEditor editor for frame fields
+ */
+void Kid3Application::editOrAddPicture(IFrameEditor* frameEditor)
+{
+	if (m_framelist->selectByName("Picture")) {
+		editFrame(frameEditor);
+	} else {
+		PictureFrame frame;
+		addFrame(&frame, frameEditor);
+	}
+}
+
+/**
+ * Open directory on drop.
+ *
+ * @param txt URL of directory or file in directory
+ */
+void Kid3Application::openDrop(QString txt)
+{
+	int lfPos = txt.indexOf('\n');
+	if (lfPos > 0 && lfPos < (int)txt.length() - 1) {
+		txt.truncate(lfPos + 1);
+	}
+	QUrl url(txt);
+	if (!url.path().isEmpty()) {
+#if defined _WIN32 || defined WIN32
+		QString dir = url.toString();
+#else
+		QString dir = url.path().trimmed();
+#endif
+		if (dir.endsWith(".jpg", Qt::CaseInsensitive) ||
+				dir.endsWith(".jpeg", Qt::CaseInsensitive) ||
+				dir.endsWith(".png", Qt::CaseInsensitive)) {
+			PictureFrame frame;
+			if (PictureFrame::setDataFromFile(frame, dir)) {
+				QString fileName(dir);
+				int slashPos = fileName.lastIndexOf('/');
+				if (slashPos != -1) {
+					fileName = fileName.mid(slashPos + 1);
+				}
+				PictureFrame::setMimeTypeFromFileName(frame, fileName);
+				PictureFrame::setDescription(frame, fileName);
+				addFrame(&frame);
+				emit selectedFilesUpdated();
+			}
+		} else {
+			emit fileSelectionUpdateRequested();
+			emit confirmedOpenDirectoryRequested(dir);
+		}
+	}
+}
+
+/**
+ * Add picture on drop.
+ *
+ * @param image dropped image.
+ */
+void Kid3Application::dropImage(const QImage& image)
+{
+	if (!image.isNull()) {
+		PictureFrame frame;
+		if (PictureFrame::setDataFromImage(frame, image)) {
+			addFrame(&frame);
+			emit selectedFilesUpdated();
+		}
+	}
+}
+
+/**
+ * Handle URL on drop.
+ *
+ * @param txt dropped URL.
+ */
+void Kid3Application::dropUrl(const QString& txt)
+{
+	downloadImage(txt, Kid3Application::ImageForSelectedFiles);
+}
+
+/**
+ * Add a downloaded image.
+ *
+ * @param data     HTTP response of download
+ * @param mimeType MIME type of data
+ * @param url      URL of downloaded data
+ */
+void Kid3Application::imageDownloaded(const QByteArray& data,
+															const QString& mimeType, const QString& url)
+{
+	if (mimeType.startsWith("image")) {
+		PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
+		if (getDownloadImageDestination() == ImageForAllFilesInDirectory) {
+			TaggedFileOfDirectoryIterator it(currentOrRootIndex());
+			while (it.hasNext()) {
+				TaggedFile* taggedFile = it.next();
+				taggedFile->readTags(false);
+				taggedFile->addFrameV2(frame);
+			}
+		} else if (getDownloadImageDestination() == ImageForImportTrackData) {
+			const ImportTrackDataVector& trackDataVector(
+						getTrackDataModel()->trackData());
+			for (ImportTrackDataVector::const_iterator it =
+					 trackDataVector.constBegin();
+					 it != trackDataVector.constEnd();
+					 ++it) {
+				TaggedFile* taggedFile;
+				if (it->isEnabled() && (taggedFile = it->getTaggedFile()) != 0) {
+					taggedFile->readTags(false);
+					taggedFile->addFrameV2(frame);
+				}
+			}
+		} else {
+			addFrame(&frame);
+		}
+		emit selectedFilesUpdated();
 	}
 }
 

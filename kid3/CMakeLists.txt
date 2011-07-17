@@ -26,7 +26,8 @@ set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
 	editframefieldsdialog.cpp playlistdialog.cpp playlistconfig.cpp
 	playlistcreator.cpp amazonimporter.cpp amazonconfig.cpp
 	recentfilesmenu.cpp playtoolbar.cpp textimporter.cpp textimportdialog.cpp
-	trackdatamatcher.cpp tagimportdialog.cpp configstore.cpp contexthelp.cpp)
+	trackdatamatcher.cpp tagimportdialog.cpp configstore.cpp contexthelp.cpp
+	iframeeditor.cpp)
 
 if (HAVE_QTDBUS)
   set(kid3_SRCS ${kid3_SRCS} scriptinterface.cpp)

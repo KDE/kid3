@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 			KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
 			if (args->count()) {
-				kid3->openDirectory(args->arg(0));
+				kid3->confirmedOpenDirectory(args->arg(0));
 			}
 			args->clear();
 		}
@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 	if (kid3) {
 		kid3->show();
 		if (argc > 1) {
-			kid3->openDirectory(QFile::decodeName(argv[1]));
+			kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));
 		}
 	}
 	return app.exec();

@@ -44,6 +44,7 @@ class RecentFilesMenu;
 /** Base class for main window. */
 typedef QMainWindow Kid3MainWindowBaseClass;
 #endif
+#include "iframeeditor.h"
 #include "frame.h"
 
 class KURL;
@@ -76,7 +77,7 @@ class DirProxyModel;
 class TrackDataModel;
 
 /** Kid3 main window */
-class Kid3MainWindow : public Kid3MainWindowBaseClass
+class Kid3MainWindow : public Kid3MainWindowBaseClass, public IFrameEditor
 {
 Q_OBJECT
 
@@ -90,67 +91,6 @@ public:
 	 * Destructor.
 	 */
 	~Kid3MainWindow();
-
-	/**
-	 * Open directory.
-	 *
-	 * @param dir       directory or file path
-	 * @param confirm   if true ask if there are unsaved changes
-	 * @param fileCheck if true and dir in not directory, only open directory
-	 *                  if dir is a valid file path
-	 *
-	 * @return true if ok.
-	 */
-	bool openDirectory(QString dir, bool confirm = false, bool fileCheck = false);
-
-	/**
-	 * Open directory on drop.
-	 *
-	 * @param txt URL of directory or file in directory
-	 */
-	void openDrop(QString txt);
-
-	/**
-	 * Add picture on drop.
-	 *
-	 * @param image dropped image.
-	 */
-	void dropImage(const QImage& image);
-
-	/**
-	 * Handle URL on drop.
-	 *
-	 * @param txt dropped URL.
-	 */
-	void dropUrl(const QString& txt);
-
-	/**
-	 * Display a dialog to select a frame type.
-	 *
-	 * @return false if no frame selected.
-	 */
-	bool selectFrame();
-
-	/**
-	 * Edit selected frame.
-	 */
-	void editFrame();
-
-	/**
-	 * Delete selected frame.
-	 *
-	 * @param frameName name of frame to delete, empty to delete selected frame
-	 */
-	void deleteFrame(const QString& frameName = QString::null);
-
-	/**
-	 * Select a frame type and add such a frame to frame list.
-	 *
-	 * @param frame frame to add, if 0 the user has to select and edit the frame
-	 * @param edit  if frame is set and edit is true, the user can edit the frame
-	 *              before it is added
-	 */
-	void addFrame(const Frame* frame = 0, bool edit = false);
 
 	/**
 	 * Set the directory name from the tags.
@@ -188,9 +128,25 @@ public:
 	bool exportTags(int tagNr, const QString& path, int fmtIdx);
 
 	/**
-	 * Edit a picture frame if one exists or add a new one.
+	 * Create dialog to edit a frame and update the fields
+	 * if Ok is returned.
+	 *
+	 * @param frame frame to edit
+	 * @param taggedFile tagged file where frame has to be set
+	 *
+	 * @return true if Ok selected in dialog.
 	 */
-	void editOrAddPicture();
+	virtual bool editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile);
+
+	/**
+	 * Let user select a frame type.
+	 *
+	 * @param frame is filled with the selected frame if true is returned
+	 * @param taggedFile tagged file for which frame has to be selected
+	 *
+	 * @return false if no frame selected.
+	 */
+	virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile);
 
 protected:
 	/**
@@ -264,6 +220,19 @@ protected:
 	void readOptions();
 
 public slots:
+	/**
+	 * Open directory, user has to confirm if current directory modified.
+	 *
+	 * @param dir directory or file path
+	 */
+	void confirmedOpenDirectory(const QString& dir);
+
+	/**
+	 * Update the recent file list and the caption when a new directory
+	 * is opened.
+	 */
+	void onDirectoryOpened();
+
 	/**
 	 * Request new directory and open it.
 	 */
@@ -477,14 +446,16 @@ private slots:
 	void scheduleRenameActions();
 
 	/**
-	 * Add a downloaded image.
+	 * Update ID3v2 tags in GUI controls from file displayed in frame list.
 	 *
-	 * @param data     HTTP response of download
-	 * @param mimeType MIME type of data
-	 * @param url      URL of downloaded data
+	 * @param taggedFile the selected file
 	 */
-	void imageDownloaded(const QByteArray& data,
-	                     const QString& mimeType, const QString& url);
+	void updateAfterFrameModification(TaggedFile* taggedFile);
+
+	/**
+	 * Update modification state, caption and listbox entries.
+	 */
+	void updateModificationState();
 
 private:
 	friend class ScriptInterface;
@@ -508,31 +479,11 @@ private:
 	bool saveModified();
 
 	/**
-	 * Update modification state, caption and listbox entries.
-	 */
-	void updateModificationState();
-
-	/**
 	 * Set window title with information from directory, filter and modification
 	 * state.
 	 */
 	void updateWindowCaption();
 
-	/**
-	 * Update ID3v2 tags in GUI controls from file displayed in frame list.
-	 *
-	 * @param taggedFile the selected file
-	 */
-	void updateAfterFrameModification(TaggedFile* taggedFile);
-
-	/**
-	 * Get the selected file.
-	 *
-	 * @return the selected file,
-	 *         0 if not exactly one file is selected
-	 */
-	TaggedFile* getSelectedFile();
-	
 	/**
 	 * Update track data and create import dialog.
 	 */

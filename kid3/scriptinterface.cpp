@@ -67,7 +67,7 @@ ScriptInterface::~ScriptInterface()
  */
 bool ScriptInterface::openDirectory(const QString& path)
 {
-	return m_mainWin->openDirectory(path, false, true);
+	return m_app->openDirectory(path, true);
 }
 
 /**
@@ -434,14 +434,14 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 	if (it != frames.end()) {
 		if (it->getType() == Frame::FT_Picture && !dataFileName.isEmpty() &&
 				(tagMask & 2) != 0) {
-			m_mainWin->deleteFrame(it->getName());
+			m_app->deleteFrame(it->getName());
 			PictureFrame frame;
 			PictureFrame::setDescription(frame, value);					
 			PictureFrame::setDataFromFile(frame, dataFileName);
 			PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
-			m_mainWin->addFrame(&frame);
+			m_app->addFrame(&frame);
 		} else if (value.isEmpty() && (tagMask & 2) != 0) {
-			m_mainWin->deleteFrame(it->getName());
+			m_app->deleteFrame(it->getName());
 		} else {
 			Frame& frame = const_cast<Frame&>(*it);
 			frame.setValueIfChanged(value);
@@ -457,7 +457,7 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 			PictureFrame::setDataFromFile(frame, dataFileName);
 			PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
 		}
-		m_mainWin->addFrame(&frame);
+		m_app->addFrame(&frame);
 		return true;
 	}
 	return false;

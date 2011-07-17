@@ -33,6 +33,7 @@
 class QItemSelectionModel;
 class FrameTableModel;
 class TaggedFile;
+class IFrameEditor;
 
 /**
  * List of frames.
@@ -66,14 +67,6 @@ public:
 	TaggedFile* getTaggedFile() const { return m_taggedFile; }
 
 	/**
-	 * Create dialog to edit the selected frame and update the fields
-	 * if Ok is returned.
-	 *
-	 * @return true if Ok selected in dialog.
-	 */
-	bool editFrame();
-
-	/**
 	 * Delete selected frame.
 	 *
 	 * @return false if frame not found.
@@ -81,13 +74,13 @@ public:
 	bool deleteFrame();
 
 	/**
-	 * Add a new frame.
+	 * Add and edit a new frame.
 	 *
-	 * @param edit    true to edit frame after adding it
+	 * @param frameEditor editor for frame fields
 	 *
 	 * @return true if frame added.
 	 */
-	bool addFrame(bool edit = false);
+	bool addAndEditFrame(IFrameEditor* frameEditor);
 
 	/**
 	 * Paste the selected frame from the copy buffer.
@@ -166,16 +159,6 @@ private:
 	 * Set the frame table model from the tagged file.
 	 */
 	void setModelFromTaggedFile();
-
-	/**
-	 * Create dialog to edit a frame and update the fields
-	 * if Ok is returned.
-	 *
-	 * @param frame frame to edit
-	 *
-	 * @return true if Ok selected in dialog.
-	 */
-	bool editFrame(Frame& frame);
 
 	/** File containing tags */
 	TaggedFile* m_taggedFile;

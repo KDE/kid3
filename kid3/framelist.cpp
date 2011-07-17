@@ -25,15 +25,11 @@
  */
 
 #include "framelist.h"
-#include <QDialog>
 #include <QItemSelectionModel>
-
 #include "taggedfile.h"
 #include "frametable.h"
 #include "frametablemodel.h"
-#include "editframedialog.h"
-#include "editframefieldsdialog.h"
-#include "qtcompatmac.h"
+#include "iframeeditor.h"
 
 /**
  * Constructor.
@@ -42,8 +38,8 @@
  * @param selModel item selection model
  */
 FrameList::FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel) :
-	m_taggedFile(0), m_frameTableModel(ftm), m_selectionModel(selModel),
-	m_cursorRow(-1), m_cursorColumn(-1)
+	QObject(ftm), m_taggedFile(0), m_frameTableModel(ftm),
+	m_selectionModel(selModel), m_cursorRow(-1), m_cursorColumn(-1)
 {
 }
 
@@ -139,65 +135,6 @@ void FrameList::setModelFromTaggedFile()
 }
 
 /**
- * Create dialog to edit a frame and update the fields
- * if Ok is returned.
- *
- * @param frame frame to edit
- *
- * @return true if Ok selected in dialog.
- */
-bool FrameList::editFrame(Frame& frame)
-{
-	bool result = true;
-	QString name(frame.getName(true));
-	if (!name.isEmpty()) {
-		int nlPos = name.indexOf("\n");
-		if (nlPos > 0) {
-			// probably "TXXX - User defined text information\nDescription" or
-			// "WXXX - User defined URL link\nDescription"
-			name.truncate(nlPos);
-		}
-		name = QCM_translate(name.toLatin1().data());
-	}
-	if (frame.getFieldList().empty()) {
-		EditFrameDialog* dialog =
-			new EditFrameDialog(0, name, frame.getValue());
-		result = dialog && dialog->exec() == QDialog::Accepted;
-		if (result) {
-			frame.setValue(dialog->getText());
-		}
-	} else {
-		EditFrameFieldsDialog* dialog =
-			new EditFrameFieldsDialog(0, name, frame, m_taggedFile);
-		result = dialog && dialog->exec() == QDialog::Accepted;
-		if (result) {
-			frame.setFieldList(dialog->getUpdatedFieldList());
-			frame.setValueFromFieldList();
-		}
-	}
-	if (result && m_taggedFile) {
-		if (m_taggedFile->setFrameV2(frame)) {
-			m_taggedFile->markTag2Changed(frame.getType());
-		}
-	}
-	return result;
-}
-
-/**
- * Create dialog to edit the selected frame and update the fields
- * if Ok is returned.
- *
- * @return true if Ok selected in dialog.
- */
-bool FrameList::editFrame()
-{
-	if (getSelectedFrame(m_frame)) {
-		return editFrame(m_frame);
-	}
-	return false;
-}
-
-/**
  * Delete selected frame.
  *
  * @return false if frame not found.
@@ -216,24 +153,23 @@ bool FrameList::deleteFrame()
 }
 
 /**
- * Add a new frame.
+ * Add and edit a new frame.
  *
- * @param edit    true to edit frame after adding it
+ * @param frameEditor editor for frame fields
  *
  * @return true if frame added.
  */
-bool FrameList::addFrame(bool edit)
+bool FrameList::addAndEditFrame(IFrameEditor* frameEditor)
 {
 	if (m_taggedFile) {
 		if (!m_taggedFile->addFrameV2(m_frame)) {
 			return false;
 		}
-		if (edit) {
-			if (!editFrame(m_frame)) {
-				m_taggedFile->deleteFrameV2(m_frame);
-				m_taggedFile->markTag2Unchanged();
-				return false;
-			}
+		if (frameEditor &&
+				!frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile)) {
+			m_taggedFile->deleteFrameV2(m_frame);
+			m_taggedFile->markTag2Unchanged();
+			return false;
 		}
 		int index = m_frame.getIndex();
 		setModelFromTaggedFile();
