@@ -37,7 +37,6 @@ class KToggleAction;
 /** Base class for main window. */
 typedef KXmlGuiWindow Kid3MainWindowBaseClass;
 #else
-#include "qtcompatmac.h"
 #include <QMainWindow>
 class QAction;
 class RecentFilesMenu;
@@ -45,7 +44,6 @@ class RecentFilesMenu;
 typedef QMainWindow Kid3MainWindowBaseClass;
 #endif
 #include "iframeeditor.h"
-#include "frame.h"
 
 class KURL;
 class KUrl;
@@ -288,12 +286,6 @@ public slots:
 	void slotHelpAboutQt();
 
 	/**
-	 * Revert file modifications.
-	 * Acts on selected files or all files if no file is selected.
-	 */
-	void slotFileRevert();
-
-	/**
 	 * Save modified files.
 	 */
 	void slotFileSave();
@@ -464,12 +456,8 @@ private:
 	 * Save all changed files.
 	 *
 	 * @param updateGui true to update GUI (controls, status, cursor)
-	 * @param errStr    if not 0, the error string is returned here and
-	 *                  no dialog is displayed
-	 *
-	 * @return true if ok.
 	 */
-	bool saveDirectory(bool updateGui = false, QString* errStr = 0);
+	void saveDirectory(bool updateGui = false);
 
 	/**
 	 * If anything was modified, save after asking user.
@@ -490,28 +478,9 @@ private:
 	void setupImportDialog();
 
 	/**
-	 * Import tags from the import dialog.
-	 *
-	 * @param destV1 true to set tag 1
-	 * @param destV2 true to set tag 2
-	 */
-	void getTagsFromImportDialog(bool destV1, bool destV2);
-
-	/**
 	 * Execute the import dialog.
 	 */
 	void execImportDialog();
-
-	/**
-	 * Import.
-	 *
-	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
-	 * @param path    path of file
-	 * @param fmtIdx  index of format
-	 *
-	 * @return true if ok.
-	 */
-	bool importTags(int tagMask, const QString& path, int fmtIdx);
 
 	/**
 	 * Write playlist according to playlist configuration.

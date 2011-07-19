@@ -35,7 +35,7 @@
 #include <QDir>
 #include <QFrame>
 #include <QPixmap>
-
+#include <QComboBox>
 #include <QVBoxLayout>
 #include <QDropEvent>
 #include <QDragEnterEvent>
@@ -45,15 +45,14 @@
 #include <QUrl>
 #include <QApplication>
 #include <QFileSystemModel>
-
-/** Shortcut for pointer to parent main window. */
-#define mainWin ((Kid3MainWindow*)parentWidget())
-
 #include "frametable.h"
 #include "frametablemodel.h"
 #include "trackdata.h"
 #include "genres.h"
 #include "kid3mainwindow.h"
+#include "filelist.h"
+#include "dirlist.h"
+#include "picturelabel.h"
 #include "configstore.h"
 #include "miscconfig.h"
 #include "formatconfig.h"
@@ -170,7 +169,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 	setWindowTitle(i18n("Kid3"));
 
 	m_vSplitter = new QSplitter(Qt::Vertical, this);
-	m_fileListBox = new FileList(m_vSplitter, mainWin);
+	m_fileListBox = new FileList(m_vSplitter, mainWin());
 	m_fileListBox->setModel(m_app->getFileProxyModel());
 	m_fileListBox->setSelectionModel(m_app->getFileSelectionModel());
 	m_dirListBox = new DirList(m_vSplitter);
@@ -353,7 +352,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 	buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
 
 	m_pictureLabel = new PictureLabel(this);
-	m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app, mainWin));
+	m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app, mainWin()));
 	buttonsV2VBoxLayout->addWidget(m_pictureLabel);
 
 	buttonsV2VBoxLayout->addItem(
@@ -462,7 +461,7 @@ void Kid3Form::dropEvent(QDropEvent* ev)
  */
 void Kid3Form::editFrame()
 {
-	m_app->editFrame(mainWin);
+	m_app->editFrame(mainWin());
 }
 
 /**
@@ -470,7 +469,7 @@ void Kid3Form::editFrame()
  */
 void Kid3Form::addFrame()
 {
-	m_app->addFrame(0, mainWin);
+	m_app->addFrame(0, mainWin());
 }
 
 /**
@@ -556,8 +555,8 @@ void Kid3Form::dirSelected(const QModelIndex& index)
 	if (!dirPath.isEmpty()) {
 		m_dirListBox->setEntryToSelect(
 				dirPath.endsWith("..") ? index.parent() : QModelIndex());
-		mainWin->updateCurrentSelection();
-		mainWin->confirmedOpenDirectory(dirPath);
+		mainWin()->updateCurrentSelection();
+		mainWin()->confirmedOpenDirectory(dirPath);
 	}
 }
 
@@ -812,6 +811,15 @@ void Kid3Form::initView()
 }
 
 /**
+ * Set preview picture data.
+ * @param data picture data, 0 if no picture is available
+ */
+void Kid3Form::setPictureData(const QByteArray* data)
+{
+	m_pictureLabel->setData(data);
+}
+
+/**
  * Set details info text.
  *
  * @param info detail information
@@ -870,36 +878,6 @@ void Kid3Form::selectAllFiles()
 void Kid3Form::deselectAllFiles()
 {
 	m_fileListBox->clearSelection();
-}
-
-/**
- * Select first file.
- *
- * @return true if a file exists.
- */
-bool Kid3Form::selectFirstFile()
-{
-	return m_fileListBox->selectFirstFile();
-}
-
-/**
- * Select next file.
- *
- * @return true if a next file exists.
- */
-bool Kid3Form::selectNextFile()
-{
-	return m_fileListBox->selectNextFile();
-}
-
-/**
- * Select previous file.
- *
- * @return true if a previous file exists.
- */
-bool Kid3Form::selectPreviousFile()
-{
-	return m_fileListBox->selectPreviousFile();
 }
 
 /**

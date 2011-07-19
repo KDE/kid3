@@ -29,10 +29,6 @@
 
 #include <QSplitter>
 #include <QLineEdit>
-#include <QComboBox>
-#include "filelist.h"
-#include "dirlist.h"
-#include "picturelabel.h"
 #include "taggedfile.h"
 
 class QLabel;
@@ -43,10 +39,15 @@ class QSpinBox;
 class QGridLayout;
 class QGroupBox;
 class QPixmap;
+class QComboBox;
 class FormatConfig;
 class FrameTable;
 class FrameTableModel;
 class Kid3Application;
+class FileList;
+class DirList;
+class PictureLabel;
+class Kid3MainWindow;
 
 /**
  * Main widget.
@@ -171,7 +172,7 @@ public:
 	 * Set preview picture data.
 	 * @param data picture data, 0 if no picture is available
 	 */
-	void setPictureData(const QByteArray* data) { m_pictureLabel->setData(data); }
+	void setPictureData(const QByteArray* data);
 
 	/**
 	 * Set details info text.
@@ -179,12 +180,6 @@ public:
 	 * @param info detail information
 	 */
 	void setDetailInfo(const TaggedFile::DetailInfo& info);
-
-	/**
-	 * Get directory path.
-	 * @return directory path.
-	 */
-	QString getDirPath() const { return m_fileListBox->getDirPath(); }
 
 	/**
 	 * Get file list.
@@ -269,27 +264,6 @@ public slots:
 	void deselectAllFiles();
 
 	/**
-	 * Select first file.
-	 *
-	 * @return true if a file exists.
-	 */
-	bool selectFirstFile();
-
-	/**
-	 * Select next file.
-	 *
-	 * @return true if a next file exists.
-	 */
-	bool selectNextFile();
-
-	/**
-	 * Select previous file.
-	 *
-	 * @return true if a previous file exists.
-	 */
-	bool selectPreviousFile();
-
-	/**
 	 * Set the root index of the directory and file lists.
 	 *
 	 * @param directoryIndex root index of directory in file system model
@@ -308,6 +282,12 @@ private:
 	 */
 	void formatLineEdit(QLineEdit* le, const QString& txt,
 						const FormatConfig* fcfg);
+
+	/**
+	 * Shortcut for pointer to parent main window.
+	 * @return main window.
+	 */
+	Kid3MainWindow* mainWin() const { return (Kid3MainWindow*)parentWidget(); }
 
 	FileList* m_fileListBox;
 	QComboBox* m_formatComboBox;

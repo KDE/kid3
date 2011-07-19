@@ -29,6 +29,7 @@
 #include <QItemSelectionModel>
 #include <QTextCodec>
 #include <QUrl>
+#include <QTextStream>
 #include "fileproxymodel.h"
 #include "dirproxymodel.h"
 #include "modeliterator.h"
@@ -36,6 +37,7 @@
 #include "frametablemodel.h"
 #include "framelist.h"
 #include "pictureframe.h"
+#include "textimporter.h"
 #include "configstore.h"
 #include "playlistcreator.h"
 #include "downloadclient.h"
@@ -260,6 +262,56 @@ QStringList Kid3Application::saveDirectory()
 }
 
 /**
+ * Revert file modifications.
+ * Acts on selected files or all files if no file is selected.
+ */
+void Kid3Application::revertFileModifications()
+{
+	SelectedTaggedFileIterator it(getRootIndex(),
+																getFileSelectionModel(),
+																true);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(true);
+		// update icon
+		getFileProxyModel()->emitDataChanged(taggedFile->getIndex(),
+																				 taggedFile->getIndex());
+	}
+	if (!it.hasNoSelection()) {
+		emit selectedFilesUpdated();
+	}
+	else {
+		emit fileModified();
+	}
+}
+
+/**
+ * Import.
+ *
+ * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+ * @param path    path of file
+ * @param fmtIdx  index of format
+ *
+ * @return true if ok.
+ */
+bool Kid3Application::importTags(int tagMask, const QString& path, int fmtIdx)
+{
+	filesToTrackDataModel();
+	QFile file(path);
+	if (file.open(QIODevice::ReadOnly) &&
+			fmtIdx < ConfigStore::s_genCfg.m_importFormatHeaders.size()) {
+		TextImporter(getTrackDataModel()).updateTrackData(
+			QTextStream(&file).readAll(),
+			ConfigStore::s_genCfg.m_importFormatHeaders.at(fmtIdx),
+			ConfigStore::s_genCfg.m_importFormatTracks.at(fmtIdx));
+		file.close();
+		trackDataModelToFiles((tagMask & 1) != 0, (tagMask & 2) != 0);
+		return true;
+	}
+	return false;
+}
+
+/**
  * Write playlist according to playlist configuration.
  *
  * @param cfg playlist configuration to use
@@ -399,6 +451,13 @@ void Kid3Application::trackDataModelToFiles(bool destV1, bool destV2)
 			!trackDataList.getCoverArtUrl().isEmpty()) {
 		downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
 	}
+
+	if (getFileSelectionModel()->hasSelection()) {
+		emit selectedFilesUpdated();
+	}
+	else {
+		emit fileModified();
+	}
 }
 
 /**
@@ -447,6 +506,21 @@ void Kid3Application::formatFramesIfEnabled(FrameCollection& frames) const
 {
 	if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
 		ConfigStore::s_id3FormatCfg.formatFrames(frames);
+	}
+}
+
+/**
+ * Set name of selected file.
+ * Exactly one file has to be selected.
+ *
+ * @param name file name.
+ */
+void Kid3Application::setFileNameOfSelectedFile(const QString& name)
+{
+	if (TaggedFile* taggedFile = getSelectedFile()) {
+		QFileInfo fi(name);
+		taggedFile->setFilename(fi.fileName());
+		emit selectedFilesUpdated();
 	}
 }
 
@@ -1056,6 +1130,80 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
 		}
 		emit selectedFilesUpdated();
 	}
+}
+
+/**
+ * Select the first file.
+ *
+ * @return true if a file exists.
+ */
+bool Kid3Application::selectFirstFile()
+{
+	m_fileSelectionModel->setCurrentIndex(getRootIndex(),
+																				QItemSelectionModel::SelectCurrent);
+	return selectNextFile();
+}
+
+/**
+ * Select the next file.
+ *
+ * @return true if a next file exists.
+ */
+bool Kid3Application::selectNextFile()
+{
+	QModelIndex current(m_fileSelectionModel->currentIndex()), next;
+	if (m_fileProxyModel->rowCount(current) > 0) {
+		// to first child
+		next = m_fileProxyModel->index(0, 0, current);
+	} else {
+		QModelIndex parent = current;
+		while (!next.isValid() && parent.isValid()) {
+			// to next sibling or next sibling of parent
+			int row = parent.row();
+			if (parent == getRootIndex()) {
+				// do not move beyond root index
+				return false;
+			}
+			parent = parent.parent();
+			if (row + 1 < m_fileProxyModel->rowCount(parent)) {
+				// to next sibling
+				next = m_fileProxyModel->index(row + 1, 0, parent);
+			}
+		}
+	}
+	if (!next.isValid())
+		return false;
+	m_fileSelectionModel->setCurrentIndex(next,
+																				QItemSelectionModel::SelectCurrent);
+	return true;
+}
+
+/**
+ * Select the previous file.
+ *
+ * @return true if a previous file exists.
+ */
+bool Kid3Application::selectPreviousFile()
+{
+	QModelIndex current(m_fileSelectionModel->currentIndex()), previous;
+	int row = current.row() - 1;
+	if (row >= 0) {
+		// to last leafnode of previous sibling
+		previous = current.sibling(row, 0);
+		row = m_fileProxyModel->rowCount(previous) - 1;
+		while (row >= 0) {
+			previous = m_fileProxyModel->index(row, 0, previous);
+			row = m_fileProxyModel->rowCount(previous) - 1;
+		}
+	} else {
+		// to parent
+		previous = current.parent();
+	}
+	if (!previous.isValid() || previous == getRootIndex())
+		return false;
+	m_fileSelectionModel->setCurrentIndex(previous,
+																				QItemSelectionModel::SelectCurrent);
+	return true;
 }
 
 /**

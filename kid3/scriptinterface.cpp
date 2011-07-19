@@ -38,6 +38,7 @@
 #include "pictureframe.h"
 #include "fileproxymodel.h"
 #include "modeliterator.h"
+#include "filelist.h"
 
 /**
  * Constructor.
@@ -78,11 +79,12 @@ bool ScriptInterface::openDirectory(const QString& path)
  */
 bool ScriptInterface::save()
 {
-	if (m_mainWin->saveDirectory(true, &m_errorMsg)) {
+	QStringList errorFiles = m_app->saveDirectory();
+	if (errorFiles.isEmpty()) {
 		m_errorMsg.clear();
 		return true;
 	} else {
-		m_errorMsg = "Error while writing file:\n" + m_errorMsg;
+		m_errorMsg = "Error while writing file:\n" + errorFiles.join("\n");
 		return false;
 	}
 }
@@ -102,7 +104,7 @@ QString ScriptInterface::getErrorMessage() const
  */
 void ScriptInterface::revert()
 {
-	m_mainWin->slotFileRevert();
+	m_app->revertFileModifications();
 }
 
 /**
@@ -116,7 +118,7 @@ void ScriptInterface::revert()
  */
 bool ScriptInterface::importFromFile(int tagMask, const QString& path, int fmtIdx)
 {
-	return m_mainWin->importTags(tagMask, path, fmtIdx);
+	return m_app->importTags(tagMask, path, fmtIdx);
 }
 
 /**
@@ -189,7 +191,7 @@ void ScriptInterface::deselectAll()
  */
 bool ScriptInterface::firstFile()
 {
-	return m_mainWin->m_form->selectFirstFile();
+	return m_app->selectFirstFile();
 }
 
 /**
@@ -199,7 +201,7 @@ bool ScriptInterface::firstFile()
  */
 bool ScriptInterface::previousFile()
 {
-	return m_mainWin->m_form->selectPreviousFile();
+	return m_app->selectPreviousFile();
 }
 
 /**
@@ -209,7 +211,7 @@ bool ScriptInterface::previousFile()
  */
 bool ScriptInterface::nextFile()
 {
-	return m_mainWin->m_form->selectNextFile();
+	return m_app->selectNextFile();
 }
 
 /**
@@ -221,7 +223,7 @@ bool ScriptInterface::nextFile()
  */
 bool ScriptInterface::expandDirectory()
 {
-	QModelIndex index = m_mainWin->m_form->getFileList()->currentIndex();
+	QModelIndex index =  m_mainWin->m_form->getFileList()->currentIndex();
 	if (!FileProxyModel::getPathIfIndexOfDir(index).isNull()) {
 		m_mainWin->m_form->getFileList()->expand(index);
 		return true;
@@ -318,7 +320,7 @@ void ScriptInterface::convertToId3v23()
  */
 QString ScriptInterface::getDirectoryName()
 {
-	return m_mainWin->m_form->getDirPath();
+	return m_app->getDirPath();
 }
 
 /**
@@ -328,7 +330,7 @@ QString ScriptInterface::getDirectoryName()
  */
 QString ScriptInterface::getFileName()
 {
-	QModelIndex index = m_mainWin->m_form->getFileList()->currentIndex();
+	QModelIndex index = m_app->getFileSelectionModel()->currentIndex();
 	QString dirname = FileProxyModel::getPathIfIndexOfDir(index);
 	if (!dirname.isNull()) {
 		if (!dirname.endsWith('/')) dirname += '/';
@@ -348,8 +350,7 @@ QString ScriptInterface::getFileName()
  */
 void ScriptInterface::setFileName(const QString& name)
 {
-	QFileInfo fi(name);
-	m_mainWin->m_form->setFilename(fi.fileName());
+	m_app->setFileNameOfSelectedFile(name);
 }
 
 /**
@@ -495,7 +496,7 @@ QStringList ScriptInterface::getTag(int tagMask)
 QStringList ScriptInterface::getInformation()
 {
 	QStringList lst;
-	QModelIndex index = m_mainWin->m_form->getFileList()->currentIndex();
+	QModelIndex index = m_app->getFileSelectionModel()->currentIndex();
 	if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
 		TaggedFile::DetailInfo info;
 		taggedFile->getDetailInfo(info);

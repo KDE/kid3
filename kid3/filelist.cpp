@@ -270,81 +270,6 @@ QSize FileList::sizeHint() const
 }
 
 /**
- * Select the first file.
- *
- * @return true if a file exists.
- */
-bool FileList::selectFirstFile()
-{
-	setCurrentIndex(rootIndex());
-	return selectNextFile();
-}
-
-/**
- * Select the next file.
- *
- * @return true if a next file exists.
- */
-bool FileList::selectNextFile()
-{
-	if (!model())
-		return false;
-	QModelIndex current(currentIndex()), next;
-	if (model()->rowCount(current) > 0) {
-		// to first child
-		next = model()->index(0, 0, current);
-	} else {
-		QModelIndex parent = current;
-		while (!next.isValid() && parent.isValid()) {
-			// to next sibling or next sibling of parent
-			int row = parent.row();
-			if (parent == rootIndex()) {
-				// do not move beyond root index
-				return false;
-			}
-			parent = parent.parent();
-			if (row + 1 < model()->rowCount(parent)) {
-				// to next sibling
-				next = model()->index(row + 1, 0, parent);
-			}
-		}
-	}
-	if (!next.isValid())
-		return false;
-	setCurrentIndex(next);
-	return true;
-}
-
-/**
- * Select the previous file.
- *
- * @return true if a previous file exists.
- */
-bool FileList::selectPreviousFile()
-{
-	if (!model())
-		return false;
-	QModelIndex current(currentIndex()), previous;
-	int row = current.row() - 1;
-	if (row >= 0) {
-		// to last leafnode of previous sibling
-		previous = current.sibling(row, 0);
-		row = model()->rowCount(previous) - 1;
-		while (row >= 0) {
-			previous = model()->index(row, 0, previous);
-			row = model()->rowCount(previous) - 1;
-		}
-	} else {
-		// to parent
-		previous = current.parent();
-	}
-	if (!previous.isValid() || previous == rootIndex())
-		return false;
-	setCurrentIndex(previous);
-	return true;
-}
-
-/**
  * Fill the filelist with the files found in a directory.
  *
  * @param dirIndex index of directory in filesystem model
@@ -373,15 +298,6 @@ bool FileList::readDir(const QModelIndex& dirIndex,
 		return true;
 	}
 	return false;
-}
-
-/**
- * Get directory path.
- * @return directory path.
- */
-QString FileList::getDirPath() const
-{
-	return FileProxyModel::getPathIfIndexOfDir(rootIndex());
 }
 
 /**

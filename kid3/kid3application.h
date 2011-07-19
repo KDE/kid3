@@ -194,6 +194,17 @@ public:
 	QStringList saveDirectory();
 
 	/**
+	 * Import.
+	 *
+	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 * @param path    path of file
+	 * @param fmtIdx  index of format
+	 *
+	 * @return true if ok.
+	 */
+	bool importTags(int tagMask, const QString& path, int fmtIdx);
+
+	/**
 	 * Write playlist according to playlist configuration.
 	 *
 	 * @param cfg playlist configuration to use
@@ -357,6 +368,20 @@ public:
 
 public slots:
 	/**
+	 * Revert file modifications.
+	 * Acts on selected files or all files if no file is selected.
+	 */
+	void revertFileModifications();
+
+	/**
+	 * Set name of selected file.
+	 * Exactly one file has to be selected.
+	 *
+	 * @param name file name.
+	 */
+	void setFileNameOfSelectedFile(const QString& name);
+
+	/**
 	 * Apply filename format.
 	 */
 	void applyFilenameFormat();
@@ -490,6 +515,27 @@ public slots:
 	 */
 	void imageDownloaded(const QByteArray& data,
 											 const QString& mimeType, const QString& url);
+
+	/**
+	 * Select the first file.
+	 *
+	 * @return true if a file exists.
+	 */
+	bool selectFirstFile();
+
+	/**
+	 * Select the next file.
+	 *
+	 * @return true if a next file exists.
+	 */
+	bool selectNextFile();
+
+	/**
+	 * Select the previous file.
+	 *
+	 * @return true if a previous file exists.
+	 */
+	bool selectPreviousFile();
 
 	/**
 	 * Process change of selection.

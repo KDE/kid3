@@ -132,6 +132,15 @@ public:
 	void applyFilteringOutIndexes();
 
 	/**
+	 * Emit dataChanged() to the model to force an update of the connected views,
+	 * e.g. when the modification state changes.
+	 * @param topLeft top left item changed
+	 * @param bottomRight bottom right item changed
+	 */
+	void emitDataChanged(const QModelIndex& topLeft,
+											 const QModelIndex& bottomRight);
+
+	/**
 	 * Get file information of model index.
 	 * @return file information
 	 */

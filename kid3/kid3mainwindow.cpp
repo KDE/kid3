@@ -98,11 +98,13 @@
 #include "dirproxymodel.h"
 #include "modeliterator.h"
 #include "trackdatamodel.h"
+#include "filelist.h"
 #include "dirlist.h"
 #include "pictureframe.h"
-#include "textimporter.h"
 #include "configstore.h"
 #include "contexthelp.h"
+#include "frame.h"
+#include "qtcompatmac.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -232,7 +234,7 @@ void Kid3MainWindow::initActions()
 			SLOT(slotFileOpenRecentUrl(const KUrl&)),
 			actionCollection());
 	KAction* fileRevert = KStandardAction::revert(
-	    this, SLOT(slotFileRevert()), actionCollection());
+			m_app, SLOT(revertFileModifications()), actionCollection());
 	KAction* fileSave = KStandardAction::save(
 	    this, SLOT(slotFileSave()), actionCollection());
 	KAction* fileQuit = KStandardAction::quit(
@@ -340,11 +342,11 @@ void Kid3MainWindow::initActions()
 	KAction* editPreviousFile = new KAction(KIcon("go-previous"), i18n("&Previous File"), this);
 	editPreviousFile->setShortcut(KShortcut("Alt+Up"));
 	actionCollection()->addAction("previous_file", editPreviousFile);
-	connect(editPreviousFile, SIGNAL(triggered()), m_form, SLOT(selectPreviousFile()));
+	connect(editPreviousFile, SIGNAL(triggered()), m_app, SLOT(selectPreviousFile()));
 	KAction* editNextFile = new KAction(KIcon("go-next"), i18n("&Next File"), this);
 	editNextFile->setShortcut(KShortcut("Alt+Down"));
 	actionCollection()->addAction("next_file", editNextFile);
-	connect(editNextFile, SIGNAL(triggered()), m_form, SLOT(selectNextFile()));
+	connect(editNextFile, SIGNAL(triggered()), m_app, SLOT(selectNextFile()));
 	KAction* actionV1FromFilename = new KAction(i18n("Tag 1") + ": " + i18n("From Filename"), this);
 	actionCollection()->addAction("v1_from_filename", actionV1FromFilename);
 	connect(actionV1FromFilename, SIGNAL(triggered()), m_app, SLOT(getTagsFromFilenameV1()));
@@ -437,7 +439,7 @@ void Kid3MainWindow::initActions()
 		fileRevert->setText(i18n("Re&vert"));
 		fileRevert->setIcon(QIcon(":/images/document-revert.png"));
 		connect(fileRevert, SIGNAL(triggered()),
-			this, SLOT(slotFileRevert()));
+			m_app, SLOT(revertFileModifications()));
 	}
 	QAction* fileImport = new QAction(this);
 	if (fileImport) {
@@ -547,7 +549,7 @@ void Kid3MainWindow::initActions()
 		editPreviousFile->setShortcut(Qt::ALT + Qt::Key_Up);
 		editPreviousFile->setIcon(QIcon(":/images/go-previous.png"));
 		connect(editPreviousFile, SIGNAL(triggered()),
-			m_form, SLOT(selectPreviousFile()));
+			m_app, SLOT(selectPreviousFile()));
 	}
 	QAction* editNextFile = new QAction(this);
 	if (editNextFile) {
@@ -556,7 +558,7 @@ void Kid3MainWindow::initActions()
 		editNextFile->setShortcut(Qt::ALT + Qt::Key_Down);
 		editNextFile->setIcon(QIcon(":/images/go-next.png"));
 		connect(editNextFile, SIGNAL(triggered()),
-			m_form, SLOT(selectNextFile()));
+			m_app, SLOT(selectNextFile()));
 	}
 	QAction* helpHandbook = new QAction(this);
 	if (helpHandbook) {
@@ -930,12 +932,8 @@ void Kid3MainWindow::readFontAndStyleOptions()
  * Save all changed files.
  *
  * @param updateGui true to update GUI (controls, status, cursor)
- * @param errStr    if not 0, the error string is returned here and
- *                  no dialog is displayed
- *
- * @return true if ok.
  */
-bool Kid3MainWindow::saveDirectory(bool updateGui, QString* errStr)
+void Kid3MainWindow::saveDirectory(bool updateGui)
 {
 	if (updateGui) {
 		updateCurrentSelection();
@@ -962,22 +960,18 @@ bool Kid3MainWindow::saveDirectory(bool updateGui, QString* errStr)
 	delete progress;
 	updateModificationState();
 	if (!errorFiles.empty()) {
-		if (errStr) {
-			*errStr = errorFiles.join("\n");
-		} else {
 #ifdef CONFIG_USE_KDE
-			KMessageBox::errorList(
-				0, i18n("Error while writing file:\n"),
-				errorFiles,
-				i18n("File Error"));
+		KMessageBox::errorList(
+			0, i18n("Error while writing file:\n"),
+			errorFiles,
+			i18n("File Error"));
 #else
-			QMessageBox::warning(
-				0, i18n("File Error"),
-				i18n("Error while writing file:\n") +
-				errorFiles.join("\n"),
-				QMessageBox::Ok, Qt::NoButton);
+		QMessageBox::warning(
+			0, i18n("File Error"),
+			i18n("Error while writing file:\n") +
+			errorFiles.join("\n"),
+			QMessageBox::Ok, Qt::NoButton);
 #endif
-		}
 	}
 
 	if (updateGui) {
@@ -985,7 +979,6 @@ bool Kid3MainWindow::saveDirectory(bool updateGui, QString* errStr)
 		QApplication::restoreOverrideCursor();
 		updateGuiControls();
 	}
-	return errorFiles.empty();
 }
 
 /**
@@ -1032,7 +1025,7 @@ bool Kid3MainWindow::saveModified()
 		case No:
 			if (m_form->getFileList()->selectionModel())
 				m_form->getFileList()->selectionModel()->clearSelection();
-			slotFileRevert();
+			m_app->revertFileModifications();
 			m_app->setModified(false);
 			completed=true;
 			break;
@@ -1167,34 +1160,6 @@ void Kid3MainWindow::slotFileOpenRecentDirectory(const QString& dir)
 	confirmedOpenDirectory(dir);
 }
 #endif /* CONFIG_USE_KDE */
-
-/**
- * Revert file modifications.
- * Acts on selected files or all files if no file is selected.
- */
-void Kid3MainWindow::slotFileRevert()
-{
-	SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-																m_form->getFileList()->selectionModel(),
-																true);
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-		taggedFile->readTags(true);
-		// update icon
-		m_form->getFileList()->dataChanged(taggedFile->getIndex(),
-																			 taggedFile->getIndex());
-	}
-	if (!it.hasNoSelection()) {
-		m_app->frameModelV1()->clearFrames();
-		m_app->frameModelV2()->clearFrames();
-		m_form->setFilenameEditEnabled(false);
-		updateCurrentSelection();
-		updateGuiControls();
-	}
-	else {
-		updateModificationState();
-	}
-}
 
 /**
  * Save modified files.
@@ -1371,31 +1336,6 @@ void Kid3MainWindow::setupImportDialog()
 }
 
 /**
- * Import tags from the import dialog.
- *
- * @param destV1 true to set tag 1
- * @param destV2 true to set tag 2
- */
-void Kid3MainWindow::getTagsFromImportDialog(bool destV1, bool destV2)
-{
-	slotStatusMsg(i18n("Import..."));
-	m_app->trackDataModelToFiles(destV1, destV2);
-	if (m_form->getFileList()->selectionModel() &&
-			m_form->getFileList()->selectionModel()->hasSelection()) {
-		m_app->frameModelV1()->clearFrames();
-		m_app->frameModelV2()->clearFrames();
-		m_form->setFilenameEditEnabled(false);
-		updateCurrentSelection();
-		updateGuiControls();
-	}
-	else {
-		updateModificationState();
-	}
-	slotStatusMsg(i18n("Ready."));
-	QApplication::restoreOverrideCursor();
-}
-
-/**
  * Execute the import dialog.
  */
 void Kid3MainWindow::execImportDialog()
@@ -1406,34 +1346,8 @@ void Kid3MainWindow::execImportDialog()
 		              m_importDialog->getDestination() == ImportConfig::DestV1V2;
 		bool destV2 = m_importDialog->getDestination() == ImportConfig::DestV2 ||
 		              m_importDialog->getDestination() == ImportConfig::DestV1V2;
-		getTagsFromImportDialog(destV1, destV2);
+		m_app->trackDataModelToFiles(destV1, destV2);
 	}
-}
-
-/**
- * Import.
- *
- * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
- * @param path    path of file
- * @param fmtIdx  index of format
- *
- * @return true if ok.
- */
-bool Kid3MainWindow::importTags(int tagMask, const QString& path, int fmtIdx)
-{
-	m_app->filesToTrackDataModel();
-	QFile file(path);
-	if (file.open(QIODevice::ReadOnly) &&
-			fmtIdx < ConfigStore::s_genCfg.m_importFormatHeaders.size()) {
-		TextImporter(m_app->getTrackDataModel()).updateTrackData(
-			QTextStream(&file).readAll(),
-			ConfigStore::s_genCfg.m_importFormatHeaders.at(fmtIdx),
-			ConfigStore::s_genCfg.m_importFormatTracks.at(fmtIdx));
-		file.close();
-		m_app->trackDataModelToFiles((tagMask & 1) != 0, (tagMask & 2) != 0);
-		return true;
-	}
-	return false;
 }
 
 /**

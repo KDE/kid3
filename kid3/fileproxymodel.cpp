@@ -310,6 +310,18 @@ void FileProxyModel::applyFilteringOutIndexes()
 }
 
 /**
+ * Emit dataChanged() to the model to force an update of the connected views,
+ * e.g. when the modification state changes.
+	* @param topLeft top left item changed
+	* @param bottomRight bottom right item changed
+ */
+void FileProxyModel::emitDataChanged(const QModelIndex& topLeft,
+																		 const QModelIndex& bottomRight)
+{
+	emit dataChanged(topLeft, bottomRight);
+}
+
+/**
  * Retrieve tagged file for an index.
  * @param index model index
  * @return QVariant with tagged file, invalid QVariant if not found.

@@ -59,27 +59,6 @@ public:
 	virtual QSize sizeHint() const;
 
 	/**
-	 * Select the first file.
-	 *
-	 * @return true if a file exists.
-	 */
-	bool selectFirstFile();
-
-	/**
-	 * Select the next file.
-	 *
-	 * @return true if a next file exists.
-	 */
-	bool selectNextFile();
-
-	/**
-	 * Select the previous file.
-	 *
-	 * @return true if a previous file exists.
-	 */
-	bool selectPreviousFile();
-
-	/**
 	 * Fill the filelist with the files found in a directory.
 	 *
 	 * @param dirIndex index of directory in filesystem model
@@ -90,12 +69,6 @@ public:
 	 */
 	bool readDir(const QModelIndex& dirIndex,
 							 const QModelIndex& fileIndex=QModelIndex());
-
-	/**
-	 * Get directory path.
-	 * @return directory path.
-	 */
-	QString getDirPath() const;
 
 	/**
 	 * Get the stored current selection.
