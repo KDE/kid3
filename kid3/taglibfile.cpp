@@ -30,9 +30,9 @@
 #include <QDir>
 #include <QString>
 #include <QTextCodec>
-#include "qtcompatmac.h"
 #include <QByteArray>
-
+#include <QImage>
+#include "qtcompatmac.h"
 #include "genres.h"
 #include "configstore.h"
 #include "attributedata.h"
