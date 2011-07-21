@@ -328,7 +328,7 @@ void ExportDialog::readConfig()
  */
 void ExportDialog::saveConfig()
 {
-	ConfigStore::s_genCfg.m_exportSrcV1 = static_cast<TrackData::TagVersion>(
+	ConfigStore::s_genCfg.m_exportSrcV1 = TrackData::tagVersionCast(
 		m_srcComboBox->itemData(m_srcComboBox->currentIndex()).toInt());
 	ConfigStore::s_genCfg.m_exportFormatIdx = m_formatComboBox->currentIndex();
 	if (ConfigStore::s_genCfg.m_exportFormatIdx < static_cast<int>(ConfigStore::s_genCfg.m_exportFormatNames.size())) {
@@ -364,5 +364,5 @@ void ExportDialog::showHelp()
 void ExportDialog::onSrcComboBoxActivated(int index)
 {
 	emit exportDataRequested(
-		static_cast<TrackData::TagVersion>(m_srcComboBox->itemData(index).toInt()));
+		TrackData::tagVersionCast(m_srcComboBox->itemData(index).toInt()));
 }

@@ -30,6 +30,7 @@
 #include <QObject>
 #include <QPersistentModelIndex>
 #include "frame.h"
+#include "trackdata.h"
 #include "generalconfig.h"
 
 class QFileSystemModel;
@@ -196,13 +197,14 @@ public:
 	/**
 	 * Import.
 	 *
-	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 * @param tagMask tag mask
 	 * @param path    path of file
 	 * @param fmtIdx  index of format
 	 *
 	 * @return true if ok.
 	 */
-	bool importTags(int tagMask, const QString& path, int fmtIdx);
+	bool importTags(TrackData::TagVersion tagMask, const QString& path,
+									int fmtIdx);
 
 	/**
 	 * Write playlist according to playlist configuration.
@@ -215,16 +217,17 @@ public:
 
 	/**
 	 * Set track data model with tagged files of directory.
+	 *
+	 * @param tagVersion tag version
 	 */
-	void filesToTrackDataModel();
+	void filesToTrackDataModel(TrackData::TagVersion tagVersion);
 
 	/**
 	 * Set tagged files of directory from track data model.
 	 *
-	 * @param destV1 true to set tag 1
-	 * @param destV2 true to set tag 2
+	 * @param tagVersion tags to set
 	 */
-	void trackDataModelToFiles(bool destV1, bool destV2);
+	void trackDataModelToFiles(TrackData::TagVersion tagVersion);
 
 	/**
 	 * Download an image file.

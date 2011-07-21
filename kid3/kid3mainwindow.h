@@ -118,13 +118,13 @@ public:
 	/**
 	 * Export.
 	 *
-	 * @param tagNr  tag number (1 or 2)
+	 * @param tagVersion tag version
 	 * @param path   path of file
 	 * @param fmtIdx index of format
 	 *
 	 * @return true if ok.
 	 */
-	bool exportTags(int tagNr, const QString& path, int fmtIdx);
+	bool exportTags(TrackData::TagVersion tagVersion, const QString& path, int fmtIdx);
 
 	/**
 	 * Create dialog to edit a frame and update the fields

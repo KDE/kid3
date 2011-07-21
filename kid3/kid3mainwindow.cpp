@@ -1326,7 +1326,7 @@ bool Kid3MainWindow::slotCreatePlaylist()
  */
 void Kid3MainWindow::setupImportDialog()
 {
-	m_app->filesToTrackDataModel();
+	m_app->filesToTrackDataModel(ConfigStore::s_genCfg.m_importDest);
 	if (!m_importDialog) {
 		QString caption(i18n("Import"));
 		m_importDialog =
@@ -1342,11 +1342,7 @@ void Kid3MainWindow::execImportDialog()
 {
 	if (m_importDialog &&
 			m_importDialog->exec() == QDialog::Accepted) {
-		bool destV1 = m_importDialog->getDestination() == ImportConfig::DestV1 ||
-		              m_importDialog->getDestination() == ImportConfig::DestV1V2;
-		bool destV2 = m_importDialog->getDestination() == ImportConfig::DestV2 ||
-		              m_importDialog->getDestination() == ImportConfig::DestV1V2;
-		m_app->trackDataModelToFiles(destV1, destV2);
+		m_app->trackDataModelToFiles(m_importDialog->getDestination());
 	}
 }
 
@@ -1488,21 +1484,21 @@ void Kid3MainWindow::setExportData(TrackData::TagVersion src)
 /**
  * Export.
  *
- * @param tagNr  tag number (1 or 2)
+ * @param tagVersion tag version
  * @param path   path of file
  * @param fmtIdx index of format
  *
  * @return true if ok.
  */
-bool Kid3MainWindow::exportTags(int tagNr, const QString& path, int fmtIdx)
+bool Kid3MainWindow::exportTags(TrackData::TagVersion tagVersion,
+																const QString& path, int fmtIdx)
 {
 	bool ok = false;
 	m_exportDialog = new ExportDialog(0);
 	if (m_exportDialog) {
 		m_exportDialog->readConfig();
 		m_exportDialog->setFormatLineEdit(fmtIdx);
-		setExportData(tagNr == 2 ?
-									TrackData::TagV2 : TrackData::TagV1);
+		setExportData(tagVersion);
 		connect(m_exportDialog, SIGNAL(exportDataRequested(TrackData::TagVersion)),
 						this, SLOT(setExportData(TrackData::TagVersion)));
 		ok = m_exportDialog->exportToFile(path);

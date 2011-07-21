@@ -106,16 +106,9 @@ public:
 	/**
 	 * Get import destination.
 	 *
-	 * @return DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both.
+	 * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
 	 */
-	ImportConfig::ImportDestination getDestination() const;
-
-	/**
-	 * Set import destination.
-	 *
-	 * @param dest DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both
-	 */
-	void setDestination(ImportConfig::ImportDestination dest);
+	TrackData::TagVersion getDestination() const;
 
 public slots:
 	/**

@@ -32,6 +32,29 @@
 #include <kconfigskeleton.h>
 #endif
 
+namespace {
+
+/**
+ * Convert tag version to import destination value in configuration.
+ * @param tagVersion tag version
+ * @return value used in configuration, kept for backwards compatibility.
+ */
+inline int tagVersionToImportDestCfg(TrackData::TagVersion tagVersion) {
+	return static_cast<int>(tagVersion) - 1;
+}
+
+/**
+ * Convert import destination value in configuration to tag version.
+ * @param importDest value used in configuration, kept for backwards
+ *                   compatibility.
+ * @return tag version.
+ */
+inline TrackData::TagVersion importDestCfgToTagVersion(int importDest) {
+	return TrackData::tagVersionCast(importDest + 1);
+}
+
+}
+
 /**
  * Constructor.
  * Set default configuration.
@@ -40,7 +63,7 @@
  */
 ImportConfig::ImportConfig(const QString& grp) :
 	GeneralConfig(grp), m_importServer(ImportConfig::ServerFreedb),
-	m_importDest(ImportConfig::DestV1), m_importFormatIdx(0),
+	m_importDest(TrackData::TagV1), m_importFormatIdx(0),
 	m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
 	m_importVisibleColumns(0ULL),
 	m_importWindowWidth(-1), m_importWindowHeight(-1),
@@ -325,7 +348,7 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
 #ifdef CONFIG_USE_KDE
 	KConfigGroup cfg = config->group(m_group);
 	cfg.writeEntry("ImportServer", static_cast<int>(m_importServer));
-	cfg.writeEntry("ImportDestination", static_cast<int>(m_importDest));
+	cfg.writeEntry("ImportDestination", tagVersionToImportDestCfg(m_importDest));
 	cfg.writeEntry("ImportFormatNames", m_importFormatNames);
 	cfg.writeEntry("ImportFormatHeaders", m_importFormatHeaders);
 	cfg.writeEntry("ImportFormatTracks", m_importFormatTracks);
@@ -360,7 +383,8 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
 #else
 	config->beginGroup("/" + m_group);
 	config->setValue("/ImportServer", QVariant(m_importServer));
-	config->setValue("/ImportDestination", QVariant(m_importDest));
+	config->setValue("/ImportDestination",
+									 QVariant(tagVersionToImportDestCfg(m_importDest)));
 	config->setValue("/ImportFormatNames", QVariant(m_importFormatNames));
 	config->setValue("/ImportFormatHeaders", QVariant(m_importFormatHeaders));
 	config->setValue("/ImportFormatTracks", QVariant(m_importFormatTracks));
@@ -411,8 +435,8 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
 	KConfigGroup cfg = config->group(m_group);
 	m_importServer = static_cast<ImportConfig::ImportServer>(
 		cfg.readEntry("ImportServer", static_cast<int>(m_importServer)));
-	m_importDest = static_cast<ImportConfig::ImportDestination>(
-		cfg.readEntry("ImportDestination", static_cast<int>(m_importDest)));
+	m_importDest = importDestCfgToTagVersion(
+		cfg.readEntry("ImportDestination", tagVersionToImportDestCfg(m_importDest)));
 	names = cfg.readEntry("ImportFormatNames", QStringList());
 	headers = cfg.readEntry("ImportFormatHeaders", QStringList());
 	tracks = cfg.readEntry("ImportFormatTracks", QStringList());
@@ -470,8 +494,9 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
 	config->beginGroup("/" + m_group);
 	m_importServer = static_cast<ImportConfig::ImportServer>(
 		config->value("/ImportServer", m_importServer).toInt());
-	m_importDest = static_cast<ImportConfig::ImportDestination>(
-		config->value("/ImportDestination", m_importDest).toInt());
+	m_importDest = importDestCfgToTagVersion(
+		config->value("/ImportDestination",
+									tagVersionToImportDestCfg(m_importDest)).toInt());
 	names = config->value("/ImportFormatNames").toStringList();
 	headers = config->value("/ImportFormatHeaders").toStringList();
 	tracks = config->value("/ImportFormatTracks").toStringList();

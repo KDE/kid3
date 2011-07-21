@@ -118,7 +118,7 @@ void ScriptInterface::revert()
  */
 bool ScriptInterface::importFromFile(int tagMask, const QString& path, int fmtIdx)
 {
-	return m_app->importTags(tagMask, path, fmtIdx);
+	return m_app->importTags(TrackData::tagVersionCast(tagMask), path, fmtIdx);
 }
 
 /**
@@ -145,7 +145,8 @@ void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
  */
 bool ScriptInterface::exportToFile(int tagMask, const QString& path, int fmtIdx)
 {
-	return m_mainWin->exportTags(tagMask, path, fmtIdx);
+	return m_mainWin->exportTags(TrackData::tagVersionCast(tagMask), path,
+															 fmtIdx);
 }
 
 /**

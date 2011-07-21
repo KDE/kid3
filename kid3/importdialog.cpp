@@ -174,9 +174,9 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 	butlayout->addWidget(destLabel);
 	m_destComboBox = new QComboBox(butbox);
 	m_destComboBox->setEditable(false);
-	m_destComboBox->insertItem(ImportConfig::DestV1, i18n("Tag 1"));
-	m_destComboBox->insertItem(ImportConfig::DestV2, i18n("Tag 2"));
-	m_destComboBox->insertItem(ImportConfig::DestV1V2, i18n("Tag 1 and Tag 2"));
+	m_destComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
+	m_destComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
+	m_destComboBox->addItem(i18n("Tag 1 and Tag 2"), TrackData::TagV2V1);
 	destLabel->setBuddy(m_destComboBox);
 	butlayout->addWidget(m_destComboBox);
 	QToolButton* revertButton = new QToolButton(butbox);
@@ -514,11 +514,13 @@ void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
 void ImportDialog::clear()
 {
 	m_serverComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importServer);
-	ImportConfig::ImportDestination importDest = ConfigStore::s_genCfg.m_importDest;
-	m_destComboBox->setCurrentIndex(importDest);
-	if (importDest == ImportConfig::DestV1 &&
+	TrackData::TagVersion importDest = ConfigStore::s_genCfg.m_importDest;
+	int index = m_destComboBox->findData(importDest);
+	m_destComboBox->setCurrentIndex(index);
+	if (importDest == TrackData::TagV1 &&
 			!m_trackDataModel->trackData().isTagV1Supported()) {
-		m_destComboBox->setCurrentIndex(ImportConfig::DestV2);
+		index = m_destComboBox->findData(TrackData::TagV2);
+		m_destComboBox->setCurrentIndex(index);
 		changeTagDestination();
 	}
 
@@ -563,22 +565,12 @@ void ImportDialog::showPreview()
 /**
  * Get import destination.
  *
- * @return DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both.
+ * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
  */
-ImportConfig::ImportDestination ImportDialog::getDestination() const
+TrackData::TagVersion ImportDialog::getDestination() const
 {
-	return static_cast<ImportConfig::ImportDestination>(
-		m_destComboBox->currentIndex());
-}
-
-/**
- * Set import destination.
- *
- * @param dest DestV1, DestV2 or DestV1V2 for ID3v1, ID3v2 or both
- */
-void ImportDialog::setDestination(ImportConfig::ImportDestination dest)
-{
-	m_destComboBox->setCurrentIndex(dest);
+	return TrackData::tagVersionCast(
+		m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
 }
 
 /**
@@ -594,8 +586,8 @@ void ImportDialog::showHelp()
  */
 void ImportDialog::saveConfig()
 {
-	ConfigStore::s_genCfg.m_importDest = static_cast<ImportConfig::ImportDestination>(
-				m_destComboBox->currentIndex());
+	ConfigStore::s_genCfg.m_importDest = TrackData::tagVersionCast(
+		m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
 
 	ConfigStore::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
 		m_serverComboBox->currentIndex());
@@ -664,22 +656,8 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
  */
 void ImportDialog::changeTagDestination()
 {
-	ImportConfig::ImportDestination dest = getDestination();
-
-	TrackData::TagVersion tagVersion = TrackData::TagNone;
-	switch (dest) {
-	case ImportConfig::DestV1:
-		tagVersion = TrackData::TagV1;
-		break;
-	case ImportConfig::DestV2:
-		tagVersion = TrackData::TagV2;
-		break;
-	case ImportConfig::DestV1V2:
-		tagVersion = TrackData::TagV2V1;
-	}
-
 	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-	trackDataVector.readTags(tagVersion);
+	trackDataVector.readTags(getDestination());
 	m_trackDataModel->setTrackData(trackDataVector);
 	showPreview();
 }

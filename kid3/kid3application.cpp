@@ -288,15 +288,16 @@ void Kid3Application::revertFileModifications()
 /**
  * Import.
  *
- * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+ * @param tagMask tag mask
  * @param path    path of file
  * @param fmtIdx  index of format
  *
  * @return true if ok.
  */
-bool Kid3Application::importTags(int tagMask, const QString& path, int fmtIdx)
+bool Kid3Application::importTags(TrackData::TagVersion tagMask,
+																 const QString& path, int fmtIdx)
 {
-	filesToTrackDataModel();
+	filesToTrackDataModel(ConfigStore::s_genCfg.m_importDest);
 	QFile file(path);
 	if (file.open(QIODevice::ReadOnly) &&
 			fmtIdx < ConfigStore::s_genCfg.m_importFormatHeaders.size()) {
@@ -305,7 +306,7 @@ bool Kid3Application::importTags(int tagMask, const QString& path, int fmtIdx)
 			ConfigStore::s_genCfg.m_importFormatHeaders.at(fmtIdx),
 			ConfigStore::s_genCfg.m_importFormatTracks.at(fmtIdx));
 		file.close();
-		trackDataModelToFiles((tagMask & 1) != 0, (tagMask & 2) != 0);
+		trackDataModelToFiles(tagMask);
 		return true;
 	}
 	return false;
@@ -386,21 +387,11 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
 
 /**
  * Set track data model with tagged files of directory.
+ *
+ * @param tagVersion tag version
  */
-void Kid3Application::filesToTrackDataModel()
+void Kid3Application::filesToTrackDataModel(TrackData::TagVersion tagVersion)
 {
-	TrackData::TagVersion tagVersion = TrackData::TagNone;
-	switch (ConfigStore::s_genCfg.m_importDest) {
-	case ImportConfig::DestV1:
-		tagVersion = TrackData::TagV1;
-		break;
-	case ImportConfig::DestV2:
-		tagVersion = TrackData::TagV2;
-		break;
-	case ImportConfig::DestV1V2:
-		tagVersion = TrackData::TagV2V1;
-	}
-
 	ImportTrackDataVector trackDataList;
 	TaggedFileOfDirectoryIterator it(currentOrRootIndex());
 	while (it.hasNext()) {
@@ -417,14 +408,13 @@ void Kid3Application::filesToTrackDataModel()
 /**
  * Set tagged files of directory from track data model.
  *
- * @param destV1 true to set tag 1
- * @param destV2 true to set tag 2
+ * @param tagVersion tags to set
  */
-void Kid3Application::trackDataModelToFiles(bool destV1, bool destV2)
+void Kid3Application::trackDataModelToFiles(TrackData::TagVersion tagVersion)
 {
 	ImportTrackDataVector trackDataList(getTrackDataModel()->getTrackData());
 	ImportTrackDataVector::iterator it = trackDataList.begin();
-	FrameFilter flt(destV1 ?
+	FrameFilter flt((tagVersion & TrackData::TagV1) ?
 									frameModelV1()->getEnabledFrameFilter(true) :
 									frameModelV2()->getEnabledFrameFilter(true));
 	TaggedFileOfDirectoryIterator tfit(currentOrRootIndex());
@@ -434,8 +424,8 @@ void Kid3Application::trackDataModelToFiles(bool destV1, bool destV2)
 		if (it != trackDataList.end()) {
 			it->removeDisabledFrames(flt);
 			formatFramesIfEnabled(*it);
-			if (destV1) taggedFile->setFramesV1(*it, false);
-			if (destV2) {
+			if (tagVersion & TrackData::TagV1) taggedFile->setFramesV1(*it, false);
+			if (tagVersion & TrackData::TagV2) {
 				FrameCollection oldFrames;
 				taggedFile->getAllFramesV2(oldFrames);
 				it->markChangedFrames(oldFrames);
@@ -447,7 +437,7 @@ void Kid3Application::trackDataModelToFiles(bool destV1, bool destV2)
 		}
 	}
 
-	if (destV2 && flt.isEnabled(Frame::FT_Picture) &&
+	if ((tagVersion & TrackData::TagV2) && flt.isEnabled(Frame::FT_Picture) &&
 			!trackDataList.getCoverArtUrl().isEmpty()) {
 		downloadImage(trackDataList.getCoverArtUrl(), ImageForImportTrackData);
 	}

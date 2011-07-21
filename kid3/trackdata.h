@@ -39,9 +39,10 @@ public:
 	/** Tag version contained in track data. */
 	enum TagVersion {
 		TagNone = 0, /**< Empty or imported and not from a tag */
-		TagV1 = 1,   /**< From tag 1 */
-		TagV2 = 2,   /**< From tag 2 */
-		TagV2V1 = 3  /**< Merged from tag 2 and tag 1 (where tag 2 is not set) */
+		TagV1 = 1,   /**< Tag 1 */
+		TagV2 = 2,   /**< Tag 2 */
+		/** Tag 1 and 2 or merged from tag 2 and tag 1 (where tag 2 is not set) */
+		TagV2V1 = TagV1 | TagV2
 	};
 
 	/**
@@ -170,6 +171,15 @@ public:
 	 * @return help text.
 	 */
 	static QString getFormatToolTip(bool onlyRows = false);
+
+	/**
+	 * Cast a mask of tag version bits to a TagVersion enum.
+	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 * @return tag version enum value.
+	 */
+	static TagVersion tagVersionCast(int tagMask) {
+		return static_cast<TagVersion>(tagMask & 3);
+	}
 
 private:
 	QPersistentModelIndex m_taggedFileIndex;

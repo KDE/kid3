@@ -38,9 +38,6 @@
  */
 class ImportConfig : public GeneralConfig {
 public:
-	/** Import destinations */
-	enum ImportDestination { DestV1, DestV2, DestV1V2 };
-
 	/** Import servers */
 	enum ImportServer {
 		ServerFreedb, ServerTrackType, ServerDiscogs,
@@ -76,8 +73,8 @@ public:
 
 	/** import server */
 	ImportServer m_importServer;
-	/** true to import into ID3v1 tags, else into ID3v2 tags */
-	ImportDestination m_importDest;
+	/** tag version to import */
+	TrackData::TagVersion m_importDest;
 	/** Names of import formats */
 	QStringList m_importFormatNames;
 	/** regexp describing header import format */
