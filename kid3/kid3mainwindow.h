@@ -95,14 +95,14 @@ public:
 	 * Set the directory name from the tags.
 	 * The directory must not have modified files.
 	 *
-	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 * @param tagMask tag mask
 	 * @param format  directory name format
 	 * @param create  true to create, false to rename
 	 * @param errStr  if not 0, a string describing the error is returned here
 	 *
 	 * @return true if ok.
 	 */
-	bool renameDirectory(int tagMask, const QString& format,
+	bool renameDirectory(TrackData::TagVersion tagMask, const QString& format,
 											 bool create, QString* errStr);
 
 	/**

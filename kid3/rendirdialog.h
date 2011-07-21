@@ -30,6 +30,7 @@
 #include <QString>
 #include <QList>
 #include <QWizard>
+#include "trackdata.h"
 
 class QComboBox;
 class QLabel;
@@ -127,9 +128,9 @@ public:
 	/**
 	 * Set tag source
 	 *
-	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+	 * @param tagMask tag mask
 	 */
-	void setTagSource(int tagMask);
+	void setTagSource(TrackData::TagVersion tagMask);
 
 	/**
 	 * Check if dialog was aborted.
@@ -228,7 +229,6 @@ private:
 	typedef QList<RenameAction> RenameActionList;
 
 	enum Action { ActionRename = 0, ActionCreate = 1 };
-	enum TagVersion { TagV2V1 = 0, TagV1 = 1, TagV2 = 2 };
 
 	/**
 	 * Set up the main wizard page.

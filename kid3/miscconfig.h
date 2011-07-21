@@ -31,6 +31,7 @@
 #include <QList>
 #include "config.h"
 #include "generalconfig.h"
+#include "trackdata.h"
 
 class QString;
 
@@ -202,7 +203,7 @@ public:
 	/** index of directory name format selected */
 	int m_dirFormatItem;
 	/** rename directory from tags 1, tags 2, or both */
-	int m_renDirSrc;
+	TrackData::TagVersion m_renDirSrc;
 	/** number tracks in tags 1, tags 2, or both */
 	int m_numberTracksDst;
 	/** number tracks start number */

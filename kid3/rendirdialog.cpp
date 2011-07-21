@@ -104,9 +104,9 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
 		m_actionComboBox->insertItem(ActionCreate, i18n("Create Directory"));
 		actionLayout->addWidget(m_actionComboBox);
 		connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-		m_tagversionComboBox->insertItem(TagV2V1, i18n("From Tag 2 and Tag 1"));
-		m_tagversionComboBox->insertItem(TagV1, i18n("From Tag 1"));
-		m_tagversionComboBox->insertItem(TagV2, i18n("From Tag 2"));
+		m_tagversionComboBox->addItem(i18n("From Tag 2 and Tag 1"), TrackData::TagV2V1);
+		m_tagversionComboBox->addItem(i18n("From Tag 1"), TrackData::TagV1);
+		m_tagversionComboBox->addItem(i18n("From Tag 2"), TrackData::TagV2);
 		actionLayout->addWidget(m_tagversionComboBox);
 		connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
 		vlayout->addLayout(actionLayout);
@@ -124,7 +124,8 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
 		m_formatComboBox->setItemText(ConfigStore::s_miscCfg.m_dirFormatItem,
 																	ConfigStore::s_miscCfg.m_dirFormatText);
 		m_formatComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_dirFormatItem);
-		m_tagversionComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_renDirSrc);
+		m_tagversionComboBox->setCurrentIndex(
+					m_tagversionComboBox->findData(ConfigStore::s_miscCfg.m_renDirSrc));
 		formatLabel->setBuddy(m_formatComboBox);
 		formatLayout->addWidget(formatLabel);
 		formatLayout->addWidget(m_formatComboBox);
@@ -311,18 +312,9 @@ bool RenDirDialog::renameFile(const QString& oldfn, const QString& newfn,
  */
 QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
 {
-	TrackData::TagVersion tagVersion;
-	switch (m_tagversionComboBox->currentIndex()) {
-	case TagV1:
-		tagVersion = TrackData::TagV1;
-		break;
-	case TagV2:
-		tagVersion = TrackData::TagV2;
-		break;
-	case TagV2V1:
-	default:
-		tagVersion = TrackData::TagV2V1;
-	}
+	TrackData::TagVersion tagVersion =
+		TrackData::tagVersionCast(m_tagversionComboBox->itemData(
+																m_tagversionComboBox->currentIndex()).toInt());
 	TrackData trackData(*taggedFile, tagVersion);
 	QString newdir(taggedFile->getDirname());
 #ifdef WIN32
@@ -599,7 +591,8 @@ void RenDirDialog::saveConfig()
 {
 	ConfigStore::s_miscCfg.m_dirFormatItem = m_formatComboBox->currentIndex();
 	ConfigStore::s_miscCfg.m_dirFormatText = m_formatComboBox->currentText();
-	ConfigStore::s_miscCfg.m_renDirSrc = m_tagversionComboBox->currentIndex();
+	ConfigStore::s_miscCfg.m_renDirSrc = TrackData::tagVersionCast(
+		m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt());
 }
 
 /**
@@ -633,23 +626,12 @@ void RenDirDialog::setAction(bool create)
 /**
  * Set tag source
  *
- * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+ * @param tagMask tag mask
  */
-void RenDirDialog::setTagSource(int tagMask)
+void RenDirDialog::setTagSource(TrackData::TagVersion tagMask)
 {
-	TagVersion index;
-	switch (tagMask & 3) {
-		case 1:
-			index = TagV1;
-			break;
-		case 2:
-			index = TagV2;
-			break;
-		case 3:
-		default:
-			index = TagV2V1;
-	}
-	m_tagversionComboBox->setCurrentIndex(index);
+	m_tagversionComboBox->setCurrentIndex(
+				m_tagversionComboBox->findData(tagMask));
 }
 
 /**
