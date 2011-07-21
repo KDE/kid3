@@ -1464,10 +1464,10 @@ void Kid3MainWindow::slotBrowseCoverArt()
 /**
  * Set data to be exported.
  *
- * @param src ExportDialog::SrcV1 to export ID3v1,
- *            ExportDialog::SrcV2 to export ID3v2
+ * @param src TrackData::TagV1 to export ID3v1,
+ *            TrackData::TagV2 to export ID3v2
  */
-void Kid3MainWindow::setExportData(int src)
+void Kid3MainWindow::setExportData(TrackData::TagVersion src)
 {
 	if (m_exportDialog) {
 		ImportTrackDataVector trackDataVector;
@@ -1479,11 +1479,7 @@ void Kid3MainWindow::setExportData(int src)
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 			taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
 #endif
-			trackDataVector.push_back(
-				ImportTrackData(
-					*taggedFile,
-					src == ExportDialog::SrcV1 ? ImportTrackData::TagV1
-																		 : ImportTrackData::TagV2));
+			trackDataVector.push_back(ImportTrackData(*taggedFile, src));
 		}
 		m_exportDialog->setExportData(trackDataVector);
 	}
@@ -1506,9 +1502,9 @@ bool Kid3MainWindow::exportTags(int tagNr, const QString& path, int fmtIdx)
 		m_exportDialog->readConfig();
 		m_exportDialog->setFormatLineEdit(fmtIdx);
 		setExportData(tagNr == 2 ?
-									ExportDialog::SrcV2 : ExportDialog::SrcV1);
-		connect(m_exportDialog, SIGNAL(exportDataRequested(int)),
-						this, SLOT(setExportData(int)));
+									TrackData::TagV2 : TrackData::TagV1);
+		connect(m_exportDialog, SIGNAL(exportDataRequested(TrackData::TagVersion)),
+						this, SLOT(setExportData(TrackData::TagVersion)));
 		ok = m_exportDialog->exportToFile(path);
 		delete m_exportDialog;
 		m_exportDialog = 0;
@@ -1524,10 +1520,9 @@ void Kid3MainWindow::slotExport()
 	m_exportDialog = new ExportDialog(0);
 	if (m_exportDialog) {
 		m_exportDialog->readConfig();
-		setExportData(ConfigStore::s_genCfg.m_exportSrcV1 ?
-									ExportDialog::SrcV1 : ExportDialog::SrcV2);
-		connect(m_exportDialog, SIGNAL(exportDataRequested(int)),
-						this, SLOT(setExportData(int)));
+		setExportData(ConfigStore::s_genCfg.m_exportSrcV1);
+		connect(m_exportDialog, SIGNAL(exportDataRequested(TrackData::TagVersion)),
+						this, SLOT(setExportData(TrackData::TagVersion)));
 		m_exportDialog->exec();
 		delete m_exportDialog;
 		m_exportDialog = 0;

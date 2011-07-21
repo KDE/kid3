@@ -44,6 +44,7 @@ class RecentFilesMenu;
 typedef QMainWindow Kid3MainWindowBaseClass;
 #endif
 #include "iframeeditor.h"
+#include "trackdata.h"
 
 class KURL;
 class KUrl;
@@ -420,10 +421,10 @@ private slots:
 	/**
 	 * Set data to be exported.
 	 *
-	 * @param src ExportDialog::SrcV1 to export ID3v1,
-	 *            ExportDialog::SrcV2 to export ID3v2
+	 * @param src TrackData::TagV1 to export ID3v1,
+	 *            TrackData::TagV2 to export ID3v2
 	 */
-	void setExportData(int src);
+	void setExportData(TrackData::TagVersion src);
 
 	/**
 	 * Apply a file filter.

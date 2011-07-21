@@ -43,9 +43,6 @@ class ExportDialog : public QDialog {
 Q_OBJECT
 
 public:
-	/** Export source */
-	enum Source { SrcV1, SrcV2 };
-
 	/**
 	 * Constructor.
 	 *
@@ -82,9 +79,9 @@ public:
 signals:
 	/**
 	 * Emitted when new export data has to be provided
-	 * Parameter: SrcV1 for ID3v1 data, SrcV2 for ID3v2 data
+	 * Parameter: TagV1 for ID3v1 data, TagV2 for ID3v2 data
 	 */
-	void exportDataRequested(int);
+	void exportDataRequested(TrackData::TagVersion);
 
 public slots:
 	/**
@@ -119,6 +116,12 @@ private slots:
 	 * Show help.
 	 */
 	void showHelp();
+
+	/**
+	 * Called when the source combo box selection is changed.
+	 * @param index combo box index
+	 */
+	void onSrcComboBoxActivated(int index);
 
 private:
 	/**

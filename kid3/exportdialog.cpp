@@ -129,12 +129,12 @@ ExportDialog::ExportDialog(QWidget* parent) :
 			m_srcComboBox = new QComboBox(this);
 			if (m_srcComboBox) {
 				m_srcComboBox->setEditable(false);
-				m_srcComboBox->insertItem(SrcV1, i18n("Tag 1"));
-				m_srcComboBox->insertItem(SrcV2, i18n("Tag 2"));
+				m_srcComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
+				m_srcComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
 				srcLabel->setBuddy(m_srcComboBox);
 				butlayout->addWidget(m_srcComboBox);
 				connect(m_srcComboBox, SIGNAL(activated(int)),
-								this, SIGNAL(exportDataRequested(int)));
+								this, SLOT(onSrcComboBoxActivated(int)));
 			}
 			vlayout->addLayout(butlayout);
 		}
@@ -311,7 +311,8 @@ void ExportDialog::setFormatFromConfig()
  */
 void ExportDialog::readConfig()
 {
-	m_srcComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_exportSrcV1 ? SrcV1 : SrcV2);
+	m_srcComboBox->setCurrentIndex(
+			m_srcComboBox->findData(ConfigStore::s_genCfg.m_exportSrcV1));
 
 	setFormatFromConfig();
 
@@ -327,7 +328,8 @@ void ExportDialog::readConfig()
  */
 void ExportDialog::saveConfig()
 {
-	ConfigStore::s_genCfg.m_exportSrcV1 = (m_srcComboBox->currentIndex() == SrcV1);
+	ConfigStore::s_genCfg.m_exportSrcV1 = static_cast<TrackData::TagVersion>(
+		m_srcComboBox->itemData(m_srcComboBox->currentIndex()).toInt());
 	ConfigStore::s_genCfg.m_exportFormatIdx = m_formatComboBox->currentIndex();
 	if (ConfigStore::s_genCfg.m_exportFormatIdx < static_cast<int>(ConfigStore::s_genCfg.m_exportFormatNames.size())) {
 		ConfigStore::s_genCfg.m_exportFormatNames[ConfigStore::s_genCfg.m_exportFormatIdx] = m_formatComboBox->currentText();
@@ -353,4 +355,14 @@ void ExportDialog::saveConfig()
 void ExportDialog::showHelp()
 {
 	ContextHelp::displayHelp("export");
+}
+
+/**
+ * Called when the source combo box selection is changed.
+ * @param index combo box index
+ */
+void ExportDialog::onSrcComboBoxActivated(int index)
+{
+	emit exportDataRequested(
+		static_cast<TrackData::TagVersion>(m_srcComboBox->itemData(index).toInt()));
 }

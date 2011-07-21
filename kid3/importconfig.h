@@ -31,6 +31,7 @@
 #include <QMap>
 #include "config.h"
 #include "generalconfig.h"
+#include "trackdata.h"
 
 /**
  * Import configuration.
@@ -105,8 +106,8 @@ public:
 	/** selected import tags format */
 	int m_importTagsIdx;
 
-	/** true to export ID3v1 tags, else ID3v2 tags */
-	bool m_exportSrcV1;
+	/** Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags */
+	TrackData::TagVersion m_exportSrcV1;
 	/** Names of export formats */
 	QStringList m_exportFormatNames;
 	/** regexp describing header export format */

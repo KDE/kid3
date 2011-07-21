@@ -45,7 +45,7 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_importVisibleColumns(0ULL),
 	m_importWindowWidth(-1), m_importWindowHeight(-1),
 	m_importTagsIdx(0),
-	m_exportSrcV1(true), m_exportFormatIdx(0),
+	m_exportSrcV1(TrackData::TagV1), m_exportFormatIdx(0),
 	m_exportWindowWidth(-1), m_exportWindowHeight(-1),
 	m_pictureSourceIdx(0),
 	m_browseCoverArtWindowWidth(-1), m_browseCoverArtWindowHeight(-1)
@@ -341,7 +341,7 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
 	cfg.writeEntry("ImportTagsExtractions", m_importTagsExtractions);
 	cfg.writeEntry("ImportTagsIdx", m_importTagsIdx);
 
-	cfg.writeEntry("ExportSourceV1", m_exportSrcV1);
+	cfg.writeEntry("ExportSourceV1", m_exportSrcV1 == TrackData::TagV1);
 	cfg.writeEntry("ExportFormatNames", m_exportFormatNames);
 	cfg.writeEntry("ExportFormatHeaders", m_exportFormatHeaders);
 	cfg.writeEntry("ExportFormatTracks", m_exportFormatTracks);
@@ -376,7 +376,7 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
 	config->setValue("/ImportTagsExtractions", QVariant(m_importTagsExtractions));
 	config->setValue("/ImportTagsIdx", QVariant(m_importTagsIdx));
 
-	config->setValue("/ExportSourceV1", QVariant(m_exportSrcV1));
+	config->setValue("/ExportSourceV1", QVariant(m_exportSrcV1 == TrackData::TagV1));
 	config->setValue("/ExportFormatNames", QVariant(m_exportFormatNames));
 	config->setValue("/ExportFormatHeaders", QVariant(m_exportFormatHeaders));
 	config->setValue("/ExportFormatTracks", QVariant(m_exportFormatTracks));
@@ -428,7 +428,8 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
 	tagsExtractions = cfg.readEntry("ImportTagsExtractions", QStringList());
 	m_importTagsIdx = cfg.readEntry("ImportTagsIdx", m_importTagsIdx);
 
-	m_exportSrcV1 = cfg.readEntry("ExportSourceV1", m_exportSrcV1);
+	m_exportSrcV1 = cfg.readEntry("ExportSourceV1", m_exportSrcV1 == TrackData::TagV1)
+			? TrackData::TagV1 : TrackData::TagV2;
 	expNames = cfg.readEntry("ExportFormatNames", QStringList());
 	expHeaders = cfg.readEntry("ExportFormatHeaders", QStringList());
 	expTracks = cfg.readEntry("ExportFormatTracks", QStringList());
@@ -486,7 +487,9 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
 	tagsExtractions = config->value("/ImportTagsExtractions").toStringList();
 	m_importTagsIdx = config->value("/ImportTagsIdx", m_importTagsIdx).toInt();
 
-	m_exportSrcV1 = config->value("/ExportSourceV1", m_exportSrcV1).toBool();
+	m_exportSrcV1 = config->value("/ExportSourceV1",
+			m_exportSrcV1 == TrackData::TagV1).toBool()
+			? TrackData::TagV1 : TrackData::TagV2;
 	expNames = config->value("/ExportFormatNames").toStringList();
 	expHeaders = config->value("/ExportFormatHeaders").toStringList();
 	expTracks = config->value("/ExportFormatTracks").toStringList();
