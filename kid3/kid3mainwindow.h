@@ -116,17 +116,6 @@ public:
 	void numberTracks(int nr, int total, bool destV1, bool destV2);
 
 	/**
-	 * Export.
-	 *
-	 * @param tagVersion tag version
-	 * @param path   path of file
-	 * @param fmtIdx index of format
-	 *
-	 * @return true if ok.
-	 */
-	bool exportTags(TrackData::TagVersion tagVersion, const QString& path, int fmtIdx);
-
-	/**
 	 * Create dialog to edit a frame and update the fields
 	 * if Ok is returned.
 	 *
@@ -418,14 +407,6 @@ public slots:
 	void deleteFile();
 
 private slots:
-	/**
-	 * Set data to be exported.
-	 *
-	 * @param src TrackData::TagV1 to export ID3v1,
-	 *            TrackData::TagV2 to export ID3v2
-	 */
-	void setExportData(TrackData::TagVersion src);
-
 	/**
 	 * Apply a file filter.
 	 *

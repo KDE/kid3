@@ -38,6 +38,7 @@
 #include "framelist.h"
 #include "pictureframe.h"
 #include "textimporter.h"
+#include "textexporter.h"
 #include "configstore.h"
 #include "playlistcreator.h"
 #include "downloadclient.h"
@@ -80,6 +81,7 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
 	m_framelist(new FrameList(m_framesV2Model, m_framesV2SelectionModel)),
 	m_configStore(new ConfigStore),
 	m_downloadClient(new DownloadClient(this)),
+	m_textExporter(new TextExporter(this)),
 	m_downloadImageDest(ImageForSelectedFiles)
 {
 	m_fileProxyModel->setSourceModel(m_fileSystemModel);
@@ -313,6 +315,25 @@ bool Kid3Application::importTags(TrackData::TagVersion tagMask,
 }
 
 /**
+ * Export.
+ *
+ * @param tagVersion tag version
+ * @param path   path of file
+ * @param fmtIdx index of format
+ *
+ * @return true if ok.
+ */
+bool Kid3Application::exportTags(TrackData::TagVersion tagVersion,
+																 const QString& path, int fmtIdx)
+{
+	ImportTrackDataVector trackDataVector;
+	filesToTrackData(tagVersion, trackDataVector);
+	m_textExporter->setTrackData(trackDataVector);
+	m_textExporter->updateTextUsingConfig(fmtIdx);
+	return m_textExporter->exportToFile(path);
+}
+
+/**
  * Write playlist according to playlist configuration.
  *
  * @param cfg playlist configuration to use
@@ -386,13 +407,14 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
 }
 
 /**
- * Set track data model with tagged files of directory.
+ * Set track data with tagged files of directory.
  *
  * @param tagVersion tag version
+ * @param trackDataList is filled with track data
  */
-void Kid3Application::filesToTrackDataModel(TrackData::TagVersion tagVersion)
+void Kid3Application::filesToTrackData(TrackData::TagVersion tagVersion,
+																			 ImportTrackDataVector& trackDataList)
 {
-	ImportTrackDataVector trackDataList;
 	TaggedFileOfDirectoryIterator it(currentOrRootIndex());
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
@@ -402,6 +424,17 @@ void Kid3Application::filesToTrackDataModel(TrackData::TagVersion tagVersion)
 #endif
 		trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
 	}
+}
+
+/**
+ * Set track data model with tagged files of directory.
+ *
+ * @param tagVersion tag version
+ */
+void Kid3Application::filesToTrackDataModel(TrackData::TagVersion tagVersion)
+{
+	ImportTrackDataVector trackDataList;
+	filesToTrackData(tagVersion, trackDataList);
 	getTrackDataModel()->setTrackData(trackDataList);
 }
 

@@ -104,6 +104,7 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "frame.h"
+#include "textexporter.h"
 #include "qtcompatmac.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
@@ -1458,67 +1459,18 @@ void Kid3MainWindow::slotBrowseCoverArt()
 }
 
 /**
- * Set data to be exported.
- *
- * @param src TrackData::TagV1 to export ID3v1,
- *            TrackData::TagV2 to export ID3v2
- */
-void Kid3MainWindow::setExportData(TrackData::TagVersion src)
-{
-	if (m_exportDialog) {
-		ImportTrackDataVector trackDataVector;
-		TaggedFileOfDirectoryIterator it(
-				m_form->getFileList()->currentOrRootIndex());
-		while (it.hasNext()) {
-			TaggedFile* taggedFile = it.next();
-			taggedFile->readTags(false);
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-			taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
-#endif
-			trackDataVector.push_back(ImportTrackData(*taggedFile, src));
-		}
-		m_exportDialog->setExportData(trackDataVector);
-	}
-}
-
-/**
- * Export.
- *
- * @param tagVersion tag version
- * @param path   path of file
- * @param fmtIdx index of format
- *
- * @return true if ok.
- */
-bool Kid3MainWindow::exportTags(TrackData::TagVersion tagVersion,
-																const QString& path, int fmtIdx)
-{
-	bool ok = false;
-	m_exportDialog = new ExportDialog(0);
-	if (m_exportDialog) {
-		m_exportDialog->readConfig();
-		m_exportDialog->setFormatLineEdit(fmtIdx);
-		setExportData(tagVersion);
-		connect(m_exportDialog, SIGNAL(exportDataRequested(TrackData::TagVersion)),
-						this, SLOT(setExportData(TrackData::TagVersion)));
-		ok = m_exportDialog->exportToFile(path);
-		delete m_exportDialog;
-		m_exportDialog = 0;
-	}
-	return ok;
-}
-
-/**
  * Export.
  */
 void Kid3MainWindow::slotExport()
 {
-	m_exportDialog = new ExportDialog(0);
+	m_exportDialog = new ExportDialog(this, m_app->getTextExporter());
 	if (m_exportDialog) {
 		m_exportDialog->readConfig();
-		setExportData(ConfigStore::s_genCfg.m_exportSrcV1);
-		connect(m_exportDialog, SIGNAL(exportDataRequested(TrackData::TagVersion)),
-						this, SLOT(setExportData(TrackData::TagVersion)));
+		ImportTrackDataVector trackDataVector;
+		m_app->filesToTrackData(ConfigStore::s_genCfg.m_exportSrcV1,
+														trackDataVector);
+		m_app->getTextExporter()->setTrackData(trackDataVector);
+		m_exportDialog->showPreview();
 		m_exportDialog->exec();
 		delete m_exportDialog;
 		m_exportDialog = 0;

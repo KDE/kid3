@@ -35,6 +35,7 @@ class QTextEdit;
 class QLineEdit;
 class QPushButton;
 class QComboBox;
+class TextExporter;
 
 /**
  * Export dialog.
@@ -46,9 +47,10 @@ public:
 	/**
 	 * Constructor.
 	 *
-	 * @param parent  parent widget
+	 * @param parent       parent widget
+	 * @param textExporter text exporter to use
 	 */
-	ExportDialog(QWidget* parent);
+	ExportDialog(QWidget* parent, TextExporter* textExporter);
 
 	/**
 	 * Destructor.
@@ -60,30 +62,13 @@ public:
 	 */
 	void readConfig();
 
-	/**
-	 * Set data to be exported.
-	 *
-	 * @param trackDataVector data to export
-	 */
-	void setExportData(const ImportTrackDataVector& trackDataVector);
-
-	/**
-	 * Export to a file.
-	 *
-	 * @param fn file name
-	 *
-	 * @return true if ok.
-	 */
-	bool exportToFile(const QString& fn);
-
-signals:
-	/**
-	 * Emitted when new export data has to be provided
-	 * Parameter: TagV1 for ID3v1 data, TagV2 for ID3v2 data
-	 */
-	void exportDataRequested(TrackData::TagVersion);
-
 public slots:
+	/**
+	 * Show exported text as preview in editor.
+	 */
+	void showPreview();
+
+private slots:
 	/**
 	 * Set the format lineedits to the format selected in the combo box.
 	 *
@@ -91,7 +76,6 @@ public slots:
 	 */
 	void setFormatLineEdit(int index);
 
-private slots:
 	/**
 	 * Export to a file.
 	 */
@@ -101,11 +85,6 @@ private slots:
 	 * Export to clipboard.
 	 */
 	void slotToClipboard();
-
-	/**
-	 * Show exported text as preview in editor.
-	 */
-	void showPreview();
 
 	/**
 	 * Save the local settings to the configuration.
@@ -152,8 +131,8 @@ private:
 	/** trailer formats */
 	QStringList m_formatTrailers;
 
-	/** data to export */
-	ImportTrackDataVector m_trackDataVector;
+	/** text exporter */
+	TextExporter* m_textExporter;
 };
 
 #endif

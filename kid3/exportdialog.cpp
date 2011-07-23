@@ -49,22 +49,24 @@
 #include <QToolTip>
 #include <QMessageBox>
 #include <QGroupBox>
-#include <QTextStream>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "taggedfile.h"
 #include "genres.h"
 #include "configstore.h"
 #include "contexthelp.h"
+#include "textexporter.h"
 #include "qtcompatmac.h"
 
 /**
  * Constructor.
  *
- * @param parent        parent widget
+ * @param parent       parent widget
+ * @param textExporter text exporter to use
  */
-ExportDialog::ExportDialog(QWidget* parent) :
-	QDialog(parent)
+ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
+	QDialog(parent),
+	m_textExporter(textExporter)
 {
 	setModal(true);
 	setWindowTitle(i18n("Export"));
@@ -173,28 +175,7 @@ ExportDialog::ExportDialog(QWidget* parent) :
  * Destructor.
  */
 ExportDialog::~ExportDialog()
-{}
-
-/**
- * Export to a file.
- *
- * @param fn file name
- *
- * @return true if ok.
- */
-bool ExportDialog::exportToFile(const QString& fn)
 {
-	if (!fn.isEmpty()) {
-		QFile file(fn);
-		if (file.open(QIODevice::WriteOnly)) {
-			ConfigStore::s_genCfg.m_importDir = QFileInfo(file).dir().path();
-			QTextStream stream(&file);
-			stream << m_edit->toPlainText();
-			file.close();
-			return true;
-		}
-	}
-	return false;
 }
 
 /**
@@ -214,7 +195,7 @@ void ExportDialog::slotToFile()
 			);
 #endif
 	if (!fileName.isEmpty()) {
-		if (!exportToFile(fileName)) {
+		if (!m_textExporter->exportToFile(fileName)) {
 			QMessageBox::warning(
 				0, i18n("File Error"),
 				i18n("Error while writing file:\n") + fileName,
@@ -229,7 +210,7 @@ void ExportDialog::slotToFile()
 void ExportDialog::slotToClipboard()
 {
 	QApplication::clipboard()->setText(
-		m_edit->toPlainText(), QClipboard::Clipboard);
+		m_textExporter->getText(), QClipboard::Clipboard);
 }
 
 /**
@@ -256,40 +237,10 @@ void ExportDialog::setFormatLineEdit(int index)
  */
 void ExportDialog::showPreview()
 {
-	m_edit->clear();
-	unsigned numTracks = m_trackDataVector.size();
-	unsigned trackNr = 0;
-	QString headerFormat(m_headerLineEdit->text());
-	QString trackFormat(m_trackLineEdit->text());
-	QString trailerFormat(m_trailerLineEdit->text());
-	for (ImportTrackDataVector::const_iterator it = m_trackDataVector.begin();
-			 it != m_trackDataVector.end();
-			 ++it) {
-		if (trackNr == 0 && !headerFormat.isEmpty()) {
-			m_edit->insertPlainText((*it).formatString(headerFormat));
-			m_edit->insertPlainText("\n");
-		}
-		if (!trackFormat.isEmpty()) {
-			m_edit->insertPlainText((*it).formatString(trackFormat));
-			m_edit->insertPlainText("\n");
-		}
-		if (trackNr == numTracks - 1 && !trailerFormat.isEmpty()) {
-			m_edit->insertPlainText((*it).formatString(trailerFormat));
-			m_edit->insertPlainText("\n");
-		}
-		++trackNr;
-	}
-}
-
-/**
- * Set data to be exported.
- *
- * @param trackDataVector data to export
- */
-void ExportDialog::setExportData(const ImportTrackDataVector& trackDataVector)
-{
-	m_trackDataVector = trackDataVector;
-	showPreview();
+	m_textExporter->updateText(m_headerLineEdit->text(),
+														 m_trackLineEdit->text(),
+														 m_trailerLineEdit->text());
+	m_edit->setPlainText(m_textExporter->getText());
 }
 
 /**
@@ -363,6 +314,7 @@ void ExportDialog::showHelp()
  */
 void ExportDialog::onSrcComboBoxActivated(int index)
 {
-	emit exportDataRequested(
-		TrackData::tagVersionCast(m_srcComboBox->itemData(index).toInt()));
+	m_textExporter->readTagsInTrackData(
+				TrackData::tagVersionCast(m_srcComboBox->itemData(index).toInt()));
+	showPreview();
 }

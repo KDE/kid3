@@ -46,6 +46,7 @@ class DownloadClient;
 class TaggedFile;
 class FrameList;
 class IFrameEditor;
+class TextExporter;
 
 /**
  * Kid3 application logic, independent of GUI.
@@ -145,6 +146,12 @@ public:
 	DownloadClient* getDownloadClient() { return m_downloadClient; }
 
 	/**
+	 * Get text exporter.
+	 * @return text exporter.
+	 */
+	TextExporter* getTextExporter() { return m_textExporter; }
+
+	/**
 	 * Get current index in file proxy model or root index if current index is
 	 * invalid.
 	 * @return current index, root index if not valid.
@@ -207,6 +214,18 @@ public:
 									int fmtIdx);
 
 	/**
+	 * Export.
+	 *
+	 * @param tagVersion tag version
+	 * @param path   path of file
+	 * @param fmtIdx index of format
+	 *
+	 * @return true if ok.
+	 */
+	bool exportTags(TrackData::TagVersion tagVersion,
+									const QString& path, int fmtIdx);
+
+	/**
 	 * Write playlist according to playlist configuration.
 	 *
 	 * @param cfg playlist configuration to use
@@ -214,6 +233,15 @@ public:
 	 * @return true if ok.
 	 */
 	bool writePlaylist(const PlaylistConfig& cfg);
+
+	/**
+	 * Set track data with tagged files of directory.
+	 *
+	 * @param tagVersion tag version
+	 * @param trackDataList is filled with track data
+	 */
+	void filesToTrackData(TrackData::TagVersion tagVersion,
+												ImportTrackDataVector& trackDataList);
 
 	/**
 	 * Set track data model with tagged files of directory.
@@ -647,6 +675,8 @@ private:
 	ConfigStore* m_configStore;
 	/** Download client */
 	DownloadClient* m_downloadClient;
+	/** Text exporter */
+	TextExporter* m_textExporter;
 	/** Affected files to add frame when downloading image */
 	DownloadImageDestination m_downloadImageDest;
 	/** Copy buffer */
