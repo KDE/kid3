@@ -261,8 +261,8 @@ void ScriptInterface::applyTagFormat()
 bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
 																		bool create)
 {
-	if (m_mainWin->renameDirectory(TrackData::tagVersionCast(tagMask), format,
-																 create, &m_errorMsg)) {
+	if (m_app->renameDirectory(TrackData::tagVersionCast(tagMask), format,
+														 create, &m_errorMsg)) {
 		m_errorMsg.clear();
 		return true;
 	} else {

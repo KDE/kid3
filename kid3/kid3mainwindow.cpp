@@ -105,6 +105,7 @@
 #include "contexthelp.h"
 #include "frame.h"
 #include "textexporter.h"
+#include "dirrenamer.h"
 #include "qtcompatmac.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
@@ -1550,86 +1551,15 @@ void Kid3MainWindow::slotSettingsConfigure()
 }
 
 /**
- * Schedule actions to rename a directory.
- */
-void Kid3MainWindow::scheduleRenameActions()
-{
-	if (m_renDirDialog) {
-		m_renDirDialog->clearActions();
-		TaggedFileIterator it(m_form->getFileList()->rootIndex());
-		while (it.hasNext()) {
-			TaggedFile* taggedFile = it.next();
-			taggedFile->readTags(false);
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-			taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
-#endif
-			m_renDirDialog->scheduleAction(taggedFile);
-#ifdef CONFIG_USE_KDE
-			kapp->processEvents();
-#else
-			qApp->processEvents();
-#endif
-			if (m_renDirDialog->getAbortFlag()) {
-				break;
-			}
-		}
-	}
-}
-
-/**
- * Set the directory name from the tags.
- * The directory must not have modified files.
- *
- * @param tagMask tag mask
- * @param format  directory name format
- * @param create  true to create, false to rename
- * @param errStr  if not 0, a string describing the error is returned here
- *
- * @return true if ok.
- */
-bool Kid3MainWindow::renameDirectory(TrackData::TagVersion tagMask,
-																		 const QString& format,
-																		 bool create, QString* errStr)
-{
-	bool ok = false;
-	TaggedFile* taggedFile =
-		TaggedFileOfDirectoryIterator::first(
-				m_form->getFileList()->currentOrRootIndex());
-	if (!m_app->isModified() && taggedFile) {
-		if (!m_renDirDialog) {
-			m_renDirDialog = new RenDirDialog(0);
-			connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
-							this, SLOT(scheduleRenameActions()));
-		}
-		if (m_renDirDialog) {
-			m_renDirDialog->startDialog(taggedFile);
-			m_renDirDialog->setTagSource(tagMask);
-			m_renDirDialog->setDirectoryFormat(format);
-			m_renDirDialog->setAction(create);
-			scheduleRenameActions();
-			m_app->openDirectory(m_app->getDirName());
-			QString errorMsg;
-			m_renDirDialog->performActions(&errorMsg);
-			m_app->openDirectory(m_renDirDialog->getNewDirname());
-			ok = errorMsg.isEmpty();
-			if (errStr) {
-				*errStr = errorMsg;
-			}
-		}
-	}
-	return ok;
-}
-
-/**
  * Rename directory.
  */
 void Kid3MainWindow::slotRenameDirectory()
 {
 	if (saveModified()) {
 		if (!m_renDirDialog) {
-			m_renDirDialog = new RenDirDialog(0);
+			m_renDirDialog = new RenDirDialog(0, m_app->getDirRenamer());
 			connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
-							this, SLOT(scheduleRenameActions()));
+							m_app, SLOT(scheduleRenameActions()));
 		}
 		if (m_renDirDialog) {
 			QModelIndex index = m_form->getFileList()->currentOrRootIndex();
@@ -1651,7 +1581,7 @@ void Kid3MainWindow::slotRenameDirectory()
 			if (m_renDirDialog->exec() == QDialog::Accepted) {
 				m_app->openDirectory(m_app->getDirName());
 				QString errorMsg;
-				m_renDirDialog->performActions(&errorMsg);
+				m_app->getDirRenamer()->performActions(&errorMsg);
 				m_app->openDirectory(m_renDirDialog->getNewDirname());
 				if (!errorMsg.isEmpty()) {
 					QMessageBox::warning(0, i18n("File Error"),

@@ -92,20 +92,6 @@ public:
 	~Kid3MainWindow();
 
 	/**
-	 * Set the directory name from the tags.
-	 * The directory must not have modified files.
-	 *
-	 * @param tagMask tag mask
-	 * @param format  directory name format
-	 * @param create  true to create, false to rename
-	 * @param errStr  if not 0, a string describing the error is returned here
-	 *
-	 * @return true if ok.
-	 */
-	bool renameDirectory(TrackData::TagVersion tagMask, const QString& format,
-											 bool create, QString* errStr);
-
-	/**
 	 * Number tracks in selected files of directory.
 	 *
 	 * @param nr start number
@@ -413,11 +399,6 @@ private slots:
 	 * @param fileFilter filter to apply.
 	 */
 	void applyFilter(FileFilter& fileFilter);
-
-	/**
-	 * Schedule actions to rename a directory.
-	 */
-	void scheduleRenameActions();
 
 	/**
 	 * Update ID3v2 tags in GUI controls from file displayed in frame list.

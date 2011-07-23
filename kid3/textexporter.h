@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  ~TextExporter();
+	virtual ~TextExporter();
 
   /**
    * Set data to be exported.

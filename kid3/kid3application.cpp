@@ -30,6 +30,12 @@
 #include <QTextCodec>
 #include <QUrl>
 #include <QTextStream>
+#include "config.h"
+#ifdef CONFIG_USE_KDE
+#include <kapplication.h>
+#else
+#include <QApplication>
+#endif
 #include "fileproxymodel.h"
 #include "dirproxymodel.h"
 #include "modeliterator.h"
@@ -39,12 +45,12 @@
 #include "pictureframe.h"
 #include "textimporter.h"
 #include "textexporter.h"
+#include "dirrenamer.h"
 #include "configstore.h"
 #include "playlistcreator.h"
 #include "downloadclient.h"
 #include "iframeeditor.h"
 #include "qtcompatmac.h"
-#include "config.h"
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -82,6 +88,7 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
 	m_configStore(new ConfigStore),
 	m_downloadClient(new DownloadClient(this)),
 	m_textExporter(new TextExporter(this)),
+	m_dirRenamer(new DirRenamer(this)),
 	m_downloadImageDest(ImageForSelectedFiles)
 {
 	m_fileProxyModel->setSourceModel(m_fileSystemModel);
@@ -1247,6 +1254,65 @@ void Kid3Application::fileSelected()
 {
 	emit fileSelectionUpdateRequested();
 	emit selectedFilesUpdated();
+}
+
+/**
+ * Schedule actions to rename a directory.
+ */
+void Kid3Application::scheduleRenameActions()
+{
+	getDirRenamer()->clearActions();
+	TaggedFileIterator it(getRootIndex());
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+		taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+#endif
+		getDirRenamer()->scheduleAction(taggedFile);
+#ifdef CONFIG_USE_KDE
+		kapp->processEvents();
+#else
+		qApp->processEvents();
+#endif
+		if (getDirRenamer()->getAbortFlag()) {
+			break;
+		}
+	}
+}
+
+/**
+ * Set the directory name from the tags.
+ * The directory must not have modified files.
+ *
+ * @param tagMask tag mask
+ * @param format  directory name format
+ * @param create  true to create, false to rename
+ * @param errStr  if not 0, a string describing the error is returned here
+ *
+ * @return true if ok.
+ */
+bool Kid3Application::renameDirectory(TrackData::TagVersion tagMask,
+																		 const QString& format,
+																		 bool create, QString* errStr)
+{
+	bool ok = false;
+	TaggedFile* taggedFile =
+		TaggedFileOfDirectoryIterator::first(currentOrRootIndex());
+	if (!isModified() && taggedFile) {
+		m_dirRenamer->setTagVersion(tagMask);
+		m_dirRenamer->setFormat(format);
+		m_dirRenamer->setAction(create);
+		scheduleRenameActions();
+		openDirectory(getDirName());
+		QString errorMsg;
+		m_dirRenamer->performActions(&errorMsg);
+		ok = errorMsg.isEmpty();
+		if (errStr) {
+			*errStr = errorMsg;
+		}
+	}
+	return ok;
 }
 
 /**

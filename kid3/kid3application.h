@@ -47,6 +47,7 @@ class TaggedFile;
 class FrameList;
 class IFrameEditor;
 class TextExporter;
+class DirRenamer;
 
 /**
  * Kid3 application logic, independent of GUI.
@@ -152,6 +153,12 @@ public:
 	TextExporter* getTextExporter() { return m_textExporter; }
 
 	/**
+	 * Get directory renamer.
+	 * @return directory renamer.
+	 */
+	DirRenamer* getDirRenamer() { return m_dirRenamer; }
+
+	/**
 	 * Get current index in file proxy model or root index if current index is
 	 * invalid.
 	 * @return current index, root index if not valid.
@@ -240,6 +247,21 @@ public:
 	 * @return true if ok.
 	 */
 	bool writePlaylist();
+
+	/**
+	 * Set the directory name from the tags.
+	 * The directory must not have modified files.
+	 *
+	 * @param tagMask tag mask
+	 * @param format  directory name format
+	 * @param create  true to create, false to rename
+	 * @param errStr  if not 0, a string describing the error is returned here
+	 *
+	 * @return true if ok.
+	 */
+	bool renameDirectory(TrackData::TagVersion tagMask,
+											 const QString& format,
+											 bool create, QString* errStr);
 
 	/**
 	 * Set track data with tagged files of directory.
@@ -581,6 +603,11 @@ public slots:
 	 */
 	void fileSelected();
 
+	/**
+	 * Schedule actions to rename a directory.
+	 */
+	void scheduleRenameActions();
+
 signals:
 	/**
 	 * Emitted when a new directory is opened.
@@ -684,6 +711,8 @@ private:
 	DownloadClient* m_downloadClient;
 	/** Text exporter */
 	TextExporter* m_textExporter;
+	/** Directory renamer */
+	DirRenamer* m_dirRenamer;
 	/** Affected files to add frame when downloading image */
 	DownloadImageDestination m_downloadImageDest;
 	/** Copy buffer */

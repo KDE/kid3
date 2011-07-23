@@ -43,15 +43,17 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "miscconfig.h"
+#include "dirrenamer.h"
 #include "qtcompatmac.h"
 
 /**
  * Constructor.
  *
  * @param parent parent widget
+ * @param dirRenamer directory renamer
  */
-RenDirDialog::RenDirDialog(QWidget* parent) :
-	QWizard(parent), m_taggedFile(0), m_aborted(false)
+RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
+	QWizard(parent), m_taggedFile(0), m_dirRenamer(dirRenamer)
 {
 	setModal(true);
 	setWindowTitle(i18n("Rename Directory"));
@@ -186,160 +188,6 @@ void RenDirDialog::startDialog(TaggedFile* taggedFile, const QString& dirName)
 }
 
 /**
- * Get parent directory.
- *
- * @param dir directory
- *
- * @return parent directory (terminated by separator),
- *         empty string if no separator in dir.
- */
-static QString parentDirectory(const QString& dir)
-{
-	QString parent(dir);
-	int slashPos = parent.lastIndexOf('/');
-	if (slashPos != -1) {
-		parent.truncate(slashPos + 1);
-	} else {
-		parent = "";
-	}
-	return parent;
-}
-
-/**
- * Create a directory if it does not exist.
- *
- * @param dir      directory path
- * @param errorMsg if not NULL and an error occurred, a message is appended here,
- *                 otherwise it is not touched
- *
- * @return true if directory exists or was created successfully.
- */
-bool RenDirDialog::createDirectory(const QString& dir,
-								   QString* errorMsg) const
-{
-	if (QFileInfo(dir).isDir() ||
-		(QDir().mkdir(dir) && QFileInfo(dir).isDir())) {
-		return true;
-	} else {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("Create directory %1 failed\n", dir));
-		}
-		return false;
-	}
-}
-
-/**
- * Rename a directory.
- *
- * @param olddir   old directory name
- * @param newdir   new directory name
- * @param errorMsg if not NULL and an error occurred, a message is
- *                 appended here, otherwise it is not touched
- *
- * @return true if rename successful.
- */
-bool RenDirDialog::renameDirectory(
-	const QString& olddir, const QString& newdir, QString* errorMsg) const
-{
-	if (QFileInfo(newdir).exists()) {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("File %1 already exists\n", newdir));
-		}
-		return false;
-	}
-	if (!QFileInfo(olddir).isDir()) {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("%1 is not a directory\n", olddir));
-		}
-		return false;
-	}
-	if (QDir().rename(olddir, newdir) && QFileInfo(newdir).isDir()) {
-		return true;
-	} else {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n2("Rename %1 to %2 failed\n", olddir, newdir));
-		}
-		return false;
-	}
-}
-
-/**
- * Rename a file.
- *
- * @param oldfn    old file name
- * @param newfn    new file name
- * @param errorMsg if not NULL and an error occurred, a message is
- *                 appended here, otherwise it is not touched
- *
- * @return true if rename successful or newfn already exists.
- */
-bool RenDirDialog::renameFile(const QString& oldfn, const QString& newfn,
-							  QString* errorMsg) const
-{
-	if (QFileInfo(newfn).isFile()) {
-		return true;
-	}
-	if (QFileInfo(newfn).exists()) {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("%1 already exists\n", newfn));
-		}
-		return false;
-	}
-	if (!QFileInfo(oldfn).isFile()) {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("%1 is not a file\n", oldfn));
-		}
-		return false;
-	}
-	if (QDir().rename(oldfn, newfn) && QFileInfo(newfn).isFile()) {
-		return true;
-	} else {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n2("Rename %1 to %2 failed\n", oldfn, newfn));
-		}
-		return false;
-	}
-}
-
-/**
- * Generate new directory name according to current settings.
- *
- * @param taggedFile file to get information from
- * @param olddir pointer to QString to place old directory name into,
- *               NULL if not used
- *
- * @return new directory name.
- */
-QString RenDirDialog::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
-{
-	TrackData::TagVersion tagVersion =
-		TrackData::tagVersionCast(m_tagversionComboBox->itemData(
-																m_tagversionComboBox->currentIndex()).toInt());
-	TrackData trackData(*taggedFile, tagVersion);
-	QString newdir(taggedFile->getDirname());
-#ifdef WIN32
-	newdir.replace('\\', '/');
-#endif
-	if (newdir.endsWith(QChar('/'))) {
-		// remove trailing separator
-		newdir.truncate(newdir.length() - 1);
-	}
-	if (olddir) {
-		*olddir = newdir;
-	}
-	if (!trackData.isEmptyOrInactive()) {
-		if (m_actionComboBox->currentIndex() == ActionRename) {
-			newdir = parentDirectory(newdir);
-		} else if (!newdir.isEmpty()) {
-			newdir.append('/');
-		}
-		newdir.append(trackData.formatFilenameFromTags(
-										m_formatComboBox->currentText(), true));
-	}
-	return newdir;
-}
-
-/**
  * Set new directory name.
  *
  * @param dir new directory name
@@ -360,227 +208,25 @@ QString RenDirDialog::getNewDirname() const
 }
 
 /**
+ * Set configuration from dialog in directory renamer.
+ */
+void RenDirDialog::setDirRenamerConfiguration() {
+	m_dirRenamer->setTagVersion(TrackData::tagVersionCast(m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt()));
+	m_dirRenamer->setAction(m_actionComboBox->currentIndex() == ActionCreate);
+	m_dirRenamer->setFormat(m_formatComboBox->currentText());
+}
+
+/**
  * Set new directory name according to current settings.
  */
 void RenDirDialog::slotUpdateNewDirname()
 {
 	if (m_taggedFile) {
+		setDirRenamerConfiguration();
 		QString currentDirname;
-		QString newDirname(generateNewDirname(m_taggedFile, &currentDirname));
+		QString newDirname(m_dirRenamer->generateNewDirname(m_taggedFile, &currentDirname));
 		m_currentDirLabel->setText(currentDirname);
 		setNewDirname(newDirname);
-	}
-}
-
-/**
- * Clear the rename actions.
- * This method has to be called before scheduling new actions.
- */
-void RenDirDialog::clearActions()
-{
-	m_actions.clear();
-	m_aborted = false;
-}
- 
- /**
-	* Add a rename action.
-	*
-	* @param type type of action
-	* @param src  source file or directory name
-	* @param dest destination file or directory name
-	*/
-void RenDirDialog::addAction(RenameAction::Type type, const QString& src, const QString& dest)
-{
-	// do not add an action if the source or destination is already in an action
-	for (RenameActionList::const_iterator it = m_actions.begin();
-			 it != m_actions.end();
-			 ++it) {
-		if ((!src.isEmpty() && (*it).m_src == src) ||
-				(!dest.isEmpty() && (*it).m_dest == dest)){
-			return;
-		}
-	}
-
-	m_actions.push_back(RenameAction(type, src, dest));
-}
-
- /**
-	* Add a rename action.
-	*
-	* @param type type of action
-	* @param dest destination file or directory name
-	*/
-void RenDirDialog::addAction(RenameAction::Type type, const QString& dest)
-{
-	addAction(type, QString(), dest);
-}
-
-/**
- * Check if there is already an action scheduled for this source.
- *
- * @return true if a rename action for the source exists.
- */
-bool RenDirDialog::actionHasSource(const QString& src) const
-{
-	if (src.isEmpty()) {
-		return false;
-	}
-	for (RenameActionList::const_iterator it = m_actions.begin();
-			 it != m_actions.end();
-			 ++it) {
-		if ((*it).m_src == src) {
-			return true;
-		}
-	}
-	return false;
-}
-
-/**
- * Check if there is already an action scheduled for this destination.
- *
- * @return true if a rename or create action for the destination exists.
- */
-bool RenDirDialog::actionHasDestination(const QString& dest) const
-{
-	if (dest.isEmpty()) {
-		return false;
-	}
-	for (RenameActionList::const_iterator it = m_actions.begin();
-			 it != m_actions.end();
-			 ++it) {
-		if ((*it).m_dest == dest) {
-			return true;
-		}
-	}
-	return false;
-}
-
-/**
- * Replace directory name if there is already a rename action.
- *
- * @param src directory name, will be replaced if there is a rename action
- */
-void RenDirDialog::replaceIfAlreadyRenamed(QString& src) const
-{
-	bool found = true;
-	for (int i = 0; found && i <  5; ++i) {
-		found = false;
-		for (RenameActionList::const_iterator it = m_actions.begin();
-				 it != m_actions.end();
-				 ++it) {
-			if ((*it).m_type == RenameAction::RenameDirectory &&
-					(*it).m_src == src) {
-				src = (*it).m_dest;
-				found = true;
-				break;
-			}
-		}
-	}
-}
-
-/**
- * Schedule the actions necessary to rename the directory containing a file.
- *
- * @param taggedFile file in directory
- */
-void RenDirDialog::scheduleAction(TaggedFile* taggedFile)
-{
-	QString currentDirname;
-	QString newDirname(generateNewDirname(taggedFile, &currentDirname));
-	bool again = false;
-	for (int round = 0; round < 2; ++round) {
-		replaceIfAlreadyRenamed(currentDirname);
-		if (newDirname != currentDirname) {
-			if (newDirname.startsWith(currentDirname + '/')) {
-				// A new directory is created in the current directory.
-				bool createDir = true;
-				QString dirWithFiles(currentDirname);
-				for (int i = 0;
-						 createDir && newDirname.startsWith(currentDirname) && i < 5;
-						 i++) {
-					QString newPart(newDirname.mid(currentDirname.length()));
-					// currentDirname does not end with a separator, so newPart
-					// starts with a separator and the search starts with the
-					// second character.
-					int slashPos = newPart.indexOf('/', 1);
-					if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
-						newPart.truncate(slashPos);
-						// the new part has multiple directories
-						// => create one directory
-					} else {
-						createDir = false;
-					}
-					// Create a directory for each file and move it.
-					addAction(RenameAction::CreateDirectory, currentDirname + newPart);
-					if (!createDir) {
-						addAction(RenameAction::RenameFile,
-											dirWithFiles + '/' + taggedFile->getFilename(),
-											currentDirname + newPart + '/' + taggedFile->getFilename());
-					}
-					currentDirname = currentDirname + newPart;
-				}
-			} else {
-				QString parent(parentDirectory(currentDirname));
-				if (newDirname.startsWith(parent)) {
-					QString newPart(newDirname.mid(parent.length()));
-					int slashPos = newPart.indexOf('/');
-					if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
-						newPart.truncate(slashPos);
-						// the new part has multiple directories
-						// => rename current directory, then create additional
-						// directories.
-						again = true;
-					}
-					QString parentWithNewPart = parent + newPart;
-					if ((QFileInfo(parentWithNewPart).isDir() &&
-							 !actionHasSource(parentWithNewPart)) ||
-							actionHasDestination(parentWithNewPart)) {
-						// directory already exists => move files
-						addAction(RenameAction::RenameFile,
-											currentDirname + '/' + taggedFile->getFilename(),
-											parentWithNewPart + '/' + taggedFile->getFilename());
-						currentDirname = parentWithNewPart;
-					} else {
-						addAction(RenameAction::RenameDirectory, currentDirname, parentWithNewPart);
-						currentDirname = parentWithNewPart;
-					}
-				} else {
-					// new directory name is too different
-					addAction(RenameAction::ReportError, i18n("New directory name is too different\n"));
-				}
-			}
-		}
-		if (!again) break;
-	}
-}
-
-/**
- * Perform the scheduled rename actions.
- *
- * @param errorMsg if not 0 and an error occurred, a message is appended here,
- *                 otherwise it is not touched
- */
-void RenDirDialog::performActions(QString* errorMsg)
-{
-	for (RenameActionList::const_iterator it = m_actions.begin();
-			 it != m_actions.end();
-			 ++it) {
-		switch ((*it).m_type) {
-			case RenameAction::CreateDirectory:
-				createDirectory((*it).m_dest, errorMsg);
-				break;
-			case RenameAction::RenameDirectory:
-				renameDirectory((*it).m_src, (*it).m_dest, errorMsg);
-				break;
-			case RenameAction::RenameFile:
-				renameFile((*it).m_src, (*it).m_dest, errorMsg);
-				break;
-			case RenameAction::ReportError:
-			default:
-				if (errorMsg) {
-					*errorMsg += (*it).m_dest;
-				}
-		}
 	}
 }
 
@@ -604,42 +250,12 @@ void RenDirDialog::showHelp()
 }
 
 /**
- * Set directory format string.
- *
- * @param fmt directory format
- */
-void RenDirDialog::setDirectoryFormat(const QString& fmt)
-{
-	m_formatComboBox->setEditText(fmt);
-}
-
-/**
- * Set action.
- *
- * @param create true to create, false to rename
- */ 
-void RenDirDialog::setAction(bool create)
-{
-	m_actionComboBox->setCurrentIndex(create ? ActionCreate : ActionRename);
-}
-
-/**
- * Set tag source
- *
- * @param tagMask tag mask
- */
-void RenDirDialog::setTagSource(TrackData::TagVersion tagMask)
-{
-	m_tagversionComboBox->setCurrentIndex(
-				m_tagversionComboBox->findData(tagMask));
-}
-
-/**
  * Request action scheduling and then accept dialog.
  */
 void RenDirDialog::requestActionSchedulingAndAccept()
 {
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	setDirRenamerConfiguration();
 	emit actionSchedulingRequested();
 	QApplication::restoreOverrideCursor();
 	accept();
@@ -660,45 +276,28 @@ void RenDirDialog::clearPreview()
  */
 void RenDirDialog::displayPreview()
 {
-	static const char* const typeStr[] = {
-		I18N_NOOP("Create directory"),
-		I18N_NOOP("Rename directory"),
-		I18N_NOOP("Rename file"),
-		I18N_NOOP("Error")
-	};
-	static const unsigned numTypeStr = sizeof(typeStr) / sizeof(typeStr[0]);
-	static int typeWidth = -1;
-	if (typeWidth == -1) {
-		QFontMetrics metrics = fontMetrics();
-		for (unsigned i = 0; i < numTypeStr; ++i) {
-			int width = metrics.width(QCM_translate(typeStr[i]));
-			if (typeWidth < width) {
-				typeWidth = width;
-			}
+	m_edit->clear();
+	m_edit->setLineWrapMode(QTextEdit::NoWrap);
+	QFontMetrics metrics = fontMetrics();
+	int typeWidth = -1;
+	foreach (const QStringList& actionStrs, m_dirRenamer->describeActions()) {
+		QString str = actionStrs.at(0);
+		int width = metrics.width(str);
+		if (typeWidth < width) {
+			typeWidth = width;
 		}
-		m_edit->setTabStopWidth(typeWidth + 8);
-		m_edit->setLineWrapMode(QTextEdit::NoWrap);
-	}
-	if (m_edit) {
-		m_edit->clear();
-
-		for (RenameActionList::const_iterator it = m_actions.begin();
-				 it != m_actions.end();
-				 ++it) {
-			unsigned typeIdx = static_cast<unsigned>((*it).m_type);
-			if (typeIdx >= numTypeStr) {
-				typeIdx = numTypeStr - 1;
-			}
-			QString str = QCM_translate(typeStr[typeIdx]);
-			if (!(*it).m_src.isEmpty()) {
-				str += '\t';
-				str += (*it).m_src;
-				str += '\n';
-			}
+		if (actionStrs.size() > 1) {
 			str += '\t';
-			str += (*it).m_dest;
-			m_edit->append(str);
+			str += actionStrs.at(1);
 		}
+		if (actionStrs.size() > 2) {
+			str += "\n\t";
+			str += actionStrs.at(2);
+		}
+		m_edit->append(str);
+	}
+	if (typeWidth > 0) {
+		m_edit->setTabStopWidth(typeWidth + 8);
 	}
 }
 
@@ -710,6 +309,7 @@ void RenDirDialog::pageChanged()
 	if (currentId() == 1) {
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		clearPreview();
+		setDirRenamerConfiguration();
 		emit actionSchedulingRequested();
 		displayPreview();
 		QApplication::restoreOverrideCursor();
@@ -721,6 +321,6 @@ void RenDirDialog::pageChanged()
  */
 void RenDirDialog::reject()
 {
-	m_aborted = true;
+	m_dirRenamer->setAbortFlag();
 	QWizard::reject();
 }

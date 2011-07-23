@@ -37,6 +37,7 @@ class QLabel;
 class TaggedFile;
 class QVBoxLayout;
 class QTextEdit;
+class DirRenamer;
 
 /**
  * Rename directory dialog.
@@ -49,8 +50,9 @@ public:
 	 * Constructor.
 	 *
 	 * @param parent     parent widget
+	 * @param dirRenamer directory renamer
 	 */
-	RenDirDialog(QWidget* parent);
+	RenDirDialog(QWidget* parent, DirRenamer* dirRenamer);
 
 	/**
 	 * Destructor.
@@ -78,65 +80,6 @@ public:
 	 * @return new directory name.
 	 */
 	QString getNewDirname() const;
-
-	/**
-	 * Generate new directory name according to current settings.
-	 *
-	 * @param taggedFile file to get information from
-	 * @param olddir pointer to QString to place old directory name into,
-	 *               NULL if not used
-	 *
-	 * @return new directory name.
-	 */
-	QString generateNewDirname(TaggedFile* taggedFile, QString* olddir);
-
-	/**
-	 * Clear the rename actions.
-	 * This method has to be called before scheduling new actions.
-	 */
-	void clearActions();
-
-	/**
-	 * Schedule the actions necessary to rename the directory containing a file.
-	 *
-	 * @param taggedFile file in directory
-	 */
-	void scheduleAction(TaggedFile* taggedFile);
-
-	/**
-	 * Perform the scheduled rename actions.
-	 *
-	 * @param errorMsg if not 0 and an error occurred, a message is appended here,
-	 *                 otherwise it is not touched
-	 */
-	void performActions(QString* errorMsg);
-
-	/**
-	 * Set directory format string.
-	 *
-	 * @param fmt directory format
-	 */
-	void setDirectoryFormat(const QString& fmt);
-
-	/**
-	 * Set action.
-	 *
-	 * @param create true to create, false to rename
-	 */ 
-	void setAction(bool create);
-
-	/**
-	 * Set tag source
-	 *
-	 * @param tagMask tag mask
-	 */
-	void setTagSource(TrackData::TagVersion tagMask);
-
-	/**
-	 * Check if dialog was aborted.
-	 * @return true if aborted.
-	 */
-	bool getAbortFlag() { return m_aborted; }
 
 protected:
 	/**
@@ -178,56 +121,7 @@ private slots:
 	void pageChanged();
 
 private:
-	/**
-	 * An action performed while renaming a directory.
-	 */
-	class RenameAction {
-	public:
-		/** Action type. */
-		enum Type {
-			CreateDirectory,
-			RenameDirectory,
-			RenameFile,
-			ReportError,
-			NumTypes
-		};
-
-		/**
-		 * Constructor.
-		 * @param type type of action
-		 * @param src  source file or directory name
-		 * @param dest destination file or directory name
-		 */
-		RenameAction(Type type, const QString& src, const QString& dest) :
-			m_type(type), m_src(src), m_dest(dest) {}
-
-		/**
-		 * Constructor.
-		 */
-		RenameAction() : m_type(ReportError) {}
-
-		/**
-		 * Destructor.
-		 */
-		~RenameAction() {}
-
-		/**
-		 * Test for equality.
-		 * @param rhs right hand side
-		 * @return true if equal.
-		 */
-		bool operator==(const RenameAction& rhs) const {
-			return m_type == rhs.m_type && m_src == rhs.m_src && m_dest == rhs.m_dest;
-		}
-
-		Type m_type;    /**< type of action */
-		QString m_src;  /**< source file or directory name */
-		QString m_dest; /**< destination file or directory name */
-	};
-
-	/** List of rename actions. */
-	typedef QList<RenameAction> RenameActionList;
-
+	/** Action to be performed. */
 	enum Action { ActionRename = 0, ActionCreate = 1 };
 
 	/**
@@ -246,82 +140,6 @@ private:
 	void setupPreviewPage(QWidget* page);
 
 	/**
-	 * Create a directory if it does not exist.
-	 *
-	 * @param dir      directory path
-	 * @param errorMsg if not NULL and an error occurred, a message is appended here,
-	 *                 otherwise it is not touched
-	 *
-	 * @return true if directory exists or was created successfully.
-	 */
-	bool createDirectory(const QString& dir,
-						 QString* errorMsg) const;
-
-	/**
-	 * Rename a directory.
-	 *
-	 * @param olddir   old directory name
-	 * @param newdir   new directory name
-	 * @param errorMsg if not NULL and an error occurred, a message is
-	 *                 appended here, otherwise it is not touched
-	 *
-	 * @return true if rename successful.
-	 */
-	bool renameDirectory(
-		const QString& olddir, const QString& newdir, QString* errorMsg) const;
-
-	/**
-	 * Rename a file.
-	 *
-	 * @param oldfn    old file name
-	 * @param newfn    new file name
-	 * @param errorMsg if not NULL and an error occurred, a message is
-	 *                 appended here, otherwise it is not touched
-	 *
-	 * @return true if rename successful or newfn already exists.
-	 */
-	bool renameFile(const QString& oldfn, const QString& newfn,
-									QString* errorMsg) const;
-
-  /**
-	 * Add a rename action.
-	 *
-	 * @param type type of action
-	 * @param src  source file or directory name
-	 * @param dest destination file or directory name
-	 */
-	void addAction(RenameAction::Type type, const QString& src, const QString& dest);
-
-  /**
-	 * Add a rename action.
-	 *
-	 * @param type type of action
-	 * @param dest destination file or directory name
-	 */
-	void addAction(RenameAction::Type type, const QString& dest);
-
-	/**
-	 * Check if there is already an action scheduled for this source.
-	 *
-	 * @return true if a rename action for the source exists.
-	 */
-	bool actionHasSource(const QString& src) const;
-
-	/**
-	 * Check if there is already an action scheduled for this destination.
-	 *
-	 * @return true if a rename or create action for the destination exists.
-	 */
-	bool actionHasDestination(const QString& dest) const;
-
-	/**
-	 * Replace directory name if there is already a rename action.
-	 *
-	 * @param src directory name, will be replaced if there is a rename action
-	 */
-	void replaceIfAlreadyRenamed(QString& src) const;
-
-	/**
 	 * Clear action preview.
 	 */
 	void clearPreview();
@@ -331,6 +149,11 @@ private:
 	 */
 	void displayPreview();
 
+	/**
+	 * Set configuration from dialog in directory renamer.
+	 */
+	void setDirRenamerConfiguration();
+
 	QComboBox* m_formatComboBox;
 	QComboBox* m_actionComboBox;
 	QComboBox* m_tagversionComboBox;
@@ -338,8 +161,7 @@ private:
 	QLabel* m_newDirLabel;
   QTextEdit* m_edit;
 	TaggedFile* m_taggedFile;
-	RenameActionList m_actions;
-	bool m_aborted;
+	DirRenamer* m_dirRenamer;
 };
 
 #endif
