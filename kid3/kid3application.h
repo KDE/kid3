@@ -235,6 +235,13 @@ public:
 	bool writePlaylist(const PlaylistConfig& cfg);
 
 	/**
+	 * Write playlist using current playlist configuration.
+	 *
+	 * @return true if ok.
+	 */
+	bool writePlaylist();
+
+	/**
 	 * Set track data with tagged files of directory.
 	 *
 	 * @param tagVersion tag version

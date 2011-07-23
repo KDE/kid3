@@ -407,6 +407,16 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
 }
 
 /**
+ * Write playlist using current playlist configuration.
+ *
+ * @return true if ok.
+ */
+bool Kid3Application::writePlaylist()
+{
+	return writePlaylist(ConfigStore::s_playlistCfg);
+}
+
+/**
  * Set track data with tagged files of directory.
  *
  * @param tagVersion tag version

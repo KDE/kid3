@@ -156,7 +156,7 @@ bool ScriptInterface::exportToFile(int tagMask, const QString& path, int fmtIdx)
  */
 bool ScriptInterface::createPlaylist()
 {
-	return m_mainWin->slotCreatePlaylist();
+	return m_app->writePlaylist();
 }
 
 /**
