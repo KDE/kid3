@@ -28,6 +28,7 @@
 #define NUMBERTRACKSDIALOG_H
 
 #include <QDialog>
+#include "trackdata.h"
 
 class QSpinBox;
 class QComboBox;
@@ -39,9 +40,6 @@ class QCheckBox;
 class NumberTracksDialog : public QDialog {
 Q_OBJECT
 public:
-	/** Destinations */
-	enum Destination { DestV1, DestV2, DestV1V2 };
-
 	/**
 	 * Constructor.
 	 *
@@ -62,9 +60,9 @@ public:
 	/**
 	 * Get destination.
 	 *
-	 * @return DestV1, DestV2 or DestV1V2 if ID3v1, ID2v2 or both are destination
+	 * @return TagV1, TagV2 or TagV2V1 if ID3v1, ID2v2 or both are destination
 	 */
-	Destination getDestination() const;
+	TrackData::TagVersion getDestination() const;
 
 	/**
 	 * Set the total number of tracks.

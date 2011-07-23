@@ -264,6 +264,15 @@ public:
 											 bool create, QString* errStr);
 
 	/**
+	 * Number tracks in selected files of directory.
+	 *
+	 * @param nr start number
+	 * @param total total number of tracks, used if >0
+	 * @param tagVersion determines on which tags the numbers are set
+	 */
+	void numberTracks(int nr, int total, TrackData::TagVersion tagVersion);
+
+	/**
 	 * Set track data with tagged files of directory.
 	 *
 	 * @param tagVersion tag version

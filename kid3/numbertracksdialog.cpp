@@ -78,10 +78,11 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 			m_destComboBox = new QComboBox(this);
 			if (destLabel && m_destComboBox) {
 				m_destComboBox->setEditable(false);
-				m_destComboBox->insertItem(DestV1, i18n("Tag 1"));
-				m_destComboBox->insertItem(DestV2, i18n("Tag 2"));
-				m_destComboBox->insertItem(DestV1V2, i18n("Tag 1 and Tag 2"));
-				m_destComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_numberTracksDst);
+				m_destComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
+				m_destComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
+				m_destComboBox->addItem(i18n("Tag 1 and Tag 2"), TrackData::TagV2V1);
+				m_destComboBox->setCurrentIndex(
+						m_destComboBox->findData(ConfigStore::s_miscCfg.m_numberTracksDst));
 				trackLayout->addWidget(destLabel);
 				trackLayout->addWidget(m_destComboBox);
 				destLabel->setBuddy(m_destComboBox);
@@ -156,11 +157,12 @@ int NumberTracksDialog::getStartNumber() const
 /**
  * Get destination.
  *
- * @return DestV1, DestV2 or DestV1V2 if ID3v1, ID2v2 or both are destination
- */
-NumberTracksDialog::Destination NumberTracksDialog::getDestination() const
+	* @return TagV1, TagV2 or TagV2V1 if ID3v1, ID2v2 or both are destination
+	*/
+TrackData::TagVersion NumberTracksDialog::getDestination() const
 {
-	return static_cast<Destination>(m_destComboBox->currentIndex());
+	return TrackData::tagVersionCast(
+				m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
 }
 
 /**
@@ -168,7 +170,7 @@ NumberTracksDialog::Destination NumberTracksDialog::getDestination() const
  */
 void NumberTracksDialog::saveConfig()
 {
-	ConfigStore::s_miscCfg.m_numberTracksDst = m_destComboBox->currentIndex();
+	ConfigStore::s_miscCfg.m_numberTracksDst = getDestination();
 	ConfigStore::s_miscCfg.m_numberTracksStart = m_trackSpinBox->value();
 }
 

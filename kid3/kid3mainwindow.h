@@ -92,16 +92,6 @@ public:
 	~Kid3MainWindow();
 
 	/**
-	 * Number tracks in selected files of directory.
-	 *
-	 * @param nr start number
-	 * @param total total number of tracks, used if >0
-	 * @param destV1 true to set numbers in tag 1
-	 * @param destV2 true to set numbers in tag 2
-	 */
-	void numberTracks(int nr, int total, bool destV1, bool destV2);
-
-	/**
 	 * Create dialog to edit a frame and update the fields
 	 * if Ok is returned.
 	 *

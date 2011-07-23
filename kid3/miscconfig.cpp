@@ -117,6 +117,25 @@ inline TrackData::TagVersion renDirCfgToTagVersion(int renDirSrc) {
 	return TrackData::tagVersionCast(renDirSrc);
 }
 
+/**
+ * Convert tag version to number tracks destination value in configuration.
+ * @param tagVersion tag version
+ * @return value used in configuration, kept for backwards compatibility.
+ */
+inline int tagVersionToNumberTracksDestCfg(TrackData::TagVersion tagVersion) {
+	return static_cast<int>(tagVersion) - 1;
+}
+
+/**
+ * Convert number tracks destination value in configuration to tag version.
+ * @param importDest value used in configuration, kept for backwards
+ *                   compatibility.
+ * @return tag version.
+ */
+inline TrackData::TagVersion numberTracksDestCfgToTagVersion(int importDest) {
+	return TrackData::tagVersionCast(importDest + 1);
+}
+
 }
 
 /**
@@ -141,7 +160,7 @@ MiscConfig::MiscConfig(const QString& group) :
 	m_dirFormatText(s_defaultDirFmtList[0]),
 	m_dirFormatItem(0),
 	m_renDirSrc(TrackData::TagV2V1),
-	m_numberTracksDst(0),
+	m_numberTracksDst(TrackData::TagV1),
 	m_numberTracksStart(1),
 #ifndef CONFIG_USE_KDE
 	m_hideToolBar(false),
@@ -189,7 +208,8 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
 	cfg.writeEntry("DirFormatItem", m_dirFormatItem);
 	cfg.writeEntry("DirFormatText", m_dirFormatText);
 	cfg.writeEntry("RenameDirectorySource", tagVersionToRenDirCfg(m_renDirSrc));
-	cfg.writeEntry("NumberTracksDestination", m_numberTracksDst);
+	cfg.writeEntry("NumberTracksDestination",
+								 tagVersionToNumberTracksDestCfg(m_numberTracksDst));
 	cfg.writeEntry("NumberTracksStartNumber", m_numberTracksStart);
 	cfg.writeEntry("MarkTruncations", m_markTruncations);
 	cfg.writeEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
@@ -247,7 +267,8 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
 	config->setValue("/DirFormatItem", QVariant(m_dirFormatItem));
 	config->setValue("/DirFormatText", QVariant(m_dirFormatText));
 	config->setValue("/RenameDirectorySource", QVariant(tagVersionToRenDirCfg(m_renDirSrc)));
-	config->setValue("/NumberTracksDestination", QVariant(m_numberTracksDst));
+	config->setValue("/NumberTracksDestination",
+									 QVariant(tagVersionToNumberTracksDestCfg(m_numberTracksDst)));
 	config->setValue("/NumberTracksStartNumber", QVariant(m_numberTracksStart));
 	config->setValue("/MarkTruncations", QVariant(m_markTruncations));
 	config->setValue("/EnableTotalNumberOfTracks", QVariant(m_enableTotalNumberOfTracks));
@@ -339,7 +360,8 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
 	m_dirFormatItem =
 	    cfg.readEntry("DirFormatItem", 0);
 	m_renDirSrc = renDirCfgToTagVersion(cfg.readEntry("RenameDirectorySource", 0));
-	m_numberTracksDst = cfg.readEntry("NumberTracksDestination", 0);
+	m_numberTracksDst = numberTracksDestCfgToTagVersion(
+				cfg.readEntry("NumberTracksDestination", 0));
 	m_numberTracksStart = cfg.readEntry("NumberTracksStartNumber", 1);
 	m_markTruncations = cfg.readEntry("MarkTruncations", m_markTruncations);
 	m_enableTotalNumberOfTracks = cfg.readEntry("EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks);
@@ -401,7 +423,8 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
 	m_dirFormatItem =
 	    config->value("/DirFormatItem", 0).toInt();
 	m_renDirSrc = renDirCfgToTagVersion(config->value("/RenameDirectorySource", 0).toInt());
-	m_numberTracksDst = config->value("/NumberTracksDestination", 0).toInt();
+	m_numberTracksDst = numberTracksDestCfgToTagVersion(
+				config->value("/NumberTracksDestination", 0).toInt());
 	m_numberTracksStart = config->value("/NumberTracksStartNumber", 1).toInt();
 	m_markTruncations = config->value("/MarkTruncations", m_markTruncations).toBool();
 	m_enableTotalNumberOfTracks = config->value("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks).toBool();

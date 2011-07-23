@@ -1316,6 +1316,65 @@ bool Kid3Application::renameDirectory(TrackData::TagVersion tagMask,
 }
 
 /**
+ * Number tracks in selected files of directory.
+ *
+ * @param nr start number
+ * @param total total number of tracks, used if >0
+	* @param tagVersion determines on which tags the numbers are set
+ */
+void Kid3Application::numberTracks(int nr, int total,
+																	 TrackData::TagVersion tagVersion)
+{
+	emit fileSelectionUpdateRequested();
+	int numDigits = ConfigStore::s_miscCfg.m_trackNumberDigits;
+	if (numDigits < 1 || numDigits > 5)
+		numDigits = 1;
+
+	SelectedTaggedFileOfDirectoryIterator it(
+			currentOrRootIndex(),
+			getFileSelectionModel(),
+			true);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+		taggedFile->readTags(false);
+		if (tagVersion & TrackData::TagV1) {
+			int oldnr = taggedFile->getTrackNumV1();
+			if (nr != oldnr) {
+				taggedFile->setTrackNumV1(nr);
+			}
+		}
+		if (tagVersion & TrackData::TagV2) {
+			// For tag 2 the frame is written, so that we have control over the
+			// format and the total number of tracks, and it is possible to change
+			// the format even if the numbers stay the same.
+			QString value;
+			if (total > 0) {
+				value.sprintf("%0*d/%0*d", numDigits, nr, numDigits, total);
+			} else {
+				value.sprintf("%0*d", numDigits, nr);
+			}
+			FrameCollection frames;
+			taggedFile->getAllFramesV2(frames);
+			Frame frame(Frame::FT_Track, "", "", -1);
+			FrameCollection::const_iterator it = frames.find(frame);
+			if (it != frames.end()) {
+				frame = *it;
+				frame.setValueIfChanged(value);
+				if (frame.isValueChanged()) {
+					taggedFile->setFrameV2(frame);
+				}
+			} else {
+				frame.setValue(value);
+				frame.setInternalName(Frame::getNameFromType(Frame::FT_Track));
+				taggedFile->setFrameV2(frame);
+			}
+		}
+		++nr;
+	}
+	emit selectedFilesUpdated();
+}
+
+/**
  * Get number of tracks in current directory.
  *
  * @return number of tracks, 0 if not found.

@@ -205,7 +205,7 @@ public:
 	/** rename directory from tags 1, tags 2, or both */
 	TrackData::TagVersion m_renDirSrc;
 	/** number tracks in tags 1, tags 2, or both */
-	int m_numberTracksDst;
+	TrackData::TagVersion m_numberTracksDst;
 	/** number tracks start number */
 	int m_numberTracksStart;
 	/** size of splitter in main window */
