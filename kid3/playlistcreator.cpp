@@ -42,15 +42,15 @@
  * @param cfg         playlist configuration
  */
 PlaylistCreator::PlaylistCreator(const QString& topLevelDir,
-																 const PlaylistConfig& cfg) :
-	m_cfg(cfg)
+                                 const PlaylistConfig& cfg) :
+  m_cfg(cfg)
 {
-	if (m_cfg.m_location == PlaylistConfig::PL_TopLevelDirectory) {
-		m_playlistDirName = topLevelDir;
-		if (!m_playlistDirName.endsWith(QChar(QDir::separator()))) {
-			m_playlistDirName += QDir::separator();
-		}
-	}
+  if (m_cfg.m_location == PlaylistConfig::PL_TopLevelDirectory) {
+    m_playlistDirName = topLevelDir;
+    if (!m_playlistDirName.endsWith(QChar(QDir::separator()))) {
+      m_playlistDirName += QDir::separator();
+    }
+  }
 }
 
 /**
@@ -60,88 +60,88 @@ PlaylistCreator::PlaylistCreator(const QString& topLevelDir,
  */
 bool PlaylistCreator::write()
 {
-	bool ok = true;
-	if (!m_playlistFileName.isEmpty()) {
-		QFile file(m_playlistDirName + m_playlistFileName);
-		ok = file.open(QIODevice::WriteOnly);
-		if (ok) {
-			QTextStream stream(&file);
+  bool ok = true;
+  if (!m_playlistFileName.isEmpty()) {
+    QFile file(m_playlistDirName + m_playlistFileName);
+    ok = file.open(QIODevice::WriteOnly);
+    if (ok) {
+      QTextStream stream(&file);
 
-			switch (m_cfg.m_format) {
-				case PlaylistConfig::PF_M3U:
-					if (m_cfg.m_writeInfo) {
-						stream << "#EXTM3U\n";
-					}
-					for (QMap<QString, Entry>::const_iterator it = m_entries.begin();
-							 it != m_entries.end();
-							 ++it) {
-						if (m_cfg.m_writeInfo) {
-							stream << QString("#EXTINF:%1,%2\n").
-								arg((*it).duration).arg((*it).info);
-						}
-						stream << (*it).filePath << "\n";
-					}
-					break;
-				case PlaylistConfig::PF_PLS:
-				{
-					unsigned nr = 1;
-					stream << "[playlist]\n";
-					stream << QString("NumberOfEntries=%1\n").arg(m_entries.size());
-					for (QMap<QString, Entry>::const_iterator it = m_entries.begin();
-							 it != m_entries.end();
-							 ++it) {
-						stream << QString("File%1=%2\n").arg(nr).arg((*it).filePath);
-						if (m_cfg.m_writeInfo) {
-							stream << QString("Title%1=%2\n").arg(nr).arg((*it).info);
-							stream << QString("Length%1=%2\n").arg(nr).arg((*it).duration);
-						}
-						++nr;
-					}
-					stream << "Version=2\n";
-				}
-				break;
-				case PlaylistConfig::PF_XSPF:
-				{
-					stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-					QString line = "<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\"";
-					if (!m_cfg.m_useFullPath) {
-						QUrl url(m_playlistDirName);
-						url.setScheme("file");
-						line += QString(" xml:base=\"%1\"").arg(url.toEncoded().data());
-					}
-					line += ">\n";
-					stream << line;
-					stream << "  <trackList>\n";
+      switch (m_cfg.m_format) {
+        case PlaylistConfig::PF_M3U:
+          if (m_cfg.m_writeInfo) {
+            stream << "#EXTM3U\n";
+          }
+          for (QMap<QString, Entry>::const_iterator it = m_entries.begin();
+               it != m_entries.end();
+               ++it) {
+            if (m_cfg.m_writeInfo) {
+              stream << QString("#EXTINF:%1,%2\n").
+                arg((*it).duration).arg((*it).info);
+            }
+            stream << (*it).filePath << "\n";
+          }
+          break;
+        case PlaylistConfig::PF_PLS:
+        {
+          unsigned nr = 1;
+          stream << "[playlist]\n";
+          stream << QString("NumberOfEntries=%1\n").arg(m_entries.size());
+          for (QMap<QString, Entry>::const_iterator it = m_entries.begin();
+               it != m_entries.end();
+               ++it) {
+            stream << QString("File%1=%2\n").arg(nr).arg((*it).filePath);
+            if (m_cfg.m_writeInfo) {
+              stream << QString("Title%1=%2\n").arg(nr).arg((*it).info);
+              stream << QString("Length%1=%2\n").arg(nr).arg((*it).duration);
+            }
+            ++nr;
+          }
+          stream << "Version=2\n";
+        }
+        break;
+        case PlaylistConfig::PF_XSPF:
+        {
+          stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+          QString line = "<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\"";
+          if (!m_cfg.m_useFullPath) {
+            QUrl url(m_playlistDirName);
+            url.setScheme("file");
+            line += QString(" xml:base=\"%1\"").arg(url.toEncoded().data());
+          }
+          line += ">\n";
+          stream << line;
+          stream << "  <trackList>\n";
 
-					for (QMap<QString, Entry>::const_iterator it = m_entries.begin();
-							 it != m_entries.end();
-							 ++it) {
-						stream << "    <track>\n";
-						QUrl url((*it).filePath);
-						if (m_cfg.m_useFullPath) {
-							url.setScheme("file");
-						}
-						stream << QString("      <location>%1</location>\n").arg(
-							url.toEncoded().data());
-						if (m_cfg.m_writeInfo) {
-							// the info is already formatted in the case of XSPF
-							stream << (*it).info;
-						}
-						stream << "    </track>\n";
-					}
+          for (QMap<QString, Entry>::const_iterator it = m_entries.begin();
+               it != m_entries.end();
+               ++it) {
+            stream << "    <track>\n";
+            QUrl url((*it).filePath);
+            if (m_cfg.m_useFullPath) {
+              url.setScheme("file");
+            }
+            stream << QString("      <location>%1</location>\n").arg(
+              url.toEncoded().data());
+            if (m_cfg.m_writeInfo) {
+              // the info is already formatted in the case of XSPF
+              stream << (*it).info;
+            }
+            stream << "    </track>\n";
+          }
 
-					stream << "  </trackList>\n";
-					stream << "</playlist>\n";
-				}
-				break;
-			}
+          stream << "  </trackList>\n";
+          stream << "</playlist>\n";
+        }
+        break;
+      }
 
-			m_entries.clear();
-			m_playlistFileName = "";
-			file.close();
-		}
-	}
-	return ok;
+      m_entries.clear();
+      m_playlistFileName = "";
+      file.close();
+    }
+  }
+  return ok;
 }
 
 
@@ -152,21 +152,21 @@ bool PlaylistCreator::write()
  * @param ctr  associated playlist creator
  */
 PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr) :
-		m_ctr(ctr), m_isDir(false),
-		m_taggedFile(FileProxyModel::getTaggedFileOfIndex(index)), m_trackData(0)
+    m_ctr(ctr), m_isDir(false),
+    m_taggedFile(FileProxyModel::getTaggedFileOfIndex(index)), m_trackData(0)
 {
-	if (m_taggedFile) {
-		m_dirName = m_taggedFile->getDirname();
-	} else {
-		m_dirName = FileProxyModel::getPathIfIndexOfDir(index);
-		m_isDir = !m_dirName.isNull();
-	}
-	QChar separator = QDir::separator();
-	if (!m_dirName.endsWith(separator)) {
-		m_dirName += separator;
-	}
-	// fix double separators
-	m_dirName.replace(QString(separator) + separator, separator);
+  if (m_taggedFile) {
+    m_dirName = m_taggedFile->getDirname();
+  } else {
+    m_dirName = FileProxyModel::getPathIfIndexOfDir(index);
+    m_isDir = !m_dirName.isNull();
+  }
+  QChar separator = QDir::separator();
+  if (!m_dirName.endsWith(separator)) {
+    m_dirName += separator;
+  }
+  // fix double separators
+  m_dirName.replace(QString(separator) + separator, separator);
 }
 
 /**
@@ -174,7 +174,7 @@ PlaylistCreator::Item::Item(const QModelIndex& index, PlaylistCreator& ctr) :
  */
 PlaylistCreator::Item::~Item()
 {
-	delete m_trackData;
+  delete m_trackData;
 }
 
 /**
@@ -186,14 +186,14 @@ PlaylistCreator::Item::~Item()
  */
 QString PlaylistCreator::Item::formatString(const QString& format)
 {
-	if (!m_trackData) {
-		m_taggedFile->readTags(false);
+  if (!m_trackData) {
+    m_taggedFile->readTags(false);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-		m_taggedFile = FileProxyModel::readWithTagLibIfId3V24(m_taggedFile);
+    m_taggedFile = FileProxyModel::readWithTagLibIfId3V24(m_taggedFile);
 #endif
-		m_trackData = new ImportTrackData(*m_taggedFile, ImportTrackData::TagV2V1);
-	}
-	return m_trackData->formatString(format);
+    m_trackData = new ImportTrackData(*m_taggedFile, ImportTrackData::TagV2V1);
+  }
+  return m_trackData->formatString(format);
 }
 
 /**
@@ -205,61 +205,61 @@ QString PlaylistCreator::Item::formatString(const QString& format)
  */
 bool PlaylistCreator::Item::add()
 {
-	bool ok = true;
-	if (m_ctr.m_cfg.m_location != PlaylistConfig::PL_TopLevelDirectory) {
-		if (m_ctr.m_playlistDirName != m_dirName) {
-			ok = m_ctr.write();
-			m_ctr.m_playlistDirName = m_dirName;
-		}
-	}
-	if (m_ctr.m_playlistFileName.isEmpty()) {
-		if (!m_ctr.m_cfg.m_useFileNameFormat) {
-			m_ctr.m_playlistFileName = QDir(m_ctr.m_playlistDirName).dirName();
-		} else {
-			m_ctr.m_playlistFileName = formatString(m_ctr.m_cfg.m_fileNameFormat);
-		}
-		switch (m_ctr.m_cfg.m_format) {
-			case PlaylistConfig::PF_M3U:
-				m_ctr.m_playlistFileName += ".m3u";
-				break;
-			case PlaylistConfig::PF_PLS:
-				m_ctr.m_playlistFileName += ".pls";
-				break;
-			case PlaylistConfig::PF_XSPF:
-				m_ctr.m_playlistFileName += ".xspf";
-				break;
-		}
-	}
-	QString filePath = m_dirName + m_taggedFile->getFilename();
-	if (!m_ctr.m_cfg.m_useFullPath &&
-			filePath.startsWith(m_ctr.m_playlistDirName)) {
-		filePath = filePath.mid(m_ctr.m_playlistDirName.length());
-	}
-	QString sortKey;
-	if (m_ctr.m_cfg.m_useSortTagField) {
-		sortKey = formatString(m_ctr.m_cfg.m_sortTagField);
-	}
-	sortKey += filePath;
-	PlaylistCreator::Entry entry;
-	entry.filePath = filePath;
-	if (m_ctr.m_cfg.m_writeInfo) {
-		if (m_ctr.m_cfg.m_format != PlaylistConfig::PF_XSPF) {
-			entry.info = formatString(m_ctr.m_cfg.m_infoFormat);
-		} else {
-			entry.info = formatString(
-				"      <title>%{title}</title>\n"
-				"      <creator>%{artist}</creator>\n"
-				"      <album>%{album}</album>\n"
-				"      <trackNum>%{track.1}</trackNum>\n"
-				"      <duration>%{seconds}000</duration>\n");
-		}
-		TaggedFile::DetailInfo detailInfo;
-		m_taggedFile->getDetailInfo(detailInfo);
-		entry.duration = detailInfo.duration;
-	} else {
-		entry.info = QString();
-		entry.duration = 0;
-	}
-	m_ctr.m_entries.insert(sortKey, entry);
-	return ok;
+  bool ok = true;
+  if (m_ctr.m_cfg.m_location != PlaylistConfig::PL_TopLevelDirectory) {
+    if (m_ctr.m_playlistDirName != m_dirName) {
+      ok = m_ctr.write();
+      m_ctr.m_playlistDirName = m_dirName;
+    }
+  }
+  if (m_ctr.m_playlistFileName.isEmpty()) {
+    if (!m_ctr.m_cfg.m_useFileNameFormat) {
+      m_ctr.m_playlistFileName = QDir(m_ctr.m_playlistDirName).dirName();
+    } else {
+      m_ctr.m_playlistFileName = formatString(m_ctr.m_cfg.m_fileNameFormat);
+    }
+    switch (m_ctr.m_cfg.m_format) {
+      case PlaylistConfig::PF_M3U:
+        m_ctr.m_playlistFileName += ".m3u";
+        break;
+      case PlaylistConfig::PF_PLS:
+        m_ctr.m_playlistFileName += ".pls";
+        break;
+      case PlaylistConfig::PF_XSPF:
+        m_ctr.m_playlistFileName += ".xspf";
+        break;
+    }
+  }
+  QString filePath = m_dirName + m_taggedFile->getFilename();
+  if (!m_ctr.m_cfg.m_useFullPath &&
+      filePath.startsWith(m_ctr.m_playlistDirName)) {
+    filePath = filePath.mid(m_ctr.m_playlistDirName.length());
+  }
+  QString sortKey;
+  if (m_ctr.m_cfg.m_useSortTagField) {
+    sortKey = formatString(m_ctr.m_cfg.m_sortTagField);
+  }
+  sortKey += filePath;
+  PlaylistCreator::Entry entry;
+  entry.filePath = filePath;
+  if (m_ctr.m_cfg.m_writeInfo) {
+    if (m_ctr.m_cfg.m_format != PlaylistConfig::PF_XSPF) {
+      entry.info = formatString(m_ctr.m_cfg.m_infoFormat);
+    } else {
+      entry.info = formatString(
+        "      <title>%{title}</title>\n"
+        "      <creator>%{artist}</creator>\n"
+        "      <album>%{album}</album>\n"
+        "      <trackNum>%{track.1}</trackNum>\n"
+        "      <duration>%{seconds}000</duration>\n");
+    }
+    TaggedFile::DetailInfo detailInfo;
+    m_taggedFile->getDetailInfo(detailInfo);
+    entry.duration = detailInfo.duration;
+  } else {
+    entry.info = QString();
+    entry.duration = 0;
+  }
+  m_ctr.m_entries.insert(sortKey, entry);
+  return ok;
 }

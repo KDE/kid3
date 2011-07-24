@@ -38,8 +38,8 @@
  * @param selModel item selection model
  */
 FrameList::FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel) :
-	QObject(ftm), m_taggedFile(0), m_frameTableModel(ftm),
-	m_selectionModel(selModel), m_cursorRow(-1), m_cursorColumn(-1)
+  QObject(ftm), m_taggedFile(0), m_frameTableModel(ftm),
+  m_selectionModel(selModel), m_cursorRow(-1), m_cursorColumn(-1)
 {
 }
 
@@ -56,9 +56,9 @@ FrameList::~FrameList() {}
  */
 int FrameList::getSelectedId() const
 {
-	const Frame* currentFrame =
-		m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
-	return currentFrame ? currentFrame->getIndex() : -1;
+  const Frame* currentFrame =
+    m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
+  return currentFrame ? currentFrame->getIndex() : -1;
 }
 
 /**
@@ -70,13 +70,13 @@ int FrameList::getSelectedId() const
  */
 bool FrameList::getSelectedFrame(Frame& frame) const
 {
-	const Frame* currentFrame =
-		m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
-	if (currentFrame) {
-		frame = *currentFrame;
-		return true;
-	}
-	return false;
+  const Frame* currentFrame =
+    m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
+  if (currentFrame) {
+    frame = *currentFrame;
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -86,10 +86,10 @@ bool FrameList::getSelectedFrame(Frame& frame) const
  */
 void FrameList::setSelectedId(int id)
 {
-	m_selectionModel->setCurrentIndex(
-		m_frameTableModel->index(
-			m_frameTableModel->getRowWithFrameIndex(id), 0),
-				QItemSelectionModel::SelectCurrent);
+  m_selectionModel->setCurrentIndex(
+    m_frameTableModel->index(
+      m_frameTableModel->getRowWithFrameIndex(id), 0),
+        QItemSelectionModel::SelectCurrent);
 }
 
 /**
@@ -99,9 +99,9 @@ void FrameList::setSelectedId(int id)
  */
 QString FrameList::getSelectedName() const
 {
-	const Frame* currentFrame =
-		m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
-	return currentFrame ? currentFrame->getName() : QString::null;
+  const Frame* currentFrame =
+    m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
+  return currentFrame ? currentFrame->getName() : QString::null;
 }
 
 /**
@@ -113,13 +113,13 @@ QString FrameList::getSelectedName() const
  */
 bool FrameList::selectByName(const QString& name)
 {
-	int row = m_frameTableModel->getRowWithFrameName(name);
-	if (row < 0)
-		return false;
+  int row = m_frameTableModel->getRowWithFrameName(name);
+  if (row < 0)
+    return false;
 
-	m_selectionModel->setCurrentIndex(m_frameTableModel->index(row, 0),
-																		QItemSelectionModel::SelectCurrent);
-	return true;
+  m_selectionModel->setCurrentIndex(m_frameTableModel->index(row, 0),
+                                    QItemSelectionModel::SelectCurrent);
+  return true;
 }
 
 /**
@@ -127,11 +127,11 @@ bool FrameList::selectByName(const QString& name)
  */
 void FrameList::setModelFromTaggedFile()
 {
-	if (m_taggedFile) {
-		FrameCollection frames;
-		m_taggedFile->getAllFramesV2(frames);
-		m_frameTableModel->transferFrames(frames);
-	}
+  if (m_taggedFile) {
+    FrameCollection frames;
+    m_taggedFile->getAllFramesV2(frames);
+    m_frameTableModel->transferFrames(frames);
+  }
 }
 
 /**
@@ -141,15 +141,15 @@ void FrameList::setModelFromTaggedFile()
  */
 bool FrameList::deleteFrame()
 {
-	saveCursor();
-	Frame frame;
-	if (getSelectedFrame(frame) && m_taggedFile) {
-		m_taggedFile->deleteFrameV2(frame);
-		setModelFromTaggedFile();
-		restoreCursor();
-		return true;
-	}
-	return false;
+  saveCursor();
+  Frame frame;
+  if (getSelectedFrame(frame) && m_taggedFile) {
+    m_taggedFile->deleteFrameV2(frame);
+    setModelFromTaggedFile();
+    restoreCursor();
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -161,24 +161,24 @@ bool FrameList::deleteFrame()
  */
 bool FrameList::addAndEditFrame(IFrameEditor* frameEditor)
 {
-	if (m_taggedFile) {
-		if (!m_taggedFile->addFrameV2(m_frame)) {
-			return false;
-		}
-		if (frameEditor &&
-				!frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile)) {
-			m_taggedFile->deleteFrameV2(m_frame);
-			m_taggedFile->markTag2Unchanged();
-			return false;
-		}
-		int index = m_frame.getIndex();
-		setModelFromTaggedFile();
-		if (index != -1) {
-			setSelectedId(index);
-		}
-		return true;
-	}
-	return false;
+  if (m_taggedFile) {
+    if (!m_taggedFile->addFrameV2(m_frame)) {
+      return false;
+    }
+    if (frameEditor &&
+        !frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile)) {
+      m_taggedFile->deleteFrameV2(m_frame);
+      m_taggedFile->markTag2Unchanged();
+      return false;
+    }
+    int index = m_frame.getIndex();
+    setModelFromTaggedFile();
+    if (index != -1) {
+      setSelectedId(index);
+    }
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -187,12 +187,12 @@ bool FrameList::addAndEditFrame(IFrameEditor* frameEditor)
  * @return true if frame pasted.
  */
 bool FrameList::pasteFrame() {
-	if (m_taggedFile && m_frame.getType() != Frame::FT_UnknownFrame) {
-		m_taggedFile->addFrameV2(m_frame);
-		m_taggedFile->setFrameV2(m_frame);
-		return true;
-	}
-	return false;
+  if (m_taggedFile && m_frame.getType() != Frame::FT_UnknownFrame) {
+    m_taggedFile->addFrameV2(m_frame);
+    m_taggedFile->setFrameV2(m_frame);
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -200,8 +200,8 @@ bool FrameList::pasteFrame() {
  */
 void FrameList::saveCursor()
 {
-	m_cursorRow = m_selectionModel->currentIndex().row();
-	m_cursorColumn = m_selectionModel->currentIndex().column();
+  m_cursorRow = m_selectionModel->currentIndex().row();
+  m_cursorColumn = m_selectionModel->currentIndex().column();
 }
 
 /**
@@ -209,13 +209,13 @@ void FrameList::saveCursor()
  */
 void FrameList::restoreCursor()
 {
-	int lastRow = m_frameTableModel->rowCount() - 1;
-	if (m_cursorRow >= 0 && m_cursorColumn >= 0 && lastRow >= 0) {
-		if (m_cursorRow > lastRow) {
-			m_cursorRow = lastRow;
-		}
-		m_selectionModel->setCurrentIndex(
-			m_frameTableModel->index(m_cursorRow, m_cursorColumn),
-			QItemSelectionModel::SelectCurrent);
-	}
+  int lastRow = m_frameTableModel->rowCount() - 1;
+  if (m_cursorRow >= 0 && m_cursorColumn >= 0 && lastRow >= 0) {
+    if (m_cursorRow > lastRow) {
+      m_cursorRow = lastRow;
+    }
+    m_selectionModel->setCurrentIndex(
+      m_frameTableModel->index(m_cursorRow, m_cursorColumn),
+      QItemSelectionModel::SelectCurrent);
+  }
 }

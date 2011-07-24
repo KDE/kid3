@@ -42,10 +42,10 @@
  * @param parent parent object
  */
 FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
-	m_iconProvider(new TaggedFileIconProvider), m_fsModel(0)
+  m_iconProvider(new TaggedFileIconProvider), m_fsModel(0)
 {
-	connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)),
-					this, SLOT(updateInsertedRows(QModelIndex,int,int)));
+  connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)),
+          this, SLOT(updateInsertedRows(QModelIndex,int,int)));
 }
 
 /**
@@ -54,11 +54,11 @@ FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
  */
 QFileInfo FileProxyModel::fileInfo(const QModelIndex& index) const
 {
-	if (m_fsModel) {
-		QModelIndex sourceIndex(mapToSource(index));
-		return m_fsModel->fileInfo(sourceIndex);
-	}
-	return QFileInfo();
+  if (m_fsModel) {
+    QModelIndex sourceIndex(mapToSource(index));
+    return m_fsModel->fileInfo(sourceIndex);
+  }
+  return QFileInfo();
 }
 
 /**
@@ -67,11 +67,11 @@ QFileInfo FileProxyModel::fileInfo(const QModelIndex& index) const
  */
 QString FileProxyModel::filePath(const QModelIndex& index) const
 {
-	if (m_fsModel) {
-		QModelIndex sourceIndex(mapToSource(index));
-		return m_fsModel->filePath(sourceIndex);
-	}
-	return QString();
+  if (m_fsModel) {
+    QModelIndex sourceIndex(mapToSource(index));
+    return m_fsModel->filePath(sourceIndex);
+  }
+  return QString();
 }
 
 /**
@@ -80,11 +80,11 @@ QString FileProxyModel::filePath(const QModelIndex& index) const
  */
 bool FileProxyModel::isDir(const QModelIndex& index) const
 {
-	if (m_fsModel) {
-		QModelIndex sourceIndex(mapToSource(index));
-		return m_fsModel->isDir(sourceIndex);
-	}
-	return false;
+  if (m_fsModel) {
+    QModelIndex sourceIndex(mapToSource(index));
+    return m_fsModel->isDir(sourceIndex);
+  }
+  return false;
 }
 
 /**
@@ -93,11 +93,11 @@ bool FileProxyModel::isDir(const QModelIndex& index) const
  */
 bool FileProxyModel::remove(const QModelIndex& index) const
 {
-	if (m_fsModel) {
-		QModelIndex sourceIndex(mapToSource(index));
-		return m_fsModel->remove(sourceIndex);
-	}
-	return false;
+  if (m_fsModel) {
+    QModelIndex sourceIndex(mapToSource(index));
+    return m_fsModel->remove(sourceIndex);
+  }
+  return false;
 }
 
 /**
@@ -106,11 +106,11 @@ bool FileProxyModel::remove(const QModelIndex& index) const
  */
 bool FileProxyModel::rmdir(const QModelIndex& index) const
 {
-	if (m_fsModel) {
-		QModelIndex sourceIndex(mapToSource(index));
-		return m_fsModel->rmdir(sourceIndex);
-	}
-	return false;
+  if (m_fsModel) {
+    QModelIndex sourceIndex(mapToSource(index));
+    return m_fsModel->rmdir(sourceIndex);
+  }
+  return false;
 }
 
 /**
@@ -120,14 +120,14 @@ bool FileProxyModel::rmdir(const QModelIndex& index) const
  * @param end ending row
  */
 void FileProxyModel::updateInsertedRows(const QModelIndex& parent,
-																				int start, int end) {
-	const QAbstractItemModel* model = parent.model();
-	if (!model)
-		return;
-	for (int row = start; row <= end; ++row) {
-		QModelIndex index(model->index(row, 0, parent));
-		initTaggedFileData(index);
-	}
+                                        int start, int end) {
+  const QAbstractItemModel* model = parent.model();
+  if (!model)
+    return;
+  for (int row = start; row <= end; ++row) {
+    QModelIndex index(model->index(row, 0, parent));
+    initTaggedFileData(index);
+  }
 }
 
 /**
@@ -135,8 +135,8 @@ void FileProxyModel::updateInsertedRows(const QModelIndex& parent,
  */
 FileProxyModel::~FileProxyModel()
 {
-	clearTaggedFileStore();
-	delete m_iconProvider;
+  clearTaggedFileStore();
+  delete m_iconProvider;
 }
 
 /**
@@ -147,7 +147,7 @@ FileProxyModel::~FileProxyModel()
  */
 int FileProxyModel::columnCount(const QModelIndex&) const
 {
-	return 1;
+  return 1;
 }
 
 /**
@@ -159,7 +159,7 @@ int FileProxyModel::columnCount(const QModelIndex&) const
  */
 QVariant FileProxyModel::headerData(int, Qt::Orientation, int) const
 {
-	return QVariant();
+  return QVariant();
 }
 
 /**
@@ -171,28 +171,28 @@ QVariant FileProxyModel::headerData(int, Qt::Orientation, int) const
  * @return true to include row.
  */
 bool FileProxyModel::filterAcceptsRow(
-		int srcRow, const QModelIndex& srcParent) const
+    int srcRow, const QModelIndex& srcParent) const
 {
-	QAbstractItemModel* srcModel = sourceModel();
-	if (srcModel) {
-		QModelIndex srcIndex(srcModel->index(srcRow, 0, srcParent));
-		if (!m_filteredOut.isEmpty()) {
-			if (m_filteredOut.contains(srcIndex))
-				return false;
-		}
-		QString item(srcIndex.data().toString());
-		if (item == "." || item == "..")
-			return false;
-		if (m_extensions.isEmpty() || !m_fsModel || m_fsModel->isDir(srcIndex))
-			return true;
-		for (QStringList::const_iterator it = m_extensions.begin();
-				 it != m_extensions.end();
-				 ++it) {
-			if (item.endsWith(*it, Qt::CaseInsensitive))
-				return true;
-		}
-	}
-	return false;
+  QAbstractItemModel* srcModel = sourceModel();
+  if (srcModel) {
+    QModelIndex srcIndex(srcModel->index(srcRow, 0, srcParent));
+    if (!m_filteredOut.isEmpty()) {
+      if (m_filteredOut.contains(srcIndex))
+        return false;
+    }
+    QString item(srcIndex.data().toString());
+    if (item == "." || item == "..")
+      return false;
+    if (m_extensions.isEmpty() || !m_fsModel || m_fsModel->isDir(srcIndex))
+      return true;
+    for (QStringList::const_iterator it = m_extensions.begin();
+         it != m_extensions.end();
+         ++it) {
+      if (item.endsWith(*it, Qt::CaseInsensitive))
+        return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -203,24 +203,24 @@ bool FileProxyModel::filterAcceptsRow(
  */
 QVariant FileProxyModel::data(const QModelIndex& index, int role) const
 {
-	if (index.isValid()) {
-		if (role == TaggedFileRole) {
-			return retrieveTaggedFileVariant(index);
-		} else if (role == Qt::DecorationRole && index.column() == 0) {
-			TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
-			if (taggedFile) {
-				return m_iconProvider->iconForTaggedFile(taggedFile);
-			}
-		} else if (role == Qt::BackgroundRole && index.column() == 0) {
-			TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
-			if (taggedFile) {
-				QColor color = m_iconProvider->backgroundForTaggedFile(taggedFile);
-				if (color.isValid())
-					return color;
-			}
-		}
-	}
-	return QSortFilterProxyModel::data(index, role);
+  if (index.isValid()) {
+    if (role == TaggedFileRole) {
+      return retrieveTaggedFileVariant(index);
+    } else if (role == Qt::DecorationRole && index.column() == 0) {
+      TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
+      if (taggedFile) {
+        return m_iconProvider->iconForTaggedFile(taggedFile);
+      }
+    } else if (role == Qt::BackgroundRole && index.column() == 0) {
+      TaggedFile* taggedFile = m_taggedFiles.value(index, 0);
+      if (taggedFile) {
+        QColor color = m_iconProvider->backgroundForTaggedFile(taggedFile);
+        if (color.isValid())
+          return color;
+      }
+    }
+  }
+  return QSortFilterProxyModel::data(index, role);
 }
 
 /**
@@ -231,12 +231,12 @@ QVariant FileProxyModel::data(const QModelIndex& index, int role) const
  * @return true if successful
  */
 bool FileProxyModel::setData(const QModelIndex& index, const QVariant& value,
-														 int role)
+                             int role)
 {
-	if (index.isValid() && role == TaggedFileRole) {
-		return storeTaggedFileVariant(index, value);
-	}
-	return QSortFilterProxyModel::setData(index, value, role);
+  if (index.isValid() && role == TaggedFileRole) {
+    return storeTaggedFileVariant(index, value);
+  }
+  return QSortFilterProxyModel::setData(index, value, role);
 }
 
 /**
@@ -245,10 +245,10 @@ bool FileProxyModel::setData(const QModelIndex& index, const QVariant& value,
  */
 void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
-	m_fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
-	Q_ASSERT_X(m_fsModel != 0 , "setSourceModel",
-						 "sourceModel is not QFileSystemModel");
-	QSortFilterProxyModel::setSourceModel(sourceModel);
+  m_fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
+  Q_ASSERT_X(m_fsModel != 0 , "setSourceModel",
+             "sourceModel is not QFileSystemModel");
+  QSortFilterProxyModel::setSourceModel(sourceModel);
 }
 
 /**
@@ -257,21 +257,21 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
  */
 void FileProxyModel::setNameFilters(const QStringList& filters)
 {
-	QRegExp wildcardRe("\\.\\w+");
-	QSet<QString> exts;
-	foreach (QString filter, filters) {
-		int pos = 0;
-		while ((pos = wildcardRe.indexIn(filter, pos)) != -1) {
-			int len = wildcardRe.matchedLength();
-			exts.insert(filter.mid(pos, len).toLower());
-			pos += len;
-		}
-	}
-	QStringList oldExtensions(m_extensions);
-	m_extensions = exts.toList();
-	if (m_extensions != oldExtensions) {
-		invalidateFilter();
-	}
+  QRegExp wildcardRe("\\.\\w+");
+  QSet<QString> exts;
+  foreach (QString filter, filters) {
+    int pos = 0;
+    while ((pos = wildcardRe.indexIn(filter, pos)) != -1) {
+      int len = wildcardRe.matchedLength();
+      exts.insert(filter.mid(pos, len).toLower());
+      pos += len;
+    }
+  }
+  QStringList oldExtensions(m_extensions);
+  m_extensions = exts.toList();
+  if (m_extensions != oldExtensions) {
+    invalidateFilter();
+  }
 }
 
 /**
@@ -280,7 +280,7 @@ void FileProxyModel::setNameFilters(const QStringList& filters)
  */
 void FileProxyModel::filterOutIndex(const QPersistentModelIndex& index)
 {
-	m_filteredOut.insert(mapToSource(index));
+  m_filteredOut.insert(mapToSource(index));
 }
 
 /**
@@ -288,8 +288,8 @@ void FileProxyModel::filterOutIndex(const QPersistentModelIndex& index)
  */
 void FileProxyModel::disableFilteringOutIndexes()
 {
-	m_filteredOut.clear();
-	invalidateFilter();
+  m_filteredOut.clear();
+  invalidateFilter();
 }
 
 /**
@@ -298,7 +298,7 @@ void FileProxyModel::disableFilteringOutIndexes()
  */
 bool FileProxyModel::isFilteringOutIndexes() const
 {
-	return !m_filteredOut.isEmpty();
+  return !m_filteredOut.isEmpty();
 }
 
 /**
@@ -306,19 +306,19 @@ bool FileProxyModel::isFilteringOutIndexes() const
  */
 void FileProxyModel::applyFilteringOutIndexes()
 {
-	invalidateFilter();
+  invalidateFilter();
 }
 
 /**
  * Emit dataChanged() to the model to force an update of the connected views,
  * e.g. when the modification state changes.
-	* @param topLeft top left item changed
-	* @param bottomRight bottom right item changed
+  * @param topLeft top left item changed
+  * @param bottomRight bottom right item changed
  */
 void FileProxyModel::emitDataChanged(const QModelIndex& topLeft,
-																		 const QModelIndex& bottomRight)
+                                     const QModelIndex& bottomRight)
 {
-	emit dataChanged(topLeft, bottomRight);
+  emit dataChanged(topLeft, bottomRight);
 }
 
 /**
@@ -327,10 +327,10 @@ void FileProxyModel::emitDataChanged(const QModelIndex& topLeft,
  * @return QVariant with tagged file, invalid QVariant if not found.
  */
 QVariant FileProxyModel::retrieveTaggedFileVariant(
-		const QPersistentModelIndex& index) const {
-	if (m_taggedFiles.contains(index))
-		return QVariant::fromValue(m_taggedFiles.value(index));
-	return QVariant();
+    const QPersistentModelIndex& index) const {
+  if (m_taggedFiles.contains(index))
+    return QVariant::fromValue(m_taggedFiles.value(index));
+  return QVariant();
 }
 
 /**
@@ -340,31 +340,31 @@ QVariant FileProxyModel::retrieveTaggedFileVariant(
  * @return true if index and value valid
  */
 bool FileProxyModel::storeTaggedFileVariant(const QPersistentModelIndex& index,
-										 QVariant value) {
-	if (index.isValid()) {
-		if (value.isValid()) {
-			if (value.canConvert<TaggedFile*>()) {
-				TaggedFile* oldItem = m_taggedFiles.value(index, 0);
-				delete oldItem;
-				m_taggedFiles.insert(index, value.value<TaggedFile*>());
-				return true;
-			}
-		} else {
-			if (TaggedFile* oldFile = m_taggedFiles.value(index, 0)) {
-				m_taggedFiles.remove(index);
-				delete oldFile;
-			}
-		}
-	}
-	return false;
+                     QVariant value) {
+  if (index.isValid()) {
+    if (value.isValid()) {
+      if (value.canConvert<TaggedFile*>()) {
+        TaggedFile* oldItem = m_taggedFiles.value(index, 0);
+        delete oldItem;
+        m_taggedFiles.insert(index, value.value<TaggedFile*>());
+        return true;
+      }
+    } else {
+      if (TaggedFile* oldFile = m_taggedFiles.value(index, 0)) {
+        m_taggedFiles.remove(index);
+        delete oldFile;
+      }
+    }
+  }
+  return false;
 }
 
 /**
  * Clear store with tagged files.
  */
 void FileProxyModel::clearTaggedFileStore() {
-	qDeleteAll(m_taggedFiles);
-	m_taggedFiles.clear();
+  qDeleteAll(m_taggedFiles);
+  m_taggedFiles.clear();
 }
 
 /**
@@ -372,13 +372,13 @@ void FileProxyModel::clearTaggedFileStore() {
  * @param index model index
  */
 void FileProxyModel::initTaggedFileData(const QModelIndex& index) {
-	QVariant dat = data(index, TaggedFileRole);
-	if (dat.isValid() || isDir(index))
-		return;
+  QVariant dat = data(index, TaggedFileRole);
+  if (dat.isValid() || isDir(index))
+    return;
 
-	QFileInfo info = fileInfo(index);
-	dat.setValue(TaggedFile::createFile(info.path(), info.fileName(), index));
-	setData(index, dat, TaggedFileRole);
+  QFileInfo info = fileInfo(index);
+  dat.setValue(TaggedFile::createFile(info.path(), info.fileName(), index));
+  setData(index, dat, TaggedFileRole);
 }
 
 
@@ -391,14 +391,14 @@ void FileProxyModel::initTaggedFileData(const QModelIndex& index) {
  * @return true if index has a tagged file, *taggedFile is set to the pointer.
  */
 bool FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index,
-																					TaggedFile** taggedFile) {
-	if (!(index.isValid() && index.model() != 0))
-		return false;
-	QVariant data(index.model()->data(index, FileProxyModel::TaggedFileRole));
-	if (!data.canConvert<TaggedFile*>())
-		return false;
-	*taggedFile = data.value<TaggedFile*>();
-	return true;
+                                          TaggedFile** taggedFile) {
+  if (!(index.isValid() && index.model() != 0))
+    return false;
+  QVariant data(index.model()->data(index, FileProxyModel::TaggedFileRole));
+  if (!data.canConvert<TaggedFile*>())
+    return false;
+  *taggedFile = data.value<TaggedFile*>();
+  return true;
 }
 
 /**
@@ -410,12 +410,12 @@ bool FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index,
  * TaggedFile or if has a TaggedFile which is null.
  */
 TaggedFile* FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index) {
-	if (!(index.isValid() && index.model() != 0))
-		return 0;
-	QVariant data(index.model()->data(index, FileProxyModel::TaggedFileRole));
-	if (!data.canConvert<TaggedFile*>())
-		return 0;
-	return data.value<TaggedFile*>();
+  if (!(index.isValid() && index.model() != 0))
+    return 0;
+  QVariant data(index.model()->data(index, FileProxyModel::TaggedFileRole));
+  if (!data.canConvert<TaggedFile*>())
+    return 0;
+  return data.value<TaggedFile*>();
 }
 
 /**
@@ -426,12 +426,12 @@ TaggedFile* FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index) {
  * @return directory path, null if not directory
  */
 QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
-	const FileProxyModel* model =
-			qobject_cast<const FileProxyModel*>(index.model());
-	if (!model || !model->isDir(index))
-		return QString();
+  const FileProxyModel* model =
+      qobject_cast<const FileProxyModel*>(index.model());
+  if (!model || !model->isDir(index))
+    return QString();
 
-	return model->filePath(index);
+  return model->filePath(index);
 }
 
 /**
@@ -441,10 +441,10 @@ QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
  * @param index model index
  */
 void FileProxyModel::releaseTaggedFileOfIndex(const QModelIndex& index) {
-	// setData() will not invalidate the model, so this should be safe.
-	QAbstractItemModel* model = const_cast<QAbstractItemModel*>(index.model());
-	if (model)
-		model->setData(index, QVariant(), FileProxyModel::TaggedFileRole);
+  // setData() will not invalidate the model, so this should be safe.
+  QAbstractItemModel* model = const_cast<QAbstractItemModel*>(index.model());
+  if (model)
+    model->setData(index, QVariant(), FileProxyModel::TaggedFileRole);
 }
 
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
@@ -457,23 +457,23 @@ void FileProxyModel::releaseTaggedFileOfIndex(const QModelIndex& index) {
  */
 TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
 {
-	const QPersistentModelIndex& index = taggedFile->getIndex();
-	if (TagLibFile* tagLibFile = new TagLibFile(
-				taggedFile->getDirname(), taggedFile->getFilename(), index)) {
-		if (index.isValid()) {
-			QVariant data;
-			data.setValue(static_cast<TaggedFile*>(tagLibFile));
-			// setData() will not invalidate the model, so this should be safe.
-			QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
-					index.model());
-			if (setDataModel) {
-				setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
-			}
-		}
-		taggedFile = tagLibFile;
-		taggedFile->readTags(false);
-	}
-	return taggedFile;
+  const QPersistentModelIndex& index = taggedFile->getIndex();
+  if (TagLibFile* tagLibFile = new TagLibFile(
+        taggedFile->getDirname(), taggedFile->getFilename(), index)) {
+    if (index.isValid()) {
+      QVariant data;
+      data.setValue(static_cast<TaggedFile*>(tagLibFile));
+      // setData() will not invalidate the model, so this should be safe.
+      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+          index.model());
+      if (setDataModel) {
+        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+      }
+    }
+    taggedFile = tagLibFile;
+    taggedFile->readTags(false);
+  }
+  return taggedFile;
 }
 
 /**
@@ -485,23 +485,23 @@ TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
  */
 TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
 {
-	const QPersistentModelIndex& index = taggedFile->getIndex();
-	if (Mp3File* id3libFile = new Mp3File(
-				taggedFile->getDirname(), taggedFile->getFilename(), index)) {
-		if (index.isValid()) {
-			QVariant data;
-			data.setValue(static_cast<TaggedFile*>(id3libFile));
-			// setData() will not invalidate the model, so this should be safe.
-			QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
-					index.model());
-			if (setDataModel) {
-				setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
-			}
-		}
-		taggedFile = id3libFile;
-		taggedFile->readTags(false);
-	}
-	return taggedFile;
+  const QPersistentModelIndex& index = taggedFile->getIndex();
+  if (Mp3File* id3libFile = new Mp3File(
+        taggedFile->getDirname(), taggedFile->getFilename(), index)) {
+    if (index.isValid()) {
+      QVariant data;
+      data.setValue(static_cast<TaggedFile*>(id3libFile));
+      // setData() will not invalidate the model, so this should be safe.
+      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+          index.model());
+      if (setDataModel) {
+        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+      }
+    }
+    taggedFile = id3libFile;
+    taggedFile->readTags(false);
+  }
+  return taggedFile;
 }
 
 /**
@@ -515,14 +515,14 @@ TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
  */
 TaggedFile* FileProxyModel::readWithTagLibIfId3V24(TaggedFile* taggedFile)
 {
-	if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
-			!taggedFile->isChanged() &&
-			taggedFile->isTagInformationRead() && taggedFile->hasTagV2()) {
-		QString id3v2Version = taggedFile->getTagFormatV2();
-		if (id3v2Version.isNull() || id3v2Version == "ID3v2.2.0") {
-			taggedFile = readWithTagLib(taggedFile);
-		}
-	}
-	return taggedFile;
+  if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
+      !taggedFile->isChanged() &&
+      taggedFile->isTagInformationRead() && taggedFile->hasTagV2()) {
+    QString id3v2Version = taggedFile->getTagFormatV2();
+    if (id3v2Version.isNull() || id3v2Version == "ID3v2.2.0") {
+      taggedFile = readWithTagLib(taggedFile);
+    }
+  }
+  return taggedFile;
 }
 #endif

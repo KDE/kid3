@@ -43,7 +43,7 @@ BrowserDialog* ContextHelp::s_helpBrowser = 0;
  */
 void ContextHelp::displayHelp(const QString& anchor)
 {
-	KToolInvocation::invokeHelp(anchor);
+  KToolInvocation::invokeHelp(anchor);
 }
 
 #else
@@ -55,18 +55,18 @@ void ContextHelp::displayHelp(const QString& anchor)
  */
 void ContextHelp::displayHelp(const QString& anchor)
 {
-	if (!s_helpBrowser) {
-		QString caption(QCM_translate(I18N_NOOP("Kid3 Handbook")));
-		s_helpBrowser =
-			new BrowserDialog(0, caption);
-	}
-	if (s_helpBrowser) {
-		s_helpBrowser->goToAnchor(anchor);
-		s_helpBrowser->setModal(!anchor.isEmpty());
-		if (s_helpBrowser->isHidden()) {
-			s_helpBrowser->show();
-		}
-	}
+  if (!s_helpBrowser) {
+    QString caption(QCM_translate(I18N_NOOP("Kid3 Handbook")));
+    s_helpBrowser =
+      new BrowserDialog(0, caption);
+  }
+  if (s_helpBrowser) {
+    s_helpBrowser->goToAnchor(anchor);
+    s_helpBrowser->setModal(!anchor.isEmpty());
+    if (s_helpBrowser->isHidden()) {
+      s_helpBrowser->show();
+    }
+  }
 }
 #endif
 
@@ -76,7 +76,7 @@ void ContextHelp::displayHelp(const QString& anchor)
 void ContextHelp::staticCleanup()
 {
 #ifndef CONFIG_USE_KDE
-	delete s_helpBrowser;
-	s_helpBrowser = 0;
+  delete s_helpBrowser;
+  s_helpBrowser = 0;
 #endif
 }

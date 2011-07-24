@@ -51,312 +51,312 @@ class ScriptInterface: public ScriptInterfaceBaseClass
 Q_OBJECT
 Q_CLASSINFO("D-Bus Interface", "net.sourceforge.Kid3")
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent main window
-	 * @param app application
-	 */
-	ScriptInterface(Kid3MainWindow* parent, Kid3Application* app);
+  /**
+   * Constructor.
+   *
+   * @param parent parent main window
+   * @param app application
+   */
+  ScriptInterface(Kid3MainWindow* parent, Kid3Application* app);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~ScriptInterface();
+  /**
+   * Destructor.
+   */
+  virtual ~ScriptInterface();
 
 public slots:
-	/**
-	 * Open file or directory.
-	 *
-	 * @param path path to file or directory
-	 *
-	 * @return true if ok.
-	 */
-	bool openDirectory(const QString& path);
+  /**
+   * Open file or directory.
+   *
+   * @param path path to file or directory
+   *
+   * @return true if ok.
+   */
+  bool openDirectory(const QString& path);
 
-	/**
-	 * Save all modified files.
-	 *
-	 * @return true if ok,
-	 *         else the error message is available using getErrorMessage().
-	 */
-	bool save();
+  /**
+   * Save all modified files.
+   *
+   * @return true if ok,
+   *         else the error message is available using getErrorMessage().
+   */
+  bool save();
 
-	/**
-	 * Get a detailed error message provided by some methods.
-	 * @return detailed error message.
-	 */
-	QString getErrorMessage() const;
+  /**
+   * Get a detailed error message provided by some methods.
+   * @return detailed error message.
+   */
+  QString getErrorMessage() const;
 
-	/**
-	 * Revert changes in the selected files.
-	 */
-	void revert();
+  /**
+   * Revert changes in the selected files.
+   */
+  void revert();
 
-	/**
-	 * Import tags from a file.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 * @param path    path of file
-	 * @param fmtIdx  index of format
-	 *
-	 * @return true if ok.
-	 */
-	bool importFromFile(int tagMask, const QString& path, int fmtIdx);
+  /**
+   * Import tags from a file.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   * @param path    path of file
+   * @param fmtIdx  index of format
+   *
+   * @return true if ok.
+   */
+  bool importFromFile(int tagMask, const QString& path, int fmtIdx);
 
-	/**
-	 * Download album cover art into the picture frame of the selected files.
-	 *
-	 * @param url           URL of picture file or album art resource
-	 * @param allFilesInDir true to add the image to all files in the directory
-	 */
-	void downloadAlbumArt(const QString& url, bool allFilesInDir);
+  /**
+   * Download album cover art into the picture frame of the selected files.
+   *
+   * @param url           URL of picture file or album art resource
+   * @param allFilesInDir true to add the image to all files in the directory
+   */
+  void downloadAlbumArt(const QString& url, bool allFilesInDir);
 
-	/**
-	 * Export tags to a file.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 * @param path    path of file
-	 * @param fmtIdx  index of format
-	 *
-	 * @return true if ok.
-	 */
-	bool exportToFile(int tagMask, const QString& path, int fmtIdx);
+  /**
+   * Export tags to a file.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   * @param path    path of file
+   * @param fmtIdx  index of format
+   *
+   * @return true if ok.
+   */
+  bool exportToFile(int tagMask, const QString& path, int fmtIdx);
 
-	/**
-	 * Create a playlist.
-	 *
-	 * @return true if ok.
-	 */
+  /**
+   * Create a playlist.
+   *
+   * @return true if ok.
+   */
   bool createPlaylist();
 
-	/**
-	 * Quit the application.
-	 * Omitted Q_NOREPLY because the Qt 3 moc chokes on it.
-	 */
-	void quit();
+  /**
+   * Quit the application.
+   * Omitted Q_NOREPLY because the Qt 3 moc chokes on it.
+   */
+  void quit();
 
-	/**
-	 * Select all files.
-	 */
-	void selectAll();
+  /**
+   * Select all files.
+   */
+  void selectAll();
 
-	/**
-	 * Deselect all files.
-	 */
-	void deselectAll();
+  /**
+   * Deselect all files.
+   */
+  void deselectAll();
 
-	/**
-	 * Select the first file.
-	 *
-	 * @return true if there is a first file.
-	 */
-	bool firstFile();
+  /**
+   * Select the first file.
+   *
+   * @return true if there is a first file.
+   */
+  bool firstFile();
 
-	/**
-	 * Select the previous file.
-	 *
-	 * @return true if there is a previous file.
-	 */
-	bool previousFile();
+  /**
+   * Select the previous file.
+   *
+   * @return true if there is a previous file.
+   */
+  bool previousFile();
 
-	/**
-	 * Select the next file.
-	 *
-	 * @return true if there is a next file.
-	 */
-	bool nextFile();
+  /**
+   * Select the next file.
+   *
+   * @return true if there is a next file.
+   */
+  bool nextFile();
 
-	/**
-	 * Expand or collapse the current file item if it is a directory.
-	 * A file list item is a directory if getFileName() returns a name with
-	 * '/' as the last character.
-	 *
-	 * @return true if current file item is a directory.
-	 */
-	bool expandDirectory();
+  /**
+   * Expand or collapse the current file item if it is a directory.
+   * A file list item is a directory if getFileName() returns a name with
+   * '/' as the last character.
+   *
+   * @return true if current file item is a directory.
+   */
+  bool expandDirectory();
 
-	/**
-	 * Apply the file name format.
-	 */
-	void applyFilenameFormat();
+  /**
+   * Apply the file name format.
+   */
+  void applyFilenameFormat();
 
-	/**
-	 * Apply the tag format.
-	 */
-	void applyTagFormat();
+  /**
+   * Apply the tag format.
+   */
+  void applyTagFormat();
 
-	/**
-	 * Set the directory name from the tags.
-	 *
-	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
-	 * @param format  directory name format
-	 * @param create  true to create, false to rename
-	 *
-	 * @return true if ok,
-	 *         else the error message is available using getErrorMessage().
-	 */
-	bool setDirNameFromTag(int tagMask, const QString& format, bool create);
+  /**
+   * Set the directory name from the tags.
+   *
+   * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+   * @param format  directory name format
+   * @param create  true to create, false to rename
+   *
+   * @return true if ok,
+   *         else the error message is available using getErrorMessage().
+   */
+  bool setDirNameFromTag(int tagMask, const QString& format, bool create);
 
-	/**
-	 * Set subsequent track numbers in the selected files.
-	 *
-	 * @param tagMask      tag mask (bit 0 for tag 1, bit 1 for tag 2)
-	 * @param firstTrackNr number to use for first file
-	 */
-	void numberTracks(int tagMask, int firstTrackNr);
+  /**
+   * Set subsequent track numbers in the selected files.
+   *
+   * @param tagMask      tag mask (bit 0 for tag 1, bit 1 for tag 2)
+   * @param firstTrackNr number to use for first file
+   */
+  void numberTracks(int tagMask, int firstTrackNr);
 
-	/**
-	 * Filter the files.
-	 *
-	 * @param expression filter expression
-	 */
-	void filter(const QString& expression);
+  /**
+   * Filter the files.
+   *
+   * @param expression filter expression
+   */
+  void filter(const QString& expression);
 
-	/**
-	 * Convert ID3v2.3 tags to ID3v2.4.
-	 */
-	void convertToId3v24();
+  /**
+   * Convert ID3v2.3 tags to ID3v2.4.
+   */
+  void convertToId3v24();
 
-	/**
-	 * Convert ID3v2.4 tags to ID3v2.3.
-	 */
-	void convertToId3v23();
+  /**
+   * Convert ID3v2.4 tags to ID3v2.3.
+   */
+  void convertToId3v23();
 
-	/**
-	 * Get path of directory.
-	 *
-	 * @return absolute path of directory.
-	 */
-	QString getDirectoryName();
+  /**
+   * Get path of directory.
+   *
+   * @return absolute path of directory.
+   */
+  QString getDirectoryName();
 
-	/**
-	 * Get name of current file.
-	 *
-	 * @return absolute file name, ends with "/" if it is a directory.
-	 */
-	QString getFileName();
+  /**
+   * Get name of current file.
+   *
+   * @return absolute file name, ends with "/" if it is a directory.
+   */
+  QString getFileName();
 
-	/**
-	 * Set name of selected file.
-	 * The file will be renamed when the directory is saved.
-	 *
-	 * @param name file name.
-	 */
-	void setFileName(const QString& name);
+  /**
+   * Set name of selected file.
+   * The file will be renamed when the directory is saved.
+   *
+   * @param name file name.
+   */
+  void setFileName(const QString& name);
 
-	/**
-	 * Set format to use when setting the filename from the tags.
-	 *
-	 * @param format file name format
-	 * @see setFileNameFromTag()
-	 */
-	void setFileNameFormat(const QString& format);
+  /**
+   * Set format to use when setting the filename from the tags.
+   *
+   * @param format file name format
+   * @see setFileNameFromTag()
+   */
+  void setFileNameFormat(const QString& format);
 
-	/**
-	 * Set the file names of the selected files from the tags.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 * @see setFileNameFormat()
-	 */
-	void setFileNameFromTag(int tagMask);
+  /**
+   * Set the file names of the selected files from the tags.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   * @see setFileNameFormat()
+   */
+  void setFileNameFromTag(int tagMask);
 
-	/**
-	 * Get value of frame.
-	 * To get binary data like a picture, the name of a file to write can be
-	 * added after the @a name, e.g. "Picture:/path/to/file".
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 * @param name    name of frame (e.g. "artist")
-	 */
-	QString getFrame(int tagMask, const QString& name);
+  /**
+   * Get value of frame.
+   * To get binary data like a picture, the name of a file to write can be
+   * added after the @a name, e.g. "Picture:/path/to/file".
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   * @param name    name of frame (e.g. "artist")
+   */
+  QString getFrame(int tagMask, const QString& name);
 
-	/**
-	 * Set value of frame.
-	 * For tag 2 (@a tagMask 2), if no frame with @a name exists, a new frame
-	 * is added, if @a value is empty, the frame is deleted.
-	 * To add binary data like a picture, a file can be added after the
-	 * @a name, e.g. "Picture:/path/to/file".
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 * @param name    name of frame (e.g. "artist")
-	 * @param value   value of frame
-	 */
-	bool setFrame(int tagMask, const QString& name, const QString& value);
+  /**
+   * Set value of frame.
+   * For tag 2 (@a tagMask 2), if no frame with @a name exists, a new frame
+   * is added, if @a value is empty, the frame is deleted.
+   * To add binary data like a picture, a file can be added after the
+   * @a name, e.g. "Picture:/path/to/file".
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   * @param name    name of frame (e.g. "artist")
+   * @param value   value of frame
+   */
+  bool setFrame(int tagMask, const QString& name, const QString& value);
 
-	/**
-	 * Get all frames of a tag.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 *
-	 * @return list with alternating frame names and values.
-	 */
-	QStringList getTag(int tagMask);
+  /**
+   * Get all frames of a tag.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   *
+   * @return list with alternating frame names and values.
+   */
+  QStringList getTag(int tagMask);
 
-	/**
-	 * Get technical information about file.
-	 * Properties are Format, Bitrate, Samplerate, Channels, Duration,
-	 * Channel Mode, VBR, Tag 1, Tag 2.
-	 * Properties which are not available are omitted.
-	 *
-	 * @return list with alternating property names and values.
-	 */
-	QStringList getInformation();
+  /**
+   * Get technical information about file.
+   * Properties are Format, Bitrate, Samplerate, Channels, Duration,
+   * Channel Mode, VBR, Tag 1, Tag 2.
+   * Properties which are not available are omitted.
+   *
+   * @return list with alternating property names and values.
+   */
+  QStringList getInformation();
 
-	/**
-	 * Set tag from file name.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 */
-	void setTagFromFileName(int tagMask);
+  /**
+   * Set tag from file name.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void setTagFromFileName(int tagMask);
 
-	/**
-	 * Set tag from other tag.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 */
-	void setTagFromOtherTag(int tagMask);
+  /**
+   * Set tag from other tag.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void setTagFromOtherTag(int tagMask);
 
-	/**
-	 * Copy tag.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 */
-	void copyTag(int tagMask);
+  /**
+   * Copy tag.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void copyTag(int tagMask);
 
-	/**
-	 * Paste tag.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 */
-	void pasteTag(int tagMask);
+  /**
+   * Paste tag.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void pasteTag(int tagMask);
 
-	/**
-	 * Remove tag.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 */
-	void removeTag(int tagMask);
+  /**
+   * Remove tag.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   */
+  void removeTag(int tagMask);
 
-	/**
-	 * Hide or show tag in GUI.
-	 *
-	 * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-	 * @param hide    true to hide tag
-	 */
-	void hideTag(int tagMask, bool hide);
+  /**
+   * Hide or show tag in GUI.
+   *
+   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
+   * @param hide    true to hide tag
+   */
+  void hideTag(int tagMask, bool hide);
 
-	/**
-	 * Reparse the configuration.
-	 * Automated configuration changes are possible by modifying
-	 * the configuration file and then reparsing the configuration.
-	 */
-	void reparseConfiguration();
+  /**
+   * Reparse the configuration.
+   * Automated configuration changes are possible by modifying
+   * the configuration file and then reparsing the configuration.
+   */
+  void reparseConfiguration();
 
 private:
-	Kid3MainWindow* m_mainWin;
-	Kid3Application* m_app;
-	QString m_errorMsg;
+  Kid3MainWindow* m_mainWin;
+  Kid3Application* m_app;
+  QString m_errorMsg;
 };
 
 #endif // SCRIPTINTERFACE_H

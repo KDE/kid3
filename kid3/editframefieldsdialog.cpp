@@ -51,165 +51,165 @@
 /** QTextEdit with label above */
 class LabeledTextEdit : public QWidget {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	LabeledTextEdit(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  LabeledTextEdit(QWidget* parent);
 
-	/**
-	 * Get text.
-	 *
-	 * @return text.
-	 */
-	QString text() const {
-		return m_edit->toPlainText();
-	}
+  /**
+   * Get text.
+   *
+   * @return text.
+   */
+  QString text() const {
+    return m_edit->toPlainText();
+  }
 
-	/**
-	 * Set text.
-	 *
-	 * @param txt text
-	 */
-	void setText(const QString& txt) {
-		m_edit->setPlainText(txt);
-	}
+  /**
+   * Set text.
+   *
+   * @param txt text
+   */
+  void setText(const QString& txt) {
+    m_edit->setPlainText(txt);
+  }
 
-	/**
-	 * Set label.
-	 *
-	 * @param txt label
-	 */
-	void setLabel(const QString& txt) { m_label->setText(txt); }
+  /**
+   * Set label.
+   *
+   * @param txt label
+   */
+  void setLabel(const QString& txt) { m_label->setText(txt); }
 
 private:
-	/** Label above edit */
-	QLabel* m_label;
-	/** Text editor */
-	QTextEdit* m_edit;
+  /** Label above edit */
+  QLabel* m_label;
+  /** Text editor */
+  QTextEdit* m_edit;
 };
 
 
 /** LineEdit with label above */
 class LabeledLineEdit : public QWidget {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	LabeledLineEdit(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  LabeledLineEdit(QWidget* parent);
 
-	/**
-	 * Get text.
-	 *
-	 * @return text.
-	 */
-	QString text() const { return m_edit->text(); }
+  /**
+   * Get text.
+   *
+   * @return text.
+   */
+  QString text() const { return m_edit->text(); }
 
-	/**
-	 * Set text.
-	 *
-	 * @param txt text
-	 */
-	void setText(const QString& txt) { m_edit->setText(txt); }
+  /**
+   * Set text.
+   *
+   * @param txt text
+   */
+  void setText(const QString& txt) { m_edit->setText(txt); }
 
-	/**
-	 * Set label.
-	 *
-	 * @param txt label
-	 */
-	void setLabel(const QString& txt) { m_label->setText(txt); }
+  /**
+   * Set label.
+   *
+   * @param txt label
+   */
+  void setLabel(const QString& txt) { m_label->setText(txt); }
 
 private:
-	/** Label above edit */
-	QLabel* m_label;
-	/** Line editor */
-	QLineEdit* m_edit;
+  /** Label above edit */
+  QLabel* m_label;
+  /** Line editor */
+  QLineEdit* m_edit;
 };
 
 
 /** Combo box with label above */
 class LabeledComboBox : public QWidget {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 * @param strlst list with ComboBox items, terminated by NULL
-	 */
-	LabeledComboBox(QWidget* parent, const char** strlst);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   * @param strlst list with ComboBox items, terminated by NULL
+   */
+  LabeledComboBox(QWidget* parent, const char** strlst);
 
-	/**
-	 * Get index of selected item.
-	 *
-	 * @return index.
-	 */
-	int currentItem() const {
-		return m_combo->currentIndex();
-	}
+  /**
+   * Get index of selected item.
+   *
+   * @return index.
+   */
+  int currentItem() const {
+    return m_combo->currentIndex();
+  }
 
-	/**
-	 * Set index of selected item.
-	 *
-	 * @param idx index
-	 */
-	void setCurrentItem(int idx) {
-		m_combo->setCurrentIndex(idx);
-	}
+  /**
+   * Set index of selected item.
+   *
+   * @param idx index
+   */
+  void setCurrentItem(int idx) {
+    m_combo->setCurrentIndex(idx);
+  }
 
-	/**
-	 * Set label.
-	 *
-	 * @param txt label
-	 */
-	void setLabel(const QString& txt) { m_label->setText(txt); }
+  /**
+   * Set label.
+   *
+   * @param txt label
+   */
+  void setLabel(const QString& txt) { m_label->setText(txt); }
 
 private:
-	/** Label above combo box */
-	QLabel* m_label;
-	/** Combo box */
-	QComboBox* m_combo;
+  /** Label above combo box */
+  QLabel* m_label;
+  /** Combo box */
+  QComboBox* m_combo;
 };
 
 
 /** QSpinBox with label above */
 class LabeledSpinBox : public QWidget {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	LabeledSpinBox(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  LabeledSpinBox(QWidget* parent);
 
-	/**
-	 * Get value.
-	 *
-	 * @return text.
-	 */
-	int value() const { return m_spinbox->value(); }
+  /**
+   * Get value.
+   *
+   * @return text.
+   */
+  int value() const { return m_spinbox->value(); }
 
-	/**
-	 * Set value.
-	 *
-	 * @param value value
-	 */
-	void setValue(int value) { m_spinbox->setValue(value); }
+  /**
+   * Set value.
+   *
+   * @param value value
+   */
+  void setValue(int value) { m_spinbox->setValue(value); }
 
-	/**
-	 * Set label.
-	 *
-	 * @param txt label
-	 */
-	void setLabel(const QString& txt) { m_label->setText(txt); }
+  /**
+   * Set label.
+   *
+   * @param txt label
+   */
+  void setLabel(const QString& txt) { m_label->setText(txt); }
 
 private:
-	/** Label above edit */
-	QLabel* m_label;
-	/** Text editor */
-	QSpinBox* m_spinbox;
+  /** Label above edit */
+  QLabel* m_label;
+  /** Text editor */
+  QSpinBox* m_spinbox;
 };
 
 
@@ -219,18 +219,18 @@ private:
  * @param parent parent widget
  */
 LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
-	QWidget(parent)
+  QWidget(parent)
 {
-	QVBoxLayout* layout = new QVBoxLayout(this);
-	m_label = new QLabel(this);
-	m_edit = new QTextEdit(this);
-	if (layout && m_label && m_edit) {
-		layout->setMargin(0);
-		layout->setSpacing(2);
-		m_edit->setAcceptRichText(false);
-		layout->addWidget(m_label);
-		layout->addWidget(m_edit);
-	}
+  QVBoxLayout* layout = new QVBoxLayout(this);
+  m_label = new QLabel(this);
+  m_edit = new QTextEdit(this);
+  if (layout && m_label && m_edit) {
+    layout->setMargin(0);
+    layout->setSpacing(2);
+    m_edit->setAcceptRichText(false);
+    layout->addWidget(m_label);
+    layout->addWidget(m_edit);
+  }
 }
 
 /**
@@ -239,17 +239,17 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
  * @param parent parent widget
  */
 LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
-	QWidget(parent)
+  QWidget(parent)
 {
-	QVBoxLayout* layout = new QVBoxLayout(this);
-	m_label = new QLabel(this);
-	m_edit = new QLineEdit(this);
-	if (layout && m_label && m_edit) {
-		layout->setMargin(0);
-		layout->setSpacing(2);
-		layout->addWidget(m_label);
-		layout->addWidget(m_edit);
-	}
+  QVBoxLayout* layout = new QVBoxLayout(this);
+  m_label = new QLabel(this);
+  m_edit = new QLineEdit(this);
+  if (layout && m_label && m_edit) {
+    layout->setMargin(0);
+    layout->setSpacing(2);
+    layout->addWidget(m_label);
+    layout->addWidget(m_edit);
+  }
 }
 
 /**
@@ -259,22 +259,22 @@ LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
  * @param strlst list with ComboBox items, terminated by NULL
  */
 LabeledComboBox::LabeledComboBox(QWidget* parent,
-				 const char **strlst) : QWidget(parent)
+         const char **strlst) : QWidget(parent)
 {
-	QVBoxLayout* layout = new QVBoxLayout(this);
-	m_label = new QLabel(this);
-	m_combo = new QComboBox(this);
-	if (layout && m_label && m_combo) {
-		layout->setMargin(0);
-		layout->setSpacing(2);
-		QStringList strList;
-		while (*strlst) {
-			strList += QCM_translate(*strlst++);
-		}
-		m_combo->addItems(strList);
-		layout->addWidget(m_label);
-		layout->addWidget(m_combo);
-	}
+  QVBoxLayout* layout = new QVBoxLayout(this);
+  m_label = new QLabel(this);
+  m_combo = new QComboBox(this);
+  if (layout && m_label && m_combo) {
+    layout->setMargin(0);
+    layout->setSpacing(2);
+    QStringList strList;
+    while (*strlst) {
+      strList += QCM_translate(*strlst++);
+    }
+    m_combo->addItems(strList);
+    layout->addWidget(m_label);
+    layout->addWidget(m_combo);
+  }
 }
 
 /**
@@ -283,228 +283,228 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
  * @param parent parent widget
  */
 LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
-	QWidget(parent)
+  QWidget(parent)
 {
-	QVBoxLayout* layout = new QVBoxLayout(this);
-	m_label = new QLabel(this);
-	m_spinbox = new QSpinBox(this);
-	if (layout && m_label && m_spinbox) {
-		m_spinbox->setRange(0, INT_MAX);
-		layout->setMargin(0);
-		layout->setSpacing(2);
-		layout->addWidget(m_label);
-		layout->addWidget(m_spinbox);
-	}
+  QVBoxLayout* layout = new QVBoxLayout(this);
+  m_label = new QLabel(this);
+  m_spinbox = new QSpinBox(this);
+  if (layout && m_label && m_spinbox) {
+    m_spinbox->setRange(0, INT_MAX);
+    layout->setMargin(0);
+    layout->setSpacing(2);
+    layout->addWidget(m_label);
+    layout->addWidget(m_spinbox);
+  }
 }
 
 
 /** Base class for MP3 field controls */
 class Mp3FieldControl : public FieldControl {
 public:
-	/**
-	 * Constructor.
-	 * @param field field to edit
-	 */
-	Mp3FieldControl(Frame::Field& field) :
-		m_field(field) {}
+  /**
+   * Constructor.
+   * @param field field to edit
+   */
+  Mp3FieldControl(Frame::Field& field) :
+    m_field(field) {}
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~Mp3FieldControl() {}
+  /**
+   * Destructor.
+   */
+  virtual ~Mp3FieldControl() {}
 
 protected:
-	/**
-	 * Get description for ID3_Field.
-	 *
-	 * @param id ID of field
-	 * @return description or NULL if id unknown.
-	 */
-	const char* getFieldIDString(Frame::Field::Id id) const;
+  /**
+   * Get description for ID3_Field.
+   *
+   * @param id ID of field
+   * @return description or NULL if id unknown.
+   */
+  const char* getFieldIDString(Frame::Field::Id id) const;
 
-	/** field */
-	Frame::Field& m_field;
+  /** field */
+  Frame::Field& m_field;
 };
 
 /** Control to edit standard UTF text fields */
 class TextFieldControl : public Mp3FieldControl {
 public:
-	/**
-	 * Constructor.
-	 * @param field field to edit
-	 */
-	TextFieldControl(Frame::Field& field) :
-		Mp3FieldControl(field) {}
+  /**
+   * Constructor.
+   * @param field field to edit
+   */
+  TextFieldControl(Frame::Field& field) :
+    Mp3FieldControl(field) {}
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~TextFieldControl() {}
+  /**
+   * Destructor.
+   */
+  virtual ~TextFieldControl() {}
 
-	/**
-	 * Update field from data in field control.
-	 */
-	virtual void updateTag();
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
 
-	/**
-	 * Create widget to edit field data.
-	 *
-	 * @param parent parent widget
-	 *
-	 * @return widget to edit field data.
-	 */
-	virtual QWidget* createWidget(QWidget* parent);
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
 
 protected:
-	/** Text editor widget */
-	LabeledTextEdit* m_edit;
+  /** Text editor widget */
+  LabeledTextEdit* m_edit;
 };
 
 /** Control to edit single line text fields */
 class LineFieldControl : public Mp3FieldControl {
 public:
-	/**
-	 * Constructor.
-	 * @param field field to edit
-	 */
-	LineFieldControl(Frame::Field& field) :
-		Mp3FieldControl(field) {}
+  /**
+   * Constructor.
+   * @param field field to edit
+   */
+  LineFieldControl(Frame::Field& field) :
+    Mp3FieldControl(field) {}
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~LineFieldControl() {}
+  /**
+   * Destructor.
+   */
+  virtual ~LineFieldControl() {}
 
-	/**
-	 * Update field from data in field control.
-	 */
-	virtual void updateTag();
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
 
-	/**
-	 * Create widget to edit field data.
-	 *
-	 * @param parent parent widget
-	 *
-	 * @return widget to edit field data.
-	 */
-	virtual QWidget* createWidget(QWidget* parent);
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
 
 protected:
-	/** Line editor widget */
-	LabeledLineEdit* m_edit;
+  /** Line editor widget */
+  LabeledLineEdit* m_edit;
 };
 
 /** Control to edit integer fields */
 class IntFieldControl : public Mp3FieldControl {
 public:
-	/**
-	 * Constructor.
-	 * @param field field to edit
-	 */
-	IntFieldControl(Frame::Field& field) :
-		Mp3FieldControl(field) {}
+  /**
+   * Constructor.
+   * @param field field to edit
+   */
+  IntFieldControl(Frame::Field& field) :
+    Mp3FieldControl(field) {}
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~IntFieldControl() {}
+  /**
+   * Destructor.
+   */
+  virtual ~IntFieldControl() {}
 
-	/**
-	 * Update field from data in field control.
-	 */
-	virtual void updateTag();
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
 
-	/**
-	 * Create widget to edit field data.
-	 *
-	 * @param parent parent widget
-	 *
-	 * @return widget to edit field data.
-	 */
-	virtual QWidget* createWidget(QWidget* parent);
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
 
 protected:
-	/** Spin box widget */
-	LabeledSpinBox* m_numInp;
+  /** Spin box widget */
+  LabeledSpinBox* m_numInp;
 };
 
 /** Control to edit integer fields using a combo box with given values */
 class IntComboBoxControl : public Mp3FieldControl {
 public:
-	/**
-	 * Constructor.
-	 * @param field field to edit
-	 * @param lst list of strings with possible selections, NULL terminated
-	 */
-	IntComboBoxControl(Frame::Field& field,
-										 const char **lst) :
-		Mp3FieldControl(field), m_strLst(lst) {}
+  /**
+   * Constructor.
+   * @param field field to edit
+   * @param lst list of strings with possible selections, NULL terminated
+   */
+  IntComboBoxControl(Frame::Field& field,
+                     const char **lst) :
+    Mp3FieldControl(field), m_strLst(lst) {}
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~IntComboBoxControl() {}
+  /**
+   * Destructor.
+   */
+  virtual ~IntComboBoxControl() {}
 
-	/**
-	 * Update field from data in field control.
-	 */
-	virtual void updateTag();
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
 
-	/**
-	 * Create widget to edit field data.
-	 *
-	 * @param parent parent widget
-	 *
-	 * @return widget to edit field data.
-	 */
-	virtual QWidget* createWidget(QWidget* parent);
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
 
 protected:
-	/** Combo box widget */
-	LabeledComboBox* m_ptInp;
-	/** List of strings with possible selections */
-	const char** m_strLst;
+  /** Combo box widget */
+  LabeledComboBox* m_ptInp;
+  /** List of strings with possible selections */
+  const char** m_strLst;
 };
 
 /** Control to import, export and view data from binary fields */
 class BinFieldControl : public Mp3FieldControl {
 public:
-	/**
-	 * Constructor.
-	 * @param field      field to edit
-	 * @param frame      frame with fields to edit
-	 * @param taggedFile file
-	 */
-	BinFieldControl(Frame::Field& field,
-									const Frame& frame, const TaggedFile* taggedFile) :
-		Mp3FieldControl(field), m_frame(frame), m_taggedFile(taggedFile) {}
+  /**
+   * Constructor.
+   * @param field      field to edit
+   * @param frame      frame with fields to edit
+   * @param taggedFile file
+   */
+  BinFieldControl(Frame::Field& field,
+                  const Frame& frame, const TaggedFile* taggedFile) :
+    Mp3FieldControl(field), m_frame(frame), m_taggedFile(taggedFile) {}
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~BinFieldControl() {}
+  /**
+   * Destructor.
+   */
+  virtual ~BinFieldControl() {}
 
-	/**
-	 * Update field from data in field control.
-	 */
-	virtual void updateTag();
+  /**
+   * Update field from data in field control.
+   */
+  virtual void updateTag();
 
-	/**
-	 * Create widget to edit field data.
-	 *
-	 * @param parent parent widget
-	 *
-	 * @return widget to edit field data.
-	 */
-	virtual QWidget* createWidget(QWidget* parent);
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  virtual QWidget* createWidget(QWidget* parent);
 
 protected:
-	/** Import, Export, View buttons */
-	BinaryOpenSave* m_bos;
-	/** frame with fields to edit */
-	const Frame& m_frame;
-	/** tagged file */
-	const TaggedFile* m_taggedFile;
+  /** Import, Export, View buttons */
+  BinaryOpenSave* m_bos;
+  /** frame with fields to edit */
+  const Frame& m_frame;
+  /** tagged file */
+  const TaggedFile* m_taggedFile;
 };
 
 
@@ -515,30 +515,30 @@ protected:
  * @param field  field containing binary data
  */
 BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
-	QWidget(parent), m_byteArray(field.m_value.toByteArray()),
-	m_isChanged(false)
+  QWidget(parent), m_byteArray(field.m_value.toByteArray()),
+  m_isChanged(false)
 {
-	QHBoxLayout* layout = new QHBoxLayout(this);
-	m_label = new QLabel(this);
-	m_clipButton = new QPushButton(i18n("From Clip&board"), this);
-	QPushButton* openButton = new QPushButton(i18n("&Import"), this);
-	QPushButton* saveButton = new QPushButton(i18n("&Export"), this);
-	QPushButton* viewButton = new QPushButton(i18n("&View"), this);
-	if (layout && m_label && m_clipButton && openButton && saveButton && viewButton) {
-		layout->setMargin(0);
-		layout->setSpacing(6);
-		layout->addWidget(m_label);
-		layout->addWidget(m_clipButton);
-		layout->addWidget(openButton);
-		layout->addWidget(saveButton);
-		layout->addWidget(viewButton);
-		connect(m_clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
-		connect(openButton, SIGNAL(clicked()), this, SLOT(loadData()));
-		connect(saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
-		connect(viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
-		connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(setClipButtonState()));
-		setClipButtonState();
-	}
+  QHBoxLayout* layout = new QHBoxLayout(this);
+  m_label = new QLabel(this);
+  m_clipButton = new QPushButton(i18n("From Clip&board"), this);
+  QPushButton* openButton = new QPushButton(i18n("&Import"), this);
+  QPushButton* saveButton = new QPushButton(i18n("&Export"), this);
+  QPushButton* viewButton = new QPushButton(i18n("&View"), this);
+  if (layout && m_label && m_clipButton && openButton && saveButton && viewButton) {
+    layout->setMargin(0);
+    layout->setSpacing(6);
+    layout->addWidget(m_label);
+    layout->addWidget(m_clipButton);
+    layout->addWidget(openButton);
+    layout->addWidget(saveButton);
+    layout->addWidget(viewButton);
+    connect(m_clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
+    connect(openButton, SIGNAL(clicked()), this, SLOT(loadData()));
+    connect(saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
+    connect(viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
+    connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(setClipButtonState()));
+    setClipButtonState();
+  }
 }
 
 /**
@@ -546,10 +546,10 @@ BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
  */
 void BinaryOpenSave::setClipButtonState()
 {
-	QClipboard* cb = QApplication::clipboard();
-	m_clipButton->setEnabled(
-		cb && (cb->mimeData()->hasFormat("image/jpeg") ||
-					 cb->mimeData()->hasImage()));
+  QClipboard* cb = QApplication::clipboard();
+  m_clipButton->setEnabled(
+    cb && (cb->mimeData()->hasFormat("image/jpeg") ||
+           cb->mimeData()->hasImage()));
 }
 
 /**
@@ -557,18 +557,18 @@ void BinaryOpenSave::setClipButtonState()
  */
 void BinaryOpenSave::clipData()
 {
-	QClipboard* cb = QApplication::clipboard();
-	if (cb) {
-		if (cb->mimeData()->hasFormat("image/jpeg")) {
-			m_byteArray = cb->mimeData()->data("image/jpeg");
-			m_isChanged = true;
-		} else if (cb->mimeData()->hasImage()) {
-			QBuffer buffer(&m_byteArray);
-			buffer.open(QIODevice::WriteOnly);
-			cb->image().save(&buffer, "JPG");
-			m_isChanged = true;
-		}
-	}
+  QClipboard* cb = QApplication::clipboard();
+  if (cb) {
+    if (cb->mimeData()->hasFormat("image/jpeg")) {
+      m_byteArray = cb->mimeData()->data("image/jpeg");
+      m_isChanged = true;
+    } else if (cb->mimeData()->hasImage()) {
+      QBuffer buffer(&m_byteArray);
+      buffer.open(QIODevice::WriteOnly);
+      cb->image().save(&buffer, "JPG");
+      m_isChanged = true;
+    }
+  }
 }
 
 /**
@@ -578,33 +578,33 @@ void BinaryOpenSave::clipData()
 void BinaryOpenSave::loadData()
 {
 #ifdef CONFIG_USE_KDE
-	QString loadfilename = KFileDialog::getOpenFileName(
-		m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
-		QString::null, this);
+  QString loadfilename = KFileDialog::getOpenFileName(
+    m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
+    QString::null, this);
 #else
-	QString loadfilename = QFileDialog::getOpenFileName(
-		this, QString(),
-		m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir
+  QString loadfilename = QFileDialog::getOpenFileName(
+    this, QString(),
+    m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
-		, QString(), 0, QFileDialog::DontUseNativeDialog
+    , QString(), 0, QFileDialog::DontUseNativeDialog
 #endif
-		);
+    );
 #endif
-	if (!loadfilename.isEmpty()) {
-		QFile file(loadfilename);
-		if (file.open(QIODevice::ReadOnly)) {
-			size_t size = file.size();
-			char* data = new char[size];
-			if (data) {
-				QDataStream stream(&file);
-				stream.readRawData(data, size);
-				m_byteArray = QByteArray(data, size);
-				m_isChanged = true;
-				delete [] data;
-			}
-			file.close();
-		}
-	}
+  if (!loadfilename.isEmpty()) {
+    QFile file(loadfilename);
+    if (file.open(QIODevice::ReadOnly)) {
+      size_t size = file.size();
+      char* data = new char[size];
+      if (data) {
+        QDataStream stream(&file);
+        stream.readRawData(data, size);
+        m_byteArray = QByteArray(data, size);
+        m_isChanged = true;
+        delete [] data;
+      }
+      file.close();
+    }
+  }
 }
 
 /**
@@ -612,31 +612,31 @@ void BinaryOpenSave::loadData()
  */
 void BinaryOpenSave::saveData()
 {
-	QString dir = m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir;
-	if (!m_defaultFile.isEmpty()) {
-		QChar separator = QDir::separator();
-		if (!dir.endsWith(separator)) {
-			dir += separator;
-		}
-		dir += m_defaultFile;
-	}
+  QString dir = m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir;
+  if (!m_defaultFile.isEmpty()) {
+    QChar separator = QDir::separator();
+    if (!dir.endsWith(separator)) {
+      dir += separator;
+    }
+    dir += m_defaultFile;
+  }
 #ifdef CONFIG_USE_KDE
-	QString fn = KFileDialog::getSaveFileName(dir, QString::null, this);
+  QString fn = KFileDialog::getSaveFileName(dir, QString::null, this);
 #else
-	QString fn = QFileDialog::getSaveFileName(this, QString(), dir
+  QString fn = QFileDialog::getSaveFileName(this, QString(), dir
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
-		, QString(), 0, QFileDialog::DontUseNativeDialog
+    , QString(), 0, QFileDialog::DontUseNativeDialog
 #endif
-		);
+    );
 #endif
-	if (!fn.isEmpty()) {
-		QFile file(fn);
-		if (file.open(QIODevice::WriteOnly)) {
-			QDataStream stream(&file);
-			stream.writeRawData(m_byteArray.data(), m_byteArray.size());
-			file.close();
-		}
-	}
+  if (!fn.isEmpty()) {
+    QFile file(fn);
+    if (file.open(QIODevice::WriteOnly)) {
+      QDataStream stream(&file);
+      stream.writeRawData(m_byteArray.data(), m_byteArray.size());
+      file.close();
+    }
+  }
 }
 
 /**
@@ -644,11 +644,11 @@ void BinaryOpenSave::saveData()
  */
 void BinaryOpenSave::viewData()
 {
-	QImage image;
-	if (image.loadFromData(m_byteArray)) {
-		ImageViewer iv(this, image);
-		iv.exec();
-	}
+  QImage image;
+  if (image.loadFromData(m_byteArray)) {
+    ImageViewer iv(this, image);
+    iv.exec();
+  }
 }
 
 /**
@@ -659,36 +659,36 @@ void BinaryOpenSave::viewData()
  */
 const char* Mp3FieldControl::getFieldIDString(Frame::Field::Id id) const
 {
-	static const char* const idStr[] = {
-		"Unknown",
-		I18N_NOOP("Text Encoding"),
-		I18N_NOOP("Text"),
-		I18N_NOOP("URL"),
-		I18N_NOOP("Data"),
-		I18N_NOOP("Description"),
-		I18N_NOOP("Owner"),
-		I18N_NOOP("Email"),
-		I18N_NOOP("Rating"),
-		I18N_NOOP("Filename"),
-		I18N_NOOP("Language"),
-		I18N_NOOP("Picture Type"),
-		I18N_NOOP("Image format"),
-		I18N_NOOP("Mimetype"),
-		I18N_NOOP("Counter"),
-		I18N_NOOP("Identifier"),
-		I18N_NOOP("Volume Adjustment"),
-		I18N_NOOP("Number of Bits"),
-		I18N_NOOP("Volume Change Right"),
-		I18N_NOOP("Volume Change Left"),
-		I18N_NOOP("Peak Volume Right"),
-		I18N_NOOP("Peak Volume Left"),
-		I18N_NOOP("Timestamp Format"),
-		I18N_NOOP("Content Type")
-	};
-	class not_used { int array_size_check[
-			sizeof(idStr) / sizeof(idStr[0]) == Frame::Field::ID_ContentType + 1
-			? 1 : -1 ]; };
-	return idStr[id <= Frame::Field::ID_ContentType ? id : 0];
+  static const char* const idStr[] = {
+    "Unknown",
+    I18N_NOOP("Text Encoding"),
+    I18N_NOOP("Text"),
+    I18N_NOOP("URL"),
+    I18N_NOOP("Data"),
+    I18N_NOOP("Description"),
+    I18N_NOOP("Owner"),
+    I18N_NOOP("Email"),
+    I18N_NOOP("Rating"),
+    I18N_NOOP("Filename"),
+    I18N_NOOP("Language"),
+    I18N_NOOP("Picture Type"),
+    I18N_NOOP("Image format"),
+    I18N_NOOP("Mimetype"),
+    I18N_NOOP("Counter"),
+    I18N_NOOP("Identifier"),
+    I18N_NOOP("Volume Adjustment"),
+    I18N_NOOP("Number of Bits"),
+    I18N_NOOP("Volume Change Right"),
+    I18N_NOOP("Volume Change Left"),
+    I18N_NOOP("Peak Volume Right"),
+    I18N_NOOP("Peak Volume Left"),
+    I18N_NOOP("Timestamp Format"),
+    I18N_NOOP("Content Type")
+  };
+  class not_used { int array_size_check[
+      sizeof(idStr) / sizeof(idStr[0]) == Frame::Field::ID_ContentType + 1
+      ? 1 : -1 ]; };
+  return idStr[id <= Frame::Field::ID_ContentType ? id : 0];
 }
 
 /**
@@ -696,7 +696,7 @@ const char* Mp3FieldControl::getFieldIDString(Frame::Field::Id id) const
  */
 void TextFieldControl::updateTag()
 {
-	m_field.m_value = m_edit->text();
+  m_field.m_value = m_edit->text();
 }
 
 /**
@@ -707,13 +707,13 @@ void TextFieldControl::updateTag()
  */
 QWidget* TextFieldControl::createWidget(QWidget* parent)
 {
-	m_edit = new LabeledTextEdit(parent);
-	if (m_edit == NULL)
-		return NULL;
+  m_edit = new LabeledTextEdit(parent);
+  if (m_edit == NULL)
+    return NULL;
 
-	m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-	m_edit->setText(m_field.m_value.toString());
-	return m_edit;
+  m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_edit->setText(m_field.m_value.toString());
+  return m_edit;
 }
 
 /**
@@ -721,7 +721,7 @@ QWidget* TextFieldControl::createWidget(QWidget* parent)
  */
 void LineFieldControl::updateTag()
 {
-	m_field.m_value = m_edit->text();
+  m_field.m_value = m_edit->text();
 }
 
 /**
@@ -732,12 +732,12 @@ void LineFieldControl::updateTag()
  */
 QWidget* LineFieldControl::createWidget(QWidget* parent)
 {
-	m_edit = new LabeledLineEdit(parent);
-	if (m_edit) {
-		m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-		m_edit->setText(m_field.m_value.toString());
-	}
-	return m_edit;
+  m_edit = new LabeledLineEdit(parent);
+  if (m_edit) {
+    m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+    m_edit->setText(m_field.m_value.toString());
+  }
+  return m_edit;
 }
 
 /**
@@ -745,7 +745,7 @@ QWidget* LineFieldControl::createWidget(QWidget* parent)
  */
 void IntFieldControl::updateTag()
 {
-	m_field.m_value = m_numInp->value();
+  m_field.m_value = m_numInp->value();
 }
 
 /**
@@ -756,12 +756,12 @@ void IntFieldControl::updateTag()
  */
 QWidget* IntFieldControl::createWidget(QWidget* parent)
 {
-	m_numInp = new LabeledSpinBox(parent);
-	if (m_numInp) {
-		m_numInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-		m_numInp->setValue(m_field.m_value.toInt());
-	}
-	return m_numInp;
+  m_numInp = new LabeledSpinBox(parent);
+  if (m_numInp) {
+    m_numInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+    m_numInp->setValue(m_field.m_value.toInt());
+  }
+  return m_numInp;
 }
 
 /**
@@ -769,7 +769,7 @@ QWidget* IntFieldControl::createWidget(QWidget* parent)
  */
 void IntComboBoxControl::updateTag()
 {
-	m_field.m_value = m_ptInp->currentItem();
+  m_field.m_value = m_ptInp->currentItem();
 }
 
 /**
@@ -780,12 +780,12 @@ void IntComboBoxControl::updateTag()
  */
 QWidget* IntComboBoxControl::createWidget(QWidget* parent)
 {
-	m_ptInp = new LabeledComboBox(parent, m_strLst);
-	if (m_ptInp) {
-		m_ptInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-		m_ptInp->setCurrentItem(m_field.m_value.toInt());
-	}
-	return m_ptInp;
+  m_ptInp = new LabeledComboBox(parent, m_strLst);
+  if (m_ptInp) {
+    m_ptInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+    m_ptInp->setCurrentItem(m_field.m_value.toInt());
+  }
+  return m_ptInp;
 }
 
 /**
@@ -793,9 +793,9 @@ QWidget* IntComboBoxControl::createWidget(QWidget* parent)
  */
 void BinFieldControl::updateTag()
 {
-	if (m_bos && m_bos->isChanged()) {
-		m_field.m_value = m_bos->getData();
-	}
+  if (m_bos && m_bos->isChanged()) {
+    m_field.m_value = m_bos->getData();
+  }
 }
 
 /**
@@ -806,17 +806,17 @@ void BinFieldControl::updateTag()
  */
 QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
-	m_bos = new BinaryOpenSave(parent, m_field);
-	if (m_bos) {
-		m_bos->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-		if (m_taggedFile) {
-			m_bos->setDefaultDir(m_taggedFile->getDirname());
-		}
-		if (m_frame.getType() == Frame::FT_Picture) {
-			m_bos->setDefaultFile("folder.jpg");
-		}
-	}
-	return m_bos;
+  m_bos = new BinaryOpenSave(parent, m_field);
+  if (m_bos) {
+    m_bos->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+    if (m_taggedFile) {
+      m_bos->setDefaultDir(m_taggedFile->getDirname());
+    }
+    if (m_frame.getType() == Frame::FT_Picture) {
+      m_bos->setDefaultFile("folder.jpg");
+    }
+  }
+  return m_bos;
 }
 
 
@@ -827,11 +827,11 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
  */
 const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
 {
-	QListIterator<FieldControl*> it(m_fieldcontrols);
-	while (it.hasNext()) {
-		it.next()->updateTag();
-	}
-	return m_fields;
+  QListIterator<FieldControl*> it(m_fieldcontrols);
+  while (it.hasNext()) {
+    it.next()->updateTag();
+  }
+  return m_fields;
 }
 
 
@@ -844,163 +844,163 @@ const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
  * @param taggedFile file
  */
 EditFrameFieldsDialog::EditFrameFieldsDialog(
-	QWidget* parent, const QString& caption,
-	const Frame& frame, const TaggedFile* taggedFile) :
-	QDialog(parent), m_fields(frame.getFieldList())
+  QWidget* parent, const QString& caption,
+  const Frame& frame, const TaggedFile* taggedFile) :
+  QDialog(parent), m_fields(frame.getFieldList())
 {
-	setModal(true);
-	setWindowTitle(caption);
-	qDeleteAll(m_fieldcontrols);
-	m_fieldcontrols.clear();
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	if (vlayout) {
-		vlayout->setSpacing(6);
-		vlayout->setMargin(6);
+  setModal(true);
+  setWindowTitle(caption);
+  qDeleteAll(m_fieldcontrols);
+  m_fieldcontrols.clear();
+  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  if (vlayout) {
+    vlayout->setSpacing(6);
+    vlayout->setMargin(6);
 
-		for (Frame::FieldList::iterator fldIt = m_fields.begin();
-				 fldIt != m_fields.end();
-				 ++fldIt) {
-			Frame::Field& fld = *fldIt;
-			switch (fld.m_value.type()) {
-				case QVariant::Int:
-				case QVariant::UInt:
-					if (fld.m_id == Frame::Field::ID_TextEnc) {
-						static const char* strlst[] = {
-							I18N_NOOP("ISO-8859-1"),
-							I18N_NOOP("UTF16"),
-							I18N_NOOP("UTF16BE"),
-							I18N_NOOP("UTF8"),
-							NULL
-						};
-						IntComboBoxControl* cbox =
-							new IntComboBoxControl(fld, strlst);
-						if (cbox) {
-							m_fieldcontrols.append(cbox);
-						}
-					}
-					else if (fld.m_id == Frame::Field::ID_PictureType) {
-						static const char* strlst[] = {
-							I18N_NOOP("Other"),
-							I18N_NOOP("32x32 pixels PNG file icon"),
-							I18N_NOOP("Other file icon"),
-							I18N_NOOP("Cover (front)"),
-							I18N_NOOP("Cover (back)"),
-							I18N_NOOP("Leaflet page"),
-							I18N_NOOP("Media"),
-							I18N_NOOP("Lead artist/lead performer/soloist"),
-							I18N_NOOP("Artist/performer"),
-							I18N_NOOP("Conductor"),
-							I18N_NOOP("Band/Orchestra"),
-							I18N_NOOP("Composer"),
-							I18N_NOOP("Lyricist/text writer"),
-							I18N_NOOP("Recording Location"),
-							I18N_NOOP("During recording"),
-							I18N_NOOP("During performance"),
-							I18N_NOOP("Movie/video screen capture"),
-							I18N_NOOP("A bright coloured fish"),
-							I18N_NOOP("Illustration"),
-							I18N_NOOP("Band/artist logotype"),
-							I18N_NOOP("Publisher/Studio logotype"),
-							NULL
-						};
-						IntComboBoxControl* cbox =
-							new IntComboBoxControl(fld, strlst);
-						if (cbox) {
-							m_fieldcontrols.append(cbox);
-						}
-					}
-					else if (fld.m_id == Frame::Field::ID_TimestampFormat) {
-						static const char* strlst[] = {
-							I18N_NOOP("Other"),
-							I18N_NOOP("MPEG frames as unit"),
-							I18N_NOOP("Milliseconds as unit"),
-							NULL
-						};
-						IntComboBoxControl* cbox =
-							new IntComboBoxControl(fld, strlst);
-						if (cbox) {
-							m_fieldcontrols.append(cbox);
-						}
-					}
-					else if (fld.m_id == Frame::Field::ID_ContentType) {
-						static const char* strlst[] = {
-							I18N_NOOP("Other"),
-							I18N_NOOP("Lyrics"),
-							I18N_NOOP("Text transcription"),
-							I18N_NOOP("Movement/part name"),
-							I18N_NOOP("Events"),
-							I18N_NOOP("Chord"),
-							I18N_NOOP("Trivia/pop up"),
-							NULL
-						};
-						IntComboBoxControl* cbox =
-							new IntComboBoxControl(fld, strlst);
-						if (cbox) {
-							m_fieldcontrols.append(cbox);
-						}
-					}
-					else {
-						IntFieldControl* intctl =
-							new IntFieldControl(fld);
-						if (intctl) {
-							m_fieldcontrols.append(intctl);
-						}
-					}
-					break;
+    for (Frame::FieldList::iterator fldIt = m_fields.begin();
+         fldIt != m_fields.end();
+         ++fldIt) {
+      Frame::Field& fld = *fldIt;
+      switch (fld.m_value.type()) {
+        case QVariant::Int:
+        case QVariant::UInt:
+          if (fld.m_id == Frame::Field::ID_TextEnc) {
+            static const char* strlst[] = {
+              I18N_NOOP("ISO-8859-1"),
+              I18N_NOOP("UTF16"),
+              I18N_NOOP("UTF16BE"),
+              I18N_NOOP("UTF8"),
+              NULL
+            };
+            IntComboBoxControl* cbox =
+              new IntComboBoxControl(fld, strlst);
+            if (cbox) {
+              m_fieldcontrols.append(cbox);
+            }
+          }
+          else if (fld.m_id == Frame::Field::ID_PictureType) {
+            static const char* strlst[] = {
+              I18N_NOOP("Other"),
+              I18N_NOOP("32x32 pixels PNG file icon"),
+              I18N_NOOP("Other file icon"),
+              I18N_NOOP("Cover (front)"),
+              I18N_NOOP("Cover (back)"),
+              I18N_NOOP("Leaflet page"),
+              I18N_NOOP("Media"),
+              I18N_NOOP("Lead artist/lead performer/soloist"),
+              I18N_NOOP("Artist/performer"),
+              I18N_NOOP("Conductor"),
+              I18N_NOOP("Band/Orchestra"),
+              I18N_NOOP("Composer"),
+              I18N_NOOP("Lyricist/text writer"),
+              I18N_NOOP("Recording Location"),
+              I18N_NOOP("During recording"),
+              I18N_NOOP("During performance"),
+              I18N_NOOP("Movie/video screen capture"),
+              I18N_NOOP("A bright coloured fish"),
+              I18N_NOOP("Illustration"),
+              I18N_NOOP("Band/artist logotype"),
+              I18N_NOOP("Publisher/Studio logotype"),
+              NULL
+            };
+            IntComboBoxControl* cbox =
+              new IntComboBoxControl(fld, strlst);
+            if (cbox) {
+              m_fieldcontrols.append(cbox);
+            }
+          }
+          else if (fld.m_id == Frame::Field::ID_TimestampFormat) {
+            static const char* strlst[] = {
+              I18N_NOOP("Other"),
+              I18N_NOOP("MPEG frames as unit"),
+              I18N_NOOP("Milliseconds as unit"),
+              NULL
+            };
+            IntComboBoxControl* cbox =
+              new IntComboBoxControl(fld, strlst);
+            if (cbox) {
+              m_fieldcontrols.append(cbox);
+            }
+          }
+          else if (fld.m_id == Frame::Field::ID_ContentType) {
+            static const char* strlst[] = {
+              I18N_NOOP("Other"),
+              I18N_NOOP("Lyrics"),
+              I18N_NOOP("Text transcription"),
+              I18N_NOOP("Movement/part name"),
+              I18N_NOOP("Events"),
+              I18N_NOOP("Chord"),
+              I18N_NOOP("Trivia/pop up"),
+              NULL
+            };
+            IntComboBoxControl* cbox =
+              new IntComboBoxControl(fld, strlst);
+            if (cbox) {
+              m_fieldcontrols.append(cbox);
+            }
+          }
+          else {
+            IntFieldControl* intctl =
+              new IntFieldControl(fld);
+            if (intctl) {
+              m_fieldcontrols.append(intctl);
+            }
+          }
+          break;
 
-				case QVariant::String:
-					if (fld.m_id == Frame::Field::ID_Text) {
-						// Large textedit for text fields
-						TextFieldControl* textctl =
-							new TextFieldControl(fld);
-						if (textctl) {
-							m_fieldcontrols.append(textctl);
-						}
-					}
-					else {
-						LineFieldControl* textctl =
-							new LineFieldControl(fld);
-						if (textctl) {
-							m_fieldcontrols.append(textctl);
-						}
-					}
-					break;
+        case QVariant::String:
+          if (fld.m_id == Frame::Field::ID_Text) {
+            // Large textedit for text fields
+            TextFieldControl* textctl =
+              new TextFieldControl(fld);
+            if (textctl) {
+              m_fieldcontrols.append(textctl);
+            }
+          }
+          else {
+            LineFieldControl* textctl =
+              new LineFieldControl(fld);
+            if (textctl) {
+              m_fieldcontrols.append(textctl);
+            }
+          }
+          break;
 
-				case QVariant::ByteArray:
-				{
-					BinFieldControl* binctl =
-						new BinFieldControl(fld, frame, taggedFile);
-					if (binctl) {
-						m_fieldcontrols.append(binctl);
-					}
-					break;
-				}
+        case QVariant::ByteArray:
+        {
+          BinFieldControl* binctl =
+            new BinFieldControl(fld, frame, taggedFile);
+          if (binctl) {
+            m_fieldcontrols.append(binctl);
+          }
+          break;
+        }
 
-				default:
-					qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
-			}
-		}
+        default:
+          qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
+      }
+    }
 
-		QListIterator<FieldControl*> it(m_fieldcontrols);
-		while (it.hasNext()) {
-			vlayout->addWidget(it.next()->createWidget(this));
-		}
-	}
-	QHBoxLayout* hlayout = new QHBoxLayout;
-	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-					   QSizePolicy::Minimum);
-	QPushButton* okButton = new QPushButton(i18n("&OK"), this);
-	QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-	if (hlayout && okButton && cancelButton) {
-		hlayout->addItem(hspacer);
-		hlayout->addWidget(okButton);
-		hlayout->addWidget(cancelButton);
-		okButton->setDefault(true);
-		connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-		connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-		vlayout->addLayout(hlayout);
-	}
-	setMinimumWidth(525);
+    QListIterator<FieldControl*> it(m_fieldcontrols);
+    while (it.hasNext()) {
+      vlayout->addWidget(it.next()->createWidget(this));
+    }
+  }
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+             QSizePolicy::Minimum);
+  QPushButton* okButton = new QPushButton(i18n("&OK"), this);
+  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  if (hlayout && okButton && cancelButton) {
+    hlayout->addItem(hspacer);
+    hlayout->addWidget(okButton);
+    hlayout->addWidget(cancelButton);
+    okButton->setDefault(true);
+    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+    vlayout->addLayout(hlayout);
+  }
+  setMinimumWidth(525);
 }
 
 /**
@@ -1008,6 +1008,6 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
  */
 EditFrameFieldsDialog::~EditFrameFieldsDialog()
 {
-	qDeleteAll(m_fieldcontrols);
-	m_fieldcontrols.clear();
+  qDeleteAll(m_fieldcontrols);
+  m_fieldcontrols.clear();
 }

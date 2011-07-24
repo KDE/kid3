@@ -37,21 +37,21 @@ class BrowserDialog;
  */
 class ContextHelp {
 public:
-	/**
-	 * Display help for a topic.
-	 *
-	 * @param anchor anchor in help document
-	 */
-	static void displayHelp(const QString& anchor = QString());
+  /**
+   * Display help for a topic.
+   *
+   * @param anchor anchor in help document
+   */
+  static void displayHelp(const QString& anchor = QString());
 
-	/**
-	 * Free static resources.
-	 */
-	static void staticCleanup();
+  /**
+   * Free static resources.
+   */
+  static void staticCleanup();
 
 private:
 #ifndef CONFIG_USE_KDE
-	static BrowserDialog* s_helpBrowser;
+  static BrowserDialog* s_helpBrowser;
 #endif
 };
 

@@ -33,78 +33,78 @@
 /** Attribute data used e.g. by Windows Media Player. */
 class AttributeData {
 public:
-	/** Attribute data types. */
-	enum Type {
-		Unknown, /**< Unknown type */
-		Utf16,   /**< UTF-16 encoded, zero-terminated Unicode string */
-		Guid,    /**< 128-bit GUID */
-		DWord,   /**< 32-bit value little-endian */
-		Binary   /**< Binary data */
-	};
+  /** Attribute data types. */
+  enum Type {
+    Unknown, /**< Unknown type */
+    Utf16,   /**< UTF-16 encoded, zero-terminated Unicode string */
+    Guid,    /**< 128-bit GUID */
+    DWord,   /**< 32-bit value little-endian */
+    Binary   /**< Binary data */
+  };
 
-	/**
-	 * Constructor.
-	 *
-	 * @param type type
-	 */
-	AttributeData(Type type)
-	{
-		m_type = type;
-	}
+  /**
+   * Constructor.
+   *
+   * @param type type
+   */
+  AttributeData(Type type)
+  {
+    m_type = type;
+  }
 
-	/**
-	 * Constructor.
-	 *
-	 * @param name owner of Windows media PRIV frame
-	 */
-	AttributeData(const QString& name);
+  /**
+   * Constructor.
+   *
+   * @param name owner of Windows media PRIV frame
+   */
+  AttributeData(const QString& name);
 
-	/**
-	 * Destructor.
-	 */
-	~AttributeData() {}
+  /**
+   * Destructor.
+   */
+  ~AttributeData() {}
 
-	/**
-	 * Get type.
-	 * @return type.
-	 */
-	Type getType() const { return m_type; }
+  /**
+   * Get type.
+   * @return type.
+   */
+  Type getType() const { return m_type; }
 
-	/**
-	 * Convert attribute data to string.
-	 *
-	 * @param data byte array with data
-	 * @param str  result string
-	 *
-	 * @return true if ok.
-	 */
-	bool toString(const QByteArray& data, QString& str);
+  /**
+   * Convert attribute data to string.
+   *
+   * @param data byte array with data
+   * @param str  result string
+   *
+   * @return true if ok.
+   */
+  bool toString(const QByteArray& data, QString& str);
 
-	/**
-	 * Convert attribute data string to byte array.
-	 *
-	 * @param str  string representation of data
-	 * @param data result data
-	 *
-	 * @return true if ok.
-	 */
-	bool toByteArray(const QString& str, QByteArray& data);
+  /**
+   * Convert attribute data string to byte array.
+   *
+   * @param str  string representation of data
+   * @param data result data
+   *
+   * @return true if ok.
+   */
+  bool toByteArray(const QString& str, QByteArray& data);
 
-	/**
-	 * Check if a string represents a hexadecimal number, i.e.
-	 * contains only characters 0..9, A..F.
-	 *
-	 * @param str string to check
-	 * @param lastAllowedLetter last allowed character (normally 'F')
-	 * @param additionalChars additional allowed characters
-	 *
-	 * @return true if string has hex format.
-	 */
-	static bool isHexString(const QString& str, char lastAllowedLetter = 'F',
-	                        const QString additionalChars = QString());
+  /**
+   * Check if a string represents a hexadecimal number, i.e.
+   * contains only characters 0..9, A..F.
+   *
+   * @param str string to check
+   * @param lastAllowedLetter last allowed character (normally 'F')
+   * @param additionalChars additional allowed characters
+   *
+   * @return true if string has hex format.
+   */
+  static bool isHexString(const QString& str, char lastAllowedLetter = 'F',
+                          const QString additionalChars = QString());
 
 private:
-	Type m_type;
+  Type m_type;
 };
 
 #endif // ATTRIBUTEDATA_H

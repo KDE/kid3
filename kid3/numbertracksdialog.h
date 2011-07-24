@@ -40,67 +40,67 @@ class QCheckBox;
 class NumberTracksDialog : public QDialog {
 Q_OBJECT
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	NumberTracksDialog(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  NumberTracksDialog(QWidget* parent);
 
-	/**
-	 * Destructor.
-	 */
-	~NumberTracksDialog();
+  /**
+   * Destructor.
+   */
+  ~NumberTracksDialog();
 
-	/**
-	 * Get start number.
-	 */
-	int getStartNumber() const;
+  /**
+   * Get start number.
+   */
+  int getStartNumber() const;
 
-	/**
-	 * Get destination.
-	 *
-	 * @return TagV1, TagV2 or TagV2V1 if ID3v1, ID2v2 or both are destination
-	 */
-	TrackData::TagVersion getDestination() const;
+  /**
+   * Get destination.
+   *
+   * @return TagV1, TagV2 or TagV2V1 if ID3v1, ID2v2 or both are destination
+   */
+  TrackData::TagVersion getDestination() const;
 
-	/**
-	 * Set the total number of tracks.
-	 *
-	 * @param numTracks number of tracks
-	 * @param enable    true to enable setting of total
-	 */
-	void setTotalNumberOfTracks(int numTracks, bool enable);
+  /**
+   * Set the total number of tracks.
+   *
+   * @param numTracks number of tracks
+   * @param enable    true to enable setting of total
+   */
+  void setTotalNumberOfTracks(int numTracks, bool enable);
 
-	/**
-	 * Get the total number of tracks.
-	 *
-	 * @param enable true is returned here if total number of tracks is checked
-	 *
-	 * @return number of tracks entered
-	 */
-	int getTotalNumberOfTracks(bool* enable) const;
+  /**
+   * Get the total number of tracks.
+   *
+   * @param enable true is returned here if total number of tracks is checked
+   *
+   * @return number of tracks entered
+   */
+  int getTotalNumberOfTracks(bool* enable) const;
 
 private slots:
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
 private:
-	/** spinbox with starting track number */
-	QSpinBox* m_trackSpinBox;
-	/** combobox with destination */
-	QComboBox* m_destComboBox;
-	/** total number of tracks checkbox */
-	QCheckBox* m_totalNumTracksCheckBox;
-	/** spinbox with total number of tracks */
-	QSpinBox* m_totalNumTrackSpinBox;
+  /** spinbox with starting track number */
+  QSpinBox* m_trackSpinBox;
+  /** combobox with destination */
+  QComboBox* m_destComboBox;
+  /** total number of tracks checkbox */
+  QCheckBox* m_totalNumTracksCheckBox;
+  /** spinbox with total number of tracks */
+  QSpinBox* m_totalNumTrackSpinBox;
 };
 
 #endif

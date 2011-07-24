@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-	virtual ~TextExporter();
+  virtual ~TextExporter();
 
   /**
    * Set data to be exported.
@@ -55,13 +55,13 @@ public:
     m_trackDataVector = trackDataVector;
   }
 
-	/**
-	 * Reread the tags in the track data.
-	 * @param tagVersion tag version
-	 */
-	void readTagsInTrackData(TrackData::TagVersion tagVersion) {
-		m_trackDataVector.readTags(tagVersion);
-	}
+  /**
+   * Reread the tags in the track data.
+   * @param tagVersion tag version
+   */
+  void readTagsInTrackData(TrackData::TagVersion tagVersion) {
+    m_trackDataVector.readTags(tagVersion);
+  }
 
   /**
    * Get exported text.

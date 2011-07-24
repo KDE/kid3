@@ -45,88 +45,88 @@ class BrowseCoverArtDialog : public QDialog {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	BrowseCoverArtDialog(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  BrowseCoverArtDialog(QWidget* parent);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~BrowseCoverArtDialog();
+  /**
+   * Destructor.
+   */
+  virtual ~BrowseCoverArtDialog();
 
-	/**
-	 * Read the local settings from the configuration.
-	 */
-	void readConfig();
+  /**
+   * Read the local settings from the configuration.
+   */
+  void readConfig();
 
-	/**
-	 * Set frames for which picture has to be found.
-	 *
-	 * @param frames track data
-	 */
-	void setFrames(const FrameCollection& frames);
+  /**
+   * Set frames for which picture has to be found.
+   *
+   * @param frames track data
+   */
+  void setFrames(const FrameCollection& frames);
 
 public slots:
-	/**
-	 * Hide modal dialog, start browse command.
-	 */
-	virtual void accept();
+  /**
+   * Hide modal dialog, start browse command.
+   */
+  virtual void accept();
 
-	/**
-	 * Set the source lineedits to the source selected in the combo box.
-	 *
-	 * @param index current index of the combo box
-	 */
-	void setSourceLineEdit(int index);
+  /**
+   * Set the source lineedits to the source selected in the combo box.
+   *
+   * @param index current index of the combo box
+   */
+  void setSourceLineEdit(int index);
 
 private slots:
-	/**
-	 * Show browse command as preview.
-	 */
-	void showPreview();
+  /**
+   * Show browse command as preview.
+   */
+  void showPreview();
 
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
 private:
-	/**
-	 * Set the source combo box and line edits from the configuration.
-	 */
-	void setSourceFromConfig();
+  /**
+   * Set the source combo box and line edits from the configuration.
+   */
+  void setSourceFromConfig();
 
-	/** Text editor with command preview */
-	QTextEdit* m_edit;
-	/** Combobox with artist */
-	QLineEdit* m_artistLineEdit;
-	/** Combobox with album */
-	QLineEdit* m_albumLineEdit;
-	/** Combobox with sources */
-	QComboBox* m_sourceComboBox;
-	/** LineEdit for URL */
-	QLineEdit* m_urlLineEdit;
-	/** Table to extract picture URL */
-	ConfigTable* m_matchUrlTable;
-	/** Table model to extract picture URL */
-	ConfigTableModel* m_matchUrlTableModel;
-	/** URLs */
-	QStringList m_urls;
-	/** Formatted URL */
-	QString m_url;
+  /** Text editor with command preview */
+  QTextEdit* m_edit;
+  /** Combobox with artist */
+  QLineEdit* m_artistLineEdit;
+  /** Combobox with album */
+  QLineEdit* m_albumLineEdit;
+  /** Combobox with sources */
+  QComboBox* m_sourceComboBox;
+  /** LineEdit for URL */
+  QLineEdit* m_urlLineEdit;
+  /** Table to extract picture URL */
+  ConfigTable* m_matchUrlTable;
+  /** Table model to extract picture URL */
+  ConfigTableModel* m_matchUrlTableModel;
+  /** URLs */
+  QStringList m_urls;
+  /** Formatted URL */
+  QString m_url;
 
-	/** Track data */
-	FrameCollection m_frames;
-	/** Process for browser command */
-	ExternalProcess* m_process;
+  /** Track data */
+  FrameCollection m_frames;
+  /** Process for browser command */
+  ExternalProcess* m_process;
 };
 
 #endif

@@ -19,9 +19,9 @@
  */
 PictureLabel::PictureLabel(QWidget* parent) : QLabel(parent), m_pixmapHash(0)
 {
-	setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-	setWordWrap(true);
-	clearPicture();
+  setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+  setWordWrap(true);
+  clearPicture();
 }
 
 /**
@@ -37,7 +37,7 @@ PictureLabel::~PictureLabel()
  */
 int PictureLabel::heightForWidth(int w) const
 {
-	return w;
+  return w;
 }
 
 /**
@@ -45,8 +45,8 @@ int PictureLabel::heightForWidth(int w) const
  */
 void PictureLabel::setPicture()
 {
-	setMargin(0);
-	setPixmap(m_pixmap);
+  setMargin(0);
+  setPixmap(m_pixmap);
 }
 
 /**
@@ -54,9 +54,9 @@ void PictureLabel::setPicture()
  */
 void PictureLabel::clearPicture()
 {
-	const char* const msg = I18N_NOOP("Drag album\nartwork\nhere");
-	setMargin(6);
-	setText(QCM_translate(msg));
+  const char* const msg = I18N_NOOP("Drag album\nartwork\nhere");
+  setMargin(6);
+  setText(QCM_translate(msg));
 }
 
 /**
@@ -66,25 +66,25 @@ void PictureLabel::clearPicture()
  */
 void PictureLabel::setData(const QByteArray* data)
 {
-	if (data && !data->isEmpty()) {
-		uint hash = qHash(*data);
-		if (hash != m_pixmapHash) {
-			// creating new pixmap
-			if (m_pixmap.loadFromData(*data)) {
-				m_pixmap = m_pixmap.scaled(width(), height(), Qt::KeepAspectRatio);
-				m_pixmapHash = hash;
-				setPicture();
-			} else {
-				clearPicture();
-			}
-		} else {
-			if (!pixmap()) {
-				// using cached pixmap
-				setPicture();
-			}
-			// else keeping current pixmap
-		}
-	} else {
-		clearPicture();
-	}
+  if (data && !data->isEmpty()) {
+    uint hash = qHash(*data);
+    if (hash != m_pixmapHash) {
+      // creating new pixmap
+      if (m_pixmap.loadFromData(*data)) {
+        m_pixmap = m_pixmap.scaled(width(), height(), Qt::KeepAspectRatio);
+        m_pixmapHash = hash;
+        setPicture();
+      } else {
+        clearPicture();
+      }
+    } else {
+      if (!pixmap()) {
+        // using cached pixmap
+        setPicture();
+      }
+      // else keeping current pixmap
+    }
+  } else {
+    clearPicture();
+  }
 }

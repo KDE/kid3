@@ -41,90 +41,90 @@ class TrackDataModel;
  * Dialog to import from a text (file or clipboard).
  */
 class TextImportDialog : public QDialog {
-	Q_OBJECT
+  Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent  parent widget
-	 * @param trackDataModel track data to be filled with imported values
-	 */
-	explicit TextImportDialog(QWidget* parent,
-														TrackDataModel* trackDataModel);
+  /**
+   * Constructor.
+   *
+   * @param parent  parent widget
+   * @param trackDataModel track data to be filled with imported values
+   */
+  explicit TextImportDialog(QWidget* parent,
+                            TrackDataModel* trackDataModel);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~TextImportDialog();
+  /**
+   * Destructor.
+   */
+  virtual ~TextImportDialog();
 
-	/**
-	 * Clear dialog data.
-	 */
-	void clear();
+  /**
+   * Clear dialog data.
+   */
+  void clear();
 
 private slots:
-	/**
-	 * Let user select file, assign file contents to text and preview in
-	 * table.
-	 */
-	void fromFile();
+  /**
+   * Let user select file, assign file contents to text and preview in
+   * table.
+   */
+  void fromFile();
 
-	/**
-	 * Assign clipboard contents to text and preview in table.
-	 */
-	void fromClipboard();
+  /**
+   * Assign clipboard contents to text and preview in table.
+   */
+  void fromClipboard();
 
-	/**
-	 * Set the format lineedits to the format selected in the combo box.
-	 *
-	 * @param index current index of the combo box
-	 */
-	void setFormatLineEdit(int index);
+  /**
+   * Set the format lineedits to the format selected in the combo box.
+   *
+   * @param index current index of the combo box
+   */
+  void setFormatLineEdit(int index);
 
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
 signals:
-	/**
-	 * Emitted when the m_trackDataVector was updated with new imported data.
-	 */
-	void trackDataUpdated();
+  /**
+   * Emitted when the m_trackDataVector was updated with new imported data.
+   */
+  void trackDataUpdated();
 
 private:
-	/**
-	 * Import from a file.
-	 *
-	 * @param fn file name
-	 *
-	 * @return true if ok.
-	 */
-	bool importFromFile(const QString& fn);
+  /**
+   * Import from a file.
+   *
+   * @param fn file name
+   *
+   * @return true if ok.
+   */
+  bool importFromFile(const QString& fn);
 
-	/**
-	 * Set the format combo box and line edits from the configuration.
-	 */
-	void setFormatFromConfig();
+  /**
+   * Set the format combo box and line edits from the configuration.
+   */
+  void setFormatFromConfig();
 
-	/** combobox with import formats */
-	QComboBox* m_formatComboBox;
-	/** LineEdit for header regexp */
-	QLineEdit* m_headerLineEdit;
-	/** LineEdit for track regexp */
-	QLineEdit* m_trackLineEdit;
-	/** header format regexps */
-	QStringList m_formatHeaders;
-	/** track format regexps */
-	QStringList m_formatTracks;
-	/** text importer */
-	TextImporter* m_textImporter;
+  /** combobox with import formats */
+  QComboBox* m_formatComboBox;
+  /** LineEdit for header regexp */
+  QLineEdit* m_headerLineEdit;
+  /** LineEdit for track regexp */
+  QLineEdit* m_trackLineEdit;
+  /** header format regexps */
+  QStringList m_formatHeaders;
+  /** track format regexps */
+  QStringList m_formatTracks;
+  /** text importer */
+  TextImporter* m_textImporter;
 };
 
 #endif

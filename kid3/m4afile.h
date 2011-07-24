@@ -36,329 +36,329 @@
 /** MPEG-4 audio file */
 class M4aFile : public TaggedFile {
 public:
-	/** File type resolution. */
-	class Resolver : public TaggedFile::Resolver {
-		/**
-		 * Create an M4aFile object if it supports the filename's extension.
-		 *
-		 * @param dn directory name
-		 * @param fn filename
-		 * @param idx model index
-		 *
-		 * @return tagged file, 0 if type not supported.
-		 */
-		virtual TaggedFile* createFile(const QString& dn, const QString& fn,
-																	 const QPersistentModelIndex& idx) const;
+  /** File type resolution. */
+  class Resolver : public TaggedFile::Resolver {
+    /**
+     * Create an M4aFile object if it supports the filename's extension.
+     *
+     * @param dn directory name
+     * @param fn filename
+     * @param idx model index
+     *
+     * @return tagged file, 0 if type not supported.
+     */
+    virtual TaggedFile* createFile(const QString& dn, const QString& fn,
+                                   const QPersistentModelIndex& idx) const;
 
-		/**
-		 * Get a list with all extensions supported by M4aFile.
-		 *
-		 * @return list of file extensions.
-		 */
-		virtual QStringList getSupportedFileExtensions() const;
-	};
+    /**
+     * Get a list with all extensions supported by M4aFile.
+     *
+     * @return list of file extensions.
+     */
+    virtual QStringList getSupportedFileExtensions() const;
+  };
 
 
-	/**
-	 * Constructor.
-	 *
-	 * @param dn directory name
-	 * @param fn filename
-	 * @param idx model index
-	 */
-	M4aFile(const QString& dn, const QString& fn,
-					const QPersistentModelIndex& idx);
+  /**
+   * Constructor.
+   *
+   * @param dn directory name
+   * @param fn filename
+   * @param idx model index
+   */
+  M4aFile(const QString& dn, const QString& fn,
+          const QPersistentModelIndex& idx);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~M4aFile();
+  /**
+   * Destructor.
+   */
+  virtual ~M4aFile();
 
-	/**
-	 * Read tags from file.
-	 *
-	 * @param force true to force reading even if tags were already read.
-	 */
-	virtual void readTags(bool force);
+  /**
+   * Read tags from file.
+   *
+   * @param force true to force reading even if tags were already read.
+   */
+  virtual void readTags(bool force);
 
-	/**
-	 * Write tags to file and rename it if necessary.
-	 *
-	 * @param force   true to force writing even if file was not changed.
-	 * @param renamed will be set to true if the file was renamed,
-	 *                i.e. the file name is no longer valid, else *renamed
-	 *                is left unchanged
-	 * @param preserve true to preserve file time stamps
-	 *
-	 * @return true if ok, false if the file could not be written or renamed.
-	 */
-	virtual bool writeTags(bool force, bool* renamed, bool preserve);
+  /**
+   * Write tags to file and rename it if necessary.
+   *
+   * @param force   true to force writing even if file was not changed.
+   * @param renamed will be set to true if the file was renamed,
+   *                i.e. the file name is no longer valid, else *renamed
+   *                is left unchanged
+   * @param preserve true to preserve file time stamps
+   *
+   * @return true if ok, false if the file could not be written or renamed.
+   */
+  virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
-	/**
-	 * Remove ID3v2 frames.
-	 *
-	 * @param flt filter specifying which frames to remove
-	 */
-	virtual void deleteFramesV2(const FrameFilter& flt);
+  /**
+   * Remove ID3v2 frames.
+   *
+   * @param flt filter specifying which frames to remove
+   */
+  virtual void deleteFramesV2(const FrameFilter& flt);
 
-	/**
-	 * Get ID3v2 title.
-	 *
-	 * @return string,
-	 *         "" if the field does not exist,
-	 *         QString::null if the tags do not exist.
-	 */
-	virtual QString getTitleV2();
+  /**
+   * Get ID3v2 title.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getTitleV2();
 
-	/**
-	 * Get ID3v2 artist.
-	 *
-	 * @return string,
-	 *         "" if the field does not exist,
-	 *         QString::null if the tags do not exist.
-	 */
-	virtual QString getArtistV2();
+  /**
+   * Get ID3v2 artist.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getArtistV2();
 
-	/**
-	 * Get ID3v2 album.
-	 *
-	 * @return string,
-	 *         "" if the field does not exist,
-	 *         QString::null if the tags do not exist.
-	 */
-	virtual QString getAlbumV2();
+  /**
+   * Get ID3v2 album.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getAlbumV2();
 
-	/**
-	 * Get ID3v2 comment.
-	 *
-	 * @return string,
-	 *         "" if the field does not exist,
-	 *         QString::null if the tags do not exist.
-	 */
-	virtual QString getCommentV2();
+  /**
+   * Get ID3v2 comment.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getCommentV2();
 
-	/**
-	 * Get ID3v2 year.
-	 *
-	 * @return number,
-	 *         0 if the field does not exist,
-	 *         -1 if the tags do not exist.
-	 */
-	virtual int getYearV2();
+  /**
+   * Get ID3v2 year.
+   *
+   * @return number,
+   *         0 if the field does not exist,
+   *         -1 if the tags do not exist.
+   */
+  virtual int getYearV2();
 
-	/**
-	 * Get ID3v2 track.
-	 *
-	 * @return string,
-	 *         "" if the field does not exist,
-	 *         QString::null if the tags do not exist.
-	 */
-	virtual QString getTrackV2();
+  /**
+   * Get ID3v2 track.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getTrackV2();
 
-	/**
-	 * Get ID3v2 genre as text.
-	 *
-	 * @return string,
-	 *         "" if the field does not exist,
-	 *         QString::null if the tags do not exist.
-	 */
-	virtual QString getGenreV2();
+  /**
+   * Get ID3v2 genre as text.
+   *
+   * @return string,
+   *         "" if the field does not exist,
+   *         QString::null if the tags do not exist.
+   */
+  virtual QString getGenreV2();
 
-	/**
-	 * Set ID3v2 title.
-	 *
-	 * @param str string to set, "" to remove field.
-	 */
-	virtual void setTitleV2(const QString& str);
+  /**
+   * Set ID3v2 title.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setTitleV2(const QString& str);
 
-	/**
-	 * Set ID3v2 artist.
-	 *
-	 * @param str string to set, "" to remove field.
-	 */
-	virtual void setArtistV2(const QString& str);
+  /**
+   * Set ID3v2 artist.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setArtistV2(const QString& str);
 
-	/**
-	 * Set ID3v2 album.
-	 *
-	 * @param str string to set, "" to remove field.
-	 */
-	virtual void setAlbumV2(const QString& str);
+  /**
+   * Set ID3v2 album.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setAlbumV2(const QString& str);
 
-	/**
-	 * Set ID3v2 comment.
-	 *
-	 * @param str string to set, "" to remove field.
-	 */
-	virtual void setCommentV2(const QString& str);
+  /**
+   * Set ID3v2 comment.
+   *
+   * @param str string to set, "" to remove field.
+   */
+  virtual void setCommentV2(const QString& str);
 
-	/**
-	 * Set ID3v2 year.
-	 *
-	 * @param num number to set, 0 to remove field.
-	 */
-	virtual void setYearV2(int num);
+  /**
+   * Set ID3v2 year.
+   *
+   * @param num number to set, 0 to remove field.
+   */
+  virtual void setYearV2(int num);
 
-	/**
-	 * Set ID3v2 track.
-	 *
-	 * @param track string to set, "" to remove field, QString::null to ignore.
-	 */
-	virtual void setTrackV2(const QString& track);
+  /**
+   * Set ID3v2 track.
+   *
+   * @param track string to set, "" to remove field, QString::null to ignore.
+   */
+  virtual void setTrackV2(const QString& track);
 
-	/**
-	 * Set ID3v2 genre as text.
-	 *
-	 * @param str string to set, "" to remove field, QString::null to ignore.
-	 */
-	virtual void setGenreV2(const QString& str);
+  /**
+   * Set ID3v2 genre as text.
+   *
+   * @param str string to set, "" to remove field, QString::null to ignore.
+   */
+  virtual void setGenreV2(const QString& str);
 
-	/**
-	 * Check if tag information has already been read.
-	 *
-	 * @return true if information is available,
-	 *         false if the tags have not been read yet, in which case
-	 *         hasTagV1() and hasTagV2() do not return meaningful information.
-	 */
-	virtual bool isTagInformationRead() const;
+  /**
+   * Check if tag information has already been read.
+   *
+   * @return true if information is available,
+   *         false if the tags have not been read yet, in which case
+   *         hasTagV1() and hasTagV2() do not return meaningful information.
+   */
+  virtual bool isTagInformationRead() const;
 
-	/**
-	 * Check if file has an ID3v2 tag.
-	 *
-	 * @return true if a V2 tag is available.
-	 * @see isTagInformationRead()
-	 */
-	virtual bool hasTagV2() const;
+  /**
+   * Check if file has an ID3v2 tag.
+   *
+   * @return true if a V2 tag is available.
+   * @see isTagInformationRead()
+   */
+  virtual bool hasTagV2() const;
 
-	/**
-	 * Get technical detail information.
-	 *
-	 * @param info the detail information is returned here
-	 */
-	virtual void getDetailInfo(DetailInfo& info) const;
+  /**
+   * Get technical detail information.
+   *
+   * @param info the detail information is returned here
+   */
+  virtual void getDetailInfo(DetailInfo& info) const;
 
-	/**
-	 * Get duration of file.
-	 *
-	 * @return duration in seconds,
-	 *         0 if unknown.
-	 */
-	virtual unsigned getDuration() const;
+  /**
+   * Get duration of file.
+   *
+   * @return duration in seconds,
+   *         0 if unknown.
+   */
+  virtual unsigned getDuration() const;
 
-	/**
-	 * Get file extension including the dot.
-	 *
-	 * @return file extension ".m4a".
-	 */
-	virtual QString getFileExtension() const;
+  /**
+   * Get file extension including the dot.
+   *
+   * @return file extension ".m4a".
+   */
+  virtual QString getFileExtension() const;
 
-	/**
-	 * Get the format of tag 2.
-	 *
-	 * @return "Vorbis".
-	 */
-	virtual QString getTagFormatV2() const;
+  /**
+   * Get the format of tag 2.
+   *
+   * @return "Vorbis".
+   */
+  virtual QString getTagFormatV2() const;
 
-	/**
-	 * Set a frame in the tags 2.
-	 *
-	 * @param frame frame to set
-	 *
-	 * @return true if ok.
-	 */
-	virtual bool setFrameV2(const Frame& frame);
+  /**
+   * Set a frame in the tags 2.
+   *
+   * @param frame frame to set
+   *
+   * @return true if ok.
+   */
+  virtual bool setFrameV2(const Frame& frame);
 
-	/**
-	 * Add a frame in the tags 2.
-	 *
-	 * @param frame frame to add
-	 *
-	 * @return true if ok.
-	 */
-	virtual bool addFrameV2(Frame& frame);
+  /**
+   * Add a frame in the tags 2.
+   *
+   * @param frame frame to add
+   *
+   * @return true if ok.
+   */
+  virtual bool addFrameV2(Frame& frame);
 
-	/**
-	 * Delete a frame in the tags 2.
-	 *
-	 * @param frame frame to delete.
-	 *
-	 * @return true if ok.
-	 */
-	virtual bool deleteFrameV2(const Frame& frame);
+  /**
+   * Delete a frame in the tags 2.
+   *
+   * @param frame frame to delete.
+   *
+   * @return true if ok.
+   */
+  virtual bool deleteFrameV2(const Frame& frame);
 
-	/**
-	 * Get all frames in tag 2.
-	 *
-	 * @param frames frame collection to set.
-	 */
-	virtual void getAllFramesV2(FrameCollection& frames);
+  /**
+   * Get all frames in tag 2.
+   *
+   * @param frames frame collection to set.
+   */
+  virtual void getAllFramesV2(FrameCollection& frames);
 
-	/**
-	 * Get a list of frame IDs which can be added.
-	 *
-	 * @return list with frame IDs.
-	 */
-	virtual QStringList getFrameIds() const;
+  /**
+   * Get a list of frame IDs which can be added.
+   *
+   * @return list with frame IDs.
+   */
+  virtual QStringList getFrameIds() const;
 
 private:
-	M4aFile(const M4aFile&);
-	M4aFile& operator=(const M4aFile&);
+  M4aFile(const M4aFile&);
+  M4aFile& operator=(const M4aFile&);
 
-	/**
-	 * Get metadata field as string.
-	 *
-	 * @param name field name
-	 *
-	 * @return value as string, "" if not found,
-	 *         QString::null if the tags have not been read yet.
-	 */
-	QString getTextField(const QString& name) const;
+  /**
+   * Get metadata field as string.
+   *
+   * @param name field name
+   *
+   * @return value as string, "" if not found,
+   *         QString::null if the tags have not been read yet.
+   */
+  QString getTextField(const QString& name) const;
 
-	/**
-	 * Set text field.
-	 * If value is null if the tags have not been read yet, nothing is changed.
-	 * If value is different from the current value, tag 2 is marked as changed.
-	 *
-	 * @param name name
-	 * @param value value, "" to remove, QString::null to do nothing
-	 * @param type frame type
-	 */
-	void setTextField(const QString& name, const QString& value,
-	                  Frame::Type type);
+  /**
+   * Set text field.
+   * If value is null if the tags have not been read yet, nothing is changed.
+   * If value is different from the current value, tag 2 is marked as changed.
+   *
+   * @param name name
+   * @param value value, "" to remove, QString::null to do nothing
+   * @param type frame type
+   */
+  void setTextField(const QString& name, const QString& value,
+                    Frame::Type type);
 
-	/** true if file has been read. */
-	bool m_fileRead;
+  /** true if file has been read. */
+  bool m_fileRead;
 
-	/** Information about MPEG-4 file. */
-	struct FileInfo {
-		/**
-		 * Constructor.
-		 */
-		FileInfo() : valid(false), channels(0), sampleRate(0), bitrate(0),
-								 duration(0) {}
+  /** Information about MPEG-4 file. */
+  struct FileInfo {
+    /**
+     * Constructor.
+     */
+    FileInfo() : valid(false), channels(0), sampleRate(0), bitrate(0),
+                 duration(0) {}
 
-		/**
-		 * Read information about an MPEG-4 file.
-		 * @param handle MP4 handle
-		 * @return true if ok.
-		 */
-		bool read(void* handle);
+    /**
+     * Read information about an MPEG-4 file.
+     * @param handle MP4 handle
+     * @return true if ok.
+     */
+    bool read(void* handle);
 
-		bool valid;      /**< true if read() was successful */
-		int channels;    /**< number of channels */
-		long sampleRate; /**< sample rate in Hz */
-		long bitrate;    /**< bitrate in bits/s */
-		long duration;   /**< duration in seconds */
-	};
+    bool valid;      /**< true if read() was successful */
+    int channels;    /**< number of channels */
+    long sampleRate; /**< sample rate in Hz */
+    long bitrate;    /**< bitrate in bits/s */
+    long duration;   /**< duration in seconds */
+  };
 
-	/** Info about file. */
-	FileInfo m_fileInfo;
+  /** Info about file. */
+  FileInfo m_fileInfo;
 
-	/** Map with metadata. */
-	typedef QMap<QString, QByteArray> MetadataMap;
+  /** Map with metadata. */
+  typedef QMap<QString, QByteArray> MetadataMap;
 
-	/** Metadata. */
-	MetadataMap m_metadata;
+  /** Metadata. */
+  MetadataMap m_metadata;
 };
 
 #endif // HAVE_MP4V2

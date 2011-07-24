@@ -82,8 +82,8 @@ namespace {
  *         TrackDataModel::TrackProperties.
  */
 QList<int> checkableFrameTypes() {
-	return QList<int>()
-			<< TrackDataModel::FT_FileName << TrackDataModel::FT_FilePath;
+  return QList<int>()
+      << TrackDataModel::FT_FileName << TrackDataModel::FT_FilePath;
 }
 
 }
@@ -97,160 +97,160 @@ QList<int> checkableFrameTypes() {
  *                      is passed with durations of files set
  */
 ImportDialog::ImportDialog(QWidget* parent, QString& caption,
-													 TrackDataModel* trackDataModel) :
-	QDialog(parent),
-	m_autoStartSubDialog(ASD_None), m_columnVisibility(0ULL),
-	m_trackDataModel(trackDataModel)
+                           TrackDataModel* trackDataModel) :
+  QDialog(parent),
+  m_autoStartSubDialog(ASD_None), m_columnVisibility(0ULL),
+  m_trackDataModel(trackDataModel)
 {
-	setObjectName("ImportDialog");
-	setModal(true);
-	setWindowTitle(caption);
+  setObjectName("ImportDialog");
+  setModal(true);
+  setWindowTitle(caption);
 
-	m_freedbImporter = 0;
-	m_trackTypeImporter = 0;
-	m_musicBrainzReleaseImporter = 0;
-	m_discogsImporter = 0;
-	m_amazonImporter = 0;
-	m_serverImportDialog = 0;
-	m_textImportDialog = 0;
-	m_tagImportDialog = 0;
+  m_freedbImporter = 0;
+  m_trackTypeImporter = 0;
+  m_musicBrainzReleaseImporter = 0;
+  m_discogsImporter = 0;
+  m_amazonImporter = 0;
+  m_serverImportDialog = 0;
+  m_textImportDialog = 0;
+  m_tagImportDialog = 0;
 #ifdef HAVE_TUNEPIMP
-	m_musicBrainzDialog = 0;
+  m_musicBrainzDialog = 0;
 #endif
 
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	vlayout->setSpacing(6);
-	vlayout->setMargin(6);
+  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  vlayout->setSpacing(6);
+  vlayout->setMargin(6);
 
-	m_trackDataTable = new QTableView(this);
-	m_trackDataTable->setModel(m_trackDataModel);
-	m_trackDataTable->resizeColumnsToContents();
-	m_trackDataTable->setItemDelegateForColumn(6, new FrameItemDelegate(this));
-	m_trackDataTable->verticalHeader()->setMovable(true);
-	m_trackDataTable->horizontalHeader()->setMovable(true);
-	m_trackDataTable->horizontalHeader()->setContextMenuPolicy(
-				Qt::CustomContextMenu);
-	connect(m_trackDataTable->verticalHeader(), SIGNAL(sectionMoved(int, int, int)),
-					this, SLOT(moveTableRow(int, int, int)));
-	connect(m_trackDataTable->horizontalHeader(),
-					SIGNAL(customContextMenuRequested(QPoint)),
-			this, SLOT(showTableHeaderContextMenu(QPoint)));
-	vlayout->addWidget(m_trackDataTable);
+  m_trackDataTable = new QTableView(this);
+  m_trackDataTable->setModel(m_trackDataModel);
+  m_trackDataTable->resizeColumnsToContents();
+  m_trackDataTable->setItemDelegateForColumn(6, new FrameItemDelegate(this));
+  m_trackDataTable->verticalHeader()->setMovable(true);
+  m_trackDataTable->horizontalHeader()->setMovable(true);
+  m_trackDataTable->horizontalHeader()->setContextMenuPolicy(
+        Qt::CustomContextMenu);
+  connect(m_trackDataTable->verticalHeader(), SIGNAL(sectionMoved(int, int, int)),
+          this, SLOT(moveTableRow(int, int, int)));
+  connect(m_trackDataTable->horizontalHeader(),
+          SIGNAL(customContextMenuRequested(QPoint)),
+      this, SLOT(showTableHeaderContextMenu(QPoint)));
+  vlayout->addWidget(m_trackDataTable);
 
-	QWidget* butbox = new QWidget(this);
-	QHBoxLayout* butlayout = new QHBoxLayout(butbox);
-	butlayout->setMargin(0);
-	butlayout->setSpacing(6);
-	QPushButton* fileButton = new QPushButton(i18n("From F&ile/Clipboard..."),
-																						butbox);
-	fileButton->setAutoDefault(false);
-	butlayout->addWidget(fileButton);
-	QPushButton* tagsButton = new QPushButton(i18n("From T&ags..."),
-																						butbox);
-	tagsButton->setAutoDefault(false);
-	butlayout->addWidget(tagsButton);
-	QPushButton* serverButton = new QPushButton(i18n("&From Server:"), butbox);
-	serverButton->setAutoDefault(false);
-	butlayout->addWidget(serverButton);
-	m_serverComboBox = new QComboBox(butbox);
-	m_serverComboBox->setEditable(false);
-	m_serverComboBox->insertItem(ImportConfig::ServerFreedb, i18n("gnudb.org"));
-	m_serverComboBox->insertItem(ImportConfig::ServerTrackType, i18n("TrackType.org"));
-	m_serverComboBox->insertItem(ImportConfig::ServerDiscogs, i18n("Discogs"));
-	m_serverComboBox->insertItem(ImportConfig::ServerAmazon,
-																	 i18n("Amazon"));
-	m_serverComboBox->insertItem(ImportConfig::ServerMusicBrainzRelease,
-																	 i18n("MusicBrainz Release"));
+  QWidget* butbox = new QWidget(this);
+  QHBoxLayout* butlayout = new QHBoxLayout(butbox);
+  butlayout->setMargin(0);
+  butlayout->setSpacing(6);
+  QPushButton* fileButton = new QPushButton(i18n("From F&ile/Clipboard..."),
+                                            butbox);
+  fileButton->setAutoDefault(false);
+  butlayout->addWidget(fileButton);
+  QPushButton* tagsButton = new QPushButton(i18n("From T&ags..."),
+                                            butbox);
+  tagsButton->setAutoDefault(false);
+  butlayout->addWidget(tagsButton);
+  QPushButton* serverButton = new QPushButton(i18n("&From Server:"), butbox);
+  serverButton->setAutoDefault(false);
+  butlayout->addWidget(serverButton);
+  m_serverComboBox = new QComboBox(butbox);
+  m_serverComboBox->setEditable(false);
+  m_serverComboBox->insertItem(ImportConfig::ServerFreedb, i18n("gnudb.org"));
+  m_serverComboBox->insertItem(ImportConfig::ServerTrackType, i18n("TrackType.org"));
+  m_serverComboBox->insertItem(ImportConfig::ServerDiscogs, i18n("Discogs"));
+  m_serverComboBox->insertItem(ImportConfig::ServerAmazon,
+                                   i18n("Amazon"));
+  m_serverComboBox->insertItem(ImportConfig::ServerMusicBrainzRelease,
+                                   i18n("MusicBrainz Release"));
 #ifdef HAVE_TUNEPIMP
-	m_serverComboBox->insertItem(ImportConfig::ServerMusicBrainzFingerprint,
-																	 i18n("MusicBrainz Fingerprint"));
+  m_serverComboBox->insertItem(ImportConfig::ServerMusicBrainzFingerprint,
+                                   i18n("MusicBrainz Fingerprint"));
 #endif
-	butlayout->addWidget(m_serverComboBox);
-	QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-																				 QSizePolicy::Minimum);
-	butlayout->addItem(butspacer);
-	QLabel* destLabel = new QLabel(butbox);
-	destLabel->setText(i18n("D&estination:"));
-	butlayout->addWidget(destLabel);
-	m_destComboBox = new QComboBox(butbox);
-	m_destComboBox->setEditable(false);
-	m_destComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
-	m_destComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
-	m_destComboBox->addItem(i18n("Tag 1 and Tag 2"), TrackData::TagV2V1);
-	destLabel->setBuddy(m_destComboBox);
-	butlayout->addWidget(m_destComboBox);
-	QToolButton* revertButton = new QToolButton(butbox);
-	revertButton->setIcon(
+  butlayout->addWidget(m_serverComboBox);
+  QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  butlayout->addItem(butspacer);
+  QLabel* destLabel = new QLabel(butbox);
+  destLabel->setText(i18n("D&estination:"));
+  butlayout->addWidget(destLabel);
+  m_destComboBox = new QComboBox(butbox);
+  m_destComboBox->setEditable(false);
+  m_destComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
+  m_destComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
+  m_destComboBox->addItem(i18n("Tag 1 and Tag 2"), TrackData::TagV2V1);
+  destLabel->setBuddy(m_destComboBox);
+  butlayout->addWidget(m_destComboBox);
+  QToolButton* revertButton = new QToolButton(butbox);
+  revertButton->setIcon(
 #ifdef CONFIG_USE_KDE
-				KIcon("document-revert")
+        KIcon("document-revert")
 #else
-				QIcon(":/images/document-revert.png")
+        QIcon(":/images/document-revert.png")
 #endif
-				);
-	revertButton->setToolTip(i18n("Revert"));
-	connect(revertButton, SIGNAL(clicked()),
-					this, SLOT(changeTagDestination()));
-	butlayout->addWidget(revertButton);
-	vlayout->addWidget(butbox);
+        );
+  revertButton->setToolTip(i18n("Revert"));
+  connect(revertButton, SIGNAL(clicked()),
+          this, SLOT(changeTagDestination()));
+  butlayout->addWidget(revertButton);
+  vlayout->addWidget(butbox);
 
-	QWidget* matchBox = new QWidget(this);
-	QHBoxLayout* matchLayout = new QHBoxLayout(matchBox);
-	matchLayout->setMargin(0);
-	matchLayout->setSpacing(6);
-	m_mismatchCheckBox = new QCheckBox(
-		i18n("Check maximum allowable time &difference (sec):"), matchBox);
-	matchLayout->addWidget(m_mismatchCheckBox);
-	m_maxDiffSpinBox = new QSpinBox(matchBox);
-	m_maxDiffSpinBox->setMaximum(9999);
-	matchLayout->addWidget(m_maxDiffSpinBox);
-	QSpacerItem* matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-																						 QSizePolicy::Minimum);
-	matchLayout->addItem(matchSpacer);
-	QLabel* matchLabel = new QLabel(i18n("Match with:"), matchBox);
-	matchLayout->addWidget(matchLabel);
-	QPushButton* lengthButton = new QPushButton(i18n("&Length"), matchBox);
-	lengthButton->setAutoDefault(false);
-	matchLayout->addWidget(lengthButton);
-	QPushButton* trackButton = new QPushButton(i18n("T&rack"), matchBox);
-	trackButton->setAutoDefault(false);
-	matchLayout->addWidget(trackButton);
-	QPushButton* titleButton = new QPushButton(i18n("&Title"), matchBox);
-	titleButton->setAutoDefault(false);
-	matchLayout->addWidget(titleButton);
-	vlayout->addWidget(matchBox);
+  QWidget* matchBox = new QWidget(this);
+  QHBoxLayout* matchLayout = new QHBoxLayout(matchBox);
+  matchLayout->setMargin(0);
+  matchLayout->setSpacing(6);
+  m_mismatchCheckBox = new QCheckBox(
+    i18n("Check maximum allowable time &difference (sec):"), matchBox);
+  matchLayout->addWidget(m_mismatchCheckBox);
+  m_maxDiffSpinBox = new QSpinBox(matchBox);
+  m_maxDiffSpinBox->setMaximum(9999);
+  matchLayout->addWidget(m_maxDiffSpinBox);
+  QSpacerItem* matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                             QSizePolicy::Minimum);
+  matchLayout->addItem(matchSpacer);
+  QLabel* matchLabel = new QLabel(i18n("Match with:"), matchBox);
+  matchLayout->addWidget(matchLabel);
+  QPushButton* lengthButton = new QPushButton(i18n("&Length"), matchBox);
+  lengthButton->setAutoDefault(false);
+  matchLayout->addWidget(lengthButton);
+  QPushButton* trackButton = new QPushButton(i18n("T&rack"), matchBox);
+  trackButton->setAutoDefault(false);
+  matchLayout->addWidget(trackButton);
+  QPushButton* titleButton = new QPushButton(i18n("&Title"), matchBox);
+  titleButton->setAutoDefault(false);
+  matchLayout->addWidget(titleButton);
+  vlayout->addWidget(matchBox);
 
-	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromText()));
-	connect(tagsButton, SIGNAL(clicked()), this, SLOT(fromTags()));
-	connect(serverButton, SIGNAL(clicked()), this, SLOT(fromServer()));
-	connect(m_serverComboBox, SIGNAL(activated(int)), this, SLOT(fromServer()));
-	connect(lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
-	connect(trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
-	connect(titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
-	connect(m_mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
-	connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
-	connect(this, SIGNAL(finished(int)), this, SLOT(hideSubdialogs()));
+  connect(fileButton, SIGNAL(clicked()), this, SLOT(fromText()));
+  connect(tagsButton, SIGNAL(clicked()), this, SLOT(fromTags()));
+  connect(serverButton, SIGNAL(clicked()), this, SLOT(fromServer()));
+  connect(m_serverComboBox, SIGNAL(activated(int)), this, SLOT(fromServer()));
+  connect(lengthButton, SIGNAL(clicked()), this, SLOT(matchWithLength()));
+  connect(trackButton, SIGNAL(clicked()), this, SLOT(matchWithTrack()));
+  connect(titleButton, SIGNAL(clicked()), this, SLOT(matchWithTitle()));
+  connect(m_mismatchCheckBox, SIGNAL(toggled(bool)), this, SLOT(showPreview()));
+  connect(m_maxDiffSpinBox, SIGNAL(valueChanged(int)), this, SLOT(maxDiffChanged()));
+  connect(this, SIGNAL(finished(int)), this, SLOT(hideSubdialogs()));
 
-	QHBoxLayout* hlayout = new QHBoxLayout;
-	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-	                                       QSizePolicy::Minimum);
-	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-	helpButton->setAutoDefault(false);
-	QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
-	saveButton->setAutoDefault(false);
-	QPushButton* okButton = new QPushButton(i18n("&OK"), this);
-	okButton->setAutoDefault(false);
-	QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-	cancelButton->setAutoDefault(false);
-	hlayout->addWidget(helpButton);
-	hlayout->addWidget(saveButton);
-	hlayout->addItem(hspacer);
-	hlayout->addWidget(okButton);
-	hlayout->addWidget(cancelButton);
-	connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-	connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	vlayout->addLayout(hlayout);
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  helpButton->setAutoDefault(false);
+  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  saveButton->setAutoDefault(false);
+  QPushButton* okButton = new QPushButton(i18n("&OK"), this);
+  okButton->setAutoDefault(false);
+  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  cancelButton->setAutoDefault(false);
+  hlayout->addWidget(helpButton);
+  hlayout->addWidget(saveButton);
+  hlayout->addItem(hspacer);
+  hlayout->addWidget(okButton);
+  hlayout->addWidget(cancelButton);
+  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  vlayout->addLayout(hlayout);
 }
 
 /**
@@ -258,16 +258,16 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
  */
 ImportDialog::~ImportDialog()
 {
-	delete m_textImportDialog;
-	delete m_tagImportDialog;
-	delete m_serverImportDialog;
-	delete m_freedbImporter;
-	delete m_trackTypeImporter;
-	delete m_musicBrainzReleaseImporter;
-	delete m_discogsImporter;
-	delete m_amazonImporter;
+  delete m_textImportDialog;
+  delete m_tagImportDialog;
+  delete m_serverImportDialog;
+  delete m_freedbImporter;
+  delete m_trackTypeImporter;
+  delete m_musicBrainzReleaseImporter;
+  delete m_discogsImporter;
+  delete m_amazonImporter;
 #ifdef HAVE_TUNEPIMP
-	delete m_musicBrainzDialog;
+  delete m_musicBrainzDialog;
 #endif
 }
 
@@ -276,28 +276,28 @@ ImportDialog::~ImportDialog()
  */
 void ImportDialog::fromServer()
 {
-	if (m_serverComboBox) {
-		switch (m_serverComboBox->currentIndex()) {
-			case ImportConfig::ServerFreedb:
-				fromFreedb();
-				break;
-			case ImportConfig::ServerTrackType:
-				fromTrackType();
-				break;
-			case ImportConfig::ServerDiscogs:
-				fromDiscogs();
-				break;
-			case ImportConfig::ServerAmazon:
-				fromAmazon();
-				break;
-			case ImportConfig::ServerMusicBrainzRelease:
-				fromMusicBrainzRelease();
-				break;
-			case ImportConfig::ServerMusicBrainzFingerprint:
-				fromMusicBrainz();
-				break;
-		}
-	}
+  if (m_serverComboBox) {
+    switch (m_serverComboBox->currentIndex()) {
+      case ImportConfig::ServerFreedb:
+        fromFreedb();
+        break;
+      case ImportConfig::ServerTrackType:
+        fromTrackType();
+        break;
+      case ImportConfig::ServerDiscogs:
+        fromDiscogs();
+        break;
+      case ImportConfig::ServerAmazon:
+        fromAmazon();
+        break;
+      case ImportConfig::ServerMusicBrainzRelease:
+        fromMusicBrainzRelease();
+        break;
+      case ImportConfig::ServerMusicBrainzFingerprint:
+        fromMusicBrainz();
+        break;
+    }
+  }
 }
 
 /**
@@ -305,13 +305,13 @@ void ImportDialog::fromServer()
  */
 void ImportDialog::fromText()
 {
-	if (!m_textImportDialog) {
-		m_textImportDialog = new TextImportDialog(this, m_trackDataModel);
-		connect(m_textImportDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
-	}
-	m_textImportDialog->clear();
-	m_textImportDialog->show();
+  if (!m_textImportDialog) {
+    m_textImportDialog = new TextImportDialog(this, m_trackDataModel);
+    connect(m_textImportDialog, SIGNAL(trackDataUpdated()),
+            this, SLOT(showPreview()));
+  }
+  m_textImportDialog->clear();
+  m_textImportDialog->show();
 }
 
 /**
@@ -319,13 +319,13 @@ void ImportDialog::fromText()
  */
 void ImportDialog::fromTags()
 {
-	if (!m_tagImportDialog) {
-		m_tagImportDialog = new TagImportDialog(this, m_trackDataModel);
-		connect(m_tagImportDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
-	}
-	m_tagImportDialog->clear();
-	m_tagImportDialog->show();
+  if (!m_tagImportDialog) {
+    m_tagImportDialog = new TagImportDialog(this, m_trackDataModel);
+    connect(m_tagImportDialog, SIGNAL(trackDataUpdated()),
+            this, SLOT(showPreview()));
+  }
+  m_tagImportDialog->clear();
+  m_tagImportDialog->show();
 }
 
 /**
@@ -335,18 +335,18 @@ void ImportDialog::fromTags()
  */
 void ImportDialog::displayServerImportDialog(ServerImporter* source)
 {
-	if (!m_serverImportDialog) {
-		m_serverImportDialog = new ServerImportDialog(this);
-		connect(m_serverImportDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
-	}
-	if (m_serverImportDialog) {
-		m_serverImportDialog->setImportSource(source);
-		m_serverImportDialog->setArtistAlbum(
-					m_trackDataModel->trackData().getArtist(),
-					m_trackDataModel->trackData().getAlbum());
-		m_serverImportDialog->show();
-	}
+  if (!m_serverImportDialog) {
+    m_serverImportDialog = new ServerImportDialog(this);
+    connect(m_serverImportDialog, SIGNAL(trackDataUpdated()),
+            this, SLOT(showPreview()));
+  }
+  if (m_serverImportDialog) {
+    m_serverImportDialog->setImportSource(source);
+    m_serverImportDialog->setArtistAlbum(
+          m_trackDataModel->trackData().getArtist(),
+          m_trackDataModel->trackData().getAlbum());
+    m_serverImportDialog->show();
+  }
 }
 
 /**
@@ -354,12 +354,12 @@ void ImportDialog::displayServerImportDialog(ServerImporter* source)
  */
 void ImportDialog::hideSubdialogs()
 {
-	if (m_serverImportDialog)
-		m_serverImportDialog->hide();
-	if (m_textImportDialog)
-		m_textImportDialog->hide();
-	if (m_tagImportDialog)
-		m_tagImportDialog->hide();
+  if (m_serverImportDialog)
+    m_serverImportDialog->hide();
+  if (m_textImportDialog)
+    m_textImportDialog->hide();
+  if (m_tagImportDialog)
+    m_tagImportDialog->hide();
 }
 
 /**
@@ -367,10 +367,10 @@ void ImportDialog::hideSubdialogs()
  */
 void ImportDialog::fromFreedb()
 {
-	if (!m_freedbImporter) {
-		m_freedbImporter = new FreedbImporter(this, m_trackDataModel);
-	}
-	displayServerImportDialog(m_freedbImporter);
+  if (!m_freedbImporter) {
+    m_freedbImporter = new FreedbImporter(this, m_trackDataModel);
+  }
+  displayServerImportDialog(m_freedbImporter);
 }
 
 /**
@@ -378,10 +378,10 @@ void ImportDialog::fromFreedb()
  */
 void ImportDialog::fromTrackType()
 {
-	if (!m_trackTypeImporter) {
-		m_trackTypeImporter = new TrackTypeImporter(this, m_trackDataModel);
-	}
-	displayServerImportDialog(m_trackTypeImporter);
+  if (!m_trackTypeImporter) {
+    m_trackTypeImporter = new TrackTypeImporter(this, m_trackDataModel);
+  }
+  displayServerImportDialog(m_trackTypeImporter);
 }
 
 /**
@@ -389,11 +389,11 @@ void ImportDialog::fromTrackType()
  */
 void ImportDialog::fromMusicBrainzRelease()
 {
-	if (!m_musicBrainzReleaseImporter) {
-		m_musicBrainzReleaseImporter =
-				new MusicBrainzReleaseImporter(this, m_trackDataModel);
-	}
-	displayServerImportDialog(m_musicBrainzReleaseImporter);
+  if (!m_musicBrainzReleaseImporter) {
+    m_musicBrainzReleaseImporter =
+        new MusicBrainzReleaseImporter(this, m_trackDataModel);
+  }
+  displayServerImportDialog(m_musicBrainzReleaseImporter);
 }
 
 /**
@@ -401,10 +401,10 @@ void ImportDialog::fromMusicBrainzRelease()
  */
 void ImportDialog::fromDiscogs()
 {
-	if (!m_discogsImporter) {
-		m_discogsImporter = new DiscogsImporter(this, m_trackDataModel);
-	}
-	displayServerImportDialog(m_discogsImporter);
+  if (!m_discogsImporter) {
+    m_discogsImporter = new DiscogsImporter(this, m_trackDataModel);
+  }
+  displayServerImportDialog(m_discogsImporter);
 }
 
 /**
@@ -412,10 +412,10 @@ void ImportDialog::fromDiscogs()
  */
 void ImportDialog::fromAmazon()
 {
-	if (!m_amazonImporter) {
-		m_amazonImporter = new AmazonImporter(this, m_trackDataModel);
-	}
-	displayServerImportDialog(m_amazonImporter);
+  if (!m_amazonImporter) {
+    m_amazonImporter = new AmazonImporter(this, m_trackDataModel);
+  }
+  displayServerImportDialog(m_amazonImporter);
 }
 
 /**
@@ -424,15 +424,15 @@ void ImportDialog::fromAmazon()
 void ImportDialog::fromMusicBrainz()
 {
 #ifdef HAVE_TUNEPIMP
-	if (!m_musicBrainzDialog) {
-		m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataModel);
-		connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
-						this, SLOT(showPreview()));
-	}
-	if (m_musicBrainzDialog) {
-		m_musicBrainzDialog->initTable();
-		(void)m_musicBrainzDialog->exec();
-	}
+  if (!m_musicBrainzDialog) {
+    m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataModel);
+    connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
+            this, SLOT(showPreview()));
+  }
+  if (m_musicBrainzDialog) {
+    m_musicBrainzDialog->initTable();
+    (void)m_musicBrainzDialog->exec();
+  }
 #endif
 }
 
@@ -441,35 +441,35 @@ void ImportDialog::fromMusicBrainz()
  */
 int ImportDialog::exec()
 {
-	switch (m_autoStartSubDialog) {
-		case ASD_Freedb:
-			show();
-			fromFreedb();
-			break;
-		case ASD_TrackType:
-			show();
-			fromTrackType();
-			break;
-		case ASD_Discogs:
-			show();
-			fromDiscogs();
-			break;
-		case ASD_Amazon:
-			show();
-			fromAmazon();
-			break;
-		case ASD_MusicBrainzRelease:
-			show();
-			fromMusicBrainzRelease();
-			break;
-		case ASD_MusicBrainz:
-			show();
-			fromMusicBrainz();
-			break;
-		case ASD_None:
-			break;
-	}
-	return QDialog::exec();
+  switch (m_autoStartSubDialog) {
+    case ASD_Freedb:
+      show();
+      fromFreedb();
+      break;
+    case ASD_TrackType:
+      show();
+      fromTrackType();
+      break;
+    case ASD_Discogs:
+      show();
+      fromDiscogs();
+      break;
+    case ASD_Amazon:
+      show();
+      fromAmazon();
+      break;
+    case ASD_MusicBrainzRelease:
+      show();
+      fromMusicBrainzRelease();
+      break;
+    case ASD_MusicBrainz:
+      show();
+      fromMusicBrainz();
+      break;
+    case ASD_None:
+      break;
+  }
+  return QDialog::exec();
 }
 
 /**
@@ -479,33 +479,33 @@ int ImportDialog::exec()
  */
 void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
 {
-	m_autoStartSubDialog = asd;
+  m_autoStartSubDialog = asd;
 
-	ImportConfig::ImportServer server;
-	switch (asd) {
-		case ASD_Freedb:
-			server = ImportConfig::ServerFreedb;
-			break;
-		case ASD_TrackType:
-			server = ImportConfig::ServerTrackType;
-			break;
-		case ASD_Discogs:
-			server = ImportConfig::ServerDiscogs;
-			break;
-		case ASD_Amazon:
-			server = ImportConfig::ServerAmazon;
-			break;
-		case ASD_MusicBrainzRelease:
-			server = ImportConfig::ServerMusicBrainzRelease;
-			break;
-		case ASD_MusicBrainz:
-			server = ImportConfig::ServerMusicBrainzFingerprint;
-			break;
-		case ASD_None:
-		default:
-			return;
-	}
-	m_serverComboBox->setCurrentIndex(server);
+  ImportConfig::ImportServer server;
+  switch (asd) {
+    case ASD_Freedb:
+      server = ImportConfig::ServerFreedb;
+      break;
+    case ASD_TrackType:
+      server = ImportConfig::ServerTrackType;
+      break;
+    case ASD_Discogs:
+      server = ImportConfig::ServerDiscogs;
+      break;
+    case ASD_Amazon:
+      server = ImportConfig::ServerAmazon;
+      break;
+    case ASD_MusicBrainzRelease:
+      server = ImportConfig::ServerMusicBrainzRelease;
+      break;
+    case ASD_MusicBrainz:
+      server = ImportConfig::ServerMusicBrainzFingerprint;
+      break;
+    case ASD_None:
+    default:
+      return;
+  }
+  m_serverComboBox->setCurrentIndex(server);
 }
 
 /**
@@ -513,38 +513,38 @@ void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
  */
 void ImportDialog::clear()
 {
-	m_serverComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importServer);
-	TrackData::TagVersion importDest = ConfigStore::s_genCfg.m_importDest;
-	int index = m_destComboBox->findData(importDest);
-	m_destComboBox->setCurrentIndex(index);
-	if (importDest == TrackData::TagV1 &&
-			!m_trackDataModel->trackData().isTagV1Supported()) {
-		index = m_destComboBox->findData(TrackData::TagV2);
-		m_destComboBox->setCurrentIndex(index);
-		changeTagDestination();
-	}
+  m_serverComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importServer);
+  TrackData::TagVersion importDest = ConfigStore::s_genCfg.m_importDest;
+  int index = m_destComboBox->findData(importDest);
+  m_destComboBox->setCurrentIndex(index);
+  if (importDest == TrackData::TagV1 &&
+      !m_trackDataModel->trackData().isTagV1Supported()) {
+    index = m_destComboBox->findData(TrackData::TagV2);
+    m_destComboBox->setCurrentIndex(index);
+    changeTagDestination();
+  }
 
-	m_mismatchCheckBox->setChecked(ConfigStore::s_genCfg.m_enableTimeDifferenceCheck);
-	m_maxDiffSpinBox->setValue(ConfigStore::s_genCfg.m_maxTimeDifference);
-	m_columnVisibility = ConfigStore::s_genCfg.m_importVisibleColumns;
+  m_mismatchCheckBox->setChecked(ConfigStore::s_genCfg.m_enableTimeDifferenceCheck);
+  m_maxDiffSpinBox->setValue(ConfigStore::s_genCfg.m_maxTimeDifference);
+  m_columnVisibility = ConfigStore::s_genCfg.m_importVisibleColumns;
 
-	foreach (int frameType, checkableFrameTypes()) {
-		if (frameType < 64) {
-			int column = m_trackDataModel->columnForFrameType(frameType);
-			if (column != -1) {
-				m_trackDataTable->setColumnHidden(
-							column, (m_columnVisibility & (1ULL << frameType)) == 0ULL);
-			}
-		}
-	}
+  foreach (int frameType, checkableFrameTypes()) {
+    if (frameType < 64) {
+      int column = m_trackDataModel->columnForFrameType(frameType);
+      if (column != -1) {
+        m_trackDataTable->setColumnHidden(
+              column, (m_columnVisibility & (1ULL << frameType)) == 0ULL);
+      }
+    }
+  }
 
-	if (ConfigStore::s_genCfg.m_importWindowWidth > 0 &&
-			ConfigStore::s_genCfg.m_importWindowHeight > 0) {
-		resize(ConfigStore::s_genCfg.m_importWindowWidth,
-					 ConfigStore::s_genCfg.m_importWindowHeight);
-	}
+  if (ConfigStore::s_genCfg.m_importWindowWidth > 0 &&
+      ConfigStore::s_genCfg.m_importWindowHeight > 0) {
+    resize(ConfigStore::s_genCfg.m_importWindowWidth,
+           ConfigStore::s_genCfg.m_importWindowHeight);
+  }
 
-	showPreview();
+  showPreview();
 }
 
 /**
@@ -552,14 +552,14 @@ void ImportDialog::clear()
  */
 void ImportDialog::showPreview()
 {
-	// make time difference check
-	bool diffCheckEnable;
-	int maxDiff;
-	getTimeDifferenceCheck(diffCheckEnable, maxDiff);
-	m_trackDataModel->setTimeDifferenceCheck(diffCheckEnable, maxDiff);
-	m_trackDataTable->scrollToTop();
-	m_trackDataTable->resizeColumnsToContents();
-	m_trackDataTable->resizeRowsToContents();
+  // make time difference check
+  bool diffCheckEnable;
+  int maxDiff;
+  getTimeDifferenceCheck(diffCheckEnable, maxDiff);
+  m_trackDataModel->setTimeDifferenceCheck(diffCheckEnable, maxDiff);
+  m_trackDataTable->scrollToTop();
+  m_trackDataTable->resizeColumnsToContents();
+  m_trackDataTable->resizeRowsToContents();
 }
 
 /**
@@ -569,8 +569,8 @@ void ImportDialog::showPreview()
  */
 TrackData::TagVersion ImportDialog::getDestination() const
 {
-	return TrackData::tagVersionCast(
-		m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
+  return TrackData::tagVersionCast(
+    m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
 }
 
 /**
@@ -578,7 +578,7 @@ TrackData::TagVersion ImportDialog::getDestination() const
  */
 void ImportDialog::showHelp()
 {
-	ContextHelp::displayHelp("import");
+  ContextHelp::displayHelp("import");
 }
 
 /**
@@ -586,17 +586,17 @@ void ImportDialog::showHelp()
  */
 void ImportDialog::saveConfig()
 {
-	ConfigStore::s_genCfg.m_importDest = TrackData::tagVersionCast(
-		m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
+  ConfigStore::s_genCfg.m_importDest = TrackData::tagVersionCast(
+    m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
 
-	ConfigStore::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
-		m_serverComboBox->currentIndex());
-	getTimeDifferenceCheck(ConfigStore::s_genCfg.m_enableTimeDifferenceCheck,
-												 ConfigStore::s_genCfg.m_maxTimeDifference);
-	ConfigStore::s_genCfg.m_importVisibleColumns = m_columnVisibility;
+  ConfigStore::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
+    m_serverComboBox->currentIndex());
+  getTimeDifferenceCheck(ConfigStore::s_genCfg.m_enableTimeDifferenceCheck,
+                         ConfigStore::s_genCfg.m_maxTimeDifference);
+  ConfigStore::s_genCfg.m_importVisibleColumns = m_columnVisibility;
 
-	ConfigStore::s_genCfg.m_importWindowWidth = size().width();
-	ConfigStore::s_genCfg.m_importWindowHeight = size().height();
+  ConfigStore::s_genCfg.m_importWindowWidth = size().width();
+  ConfigStore::s_genCfg.m_importWindowHeight = size().height();
 }
 
 /**
@@ -607,17 +607,17 @@ void ImportDialog::saveConfig()
  */
 void ImportDialog::getTimeDifferenceCheck(bool& enable, int& maxDiff) const
 {
-	enable = m_mismatchCheckBox->isChecked();
-	maxDiff = m_maxDiffSpinBox->value();
+  enable = m_mismatchCheckBox->isChecked();
+  maxDiff = m_maxDiffSpinBox->value();
 }
 
 /**
  * Called when the maximum time difference value is changed.
  */
 void ImportDialog::maxDiffChanged() {
-	if (m_mismatchCheckBox->isChecked()) {
-		showPreview();
-	}
+  if (m_mismatchCheckBox->isChecked()) {
+    showPreview();
+  }
 }
 
 /**
@@ -628,27 +628,27 @@ void ImportDialog::maxDiffChanged() {
  * @param fromIndex index of position moved to
  */
 void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
-	QHeaderView* vHeader = qobject_cast<QHeaderView*>(sender());
-	if (vHeader) {
-		// revert movement, but avoid recursion
-		disconnect(vHeader, SIGNAL(sectionMoved(int, int, int)), 0, 0);
-		vHeader->moveSection(toIndex, fromIndex);
-		connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
-	}
-	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-	int numTracks = static_cast<int>(trackDataVector.size());
-	if (fromIndex < numTracks && toIndex < numTracks) {
-		// swap elements but keep file durations and names
-		ImportTrackData fromData(trackDataVector[fromIndex]);
-		ImportTrackData toData(trackDataVector[toIndex]);
-		trackDataVector[fromIndex].setFrameCollection(toData.getFrameCollection());
-		trackDataVector[toIndex].setFrameCollection(fromData.getFrameCollection());
-		trackDataVector[fromIndex].setImportDuration(toData.getImportDuration());
-		trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
-		m_trackDataModel->setTrackData(trackDataVector);
-		// redisplay the table
-		showPreview();
-	}
+  QHeaderView* vHeader = qobject_cast<QHeaderView*>(sender());
+  if (vHeader) {
+    // revert movement, but avoid recursion
+    disconnect(vHeader, SIGNAL(sectionMoved(int, int, int)), 0, 0);
+    vHeader->moveSection(toIndex, fromIndex);
+    connect(vHeader, SIGNAL(sectionMoved(int, int, int)), this, SLOT(moveTableRow(int, int, int)));
+  }
+  ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+  int numTracks = static_cast<int>(trackDataVector.size());
+  if (fromIndex < numTracks && toIndex < numTracks) {
+    // swap elements but keep file durations and names
+    ImportTrackData fromData(trackDataVector[fromIndex]);
+    ImportTrackData toData(trackDataVector[toIndex]);
+    trackDataVector[fromIndex].setFrameCollection(toData.getFrameCollection());
+    trackDataVector[toIndex].setFrameCollection(fromData.getFrameCollection());
+    trackDataVector[fromIndex].setImportDuration(toData.getImportDuration());
+    trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
+    m_trackDataModel->setTrackData(trackDataVector);
+    // redisplay the table
+    showPreview();
+  }
 }
 
 /**
@@ -656,10 +656,10 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
  */
 void ImportDialog::changeTagDestination()
 {
-	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-	trackDataVector.readTags(getDestination());
-	m_trackDataModel->setTrackData(trackDataVector);
-	showPreview();
+  ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+  trackDataVector.readTags(getDestination());
+  m_trackDataModel->setTrackData(trackDataVector);
+  showPreview();
 }
 
 /**
@@ -667,11 +667,11 @@ void ImportDialog::changeTagDestination()
  */
 void ImportDialog::matchWithLength()
 {
-	bool diffCheckEnable;
-	int maxDiff;
-	getTimeDifferenceCheck(diffCheckEnable, maxDiff);
-	if (TrackDataMatcher::matchWithLength(m_trackDataModel, diffCheckEnable, maxDiff))
-		showPreview();
+  bool diffCheckEnable;
+  int maxDiff;
+  getTimeDifferenceCheck(diffCheckEnable, maxDiff);
+  if (TrackDataMatcher::matchWithLength(m_trackDataModel, diffCheckEnable, maxDiff))
+    showPreview();
 }
 
 /**
@@ -679,8 +679,8 @@ void ImportDialog::matchWithLength()
  */
 void ImportDialog::matchWithTrack()
 {
-	if (TrackDataMatcher::matchWithTrack(m_trackDataModel))
-		showPreview();
+  if (TrackDataMatcher::matchWithTrack(m_trackDataModel))
+    showPreview();
 }
 
 /**
@@ -688,8 +688,8 @@ void ImportDialog::matchWithTrack()
  */
 void ImportDialog::matchWithTitle()
 {
-	if (TrackDataMatcher::matchWithTitle(m_trackDataModel))
-		showPreview();
+  if (TrackDataMatcher::matchWithTitle(m_trackDataModel))
+    showPreview();
 }
 
 /**
@@ -699,25 +699,25 @@ void ImportDialog::matchWithTitle()
  */
 void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
 {
-	if (QWidget* widget = qobject_cast<QWidget*>(sender())) {
-		QMenu menu(widget);
-		foreach (int frameType, checkableFrameTypes()) {
-			int column = m_trackDataModel->columnForFrameType(frameType);
-			if (column != -1) {
-				QAction* action = new QAction(&menu);
-				action->setText(
-							m_trackDataModel->headerData(column, Qt::Horizontal).toString());
-				action->setData(frameType);
-				action->setCheckable(true);
-				action->setChecked((m_columnVisibility & (1ULL << frameType)) != 0ULL);
-				connect(action, SIGNAL(triggered(bool)),
-								this, SLOT(toggleTableColumnVisibility(bool)));
-				menu.addAction(action);
-			}
-		}
-		menu.setMouseTracking(true);
-		menu.exec(widget->mapToGlobal(pos));
-	}
+  if (QWidget* widget = qobject_cast<QWidget*>(sender())) {
+    QMenu menu(widget);
+    foreach (int frameType, checkableFrameTypes()) {
+      int column = m_trackDataModel->columnForFrameType(frameType);
+      if (column != -1) {
+        QAction* action = new QAction(&menu);
+        action->setText(
+              m_trackDataModel->headerData(column, Qt::Horizontal).toString());
+        action->setData(frameType);
+        action->setCheckable(true);
+        action->setChecked((m_columnVisibility & (1ULL << frameType)) != 0ULL);
+        connect(action, SIGNAL(triggered(bool)),
+                this, SLOT(toggleTableColumnVisibility(bool)));
+        menu.addAction(action);
+      }
+    }
+    menu.setMouseTracking(true);
+    menu.exec(widget->mapToGlobal(pos));
+  }
 }
 
 /**
@@ -727,22 +727,22 @@ void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
  */
 void ImportDialog::toggleTableColumnVisibility(bool visible)
 {
-	if (QAction* action = qobject_cast<QAction*>(sender())) {
-		bool ok;
-		int frameType = action->data().toInt(&ok);
-		if (ok && frameType < 64) {
-			if (visible) {
-				m_columnVisibility |= 1ULL << frameType;
-			} else {
-				m_columnVisibility &= ~(1ULL << frameType);
-			}
-			int column = m_trackDataModel->columnForFrameType(frameType);
-			if (column != -1) {
-				m_trackDataTable->setColumnHidden(column, !visible);
-			}
-		}
-		if (visible) {
-			m_trackDataTable->resizeColumnsToContents();
-		}
-	}
+  if (QAction* action = qobject_cast<QAction*>(sender())) {
+    bool ok;
+    int frameType = action->data().toInt(&ok);
+    if (ok && frameType < 64) {
+      if (visible) {
+        m_columnVisibility |= 1ULL << frameType;
+      } else {
+        m_columnVisibility &= ~(1ULL << frameType);
+      }
+      int column = m_trackDataModel->columnForFrameType(frameType);
+      if (column != -1) {
+        m_trackDataTable->setColumnHidden(column, !visible);
+      }
+    }
+    if (visible) {
+      m_trackDataTable->resizeColumnsToContents();
+    }
+  }
 }

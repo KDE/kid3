@@ -46,52 +46,52 @@ namespace {
  */
 class CommandFormatReplacer : public FrameFormatReplacer {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param frames frame collection
-	 * @param str    string with format codes
-	 * @param files  file list
-	 * @param isDir  true if directory
-	 */
-	explicit CommandFormatReplacer(
-		const FrameCollection& frames, const QString& str,
-		const QStringList& files, bool isDir);
+  /**
+   * Constructor.
+   *
+   * @param frames frame collection
+   * @param str    string with format codes
+   * @param files  file list
+   * @param isDir  true if directory
+   */
+  explicit CommandFormatReplacer(
+    const FrameCollection& frames, const QString& str,
+    const QStringList& files, bool isDir);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~CommandFormatReplacer();
+  /**
+   * Destructor.
+   */
+  virtual ~CommandFormatReplacer();
 
-	/**
-	 * Get help text for supported format codes.
-	 *
-	 * @param onlyRows if true only the tr elements are returned,
-	 *                 not the surrounding table
-	 *
-	 * @return help text.
-	 */
-	static QString getToolTip(bool onlyRows = false);
+  /**
+   * Get help text for supported format codes.
+   *
+   * @param onlyRows if true only the tr elements are returned,
+   *                 not the surrounding table
+   *
+   * @return help text.
+   */
+  static QString getToolTip(bool onlyRows = false);
 
 protected:
-	/**
-	 * Replace a format code (one character %c or multiple characters %{chars}).
-	 * Supported format fields:
-	 * Those supported by FrameFormatReplacer::getReplacement()
-	 * %f %{file} filename
-	 * %d %{directory} directory name
-	 * %b %{browser} the web browser set in the configuration
-	 *
-	 * @param code format code
-	 *
-	 * @return replacement string,
-	 *         QString::null if code not found.
-	 */
-	virtual QString getReplacement(const QString& code) const;
+  /**
+   * Replace a format code (one character %c or multiple characters %{chars}).
+   * Supported format fields:
+   * Those supported by FrameFormatReplacer::getReplacement()
+   * %f %{file} filename
+   * %d %{directory} directory name
+   * %b %{browser} the web browser set in the configuration
+   *
+   * @param code format code
+   *
+   * @return replacement string,
+   *         QString::null if code not found.
+   */
+  virtual QString getReplacement(const QString& code) const;
 
 private:
-	const QStringList& m_files;
-	const bool m_isDir;
+  const QStringList& m_files;
+  const bool m_isDir;
 };
 
 
@@ -104,9 +104,9 @@ private:
  * @param isDir  true if directory
  */
 CommandFormatReplacer::CommandFormatReplacer(
-	const FrameCollection& frames, const QString& str,
-	const QStringList& files, bool isDir) :
-	FrameFormatReplacer(frames, str), m_files(files), m_isDir(isDir) {}
+  const FrameCollection& frames, const QString& str,
+  const QStringList& files, bool isDir) :
+  FrameFormatReplacer(frames, str), m_files(files), m_isDir(isDir) {}
 
 /**
  * Destructor.
@@ -128,58 +128,58 @@ CommandFormatReplacer::~CommandFormatReplacer() {}
  */
 QString CommandFormatReplacer::getReplacement(const QString& code) const
 {
-	QString result = FrameFormatReplacer::getReplacement(code);
-	if (result.isNull()) {
-		QString name;
+  QString result = FrameFormatReplacer::getReplacement(code);
+  if (result.isNull()) {
+    QString name;
 
-		if (code.length() == 1) {
-			static const struct {
-				char shortCode;
-				const char* longCode;
-			} shortToLong[] = {
-				{ 'f', "file" },
-				{ 'd', "directory" },
-				{ 'b', "browser" }
-			};
-			const char c = code[0].toLatin1();
-			for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
-				if (shortToLong[i].shortCode == c) {
-					name = shortToLong[i].longCode;
-					break;
-				}
-			}
-		} else if (code.length() > 1) {
-			name = code;
-		}
+    if (code.length() == 1) {
+      static const struct {
+        char shortCode;
+        const char* longCode;
+      } shortToLong[] = {
+        { 'f', "file" },
+        { 'd', "directory" },
+        { 'b', "browser" }
+      };
+      const char c = code[0].toLatin1();
+      for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
+        if (shortToLong[i].shortCode == c) {
+          name = shortToLong[i].longCode;
+          break;
+        }
+      }
+    } else if (code.length() > 1) {
+      name = code;
+    }
 
-		if (!name.isNull()) {
-			if (name == "file") {
-				result = m_files.front();
-			} else if (name == "directory") {
-				result = m_files.front();
-				if (!m_isDir) {
-					int sepPos = result.lastIndexOf('/');
-					if (sepPos < 0) {
-						sepPos = result.lastIndexOf(QDir::separator());
-					}
-					if (sepPos >= 0) {
-						result.truncate(sepPos);
-					}
-				}
-			} else if (name == "browser") {
-				result = ConfigStore::s_miscCfg.m_browser;
-			} else if (name == "url") {
-				if (!m_files.empty()) {
-					QUrl url;
-					url.setScheme("file");
-					url.setPath(m_files.front());
-					result = url.toString();
-				}
-			}
-		}
-	}
+    if (!name.isNull()) {
+      if (name == "file") {
+        result = m_files.front();
+      } else if (name == "directory") {
+        result = m_files.front();
+        if (!m_isDir) {
+          int sepPos = result.lastIndexOf('/');
+          if (sepPos < 0) {
+            sepPos = result.lastIndexOf(QDir::separator());
+          }
+          if (sepPos >= 0) {
+            result.truncate(sepPos);
+          }
+        }
+      } else if (name == "browser") {
+        result = ConfigStore::s_miscCfg.m_browser;
+      } else if (name == "url") {
+        if (!m_files.empty()) {
+          QUrl url;
+          url.setScheme("file");
+          url.setPath(m_files.front());
+          result = url.toString();
+        }
+      }
+    }
+  }
 
-	return result;
+  return result;
 }
 
 /**
@@ -192,40 +192,40 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
  */
 QString CommandFormatReplacer::getToolTip(bool onlyRows)
 {
-	QString str;
-	if (!onlyRows) str += "<table>\n";
-	str += FrameFormatReplacer::getToolTip(true);
+  QString str;
+  if (!onlyRows) str += "<table>\n";
+  str += FrameFormatReplacer::getToolTip(true);
 
-	str += "<tr><td>%f</td><td>%{file}</td><td>";
-	str += QCM_translate("Filename");
-	str += "</td></tr>\n";
+  str += "<tr><td>%f</td><td>%{file}</td><td>";
+  str += QCM_translate("Filename");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%F</td><td>%{files}</td><td>";
-	str += QCM_translate(I18N_NOOP("Filenames"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%F</td><td>%{files}</td><td>";
+  str += QCM_translate(I18N_NOOP("Filenames"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%uf</td><td>%{url}</td><td>";
-	str += QCM_translate("URL");
-	str += "</td></tr>\n";
+  str += "<tr><td>%uf</td><td>%{url}</td><td>";
+  str += QCM_translate("URL");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%uF</td><td>%{urls}</td><td>";
-	str += QCM_translate(I18N_NOOP("URLs"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%uF</td><td>%{urls}</td><td>";
+  str += QCM_translate(I18N_NOOP("URLs"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%d</td><td>%{directory}</td><td>";
-	str += QCM_translate(I18N_NOOP("Directory name"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%d</td><td>%{directory}</td><td>";
+  str += QCM_translate(I18N_NOOP("Directory name"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%b</td><td>%{browser}</td><td>";
-	str += QCM_translate("Browser");
-	str += "</td></tr>\n";
+  str += "<tr><td>%b</td><td>%{browser}</td><td>";
+  str += QCM_translate("Browser");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
-	str += QCM_translate(I18N_NOOP("Encode as URL"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
+  str += QCM_translate(I18N_NOOP("Encode as URL"));
+  str += "</td></tr>\n";
 
-	if (!onlyRows) str += "</table>\n";
-	return str;
+  if (!onlyRows) str += "</table>\n";
+  return str;
 }
 
 } // anonymous namespace
@@ -237,18 +237,18 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
  * @param app    application widget
  */
 FileList::FileList(QWidget* parent, Kid3MainWindow* mainWin) :
-	QTreeView(parent), m_process(0), m_mainWin(mainWin)
+  QTreeView(parent), m_process(0), m_mainWin(mainWin)
 {
-	setSelectionMode(ExtendedSelection);
-	setSortingEnabled(false);
-	setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
-			this, SLOT(customContextMenu(const QPoint&)));
+  setSelectionMode(ExtendedSelection);
+  setSortingEnabled(false);
+  setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
+      this, SLOT(customContextMenu(const QPoint&)));
 #ifdef HAVE_PHONON
-	connect(this, SIGNAL(doubleClicked(QModelIndex)),
-					this, SLOT(playIfTaggedFile(QModelIndex)));
+  connect(this, SIGNAL(doubleClicked(QModelIndex)),
+          this, SLOT(playIfTaggedFile(QModelIndex)));
 #endif
-	header()->hide();
+  header()->hide();
 }
 
 /**
@@ -256,7 +256,7 @@ FileList::FileList(QWidget* parent, Kid3MainWindow* mainWin) :
  */
 FileList::~FileList()
 {
-	delete m_process;
+  delete m_process;
 }
 
 /**
@@ -265,8 +265,8 @@ FileList::~FileList()
  */
 QSize FileList::sizeHint() const
 {
-	return QSize(fontMetrics().maxWidth() * 25,
-							 QTreeView::sizeHint().height());
+  return QSize(fontMetrics().maxWidth() * 25,
+               QTreeView::sizeHint().height());
 }
 
 /**
@@ -279,25 +279,25 @@ QSize FileList::sizeHint() const
  * @return false if name is not directory path, else true.
  */
 bool FileList::readDir(const QModelIndex& dirIndex,
-												const QModelIndex& fileIndex) {
-	QAbstractProxyModel* proxyModel = qobject_cast<QAbstractProxyModel*>(model());
-	QModelIndex rootIndex = proxyModel ? proxyModel->mapFromSource(dirIndex) : dirIndex;
-	if (rootIndex.isValid()) {
-		setRootIndex(rootIndex);
-		if (fileIndex.isValid()) {
-			QModelIndex index = proxyModel ? proxyModel->mapFromSource(fileIndex) : fileIndex;
-			if (index.isValid()) {
-				setCurrentIndex(index);
-			}
-		} else {
-			setCurrentIndex(rootIndex);
-			// Make sure that this invisible root index item is not selected
-			if (selectionModel())
-				selectionModel()->clearSelection();
-		}
-		return true;
-	}
-	return false;
+                        const QModelIndex& fileIndex) {
+  QAbstractProxyModel* proxyModel = qobject_cast<QAbstractProxyModel*>(model());
+  QModelIndex rootIndex = proxyModel ? proxyModel->mapFromSource(dirIndex) : dirIndex;
+  if (rootIndex.isValid()) {
+    setRootIndex(rootIndex);
+    if (fileIndex.isValid()) {
+      QModelIndex index = proxyModel ? proxyModel->mapFromSource(fileIndex) : fileIndex;
+      if (index.isValid()) {
+        setCurrentIndex(index);
+      }
+    } else {
+      setCurrentIndex(rootIndex);
+      // Make sure that this invisible root index item is not selected
+      if (selectionModel())
+        selectionModel()->clearSelection();
+    }
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -305,12 +305,12 @@ bool FileList::readDir(const QModelIndex& dirIndex,
  */
 void FileList::updateCurrentSelection()
 {
-	if (!selectionModel())
-		return;
-	m_currentSelection.clear();
-	foreach (QModelIndex index, selectionModel()->selectedIndexes()) {
-		m_currentSelection.append(QPersistentModelIndex(index));
-	}
+  if (!selectionModel())
+    return;
+  m_currentSelection.clear();
+  foreach (QModelIndex index, selectionModel()->selectedIndexes()) {
+    m_currentSelection.append(QPersistentModelIndex(index));
+  }
 }
 
 /**
@@ -321,27 +321,27 @@ void FileList::updateCurrentSelection()
  */
 void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
-	if (index.isValid() && !ConfigStore::s_miscCfg.m_contextMenuCommands.empty()) {
-		QMenu menu(this);
-		menu.addAction(i18n("&Expand all"), this, SLOT(expandAll()));
-		menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
-		menu.addAction(i18n("&Rename"), m_mainWin, SLOT(renameFile()));
-		menu.addAction(i18n("&Delete"), m_mainWin, SLOT(deleteFile()));
+  if (index.isValid() && !ConfigStore::s_miscCfg.m_contextMenuCommands.empty()) {
+    QMenu menu(this);
+    menu.addAction(i18n("&Expand all"), this, SLOT(expandAll()));
+    menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
+    menu.addAction(i18n("&Rename"), m_mainWin, SLOT(renameFile()));
+    menu.addAction(i18n("&Delete"), m_mainWin, SLOT(deleteFile()));
 #ifdef HAVE_PHONON
-		menu.addAction(i18n("&Play"), m_mainWin, SLOT(slotPlayAudio()));
+    menu.addAction(i18n("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
-		int id = 0;
-		for (QList<MiscConfig::MenuCommand>::const_iterator
-					 it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
-				 it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
-				 ++it) {
-			menu.addAction((*it).getName());
-			++id;
-		}
-		connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
-		menu.setMouseTracking(true);
-		menu.exec(pos);
-	}
+    int id = 0;
+    for (QList<MiscConfig::MenuCommand>::const_iterator
+           it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
+         it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
+         ++it) {
+      menu.addAction((*it).getName());
+      ++id;
+    }
+    connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
+    menu.setMouseTracking(true);
+    menu.exec(pos);
+  }
 }
 
 /**
@@ -367,66 +367,66 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
  */
 QStringList FileList::formatStringList(const QStringList& format)
 {
-	QStringList files;
-	TaggedFile* firstSelectedFile = 0;
-	QModelIndexList selItems(selectionModel()
-			 ? selectionModel()->selectedIndexes() : QModelIndexList());
-	foreach (QModelIndex index, selItems) {
-		if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
-			if (!firstSelectedFile) {
-				firstSelectedFile = taggedFile;
-			}
-			files.append(taggedFile->getAbsFilename());
-		}
-	}
+  QStringList files;
+  TaggedFile* firstSelectedFile = 0;
+  QModelIndexList selItems(selectionModel()
+       ? selectionModel()->selectedIndexes() : QModelIndexList());
+  foreach (QModelIndex index, selItems) {
+    if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+      if (!firstSelectedFile) {
+        firstSelectedFile = taggedFile;
+      }
+      files.append(taggedFile->getAbsFilename());
+    }
+  }
 
-	QString dirPath;
-	if (files.isEmpty() && !selItems.isEmpty()) {
-		dirPath = FileProxyModel::getPathIfIndexOfDir(selItems.first());
-		if (!dirPath.isNull()) {
-			files.append(dirPath);
-			firstSelectedFile = TaggedFileOfDirectoryIterator::first(selItems.first());
-		}
-	}
+  QString dirPath;
+  if (files.isEmpty() && !selItems.isEmpty()) {
+    dirPath = FileProxyModel::getPathIfIndexOfDir(selItems.first());
+    if (!dirPath.isNull()) {
+      files.append(dirPath);
+      firstSelectedFile = TaggedFileOfDirectoryIterator::first(selItems.first());
+    }
+  }
 
-	FrameCollection frames;
-	QStringList fmt;
-	for (QStringList::const_iterator it = format.begin();
-			 it != format.end();
-			 ++it) {
-		if ((*it).indexOf('%') == -1) {
-			fmt.push_back(*it);
-		} else {
-			if (*it == "%F" || *it == "%{files}") {
-				// list of files
-				fmt += files;
-			} else if (*it == "%uF" || *it == "%{urls}") {
-				// list of URLs or URL
-				QUrl url;
-				url.setScheme("file");
-				for (QStringList::const_iterator fit = files.begin();
-						 fit != files.end();
-						 ++fit) {
-					url.setPath(*fit);
-					fmt.push_back(url.toString());
-				}
-			} else {
-				if (firstSelectedFile) {
-					// use merged tags 1 and 2 to format string
-					FrameCollection frames1;
-					firstSelectedFile->getAllFramesV1(frames1);
-					firstSelectedFile->getAllFramesV2(frames);
-					frames.merge(frames1);
-				}
-				QString str(*it);
-				str.replace("%uf", "%{url}");
-				CommandFormatReplacer cfr(frames, str, files, !dirPath.isNull());
-				cfr.replacePercentCodes(FrameFormatReplacer::FSF_SupportUrlEncode);
-				fmt.push_back(cfr.getString());
-			}
-		}
-	}
-	return fmt;
+  FrameCollection frames;
+  QStringList fmt;
+  for (QStringList::const_iterator it = format.begin();
+       it != format.end();
+       ++it) {
+    if ((*it).indexOf('%') == -1) {
+      fmt.push_back(*it);
+    } else {
+      if (*it == "%F" || *it == "%{files}") {
+        // list of files
+        fmt += files;
+      } else if (*it == "%uF" || *it == "%{urls}") {
+        // list of URLs or URL
+        QUrl url;
+        url.setScheme("file");
+        for (QStringList::const_iterator fit = files.begin();
+             fit != files.end();
+             ++fit) {
+          url.setPath(*fit);
+          fmt.push_back(url.toString());
+        }
+      } else {
+        if (firstSelectedFile) {
+          // use merged tags 1 and 2 to format string
+          FrameCollection frames1;
+          firstSelectedFile->getAllFramesV1(frames1);
+          firstSelectedFile->getAllFramesV2(frames);
+          frames.merge(frames1);
+        }
+        QString str(*it);
+        str.replace("%uf", "%{url}");
+        CommandFormatReplacer cfr(frames, str, files, !dirPath.isNull());
+        cfr.replacePercentCodes(FrameFormatReplacer::FSF_SupportUrlEncode);
+        fmt.push_back(cfr.getString());
+      }
+    }
+  }
+  return fmt;
 }
 
 /**
@@ -439,7 +439,7 @@ QStringList FileList::formatStringList(const QStringList& format)
  */
 QString FileList::getFormatToolTip(bool onlyRows)
 {
-	return CommandFormatReplacer::getToolTip(onlyRows);
+  return CommandFormatReplacer::getToolTip(onlyRows);
 }
 
 /**
@@ -449,51 +449,51 @@ QString FileList::getFormatToolTip(bool onlyRows)
  */
 void FileList::executeContextCommand(int id)
 {
-	if (id < static_cast<int>(ConfigStore::s_miscCfg.m_contextMenuCommands.size())) {
-		QStringList args;
-		const MiscConfig::MenuCommand& menuCmd = ConfigStore::s_miscCfg.m_contextMenuCommands[id];
-		QString cmd = menuCmd.getCommand();
+  if (id < static_cast<int>(ConfigStore::s_miscCfg.m_contextMenuCommands.size())) {
+    QStringList args;
+    const MiscConfig::MenuCommand& menuCmd = ConfigStore::s_miscCfg.m_contextMenuCommands[id];
+    QString cmd = menuCmd.getCommand();
 
-		int len = cmd.length();
-		int begin;
-		int end = 0;
-		while (end < len) {
-			begin = end;
-			while (begin < len && cmd[begin] == ' ') ++begin;
-			if (begin >= len) break;
-			if (cmd[begin] == '"') {
-				++begin;
-				QString str;
-				while (begin < len) {
-					if (cmd[begin] == '\\' && begin + 1 < len &&
-							(cmd[begin + 1] == '\\' ||
-							 cmd[begin + 1] == '"')) {
-						++begin;
-					} else if (cmd[begin] == '"') {
-						break;
-					}
-					str += cmd[begin];
-					++begin;
-				}
-				args.push_back(str);
-				end = begin;
-			} else {
-				end = cmd.indexOf(' ', begin + 1);
-				if (end == -1) end = len;
-				args.push_back(cmd.mid(begin, end - begin));
-			}
-			++end;
-		}
+    int len = cmd.length();
+    int begin;
+    int end = 0;
+    while (end < len) {
+      begin = end;
+      while (begin < len && cmd[begin] == ' ') ++begin;
+      if (begin >= len) break;
+      if (cmd[begin] == '"') {
+        ++begin;
+        QString str;
+        while (begin < len) {
+          if (cmd[begin] == '\\' && begin + 1 < len &&
+              (cmd[begin + 1] == '\\' ||
+               cmd[begin + 1] == '"')) {
+            ++begin;
+          } else if (cmd[begin] == '"') {
+            break;
+          }
+          str += cmd[begin];
+          ++begin;
+        }
+        args.push_back(str);
+        end = begin;
+      } else {
+        end = cmd.indexOf(' ', begin + 1);
+        if (end == -1) end = len;
+        args.push_back(cmd.mid(begin, end - begin));
+      }
+      ++end;
+    }
 
-		args = formatStringList(args);
+    args = formatStringList(args);
 
-		if (!m_process) {
-			m_process = new ExternalProcess(this);
-		}
-		if (m_process) {
-			m_process->launchCommand(menuCmd.getName(), args, menuCmd.mustBeConfirmed(), menuCmd.outputShown());
-		}
-	}
+    if (!m_process) {
+      m_process = new ExternalProcess(this);
+    }
+    if (m_process) {
+      m_process->launchCommand(menuCmd.getName(), args, menuCmd.mustBeConfirmed(), menuCmd.outputShown());
+    }
+  }
 }
 
 /**
@@ -503,20 +503,20 @@ void FileList::executeContextCommand(int id)
  */
 void FileList::executeAction(QAction* action)
 {
-	if (action) {
-		QString name = action->text().remove('&');
-		int id = 0;
-		for (QList<MiscConfig::MenuCommand>::const_iterator
-					 it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
-				 it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
-				 ++it) {
-			if (name == (*it).getName()) {
-				executeContextCommand(id);
-				break;
-			}
-			++id;
-		}
-	}
+  if (action) {
+    QString name = action->text().remove('&');
+    int id = 0;
+    for (QList<MiscConfig::MenuCommand>::const_iterator
+           it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
+         it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
+         ++it) {
+      if (name == (*it).getName()) {
+        executeContextCommand(id);
+        break;
+      }
+      ++id;
+    }
+  }
 }
 
 /**
@@ -526,7 +526,7 @@ void FileList::executeAction(QAction* action)
  */
 void FileList::customContextMenu(const QPoint& pos)
 {
-	contextMenu(currentIndex(), mapToGlobal(pos));
+  contextMenu(currentIndex(), mapToGlobal(pos));
 }
 
 /**
@@ -537,8 +537,8 @@ void FileList::customContextMenu(const QPoint& pos)
 void FileList::playIfTaggedFile(const QModelIndex& index)
 {
 #ifdef HAVE_PHONON
-	if (FileProxyModel::getTaggedFileOfIndex(index)) {
-		m_mainWin->slotPlayAudio();
-	}
+  if (FileProxyModel::getTaggedFileOfIndex(index)) {
+    m_mainWin->slotPlayAudio();
+  }
 #endif
 }

@@ -54,14 +54,14 @@ DirRenamer::~DirRenamer()
  */
 static QString parentDirectory(const QString& dir)
 {
-	QString parent(dir);
-	int slashPos = parent.lastIndexOf('/');
-	if (slashPos != -1) {
-		parent.truncate(slashPos + 1);
-	} else {
-		parent = "";
-	}
-	return parent;
+  QString parent(dir);
+  int slashPos = parent.lastIndexOf('/');
+  if (slashPos != -1) {
+    parent.truncate(slashPos + 1);
+  } else {
+    parent = "";
+  }
+  return parent;
 }
 
 /**
@@ -74,17 +74,17 @@ static QString parentDirectory(const QString& dir)
  * @return true if directory exists or was created successfully.
  */
 bool DirRenamer::createDirectory(const QString& dir,
-									 QString* errorMsg) const
+                   QString* errorMsg) const
 {
-	if (QFileInfo(dir).isDir() ||
-		(QDir().mkdir(dir) && QFileInfo(dir).isDir())) {
-		return true;
-	} else {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("Create directory %1 failed\n", dir));
-		}
-		return false;
-	}
+  if (QFileInfo(dir).isDir() ||
+    (QDir().mkdir(dir) && QFileInfo(dir).isDir())) {
+    return true;
+  } else {
+    if (errorMsg) {
+      errorMsg->append(KCM_i18n1("Create directory %1 failed\n", dir));
+    }
+    return false;
+  }
 }
 
 /**
@@ -98,28 +98,28 @@ bool DirRenamer::createDirectory(const QString& dir,
  * @return true if rename successful.
  */
 bool DirRenamer::renameDirectory(
-	const QString& olddir, const QString& newdir, QString* errorMsg) const
+  const QString& olddir, const QString& newdir, QString* errorMsg) const
 {
-	if (QFileInfo(newdir).exists()) {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("File %1 already exists\n", newdir));
-		}
-		return false;
-	}
-	if (!QFileInfo(olddir).isDir()) {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("%1 is not a directory\n", olddir));
-		}
-		return false;
-	}
-	if (QDir().rename(olddir, newdir) && QFileInfo(newdir).isDir()) {
-		return true;
-	} else {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n2("Rename %1 to %2 failed\n", olddir, newdir));
-		}
-		return false;
-	}
+  if (QFileInfo(newdir).exists()) {
+    if (errorMsg) {
+      errorMsg->append(KCM_i18n1("File %1 already exists\n", newdir));
+    }
+    return false;
+  }
+  if (!QFileInfo(olddir).isDir()) {
+    if (errorMsg) {
+      errorMsg->append(KCM_i18n1("%1 is not a directory\n", olddir));
+    }
+    return false;
+  }
+  if (QDir().rename(olddir, newdir) && QFileInfo(newdir).isDir()) {
+    return true;
+  } else {
+    if (errorMsg) {
+      errorMsg->append(KCM_i18n2("Rename %1 to %2 failed\n", olddir, newdir));
+    }
+    return false;
+  }
 }
 
 /**
@@ -133,31 +133,31 @@ bool DirRenamer::renameDirectory(
  * @return true if rename successful or newfn already exists.
  */
 bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
-								QString* errorMsg) const
+                QString* errorMsg) const
 {
-	if (QFileInfo(newfn).isFile()) {
-		return true;
-	}
-	if (QFileInfo(newfn).exists()) {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("%1 already exists\n", newfn));
-		}
-		return false;
-	}
-	if (!QFileInfo(oldfn).isFile()) {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n1("%1 is not a file\n", oldfn));
-		}
-		return false;
-	}
-	if (QDir().rename(oldfn, newfn) && QFileInfo(newfn).isFile()) {
-		return true;
-	} else {
-		if (errorMsg) {
-			errorMsg->append(KCM_i18n2("Rename %1 to %2 failed\n", oldfn, newfn));
-		}
-		return false;
-	}
+  if (QFileInfo(newfn).isFile()) {
+    return true;
+  }
+  if (QFileInfo(newfn).exists()) {
+    if (errorMsg) {
+      errorMsg->append(KCM_i18n1("%1 already exists\n", newfn));
+    }
+    return false;
+  }
+  if (!QFileInfo(oldfn).isFile()) {
+    if (errorMsg) {
+      errorMsg->append(KCM_i18n1("%1 is not a file\n", oldfn));
+    }
+    return false;
+  }
+  if (QDir().rename(oldfn, newfn) && QFileInfo(newfn).isFile()) {
+    return true;
+  } else {
+    if (errorMsg) {
+      errorMsg->append(KCM_i18n2("Rename %1 to %2 failed\n", oldfn, newfn));
+    }
+    return false;
+  }
 }
 
 /**
@@ -171,28 +171,28 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
  */
 QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
 {
-	taggedFile->readTags(false);
-	TrackData trackData(*taggedFile, m_tagVersion);
-	QString newdir(taggedFile->getDirname());
+  taggedFile->readTags(false);
+  TrackData trackData(*taggedFile, m_tagVersion);
+  QString newdir(taggedFile->getDirname());
 #ifdef WIN32
-	newdir.replace('\\', '/');
+  newdir.replace('\\', '/');
 #endif
-	if (newdir.endsWith(QChar('/'))) {
-		// remove trailing separator
-		newdir.truncate(newdir.length() - 1);
-	}
-	if (olddir) {
-		*olddir = newdir;
-	}
-	if (!trackData.isEmptyOrInactive()) {
-		if (!m_actionCreate) {
-			newdir = parentDirectory(newdir);
-		} else if (!newdir.isEmpty()) {
-			newdir.append('/');
-		}
-		newdir.append(trackData.formatFilenameFromTags(m_format, true));
-	}
-	return newdir;
+  if (newdir.endsWith(QChar('/'))) {
+    // remove trailing separator
+    newdir.truncate(newdir.length() - 1);
+  }
+  if (olddir) {
+    *olddir = newdir;
+  }
+  if (!trackData.isEmptyOrInactive()) {
+    if (!m_actionCreate) {
+      newdir = parentDirectory(newdir);
+    } else if (!newdir.isEmpty()) {
+      newdir.append('/');
+    }
+    newdir.append(trackData.formatFilenameFromTags(m_format, true));
+  }
+  return newdir;
 }
 
 /**
@@ -201,8 +201,8 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
  */
 void DirRenamer::clearActions()
 {
-	m_actions.clear();
-	m_aborted = false;
+  m_actions.clear();
+  m_aborted = false;
 }
 
 /**
@@ -214,17 +214,17 @@ void DirRenamer::clearActions()
  */
 void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QString& dest)
 {
-	// do not add an action if the source or destination is already in an action
-	for (RenameActionList::const_iterator it = m_actions.begin();
-			 it != m_actions.end();
-			 ++it) {
-		if ((!src.isEmpty() && (*it).m_src == src) ||
-				(!dest.isEmpty() && (*it).m_dest == dest)){
-			return;
-		}
-	}
+  // do not add an action if the source or destination is already in an action
+  for (RenameActionList::const_iterator it = m_actions.begin();
+       it != m_actions.end();
+       ++it) {
+    if ((!src.isEmpty() && (*it).m_src == src) ||
+        (!dest.isEmpty() && (*it).m_dest == dest)){
+      return;
+    }
+  }
 
-	m_actions.push_back(RenameAction(type, src, dest));
+  m_actions.push_back(RenameAction(type, src, dest));
 }
 
 /**
@@ -235,7 +235,7 @@ void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QS
  */
 void DirRenamer::addAction(RenameAction::Type type, const QString& dest)
 {
-	addAction(type, QString(), dest);
+  addAction(type, QString(), dest);
 }
 
 /**
@@ -245,17 +245,17 @@ void DirRenamer::addAction(RenameAction::Type type, const QString& dest)
  */
 bool DirRenamer::actionHasSource(const QString& src) const
 {
-	if (src.isEmpty()) {
-		return false;
-	}
-	for (RenameActionList::const_iterator it = m_actions.begin();
-			 it != m_actions.end();
-			 ++it) {
-		if ((*it).m_src == src) {
-			return true;
-		}
-	}
-	return false;
+  if (src.isEmpty()) {
+    return false;
+  }
+  for (RenameActionList::const_iterator it = m_actions.begin();
+       it != m_actions.end();
+       ++it) {
+    if ((*it).m_src == src) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -265,17 +265,17 @@ bool DirRenamer::actionHasSource(const QString& src) const
  */
 bool DirRenamer::actionHasDestination(const QString& dest) const
 {
-	if (dest.isEmpty()) {
-		return false;
-	}
-	for (RenameActionList::const_iterator it = m_actions.begin();
-			 it != m_actions.end();
-			 ++it) {
-		if ((*it).m_dest == dest) {
-			return true;
-		}
-	}
-	return false;
+  if (dest.isEmpty()) {
+    return false;
+  }
+  for (RenameActionList::const_iterator it = m_actions.begin();
+       it != m_actions.end();
+       ++it) {
+    if ((*it).m_dest == dest) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -285,20 +285,20 @@ bool DirRenamer::actionHasDestination(const QString& dest) const
  */
 void DirRenamer::replaceIfAlreadyRenamed(QString& src) const
 {
-	bool found = true;
-	for (int i = 0; found && i <  5; ++i) {
-		found = false;
-		for (RenameActionList::const_iterator it = m_actions.begin();
-				 it != m_actions.end();
-				 ++it) {
-			if ((*it).m_type == RenameAction::RenameDirectory &&
-					(*it).m_src == src) {
-				src = (*it).m_dest;
-				found = true;
-				break;
-			}
-		}
-	}
+  bool found = true;
+  for (int i = 0; found && i <  5; ++i) {
+    found = false;
+    for (RenameActionList::const_iterator it = m_actions.begin();
+         it != m_actions.end();
+         ++it) {
+      if ((*it).m_type == RenameAction::RenameDirectory &&
+          (*it).m_src == src) {
+        src = (*it).m_dest;
+        found = true;
+        break;
+      }
+    }
+  }
 }
 
 /**
@@ -308,73 +308,73 @@ void DirRenamer::replaceIfAlreadyRenamed(QString& src) const
  */
 void DirRenamer::scheduleAction(TaggedFile* taggedFile)
 {
-	QString currentDirname;
-	QString newDirname(generateNewDirname(taggedFile, &currentDirname));
-	bool again = false;
-	for (int round = 0; round < 2; ++round) {
-		replaceIfAlreadyRenamed(currentDirname);
-		if (newDirname != currentDirname) {
-			if (newDirname.startsWith(currentDirname + '/')) {
-				// A new directory is created in the current directory.
-				bool createDir = true;
-				QString dirWithFiles(currentDirname);
-				for (int i = 0;
-						 createDir && newDirname.startsWith(currentDirname) && i < 5;
-						 i++) {
-					QString newPart(newDirname.mid(currentDirname.length()));
-					// currentDirname does not end with a separator, so newPart
-					// starts with a separator and the search starts with the
-					// second character.
-					int slashPos = newPart.indexOf('/', 1);
-					if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
-						newPart.truncate(slashPos);
-						// the new part has multiple directories
-						// => create one directory
-					} else {
-						createDir = false;
-					}
-					// Create a directory for each file and move it.
-					addAction(RenameAction::CreateDirectory, currentDirname + newPart);
-					if (!createDir) {
-						addAction(RenameAction::RenameFile,
-											dirWithFiles + '/' + taggedFile->getFilename(),
-											currentDirname + newPart + '/' + taggedFile->getFilename());
-					}
-					currentDirname = currentDirname + newPart;
-				}
-			} else {
-				QString parent(parentDirectory(currentDirname));
-				if (newDirname.startsWith(parent)) {
-					QString newPart(newDirname.mid(parent.length()));
-					int slashPos = newPart.indexOf('/');
-					if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
-						newPart.truncate(slashPos);
-						// the new part has multiple directories
-						// => rename current directory, then create additional
-						// directories.
-						again = true;
-					}
-					QString parentWithNewPart = parent + newPart;
-					if ((QFileInfo(parentWithNewPart).isDir() &&
-							 !actionHasSource(parentWithNewPart)) ||
-							actionHasDestination(parentWithNewPart)) {
-						// directory already exists => move files
-						addAction(RenameAction::RenameFile,
-											currentDirname + '/' + taggedFile->getFilename(),
-											parentWithNewPart + '/' + taggedFile->getFilename());
-						currentDirname = parentWithNewPart;
-					} else {
-						addAction(RenameAction::RenameDirectory, currentDirname, parentWithNewPart);
-						currentDirname = parentWithNewPart;
-					}
-				} else {
-					// new directory name is too different
-					addAction(RenameAction::ReportError, i18n("New directory name is too different\n"));
-				}
-			}
-		}
-		if (!again) break;
-	}
+  QString currentDirname;
+  QString newDirname(generateNewDirname(taggedFile, &currentDirname));
+  bool again = false;
+  for (int round = 0; round < 2; ++round) {
+    replaceIfAlreadyRenamed(currentDirname);
+    if (newDirname != currentDirname) {
+      if (newDirname.startsWith(currentDirname + '/')) {
+        // A new directory is created in the current directory.
+        bool createDir = true;
+        QString dirWithFiles(currentDirname);
+        for (int i = 0;
+             createDir && newDirname.startsWith(currentDirname) && i < 5;
+             i++) {
+          QString newPart(newDirname.mid(currentDirname.length()));
+          // currentDirname does not end with a separator, so newPart
+          // starts with a separator and the search starts with the
+          // second character.
+          int slashPos = newPart.indexOf('/', 1);
+          if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
+            newPart.truncate(slashPos);
+            // the new part has multiple directories
+            // => create one directory
+          } else {
+            createDir = false;
+          }
+          // Create a directory for each file and move it.
+          addAction(RenameAction::CreateDirectory, currentDirname + newPart);
+          if (!createDir) {
+            addAction(RenameAction::RenameFile,
+                      dirWithFiles + '/' + taggedFile->getFilename(),
+                      currentDirname + newPart + '/' + taggedFile->getFilename());
+          }
+          currentDirname = currentDirname + newPart;
+        }
+      } else {
+        QString parent(parentDirectory(currentDirname));
+        if (newDirname.startsWith(parent)) {
+          QString newPart(newDirname.mid(parent.length()));
+          int slashPos = newPart.indexOf('/');
+          if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
+            newPart.truncate(slashPos);
+            // the new part has multiple directories
+            // => rename current directory, then create additional
+            // directories.
+            again = true;
+          }
+          QString parentWithNewPart = parent + newPart;
+          if ((QFileInfo(parentWithNewPart).isDir() &&
+               !actionHasSource(parentWithNewPart)) ||
+              actionHasDestination(parentWithNewPart)) {
+            // directory already exists => move files
+            addAction(RenameAction::RenameFile,
+                      currentDirname + '/' + taggedFile->getFilename(),
+                      parentWithNewPart + '/' + taggedFile->getFilename());
+            currentDirname = parentWithNewPart;
+          } else {
+            addAction(RenameAction::RenameDirectory, currentDirname, parentWithNewPart);
+            currentDirname = parentWithNewPart;
+          }
+        } else {
+          // new directory name is too different
+          addAction(RenameAction::ReportError, i18n("New directory name is too different\n"));
+        }
+      }
+    }
+    if (!again) break;
+  }
 }
 
 /**
@@ -385,26 +385,26 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
  */
 void DirRenamer::performActions(QString* errorMsg)
 {
-	for (RenameActionList::const_iterator it = m_actions.begin();
-			 it != m_actions.end();
-			 ++it) {
-		switch ((*it).m_type) {
-			case RenameAction::CreateDirectory:
-				createDirectory((*it).m_dest, errorMsg);
-				break;
-			case RenameAction::RenameDirectory:
-				renameDirectory((*it).m_src, (*it).m_dest, errorMsg);
-				break;
-			case RenameAction::RenameFile:
-				renameFile((*it).m_src, (*it).m_dest, errorMsg);
-				break;
-			case RenameAction::ReportError:
-			default:
-				if (errorMsg) {
-					*errorMsg += (*it).m_dest;
-				}
-		}
-	}
+  for (RenameActionList::const_iterator it = m_actions.begin();
+       it != m_actions.end();
+       ++it) {
+    switch ((*it).m_type) {
+      case RenameAction::CreateDirectory:
+        createDirectory((*it).m_dest, errorMsg);
+        break;
+      case RenameAction::RenameDirectory:
+        renameDirectory((*it).m_src, (*it).m_dest, errorMsg);
+        break;
+      case RenameAction::RenameFile:
+        renameFile((*it).m_src, (*it).m_dest, errorMsg);
+        break;
+      case RenameAction::ReportError:
+      default:
+        if (errorMsg) {
+          *errorMsg += (*it).m_dest;
+        }
+    }
+  }
 }
 
 /**
@@ -414,29 +414,29 @@ void DirRenamer::performActions(QString* errorMsg)
  */
 QList<QStringList> DirRenamer::describeActions() const
 {
-	static const char* const typeStr[] = {
-		I18N_NOOP("Create directory"),
-		I18N_NOOP("Rename directory"),
-		I18N_NOOP("Rename file"),
-		I18N_NOOP("Error")
-	};
-	static const unsigned numTypeStr = sizeof(typeStr) / sizeof(typeStr[0]);
+  static const char* const typeStr[] = {
+    I18N_NOOP("Create directory"),
+    I18N_NOOP("Rename directory"),
+    I18N_NOOP("Rename file"),
+    I18N_NOOP("Error")
+  };
+  static const unsigned numTypeStr = sizeof(typeStr) / sizeof(typeStr[0]);
 
-	QList<QStringList> lst;
-	for (RenameActionList::const_iterator it = m_actions.constBegin();
-			 it != m_actions.constEnd();
-			 ++it) {
-		QStringList actionStrs;
-		unsigned typeIdx = static_cast<unsigned>((*it).m_type);
-		if (typeIdx >= numTypeStr) {
-			typeIdx = numTypeStr - 1;
-		}
-		actionStrs.append(QCM_translate(typeStr[typeIdx]));
-		if (!(*it).m_src.isEmpty()) {
-			actionStrs.append((*it).m_src);
-		}
-		actionStrs.append((*it).m_dest);
-		lst.append(actionStrs);
-	}
-	return lst;
+  QList<QStringList> lst;
+  for (RenameActionList::const_iterator it = m_actions.constBegin();
+       it != m_actions.constEnd();
+       ++it) {
+    QStringList actionStrs;
+    unsigned typeIdx = static_cast<unsigned>((*it).m_type);
+    if (typeIdx >= numTypeStr) {
+      typeIdx = numTypeStr - 1;
+    }
+    actionStrs.append(QCM_translate(typeStr[typeIdx]));
+    if (!(*it).m_src.isEmpty()) {
+      actionStrs.append((*it).m_src);
+    }
+    actionStrs.append((*it).m_dest);
+    lst.append(actionStrs);
+  }
+  return lst;
 }

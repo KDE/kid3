@@ -38,219 +38,219 @@ class TaggedFile;
  */
 class DirRenamer : public QObject {
 public:
-	/**
-	 * Constructor.
-	 * @param parent parent object
-	 */
-	explicit DirRenamer(QObject* parent = 0);
+  /**
+   * Constructor.
+   * @param parent parent object
+   */
+  explicit DirRenamer(QObject* parent = 0);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~DirRenamer();
+  /**
+   * Destructor.
+   */
+  virtual ~DirRenamer();
 
-	/**
-	 * Set version of tags used to get rename information.
-	 * @param tagVersion tag version
-	 */
-	void setTagVersion(TrackData::TagVersion tagVersion) {
-		m_tagVersion = tagVersion;
-	}
+  /**
+   * Set version of tags used to get rename information.
+   * @param tagVersion tag version
+   */
+  void setTagVersion(TrackData::TagVersion tagVersion) {
+    m_tagVersion = tagVersion;
+  }
 
-	/**
-	 * Set action to be performed.
-	 * @param create true for create action
-	 */
-	void setAction(bool create) { m_actionCreate = create; }
+  /**
+   * Set action to be performed.
+   * @param create true for create action
+   */
+  void setAction(bool create) { m_actionCreate = create; }
 
-	/**
-	 * Set format to generate directory names.
-	 * @param format format
-	 */
-	void setFormat(const QString& format) { m_format = format; }
+  /**
+   * Set format to generate directory names.
+   * @param format format
+   */
+  void setFormat(const QString& format) { m_format = format; }
 
-	/**
-	 * Generate new directory name according to current settings.
-	 *
-	 * @param taggedFile file to get information from
-	 * @param olddir pointer to QString to place old directory name into,
-	 *               NULL if not used
-	 *
-	 * @return new directory name.
-	 */
-	QString generateNewDirname(TaggedFile* taggedFile, QString* olddir);
+  /**
+   * Generate new directory name according to current settings.
+   *
+   * @param taggedFile file to get information from
+   * @param olddir pointer to QString to place old directory name into,
+   *               NULL if not used
+   *
+   * @return new directory name.
+   */
+  QString generateNewDirname(TaggedFile* taggedFile, QString* olddir);
 
-	/**
-	 * Clear the rename actions.
-	 * This method has to be called before scheduling new actions.
-	 */
-	void clearActions();
+  /**
+   * Clear the rename actions.
+   * This method has to be called before scheduling new actions.
+   */
+  void clearActions();
 
-	/**
-	 * Schedule the actions necessary to rename the directory containing a file.
-	 *
-	 * @param taggedFile file in directory
-	 */
-	void scheduleAction(TaggedFile* taggedFile);
+  /**
+   * Schedule the actions necessary to rename the directory containing a file.
+   *
+   * @param taggedFile file in directory
+   */
+  void scheduleAction(TaggedFile* taggedFile);
 
-	/**
-	 * Perform the scheduled rename actions.
-	 *
-	 * @param errorMsg if not 0 and an error occurred, a message is appended here,
-	 *                 otherwise it is not touched
-	 */
-	void performActions(QString* errorMsg);
+  /**
+   * Perform the scheduled rename actions.
+   *
+   * @param errorMsg if not 0 and an error occurred, a message is appended here,
+   *                 otherwise it is not touched
+   */
+  void performActions(QString* errorMsg);
 
-	/**
-	 * Get description of actions to be performed.
-	 * @return list of (action, [src,] dst) lists describing the actions to be
-	 * performed.
-	 */
-	QList<QStringList> describeActions() const;
+  /**
+   * Get description of actions to be performed.
+   * @return list of (action, [src,] dst) lists describing the actions to be
+   * performed.
+   */
+  QList<QStringList> describeActions() const;
 
-	/**
-	 * Check if dialog was aborted.
-	 * @return true if aborted.
-	 */
-	bool getAbortFlag() const { return m_aborted; }
+  /**
+   * Check if dialog was aborted.
+   * @return true if aborted.
+   */
+  bool getAbortFlag() const { return m_aborted; }
 
-	/**
-	 * Set abort flag.
-	 */
-	void setAbortFlag() { m_aborted = true; }
+  /**
+   * Set abort flag.
+   */
+  void setAbortFlag() { m_aborted = true; }
 
 private:
-	/**
-	 * An action performed while renaming a directory.
-	 */
-	class RenameAction {
-	public:
-		/** Action type. */
-		enum Type {
-			CreateDirectory,
-			RenameDirectory,
-			RenameFile,
-			ReportError,
-			NumTypes
-		};
+  /**
+   * An action performed while renaming a directory.
+   */
+  class RenameAction {
+  public:
+    /** Action type. */
+    enum Type {
+      CreateDirectory,
+      RenameDirectory,
+      RenameFile,
+      ReportError,
+      NumTypes
+    };
 
-		/**
-		 * Constructor.
-		 * @param type type of action
-		 * @param src  source file or directory name
-		 * @param dest destination file or directory name
-		 */
-		RenameAction(Type type, const QString& src, const QString& dest) :
-			m_type(type), m_src(src), m_dest(dest) {}
+    /**
+     * Constructor.
+     * @param type type of action
+     * @param src  source file or directory name
+     * @param dest destination file or directory name
+     */
+    RenameAction(Type type, const QString& src, const QString& dest) :
+      m_type(type), m_src(src), m_dest(dest) {}
 
-		/**
-		 * Constructor.
-		 */
-		RenameAction() : m_type(ReportError) {}
+    /**
+     * Constructor.
+     */
+    RenameAction() : m_type(ReportError) {}
 
-		/**
-		 * Destructor.
-		 */
-		~RenameAction() {}
+    /**
+     * Destructor.
+     */
+    ~RenameAction() {}
 
-		/**
-		 * Test for equality.
-		 * @param rhs right hand side
-		 * @return true if equal.
-		 */
-		bool operator==(const RenameAction& rhs) const {
-			return m_type == rhs.m_type && m_src == rhs.m_src && m_dest == rhs.m_dest;
-		}
+    /**
+     * Test for equality.
+     * @param rhs right hand side
+     * @return true if equal.
+     */
+    bool operator==(const RenameAction& rhs) const {
+      return m_type == rhs.m_type && m_src == rhs.m_src && m_dest == rhs.m_dest;
+    }
 
-		Type m_type;    /**< type of action */
-		QString m_src;  /**< source file or directory name */
-		QString m_dest; /**< destination file or directory name */
-	};
+    Type m_type;    /**< type of action */
+    QString m_src;  /**< source file or directory name */
+    QString m_dest; /**< destination file or directory name */
+  };
 
-	/** List of rename actions. */
-	typedef QList<RenameAction> RenameActionList;
+  /** List of rename actions. */
+  typedef QList<RenameAction> RenameActionList;
 
-	/**
-	 * Create a directory if it does not exist.
-	 *
-	 * @param dir      directory path
-	 * @param errorMsg if not NULL and an error occurred, a message is appended here,
-	 *                 otherwise it is not touched
-	 *
-	 * @return true if directory exists or was created successfully.
-	 */
-	bool createDirectory(const QString& dir, QString* errorMsg) const;
+  /**
+   * Create a directory if it does not exist.
+   *
+   * @param dir      directory path
+   * @param errorMsg if not NULL and an error occurred, a message is appended here,
+   *                 otherwise it is not touched
+   *
+   * @return true if directory exists or was created successfully.
+   */
+  bool createDirectory(const QString& dir, QString* errorMsg) const;
 
-	/**
-	 * Rename a directory.
-	 *
-	 * @param olddir   old directory name
-	 * @param newdir   new directory name
-	 * @param errorMsg if not NULL and an error occurred, a message is
-	 *                 appended here, otherwise it is not touched
-	 *
-	 * @return true if rename successful.
-	 */
-	bool renameDirectory(
-		const QString& olddir, const QString& newdir, QString* errorMsg) const;
+  /**
+   * Rename a directory.
+   *
+   * @param olddir   old directory name
+   * @param newdir   new directory name
+   * @param errorMsg if not NULL and an error occurred, a message is
+   *                 appended here, otherwise it is not touched
+   *
+   * @return true if rename successful.
+   */
+  bool renameDirectory(
+    const QString& olddir, const QString& newdir, QString* errorMsg) const;
 
-	/**
-	 * Rename a file.
-	 *
-	 * @param oldfn    old file name
-	 * @param newfn    new file name
-	 * @param errorMsg if not NULL and an error occurred, a message is
-	 *                 appended here, otherwise it is not touched
-	 *
-	 * @return true if rename successful or newfn already exists.
-	 */
-	bool renameFile(const QString& oldfn, const QString& newfn,
-									QString* errorMsg) const;
+  /**
+   * Rename a file.
+   *
+   * @param oldfn    old file name
+   * @param newfn    new file name
+   * @param errorMsg if not NULL and an error occurred, a message is
+   *                 appended here, otherwise it is not touched
+   *
+   * @return true if rename successful or newfn already exists.
+   */
+  bool renameFile(const QString& oldfn, const QString& newfn,
+                  QString* errorMsg) const;
 
-	/**
-	 * Add a rename action.
-	 *
-	 * @param type type of action
-	 * @param src  source file or directory name
-	 * @param dest destination file or directory name
-	 */
-	void addAction(RenameAction::Type type, const QString& src,
-								 const QString& dest);
+  /**
+   * Add a rename action.
+   *
+   * @param type type of action
+   * @param src  source file or directory name
+   * @param dest destination file or directory name
+   */
+  void addAction(RenameAction::Type type, const QString& src,
+                 const QString& dest);
 
-	/**
-	 * Add a rename action.
-	 *
-	 * @param type type of action
-	 * @param dest destination file or directory name
-	 */
-	void addAction(RenameAction::Type type, const QString& dest);
+  /**
+   * Add a rename action.
+   *
+   * @param type type of action
+   * @param dest destination file or directory name
+   */
+  void addAction(RenameAction::Type type, const QString& dest);
 
-	/**
-	 * Check if there is already an action scheduled for this source.
-	 *
-	 * @return true if a rename action for the source exists.
-	 */
-	bool actionHasSource(const QString& src) const;
+  /**
+   * Check if there is already an action scheduled for this source.
+   *
+   * @return true if a rename action for the source exists.
+   */
+  bool actionHasSource(const QString& src) const;
 
-	/**
-	 * Check if there is already an action scheduled for this destination.
-	 *
-	 * @return true if a rename or create action for the destination exists.
-	 */
-	bool actionHasDestination(const QString& dest) const;
+  /**
+   * Check if there is already an action scheduled for this destination.
+   *
+   * @return true if a rename or create action for the destination exists.
+   */
+  bool actionHasDestination(const QString& dest) const;
 
-	/**
-	 * Replace directory name if there is already a rename action.
-	 *
-	 * @param src directory name, will be replaced if there is a rename action
-	 */
-	void replaceIfAlreadyRenamed(QString& src) const;
+  /**
+   * Replace directory name if there is already a rename action.
+   *
+   * @param src directory name, will be replaced if there is a rename action
+   */
+  void replaceIfAlreadyRenamed(QString& src) const;
 
-	RenameActionList m_actions;
-	bool m_aborted;
-	TrackData::TagVersion m_tagVersion;
-	bool m_actionCreate;
-	QString m_format;
+  RenameActionList m_actions;
+  bool m_aborted;
+  TrackData::TagVersion m_tagVersion;
+  bool m_actionCreate;
+  QString m_format;
 };
 
 #endif // DIRRENAMER_H

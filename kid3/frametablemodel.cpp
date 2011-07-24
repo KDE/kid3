@@ -37,8 +37,8 @@
  * @param parent parent widget
  */
 FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
-	QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
-	m_id3v1(id3v1)
+  QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
+  m_id3v1(id3v1)
 {
 }
 
@@ -56,15 +56,15 @@ FrameTableModel::~FrameTableModel()
  */
 Qt::ItemFlags FrameTableModel::flags(const QModelIndex& index) const
 {
-	Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
-	if (index.isValid()) {
-		if (index.column() == CI_Enable) {
-			theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable;
-		} else if (index.column() == CI_Value) {
-			theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
-		}
-	}
-	return theFlags;
+  Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
+  if (index.isValid()) {
+    if (index.column() == CI_Enable) {
+      theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable;
+    } else if (index.column() == CI_Value) {
+      theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
+    }
+  }
+  return theFlags;
 }
 
 /**
@@ -78,20 +78,20 @@ Qt::ItemFlags FrameTableModel::flags(const QModelIndex& index) const
  */
 QString FrameTableModel::getDisplayName(const QString& str)
 {
-	if (!str.isEmpty()) {
-		int nlPos = str.indexOf("\n");
-		if (nlPos > 0) {
-			// probably "TXXX - User defined text information\nDescription" or
-			// "WXXX - User defined URL link\nDescription"
-			return str.mid(nlPos + 1);
-		} else if (str.mid(4, 3) == " - ") {
-			// probably "ID3-ID - Description"
-			return str.left(4);
-		} else {
-			return QCM_translate(str.toLatin1().data());
-		}
-	}
-	return str;
+  if (!str.isEmpty()) {
+    int nlPos = str.indexOf("\n");
+    if (nlPos > 0) {
+      // probably "TXXX - User defined text information\nDescription" or
+      // "WXXX - User defined URL link\nDescription"
+      return str.mid(nlPos + 1);
+    } else if (str.mid(4, 3) == " - ") {
+      // probably "ID3-ID - Description"
+      return str.left(4);
+    } else {
+      return QCM_translate(str.toLatin1().data());
+    }
+  }
+  return str;
 }
 
 /**
@@ -102,33 +102,33 @@ QString FrameTableModel::getDisplayName(const QString& str)
  */
 QVariant FrameTableModel::data(const QModelIndex& index, int role) const
 {
-	if (!index.isValid() ||
-			index.row() < 0 || index.row() >= static_cast<int>(m_frames.size()) ||
-			index.column() < 0 || index.column() >= CI_NumColumns)
-		return QVariant();
-	FrameCollection::const_iterator it = frameAt(index.row());
-	if (role == Qt::DisplayRole || role == Qt::EditRole) {
-		if (index.column() == CI_Enable)
-			return getDisplayName(it->getName());
-		else if (index.column() == CI_Value)
-			return it->getValue();
-	} else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
-		return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
-	} else if (role == Qt::BackgroundColorRole) {
-		if (index.column() == CI_Enable) {
-			return ConfigStore::s_miscCfg.m_markChanges &&
-				(it->isValueChanged() ||
-				(static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
-				 (m_changedFrames & (1 << (*it).getType())) != 0))
-					? QApplication::palette().mid() : Qt::NoBrush;
-		} else if (index.column() == CI_Value && index.row() < 8) {
-			return (m_markedRows & (1 << index.row())) != 0
-						 ? QBrush(Qt::red) : Qt::NoBrush;
-		}
-	} else if (role == FrameTypeRole) {
-		return it->getType();
-	}
-	return QVariant();
+  if (!index.isValid() ||
+      index.row() < 0 || index.row() >= static_cast<int>(m_frames.size()) ||
+      index.column() < 0 || index.column() >= CI_NumColumns)
+    return QVariant();
+  FrameCollection::const_iterator it = frameAt(index.row());
+  if (role == Qt::DisplayRole || role == Qt::EditRole) {
+    if (index.column() == CI_Enable)
+      return getDisplayName(it->getName());
+    else if (index.column() == CI_Value)
+      return it->getValue();
+  } else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
+    return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
+  } else if (role == Qt::BackgroundColorRole) {
+    if (index.column() == CI_Enable) {
+      return ConfigStore::s_miscCfg.m_markChanges &&
+        (it->isValueChanged() ||
+        (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
+         (m_changedFrames & (1 << (*it).getType())) != 0))
+          ? QApplication::palette().mid() : Qt::NoBrush;
+    } else if (index.column() == CI_Value && index.row() < 8) {
+      return (m_markedRows & (1 << index.row())) != 0
+             ? QBrush(Qt::red) : Qt::NoBrush;
+    }
+  } else if (role == FrameTypeRole) {
+    return it->getType();
+  }
+  return QVariant();
 }
 
 /**
@@ -139,38 +139,38 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
  * @return true if successful
  */
 bool FrameTableModel::setData(const QModelIndex& index,
-															const QVariant& value, int role)
+                              const QVariant& value, int role)
 {
-	if (!index.isValid() ||
-			index.row() < 0 || index.row() >= static_cast<int>(m_frames.size()) ||
-			index.column() < 0 || index.column() >= CI_NumColumns)
-		return false;
-	if (role == Qt::EditRole && index.column() == CI_Value) {
-		QString valueStr(value.toString());
-		FrameCollection::iterator it = frameAt(index.row());
-		if (valueStr != (*it).getValue()) {
-			Frame& frame = const_cast<Frame&>(*it);
-			if (valueStr.isNull()) valueStr = "";
-			frame.setValueIfChanged(valueStr);
-			emit dataChanged(index, index);
+  if (!index.isValid() ||
+      index.row() < 0 || index.row() >= static_cast<int>(m_frames.size()) ||
+      index.column() < 0 || index.column() >= CI_NumColumns)
+    return false;
+  if (role == Qt::EditRole && index.column() == CI_Value) {
+    QString valueStr(value.toString());
+    FrameCollection::iterator it = frameAt(index.row());
+    if (valueStr != (*it).getValue()) {
+      Frame& frame = const_cast<Frame&>(*it);
+      if (valueStr.isNull()) valueStr = "";
+      frame.setValueIfChanged(valueStr);
+      emit dataChanged(index, index);
 
-			// Automatically set the checkbox when a value is changed
-			if (!m_frameSelected.at(index.row())) {
-				m_frameSelected[index.row()] = true;
-				QModelIndex checkIndex(index.sibling(index.row(), CI_Enable));
-				emit dataChanged(checkIndex, checkIndex);
-			}
-		}
-		return true;
-	} else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
-		bool isChecked(value.toInt() == Qt::Checked);
-		if (isChecked != m_frameSelected.at(index.row())) {
-			m_frameSelected[index.row()] = isChecked;
-			emit dataChanged(index, index);
-		}
-		return true;
-	}
-	return false;
+      // Automatically set the checkbox when a value is changed
+      if (!m_frameSelected.at(index.row())) {
+        m_frameSelected[index.row()] = true;
+        QModelIndex checkIndex(index.sibling(index.row(), CI_Enable));
+        emit dataChanged(checkIndex, checkIndex);
+      }
+    }
+    return true;
+  } else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
+    bool isChecked(value.toInt() == Qt::Checked);
+    if (isChecked != m_frameSelected.at(index.row())) {
+      m_frameSelected[index.row()] = isChecked;
+      emit dataChanged(index, index);
+    }
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -181,14 +181,14 @@ bool FrameTableModel::setData(const QModelIndex& index,
  * @return header data for role
  */
 QVariant FrameTableModel::headerData(
-		int section, Qt::Orientation orientation, int role) const
+    int section, Qt::Orientation orientation, int role) const
 {
-	if (role != Qt::DisplayRole)
-		return QVariant();
-	if (orientation == Qt::Horizontal) {
-		return section == CI_Enable ? i18n("Name") : i18n("Data");
-	}
-	return section + 1;
+  if (role != Qt::DisplayRole)
+    return QVariant();
+  if (orientation == Qt::Horizontal) {
+    return section == CI_Enable ? i18n("Name") : i18n("Data");
+  }
+  return section + 1;
 }
 
 /**
@@ -199,7 +199,7 @@ QVariant FrameTableModel::headerData(
  */
 int FrameTableModel::rowCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : m_frames.size();
+  return parent.isValid() ? 0 : m_frames.size();
 }
 
 /**
@@ -210,7 +210,7 @@ int FrameTableModel::rowCount(const QModelIndex& parent) const
  */
 int FrameTableModel::columnCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : CI_NumColumns;
+  return parent.isValid() ? 0 : CI_NumColumns;
 }
 
 /**
@@ -223,9 +223,9 @@ int FrameTableModel::columnCount(const QModelIndex& parent) const
  */
 bool FrameTableModel::insertRows(int, int count, const QModelIndex&)
 {
-	for (int i = 0; i < count; ++i)
-		insertFrame(Frame());
-	return true;
+  for (int i = 0; i < count; ++i)
+    insertFrame(Frame());
+  return true;
 }
 
 /**
@@ -235,12 +235,12 @@ bool FrameTableModel::insertRows(int, int count, const QModelIndex&)
  */
 void FrameTableModel::insertFrame(const Frame& frame)
 {
-	FrameCollection::iterator it = m_frames.upper_bound(frame);
-	int row = rowOf(it);
-	beginInsertRows(QModelIndex(), row, row);
-	it = m_frames.insert(it, frame);
-	resizeFrameSelected();
-	endInsertRows();
+  FrameCollection::iterator it = m_frames.upper_bound(frame);
+  int row = rowOf(it);
+  beginInsertRows(QModelIndex(), row, row);
+  it = m_frames.insert(it, frame);
+  resizeFrameSelected();
+  endInsertRows();
 }
 
 /**
@@ -251,13 +251,13 @@ void FrameTableModel::insertFrame(const Frame& frame)
  * @return true if successful
  */
 bool FrameTableModel::removeRows(int row, int count,
-												const QModelIndex&)
+                        const QModelIndex&)
 {
-	beginRemoveRows(QModelIndex(), row, row + count - 1);
-	m_frames.erase(frameAt(row), frameAt(row + count));
-	resizeFrameSelected();
-	endRemoveRows();
-	return true;
+  beginRemoveRows(QModelIndex(), row, row + count - 1);
+  m_frames.erase(frameAt(row), frameAt(row + count));
+  resizeFrameSelected();
+  endRemoveRows();
+  return true;
 }
 
 /**
@@ -266,13 +266,13 @@ bool FrameTableModel::removeRows(int row, int count,
  * @return const iterator to frame
  */
 FrameCollection::const_iterator FrameTableModel::frameAt(int row) const {
-	FrameCollection::const_iterator it = m_frames.begin();
-	for (int i = 0; i < row; ++i) {
-		if (++it == m_frames.end()) {
-			break;
-		}
-	}
-	return it;
+  FrameCollection::const_iterator it = m_frames.begin();
+  for (int i = 0; i < row; ++i) {
+    if (++it == m_frames.end()) {
+      break;
+    }
+  }
+  return it;
 }
 
 /**
@@ -281,13 +281,13 @@ FrameCollection::const_iterator FrameTableModel::frameAt(int row) const {
  * @return iterator to frame
  */
 FrameCollection::iterator FrameTableModel::frameAt(int row) {
-	FrameCollection::iterator it = m_frames.begin();
-	for (int i = 0; i < row; ++i) {
-		if (++it == m_frames.end()) {
-			break;
-		}
-	}
-	return it;
+  FrameCollection::iterator it = m_frames.begin();
+  for (int i = 0; i < row; ++i) {
+    if (++it == m_frames.end()) {
+      break;
+    }
+  }
+  return it;
 }
 
 /**
@@ -296,15 +296,15 @@ FrameCollection::iterator FrameTableModel::frameAt(int row) {
  * @return row number, number of rows if not found.
  */
 int FrameTableModel::rowOf(FrameCollection::iterator frameIt) const {
-	int row = 0;
-	for (FrameCollection::const_iterator it = m_frames.begin();
-			 it != m_frames.end();
-			 ++it) {
-		if (frameIt == it)
-			break;
-		++row;
-	}
-	return row;
+  int row = 0;
+  for (FrameCollection::const_iterator it = m_frames.begin();
+       it != m_frames.end();
+       ++it) {
+    if (frameIt == it)
+      break;
+    ++row;
+  }
+  return row;
 }
 
 /**
@@ -314,11 +314,11 @@ int FrameTableModel::rowOf(FrameCollection::iterator frameIt) const {
  */
 const Frame* FrameTableModel::getFrameOfIndex(const QModelIndex& index) const
 {
-	if (index.isValid() && index.row() < static_cast<int>(m_frames.size())) {
-		FrameCollection::iterator it = frameAt(index.row());
-		return &(*it);
-	}
-	return 0;
+  if (index.isValid() && index.row() < static_cast<int>(m_frames.size())) {
+    FrameCollection::iterator it = frameAt(index.row());
+    return &(*it);
+  }
+  return 0;
 }
 
 /**
@@ -328,16 +328,16 @@ const Frame* FrameTableModel::getFrameOfIndex(const QModelIndex& index) const
  */
 int FrameTableModel::getRowWithFrameIndex(int index) const
 {
-	int row = 0;
-	for (FrameCollection::const_iterator it = m_frames.begin();
-			 it != m_frames.end();
-			 ++it) {
-		if (it->getIndex() == index) {
-			return row;
-		}
-		++row;
-	}
-	return -1;
+  int row = 0;
+  for (FrameCollection::const_iterator it = m_frames.begin();
+       it != m_frames.end();
+       ++it) {
+    if (it->getIndex() == index) {
+      return row;
+    }
+    ++row;
+  }
+  return -1;
 }
 
 /**
@@ -347,16 +347,16 @@ int FrameTableModel::getRowWithFrameIndex(int index) const
  */
 int FrameTableModel::getRowWithFrameName(const QString& name) const
 {
-	int row = 0;
-	for (FrameCollection::const_iterator it = m_frames.begin();
-			 it != m_frames.end();
-			 ++it) {
-		if (it->getName() == name) {
-			return row;
-		}
-		++row;
-	}
-	return -1;
+  int row = 0;
+  for (FrameCollection::const_iterator it = m_frames.begin();
+       it != m_frames.end();
+       ++it) {
+    if (it->getName() == name) {
+      return row;
+    }
+    ++row;
+  }
+  return -1;
 }
 
 /**
@@ -367,28 +367,28 @@ int FrameTableModel::getRowWithFrameName(const QString& name) const
  * @return filter with enabled frames.
  */
 FrameFilter FrameTableModel::getEnabledFrameFilter(
-	bool allDisabledToAllEnabled) const
+  bool allDisabledToAllEnabled) const
 {
-	FrameFilter filter;
-	filter.enableAll();
-	bool allDisabled = true;
-	int numberRows = rowCount();
-	int row = 0;
-	for (FrameCollection::const_iterator it = m_frames.begin();
-			 it != m_frames.end();
-			 ++it) {
-		if (row >= numberRows) break;
-		if (!m_frameSelected.at(row)) {
-			filter.enable(it->getType(), it->getName(), false);
-		} else {
-			allDisabled = false;
-		}
-		++row;
-	}
-	if (allDisabledToAllEnabled && allDisabled) {
-		filter.enableAll();
-	}
-	return filter;
+  FrameFilter filter;
+  filter.enableAll();
+  bool allDisabled = true;
+  int numberRows = rowCount();
+  int row = 0;
+  for (FrameCollection::const_iterator it = m_frames.begin();
+       it != m_frames.end();
+       ++it) {
+    if (row >= numberRows) break;
+    if (!m_frameSelected.at(row)) {
+      filter.enable(it->getType(), it->getName(), false);
+    } else {
+      allDisabled = false;
+    }
+    ++row;
+  }
+  if (allDisabledToAllEnabled && allDisabled) {
+    filter.enableAll();
+  }
+  return filter;
 }
 
 /**
@@ -397,19 +397,19 @@ FrameFilter FrameTableModel::getEnabledFrameFilter(
  */
 FrameCollection FrameTableModel::getEnabledFrames() const
 {
-	FrameCollection enabledFrames;
-	const int numberRows = m_frameSelected.size();
-	int row = 0;
-	for (FrameCollection::const_iterator it = m_frames.begin();
-			 it != m_frames.end();
-			 ++it) {
-		if (row >= numberRows) break;
-		if (m_frameSelected.at(row)) {
-			enabledFrames.insert(*it);
-		}
-		++row;
-	}
-	return enabledFrames;
+  FrameCollection enabledFrames;
+  const int numberRows = m_frameSelected.size();
+  int row = 0;
+  for (FrameCollection::const_iterator it = m_frames.begin();
+       it != m_frames.end();
+       ++it) {
+    if (row >= numberRows) break;
+    if (m_frameSelected.at(row)) {
+      enabledFrames.insert(*it);
+    }
+    ++row;
+  }
+  return enabledFrames;
 }
 
 /**
@@ -417,10 +417,10 @@ FrameCollection FrameTableModel::getEnabledFrames() const
  */
 void FrameTableModel::clearFrames()
 {
-	beginRemoveRows(QModelIndex(), 0, m_frames.size() - 1);
-	m_frames.clear();
-	m_frameSelected.clear();
-	endRemoveRows();
+  beginRemoveRows(QModelIndex(), 0, m_frames.size() - 1);
+  m_frames.clear();
+  m_frameSelected.clear();
+  endRemoveRows();
 }
 
 /**
@@ -429,24 +429,24 @@ void FrameTableModel::clearFrames()
  */
 void FrameTableModel::transferFrames(FrameCollection& src)
 {
-	int oldNumFrames = m_frames.size();
-	int newNumFrames = src.size();
-	int numRowsChanged = qMin(oldNumFrames, newNumFrames);
-	if (newNumFrames < oldNumFrames)
-		beginRemoveRows(QModelIndex(), newNumFrames, oldNumFrames - 1);
-	else if (newNumFrames > oldNumFrames)
-		beginInsertRows(QModelIndex(), oldNumFrames, newNumFrames - 1);
+  int oldNumFrames = m_frames.size();
+  int newNumFrames = src.size();
+  int numRowsChanged = qMin(oldNumFrames, newNumFrames);
+  if (newNumFrames < oldNumFrames)
+    beginRemoveRows(QModelIndex(), newNumFrames, oldNumFrames - 1);
+  else if (newNumFrames > oldNumFrames)
+    beginInsertRows(QModelIndex(), oldNumFrames, newNumFrames - 1);
 
-	m_frames.clear();
-	src.swap(m_frames);
-	resizeFrameSelected();
+  m_frames.clear();
+  src.swap(m_frames);
+  resizeFrameSelected();
 
-	if (newNumFrames < oldNumFrames)
-		endRemoveRows();
-	else if (newNumFrames > oldNumFrames)
-		endInsertRows();
-	if (numRowsChanged > 0)
-		emit dataChanged(index(0, 0), index(numRowsChanged - 1, CI_NumColumns - 1));
+  if (newNumFrames < oldNumFrames)
+    endRemoveRows();
+  else if (newNumFrames > oldNumFrames)
+    endInsertRows();
+  if (numRowsChanged > 0)
+    emit dataChanged(index(0, 0), index(numRowsChanged - 1, CI_NumColumns - 1));
 }
 
 /**
@@ -456,18 +456,18 @@ void FrameTableModel::transferFrames(FrameCollection& src)
  */
 void FrameTableModel::filterDifferent(FrameCollection& others)
 {
-	int oldNumFrames = m_frames.size();
+  int oldNumFrames = m_frames.size();
 
-	m_frames.filterDifferent(others);
-	resizeFrameSelected();
+  m_frames.filterDifferent(others);
+  resizeFrameSelected();
 
-	if (oldNumFrames > 0)
-		emit dataChanged(index(0, 0), index(oldNumFrames - 1, CI_NumColumns - 1));
-	int newNumFrames = m_frames.size();
-	if (newNumFrames > oldNumFrames) {
-		beginInsertRows(QModelIndex(), oldNumFrames, newNumFrames - 1);
-		endInsertRows();
-	}
+  if (oldNumFrames > 0)
+    emit dataChanged(index(0, 0), index(oldNumFrames - 1, CI_NumColumns - 1));
+  int newNumFrames = m_frames.size();
+  if (newNumFrames > oldNumFrames) {
+    beginInsertRows(QModelIndex(), oldNumFrames, newNumFrames - 1);
+    endInsertRows();
+  }
 }
 
 /**
@@ -477,9 +477,9 @@ void FrameTableModel::filterDifferent(FrameCollection& others)
  */
 void FrameTableModel::setAllCheckStates(bool checked)
 {
-	for (int row = 0; row < rowCount(); ++row) {
-		m_frameSelected[row] = checked;
-	}
+  for (int row = 0; row < rowCount(); ++row) {
+    m_frameSelected[row] = checked;
+  }
 }
 
 /**
@@ -487,7 +487,7 @@ void FrameTableModel::setAllCheckStates(bool checked)
  */
 void FrameTableModel::selectAllFrames()
 {
-	setAllCheckStates(true);
+  setAllCheckStates(true);
 }
 
 /**
@@ -495,7 +495,7 @@ void FrameTableModel::selectAllFrames()
  */
 void FrameTableModel::deselectAllFrames()
 {
-	setAllCheckStates(false);
+  setAllCheckStates(false);
 }
 
 /**
@@ -503,19 +503,19 @@ void FrameTableModel::deselectAllFrames()
  */
 void FrameTableModel::resizeFrameSelected()
 {
-	// If all bits are set, set also the new bits.
-	int oldSize = m_frameSelected.size();
-	int newSize = m_frames.size();
-	bool setNewBits = newSize > oldSize && oldSize > 0 &&
-			m_frameSelected.count(true) == oldSize;
+  // If all bits are set, set also the new bits.
+  int oldSize = m_frameSelected.size();
+  int newSize = m_frames.size();
+  bool setNewBits = newSize > oldSize && oldSize > 0 &&
+      m_frameSelected.count(true) == oldSize;
 
-	m_frameSelected.resize(newSize);
+  m_frameSelected.resize(newSize);
 
-	if (setNewBits) {
-		for (int i = oldSize; i < newSize; ++i) {
-			m_frameSelected.setBit(i, true);
-		}
-	}
+  if (setNewBits) {
+    for (int i = oldSize; i < newSize; ++i) {
+      m_frameSelected.setBit(i, true);
+    }
+  }
 }
 
 
@@ -524,10 +524,10 @@ void FrameTableModel::resizeFrameSelected()
  * @param parent parent widget
  */
 FrameTableLineEdit::FrameTableLineEdit(QWidget* parent) :
-	QLineEdit(parent)
+  QLineEdit(parent)
 {
-	connect(this, SIGNAL(textChanged(const QString&)),
-					this, SLOT(formatTextIfEnabled(const QString&)));
+  connect(this, SIGNAL(textChanged(const QString&)),
+          this, SLOT(formatTextIfEnabled(const QString&)));
 }
 
 /**
@@ -541,15 +541,15 @@ FrameTableLineEdit::~FrameTableLineEdit() {}
  */
 void FrameTableLineEdit::formatTextIfEnabled(const QString& txt)
 {
-	if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
-		QString str(txt);
-		ConfigStore::s_id3FormatCfg.formatString(str);
-		if (str != txt) {
-			int curPos = cursorPosition();
-			setText(str);
-			setCursorPosition(curPos);
-		}
-	}
+  if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
+    QString str(txt);
+    ConfigStore::s_id3FormatCfg.formatString(str);
+    if (str != txt) {
+      int curPos = cursorPosition();
+      setText(str);
+      setCursorPosition(curPos);
+    }
+  }
 }
 
 
@@ -561,59 +561,59 @@ void FrameTableLineEdit::formatTextIfEnabled(const QString& txt)
  * @return combo box editor widget.
  */
 QWidget* FrameItemDelegate::createEditor(
-	QWidget* parent, const QStyleOptionViewItem& option,
-	const QModelIndex& index) const
+  QWidget* parent, const QStyleOptionViewItem& option,
+  const QModelIndex& index) const
 {
-	int row = index.row();
-	int col = index.column();
-	const FrameTableModel* ftModel =
-		qobject_cast<const FrameTableModel*>(index.model());
-	if (row >= 0 && (col == FrameTableModel::CI_Value || !ftModel)) {
-		Frame::Type type = static_cast<Frame::Type>(
-			index.data(FrameTableModel::FrameTypeRole).toInt());
-		bool id3v1 = ftModel && ftModel->isId3v1();
-		if (type == Frame::FT_Genre) {
-			QComboBox* cb = new QComboBox(parent);
-			if (cb) {
-				if (!id3v1) {
-					cb->setEditable(true);
-					cb->setAutoCompletion(true);
-					cb->setDuplicatesEnabled(false);
-				}
+  int row = index.row();
+  int col = index.column();
+  const FrameTableModel* ftModel =
+    qobject_cast<const FrameTableModel*>(index.model());
+  if (row >= 0 && (col == FrameTableModel::CI_Value || !ftModel)) {
+    Frame::Type type = static_cast<Frame::Type>(
+      index.data(FrameTableModel::FrameTypeRole).toInt());
+    bool id3v1 = ftModel && ftModel->isId3v1();
+    if (type == Frame::FT_Genre) {
+      QComboBox* cb = new QComboBox(parent);
+      if (cb) {
+        if (!id3v1) {
+          cb->setEditable(true);
+          cb->setAutoCompletion(true);
+          cb->setDuplicatesEnabled(false);
+        }
 
-				QStringList strList;
-				for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
-					strList += *sl;
-				}
-				if (ConfigStore::s_miscCfg.m_onlyCustomGenres) {
-					cb->addItem("");
-				} else {
-					cb->addItems(strList);
-				}
-				if (id3v1) {
-					for (QStringList::const_iterator it =
-								 ConfigStore::s_miscCfg.m_customGenres.begin();
-							 it != ConfigStore::s_miscCfg.m_customGenres.end();
-							 ++it) {
-						if (Genres::getNumber(*it) != 255) {
-							cb->addItem(*it);
-						}
-					}
-				} else {
-					cb->addItems(ConfigStore::s_miscCfg.m_customGenres);
-				}
-			}
-			return cb;
-		} else if (id3v1 &&
-							 (type == Frame::FT_Comment || type == Frame::FT_Title ||
-								type == Frame::FT_Artist || type == Frame::FT_Album)) {
-			FrameTableLineEdit* e = new FrameTableLineEdit(parent);
-			e->setMaxLength(type == Frame::FT_Comment ? 28 : 30);
-			e->setFrame(false);
-			return e;
-		}
-	}
-	return QItemDelegate::createEditor(parent, option, index);
+        QStringList strList;
+        for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
+          strList += *sl;
+        }
+        if (ConfigStore::s_miscCfg.m_onlyCustomGenres) {
+          cb->addItem("");
+        } else {
+          cb->addItems(strList);
+        }
+        if (id3v1) {
+          for (QStringList::const_iterator it =
+                 ConfigStore::s_miscCfg.m_customGenres.begin();
+               it != ConfigStore::s_miscCfg.m_customGenres.end();
+               ++it) {
+            if (Genres::getNumber(*it) != 255) {
+              cb->addItem(*it);
+            }
+          }
+        } else {
+          cb->addItems(ConfigStore::s_miscCfg.m_customGenres);
+        }
+      }
+      return cb;
+    } else if (id3v1 &&
+               (type == Frame::FT_Comment || type == Frame::FT_Title ||
+                type == Frame::FT_Artist || type == Frame::FT_Album)) {
+      FrameTableLineEdit* e = new FrameTableLineEdit(parent);
+      e->setMaxLength(type == Frame::FT_Comment ? 28 : 30);
+      e->setFrame(false);
+      return e;
+    }
+  }
+  return QItemDelegate::createEditor(parent, option, index);
 }
 
 /**
@@ -622,25 +622,25 @@ QWidget* FrameItemDelegate::createEditor(
  * @param index  index of item
  */
 void FrameItemDelegate::setEditorData(
-	QWidget* editor, const QModelIndex& index) const
+  QWidget* editor, const QModelIndex& index) const
 {
-	QComboBox* cb = qobject_cast<QComboBox*>(editor);
-	if (cb) {
-		QString genreStr(index.model()->data(index).toString());
-		int genreIndex = genreStr.isNull() ? 0 :
-			Genres::getIndex(Genres::getNumber(genreStr));
-		if (ConfigStore::s_miscCfg.m_onlyCustomGenres) {
-			genreIndex = cb->findText(genreStr);
-			if (genreIndex < 0) genreIndex = 0;
-		} else if (genreIndex <= 0) {
-			genreIndex = cb->findText(genreStr);
-			if (genreIndex < 0) genreIndex = Genres::count + 1;
-		}
-		cb->setItemText(genreIndex, genreStr);
-		cb->setCurrentIndex(genreIndex);
-	} else {
-		QItemDelegate::setEditorData(editor, index);
-	}
+  QComboBox* cb = qobject_cast<QComboBox*>(editor);
+  if (cb) {
+    QString genreStr(index.model()->data(index).toString());
+    int genreIndex = genreStr.isNull() ? 0 :
+      Genres::getIndex(Genres::getNumber(genreStr));
+    if (ConfigStore::s_miscCfg.m_onlyCustomGenres) {
+      genreIndex = cb->findText(genreStr);
+      if (genreIndex < 0) genreIndex = 0;
+    } else if (genreIndex <= 0) {
+      genreIndex = cb->findText(genreStr);
+      if (genreIndex < 0) genreIndex = Genres::count + 1;
+    }
+    cb->setItemText(genreIndex, genreStr);
+    cb->setCurrentIndex(genreIndex);
+  } else {
+    QItemDelegate::setEditorData(editor, index);
+  }
 }
 
 /**
@@ -650,11 +650,11 @@ void FrameItemDelegate::setEditorData(
  * @param index  index of item
  */
 void FrameItemDelegate::setModelData(
-	QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const {
-	QComboBox* cb = qobject_cast<QComboBox *>(editor);
-	if (cb) {
-		model->setData(index, cb->currentText());
-	} else {
-		QItemDelegate::setModelData(editor, model, index);
-	}
+  QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const {
+  QComboBox* cb = qobject_cast<QComboBox *>(editor);
+  if (cb) {
+    model->setData(index, cb->currentText());
+  } else {
+    QItemDelegate::setModelData(editor, model, index);
+  }
 }

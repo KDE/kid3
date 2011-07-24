@@ -33,10 +33,10 @@
  * @param parent parent object
  */
 DownloadClient::DownloadClient(QObject* parent) : HttpClient(parent),
-	m_canceled(false)
+  m_canceled(false)
 {
-	connect(this, SIGNAL(bytesReceived(const QByteArray&)),
-					this, SLOT(requestFinished(const QByteArray&)));
+  connect(this, SIGNAL(bytesReceived(const QByteArray&)),
+          this, SLOT(requestFinished(const QByteArray&)));
 }
 
 /**
@@ -54,15 +54,15 @@ DownloadClient::~DownloadClient()
  */
 void DownloadClient::startDownload(const QString& hostName, const QString& path)
 {
-	m_canceled = false;
-	m_url = "http://";
-	m_url += hostName;
-	m_url += path;
-	emit downloadStarted(m_url);
-	emit progress(i18n("Ready."),
-								HttpClient::CS_RequestConnection,
-								HttpClient::CS_EstimatedBytes);
-	sendRequest(hostName, path);
+  m_canceled = false;
+  m_url = "http://";
+  m_url += hostName;
+  m_url += path;
+  emit downloadStarted(m_url);
+  emit progress(i18n("Ready."),
+                HttpClient::CS_RequestConnection,
+                HttpClient::CS_EstimatedBytes);
+  sendRequest(hostName, path);
 }
 
 /**
@@ -70,9 +70,9 @@ void DownloadClient::startDownload(const QString& hostName, const QString& path)
  */
 void DownloadClient::cancelDownload()
 {
-	m_canceled = true;
-	abort();
-	emit aborted();
+  m_canceled = true;
+  abort();
+  emit aborted();
 }
 
 /**
@@ -83,8 +83,8 @@ void DownloadClient::cancelDownload()
  */
 void DownloadClient::requestFinished(const QByteArray& data)
 {
-	if (!m_canceled) {
-		emit downloadFinished(data, getContentType(), m_url);
-	}
+  if (!m_canceled) {
+    emit downloadFinished(data, getContentType(), m_url);
+  }
 }
 

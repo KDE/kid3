@@ -32,7 +32,7 @@
  * @param parent parent widget
  */
 DirList::DirList(QWidget* parent) :
-	QListView(parent)
+  QListView(parent)
 {}
 
 /**
@@ -47,14 +47,14 @@ DirList::~DirList() {}
  * @return false if name is not directory path, else true.
  */
 bool DirList::readDir(const QModelIndex& index) {
-	QAbstractProxyModel* proxyModel = qobject_cast<QAbstractProxyModel*>(model());
-	QModelIndex rootIndex = proxyModel ? proxyModel->mapFromSource(index) : index;
-	if (rootIndex.isValid()) {
-		setRootIndex(rootIndex);
-		if (m_entryToSelect.isValid()) {
-			setCurrentIndex(m_entryToSelect);
-		}
-		return true;
-	}
-	return false;
+  QAbstractProxyModel* proxyModel = qobject_cast<QAbstractProxyModel*>(model());
+  QModelIndex rootIndex = proxyModel ? proxyModel->mapFromSource(index) : index;
+  if (rootIndex.isValid()) {
+    setRootIndex(rootIndex);
+    if (m_entryToSelect.isValid()) {
+      setCurrentIndex(m_entryToSelect);
+    }
+    return true;
+  }
+  return false;
 }

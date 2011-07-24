@@ -40,102 +40,102 @@ class TaggedFile;
 class FileFilter : public QObject {
 Q_OBJECT
 public:
-	/** Type of filter event. */
-	enum FilterEventType {
-		ParseError, FilePassed, FileFilteredOut
-	};
+  /** Type of filter event. */
+  enum FilterEventType {
+    ParseError, FilePassed, FileFilteredOut
+  };
 
-	/**
-	 * Constructor.
-	 */
-	FileFilter();
+  /**
+   * Constructor.
+   */
+  FileFilter();
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~FileFilter();
+  /**
+   * Destructor.
+   */
+  virtual ~FileFilter();
 
-	/**
-	 * Set filter expression.
-	 * @param filterExpression filter expression
-	 */
-	void setFilterExpression(const QString& filterExpression) {
-		m_filterExpression = filterExpression;
-	}
+  /**
+   * Set filter expression.
+   * @param filterExpression filter expression
+   */
+  void setFilterExpression(const QString& filterExpression) {
+    m_filterExpression = filterExpression;
+  }
 
-	/**
-	 * Check if filter expression is empty.
-	 * @return true if filter expression is empty.
-	 */
-	bool isEmptyFilterExpression() const { return m_filterExpression.isEmpty(); }
+  /**
+   * Check if filter expression is empty.
+   * @return true if filter expression is empty.
+   */
+  bool isEmptyFilterExpression() const { return m_filterExpression.isEmpty(); }
 
-	/**
-	 * Initialize the parser.
-	 * This method has to be called before the first call to parse()
-	 * and afterwards when the expression has been changed.
-	 */
-	void initParser();
+  /**
+   * Initialize the parser.
+   * This method has to be called before the first call to parse()
+   * and afterwards when the expression has been changed.
+   */
+  void initParser();
 
-	/**
-	 * Check if file passes through filter.
-	 *
-	 * @param taggedFile file to check
-	 * @param ok         if not 0, false is returned here when parsing fails
-	 *
-	 * @return true if file passes through filter.
-	 */
-	bool filter(TaggedFile& taggedFile, bool* ok = 0);
+  /**
+   * Check if file passes through filter.
+   *
+   * @param taggedFile file to check
+   * @param ok         if not 0, false is returned here when parsing fails
+   *
+   * @return true if file passes through filter.
+   */
+  bool filter(TaggedFile& taggedFile, bool* ok = 0);
 
-	/**
-	 * Clear abort flag.
-	 */
-	void clearAbortFlag() { m_aborted = false; }
+  /**
+   * Clear abort flag.
+   */
+  void clearAbortFlag() { m_aborted = false; }
 
-	/**
-	 * Check if dialog was aborted.
-	 * @return true if aborted.
-	 */
-	bool getAbortFlag() { return m_aborted; }
+  /**
+   * Check if dialog was aborted.
+   * @return true if aborted.
+   */
+  bool getAbortFlag() { return m_aborted; }
 
-	/**
-	 * Get help text for format codes supported by formatString().
-	 *
-	 * @param onlyRows if true only the tr elements are returned,
-	 *                 not the surrounding table
-	 *
-	 * @return help text.
-	 */
-	static QString getFormatToolTip(bool onlyRows = false);
+  /**
+   * Get help text for format codes supported by formatString().
+   *
+   * @param onlyRows if true only the tr elements are returned,
+   *                 not the surrounding table
+   *
+   * @return help text.
+   */
+  static QString getFormatToolTip(bool onlyRows = false);
 
 public slots:
-	/**
-	 * Set abort flag.
-	 */
-	void setAbortFlag() { m_aborted = true; }
+  /**
+   * Set abort flag.
+   */
+  void setAbortFlag() { m_aborted = true; }
 
 private:
-	/**
-	 * Format a string from tag data.
-	 *
-	 * @param format format specification
-	 *
-	 * @return formatted string.
-	 */
-	QString formatString(const QString& format);
+  /**
+   * Format a string from tag data.
+   *
+   * @param format format specification
+   *
+   * @return formatted string.
+   */
+  QString formatString(const QString& format);
 
-	/**
-	 * Evaluate the expression to a boolean result.
-	 * @see initParser()
-	 * @return result of expression.
-	 */
-	bool parse();
+  /**
+   * Evaluate the expression to a boolean result.
+   * @see initParser()
+   * @return result of expression.
+   */
+  bool parse();
 
-	QString m_filterExpression;
-	ExpressionParser m_parser;
-	ImportTrackData m_trackData1;
-	ImportTrackData m_trackData2;
-	ImportTrackData m_trackData12;
-	bool m_aborted;
+  QString m_filterExpression;
+  ExpressionParser m_parser;
+  ImportTrackData m_trackData1;
+  ImportTrackData m_trackData2;
+  ImportTrackData m_trackData12;
+  bool m_aborted;
 };
 
 #endif

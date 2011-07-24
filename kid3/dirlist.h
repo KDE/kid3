@@ -34,37 +34,37 @@
  */
 class DirList : public QListView {
 public:
-	/**
-	 * Constructor.
-	 * @param parent parent widget
-	 */
-	DirList(QWidget* parent = 0);
+  /**
+   * Constructor.
+   * @param parent parent widget
+   */
+  DirList(QWidget* parent = 0);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~DirList();
+  /**
+   * Destructor.
+   */
+  virtual ~DirList();
 
-	/**
-	 * Fill the dirlist with the directories found in a directory.
-	 *
-	 * @param index index of path in filesystem model
-	 * @return false if name is not directory path, else true.
-	 */
-	bool readDir(const QModelIndex& index);
+  /**
+   * Fill the dirlist with the directories found in a directory.
+   *
+   * @param index index of path in filesystem model
+   * @return false if name is not directory path, else true.
+   */
+  bool readDir(const QModelIndex& index);
 
-	/**
-	 * Set index of entry to select in next call to readDir().
-	 *
-	 * @param index model index of entry to select
-	 */
-	void setEntryToSelect(const QPersistentModelIndex& index) {
-		m_entryToSelect = index;
-	}
+  /**
+   * Set index of entry to select in next call to readDir().
+   *
+   * @param index model index of entry to select
+   */
+  void setEntryToSelect(const QPersistentModelIndex& index) {
+    m_entryToSelect = index;
+  }
 
 private:
-	/** entry to select in readDir() */
-	QPersistentModelIndex m_entryToSelect;
+  /** entry to select in readDir() */
+  QPersistentModelIndex m_entryToSelect;
 };
 
 #endif // DIRLIST_H

@@ -45,9 +45,9 @@ DirProxyModel::DirProxyModel(QObject* parent) : QSortFilterProxyModel(parent)
  */
 bool DirProxyModel::filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const
 {
-	QFileSystemModel* srcModel = qobject_cast<QFileSystemModel*>(sourceModel());
-	if (srcModel) {
-		return srcModel->isDir(srcModel->index(srcRow, 0, srcParent));
-	}
-	return false;
+  QFileSystemModel* srcModel = qobject_cast<QFileSystemModel*>(sourceModel());
+  if (srcModel) {
+    return srcModel->isDir(srcModel->index(srcRow, 0, srcParent));
+  }
+  return false;
 }

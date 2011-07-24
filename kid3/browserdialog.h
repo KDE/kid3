@@ -37,25 +37,25 @@ class QTextBrowser;
 class BrowserDialog : public QDialog {
 Q_OBJECT
 public:
-	/**
-	 * Constructor.
-	 */
-	BrowserDialog(QWidget* parent, QString& caption);
+  /**
+   * Constructor.
+   */
+  BrowserDialog(QWidget* parent, QString& caption);
 
-	/**
-	 * Destructor.
-	 */
-	~BrowserDialog();
+  /**
+   * Destructor.
+   */
+  ~BrowserDialog();
 
-	/**
-	 * Show context help.
-	 * @param anchor name of anchor
-	 */
-	void goToAnchor(const QString& anchor);
+  /**
+   * Show context help.
+   * @param anchor name of anchor
+   */
+  void goToAnchor(const QString& anchor);
 
 private:
-	QTextBrowser* m_textBrowser;
-	QString m_filename;
+  QTextBrowser* m_textBrowser;
+  QString m_filename;
 };
 
 #endif // BROWSERDIALOG_H

@@ -39,50 +39,50 @@ class FrameCollection;
  */
 class ImportParser {
 public:
-	/**
-	 * Set import format.
-	 *
-	 * @param fmt format regexp
-	 * @param enableTrackIncr enable automatic track increment if no %t is found
-	 */
-	void setFormat(const QString& fmt, bool enableTrackIncr = false);
+  /**
+   * Set import format.
+   *
+   * @param fmt format regexp
+   * @param enableTrackIncr enable automatic track increment if no %t is found
+   */
+  void setFormat(const QString& fmt, bool enableTrackIncr = false);
 
-	/**
-	 * Get next tags in text buffer.
-	 *
-	 * @param text text buffer containing data from file or clipboard
-	 * @param frames frames for output
-	 * @param pos  current position in buffer, will be updated to point
-	 *             behind current match (to be used for next call)
-	 * @return true if tags found (pos is index behind match).
-	 */
-	bool getNextTags(const QString& text, FrameCollection& frames, int& pos);
+  /**
+   * Get next tags in text buffer.
+   *
+   * @param text text buffer containing data from file or clipboard
+   * @param frames frames for output
+   * @param pos  current position in buffer, will be updated to point
+   *             behind current match (to be used for next call)
+   * @return true if tags found (pos is index behind match).
+   */
+  bool getNextTags(const QString& text, FrameCollection& frames, int& pos);
 
-	/**
-	 * Get list with track durations.
-	 *
-	 * @return list with track durations.
-	 */
-	QList<int> getTrackDurations() { return m_trackDuration; }
+  /**
+   * Get list with track durations.
+   *
+   * @return list with track durations.
+   */
+  QList<int> getTrackDurations() { return m_trackDuration; }
 
-	/**
-	 * Get help text for format codes supported by setFormat().
-	 *
-	 * @return help text.
-	 */
-	static QString getFormatToolTip();
+  /**
+   * Get help text for format codes supported by setFormat().
+   *
+   * @return help text.
+   */
+  static QString getFormatToolTip();
 
 private:
-	/** track regexp pattern */
-	QString m_pattern;
-	/** regexp object */
-	QRegExp m_re;
-	/** true if automatic track number incrementing is used */
-	bool m_trackIncrEnabled;
-	/** automatically incremented track number */
-	int m_trackIncrNr;
-	QMap<QString, int> m_codePos;
-	QList<int> m_trackDuration;
+  /** track regexp pattern */
+  QString m_pattern;
+  /** regexp object */
+  QRegExp m_re;
+  /** true if automatic track number incrementing is used */
+  bool m_trackIncrEnabled;
+  /** automatically incremented track number */
+  int m_trackIncrNr;
+  QMap<QString, int> m_codePos;
+  QList<int> m_trackDuration;
 };
 
 #endif

@@ -34,9 +34,9 @@
  * @param grp configuration group
  */
 AmazonConfig::AmazonConfig(const QString& grp) :
-	ServerImporterConfig(grp, false, true)
+  ServerImporterConfig(grp, false, true)
 {
-	m_server = "www.amazon.com:80";
+  m_server = "www.amazon.com:80";
 }
 
 /**

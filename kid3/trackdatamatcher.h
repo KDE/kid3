@@ -42,7 +42,7 @@ namespace TrackDataMatcher {
  * @param maxDiff maximum allowed time difference
  */
 bool matchWithLength(TrackDataModel* trackDataModel,
-										 bool diffCheckEnable, int maxDiff);
+                     bool diffCheckEnable, int maxDiff);
 
 /**
  * Match import data with track number.

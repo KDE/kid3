@@ -33,8 +33,8 @@
  * Constructor.
  */
 FileFilter::FileFilter() :
-	m_parser(QStringList() << "equals" << "contains" << "matches"),
-	m_aborted(false)
+  m_parser(QStringList() << "equals" << "contains" << "matches"),
+  m_aborted(false)
 {
 }
 
@@ -52,7 +52,7 @@ FileFilter::~FileFilter()
  */
 void FileFilter::initParser()
 {
-	m_parser.tokenizeRpn(m_filterExpression);
+  m_parser.tokenizeRpn(m_filterExpression);
 }
 
 /**
@@ -64,22 +64,22 @@ void FileFilter::initParser()
  */
 QString FileFilter::formatString(const QString& format)
 {
-	if (format.indexOf('%') == -1) {
-		return format;
-	}
-	QString str(format);
-	str.replace(QString("%1"), QString("\v1"));
-	str.replace(QString("%2"), QString("\v2"));
-	str = m_trackData12.formatString(str);
-	if (str.indexOf('\v') != -1) {
-		str.replace(QString("\v2"), QString("%"));
-		str = m_trackData2.formatString(str);
-		if (str.indexOf('\v') != -1) {
-			str.replace(QString("\v1"), QString("%"));
-			str = m_trackData1.formatString(str);
-		}
-	}
-	return str;
+  if (format.indexOf('%') == -1) {
+    return format;
+  }
+  QString str(format);
+  str.replace(QString("%1"), QString("\v1"));
+  str.replace(QString("%2"), QString("\v2"));
+  str = m_trackData12.formatString(str);
+  if (str.indexOf('\v') != -1) {
+    str.replace(QString("\v2"), QString("%"));
+    str = m_trackData2.formatString(str);
+    if (str.indexOf('\v') != -1) {
+      str.replace(QString("\v1"), QString("%"));
+      str = m_trackData1.formatString(str);
+    }
+  }
+  return str;
 }
 
 /**
@@ -92,48 +92,48 @@ QString FileFilter::formatString(const QString& format)
  */
 QString FileFilter::getFormatToolTip(bool onlyRows)
 {
-	QString str;
-	if (!onlyRows) str += "<table>\n";
-	str += TrackDataFormatReplacer::getToolTip(true);
+  QString str;
+  if (!onlyRows) str += "<table>\n";
+  str += TrackDataFormatReplacer::getToolTip(true);
 
-	str += "<tr><td>%1a...</td><td>%1{artist}...</td><td>";
-	str += QCM_translate("Tag 1");
-	str += " ";
-	str += QCM_translate("Artist");
-	str += "</td></tr>\n";
+  str += "<tr><td>%1a...</td><td>%1{artist}...</td><td>";
+  str += QCM_translate("Tag 1");
+  str += " ";
+  str += QCM_translate("Artist");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%2a...</td><td>%2{artist}...</td><td>";
-	str += QCM_translate("Tag 2");
-	str += " ";
-	str += QCM_translate("Artist");
-	str += "</td></tr>\n";
+  str += "<tr><td>%2a...</td><td>%2{artist}...</td><td>";
+  str += QCM_translate("Tag 2");
+  str += " ";
+  str += QCM_translate("Artist");
+  str += "</td></tr>\n";
 
-	str += "<tr><td></td><td>equals</td><td>";
-	str += QCM_translate(I18N_NOOP("True if strings are equal"));
-	str += "</td></tr>\n";
+  str += "<tr><td></td><td>equals</td><td>";
+  str += QCM_translate(I18N_NOOP("True if strings are equal"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td></td><td>contains</td><td>";
-	str += QCM_translate(I18N_NOOP("True if string contains substring"));
-	str += "</td></tr>\n";
+  str += "<tr><td></td><td>contains</td><td>";
+  str += QCM_translate(I18N_NOOP("True if string contains substring"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td></td><td>matches</td><td>";
-	str += QCM_translate(I18N_NOOP("True if string matches regexp"));
-	str += "</td></tr>\n";
+  str += "<tr><td></td><td>matches</td><td>";
+  str += QCM_translate(I18N_NOOP("True if string matches regexp"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td></td><td>and</td><td>";
-	str += QCM_translate(I18N_NOOP("Logical AND"));
-	str += "</td></tr>\n";
+  str += "<tr><td></td><td>and</td><td>";
+  str += QCM_translate(I18N_NOOP("Logical AND"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td></td><td>or</td><td>";
-	str += QCM_translate(I18N_NOOP("Logical OR"));
-	str += "</td></tr>\n";
+  str += "<tr><td></td><td>or</td><td>";
+  str += QCM_translate(I18N_NOOP("Logical OR"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td></td><td>not</td><td>";
-	str += QCM_translate(I18N_NOOP("Logical negation"));
-	str += "</td></tr>\n";
+  str += "<tr><td></td><td>not</td><td>";
+  str += QCM_translate(I18N_NOOP("Logical negation"));
+  str += "</td></tr>\n";
 
-	if (!onlyRows) str += "</table>\n";
-	return str;
+  if (!onlyRows) str += "</table>\n";
+  return str;
 }
 
 /**
@@ -143,24 +143,24 @@ QString FileFilter::getFormatToolTip(bool onlyRows)
  */
 bool FileFilter::parse()
 {
-	QString op, var1, var2;
-	bool result = false;
-	m_parser.clearEvaluation();
-	while (m_parser.evaluate(op, var1, var2)) {
-		var1 = formatString(var1);
-		var2 = formatString(var2);
-		if (op == "equals") {
-			m_parser.pushBool(var1 == var2);
-		} else if (op == "contains") {
-			m_parser.pushBool(var2.indexOf(var1) >= 0);
-		} else if (op == "matches") {
-			m_parser.pushBool(QRegExp(var1).exactMatch(var2));
-		}
-	}
-	if (!m_parser.hasError()) {
-		m_parser.popBool(result);
-	}
-	return result;
+  QString op, var1, var2;
+  bool result = false;
+  m_parser.clearEvaluation();
+  while (m_parser.evaluate(op, var1, var2)) {
+    var1 = formatString(var1);
+    var2 = formatString(var2);
+    if (op == "equals") {
+      m_parser.pushBool(var1 == var2);
+    } else if (op == "contains") {
+      m_parser.pushBool(var2.indexOf(var1) >= 0);
+    } else if (op == "matches") {
+      m_parser.pushBool(QRegExp(var1).exactMatch(var2));
+    }
+  }
+  if (!m_parser.hasError()) {
+    m_parser.popBool(result);
+  }
+  return result;
 }
 
 /**
@@ -173,20 +173,20 @@ bool FileFilter::parse()
  */
 bool FileFilter::filter(TaggedFile& taggedFile, bool* ok)
 {
-	if (m_filterExpression.isEmpty()) {
-		if (ok) *ok = true;
-		return true;
-	}
-	m_trackData1 = ImportTrackData(taggedFile, ImportTrackData::TagV1);
-	m_trackData2 = ImportTrackData(taggedFile, ImportTrackData::TagV2);
-	m_trackData12 = ImportTrackData(taggedFile, ImportTrackData::TagV2V1);
+  if (m_filterExpression.isEmpty()) {
+    if (ok) *ok = true;
+    return true;
+  }
+  m_trackData1 = ImportTrackData(taggedFile, ImportTrackData::TagV1);
+  m_trackData2 = ImportTrackData(taggedFile, ImportTrackData::TagV2);
+  m_trackData12 = ImportTrackData(taggedFile, ImportTrackData::TagV2V1);
 
-	bool result = parse();
-	if (m_parser.hasError()) {
-		if (ok) *ok = false;
-		return false;
-	} else {
-		if (ok) *ok = true;
-		return result;
-	}
+  bool result = parse();
+  if (m_parser.hasError()) {
+    if (ok) *ok = false;
+    return false;
+  } else {
+    if (ok) *ok = true;
+    return result;
+  }
 }

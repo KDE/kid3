@@ -43,89 +43,89 @@ class FilterDialog : public QDialog {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	FilterDialog(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  FilterDialog(QWidget* parent);
 
-	/**
-	 * Destructor.
-	 */
-	~FilterDialog();
+  /**
+   * Destructor.
+   */
+  ~FilterDialog();
 
-	/**
-	 * Read the local settings from the configuration.
-	 */
-	void readConfig();
+  /**
+   * Read the local settings from the configuration.
+   */
+  void readConfig();
 
-	/**
-	 * Display information in text view.
-	 *
-	 * @param text text to display
-	 */
-	void showInformation(const QString& text) { m_edit->append(text); }
+  /**
+   * Display information in text view.
+   *
+   * @param text text to display
+   */
+  void showInformation(const QString& text) { m_edit->append(text); }
 
 signals:
-	/**
-	 * Is triggered when the selected @a filter has to be applied.
-	 */
-	void apply(FileFilter&);
+  /**
+   * Is triggered when the selected @a filter has to be applied.
+   */
+  void apply(FileFilter&);
 
 public slots:
-	/**
-	 * Set the filter lineedit to the filter selected in the combo box.
-	 *
-	 * @param index current index of the combo box
-	 */
-	void setFilterLineEdit(int index);
+  /**
+   * Set the filter lineedit to the filter selected in the combo box.
+   *
+   * @param index current index of the combo box
+   */
+  void setFilterLineEdit(int index);
 
-	/**
-	 * Show information about filter event.
-	 *
-	 * @param type filter event type
-	 * @param fileName name of filtered file
-	 */
-	void showFilterEvent(FileFilter::FilterEventType type,
-											 const QString& fileName);
+  /**
+   * Show information about filter event.
+   *
+   * @param type filter event type
+   * @param fileName name of filtered file
+   */
+  void showFilterEvent(FileFilter::FilterEventType type,
+                       const QString& fileName);
 
 private slots:
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
-	/**
-	 * Apply filter.
-	 */
-	void applyFilter();
+  /**
+   * Apply filter.
+   */
+  void applyFilter();
 
 private:
-	/**
-	 * Set the filter combo box and line edit from the configuration.
-	 */
-	void setFiltersFromConfig();
+  /**
+   * Set the filter combo box and line edit from the configuration.
+   */
+  void setFiltersFromConfig();
 
   /** Text editor */
   QTextEdit* m_edit;
-	/** cobobox with filter names */
-	QComboBox* m_nameComboBox;
-	/** LineEdit for filter expression */
-	QLineEdit* m_filterLineEdit;
-	/** Apply button */
-	QPushButton* m_applyButton;
-	/** filter names */
-	QStringList m_filterNames;
-	/** filter expressions */
-	QStringList m_filterExpressions;
-	/** file filter used */
-	FileFilter m_fileFilter;
+  /** cobobox with filter names */
+  QComboBox* m_nameComboBox;
+  /** LineEdit for filter expression */
+  QLineEdit* m_filterLineEdit;
+  /** Apply button */
+  QPushButton* m_applyButton;
+  /** filter names */
+  QStringList m_filterNames;
+  /** filter expressions */
+  QStringList m_filterExpressions;
+  /** file filter used */
+  FileFilter m_fileFilter;
 };
 
 #endif

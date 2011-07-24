@@ -36,71 +36,71 @@
  */
 class PlaylistConfig : public GeneralConfig {
 public:
-	/**
-	 * Playlist format.
-	 */
-	enum PlaylistFormat {
-		PF_M3U, /**< M3U */
-		PF_PLS, /**< PLS */
-		PF_XSPF /**< XSPF */
-	};
+  /**
+   * Playlist format.
+   */
+  enum PlaylistFormat {
+    PF_M3U, /**< M3U */
+    PF_PLS, /**< PLS */
+    PF_XSPF /**< XSPF */
+  };
 
-	/**
-	 * Location to create playlist.
-	 */
-	enum PlaylistLocation {
-		PL_CurrentDirectory, /**< create in current directory */
-		PL_EveryDirectory,   /**< create in every directory */
-		PL_TopLevelDirectory /**< create in top-level directory */
-	};
+  /**
+   * Location to create playlist.
+   */
+  enum PlaylistLocation {
+    PL_CurrentDirectory, /**< create in current directory */
+    PL_EveryDirectory,   /**< create in every directory */
+    PL_TopLevelDirectory /**< create in top-level directory */
+  };
 
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp configuration group
-	 */
-	PlaylistConfig(const QString& grp = "Playlist");
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  PlaylistConfig(const QString& grp = "Playlist");
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~PlaylistConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~PlaylistConfig();
 
-	/**
-	 * Persist configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void writeToConfig(Kid3Settings* config) const;
+  /**
+   * Persist configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void writeToConfig(Kid3Settings* config) const;
 
-	/**
-	 * Read persisted configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void readFromConfig(Kid3Settings* config);
+  /**
+   * Read persisted configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void readFromConfig(Kid3Settings* config);
 
-	/** Use file name format if true, else directory name */
-	bool m_useFileNameFormat;
-	/** Include only selected files if true, else all files */
-	bool m_onlySelectedFiles;
-	/** Sort by tag field if true, else file name */
-	bool m_useSortTagField;
-	/** Use full path for files in playlist if true, else relative path */
-	bool m_useFullPath;
-	/** Write info format, else only list of files */
-	bool m_writeInfo;
-	/** Playlist location */
-	PlaylistLocation m_location;
-	/** Playlist format */
-	PlaylistFormat m_format;
-	/** Playlist file name format */
-	QString m_fileNameFormat;
-	/** Tag field used for sorting */
-	QString m_sortTagField;
-	/** Format for additional information */
-	QString m_infoFormat;
+  /** Use file name format if true, else directory name */
+  bool m_useFileNameFormat;
+  /** Include only selected files if true, else all files */
+  bool m_onlySelectedFiles;
+  /** Sort by tag field if true, else file name */
+  bool m_useSortTagField;
+  /** Use full path for files in playlist if true, else relative path */
+  bool m_useFullPath;
+  /** Write info format, else only list of files */
+  bool m_writeInfo;
+  /** Playlist location */
+  PlaylistLocation m_location;
+  /** Playlist format */
+  PlaylistFormat m_format;
+  /** Playlist file name format */
+  QString m_fileNameFormat;
+  /** Tag field used for sorting */
+  QString m_sortTagField;
+  /** Format for additional information */
+  QString m_infoFormat;
 };
 
 #endif // PLAYLISTCONFIG_H

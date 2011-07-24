@@ -32,7 +32,7 @@
  * @param parent parent object
  */
 ComboBoxDelegate::ComboBoxDelegate(QObject* parent) :
-	QStyledItemDelegate(parent)
+  QStyledItemDelegate(parent)
 {
 }
 
@@ -51,21 +51,21 @@ ComboBoxDelegate::~ComboBoxDelegate()
  * @return combo box editor widget.
  */
 QWidget* ComboBoxDelegate::createEditor(
-	QWidget* parent, const QStyleOptionViewItem& option,
-	const QModelIndex& index) const
+  QWidget* parent, const QStyleOptionViewItem& option,
+  const QModelIndex& index) const
 {
-	QVariant itemsData(index.data(Qt::UserRole));
-	if (itemsData.isValid() && itemsData.type() == QVariant::StringList) {
-		QStringList items(itemsData.toStringList());
-		int itemIndex = items.indexOf(index.data(Qt::EditRole).toString());
-		QComboBox* cb = new QComboBox(parent);
-		cb->addItems(itemsData.toStringList());
-		if (itemIndex >= 0)
-			cb->setCurrentIndex(itemIndex);
-		return cb;
-	} else {
-		return QStyledItemDelegate::createEditor(parent, option, index);
-	}
+  QVariant itemsData(index.data(Qt::UserRole));
+  if (itemsData.isValid() && itemsData.type() == QVariant::StringList) {
+    QStringList items(itemsData.toStringList());
+    int itemIndex = items.indexOf(index.data(Qt::EditRole).toString());
+    QComboBox* cb = new QComboBox(parent);
+    cb->addItems(itemsData.toStringList());
+    if (itemIndex >= 0)
+      cb->setCurrentIndex(itemIndex);
+    return cb;
+  } else {
+    return QStyledItemDelegate::createEditor(parent, option, index);
+  }
 }
 
 /**
@@ -74,15 +74,15 @@ QWidget* ComboBoxDelegate::createEditor(
  * @param index  index of item
  */
 void ComboBoxDelegate::setEditorData(QWidget* editor,
-																		 const QModelIndex& index) const
+                                     const QModelIndex& index) const
 {
-	if (QComboBox* cb = qobject_cast<QComboBox*>(editor)) {
-		int itemIndex = cb->findText(index.data(Qt::EditRole).toString());
-		if (itemIndex >= 0)
-			cb->setCurrentIndex(itemIndex);
-	} else {
-		QStyledItemDelegate::setEditorData(editor, index);
-	}
+  if (QComboBox* cb = qobject_cast<QComboBox*>(editor)) {
+    int itemIndex = cb->findText(index.data(Qt::EditRole).toString());
+    if (itemIndex >= 0)
+      cb->setCurrentIndex(itemIndex);
+  } else {
+    QStyledItemDelegate::setEditorData(editor, index);
+  }
 }
 
 /**
@@ -92,10 +92,10 @@ void ComboBoxDelegate::setEditorData(QWidget* editor,
  * @param index  index of item
  */
 void ComboBoxDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
-																		const QModelIndex& index) const
+                                    const QModelIndex& index) const
 {
-	if (QComboBox* cb = qobject_cast<QComboBox*>(editor))
-		model->setData(index, cb->currentText(), Qt::EditRole);
-	else
-		QStyledItemDelegate::setModelData(editor, model, index);
+  if (QComboBox* cb = qobject_cast<QComboBox*>(editor))
+    model->setData(index, cb->currentText(), Qt::EditRole);
+  else
+    QStyledItemDelegate::setModelData(editor, model, index);
 }

@@ -35,52 +35,52 @@
 class TrackTypeImporter : public FreedbImporter
 {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent          parent object
-	 * @param trackDataModel track data to be filled with imported values
-	 */
-	TrackTypeImporter(QObject* parent,
-										TrackDataModel* trackDataModel);
+  /**
+   * Constructor.
+   *
+   * @param parent          parent object
+   * @param trackDataModel track data to be filled with imported values
+   */
+  TrackTypeImporter(QObject* parent,
+                    TrackDataModel* trackDataModel);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~TrackTypeImporter();
+  /**
+   * Destructor.
+   */
+  virtual ~TrackTypeImporter();
 
-	/**
-	 * Name of import source.
-	 * @return name.
-	 */
-	virtual QString name() const;
+  /**
+   * Name of import source.
+   * @return name.
+   */
+  virtual QString name() const;
 
-	/** NULL-terminated array of server strings, 0 if not used */
-	virtual const char** serverList() const;
+  /** NULL-terminated array of server strings, 0 if not used */
+  virtual const char** serverList() const;
 
-	/** default server, 0 to disable */
-	virtual const char* defaultServer() const;
+  /** default server, 0 to disable */
+  virtual const char* defaultServer() const;
 
-	/** configuration, 0 if not used */
-	virtual ServerImporterConfig* config() const;
+  /** configuration, 0 if not used */
+  virtual ServerImporterConfig* config() const;
 
-	/**
-	 * Process finished findCddbAlbum request.
-	 *
-	 * @param searchStr search data received
-	 */
-	virtual void parseFindResults(const QByteArray& searchStr);
+  /**
+   * Process finished findCddbAlbum request.
+   *
+   * @param searchStr search data received
+   */
+  virtual void parseFindResults(const QByteArray& searchStr);
 
-	/**
-	 * Send a query command to search on the server.
-	 *
-	 * @param cfg      import source configuration
-	 * @param artist   artist to search
-	 * @param album    album to search
-	 */
-	virtual void sendFindQuery(
-		const ServerImporterConfig* cfg,
-		const QString& artist, const QString& album);
+  /**
+   * Send a query command to search on the server.
+   *
+   * @param cfg      import source configuration
+   * @param artist   artist to search
+   * @param album    album to search
+   */
+  virtual void sendFindQuery(
+    const ServerImporterConfig* cfg,
+    const QString& artist, const QString& album);
 };
 
 #endif

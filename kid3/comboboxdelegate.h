@@ -34,37 +34,37 @@
  */
 class ComboBoxDelegate : public QStyledItemDelegate {
 public:
-	/**
-	 * Constructor.
-	 * @param parent parent object
-	 */
-	ComboBoxDelegate(QObject* parent = 0);
+  /**
+   * Constructor.
+   * @param parent parent object
+   */
+  ComboBoxDelegate(QObject* parent = 0);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~ComboBoxDelegate();
+  /**
+   * Destructor.
+   */
+  virtual ~ComboBoxDelegate();
 
-	/**
-	 * Create an editor to edit the cells contents.
-	 * @param parent parent widget
-	 * @param option style
-	 * @param index  index of item
-	 * @return combo box editor widget.
-	 */
-	virtual QWidget* createEditor(QWidget* parent,
-																const QStyleOptionViewItem& option,
-																const QModelIndex& index ) const;
+  /**
+   * Create an editor to edit the cells contents.
+   * @param parent parent widget
+   * @param option style
+   * @param index  index of item
+   * @return combo box editor widget.
+   */
+  virtual QWidget* createEditor(QWidget* parent,
+                                const QStyleOptionViewItem& option,
+                                const QModelIndex& index ) const;
 
-	/**
-	 * Set data to be edited by the editor.
-	 * @param editor editor widget
-	 * @param index  index of item
-	 */
-	virtual void setEditorData(QWidget* editor, const QModelIndex& index) const;
+  /**
+   * Set data to be edited by the editor.
+   * @param editor editor widget
+   * @param index  index of item
+   */
+  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const;
 
-	virtual void setModelData(QWidget* editor, QAbstractItemModel* model,
-														const QModelIndex& index) const;
+  virtual void setModelData(QWidget* editor, QAbstractItemModel* model,
+                            const QModelIndex& index) const;
 };
 
 #endif // COMBOBOXDELEGATE_H

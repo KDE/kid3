@@ -64,127 +64,127 @@ class ConfigDialog : public ConfigDialogBaseClass
 {
 Q_OBJECT
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent  parent widget
-	 * @param caption dialog title
-	 * @param configSkeleton KDE config skeleton
-	 */
+  /**
+   * Constructor.
+   *
+   * @param parent  parent widget
+   * @param caption dialog title
+   * @param configSkeleton KDE config skeleton
+   */
 #ifdef CONFIG_USE_KDE
-	ConfigDialog(QWidget* parent, QString& caption,
-							 KConfigSkeleton* configSkeleton);
+  ConfigDialog(QWidget* parent, QString& caption,
+               KConfigSkeleton* configSkeleton);
 #else
-	ConfigDialog(QWidget* parent, QString& caption);
+  ConfigDialog(QWidget* parent, QString& caption);
 #endif
-	/**
-	 * Destructor.
-	 */
-	~ConfigDialog();
-	/**
-	 * Set values in dialog from current configuration.
-	 *
-	 * @param fnCfg   filename format configuration
-	 * @param id3Cfg  ID3 format configuration
-	 * @param miscCfg misc. configuration
-	 */
-	void setConfig(const FormatConfig* fnCfg, const FormatConfig* id3Cfg,
-				   const MiscConfig* miscCfg);
-	/**
-	 * Get values from dialog and store them in the current configuration.
-	 *
-	 * @param fnCfg   filename format configuration
-	 * @param id3Cfg  ID3 format configuration
-	 * @param miscCfg misc. configuration
-	 */
-	void getConfig(FormatConfig* fnCfg, FormatConfig* id3Cfg,
-				   MiscConfig* miscCfg) const;
+  /**
+   * Destructor.
+   */
+  ~ConfigDialog();
+  /**
+   * Set values in dialog from current configuration.
+   *
+   * @param fnCfg   filename format configuration
+   * @param id3Cfg  ID3 format configuration
+   * @param miscCfg misc. configuration
+   */
+  void setConfig(const FormatConfig* fnCfg, const FormatConfig* id3Cfg,
+           const MiscConfig* miscCfg);
+  /**
+   * Get values from dialog and store them in the current configuration.
+   *
+   * @param fnCfg   filename format configuration
+   * @param id3Cfg  ID3 format configuration
+   * @param miscCfg misc. configuration
+   */
+  void getConfig(FormatConfig* fnCfg, FormatConfig* id3Cfg,
+           MiscConfig* miscCfg) const;
 
 protected slots:
-	/**
-	 * Show help.
-	 */
-	virtual void slotHelp();
+  /**
+   * Show help.
+   */
+  virtual void slotHelp();
 
-	/**
-	 * Select custom application font.
-	 */
-	void slotSelectFont();
+  /**
+   * Select custom application font.
+   */
+  void slotSelectFont();
 
-	/**
-	 * Select custom application style.
-	 *
-	 * @param key style key
-	 */
-	void slotSelectStyle(const QString& key);
+  /**
+   * Select custom application style.
+   *
+   * @param key style key
+   */
+  void slotSelectStyle(const QString& key);
 
-	/**
-	 * Revert the font and style to the values in the settings.
-	 */
-	void slotRevertFontAndStyle();
+  /**
+   * Revert the font and style to the values in the settings.
+   */
+  void slotRevertFontAndStyle();
 
 private:
-	/** Preserve timestamp checkbox */
-	QCheckBox* m_preserveTimeCheckBox;
-	/** Mark changes checkbox */
-	QCheckBox* m_markChangesCheckBox;
-	/** Mark truncated fields checkbox */
-	QCheckBox* m_markTruncationsCheckBox;
-	/** ID3v1 text encodings */
-	QStringList m_textEncodingV1List;
-	/** ID3v1 text encoding combo box */
-	QComboBox* m_textEncodingV1ComboBox;
-	/** Use track/total number of tracks format checkbox */
-	QCheckBox* m_totalNumTracksCheckBox;
-	/** Comment field name combo box */
-	QComboBox* m_commentNameComboBox;
-	/** Picture field name combo box */
-	QComboBox* m_pictureNameComboBox;
+  /** Preserve timestamp checkbox */
+  QCheckBox* m_preserveTimeCheckBox;
+  /** Mark changes checkbox */
+  QCheckBox* m_markChangesCheckBox;
+  /** Mark truncated fields checkbox */
+  QCheckBox* m_markTruncationsCheckBox;
+  /** ID3v1 text encodings */
+  QStringList m_textEncodingV1List;
+  /** ID3v1 text encoding combo box */
+  QComboBox* m_textEncodingV1ComboBox;
+  /** Use track/total number of tracks format checkbox */
+  QCheckBox* m_totalNumTracksCheckBox;
+  /** Comment field name combo box */
+  QComboBox* m_commentNameComboBox;
+  /** Picture field name combo box */
+  QComboBox* m_pictureNameComboBox;
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-	/** Genre as text instead of numeric string checkbox */
-	QCheckBox* m_genreNotNumericCheckBox;
-	/** ID3v2 text encoding combo box */
-	QComboBox* m_textEncodingComboBox;
+  /** Genre as text instead of numeric string checkbox */
+  QCheckBox* m_genreNotNumericCheckBox;
+  /** ID3v2 text encoding combo box */
+  QComboBox* m_textEncodingComboBox;
 #endif
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-	/** ID3v2 version combo box */
-	QComboBox* m_id3v2VersionComboBox;
+  /** ID3v2 version combo box */
+  QComboBox* m_id3v2VersionComboBox;
 #endif
-	/** Number of digits in track number spin box */
-	QSpinBox* m_trackNumberDigitsSpinBox;
-	/** Filename Format box */
-	FormatBox* m_fnFormatBox;
-	/** ID3 Format box */
-	FormatBox* m_id3FormatBox;
-	/** Only custom genres checkbox */
-	QCheckBox* m_onlyCustomGenresCheckBox;
-	/** Model with list of custom genres */
-	QStringListModel* m_genresEditModel;
-	/** Commands table */
-	ConfigTable* m_commandsTable;
-	/** Commands table model */
-	CommandsTableModel* m_commandsTableModel;
-	/** Browser line edit */
-	QLineEdit* m_browserLineEdit;
-	/** Use proxy check box */
-	QCheckBox* m_proxyCheckBox;
-	/** Proxy line edit */
-	QLineEdit* m_proxyLineEdit;
-	/** Use proxy authentication check box */
-	QCheckBox* m_proxyAuthenticationCheckBox;
-	/** Proxy user name line edit */
-	QLineEdit* m_proxyUserNameLineEdit;
-	/** Proxy password line edit */
-	QLineEdit* m_proxyPasswordLineEdit;
+  /** Number of digits in track number spin box */
+  QSpinBox* m_trackNumberDigitsSpinBox;
+  /** Filename Format box */
+  FormatBox* m_fnFormatBox;
+  /** ID3 Format box */
+  FormatBox* m_id3FormatBox;
+  /** Only custom genres checkbox */
+  QCheckBox* m_onlyCustomGenresCheckBox;
+  /** Model with list of custom genres */
+  QStringListModel* m_genresEditModel;
+  /** Commands table */
+  ConfigTable* m_commandsTable;
+  /** Commands table model */
+  CommandsTableModel* m_commandsTableModel;
+  /** Browser line edit */
+  QLineEdit* m_browserLineEdit;
+  /** Use proxy check box */
+  QCheckBox* m_proxyCheckBox;
+  /** Proxy line edit */
+  QLineEdit* m_proxyLineEdit;
+  /** Use proxy authentication check box */
+  QCheckBox* m_proxyAuthenticationCheckBox;
+  /** Proxy user name line edit */
+  QLineEdit* m_proxyUserNameLineEdit;
+  /** Proxy password line edit */
+  QLineEdit* m_proxyPasswordLineEdit;
 #ifndef CONFIG_USE_KDE
-	QCheckBox* m_useApplicationFontCheckBox;
-	QPushButton* m_applicationFontButton;
-	QCheckBox* m_useApplicationStyleCheckBox;
-	QComboBox* m_applicationStyleComboBox;
-	QFont m_font;
-	QString m_style;
-	bool m_fontChanged;
-	bool m_styleChanged;
+  QCheckBox* m_useApplicationFontCheckBox;
+  QPushButton* m_applicationFontButton;
+  QCheckBox* m_useApplicationStyleCheckBox;
+  QComboBox* m_applicationStyleComboBox;
+  QFont m_font;
+  QString m_style;
+  bool m_fontChanged;
+  bool m_styleChanged;
 #endif
 };
 

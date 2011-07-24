@@ -34,23 +34,23 @@
  */
 class DirProxyModel : public QSortFilterProxyModel {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent object
-	 */
-	explicit DirProxyModel(QObject* parent = 0);
+  /**
+   * Constructor.
+   *
+   * @param parent parent object
+   */
+  explicit DirProxyModel(QObject* parent = 0);
 
 protected:
-	/**
-	 * Check if row should be included in model.
-	 *
-	 * @param srcRow source row
-	 * @param srcParent source parent
-	 *
-	 * @return true to include row.
-	 */
-	virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const;
+  /**
+   * Check if row should be included in model.
+   *
+   * @param srcRow source row
+   * @param srcParent source parent
+   *
+   * @return true to include row.
+   */
+  virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const;
 };
 
 #endif // DIRPROXYMODEL_H

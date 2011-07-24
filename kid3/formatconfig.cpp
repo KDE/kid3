@@ -40,13 +40,13 @@
  * Constructor.
  */
 FormatConfig::FormatConfig(const QString& grp) :
-	GeneralConfig(grp),
-	m_formatWhileEditing(false),
-	m_caseConversion(AllFirstLettersUppercase),
-	m_strRepEnabled(false),
-	m_filenameFormatter(false)
+  GeneralConfig(grp),
+  m_formatWhileEditing(false),
+  m_caseConversion(AllFirstLettersUppercase),
+  m_strRepEnabled(false),
+  m_filenameFormatter(false)
 {
-	m_strRepMap.clear();
+  m_strRepMap.clear();
 }
 
 /**
@@ -61,21 +61,21 @@ FormatConfig::~FormatConfig() {}
  */
 void FormatConfig::setAsFilenameFormatter()
 {
-	m_filenameFormatter = true;
-	m_strRepEnabled = true;
-	m_strRepMap["/"] = "-";
-	m_strRepMap[":"] = "-";
-	m_strRepMap["."] = "";
-	m_strRepMap["?"] = "";
-	m_strRepMap["*"] = "";
-	m_strRepMap["\""] = "''";
-	m_strRepMap[QChar(0xe4)] = "ae";
-	m_strRepMap[QChar(0xf6)] = "oe";
-	m_strRepMap[QChar(0xfc)] = "ue";
-	m_strRepMap[QChar(0xc4)] = "Ae";
-	m_strRepMap[QChar(0xd6)] = "Oe";
-	m_strRepMap[QChar(0xdc)] = "Ue";
-	m_strRepMap[QChar(0xdf)] = "ss";
+  m_filenameFormatter = true;
+  m_strRepEnabled = true;
+  m_strRepMap["/"] = "-";
+  m_strRepMap[":"] = "-";
+  m_strRepMap["."] = "";
+  m_strRepMap["?"] = "";
+  m_strRepMap["*"] = "";
+  m_strRepMap["\""] = "''";
+  m_strRepMap[QChar(0xe4)] = "ae";
+  m_strRepMap[QChar(0xf6)] = "oe";
+  m_strRepMap[QChar(0xfc)] = "ue";
+  m_strRepMap[QChar(0xc4)] = "Ae";
+  m_strRepMap[QChar(0xd6)] = "Oe";
+  m_strRepMap[QChar(0xdc)] = "Ue";
+  m_strRepMap[QChar(0xdf)] = "ss";
 }
 
 /**
@@ -85,60 +85,60 @@ void FormatConfig::setAsFilenameFormatter()
  */
 void FormatConfig::formatString(QString& str) const
 {
-	QString ext;
-	int dotPos = -1;
-	if (m_filenameFormatter) {
-		/* Do not format the extension if it is a filename */
-		dotPos = str.lastIndexOf('.');
-		if (dotPos != -1) {
-			ext = str.right(str.length() - dotPos);
-			str = str.left(dotPos);
-		}
-	}
-	if (m_caseConversion != NoChanges) {
-		switch (m_caseConversion) {
-			case AllLowercase:
-				str = str.toLower();
-				break;
-			case AllUppercase:
-				str = str.toUpper();
-				break;
-			case FirstLetterUppercase:
-				str = str.at(0).toUpper() + str.right(str.length() - 1).toLower();
-				break;
-			case AllFirstLettersUppercase: {
-				QString newstr;
-				bool wordstart = true;
-				for (unsigned i = 0; i < static_cast<unsigned>(str.length()); ++i) {
-					QChar ch = str.at(i);
-					if (!ch.isLetterOrNumber() &&
-						ch != '\'' && ch != '`') {
-						wordstart = true;
-						newstr.append(ch);
-					} else if (wordstart) {
-						wordstart = false;
-						newstr.append(ch.toUpper());
-					} else {
-						newstr.append(ch.toLower());
-					}
-				}
-				str = newstr;
-				break;
-			}
-			default:
-				;
-		}
-	}
-	if (m_strRepEnabled) {
-		QMap<QString, QString>::ConstIterator it;
-		for (it = m_strRepMap.begin(); it != m_strRepMap.end(); ++it) {
-			str.replace(it.key(), *it);
-		}
-	}
-	/* append extension if it was removed */
-	if (dotPos != -1) {
-		str.append(ext);
-	}
+  QString ext;
+  int dotPos = -1;
+  if (m_filenameFormatter) {
+    /* Do not format the extension if it is a filename */
+    dotPos = str.lastIndexOf('.');
+    if (dotPos != -1) {
+      ext = str.right(str.length() - dotPos);
+      str = str.left(dotPos);
+    }
+  }
+  if (m_caseConversion != NoChanges) {
+    switch (m_caseConversion) {
+      case AllLowercase:
+        str = str.toLower();
+        break;
+      case AllUppercase:
+        str = str.toUpper();
+        break;
+      case FirstLetterUppercase:
+        str = str.at(0).toUpper() + str.right(str.length() - 1).toLower();
+        break;
+      case AllFirstLettersUppercase: {
+        QString newstr;
+        bool wordstart = true;
+        for (unsigned i = 0; i < static_cast<unsigned>(str.length()); ++i) {
+          QChar ch = str.at(i);
+          if (!ch.isLetterOrNumber() &&
+            ch != '\'' && ch != '`') {
+            wordstart = true;
+            newstr.append(ch);
+          } else if (wordstart) {
+            wordstart = false;
+            newstr.append(ch.toUpper());
+          } else {
+            newstr.append(ch.toLower());
+          }
+        }
+        str = newstr;
+        break;
+      }
+      default:
+        ;
+    }
+  }
+  if (m_strRepEnabled) {
+    QMap<QString, QString>::ConstIterator it;
+    for (it = m_strRepMap.begin(); it != m_strRepMap.end(); ++it) {
+      str.replace(it.key(), *it);
+    }
+  }
+  /* append extension if it was removed */
+  if (dotPos != -1) {
+    str.append(ext);
+  }
 }
 
 /**
@@ -148,18 +148,18 @@ void FormatConfig::formatString(QString& str) const
  */
 void FormatConfig::formatFrames(FrameCollection& frames) const
 {
-	for (FrameCollection::iterator it = frames.begin();
-			 it != frames.end();
-			 ++it) {
-		Frame& frame = const_cast<Frame&>(*it);
-		if (frame.getType() != Frame::FT_Genre) {
-			QString value(frame.getValue());
-			if (!value.isEmpty()) {
-				formatString(value);
-				frame.setValueIfChanged(value);
-			}
-		}
-	}
+  for (FrameCollection::iterator it = frames.begin();
+       it != frames.end();
+       ++it) {
+    Frame& frame = const_cast<Frame&>(*it);
+    if (frame.getType() != Frame::FT_Genre) {
+      QString value(frame.getValue());
+      if (!value.isEmpty()) {
+        formatString(value);
+        frame.setValueIfChanged(value);
+      }
+    }
+  }
 }
 
 /**
@@ -170,20 +170,20 @@ void FormatConfig::formatFrames(FrameCollection& frames) const
 void FormatConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
-	KConfigGroup cfg = config->group(m_group);
-	cfg.writeEntry("FormatWhileEditing", m_formatWhileEditing);
-	cfg.writeEntry("CaseConversion", static_cast<int>(m_caseConversion));
-	cfg.writeEntry("StrRepEnabled", m_strRepEnabled);
-	cfg.writeEntry("StrRepMapKeys", m_strRepMap.keys());
-	cfg.writeEntry("StrRepMapValues", m_strRepMap.values());
+  KConfigGroup cfg = config->group(m_group);
+  cfg.writeEntry("FormatWhileEditing", m_formatWhileEditing);
+  cfg.writeEntry("CaseConversion", static_cast<int>(m_caseConversion));
+  cfg.writeEntry("StrRepEnabled", m_strRepEnabled);
+  cfg.writeEntry("StrRepMapKeys", m_strRepMap.keys());
+  cfg.writeEntry("StrRepMapValues", m_strRepMap.values());
 #else
-	config->beginGroup("/" + m_group);
-	config->setValue("/FormatWhileEditing", QVariant(m_formatWhileEditing));
-	config->setValue("/CaseConversion", QVariant(m_caseConversion));
-	config->setValue("/StrRepEnabled", QVariant(m_strRepEnabled));
-	config->setValue("/StrRepMapKeys", QVariant(m_strRepMap.keys()));
-	config->setValue("/StrRepMapValues", QVariant(m_strRepMap.values()));
-	config->endGroup();
+  config->beginGroup("/" + m_group);
+  config->setValue("/FormatWhileEditing", QVariant(m_formatWhileEditing));
+  config->setValue("/CaseConversion", QVariant(m_caseConversion));
+  config->setValue("/StrRepEnabled", QVariant(m_strRepEnabled));
+  config->setValue("/StrRepMapKeys", QVariant(m_strRepMap.keys()));
+  config->setValue("/StrRepMapValues", QVariant(m_strRepMap.values()));
+  config->endGroup();
 #endif
 }
 
@@ -195,39 +195,39 @@ void FormatConfig::writeToConfig(Kid3Settings* config) const
 void FormatConfig::readFromConfig(Kid3Settings* config)
 {
 #ifdef CONFIG_USE_KDE
-	KConfigGroup cfg = config->group(m_group);
-	m_formatWhileEditing = cfg.readEntry("FormatWhileEditing", m_formatWhileEditing);
-	m_caseConversion = (CaseConversion)cfg.readEntry("CaseConversion",
-														  (int)m_caseConversion);
-	m_strRepEnabled = cfg.readEntry("StrRepEnabled", m_strRepEnabled);
-	QStringList keys = cfg.readEntry("StrRepMapKeys", QStringList());
-	QStringList values = cfg.readEntry("StrRepMapValues", QStringList());
-	if (!keys.empty() && !values.empty()) {
-		QStringList::Iterator itk, itv;
-		m_strRepMap.clear();
-		for (itk = keys.begin(), itv = values.begin();
-			 itk != keys.end() && itv != values.end();
-			 ++itk, ++itv) {
-			m_strRepMap[*itk] = *itv;
-		}
-	}
+  KConfigGroup cfg = config->group(m_group);
+  m_formatWhileEditing = cfg.readEntry("FormatWhileEditing", m_formatWhileEditing);
+  m_caseConversion = (CaseConversion)cfg.readEntry("CaseConversion",
+                              (int)m_caseConversion);
+  m_strRepEnabled = cfg.readEntry("StrRepEnabled", m_strRepEnabled);
+  QStringList keys = cfg.readEntry("StrRepMapKeys", QStringList());
+  QStringList values = cfg.readEntry("StrRepMapValues", QStringList());
+  if (!keys.empty() && !values.empty()) {
+    QStringList::Iterator itk, itv;
+    m_strRepMap.clear();
+    for (itk = keys.begin(), itv = values.begin();
+       itk != keys.end() && itv != values.end();
+       ++itk, ++itv) {
+      m_strRepMap[*itk] = *itv;
+    }
+  }
 #else
-	config->beginGroup("/" + m_group);
-	m_formatWhileEditing = config->value("/FormatWhileEditing", m_formatWhileEditing).toBool();
-	m_caseConversion = (CaseConversion)config->value("/CaseConversion",
-																									 (int)m_caseConversion).toInt();
-	m_strRepEnabled = config->value("/StrRepEnabled", m_strRepEnabled).toBool();
-	QStringList keys = config->value("/StrRepMapKeys").toStringList();
-	QStringList values = config->value("/StrRepMapValues").toStringList();
-	if (!keys.empty() && !values.empty()) {
-		QStringList::Iterator itk, itv;
-		m_strRepMap.clear();
-		for (itk = keys.begin(), itv = values.begin();
-			 itk != keys.end() && itv != values.end();
-			 ++itk, ++itv) {
-			m_strRepMap[*itk] = *itv;
-		}
-	}
-	config->endGroup();
+  config->beginGroup("/" + m_group);
+  m_formatWhileEditing = config->value("/FormatWhileEditing", m_formatWhileEditing).toBool();
+  m_caseConversion = (CaseConversion)config->value("/CaseConversion",
+                                                   (int)m_caseConversion).toInt();
+  m_strRepEnabled = config->value("/StrRepEnabled", m_strRepEnabled).toBool();
+  QStringList keys = config->value("/StrRepMapKeys").toStringList();
+  QStringList values = config->value("/StrRepMapValues").toStringList();
+  if (!keys.empty() && !values.empty()) {
+    QStringList::Iterator itk, itv;
+    m_strRepMap.clear();
+    for (itk = keys.begin(), itv = values.begin();
+       itk != keys.end() && itv != values.end();
+       ++itk, ++itv) {
+      m_strRepMap[*itk] = *itv;
+    }
+  }
+  config->endGroup();
 #endif
 }

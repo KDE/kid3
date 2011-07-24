@@ -27,7 +27,7 @@ macro (kid3_create_handbook _docbook)
     )
   else (WIN32)
     add_custom_command(OUTPUT ${_output}
-			COMMAND
+      COMMAND
         ${PERL_EXECUTABLE} ${_fixdocbook_pl} <${_input} |
         ${XSLTPROC} --novalid --nonet ${_docbook_xsl} - |
         ${PERL_EXECUTABLE} -n ${_fixhtml_pl} >${_output}

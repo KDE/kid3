@@ -43,57 +43,57 @@
  */
 class ConfigStore {
 public:
-	/**
-	 * Constructor.
-	 */
-	ConfigStore();
+  /**
+   * Constructor.
+   */
+  ConfigStore();
 
-	/**
-	 * Destructor.
-	 */
-	~ConfigStore();
+  /**
+   * Destructor.
+   */
+  ~ConfigStore();
 
-	/**
-	 * Persist configuration.
-	 */
-	void writeToConfig();
+  /**
+   * Persist configuration.
+   */
+  void writeToConfig();
 
-	/**
-	 * Read persisted configuration.
-	 */
-	void readFromConfig();
+  /**
+   * Read persisted configuration.
+   */
+  void readFromConfig();
 
-	/**
-	 * Get settings.
-	 * @return settings.
-	 */
-	Kid3Settings* getSettings() const { return m_config; }
+  /**
+   * Get settings.
+   * @return settings.
+   */
+  Kid3Settings* getSettings() const { return m_config; }
 
-	/** Filename format configuration */
-	static FormatConfig s_fnFormatCfg;
-	/** ID3 format configuration */
-	static FormatConfig s_id3FormatCfg;
-	/** Import configuration */
-	static ImportConfig s_genCfg;
-	/** Miscellaneous configuration */
-	static MiscConfig s_miscCfg;
-	/** Freedb configuration */
-	static FreedbConfig s_freedbCfg;
-	/** TrackType configuration */
-	static FreedbConfig s_trackTypeCfg;
-	/** Discogs configuration */
-	static DiscogsConfig s_discogsCfg;
-	/** Amazon configuration */
-	static AmazonConfig s_amazonCfg;
-	/** MusicBrainz configuration */
-	static MusicBrainzConfig s_musicBrainzCfg;
-	/** Filter configuration */
-	static FilterConfig s_filterCfg;
-	/** Playlist configuration */
-	static PlaylistConfig s_playlistCfg;
+  /** Filename format configuration */
+  static FormatConfig s_fnFormatCfg;
+  /** ID3 format configuration */
+  static FormatConfig s_id3FormatCfg;
+  /** Import configuration */
+  static ImportConfig s_genCfg;
+  /** Miscellaneous configuration */
+  static MiscConfig s_miscCfg;
+  /** Freedb configuration */
+  static FreedbConfig s_freedbCfg;
+  /** TrackType configuration */
+  static FreedbConfig s_trackTypeCfg;
+  /** Discogs configuration */
+  static DiscogsConfig s_discogsCfg;
+  /** Amazon configuration */
+  static AmazonConfig s_amazonCfg;
+  /** MusicBrainz configuration */
+  static MusicBrainzConfig s_musicBrainzCfg;
+  /** Filter configuration */
+  static FilterConfig s_filterCfg;
+  /** Playlist configuration */
+  static PlaylistConfig s_playlistCfg;
 
 private:
-	Kid3Settings* m_config;
+  Kid3Settings* m_config;
 };
 
 #endif // CONFIGSTORE_H

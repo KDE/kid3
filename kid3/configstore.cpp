@@ -45,10 +45,10 @@ PlaylistConfig ConfigStore::s_playlistCfg("Playlist");
 ConfigStore::ConfigStore()
 {
 #ifdef CONFIG_USE_KDE
-	m_config = new KConfig;
+  m_config = new KConfig;
 #else
-	m_config = new Kid3Settings(QSettings::UserScope, "kid3.sourceforge.net", "Kid3");
-	m_config->beginGroup("/kid3");
+  m_config = new Kid3Settings(QSettings::UserScope, "kid3.sourceforge.net", "Kid3");
+  m_config->beginGroup("/kid3");
 #endif
 }
 
@@ -57,7 +57,7 @@ ConfigStore::ConfigStore()
  */
 ConfigStore::~ConfigStore()
 {
-	// m_config is not deleted because this could lead to a crash on Mac OS.
+  // m_config is not deleted because this could lead to a crash on Mac OS.
 }
 
 /**
@@ -65,18 +65,18 @@ ConfigStore::~ConfigStore()
  */
 void ConfigStore::writeToConfig()
 {
-	s_miscCfg.writeToConfig(m_config);
-	s_fnFormatCfg.writeToConfig(m_config);
-	s_id3FormatCfg.writeToConfig(m_config);
-	s_genCfg.writeToConfig(m_config);
-	s_freedbCfg.writeToConfig(m_config);
-	s_trackTypeCfg.writeToConfig(m_config);
-	s_discogsCfg.writeToConfig(m_config);
-	s_amazonCfg.writeToConfig(m_config);
-	s_filterCfg.writeToConfig(m_config);
-	s_playlistCfg.writeToConfig(m_config);
+  s_miscCfg.writeToConfig(m_config);
+  s_fnFormatCfg.writeToConfig(m_config);
+  s_id3FormatCfg.writeToConfig(m_config);
+  s_genCfg.writeToConfig(m_config);
+  s_freedbCfg.writeToConfig(m_config);
+  s_trackTypeCfg.writeToConfig(m_config);
+  s_discogsCfg.writeToConfig(m_config);
+  s_amazonCfg.writeToConfig(m_config);
+  s_filterCfg.writeToConfig(m_config);
+  s_playlistCfg.writeToConfig(m_config);
 #ifdef HAVE_TUNEPIMP
-	s_musicBrainzCfg.writeToConfig(m_config);
+  s_musicBrainzCfg.writeToConfig(m_config);
 #endif
 }
 
@@ -85,17 +85,17 @@ void ConfigStore::writeToConfig()
  */
 void ConfigStore::readFromConfig()
 {
-	s_miscCfg.readFromConfig(m_config);
-	s_fnFormatCfg.readFromConfig(m_config);
-	s_id3FormatCfg.readFromConfig(m_config);
-	s_genCfg.readFromConfig(m_config);
-	s_freedbCfg.readFromConfig(m_config);
-	s_trackTypeCfg.readFromConfig(m_config);
-	s_discogsCfg.readFromConfig(m_config);
-	s_amazonCfg.readFromConfig(m_config);
-	s_filterCfg.readFromConfig(m_config);
-	s_playlistCfg.readFromConfig(m_config);
+  s_miscCfg.readFromConfig(m_config);
+  s_fnFormatCfg.readFromConfig(m_config);
+  s_id3FormatCfg.readFromConfig(m_config);
+  s_genCfg.readFromConfig(m_config);
+  s_freedbCfg.readFromConfig(m_config);
+  s_trackTypeCfg.readFromConfig(m_config);
+  s_discogsCfg.readFromConfig(m_config);
+  s_amazonCfg.readFromConfig(m_config);
+  s_filterCfg.readFromConfig(m_config);
+  s_playlistCfg.readFromConfig(m_config);
 #ifdef HAVE_TUNEPIMP
-	s_musicBrainzCfg.readFromConfig(m_config);
+  s_musicBrainzCfg.readFromConfig(m_config);
 #endif
 }

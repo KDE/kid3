@@ -35,11 +35,11 @@
  * @param parent parent widget
  */
 ConfigTable::ConfigTable(QWidget* parent) :
-	QTableView(parent)
+  QTableView(parent)
 {
-	setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
-			this, SLOT(customContextMenu(const QPoint&)));
+  setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
+      this, SLOT(customContextMenu(const QPoint&)));
 }
 
 /**
@@ -52,12 +52,12 @@ ConfigTable::~ConfigTable() {}
  * @param resizeModes list of resize modes for the columns
  */
 void ConfigTable::setHorizontalResizeModes(
-	const QList<QHeaderView::ResizeMode>& resizeModes)
+  const QList<QHeaderView::ResizeMode>& resizeModes)
 {
-	QHeaderView* header = horizontalHeader();
-	int col = 0;
-	foreach (QHeaderView::ResizeMode mode, resizeModes)
-		header->setResizeMode(col++, mode);
+  QHeaderView* header = horizontalHeader();
+  int col = 0;
+  foreach (QHeaderView::ResizeMode mode, resizeModes)
+    header->setResizeMode(col++, mode);
 }
 
 /**
@@ -67,7 +67,7 @@ void ConfigTable::setHorizontalResizeModes(
  */
 void ConfigTable::addRow(int row)
 {
-	model()->insertRow(row + 1);
+  model()->insertRow(row + 1);
 }
 
 /**
@@ -77,9 +77,9 @@ void ConfigTable::addRow(int row)
  */
 void ConfigTable::deleteRow(int row)
 {
-	if (model()->rowCount() <= 1)
-		return;
-	model()->removeRow(row);
+  if (model()->rowCount() <= 1)
+    return;
+  model()->removeRow(row);
 }
 
 /**
@@ -89,8 +89,8 @@ void ConfigTable::deleteRow(int row)
  */
 void ConfigTable::clearRow(int row)
 {
-	if (row < model()->rowCount() && model()->removeRow(row))
-		model()->insertRow(row);
+  if (row < model()->rowCount() && model()->removeRow(row))
+    model()->insertRow(row);
 }
 
 /**
@@ -100,23 +100,23 @@ void ConfigTable::clearRow(int row)
  */
 void ConfigTable::executeAction(QAction* action)
 {
-	if (action) {
-		int row = action->data().toInt();
-		int cmd = row & 3;
-		row >>= 2;
-		switch (cmd) {
-			case 0:
-				addRow(row);
-				break;
-			case 1:
-				deleteRow(row);
-				break;
-			case 2:
-			default:
-				clearRow(row);
-				break;
-		}
-	}
+  if (action) {
+    int row = action->data().toInt();
+    int cmd = row & 3;
+    row >>= 2;
+    switch (cmd) {
+      case 0:
+        addRow(row);
+        break;
+      case 1:
+        deleteRow(row);
+        break;
+      case 2:
+      default:
+        clearRow(row);
+        break;
+    }
+  }
 }
 
 /**
@@ -128,23 +128,23 @@ void ConfigTable::executeAction(QAction* action)
  */
 void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
 {
-	QMenu menu(this);
-	QAction* action;
-	if (row >= -1) {
-		action = menu.addAction(i18n("&Insert row"));
-		if (action) action->setData((row << 2) | 0);
-	}
-	if (row >= 0) {
-		action = menu.addAction(i18n("&Delete row"));
-		if (action) action->setData((row << 2) | 1);
-	}
-	if (row >= 0) {
-		action = menu.addAction(i18n("&Clear row"));
-		if (action) action->setData((row << 2) | 2);
-	}
-	connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
-	menu.setMouseTracking(true);
-	menu.exec(pos);
+  QMenu menu(this);
+  QAction* action;
+  if (row >= -1) {
+    action = menu.addAction(i18n("&Insert row"));
+    if (action) action->setData((row << 2) | 0);
+  }
+  if (row >= 0) {
+    action = menu.addAction(i18n("&Delete row"));
+    if (action) action->setData((row << 2) | 1);
+  }
+  if (row >= 0) {
+    action = menu.addAction(i18n("&Clear row"));
+    if (action) action->setData((row << 2) | 2);
+  }
+  connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
+  menu.setMouseTracking(true);
+  menu.exec(pos);
 }
 
 /**
@@ -154,8 +154,8 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
  */
 void ConfigTable::customContextMenu(const QPoint& pos)
 {
-	QModelIndex index = indexAt(pos);
-	if (index.isValid()) {
-		contextMenu(index.row(), index.column(), mapToGlobal(pos));
-	}
+  QModelIndex index = indexAt(pos);
+  if (index.isValid()) {
+    contextMenu(index.row(), index.column(), mapToGlobal(pos));
+  }
 }

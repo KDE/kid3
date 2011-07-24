@@ -52,170 +52,170 @@ class ServerImportDialog : public QDialog
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent  parent widget
-	 */
-	explicit ServerImportDialog(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent  parent widget
+   */
+  explicit ServerImportDialog(QWidget* parent);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~ServerImportDialog();
+  /**
+   * Destructor.
+   */
+  virtual ~ServerImportDialog();
 
-	/**
-	 * Set importer to be used.
-	 *
-	 * @param source  import source to use
-	 */
-	void setImportSource(ServerImporter* source);
+  /**
+   * Set importer to be used.
+   *
+   * @param source  import source to use
+   */
+  void setImportSource(ServerImporter* source);
 
-	/**
-	 * Get string with server and port.
-	 *
-	 * @return "servername:port".
-	 */
-	QString getServer() const;
+  /**
+   * Get string with server and port.
+   *
+   * @return "servername:port".
+   */
+  QString getServer() const;
 
-	/**
-	 * Set string with server and port.
-	 *
-	 * @param srv "servername:port"
-	 */
-	void setServer(const QString& srv);
+  /**
+   * Set string with server and port.
+   *
+   * @param srv "servername:port"
+   */
+  void setServer(const QString& srv);
 
-	/**
-	 * Get string with CGI path.
-	 *
-	 * @return CGI path, e.g. "/~cddb/cddb.cgi".
-	 */
-	QString getCgiPath() const;
+  /**
+   * Get string with CGI path.
+   *
+   * @return CGI path, e.g. "/~cddb/cddb.cgi".
+   */
+  QString getCgiPath() const;
 
-	/**
-	 * Set string with CGI path.
-	 *
-	 * @param cgi CGI path, e.g. "/~cddb/cddb.cgi".
-	 */
-	void setCgiPath(const QString& cgi);
+  /**
+   * Set string with CGI path.
+   *
+   * @param cgi CGI path, e.g. "/~cddb/cddb.cgi".
+   */
+  void setCgiPath(const QString& cgi);
 
-	/**
-	 * Get additional tags option.
-	 *
-	 * @return true if additional tags are enabled.
-	 */
-	bool getAdditionalTags() const;
+  /**
+   * Get additional tags option.
+   *
+   * @return true if additional tags are enabled.
+   */
+  bool getAdditionalTags() const;
 
-	/**
-	 * Set additional tags option.
-	 *
-	 * @param enable true if additional tags are enabled
-	 */
-	void setAdditionalTags(bool enable);
+  /**
+   * Set additional tags option.
+   *
+   * @param enable true if additional tags are enabled
+   */
+  void setAdditionalTags(bool enable);
 
-	/**
-	 * Get cover art option.
-	 *
-	 * @return true if cover art are enabled.
-	 */
-	bool getCoverArt() const;
+  /**
+   * Get cover art option.
+   *
+   * @return true if cover art are enabled.
+   */
+  bool getCoverArt() const;
 
-	/**
-	 * Set cover art option.
-	 *
-	 * @param enable true if cover art are enabled
-	 */
-	void setCoverArt(bool enable);
+  /**
+   * Set cover art option.
+   *
+   * @param enable true if cover art are enabled
+   */
+  void setCoverArt(bool enable);
 
-	/**
-	 * Set a find string from artist and album information.
-	 *
-	 * @param artist artist
-	 * @param album  album
-	 */
-	void setArtistAlbum(const QString& artist, const QString& album);
+  /**
+   * Set a find string from artist and album information.
+   *
+   * @param artist artist
+   * @param album  album
+   */
+  void setArtistAlbum(const QString& artist, const QString& album);
 
 private slots:
-	/**
-	 * Query a search for a keyword from the server.
-	 */
-	void slotFind();
+  /**
+   * Query a search for a keyword from the server.
+   */
+  void slotFind();
 
-	/**
-	 * Process finished find request.
-	 *
-	 * @param searchStr search data received
-	 */
-	void slotFindFinished(const QByteArray& searchStr);
+  /**
+   * Process finished find request.
+   *
+   * @param searchStr search data received
+   */
+  void slotFindFinished(const QByteArray& searchStr);
 
-	/**
-	 * Process finished album data.
-	 *
-	 * @param albumStr album track data received
-	 */
-	void slotAlbumFinished(const QByteArray& albumStr);
+  /**
+   * Process finished album data.
+   *
+   * @param albumStr album track data received
+   */
+  void slotAlbumFinished(const QByteArray& albumStr);
 
-	/**
-	 * Request track list from server.
-	 *
-	 * @param li standard item containing an AlbumListItem
-	 */
-	void requestTrackList(QStandardItem* li);
+  /**
+   * Request track list from server.
+   *
+   * @param li standard item containing an AlbumListItem
+   */
+  void requestTrackList(QStandardItem* li);
 
-	/**
-	 * Request track list from server.
-	 *
-	 * @param index model index of list containing an AlbumListItem
-	 */
-	void requestTrackList(const QModelIndex& index);
+  /**
+   * Request track list from server.
+   *
+   * @param index model index of list containing an AlbumListItem
+   */
+  void requestTrackList(const QModelIndex& index);
 
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
-	/**
-	 * Display message in status bar.
-	 *
-	 * @param msg status message
-	 */
-	void showStatusMessage(const QString& msg);
+  /**
+   * Display message in status bar.
+   *
+   * @param msg status message
+   */
+  void showStatusMessage(const QString& msg);
 
 signals:
-	/**
-	 * Emitted when the m_trackDataVector was updated with new imported data.
-	 */
-	void trackDataUpdated();
+  /**
+   * Emitted when the m_trackDataVector was updated with new imported data.
+   */
+  void trackDataUpdated();
 
 protected:
-	QListView* m_albumListBox; /**< list box with albums to select */
+  QListView* m_albumListBox; /**< list box with albums to select */
 
 private:
-	/**
-	 * Get the local configuration.
-	 *
-	 * @param cfg configuration
-	 */
-	void getImportSourceConfig(ServerImporterConfig* cfg) const;
+  /**
+   * Get the local configuration.
+   *
+   * @param cfg configuration
+   */
+  void getImportSourceConfig(ServerImporterConfig* cfg) const;
 
-	QComboBox* m_artistLineEdit;
-	QComboBox* m_albumLineEdit;
-	QPushButton* m_findButton;
-	QLabel* m_serverLabel;
-	QComboBox* m_serverComboBox;
-	QLabel* m_cgiLabel;
-	QLineEdit* m_cgiLineEdit;
-	QCheckBox* m_additionalTagsCheckBox;
-	QCheckBox* m_coverArtCheckBox;
-	QPushButton* m_helpButton;
-	QPushButton* m_saveButton;
-	QStatusBar* m_statusBar;
-	ServerImporter* m_source;
+  QComboBox* m_artistLineEdit;
+  QComboBox* m_albumLineEdit;
+  QPushButton* m_findButton;
+  QLabel* m_serverLabel;
+  QComboBox* m_serverComboBox;
+  QLabel* m_cgiLabel;
+  QLineEdit* m_cgiLineEdit;
+  QCheckBox* m_additionalTagsCheckBox;
+  QCheckBox* m_coverArtCheckBox;
+  QPushButton* m_helpButton;
+  QPushButton* m_saveButton;
+  QStatusBar* m_statusBar;
+  ServerImporter* m_source;
 };
 
 #endif

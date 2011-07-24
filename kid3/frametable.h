@@ -40,58 +40,58 @@ class FrameTable : public QTableView {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param model frame table model
-	 * @param parent parent widget
-	 */
-	explicit FrameTable(FrameTableModel* model, QWidget* parent = 0);
+  /**
+   * Constructor.
+   *
+   * @param model frame table model
+   * @param parent parent widget
+   */
+  explicit FrameTable(FrameTableModel* model, QWidget* parent = 0);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~FrameTable();
+  /**
+   * Destructor.
+   */
+  virtual ~FrameTable();
 
-	/**
-	 * Filters events if this object has been installed as an event filter
-	 * for the watched object.
-	 * This method is reimplemented to keep track of the current open editor.
-	 * It has to be installed on the viewport of the table.
-	 * @param watched watched object
-	 * @param event   event
-	 * @return true to filter event out.
-	 */
-	virtual bool eventFilter(QObject* watched, QEvent* event);
+  /**
+   * Filters events if this object has been installed as an event filter
+   * for the watched object.
+   * This method is reimplemented to keep track of the current open editor.
+   * It has to be installed on the viewport of the table.
+   * @param watched watched object
+   * @param event   event
+   * @return true to filter event out.
+   */
+  virtual bool eventFilter(QObject* watched, QEvent* event);
 
-	/**
-	 * Commit data from the current editor.
-	 * This is used to avoid loosing the changes in open editors e.g. when
-	 * the file is changed using Alt-Up or Alt-Down.
-	 *
-	 * @return true if data was committed.
-	 */
-	bool acceptEdit();
+  /**
+   * Commit data from the current editor.
+   * This is used to avoid loosing the changes in open editors e.g. when
+   * the file is changed using Alt-Up or Alt-Down.
+   *
+   * @return true if data was committed.
+   */
+  bool acceptEdit();
 
 private slots:
-	/**
-	 * Display context menu.
-	 *
-	 * @param row row at which context menu is displayed
-	 * @param col column at which context menu is displayed
-	 * @param pos position where context menu is drawn on screen
-	 */
-	void contextMenu(int row, int col, const QPoint& pos);
+  /**
+   * Display context menu.
+   *
+   * @param row row at which context menu is displayed
+   * @param col column at which context menu is displayed
+   * @param pos position where context menu is drawn on screen
+   */
+  void contextMenu(int row, int col, const QPoint& pos);
 
-	/**
-	 * Display custom context menu.
-	 *
-	 * @param pos position where context menu is drawn on screen
-	 */
-	void customContextMenu(const QPoint& pos);
+  /**
+   * Display custom context menu.
+   *
+   * @param pos position where context menu is drawn on screen
+   */
+  void customContextMenu(const QPoint& pos);
 
 private:
-	QWidget* m_currentEditor;
+  QWidget* m_currentEditor;
 };
 
 #endif // FRAMETABLE_H

@@ -45,40 +45,40 @@
  * signaled by DownloadClient::downloadFinished().
  */
 class DownloadDialog : public QProgressDialog {
-	Q_OBJECT
+  Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
+  /**
+   * Constructor.
    *
-	 * @param parent  parent widget
-	 * @param caption dialog title
+   * @param parent  parent widget
+   * @param caption dialog title
    */
-	DownloadDialog(QWidget* parent, const QString& caption);
+  DownloadDialog(QWidget* parent, const QString& caption);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~DownloadDialog();
+  /**
+   * Destructor.
+   */
+  virtual ~DownloadDialog();
 
 public slots:
-	/**
-	 * Show dialog to report start of download.
-	 * @param url URL of download
-	 */
-	void showStartOfDownload(const QString& url);
+  /**
+   * Show dialog to report start of download.
+   * @param url URL of download
+   */
+  void showStartOfDownload(const QString& url);
 
-	/**
-	 * Display progress status.
-	 *
-	 * @param msg           status message
-	 * @param receivedBytes bytes received
-	 * @param totalBytes    total bytes
-	 */
-	void updateProgressStatus(const QString& msg, int receivedBytes, int totalBytes);
+  /**
+   * Display progress status.
+   *
+   * @param msg           status message
+   * @param receivedBytes bytes received
+   * @param totalBytes    total bytes
+   */
+  void updateProgressStatus(const QString& msg, int receivedBytes, int totalBytes);
 
 private:
-	QString m_url;
+  QString m_url;
 };
 
 #endif // DOWNLOADDIALOG_H

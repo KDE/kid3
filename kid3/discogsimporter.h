@@ -35,70 +35,70 @@
 class DiscogsImporter : public ServerImporter
 {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent          parent object
-	 * @param trackDataModel track data to be filled with imported values
-	 */
-	DiscogsImporter(QObject* parent,
-									TrackDataModel* trackDataModel);
+  /**
+   * Constructor.
+   *
+   * @param parent          parent object
+   * @param trackDataModel track data to be filled with imported values
+   */
+  DiscogsImporter(QObject* parent,
+                  TrackDataModel* trackDataModel);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~DiscogsImporter();
+  /**
+   * Destructor.
+   */
+  virtual ~DiscogsImporter();
 
-	/**
-	 * Name of import source.
-	 * @return name.
-	 */
-	virtual QString name() const;
+  /**
+   * Name of import source.
+   * @return name.
+   */
+  virtual QString name() const;
 
-	/** anchor to online help, 0 to disable */
-	virtual const char* helpAnchor() const;
+  /** anchor to online help, 0 to disable */
+  virtual const char* helpAnchor() const;
 
-	/** configuration, 0 if not used */
-	virtual ServerImporterConfig* config() const;
+  /** configuration, 0 if not used */
+  virtual ServerImporterConfig* config() const;
 
-	/** additional tags option, false if not used */
-	virtual bool additionalTags() const;
+  /** additional tags option, false if not used */
+  virtual bool additionalTags() const;
 
-	/**
-	 * Process finished findCddbAlbum request.
-	 *
-	 * @param searchStr search data received
-	 */
-	virtual void parseFindResults(const QByteArray& searchStr);
+  /**
+   * Process finished findCddbAlbum request.
+   *
+   * @param searchStr search data received
+   */
+  virtual void parseFindResults(const QByteArray& searchStr);
 
-	/**
-	 * Parse result of album request and populate m_trackDataModel with results.
-	 *
-	 * @param albumStr album data received
-	 */
-	virtual void parseAlbumResults(const QByteArray& albumStr);
+  /**
+   * Parse result of album request and populate m_trackDataModel with results.
+   *
+   * @param albumStr album data received
+   */
+  virtual void parseAlbumResults(const QByteArray& albumStr);
 
-	/**
-	 * Send a query command to search on the server.
-	 *
-	 * @param cfg      import source configuration
-	 * @param artist   artist to search
-	 * @param album    album to search
-	 */
-	virtual void sendFindQuery(
-		const ServerImporterConfig* cfg,
-		const QString& artist, const QString& album);
+  /**
+   * Send a query command to search on the server.
+   *
+   * @param cfg      import source configuration
+   * @param artist   artist to search
+   * @param album    album to search
+   */
+  virtual void sendFindQuery(
+    const ServerImporterConfig* cfg,
+    const QString& artist, const QString& album);
 
-	/**
-	 * Send a query command to fetch the track list
-	 * from the server.
-	 *
-	 * @param cfg      import source configuration
-	 * @param cat      category
-	 * @param id       ID
-	 */
-	virtual void sendTrackListQuery(
-		const ServerImporterConfig* cfg, const QString& cat, const QString& id);
+  /**
+   * Send a query command to fetch the track list
+   * from the server.
+   *
+   * @param cfg      import source configuration
+   * @param cat      category
+   * @param id       ID
+   */
+  virtual void sendTrackListQuery(
+    const ServerImporterConfig* cfg, const QString& cat, const QString& id);
 };
 
 #endif

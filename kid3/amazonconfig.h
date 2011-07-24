@@ -34,18 +34,18 @@
  */
 class AmazonConfig : public ServerImporterConfig {
 public:
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp configuration group
-	 */
-	AmazonConfig(const QString& grp);
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  AmazonConfig(const QString& grp);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~AmazonConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~AmazonConfig();
 };
 
 #endif // AMAZONCONFIG_H

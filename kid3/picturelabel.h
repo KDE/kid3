@@ -20,44 +20,44 @@ class QByteArray;
  */
 class PictureLabel : public QLabel {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	PictureLabel(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  PictureLabel(QWidget* parent);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~PictureLabel();
+  /**
+   * Destructor.
+   */
+  virtual ~PictureLabel();
 
-	/**
-	 * Get preferred height for a given width.
-	 * @return height.
-	 */
-	virtual int heightForWidth(int w) const;
+  /**
+   * Get preferred height for a given width.
+   * @return height.
+   */
+  virtual int heightForWidth(int w) const;
 
-	/**
-	 * Set picture data.
-	 *
-	 * @param data picture data, 0 if no picture is available
-	 */
-	void setData(const QByteArray* data);
+  /**
+   * Set picture data.
+   *
+   * @param data picture data, 0 if no picture is available
+   */
+  void setData(const QByteArray* data);
 
 private:
-	/**
-	 * Set picture.
-	 */
-	void setPicture();
+  /**
+   * Set picture.
+   */
+  void setPicture();
 
-	/**
-	 * Clear picture.
-	 */
-	void clearPicture();
+  /**
+   * Clear picture.
+   */
+  void clearPicture();
 
-	QPixmap m_pixmap;
-	uint m_pixmapHash;
+  QPixmap m_pixmap;
+  uint m_pixmapHash;
 };
 
 #endif // PICTURELABEL_H

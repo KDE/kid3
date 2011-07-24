@@ -35,67 +35,67 @@
  * @see DownloadDialog
  */
 class DownloadClient : public HttpClient {
-	Q_OBJECT
+  Q_OBJECT
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent object
-	 */
-	explicit DownloadClient(QObject* parent = 0);
+  /**
+   * Constructor.
+   *
+   * @param parent parent object
+   */
+  explicit DownloadClient(QObject* parent = 0);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~DownloadClient();
+  /**
+   * Destructor.
+   */
+  virtual ~DownloadClient();
 
-	/**
-	 * Send a download request.
-	 *
-	 * @param hostName server
-	 * @param path     path on server
-	 */
-	void startDownload(const QString& hostName, const QString& path);
+  /**
+   * Send a download request.
+   *
+   * @param hostName server
+   * @param path     path on server
+   */
+  void startDownload(const QString& hostName, const QString& path);
 
 public slots:
-	/**
-	 * Cancel a download.
-	 */
-	void cancelDownload();
+  /**
+   * Cancel a download.
+   */
+  void cancelDownload();
 
 signals:
-	/**
-	 * Emitted when download is started
-	 * @param url URL of download
-	 */
-	void downloadStarted(const QString& url);
+  /**
+   * Emitted when download is started
+   * @param url URL of download
+   */
+  void downloadStarted(const QString& url);
 
-	/**
-	 * Emitted when download finished.
-	 * @param data bytes containing download
-	 * @param contentType content type
-	 * @param url URL
-	 */
-	void downloadFinished(const QByteArray& data, const QString& contentType,
-												const QString& url);
+  /**
+   * Emitted when download finished.
+   * @param data bytes containing download
+   * @param contentType content type
+   * @param url URL
+   */
+  void downloadFinished(const QByteArray& data, const QString& contentType,
+                        const QString& url);
 
-	/**
-	 * Emitted when a download is aborted.
-	 */
-	void aborted();
+  /**
+   * Emitted when a download is aborted.
+   */
+  void aborted();
 
 private slots:
-	/**
-	 * Handle response when request is finished.
-	 * downloadFinished() is emitted.
-	 *
-	 * @param data received data
-	 */
-	void requestFinished(const QByteArray& data);
+  /**
+   * Handle response when request is finished.
+   * downloadFinished() is emitted.
+   *
+   * @param data received data
+   */
+  void requestFinished(const QByteArray& data);
 
 private:
-	QString m_url;
-	bool m_canceled;
+  QString m_url;
+  bool m_canceled;
 };
 
 #endif // DOWNLOADCLIENT_H

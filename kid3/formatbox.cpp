@@ -42,45 +42,45 @@
  * @param parent parent widget
  */
 FormatBox::FormatBox(const QString& title, QWidget* parent) :
-	QGroupBox(title, parent)
+  QGroupBox(title, parent)
 {
-	m_formatEditingCheckBox = new QCheckBox(i18n("Format while editing"),
-																					this);
+  m_formatEditingCheckBox = new QCheckBox(i18n("Format while editing"),
+                                          this);
 
-	QLabel* caseConvLabel = new QLabel(this);
-	caseConvLabel->setText(i18n("Case conversion:"));
+  QLabel* caseConvLabel = new QLabel(this);
+  caseConvLabel->setText(i18n("Case conversion:"));
 
-	m_caseConvComboBox = new QComboBox(this);
-	m_caseConvComboBox->setEditable(false);
-	m_caseConvComboBox->clear();
-	m_caseConvComboBox->insertItem(FormatConfig::NoChanges,
-																		 i18n("No changes"));
-	m_caseConvComboBox->insertItem(FormatConfig::AllLowercase,
-																		 i18n("All lowercase"));
-	m_caseConvComboBox->insertItem(FormatConfig::AllUppercase,
-																		 i18n("All uppercase"));
-	m_caseConvComboBox->insertItem(FormatConfig::FirstLetterUppercase,
-																		 i18n("First letter uppercase"));
-	m_caseConvComboBox->insertItem(FormatConfig::AllFirstLettersUppercase,
-																		 i18n("All first letters uppercase"));
+  m_caseConvComboBox = new QComboBox(this);
+  m_caseConvComboBox->setEditable(false);
+  m_caseConvComboBox->clear();
+  m_caseConvComboBox->insertItem(FormatConfig::NoChanges,
+                                     i18n("No changes"));
+  m_caseConvComboBox->insertItem(FormatConfig::AllLowercase,
+                                     i18n("All lowercase"));
+  m_caseConvComboBox->insertItem(FormatConfig::AllUppercase,
+                                     i18n("All uppercase"));
+  m_caseConvComboBox->insertItem(FormatConfig::FirstLetterUppercase,
+                                     i18n("First letter uppercase"));
+  m_caseConvComboBox->insertItem(FormatConfig::AllFirstLettersUppercase,
+                                     i18n("All first letters uppercase"));
 
-	m_strRepCheckBox = new QCheckBox(this);
-	m_strRepCheckBox->setText(i18n("String replacement:"));
-	m_strReplTable = new ConfigTable(this);
-	m_strReplTableModel = new ConfigTableModel(this);
-	m_strReplTableModel->setLabels(
-		QStringList() << i18n("From") << i18n("To"));
-	m_strReplTable->setModel(m_strReplTableModel);
-	m_strReplTable->setHorizontalResizeModes(
-			m_strReplTableModel->getHorizontalResizeModes());
-	QVBoxLayout* vbox = new QVBoxLayout;
-	vbox->setMargin(2);
-	vbox->addWidget(m_formatEditingCheckBox);
-	vbox->addWidget(caseConvLabel);
-	vbox->addWidget(m_caseConvComboBox);
-	vbox->addWidget(m_strRepCheckBox);
-	vbox->addWidget(m_strReplTable);
-	setLayout(vbox);
+  m_strRepCheckBox = new QCheckBox(this);
+  m_strRepCheckBox->setText(i18n("String replacement:"));
+  m_strReplTable = new ConfigTable(this);
+  m_strReplTableModel = new ConfigTableModel(this);
+  m_strReplTableModel->setLabels(
+    QStringList() << i18n("From") << i18n("To"));
+  m_strReplTable->setModel(m_strReplTableModel);
+  m_strReplTable->setHorizontalResizeModes(
+      m_strReplTableModel->getHorizontalResizeModes());
+  QVBoxLayout* vbox = new QVBoxLayout;
+  vbox->setMargin(2);
+  vbox->addWidget(m_formatEditingCheckBox);
+  vbox->addWidget(caseConvLabel);
+  vbox->addWidget(m_caseConvComboBox);
+  vbox->addWidget(m_strRepCheckBox);
+  vbox->addWidget(m_strReplTable);
+  setLayout(vbox);
 }
 
 /**
@@ -95,10 +95,10 @@ FormatBox::~FormatBox() {}
  */
 void FormatBox::fromFormatConfig(const FormatConfig* cfg)
 {
-	m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
-	m_caseConvComboBox->setCurrentIndex(cfg->m_caseConversion);
-	m_strRepCheckBox->setChecked(cfg->m_strRepEnabled);
-	m_strReplTableModel->setMap(cfg->m_strRepMap);
+  m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
+  m_caseConvComboBox->setCurrentIndex(cfg->m_caseConversion);
+  m_strRepCheckBox->setChecked(cfg->m_strRepEnabled);
+  m_strReplTableModel->setMap(cfg->m_strRepMap);
 }
 
 /**
@@ -108,12 +108,12 @@ void FormatBox::fromFormatConfig(const FormatConfig* cfg)
  */
 void FormatBox::toFormatConfig(FormatConfig* cfg) const
 {
-	cfg->m_formatWhileEditing = m_formatEditingCheckBox->isChecked();
-	cfg->m_caseConversion =
-		(FormatConfig::CaseConversion)m_caseConvComboBox->currentIndex();
-	if (cfg->m_caseConversion >= FormatConfig::NumCaseConversions) {
-		cfg->m_caseConversion = FormatConfig::NoChanges;
-	}
-	cfg->m_strRepEnabled = m_strRepCheckBox->isChecked();
-	cfg->m_strRepMap = m_strReplTableModel->getMap();
+  cfg->m_formatWhileEditing = m_formatEditingCheckBox->isChecked();
+  cfg->m_caseConversion =
+    (FormatConfig::CaseConversion)m_caseConvComboBox->currentIndex();
+  if (cfg->m_caseConversion >= FormatConfig::NumCaseConversions) {
+    cfg->m_caseConversion = FormatConfig::NoChanges;
+  }
+  cfg->m_strRepEnabled = m_strRepCheckBox->isChecked();
+  cfg->m_strRepMap = m_strReplTableModel->getMap();
 }

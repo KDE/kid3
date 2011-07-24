@@ -34,18 +34,18 @@
  */
 class FreedbConfig : public ServerImporterConfig {
 public:
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp configuration group
-	 */
-	FreedbConfig(const QString& grp);
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  FreedbConfig(const QString& grp);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~FreedbConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~FreedbConfig();
 };
 
 #endif

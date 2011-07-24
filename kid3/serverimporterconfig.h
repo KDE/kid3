@@ -35,65 +35,65 @@
  */
 class ServerImporterConfig : public GeneralConfig {
 public:
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp         configuration group
-	 * @param cgiPathUsed true to use CgiPath configuration
-	 * @param additionalTagsUsed true to use AdditionalTags configuration
-	 */
-	ServerImporterConfig(const QString& grp, bool cgiPathUsed = true,
-											 bool additionalTagsUsed = false);
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp         configuration group
+   * @param cgiPathUsed true to use CgiPath configuration
+   * @param additionalTagsUsed true to use AdditionalTags configuration
+   */
+  ServerImporterConfig(const QString& grp, bool cgiPathUsed = true,
+                       bool additionalTagsUsed = false);
 
-	/**
-	 * Constructor.
-	 * Used to create temporary configuration.
-	 */
-	ServerImporterConfig();
+  /**
+   * Constructor.
+   * Used to create temporary configuration.
+   */
+  ServerImporterConfig();
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~ServerImporterConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~ServerImporterConfig();
 
-	/**
-	 * Persist configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void writeToConfig(Kid3Settings* config) const;
+  /**
+   * Persist configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void writeToConfig(Kid3Settings* config) const;
 
-	/**
-	 * Read persisted configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void readFromConfig(Kid3Settings* config);
+  /**
+   * Read persisted configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void readFromConfig(Kid3Settings* config);
 
-	/** server */
-	QString m_server;
+  /** server */
+  QString m_server;
 
-	/** CGI path used for access */
-	QString m_cgiPath;
+  /** CGI path used for access */
+  QString m_cgiPath;
 
-	/** window width */
-	int m_windowWidth;
+  /** window width */
+  int m_windowWidth;
 
-	/** window height */
-	int m_windowHeight;
+  /** window height */
+  int m_windowHeight;
 
-	/** true if CgiPath configuration is used */
-	bool m_cgiPathUsed;
+  /** true if CgiPath configuration is used */
+  bool m_cgiPathUsed;
 
-	/** true if additional tags configuration is used */
-	bool m_additionalTagsUsed;
+  /** true if additional tags configuration is used */
+  bool m_additionalTagsUsed;
 
-	/** additional tags imported */
-	bool m_additionalTags;
+  /** additional tags imported */
+  bool m_additionalTags;
 
-	/** cover art imported */
-	bool m_coverArt;
+  /** cover art imported */
+  bool m_coverArt;
 };
 
 #endif

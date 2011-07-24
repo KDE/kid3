@@ -37,42 +37,42 @@ class TaggedFile;
  */
 class TaggedFileIconProvider {
 public:
-	/**
-	 * Constructor.
-	 */
-	TaggedFileIconProvider();
+  /**
+   * Constructor.
+   */
+  TaggedFileIconProvider();
 
-	/**
-	 * Get an icon for a tagged file.
-	 *
-	 * @param taggedFile tagged file
-	 *
-	 * @return icon for tagged file
-	 */
-	QIcon iconForTaggedFile(const TaggedFile* taggedFile);
+  /**
+   * Get an icon for a tagged file.
+   *
+   * @param taggedFile tagged file
+   *
+   * @return icon for tagged file
+   */
+  QIcon iconForTaggedFile(const TaggedFile* taggedFile);
 
-	/**
-	 * Get background color for a tagged file.
-	 *
-	 * @param taggedFile tagged file
-	 *
-	 * @return background color for tagged file
-	 */
-	QColor backgroundForTaggedFile(const TaggedFile* taggedFile);
+  /**
+   * Get background color for a tagged file.
+   *
+   * @param taggedFile tagged file
+   *
+   * @return background color for tagged file
+   */
+  QColor backgroundForTaggedFile(const TaggedFile* taggedFile);
 
 private:
-	/** Empty icon */
-	QIcon m_nullIcon;
-	/** Icon for modified file */
-	QIcon m_modifiedIcon;
-	/** Icon for V1V2 */
-	QIcon m_v1v2Icon;
-	/** Icon for V1 */
-	QIcon m_v1Icon;
-	/** Icon for V2 */
-	QIcon m_v2Icon;
-	/** Icon for "no tag" */
-	QIcon m_notagIcon;
+  /** Empty icon */
+  QIcon m_nullIcon;
+  /** Icon for modified file */
+  QIcon m_modifiedIcon;
+  /** Icon for V1V2 */
+  QIcon m_v1v2Icon;
+  /** Icon for V1 */
+  QIcon m_v1Icon;
+  /** Icon for V2 */
+  QIcon m_v2Icon;
+  /** Icon for "no tag" */
+  QIcon m_notagIcon;
 };
 
 #endif // TAGGEDFILEICONPROVIDER_H

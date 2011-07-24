@@ -43,39 +43,39 @@ class FormatBox : public QGroupBox
 {
 Q_OBJECT
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param title  title
-	 * @param parent parent widget
-	 */
-	FormatBox(const QString& title, QWidget* parent = 0);
+  /**
+   * Constructor.
+   *
+   * @param title  title
+   * @param parent parent widget
+   */
+  FormatBox(const QString& title, QWidget* parent = 0);
 
-	/**
-	 * Destructor.
-	 */
-	~FormatBox();
+  /**
+   * Destructor.
+   */
+  ~FormatBox();
 
-	/**
-	 * Set the values from a format configuration.
-	 *
-	 * @param cfg format configuration
-	 */
-	void fromFormatConfig(const FormatConfig* cfg);
+  /**
+   * Set the values from a format configuration.
+   *
+   * @param cfg format configuration
+   */
+  void fromFormatConfig(const FormatConfig* cfg);
 
-	/**
-	 * Store the values in a format configuration.
-	 *
-	 * @param cfg format configuration
-	 */
-	void toFormatConfig(FormatConfig* cfg) const;
+  /**
+   * Store the values in a format configuration.
+   *
+   * @param cfg format configuration
+   */
+  void toFormatConfig(FormatConfig* cfg) const;
 
 private:
-	QComboBox* m_caseConvComboBox;
-	QCheckBox* m_strRepCheckBox;
-	ConfigTable* m_strReplTable;
-	ConfigTableModel* m_strReplTableModel;
-	QCheckBox* m_formatEditingCheckBox;
+  QComboBox* m_caseConvComboBox;
+  QCheckBox* m_strRepCheckBox;
+  ConfigTable* m_strReplTable;
+  ConfigTableModel* m_strReplTableModel;
+  QCheckBox* m_formatEditingCheckBox;
 };
 
 #endif

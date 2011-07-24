@@ -53,54 +53,54 @@
  * @param trackDataModel track data to be filled with imported values
  */
 TextImportDialog::TextImportDialog(QWidget* parent,
-																	 TrackDataModel* trackDataModel) :
-	QDialog(parent), m_textImporter(new TextImporter(trackDataModel))
+                                   TrackDataModel* trackDataModel) :
+  QDialog(parent), m_textImporter(new TextImporter(trackDataModel))
 {
-	setObjectName("TextImportDialog");
-	setWindowTitle(i18n("Import from File/Clipboard"));
-	setSizeGripEnabled(true);
+  setObjectName("TextImportDialog");
+  setWindowTitle(i18n("Import from File/Clipboard"));
+  setSizeGripEnabled(true);
 
-	QVBoxLayout* vboxLayout = new QVBoxLayout(this);
-	vboxLayout->setSpacing(6);
-	vboxLayout->setMargin(6);
+  QVBoxLayout* vboxLayout = new QVBoxLayout(this);
+  vboxLayout->setSpacing(6);
+  vboxLayout->setMargin(6);
 
-	m_formatComboBox = new QComboBox(this);
-	m_formatComboBox->setEditable(true);
-	m_headerLineEdit = new QLineEdit(this);
-	m_trackLineEdit = new QLineEdit(this);
-	QString formatToolTip = ImportParser::getFormatToolTip();
-	m_headerLineEdit->setToolTip(formatToolTip);
-	m_trackLineEdit->setToolTip(formatToolTip);
-	connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
-	QFormLayout* formatLayout = new QFormLayout;
-	formatLayout->addRow(i18n("Format:"), m_formatComboBox);
-	formatLayout->addRow(i18n("Header:"), m_headerLineEdit);
-	formatLayout->addRow(i18n("Tracks:"), m_trackLineEdit);
-	vboxLayout->addLayout(formatLayout);
+  m_formatComboBox = new QComboBox(this);
+  m_formatComboBox->setEditable(true);
+  m_headerLineEdit = new QLineEdit(this);
+  m_trackLineEdit = new QLineEdit(this);
+  QString formatToolTip = ImportParser::getFormatToolTip();
+  m_headerLineEdit->setToolTip(formatToolTip);
+  m_trackLineEdit->setToolTip(formatToolTip);
+  connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
+  QFormLayout* formatLayout = new QFormLayout;
+  formatLayout->addRow(i18n("Format:"), m_formatComboBox);
+  formatLayout->addRow(i18n("Header:"), m_headerLineEdit);
+  formatLayout->addRow(i18n("Tracks:"), m_trackLineEdit);
+  vboxLayout->addLayout(formatLayout);
 
-	QHBoxLayout* buttonLayout = new QHBoxLayout;
-	QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-	helpButton->setAutoDefault(false);
-	buttonLayout->addWidget(helpButton);
-	connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-	QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
-	saveButton->setAutoDefault(false);
-	buttonLayout->addWidget(saveButton);
-	connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-	buttonLayout->addStretch();
-	QPushButton* fileButton = new QPushButton(i18n("From F&ile"), this);
-	fileButton->setAutoDefault(false);
-	buttonLayout->addWidget(fileButton);
-	connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
-	QPushButton* clipButton = new QPushButton(i18n("From Clip&board"), this);
-	clipButton->setAutoDefault(false);
-	buttonLayout->addWidget(clipButton);
-	connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
-	QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-	closeButton->setAutoDefault(false);
-	buttonLayout->addWidget(closeButton);
-	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-	vboxLayout->addLayout(buttonLayout);
+  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  helpButton->setAutoDefault(false);
+  buttonLayout->addWidget(helpButton);
+  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  saveButton->setAutoDefault(false);
+  buttonLayout->addWidget(saveButton);
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  buttonLayout->addStretch();
+  QPushButton* fileButton = new QPushButton(i18n("From F&ile"), this);
+  fileButton->setAutoDefault(false);
+  buttonLayout->addWidget(fileButton);
+  connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
+  QPushButton* clipButton = new QPushButton(i18n("From Clip&board"), this);
+  clipButton->setAutoDefault(false);
+  buttonLayout->addWidget(clipButton);
+  connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
+  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  closeButton->setAutoDefault(false);
+  buttonLayout->addWidget(closeButton);
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  vboxLayout->addLayout(buttonLayout);
 }
 
 /**
@@ -115,7 +115,7 @@ TextImportDialog::~TextImportDialog()
  */
 void TextImportDialog::clear()
 {
-	setFormatFromConfig();
+  setFormatFromConfig();
 }
 
 /**
@@ -123,12 +123,12 @@ void TextImportDialog::clear()
  */
 void TextImportDialog::setFormatFromConfig()
 {
-	m_formatHeaders = ConfigStore::s_genCfg.m_importFormatHeaders;
-	m_formatTracks = ConfigStore::s_genCfg.m_importFormatTracks;
-	m_formatComboBox->clear();
-	m_formatComboBox->addItems(ConfigStore::s_genCfg.m_importFormatNames);
-	m_formatComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importFormatIdx);
-	setFormatLineEdit(ConfigStore::s_genCfg.m_importFormatIdx);
+  m_formatHeaders = ConfigStore::s_genCfg.m_importFormatHeaders;
+  m_formatTracks = ConfigStore::s_genCfg.m_importFormatTracks;
+  m_formatComboBox->clear();
+  m_formatComboBox->addItems(ConfigStore::s_genCfg.m_importFormatNames);
+  m_formatComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importFormatIdx);
+  setFormatLineEdit(ConfigStore::s_genCfg.m_importFormatIdx);
 }
 
 /**
@@ -140,22 +140,22 @@ void TextImportDialog::setFormatFromConfig()
  */
 bool TextImportDialog::importFromFile(const QString& fn)
 {
-	if (!fn.isEmpty()) {
-		QFile file(fn);
-		if (file.open(QIODevice::ReadOnly)) {
-			ConfigStore::s_genCfg.m_importDir = QFileInfo(file).dir().path();
-			QTextStream stream(&file);
-			QString text = stream.readAll();
-			if (!text.isNull() &&
-					m_textImporter->updateTrackData(
-							text, m_headerLineEdit->text(), m_trackLineEdit->text())) {
-				emit trackDataUpdated();
-			}
-			file.close();
-			return true;
-		}
-	}
-	return false;
+  if (!fn.isEmpty()) {
+    QFile file(fn);
+    if (file.open(QIODevice::ReadOnly)) {
+      ConfigStore::s_genCfg.m_importDir = QFileInfo(file).dir().path();
+      QTextStream stream(&file);
+      QString text = stream.readAll();
+      if (!text.isNull() &&
+          m_textImporter->updateTrackData(
+              text, m_headerLineEdit->text(), m_trackLineEdit->text())) {
+        emit trackDataUpdated();
+      }
+      file.close();
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -164,17 +164,17 @@ bool TextImportDialog::importFromFile(const QString& fn)
  */
 void TextImportDialog::fromFile()
 {
-	importFromFile(
+  importFromFile(
 #ifdef CONFIG_USE_KDE
-		KFileDialog::getOpenFileName(ConfigStore::s_genCfg.m_importDir, QString::null, this)
+    KFileDialog::getOpenFileName(ConfigStore::s_genCfg.m_importDir, QString::null, this)
 #else
-		QFileDialog::getOpenFileName(this, QString(), ConfigStore::s_genCfg.m_importDir
+    QFileDialog::getOpenFileName(this, QString(), ConfigStore::s_genCfg.m_importDir
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
-			, QString(), 0, QFileDialog::DontUseNativeDialog
+      , QString(), 0, QFileDialog::DontUseNativeDialog
 #endif
-			)
+      )
 #endif
-		);
+    );
 }
 
 /**
@@ -182,14 +182,14 @@ void TextImportDialog::fromFile()
  */
 void TextImportDialog::fromClipboard()
 {
-	QClipboard* cb = QApplication::clipboard();
-	QString text = cb->text(QClipboard::Clipboard);
-	if (text.isNull())
-		text = cb->text(QClipboard::Selection);
-	if (!text.isNull() &&
-			m_textImporter->updateTrackData(
-				text, m_headerLineEdit->text(), m_trackLineEdit->text()))
-		emit trackDataUpdated();
+  QClipboard* cb = QApplication::clipboard();
+  QString text = cb->text(QClipboard::Clipboard);
+  if (text.isNull())
+    text = cb->text(QClipboard::Selection);
+  if (!text.isNull() &&
+      m_textImporter->updateTrackData(
+        text, m_headerLineEdit->text(), m_trackLineEdit->text()))
+    emit trackDataUpdated();
 }
 
 /**
@@ -199,13 +199,13 @@ void TextImportDialog::fromClipboard()
  */
 void TextImportDialog::setFormatLineEdit(int index)
 {
-	if (index < static_cast<int>(m_formatHeaders.size())) {
-		m_headerLineEdit->setText(m_formatHeaders[index]);
-		m_trackLineEdit->setText(m_formatTracks[index]);
-	} else {
-		m_headerLineEdit->clear();
-		m_trackLineEdit->clear();
-	}
+  if (index < static_cast<int>(m_formatHeaders.size())) {
+    m_headerLineEdit->setText(m_formatHeaders[index]);
+    m_trackLineEdit->setText(m_formatTracks[index]);
+  } else {
+    m_headerLineEdit->clear();
+    m_trackLineEdit->clear();
+  }
 }
 
 /**
@@ -213,19 +213,19 @@ void TextImportDialog::setFormatLineEdit(int index)
  */
 void TextImportDialog::saveConfig()
 {
-	ConfigStore::s_genCfg.m_importFormatIdx = m_formatComboBox->currentIndex();
-	if (ConfigStore::s_genCfg.m_importFormatIdx < static_cast<int>(ConfigStore::s_genCfg.m_importFormatNames.size())) {
-		ConfigStore::s_genCfg.m_importFormatNames[ConfigStore::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
-		ConfigStore::s_genCfg.m_importFormatHeaders[ConfigStore::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
-		ConfigStore::s_genCfg.m_importFormatTracks[ConfigStore::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
-	} else {
-		ConfigStore::s_genCfg.m_importFormatIdx = ConfigStore::s_genCfg.m_importFormatNames.size();
-		ConfigStore::s_genCfg.m_importFormatNames.append(m_formatComboBox->currentText());
-		ConfigStore::s_genCfg.m_importFormatHeaders.append(m_headerLineEdit->text());
-		ConfigStore::s_genCfg.m_importFormatTracks.append(m_trackLineEdit->text());
-	}
+  ConfigStore::s_genCfg.m_importFormatIdx = m_formatComboBox->currentIndex();
+  if (ConfigStore::s_genCfg.m_importFormatIdx < static_cast<int>(ConfigStore::s_genCfg.m_importFormatNames.size())) {
+    ConfigStore::s_genCfg.m_importFormatNames[ConfigStore::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
+    ConfigStore::s_genCfg.m_importFormatHeaders[ConfigStore::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
+    ConfigStore::s_genCfg.m_importFormatTracks[ConfigStore::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
+  } else {
+    ConfigStore::s_genCfg.m_importFormatIdx = ConfigStore::s_genCfg.m_importFormatNames.size();
+    ConfigStore::s_genCfg.m_importFormatNames.append(m_formatComboBox->currentText());
+    ConfigStore::s_genCfg.m_importFormatHeaders.append(m_headerLineEdit->text());
+    ConfigStore::s_genCfg.m_importFormatTracks.append(m_trackLineEdit->text());
+  }
 
-	setFormatFromConfig();
+  setFormatFromConfig();
 }
 
 /**
@@ -233,5 +233,5 @@ void TextImportDialog::saveConfig()
  */
 void TextImportDialog::showHelp()
 {
-	ContextHelp::displayHelp("import-text");
+  ContextHelp::displayHelp("import-text");
 }

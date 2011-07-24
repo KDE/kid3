@@ -34,18 +34,18 @@
  */
 class MusicBrainzConfig : public ServerImporterConfig {
 public:
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp configuration group
-	 */
-	MusicBrainzConfig(const QString& grp);
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  MusicBrainzConfig(const QString& grp);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~MusicBrainzConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~MusicBrainzConfig();
 };
 
 #endif // MUSICBRAINZCONFIG_H

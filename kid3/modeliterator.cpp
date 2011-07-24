@@ -34,10 +34,10 @@
  * @param rootIdx root of model to iterate
  */
 ModelIterator::ModelIterator(const QModelIndex& rootIdx) :
-		m_model(rootIdx.model())
+    m_model(rootIdx.model())
 {
-	m_nodes.push(rootIdx);
-	next();
+  m_nodes.push(rootIdx);
+  next();
 }
 
 /**
@@ -46,7 +46,7 @@ ModelIterator::ModelIterator(const QModelIndex& rootIdx) :
  */
 bool ModelIterator::hasNext() const
 {
-	return m_model && m_nextIdx.isValid();
+  return m_model && m_nextIdx.isValid();
 }
 
 /**
@@ -55,20 +55,20 @@ bool ModelIterator::hasNext() const
  */
 QModelIndex ModelIterator::next()
 {
-	if (!m_model)
-		return QModelIndex();
-	QModelIndex result = m_nextIdx;
-	if (!m_nodes.isEmpty()) {
-		m_nextIdx = m_nodes.pop();
-		if (m_nextIdx.isValid()) {
-			for (int row = m_model->rowCount(m_nextIdx) - 1; row >= 0; --row) {
-				m_nodes.push(m_model->index(row, 0, m_nextIdx));
-			}
-		}
-	} else {
-		m_nextIdx = QModelIndex();
-	}
-	return result;
+  if (!m_model)
+    return QModelIndex();
+  QModelIndex result = m_nextIdx;
+  if (!m_nodes.isEmpty()) {
+    m_nextIdx = m_nodes.pop();
+    if (m_nextIdx.isValid()) {
+      for (int row = m_model->rowCount(m_nextIdx) - 1; row >= 0; --row) {
+        m_nodes.push(m_model->index(row, 0, m_nextIdx));
+      }
+    }
+  } else {
+    m_nextIdx = QModelIndex();
+  }
+  return result;
 }
 
 /**
@@ -77,9 +77,9 @@ QModelIndex ModelIterator::next()
  */
 QModelIndex ModelIterator::peekNext() const
 {
-	if (!m_model)
-		return QModelIndex();
-	return m_nextIdx;
+  if (!m_model)
+    return QModelIndex();
+  return m_nextIdx;
 }
 
 /**
@@ -88,9 +88,9 @@ QModelIndex ModelIterator::peekNext() const
  * @return data of next index
  */
 QVariant ModelIterator::nextData(int role) {
-	if (!m_model)
-		return QVariant();
-	return m_model->data(next(), role);
+  if (!m_model)
+    return QVariant();
+  return m_model->data(next(), role);
 }
 
 /**
@@ -99,9 +99,9 @@ QVariant ModelIterator::nextData(int role) {
  * @return data of next index
  */
 QVariant ModelIterator::peekNextData(int role) const {
-	if (!m_model)
-		return QVariant();
-	return m_model->data(m_nextIdx, role);
+  if (!m_model)
+    return QVariant();
+  return m_model->data(m_nextIdx, role);
 }
 
 
@@ -111,7 +111,7 @@ QVariant ModelIterator::peekNextData(int role) const {
  * @param rootIdx root of model to iterate
  */
 ModelBfsIterator::ModelBfsIterator(const QModelIndex& rootIdx) :
-		m_model(rootIdx.model()), m_nextIdx(rootIdx), m_parentIdx(rootIdx), m_row(0)
+    m_model(rootIdx.model()), m_nextIdx(rootIdx), m_parentIdx(rootIdx), m_row(0)
 {
 }
 
@@ -121,7 +121,7 @@ ModelBfsIterator::ModelBfsIterator(const QModelIndex& rootIdx) :
  */
 bool ModelBfsIterator::hasNext() const
 {
-	return m_model && m_nextIdx.isValid();
+  return m_model && m_nextIdx.isValid();
 }
 
 /**
@@ -130,24 +130,24 @@ bool ModelBfsIterator::hasNext() const
  */
 QModelIndex ModelBfsIterator::next()
 {
-	if (!m_model)
-		return QModelIndex();
-	QModelIndex result = m_nextIdx;
-	forever {
-		if (m_parentIdx.isValid() && m_row < m_model->rowCount(m_parentIdx)) {
-			m_nextIdx = m_model->index(m_row, 0, m_parentIdx);
-			m_nodes.enqueue(m_nextIdx);
-			++m_row;
-			break;
-		} else if (!m_nodes.isEmpty()) {
-			m_parentIdx = m_nodes.dequeue();
-			m_row = 0;
-		} else {
-			m_nextIdx = QModelIndex();
-			break;
-		}
-	}
-	return result;
+  if (!m_model)
+    return QModelIndex();
+  QModelIndex result = m_nextIdx;
+  forever {
+    if (m_parentIdx.isValid() && m_row < m_model->rowCount(m_parentIdx)) {
+      m_nextIdx = m_model->index(m_row, 0, m_parentIdx);
+      m_nodes.enqueue(m_nextIdx);
+      ++m_row;
+      break;
+    } else if (!m_nodes.isEmpty()) {
+      m_parentIdx = m_nodes.dequeue();
+      m_row = 0;
+    } else {
+      m_nextIdx = QModelIndex();
+      break;
+    }
+  }
+  return result;
 }
 
 /**
@@ -156,9 +156,9 @@ QModelIndex ModelBfsIterator::next()
  */
 QModelIndex ModelBfsIterator::peekNext() const
 {
-	if (!m_model)
-		return QModelIndex();
-	return m_nextIdx;
+  if (!m_model)
+    return QModelIndex();
+  return m_nextIdx;
 }
 
 /**
@@ -167,9 +167,9 @@ QModelIndex ModelBfsIterator::peekNext() const
  * @return data of next index
  */
 QVariant ModelBfsIterator::nextData(int role) {
-	if (!m_model)
-		return QVariant();
-	return m_model->data(next(), role);
+  if (!m_model)
+    return QVariant();
+  return m_model->data(next(), role);
 }
 
 /**
@@ -178,9 +178,9 @@ QVariant ModelBfsIterator::nextData(int role) {
  * @return data of next index
  */
 QVariant ModelBfsIterator::peekNextData(int role) const {
-	if (!m_model)
-		return QVariant();
-	return m_model->data(m_nextIdx, role);
+  if (!m_model)
+    return QVariant();
+  return m_model->data(m_nextIdx, role);
 }
 
 
@@ -190,9 +190,9 @@ QVariant ModelBfsIterator::peekNextData(int role) const {
  * @param rootIdx root of model to iterate
  */
 TaggedFileIterator::TaggedFileIterator(const QModelIndex& rootIdx) :
-		m_it(rootIdx), m_nextFile(0)
+    m_it(rootIdx), m_nextFile(0)
 {
-	next();
+  next();
 }
 
 /**
@@ -201,14 +201,14 @@ TaggedFileIterator::TaggedFileIterator(const QModelIndex& rootIdx) :
  */
 TaggedFile* TaggedFileIterator::next()
 {
-	TaggedFile* result = m_nextFile;
-	m_nextFile = 0;
-	while (m_it.hasNext()) {
-		QModelIndex index = m_it.next();
-		if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0)
-			break;
-	}
-	return result;
+  TaggedFile* result = m_nextFile;
+  m_nextFile = 0;
+  while (m_it.hasNext()) {
+    QModelIndex index = m_it.next();
+    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0)
+      break;
+  }
+  return result;
 }
 
 
@@ -221,13 +221,13 @@ TaggedFile* TaggedFileIterator::next()
  * selected
  */
 SelectedTaggedFileIterator::SelectedTaggedFileIterator(
-		const QModelIndex& rootIdx, const QItemSelectionModel* selectModel,
-		bool allIfNoneSelected):
-		m_it(rootIdx), m_nextFile(0), m_selectModel(selectModel),
-		m_allSelected(!m_selectModel ||
-									(allIfNoneSelected && !m_selectModel->hasSelection()))
+    const QModelIndex& rootIdx, const QItemSelectionModel* selectModel,
+    bool allIfNoneSelected):
+    m_it(rootIdx), m_nextFile(0), m_selectModel(selectModel),
+    m_allSelected(!m_selectModel ||
+                  (allIfNoneSelected && !m_selectModel->hasSelection()))
 {
-	next();
+  next();
 }
 
 /**
@@ -236,17 +236,17 @@ SelectedTaggedFileIterator::SelectedTaggedFileIterator(
  */
 TaggedFile* SelectedTaggedFileIterator::next()
 {
-	TaggedFile* result = m_nextFile;
-	m_nextFile = 0;
-	while (m_it.hasNext()) {
-		QModelIndex index = m_it.next();
-		if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0 &&
-				(m_allSelected || m_selectModel->isSelected(index)))
-			break;
-		else
-			m_nextFile = 0;
-	}
-	return result;
+  TaggedFile* result = m_nextFile;
+  m_nextFile = 0;
+  while (m_it.hasNext()) {
+    QModelIndex index = m_it.next();
+    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0 &&
+        (m_allSelected || m_selectModel->isSelected(index)))
+      break;
+    else
+      m_nextFile = 0;
+  }
+  return result;
 }
 
 /**
@@ -255,7 +255,7 @@ TaggedFile* SelectedTaggedFileIterator::next()
  */
 bool SelectedTaggedFileIterator::hasNoSelection() const
 {
-	return m_selectModel && !m_selectModel->hasSelection();
+  return m_selectModel && !m_selectModel->hasSelection();
 }
 
 /**
@@ -264,11 +264,11 @@ bool SelectedTaggedFileIterator::hasNoSelection() const
  * @param index of the directory or a file in it
  */
 TaggedFileOfDirectoryIterator::TaggedFileOfDirectoryIterator(
-		const QModelIndex& index) :
-		m_row(0), m_model(index.model()),
-		m_parentIdx(m_model && m_model->hasChildren(index)
-								? index: index.parent()) {
-	next();
+    const QModelIndex& index) :
+    m_row(0), m_model(index.model()),
+    m_parentIdx(m_model && m_model->hasChildren(index)
+                ? index: index.parent()) {
+  next();
 }
 
 /**
@@ -277,7 +277,7 @@ TaggedFileOfDirectoryIterator::TaggedFileOfDirectoryIterator(
  */
 bool TaggedFileOfDirectoryIterator::hasNext() const
 {
-	return m_model && m_nextFile != 0;
+  return m_model && m_nextFile != 0;
 }
 
 /**
@@ -285,16 +285,16 @@ bool TaggedFileOfDirectoryIterator::hasNext() const
  * @return next file
  */
 TaggedFile* TaggedFileOfDirectoryIterator::next() {
-	if (!m_model)
-		return 0;
-	TaggedFile* result = m_nextFile;
-	m_nextFile = 0;
-	while (m_row < m_model->rowCount(m_parentIdx)) {
-		QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
-		if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0)
-			break;
-	}
-	return result;
+  if (!m_model)
+    return 0;
+  TaggedFile* result = m_nextFile;
+  m_nextFile = 0;
+  while (m_row < m_model->rowCount(m_parentIdx)) {
+    QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
+    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0)
+      break;
+  }
+  return result;
 }
 
 /**
@@ -303,9 +303,9 @@ TaggedFile* TaggedFileOfDirectoryIterator::next() {
  */
 TaggedFile* TaggedFileOfDirectoryIterator::peekNext() const
 {
-	if (!m_model)
-		return 0;
-	return m_nextFile;
+  if (!m_model)
+    return 0;
+  return m_nextFile;
 }
 
 /**
@@ -315,10 +315,10 @@ TaggedFile* TaggedFileOfDirectoryIterator::peekNext() const
  */
 TaggedFile* TaggedFileOfDirectoryIterator::first(const QModelIndex& index)
 {
-	TaggedFileOfDirectoryIterator it(index);
-	if (it.hasNext())
-		return it.peekNext();
-	return 0;
+  TaggedFileOfDirectoryIterator it(index);
+  if (it.hasNext())
+    return it.peekNext();
+  return 0;
 }
 
 
@@ -331,16 +331,16 @@ TaggedFile* TaggedFileOfDirectoryIterator::first(const QModelIndex& index)
  * selected
  */
 SelectedTaggedFileOfDirectoryIterator::SelectedTaggedFileOfDirectoryIterator(
-	const QModelIndex& index,
-	const QItemSelectionModel* selectModel,
-	bool allIfNoneSelected) :
-		m_row(0), m_model(index.model()),
-		m_parentIdx(m_model && m_model->hasChildren(index) ? index: index.parent()),
-		m_selectModel(selectModel),
-		m_allSelected(!m_selectModel ||
-									(allIfNoneSelected && !m_selectModel->hasSelection()))
+  const QModelIndex& index,
+  const QItemSelectionModel* selectModel,
+  bool allIfNoneSelected) :
+    m_row(0), m_model(index.model()),
+    m_parentIdx(m_model && m_model->hasChildren(index) ? index: index.parent()),
+    m_selectModel(selectModel),
+    m_allSelected(!m_selectModel ||
+                  (allIfNoneSelected && !m_selectModel->hasSelection()))
 {
-	next();
+  next();
 }
 
 /**
@@ -349,7 +349,7 @@ SelectedTaggedFileOfDirectoryIterator::SelectedTaggedFileOfDirectoryIterator(
  */
 bool SelectedTaggedFileOfDirectoryIterator::hasNext() const
 {
-	return m_model && m_nextFile != 0;
+  return m_model && m_nextFile != 0;
 }
 
 /**
@@ -357,19 +357,19 @@ bool SelectedTaggedFileOfDirectoryIterator::hasNext() const
  * @return next file
  */
 TaggedFile* SelectedTaggedFileOfDirectoryIterator::next() {
-	if (!m_model)
-		return 0;
-	TaggedFile* result = m_nextFile;
-	m_nextFile = 0;
-	while (m_row < m_model->rowCount(m_parentIdx)) {
-		QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
-		if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0 &&
-				(m_allSelected || m_selectModel->isSelected(index)))
-			break;
-		else
-			m_nextFile = 0;
-	}
-	return result;
+  if (!m_model)
+    return 0;
+  TaggedFile* result = m_nextFile;
+  m_nextFile = 0;
+  while (m_row < m_model->rowCount(m_parentIdx)) {
+    QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
+    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0 &&
+        (m_allSelected || m_selectModel->isSelected(index)))
+      break;
+    else
+      m_nextFile = 0;
+  }
+  return result;
 }
 
 /**
@@ -378,7 +378,7 @@ TaggedFile* SelectedTaggedFileOfDirectoryIterator::next() {
  */
 TaggedFile* SelectedTaggedFileOfDirectoryIterator::peekNext() const
 {
-	if (!m_model)
-		return 0;
-	return m_nextFile;
+  if (!m_model)
+    return 0;
+  return m_nextFile;
 }

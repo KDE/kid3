@@ -38,68 +38,68 @@ class ConfigTable : public QTableView {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	ConfigTable(QWidget* parent = 0);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  ConfigTable(QWidget* parent = 0);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~ConfigTable();
+  /**
+   * Destructor.
+   */
+  virtual ~ConfigTable();
 
-	/**
-	 * Set the resize modes to be used for the columns.
-	 * @param resizeModes list of resize modes for the columns
-	 */
-	void setHorizontalResizeModes(const QList<QHeaderView::ResizeMode>& resizeModes);
+  /**
+   * Set the resize modes to be used for the columns.
+   * @param resizeModes list of resize modes for the columns
+   */
+  void setHorizontalResizeModes(const QList<QHeaderView::ResizeMode>& resizeModes);
 
 public slots:
-	/**
-	 * Insert a new row into the table.
-	 *
-	 * @param row the new row is inserted after this row
-	 */
-	void addRow(int row);
+  /**
+   * Insert a new row into the table.
+   *
+   * @param row the new row is inserted after this row
+   */
+  void addRow(int row);
 
-	/**
-	 * Delete a row from the table.
-	 *
-	 * @param row row to delete
-	 */
-	void deleteRow(int row);
+  /**
+   * Delete a row from the table.
+   *
+   * @param row row to delete
+   */
+  void deleteRow(int row);
 
-	/**
-	 * Clear a row in the table.
-	 *
-	 * @param row row to clear
-	 */
-	void clearRow(int row);
+  /**
+   * Clear a row in the table.
+   *
+   * @param row row to clear
+   */
+  void clearRow(int row);
 
-	/**
-	 * Execute a context menu action.
-	 *
-	 * @param action action of selected menu
-	 */
-	void executeAction(QAction* action);
+  /**
+   * Execute a context menu action.
+   *
+   * @param action action of selected menu
+   */
+  void executeAction(QAction* action);
 
-	/**
-	 * Display context menu.
-	 *
-	 * @param row row at which context menu is displayed
-	 * @param col column at which context menu is displayed
-	 * @param pos position where context menu is drawn on screen
-	 */
-	void contextMenu(int row, int col, const QPoint& pos);
+  /**
+   * Display context menu.
+   *
+   * @param row row at which context menu is displayed
+   * @param col column at which context menu is displayed
+   * @param pos position where context menu is drawn on screen
+   */
+  void contextMenu(int row, int col, const QPoint& pos);
 
-	/**
-	 * Display custom context menu.
-	 *
-	 * @param pos position where context menu is drawn on screen
-	 */
-	void customContextMenu(const QPoint& pos);
+  /**
+   * Display custom context menu.
+   *
+   * @param pos position where context menu is drawn on screen
+   */
+  void customContextMenu(const QPoint& pos);
 };
 
 #endif // CONFIGTABLE_H

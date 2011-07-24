@@ -54,49 +54,49 @@ class TaggedFile;
  */
 class ModelIterator {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param rootIdx root of model to iterate
-	 */
-	explicit ModelIterator(const QModelIndex& rootIdx);
+  /**
+   * Constructor.
+   *
+   * @param rootIdx root of model to iterate
+   */
+  explicit ModelIterator(const QModelIndex& rootIdx);
 
-	/**
-	 * Check if a next item exists.
-	 * @return true if there is a next index
-	 */
-	bool hasNext() const;
+  /**
+   * Check if a next item exists.
+   * @return true if there is a next index
+   */
+  bool hasNext() const;
 
-	/**
-	 * Advance iterator and return next item.
-	 * @return next index
-	 */
-	QModelIndex next();
+  /**
+   * Advance iterator and return next item.
+   * @return next index
+   */
+  QModelIndex next();
 
-	/**
-	 * Get next item without moving iterator.
-	 * @return next index
-	 */
-	QModelIndex peekNext() const;
+  /**
+   * Get next item without moving iterator.
+   * @return next index
+   */
+  QModelIndex peekNext() const;
 
-	/**
-	 * Advance iterator and return data of next index.
-	 * @param role model item role to get
-	 * @return data of next index
-	 */
-	QVariant nextData(int role);
+  /**
+   * Advance iterator and return data of next index.
+   * @param role model item role to get
+   * @return data of next index
+   */
+  QVariant nextData(int role);
 
-	/**
-	 * Get data of next item without moving iterator.
-	 * @param role model item role to get
-	 * @return data of next index
-	 */
-	QVariant peekNextData(int role) const;
+  /**
+   * Get data of next item without moving iterator.
+   * @param role model item role to get
+   * @return data of next index
+   */
+  QVariant peekNextData(int role) const;
 
 private:
-	QStack<QModelIndex> m_nodes;
-	const QAbstractItemModel* m_model;
-	QModelIndex m_nextIdx;
+  QStack<QModelIndex> m_nodes;
+  const QAbstractItemModel* m_model;
+  QModelIndex m_nextIdx;
 };
 
 /**
@@ -105,51 +105,51 @@ private:
  */
 class ModelBfsIterator {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param rootIdx root of model to iterate
-	 */
-	explicit ModelBfsIterator(const QModelIndex& rootIdx);
+  /**
+   * Constructor.
+   *
+   * @param rootIdx root of model to iterate
+   */
+  explicit ModelBfsIterator(const QModelIndex& rootIdx);
 
-	/**
-	 * Check if a next item exists.
-	 * @return true if there is a next index
-	 */
-	bool hasNext() const;
+  /**
+   * Check if a next item exists.
+   * @return true if there is a next index
+   */
+  bool hasNext() const;
 
-	/**
-	 * Advance iterator and return next item.
-	 * @return next index
-	 */
-	QModelIndex next();
+  /**
+   * Advance iterator and return next item.
+   * @return next index
+   */
+  QModelIndex next();
 
-	/**
-	 * Get next item without moving iterator.
-	 * @return next index
-	 */
-	QModelIndex peekNext() const;
+  /**
+   * Get next item without moving iterator.
+   * @return next index
+   */
+  QModelIndex peekNext() const;
 
-	/**
-	 * Advance iterator and return data of next index.
-	 * @param role model item role to get
-	 * @return data of next index
-	 */
-	QVariant nextData(int role);
+  /**
+   * Advance iterator and return data of next index.
+   * @param role model item role to get
+   * @return data of next index
+   */
+  QVariant nextData(int role);
 
-	/**
-	 * Get data of next item without moving iterator.
-	 * @param role model item role to get
-	 * @return data of next index
-	 */
-	QVariant peekNextData(int role) const;
+  /**
+   * Get data of next item without moving iterator.
+   * @param role model item role to get
+   * @return data of next index
+   */
+  QVariant peekNextData(int role) const;
 
 private:
-	QQueue<QModelIndex> m_nodes;
-	const QAbstractItemModel* m_model;
-	QModelIndex m_nextIdx;
-	QModelIndex m_parentIdx;
-	int m_row;
+  QQueue<QModelIndex> m_nodes;
+  const QAbstractItemModel* m_model;
+  QModelIndex m_nextIdx;
+  QModelIndex m_parentIdx;
+  int m_row;
 };
 
 /**
@@ -168,34 +168,34 @@ private:
  */
 class TaggedFileIterator {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param rootIdx root of model to iterate
-	 */
-	explicit TaggedFileIterator(const QModelIndex& rootIdx);
+  /**
+   * Constructor.
+   *
+   * @param rootIdx root of model to iterate
+   */
+  explicit TaggedFileIterator(const QModelIndex& rootIdx);
 
-	/**
-	 * Check if a next item exists.
-	 * @return true if there is a next file
-	 */
-	bool hasNext() const { return m_nextFile != 0; }
+  /**
+   * Check if a next item exists.
+   * @return true if there is a next file
+   */
+  bool hasNext() const { return m_nextFile != 0; }
 
-	/**
-	 * Advance iterator and return next item.
-	 * @return next file
-	 */
-	TaggedFile* next();
+  /**
+   * Advance iterator and return next item.
+   * @return next file
+   */
+  TaggedFile* next();
 
-	/**
-	 * Get next item without moving iterator.
-	 * @return next file
-	 */
-	TaggedFile* peekNext() const { return m_nextFile; }
+  /**
+   * Get next item without moving iterator.
+   * @return next file
+   */
+  TaggedFile* peekNext() const { return m_nextFile; }
 
 private:
-	ModelIterator m_it;
-	TaggedFile* m_nextFile;
+  ModelIterator m_it;
+  TaggedFile* m_nextFile;
 };
 
 /**
@@ -214,47 +214,47 @@ private:
  */
 class SelectedTaggedFileIterator {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param rootIdx root of model to iterate
-	 * @param selectModel selection model
-	 * @param allIfNoneSelected treat all files as selected when nothing is
-	 * selected
-	 */
-	SelectedTaggedFileIterator(const QModelIndex& rootIdx,
-														 const QItemSelectionModel* selectModel,
-														 bool allIfNoneSelected);
+  /**
+   * Constructor.
+   *
+   * @param rootIdx root of model to iterate
+   * @param selectModel selection model
+   * @param allIfNoneSelected treat all files as selected when nothing is
+   * selected
+   */
+  SelectedTaggedFileIterator(const QModelIndex& rootIdx,
+                             const QItemSelectionModel* selectModel,
+                             bool allIfNoneSelected);
 
-	/**
-	 * Check if a next item exists.
-	 * @return true if there is a next file
-	 */
-	bool hasNext() const { return m_nextFile != 0; }
+  /**
+   * Check if a next item exists.
+   * @return true if there is a next file
+   */
+  bool hasNext() const { return m_nextFile != 0; }
 
-	/**
-	 * Advance iterator and return next item.
-	 * @return next file
-	 */
-	TaggedFile* next();
+  /**
+   * Advance iterator and return next item.
+   * @return next file
+   */
+  TaggedFile* next();
 
-	/**
-	 * Get next item without moving iterator.
-	 * @return next file
-	 */
-	TaggedFile* peekNext() const { return m_nextFile; }
+  /**
+   * Get next item without moving iterator.
+   * @return next file
+   */
+  TaggedFile* peekNext() const { return m_nextFile; }
 
-	/**
-	 * Check if nothing is selected.
-	 * @return true if nothing is selected.
-	 */
-	bool hasNoSelection() const;
+  /**
+   * Check if nothing is selected.
+   * @return true if nothing is selected.
+   */
+  bool hasNoSelection() const;
 
 private:
-	ModelIterator m_it;
-	TaggedFile* m_nextFile;
-	const QItemSelectionModel* m_selectModel;
-	bool m_allSelected;
+  ModelIterator m_it;
+  TaggedFile* m_nextFile;
+  const QItemSelectionModel* m_selectModel;
+  bool m_allSelected;
 };
 
 /**
@@ -273,43 +273,43 @@ private:
  */
 class TaggedFileOfDirectoryIterator {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param index of the directory or a file in it
-	 */
-	explicit TaggedFileOfDirectoryIterator(const QModelIndex& index);
+  /**
+   * Constructor.
+   *
+   * @param index of the directory or a file in it
+   */
+  explicit TaggedFileOfDirectoryIterator(const QModelIndex& index);
 
-	/**
-	 * Check if a next item exists.
-	 * @return true if there is a next file
-	 */
-	bool hasNext() const;
+  /**
+   * Check if a next item exists.
+   * @return true if there is a next file
+   */
+  bool hasNext() const;
 
-	/**
-	 * Advance iterator and return next item.
-	 * @return next file
-	 */
-	TaggedFile* next();
+  /**
+   * Advance iterator and return next item.
+   * @return next file
+   */
+  TaggedFile* next();
 
-	/**
-	 * Get next item without moving iterator.
-	 * @return next file
-	 */
-	TaggedFile* peekNext() const;
+  /**
+   * Get next item without moving iterator.
+   * @return next file
+   */
+  TaggedFile* peekNext() const;
 
-	/**
-	 * Get first tagged file in directory.
-	 * @param index of the directory or a file in it
-	 * @return first tagged file in directory, 0 if none.
-	 */
-	static TaggedFile* first(const QModelIndex& index);
+  /**
+   * Get first tagged file in directory.
+   * @param index of the directory or a file in it
+   * @return first tagged file in directory, 0 if none.
+   */
+  static TaggedFile* first(const QModelIndex& index);
 
 private:
-	int m_row;
-	const QAbstractItemModel* m_model;
-	QModelIndex m_parentIdx;
-	TaggedFile* m_nextFile;
+  int m_row;
+  const QAbstractItemModel* m_model;
+  QModelIndex m_parentIdx;
+  TaggedFile* m_nextFile;
 };
 
 /**
@@ -328,44 +328,44 @@ private:
  */
 class SelectedTaggedFileOfDirectoryIterator {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param index of the directory or a file in it
-	 * @param selectModel selection model
-	 * @param allIfNoneSelected treat all files as selected when nothing is
-	 * selected
-	 */
-	SelectedTaggedFileOfDirectoryIterator(
-		const QModelIndex& index,
-		const QItemSelectionModel* selectModel,
-		bool allIfNoneSelected);
+  /**
+   * Constructor.
+   *
+   * @param index of the directory or a file in it
+   * @param selectModel selection model
+   * @param allIfNoneSelected treat all files as selected when nothing is
+   * selected
+   */
+  SelectedTaggedFileOfDirectoryIterator(
+    const QModelIndex& index,
+    const QItemSelectionModel* selectModel,
+    bool allIfNoneSelected);
 
-	/**
-	 * Check if a next item exists.
-	 * @return true if there is a next file
-	 */
-	bool hasNext() const;
+  /**
+   * Check if a next item exists.
+   * @return true if there is a next file
+   */
+  bool hasNext() const;
 
-	/**
-	 * Advance iterator and return next item.
-	 * @return next file
-	 */
-	TaggedFile* next();
+  /**
+   * Advance iterator and return next item.
+   * @return next file
+   */
+  TaggedFile* next();
 
-	/**
-	 * Get next item without moving iterator.
-	 * @return next file
-	 */
-	TaggedFile* peekNext() const;
+  /**
+   * Get next item without moving iterator.
+   * @return next file
+   */
+  TaggedFile* peekNext() const;
 
 private:
-	int m_row;
-	const QAbstractItemModel* m_model;
-	QModelIndex m_parentIdx;
-	TaggedFile* m_nextFile;
-	const QItemSelectionModel* m_selectModel;
-	bool m_allSelected;
+  int m_row;
+  const QAbstractItemModel* m_model;
+  QModelIndex m_parentIdx;
+  TaggedFile* m_nextFile;
+  const QItemSelectionModel* m_selectModel;
+  bool m_allSelected;
 };
 
 #endif // MODELITERATOR_H

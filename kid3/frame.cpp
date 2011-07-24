@@ -33,7 +33,7 @@
  * Constructor.
  */
 Frame::Frame() :
-	m_type(FT_UnknownFrame), m_index(-1), m_valueChanged(false)
+  m_type(FT_UnknownFrame), m_index(-1), m_valueChanged(false)
 {
 }
 
@@ -41,9 +41,9 @@ Frame::Frame() :
  * Constructor.
  */
 Frame::Frame(Type type, const QString& value,
-						 const QString& name, int index) :
-	m_type(type), m_index(index), m_valueChanged(false),
-	m_value(value), m_name(name)
+             const QString& name, int index) :
+  m_type(type), m_index(index), m_valueChanged(false),
+  m_value(value), m_name(name)
 {
 }
 
@@ -63,46 +63,46 @@ Frame::~Frame()
  */
 const char* Frame::getNameFromType(Type type)
 {
-	static const char* const names[] = {
-		I18N_NOOP("Title"),           // FT_Title,
-		I18N_NOOP("Artist"),          // FT_Artist,
-		I18N_NOOP("Album"),           // FT_Album,
-		I18N_NOOP("Comment"),         // FT_Comment,
-		I18N_NOOP("Date"),            // FT_Date,
-		I18N_NOOP("Track Number"),    // FT_Track,
-		I18N_NOOP("Genre"),           // FT_Genre,
-		                              // FT_LastV1Frame = FT_Track,
-		I18N_NOOP("Album Artist"),    // FT_AlbumArtist
-		I18N_NOOP("Arranger"),        // FT_Arranger,
-		I18N_NOOP("Author"),          // FT_Author,
-		I18N_NOOP("BPM"),             // FT_Bpm,
-		I18N_NOOP("Composer"),        // FT_Composer,
-		I18N_NOOP("Conductor"),       // FT_Conductor,
-		I18N_NOOP("Copyright"),       // FT_Copyright,
-		I18N_NOOP("Disc Number"),     // FT_Disc,
-		I18N_NOOP("Encoded-by"),      // FT_EncodedBy,
-		I18N_NOOP("Grouping"),        // FT_Grouping,
-		I18N_NOOP("ISRC"),            // FT_Isrc,
-		I18N_NOOP("Language"),        // FT_Language,
-		I18N_NOOP("Lyricist"),        // FT_Lyricist,
-		I18N_NOOP("Lyrics"),          // FT_Lyrics,
-		I18N_NOOP("Media"),           // FT_Media,
-		I18N_NOOP("Original Album"),  // FT_OriginalAlbum,
-		I18N_NOOP("Original Artist"), // FT_OriginalArtist,
-		I18N_NOOP("Original Date"),   // FT_OriginalDate,
-		I18N_NOOP("Part"),            // FT_Part,
-		I18N_NOOP("Performer"),       // FT_Performer,
-		I18N_NOOP("Picture"),         // FT_Picture,
-		I18N_NOOP("Publisher"),       // FT_Publisher,
-		I18N_NOOP("Remixer"),         // FT_Remixer,
-		I18N_NOOP("Subtitle"),        // FT_Subtitle,
-		I18N_NOOP("Website")          // FT_Website,
-		                              // FT_LastFrame = FT_Website
-	};
-	class not_used { int array_size_check[
-			sizeof(names) / sizeof(names[0]) == FT_LastFrame + 1
-			? 1 : -1 ]; };
-	return type <= FT_LastFrame ? names[type] : "Unknown";
+  static const char* const names[] = {
+    I18N_NOOP("Title"),           // FT_Title,
+    I18N_NOOP("Artist"),          // FT_Artist,
+    I18N_NOOP("Album"),           // FT_Album,
+    I18N_NOOP("Comment"),         // FT_Comment,
+    I18N_NOOP("Date"),            // FT_Date,
+    I18N_NOOP("Track Number"),    // FT_Track,
+    I18N_NOOP("Genre"),           // FT_Genre,
+                                  // FT_LastV1Frame = FT_Track,
+    I18N_NOOP("Album Artist"),    // FT_AlbumArtist
+    I18N_NOOP("Arranger"),        // FT_Arranger,
+    I18N_NOOP("Author"),          // FT_Author,
+    I18N_NOOP("BPM"),             // FT_Bpm,
+    I18N_NOOP("Composer"),        // FT_Composer,
+    I18N_NOOP("Conductor"),       // FT_Conductor,
+    I18N_NOOP("Copyright"),       // FT_Copyright,
+    I18N_NOOP("Disc Number"),     // FT_Disc,
+    I18N_NOOP("Encoded-by"),      // FT_EncodedBy,
+    I18N_NOOP("Grouping"),        // FT_Grouping,
+    I18N_NOOP("ISRC"),            // FT_Isrc,
+    I18N_NOOP("Language"),        // FT_Language,
+    I18N_NOOP("Lyricist"),        // FT_Lyricist,
+    I18N_NOOP("Lyrics"),          // FT_Lyrics,
+    I18N_NOOP("Media"),           // FT_Media,
+    I18N_NOOP("Original Album"),  // FT_OriginalAlbum,
+    I18N_NOOP("Original Artist"), // FT_OriginalArtist,
+    I18N_NOOP("Original Date"),   // FT_OriginalDate,
+    I18N_NOOP("Part"),            // FT_Part,
+    I18N_NOOP("Performer"),       // FT_Performer,
+    I18N_NOOP("Picture"),         // FT_Picture,
+    I18N_NOOP("Publisher"),       // FT_Publisher,
+    I18N_NOOP("Remixer"),         // FT_Remixer,
+    I18N_NOOP("Subtitle"),        // FT_Subtitle,
+    I18N_NOOP("Website")          // FT_Website,
+                                  // FT_LastFrame = FT_Website
+  };
+  class not_used { int array_size_check[
+      sizeof(names) / sizeof(names[0]) == FT_LastFrame + 1
+      ? 1 : -1 ]; };
+  return type <= FT_LastFrame ? names[type] : "Unknown";
 }
 
 /**
@@ -114,21 +114,21 @@ const char* Frame::getNameFromType(Type type)
  */
 Frame::Type Frame::getTypeFromName(QString name)
 {
-	static QMap<QString, int> strNumMap;
-	if (strNumMap.empty()) {
-		// first time initialization
-		for (int i = 0; i <= FT_LastFrame; ++i) {
-			Type type = static_cast<Type>(i);
-			strNumMap.insert(QString(getNameFromType(type)).
-											 remove(' ').toUpper(), type);
-		}
-	}
-	QMap<QString, int>::const_iterator it =
-		strNumMap.find(name.remove(' ').toUpper());
-	if (it != strNumMap.end()) {
-		return static_cast<Type>(*it);
-	}
-	return FT_Other;
+  static QMap<QString, int> strNumMap;
+  if (strNumMap.empty()) {
+    // first time initialization
+    for (int i = 0; i <= FT_LastFrame; ++i) {
+      Type type = static_cast<Type>(i);
+      strNumMap.insert(QString(getNameFromType(type)).
+                       remove(' ').toUpper(), type);
+    }
+  }
+  QMap<QString, int>::const_iterator it =
+    strNumMap.find(name.remove(' ').toUpper());
+  if (it != strNumMap.end()) {
+    return static_cast<Type>(*it);
+  }
+  return FT_Other;
 }
 
 /**
@@ -140,8 +140,8 @@ Frame::Type Frame::getTypeFromName(QString name)
  */
 QString Frame::getName(bool internal) const
 {
-	return !internal && m_type != FT_Other ?
-		QString(getNameFromType(m_type)) : m_name;
+  return !internal && m_type != FT_Other ?
+    QString(getNameFromType(m_type)) : m_name;
 }
 
 /**
@@ -149,23 +149,23 @@ QString Frame::getName(bool internal) const
  */
 void Frame::setValueFromFieldList()
 {
-	if (!getFieldList().empty()) {
-		QString text;
-		for (Frame::FieldList::const_iterator fldIt = getFieldList().begin();
-				 fldIt != getFieldList().end();
-				 ++fldIt) {
-			int id = (*fldIt).m_id;
-			if (id == Frame::Field::ID_Text ||
-					id == Frame::Field::ID_Description ||
-					id == Frame::Field::ID_Url) {
-				m_value = (*fldIt).m_value.toString();
-				if (id == Frame::Field::ID_Text) {
-					// highest priority, will not be overwritten
-					break;
-				}
-			}
-		}
-	}
+  if (!getFieldList().empty()) {
+    QString text;
+    for (Frame::FieldList::const_iterator fldIt = getFieldList().begin();
+         fldIt != getFieldList().end();
+         ++fldIt) {
+      int id = (*fldIt).m_id;
+      if (id == Frame::Field::ID_Text ||
+          id == Frame::Field::ID_Description ||
+          id == Frame::Field::ID_Url) {
+        m_value = (*fldIt).m_value.toString();
+        if (id == Frame::Field::ID_Text) {
+          // highest priority, will not be overwritten
+          break;
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -173,26 +173,26 @@ void Frame::setValueFromFieldList()
  */
 void Frame::setFieldListFromValue()
 {
-	if (!fieldList().empty()) {
-		Frame::FieldList::iterator it = fieldList().end();
-		for (Frame::FieldList::iterator fldIt = fieldList().begin();
-				 fldIt != fieldList().end();
-				 ++fldIt) {
-			int id = (*fldIt).m_id;
-			if (id == Frame::Field::ID_Text ||
-					id == Frame::Field::ID_Description ||
-					id == Frame::Field::ID_Url) {
-				it = fldIt;
-				if (id == Frame::Field::ID_Text) {
-					// highest priority, will not be overwritten
-					break;
-				}
-			}
-		}
-		if (it != fieldList().end()) {
-			(*it).m_value = m_value;
-		}
-	}
+  if (!fieldList().empty()) {
+    Frame::FieldList::iterator it = fieldList().end();
+    for (Frame::FieldList::iterator fldIt = fieldList().begin();
+         fldIt != fieldList().end();
+         ++fldIt) {
+      int id = (*fldIt).m_id;
+      if (id == Frame::Field::ID_Text ||
+          id == Frame::Field::ID_Description ||
+          id == Frame::Field::ID_Url) {
+        it = fldIt;
+        if (id == Frame::Field::ID_Text) {
+          // highest priority, will not be overwritten
+          break;
+        }
+      }
+    }
+    if (it != fieldList().end()) {
+      (*it).m_value = m_value;
+    }
+  }
 }
 
 /**
@@ -205,10 +205,10 @@ void Frame::setFieldListFromValue()
  */
 int Frame::numberWithoutTotal(const QString& str, bool* ok)
 {
-	int slashPos = str.indexOf("/");
-	return slashPos == -1 ?
-		str.toInt(ok) :
-		str.left(slashPos).toInt(ok);
+  int slashPos = str.indexOf("/");
+  return slashPos == -1 ?
+    str.toInt(ok) :
+    str.left(slashPos).toInt(ok);
 }
 
 /**
@@ -220,14 +220,14 @@ int Frame::numberWithoutTotal(const QString& str, bool* ok)
  */
 QVariant Frame::getFieldValue(Field::Id id) const
 {
-	for (FieldList::const_iterator it = m_fieldList.begin();
-			 it != m_fieldList.end();
-			 ++it) {
-		if ((*it).m_id == id) {
-			return (*it).m_value;
-		}
-	}
-	return QVariant();
+  for (FieldList::const_iterator it = m_fieldList.begin();
+       it != m_fieldList.end();
+       ++it) {
+    if ((*it).m_id == id) {
+      return (*it).m_value;
+    }
+  }
+  return QVariant();
 }
 
 /**
@@ -237,13 +237,13 @@ QVariant Frame::getFieldValue(Field::Id id) const
  */
 void Frame::setValueIfChanged(const QString& value)
 {
-	if (value != differentRepresentation()) {
-		QString oldValue(getValue());
-		if (value != oldValue && !(value.isEmpty() && oldValue.isEmpty())) {
-			setValue(value);
-			setValueChanged();
-		}
-	}
+  if (value != differentRepresentation()) {
+    QString oldValue(getValue());
+    if (value != oldValue && !(value.isEmpty() && oldValue.isEmpty())) {
+      setValue(value);
+      setValueChanged();
+    }
+  }
 }
 
 /**
@@ -255,23 +255,23 @@ void Frame::setValueIfChanged(const QString& value)
  */
 bool Frame::isEqual(const Frame& other) const
 {
-	if (getType() != other.getType() || getValue() != other.getValue())
-		return false;
+  if (getType() != other.getType() || getValue() != other.getValue())
+    return false;
 
-	const FieldList& otherFieldList = other.getFieldList();
-	if (m_fieldList.size() != otherFieldList.size())
-		return false;
+  const FieldList& otherFieldList = other.getFieldList();
+  if (m_fieldList.size() != otherFieldList.size())
+    return false;
 
-	FieldList::const_iterator thisIt, otherIt;
-	for (thisIt = m_fieldList.constBegin(), otherIt = otherFieldList.constBegin();
-			 thisIt != m_fieldList.constEnd() && otherIt != otherFieldList.constEnd();
-			 ++thisIt, ++otherIt) {
-		if (thisIt->m_id != otherIt->m_id || thisIt->m_value != otherIt->m_value) {
-			return false;
-		}
-	}
+  FieldList::const_iterator thisIt, otherIt;
+  for (thisIt = m_fieldList.constBegin(), otherIt = otherFieldList.constBegin();
+       thisIt != m_fieldList.constEnd() && otherIt != otherFieldList.constEnd();
+       ++thisIt, ++otherIt) {
+    if (thisIt->m_id != otherIt->m_id || thisIt->m_value != otherIt->m_value) {
+      return false;
+    }
+  }
 
-	return true;
+  return true;
 }
 
 #ifdef DEBUG
@@ -282,44 +282,44 @@ bool Frame::isEqual(const Frame& other) const
  */
 static const char* frameTypeToString(Frame::Type type)
 {
-	static const char* const typeStr[] = {
-		"FT_Title",
-		"FT_Artist",
-		"FT_Album",
-		"FT_Comment",
-		"FT_Date",
-		"FT_Track",
-		"FT_Genre",
-		"FT_AlbumArtist",
-		"FT_Arranger",
-		"FT_Author",
-		"FT_Bpm",
-		"FT_Composer",
-		"FT_Conductor",
-		"FT_Copyright",
-		"FT_Disc",
-		"FT_EncodedBy",
-		"FT_Grouping",
-		"FT_Isrc",
-		"FT_Language",
-		"FT_Lyricist",
-		"FT_Lyrics",
-		"FT_Media",
-		"FT_OriginalAlbum",
-		"FT_OriginalArtist",
-		"FT_OriginalDate",
-		"FT_Part",
-		"FT_Performer",
-		"FT_Picture",
-		"FT_Publisher",
-		"FT_Remixer",
-		"FT_Subtitle",
-		"FT_Website",
-		"FT_Other",
-		"FT_UnknownFrame"
-	};
-	return type >= 0 && (unsigned)type <= sizeof(typeStr) / sizeof(typeStr[0]) ?
-		typeStr[type] : "ILLEGAL";
+  static const char* const typeStr[] = {
+    "FT_Title",
+    "FT_Artist",
+    "FT_Album",
+    "FT_Comment",
+    "FT_Date",
+    "FT_Track",
+    "FT_Genre",
+    "FT_AlbumArtist",
+    "FT_Arranger",
+    "FT_Author",
+    "FT_Bpm",
+    "FT_Composer",
+    "FT_Conductor",
+    "FT_Copyright",
+    "FT_Disc",
+    "FT_EncodedBy",
+    "FT_Grouping",
+    "FT_Isrc",
+    "FT_Language",
+    "FT_Lyricist",
+    "FT_Lyrics",
+    "FT_Media",
+    "FT_OriginalAlbum",
+    "FT_OriginalArtist",
+    "FT_OriginalDate",
+    "FT_Part",
+    "FT_Performer",
+    "FT_Picture",
+    "FT_Publisher",
+    "FT_Remixer",
+    "FT_Subtitle",
+    "FT_Website",
+    "FT_Other",
+    "FT_UnknownFrame"
+  };
+  return type >= 0 && (unsigned)type <= sizeof(typeStr) / sizeof(typeStr[0]) ?
+    typeStr[type] : "ILLEGAL";
 }
 
 /**
@@ -329,34 +329,34 @@ static const char* frameTypeToString(Frame::Type type)
  */
 static const char* fieldIdToString(int id)
 {
-	static const char* const idStr[] = {
-		"ID_NoField",
-		"ID_TextEnc",
-		"ID_Text",
-		"ID_Url",
-		"ID_Data",
-		"ID_Description",
-		"ID_Owner",
-		"ID_Email",
-		"ID_Rating",
-		"ID_Filename",
-		"ID_Language",
-		"ID_PictureType",
-		"ID_ImageFormat",
-		"ID_MimeType",
-		"ID_Counter",
-		"ID_Id",
-		"ID_VolumeAdj",
-		"ID_NumBits",
-		"ID_VolChgRight",
-		"ID_VolChgLeft",
-		"ID_PeakVolRight",
-		"ID_PeakVolLeft",
-		"ID_TimestampFormat",
-		"ID_ContentType"
-	};
-	return id >= 0 && (unsigned)id <= sizeof(idStr) / sizeof(idStr[0]) ?
-		idStr[id] : "ILLEGAL";
+  static const char* const idStr[] = {
+    "ID_NoField",
+    "ID_TextEnc",
+    "ID_Text",
+    "ID_Url",
+    "ID_Data",
+    "ID_Description",
+    "ID_Owner",
+    "ID_Email",
+    "ID_Rating",
+    "ID_Filename",
+    "ID_Language",
+    "ID_PictureType",
+    "ID_ImageFormat",
+    "ID_MimeType",
+    "ID_Counter",
+    "ID_Id",
+    "ID_VolumeAdj",
+    "ID_NumBits",
+    "ID_VolChgRight",
+    "ID_VolChgLeft",
+    "ID_PeakVolRight",
+    "ID_PeakVolLeft",
+    "ID_TimestampFormat",
+    "ID_ContentType"
+  };
+  return id >= 0 && (unsigned)id <= sizeof(idStr) / sizeof(idStr[0]) ?
+    idStr[id] : "ILLEGAL";
 }
 
 /**
@@ -366,11 +366,11 @@ static const char* fieldIdToString(int id)
  */
 static QString variantToString(const QVariant& val)
 {
-	if (val.type() == QVariant::ByteArray) {
-		return QString("ByteArray of %1 bytes").arg(val.toByteArray().size());
-	} else {
-		return val.toString();
-	}
+  if (val.type() == QVariant::ByteArray) {
+    return QString("ByteArray of %1 bytes").arg(val.toByteArray().size());
+  } else {
+    return val.toString();
+  }
 }
 
 /**
@@ -378,16 +378,16 @@ static QString variantToString(const QVariant& val)
  */
 void Frame::dump() const
 {
-	qDebug("Frame: name=%s, value=%s, type=%s, index=%d, valueChanged=%u",
-				 m_name.toLatin1().data(), m_value.toLatin1().data(), frameTypeToString(m_type), m_index,
-				 m_valueChanged);
-	qDebug("  fields=");
-	for (FieldList::const_iterator it = m_fieldList.begin();
-			 it != m_fieldList.end();
-			 ++it) {
-		qDebug("  Field: id=%s, value=%s", fieldIdToString((*it).m_id),
-					 variantToString((*it).m_value).toLatin1().data());
-	}
+  qDebug("Frame: name=%s, value=%s, type=%s, index=%d, valueChanged=%u",
+         m_name.toLatin1().data(), m_value.toLatin1().data(), frameTypeToString(m_type), m_index,
+         m_valueChanged);
+  qDebug("  fields=");
+  for (FieldList::const_iterator it = m_fieldList.begin();
+       it != m_fieldList.end();
+       ++it) {
+    qDebug("  Field: id=%s, value=%s", fieldIdToString((*it).m_id),
+           variantToString((*it).m_value).toLatin1().data());
+  }
 }
 #endif
 
@@ -399,42 +399,42 @@ void Frame::dump() const
  */
 void FrameCollection::filterDifferent(FrameCollection& others)
 {
-	QByteArray frameData, othersData;
-	for (iterator it = begin(); it != end(); ++it) {
-		Frame& frame = const_cast<Frame&>(*it);
-		// This frame list is not tied to a specific file, so the
-		// index is not valid.
-		frame.setIndex(-1);
-		iterator othersIt = others.find(frame);
-		if (othersIt == others.end() ||
-				(frame.getType() != Frame::FT_Picture &&
-				 frame.getValue() != othersIt->getValue()) ||
-				(frame.getType() == Frame::FT_Picture &&
-				 !(PictureFrame::getData(frame, frameData) &&
-					 PictureFrame::getData(*othersIt, othersData) &&
-					 frameData == othersData))) {
-			frame.setDifferent();
-		}
-		while (othersIt != others.end() && !(frame < *othersIt)) {
-			// Mark equal frames as already handled using index -2, used below.
-			// This is probably faster than removing the frames.
-			const_cast<Frame&>(*othersIt).setIndex(-2);
-			++othersIt;
-		}
-	}
+  QByteArray frameData, othersData;
+  for (iterator it = begin(); it != end(); ++it) {
+    Frame& frame = const_cast<Frame&>(*it);
+    // This frame list is not tied to a specific file, so the
+    // index is not valid.
+    frame.setIndex(-1);
+    iterator othersIt = others.find(frame);
+    if (othersIt == others.end() ||
+        (frame.getType() != Frame::FT_Picture &&
+         frame.getValue() != othersIt->getValue()) ||
+        (frame.getType() == Frame::FT_Picture &&
+         !(PictureFrame::getData(frame, frameData) &&
+           PictureFrame::getData(*othersIt, othersData) &&
+           frameData == othersData))) {
+      frame.setDifferent();
+    }
+    while (othersIt != others.end() && !(frame < *othersIt)) {
+      // Mark equal frames as already handled using index -2, used below.
+      // This is probably faster than removing the frames.
+      const_cast<Frame&>(*othersIt).setIndex(-2);
+      ++othersIt;
+    }
+  }
 
-	// Insert frames which are in others but not in this (not marked as already
-	// handled by index -2) as different frames.
-	for (iterator othersIt = others.begin();
-			 othersIt != others.end();
-			 ++othersIt) {
-		if (othersIt->getIndex() != -2) {
-			Frame& frame = const_cast<Frame&>(*othersIt);
-			frame.setIndex(-1);
-			frame.setDifferent();
-			insert(frame);
-		}
-	}
+  // Insert frames which are in others but not in this (not marked as already
+  // handled by index -2) as different frames.
+  for (iterator othersIt = others.begin();
+       othersIt != others.end();
+       ++othersIt) {
+    if (othersIt->getIndex() != -2) {
+      Frame& frame = const_cast<Frame&>(*othersIt);
+      frame.setIndex(-1);
+      frame.setDifferent();
+      insert(frame);
+    }
+  }
 }
 
 /**
@@ -442,13 +442,13 @@ void FrameCollection::filterDifferent(FrameCollection& others)
  */
 void FrameCollection::addMissingStandardFrames()
 {
-	for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
-		Frame frame(static_cast<Frame::Type>(i), QString::null, QString::null, -1);
-		FrameCollection::const_iterator it = find(frame);
-		if (it == end()) {
-			insert(frame);
-		}
-	}
+  for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
+    Frame frame(static_cast<Frame::Type>(i), QString::null, QString::null, -1);
+    FrameCollection::const_iterator it = find(frame);
+    if (it == end()) {
+      insert(frame);
+    }
+  }
 }
 
 /**
@@ -460,17 +460,17 @@ void FrameCollection::addMissingStandardFrames()
  */
 FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
 {
-	FrameCollection frames;
-	for (const_iterator it = begin();
-			 it != end();
-			 ++it) {
-		if (flt.isEnabled(it->getType(), it->getName())) {
-			Frame frame = *it;
-			frame.setIndex(-1);
-			frames.insert(frame);
-		}
-	}
-	return frames;
+  FrameCollection frames;
+  for (const_iterator it = begin();
+       it != end();
+       ++it) {
+    if (flt.isEnabled(it->getType(), it->getName())) {
+      Frame frame = *it;
+      frame.setIndex(-1);
+      frames.insert(frame);
+    }
+  }
+  return frames;
 }
 
 /**
@@ -480,14 +480,14 @@ FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
  */
 void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
 {
-	for (iterator it = begin();
-			 it != end();) {
-		if (!flt.isEnabled(it->getType(), it->getName())) {
-			erase(it++);
-		} else {
-			++it;
-		}
-	}
+  for (iterator it = begin();
+       it != end();) {
+    if (!flt.isEnabled(it->getType(), it->getName())) {
+      erase(it++);
+    } else {
+      ++it;
+    }
+  }
 }
 
 /**
@@ -498,23 +498,23 @@ void FrameCollection::removeDisabledFrames(const FrameFilter& flt)
  */
 void FrameCollection::merge(const FrameCollection& frames)
 {
-	for (const_iterator otherIt = frames.begin();
-			 otherIt != frames.end();
-			 ++otherIt) {
-		iterator it = find(*otherIt);
-		if (it != end()) {
-			QString value(otherIt->getValue());
-			Frame& frameFound = const_cast<Frame&>(*it);
-			if (frameFound.getValue().isEmpty() && !value.isEmpty()) {
-				frameFound.setValueIfChanged(value);
-			}
-		} else {
-			Frame frame(*otherIt);
-			frame.setIndex(-1);
-			frame.setValueChanged(true);
-			insert(frame);
-		}
-	}
+  for (const_iterator otherIt = frames.begin();
+       otherIt != frames.end();
+       ++otherIt) {
+    iterator it = find(*otherIt);
+    if (it != end()) {
+      QString value(otherIt->getValue());
+      Frame& frameFound = const_cast<Frame&>(*it);
+      if (frameFound.getValue().isEmpty() && !value.isEmpty()) {
+        frameFound.setValueIfChanged(value);
+      }
+    } else {
+      Frame frame(*otherIt);
+      frame.setIndex(-1);
+      frame.setValueChanged(true);
+      insert(frame);
+    }
+  }
 }
 
 /**
@@ -524,14 +524,14 @@ void FrameCollection::merge(const FrameCollection& frames)
  */
 bool FrameCollection::isEmptyOrInactive() const
 {
-	return
-		getTitle().isEmpty() &&
-		getArtist().isEmpty() &&
-		getAlbum().isEmpty() &&
-		getComment().isEmpty() &&
-		getYear() <= 0 &&
-		getTrack() <= 0 &&
-		getGenre().isEmpty();
+  return
+    getTitle().isEmpty() &&
+    getArtist().isEmpty() &&
+    getAlbum().isEmpty() &&
+    getComment().isEmpty() &&
+    getYear() <= 0 &&
+    getTrack() <= 0 &&
+    getGenre().isEmpty();
 }
 
 /**
@@ -545,19 +545,19 @@ bool FrameCollection::isEmptyOrInactive() const
  */
 FrameCollection::iterator FrameCollection::findByName(const QString& name) const
 {
-	Frame::Type type = Frame::getTypeFromName(name);
-	Frame frame(type, "", name, -1);
-	const_iterator it = find(frame);
-	if (it == end()) {
-		QString ucName = name.toUpper();
-		int len = ucName.length();
-		for (it = begin(); it != end(); ++it) {
-			if (ucName == it->getName().toUpper().left(len)) {
-				break;
-			}
-		}
-	}
-	return it;
+  Frame::Type type = Frame::getTypeFromName(name);
+  Frame frame(type, "", name, -1);
+  const_iterator it = find(frame);
+  if (it == end()) {
+    QString ucName = name.toUpper();
+    int len = ucName.length();
+    for (it = begin(); it != end(); ++it) {
+      if (ucName == it->getName().toUpper().left(len)) {
+        break;
+      }
+    }
+  }
+  return it;
 }
 
 /**
@@ -569,13 +569,13 @@ FrameCollection::iterator FrameCollection::findByName(const QString& name) const
  */
 FrameCollection::iterator FrameCollection::findByIndex(int index) const
 {
-	const_iterator it;
-	for (it = begin(); it != end(); ++it) {
-		if (it->getIndex() == index) {
-			break;
-		}
-	}
-	return it;
+  const_iterator it;
+  for (it = begin(); it != end(); ++it) {
+    if (it->getIndex() == index) {
+      break;
+    }
+  }
+  return it;
 }
 
 /**
@@ -587,9 +587,9 @@ FrameCollection::iterator FrameCollection::findByIndex(int index) const
  */
 QString FrameCollection::getValue(Frame::Type type) const
 {
-	Frame frame(type, "", "", -1);
-	const_iterator it = find(frame);
-	return it != end() ? it->getValue() : QString::null;
+  Frame frame(type, "", "", -1);
+  const_iterator it = find(frame);
+  return it != end() ? it->getValue() : QString::null;
 }
 
 /**
@@ -600,17 +600,17 @@ QString FrameCollection::getValue(Frame::Type type) const
  */
 void FrameCollection::setValue(Frame::Type type, const QString& value)
 {
-	if (!value.isNull()) {
-		Frame frame(type, "", "", -1);
-		iterator it = find(frame);
-		if (it != end()) {
-			Frame& frameFound = const_cast<Frame&>(*it);
-			frameFound.setValueIfChanged(value);
-		} else {
-			frame.setValueIfChanged(value);
-			insert(frame);
-		}
-	}
+  if (!value.isNull()) {
+    Frame frame(type, "", "", -1);
+    iterator it = find(frame);
+    if (it != end()) {
+      Frame& frameFound = const_cast<Frame&>(*it);
+      frameFound.setValueIfChanged(value);
+    } else {
+      frame.setValueIfChanged(value);
+      insert(frame);
+    }
+  }
 }
 
 /**
@@ -622,8 +622,8 @@ void FrameCollection::setValue(Frame::Type type, const QString& value)
  */
 int FrameCollection::getIntValue(Frame::Type type) const
 {
-	QString str = getValue(type);
-	return str.isNull() ? -1 : str.toInt();
+  QString str = getValue(type);
+  return str.isNull() ? -1 : str.toInt();
 }
 
 /**
@@ -634,10 +634,10 @@ int FrameCollection::getIntValue(Frame::Type type) const
  */
 void FrameCollection::setIntValue(Frame::Type type, int value)
 {
-	if (value != -1) {
-		QString str = value != 0 ? QString::number(value) : QString("");
-		setValue(type, str);
-	}
+  if (value != -1) {
+    QString str = value != 0 ? QString::number(value) : QString("");
+    setValue(type, str);
+  }
 }
 
 /**
@@ -648,13 +648,13 @@ void FrameCollection::setIntValue(Frame::Type type, int value)
  */
 void FrameCollection::markChangedFrames(const FrameCollection& other)
 {
-	for (FrameCollection::iterator it = begin(); it != end(); ++it) {
-		iterator otherIt = it->getIndex() != -1
-				? other.findByIndex(it->getIndex())
-				: other.find(*it);
-		Frame& frame = const_cast<Frame&>(*it);
-		frame.setValueChanged(!(otherIt != other.end() && otherIt->isEqual(*it)));
-	}
+  for (FrameCollection::iterator it = begin(); it != end(); ++it) {
+    iterator otherIt = it->getIndex() != -1
+        ? other.findByIndex(it->getIndex())
+        : other.find(*it);
+    Frame& frame = const_cast<Frame&>(*it);
+    frame.setValueChanged(!(otherIt != other.end() && otherIt->isEqual(*it)));
+  }
 }
 
 #ifdef DEBUG
@@ -663,12 +663,12 @@ void FrameCollection::markChangedFrames(const FrameCollection& other)
  */
 void FrameCollection::dump() const
 {
-	qDebug("FrameCollection:");
-	for (const_iterator it = begin();
-			 it != end();
-			 ++it) {
-		(*it).dump();
-	}
+  qDebug("FrameCollection:");
+  for (const_iterator it = begin();
+       it != end();
+       ++it) {
+    (*it).dump();
+  }
 }
 #endif
 
@@ -689,8 +689,8 @@ FrameFilter::~FrameFilter() {}
  */
 void FrameFilter::enableAll()
 {
-	m_enabledFrames = FTM_AllFrames;
-	m_disabledOtherFrames.clear();
+  m_enabledFrames = FTM_AllFrames;
+  m_disabledOtherFrames.clear();
 }
 
 /**
@@ -700,8 +700,8 @@ void FrameFilter::enableAll()
  */
 bool FrameFilter::areAllEnabled() const
 {
-	return (m_enabledFrames & FTM_AllFrames) == FTM_AllFrames &&
-		m_disabledOtherFrames.empty();
+  return (m_enabledFrames & FTM_AllFrames) == FTM_AllFrames &&
+    m_disabledOtherFrames.empty();
 }
 
 /**
@@ -714,14 +714,14 @@ bool FrameFilter::areAllEnabled() const
  */
 bool FrameFilter::isEnabled(Frame::Type type, const QString& name) const
 {
-	if (type <= Frame::FT_LastFrame) {
-		return (m_enabledFrames & (1 << type)) != 0;
-	} else if (!name.isEmpty()) {
-		std::set<QString>::iterator it = m_disabledOtherFrames.find(name);
-		return it == m_disabledOtherFrames.end();
-	} else {
-		return true;
-	}
+  if (type <= Frame::FT_LastFrame) {
+    return (m_enabledFrames & (1 << type)) != 0;
+  } else if (!name.isEmpty()) {
+    std::set<QString>::iterator it = m_disabledOtherFrames.find(name);
+    return it == m_disabledOtherFrames.end();
+  } else {
+    return true;
+  }
 }
 
 /**
@@ -733,22 +733,22 @@ bool FrameFilter::isEnabled(Frame::Type type, const QString& name) const
  */
 void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
 {
-	if (type <= Frame::FT_LastFrame) {
-		if (en) {
-			m_enabledFrames |= (1 << type);
-		} else {
-			m_enabledFrames &= ~(1 << type);
-		}
-	} else if (!name.isEmpty()) {
-		if (en) {
-			std::set<QString>::iterator it = m_disabledOtherFrames.find(name);
-			if (it != m_disabledOtherFrames.end()) {
-				m_disabledOtherFrames.erase(it);
-			}
-		} else {
-			m_disabledOtherFrames.insert(name);
-		}
-	}
+  if (type <= Frame::FT_LastFrame) {
+    if (en) {
+      m_enabledFrames |= (1 << type);
+    } else {
+      m_enabledFrames &= ~(1 << type);
+    }
+  } else if (!name.isEmpty()) {
+    if (en) {
+      std::set<QString>::iterator it = m_disabledOtherFrames.find(name);
+      if (it != m_disabledOtherFrames.end()) {
+        m_disabledOtherFrames.erase(it);
+      }
+    } else {
+      m_disabledOtherFrames.insert(name);
+    }
+  }
 }
 
 
@@ -759,8 +759,8 @@ void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
  * @param str    string with format codes
  */
 FrameFormatReplacer::FrameFormatReplacer(
-	const FrameCollection& frames, const QString& str) :
-	FormatReplacer(str), m_frames(frames) {}
+  const FrameCollection& frames, const QString& str) :
+  FormatReplacer(str), m_frames(frames) {}
 
 /**
  * Destructor.
@@ -786,77 +786,77 @@ FrameFormatReplacer::~FrameFormatReplacer() {}
  */
 QString FrameFormatReplacer::getReplacement(const QString& code) const
 {
-	QString result;
-	QString name;
+  QString result;
+  QString name;
 
-	if (code.length() == 1) {
-		static const struct {
-			char shortCode;
-			const char* longCode;
-		} shortToLong[] = {
-			{ 's', "title" },
-			{ 'l', "album" },
-			{ 'a', "artist" },
-			{ 'c', "comment" },
-			{ 'y', "year" },
-			{ 't', "track" },
-			{ 'T', "tracknumber" },
-			{ 'g', "genre" }
-		};
-		const char c = code[0].toLatin1();
-		for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
-			if (shortToLong[i].shortCode == c) {
-				name = shortToLong[i].longCode;
-				break;
-			}
-		}
-	} else if (code.length() > 1) {
-		name = code;
-	}
+  if (code.length() == 1) {
+    static const struct {
+      char shortCode;
+      const char* longCode;
+    } shortToLong[] = {
+      { 's', "title" },
+      { 'l', "album" },
+      { 'a', "artist" },
+      { 'c', "comment" },
+      { 'y', "year" },
+      { 't', "track" },
+      { 'T', "tracknumber" },
+      { 'g', "genre" }
+    };
+    const char c = code[0].toLatin1();
+    for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
+      if (shortToLong[i].shortCode == c) {
+        name = shortToLong[i].longCode;
+        break;
+      }
+    }
+  } else if (code.length() > 1) {
+    name = code;
+  }
 
-	if (!name.isNull()) {
-		QString lcName(name.toLower());
-		int fieldWidth = lcName == "track" ? 2 : -1;
-		if (lcName == "year") {
-			name = "date";
-		} else if (lcName == "tracknumber") {
-			name = "track number";
-		}
-		int len = lcName.length();
-		if (len > 2 && lcName[len - 2] == '.' &&
-				lcName[len - 1] >= '0' && lcName[len - 1] <= '9') {
-			fieldWidth = lcName[len - 1].toLatin1() - '0';
-			lcName.truncate(len - 2);
-			name.truncate(len - 2);
-		}
+  if (!name.isNull()) {
+    QString lcName(name.toLower());
+    int fieldWidth = lcName == "track" ? 2 : -1;
+    if (lcName == "year") {
+      name = "date";
+    } else if (lcName == "tracknumber") {
+      name = "track number";
+    }
+    int len = lcName.length();
+    if (len > 2 && lcName[len - 2] == '.' &&
+        lcName[len - 1] >= '0' && lcName[len - 1] <= '9') {
+      fieldWidth = lcName[len - 1].toLatin1() - '0';
+      lcName.truncate(len - 2);
+      name.truncate(len - 2);
+    }
 
-		FrameCollection::iterator it = m_frames.findByName(name);
-		if (it != m_frames.end()) {
-			result = it->getValue();
-			if (result.isNull()) {
-				// code was found, but value is empty
-				result = "";
-			}
-			if (it->getType() == Frame::FT_Picture && result.isEmpty()) {
-				QVariant fieldValue = it->getFieldValue(Frame::Field::ID_Data);
-				if (fieldValue.isValid() && fieldValue.toByteArray().size() > 0) {
-					// If there is a picture without description, return "1", so that
-					// an empty value indicates "no picture"
-					result = "1";
-				}
-			}
-		}
+    FrameCollection::iterator it = m_frames.findByName(name);
+    if (it != m_frames.end()) {
+      result = it->getValue();
+      if (result.isNull()) {
+        // code was found, but value is empty
+        result = "";
+      }
+      if (it->getType() == Frame::FT_Picture && result.isEmpty()) {
+        QVariant fieldValue = it->getFieldValue(Frame::Field::ID_Data);
+        if (fieldValue.isValid() && fieldValue.toByteArray().size() > 0) {
+          // If there is a picture without description, return "1", so that
+          // an empty value indicates "no picture"
+          result = "1";
+        }
+      }
+    }
 
-		if (fieldWidth > 0) {
-			bool ok;
-			int nr = Frame::numberWithoutTotal(result, &ok);
-			if (ok) {
-				result.sprintf("%0*d", fieldWidth, nr);
-			}
-		}
-	}
+    if (fieldWidth > 0) {
+      bool ok;
+      int nr = Frame::numberWithoutTotal(result, &ok);
+      if (ok) {
+        result.sprintf("%0*d", fieldWidth, nr);
+      }
+    }
+  }
 
-	return result;
+  return result;
 }
 
 /**
@@ -869,45 +869,45 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
  */
 QString FrameFormatReplacer::getToolTip(bool onlyRows)
 {
-	QString str;
-	if (!onlyRows) str += "<table>\n";
+  QString str;
+  if (!onlyRows) str += "<table>\n";
 
-	str += "<tr><td>%s</td><td>%{title}</td><td>";
-	str += QCM_translate("Title");
-	str += "</td></tr>\n";
+  str += "<tr><td>%s</td><td>%{title}</td><td>";
+  str += QCM_translate("Title");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%l</td><td>%{album}</td><td>";
-	str += QCM_translate("Album");
-	str += "</td></tr>\n";
+  str += "<tr><td>%l</td><td>%{album}</td><td>";
+  str += QCM_translate("Album");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%a</td><td>%{artist}</td><td>";
-	str += QCM_translate("Artist");
-	str += "</td></tr>\n";
+  str += "<tr><td>%a</td><td>%{artist}</td><td>";
+  str += QCM_translate("Artist");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%c</td><td>%{comment}</td><td>";
-	str += QCM_translate("Comment");
-	str += "</td></tr>\n";
+  str += "<tr><td>%c</td><td>%{comment}</td><td>";
+  str += QCM_translate("Comment");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%y</td><td>%{year}</td><td>";
-	str += QCM_translate(I18N_NOOP("Year"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%y</td><td>%{year}</td><td>";
+  str += QCM_translate(I18N_NOOP("Year"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%t</td><td>%{track}</td><td>";
-	str += QCM_translate(I18N_NOOP("Track"));
-	str += " &quot;01&quot;</td></tr>\n";
+  str += "<tr><td>%t</td><td>%{track}</td><td>";
+  str += QCM_translate(I18N_NOOP("Track"));
+  str += " &quot;01&quot;</td></tr>\n";
 
-	str += "<tr><td>%t</td><td>%{track.3}</td><td>";
-	str += QCM_translate(I18N_NOOP("Track"));
-	str += " &quot;001&quot;</td></tr>\n";
+  str += "<tr><td>%t</td><td>%{track.3}</td><td>";
+  str += QCM_translate(I18N_NOOP("Track"));
+  str += " &quot;001&quot;</td></tr>\n";
 
-	str += "<tr><td>%T</td><td>%{tracknumber}</td><td>";
-	str += QCM_translate(I18N_NOOP("Track"));
-	str += " &quot;1&quot;</td></tr>\n";
+  str += "<tr><td>%T</td><td>%{tracknumber}</td><td>";
+  str += QCM_translate(I18N_NOOP("Track"));
+  str += " &quot;1&quot;</td></tr>\n";
 
-	str += "<tr><td>%g</td><td>%{genre}</td><td>";
-	str += QCM_translate("Genre");
-	str += "</td></tr>\n";
+  str += "<tr><td>%g</td><td>%{genre}</td><td>";
+  str += QCM_translate("Genre");
+  str += "</td></tr>\n";
 
-	if (!onlyRows) str += "</table>\n";
-	return str;
+  if (!onlyRows) str += "</table>\n";
+  return str;
 }

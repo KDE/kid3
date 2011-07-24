@@ -63,221 +63,221 @@ class ImportDialog : public QDialog {
 Q_OBJECT
 
 public:
-	/**
-	 * Sub-Dialog to be started automatically.
-	 */
-	enum AutoStartSubDialog {
-		ASD_None,
-		ASD_Freedb,
-		ASD_TrackType,
-		ASD_Discogs,
-		ASD_Amazon,
-		ASD_MusicBrainzRelease,
-		ASD_MusicBrainz
-	};
+  /**
+   * Sub-Dialog to be started automatically.
+   */
+  enum AutoStartSubDialog {
+    ASD_None,
+    ASD_Freedb,
+    ASD_TrackType,
+    ASD_Discogs,
+    ASD_Amazon,
+    ASD_MusicBrainzRelease,
+    ASD_MusicBrainz
+  };
 
-	/**
-	 * Constructor.
-	 *
-	 * @param parent        parent widget
-	 * @param caption       dialog title
-	 * @param trackDataModel track data to be filled with imported values,
-	 *                      is passed with durations of files set
-	 */
-	ImportDialog(QWidget* parent, QString& caption,
-							 TrackDataModel* trackDataModel);
-	/**
-	 * Destructor.
-	 */
-	~ImportDialog();
+  /**
+   * Constructor.
+   *
+   * @param parent        parent widget
+   * @param caption       dialog title
+   * @param trackDataModel track data to be filled with imported values,
+   *                      is passed with durations of files set
+   */
+  ImportDialog(QWidget* parent, QString& caption,
+               TrackDataModel* trackDataModel);
+  /**
+   * Destructor.
+   */
+  ~ImportDialog();
 
-	/**
-	 * Set dialog to be started automatically.
-	 *
-	 * @param asd dialog to be started
-	 */
-	void setAutoStartSubDialog(AutoStartSubDialog asd);
+  /**
+   * Set dialog to be started automatically.
+   *
+   * @param asd dialog to be started
+   */
+  void setAutoStartSubDialog(AutoStartSubDialog asd);
 
-	/**
-	 * Clear dialog data.
-	 */
-	void clear();
+  /**
+   * Clear dialog data.
+   */
+  void clear();
 
-	/**
-	 * Get import destination.
-	 *
-	 * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
-	 */
-	TrackData::TagVersion getDestination() const;
+  /**
+   * Get import destination.
+   *
+   * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
+   */
+  TrackData::TagVersion getDestination() const;
 
 public slots:
-	/**
-	 * Shows the dialog as a modal dialog.
-	 */
-	int exec();
+  /**
+   * Shows the dialog as a modal dialog.
+   */
+  int exec();
 
 private slots:
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Called when the maximum time difference value is changed.
-	 */
-	void maxDiffChanged();
+  /**
+   * Called when the maximum time difference value is changed.
+   */
+  void maxDiffChanged();
 
-	/**
-	 * Move a table row.
-	 *
-	 * The first parameter @a section is not used.
-	 * @param fromIndex index of position moved from
-	 * @param toIndex   index of position moved to
-	 */
-	void moveTableRow(int, int fromIndex, int toIndex);
+  /**
+   * Move a table row.
+   *
+   * The first parameter @a section is not used.
+   * @param fromIndex index of position moved from
+   * @param toIndex   index of position moved to
+   */
+  void moveTableRow(int, int fromIndex, int toIndex);
 
-	/**
-	 * Import from server and preview in table.
-	 */
-	void fromServer();
+  /**
+   * Import from server and preview in table.
+   */
+  void fromServer();
 
-	/**
-	 * Import from text.
-	 */
-	void fromText();
+  /**
+   * Import from text.
+   */
+  void fromText();
 
-	/**
-	 * Import from tags.
-	 */
-	void fromTags();
+  /**
+   * Import from tags.
+   */
+  void fromTags();
 
-	/**
-	 * Show fields to import in text as preview in table.
-	 */
-	void showPreview();
+  /**
+   * Show fields to import in text as preview in table.
+   */
+  void showPreview();
 
-	/**
-	 * Match import data with length.
-	 */
-	void matchWithLength();
+  /**
+   * Match import data with length.
+   */
+  void matchWithLength();
 
-	/**
-	 * Match import data with track number.
-	 */
-	void matchWithTrack();
+  /**
+   * Match import data with track number.
+   */
+  void matchWithTrack();
 
-	/**
-	 * Match import data with title.
-	 */
-	void matchWithTitle();
+  /**
+   * Match import data with title.
+   */
+  void matchWithTitle();
 
-	/**
-	 * Import from freedb.org and preview in table.
-	 */
-	void fromFreedb();
+  /**
+   * Import from freedb.org and preview in table.
+   */
+  void fromFreedb();
 
-	/**
-	 * Import from TrackType.org and preview in table.
-	 */
-	void fromTrackType();
+  /**
+   * Import from TrackType.org and preview in table.
+   */
+  void fromTrackType();
 
-	/**
-	 * Import from MusicBrainz and preview in table.
-	 */
-	void fromMusicBrainz();
+  /**
+   * Import from MusicBrainz and preview in table.
+   */
+  void fromMusicBrainz();
 
-	/**
-	 * Import from MusicBrainz release database and preview in table.
-	 */
-	void fromMusicBrainzRelease();
+  /**
+   * Import from MusicBrainz release database and preview in table.
+   */
+  void fromMusicBrainzRelease();
 
-	/**
-	 * Import from www.discogs.com and preview in table.
-	 */
-	void fromDiscogs();
+  /**
+   * Import from www.discogs.com and preview in table.
+   */
+  void fromDiscogs();
 
-	/**
-	 * Import from www.amazon.com and preview in table.
-	 */
-	void fromAmazon();
+  /**
+   * Import from www.amazon.com and preview in table.
+   */
+  void fromAmazon();
 
-	/**
-	 * Hide subdialogs.
-	 */
-	void hideSubdialogs();
+  /**
+   * Hide subdialogs.
+   */
+  void hideSubdialogs();
 
-	/**
-	 * Called when the destination combo box value is changed.
-	 */
-	void changeTagDestination();
+  /**
+   * Called when the destination combo box value is changed.
+   */
+  void changeTagDestination();
 
-	/**
-	 * Display custom context menu for horizontal table header.
-	 *
-	 * @param pos position where context menu is drawn on screen
-	 */
-	void showTableHeaderContextMenu(const QPoint& pos);
+  /**
+   * Display custom context menu for horizontal table header.
+   *
+   * @param pos position where context menu is drawn on screen
+   */
+  void showTableHeaderContextMenu(const QPoint& pos);
 
-	/**
-	 * Toggle visibility of table column.
-	 *
-	 * @param visible true to make column visible
-	 */
-	void toggleTableColumnVisibility(bool visible);
+  /**
+   * Toggle visibility of table column.
+   *
+   * @param visible true to make column visible
+   */
+  void toggleTableColumnVisibility(bool visible);
 
 private:
-	/**
-	 * Get time difference check configuration.
-	 *
-	 * @param enable  true if check is enabled
-	 * @param maxDiff maximum allowed time difference
-	 */
-	void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
+  /**
+   * Get time difference check configuration.
+   *
+   * @param enable  true if check is enabled
+   * @param maxDiff maximum allowed time difference
+   */
+  void getTimeDifferenceCheck(bool& enable, int& maxDiff) const;
 
-	/**
-	 * Display server import dialog.
-	 *
-	 * @param source import source
-	 */
-	void displayServerImportDialog(ServerImporter* source);
+  /**
+   * Display server import dialog.
+   *
+   * @param source import source
+   */
+  void displayServerImportDialog(ServerImporter* source);
 
-	/** Subdialog to open when starting */
-	AutoStartSubDialog m_autoStartSubDialog;
-	/** Mask for visibility of optional columns */
-	quint64 m_columnVisibility;
-	/** Preview table */
-	QTableView* m_trackDataTable;
-	/** Track data model */
-	TrackDataModel* m_trackDataModel;
-	/** combobox with import servers */
-	QComboBox* m_serverComboBox;
-	/** combobox with import destinations */
-	QComboBox* m_destComboBox;
-	QCheckBox* m_mismatchCheckBox;
-	QSpinBox* m_maxDiffSpinBox;
-	/** freedb.org importer */
-	FreedbImporter* m_freedbImporter;
-	/** TrackType.org importer */
-	TrackTypeImporter* m_trackTypeImporter;
-	/** MusicBrainz import dialog */
-	MusicBrainzDialog* m_musicBrainzDialog;
-	/** MusicBrainz release importer */
-	MusicBrainzReleaseImporter* m_musicBrainzReleaseImporter;
-	/** Discogs importer */
-	DiscogsImporter* m_discogsImporter;
-	/** Amazon importer */
-	AmazonImporter* m_amazonImporter;
-	/** Server import dialog */
-	ServerImportDialog* m_serverImportDialog;
-	/** Text import dialog */
-	TextImportDialog* m_textImportDialog;
-	/** Tag import dialog */
-	TagImportDialog* m_tagImportDialog;
+  /** Subdialog to open when starting */
+  AutoStartSubDialog m_autoStartSubDialog;
+  /** Mask for visibility of optional columns */
+  quint64 m_columnVisibility;
+  /** Preview table */
+  QTableView* m_trackDataTable;
+  /** Track data model */
+  TrackDataModel* m_trackDataModel;
+  /** combobox with import servers */
+  QComboBox* m_serverComboBox;
+  /** combobox with import destinations */
+  QComboBox* m_destComboBox;
+  QCheckBox* m_mismatchCheckBox;
+  QSpinBox* m_maxDiffSpinBox;
+  /** freedb.org importer */
+  FreedbImporter* m_freedbImporter;
+  /** TrackType.org importer */
+  TrackTypeImporter* m_trackTypeImporter;
+  /** MusicBrainz import dialog */
+  MusicBrainzDialog* m_musicBrainzDialog;
+  /** MusicBrainz release importer */
+  MusicBrainzReleaseImporter* m_musicBrainzReleaseImporter;
+  /** Discogs importer */
+  DiscogsImporter* m_discogsImporter;
+  /** Amazon importer */
+  AmazonImporter* m_amazonImporter;
+  /** Server import dialog */
+  ServerImportDialog* m_serverImportDialog;
+  /** Text import dialog */
+  TextImportDialog* m_textImportDialog;
+  /** Tag import dialog */
+  TagImportDialog* m_tagImportDialog;
 };
 
 #endif

@@ -41,128 +41,128 @@ class TrackDataModel;
  */
 class ServerImporter : public ImportClient
 {
-	Q_OBJECT
+  Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent  parent object
-	 * @param trackDataModel track data to be filled with imported values
-	 */
-	ServerImporter(QObject* parent,
-								 TrackDataModel* trackDataModel);
+  /**
+   * Constructor.
+   *
+   * @param parent  parent object
+   * @param trackDataModel track data to be filled with imported values
+   */
+  ServerImporter(QObject* parent,
+                 TrackDataModel* trackDataModel);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~ServerImporter();
+  /**
+   * Destructor.
+   */
+  virtual ~ServerImporter();
 
-	/**
-	 * Name of import source.
-	 * @return name.
-	 */
-	virtual QString name() const = 0;
+  /**
+   * Name of import source.
+   * @return name.
+   */
+  virtual QString name() const = 0;
 
-	/** NULL-terminated array of server strings, 0 if not used */
-	virtual const char** serverList() const;
+  /** NULL-terminated array of server strings, 0 if not used */
+  virtual const char** serverList() const;
 
-	/** default server, 0 to disable */
-	virtual const char* defaultServer() const;
+  /** default server, 0 to disable */
+  virtual const char* defaultServer() const;
 
-	/** default CGI path, 0 to disable */
-	virtual const char* defaultCgiPath() const;
+  /** default CGI path, 0 to disable */
+  virtual const char* defaultCgiPath() const;
 
-	/** anchor to online help, 0 to disable */
-	virtual const char* helpAnchor() const;
+  /** anchor to online help, 0 to disable */
+  virtual const char* helpAnchor() const;
 
-	/** configuration, 0 if not used */
-	virtual ServerImporterConfig* config() const;
+  /** configuration, 0 if not used */
+  virtual ServerImporterConfig* config() const;
 
-	/** additional tags option, false if not used */
-	virtual bool additionalTags() const;
+  /** additional tags option, false if not used */
+  virtual bool additionalTags() const;
 
-	/**
-	 * Parse result of find request and populate m_albumListBox with results.
-	 * This method has to be reimplemented for the specific result data.
-	 *
-	 * @param searchStr search data received
-	 */
-	virtual void parseFindResults(const QByteArray& searchStr) = 0;
+  /**
+   * Parse result of find request and populate m_albumListBox with results.
+   * This method has to be reimplemented for the specific result data.
+   *
+   * @param searchStr search data received
+   */
+  virtual void parseFindResults(const QByteArray& searchStr) = 0;
 
-	/**
-	 * Parse result of album request and populate m_trackDataModel with results.
-	 * This method has to be reimplemented for the specific result data.
-	 *
-	 * @param albumStr album data received
-	 */
-	virtual void parseAlbumResults(const QByteArray& albumStr) = 0;
+  /**
+   * Parse result of album request and populate m_trackDataModel with results.
+   * This method has to be reimplemented for the specific result data.
+   *
+   * @param albumStr album data received
+   */
+  virtual void parseAlbumResults(const QByteArray& albumStr) = 0;
 
-	/**
-	 * Get model with album list.
-	 *
-	 * @return album list item model.
-	 */
-	QStandardItemModel* getAlbumListModel() const { return m_albumListModel; }
+  /**
+   * Get model with album list.
+   *
+   * @return album list item model.
+   */
+  QStandardItemModel* getAlbumListModel() const { return m_albumListModel; }
 
-	/**
-	 * Clear model data.
-	 */
-	void clear();
+  /**
+   * Clear model data.
+   */
+  void clear();
 
-	/**
-	 * Get additional tags option.
-	 *
-	 * @return true if additional tags are enabled.
-	 */
-	bool getAdditionalTags() const { return m_additionalTagsEnabled; }
+  /**
+   * Get additional tags option.
+   *
+   * @return true if additional tags are enabled.
+   */
+  bool getAdditionalTags() const { return m_additionalTagsEnabled; }
 
-	/**
-	 * Set additional tags option.
-	 *
-	 * @param enable true if additional tags are enabled
-	 */
-	void setAdditionalTags(bool enable) { m_additionalTagsEnabled = enable; }
+  /**
+   * Set additional tags option.
+   *
+   * @param enable true if additional tags are enabled
+   */
+  void setAdditionalTags(bool enable) { m_additionalTagsEnabled = enable; }
 
-	/**
-	 * Get cover art option.
-	 *
-	 * @return true if cover art are enabled.
-	 */
-	bool getCoverArt() const { return m_coverArtEnabled; }
+  /**
+   * Get cover art option.
+   *
+   * @return true if cover art are enabled.
+   */
+  bool getCoverArt() const { return m_coverArtEnabled; }
 
-	/**
-	 * Set cover art option.
-	 *
-	 * @param enable true if cover art are enabled
-	 */
-	void setCoverArt(bool enable) { m_coverArtEnabled = enable; }
+  /**
+   * Set cover art option.
+   *
+   * @param enable true if cover art are enabled
+   */
+  void setCoverArt(bool enable) { m_coverArtEnabled = enable; }
 
-	/**
-	 * Replace HTML entities in a string.
-	 *
-	 * @param str string with HTML entities (e.g. &quot;)
-	 *
-	 * @return string with replaced HTML entities.
-	 */
-	static QString replaceHtmlEntities(QString str);
+  /**
+   * Replace HTML entities in a string.
+   *
+   * @param str string with HTML entities (e.g. &quot;)
+   *
+   * @return string with replaced HTML entities.
+   */
+  static QString replaceHtmlEntities(QString str);
 
-	/**
-	 * Replace HTML entities and remove HTML tags.
-	 *
-	 * @param str string containing HTML
-	 *
-	 * @return clean up string
-	 */
-	static QString removeHtml(QString str);
+  /**
+   * Replace HTML entities and remove HTML tags.
+   *
+   * @param str string containing HTML
+   *
+   * @return clean up string
+   */
+  static QString removeHtml(QString str);
 
 protected:
-	QStandardItemModel* m_albumListModel; /**< albums to select */
-	TrackDataModel* m_trackDataModel; /**< model with tracks to import */
+  QStandardItemModel* m_albumListModel; /**< albums to select */
+  TrackDataModel* m_trackDataModel; /**< model with tracks to import */
 
 private:
-	bool m_additionalTagsEnabled;
-	bool m_coverArtEnabled;
+  bool m_additionalTagsEnabled;
+  bool m_coverArtEnabled;
 };
 
 /**
@@ -170,30 +170,30 @@ private:
  */
 class AlbumListItem : public QStandardItem {
 public:
-	/**
-	 * Constructor.
-	 * @param text    title
-	 * @param cat     category
-	 * @param idStr   ID
-	 */
-	AlbumListItem(const QString& text,
-				  const QString& cat, const QString& idStr) :
-		QStandardItem(text) {
-		setData(cat, Qt::UserRole + 1);
-		setData(idStr, Qt::UserRole + 2);
-	}
+  /**
+   * Constructor.
+   * @param text    title
+   * @param cat     category
+   * @param idStr   ID
+   */
+  AlbumListItem(const QString& text,
+          const QString& cat, const QString& idStr) :
+    QStandardItem(text) {
+    setData(cat, Qt::UserRole + 1);
+    setData(idStr, Qt::UserRole + 2);
+  }
 
-	/**
-	 * Get category.
-	 * @return category.
-	 */
-	QString getCategory() const { return data(Qt::UserRole + 1).toString(); }
+  /**
+   * Get category.
+   * @return category.
+   */
+  QString getCategory() const { return data(Qt::UserRole + 1).toString(); }
 
-	/**
-	 * Get ID.
-	 * @return ID.
-	 */
-	QString getId() const { return data(Qt::UserRole + 2).toString(); }
+  /**
+   * Get ID.
+   * @return ID.
+   */
+  QString getId() const { return data(Qt::UserRole + 2).toString(); }
 };
 
 #endif

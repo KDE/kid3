@@ -40,75 +40,75 @@ class TrackDataModel;
  * Dialog to import from a text (file or clipboard).
  */
 class TagImportDialog : public QDialog {
-	Q_OBJECT
+  Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent  parent widget
-	 * @param trackDataModel track data to be filled with imported values
-	 */
-	explicit TagImportDialog(QWidget* parent,
-													 TrackDataModel* trackDataModel);
+  /**
+   * Constructor.
+   *
+   * @param parent  parent widget
+   * @param trackDataModel track data to be filled with imported values
+   */
+  explicit TagImportDialog(QWidget* parent,
+                           TrackDataModel* trackDataModel);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~TagImportDialog();
+  /**
+   * Destructor.
+   */
+  virtual ~TagImportDialog();
 
-	/**
-	 * Clear dialog data.
-	 */
-	void clear();
+  /**
+   * Clear dialog data.
+   */
+  void clear();
 
 private slots:
-	/**
-	 * Apply import to track data.
-	 */
-	void apply();
+  /**
+   * Apply import to track data.
+   */
+  void apply();
 
-	/**
-	 * Set the format lineedits to the format selected in the combo box.
-	 *
-	 * @param index current index of the combo box
-	 */
-	void setFormatLineEdit(int index);
+  /**
+   * Set the format lineedits to the format selected in the combo box.
+   *
+   * @param index current index of the combo box
+   */
+  void setFormatLineEdit(int index);
 
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
 signals:
-	/**
-	 * Emitted when the m_trackDataVector was updated with new imported data.
-	 */
-	void trackDataUpdated();
+  /**
+   * Emitted when the m_trackDataVector was updated with new imported data.
+   */
+  void trackDataUpdated();
 
 private:
-	/**
-	 * Set the format combo box and line edits from the configuration.
-	 */
-	void setFormatFromConfig();
+  /**
+   * Set the format combo box and line edits from the configuration.
+   */
+  void setFormatFromConfig();
 
-	/** combobox with import formats */
-	QComboBox* m_formatComboBox;
-	/** LineEdit for source expression */
-	QLineEdit* m_sourceLineEdit;
-	/** LineEdit for extraction regexp */
-	QLineEdit* m_extractionLineEdit;
-	/** Source expressions */
-	QStringList m_formatSources;
-	/** Extraction regexps */
-	QStringList m_formatExtractions;
+  /** combobox with import formats */
+  QComboBox* m_formatComboBox;
+  /** LineEdit for source expression */
+  QLineEdit* m_sourceLineEdit;
+  /** LineEdit for extraction regexp */
+  QLineEdit* m_extractionLineEdit;
+  /** Source expressions */
+  QStringList m_formatSources;
+  /** Extraction regexps */
+  QStringList m_formatExtractions;
 
-	TrackDataModel* m_trackDataModel;
+  TrackDataModel* m_trackDataModel;
 };
 
 #endif

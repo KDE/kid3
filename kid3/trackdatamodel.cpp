@@ -33,7 +33,7 @@
  * @param parent parent widget
  */
 TrackDataModel::TrackDataModel(QObject* parent) :
-	QAbstractTableModel(parent), m_diffCheckEnabled(false), m_maxDiff(0)
+  QAbstractTableModel(parent), m_diffCheckEnabled(false), m_maxDiff(0)
 {
 }
 
@@ -51,17 +51,17 @@ TrackDataModel::~TrackDataModel()
  */
 Qt::ItemFlags TrackDataModel::flags(const QModelIndex& index) const
 {
-	Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
-	if (index.isValid()) {
-		theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled;
-		if (m_frameTypes.at(index.column()) < FT_FirstTrackProperty) {
-			theFlags |= Qt::ItemIsEditable;
-		}
-		if (index.column() == 0) {
-			theFlags |= Qt::ItemIsUserCheckable;
-		}
-	}
-	return theFlags;
+  Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
+  if (index.isValid()) {
+    theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    if (m_frameTypes.at(index.column()) < FT_FirstTrackProperty) {
+      theFlags |= Qt::ItemIsEditable;
+    }
+    if (index.column() == 0) {
+      theFlags |= Qt::ItemIsUserCheckable;
+    }
+  }
+  return theFlags;
 }
 
 /**
@@ -72,58 +72,58 @@ Qt::ItemFlags TrackDataModel::flags(const QModelIndex& index) const
  */
 QVariant TrackDataModel::data(const QModelIndex& index, int role) const
 {
-	if (!index.isValid() ||
-			index.row() < 0 ||
-			index.row() >= static_cast<int>(m_trackDataVector.size()) ||
-			index.column() < 0 ||
-			index.column() >= static_cast<int>(m_frameTypes.size()))
-		return QVariant();
+  if (!index.isValid() ||
+      index.row() < 0 ||
+      index.row() >= static_cast<int>(m_trackDataVector.size()) ||
+      index.column() < 0 ||
+      index.column() >= static_cast<int>(m_frameTypes.size()))
+    return QVariant();
 
-	if (role == Qt::DisplayRole || role == Qt::EditRole) {
-		const ImportTrackData& trackData = m_trackDataVector.at(index.row());
-		int type = m_frameTypes.at(index.column());
-		if (type < FT_FirstTrackProperty) {
-			QString value(trackData.getValue(static_cast<Frame::Type>(type)));
-			if (!value.isNull())
-				return value;
-		} else {
-			switch (type) {
-			case FT_FilePath:
-				return trackData.getAbsFilename();
-			case FT_FileName:
-				return trackData.getFilename();
-			case FT_Duration:
-				if (int duration = trackData.getFileDuration()) {
-					return TaggedFile::formatTime(duration);
-				}
-				break;
-			case FT_ImportDuration:
-				if (int duration = trackData.getImportDuration()) {
-					return TaggedFile::formatTime(duration);
-				}
-				break;
-			default:
-				;
-			}
-		}
-	} else if (role == FrameTableModel::FrameTypeRole) {
-		return m_frameTypes.at(index.column());
-	} else if (role == Qt::BackgroundColorRole) {
-		if (index.column() == 0 && m_diffCheckEnabled) {
-			const ImportTrackData& trackData = m_trackDataVector.at(index.row());
-			int fileDuration = trackData.getFileDuration();
-			int importDuration = trackData.getImportDuration();
-			if (fileDuration != 0 && importDuration != 0) {
-				int diff = fileDuration > importDuration ?
-					fileDuration - importDuration : importDuration - fileDuration;
-				return diff > m_maxDiff ? QBrush(Qt::red) : Qt::NoBrush;
-			}
-		}
-	} else if (role == Qt::CheckStateRole && index.column() == 0) {
-		return m_trackDataVector.at(index.row()).isEnabled()
-				? Qt::Checked : Qt::Unchecked;
-	}
-	return QVariant();
+  if (role == Qt::DisplayRole || role == Qt::EditRole) {
+    const ImportTrackData& trackData = m_trackDataVector.at(index.row());
+    int type = m_frameTypes.at(index.column());
+    if (type < FT_FirstTrackProperty) {
+      QString value(trackData.getValue(static_cast<Frame::Type>(type)));
+      if (!value.isNull())
+        return value;
+    } else {
+      switch (type) {
+      case FT_FilePath:
+        return trackData.getAbsFilename();
+      case FT_FileName:
+        return trackData.getFilename();
+      case FT_Duration:
+        if (int duration = trackData.getFileDuration()) {
+          return TaggedFile::formatTime(duration);
+        }
+        break;
+      case FT_ImportDuration:
+        if (int duration = trackData.getImportDuration()) {
+          return TaggedFile::formatTime(duration);
+        }
+        break;
+      default:
+        ;
+      }
+    }
+  } else if (role == FrameTableModel::FrameTypeRole) {
+    return m_frameTypes.at(index.column());
+  } else if (role == Qt::BackgroundColorRole) {
+    if (index.column() == 0 && m_diffCheckEnabled) {
+      const ImportTrackData& trackData = m_trackDataVector.at(index.row());
+      int fileDuration = trackData.getFileDuration();
+      int importDuration = trackData.getImportDuration();
+      if (fileDuration != 0 && importDuration != 0) {
+        int diff = fileDuration > importDuration ?
+          fileDuration - importDuration : importDuration - fileDuration;
+        return diff > m_maxDiff ? QBrush(Qt::red) : Qt::NoBrush;
+      }
+    }
+  } else if (role == Qt::CheckStateRole && index.column() == 0) {
+    return m_trackDataVector.at(index.row()).isEnabled()
+        ? Qt::Checked : Qt::Unchecked;
+  }
+  return QVariant();
 }
 
 /**
@@ -134,41 +134,41 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
  * @return true if successful
  */
 bool TrackDataModel::setData(const QModelIndex& index,
-															const QVariant& value, int role)
+                              const QVariant& value, int role)
 {
-	if (!index.isValid() ||
-			index.row() < 0 ||
-			index.row() >= static_cast<int>(m_trackDataVector.size()) ||
-			index.column() < 0 ||
-			index.column() >= static_cast<int>(m_frameTypes.size()))
-		return false;
+  if (!index.isValid() ||
+      index.row() < 0 ||
+      index.row() >= static_cast<int>(m_trackDataVector.size()) ||
+      index.column() < 0 ||
+      index.column() >= static_cast<int>(m_frameTypes.size()))
+    return false;
 
-	if (role == Qt::EditRole) {
-		ImportTrackData& trackData = m_trackDataVector[index.row()];
-		int type = m_frameTypes.at(index.column());
-		if (type >= FT_FirstTrackProperty)
-			return false;
+  if (role == Qt::EditRole) {
+    ImportTrackData& trackData = m_trackDataVector[index.row()];
+    int type = m_frameTypes.at(index.column());
+    if (type >= FT_FirstTrackProperty)
+      return false;
 
-		Frame frame(static_cast<Frame::Type>(type), "", "", -1);
-		FrameCollection::iterator it = trackData.find(frame);
-		QString valueStr(value.toString());
-		if (it != trackData.end()) {
-			Frame& frameFound = const_cast<Frame&>(*it);
-			frameFound.setValueIfChanged(valueStr);
-		} else {
-			frame.setValueIfChanged(valueStr);
-			trackData.insert(frame);
-		}
-		return true;
-	} else if (role == Qt::CheckStateRole && index.column() == 0) {
-		bool isChecked(value.toInt() == Qt::Checked);
-		if (isChecked != m_trackDataVector.at(index.row()).isEnabled()) {
-			m_trackDataVector[index.row()].setEnabled(isChecked);
-			emit dataChanged(index, index);
-		}
-		return true;
-	}
-	return false;
+    Frame frame(static_cast<Frame::Type>(type), "", "", -1);
+    FrameCollection::iterator it = trackData.find(frame);
+    QString valueStr(value.toString());
+    if (it != trackData.end()) {
+      Frame& frameFound = const_cast<Frame&>(*it);
+      frameFound.setValueIfChanged(valueStr);
+    } else {
+      frame.setValueIfChanged(valueStr);
+      trackData.insert(frame);
+    }
+    return true;
+  } else if (role == Qt::CheckStateRole && index.column() == 0) {
+    bool isChecked(value.toInt() == Qt::Checked);
+    if (isChecked != m_trackDataVector.at(index.row()).isEnabled()) {
+      m_trackDataVector[index.row()].setEnabled(isChecked);
+      emit dataChanged(index, index);
+    }
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -179,38 +179,38 @@ bool TrackDataModel::setData(const QModelIndex& index,
  * @return header data for role
  */
 QVariant TrackDataModel::headerData(
-		int section, Qt::Orientation orientation, int role) const
+    int section, Qt::Orientation orientation, int role) const
 {
-	if (role != Qt::DisplayRole)
-		return QVariant();
-	if (orientation == Qt::Horizontal && section < m_frameTypes.size()) {
-		int type = m_frameTypes.at(section);
-		if (type < FT_FirstTrackProperty) {
-			return type == Frame::FT_Track
-				? i18n("Track") // shorter header for track number
-				: FrameTableModel::getDisplayName(
-						Frame::getNameFromType(static_cast<Frame::Type>(type)));
-		} else {
-			switch (type) {
-			case FT_FilePath:
-				return i18n("Absolute path to file");
-			case FT_FileName:
-				return i18n("Filename");
-			case FT_Duration:
-				return i18n("Duration");
-			case FT_ImportDuration:
-				return i18n("Length");
-			default:
-				;
-			}
-		}
-	} else if (orientation == Qt::Vertical && section < m_trackDataVector.size()) {
-		int fileDuration = m_trackDataVector.at(section).getFileDuration();
-		if (fileDuration > 0) {
-			return TaggedFile::formatTime(fileDuration);
-		}
-	}
-	return section + 1;
+  if (role != Qt::DisplayRole)
+    return QVariant();
+  if (orientation == Qt::Horizontal && section < m_frameTypes.size()) {
+    int type = m_frameTypes.at(section);
+    if (type < FT_FirstTrackProperty) {
+      return type == Frame::FT_Track
+        ? i18n("Track") // shorter header for track number
+        : FrameTableModel::getDisplayName(
+            Frame::getNameFromType(static_cast<Frame::Type>(type)));
+    } else {
+      switch (type) {
+      case FT_FilePath:
+        return i18n("Absolute path to file");
+      case FT_FileName:
+        return i18n("Filename");
+      case FT_Duration:
+        return i18n("Duration");
+      case FT_ImportDuration:
+        return i18n("Length");
+      default:
+        ;
+      }
+    }
+  } else if (orientation == Qt::Vertical && section < m_trackDataVector.size()) {
+    int fileDuration = m_trackDataVector.at(section).getFileDuration();
+    if (fileDuration > 0) {
+      return TaggedFile::formatTime(fileDuration);
+    }
+  }
+  return section + 1;
 }
 
 /**
@@ -221,7 +221,7 @@ QVariant TrackDataModel::headerData(
  */
 int TrackDataModel::rowCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : m_trackDataVector.size();
+  return parent.isValid() ? 0 : m_trackDataVector.size();
 }
 
 /**
@@ -232,7 +232,7 @@ int TrackDataModel::rowCount(const QModelIndex& parent) const
  */
 int TrackDataModel::columnCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : m_frameTypes.size();
+  return parent.isValid() ? 0 : m_frameTypes.size();
 }
 
 /**
@@ -245,10 +245,10 @@ int TrackDataModel::columnCount(const QModelIndex& parent) const
  */
 bool TrackDataModel::insertRows(int row, int count, const QModelIndex&)
 {
-	beginInsertRows(QModelIndex(), row, row + count - 1);
-	m_trackDataVector.insert(row, count, ImportTrackData());
-	endInsertRows();
-	return true;
+  beginInsertRows(QModelIndex(), row, row + count - 1);
+  m_trackDataVector.insert(row, count, ImportTrackData());
+  endInsertRows();
+  return true;
 }
 
 /**
@@ -259,12 +259,12 @@ bool TrackDataModel::insertRows(int row, int count, const QModelIndex&)
  * @return true if successful
  */
 bool TrackDataModel::removeRows(int row, int count,
-												const QModelIndex&)
+                        const QModelIndex&)
 {
-	beginRemoveRows(QModelIndex(), row, row + count - 1);
-	m_trackDataVector.remove(row, count);
-	endRemoveRows();
-	return true;
+  beginRemoveRows(QModelIndex(), row, row + count - 1);
+  m_trackDataVector.remove(row, count);
+  endRemoveRows();
+  return true;
 }
 
 /**
@@ -276,13 +276,13 @@ bool TrackDataModel::removeRows(int row, int count,
  * @return true if successful
  */
 bool TrackDataModel::insertColumns(int column, int count,
-													 const QModelIndex&)
+                           const QModelIndex&)
 {
-	beginInsertColumns(QModelIndex(), column, column + count - 1);
-	for (int i = 0; i < count; ++i)
-		m_frameTypes.insert(column, Frame::FT_UnknownFrame);
-	endInsertColumns();
-	return true;
+  beginInsertColumns(QModelIndex(), column, column + count - 1);
+  for (int i = 0; i < count; ++i)
+    m_frameTypes.insert(column, Frame::FT_UnknownFrame);
+  endInsertColumns();
+  return true;
 }
 
 /**
@@ -293,13 +293,13 @@ bool TrackDataModel::insertColumns(int column, int count,
  * @return true if successful
  */
 bool TrackDataModel::removeColumns(int column, int count,
-													 const QModelIndex&)
+                           const QModelIndex&)
 {
-	beginRemoveColumns(QModelIndex(), column, column + count - 1);
-	for (int i = 0; i < count; ++i)
-		m_frameTypes.removeAt(column);
-	endRemoveColumns();
-	return true;
+  beginRemoveColumns(QModelIndex(), column, column + count - 1);
+  for (int i = 0; i < count; ++i)
+    m_frameTypes.removeAt(column);
+  endRemoveColumns();
+  return true;
 }
 
 /**
@@ -309,9 +309,9 @@ bool TrackDataModel::removeColumns(int column, int count,
  */
 void TrackDataModel::setAllCheckStates(bool checked)
 {
-	for (int row = 0; row < rowCount(); ++row) {
-		m_trackDataVector[row].setEnabled(checked);
-	}
+  for (int row = 0; row < rowCount(); ++row) {
+    m_trackDataVector[row].setEnabled(checked);
+  }
 }
 
 /**
@@ -321,11 +321,11 @@ void TrackDataModel::setAllCheckStates(bool checked)
  * @param maxDiff maximum allowed time difference
  */
 void TrackDataModel::setTimeDifferenceCheck(bool enable, int maxDiff) {
-	bool changed = m_diffCheckEnabled != enable || m_maxDiff != maxDiff;
-	m_diffCheckEnabled = enable;
-	m_maxDiff = maxDiff;
-	if (changed)
-		emit dataChanged(index(0,0), index(rowCount() - 1, 0));
+  bool changed = m_diffCheckEnabled != enable || m_maxDiff != maxDiff;
+  m_diffCheckEnabled = enable;
+  m_maxDiff = maxDiff;
+  if (changed)
+    emit dataChanged(index(0,0), index(rowCount() - 1, 0));
 }
 
 /**
@@ -335,21 +335,21 @@ void TrackDataModel::setTimeDifferenceCheck(bool enable, int maxDiff) {
  */
 const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
 {
-	if (!index.isValid() ||
-			index.row() < 0 ||
-			index.row() >= static_cast<int>(m_trackDataVector.size()) ||
-			index.column() < 0 ||
-			index.column() >= static_cast<int>(m_frameTypes.size()))
-		return 0;
+  if (!index.isValid() ||
+      index.row() < 0 ||
+      index.row() >= static_cast<int>(m_trackDataVector.size()) ||
+      index.column() < 0 ||
+      index.column() >= static_cast<int>(m_frameTypes.size()))
+    return 0;
 
-	const ImportTrackData& trackData = m_trackDataVector.at(index.row());
-	int type = m_frameTypes.at(index.column());
-	if (type >= FT_FirstTrackProperty)
-		return 0;
+  const ImportTrackData& trackData = m_trackDataVector.at(index.row());
+  int type = m_frameTypes.at(index.column());
+  if (type >= FT_FirstTrackProperty)
+    return 0;
 
-	Frame frame(static_cast<Frame::Type>(type), "", "", -1);
-	FrameCollection::const_iterator it = trackData.find(frame);
-	return it != trackData.end() ? &(*it) : 0;
+  Frame frame(static_cast<Frame::Type>(type), "", "", -1);
+  FrameCollection::const_iterator it = trackData.find(frame);
+  return it != trackData.end() ? &(*it) : 0;
 }
 
 /**
@@ -358,68 +358,68 @@ const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
  */
 void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
 {
-	static const int initFrameTypes[] = {
-		FT_ImportDuration, FT_FileName, FT_FilePath,
-		Frame::FT_Track, Frame::FT_Title,
-		Frame::FT_Artist, Frame::FT_Album, Frame::FT_Date, Frame::FT_Genre,
-		Frame::FT_Comment
-	};
-	unsigned numStandardColumns =
-		sizeof(initFrameTypes) / sizeof(initFrameTypes[0]);
+  static const int initFrameTypes[] = {
+    FT_ImportDuration, FT_FileName, FT_FilePath,
+    Frame::FT_Track, Frame::FT_Title,
+    Frame::FT_Artist, Frame::FT_Album, Frame::FT_Date, Frame::FT_Genre,
+    Frame::FT_Comment
+  };
+  unsigned numStandardColumns =
+    sizeof(initFrameTypes) / sizeof(initFrameTypes[0]);
 
-	QList<int> newFrameTypes;
-	for (unsigned i = 0; i < numStandardColumns; ++i) {
-		newFrameTypes.append(initFrameTypes[i]);
-	}
+  QList<int> newFrameTypes;
+  for (unsigned i = 0; i < numStandardColumns; ++i) {
+    newFrameTypes.append(initFrameTypes[i]);
+  }
 
-	for (ImportTrackDataVector::const_iterator tit = trackDataVector.constBegin();
-			 tit != trackDataVector.constEnd();
-			 ++tit) {
-		for (FrameCollection::const_iterator fit = tit->begin();
-				 fit != tit->end();
-				 ++fit) {
-			Frame::Type type = fit->getType();
-			if (type > Frame::FT_LastV1Frame &&
-					!newFrameTypes.contains(type)) {
-				newFrameTypes.append(type);
-			}
-		}
-	}
+  for (ImportTrackDataVector::const_iterator tit = trackDataVector.constBegin();
+       tit != trackDataVector.constEnd();
+       ++tit) {
+    for (FrameCollection::const_iterator fit = tit->begin();
+         fit != tit->end();
+         ++fit) {
+      Frame::Type type = fit->getType();
+      if (type > Frame::FT_LastV1Frame &&
+          !newFrameTypes.contains(type)) {
+        newFrameTypes.append(type);
+      }
+    }
+  }
 
-	int oldNumTypes = m_frameTypes.size();
-	int newNumTypes = newFrameTypes.size();
-	int numColumnsChanged = qMin(oldNumTypes, newNumTypes);
-	if (newNumTypes < oldNumTypes)
-		beginRemoveColumns(QModelIndex(), newNumTypes, oldNumTypes - 1);
-	else if (newNumTypes > oldNumTypes)
-		beginInsertColumns(QModelIndex(), oldNumTypes, newNumTypes - 1);
+  int oldNumTypes = m_frameTypes.size();
+  int newNumTypes = newFrameTypes.size();
+  int numColumnsChanged = qMin(oldNumTypes, newNumTypes);
+  if (newNumTypes < oldNumTypes)
+    beginRemoveColumns(QModelIndex(), newNumTypes, oldNumTypes - 1);
+  else if (newNumTypes > oldNumTypes)
+    beginInsertColumns(QModelIndex(), oldNumTypes, newNumTypes - 1);
 
-	m_frameTypes = newFrameTypes;
+  m_frameTypes = newFrameTypes;
 
-	if (newNumTypes < oldNumTypes)
-		endRemoveColumns();
-	else if (newNumTypes > oldNumTypes)
-		endInsertColumns();
+  if (newNumTypes < oldNumTypes)
+    endRemoveColumns();
+  else if (newNumTypes > oldNumTypes)
+    endInsertColumns();
 
-	int oldNumTracks = m_trackDataVector.size();
-	int newNumTracks = trackDataVector.size();
-	int numRowsChanged = qMin(oldNumTracks, newNumTracks);
-	if (newNumTracks < oldNumTracks)
-		beginRemoveRows(QModelIndex(), newNumTracks, oldNumTracks - 1);
-	else if (newNumTracks > oldNumTracks)
-		beginInsertRows(QModelIndex(), oldNumTracks, newNumTracks - 1);
+  int oldNumTracks = m_trackDataVector.size();
+  int newNumTracks = trackDataVector.size();
+  int numRowsChanged = qMin(oldNumTracks, newNumTracks);
+  if (newNumTracks < oldNumTracks)
+    beginRemoveRows(QModelIndex(), newNumTracks, oldNumTracks - 1);
+  else if (newNumTracks > oldNumTracks)
+    beginInsertRows(QModelIndex(), oldNumTracks, newNumTracks - 1);
 
-	m_trackDataVector = trackDataVector;
+  m_trackDataVector = trackDataVector;
 
-	if (newNumTracks < oldNumTracks)
-		endRemoveRows();
-	else if (newNumTracks > oldNumTracks)
-		endInsertRows();
+  if (newNumTracks < oldNumTracks)
+    endRemoveRows();
+  else if (newNumTracks > oldNumTracks)
+    endInsertRows();
 
 
-	if (numRowsChanged > 0)
-		emit dataChanged(
-					index(0, 0), index(numRowsChanged - 1, numColumnsChanged - 1));
+  if (numRowsChanged > 0)
+    emit dataChanged(
+          index(0, 0), index(numRowsChanged - 1, numColumnsChanged - 1));
 }
 
 /**
@@ -428,7 +428,7 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
  */
 ImportTrackDataVector TrackDataModel::getTrackData() const
 {
-	return m_trackDataVector;
+  return m_trackDataVector;
 }
 
 /**
@@ -439,7 +439,7 @@ ImportTrackDataVector TrackDataModel::getTrackData() const
  */
 int TrackDataModel::frameTypeForColumn(int column) const
 {
-	return column < m_frameTypes.size() ? m_frameTypes.at(column) : -1;
+  return column < m_frameTypes.size() ? m_frameTypes.at(column) : -1;
 }
 
 /**
@@ -450,6 +450,6 @@ int TrackDataModel::frameTypeForColumn(int column) const
  */
 int TrackDataModel::columnForFrameType(int frameType) const
 {
-	return m_frameTypes.indexOf(frameType);
+  return m_frameTypes.indexOf(frameType);
 }
 

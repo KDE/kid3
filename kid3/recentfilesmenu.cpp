@@ -40,22 +40,22 @@ RecentFilesMenu::~RecentFilesMenu()
  */
 void RecentFilesMenu::addDirectory(const QString& dir)
 {
-	QString path = QDir(dir).canonicalPath();
-	if (path.isNull())
-		return;
+  QString path = QDir(dir).canonicalPath();
+  if (path.isNull())
+    return;
 
-	// first remove the path if it already exists
-	int pathIdx = m_files.indexOf(path);
-	if (pathIdx != -1) {
-		m_files.removeAt(pathIdx);
-	}
+  // first remove the path if it already exists
+  int pathIdx = m_files.indexOf(path);
+  if (pathIdx != -1) {
+    m_files.removeAt(pathIdx);
+  }
 
-	m_files.prepend(path);
-	if (m_files.size() > MAX_RECENT_FILES) {
-		m_files.removeLast();
-	}
+  m_files.prepend(path);
+  if (m_files.size() > MAX_RECENT_FILES) {
+    m_files.removeLast();
+  }
 
-	updateRecentFileActions();
+  updateRecentFileActions();
 }
 
 /**
@@ -65,9 +65,9 @@ void RecentFilesMenu::addDirectory(const QString& dir)
  */
 void RecentFilesMenu::saveEntries(Kid3Settings* config)
 {
-	config->beginGroup("/Recent Files");
-	config->setValue("Files", QVariant(m_files));
-	config->endGroup();
+  config->beginGroup("/Recent Files");
+  config->setValue("Files", QVariant(m_files));
+  config->endGroup();
 }
 
 /**
@@ -77,15 +77,15 @@ void RecentFilesMenu::saveEntries(Kid3Settings* config)
  */
 void RecentFilesMenu::loadEntries(Kid3Settings* config)
 {
-	config->beginGroup("/Recent Files");
-	m_files = config->value("Files").toStringList();
-	config->endGroup();
+  config->beginGroup("/Recent Files");
+  m_files = config->value("Files").toStringList();
+  config->endGroup();
 
-	while (m_files.size() > MAX_RECENT_FILES) {
-		m_files.removeLast();
-	}
+  while (m_files.size() > MAX_RECENT_FILES) {
+    m_files.removeLast();
+  }
 
-	updateRecentFileActions();
+  updateRecentFileActions();
 }
 
 /**
@@ -93,27 +93,27 @@ void RecentFilesMenu::loadEntries(Kid3Settings* config)
  */
 void RecentFilesMenu::updateRecentFileActions()
 {
-	int i = 0;
-	clear();
-	for (QStringList::const_iterator it = m_files.begin();
-			 it != m_files.end();
-			 ++it) {
-		QAction* act = new QAction(this);
-		act->setText(QString("&%1 %2").arg(++i).arg(*it));
-		act->setData(*it);
-		connect(act, SIGNAL(triggered()), this, SLOT(openRecentFile()));
-		this->addAction(act);
-	}
-	if (i > 0) {
-		addSeparator();
-		QAction* clearListAction = new QAction(this);
-		clearListAction->setText(i18n("&Clear List"));
-		connect(clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
-		this->addAction(clearListAction);
-		setEnabled(true);
-	} else {
-		setEnabled(false);
-	}
+  int i = 0;
+  clear();
+  for (QStringList::const_iterator it = m_files.begin();
+       it != m_files.end();
+       ++it) {
+    QAction* act = new QAction(this);
+    act->setText(QString("&%1 %2").arg(++i).arg(*it));
+    act->setData(*it);
+    connect(act, SIGNAL(triggered()), this, SLOT(openRecentFile()));
+    this->addAction(act);
+  }
+  if (i > 0) {
+    addSeparator();
+    QAction* clearListAction = new QAction(this);
+    clearListAction->setText(i18n("&Clear List"));
+    connect(clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
+    this->addAction(clearListAction);
+    setEnabled(true);
+  } else {
+    setEnabled(false);
+  }
 }
 
 /**
@@ -121,10 +121,10 @@ void RecentFilesMenu::updateRecentFileActions()
  */
 void RecentFilesMenu::openRecentFile()
 {
-	QAction* action = qobject_cast<QAction*>(sender());
-	if (action) {
-		emit loadFile(action->data().toString());
-	}
+  QAction* action = qobject_cast<QAction*>(sender());
+  if (action) {
+    emit loadFile(action->data().toString());
+  }
 }
 
 /**
@@ -132,8 +132,8 @@ void RecentFilesMenu::openRecentFile()
  */
 void RecentFilesMenu::clearList()
 {
-	m_files.clear();
-	updateRecentFileActions();
+  m_files.clear();
+  updateRecentFileActions();
 }
 #else // !CONFIG_USE_KDE
 

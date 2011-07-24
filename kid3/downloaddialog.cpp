@@ -34,9 +34,9 @@
  * @param caption dialog title
  */
 DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption) :
-	QProgressDialog(parent)
+  QProgressDialog(parent)
 {
-	setWindowTitle(caption);
+  setWindowTitle(caption);
 }
 
 /**
@@ -52,8 +52,8 @@ DownloadDialog::~DownloadDialog()
  */
 void DownloadDialog::showStartOfDownload(const QString& url)
 {
-	m_url = url;
-	setLabelText(url);
+  m_url = url;
+  setLabelText(url);
 }
 
 /**
@@ -64,11 +64,11 @@ void DownloadDialog::showStartOfDownload(const QString& url)
  * @param totalBytes    total bytes
  */
 void DownloadDialog::updateProgressStatus(const QString& msg,
-																					int receivedBytes, int totalBytes)
+                                          int receivedBytes, int totalBytes)
 {
-	setLabelText(m_url + '\n' + msg);
-	if (receivedBytes >= 0 && totalBytes >= 0) {
-		setRange(0, totalBytes);
-		setValue(receivedBytes);
-	}
+  setLabelText(m_url + '\n' + msg);
+  if (receivedBytes >= 0 && totalBytes >= 0) {
+    setRange(0, totalBytes);
+    setValue(receivedBytes);
+  }
 }

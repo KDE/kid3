@@ -39,86 +39,86 @@ class FrameCollection;
  */
 class TextImporter {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param trackDataModel track data to be filled with imported values
-	 */
-	explicit TextImporter(TrackDataModel* trackDataModel);
+  /**
+   * Constructor.
+   *
+   * @param trackDataModel track data to be filled with imported values
+   */
+  explicit TextImporter(TrackDataModel* trackDataModel);
 
-	/**
-	 * Destructor.
-	 */
-	~TextImporter();
+  /**
+   * Destructor.
+   */
+  ~TextImporter();
 
-	/**
-	 * Update track data list with imported tags.
-	 *
-	 * @param text text to import
-	 * @param headerFormat header format
-	 * @param trackFormat track format
-	 *
-	 * @return true if tags were found.
-	 */
-	bool updateTrackData(const QString& text,
-											 const QString& headerFormat, const QString& trackFormat);
+  /**
+   * Update track data list with imported tags.
+   *
+   * @param text text to import
+   * @param headerFormat header format
+   * @param trackFormat track format
+   *
+   * @return true if tags were found.
+   */
+  bool updateTrackData(const QString& text,
+                       const QString& headerFormat, const QString& trackFormat);
 
-	/**
-	 * Import text from tags to other tags.
-	 *
-	 * @param sourceFormat format to create source text
-	 * @param extractionFormat regular expression to extract other tags
-	 * @param trackDataVector track data to process
-	 */
-	static void importFromTags(
-		const QString& sourceFormat,
-		const QString& extractionFormat,
-		ImportTrackDataVector& trackDataVector);
+  /**
+   * Import text from tags to other tags.
+   *
+   * @param sourceFormat format to create source text
+   * @param extractionFormat regular expression to extract other tags
+   * @param trackDataVector track data to process
+   */
+  static void importFromTags(
+    const QString& sourceFormat,
+    const QString& extractionFormat,
+    ImportTrackDataVector& trackDataVector);
 
 private:
-	/**
-	 * Look for album specific information (artist, album, year, genre) in
-	 * a header.
-	 *
-	 * @param frames frames to put resulting values in,
-	 *           fields which are not found are not touched.
-	 *
-	 * @return true if one or more field were found.
-	 */
-	bool parseHeader(FrameCollection& frames);
+  /**
+   * Look for album specific information (artist, album, year, genre) in
+   * a header.
+   *
+   * @param frames frames to put resulting values in,
+   *           fields which are not found are not touched.
+   *
+   * @return true if one or more field were found.
+   */
+  bool parseHeader(FrameCollection& frames);
 
-	/**
-	 * Get next line as frames from imported file or clipboard.
-	 *
-	 * @param frames frames
-	 * @param start true to start with the first line, false for all
-	 *              other lines
-	 *
-	 * @return true if ok (result in st),
-	 *         false if end of file reached.
-	 */
-	bool getNextTags(FrameCollection& frames, bool start);
+  /**
+   * Get next line as frames from imported file or clipboard.
+   *
+   * @param frames frames
+   * @param start true to start with the first line, false for all
+   *              other lines
+   *
+   * @return true if ok (result in st),
+   *         false if end of file reached.
+   */
+  bool getNextTags(FrameCollection& frames, bool start);
 
-	/**
-	 * Get list with track durations.
-	 *
-	 * @return list with track durations,
-	 *         empty if no track durations found.
-	 */
-	QList<int> getTrackDurations();
+  /**
+   * Get list with track durations.
+   *
+   * @return list with track durations,
+   *         empty if no track durations found.
+   */
+  QList<int> getTrackDurations();
 
-	/** contents of imported file/clipboard */
-	QString m_text;
-	/** header format */
-	QString m_headerFormat;
-	/** track format */
-	QString m_trackFormat;
-	/** header parser object */
-	ImportParser* m_headerParser;
-	/** track parser object */
-	ImportParser* m_trackParser;
-	/** track data */
-	TrackDataModel* m_trackDataModel;
+  /** contents of imported file/clipboard */
+  QString m_text;
+  /** header format */
+  QString m_headerFormat;
+  /** track format */
+  QString m_trackFormat;
+  /** header parser object */
+  ImportParser* m_headerParser;
+  /** track parser object */
+  ImportParser* m_trackParser;
+  /** track data */
+  TrackDataModel* m_trackDataModel;
 };
 
 #endif

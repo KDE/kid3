@@ -38,13 +38,13 @@
  * @param trackDataModel track data to be filled with imported values
  */
 ServerImporter::ServerImporter(QObject* parent,
-															 TrackDataModel* trackDataModel)
-	: ImportClient(parent),
-		m_albumListModel(new QStandardItemModel(this)),
-		m_trackDataModel(trackDataModel),
-		m_additionalTagsEnabled(false), m_coverArtEnabled(false)
+                               TrackDataModel* trackDataModel)
+  : ImportClient(parent),
+    m_albumListModel(new QStandardItemModel(this)),
+    m_trackDataModel(trackDataModel),
+    m_additionalTagsEnabled(false), m_coverArtEnabled(false)
 {
-	setObjectName("ServerImporter");
+  setObjectName("ServerImporter");
 }
 
 /**
@@ -77,7 +77,7 @@ bool ServerImporter::additionalTags() const { return false; }
  */
 void ServerImporter::clear()
 {
-	m_albumListModel->clear();
+  m_albumListModel->clear();
 }
 
 /**
@@ -89,22 +89,22 @@ void ServerImporter::clear()
  */
 QString ServerImporter::replaceHtmlEntities(QString str)
 {
-	str.replace("&quot;", "\"");
-	str.replace("&nbsp;", " ");
-	str.replace("&lt;", "<");
-	str.replace("&gt;", ">");
-	str.replace("&amp;", "&");
-	str.replace("&times;", QString(QChar(0xd7)));
-	str.replace("&ndash;", "-");
+  str.replace("&quot;", "\"");
+  str.replace("&nbsp;", " ");
+  str.replace("&lt;", "<");
+  str.replace("&gt;", ">");
+  str.replace("&amp;", "&");
+  str.replace("&times;", QString(QChar(0xd7)));
+  str.replace("&ndash;", "-");
 
-	QRegExp numEntityRe("&#(\\d+);");
-	int pos = 0;
-	while ((pos = numEntityRe.indexIn(str, pos)) != -1) {
-		str.replace(pos, numEntityRe.matchedLength(),
-								QChar(numEntityRe.cap(1).toInt()));
-		pos += numEntityRe.matchedLength();
-	}
-	return str;
+  QRegExp numEntityRe("&#(\\d+);");
+  int pos = 0;
+  while ((pos = numEntityRe.indexIn(str, pos)) != -1) {
+    str.replace(pos, numEntityRe.matchedLength(),
+                QChar(numEntityRe.cap(1).toInt()));
+    pos += numEntityRe.matchedLength();
+  }
+  return str;
 }
 
 /**
@@ -116,6 +116,6 @@ QString ServerImporter::replaceHtmlEntities(QString str)
  */
 QString ServerImporter::removeHtml(QString str)
 {
-	QRegExp htmlTagRe("<[^>]+>");
-	return replaceHtmlEntities(str.remove(htmlTagRe)).trimmed();
+  QRegExp htmlTagRe("<[^>]+>");
+  return replaceHtmlEntities(str.remove(htmlTagRe)).trimmed();
 }

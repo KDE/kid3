@@ -46,122 +46,122 @@ class RenDirDialog : public QWizard {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent     parent widget
-	 * @param dirRenamer directory renamer
-	 */
-	RenDirDialog(QWidget* parent, DirRenamer* dirRenamer);
+  /**
+   * Constructor.
+   *
+   * @param parent     parent widget
+   * @param dirRenamer directory renamer
+   */
+  RenDirDialog(QWidget* parent, DirRenamer* dirRenamer);
 
-	/**
-	 * Destructor.
-	 */
-	~RenDirDialog();
+  /**
+   * Destructor.
+   */
+  ~RenDirDialog();
 
-	/**
-	 * Start dialog.
-	 *
-	 * @param taggedFile file to use for rename preview
-	 * @param dirName    if taggedFile is 0, the directory can be set here
-	 */
-	void startDialog(TaggedFile* taggedFile, const QString& dirName = QString());
+  /**
+   * Start dialog.
+   *
+   * @param taggedFile file to use for rename preview
+   * @param dirName    if taggedFile is 0, the directory can be set here
+   */
+  void startDialog(TaggedFile* taggedFile, const QString& dirName = QString());
 
-	/**
-	 * Set new directory name.
-	 *
-	 * @param dir new directory name
-	 */
-	void setNewDirname(const QString& dir);
+  /**
+   * Set new directory name.
+   *
+   * @param dir new directory name
+   */
+  void setNewDirname(const QString& dir);
 
-	/**
-	 * Get new directory name.
-	 *
-	 * @return new directory name.
-	 */
-	QString getNewDirname() const;
+  /**
+   * Get new directory name.
+   *
+   * @return new directory name.
+   */
+  QString getNewDirname() const;
 
 protected:
-	/**
-	 * Called when the wizard is canceled.
-	 */
-	virtual void reject();
+  /**
+   * Called when the wizard is canceled.
+   */
+  virtual void reject();
 
 signals:
-	/**
-	 * Emitted when scheduling of actions using clearActions() followed by
-	 * one or multiple scheduleAction() calls is requested.
-	 */
-	void actionSchedulingRequested();
+  /**
+   * Emitted when scheduling of actions using clearActions() followed by
+   * one or multiple scheduleAction() calls is requested.
+   */
+  void actionSchedulingRequested();
 
 private slots:
-	/**
-	 * Set new directory name according to current settings.
-	 */
-	void slotUpdateNewDirname();
+  /**
+   * Set new directory name according to current settings.
+   */
+  void slotUpdateNewDirname();
 
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
-	/**
-	 * Request action scheduling and then accept dialog.
-	 */
-	void requestActionSchedulingAndAccept();
+  /**
+   * Request action scheduling and then accept dialog.
+   */
+  void requestActionSchedulingAndAccept();
 
-	/**
-	 * Wizard page changed.
-	 */
-	void pageChanged();
+  /**
+   * Wizard page changed.
+   */
+  void pageChanged();
 
 private:
-	/** Action to be performed. */
-	enum Action { ActionRename = 0, ActionCreate = 1 };
+  /** Action to be performed. */
+  enum Action { ActionRename = 0, ActionCreate = 1 };
 
-	/**
-	 * Set up the main wizard page.
-	 *
-	 * @param page    widget
-	 * @param vlayout layout
-	 */
-	void setupMainPage(QWidget* page, QVBoxLayout* vlayout);
+  /**
+   * Set up the main wizard page.
+   *
+   * @param page    widget
+   * @param vlayout layout
+   */
+  void setupMainPage(QWidget* page, QVBoxLayout* vlayout);
 
-	/**
-	 * Set up the preview wizard page.
-	 *
-	 * @param page widget
-	 */
-	void setupPreviewPage(QWidget* page);
+  /**
+   * Set up the preview wizard page.
+   *
+   * @param page widget
+   */
+  void setupPreviewPage(QWidget* page);
 
-	/**
-	 * Clear action preview.
-	 */
-	void clearPreview();
+  /**
+   * Clear action preview.
+   */
+  void clearPreview();
 
-	/**
-	 * Display action preview.
-	 */
-	void displayPreview();
+  /**
+   * Display action preview.
+   */
+  void displayPreview();
 
-	/**
-	 * Set configuration from dialog in directory renamer.
-	 */
-	void setDirRenamerConfiguration();
+  /**
+   * Set configuration from dialog in directory renamer.
+   */
+  void setDirRenamerConfiguration();
 
-	QComboBox* m_formatComboBox;
-	QComboBox* m_actionComboBox;
-	QComboBox* m_tagversionComboBox;
-	QLabel* m_currentDirLabel;
-	QLabel* m_newDirLabel;
+  QComboBox* m_formatComboBox;
+  QComboBox* m_actionComboBox;
+  QComboBox* m_tagversionComboBox;
+  QLabel* m_currentDirLabel;
+  QLabel* m_newDirLabel;
   QTextEdit* m_edit;
-	TaggedFile* m_taggedFile;
-	DirRenamer* m_dirRenamer;
+  TaggedFile* m_taggedFile;
+  DirRenamer* m_dirRenamer;
 };
 
 #endif

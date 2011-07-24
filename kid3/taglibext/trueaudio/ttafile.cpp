@@ -286,14 +286,14 @@ void TrueAudio::File::read(bool readProperties, Properties::ReadStyle /* propert
   // Look for TTA metadata
 
   if(readProperties) {
-		if(d->ID3v2Location >= 0) {
-			seek(d->ID3v2Location + d->ID3v2OriginalSize);
-			d->properties = new Properties(readBlock(TrueAudio::HeaderSize),
-																		 length() - d->ID3v2OriginalSize);
-		} else {
-			seek(0);
-			d->properties = new Properties(readBlock(TrueAudio::HeaderSize), length());
-		}
+    if(d->ID3v2Location >= 0) {
+      seek(d->ID3v2Location + d->ID3v2OriginalSize);
+      d->properties = new Properties(readBlock(TrueAudio::HeaderSize),
+                                     length() - d->ID3v2OriginalSize);
+    } else {
+      seek(0);
+      d->properties = new Properties(readBlock(TrueAudio::HeaderSize), length());
+    }
   }
 }
 

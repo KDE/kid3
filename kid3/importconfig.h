@@ -38,103 +38,103 @@
  */
 class ImportConfig : public GeneralConfig {
 public:
-	/** Import servers */
-	enum ImportServer {
-		ServerFreedb, ServerTrackType, ServerDiscogs,
-		ServerAmazon, ServerMusicBrainzRelease, ServerMusicBrainzFingerprint
-	};
+  /** Import servers */
+  enum ImportServer {
+    ServerFreedb, ServerTrackType, ServerDiscogs,
+    ServerAmazon, ServerMusicBrainzRelease, ServerMusicBrainzFingerprint
+  };
 
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp configuration group
-	 */
-	ImportConfig(const QString& grp);
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  ImportConfig(const QString& grp);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~ImportConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~ImportConfig();
 
-	/**
-	 * Persist configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void writeToConfig(Kid3Settings* config) const;
+  /**
+   * Persist configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void writeToConfig(Kid3Settings* config) const;
 
-	/**
-	 * Read persisted configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void readFromConfig(Kid3Settings* config);
+  /**
+   * Read persisted configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void readFromConfig(Kid3Settings* config);
 
-	/** import server */
-	ImportServer m_importServer;
-	/** tag version to import */
-	TrackData::TagVersion m_importDest;
-	/** Names of import formats */
-	QStringList m_importFormatNames;
-	/** regexp describing header import format */
-	QStringList m_importFormatHeaders;
-	/** regexp describing track import format */
-	QStringList m_importFormatTracks;
-	/** selected import format */
-	int m_importFormatIdx;
-	/** check maximum allowable time difference */
-	bool m_enableTimeDifferenceCheck;
-	/** maximum allowable time difference */
-	int m_maxTimeDifference;
-	/** visible optional columns in import table */
-	quint64 m_importVisibleColumns;
-	/** import window width */
-	int m_importWindowWidth;
-	/** import window height */
-	int m_importWindowHeight;
+  /** import server */
+  ImportServer m_importServer;
+  /** tag version to import */
+  TrackData::TagVersion m_importDest;
+  /** Names of import formats */
+  QStringList m_importFormatNames;
+  /** regexp describing header import format */
+  QStringList m_importFormatHeaders;
+  /** regexp describing track import format */
+  QStringList m_importFormatTracks;
+  /** selected import format */
+  int m_importFormatIdx;
+  /** check maximum allowable time difference */
+  bool m_enableTimeDifferenceCheck;
+  /** maximum allowable time difference */
+  int m_maxTimeDifference;
+  /** visible optional columns in import table */
+  quint64 m_importVisibleColumns;
+  /** import window width */
+  int m_importWindowWidth;
+  /** import window height */
+  int m_importWindowHeight;
 
-	/** Names of import tags formats */
-	QStringList m_importTagsNames;
-	/** Expressions for tag import sources */
-	QStringList m_importTagsSources;
-	/** regexp describing extraction from import tag sources */
-	QStringList m_importTagsExtractions;
-	/** selected import tags format */
-	int m_importTagsIdx;
+  /** Names of import tags formats */
+  QStringList m_importTagsNames;
+  /** Expressions for tag import sources */
+  QStringList m_importTagsSources;
+  /** regexp describing extraction from import tag sources */
+  QStringList m_importTagsExtractions;
+  /** selected import tags format */
+  int m_importTagsIdx;
 
-	/** Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags */
-	TrackData::TagVersion m_exportSrcV1;
-	/** Names of export formats */
-	QStringList m_exportFormatNames;
-	/** regexp describing header export format */
-	QStringList m_exportFormatHeaders;
-	/** regexp describing track export format */
-	QStringList m_exportFormatTracks;
-	/** regexp describing trailer export format */
-	QStringList m_exportFormatTrailers;
-	/** selected export format */
-	int m_exportFormatIdx;
-	/** export window width */
-	int m_exportWindowWidth;
-	/** export window height */
-	int m_exportWindowHeight;
+  /** Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags */
+  TrackData::TagVersion m_exportSrcV1;
+  /** Names of export formats */
+  QStringList m_exportFormatNames;
+  /** regexp describing header export format */
+  QStringList m_exportFormatHeaders;
+  /** regexp describing track export format */
+  QStringList m_exportFormatTracks;
+  /** regexp describing trailer export format */
+  QStringList m_exportFormatTrailers;
+  /** selected export format */
+  int m_exportFormatIdx;
+  /** export window width */
+  int m_exportWindowWidth;
+  /** export window height */
+  int m_exportWindowHeight;
 
-	/** names of picture sources */
-	QStringList m_pictureSourceNames;
-	/** picture source URLs */
-	QStringList m_pictureSourceUrls;
-	/** selected picture source */
-	int m_pictureSourceIdx;
-	/** Browse cover art window width */
-	int m_browseCoverArtWindowWidth;
-	/** Browse cover art window height */
-	int m_browseCoverArtWindowHeight;
-	/** Mapping for picture URL matching */
-	QMap<QString, QString> m_matchPictureUrlMap;
+  /** names of picture sources */
+  QStringList m_pictureSourceNames;
+  /** picture source URLs */
+  QStringList m_pictureSourceUrls;
+  /** selected picture source */
+  int m_pictureSourceIdx;
+  /** Browse cover art window width */
+  int m_browseCoverArtWindowWidth;
+  /** Browse cover art window height */
+  int m_browseCoverArtWindowHeight;
+  /** Mapping for picture URL matching */
+  QMap<QString, QString> m_matchPictureUrlMap;
 
-	/** Last directory used for import or export. */
-	QString m_importDir;
+  /** Last directory used for import or export. */
+  QString m_importDir;
 };
 
 #endif

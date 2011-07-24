@@ -44,95 +44,95 @@ class ExportDialog : public QDialog {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent       parent widget
-	 * @param textExporter text exporter to use
-	 */
-	ExportDialog(QWidget* parent, TextExporter* textExporter);
+  /**
+   * Constructor.
+   *
+   * @param parent       parent widget
+   * @param textExporter text exporter to use
+   */
+  ExportDialog(QWidget* parent, TextExporter* textExporter);
 
-	/**
-	 * Destructor.
-	 */
-	~ExportDialog();
+  /**
+   * Destructor.
+   */
+  ~ExportDialog();
 
-	/**
-	 * Read the local settings from the configuration.
-	 */
-	void readConfig();
+  /**
+   * Read the local settings from the configuration.
+   */
+  void readConfig();
 
 public slots:
-	/**
-	 * Show exported text as preview in editor.
-	 */
-	void showPreview();
+  /**
+   * Show exported text as preview in editor.
+   */
+  void showPreview();
 
 private slots:
-	/**
-	 * Set the format lineedits to the format selected in the combo box.
-	 *
-	 * @param index current index of the combo box
-	 */
-	void setFormatLineEdit(int index);
+  /**
+   * Set the format lineedits to the format selected in the combo box.
+   *
+   * @param index current index of the combo box
+   */
+  void setFormatLineEdit(int index);
 
-	/**
-	 * Export to a file.
-	 */
-	void slotToFile();
+  /**
+   * Export to a file.
+   */
+  void slotToFile();
 
-	/**
-	 * Export to clipboard.
-	 */
-	void slotToClipboard();
+  /**
+   * Export to clipboard.
+   */
+  void slotToClipboard();
 
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig();
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig();
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
-	/**
-	 * Called when the source combo box selection is changed.
-	 * @param index combo box index
-	 */
-	void onSrcComboBoxActivated(int index);
+  /**
+   * Called when the source combo box selection is changed.
+   * @param index combo box index
+   */
+  void onSrcComboBoxActivated(int index);
 
 private:
-	/**
-	 * Set the format combo box and line edits from the configuration.
-	 */
-	void setFormatFromConfig();
+  /**
+   * Set the format combo box and line edits from the configuration.
+   */
+  void setFormatFromConfig();
 
-	/** Text editor */
-	QTextEdit* m_edit;
-	/** cobobox with formats */
-	QComboBox* m_formatComboBox;
-	/** LineEdit for header */
-	QLineEdit* m_headerLineEdit;
-	/** LineEdit for track */
-	QLineEdit* m_trackLineEdit;
-	/** LineEdit for trailer */
-	QLineEdit* m_trailerLineEdit;
-	/** To File button */
-	QPushButton* m_fileButton;
-	/** To Clipboard button */
-	QPushButton* m_clipButton;
-	/** combobox with export sources */
-	QComboBox* m_srcComboBox;
-	/** header formats */
-	QStringList m_formatHeaders;
-	/** track formats */
-	QStringList m_formatTracks;
-	/** trailer formats */
-	QStringList m_formatTrailers;
+  /** Text editor */
+  QTextEdit* m_edit;
+  /** cobobox with formats */
+  QComboBox* m_formatComboBox;
+  /** LineEdit for header */
+  QLineEdit* m_headerLineEdit;
+  /** LineEdit for track */
+  QLineEdit* m_trackLineEdit;
+  /** LineEdit for trailer */
+  QLineEdit* m_trailerLineEdit;
+  /** To File button */
+  QPushButton* m_fileButton;
+  /** To Clipboard button */
+  QPushButton* m_clipButton;
+  /** combobox with export sources */
+  QComboBox* m_srcComboBox;
+  /** header formats */
+  QStringList m_formatHeaders;
+  /** track formats */
+  QStringList m_formatTracks;
+  /** trailer formats */
+  QStringList m_formatTrailers;
 
-	/** text exporter */
-	TextExporter* m_textExporter;
+  /** text exporter */
+  TextExporter* m_textExporter;
 };
 
 #endif

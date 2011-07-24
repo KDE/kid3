@@ -36,50 +36,50 @@
  */
 class FilterConfig : public GeneralConfig {
 public:
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp configuration group
-	 */
-	FilterConfig(const QString& grp);
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  FilterConfig(const QString& grp);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~FilterConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~FilterConfig();
 
-	/**
-	 * Persist configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void writeToConfig(Kid3Settings* config) const;
+  /**
+   * Persist configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void writeToConfig(Kid3Settings* config) const;
 
-	/**
-	 * Read persisted configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void readFromConfig(Kid3Settings* config);
+  /**
+   * Read persisted configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void readFromConfig(Kid3Settings* config);
 
-	/**
-	 * Set the filename format in the "Filename Tag Mismatch" filter.
-	 *
-	 * @param format filename format
-	 */
-	void setFilenameFormat(const QString& format);
+  /**
+   * Set the filename format in the "Filename Tag Mismatch" filter.
+   *
+   * @param format filename format
+   */
+  void setFilenameFormat(const QString& format);
 
-	/** Names of filter expressions */
-	QStringList m_filterNames;
-	/** Filter expressions */
-	QStringList m_filterExpressions;
-	/** Selected filter */
-	int m_filterIdx;
-	/** Window width */
-	int m_windowWidth;
-	/** Window height */
-	int m_windowHeight;
+  /** Names of filter expressions */
+  QStringList m_filterNames;
+  /** Filter expressions */
+  QStringList m_filterExpressions;
+  /** Selected filter */
+  int m_filterIdx;
+  /** Window width */
+  int m_windowWidth;
+  /** Window height */
+  int m_windowHeight;
 };
 
 #endif

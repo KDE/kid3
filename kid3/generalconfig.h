@@ -43,36 +43,36 @@ typedef QSettings Kid3Settings;
  */
 class GeneralConfig {
 public:
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp configuration group
-	 */
-	GeneralConfig(const QString& grp);
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  GeneralConfig(const QString& grp);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~GeneralConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~GeneralConfig();
 
-	/**
-	 * Persist configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void writeToConfig(Kid3Settings* config) const = 0;
+  /**
+   * Persist configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void writeToConfig(Kid3Settings* config) const = 0;
 
-	/**
-	 * Read persisted configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void readFromConfig(Kid3Settings* config) = 0;
+  /**
+   * Read persisted configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void readFromConfig(Kid3Settings* config) = 0;
 
 protected:
-	/** Configuration group. */
-	QString m_group;
+  /** Configuration group. */
+  QString m_group;
 };
 
 #endif

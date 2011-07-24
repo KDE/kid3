@@ -34,9 +34,9 @@
  * @param trackDataModel track data to be filled with imported values
  */
 TextImporter::TextImporter(TrackDataModel* trackDataModel) :
-	m_headerParser(new ImportParser),
-	m_trackParser(new ImportParser),
-	m_trackDataModel(trackDataModel)
+  m_headerParser(new ImportParser),
+  m_trackParser(new ImportParser),
+  m_trackDataModel(trackDataModel)
 {
 }
 
@@ -45,8 +45,8 @@ TextImporter::TextImporter(TrackDataModel* trackDataModel) :
  */
 TextImporter::~TextImporter()
 {
-	delete m_headerParser;
-	delete m_trackParser;
+  delete m_headerParser;
+  delete m_trackParser;
 }
 
 /**
@@ -60,9 +60,9 @@ TextImporter::~TextImporter()
  */
 bool TextImporter::parseHeader(FrameCollection& frames)
 {
-	int pos = 0;
-	m_headerParser->setFormat(m_headerFormat);
-	return m_headerParser->getNextTags(m_text, frames, pos);
+  int pos = 0;
+  m_headerParser->setFormat(m_headerFormat);
+  return m_headerParser->getNextTags(m_text, frames, pos);
 }
 
 /**
@@ -75,77 +75,77 @@ bool TextImporter::parseHeader(FrameCollection& frames)
  * @return true if tags were found.
  */
 bool TextImporter::updateTrackData(
-	const QString& text,
-	const QString& headerFormat, const QString& trackFormat) {
-	m_text = text;
-	m_headerFormat = headerFormat;
-	m_trackFormat = trackFormat;
+  const QString& text,
+  const QString& headerFormat, const QString& trackFormat) {
+  m_text = text;
+  m_headerFormat = headerFormat;
+  m_trackFormat = trackFormat;
 
-	FrameCollection framesHdr;
-	(void)parseHeader(framesHdr);
+  FrameCollection framesHdr;
+  (void)parseHeader(framesHdr);
 
-	FrameCollection frames(framesHdr);
-	bool start = true;
-	ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-	ImportTrackDataVector::iterator it = trackDataVector.begin();
-	bool atTrackDataListEnd = (it == trackDataVector.end());
-	while (getNextTags(frames, start)) {
-		start = false;
-		if (atTrackDataListEnd) {
-			ImportTrackData trackData;
-			trackData.setFrameCollection(frames);
-			trackDataVector.push_back(trackData);
-		} else {
-			while (!atTrackDataListEnd && !it->isEnabled()) {
-				++it;
-				atTrackDataListEnd = (it == trackDataVector.end());
-			}
-			if (!atTrackDataListEnd) {
-				(*it).setFrameCollection(frames);
-				++it;
-				atTrackDataListEnd = (it == trackDataVector.end());
-			}
-		}
-		frames = framesHdr;
-	}
-	frames.clear();
-	while (!atTrackDataListEnd) {
-		if (it->isEnabled()) {
-			if ((*it).getFileDuration() == 0) {
-				it = trackDataVector.erase(it);
-			} else {
-				(*it).setFrameCollection(frames);
-				(*it).setImportDuration(0);
-				++it;
-			}
-		} else {
-			++it;
-		}
-		atTrackDataListEnd = (it == trackDataVector.end());
-	}
+  FrameCollection frames(framesHdr);
+  bool start = true;
+  ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+  ImportTrackDataVector::iterator it = trackDataVector.begin();
+  bool atTrackDataListEnd = (it == trackDataVector.end());
+  while (getNextTags(frames, start)) {
+    start = false;
+    if (atTrackDataListEnd) {
+      ImportTrackData trackData;
+      trackData.setFrameCollection(frames);
+      trackDataVector.push_back(trackData);
+    } else {
+      while (!atTrackDataListEnd && !it->isEnabled()) {
+        ++it;
+        atTrackDataListEnd = (it == trackDataVector.end());
+      }
+      if (!atTrackDataListEnd) {
+        (*it).setFrameCollection(frames);
+        ++it;
+        atTrackDataListEnd = (it == trackDataVector.end());
+      }
+    }
+    frames = framesHdr;
+  }
+  frames.clear();
+  while (!atTrackDataListEnd) {
+    if (it->isEnabled()) {
+      if ((*it).getFileDuration() == 0) {
+        it = trackDataVector.erase(it);
+      } else {
+        (*it).setFrameCollection(frames);
+        (*it).setImportDuration(0);
+        ++it;
+      }
+    } else {
+      ++it;
+    }
+    atTrackDataListEnd = (it == trackDataVector.end());
+  }
 
-	if (!start) {
-		/* start is false => tags were found */
-		QList<int> trackDuration = getTrackDurations();
-		if (!trackDuration.isEmpty()) {
-			it = trackDataVector.begin();
-			for (QList<int>::const_iterator tdit = trackDuration.begin();
-					 tdit != trackDuration.end();
-					 ++tdit) {
-				if (it != trackDataVector.end()) {
-					if (it->isEnabled()) {
-						(*it).setImportDuration(*tdit);
-					}
-					++it;
-				} else {
-					break;
-				}
-			}
-		}
-		m_trackDataModel->setTrackData(trackDataVector);
-		return true;
-	}
-	return false;
+  if (!start) {
+    /* start is false => tags were found */
+    QList<int> trackDuration = getTrackDurations();
+    if (!trackDuration.isEmpty()) {
+      it = trackDataVector.begin();
+      for (QList<int>::const_iterator tdit = trackDuration.begin();
+           tdit != trackDuration.end();
+           ++tdit) {
+        if (it != trackDataVector.end()) {
+          if (it->isEnabled()) {
+            (*it).setImportDuration(*tdit);
+          }
+          ++it;
+        } else {
+          break;
+        }
+      }
+    }
+    m_trackDataModel->setTrackData(trackDataVector);
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -160,12 +160,12 @@ bool TextImporter::updateTrackData(
  */
 bool TextImporter::getNextTags(FrameCollection& frames, bool start)
 {
-	static int pos = 0;
-	if (start || pos == 0) {
-		pos = 0;
-		m_trackParser->setFormat(m_trackFormat, true);
-	}
-	return m_trackParser->getNextTags(m_text, frames, pos);
+  static int pos = 0;
+  if (start || pos == 0) {
+    pos = 0;
+    m_trackParser->setFormat(m_trackFormat, true);
+  }
+  return m_trackParser->getNextTags(m_text, frames, pos);
 }
 
 /**
@@ -176,13 +176,13 @@ bool TextImporter::getNextTags(FrameCollection& frames, bool start)
  */
 QList<int> TextImporter::getTrackDurations()
 {
-	QList<int> lst;
-	if (m_headerParser) {
-		lst = m_headerParser->getTrackDurations();
-	} else if (m_trackParser) {
-		lst = m_trackParser->getTrackDurations();
-	}
-	return lst;
+  QList<int> lst;
+  if (m_headerParser) {
+    lst = m_headerParser->getTrackDurations();
+  } else if (m_trackParser) {
+    lst = m_trackParser->getTrackDurations();
+  }
+  return lst;
 }
 
 /**
@@ -193,19 +193,19 @@ QList<int> TextImporter::getTrackDurations()
  * @param trackDataVector track data to process
  */
 void TextImporter::importFromTags(
-	const QString& sourceFormat,
-	const QString& extractionFormat,
-	ImportTrackDataVector& trackDataVector)
+  const QString& sourceFormat,
+  const QString& extractionFormat,
+  ImportTrackDataVector& trackDataVector)
 {
-	ImportParser parser;
-	parser.setFormat(extractionFormat);
-	for (ImportTrackDataVector::iterator it = trackDataVector.begin();
-			 it != trackDataVector.end();
-			 ++it) {
-		if (it->isEnabled()) {
-			QString text(it->formatString(sourceFormat));
-			int pos = 0;
-			parser.getNextTags(text, *it, pos);
-		}
-	}
+  ImportParser parser;
+  parser.setFormat(extractionFormat);
+  for (ImportTrackDataVector::iterator it = trackDataVector.begin();
+       it != trackDataVector.end();
+       ++it) {
+    if (it->isEnabled()) {
+      QString text(it->formatString(sourceFormat));
+      int pos = 0;
+      parser.getNextTags(text, *it, pos);
+    }
+  }
 }

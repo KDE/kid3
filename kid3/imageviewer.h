@@ -36,22 +36,22 @@ class QLabel;
 class ImageViewer : public QDialog {
 Q_OBJECT
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 * @param img    image to display in window
-	 */
-	ImageViewer(QWidget* parent, const QImage& img);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   * @param img    image to display in window
+   */
+  ImageViewer(QWidget* parent, const QImage& img);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~ImageViewer() {}
+  /**
+   * Destructor.
+   */
+  virtual ~ImageViewer() {}
 
 private:
-	/** image to view */
-	QLabel* m_image;
+  /** image to view */
+  QLabel* m_image;
 };
 
 #endif // IMAGEVIEWER_H

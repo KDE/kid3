@@ -48,79 +48,79 @@
  * @param parent  parent widget
  */
 ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
-		m_serverComboBox(0), m_cgiLineEdit(0), m_additionalTagsCheckBox(0),
-		m_coverArtCheckBox(0), m_source(0)
+    m_serverComboBox(0), m_cgiLineEdit(0), m_additionalTagsCheckBox(0),
+    m_coverArtCheckBox(0), m_source(0)
 {
-	setObjectName("ServerImportDialog");
+  setObjectName("ServerImportDialog");
 
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	vlayout->setSpacing(6);
-	vlayout->setMargin(6);
+  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  vlayout->setSpacing(6);
+  vlayout->setMargin(6);
 
-	QHBoxLayout* findLayout = new QHBoxLayout;
-	m_artistLineEdit = new QComboBox(this);
-	m_albumLineEdit = new QComboBox(this);
-	m_findButton = new QPushButton(i18n("&Find"), this);
-	m_artistLineEdit->setEditable(true);
-	m_artistLineEdit->setAutoCompletion(true);
-	m_artistLineEdit->setDuplicatesEnabled(false);
-	m_albumLineEdit->setEditable(true);
-	m_albumLineEdit->setAutoCompletion(true);
-	m_albumLineEdit->setDuplicatesEnabled(false);
-	m_artistLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-	m_albumLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-	m_findButton->setDefault(true);
-	findLayout->addWidget(m_artistLineEdit);
-	findLayout->addWidget(m_albumLineEdit);
-	findLayout->addWidget(m_findButton);
-	connect(m_findButton, SIGNAL(clicked()), this, SLOT(slotFind()));
-	vlayout->addLayout(findLayout);
+  QHBoxLayout* findLayout = new QHBoxLayout;
+  m_artistLineEdit = new QComboBox(this);
+  m_albumLineEdit = new QComboBox(this);
+  m_findButton = new QPushButton(i18n("&Find"), this);
+  m_artistLineEdit->setEditable(true);
+  m_artistLineEdit->setAutoCompletion(true);
+  m_artistLineEdit->setDuplicatesEnabled(false);
+  m_albumLineEdit->setEditable(true);
+  m_albumLineEdit->setAutoCompletion(true);
+  m_albumLineEdit->setDuplicatesEnabled(false);
+  m_artistLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  m_albumLineEdit->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  m_findButton->setDefault(true);
+  findLayout->addWidget(m_artistLineEdit);
+  findLayout->addWidget(m_albumLineEdit);
+  findLayout->addWidget(m_findButton);
+  connect(m_findButton, SIGNAL(clicked()), this, SLOT(slotFind()));
+  vlayout->addLayout(findLayout);
 
-	QHBoxLayout* serverLayout = new QHBoxLayout;
-	m_serverLabel = new QLabel(i18n("&Server:"), this);
-	m_serverComboBox = new QComboBox(this);
-	m_serverComboBox->setEditable(true);
-	m_cgiLabel = new QLabel(i18n("C&GI Path:"), this);
-	m_cgiLineEdit = new QLineEdit(this);
-	serverLayout->addWidget(m_serverLabel);
-	serverLayout->addWidget(m_serverComboBox);
-	m_serverLabel->setBuddy(m_serverComboBox);
-	serverLayout->addWidget(m_cgiLabel);
-	serverLayout->addWidget(m_cgiLineEdit);
-	m_cgiLabel->setBuddy(m_cgiLineEdit);
-	vlayout->addLayout(serverLayout);
+  QHBoxLayout* serverLayout = new QHBoxLayout;
+  m_serverLabel = new QLabel(i18n("&Server:"), this);
+  m_serverComboBox = new QComboBox(this);
+  m_serverComboBox->setEditable(true);
+  m_cgiLabel = new QLabel(i18n("C&GI Path:"), this);
+  m_cgiLineEdit = new QLineEdit(this);
+  serverLayout->addWidget(m_serverLabel);
+  serverLayout->addWidget(m_serverComboBox);
+  m_serverLabel->setBuddy(m_serverComboBox);
+  serverLayout->addWidget(m_cgiLabel);
+  serverLayout->addWidget(m_cgiLineEdit);
+  m_cgiLabel->setBuddy(m_cgiLineEdit);
+  vlayout->addLayout(serverLayout);
 
-	QHBoxLayout* hlayout = new QHBoxLayout;
-	m_additionalTagsCheckBox = new QCheckBox(i18n("&Additional Tags"), this);
-	m_coverArtCheckBox = new QCheckBox(i18n("C&over Art"), this);
-	hlayout->addWidget(m_additionalTagsCheckBox);
-	hlayout->addWidget(m_coverArtCheckBox);
-	vlayout->addLayout(hlayout);
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  m_additionalTagsCheckBox = new QCheckBox(i18n("&Additional Tags"), this);
+  m_coverArtCheckBox = new QCheckBox(i18n("C&over Art"), this);
+  hlayout->addWidget(m_additionalTagsCheckBox);
+  hlayout->addWidget(m_coverArtCheckBox);
+  vlayout->addLayout(hlayout);
 
-	m_albumListBox = new QListView(this);
-	m_albumListBox->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	vlayout->addWidget(m_albumListBox);
-	connect(m_albumListBox, SIGNAL(activated(QModelIndex)),
-			this, SLOT(requestTrackList(QModelIndex)));
+  m_albumListBox = new QListView(this);
+  m_albumListBox->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  vlayout->addWidget(m_albumListBox);
+  connect(m_albumListBox, SIGNAL(activated(QModelIndex)),
+      this, SLOT(requestTrackList(QModelIndex)));
 
-	QHBoxLayout* buttonLayout = new QHBoxLayout;
-	m_helpButton = new QPushButton(i18n("&Help"), this);
-	m_saveButton = new QPushButton(i18n("&Save Settings"), this);
-	QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-	buttonLayout->addWidget(m_helpButton);
-	connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-	buttonLayout->addWidget(m_saveButton);
-	connect(m_saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-																				 QSizePolicy::Minimum);
-	buttonLayout->addItem(hspacer);
-	buttonLayout->addWidget(closeButton);
-	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-	vlayout->addLayout(buttonLayout);
+  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  m_helpButton = new QPushButton(i18n("&Help"), this);
+  m_saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  buttonLayout->addWidget(m_helpButton);
+  connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  buttonLayout->addWidget(m_saveButton);
+  connect(m_saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  buttonLayout->addItem(hspacer);
+  buttonLayout->addWidget(closeButton);
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  vlayout->addLayout(buttonLayout);
 
-	m_statusBar = new QStatusBar(this);
-	vlayout->addWidget(m_statusBar);
-	showStatusMessage(i18n("Ready."));
+  m_statusBar = new QStatusBar(this);
+  vlayout->addWidget(m_statusBar);
+  showStatusMessage(i18n("Ready."));
 }
 
 /**
@@ -137,70 +137,70 @@ ServerImportDialog::~ServerImportDialog()
  */
 void ServerImportDialog::setImportSource(ServerImporter* source)
 {
-	if (m_source) {
-		disconnect(m_source, SIGNAL(progress(const QString&, int, int)),
-				this, SLOT(showStatusMessage(const QString&)));
-		disconnect(m_source, SIGNAL(findFinished(const QByteArray&)),
-				this, SLOT(slotFindFinished(const QByteArray&)));
-		disconnect(m_source, SIGNAL(albumFinished(const QByteArray&)),
-				this, SLOT(slotAlbumFinished(const QByteArray&)));
-	}
-	m_source = source;
+  if (m_source) {
+    disconnect(m_source, SIGNAL(progress(const QString&, int, int)),
+        this, SLOT(showStatusMessage(const QString&)));
+    disconnect(m_source, SIGNAL(findFinished(const QByteArray&)),
+        this, SLOT(slotFindFinished(const QByteArray&)));
+    disconnect(m_source, SIGNAL(albumFinished(const QByteArray&)),
+        this, SLOT(slotAlbumFinished(const QByteArray&)));
+  }
+  m_source = source;
 
-	if (m_source) {
-		connect(m_source, SIGNAL(progress(const QString&, int, int)),
-				this, SLOT(showStatusMessage(const QString&)));
-		connect(m_source, SIGNAL(findFinished(const QByteArray&)),
-				this, SLOT(slotFindFinished(const QByteArray&)));
-		connect(m_source, SIGNAL(albumFinished(const QByteArray&)),
-				this, SLOT(slotAlbumFinished(const QByteArray&)));
+  if (m_source) {
+    connect(m_source, SIGNAL(progress(const QString&, int, int)),
+        this, SLOT(showStatusMessage(const QString&)));
+    connect(m_source, SIGNAL(findFinished(const QByteArray&)),
+        this, SLOT(slotFindFinished(const QByteArray&)));
+    connect(m_source, SIGNAL(albumFinished(const QByteArray&)),
+        this, SLOT(slotAlbumFinished(const QByteArray&)));
 
-		setWindowTitle(m_source->name());
-		if (m_source->defaultServer()) {
-			m_serverLabel->show();
-			m_serverComboBox->show();
-			if (m_source->defaultCgiPath()) {
-				m_cgiLabel->show();
-				m_cgiLineEdit->show();
-			} else {
-				m_cgiLabel->hide();
-				m_cgiLineEdit->hide();
-			}
-			if (m_source->serverList()) {
-				QStringList strList;
-				for (const char** sl = m_source->serverList(); *sl != 0; ++sl) {
-					strList += *sl;
-				}
-				m_serverComboBox->clear();
-				m_serverComboBox->addItems(strList);
-			}
-		} else {
-			m_serverLabel->hide();
-			m_serverComboBox->hide();
-			m_cgiLabel->hide();
-			m_cgiLineEdit->hide();
-		}
-		if (m_source->additionalTags()) {
-			m_additionalTagsCheckBox->show();
-			m_coverArtCheckBox->show();
-		} else {
-			m_additionalTagsCheckBox->hide();
-			m_coverArtCheckBox->hide();
-		}
+    setWindowTitle(m_source->name());
+    if (m_source->defaultServer()) {
+      m_serverLabel->show();
+      m_serverComboBox->show();
+      if (m_source->defaultCgiPath()) {
+        m_cgiLabel->show();
+        m_cgiLineEdit->show();
+      } else {
+        m_cgiLabel->hide();
+        m_cgiLineEdit->hide();
+      }
+      if (m_source->serverList()) {
+        QStringList strList;
+        for (const char** sl = m_source->serverList(); *sl != 0; ++sl) {
+          strList += *sl;
+        }
+        m_serverComboBox->clear();
+        m_serverComboBox->addItems(strList);
+      }
+    } else {
+      m_serverLabel->hide();
+      m_serverComboBox->hide();
+      m_cgiLabel->hide();
+      m_cgiLineEdit->hide();
+    }
+    if (m_source->additionalTags()) {
+      m_additionalTagsCheckBox->show();
+      m_coverArtCheckBox->show();
+    } else {
+      m_additionalTagsCheckBox->hide();
+      m_coverArtCheckBox->hide();
+    }
 
-		m_albumListBox->setModel(m_source->getAlbumListModel());
+    m_albumListBox->setModel(m_source->getAlbumListModel());
 
-		if (m_source->helpAnchor()) {
-			m_helpButton->show();
-		} else {
-			m_helpButton->hide();
-		}
-		if (m_source->config()) {
-			m_saveButton->show();
-		} else {
-			m_saveButton->hide();
-		}
-	}
+    if (m_source->helpAnchor()) {
+      m_helpButton->show();
+    } else {
+      m_helpButton->hide();
+    }
+    if (m_source->config()) {
+      m_saveButton->show();
+    } else {
+      m_saveButton->hide();
+    }
+  }
 }
 
 /**
@@ -210,7 +210,7 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
  */
 void ServerImportDialog::showStatusMessage(const QString& msg)
 {
-	m_statusBar->showMessage(msg);
+  m_statusBar->showMessage(msg);
 }
 
 /**
@@ -220,15 +220,15 @@ void ServerImportDialog::showStatusMessage(const QString& msg)
  */
 QString ServerImportDialog::getServer() const
 {
-	if (m_serverComboBox) {
-		QString server(m_serverComboBox->currentText());
-		if (server.isEmpty() && m_source) {
-			server = m_source->defaultServer();
-		}
-		return server;
-	} else {
-		return QString::null;
-	}
+  if (m_serverComboBox) {
+    QString server(m_serverComboBox->currentText());
+    if (server.isEmpty() && m_source) {
+      server = m_source->defaultServer();
+    }
+    return server;
+  } else {
+    return QString::null;
+  }
 }
 
 /**
@@ -238,15 +238,15 @@ QString ServerImportDialog::getServer() const
  */
 void ServerImportDialog::setServer(const QString& srv)
 {
-	if (m_serverComboBox) {
-		int idx = m_serverComboBox->findText(srv);
-		if (idx >= 0) {
-			m_serverComboBox->setCurrentIndex(idx);
-		} else {
-			m_serverComboBox->addItem(srv);
-			m_serverComboBox->setCurrentIndex(m_serverComboBox->count() - 1);
-		}
-	}
+  if (m_serverComboBox) {
+    int idx = m_serverComboBox->findText(srv);
+    if (idx >= 0) {
+      m_serverComboBox->setCurrentIndex(idx);
+    } else {
+      m_serverComboBox->addItem(srv);
+      m_serverComboBox->setCurrentIndex(m_serverComboBox->count() - 1);
+    }
+  }
 }
 
 /**
@@ -256,15 +256,15 @@ void ServerImportDialog::setServer(const QString& srv)
  */
 QString ServerImportDialog::getCgiPath() const
 {
-	if (m_cgiLineEdit) {
-		QString cgi(m_cgiLineEdit->text());
-		if (cgi.isEmpty() && m_source) {
-			cgi = m_source->defaultCgiPath();
-		}
-		return cgi;
-	} else {
-		return QString::null;
-	}
+  if (m_cgiLineEdit) {
+    QString cgi(m_cgiLineEdit->text());
+    if (cgi.isEmpty() && m_source) {
+      cgi = m_source->defaultCgiPath();
+    }
+    return cgi;
+  } else {
+    return QString::null;
+  }
 }
 
 /**
@@ -274,9 +274,9 @@ QString ServerImportDialog::getCgiPath() const
  */
 void ServerImportDialog::setCgiPath(const QString& cgi)
 {
-	if (m_cgiLineEdit) {
-		m_cgiLineEdit->setText(cgi);
-	}
+  if (m_cgiLineEdit) {
+    m_cgiLineEdit->setText(cgi);
+  }
 }
 
 /**
@@ -286,9 +286,9 @@ void ServerImportDialog::setCgiPath(const QString& cgi)
  */
 bool ServerImportDialog::getAdditionalTags() const
 {
-	return m_additionalTagsCheckBox ?
-		m_additionalTagsCheckBox->checkState() == Qt::Checked
-		: false;
+  return m_additionalTagsCheckBox ?
+    m_additionalTagsCheckBox->checkState() == Qt::Checked
+    : false;
 }
 
 /**
@@ -298,10 +298,10 @@ bool ServerImportDialog::getAdditionalTags() const
  */
 void ServerImportDialog::setAdditionalTags(bool enable)
 {
-	if (m_additionalTagsCheckBox) {
-		m_additionalTagsCheckBox->setCheckState(
-			enable ? Qt::Checked : Qt::Unchecked);
-	}
+  if (m_additionalTagsCheckBox) {
+    m_additionalTagsCheckBox->setCheckState(
+      enable ? Qt::Checked : Qt::Unchecked);
+  }
 }
 
 /**
@@ -311,9 +311,9 @@ void ServerImportDialog::setAdditionalTags(bool enable)
  */
 bool ServerImportDialog::getCoverArt() const
 {
-	return m_coverArtCheckBox ?
-		m_coverArtCheckBox->checkState() == Qt::Checked
-		: false;
+  return m_coverArtCheckBox ?
+    m_coverArtCheckBox->checkState() == Qt::Checked
+    : false;
 }
 
 /**
@@ -323,10 +323,10 @@ bool ServerImportDialog::getCoverArt() const
  */
 void ServerImportDialog::setCoverArt(bool enable)
 {
-	if (m_coverArtCheckBox) {
-		m_coverArtCheckBox->setCheckState(
-			enable ? Qt::Checked : Qt::Unchecked);
-	}
+  if (m_coverArtCheckBox) {
+    m_coverArtCheckBox->setCheckState(
+      enable ? Qt::Checked : Qt::Unchecked);
+  }
 }
 
 /**
@@ -336,12 +336,12 @@ void ServerImportDialog::setCoverArt(bool enable)
  */
 void ServerImportDialog::getImportSourceConfig(ServerImporterConfig* cfg) const
 {
-	cfg->m_server = getServer();
-	cfg->m_cgiPath = getCgiPath();
-	cfg->m_additionalTags = getAdditionalTags();
-	cfg->m_coverArt = getCoverArt();
-	cfg->m_windowWidth = size().width();
-	cfg->m_windowHeight = size().height();
+  cfg->m_server = getServer();
+  cfg->m_cgiPath = getCgiPath();
+  cfg->m_additionalTags = getAdditionalTags();
+  cfg->m_coverArt = getCoverArt();
+  cfg->m_windowWidth = size().width();
+  cfg->m_windowHeight = size().height();
 }
 
 /**
@@ -349,9 +349,9 @@ void ServerImportDialog::getImportSourceConfig(ServerImporterConfig* cfg) const
  */
 void ServerImportDialog::saveConfig()
 {
-	if (m_source && m_source->config()) {
-		getImportSourceConfig(m_source->config());
-	}
+  if (m_source && m_source->config()) {
+    getImportSourceConfig(m_source->config());
+  }
 }
 
 /**
@@ -362,38 +362,38 @@ void ServerImportDialog::saveConfig()
  */
 void ServerImportDialog::setArtistAlbum(const QString& artist, const QString& album)
 {
-	if (m_source && m_source->config()) {
-		ServerImporterConfig* cf = m_source->config();
-		setServer(cf->m_server);
-		setCgiPath(cf->m_cgiPath);
-		setAdditionalTags(cf->m_additionalTags);
-		setCoverArt(cf->m_coverArt);
-		if (cf->m_windowWidth > 0 && cf->m_windowHeight > 0) {
-			resize(cf->m_windowWidth, cf->m_windowHeight);
-		}
-	}
+  if (m_source && m_source->config()) {
+    ServerImporterConfig* cf = m_source->config();
+    setServer(cf->m_server);
+    setCgiPath(cf->m_cgiPath);
+    setAdditionalTags(cf->m_additionalTags);
+    setCoverArt(cf->m_coverArt);
+    if (cf->m_windowWidth > 0 && cf->m_windowHeight > 0) {
+      resize(cf->m_windowWidth, cf->m_windowHeight);
+    }
+  }
 
-	if (!(artist.isEmpty() && album.isEmpty())) {
-		int idx = m_artistLineEdit->findText(artist);
-		if (idx >= 0) {
-			m_artistLineEdit->setCurrentIndex(idx);
-		} else {
-			m_artistLineEdit->addItem(artist);
-			m_artistLineEdit->setCurrentIndex(m_artistLineEdit->count() - 1);
-		}
-		idx = m_albumLineEdit->findText(album);
-		if (idx >= 0) {
-			m_albumLineEdit->setCurrentIndex(idx);
-		} else {
-			m_albumLineEdit->addItem(album);
-			m_albumLineEdit->setCurrentIndex(m_albumLineEdit->count() - 1);
-		}
-		QLineEdit* lineEdit = m_artistLineEdit->lineEdit();
-		if (lineEdit) {
-			lineEdit->selectAll();
-		}
-		m_artistLineEdit->setFocus();
-	}
+  if (!(artist.isEmpty() && album.isEmpty())) {
+    int idx = m_artistLineEdit->findText(artist);
+    if (idx >= 0) {
+      m_artistLineEdit->setCurrentIndex(idx);
+    } else {
+      m_artistLineEdit->addItem(artist);
+      m_artistLineEdit->setCurrentIndex(m_artistLineEdit->count() - 1);
+    }
+    idx = m_albumLineEdit->findText(album);
+    if (idx >= 0) {
+      m_albumLineEdit->setCurrentIndex(idx);
+    } else {
+      m_albumLineEdit->addItem(album);
+      m_albumLineEdit->setCurrentIndex(m_albumLineEdit->count() - 1);
+    }
+    QLineEdit* lineEdit = m_artistLineEdit->lineEdit();
+    if (lineEdit) {
+      lineEdit->selectAll();
+    }
+    m_artistLineEdit->setFocus();
+  }
 }
 
 /**
@@ -401,11 +401,11 @@ void ServerImportDialog::setArtistAlbum(const QString& artist, const QString& al
  */
 void ServerImportDialog::slotFind()
 {
-	ServerImporterConfig cfg;
-	getImportSourceConfig(&cfg);
-	if (m_source)
-		m_source->find(&cfg, m_artistLineEdit->currentText(),
-									 m_albumLineEdit->currentText());
+  ServerImporterConfig cfg;
+  getImportSourceConfig(&cfg);
+  if (m_source)
+    m_source->find(&cfg, m_artistLineEdit->currentText(),
+                   m_albumLineEdit->currentText());
 }
 
 /**
@@ -415,9 +415,9 @@ void ServerImportDialog::slotFind()
  */
 void ServerImportDialog::slotFindFinished(const QByteArray& searchStr)
 {
-	if (m_source)
-		m_source->parseFindResults(searchStr);
-	m_albumListBox->setFocus();
+  if (m_source)
+    m_source->parseFindResults(searchStr);
+  m_albumListBox->setFocus();
 }
 
 /**
@@ -427,12 +427,12 @@ void ServerImportDialog::slotFindFinished(const QByteArray& searchStr)
  */
 void ServerImportDialog::slotAlbumFinished(const QByteArray& albumStr)
 {
-	if (m_source) {
-		m_source->setAdditionalTags(getAdditionalTags());
-		m_source->setCoverArt(getCoverArt());
-		m_source->parseAlbumResults(albumStr);
-	}
-	emit trackDataUpdated();
+  if (m_source) {
+    m_source->setAdditionalTags(getAdditionalTags());
+    m_source->setCoverArt(getCoverArt());
+    m_source->parseAlbumResults(albumStr);
+  }
+  emit trackDataUpdated();
 }
 
 /**
@@ -442,12 +442,12 @@ void ServerImportDialog::slotAlbumFinished(const QByteArray& albumStr)
  */
 void ServerImportDialog::requestTrackList(QStandardItem* li)
 {
-	if (AlbumListItem* ali = dynamic_cast<AlbumListItem*>(li)) {
-		ServerImporterConfig cfg;
-		getImportSourceConfig(&cfg);
-		if (m_source)
-			m_source->getTrackList(&cfg, ali->getCategory(), ali->getId());
-	}
+  if (AlbumListItem* ali = dynamic_cast<AlbumListItem*>(li)) {
+    ServerImporterConfig cfg;
+    getImportSourceConfig(&cfg);
+    if (m_source)
+      m_source->getTrackList(&cfg, ali->getCategory(), ali->getId());
+  }
 }
 
 /**
@@ -457,8 +457,8 @@ void ServerImportDialog::requestTrackList(QStandardItem* li)
  */
 void ServerImportDialog::requestTrackList(const QModelIndex& index)
 {
-	if (m_source)
-		requestTrackList(m_source->getAlbumListModel()->itemFromIndex(index));
+  if (m_source)
+    requestTrackList(m_source->getAlbumListModel()->itemFromIndex(index));
 }
 
 /**
@@ -466,7 +466,7 @@ void ServerImportDialog::requestTrackList(const QModelIndex& index)
  */
 void ServerImportDialog::showHelp()
 {
-	if (m_source && m_source->helpAnchor()) {
-		ContextHelp::displayHelp(m_source->helpAnchor());
-	}
+  if (m_source && m_source->helpAnchor()) {
+    ContextHelp::displayHelp(m_source->helpAnchor());
+  }
 }

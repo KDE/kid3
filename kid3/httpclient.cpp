@@ -38,16 +38,16 @@
  */
 HttpClient::HttpClient(QObject* parent) : QObject(parent), m_rcvBodyLen(0)
 {
-	setObjectName("HttpClient");
-	m_http = new QHttp();
-	connect(m_http, SIGNAL(stateChanged(int)),
-					this, SLOT(slotStateChanged(int)));
-	connect(m_http, SIGNAL(dataReadProgress(int, int)),
-					this, SLOT(slotDataReadProgress(int, int)));
-	connect(m_http, SIGNAL(done(bool)),
-					this, SLOT(slotDone(bool)));
-	connect(m_http, SIGNAL(responseHeaderReceived(const QHttpResponseHeader&)),
-					this, SLOT(slotResponseHeaderReceived(const QHttpResponseHeader&)));
+  setObjectName("HttpClient");
+  m_http = new QHttp();
+  connect(m_http, SIGNAL(stateChanged(int)),
+          this, SLOT(slotStateChanged(int)));
+  connect(m_http, SIGNAL(dataReadProgress(int, int)),
+          this, SLOT(slotDataReadProgress(int, int)));
+  connect(m_http, SIGNAL(done(bool)),
+          this, SLOT(slotDone(bool)));
+  connect(m_http, SIGNAL(responseHeaderReceived(const QHttpResponseHeader&)),
+          this, SLOT(slotResponseHeaderReceived(const QHttpResponseHeader&)));
 }
 
 /**
@@ -55,9 +55,9 @@ HttpClient::HttpClient(QObject* parent) : QObject(parent), m_rcvBodyLen(0)
  */
 HttpClient::~HttpClient()
 {
-	m_http->close();
-	m_http->disconnect();
-	delete m_http;
+  m_http->close();
+  m_http->disconnect();
+  delete m_http;
 }
 
 /**
@@ -67,27 +67,27 @@ HttpClient::~HttpClient()
  */
 void HttpClient::slotStateChanged(int state)
 {
-	switch (state) {
-		case QHttp::HostLookup:
-			emitProgress(i18n("Ready."), CS_RequestConnection, CS_EstimatedBytes);
-			break;
-		case QHttp::Connecting:
-			emitProgress(i18n("Connecting..."), CS_Connecting, CS_EstimatedBytes);
-			break;
-		case QHttp::Sending:
-			emitProgress(i18n("Host found..."), CS_HostFound, CS_EstimatedBytes);
-			break;
-		case QHttp::Reading:
-			emitProgress(i18n("Request sent..."), CS_RequestSent, CS_EstimatedBytes);
-			break;
-		case QHttp::Connected:
-			emitProgress(i18n("Ready."), -1, -1);
-			break;
-		case QHttp::Unconnected:
-		case QHttp::Closing:
-		default:
-			;
-	}
+  switch (state) {
+    case QHttp::HostLookup:
+      emitProgress(i18n("Ready."), CS_RequestConnection, CS_EstimatedBytes);
+      break;
+    case QHttp::Connecting:
+      emitProgress(i18n("Connecting..."), CS_Connecting, CS_EstimatedBytes);
+      break;
+    case QHttp::Sending:
+      emitProgress(i18n("Host found..."), CS_HostFound, CS_EstimatedBytes);
+      break;
+    case QHttp::Reading:
+      emitProgress(i18n("Request sent..."), CS_RequestSent, CS_EstimatedBytes);
+      break;
+    case QHttp::Connected:
+      emitProgress(i18n("Ready."), -1, -1);
+      break;
+    case QHttp::Unconnected:
+    case QHttp::Closing:
+    default:
+      ;
+  }
 }
 
 /**
@@ -98,7 +98,7 @@ void HttpClient::slotStateChanged(int state)
  */
 void HttpClient::slotDataReadProgress(int done, int total)
 {
-	emitProgress(KCM_i18n1("Data received: %1", done), done, total);
+  emitProgress(KCM_i18n1("Data received: %1", done), done, total);
 }
 
 /**
@@ -108,27 +108,27 @@ void HttpClient::slotDataReadProgress(int done, int total)
  */
 void HttpClient::slotDone(bool error)
 {
-	if (error) {
-		QHttp::Error err = m_http->error();
-		if (err != QHttp::UnexpectedClose) {
-			QString msg(i18n("Socket error: "));
-			switch (err) {
-				case QHttp::ConnectionRefused:
-					msg += i18n("Connection refused");
-					break;
-				case QHttp::HostNotFound:
-					msg += i18n("Host not found");
-					break;
-				default:
-					msg += m_http->errorString();
-			}
-			emitProgress(msg, -1, -1);
-		}
-	}
-	emit bytesReceived(m_http->readAll());
-	if (!error) {
-		emitProgress(i18n("Ready."), CS_EstimatedBytes, CS_EstimatedBytes);
-	}
+  if (error) {
+    QHttp::Error err = m_http->error();
+    if (err != QHttp::UnexpectedClose) {
+      QString msg(i18n("Socket error: "));
+      switch (err) {
+        case QHttp::ConnectionRefused:
+          msg += i18n("Connection refused");
+          break;
+        case QHttp::HostNotFound:
+          msg += i18n("Host not found");
+          break;
+        default:
+          msg += m_http->errorString();
+      }
+      emitProgress(msg, -1, -1);
+    }
+  }
+  emit bytesReceived(m_http->readAll());
+  if (!error) {
+    emitProgress(i18n("Ready."), CS_EstimatedBytes, CS_EstimatedBytes);
+  }
 }
 
 /**
@@ -138,8 +138,8 @@ void HttpClient::slotDone(bool error)
  */
 void HttpClient::slotResponseHeaderReceived(const QHttpResponseHeader& resp)
 {
-	m_rcvBodyType = resp.contentType();
-	m_rcvBodyLen = resp.contentLength();
+  m_rcvBodyType = resp.contentType();
+  m_rcvBodyLen = resp.contentLength();
 }
 
 /**
@@ -150,24 +150,24 @@ void HttpClient::slotResponseHeaderReceived(const QHttpResponseHeader& resp)
  */
 void HttpClient::sendRequest(const QString& server, const QString& path)
 {
-	m_rcvBodyLen = 0;
-	m_rcvBodyType = "";
-	QString dest;
-	int destPort;
-	splitNamePort(server, dest, destPort);
-	m_http->setHost(dest, destPort);
-	QString proxy, username, password;
-	int proxyPort = 0;
-	if (ConfigStore::s_miscCfg.m_useProxy) {
-		splitNamePort(ConfigStore::s_miscCfg.m_proxy, proxy, proxyPort);
-	}
-	if (ConfigStore::s_miscCfg.m_useProxyAuthentication) {
-		username = ConfigStore::s_miscCfg.m_proxyUserName;
-		password = ConfigStore::s_miscCfg.m_proxyPassword;
-	}
-	m_http->setProxy(proxy, proxyPort, username, password);
-	m_http->setHost(dest, destPort);
-	m_http->get(path);
+  m_rcvBodyLen = 0;
+  m_rcvBodyType = "";
+  QString dest;
+  int destPort;
+  splitNamePort(server, dest, destPort);
+  m_http->setHost(dest, destPort);
+  QString proxy, username, password;
+  int proxyPort = 0;
+  if (ConfigStore::s_miscCfg.m_useProxy) {
+    splitNamePort(ConfigStore::s_miscCfg.m_proxy, proxy, proxyPort);
+  }
+  if (ConfigStore::s_miscCfg.m_useProxyAuthentication) {
+    username = ConfigStore::s_miscCfg.m_proxyUserName;
+    password = ConfigStore::s_miscCfg.m_proxyPassword;
+  }
+  m_http->setProxy(proxy, proxyPort, username, password);
+  m_http->setHost(dest, destPort);
+  m_http->get(path);
 }
 
 /**
@@ -175,7 +175,7 @@ void HttpClient::sendRequest(const QString& server, const QString& path)
  */
 void HttpClient::abort()
 {
-	m_http->abort();
+  m_http->abort();
 }
 
 /**
@@ -187,7 +187,7 @@ void HttpClient::abort()
  */
 void HttpClient::emitProgress(const QString& text, int step, int totalSteps)
 {
-	emit progress(text, step, totalSteps);
+  emit progress(text, step, totalSteps);
 }
 
 /**
@@ -198,16 +198,16 @@ void HttpClient::emitProgress(const QString& text, int step, int totalSteps)
  * @param port     output integer with port
  */
 void HttpClient::splitNamePort(const QString& namePort,
-																 QString& name, int& port)
+                                 QString& name, int& port)
 {
-	int colPos = namePort.lastIndexOf(':');
-	if (colPos >= 0) {
-		bool ok;
-		port = namePort.mid(colPos + 1).toInt(&ok);
-		if (!ok) port = 80;
-		name = namePort.left(colPos);
-	} else {
-		name = namePort;
-		port = 80;
-	}
+  int colPos = namePort.lastIndexOf(':');
+  if (colPos >= 0) {
+    bool ok;
+    port = namePort.mid(colPos + 1).toInt(&ok);
+    if (!ok) port = 80;
+    name = namePort.left(colPos);
+  } else {
+    name = namePort;
+    port = 80;
+  }
 }

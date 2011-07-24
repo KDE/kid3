@@ -35,31 +35,31 @@ class TaggedFile;
  */
 class IFrameEditor {
 public:
-	/**
-	 * Destructor.
-	 */
-	virtual ~IFrameEditor() = 0;
+  /**
+   * Destructor.
+   */
+  virtual ~IFrameEditor() = 0;
 
-	/**
-	 * Let user edit a frame and then update the fields
-	 * when the edits are accepted.
-	 *
-	 * @param frame frame to edit
-	 * @param taggedFile tagged file where frame has to be set
-	 *
-	 * @return true if frame edits are accepted.
-	 */
-	virtual bool editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile) = 0;
+  /**
+   * Let user edit a frame and then update the fields
+   * when the edits are accepted.
+   *
+   * @param frame frame to edit
+   * @param taggedFile tagged file where frame has to be set
+   *
+   * @return true if frame edits are accepted.
+   */
+  virtual bool editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile) = 0;
 
-	/**
-	 * Let user select a frame type.
-	 *
-	 * @param frame is filled with the selected frame if true is returned
-	 * @param taggedFile tagged file for which frame has to be selected
-	 *
-	 * @return false if no frame selected.
-	 */
-	virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile) = 0;
+  /**
+   * Let user select a frame type.
+   *
+   * @param frame is filled with the selected frame if true is returned
+   * @param taggedFile tagged file for which frame has to be selected
+   *
+   * @return false if no frame selected.
+   */
+  virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile) = 0;
 };
 
 #endif // IFRAMEEDITOR_H

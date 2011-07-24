@@ -52,91 +52,91 @@ class LookupQuery : public QObject {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param numFiles   number of files to be queried
-	 * @param serverName server name
-	 * @param serverPort server port
-	 * @param proxyName  proxy name, empty if no proxy
-	 * @param proxyPort  proxy port
-	 */
-	LookupQuery(int numFiles,
-							const QString& serverName, unsigned short serverPort = 80,
-							const QString& proxyName = "", unsigned short proxyPort = 80);
+  /**
+   * Constructor.
+   *
+   * @param numFiles   number of files to be queried
+   * @param serverName server name
+   * @param serverPort server port
+   * @param proxyName  proxy name, empty if no proxy
+   * @param proxyPort  proxy port
+   */
+  LookupQuery(int numFiles,
+              const QString& serverName, unsigned short serverPort = 80,
+              const QString& proxyName = "", unsigned short proxyPort = 80);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~LookupQuery();
+  /**
+   * Destructor.
+   */
+  virtual ~LookupQuery();
 
 #if defined HAVE_TUNEPIMP && HAVE_TUNEPIMP >= 5
-	/**
-	 * Query a PUID from the server.
-	 *
-	 * @param puid     PUID
-	 * @param index    index of file
-	 */
-	void query(const char* puid, int index);
+  /**
+   * Query a PUID from the server.
+   *
+   * @param puid     PUID
+   * @param index    index of file
+   */
+  void query(const char* puid, int index);
 #endif
 
 signals:
-	/**
-	 * Emitted when the query response is received
-	 */
-	void queryResponseReceived(int, const QByteArray&);
+  /**
+   * Emitted when the query response is received
+   */
+  void queryResponseReceived(int, const QByteArray&);
 
 private slots:
-	/**
-	 * Send query when the socket is connected.
-	 */
-	void socketConnected();
+  /**
+   * Send query when the socket is connected.
+   */
+  void socketConnected();
 
-	/**
-	 * Error on socket connection.
-	 */
-	void socketError(QAbstractSocket::SocketError err);
-	/**
-	 * Read received data when the server has closed the connection.
-	 */
-	void socketConnectionClosed();
+  /**
+   * Error on socket connection.
+   */
+  void socketError(QAbstractSocket::SocketError err);
+  /**
+   * Read received data when the server has closed the connection.
+   */
+  void socketConnectionClosed();
 
 #if defined HAVE_TUNEPIMP && HAVE_TUNEPIMP >= 5
 private:
-	/**
-	 * Connect to server to query information about the current file.
-	 */
-	void socketQuery();
+  /**
+   * Connect to server to query information about the current file.
+   */
+  void socketQuery();
 
-	/**
-	 * Query the next file.
-	 */
-	void queryNext();
+  /**
+   * Query the next file.
+   */
+  void queryNext();
 
-	struct FileQuery {
-		bool requested;
-		QString puid;
-	};
+  struct FileQuery {
+    bool requested;
+    QString puid;
+  };
 
-	/** Number of files to be queried. */
-	int m_numFiles;
-	/** MusicBrainz server */
-	QString m_serverName;
-	/** Port of MusicBrainz server */
-	unsigned short m_serverPort;
-	/** Proxy */
-	QString m_proxyName;
-	/** Port of proxy */
-	unsigned short m_proxyPort;
-	/**
-	 * -1 if not yet started,
-	 * 0..m_numFiles-1 if a file is currently processed,
-	 * >=m_numFiles if all files processed.
-	 */
-	int m_currentFile;
-	FileQuery* m_fileQueries;
-	QTcpSocket* m_sock;
-	QString m_request;
+  /** Number of files to be queried. */
+  int m_numFiles;
+  /** MusicBrainz server */
+  QString m_serverName;
+  /** Port of MusicBrainz server */
+  unsigned short m_serverPort;
+  /** Proxy */
+  QString m_proxyName;
+  /** Port of proxy */
+  unsigned short m_proxyPort;
+  /**
+   * -1 if not yet started,
+   * 0..m_numFiles-1 if a file is currently processed,
+   * >=m_numFiles if all files processed.
+   */
+  int m_currentFile;
+  FileQuery* m_fileQueries;
+  QTcpSocket* m_sock;
+  QString m_request;
 #endif
 };
 
@@ -149,116 +149,116 @@ class MusicBrainzClient : public QObject
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param trackDataModel track data to be filled with imported values,
-	 *                      is passed with filenames set
-	 */
-	explicit MusicBrainzClient(TrackDataModel* trackDataModel);
-	/**
-	 * Destructor.
-	 */
-	virtual ~MusicBrainzClient();
+  /**
+   * Constructor.
+   *
+   * @param trackDataModel track data to be filled with imported values,
+   *                      is passed with filenames set
+   */
+  explicit MusicBrainzClient(TrackDataModel* trackDataModel);
+  /**
+   * Destructor.
+   */
+  virtual ~MusicBrainzClient();
 
 #ifdef HAVE_TUNEPIMP
-	/**
-	 * Poll the status of the MusicBrainz query.
-	 */
-	void pollStatus();
+  /**
+   * Poll the status of the MusicBrainz query.
+   */
+  void pollStatus();
 
-	/**
-	 * Set configuration.
-	 *
-	 * @param server   server
-	 * @param proxy    proxy
-	 * @param useProxy true if proxy has to be used
-	 */
-	void setConfig(const QString& server, const QString& proxy,
-								 bool useProxy);
+  /**
+   * Set configuration.
+   *
+   * @param server   server
+   * @param proxy    proxy
+   * @param useProxy true if proxy has to be used
+   */
+  void setConfig(const QString& server, const QString& proxy,
+                 bool useProxy);
 
-	/**
-	 * Add the files in the file list.
-	 */
-	void addFiles();
+  /**
+   * Add the files in the file list.
+   */
+  void addFiles();
 
-	/**
-	 * Remove all files.
-	 */
-	void removeFiles();
+  /**
+   * Remove all files.
+   */
+  void removeFiles();
 #endif // HAVE_TUNEPIMP
 
 signals:
-	/**
-	 * Emitted when status of a file changed.
-	 * Parameter: index of file, status text
-	 */
-	void statusChanged(int, QString);
+  /**
+   * Emitted when status of a file changed.
+   * Parameter: index of file, status text
+   */
+  void statusChanged(int, QString);
 
-	/**
-	 * Emitted when meta data for a recognized file are received.
-	 * Parameter index of file, track data
-	 */
-	void metaDataReceived(int, ImportTrackData&);
+  /**
+   * Emitted when meta data for a recognized file are received.
+   * Parameter index of file, track data
+   */
+  void metaDataReceived(int, ImportTrackData&);
 
-	/**
-	 * Emitted when results for an ambiguous file are received.
-	 * Parameter index of file, track data list
-	 */
-	void resultsReceived(int, ImportTrackDataVector&);
+  /**
+   * Emitted when results for an ambiguous file are received.
+   * Parameter index of file, track data list
+   */
+  void resultsReceived(int, ImportTrackDataVector&);
 
 private slots:
-	/**
-	 * Process server response with lookup data.
-	 *
-	 * @param index    index of file
-	 * @param response response from server
-	 */
-	void parseLookupResponse(int index, const QByteArray& response);
+  /**
+   * Process server response with lookup data.
+   *
+   * @param index    index of file
+   * @param response response from server
+   */
+  void parseLookupResponse(int index, const QByteArray& response);
 
 #ifdef HAVE_TUNEPIMP
 private:
-	/**
-	 * Get i for m_id[i] == id.
-	 *
-	 * @return index, -1 if not found.
-	 */
-	int getIndexOfId(int id) const;
+  /**
+   * Get i for m_id[i] == id.
+   *
+   * @return index, -1 if not found.
+   */
+  int getIndexOfId(int id) const;
 
-	/**
-	 * Get the file name for an ID.
-	 *
-	 * @param id ID of file
-	 *
-	 * @return absolute file name, QString::null if not found.
-	 */
-	QString getFilename(int id) const;
+  /**
+   * Get the file name for an ID.
+   *
+   * @param id ID of file
+   *
+   * @return absolute file name, QString::null if not found.
+   */
+  QString getFilename(int id) const;
 
-	/**
-	 * Get meta data for recognized file.
-	 *
-	 * @param id        ID of file
-	 * @param trackData the meta data is returned here
-	 */
-	void getMetaData(int id, ImportTrackData& trackData);
+  /**
+   * Get meta data for recognized file.
+   *
+   * @param id        ID of file
+   * @param trackData the meta data is returned here
+   */
+  void getMetaData(int id, ImportTrackData& trackData);
 
-	/**
-	 * Get results for an ambiguous file.
-	 *
-	 * @param id            ID of file
-	 * @param trackDataList the results are returned here
-	 *
-	 * @return true if some results were received,
-	 *         false if no results available.
-	 */
-	bool getResults(int id, ImportTrackDataVector& trackDataList);
+  /**
+   * Get results for an ambiguous file.
+   *
+   * @param id            ID of file
+   * @param trackDataList the results are returned here
+   *
+   * @return true if some results were received,
+   *         false if no results available.
+   */
+  bool getResults(int id, ImportTrackDataVector& trackDataList);
 
-	TrackDataModel* m_trackDataModel;
-	tunepimp_t m_tp;
-	int* m_ids;
-	int m_numFiles;
+  TrackDataModel* m_trackDataModel;
+  tunepimp_t m_tp;
+  int* m_ids;
+  int m_numFiles;
 #if HAVE_TUNEPIMP >= 5
-	LookupQuery* m_lookupQuery;
+  LookupQuery* m_lookupQuery;
 #endif
 #endif // HAVE_TUNEPIMP
 };

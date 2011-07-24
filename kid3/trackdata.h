@@ -36,153 +36,153 @@
  */
 class TrackData : public FrameCollection {
 public:
-	/** Tag version contained in track data. */
-	enum TagVersion {
-		TagNone = 0, /**< Empty or imported and not from a tag */
-		TagV1 = 1,   /**< Tag 1 */
-		TagV2 = 2,   /**< Tag 2 */
-		/** Tag 1 and 2 or merged from tag 2 and tag 1 (where tag 2 is not set) */
-		TagV2V1 = TagV1 | TagV2
-	};
+  /** Tag version contained in track data. */
+  enum TagVersion {
+    TagNone = 0, /**< Empty or imported and not from a tag */
+    TagV1 = 1,   /**< Tag 1 */
+    TagV2 = 2,   /**< Tag 2 */
+    /** Tag 1 and 2 or merged from tag 2 and tag 1 (where tag 2 is not set) */
+    TagV2V1 = TagV1 | TagV2
+  };
 
-	/**
-	 * Constructor.
-	 */
-	TrackData();
+  /**
+   * Constructor.
+   */
+  TrackData();
 
-	/**
-	 * Constructor.
-	 * All fields are set from the tagged file,
-	 * which should be read using readTags() before.
-	 *
-	 * @param taggedFile tagged file providing track data
-	 * @param tagVersion source of frames
-	 */
-	TrackData(TaggedFile& taggedFile, TagVersion tagVersion);
+  /**
+   * Constructor.
+   * All fields are set from the tagged file,
+   * which should be read using readTags() before.
+   *
+   * @param taggedFile tagged file providing track data
+   * @param tagVersion source of frames
+   */
+  TrackData(TaggedFile& taggedFile, TagVersion tagVersion);
 
-	/**
-	 * Get duration of file.
-	 * @return duration of file.
-	 */
-	int getFileDuration() const;
+  /**
+   * Get duration of file.
+   * @return duration of file.
+   */
+  int getFileDuration() const;
 
-	/**
-	 * Get absolute filename.
-	 *
-	 * @return absolute file path.
-	 */
-	QString getAbsFilename() const;
+  /**
+   * Get absolute filename.
+   *
+   * @return absolute file path.
+   */
+  QString getAbsFilename() const;
 
-	/**
-	 * Get filename.
-	 *
-	 * @return filename.
-	 */
-	QString getFilename() const;
+  /**
+   * Get filename.
+   *
+   * @return filename.
+   */
+  QString getFilename() const;
 
-	/**
-	 * Get file extension including the dot.
-	 *
-	 * @return file extension, e.g. ".mp3".
-	 */
-	QString getFileExtension() const;
+  /**
+   * Get file extension including the dot.
+   *
+   * @return file extension, e.g. ".mp3".
+   */
+  QString getFileExtension() const;
 
-	/**
-	 * Get the total number of tracks in the directory.
-	 *
-	 * @return total number of tracks, -1 if unavailable.
-	 */
-	int getTotalNumberOfTracksInDir() const;
+  /**
+   * Get the total number of tracks in the directory.
+   *
+   * @return total number of tracks, -1 if unavailable.
+   */
+  int getTotalNumberOfTracksInDir() const;
 
-	/**
-	 * Get the format of tag 1.
-	 *
-	 * @return string describing format of tag 1,
-	 *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
-	 *         QString::null if unknown.
-	 */
-	QString getTagFormatV1() const;
+  /**
+   * Get the format of tag 1.
+   *
+   * @return string describing format of tag 1,
+   *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
+   *         QString::null if unknown.
+   */
+  QString getTagFormatV1() const;
 
-	/**
-	 * Get the format of tag 2.
-	 *
-	 * @return string describing format of tag 2,
-	 *         e.g. "ID3v2.3", "Vorbis", "APE",
-	 *         QString::null if unknown.
-	 */
-	QString getTagFormatV2() const;
+  /**
+   * Get the format of tag 2.
+   *
+   * @return string describing format of tag 2,
+   *         e.g. "ID3v2.3", "Vorbis", "APE",
+   *         QString::null if unknown.
+   */
+  QString getTagFormatV2() const;
 
-	/**
-	 * Get detail info.
-	 * @param info the detail information is returned here
-	 */
-	void getDetailInfo(TaggedFile::DetailInfo& info) const;
+  /**
+   * Get detail info.
+   * @param info the detail information is returned here
+   */
+  void getDetailInfo(TaggedFile::DetailInfo& info) const;
 
-	/**
-	 * Format a string from track data.
-	 * Supported format fields:
-	 * Those supported by TrackDataFormatReplacer::getReplacement()
-	 *
-	 * @param format    format specification
-	 *
-	 * @return formatted string.
-	 */
-	QString formatString(const QString& format) const;
+  /**
+   * Format a string from track data.
+   * Supported format fields:
+   * Those supported by TrackDataFormatReplacer::getReplacement()
+   *
+   * @param format    format specification
+   *
+   * @return formatted string.
+   */
+  QString formatString(const QString& format) const;
 
-	/**
-	 * Create filename from tags according to format string.
-	 *
-	 * @param str       format string containing codes supported by
-	 *                  TrackDataFormatReplacer::getReplacement()
-	 * @param isDirname true to generate a directory name
-	 *
-	 * @return format string with format codes replaced by tags.
-	 */
-	QString formatFilenameFromTags(QString str, bool isDirname = false) const;
+  /**
+   * Create filename from tags according to format string.
+   *
+   * @param str       format string containing codes supported by
+   *                  TrackDataFormatReplacer::getReplacement()
+   * @param isDirname true to generate a directory name
+   *
+   * @return format string with format codes replaced by tags.
+   */
+  QString formatFilenameFromTags(QString str, bool isDirname = false) const;
 
-	/**
-	 * Get frames.
-	 * @return frames.
-	 */
-	FrameCollection& getFrameCollection() {
-		return *(static_cast<FrameCollection*>(this));
-	}
+  /**
+   * Get frames.
+   * @return frames.
+   */
+  FrameCollection& getFrameCollection() {
+    return *(static_cast<FrameCollection*>(this));
+  }
 
-	/**
-	 * Set frames.
-	 * @param frames frames
-	 */
-	void setFrameCollection(const FrameCollection& frames) {
-		*(static_cast<FrameCollection*>(this)) = frames;
-	}
+  /**
+   * Set frames.
+   * @param frames frames
+   */
+  void setFrameCollection(const FrameCollection& frames) {
+    *(static_cast<FrameCollection*>(this)) = frames;
+  }
 
-	/**
-	 * Get tagged file associated with this track data.
-	 * @return tagged file, 0 if none assigned.
-	 */
-	TaggedFile* getTaggedFile() const;
+  /**
+   * Get tagged file associated with this track data.
+   * @return tagged file, 0 if none assigned.
+   */
+  TaggedFile* getTaggedFile() const;
 
-	/**
-	 * Get help text for format codes supported by formatString().
-	 *
-	 * @param onlyRows if true only the tr elements are returned,
-	 *                 not the surrounding table
-	 *
-	 * @return help text.
-	 */
-	static QString getFormatToolTip(bool onlyRows = false);
+  /**
+   * Get help text for format codes supported by formatString().
+   *
+   * @param onlyRows if true only the tr elements are returned,
+   *                 not the surrounding table
+   *
+   * @return help text.
+   */
+  static QString getFormatToolTip(bool onlyRows = false);
 
-	/**
-	 * Cast a mask of tag version bits to a TagVersion enum.
-	 * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
-	 * @return tag version enum value.
-	 */
-	static TagVersion tagVersionCast(int tagMask) {
-		return static_cast<TagVersion>(tagMask & 3);
-	}
+  /**
+   * Cast a mask of tag version bits to a TagVersion enum.
+   * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+   * @return tag version enum value.
+   */
+  static TagVersion tagVersionCast(int tagMask) {
+    return static_cast<TagVersion>(tagMask & 3);
+  }
 
 private:
-	QPersistentModelIndex m_taggedFileIndex;
+  QPersistentModelIndex m_taggedFileIndex;
 };
 
 /**
@@ -190,49 +190,49 @@ private:
  */
 class ImportTrackData : public TrackData {
 public:
-	/**
-	 * Constructor.
-	 */
-	ImportTrackData() : m_importDuration(0) {}
+  /**
+   * Constructor.
+   */
+  ImportTrackData() : m_importDuration(0) {}
 
-	/**
-	 * Constructor.
-	 * All fields except the import duration are set from the tagged file,
-	 * which should be read using readTags() before.
-	 *
-	 * @param taggedFile tagged file providing track data
-	 * @param tagVersion source of frames
-	 */
-	ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
-		TrackData(taggedFile, tagVersion), m_importDuration(0), m_enabled(true) {}
+  /**
+   * Constructor.
+   * All fields except the import duration are set from the tagged file,
+   * which should be read using readTags() before.
+   *
+   * @param taggedFile tagged file providing track data
+   * @param tagVersion source of frames
+   */
+  ImportTrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
+    TrackData(taggedFile, tagVersion), m_importDuration(0), m_enabled(true) {}
 
-	/**
-	 * Get duration of import.
-	 * @return duration of import.
-	 */
-	int getImportDuration() const { return m_importDuration; }
+  /**
+   * Get duration of import.
+   * @return duration of import.
+   */
+  int getImportDuration() const { return m_importDuration; }
 
-	/**
-	 * Set duration of import.
-	 * @param duration duration of import
-	 */
-	void setImportDuration(int duration) { m_importDuration = duration; }
+  /**
+   * Set duration of import.
+   * @param duration duration of import
+   */
+  void setImportDuration(int duration) { m_importDuration = duration; }
 
-	/**
-	 * Check if track is enabled.
-	 * @return true if enabled (true is default).
-	 */
-	bool isEnabled() const { return m_enabled; }
+  /**
+   * Check if track is enabled.
+   * @return true if enabled (true is default).
+   */
+  bool isEnabled() const { return m_enabled; }
 
-	/**
-	 * Enable or disable track.
-	 * @param enabled true to enable
-	 */
-	void setEnabled(bool enabled) { m_enabled = enabled; }
+  /**
+   * Enable or disable track.
+   * @param enabled true to enable
+   */
+  void setEnabled(bool enabled) { m_enabled = enabled; }
 
 private:
-	int m_importDuration;
-	bool m_enabled;
+  int m_importDuration;
+  bool m_enabled;
 };
 
 /**
@@ -240,58 +240,58 @@ private:
  */
 class ImportTrackDataVector : public QVector<ImportTrackData> {
 public:
-	/**
-	 * Clear vector and associated data.
-	 */
-	void clearData();
+  /**
+   * Clear vector and associated data.
+   */
+  void clearData();
 
-	/**
-	 * Get album artist.
-	 * @return album artist.
-	 */
-	QString getArtist() const;
+  /**
+   * Get album artist.
+   * @return album artist.
+   */
+  QString getArtist() const;
 
-	/**
-	 * Get album title.
-	 * @return album title.
-	 */
-	QString getAlbum() const;
+  /**
+   * Get album title.
+   * @return album title.
+   */
+  QString getAlbum() const;
 
-	/**
-	 * Check if tag 1 is supported in the first track.
-	 * @return true if tag 1 is supported.
-	 */
-	bool isTagV1Supported() const;
+  /**
+   * Check if tag 1 is supported in the first track.
+   * @return true if tag 1 is supported.
+   */
+  bool isTagV1Supported() const;
 
-	/**
-	 * Get cover art URL.
-	 * @return cover art URL.
-	 */
-	QString getCoverArtUrl() const { return m_coverArtUrl; }
+  /**
+   * Get cover art URL.
+   * @return cover art URL.
+   */
+  QString getCoverArtUrl() const { return m_coverArtUrl; }
 
-	/**
-	 * Set cover art URL.
-	 * @param coverArtUrl cover art URL
-	 */
-	void setCoverArtUrl(const QString& coverArtUrl) { m_coverArtUrl = coverArtUrl; }
+  /**
+   * Set cover art URL.
+   * @param coverArtUrl cover art URL
+   */
+  void setCoverArtUrl(const QString& coverArtUrl) { m_coverArtUrl = coverArtUrl; }
 
-	/**
-	 * Read the tags from the files.
-	 * This can be used to fill the track data with another tag version.
-	 *
-	 * @param tagVersion tag version to read
-	 */
-	void readTags(ImportTrackData::TagVersion tagVersion);
+  /**
+   * Read the tags from the files.
+   * This can be used to fill the track data with another tag version.
+   *
+   * @param tagVersion tag version to read
+   */
+  void readTags(ImportTrackData::TagVersion tagVersion);
 
 private:
-	/**
-	 * Get frame from first track.
-	 * @param type frame type
-	 * @return value of frame.
-	 */
-	QString getFrame(Frame::Type type) const;
+  /**
+   * Get frame from first track.
+   * @param type frame type
+   * @return value of frame.
+   */
+  QString getFrame(Frame::Type type) const;
 
-	QString m_coverArtUrl;
+  QString m_coverArtUrl;
 };
 
 
@@ -300,52 +300,52 @@ private:
  */
 class TrackDataFormatReplacer : public FrameFormatReplacer {
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param trackData track data
-	 * @param str       string with format codes
-	 */
-	explicit TrackDataFormatReplacer(
-		const TrackData& trackData,
-		const QString& str = QString());
+  /**
+   * Constructor.
+   *
+   * @param trackData track data
+   * @param str       string with format codes
+   */
+  explicit TrackDataFormatReplacer(
+    const TrackData& trackData,
+    const QString& str = QString());
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~TrackDataFormatReplacer();
+  /**
+   * Destructor.
+   */
+  virtual ~TrackDataFormatReplacer();
 
-	/**
-	 * Get help text for supported format codes.
-	 *
-	 * @param onlyRows if true only the tr elements are returned,
-	 *                 not the surrounding table
-	 *
-	 * @return help text.
-	 */
-	static QString getToolTip(bool onlyRows = false);
+  /**
+   * Get help text for supported format codes.
+   *
+   * @param onlyRows if true only the tr elements are returned,
+   *                 not the surrounding table
+   *
+   * @return help text.
+   */
+  static QString getToolTip(bool onlyRows = false);
 
 protected:
-	/**
-	 * Replace a format code (one character %c or multiple characters %{chars}).
-	 * Supported format fields:
-	 * Those supported by FrameFormatReplacer::getReplacement()
-	 * %f filename
-	 * %p path to file
-	 * %u URL of file
-	 * %d duration in minutes:seconds
-	 * %D duration in seconds
-	 * %n number of tracks
-	 *
-	 * @param code format code
-	 *
-	 * @return replacement string,
-	 *         QString::null if code not found.
-	 */
-	virtual QString getReplacement(const QString& code) const;
+  /**
+   * Replace a format code (one character %c or multiple characters %{chars}).
+   * Supported format fields:
+   * Those supported by FrameFormatReplacer::getReplacement()
+   * %f filename
+   * %p path to file
+   * %u URL of file
+   * %d duration in minutes:seconds
+   * %D duration in seconds
+   * %n number of tracks
+   *
+   * @param code format code
+   *
+   * @return replacement string,
+   *         QString::null if code not found.
+   */
+  virtual QString getReplacement(const QString& code) const;
 
 private:
-	const TrackData& m_trackData;
+  const TrackData& m_trackData;
 };
 
 #endif // TRACKDATA_H

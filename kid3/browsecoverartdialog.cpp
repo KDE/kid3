@@ -52,15 +52,15 @@
  */
 static QString getToolTip()
 {
-	QString str = "<table>\n";
-	str += FrameFormatReplacer::getToolTip(true);
+  QString str = "<table>\n";
+  str += FrameFormatReplacer::getToolTip(true);
 
-	str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
-	str += QCM_translate(I18N_NOOP("Encode as URL"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
+  str += QCM_translate(I18N_NOOP("Encode as URL"));
+  str += "</td></tr>\n";
 
-	str += "</table>\n";
-	return str;
+  str += "</table>\n";
+  return str;
 }
 
 /**
@@ -69,103 +69,103 @@ static QString getToolTip()
  * @param parent parent widget
  */
 BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
-	QDialog(parent), m_process(0)
+  QDialog(parent), m_process(0)
 {
-	setModal(true);
-	setWindowTitle(i18n("Browse Cover Art"));
+  setModal(true);
+  setWindowTitle(i18n("Browse Cover Art"));
 
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	if (vlayout) {
-		vlayout->setMargin(6);
-		vlayout->setSpacing(6);
+  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  if (vlayout) {
+    vlayout->setMargin(6);
+    vlayout->setSpacing(6);
 
-		m_edit = new QTextEdit(this);
-		if (m_edit) {
-			m_edit->setReadOnly(true);
-			vlayout->addWidget(m_edit);
-		}
+    m_edit = new QTextEdit(this);
+    if (m_edit) {
+      m_edit->setReadOnly(true);
+      vlayout->addWidget(m_edit);
+    }
 
-		QGroupBox* artistAlbumBox = new QGroupBox(i18n("&Artist/Album"), this);
-		if (artistAlbumBox) {
-			m_artistLineEdit = new QLineEdit(artistAlbumBox);
-			m_albumLineEdit = new QLineEdit(artistAlbumBox);
-			QHBoxLayout* hbox = new QHBoxLayout;
-			hbox->setMargin(2);
-			hbox->addWidget(m_artistLineEdit);
-			hbox->addWidget(m_albumLineEdit);
-			artistAlbumBox->setLayout(hbox);
-			vlayout->addWidget(artistAlbumBox);
-			connect(m_artistLineEdit, SIGNAL(returnPressed()),
-							this, SLOT(showPreview()));
-			connect(m_albumLineEdit, SIGNAL(returnPressed()),
-							this, SLOT(showPreview()));
-		}
+    QGroupBox* artistAlbumBox = new QGroupBox(i18n("&Artist/Album"), this);
+    if (artistAlbumBox) {
+      m_artistLineEdit = new QLineEdit(artistAlbumBox);
+      m_albumLineEdit = new QLineEdit(artistAlbumBox);
+      QHBoxLayout* hbox = new QHBoxLayout;
+      hbox->setMargin(2);
+      hbox->addWidget(m_artistLineEdit);
+      hbox->addWidget(m_albumLineEdit);
+      artistAlbumBox->setLayout(hbox);
+      vlayout->addWidget(artistAlbumBox);
+      connect(m_artistLineEdit, SIGNAL(returnPressed()),
+              this, SLOT(showPreview()));
+      connect(m_albumLineEdit, SIGNAL(returnPressed()),
+              this, SLOT(showPreview()));
+    }
 
-		QGroupBox* srcbox = new QGroupBox(i18n("&Source"), this);
-		if (srcbox) {
-			m_sourceComboBox = new QComboBox(srcbox);
-			m_sourceComboBox->setEditable(true);
-			m_urlLineEdit = new QLineEdit(srcbox);
-			m_urlLineEdit->setToolTip(getToolTip());
-			QVBoxLayout* vbox = new QVBoxLayout;
-			vbox->setMargin(2);
-			vbox->addWidget(m_sourceComboBox);
-			vbox->addWidget(m_urlLineEdit);
-			srcbox->setLayout(vbox);
-			vlayout->addWidget(srcbox);
-			connect(m_sourceComboBox, SIGNAL(activated(int)), this,
-							SLOT(setSourceLineEdit(int)));
-			connect(m_urlLineEdit, SIGNAL(returnPressed()),
-							this, SLOT(showPreview()));
-		}
+    QGroupBox* srcbox = new QGroupBox(i18n("&Source"), this);
+    if (srcbox) {
+      m_sourceComboBox = new QComboBox(srcbox);
+      m_sourceComboBox->setEditable(true);
+      m_urlLineEdit = new QLineEdit(srcbox);
+      m_urlLineEdit->setToolTip(getToolTip());
+      QVBoxLayout* vbox = new QVBoxLayout;
+      vbox->setMargin(2);
+      vbox->addWidget(m_sourceComboBox);
+      vbox->addWidget(m_urlLineEdit);
+      srcbox->setLayout(vbox);
+      vlayout->addWidget(srcbox);
+      connect(m_sourceComboBox, SIGNAL(activated(int)), this,
+              SLOT(setSourceLineEdit(int)));
+      connect(m_urlLineEdit, SIGNAL(returnPressed()),
+              this, SLOT(showPreview()));
+    }
 
-		QGroupBox* tabbox = new QGroupBox(i18n("&URL extraction"), this);
-		if (tabbox) {
-			m_matchUrlTable = new ConfigTable(tabbox);
-			m_matchUrlTableModel = new ConfigTableModel(tabbox);
-			m_matchUrlTableModel->setLabels(
-				QStringList() << i18n("Match") << i18n("Picture URL"));
-			m_matchUrlTable->setModel(m_matchUrlTableModel);
-			m_matchUrlTable->setHorizontalResizeModes(
-					m_matchUrlTableModel->getHorizontalResizeModes());
-			QVBoxLayout* tablayout = new QVBoxLayout;
-			tablayout->setMargin(2);
-			tablayout->addWidget(m_matchUrlTable);
-			tabbox->setLayout(tablayout);
-			vlayout->addWidget(tabbox);
-		}
-		QHBoxLayout* hlayout = new QHBoxLayout;
-		if (hlayout) {
-			hlayout->setSpacing(6);
-			QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-			if (helpButton) {
-				helpButton->setAutoDefault(false);
-				hlayout->addWidget(helpButton);
-				connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-			}
-			QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
-			if (saveButton) {
-				saveButton->setAutoDefault(false);
-				hlayout->addWidget(saveButton);
-				connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-			}
-			QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-																						 QSizePolicy::Minimum);
-			hlayout->addItem(hspacer);
+    QGroupBox* tabbox = new QGroupBox(i18n("&URL extraction"), this);
+    if (tabbox) {
+      m_matchUrlTable = new ConfigTable(tabbox);
+      m_matchUrlTableModel = new ConfigTableModel(tabbox);
+      m_matchUrlTableModel->setLabels(
+        QStringList() << i18n("Match") << i18n("Picture URL"));
+      m_matchUrlTable->setModel(m_matchUrlTableModel);
+      m_matchUrlTable->setHorizontalResizeModes(
+          m_matchUrlTableModel->getHorizontalResizeModes());
+      QVBoxLayout* tablayout = new QVBoxLayout;
+      tablayout->setMargin(2);
+      tablayout->addWidget(m_matchUrlTable);
+      tabbox->setLayout(tablayout);
+      vlayout->addWidget(tabbox);
+    }
+    QHBoxLayout* hlayout = new QHBoxLayout;
+    if (hlayout) {
+      hlayout->setSpacing(6);
+      QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+      if (helpButton) {
+        helpButton->setAutoDefault(false);
+        hlayout->addWidget(helpButton);
+        connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+      }
+      QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+      if (saveButton) {
+        saveButton->setAutoDefault(false);
+        hlayout->addWidget(saveButton);
+        connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+      }
+      QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                             QSizePolicy::Minimum);
+      hlayout->addItem(hspacer);
 
-			QPushButton* browseButton = new QPushButton(i18n("&Browse"), this);
-			QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-			if (browseButton && cancelButton) {
-				browseButton->setAutoDefault(false);
-				cancelButton->setAutoDefault(false);
-				hlayout->addWidget(browseButton);
-				hlayout->addWidget(cancelButton);
-				connect(browseButton, SIGNAL(clicked()), this, SLOT(accept()));
-				connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-			}
-			vlayout->addLayout(hlayout);
-		}
-	}
+      QPushButton* browseButton = new QPushButton(i18n("&Browse"), this);
+      QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+      if (browseButton && cancelButton) {
+        browseButton->setAutoDefault(false);
+        cancelButton->setAutoDefault(false);
+        hlayout->addWidget(browseButton);
+        hlayout->addWidget(cancelButton);
+        connect(browseButton, SIGNAL(clicked()), this, SLOT(accept()));
+        connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+      }
+      vlayout->addLayout(hlayout);
+    }
+  }
 }
 
 /**
@@ -173,7 +173,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
  */
 BrowseCoverArtDialog::~BrowseCoverArtDialog()
 {
-	delete m_process;
+  delete m_process;
 }
 
 /**
@@ -183,12 +183,12 @@ BrowseCoverArtDialog::~BrowseCoverArtDialog()
  */
 void BrowseCoverArtDialog::setSourceLineEdit(int index)
 {
-	if (index < static_cast<int>(m_urls.size())) {
-		m_urlLineEdit->setText(m_urls[index]);
-	} else {
-		m_urlLineEdit->clear();
-	}
-	showPreview();
+  if (index < static_cast<int>(m_urls.size())) {
+    m_urlLineEdit->setText(m_urls[index]);
+  } else {
+    m_urlLineEdit->clear();
+  }
+  showPreview();
 }
 
 /**
@@ -196,23 +196,23 @@ void BrowseCoverArtDialog::setSourceLineEdit(int index)
  */
 void BrowseCoverArtDialog::showPreview()
 {
-	m_frames.setArtist(m_artistLineEdit->text());
-	m_frames.setAlbum(m_albumLineEdit->text());
-	FrameFormatReplacer fmt(m_frames, m_urlLineEdit->text());
-	fmt.replaceEscapedChars();
-	fmt.replacePercentCodes(FormatReplacer::FSF_SupportUrlEncode);
-	m_url = fmt.getString();
-	QString txt("<p><b>");
-	txt += i18n("Click Browse to start");
-	txt += "</b></p><p><tt>";
-	txt += ConfigStore::s_miscCfg.m_browser;
-	txt += " ";
-	txt += m_url;
-	txt += "</tt></p><p><b>";
-	txt += i18n("Then drag the picture from the browser to Kid3.");
-	txt += "</b></p>";
-	m_edit->clear();
-	m_edit->append(txt);
+  m_frames.setArtist(m_artistLineEdit->text());
+  m_frames.setAlbum(m_albumLineEdit->text());
+  FrameFormatReplacer fmt(m_frames, m_urlLineEdit->text());
+  fmt.replaceEscapedChars();
+  fmt.replacePercentCodes(FormatReplacer::FSF_SupportUrlEncode);
+  m_url = fmt.getString();
+  QString txt("<p><b>");
+  txt += i18n("Click Browse to start");
+  txt += "</b></p><p><tt>";
+  txt += ConfigStore::s_miscCfg.m_browser;
+  txt += " ";
+  txt += m_url;
+  txt += "</tt></p><p><b>";
+  txt += i18n("Then drag the picture from the browser to Kid3.");
+  txt += "</b></p>";
+  m_edit->clear();
+  m_edit->append(txt);
 }
 
 /**
@@ -222,12 +222,12 @@ void BrowseCoverArtDialog::showPreview()
  */
 void BrowseCoverArtDialog::setFrames(const FrameCollection& frames)
 {
-	m_frames = frames;
+  m_frames = frames;
 
-	m_artistLineEdit->setText(m_frames.getArtist());
-	m_albumLineEdit->setText(m_frames.getAlbum());
+  m_artistLineEdit->setText(m_frames.getArtist());
+  m_albumLineEdit->setText(m_frames.getAlbum());
 
-	showPreview();
+  showPreview();
 }
 
 /**
@@ -235,11 +235,11 @@ void BrowseCoverArtDialog::setFrames(const FrameCollection& frames)
  */
 void BrowseCoverArtDialog::setSourceFromConfig()
 {
-	m_urls = ConfigStore::s_genCfg.m_pictureSourceUrls;
-	m_sourceComboBox->clear();
-	m_sourceComboBox->addItems(ConfigStore::s_genCfg.m_pictureSourceNames);
-	m_sourceComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_pictureSourceIdx);
-	setSourceLineEdit(ConfigStore::s_genCfg.m_pictureSourceIdx);
+  m_urls = ConfigStore::s_genCfg.m_pictureSourceUrls;
+  m_sourceComboBox->clear();
+  m_sourceComboBox->addItems(ConfigStore::s_genCfg.m_pictureSourceNames);
+  m_sourceComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_pictureSourceIdx);
+  setSourceLineEdit(ConfigStore::s_genCfg.m_pictureSourceIdx);
 }
 
 /**
@@ -247,14 +247,14 @@ void BrowseCoverArtDialog::setSourceFromConfig()
  */
 void BrowseCoverArtDialog::readConfig()
 {
-	setSourceFromConfig();
-	m_matchUrlTableModel->setMap(ConfigStore::s_genCfg.m_matchPictureUrlMap);
+  setSourceFromConfig();
+  m_matchUrlTableModel->setMap(ConfigStore::s_genCfg.m_matchPictureUrlMap);
 
-	if (ConfigStore::s_genCfg.m_browseCoverArtWindowWidth > 0 &&
-			ConfigStore::s_genCfg.m_browseCoverArtWindowHeight > 0) {
-		resize(ConfigStore::s_genCfg.m_browseCoverArtWindowWidth,
-					 ConfigStore::s_genCfg.m_browseCoverArtWindowHeight);
-	}
+  if (ConfigStore::s_genCfg.m_browseCoverArtWindowWidth > 0 &&
+      ConfigStore::s_genCfg.m_browseCoverArtWindowHeight > 0) {
+    resize(ConfigStore::s_genCfg.m_browseCoverArtWindowWidth,
+           ConfigStore::s_genCfg.m_browseCoverArtWindowHeight);
+  }
 }
 
 /**
@@ -262,24 +262,24 @@ void BrowseCoverArtDialog::readConfig()
  */
 void BrowseCoverArtDialog::saveConfig()
 {
-	ConfigStore::s_genCfg.m_pictureSourceIdx = m_sourceComboBox->currentIndex();
-	if (ConfigStore::s_genCfg.m_pictureSourceIdx <
-			static_cast<int>(ConfigStore::s_genCfg.m_pictureSourceNames.size())) {
-		ConfigStore::s_genCfg.m_pictureSourceNames[ConfigStore::s_genCfg.m_pictureSourceIdx] =
-			m_sourceComboBox->currentText();
-		ConfigStore::s_genCfg.m_pictureSourceUrls[ConfigStore::s_genCfg.m_pictureSourceIdx] =
-			m_urlLineEdit->text();
-	} else {
-		ConfigStore::s_genCfg.m_pictureSourceIdx =
-			ConfigStore::s_genCfg.m_pictureSourceNames.size();
-		ConfigStore::s_genCfg.m_pictureSourceNames.append(m_sourceComboBox->currentText());
-		ConfigStore::s_genCfg.m_pictureSourceUrls.append(m_urlLineEdit->text());
-	}
-	ConfigStore::s_genCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
-	ConfigStore::s_genCfg.m_browseCoverArtWindowWidth = size().width();
-	ConfigStore::s_genCfg.m_browseCoverArtWindowHeight = size().height();
+  ConfigStore::s_genCfg.m_pictureSourceIdx = m_sourceComboBox->currentIndex();
+  if (ConfigStore::s_genCfg.m_pictureSourceIdx <
+      static_cast<int>(ConfigStore::s_genCfg.m_pictureSourceNames.size())) {
+    ConfigStore::s_genCfg.m_pictureSourceNames[ConfigStore::s_genCfg.m_pictureSourceIdx] =
+      m_sourceComboBox->currentText();
+    ConfigStore::s_genCfg.m_pictureSourceUrls[ConfigStore::s_genCfg.m_pictureSourceIdx] =
+      m_urlLineEdit->text();
+  } else {
+    ConfigStore::s_genCfg.m_pictureSourceIdx =
+      ConfigStore::s_genCfg.m_pictureSourceNames.size();
+    ConfigStore::s_genCfg.m_pictureSourceNames.append(m_sourceComboBox->currentText());
+    ConfigStore::s_genCfg.m_pictureSourceUrls.append(m_urlLineEdit->text());
+  }
+  ConfigStore::s_genCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
+  ConfigStore::s_genCfg.m_browseCoverArtWindowWidth = size().width();
+  ConfigStore::s_genCfg.m_browseCoverArtWindowHeight = size().height();
 
-	setSourceFromConfig();
+  setSourceFromConfig();
 }
 
 /**
@@ -287,7 +287,7 @@ void BrowseCoverArtDialog::saveConfig()
  */
 void BrowseCoverArtDialog::showHelp()
 {
-	ContextHelp::displayHelp("browse_pictures");
+  ContextHelp::displayHelp("browse_pictures");
 }
 
 /**
@@ -295,13 +295,13 @@ void BrowseCoverArtDialog::showHelp()
  */
 void BrowseCoverArtDialog::accept()
 {
-	if (!m_process) {
-		m_process = new ExternalProcess(this);
-	}
-	if (m_process) {
-		m_process->launchCommand(
-			i18n("Browse Cover Art"),
-			QStringList() << ConfigStore::s_miscCfg.m_browser << m_url);
-	}
-	QDialog::accept();
+  if (!m_process) {
+    m_process = new ExternalProcess(this);
+  }
+  if (m_process) {
+    m_process->launchCommand(
+      i18n("Browse Cover Art"),
+      QStringList() << ConfigStore::s_miscCfg.m_browser << m_url);
+  }
+  QDialog::accept();
 }

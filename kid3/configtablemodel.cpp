@@ -31,7 +31,7 @@
  * @param parent parent widget
  */
 ConfigTableModel::ConfigTableModel(QObject* parent) :
-	QAbstractTableModel(parent)
+  QAbstractTableModel(parent)
 {
 }
 
@@ -49,10 +49,10 @@ ConfigTableModel::~ConfigTableModel()
  */
 Qt::ItemFlags ConfigTableModel::flags(const QModelIndex& index) const
 {
-	Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
-	if (index.isValid())
-		theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
-	return theFlags;
+  Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
+  if (index.isValid())
+    theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
+  return theFlags;
 }
 
 /**
@@ -63,18 +63,18 @@ Qt::ItemFlags ConfigTableModel::flags(const QModelIndex& index) const
  */
 QVariant ConfigTableModel::data(const QModelIndex& index, int role) const
 {
-	if (!index.isValid() ||
-			index.row() < 0 || index.row() >= m_keyValues.size() ||
-			index.column() < 0 || index.column() >= 2)
-		return QVariant();
-	const QPair<QString, QString>& keyValue = m_keyValues.at(index.row());
-	if (role == Qt::DisplayRole || role == Qt::EditRole) {
-		if (index.column() == 0)
-			return keyValue.first;
-		else
-			return keyValue.second;
-	}
-	return QVariant();
+  if (!index.isValid() ||
+      index.row() < 0 || index.row() >= m_keyValues.size() ||
+      index.column() < 0 || index.column() >= 2)
+    return QVariant();
+  const QPair<QString, QString>& keyValue = m_keyValues.at(index.row());
+  if (role == Qt::DisplayRole || role == Qt::EditRole) {
+    if (index.column() == 0)
+      return keyValue.first;
+    else
+      return keyValue.second;
+  }
+  return QVariant();
 }
 
 /**
@@ -85,20 +85,20 @@ QVariant ConfigTableModel::data(const QModelIndex& index, int role) const
  * @return true if successful
  */
 bool ConfigTableModel::setData(const QModelIndex& index,
-																 const QVariant& value, int role)
+                                 const QVariant& value, int role)
 {
-	if (!index.isValid() || role != Qt::EditRole ||
-			index.row() < 0 || index.row() >= m_keyValues.size() ||
-			index.column() < 0 || index.column() >= 2)
-		return false;
-	QPair<QString, QString>& keyValue = m_keyValues[index.row()];
-	if (index.column() == 0) {
-		keyValue.first = value.toString();
-	} else {
-		keyValue.second = value.toString();
-	}
-	emit dataChanged(index, index);
-	return true;
+  if (!index.isValid() || role != Qt::EditRole ||
+      index.row() < 0 || index.row() >= m_keyValues.size() ||
+      index.column() < 0 || index.column() >= 2)
+    return false;
+  QPair<QString, QString>& keyValue = m_keyValues[index.row()];
+  if (index.column() == 0) {
+    keyValue.first = value.toString();
+  } else {
+    keyValue.second = value.toString();
+  }
+  emit dataChanged(index, index);
+  return true;
 }
 
 /**
@@ -109,14 +109,14 @@ bool ConfigTableModel::setData(const QModelIndex& index,
  * @return header data for role
  */
 QVariant ConfigTableModel::headerData(
-		int section, Qt::Orientation orientation, int role) const
+    int section, Qt::Orientation orientation, int role) const
 {
-	if (role != Qt::DisplayRole)
-		return QVariant();
-	if (orientation == Qt::Horizontal && section < m_labels.size()) {
-		return m_labels[section];
-	}
-	return section + 1;
+  if (role != Qt::DisplayRole)
+    return QVariant();
+  if (orientation == Qt::Horizontal && section < m_labels.size()) {
+    return m_labels[section];
+  }
+  return section + 1;
 }
 
 /**
@@ -127,7 +127,7 @@ QVariant ConfigTableModel::headerData(
  */
 int ConfigTableModel::rowCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : m_keyValues.size();
+  return parent.isValid() ? 0 : m_keyValues.size();
 }
 
 /**
@@ -138,7 +138,7 @@ int ConfigTableModel::rowCount(const QModelIndex& parent) const
  */
 int ConfigTableModel::columnCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : 2;
+  return parent.isValid() ? 0 : 2;
 }
 
 /**
@@ -150,13 +150,13 @@ int ConfigTableModel::columnCount(const QModelIndex& parent) const
  * @return true if successful
  */
 bool ConfigTableModel::insertRows(int row, int count,
-												const QModelIndex&)
+                        const QModelIndex&)
 {
-	beginInsertRows(QModelIndex(), row, row + count - 1);
-	for (int i = 0; i < count; ++i)
-		m_keyValues.insert(row, QPair<QString, QString>());
-	endInsertRows();
-	return true;
+  beginInsertRows(QModelIndex(), row, row + count - 1);
+  for (int i = 0; i < count; ++i)
+    m_keyValues.insert(row, QPair<QString, QString>());
+  endInsertRows();
+  return true;
 }
 
 /**
@@ -167,13 +167,13 @@ bool ConfigTableModel::insertRows(int row, int count,
  * @return true if successful
  */
 bool ConfigTableModel::removeRows(int row, int count,
-												const QModelIndex&)
+                        const QModelIndex&)
 {
-	beginRemoveRows(QModelIndex(), row, row + count - 1);
-	for (int i = 0; i < count; ++i)
-		m_keyValues.removeAt(row);
-	endRemoveRows();
-	return true;
+  beginRemoveRows(QModelIndex(), row, row + count - 1);
+  for (int i = 0; i < count; ++i)
+    m_keyValues.removeAt(row);
+  endRemoveRows();
+  return true;
 }
 
 /**
@@ -181,10 +181,10 @@ bool ConfigTableModel::removeRows(int row, int count,
  * @return list of resize modes for the columns
  */
 QList<QHeaderView::ResizeMode>
-		ConfigTableModel::getHorizontalResizeModes() const
+    ConfigTableModel::getHorizontalResizeModes() const
 {
-	return QList<QHeaderView::ResizeMode>()
-			<< QHeaderView::Stretch << QHeaderView::Stretch;
+  return QList<QHeaderView::ResizeMode>()
+      << QHeaderView::Stretch << QHeaderView::Stretch;
 }
 
 /**
@@ -193,8 +193,8 @@ QList<QHeaderView::ResizeMode>
  */
 void ConfigTableModel::setLabels(const QStringList& labels)
 {
-	m_labels = labels;
-	reset();
+  m_labels = labels;
+  reset();
 }
 
 /**
@@ -204,16 +204,16 @@ void ConfigTableModel::setLabels(const QStringList& labels)
  */
 void ConfigTableModel::setMap(const QMap<QString, QString>& map)
 {
-	m_keyValues.clear();
-	for (QMap<QString, QString>::const_iterator it = map.constBegin();
-			it != map.constEnd();
-			 ++it) {
-		m_keyValues.append(qMakePair(it.key(), it.value()));
-	}
-	// make sure that at least one line is in the table
-	if (m_keyValues.isEmpty())
-		m_keyValues.append(qMakePair(QString(), QString()));
-	reset();
+  m_keyValues.clear();
+  for (QMap<QString, QString>::const_iterator it = map.constBegin();
+      it != map.constEnd();
+       ++it) {
+    m_keyValues.append(qMakePair(it.key(), it.value()));
+  }
+  // make sure that at least one line is in the table
+  if (m_keyValues.isEmpty())
+    m_keyValues.append(qMakePair(QString(), QString()));
+  reset();
 }
 
 /**
@@ -222,13 +222,13 @@ void ConfigTableModel::setMap(const QMap<QString, QString>& map)
  */
 QMap<QString, QString> ConfigTableModel::getMap() const
 {
-	QMap<QString, QString> map;
-	for (QList<QPair<QString, QString> >::const_iterator it = m_keyValues.constBegin();
-			it != m_keyValues.constEnd();
-			++it) {
-		if (!it->first.isEmpty()) {
-			map.insert(it->first, it->second);
-		}
-	}
-	return map;
+  QMap<QString, QString> map;
+  for (QList<QPair<QString, QString> >::const_iterator it = m_keyValues.constBegin();
+      it != m_keyValues.constEnd();
+      ++it) {
+    if (!it->first.isEmpty()) {
+      map.insert(it->first, it->second);
+    }
+  }
+  return map;
 }

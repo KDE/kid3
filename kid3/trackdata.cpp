@@ -38,8 +38,8 @@
  * @param str       string with format codes
  */
 TrackDataFormatReplacer::TrackDataFormatReplacer(
-	const TrackData& trackData, const QString& str) :
-	FrameFormatReplacer(trackData, str), m_trackData(trackData) {}
+  const TrackData& trackData, const QString& str) :
+  FrameFormatReplacer(trackData, str), m_trackData(trackData) {}
 
 /**
  * Destructor.
@@ -64,101 +64,101 @@ TrackDataFormatReplacer::~TrackDataFormatReplacer() {}
  */
 QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 {
-	QString result = FrameFormatReplacer::getReplacement(code);
-	if (result.isNull()) {
-		QString name;
+  QString result = FrameFormatReplacer::getReplacement(code);
+  if (result.isNull()) {
+    QString name;
 
-		if (code.length() == 1) {
-			static const struct {
-				char shortCode;
-				const char* longCode;
-			} shortToLong[] = {
-				{ 'f', "file" },
-				{ 'p', "filepath" },
-				{ 'u', "url" },
-				{ 'd', "duration" },
-				{ 'D', "seconds" },
-				{ 'n', "tracks" },
-				{ 'e', "extension" },
-				{ 'O', "tag1" },
-				{ 'o', "tag2" },
-				{ 'b', "bitrate" },
-				{ 'v', "vbr" },
-				{ 'r', "samplerate" },
-				{ 'm', "mode" },
-				{ 'h', "channels" },
-				{ 'k', "codec" }
-			};
-			const char c = code[0].toLatin1();
-			for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
-				if (shortToLong[i].shortCode == c) {
-					name = shortToLong[i].longCode;
-					break;
-				}
-			}
-		} else if (code.length() > 1) {
-			name = code;
-		}
+    if (code.length() == 1) {
+      static const struct {
+        char shortCode;
+        const char* longCode;
+      } shortToLong[] = {
+        { 'f', "file" },
+        { 'p', "filepath" },
+        { 'u', "url" },
+        { 'd', "duration" },
+        { 'D', "seconds" },
+        { 'n', "tracks" },
+        { 'e', "extension" },
+        { 'O', "tag1" },
+        { 'o', "tag2" },
+        { 'b', "bitrate" },
+        { 'v', "vbr" },
+        { 'r', "samplerate" },
+        { 'm', "mode" },
+        { 'h', "channels" },
+        { 'k', "codec" }
+      };
+      const char c = code[0].toLatin1();
+      for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
+        if (shortToLong[i].shortCode == c) {
+          name = shortToLong[i].longCode;
+          break;
+        }
+      }
+    } else if (code.length() > 1) {
+      name = code;
+    }
 
-		if (!name.isNull()) {
-			TaggedFile::DetailInfo info;
-			m_trackData.getDetailInfo(info);
-			if (name == "file") {
-				QString filename(m_trackData.getAbsFilename());
-				int sepPos = filename.lastIndexOf('/');
-				if (sepPos < 0) {
-					sepPos = filename.lastIndexOf(QDir::separator());
-				}
-				if (sepPos >= 0) {
-					filename.remove(0, sepPos + 1);
-				}
-				result = filename;
-			} else if (name == "filepath") {
-				result = m_trackData.getAbsFilename();
-			} else if (name == "url") {
-				QUrl url;
-				url.setPath(m_trackData.getAbsFilename());
-				url.setScheme("file");
-				result = url.toString();
-			} else if (name == "duration") {
-				result = TaggedFile::formatTime(m_trackData.getFileDuration());
-			} else if (name == "seconds") {
-				result = QString::number(m_trackData.getFileDuration());
-			} else if (name == "tracks") {
-				result = QString::number(m_trackData.getTotalNumberOfTracksInDir());
-			} else if (name == "extension") {
-				result = m_trackData.getFileExtension();
-			} else if (name == "tag1") {
-				result = m_trackData.getTagFormatV1();
-			} else if (name == "tag2") {
-				result = m_trackData.getTagFormatV2();
-			} else if (name == "bitrate") {
-				result.setNum(info.bitrate);
-			} else if (name == "vbr") {
-				result = info.vbr ? "VBR" : "";
-			} else if (name == "samplerate") {
-				result.setNum(info.sampleRate);
-			} else if (name == "mode") {
-				switch (info.channelMode) {
-					case TaggedFile::DetailInfo::CM_Stereo:
-						result = "Stereo";
-						break;
-					case TaggedFile::DetailInfo::CM_JointStereo:
-						result = "Joint Stereo";
-						break;
-					case TaggedFile::DetailInfo::CM_None:
-					default:
-						result = "";
-				}
-			} else if (name == "channels") {
-				result.setNum(info.channels);
-			} else if (name == "codec") {
-				result = info.format;
-			}
-		}
-	}
+    if (!name.isNull()) {
+      TaggedFile::DetailInfo info;
+      m_trackData.getDetailInfo(info);
+      if (name == "file") {
+        QString filename(m_trackData.getAbsFilename());
+        int sepPos = filename.lastIndexOf('/');
+        if (sepPos < 0) {
+          sepPos = filename.lastIndexOf(QDir::separator());
+        }
+        if (sepPos >= 0) {
+          filename.remove(0, sepPos + 1);
+        }
+        result = filename;
+      } else if (name == "filepath") {
+        result = m_trackData.getAbsFilename();
+      } else if (name == "url") {
+        QUrl url;
+        url.setPath(m_trackData.getAbsFilename());
+        url.setScheme("file");
+        result = url.toString();
+      } else if (name == "duration") {
+        result = TaggedFile::formatTime(m_trackData.getFileDuration());
+      } else if (name == "seconds") {
+        result = QString::number(m_trackData.getFileDuration());
+      } else if (name == "tracks") {
+        result = QString::number(m_trackData.getTotalNumberOfTracksInDir());
+      } else if (name == "extension") {
+        result = m_trackData.getFileExtension();
+      } else if (name == "tag1") {
+        result = m_trackData.getTagFormatV1();
+      } else if (name == "tag2") {
+        result = m_trackData.getTagFormatV2();
+      } else if (name == "bitrate") {
+        result.setNum(info.bitrate);
+      } else if (name == "vbr") {
+        result = info.vbr ? "VBR" : "";
+      } else if (name == "samplerate") {
+        result.setNum(info.sampleRate);
+      } else if (name == "mode") {
+        switch (info.channelMode) {
+          case TaggedFile::DetailInfo::CM_Stereo:
+            result = "Stereo";
+            break;
+          case TaggedFile::DetailInfo::CM_JointStereo:
+            result = "Joint Stereo";
+            break;
+          case TaggedFile::DetailInfo::CM_None:
+          default:
+            result = "";
+        }
+      } else if (name == "channels") {
+        result.setNum(info.channels);
+      } else if (name == "codec") {
+        result = info.format;
+      }
+    }
+  }
 
-	return result;
+  return result;
 }
 
 /**
@@ -171,70 +171,70 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
  */
 QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 {
-	QString str;
-	if (!onlyRows) str += "<table>\n";
-	str += FrameFormatReplacer::getToolTip(true);
+  QString str;
+  if (!onlyRows) str += "<table>\n";
+  str += FrameFormatReplacer::getToolTip(true);
 
-	str += "<tr><td>%f</td><td>%{file}</td><td>";
-	str += QCM_translate("Filename");
-	str += "</td></tr>\n";
+  str += "<tr><td>%f</td><td>%{file}</td><td>";
+  str += QCM_translate("Filename");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%p</td><td>%{filepath}</td><td>";
-	str += QCM_translate(I18N_NOOP("Absolute path to file"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%p</td><td>%{filepath}</td><td>";
+  str += QCM_translate(I18N_NOOP("Absolute path to file"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%u</td><td>%{url}</td><td>";
-	str += QCM_translate("URL");
-	str += "</td></tr>\n";
+  str += "<tr><td>%u</td><td>%{url}</td><td>";
+  str += QCM_translate("URL");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%d</td><td>%{duration}</td><td>";
-	str += QCM_translate(I18N_NOOP("Length"));
-	str += " &quot;M:S&quot;</td></tr>\n";
+  str += "<tr><td>%d</td><td>%{duration}</td><td>";
+  str += QCM_translate(I18N_NOOP("Length"));
+  str += " &quot;M:S&quot;</td></tr>\n";
 
-	str += "<tr><td>%D</td><td>%{seconds}</td><td>";
-	str += QCM_translate(I18N_NOOP("Length"));
-	str += " &quot;S&quot;</td></tr>\n";
+  str += "<tr><td>%D</td><td>%{seconds}</td><td>";
+  str += QCM_translate(I18N_NOOP("Length"));
+  str += " &quot;S&quot;</td></tr>\n";
 
-	str += "<tr><td>%n</td><td>%{tracks}</td><td>";
-	str += QCM_translate(I18N_NOOP("Number of tracks"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%n</td><td>%{tracks}</td><td>";
+  str += QCM_translate(I18N_NOOP("Number of tracks"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%e</td><td>%{extension}</td><td>";
-	str += QCM_translate(I18N_NOOP("Extension"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%e</td><td>%{extension}</td><td>";
+  str += QCM_translate(I18N_NOOP("Extension"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%O</td><td>%{tag1}</td><td>";
-	str += QCM_translate("Tag 1");
-	str += "</td></tr>\n";
+  str += "<tr><td>%O</td><td>%{tag1}</td><td>";
+  str += QCM_translate("Tag 1");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%o</td><td>%{tag2}</td><td>";
-	str += QCM_translate("Tag 2");
-	str += "</td></tr>\n";
+  str += "<tr><td>%o</td><td>%{tag2}</td><td>";
+  str += QCM_translate("Tag 2");
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%b</td><td>%{bitrate}</td><td>";
-	str += QCM_translate(I18N_NOOP("Bitrate"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%b</td><td>%{bitrate}</td><td>";
+  str += QCM_translate(I18N_NOOP("Bitrate"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%v</td><td>%{vbr}</td><td>";
-	str += QCM_translate(I18N_NOOP("VBR"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%v</td><td>%{vbr}</td><td>";
+  str += QCM_translate(I18N_NOOP("VBR"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%r</td><td>%{samplerate}</td><td>";
-	str += QCM_translate(I18N_NOOP("Samplerate"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%r</td><td>%{samplerate}</td><td>";
+  str += QCM_translate(I18N_NOOP("Samplerate"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%m</td><td>%{mode}</td><td>Stereo, Joint Stereo</td></tr>\n";
+  str += "<tr><td>%m</td><td>%{mode}</td><td>Stereo, Joint Stereo</td></tr>\n";
 
-	str += "<tr><td>%h</td><td>%{channels}</td><td>";
-	str += QCM_translate(I18N_NOOP("Channels"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%h</td><td>%{channels}</td><td>";
+  str += QCM_translate(I18N_NOOP("Channels"));
+  str += "</td></tr>\n";
 
-	str += "<tr><td>%k</td><td>%{codec}</td><td>";
-	str += QCM_translate(I18N_NOOP("Codec"));
-	str += "</td></tr>\n";
+  str += "<tr><td>%k</td><td>%{codec}</td><td>";
+  str += QCM_translate(I18N_NOOP("Codec"));
+  str += "</td></tr>\n";
 
-	if (!onlyRows) str += "</table>\n";
-	return str;
+  if (!onlyRows) str += "</table>\n";
+  return str;
 }
 
 
@@ -253,26 +253,26 @@ TrackData::TrackData()
  * @param tagVersion source of frames
  */
 TrackData::TrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
-	m_taggedFileIndex(taggedFile.getIndex())
+  m_taggedFileIndex(taggedFile.getIndex())
 {
-	switch (tagVersion) {
-	case TagV1:
-		taggedFile.getAllFramesV1(*this);
-		break;
-	case TagV2:
-		taggedFile.getAllFramesV2(*this);
-		break;
-	case TagV2V1:
-	{
-		FrameCollection framesV1;
-		taggedFile.getAllFramesV1(framesV1);
-		taggedFile.getAllFramesV2(*this);
-		merge(framesV1);
-		break;
-	}
-	case TagNone:
-		;
-	}
+  switch (tagVersion) {
+  case TagV1:
+    taggedFile.getAllFramesV1(*this);
+    break;
+  case TagV2:
+    taggedFile.getAllFramesV2(*this);
+    break;
+  case TagV2V1:
+  {
+    FrameCollection framesV1;
+    taggedFile.getAllFramesV1(framesV1);
+    taggedFile.getAllFramesV2(*this);
+    merge(framesV1);
+    break;
+  }
+  case TagNone:
+    ;
+  }
 }
 
 /**
@@ -280,7 +280,7 @@ TrackData::TrackData(TaggedFile& taggedFile, TagVersion tagVersion) :
  * @return tagged file, 0 if none assigned.
  */
 TaggedFile* TrackData::getTaggedFile() const {
-	return FileProxyModel::getTaggedFileOfIndex(m_taggedFileIndex);
+  return FileProxyModel::getTaggedFileOfIndex(m_taggedFileIndex);
 }
 
 /**
@@ -289,8 +289,8 @@ TaggedFile* TrackData::getTaggedFile() const {
  */
 int TrackData::getFileDuration() const
 {
-	TaggedFile* taggedFile = getTaggedFile();
-	return taggedFile ? taggedFile->getDuration() : 0;
+  TaggedFile* taggedFile = getTaggedFile();
+  return taggedFile ? taggedFile->getDuration() : 0;
 }
 
 /**
@@ -300,8 +300,8 @@ int TrackData::getFileDuration() const
  */
 QString TrackData::getAbsFilename() const
 {
-	TaggedFile* taggedFile = getTaggedFile();
-	return taggedFile ? taggedFile->getAbsFilename() : QString();
+  TaggedFile* taggedFile = getTaggedFile();
+  return taggedFile ? taggedFile->getAbsFilename() : QString();
 }
 
 /**
@@ -311,8 +311,8 @@ QString TrackData::getAbsFilename() const
  */
 QString TrackData::getFilename() const
 {
-	TaggedFile* taggedFile = getTaggedFile();
-	return taggedFile ? taggedFile->getFilename() : QString();
+  TaggedFile* taggedFile = getTaggedFile();
+  return taggedFile ? taggedFile->getFilename() : QString();
 }
 
 /**
@@ -324,8 +324,8 @@ QString TrackData::getFilename() const
  */
 QString TrackData::getTagFormatV1() const
 {
-	TaggedFile* taggedFile = getTaggedFile();
-	return taggedFile ? taggedFile->getTagFormatV1() : QString();
+  TaggedFile* taggedFile = getTaggedFile();
+  return taggedFile ? taggedFile->getTagFormatV1() : QString();
 }
 
 /**
@@ -337,8 +337,8 @@ QString TrackData::getTagFormatV1() const
  */
 QString TrackData::getTagFormatV2() const
 {
-	TaggedFile* taggedFile = getTaggedFile();
-	return taggedFile ? taggedFile->getTagFormatV2() : QString();
+  TaggedFile* taggedFile = getTaggedFile();
+  return taggedFile ? taggedFile->getTagFormatV2() : QString();
 }
 
 /**
@@ -347,9 +347,9 @@ QString TrackData::getTagFormatV2() const
  */
 void TrackData::getDetailInfo(TaggedFile::DetailInfo& info) const
 {
-	if (TaggedFile* taggedFile = getTaggedFile()) {
-		taggedFile->getDetailInfo(info);
-	}
+  if (TaggedFile* taggedFile = getTaggedFile()) {
+    taggedFile->getDetailInfo(info);
+  }
 }
 
 /**
@@ -363,10 +363,10 @@ void TrackData::getDetailInfo(TaggedFile::DetailInfo& info) const
  */
 QString TrackData::formatString(const QString& format) const
 {
-	TrackDataFormatReplacer fmt(*this, format);
-	fmt.replaceEscapedChars();
-	fmt.replacePercentCodes();
-	return fmt.getString();
+  TrackDataFormatReplacer fmt(*this, format);
+  fmt.replaceEscapedChars();
+  fmt.replacePercentCodes();
+  return fmt.getString();
 }
 
 /**
@@ -380,20 +380,20 @@ QString TrackData::formatString(const QString& format) const
  */
 QString TrackData::formatFilenameFromTags(QString str, bool isDirname) const
 {
-	if (!isDirname) {
-		// first remove directory part from str
-		const int sepPos = str.lastIndexOf('/');
-		if (sepPos >= 0) {
-			str.remove(0, sepPos + 1);
-		}
-		// add extension to str
-		str += getFileExtension();
-	}
+  if (!isDirname) {
+    // first remove directory part from str
+    const int sepPos = str.lastIndexOf('/');
+    if (sepPos >= 0) {
+      str.remove(0, sepPos + 1);
+    }
+    // add extension to str
+    str += getFileExtension();
+  }
 
-	TrackDataFormatReplacer fmt(*this, str);
-	fmt.replacePercentCodes(isDirname ?
-													FormatReplacer::FSF_ReplaceSeparators : 0);
-	return fmt.getString();
+  TrackDataFormatReplacer fmt(*this, str);
+  fmt.replacePercentCodes(isDirname ?
+                          FormatReplacer::FSF_ReplaceSeparators : 0);
+  return fmt.getString();
 }
 
 /**
@@ -406,7 +406,7 @@ QString TrackData::formatFilenameFromTags(QString str, bool isDirname) const
  */
 QString TrackData::getFormatToolTip(bool onlyRows)
 {
-	return TrackDataFormatReplacer::getToolTip(onlyRows);
+  return TrackDataFormatReplacer::getToolTip(onlyRows);
 }
 
 /**
@@ -416,18 +416,18 @@ QString TrackData::getFormatToolTip(bool onlyRows)
  */
 QString TrackData::getFileExtension() const
 {
-	QString fileExtension;
-	QString absFilename;
-	if (TaggedFile* taggedFile = getTaggedFile()) {
-		fileExtension = taggedFile->getFileExtension();
-		absFilename = taggedFile->getAbsFilename();
-	}
-	if (!fileExtension.isEmpty()) {
-		return fileExtension;
-	} else {
-		int dotPos = absFilename.lastIndexOf(".");
-		return dotPos != -1 ? absFilename.mid(dotPos) : QString();
-	}
+  QString fileExtension;
+  QString absFilename;
+  if (TaggedFile* taggedFile = getTaggedFile()) {
+    fileExtension = taggedFile->getFileExtension();
+    absFilename = taggedFile->getAbsFilename();
+  }
+  if (!fileExtension.isEmpty()) {
+    return fileExtension;
+  } else {
+    int dotPos = absFilename.lastIndexOf(".");
+    return dotPos != -1 ? absFilename.mid(dotPos) : QString();
+  }
 }
 
 /**
@@ -437,8 +437,8 @@ QString TrackData::getFileExtension() const
  */
 int TrackData::getTotalNumberOfTracksInDir() const
 {
-	TaggedFile* taggedFile = getTaggedFile();
-	return taggedFile ? taggedFile->getTotalNumberOfTracksInDir() : -1;
+  TaggedFile* taggedFile = getTaggedFile();
+  return taggedFile ? taggedFile->getTotalNumberOfTracksInDir() : -1;
 }
 
 
@@ -447,8 +447,8 @@ int TrackData::getTotalNumberOfTracksInDir() const
  */
 void ImportTrackDataVector::clearData()
 {
-	clear();
-	m_coverArtUrl = QString();
+  clear();
+  m_coverArtUrl = QString();
 }
 
 /**
@@ -457,7 +457,7 @@ void ImportTrackDataVector::clearData()
  */
 QString ImportTrackDataVector::getArtist() const
 {
-	return getFrame(Frame::FT_Artist);
+  return getFrame(Frame::FT_Artist);
 }
 
 /**
@@ -466,7 +466,7 @@ QString ImportTrackDataVector::getArtist() const
  */
 QString ImportTrackDataVector::getAlbum() const
 {
-	return getFrame(Frame::FT_Album);
+  return getFrame(Frame::FT_Album);
 }
 
 /**
@@ -475,13 +475,13 @@ QString ImportTrackDataVector::getAlbum() const
  */
 bool ImportTrackDataVector::isTagV1Supported() const
 {
-	if (!isEmpty()) {
-		TaggedFile* taggedFile = at(0).getTaggedFile();
-		if (taggedFile) {
-			return taggedFile->isTagV1Supported();
-		}
-	}
-	return true;
+  if (!isEmpty()) {
+    TaggedFile* taggedFile = at(0).getTaggedFile();
+    if (taggedFile) {
+      return taggedFile->isTagV1Supported();
+    }
+  }
+  return true;
 }
 
 /**
@@ -491,22 +491,22 @@ bool ImportTrackDataVector::isTagV1Supported() const
  */
 QString ImportTrackDataVector::getFrame(Frame::Type type) const
 {
-	QString result;
-	if (!isEmpty()) {
-		const ImportTrackData& trackData = at(0);
-		result = trackData.getValue(type);
-		if (!result.isEmpty())
-			return result;
-		TaggedFile* taggedFile = trackData.getTaggedFile();
-		FrameCollection frames;
-		taggedFile->getAllFramesV2(frames);
-		result = frames.getValue(type);
-		if (!result.isEmpty())
-			return result;
-		taggedFile->getAllFramesV1(frames);
-		result = frames.getValue(type);
-	}
-	return result;
+  QString result;
+  if (!isEmpty()) {
+    const ImportTrackData& trackData = at(0);
+    result = trackData.getValue(type);
+    if (!result.isEmpty())
+      return result;
+    TaggedFile* taggedFile = trackData.getTaggedFile();
+    FrameCollection frames;
+    taggedFile->getAllFramesV2(frames);
+    result = frames.getValue(type);
+    if (!result.isEmpty())
+      return result;
+    taggedFile->getAllFramesV1(frames);
+    result = frames.getValue(type);
+  }
+  return result;
 }
 
 /**
@@ -517,29 +517,29 @@ QString ImportTrackDataVector::getFrame(Frame::Type type) const
  */
 void ImportTrackDataVector::readTags(ImportTrackData::TagVersion tagVersion)
 {
-	for (iterator it = begin(); it != end(); ++it) {
-		if (TaggedFile* taggedFile = it->getTaggedFile()) {
-			switch (tagVersion) {
-			case ImportTrackData::TagV1:
-				taggedFile->getAllFramesV1(*it);
-				break;
-			case ImportTrackData::TagV2:
-				taggedFile->getAllFramesV2(*it);
-				break;
-			case ImportTrackData::TagV2V1:
-			{
-				FrameCollection framesV1;
-				taggedFile->getAllFramesV1(framesV1);
-				taggedFile->getAllFramesV2(*it);
-				it->merge(framesV1);
-				break;
-			}
-			case ImportTrackData::TagNone:
-				;
-			}
-		}
-		it->setImportDuration(0);
-		it->setEnabled(true);
-	}
-	setCoverArtUrl(QString());
+  for (iterator it = begin(); it != end(); ++it) {
+    if (TaggedFile* taggedFile = it->getTaggedFile()) {
+      switch (tagVersion) {
+      case ImportTrackData::TagV1:
+        taggedFile->getAllFramesV1(*it);
+        break;
+      case ImportTrackData::TagV2:
+        taggedFile->getAllFramesV2(*it);
+        break;
+      case ImportTrackData::TagV2V1:
+      {
+        FrameCollection framesV1;
+        taggedFile->getAllFramesV1(framesV1);
+        taggedFile->getAllFramesV2(*it);
+        it->merge(framesV1);
+        break;
+      }
+      case ImportTrackData::TagNone:
+        ;
+      }
+    }
+    it->setImportDuration(0);
+    it->setEnabled(true);
+  }
+  setCoverArtUrl(QString());
 }

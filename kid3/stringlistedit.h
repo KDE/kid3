@@ -40,57 +40,57 @@ class StringListEdit : public QWidget {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param model item model, e.g. a QStringListModel
-	 * @param parent parent widget
-	 */
-	explicit StringListEdit(QAbstractItemModel* model, QWidget* parent = 0);
+  /**
+   * Constructor.
+   *
+   * @param model item model, e.g. a QStringListModel
+   * @param parent parent widget
+   */
+  explicit StringListEdit(QAbstractItemModel* model, QWidget* parent = 0);
 
-	/**
-	 * Destructor.
-	 */
-	~StringListEdit();
+  /**
+   * Destructor.
+   */
+  ~StringListEdit();
 
 public slots:
-	/**
-	 * Add a new item.
-	 */
-	void addItem();
+  /**
+   * Add a new item.
+   */
+  void addItem();
 
-	/**
-	 * Remove the selected item.
-	 */
-	void removeItem();
+  /**
+   * Remove the selected item.
+   */
+  void removeItem();
 
-	/**
-	 * Edit the selected item.
-	 */
-	void editItem();
+  /**
+   * Edit the selected item.
+   */
+  void editItem();
 
-	/**
-	 * Move the selected item up.
-	 */
-	void moveUpItem();
+  /**
+   * Move the selected item up.
+   */
+  void moveUpItem();
 
-	/**
-	 * Move the selected item down.
-	 */
-	void moveDownItem();
+  /**
+   * Move the selected item down.
+   */
+  void moveDownItem();
 
-	/**
-	 * Change state of buttons according to the current item and the count.
-	 */
-	void setButtonEnableState();
+  /**
+   * Change state of buttons according to the current item and the count.
+   */
+  void setButtonEnableState();
 
 private:
-	QListView* m_stringListBox;
-	QPushButton* m_addPushButton;
-	QPushButton* m_moveUpPushButton;
-	QPushButton* m_moveDownPushButton;
-	QPushButton* m_editPushButton;
-	QPushButton* m_removePushButton;
+  QListView* m_stringListBox;
+  QPushButton* m_addPushButton;
+  QPushButton* m_moveUpPushButton;
+  QPushButton* m_moveDownPushButton;
+  QPushButton* m_editPushButton;
+  QPushButton* m_removePushButton;
 };
 
 #endif // STRINGLISTEDIT_H

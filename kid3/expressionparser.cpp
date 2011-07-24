@@ -36,8 +36,8 @@
  *                  highest priority first
  */
 ExpressionParser::ExpressionParser(QStringList operators) :
-	m_operators(operators << "not" << "and" << "or"),
-	m_error(false)
+  m_operators(operators << "not" << "and" << "or"),
+  m_error(false)
 {
 }
 
@@ -54,13 +54,13 @@ ExpressionParser::~ExpressionParser()
  * @return true if op1 has less priority than op2.
  */
 bool ExpressionParser::lessPriority(const QString& op1,
-																		const QString& op2) const
+                                    const QString& op2) const
 {
-	int index1 = m_operators.indexOf(op1);
-	int index2 = m_operators.indexOf(op2);
-	if (op1 == "(") return true;
-	if (index1 >= 0 && index2 >= 0) return index1 >= index2;
-	return false;
+  int index1 = m_operators.indexOf(op1);
+  int index2 = m_operators.indexOf(op2);
+  if (op1 == "(") return true;
+  if (index1 >= 0 && index2 >= 0) return index1 >= index2;
+  return false;
 }
 
 /**
@@ -70,73 +70,73 @@ bool ExpressionParser::lessPriority(const QString& op1,
  */
 void ExpressionParser::tokenizeRpn(const QString& expr)
 {
-	m_rpnStack.clear();
+  m_rpnStack.clear();
 
-	QStringList operatorStack;
-	QString token;
-	int begin = 0, end = 0, len = expr.length();
-	while (begin < len) {
-		// skip spaces
-		while (expr[begin] == ' ') {
-			++begin;
-		}
+  QStringList operatorStack;
+  QString token;
+  int begin = 0, end = 0, len = expr.length();
+  while (begin < len) {
+    // skip spaces
+    while (expr[begin] == ' ') {
+      ++begin;
+    }
 
-		if (expr[begin] == '(') {
-			// push '(' on operator stack and continue
-			operatorStack.push_back("(");
-			++begin;
-		} else if (expr[begin] == ')') {
-			// after ')', pop operator stack until '(' is found
-			while (!operatorStack.empty()) {
-				QString lastOp = operatorStack.back();
-				operatorStack.pop_back();
-				if (lastOp == "(") {
-					break;
-				}
-				m_rpnStack.push_back(lastOp);
-			}
-			++begin;
-		} else {
-			if (expr[begin] == '"') {
-				// skip quoted string
-				end = begin + 1;
-				while (end < len &&
-							 !(expr[end] == '"' && (end <= 0 || expr[end - 1] != '\\'))) {
-					++end;
-				}
-				token = expr.mid(begin + 1, end - begin - 1);
-				token.replace("\\\"", "\"");
-				begin = end + 1;
-			} else {
-				// skip spaces
-				end = begin;
-				while (end < len && expr[end] != ' ' && expr[end] != ')') {
-					++end;
-				}
-				token = expr.mid(begin, end - begin);
-				begin = end;
-			}
-			if (m_operators.contains(token)) {
-				// pop the operator stack while the token has lower priority
-				while (!operatorStack.empty() &&
-							 lessPriority(token, operatorStack.back())) {
-					QString lastOp = operatorStack.back();
-					operatorStack.pop_back();
-					m_rpnStack.push_back(lastOp);
-				}
-				operatorStack.push_back(token);
-			} else {
-				m_rpnStack.push_back(token);
-			}
-		}
-	}
-	// pop operator stack
-	while (!operatorStack.empty()) {
-		QString lastOp = operatorStack.back();
-		operatorStack.pop_back();
-		m_rpnStack.push_back(lastOp);
-	}
-	m_rpnIterator = m_rpnStack.begin();
+    if (expr[begin] == '(') {
+      // push '(' on operator stack and continue
+      operatorStack.push_back("(");
+      ++begin;
+    } else if (expr[begin] == ')') {
+      // after ')', pop operator stack until '(' is found
+      while (!operatorStack.empty()) {
+        QString lastOp = operatorStack.back();
+        operatorStack.pop_back();
+        if (lastOp == "(") {
+          break;
+        }
+        m_rpnStack.push_back(lastOp);
+      }
+      ++begin;
+    } else {
+      if (expr[begin] == '"') {
+        // skip quoted string
+        end = begin + 1;
+        while (end < len &&
+               !(expr[end] == '"' && (end <= 0 || expr[end - 1] != '\\'))) {
+          ++end;
+        }
+        token = expr.mid(begin + 1, end - begin - 1);
+        token.replace("\\\"", "\"");
+        begin = end + 1;
+      } else {
+        // skip spaces
+        end = begin;
+        while (end < len && expr[end] != ' ' && expr[end] != ')') {
+          ++end;
+        }
+        token = expr.mid(begin, end - begin);
+        begin = end;
+      }
+      if (m_operators.contains(token)) {
+        // pop the operator stack while the token has lower priority
+        while (!operatorStack.empty() &&
+               lessPriority(token, operatorStack.back())) {
+          QString lastOp = operatorStack.back();
+          operatorStack.pop_back();
+          m_rpnStack.push_back(lastOp);
+        }
+        operatorStack.push_back(token);
+      } else {
+        m_rpnStack.push_back(token);
+      }
+    }
+  }
+  // pop operator stack
+  while (!operatorStack.empty()) {
+    QString lastOp = operatorStack.back();
+    operatorStack.pop_back();
+    m_rpnStack.push_back(lastOp);
+  }
+  m_rpnIterator = m_rpnStack.begin();
 }
 
 /**
@@ -146,12 +146,12 @@ void ExpressionParser::tokenizeRpn(const QString& expr)
  */
 QString ExpressionParser::getToken()
 {
-	if (!m_rpnStack.empty()) {
-		QString token = m_rpnStack.front();
-		m_rpnStack.pop_front();
-		return token;
-	}
-	return QString::null;
+  if (!m_rpnStack.empty()) {
+    QString token = m_rpnStack.front();
+    m_rpnStack.pop_front();
+    return token;
+  }
+  return QString::null;
 }
 
 
@@ -165,14 +165,14 @@ QString ExpressionParser::getToken()
  */
 static bool stringToBool(const QString& str, bool& b)
 {
-	if (str == "1" || str == "true" || str == "on" || str == "yes") {
-		b = true;
-		return true;
-	} else if (str == "0" || str == "false" || str == "off" || str == "no") {
-		b = false;
-		return true;
-	}
-	return false;
+  if (str == "1" || str == "true" || str == "on" || str == "yes") {
+    b = true;
+    return true;
+  } else if (str == "0" || str == "false" || str == "off" || str == "no") {
+    b = false;
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -184,7 +184,7 @@ static bool stringToBool(const QString& str, bool& b)
  */
 static QString boolToString(bool b)
 {
-	return b ? "1" : "0";
+  return b ? "1" : "0";
 }
 
 /**
@@ -192,9 +192,9 @@ static QString boolToString(bool b)
  */
 void ExpressionParser::clearEvaluation()
 {
-	m_rpnIterator = m_rpnStack.begin();
-	m_varStack.clear();
-	m_error = false;
+  m_rpnIterator = m_rpnStack.begin();
+  m_varStack.clear();
+  m_error = false;
 }
 
 /**
@@ -208,11 +208,11 @@ void ExpressionParser::clearEvaluation()
  */
 bool ExpressionParser::popBool(bool& var)
 {
-	if (m_varStack.empty() || !stringToBool(m_varStack.back(), var)) {
-		return false;
-	}
-	m_varStack.pop_back();
-	return true;
+  if (m_varStack.empty() || !stringToBool(m_varStack.back(), var)) {
+    return false;
+  }
+  m_varStack.pop_back();
+  return true;
 }
 
 /**
@@ -224,7 +224,7 @@ bool ExpressionParser::popBool(bool& var)
  */
 void ExpressionParser::pushBool(bool var)
 {
-	m_varStack.push_back(boolToString(var));
+  m_varStack.push_back(boolToString(var));
 }
 
 /**
@@ -237,15 +237,15 @@ void ExpressionParser::pushBool(bool var)
  */
 bool ExpressionParser::popTwoBools(bool& var1, bool& var2)
 {
-	if (m_varStack.empty() || !stringToBool(m_varStack.back(), var1)) {
-		return false;
-	}
-	m_varStack.pop_back();
-	if (m_varStack.empty() || !stringToBool(m_varStack.back(), var2)) {
-		return false;
-	}
-	m_varStack.pop_back();
-	return true;
+  if (m_varStack.empty() || !stringToBool(m_varStack.back(), var1)) {
+    return false;
+  }
+  m_varStack.pop_back();
+  if (m_varStack.empty() || !stringToBool(m_varStack.back(), var2)) {
+    return false;
+  }
+  m_varStack.pop_back();
+  return true;
 }
 
 /**
@@ -264,47 +264,47 @@ bool ExpressionParser::popTwoBools(bool& var1, bool& var2)
  */
 bool ExpressionParser::evaluate(QString& op, QString& var1, QString& var2)
 {
-	while (m_rpnIterator != m_rpnStack.end()) {
-		QString token = *m_rpnIterator++;
-		if (token == "and") {
-			bool var1, var2;
-			if (!popTwoBools(var1, var2)) {
-				m_error = true;
-				break;
-			}
-			pushBool(var1 && var2);
-		} else if (token == "or") {
-			bool var1, var2;
-			if (!popTwoBools(var1, var2)) {
-				m_error = true;
-				break;
-			}
-			pushBool(var1 || var2);
-		} else if (token == "not") {
-			bool var;
-			if (!popBool(var)) {
-				m_error = true;
-				break;
-			}
-			pushBool(!var);
-		} else if (m_operators.contains(token)) {
-			if (m_varStack.empty()) {
-				m_error = true;
-				break;
-			}
-			var1 = m_varStack.back();
-			m_varStack.pop_back();
-			if (m_varStack.empty()) {
-				m_error = true;
-				break;
-			}
-			var2 = m_varStack.back();
-			m_varStack.pop_back();
-			op = token;
-			return true;
-		} else {
-			m_varStack.push_back(token);
-		}
-	}
-	return false;
+  while (m_rpnIterator != m_rpnStack.end()) {
+    QString token = *m_rpnIterator++;
+    if (token == "and") {
+      bool var1, var2;
+      if (!popTwoBools(var1, var2)) {
+        m_error = true;
+        break;
+      }
+      pushBool(var1 && var2);
+    } else if (token == "or") {
+      bool var1, var2;
+      if (!popTwoBools(var1, var2)) {
+        m_error = true;
+        break;
+      }
+      pushBool(var1 || var2);
+    } else if (token == "not") {
+      bool var;
+      if (!popBool(var)) {
+        m_error = true;
+        break;
+      }
+      pushBool(!var);
+    } else if (m_operators.contains(token)) {
+      if (m_varStack.empty()) {
+        m_error = true;
+        break;
+      }
+      var1 = m_varStack.back();
+      m_varStack.pop_back();
+      if (m_varStack.empty()) {
+        m_error = true;
+        break;
+      }
+      var2 = m_varStack.back();
+      m_varStack.pop_back();
+      op = token;
+      return true;
+    } else {
+      m_varStack.push_back(token);
+    }
+  }
+  return false;
 }

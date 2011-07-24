@@ -36,8 +36,8 @@ class QString;
  */
 FreedbConfig::FreedbConfig(const QString& grp) : ServerImporterConfig(grp)
 {
-	m_server = "gnudb.gnudb.org:80";
-	m_cgiPath = "/~cddb/cddb.cgi";
+  m_server = "gnudb.gnudb.org:80";
+  m_cgiPath = "/~cddb/cddb.cgi";
 }
 
 /**

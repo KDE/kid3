@@ -51,8 +51,8 @@ namespace Phonon
 #else // HAVE_PHONON
 
 namespace Phonon {
-	/** empty enum to make generated moc files compile without Phonon */
-	enum State {};
+  /** empty enum to make generated moc files compile without Phonon */
+  enum State {};
 }
 
 #endif // HAVE_PHONON
@@ -65,118 +65,118 @@ Q_OBJECT
 
 #ifdef HAVE_PHONON
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	PlayToolBar(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  PlayToolBar(QWidget* parent);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~PlayToolBar();
+  /**
+   * Destructor.
+   */
+  virtual ~PlayToolBar();
 
-	/**
-	 * Set files to be played.
-	 *
-	 * @param files  paths to files
-	 * @param fileNr index of file to play (default 0)
-	 */
-	void setFiles(const QStringList& files, int fileNr = 0);
+  /**
+   * Set files to be played.
+   *
+   * @param files  paths to files
+   * @param fileNr index of file to play (default 0)
+   */
+  void setFiles(const QStringList& files, int fileNr = 0);
 
-	/**
-	 * Play a track from the files.
-	 *
-	 * @param fileNr index in list of files set with setFiles()
-	 */
-	void playTrack(int fileNr);
+  /**
+   * Play a track from the files.
+   *
+   * @param fileNr index in list of files set with setFiles()
+   */
+  void playTrack(int fileNr);
 
 #endif // HAVE_PHONON
 signals:
-	/**
-	 * Emitted when an error occurs.
-	 * Parameter: description of error
-	 */
-	void errorMessage(const QString& msg);
+  /**
+   * Emitted when an error occurs.
+   * Parameter: description of error
+   */
+  void errorMessage(const QString& msg);
 
 private slots:
-	/**
-	 * Toggle between play and pause.
-	 */
-	void playOrPause();
+  /**
+   * Toggle between play and pause.
+   */
+  void playOrPause();
 
-	/**
-	 * Update display and button state when the current source is changed.
-	 */
-	void currentSourceChanged();
+  /**
+   * Update display and button state when the current source is changed.
+   */
+  void currentSourceChanged();
 
-	/**
-	 * Stop playback.
-	 */
-	void stop();
+  /**
+   * Stop playback.
+   */
+  void stop();
 
-	/**
-	 * Update displayed time.
-	 *
-	 * @param msec time in ms
-	 */
-	void tick(qint64 msec);
+  /**
+   * Update displayed time.
+   *
+   * @param msec time in ms
+   */
+  void tick(qint64 msec);
 
-	/**
-	 * Update button states when the Phonon state changed.
-	 *
-	 * @param newState new Phonon state
-	 */
-	void stateChanged(Phonon::State newState);
+  /**
+   * Update button states when the Phonon state changed.
+   *
+   * @param newState new Phonon state
+   */
+  void stateChanged(Phonon::State newState);
 
-	/**
-	 * Queue next track when the current track is about to finish.
-	 */
-	void aboutToFinish();
+  /**
+   * Queue next track when the current track is about to finish.
+   */
+  void aboutToFinish();
 
-	/**
-	 * Select previous track.
-	 */
-	void previous();
+  /**
+   * Select previous track.
+   */
+  void previous();
 
-	/**
-	 * Select next track.
-	 */
-	void next();
+  /**
+   * Select next track.
+   */
+  void next();
 
 #ifdef HAVE_PHONON
 protected:
-	/**
-	 * Stop sound when window is closed.
-	 */
-	virtual void closeEvent(QCloseEvent*);
+  /**
+   * Stop sound when window is closed.
+   */
+  virtual void closeEvent(QCloseEvent*);
 
 private:
-	/**
-	 * Select a track from the files and optionally start playing it.
-	 *
-	 * @param fileNr index in list of files set with setFiles()
-	 * @param play   true to play track
-	 */
-	void selectTrack(int fileNr, bool play);
+  /**
+   * Select a track from the files and optionally start playing it.
+   *
+   * @param fileNr index in list of files set with setFiles()
+   * @param play   true to play track
+   */
+  void selectTrack(int fileNr, bool play);
 
-	Phonon::MediaObject* m_mediaObject;
-	Phonon::AudioOutput* m_audioOutput;
+  Phonon::MediaObject* m_mediaObject;
+  Phonon::AudioOutput* m_audioOutput;
 
-	QIcon m_playIcon;
-	QIcon m_pauseIcon;
+  QIcon m_playIcon;
+  QIcon m_pauseIcon;
 
-	QAction* m_playOrPauseAction;
-	QAction* m_stopAction;
-	QAction* m_previousAction;
-	QAction* m_nextAction;
+  QAction* m_playOrPauseAction;
+  QAction* m_stopAction;
+  QAction* m_previousAction;
+  QAction* m_nextAction;
 
-	QLCDNumber* m_timeLcd;
-	QLabel* m_titleLabel;
+  QLCDNumber* m_timeLcd;
+  QLabel* m_titleLabel;
 
-	QStringList m_files;
-	int m_fileNr;
+  QStringList m_files;
+  int m_fileNr;
 #endif // HAVE_PHONON
 };
 

@@ -40,139 +40,139 @@ class FileList : public QTreeView {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 * @param parent parent widget
-	 * @param app    application widget
-	 */
-	FileList(QWidget* parent, Kid3MainWindow* app);
+  /**
+   * Constructor.
+   * @param parent parent widget
+   * @param app    application widget
+   */
+  FileList(QWidget* parent, Kid3MainWindow* app);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~FileList();
+  /**
+   * Destructor.
+   */
+  virtual ~FileList();
 
-	/**
-	 * Returns the recommended size for the widget.
-	 * @return recommended size.
-	 */
-	virtual QSize sizeHint() const;
+  /**
+   * Returns the recommended size for the widget.
+   * @return recommended size.
+   */
+  virtual QSize sizeHint() const;
 
-	/**
-	 * Fill the filelist with the files found in a directory.
-	 *
-	 * @param dirIndex index of directory in filesystem model
-	 * @param fileIndex index of file to select in filesystem model (optional,
-	 * else invalid)
-	 *
-	 * @return false if name is not directory path, else true.
-	 */
-	bool readDir(const QModelIndex& dirIndex,
-							 const QModelIndex& fileIndex=QModelIndex());
+  /**
+   * Fill the filelist with the files found in a directory.
+   *
+   * @param dirIndex index of directory in filesystem model
+   * @param fileIndex index of file to select in filesystem model (optional,
+   * else invalid)
+   *
+   * @return false if name is not directory path, else true.
+   */
+  bool readDir(const QModelIndex& dirIndex,
+               const QModelIndex& fileIndex=QModelIndex());
 
-	/**
-	 * Get the stored current selection.
-	 * @return stored selection.
-	 */
-	const QList<QPersistentModelIndex>& getCurrentSelection() const {
-		return m_currentSelection;
-	}
+  /**
+   * Get the stored current selection.
+   * @return stored selection.
+   */
+  const QList<QPersistentModelIndex>& getCurrentSelection() const {
+    return m_currentSelection;
+  }
 
-	/**
-	 * Clear the stored current selection.
-	 */
-	void clearCurrentSelection() { m_currentSelection.clear(); }
+  /**
+   * Clear the stored current selection.
+   */
+  void clearCurrentSelection() { m_currentSelection.clear(); }
 
-	/**
-	 * Update the stored current selection with the list of all selected items.
-	 */
-	void updateCurrentSelection();
+  /**
+   * Update the stored current selection with the list of all selected items.
+   */
+  void updateCurrentSelection();
 
-	/**
-	 * Get current index or root index if current index is invalid.
-	 * @return current index, root index if not valid.
-	 */
-	QModelIndex currentOrRootIndex() const {
-		return currentIndex().isValid() ? currentIndex() : rootIndex();
-	}
+  /**
+   * Get current index or root index if current index is invalid.
+   * @return current index, root index if not valid.
+   */
+  QModelIndex currentOrRootIndex() const {
+    return currentIndex().isValid() ? currentIndex() : rootIndex();
+  }
 
-	/**
-	 * Get help text for format codes supported by formatStringList().
-	 *
-	 * @param onlyRows if true only the tr elements are returned,
-	 *                 not the surrounding table
-	 *
-	 * @return help text.
-	 */
-	static QString getFormatToolTip(bool onlyRows = false);
+  /**
+   * Get help text for format codes supported by formatStringList().
+   *
+   * @param onlyRows if true only the tr elements are returned,
+   *                 not the surrounding table
+   *
+   * @return help text.
+   */
+  static QString getFormatToolTip(bool onlyRows = false);
 
 private slots:
-	/**
-	 * Display a context menu with operations for selected files.
-	 *
-	 * @param index index of item
-	 * @param pos   position where context menu is drawn on screen
-	 */
-	void contextMenu(const QModelIndex& index, const QPoint& pos);
+  /**
+   * Display a context menu with operations for selected files.
+   *
+   * @param index index of item
+   * @param pos   position where context menu is drawn on screen
+   */
+  void contextMenu(const QModelIndex& index, const QPoint& pos);
 
-	/**
-	 * Execute a context menu command.
-	 *
-	 * @param id command ID
-	 */
-	void executeContextCommand(int id);
+  /**
+   * Execute a context menu command.
+   *
+   * @param id command ID
+   */
+  void executeContextCommand(int id);
 
-	/**
-	 * Execute a context menu action.
-	 *
-	 * @param action action of selected menu
-	 */
-	void executeAction(QAction* action);
+  /**
+   * Execute a context menu action.
+   *
+   * @param action action of selected menu
+   */
+  void executeAction(QAction* action);
 
-	/**
-	 * Display a custom context menu with operations for selected files.
-	 *
-	 * @param pos  position where context menu is drawn on screen
-	 */
-	void customContextMenu(const QPoint& pos);
+  /**
+   * Display a custom context menu with operations for selected files.
+   *
+   * @param pos  position where context menu is drawn on screen
+   */
+  void customContextMenu(const QPoint& pos);
 
-	/**
-	 * Play item if it is a tagged file.
-	 *
-	 * @param index model index of item
-	 */
-	void playIfTaggedFile(const QModelIndex& index);
+  /**
+   * Play item if it is a tagged file.
+   *
+   * @param index model index of item
+   */
+  void playIfTaggedFile(const QModelIndex& index);
 
 private:
-	Q_DISABLE_COPY(FileList)
+  Q_DISABLE_COPY(FileList)
 
-	/**
-	 * Format a string list from the selected files.
-	 * Supported format fields:
-	 * Those supported by FrameFormatReplacer::getReplacement(),
-	 * when prefixed with u, encoded as URL
-	 * %f filename
-	 * %F list of files
-	 * %uf URL of single file
-	 * %uF list of URLs
-	 * %d directory name
-	 * %b the web browser set in the configuration
-	 *
-	 * @todo %f and %F are full paths, which is inconsistent with the
-	 * export format strings but compatible with .desktop files.
-	 * %d is duration in export format.
-	 * The export codes should be changed.
-	 *
-	 * @param format format specification
-	 *
-	 * @return formatted string list.
-	 */
-	QStringList formatStringList(const QStringList& format);
+  /**
+   * Format a string list from the selected files.
+   * Supported format fields:
+   * Those supported by FrameFormatReplacer::getReplacement(),
+   * when prefixed with u, encoded as URL
+   * %f filename
+   * %F list of files
+   * %uf URL of single file
+   * %uF list of URLs
+   * %d directory name
+   * %b the web browser set in the configuration
+   *
+   * @todo %f and %F are full paths, which is inconsistent with the
+   * export format strings but compatible with .desktop files.
+   * %d is duration in export format.
+   * The export codes should be changed.
+   *
+   * @param format format specification
+   *
+   * @return formatted string list.
+   */
+  QStringList formatStringList(const QStringList& format);
 
-	/** Process for context menu commands */
-	ExternalProcess* m_process;
-	QList<QPersistentModelIndex> m_currentSelection;
-	Kid3MainWindow* m_mainWin;
+  /** Process for context menu commands */
+  ExternalProcess* m_process;
+  QList<QPersistentModelIndex> m_currentSelection;
+  Kid3MainWindow* m_mainWin;
 };
 
 #endif // FILELIST_H

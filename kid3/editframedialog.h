@@ -37,38 +37,38 @@ class EditFrameDialog : public QDialog {
 Q_OBJECT
 public:
  /**
-	* Constructor.
-	*
-	* @param parent  parent widget
-	* @param caption window title
-	* @param text    text to edit
-	*/
-	EditFrameDialog(QWidget* parent, const QString& caption,
-									const QString& text);
+  * Constructor.
+  *
+  * @param parent  parent widget
+  * @param caption window title
+  * @param text    text to edit
+  */
+  EditFrameDialog(QWidget* parent, const QString& caption,
+                  const QString& text);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~EditFrameDialog();
+  /**
+   * Destructor.
+   */
+  virtual ~EditFrameDialog();
 
-	/**
-	 * Set text to edit.
-	 * @param text text
-	 */
-	void setText(const QString& text) {
-		m_edit->setPlainText(text);
-	}
+  /**
+   * Set text to edit.
+   * @param text text
+   */
+  void setText(const QString& text) {
+    m_edit->setPlainText(text);
+  }
 
-	/**
-	 * Get edited text.
-	 * @return text.
-	 */
-	QString getText() const { return m_edit->toPlainText(); }
+  /**
+   * Get edited text.
+   * @return text.
+   */
+  QString getText() const { return m_edit->toPlainText(); }
 
 private:
-	QTextEdit* m_edit;
-	QPushButton* m_okButton;
-	QPushButton* m_cancelButton;
+  QTextEdit* m_edit;
+  QPushButton* m_okButton;
+  QPushButton* m_cancelButton;
 };
 
 #endif // EDITFRAMEDIALOG_H

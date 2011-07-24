@@ -40,15 +40,15 @@
  * @param imgFormat   image format
  */
 PictureFrame::PictureFrame(
-	const QByteArray& data,
-	const QString& description,
-	PictureType pictureType,
-	const QString& mimeType,
-	Field::TextEncoding enc,
-	const QString& imgFormat)
+  const QByteArray& data,
+  const QString& description,
+  PictureType pictureType,
+  const QString& mimeType,
+  Field::TextEncoding enc,
+  const QString& imgFormat)
 {
-	setType(FT_Picture);
-	setFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
+  setType(FT_Picture);
+  setFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
 }
 
 /**
@@ -58,16 +58,16 @@ PictureFrame::PictureFrame(
  */
 PictureFrame::PictureFrame(const Frame& frame)
 {
-	*(static_cast<Frame*>(this)) = frame;
-	setType(FT_Picture);
+  *(static_cast<Frame*>(this)) = frame;
+  setType(FT_Picture);
 
-	// Make sure all fields are available in the correct order
-	Field::TextEncoding enc = Field::TE_ISO8859_1;
-	PictureType pictureType = PT_CoverFront;
-	QString imgFormat("JPG"), mimeType("image/jpeg"), description;
-	QByteArray data;
-	getFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
-	setFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
+  // Make sure all fields are available in the correct order
+  Field::TextEncoding enc = Field::TE_ISO8859_1;
+  PictureType pictureType = PT_CoverFront;
+  QString imgFormat("JPG"), mimeType("image/jpeg"), description;
+  QByteArray data;
+  getFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
+  setFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
 }
 
 /**
@@ -89,39 +89,39 @@ PictureFrame::~PictureFrame()
  * @param data        binary picture data
  */
 void PictureFrame::setFields(Frame& frame,
-														 Field::TextEncoding enc, const QString& imgFormat,
-														 const QString& mimeType, PictureType pictureType,
-														 const QString& description, const QByteArray& data)
+                             Field::TextEncoding enc, const QString& imgFormat,
+                             const QString& mimeType, PictureType pictureType,
+                             const QString& description, const QByteArray& data)
 {
-	Field field;
-	FieldList& fields = frame.fieldList();
-	fields.clear();
+  Field field;
+  FieldList& fields = frame.fieldList();
+  fields.clear();
 
-	field.m_id = Field::ID_TextEnc;
-	field.m_value = enc;
-	fields.push_back(field);
+  field.m_id = Field::ID_TextEnc;
+  field.m_value = enc;
+  fields.push_back(field);
 
-	field.m_id = Field::ID_ImageFormat;
-	field.m_value = imgFormat;
-	fields.push_back(field);
+  field.m_id = Field::ID_ImageFormat;
+  field.m_value = imgFormat;
+  fields.push_back(field);
 
-	field.m_id = Field::ID_MimeType;
-	field.m_value = mimeType;
-	fields.push_back(field);
+  field.m_id = Field::ID_MimeType;
+  field.m_value = mimeType;
+  fields.push_back(field);
 
-	field.m_id = Field::ID_PictureType;
-	field.m_value = pictureType;
-	fields.push_back(field);
+  field.m_id = Field::ID_PictureType;
+  field.m_value = pictureType;
+  fields.push_back(field);
 
-	field.m_id = Field::ID_Description;
-	field.m_value = description;
-	fields.push_back(field);
+  field.m_id = Field::ID_Description;
+  field.m_value = description;
+  fields.push_back(field);
 
-	field.m_id = Field::ID_Data;
-	field.m_value = data;
-	fields.push_back(field);
+  field.m_id = Field::ID_Data;
+  field.m_value = data;
+  fields.push_back(field);
 
-	frame.setValue(description);
+  frame.setValue(description);
 }
 
 /**
@@ -137,36 +137,36 @@ void PictureFrame::setFields(Frame& frame,
  * @param data        binary picture data
  */
 void PictureFrame::getFields(const Frame& frame,
-														 Field::TextEncoding& enc, QString& imgFormat,
-														 QString& mimeType, PictureType& pictureType,
-														 QString& description, QByteArray& data)
+                             Field::TextEncoding& enc, QString& imgFormat,
+                             QString& mimeType, PictureType& pictureType,
+                             QString& description, QByteArray& data)
 {
-	for (Frame::FieldList::const_iterator it = frame.getFieldList().begin();
-			 it != frame.getFieldList().end();
-			 ++it) {
-		switch ((*it).m_id) {
-			case Field::ID_TextEnc:
-				enc = static_cast<Field::TextEncoding>((*it).m_value.toInt());
-				break;
-			case Field::ID_ImageFormat:
-				imgFormat = (*it).m_value.toString();
-				break;
-			case Field::ID_MimeType:
-				mimeType = (*it).m_value.toString();
-				break;
-			case Field::ID_PictureType:
-				pictureType = static_cast<PictureType>((*it).m_value.toInt());
-				break;
-			case Field::ID_Description:
-				description = (*it).m_value.toString();
-				break;
-			case Field::ID_Data:
-				data = (*it).m_value.toByteArray();
-				break;
-			default:
-				qDebug("Unknown picture field ID");
-		}
-	}
+  for (Frame::FieldList::const_iterator it = frame.getFieldList().begin();
+       it != frame.getFieldList().end();
+       ++it) {
+    switch ((*it).m_id) {
+      case Field::ID_TextEnc:
+        enc = static_cast<Field::TextEncoding>((*it).m_value.toInt());
+        break;
+      case Field::ID_ImageFormat:
+        imgFormat = (*it).m_value.toString();
+        break;
+      case Field::ID_MimeType:
+        mimeType = (*it).m_value.toString();
+        break;
+      case Field::ID_PictureType:
+        pictureType = static_cast<PictureType>((*it).m_value.toInt());
+        break;
+      case Field::ID_Description:
+        description = (*it).m_value.toString();
+        break;
+      case Field::ID_Data:
+        data = (*it).m_value.toByteArray();
+        break;
+      default:
+        qDebug("Unknown picture field ID");
+    }
+  }
 }
 
 /**
@@ -177,17 +177,17 @@ void PictureFrame::getFields(const Frame& frame,
  */
 bool PictureFrame::areFieldsEqual(const Frame& f1, const Frame& f2)
 {
-	Field::TextEncoding enc1, enc2;
-	QString imgFormat1, imgFormat2;
-	QString mimeType1, mimeType2;
-	PictureType pictureType1, pictureType2;
-	QString description1, description2;
-	QByteArray data1, data2;
-	getFields(f1, enc1, imgFormat1, mimeType1, pictureType1, description1, data1);
-	getFields(f2, enc2, imgFormat2, mimeType2, pictureType2, description2, data2);
-	return (data1 == data2 && description1 == description2 &&
-					mimeType1 == mimeType2 && pictureType1 == pictureType2 &&
-					imgFormat1 == imgFormat2 && enc1 == enc2);
+  Field::TextEncoding enc1, enc2;
+  QString imgFormat1, imgFormat2;
+  QString mimeType1, mimeType2;
+  PictureType pictureType1, pictureType2;
+  QString description1, description2;
+  QByteArray data1, data2;
+  getFields(f1, enc1, imgFormat1, mimeType1, pictureType1, description1, data1);
+  getFields(f2, enc2, imgFormat2, mimeType2, pictureType2, description2, data2);
+  return (data1 == data2 && description1 == description2 &&
+          mimeType1 == mimeType2 && pictureType1 == pictureType2 &&
+          imgFormat1 == imgFormat2 && enc1 == enc2);
 }
 
 /**
@@ -201,16 +201,16 @@ bool PictureFrame::areFieldsEqual(const Frame& f1, const Frame& f2)
  */
 bool PictureFrame::setField(Frame& frame, Field::Id id, const QVariant& value)
 {
-	for (Frame::FieldList::iterator it = frame.fieldList().begin();
-			 it != frame.fieldList().end();
-			 ++it) {
-		if ((*it).m_id == id) {
-			(*it).m_value = value;
-			if (id == Field::ID_Description) frame.setValue(value.toString());
-			return true;
-		}
-	}
-	return false;
+  for (Frame::FieldList::iterator it = frame.fieldList().begin();
+       it != frame.fieldList().end();
+       ++it) {
+    if ((*it).m_id == id) {
+      (*it).m_value = value;
+      if (id == Field::ID_Description) frame.setValue(value.toString());
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -223,18 +223,18 @@ bool PictureFrame::setField(Frame& frame, Field::Id id, const QVariant& value)
  */
 QVariant PictureFrame::getField(const Frame& frame, Field::Id id)
 {
-	QVariant result;
-	if (!frame.getFieldList().empty()) {
-		for (Frame::FieldList::const_iterator it = frame.getFieldList().begin();
-				 it != frame.getFieldList().end();
-				 ++it) {
-			if ((*it).m_id == id) {
-				result = (*it).m_value;
-				break;
-			}
-		}
-	}
-	return result;
+  QVariant result;
+  if (!frame.getFieldList().empty()) {
+    for (Frame::FieldList::const_iterator it = frame.getFieldList().begin();
+         it != frame.getFieldList().end();
+         ++it) {
+      if ((*it).m_id == id) {
+        result = (*it).m_value;
+        break;
+      }
+    }
+  }
+  return result;
 }
 
 /**
@@ -247,7 +247,7 @@ QVariant PictureFrame::getField(const Frame& frame, Field::Id id)
  */
 bool PictureFrame::setTextEncoding(Frame& frame, Field::TextEncoding enc)
 {
-	return setField(frame, Field::ID_TextEnc, enc);
+  return setField(frame, Field::ID_TextEnc, enc);
 }
 
 /**
@@ -260,12 +260,12 @@ bool PictureFrame::setTextEncoding(Frame& frame, Field::TextEncoding enc)
  */
 bool PictureFrame::getTextEncoding(const Frame& frame, Field::TextEncoding& enc)
 {
-	QVariant var(getField(frame, Field::ID_TextEnc));
-	if (var.isValid()) {
-		enc = static_cast<Field::TextEncoding>(var.toInt());
-		return true;
-	}
-	return false;
+  QVariant var(getField(frame, Field::ID_TextEnc));
+  if (var.isValid()) {
+    enc = static_cast<Field::TextEncoding>(var.toInt());
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -278,7 +278,7 @@ bool PictureFrame::getTextEncoding(const Frame& frame, Field::TextEncoding& enc)
  */
 bool PictureFrame::setImageFormat(Frame& frame, const QString& imgFormat)
 {
-	return setField(frame, Field::ID_ImageFormat, imgFormat);
+  return setField(frame, Field::ID_ImageFormat, imgFormat);
 }
 
 /**
@@ -291,12 +291,12 @@ bool PictureFrame::setImageFormat(Frame& frame, const QString& imgFormat)
  */
 bool PictureFrame::getImageFormat(const Frame& frame, QString& imgFormat)
 {
-	QVariant var(getField(frame, Field::ID_ImageFormat));
-	if (var.isValid()) {
-		imgFormat = var.toString();
-		return true;
-	}
-	return false;
+  QVariant var(getField(frame, Field::ID_ImageFormat));
+  if (var.isValid()) {
+    imgFormat = var.toString();
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -309,7 +309,7 @@ bool PictureFrame::getImageFormat(const Frame& frame, QString& imgFormat)
  */
 bool PictureFrame::setMimeType(Frame& frame, const QString& mimeType)
 {
-	return setField(frame, Field::ID_MimeType, mimeType);
+  return setField(frame, Field::ID_MimeType, mimeType);
 }
 
 /**
@@ -322,12 +322,12 @@ bool PictureFrame::setMimeType(Frame& frame, const QString& mimeType)
  */
 bool PictureFrame::getMimeType(const Frame& frame, QString& mimeType)
 {
-	QVariant var(getField(frame, Field::ID_MimeType));
-	if (var.isValid()) {
-		mimeType = var.toString();
-		return true;
-	}
-	return false;
+  QVariant var(getField(frame, Field::ID_MimeType));
+  if (var.isValid()) {
+    mimeType = var.toString();
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -340,7 +340,7 @@ bool PictureFrame::getMimeType(const Frame& frame, QString& mimeType)
  */
 bool PictureFrame::setPictureType(Frame& frame, PictureType pictureType)
 {
-	return setField(frame, Field::ID_PictureType, pictureType);
+  return setField(frame, Field::ID_PictureType, pictureType);
 }
 
 /**
@@ -353,12 +353,12 @@ bool PictureFrame::setPictureType(Frame& frame, PictureType pictureType)
  */
 bool PictureFrame::getPictureType(const Frame& frame, PictureType& pictureType)
 {
-	QVariant var(getField(frame, Field::ID_PictureType));
-	if (var.isValid()) {
-		pictureType = static_cast<PictureType>(var.toInt());
-		return true;
-	}
-	return false;
+  QVariant var(getField(frame, Field::ID_PictureType));
+  if (var.isValid()) {
+    pictureType = static_cast<PictureType>(var.toInt());
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -371,7 +371,7 @@ bool PictureFrame::getPictureType(const Frame& frame, PictureType& pictureType)
  */
 bool PictureFrame::setDescription(Frame& frame, const QString& description)
 {
-	return setField(frame, Field::ID_Description, description);
+  return setField(frame, Field::ID_Description, description);
 }
 
 /**
@@ -384,12 +384,12 @@ bool PictureFrame::setDescription(Frame& frame, const QString& description)
  */
 bool PictureFrame::getDescription(const Frame& frame, QString& description)
 {
-	QVariant var(getField(frame, Field::ID_Description));
-	if (var.isValid()) {
-		description = var.toString();
-		return true;
-	}
-	return false;
+  QVariant var(getField(frame, Field::ID_Description));
+  if (var.isValid()) {
+    description = var.toString();
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -402,7 +402,7 @@ bool PictureFrame::getDescription(const Frame& frame, QString& description)
  */
 bool PictureFrame::setData(Frame& frame, const QByteArray& data)
 {
-	return setField(frame, Field::ID_Data, data);
+  return setField(frame, Field::ID_Data, data);
 }
 
 /**
@@ -415,12 +415,12 @@ bool PictureFrame::setData(Frame& frame, const QByteArray& data)
  */
 bool PictureFrame::getData(const Frame& frame, QByteArray& data)
 {
-	QVariant var(getField(frame, Field::ID_Data));
-	if (var.isValid()) {
-		data = var.toByteArray();
-		return true;
-	}
-	return false;
+  QVariant var(getField(frame, Field::ID_Data));
+  if (var.isValid()) {
+    data = var.toByteArray();
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -433,24 +433,24 @@ bool PictureFrame::getData(const Frame& frame, QByteArray& data)
  */
 bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
 {
-	bool result = false;
-	if (!fileName.isEmpty()) {
-		QFile file(fileName);
-		if (file.open(QIODevice::ReadOnly)) {
-			size_t size = file.size();
-			char* data = new char[size];
-			if (data) {
-				QDataStream stream(&file);
-				stream.readRawData(data, size);
-				QByteArray ba;
-				ba = QByteArray(data, size);
-				result = setData(frame, ba);
-				delete [] data;
-			}
-			file.close();
-		}
-	}
-	return result;
+  bool result = false;
+  if (!fileName.isEmpty()) {
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadOnly)) {
+      size_t size = file.size();
+      char* data = new char[size];
+      if (data) {
+        QDataStream stream(&file);
+        stream.readRawData(data, size);
+        QByteArray ba;
+        ba = QByteArray(data, size);
+        result = setData(frame, ba);
+        delete [] data;
+      }
+      file.close();
+    }
+  }
+  return result;
 }
 
 /**
@@ -463,11 +463,11 @@ bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
  */
 bool PictureFrame::setDataFromImage(Frame& frame, const QImage& image)
 {
-	QByteArray ba;
-	QBuffer buffer(&ba);
-	buffer.open(QIODevice::WriteOnly);
-	image.save(&buffer, "JPG");
-	return setData(frame, ba);
+  QByteArray ba;
+  QBuffer buffer(&ba);
+  buffer.open(QIODevice::WriteOnly);
+  image.save(&buffer, "JPG");
+  return setData(frame, ba);
 }
 
 /**
@@ -480,17 +480,17 @@ bool PictureFrame::setDataFromImage(Frame& frame, const QImage& image)
  */
 bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
 {
-	QByteArray ba;
-	if (getData(frame, ba)) {
-		QFile file(fileName);
-		if (file.open(QIODevice::WriteOnly)) {
-			QDataStream stream(&file);
-			stream.writeRawData(ba.data(), ba.size());
-			file.close();
-			return true;
-		}
-	}
-	return false;
+  QByteArray ba;
+  if (getData(frame, ba)) {
+    QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly)) {
+      QDataStream stream(&file);
+      stream.writeRawData(ba.data(), ba.size());
+      file.close();
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -503,13 +503,13 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
  */
 bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName)
 {
-	if (fileName.endsWith(".jpg", Qt::CaseInsensitive) ||
-			fileName.endsWith(".jpeg", Qt::CaseInsensitive)) {
-		return setMimeType(frame, "image/jpeg") && setImageFormat(frame, "JPG");
-	} else if (fileName.endsWith(".png", Qt::CaseInsensitive)) {
-		return setMimeType(frame, "image/png") && setImageFormat(frame, "PNG");
-	}
-	return false;
+  if (fileName.endsWith(".jpg", Qt::CaseInsensitive) ||
+      fileName.endsWith(".jpeg", Qt::CaseInsensitive)) {
+    return setMimeType(frame, "image/jpeg") && setImageFormat(frame, "JPG");
+  } else if (fileName.endsWith(".png", Qt::CaseInsensitive)) {
+    return setMimeType(frame, "image/png") && setImageFormat(frame, "PNG");
+  }
+  return false;
 }
 
 /**
@@ -523,11 +523,11 @@ bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName
 static unsigned long getBigEndianULongFromByteArray(const QByteArray& data,
                                                     int index)
 {
-	return
-		 ((unsigned char)data[index + 3] & 0xff)        |
-		(((unsigned char)data[index + 2] & 0xff) << 8)  |
-		(((unsigned char)data[index + 1] & 0xff) << 16) |
-		(((unsigned char)data[index + 0] & 0xff) << 24);
+  return
+     ((unsigned char)data[index + 3] & 0xff)        |
+    (((unsigned char)data[index + 2] & 0xff) << 8)  |
+    (((unsigned char)data[index + 1] & 0xff) << 16) |
+    (((unsigned char)data[index + 0] & 0xff) << 24);
 }
 
 /**
@@ -540,13 +540,13 @@ static unsigned long getBigEndianULongFromByteArray(const QByteArray& data,
 static void renderBigEndianULongToByteArray(unsigned long value,
                                             QByteArray& data, int index)
 {
-	data[index + 3] = value & 0xff;
-	value >>= 8;
-	data[index + 2] = value & 0xff;
-	value >>= 8;
-	data[index + 1] = value & 0xff;
-	value >>= 8;
-	data[index + 0] = value & 0xff;
+  data[index + 3] = value & 0xff;
+  value >>= 8;
+  data[index + 2] = value & 0xff;
+  value >>= 8;
+  data[index + 1] = value & 0xff;
+  value >>= 8;
+  data[index + 0] = value & 0xff;
 }
 
 /**
@@ -560,9 +560,9 @@ static void renderBigEndianULongToByteArray(unsigned long value,
 static void renderCharsToByteArray(const char* str, QByteArray& data,
                                    int index, int len)
 {
-	for (int i = 0; i < len; ++i) {
-		data[index++] = *str++;
-	}
+  for (int i = 0; i < len; ++i) {
+    data[index++] = *str++;
+  }
 }
 
 /**
@@ -573,36 +573,36 @@ static void renderCharsToByteArray(const char* str, QByteArray& data,
  */
 void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
 {
-	QByteArray ba = QByteArray::fromBase64(base64Value.toAscii());
-	PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
-	QString mimeType("image/jpeg");
-	QString description("");
-	if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
-		unsigned long baSize = static_cast<unsigned long>(ba.size());
-		if (baSize < 32) return;
-		int index = 0;
-		pictureType = static_cast<PictureFrame::PictureType>(
-			getBigEndianULongFromByteArray(ba, index));
-		index += 4;
-		unsigned long mimeLen = getBigEndianULongFromByteArray(ba, index);
-		index += 4;
-		if (baSize < index + mimeLen + 24) return;
-		mimeType = QString::fromAscii(ba.data() + index, mimeLen);
-		index += mimeLen;
-		unsigned long descLen = getBigEndianULongFromByteArray(ba, index);
-		index += 4;
-		if (baSize < index + descLen + 20) return;
-		description = QString::fromUtf8(ba.data() + index, descLen);
-		index += descLen;
-		index += 16; // width, height, depth, number of colors
-		unsigned long picLen = getBigEndianULongFromByteArray(ba, index);
-		index += 4;
-		if (baSize < index + picLen) return;
-		ba = ba.mid(index);
-	}
-	PictureFrame::setFields(
-		frame, Frame::Field::TE_UTF8, "", mimeType,
-		pictureType, description, ba);
+  QByteArray ba = QByteArray::fromBase64(base64Value.toAscii());
+  PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
+  QString mimeType("image/jpeg");
+  QString description("");
+  if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
+    unsigned long baSize = static_cast<unsigned long>(ba.size());
+    if (baSize < 32) return;
+    int index = 0;
+    pictureType = static_cast<PictureFrame::PictureType>(
+      getBigEndianULongFromByteArray(ba, index));
+    index += 4;
+    unsigned long mimeLen = getBigEndianULongFromByteArray(ba, index);
+    index += 4;
+    if (baSize < index + mimeLen + 24) return;
+    mimeType = QString::fromAscii(ba.data() + index, mimeLen);
+    index += mimeLen;
+    unsigned long descLen = getBigEndianULongFromByteArray(ba, index);
+    index += 4;
+    if (baSize < index + descLen + 20) return;
+    description = QString::fromUtf8(ba.data() + index, descLen);
+    index += descLen;
+    index += 16; // width, height, depth, number of colors
+    unsigned long picLen = getBigEndianULongFromByteArray(ba, index);
+    index += 4;
+    if (baSize < index + picLen) return;
+    ba = ba.mid(index);
+  }
+  PictureFrame::setFields(
+    frame, Frame::Field::TE_UTF8, "", mimeType,
+    pictureType, description, ba);
 }
 
 /**
@@ -613,52 +613,52 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
  */
 void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
 {
-	Frame::Field::TextEncoding enc;
-	PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
-	QString imgFormat, mimeType, description;
-	QByteArray pic;
-	PictureFrame::getFields(frame, enc, imgFormat, mimeType,
-	                        pictureType, description, pic);
-	if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
-		QByteArray mimeStr = mimeType.toAscii();
-		QByteArray descStr = description.toUtf8();
-		int mimeLen = mimeStr.length();
-		int descLen = descStr.length();
-		int picLen = pic.size();
-		QByteArray ba(32 + mimeLen + descLen + picLen, '\0');
-		int index = 0;
-		renderBigEndianULongToByteArray(pictureType, ba, index);
-		index += 4;
-		renderBigEndianULongToByteArray(mimeLen, ba, index);
-		index += 4;
-		renderCharsToByteArray(mimeStr, ba, index, mimeLen);
-		index += mimeLen;
-		renderBigEndianULongToByteArray(descLen, ba, index);
-		index += 4;
-		renderCharsToByteArray(descStr, ba, index, descLen);
-		index += descLen;
+  Frame::Field::TextEncoding enc;
+  PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
+  QString imgFormat, mimeType, description;
+  QByteArray pic;
+  PictureFrame::getFields(frame, enc, imgFormat, mimeType,
+                          pictureType, description, pic);
+  if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
+    QByteArray mimeStr = mimeType.toAscii();
+    QByteArray descStr = description.toUtf8();
+    int mimeLen = mimeStr.length();
+    int descLen = descStr.length();
+    int picLen = pic.size();
+    QByteArray ba(32 + mimeLen + descLen + picLen, '\0');
+    int index = 0;
+    renderBigEndianULongToByteArray(pictureType, ba, index);
+    index += 4;
+    renderBigEndianULongToByteArray(mimeLen, ba, index);
+    index += 4;
+    renderCharsToByteArray(mimeStr, ba, index, mimeLen);
+    index += mimeLen;
+    renderBigEndianULongToByteArray(descLen, ba, index);
+    index += 4;
+    renderCharsToByteArray(descStr, ba, index, descLen);
+    index += descLen;
 
-		int width = 0, height = 0, depth = 0, numColors = 0;
-		QImage image;
-		if (image.loadFromData(pic)) {
-			width = image.width();
-			height = image.height();
-			depth = image.depth();
-			numColors = image.numColors();
-		}
-		renderBigEndianULongToByteArray(width, ba, index);
-		index += 4;
-		renderBigEndianULongToByteArray(height, ba, index);
-		index += 4;
-		renderBigEndianULongToByteArray(depth, ba, index);
-		index += 4;
-		renderBigEndianULongToByteArray(numColors, ba, index);
-		index += 4;
+    int width = 0, height = 0, depth = 0, numColors = 0;
+    QImage image;
+    if (image.loadFromData(pic)) {
+      width = image.width();
+      height = image.height();
+      depth = image.depth();
+      numColors = image.numColors();
+    }
+    renderBigEndianULongToByteArray(width, ba, index);
+    index += 4;
+    renderBigEndianULongToByteArray(height, ba, index);
+    index += 4;
+    renderBigEndianULongToByteArray(depth, ba, index);
+    index += 4;
+    renderBigEndianULongToByteArray(numColors, ba, index);
+    index += 4;
 
-		renderBigEndianULongToByteArray(picLen, ba, index);
-		index += 4;
-		renderCharsToByteArray(pic.data(), ba, index, picLen);
-		pic = ba;
-	}
-	base64Value = pic.toBase64();
+    renderBigEndianULongToByteArray(picLen, ba, index);
+    index += 4;
+    renderCharsToByteArray(pic.data(), ba, index, picLen);
+    pic = ba;
+  }
+  base64Value = pic.toBase64();
 }

@@ -37,11 +37,11 @@
  * @param parent  parent object
  */
 ImportClient::ImportClient(QObject* parent) :
-	HttpClient(parent), m_requestType(RT_None)
+  HttpClient(parent), m_requestType(RT_None)
 {
-	setObjectName("ImportClient");
-	connect(this, SIGNAL(bytesReceived(const QByteArray&)),
-					this, SLOT(requestFinished(const QByteArray&)));
+  setObjectName("ImportClient");
+  connect(this, SIGNAL(bytesReceived(const QByteArray&)),
+          this, SLOT(requestFinished(const QByteArray&)));
 }
 
 /**
@@ -59,10 +59,10 @@ ImportClient::~ImportClient()
  * @param album  album to search
  */
 void ImportClient::find(const ServerImporterConfig* cfg,
-															const QString& artist, const QString& album)
+                              const QString& artist, const QString& album)
 {
-	sendFindQuery(cfg, artist, album);
-	m_requestType = RT_Find;
+  sendFindQuery(cfg, artist, album);
+  m_requestType = RT_Find;
 }
 
 /**
@@ -73,16 +73,16 @@ void ImportClient::find(const ServerImporterConfig* cfg,
  */
 void ImportClient::requestFinished(const QByteArray& rcvStr)
 {
-	switch (m_requestType) {
-		case RT_Album:
-			emit albumFinished(rcvStr);
-			break;
-		case RT_Find:
-			emit findFinished(rcvStr);
-			break;
-		default:
-			qWarning("Unknown import request type");
-	}
+  switch (m_requestType) {
+    case RT_Album:
+      emit albumFinished(rcvStr);
+      break;
+    case RT_Find:
+      emit findFinished(rcvStr);
+      break;
+    default:
+      qWarning("Unknown import request type");
+  }
 }
 
 /**
@@ -94,8 +94,8 @@ void ImportClient::requestFinished(const QByteArray& rcvStr)
  */
 void ImportClient::getTrackList(const ServerImporterConfig* cfg, QString cat, QString id)
 {
-	sendTrackListQuery(cfg, cat, id);
-	m_requestType = RT_Album;
+  sendTrackListQuery(cfg, cat, id);
+  m_requestType = RT_Album;
 }
 
 /**
@@ -108,9 +108,9 @@ void ImportClient::getTrackList(const ServerImporterConfig* cfg, QString cat, QS
  */
 QString ImportClient::encodeUrlQuery(const QString& query)
 {
-	QString result(query);
-	result.replace(QRegExp(" +"), " "); // collapse spaces
-	result = QUrl::toPercentEncoding(result);
-	result.replace("%20", "+"); // replace spaces by '+'
-	return result;
+  QString result(query);
+  result.replace(QRegExp(" +"), " "); // collapse spaces
+  result = QUrl::toPercentEncoding(result);
+  result.replace("%20", "+"); // replace spaces by '+'
+  return result;
 }

@@ -42,29 +42,29 @@
  */
 ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
 {
-	setModal(false);
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	m_textEdit = new QTextEdit(this);
-	if (vlayout && m_textEdit) {
-		vlayout->setSpacing(6);
-		vlayout->setMargin(6);
-		m_textEdit->setReadOnly(true);
-		vlayout->addWidget(m_textEdit);
-		QHBoxLayout* buttonLayout = new QHBoxLayout;
-		QPushButton* clearButton = new QPushButton(i18n("C&lear"), this);
-		QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-																					 QSizePolicy::Minimum);
-		QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-		if (buttonLayout && clearButton && hspacer && closeButton) {
-			buttonLayout->addWidget(clearButton);
-			buttonLayout->addItem(hspacer);
-			buttonLayout->addWidget(closeButton);
-			connect(clearButton, SIGNAL(clicked()), m_textEdit, SLOT(clear()));
-			connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-			vlayout->addLayout(buttonLayout);
-		}
-	}
-	resize(586, 424);
+  setModal(false);
+  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  m_textEdit = new QTextEdit(this);
+  if (vlayout && m_textEdit) {
+    vlayout->setSpacing(6);
+    vlayout->setMargin(6);
+    m_textEdit->setReadOnly(true);
+    vlayout->addWidget(m_textEdit);
+    QHBoxLayout* buttonLayout = new QHBoxLayout;
+    QPushButton* clearButton = new QPushButton(i18n("C&lear"), this);
+    QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                           QSizePolicy::Minimum);
+    QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+    if (buttonLayout && clearButton && hspacer && closeButton) {
+      buttonLayout->addWidget(clearButton);
+      buttonLayout->addItem(hspacer);
+      buttonLayout->addWidget(closeButton);
+      connect(clearButton, SIGNAL(clicked()), m_textEdit, SLOT(clear()));
+      connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+      vlayout->addLayout(buttonLayout);
+    }
+  }
+  resize(586, 424);
 }
 
 /**
@@ -77,7 +77,7 @@ ExternalProcess::OutputViewer::~OutputViewer() {}
  */
 void ExternalProcess::OutputViewer::scrollToBottom()
 {
-	m_textEdit->moveCursor(QTextCursor::End);
+  m_textEdit->moveCursor(QTextCursor::End);
 }
 
 
@@ -87,7 +87,7 @@ void ExternalProcess::OutputViewer::scrollToBottom()
  * @param parent parent object
  */
 ExternalProcess::ExternalProcess(QWidget* parent) :
-	QObject(parent), m_parent(parent), m_process(0), m_outputViewer(0)
+  QObject(parent), m_parent(parent), m_process(0), m_outputViewer(0)
 {
 }
 
@@ -96,7 +96,7 @@ ExternalProcess::ExternalProcess(QWidget* parent) :
  */
 ExternalProcess::~ExternalProcess()
 {
-	delete m_outputViewer;
+  delete m_outputViewer;
 }
 
 /**
@@ -108,56 +108,56 @@ ExternalProcess::~ExternalProcess()
  * @param showOutput true to show output of process
  */
 void ExternalProcess::launchCommand(const QString& name, const QStringList& args,
-																		bool confirm, bool showOutput)
+                                    bool confirm, bool showOutput)
 {
-	if (args.isEmpty())
-		return;
+  if (args.isEmpty())
+    return;
 
-	if (confirm && QMessageBox::question(
-				m_parent, name,
-				i18n("Execute ") + args.join(" ") + "?",
-				QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok) {
-		return;
-	}
-	if (!m_process) {
-		m_process = new QProcess(m_parent);
-	}
-	if (m_process) {
-		if (m_process->state() != QProcess::NotRunning) {
-			m_process = new QProcess(m_parent);
-		}
+  if (confirm && QMessageBox::question(
+        m_parent, name,
+        i18n("Execute ") + args.join(" ") + "?",
+        QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok) {
+    return;
+  }
+  if (!m_process) {
+    m_process = new QProcess(m_parent);
+  }
+  if (m_process) {
+    if (m_process->state() != QProcess::NotRunning) {
+      m_process = new QProcess(m_parent);
+    }
 
-		if (showOutput) {
-			if (!m_outputViewer) {
-				m_outputViewer = new OutputViewer(0);
-			}
-			if (m_outputViewer) {
-				connect(m_process, SIGNAL(readyReadStandardOutput()),
-								this, SLOT(readFromStdout()));
-				connect(m_process, SIGNAL(readyReadStandardError()),
-								this, SLOT(readFromStderr()));
-				m_outputViewer->setWindowTitle(name);
-				m_outputViewer->show();
-				m_outputViewer->raise();
-				m_outputViewer->scrollToBottom();
-			}
-		} else {
-			disconnect(m_process, SIGNAL(readyReadStandardOutput()),
-								 this, SLOT(readFromStdout()));
-			disconnect(m_process, SIGNAL(readyReadStandardError()),
-								 this, SLOT(readFromStderr()));
-		}
+    if (showOutput) {
+      if (!m_outputViewer) {
+        m_outputViewer = new OutputViewer(0);
+      }
+      if (m_outputViewer) {
+        connect(m_process, SIGNAL(readyReadStandardOutput()),
+                this, SLOT(readFromStdout()));
+        connect(m_process, SIGNAL(readyReadStandardError()),
+                this, SLOT(readFromStderr()));
+        m_outputViewer->setWindowTitle(name);
+        m_outputViewer->show();
+        m_outputViewer->raise();
+        m_outputViewer->scrollToBottom();
+      }
+    } else {
+      disconnect(m_process, SIGNAL(readyReadStandardOutput()),
+                 this, SLOT(readFromStdout()));
+      disconnect(m_process, SIGNAL(readyReadStandardError()),
+                 this, SLOT(readFromStderr()));
+    }
 
-		QStringList arguments = args;
-		QString program = arguments.takeFirst();
-		m_process->start(program, arguments);
-		if (!m_process->waitForStarted(10000)) {
-			QMessageBox::warning(
-				m_parent, name,
-				i18n("Could not execute ") + args.join(" "),
-				QMessageBox::Ok, Qt::NoButton);
-		}
-	}
+    QStringList arguments = args;
+    QString program = arguments.takeFirst();
+    m_process->start(program, arguments);
+    if (!m_process->waitForStarted(10000)) {
+      QMessageBox::warning(
+        m_parent, name,
+        i18n("Could not execute ") + args.join(" "),
+        QMessageBox::Ok, Qt::NoButton);
+    }
+  }
 }
 
 /**
@@ -165,7 +165,7 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
  */
 void ExternalProcess::readFromStdout()
 {
-	m_outputViewer->append(m_process->readAllStandardOutput());
+  m_outputViewer->append(m_process->readAllStandardOutput());
 }
 
 /**
@@ -173,5 +173,5 @@ void ExternalProcess::readFromStdout()
  */
 void ExternalProcess::readFromStderr()
 {
-	m_outputViewer->append(m_process->readAllStandardError());
+  m_outputViewer->append(m_process->readAllStandardError());
 }

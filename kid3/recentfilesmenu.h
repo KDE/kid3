@@ -22,66 +22,66 @@ class RecentFilesMenu : public QMenu {
 Q_OBJECT
 #ifndef CONFIG_USE_KDE
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent parent widget
-	 */
-	explicit RecentFilesMenu(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent parent widget
+   */
+  explicit RecentFilesMenu(QWidget* parent);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~RecentFilesMenu();
+  /**
+   * Destructor.
+   */
+  virtual ~RecentFilesMenu();
 
-	/**
-	 * Add directory to list of recent files.
-	 *
-	 * @param path path to directory
-	 */
-	void addDirectory(const QString& dir);
+  /**
+   * Add directory to list of recent files.
+   *
+   * @param path path to directory
+   */
+  void addDirectory(const QString& dir);
 
   /**
    * Saves the current recent files entries to a given configuration.
    *
    * @param config configuration settings
    */
-	void saveEntries(Kid3Settings* config);
+  void saveEntries(Kid3Settings* config);
 
   /**
    * Loads the recent files entries from a given configuration.
    *
    * @param config configuration settings
    */
-	void loadEntries(Kid3Settings* config);
+  void loadEntries(Kid3Settings* config);
 #endif // !CONFIG_USE_KDE
 
 signals:
-	/**
-	 * Emitted when a recent file has to be loaded.
-	 * Parameter: path to file or directory
-	 */
-	void loadFile(const QString&);
+  /**
+   * Emitted when a recent file has to be loaded.
+   * Parameter: path to file or directory
+   */
+  void loadFile(const QString&);
 
 private slots:
-	/**
-	 * Emit a load file signal when a recent file has to be loaded.
-	 */
-	void openRecentFile();
+  /**
+   * Emit a load file signal when a recent file has to be loaded.
+   */
+  void openRecentFile();
 
-	/**
-	 * Clear the list of recent files.
-	 */
-	void clearList();
+  /**
+   * Clear the list of recent files.
+   */
+  void clearList();
 
 #ifndef CONFIG_USE_KDE
 private:
-	/**
-	 * Update the recent file actions.
-	 */
-	void updateRecentFileActions();
+  /**
+   * Update the recent file actions.
+   */
+  void updateRecentFileActions();
 
-	QStringList m_files;
+  QStringList m_files;
 #endif // !CONFIG_USE_KDE
 };
 

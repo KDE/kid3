@@ -30,11 +30,11 @@
 
 /** Column indices. */
 enum ColumnIndex {
-	CI_Confirm,
-	CI_Output,
-	CI_Name,
-	CI_Command,
-	CI_NumColumns
+  CI_Confirm,
+  CI_Output,
+  CI_Name,
+  CI_Command,
+  CI_NumColumns
 };
 
 /**
@@ -42,7 +42,7 @@ enum ColumnIndex {
  * @param parent parent widget
  */
 CommandsTableModel::CommandsTableModel(QObject* parent) :
-	QAbstractTableModel(parent)
+  QAbstractTableModel(parent)
 {
 }
 
@@ -60,16 +60,16 @@ CommandsTableModel::~CommandsTableModel()
  */
 Qt::ItemFlags CommandsTableModel::flags(const QModelIndex& index) const
 {
-	Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
-	if (index.isValid()) {
-		theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled;
-		if (index.column() == CI_Confirm || index.column() == CI_Output) {
-			theFlags |= Qt::ItemIsUserCheckable;
-		} else {
-			theFlags |= Qt::ItemIsEditable;
-		}
-	}
-	return theFlags;
+  Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
+  if (index.isValid()) {
+    theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    if (index.column() == CI_Confirm || index.column() == CI_Output) {
+      theFlags |= Qt::ItemIsUserCheckable;
+    } else {
+      theFlags |= Qt::ItemIsEditable;
+    }
+  }
+  return theFlags;
 }
 
 /**
@@ -80,30 +80,30 @@ Qt::ItemFlags CommandsTableModel::flags(const QModelIndex& index) const
  */
 QVariant CommandsTableModel::data(const QModelIndex& index, int role) const
 {
-	if (!index.isValid() ||
-			index.row() < 0 || index.row() >= m_cmdList.size() ||
-			index.column() < 0 || index.column() >= CI_NumColumns)
-		return QVariant();
-	const MiscConfig::MenuCommand& item = m_cmdList.at(index.row());
-	if (role == Qt::DisplayRole || role == Qt::EditRole) {
-		switch (index.column()) {
-		case CI_Name:
-			return item.getName();
-		case CI_Command:
-			return item.getCommand();
-		default: ;
-		}
-	}
-	if (role == Qt::CheckStateRole) {
-		switch (index.column()) {
-		case CI_Confirm:
-			return item.mustBeConfirmed() ? Qt::Checked : Qt::Unchecked;
-		case CI_Output:
-			return item.outputShown() ? Qt::Checked : Qt::Unchecked;
-		default: ;
-		}
-	}
-	return QVariant();
+  if (!index.isValid() ||
+      index.row() < 0 || index.row() >= m_cmdList.size() ||
+      index.column() < 0 || index.column() >= CI_NumColumns)
+    return QVariant();
+  const MiscConfig::MenuCommand& item = m_cmdList.at(index.row());
+  if (role == Qt::DisplayRole || role == Qt::EditRole) {
+    switch (index.column()) {
+    case CI_Name:
+      return item.getName();
+    case CI_Command:
+      return item.getCommand();
+    default: ;
+    }
+  }
+  if (role == Qt::CheckStateRole) {
+    switch (index.column()) {
+    case CI_Confirm:
+      return item.mustBeConfirmed() ? Qt::Checked : Qt::Unchecked;
+    case CI_Output:
+      return item.outputShown() ? Qt::Checked : Qt::Unchecked;
+    default: ;
+    }
+  }
+  return QVariant();
 }
 
 /**
@@ -114,40 +114,40 @@ QVariant CommandsTableModel::data(const QModelIndex& index, int role) const
  * @return true if successful
  */
 bool CommandsTableModel::setData(const QModelIndex& index,
-																 const QVariant& value, int role)
+                                 const QVariant& value, int role)
 {
-	if (!index.isValid() ||
-			index.row() < 0 || index.row() >= m_cmdList.size() ||
-			index.column() < 0 || index.column() >= CI_NumColumns)
-		return false;
-	MiscConfig::MenuCommand& item = m_cmdList[index.row()];
-	if (role == Qt::EditRole) {
-		switch (index.column()) {
-		case CI_Name:
-			item.setName(value.toString());
-			break;
-		case CI_Command:
-			item.setCommand(value.toString());
-			break;
-		default:
-			return false;
-		}
-	} else if (role == Qt::CheckStateRole) {
-		switch (index.column()) {
-		case CI_Confirm:
-			item.setMustBeConfirmed(value.toInt() == Qt::Checked);
-			break;
-		case CI_Output:
-			item.setOutputShown(value.toInt() == Qt::Checked);
-			break;
-		default:
-			return false;
-		}
-	} else {
-		return false;
-	}
-	emit dataChanged(index, index);
-	return true;
+  if (!index.isValid() ||
+      index.row() < 0 || index.row() >= m_cmdList.size() ||
+      index.column() < 0 || index.column() >= CI_NumColumns)
+    return false;
+  MiscConfig::MenuCommand& item = m_cmdList[index.row()];
+  if (role == Qt::EditRole) {
+    switch (index.column()) {
+    case CI_Name:
+      item.setName(value.toString());
+      break;
+    case CI_Command:
+      item.setCommand(value.toString());
+      break;
+    default:
+      return false;
+    }
+  } else if (role == Qt::CheckStateRole) {
+    switch (index.column()) {
+    case CI_Confirm:
+      item.setMustBeConfirmed(value.toInt() == Qt::Checked);
+      break;
+    case CI_Output:
+      item.setOutputShown(value.toInt() == Qt::Checked);
+      break;
+    default:
+      return false;
+    }
+  } else {
+    return false;
+  }
+  emit dataChanged(index, index);
+  return true;
 }
 
 /**
@@ -158,28 +158,28 @@ bool CommandsTableModel::setData(const QModelIndex& index,
  * @return header data for role
  */
 QVariant CommandsTableModel::headerData(
-		int section, Qt::Orientation orientation, int role) const
+    int section, Qt::Orientation orientation, int role) const
 {
-	if (role == Qt::ToolTipRole && orientation == Qt::Horizontal &&
-			section == CI_Command)
-		return FileList::getFormatToolTip();
-	if (role != Qt::DisplayRole)
-		return QVariant();
-	if (orientation == Qt::Horizontal) {
-		switch (section) {
-		case CI_Confirm:
-			return i18n("Confirm");
-		case CI_Output:
-			return i18n("Output");
-		case CI_Name:
-			return i18n("Name");
-		case CI_Command:
-			return i18n("Command");
-		default:
-			return section + 1;
-		}
-	}
-	return section + 1;
+  if (role == Qt::ToolTipRole && orientation == Qt::Horizontal &&
+      section == CI_Command)
+    return FileList::getFormatToolTip();
+  if (role != Qt::DisplayRole)
+    return QVariant();
+  if (orientation == Qt::Horizontal) {
+    switch (section) {
+    case CI_Confirm:
+      return i18n("Confirm");
+    case CI_Output:
+      return i18n("Output");
+    case CI_Name:
+      return i18n("Name");
+    case CI_Command:
+      return i18n("Command");
+    default:
+      return section + 1;
+    }
+  }
+  return section + 1;
 }
 
 /**
@@ -190,7 +190,7 @@ QVariant CommandsTableModel::headerData(
  */
 int CommandsTableModel::rowCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : m_cmdList.size();
+  return parent.isValid() ? 0 : m_cmdList.size();
 }
 
 /**
@@ -201,7 +201,7 @@ int CommandsTableModel::rowCount(const QModelIndex& parent) const
  */
 int CommandsTableModel::columnCount(const QModelIndex& parent) const
 {
-	return parent.isValid() ? 0 : CI_NumColumns;
+  return parent.isValid() ? 0 : CI_NumColumns;
 }
 
 /**
@@ -212,13 +212,13 @@ int CommandsTableModel::columnCount(const QModelIndex& parent) const
  * @return true if successful
  */
 bool CommandsTableModel::insertRows(int row, int count,
-												const QModelIndex&)
+                        const QModelIndex&)
 {
-	beginInsertRows(QModelIndex(), row, row + count - 1);
-	for (int i = 0; i < count; ++i)
-		m_cmdList.insert(row, MiscConfig::MenuCommand());
-	endInsertRows();
-	return true;
+  beginInsertRows(QModelIndex(), row, row + count - 1);
+  for (int i = 0; i < count; ++i)
+    m_cmdList.insert(row, MiscConfig::MenuCommand());
+  endInsertRows();
+  return true;
 }
 
 /**
@@ -228,13 +228,13 @@ bool CommandsTableModel::insertRows(int row, int count,
  * @return true if successful
  */
 bool CommandsTableModel::removeRows(int row, int count,
-												const QModelIndex&)
+                        const QModelIndex&)
 {
-	beginRemoveRows(QModelIndex(), row, row + count - 1);
-	for (int i = 0; i < count; ++i)
-		m_cmdList.removeAt(row);
-	endRemoveRows();
-	return true;
+  beginRemoveRows(QModelIndex(), row, row + count - 1);
+  for (int i = 0; i < count; ++i)
+    m_cmdList.removeAt(row);
+  endRemoveRows();
+  return true;
 }
 
 /**
@@ -242,18 +242,18 @@ bool CommandsTableModel::removeRows(int row, int count,
  * @return list of resize modes for the columns
  */
 QList<QHeaderView::ResizeMode>
-		CommandsTableModel::getHorizontalResizeModes() const
+    CommandsTableModel::getHorizontalResizeModes() const
 {
-	QList<QHeaderView::ResizeMode> resizeModes;
-	for (int i = 0; i < CI_NumColumns; ++i) {
-		QHeaderView::ResizeMode mode = QHeaderView::Interactive;
-		if (i == CI_Confirm || i == CI_Output)
-			mode = QHeaderView::ResizeToContents;
-		else if (i == CI_Command)
-			mode = QHeaderView::Stretch;
-		resizeModes.append(mode);
-	}
-	return resizeModes;
+  QList<QHeaderView::ResizeMode> resizeModes;
+  for (int i = 0; i < CI_NumColumns; ++i) {
+    QHeaderView::ResizeMode mode = QHeaderView::Interactive;
+    if (i == CI_Confirm || i == CI_Output)
+      mode = QHeaderView::ResizeToContents;
+    else if (i == CI_Command)
+      mode = QHeaderView::Stretch;
+    resizeModes.append(mode);
+  }
+  return resizeModes;
 }
 
 /**
@@ -261,10 +261,10 @@ QList<QHeaderView::ResizeMode>
  * @param cmdList command list
  */
 void CommandsTableModel::setCommandList(
-	const QList<MiscConfig::MenuCommand>& cmdList)
+  const QList<MiscConfig::MenuCommand>& cmdList)
 {
-	m_cmdList = cmdList;
-	reset();
+  m_cmdList = cmdList;
+  reset();
 }
 
 /**
@@ -273,13 +273,13 @@ void CommandsTableModel::setCommandList(
  */
 QList<MiscConfig::MenuCommand> CommandsTableModel::getCommandList() const
 {
-	QList<MiscConfig::MenuCommand> cmdList;
-	for (QList<MiscConfig::MenuCommand>::const_iterator it = m_cmdList.constBegin();
-			 it != m_cmdList.constEnd();
-			 ++it) {
-		if (!it->getName().isEmpty()) {
-			cmdList.append(*it);
-		}
-	}
-	return cmdList;
+  QList<MiscConfig::MenuCommand> cmdList;
+  for (QList<MiscConfig::MenuCommand>::const_iterator it = m_cmdList.constBegin();
+       it != m_cmdList.constEnd();
+       ++it) {
+    if (!it->getName().isEmpty()) {
+      cmdList.append(*it);
+    }
+  }
+  return cmdList;
 }

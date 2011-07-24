@@ -43,10 +43,10 @@ QList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
  * @param idx model index
  */
 TaggedFile::TaggedFile(const QString& dn, const QString& fn,
-											 const QPersistentModelIndex& idx) :
-	m_dirname(dn), m_filename(fn), m_newFilename(fn), m_index(idx),
-	m_changedV1(false), m_changedFramesV1(0),
-	m_changedV2(false), m_changedFramesV2(0), m_truncation(0)
+                       const QPersistentModelIndex& idx) :
+  m_dirname(dn), m_filename(fn), m_newFilename(fn), m_index(idx),
+  m_changedV1(false), m_changedFramesV1(0),
+  m_changedV2(false), m_changedFramesV2(0), m_truncation(0)
 {
 }
 
@@ -66,7 +66,7 @@ TaggedFile::~TaggedFile()
  */
 QString TaggedFile::getTitleV1()
 {
-	return QString::null;
+  return QString::null;
 }
 
 /**
@@ -78,7 +78,7 @@ QString TaggedFile::getTitleV1()
  */
 QString TaggedFile::getArtistV1()
 {
-	return QString::null;
+  return QString::null;
 }
 
 /**
@@ -90,7 +90,7 @@ QString TaggedFile::getArtistV1()
  */
 QString TaggedFile::getAlbumV1()
 {
-	return QString::null;
+  return QString::null;
 }
 
 /**
@@ -102,7 +102,7 @@ QString TaggedFile::getAlbumV1()
  */
 QString TaggedFile::getCommentV1()
 {
-	return QString::null;
+  return QString::null;
 }
 
 /**
@@ -114,7 +114,7 @@ QString TaggedFile::getCommentV1()
  */
 int TaggedFile::getYearV1()
 {
-	return -1;
+  return -1;
 }
 
 /**
@@ -126,7 +126,7 @@ int TaggedFile::getYearV1()
  */
 int TaggedFile::getTrackNumV1()
 {
-	return -1;
+  return -1;
 }
 
 /**
@@ -138,7 +138,7 @@ int TaggedFile::getTrackNumV1()
  */
 QString TaggedFile::getGenreV1()
 {
-	return QString::null;
+  return QString::null;
 }
 
 /**
@@ -148,13 +148,13 @@ QString TaggedFile::getGenreV1()
  */
 void TaggedFile::deleteFramesV1(const FrameFilter& flt)
 {
-	if (flt.isEnabled(Frame::FT_Title))   setTitleV1("");
-	if (flt.isEnabled(Frame::FT_Artist))  setArtistV1("");
-	if (flt.isEnabled(Frame::FT_Album))   setAlbumV1("");
-	if (flt.isEnabled(Frame::FT_Comment)) setCommentV1("");
-	if (flt.isEnabled(Frame::FT_Date))    setYearV1(0);
-	if (flt.isEnabled(Frame::FT_Track))   setTrackNumV1(0);
-	if (flt.isEnabled(Frame::FT_Genre))   setGenreV1("");
+  if (flt.isEnabled(Frame::FT_Title))   setTitleV1("");
+  if (flt.isEnabled(Frame::FT_Artist))  setArtistV1("");
+  if (flt.isEnabled(Frame::FT_Album))   setAlbumV1("");
+  if (flt.isEnabled(Frame::FT_Comment)) setCommentV1("");
+  if (flt.isEnabled(Frame::FT_Date))    setYearV1(0);
+  if (flt.isEnabled(Frame::FT_Track))   setTrackNumV1(0);
+  if (flt.isEnabled(Frame::FT_Genre))   setGenreV1("");
 }
 
 /**
@@ -228,7 +228,7 @@ void TaggedFile::setGenreV1(const QString&)
  */
 bool TaggedFile::hasTagV1() const
 {
-	return false;
+  return false;
 }
 
 /**
@@ -238,7 +238,7 @@ bool TaggedFile::hasTagV1() const
  */
 bool TaggedFile::isTagV1Supported() const
 {
-	return false;
+  return false;
 }
 
 /**
@@ -248,8 +248,8 @@ bool TaggedFile::isTagV1Supported() const
  */
 QString TaggedFile::getAbsFilename() const
 {
-	QDir dir(m_dirname);
-	return QDir::cleanPath(dir.absoluteFilePath(m_newFilename));
+  QDir dir(m_dirname);
+  return QDir::cleanPath(dir.absoluteFilePath(m_newFilename));
 }
 
 /**
@@ -259,10 +259,10 @@ QString TaggedFile::getAbsFilename() const
  */
 void TaggedFile::markTag1Changed(Frame::Type type)
 {
-	m_changedV1 = true;
-	if (static_cast<unsigned>(type) < sizeof(m_changedFramesV1) * 8) {
-		m_changedFramesV1 |= (1 << type);
-	}
+  m_changedV1 = true;
+  if (static_cast<unsigned>(type) < sizeof(m_changedFramesV1) * 8) {
+    m_changedFramesV1 |= (1 << type);
+  }
 }
 
 /**
@@ -272,10 +272,10 @@ void TaggedFile::markTag1Changed(Frame::Type type)
  */
 void TaggedFile::markTag2Changed(Frame::Type type)
 {
-	m_changedV2 = true;
-	if (static_cast<unsigned>(type) < sizeof(m_changedFramesV2) * 8) {
-		m_changedFramesV2 |= (1 << type);
-	}
+  m_changedV2 = true;
+  if (static_cast<unsigned>(type) < sizeof(m_changedFramesV2) * 8) {
+    m_changedFramesV2 |= (1 << type);
+  }
 }
 
 /**
@@ -289,12 +289,12 @@ void TaggedFile::markTag2Changed(Frame::Type type)
  */
 static QString removeArtist(const QString& album)
 {
-	QString str(album);
-	int pos = str.indexOf(" - ");
-	if (pos != -1) {
-		str.remove(0, pos + 3);
-	}
-	return str;
+  QString str(album);
+  int pos = str.indexOf(" - ");
+  if (pos != -1) {
+    str.remove(0, pos + 3);
+  }
+  return str;
 }
 
 /**
@@ -318,144 +318,144 @@ static QString removeArtist(const QString& album)
  */
 void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt)
 {
-	QRegExp re;
-	QString fn(getAbsFilename());
+  QRegExp re;
+  QString fn(getAbsFilename());
 
-	// construct regular expression from format string
+  // construct regular expression from format string
 
-	// if the format does not contain a '_', they are replaced by spaces
-	// in the filename.
-	QString fileName(fn);
-	if (!fmt.contains('_')) {
-		fileName.replace(QChar('_'), QChar(' '));
-	}
+  // if the format does not contain a '_', they are replaced by spaces
+  // in the filename.
+  QString fileName(fn);
+  if (!fmt.contains('_')) {
+    fileName.replace(QChar('_'), QChar(' '));
+  }
 
-	// escape regexp characters
-	QString pattern;
-	uint fmtLen = fmt.length();
-	static const QString escChars("+?.*^$()[]{}|\\");
-	for (uint i = 0; i < fmtLen; ++i) {
-		const QChar ch = fmt.at(i);
-		if (escChars.contains(ch)) {
-			pattern += '\\';
-		}
-		pattern += ch;
-	}
-	// and finally a dot followed by 3 or 4 characters for the extension
-	pattern += "\\..{3,4}$";
+  // escape regexp characters
+  QString pattern;
+  uint fmtLen = fmt.length();
+  static const QString escChars("+?.*^$()[]{}|\\");
+  for (uint i = 0; i < fmtLen; ++i) {
+    const QChar ch = fmt.at(i);
+    if (escChars.contains(ch)) {
+      pattern += '\\';
+    }
+    pattern += ch;
+  }
+  // and finally a dot followed by 3 or 4 characters for the extension
+  pattern += "\\..{3,4}$";
 
-	static const struct {
-		const char* from;
-		const char* to;
-	} codeToName[] = {
-		{ "%s", "%\\{title\\}" },
-		{ "%l", "%\\{album\\}" },
-		{ "%a", "%\\{artist\\}" },
-		{ "%c", "%\\{comment\\}" },
-		{ "%y", "%\\{date\\}" },
-		{ "%t", "%\\{track number\\}" },
-		{ "%g", "%\\{genre\\}" },
-		{ "%\\{year\\}", "%\\{date\\}" },
-		{ "%\\{track\\}", "%\\{track number\\}" },
-		{ "%\\{tracknumber\\}", "%\\{track number\\}" }
-	};
-	int percentIdx = 0, nr = 1;
-	for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
-		pattern.replace(codeToName[i].from, codeToName[i].to);
-	}
+  static const struct {
+    const char* from;
+    const char* to;
+  } codeToName[] = {
+    { "%s", "%\\{title\\}" },
+    { "%l", "%\\{album\\}" },
+    { "%a", "%\\{artist\\}" },
+    { "%c", "%\\{comment\\}" },
+    { "%y", "%\\{date\\}" },
+    { "%t", "%\\{track number\\}" },
+    { "%g", "%\\{genre\\}" },
+    { "%\\{year\\}", "%\\{date\\}" },
+    { "%\\{track\\}", "%\\{track number\\}" },
+    { "%\\{tracknumber\\}", "%\\{track number\\}" }
+  };
+  int percentIdx = 0, nr = 1;
+  for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
+    pattern.replace(codeToName[i].from, codeToName[i].to);
+  }
 
-	QMap<QString, int> codePos;
-	while (((percentIdx = pattern.indexOf("%\\{", percentIdx)) >= 0) &&
-				 (percentIdx < static_cast<int>(pattern.length()) - 1)) {
-		int closingBracePos = pattern.indexOf("\\}", percentIdx + 3);
-		if (closingBracePos > percentIdx + 3) {
-			QString code =
-				pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3).toLower();
-			codePos[code] = nr++;
-			if (code == "track number" || code == "date") {
-				pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "(\\d{1,4})");
-				percentIdx += 9;
-			} else {
-				pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "([^-_\\./ ][^/]*[^-_/ ])");
-				percentIdx += 23;
-			}
-		} else {
-			percentIdx += 3;
-		}
-	}
+  QMap<QString, int> codePos;
+  while (((percentIdx = pattern.indexOf("%\\{", percentIdx)) >= 0) &&
+         (percentIdx < static_cast<int>(pattern.length()) - 1)) {
+    int closingBracePos = pattern.indexOf("\\}", percentIdx + 3);
+    if (closingBracePos > percentIdx + 3) {
+      QString code =
+        pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3).toLower();
+      codePos[code] = nr++;
+      if (code == "track number" || code == "date") {
+        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "(\\d{1,4})");
+        percentIdx += 9;
+      } else {
+        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "([^-_\\./ ][^/]*[^-_/ ])");
+        percentIdx += 23;
+      }
+    } else {
+      percentIdx += 3;
+    }
+  }
 
-	re.setPattern(pattern);
-	if (re.indexIn(fileName) != -1) {
-		for (QMap<QString, int>::iterator it = codePos.begin();
-				 it != codePos.end();
-				 ++it) {
-			QString name = it.key();
-			QString str = re.cap(*it);
-			if (!str.isEmpty()) {
-				if (name == "track number" && str.length() == 2 && str[0] == '0') {
-					// remove leading zero
-					str = str.mid(1);
-				}
-				if (name != "ignore")
-					frames.setValue(Frame::getTypeFromName(name), str);
-			}
-		}
-		return;
-	}
+  re.setPattern(pattern);
+  if (re.indexIn(fileName) != -1) {
+    for (QMap<QString, int>::iterator it = codePos.begin();
+         it != codePos.end();
+         ++it) {
+      QString name = it.key();
+      QString str = re.cap(*it);
+      if (!str.isEmpty()) {
+        if (name == "track number" && str.length() == 2 && str[0] == '0') {
+          // remove leading zero
+          str = str.mid(1);
+        }
+        if (name != "ignore")
+          frames.setValue(Frame::getTypeFromName(name), str);
+      }
+    }
+    return;
+  }
 
-	// album/track - artist - song
-	re.setPattern("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.indexIn(fn) != -1) {
-		frames.setAlbum(removeArtist(re.cap(1)));
-		frames.setTrack(re.cap(2).toInt());
-		frames.setArtist(re.cap(3));
-		frames.setTitle(re.cap(4));
-		return;
-	}
-	// artist - album/track song
-	re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.indexIn(fn) != -1) {
-		frames.setArtist(re.cap(1));
-		frames.setAlbum(re.cap(2));
-		frames.setTrack(re.cap(3).toInt());
-		frames.setTitle(re.cap(4));
-		return;
-	}
-	// /artist - album - track - song
-	re.setPattern("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.indexIn(fn) != -1) {
-		frames.setArtist(re.cap(1));
-		frames.setAlbum(re.cap(2));
-		frames.setTrack(re.cap(3).toInt());
-		frames.setTitle(re.cap(4));
-		return;
-	}
-	// album/artist - track - song
-	re.setPattern("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.indexIn(fn) != -1) {
-		frames.setAlbum(removeArtist(re.cap(1)));
-		frames.setArtist(re.cap(2));
-		frames.setTrack(re.cap(3).toInt());
-		frames.setTitle(re.cap(4));
-		return;
-	}
-	// artist/album/track song
-	re.setPattern("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
-	if (re.indexIn(fn) != -1) {
-		frames.setArtist(re.cap(1));
-		frames.setAlbum(re.cap(2));
-		frames.setTrack(re.cap(3).toInt());
-		frames.setTitle(re.cap(4));
-		return;
-	}
-	// album/artist - song
-	re.setPattern("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{3,4}$");
-	if (re.indexIn(fn) != -1) {
-		frames.setAlbum(removeArtist(re.cap(1)));
-		frames.setArtist(re.cap(2));
-		frames.setTitle(re.cap(3));
-		return;
-	}
+  // album/track - artist - song
+  re.setPattern("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{3,4}$");
+  if (re.indexIn(fn) != -1) {
+    frames.setAlbum(removeArtist(re.cap(1)));
+    frames.setTrack(re.cap(2).toInt());
+    frames.setArtist(re.cap(3));
+    frames.setTitle(re.cap(4));
+    return;
+  }
+  // artist - album/track song
+  re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  if (re.indexIn(fn) != -1) {
+    frames.setArtist(re.cap(1));
+    frames.setAlbum(re.cap(2));
+    frames.setTrack(re.cap(3).toInt());
+    frames.setTitle(re.cap(4));
+    return;
+  }
+  // /artist - album - track - song
+  re.setPattern("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  if (re.indexIn(fn) != -1) {
+    frames.setArtist(re.cap(1));
+    frames.setAlbum(re.cap(2));
+    frames.setTrack(re.cap(3).toInt());
+    frames.setTitle(re.cap(4));
+    return;
+  }
+  // album/artist - track - song
+  re.setPattern("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  if (re.indexIn(fn) != -1) {
+    frames.setAlbum(removeArtist(re.cap(1)));
+    frames.setArtist(re.cap(2));
+    frames.setTrack(re.cap(3).toInt());
+    frames.setTitle(re.cap(4));
+    return;
+  }
+  // artist/album/track song
+  re.setPattern("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  if (re.indexIn(fn) != -1) {
+    frames.setArtist(re.cap(1));
+    frames.setAlbum(re.cap(2));
+    frames.setTrack(re.cap(3).toInt());
+    frames.setTitle(re.cap(4));
+    return;
+  }
+  // album/artist - song
+  re.setPattern("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{3,4}$");
+  if (re.indexIn(fn) != -1) {
+    frames.setAlbum(removeArtist(re.cap(1)));
+    frames.setArtist(re.cap(2));
+    frames.setTitle(re.cap(3));
+    return;
+  }
 }
 
 /**
@@ -469,17 +469,17 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
  */
 QString TaggedFile::formatTime(unsigned seconds)
 {
-	unsigned hours = seconds / 3600;
-	seconds %= 3600;
-	unsigned minutes = seconds / 60;
-	seconds %= 60;
-	QString timeStr;
-	if (hours > 0) {
-		timeStr.sprintf("%u:%02u:%02u", hours, minutes, seconds);
-	} else {
-		timeStr.sprintf("%u:%02u", minutes, seconds);
-	}
-	return timeStr;
+  unsigned hours = seconds / 3600;
+  seconds %= 3600;
+  unsigned minutes = seconds / 60;
+  seconds %= 60;
+  QString timeStr;
+  if (hours > 0) {
+    timeStr.sprintf("%u:%02u:%02u", hours, minutes, seconds);
+  } else {
+    timeStr.sprintf("%u:%02u", minutes, seconds);
+  }
+  return timeStr;
 }
 
 /**
@@ -493,49 +493,49 @@ QString TaggedFile::formatTime(unsigned seconds)
  */
 bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
 {
-	if (fnNew.toLower() == fnOld.toLower()) {
-		// If the filenames only differ in case, the new file is reported to
-		// already exist on case insensitive filesystems (e.g. Windows),
-		// so it is checked if the new file is really the old file by
-		// comparing inodes and devices. If the files are not the same,
-		// another file would be overwritten and an error is reported.
-		if (QFile::exists(m_dirname + QDir::separator() + fnNew)) {
-			struct stat statOld, statNew;
-			if (::stat((m_dirname + QDir::separator() + fnOld).toLatin1().data(), &statOld) == 0 &&
-					::stat((m_dirname + QDir::separator() + fnNew).toLatin1().data(), &statNew) == 0 &&
-					!(statOld.st_ino == statNew.st_ino &&
-						statOld.st_dev == statNew.st_dev)) {
-				qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
-							 fnNew.toLatin1().data(), fnNew.toLatin1().data());
-				return false;
-			}
-		}
+  if (fnNew.toLower() == fnOld.toLower()) {
+    // If the filenames only differ in case, the new file is reported to
+    // already exist on case insensitive filesystems (e.g. Windows),
+    // so it is checked if the new file is really the old file by
+    // comparing inodes and devices. If the files are not the same,
+    // another file would be overwritten and an error is reported.
+    if (QFile::exists(m_dirname + QDir::separator() + fnNew)) {
+      struct stat statOld, statNew;
+      if (::stat((m_dirname + QDir::separator() + fnOld).toLatin1().data(), &statOld) == 0 &&
+          ::stat((m_dirname + QDir::separator() + fnNew).toLatin1().data(), &statNew) == 0 &&
+          !(statOld.st_ino == statNew.st_ino &&
+            statOld.st_dev == statNew.st_dev)) {
+        qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
+               fnNew.toLatin1().data(), fnNew.toLatin1().data());
+        return false;
+      }
+    }
 
-		// if the filenames only differ in case, first rename to a
-		// temporary filename, so that it works also with case
-		// insensitive filesystems (e.g. Windows).
-		QString temp_filename(fnNew);
-		temp_filename.append("_CASE");
-		if (!QDir(m_dirname).rename(fnOld, temp_filename)) {
-			qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
-					   temp_filename.toLatin1().data());
-			return false;
-		}
-		if (!QDir(m_dirname).rename(temp_filename, fnNew)) {
-			qDebug("rename(%s, %s) failed", temp_filename.toLatin1().data(),
-					   fnNew.toLatin1().data());
-			return false;
-		}
-	} else if (QFile::exists(m_dirname + QDir::separator() + fnNew)) {
-		qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
-					 fnNew.toLatin1().data(), fnNew.toLatin1().data());
-		return false;
-	} else if (!QDir(m_dirname).rename(fnOld, fnNew)) {
-		qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
-					 fnNew.toLatin1().data());
-		return false;
-	}
-	return true;
+    // if the filenames only differ in case, first rename to a
+    // temporary filename, so that it works also with case
+    // insensitive filesystems (e.g. Windows).
+    QString temp_filename(fnNew);
+    temp_filename.append("_CASE");
+    if (!QDir(m_dirname).rename(fnOld, temp_filename)) {
+      qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
+             temp_filename.toLatin1().data());
+      return false;
+    }
+    if (!QDir(m_dirname).rename(temp_filename, fnNew)) {
+      qDebug("rename(%s, %s) failed", temp_filename.toLatin1().data(),
+             fnNew.toLatin1().data());
+      return false;
+    }
+  } else if (QFile::exists(m_dirname + QDir::separator() + fnNew)) {
+    qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
+           fnNew.toLatin1().data(), fnNew.toLatin1().data());
+    return false;
+  } else if (!QDir(m_dirname).rename(fnOld, fnNew)) {
+    qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
+           fnNew.toLatin1().data());
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -545,7 +545,7 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
  */
 QString TaggedFile::getCommentFieldName() const
 {
-	return ConfigStore::s_miscCfg.m_commentName;
+  return ConfigStore::s_miscCfg.m_commentName;
 }
 
 /**
@@ -558,18 +558,18 @@ QString TaggedFile::getCommentFieldName() const
  */
 int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
 {
-	if (*total)
-		*total = 0;
-	if (str.isNull())
-		return -1;
+  if (*total)
+    *total = 0;
+  if (str.isNull())
+    return -1;
 
-	int slashPos = str.indexOf('/');
-	if (slashPos == -1)
-		return str.toInt();
+  int slashPos = str.indexOf('/');
+  if (slashPos == -1)
+    return str.toInt();
 
-	if (total)
-		*total = str.mid(slashPos + 1).toInt();
-	return str.left(slashPos).toInt();
+  if (total)
+    *total = str.mid(slashPos + 1).toInt();
+  return str.left(slashPos).toInt();
 }
 
 /**
@@ -578,17 +578,17 @@ int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
  * @return total number of tracks, -1 if unavailable.
  */
 int TaggedFile::getTotalNumberOfTracksInDir() const {
-	int numTracks = -1;
-	QModelIndex parentIdx = m_index.parent();
-	if (parentIdx.isValid()) {
-		numTracks = 0;
-		TaggedFileOfDirectoryIterator it(parentIdx);
-		while (it.hasNext()) {
-			it.next();
-			++numTracks;
-		}
-	}
-	return numTracks;
+  int numTracks = -1;
+  QModelIndex parentIdx = m_index.parent();
+  if (parentIdx.isValid()) {
+    numTracks = 0;
+    TaggedFileOfDirectoryIterator it(parentIdx);
+    while (it.hasNext()) {
+      it.next();
+      ++numTracks;
+    }
+  }
+  return numTracks;
 }
 
 /**
@@ -599,8 +599,8 @@ int TaggedFile::getTotalNumberOfTracksInDir() const {
  */
 int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 {
-	return ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks
-			? getTotalNumberOfTracksInDir() : -1;
+  return ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks
+      ? getTotalNumberOfTracksInDir() : -1;
 }
 
 /**
@@ -613,26 +613,26 @@ int TaggedFile::getTotalNumberOfTracksIfEnabled() const
  */
 QString TaggedFile::trackNumberString(int num, int numTracks) const
 {
-	int numDigits = getTrackNumberDigits();
-	QString str;
-	if (num != 0) {
-		if (numDigits > 0) {
-			str.sprintf("%0*d", numDigits, num);
-		} else {
-			str.setNum(num);
-		}
-		if (numTracks > 0) {
-			str += '/';
-			if (numDigits > 0) {
-				str += QString().sprintf("%0*d", numDigits, numTracks);
-			} else {
-				str += QString::number(numTracks);
-			}
-		}
-	} else {
-		str = "";
-	}
-	return str;
+  int numDigits = getTrackNumberDigits();
+  QString str;
+  if (num != 0) {
+    if (numDigits > 0) {
+      str.sprintf("%0*d", numDigits, num);
+    } else {
+      str.setNum(num);
+    }
+    if (numTracks > 0) {
+      str += '/';
+      if (numDigits > 0) {
+        str += QString().sprintf("%0*d", numDigits, numTracks);
+      } else {
+        str += QString::number(numTracks);
+      }
+    }
+  } else {
+    str = "";
+  }
+  return str;
 }
 
 /**
@@ -645,19 +645,19 @@ QString TaggedFile::trackNumberString(int num, int numTracks) const
  */
 void TaggedFile::formatTrackNumberIfEnabled(QString& value, bool addTotal) const
 {
-	int numDigits = getTrackNumberDigits();
-	int numTracks = addTotal ? getTotalNumberOfTracksIfEnabled() : -1;
-	if (numTracks > 0 || numDigits > 1) {
-		bool ok;
-		int trackNr = value.toInt(&ok);
-		if (ok && trackNr > 0) {
-			if (numTracks > 0) {
-				value.sprintf("%0*d/%0*d", numDigits, trackNr, numDigits, numTracks);
-			} else {
-				value.sprintf("%0*d", numDigits, trackNr);
-			}
-		}
-	}
+  int numDigits = getTrackNumberDigits();
+  int numTracks = addTotal ? getTotalNumberOfTracksIfEnabled() : -1;
+  if (numTracks > 0 || numDigits > 1) {
+    bool ok;
+    int trackNr = value.toInt(&ok);
+    if (ok && trackNr > 0) {
+      if (numTracks > 0) {
+        value.sprintf("%0*d/%0*d", numDigits, trackNr, numDigits, numTracks);
+      } else {
+        value.sprintf("%0*d", numDigits, trackNr);
+      }
+    }
+  }
 }
 
 /**
@@ -668,10 +668,10 @@ void TaggedFile::formatTrackNumberIfEnabled(QString& value, bool addTotal) const
  */
 int TaggedFile::getTrackNumberDigits() const
 {
-	int numDigits = ConfigStore::s_miscCfg.m_trackNumberDigits;
-	if (numDigits < 1 || numDigits > 5)
-		numDigits = 1;
-	return numDigits;
+  int numDigits = ConfigStore::s_miscCfg.m_trackNumberDigits;
+  if (numDigits < 1 || numDigits > 5)
+    numDigits = 1;
+  return numDigits;
 }
 
 /**
@@ -681,13 +681,13 @@ int TaggedFile::getTrackNumberDigits() const
  */
 void TaggedFile::deleteFramesV2(const FrameFilter& flt)
 {
-	if (flt.isEnabled(Frame::FT_Title))   setTitleV2("");
-	if (flt.isEnabled(Frame::FT_Artist))  setArtistV2("");
-	if (flt.isEnabled(Frame::FT_Album))   setAlbumV2("");
-	if (flt.isEnabled(Frame::FT_Comment)) setCommentV2("");
-	if (flt.isEnabled(Frame::FT_Date))    setYearV2(0);
-	if (flt.isEnabled(Frame::FT_Track))   setTrackV2("");
-	if (flt.isEnabled(Frame::FT_Genre))   setGenreV2("");
+  if (flt.isEnabled(Frame::FT_Title))   setTitleV2("");
+  if (flt.isEnabled(Frame::FT_Artist))  setArtistV2("");
+  if (flt.isEnabled(Frame::FT_Album))   setAlbumV2("");
+  if (flt.isEnabled(Frame::FT_Comment)) setCommentV2("");
+  if (flt.isEnabled(Frame::FT_Date))    setYearV2(0);
+  if (flt.isEnabled(Frame::FT_Track))   setTrackV2("");
+  if (flt.isEnabled(Frame::FT_Genre))   setGenreV2("");
 }
 
 /**
@@ -699,7 +699,7 @@ void TaggedFile::deleteFramesV2(const FrameFilter& flt)
  */
 QString TaggedFile::getTagFormatV1() const
 {
-	return QString::null;
+  return QString::null;
 }
 
 /**
@@ -711,7 +711,7 @@ QString TaggedFile::getTagFormatV1() const
  */
 QString TaggedFile::getTagFormatV2() const
 {
-	return QString::null;
+  return QString::null;
 }
 
 /**
@@ -724,17 +724,17 @@ QString TaggedFile::getTagFormatV2() const
  * @return str truncated to len characters if necessary, else QString::null.
  */
 QString TaggedFile::checkTruncation(
-	const QString& str, unsigned flag, int len)
+  const QString& str, unsigned flag, int len)
 {
-	if (static_cast<int>(str.length()) > len) {
-		QString s = str;
-		s.truncate(len);
-		m_truncation |= flag;
-		return s;
-	} else {
-		m_truncation &= ~flag;
-		return QString::null;
-	}
+  if (static_cast<int>(str.length()) > len) {
+    QString s = str;
+    s.truncate(len);
+    m_truncation |= flag;
+    return s;
+  } else {
+    m_truncation &= ~flag;
+    return QString::null;
+  }
 }
 
 /**
@@ -747,15 +747,15 @@ QString TaggedFile::checkTruncation(
  * @return val truncated to max if necessary, else -1.
  */
 int TaggedFile::checkTruncation(int val, unsigned flag,
-																int max)
+                                int max)
 {
-	if (val > max) {
-		m_truncation |= flag;
-		return max;
-	} else {
-		m_truncation &= ~flag;
-		return -1;
-	}
+  if (val > max) {
+    m_truncation |= flag;
+    return max;
+  } else {
+    m_truncation &= ~flag;
+    return -1;
+  }
 }
 
 /**
@@ -768,48 +768,48 @@ int TaggedFile::checkTruncation(int val, unsigned flag,
  */
 bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame)
 {
-	int n = -1;
-	bool number = false;
+  int n = -1;
+  bool number = false;
 
-	switch (type) {
-		case Frame::FT_Album:
-			frame.m_value = getAlbumV1();
-			break;
-		case Frame::FT_Artist:
-			frame.m_value = getArtistV1();
-			break;
-		case Frame::FT_Comment:
-			frame.m_value = getCommentV1();
-			break;
-		case Frame::FT_Date:
-			n = getYearV1();
-			number = true;
-			break;
-		case Frame::FT_Genre:
-			frame.m_value = getGenreV1();
-			break;
-		case Frame::FT_Title:
-			frame.m_value = getTitleV1();
-			break;
-		case Frame::FT_Track:
-			n = getTrackNumV1();
-			number = true;
-			break;
-		default:
-			// maybe handled in a subclass
-			return false;
-	}
-	if (number) {
-		if (n == -1) {
-			frame.m_value = QString();
-		} else if (n == 0) {
-			frame.m_value = QString("");
-		} else {
-			frame.m_value.setNum(n);
-		}
-	}
-	frame.m_type = type;
-	return true;
+  switch (type) {
+    case Frame::FT_Album:
+      frame.m_value = getAlbumV1();
+      break;
+    case Frame::FT_Artist:
+      frame.m_value = getArtistV1();
+      break;
+    case Frame::FT_Comment:
+      frame.m_value = getCommentV1();
+      break;
+    case Frame::FT_Date:
+      n = getYearV1();
+      number = true;
+      break;
+    case Frame::FT_Genre:
+      frame.m_value = getGenreV1();
+      break;
+    case Frame::FT_Title:
+      frame.m_value = getTitleV1();
+      break;
+    case Frame::FT_Track:
+      n = getTrackNumV1();
+      number = true;
+      break;
+    default:
+      // maybe handled in a subclass
+      return false;
+  }
+  if (number) {
+    if (n == -1) {
+      frame.m_value = QString();
+    } else if (n == 0) {
+      frame.m_value = QString("");
+    } else {
+      frame.m_value.setNum(n);
+    }
+  }
+  frame.m_type = type;
+  return true;
 }
 
 /**
@@ -821,44 +821,44 @@ bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame)
  */
 bool TaggedFile::setFrameV1(const Frame& frame)
 {
-	int n = -1;
-	if (frame.m_type == Frame::FT_Date ||
-			frame.m_type == Frame::FT_Track) {
-		if (frame.isInactive()) {
-			n = -1;
-		} else if (frame.isEmpty()) {
-			n = 0;
-		} else {
-			n = Frame::numberWithoutTotal(frame.m_value);
-		}
-	}
-	switch (frame.m_type) {
-		case Frame::FT_Album:
-			setAlbumV1(frame.m_value);
-			break;
-		case Frame::FT_Artist:
-			setArtistV1(frame.m_value);
-			break;
-		case Frame::FT_Comment:
-			setCommentV1(frame.m_value);
-			break;
-		case Frame::FT_Date:
-			setYearV1(n);
-			break;
-		case Frame::FT_Genre:
-			setGenreV1(frame.m_value);
-			break;
-		case Frame::FT_Title:
-			setTitleV1(frame.m_value);
-			break;
-		case Frame::FT_Track:
-			setTrackNumV1(n);
-			break;
-		default:
-			// maybe handled in a subclass
-			return false;
-	}
-	return true;
+  int n = -1;
+  if (frame.m_type == Frame::FT_Date ||
+      frame.m_type == Frame::FT_Track) {
+    if (frame.isInactive()) {
+      n = -1;
+    } else if (frame.isEmpty()) {
+      n = 0;
+    } else {
+      n = Frame::numberWithoutTotal(frame.m_value);
+    }
+  }
+  switch (frame.m_type) {
+    case Frame::FT_Album:
+      setAlbumV1(frame.m_value);
+      break;
+    case Frame::FT_Artist:
+      setArtistV1(frame.m_value);
+      break;
+    case Frame::FT_Comment:
+      setCommentV1(frame.m_value);
+      break;
+    case Frame::FT_Date:
+      setYearV1(n);
+      break;
+    case Frame::FT_Genre:
+      setGenreV1(frame.m_value);
+      break;
+    case Frame::FT_Title:
+      setTitleV1(frame.m_value);
+      break;
+    case Frame::FT_Track:
+      setTrackNumV1(n);
+      break;
+    default:
+      // maybe handled in a subclass
+      return false;
+  }
+  return true;
 }
 
 /**
@@ -871,47 +871,47 @@ bool TaggedFile::setFrameV1(const Frame& frame)
  */
 bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
 {
-	int n = -1;
-	bool number = false;
+  int n = -1;
+  bool number = false;
 
-	switch (type) {
-		case Frame::FT_Album:
-			frame.m_value = getAlbumV2();
-			break;
-		case Frame::FT_Artist:
-			frame.m_value = getArtistV2();
-			break;
-		case Frame::FT_Comment:
-			frame.m_value = getCommentV2();
-			break;
-		case Frame::FT_Date:
-			n = getYearV2();
-			number = true;
-			break;
-		case Frame::FT_Genre:
-			frame.m_value = getGenreV2();
-			break;
-		case Frame::FT_Title:
-			frame.m_value = getTitleV2();
-			break;
-		case Frame::FT_Track:
-			frame.m_value = getTrackV2();
-			break;
-		default:
-			// maybe handled in a subclass
-			return false;
-	}
-	if (number) {
-		if (n == -1) {
-			frame.m_value = QString();
-		} else if (n == 0) {
-			frame.m_value = QString("");
-		} else {
-			frame.m_value.setNum(n);
-		}
-	}
-	frame.m_type = type;
-	return true;
+  switch (type) {
+    case Frame::FT_Album:
+      frame.m_value = getAlbumV2();
+      break;
+    case Frame::FT_Artist:
+      frame.m_value = getArtistV2();
+      break;
+    case Frame::FT_Comment:
+      frame.m_value = getCommentV2();
+      break;
+    case Frame::FT_Date:
+      n = getYearV2();
+      number = true;
+      break;
+    case Frame::FT_Genre:
+      frame.m_value = getGenreV2();
+      break;
+    case Frame::FT_Title:
+      frame.m_value = getTitleV2();
+      break;
+    case Frame::FT_Track:
+      frame.m_value = getTrackV2();
+      break;
+    default:
+      // maybe handled in a subclass
+      return false;
+  }
+  if (number) {
+    if (n == -1) {
+      frame.m_value = QString();
+    } else if (n == 0) {
+      frame.m_value = QString("");
+    } else {
+      frame.m_value.setNum(n);
+    }
+  }
+  frame.m_type = type;
+  return true;
 }
 
 /**
@@ -923,43 +923,43 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
  */
 bool TaggedFile::setFrameV2(const Frame& frame)
 {
-	int n = -1;
-	if (frame.m_type == Frame::FT_Date) {
-		if (frame.isInactive()) {
-			n = -1;
-		} else if (frame.isEmpty()) {
-			n = 0;
-		} else {
-			n = Frame::numberWithoutTotal(frame.m_value);
-		}
-	}
-	switch (frame.m_type) {
-		case Frame::FT_Album:
-			setAlbumV2(frame.m_value);
-			break;
-		case Frame::FT_Artist:
-			setArtistV2(frame.m_value);
-			break;
-		case Frame::FT_Comment:
-			setCommentV2(frame.m_value);
-			break;
-		case Frame::FT_Date:
-			setYearV2(n);
-			break;
-		case Frame::FT_Genre:
-			setGenreV2(frame.m_value);
-			break;
-		case Frame::FT_Title:
-			setTitleV2(frame.m_value);
-			break;
-		case Frame::FT_Track:
-			setTrackV2(frame.m_value);
-			break;
-		default:
-			// maybe handled in a subclass
-			return false;
-	}
-	return true;
+  int n = -1;
+  if (frame.m_type == Frame::FT_Date) {
+    if (frame.isInactive()) {
+      n = -1;
+    } else if (frame.isEmpty()) {
+      n = 0;
+    } else {
+      n = Frame::numberWithoutTotal(frame.m_value);
+    }
+  }
+  switch (frame.m_type) {
+    case Frame::FT_Album:
+      setAlbumV2(frame.m_value);
+      break;
+    case Frame::FT_Artist:
+      setArtistV2(frame.m_value);
+      break;
+    case Frame::FT_Comment:
+      setCommentV2(frame.m_value);
+      break;
+    case Frame::FT_Date:
+      setYearV2(n);
+      break;
+    case Frame::FT_Genre:
+      setGenreV2(frame.m_value);
+      break;
+    case Frame::FT_Title:
+      setTitleV2(frame.m_value);
+      break;
+    case Frame::FT_Track:
+      setTrackV2(frame.m_value);
+      break;
+    default:
+      // maybe handled in a subclass
+      return false;
+  }
+  return true;
 }
 
 /**
@@ -971,7 +971,7 @@ bool TaggedFile::setFrameV2(const Frame& frame)
  */
 bool TaggedFile::addFrameV2(Frame& frame)
 {
-	return TaggedFile::setFrameV2(frame);
+  return TaggedFile::setFrameV2(frame);
 }
 
 /**
@@ -983,9 +983,9 @@ bool TaggedFile::addFrameV2(Frame& frame)
  */
 bool TaggedFile::deleteFrameV2(const Frame& frame)
 {
-	Frame emptyFrame(frame);
-	emptyFrame.setValue("");
-	return setFrameV2(emptyFrame);
+  Frame emptyFrame(frame);
+  emptyFrame.setValue("");
+  return setFrameV2(emptyFrame);
 }
 
 /**
@@ -995,13 +995,13 @@ bool TaggedFile::deleteFrameV2(const Frame& frame)
  */
 void TaggedFile::getAllFramesV1(FrameCollection& frames)
 {
-	frames.clear();
-	Frame frame;
-	for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
-		if (getFrameV1(static_cast<Frame::Type>(i), frame)) {
-			frames.insert(frame);
-		}
-	}
+  frames.clear();
+  Frame frame;
+  for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
+    if (getFrameV1(static_cast<Frame::Type>(i), frame)) {
+      frames.insert(frame);
+    }
+  }
 }
 
 /**
@@ -1012,13 +1012,13 @@ void TaggedFile::getAllFramesV1(FrameCollection& frames)
  */
 void TaggedFile::setFramesV1(const FrameCollection& frames, bool onlyChanged)
 {
-	for (FrameCollection::const_iterator it = frames.begin();
-			 it != frames.end();
-			 ++it) {
-		if (!onlyChanged || it->isValueChanged()) {
-				setFrameV1(*it);
-		}
-	}
+  for (FrameCollection::const_iterator it = frames.begin();
+       it != frames.end();
+       ++it) {
+    if (!onlyChanged || it->isValueChanged()) {
+        setFrameV1(*it);
+    }
+  }
 }
 
 /**
@@ -1030,13 +1030,13 @@ void TaggedFile::setFramesV1(const FrameCollection& frames, bool onlyChanged)
  */
 void TaggedFile::getAllFramesV2(FrameCollection& frames)
 {
-	frames.clear();
-	Frame frame;
-	for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
-		if (getFrameV2(static_cast<Frame::Type>(i), frame)) {
-			frames.insert(frame);
-		}
-	}
+  frames.clear();
+  Frame frame;
+  for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
+    if (getFrameV2(static_cast<Frame::Type>(i), frame)) {
+      frames.insert(frame);
+    }
+  }
 }
 
 /**
@@ -1047,42 +1047,42 @@ void TaggedFile::getAllFramesV2(FrameCollection& frames)
  */
 void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
 {
-	bool myFramesValid = false;
-	FrameCollection myFrames;
+  bool myFramesValid = false;
+  FrameCollection myFrames;
 
-	for (FrameCollection::const_iterator it = frames.begin();
-			 it != frames.end();
-			 ++it) {
-		if (!onlyChanged || it->isValueChanged()) {
-			if (it->getIndex() != -1) {
-				// The frame has an index, so the original tag can be modified
-				setFrameV2(*it);
-			} else {
-				// The frame does not have an index
-				if (it->getType() <= Frame::FT_LastV1Frame) {
-					// Standard tags can be handled with the basic method
-					TaggedFile::setFrameV2(*it);
-				} else {
-					// The frame has to be looked up and modified
-					if (!myFramesValid) {
-						getAllFramesV2(myFrames);
-						myFramesValid = true;
-					}
-					FrameCollection::iterator myIt = myFrames.find(*it);
-					if (myIt != myFrames.end()) {
-						Frame myFrame(*it);
-						myFrame.setIndex(myIt->getIndex());
-						setFrameV2(myFrame);
-					} else {
-						// Such a frame does not exist, add a new one.
-						Frame myFrame(*it);
-						addFrameV2(myFrame);
-						setFrameV2(myFrame);
-					}
-				}
-			}
-		}
-	}
+  for (FrameCollection::const_iterator it = frames.begin();
+       it != frames.end();
+       ++it) {
+    if (!onlyChanged || it->isValueChanged()) {
+      if (it->getIndex() != -1) {
+        // The frame has an index, so the original tag can be modified
+        setFrameV2(*it);
+      } else {
+        // The frame does not have an index
+        if (it->getType() <= Frame::FT_LastV1Frame) {
+          // Standard tags can be handled with the basic method
+          TaggedFile::setFrameV2(*it);
+        } else {
+          // The frame has to be looked up and modified
+          if (!myFramesValid) {
+            getAllFramesV2(myFrames);
+            myFramesValid = true;
+          }
+          FrameCollection::iterator myIt = myFrames.find(*it);
+          if (myIt != myFrames.end()) {
+            Frame myFrame(*it);
+            myFrame.setIndex(myIt->getIndex());
+            setFrameV2(myFrame);
+          } else {
+            // Such a frame does not exist, add a new one.
+            Frame myFrame(*it);
+            addFrameV2(myFrame);
+            setFrameV2(myFrame);
+          }
+        }
+      }
+    }
+  }
 }
 
 
@@ -1093,7 +1093,7 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
  */
 void TaggedFile::addResolver(const Resolver* resolver)
 {
-	s_resolvers.push_back(resolver);
+  s_resolvers.push_back(resolver);
 }
 
 /**
@@ -1107,16 +1107,16 @@ void TaggedFile::addResolver(const Resolver* resolver)
  * @return tagged file, 0 if type not supported.
  */
 TaggedFile* TaggedFile::createFile(const QString& dn, const QString& fn,
-																	 const QPersistentModelIndex& idx)
+                                   const QPersistentModelIndex& idx)
 {
-	TaggedFile* taggedFile = 0;
-	for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
-			 it != s_resolvers.end();
-			 ++it) {
-		taggedFile = (*it)->createFile(dn, fn, idx);
-		if (taggedFile) break;
-	}
-	return taggedFile;
+  TaggedFile* taggedFile = 0;
+  for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
+       it != s_resolvers.end();
+       ++it) {
+    taggedFile = (*it)->createFile(dn, fn, idx);
+    if (taggedFile) break;
+  }
+  return taggedFile;
 }
 
 /**
@@ -1127,27 +1127,27 @@ TaggedFile* TaggedFile::createFile(const QString& dn, const QString& fn,
  */
 QStringList TaggedFile::getSupportedFileExtensions()
 {
-	QStringList extensions;
-	for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
-			 it != s_resolvers.end();
-			 ++it) {
-		extensions += (*it)->getSupportedFileExtensions();
-	}
+  QStringList extensions;
+  for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
+       it != s_resolvers.end();
+       ++it) {
+    extensions += (*it)->getSupportedFileExtensions();
+  }
 
-	// remove duplicates
-	extensions.sort();
-	QString lastExt("");
-	for (QStringList::iterator it = extensions.begin();
-			 it != extensions.end();) {
-		if (*it == lastExt) {
-			it = extensions.erase(it);
-		} else {
-			lastExt = *it;
-			++it;
-		}
-	}
+  // remove duplicates
+  extensions.sort();
+  QString lastExt("");
+  for (QStringList::iterator it = extensions.begin();
+       it != extensions.end();) {
+    if (*it == lastExt) {
+      it = extensions.erase(it);
+    } else {
+      lastExt = *it;
+      ++it;
+    }
+  }
 
-	return extensions;
+  return extensions;
 }
 
 /**
@@ -1155,6 +1155,6 @@ QStringList TaggedFile::getSupportedFileExtensions()
  */
 void TaggedFile::staticCleanup()
 {
-	qDeleteAll(s_resolvers);
-	s_resolvers.clear();
+  qDeleteAll(s_resolvers);
+  s_resolvers.clear();
 }

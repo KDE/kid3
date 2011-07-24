@@ -41,97 +41,97 @@ class PlaylistConfig;
  */
 class PlaylistCreator {
 public:
-	/**
-	 * An item from the file list which can be added to a playlist.
-	 * The item will only be added to the playlist if add() is called.
-	 */
-	class Item {
-	public:
-		/**
-		 * Constructor.
-		 *
-		 * @param index model index
-		 * @param ctr  associated playlist creator
-		 */
-		Item(const QModelIndex& index, PlaylistCreator& ctr);
+  /**
+   * An item from the file list which can be added to a playlist.
+   * The item will only be added to the playlist if add() is called.
+   */
+  class Item {
+  public:
+    /**
+     * Constructor.
+     *
+     * @param index model index
+     * @param ctr  associated playlist creator
+     */
+    Item(const QModelIndex& index, PlaylistCreator& ctr);
 
-		/**
-		 * Destructor.
-		 */
-		~Item();
+    /**
+     * Destructor.
+     */
+    ~Item();
 
-		/**
-		 * Check if item is a directory.
-		 * @return true if item is directory.
-		 */
-		bool isDir() const { return m_isDir; }
+    /**
+     * Check if item is a directory.
+     * @return true if item is directory.
+     */
+    bool isDir() const { return m_isDir; }
 
-		/**
-		 * Check if item is a tagged file.
-		 * @return true if item is file.
-		 */
-		bool isFile() const { return m_taggedFile != 0; }
+    /**
+     * Check if item is a tagged file.
+     * @return true if item is file.
+     */
+    bool isFile() const { return m_taggedFile != 0; }
 
-		/**
-		 * Get the directory of the item.
-		 * @return directory path with trailing separator.
-		 */
-		const QString& getDirName() { return m_dirName; }
+    /**
+     * Get the directory of the item.
+     * @return directory path with trailing separator.
+     */
+    const QString& getDirName() { return m_dirName; }
 
-		/**
-		 * Add item to playlist.
-		 * This operation will write a playlist if the configuration is set to write
-		 * a playlist in every directory and a new directory is entered.
-		 *
-		 * @return true if ok.
-		 */
-		bool add();
+    /**
+     * Add item to playlist.
+     * This operation will write a playlist if the configuration is set to write
+     * a playlist in every directory and a new directory is entered.
+     *
+     * @return true if ok.
+     */
+    bool add();
 
-	private:
-		/**
-		 * Format string using tags and properties of item.
-		 *
-		 * @param format format string
-		 *
-		 * @return string with percent codes replaced.
-		 */
-		QString formatString(const QString& format);
+  private:
+    /**
+     * Format string using tags and properties of item.
+     *
+     * @param format format string
+     *
+     * @return string with percent codes replaced.
+     */
+    QString formatString(const QString& format);
 
-		PlaylistCreator& m_ctr;
-		bool m_isDir;
-		TaggedFile* m_taggedFile;
-		ImportTrackData* m_trackData;
-		QString m_dirName;
-	};
+    PlaylistCreator& m_ctr;
+    bool m_isDir;
+    TaggedFile* m_taggedFile;
+    ImportTrackData* m_trackData;
+    QString m_dirName;
+  };
 
-	/**
-	 * Constructor.
-	 *
-	 * @param topLevelDir top-level directory of playlist
-	 * @param cfg         playlist configuration
-	 */
-	PlaylistCreator(const QString& topLevelDir, const PlaylistConfig& cfg);
+  /**
+   * Constructor.
+   *
+   * @param topLevelDir top-level directory of playlist
+   * @param cfg         playlist configuration
+   */
+  PlaylistCreator(const QString& topLevelDir, const PlaylistConfig& cfg);
 
-	/**
-	 * Write playlist containing added Entry elements.
-	 *
-	 * @return true if ok.
-	 */
-	bool write();
+  /**
+   * Write playlist containing added Entry elements.
+   *
+   * @return true if ok.
+   */
+  bool write();
 
 private:
-	friend class Item;
+  friend class Item;
 
-	struct Entry {
-		unsigned long duration;
-		QString filePath;
-		QString info;
-	};
+  struct Entry {
+    unsigned long duration;
+    QString filePath;
+    QString info;
+  };
 
-	const PlaylistConfig& m_cfg;
-	QString m_playlistDirName;
-	QString m_playlistFileName;
-	QMap<QString, Entry> m_entries;
+  const PlaylistConfig& m_cfg;
+  QString m_playlistDirName;
+  QString m_playlistFileName;
+  QMap<QString, Entry> m_entries;
 };
 
 #endif // PLAYLISTCREATOR_H

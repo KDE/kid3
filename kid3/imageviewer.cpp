@@ -40,38 +40,38 @@
  * @param img    image to display in window
  */
 ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
-	QDialog(parent)
+  QDialog(parent)
 {
-	setModal(true);
-	setWindowTitle(i18n("View Picture"));
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	if (!vlayout) {
-		return ;
-	}
-	vlayout->setSpacing(6);
-	vlayout->setMargin(6);
-	QHBoxLayout* hlayout = new QHBoxLayout;
-	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-	                                       QSizePolicy::Minimum);
-	m_image = new QLabel(this);
-	QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-	if (vlayout && hlayout && m_image && closeButton) {
-		m_image->setScaledContents(true);
-		QSize imageSize(img.size());
-		QSize desktopSize(QApplication::desktop()->availableGeometry().size());
-		desktopSize -= QSize(12, 12);
-		if (imageSize.width() > desktopSize.width() ||
-				imageSize.height() > desktopSize.height()) {
-			m_image->setPixmap(QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio)));
-		} else {
-			m_image->setPixmap(QPixmap::fromImage(img));
-		}
-		vlayout->addWidget(m_image);
-		hlayout->addItem(hspacer);
-		hlayout->addWidget(closeButton);
-		connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-		vlayout->addLayout(hlayout);
-	}
+  setModal(true);
+  setWindowTitle(i18n("View Picture"));
+  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  if (!vlayout) {
+    return ;
+  }
+  vlayout->setSpacing(6);
+  vlayout->setMargin(6);
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  m_image = new QLabel(this);
+  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  if (vlayout && hlayout && m_image && closeButton) {
+    m_image->setScaledContents(true);
+    QSize imageSize(img.size());
+    QSize desktopSize(QApplication::desktop()->availableGeometry().size());
+    desktopSize -= QSize(12, 12);
+    if (imageSize.width() > desktopSize.width() ||
+        imageSize.height() > desktopSize.height()) {
+      m_image->setPixmap(QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio)));
+    } else {
+      m_image->setPixmap(QPixmap::fromImage(img));
+    }
+    vlayout->addWidget(m_image);
+    hlayout->addItem(hspacer);
+    hlayout->addWidget(closeButton);
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+    vlayout->addLayout(hlayout);
+  }
 }
 
 

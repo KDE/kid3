@@ -42,56 +42,56 @@
  * @param caption dialog title
  */
 BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
-	: QDialog(parent)
+  : QDialog(parent)
 {
-	setWindowTitle(caption);
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	if (!vlayout) {
-		return ;
-	}
-	vlayout->setSpacing(6);
-	vlayout->setMargin(6);
+  setWindowTitle(caption);
+  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  if (!vlayout) {
+    return ;
+  }
+  vlayout->setSpacing(6);
+  vlayout->setMargin(6);
 
-	QString lang(QLocale::system().name().left(2));
-	QStringList docPaths;
+  QString lang(QLocale::system().name().left(2));
+  QStringList docPaths;
 #ifdef CFG_DOCDIR
-	docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
-	docPaths += QString(CFG_DOCDIR) + "/kid3_en.html";
+  docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
+  docPaths += QString(CFG_DOCDIR) + "/kid3_en.html";
 #endif
-	docPaths += QDir::currentPath() + "/kid3_" + lang + ".html";
-	docPaths += QDir::currentPath() + "/kid3_en.html";
-	for (QStringList::const_iterator it = docPaths.begin();
-			 it != docPaths.end();
-			 ++it) {
-		m_filename = *it;
-		if (QFile::exists(m_filename)) break;
-	}
-	m_textBrowser = new QTextBrowser(this);
-	m_textBrowser->setSource(QUrl::fromLocalFile(m_filename));
-	vlayout->addWidget(m_textBrowser);
+  docPaths += QDir::currentPath() + "/kid3_" + lang + ".html";
+  docPaths += QDir::currentPath() + "/kid3_en.html";
+  for (QStringList::const_iterator it = docPaths.begin();
+       it != docPaths.end();
+       ++it) {
+    m_filename = *it;
+    if (QFile::exists(m_filename)) break;
+  }
+  m_textBrowser = new QTextBrowser(this);
+  m_textBrowser->setSource(QUrl::fromLocalFile(m_filename));
+  vlayout->addWidget(m_textBrowser);
 
-	QHBoxLayout* hlayout = new QHBoxLayout;
-	QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-	                                       QSizePolicy::Minimum);
-	QPushButton* backButton = new QPushButton(i18n("&Back"), this);
-	QPushButton* forwardButton = new QPushButton(i18n("&Forward"), this);
-	QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-	if (hlayout && backButton && forwardButton && closeButton) {
-		hlayout->addWidget(backButton);
-		hlayout->addWidget(forwardButton);
-		hlayout->addItem(hspacer);
-		hlayout->addWidget(closeButton);
-		closeButton->setDefault(true);
-		backButton->setEnabled(false);
-		forwardButton->setEnabled(false);
-		connect(backButton, SIGNAL(clicked()), m_textBrowser, SLOT(backward()));
-		connect(forwardButton, SIGNAL(clicked()), m_textBrowser, SLOT(forward()));
-		connect(m_textBrowser, SIGNAL(backwardAvailable(bool)), backButton, SLOT(setEnabled(bool)));
-		connect(m_textBrowser, SIGNAL(forwardAvailable(bool)), forwardButton, SLOT(setEnabled(bool)));
-		connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-		vlayout->addLayout(hlayout);
-	}
-	resize(500, 500);
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  QPushButton* backButton = new QPushButton(i18n("&Back"), this);
+  QPushButton* forwardButton = new QPushButton(i18n("&Forward"), this);
+  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  if (hlayout && backButton && forwardButton && closeButton) {
+    hlayout->addWidget(backButton);
+    hlayout->addWidget(forwardButton);
+    hlayout->addItem(hspacer);
+    hlayout->addWidget(closeButton);
+    closeButton->setDefault(true);
+    backButton->setEnabled(false);
+    forwardButton->setEnabled(false);
+    connect(backButton, SIGNAL(clicked()), m_textBrowser, SLOT(backward()));
+    connect(forwardButton, SIGNAL(clicked()), m_textBrowser, SLOT(forward()));
+    connect(m_textBrowser, SIGNAL(backwardAvailable(bool)), backButton, SLOT(setEnabled(bool)));
+    connect(m_textBrowser, SIGNAL(forwardAvailable(bool)), forwardButton, SLOT(setEnabled(bool)));
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+    vlayout->addLayout(hlayout);
+  }
+  resize(500, 500);
 }
 
 /**
@@ -107,9 +107,9 @@ BrowserDialog::~BrowserDialog()
  */
 void BrowserDialog::goToAnchor(const QString& anchor)
 {
-	QUrl url = QUrl::fromLocalFile(m_filename);
-	url.setFragment(anchor);
-	m_textBrowser->setSource(url);
+  QUrl url = QUrl::fromLocalFile(m_filename);
+  url.setFragment(anchor);
+  m_textBrowser->setSource(url);
 }
 
 #else // CONFIG_USE_KDE

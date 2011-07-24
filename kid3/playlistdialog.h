@@ -41,56 +41,56 @@ class PlaylistDialog : public QDialog {
 Q_OBJECT
 
 public:
-	/**
-	 * Constructor.
-	 *
-	 * @param parent  parent widget
-	 */
-	PlaylistDialog(QWidget* parent);
+  /**
+   * Constructor.
+   *
+   * @param parent  parent widget
+   */
+  PlaylistDialog(QWidget* parent);
 
-	/**
-	 * Destructor.
-	 */
-	~PlaylistDialog();
+  /**
+   * Destructor.
+   */
+  ~PlaylistDialog();
 
-	/**
-	 * Read the local settings from the configuration.
-	 */
-	void readConfig();
+  /**
+   * Read the local settings from the configuration.
+   */
+  void readConfig();
 
-	/**
-	 * Get the current dialog configuration.
-	 *
-	 * @param cfg the current configuration is returned here
-	 */
-	void getCurrentConfig(PlaylistConfig& cfg) const;
+  /**
+   * Get the current dialog configuration.
+   *
+   * @param cfg the current configuration is returned here
+   */
+  void getCurrentConfig(PlaylistConfig& cfg) const;
 
 private slots:
-	/**
-	 * Save the local settings to the configuration.
-	 */
-	void saveConfig() const;
+  /**
+   * Save the local settings to the configuration.
+   */
+  void saveConfig() const;
 
-	/**
-	 * Show help.
-	 */
-	void showHelp();
+  /**
+   * Show help.
+   */
+  void showHelp();
 
 private:
-	QRadioButton* m_sameAsDirNameButton;
-	QRadioButton* m_fileNameFormatButton;
-	QComboBox* m_locationComboBox;
-	QComboBox* m_formatComboBox;
-	QCheckBox* m_onlySelectedFilesCheckBox;
-	QRadioButton* m_sortFileNameButton;
-	QRadioButton* m_sortTagFieldButton;
-	QRadioButton* m_relPathButton;
-	QRadioButton* m_fullPathButton;
-	QRadioButton* m_writeListButton;
-	QRadioButton* m_writeInfoButton;
-	QComboBox* m_fileNameFormatComboBox;
-	QComboBox* m_sortTagFieldComboBox;
-	QComboBox* m_writeInfoComboBox;
+  QRadioButton* m_sameAsDirNameButton;
+  QRadioButton* m_fileNameFormatButton;
+  QComboBox* m_locationComboBox;
+  QComboBox* m_formatComboBox;
+  QCheckBox* m_onlySelectedFilesCheckBox;
+  QRadioButton* m_sortFileNameButton;
+  QRadioButton* m_sortTagFieldButton;
+  QRadioButton* m_relPathButton;
+  QRadioButton* m_fullPathButton;
+  QRadioButton* m_writeListButton;
+  QRadioButton* m_writeInfoButton;
+  QComboBox* m_fileNameFormatComboBox;
+  QComboBox* m_sortTagFieldComboBox;
+  QComboBox* m_writeInfoComboBox;
 };
 
 #endif // PLAYLISTDIALOG_H

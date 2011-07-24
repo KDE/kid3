@@ -52,71 +52,71 @@
  */
 FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent)
 {
-	setModal(true);
-	setWindowTitle(i18n("Filter"));
+  setModal(true);
+  setWindowTitle(i18n("Filter"));
 
-	QVBoxLayout* vlayout = new QVBoxLayout(this);
-	if (vlayout) {
-		vlayout->setMargin(6);
-		vlayout->setSpacing(6);
-		m_edit = new QTextEdit(this);
-		if (m_edit) {
-			m_edit->setReadOnly(true);
-			m_edit->setTabStopWidth(20);
-			m_edit->setAcceptRichText(false);
-			vlayout->addWidget(m_edit);
-		}
+  QVBoxLayout* vlayout = new QVBoxLayout(this);
+  if (vlayout) {
+    vlayout->setMargin(6);
+    vlayout->setSpacing(6);
+    m_edit = new QTextEdit(this);
+    if (m_edit) {
+      m_edit->setReadOnly(true);
+      m_edit->setTabStopWidth(20);
+      m_edit->setAcceptRichText(false);
+      vlayout->addWidget(m_edit);
+    }
 
-		QGroupBox* fltbox = new QGroupBox(i18n("&Filter"), this);
-		if (fltbox) {
-			m_nameComboBox = new QComboBox(fltbox);
-			m_nameComboBox->setEditable(true);
-			m_filterLineEdit = new QLineEdit(fltbox);
-			m_filterLineEdit->setToolTip(FileFilter::getFormatToolTip());
-			QVBoxLayout* vbox = new QVBoxLayout;
-			vbox->setMargin(2);
-			vbox->addWidget(m_nameComboBox);
-			vbox->addWidget(m_filterLineEdit);
-			fltbox->setLayout(vbox);
-			vlayout->addWidget(fltbox);
-			connect(m_nameComboBox, SIGNAL(activated(int)), this,
-							SLOT(setFilterLineEdit(int)));
-		}
+    QGroupBox* fltbox = new QGroupBox(i18n("&Filter"), this);
+    if (fltbox) {
+      m_nameComboBox = new QComboBox(fltbox);
+      m_nameComboBox->setEditable(true);
+      m_filterLineEdit = new QLineEdit(fltbox);
+      m_filterLineEdit->setToolTip(FileFilter::getFormatToolTip());
+      QVBoxLayout* vbox = new QVBoxLayout;
+      vbox->setMargin(2);
+      vbox->addWidget(m_nameComboBox);
+      vbox->addWidget(m_filterLineEdit);
+      fltbox->setLayout(vbox);
+      vlayout->addWidget(fltbox);
+      connect(m_nameComboBox, SIGNAL(activated(int)), this,
+              SLOT(setFilterLineEdit(int)));
+    }
 
-		QHBoxLayout* hlayout = new QHBoxLayout;
-		if (hlayout) {
-			hlayout->setSpacing(6);
-			QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-			if (helpButton) {
-				helpButton->setAutoDefault(false);
-				hlayout->addWidget(helpButton);
-				connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-			}
-			QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
-			if (saveButton) {
-				saveButton->setAutoDefault(false);
-				hlayout->addWidget(saveButton);
-				connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-			}
-			QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-																						 QSizePolicy::Minimum);
-			hlayout->addItem(hspacer);
+    QHBoxLayout* hlayout = new QHBoxLayout;
+    if (hlayout) {
+      hlayout->setSpacing(6);
+      QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+      if (helpButton) {
+        helpButton->setAutoDefault(false);
+        hlayout->addWidget(helpButton);
+        connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+      }
+      QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+      if (saveButton) {
+        saveButton->setAutoDefault(false);
+        hlayout->addWidget(saveButton);
+        connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+      }
+      QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                             QSizePolicy::Minimum);
+      hlayout->addItem(hspacer);
 
-			m_applyButton = new QPushButton(i18n("&Apply"), this);
-			QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-			if (m_applyButton && closeButton) {
-				m_applyButton->setAutoDefault(false);
-				closeButton->setAutoDefault(false);
-				hlayout->addWidget(m_applyButton);
-				hlayout->addWidget(closeButton);
-				connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyFilter()));
-				connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
-				connect(closeButton, SIGNAL(clicked()),
-								&m_fileFilter, SLOT(setAbortFlag()));
-			}
-			vlayout->addLayout(hlayout);
-		}
-	}
+      m_applyButton = new QPushButton(i18n("&Apply"), this);
+      QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+      if (m_applyButton && closeButton) {
+        m_applyButton->setAutoDefault(false);
+        closeButton->setAutoDefault(false);
+        hlayout->addWidget(m_applyButton);
+        hlayout->addWidget(closeButton);
+        connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyFilter()));
+        connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
+        connect(closeButton, SIGNAL(clicked()),
+                &m_fileFilter, SLOT(setAbortFlag()));
+      }
+      vlayout->addLayout(hlayout);
+    }
+  }
 }
 
 /**
@@ -130,12 +130,12 @@ FilterDialog::~FilterDialog()
  */
 void FilterDialog::applyFilter()
 {
-	m_edit->clear();
-	m_fileFilter.setFilterExpression(m_filterLineEdit->text());
-	m_fileFilter.initParser();
-	m_applyButton->setEnabled(false);
-	emit apply(m_fileFilter);
-	m_applyButton->setEnabled(true);
+  m_edit->clear();
+  m_fileFilter.setFilterExpression(m_filterLineEdit->text());
+  m_fileFilter.initParser();
+  m_applyButton->setEnabled(false);
+  emit apply(m_fileFilter);
+  m_applyButton->setEnabled(true);
 }
 
 /**
@@ -145,11 +145,11 @@ void FilterDialog::applyFilter()
  */
 void FilterDialog::setFilterLineEdit(int index)
 {
-	if (index < static_cast<int>(m_filterNames.size())) {
-		m_filterLineEdit->setText(m_filterExpressions[index]);
-	} else {
-		m_filterLineEdit->clear();
-	}
+  if (index < static_cast<int>(m_filterNames.size())) {
+    m_filterLineEdit->setText(m_filterExpressions[index]);
+  } else {
+    m_filterLineEdit->clear();
+  }
 }
 
 /**
@@ -157,12 +157,12 @@ void FilterDialog::setFilterLineEdit(int index)
  */
 void FilterDialog::setFiltersFromConfig()
 {
-	m_filterNames = ConfigStore::s_filterCfg.m_filterNames;
-	m_filterExpressions = ConfigStore::s_filterCfg.m_filterExpressions;
-	m_nameComboBox->clear();
-	m_nameComboBox->addItems(ConfigStore::s_filterCfg.m_filterNames);
-	m_nameComboBox->setCurrentIndex(ConfigStore::s_filterCfg.m_filterIdx);
-	setFilterLineEdit(ConfigStore::s_filterCfg.m_filterIdx);
+  m_filterNames = ConfigStore::s_filterCfg.m_filterNames;
+  m_filterExpressions = ConfigStore::s_filterCfg.m_filterExpressions;
+  m_nameComboBox->clear();
+  m_nameComboBox->addItems(ConfigStore::s_filterCfg.m_filterNames);
+  m_nameComboBox->setCurrentIndex(ConfigStore::s_filterCfg.m_filterIdx);
+  setFilterLineEdit(ConfigStore::s_filterCfg.m_filterIdx);
 }
 
 /**
@@ -170,17 +170,17 @@ void FilterDialog::setFiltersFromConfig()
  */
 void FilterDialog::readConfig()
 {
-	m_fileFilter.clearAbortFlag();
-	m_edit->clear();
-	m_applyButton->setEnabled(true);
+  m_fileFilter.clearAbortFlag();
+  m_edit->clear();
+  m_applyButton->setEnabled(true);
 
-	setFiltersFromConfig();
+  setFiltersFromConfig();
 
-	if (ConfigStore::s_filterCfg.m_windowWidth > 0 &&
-			ConfigStore::s_filterCfg.m_windowHeight > 0) {
-		resize(ConfigStore::s_filterCfg.m_windowWidth,
-					 ConfigStore::s_filterCfg.m_windowHeight);
-	}
+  if (ConfigStore::s_filterCfg.m_windowWidth > 0 &&
+      ConfigStore::s_filterCfg.m_windowHeight > 0) {
+    resize(ConfigStore::s_filterCfg.m_windowWidth,
+           ConfigStore::s_filterCfg.m_windowHeight);
+  }
 }
 
 /**
@@ -188,23 +188,23 @@ void FilterDialog::readConfig()
  */
 void FilterDialog::saveConfig()
 {
-	ConfigStore::s_filterCfg.m_filterIdx = m_nameComboBox->currentIndex();
-	if (ConfigStore::s_filterCfg.m_filterIdx <
-			static_cast<int>(ConfigStore::s_filterCfg.m_filterNames.size())) {
-		ConfigStore::s_filterCfg.m_filterNames[ConfigStore::s_filterCfg.m_filterIdx] =
-			m_nameComboBox->currentText();
-		ConfigStore::s_filterCfg.m_filterExpressions[ConfigStore::s_filterCfg.m_filterIdx] =
-			m_filterLineEdit->text();
-	} else {
-		ConfigStore::s_filterCfg.m_filterIdx =
-			ConfigStore::s_filterCfg.m_filterNames.size();
-		ConfigStore::s_filterCfg.m_filterNames.append(m_nameComboBox->currentText());
-		ConfigStore::s_filterCfg.m_filterExpressions.append(m_filterLineEdit->text());
-	}
-	ConfigStore::s_filterCfg.m_windowWidth = size().width();
-	ConfigStore::s_filterCfg.m_windowHeight = size().height();
+  ConfigStore::s_filterCfg.m_filterIdx = m_nameComboBox->currentIndex();
+  if (ConfigStore::s_filterCfg.m_filterIdx <
+      static_cast<int>(ConfigStore::s_filterCfg.m_filterNames.size())) {
+    ConfigStore::s_filterCfg.m_filterNames[ConfigStore::s_filterCfg.m_filterIdx] =
+      m_nameComboBox->currentText();
+    ConfigStore::s_filterCfg.m_filterExpressions[ConfigStore::s_filterCfg.m_filterIdx] =
+      m_filterLineEdit->text();
+  } else {
+    ConfigStore::s_filterCfg.m_filterIdx =
+      ConfigStore::s_filterCfg.m_filterNames.size();
+    ConfigStore::s_filterCfg.m_filterNames.append(m_nameComboBox->currentText());
+    ConfigStore::s_filterCfg.m_filterExpressions.append(m_filterLineEdit->text());
+  }
+  ConfigStore::s_filterCfg.m_windowWidth = size().width();
+  ConfigStore::s_filterCfg.m_windowHeight = size().height();
 
-	setFiltersFromConfig();
+  setFiltersFromConfig();
 }
 
 /**
@@ -212,23 +212,23 @@ void FilterDialog::saveConfig()
  */
 void FilterDialog::showHelp()
 {
-	ContextHelp::displayHelp("filter");
+  ContextHelp::displayHelp("filter");
 }
 
 /**
  * Show information about filter event.
  */
 void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
-																	 const QString& fileName) {
-	switch (type) {
-	case FileFilter::ParseError:
-		m_edit->append("parse error");
-		break;
-	case FileFilter::FilePassed:
-		m_edit->append(QString("+\t") + fileName);
-		break;
-	case FileFilter::FileFilteredOut:
-		m_edit->append(QString("-\t") + fileName);
-		break;
-	}
+                                   const QString& fileName) {
+  switch (type) {
+  case FileFilter::ParseError:
+    m_edit->append("parse error");
+    break;
+  case FileFilter::FilePassed:
+    m_edit->append(QString("+\t") + fileName);
+    break;
+  case FileFilter::FileFilteredOut:
+    m_edit->append(QString("-\t") + fileName);
+    break;
+  }
 }

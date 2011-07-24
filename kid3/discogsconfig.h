@@ -34,18 +34,18 @@
  */
 class DiscogsConfig : public ServerImporterConfig {
 public:
-	/**
-	 * Constructor.
-	 * Set default configuration.
-	 *
-	 * @param grp configuration group
-	 */
-	DiscogsConfig(const QString& grp);
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  DiscogsConfig(const QString& grp);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~DiscogsConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~DiscogsConfig();
 };
 
 #endif // DISCOGSCONFIG_H

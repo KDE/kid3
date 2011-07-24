@@ -40,74 +40,74 @@ class FrameCollection;
 class FormatConfig : public GeneralConfig
 {
 public:
-	/** Case conversion options. */
-	enum CaseConversion {
-	    NoChanges,
-	    AllLowercase,
-	    AllUppercase,
-	    FirstLetterUppercase,
-	    AllFirstLettersUppercase,
-	    NumCaseConversions
-	};
+  /** Case conversion options. */
+  enum CaseConversion {
+      NoChanges,
+      AllLowercase,
+      AllUppercase,
+      FirstLetterUppercase,
+      AllFirstLettersUppercase,
+      NumCaseConversions
+  };
 
-	/**
-	 * Constructor.
-	 *
-	 * @param grp configuration group
-	 */
-	FormatConfig(const QString& grp);
+  /**
+   * Constructor.
+   *
+   * @param grp configuration group
+   */
+  FormatConfig(const QString& grp);
 
-	/**
-	 * Destructor.
-	 */
-	virtual ~FormatConfig();
+  /**
+   * Destructor.
+   */
+  virtual ~FormatConfig();
 
-	/**
-	 * Set specific properties for a filename format.
-	 * This will set default string conversions and not touch the file
-	 * extension when formatting.
-	 */
-	void setAsFilenameFormatter();
+  /**
+   * Set specific properties for a filename format.
+   * This will set default string conversions and not touch the file
+   * extension when formatting.
+   */
+  void setAsFilenameFormatter();
 
-	/**
-	 * Format a string using this configuration.
-	 *
-	 * @param str string to format
-	 */
-	void formatString(QString& str) const;
+  /**
+   * Format a string using this configuration.
+   *
+   * @param str string to format
+   */
+  void formatString(QString& str) const;
 
-	/**
-	 * Format frames using this configuration.
-	 *
-	 * @param frames frames
-	 */
-	void formatFrames(FrameCollection& frames) const;
+  /**
+   * Format frames using this configuration.
+   *
+   * @param frames frames
+   */
+  void formatFrames(FrameCollection& frames) const;
 
-	/**
-	 * Persist configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void writeToConfig(Kid3Settings* config) const;
+  /**
+   * Persist configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void writeToConfig(Kid3Settings* config) const;
 
-	/**
-	 * Read persisted configuration.
-	 *
-	 * @param config KDE configuration
-	 */
-	virtual void readFromConfig(Kid3Settings* config);
+  /**
+   * Read persisted configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void readFromConfig(Kid3Settings* config);
 
-	/** true to enable formating in line edits */
-	bool m_formatWhileEditing;
-	/** Case conversion option */
-	CaseConversion m_caseConversion;
-	/** true if string replacement enabled */
-	bool m_strRepEnabled;
-	/** Mapping for string replacement */
-	QMap<QString, QString> m_strRepMap;
+  /** true to enable formating in line edits */
+  bool m_formatWhileEditing;
+  /** Case conversion option */
+  CaseConversion m_caseConversion;
+  /** true if string replacement enabled */
+  bool m_strRepEnabled;
+  /** Mapping for string replacement */
+  QMap<QString, QString> m_strRepMap;
 private:
-	/** true if it is a file formatter */
-	bool m_filenameFormatter;
+  /** true if it is a file formatter */
+  bool m_filenameFormatter;
 };
 
 #endif
