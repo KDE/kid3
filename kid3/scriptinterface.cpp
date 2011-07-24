@@ -292,7 +292,7 @@ void ScriptInterface::filter(const QString& expression)
 	FileFilter filter;
 	filter.setFilterExpression(expression);
 	filter.initParser();
-	m_mainWin->applyFilter(filter);
+	m_app->applyFilter(filter);
 }
 
 /**

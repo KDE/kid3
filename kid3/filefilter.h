@@ -40,6 +40,11 @@ class TaggedFile;
 class FileFilter : public QObject {
 Q_OBJECT
 public:
+	/** Type of filter event. */
+	enum FilterEventType {
+		ParseError, FilePassed, FileFilteredOut
+	};
+
 	/**
 	 * Constructor.
 	 */
@@ -82,6 +87,17 @@ public:
 	bool filter(TaggedFile& taggedFile, bool* ok = 0);
 
 	/**
+	 * Clear abort flag.
+	 */
+	void clearAbortFlag() { m_aborted = false; }
+
+	/**
+	 * Check if dialog was aborted.
+	 * @return true if aborted.
+	 */
+	bool getAbortFlag() { return m_aborted; }
+
+	/**
 	 * Get help text for format codes supported by formatString().
 	 *
 	 * @param onlyRows if true only the tr elements are returned,
@@ -90,6 +106,12 @@ public:
 	 * @return help text.
 	 */
 	static QString getFormatToolTip(bool onlyRows = false);
+
+public slots:
+	/**
+	 * Set abort flag.
+	 */
+	void setAbortFlag() { m_aborted = true; }
 
 private:
 	/**
@@ -113,6 +135,7 @@ private:
 	ImportTrackData m_trackData1;
 	ImportTrackData m_trackData2;
 	ImportTrackData m_trackData12;
+	bool m_aborted;
 };
 
 #endif

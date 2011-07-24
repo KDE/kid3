@@ -1282,6 +1282,55 @@ void Kid3Application::scheduleRenameActions()
 }
 
 /**
+ * Apply a file filter.
+ *
+ * @param fileFilter filter to apply.
+ */
+void Kid3Application::applyFilter(FileFilter& fileFilter)
+{
+	m_fileProxyModel->disableFilteringOutIndexes();
+	setFiltered(false);
+	fileFilter.clearAbortFlag();
+
+	bool ok = true;
+	unsigned numFiles = 0;
+	TaggedFileIterator it(m_fileProxyModelRootIndex);
+	while (it.hasNext()) {
+		TaggedFile* taggedFile = it.next();
+
+		taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+		taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+#endif
+		bool pass = fileFilter.filter(*taggedFile, &ok);
+		if (!ok) {
+			emit fileFiltered(FileFilter::ParseError, QString());
+			break;
+		}
+		emit fileFiltered(
+					pass ? FileFilter::FilePassed : FileFilter::FileFilteredOut,
+					taggedFile->getFilename());
+		if (!pass)
+			m_fileProxyModel->filterOutIndex(taggedFile->getIndex());
+
+		if (++numFiles == 8) {
+			numFiles = 0;
+#ifdef CONFIG_USE_KDE
+			kapp->processEvents();
+#else
+			qApp->processEvents();
+#endif
+			if (fileFilter.getAbortFlag())
+				break;
+		}
+	}
+
+	m_fileProxyModel->applyFilteringOutIndexes();
+	setFiltered(!fileFilter.isEmptyFilterExpression());
+	emit fileModified();
+}
+
+/**
  * Set the directory name from the tags.
  * The directory must not have modified files.
  *

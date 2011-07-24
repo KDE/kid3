@@ -50,8 +50,7 @@
  *
  * @param parent parent widget
  */
-FilterDialog::FilterDialog(QWidget* parent) :
-	QDialog(parent), m_aborted(false)
+FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent)
 {
 	setModal(true);
 	setWindowTitle(i18n("Filter"));
@@ -112,7 +111,8 @@ FilterDialog::FilterDialog(QWidget* parent) :
 				hlayout->addWidget(closeButton);
 				connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyFilter()));
 				connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
-				connect(closeButton, SIGNAL(clicked()), this, SLOT(setAbortFlag()));
+				connect(closeButton, SIGNAL(clicked()),
+								&m_fileFilter, SLOT(setAbortFlag()));
 			}
 			vlayout->addLayout(hlayout);
 		}
@@ -170,7 +170,7 @@ void FilterDialog::setFiltersFromConfig()
  */
 void FilterDialog::readConfig()
 {
-	clearAbortFlag();
+	m_fileFilter.clearAbortFlag();
 	m_edit->clear();
 	m_applyButton->setEnabled(true);
 
@@ -216,9 +216,19 @@ void FilterDialog::showHelp()
 }
 
 /**
- * Set abort flag.
+ * Show information about filter event.
  */
-void FilterDialog::setAbortFlag()
-{
-	m_aborted = true;
+void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
+																	 const QString& fileName) {
+	switch (type) {
+	case FileFilter::ParseError:
+		m_edit->append("parse error");
+		break;
+	case FileFilter::FilePassed:
+		m_edit->append(QString("+\t") + fileName);
+		break;
+	case FileFilter::FileFilteredOut:
+		m_edit->append(QString("-\t") + fileName);
+		break;
+	}
 }

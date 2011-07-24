@@ -31,6 +31,7 @@
 #include <QPersistentModelIndex>
 #include "frame.h"
 #include "trackdata.h"
+#include "filefilter.h"
 #include "generalconfig.h"
 
 class QFileSystemModel;
@@ -617,6 +618,13 @@ public slots:
 	 */
 	void scheduleRenameActions();
 
+	/**
+	 * Apply a file filter.
+	 *
+	 * @param fileFilter filter to apply.
+	 */
+	void applyFilter(FileFilter& fileFilter);
+
 signals:
 	/**
 	 * Emitted when a new directory is opened.
@@ -684,6 +692,14 @@ signals:
 	 * @param format new format
 	 */
 	void tagsToFilenameFormatChanged(const QString& format);
+
+	/**
+	 * Emitted when a file is filtered.
+	 * @param type filter event type
+	 * @param fileName name of filtered file
+	 */
+	void fileFiltered(FileFilter::FilterEventType type,
+										const QString& fileName);
 
 private:
 	/**

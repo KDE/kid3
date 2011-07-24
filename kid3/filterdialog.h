@@ -67,17 +67,6 @@ public:
 	 */
 	void showInformation(const QString& text) { m_edit->append(text); }
 
-	/**
-	 * Clear abort flag.
-	 */
-	void clearAbortFlag() { m_aborted = false; }
-
-	/**
-	 * Check if dialog was aborted.
-	 * @return true if aborted.
-	 */
-	bool getAbortFlag() { return m_aborted; }
-
 signals:
 	/**
 	 * Is triggered when the selected @a filter has to be applied.
@@ -91,6 +80,15 @@ public slots:
 	 * @param index current index of the combo box
 	 */
 	void setFilterLineEdit(int index);
+
+	/**
+	 * Show information about filter event.
+	 *
+	 * @param type filter event type
+	 * @param fileName name of filtered file
+	 */
+	void showFilterEvent(FileFilter::FilterEventType type,
+											 const QString& fileName);
 
 private slots:
 	/**
@@ -107,11 +105,6 @@ private slots:
 	 * Apply filter.
 	 */
 	void applyFilter();
-
-	/**
-	 * Set abort flag.
-	 */
-	void setAbortFlag();
 
 private:
 	/**
@@ -133,8 +126,6 @@ private:
 	QStringList m_filterExpressions;
 	/** file filter used */
 	FileFilter m_fileFilter;
-	/** abort flag */
-	bool m_aborted;
 };
 
 #endif

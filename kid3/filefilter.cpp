@@ -33,7 +33,8 @@
  * Constructor.
  */
 FileFilter::FileFilter() :
-	m_parser(QStringList() << "equals" << "contains" << "matches")
+	m_parser(QStringList() << "equals" << "contains" << "matches"),
+	m_aborted(false)
 {
 }
 

@@ -384,13 +384,6 @@ public slots:
 
 private slots:
 	/**
-	 * Apply a file filter.
-	 *
-	 * @param fileFilter filter to apply.
-	 */
-	void applyFilter(FileFilter& fileFilter);
-
-	/**
 	 * Update ID3v2 tags in GUI controls from file displayed in frame list.
 	 *
 	 * @param taggedFile the selected file
@@ -443,18 +436,6 @@ private:
 	 * @return true if ok.
 	 */
 	bool writePlaylist(const PlaylistConfig& cfg);
-
-	/**
-	 * Apply a file filter to a directory.
-	 *
-	 * @param fileFilter filter to apply
-	 * @param model the model to be filtered
-	 * @param rootIndex model index of root directory
-	 *
-	 * @return true if ok, false if aborted.
-	 */
-	bool applyFilterToDir(FileFilter& fileFilter, FileProxyModel* model,
-												const QModelIndex& rootIndex);
 
 	/** GUI with controls */
 	Kid3Form* m_form;

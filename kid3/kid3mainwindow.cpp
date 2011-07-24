@@ -1620,94 +1620,18 @@ void Kid3MainWindow::slotNumberTracks()
 }
 
 /**
- * Apply a file filter to a directory.
- *
- * @param fileFilter filter to apply
- * @param model the model to be filtered
- * @param rootIndex model index of root directory
- *
- * @return true if ok, false if aborted.
- */
-bool Kid3MainWindow::applyFilterToDir(FileFilter& fileFilter, FileProxyModel* model,
-																 const QModelIndex& rootIndex)
-{
-	if (!model)
-		return false;
-	bool ok = true;
-	unsigned numFiles = 0;
-	TaggedFileIterator it(rootIndex);
-	while (it.hasNext()) {
-		TaggedFile* taggedFile = it.next();
-
-		taggedFile->readTags(false);
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-		taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
-#endif
-		bool pass = fileFilter.filter(*taggedFile, &ok);
-		if (!ok) {
-			if (m_filterDialog) {
-				m_filterDialog->showInformation("parse error");
-			}
-			break;
-		}
-		if (m_filterDialog) {
-			m_filterDialog->showInformation(
-				(pass ? QString("+\t") : QString("-\t")) + taggedFile->getFilename());
-		}
-		if (!pass)
-			model->filterOutIndex(taggedFile->getIndex());
-
-		if (++numFiles == 8) {
-			numFiles = 0;
-#ifdef CONFIG_USE_KDE
-			kapp->processEvents();
-#else
-			qApp->processEvents();
-#endif
-			if (m_filterDialog && m_filterDialog->getAbortFlag())
-				break;
-		}
-	}
-	return false;
-}
-
-/**
- * Apply a file filter.
- *
- * @param fileFilter filter to apply.
- */
-void Kid3MainWindow::applyFilter(FileFilter& fileFilter)
-{
-	QModelIndex rootIndex(m_form->getFileList()->rootIndex());
-	FileProxyModel* model =
-			qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
-	if (!rootIndex.isValid() || !model)
-		return;
-
-	model->disableFilteringOutIndexes();
-	m_app->setFiltered(false);
-
-	if (m_filterDialog) {
-		m_filterDialog->clearAbortFlag();
-	}
-
-	applyFilterToDir(fileFilter, model, rootIndex);
-
-	model->applyFilteringOutIndexes();
-	m_app->setFiltered(!fileFilter.isEmptyFilterExpression());
-	updateModificationState();
-}
-
-/**
  * Filter.
  */
 void Kid3MainWindow::slotFilter()
 {
 	if (saveModified()) {
 		if (!m_filterDialog) {
-			m_filterDialog = new FilterDialog(0);
+			m_filterDialog = new FilterDialog(this);
 			connect(m_filterDialog, SIGNAL(apply(FileFilter&)),
-							this, SLOT(applyFilter(FileFilter&)));
+							m_app, SLOT(applyFilter(FileFilter&)));
+			connect(m_app, SIGNAL(fileFiltered(FileFilter::FilterEventType,QString)),
+							m_filterDialog,
+							SLOT(showFilterEvent(FileFilter::FilterEventType,QString)));
 		}
 		if (m_filterDialog) {
 			ConfigStore::s_filterCfg.setFilenameFormat(
