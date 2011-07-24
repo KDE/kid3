@@ -455,7 +455,7 @@ void FrameCollection::addMissingStandardFrames()
  * Copy enabled frames.
  *
  * @param flt filter with enabled frames
- * 
+ *
  * @return copy with enabled frames.
  */
 FrameCollection FrameCollection::copyEnabledFrames(const FrameFilter& flt) const
@@ -524,10 +524,10 @@ void FrameCollection::merge(const FrameCollection& frames)
  */
 bool FrameCollection::isEmptyOrInactive() const
 {
-	return 
+	return
 		getTitle().isEmpty() &&
 		getArtist().isEmpty() &&
-		getAlbum().isEmpty() && 
+		getAlbum().isEmpty() &&
 		getComment().isEmpty() &&
 		getYear() <= 0 &&
 		getTrack() <= 0 &&
@@ -843,7 +843,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 					// If there is a picture without description, return "1", so that
 					// an empty value indicates "no picture"
 					result = "1";
-				}				
+				}
 			}
 		}
 

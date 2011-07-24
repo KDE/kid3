@@ -89,7 +89,7 @@ or
 rock 920b810c Catharsis / Imago
 .
 theoretically, but never seen
-200	categ discid dtitle
+200 categ discid dtitle
 */
 	QString str = QString::fromUtf8(searchStr);
 	QRegExp catIdTitleRe("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)");

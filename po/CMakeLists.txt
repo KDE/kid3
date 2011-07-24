@@ -18,14 +18,14 @@ IF (GETTEXT_MSGMERGE_EXECUTABLE AND GETTEXT_MSGFMT_EXECUTABLE )
       GET_FILENAME_COMPONENT(_lang ${_absFile} NAME_WE)
       SET(_gmoFile ${CMAKE_CURRENT_BINARY_DIR}/${_lang}.gmo)
 
-      ADD_CUSTOM_COMMAND( 
-         OUTPUT ${_gmoFile} 
+      ADD_CUSTOM_COMMAND(
+         OUTPUT ${_gmoFile}
          COMMAND ${GETTEXT_MSGMERGE_EXECUTABLE} --quiet --update --backup=none ${_absFile} ${_absPotFile}
          COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} -o ${_gmoFile} ${_absFile}
-         DEPENDS ${_absPotFile} ${_absFile} 
+         DEPENDS ${_absPotFile} ${_absFile}
       )
 
-      INSTALL(FILES ${_gmoFile} DESTINATION share/locale/${_lang}/LC_MESSAGES RENAME ${_potBasename}.mo) 
+      INSTALL(FILES ${_gmoFile} DESTINATION share/locale/${_lang}/LC_MESSAGES RENAME ${_potBasename}.mo)
       SET(_gmoFiles ${_gmoFiles} ${_gmoFile})
 
    ENDFOREACH (_currentPoFile )
@@ -54,7 +54,7 @@ else(WITH_KDE)
 		endif (EXISTS ${QT_TRANSLATIONS_DIR}/qt_${_lang}.qm)
   endforeach (_currentPoFile)
 
-  add_custom_command( 
+  add_custom_command(
      OUTPUT ${_tsFiles}
      COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/po2ts.pl ${QT_LUPDATE_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../kid3
      DEPENDS ${_poFiles}

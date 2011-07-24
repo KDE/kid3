@@ -40,7 +40,7 @@ public:
 	 * @param path path to directory
 	 */
 	void addDirectory(const QString& dir);
-	
+
   /**
    * Saves the current recent files entries to a given configuration.
    *

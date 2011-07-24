@@ -177,7 +177,7 @@ public:
 	 * @param idStr   ID
 	 */
 	AlbumListItem(const QString& text,
-				  const QString& cat, const QString& idStr) : 
+				  const QString& cat, const QString& idStr) :
 		QStandardItem(text) {
 		setData(cat, Qt::UserRole + 1);
 		setData(idStr, Qt::UserRole + 2);

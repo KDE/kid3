@@ -786,7 +786,7 @@ void Kid3MainWindow::initStatusBar()
  * Init GUI.
  */
 void Kid3MainWindow::initView()
-{ 
+{
 	m_form = new Kid3Form(m_app, this);
 	if (m_form) {
 		setCentralWidget(m_form);

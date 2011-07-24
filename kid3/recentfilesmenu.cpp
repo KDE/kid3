@@ -57,7 +57,7 @@ void RecentFilesMenu::addDirectory(const QString& dir)
 
 	updateRecentFileActions();
 }
-	
+
 /**
  * Saves the current recent files entries to a given configuration.
  *

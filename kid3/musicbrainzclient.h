@@ -132,7 +132,7 @@ private:
 	 * -1 if not yet started,
 	 * 0..m_numFiles-1 if a file is currently processed,
 	 * >=m_numFiles if all files processed.
-	 */ 
+	 */
 	int m_currentFile;
 	FileQuery* m_fileQueries;
 	QTcpSocket* m_sock;

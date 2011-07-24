@@ -3115,7 +3115,7 @@ static void stripMp4FreeFormName(TagLib::String& name)
 {
 	if (name.startsWith("----")) {
 		int nameStart = name.rfind(":");
-		if (nameStart == -1) { 
+		if (nameStart == -1) {
 			nameStart = 5;
 		} else {
 			++nameStart;
@@ -3209,7 +3209,7 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
 			TagLib::MP4::CoverArt::Format format = TagLib::MP4::CoverArt::JPEG;
 			if (PictureFrame::getData(frame, ba)) {
 				QString mimeType;
-				if (PictureFrame::getMimeType(frame, mimeType) && 
+				if (PictureFrame::getMimeType(frame, mimeType) &&
 						mimeType == "image/png") {
 					format = TagLib::MP4::CoverArt::PNG;
 				}
@@ -3514,7 +3514,7 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
 #if TAGLIB_VERSION >= 0x010602
 			else {
 				TagLib::ByteVector bv;
-				renderAsfPicture(frame, bv); 
+				renderAsfPicture(frame, bv);
 				return TagLib::ASF::Attribute(bv);
 			}
 #endif

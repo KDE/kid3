@@ -132,7 +132,7 @@ public slots:
 
 	/**
 	 * Quit the application.
-	 * Omitted Q_NOREPLY because the Qt 3 moc chokes on it. 
+	 * Omitted Q_NOREPLY because the Qt 3 moc chokes on it.
 	 */
 	void quit();
 

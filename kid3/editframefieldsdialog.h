@@ -179,7 +179,7 @@ public:
 
 private:
 	Frame::FieldList m_fields;
-	QList<FieldControl*> m_fieldcontrols; 
+	QList<FieldControl*> m_fieldcontrols;
 };
 
 #endif // EDITFRAMEFIELDSDIALOG_H

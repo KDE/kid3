@@ -90,7 +90,7 @@ public:
 	 * Check if an error occurred.
 	 * @return true if an error occurred.
 	 */
-	bool hasError() const {	return m_error; }
+	bool hasError() const { return m_error; }
 
 	/**
 	 * Pop a boolean from the variable stack.

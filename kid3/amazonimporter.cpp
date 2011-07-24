@@ -90,10 +90,10 @@ bool AmazonImporter::additionalTags() const { return true; }
 void AmazonImporter::parseFindResults(const QByteArray& searchStr)
 {
 	/* products have the following format (depending on browser):
-<td class="dataColumn"><table cellpadding="0" cellspacing="0" border="0"><tr><td>                      
-<a href="http://www.amazon.com/Avenger-Amon-Amarth/dp/B001VROVHO/ref=sr_1_1/178-1209985-8853325?ie=UTF8&s=music&qid=1260707733&sr=1-1"><span class="srTitle">The Avenger</span></a>                           
-   by <a href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk1/178-1209985-8853325?_encoding=UTF8&amp;qid=1260707733&amp;sr=1-1">Amon Amarth</a> <span class="bindingBlock">(<span class="binding">Audio CD</span> - 2009)</span> - <span class="formatText">Original recording reissued</span></td></tr>             
-<td></td>                                                                                              
+<td class="dataColumn"><table cellpadding="0" cellspacing="0" border="0"><tr><td>
+<a href="http://www.amazon.com/Avenger-Amon-Amarth/dp/B001VROVHO/ref=sr_1_1/178-1209985-8853325?ie=UTF8&s=music&qid=1260707733&sr=1-1"><span class="srTitle">The Avenger</span></a>
+	 by <a href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk1/178-1209985-8853325?_encoding=UTF8&amp;qid=1260707733&amp;sr=1-1">Amon Amarth</a> <span class="bindingBlock">(<span class="binding">Audio CD</span> - 2009)</span> - <span class="formatText">Original recording reissued</span></td></tr>
+<td></td>
 	   or:
 <div class="productTitle"><a href="http://www.amazon.com/Avenger-Amon-Amarth/dp/B001VROVHO/ref=sr_1_1?ie=UTF8&s=music&qid=1260607141&sr=1-1"> The Avenger</a> <span class="ptBrand">by <a href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk_1?_encoding=UTF8&amp;qid=1260607141&amp;sr=1-1">Amon Amarth</a></span><span class="binding"> (<span class="format">Audio CD</span> - 2009)</span> - <span class="format">Original recording reissued</span></div>
 	 */
@@ -134,11 +134,11 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 		details (empty lines removed):
 <a name="productDetails" id="productDetails"></a>
 <hr noshade="noshade" size="1" class="bucketDivider" />
-<table cellpadding="0" cellspacing="0" border="0">     
-  <tr>                                                 
-    <td class="bucket">                                
+<table cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td class="bucket">
 <h2>Product Details</h2>
-  <div class="content"> 
+	<div class="content">
 <ul>
 <li><b>Audio CD</b>  (November 2, 1999)</li>
 <li><b>Original Release Date:</b> November 2, 1999</li>
@@ -152,7 +152,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 <tr class="listRowEven">
 <td>
 1. Before the Devil Knows You're Dead
-</td>                                
+</td>
 	 */
 	QString str = QString::fromLatin1(albumStr);
 	FrameCollection framesHdr;
@@ -186,7 +186,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 			}
 		}
 	}
-	
+
 	// search for >Product Details<, >Original Release Date:<, >Label:<
 	const bool additionalTags = getAdditionalTags();
 	QString albumArtist;
@@ -363,7 +363,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 						title = nrTitleRe.cap(1);
 						start = str.indexOf("class=\"listRow", end);
 					} else {
-						start = -1; 
+						start = -1;
 					}
 				}
 			}

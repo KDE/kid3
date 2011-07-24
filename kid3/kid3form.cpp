@@ -69,9 +69,9 @@ QPixmap* Kid3Form::s_expandPixmap = 0;
 /** picture for collapse pixmap */
 static const char* const collapse_xpm[] = {
 	"7 7 3 1",
-	" 	c None",
-	".	c #FFFFFF",
-	"+	c #000000",
+	" \tc None",
+	".\tc #FFFFFF",
+	"+\tc #000000",
 	".......",
 	".......",
 	".......",
@@ -84,9 +84,9 @@ static const char* const collapse_xpm[] = {
 /** picture for expand pixmap */
 static const char* const expand_xpm[] = {
 	"7 7 3 1",
-	" 	c None",
-	".	c #FFFFFF",
-	"+	c #000000",
+	" \tc None",
+	".\tc #FFFFFF",
+	"+\tc #000000",
 	".......",
 	"...+...",
 	"...+...",
@@ -147,7 +147,7 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 
 
 /**
- * Constructs an Id3Form as a child of 'parent', with the 
+ * Constructs an Id3Form as a child of 'parent', with the
  * name 'name' and widget flags set to 'f'.
  * @param app application
  * @param parent parent widget

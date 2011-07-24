@@ -442,7 +442,7 @@ public:
 	 * Copy enabled frames.
 	 *
 	 * @param flt filter with enabled frames
-	 * 
+	 *
 	 * @return copy with enabled frames.
 	 */
 	FrameCollection copyEnabledFrames(const FrameFilter& flt) const;
@@ -529,91 +529,91 @@ public:
 	 * @return artist, QString::null if not found.
 	 */
 	QString getArtist() const { return getValue(Frame::FT_Artist); }
-	
+
 	/**
 	 * Set artist.
 	 *
 	 * @param artist artist, nothing is done if QString::null
 	 */
 	void setArtist(const QString& artist) { setValue(Frame::FT_Artist, artist); }
-	
+
 	/**
 	 * Get album.
 	 *
 	 * @return album, QString::null if not found.
 	 */
 	QString getAlbum() const { return getValue(Frame::FT_Album); }
-	
+
 	/**
 	 * Set album.
 	 *
 	 * @param album album, nothing is done if QString::null
 	 */
 	void setAlbum(const QString& album) { setValue(Frame::FT_Album, album); }
-	
+
 	/**
 	 * Get title.
 	 *
 	 * @return title, QString::null if not found.
 	 */
 	QString getTitle() const { return getValue(Frame::FT_Title); }
-	
+
 	/**
 	 * Set title.
 	 *
 	 * @param title title, nothing is done if QString::null
 	 */
 	void setTitle(const QString& title) { setValue(Frame::FT_Title, title); }
-	
+
 	/**
 	 * Get comment.
 	 *
 	 * @return comment, QString::null if not found.
 	 */
 	QString getComment() const { return getValue(Frame::FT_Comment); }
-	
+
 	/**
 	 * Set comment.
 	 *
 	 * @param comment comment, nothing is done if QString::null
 	 */
 	void setComment(const QString& comment) { setValue(Frame::FT_Comment, comment); }
-	
+
 	/**
 	 * Get genre.
 	 *
 	 * @return genre, QString::null if not found.
 	 */
 	QString getGenre() const { return getValue(Frame::FT_Genre); }
-	
+
 	/**
 	 * Set genre.
 	 *
 	 * @param genre genre, nothing is done if QString::null
 	 */
 	void setGenre(const QString& genre) { setValue(Frame::FT_Genre, genre); }
-	
+
 	/**
 	 * Get track.
 	 *
 	 * @return track, -1 if not found.
 	 */
 	int getTrack() const { return getIntValue(Frame::FT_Track); }
-	
+
 	/**
 	 * Set track.
 	 *
 	 * @param track track, nothing is done if -1
 	 */
 	void setTrack(int track) { setIntValue(Frame::FT_Track, track); }
-	
+
 	/**
 	 * Get year.
 	 *
 	 * @return year, -1 if not found.
 	 */
 	int getYear() const { return getIntValue(Frame::FT_Date); }
-	
+
 	/**
 	 * Set year.
 	 *

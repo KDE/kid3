@@ -294,7 +294,7 @@ ImportConfig::ImportConfig(const QString& grp) :
 	m_pictureSourceUrls.append("http://www.discogs.com/search?q=%u{artist}+%u{album}");
 	m_pictureSourceNames.append("CD Universe");
 	m_pictureSourceUrls.append("http://www.cduniverse.com/sresult.asp?HT_Search_Info=%u{artist}+%u{album}");
- 	m_pictureSourceNames.append("Coveralia");
+	m_pictureSourceNames.append("Coveralia");
 	m_pictureSourceUrls.append("http://www.coveralia.com/mostrar.php?bus=%u{artist}%20%u{album}&bust=2");
 	m_pictureSourceNames.append("FreeCovers");
 	m_pictureSourceUrls.append("http://www.freecovers.net/search.php?search=%u{artist}+%u{album}&cat=4");

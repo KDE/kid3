@@ -425,7 +425,7 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 				(tagMask & 2) != 0) {
 			m_app->deleteFrame(it->getName());
 			PictureFrame frame;
-			PictureFrame::setDescription(frame, value);					
+			PictureFrame::setDescription(frame, value);
 			PictureFrame::setDataFromFile(frame, dataFileName);
 			PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
 			m_app->addFrame(&frame);
@@ -442,7 +442,7 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 		Frame frame(type, value, frameName, -1);
 		if (type == Frame::FT_Picture && !dataFileName.isEmpty()) {
 			PictureFrame::setFields(frame);
-			PictureFrame::setDescription(frame, value);					
+			PictureFrame::setDescription(frame, value);
 			PictureFrame::setDataFromFile(frame, dataFileName);
 			PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
 		}

@@ -57,8 +57,8 @@ class Kid3Form : public QSplitter
 Q_OBJECT
 
 public:
-	/** 
-	 * Constructs an Id3Form as a child of 'parent', with the 
+	/**
+	 * Constructs an Id3Form as a child of 'parent', with the
 	 * name 'name' and widget flags set to 'f'.
 	 * @param app application
 	 * @param parent parent widget

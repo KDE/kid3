@@ -601,7 +601,7 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
 		ba = ba.mid(index);
 	}
 	PictureFrame::setFields(
-		frame, Frame::Field::TE_UTF8,	"", mimeType,
+		frame, Frame::Field::TE_UTF8, "", mimeType,
 		pictureType, description, ba);
 }
 

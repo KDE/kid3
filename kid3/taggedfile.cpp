@@ -830,7 +830,7 @@ bool TaggedFile::setFrameV1(const Frame& frame)
 			n = 0;
 		} else {
 			n = Frame::numberWithoutTotal(frame.m_value);
-		} 
+		}
 	}
 	switch (frame.m_type) {
 		case Frame::FT_Album:

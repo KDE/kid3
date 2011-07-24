@@ -51,7 +51,7 @@ public:
 
 private:
 	/** image to view */
-	QLabel* m_image; 
+	QLabel* m_image;
 };
 
 #endif // IMAGEVIEWER_H

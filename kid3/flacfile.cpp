@@ -80,7 +80,7 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
 		pic->get_data_length());
 	PictureFrame::setFields(
 		frame,
-		Frame::Field::TE_ISO8859_1,	"",
+		Frame::Field::TE_ISO8859_1, "",
 		QString::fromAscii(pic->get_mime_type()),
 		static_cast<PictureFrame::PictureType>(pic->get_type()),
 		QString::fromUtf8(

@@ -418,7 +418,7 @@ void MusicBrainzClient::setConfig(
 	if (useProxy) {
 		FreedbImporter::splitNamePort(proxy, ip, port);
 		tp_SetProxy(m_tp, ip.toLatin1().data(), port);
-	}	else {
+	} else {
 		tp_SetProxy(m_tp, "", 80);
 	}
 }
@@ -626,23 +626,23 @@ bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
 			}
 // Handling eArtistList and eAlbumList results does not help much,
 // so it is not done.
-//			else if (type == eArtistList) {
-//				artistresult_t** artistResults =
-//					reinterpret_cast<artistresult_t**>(results);
-//				qDebug("Artist List for %d:", id);
-//				for (int i = 0; i < num; ++i) {
-//					artistresult_t* res = *artistResults++;
-//					qDebug("%2d. %d%% %s", i, res->relevance, res->name);
-//				}
-//			}	else if (type == eAlbumList) {
-//				albumresult_t** albumResults =
-//					reinterpret_cast<albumresult_t**>(results);
-//				qDebug("Album List for %d:", id);
-//				for (int i = 0; i < num; ++i) {
-//					albumresult_t* res = *albumResults++;
-//					qDebug("%2d. %d%% %s - %s", i, res->relevance, res->artist->name, res->name);
-//				}
-//			}
+//      else if (type == eArtistList) {
+//        artistresult_t** artistResults =
+//            reinterpret_cast<artistresult_t**>(results);
+//        qDebug("Artist List for %d:", id);
+//        for (int i = 0; i < num; ++i) {
+//          artistresult_t* res = *artistResults++;
+//          qDebug("%2d. %d%% %s", i, res->relevance, res->name);
+//        }
+//      } else if (type == eAlbumList) {
+//        albumresult_t** albumResults =
+//            reinterpret_cast<albumresult_t**>(results);
+//        qDebug("Album List for %d:", id);
+//        for (int i = 0; i < num; ++i) {
+//          albumresult_t* res = *albumResults++;
+//          qDebug("%2d. %d%% %s - %s", i, res->relevance, res->artist->name, res->name);
+//        }
+//      }
 
 			rs_Delete(type, results, num);
 			delete [] results;

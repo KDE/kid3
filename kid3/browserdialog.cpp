@@ -96,8 +96,6 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 
 /**
  * Destructor.
- *
- * @param  
  */
 BrowserDialog::~BrowserDialog()
 {}
