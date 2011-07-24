@@ -347,6 +347,13 @@ public:
 	int getTotalNumberOfTracksInDir();
 
 	/**
+	 * Get name of selected file.
+	 *
+	 * @return absolute file name, ends with "/" if it is a directory.
+	 */
+	QString getFileNameOfSelectedFile();
+
+	/**
 	 * Create a filter string for the file dialog.
 	 * The filter string contains entries for all supported types.
 	 *
@@ -542,9 +549,9 @@ public slots:
 	 * If a single file is selected the tags in the GUI controls
 	 * are used, else the tags in the multiple selected files.
 	 *
-	 * @param tag_version 1=ID3v1, 2=ID3v2
+	 * @param tagVersion tag version
 	 */
-	void getFilenameFromTags(int tag_version);
+	void getFilenameFromTags(TrackData::TagVersion tagVersion);
 
 	/**
 	 * Edit selected frame.
@@ -624,6 +631,13 @@ public slots:
 	 * @param fileFilter filter to apply.
 	 */
 	void applyFilter(FileFilter& fileFilter);
+
+	/**
+	 * Apply a file filter.
+	 *
+	 * @param expression filter expression
+	 */
+	void applyFilter(const QString& expression);
 
 signals:
 	/**

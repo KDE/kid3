@@ -550,6 +550,25 @@ void Kid3Application::formatFramesIfEnabled(FrameCollection& frames) const
 }
 
 /**
+ * Get name of selected file.
+ *
+ * @return absolute file name, ends with "/" if it is a directory.
+ */
+QString Kid3Application::getFileNameOfSelectedFile()
+{
+	QModelIndex index = getFileSelectionModel()->currentIndex();
+	QString dirname = FileProxyModel::getPathIfIndexOfDir(index);
+	if (!dirname.isNull()) {
+		if (!dirname.endsWith('/')) dirname += '/';
+		return dirname;
+	} else if (TaggedFile* taggedFile =
+						 FileProxyModel::getTaggedFileOfIndex(index)) {
+		return taggedFile->getAbsFilename();
+	}
+	return "";
+}
+
+/**
  * Set name of selected file.
  * Exactly one file has to be selected.
  *
@@ -795,9 +814,9 @@ void Kid3Application::getTagsFromFilenameV2()
  * If a single file is selected the tags in the GUI controls
  * are used, else the tags in the multiple selected files.
  *
- * @param tag_version 1=ID3v1, 2=ID3v2
+ * @param tagVersion tag version
  */
-void Kid3Application::getFilenameFromTags(int tag_version)
+void Kid3Application::getFilenameFromTags(TrackData::TagVersion tagVersion)
 {
 	emit fileSelectionUpdateRequested();
 	QItemSelectionModel* selectModel = getFileSelectionModel();
@@ -806,8 +825,7 @@ void Kid3Application::getFilenameFromTags(int tag_version)
 																false);
 	while (it.hasNext()) {
 		TaggedFile* taggedFile = it.next();
-		TrackData trackData(*taggedFile,
-												tag_version == 2 ? TrackData::TagV2 : TrackData::TagV1);
+		TrackData trackData(*taggedFile, tagVersion);
 		if (!trackData.isEmptyOrInactive()) {
 			taggedFile->setFilename(
 						trackData.formatFilenameFromTags(m_tagsToFilenameFormat));
@@ -1328,6 +1346,19 @@ void Kid3Application::applyFilter(FileFilter& fileFilter)
 	m_fileProxyModel->applyFilteringOutIndexes();
 	setFiltered(!fileFilter.isEmptyFilterExpression());
 	emit fileModified();
+}
+
+/**
+ * Apply a file filter.
+ *
+ * @param expression filter expression
+ */
+void Kid3Application::applyFilter(const QString& expression)
+{
+	FileFilter filter;
+	filter.setFilterExpression(expression);
+	filter.initParser();
+	applyFilter(filter);
 }
 
 /**

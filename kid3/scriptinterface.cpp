@@ -116,7 +116,8 @@ void ScriptInterface::revert()
  *
  * @return true if ok.
  */
-bool ScriptInterface::importFromFile(int tagMask, const QString& path, int fmtIdx)
+bool ScriptInterface::importFromFile(int tagMask, const QString& path,
+																		 int fmtIdx)
 {
 	return m_app->importTags(TrackData::tagVersionCast(tagMask), path, fmtIdx);
 }
@@ -145,8 +146,7 @@ void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
  */
 bool ScriptInterface::exportToFile(int tagMask, const QString& path, int fmtIdx)
 {
-	return m_app->exportTags(TrackData::tagVersionCast(tagMask), path,
-													 fmtIdx);
+	return m_app->exportTags(TrackData::tagVersionCast(tagMask), path, fmtIdx);
 }
 
 /**
@@ -259,7 +259,7 @@ void ScriptInterface::applyTagFormat()
  *         else the error message is available using getErrorMessage().
  */
 bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
-																		bool create)
+																				bool create)
 {
 	if (m_app->renameDirectory(TrackData::tagVersionCast(tagMask), format,
 														 create, &m_errorMsg)) {
@@ -289,10 +289,7 @@ void ScriptInterface::numberTracks(int tagMask, int firstTrackNr)
  */
 void ScriptInterface::filter(const QString& expression)
 {
-	FileFilter filter;
-	filter.setFilterExpression(expression);
-	filter.initParser();
-	m_app->applyFilter(filter);
+	m_app->applyFilter(expression);
 }
 
 /**
@@ -332,16 +329,7 @@ QString ScriptInterface::getDirectoryName()
  */
 QString ScriptInterface::getFileName()
 {
-	QModelIndex index = m_app->getFileSelectionModel()->currentIndex();
-	QString dirname = FileProxyModel::getPathIfIndexOfDir(index);
-	if (!dirname.isNull()) {
-		if (!dirname.endsWith('/')) dirname += '/';
-		return dirname;
-	} else if (TaggedFile* taggedFile =
-						 FileProxyModel::getTaggedFileOfIndex(index)) {
-		return taggedFile->getAbsFilename();
-	}
-	return "";
+	return m_app->getFileNameOfSelectedFile();
 }
 
 /**
@@ -374,9 +362,7 @@ void ScriptInterface::setFileNameFormat(const QString& format)
  */
 void ScriptInterface::setFileNameFromTag(int tagMask)
 {
-	if (tagMask == 1 || tagMask == 2) {
-		m_app->getFilenameFromTags(tagMask);
-	}
+	m_app->getFilenameFromTags(TrackData::tagVersionCast(tagMask));
 }
 
 /**

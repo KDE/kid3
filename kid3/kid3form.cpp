@@ -486,7 +486,7 @@ void Kid3Form::deleteFrame()
 
 void Kid3Form::fnFromID3V1()
 {
-	m_app->getFilenameFromTags(1);
+	m_app->getFilenameFromTags(TrackData::TagV1);
 }
 
 /**
@@ -495,7 +495,7 @@ void Kid3Form::fnFromID3V1()
 
 void Kid3Form::fnFromID3V2()
 {
-	m_app->getFilenameFromTags(2);
+	m_app->getFilenameFromTags(TrackData::TagV2);
 }
 
 /**
