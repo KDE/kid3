@@ -25,7 +25,6 @@
  */
 
 #include "browserdialog.h"
-#include "config.h"
 
 #ifndef CONFIG_USE_KDE
 #include <QTextBrowser>
@@ -111,11 +110,5 @@ void BrowserDialog::goToAnchor(const QString& anchor)
   url.setFragment(anchor);
   m_textBrowser->setSource(url);
 }
-
-#else // CONFIG_USE_KDE
-
-BrowserDialog::BrowserDialog(QWidget*, QString&) {}
-BrowserDialog::~BrowserDialog() {}
-void BrowserDialog::goToAnchor(const QString&) {}
 
 #endif // CONFIG_USE_KDE

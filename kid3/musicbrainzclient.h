@@ -38,13 +38,13 @@
 #else
 #include <tunepimp/tp_c.h>
 #endif
-#endif // HAVE_TUNEPIMP
 
 class QByteArray;
 class ImportTrackData;
 class ImportTrackDataVector;
 class TrackDataModel;
 
+#if HAVE_TUNEPIMP >= 5
 /**
  * A HTTP query to a musicbrainz server for HAVE_TUNEPIMP >= 5.
  */
@@ -70,7 +70,6 @@ public:
    */
   virtual ~LookupQuery();
 
-#if defined HAVE_TUNEPIMP && HAVE_TUNEPIMP >= 5
   /**
    * Query a PUID from the server.
    *
@@ -78,7 +77,6 @@ public:
    * @param index    index of file
    */
   void query(const char* puid, int index);
-#endif
 
 signals:
   /**
@@ -101,7 +99,6 @@ private slots:
    */
   void socketConnectionClosed();
 
-#if defined HAVE_TUNEPIMP && HAVE_TUNEPIMP >= 5
 private:
   /**
    * Connect to server to query information about the current file.
@@ -137,8 +134,8 @@ private:
   FileQuery* m_fileQueries;
   QTcpSocket* m_sock;
   QString m_request;
-#endif
 };
+#endif // HAVE_TUNEPIMP >= 5
 
 
 /**
@@ -161,7 +158,6 @@ public:
    */
   virtual ~MusicBrainzClient();
 
-#ifdef HAVE_TUNEPIMP
   /**
    * Poll the status of the MusicBrainz query.
    */
@@ -186,7 +182,6 @@ public:
    * Remove all files.
    */
   void removeFiles();
-#endif // HAVE_TUNEPIMP
 
 signals:
   /**
@@ -216,7 +211,6 @@ private slots:
    */
   void parseLookupResponse(int index, const QByteArray& response);
 
-#ifdef HAVE_TUNEPIMP
 private:
   /**
    * Get i for m_id[i] == id.
@@ -260,7 +254,14 @@ private:
 #if HAVE_TUNEPIMP >= 5
   LookupQuery* m_lookupQuery;
 #endif
-#endif // HAVE_TUNEPIMP
 };
+#else // HAVE_TUNEPIMP
+
+// Just to suppress moc "No relevant classes found" warning.
+class MusicBrainzClient : public QObject {
+Q_OBJECT
+};
+
+#endif // HAVE_TUNEPIMP
 
 #endif // MUSICBRAINZCLIENT_H

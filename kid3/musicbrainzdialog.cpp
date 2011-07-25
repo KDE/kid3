@@ -492,22 +492,4 @@ void MusicBrainzDialog::showFilenameInStatusBar(const QModelIndex& index)
   }
 }
 
-#else // HAVE_TUNEPIMP
-
-MusicBrainzDialog::MusicBrainzDialog(QWidget*, TrackDataModel*) {}
-MusicBrainzDialog::~MusicBrainzDialog() {}
-int MusicBrainzDialog::exec() { return 0; }
-void MusicBrainzDialog::accept() {}
-void MusicBrainzDialog::reject() {}
-void MusicBrainzDialog::setClientConfig() {}
-void MusicBrainzDialog::timerDone() {}
-void MusicBrainzDialog::apply() {}
-void MusicBrainzDialog::setFileStatus(int, QString) {}
-void MusicBrainzDialog::updateFileTrackData(int) {}
-void MusicBrainzDialog::setMetaData(int, ImportTrackData&) {}
-void MusicBrainzDialog::setResults(int, ImportTrackDataVector&) {}
-void MusicBrainzDialog::saveConfig() {}
-void MusicBrainzDialog::showHelp() {}
-void MusicBrainzDialog::showFilenameInStatusBar(const QModelIndex& index) {}
-
 #endif // HAVE_TUNEPIMP

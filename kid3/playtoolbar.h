@@ -48,22 +48,12 @@ namespace Phonon
     class VolumeSlider;
 }
 
-#else // HAVE_PHONON
-
-namespace Phonon {
-  /** empty enum to make generated moc files compile without Phonon */
-  enum State {};
-}
-
-#endif // HAVE_PHONON
-
 /**
  * Audio player toolbar.
  */
 class PlayToolBar : public QToolBar {
 Q_OBJECT
 
-#ifdef HAVE_PHONON
 public:
   /**
    * Constructor.
@@ -92,7 +82,6 @@ public:
    */
   void playTrack(int fileNr);
 
-#endif // HAVE_PHONON
 signals:
   /**
    * Emitted when an error occurs.
@@ -145,7 +134,6 @@ private slots:
    */
   void next();
 
-#ifdef HAVE_PHONON
 protected:
   /**
    * Stop sound when window is closed.
@@ -177,7 +165,14 @@ private:
 
   QStringList m_files;
   int m_fileNr;
-#endif // HAVE_PHONON
 };
+#else // HAVE_PHONON
+
+// Just to suppress moc "No relevant classes found" warning.
+class PlayToolBar : public QToolBar {
+Q_OBJECT
+};
+
+#endif // HAVE_PHONON
 
 #endif

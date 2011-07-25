@@ -302,15 +302,4 @@ void PlayToolBar::next()
     selectTrack(m_fileNr + 1, m_mediaObject->state() == Phonon::PlayingState);
 }
 
-#else // HAVE_PHONON
-
-void PlayToolBar::playOrPause() {}
-void PlayToolBar::currentSourceChanged() {}
-void PlayToolBar::stop() {}
-void PlayToolBar::tick(qint64) {}
-void PlayToolBar::stateChanged(Phonon::State) {}
-void PlayToolBar::aboutToFinish() {}
-void PlayToolBar::previous() {}
-void PlayToolBar::next() {}
-
 #endif // HAVE_PHONON

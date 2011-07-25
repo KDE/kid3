@@ -619,47 +619,4 @@ void ScriptInterface::reparseConfiguration()
   m_mainWin->readOptions();
 }
 
-#else // HAVE_QTDBUS
-
-ScriptInterface::ScriptInterface(Kid3MainWindow*) {}
-ScriptInterface::~ScriptInterface() {}
-bool ScriptInterface::openDirectory(const QString&) { return false; }
-bool ScriptInterface::save() { return false; }
-QString ScriptInterface::getErrorMessage() const { return ""; }
-void ScriptInterface::revert() {}
-bool ScriptInterface::importFromFile(int, const QString&, int) { return false; }
-void ScriptInterface::downloadAlbumArt(const QString&, bool) {}
-bool ScriptInterface::exportToFile(int, const QString&, int) { return false; }
-bool ScriptInterface::createPlaylist() { return false; }
-void ScriptInterface::quit() {}
-void ScriptInterface::selectAll() {}
-void ScriptInterface::deselectAll() {}
-bool ScriptInterface::firstFile() { return false; }
-bool ScriptInterface::previousFile() { return false; }
-bool ScriptInterface::nextFile() { return false; }
-bool ScriptInterface::expandDirectory() { return false; }
-void ScriptInterface::applyFilenameFormat() {}
-void ScriptInterface::applyTagFormat() {}
-bool ScriptInterface::setDirNameFromTag(int, const QString&, bool) { return false; }
-void ScriptInterface::numberTracks(int, int) {}
-void ScriptInterface::filter(const QString&) {}
-void ScriptInterface::convertToId3v24() {}
-void ScriptInterface::convertToId3v23() {}
-QString ScriptInterface::getDirectoryName() { return ""; }
-QString ScriptInterface::getFileName() { return ""; }
-void ScriptInterface::setFileName(const QString&) {}
-void ScriptInterface::setFileNameFormat(const QString&) {}
-void ScriptInterface::setFileNameFromTag(int) {}
-QString ScriptInterface::getFrame(int, const QString&) { return ""; }
-bool ScriptInterface::setFrame(int, const QString&, const QString&) { return false; }
-QStringList ScriptInterface::getTag(int) { return QStringList(); }
-QStringList ScriptInterface::getInformation() { return QStringList(); }
-void ScriptInterface::setTagFromFileName(int) {}
-void ScriptInterface::setTagFromOtherTag(int) {}
-void ScriptInterface::copyTag(int) {}
-void ScriptInterface::pasteTag(int) {}
-void ScriptInterface::removeTag(int) {}
-void ScriptInterface::hideTag(int, bool) {}
-void ScriptInterface::reparseConfiguration() {}
-
 #endif // HAVE_QTDBUS

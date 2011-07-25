@@ -106,6 +106,7 @@ protected slots:
    */
   virtual void slotHelp();
 
+#ifndef CONFIG_USE_KDE
   /**
    * Select custom application font.
    */
@@ -122,6 +123,7 @@ protected slots:
    * Revert the font and style to the values in the settings.
    */
   void slotRevertFontAndStyle();
+#endif
 
 private:
   /** Preserve timestamp checkbox */

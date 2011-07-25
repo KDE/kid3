@@ -207,19 +207,21 @@ public slots:
    */
   void slotFileOpenDirectory();
 
+#ifdef CONFIG_USE_KDE
   /**
    * Open recent directory.
    *
    * @param url URL of directory to open
    */
   void slotFileOpenRecentUrl(const KUrl& url);
-
+#else
   /**
    * Open recent directory.
    *
    * @param dir directory to open
    */
   void slotFileOpenRecentDirectory(const QString& dir);
+#endif
 
   /**
    * Turn status bar on or off.

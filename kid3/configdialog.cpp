@@ -681,9 +681,4 @@ void ConfigDialog::slotRevertFontAndStyle()
     m_styleChanged = false;
   }
 }
-
-#else
-void ConfigDialog::slotSelectFont() {}
-void ConfigDialog::slotSelectStyle(const QString&) {}
-void ConfigDialog::slotRevertFontAndStyle() {}
 #endif

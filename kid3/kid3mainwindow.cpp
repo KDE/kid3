@@ -1139,23 +1139,19 @@ void Kid3MainWindow::slotFileOpenDirectory()
   }
 }
 
-#ifdef CONFIG_USE_KDE
 /**
  * Open recent directory.
  *
  * @param url URL of directory to open
  */
+#ifdef CONFIG_USE_KDE
 void Kid3MainWindow::slotFileOpenRecentUrl(const KUrl& url)
 {
   updateCurrentSelection();
   QString dir = url.path();
   confirmedOpenDirectory(dir);
 }
-
-void Kid3MainWindow::slotFileOpenRecentDirectory(const QString&) {}
 #else /* CONFIG_USE_KDE */
-void Kid3MainWindow::slotFileOpenRecentUrl(const KUrl&) {}
-
 void Kid3MainWindow::slotFileOpenRecentDirectory(const QString& dir)
 {
   updateCurrentSelection();

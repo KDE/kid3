@@ -655,20 +655,4 @@ bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
 
 #endif
 
-#else // HAVE_TUNEPIMP
-
-MusicBrainzClient::MusicBrainzClient(TrackDataModel*) {}
-MusicBrainzClient::~MusicBrainzClient() {}
-
 #endif // HAVE_TUNEPIMP
-
-#if !(defined HAVE_TUNEPIMP && HAVE_TUNEPIMP >= 5)
-
-LookupQuery::LookupQuery(int, const QString&, unsigned short, const QString&, unsigned short) {}
-LookupQuery::~LookupQuery() {}
-void LookupQuery::socketConnected() {}
-void LookupQuery::socketError(QAbstractSocket::SocketError) {}
-void LookupQuery::socketConnectionClosed() {}
-void MusicBrainzClient::parseLookupResponse(int, const QByteArray&) {}
-
-#endif

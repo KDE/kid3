@@ -28,15 +28,9 @@
 #define SCRIPTINTERFACE_H
 
 #include "config.h"
-#include <QStringList>
-/** The base class depends on the Qt version and is a D-Bus adaptor. */
 #ifdef HAVE_QTDBUS
 #include <QDBusAbstractAdaptor>
-typedef QDBusAbstractAdaptor ScriptInterfaceBaseClass;
-#else
-#include <QObject>
-typedef QObject ScriptInterfaceBaseClass;
-#endif
+#include <QStringList>
 
 class Kid3MainWindow;
 class Kid3Application;
@@ -46,8 +40,7 @@ class Kid3Application;
  * Create net.sourceforge.Kid3.xml with:
  * qdbuscpp2xml scriptinterface.h >net.sourceforge.Kid3.xml
  */
-class ScriptInterface: public ScriptInterfaceBaseClass
-{
+class ScriptInterface : public QDBusAbstractAdaptor {
 Q_OBJECT
 Q_CLASSINFO("D-Bus Interface", "net.sourceforge.Kid3")
 public:
@@ -358,5 +351,14 @@ private:
   Kid3Application* m_app;
   QString m_errorMsg;
 };
+#else // HAVE_QTDBUS
+
+#include <QObject>
+// Just to suppress moc "No relevant classes found" warning.
+class ScriptInterface : public QObject {
+  Q_OBJECT
+};
+
+#endif // HAVE_QTDBUS
 
 #endif // SCRIPTINTERFACE_H

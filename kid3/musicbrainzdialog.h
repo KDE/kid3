@@ -32,6 +32,7 @@
 #include <QVector>
 #include "config.h"
 
+#ifdef HAVE_TUNEPIMP
 class QTableView;
 class QStandardItemModel;
 class QLineEdit;
@@ -68,7 +69,6 @@ public:
    */
   ~MusicBrainzDialog();
 
-#ifdef HAVE_TUNEPIMP
   /**
    * Initialize the table model.
    * Has to be called before reusing the dialog with new track data.
@@ -88,7 +88,6 @@ public:
    * @param srv "servername:port"
    */
   void setServer(const QString& srv);
-#endif // HAVE_TUNEPIMP
 
 signals:
   /**
@@ -178,7 +177,6 @@ private slots:
    */
   void showFilenameInStatusBar(const QModelIndex& index);
 
-#ifdef HAVE_TUNEPIMP
 private:
   /**
    * Clear all results.
@@ -203,7 +201,14 @@ private:
   MusicBrainzClient* m_client;
   TrackDataModel* m_trackDataModel;
   QVector<ImportTrackDataVector> m_trackResults;
-#endif // HAVE_TUNEPIMP
 };
+#else // HAVE_TUNEPIMP
+
+// Just to suppress moc "No relevant classes found" warning.
+class MusicBrainzDialog : public QDialog {
+Q_OBJECT
+};
+
+#endif // HAVE_TUNEPIMP
 
 #endif // MUSICBRAINZDIALOG_H

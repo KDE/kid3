@@ -28,6 +28,8 @@
 #define BROWSERDIALOG_H
 
 #include <QDialog>
+#include "config.h"
+#ifndef CONFIG_USE_KDE
 
 class QTextBrowser;
 
@@ -57,5 +59,13 @@ private:
   QTextBrowser* m_textBrowser;
   QString m_filename;
 };
+#else // !CONFIG_USE_KDE
+
+// Just to suppress moc "No relevant classes found" warning.
+class BrowserDialog : public QDialog {
+Q_OBJECT
+};
+
+#endif // !CONFIG_USE_KDE
 
 #endif // BROWSERDIALOG_H
