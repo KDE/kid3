@@ -37,6 +37,7 @@
  */
 TextExporter::TextExporter(QObject* parent) : QObject(parent)
 {
+  setObjectName("TextExporter");
 }
 
 /**

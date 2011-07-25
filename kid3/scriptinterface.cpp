@@ -49,6 +49,7 @@
 ScriptInterface::ScriptInterface(Kid3MainWindow* parent, Kid3Application* app) :
   QDBusAbstractAdaptor(parent), m_mainWin(parent), m_app(app)
 {
+  setObjectName("ScriptInterface");
   setAutoRelaySignals(true);
 }
 

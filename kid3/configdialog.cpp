@@ -92,6 +92,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   QDialog(parent)
 #endif
 {
+  setObjectName("ConfigDialog");
   setWindowTitle(caption);
 #ifndef CONFIG_USE_KDE
   QVBoxLayout* topLayout = new QVBoxLayout(this);

@@ -37,6 +37,7 @@
 ConfigTable::ConfigTable(QWidget* parent) :
   QTableView(parent)
 {
+  setObjectName("ConfigTable");
   setContextMenuPolicy(Qt::CustomContextMenu);
   connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
       this, SLOT(customContextMenu(const QPoint&)));

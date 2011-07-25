@@ -41,6 +41,7 @@ FrameList::FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel) :
   QObject(ftm), m_taggedFile(0), m_frameTableModel(ftm),
   m_selectionModel(selModel), m_cursorRow(-1), m_cursorColumn(-1)
 {
+  setObjectName("FrameList");
 }
 
 /**

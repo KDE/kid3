@@ -155,6 +155,7 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
  : QSplitter(parent), m_app(app)
 {
+  setObjectName("Kid3Form");
   const int margin = 6;
   const int spacing = 2;
 

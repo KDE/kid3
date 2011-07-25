@@ -51,6 +51,7 @@
 NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   QDialog(parent)
 {
+  setObjectName("NumberTracksDialog");
   setModal(true);
   setWindowTitle(i18n("Number Tracks"));
 

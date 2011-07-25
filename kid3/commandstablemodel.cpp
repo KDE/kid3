@@ -44,6 +44,7 @@ enum ColumnIndex {
 CommandsTableModel::CommandsTableModel(QObject* parent) :
   QAbstractTableModel(parent)
 {
+  setObjectName("CommandsTableModel");
 }
 
 /**

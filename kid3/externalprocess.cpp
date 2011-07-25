@@ -42,6 +42,7 @@
  */
 ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
 {
+  setObjectName("OutputViewer");
   setModal(false);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   m_textEdit = new QTextEdit(this);
@@ -89,6 +90,7 @@ void ExternalProcess::OutputViewer::scrollToBottom()
 ExternalProcess::ExternalProcess(QWidget* parent) :
   QObject(parent), m_parent(parent), m_process(0), m_outputViewer(0)
 {
+  setObjectName("ExternalProcess");
 }
 
 /**

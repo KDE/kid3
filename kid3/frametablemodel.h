@@ -326,7 +326,9 @@ public:
    * Constructor.
    * @param parent parent QTableView
    */
-  FrameItemDelegate(QObject* parent) : QItemDelegate(parent) {}
+  FrameItemDelegate(QObject* parent) : QItemDelegate(parent) {
+    setObjectName("FrameItemDelegate");
+  }
 
   /**
    * Destructor.

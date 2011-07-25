@@ -55,6 +55,7 @@
 RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
   QWizard(parent), m_taggedFile(0), m_dirRenamer(dirRenamer)
 {
+  setObjectName("RenDirDialog");
   setModal(true);
   setWindowTitle(i18n("Rename Directory"));
 

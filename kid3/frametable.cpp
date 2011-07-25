@@ -42,6 +42,7 @@
 FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
   QTableView(parent), m_currentEditor(0)
 {
+  setObjectName("FrameTable");
   setModel(model);
   setSelectionMode(SingleSelection);
   horizontalHeader()->setResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);

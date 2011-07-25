@@ -33,6 +33,7 @@
 ConfigTableModel::ConfigTableModel(QObject* parent) :
   QAbstractTableModel(parent)
 {
+  setObjectName("ConfigTableModel");
 }
 
 /**

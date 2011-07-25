@@ -36,6 +36,7 @@
 DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption) :
   QProgressDialog(parent)
 {
+  setObjectName("DownloadDialog");
   setWindowTitle(caption);
 }
 

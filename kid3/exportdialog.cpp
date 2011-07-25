@@ -68,6 +68,7 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   QDialog(parent),
   m_textExporter(textExporter)
 {
+  setObjectName("ExportDialog");
   setModal(true);
   setWindowTitle(i18n("Export"));
 

@@ -42,6 +42,7 @@
 ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
   QDialog(parent)
 {
+  setObjectName("ImageViewer");
   setModal(true);
   setWindowTitle(i18n("View Picture"));
   QVBoxLayout* vlayout = new QVBoxLayout(this);

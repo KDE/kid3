@@ -19,6 +19,7 @@
  */
 PictureLabel::PictureLabel(QWidget* parent) : QLabel(parent), m_pixmapHash(0)
 {
+  setObjectName("PictureLabel");
   setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
   setWordWrap(true);
   clearPicture();

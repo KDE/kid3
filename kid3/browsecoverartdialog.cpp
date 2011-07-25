@@ -71,6 +71,7 @@ static QString getToolTip()
 BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   QDialog(parent), m_process(0)
 {
+  setObjectName("BrowseCoverArtDialog");
   setModal(true);
   setWindowTitle(i18n("Browse Cover Art"));
 

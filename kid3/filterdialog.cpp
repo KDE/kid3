@@ -52,6 +52,7 @@
  */
 FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent)
 {
+  setObjectName("FilterDialog");
   setModal(true);
   setWindowTitle(i18n("Filter"));
 

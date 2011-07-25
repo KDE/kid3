@@ -34,6 +34,7 @@
 ComboBoxDelegate::ComboBoxDelegate(QObject* parent) :
   QStyledItemDelegate(parent)
 {
+  setObjectName("ComboBoxDelegate");
 }
 
 /**

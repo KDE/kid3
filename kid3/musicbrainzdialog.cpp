@@ -59,6 +59,7 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   : QDialog(parent), m_statusBar(0),
     m_timer(0), m_client(0), m_trackDataModel(trackDataModel)
 {
+  setObjectName("MusicBrainzDialog");
   setModal(true);
   setWindowTitle(i18n("MusicBrainz"));
 

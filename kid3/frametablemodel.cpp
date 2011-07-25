@@ -40,6 +40,7 @@ FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
   QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
   m_id3v1(id3v1)
 {
+  setObjectName("FrameTableModel");
 }
 
 /**
@@ -526,6 +527,7 @@ void FrameTableModel::resizeFrameSelected()
 FrameTableLineEdit::FrameTableLineEdit(QWidget* parent) :
   QLineEdit(parent)
 {
+  setObjectName("FrameTableLineEdit");
   connect(this, SIGNAL(textChanged(const QString&)),
           this, SLOT(formatTextIfEnabled(const QString&)));
 }

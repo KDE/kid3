@@ -53,6 +53,7 @@
 PlaylistDialog::PlaylistDialog(QWidget* parent):
   QDialog(parent)
 {
+  setObjectName("PlaylistDialog");
   setModal(true);
   setWindowTitle(i18n("Create Playlist"));
 

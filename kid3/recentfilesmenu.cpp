@@ -24,6 +24,7 @@ static const int MAX_RECENT_FILES = 10;
  */
 RecentFilesMenu::RecentFilesMenu(QWidget* parent) : QMenu(parent)
 {
+  setObjectName("RecentFilesMenu");
 }
 
 /**

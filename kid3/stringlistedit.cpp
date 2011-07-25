@@ -41,6 +41,7 @@
 StringListEdit::StringListEdit(QAbstractItemModel* model, QWidget* parent) :
   QWidget(parent)
 {
+  setObjectName("StringListEdit");
   QHBoxLayout* hlayout = new QHBoxLayout(this);
   m_stringListBox = new QListView(this);
   if (hlayout && m_stringListBox) {

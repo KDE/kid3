@@ -40,6 +40,7 @@ EditFrameDialog::EditFrameDialog(QWidget* parent, const QString& caption,
                                  const QString& text) :
   QDialog(parent)
 {
+  setObjectName("EditFrameDialog");
   setModal(true);
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);

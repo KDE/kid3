@@ -31,9 +31,10 @@
  * Constructor.
  * @param parent parent widget
  */
-DirList::DirList(QWidget* parent) :
-  QListView(parent)
-{}
+DirList::DirList(QWidget* parent) : QListView(parent)
+{
+  setObjectName("DirList");
+}
 
 /**
  * Destructor.

@@ -239,6 +239,7 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
 FileList::FileList(QWidget* parent, Kid3MainWindow* mainWin) :
   QTreeView(parent), m_process(0), m_mainWin(mainWin)
 {
+  setObjectName("FileList");
   setSelectionMode(ExtendedSelection);
   setSortingEnabled(false);
   setContextMenuPolicy(Qt::CustomContextMenu);

@@ -44,6 +44,7 @@
 FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
   m_iconProvider(new TaggedFileIconProvider), m_fsModel(0)
 {
+  setObjectName("FileProxyModel");
   connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)),
           this, SLOT(updateInsertedRows(QModelIndex,int,int)));
 }

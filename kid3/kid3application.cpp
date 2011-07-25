@@ -91,6 +91,7 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   m_dirRenamer(new DirRenamer(this)),
   m_downloadImageDest(ImageForSelectedFiles)
 {
+  setObjectName("Kid3Application");
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
 

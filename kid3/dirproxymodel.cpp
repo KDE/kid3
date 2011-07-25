@@ -33,7 +33,9 @@
  * @param parent parent object
  */
 DirProxyModel::DirProxyModel(QObject* parent) : QSortFilterProxyModel(parent)
-{}
+{
+  setObjectName("DirProxyModel");
+}
 
 /**
  * Check if row should be included in model.

@@ -221,6 +221,7 @@ private:
 LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
   QWidget(parent)
 {
+  setObjectName("LabeledTextEdit");
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QTextEdit(this);
@@ -241,6 +242,7 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
 LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
   QWidget(parent)
 {
+  setObjectName("LabeledLineEdit");
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QLineEdit(this);
@@ -261,6 +263,7 @@ LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
 LabeledComboBox::LabeledComboBox(QWidget* parent,
          const char **strlst) : QWidget(parent)
 {
+  setObjectName("LabeledComboBox");
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_combo = new QComboBox(this);
@@ -285,6 +288,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
 LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
   QWidget(parent)
 {
+  setObjectName("LabeledSpinBox");
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_spinbox = new QSpinBox(this);
@@ -518,6 +522,7 @@ BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
   QWidget(parent), m_byteArray(field.m_value.toByteArray()),
   m_isChanged(false)
 {
+  setObjectName("BinaryOpenSave");
   QHBoxLayout* layout = new QHBoxLayout(this);
   m_label = new QLabel(this);
   m_clipButton = new QPushButton(i18n("From Clip&board"), this);
@@ -848,6 +853,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
   const Frame& frame, const TaggedFile* taggedFile) :
   QDialog(parent), m_fields(frame.getFieldList())
 {
+  setObjectName("EditFrameFieldsDialog");
   setModal(true);
   setWindowTitle(caption);
   qDeleteAll(m_fieldcontrols);

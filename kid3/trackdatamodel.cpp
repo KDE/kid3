@@ -35,6 +35,7 @@
 TrackDataModel::TrackDataModel(QObject* parent) :
   QAbstractTableModel(parent), m_diffCheckEnabled(false), m_maxDiff(0)
 {
+  setObjectName("TrackDataModel");
 }
 
 /**

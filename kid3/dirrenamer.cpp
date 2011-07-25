@@ -35,6 +35,7 @@
  */
 DirRenamer::DirRenamer(QObject* parent) : QObject(parent), m_aborted(false)
 {
+  setObjectName("DirRenamer");
 }
 
 /**

@@ -43,6 +43,7 @@
 BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   : QDialog(parent)
 {
+  setObjectName("BrowserDialog");
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   if (!vlayout) {
