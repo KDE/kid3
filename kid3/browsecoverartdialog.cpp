@@ -74,6 +74,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   setObjectName("BrowseCoverArtDialog");
   setModal(true);
   setWindowTitle(i18n("Browse Cover Art"));
+  setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   if (vlayout) {

@@ -94,6 +94,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 {
   setObjectName("ConfigDialog");
   setWindowTitle(caption);
+  setSizeGripEnabled(true);
 #ifndef CONFIG_USE_KDE
   QVBoxLayout* topLayout = new QVBoxLayout(this);
   topLayout->setSpacing(6);

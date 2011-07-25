@@ -55,6 +55,7 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent)
   setObjectName("FilterDialog");
   setModal(true);
   setWindowTitle(i18n("Filter"));
+  setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   if (vlayout) {

@@ -71,6 +71,7 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   setObjectName("ExportDialog");
   setModal(true);
   setWindowTitle(i18n("Export"));
+  setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   if (vlayout) {

@@ -56,6 +56,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   setObjectName("PlaylistDialog");
   setModal(true);
   setWindowTitle(i18n("Create Playlist"));
+  setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   vlayout->setMargin(6);

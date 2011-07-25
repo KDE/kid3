@@ -1240,7 +1240,7 @@ void Kid3MainWindow::slotHelpHandbook()
 void Kid3MainWindow::slotHelpAbout()
 {
   QMessageBox::about(
-    (Kid3MainWindow*)parent(), "Kid3",
+    this, "Kid3",
     "Kid3 " VERSION
     "\n(c) 2003-2011 Urs Fleisch\nufleisch@users.sourceforge.net");
 }
@@ -1250,7 +1250,7 @@ void Kid3MainWindow::slotHelpAbout()
  */
 void Kid3MainWindow::slotHelpAboutQt()
 {
-  QMessageBox::aboutQt((Kid3MainWindow*)parent(), "Kid3");
+  QMessageBox::aboutQt(this, "Kid3");
 }
 #endif /* CONFIG_USE_KDE */
 
@@ -1278,7 +1278,7 @@ void Kid3MainWindow::slotStatusMsg(const QString& text)
 void Kid3MainWindow::slotPlaylistDialog()
 {
   if (!m_playlistDialog) {
-    m_playlistDialog = new PlaylistDialog(0);
+    m_playlistDialog = new PlaylistDialog(this);
   }
   if (m_playlistDialog) {
     m_playlistDialog->readConfig();
@@ -1328,7 +1328,7 @@ void Kid3MainWindow::setupImportDialog()
   if (!m_importDialog) {
     QString caption(i18n("Import"));
     m_importDialog =
-      new ImportDialog(NULL, caption, m_app->getTrackDataModel());
+      new ImportDialog(this, caption, m_app->getTrackDataModel());
   }
   m_importDialog->clear();
 }
@@ -1436,7 +1436,7 @@ void Kid3MainWindow::slotImportMusicBrainz()
 void Kid3MainWindow::slotBrowseCoverArt()
 {
   if (!m_browseCoverArtDialog) {
-    m_browseCoverArtDialog = new BrowseCoverArtDialog(0);
+    m_browseCoverArtDialog = new BrowseCoverArtDialog(this);
   }
   if (m_browseCoverArtDialog) {
     FrameCollection frames2;
@@ -1518,10 +1518,10 @@ void Kid3MainWindow::slotSettingsConfigure()
 #ifdef CONFIG_USE_KDE
   KConfigSkeleton* configSkeleton = new KConfigSkeleton;
   ConfigDialog* dialog =
-    new ConfigDialog(NULL, caption, configSkeleton);
+    new ConfigDialog(this, caption, configSkeleton);
 #else
   ConfigDialog* dialog =
-    new ConfigDialog(NULL, caption);
+    new ConfigDialog(this, caption);
 #endif
   if (dialog) {
     dialog->setConfig(&ConfigStore::s_fnFormatCfg,
@@ -1553,7 +1553,7 @@ void Kid3MainWindow::slotRenameDirectory()
 {
   if (saveModified()) {
     if (!m_renDirDialog) {
-      m_renDirDialog = new RenDirDialog(0, m_app->getDirRenamer());
+      m_renDirDialog = new RenDirDialog(this, m_app->getDirRenamer());
       connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
               m_app, SLOT(scheduleRenameActions()));
     }

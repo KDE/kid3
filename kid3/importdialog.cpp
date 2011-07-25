@@ -105,6 +105,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   setObjectName("ImportDialog");
   setModal(true);
   setWindowTitle(caption);
+  setSizeGripEnabled(true);
 
   m_freedbImporter = 0;
   m_trackTypeImporter = 0;
