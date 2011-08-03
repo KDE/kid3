@@ -357,10 +357,12 @@ public slots:
    */
   void slotFilter();
 
+#ifdef HAVE_PHONON
   /**
    * Play audio file.
    */
   void slotPlayAudio();
+#endif
 
   /**
    * Update files of current selection.
@@ -396,6 +398,13 @@ private slots:
    * Update modification state, caption and listbox entries.
    */
   void updateModificationState();
+
+#ifdef HAVE_PHONON
+  /**
+   * Show play tool bar.
+   */
+  void showPlayToolBar();
+#endif
 
 private:
   friend class ScriptInterface;

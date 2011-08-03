@@ -1474,6 +1474,42 @@ void Kid3Application::numberTracks(int nr, int total,
   emit selectedFilesUpdated();
 }
 
+#ifdef HAVE_PHONON
+/**
+ * Play audio file.
+ */
+void Kid3Application::playAudio()
+{
+  QStringList files;
+  int fileNr = 0;
+  if (m_fileSelectionModel->selectedIndexes().size() > 1) {
+    // play only the selected files if more than one is selected
+    SelectedTaggedFileIterator it(m_fileProxyModelRootIndex,
+                                  m_fileSelectionModel,
+                                  false);
+    while (it.hasNext()) {
+      files.append(it.next()->getAbsFilename());
+    }
+  } else {
+    // play all files if none or only one is selected
+    int idx = 0;
+    ModelIterator it(m_fileProxyModelRootIndex);
+    while (it.hasNext()) {
+      QModelIndex index = it.next();
+      if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+        files.append(taggedFile->getAbsFilename());
+        if (m_fileSelectionModel->isSelected(index)) {
+          fileNr = idx;
+        }
+        ++idx;
+      }
+    }
+  }
+  emit aboutToPlayAudio();
+  getAudioPlayer()->setFiles(files, fileNr);
+}
+#endif
+
 /**
  * Get number of tracks in current directory.
  *

@@ -167,6 +167,9 @@ Kid3MainWindow::Kid3MainWindow() :
           this, SLOT(confirmedOpenDirectory(QString)));
   connect(m_app, SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
           this, SLOT(onDirectoryOpened()));
+#ifdef HAVE_PHONON
+  connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
+#endif
 
 #ifndef CONFIG_USE_KDE
 #if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
@@ -334,7 +337,7 @@ void Kid3MainWindow::initActions()
 #ifdef HAVE_PHONON
   KAction* toolsPlay = new KAction(KIcon("media-playback-start"), i18n("&Play"), this);
   actionCollection()->addAction("play", toolsPlay);
-  connect(toolsPlay, SIGNAL(triggered()), this, SLOT(slotPlayAudio()));
+  connect(toolsPlay, SIGNAL(triggered()), m_app, SLOT(playAudio()));
 #endif
   m_settingsShowHidePicture = new KToggleAction(i18n("Show &Picture"), this);
   m_settingsShowHidePicture->setCheckable(true);
@@ -647,7 +650,7 @@ void Kid3MainWindow::initActions()
     toolsPlay->setText(i18n("&Play"));
     toolsPlay->setIcon(QIcon(style()->standardIcon(QStyle::SP_MediaPlay)));
     connect(toolsPlay, SIGNAL(triggered()),
-      this, SLOT(slotPlayAudio()));
+      m_app, SLOT(playAudio()));
   }
 #endif
   m_viewStatusBar = new QAction(this);
@@ -1641,40 +1644,20 @@ void Kid3MainWindow::slotFilter()
   }
 }
 
+#ifdef HAVE_PHONON
 /**
  * Play audio file.
  */
 void Kid3MainWindow::slotPlayAudio()
 {
-#ifdef HAVE_PHONON
-  QStringList files;
-  int fileNr = 0;
-  QItemSelectionModel* selectModel = m_form->getFileList()->selectionModel();
-  if (selectModel && selectModel->selectedIndexes().size() > 1) {
-    // play only the selected files if more than one is selected
-    SelectedTaggedFileIterator it(m_form->getFileList()->rootIndex(),
-                                  m_form->getFileList()->selectionModel(),
-                                  false);
-    while (it.hasNext()) {
-      files.append(it.next()->getAbsFilename());
-    }
-  } else {
-    // play all files if none or only one is selected
-    int idx = 0;
-    QModelIndex rootIndex(m_form->getFileList()->rootIndex());
-    ModelIterator it(rootIndex);
-    while (it.hasNext()) {
-      QModelIndex index = it.next();
-      if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
-        files.append(taggedFile->getAbsFilename());
-        if (selectModel && selectModel->isSelected(index)) {
-          fileNr = idx;
-        }
-        ++idx;
-      }
-    }
-  }
+  m_app->playAudio();
+}
 
+/**
+ * Show play tool bar.
+ */
+void Kid3MainWindow::showPlayToolBar()
+{
   if (!m_playToolBar) {
     m_playToolBar = new PlayToolBar(m_app->getAudioPlayer(), this);
     m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
@@ -1682,10 +1665,9 @@ void Kid3MainWindow::slotPlayAudio()
     connect(m_playToolBar, SIGNAL(errorMessage(const QString&)),
             this, SLOT(slotStatusMsg(const QString&)));
   }
-  m_app->getAudioPlayer()->setFiles(files, fileNr);
   m_playToolBar->show();
-#endif
 }
+#endif
 
 /**
  * Update modification state, caption and listbox entries.

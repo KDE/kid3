@@ -620,4 +620,14 @@ void ScriptInterface::reparseConfiguration()
   m_mainWin->readOptions();
 }
 
+#ifdef HAVE_PHONON
+/**
+ * Play selected audio files.
+ */
+void ScriptInterface::playAudio()
+{
+  m_app->playAudio();
+}
+#endif
+
 #endif // HAVE_QTDBUS

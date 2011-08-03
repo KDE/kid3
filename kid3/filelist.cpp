@@ -234,7 +234,7 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
 /**
  * Constructor.
  * @param parent parent widget
- * @param app    application widget
+ * @param mainWin main window
  */
 FileList::FileList(QWidget* parent, Kid3MainWindow* mainWin) :
   QTreeView(parent), m_process(0), m_mainWin(mainWin)

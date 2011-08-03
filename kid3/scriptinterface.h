@@ -346,6 +346,13 @@ public slots:
    */
   void reparseConfiguration();
 
+#ifdef HAVE_PHONON
+  /**
+   * Play selected audio files.
+   */
+  void playAudio();
+#endif
+
 private:
   Kid3MainWindow* m_mainWin;
   Kid3Application* m_app;

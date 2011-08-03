@@ -651,6 +651,13 @@ public slots:
    */
   void applyFilter(const QString& expression);
 
+#ifdef HAVE_PHONON
+  /**
+   * Play audio file.
+   */
+  void playAudio();
+#endif
+
 signals:
   /**
    * Emitted when a new directory is opened.
@@ -726,6 +733,12 @@ signals:
    */
   void fileFiltered(FileFilter::FilterEventType type,
                     const QString& fileName);
+
+  /**
+   * Emitted before an audio file is played.
+   * The GUI can display a player when receiving this signal.
+   */
+  void aboutToPlayAudio();
 
 private:
   /**

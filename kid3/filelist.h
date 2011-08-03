@@ -43,9 +43,9 @@ public:
   /**
    * Constructor.
    * @param parent parent widget
-   * @param app    application widget
+   * @param mainWin main window
    */
-  FileList(QWidget* parent, Kid3MainWindow* app);
+  FileList(QWidget* parent, Kid3MainWindow* mainWin);
 
   /**
    * Destructor.
