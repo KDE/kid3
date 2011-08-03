@@ -27,7 +27,7 @@ set(kid3_SRCS filelist.cpp fileproxymodel.cpp frame.cpp framelist.cpp
   playlistcreator.cpp amazonimporter.cpp amazonconfig.cpp
   recentfilesmenu.cpp playtoolbar.cpp textimporter.cpp textimportdialog.cpp
   trackdatamatcher.cpp tagimportdialog.cpp configstore.cpp contexthelp.cpp
-  iframeeditor.cpp textexporter.cpp dirrenamer.cpp)
+  iframeeditor.cpp textexporter.cpp dirrenamer.cpp audioplayer.cpp)
 
 if (HAVE_QTDBUS)
   set(kid3_SRCS ${kid3_SRCS} scriptinterface.cpp)
@@ -122,7 +122,7 @@ set(kid3_MOC_HDRS filelist.h frametable.h frametablemodel.h kid3application.h
   browsecoverartdialog.h configtable.h browserdialog.h imageviewer.h
   editframedialog.h editframefieldsdialog.h playlistdialog.h recentfilesmenu.h
   playtoolbar.h fileproxymodel.h trackdatamodel.h textimportdialog.h
-  tagimportdialog.h)
+  tagimportdialog.h audioplayer.h)
 if (HAVE_QTDBUS)
   set(kid3_MOC_HDRS ${kid3_MOC_HDRS} scriptinterface.h)
 endif (HAVE_QTDBUS)

@@ -27,8 +27,8 @@
 #ifndef PLAYTOOLBAR_H
 #define PLAYTOOLBAR_H
 
-#include "config.h"
 #include <QToolBar>
+#include "config.h"
 
 #ifdef HAVE_PHONON
 
@@ -39,13 +39,11 @@
 class QAction;
 class QLCDNumber;
 class QLabel;
+class AudioPlayer;
 
-namespace Phonon
-{
-    class AudioOutput;
-    class MediaObject;
-    class SeekSlider;
-    class VolumeSlider;
+namespace Phonon {
+  class SeekSlider;
+  class VolumeSlider;
 }
 
 /**
@@ -58,29 +56,15 @@ public:
   /**
    * Constructor.
    *
+   * @param player audio player
    * @param parent parent widget
    */
-  PlayToolBar(QWidget* parent);
+  explicit PlayToolBar(AudioPlayer* player, QWidget* parent);
 
   /**
    * Destructor.
    */
   virtual ~PlayToolBar();
-
-  /**
-   * Set files to be played.
-   *
-   * @param files  paths to files
-   * @param fileNr index of file to play (default 0)
-   */
-  void setFiles(const QStringList& files, int fileNr = 0);
-
-  /**
-   * Play a track from the files.
-   *
-   * @param fileNr index in list of files set with setFiles()
-   */
-  void playTrack(int fileNr);
 
 signals:
   /**
@@ -90,21 +74,6 @@ signals:
   void errorMessage(const QString& msg);
 
 private slots:
-  /**
-   * Toggle between play and pause.
-   */
-  void playOrPause();
-
-  /**
-   * Update display and button state when the current source is changed.
-   */
-  void currentSourceChanged();
-
-  /**
-   * Stop playback.
-   */
-  void stop();
-
   /**
    * Update displayed time.
    *
@@ -120,19 +89,13 @@ private slots:
   void stateChanged(Phonon::State newState);
 
   /**
-   * Queue next track when the current track is about to finish.
+   * Update display and button state when the current track is changed.
+   *
+   * @param filePath path of currently played audio file
+   * @param hasPrevious true if a previous track is available
+   * @param hasNext true if a next track is available
    */
-  void aboutToFinish();
-
-  /**
-   * Select previous track.
-   */
-  void previous();
-
-  /**
-   * Select next track.
-   */
-  void next();
+  void trackChanged(const QString& filePath, bool hasPrevious, bool hasNext);
 
 protected:
   /**
@@ -141,17 +104,6 @@ protected:
   virtual void closeEvent(QCloseEvent*);
 
 private:
-  /**
-   * Select a track from the files and optionally start playing it.
-   *
-   * @param fileNr index in list of files set with setFiles()
-   * @param play   true to play track
-   */
-  void selectTrack(int fileNr, bool play);
-
-  Phonon::MediaObject* m_mediaObject;
-  Phonon::AudioOutput* m_audioOutput;
-
   QIcon m_playIcon;
   QIcon m_pauseIcon;
 
@@ -163,8 +115,7 @@ private:
   QLCDNumber* m_timeLcd;
   QLabel* m_titleLabel;
 
-  QStringList m_files;
-  int m_fileNr;
+  AudioPlayer* m_player;
 };
 #else // HAVE_PHONON
 
@@ -175,4 +126,4 @@ Q_OBJECT
 
 #endif // HAVE_PHONON
 
-#endif
+#endif // PLAYTOOLBAR_H

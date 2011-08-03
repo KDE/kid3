@@ -30,7 +30,6 @@
 #include <QTextCodec>
 #include <QUrl>
 #include <QTextStream>
-#include "config.h"
 #ifdef CONFIG_USE_KDE
 #include <kapplication.h>
 #else
@@ -51,6 +50,9 @@
 #include "downloadclient.h"
 #include "iframeeditor.h"
 #include "qtcompatmac.h"
+#ifdef HAVE_PHONON
+#include "audioplayer.h"
+#endif
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -89,6 +91,9 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   m_downloadClient(new DownloadClient(this)),
   m_textExporter(new TextExporter(this)),
   m_dirRenamer(new DirRenamer(this)),
+#ifdef HAVE_PHONON
+  m_player(0),
+#endif
   m_downloadImageDest(ImageForSelectedFiles)
 {
   setObjectName("Kid3Application");
@@ -135,6 +140,20 @@ void Kid3Application::initFileTypes()
   TaggedFile::addResolver(new TagLibFile::Resolver);
 #endif
 }
+
+#ifdef HAVE_PHONON
+/**
+ * Get audio player.
+ * @return audio player.
+ */
+AudioPlayer* Kid3Application::getAudioPlayer()
+{
+  if (!m_player) {
+    m_player = new AudioPlayer(this);
+  }
+  return m_player;
+}
+#endif
 
 /**
  * Get settings.

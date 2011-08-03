@@ -33,6 +33,7 @@
 #include "trackdata.h"
 #include "filefilter.h"
 #include "generalconfig.h"
+#include "config.h"
 
 class QFileSystemModel;
 class QItemSelectionModel;
@@ -49,6 +50,9 @@ class FrameList;
 class IFrameEditor;
 class TextExporter;
 class DirRenamer;
+#ifdef HAVE_PHONON
+class AudioPlayer;
+#endif
 
 /**
  * Kid3 application logic, independent of GUI.
@@ -158,6 +162,14 @@ public:
    * @return directory renamer.
    */
   DirRenamer* getDirRenamer() { return m_dirRenamer; }
+
+#ifdef HAVE_PHONON
+  /**
+   * Get audio player.
+   * @return audio player.
+   */
+  AudioPlayer* getAudioPlayer();
+#endif
 
   /**
    * Get current index in file proxy model or root index if current index is
@@ -752,6 +764,10 @@ private:
   TextExporter* m_textExporter;
   /** Directory renamer */
   DirRenamer* m_dirRenamer;
+#ifdef HAVE_PHONON
+  /** Audio player */
+  AudioPlayer* m_player;
+#endif
   /** Affected files to add frame when downloading image */
   DownloadImageDestination m_downloadImageDest;
   /** Copy buffer */

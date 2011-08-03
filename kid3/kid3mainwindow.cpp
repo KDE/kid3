@@ -107,6 +107,9 @@
 #include "textexporter.h"
 #include "dirrenamer.h"
 #include "qtcompatmac.h"
+#ifdef HAVE_PHONON
+#include "audioplayer.h"
+#endif
 #ifdef HAVE_ID3LIB
 #include "mp3file.h"
 #endif
@@ -1673,13 +1676,13 @@ void Kid3MainWindow::slotPlayAudio()
   }
 
   if (!m_playToolBar) {
-    m_playToolBar = new PlayToolBar(this);
+    m_playToolBar = new PlayToolBar(m_app->getAudioPlayer(), this);
     m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
     addToolBar(Qt::BottomToolBarArea, m_playToolBar);
     connect(m_playToolBar, SIGNAL(errorMessage(const QString&)),
             this, SLOT(slotStatusMsg(const QString&)));
   }
-  m_playToolBar->setFiles(files, fileNr);
+  m_app->getAudioPlayer()->setFiles(files, fileNr);
   m_playToolBar->show();
 #endif
 }
