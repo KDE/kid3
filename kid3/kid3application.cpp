@@ -1211,23 +1211,27 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
 }
 
 /**
- * Select the first file.
+ * Set the first file as the current file.
+ *
+ * @param select true to select the file
  *
  * @return true if a file exists.
  */
-bool Kid3Application::selectFirstFile()
+bool Kid3Application::firstFile(bool select)
 {
   m_fileSelectionModel->setCurrentIndex(getRootIndex(),
-                                        QItemSelectionModel::SelectCurrent);
-  return selectNextFile();
+    select ? QItemSelectionModel::SelectCurrent : QItemSelectionModel::Current);
+  return nextFile(select);
 }
 
 /**
- * Select the next file.
+ * Set the next file as the current file.
+ *
+ * @param select true to select the file
  *
  * @return true if a next file exists.
  */
-bool Kid3Application::selectNextFile()
+bool Kid3Application::nextFile(bool select)
 {
   QModelIndex current(m_fileSelectionModel->currentIndex()), next;
   if (m_fileProxyModel->rowCount(current) > 0) {
@@ -1252,16 +1256,18 @@ bool Kid3Application::selectNextFile()
   if (!next.isValid())
     return false;
   m_fileSelectionModel->setCurrentIndex(next,
-                                        QItemSelectionModel::SelectCurrent);
+    select ? QItemSelectionModel::SelectCurrent : QItemSelectionModel::Current);
   return true;
 }
 
 /**
- * Select the previous file.
+ * Set the previous file as the current file.
+ *
+ * @param select true to select the file
  *
  * @return true if a previous file exists.
  */
-bool Kid3Application::selectPreviousFile()
+bool Kid3Application::previousFile(bool select)
 {
   QModelIndex current(m_fileSelectionModel->currentIndex()), previous;
   int row = current.row() - 1;
@@ -1280,8 +1286,47 @@ bool Kid3Application::selectPreviousFile()
   if (!previous.isValid() || previous == getRootIndex())
     return false;
   m_fileSelectionModel->setCurrentIndex(previous,
-                                        QItemSelectionModel::SelectCurrent);
+    select ? QItemSelectionModel::SelectCurrent : QItemSelectionModel::Current);
   return true;
+}
+
+/**
+ * Select or deselect the current file.
+ *
+ * @param select true to select the file, false to deselect it
+ *
+ * @return true if a current file exists.
+ */
+bool Kid3Application::selectCurrentFile(bool select)
+{
+  QModelIndex currentIdx(m_fileSelectionModel->currentIndex());
+  if (!currentIdx.isValid() || currentIdx == getRootIndex())
+    return false;
+
+  m_fileSelectionModel->setCurrentIndex(currentIdx,
+    select ? QItemSelectionModel::Select : QItemSelectionModel::Deselect);
+  return true;
+}
+
+/**
+ * Select all files.
+ */
+void Kid3Application::selectAllFiles()
+{
+  if (firstFile(false)) {
+    selectCurrentFile(true);
+    while (nextFile(false)) {
+      selectCurrentFile(true);
+    }
+  }
+}
+
+/**
+ * Deselect all files.
+ */
+void Kid3Application::deselectAllFiles()
+{
+  m_fileSelectionModel->clearSelection();
 }
 
 /**

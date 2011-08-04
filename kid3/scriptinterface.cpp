@@ -175,7 +175,7 @@ void ScriptInterface::quit()
  */
 void ScriptInterface::selectAll()
 {
-  m_mainWin->m_form->selectAllFiles();
+  m_app->selectAllFiles();
 }
 
 /**
@@ -183,7 +183,37 @@ void ScriptInterface::selectAll()
  */
 void ScriptInterface::deselectAll()
 {
-  m_mainWin->m_form->deselectAllFiles();
+  m_app->deselectAllFiles();
+}
+
+/**
+ * Set the first file as the current file.
+ *
+ * @return true if there is a first file.
+ */
+bool ScriptInterface::firstFile()
+{
+  return m_app->firstFile(false);
+}
+
+/**
+ * Set the previous file as the current file.
+ *
+ * @return true if there is a previous file.
+ */
+bool ScriptInterface::previousFile()
+{
+  return m_app->previousFile(false);
+}
+
+/**
+ * Set the next file as the current file.
+ *
+ * @return true if there is a next file.
+ */
+bool ScriptInterface::nextFile()
+{
+  return m_app->nextFile(false);
 }
 
 /**
@@ -191,9 +221,9 @@ void ScriptInterface::deselectAll()
  *
  * @return true if there is a first file.
  */
-bool ScriptInterface::firstFile()
+bool ScriptInterface::selectFirstFile()
 {
-  return m_app->selectFirstFile();
+  return m_app->firstFile(true);
 }
 
 /**
@@ -201,9 +231,9 @@ bool ScriptInterface::firstFile()
  *
  * @return true if there is a previous file.
  */
-bool ScriptInterface::previousFile()
+bool ScriptInterface::selectPreviousFile()
 {
-  return m_app->selectPreviousFile();
+  return m_app->previousFile(true);
 }
 
 /**
@@ -211,9 +241,19 @@ bool ScriptInterface::previousFile()
  *
  * @return true if there is a next file.
  */
-bool ScriptInterface::nextFile()
+bool ScriptInterface::selectNextFile()
 {
-  return m_app->selectNextFile();
+  return m_app->nextFile(true);
+}
+
+/**
+ * Select the current file.
+ *
+ * @return true if there is a current file.
+ */
+bool ScriptInterface::selectCurrentFile()
+{
+ return m_app->selectCurrentFile(true);
 }
 
 /**

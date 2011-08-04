@@ -38,7 +38,9 @@ class Kid3Application;
 /**
  * Adaptor class for interface net.sourceforge.Kid3
  * Create net.sourceforge.Kid3.xml with:
+ * echo "#define HAVE_QTDBUS" >config.h
  * qdbuscpp2xml scriptinterface.h >net.sourceforge.Kid3.xml
+ * rm config.h
  */
 class ScriptInterface : public QDBusAbstractAdaptor {
 Q_OBJECT
@@ -140,25 +142,53 @@ public slots:
   void deselectAll();
 
   /**
-   * Select the first file.
+   * Set the first file as the current file.
    *
    * @return true if there is a first file.
    */
   bool firstFile();
 
   /**
-   * Select the previous file.
+   * Set the previous file as the current file.
    *
    * @return true if there is a previous file.
    */
   bool previousFile();
 
   /**
-   * Select the next file.
+   * Set the next file as the current file.
    *
    * @return true if there is a next file.
    */
   bool nextFile();
+
+  /**
+   * Select the first file.
+   *
+   * @return true if there is a first file.
+   */
+  bool selectFirstFile();
+
+  /**
+   * Select the previous file.
+   *
+   * @return true if there is a previous file.
+   */
+  bool selectPreviousFile();
+
+  /**
+   * Select the next file.
+   *
+   * @return true if there is a next file.
+   */
+  bool selectNextFile();
+
+  /**
+   * Select the current file.
+   *
+   * @return true if there is a current file.
+   */
+  bool selectCurrentFile();
 
   /**
    * Expand or collapse the current file item if it is a directory.

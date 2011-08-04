@@ -47,6 +47,18 @@
     <method name="nextFile">
       <arg type="b" direction="out"/>
     </method>
+    <method name="selectFirstFile">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="selectPreviousFile">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="selectNextFile">
+      <arg type="b" direction="out"/>
+    </method>
+    <method name="selectCurrentFile">
+      <arg type="b" direction="out"/>
+    </method>
     <method name="expandDirectory">
       <arg type="b" direction="out"/>
     </method>

@@ -606,25 +606,50 @@ public slots:
                        const QString& mimeType, const QString& url);
 
   /**
-   * Select the first file.
+   * Set the first file as the current file.
+   *
+   * @param select true to select the file
    *
    * @return true if a file exists.
    */
-  bool selectFirstFile();
+  bool firstFile(bool select = true);
 
   /**
-   * Select the next file.
+   * Set the next file as the current file.
+   *
+   * @param select true to select the file
    *
    * @return true if a next file exists.
    */
-  bool selectNextFile();
+  bool nextFile(bool select = true);
 
   /**
-   * Select the previous file.
+   * Set the previous file as the current file.
+   *
+   * @param select true to select the file
    *
    * @return true if a previous file exists.
    */
-  bool selectPreviousFile();
+  bool previousFile(bool select = true);
+
+  /**
+   * Select or deselect the current file.
+   *
+   * @param select true to select the file, false to deselect it
+   *
+   * @return true if a current file exists.
+   */
+  bool selectCurrentFile(bool select = true);
+
+  /**
+   * Select all files.
+   */
+  void selectAllFiles();
+
+  /**
+   * Deselect all files.
+   */
+  void deselectAllFiles();
 
   /**
    * Process change of selection.
