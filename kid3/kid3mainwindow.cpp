@@ -45,10 +45,6 @@
 #include <QToolBar>
 #include <QFileSystemModel>
 #include "config.h"
-#ifdef HAVE_QTDBUS
-#include <QDBusConnection>
-#include "scriptinterface.h"
-#endif
 
 #ifdef CONFIG_USE_KDE
 #include <kapplication.h>
@@ -185,23 +181,6 @@ Kid3MainWindow::Kid3MainWindow() :
   }
 #endif
   readFontAndStyleOptions();
-#endif
-#ifdef HAVE_QTDBUS
-  if (QDBusConnection::sessionBus().isConnected()) {
-    QString serviceName("net.sourceforge.kid3");
-    QDBusConnection::sessionBus().registerService(serviceName);
-#ifndef CONFIG_USE_KDE
-    serviceName += '-';
-    serviceName += QString::number(::getpid());
-    QDBusConnection::sessionBus().registerService(serviceName);
-#endif
-    new ScriptInterface(this, m_app);
-    if (!QDBusConnection::sessionBus().registerObject("/Kid3", this)) {
-      qWarning("Registering D-Bus object failed");
-    }
-  } else {
-    qWarning("Cannot connect to the D-BUS session bus.");
-  }
 #endif
 
   initStatusBar();

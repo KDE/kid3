@@ -35,6 +35,10 @@
 #else
 #include <QApplication>
 #endif
+#ifdef HAVE_QTDBUS
+#include <QDBusConnection>
+#include "scriptinterface.h"
+#endif
 #include "fileproxymodel.h"
 #include "dirproxymodel.h"
 #include "modeliterator.h"
@@ -108,6 +112,24 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   setModified(false);
   setFiltered(false);
   ConfigStore::s_fnFormatCfg.setAsFilenameFormatter();
+
+#ifdef HAVE_QTDBUS
+  if (QDBusConnection::sessionBus().isConnected()) {
+    QString serviceName("net.sourceforge.kid3");
+    QDBusConnection::sessionBus().registerService(serviceName);
+#ifndef CONFIG_USE_KDE
+    serviceName += '-';
+    serviceName += QString::number(::getpid());
+    QDBusConnection::sessionBus().registerService(serviceName);
+#endif
+    new ScriptInterface(this);
+    if (!QDBusConnection::sessionBus().registerObject("/Kid3", this)) {
+      qWarning("Registering D-Bus object failed");
+    }
+  } else {
+    qWarning("Cannot connect to the D-BUS session bus.");
+  }
+#endif
 }
 
 /**

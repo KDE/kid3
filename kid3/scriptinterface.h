@@ -32,13 +32,15 @@
 #include <QDBusAbstractAdaptor>
 #include <QStringList>
 
-class Kid3MainWindow;
 class Kid3Application;
 
 /**
  * Adaptor class for interface net.sourceforge.Kid3
  * Create net.sourceforge.Kid3.xml with:
  * echo "#define HAVE_QTDBUS" >config.h
+ * echo "#define HAVE_ID3LIB" >>config.h
+ * echo "#define HAVE_TAGLIB" >>config.h
+ * echo "#define HAVE_PHONON" >>config.h
  * qdbuscpp2xml scriptinterface.h >net.sourceforge.Kid3.xml
  * rm config.h
  */
@@ -49,10 +51,9 @@ public:
   /**
    * Constructor.
    *
-   * @param parent parent main window
-   * @param app application
+   * @param app parent application
    */
-  ScriptInterface(Kid3MainWindow* parent, Kid3Application* app);
+  explicit ScriptInterface(Kid3Application* app);
 
   /**
    * Destructor.
@@ -366,14 +367,6 @@ public slots:
   void removeTag(int tagMask);
 
   /**
-   * Hide or show tag in GUI.
-   *
-   * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
-   * @param hide    true to hide tag
-   */
-  void hideTag(int tagMask, bool hide);
-
-  /**
    * Reparse the configuration.
    * Automated configuration changes are possible by modifying
    * the configuration file and then reparsing the configuration.
@@ -388,7 +381,6 @@ public slots:
 #endif
 
 private:
-  Kid3MainWindow* m_mainWin;
   Kid3Application* m_app;
   QString m_errorMsg;
 };

@@ -30,7 +30,6 @@
 #include <QDBusConnection>
 #include <QFileInfo>
 #include <QCoreApplication>
-#include "kid3mainwindow.h"
 #include "kid3application.h"
 #include "kid3form.h"
 #include "taggedfile.h"
@@ -44,11 +43,10 @@
 /**
  * Constructor.
  *
- * @param parent parent object
- * @param app application
+ * @param app parent application
  */
-ScriptInterface::ScriptInterface(Kid3MainWindow* parent, Kid3Application* app) :
-  QDBusAbstractAdaptor(parent), m_mainWin(parent), m_app(app)
+ScriptInterface::ScriptInterface(Kid3Application* app) :
+  QDBusAbstractAdaptor(app), m_app(app)
 {
   setObjectName("ScriptInterface");
   setAutoRelaySignals(true);
@@ -639,28 +637,13 @@ void ScriptInterface::removeTag(int tagMask)
 }
 
 /**
- * Hide or show tag in GUI.
- *
- * @param tagMask tag bit (1 for tag 1, 2 for tag 2)
- * @param hide    true to hide tag
- */
-void ScriptInterface::hideTag(int tagMask, bool hide)
-{
-  if (tagMask & 1) {
-    m_mainWin->m_form->hideV1(hide);
-  } else if (tagMask & 2) {
-    m_mainWin->m_form->hideV2(hide);
-  }
-}
-
-/**
  * Reparse the configuration.
  * Automated configuration changes are possible by modifying
  * the configuration file and then reparsing the configuration.
  */
 void ScriptInterface::reparseConfiguration()
 {
-  m_mainWin->readOptions();
+  m_app->readConfig();
 }
 
 #ifdef HAVE_PHONON

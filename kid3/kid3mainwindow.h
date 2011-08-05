@@ -409,8 +409,6 @@ private slots:
 #endif
 
 private:
-  friend class ScriptInterface;
-
   /**
    * Save all changed files.
    *

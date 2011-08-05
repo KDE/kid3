@@ -131,11 +131,9 @@
     <method name="removeTag">
       <arg name="tagMask" type="i" direction="in"/>
     </method>
-    <method name="hideTag">
-      <arg name="tagMask" type="i" direction="in"/>
-      <arg name="hide" type="b" direction="in"/>
-    </method>
     <method name="reparseConfiguration">
+    </method>
+    <method name="playAudio">
     </method>
   </interface>
 </node>
