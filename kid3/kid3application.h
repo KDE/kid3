@@ -652,6 +652,26 @@ public slots:
   void deselectAllFiles();
 
   /**
+   * Fetch entries of directory if not already fetched.
+   * This works like FileList::expand(), but without expanding tree view
+   * items and independent of the GUI. The processing is done in the background
+   * by QFileSystemModel, so the fetched items are not immediately available
+   * after calling this method.
+   *
+   * @param index index of directory item
+   */
+  void fetchDirectory(const QModelIndex& index);
+
+  /**
+   * Fetch entries for all directories if not already fetched.
+   * This works like FileList::expandAll(), but without expanding tree view
+   * items and independent of the GUI. The processing is done in the background
+   * by QFileSystemModel, so the fetched items are not immediately available
+   * after calling this method.
+   */
+  void fetchAllDirectories();
+
+  /**
    * Process change of selection.
    * The GUI is signaled to update the current selection and the controls.
    */

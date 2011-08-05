@@ -260,14 +260,16 @@ bool ScriptInterface::selectCurrentFile()
  * Expand the current file item if it is a directory.
  * A file list item is a directory if getFileName() returns a name with
  * '/' as the last character.
+ * The directory is fetched but not expanded in the GUI. To expand it in the
+ * GUI, call nextFile() or selectNextFile() after expandDirectory().
  *
  * @return true if current file item is a directory.
  */
 bool ScriptInterface::expandDirectory()
 {
-  QModelIndex index =  m_mainWin->m_form->getFileList()->currentIndex();
+  QModelIndex index(m_app->getFileSelectionModel()->currentIndex());
   if (!FileProxyModel::getPathIfIndexOfDir(index).isNull()) {
-    m_mainWin->m_form->getFileList()->expand(index);
+    m_app->fetchDirectory(index);
     return true;
   }
   return false;
