@@ -530,6 +530,7 @@ void FileList::customContextMenu(const QPoint& pos)
   contextMenu(currentIndex(), mapToGlobal(pos));
 }
 
+#ifdef HAVE_PHONON
 /**
  * Play item if it is a tagged file.
  *
@@ -537,9 +538,8 @@ void FileList::customContextMenu(const QPoint& pos)
  */
 void FileList::playIfTaggedFile(const QModelIndex& index)
 {
-#ifdef HAVE_PHONON
   if (FileProxyModel::getTaggedFileOfIndex(index)) {
     m_mainWin->slotPlayAudio();
   }
-#endif
 }
+#endif

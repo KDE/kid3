@@ -1422,19 +1422,19 @@ void Kid3MainWindow::slotImportMusicBrainzRelease()
   }
 }
 
+#ifdef HAVE_TUNEPIMP
 /**
  * Import from MusicBrainz.
  */
 void Kid3MainWindow::slotImportMusicBrainz()
 {
-#ifdef HAVE_TUNEPIMP
   setupImportDialog();
   if (m_importDialog) {
     m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_MusicBrainz);
     execImportDialog();
   }
-#endif
 }
+#endif
 
 /**
  * Browse album cover artwork.

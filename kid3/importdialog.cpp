@@ -295,7 +295,9 @@ void ImportDialog::fromServer()
         fromMusicBrainzRelease();
         break;
       case ImportConfig::ServerMusicBrainzFingerprint:
+#ifdef HAVE_TUNEPIMP
         fromMusicBrainz();
+#endif
         break;
     }
   }
@@ -419,12 +421,12 @@ void ImportDialog::fromAmazon()
   displayServerImportDialog(m_amazonImporter);
 }
 
+#ifdef HAVE_TUNEPIMP
 /**
  * Import from MusicBrainz and preview in table.
  */
 void ImportDialog::fromMusicBrainz()
 {
-#ifdef HAVE_TUNEPIMP
   if (!m_musicBrainzDialog) {
     m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataModel);
     connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
@@ -434,8 +436,8 @@ void ImportDialog::fromMusicBrainz()
     m_musicBrainzDialog->initTable();
     (void)m_musicBrainzDialog->exec();
   }
-#endif
 }
+#endif
 
 /**
  * Shows the dialog as a modal dialog.
@@ -464,8 +466,10 @@ int ImportDialog::exec()
       fromMusicBrainzRelease();
       break;
     case ASD_MusicBrainz:
+#ifdef HAVE_TUNEPIMP
       show();
       fromMusicBrainz();
+#endif
       break;
     case ASD_None:
       break;

@@ -29,6 +29,7 @@
 
 #include <QTreeView>
 #include <QList>
+#include "config.h"
 
 class Kid3MainWindow;
 class ExternalProcess;
@@ -136,12 +137,14 @@ private slots:
    */
   void customContextMenu(const QPoint& pos);
 
+#ifdef HAVE_PHONON
   /**
    * Play item if it is a tagged file.
    *
    * @param index model index of item
    */
   void playIfTaggedFile(const QModelIndex& index);
+#endif
 
 private:
   Q_DISABLE_COPY(FileList)

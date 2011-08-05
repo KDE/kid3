@@ -480,15 +480,19 @@ public slots:
    */
   void applyId3Format();
 
+#ifdef HAVE_TAGLIB
   /**
    * Convert ID3v2.3 to ID3v2.4 tags.
    */
   void convertToId3v24();
+#endif
 
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
   /**
    * Convert ID3v2.4 to ID3v2.3 tags.
    */
   void convertToId3v23();
+#endif
 
   /**
    * Copy tags 1 into copy buffer.

@@ -1782,12 +1782,12 @@ void Kid3Application::setTextEncodings()
 #endif
 }
 
+#ifdef HAVE_TAGLIB
 /**
  * Convert ID3v2.3 to ID3v2.4 tags.
  */
 void Kid3Application::convertToId3v24()
 {
-#ifdef HAVE_TAGLIB
   emit fileSelectionUpdateRequested();
   SelectedTaggedFileIterator it(getRootIndex(),
                                 getFileSelectionModel(),
@@ -1824,15 +1824,15 @@ void Kid3Application::convertToId3v24()
     }
   }
   emit selectedFilesUpdated();
-#endif
 }
+#endif
 
+#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
 /**
  * Convert ID3v2.4 to ID3v2.3 tags.
  */
 void Kid3Application::convertToId3v23()
 {
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
   emit fileSelectionUpdateRequested();
   SelectedTaggedFileIterator it(getRootIndex(),
                                 getFileSelectionModel(),
@@ -1867,5 +1867,5 @@ void Kid3Application::convertToId3v23()
     }
   }
   emit selectedFilesUpdated();
-#endif
 }
+#endif

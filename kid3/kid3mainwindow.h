@@ -312,10 +312,12 @@ public slots:
    */
   void slotImportMusicBrainzRelease();
 
+#ifdef HAVE_TUNEPIMP
   /**
    * Import from MusicBrainz.
    */
   void slotImportMusicBrainz();
+#endif
 
   /**
    * Browse album cover artwork.

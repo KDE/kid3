@@ -186,10 +186,12 @@ private slots:
    */
   void fromTrackType();
 
+#ifdef HAVE_TUNEPIMP
   /**
    * Import from MusicBrainz and preview in table.
    */
   void fromMusicBrainz();
+#endif
 
   /**
    * Import from MusicBrainz release database and preview in table.
