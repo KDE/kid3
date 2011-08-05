@@ -29,6 +29,7 @@
 #include <QDBusMessage>
 #include <QDBusConnection>
 #include <QFileInfo>
+#include <QCoreApplication>
 #include "kid3mainwindow.h"
 #include "kid3application.h"
 #include "kid3form.h"
@@ -167,7 +168,7 @@ void ScriptInterface::quit()
 {
   selectAll();
   revert();
-  m_mainWin->slotFileQuit();
+  QCoreApplication::quit();
 }
 
 /**
