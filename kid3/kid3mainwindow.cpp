@@ -350,11 +350,11 @@ void Kid3MainWindow::initActions()
   KAction* editPreviousFile = new KAction(KIcon("go-previous"), i18n("&Previous File"), this);
   editPreviousFile->setShortcut(KShortcut("Alt+Up"));
   actionCollection()->addAction("previous_file", editPreviousFile);
-  connect(editPreviousFile, SIGNAL(triggered()), m_app, SLOT(selectPreviousFile()));
+  connect(editPreviousFile, SIGNAL(triggered()), m_app, SLOT(previousFile()));
   KAction* editNextFile = new KAction(KIcon("go-next"), i18n("&Next File"), this);
   editNextFile->setShortcut(KShortcut("Alt+Down"));
   actionCollection()->addAction("next_file", editNextFile);
-  connect(editNextFile, SIGNAL(triggered()), m_app, SLOT(selectNextFile()));
+  connect(editNextFile, SIGNAL(triggered()), m_app, SLOT(nextFile()));
   KAction* actionV1FromFilename = new KAction(i18n("Tag 1") + ": " + i18n("From Filename"), this);
   actionCollection()->addAction("v1_from_filename", actionV1FromFilename);
   connect(actionV1FromFilename, SIGNAL(triggered()), m_app, SLOT(getTagsFromFilenameV1()));
@@ -557,7 +557,7 @@ void Kid3MainWindow::initActions()
     editPreviousFile->setShortcut(Qt::ALT + Qt::Key_Up);
     editPreviousFile->setIcon(QIcon(":/images/go-previous.png"));
     connect(editPreviousFile, SIGNAL(triggered()),
-      m_app, SLOT(selectPreviousFile()));
+      m_app, SLOT(previousFile()));
   }
   QAction* editNextFile = new QAction(this);
   if (editNextFile) {
@@ -566,7 +566,7 @@ void Kid3MainWindow::initActions()
     editNextFile->setShortcut(Qt::ALT + Qt::Key_Down);
     editNextFile->setIcon(QIcon(":/images/go-next.png"));
     connect(editNextFile, SIGNAL(triggered()),
-      m_app, SLOT(selectNextFile()));
+      m_app, SLOT(nextFile()));
   }
   QAction* helpHandbook = new QAction(this);
   if (helpHandbook) {
