@@ -394,7 +394,11 @@ void DirRenamer::performActions(QString* errorMsg)
         createDirectory((*it).m_dest, errorMsg);
         break;
       case RenameAction::RenameDirectory:
-        renameDirectory((*it).m_src, (*it).m_dest, errorMsg);
+        if (renameDirectory((*it).m_src, (*it).m_dest, errorMsg)) {
+          if ((*it).m_src == m_dirName) {
+            m_dirName = (*it).m_dest;
+          }
+        }
         break;
       case RenameAction::RenameFile:
         renameFile((*it).m_src, (*it).m_dest, errorMsg);

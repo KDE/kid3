@@ -1543,27 +1543,15 @@ void Kid3MainWindow::slotRenameDirectory()
               m_app, SLOT(scheduleRenameActions()));
     }
     if (m_renDirDialog) {
-      QModelIndex index = m_form->getFileList()->currentOrRootIndex();
-      QString dirName = FileProxyModel::getPathIfIndexOfDir(index);
-      if (!dirName.isNull()) {
-        m_form->getFileList()->expand(index);
-      } else if (TaggedFile* taggedFile =
-                 FileProxyModel::getTaggedFileOfIndex(index)) {
-        dirName = taggedFile->getDirname();
-      }
-      if (!dirName.isEmpty()) {
-        m_app->openDirectory(dirName);
-      }
-      if (TaggedFile* taggedFile = TaggedFileOfDirectoryIterator::first(index)) {
+      m_app->fetchAllDirectories();
+      if (TaggedFile* taggedFile =
+        TaggedFileOfDirectoryIterator::first(m_app->currentOrRootIndex())) {
         m_renDirDialog->startDialog(taggedFile);
       } else {
         m_renDirDialog->startDialog(0, m_app->getDirName());
       }
       if (m_renDirDialog->exec() == QDialog::Accepted) {
-        m_app->openDirectory(m_app->getDirName());
-        QString errorMsg;
-        m_app->getDirRenamer()->performActions(&errorMsg);
-        m_app->openDirectory(m_renDirDialog->getNewDirname());
+        QString errorMsg(m_app->performRenameActions());
         if (!errorMsg.isEmpty()) {
           QMessageBox::warning(0, i18n("File Error"),
                                i18n("Error while renaming:\n") +

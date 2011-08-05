@@ -1380,7 +1380,6 @@ void Kid3Application::fetchAllDirectories()
   while (it.hasNext()) {
     QModelIndex index(it.next());
     if (m_fileProxyModel->canFetchMore(index)) {
-      qDebug("fetchMore %s", qPrintable(index.data().toString()));
       m_fileProxyModel->fetchMore(index);
     }
   }
@@ -1484,6 +1483,23 @@ void Kid3Application::applyFilter(const QString& expression)
 }
 
 /**
+ * Perform rename actions and change application directory afterwards if it
+ * was renamed.
+ *
+ * @return error messages, null string if no error occurred.
+ */
+QString Kid3Application::performRenameActions()
+{
+  QString errorMsg;
+  m_dirRenamer->setDirName(getDirName());
+  m_dirRenamer->performActions(&errorMsg);
+  if (m_dirRenamer->getDirName() != getDirName()) {
+    openDirectory(m_dirRenamer->getDirName());
+  }
+  return errorMsg;
+}
+
+/**
  * Set the directory name from the tags.
  * The directory must not have modified files.
  *
@@ -1506,9 +1522,7 @@ bool Kid3Application::renameDirectory(TrackData::TagVersion tagMask,
     m_dirRenamer->setFormat(format);
     m_dirRenamer->setAction(create);
     scheduleRenameActions();
-    openDirectory(getDirName());
-    QString errorMsg;
-    m_dirRenamer->performActions(&errorMsg);
+    QString errorMsg(performRenameActions());
     ok = errorMsg.isEmpty();
     if (errStr) {
       *errStr = errorMsg;

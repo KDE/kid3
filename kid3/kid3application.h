@@ -262,6 +262,14 @@ public:
   bool writePlaylist();
 
   /**
+   * Perform rename actions and change application directory afterwards if it
+   * was renamed.
+   *
+   * @return error messages, null string if no error occurred.
+   */
+  QString performRenameActions();
+
+  /**
    * Set the directory name from the tags.
    * The directory must not have modified files.
    *

@@ -119,6 +119,27 @@ public:
    */
   void setAbortFlag() { m_aborted = true; }
 
+  /**
+   * Set directory name.
+   * This should be done before calling performActions(), so that the directory
+   * name is changed when the application directory is renamed.
+   *
+   * @param dirName directory name
+   */
+  void setDirName(const QString& dirName) { m_dirName = dirName; }
+
+  /**
+   * Get directory name.
+   * The directory name should be initialized with the value of
+   * Kid3Application::getDirName() before performActions() is started and will
+   * be updated if it is renamed while performing the actions. If it is
+   * different from the application directory name after performActions(), the
+   * new directory should be opened.
+   *
+   * @return directory.
+   */
+  QString getDirName() const { return m_dirName; }
+
 private:
   /**
    * An action performed while renaming a directory.
@@ -251,6 +272,7 @@ private:
   TrackData::TagVersion m_tagVersion;
   bool m_actionCreate;
   QString m_format;
+  QString m_dirName;
 };
 
 #endif // DIRRENAMER_H
