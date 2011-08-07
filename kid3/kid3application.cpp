@@ -1401,9 +1401,14 @@ void Kid3Application::fileSelected()
 void Kid3Application::scheduleRenameActions()
 {
   getDirRenamer()->clearActions();
-  TaggedFileIterator it(getRootIndex());
-  while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
+  // If directories are selected, rename them, else process files of the
+  // current directory.
+  QScopedPointer<AbstractTaggedFileIterator> it(
+        new TaggedFileOfSelectedDirectoriesIterator(m_fileSelectionModel));
+  if (!it->hasNext())
+    it.reset(new TaggedFileIterator(getRootIndex()));
+  while (it->hasNext()) {
+    TaggedFile* taggedFile = it->next();
     taggedFile->readTags(false);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
     taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
