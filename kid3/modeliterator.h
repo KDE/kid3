@@ -33,6 +33,7 @@
 
 class QItemSelectionModel;
 class TaggedFile;
+class FileProxyModel;
 
 /**
  * Generic Java-style iterator for Qt models.
@@ -153,6 +154,35 @@ private:
 };
 
 /**
+ * Abstract base class for tagged file iterators.
+ */
+class AbstractTaggedFileIterator {
+public:
+  /**
+   * Destructor.
+   */
+  virtual ~AbstractTaggedFileIterator() = 0;
+
+  /**
+   * Check if a next item exists.
+   * @return true if there is a next file
+   */
+  virtual bool hasNext() const = 0;
+
+  /**
+   * Advance iterator and return next item.
+   * @return next file
+   */
+  virtual TaggedFile* next() = 0;
+
+  /**
+   * Get next item without moving iterator.
+   * @return next file
+   */
+  virtual TaggedFile* peekNext() const = 0;
+};
+
+/**
  * Iterator to iterate over model indexes with tagged files.
  * All TaggedFiles returned while hasNext() is true are not null.
  *
@@ -166,7 +196,7 @@ private:
  * }
  * @endcode
  */
-class TaggedFileIterator {
+class TaggedFileIterator : public AbstractTaggedFileIterator {
 public:
   /**
    * Constructor.
@@ -179,19 +209,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  bool hasNext() const { return m_nextFile != 0; }
+  virtual bool hasNext() const { return m_nextFile != 0; }
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  TaggedFile* next();
+  virtual TaggedFile* next();
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  TaggedFile* peekNext() const { return m_nextFile; }
+  virtual TaggedFile* peekNext() const { return m_nextFile; }
 
 private:
   ModelIterator m_it;
@@ -212,7 +242,7 @@ private:
  * }
  * @endcode
  */
-class SelectedTaggedFileIterator {
+class SelectedTaggedFileIterator : public AbstractTaggedFileIterator {
 public:
   /**
    * Constructor.
@@ -230,19 +260,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  bool hasNext() const { return m_nextFile != 0; }
+  virtual bool hasNext() const { return m_nextFile != 0; }
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  TaggedFile* next();
+  virtual TaggedFile* next();
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  TaggedFile* peekNext() const { return m_nextFile; }
+  virtual TaggedFile* peekNext() const { return m_nextFile; }
 
   /**
    * Check if nothing is selected.
@@ -271,7 +301,7 @@ private:
  * }
  * @endcode
  */
-class TaggedFileOfDirectoryIterator {
+class TaggedFileOfDirectoryIterator : public AbstractTaggedFileIterator {
 public:
   /**
    * Constructor.
@@ -284,19 +314,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  bool hasNext() const;
+  virtual bool hasNext() const;
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  TaggedFile* next();
+  virtual TaggedFile* next();
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  TaggedFile* peekNext() const;
+  virtual TaggedFile* peekNext() const;
 
   /**
    * Get first tagged file in directory.
@@ -326,7 +356,8 @@ private:
  * }
  * @endcode
  */
-class SelectedTaggedFileOfDirectoryIterator {
+class SelectedTaggedFileOfDirectoryIterator :
+    public AbstractTaggedFileIterator {
 public:
   /**
    * Constructor.
@@ -345,19 +376,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  bool hasNext() const;
+  virtual bool hasNext() const;
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  TaggedFile* next();
+  virtual TaggedFile* next();
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  TaggedFile* peekNext() const;
+  virtual TaggedFile* peekNext() const;
 
 private:
   int m_row;
@@ -366,6 +397,65 @@ private:
   TaggedFile* m_nextFile;
   const QItemSelectionModel* m_selectModel;
   bool m_allSelected;
+};
+
+/**
+ * Iterator to iterate all tagged files from selected directories.
+ * All TaggedFiles returned while hasNext() is true are not null.
+ *
+ * Typical usage:
+ * @code
+ * // get selectionModel...
+ * TaggedFileOfSelectedDirectoriesIterator it(selectionModel);
+ * while (it.hasNext()) {
+ *   TaggedFile* taggedFile = it.next();
+ *   // do something with taggedFile...
+ * }
+ * @endcode
+ */
+class TaggedFileOfSelectedDirectoriesIterator :
+    public AbstractTaggedFileIterator {
+public:
+  /**
+   * Constructor.
+   *
+   * @param selectModel selection model
+   */
+  explicit TaggedFileOfSelectedDirectoriesIterator(
+    const QItemSelectionModel* selectModel);
+
+  /**
+   * Check if a next item exists.
+   * @return true if there is a next file
+   */
+  virtual bool hasNext() const;
+
+  /**
+   * Advance iterator and return next item.
+   * @return next file
+   */
+  virtual TaggedFile* next();
+
+  /**
+   * Get next item without moving iterator.
+   * @return next file
+   */
+  virtual TaggedFile* peekNext() const;
+
+private:
+  /**
+   * Get indexes of directory and recursively all subdirectories.
+   * @param dirIndex index of directory
+   * @return list with dirIndex and its subdirectories.
+   */
+  QModelIndexList getIndexesOfDirWithSubDirs(const QModelIndex& dirIndex);
+
+  const FileProxyModel* m_model;
+  const QItemSelectionModel* m_selectModel;
+  QModelIndexList m_dirIndexes;
+  int m_dirIdx;
+  int m_row;
+  TaggedFile* m_nextFile;
 };
 
 #endif // MODELITERATOR_H

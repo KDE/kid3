@@ -185,6 +185,14 @@ QVariant ModelBfsIterator::peekNextData(int role) const {
 
 
 /**
+ * Destructor.
+ */
+AbstractTaggedFileIterator::~AbstractTaggedFileIterator()
+{
+}
+
+
+/**
  * Constructor.
  *
  * @param rootIdx root of model to iterate
@@ -377,6 +385,96 @@ TaggedFile* SelectedTaggedFileOfDirectoryIterator::next() {
  * @return next file
  */
 TaggedFile* SelectedTaggedFileOfDirectoryIterator::peekNext() const
+{
+  if (!m_model)
+    return 0;
+  return m_nextFile;
+}
+
+
+/**
+ * Constructor.
+ *
+ * @param selectModel selection model
+ */
+TaggedFileOfSelectedDirectoriesIterator::TaggedFileOfSelectedDirectoriesIterator(
+  const QItemSelectionModel* selectModel) : m_dirIdx(0), m_row(0), m_nextFile(0)
+{
+  if (selectModel &&
+      (m_model = qobject_cast<const FileProxyModel*>(selectModel->model()))
+      != 0) {
+    foreach (const QModelIndex& index, selectModel->selectedIndexes()) {
+      if (m_model->isDir(index)) {
+        m_dirIndexes.append(getIndexesOfDirWithSubDirs(index));
+      }
+    }
+  }
+  next();
+}
+
+/**
+ * Get indexes of directory and recursively all subdirectories.
+ * @param dirIndex index of directory
+ * @return list with dirIndex and its subdirectories.
+ */
+QModelIndexList
+TaggedFileOfSelectedDirectoriesIterator::getIndexesOfDirWithSubDirs(
+  const QModelIndex& dirIndex) {
+  QModelIndexList dirs;
+  dirs.append(dirIndex);
+  for (int dirsPos = 0; dirsPos < dirs.size(); ++dirsPos) {
+    QModelIndex parentIndex(dirs.at(dirsPos));
+    for (int row = 0; row < m_model->rowCount(parentIndex); ++row) {
+      QModelIndex index(m_model->index(row, 0, parentIndex));
+      if (m_model->isDir(index)) {
+        dirs.append(index);
+      }
+    }
+  }
+  return dirs;
+}
+
+/**
+ * Check if a next item exists.
+ * @return true if there is a next file
+ */
+bool TaggedFileOfSelectedDirectoriesIterator::hasNext() const
+{
+  return m_model && m_nextFile != 0;
+}
+
+/**
+ * Advance iterator and return next item.
+ * @return next file
+ */
+TaggedFile* TaggedFileOfSelectedDirectoriesIterator::next()
+{
+  if (!m_model)
+    return 0;
+  TaggedFile* result = m_nextFile;
+  m_nextFile = 0;
+  while (!m_nextFile) {
+    if (m_dirIdx >= m_dirIndexes.size())
+      break;
+    QModelIndex parentIdx(m_dirIndexes.at(m_dirIdx));
+    while (m_row < m_model->rowCount(parentIdx)) {
+      QModelIndex index = m_model->index(m_row++, 0, parentIdx);
+      if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != 0)
+        break;
+    }
+    if (m_row >= m_model->rowCount(parentIdx)) {
+      ++m_dirIdx;
+      m_row = 0;
+    }
+  }
+  return result;
+}
+
+/**
+ * Get next item without moving iterator.
+ * @return next file
+ */
+TaggedFile* TaggedFileOfSelectedDirectoriesIterator::peekNext() const
 {
   if (!m_model)
     return 0;
