@@ -1551,12 +1551,17 @@ void Kid3Application::numberTracks(int nr, int total,
   if (numDigits < 1 || numDigits > 5)
     numDigits = 1;
 
-  SelectedTaggedFileOfDirectoryIterator it(
-      currentOrRootIndex(),
-      getFileSelectionModel(),
-      true);
-  while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
+  // If directories are selected, number their files, else process the selected
+  // files of the current directory.
+  QScopedPointer<AbstractTaggedFileIterator> it(
+        new TaggedFileOfSelectedDirectoriesIterator(getFileSelectionModel()));
+  if (!it->hasNext())
+    it.reset(new SelectedTaggedFileOfDirectoryIterator(
+               currentOrRootIndex(),
+               getFileSelectionModel(),
+               true));
+  while (it->hasNext()) {
+    TaggedFile* taggedFile = it->next();
     taggedFile->readTags(false);
     if (tagVersion & TrackData::TagV1) {
       int oldnr = taggedFile->getTrackNumV1();
