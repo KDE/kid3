@@ -61,7 +61,7 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 {
   setObjectName("MusicBrainzDialog");
   setModal(true);
-  setWindowTitle(i18n("MusicBrainz"));
+  setWindowTitle(i18n("MusicBrainz Fingerprint"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   if (!vlayout) {

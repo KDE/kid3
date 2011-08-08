@@ -53,6 +53,11 @@
 #include "playlistcreator.h"
 #include "downloadclient.h"
 #include "iframeeditor.h"
+#include "freedbimporter.h"
+#include "tracktypeimporter.h"
+#include "musicbrainzreleaseimporter.h"
+#include "discogsimporter.h"
+#include "amazonimporter.h"
 #include "qtcompatmac.h"
 #ifdef HAVE_PHONON
 #include "audioplayer.h"
@@ -112,6 +117,13 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   setModified(false);
   setFiltered(false);
   ConfigStore::s_fnFormatCfg.setAsFilenameFormatter();
+
+  m_importers
+      << new FreedbImporter(this, m_trackDataModel)
+      << new TrackTypeImporter(this, m_trackDataModel)
+      << new DiscogsImporter(this, m_trackDataModel)
+      << new AmazonImporter(this, m_trackDataModel)
+      << new MusicBrainzReleaseImporter(this, m_trackDataModel);
 
 #ifdef HAVE_QTDBUS
   if (QDBusConnection::sessionBus().isConnected()) {

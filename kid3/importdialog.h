@@ -39,12 +39,7 @@ class QCheckBox;
 class QSpinBox;
 class QTableView;
 class TrackDataModel;
-class FreedbImporter;
-class TrackTypeImporter;
 class MusicBrainzDialog;
-class MusicBrainzReleaseImporter;
-class DiscogsImporter;
-class AmazonImporter;
 class ServerImporter;
 class ServerImportDialog;
 class TextImportDialog;
@@ -64,28 +59,17 @@ Q_OBJECT
 
 public:
   /**
-   * Sub-Dialog to be started automatically.
-   */
-  enum AutoStartSubDialog {
-    ASD_None,
-    ASD_Freedb,
-    ASD_TrackType,
-    ASD_Discogs,
-    ASD_Amazon,
-    ASD_MusicBrainzRelease,
-    ASD_MusicBrainz
-  };
-
-  /**
    * Constructor.
    *
    * @param parent        parent widget
    * @param caption       dialog title
    * @param trackDataModel track data to be filled with imported values,
    *                      is passed with durations of files set
+   * @param importers     server importers
    */
   ImportDialog(QWidget* parent, QString& caption,
-               TrackDataModel* trackDataModel);
+               TrackDataModel* trackDataModel,
+               const QList<ServerImporter*>& importers);
   /**
    * Destructor.
    */
@@ -94,9 +78,9 @@ public:
   /**
    * Set dialog to be started automatically.
    *
-   * @param asd dialog to be started
+   * @param importerIndex index of importer to use
    */
-  void setAutoStartSubDialog(AutoStartSubDialog asd);
+  void setAutoStartSubDialog(int importerIndex);
 
   /**
    * Clear dialog data.
@@ -176,37 +160,12 @@ private slots:
    */
   void matchWithTitle();
 
-  /**
-   * Import from freedb.org and preview in table.
-   */
-  void fromFreedb();
-
-  /**
-   * Import from TrackType.org and preview in table.
-   */
-  void fromTrackType();
-
 #ifdef HAVE_TUNEPIMP
   /**
    * Import from MusicBrainz and preview in table.
    */
   void fromMusicBrainz();
 #endif
-
-  /**
-   * Import from MusicBrainz release database and preview in table.
-   */
-  void fromMusicBrainzRelease();
-
-  /**
-   * Import from www.discogs.com and preview in table.
-   */
-  void fromDiscogs();
-
-  /**
-   * Import from www.amazon.com and preview in table.
-   */
-  void fromAmazon();
 
   /**
    * Hide subdialogs.
@@ -244,12 +203,20 @@ private:
   /**
    * Display server import dialog.
    *
+   * @param importerIdx importer index, if invalid but not negative the
+   *                    MusicBrainz Fingerprint dialog is displayed
+   */
+  void displayServerImportDialog(int importerIdx);
+
+  /**
+   * Display server import dialog.
+   *
    * @param source import source
    */
   void displayServerImportDialog(ServerImporter* source);
 
-  /** Subdialog to open when starting */
-  AutoStartSubDialog m_autoStartSubDialog;
+  /** Index of importer for subdialog to open when starting, -1 for none */
+  int m_autoStartSubDialog;
   /** Mask for visibility of optional columns */
   quint64 m_columnVisibility;
   /** Preview table */
@@ -262,18 +229,10 @@ private:
   QComboBox* m_destComboBox;
   QCheckBox* m_mismatchCheckBox;
   QSpinBox* m_maxDiffSpinBox;
-  /** freedb.org importer */
-  FreedbImporter* m_freedbImporter;
-  /** TrackType.org importer */
-  TrackTypeImporter* m_trackTypeImporter;
+  /** importers for different servers */
+  QList<ServerImporter*> m_importers;
   /** MusicBrainz import dialog */
   MusicBrainzDialog* m_musicBrainzDialog;
-  /** MusicBrainz release importer */
-  MusicBrainzReleaseImporter* m_musicBrainzReleaseImporter;
-  /** Discogs importer */
-  DiscogsImporter* m_discogsImporter;
-  /** Amazon importer */
-  AmazonImporter* m_amazonImporter;
   /** Server import dialog */
   ServerImportDialog* m_serverImportDialog;
   /** Text import dialog */

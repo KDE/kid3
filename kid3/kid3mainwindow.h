@@ -288,38 +288,6 @@ public slots:
   void slotImport();
 
   /**
-   * Import from freedb.org.
-   */
-  void slotImportFreedb();
-
-  /**
-   * Import from TrackType.org.
-   */
-  void slotImportTrackType();
-
-  /**
-   * Import from Discogs.
-   */
-  void slotImportDiscogs();
-
-  /**
-   * Import from Amazon.
-   */
-  void slotImportAmazon();
-
-  /**
-   * Import from MusicBrainz release database.
-   */
-  void slotImportMusicBrainzRelease();
-
-#ifdef HAVE_TUNEPIMP
-  /**
-   * Import from MusicBrainz.
-   */
-  void slotImportMusicBrainz();
-#endif
-
-  /**
    * Browse album cover artwork.
    */
   void slotBrowseCoverArt();

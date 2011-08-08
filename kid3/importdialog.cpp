@@ -52,11 +52,7 @@
 #include <QDir>
 #include <QMenu>
 #include "genres.h"
-#include "freedbimporter.h"
-#include "tracktypeimporter.h"
-#include "musicbrainzreleaseimporter.h"
-#include "discogsimporter.h"
-#include "amazonimporter.h"
+#include "serverimporter.h"
 #include "serverimportdialog.h"
 #include "textimportdialog.h"
 #include "tagimportdialog.h"
@@ -95,23 +91,20 @@ QList<int> checkableFrameTypes() {
  * @param caption       dialog title
  * @param trackDataModel track data to be filled with imported values,
  *                      is passed with durations of files set
+ * @param importers     server importers
  */
 ImportDialog::ImportDialog(QWidget* parent, QString& caption,
-                           TrackDataModel* trackDataModel) :
+                           TrackDataModel* trackDataModel,
+                           const QList<ServerImporter*>& importers) :
   QDialog(parent),
-  m_autoStartSubDialog(ASD_None), m_columnVisibility(0ULL),
-  m_trackDataModel(trackDataModel)
+  m_autoStartSubDialog(-1), m_columnVisibility(0ULL),
+  m_trackDataModel(trackDataModel), m_importers(importers)
 {
   setObjectName("ImportDialog");
   setModal(true);
   setWindowTitle(caption);
   setSizeGripEnabled(true);
 
-  m_freedbImporter = 0;
-  m_trackTypeImporter = 0;
-  m_musicBrainzReleaseImporter = 0;
-  m_discogsImporter = 0;
-  m_amazonImporter = 0;
   m_serverImportDialog = 0;
   m_textImportDialog = 0;
   m_tagImportDialog = 0;
@@ -155,16 +148,11 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   butlayout->addWidget(serverButton);
   m_serverComboBox = new QComboBox(butbox);
   m_serverComboBox->setEditable(false);
-  m_serverComboBox->insertItem(ImportConfig::ServerFreedb, i18n("gnudb.org"));
-  m_serverComboBox->insertItem(ImportConfig::ServerTrackType, i18n("TrackType.org"));
-  m_serverComboBox->insertItem(ImportConfig::ServerDiscogs, i18n("Discogs"));
-  m_serverComboBox->insertItem(ImportConfig::ServerAmazon,
-                                   i18n("Amazon"));
-  m_serverComboBox->insertItem(ImportConfig::ServerMusicBrainzRelease,
-                                   i18n("MusicBrainz Release"));
+  foreach (const ServerImporter* si, m_importers) {
+    m_serverComboBox->addItem(QCM_translate(si->name()));
+  }
 #ifdef HAVE_TUNEPIMP
-  m_serverComboBox->insertItem(ImportConfig::ServerMusicBrainzFingerprint,
-                                   i18n("MusicBrainz Fingerprint"));
+  m_serverComboBox->addItem(i18n("MusicBrainz Fingerprint"));
 #endif
   butlayout->addWidget(m_serverComboBox);
   QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
@@ -262,11 +250,6 @@ ImportDialog::~ImportDialog()
   delete m_textImportDialog;
   delete m_tagImportDialog;
   delete m_serverImportDialog;
-  delete m_freedbImporter;
-  delete m_trackTypeImporter;
-  delete m_musicBrainzReleaseImporter;
-  delete m_discogsImporter;
-  delete m_amazonImporter;
 #ifdef HAVE_TUNEPIMP
   delete m_musicBrainzDialog;
 #endif
@@ -277,30 +260,8 @@ ImportDialog::~ImportDialog()
  */
 void ImportDialog::fromServer()
 {
-  if (m_serverComboBox) {
-    switch (m_serverComboBox->currentIndex()) {
-      case ImportConfig::ServerFreedb:
-        fromFreedb();
-        break;
-      case ImportConfig::ServerTrackType:
-        fromTrackType();
-        break;
-      case ImportConfig::ServerDiscogs:
-        fromDiscogs();
-        break;
-      case ImportConfig::ServerAmazon:
-        fromAmazon();
-        break;
-      case ImportConfig::ServerMusicBrainzRelease:
-        fromMusicBrainzRelease();
-        break;
-      case ImportConfig::ServerMusicBrainzFingerprint:
-#ifdef HAVE_TUNEPIMP
-        fromMusicBrainz();
-#endif
-        break;
-    }
-  }
+  if (m_serverComboBox)
+    displayServerImportDialog(m_serverComboBox->currentIndex());
 }
 
 /**
@@ -329,6 +290,26 @@ void ImportDialog::fromTags()
   }
   m_tagImportDialog->clear();
   m_tagImportDialog->show();
+}
+
+/**
+ * Display server import dialog.
+ *
+ * @param importerIdx importer index, if invalid but not negative the
+ *                    MusicBrainz Fingerprint dialog is displayed
+ */
+void ImportDialog::displayServerImportDialog(int importerIdx)
+{
+  if (importerIdx >= 0) {
+    if (importerIdx < m_importers.size()) {
+      displayServerImportDialog(m_importers.at(importerIdx));
+    } else {
+      // special case for MusicBrainz Fingerprint
+#ifdef HAVE_TUNEPIMP
+      fromMusicBrainz();
+#endif
+    }
+  }
 }
 
 /**
@@ -365,62 +346,6 @@ void ImportDialog::hideSubdialogs()
     m_tagImportDialog->hide();
 }
 
-/**
- * Import from freedb.org and preview in table.
- */
-void ImportDialog::fromFreedb()
-{
-  if (!m_freedbImporter) {
-    m_freedbImporter = new FreedbImporter(this, m_trackDataModel);
-  }
-  displayServerImportDialog(m_freedbImporter);
-}
-
-/**
- * Import from TrackType.org and preview in table.
- */
-void ImportDialog::fromTrackType()
-{
-  if (!m_trackTypeImporter) {
-    m_trackTypeImporter = new TrackTypeImporter(this, m_trackDataModel);
-  }
-  displayServerImportDialog(m_trackTypeImporter);
-}
-
-/**
- * Import from MusicBrainz release database and preview in table.
- */
-void ImportDialog::fromMusicBrainzRelease()
-{
-  if (!m_musicBrainzReleaseImporter) {
-    m_musicBrainzReleaseImporter =
-        new MusicBrainzReleaseImporter(this, m_trackDataModel);
-  }
-  displayServerImportDialog(m_musicBrainzReleaseImporter);
-}
-
-/**
- * Import from www.discogs.com and preview in table.
- */
-void ImportDialog::fromDiscogs()
-{
-  if (!m_discogsImporter) {
-    m_discogsImporter = new DiscogsImporter(this, m_trackDataModel);
-  }
-  displayServerImportDialog(m_discogsImporter);
-}
-
-/**
- * Import from www.amazon.com and preview in table.
- */
-void ImportDialog::fromAmazon()
-{
-  if (!m_amazonImporter) {
-    m_amazonImporter = new AmazonImporter(this, m_trackDataModel);
-  }
-  displayServerImportDialog(m_amazonImporter);
-}
-
 #ifdef HAVE_TUNEPIMP
 /**
  * Import from MusicBrainz and preview in table.
@@ -444,35 +369,9 @@ void ImportDialog::fromMusicBrainz()
  */
 int ImportDialog::exec()
 {
-  switch (m_autoStartSubDialog) {
-    case ASD_Freedb:
-      show();
-      fromFreedb();
-      break;
-    case ASD_TrackType:
-      show();
-      fromTrackType();
-      break;
-    case ASD_Discogs:
-      show();
-      fromDiscogs();
-      break;
-    case ASD_Amazon:
-      show();
-      fromAmazon();
-      break;
-    case ASD_MusicBrainzRelease:
-      show();
-      fromMusicBrainzRelease();
-      break;
-    case ASD_MusicBrainz:
-#ifdef HAVE_TUNEPIMP
-      show();
-      fromMusicBrainz();
-#endif
-      break;
-    case ASD_None:
-      break;
+  if (m_autoStartSubDialog >= 0) {
+    show();
+    displayServerImportDialog(m_autoStartSubDialog);
   }
   return QDialog::exec();
 }
@@ -480,37 +379,15 @@ int ImportDialog::exec()
 /**
  * Set dialog to be started automatically.
  *
- * @param asd dialog to be started
+ * @param importerIndex index of importer to use
  */
-void ImportDialog::setAutoStartSubDialog(AutoStartSubDialog asd)
+void ImportDialog::setAutoStartSubDialog(int importerIndex)
 {
-  m_autoStartSubDialog = asd;
+  m_autoStartSubDialog = importerIndex;
 
-  ImportConfig::ImportServer server;
-  switch (asd) {
-    case ASD_Freedb:
-      server = ImportConfig::ServerFreedb;
-      break;
-    case ASD_TrackType:
-      server = ImportConfig::ServerTrackType;
-      break;
-    case ASD_Discogs:
-      server = ImportConfig::ServerDiscogs;
-      break;
-    case ASD_Amazon:
-      server = ImportConfig::ServerAmazon;
-      break;
-    case ASD_MusicBrainzRelease:
-      server = ImportConfig::ServerMusicBrainzRelease;
-      break;
-    case ASD_MusicBrainz:
-      server = ImportConfig::ServerMusicBrainzFingerprint;
-      break;
-    case ASD_None:
-    default:
-      return;
+  if (importerIndex >= 0 && importerIndex < m_serverComboBox->count()) {
+    m_serverComboBox->setCurrentIndex(importerIndex);
   }
-  m_serverComboBox->setCurrentIndex(server);
 }
 
 /**
@@ -594,8 +471,7 @@ void ImportDialog::saveConfig()
   ConfigStore::s_genCfg.m_importDest = TrackData::tagVersionCast(
     m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
 
-  ConfigStore::s_genCfg.m_importServer = static_cast<ImportConfig::ImportServer>(
-    m_serverComboBox->currentIndex());
+  ConfigStore::s_genCfg.m_importServer = m_serverComboBox->currentIndex();
   getTimeDifferenceCheck(ConfigStore::s_genCfg.m_enableTimeDifferenceCheck,
                          ConfigStore::s_genCfg.m_maxTimeDifference);
   ConfigStore::s_genCfg.m_importVisibleColumns = m_columnVisibility;

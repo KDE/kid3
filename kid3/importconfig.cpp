@@ -62,7 +62,7 @@ inline TrackData::TagVersion importDestCfgToTagVersion(int importDest) {
  * @param grp configuration group
  */
 ImportConfig::ImportConfig(const QString& grp) :
-  GeneralConfig(grp), m_importServer(ImportConfig::ServerFreedb),
+  GeneralConfig(grp), m_importServer(0),
   m_importDest(TrackData::TagV1), m_importFormatIdx(0),
   m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
   m_importVisibleColumns(0ULL),
@@ -347,7 +347,7 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
   KConfigGroup cfg = config->group(m_group);
-  cfg.writeEntry("ImportServer", static_cast<int>(m_importServer));
+  cfg.writeEntry("ImportServer", m_importServer);
   cfg.writeEntry("ImportDestination", tagVersionToImportDestCfg(m_importDest));
   cfg.writeEntry("ImportFormatNames", m_importFormatNames);
   cfg.writeEntry("ImportFormatHeaders", m_importFormatHeaders);
@@ -433,8 +433,7 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
   QStringList expNames, expHeaders, expTracks, expTrailers, picNames, picUrls;
 #ifdef CONFIG_USE_KDE
   KConfigGroup cfg = config->group(m_group);
-  m_importServer = static_cast<ImportConfig::ImportServer>(
-    cfg.readEntry("ImportServer", static_cast<int>(m_importServer)));
+  m_importServer = cfg.readEntry("ImportServer", m_importServer);
   m_importDest = importDestCfgToTagVersion(
     cfg.readEntry("ImportDestination", tagVersionToImportDestCfg(m_importDest)));
   names = cfg.readEntry("ImportFormatNames", QStringList());
@@ -492,8 +491,7 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
   while (static_cast<unsigned>(picUrls.size()) < numPicNames) picUrls.append("");
 #else
   config->beginGroup("/" + m_group);
-  m_importServer = static_cast<ImportConfig::ImportServer>(
-    config->value("/ImportServer", m_importServer).toInt());
+  m_importServer = config->value("/ImportServer", m_importServer).toInt();
   m_importDest = importDestCfgToTagVersion(
     config->value("/ImportDestination",
                   tagVersionToImportDestCfg(m_importDest)).toInt());

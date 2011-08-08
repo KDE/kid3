@@ -48,6 +48,7 @@ class DownloadClient;
 class TaggedFile;
 class FrameList;
 class IFrameEditor;
+class ServerImporter;
 class TextExporter;
 class DirRenamer;
 #ifdef HAVE_PHONON
@@ -156,6 +157,12 @@ public:
    * @return text exporter.
    */
   TextExporter* getTextExporter() { return m_textExporter; }
+
+  /**
+   * Get available server importers.
+   * @return list of server importers.
+   */
+  QList<ServerImporter*> getServerImporters() { return m_importers; }
 
   /**
    * Get directory renamer.
@@ -852,6 +859,8 @@ private:
   QString m_filenameToTagsFormat;
   /** Format to generate filename from tags */
   QString m_tagsToFilenameFormat;
+  /** Importers for different servers */
+  QList<ServerImporter*> m_importers;
 
   /** Current directory */
   static QString s_dirName;

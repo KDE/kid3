@@ -38,12 +38,6 @@
  */
 class ImportConfig : public GeneralConfig {
 public:
-  /** Import servers */
-  enum ImportServer {
-    ServerFreedb, ServerTrackType, ServerDiscogs,
-    ServerAmazon, ServerMusicBrainzRelease, ServerMusicBrainzFingerprint
-  };
-
   /**
    * Constructor.
    * Set default configuration.
@@ -72,7 +66,7 @@ public:
   virtual void readFromConfig(Kid3Settings* config);
 
   /** import server */
-  ImportServer m_importServer;
+  int m_importServer;
   /** tag version to import */
   TrackData::TagVersion m_importDest;
   /** Names of import formats */

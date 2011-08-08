@@ -101,6 +101,7 @@
 #include "contexthelp.h"
 #include "frame.h"
 #include "textexporter.h"
+#include "serverimporter.h"
 #include "dirrenamer.h"
 #include "qtcompatmac.h"
 #ifdef HAVE_PHONON
@@ -257,28 +258,35 @@ void Kid3MainWindow::initActions()
   actionCollection()->addAction("open_directory", fileOpenDirectory);
   connect(fileOpenDirectory, SIGNAL(triggered()), this, SLOT(slotFileOpenDirectory()));
   KAction* fileImport = new KAction(KIcon("document-import"), i18n("&Import..."), this);
+  fileImport->setData(-1);
   actionCollection()->addAction("import", fileImport);
   connect(fileImport, SIGNAL(triggered()), this, SLOT(slotImport()));
-  KAction* fileImportFreedb = new KAction(i18n("Import from &gnudb.org..."), this);
-  actionCollection()->addAction("import_freedb", fileImportFreedb);
-  connect(fileImportFreedb, SIGNAL(triggered()), this, SLOT(slotImportFreedb()));
-  KAction* fileImportTrackType = new KAction(i18n("Import from &TrackType.org..."), this);
-  actionCollection()->addAction("import_tracktype", fileImportTrackType);
-  connect(fileImportTrackType, SIGNAL(triggered()), this, SLOT(slotImportTrackType()));
-  KAction* fileImportDiscogs = new KAction(i18n("Import from &Discogs..."), this);
-  actionCollection()->addAction("import_discogs", fileImportDiscogs);
-  connect(fileImportDiscogs, SIGNAL(triggered()), this, SLOT(slotImportDiscogs()));
-  KAction* fileImportAmazon = new KAction(i18n("Import from &Amazon..."), this);
-  actionCollection()->addAction("import_amazon", fileImportAmazon);
-  connect(fileImportAmazon, SIGNAL(triggered()), this, SLOT(slotImportAmazon()));
-  KAction* fileImportMusicBrainzRelease = new KAction(i18n("Import from MusicBrainz &Release..."), this);
-  actionCollection()->addAction("import_musicbrainzrelease", fileImportMusicBrainzRelease);
-  connect(fileImportMusicBrainzRelease, SIGNAL(triggered()), this, SLOT(slotImportMusicBrainzRelease()));
+
+  int importerIdx = 0;
+  foreach (const ServerImporter* si, m_app->getServerImporters()) {
+    QString serverName(QCM_translate(si->name()));
+    QString actionName = QString(si->name()).toLower().remove(' ');
+    int dotPos = actionName.indexOf('.');
+    if (dotPos != -1)
+      actionName.truncate(dotPos);
+    actionName = QString("import_") + actionName;
+    KAction* fileImportServer =
+        new KAction(i18n("Import from %1...").arg(serverName), this);
+    fileImportServer->setData(importerIdx);
+    actionCollection()->addAction(actionName, fileImportServer);
+    connect(fileImportServer, SIGNAL(triggered()), this, SLOT(slotImport()));
+    ++importerIdx;
+  }
 #ifdef HAVE_TUNEPIMP
-  KAction* fileImportMusicBrainz = new KAction(i18n("Import from &MusicBrainz Fingerprint..."), this);
+  QString serverName(i18n("MusicBrainz Fingerprint"));
+  KAction* fileImportMusicBrainz =
+      new KAction(i18n("Import from %1...").arg(serverName), this);
+  fileImportMusicBrainz->setData(importerIdx);
   actionCollection()->addAction("import_musicbrainz", fileImportMusicBrainz);
-  connect(fileImportMusicBrainz, SIGNAL(triggered()), this, SLOT(slotImportMusicBrainz()));
+  connect(fileImportMusicBrainz, SIGNAL(triggered()), this, SLOT(slotImport()));
+  ++importerIdx;
 #endif
+
   KAction* fileBrowseCoverArt = new KAction(i18n("&Browse Cover Art..."), this);
   actionCollection()->addAction("browse_cover_art", fileBrowseCoverArt);
   connect(fileBrowseCoverArt, SIGNAL(triggered()), this, SLOT(slotBrowseCoverArt()));
@@ -392,6 +400,10 @@ void Kid3MainWindow::initActions()
   createGUI();
 
 #else
+  QToolBar* toolBar = new QToolBar(this);
+  toolBar->setObjectName("MainToolbar");
+  QMenuBar* menubar = menuBar();
+  QMenu* fileMenu = menubar->addMenu(i18n("&File"));
   QAction* fileOpen = new QAction(this);
   if (fileOpen) {
     fileOpen->setStatusTip(i18n("Opens a directory"));
@@ -400,6 +412,17 @@ void Kid3MainWindow::initActions()
     fileOpen->setIcon(QIcon(":/images/document-open.png"));
     connect(fileOpen, SIGNAL(triggered()),
       this, SLOT(slotFileOpen()));
+  }
+  fileMenu->addAction(fileOpen);
+  toolBar->addAction(fileOpen);
+  m_fileOpenRecent = new RecentFilesMenu(fileMenu);
+  if (m_fileOpenRecent) {
+    connect(m_fileOpenRecent, SIGNAL(loadFile(const QString&)),
+            this, SLOT(slotFileOpenRecentDirectory(const QString&)));
+    m_fileOpenRecent->setStatusTip(i18n("Opens a recently used directory"));
+    m_fileOpenRecent->setTitle(i18n("Open &Recent"));
+    m_fileOpenRecent->setIcon(QIcon(":/images/document-open-recent.png"));
+    fileMenu->addMenu(m_fileOpenRecent);
   }
   QAction* fileOpenDirectory = new QAction(this);
   if (fileOpenDirectory) {
@@ -410,6 +433,8 @@ void Kid3MainWindow::initActions()
     connect(fileOpenDirectory, SIGNAL(triggered()),
       this, SLOT(slotFileOpenDirectory()));
   }
+  fileMenu->addAction(fileOpenDirectory);
+  fileMenu->addSeparator();
   QAction* fileSave = new QAction(this);
   if (fileSave) {
     fileSave->setStatusTip(i18n("Saves the changed files"));
@@ -419,6 +444,8 @@ void Kid3MainWindow::initActions()
     connect(fileSave, SIGNAL(triggered()),
       this, SLOT(slotFileSave()));
   }
+  fileMenu->addAction(fileSave);
+  toolBar->addAction(fileSave);
   QAction* fileRevert = new QAction(this);
   if (fileRevert) {
     fileRevert->setStatusTip(
@@ -428,58 +455,46 @@ void Kid3MainWindow::initActions()
     connect(fileRevert, SIGNAL(triggered()),
       m_app, SLOT(revertFileModifications()));
   }
+  fileMenu->addAction(fileRevert);
+  toolBar->addAction(fileRevert);
+  fileMenu->addSeparator();
   QAction* fileImport = new QAction(this);
   if (fileImport) {
+    fileImport->setData(-1);
     fileImport->setStatusTip(i18n("Import from file or clipboard"));
     fileImport->setText(i18n("&Import..."));
     fileImport->setIcon(QIcon(":/images/document-import.png"));
     connect(fileImport, SIGNAL(triggered()),
       this, SLOT(slotImport()));
   }
-  QAction* fileImportFreedb = new QAction(this);
-  if (fileImportFreedb) {
-    fileImportFreedb->setStatusTip(i18n("Import from gnudb.org"));
-    fileImportFreedb->setText(i18n("Import from &gnudb.org..."));
-    connect(fileImportFreedb, SIGNAL(triggered()),
-      this, SLOT(slotImportFreedb()));
-  }
-  QAction* fileImportTrackType = new QAction(this);
-  if (fileImportTrackType) {
-    fileImportTrackType->setStatusTip(i18n("Import from TrackType.org"));
-    fileImportTrackType->setText(i18n("Import from &TrackType.org..."));
-    connect(fileImportTrackType, SIGNAL(triggered()),
-      this, SLOT(slotImportTrackType()));
-  }
-  QAction* fileImportDiscogs = new QAction(this);
-  if (fileImportDiscogs) {
-    fileImportDiscogs->setStatusTip(i18n("Import from Discogs"));
-    fileImportDiscogs->setText(i18n("Import from &Discogs..."));
-    connect(fileImportDiscogs, SIGNAL(triggered()),
-      this, SLOT(slotImportDiscogs()));
-  }
-  QAction* fileImportAmazon = new QAction(this);
-  if (fileImportAmazon) {
-    fileImportAmazon->setStatusTip(i18n("Import from Amazon"));
-    fileImportAmazon->setText(i18n("Import from &Amazon..."));
-    connect(fileImportAmazon, SIGNAL(triggered()),
-      this, SLOT(slotImportAmazon()));
-  }
-  QAction* fileImportMusicBrainzRelease = new QAction(this);
-  if (fileImportMusicBrainzRelease) {
-    fileImportMusicBrainzRelease->setStatusTip(i18n("Import from MusicBrainz Release"));
-    fileImportMusicBrainzRelease->setText(i18n("Import from MusicBrainz &Release..."));
-    connect(fileImportMusicBrainzRelease, SIGNAL(triggered()),
-      this, SLOT(slotImportMusicBrainzRelease()));
+  fileMenu->addAction(fileImport);
+
+  int importerIdx = 0;
+  foreach (const ServerImporter* si, m_app->getServerImporters()) {
+    QString serverName(QCM_translate(si->name()));
+    QAction* fileImportServer = new QAction(this);
+    fileImportServer->setData(importerIdx);
+    fileImportServer->setStatusTip(i18n("Import from %1").arg(serverName));
+    fileImportServer->setText(i18n("Import from %1...").arg(serverName));
+    connect(fileImportServer, SIGNAL(triggered()),
+      this, SLOT(slotImport()));
+    fileMenu->addAction(fileImportServer);
+    ++importerIdx;
   }
 #ifdef HAVE_TUNEPIMP
   QAction* fileImportMusicBrainz = new QAction(this);
   if (fileImportMusicBrainz) {
-    fileImportMusicBrainz->setStatusTip(i18n("Import from MusicBrainz Fingerprint"));
-    fileImportMusicBrainz->setText(i18n("Import from &MusicBrainz Fingerprint..."));
+    QString serverName(i18n("MusicBrainz Fingerprint"));
+    fileImportMusicBrainz->setData(importerIdx);
+    fileImportMusicBrainz->setStatusTip(i18n("Import from %1").arg(serverName));
+    fileImportMusicBrainz->setText(i18n("Import from %1...").arg(serverName));
     connect(fileImportMusicBrainz, SIGNAL(triggered()),
-      this, SLOT(slotImportMusicBrainz()));
+      this, SLOT(slotImport()));
+    fileMenu->addAction(fileImportMusicBrainz);
+    ++importerIdx;
   }
 #endif
+
   QAction* fileBrowseCoverArt = new QAction(this);
   if (fileBrowseCoverArt) {
     fileBrowseCoverArt->setStatusTip(i18n("Browse album cover artwork"));
@@ -487,6 +502,7 @@ void Kid3MainWindow::initActions()
     connect(fileBrowseCoverArt, SIGNAL(triggered()),
       this, SLOT(slotBrowseCoverArt()));
   }
+  fileMenu->addAction(fileBrowseCoverArt);
   QAction* fileExport = new QAction(this);
   if (fileExport) {
     fileExport->setStatusTip(i18n("Export to file or clipboard"));
@@ -495,6 +511,7 @@ void Kid3MainWindow::initActions()
     connect(fileExport, SIGNAL(triggered()),
       this, SLOT(slotExport()));
   }
+  fileMenu->addAction(fileExport);
   QAction* fileCreatePlaylist = new QAction(this);
   if (fileCreatePlaylist) {
     fileCreatePlaylist->setStatusTip(i18n("Create M3U Playlist"));
@@ -503,6 +520,9 @@ void Kid3MainWindow::initActions()
     connect(fileCreatePlaylist, SIGNAL(triggered()),
       this, SLOT(slotPlaylistDialog()));
   }
+  fileMenu->addAction(fileCreatePlaylist);
+  toolBar->addAction(fileCreatePlaylist);
+  fileMenu->addSeparator();
   QAction* fileQuit = new QAction(this);
   if (fileQuit) {
     fileQuit->setStatusTip(i18n("Quits the application"));
@@ -512,6 +532,9 @@ void Kid3MainWindow::initActions()
     connect(fileQuit, SIGNAL(triggered()),
       this, SLOT(slotFileQuit()));
   }
+  fileMenu->addAction(fileQuit);
+
+  QMenu* editMenu = menubar->addMenu(i18n("&Edit"));
   QAction* editSelectAll = new QAction(this);
   if (editSelectAll) {
     editSelectAll->setStatusTip(i18n("Select all files"));
@@ -521,6 +544,7 @@ void Kid3MainWindow::initActions()
     connect(editSelectAll, SIGNAL(triggered()),
       m_form, SLOT(selectAllFiles()));
   }
+  editMenu->addAction(editSelectAll);
   QAction* editDeselect = new QAction(this);
   if (editDeselect) {
     editDeselect->setStatusTip(i18n("Deselect all files"));
@@ -529,6 +553,7 @@ void Kid3MainWindow::initActions()
     connect(editDeselect, SIGNAL(triggered()),
       m_form, SLOT(deselectAllFiles()));
   }
+  editMenu->addAction(editDeselect);
   QAction* editPreviousFile = new QAction(this);
   if (editPreviousFile) {
     editPreviousFile->setStatusTip(i18n("Select previous file"));
@@ -538,6 +563,8 @@ void Kid3MainWindow::initActions()
     connect(editPreviousFile, SIGNAL(triggered()),
       m_app, SLOT(previousFile()));
   }
+  editMenu->addAction(editPreviousFile);
+  toolBar->addAction(editPreviousFile);
   QAction* editNextFile = new QAction(this);
   if (editNextFile) {
     editNextFile->setStatusTip(i18n("Select next file"));
@@ -547,28 +574,10 @@ void Kid3MainWindow::initActions()
     connect(editNextFile, SIGNAL(triggered()),
       m_app, SLOT(nextFile()));
   }
-  QAction* helpHandbook = new QAction(this);
-  if (helpHandbook) {
-    helpHandbook->setStatusTip(i18n("Kid3 Handbook"));
-    helpHandbook->setText(i18n("Kid3 &Handbook"));
-    helpHandbook->setIcon(QIcon(":/images/help-contents.png"));
-    connect(helpHandbook, SIGNAL(triggered()),
-      this, SLOT(slotHelpHandbook()));
-  }
-  QAction* helpAbout = new QAction(this);
-  if (helpAbout) {
-    helpAbout->setStatusTip(i18n("About Kid3"));
-    helpAbout->setText(i18n("&About Kid3"));
-    connect(helpAbout, SIGNAL(triggered()),
-      this, SLOT(slotHelpAbout()));
-  }
-  QAction* helpAboutQt = new QAction(this);
-  if (helpAboutQt) {
-    helpAboutQt->setStatusTip(i18n("About Qt"));
-    helpAboutQt->setText(i18n("About &Qt"));
-    connect(helpAboutQt, SIGNAL(triggered()),
-      this, SLOT(slotHelpAboutQt()));
-  }
+  editMenu->addAction(editNextFile);
+  toolBar->addAction(editNextFile);
+
+  QMenu* toolsMenu = menubar->addMenu(i18n("&Tools"));
   QAction* toolsApplyFilenameFormat = new QAction(this);
   if (toolsApplyFilenameFormat) {
     toolsApplyFilenameFormat->setStatusTip(i18n("Apply Filename Format"));
@@ -576,6 +585,7 @@ void Kid3MainWindow::initActions()
     connect(toolsApplyFilenameFormat, SIGNAL(triggered()),
       m_app, SLOT(applyFilenameFormat()));
   }
+  toolsMenu->addAction(toolsApplyFilenameFormat);
   QAction* toolsApplyId3Format = new QAction(this);
   if (toolsApplyId3Format) {
     toolsApplyId3Format->setStatusTip(i18n("Apply Tag Format"));
@@ -583,6 +593,7 @@ void Kid3MainWindow::initActions()
     connect(toolsApplyId3Format, SIGNAL(triggered()),
       m_app, SLOT(applyId3Format()));
   }
+  toolsMenu->addAction(toolsApplyId3Format);
   QAction* toolsRenameDirectory = new QAction(this);
   if (toolsRenameDirectory) {
     toolsRenameDirectory->setStatusTip(i18n("Rename Directory"));
@@ -590,6 +601,7 @@ void Kid3MainWindow::initActions()
     connect(toolsRenameDirectory, SIGNAL(triggered()),
       this, SLOT(slotRenameDirectory()));
   }
+  toolsMenu->addAction(toolsRenameDirectory);
   QAction* toolsNumberTracks = new QAction(this);
   if (toolsNumberTracks) {
     toolsNumberTracks->setStatusTip(i18n("Number Tracks"));
@@ -597,6 +609,7 @@ void Kid3MainWindow::initActions()
     connect(toolsNumberTracks, SIGNAL(triggered()),
       this, SLOT(slotNumberTracks()));
   }
+  toolsMenu->addAction(toolsNumberTracks);
   QAction* toolsFilter = new QAction(this);
   if (toolsFilter) {
     toolsFilter->setStatusTip(i18n("Filter"));
@@ -604,6 +617,7 @@ void Kid3MainWindow::initActions()
     connect(toolsFilter, SIGNAL(triggered()),
       this, SLOT(slotFilter()));
   }
+  toolsMenu->addAction(toolsFilter);
 #ifdef HAVE_TAGLIB
   QAction* toolsConvertToId3v24 = new QAction(this);
   if (toolsConvertToId3v24) {
@@ -612,6 +626,7 @@ void Kid3MainWindow::initActions()
     connect(toolsConvertToId3v24, SIGNAL(triggered()),
       m_app, SLOT(convertToId3v24()));
   }
+  toolsMenu->addAction(toolsConvertToId3v24);
 #endif
 #if defined HAVE_TAGLIB && defined HAVE_ID3LIB
   QAction* toolsConvertToId3v23 = new QAction(this);
@@ -621,6 +636,7 @@ void Kid3MainWindow::initActions()
     connect(toolsConvertToId3v23, SIGNAL(triggered()),
       m_app, SLOT(convertToId3v23()));
   }
+  toolsMenu->addAction(toolsConvertToId3v23);
 #endif
 #ifdef HAVE_PHONON
   QAction* toolsPlay = new QAction(this);
@@ -631,52 +647,11 @@ void Kid3MainWindow::initActions()
     connect(toolsPlay, SIGNAL(triggered()),
       m_app, SLOT(playAudio()));
   }
-#endif
-  m_viewStatusBar = new QAction(this);
-  if (m_viewStatusBar) {
-    m_viewStatusBar->setStatusTip(i18n("Enables/disables the statusbar"));
-    m_viewStatusBar->setText(i18n("Show St&atusbar"));
-    m_viewStatusBar->setCheckable(true);
-    connect(m_viewStatusBar, SIGNAL(triggered()),
-      this, SLOT(slotViewStatusBar()));
-  }
-  m_settingsShowHidePicture = new QAction(this);
-  if (m_settingsShowHidePicture) {
-    m_settingsShowHidePicture->setStatusTip(i18n("Show Picture"));
-    m_settingsShowHidePicture->setText(i18n("Show &Picture"));
-    m_settingsShowHidePicture->setCheckable(true);
-    connect(m_settingsShowHidePicture, SIGNAL(triggered()),
-      this, SLOT(slotSettingsShowHidePicture()));
-  }
-  m_settingsAutoHideTags = new QAction(this);
-  if (m_settingsAutoHideTags) {
-    m_settingsAutoHideTags->setStatusTip(i18n("Auto Hide Tags"));
-    m_settingsAutoHideTags->setText(i18n("Auto &Hide Tags"));
-    m_settingsAutoHideTags->setCheckable(true);
-    connect(m_settingsAutoHideTags, SIGNAL(triggered()),
-      this, SLOT(slotSettingsAutoHideTags()));
-  }
-  QAction* settingsConfigure = new QAction(this);
-  if (settingsConfigure) {
-    settingsConfigure->setStatusTip(i18n("Configure Kid3"));
-    settingsConfigure->setText(i18n("&Configure Kid3..."));
-    settingsConfigure->setIcon(QIcon(":/images/configure.png"));
-    connect(settingsConfigure, SIGNAL(triggered()),
-      this, SLOT(slotSettingsConfigure()));
-  }
-  QToolBar* toolBar = new QToolBar(this);
-  toolBar->setObjectName("MainToolbar");
-  toolBar->addAction(fileOpen);
-  toolBar->addAction(fileSave);
-  toolBar->addAction(fileRevert);
-  toolBar->addAction(fileCreatePlaylist);
-  toolBar->addAction(editPreviousFile);
-  toolBar->addAction(editNextFile);
-#ifdef HAVE_PHONON
+  toolsMenu->addAction(toolsPlay);
   toolBar->addAction(toolsPlay);
 #endif
-  toolBar->addAction(settingsConfigure);
-  addToolBar(toolBar);
+
+  QMenu* settingsMenu = menubar->addMenu(i18n("&Settings"));
   m_viewToolBar = toolBar->toggleViewAction();
   if (m_viewToolBar) {
     m_viewToolBar->setStatusTip(i18n("Enables/disables the toolbar"));
@@ -685,76 +660,75 @@ void Kid3MainWindow::initActions()
   if (ConfigStore::s_miscCfg.m_hideToolBar)
     toolBar->hide();
   m_viewToolBar->setChecked(!ConfigStore::s_miscCfg.m_hideToolBar);
-
-  QMenuBar* menubar = menuBar();
-  QMenu* fileMenu = menubar->addMenu(i18n("&File"));
-  QMenu* editMenu = menubar->addMenu(i18n("&Edit"));
-  QMenu* toolsMenu = menubar->addMenu(i18n("&Tools"));
-  QMenu* settingsMenu = menubar->addMenu(i18n("&Settings"));
-  QMenu* helpMenu = menubar->addMenu(i18n("&Help"));
-  if (fileMenu && editMenu && toolsMenu && settingsMenu && helpMenu) {
-    fileMenu->addAction(fileOpen);
-    m_fileOpenRecent = new RecentFilesMenu(fileMenu);
-    if (m_fileOpenRecent) {
-      connect(m_fileOpenRecent, SIGNAL(loadFile(const QString&)),
-              this, SLOT(slotFileOpenRecentDirectory(const QString&)));
-      m_fileOpenRecent->setStatusTip(i18n("Opens a recently used directory"));
-      m_fileOpenRecent->setTitle(i18n("Open &Recent"));
-      m_fileOpenRecent->setIcon(QIcon(":/images/document-open-recent.png"));
-      fileMenu->addMenu(m_fileOpenRecent);
-    }
-    fileMenu->addAction(fileOpenDirectory);
-    fileMenu->addSeparator();
-    fileMenu->addAction(fileSave);
-    fileMenu->addAction(fileRevert);
-    fileMenu->addSeparator();
-    fileMenu->addAction(fileImport);
-    fileMenu->addAction(fileImportFreedb);
-    fileMenu->addAction(fileImportTrackType);
-    fileMenu->addAction(fileImportDiscogs);
-    fileMenu->addAction(fileImportAmazon);
-    fileMenu->addAction(fileImportMusicBrainzRelease);
-#ifdef HAVE_TUNEPIMP
-    fileMenu->addAction(fileImportMusicBrainz);
-#endif
-    fileMenu->addAction(fileBrowseCoverArt);
-    fileMenu->addAction(fileExport);
-    fileMenu->addAction(fileCreatePlaylist);
-    fileMenu->addSeparator();
-    fileMenu->addAction(fileQuit);
-
-    editMenu->addAction(editSelectAll);
-    editMenu->addAction(editDeselect);
-    editMenu->addAction(editPreviousFile);
-    editMenu->addAction(editNextFile);
-
-    toolsMenu->addAction(toolsApplyFilenameFormat);
-    toolsMenu->addAction(toolsApplyId3Format);
-    toolsMenu->addAction(toolsRenameDirectory);
-    toolsMenu->addAction(toolsNumberTracks);
-    toolsMenu->addAction(toolsFilter);
-#ifdef HAVE_TAGLIB
-    toolsMenu->addAction(toolsConvertToId3v24);
-#endif
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
-    toolsMenu->addAction(toolsConvertToId3v23);
-#endif
-#ifdef HAVE_PHONON
-    toolsMenu->addAction(toolsPlay);
-#endif
-
-    settingsMenu->addAction(m_viewToolBar);
-
-    settingsMenu->addAction(m_viewStatusBar);
-    settingsMenu->addAction(m_settingsShowHidePicture);
-    settingsMenu->addAction(m_settingsAutoHideTags);
-    settingsMenu->addSeparator();
-    settingsMenu->addAction(settingsConfigure);
-
-    helpMenu->addAction(helpHandbook);
-    helpMenu->addAction(helpAbout);
-    helpMenu->addAction(helpAboutQt);
+  settingsMenu->addAction(m_viewToolBar);
+  m_viewStatusBar = new QAction(this);
+  if (m_viewStatusBar) {
+    m_viewStatusBar->setStatusTip(i18n("Enables/disables the statusbar"));
+    m_viewStatusBar->setText(i18n("Show St&atusbar"));
+    m_viewStatusBar->setCheckable(true);
+    connect(m_viewStatusBar, SIGNAL(triggered()),
+      this, SLOT(slotViewStatusBar()));
   }
+  settingsMenu->addAction(m_viewStatusBar);
+  m_settingsShowHidePicture = new QAction(this);
+  if (m_settingsShowHidePicture) {
+    m_settingsShowHidePicture->setStatusTip(i18n("Show Picture"));
+    m_settingsShowHidePicture->setText(i18n("Show &Picture"));
+    m_settingsShowHidePicture->setCheckable(true);
+    connect(m_settingsShowHidePicture, SIGNAL(triggered()),
+      this, SLOT(slotSettingsShowHidePicture()));
+  }
+  settingsMenu->addAction(m_settingsShowHidePicture);
+  m_settingsAutoHideTags = new QAction(this);
+  if (m_settingsAutoHideTags) {
+    m_settingsAutoHideTags->setStatusTip(i18n("Auto Hide Tags"));
+    m_settingsAutoHideTags->setText(i18n("Auto &Hide Tags"));
+    m_settingsAutoHideTags->setCheckable(true);
+    connect(m_settingsAutoHideTags, SIGNAL(triggered()),
+      this, SLOT(slotSettingsAutoHideTags()));
+  }
+  settingsMenu->addAction(m_settingsAutoHideTags);
+  QAction* settingsConfigure = new QAction(this);
+  if (settingsConfigure) {
+    settingsConfigure->setStatusTip(i18n("Configure Kid3"));
+    settingsConfigure->setText(i18n("&Configure Kid3..."));
+    settingsConfigure->setIcon(QIcon(":/images/configure.png"));
+    connect(settingsConfigure, SIGNAL(triggered()),
+      this, SLOT(slotSettingsConfigure()));
+  }
+  settingsMenu->addSeparator();
+  settingsMenu->addAction(settingsConfigure);
+  toolBar->addAction(settingsConfigure);
+
+  QMenu* helpMenu = menubar->addMenu(i18n("&Help"));
+  QAction* helpHandbook = new QAction(this);
+  if (helpHandbook) {
+    helpHandbook->setStatusTip(i18n("Kid3 Handbook"));
+    helpHandbook->setText(i18n("Kid3 &Handbook"));
+    helpHandbook->setIcon(QIcon(":/images/help-contents.png"));
+    connect(helpHandbook, SIGNAL(triggered()),
+      this, SLOT(slotHelpHandbook()));
+  }
+  helpMenu->addAction(helpHandbook);
+  QAction* helpAbout = new QAction(this);
+  if (helpAbout) {
+    helpAbout->setStatusTip(i18n("About Kid3"));
+    helpAbout->setText(i18n("&About Kid3"));
+    connect(helpAbout, SIGNAL(triggered()),
+      this, SLOT(slotHelpAbout()));
+  }
+  helpMenu->addAction(helpAbout);
+  QAction* helpAboutQt = new QAction(this);
+  if (helpAboutQt) {
+    helpAboutQt->setStatusTip(i18n("About Qt"));
+    helpAboutQt->setText(i18n("About &Qt"));
+    connect(helpAboutQt, SIGNAL(triggered()),
+      this, SLOT(slotHelpAboutQt()));
+  }
+  helpMenu->addAction(helpAboutQt);
+
+  addToolBar(toolBar);
+
   updateWindowCaption();
 #endif
 }
@@ -1313,7 +1287,8 @@ void Kid3MainWindow::setupImportDialog()
   if (!m_importDialog) {
     QString caption(i18n("Import"));
     m_importDialog =
-      new ImportDialog(this, caption, m_app->getTrackDataModel());
+      new ImportDialog(this, caption, m_app->getTrackDataModel(),
+                       m_app->getServerImporters());
   }
   m_importDialog->clear();
 }
@@ -1334,86 +1309,14 @@ void Kid3MainWindow::execImportDialog()
  */
 void Kid3MainWindow::slotImport()
 {
-  setupImportDialog();
-  if (m_importDialog) {
-    m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_None);
-    execImportDialog();
+  if (QAction* action = qobject_cast<QAction*>(sender())) {
+    setupImportDialog();
+    if (m_importDialog) {
+      m_importDialog->setAutoStartSubDialog(action->data().toInt());
+      execImportDialog();
+    }
   }
 }
-
-/**
- * Import from freedb.org.
- */
-void Kid3MainWindow::slotImportFreedb()
-{
-  setupImportDialog();
-  if (m_importDialog) {
-    m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Freedb);
-    execImportDialog();
-  }
-}
-
-/**
- * Import from TrackType.org.
- */
-void Kid3MainWindow::slotImportTrackType()
-{
-  setupImportDialog();
-  if (m_importDialog) {
-    m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_TrackType);
-    execImportDialog();
-  }
-}
-
-/**
- * Import from Discogs.
- */
-void Kid3MainWindow::slotImportDiscogs()
-{
-  setupImportDialog();
-  if (m_importDialog) {
-    m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Discogs);
-    execImportDialog();
-  }
-}
-
-/**
- * Import from Amazon.
- */
-void Kid3MainWindow::slotImportAmazon()
-{
-  setupImportDialog();
-  if (m_importDialog) {
-    m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_Amazon);
-    execImportDialog();
-  }
-}
-
-/**
- * Import from MusicBrainz release database.
- */
-void Kid3MainWindow::slotImportMusicBrainzRelease()
-{
-  setupImportDialog();
-  if (m_importDialog) {
-    m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_MusicBrainzRelease);
-    execImportDialog();
-  }
-}
-
-#ifdef HAVE_TUNEPIMP
-/**
- * Import from MusicBrainz.
- */
-void Kid3MainWindow::slotImportMusicBrainz()
-{
-  setupImportDialog();
-  if (m_importDialog) {
-    m_importDialog->setAutoStartSubDialog(ImportDialog::ASD_MusicBrainz);
-    execImportDialog();
-  }
-}
-#endif
 
 /**
  * Browse album cover artwork.
