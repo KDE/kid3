@@ -53,7 +53,7 @@ public:
    * Name of import source.
    * @return name.
    */
-  virtual QString name() const;
+  virtual const char* name() const;
 
   /** NULL-terminated array of server strings, 0 if not used */
   virtual const char** serverList() const;

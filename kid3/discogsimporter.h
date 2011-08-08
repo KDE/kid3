@@ -53,7 +53,7 @@ public:
    * Name of import source.
    * @return name.
    */
-  virtual QString name() const;
+  virtual const char* name() const;
 
   /** anchor to online help, 0 to disable */
   virtual const char* helpAnchor() const;

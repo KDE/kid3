@@ -27,6 +27,7 @@
 #include "tracktypeimporter.h"
 #include "serverimporterconfig.h"
 #include "configstore.h"
+#include "qtcompatmac.h"
 
 static const char trackTypeServer[] = "tracktype.org:80";
 
@@ -54,7 +55,9 @@ TrackTypeImporter::~TrackTypeImporter()
  * Name of import source.
  * @return name.
  */
-QString TrackTypeImporter::name() const { return "TrackType"; }
+const char* TrackTypeImporter::name() const {
+  return I18N_NOOP("TrackType.org");
+}
 
 /** NULL-terminated array of server strings, 0 if not used */
 const char** TrackTypeImporter::serverList() const

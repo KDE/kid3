@@ -29,6 +29,7 @@
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
 #include "configstore.h"
+#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -54,7 +55,9 @@ MusicBrainzReleaseImporter::~MusicBrainzReleaseImporter()
  * Name of import source.
  * @return name.
  */
-QString MusicBrainzReleaseImporter::name() const { return "MusicBrainz"; }
+const char* MusicBrainzReleaseImporter::name() const {
+  return I18N_NOOP("MusicBrainz Release");
+}
 
 /** NULL-terminated array of server strings, 0 if not used */
 const char** MusicBrainzReleaseImporter::serverList() const

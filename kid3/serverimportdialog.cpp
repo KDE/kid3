@@ -155,7 +155,7 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
     connect(m_source, SIGNAL(albumFinished(const QByteArray&)),
         this, SLOT(slotAlbumFinished(const QByteArray&)));
 
-    setWindowTitle(m_source->name());
+    setWindowTitle(QCM_translate(m_source->name()));
     if (m_source->defaultServer()) {
       m_serverLabel->show();
       m_serverComboBox->show();

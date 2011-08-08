@@ -29,6 +29,7 @@
 #include "trackdatamodel.h"
 #include "configstore.h"
 #include "genres.h"
+#include "qtcompatmac.h"
 
 static const char discogsServer[] = "www.discogs.com:80";
 
@@ -56,7 +57,7 @@ DiscogsImporter::~DiscogsImporter()
  * Name of import source.
  * @return name.
  */
-QString DiscogsImporter::name() const { return "Discogs"; }
+const char* DiscogsImporter::name() const { return I18N_NOOP("Discogs"); }
 
 /** anchor to online help, 0 to disable */
 const char* DiscogsImporter::helpAnchor() const { return "import-discogs"; }
