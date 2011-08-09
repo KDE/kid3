@@ -27,7 +27,6 @@
 #include "exportdialog.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
-#include <kconfig.h>
 #include <kfiledialog.h>
 #else
 #include <QFileDialog>

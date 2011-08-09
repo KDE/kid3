@@ -25,11 +25,6 @@
  */
 
 #include "filterdialog.h"
-#include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <kconfig.h>
-#endif
-
 #include <QLayout>
 #include <QPushButton>
 #include <QLabel>

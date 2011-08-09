@@ -28,11 +28,7 @@
 #include <QString>
 #include "config.h"
 #ifdef CONFIG_USE_KDE
-#include <kdeversion.h>
-#include <kconfig.h>
-#include <kconfigskeleton.h>
-#else
-#include <QFile>
+#include <kconfiggroup.h>
 #endif
 
 #include "generalconfig.h"

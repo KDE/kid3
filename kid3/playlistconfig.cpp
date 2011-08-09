@@ -28,8 +28,7 @@
 #include "config.h"
 
 #ifdef CONFIG_USE_KDE
-#include <kconfig.h>
-#include <kconfigskeleton.h>
+#include <kconfiggroup.h>
 #endif
 
 /**

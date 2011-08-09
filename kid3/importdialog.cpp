@@ -27,10 +27,8 @@
 #include "importdialog.h"
 #include "config.h"
 #ifdef CONFIG_USE_KDE
-#include <kconfig.h>
 #include <kicon.h>
 #endif
-
 #include <QLayout>
 #include <QPushButton>
 #include <QToolButton>
