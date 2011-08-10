@@ -97,16 +97,6 @@ public:
     return currentIndex().isValid() ? currentIndex() : rootIndex();
   }
 
-  /**
-   * Get help text for format codes supported by formatStringList().
-   *
-   * @param onlyRows if true only the tr elements are returned,
-   *                 not the surrounding table
-   *
-   * @return help text.
-   */
-  static QString getFormatToolTip(bool onlyRows = false);
-
 private slots:
   /**
    * Display a context menu with operations for selected files.

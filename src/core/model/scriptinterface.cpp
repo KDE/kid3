@@ -30,15 +30,14 @@
 #include <QDBusConnection>
 #include <QFileInfo>
 #include <QCoreApplication>
+#include <QItemSelectionModel>
 #include "kid3application.h"
-#include "kid3form.h"
 #include "taggedfile.h"
 #include "frametablemodel.h"
 #include "filefilter.h"
 #include "pictureframe.h"
 #include "fileproxymodel.h"
 #include "modeliterator.h"
-#include "filelist.h"
 
 /**
  * Constructor.

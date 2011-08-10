@@ -35,7 +35,7 @@ if (SCRIPT_ARG_HEADER_FILENAME AND SCRIPT_ARG_SRC_DIRNAME)
   else (SCRIPT_ARG_INCLUDE_REGEX)
     set(_includeRegex "#include <")
   endif (SCRIPT_ARG_INCLUDE_REGEX)
-  file(GLOB _srcList "${SCRIPT_ARG_SRC_DIRNAME}/*.cpp"
+  file(GLOB_RECURSE _srcList "${SCRIPT_ARG_SRC_DIRNAME}/*.cpp"
                      "${SCRIPT_ARG_SRC_DIRNAME}/*.hpp"
                      "${SCRIPT_ARG_SRC_DIRNAME}/*.c"
                      "${SCRIPT_ARG_SRC_DIRNAME}/*.h")

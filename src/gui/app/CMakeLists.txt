@@ -1,0 +1,123 @@
+set(kid3_SRCS main.cpp)
+
+if (WITH_KDE)
+
+  kde4_add_executable(kid3 ${kid3_SRCS})
+
+  target_link_libraries(kid3 kid3-gui)
+
+  install(TARGETS kid3 DESTINATION ${BIN_INSTALL_DIR})
+  install(FILES kid3.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+  install(FILES kid3ui.rc DESTINATION ${DATA_INSTALL_DIR}/kid3)
+
+  kde4_install_icons(${ICON_INSTALL_DIR})
+
+else (WITH_KDE)
+
+  if (APPLE)
+    # Icon and properties for .plist file
+    set(MACOSX_BUNDLE_ICON_FILE kid3.icns)
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "1.6")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "net.sourceforge.kid3")
+    set(MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2003-2011 Urs Fleisch")
+    set_source_files_properties(kid3.icns
+      PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    set(kid3_SRCS ${kid3_SRCS} kid3.icns)
+  elseif (WIN32)
+    if (MINGW)
+      # support for Windows resource files with MinGW
+      set(CMAKE_RC_COMPILER_INIT windres)
+      enable_language(RC)
+      set(CMAKE_RC_COMPILE_OBJECT
+        "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
+    endif (MINGW)
+    # add Windows resource file with icon
+    set(kid3_SRCS ${kid3_SRCS} kid3win.rc)
+  endif (APPLE)
+
+  if (UNIX AND NOT APPLE)
+    # install desktop file and icons for Linux
+    add_custom_command(OUTPUT kid3-qt.desktop
+      COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixdesktop.pl
+        <${CMAKE_CURRENT_SOURCE_DIR}/kid3.desktop >kid3-qt.desktop
+      DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/kid3.desktop
+    )
+    add_custom_target("desktop-file" ALL DEPENDS kid3-qt.desktop)
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop
+      DESTINATION "${WITH_DATAROOTDIR}/applications")
+    install(FILES hisc-app-kid3.svgz
+            DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps"
+            RENAME kid3-qt.svgz)
+    install(FILES hi48-app-kid3.png
+            DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/48x48/apps"
+            RENAME kid3-qt.png)
+    install(FILES hi32-app-kid3.png
+            DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/32x32/apps"
+            RENAME kid3-qt.png)
+    install(FILES hi16-app-kid3.png
+            DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/16x16/apps"
+            RENAME kid3-qt.png)
+  endif (UNIX AND NOT APPLE)
+
+  add_definitions(${QT_DEFINITIONS})
+  set(kid3_RESOURCES kid3.qrc)
+  qt4_add_resources(kid3_GEN_RCS ${kid3_RESOURCES})
+  add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32
+    ${kid3_SRCS} ${kid3_GEN_RCS})
+
+  target_link_libraries(${KID3_EXECUTABLE} kid3-gui)
+
+  install(TARGETS ${KID3_EXECUTABLE}
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${WITH_BINDIR})
+
+  if (APPLE OR WIN32)
+
+    # Put Qt libraries and plugins into installation package to create a
+    # standalone bundle on Mac OS X and Windows
+    set(plugin_dest_dir ${WITH_BINDIR})
+    set(bundle_app
+     "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_BINDIR}/${KID3_EXECUTABLE}")
+    if (APPLE)
+      set(plugin_dest_dir kid3.app/Contents/PlugIns)
+      set(bundle_app "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/kid3.app")
+    endif (APPLE)
+    if (WIN32)
+      set(bundle_app
+        "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_BINDIR}/kid3.exe")
+    endif (WIN32)
+    string(REPLACE "/./" "/" bundle_app ${bundle_app})
+
+    # Install Qt JPEG and Phonon plugins
+    install(DIRECTORY "${QT_PLUGINS_DIR}/imageformats"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "*jpeg${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                     PATTERN "*jpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}")
+
+    if (HAVE_PHONON)
+      install(DIRECTORY "${QT_PLUGINS_DIR}/phonon_backend"
+        DESTINATION ${plugin_dest_dir}
+        FILES_MATCHING
+          PATTERN "*d4${CMAKE_SHARED_LIBRARY_SUFFIX}" EXCLUDE
+          PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    endif (HAVE_PHONON)
+
+    # Install and fix up all dependencies of the executable and the plugins.
+    # On Mac OS X only keep the i386 code in the Qt libraries and plugins.
+    install(CODE "
+      file(GLOB_RECURSE QTPLUGINS
+        \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+      include(BundleUtilities)
+      fixup_bundle(\"${bundle_app}\" \"\${QTPLUGINS}\" \"${QT_LIBRARY_DIR}\")
+      if (APPLE)
+        file(GLOB_RECURSE _qtlibs \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/kid3.app/Contents/Frameworks/*Qt*\")
+        file(GLOB_RECURSE _plugins \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/kid3.app/Contents/PlugIns/*.dylib\")
+        foreach (_universalBinary \${_plugins} \${_qtlibs})
+          execute_process(COMMAND lipo \${_universalBinary} -output \${_universalBinary} -thin i386)
+        endforeach (_universalBinary \${plugins})
+      endif (APPLE)
+      ")
+
+  endif (APPLE OR WIN32)
+
+endif (WITH_KDE)

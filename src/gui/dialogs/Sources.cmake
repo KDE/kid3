@@ -1,0 +1,38 @@
+set(dialogs_SRCS
+  dialogs/browsecoverartdialog.cpp
+  dialogs/browserdialog.cpp
+  dialogs/configdialog.cpp
+  dialogs/contexthelp.cpp
+  dialogs/downloaddialog.cpp
+  dialogs/editframedialog.cpp
+  dialogs/editframefieldsdialog.cpp
+  dialogs/exportdialog.cpp
+  dialogs/filterdialog.cpp
+  dialogs/importdialog.cpp
+  dialogs/musicbrainzdialog.cpp
+  dialogs/numbertracksdialog.cpp
+  dialogs/playlistdialog.cpp
+  dialogs/rendirdialog.cpp
+  dialogs/serverimportdialog.cpp
+  dialogs/tagimportdialog.cpp
+  dialogs/textimportdialog.cpp
+)
+
+set(dialogs_MOC_HDRS
+  dialogs/browsecoverartdialog.h
+  dialogs/browserdialog.h
+  dialogs/configdialog.h
+  dialogs/downloaddialog.h
+  dialogs/editframedialog.h
+  dialogs/editframefieldsdialog.h
+  dialogs/exportdialog.h
+  dialogs/filterdialog.h
+  dialogs/importdialog.h
+  dialogs/musicbrainzdialog.h
+  dialogs/numbertracksdialog.h
+  dialogs/playlistdialog.h
+  dialogs/rendirdialog.h
+  dialogs/serverimportdialog.h
+  dialogs/tagimportdialog.h
+  dialogs/textimportdialog.h
+)

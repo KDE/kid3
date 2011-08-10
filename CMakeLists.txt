@@ -132,7 +132,7 @@ if (WITH_KDE)
     set(BASIC_LIBRARIES ${BASIC_LIBRARIES} ${PHONON_LIBS})
   endif (WITH_PHONON)
 else (WITH_KDE)
-  set(BASIC_LIBRARIES ${QT_LIBRARIES})
+  set(BASIC_LIBRARIES ${QT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 endif (WITH_KDE)
 
 if (WIN32)
@@ -383,7 +383,7 @@ endif (WITH_KDE)
 
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
-add_subdirectory(kid3)
+add_subdirectory(src)
 add_subdirectory(doc)
 add_subdirectory(po)
 

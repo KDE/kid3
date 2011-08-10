@@ -25,7 +25,7 @@
  */
 
 #include "commandstablemodel.h"
-#include "filelist.h"
+#include "commandformatreplacer.h"
 #include "qtcompatmac.h"
 
 /** Column indices. */
@@ -163,7 +163,7 @@ QVariant CommandsTableModel::headerData(
 {
   if (role == Qt::ToolTipRole && orientation == Qt::Horizontal &&
       section == CI_Command)
-    return FileList::getFormatToolTip();
+    return CommandFormatReplacer::getToolTip();
   if (role != Qt::DisplayRole)
     return QVariant();
   if (orientation == Qt::Horizontal) {

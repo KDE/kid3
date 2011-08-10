@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASEDIR="../kid3" # root of translatable sources
+BASEDIR="../src" # root of translatable sources
 PROJECT="kid3" # project name
 BUGADDR="http://sourceforge.net/tracker/?group_id=70849&atid=529221" # MSGID-Bugs
 WDIR=`pwd` # working dir

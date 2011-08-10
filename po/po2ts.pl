@@ -3,6 +3,8 @@ package po2ts;
 
 use strict;
 use File::Basename;
+use File::Find;
+use File::Path qw(make_path remove_tree);
 
 use vars qw(@ISA @EXPORT);
 require Exporter;
@@ -10,14 +12,18 @@ require Exporter;
 @EXPORT = qw(generateTs);
 
 # Read all source files given in the parameter list and copy them to the
-# current directory, replaceing i18n by tr and I18N_NOOP by QT_TRANSLATE_NOOP.
+# output directory, replaceing i18n by tr and I18N_NOOP by QT_TRANSLATE_NOOP.
 sub createTranslateSources($@)
 {
   my $outdir = shift;
+  my $indir = shift;
   my @sources = @_;
+  my $indirLen = length($indir);
   foreach my $file (@sources) {
     open IF, $file or die "Could not open $file: $!\n";
-    my $outfn = $outdir . "/" . basename($file);
+    my $outfn = $outdir . substr($file, $indirLen);
+    my $outfndir = dirname($outfn);
+    make_path($outfndir) unless -d $outfndir;
     open OF, ">$outfn" or die "Could not create $outfn: $!\n";
     while (<IF>) {
       s/i18n\(/tr(/g;
@@ -25,7 +31,7 @@ sub createTranslateSources($@)
       s/KCM_i18n2\(([^,]+), ([^,]+), ([^)]+)\)/tr($1).arg($2).arg($3)/g;
       s/I18N_NOOP\(/QT_TRANSLATE_NOOP("\@default", /g;
       print OF $_;
-    }       
+    }
     close OF;
     close IF;
   }
@@ -125,30 +131,34 @@ sub setTsTranslations($$%)
   close IF;
 }
 
+my @sources;
+
+# Push .cpp file names into @sources.
+sub wanted
+{
+  /\.cpp$/ && push @sources, $File::Find::name;
+}
+
 # Generate .ts files from .po files.
 # parameters: path to lupdate command, directory with po-files,
 # directory with source files
 sub generateTs
 {
-  my ($lupdate_cmd, $podir, @srcdirs) = @_;
+  my ($lupdate_cmd, $podir, $srcdir) = @_;
   my @pofiles = glob "$podir/*.po";
   my @languages = map { /^.*\W(\w+)\.po$/ } @pofiles;
   my $tmpdir = ".tsdir";
   mkdir $tmpdir unless -d $tmpdir;
-  my @sources;
-  foreach (@srcdirs) {
-    push @sources, glob "$_/*.cpp";
-  }
-  createTranslateSources($tmpdir, @sources);
+  find(\&wanted, $srcdir);
+  createTranslateSources($tmpdir, $srcdir, @sources);
   chdir $tmpdir or die "Could not change to $tmpdir: $!\n";
-  system "$lupdate_cmd " . join ' ', glob "*.cpp" . " -ts ". join ' ', map { "kid3_". $_ . ".ts" } @languages;
+  system "$lupdate_cmd -recursive . -ts " . join ' ', map { "kid3_". $_ . ".ts" } @languages;
   chdir "..";
-  foreach my $lang (@languages) { 
+  foreach my $lang (@languages) {
     setTsTranslations("$tmpdir/kid3_$lang.ts", "kid3_$lang.ts",
                       getPoTranslations("$podir/$lang.po"));
   }
-  unlink <$tmpdir/*>;
-  rmdir $tmpdir;
+  remove_tree($tmpdir);
 }
 
 if (!caller()) {

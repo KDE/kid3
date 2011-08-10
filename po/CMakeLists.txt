@@ -56,7 +56,9 @@ else(WITH_KDE)
 
   add_custom_command(
      OUTPUT ${_tsFiles}
-     COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/po2ts.pl ${QT_LUPDATE_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../kid3
+     COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/po2ts.pl
+       ${QT_LUPDATE_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}
+       ${CMAKE_CURRENT_SOURCE_DIR}/../src
      DEPENDS ${_poFiles}
   )
   qt4_add_translation(_qmFiles ${_tsFiles} ${_qtTsFiles})

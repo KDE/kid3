@@ -27,7 +27,6 @@
 #include "framelist.h"
 #include <QItemSelectionModel>
 #include "taggedfile.h"
-#include "frametable.h"
 #include "frametablemodel.h"
 #include "iframeeditor.h"
 

@@ -33,7 +33,6 @@
 
 #include "generalconfig.h"
 #include "taggedfile.h"
-#include "rendirdialog.h"
 
 /** Default value for comment name */
 const char* const MiscConfig::s_defaultCommentName = "COMMENT";

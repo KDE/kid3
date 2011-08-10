@@ -26,16 +26,10 @@
 
 #include "kid3mainwindow.h"
 #include <QDir>
-#include <QPrinter>
-#include <QPainter>
-#include <QUrl>
-#include <QTextStream>
 #include <QCursor>
 #include <QMessageBox>
 #include <QInputDialog>
-#include <QPushButton>
 #include <QProgressBar>
-#include <QImage>
 #include "qtcompatmac.h"
 #include <QCloseEvent>
 #include <QHBoxLayout>
@@ -43,7 +37,6 @@
 #include <QMenu>
 #include <QIcon>
 #include <QToolBar>
-#include <QFileSystemModel>
 #include "config.h"
 
 #ifdef CONFIG_USE_KDE
@@ -67,14 +60,12 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QStatusBar>
-#include <QMessageBox>
 #include <QFileDialog>
 #include "recentfilesmenu.h"
 #endif
 
 #include "kid3form.h"
 #include "kid3application.h"
-#include "genres.h"
 #include "framelist.h"
 #include "frametablemodel.h"
 #include "frametable.h"
@@ -91,9 +82,7 @@
 #include "editframedialog.h"
 #include "editframefieldsdialog.h"
 #include "fileproxymodel.h"
-#include "dirproxymodel.h"
 #include "modeliterator.h"
-#include "trackdatamodel.h"
 #include "filelist.h"
 #include "dirlist.h"
 #include "pictureframe.h"
@@ -106,21 +95,6 @@
 #include "qtcompatmac.h"
 #ifdef HAVE_PHONON
 #include "audioplayer.h"
-#endif
-#ifdef HAVE_ID3LIB
-#include "mp3file.h"
-#endif
-#ifdef HAVE_VORBIS
-#include "oggfile.hpp"
-#endif
-#ifdef HAVE_FLAC
-#include "flacfile.hpp"
-#endif
-#ifdef HAVE_MP4V2
-#include "m4afile.h"
-#endif
-#ifdef HAVE_TAGLIB
-#include "taglibfile.h"
 #endif
 #ifdef HAVE_PHONON
 #include "playtoolbar.h"

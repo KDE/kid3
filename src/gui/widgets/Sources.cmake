@@ -1,0 +1,21 @@
+set(widgets_SRCS
+  widgets/comboboxdelegate.cpp
+  widgets/configtable.cpp
+  widgets/formatbox.cpp
+  widgets/frametable.cpp
+  widgets/imageviewer.cpp
+  widgets/picturelabel.cpp
+  widgets/playtoolbar.cpp
+  widgets/recentfilesmenu.cpp
+  widgets/stringlistedit.cpp
+)
+
+set(widgets_MOC_HDRS
+  widgets/configtable.h
+  widgets/formatbox.h
+  widgets/frametable.h
+  widgets/imageviewer.h
+  widgets/playtoolbar.h
+  widgets/recentfilesmenu.h
+  widgets/stringlistedit.h
+)
