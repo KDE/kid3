@@ -4,7 +4,7 @@ package po2ts;
 use strict;
 use File::Basename;
 use File::Find;
-use File::Path qw(make_path remove_tree);
+use File::Path;
 
 use vars qw(@ISA @EXPORT);
 require Exporter;
@@ -23,7 +23,7 @@ sub createTranslateSources($@)
     open IF, $file or die "Could not open $file: $!\n";
     my $outfn = $outdir . substr($file, $indirLen);
     my $outfndir = dirname($outfn);
-    make_path($outfndir) unless -d $outfndir;
+    mkpath($outfndir) unless -d $outfndir;
     open OF, ">$outfn" or die "Could not create $outfn: $!\n";
     while (<IF>) {
       s/i18n\(/tr(/g;
@@ -158,7 +158,7 @@ sub generateTs
     setTsTranslations("$tmpdir/kid3_$lang.ts", "kid3_$lang.ts",
                       getPoTranslations("$podir/$lang.po"));
   }
-  remove_tree($tmpdir);
+  rmtree($tmpdir);
 }
 
 if (!caller()) {
