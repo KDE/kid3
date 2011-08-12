@@ -20,6 +20,10 @@ target_link_libraries(kid3-core
   ${FLAC_LIBRARIES} ${TUNEPIMP_LIBRARIES} ${MP4V2_LIBRARIES}
 )
 
+if (BUILD_SHARED_LIBS)
+  install(TARGETS kid3-core DESTINATION ${WITH_BINDIR})
+endif (BUILD_SHARED_LIBS)
+
 if (WITH_KDE)
   install(FILES model/net.sourceforge.Kid3.xml
           DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
