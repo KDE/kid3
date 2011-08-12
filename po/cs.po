@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2011-01-15 17:21+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"group_id=70849&atid=529221\n"
+"POT-Creation-Date: 2011-08-11 20:56+0200\n"
 "PO-Revision-Date: 2011-01-15 17:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -20,1454 +20,1962 @@ msgstr ""
 "X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: browsecoverartdialog.cpp:61 filelist.cpp:262
-msgid "Encode as URL"
-msgstr "Zakódovat jako URL"
-
-#: browsecoverartdialog.cpp:77 browsecoverartdialog.cpp:323
-msgid "Browse Cover Art"
-msgstr "Procházet kvůli obrázkům obalů"
-
-#: browsecoverartdialog.cpp:91 browsecoverartdialog.cpp:94
-msgid "&Artist/Album"
-msgstr "Umělec/&Album"
-
-#: browsecoverartdialog.cpp:114 browsecoverartdialog.cpp:116
-msgid "&Source"
-msgstr "&Zdroj"
-
-#: browsecoverartdialog.cpp:138 browsecoverartdialog.cpp:141
-msgid "&URL extraction"
-msgstr "Získání &URL"
-
-#: browsecoverartdialog.cpp:146
-msgid "Match"
-msgstr "Porovnání"
-
-#: browsecoverartdialog.cpp:147
-msgid "Picture URL"
-msgstr "URL obrázku"
-
-#: browsecoverartdialog.cpp:160 configdialog.cpp:545 exportdialog.cpp:155
-#: filterdialog.cpp:100 importdialog.cpp:77 importsourcedialog.cpp:152
-#: kid3.cpp:775 kid3.cpp:787 musicbrainzdialog.cpp:139
-#: numbertracksdialog.cpp:113 playlistdialog.cpp:259 rendirdialog.cpp:105
-msgid "&Help"
-msgstr "&Nápověda"
-
-#: browsecoverartdialog.cpp:166 exportdialog.cpp:161 filterdialog.cpp:106
-#: importdialog.cpp:78 importsourcedialog.cpp:153 musicbrainzdialog.cpp:140
-#: numbertracksdialog.cpp:118 playlistdialog.cpp:263 rendirdialog.cpp:87
-#: rendirdialog.cpp:106
-msgid "&Save Settings"
-msgstr "&Uložit nastavení"
-
-#: browsecoverartdialog.cpp:176
-msgid "&Browse"
-msgstr "&Procházet"
-
-#: browsecoverartdialog.cpp:177 configdialog.cpp:547 editframedialog.cpp:71
-#: editframefieldsdialog.cpp:1020 importdialog.cpp:80
-#: musicbrainzdialog.cpp:143 numbertracksdialog.cpp:133 playlistdialog.cpp:274
-#: rendirdialog.cpp:108
-msgid "&Cancel"
-msgstr "&Zrušit"
-
-#: browsecoverartdialog.cpp:226
-msgid "Click Browse to start"
-msgstr "Klepněte na Procházet pro započetí"
-
-#: browsecoverartdialog.cpp:232
-msgid "Then drag the picture from the browser to Kid3."
-msgstr "Potom přetáhněte obrázek z prohlížeče do okna Kid3."
-
-#: browserdialog.cpp:83
-msgid "&Back"
-msgstr "&Zpět"
-
-#: browserdialog.cpp:84
-msgid "&Forward"
-msgstr "&Vpřed"
-
-#: browserdialog.cpp:85 exportdialog.cpp:171 externalprocess.cpp:58
-#: filterdialog.cpp:117 imageviewer.cpp:61 importsourcedialog.cpp:154
-msgid "&Close"
-msgstr "&Zavřít"
-
-#: commandstable.cpp:58 commandstable.cpp:75
-msgid "Confirm"
-msgstr "Potvrzení"
-
-#: commandstable.cpp:58 commandstable.cpp:76
-msgid "Output"
-msgstr "Výstup"
-
-#: commandstable.cpp:58 commandstable.cpp:77
-msgid "Name"
-msgstr "Název"
-
-#: commandstable.cpp:59 commandstable.cpp:78
-msgid "Command"
-msgstr "Příkaz"
-
-#: commandstable.cpp:262 commandstable.cpp:277 configtable.cpp:226
-#: configtable.cpp:241
-msgid "&Insert row"
-msgstr "&Vložit řádek"
-
-#: commandstable.cpp:266 commandstable.cpp:281 configtable.cpp:230
-#: configtable.cpp:245
-msgid "&Delete row"
-msgstr "&Smazat řádek"
-
-#: commandstable.cpp:270 commandstable.cpp:285 configtable.cpp:234
-#: configtable.cpp:249
-msgid "&Clear row"
-msgstr "Vy&prázdnit řádek"
-
-#: configdialog.cpp:117 configdialog.cpp:129
-msgid "ID3v1"
-msgstr "ID3v1"
-
-#: configdialog.cpp:122 configdialog.cpp:131
-msgid "&Mark truncated fields"
-msgstr "&Označit zkrácená pole"
-
-#: configdialog.cpp:125 configdialog.cpp:134 configdialog.cpp:226
-#: configdialog.cpp:241
-msgid "Text &encoding:"
-msgstr "Kódování t&extu:"
-
-#: configdialog.cpp:217 configdialog.cpp:234
-msgid "ID3v2"
-msgstr "ID3v2"
-
-#: configdialog.cpp:222 configdialog.cpp:236
-msgid "Use &track/total number of tracks format"
-msgstr "Použít formát číslo/celkový počet &stop"
-
-#: configdialog.cpp:225 configdialog.cpp:239
-msgid "&Genre as text instead of numeric string"
-msgstr "Žá&nr jako text místo jako číslo"
-
-#: configdialog.cpp:230 configdialog.cpp:245
-msgid "&Version used for new tags:"
-msgstr "&Verze používaná pro nové značky:"
-
-#: configdialog.cpp:249
-msgid "Track number &digits:"
-msgstr "&Počet číslic v čísle skladby:"
-
-#: configdialog.cpp:254 editframefieldsdialog.cpp:888
-msgid "ISO-8859-1"
-msgstr "ISO-8859-1"
-
-#: configdialog.cpp:255 editframefieldsdialog.cpp:889
-msgid "UTF16"
-msgstr "UTF16"
-
-#: configdialog.cpp:256 editframefieldsdialog.cpp:891
-msgid "UTF8"
-msgstr "UTF8"
-
-#: configdialog.cpp:268
-msgid "ID3v2.3.0 (id3lib)"
-msgstr "ID3v2.3.0 (id3lib)"
-
-#: configdialog.cpp:269
-msgid "ID3v2.4.0 (TagLib)"
-msgstr "ID3v2.4.0 (TagLib)"
-
-#: configdialog.cpp:289 configdialog.cpp:291
-msgid "Ogg/Vorbis"
-msgstr "Ogg/Vorbis"
-
-#: configdialog.cpp:294
-msgid "Comment field &name:"
-msgstr "&Název pole s poznámkou:"
-
-#: configdialog.cpp:296
-msgid "&Picture field name:"
-msgstr "Název pole s &obrázkem:"
-
-#: configdialog.cpp:327 configdialog.cpp:329
-msgid "Custom &Genres"
-msgstr "Vlas&tní žánry"
-
-#: configdialog.cpp:332
-msgid "&Show only custom genres"
-msgstr "&Ukázat pouze vlastní žánry"
-
-#: configdialog.cpp:343
-msgid "&Tag Format"
-msgstr "&Formát značky"
-
-#: configdialog.cpp:352
-msgid "Tags"
-msgstr "Značky"
-
-#: configdialog.cpp:354
-msgid "&Tags"
-msgstr "&Značky"
-
-#: configdialog.cpp:365 configdialog.cpp:367
-msgid "Save"
-msgstr "Uložit"
-
-#: configdialog.cpp:370
-msgid "&Preserve file timestamp"
-msgstr "&Neměnit časové razítko"
-
-#: configdialog.cpp:371
-msgid "&Mark changes"
-msgstr "&Označit změny"
-
-#: configdialog.cpp:381
-msgid "&Filename Format"
-msgstr "Formát &souborového názvu"
-
-#: configdialog.cpp:388
-msgid "Files"
-msgstr "Soubory"
-
-#: configdialog.cpp:390
-msgid "&Files"
-msgstr "&Soubory"
-
-#: configdialog.cpp:401 configdialog.cpp:403
-msgid "Browser"
-msgstr "Prohlížeč"
-
-#: configdialog.cpp:406
-msgid "Web &browser:"
-msgstr "&Prohlížeč internetu:"
-
-#: configdialog.cpp:422 configdialog.cpp:424
-msgid "Context &Menu Commands"
-msgstr "Příkazy souvisejících &nabídek"
-
-#: configdialog.cpp:438
-msgid "User Actions"
-msgstr "Uživatelské příkazy"
-
-#: configdialog.cpp:440
-msgid "&User Actions"
-msgstr "&Uživatelské příkazy"
-
-#: configdialog.cpp:451 configdialog.cpp:453
-msgid "Proxy"
-msgstr "Proxy"
-
-#: configdialog.cpp:456
-msgid "&Proxy:"
-msgstr "&Proxy:"
-
-#: configdialog.cpp:459
-msgid "&Use authentication with proxy"
-msgstr "Po&užít ověření pomocí Proxy"
-
-#: configdialog.cpp:460
-msgid "Proxy user &name:"
-msgstr "Uživatelské &jméno uživatele Proxy:"
-
-#: configdialog.cpp:463
-msgid "Proxy pass&word:"
-msgstr "&Heslo pro Proxy:"
-
-#: configdialog.cpp:490
-msgid "Network"
-msgstr "Síť"
-
-#: configdialog.cpp:492
-msgid "&Network"
-msgstr "&Síť"
-
-#: configdialog.cpp:513
-msgid "Use custom app&lication font"
-msgstr "Použít v ap&likaci vlastní písmo"
-
-#: configdialog.cpp:514
-msgid "A&pplication Font..."
-msgstr "Pís&mo..."
-
-#: configdialog.cpp:515
-msgid "Use custom application &style"
-msgstr "Použít v aplikaci vlastní &styl"
-
-#: configdialog.cpp:524 configdialog.cpp:763 musicbrainzdialog.cpp:215
-#: musicbrainzdialog.cpp:219 musicbrainzdialog.cpp:221
-#: musicbrainzdialog.cpp:232 musicbrainzdialog.cpp:246
-msgid "Unknown"
-msgstr "Neznámý"
-
-#: configdialog.cpp:535
-msgid "&Appearance"
-msgstr "Vz&hled"
-
-#: configdialog.cpp:546 editframedialog.cpp:70 editframefieldsdialog.cpp:1019
-#: importdialog.cpp:79 musicbrainzdialog.cpp:141 numbertracksdialog.cpp:128
-#: playlistdialog.cpp:271 rendirdialog.cpp:107
-msgid "&OK"
-msgstr "&OK"
-
-#: downloaddialog.cpp:96 httpclient.cpp:71 httpclient.cpp:83
-#: httpclient.cpp:129 httpclient.cpp:306 importsourcedialog.cpp:175
-#: kid3.cpp:890 kid3.cpp:962 kid3.cpp:1267 kid3.cpp:1653 kid3.cpp:1668
-#: kid3.cpp:1747 kid3.cpp:1893 kid3.cpp:1993
-msgid "Ready."
-msgstr "Připraven."
-
-#: editframefieldsdialog.cpp:527 importselector.cpp:283
-msgid "From Clip&board"
-msgstr "Ze s&chránky"
-
-#: editframefieldsdialog.cpp:528
-msgid "&Import"
-msgstr "&Zavést"
-
-#: editframefieldsdialog.cpp:529
-msgid "&Export"
-msgstr "&Vyvést"
-
-#: editframefieldsdialog.cpp:530
-msgid "&View"
-msgstr "&Pohled"
-
-#: editframefieldsdialog.cpp:671
-msgid "Text Encoding"
-msgstr "Kódování textu"
-
-#: editframefieldsdialog.cpp:672
-msgid "Text"
-msgstr "Text"
-
-#: editframefieldsdialog.cpp:673
-msgid "URL"
-msgstr "URL"
-
-#: editframefieldsdialog.cpp:674
-msgid "Data"
-msgstr "Data"
-
-#: editframefieldsdialog.cpp:675
-msgid "Description"
-msgstr "Popis"
-
-#: editframefieldsdialog.cpp:676
-msgid "Owner"
-msgstr "Vlastník"
-
-#: editframefieldsdialog.cpp:677
-msgid "Email"
-msgstr "E-mail"
-
-#: editframefieldsdialog.cpp:678
-msgid "Rating"
-msgstr "Hodnocení"
-
-#: editframefieldsdialog.cpp:679 kid3.cpp:446 kid3.cpp:449 kid3.cpp:452
-msgid "Filename"
-msgstr "Název souboru"
-
-#: editframefieldsdialog.cpp:680 frame.cpp:86
-msgid "Language"
-msgstr "Jazyk"
-
-#: editframefieldsdialog.cpp:681
-msgid "Picture Type"
-msgstr "Druh obrázku"
-
-#: editframefieldsdialog.cpp:682
-msgid "Image format"
-msgstr "Formát obrázku"
-
-#: editframefieldsdialog.cpp:683
-msgid "Mimetype"
-msgstr "Mime Typ"
-
-#: editframefieldsdialog.cpp:684
-msgid "Counter"
-msgstr "Počítadlo"
-
-#: editframefieldsdialog.cpp:685
-msgid "Identifier"
-msgstr "Určení"
-
-#: editframefieldsdialog.cpp:686
-msgid "Volume Adjustment"
-msgstr "Úprava hlasitosti"
-
-#: editframefieldsdialog.cpp:687
-msgid "Number of Bits"
-msgstr "Počet bitů"
-
-#: editframefieldsdialog.cpp:688
-msgid "Volume Change Right"
-msgstr "Změna hlasitosti vpravo"
-
-#: editframefieldsdialog.cpp:689
-msgid "Volume Change Left"
-msgstr "Změna hlasitosti vlevo"
-
-#: editframefieldsdialog.cpp:690
-msgid "Peak Volume Right"
-msgstr "Nejvyšší stupeň hlasitosti vpravo"
-
-#: editframefieldsdialog.cpp:691
-msgid "Peak Volume Left"
-msgstr "Nejvyšší stupeň hlasitosti vlevo"
-
-#: editframefieldsdialog.cpp:692
-msgid "Timestamp Format"
-msgstr "Formát časového razítka"
-
-#: editframefieldsdialog.cpp:693
-msgid "Content Type"
-msgstr "Druh obsahu"
-
-#: editframefieldsdialog.cpp:890
-msgid "UTF16BE"
-msgstr "UTF16BE"
-
-#: editframefieldsdialog.cpp:902 editframefieldsdialog.cpp:933
-#: editframefieldsdialog.cpp:946
-msgid "Other"
-msgstr "Jiný"
-
-#: editframefieldsdialog.cpp:903
-msgid "32x32 pixels PNG file icon"
-msgstr "Ikona o velikosti 32x32 pixelů pro soubor PNG"
-
-#: editframefieldsdialog.cpp:904
-msgid "Other file icon"
-msgstr "Ikona jiného souboru"
-
-#: editframefieldsdialog.cpp:905
-msgid "Cover (front)"
-msgstr "Obal (přední strana)"
-
-#: editframefieldsdialog.cpp:906
-msgid "Cover (back)"
-msgstr "Obal (zadní strana)"
-
-#: editframefieldsdialog.cpp:907
-msgid "Leaflet page"
-msgstr "Strana letáku"
-
-#: editframefieldsdialog.cpp:908 frame.cpp:89
-msgid "Media"
-msgstr "Medium"
-
-#: editframefieldsdialog.cpp:909
-msgid "Lead artist/lead performer/soloist"
-msgstr "Hlavní umělec/Účinkující/Sólista"
-
-#: editframefieldsdialog.cpp:910
-msgid "Artist/performer"
-msgstr "Umělec/Účinkující"
-
-#: editframefieldsdialog.cpp:911 frame.cpp:80
-msgid "Conductor"
-msgstr "Vedoucí"
-
-#: editframefieldsdialog.cpp:912
-msgid "Band/Orchestra"
-msgstr "Hudební skupina/Orchestr"
-
-#: editframefieldsdialog.cpp:913 frame.cpp:79
-msgid "Composer"
-msgstr "Skladatel"
-
-#: editframefieldsdialog.cpp:914
-msgid "Lyricist/text writer"
-msgstr "Textař/Skladatel textu"
-
-#: editframefieldsdialog.cpp:915
-msgid "Recording Location"
-msgstr "Místo nahrávky"
-
-#: editframefieldsdialog.cpp:916
-msgid "During recording"
-msgstr "Během nahrávání"
-
-#: editframefieldsdialog.cpp:917
-msgid "During performance"
-msgstr "Během vystoupení"
-
-#: editframefieldsdialog.cpp:918
-msgid "Movie/video screen capture"
-msgstr "Obrázek z filmu/videa"
-
-#: editframefieldsdialog.cpp:919
-msgid "A bright coloured fish"
-msgstr "Jasně svítící ryba"
-
-#: editframefieldsdialog.cpp:920
-msgid "Illustration"
-msgstr "Ukázka"
-
-#: editframefieldsdialog.cpp:921
-msgid "Band/artist logotype"
-msgstr "Logotyp hudební skupiny/umělce"
-
-#: editframefieldsdialog.cpp:922
-msgid "Publisher/Studio logotype"
-msgstr "Logotyp vydavatele/nahrávacího studia"
-
-#: editframefieldsdialog.cpp:934
-msgid "MPEG frames as unit"
-msgstr "Snímky MPEG jako jednotka"
-
-#: editframefieldsdialog.cpp:935
-msgid "Milliseconds as unit"
-msgstr "Milisekundy jako jednotka"
-
-#: editframefieldsdialog.cpp:947 frame.cpp:88
-msgid "Lyrics"
-msgstr "Text písně"
-
-#: editframefieldsdialog.cpp:948
-msgid "Text transcription"
-msgstr "Přepis textu"
-
-#: editframefieldsdialog.cpp:949
-msgid "Movement/part name"
-msgstr "Název věty/části"
-
-#: editframefieldsdialog.cpp:950
-msgid "Events"
-msgstr "Událost"
-
-#: editframefieldsdialog.cpp:951
-msgid "Chord"
-msgstr "Akord"
-
-#: editframefieldsdialog.cpp:952
-msgid "Trivia/pop up"
-msgstr "Drobnosti/Vyskakovací"
-
-#: exportdialog.cpp:74
-msgid "Export"
-msgstr "Vyvést"
-
-#: exportdialog.cpp:87 exportdialog.cpp:89
-msgid "&Format"
-msgstr "&Formát"
-
-#: exportdialog.cpp:121
-msgid "To F&ile"
-msgstr "Do sou&boru"
-
-#: exportdialog.cpp:127
-msgid "To Clip&board"
-msgstr "Do sch&ránky"
-
-#: exportdialog.cpp:137
-msgid "&Source:"
-msgstr "&Zdroj:"
-
-#: exportdialog.cpp:142 id3form.cpp:296 id3form.cpp:317 id3form.cpp:468
-#: id3form.cpp:489 importselector.cpp:311 kid3.cpp:407 kid3.cpp:410
-#: kid3.cpp:413 kid3.cpp:416 kid3.cpp:419 kid3.cpp:455
-#: numbertracksdialog.cpp:82
-msgid "Tag 1"
-msgstr "Značka 1"
-
-#: exportdialog.cpp:143 id3form.cpp:299 id3form.cpp:321 id3form.cpp:471
-#: id3form.cpp:493 importselector.cpp:312 kid3.cpp:422 kid3.cpp:425
-#: kid3.cpp:428 kid3.cpp:431 kid3.cpp:434 kid3.cpp:458
-#: numbertracksdialog.cpp:83
-msgid "Tag 2"
-msgstr "Značka 2"
-
-#: exportdialog.cpp:234 filelist.cpp:1219 filelist.cpp:1255 filelist.cpp:1360
-#: filelist.cpp:1368 filelist.cpp:1412 filelist.cpp:1415 kid3.cpp:1255
-#: kid3.cpp:1258 kid3.cpp:2523
-msgid "File Error"
-msgstr "Chyba v souboru"
-
-#: exportdialog.cpp:235 kid3.cpp:1253 kid3.cpp:1259
-msgid "Error while writing file:\n"
-msgstr "Při zápisu do souboru nastala chyba:\n"
-
-#: externalprocess.cpp:55
-msgid "C&lear"
-msgstr "&Smazat"
-
-#: externalprocess.cpp:130
-msgid "Execute "
-msgstr "Provést "
-
-#: externalprocess.cpp:178
-msgid "Could not execute "
-msgstr "Nepodařilo se provést"
-
-#: filefilter.cpp:111
-msgid "True if strings are equal"
-msgstr "Správné, jestliže jsou řetězce znaků stejné"
-
-#: filefilter.cpp:115
-msgid "True if string contains substring"
-msgstr "Správné, jestliže řetězec znaků obsahuje podřetězec"
-
-#: filefilter.cpp:119
-msgid "True if string matches regexp"
-msgstr "Správné, jestliže řetězec znaků odpovídá Regexp"
-
-#: filefilter.cpp:123
-msgid "Logical AND"
-msgstr "Logické A"
-
-#: filefilter.cpp:127
-msgid "Logical OR"
-msgstr "Logické NEBO"
-
-#: filefilter.cpp:131
-msgid "Logical negation"
-msgstr "Logické popření"
-
-#: filelist.cpp:70
-msgid "Do you really want to delete these %1 items?"
-msgstr "Opravdu chcete smazat tyto %1 záznamy?"
-
-#: filelist.cpp:72
-msgid "Error while deleting these %1 items:"
-msgstr "Během mazání těchto %1 záznamů se vyskytla chyba:"
-
-#: filelist.cpp:242
-msgid "Filenames"
-msgstr "Názvy souborů"
-
-#: filelist.cpp:250
-msgid "URLs"
-msgstr "URL"
-
-#: filelist.cpp:254
-msgid "Directory name"
-msgstr "Název adresáře"
-
-#: filelist.cpp:928 filelist.cpp:946
-msgid "&Expand all"
-msgstr "&Rozbalit vše"
-
-#: filelist.cpp:929 filelist.cpp:947
-msgid "&Collapse all"
-msgstr "&Svinout vše"
-
-#: filelist.cpp:930 filelist.cpp:948
-msgid "&Rename"
-msgstr "Pře&jmenovat"
-
-#: filelist.cpp:931 filelist.cpp:949
-msgid "&Delete"
-msgstr "&Smazat"
-
-#: filelist.cpp:933 filelist.cpp:951 kid3.cpp:386 kid3.cpp:698
-msgid "&Play"
-msgstr "&Přehrát"
-
-#: filelist.cpp:1194
-msgid "Rename File"
-msgstr "Přejmenovat soubor"
-
-#: filelist.cpp:1195
-msgid "Enter new file name:"
-msgstr "Zadejte nový název souboru:"
-
-#: filelist.cpp:1220 filelist.cpp:1256 kid3.cpp:2524
-msgid "Error while renaming:\n"
-msgstr "Během přejmenovávání se vyskytla chyba:\n"
-
-#: filelist.cpp:1242 kid3.cpp:657 rendirdialog.cpp:72 rendirdialog.cpp:97
-#: rendirdialog.cpp:130 rendirdialog.cpp:172
-msgid "Rename Directory"
-msgstr "Přejmenovat adresář"
-
-#: filelist.cpp:1243
-msgid "Enter new directory name:"
-msgstr "Zadejte nový název adresáře:"
-
-#: filelist.cpp:1284 filelist.cpp:1290 filelist.cpp:1300 filelist.cpp:1383
-#: filelist.cpp:1400
-msgid "Do you really want to delete this item?"
-msgid_plural "Do you really want to delete these %1 items?"
-msgstr[0] "Opravdu chcete smazat tento záznam?"
-msgstr[1] "Opravdu chcete smazat tyto %1 záznamy?"
-
-#: filelist.cpp:1287 filelist.cpp:1293 filelist.cpp:1310 filelist.cpp:1385
-#: filelist.cpp:1399
-msgid "Delete Files"
-msgstr "Smazat soubory"
-
-#: filelist.cpp:1353 filelist.cpp:1356 filelist.cpp:1364 filelist.cpp:1410
-#: filelist.cpp:1417
-msgid "Error while deleting this item:"
-msgid_plural "Error while deleting these %1 items:"
-msgstr[0] "Během mazání tohoto záznamu se vyskytla chyba:"
-msgstr[1] "Během mazání těchto %1 záznamů se vyskytla chyba:"
-
-#: filelist.cpp:1409 filelist.cpp:1416
-msgid "Directory must be empty.\n"
-msgstr "Adresář musí být prázdný.\n"
-
-#: filterdialog.cpp:61 kid3.cpp:671
-msgid "Filter"
-msgstr "Filtrovat"
-
-#: filterdialog.cpp:76 filterdialog.cpp:78
-msgid "&Filter"
-msgstr "&Filtrovat"
-
-#: filterdialog.cpp:116 musicbrainzdialog.cpp:142
-msgid "&Apply"
-msgstr "&Použít"
-
-#: formatbox.cpp:51
-msgid "Format while editing"
-msgstr "Formátovat během úprav"
-
-#: formatbox.cpp:55
-msgid "Case conversion:"
-msgstr "Psaní velkých/malých písmen:"
-
-#: formatbox.cpp:61
-msgid "No changes"
-msgstr "Žádné změny"
-
-#: formatbox.cpp:63
-msgid "All lowercase"
-msgstr "Vše malými písmeny"
-
-#: formatbox.cpp:65
-msgid "All uppercase"
-msgstr "Vše velkými písmeny"
-
-#: formatbox.cpp:67
-msgid "First letter uppercase"
-msgstr "První písmeno velké"
-
-#: formatbox.cpp:69
-msgid "All first letters uppercase"
-msgstr "Všechna první písmena velká"
-
-#: formatbox.cpp:72
-msgid "String replacement:"
-msgstr "Nahrazení řetězce:"
-
-#: formatbox.cpp:74
-msgid "From"
-msgstr "Z"
-
-#: formatbox.cpp:74
-msgid "To"
-msgstr "Na"
-
-#: frame.cpp:67 importselector.cpp:216 importselector.cpp:242
-msgid "Title"
-msgstr "Název"
-
-#: frame.cpp:68 importselector.cpp:217 importselector.cpp:243
-msgid "Artist"
-msgstr "Umělec"
-
-#: frame.cpp:69 importselector.cpp:217 importselector.cpp:244
-msgid "Album"
-msgstr "Album"
-
-#: frame.cpp:70 importselector.cpp:218 importselector.cpp:247
-msgid "Comment"
-msgstr "Poznámka"
-
-#: frame.cpp:71
-msgid "Date"
-msgstr "Datum"
-
-#: frame.cpp:72 frametable.cpp:746 frametable.cpp:775
-msgid "Track Number"
-msgstr "Číslo skladby"
-
-#: frame.cpp:73 importselector.cpp:217 importselector.cpp:246
-msgid "Genre"
-msgstr "Žánr"
-
-#: frame.cpp:75
-msgid "Album Artist"
-msgstr "Umělec alba"
-
-#: frame.cpp:76
-msgid "Arranger"
-msgstr "Hudební aranžér"
-
-#: frame.cpp:77
-msgid "Author"
-msgstr "Autor"
-
-#: frame.cpp:78
-msgid "BPM"
-msgstr "BPM"
-
-#: frame.cpp:81
-msgid "Copyright"
-msgstr "Copyright"
-
-#: frame.cpp:82
-msgid "Disc Number"
-msgstr "Číslo disku"
-
-#: frame.cpp:83
-msgid "Encoded-by"
-msgstr "Zakódováno"
-
-#: frame.cpp:84
-msgid "Grouping"
-msgstr "Zařazení do skupin"
-
-#: frame.cpp:85
-msgid "ISRC"
-msgstr "ISRC"
-
-#: frame.cpp:87
-msgid "Lyricist"
-msgstr "Textař"
-
-#: frame.cpp:90
-msgid "Original Album"
-msgstr "Původní album"
-
-#: frame.cpp:91
-msgid "Original Artist"
-msgstr "Původní umělec"
-
-#: frame.cpp:92
-msgid "Original Date"
-msgstr "Původní datum"
-
-#: frame.cpp:93
-msgid "Part"
-msgstr "Část"
-
-#: frame.cpp:94
-msgid "Performer"
-msgstr "Účinkující"
-
-#: frame.cpp:95
-msgid "Picture"
-msgstr "Obrázek"
-
-#: frame.cpp:96
-msgid "Publisher"
-msgstr "Vydavatel"
-
-#: frame.cpp:97
-msgid "Remixer"
-msgstr "Autor remixů"
-
-#: frame.cpp:98
-msgid "Subtitle"
-msgstr "Podnázev"
-
-#: frame.cpp:99
-msgid "Website"
-msgstr "Internetové stránky"
-
-#: frame.cpp:837 importparser.cpp:58 importselector.cpp:217
-#: importselector.cpp:245
-msgid "Year"
-msgstr "Rok"
-
-#: frame.cpp:841 frame.cpp:845 frame.cpp:849 importselector.cpp:216
-#: importselector.cpp:241
-msgid "Track"
-msgstr "Stopa"
-
-#: framelist.cpp:334
-msgid "Add Frame"
-msgstr "Přidat prvek"
-
-#: framelist.cpp:335
-msgid "Select the frame ID"
-msgstr "Vybrat ID prvku"
-
-#: frametable.cpp:1389 frametable.cpp:1396
-msgid "&Select all"
-msgstr "&Vybrat vše"
-
-#: frametable.cpp:1391 frametable.cpp:1397
-msgid "&Deselect all"
-msgstr "Z&rušit výběr"
-
-#: httpclient.cpp:31
-msgid "Data received: %1"
-msgstr "Přijatá data: %1"
-
-#: httpclient.cpp:74 httpclient.cpp:376
-msgid "Connecting..."
-msgstr "Připojuje se..."
-
-#: httpclient.cpp:77 httpclient.cpp:224
-msgid "Host found..."
-msgstr "Hostitelský počítač nalezen..."
-
-#: httpclient.cpp:80 httpclient.cpp:233
-msgid "Request sent..."
-msgstr "Požadavek poslán..."
-
-#: httpclient.cpp:113 httpclient.cpp:323
-msgid "Socket error: "
-msgstr "Chyba ve zdířce: "
-
-#: httpclient.cpp:116 httpclient.cpp:326
-msgid "Connection refused"
-msgstr "Spojení bylo odmítnuto"
-
-#: httpclient.cpp:119 httpclient.cpp:329
-msgid "Host not found"
-msgstr "Hostitelský počítač nenalezen"
-
-#: httpclient.cpp:332
-msgid "Read failed"
-msgstr "Čtení selhalo"
-
-#: id3form.cpp:245 main.cpp:56 main.cpp:109
-msgid "Kid3"
-msgstr "Kid3"
-
-#: id3form.cpp:263 id3form.cpp:437 id3form.cpp:1243 id3form.cpp:1245
-msgid "F&ile"
-msgstr "S&oubor"
-
-#: id3form.cpp:276 id3form.cpp:448
-msgid "Name:"
-msgstr "Název:"
-
-#: id3form.cpp:283 id3form.cpp:303 id3form.cpp:455 id3form.cpp:475
-msgid "Format:"
-msgstr "Formát:"
-
-#: id3form.cpp:294 id3form.cpp:466 rendirdialog.cpp:216
-msgid "From:"
-msgstr "Z:"
-
-#: id3form.cpp:297 id3form.cpp:469
-msgid "Filename from Tag 1"
-msgstr "Název souboru ze značky 1"
-
-#: id3form.cpp:300 id3form.cpp:472
-msgid "Filename from Tag 2"
-msgstr "Název souboru ze značky 2"
-
-#: id3form.cpp:314 id3form.cpp:486 rendirdialog.cpp:218
-msgid "To:"
-msgstr "Do:"
-
-#: id3form.cpp:318 id3form.cpp:490
-msgid "Tag 1 from Filename"
-msgstr "Značka 1 z názvu souboru"
-
-#: id3form.cpp:322 id3form.cpp:494
-msgid "Tag 2 from Filename"
-msgstr "Značka 2 z názvu souboru"
-
-#: id3form.cpp:328 id3form.cpp:501 id3form.cpp:950
-msgid "Tag &1"
-msgstr "Značka &1"
-
-#: id3form.cpp:349 id3form.cpp:519 kid3.cpp:410 kid3.cpp:449
-#: rendirdialog.cpp:178
-msgid "From Tag 2"
-msgstr "Ze značky 2"
-
-#: id3form.cpp:352 id3form.cpp:393 id3form.cpp:521 id3form.cpp:551
-#: kid3.cpp:413 kid3.cpp:428
-msgid "Copy"
-msgstr "Kopírovat"
-
-#: id3form.cpp:356 id3form.cpp:397 id3form.cpp:523 id3form.cpp:553
-#: kid3.cpp:416 kid3.cpp:431
-msgid "Paste"
-msgstr "Vložit"
-
-#: id3form.cpp:360 id3form.cpp:401 id3form.cpp:525 id3form.cpp:555
-#: kid3.cpp:419 kid3.cpp:434
-msgid "Remove"
-msgstr "Odstranit"
-
-#: id3form.cpp:369 id3form.cpp:532 id3form.cpp:965
-msgid "Tag &2"
-msgstr "Značka &2"
-
-#: id3form.cpp:389 id3form.cpp:549 kid3.cpp:425 kid3.cpp:446
-#: rendirdialog.cpp:177
-msgid "From Tag 1"
-msgstr "Ze značky 1"
-
-#: id3form.cpp:407 id3form.cpp:561 kid3.cpp:437
-msgid "Edit"
-msgstr "Upravit"
-
-#: id3form.cpp:410 id3form.cpp:563 kid3.cpp:440
-msgid "Add"
-msgstr "Přidat"
-
-#: id3form.cpp:413 id3form.cpp:565 kid3.cpp:443
-msgid "Delete"
-msgstr "Smazat"
-
-#: imageviewer.cpp:50
-msgid "View Picture"
-msgstr "Zobrazit obrázek"
-
-#: importparser.cpp:70 importselector.cpp:216 importselector.cpp:240
-#: importtrackdata.cpp:197 importtrackdata.cpp:201
-msgid "Length"
-msgstr "Délka"
-
-#: importselector.cpp:254 importselector.cpp:256 rendirdialog.cpp:78
-#: rendirdialog.cpp:135
-msgid "Format"
-msgstr "Format"
-
-#: importselector.cpp:280
-msgid "From F&ile"
-msgstr "Ze soubor&u"
-
-#: importselector.cpp:286
-msgid "&From Server:"
-msgstr "&Ze serveru:"
-
-#: importselector.cpp:291
-msgid "gnudb.org"
-msgstr "gnudb.org"
-
-#: importselector.cpp:292
-msgid "TrackType.org"
-msgstr "TrackType.org"
-
-#: importselector.cpp:293
-msgid "Discogs"
-msgstr "Discogs"
-
-#: importselector.cpp:295
+#: core/formats/mp3file.cpp:1255 core/formats/taglibfile.cpp:1673
+msgid "AENC - Audio encryption"
+msgstr "AENC - Kódování zvuku"
+
+#: core/formats/mp3file.cpp:1256 core/formats/taglibfile.cpp:1674
+msgid "APIC - Attached picture"
+msgstr "APIC - Připojený obrázek"
+
+#: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1676
+msgid "COMM - Comments"
+msgstr "COMM - Poznámky"
+
+#: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1677
+msgid "COMR - Commercial"
+msgstr "COMR - Obchodní informace"
+
+#: core/formats/mp3file.cpp:1260 core/formats/taglibfile.cpp:1678
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Zápis způsobu kódování"
+
+#: core/formats/mp3file.cpp:1262
+msgid "EQUA - Equalization"
+msgstr "EQUA - Vyrovnání"
+
+#: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1680
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Časové kódy událostí"
+
+#: core/formats/mp3file.cpp:1264 core/formats/taglibfile.cpp:1681
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - Všeobecný uzavřený předmět"
+
+#: core/formats/mp3file.cpp:1265 core/formats/taglibfile.cpp:1682
+msgid "GRID - Group identification registration"
+msgstr "GRID - Zápis určení zařazení do skupin"
+
+#: core/formats/mp3file.cpp:1266
+msgid "IPLS - Involved people list"
+msgstr "IPLS - Seznam zúčastněných osob"
+
+#: core/formats/mp3file.cpp:1267 core/formats/taglibfile.cpp:1683
+msgid "LINK - Linked information"
+msgstr "LINK - Spojená informace"
+
+#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1684
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Určení hudebního CD"
+
+#: core/formats/mp3file.cpp:1269 core/formats/taglibfile.cpp:1685
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - Vyhledávací tabulka poloh MPEG"
+
+#: core/formats/mp3file.cpp:1270 core/formats/taglibfile.cpp:1686
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Vlastník"
+
+#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1687
+msgid "PRIV - Private frame"
+msgstr "PRIV - Soukromé"
+
+#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1688
+msgid "PCNT - Play counter"
+msgstr "PCNT - Počítadlo přehrání"
+
+#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1689
+msgid "POPM - Popularimeter"
+msgstr "POPM - Měřidlo oblíbenosti"
+
+#: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1690
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Seřízení polohy"
+
+#: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1691
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Doporučená velikost vyrovnávací paměti"
+
+#: core/formats/mp3file.cpp:1277
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - Poměrné přizpůsobení hlasitosti"
+
+#: core/formats/mp3file.cpp:1278 core/formats/taglibfile.cpp:1693
+msgid "RVRB - Reverb"
+msgstr "RVRB - Ozvěna"
+
+#: core/formats/mp3file.cpp:1281 core/formats/taglibfile.cpp:1696
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Souběžný text písně/text"
+
+#: core/formats/mp3file.cpp:1282 core/formats/taglibfile.cpp:1697
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Souběžné časové kódy"
+
+#: core/formats/mp3file.cpp:1283 core/formats/taglibfile.cpp:1698
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Album/Film/Ukázat název"
+
+#: core/formats/mp3file.cpp:1284 core/formats/taglibfile.cpp:1699
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (dob za minutu)"
+
+#: core/formats/mp3file.cpp:1285 core/formats/taglibfile.cpp:1700
+msgid "TCOM - Composer"
+msgstr "TCOM - Skladatel"
+
+#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1701
+msgid "TCON - Content type"
+msgstr "TCON - Druh obsahu"
+
+#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1702
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Sdělení o autorském právu"
+
+#: core/formats/mp3file.cpp:1288
+msgid "TDAT - Date"
+msgstr "TDAT - Datum"
+
+#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1704
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Zdržení seznamu skladeb"
+
+#: core/formats/mp3file.cpp:1296 core/formats/taglibfile.cpp:1709
+msgid "TENC - Encoded by"
+msgstr "TENC - Zakódováno"
+
+#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1710
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Textař/Skladatel textu"
+
+#: core/formats/mp3file.cpp:1298 core/formats/taglibfile.cpp:1711
+msgid "TFLT - File type"
+msgstr "TFLT - Typ souboru"
+
+#: core/formats/mp3file.cpp:1299
+msgid "TIME - Time"
+msgstr "TIME - Čas"
+
+#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1713
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Popis skupiny obsahu"
+
+#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1714
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Název/Název písně/Popis obsahu"
+
+#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1715
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Jemný rozdíl Podnázev/Přesný popis"
+
+#: core/formats/mp3file.cpp:1303 core/formats/taglibfile.cpp:1716
+msgid "TKEY - Initial key"
+msgstr "TKEY - Tónina na začátku"
+
+#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1717
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Jazyk(y)"
+
+#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1718
+msgid "TLEN - Length"
+msgstr "TLEN - Délka"
+
+#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1720
+msgid "TMED - Media type"
+msgstr "TMED - Typ média"
+
+#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1722
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Původní album/Film/Ukázat název"
+
+#: core/formats/mp3file.cpp:1310 core/formats/taglibfile.cpp:1723
+msgid "TOFN - Original filename"
+msgstr "TOFN - Původní název souboru"
+
+#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1724
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Původní textař(i)/Skladatel(é) textu"
+
+#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1725
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Původní umělec(i)/Účinkující"
+
+#: core/formats/mp3file.cpp:1313
+msgid "TORY - Original release year"
+msgstr "TORY - Původní rok vydání"
+
+#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1726
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - Vlastník souboru/Držitel povolení"
+
+#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1727
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Hlavní umělec(i)/Sólista(é)"
+
+#: core/formats/mp3file.cpp:1316 core/formats/taglibfile.cpp:1728
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Hudební skupina/Orchestr/Doprovod"
+
+#: core/formats/mp3file.cpp:1317 core/formats/taglibfile.cpp:1729
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Jemný rozdíl Dirigent/Účinkující"
+
+#: core/formats/mp3file.cpp:1318 core/formats/taglibfile.cpp:1730
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Umělecky ztvárněno, znovu zamícháno nebo jinak změněno od"
+
+#: core/formats/mp3file.cpp:1319 core/formats/taglibfile.cpp:1731
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Část souboru skladeb"
+
+#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1733
+msgid "TPUB - Publisher"
+msgstr "TPUB - Vydavatel"
+
+#: core/formats/mp3file.cpp:1322 core/formats/taglibfile.cpp:1734
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Číslo skladby/Poloha v souboru skladeb"
+
+#: core/formats/mp3file.cpp:1323
+msgid "TRDA - Recording dates"
+msgstr "TRDA - Datum nahrávky"
+
+#: core/formats/mp3file.cpp:1324 core/formats/taglibfile.cpp:1735
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Název internetové rozhlasové stanice"
+
+#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1736
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Vlastník internetové rozhlasové stanice"
+
+#: core/formats/mp3file.cpp:1326
+msgid "TSIZ - Size"
+msgstr "TSIZ - Velikost"
+
+#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1740
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (Obvyklý mezinárodní nahrávací kód)"
+
+#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1741
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Software/Hardware a nastavení kódování"
+
+#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1743
+msgid "TXXX - User defined text information"
+msgstr "TXXX - Uživatelsky stanovená textová informace"
+
+#: core/formats/mp3file.cpp:1334
+msgid "TYER - Year"
+msgstr "TYER - Rok"
+
+#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1744
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Jedinečné určení souboru"
+
+#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1745
+msgid "USER - Terms of use"
+msgstr "USER - Podmínky užití"
+
+#: core/formats/mp3file.cpp:1337 core/formats/taglibfile.cpp:1746
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Nesouběžný přepis textu písně/textu"
+
+#: core/formats/mp3file.cpp:1338 core/formats/taglibfile.cpp:1747
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Obchodní sdělení"
+
+#: core/formats/mp3file.cpp:1339 core/formats/taglibfile.cpp:1748
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Autorské právo/Zákonná sdělení"
+
+#: core/formats/mp3file.cpp:1340 core/formats/taglibfile.cpp:1749
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Veřejné internetové stránky zvukového souboru"
+
+#: core/formats/mp3file.cpp:1341 core/formats/taglibfile.cpp:1750
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Veřejné internetové stránky umělce/účinkujícího"
+
+#: core/formats/mp3file.cpp:1342 core/formats/taglibfile.cpp:1751
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Veřejné internetové stránky zvukového zdroje"
+
+#: core/formats/mp3file.cpp:1343 core/formats/taglibfile.cpp:1752
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Veřejné internetové stránky internetové rozhlasové stanice"
+
+#: core/formats/mp3file.cpp:1344 core/formats/taglibfile.cpp:1753
+msgid "WPAY - Payment"
+msgstr "WPAY - Platba"
+
+#: core/formats/mp3file.cpp:1345 core/formats/taglibfile.cpp:1754
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Veřejné internetové stránky vydavatele"
+
+#: core/formats/mp3file.cpp:1346 core/formats/taglibfile.cpp:1755
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - Uživatelsky stanovený odkaz na URL"
+
+#: core/formats/taglibfile.cpp:1675
+msgid "ASPI - Audio seek point index"
+msgstr "ASPI - Rejstřík s body hledání zvuku"
+
+#: core/formats/taglibfile.cpp:1679
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - Vyrovnání (2)"
+
+#: core/formats/taglibfile.cpp:1692
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - Poměrné přizpůsobení hlasitosti (2)"
+
+#: core/formats/taglibfile.cpp:1694
+msgid "SEEK - Seek frame"
+msgstr "SEEK - Hledání"
+
+#: core/formats/taglibfile.cpp:1695
+msgid "SIGN - Signature frame"
+msgstr "SIGN - Podpis"
+
+#: core/formats/taglibfile.cpp:1703
+msgid "TDEN - Encoding time"
+msgstr "TDEN - Čas zakódování"
+
+#: core/formats/taglibfile.cpp:1705
+msgid "TDOR - Original release time"
+msgstr "TDOR - Původní rok vydání"
+
+#: core/formats/taglibfile.cpp:1706
+msgid "TDRC - Recording time"
+msgstr "TDRC - Čas nahrání"
+
+#: core/formats/taglibfile.cpp:1707
+msgid "TDRL - Release time"
+msgstr "TDRL - Čas vydání"
+
+#: core/formats/taglibfile.cpp:1708
+msgid "TDTG - Tagging time"
+msgstr "TDTG - Čas opatření značkami"
+
+#: core/formats/taglibfile.cpp:1712
+msgid "TIPL - Involved people list"
+msgstr "TIPL - Seznam zúčastněných osob"
+
+#: core/formats/taglibfile.cpp:1719
+msgid "TMCL - Musician credits list"
+msgstr "TMCL - Seznam hudebníků"
+
+#: core/formats/taglibfile.cpp:1721
+msgid "TMOO - Mood"
+msgstr "TMOO - Nálada"
+
+#: core/formats/taglibfile.cpp:1732
+msgid "TPRO - Produced notice"
+msgstr "TPRO - Autorské právo výroby"
+
+#: core/formats/taglibfile.cpp:1737
+msgid "TSOA - Album sort order"
+msgstr "TSOA - Setřídění alb"
+
+#: core/formats/taglibfile.cpp:1738
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - Setřídění účinkujících"
+
+#: core/formats/taglibfile.cpp:1739
+msgid "TSOT - Title sort order"
+msgstr "TSOT - Setřídění názvů"
+
+#: core/formats/taglibfile.cpp:1742
+msgid "TSST - Set subtitle"
+msgstr "TSST - Podnázev skladby"
+
+#: core/import/amazonimporter.cpp:59
 msgid "Amazon"
 msgstr "Amazon"
 
-#: importselector.cpp:297
+#: core/import/discogsimporter.cpp:60
+msgid "Discogs"
+msgstr "Discogs"
+
+#: core/import/freedbimporter.cpp:60
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: core/import/httpclient.cpp:72 core/import/httpclient.cpp:84
+#: core/import/httpclient.cpp:133 core/model/downloadclient.cpp:62
+#: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:718
+#: gui/forms/kid3mainwindow.cpp:765 gui/forms/kid3mainwindow.cpp:916
+#: gui/forms/kid3mainwindow.cpp:1162 gui/forms/kid3mainwindow.cpp:1243
+msgid "Ready."
+msgstr "Připraven."
+
+#: core/import/httpclient.cpp:75
+msgid "Connecting..."
+msgstr "Připojuje se..."
+
+#: core/import/httpclient.cpp:78
+msgid "Host found..."
+msgstr "Hostitelský počítač nalezen..."
+
+#: core/import/httpclient.cpp:81
+msgid "Request sent..."
+msgstr "Požadavek poslán..."
+
+#: core/import/httpclient.cpp:94
+msgid "Data received: %1"
+msgstr "Přijatá data: %1"
+
+#: core/import/httpclient.cpp:117
+msgid "Socket error: "
+msgstr "Chyba ve zdířce: "
+
+#: core/import/httpclient.cpp:120
+msgid "Connection refused"
+msgstr "Spojení bylo odmítnuto"
+
+#: core/import/httpclient.cpp:123
+msgid "Host not found"
+msgstr "Hostitelský počítač nenalezen"
+
+#: core/import/importparser.cpp:59 core/tags/frame.cpp:892
+msgid "Year"
+msgstr "Rok"
+
+#: core/import/importparser.cpp:71 core/model/trackdatamodel.cpp:203
+#: core/tags/trackdata.cpp:191 core/tags/trackdata.cpp:195
+msgid "Length"
+msgstr "Délka"
+
+#: core/import/musicbrainzclient.cpp:271
+msgid "Metadata Read"
+msgstr "Číst údaje k souborům"
+
+#: core/import/musicbrainzclient.cpp:273 core/import/musicbrainzclient.cpp:574
+msgid "Unrecognized"
+msgstr "Nerozpoznáno"
+
+#: core/import/musicbrainzclient.cpp:274 core/import/musicbrainzclient.cpp:572
+msgid "Recognized"
+msgstr "Rozpoznáno"
+
+#: core/import/musicbrainzclient.cpp:275 core/import/musicbrainzclient.cpp:320
+msgid "Pending"
+msgstr "Probíhá hledání"
+
+#: core/import/musicbrainzclient.cpp:277
+msgid "PUID Lookup"
+msgstr "Hledání PUID"
+
+#: core/import/musicbrainzclient.cpp:278
+msgid "PUID Collision"
+msgstr "Střetnutí PUID"
+
+#: core/import/musicbrainzclient.cpp:280
+msgid "TRM Lookup"
+msgstr "Hledání TRM"
+
+#: core/import/musicbrainzclient.cpp:281
+msgid "TRM Collision"
+msgstr "Střetnutí TRM"
+
+#: core/import/musicbrainzclient.cpp:283
+msgid "File Lookup"
+msgstr "Vyhledání souboru"
+
+#: core/import/musicbrainzclient.cpp:284 core/import/musicbrainzclient.cpp:569
+msgid "User Selection"
+msgstr "Výběr"
+
+#: core/import/musicbrainzclient.cpp:285
+msgid "Verified"
+msgstr "Ověřeno"
+
+#: core/import/musicbrainzclient.cpp:286
+msgid "Saved"
+msgstr "Uloženo"
+
+#: core/import/musicbrainzclient.cpp:287
+msgid "Deleted"
+msgstr "Smazáno"
+
+#: core/import/musicbrainzclient.cpp:288 core/model/dirrenamer.cpp:441
+msgid "Error"
+msgstr "Chyba"
+
+#: core/import/musicbrainzclient.cpp:323
+msgid "Removed"
+msgstr "Odstraněno"
+
+#: core/import/musicbrainzclient.cpp:395
+msgid "Written"
+msgstr "Zapsáno"
+
+#: core/import/musicbrainzreleaseimporter.cpp:59
 msgid "MusicBrainz Release"
 msgstr "MusicBrainz Album"
 
-#: importselector.cpp:300
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
+#: core/import/tracktypeimporter.cpp:59
+msgid "TrackType.org"
+msgstr "TrackType.org"
 
-#: importselector.cpp:307
-msgid "D&estination:"
-msgstr "Cí&l:"
+#: core/model/commandformatreplacer.cpp:140
+msgid "Filenames"
+msgstr "Názvy souborů"
 
-#: importselector.cpp:313 numbertracksdialog.cpp:84
-msgid "Tag 1 and Tag 2"
-msgstr "Značka 1 a značka 2"
+#: core/model/commandformatreplacer.cpp:148
+msgid "URLs"
+msgstr "URL"
 
-#: importselector.cpp:323
-msgid "Check maximum allowable time &difference (sec):"
-msgstr "Vyzkoušet největší možný přípustný časový &rozdíl (s):"
+#: core/model/commandformatreplacer.cpp:152
+msgid "Directory name"
+msgstr "Název adresáře"
 
-#: importselector.cpp:331
-msgid "Match with:"
-msgstr "Porovnat s:"
+#: core/model/commandformatreplacer.cpp:160
+#: gui/dialogs/browsecoverartdialog.cpp:59
+msgid "Encode as URL"
+msgstr "Zakódovat jako URL"
 
-#: importselector.cpp:333
-msgid "&Length"
-msgstr "&Délka"
+#: core/model/commandstablemodel.cpp:172
+msgid "Confirm"
+msgstr "Potvrzení"
 
-#: importselector.cpp:335
-msgid "T&rack"
-msgstr "&Stopa"
+#: core/model/commandstablemodel.cpp:174
+msgid "Output"
+msgstr "Výstup"
 
-#: importselector.cpp:337
-msgid "&Title"
-msgstr "&Název"
+#: core/model/commandstablemodel.cpp:176 core/model/frametablemodel.cpp:190
+msgid "Name"
+msgstr "Název"
 
-#: importsourcedialog.cpp:74
-msgid "&Find"
-msgstr "&Hledat"
+#: core/model/commandstablemodel.cpp:178
+msgid "Command"
+msgstr "Příkaz"
 
-#: importsourcedialog.cpp:93 musicbrainzdialog.cpp:73
-msgid "&Server:"
-msgstr "&Server:"
+#: core/model/dirrenamer.cpp:69
+msgid "Create directory %1 failed\n"
+msgstr "Vytvoření adresáře %1 se nepodařilo\n"
 
-#: importsourcedialog.cpp:97
-msgid "C&GI Path:"
-msgstr "Cesta C&GI:"
+#: core/model/dirrenamer.cpp:95
+msgid "File %1 already exists\n"
+msgstr "Soubor %1 již existuje\n"
 
-#: importsourcedialog.cpp:122
-msgid "&Additional Tags"
-msgstr "&Dodatečné značky"
+#: core/model/dirrenamer.cpp:97
+msgid "%1 is not a directory\n"
+msgstr "%1 není adresářem\n"
 
-#: importsourcedialog.cpp:123
-msgid "C&over Art"
-msgstr "&Obrázky obalů"
+#: core/model/dirrenamer.cpp:99
+msgid "Rename %1 to %2 failed\n"
+msgstr "Přejmenování %1 na %2 se nepodařilo\n"
 
-#: importtrackdata.cpp:189
+#: core/model/dirrenamer.cpp:137
+msgid "%1 already exists\n"
+msgstr ""
+"%1 již existuje\n"
+"\n"
+
+#: core/model/dirrenamer.cpp:139
+msgid "%1 is not a file\n"
+msgstr "%1 není souborem\n"
+
+#: core/model/dirrenamer.cpp:388
+msgid "New directory name is too different\n"
+msgstr "Nový název adresáře se příliš liší\n"
+
+#: core/model/dirrenamer.cpp:438
+msgid "Create directory"
+msgstr "Vytvořit adresář"
+
+#: core/model/dirrenamer.cpp:439
+msgid "Rename directory"
+msgstr "Přejmenovat adresář"
+
+#: core/model/dirrenamer.cpp:440
+msgid "Rename file"
+msgstr "Přejmenovat soubor"
+
+#: core/model/externalprocess.cpp:55
+msgid "C&lear"
+msgstr "&Smazat"
+
+#: core/model/externalprocess.cpp:58 gui/dialogs/browserdialog.cpp:78
+#: gui/dialogs/exportdialog.cpp:164 gui/dialogs/filterdialog.cpp:103
+#: gui/dialogs/serverimportdialog.cpp:109 gui/dialogs/tagimportdialog.cpp:86
+#: gui/dialogs/textimportdialog.cpp:99 gui/widgets/imageviewer.cpp:58
+msgid "&Close"
+msgstr "&Zavřít"
+
+#: core/model/externalprocess.cpp:120
+msgid "Execute "
+msgstr "Provést "
+
+#: core/model/externalprocess.cpp:159
+msgid "Could not execute "
+msgstr "Nepodařilo se provést"
+
+#: core/model/filefilter.cpp:112
+msgid "True if strings are equal"
+msgstr "Správné, jestliže jsou řetězce znaků stejné"
+
+#: core/model/filefilter.cpp:116
+msgid "True if string contains substring"
+msgstr "Správné, jestliže řetězec znaků obsahuje podřetězec"
+
+#: core/model/filefilter.cpp:120
+msgid "True if string matches regexp"
+msgstr "Správné, jestliže řetězec znaků odpovídá Regexp"
+
+#: core/model/filefilter.cpp:124
+msgid "Logical AND"
+msgstr "Logické A"
+
+#: core/model/filefilter.cpp:128
+msgid "Logical OR"
+msgstr "Logické NEBO"
+
+#: core/model/filefilter.cpp:132
+msgid "Logical negation"
+msgstr "Logické popření"
+
+#: core/model/frametablemodel.cpp:190
+#: gui/dialogs/editframefieldsdialog.cpp:672
+msgid "Data"
+msgstr "Data"
+
+#: core/model/kid3application.cpp:1803 core/model/kid3application.cpp:1807
+msgid "All Supported Files"
+msgstr "Všechny podporované soubory"
+
+#: core/model/kid3application.cpp:1805 core/model/kid3application.cpp:1811
+msgid "All Files (*)"
+msgstr "Všechny soubory (*)"
+
+#: core/model/trackdatamodel.cpp:191 core/tags/frame.cpp:896
+#: core/tags/frame.cpp:900 core/tags/frame.cpp:904
+msgid "Track"
+msgstr "Stopa"
+
+#: core/model/trackdatamodel.cpp:197 core/tags/trackdata.cpp:183
 msgid "Absolute path to file"
 msgstr "Nepochybná cesta k souboru"
 
-#: importtrackdata.cpp:205
+#: core/model/trackdatamodel.cpp:199 gui/dialogs/editframefieldsdialog.cpp:677
+#: gui/forms/kid3mainwindow.cpp:361 gui/forms/kid3mainwindow.cpp:364
+#: gui/forms/kid3mainwindow.cpp:367
+msgid "Filename"
+msgstr "Název souboru"
+
+#: core/model/trackdatamodel.cpp:201
+msgid "Duration"
+msgstr "Délka"
+
+#: core/tags/frame.cpp:67
+msgid "Title"
+msgstr "Název"
+
+#: core/tags/frame.cpp:68
+msgid "Artist"
+msgstr "Umělec"
+
+#: core/tags/frame.cpp:69
+msgid "Album"
+msgstr "Album"
+
+#: core/tags/frame.cpp:70
+msgid "Comment"
+msgstr "Poznámka"
+
+#: core/tags/frame.cpp:71
+msgid "Date"
+msgstr "Datum"
+
+#: core/tags/frame.cpp:72 gui/widgets/frametable.cpp:60
+msgid "Track Number"
+msgstr "Číslo skladby"
+
+#: core/tags/frame.cpp:73
+msgid "Genre"
+msgstr "Žánr"
+
+#: core/tags/frame.cpp:75
+msgid "Album Artist"
+msgstr "Umělec alba"
+
+#: core/tags/frame.cpp:76
+msgid "Arranger"
+msgstr "Hudební aranžér"
+
+#: core/tags/frame.cpp:77
+msgid "Author"
+msgstr "Autor"
+
+#: core/tags/frame.cpp:78
+msgid "BPM"
+msgstr "BPM"
+
+#: core/tags/frame.cpp:79 gui/dialogs/editframefieldsdialog.cpp:900
+msgid "Composer"
+msgstr "Skladatel"
+
+#: core/tags/frame.cpp:80 gui/dialogs/editframefieldsdialog.cpp:898
+msgid "Conductor"
+msgstr "Vedoucí"
+
+#: core/tags/frame.cpp:81
+msgid "Copyright"
+msgstr "Copyright"
+
+#: core/tags/frame.cpp:82
+msgid "Disc Number"
+msgstr "Číslo disku"
+
+#: core/tags/frame.cpp:83
+msgid "Encoded-by"
+msgstr "Zakódováno"
+
+#: core/tags/frame.cpp:84
+msgid "Grouping"
+msgstr "Zařazení do skupin"
+
+#: core/tags/frame.cpp:85
+msgid "ISRC"
+msgstr "ISRC"
+
+#: core/tags/frame.cpp:86 gui/dialogs/editframefieldsdialog.cpp:678
+msgid "Language"
+msgstr "Jazyk"
+
+#: core/tags/frame.cpp:87
+msgid "Lyricist"
+msgstr "Textař"
+
+#: core/tags/frame.cpp:88 gui/dialogs/editframefieldsdialog.cpp:934
+msgid "Lyrics"
+msgstr "Text písně"
+
+#: core/tags/frame.cpp:89 gui/dialogs/editframefieldsdialog.cpp:895
+msgid "Media"
+msgstr "Medium"
+
+#: core/tags/frame.cpp:90
+msgid "Original Album"
+msgstr "Původní album"
+
+#: core/tags/frame.cpp:91
+msgid "Original Artist"
+msgstr "Původní umělec"
+
+#: core/tags/frame.cpp:92
+msgid "Original Date"
+msgstr "Původní datum"
+
+#: core/tags/frame.cpp:93
+msgid "Part"
+msgstr "Část"
+
+#: core/tags/frame.cpp:94
+msgid "Performer"
+msgstr "Účinkující"
+
+#: core/tags/frame.cpp:95
+msgid "Picture"
+msgstr "Obrázek"
+
+#: core/tags/frame.cpp:96
+msgid "Publisher"
+msgstr "Vydavatel"
+
+#: core/tags/frame.cpp:97
+msgid "Remixer"
+msgstr "Autor remixů"
+
+#: core/tags/frame.cpp:98
+msgid "Subtitle"
+msgstr "Podnázev"
+
+#: core/tags/frame.cpp:99
+msgid "Website"
+msgstr "Internetové stránky"
+
+#: core/tags/trackdata.cpp:199
 msgid "Number of tracks"
 msgstr "Počet skladeb"
 
-#: importtrackdata.cpp:209
+#: core/tags/trackdata.cpp:203
 msgid "Extension"
 msgstr "Přípona"
 
-#: importtrackdata.cpp:221
+#: core/tags/trackdata.cpp:215
 msgid "Bitrate"
 msgstr "Datový tok"
 
-#: importtrackdata.cpp:225
+#: core/tags/trackdata.cpp:219
 msgid "VBR"
 msgstr "VBR"
 
-#: importtrackdata.cpp:229
+#: core/tags/trackdata.cpp:223
 msgid "Samplerate"
 msgstr "Vzorkovací kmitočet"
 
-#: importtrackdata.cpp:235
+#: core/tags/trackdata.cpp:229
 msgid "Channels"
 msgstr "Kanály"
 
-#: importtrackdata.cpp:239
+#: core/tags/trackdata.cpp:233
 msgid "Codec"
 msgstr "Kodek"
 
-#: kid3.cpp:276 kid3.cpp:763
-msgid "Enables/disables the toolbar"
-msgstr "Povolí/zakáže nástrojovou lištu"
+#: gui/app/main.cpp:40
+msgid "Kid3 ID3 Tagger"
+msgstr "Značkovač ID3 programu Kid3"
 
-#: kid3.cpp:277 kid3.cpp:706
-msgid "Enables/disables the statusbar"
-msgstr "Ukázat stavovou lištu"
+#: gui/app/main.cpp:54 gui/forms/kid3form.cpp:170
+msgid "Kid3"
+msgstr "Kid3"
 
-#: kid3.cpp:289 kid3.cpp:466 kid3.cpp:475
-msgid "Opens a directory"
-msgstr "Otevře adresář"
+#: gui/app/main.cpp:56
+msgid "(c) 2003-2011 Urs Fleisch"
+msgstr "(c) 2003-2011 Urs Fleisch"
 
-#: kid3.cpp:290 kid3.cpp:796
-msgid "Opens a recently used directory"
-msgstr "Otevře nedávno použitý adresář"
+#: gui/app/main.cpp:58
+msgid "Urs Fleisch"
+msgstr "Urs Fleisch"
 
-#: kid3.cpp:292 kid3.cpp:494
-msgid "Reverts the changes of all or the selected files"
-msgstr "Vrátí změny všech nebo vybraných souborů"
+#: gui/app/main.cpp:62
+msgid "directory to open"
+msgstr "Adresář k otevření"
 
-#: kid3.cpp:293 kid3.cpp:484
-msgid "Saves the changed files"
-msgstr "Uloží změněné soubory"
-
-#: kid3.cpp:294 kid3.cpp:577
-msgid "Quits the application"
-msgstr "Ukončí aplikaci"
-
-#: kid3.cpp:295 kid3.cpp:586
-msgid "Select all files"
-msgstr "Vybrat všechny soubory"
-
-#: kid3.cpp:301 kid3.cpp:595
-msgid "Deselect all files"
-msgstr "Zrušit výběr všech souborů"
-
-#: kid3.cpp:302
-msgid "Configure Shortcuts"
-msgstr "Nastavit zkratky"
-
-#: kid3.cpp:303
-msgid "Configure Toolbars"
-msgstr "Nastavit nástrojové lišty"
-
-#: kid3.cpp:304
-msgid "Preferences dialog"
-msgstr "Nastavení"
-
-#: kid3.cpp:307 kid3.cpp:476
-msgid "O&pen Directory..."
-msgstr "&Otevřít adresář..."
-
-#: kid3.cpp:311 kid3.cpp:503
-msgid "&Import..."
-msgstr "&Zavést..."
-
-#: kid3.cpp:315 kid3.cpp:511
-msgid "Import from &gnudb.org..."
-msgstr "Zavést z &gnudb.org..."
-
-#: kid3.cpp:319 kid3.cpp:518
-msgid "Import from &TrackType.org..."
-msgstr "Zavést z &TrackType.org..."
-
-#: kid3.cpp:323 kid3.cpp:525
-msgid "Import from &Discogs..."
-msgstr "Zavést z &Discogs..."
-
-#: kid3.cpp:327 kid3.cpp:532
-msgid "Import from &Amazon..."
-msgstr "Zavést z &Amazon..."
-
-#: kid3.cpp:331 kid3.cpp:539
-msgid "Import from MusicBrainz &Release..."
-msgstr "Zavést z MusicB&rainz Album..."
-
-#: kid3.cpp:336 kid3.cpp:547
-msgid "Import from &MusicBrainz Fingerprint..."
-msgstr "Zavést z &MusicBrainz Fingerprint..."
-
-#: kid3.cpp:341 kid3.cpp:555
-msgid "&Browse Cover Art..."
-msgstr "&Procházet kvůli obrázkům obalů..."
-
-#: kid3.cpp:345 kid3.cpp:562
-msgid "&Export..."
-msgstr "&Vyvést..."
-
-#: kid3.cpp:349 kid3.cpp:570
-msgid "&Create Playlist..."
-msgstr "&Vytvořit seznam skladeb..."
-
-#: kid3.cpp:353 kid3.cpp:644
-msgid "Apply &Filename Format"
-msgstr "Použít formát pro &název souboru"
-
-#: kid3.cpp:357 kid3.cpp:651
-msgid "Apply &Tag Format"
-msgstr "Použít formát pro &značku"
-
-#: kid3.cpp:361 kid3.cpp:658
-msgid "&Rename Directory..."
-msgstr "&Přejmenovat adresář..."
-
-#: kid3.cpp:365 kid3.cpp:665
-msgid "&Number Tracks..."
-msgstr "Čís&lovat skladby..."
-
-#: kid3.cpp:369 kid3.cpp:672
-msgid "F&ilter..."
-msgstr "F&iltrovat..."
-
-#: kid3.cpp:374 kid3.cpp:680
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Převést ID3v2.3 na ID3v2.&4"
-
-#: kid3.cpp:380 kid3.cpp:689
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Převést ID3v2.4 na ID3v2.&3"
-
-#: kid3.cpp:391 kid3.cpp:719
-msgid "Show &Picture"
-msgstr "&Ukázat obrázek"
-
-#: kid3.cpp:395 kid3.cpp:731
-msgid "Auto &Hide Tags"
-msgstr "Automaticky &skrýt"
-
-#: kid3.cpp:399 kid3.cpp:604
-msgid "&Previous File"
-msgstr "&Předchozí soubor"
-
-#: kid3.cpp:403 kid3.cpp:613
-msgid "&Next File"
-msgstr "&Další soubor"
-
-#: kid3.cpp:407 kid3.cpp:422
-msgid "From Filename"
-msgstr "Z názvu souboru"
-
-#: kid3.cpp:437 kid3.cpp:440 kid3.cpp:443
-msgid "Frames:"
-msgstr "Prvky:"
-
-#: kid3.cpp:452 kid3.cpp:455 kid3.cpp:458
-msgid "Focus"
-msgstr "Zaměření"
-
-#: kid3.cpp:467
-msgid "&Open..."
-msgstr "&Otevřít..."
-
-#: kid3.cpp:485
-msgid "&Save"
-msgstr "&Uložit"
-
-#: kid3.cpp:495
-msgid "Re&vert"
-msgstr "&Naposledy uložené znění"
-
-#: kid3.cpp:502
-msgid "Import from file or clipboard"
-msgstr "Zavést ze souboru nebo ze schránky"
-
-#: kid3.cpp:510
-msgid "Import from gnudb.org"
-msgstr "Zavést z &gnudb.org"
-
-#: kid3.cpp:517
-msgid "Import from TrackType.org"
-msgstr "Zavést z &TrackType.org"
-
-#: kid3.cpp:524
-msgid "Import from Discogs"
-msgstr "Zavést z &Discogs"
-
-#: kid3.cpp:531
-msgid "Import from Amazon"
-msgstr "Zavést z &Amazon"
-
-#: kid3.cpp:538
-msgid "Import from MusicBrainz Release"
-msgstr "Zavést z MusicB&rainz Album"
-
-#: kid3.cpp:546
-msgid "Import from MusicBrainz Fingerprint"
-msgstr "Zavést z &MusicBrainz Fingerprint"
-
-#: kid3.cpp:554
-msgid "Browse album cover artwork"
+#: gui/dialogs/browsecoverartdialog.cpp:76
+#: gui/dialogs/browsecoverartdialog.cpp:305
+msgid "Browse Cover Art"
 msgstr "Procházet kvůli obrázkům obalů"
 
-#: kid3.cpp:561
-msgid "Export to file or clipboard"
-msgstr "Vyvést do souboru nebo do schránky"
+#: gui/dialogs/browsecoverartdialog.cpp:90
+msgid "&Artist/Album"
+msgstr "Umělec/&Album"
 
-#: kid3.cpp:569
-msgid "Create M3U Playlist"
-msgstr "Vytvořit seznam skladeb M3U"
+#: gui/dialogs/browsecoverartdialog.cpp:106
+msgid "&Source"
+msgstr "&Zdroj"
 
-#: kid3.cpp:578
-msgid "&Quit"
-msgstr "&Ukončit"
+#: gui/dialogs/browsecoverartdialog.cpp:124
+msgid "&URL extraction"
+msgstr "Získání &URL"
 
-#: kid3.cpp:587
-msgid "Select &All"
-msgstr "Vybrat &vše"
+#: gui/dialogs/browsecoverartdialog.cpp:129
+msgid "Match"
+msgstr "Porovnání"
 
-#: kid3.cpp:596
-msgid "Dese&lect"
-msgstr "&Zrušit výběr"
+#: gui/dialogs/browsecoverartdialog.cpp:129
+msgid "Picture URL"
+msgstr "URL obrázku"
 
-#: kid3.cpp:603
-msgid "Select previous file"
-msgstr "Vybrat předchozí soubor"
+#: gui/dialogs/browsecoverartdialog.cpp:142 gui/dialogs/configdialog.cpp:466
+#: gui/dialogs/exportdialog.cpp:148 gui/dialogs/filterdialog.cpp:86
+#: gui/dialogs/importdialog.cpp:223 gui/dialogs/musicbrainzdialog.cpp:121
+#: gui/dialogs/numbertracksdialog.cpp:114 gui/dialogs/playlistdialog.cpp:201
+#: gui/dialogs/serverimportdialog.cpp:107 gui/dialogs/tagimportdialog.cpp:73
+#: gui/dialogs/textimportdialog.cpp:82 gui/forms/kid3mainwindow.cpp:680
+msgid "&Help"
+msgstr "&Nápověda"
 
-#: kid3.cpp:612
-msgid "Select next file"
-msgstr "Vybrat další soubor"
+#: gui/dialogs/browsecoverartdialog.cpp:148 gui/dialogs/exportdialog.cpp:154
+#: gui/dialogs/filterdialog.cpp:92 gui/dialogs/importdialog.cpp:225
+#: gui/dialogs/musicbrainzdialog.cpp:122
+#: gui/dialogs/numbertracksdialog.cpp:119 gui/dialogs/playlistdialog.cpp:205
+#: gui/dialogs/rendirdialog.cpp:76 gui/dialogs/serverimportdialog.cpp:108
+#: gui/dialogs/tagimportdialog.cpp:77 gui/dialogs/textimportdialog.cpp:86
+msgid "&Save Settings"
+msgstr "&Uložit nastavení"
 
-#: kid3.cpp:621 kid3.cpp:1758
+#: gui/dialogs/browsecoverartdialog.cpp:158
+msgid "&Browse"
+msgstr "&Procházet"
+
+#: gui/dialogs/browsecoverartdialog.cpp:159 gui/dialogs/configdialog.cpp:468
+#: gui/dialogs/editframedialog.cpp:61
+#: gui/dialogs/editframefieldsdialog.cpp:999 gui/dialogs/importdialog.cpp:229
+#: gui/dialogs/musicbrainzdialog.cpp:125
+#: gui/dialogs/numbertracksdialog.cpp:134 gui/dialogs/playlistdialog.cpp:216
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+#: gui/dialogs/browsecoverartdialog.cpp:208
+msgid "Click Browse to start"
+msgstr "Klepněte na Procházet pro započetí"
+
+#: gui/dialogs/browsecoverartdialog.cpp:214
+msgid "Then drag the picture from the browser to Kid3."
+msgstr "Potom přetáhněte obrázek z prohlížeče do okna Kid3."
+
+#: gui/dialogs/browserdialog.cpp:76
+msgid "&Back"
+msgstr "&Zpět"
+
+#: gui/dialogs/browserdialog.cpp:77
+msgid "&Forward"
+msgstr "&Vpřed"
+
+#: gui/dialogs/configdialog.cpp:111
+msgid "ID3v1"
+msgstr "ID3v1"
+
+#: gui/dialogs/configdialog.cpp:116
+msgid "&Mark truncated fields"
+msgstr "&Označit zkrácená pole"
+
+#: gui/dialogs/configdialog.cpp:119 gui/dialogs/configdialog.cpp:207
+msgid "Text &encoding:"
+msgstr "Kódování t&extu:"
+
+#: gui/dialogs/configdialog.cpp:198
+msgid "ID3v2"
+msgstr "ID3v2"
+
+#: gui/dialogs/configdialog.cpp:203
+msgid "Use &track/total number of tracks format"
+msgstr "Použít formát číslo/celkový počet &stop"
+
+#: gui/dialogs/configdialog.cpp:206
+msgid "&Genre as text instead of numeric string"
+msgstr "Žá&nr jako text místo jako číslo"
+
+#: gui/dialogs/configdialog.cpp:211
+msgid "&Version used for new tags:"
+msgstr "&Verze používaná pro nové značky:"
+
+#: gui/dialogs/configdialog.cpp:214
+msgid "Track number &digits:"
+msgstr "&Počet číslic v čísle skladby:"
+
+#: gui/dialogs/configdialog.cpp:219 gui/dialogs/editframefieldsdialog.cpp:875
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: gui/dialogs/configdialog.cpp:220 gui/dialogs/editframefieldsdialog.cpp:876
+msgid "UTF16"
+msgstr "UTF16"
+
+#: gui/dialogs/configdialog.cpp:221 gui/dialogs/editframefieldsdialog.cpp:878
+msgid "UTF8"
+msgstr "UTF8"
+
+#: gui/dialogs/configdialog.cpp:231
+msgid "ID3v2.3.0 (id3lib)"
+msgstr "ID3v2.3.0 (id3lib)"
+
+#: gui/dialogs/configdialog.cpp:232
+msgid "ID3v2.4.0 (TagLib)"
+msgstr "ID3v2.4.0 (TagLib)"
+
+#: gui/dialogs/configdialog.cpp:247
+msgid "Ogg/Vorbis"
+msgstr "Ogg/Vorbis"
+
+#: gui/dialogs/configdialog.cpp:249
+msgid "Comment field &name:"
+msgstr "&Název pole s poznámkou:"
+
+#: gui/dialogs/configdialog.cpp:251
+msgid "&Picture field name:"
+msgstr "Název pole s &obrázkem:"
+
+#: gui/dialogs/configdialog.cpp:279
+msgid "Custom &Genres"
+msgstr "Vlas&tní žánry"
+
+#: gui/dialogs/configdialog.cpp:281
+msgid "&Show only custom genres"
+msgstr "&Ukázat pouze vlastní žánry"
+
+#: gui/dialogs/configdialog.cpp:291
+msgid "&Tag Format"
+msgstr "&Formát značky"
+
+#: gui/dialogs/configdialog.cpp:300
+msgid "Tags"
+msgstr "Značky"
+
+#: gui/dialogs/configdialog.cpp:302
+msgid "&Tags"
+msgstr "&Značky"
+
+#: gui/dialogs/configdialog.cpp:312
+msgid "Save"
+msgstr "Uložit"
+
+#: gui/dialogs/configdialog.cpp:314
+msgid "&Preserve file timestamp"
+msgstr "&Neměnit časové razítko"
+
+#: gui/dialogs/configdialog.cpp:315
+msgid "&Mark changes"
+msgstr "&Označit změny"
+
+#: gui/dialogs/configdialog.cpp:323
+msgid "&Filename Format"
+msgstr "Formát &souborového názvu"
+
+#: gui/dialogs/configdialog.cpp:330
+msgid "Files"
+msgstr "Soubory"
+
+#: gui/dialogs/configdialog.cpp:332
+msgid "&Files"
+msgstr "&Soubory"
+
+#: gui/dialogs/configdialog.cpp:342
+msgid "Browser"
+msgstr "Prohlížeč"
+
+#: gui/dialogs/configdialog.cpp:344
+msgid "Web &browser:"
+msgstr "&Prohlížeč internetu:"
+
+#: gui/dialogs/configdialog.cpp:357
+msgid "Context &Menu Commands"
+msgstr "Příkazy souvisejících &nabídek"
+
+#: gui/dialogs/configdialog.cpp:372
+msgid "User Actions"
+msgstr "Uživatelské příkazy"
+
+#: gui/dialogs/configdialog.cpp:374
+msgid "&User Actions"
+msgstr "&Uživatelské příkazy"
+
+#: gui/dialogs/configdialog.cpp:384
+msgid "Proxy"
+msgstr "Proxy"
+
+#: gui/dialogs/configdialog.cpp:386
+msgid "&Proxy:"
+msgstr "&Proxy:"
+
+#: gui/dialogs/configdialog.cpp:388
+msgid "&Use authentication with proxy"
+msgstr "Po&užít ověření pomocí Proxy"
+
+#: gui/dialogs/configdialog.cpp:389
+msgid "Proxy user &name:"
+msgstr "Uživatelské &jméno uživatele Proxy:"
+
+#: gui/dialogs/configdialog.cpp:392
+msgid "Proxy pass&word:"
+msgstr "&Heslo pro Proxy:"
+
+#: gui/dialogs/configdialog.cpp:418
+msgid "Network"
+msgstr "Síť"
+
+#: gui/dialogs/configdialog.cpp:420
+msgid "&Network"
+msgstr "&Síť"
+
+#: gui/dialogs/configdialog.cpp:435
+msgid "Use custom app&lication font"
+msgstr "Použít v ap&likaci vlastní písmo"
+
+#: gui/dialogs/configdialog.cpp:436
+msgid "A&pplication Font..."
+msgstr "Pís&mo..."
+
+#: gui/dialogs/configdialog.cpp:437
+msgid "Use custom application &style"
+msgstr "Použít v aplikaci vlastní &styl"
+
+#: gui/dialogs/configdialog.cpp:446 gui/dialogs/configdialog.cpp:666
+#: gui/dialogs/musicbrainzdialog.cpp:189 gui/dialogs/musicbrainzdialog.cpp:193
+#: gui/dialogs/musicbrainzdialog.cpp:208
+msgid "Unknown"
+msgstr "Neznámý"
+
+#: gui/dialogs/configdialog.cpp:457
+msgid "&Appearance"
+msgstr "Vz&hled"
+
+#: gui/dialogs/configdialog.cpp:467 gui/dialogs/editframedialog.cpp:60
+#: gui/dialogs/editframefieldsdialog.cpp:998 gui/dialogs/importdialog.cpp:227
+#: gui/dialogs/musicbrainzdialog.cpp:123
+#: gui/dialogs/numbertracksdialog.cpp:129 gui/dialogs/playlistdialog.cpp:213
+msgid "&OK"
+msgstr "&OK"
+
+#: gui/dialogs/contexthelp.cpp:59 gui/forms/kid3mainwindow.cpp:683
 msgid "Kid3 Handbook"
 msgstr "Příručka k programu Kid3"
 
-#: kid3.cpp:622
-msgid "Kid3 &Handbook"
-msgstr "&Příručka k programu Kid3"
+#: gui/dialogs/editframefieldsdialog.cpp:528
+#: gui/dialogs/textimportdialog.cpp:95
+msgid "From Clip&board"
+msgstr "Ze s&chránky"
 
-#: kid3.cpp:629
-msgid "About Kid3"
-msgstr "O programu Kid3"
+#: gui/dialogs/editframefieldsdialog.cpp:529
+msgid "&Import"
+msgstr "&Zavést"
 
-#: kid3.cpp:630
-msgid "&About Kid3"
-msgstr "&O programu Kid3"
+#: gui/dialogs/editframefieldsdialog.cpp:530
+msgid "&Export"
+msgstr "&Vyvést"
 
-#: kid3.cpp:636
-msgid "About Qt"
-msgstr "O Qt"
+#: gui/dialogs/editframefieldsdialog.cpp:531
+msgid "&View"
+msgstr "&Pohled"
 
-#: kid3.cpp:637
-msgid "About &Qt"
-msgstr "O &Qt"
+#: gui/dialogs/editframefieldsdialog.cpp:669
+msgid "Text Encoding"
+msgstr "Kódování textu"
 
-#: kid3.cpp:643
-msgid "Apply Filename Format"
-msgstr "Použít formát pro název souboru"
+#: gui/dialogs/editframefieldsdialog.cpp:670
+msgid "Text"
+msgstr "Text"
 
-#: kid3.cpp:650
-msgid "Apply Tag Format"
-msgstr "Použít formát pro značku"
+#: gui/dialogs/editframefieldsdialog.cpp:671
+msgid "URL"
+msgstr "URL"
 
-#: kid3.cpp:664 numbertracksdialog.cpp:56
+#: gui/dialogs/editframefieldsdialog.cpp:673
+msgid "Description"
+msgstr "Popis"
+
+#: gui/dialogs/editframefieldsdialog.cpp:674
+msgid "Owner"
+msgstr "Vlastník"
+
+#: gui/dialogs/editframefieldsdialog.cpp:675
+msgid "Email"
+msgstr "E-mail"
+
+#: gui/dialogs/editframefieldsdialog.cpp:676
+msgid "Rating"
+msgstr "Hodnocení"
+
+#: gui/dialogs/editframefieldsdialog.cpp:679
+msgid "Picture Type"
+msgstr "Druh obrázku"
+
+#: gui/dialogs/editframefieldsdialog.cpp:680
+msgid "Image format"
+msgstr "Formát obrázku"
+
+#: gui/dialogs/editframefieldsdialog.cpp:681
+msgid "Mimetype"
+msgstr "Mime Typ"
+
+#: gui/dialogs/editframefieldsdialog.cpp:682
+msgid "Counter"
+msgstr "Počítadlo"
+
+#: gui/dialogs/editframefieldsdialog.cpp:683
+msgid "Identifier"
+msgstr "Určení"
+
+#: gui/dialogs/editframefieldsdialog.cpp:684
+msgid "Volume Adjustment"
+msgstr "Úprava hlasitosti"
+
+#: gui/dialogs/editframefieldsdialog.cpp:685
+msgid "Number of Bits"
+msgstr "Počet bitů"
+
+#: gui/dialogs/editframefieldsdialog.cpp:686
+msgid "Volume Change Right"
+msgstr "Změna hlasitosti vpravo"
+
+#: gui/dialogs/editframefieldsdialog.cpp:687
+msgid "Volume Change Left"
+msgstr "Změna hlasitosti vlevo"
+
+#: gui/dialogs/editframefieldsdialog.cpp:688
+msgid "Peak Volume Right"
+msgstr "Nejvyšší stupeň hlasitosti vpravo"
+
+#: gui/dialogs/editframefieldsdialog.cpp:689
+msgid "Peak Volume Left"
+msgstr "Nejvyšší stupeň hlasitosti vlevo"
+
+#: gui/dialogs/editframefieldsdialog.cpp:690
+msgid "Timestamp Format"
+msgstr "Formát časového razítka"
+
+#: gui/dialogs/editframefieldsdialog.cpp:691
+msgid "Content Type"
+msgstr "Druh obsahu"
+
+#: gui/dialogs/editframefieldsdialog.cpp:877
+msgid "UTF16BE"
+msgstr "UTF16BE"
+
+#: gui/dialogs/editframefieldsdialog.cpp:889
+#: gui/dialogs/editframefieldsdialog.cpp:920
+#: gui/dialogs/editframefieldsdialog.cpp:933
+msgid "Other"
+msgstr "Jiný"
+
+#: gui/dialogs/editframefieldsdialog.cpp:890
+msgid "32x32 pixels PNG file icon"
+msgstr "Ikona o velikosti 32x32 pixelů pro soubor PNG"
+
+#: gui/dialogs/editframefieldsdialog.cpp:891
+msgid "Other file icon"
+msgstr "Ikona jiného souboru"
+
+#: gui/dialogs/editframefieldsdialog.cpp:892
+msgid "Cover (front)"
+msgstr "Obal (přední strana)"
+
+#: gui/dialogs/editframefieldsdialog.cpp:893
+msgid "Cover (back)"
+msgstr "Obal (zadní strana)"
+
+#: gui/dialogs/editframefieldsdialog.cpp:894
+msgid "Leaflet page"
+msgstr "Strana letáku"
+
+#: gui/dialogs/editframefieldsdialog.cpp:896
+msgid "Lead artist/lead performer/soloist"
+msgstr "Hlavní umělec/Účinkující/Sólista"
+
+#: gui/dialogs/editframefieldsdialog.cpp:897
+msgid "Artist/performer"
+msgstr "Umělec/Účinkující"
+
+#: gui/dialogs/editframefieldsdialog.cpp:899
+msgid "Band/Orchestra"
+msgstr "Hudební skupina/Orchestr"
+
+#: gui/dialogs/editframefieldsdialog.cpp:901
+msgid "Lyricist/text writer"
+msgstr "Textař/Skladatel textu"
+
+#: gui/dialogs/editframefieldsdialog.cpp:902
+msgid "Recording Location"
+msgstr "Místo nahrávky"
+
+#: gui/dialogs/editframefieldsdialog.cpp:903
+msgid "During recording"
+msgstr "Během nahrávání"
+
+#: gui/dialogs/editframefieldsdialog.cpp:904
+msgid "During performance"
+msgstr "Během vystoupení"
+
+#: gui/dialogs/editframefieldsdialog.cpp:905
+msgid "Movie/video screen capture"
+msgstr "Obrázek z filmu/videa"
+
+#: gui/dialogs/editframefieldsdialog.cpp:906
+msgid "A bright coloured fish"
+msgstr "Jasně svítící ryba"
+
+#: gui/dialogs/editframefieldsdialog.cpp:907
+msgid "Illustration"
+msgstr "Ukázka"
+
+#: gui/dialogs/editframefieldsdialog.cpp:908
+msgid "Band/artist logotype"
+msgstr "Logotyp hudební skupiny/umělce"
+
+#: gui/dialogs/editframefieldsdialog.cpp:909
+msgid "Publisher/Studio logotype"
+msgstr "Logotyp vydavatele/nahrávacího studia"
+
+#: gui/dialogs/editframefieldsdialog.cpp:921
+msgid "MPEG frames as unit"
+msgstr "Snímky MPEG jako jednotka"
+
+#: gui/dialogs/editframefieldsdialog.cpp:922
+msgid "Milliseconds as unit"
+msgstr "Milisekundy jako jednotka"
+
+#: gui/dialogs/editframefieldsdialog.cpp:935
+msgid "Text transcription"
+msgstr "Přepis textu"
+
+#: gui/dialogs/editframefieldsdialog.cpp:936
+msgid "Movement/part name"
+msgstr "Název věty/části"
+
+#: gui/dialogs/editframefieldsdialog.cpp:937
+msgid "Events"
+msgstr "Událost"
+
+#: gui/dialogs/editframefieldsdialog.cpp:938
+msgid "Chord"
+msgstr "Akord"
+
+#: gui/dialogs/editframefieldsdialog.cpp:939
+msgid "Trivia/pop up"
+msgstr "Drobnosti/Vyskakovací"
+
+#: gui/dialogs/exportdialog.cpp:72
+msgid "Export"
+msgstr "Vyvést"
+
+#: gui/dialogs/exportdialog.cpp:85
+msgid "&Format"
+msgstr "&Formát"
+
+#: gui/dialogs/exportdialog.cpp:114
+msgid "To F&ile"
+msgstr "Do sou&boru"
+
+#: gui/dialogs/exportdialog.cpp:120
+msgid "To Clip&board"
+msgstr "Do sch&ránky"
+
+#: gui/dialogs/exportdialog.cpp:130
+msgid "&Source:"
+msgstr "&Zdroj:"
+
+#: gui/dialogs/exportdialog.cpp:135 gui/dialogs/importdialog.cpp:164
+#: gui/dialogs/numbertracksdialog.cpp:82 gui/forms/kid3form.cpp:230
+#: gui/forms/kid3form.cpp:255 gui/forms/kid3mainwindow.cpp:322
+#: gui/forms/kid3mainwindow.cpp:325 gui/forms/kid3mainwindow.cpp:328
+#: gui/forms/kid3mainwindow.cpp:331 gui/forms/kid3mainwindow.cpp:334
+#: gui/forms/kid3mainwindow.cpp:370
+msgid "Tag 1"
+msgstr "Značka 1"
+
+#: gui/dialogs/exportdialog.cpp:136 gui/dialogs/importdialog.cpp:165
+#: gui/dialogs/numbertracksdialog.cpp:83 gui/forms/kid3form.cpp:233
+#: gui/forms/kid3form.cpp:259 gui/forms/kid3mainwindow.cpp:337
+#: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:343
+#: gui/forms/kid3mainwindow.cpp:346 gui/forms/kid3mainwindow.cpp:349
+#: gui/forms/kid3mainwindow.cpp:373
+msgid "Tag 2"
+msgstr "Značka 2"
+
+#: gui/dialogs/exportdialog.cpp:201 gui/forms/kid3mainwindow.cpp:905
+#: gui/forms/kid3mainwindow.cpp:908 gui/forms/kid3mainwindow.cpp:1436
+#: gui/forms/kid3mainwindow.cpp:1907 gui/forms/kid3mainwindow.cpp:1989
+#: gui/forms/kid3mainwindow.cpp:1997
+msgid "File Error"
+msgstr "Chyba v souboru"
+
+#: gui/dialogs/exportdialog.cpp:202 gui/forms/kid3mainwindow.cpp:903
+#: gui/forms/kid3mainwindow.cpp:909
+msgid "Error while writing file:\n"
+msgstr "Při zápisu do souboru nastala chyba:\n"
+
+#: gui/dialogs/filterdialog.cpp:52 gui/forms/kid3mainwindow.cpp:592
+msgid "Filter"
+msgstr "Filtrovat"
+
+#: gui/dialogs/filterdialog.cpp:67
+msgid "&Filter"
+msgstr "&Filtrovat"
+
+#: gui/dialogs/filterdialog.cpp:102 gui/dialogs/musicbrainzdialog.cpp:124
+#: gui/dialogs/tagimportdialog.cpp:82
+msgid "&Apply"
+msgstr "&Použít"
+
+#: gui/dialogs/importdialog.cpp:136
+msgid "From F&ile/Clipboard..."
+msgstr "Zavést ze souboru/s&chránky..."
+
+#: gui/dialogs/importdialog.cpp:140
+msgid "From T&ags..."
+msgstr "Ze zn&ačky..."
+
+#: gui/dialogs/importdialog.cpp:144
+msgid "&From Server:"
+msgstr "&Ze serveru:"
+
+#: gui/dialogs/importdialog.cpp:153 gui/dialogs/musicbrainzdialog.cpp:64
+#: gui/forms/kid3mainwindow.cpp:258 gui/forms/kid3mainwindow.cpp:464
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Fingerprint"
+
+#: gui/dialogs/importdialog.cpp:160
+msgid "D&estination:"
+msgstr "Cí&l:"
+
+#: gui/dialogs/importdialog.cpp:166 gui/dialogs/numbertracksdialog.cpp:84
+msgid "Tag 1 and Tag 2"
+msgstr "Značka 1 a značka 2"
+
+#: gui/dialogs/importdialog.cpp:177
+msgid "Revert"
+msgstr "Naposledy uložené znění"
+
+#: gui/dialogs/importdialog.cpp:188
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Vyzkoušet největší možný přípustný časový &rozdíl (s):"
+
+#: gui/dialogs/importdialog.cpp:196
+msgid "Match with:"
+msgstr "Porovnat s:"
+
+#: gui/dialogs/importdialog.cpp:198
+msgid "&Length"
+msgstr "&Délka"
+
+#: gui/dialogs/importdialog.cpp:201
+msgid "T&rack"
+msgstr "&Stopa"
+
+#: gui/dialogs/importdialog.cpp:204
+msgid "&Title"
+msgstr "&Název"
+
+#: gui/dialogs/musicbrainzdialog.cpp:73 gui/dialogs/serverimportdialog.cpp:80
+msgid "&Server:"
+msgstr "&Server:"
+
+#: gui/dialogs/musicbrainzdialog.cpp:113
+msgid "Track Title/Artist - Album"
+msgstr "Název skladby/Umělec - Album"
+
+#: gui/dialogs/musicbrainzdialog.cpp:114
+msgid "State"
+msgstr "Stav"
+
+#: gui/dialogs/musicbrainzdialog.cpp:189 gui/dialogs/musicbrainzdialog.cpp:368
+msgid "No result"
+msgstr "Žádný výsledek"
+
+#: gui/dialogs/musicbrainzdialog.cpp:368
+msgid "No result selected"
+msgstr "Nevybrán žádný výsledek"
+
+#: gui/dialogs/numbertracksdialog.cpp:56 gui/forms/kid3mainwindow.cpp:584
 msgid "Number Tracks"
 msgstr "Číslovat skladby"
 
-#: kid3.cpp:679
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Převést ID3v2.3 na ID3v2.4"
+#: gui/dialogs/numbertracksdialog.cpp:65
+msgid "&Start number:"
+msgstr "&Začáteční číslo:"
 
-#: kid3.cpp:688
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Převést ID3v2.4 na ID3v2.3"
+#: gui/dialogs/numbertracksdialog.cpp:78
+msgid "&Destination:"
+msgstr "&Cíl:"
 
-#: kid3.cpp:697 playtoolbar.cpp:54
-msgid "Play"
-msgstr "Přehrát"
+#: gui/dialogs/numbertracksdialog.cpp:97
+msgid "&Total number of tracks:"
+msgstr "Celkový počet s&top:"
 
-#: kid3.cpp:707
-msgid "Show St&atusbar"
-msgstr "Zobrazovat st&avovou lištu"
+#: gui/dialogs/playlistdialog.cpp:58
+msgid "Create Playlist"
+msgstr "Vytvořit seznam skladeb"
 
-#: kid3.cpp:718
-msgid "Show Picture"
-msgstr "Ukázat obrázek"
+#: gui/dialogs/playlistdialog.cpp:144
+msgid "Playlist File Name"
+msgstr "Název souboru se seznamem skladeb"
 
-#: kid3.cpp:730
-msgid "Auto Hide Tags"
-msgstr "Automaticky skrýt"
+#: gui/dialogs/playlistdialog.cpp:145
+msgid "Same as &directory name"
+msgstr "Stejný jako &název adresáře"
 
-#: kid3.cpp:742
-msgid "Configure Kid3"
-msgstr "Nastavit Kid3"
+#: gui/dialogs/playlistdialog.cpp:147 gui/dialogs/rendirdialog.cpp:119
+msgid "&Format:"
+msgstr "&Formát:"
 
-#: kid3.cpp:743
-msgid "&Configure Kid3..."
-msgstr "&Nastavit Kid3..."
+#: gui/dialogs/playlistdialog.cpp:156
+msgid "Cr&eate in:"
+msgstr "V&ytvořit v:"
 
-#: kid3.cpp:764
-msgid "Show &Toolbar"
-msgstr "Zobrazovat nás&trojovou lištu"
+#: gui/dialogs/playlistdialog.cpp:160
+msgid "Current directory"
+msgstr "Současný adresář"
 
-#. i18n: file: kid3ui.rc:4
-#. i18n: ectx: Menu (file)
-#: kid3.cpp:771 kid3.cpp:779 rc.cpp:3
+#: gui/dialogs/playlistdialog.cpp:161
+msgid "Every directory"
+msgstr "Každý adresář"
+
+#: gui/dialogs/playlistdialog.cpp:162
+msgid "Top-level directory"
+msgstr "Adresář na nejvyšší úrovni"
+
+#: gui/dialogs/playlistdialog.cpp:163
+msgid "Playlist Content"
+msgstr "Obsah seznamu skladeb"
+
+#: gui/dialogs/playlistdialog.cpp:164
+msgid "For&mat:"
+msgstr "For&mát:"
+
+#: gui/dialogs/playlistdialog.cpp:167
+msgid "Incl&ude only the selected files"
+msgstr "Zař&adit pouze vybrané soubory"
+
+#: gui/dialogs/playlistdialog.cpp:168
+msgid "Sort by file &name"
+msgstr "Seřadit podle &názvu souboru"
+
+#: gui/dialogs/playlistdialog.cpp:170
+msgid "Sort by &tag field"
+msgstr "Seřadit podle pole se &značkou"
+
+#: gui/dialogs/playlistdialog.cpp:184
+msgid "Use &relative path for files in playlist"
+msgstr "Pro soubory v seznamu skladeb použít k nim se &vztahující cestu"
+
+#: gui/dialogs/playlistdialog.cpp:186
+msgid "Use full p&ath for files in playlist"
+msgstr "Pro soubory v seznamu skladeb použít úplnou &cestu"
+
+#: gui/dialogs/playlistdialog.cpp:187
+msgid "Write only &list of files"
+msgstr "Zapsat pouze &seznamy souborů"
+
+#: gui/dialogs/playlistdialog.cpp:189
+msgid "Write &info using"
+msgstr "Zapsat &údaje pomocí"
+
+#: gui/dialogs/rendirdialog.cpp:60 gui/dialogs/rendirdialog.cpp:107
+#: gui/forms/kid3mainwindow.cpp:576
+msgid "Rename Directory"
+msgstr "Přejmenovat adresář"
+
+#: gui/dialogs/rendirdialog.cpp:67
+msgid "Format"
+msgstr "Format"
+
+#: gui/dialogs/rendirdialog.cpp:72
+msgid "Preview"
+msgstr "Náhled"
+
+#: gui/dialogs/rendirdialog.cpp:108
+msgid "Create Directory"
+msgstr "vytvořit adresář"
+
+#: gui/dialogs/rendirdialog.cpp:111
+msgid "From Tag 2 and Tag 1"
+msgstr "Ze značky 2 a značky 1"
+
+#: gui/dialogs/rendirdialog.cpp:112 gui/forms/kid3form.cpp:328
+#: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:361
+msgid "From Tag 1"
+msgstr "Ze značky 1"
+
+#: gui/dialogs/rendirdialog.cpp:113 gui/forms/kid3form.cpp:288
+#: gui/forms/kid3mainwindow.cpp:325 gui/forms/kid3mainwindow.cpp:364
+msgid "From Tag 2"
+msgstr "Ze značky 2"
+
+#: gui/dialogs/rendirdialog.cpp:143 gui/forms/kid3form.cpp:228
+msgid "From:"
+msgstr "Z:"
+
+#: gui/dialogs/rendirdialog.cpp:145 gui/forms/kid3form.cpp:252
+msgid "To:"
+msgstr "Do:"
+
+#: gui/dialogs/serverimportdialog.cpp:63
+msgid "&Find"
+msgstr "&Hledat"
+
+#: gui/dialogs/serverimportdialog.cpp:83
+msgid "C&GI Path:"
+msgstr "Cesta C&GI:"
+
+#: gui/dialogs/serverimportdialog.cpp:94
+msgid "&Additional Tags"
+msgstr "&Dodatečné značky"
+
+#: gui/dialogs/serverimportdialog.cpp:95
+msgid "C&over Art"
+msgstr "&Obrázky obalů"
+
+#: gui/dialogs/tagimportdialog.cpp:51
+msgid "Import from Tags"
+msgstr "Zavést ze značky"
+
+#: gui/dialogs/tagimportdialog.cpp:67 gui/dialogs/textimportdialog.cpp:76
+#: gui/forms/kid3form.cpp:213 gui/forms/kid3form.cpp:237
+msgid "Format:"
+msgstr "Formát:"
+
+#: gui/dialogs/tagimportdialog.cpp:68
+msgid "Source:"
+msgstr "Zdroj:"
+
+#: gui/dialogs/tagimportdialog.cpp:69
+msgid "Extraction:"
+msgstr "Získání:"
+
+#: gui/dialogs/textimportdialog.cpp:60
+msgid "Import from File/Clipboard"
+msgstr "Zavést ze souboru/schránky"
+
+#: gui/dialogs/textimportdialog.cpp:77
+msgid "Header:"
+msgstr "Záhlaví:"
+
+#: gui/dialogs/textimportdialog.cpp:78
+msgid "Tracks:"
+msgstr "Stopy:"
+
+#: gui/dialogs/textimportdialog.cpp:91
+msgid "From F&ile"
+msgstr "Ze soubor&u"
+
+#: gui/forms/filelist.cpp:136
+msgid "&Expand all"
+msgstr "&Rozbalit vše"
+
+#: gui/forms/filelist.cpp:137
+msgid "&Collapse all"
+msgstr "&Svinout vše"
+
+#: gui/forms/filelist.cpp:138
+msgid "&Rename"
+msgstr "Pře&jmenovat"
+
+#: gui/forms/filelist.cpp:139
+msgid "&Delete"
+msgstr "&Smazat"
+
+#: gui/forms/filelist.cpp:141 gui/forms/kid3mainwindow.cpp:302
+#: gui/forms/kid3mainwindow.cpp:622
+msgid "&Play"
+msgstr "&Přehrát"
+
+#: gui/forms/kid3form.cpp:193 gui/forms/kid3form.cpp:861
+#: gui/forms/kid3form.cpp:863
+msgid "F&ile"
+msgstr "S&oubor"
+
+#: gui/forms/kid3form.cpp:206
+msgid "Name:"
+msgstr "Název:"
+
+#: gui/forms/kid3form.cpp:231
+msgid "Filename from Tag 1"
+msgstr "Název souboru ze značky 1"
+
+#: gui/forms/kid3form.cpp:234
+msgid "Filename from Tag 2"
+msgstr "Název souboru ze značky 2"
+
+#: gui/forms/kid3form.cpp:256
+msgid "Tag 1 from Filename"
+msgstr "Značka 1 z názvu souboru"
+
+#: gui/forms/kid3form.cpp:260
+msgid "Tag 2 from Filename"
+msgstr "Značka 2 z názvu souboru"
+
+#: gui/forms/kid3form.cpp:266 gui/forms/kid3form.cpp:584
+msgid "Tag &1"
+msgstr "Značka &1"
+
+#: gui/forms/kid3form.cpp:291 gui/forms/kid3form.cpp:332
+#: gui/forms/kid3mainwindow.cpp:328 gui/forms/kid3mainwindow.cpp:343
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: gui/forms/kid3form.cpp:295 gui/forms/kid3form.cpp:336
+#: gui/forms/kid3mainwindow.cpp:331 gui/forms/kid3mainwindow.cpp:346
+msgid "Paste"
+msgstr "Vložit"
+
+#: gui/forms/kid3form.cpp:299 gui/forms/kid3form.cpp:340
+#: gui/forms/kid3mainwindow.cpp:334 gui/forms/kid3mainwindow.cpp:349
+msgid "Remove"
+msgstr "Odstranit"
+
+#: gui/forms/kid3form.cpp:308 gui/forms/kid3form.cpp:599
+msgid "Tag &2"
+msgstr "Značka &2"
+
+#: gui/forms/kid3form.cpp:346 gui/forms/kid3mainwindow.cpp:352
+msgid "Edit"
+msgstr "Upravit"
+
+#: gui/forms/kid3form.cpp:349 gui/forms/kid3mainwindow.cpp:355
+msgid "Add"
+msgstr "Přidat"
+
+#: gui/forms/kid3form.cpp:352 gui/forms/kid3mainwindow.cpp:358
+msgid "Delete"
+msgstr "Smazat"
+
+#: gui/forms/kid3mainwindow.cpp:111
+msgid "Download"
+msgstr "Stáhnout"
+
+#: gui/forms/kid3mainwindow.cpp:187
+msgid "Main Toolbar"
+msgstr "Hlavní pruh s nástroji"
+
+#: gui/forms/kid3mainwindow.cpp:220 gui/forms/kid3mainwindow.cpp:386
+#: gui/forms/kid3mainwindow.cpp:406
+msgid "Opens a directory"
+msgstr "Otevře adresář"
+
+#: gui/forms/kid3mainwindow.cpp:221 gui/forms/kid3mainwindow.cpp:399
+msgid "Opens a recently used directory"
+msgstr "Otevře nedávno použitý adresář"
+
+#: gui/forms/kid3mainwindow.cpp:223 gui/forms/kid3mainwindow.cpp:429
+msgid "Reverts the changes of all or the selected files"
+msgstr "Vrátí změny všech nebo vybraných souborů"
+
+#: gui/forms/kid3mainwindow.cpp:224 gui/forms/kid3mainwindow.cpp:417
+msgid "Saves the changed files"
+msgstr "Uloží změněné soubory"
+
+#: gui/forms/kid3mainwindow.cpp:225 gui/forms/kid3mainwindow.cpp:505
+msgid "Quits the application"
+msgstr "Ukončí aplikaci"
+
+#: gui/forms/kid3mainwindow.cpp:226 gui/forms/kid3mainwindow.cpp:517
+msgid "Select all files"
+msgstr "Vybrat všechny soubory"
+
+#: gui/forms/kid3mainwindow.cpp:228 gui/forms/kid3mainwindow.cpp:527
+msgid "Deselect all files"
+msgstr "Zrušit výběr všech souborů"
+
+#: gui/forms/kid3mainwindow.cpp:229
+msgid "Configure Shortcuts"
+msgstr "Nastavit zkratky"
+
+#: gui/forms/kid3mainwindow.cpp:230
+msgid "Configure Toolbars"
+msgstr "Nastavit nástrojové lišty"
+
+#: gui/forms/kid3mainwindow.cpp:231
+msgid "Preferences dialog"
+msgstr "Nastavení"
+
+#: gui/forms/kid3mainwindow.cpp:233 gui/forms/kid3mainwindow.cpp:407
+msgid "O&pen Directory..."
+msgstr "&Otevřít adresář..."
+
+#: gui/forms/kid3mainwindow.cpp:237 gui/forms/kid3mainwindow.cpp:442
+msgid "&Import..."
+msgstr "&Zavést..."
+
+#: gui/forms/kid3mainwindow.cpp:251 gui/forms/kid3mainwindow.cpp:260
+#: gui/forms/kid3mainwindow.cpp:455 gui/forms/kid3mainwindow.cpp:467
+msgid "Import from %1..."
+msgstr "Zavést z %1..."
+
+#: gui/forms/kid3mainwindow.cpp:267 gui/forms/kid3mainwindow.cpp:478
+msgid "&Browse Cover Art..."
+msgstr "&Procházet kvůli obrázkům obalů..."
+
+#: gui/forms/kid3mainwindow.cpp:270 gui/forms/kid3mainwindow.cpp:486
+msgid "&Export..."
+msgstr "&Vyvést..."
+
+#: gui/forms/kid3mainwindow.cpp:273 gui/forms/kid3mainwindow.cpp:495
+msgid "&Create Playlist..."
+msgstr "&Vytvořit seznam skladeb..."
+
+#: gui/forms/kid3mainwindow.cpp:276 gui/forms/kid3mainwindow.cpp:561
+msgid "Apply &Filename Format"
+msgstr "Použít formát pro &název souboru"
+
+#: gui/forms/kid3mainwindow.cpp:279 gui/forms/kid3mainwindow.cpp:569
+msgid "Apply &Tag Format"
+msgstr "Použít formát pro &značku"
+
+#: gui/forms/kid3mainwindow.cpp:282 gui/forms/kid3mainwindow.cpp:577
+msgid "&Rename Directory..."
+msgstr "&Přejmenovat adresář..."
+
+#: gui/forms/kid3mainwindow.cpp:285 gui/forms/kid3mainwindow.cpp:585
+msgid "&Number Tracks..."
+msgstr "Čís&lovat skladby..."
+
+#: gui/forms/kid3mainwindow.cpp:288 gui/forms/kid3mainwindow.cpp:593
+msgid "F&ilter..."
+msgstr "F&iltrovat..."
+
+#: gui/forms/kid3mainwindow.cpp:292 gui/forms/kid3mainwindow.cpp:602
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Převést ID3v2.3 na ID3v2.&4"
+
+#: gui/forms/kid3mainwindow.cpp:297 gui/forms/kid3mainwindow.cpp:612
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Převést ID3v2.4 na ID3v2.&3"
+
+#: gui/forms/kid3mainwindow.cpp:306 gui/forms/kid3mainwindow.cpp:653
+msgid "Show &Picture"
+msgstr "&Ukázat obrázek"
+
+#: gui/forms/kid3mainwindow.cpp:310 gui/forms/kid3mainwindow.cpp:662
+msgid "Auto &Hide Tags"
+msgstr "Automaticky &skrýt"
+
+#: gui/forms/kid3mainwindow.cpp:314 gui/forms/kid3mainwindow.cpp:537
+msgid "&Previous File"
+msgstr "&Předchozí soubor"
+
+#: gui/forms/kid3mainwindow.cpp:318 gui/forms/kid3mainwindow.cpp:548
+msgid "&Next File"
+msgstr "&Další soubor"
+
+#: gui/forms/kid3mainwindow.cpp:322 gui/forms/kid3mainwindow.cpp:337
+msgid "From Filename"
+msgstr "Z názvu souboru"
+
+#: gui/forms/kid3mainwindow.cpp:352 gui/forms/kid3mainwindow.cpp:355
+#: gui/forms/kid3mainwindow.cpp:358
+msgid "Frames:"
+msgstr "Prvky:"
+
+#: gui/forms/kid3mainwindow.cpp:367 gui/forms/kid3mainwindow.cpp:370
+#: gui/forms/kid3mainwindow.cpp:373
+msgid "Focus"
+msgstr "Zaměření"
+
+#: gui/forms/kid3mainwindow.cpp:383
 msgid "&File"
 msgstr "&Soubor"
 
-#. i18n: file: kid3ui.rc:17
-#. i18n: ectx: Menu (edit)
-#: kid3.cpp:772 kid3.cpp:781 rc.cpp:6
-msgid "&Edit"
-msgstr "&Úpravy"
+#: gui/forms/kid3mainwindow.cpp:387
+msgid "&Open..."
+msgstr "&Otevřít..."
 
-#. i18n: file: kid3ui.rc:21
-#. i18n: ectx: Menu (tools)
-#: kid3.cpp:773 kid3.cpp:783 rc.cpp:9
-msgid "&Tools"
-msgstr "&Nástroje"
-
-#. i18n: file: kid3ui.rc:31
-#. i18n: ectx: Menu (settings)
-#: kid3.cpp:774 kid3.cpp:785 rc.cpp:12
-msgid "&Settings"
-msgstr "&Nastavení"
-
-#: kid3.cpp:797 kid3.cpp:801
+#: gui/forms/kid3mainwindow.cpp:400
 msgid "Open &Recent"
 msgstr "Ot&evřít nedávný"
 
-#: kid3.cpp:941
+#: gui/forms/kid3mainwindow.cpp:418
+msgid "&Save"
+msgstr "&Uložit"
+
+#: gui/forms/kid3mainwindow.cpp:430
+msgid "Re&vert"
+msgstr "&Naposledy uložené znění"
+
+#: gui/forms/kid3mainwindow.cpp:441
+msgid "Import from file or clipboard"
+msgstr "Zavést ze souboru nebo ze schránky"
+
+#: gui/forms/kid3mainwindow.cpp:454 gui/forms/kid3mainwindow.cpp:466
+msgid "Import from %1"
+msgstr "Zavést z %1"
+
+#: gui/forms/kid3mainwindow.cpp:477
+msgid "Browse album cover artwork"
+msgstr "Procházet kvůli obrázkům obalů"
+
+#: gui/forms/kid3mainwindow.cpp:485
+msgid "Export to file or clipboard"
+msgstr "Vyvést do souboru nebo do schránky"
+
+#: gui/forms/kid3mainwindow.cpp:494
+msgid "Create M3U Playlist"
+msgstr "Vytvořit seznam skladeb M3U"
+
+#: gui/forms/kid3mainwindow.cpp:506
+msgid "&Quit"
+msgstr "&Ukončit"
+
+#: gui/forms/kid3mainwindow.cpp:514
+msgid "&Edit"
+msgstr "&Úpravy"
+
+#: gui/forms/kid3mainwindow.cpp:518
+msgid "Select &All"
+msgstr "Vybrat &vše"
+
+#: gui/forms/kid3mainwindow.cpp:528
+msgid "Dese&lect"
+msgstr "&Zrušit výběr"
+
+#: gui/forms/kid3mainwindow.cpp:536
+msgid "Select previous file"
+msgstr "Vybrat předchozí soubor"
+
+#: gui/forms/kid3mainwindow.cpp:547
+msgid "Select next file"
+msgstr "Vybrat další soubor"
+
+#: gui/forms/kid3mainwindow.cpp:557
+msgid "&Tools"
+msgstr "&Nástroje"
+
+#: gui/forms/kid3mainwindow.cpp:560
+msgid "Apply Filename Format"
+msgstr "Použít formát pro název souboru"
+
+#: gui/forms/kid3mainwindow.cpp:568
+msgid "Apply Tag Format"
+msgstr "Použít formát pro značku"
+
+#: gui/forms/kid3mainwindow.cpp:601
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Převést ID3v2.3 na ID3v2.4"
+
+#: gui/forms/kid3mainwindow.cpp:611
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Převést ID3v2.4 na ID3v2.3"
+
+#: gui/forms/kid3mainwindow.cpp:621 gui/widgets/playtoolbar.cpp:57
+msgid "Play"
+msgstr "Přehrát"
+
+#: gui/forms/kid3mainwindow.cpp:631
+msgid "&Settings"
+msgstr "&Nastavení"
+
+#: gui/forms/kid3mainwindow.cpp:634
+msgid "Enables/disables the toolbar"
+msgstr "Povolí/zakáže nástrojovou lištu"
+
+#: gui/forms/kid3mainwindow.cpp:635
+msgid "Show &Toolbar"
+msgstr "Zobrazovat nás&trojovou lištu"
+
+#: gui/forms/kid3mainwindow.cpp:643
+msgid "Enables/disables the statusbar"
+msgstr "Ukázat stavovou lištu"
+
+#: gui/forms/kid3mainwindow.cpp:644
+msgid "Show St&atusbar"
+msgstr "Zobrazovat st&avovou lištu"
+
+#: gui/forms/kid3mainwindow.cpp:652
+msgid "Show Picture"
+msgstr "Ukázat obrázek"
+
+#: gui/forms/kid3mainwindow.cpp:661
+msgid "Auto Hide Tags"
+msgstr "Automaticky skrýt"
+
+#: gui/forms/kid3mainwindow.cpp:670
+msgid "Configure Kid3"
+msgstr "Nastavit Kid3"
+
+#: gui/forms/kid3mainwindow.cpp:671
+msgid "&Configure Kid3..."
+msgstr "&Nastavit Kid3..."
+
+#: gui/forms/kid3mainwindow.cpp:684
+msgid "Kid3 &Handbook"
+msgstr "&Příručka k programu Kid3"
+
+#: gui/forms/kid3mainwindow.cpp:692
+msgid "About Kid3"
+msgstr "O programu Kid3"
+
+#: gui/forms/kid3mainwindow.cpp:693
+msgid "&About Kid3"
+msgstr "&O programu Kid3"
+
+#: gui/forms/kid3mainwindow.cpp:700
+msgid "About Qt"
+msgstr "O Qt"
+
+#: gui/forms/kid3mainwindow.cpp:701
+msgid "About &Qt"
+msgstr "O &Qt"
+
+#: gui/forms/kid3mainwindow.cpp:761
 msgid "Opening directory..."
 msgstr "Otevírá se adresář..."
 
-#: kid3.cpp:1198
+#: gui/forms/kid3mainwindow.cpp:879
 msgid "Saving directory..."
 msgstr "Ukládá se adresář..."
 
-#: kid3.cpp:1292 kid3.cpp:1302
+#: gui/forms/kid3mainwindow.cpp:940 gui/forms/kid3mainwindow.cpp:950
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -1475,476 +1983,159 @@ msgstr ""
 "Nynější adresář byl změněn.\n"
 "Chcete jej uložit?"
 
-#: kid3.cpp:1294
+#: gui/forms/kid3mainwindow.cpp:942
 msgid "Warning"
 msgstr "Varování"
 
-#: kid3.cpp:1301
+#: gui/forms/kid3mainwindow.cpp:949
 msgid "Warning - Kid3"
 msgstr "Varování - Kid3"
 
-#: kid3.cpp:1470 kid3.cpp:1474
-msgid "All Supported Files"
-msgstr "Všechny podporované soubory"
-
-#: kid3.cpp:1472 kid3.cpp:1478
-msgid "All Files (*)"
-msgstr "Všechny soubory (*)"
-
-#: kid3.cpp:1506
+#: gui/forms/kid3mainwindow.cpp:1028
 msgid "Open"
 msgstr "Otevřít"
 
-#: kid3.cpp:1635
+#: gui/forms/kid3mainwindow.cpp:1111
 msgid "Exiting..."
 msgstr "Ukončuje se..."
 
-#: kid3.cpp:1646
-msgid "Toggling toolbar..."
-msgstr "Přepíná se nástrojová lišta..."
-
-#: kid3.cpp:1661 kid3.cpp:1740
+#: gui/forms/kid3mainwindow.cpp:1155
 msgid "Toggle the statusbar..."
 msgstr "Přepíná se stavová lišta..."
 
-#: kid3.cpp:1852
+#: gui/forms/kid3mainwindow.cpp:1239
 msgid "Creating playlist..."
 msgstr "Vytváří se seznam skladeb..."
 
-#: kid3.cpp:1940
+#: gui/forms/kid3mainwindow.cpp:1265
 msgid "Import"
 msgstr "Zavést"
 
-#: kid3.cpp:1961
-msgid "Import..."
-msgstr "Zavést..."
-
-#: kid3.cpp:2317
+#: gui/forms/kid3mainwindow.cpp:1382
 msgid "Configure - Kid3"
 msgstr "Nastavit Kid3"
 
-#: kid3.cpp:2983
-msgid "Download"
-msgstr "Stáhnout"
+#: gui/forms/kid3mainwindow.cpp:1437 gui/forms/kid3mainwindow.cpp:1908
+msgid "Error while renaming:\n"
+msgstr "Během přejmenovávání se vyskytla chyba:\n"
 
-#: kid3.cpp:3049
+#: gui/forms/kid3mainwindow.cpp:1550
 msgid " [filtered]"
 msgstr " [filtrován]"
 
-#: kid3.cpp:3055
+#: gui/forms/kid3mainwindow.cpp:1556
 msgid " [modified]"
 msgstr "[změněný]"
 
-#: main.cpp:40
-msgid "Kid3 ID3 Tagger"
-msgstr "Značkovač ID3 programu Kid3"
-
-#: main.cpp:58
-msgid "(c) 2003-2011 Urs Fleisch"
-msgstr "(c) 2003-2011 Urs Fleisch"
-
-#: main.cpp:60
-msgid "Urs Fleisch"
-msgstr "Urs Fleisch"
-
-#: main.cpp:64 main.cpp:93
-msgid "directory to open"
-msgstr "Adresář k otevření"
-
-#: mp3file.cpp:1283 taglibfile.cpp:1600
-msgid "AENC - Audio encryption"
-msgstr "AENC - Kódování zvuku"
-
-#: mp3file.cpp:1284 taglibfile.cpp:1601
-msgid "APIC - Attached picture"
-msgstr "APIC - Připojený obrázek"
-
-#: mp3file.cpp:1286 taglibfile.cpp:1603
-msgid "COMM - Comments"
-msgstr "COMM - Poznámky"
-
-#: mp3file.cpp:1287 taglibfile.cpp:1604
-msgid "COMR - Commercial"
-msgstr "COMR - Obchodní informace"
-
-#: mp3file.cpp:1288 taglibfile.cpp:1605
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - Zápis způsobu kódování"
-
-#: mp3file.cpp:1290
-msgid "EQUA - Equalization"
-msgstr "EQUA - Vyrovnání"
-
-#: mp3file.cpp:1291 taglibfile.cpp:1607
-msgid "ETCO - Event timing codes"
-msgstr "ETCO - Časové kódy událostí"
-
-#: mp3file.cpp:1292 taglibfile.cpp:1608
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB - Všeobecný uzavřený předmět"
-
-#: mp3file.cpp:1293 taglibfile.cpp:1609
-msgid "GRID - Group identification registration"
-msgstr "GRID - Zápis určení zařazení do skupin"
-
-#: mp3file.cpp:1294
-msgid "IPLS - Involved people list"
-msgstr "IPLS - Seznam zúčastněných osob"
-
-#: mp3file.cpp:1295 taglibfile.cpp:1610
-msgid "LINK - Linked information"
-msgstr "LINK - Spojená informace"
-
-#: mp3file.cpp:1296 taglibfile.cpp:1611
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Určení hudebního CD"
-
-#: mp3file.cpp:1297 taglibfile.cpp:1612
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - Vyhledávací tabulka poloh MPEG"
-
-#: mp3file.cpp:1298 taglibfile.cpp:1613
-msgid "OWNE - Ownership frame"
-msgstr "OWNE - Vlastník"
-
-#: mp3file.cpp:1299 taglibfile.cpp:1614
-msgid "PRIV - Private frame"
-msgstr "PRIV - Soukromé"
-
-#: mp3file.cpp:1300 taglibfile.cpp:1615
-msgid "PCNT - Play counter"
-msgstr "PCNT - Počítadlo přehrání"
-
-#: mp3file.cpp:1301 taglibfile.cpp:1616
-msgid "POPM - Popularimeter"
-msgstr "POPM - Měřidlo oblíbenosti"
-
-#: mp3file.cpp:1302 taglibfile.cpp:1617
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS - Seřízení polohy"
-
-#: mp3file.cpp:1303 taglibfile.cpp:1618
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - Doporučená velikost vyrovnávací paměti"
-
-#: mp3file.cpp:1305
-msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - Poměrné přizpůsobení hlasitosti"
-
-#: mp3file.cpp:1306 taglibfile.cpp:1620
-msgid "RVRB - Reverb"
-msgstr "RVRB - Ozvěna"
-
-#: mp3file.cpp:1309 taglibfile.cpp:1623
-msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Souběžný text písně/text"
-
-#: mp3file.cpp:1310 taglibfile.cpp:1624
-msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC - Souběžné časové kódy"
-
-#: mp3file.cpp:1311 taglibfile.cpp:1625
-msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - Album/Film/Ukázat název"
-
-#: mp3file.cpp:1312 taglibfile.cpp:1626
-msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - BPM (dob za minutu)"
-
-#: mp3file.cpp:1313 taglibfile.cpp:1627
-msgid "TCOM - Composer"
-msgstr "TCOM - Skladatel"
-
-#: mp3file.cpp:1314 taglibfile.cpp:1628
-msgid "TCON - Content type"
-msgstr "TCON - Druh obsahu"
-
-#: mp3file.cpp:1315 taglibfile.cpp:1629
-msgid "TCOP - Copyright message"
-msgstr "TCOP - Sdělení o autorském právu"
-
-#: mp3file.cpp:1316
-msgid "TDAT - Date"
-msgstr "TDAT - Datum"
-
-#: mp3file.cpp:1318 taglibfile.cpp:1631
-msgid "TDLY - Playlist delay"
-msgstr "TDLY - Zdržení seznamu skladeb"
-
-#: mp3file.cpp:1324 taglibfile.cpp:1636
-msgid "TENC - Encoded by"
-msgstr "TENC - Zakódováno"
-
-#: mp3file.cpp:1325 taglibfile.cpp:1637
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - Textař/Skladatel textu"
-
-#: mp3file.cpp:1326 taglibfile.cpp:1638
-msgid "TFLT - File type"
-msgstr "TFLT - Typ souboru"
-
-#: mp3file.cpp:1327
-msgid "TIME - Time"
-msgstr "TIME - Čas"
-
-#: mp3file.cpp:1328 taglibfile.cpp:1640
-msgid "TIT1 - Content group description"
-msgstr "TIT1 - Popis skupiny obsahu"
-
-#: mp3file.cpp:1329 taglibfile.cpp:1641
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - Název/Název písně/Popis obsahu"
-
-#: mp3file.cpp:1330 taglibfile.cpp:1642
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 - Jemný rozdíl Podnázev/Přesný popis"
-
-#: mp3file.cpp:1331 taglibfile.cpp:1643
-msgid "TKEY - Initial key"
-msgstr "TKEY - Tónina na začátku"
-
-#: mp3file.cpp:1332 taglibfile.cpp:1644
-msgid "TLAN - Language(s)"
-msgstr "TLAN - Jazyk(y)"
-
-#: mp3file.cpp:1333 taglibfile.cpp:1645
-msgid "TLEN - Length"
-msgstr "TLEN - Délka"
-
-#: mp3file.cpp:1335 taglibfile.cpp:1647
-msgid "TMED - Media type"
-msgstr "TMED - Typ média"
-
-#: mp3file.cpp:1337 taglibfile.cpp:1649
-msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Původní album/Film/Ukázat název"
-
-#: mp3file.cpp:1338 taglibfile.cpp:1650
-msgid "TOFN - Original filename"
-msgstr "TOFN - Původní název souboru"
-
-#: mp3file.cpp:1339 taglibfile.cpp:1651
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Původní textař(i)/Skladatel(é) textu"
-
-#: mp3file.cpp:1340 taglibfile.cpp:1652
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Původní umělec(i)/Účinkující"
-
-#: mp3file.cpp:1341
-msgid "TORY - Original release year"
-msgstr "TORY - Původní rok vydání"
-
-#: mp3file.cpp:1342 taglibfile.cpp:1653
-msgid "TOWN - File owner/licensee"
-msgstr "TOWN - Vlastník souboru/Držitel povolení"
-
-#: mp3file.cpp:1343 taglibfile.cpp:1654
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Hlavní umělec(i)/Sólista(é)"
-
-#: mp3file.cpp:1344 taglibfile.cpp:1655
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - Hudební skupina/Orchestr/Doprovod"
-
-#: mp3file.cpp:1345 taglibfile.cpp:1656
-msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Jemný rozdíl Dirigent/Účinkující"
-
-#: mp3file.cpp:1346 taglibfile.cpp:1657
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - Umělecky ztvárněno, znovu zamícháno nebo jinak změněno od"
-
-#: mp3file.cpp:1347 taglibfile.cpp:1658
-msgid "TPOS - Part of a set"
-msgstr "TPOS - Část souboru skladeb"
-
-#: mp3file.cpp:1349 taglibfile.cpp:1660
-msgid "TPUB - Publisher"
-msgstr "TPUB - Vydavatel"
-
-#: mp3file.cpp:1350 taglibfile.cpp:1661
-msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - Číslo skladby/Poloha v souboru skladeb"
-
-#: mp3file.cpp:1351
-msgid "TRDA - Recording dates"
-msgstr "TRDA - Datum nahrávky"
-
-#: mp3file.cpp:1352 taglibfile.cpp:1662
-msgid "TRSN - Internet radio station name"
-msgstr "TRSN - Název internetové rozhlasové stanice"
-
-#: mp3file.cpp:1353 taglibfile.cpp:1663
-msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - Vlastník internetové rozhlasové stanice"
-
-#: mp3file.cpp:1354
-msgid "TSIZ - Size"
-msgstr "TSIZ - Velikost"
-
-#: mp3file.cpp:1358 taglibfile.cpp:1667
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - ISRC (Obvyklý mezinárodní nahrávací kód)"
-
-#: mp3file.cpp:1359 taglibfile.cpp:1668
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - Software/Hardware a nastavení kódování"
-
-#: mp3file.cpp:1361 taglibfile.cpp:1670
-msgid "TXXX - User defined text information"
-msgstr "TXXX - Uživatelsky stanovená textová informace"
-
-#: mp3file.cpp:1362
-msgid "TYER - Year"
-msgstr "TYER - Rok"
-
-#: mp3file.cpp:1363 taglibfile.cpp:1671
-msgid "UFID - Unique file identifier"
-msgstr "UFID - Jedinečné určení souboru"
-
-#: mp3file.cpp:1364 taglibfile.cpp:1672
-msgid "USER - Terms of use"
-msgstr "USER - Podmínky užití"
-
-#: mp3file.cpp:1365 taglibfile.cpp:1673
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT - Nesouběžný přepis textu písně/textu"
-
-#: mp3file.cpp:1366 taglibfile.cpp:1674
-msgid "WCOM - Commercial information"
-msgstr "WCOM - Obchodní sdělení"
-
-#: mp3file.cpp:1367 taglibfile.cpp:1675
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - Autorské právo/Zákonná sdělení"
-
-#: mp3file.cpp:1368 taglibfile.cpp:1676
-msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Veřejné internetové stránky zvukového souboru"
-
-#: mp3file.cpp:1369 taglibfile.cpp:1677
-msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Veřejné internetové stránky umělce/účinkujícího"
-
-#: mp3file.cpp:1370 taglibfile.cpp:1678
-msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Veřejné internetové stránky zvukového zdroje"
-
-#: mp3file.cpp:1371 taglibfile.cpp:1679
-msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Veřejné internetové stránky internetové rozhlasové stanice"
-
-#: mp3file.cpp:1372 taglibfile.cpp:1680
-msgid "WPAY - Payment"
-msgstr "WPAY - Platba"
-
-#: mp3file.cpp:1373 taglibfile.cpp:1681
-msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Veřejné internetové stránky vydavatele"
-
-#: mp3file.cpp:1374 taglibfile.cpp:1682
-msgid "WXXX - User defined URL link"
-msgstr "WXXX - Uživatelsky stanovený odkaz na URL"
-
-#: musicbrainzclient.cpp:290
-msgid "Metadata Read"
-msgstr "Číst údaje k souborům"
-
-#: musicbrainzclient.cpp:292 musicbrainzclient.cpp:595
-msgid "Unrecognized"
-msgstr "Nerozpoznáno"
-
-#: musicbrainzclient.cpp:293 musicbrainzclient.cpp:593
-msgid "Recognized"
-msgstr "Rozpoznáno"
-
-#: musicbrainzclient.cpp:294 musicbrainzclient.cpp:339
-msgid "Pending"
-msgstr "Probíhá hledání"
-
-#: musicbrainzclient.cpp:296
-msgid "PUID Lookup"
-msgstr "Hledání PUID"
-
-#: musicbrainzclient.cpp:297
-msgid "PUID Collision"
-msgstr "Střetnutí PUID"
-
-#: musicbrainzclient.cpp:299
-msgid "TRM Lookup"
-msgstr "Hledání TRM"
-
-#: musicbrainzclient.cpp:300
-msgid "TRM Collision"
-msgstr "Střetnutí TRM"
-
-#: musicbrainzclient.cpp:302
-msgid "File Lookup"
-msgstr "Vyhledání souboru"
-
-#: musicbrainzclient.cpp:303 musicbrainzclient.cpp:590
-msgid "User Selection"
-msgstr "Výběr"
-
-#: musicbrainzclient.cpp:304
-msgid "Verified"
-msgstr "Ověřeno"
-
-#: musicbrainzclient.cpp:305
-msgid "Saved"
-msgstr "Uloženo"
-
-#: musicbrainzclient.cpp:306
-msgid "Deleted"
-msgstr "Smazáno"
-
-#: musicbrainzclient.cpp:307 rendirdialog.cpp:775
-msgid "Error"
-msgstr "Chyba"
-
-#: musicbrainzclient.cpp:342
-msgid "Removed"
-msgstr "Odstraněno"
-
-#: musicbrainzclient.cpp:414
-msgid "Written"
-msgstr "Zapsáno"
-
-#: musicbrainzdialog.cpp:64
-msgid "MusicBrainz"
-msgstr "MusicBrainz"
-
-#: musicbrainzdialog.cpp:111 musicbrainzdialog.cpp:129
-msgid "Track Title/Artist - Album"
-msgstr "Název skladby/Umělec - Album"
-
-#: musicbrainzdialog.cpp:112 musicbrainzdialog.cpp:130
-msgid "State"
-msgstr "Stav"
-
-#: musicbrainzdialog.cpp:214 musicbrainzdialog.cpp:230
-#: musicbrainzdialog.cpp:417
-msgid "No result"
-msgstr "Žádný výsledek"
-
-#: musicbrainzdialog.cpp:417
-msgid "No result selected"
-msgstr "Nevybrán žádný výsledek"
-
-#: numbertracksdialog.cpp:65
-msgid "&Start number:"
-msgstr "&Začáteční číslo:"
-
-#: numbertracksdialog.cpp:78
-msgid "&Destination:"
-msgstr "&Cíl:"
-
-#: numbertracksdialog.cpp:96
-msgid "&Total number of tracks:"
-msgstr "Celkový počet s&top:"
-
-#: picturelabel.cpp:85
+#: gui/forms/kid3mainwindow.cpp:1798
+msgid "Add Frame"
+msgstr "Přidat prvek"
+
+#: gui/forms/kid3mainwindow.cpp:1799
+msgid "Select the frame ID"
+msgstr "Vybrat ID prvku"
+
+#: gui/forms/kid3mainwindow.cpp:1889
+msgid "Rename File"
+msgstr "Přejmenovat soubor"
+
+#: gui/forms/kid3mainwindow.cpp:1890
+msgid "Enter new file name:"
+msgstr "Zadejte nový název souboru:"
+
+#: gui/forms/kid3mainwindow.cpp:1917
+msgid "Do you really want to delete these %1 items?"
+msgstr "Opravdu chcete smazat tyto %1 záznamy?"
+
+#: gui/forms/kid3mainwindow.cpp:1919
+msgid "Error while deleting these %1 items:"
+msgstr "Během mazání těchto %1 záznamů se vyskytla chyba:"
+
+#: gui/forms/kid3mainwindow.cpp:1945 gui/forms/kid3mainwindow.cpp:1954
+msgid "Do you really want to delete this item?"
+msgid_plural "Do you really want to delete these %1 items?"
+msgstr[0] "Opravdu chcete smazat tento záznam?"
+msgstr[1] "Opravdu chcete smazat tyto %1 záznamy?"
+
+#: gui/forms/kid3mainwindow.cpp:1948 gui/forms/kid3mainwindow.cpp:1958
+msgid "Delete Files"
+msgstr "Smazat soubory"
+
+#: gui/forms/kid3mainwindow.cpp:1985
+msgid "Directory must be empty.\n"
+msgstr "Adresář musí být prázdný.\n"
+
+#: gui/forms/kid3mainwindow.cpp:1987 gui/forms/kid3mainwindow.cpp:1993
+msgid "Error while deleting this item:"
+msgid_plural "Error while deleting these %1 items:"
+msgstr[0] "Během mazání tohoto záznamu se vyskytla chyba:"
+msgstr[1] "Během mazání těchto %1 záznamů se vyskytla chyba:"
+
+#: gui/widgets/configtable.cpp:135
+msgid "&Insert row"
+msgstr "&Vložit řádek"
+
+#: gui/widgets/configtable.cpp:139
+msgid "&Delete row"
+msgstr "&Smazat řádek"
+
+#: gui/widgets/configtable.cpp:143
+msgid "&Clear row"
+msgstr "Vy&prázdnit řádek"
+
+#: gui/widgets/formatbox.cpp:47
+msgid "Format while editing"
+msgstr "Formátovat během úprav"
+
+#: gui/widgets/formatbox.cpp:51
+msgid "Case conversion:"
+msgstr "Psaní velkých/malých písmen:"
+
+#: gui/widgets/formatbox.cpp:57
+msgid "No changes"
+msgstr "Žádné změny"
+
+#: gui/widgets/formatbox.cpp:59
+msgid "All lowercase"
+msgstr "Vše malými písmeny"
+
+#: gui/widgets/formatbox.cpp:61
+msgid "All uppercase"
+msgstr "Vše velkými písmeny"
+
+#: gui/widgets/formatbox.cpp:63
+msgid "First letter uppercase"
+msgstr "První písmeno velké"
+
+#: gui/widgets/formatbox.cpp:65
+msgid "All first letters uppercase"
+msgstr "Všechna první písmena velká"
+
+#: gui/widgets/formatbox.cpp:68
+msgid "String replacement:"
+msgstr "Nahrazení řetězce:"
+
+#: gui/widgets/formatbox.cpp:72
+msgid "From"
+msgstr "Z"
+
+#: gui/widgets/formatbox.cpp:72
+msgid "To"
+msgstr "Na"
+
+#: gui/widgets/frametable.cpp:145
+msgid "&Select all"
+msgstr "&Vybrat vše"
+
+#: gui/widgets/frametable.cpp:147
+msgid "&Deselect all"
+msgstr "Z&rušit výběr"
+
+#: gui/widgets/imageviewer.cpp:47
+msgid "View Picture"
+msgstr "Zobrazit obrázek"
+
+#: gui/widgets/picturelabel.cpp:58
 msgid ""
 "Drag album\n"
 "artwork\n"
@@ -1954,309 +2145,76 @@ msgstr ""
 "obal alba\n"
 "sem"
 
-#: playlistdialog.cpp:61
-msgid "Create Playlist"
-msgstr "Vytvořit seznam skladeb"
-
-#: playlistdialog.cpp:202
-msgid "Playlist File Name"
-msgstr "Název souboru se seznamem skladeb"
-
-#: playlistdialog.cpp:203
-msgid "Same as &directory name"
-msgstr "Stejný jako &název adresáře"
-
-#: playlistdialog.cpp:205 rendirdialog.cpp:184
-msgid "&Format:"
-msgstr "&Formát:"
-
-#: playlistdialog.cpp:214
-msgid "Cr&eate in:"
-msgstr "V&ytvořit v:"
-
-#: playlistdialog.cpp:218
-msgid "Current directory"
-msgstr "Současný adresář"
-
-#: playlistdialog.cpp:219
-msgid "Every directory"
-msgstr "Každý adresář"
-
-#: playlistdialog.cpp:220
-msgid "Top-level directory"
-msgstr "Adresář na nejvyšší úrovni"
-
-#: playlistdialog.cpp:221
-msgid "Playlist Content"
-msgstr "Obsah seznamu skladeb"
-
-#: playlistdialog.cpp:222
-msgid "For&mat:"
-msgstr "For&mát:"
-
-#: playlistdialog.cpp:225
-msgid "Incl&ude only the selected files"
-msgstr "Zař&adit pouze vybrané soubory"
-
-#: playlistdialog.cpp:226
-msgid "Sort by file &name"
-msgstr "Seřadit podle &názvu souboru"
-
-#: playlistdialog.cpp:228
-msgid "Sort by &tag field"
-msgstr "Seřadit podle pole se &značkou"
-
-#: playlistdialog.cpp:242
-msgid "Use &relative path for files in playlist"
-msgstr "Pro soubory v seznamu skladeb použít k nim se &vztahující cestu"
-
-#: playlistdialog.cpp:244
-msgid "Use full p&ath for files in playlist"
-msgstr "Pro soubory v seznamu skladeb použít úplnou &cestu"
-
-#: playlistdialog.cpp:245
-msgid "Write only &list of files"
-msgstr "Zapsat pouze &seznamy souborů"
-
-#: playlistdialog.cpp:247
-msgid "Write &info using"
-msgstr "Zapsat &údaje pomocí"
-
-#: playtoolbar.cpp:64
+#: gui/widgets/playtoolbar.cpp:62
 msgid "Play/Pause"
 msgstr "Přehrát/Pozastavit"
 
-#: playtoolbar.cpp:66
+#: gui/widgets/playtoolbar.cpp:64
 msgid "Stop playback"
 msgstr "Zastavit přehrávání"
 
-#: playtoolbar.cpp:68
+#: gui/widgets/playtoolbar.cpp:66
 msgid "Previous Track"
 msgstr "Předchozí skladba"
 
-#: playtoolbar.cpp:70
+#: gui/widgets/playtoolbar.cpp:68
 msgid "Next Track"
 msgstr "Další skladba"
 
-#: playtoolbar.cpp:72
+#: gui/widgets/playtoolbar.cpp:70
 msgid "Close"
 msgstr "Zavřít"
 
-#: recentfilesmenu.cpp:135
+#: gui/widgets/recentfilesmenu.cpp:111
 msgid "&Clear List"
 msgstr "&Smazat seznam"
 
-#: rendirdialog.cpp:49
-msgid "Create directory %1 failed\n"
-msgstr "Vytvoření adresáře %1 se nepodařilo\n"
-
-#: rendirdialog.cpp:51
-msgid "File %1 already exists\n"
-msgstr "Soubor %1 již existuje\n"
-
-#: rendirdialog.cpp:53
-msgid "%1 is not a directory\n"
-msgstr "%1 není adresářem\n"
-
-#: rendirdialog.cpp:55
-msgid "Rename %1 to %2 failed\n"
-msgstr "Přejmenování %1 na %2 se nepodařilo\n"
-
-#: rendirdialog.cpp:57
-msgid "%1 already exists\n"
-msgstr ""
-"%1 již existuje\n"
-"\n"
-
-#: rendirdialog.cpp:59
-msgid "%1 is not a file\n"
-msgstr "%1 není souborem\n"
-
-#: rendirdialog.cpp:83 rendirdialog.cpp:139
-msgid "Preview"
-msgstr "Náhled"
-
-#: rendirdialog.cpp:173
-msgid "Create Directory"
-msgstr "vytvořit adresář"
-
-#: rendirdialog.cpp:176
-msgid "From Tag 2 and Tag 1"
-msgstr "Ze značky 2 a značky 1"
-
-#: rendirdialog.cpp:647
-msgid "New directory name is too different\n"
-msgstr "Nový název adresáře se příliš liší\n"
-
-#: rendirdialog.cpp:772
-msgid "Create directory"
-msgstr "Vytvořit adresář"
-
-#: rendirdialog.cpp:773
-msgid "Rename directory"
-msgstr "Přejmenovat adresář"
-
-#: rendirdialog.cpp:774
-msgid "Rename file"
-msgstr "Přejmenovat soubor"
-
-#: stringlistedit.cpp:56
+#: gui/widgets/stringlistedit.cpp:52
 msgid "&Add..."
 msgstr "&Přidat..."
 
-#: stringlistedit.cpp:57
+#: gui/widgets/stringlistedit.cpp:53
 msgid "Move &Up"
 msgstr "Posunout &nahoru"
 
-#: stringlistedit.cpp:58
+#: gui/widgets/stringlistedit.cpp:54
 msgid "Move &Down"
 msgstr "Posunout &dolů"
 
-#: stringlistedit.cpp:59
+#: gui/widgets/stringlistedit.cpp:55
 msgid "&Edit..."
 msgstr "&Upravit..."
 
-#: stringlistedit.cpp:60
+#: gui/widgets/stringlistedit.cpp:56
 msgid "&Remove"
 msgstr "&Odstranit"
 
-#: stringlistedit.cpp:136
+#: gui/widgets/stringlistedit.cpp:95
 msgid "Add Item"
 msgstr "Přidat položku"
 
-#: stringlistedit.cpp:183 stringlistedit.cpp:194
+#: gui/widgets/stringlistedit.cpp:128
 msgid "Edit Item"
 msgstr "Upravit položku"
 
-#: taglibfile.cpp:1602
-msgid "ASPI - Audio seek point index"
-msgstr "ASPI - Rejstřík s body hledání zvuku"
-
-#: taglibfile.cpp:1606
-msgid "EQU2 - Equalisation (2)"
-msgstr "EQU2 - Vyrovnání (2)"
-
-#: taglibfile.cpp:1619
-msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVA2 - Poměrné přizpůsobení hlasitosti (2)"
-
-#: taglibfile.cpp:1621
-msgid "SEEK - Seek frame"
-msgstr "SEEK - Hledání"
-
-#: taglibfile.cpp:1622
-msgid "SIGN - Signature frame"
-msgstr "SIGN - Podpis"
-
-#: taglibfile.cpp:1630
-msgid "TDEN - Encoding time"
-msgstr "TDEN - Čas zakódování"
-
-#: taglibfile.cpp:1632
-msgid "TDOR - Original release time"
-msgstr "TDOR - Původní rok vydání"
-
-#: taglibfile.cpp:1633
-msgid "TDRC - Recording time"
-msgstr "TDRC - Čas nahrání"
-
-#: taglibfile.cpp:1634
-msgid "TDRL - Release time"
-msgstr "TDRL - Čas vydání"
-
-#: taglibfile.cpp:1635
-msgid "TDTG - Tagging time"
-msgstr "TDTG - Čas opatření značkami"
-
-#: taglibfile.cpp:1639
-msgid "TIPL - Involved people list"
-msgstr "TIPL - Seznam zúčastněných osob"
-
-#: taglibfile.cpp:1646
-msgid "TMCL - Musician credits list"
-msgstr "TMCL - Seznam hudebníků"
-
-#: taglibfile.cpp:1648
-msgid "TMOO - Mood"
-msgstr "TMOO - Nálada"
-
-#: taglibfile.cpp:1659
-msgid "TPRO - Produced notice"
-msgstr "TPRO - Autorské právo výroby"
-
-#: taglibfile.cpp:1664
-msgid "TSOA - Album sort order"
-msgstr "TSOA - Setřídění alb"
-
-#: taglibfile.cpp:1665
-msgid "TSOP - Performer sort order"
-msgstr "TSOP - Setřídění účinkujících"
-
-#: taglibfile.cpp:1666
-msgid "TSOT - Title sort order"
-msgstr "TSOT - Setřídění názvů"
-
-#: taglibfile.cpp:1669
-msgid "TSST - Set subtitle"
-msgstr "TSST - Podnázev skladby"
-
-#. i18n: file: kid3ui.rc:37
-#. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:15
-msgid "Main Toolbar"
-msgstr "Hlavní pruh s nástroji"
-
-#: rc.cpp:16
+#: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: rc.cpp:17
+#: rc.cpp:2
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "fripohled.blogspot.com"
 
-#: rc.cpp:18
+#: rc.cpp:3
 msgid ""
 "_: NAME OF TRANSLATORS\n"
 "Your names"
 msgstr "Pavel Fric"
 
-#: rc.cpp:19
+#: rc.cpp:4
 msgid ""
 "_: EMAIL OF TRANSLATORS\n"
 "Your emails"
 msgstr "fripohled.blogspot.com"
-
-#~ msgid "File&name"
-#~ msgstr "Název &souboru"
-
-#~ msgid "Info:"
-#~ msgstr "Informace:"
-
-#~ msgid "Hide Tag &1"
-#~ msgstr "Skrýt značku &1"
-
-#~ msgid "Hide Tag &2"
-#~ msgstr "Skrýt značku &2"
-
-#~ msgid "Hide &Picture"
-#~ msgstr "Skrýt &obrázek"
-
-#~ msgid "Hide Tag 2"
-#~ msgstr "Skrýt značku 2"
-
-#~ msgid "Hide Picture"
-#~ msgstr "Skrýt obrázek"
-
-#~ msgid "Show Tag &1"
-#~ msgstr "Ukázat značku &1"
-
-#~ msgid "Show Tag 1"
-#~ msgstr "Ukázat značku 1"
-
-#~ msgid "Show Tag &2"
-#~ msgstr "Ukázat značku &2"
-
-#~ msgid "Show Tag 2"
-#~ msgstr "Ukázat značku 2"

@@ -183,6 +183,9 @@ Kid3MainWindow::~Kid3MainWindow()
 #endif
 }
 
+/** Only defined for generation of translation files */
+#define MAIN_TOOLBAR_FOR_PO I18N_NOOP("Main Toolbar")
+
 /**
  * Init menu and toolbar actions.
  */
@@ -1909,6 +1912,11 @@ void Kid3MainWindow::renameFile()
     }
   }
 }
+
+/** Only defined for generation of translation files */
+#define WANT_TO_DELETE_FOR_PO I18N_NOOP("Do you really want to delete these %1 items?")
+/** Only defined for generation of translation files */
+#define ERROR_DELETING_FOR_PO I18N_NOOP("Error while deleting these %1 items:")
 
 /**
  * Delete the selected file(s).

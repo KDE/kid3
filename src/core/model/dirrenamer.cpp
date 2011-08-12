@@ -65,6 +65,9 @@ static QString parentDirectory(const QString& dir)
   return parent;
 }
 
+/** Only defined for generation of translation files */
+#define CREATE_DIR_FAILED_FOR_PO I18N_NOOP("Create directory %1 failed\n")
+
 /**
  * Create a directory if it does not exist.
  *
@@ -87,6 +90,13 @@ bool DirRenamer::createDirectory(const QString& dir,
     return false;
   }
 }
+
+/** Only defined for generation of translation files */
+#define FILE_ALREADY_EXISTS_FOR_PO I18N_NOOP("File %1 already exists\n")
+/** Only defined for generation of translation files */
+#define IS_NOT_DIR_FOR_PO I18N_NOOP("%1 is not a directory\n")
+/** Only defined for generation of translation files */
+#define RENAME_FAILED_FOR_PO I18N_NOOP("Rename %1 to %2 failed\n")
 
 /**
  * Rename a directory.
@@ -122,6 +132,11 @@ bool DirRenamer::renameDirectory(
     return false;
   }
 }
+
+/** Only defined for generation of translation files */
+#define ALREADY_EXISTS_FOR_PO I18N_NOOP("%1 already exists\n")
+/** Only defined for generation of translation files */
+#define IS_NOT_FILE_FOR_PO I18N_NOOP("%1 is not a file\n")
 
 /**
  * Rename a file.

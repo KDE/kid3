@@ -90,6 +90,9 @@ void HttpClient::slotStateChanged(int state)
   }
 }
 
+/** Only defined for generation of translation files */
+#define DATA_RECEIVED_FOR_PO I18N_NOOP("Data received: %1")
+
 /**
  * Called to report connection progress.
  *
