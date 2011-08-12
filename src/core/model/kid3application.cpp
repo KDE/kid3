@@ -1415,10 +1415,12 @@ void Kid3Application::scheduleRenameActions()
   getDirRenamer()->clearActions();
   // If directories are selected, rename them, else process files of the
   // current directory.
-  QScopedPointer<AbstractTaggedFileIterator> it(
-        new TaggedFileOfSelectedDirectoriesIterator(m_fileSelectionModel));
-  if (!it->hasNext())
-    it.reset(new TaggedFileIterator(getRootIndex()));
+  AbstractTaggedFileIterator* it =
+      new TaggedFileOfSelectedDirectoriesIterator(m_fileSelectionModel);
+  if (!it->hasNext()) {
+    delete it;
+    it = new TaggedFileIterator(getRootIndex());
+  }
   while (it->hasNext()) {
     TaggedFile* taggedFile = it->next();
     taggedFile->readTags(false);
@@ -1435,6 +1437,7 @@ void Kid3Application::scheduleRenameActions()
       break;
     }
   }
+  delete it;
 }
 
 /**
@@ -1553,7 +1556,7 @@ bool Kid3Application::renameDirectory(TrackData::TagVersion tagMask,
  *
  * @param nr start number
  * @param total total number of tracks, used if >0
-  * @param tagVersion determines on which tags the numbers are set
+ * @param tagVersion determines on which tags the numbers are set
  */
 void Kid3Application::numberTracks(int nr, int total,
                                    TrackData::TagVersion tagVersion)
@@ -1565,13 +1568,15 @@ void Kid3Application::numberTracks(int nr, int total,
 
   // If directories are selected, number their files, else process the selected
   // files of the current directory.
-  QScopedPointer<AbstractTaggedFileIterator> it(
-        new TaggedFileOfSelectedDirectoriesIterator(getFileSelectionModel()));
-  if (!it->hasNext())
-    it.reset(new SelectedTaggedFileOfDirectoryIterator(
+  AbstractTaggedFileIterator* it =
+      new TaggedFileOfSelectedDirectoriesIterator(getFileSelectionModel());
+  if (!it->hasNext()) {
+    delete it;
+    it = new SelectedTaggedFileOfDirectoryIterator(
                currentOrRootIndex(),
                getFileSelectionModel(),
-               true));
+               true);
+  }
   while (it->hasNext()) {
     TaggedFile* taggedFile = it->next();
     taggedFile->readTags(false);
@@ -1610,6 +1615,7 @@ void Kid3Application::numberTracks(int nr, int total,
     ++nr;
   }
   emit selectedFilesUpdated();
+  delete it;
 }
 
 #ifdef HAVE_PHONON
