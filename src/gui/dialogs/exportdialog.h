@@ -32,10 +32,12 @@
 #include "trackdata.h"
 
 class QTextEdit;
+class QTableView;
 class QLineEdit;
 class QPushButton;
 class QComboBox;
 class TextExporter;
+class TextTableModel;
 
 /**
  * Export dialog.
@@ -110,6 +112,8 @@ private:
 
   /** Text editor */
   QTextEdit* m_edit;
+  /** Table view */
+  QTableView* m_table;
   /** cobobox with formats */
   QComboBox* m_formatComboBox;
   /** LineEdit for header */
@@ -133,6 +137,8 @@ private:
 
   /** text exporter */
   TextExporter* m_textExporter;
+  /** text table model */
+  TextTableModel* m_textTableModel;
 };
 
 #endif

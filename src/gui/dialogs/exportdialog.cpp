@@ -39,6 +39,7 @@
 #include <QSpinBox>
 #include <QString>
 #include <QTextEdit>
+#include <QTableView>
 #include <QLineEdit>
 #include <QComboBox>
 #include <QDir>
@@ -55,6 +56,7 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "textexporter.h"
+#include "texttablemodel.h"
 #include "qtcompatmac.h"
 
 /**
@@ -65,7 +67,7 @@
  */
 ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   QDialog(parent),
-  m_textExporter(textExporter)
+  m_textExporter(textExporter), m_textTableModel(new TextTableModel(this))
 {
   setObjectName("ExportDialog");
   setModal(true);
@@ -81,6 +83,10 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
       m_edit->setAcceptRichText(false);
       vlayout->addWidget(m_edit);
     }
+    m_table = new QTableView(this);
+    m_table->setModel(m_textTableModel);
+    m_table->hide();
+    vlayout->addWidget(m_table);
 
     QGroupBox* fmtbox = new QGroupBox(i18n("&Format"), this);
     if (fmtbox) {
@@ -241,7 +247,16 @@ void ExportDialog::showPreview()
   m_textExporter->updateText(m_headerLineEdit->text(),
                              m_trackLineEdit->text(),
                              m_trailerLineEdit->text());
-  m_edit->setPlainText(m_textExporter->getText());
+  QString text(m_textExporter->getText());
+  if (m_textTableModel->setText(text, !m_headerLineEdit->text().isEmpty())) {
+    m_table->resizeColumnsToContents();
+    m_table->show();
+    m_edit->hide();
+  } else {
+    m_edit->setPlainText(text);
+    m_table->hide();
+    m_edit->show();
+  }
 }
 
 /**

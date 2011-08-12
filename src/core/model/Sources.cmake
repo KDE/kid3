@@ -17,6 +17,7 @@ set(model_SRCS
   model/kid3application.cpp
   model/modeliterator.cpp
   model/taggedfileiconprovider.cpp
+  model/texttablemodel.cpp
   model/trackdatamodel.cpp
 )
 
