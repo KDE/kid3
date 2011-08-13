@@ -188,7 +188,7 @@ ImportConfig::ImportConfig(const QString& grp) :
 
   m_importTagsNames.append("Track Number from Title");
   m_importTagsSources.append("%{title}");
-  m_importTagsExtractions.append("\\s*%{track}(\\d+)[\\.\\s]+%{title}(.*\\S)\\s*");
+  m_importTagsExtractions.append("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S.*\\S)\\s*");
 
   m_importTagsNames.append("Track Number to Title");
   m_importTagsSources.append("%{track} %{title}");
