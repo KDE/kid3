@@ -2,6 +2,7 @@ set(widgets_SRCS
   widgets/comboboxdelegate.cpp
   widgets/configtable.cpp
   widgets/formatbox.cpp
+  widgets/formatlistedit.cpp
   widgets/frametable.cpp
   widgets/imageviewer.cpp
   widgets/picturelabel.cpp
@@ -13,6 +14,7 @@ set(widgets_SRCS
 set(widgets_MOC_HDRS
   widgets/configtable.h
   widgets/formatbox.h
+  widgets/formatlistedit.h
   widgets/frametable.h
   widgets/imageviewer.h
   widgets/playtoolbar.h

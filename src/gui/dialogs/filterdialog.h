@@ -28,13 +28,11 @@
 #define FILTERDIALOG_H
 
 #include <QDialog>
-#include <QStringList>
 #include <QTextEdit>
 #include "filefilter.h"
 
-class QLineEdit;
-class QComboBox;
 class QPushButton;
+class FormatListEdit;
 
 /**
  * Filter dialog.
@@ -75,13 +73,6 @@ signals:
 
 public slots:
   /**
-   * Set the filter lineedit to the filter selected in the combo box.
-   *
-   * @param index current index of the combo box
-   */
-  void setFilterLineEdit(int index);
-
-  /**
    * Show information about filter event.
    *
    * @param type filter event type
@@ -114,16 +105,10 @@ private:
 
   /** Text editor */
   QTextEdit* m_edit;
-  /** cobobox with filter names */
-  QComboBox* m_nameComboBox;
-  /** LineEdit for filter expression */
-  QLineEdit* m_filterLineEdit;
+  /** format editor */
+  FormatListEdit* m_formatListEdit;
   /** Apply button */
   QPushButton* m_applyButton;
-  /** filter names */
-  QStringList m_filterNames;
-  /** filter expressions */
-  QStringList m_filterExpressions;
   /** file filter used */
   FileFilter m_fileFilter;
 };

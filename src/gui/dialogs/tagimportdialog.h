@@ -28,12 +28,8 @@
 #define TAGIMPORTDIALOG_H
 
 #include <QDialog>
-#include <QStringList>
 
-class QLineEdit;
-class QLabel;
-class QComboBox;
-class QPushButton;
+class FormatListEdit;
 class TrackDataModel;
 
 /**
@@ -69,13 +65,6 @@ private slots:
   void apply();
 
   /**
-   * Set the format lineedits to the format selected in the combo box.
-   *
-   * @param index current index of the combo box
-   */
-  void setFormatLineEdit(int index);
-
-  /**
    * Save the local settings to the configuration.
    */
   void saveConfig();
@@ -97,17 +86,7 @@ private:
    */
   void setFormatFromConfig();
 
-  /** combobox with import formats */
-  QComboBox* m_formatComboBox;
-  /** LineEdit for source expression */
-  QLineEdit* m_sourceLineEdit;
-  /** LineEdit for extraction regexp */
-  QLineEdit* m_extractionLineEdit;
-  /** Source expressions */
-  QStringList m_formatSources;
-  /** Extraction regexps */
-  QStringList m_formatExtractions;
-
+  FormatListEdit* m_formatListEdit;
   TrackDataModel* m_trackDataModel;
 };
 

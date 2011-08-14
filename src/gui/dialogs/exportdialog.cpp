@@ -40,15 +40,12 @@
 #include <QString>
 #include <QTextEdit>
 #include <QTableView>
-#include <QLineEdit>
 #include <QComboBox>
 #include <QDir>
 #include <QApplication>
 #include <QClipboard>
 #include <QUrl>
-#include <QToolTip>
 #include <QMessageBox>
-#include <QGroupBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "taggedfile.h"
@@ -57,6 +54,7 @@
 #include "contexthelp.h"
 #include "textexporter.h"
 #include "texttablemodel.h"
+#include "formatlistedit.h"
 #include "qtcompatmac.h"
 
 /**
@@ -88,31 +86,20 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
     m_table->hide();
     vlayout->addWidget(m_table);
 
-    QGroupBox* fmtbox = new QGroupBox(i18n("&Format"), this);
-    if (fmtbox) {
-      m_formatComboBox = new QComboBox(fmtbox);
-      m_formatComboBox->setEditable(true);
-      m_headerLineEdit = new QLineEdit(fmtbox);
-      m_trackLineEdit = new QLineEdit(fmtbox);
-      m_trailerLineEdit = new QLineEdit(fmtbox);
-      QString formatToolTip = ImportTrackData::getFormatToolTip();
-      m_headerLineEdit->setToolTip(formatToolTip);
-      m_trackLineEdit->setToolTip(formatToolTip);
-      m_trailerLineEdit->setToolTip(formatToolTip);
-      QVBoxLayout* vbox = new QVBoxLayout;
-      vbox->setMargin(2);
-      vbox->addWidget(m_formatComboBox);
-      vbox->addWidget(m_headerLineEdit);
-      vbox->addWidget(m_trackLineEdit);
-      vbox->addWidget(m_trailerLineEdit);
-      fmtbox->setLayout(vbox);
-      vlayout->addWidget(fmtbox);
-      connect(m_formatComboBox, SIGNAL(activated(int)), this,
-              SLOT(setFormatLineEdit(int)));
-      connect(m_headerLineEdit, SIGNAL(returnPressed()), this, SLOT(showPreview()));
-      connect(m_trackLineEdit, SIGNAL(returnPressed()), this, SLOT(showPreview()));
-      connect(m_trailerLineEdit, SIGNAL(returnPressed()), this, SLOT(showPreview()));
-    }
+    QString formatToolTip = ImportTrackData::getFormatToolTip();
+    m_formatListEdit = new FormatListEdit(
+          QStringList() << i18n("Format:")
+                        << i18n("Header:")
+                        << i18n("Tracks:")
+                        << i18n("Footer"),
+          QStringList() << QString()
+                        << formatToolTip
+                        << formatToolTip
+                        << formatToolTip,
+          this);
+    connect(m_formatListEdit, SIGNAL(formatChanged()),
+            this, SLOT(showPreview()));
+    vlayout->addWidget(m_formatListEdit);
 
     QHBoxLayout* butlayout = new QHBoxLayout;
     if (butlayout) {
@@ -221,34 +208,16 @@ void ExportDialog::slotToClipboard()
 }
 
 /**
- * Set the format lineedits to the format selected in the combo box.
- *
- * @param index current index of the combo box
- */
-void ExportDialog::setFormatLineEdit(int index)
-{
-  if (index < static_cast<int>(m_formatHeaders.size())) {
-    m_headerLineEdit->setText(m_formatHeaders[index]);
-    m_trackLineEdit->setText(m_formatTracks[index]);
-    m_trailerLineEdit->setText(m_formatTrailers[index]);
-  } else {
-    m_headerLineEdit->clear();
-    m_trackLineEdit->clear();
-    m_trailerLineEdit->clear();
-  }
-  showPreview();
-}
-
-/**
  * Show exported text as preview in editor.
  */
 void ExportDialog::showPreview()
 {
-  m_textExporter->updateText(m_headerLineEdit->text(),
-                             m_trackLineEdit->text(),
-                             m_trailerLineEdit->text());
+  m_textExporter->updateText(m_formatListEdit->getCurrentFormat(1),
+                             m_formatListEdit->getCurrentFormat(2),
+                             m_formatListEdit->getCurrentFormat(3));
   QString text(m_textExporter->getText());
-  if (m_textTableModel->setText(text, !m_headerLineEdit->text().isEmpty())) {
+  if (m_textTableModel->setText(
+        text, !m_formatListEdit->getCurrentFormat(1).isEmpty())) {
     m_table->resizeColumnsToContents();
     m_table->show();
     m_edit->hide();
@@ -264,13 +233,12 @@ void ExportDialog::showPreview()
  */
 void ExportDialog::setFormatFromConfig()
 {
-  m_formatHeaders = ConfigStore::s_genCfg.m_exportFormatHeaders;
-  m_formatTracks = ConfigStore::s_genCfg.m_exportFormatTracks;
-  m_formatTrailers = ConfigStore::s_genCfg.m_exportFormatTrailers;
-  m_formatComboBox->clear();
-  m_formatComboBox->addItems(ConfigStore::s_genCfg.m_exportFormatNames);
-  m_formatComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_exportFormatIdx);
-  setFormatLineEdit(ConfigStore::s_genCfg.m_exportFormatIdx);
+  m_formatListEdit->setFormats(
+        QList<QStringList>() << ConfigStore::s_genCfg.m_exportFormatNames
+                             << ConfigStore::s_genCfg.m_exportFormatHeaders
+                             << ConfigStore::s_genCfg.m_exportFormatTracks
+                             << ConfigStore::s_genCfg.m_exportFormatTrailers,
+        ConfigStore::s_genCfg.m_exportFormatIdx);
 }
 
 /**
@@ -297,19 +265,12 @@ void ExportDialog::saveConfig()
 {
   ConfigStore::s_genCfg.m_exportSrcV1 = TrackData::tagVersionCast(
     m_srcComboBox->itemData(m_srcComboBox->currentIndex()).toInt());
-  ConfigStore::s_genCfg.m_exportFormatIdx = m_formatComboBox->currentIndex();
-  if (ConfigStore::s_genCfg.m_exportFormatIdx < static_cast<int>(ConfigStore::s_genCfg.m_exportFormatNames.size())) {
-    ConfigStore::s_genCfg.m_exportFormatNames[ConfigStore::s_genCfg.m_exportFormatIdx] = m_formatComboBox->currentText();
-    ConfigStore::s_genCfg.m_exportFormatHeaders[ConfigStore::s_genCfg.m_exportFormatIdx] = m_headerLineEdit->text();
-    ConfigStore::s_genCfg.m_exportFormatTracks[ConfigStore::s_genCfg.m_exportFormatIdx] = m_trackLineEdit->text();
-    ConfigStore::s_genCfg.m_exportFormatTrailers[ConfigStore::s_genCfg.m_exportFormatIdx] = m_trailerLineEdit->text();
-  } else {
-    ConfigStore::s_genCfg.m_exportFormatIdx = ConfigStore::s_genCfg.m_exportFormatNames.size();
-    ConfigStore::s_genCfg.m_exportFormatNames.append(m_formatComboBox->currentText());
-    ConfigStore::s_genCfg.m_exportFormatHeaders.append(m_headerLineEdit->text());
-    ConfigStore::s_genCfg.m_exportFormatTracks.append(m_trackLineEdit->text());
-    ConfigStore::s_genCfg.m_exportFormatTrailers.append(m_trailerLineEdit->text());
-  }
+  QList<QStringList> formats = m_formatListEdit->getFormats(
+        &ConfigStore::s_genCfg.m_exportFormatIdx);
+  ConfigStore::s_genCfg.m_exportFormatNames = formats.at(0);
+  ConfigStore::s_genCfg.m_exportFormatHeaders = formats.at(1);
+  ConfigStore::s_genCfg.m_exportFormatTracks = formats.at(2);
+  ConfigStore::s_genCfg.m_exportFormatTrailers = formats.at(3);
   ConfigStore::s_genCfg.m_exportWindowWidth = size().width();
   ConfigStore::s_genCfg.m_exportWindowHeight = size().height();
 

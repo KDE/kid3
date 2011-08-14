@@ -26,15 +26,13 @@
 
 #include "tagimportdialog.h"
 #include <QHBoxLayout>
-#include <QFormLayout>
-#include <QComboBox>
-#include <QLineEdit>
 #include <QPushButton>
 #include "textimporter.h"
 #include "importparser.h"
 #include "trackdatamodel.h"
 #include "configstore.h"
 #include "contexthelp.h"
+#include "formatlistedit.h"
 #include "qtcompatmac.h"
 
 /**
@@ -55,19 +53,15 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   vboxLayout->setSpacing(6);
   vboxLayout->setMargin(6);
 
-  m_formatComboBox = new QComboBox(this);
-  m_formatComboBox->setEditable(true);
-  m_sourceLineEdit = new QLineEdit(this);
-  m_extractionLineEdit = new QLineEdit(this);
-  m_sourceLineEdit->setToolTip(TrackDataFormatReplacer::getToolTip());
-  m_extractionLineEdit->setToolTip(ImportParser::getFormatToolTip());
-  connect(m_formatComboBox, SIGNAL(activated(int)),
-          this, SLOT(setFormatLineEdit(int)));
-  QFormLayout* formatLayout = new QFormLayout;
-  formatLayout->addRow(i18n("Format:"), m_formatComboBox);
-  formatLayout->addRow(i18n("Source:"), m_sourceLineEdit);
-  formatLayout->addRow(i18n("Extraction:"), m_extractionLineEdit);
-  vboxLayout->addLayout(formatLayout);
+  m_formatListEdit = new FormatListEdit(
+        QStringList() << i18n("Format:")
+                      << i18n("Source:")
+                      << i18n("Extraction:"),
+        QStringList() << QString()
+                      << TrackDataFormatReplacer::getToolTip()
+                      << ImportParser::getFormatToolTip(),
+        this);
+  vboxLayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* buttonLayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
@@ -111,8 +105,8 @@ void TagImportDialog::clear()
 void TagImportDialog::apply()
 {
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  TextImporter::importFromTags(m_sourceLineEdit->text(),
-                               m_extractionLineEdit->text(),
+  TextImporter::importFromTags(m_formatListEdit->getCurrentFormat(1),
+                               m_formatListEdit->getCurrentFormat(2),
                                trackDataVector);
   m_trackDataModel->setTrackData(trackDataVector);
   emit trackDataUpdated();
@@ -123,28 +117,11 @@ void TagImportDialog::apply()
  */
 void TagImportDialog::setFormatFromConfig()
 {
-  m_formatSources = ConfigStore::s_genCfg.m_importTagsSources;
-  m_formatExtractions = ConfigStore::s_genCfg.m_importTagsExtractions;
-  m_formatComboBox->clear();
-  m_formatComboBox->addItems(ConfigStore::s_genCfg.m_importTagsNames);
-  m_formatComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importTagsIdx);
-  setFormatLineEdit(ConfigStore::s_genCfg.m_importTagsIdx);
-}
-
-/**
- * Set the format lineedits to the format selected in the combo box.
- *
- * @param index current index of the combo box
- */
-void TagImportDialog::setFormatLineEdit(int index)
-{
-  if (index < static_cast<int>(m_formatSources.size())) {
-    m_sourceLineEdit->setText(m_formatSources[index]);
-    m_extractionLineEdit->setText(m_formatExtractions[index]);
-  } else {
-    m_sourceLineEdit->clear();
-    m_extractionLineEdit->clear();
-  }
+  m_formatListEdit->setFormats(
+        QList<QStringList>() << ConfigStore::s_genCfg.m_importTagsNames
+                             << ConfigStore::s_genCfg.m_importTagsSources
+                             << ConfigStore::s_genCfg.m_importTagsExtractions,
+        ConfigStore::s_genCfg.m_importTagsIdx);
 }
 
 /**
@@ -152,17 +129,11 @@ void TagImportDialog::setFormatLineEdit(int index)
  */
 void TagImportDialog::saveConfig()
 {
-  ConfigStore::s_genCfg.m_importTagsIdx = m_formatComboBox->currentIndex();
-  if (ConfigStore::s_genCfg.m_importTagsIdx < static_cast<int>(ConfigStore::s_genCfg.m_importTagsNames.size())) {
-    ConfigStore::s_genCfg.m_importTagsNames[ConfigStore::s_genCfg.m_importTagsIdx] = m_formatComboBox->currentText();
-    ConfigStore::s_genCfg.m_importTagsSources[ConfigStore::s_genCfg.m_importTagsIdx] = m_sourceLineEdit->text();
-    ConfigStore::s_genCfg.m_importTagsExtractions[ConfigStore::s_genCfg.m_importTagsIdx] = m_extractionLineEdit->text();
-  } else {
-    ConfigStore::s_genCfg.m_importTagsIdx = ConfigStore::s_genCfg.m_importTagsNames.size();
-    ConfigStore::s_genCfg.m_importTagsNames.append(m_formatComboBox->currentText());
-    ConfigStore::s_genCfg.m_importTagsSources.append(m_sourceLineEdit->text());
-    ConfigStore::s_genCfg.m_importTagsExtractions.append(m_extractionLineEdit->text());
-  }
+  QList<QStringList> formats = m_formatListEdit->getFormats(
+        &ConfigStore::s_genCfg.m_importTagsIdx);
+  ConfigStore::s_genCfg.m_importTagsNames = formats.at(0);
+  ConfigStore::s_genCfg.m_importTagsSources = formats.at(1);
+  ConfigStore::s_genCfg.m_importTagsExtractions = formats.at(2);
 
   setFormatFromConfig();
 }

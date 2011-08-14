@@ -33,11 +33,11 @@
 
 class QTextEdit;
 class QTableView;
-class QLineEdit;
 class QPushButton;
 class QComboBox;
 class TextExporter;
 class TextTableModel;
+class FormatListEdit;
 
 /**
  * Export dialog.
@@ -71,13 +71,6 @@ public slots:
   void showPreview();
 
 private slots:
-  /**
-   * Set the format lineedits to the format selected in the combo box.
-   *
-   * @param index current index of the combo box
-   */
-  void setFormatLineEdit(int index);
-
   /**
    * Export to a file.
    */
@@ -114,26 +107,14 @@ private:
   QTextEdit* m_edit;
   /** Table view */
   QTableView* m_table;
-  /** cobobox with formats */
-  QComboBox* m_formatComboBox;
-  /** LineEdit for header */
-  QLineEdit* m_headerLineEdit;
-  /** LineEdit for track */
-  QLineEdit* m_trackLineEdit;
-  /** LineEdit for trailer */
-  QLineEdit* m_trailerLineEdit;
+  /** Format editor */
+  FormatListEdit* m_formatListEdit;
   /** To File button */
   QPushButton* m_fileButton;
   /** To Clipboard button */
   QPushButton* m_clipButton;
   /** combobox with export sources */
   QComboBox* m_srcComboBox;
-  /** header formats */
-  QStringList m_formatHeaders;
-  /** track formats */
-  QStringList m_formatTracks;
-  /** trailer formats */
-  QStringList m_formatTrailers;
 
   /** text exporter */
   TextExporter* m_textExporter;

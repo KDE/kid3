@@ -27,8 +27,6 @@
 #include "textimportdialog.h"
 #include <QHBoxLayout>
 #include <QFormLayout>
-#include <QComboBox>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QFile>
 #include <QClipboard>
@@ -44,6 +42,7 @@
 #include "importparser.h"
 #include "configstore.h"
 #include "contexthelp.h"
+#include "formatlistedit.h"
 #include "qtcompatmac.h"
 
 /**
@@ -64,19 +63,16 @@ TextImportDialog::TextImportDialog(QWidget* parent,
   vboxLayout->setSpacing(6);
   vboxLayout->setMargin(6);
 
-  m_formatComboBox = new QComboBox(this);
-  m_formatComboBox->setEditable(true);
-  m_headerLineEdit = new QLineEdit(this);
-  m_trackLineEdit = new QLineEdit(this);
   QString formatToolTip = ImportParser::getFormatToolTip();
-  m_headerLineEdit->setToolTip(formatToolTip);
-  m_trackLineEdit->setToolTip(formatToolTip);
-  connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(setFormatLineEdit(int)));
-  QFormLayout* formatLayout = new QFormLayout;
-  formatLayout->addRow(i18n("Format:"), m_formatComboBox);
-  formatLayout->addRow(i18n("Header:"), m_headerLineEdit);
-  formatLayout->addRow(i18n("Tracks:"), m_trackLineEdit);
-  vboxLayout->addLayout(formatLayout);
+  m_formatListEdit = new FormatListEdit(
+        QStringList() << i18n("Format:")
+                      << i18n("Header:")
+                      << i18n("Tracks:"),
+        QStringList() << QString()
+                      << formatToolTip
+                      << formatToolTip,
+        this);
+  vboxLayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* buttonLayout = new QHBoxLayout;
   QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
@@ -123,12 +119,11 @@ void TextImportDialog::clear()
  */
 void TextImportDialog::setFormatFromConfig()
 {
-  m_formatHeaders = ConfigStore::s_genCfg.m_importFormatHeaders;
-  m_formatTracks = ConfigStore::s_genCfg.m_importFormatTracks;
-  m_formatComboBox->clear();
-  m_formatComboBox->addItems(ConfigStore::s_genCfg.m_importFormatNames);
-  m_formatComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_importFormatIdx);
-  setFormatLineEdit(ConfigStore::s_genCfg.m_importFormatIdx);
+  m_formatListEdit->setFormats(
+        QList<QStringList>() << ConfigStore::s_genCfg.m_importFormatNames
+                             << ConfigStore::s_genCfg.m_importFormatHeaders
+                             << ConfigStore::s_genCfg.m_importFormatTracks,
+        ConfigStore::s_genCfg.m_importFormatIdx);
 }
 
 /**
@@ -148,7 +143,9 @@ bool TextImportDialog::importFromFile(const QString& fn)
       QString text = stream.readAll();
       if (!text.isNull() &&
           m_textImporter->updateTrackData(
-              text, m_headerLineEdit->text(), m_trackLineEdit->text())) {
+            text,
+            m_formatListEdit->getCurrentFormat(1),
+            m_formatListEdit->getCurrentFormat(2))) {
         emit trackDataUpdated();
       }
       file.close();
@@ -188,24 +185,10 @@ void TextImportDialog::fromClipboard()
     text = cb->text(QClipboard::Selection);
   if (!text.isNull() &&
       m_textImporter->updateTrackData(
-        text, m_headerLineEdit->text(), m_trackLineEdit->text()))
+        text,
+        m_formatListEdit->getCurrentFormat(1),
+        m_formatListEdit->getCurrentFormat(2)))
     emit trackDataUpdated();
-}
-
-/**
- * Set the format lineedits to the format selected in the combo box.
- *
- * @param index current index of the combo box
- */
-void TextImportDialog::setFormatLineEdit(int index)
-{
-  if (index < static_cast<int>(m_formatHeaders.size())) {
-    m_headerLineEdit->setText(m_formatHeaders[index]);
-    m_trackLineEdit->setText(m_formatTracks[index]);
-  } else {
-    m_headerLineEdit->clear();
-    m_trackLineEdit->clear();
-  }
 }
 
 /**
@@ -213,17 +196,11 @@ void TextImportDialog::setFormatLineEdit(int index)
  */
 void TextImportDialog::saveConfig()
 {
-  ConfigStore::s_genCfg.m_importFormatIdx = m_formatComboBox->currentIndex();
-  if (ConfigStore::s_genCfg.m_importFormatIdx < static_cast<int>(ConfigStore::s_genCfg.m_importFormatNames.size())) {
-    ConfigStore::s_genCfg.m_importFormatNames[ConfigStore::s_genCfg.m_importFormatIdx] = m_formatComboBox->currentText();
-    ConfigStore::s_genCfg.m_importFormatHeaders[ConfigStore::s_genCfg.m_importFormatIdx] = m_headerLineEdit->text();
-    ConfigStore::s_genCfg.m_importFormatTracks[ConfigStore::s_genCfg.m_importFormatIdx] = m_trackLineEdit->text();
-  } else {
-    ConfigStore::s_genCfg.m_importFormatIdx = ConfigStore::s_genCfg.m_importFormatNames.size();
-    ConfigStore::s_genCfg.m_importFormatNames.append(m_formatComboBox->currentText());
-    ConfigStore::s_genCfg.m_importFormatHeaders.append(m_headerLineEdit->text());
-    ConfigStore::s_genCfg.m_importFormatTracks.append(m_trackLineEdit->text());
-  }
+  QList<QStringList> formats = m_formatListEdit->getFormats(
+        &ConfigStore::s_genCfg.m_importFormatIdx);
+  ConfigStore::s_genCfg.m_importFormatNames = formats.at(0);
+  ConfigStore::s_genCfg.m_importFormatHeaders = formats.at(1);
+  ConfigStore::s_genCfg.m_importFormatTracks = formats.at(2);
 
   setFormatFromConfig();
 }

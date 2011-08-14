@@ -30,8 +30,6 @@
 #include <QTextEdit>
 #include <QString>
 #include <QLineEdit>
-#include <QComboBox>
-#include <QToolTip>
 #include <QMessageBox>
 #include <QRegExp>
 #include <QUrl>
@@ -43,6 +41,7 @@
 #include "externalprocess.h"
 #include "configtable.h"
 #include "configtablemodel.h"
+#include "formatlistedit.h"
 #include "qtcompatmac.h"
 
 /**
@@ -105,19 +104,19 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
 
     QGroupBox* srcbox = new QGroupBox(i18n("&Source"), this);
     if (srcbox) {
-      m_sourceComboBox = new QComboBox(srcbox);
-      m_sourceComboBox->setEditable(true);
-      m_urlLineEdit = new QLineEdit(srcbox);
-      m_urlLineEdit->setToolTip(getToolTip());
+      m_formatListEdit = new FormatListEdit(
+            QStringList() << i18n("Source:")
+                          << i18n("URL:"),
+            QStringList() << QString()
+                          << getToolTip(),
+            srcbox);
+
       QVBoxLayout* vbox = new QVBoxLayout;
       vbox->setMargin(2);
-      vbox->addWidget(m_sourceComboBox);
-      vbox->addWidget(m_urlLineEdit);
+      vbox->addWidget(m_formatListEdit);
       srcbox->setLayout(vbox);
       vlayout->addWidget(srcbox);
-      connect(m_sourceComboBox, SIGNAL(activated(int)), this,
-              SLOT(setSourceLineEdit(int)));
-      connect(m_urlLineEdit, SIGNAL(returnPressed()),
+      connect(m_formatListEdit, SIGNAL(formatChanged()),
               this, SLOT(showPreview()));
     }
 
@@ -179,28 +178,13 @@ BrowseCoverArtDialog::~BrowseCoverArtDialog()
 }
 
 /**
- * Set the format lineedits to the format selected in the combo box.
- *
- * @param index current index of the combo box
- */
-void BrowseCoverArtDialog::setSourceLineEdit(int index)
-{
-  if (index < static_cast<int>(m_urls.size())) {
-    m_urlLineEdit->setText(m_urls[index]);
-  } else {
-    m_urlLineEdit->clear();
-  }
-  showPreview();
-}
-
-/**
  * Show browse command as preview.
  */
 void BrowseCoverArtDialog::showPreview()
 {
   m_frames.setArtist(m_artistLineEdit->text());
   m_frames.setAlbum(m_albumLineEdit->text());
-  FrameFormatReplacer fmt(m_frames, m_urlLineEdit->text());
+  FrameFormatReplacer fmt(m_frames, m_formatListEdit->getCurrentFormat(1));
   fmt.replaceEscapedChars();
   fmt.replacePercentCodes(FormatReplacer::FSF_SupportUrlEncode);
   m_url = fmt.getString();
@@ -237,11 +221,10 @@ void BrowseCoverArtDialog::setFrames(const FrameCollection& frames)
  */
 void BrowseCoverArtDialog::setSourceFromConfig()
 {
-  m_urls = ConfigStore::s_genCfg.m_pictureSourceUrls;
-  m_sourceComboBox->clear();
-  m_sourceComboBox->addItems(ConfigStore::s_genCfg.m_pictureSourceNames);
-  m_sourceComboBox->setCurrentIndex(ConfigStore::s_genCfg.m_pictureSourceIdx);
-  setSourceLineEdit(ConfigStore::s_genCfg.m_pictureSourceIdx);
+  m_formatListEdit->setFormats(
+        QList<QStringList>() << ConfigStore::s_genCfg.m_pictureSourceNames
+                             << ConfigStore::s_genCfg.m_pictureSourceUrls,
+        ConfigStore::s_genCfg.m_pictureSourceIdx);
 }
 
 /**
@@ -264,19 +247,10 @@ void BrowseCoverArtDialog::readConfig()
  */
 void BrowseCoverArtDialog::saveConfig()
 {
-  ConfigStore::s_genCfg.m_pictureSourceIdx = m_sourceComboBox->currentIndex();
-  if (ConfigStore::s_genCfg.m_pictureSourceIdx <
-      static_cast<int>(ConfigStore::s_genCfg.m_pictureSourceNames.size())) {
-    ConfigStore::s_genCfg.m_pictureSourceNames[ConfigStore::s_genCfg.m_pictureSourceIdx] =
-      m_sourceComboBox->currentText();
-    ConfigStore::s_genCfg.m_pictureSourceUrls[ConfigStore::s_genCfg.m_pictureSourceIdx] =
-      m_urlLineEdit->text();
-  } else {
-    ConfigStore::s_genCfg.m_pictureSourceIdx =
-      ConfigStore::s_genCfg.m_pictureSourceNames.size();
-    ConfigStore::s_genCfg.m_pictureSourceNames.append(m_sourceComboBox->currentText());
-    ConfigStore::s_genCfg.m_pictureSourceUrls.append(m_urlLineEdit->text());
-  }
+  QList<QStringList> formats = m_formatListEdit->getFormats(
+        &ConfigStore::s_genCfg.m_pictureSourceIdx);
+  ConfigStore::s_genCfg.m_pictureSourceNames = formats.at(0);
+  ConfigStore::s_genCfg.m_pictureSourceUrls = formats.at(1);
   ConfigStore::s_genCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
   ConfigStore::s_genCfg.m_browseCoverArtWindowWidth = size().width();
   ConfigStore::s_genCfg.m_browseCoverArtWindowHeight = size().height();

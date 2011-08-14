@@ -28,15 +28,14 @@
 #define BROWSECOVERARTDIALOG_H
 
 #include <QDialog>
-#include <QStringList>
 #include "frame.h"
 
 class QTextEdit;
 class QLineEdit;
-class QComboBox;
 class ExternalProcess;
 class ConfigTable;
 class ConfigTableModel;
+class FormatListEdit;
 
 /**
  * Browse cover art dialog.
@@ -75,13 +74,6 @@ public slots:
    */
   virtual void accept();
 
-  /**
-   * Set the source lineedits to the source selected in the combo box.
-   *
-   * @param index current index of the combo box
-   */
-  void setSourceLineEdit(int index);
-
 private slots:
   /**
    * Show browse command as preview.
@@ -110,16 +102,12 @@ private:
   QLineEdit* m_artistLineEdit;
   /** Combobox with album */
   QLineEdit* m_albumLineEdit;
-  /** Combobox with sources */
-  QComboBox* m_sourceComboBox;
-  /** LineEdit for URL */
-  QLineEdit* m_urlLineEdit;
+  /** format editor */
+  FormatListEdit* m_formatListEdit;
   /** Table to extract picture URL */
   ConfigTable* m_matchUrlTable;
   /** Table model to extract picture URL */
   ConfigTableModel* m_matchUrlTableModel;
-  /** URLs */
-  QStringList m_urls;
   /** Formatted URL */
   QString m_url;
 

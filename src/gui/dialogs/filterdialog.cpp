@@ -30,14 +30,11 @@
 #include <QLabel>
 #include <QSpinBox>
 #include <QString>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QToolTip>
-#include <QGroupBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include "configstore.h"
 #include "contexthelp.h"
+#include "formatlistedit.h"
 #include "qtcompatmac.h"
 
 /**
@@ -64,21 +61,13 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent)
       vlayout->addWidget(m_edit);
     }
 
-    QGroupBox* fltbox = new QGroupBox(i18n("&Filter"), this);
-    if (fltbox) {
-      m_nameComboBox = new QComboBox(fltbox);
-      m_nameComboBox->setEditable(true);
-      m_filterLineEdit = new QLineEdit(fltbox);
-      m_filterLineEdit->setToolTip(FileFilter::getFormatToolTip());
-      QVBoxLayout* vbox = new QVBoxLayout;
-      vbox->setMargin(2);
-      vbox->addWidget(m_nameComboBox);
-      vbox->addWidget(m_filterLineEdit);
-      fltbox->setLayout(vbox);
-      vlayout->addWidget(fltbox);
-      connect(m_nameComboBox, SIGNAL(activated(int)), this,
-              SLOT(setFilterLineEdit(int)));
-    }
+    m_formatListEdit = new FormatListEdit(
+          QStringList() << i18n("&Filter:")
+                        << i18n("&Expression:"),
+          QStringList() << QString()
+                        << FileFilter::getFormatToolTip(),
+          this);
+    vlayout->addWidget(m_formatListEdit);
 
     QHBoxLayout* hlayout = new QHBoxLayout;
     if (hlayout) {
@@ -128,7 +117,7 @@ FilterDialog::~FilterDialog()
 void FilterDialog::applyFilter()
 {
   m_edit->clear();
-  m_fileFilter.setFilterExpression(m_filterLineEdit->text());
+  m_fileFilter.setFilterExpression(m_formatListEdit->getCurrentFormat(1));
   m_fileFilter.initParser();
   m_applyButton->setEnabled(false);
   emit apply(m_fileFilter);
@@ -136,30 +125,14 @@ void FilterDialog::applyFilter()
 }
 
 /**
- * Set the filter lineedit to the format selected in the combo box.
- *
- * @param index current index of the combo box
- */
-void FilterDialog::setFilterLineEdit(int index)
-{
-  if (index < static_cast<int>(m_filterNames.size())) {
-    m_filterLineEdit->setText(m_filterExpressions[index]);
-  } else {
-    m_filterLineEdit->clear();
-  }
-}
-
-/**
  * Set the filter combo box and line edit from the configuration.
  */
 void FilterDialog::setFiltersFromConfig()
 {
-  m_filterNames = ConfigStore::s_filterCfg.m_filterNames;
-  m_filterExpressions = ConfigStore::s_filterCfg.m_filterExpressions;
-  m_nameComboBox->clear();
-  m_nameComboBox->addItems(ConfigStore::s_filterCfg.m_filterNames);
-  m_nameComboBox->setCurrentIndex(ConfigStore::s_filterCfg.m_filterIdx);
-  setFilterLineEdit(ConfigStore::s_filterCfg.m_filterIdx);
+  m_formatListEdit->setFormats(
+        QList<QStringList>() << ConfigStore::s_filterCfg.m_filterNames
+                             << ConfigStore::s_filterCfg.m_filterExpressions,
+        ConfigStore::s_filterCfg.m_filterIdx);
 }
 
 /**
@@ -185,19 +158,10 @@ void FilterDialog::readConfig()
  */
 void FilterDialog::saveConfig()
 {
-  ConfigStore::s_filterCfg.m_filterIdx = m_nameComboBox->currentIndex();
-  if (ConfigStore::s_filterCfg.m_filterIdx <
-      static_cast<int>(ConfigStore::s_filterCfg.m_filterNames.size())) {
-    ConfigStore::s_filterCfg.m_filterNames[ConfigStore::s_filterCfg.m_filterIdx] =
-      m_nameComboBox->currentText();
-    ConfigStore::s_filterCfg.m_filterExpressions[ConfigStore::s_filterCfg.m_filterIdx] =
-      m_filterLineEdit->text();
-  } else {
-    ConfigStore::s_filterCfg.m_filterIdx =
-      ConfigStore::s_filterCfg.m_filterNames.size();
-    ConfigStore::s_filterCfg.m_filterNames.append(m_nameComboBox->currentText());
-    ConfigStore::s_filterCfg.m_filterExpressions.append(m_filterLineEdit->text());
-  }
+  QList<QStringList> formats = m_formatListEdit->getFormats(
+        &ConfigStore::s_filterCfg.m_filterIdx);
+  ConfigStore::s_filterCfg.m_filterNames = formats.at(0);
+  ConfigStore::s_filterCfg.m_filterExpressions = formats.at(1);
   ConfigStore::s_filterCfg.m_windowWidth = size().width();
   ConfigStore::s_filterCfg.m_windowHeight = size().height();
 

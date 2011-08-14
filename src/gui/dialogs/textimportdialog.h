@@ -28,14 +28,10 @@
 #define TEXTIMPORTDIALOG_H
 
 #include <QDialog>
-#include <QStringList>
 
-class QLineEdit;
-class QLabel;
-class QComboBox;
-class QPushButton;
 class TextImporter;
 class TrackDataModel;
+class FormatListEdit;
 
 /**
  * Dialog to import from a text (file or clipboard).
@@ -76,13 +72,6 @@ private slots:
   void fromClipboard();
 
   /**
-   * Set the format lineedits to the format selected in the combo box.
-   *
-   * @param index current index of the combo box
-   */
-  void setFormatLineEdit(int index);
-
-  /**
    * Save the local settings to the configuration.
    */
   void saveConfig();
@@ -113,16 +102,8 @@ private:
    */
   void setFormatFromConfig();
 
-  /** combobox with import formats */
-  QComboBox* m_formatComboBox;
-  /** LineEdit for header regexp */
-  QLineEdit* m_headerLineEdit;
-  /** LineEdit for track regexp */
-  QLineEdit* m_trackLineEdit;
-  /** header format regexps */
-  QStringList m_formatHeaders;
-  /** track format regexps */
-  QStringList m_formatTracks;
+  /** format editor */
+  FormatListEdit* m_formatListEdit;
   /** text importer */
   TextImporter* m_textImporter;
 };
