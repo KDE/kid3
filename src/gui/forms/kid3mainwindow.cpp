@@ -62,6 +62,7 @@
 #include <QStatusBar>
 #include <QFileDialog>
 #include "recentfilesmenu.h"
+#include "messagedialog.h"
 #endif
 
 #include "kid3form.h"
@@ -900,15 +901,13 @@ void Kid3MainWindow::saveDirectory(bool updateGui)
   if (!errorFiles.empty()) {
 #ifdef CONFIG_USE_KDE
     KMessageBox::errorList(
-      0, i18n("Error while writing file:\n"),
+      this, i18n("Error while writing file:\n"),
       errorFiles,
       i18n("File Error"));
 #else
-    QMessageBox::warning(
-      0, i18n("File Error"),
-      i18n("Error while writing file:\n") +
-      errorFiles.join("\n"),
-      QMessageBox::Ok, Qt::NoButton);
+    MessageDialog::warningList(
+      this, i18n("File Error"), i18n("Error while writing file:\n"),
+      errorFiles, QMessageBox::Ok);
 #endif
   }
 
@@ -1949,14 +1948,13 @@ void Kid3MainWindow::deleteFile()
           KStandardGuiItem::del(), KStandardGuiItem::cancel(), QString(),
           KMessageBox::Dangerous) == KMessageBox::Continue)
 #else
-    QString txt = numFiles > 1 ?
-      KCM_i18n1("Do you really want to delete these %1 items?", numFiles) :
-      i18n("Do you really want to delete this item?");
-    txt += '\n';
-    txt += files.join("\n");
-    if (QMessageBox::question(
-        this, i18n("Delete Files"), txt,
-        QMessageBox::Ok, QMessageBox::Cancel) == QMessageBox::Ok)
+    if (MessageDialog::warningList(
+          this,
+          i18n("Delete Files"),
+          numFiles > 1
+          ? KCM_i18n1("Do you really want to delete these %1 items?", numFiles)
+          : i18n("Do you really want to delete this item?"),
+          files) == QMessageBox::Ok)
 #endif
     {
       bool rmdirError = false;
@@ -1986,16 +1984,14 @@ void Kid3MainWindow::deleteFile()
 #ifdef CONFIG_USE_KDE
         txt += i18np("Error while deleting this item:",
                      "Error while deleting these %1 items:", files.size());
-        KMessageBox::errorList(0, txt, files, i18n("File Error"));
+        KMessageBox::errorList(this, txt, files, i18n("File Error"));
 #else
-        txt += files.size() > 1 ?
-          KCM_i18n1("Error while deleting these %1 items:", files.size()) :
-          i18n("Error while deleting this item:");
-        txt += '\n';
-        txt += files.join("\n");
-        QMessageBox::warning(
-          0, i18n("File Error"), txt,
-          QMessageBox::Ok, Qt::NoButton);
+        MessageDialog::warningList(
+          this, i18n("File Error"),
+          files.size() > 1
+          ? KCM_i18n1("Error while deleting these %1 items:", files.size())
+          : i18n("Error while deleting this item:"),
+          files, QMessageBox::Ok);
 #endif
       }
     }

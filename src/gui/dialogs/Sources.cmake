@@ -9,6 +9,7 @@ set(dialogs_SRCS
   dialogs/exportdialog.cpp
   dialogs/filterdialog.cpp
   dialogs/importdialog.cpp
+  dialogs/messagedialog.cpp
   dialogs/musicbrainzdialog.cpp
   dialogs/numbertracksdialog.cpp
   dialogs/playlistdialog.cpp
@@ -28,6 +29,7 @@ set(dialogs_MOC_HDRS
   dialogs/exportdialog.h
   dialogs/filterdialog.h
   dialogs/importdialog.h
+  dialogs/messagedialog.h
   dialogs/musicbrainzdialog.h
   dialogs/numbertracksdialog.h
   dialogs/playlistdialog.h
