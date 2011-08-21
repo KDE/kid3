@@ -32,6 +32,7 @@
 #ifndef CONFIG_USE_KDE
 
 class QTextBrowser;
+class QLineEdit;
 
 /**
  * Help browser.
@@ -55,8 +56,20 @@ public:
    */
   void goToAnchor(const QString& anchor);
 
+private slots:
+  /**
+   * Find previous occurrence of search text.
+   */
+  void findPrevious();
+
+  /**
+   * Find next occurrence of search text.
+   */
+  void findNext();
+
 private:
   QTextBrowser* m_textBrowser;
+  QLineEdit* m_findLineEdit;
   QString m_filename;
 };
 #else // !CONFIG_USE_KDE

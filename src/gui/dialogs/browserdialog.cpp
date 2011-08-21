@@ -31,8 +31,13 @@
 #include <QLocale>
 #include <QDir>
 #include <QPushButton>
-#include "qtcompatmac.h"
 #include <QVBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QToolButton>
+#include <QStyle>
+#include <QAction>
+#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -71,26 +76,53 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   vlayout->addWidget(m_textBrowser);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-                                         QSizePolicy::Minimum);
   QPushButton* backButton = new QPushButton(i18n("&Back"), this);
+  backButton->setEnabled(false);
+  connect(backButton, SIGNAL(clicked()), m_textBrowser, SLOT(backward()));
+  connect(m_textBrowser, SIGNAL(backwardAvailable(bool)), backButton, SLOT(setEnabled(bool)));
+  hlayout->addWidget(backButton);
   QPushButton* forwardButton = new QPushButton(i18n("&Forward"), this);
+  forwardButton->setEnabled(false);
+  connect(forwardButton, SIGNAL(clicked()), m_textBrowser, SLOT(forward()));
+  connect(m_textBrowser, SIGNAL(forwardAvailable(bool)), forwardButton, SLOT(setEnabled(bool)));
+  hlayout->addWidget(forwardButton);
+  QLabel* findLabel = new QLabel(i18n("&Find:"), this);
+  hlayout->addWidget(findLabel);
+  m_findLineEdit = new QLineEdit(this);
+  m_findLineEdit->setFocus();
+  findLabel->setBuddy(m_findLineEdit);
+  connect(m_findLineEdit, SIGNAL(returnPressed()), this, SLOT(findNext()));
+  hlayout->addWidget(m_findLineEdit);
+  QAction* findAction = new QAction(this);
+  findAction->setShortcut(QKeySequence::Find);
+  connect(findAction, SIGNAL(triggered()), m_findLineEdit, SLOT(setFocus()));
+  m_findLineEdit->addAction(findAction);
+  QAction* findPreviousAction = new QAction(this);
+  findPreviousAction->setIcon(
+        QIcon(style()->standardIcon(QStyle::SP_ArrowBack)));
+  findPreviousAction->setText(i18n("Find Previous"));
+  findPreviousAction->setShortcut(QKeySequence::FindPrevious);
+  connect(findPreviousAction, SIGNAL(triggered()),
+          this, SLOT(findPrevious()));
+  QToolButton* findPreviousButton = new QToolButton(this);
+  findPreviousButton->setDefaultAction(findPreviousAction);
+  hlayout->addWidget(findPreviousButton);
+  QAction* findNextAction = new QAction(this);
+  findNextAction->setIcon(
+        QIcon(style()->standardIcon(QStyle::SP_ArrowForward)));
+  findNextAction->setText(i18n("Find Next"));
+  findNextAction->setShortcut(QKeySequence::FindNext);
+  connect(findNextAction, SIGNAL(triggered()),
+          this, SLOT(findNext()));
+  QToolButton* findNextButton = new QToolButton(this);
+  findNextButton->setDefaultAction(findNextAction);
+  hlayout->addWidget(findNextButton);
+  hlayout->addStretch();
   QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-  if (hlayout && backButton && forwardButton && closeButton) {
-    hlayout->addWidget(backButton);
-    hlayout->addWidget(forwardButton);
-    hlayout->addItem(hspacer);
-    hlayout->addWidget(closeButton);
-    closeButton->setDefault(true);
-    backButton->setEnabled(false);
-    forwardButton->setEnabled(false);
-    connect(backButton, SIGNAL(clicked()), m_textBrowser, SLOT(backward()));
-    connect(forwardButton, SIGNAL(clicked()), m_textBrowser, SLOT(forward()));
-    connect(m_textBrowser, SIGNAL(backwardAvailable(bool)), backButton, SLOT(setEnabled(bool)));
-    connect(m_textBrowser, SIGNAL(forwardAvailable(bool)), forwardButton, SLOT(setEnabled(bool)));
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-    vlayout->addLayout(hlayout);
-  }
+  closeButton->setAutoDefault(false);
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  hlayout->addWidget(closeButton);
+  vlayout->addLayout(hlayout);
   resize(500, 500);
 }
 
@@ -110,6 +142,22 @@ void BrowserDialog::goToAnchor(const QString& anchor)
   QUrl url = QUrl::fromLocalFile(m_filename);
   url.setFragment(anchor);
   m_textBrowser->setSource(url);
+}
+
+/**
+ * Find previous occurrence of search text.
+ */
+void BrowserDialog::findPrevious()
+{
+  m_textBrowser->find(m_findLineEdit->text(), QTextDocument::FindBackward);
+}
+
+/**
+ * Find next occurrence of search text.
+ */
+void BrowserDialog::findNext()
+{
+  m_textBrowser->find(m_findLineEdit->text());
 }
 
 #endif // CONFIG_USE_KDE
