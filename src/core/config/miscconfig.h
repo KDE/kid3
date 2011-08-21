@@ -240,6 +240,8 @@ public:
   int m_textEncoding;
   /** number of digits in track number */
   int m_trackNumberDigits;
+  /** true to play file on double click */
+  bool m_playOnDoubleClick;
   /** true if proxy is used */
   bool m_useProxy;
   /** proxy used for access */

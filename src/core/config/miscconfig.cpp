@@ -170,6 +170,7 @@ MiscConfig::MiscConfig(const QString& group) :
   m_textEncodingV1(""),
   m_textEncoding(TE_ISO8859_1),
   m_trackNumberDigits(1),
+  m_playOnDoubleClick(false),
   m_useProxy(false),
   m_useProxyAuthentication(false),
   m_onlyCustomGenres(false)
@@ -225,6 +226,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("TextEncodingV1", m_textEncodingV1);
   cfg.writeEntry("TextEncoding", m_textEncoding);
   cfg.writeEntry("TrackNumberDigits", m_trackNumberDigits);
+  cfg.writeEntry("PlayOnDoubleClick", m_playOnDoubleClick);
   cfg.writeEntry("UseProxy", m_useProxy);
   cfg.writeEntry("Proxy", m_proxy);
   cfg.writeEntry("UseProxyAuthentication", m_useProxyAuthentication);
@@ -297,6 +299,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   config->setValue("/TextEncodingV1", QVariant(m_textEncodingV1));
   config->setValue("/TextEncoding", QVariant(m_textEncoding));
   config->setValue("/TrackNumberDigits", QVariant(m_trackNumberDigits));
+  config->setValue("/PlayOnDoubleClick", QVariant(m_playOnDoubleClick));
   config->setValue("/UseProxy", QVariant(m_useProxy));
   config->setValue("/Proxy", QVariant(m_proxy));
   config->setValue("/UseProxyAuthentication", QVariant(m_useProxyAuthentication));
@@ -384,6 +387,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_textEncodingV1 = cfg.readEntry("TextEncodingV1", "");
   m_textEncoding = cfg.readEntry("TextEncoding", static_cast<int>(TE_ISO8859_1));
   m_trackNumberDigits = cfg.readEntry("TrackNumberDigits", 1);
+  m_playOnDoubleClick = cfg.readEntry("PlayOnDoubleClick", m_playOnDoubleClick);
   m_useProxy = cfg.readEntry("UseProxy", m_useProxy);
   m_proxy = cfg.readEntry("Proxy", m_proxy);
   m_useProxyAuthentication = cfg.readEntry("UseProxyAuthentication", m_useProxyAuthentication);
@@ -465,6 +469,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_textEncodingV1 = config->value("/TextEncodingV1", "").toString();
   m_textEncoding = config->value("/TextEncoding", TE_ISO8859_1).toInt();
   m_trackNumberDigits = config->value("/TrackNumberDigits", 1).toInt();
+  m_playOnDoubleClick = config->value("/PlayOnDoubleClick", m_playOnDoubleClick).toBool();
   m_useProxy = config->value("/UseProxy", m_useProxy).toBool();
   m_proxy = config->value("/Proxy", m_proxy).toString();
   m_useProxyAuthentication = config->value("/UseProxyAuthentication", m_useProxyAuthentication).toBool();

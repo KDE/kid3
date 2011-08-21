@@ -162,6 +162,8 @@ private:
   QCheckBox* m_onlyCustomGenresCheckBox;
   /** Model with list of custom genres */
   QStringListModel* m_genresEditModel;
+  /** Play on double click checkbox */
+  QCheckBox* m_playOnDoubleClickCheckBox;
   /** Commands table */
   ConfigTable* m_commandsTable;
   /** Commands table model */

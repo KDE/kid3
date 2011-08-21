@@ -356,15 +356,18 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
       QGroupBox* commandsGroupBox = new QGroupBox(i18n("Context &Menu Commands"), actionsPage);
       if (commandsGroupBox) {
+        m_playOnDoubleClickCheckBox =
+            new QCheckBox(i18n("&Play on double click"), commandsGroupBox);
         m_commandsTableModel = new CommandsTableModel(commandsGroupBox);
         m_commandsTable = new ConfigTable(commandsGroupBox);
         m_commandsTable->setModel(m_commandsTableModel);
         m_commandsTable->setHorizontalResizeModes(
           m_commandsTableModel->getHorizontalResizeModes());
-        QHBoxLayout* hbox = new QHBoxLayout;
-        hbox->setMargin(2);
-        hbox->addWidget(m_commandsTable);
-        commandsGroupBox->setLayout(hbox);
+        QVBoxLayout* commandsLayout = new QVBoxLayout;
+        commandsLayout->setMargin(2);
+        commandsLayout->addWidget(m_playOnDoubleClickCheckBox);
+        commandsLayout->addWidget(m_commandsTable);
+        commandsGroupBox->setLayout(commandsLayout);
         vlayout->addWidget(commandsGroupBox);
       }
     }
@@ -541,6 +544,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 #endif
   m_trackNumberDigitsSpinBox->setValue(miscCfg->m_trackNumberDigits);
   m_browserLineEdit->setText(miscCfg->m_browser);
+  m_playOnDoubleClickCheckBox->setChecked(miscCfg->m_playOnDoubleClick);
   m_proxyCheckBox->setChecked(miscCfg->m_useProxy);
   m_proxyLineEdit->setText(miscCfg->m_proxy);
   m_proxyAuthenticationCheckBox->setChecked(miscCfg->m_useProxyAuthentication);
@@ -605,6 +609,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
 #endif
   miscCfg->m_trackNumberDigits = m_trackNumberDigitsSpinBox->value();
   miscCfg->m_browser = m_browserLineEdit->text();
+  miscCfg->m_playOnDoubleClick = m_playOnDoubleClickCheckBox->isChecked();
   miscCfg->m_useProxy = m_proxyCheckBox->isChecked();
   miscCfg->m_proxy = m_proxyLineEdit->text();
   miscCfg->m_useProxyAuthentication = m_proxyAuthenticationCheckBox->isChecked();

@@ -334,7 +334,8 @@ void FileList::customContextMenu(const QPoint& pos)
  */
 void FileList::playIfTaggedFile(const QModelIndex& index)
 {
-  if (FileProxyModel::getTaggedFileOfIndex(index)) {
+  if (ConfigStore::s_miscCfg.m_playOnDoubleClick &&
+      FileProxyModel::getTaggedFileOfIndex(index)) {
     m_mainWin->slotPlayAudio();
   }
 }
