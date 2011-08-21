@@ -386,7 +386,7 @@ void Kid3MainWindow::initActions()
   if (fileOpen) {
     fileOpen->setStatusTip(i18n("Opens a directory"));
     fileOpen->setText(i18n("&Open..."));
-    fileOpen->setShortcut(Qt::CTRL + Qt::Key_O);
+    fileOpen->setShortcut(QKeySequence::Open);
     fileOpen->setIcon(QIcon(":/images/document-open.png"));
     connect(fileOpen, SIGNAL(triggered()),
       this, SLOT(slotFileOpen()));
@@ -417,7 +417,7 @@ void Kid3MainWindow::initActions()
   if (fileSave) {
     fileSave->setStatusTip(i18n("Saves the changed files"));
     fileSave->setText(i18n("&Save"));
-    fileSave->setShortcut(Qt::CTRL + Qt::Key_S);
+    fileSave->setShortcut(QKeySequence::Save);
     fileSave->setIcon(QIcon(":/images/document-save.png"));
     connect(fileSave, SIGNAL(triggered()),
       this, SLOT(slotFileSave()));
@@ -517,7 +517,7 @@ void Kid3MainWindow::initActions()
   if (editSelectAll) {
     editSelectAll->setStatusTip(i18n("Select all files"));
     editSelectAll->setText(i18n("Select &All"));
-    editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
+    editSelectAll->setShortcut(QKeySequence::SelectAll);
     editSelectAll->setIcon(QIcon(":/images/edit-select-all.png"));
     connect(editSelectAll, SIGNAL(triggered()),
       m_form, SLOT(selectAllFiles()));
@@ -671,6 +671,7 @@ void Kid3MainWindow::initActions()
     settingsConfigure->setStatusTip(i18n("Configure Kid3"));
     settingsConfigure->setText(i18n("&Configure Kid3..."));
     settingsConfigure->setIcon(QIcon(":/images/configure.png"));
+    settingsConfigure->setShortcut(QKeySequence::Preferences);
     connect(settingsConfigure, SIGNAL(triggered()),
       this, SLOT(slotSettingsConfigure()));
   }
@@ -684,6 +685,7 @@ void Kid3MainWindow::initActions()
     helpHandbook->setStatusTip(i18n("Kid3 Handbook"));
     helpHandbook->setText(i18n("Kid3 &Handbook"));
     helpHandbook->setIcon(QIcon(":/images/help-contents.png"));
+    helpHandbook->setShortcut(QKeySequence::HelpContents);
     connect(helpHandbook, SIGNAL(triggered()),
       this, SLOT(slotHelpHandbook()));
   }
