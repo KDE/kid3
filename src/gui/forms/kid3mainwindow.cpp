@@ -93,6 +93,7 @@
 #include "textexporter.h"
 #include "serverimporter.h"
 #include "dirrenamer.h"
+#include "movetotrash.h"
 #include "qtcompatmac.h"
 #ifdef HAVE_PHONON
 #include "audioplayer.h"
@@ -1915,9 +1916,7 @@ void Kid3MainWindow::renameFile()
 }
 
 /** Only defined for generation of translation files */
-#define WANT_TO_DELETE_FOR_PO I18N_NOOP("Do you really want to delete these %1 items?")
-/** Only defined for generation of translation files */
-#define ERROR_DELETING_FOR_PO I18N_NOOP("Error while deleting these %1 items:")
+#define WANT_TO_DELETE_FOR_PO I18N_NOOP("Do you really want to move these %1 items to the trash?")
 
 /**
  * Delete the selected file(s).
@@ -1943,19 +1942,21 @@ void Kid3MainWindow::deleteFile()
 #ifdef CONFIG_USE_KDE
     if (KMessageBox::warningContinueCancelList(
           this,
-          i18np("Do you really want to delete this item?",
-                "Do you really want to delete these %1 items?", numFiles),
+          i18np("Do you really want to move this item to the trash?",
+                "Do you really want to move these %1 items to the trash?",
+                numFiles),
           files,
-          i18n("Delete Files"),
-          KStandardGuiItem::del(), KStandardGuiItem::cancel(), QString(),
+          i18n("Move to Trash"),
+          KStandardGuiItem::ok(), KStandardGuiItem::cancel(), QString(),
           KMessageBox::Dangerous) == KMessageBox::Continue)
 #else
     if (MessageDialog::warningList(
           this,
-          i18n("Delete Files"),
+          i18n("Move to Trash"),
           numFiles > 1
-          ? KCM_i18n1("Do you really want to delete these %1 items?", numFiles)
-          : i18n("Do you really want to delete this item?"),
+          ? KCM_i18n1("Do you really want to move these %1 items to the trash?",
+                      numFiles)
+          : i18n("Do you really want to move this item to the trash?"),
           files) == QMessageBox::Ok)
 #endif
     {
@@ -1964,7 +1965,7 @@ void Kid3MainWindow::deleteFile()
       foreach (QPersistentModelIndex index, selItems) {
         QString absFilename(model->filePath(index));
         if (model->isDir(index)) {
-          if (!model->rmdir(index)) {
+          if (!Utils::moveToTrash(absFilename)) {
             rmdirError = true;
             files.append(absFilename);
           }
@@ -1974,7 +1975,7 @@ void Kid3MainWindow::deleteFile()
             // The file must be closed before deleting on Windows.
             FileProxyModel::releaseTaggedFileOfIndex(index);
           }
-          if (!model->remove(index)) {
+          if (!Utils::moveToTrash(absFilename)) {
             files.append(absFilename);
           }
         }
@@ -1983,17 +1984,12 @@ void Kid3MainWindow::deleteFile()
         QString txt;
         if (rmdirError)
           txt += i18n("Directory must be empty.\n");
+        txt += i18n("Could not move these files to the Trash");
 #ifdef CONFIG_USE_KDE
-        txt += i18np("Error while deleting this item:",
-                     "Error while deleting these %1 items:", files.size());
         KMessageBox::errorList(this, txt, files, i18n("File Error"));
 #else
         MessageDialog::warningList(
-          this, i18n("File Error"),
-          files.size() > 1
-          ? KCM_i18n1("Error while deleting these %1 items:", files.size())
-          : i18n("Error while deleting this item:"),
-          files, QMessageBox::Ok);
+          this, i18n("File Error"), txt, files, QMessageBox::Ok);
 #endif
       }
     }

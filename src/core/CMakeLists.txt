@@ -2,7 +2,7 @@ include_directories(utils config tags formats export import model)
 
 set(core_SRCS)
 set(core_MOC_HDRS)
-foreach (_subdir config tags formats export import model)
+foreach (_subdir utils config tags formats export import model)
   include(${_subdir}/Sources.cmake)
   set(core_SRCS ${core_SRCS} ${${_subdir}_SRCS})
   set(core_MOC_HDRS ${core_MOC_HDRS} ${${_subdir}_MOC_HDRS})
