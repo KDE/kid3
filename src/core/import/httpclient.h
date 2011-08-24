@@ -68,8 +68,10 @@ public:
    *
    * @param server host name
    * @param path   path of the URL
+   * @param setUserAgent true to set user agent to Mozilla
    */
-  void sendRequest(const QString& server, const QString& path);
+  void sendRequest(const QString& server, const QString& path,
+                   bool setUserAgent = false);
 
   /**
    * Abort request.

@@ -150,8 +150,10 @@ void HttpClient::slotResponseHeaderReceived(const QHttpResponseHeader& resp)
  *
  * @param server host name
  * @param path   path of the URL
+ * @param setUserAgent true to set user agent to Mozilla
  */
-void HttpClient::sendRequest(const QString& server, const QString& path)
+void HttpClient::sendRequest(const QString& server, const QString& path,
+                             bool setUserAgent)
 {
   m_rcvBodyLen = 0;
   m_rcvBodyType = "";
@@ -170,7 +172,23 @@ void HttpClient::sendRequest(const QString& server, const QString& path)
   }
   m_http->setProxy(proxy, proxyPort, username, password);
   m_http->setHost(dest, destPort);
-  m_http->get(path);
+  if (!setUserAgent) {
+    m_http->get(path);
+  } else {
+    // Set User-Agent to Mozilla to avoid that request is blocked.
+    QHttpRequestHeader header("GET", path);
+    if (destPort != 80)
+      header.setValue("Host", dest + ':' + QString::number(destPort));
+    else
+      header.setValue("Host", dest);
+    header.setValue("User-Agent","Mozilla/5.0");
+    header.setValue("Accept","text/html,application/xhtml+xml,application/xml"
+                    ";q=0.9,*/*;q=0.8");
+    header.setValue("Accept-Language","en-us,en;q=0.5");
+    header.setValue("Accept-Charset","utf-8");
+    header.setValue("Connection","keep-alive");
+    m_http->request(header);
+  }
 }
 
 /**

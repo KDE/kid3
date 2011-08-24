@@ -566,7 +566,7 @@ void DiscogsImporter::sendFindQuery(
    */
   sendRequest(discogsServer,
               QString("/search?type=releases&q=") +
-              encodeUrlQuery(artist + " " + album) + "&btn=Search");
+              encodeUrlQuery(artist + " " + album) + "&btn=Search", true);
 }
 
 /**
@@ -584,5 +584,5 @@ void DiscogsImporter::sendTrackListQuery(
    * Query looks like this:
    * http://www.discogs.com/release/761529
    */
-  sendRequest(discogsServer, QString("/") + cat + '/' + id);
+  sendRequest(discogsServer, QString("/") + cat + '/' + id, true);
 }
