@@ -518,7 +518,7 @@ void Kid3MainWindow::initActions()
   if (editSelectAll) {
     editSelectAll->setStatusTip(i18n("Select all files"));
     editSelectAll->setText(i18n("Select &All"));
-    editSelectAll->setShortcut(QKeySequence::SelectAll);
+    editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
     editSelectAll->setIcon(QIcon(":/images/edit-select-all.png"));
     connect(editSelectAll, SIGNAL(triggered()),
       m_form, SLOT(selectAllFiles()));
