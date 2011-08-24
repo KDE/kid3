@@ -625,6 +625,14 @@ public:
   unsigned long getChangedFramesV2() const { return m_changedFramesV2; }
 
   /**
+   * Set the mask of the frame types changed in tag 2.
+   * @param mask mask of frame types
+   */
+  void setChangedFramesV2(unsigned long mask) {
+    m_changedFramesV2 = mask; m_changedV2 = mask != 0;
+  }
+
+  /**
    * Get the truncation flags.
    * @return truncation flags.
    */

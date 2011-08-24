@@ -162,13 +162,14 @@ bool FrameList::deleteFrame()
 bool FrameList::addAndEditFrame(IFrameEditor* frameEditor)
 {
   if (m_taggedFile) {
+    unsigned long oldChangedFrames = m_taggedFile->getChangedFramesV2();
     if (!m_taggedFile->addFrameV2(m_frame)) {
       return false;
     }
     if (frameEditor &&
         !frameEditor->editFrameOfTaggedFile(&m_frame, m_taggedFile)) {
       m_taggedFile->deleteFrameV2(m_frame);
-      m_taggedFile->markTag2Unchanged();
+      m_taggedFile->setChangedFramesV2(oldChangedFrames);
       return false;
     }
     int index = m_frame.getIndex();
