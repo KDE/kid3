@@ -55,6 +55,7 @@ FilterConfig::FilterConfig(const QString& grp) :
     "ID3v2.4.0 Tag" <<
     "Tag 1 != Tag 2" <<
     "Tag 1 == Tag 2" <<
+    "Incomplete" <<
     "No Picture" <<
     "Custom Filter";
   m_filterExpressions <<
@@ -67,6 +68,7 @@ FilterConfig::FilterConfig(const QString& grp) :
     "%{tag2} equals \"ID3v2.4.0\"" <<
     "not (%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre})" <<
     "%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre}" <<
+    "%{title} equals \"\" or %{artist} equals \"\" or %{album} equals \"\" or %{year} equals \"\" or %{tracknumber} equals \"\" or %{genre} equals \"\"" <<
     "%{picture} equals \"\"" <<
     "";
 }
