@@ -117,7 +117,9 @@ bool Utils::moveToTrash(const QString& path)
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#ifdef HAVE_MNTENT_H
 #include <mntent.h>
+#endif
 
 namespace {
 
@@ -155,6 +157,7 @@ bool moveToTrashDir(const QFileInfo& fi, const QString& trashDir)
 
 bool findMountPoint(dev_t dev, QString& mountPoint)
 {
+#ifdef HAVE_MNTENT_H
   if (FILE* fp = ::setmntent("/proc/mounts", "r")) {
     struct stat st;
     struct mntent* mnt;
@@ -171,6 +174,7 @@ bool findMountPoint(dev_t dev, QString& mountPoint)
     }
     ::endmntent(fp);
   }
+#endif
   return false;
 }
 

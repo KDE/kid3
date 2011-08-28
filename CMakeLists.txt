@@ -351,6 +351,10 @@ if (WITH_DBUS AND QT_QTDBUS_LIBRARY)
   set(HAVE_QTDBUS 1)
 endif (WITH_DBUS AND QT_QTDBUS_LIBRARY)
 
+### Check for mntent.h
+include(CheckIncludeFile)
+check_include_file("mntent.h" HAVE_MNTENT_H)
+
 if (WITH_KDE)
 
 ### Check for Phonon
