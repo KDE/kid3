@@ -91,7 +91,7 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
           QStringList() << i18n("Format:")
                         << i18n("Header:")
                         << i18n("Tracks:")
-                        << i18n("Footer"),
+                        << i18n("Footer:"),
           QStringList() << QString()
                         << formatToolTip
                         << formatToolTip
