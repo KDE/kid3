@@ -1435,10 +1435,17 @@ void Kid3MainWindow::slotRenameDirectory()
       if (m_renDirDialog->exec() == QDialog::Accepted) {
         QString errorMsg(m_app->performRenameActions());
         if (!errorMsg.isEmpty()) {
-          QMessageBox::warning(0, i18n("File Error"),
-                               i18n("Error while renaming:\n") +
-                               errorMsg,
-                               QMessageBox::Ok, Qt::NoButton);
+#ifdef CONFIG_USE_KDE
+          KMessageBox::error(this, i18n("Error while renaming:\n") + errorMsg,
+                             i18n("File Error"));
+#else
+          MessageDialog dialog(this);
+          dialog.setWindowTitle(i18n("File Error"));
+          dialog.setText(i18n("Error while renaming:\n"));
+          dialog.setInformativeText(errorMsg);
+          dialog.setIcon(QMessageBox::Warning);
+          dialog.exec();
+#endif
         }
       }
 
@@ -1908,7 +1915,7 @@ void Kid3MainWindow::renameFile()
         QMessageBox::warning(
           0, i18n("File Error"),
           i18n("Error while renaming:\n") +
-          KCM_i18n2("Rename %1 to %2 failed\n", fileName, newFileName),
+          i18n("Rename %1 to %2 failed\n").arg(fileName).arg(newFileName),
           QMessageBox::Ok, Qt::NoButton);
       }
     }
@@ -1954,8 +1961,8 @@ void Kid3MainWindow::deleteFile()
           this,
           i18n("Move to Trash"),
           numFiles > 1
-          ? KCM_i18n1("Do you really want to move these %1 items to the trash?",
-                      numFiles)
+          ? i18n("Do you really want to move these %1 items to the trash?").
+            arg(numFiles)
           : i18n("Do you really want to move this item to the trash?"),
           files) == QMessageBox::Ok)
 #endif

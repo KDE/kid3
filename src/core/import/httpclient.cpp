@@ -101,7 +101,7 @@ void HttpClient::slotStateChanged(int state)
  */
 void HttpClient::slotDataReadProgress(int done, int total)
 {
-  emitProgress(KCM_i18n1("Data received: %1", done), done, total);
+  emitProgress(i18n("Data received: %1").arg(done), done, total);
 }
 
 /**

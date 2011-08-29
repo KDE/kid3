@@ -33,10 +33,6 @@
 
 #ifdef CONFIG_USE_KDE
 #include <klocale.h>
-#include <kdeversion.h>
-
-#define KCM_i18n1(s, a1) i18n(s, a1)
-#define KCM_i18n2(s, a1, a2) i18n(s, a1, a2)
 
 #define QCM_translate(s) i18n(s)
 
@@ -45,9 +41,6 @@
 
 #define i18n(s) tr(s)
 #define I18N_NOOP(s) QT_TRANSLATE_NOOP("@default", s)
-
-#define KCM_i18n1(s, a1) tr(s).arg(a1)
-#define KCM_i18n2(s, a1, a2) tr(s).arg(a1).arg(a2)
 
 #define QCM_translate(s) QCoreApplication::translate("@default", s)
 
