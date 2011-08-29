@@ -2086,7 +2086,7 @@ msgstr "移至垃圾桶"
 
 #: gui/forms/kid3mainwindow.cpp:1986
 msgid "Directory must be empty.\n"
-msgstr "目錄裡面必須是空的."
+msgstr "目錄裡面必須是空的.\n"
 
 #: gui/forms/kid3mainwindow.cpp:1987
 msgid "Could not move these files to the Trash"
