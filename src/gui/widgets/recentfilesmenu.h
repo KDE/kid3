@@ -37,7 +37,7 @@ public:
   /**
    * Add directory to list of recent files.
    *
-   * @param path path to directory
+   * @param dir path to directory
    */
   void addDirectory(const QString& dir);
 

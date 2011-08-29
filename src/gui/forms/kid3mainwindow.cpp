@@ -1080,7 +1080,7 @@ void Kid3MainWindow::slotFileOpenDirectory()
 /**
  * Open recent directory.
  *
- * @param url URL of directory to open
+ * @param dir directory to open
  */
 #ifdef CONFIG_USE_KDE
 void Kid3MainWindow::slotFileOpenRecentUrl(const KUrl& url)

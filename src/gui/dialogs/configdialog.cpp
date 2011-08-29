@@ -81,7 +81,6 @@ static QString getTextEncodingV1CodecName(const QString& comboEntry)
  *
  * @param parent  parent widget
  * @param caption dialog title
- * @param configSkeleton KDE config skeleton
  */
 #ifdef CONFIG_USE_KDE
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,

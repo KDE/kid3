@@ -92,7 +92,7 @@ public:
   /**
    * Set the text to be displayed in the table.
    * @param text text with tab-separated columns and newline-separated rows
-   * @param true if the first line is the header
+   * @param hasHeaderLine true if the first line is the header
    * @return true if the first line of the text contains a tab character.
    */
   bool setText(const QString& text, bool hasHeaderLine);

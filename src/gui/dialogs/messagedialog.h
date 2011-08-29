@@ -93,12 +93,13 @@ public:
   void setDefaultButton(QMessageBox::StandardButton button);
 
   /**
-   * Display a model dialog with a list of items.
+   * Display a modal dialog with a list of items.
    *
    * @param parent parent widget
    * @param title dialog title
    * @param text dialog text
    * @param list list of items
+   * @param buttons buttons shown
    *
    * @return QMessageBox::Ok or QMessageBox::Cancel.
    */

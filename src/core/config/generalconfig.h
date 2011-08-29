@@ -35,6 +35,7 @@
 typedef KConfig Kid3Settings;
 #else
 #include <QSettings>
+/** Persistent application settings. */
 typedef QSettings Kid3Settings;
 #endif
 

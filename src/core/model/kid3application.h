@@ -1,5 +1,5 @@
 /**
- * \file kid3application.hpp
+ * \file kid3application.h
  * Kid3 application logic, independent of GUI.
  *
  * \b Project: Kid3
@@ -427,8 +427,8 @@ public:
   bool isFiltered() { return m_filtered; }
 
   /**
-   * Set format used to generate tags from filename.
-   * @param format format
+   * Get format used to generate tags from filename.
+   * @return format
    */
   QString getTagsToFilenameFormat() const {
     return m_tagsToFilenameFormat;
@@ -726,7 +726,7 @@ signals:
   /**
    * Emitted when a new directory is opened.
    * @param directoryIndex root path file system model index
-   * @param filePathIndex file path index in the file system model
+   * @param fileIndex file path index in the file system model
    */
   void directoryOpened(const QModelIndex& directoryIndex,
                        const QModelIndex& fileIndex);

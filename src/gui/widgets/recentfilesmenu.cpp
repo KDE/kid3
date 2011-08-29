@@ -37,7 +37,7 @@ RecentFilesMenu::~RecentFilesMenu()
 /**
  * Add directory to list of recent files.
  *
- * @param path path to directory
+ * @param dir path to directory
  */
 void RecentFilesMenu::addDirectory(const QString& dir)
 {
