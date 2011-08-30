@@ -20,12 +20,13 @@ Description: KDE MP3 ID3 tag editor
   * Edit ID3v1.1 tags in your MP3 files
   * Edit all ID3v2.3 and ID3v2.4 frames in your MP3 files
   * Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-  * Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+  * Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
     TrueAudio, WavPack, WMA, WAV and AIFF files
   * Edit tags of multiple files, e.g. the artist, album, year and genre
     of all files of an album typically have the same values and can be
     set together
   * Generate tags from filenames
+  * Generate tags from the contents of tag fields
   * Generate filenames from tags
   * Generate playlist files
   * Automatic case conversion and string translation
@@ -43,12 +44,13 @@ Description: Audio tag editor
   * Edit ID3v1.1 tags in your MP3 files
   * Edit all ID3v2.3 and ID3v2.4 frames in your MP3 files
   * Convert between ID3v1.1, ID3v2.3 and ID3v2.4 tags
-  * Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+  * Edit tags in MP3, Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
     TrueAudio, WavPack, WMA, WAV and AIFF files
   * Edit tags of multiple files, e.g. the artist, album, year and genre
     of all files of an album typically have the same values and can be
     set together
   * Generate tags from filenames
+  * Generate tags from the contents of tag fields
   * Generate filenames from tags
   * Generate playlist files
   * Automatic case conversion and string translation

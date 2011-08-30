@@ -1,3 +1,9 @@
+kid3 (2.0-0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Tue, 30 Aug 2011 19:02:37 +0200
+
 kid3 (1.6-1) unstable; urgency=low
 
   * New upstream release.

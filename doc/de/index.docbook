@@ -25,13 +25,13 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2011-01-15</date>
-<releaseinfo>1.6</releaseinfo>
+<date>2011-08-30</date>
+<releaseinfo>2.0</releaseinfo>
 
 <abstract>
 <para>
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
-in MP3 Dateien. Auch die Tags in Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+in MP3 Dateien. Auch die Tags in Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
 TrueAudio, WavPack, WMA, WAV und AIFF Dateien werden
 unterstützt. Es ist einfach, Tags in mehreren Dateien auf die gleichen Werte
 zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
@@ -73,7 +73,7 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 in MP3 Dateien. Diese Tags können zwar mit den meisten MP3 Player
 Programmen editiert werden, jedoch nicht auf eine sehr komfortable und
 effiziente Art. Darüber hinaus werden auch die Tags in Ogg/Vorbis, FLAC,
-MPC, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV und AIFF Dateien unterstützt.
+MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV und AIFF Dateien unterstützt.
 </para>
 <para>
 &kid3; kann weder MP3 grabben noch codieren, es ist darauf
@@ -86,7 +86,7 @@ Zugang zu allen ID3v2 Frames. Tags mehrerer Dateien können gleichzeitig
 auf dieselben Werte gesetzt werden, so beispielsweise Interpret, Album,
 Jahr und Stil aller Dateien eines Albums. Wenn die Information für die Tags
 schon im Dateinamen enthalten ist, können die Tags automatisch aus dem
-Dateinamen generiert werden. Es ist aus möglich, den Dateinamen in einem
+Dateinamen generiert werden. Es ist auch möglich, den Dateinamen in einem
 beliebigen Format aus den Werten in den Tags zu setzen.
 </para>
 <para>
@@ -121,9 +121,10 @@ werden.
 <listitem><para>Editieren von allen ID3v2.3 und ID3v2.4 Frames</para></listitem>
 <listitem><para>Editieren der Tags von mehreren Dateien</para></listitem>
 <listitem><para>Konvertieren zwischen ID3v1 und ID3v2 Tags</para></listitem>
-<listitem><para>Editieren von MP3, Ogg/Vorbis, FLAC, MPC, MP4/AAC, MP2, Speex,
+<listitem><para>Editieren von MP3, Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
 TrueAudio, WavPack, WMA, WAV und AIFF Tags</para></listitem>
 <listitem><para>Generieren der Tags aus dem Dateinamen</para></listitem>
+<listitem><para>Generieren der Tags aus dem Inhalt der Tagfelder</para></listitem>
 <listitem><para>Generieren des Dateinamens aus den Tags</para></listitem>
 <listitem><para>Generieren und Ändern des Verzeichnisnamens aus den Tags</para></listitem>
 <listitem><para>Generieren von Stücklisten</para></listitem>
@@ -173,7 +174,7 @@ Album und Nummer in allen Dateien gesetzt. Um die Werte für Jahr und Stil
 in allen Dateien zu setzen, lassen wir alle Dateien selektiert und tippen
 "2002" in das Feld <guilabel>Jahr</guilabel> und wählen "Pop" im
 <guilabel>Stil</guilabel> Auswahlfeld. Um einzig diese zwei Werte zu
-verändern, werden ihre Markierungsfelder aktiviert, und alle anderen Markierungsfelder
+verändern, werden ihre Markierungsfelder automatisch aktiviert, und alle anderen Markierungsfelder
 bleiben leer. Wird nun durch Klick auf die erste Datei die Auswahl
 verändert, so sieht man, dass die Tags für die erste Datei die korrekten
 Werte enthalten. Die Tags der anderen Dateien können auch überprüft werden,
@@ -212,7 +213,7 @@ Sektionen.
 Die Dateiliste enthält die Namen aller Dateien im geöffneten Verzeichnis,
 welche den gewählten Dateinamenfilter (typischerweise <filename>*.mp3
 *.ogg *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx
-*.tta *.wv *.wma *.wav *.aiff</filename>)
+*.tta *.wv *.wma *.wav *.aiff *.ape</filename>)
 erfüllen. Eine einzelne oder mehrere Dateien können ausgewählt werden. Um
 keine Datei auszuwählen, kann in den leeren Bereich unterhalb der
 Dateieinträge geklickt werden. Die Auswahl bestimmt die Dateien, welche
@@ -237,26 +238,27 @@ Bei einem Rechtsklick in der Dateiliste öffnet sich ein Kontext-Menü mit
 folgenden Befehlen:
 <itemizedlist>
 <listitem><para>
-<guimenuitem>Unterbäume ausklappen</guimenuitem>: Klappt alle Verzeichnisbäume
+<guimenuitem>Alle ausklappen</guimenuitem>: Klappt alle Verzeichnisbäume
 auf
 </para></listitem>
 <listitem><para>
-<guimenuitem>Unterbäume einklappen</guimenuitem>: Klappt alle Verzeichnisbäume
+<guimenuitem>Alle einklappen</guimenuitem>: Klappt alle Verzeichnisbäume
 ein
 </para></listitem>
 <listitem><para>
 <guimenuitem>Umbenennen</guimenuitem>: Ändert den Namen der Datei
 </para></listitem>
 <listitem><para>
-<guimenuitem>Löschen</guimenuitem>: Löscht die Datei
-</para></listitem>
+<guimenuitem>In den Mülleimer werfen</guimenuitem>: Verschiebt die Datei in
+den Mülleimer</para></listitem>
 <listitem><para>
 <guimenuitem>Wiedergabe</guimenuitem>: Spielt die Datei ab,
 siehe <link linkend="play">Wiedergabe</link>
 </para></listitem>
 <listitem><para>Bei den weiteren Menüeinträgen handelt es sich um
 Benutzerbefehle, welche in <link linkend="configure-kid3">Kid3 einrichten</link>
-bei <guilabel>Benutzerbefehle</guilabel> definiert werden können.
+bei <guilabel>Benutzerbefehle</guilabel> definiert werden können. Dort kann
+auch die Wiedergabe von Dateien per Doppelklick aktiviert werden.
 </para></listitem>
 </itemizedlist>
 </para>
@@ -280,7 +282,7 @@ Wechsel zwischen Verzeichnissen, ohne den Umweg über die
 <listitem>
 <para>
 Zeigt Informationen über Codierung (MP3,
-Ogg, FLAC, MPC, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
+Ogg, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
 Bit- und Samplerate, Kanäle und die Länge der Datei an.
 </para>
 <para>
@@ -309,7 +311,7 @@ Werte aus den Tags im Dateinamen einzusetzen:
 <listitem><para>%t %{track.n} Nummer mit Feldlänge n (z.B. 001 für %{track.3})</para></listitem>
 <listitem><para>%T %{tracknumber} Nummer (Track, z.B. 1)</para></listitem>
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
-<listitem><para>%g %{ignore} Wird ignoriert wenn Tags aus dem Dateinamen erzeugt werden</para></listitem>
+<listitem><para>  %{ignore} Wird ignoriert wenn Tags aus dem Dateinamen erzeugt werden</para></listitem>
 </itemizedlist>
 
 <para>
@@ -606,7 +608,7 @@ MusicBrainz-Maschinerie runtergefahren werden muss.
 
 <para id="import-text">
 Zum Importieren von Albumdaten in Textform öffnet man einen Unterdialog
-mit <guibutton>Von Datei/Clipboard</guibutton>.
+mit <guibutton>Von Datei/Zwischenablage</guibutton>.
 Dort stehen mehrere vorkonfigurierte
 Formate zur Verfügung. Die ersten zwei, "CSV unquoted" und "CSV quoted",
 dienen dazu, Daten welche über die Export Funktion exportiert wurden, wieder
@@ -646,7 +648,8 @@ die Zwischenablage importiert werden kann.
 </para>
 <para>
 Weitere vorkonfigurierte Formate, z.B. "Track Title Time" stehen zur
-Verfügung. Das Format "Custom Format" ist leer gelassen und kann vom Benutzer gesetzt
+Verfügung. Mit Klick auf <guibutton>Hinzufügen</guibutton> kann ein leeres
+benutzerdefiniertes Format erzeugt und vom Benutzer gesetzt
 werden. Die zwei Zeilen unterhalb des Formatnamens können hierzu mit regulären
 Ausdrücken gefüllt werden. Der erste Ausdruck wird einmal angewendet, um
 albumspezifische Daten wie Interpret, Album, Jahr und Stil zu extrahieren. Die
@@ -673,11 +676,12 @@ eingeleitet. Die Codes sind dieselben wie beim Dateinamenformat:
 Beispiel: Ein regulärer Ausdruck für die zweite Zeile, um Titel aus einer .m3u
 Stückliste zu holen, könnte "%{track}(\d+)\s+%{title}(\S[^\r\n]*)\.mp3[\r\n]"
 sein. Alle Formate können geändert werden, indem der Name und die regulären
-Ausdrücke editiert werden und dann der Dialog mit <guibutton>OK</guibutton>
-beendet wird. Gespeichert werden sie in der Datei <filename>kid3rc</filename>
+Ausdrücke editiert werden und <guibutton>Einstellungen speichern</guibutton>
+gedrückt wird. Gespeichert werden sie in der Datei <filename>kid3rc</filename>
 im Konfigurationsverzeichnis. Diese Datei kann auch direkt verändert werden,
 um mehr Importformate zu haben, oder man kann sie löschen, um wieder zu den
-Standardeinstellungen zu kommen.
+Standardeinstellungen zu kommen. Formate können
+mit <guibutton>Entfernen</guibutton> gelöscht werden.
 </para>
 <para>
 Um zu prüfen, ob die importierten Stücke den vorhandenen Dateien entsprechen,
@@ -713,7 +717,12 @@ werden sollen.
 Um die Dateien, welche importiert werden, zu identifizieren, können die
 Dateinamen oder die vollständigen Pfade in der Tabelle dargestellt
 werden. Diese Einstellung ist über das Kontextmenü, welches bei Rechtsklick
-auf die Kopfzeile erscheint, möglich.
+auf die Kopfzeile erscheint, möglich. Die Werte in der Import-Tabelle lassen
+sich editieren. Die momentan in den Tags vorhandenen Werte lassen sich mit dem
+Rückgängig-Knopf rechts vom <guilabel>Ziel</guilabel>-Listenfeld
+wiederherstellen. Dies ist auch dann nützlich, wenn man
+das <guilabel>Ziel</guilabel> verändert hat und die dort vorhandenen Werte in
+der Tabelle sehen möchte.
 </para>
 <para>
 Wie in fast allen Dialogen dient der <guibutton>Einstellungen
@@ -740,11 +749,9 @@ Titel extrahieren.
 <para>
 Das Erstellen eines eigenen Importformates wird im folgenden anhand eines
 Beispieles erklärt. Die Information im Untertitel soll auch im Kommentar
-gesetzt werden. Dazu wird das <guilabel>Format</guilabel> "Custom Format"
-ausgewählt und ein neuer Name gesetzt, in diesem Beispiel also "Subtitle to
-Comment". Das Format wird hinzugefügt, indem man
-im <guilabel>Format</guilabel>-Editierfeld die Enter Taste drückt. Nun gibt
-man unter <guilabel>Quelle</guilabel> "%{subtitle}" und
+gesetzt werden. Dazu wird ein neues Format mit <guibutton>Hinzufügen</guibutton>
+erstellt und ein neuer Name gesetzt, in diesem Beispiel also "Subtitle to
+Comment". Nun gibt man unter <guilabel>Quelle</guilabel> "%{subtitle}" und
 unter <guilabel>Ermittlung</guilabel> "%{comment}(.*)" ein und
 klickt <guibutton>Einstellungen speichern</guibutton>.
 </para>
@@ -885,8 +892,8 @@ werden. Natürlich können auch hier eigene Ersetzungen erfasst werden.
 Der <action>Export Dialog</action> wird verwendet, um die Daten aus den Tags in
 einer Datei oder der Zwischenablage zu speichern. Das oberste Editierfeld
 stellt einen einfachen Editor zur Verfügung, welcher eine Vorschau der zu
-exportierenden Daten bietet. Zusätzlich lassen sich die Daten darin noch
-modifizieren, denn es wird der Inhalt dieses Editierfeldes gespeichert. Die
+exportierenden Daten bietet. Falls die Export-Daten Tabulatorzeichen
+enthalten, wird der Export in einer Tabelle dargestellt. Die
 Daten werden aus den Tags der Dateien im aktuellen Verzeichnis generiert, und
 zwar gemäß dem unten eingestellten Format.
 </para>
@@ -902,7 +909,8 @@ Die Formatfelder enthalten keine regulären Ausdrücke wie im Import Dialog,
 sondern bloß Ausgabeformate, bei denen spezielle %-Ausdrücke durch Werte aus
 den Tags ersetzt werden. Das ganze verhält sich also gleich wie beim
 Dateinamenformat, es werden auch dieselben Codes verwendet, plus ein paar
-zusätzliche.
+zusätzliche. Nicht nur die unten aufgelisteten Codes sind möglich, es können
+die Namen aller Tag Frames verwendet werden.
 </para>
 
 <itemizedlist>
@@ -934,7 +942,7 @@ id3lib)</para></listitem>
 <listitem><para>%m %{mode} Kanalmodus (Stereo oder Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Anzahl Kanäle (1 oder 2)</para></listitem>
 <listitem><para>%k %{codec} Codec (z.B. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
-MPC, ASF, AIFF, WAV)</para></listitem>
+MPC, APE, ASF, AIFF, WAV)</para></listitem>
 </itemizedlist>
 
 <para>
@@ -1185,6 +1193,10 @@ Quelle der Tag-Information kann zwischen
 Verzeichnisnamensänderung für die erste Datei kann in den Abschnitten
 <guilabel>Von</guilabel> und <guilabel>Nach</guilabel> des Dialogs gesehen
 werden.
+</para>
+<para>
+Es können auch mehrere Verzeichnisse umbenannt werden, indem sie selektiert
+werden.
 </para></listitem>
 </varlistentry>
 
@@ -1202,6 +1214,9 @@ sind diese vorgängig auszuwählen.
 </para><para>
 Wenn <guilabel>Anzahl Stücke</guilabel> markiert ist, wird auch
 die Anzahl Tracks in den Tags gesetzt.
+</para><para>
+Es können auch die Tracks über mehrere Ordner hinweg nummeriert werden. Dazu
+müssen die Verzeichnisse aufgeklappt und selektiert werden. 
 </para></listitem>
 </varlistentry>
 
@@ -1247,7 +1262,7 @@ id3lib)</para></listitem>
 <listitem><para>%m %{mode} Kanalmodus (Stereo oder Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Anzahl Kanäle (1 oder 2)</para></listitem>
 <listitem><para>%k %{codec} Codec (z.B. MPEG 1 Layer 3, MP4, Ogg Vorbis, FLAC,
-MPC, ASF, AIFF, WAV)</para></listitem>
+MPC, APE, ASF, AIFF, WAV)</para></listitem>
 <listitem><para>%1a %1{artist}, ... Der Präfix 1 wird benutzt, um Werte von Tag 1 zu
 erhalten</para></listitem>
 <listitem><para>%2a %2{artist}, ... Der Präfix 2 wird benutzt, um Werte von Tag 2 zu
@@ -1341,6 +1356,14 @@ equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals
 %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre}
 </userinput></para>
 <para>Es werden Dateien mit identischen Tag 1 und Tag 2 angezeigt.</para>
+</listitem></varlistentry>
+
+<varlistentry><term>Incomplete</term><listitem>
+<para><userinput>
+%{title} equals "" or %{artist} equals "" or %{album} equals "" or %{year} equals "" or %{tracknumber} equals "" or %{genre} equals ""
+</userinput></para>
+<para>Es werden nur Dateien angezeigt, welche leere Standard-Tag-Werte
+haben (Titel, Interpret, Album, Datum, Tracknummer, Stil).</para>
 </listitem></varlistentry>
 
 <varlistentry><term>No Picture</term><listitem>
@@ -1448,7 +1471,7 @@ und aus.</action></para></listitem>
 <varlistentry>
 <term><menuchoice>
 <guimenu>Einstellungen</guimenu>
-<guimenuitem>Bild ausblenden</guimenuitem>
+<guimenuitem>Bild anzeigen</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Schaltet die Anzeige des Cover-Bildes ein und aus.
 </action></para></listitem>
@@ -1782,7 +1805,7 @@ Für MP4 Dateien wird
 <ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> benötigt.
 Für diese vier Formate kann auch durch
 die <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>
-verwendet werden, welche zudem auch MPC, MP2, Speex, TrueAudio, WavPack,
+verwendet werden, welche zudem auch MPC, APE, MP2, Speex, TrueAudio, WavPack,
 WMA, WAV und AIFF Dateien unterstützt.
 Für MusicBrainz Unterstützung wird
 <ulink url="http://musicbrainz.org/doc/libtunepimp">libtunepimp</ulink>
@@ -2053,7 +2076,7 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </sect2>
 
 <sect2 id="dbus-firstFile">
-<title>Erste Datei auswählen</title>
+<title>Gehe zur ersten Datei</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>firstFile</function></funcdef>
@@ -2064,7 +2087,7 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </sect2>
 
 <sect2 id="dbus-previousFile">
-<title>Vorangehende Datei auswählen</title>
+<title>Gehe zur vorangehende Datei</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>previousFile</function></funcdef>
@@ -2075,7 +2098,7 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </sect2>
 
 <sect2 id="dbus-nextFile">
-<title>Nächste Datei auswählen</title>
+<title>Gehe zur nächstes Datei</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef>boolean <function>nextFile</function></funcdef>
@@ -2083,6 +2106,50 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </funcprototype>
 </funcsynopsis>
 <para>Gibt true zurück, wenn eine nächste Datei existiert.</para>
+</sect2>
+
+<sect2 id="dbus-selectFirstFile">
+<title>Erste Datei auswählen</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>selectFirstFile</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Gibt true zurück, wenn eine Datei existiert.</para>
+</sect2>
+
+<sect2 id="dbus-selectPreviousFile">
+<title>Vorangehende Datei auswählen</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>selectPreviousFile</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Gibt true zurück, wenn eine vorangehende Datei existiert.</para>
+</sect2>
+
+<sect2 id="dbus-selectNextFile">
+<title>Nächste Datei auswählen</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>selectNextFile</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Gibt true zurück, wenn eine nächste Datei existiert.</para>
+</sect2>
+
+<sect2 id="dbus-selectCurrentFile">
+<title>Aktuelle Datei auswählen</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>selectCurrentFile</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+<para>Gibt true zurück, wenn eine aktuelle Datei existiert.</para>
 </sect2>
 
 <sect2 id="dbus-expandDirectory">
@@ -2337,17 +2404,6 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </funcsynopsis>
 </sect2>
 
-<sect2 id="dbus-hideTag">
-<title>Blende Tag im GUI aus oder zeige es an</title>
-<funcsynopsis>
-<funcprototype>
-  <funcdef><function>hideTag</function></funcdef>
-  <paramdef>int32 <parameter>tagMask</parameter> Tag Bit (1 für Tag 1, 2 für Tag 2)</paramdef>
-  <paramdef>boolean <parameter>hide</parameter> true um Tag auszublenden</paramdef>
-</funcprototype>
-</funcsynopsis>
-</sect2>
-
 <sect2 id="dbus-reparseConfiguration">
 <title>Lese die Konfiguration neu ein</title>
 <funcsynopsis>
@@ -2358,6 +2414,15 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </funcsynopsis>
 <para>Automatisierte Konfigurationsänderungen sind durch direktes Modifizieren
       der Konfigurationsdatei und anschliessendes Einlesen möglich.</para>
+</sect2>
+
+<sect2 id="dbus-playAudio">
+<title>Spielt die ausgewählten Dateien ab</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>playAudio</function></funcdef>
+</funcprototype>
+</funcsynopsis>
 </sect2>
 
 </sect1>

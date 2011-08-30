@@ -1,3 +1,39 @@
+Tue Aug 30 19:02:37 CEST 2011  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 2.0
+
+	* New:
+	  + Import from tags to extract and move information between tags.
+	  + Play a track on double click (optional).
+	  + Searching in help browser.
+	  + Move files to trash instead of deleting them.
+	  + Automatic setting of checkboxes when frame is changed.
+	  + Support for APE tags with TagLib 1.7.
+
+	* Improved:
+	  + Major refactoring to improve software architecture, separated
+	    GUI from application logic using the Qt 4 Model/View
+	    architecture. This required dropping support for Qt 3 and
+	    KDE 3. Unified build system using CMake for KDE and Qt-only
+	    versions.
+	  + The file list is updated on file system changes and is faster.
+	  + Import sub-dialogs are modeless and do not block import dialog.
+	  + Import table is editable and has optional columns for file
+	    names and paths (selectable with context menu).
+	  + The tracks to import can be selected, e.g. to import only one
+	    CD from a doulbe-CD album.
+	  + Number Tracks can number the tracks of multiple directories.
+	  + Multiple directories can be selected with Rename Directory.
+	  + M4A support with TagLib (can fully replace libmp4v2).
+	  + Exports are displayed in a table if they contain tabulators.
+	  + Adding and editing formats is now more user friendly.
+	  + GUI and usability.
+
+	* Fixed:
+	  + Genre and track total in M4A files with TagLib.
+	  + Execution of user action without command.
+	  + Adapted to Discogs server update.
+
 Sat Jan 15 16:52:22 CET 2011  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 1.6
