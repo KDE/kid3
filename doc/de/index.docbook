@@ -2421,6 +2421,7 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>playAudio</function></funcdef>
+  <void/>
 </funcprototype>
 </funcsynopsis>
 </sect2>

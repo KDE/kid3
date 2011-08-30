@@ -2308,6 +2308,7 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>playAudio</function></funcdef>
+  <void/>
 </funcprototype>
 </funcsynopsis>
 </sect2>
