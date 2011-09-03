@@ -193,7 +193,7 @@ public:
   /**
    * Constructor.
    */
-  ImportTrackData() : m_importDuration(0) {}
+  ImportTrackData() : m_importDuration(0), m_enabled(true) {}
 
   /**
    * Constructor.

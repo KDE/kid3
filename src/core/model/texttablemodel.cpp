@@ -32,7 +32,7 @@
  * @param parent parent widget
  */
 TextTableModel::TextTableModel(QObject* parent) :
-  QAbstractTableModel(parent)
+  QAbstractTableModel(parent), m_hasHeaderLine(false)
 {
   setObjectName("TextTableModel");
 }

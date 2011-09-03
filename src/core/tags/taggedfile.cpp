@@ -558,7 +558,7 @@ QString TaggedFile::getCommentFieldName() const
  */
 int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
 {
-  if (*total)
+  if (total)
     *total = 0;
   if (str.isNull())
     return -1;
