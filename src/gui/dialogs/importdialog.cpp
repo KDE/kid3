@@ -117,7 +117,9 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   m_trackDataTable = new QTableView(this);
   m_trackDataTable->setModel(m_trackDataModel);
   m_trackDataTable->resizeColumnsToContents();
-  m_trackDataTable->setItemDelegateForColumn(6, new FrameItemDelegate(this));
+  m_trackDataTable->setItemDelegateForColumn(
+        m_trackDataModel->columnForFrameType(Frame::FT_Genre),
+        new FrameItemDelegate(this));
   m_trackDataTable->verticalHeader()->setMovable(true);
   m_trackDataTable->horizontalHeader()->setMovable(true);
   m_trackDataTable->horizontalHeader()->setContextMenuPolicy(
