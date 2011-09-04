@@ -160,8 +160,10 @@ Kid3MainWindow::Kid3MainWindow() :
   readFontAndStyleOptions();
 #endif
 
-  initStatusBar();
-  initView();
+  statusBar()->showMessage(i18n("Ready."));
+  m_form = new Kid3Form(m_app, this);
+  setCentralWidget(m_form);
+
   initActions();
 
   resize(sizeHint());
@@ -712,27 +714,6 @@ void Kid3MainWindow::initActions()
 
   updateWindowCaption();
 #endif
-}
-
-/**
- * Init status bar.
- */
-void Kid3MainWindow::initStatusBar()
-{
-  statusBar()->showMessage(i18n("Ready."));
-}
-
-/**
- * Init GUI.
- */
-void Kid3MainWindow::initView()
-{
-  m_form = new Kid3Form(m_app, this);
-  if (m_form) {
-    setCentralWidget(m_form);
-    m_form->initView();
-    m_framelist = m_app->getFrameList();
-  }
 }
 
 /**
@@ -1664,7 +1645,7 @@ void Kid3MainWindow::updateGuiControls()
 
   TaggedFile::DetailInfo info;
   if (single_v2_file) {
-    m_framelist->setTaggedFile(single_v2_file);
+    m_app->getFrameList()->setTaggedFile(single_v2_file);
     m_form->setFilenameEditEnabled(true);
     m_form->setFilename(single_v2_file->getFilename());
     single_v2_file->getDetailInfo(info);

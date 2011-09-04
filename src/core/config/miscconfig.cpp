@@ -44,8 +44,24 @@ const char* const MiscConfig::s_defaultBrowser = "open";
 const char* const MiscConfig::s_defaultBrowser = "xdg-open";
 #endif
 
-/** Default filename format list */
-static const char* fnFmt[] = {
+/** Default to filename format list */
+static const char* defaultToFilenameFormats[] = {
+  "%{track} %{title}",
+  "%{track}. %{title}",
+  "%{track} - %{artist} - %{title}",
+  "%{track}. %{artist} - %{title}",
+  "%{artist} - %{track} - %{title}",
+  "%{artist} - %{album} - %{track} - %{title}",
+  "%{artist} - [%{year}] %{album} - %{track} - %{title}",
+  "%{artist} - %{title}",
+  "%{artist}-%{title}",
+  "(%{artist}) %{title}",
+  "%{artist}-%{title}-%{album}",
+  0
+};
+
+/** Default from filename format list */
+static const char* defaultFromFilenameFormats[] = {
   "%{artist} - %{album}/%{track} %{title}",
   "%{artist} - %{album}/%{track}. %{title}",
   "%{artist} - [%{year}] %{album}/%{track} %{title}",
@@ -68,9 +84,6 @@ static const char* fnFmt[] = {
   "%{artist}-%{title}-%{album}",
   0
 };
-
-/** Default filename format list */
-const char** MiscConfig::s_defaultFnFmtList = &fnFmt[0];
 
 /** Default directory format list */
 static const char* dirFmt[] = {
@@ -148,9 +161,9 @@ MiscConfig::MiscConfig(const QString& group) :
   m_commentName(s_defaultCommentName),
   m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
   m_nameFilter(""),
-  m_formatText(s_defaultFnFmtList[0]),
+  m_formatText(defaultToFilenameFormats[0]),
   m_formatItem(0),
-  m_formatFromFilenameText(s_defaultFnFmtList[0]),
+  m_formatFromFilenameText(defaultFromFilenameFormats[0]),
   m_formatFromFilenameItem(0),
   m_dirFormatText(s_defaultDirFmtList[0]),
   m_dirFormatItem(0),
@@ -370,9 +383,9 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_pictureNameItem = cfg.readEntry("PictureNameItem",
       static_cast<int>(VP_METADATA_BLOCK_PICTURE));
   m_formatText =
-      cfg.readEntry("FormatText2", s_defaultFnFmtList[0]);
+      cfg.readEntry("FormatText2", defaultToFilenameFormats[0]);
   m_formatFromFilenameText =
-      cfg.readEntry("FormatFromFilenameText", s_defaultFnFmtList[0]);
+      cfg.readEntry("FormatFromFilenameText", defaultFromFilenameFormats[0]);
   m_dirFormatText =
       cfg.readEntry("DirFormatText", s_defaultDirFmtList[0]);
   m_splitterSizes = cfg.readEntry("SplitterSizes", QList<int>());
@@ -434,9 +447,9 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_pictureNameItem = config->value("/PictureNameItem", VP_METADATA_BLOCK_PICTURE).toInt();
 
   m_formatText =
-      config->value("/FormatText2", s_defaultFnFmtList[0]).toString();
+      config->value("/FormatText2", defaultToFilenameFormats[0]).toString();
   m_formatFromFilenameText =
-      config->value("/FormatFromFilenameText", s_defaultFnFmtList[0]).toString();
+      config->value("/FormatFromFilenameText", defaultFromFilenameFormats[0]).toString();
   m_dirFormatText =
       config->value("/DirFormatText", s_defaultDirFmtList[0]).toString();
   m_splitterSizes.clear();
@@ -533,6 +546,16 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
       MiscConfig::MenuCommand("LeosLyrics", "%{browser} http://www.leoslyrics.com/search.php?search=%u{artist}%20%u{title}&sartist=1&ssongtitle=1"));
     m_contextMenuCommands.push_back(
       MiscConfig::MenuCommand("Lyrc", "%{browser} http://lyrc.com.ar/en/tema1en.php?artist=%u{artist}&songname=%u{title}"));
+  }
+  if (m_formatItems.isEmpty()) {
+    for (const char** sl = defaultToFilenameFormats; *sl != 0; ++sl) {
+      m_formatItems += *sl;
+    }
+  }
+  if (m_formatFromFilenameItems.isEmpty()) {
+    for (const char** sl = defaultFromFilenameFormats; *sl != 0; ++sl) {
+      m_formatFromFilenameItems += *sl;
+    }
   }
 }
 

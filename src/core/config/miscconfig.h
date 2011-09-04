@@ -275,8 +275,6 @@ public:
   static const char* const s_defaultCommentName;
   /** Default value for web browser */
   static const char* const s_defaultBrowser;
-  /** Default filename format list */
-  static const char** s_defaultFnFmtList;
   /** Default directory format list */
   static const char** s_defaultDirFmtList;
 };

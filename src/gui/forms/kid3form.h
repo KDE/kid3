@@ -135,11 +135,6 @@ public:
   void readConfig();
 
   /**
-   * Init GUI.
-   */
-  void initView();
-
-  /**
    * Get filename.
    */
   QString getFilename() const { return m_nameLineEdit->text(); }

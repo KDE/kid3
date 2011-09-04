@@ -51,7 +51,6 @@ class KUrl;
 class Kid3Form;
 class Kid3Application;
 class TaggedFile;
-class FrameList;
 class ImportDialog;
 class ExportDialog;
 class BrowseCoverArtDialog;
@@ -117,16 +116,6 @@ protected:
    * Init menu and toolbar actions.
    */
   void initActions();
-
-  /**
-   * Init status bar.
-   */
-  void initStatusBar();
-
-  /**
-   * Init GUI.
-   */
-  void initView();
 
   /**
    * Free allocated resources.
@@ -440,8 +429,6 @@ private:
   /** Play toolbar */
   PlayToolBar* m_playToolBar;
 #endif
-  /** Frame list */
-  FrameList* m_framelist;
 
 #ifdef CONFIG_USE_KDE
   /** Actions */

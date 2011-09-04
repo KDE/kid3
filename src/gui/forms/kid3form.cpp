@@ -798,20 +798,6 @@ void Kid3Form::readConfig()
 }
 
 /**
- * Init GUI.
- */
-void Kid3Form::initView()
-{
-  QStringList strList;
-  m_formatComboBox->setEditable(true);
-  for (const char** sl = MiscConfig::s_defaultFnFmtList; *sl != 0; ++sl) {
-    strList += *sl;
-  }
-  m_formatComboBox->addItems(strList);
-  m_formatFromFilenameComboBox->addItems(strList);
-}
-
-/**
  * Set preview picture data.
  * @param data picture data, 0 if no picture is available
  */
