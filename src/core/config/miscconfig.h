@@ -271,10 +271,6 @@ public:
   QString m_style;
 #endif
 
-  /** Default value for comment name */
-  static const char* const s_defaultCommentName;
-  /** Default value for web browser */
-  static const char* const s_defaultBrowser;
   /** Default directory format list */
   static const char** s_defaultDirFmtList;
 };

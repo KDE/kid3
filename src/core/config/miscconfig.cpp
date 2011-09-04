@@ -35,13 +35,13 @@
 #include "taggedfile.h"
 
 /** Default value for comment name */
-const char* const MiscConfig::s_defaultCommentName = "COMMENT";
+const char* const defaultCommentName = "COMMENT";
 
 /** Default value for web browser */
 #ifdef __APPLE__
-const char* const MiscConfig::s_defaultBrowser = "open";
+const char* const defaultBrowser = "open";
 #else
-const char* const MiscConfig::s_defaultBrowser = "xdg-open";
+const char* const defaultBrowser = "xdg-open";
 #endif
 
 /** Default to filename format list */
@@ -158,7 +158,7 @@ MiscConfig::MiscConfig(const QString& group) :
   m_genreNotNumeric(false),
   m_preserveTime(false),
   m_markChanges(true),
-  m_commentName(s_defaultCommentName),
+  m_commentName(defaultCommentName),
   m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
   m_nameFilter(""),
   m_formatText(defaultToFilenameFormats[0]),
@@ -379,7 +379,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_genreNotNumeric = cfg.readEntry("GenreNotNumeric", m_genreNotNumeric);
   m_preserveTime = cfg.readEntry("PreserveTime", m_preserveTime);
   m_markChanges = cfg.readEntry("MarkChanges", m_markChanges);
-  m_commentName = cfg.readEntry("CommentName", s_defaultCommentName);
+  m_commentName = cfg.readEntry("CommentName", defaultCommentName);
   m_pictureNameItem = cfg.readEntry("PictureNameItem",
       static_cast<int>(VP_METADATA_BLOCK_PICTURE));
   m_formatText =
@@ -406,7 +406,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_useProxyAuthentication = cfg.readEntry("UseProxyAuthentication", m_useProxyAuthentication);
   m_proxyUserName = cfg.readEntry("ProxyUserName", m_proxyUserName);
   m_proxyPassword = cfg.readEntry("ProxyPassword", m_proxyPassword);
-  m_browser = cfg.readEntry("Browser", s_defaultBrowser);
+  m_browser = cfg.readEntry("Browser", defaultBrowser);
   m_onlyCustomGenres = cfg.readEntry("OnlyCustomGenres", m_onlyCustomGenres);
 
   m_contextMenuCommands.clear();
@@ -443,7 +443,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_genreNotNumeric = config->value("/GenreNotNumeric", m_genreNotNumeric).toBool();
   m_preserveTime = config->value("/PreserveTime", m_preserveTime).toBool();
   m_markChanges = config->value("/MarkChanges", m_markChanges).toBool();
-  m_commentName = config->value("/CommentName", s_defaultCommentName).toString();
+  m_commentName = config->value("/CommentName", defaultCommentName).toString();
   m_pictureNameItem = config->value("/PictureNameItem", VP_METADATA_BLOCK_PICTURE).toInt();
 
   m_formatText =
@@ -495,7 +495,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
     m_browser += "\\Internet Explorer\\IEXPLORE.EXE";
   }
 #else
-  m_browser = config->value("/Browser", s_defaultBrowser).toString();
+  m_browser = config->value("/Browser", defaultBrowser).toString();
 #endif
   m_onlyCustomGenres = config->value("/OnlyCustomGenres", m_onlyCustomGenres).toBool();
   m_geometry = config->value("/Geometry").toByteArray();
