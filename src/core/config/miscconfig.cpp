@@ -526,15 +526,9 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
       MiscConfig::MenuCommand(
         "Windows Media Player",
         QString('"') + prgDir + "\\Windows Media Player\\wmplayer.exe\" %{files}"));
-    m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand(
-        "AlbumArt",
-        QString('"') + prgDir +  "\\Album Cover Art Downloader\\albumart-qt.exe\" %{directory}"));
 #elif !defined __APPLE__
     m_contextMenuCommands.push_back(
       MiscConfig::MenuCommand("Amarok", "amarok %{files}"));
-    m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("AlbumArt", "albumart-qt %{directory}"));
 #endif
     m_contextMenuCommands.push_back(
       MiscConfig::MenuCommand("Google Images", "%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}"));
@@ -543,9 +537,15 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
     m_contextMenuCommands.push_back(
       MiscConfig::MenuCommand("LyricWiki", "%{browser} http://lyricwiki.org/%u{artist}:%u{title}"));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("LeosLyrics", "%{browser} http://www.leoslyrics.com/search.php?search=%u{artist}%20%u{title}&sartist=1&ssongtitle=1"));
+      MiscConfig::MenuCommand("Lyrics.com", "%{browser} http://www.lyrics.com/search.php?keyword=%u{artist}+%u{title}&what=all"));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("Lyrc", "%{browser} http://lyrc.com.ar/en/tema1en.php?artist=%u{artist}&songname=%u{title}"));
+      MiscConfig::MenuCommand("AZLyrics", "%{browser} http://search.azlyrics.com/search.php?q=%u{artist}+%u{title}"));
+    m_contextMenuCommands.push_back(
+      MiscConfig::MenuCommand("Dark Lyrics", "%{browser} http://www.darklyrics.com/search?q=%u{album}"));
+    m_contextMenuCommands.push_back(
+      MiscConfig::MenuCommand("Metro Lyrics", "%{browser} http://www.metrolyrics.com/search.php?category=artisttitle&search=%u{artist}+%u{title}"));
+    m_contextMenuCommands.push_back(
+      MiscConfig::MenuCommand("SongLyrics", "%{browser} http://www.songlyrics.com/index.php?section=search&searchW=%u{artist}+%u{title}"));
   }
   if (m_formatItems.isEmpty()) {
     for (const char** sl = defaultToFilenameFormats; *sl != 0; ++sl) {
