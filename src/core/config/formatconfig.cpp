@@ -61,6 +61,7 @@ FormatConfig::~FormatConfig() {}
 void FormatConfig::setAsFilenameFormatter()
 {
   m_filenameFormatter = true;
+  m_caseConversion = NoChanges;
   m_strRepEnabled = true;
   m_strRepMap["/"] = "-";
   m_strRepMap[":"] = "-";

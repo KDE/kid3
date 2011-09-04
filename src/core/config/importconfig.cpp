@@ -64,7 +64,7 @@ ImportConfig::ImportConfig(const QString& grp) :
   GeneralConfig(grp), m_importServer(0),
   m_importDest(TrackData::TagV1), m_importFormatIdx(0),
   m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
-  m_importVisibleColumns(0ULL),
+  m_importVisibleColumns(0x2000000000ULL),
   m_importWindowWidth(-1), m_importWindowHeight(-1),
   m_importTagsIdx(0),
   m_exportSrcV1(TrackData::TagV1), m_exportFormatIdx(0),

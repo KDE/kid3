@@ -167,7 +167,7 @@ MiscConfig::MiscConfig(const QString& group) :
   m_hideV2(false),
   m_hidePicture(false),
   m_id3v2Version(ID3v2_3_0),
-  m_textEncodingV1(""),
+  m_textEncodingV1("ISO-8859-1"),
   m_textEncoding(TE_ISO8859_1),
   m_trackNumberDigits(1),
   m_playOnDoubleClick(false),
@@ -384,7 +384,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_hideV2 = cfg.readEntry("HideV2", m_hideV2);
   m_hidePicture = cfg.readEntry("HidePicture", m_hidePicture);
   m_id3v2Version = cfg.readEntry("ID3v2Version", static_cast<int>(ID3v2_3_0));
-  m_textEncodingV1 = cfg.readEntry("TextEncodingV1", "");
+  m_textEncodingV1 = cfg.readEntry("TextEncodingV1", "ISO-8859-1");
   m_textEncoding = cfg.readEntry("TextEncoding", static_cast<int>(TE_ISO8859_1));
   m_trackNumberDigits = cfg.readEntry("TrackNumberDigits", 1);
   m_playOnDoubleClick = cfg.readEntry("PlayOnDoubleClick", m_playOnDoubleClick);
@@ -466,7 +466,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_hideV2 = config->value("/HideV2", m_hideV2).toBool();
   m_hidePicture = config->value("/HidePicture", m_hidePicture).toBool();
   m_id3v2Version = config->value("/ID3v2Version", ID3v2_3_0).toInt();
-  m_textEncodingV1 = config->value("/TextEncodingV1", "").toString();
+  m_textEncodingV1 = config->value("/TextEncodingV1", "ISO-8859-1").toString();
   m_textEncoding = config->value("/TextEncoding", TE_ISO8859_1).toInt();
   m_trackNumberDigits = config->value("/TrackNumberDigits", 1).toInt();
   m_playOnDoubleClick = config->value("/PlayOnDoubleClick", m_playOnDoubleClick).toBool();
