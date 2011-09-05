@@ -1890,6 +1890,9 @@ void Kid3MainWindow::renameFile()
         // This will close the file.
         // The file must be closed before renaming on Windows.
         FileProxyModel::releaseTaggedFileOfIndex(index);
+      } else if (model->isDir(index)) {
+        // The directory must be closed before renaming on Windows.
+        FileProxyModel::releaseTaggedFileOfIndex(index);
       }
       QString newPath = dirName + '/' + newFileName;
       if (!QDir().rename(absFilename, newPath)) {
