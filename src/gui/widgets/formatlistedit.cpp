@@ -49,6 +49,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
   QHBoxLayout* hlayout = new QHBoxLayout(this);
   hlayout->setMargin(0);
   QFormLayout* formatLayout = new QFormLayout;
+  formatLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   bool comboBoxCreated = false;
   for (int i = 0; i < labels.size(); ++i) {
     const QString& label = labels.at(i);
@@ -76,6 +77,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
   }
   hlayout->addLayout(formatLayout);
   QVBoxLayout* vlayout = new QVBoxLayout;
+  vlayout->setSpacing(2);
   m_addPushButton = new QPushButton(i18n("&Add"));
   m_addPushButton->setAutoDefault(false);
   m_removePushButton = new QPushButton(i18n("&Remove"));

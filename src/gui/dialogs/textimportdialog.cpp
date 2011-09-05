@@ -26,7 +26,6 @@
 
 #include "textimportdialog.h"
 #include <QHBoxLayout>
-#include <QFormLayout>
 #include <QPushButton>
 #include <QFile>
 #include <QClipboard>
