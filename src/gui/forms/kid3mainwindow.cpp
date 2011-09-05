@@ -674,7 +674,9 @@ void Kid3MainWindow::initActions()
     settingsConfigure->setStatusTip(i18n("Configure Kid3"));
     settingsConfigure->setText(i18n("&Configure Kid3..."));
     settingsConfigure->setIcon(QIcon(":/images/configure.png"));
+#if QT_VERSION >= 0x040600
     settingsConfigure->setShortcut(QKeySequence::Preferences);
+#endif
     connect(settingsConfigure, SIGNAL(triggered()),
       this, SLOT(slotSettingsConfigure()));
   }
