@@ -1,23 +1,23 @@
 # Czech translation of Kid3
 # This file is put in the public domain.
 #
-# Pavel Fric <pavelfric@seznam.cz>, 2009.
+# Pavel Fric <pavelfric@seznam.cz>, 2009, 2011.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 # Pavel Fric <fripohled@blogspot.com>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: de\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
+"Project-Id-Version: cs\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2011-08-28 15:45+0200\n"
-"PO-Revision-Date: 2011-01-15 17:26+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2011-09-07 08:47+0200\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
 "X-Language: cs\n"
 "X-Source-Language: en\n"
@@ -1057,9 +1057,8 @@ msgid "Context &Menu Commands"
 msgstr "Příkazy souvisejících &nabídek"
 
 #: gui/dialogs/configdialog.cpp:360
-#, fuzzy
 msgid "&Play on double click"
-msgstr "&Přehrát na dvakrát klikněte"
+msgstr "&Přehrát po dvojitém poklepání"
 
 #: gui/dialogs/configdialog.cpp:375
 msgid "User Actions"
@@ -1725,7 +1724,7 @@ msgstr "Stáhnout"
 
 #: gui/forms/kid3mainwindow.cpp:189
 msgid "Main Toolbar"
-msgstr "Hlavní pruh s nástroji"
+msgstr "Hlavní nástrojový panel"
 
 #: gui/forms/kid3mainwindow.cpp:222 gui/forms/kid3mainwindow.cpp:388
 #: gui/forms/kid3mainwindow.cpp:408
@@ -1746,7 +1745,7 @@ msgstr "Uloží změněné soubory"
 
 #: gui/forms/kid3mainwindow.cpp:227 gui/forms/kid3mainwindow.cpp:507
 msgid "Quits the application"
-msgstr "Ukončí aplikaci"
+msgstr "Ukončí program"
 
 #: gui/forms/kid3mainwindow.cpp:228 gui/forms/kid3mainwindow.cpp:519
 msgid "Select all files"
@@ -1762,7 +1761,7 @@ msgstr "Nastavit zkratky"
 
 #: gui/forms/kid3mainwindow.cpp:232
 msgid "Configure Toolbars"
-msgstr "Nastavit nástrojové lišty"
+msgstr "Nastavit nástrojové panely"
 
 #: gui/forms/kid3mainwindow.cpp:233
 msgid "Preferences dialog"
@@ -1945,19 +1944,19 @@ msgstr "&Nastavení"
 
 #: gui/forms/kid3mainwindow.cpp:636
 msgid "Enables/disables the toolbar"
-msgstr "Povolí/zakáže nástrojovou lištu"
+msgstr "Povolí/Zakáže nástrojový panel"
 
 #: gui/forms/kid3mainwindow.cpp:637
 msgid "Show &Toolbar"
-msgstr "Zobrazovat nás&trojovou lištu"
+msgstr "Zobrazovat nás&trojový panel"
 
 #: gui/forms/kid3mainwindow.cpp:645
 msgid "Enables/disables the statusbar"
-msgstr "Ukázat stavovou lištu"
+msgstr "Ukázat stavový řádek"
 
 #: gui/forms/kid3mainwindow.cpp:646
 msgid "Show St&atusbar"
-msgstr "Zobrazovat st&avovou lištu"
+msgstr "Zobrazovat st&avový řádek"
 
 #: gui/forms/kid3mainwindow.cpp:654
 msgid "Show Picture"
@@ -2029,7 +2028,7 @@ msgstr "Ukončuje se..."
 
 #: gui/forms/kid3mainwindow.cpp:1157
 msgid "Toggle the statusbar..."
-msgstr "Přepíná se stavová lišta..."
+msgstr "Přepíná se stavový řádek..."
 
 #: gui/forms/kid3mainwindow.cpp:1241
 msgid "Creating playlist..."
