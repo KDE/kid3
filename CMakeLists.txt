@@ -111,9 +111,16 @@ if (NOT XSLTPROC)
 endif (NOT XSLTPROC)
 
 ### Check for HTML docbook.xsl
+file(GLOB _versionedStyleSheetDir /usr/share/xml/docbook/xsl-stylesheets-*)
 find_path(DOCBOOK_XSL_DIR html/docbook.xsl
-  PATHS /usr/share/xml/docbook/stylesheet/nwalsh
+  PATHS ${WITH_DOCBOOKDIR}
+        /usr/share/xml/docbook/stylesheet/nwalsh
+        /usr/share/xml/docbook/stylesheet/nwalsh/current
+        /usr/share/xml/docbook/stylesheet/docbook-xsl
+        /usr/share/xml/docbook/stylesheet/docbook-xsl-ns
+        /usr/share/sgml/docbook/xsl-stylesheets
         /usr/share/apps/ksgmltools2/docbook/xsl
+       ${_versionedStyleSheetDir}
        $ENV{DOCBOOKDIR}
        $ENV{HOME}/docbook-xsl-1.72.0
   NO_DEFAULT_PATH)
