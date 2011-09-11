@@ -17,7 +17,7 @@ else (WITH_KDE)
   if (APPLE)
     # Icon and properties for .plist file
     set(MACOSX_BUNDLE_ICON_FILE kid3.icns)
-    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "1.6")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "2.0")
     set(MACOSX_BUNDLE_GUI_IDENTIFIER "net.sourceforge.kid3")
     set(MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2003-2011 Urs Fleisch")
     set_source_files_properties(kid3.icns
