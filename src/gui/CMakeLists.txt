@@ -21,7 +21,10 @@ add_library(kid3-gui ${gui_SRCS} ${gui_GEN_MOC_SRCS})
 target_link_libraries(kid3-gui kid3-core)
 
 if (BUILD_SHARED_LIBS)
-  install(TARGETS kid3-gui DESTINATION ${WITH_BINDIR})
+  install(TARGETS kid3-gui
+    LIBRARY DESTINATION ${WITH_LIBDIR}
+    ARCHIVE DESTINATION ${WITH_LIBDIR}
+    RUNTIME DESTINATION ${WITH_BINDIR})
 endif (BUILD_SHARED_LIBS)
 
 include_directories(forms)
