@@ -86,6 +86,7 @@ int main(int argc, char* argv[])
 #else
 
 #include <QApplication>
+#include <QLibraryInfo>
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
@@ -111,10 +112,15 @@ int main(int argc, char* argv[])
 
   // translation file for Qt
   QTranslator qt_tr(0);
+#if defined WIN32 || defined __APPLE__
 #ifdef CFG_TRANSLATIONSDIR
   if (!qt_tr.load(QString("qt_") + locale, CFG_TRANSLATIONSDIR))
 #endif
   qt_tr.load( QString("qt_") + locale, "." );
+#else
+  qt_tr.load(QString("qt_") + locale,
+             QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+#endif
   app.installTranslator(&qt_tr);
 
   // translation file for application strings
