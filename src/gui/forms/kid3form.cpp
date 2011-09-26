@@ -220,7 +220,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   m_formatComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
   connect(m_formatComboBox, SIGNAL(editTextChanged(QString)),
-          m_app, SLOT(setTagsToFilenameFormat(QString)));
+          m_app, SLOT(setTagsToFilenameFormatWithoutSignaling(QString)));
   connect(m_app, SIGNAL(tagsToFilenameFormatChanged(QString)),
           m_formatComboBox, SLOT(setEditText(QString)));
   fileLayout->addWidget(m_formatComboBox, 1, 1);
@@ -244,7 +244,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   m_formatFromFilenameComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
   connect(m_formatFromFilenameComboBox, SIGNAL(editTextChanged(QString)),
-          m_app, SLOT(setFilenameToTagsFormat(QString)));
+          m_app, SLOT(setFilenameToTagsFormatWithoutSignaling(QString)));
   connect(m_app, SIGNAL(filenameToTagsFormatChanged(QString)),
           m_formatFromFilenameComboBox, SLOT(setEditText(QString)));
   fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);

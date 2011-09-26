@@ -902,6 +902,18 @@ void Kid3Application::setFilenameToTagsFormat(const QString& format) {
 }
 
 /**
+ * Set format used to generate filename from tags without emitting
+ * filenameToTagsFormatChanged() signal.
+ * This has to be used when connected from the GUI to avoid that the GUI
+ * is updated because of its own changes.
+ * @param format format
+ */
+void Kid3Application::setFilenameToTagsFormatWithoutSignaling(
+  const QString& format) {
+  m_filenameToTagsFormat = format;
+}
+
+/**
  * Set format used to generate tags from filename.
  * When changed, tagsToFilenameFormatChanged() is emitted.
  * @param format format
@@ -911,6 +923,18 @@ void Kid3Application::setTagsToFilenameFormat(const QString& format) {
     m_tagsToFilenameFormat = format;
     emit tagsToFilenameFormatChanged(format);
   }
+}
+
+/**
+   * Set format used to generate tags from filename without emitting
+   * tagsToFilenameFormatChanged() signal.
+   * This has to be used when connected from the GUI to avoid that the GUI
+   * is updated because of its own changes.
+   * @param format format
+ */
+void Kid3Application::setTagsToFilenameFormatWithoutSignaling(
+  const QString& format) {
+  m_tagsToFilenameFormat = format;
 }
 
 /**

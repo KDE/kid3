@@ -570,10 +570,28 @@ public slots:
   void setFilenameToTagsFormat(const QString& format);
 
   /**
+   * Set format used to generate filename from tags without emitting
+   * filenameToTagsFormatChanged() signal.
+   * This has to be used when connected from the GUI to avoid that the GUI
+   * is updated because of its own changes.
+   * @param format format
+   */
+  void setFilenameToTagsFormatWithoutSignaling(const QString& format);
+
+  /**
    * Set format used to generate tags from filename.
    * @param format format
    */
   void setTagsToFilenameFormat(const QString& format);
+
+  /**
+   * Set format used to generate tags from filename without emitting
+   * tagsToFilenameFormatChanged() signal.
+   * This has to be used when connected from the GUI to avoid that the GUI
+   * is updated because of its own changes.
+   * @param format format
+   */
+  void setTagsToFilenameFormatWithoutSignaling(const QString& format);
 
   /**
    * Set filename according to tags.
