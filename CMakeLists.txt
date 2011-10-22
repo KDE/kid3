@@ -47,6 +47,10 @@ if (WITH_PHONON)
 endif (WITH_PHONON)
 include (KDE4Defaults)
 
+# Set variables used to install shared libraries
+set(WITH_BINDIR ${BIN_INSTALL_DIR})
+set(WITH_LIBDIR ${LIB_INSTALL_DIR})
+
 else (WITH_KDE)
 
 find_package(Threads)
