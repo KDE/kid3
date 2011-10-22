@@ -1861,7 +1861,6 @@ void Kid3MainWindow::renameFile()
   foreach (QModelIndex index, selectModel->selectedIndexes())
     selItems.append(index);
   foreach (QPersistentModelIndex index, selItems) {
-    bool isDir = false;
     TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index);
     QString absFilename, dirName, fileName;
     if (taggedFile) {
@@ -1873,7 +1872,6 @@ void Kid3MainWindow::renameFile()
       absFilename = fi.filePath();
       dirName = fi.dir().path();
       fileName = fi.fileName();
-      isDir = model->isDir(index);
     }
     bool ok;
     QString newFileName = QInputDialog::getText(
