@@ -1163,7 +1163,7 @@ void Kid3MainWindow::slotHelpAbout()
   QMessageBox::about(
     this, "Kid3",
     "Kid3 " VERSION
-    "\n(c) 2003-2011 Urs Fleisch\nufleisch@users.sourceforge.net");
+    "\n(c) 2003-" RELEASE_YEAR " Urs Fleisch\nufleisch@users.sourceforge.net");
 }
 
 /**
