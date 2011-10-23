@@ -1001,7 +1001,7 @@ void Kid3Application::editFrame(IFrameEditor* frameEditor)
           }
         }
       }
-      emit frameModified(taggedFile);
+      emit selectedFilesUpdated();
     }
   }
 }
@@ -1021,6 +1021,7 @@ void Kid3Application::deleteFrame(const QString& frameName)
       // frame not found
       return;
     }
+    emit frameModified(taggedFile);
   } else {
     // multiple files selected or frame name specified
     bool firstFile = true;
@@ -1048,8 +1049,8 @@ void Kid3Application::deleteFrame(const QString& frameName)
         }
       }
     }
+    emit selectedFilesUpdated();
   }
-  emit frameModified(taggedFile);
 }
 
 /**
@@ -1144,7 +1145,7 @@ void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
     if (frameId != -1) {
       m_framelist->setSelectedId(frameId);
     }
-    emit fileModified();
+    emit selectedFilesUpdated();
   }
 }
 
