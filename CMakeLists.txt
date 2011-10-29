@@ -57,6 +57,10 @@ include (KDE4Defaults)
 set(WITH_BINDIR ${BIN_INSTALL_DIR})
 set(WITH_LIBDIR ${LIB_INSTALL_DIR})
 
+if (BUILD_SHARED_LIBS AND __KDE_HAVE_GCC_VISIBILITY)
+  message(WARNING "Use -D__KDE_HAVE_GCC_VISIBILITY=OFF to build KDE shared libraries")
+endif (BUILD_SHARED_LIBS AND __KDE_HAVE_GCC_VISIBILITY)
+
 else (WITH_KDE)
 
 find_package(Threads)
