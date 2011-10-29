@@ -1,3 +1,15 @@
+Sat Oct 29 11:23:46 CEST 2011  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 2.0.1
+
+	* Fixed:
+	  + Prevent cursor from jumping to end in format line edits.
+	  + Correctly update file selection after add, edit or delete frame.
+	  + Build system finds DocBook XSL on various Linux distributions,
+	    finds Phonon on Ubuntu 11.10, can build with shared libraries.
+	  + Correctly set bundle version on Mac OS X.
+	  + Czech translation.
+
 Tue Aug 30 19:02:37 CEST 2011  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 2.0
