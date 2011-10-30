@@ -2078,7 +2078,8 @@ msgstr "您真的要將這 %1 個項目移到資源回收筒嗎？"
 #: gui/forms/kid3mainwindow.cpp:1945 gui/forms/kid3mainwindow.cpp:1959
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
-msgstr[0] "您真的要將這 %1 個項目移到資源回收筒嗎？"
+msgstr[0] "您真的要將這 1 個項目移到資源回收筒嗎？"
+msgstr[1] "您真的要將這 %1 個項目移到資源回收筒嗎？"
 
 #: gui/forms/kid3mainwindow.cpp:1949 gui/forms/kid3mainwindow.cpp:1955
 msgid "Move to Trash"

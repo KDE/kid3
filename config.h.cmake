@@ -48,4 +48,4 @@
 #cmakedefine CFG_DOCDIR "@CFG_DOCDIR@"
 #cmakedefine CFG_TRANSLATIONSDIR "@CFG_TRANSLATIONSDIR@"
 
-#endif // CONFIG_H
+#endif
