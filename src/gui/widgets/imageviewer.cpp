@@ -56,7 +56,7 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
                                          QSizePolicy::Minimum);
   m_image = new QLabel(this);
   QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-  if (vlayout && hlayout && m_image && closeButton) {
+  if (hlayout && m_image && closeButton) {
     m_image->setScaledContents(true);
     QSize imageSize(img.size());
     QSize desktopSize(QApplication::desktop()->availableGeometry().size());
