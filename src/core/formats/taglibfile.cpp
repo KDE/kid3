@@ -1825,8 +1825,7 @@ static QString getFieldsFromTextFrame(
   fields.push_back(field);
 
   const TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame;
-  if (tFrame &&
-      (txxxFrame =
+  if ((txxxFrame =
        dynamic_cast<const TagLib::ID3v2::UserTextIdentificationFrame*>(tFrame))
       != 0) {
     field.m_id = Frame::Field::ID_Description;

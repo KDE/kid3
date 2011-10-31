@@ -431,8 +431,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
       vlayout->setMargin(6);
       vlayout->setSpacing(6);
       QGridLayout* fontStyleLayout = new QGridLayout;
-      fontStyleLayout->setMargin(2);
-      fontStyleLayout->setSpacing(4);
 
       m_useApplicationFontCheckBox = new QCheckBox(i18n("Use custom app&lication font"), appearancePage);
       m_applicationFontButton = new QPushButton(i18n("A&pplication Font..."), appearancePage);
@@ -441,6 +439,8 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
       if (fontStyleLayout &&
           m_useApplicationFontCheckBox && m_applicationFontButton &&
           m_useApplicationStyleCheckBox && m_applicationStyleComboBox) {
+        fontStyleLayout->setMargin(2);
+        fontStyleLayout->setSpacing(4);
         fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 0, 0);
         fontStyleLayout->addWidget(m_applicationFontButton, 0, 1);
         fontStyleLayout->addWidget(m_useApplicationStyleCheckBox, 1, 0);
