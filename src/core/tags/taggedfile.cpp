@@ -357,7 +357,8 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     { "%g", "%\\{genre\\}" },
     { "%\\{year\\}", "%\\{date\\}" },
     { "%\\{track\\}", "%\\{track number\\}" },
-    { "%\\{tracknumber\\}", "%\\{track number\\}" }
+    { "%\\{tracknumber\\}", "%\\{track number\\}" },
+    { "%\\{discnumber\\}", "%\\{disc number\\}" }
   };
   int percentIdx = 0, nr = 1;
   for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
@@ -372,7 +373,8 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
       QString code =
         pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3).toLower();
       codePos[code] = nr++;
-      if (code == "track number" || code == "date") {
+      if (code == "track number" || code == "date" || code == "disc number" ||
+          code == "bpm") {
         pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "(\\d{1,4})");
         percentIdx += 9;
       } else {
