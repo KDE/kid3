@@ -76,14 +76,21 @@ bool DiscogsImporter::additionalTags() const { return true; }
 void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
 {
   // releases have the format:
-  // <div><a href="/Amon-Amarth-The-Avenger/release/398878"><em>Amon</em> <em>Amarth</em> - <em>The</em> <em>Avenger</em></a></div>
+  // <div class="data">
+  // <div>
+  //     <a href="/Amon-Amarth-The-Avenger/release/398878">
+  //         <em>Amon</em> <em>Amarth</em> - <em>The</em> <em>Avenger</em>
+  //     </a>
+  // </div>
   QString str = QString::fromUtf8(searchStr);
-  QRegExp idTitleRe("<a href=\"/([^/]*/?release)/([0-9]+)\">(.+)</a>");
-  QStringList lines = str.remove('\r').split("\n");
+  QRegExp idTitleRe("class=\"data\".*<a href=\"/([^/]*/?release)/([0-9]+)\">(.+)</a>");
+  QStringList lines = str.remove('\r').split(QRegExp("\\n{2,}"));
   m_albumListModel->clear();
   for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
-    if (idTitleRe.indexIn(*it) != -1) {
-      QString title(idTitleRe.cap(3));
+    QString line(*it);
+    line.remove('\n');
+    if (idTitleRe.indexIn(line) != -1) {
+      QString title(idTitleRe.cap(3).trimmed());
       title.replace(QRegExp("<[^>]+>"), "");
       if (!title.isEmpty()) {
         m_albumListModel->appendRow(new AlbumListItem(
