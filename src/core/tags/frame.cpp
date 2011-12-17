@@ -552,7 +552,13 @@ FrameCollection::iterator FrameCollection::findByName(const QString& name) const
     QString ucName = name.toUpper();
     int len = ucName.length();
     for (it = begin(); it != end(); ++it) {
-      if (ucName == it->getName().toUpper().left(len)) {
+      QString ucFrameName(it->getName().toUpper());
+      if (ucName == ucFrameName.left(len)) {
+        break;
+      }
+      int nlPos = ucFrameName.indexOf("\n");
+      if (nlPos > 0 && ucName == ucFrameName.mid(nlPos + 1, len)) {
+        // Description in TXXX, WXXX, COMM, PRIV matches
         break;
       }
     }
