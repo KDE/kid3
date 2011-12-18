@@ -36,6 +36,7 @@ else (WITH_KDE)
   endif (APPLE)
 
   if (UNIX AND NOT APPLE)
+    find_program(GZIP_PROGRAM gzip)
     # install desktop file and icons for Linux
     add_custom_command(OUTPUT kid3-qt.desktop
       COMMAND ${PERL_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/fixdesktop.pl
@@ -45,9 +46,19 @@ else (WITH_KDE)
     add_custom_target("desktop-file" ALL DEPENDS kid3-qt.desktop)
     install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.desktop
       DESTINATION "${WITH_DATAROOTDIR}/applications")
-    install(FILES hisc-app-kid3.svgz
-            DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps"
-            RENAME kid3-qt.svgz)
+    if (GZIP_PROGRAM)
+      add_custom_command(OUTPUT kid3-qt.svg
+        COMMAND ${GZIP_PROGRAM} -cd ${CMAKE_CURRENT_SOURCE_DIR}/hisc-app-kid3.svgz >kid3-qt.svg
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/hisc-app-kid3.svgz
+      )
+      set(kid3_SRCS ${kid3_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.svg)
+      install(FILES ${CMAKE_CURRENT_BINARY_DIR}/kid3-qt.svg
+              DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps")
+    else (GZIP_PROGRAM)
+      install(FILES hisc-app-kid3.svgz
+              DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/scalable/apps"
+              RENAME kid3-qt.svgz)
+    endif (GZIP_PROGRAM)
     install(FILES hi48-app-kid3.png
             DESTINATION "${WITH_DATAROOTDIR}/icons/hicolor/48x48/apps"
             RENAME kid3-qt.png)
