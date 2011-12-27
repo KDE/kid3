@@ -549,10 +549,10 @@ FrameCollection::iterator FrameCollection::findByName(const QString& name) const
   Frame frame(type, "", name, -1);
   const_iterator it = find(frame);
   if (it == end()) {
-    QString ucName = name.toUpper();
+    QString ucName = name.toUpper().remove('/');
     int len = ucName.length();
     for (it = begin(); it != end(); ++it) {
-      QString ucFrameName(it->getName().toUpper());
+      QString ucFrameName(it->getName().toUpper().remove('/'));
       if (ucName == ucFrameName.left(len)) {
         break;
       }
