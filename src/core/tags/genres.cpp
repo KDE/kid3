@@ -125,7 +125,6 @@ const char* Genres::s_genre[Genres::count + 3] = {
   "Musical",                // 77,
   "National Folk",          // 82,
   "Native American",        // 64,
-  "Negerpunk",              // 133,
   "New Age",                // 10,
   "New Wave",               // 66,
   "Noise",                  // 39,
@@ -184,6 +183,7 @@ const char* Genres::s_genre[Genres::count + 3] = {
   "Tribal",                 // 72,
   "Trip-Hop",               // 27,
   "Vocal",                  // 28,
+  "World Music",            // 133,
   "Custom",                 // place for temporary custom genres
   0                         // end of StrList
 };
@@ -283,7 +283,6 @@ const unsigned char Genres::s_genreNum[Genres::count + 1] = {
   77,
   82,
   64,
-  133,
   10,
   66,
   39,
@@ -341,7 +340,8 @@ const unsigned char Genres::s_genreNum[Genres::count + 1] = {
   31,
   72,
   27,
-  28
+  28,
+  133
 };
 
 const char** Genres::s_strList = &s_genre[0];
