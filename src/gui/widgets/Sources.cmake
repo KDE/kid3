@@ -8,6 +8,7 @@ set(widgets_SRCS
   widgets/picturelabel.cpp
   widgets/playtoolbar.cpp
   widgets/recentfilesmenu.cpp
+  widgets/shortcutsdelegate.cpp
   widgets/stringlistedit.cpp
 )
 
@@ -19,5 +20,6 @@ set(widgets_MOC_HDRS
   widgets/imageviewer.h
   widgets/playtoolbar.h
   widgets/recentfilesmenu.h
+  widgets/shortcutsdelegate.h
   widgets/stringlistedit.h
 )

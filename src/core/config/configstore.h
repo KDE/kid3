@@ -38,6 +38,8 @@
 #include "filterconfig.h"
 #include "playlistconfig.h"
 
+class ShortcutsModel;
+
 /**
  * Configuration storage.
  */
@@ -69,6 +71,14 @@ public:
    */
   Kid3Settings* getSettings() const { return m_config; }
 
+#ifndef CONFIG_USE_KDE
+  /**
+   * Get keyboard shortcuts model.
+   * @return shortcuts model
+   */
+  ShortcutsModel* getShortcutsModel() const { return m_shortcutsModel; }
+#endif
+
   /** Filename format configuration */
   static FormatConfig s_fnFormatCfg;
   /** ID3 format configuration */
@@ -94,6 +104,9 @@ public:
 
 private:
   Kid3Settings* m_config;
+#ifndef CONFIG_USE_KDE
+  ShortcutsModel* m_shortcutsModel;
+#endif
 };
 
 #endif // CONFIGSTORE_H

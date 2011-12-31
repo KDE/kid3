@@ -79,7 +79,8 @@ sub getPoTranslations($)
   return %trans;
 }
 
-# Set the translations in a .ts file replacing & by &amp;, < by &lt; and > by &gt;.
+# Set the translations in a .ts file replacing & by &amp;, < by &lt;,
+# > by &gt; and ' by &apos;.
 sub setTsTranslations($$%)
 {
   my $infn = shift;
@@ -111,12 +112,14 @@ sub setTsTranslations($$%)
       $source =~ s/&amp;/&/g;
       $source =~ s/&lt;/</g;
       $source =~ s/&gt;/>/g;
+      $source =~ s/&apos;/'/g;
       $source =~ s/\n/\\n/g;
       if (exists $trans{$source}) {
         $translation = $trans{$source};
         $translation =~ s/&/&amp;/g;
         $translation =~ s/</&lt;/g;
         $translation =~ s/>/&gt;/g;
+        $translation =~ s/'/&apos;/g;
         $translation =~ s/\\"/&quot;/g;
         $translation =~ s/\\n/\n/g;
         s/ type="unfinished"//;

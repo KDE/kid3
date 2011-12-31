@@ -26,6 +26,9 @@
 
 #include "configstore.h"
 #include "config.h"
+#ifndef CONFIG_USE_KDE
+#include "shortcutsmodel.h"
+#endif
 
 MiscConfig ConfigStore::s_miscCfg("General Options");
 ImportConfig ConfigStore::s_genCfg("General Options");
@@ -49,6 +52,7 @@ ConfigStore::ConfigStore()
 #else
   m_config = new Kid3Settings(QSettings::UserScope, "kid3.sourceforge.net", "Kid3");
   m_config->beginGroup("/kid3");
+  m_shortcutsModel = new ShortcutsModel;
 #endif
 }
 
@@ -57,6 +61,9 @@ ConfigStore::ConfigStore()
  */
 ConfigStore::~ConfigStore()
 {
+#ifndef CONFIG_USE_KDE
+  delete m_shortcutsModel;
+#endif
   // m_config is not deleted because this could lead to a crash on Mac OS.
 }
 

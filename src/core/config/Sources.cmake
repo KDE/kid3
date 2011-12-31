@@ -11,6 +11,9 @@ set(config_SRCS
   config/musicbrainzconfig.cpp
   config/playlistconfig.cpp
   config/serverimporterconfig.cpp
+  config/shortcutsmodel.cpp
 )
 
-set(config_MOC_HDRS)
+set(config_MOC_HDRS
+  config/shortcutsmodel.h
+)

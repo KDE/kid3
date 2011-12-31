@@ -49,6 +49,10 @@
 #include <QApplication>
 #include <QFontDialog>
 #include <QStyleFactory>
+#include <QTreeView>
+#include <QAction>
+#include "shortcutsmodel.h"
+#include "shortcutsdelegate.h"
 #endif
 
 #include "formatconfig.h"
@@ -58,6 +62,7 @@
 #include "configtable.h"
 #include "commandstablemodel.h"
 #include "contexthelp.h"
+#include "configstore.h"
 
 enum { TextEncodingV1Latin1Index = 13 };
 
@@ -424,6 +429,22 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   }
 
 #ifndef CONFIG_USE_KDE
+  QWidget* shortcutsPage = new QWidget;
+  if (shortcutsPage) {
+    m_shortcutsModel = 0;
+    QVBoxLayout* vlayout = new QVBoxLayout(shortcutsPage);
+    vlayout->setMargin(6);
+    vlayout->setSpacing(6);
+    m_shortcutsTreeView = new QTreeView;
+    m_shortcutsTreeView->setSelectionMode(QAbstractItemView::NoSelection);
+    m_shortcutsTreeView->setItemDelegateForColumn(
+          ShortcutsModel::ShortcutColumn, new ShortcutsDelegate(this));
+    vlayout->addWidget(m_shortcutsTreeView);
+    m_shortcutAlreadyUsedLabel = new QLabel;
+    vlayout->addWidget(m_shortcutAlreadyUsedLabel);
+    tabWidget->addTab(shortcutsPage, i18n("&Keyboard Shortcuts"));
+  }
+
   QWidget* appearancePage = new QWidget;
   if (appearancePage) {
     QVBoxLayout* vlayout = new QVBoxLayout(appearancePage);
@@ -495,14 +516,14 @@ ConfigDialog::~ConfigDialog()
 /**
  * Set values in dialog from current configuration.
  *
- * @param fnCfg   filename format configuration
- * @param fnCfg   ID3 format configuration
- * @param miscCfg misc. configuration
+ * @param cfg configuration
  */
-void ConfigDialog::setConfig(const FormatConfig* fnCfg,
-               const FormatConfig* id3Cfg,
-               const MiscConfig* miscCfg)
+void ConfigDialog::setConfig(const ConfigStore* cfg)
 {
+  const FormatConfig* fnCfg = &cfg->s_fnFormatCfg;
+  const FormatConfig* id3Cfg = &cfg->s_id3FormatCfg;
+  const MiscConfig* miscCfg = &cfg->s_miscCfg;
+
   m_fnFormatBox->fromFormatConfig(fnCfg);
   m_id3FormatBox->fromFormatConfig(id3Cfg);
   m_markTruncationsCheckBox->setChecked(miscCfg->m_markTruncations);
@@ -550,6 +571,7 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
   m_proxyUserNameLineEdit->setText(miscCfg->m_proxyUserName);
   m_proxyPasswordLineEdit->setText(miscCfg->m_proxyPassword);
 #ifndef CONFIG_USE_KDE
+  setShortcutsModel(cfg->getShortcutsModel());
   m_useApplicationFontCheckBox->setChecked(miscCfg->m_useFont);
   m_applicationFontButton->setEnabled(miscCfg->m_useFont);
   if (miscCfg->m_style.isEmpty()) {
@@ -576,14 +598,14 @@ void ConfigDialog::setConfig(const FormatConfig* fnCfg,
 /**
  * Get values from dialog and store them in the current configuration.
  *
- * @param fnCfg   filename format configuration
- * @param fnCfg   ID3 format configuration
- * @param miscCfg misc. configuration
+ * @param cfg configuration
  */
-void ConfigDialog::getConfig(FormatConfig* fnCfg,
-               FormatConfig* id3Cfg,
-               MiscConfig* miscCfg) const
+void ConfigDialog::getConfig(ConfigStore* cfg) const
 {
+  FormatConfig* fnCfg = &cfg->s_fnFormatCfg;
+  FormatConfig* id3Cfg = &cfg->s_id3FormatCfg;
+  MiscConfig* miscCfg = &cfg->s_miscCfg;
+
   m_fnFormatBox->toFormatConfig(fnCfg);
   m_id3FormatBox->toFormatConfig(id3Cfg);
   miscCfg->m_markTruncations = m_markTruncationsCheckBox->isChecked();
@@ -615,6 +637,7 @@ void ConfigDialog::getConfig(FormatConfig* fnCfg,
   miscCfg->m_proxyUserName = m_proxyUserNameLineEdit->text();
   miscCfg->m_proxyPassword = m_proxyPasswordLineEdit->text();
 #ifndef CONFIG_USE_KDE
+  cfg->getShortcutsModel()->assignChangedShortcuts();
   if (m_useApplicationFontCheckBox->isChecked()) {
     QFont font = QApplication::font();
     miscCfg->m_fontFamily = font.family();
@@ -641,6 +664,66 @@ void ConfigDialog::slotHelp()
 }
 
 #ifndef CONFIG_USE_KDE
+/**
+ * Display warning that keyboard shortcut is already used.
+ *
+ * @param key string representation of key sequence
+ * @param context context of action
+ * @param action action using @a key
+ */
+void ConfigDialog::warnAboutAlreadyUsedShortcut(
+    const QString& key, const QString& context, const QAction* action)
+{
+  m_shortcutAlreadyUsedLabel->setText(
+        i18n("The keyboard shortcut '%1' is already assigned to '%2'.").
+        arg(key).
+        arg(context + '/' + (action ? action->text().remove('&') : "?")));
+}
+
+/**
+ * Clear warning about already used keyboard shortcut.
+ */
+void ConfigDialog::clearAlreadyUsedShortcutWarning()
+{
+  m_shortcutAlreadyUsedLabel->clear();
+}
+
+/**
+ * Set model with keyboard shortcuts configuration.
+ * @param model shortcuts model
+ */
+void ConfigDialog::setShortcutsModel(ShortcutsModel* model)
+{
+  if (model != m_shortcutsModel) {
+    if (m_shortcutsModel) {
+      disconnect(m_shortcutsModel,
+                 SIGNAL(shortcutAlreadyUsed(QString,QString,const QAction*)),
+                 this,
+                 SLOT(warnAboutAlreadyUsedShortcut(QString,QString,const QAction*)));
+      disconnect(m_shortcutsModel,
+                 SIGNAL(shortcutSet(QString,QString,const QAction*)),
+                 this,
+                 SLOT(clearAlreadyUsedShortcutWarning()));
+      disconnect(this, SIGNAL(rejected()),
+                 m_shortcutsModel, SLOT(discardChangedShortcuts()));
+    }
+    m_shortcutsModel = model;
+    connect(m_shortcutsModel,
+            SIGNAL(shortcutAlreadyUsed(QString,QString,const QAction*)),
+            this,
+            SLOT(warnAboutAlreadyUsedShortcut(QString,QString,const QAction*)));
+    connect(m_shortcutsModel,
+            SIGNAL(shortcutSet(QString,QString,const QAction*)),
+            this,
+            SLOT(clearAlreadyUsedShortcutWarning()));
+    connect(this, SIGNAL(rejected()),
+            m_shortcutsModel, SLOT(discardChangedShortcuts()));
+    m_shortcutsTreeView->setModel(m_shortcutsModel);
+    m_shortcutsTreeView->expandAll();
+    m_shortcutsTreeView->resizeColumnToContents(ShortcutsModel::ActionColumn);
+  }
+}
+
 /**
  * Select custom application font.
  */

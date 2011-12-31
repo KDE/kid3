@@ -49,12 +49,17 @@ class QComboBox;
 class QLineEdit;
 class QSpinBox;
 class QStringListModel;
+class ConfigStore;
 
 /** Base class for configuration dialog. */
 #ifdef CONFIG_USE_KDE
 typedef KConfigDialog ConfigDialogBaseClass;
 #else
 typedef QDialog ConfigDialogBaseClass;
+
+class QTreeView;
+class QLabel;
+class ShortcutsModel;
 #endif
 
 /**
@@ -76,28 +81,25 @@ public:
 #else
   ConfigDialog(QWidget* parent, QString& caption);
 #endif
+
   /**
    * Destructor.
    */
   ~ConfigDialog();
+
   /**
    * Set values in dialog from current configuration.
    *
-   * @param fnCfg   filename format configuration
-   * @param id3Cfg  ID3 format configuration
-   * @param miscCfg misc. configuration
+   * @param cfg configuration
    */
-  void setConfig(const FormatConfig* fnCfg, const FormatConfig* id3Cfg,
-           const MiscConfig* miscCfg);
+  void setConfig(const ConfigStore* cfg);
+
   /**
    * Get values from dialog and store them in the current configuration.
    *
-   * @param fnCfg   filename format configuration
-   * @param id3Cfg  ID3 format configuration
-   * @param miscCfg misc. configuration
+   * @param cfg configuration
    */
-  void getConfig(FormatConfig* fnCfg, FormatConfig* id3Cfg,
-           MiscConfig* miscCfg) const;
+  void getConfig(ConfigStore* cfg) const;
 
 protected slots:
   /**
@@ -106,6 +108,21 @@ protected slots:
   virtual void slotHelp();
 
 #ifndef CONFIG_USE_KDE
+  /**
+   * Display warning that keyboard shortcut is already used.
+   *
+   * @param key string representation of key sequence
+   * @param context context of action
+   * @param action action using @a key
+   */
+  void warnAboutAlreadyUsedShortcut(const QString& key, const QString& context,
+                                    const QAction* action);
+
+  /**
+   * Clear warning about already used keyboard shortcut.
+   */
+  void clearAlreadyUsedShortcutWarning();
+
   /**
    * Select custom application font.
    */
@@ -125,6 +142,10 @@ protected slots:
 #endif
 
 private:
+#ifndef CONFIG_USE_KDE
+  void setShortcutsModel(ShortcutsModel* model);
+#endif
+
   /** Preserve timestamp checkbox */
   QCheckBox* m_preserveTimeCheckBox;
   /** Mark changes checkbox */
@@ -180,6 +201,9 @@ private:
   /** Proxy password line edit */
   QLineEdit* m_proxyPasswordLineEdit;
 #ifndef CONFIG_USE_KDE
+  ShortcutsModel* m_shortcutsModel;
+  QTreeView* m_shortcutsTreeView;
+  QLabel* m_shortcutAlreadyUsedLabel;
   QCheckBox* m_useApplicationFontCheckBox;
   QPushButton* m_applicationFontButton;
   QCheckBox* m_useApplicationStyleCheckBox;
