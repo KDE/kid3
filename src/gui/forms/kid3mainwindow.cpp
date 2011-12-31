@@ -789,6 +789,8 @@ void Kid3MainWindow::initActions()
   addToolBar(toolBar);
 
   updateWindowCaption();
+
+  m_form->initActions();
 #endif
 }
 
