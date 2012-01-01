@@ -432,6 +432,35 @@ index 3e6d667..d0ff728 100644
          TagLib::ByteVector renderCovr(const ByteVector &name, Item &item);
 EOF
 
+test -f taglib-itunes-id3v22.patch ||
+cat >taglib-itunes-id3v22.patch <<"EOF"
+diff --git a/taglib/mpeg/id3v2/id3v2framefactory.cpp b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+index 40e454e..b6bc34a 100644
+--- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
++++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
+@@ -310,6 +310,7 @@ bool FrameFactory::updateFrame(Frame::Header *header) const
+     convertFrame("TBP", "TBPM", header);
+     convertFrame("TCM", "TCOM", header);
+     convertFrame("TCO", "TCON", header);
++    convertFrame("TCP", "TCMP", header);
+     convertFrame("TCR", "TCOP", header);
+     convertFrame("TDY", "TDLY", header);
+     convertFrame("TEN", "TENC", header);
+@@ -332,7 +333,12 @@ bool FrameFactory::updateFrame(Frame::Header *header) const
+     convertFrame("TRC", "TSRC", header);
+     convertFrame("TRD", "TDRC", header);
+     convertFrame("TRK", "TRCK", header);
++    convertFrame("TS2", "TSO2", header);
++    convertFrame("TSA", "TSOA", header);
++    convertFrame("TSC", "TSOC", header);
++    convertFrame("TSP", "TSOP", header);
+     convertFrame("TSS", "TSSE", header);
++    convertFrame("TST", "TSOT", header);
+     convertFrame("TT1", "TIT1", header);
+     convertFrame("TT2", "TIT2", header);
+     convertFrame("TT3", "TIT3", header);
+EOF
+
 cd ..
 
 
@@ -500,6 +529,7 @@ cd taglib-1.7/
 tar xzf ../source/taglib_1.7-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/taglib-mp4-uinttypes.patch
+patch -p1 <../source/taglib-itunes-id3v22.patch
 cd ..
 fi
 
