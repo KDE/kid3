@@ -452,6 +452,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
       FrameCollection frames(framesHdr);
       QRegExp posRe("<td [^>]*class=\"track_pos\">(\\d+)</td>");
       QRegExp artistsRe("<td class=\"track_artists\"><a href=\"/artist/[^>]+>([^<]+)</a>");
+      QRegExp moreArtistsRe("^([^<>]+)<a href=\"/artist/[^>]+>([^<]+)</a>");
       QRegExp titleRe("class=\"track_title\"[^>]*>([^<]+)<");
       QRegExp durationRe("<td [^>]*class=\"track_duration\"[^>]*>(?:<span>)?(\\d+):(\\d+)</");
       QRegExp indexRe("<td class=\"track_index\">([^<]+)$");
@@ -479,8 +480,20 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
           if (artistsRe.indexIn(trackDataStr) >= 0) {
             // use the artist in the header as the album artist
             // and the artist in the track as the artist
-            frames.setArtist(
-              fixUpArtist(artistsRe.cap(1)));
+            QString artist(fixUpArtist(artistsRe.cap(1)));
+            // Look if there are more artists
+            int artistEndPos = artistsRe.pos() + artistsRe.matchedLength();
+            while (moreArtistsRe.indexIn(
+                     trackDataStr, artistEndPos, QRegExp::CaretAtOffset) >=
+                   artistEndPos) {
+              artist += moreArtistsRe.cap(1);
+              artist += fixUpArtist(moreArtistsRe.cap(2));
+              int endPos = moreArtistsRe.pos() + moreArtistsRe.matchedLength();
+              if (endPos <= artistEndPos) // must be true for regexp
+                break;
+              artistEndPos = endPos;
+            }
+            frames.setArtist(artist);
             frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
           }
         }
