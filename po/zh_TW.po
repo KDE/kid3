@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kid3-1.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2011-12-31 09:54+0100\n"
+"POT-Creation-Date: 2012-01-02 10:31+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -131,15 +131,15 @@ msgstr ""
 msgid "TBPM - BPM (beats per minute)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1285 core/formats/taglibfile.cpp:1700
+#: core/formats/mp3file.cpp:1285 core/formats/taglibfile.cpp:1701
 msgid "TCOM - Composer"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1701
+#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1702
 msgid "TCON - Content type"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1702
+#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1703
 msgid "TCOP - Copyright message"
 msgstr "TCOP - 版權訊息"
 
@@ -147,19 +147,19 @@ msgstr "TCOP - 版權訊息"
 msgid "TDAT - Date"
 msgstr "TDAT - 日期"
 
-#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1704
+#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1705
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - 播放清單延遲"
 
-#: core/formats/mp3file.cpp:1296 core/formats/taglibfile.cpp:1709
+#: core/formats/mp3file.cpp:1296 core/formats/taglibfile.cpp:1710
 msgid "TENC - Encoded by"
 msgstr "TENC - 編碼方式"
 
-#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1710
+#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1711
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - 作詞者"
 
-#: core/formats/mp3file.cpp:1298 core/formats/taglibfile.cpp:1711
+#: core/formats/mp3file.cpp:1298 core/formats/taglibfile.cpp:1712
 msgid "TFLT - File type"
 msgstr "TFLT - 檔案型態"
 
@@ -167,47 +167,47 @@ msgstr "TFLT - 檔案型態"
 msgid "TIME - Time"
 msgstr "TIME - 時間"
 
-#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1713
+#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1714
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - 內容群組描述"
 
-#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1714
+#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1715
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - 標題/歌名/內容描述"
 
-#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1715
+#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1716
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1303 core/formats/taglibfile.cpp:1716
+#: core/formats/mp3file.cpp:1303 core/formats/taglibfile.cpp:1717
 msgid "TKEY - Initial key"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1717
+#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1718
 msgid "TLAN - Language(s)"
 msgstr "TLAN - 語言"
 
-#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1718
+#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1719
 msgid "TLEN - Length"
 msgstr "TLEN - 長度"
 
-#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1720
+#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1721
 msgid "TMED - Media type"
 msgstr "TMED - 媒體型態"
 
-#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1722
+#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1723
 msgid "TOAL - Original album/movie/show title"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1310 core/formats/taglibfile.cpp:1723
+#: core/formats/mp3file.cpp:1310 core/formats/taglibfile.cpp:1724
 msgid "TOFN - Original filename"
 msgstr "TOFN - 原始檔名"
 
-#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1724
+#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1725
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - 原始作詞者"
 
-#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1725
+#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1726
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - 原始演出者"
 
@@ -215,35 +215,35 @@ msgstr "TOPE - 原始演出者"
 msgid "TORY - Original release year"
 msgstr "TORY - 原始發行年份"
 
-#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1726
+#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1727
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - 檔案擁有者/授權者"
 
-#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1727
+#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1728
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - 首席表演者/獨唱者"
 
-#: core/formats/mp3file.cpp:1316 core/formats/taglibfile.cpp:1728
+#: core/formats/mp3file.cpp:1316 core/formats/taglibfile.cpp:1729
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - 樂團"
 
-#: core/formats/mp3file.cpp:1317 core/formats/taglibfile.cpp:1729
+#: core/formats/mp3file.cpp:1317 core/formats/taglibfile.cpp:1730
 msgid "TPE3 - Conductor/performer refinement"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1318 core/formats/taglibfile.cpp:1730
+#: core/formats/mp3file.cpp:1318 core/formats/taglibfile.cpp:1731
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1319 core/formats/taglibfile.cpp:1731
+#: core/formats/mp3file.cpp:1319 core/formats/taglibfile.cpp:1732
 msgid "TPOS - Part of a set"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1733
+#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1734
 msgid "TPUB - Publisher"
 msgstr "TPUB - 發行者"
 
-#: core/formats/mp3file.cpp:1322 core/formats/taglibfile.cpp:1734
+#: core/formats/mp3file.cpp:1322 core/formats/taglibfile.cpp:1735
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - 音軌編號/位置"
 
@@ -251,11 +251,11 @@ msgstr "TRCK - 音軌編號/位置"
 msgid "TRDA - Recording dates"
 msgstr "TRDA - 錄製日期"
 
-#: core/formats/mp3file.cpp:1324 core/formats/taglibfile.cpp:1735
+#: core/formats/mp3file.cpp:1324 core/formats/taglibfile.cpp:1736
 msgid "TRSN - Internet radio station name"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1736
+#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1737
 msgid "TRSO - Internet radio station owner"
 msgstr ""
 
@@ -263,15 +263,15 @@ msgstr ""
 msgid "TSIZ - Size"
 msgstr "TSIZ - 大小"
 
-#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1740
+#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1743
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1741
+#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1744
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - 用於編碼的軟硬體設定"
 
-#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1743
+#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1746
 msgid "TXXX - User defined text information"
 msgstr "TXXX - 使用者定義文字資訊"
 
@@ -279,51 +279,51 @@ msgstr "TXXX - 使用者定義文字資訊"
 msgid "TYER - Year"
 msgstr "TYER - 年份"
 
-#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1744
+#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1747
 msgid "UFID - Unique file identifier"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1745
+#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1748
 msgid "USER - Terms of use"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1337 core/formats/taglibfile.cpp:1746
+#: core/formats/mp3file.cpp:1337 core/formats/taglibfile.cpp:1749
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1338 core/formats/taglibfile.cpp:1747
+#: core/formats/mp3file.cpp:1338 core/formats/taglibfile.cpp:1750
 msgid "WCOM - Commercial information"
 msgstr "WCOM - 商業資訊"
 
-#: core/formats/mp3file.cpp:1339 core/formats/taglibfile.cpp:1748
+#: core/formats/mp3file.cpp:1339 core/formats/taglibfile.cpp:1751
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - 版權資訊"
 
-#: core/formats/mp3file.cpp:1340 core/formats/taglibfile.cpp:1749
+#: core/formats/mp3file.cpp:1340 core/formats/taglibfile.cpp:1752
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - 正式音效檔網頁"
 
-#: core/formats/mp3file.cpp:1341 core/formats/taglibfile.cpp:1750
+#: core/formats/mp3file.cpp:1341 core/formats/taglibfile.cpp:1753
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - 正式演出者網頁"
 
-#: core/formats/mp3file.cpp:1342 core/formats/taglibfile.cpp:1751
+#: core/formats/mp3file.cpp:1342 core/formats/taglibfile.cpp:1754
 msgid "WOAS - Official audio source webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1343 core/formats/taglibfile.cpp:1752
+#: core/formats/mp3file.cpp:1343 core/formats/taglibfile.cpp:1755
 msgid "WORS - Official internet radio station homepage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1344 core/formats/taglibfile.cpp:1753
+#: core/formats/mp3file.cpp:1344 core/formats/taglibfile.cpp:1756
 msgid "WPAY - Payment"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1345 core/formats/taglibfile.cpp:1754
+#: core/formats/mp3file.cpp:1345 core/formats/taglibfile.cpp:1757
 msgid "WPUB - Official publisher webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1346 core/formats/taglibfile.cpp:1755
+#: core/formats/mp3file.cpp:1346 core/formats/taglibfile.cpp:1758
 msgid "WXXX - User defined URL link"
 msgstr ""
 
@@ -347,55 +347,67 @@ msgstr "SEEK - 尋找訊框"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - 簽章訊框"
 
-#: core/formats/taglibfile.cpp:1703
+#: core/formats/taglibfile.cpp:1700
+msgid "TCMP - iTunes compilation flag"
+msgstr "TCMP - iTunes的編譯"
+
+#: core/formats/taglibfile.cpp:1704
 msgid "TDEN - Encoding time"
 msgstr "TDEN - 編碼時間"
 
-#: core/formats/taglibfile.cpp:1705
+#: core/formats/taglibfile.cpp:1706
 msgid "TDOR - Original release time"
 msgstr "TDOR - 原始發行時間"
 
-#: core/formats/taglibfile.cpp:1706
+#: core/formats/taglibfile.cpp:1707
 msgid "TDRC - Recording time"
 msgstr "TDRC - 錄音時間"
 
-#: core/formats/taglibfile.cpp:1707
+#: core/formats/taglibfile.cpp:1708
 msgid "TDRL - Release time"
 msgstr "TDRL - 發行時間"
 
-#: core/formats/taglibfile.cpp:1708
+#: core/formats/taglibfile.cpp:1709
 msgid "TDTG - Tagging time"
 msgstr "TDTG - 標籤時間 "
 
-#: core/formats/taglibfile.cpp:1712
+#: core/formats/taglibfile.cpp:1713
 msgid "TIPL - Involved people list"
 msgstr "TIPL - 參與人員清單"
 
-#: core/formats/taglibfile.cpp:1719
+#: core/formats/taglibfile.cpp:1720
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - 音樂誌謝清單"
 
-#: core/formats/taglibfile.cpp:1721
+#: core/formats/taglibfile.cpp:1722
 msgid "TMOO - Mood"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1732
+#: core/formats/taglibfile.cpp:1733
 msgid "TPRO - Produced notice"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1737
+#: core/formats/taglibfile.cpp:1738
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - 艺术家专辑排序"
+
+#: core/formats/taglibfile.cpp:1739
 msgid "TSOA - Album sort order"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1738
+#: core/formats/taglibfile.cpp:1740
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - 作曲家篩選秩序"
+
+#: core/formats/taglibfile.cpp:1741
 msgid "TSOP - Performer sort order"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1739
+#: core/formats/taglibfile.cpp:1742
 msgid "TSOT - Title sort order"
 msgstr "TSOT - 標題排序順序"
 
-#: core/formats/taglibfile.cpp:1742
+#: core/formats/taglibfile.cpp:1745
 msgid "TSST - Set subtitle"
 msgstr "TSST - 設定字幕"
 
@@ -414,8 +426,8 @@ msgstr "gnudb.org"
 #: core/import/httpclient.cpp:72 core/import/httpclient.cpp:84
 #: core/import/httpclient.cpp:133 core/model/downloadclient.cpp:62
 #: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:164
-#: gui/forms/kid3mainwindow.cpp:826 gui/forms/kid3mainwindow.cpp:979
-#: gui/forms/kid3mainwindow.cpp:1225 gui/forms/kid3mainwindow.cpp:1306
+#: gui/forms/kid3mainwindow.cpp:828 gui/forms/kid3mainwindow.cpp:981
+#: gui/forms/kid3mainwindow.cpp:1227 gui/forms/kid3mainwindow.cpp:1308
 msgid "Ready."
 msgstr "已就緒。"
 
@@ -574,7 +586,7 @@ msgid "%1 is not a directory\n"
 msgstr "%1 不是目錄\n"
 
 #: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:130
-#: core/model/dirrenamer.cpp:173 gui/forms/kid3mainwindow.cpp:1978
+#: core/model/dirrenamer.cpp:173 gui/forms/kid3mainwindow.cpp:1980
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1 更名至 %2 失敗\n"
 
@@ -667,8 +679,8 @@ msgid "Absolute path to file"
 msgstr "檔案的絕對路徑"
 
 #: core/model/trackdatamodel.cpp:199 gui/dialogs/editframefieldsdialog.cpp:677
-#: gui/forms/kid3mainwindow.cpp:366 gui/forms/kid3mainwindow.cpp:369
-#: gui/forms/kid3mainwindow.cpp:372
+#: gui/forms/kid3form.cpp:894 gui/forms/kid3mainwindow.cpp:366
+#: gui/forms/kid3mainwindow.cpp:369 gui/forms/kid3mainwindow.cpp:372
 msgid "Filename"
 msgstr "檔名"
 
@@ -836,7 +848,7 @@ msgstr "Codec"
 msgid "Kid3 ID3 Tagger"
 msgstr "Kid3 ID3 Tagger"
 
-#: gui/app/main.cpp:54 gui/forms/kid3form.cpp:170
+#: gui/app/main.cpp:54 gui/forms/kid3form.cpp:175
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -1351,8 +1363,8 @@ msgid "Export"
 msgstr "匯出"
 
 #: gui/dialogs/exportdialog.cpp:91 gui/dialogs/tagimportdialog.cpp:57
-#: gui/dialogs/textimportdialog.cpp:67 gui/forms/kid3form.cpp:213
-#: gui/forms/kid3form.cpp:237
+#: gui/dialogs/textimportdialog.cpp:67 gui/forms/kid3form.cpp:218
+#: gui/forms/kid3form.cpp:242
 msgid "Format:"
 msgstr "格式:"
 
@@ -1381,32 +1393,32 @@ msgid "&Source:"
 msgstr "來源(&S):"
 
 #: gui/dialogs/exportdialog.cpp:128 gui/dialogs/importdialog.cpp:166
-#: gui/dialogs/numbertracksdialog.cpp:82 gui/forms/kid3form.cpp:230
-#: gui/forms/kid3form.cpp:255 gui/forms/kid3mainwindow.cpp:327
-#: gui/forms/kid3mainwindow.cpp:330 gui/forms/kid3mainwindow.cpp:333
-#: gui/forms/kid3mainwindow.cpp:336 gui/forms/kid3mainwindow.cpp:339
-#: gui/forms/kid3mainwindow.cpp:375
+#: gui/dialogs/numbertracksdialog.cpp:82 gui/forms/kid3form.cpp:235
+#: gui/forms/kid3form.cpp:260 gui/forms/kid3form.cpp:899
+#: gui/forms/kid3mainwindow.cpp:327 gui/forms/kid3mainwindow.cpp:330
+#: gui/forms/kid3mainwindow.cpp:333 gui/forms/kid3mainwindow.cpp:336
+#: gui/forms/kid3mainwindow.cpp:339 gui/forms/kid3mainwindow.cpp:375
 msgid "Tag 1"
 msgstr "標籤 1"
 
 #: gui/dialogs/exportdialog.cpp:129 gui/dialogs/importdialog.cpp:167
-#: gui/dialogs/numbertracksdialog.cpp:83 gui/forms/kid3form.cpp:233
-#: gui/forms/kid3form.cpp:259 gui/forms/kid3mainwindow.cpp:342
-#: gui/forms/kid3mainwindow.cpp:345 gui/forms/kid3mainwindow.cpp:348
-#: gui/forms/kid3mainwindow.cpp:351 gui/forms/kid3mainwindow.cpp:354
-#: gui/forms/kid3mainwindow.cpp:378
+#: gui/dialogs/numbertracksdialog.cpp:83 gui/forms/kid3form.cpp:238
+#: gui/forms/kid3form.cpp:264 gui/forms/kid3form.cpp:906
+#: gui/forms/kid3mainwindow.cpp:342 gui/forms/kid3mainwindow.cpp:345
+#: gui/forms/kid3mainwindow.cpp:348 gui/forms/kid3mainwindow.cpp:351
+#: gui/forms/kid3mainwindow.cpp:354 gui/forms/kid3mainwindow.cpp:378
 msgid "Tag 2"
 msgstr "標籤 2"
 
-#: gui/dialogs/exportdialog.cpp:194 gui/forms/kid3mainwindow.cpp:970
-#: gui/forms/kid3mainwindow.cpp:973 gui/forms/kid3mainwindow.cpp:1499
-#: gui/forms/kid3mainwindow.cpp:1502 gui/forms/kid3mainwindow.cpp:1976
-#: gui/forms/kid3mainwindow.cpp:2056 gui/forms/kid3mainwindow.cpp:2059
+#: gui/dialogs/exportdialog.cpp:194 gui/forms/kid3mainwindow.cpp:972
+#: gui/forms/kid3mainwindow.cpp:975 gui/forms/kid3mainwindow.cpp:1501
+#: gui/forms/kid3mainwindow.cpp:1504 gui/forms/kid3mainwindow.cpp:1978
+#: gui/forms/kid3mainwindow.cpp:2058 gui/forms/kid3mainwindow.cpp:2061
 msgid "File Error"
 msgstr "檔案錯誤"
 
-#: gui/dialogs/exportdialog.cpp:195 gui/forms/kid3mainwindow.cpp:968
-#: gui/forms/kid3mainwindow.cpp:973
+#: gui/dialogs/exportdialog.cpp:195 gui/forms/kid3mainwindow.cpp:970
+#: gui/forms/kid3mainwindow.cpp:975
 msgid "Error while writing file:\n"
 msgstr "寫入檔案錯誤:\n"
 
@@ -1601,21 +1613,23 @@ msgstr "建立目錄"
 msgid "From Tag 2 and Tag 1"
 msgstr "從 標籤 2 與 標籤 1"
 
-#: gui/dialogs/rendirdialog.cpp:112 gui/forms/kid3form.cpp:328
+#: gui/dialogs/rendirdialog.cpp:112 gui/forms/kid3form.cpp:333
+#: gui/forms/kid3form.cpp:896 gui/forms/kid3form.cpp:908
 #: gui/forms/kid3mainwindow.cpp:345 gui/forms/kid3mainwindow.cpp:366
 msgid "From Tag 1"
 msgstr "從標籤 1"
 
-#: gui/dialogs/rendirdialog.cpp:113 gui/forms/kid3form.cpp:288
+#: gui/dialogs/rendirdialog.cpp:113 gui/forms/kid3form.cpp:293
+#: gui/forms/kid3form.cpp:897 gui/forms/kid3form.cpp:901
 #: gui/forms/kid3mainwindow.cpp:330 gui/forms/kid3mainwindow.cpp:369
 msgid "From Tag 2"
 msgstr "從標籤 2"
 
-#: gui/dialogs/rendirdialog.cpp:143 gui/forms/kid3form.cpp:228
+#: gui/dialogs/rendirdialog.cpp:143 gui/forms/kid3form.cpp:233
 msgid "From:"
 msgstr "從："
 
-#: gui/dialogs/rendirdialog.cpp:145 gui/forms/kid3form.cpp:252
+#: gui/dialogs/rendirdialog.cpp:145 gui/forms/kid3form.cpp:257
 msgid "To:"
 msgstr "至："
 
@@ -1672,65 +1686,82 @@ msgstr "移至垃圾桶(&M)"
 msgid "&Play"
 msgstr "播放(&P)"
 
-#: gui/forms/kid3form.cpp:193 gui/forms/kid3form.cpp:847
-#: gui/forms/kid3form.cpp:849
+#: gui/forms/kid3form.cpp:198 gui/forms/kid3form.cpp:852
+#: gui/forms/kid3form.cpp:854
 msgid "F&ile"
 msgstr "檔案(&I)"
 
-#: gui/forms/kid3form.cpp:206
+#: gui/forms/kid3form.cpp:211
 msgid "Name:"
 msgstr "檔案名稱:"
 
-#: gui/forms/kid3form.cpp:231
+#: gui/forms/kid3form.cpp:236
 msgid "Filename from Tag 1"
 msgstr "檔名從標籤 1"
 
-#: gui/forms/kid3form.cpp:234
+#: gui/forms/kid3form.cpp:239
 msgid "Filename from Tag 2"
 msgstr "檔名從標籤 2"
 
-#: gui/forms/kid3form.cpp:256
+#: gui/forms/kid3form.cpp:261
 msgid "Tag 1 from Filename"
 msgstr "標籤 1從檔名"
 
-#: gui/forms/kid3form.cpp:260
+#: gui/forms/kid3form.cpp:265
 msgid "Tag 2 from Filename"
 msgstr "標籤 2從檔名"
 
-#: gui/forms/kid3form.cpp:266 gui/forms/kid3form.cpp:584
+#: gui/forms/kid3form.cpp:271 gui/forms/kid3form.cpp:589
 msgid "Tag &1"
 msgstr "標籤 &1"
 
-#: gui/forms/kid3form.cpp:291 gui/forms/kid3form.cpp:332
+#: gui/forms/kid3form.cpp:296 gui/forms/kid3form.cpp:337
+#: gui/forms/kid3form.cpp:902 gui/forms/kid3form.cpp:909
 #: gui/forms/kid3mainwindow.cpp:333 gui/forms/kid3mainwindow.cpp:348
 msgid "Copy"
 msgstr "複製"
 
-#: gui/forms/kid3form.cpp:295 gui/forms/kid3form.cpp:336
+#: gui/forms/kid3form.cpp:300 gui/forms/kid3form.cpp:341
+#: gui/forms/kid3form.cpp:903 gui/forms/kid3form.cpp:910
 #: gui/forms/kid3mainwindow.cpp:336 gui/forms/kid3mainwindow.cpp:351
 msgid "Paste"
 msgstr "貼上"
 
-#: gui/forms/kid3form.cpp:299 gui/forms/kid3form.cpp:340
+#: gui/forms/kid3form.cpp:304 gui/forms/kid3form.cpp:345
+#: gui/forms/kid3form.cpp:904 gui/forms/kid3form.cpp:911
 #: gui/forms/kid3mainwindow.cpp:339 gui/forms/kid3mainwindow.cpp:354
 msgid "Remove"
 msgstr "移除"
 
-#: gui/forms/kid3form.cpp:308 gui/forms/kid3form.cpp:599
+#: gui/forms/kid3form.cpp:313 gui/forms/kid3form.cpp:604
 msgid "Tag &2"
 msgstr "標籤 &2"
 
-#: gui/forms/kid3form.cpp:346 gui/forms/kid3mainwindow.cpp:357
+#: gui/forms/kid3form.cpp:351 gui/forms/kid3form.cpp:912
+#: gui/forms/kid3mainwindow.cpp:357
 msgid "Edit"
 msgstr "編輯"
 
-#: gui/forms/kid3form.cpp:349 gui/forms/kid3mainwindow.cpp:360
+#: gui/forms/kid3form.cpp:354 gui/forms/kid3form.cpp:913
+#: gui/forms/kid3mainwindow.cpp:360
 msgid "Add"
 msgstr "新增"
 
-#: gui/forms/kid3form.cpp:352 gui/forms/kid3mainwindow.cpp:363
+#: gui/forms/kid3form.cpp:357 gui/forms/kid3form.cpp:914
+#: gui/forms/kid3mainwindow.cpp:363
 msgid "Delete"
 msgstr "刪除"
+
+#: gui/forms/kid3form.cpp:898 gui/forms/kid3form.cpp:905
+#: gui/forms/kid3form.cpp:915 gui/forms/kid3mainwindow.cpp:372
+#: gui/forms/kid3mainwindow.cpp:375 gui/forms/kid3mainwindow.cpp:378
+msgid "Focus"
+msgstr "焦點"
+
+#: gui/forms/kid3form.cpp:900 gui/forms/kid3form.cpp:907
+#: gui/forms/kid3mainwindow.cpp:327 gui/forms/kid3mainwindow.cpp:342
+msgid "From Filename"
+msgstr "從檔名"
 
 #: gui/forms/kid3mainwindow.cpp:114
 msgid "Download"
@@ -1850,19 +1881,10 @@ msgstr "上一個檔案(&P)"
 msgid "&Next File"
 msgstr "下一個檔案(&N)"
 
-#: gui/forms/kid3mainwindow.cpp:327 gui/forms/kid3mainwindow.cpp:342
-msgid "From Filename"
-msgstr "從檔名"
-
 #: gui/forms/kid3mainwindow.cpp:357 gui/forms/kid3mainwindow.cpp:360
 #: gui/forms/kid3mainwindow.cpp:363
 msgid "Frames:"
 msgstr "訊框："
-
-#: gui/forms/kid3mainwindow.cpp:372 gui/forms/kid3mainwindow.cpp:375
-#: gui/forms/kid3mainwindow.cpp:378
-msgid "Focus"
-msgstr "焦點"
 
 #: gui/forms/kid3mainwindow.cpp:388
 msgid "&File"
@@ -2008,15 +2030,15 @@ msgstr "關於 Qt"
 msgid "About &Qt"
 msgstr "關於 Qt(&Q)"
 
-#: gui/forms/kid3mainwindow.cpp:822
+#: gui/forms/kid3mainwindow.cpp:824
 msgid "Opening directory..."
 msgstr "開啟目錄..."
 
-#: gui/forms/kid3mainwindow.cpp:944
+#: gui/forms/kid3mainwindow.cpp:946
 msgid "Saving directory..."
 msgstr "儲存目錄..."
 
-#: gui/forms/kid3mainwindow.cpp:1003 gui/forms/kid3mainwindow.cpp:1013
+#: gui/forms/kid3mainwindow.cpp:1005 gui/forms/kid3mainwindow.cpp:1015
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -2024,86 +2046,86 @@ msgstr ""
 "目前目錄已更動\n"
 "要儲存嗎？"
 
-#: gui/forms/kid3mainwindow.cpp:1005
+#: gui/forms/kid3mainwindow.cpp:1007
 msgid "Warning"
 msgstr "警告"
 
-#: gui/forms/kid3mainwindow.cpp:1012
+#: gui/forms/kid3mainwindow.cpp:1014
 msgid "Warning - Kid3"
 msgstr "警告 - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1091
+#: gui/forms/kid3mainwindow.cpp:1093
 msgid "Open"
 msgstr "開啟"
 
-#: gui/forms/kid3mainwindow.cpp:1174
+#: gui/forms/kid3mainwindow.cpp:1176
 msgid "Exiting..."
 msgstr "離開..."
 
-#: gui/forms/kid3mainwindow.cpp:1218
+#: gui/forms/kid3mainwindow.cpp:1220
 msgid "Toggle the statusbar..."
 msgstr "切換狀態列..."
 
-#: gui/forms/kid3mainwindow.cpp:1302
+#: gui/forms/kid3mainwindow.cpp:1304
 msgid "Creating playlist..."
 msgstr "新增播放清單..."
 
-#: gui/forms/kid3mainwindow.cpp:1328
+#: gui/forms/kid3mainwindow.cpp:1330
 msgid "Import"
 msgstr "匯入"
 
-#: gui/forms/kid3mainwindow.cpp:1445
+#: gui/forms/kid3mainwindow.cpp:1447
 msgid "Configure - Kid3"
 msgstr "設定 - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1498 gui/forms/kid3mainwindow.cpp:1503
-#: gui/forms/kid3mainwindow.cpp:1977
+#: gui/forms/kid3mainwindow.cpp:1500 gui/forms/kid3mainwindow.cpp:1505
+#: gui/forms/kid3mainwindow.cpp:1979
 msgid "Error while renaming:\n"
 msgstr "更改檔名發生錯誤:\n"
 
-#: gui/forms/kid3mainwindow.cpp:1618
+#: gui/forms/kid3mainwindow.cpp:1620
 msgid " [filtered]"
 msgstr "[已篩選]"
 
-#: gui/forms/kid3mainwindow.cpp:1624
+#: gui/forms/kid3mainwindow.cpp:1626
 msgid " [modified]"
 msgstr "[已更改]"
 
-#: gui/forms/kid3mainwindow.cpp:1866
+#: gui/forms/kid3mainwindow.cpp:1868
 msgid "Add Frame"
 msgstr "新增訊框"
 
-#: gui/forms/kid3mainwindow.cpp:1867
+#: gui/forms/kid3mainwindow.cpp:1869
 msgid "Select the frame ID"
 msgstr "選擇訊框代碼"
 
-#: gui/forms/kid3mainwindow.cpp:1955
+#: gui/forms/kid3mainwindow.cpp:1957
 msgid "Rename File"
 msgstr "更改檔名"
 
-#: gui/forms/kid3mainwindow.cpp:1956
+#: gui/forms/kid3mainwindow.cpp:1958
 msgid "Enter new file name:"
 msgstr "輸入新檔名:"
 
-#: gui/forms/kid3mainwindow.cpp:1986 gui/forms/kid3mainwindow.cpp:2024
+#: gui/forms/kid3mainwindow.cpp:1988 gui/forms/kid3mainwindow.cpp:2026
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "您真的要將這 %1 個項目移到資源回收筒嗎？"
 
-#: gui/forms/kid3mainwindow.cpp:2012 gui/forms/kid3mainwindow.cpp:2026
+#: gui/forms/kid3mainwindow.cpp:2014 gui/forms/kid3mainwindow.cpp:2028
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
 msgstr[0] "您真的要將這 1 個項目移到資源回收筒嗎？"
 msgstr[1] "您真的要將這 %1 個項目移到資源回收筒嗎？"
 
-#: gui/forms/kid3mainwindow.cpp:2016 gui/forms/kid3mainwindow.cpp:2022
+#: gui/forms/kid3mainwindow.cpp:2018 gui/forms/kid3mainwindow.cpp:2024
 msgid "Move to Trash"
 msgstr "移至垃圾桶"
 
-#: gui/forms/kid3mainwindow.cpp:2053
+#: gui/forms/kid3mainwindow.cpp:2055
 msgid "Directory must be empty.\n"
 msgstr "目錄裡面必須是空的.\n"
 
-#: gui/forms/kid3mainwindow.cpp:2054
+#: gui/forms/kid3mainwindow.cpp:2056
 msgid "Could not move these files to the Trash"
 msgstr "無法將這些檔案丟到垃圾桶"
 
@@ -2270,4 +2292,3 @@ msgid ""
 "_: EMAIL OF TRANSLATORS\n"
 "Your emails"
 msgstr "yayow at mail dot shps dot kh dot edu dot tw"
-
