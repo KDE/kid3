@@ -721,6 +721,9 @@ void ConfigDialog::setShortcutsModel(ShortcutsModel* model)
     m_shortcutsTreeView->setModel(m_shortcutsModel);
     m_shortcutsTreeView->expandAll();
     m_shortcutsTreeView->resizeColumnToContents(ShortcutsModel::ActionColumn);
+#ifdef Q_OS_MAC
+    m_shortcutsTreeView->header()->setStretchLastSection(false);
+#endif
   }
 }
 
