@@ -627,10 +627,16 @@ make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-if test $kernel = "MINGW" && test -d prg; then
-  rm -rf usr
-  mv prg/msys usr
-  rmdir prg
+if test $kernel = "MINGW"; then
+  if test -d prg; then
+    rm -rf usr
+    mv prg/msys usr
+    rmdir prg
+  elif test -d msys; then
+    rm -rf usr
+    mv msys/1.0 usr
+    rmdir msys
+  fi
 fi
 tar czf ../../bin/taglib-1.7.tgz usr
 cd ../..
