@@ -37,6 +37,7 @@
 #endif
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
+#include <unistd.h>
 #include "scriptinterface.h"
 #endif
 #include "fileproxymodel.h"
