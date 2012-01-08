@@ -182,11 +182,10 @@ void ExportDialog::slotToFile()
     KFileDialog::getSaveFileName(ConfigStore::s_genCfg.m_importDir,
                                  QString::null, this);
 #else
-    QFileDialog::getSaveFileName(this, QString(), ConfigStore::s_genCfg.m_importDir
-#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
-      , QString(), 0, QFileDialog::DontUseNativeDialog
-#endif
-      );
+    QFileDialog::getSaveFileName(this, QString(),
+     ConfigStore::s_genCfg.m_importDir, QString(), 0,
+     ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+     ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #endif
   if (!fileName.isEmpty()) {
     if (!m_textExporter->exportToFile(fileName)) {

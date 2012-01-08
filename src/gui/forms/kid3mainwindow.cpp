@@ -1097,12 +1097,10 @@ void Kid3MainWindow::slotFileOpen()
     }
 #else
     dir = QFileDialog::getOpenFileName(
-      this, QString(), m_app->getDirName(), flt, &filter
-#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+      this, QString(), m_app->getDirName(), flt, &filter,
       // filter does not work with the KDE style file dialog
-      , QFileDialog::DontUseNativeDialog
-#endif
-      );
+      ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #endif
     if (!dir.isEmpty()) {
       int start = filter.indexOf('('), end = filter.indexOf(')');
@@ -1128,11 +1126,10 @@ void Kid3MainWindow::slotFileOpenDirectory()
 #ifdef CONFIG_USE_KDE
     dir = KFileDialog::getExistingDirectory(m_app->getDirName(), this);
 #else
-    dir = QFileDialog::getExistingDirectory(this, QString(), m_app->getDirName()
-#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
-      , QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
-#endif
-      );
+    dir = QFileDialog::getExistingDirectory(this, QString(), m_app->getDirName(),
+      ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+      ? QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
+      : QFileDialog::ShowDirsOnly);
 #endif
     if (!dir.isEmpty()) {
       m_app->openDirectory(dir);

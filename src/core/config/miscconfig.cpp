@@ -188,7 +188,14 @@ MiscConfig::MiscConfig(const QString& group) :
   m_useProxyAuthentication(false),
   m_onlyCustomGenres(false)
 #ifndef CONFIG_USE_KDE
-  , m_useFont(false), m_fontSize(-1)
+  , m_useFont(false), m_fontSize(-1),
+  m_dontUseNativeDialogs(
+#if defined Q_OS_WIN32 || defined Q_OS_MAC
+    false
+#else
+    true
+#endif
+  )
 #endif
 {
 }
@@ -326,6 +333,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   config->setValue("/FontFamily", QVariant(m_fontFamily));
   config->setValue("/FontSize", QVariant(m_fontSize));
   config->setValue("/Style", QVariant(m_style));
+  config->setValue("/DontUseNativeDialogs", QVariant(m_dontUseNativeDialogs));
   config->endGroup();
 
   config->beginGroup("/MenuCommands");
@@ -504,6 +512,8 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_fontFamily = config->value("/FontFamily", m_fontFamily).toString();
   m_fontSize = config->value("/FontSize", -1).toInt();
   m_style = config->value("/Style", m_style).toString();
+  m_dontUseNativeDialogs = config->value("/DontUseNativeDialogs",
+                                         m_dontUseNativeDialogs).toBool();
   config->endGroup();
 
   m_contextMenuCommands.clear();

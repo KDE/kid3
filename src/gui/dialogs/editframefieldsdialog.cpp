@@ -46,6 +46,7 @@
 #include <kfiledialog.h>
 #else
 #include <QFileDialog>
+#include "configstore.h"
 #endif
 
 /** QTextEdit with label above */
@@ -589,11 +590,9 @@ void BinaryOpenSave::loadData()
 #else
   QString loadfilename = QFileDialog::getOpenFileName(
     this, QString(),
-    m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir
-#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
-    , QString(), 0, QFileDialog::DontUseNativeDialog
-#endif
-    );
+    m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
+    QString(), 0, ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+    ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #endif
   if (!loadfilename.isEmpty()) {
     QFile file(loadfilename);
@@ -628,11 +627,9 @@ void BinaryOpenSave::saveData()
 #ifdef CONFIG_USE_KDE
   QString fn = KFileDialog::getSaveFileName(dir, QString::null, this);
 #else
-  QString fn = QFileDialog::getSaveFileName(this, QString(), dir
-#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
-    , QString(), 0, QFileDialog::DontUseNativeDialog
-#endif
-    );
+  QString fn = QFileDialog::getSaveFileName(this, QString(), dir,
+    QString(), 0, ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+    ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #endif
   if (!fn.isEmpty()) {
     QFile file(fn);

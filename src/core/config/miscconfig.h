@@ -269,6 +269,8 @@ public:
   int m_fontSize;
   /** custom application style, empty if not used */
   QString m_style;
+  /** Don't use the native file dialog if true */
+  bool m_dontUseNativeDialogs;
 #endif
 
   /** Default directory format list */
