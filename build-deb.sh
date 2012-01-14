@@ -1,5 +1,5 @@
 #!/bin/sh
 # Build Debian package.
-mkdir debian
-cp deb/* debian/
+cp -R deb debian
+rm -rf debian/source debian/watch
 dpkg-buildpackage -rfakeroot

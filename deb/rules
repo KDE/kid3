@@ -25,7 +25,9 @@ ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 	INSTALL_PROGRAM += -s
 endif
 
-build: build-stamp
+build: build-arch build-indep
+build-arch: build-stamp
+build-indep: build-stamp
 
 DEB_CMAKE_PREFIX = /usr
 DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/kde4/config

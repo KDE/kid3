@@ -7,7 +7,7 @@ Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>, Mark Purcell <msp@debian
 Build-Depends: debhelper (>= 6), libqt4-dev, kdelibs5-dev, cmake,
  libid3-3.8.3-dev, libtunepimp-dev, libflac++-dev, libvorbis-dev,
  libtag1-dev, xsltproc, docbook-xsl, lsb-release
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log
