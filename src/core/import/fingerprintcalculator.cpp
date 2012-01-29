@@ -84,8 +84,13 @@ private:
 class Format {
 public:
   Format(const char* fileName) : m_ptr(0), m_hasError(false) {
-    if (::av_open_input_file(&m_ptr, fileName, 0, 0, 0) != 0 ||
-        ::av_find_stream_info(m_ptr) < 0)
+    if (
+#if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53, 2, 0)
+        ::av_open_input_file(&m_ptr, fileName, 0, 0, 0) != 0
+#else
+        ::avformat_open_input(&m_ptr, fileName, 0, 0) != 0
+#endif
+        || ::av_find_stream_info(m_ptr) < 0)
       m_hasError = true;
   }
 
@@ -137,7 +142,12 @@ public:
     AVCodec* codec;
     m_opened = (m_ptr &&
                 (codec = ::avcodec_find_decoder(m_ptr->codec_id)) != 0 &&
-                ::avcodec_open(m_ptr, codec) >= 0);
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 5, 0)
+        ::avcodec_open(m_ptr, codec) >= 0
+#else
+        ::avcodec_open2(m_ptr, codec, 0) >= 0
+#endif
+        );
     return m_opened;
   }
 
@@ -184,7 +194,11 @@ public:
     if (m_ptr) {
       const void *ibuf[6] = { buffer1 };
       void *obuf[6] = { buffer2 };
+#if LIBAVUTIL_VERSION_INT < AV_VERSION_INT(51, 4, 0)
       int istride[6] = { ::av_get_bits_per_sample_format(codecCtx.sampleFormat()) / 8 };
+#else
+      int istride[6] = { ::av_get_bytes_per_sample(codecCtx.sampleFormat()) };
+#endif
       int ostride[6] = { 2 };
       int len = bufferSize / istride[0];
       if (::av_audio_convert(m_ptr, obuf, ostride, ibuf, istride, len) < 0) {
