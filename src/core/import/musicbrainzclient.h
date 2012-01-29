@@ -115,6 +115,7 @@ private:
   FingerprintCalculator* m_fingerprintCalculator;
   TrackDataModel* m_trackDataModel;
   State m_state;
+  QVector<QString> m_filenameOfTrack;
   QVector<QStringList> m_idsOfTrack;
   int m_currentIndex;
   ImportTrackDataVector m_currentTrackData;

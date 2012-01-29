@@ -279,6 +279,12 @@ void MusicBrainzDialog::apply()
   bool newTrackData = false;
   unsigned numRows = m_albumTableModel->rowCount();
   for (unsigned index = 0; index < numRows; ++index) {
+    while (it != trackDataVector.end() && !it->isEnabled()) {
+      ++it;
+    }
+    if (it == trackDataVector.end()) {
+      break;
+    }
     QModelIndex idx(m_albumTableModel->index(index, 0));
     if (idx.isValid()) {
       int selectedItem = idx.data(Qt::UserRole).toStringList().indexOf(
@@ -286,22 +292,16 @@ void MusicBrainzDialog::apply()
       if (selectedItem > 0) {
         const ImportTrackData& selectedData =
           m_trackResults[index][selectedItem - 1];
-        while (it != trackDataVector.end() && !it->isEnabled()) {
-          ++it;
-        }
-        if (it == trackDataVector.end()) {
-          break;
-        }
         it->setTitle(selectedData.getTitle());
         it->setArtist(selectedData.getArtist());
         it->setAlbum(selectedData.getAlbum());
         it->setTrack(selectedData.getTrack());
         it->setYear(selectedData.getYear());
         it->setImportDuration(selectedData.getImportDuration());
-        ++it;
         newTrackData = true;
       }
     }
+    ++it;
   }
   if (newTrackData) {
     m_trackDataModel->setTrackData(trackDataVector);

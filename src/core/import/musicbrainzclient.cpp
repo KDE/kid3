@@ -212,15 +212,14 @@ bool MusicBrainzClient::verifyIdIndex()
 }
 
 /**
- * Verify if m_currentIndex is in range of m_trackDataModel.
+ * Verify if m_currentIndex is in range of m_filenameOfTrack.
  * @return true if index OK, false if index was invalid and state is reset.
  */
 bool MusicBrainzClient::verifyTrackIndex()
 {
-  if (m_currentIndex < 0 ||
-      m_currentIndex >= m_trackDataModel->trackData().size()) {
-    qWarning("Invalid index %d for IDs (size %d)",
-             m_currentIndex, m_trackDataModel->trackData().size());
+  if (m_currentIndex < 0 || m_currentIndex >= m_filenameOfTrack.size()) {
+    qWarning("Invalid index %d for track (size %d)",
+             m_currentIndex, m_filenameOfTrack.size());
     resetState();
     return false;
   }
@@ -286,26 +285,20 @@ void MusicBrainzClient::processNextStep()
   {
     if (!verifyTrackIndex())
       return;
-    const ImportTrackData& trackData =
-        m_trackDataModel->trackData().at(m_currentIndex);
-    if (trackData.isEnabled()) {
-      emit statusChanged(m_currentIndex, i18n("Fingerprint"));
-      FingerprintCalculator::Result fp =
-          m_fingerprintCalculator->calculateFingerprint(
-            trackData.getAbsFilename());
-      if (fp.getError() != FingerprintCalculator::Result::Ok) {
-        emit statusChanged(m_currentIndex, i18n("Error"));
-        processNextTrack();
-      }
-      m_state = GettingIds;
-      emit statusChanged(m_currentIndex, i18n("ID Lookup"));
-      QString path("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=" +
-                   QString::number(fp.getDuration()) +
-                   "&fingerprint=" + fp.getFingerprint());
-      m_httpClient->sendRequest("api.acoustid.org", path);
-    } else {
+    emit statusChanged(m_currentIndex, i18n("Fingerprint"));
+    FingerprintCalculator::Result fp =
+        m_fingerprintCalculator->calculateFingerprint(
+          m_filenameOfTrack.at(m_currentIndex));
+    if (fp.getError() != FingerprintCalculator::Result::Ok) {
+      emit statusChanged(m_currentIndex, i18n("Error"));
       processNextTrack();
     }
+    m_state = GettingIds;
+    emit statusChanged(m_currentIndex, i18n("ID Lookup"));
+    QString path("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=" +
+                 QString::number(fp.getDuration()) +
+                 "&fingerprint=" + fp.getFingerprint());
+    m_httpClient->sendRequest("api.acoustid.org", path);
     break;
   }
   case GettingMetadata:
@@ -335,7 +328,7 @@ void MusicBrainzClient::processNextStep()
  */
 void MusicBrainzClient::processNextTrack()
 {
-  if (m_currentIndex < m_trackDataModel->trackData().size() - 1) {
+  if (m_currentIndex < m_filenameOfTrack.size() - 1) {
     ++m_currentIndex;
     m_state = CalculatingFingerprint;
   } else {
@@ -360,12 +353,16 @@ void MusicBrainzClient::setConfig(const QString& server)
  */
 void MusicBrainzClient::addFiles()
 {
+  m_filenameOfTrack.clear();
+  m_idsOfTrack.clear();
   const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
-  m_idsOfTrack.resize(trackDataVector.size());
-  for (QVector<QStringList>::iterator it = m_idsOfTrack.begin();
-       it != m_idsOfTrack.end();
+  for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
+       it != trackDataVector.constEnd();
        ++it) {
-    it->clear();
+    if (it->isEnabled()) {
+      m_filenameOfTrack.append(it->getAbsFilename());
+      m_idsOfTrack.append(QStringList());
+    }
   }
   resetState();
   processNextTrack();
