@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -63,7 +63,7 @@
 #include "trackdatamatcher.h"
 #include "qtcompatmac.h"
 #include "config.h"
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
 #include "musicbrainzdialog.h"
 #include "musicbrainzconfig.h"
 #endif
@@ -106,7 +106,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   m_serverImportDialog = 0;
   m_textImportDialog = 0;
   m_tagImportDialog = 0;
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
   m_musicBrainzDialog = 0;
 #endif
 
@@ -151,7 +151,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   foreach (const ServerImporter* si, m_importers) {
     m_serverComboBox->addItem(QCM_translate(si->name()));
   }
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
   m_serverComboBox->addItem(i18n("MusicBrainz Fingerprint"));
 #endif
   butlayout->addWidget(m_serverComboBox);
@@ -250,7 +250,7 @@ ImportDialog::~ImportDialog()
   delete m_textImportDialog;
   delete m_tagImportDialog;
   delete m_serverImportDialog;
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
   delete m_musicBrainzDialog;
 #endif
 }
@@ -305,7 +305,7 @@ void ImportDialog::displayServerImportDialog(int importerIdx)
       displayServerImportDialog(m_importers.at(importerIdx));
     } else {
       // special case for MusicBrainz Fingerprint
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
       fromMusicBrainz();
 #endif
     }
@@ -346,7 +346,7 @@ void ImportDialog::hideSubdialogs()
     m_tagImportDialog->hide();
 }
 
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
 /**
  * Import from MusicBrainz and preview in table.
  */

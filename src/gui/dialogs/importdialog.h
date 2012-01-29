@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,7 +47,7 @@ class TagImportDialog;
 class ImportTrackDataVector;
 class FrameCollection;
 class FreedbConfig;
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
 class MusicBrainzConfig;
 #endif
 
@@ -160,7 +160,7 @@ private slots:
    */
   void matchWithTitle();
 
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
   /**
    * Import from MusicBrainz and preview in table.
    */

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,14 +32,14 @@
 #include <QVector>
 #include "config.h"
 
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
+
 class QTableView;
 class QStandardItemModel;
 class QLineEdit;
 class QComboBox;
 class QPushButton;
 class QCheckBox;
-class QTimer;
 class QStatusBar;
 class QModelIndex;
 class TrackDataModel;
@@ -119,12 +119,6 @@ private slots:
   void setClientConfig();
 
   /**
-   * Called when the periodic timer times out.
-   * Used to poll the MusicBrainz client.
-   */
-  void timerDone();
-
-  /**
    * Apply imported data.
    */
   void apply();
@@ -197,18 +191,17 @@ private:
   QTableView* m_albumTable;
   QStandardItemModel* m_albumTableModel;
   QStatusBar* m_statusBar;
-  QTimer* m_timer;
   MusicBrainzClient* m_client;
   TrackDataModel* m_trackDataModel;
   QVector<ImportTrackDataVector> m_trackResults;
 };
-#else // HAVE_TUNEPIMP
+#else // HAVE_CHROMAPRINT
 
 // Just to suppress moc "No relevant classes found" warning.
 class MusicBrainzDialog : public QDialog {
 Q_OBJECT
 };
 
-#endif // HAVE_TUNEPIMP
+#endif // HAVE_CHROMAPRINT
 
 #endif // MUSICBRAINZDIALOG_H

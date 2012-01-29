@@ -24,8 +24,11 @@
 /* Define to build with MP4GetMetadataByIndex char** argument */
 #cmakedefine HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG 1
 
-/* Set to TunePimp version, undefined if not installed */
-#cmakedefine HAVE_TUNEPIMP ${HAVE_TUNEPIMP}
+/* Define to build with Chromaprint */
+#cmakedefine HAVE_CHROMAPRINT ${HAVE_CHROMAPRINT}
+
+/* Define if av_audio_convert is available */
+#cmakedefine HAVE_AV_AUDIO_CONVERT ${HAVE_AV_AUDIO_CONVERT}
 
 /* Define if you have ogg/vorbis installed */
 #cmakedefine HAVE_VORBIS 1

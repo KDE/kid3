@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Sep 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,113 +30,17 @@
 #include "config.h"
 
 #include <QObject>
-#include <QTcpSocket>
 
-#ifdef HAVE_TUNEPIMP
-#if HAVE_TUNEPIMP >= 5
-#include <tunepimp-0.5/tp_c.h>
-#else
-#include <tunepimp/tp_c.h>
-#endif
+#ifdef HAVE_CHROMAPRINT
+
+#include "trackdata.h"
 
 class QByteArray;
 class ImportTrackData;
 class ImportTrackDataVector;
 class TrackDataModel;
-
-#if HAVE_TUNEPIMP >= 5
-/**
- * A HTTP query to a musicbrainz server for HAVE_TUNEPIMP >= 5.
- */
-class LookupQuery : public QObject {
-Q_OBJECT
-
-public:
-  /**
-   * Constructor.
-   *
-   * @param numFiles   number of files to be queried
-   * @param serverName server name
-   * @param serverPort server port
-   * @param proxyName  proxy name, empty if no proxy
-   * @param proxyPort  proxy port
-   */
-  LookupQuery(int numFiles,
-              const QString& serverName, unsigned short serverPort = 80,
-              const QString& proxyName = "", unsigned short proxyPort = 80);
-
-  /**
-   * Destructor.
-   */
-  virtual ~LookupQuery();
-
-  /**
-   * Query a PUID from the server.
-   *
-   * @param puid     PUID
-   * @param index    index of file
-   */
-  void query(const char* puid, int index);
-
-signals:
-  /**
-   * Emitted when the query response is received
-   */
-  void queryResponseReceived(int, const QByteArray&);
-
-private slots:
-  /**
-   * Send query when the socket is connected.
-   */
-  void socketConnected();
-
-  /**
-   * Error on socket connection.
-   */
-  void socketError(QAbstractSocket::SocketError err);
-  /**
-   * Read received data when the server has closed the connection.
-   */
-  void socketConnectionClosed();
-
-private:
-  /**
-   * Connect to server to query information about the current file.
-   */
-  void socketQuery();
-
-  /**
-   * Query the next file.
-   */
-  void queryNext();
-
-  struct FileQuery {
-    bool requested;
-    QString puid;
-  };
-
-  /** Number of files to be queried. */
-  int m_numFiles;
-  /** MusicBrainz server */
-  QString m_serverName;
-  /** Port of MusicBrainz server */
-  unsigned short m_serverPort;
-  /** Proxy */
-  QString m_proxyName;
-  /** Port of proxy */
-  unsigned short m_proxyPort;
-  /**
-   * -1 if not yet started,
-   * 0..m_numFiles-1 if a file is currently processed,
-   * >=m_numFiles if all files processed.
-   */
-  int m_currentFile;
-  FileQuery* m_fileQueries;
-  QTcpSocket* m_sock;
-  QString m_request;
-};
-#endif // HAVE_TUNEPIMP >= 5
-
+class HttpClient;
+class FingerprintCalculator;
 
 /**
  * MusicBrainz client.
@@ -150,38 +54,26 @@ public:
    * Constructor.
    *
    * @param trackDataModel track data to be filled with imported values,
-   *                      is passed with filenames set
+   *                       is passed with filenames set
    */
   explicit MusicBrainzClient(TrackDataModel* trackDataModel);
+
   /**
    * Destructor.
    */
   virtual ~MusicBrainzClient();
 
   /**
-   * Poll the status of the MusicBrainz query.
-   */
-  void pollStatus();
-
-  /**
    * Set configuration.
    *
-   * @param server   server
-   * @param proxy    proxy
-   * @param useProxy true if proxy has to be used
+   * @param server server
    */
-  void setConfig(const QString& server, const QString& proxy,
-                 bool useProxy);
+  void setConfig(const QString& server);
 
   /**
    * Add the files in the file list.
    */
   void addFiles();
-
-  /**
-   * Remove all files.
-   */
-  void removeFiles();
 
 signals:
   /**
@@ -203,65 +95,39 @@ signals:
   void resultsReceived(int, ImportTrackDataVector&);
 
 private slots:
-  /**
-   * Process server response with lookup data.
-   *
-   * @param index    index of file
-   * @param response response from server
-   */
-  void parseLookupResponse(int index, const QByteArray& response);
+  void receiveBytes(const QByteArray& bytes);
 
 private:
-  /**
-   * Get i for m_id[i] == id.
-   *
-   * @return index, -1 if not found.
-   */
-  int getIndexOfId(int id) const;
+  enum State {
+    Idle,
+    CalculatingFingerprint,
+    GettingIds,
+    GettingMetadata
+  };
 
-  /**
-   * Get the file name for an ID.
-   *
-   * @param id ID of file
-   *
-   * @return absolute file name, QString::null if not found.
-   */
-  QString getFilename(int id) const;
+  bool verifyIdIndex();
+  bool verifyTrackIndex();
+  void resetState();
+  void processNextStep();
+  void processNextTrack();
 
-  /**
-   * Get meta data for recognized file.
-   *
-   * @param id        ID of file
-   * @param trackData the meta data is returned here
-   */
-  void getMetaData(int id, ImportTrackData& trackData);
-
-  /**
-   * Get results for an ambiguous file.
-   *
-   * @param id            ID of file
-   * @param trackDataList the results are returned here
-   *
-   * @return true if some results were received,
-   *         false if no results available.
-   */
-  bool getResults(int id, ImportTrackDataVector& trackDataList);
-
+  HttpClient* m_httpClient;
+  FingerprintCalculator* m_fingerprintCalculator;
   TrackDataModel* m_trackDataModel;
-  tunepimp_t m_tp;
-  int* m_ids;
-  int m_numFiles;
-#if HAVE_TUNEPIMP >= 5
-  LookupQuery* m_lookupQuery;
-#endif
+  State m_state;
+  QVector<QStringList> m_idsOfTrack;
+  int m_currentIndex;
+  ImportTrackDataVector m_currentTrackData;
+  QString m_musicBrainzServer;
 };
-#else // HAVE_TUNEPIMP
+
+#else // HAVE_CHROMAPRINT
 
 // Just to suppress moc "No relevant classes found" warning.
 class MusicBrainzClient : public QObject {
 Q_OBJECT
 };
 
-#endif // HAVE_TUNEPIMP
+#endif // HAVE_CHROMAPRINT
 
 #endif // MUSICBRAINZCLIENT_H

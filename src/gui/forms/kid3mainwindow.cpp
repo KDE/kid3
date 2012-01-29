@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2011  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -259,7 +259,7 @@ void Kid3MainWindow::initActions()
     connect(fileImportServer, SIGNAL(triggered()), this, SLOT(slotImport()));
     ++importerIdx;
   }
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
   QString serverName(i18n("MusicBrainz Fingerprint"));
   KAction* fileImportMusicBrainz =
       new KAction(i18n("Import from %1...").arg(serverName), this);
@@ -482,7 +482,7 @@ void Kid3MainWindow::initActions()
     fileMenu->addAction(fileImportServer);
     ++importerIdx;
   }
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
   QAction* fileImportMusicBrainz = new QAction(this);
   if (fileImportMusicBrainz) {
     QString serverName(i18n("MusicBrainz Fingerprint"));

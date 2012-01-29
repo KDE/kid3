@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,7 +25,7 @@
  */
 
 #include "musicbrainzdialog.h"
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
 
 #include <QLayout>
 #include <QPushButton>
@@ -33,7 +33,6 @@
 #include <QComboBox>
 #include <QCheckBox>
 #include <QLabel>
-#include <QTimer>
 #include <QStatusBar>
 #include <QTableView>
 #include <QStandardItemModel>
@@ -57,7 +56,7 @@
 MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
                                      TrackDataModel* trackDataModel)
   : QDialog(parent), m_statusBar(0),
-    m_timer(0), m_client(0), m_trackDataModel(trackDataModel)
+    m_client(0), m_trackDataModel(trackDataModel)
 {
   setObjectName("MusicBrainzDialog");
   setModal(true);
@@ -216,9 +215,7 @@ void MusicBrainzDialog::clearResults()
 void MusicBrainzDialog::setClientConfig()
 {
   if (m_client) {
-    m_client->setConfig(
-      getServer(),
-      ConfigStore::s_miscCfg.m_proxy, ConfigStore::s_miscCfg.m_useProxy);
+    m_client->setConfig(getServer());
   }
 }
 
@@ -239,13 +236,6 @@ void MusicBrainzDialog::startClient()
             this, SLOT(setResults(int, ImportTrackDataVector&)));
     m_client->addFiles();
   }
-  if (!m_timer) {
-    m_timer = new QTimer(this);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(timerDone()));
-  }
-  if (m_timer) {
-    m_timer->start(1000);
-  }
 }
 
 /**
@@ -253,10 +243,6 @@ void MusicBrainzDialog::startClient()
  */
 void MusicBrainzDialog::stopClient()
 {
-  if (m_timer) {
-    m_timer->stop();
-    // will be destroyed by parent
-  }
   if (m_client) {
     m_client->disconnect();
     delete m_client;
@@ -330,17 +316,6 @@ int MusicBrainzDialog::exec()
 {
   startClient();
   return QDialog::exec();
-}
-
-/**
- * Called when the periodic timer times out.
- * Used to poll the MusicBrainz client.
- */
-void MusicBrainzDialog::timerDone()
-{
-  if (m_client) {
-    m_client->pollStatus();
-  }
 }
 
 /**
@@ -493,4 +468,4 @@ void MusicBrainzDialog::showFilenameInStatusBar(const QModelIndex& index)
   }
 }
 
-#endif // HAVE_TUNEPIMP
+#endif // HAVE_CHROMAPRINT

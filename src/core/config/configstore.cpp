@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Jul 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -82,7 +82,7 @@ void ConfigStore::writeToConfig()
   s_amazonCfg.writeToConfig(m_config);
   s_filterCfg.writeToConfig(m_config);
   s_playlistCfg.writeToConfig(m_config);
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
   s_musicBrainzCfg.writeToConfig(m_config);
 #endif
 }
@@ -102,7 +102,7 @@ void ConfigStore::readFromConfig()
   s_amazonCfg.readFromConfig(m_config);
   s_filterCfg.readFromConfig(m_config);
   s_playlistCfg.readFromConfig(m_config);
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
   s_musicBrainzCfg.readFromConfig(m_config);
 #endif
 }

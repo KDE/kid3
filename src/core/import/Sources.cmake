@@ -1,6 +1,7 @@
 set(import_SRCS
   import/amazonimporter.cpp
   import/discogsimporter.cpp
+  import/fingerprintcalculator.cpp
   import/freedbimporter.cpp
   import/httpclient.cpp
   import/importclient.cpp

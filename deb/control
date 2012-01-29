@@ -5,8 +5,9 @@ Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>, Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
 Build-Depends: debhelper (>= 6), libqt4-dev, kdelibs5-dev, cmake,
- libid3-3.8.3-dev, libtunepimp-dev, libflac++-dev, libvorbis-dev,
- libtag1-dev, xsltproc, docbook-xsl, lsb-release
+ libid3-3.8.3-dev, libflac++-dev, libvorbis-dev, libtag1-dev,
+ libavformat-dev, libavcodec-dev, libchromaprint-dev,
+ xsltproc, docbook-xsl, lsb-release
 Standards-Version: 3.9.2
 Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/

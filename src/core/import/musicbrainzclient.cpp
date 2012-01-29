@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Sep 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,157 +25,152 @@
  */
 
 #include "musicbrainzclient.h"
-#ifdef HAVE_TUNEPIMP
+#ifdef HAVE_CHROMAPRINT
 
-#include <QFile>
 #include <QByteArray>
-#if HAVE_TUNEPIMP >= 5
 #include <QDomDocument>
-#endif
-#include "freedbimporter.h"
+#include "httpclient.h"
 #include "trackdatamodel.h"
+#include "fingerprintcalculator.h"
 #include "qtcompatmac.h"
 
-#if HAVE_TUNEPIMP >= 5
-/**
- * Constructor.
- *
- * @param numFiles   number of files to be queried
- * @param serverName server name
- * @param serverPort server port
- * @param proxyName  proxy name, empty if no proxy
- * @param proxyPort  proxy port
- */
-LookupQuery::LookupQuery(int numFiles,
-                         const QString& serverName, unsigned short serverPort,
-                         const QString& proxyName, unsigned short proxyPort) :
-  m_numFiles(numFiles), m_serverName(serverName), m_serverPort(serverPort),
-  m_proxyName(proxyName), m_proxyPort(proxyPort),
-  m_currentFile(-1), m_fileQueries(new FileQuery[numFiles]),
-  m_sock(new QTcpSocket)
-{
-  for (int i = 0; i < m_numFiles; ++i) {
-    m_fileQueries[i].requested = false;
-    m_fileQueries[i].puid = "";
-  }
-  connect(m_sock, SIGNAL(connected()),
-      this, SLOT(socketConnected()));
-  connect(m_sock, SIGNAL(error(QAbstractSocket::SocketError)),
-      this, SLOT(socketError(QAbstractSocket::SocketError)));
-  connect(m_sock, SIGNAL(disconnected()),
-      this, SLOT(socketConnectionClosed()));
-}
+namespace {
 
 /**
- * Destructor.
+ * Parse response from acoustid.org.
+ * @param bytes response in JSON format
+ * @return list of MusicBrainz IDs
  */
-LookupQuery::~LookupQuery()
+QStringList parseAcoustidIds(const QByteArray& bytes)
 {
-  m_sock->close();
-  m_sock->disconnect();
-  delete m_sock;
-  delete [] m_fileQueries;
-}
-
-/**
- * Connect to server to query information about the current file.
- */
-void LookupQuery::socketQuery()
-{
-  if (m_currentFile >= 0 && m_currentFile < m_numFiles) {
-    QString  destName = m_proxyName.isEmpty() ? m_serverName : m_proxyName;
-    unsigned short destPort = m_proxyName.isEmpty() ? m_serverPort : m_proxyPort;
-    m_request = "GET http://";
-    m_request += m_serverName;
-    if (m_serverPort != 80) {
-      m_request += ':';
-      m_request += QString::number(m_serverPort);
-    }
-    m_request += "/ws/1/track/?type=xml&puid=";
-    m_request += m_fileQueries[m_currentFile].puid;
-    m_request += " HTTP/1.0\r\nHost: ";
-    m_request += m_serverName;
-    m_request += "\r\nUser-agent: Kid3/" VERSION "\r\n\r\n";
-    m_sock->connectToHost(destName, destPort);
-    m_fileQueries[m_currentFile].requested = true;
-  }
-}
-
-/**
- * Query the next file.
- */
-void LookupQuery::queryNext()
-{
-  // handle the first pending query
-  for (int i = 0; i < m_numFiles; ++i) {
-    if (!m_fileQueries[i].requested &&
-        !m_fileQueries[i].puid.isEmpty()) {
-      m_currentFile = i;
-      socketQuery();
-      return;
+  /*
+   * The response from acoustid.org is in JSON format and looks like this:
+   * {
+   *   "status": "ok",
+   *   "results": [{
+   *     "recordings": [{"id": "14fef9a4-9b50-4e9f-9e22-490fd86d1861"}],
+   *     "score": 0.938621, "id": "29bf7ce3-0182-40da-b840-5420203369c4"
+   *   }]
+   * }
+   */
+  QStringList ids;
+  if (bytes.indexOf("\"status\": \"ok\"") >= 0) {
+    int startPos = bytes.indexOf("\"recordings\": [");
+    if (startPos >= 0) {
+      startPos += 15;
+      int endPos = bytes.indexOf(']', startPos);
+      if (endPos > startPos) {
+        QRegExp idRe("\"id\":\\s*\"([^\"]+)\"");
+        QString recordings(bytes.mid(startPos, endPos - startPos));
+        int pos = 0;
+        while ((pos = idRe.indexIn(recordings, pos)) != -1) {
+          ids.append(idRe.cap(1));
+          pos += idRe.matchedLength();
+        }
+      }
     }
   }
-  // no pending query => socketQuery() will be done in next query()
-  m_currentFile = -1;
+  return ids;
 }
 
 /**
- * Query a PUID from the server.
+ * Parse response from MusicBrainz server.
  *
- * @param puid  PUID
- * @param index index of file
+ * @param bytes XML response from MusicBrainz
+ * @param trackDataVector the resulting track data will be appended to this
+ *                        vector
  */
-void LookupQuery::query(const char* puid, int index)
+void parseMusicBrainzMetadata(const QByteArray& bytes,
+                              ImportTrackDataVector& trackDataVector)
 {
-  m_fileQueries[index].puid = QString(puid);
-  // if no request is being executed, start the current request
-  if (m_currentFile < 0 || m_currentFile >= m_numFiles ||
-      !m_fileQueries[m_currentFile].requested) {
-    m_currentFile = index;
-    socketQuery();
+  /*
+   * The XML response from MusicBrainz looks like this (simplified):
+   * <?xml version="1.0" encoding="UTF-8"?>
+   * <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+   *   <recording id="14fef9a4-9b50-4e9f-9e22-490fd86d1861">
+   *     <title>Trip the Darkness</title>
+   *     <length>192000</length>
+   *     <artist-credit>
+   *       <name-credit>
+   *         <artist id="6fea1339-260c-40fe-bb7a-ace5c8438955">
+   *           <name>Lacuna Coil</name>
+   *         </artist>
+   *       </name-credit>
+   *     </artist-credit>
+   *     <release-list count="2">
+   *       <release id="aa7b7302-6ab0-409b-ab0f-b1e14732e11a">
+   *         <title>Dark Adrenaline</title>
+   *         <date>2012-01-24</date>
+   *         <medium-list count="1">
+   *           <medium>
+   *             <track-list count="12" offset="0">
+   *               <track>
+   *                 <position>1</position>
+   *               </track>
+   *             </track-list>
+   *           </medium>
+   *         </medium-list>
+   *       </release>
+   *     </release-list>
+   *   </recording>
+   * </metadata>
+   */
+  int start = bytes.indexOf("<?xml");
+  int end = bytes.indexOf("</metadata>");
+  QByteArray xmlStr = start >= 0 && end > start ?
+    bytes.mid(start, end + 11 - start) : bytes;
+  QDomDocument doc;
+  if (doc.setContent(xmlStr, false)) {
+    QDomElement recording =
+      doc.namedItem("metadata").namedItem("recording").toElement();
+    if (!recording.isNull()) {
+      bool ok;
+      ImportTrackData frames;
+      frames.setTitle(recording.namedItem("title").toElement().text());
+      int length = recording.namedItem("length").toElement().text().toInt(&ok);
+      if (ok) {
+        frames.setImportDuration(length / 1000);
+      }
+      QDomNode artistNode = recording.namedItem("artist-credit");
+      if (!artistNode.isNull()) {
+        QString artist(artistNode.namedItem("name-credit").namedItem("artist").
+            namedItem("name").toElement().text());
+        frames.setArtist(artist);
+      }
+      QDomNode releaseNode = recording.namedItem("release-list").
+          namedItem("release");
+      if (!releaseNode.isNull()) {
+        frames.setAlbum(releaseNode.namedItem("title").toElement().text());
+        QString date(releaseNode.namedItem("date").toElement().text());
+        if (!date.isEmpty()) {
+          QRegExp dateRe("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?");
+          int year = 0;
+          if (dateRe.exactMatch(date)) {
+            year = dateRe.cap(1).toInt();
+          } else {
+            year = date.toInt();
+          }
+          if (year != 0) {
+            frames.setYear(year);
+          }
+        }
+        QDomNode trackNode = releaseNode.namedItem("medium-list").
+            namedItem("medium").namedItem("track-list").namedItem("track");
+        if (!trackNode.isNull()) {
+          int trackNr = trackNode.namedItem("position").toElement().text().
+              toInt(&ok);
+          if (ok) {
+            frames.setTrack(trackNr);
+          }
+        }
+      }
+      trackDataVector.append(frames);
+    }
   }
 }
 
-/**
- * Send query when the socket is connected.
- */
-void LookupQuery::socketConnected()
-{
-  m_sock->write(m_request.toLatin1().data(), m_request.length());
 }
 
-/**
- * Error on socket connection.
- */
-void LookupQuery::socketError(QAbstractSocket::SocketError err)
-{
-  if (err != QAbstractSocket::RemoteHostClosedError) {
-    qDebug("Socket Error: %s", m_sock->errorString().toLatin1().data());
-    queryNext();
-  }
-}
-
-/**
- * Read received data when the server has closed the connection.
- */
-void LookupQuery::socketConnectionClosed()
-{
-  unsigned long len = m_sock->bytesAvailable();
-  QByteArray buf;
-  buf.resize(len + 1 );
-  m_sock->read(buf.data(), len);
-  m_sock->close();
-
-  int xmlStart = buf.indexOf("<?xml");
-  if (xmlStart >= 0 &&
-      m_currentFile >= 0 && m_currentFile < m_numFiles &&
-      m_fileQueries[m_currentFile].requested) {
-    emit queryResponseReceived(m_currentFile, buf.mid(xmlStart, len - xmlStart));
-  }
-  queryNext();
-}
-
-#endif
 
 /**
  * Constructor.
@@ -184,31 +179,13 @@ void LookupQuery::socketConnectionClosed()
  *                      is passed with filenames set
  */
 MusicBrainzClient::MusicBrainzClient(TrackDataModel* trackDataModel) :
-  m_trackDataModel(trackDataModel), m_tp(0), m_ids(0), m_numFiles(0)
-#if HAVE_TUNEPIMP >= 5
-  , m_lookupQuery(0)
-#endif
+  m_httpClient(new HttpClient(this)),
+  m_fingerprintCalculator(new FingerprintCalculator),
+  m_trackDataModel(trackDataModel),
+  m_state(Idle), m_currentIndex(-1)
 {
-  m_tp = tp_New("kid3", VERSION);
-#ifdef WIN32
-  tp_WSAInit(m_tp);
-#endif
-#if HAVE_TUNEPIMP >= 4
-  tp_SetID3Encoding(m_tp, eUTF8);
-#else
-  tp_SetUseUTF8(m_tp, 1);
-#endif
-#if HAVE_TUNEPIMP >= 5
-  tp_SetMusicDNSClientId(m_tp, "a95f5c7cd37fd4bce12dc86d196fb4fe");
-#else
-  tp_SetAutoFileLookup(m_tp, 1);
-#endif
-  tp_SetRenameFiles(m_tp, 0);
-  tp_SetMoveFiles(m_tp, 0);
-  tp_SetWriteID3v1(m_tp, 0);
-  tp_SetClearTags(m_tp, 0);
-  tp_SetAutoSaveThreshold(m_tp, -1);
-  tp_SetAutoRemovedSavedFiles(m_tp, 0);
+  connect(m_httpClient, SIGNAL(bytesReceived(QByteArray)),
+          this, SLOT(receiveBytes(QByteArray)));
 }
 
 /**
@@ -216,211 +193,166 @@ MusicBrainzClient::MusicBrainzClient(TrackDataModel* trackDataModel) :
  */
 MusicBrainzClient::~MusicBrainzClient()
 {
-  removeFiles();
-  if (m_tp) {
-#ifdef WIN32
-    tp_WSAStop(m_tp);
-#endif
-    tp_Delete(m_tp);
-  }
+  delete m_fingerprintCalculator;
 }
 
 /**
- * Get i for m_id[i] == id.
- *
- * @return index, -1 if not found.
+ * Verify if m_currentIndex is in range of m_idsOfTrack.
+ * @return true if index OK, false if index was invalid and state is reset.
  */
-int MusicBrainzClient::getIndexOfId(int id) const
+bool MusicBrainzClient::verifyIdIndex()
 {
-  for (int i = 0; i < m_numFiles; ++i) {
-    if (m_ids[i] == id) {
-      return i;
+  if (m_currentIndex < 0 || m_currentIndex >= m_idsOfTrack.size()) {
+    qWarning("Invalid index %d for IDs (size %d)",
+             m_currentIndex, m_idsOfTrack.size());
+    resetState();
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Verify if m_currentIndex is in range of m_trackDataModel.
+ * @return true if index OK, false if index was invalid and state is reset.
+ */
+bool MusicBrainzClient::verifyTrackIndex()
+{
+  if (m_currentIndex < 0 ||
+      m_currentIndex >= m_trackDataModel->trackData().size()) {
+    qWarning("Invalid index %d for IDs (size %d)",
+             m_currentIndex, m_trackDataModel->trackData().size());
+    resetState();
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Reset the state to Idle and no track.
+ */
+void MusicBrainzClient::resetState()
+{
+  m_currentIndex = -1;
+  m_state = Idle;
+}
+
+/**
+ * Receive response from web service.
+ * @param bytes bytes received
+ */
+void MusicBrainzClient::receiveBytes(const QByteArray& bytes)
+{
+  switch (m_state) {
+  case GettingIds:
+    if (!verifyIdIndex())
+      return;
+    m_idsOfTrack[m_currentIndex] = parseAcoustidIds(bytes);
+    if (m_idsOfTrack.at(m_currentIndex).isEmpty()) {
+      emit statusChanged(m_currentIndex, i18n("Unrecognized"));
     }
-  }
-  return -1;
-}
-
-/**
- * Get the file name for an ID.
- *
- * @param id ID of file
- *
- * @return absolute file name, QString::null if not found.
- */
-QString MusicBrainzClient::getFilename(int id) const
-{
-  int idx = getIndexOfId(id);
-  if (idx >= 0) {
-    return m_trackDataModel->trackData().at(idx).getAbsFilename();
-  }
-  return QString::null;
-}
-
-/**
- * Get a text for a file status.
- *
- * @param statusCode file status code
- *
- * @return status text, 0 if not found.
- */
-static const char* getFileStatusText(TPFileStatus statusCode)
-{
-  static const struct id_str_s { TPFileStatus id; const char* str; }
-  id_str[] = {
-#if HAVE_TUNEPIMP >= 4
-    { eMetadataRead,  I18N_NOOP("Metadata Read") },
-#endif
-    { eUnrecognized,  I18N_NOOP("Unrecognized") },
-    { eRecognized,    I18N_NOOP("Recognized") },
-    { ePending,       I18N_NOOP("Pending") },
-#if HAVE_TUNEPIMP >= 5
-    { ePUIDLookup,     I18N_NOOP("PUID Lookup") },
-    { ePUIDCollision,  I18N_NOOP("PUID Collision") },
-#else
-    { eTRMLookup,     I18N_NOOP("TRM Lookup") },
-    { eTRMCollision,  I18N_NOOP("TRM Collision") },
-#endif
-    { eFileLookup,    I18N_NOOP("File Lookup") },
-    { eUserSelection, I18N_NOOP("User Selection") },
-    { eVerified,      I18N_NOOP("Verified") },
-    { eSaved,         I18N_NOOP("Saved") },
-    { eDeleted,       I18N_NOOP("Deleted") },
-    { eError,         I18N_NOOP("Error") },
-    { eLastStatus,    0 }
-  };
-
-  const struct id_str_s* is = &id_str[0];
-  while (is->str) {
-    if (is->id == statusCode) {
-      break;
-    }
-    ++is;
-  }
-  return is->str;
-}
-
-/**
- * Poll the status of the MusicBrainz query.
- */
-void MusicBrainzClient::pollStatus()
-{
-  TPCallbackEnum type;
-  int id;
-#if HAVE_TUNEPIMP >= 4
-  TPFileStatus statusCode;
-  while (tp_GetNotification(m_tp, &type, &id, &statusCode))
-#else
-  while (tp_GetNotification(m_tp, &type, &id))
-#endif
-  {
-    QString fn = getFilename(id);
-    int index = getIndexOfId(id);
-    switch (type) {
-      case tpFileAdded:
-        emit statusChanged(index, i18n("Pending"));
-        break;
-      case tpFileRemoved:
-        emit statusChanged(index, i18n("Removed"));
-        break;
-      case tpFileChanged:
-      {
-#if HAVE_TUNEPIMP >= 4
-        if (statusCode == eUnrecognized) {
-          char trm[255];
-          trm[0] = '\0';
-          track_t track = tp_GetTrack(m_tp, id);
-          if (track) {
-            tr_Lock(track);
-#if HAVE_TUNEPIMP >= 5
-            tr_GetPUID(track, trm, sizeof(trm));
-#else
-            tr_GetTRM(track, trm, sizeof(trm));
-#endif
-            if (trm[0] == '\0') {
-              tr_SetStatus(track, ePending);
-              tp_Wake(m_tp, track);
-            }
-            tr_Unlock(track);
-            tp_ReleaseTrack(m_tp, track);
-          }
-        }
-#else
-        TPFileStatus statusCode = eLastStatus;
-        track_t track = tp_GetTrack(m_tp, id);
-        if (track) {
-          tr_Lock(track);
-          statusCode = tr_GetStatus(track);
-          tr_Unlock(track);
-          tp_ReleaseTrack(m_tp, track);
-        }
-#endif
-        if (statusCode != eLastStatus) {
-          const char* statusText = getFileStatusText(statusCode);
-          emit statusChanged(index, QCM_translate(statusText));
-          if (statusCode == eRecognized) {
-            ImportTrackData trackData;
-            getMetaData(id, trackData);
-            emit metaDataReceived(index, trackData);
-          }
-#if HAVE_TUNEPIMP >= 5
-          else if (statusCode == ePUIDLookup ||
-                   statusCode == ePUIDCollision ||
-                   statusCode == eFileLookup) {
-            char puid[255];
-            puid[0] = '\0';
-            track_t track = tp_GetTrack(m_tp, id);
-            if (track) {
-              tr_Lock(track);
-              tr_GetPUID(track, puid, sizeof(puid));
-              tr_Unlock(track);
-              tp_ReleaseTrack(m_tp, track);
-            }
-            if (m_lookupQuery) {
-              m_lookupQuery->query(puid, index);
-            }
-          }
-#else
-          else if (statusCode == eTRMCollision ||
-                   statusCode == eUserSelection) {
-            ImportTrackDataVector trackDataList;
-            if (getResults(id, trackDataList)) {
-              emit resultsReceived(index, trackDataList);
-            }
-          }
-#endif
-        }
-        break;
+    m_state = GettingMetadata;
+    processNextStep();
+    break;
+  case GettingMetadata:
+    parseMusicBrainzMetadata(bytes, m_currentTrackData);
+    if (!verifyIdIndex())
+      return;
+    if (m_idsOfTrack.at(m_currentIndex).isEmpty()) {
+      int numResults = m_currentTrackData.size();
+      if (numResults == 1) {
+        emit statusChanged(m_currentIndex, i18n("Recognized"));
+        emit metaDataReceived(m_currentIndex, m_currentTrackData.first());
+      } else if (numResults > 1) {
+        emit statusChanged(m_currentIndex, i18n("User Selection"));
+        emit resultsReceived(m_currentIndex, m_currentTrackData);
       }
-      case tpWriteTagsComplete:
-        emit statusChanged(index, i18n("Written"));
-        break;
-      default:
-        break;
     }
+    processNextStep();
+    break;
+  default:
+    ;
   }
+}
+
+/**
+ * Process next step in importing from fingerprints.
+ */
+void MusicBrainzClient::processNextStep()
+{
+  switch (m_state) {
+  case Idle:
+    break;
+  case CalculatingFingerprint:
+  {
+    if (!verifyTrackIndex())
+      return;
+    const ImportTrackData& trackData =
+        m_trackDataModel->trackData().at(m_currentIndex);
+    if (trackData.isEnabled()) {
+      emit statusChanged(m_currentIndex, i18n("Fingerprint"));
+      FingerprintCalculator::Result fp =
+          m_fingerprintCalculator->calculateFingerprint(
+            trackData.getAbsFilename());
+      if (fp.getError() != FingerprintCalculator::Result::Ok) {
+        emit statusChanged(m_currentIndex, i18n("Error"));
+        processNextTrack();
+      }
+      m_state = GettingIds;
+      emit statusChanged(m_currentIndex, i18n("ID Lookup"));
+      QString path("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=" +
+                   QString::number(fp.getDuration()) +
+                   "&fingerprint=" + fp.getFingerprint());
+      m_httpClient->sendRequest("api.acoustid.org", path);
+    } else {
+      processNextTrack();
+    }
+    break;
+  }
+  case GettingMetadata:
+  {
+    if (!verifyIdIndex())
+      return;
+    QStringList& ids = m_idsOfTrack[m_currentIndex];
+    if (!ids.isEmpty()) {
+      emit statusChanged(m_currentIndex, i18n("Metadata Lookup"));
+      QString path("/ws/2/recording/" + ids.takeFirst() +
+                   "?inc=artists+releases+media");
+      m_httpClient->sendRequest(m_musicBrainzServer, path);
+    } else {
+      processNextTrack();
+    }
+    break;
+  }
+  case GettingIds:
+    qWarning("processNextStep() called in state GettingIds");
+    resetState();
+  }
+}
+
+/**
+ * Process next track.
+ * If all tracks have been processed, the state is reset to Idle.
+ */
+void MusicBrainzClient::processNextTrack()
+{
+  if (m_currentIndex < m_trackDataModel->trackData().size() - 1) {
+    ++m_currentIndex;
+    m_state = CalculatingFingerprint;
+  } else {
+    resetState();
+  }
+  m_currentTrackData.clear();
+  processNextStep();
 }
 
 /**
  * Set configuration.
  *
  * @param server   server
- * @param proxy    proxy
- * @param useProxy true if proxy has to be used
  */
-void MusicBrainzClient::setConfig(
-  const QString& server, const QString& proxy, bool useProxy)
+void MusicBrainzClient::setConfig(const QString& server)
 {
-  int port;
-  QString ip;
-  FreedbImporter::splitNamePort(server, ip, port);
-  tp_SetServer(m_tp, ip.toLatin1().data(), port);
-
-  if (useProxy) {
-    FreedbImporter::splitNamePort(proxy, ip, port);
-    tp_SetProxy(m_tp, ip.toLatin1().data(), port);
-  } else {
-    tp_SetProxy(m_tp, "", 80);
-  }
+  m_musicBrainzServer = server;
 }
 
 /**
@@ -428,231 +360,15 @@ void MusicBrainzClient::setConfig(
  */
 void MusicBrainzClient::addFiles()
 {
-  if (m_ids) {
-    removeFiles();
-  }
   const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
-  m_numFiles = trackDataVector.size();
-  m_ids = new int[m_numFiles];
-#if HAVE_TUNEPIMP >= 5
-  char serverName[80], proxyName[80];
-  short serverPort, proxyPort;
-  tp_GetServer(m_tp, serverName, sizeof(serverName) - 1, &serverPort);
-  tp_GetProxy(m_tp, proxyName, sizeof(proxyName) - 1, &proxyPort);
-  m_lookupQuery = new LookupQuery(m_numFiles, serverName, serverPort,
-                                  proxyName, proxyPort);
-  connect(m_lookupQuery, SIGNAL(queryResponseReceived(int, const QByteArray&)),
-          this, SLOT(parseLookupResponse(int, const QByteArray&)));
-#endif
-  int i = 0;
-  for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
-       it != trackDataVector.constEnd();
+  m_idsOfTrack.resize(trackDataVector.size());
+  for (QVector<QStringList>::iterator it = m_idsOfTrack.begin();
+       it != m_idsOfTrack.end();
        ++it) {
-    if (it->isEnabled()) {
-#if HAVE_TUNEPIMP >= 4
-      m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()), 0);
-#else
-      m_ids[i++] = tp_AddFile(m_tp, QFile::encodeName((*it).getAbsFilename()));
-#endif
-    }
+    it->clear();
   }
+  resetState();
+  processNextTrack();
 }
 
-/**
- * Remove all files.
- */
-void MusicBrainzClient::removeFiles()
-{
-  if (m_ids && m_numFiles > 0) {
-    for (int i = 0; i < m_numFiles; ++i) {
-      tp_Remove(m_tp, m_ids[i]);
-    }
-    delete [] m_ids;
-    m_ids = 0;
-#if HAVE_TUNEPIMP >= 5
-    delete m_lookupQuery;
-    m_lookupQuery = 0;
-#endif
-    m_numFiles = 0;
-  }
-}
-
-/**
- * Get meta data for recognized file.
- *
- * @param id        ID of file
- * @param trackData the meta data is returned here
- */
-void MusicBrainzClient::getMetaData(int id, ImportTrackData& trackData)
-{
-  metadata_t* data = md_New();
-  if (data) {
-    track_t track = tp_GetTrack(m_tp, id);
-    if (track) {
-      tr_Lock(track);
-      md_Clear(data);
-      tr_GetServerMetadata(track, data);
-      trackData.setTitle(QString::fromUtf8(data->track));
-      trackData.setArtist(QString::fromUtf8(data->artist));
-      trackData.setAlbum(QString::fromUtf8(data->album));
-      trackData.setTrack(data->trackNum);
-      trackData.setYear(data->releaseYear);
-      // year does not seem to work, so at least we should not
-      // overwrite it with 0
-      if (trackData.getYear() == 0) {
-        trackData.setYear(-1);
-      }
-      trackData.setImportDuration(data->duration / 1000);
-      tr_Unlock(track);
-      tp_ReleaseTrack(m_tp, track);
-    }
-    md_Delete(data);
-  }
-}
-
-#if HAVE_TUNEPIMP >= 5
-
-bool MusicBrainzClient::getResults(int, ImportTrackDataVector&) {
-  return false;
-}
-
-/**
- * Process server response with lookup data.
- *
- * @param index    index of file
- * @param response response from server
- */
-void MusicBrainzClient::parseLookupResponse(int index, const QByteArray& response)
-{
-  ImportTrackDataVector trackDataList;
-  QDomDocument doc;
-  QByteArray xmlStr = response;
-  int end = xmlStr.indexOf("</metadata>");
-  if (end >= 0 && end + 12 < static_cast<int>(xmlStr.size())) {
-    xmlStr.resize(end + 12);
-  }
-  if (doc.setContent(xmlStr, false)) {
-    QDomElement trackList =
-      doc.namedItem("metadata").toElement().namedItem("track-list").toElement();
-
-    for (QDomNode trackNode = trackList.namedItem("track");
-         !trackNode.isNull();
-         trackNode = trackNode.nextSibling()) {
-      QDomElement track = trackNode.toElement();
-
-      ImportTrackData trackData;
-      trackData.setArtist(
-        track.namedItem("artist").toElement().namedItem("name").toElement().text());
-      trackData.setTitle(track.namedItem("title").toElement().text());
-
-      for (QDomNode releaseNode =
-             track.namedItem("release-list").toElement().namedItem("release");
-           !releaseNode.isNull();
-           releaseNode = releaseNode.nextSibling() ) {
-        QDomElement release = releaseNode.toElement();
-
-        trackData.setAlbum(release.namedItem("title").toElement().text());
-        trackData.setTrack(-1);
-        QDomNode releaseTrackNode = release.namedItem("track-list");
-        if (!releaseTrackNode.isNull()) {
-          QDomElement releaseTrack = releaseTrackNode.toElement();
-          if (!releaseTrack.attribute("offset").isEmpty())
-            trackData.setTrack(releaseTrack.attribute("offset").toInt() + 1);
-        }
-      }
-      trackDataList.append(trackData);
-    }
-  }
-
-  if (trackDataList.size() > 1) {
-    emit resultsReceived(index, trackDataList);
-    emit statusChanged(index, i18n("User Selection"));
-  } else if (trackDataList.size() == 1) {
-    emit metaDataReceived(index, *trackDataList.begin());
-    emit statusChanged(index, i18n("Recognized"));
-  } else {
-    emit statusChanged(index, i18n("Unrecognized"));
-  }
-}
-
-#else
-
-/**
- * Get results for an ambiguous file.
- *
- * @param id            ID of file
- * @param trackDataList the results are returned here
- *
- * @return true if some results were received,
- *         false if no results available.
- */
-bool MusicBrainzClient::getResults(int id, ImportTrackDataVector& trackDataList)
-{
-  bool resultsAvailable = false;
-  track_t track = tp_GetTrack(m_tp, id);
-  if (track) {
-    tr_Lock(track);
-    int num = tr_GetNumResults(track);
-    result_t* results;
-    if (num > 0 && (results = new result_t[num]) != 0) {
-      TPResultType type;
-      tr_GetResults(track, &type, results, &num);
-      if (type == eTrackList) {
-        albumtrackresult_t** albumTrackResults =
-          reinterpret_cast<albumtrackresult_t**>(results);
-        for (int i = 0; i < num; ++i) {
-          albumtrackresult_t* res = *albumTrackResults++;
-          ImportTrackData trackData;
-          trackData.setTitle(QString::fromUtf8(res->name));
-#if HAVE_TUNEPIMP >= 4
-          trackData.setArtist(QString::fromUtf8(res->artist.name));
-          trackData.setAlbum(QString::fromUtf8(res->album.name));
-          trackData.setYear(res->album.releaseYear);
-#else
-          trackData.setArtist(QString::fromUtf8(res->artist->name));
-          trackData.setAlbum(QString::fromUtf8(res->album->name));
-          trackData.setYear(res->album->releaseYear);
-#endif
-          trackData.setTrack(res->trackNum);
-          // year does not seem to work, so at least we should not
-          // overwrite it with 0
-          if (trackData.getYear() == 0) {
-            trackData.setYear(-1);
-          }
-          trackData.setImportDuration(res->duration / 1000);
-          trackDataList.push_back(trackData);
-          resultsAvailable = true;
-        }
-      }
-// Handling eArtistList and eAlbumList results does not help much,
-// so it is not done.
-//      else if (type == eArtistList) {
-//        artistresult_t** artistResults =
-//            reinterpret_cast<artistresult_t**>(results);
-//        qDebug("Artist List for %d:", id);
-//        for (int i = 0; i < num; ++i) {
-//          artistresult_t* res = *artistResults++;
-//          qDebug("%2d. %d%% %s", i, res->relevance, res->name);
-//        }
-//      } else if (type == eAlbumList) {
-//        albumresult_t** albumResults =
-//            reinterpret_cast<albumresult_t**>(results);
-//        qDebug("Album List for %d:", id);
-//        for (int i = 0; i < num; ++i) {
-//          albumresult_t* res = *albumResults++;
-//          qDebug("%2d. %d%% %s - %s", i, res->relevance, res->artist->name, res->name);
-//        }
-//      }
-
-      rs_Delete(type, results, num);
-      delete [] results;
-    }
-    tr_Unlock(track);
-    tp_ReleaseTrack(m_tp, track);
-  }
-  return resultsAvailable;
-}
-
-#endif
-
-#endif // HAVE_TUNEPIMP
+#endif // HAVE_CHROMAPRINT
