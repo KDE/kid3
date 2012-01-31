@@ -474,9 +474,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
         connect(m_useApplicationStyleCheckBox, SIGNAL(toggled(bool)), m_applicationStyleComboBox, SLOT(setEnabled(bool)));
         vlayout->addLayout(fontStyleLayout);
       }
-      m_dontUseNativeDialogsCheckBox =
-          new QCheckBox(i18n("&Don't use native file dialogs"), appearancePage);
-      vlayout->addWidget(m_dontUseNativeDialogsCheckBox);
+      m_useNativeDialogsCheckBox =
+          new QCheckBox(i18n("Use native system file &dialogs"), appearancePage);
+      vlayout->addWidget(m_useNativeDialogsCheckBox);
       QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
       vlayout->addItem(vspacer);
     }
@@ -596,7 +596,7 @@ void ConfigDialog::setConfig(const ConfigStore* cfg)
   m_fontChanged = false;
   m_styleChanged = false;
 
-  m_dontUseNativeDialogsCheckBox->setChecked(miscCfg->m_dontUseNativeDialogs);
+  m_useNativeDialogsCheckBox->setChecked(!miscCfg->m_dontUseNativeDialogs);
 #endif
 }
 
@@ -657,7 +657,7 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
   } else {
     miscCfg->m_style = m_applicationStyleComboBox->currentText();
   }
-  miscCfg->m_dontUseNativeDialogs = m_dontUseNativeDialogsCheckBox->isChecked();
+  miscCfg->m_dontUseNativeDialogs = !m_useNativeDialogsCheckBox->isChecked();
 #endif
 }
 

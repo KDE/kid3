@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 1.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2012-01-02 10:31+0100\n"
+"POT-Creation-Date: 2012-01-31 18:38+0100\n"
 "PO-Revision-Date: 2011-01-15 17:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -425,7 +425,7 @@ msgstr "gnudb.org"
 #: core/import/httpclient.cpp:133 core/model/downloadclient.cpp:62
 #: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:164
 #: gui/forms/kid3mainwindow.cpp:828 gui/forms/kid3mainwindow.cpp:981
-#: gui/forms/kid3mainwindow.cpp:1227 gui/forms/kid3mainwindow.cpp:1308
+#: gui/forms/kid3mainwindow.cpp:1224 gui/forms/kid3mainwindow.cpp:1305
 msgid "Ready."
 msgstr "Valmis."
 
@@ -466,71 +466,35 @@ msgstr "Aasta"
 msgid "Length"
 msgstr "Pikkus"
 
-#: core/import/musicbrainzclient.cpp:271
-msgid "Metadata Read"
-msgstr "Metaandmed loetud"
-
-#: core/import/musicbrainzclient.cpp:273 core/import/musicbrainzclient.cpp:574
+#: core/import/musicbrainzclient.cpp:250
 msgid "Unrecognized"
 msgstr "Tundmatu"
 
-#: core/import/musicbrainzclient.cpp:274 core/import/musicbrainzclient.cpp:572
+#: core/import/musicbrainzclient.cpp:262
 msgid "Recognized"
 msgstr "Tuvastatud"
 
-#: core/import/musicbrainzclient.cpp:275 core/import/musicbrainzclient.cpp:320
-msgid "Pending"
-msgstr "Ootel"
-
-#: core/import/musicbrainzclient.cpp:277
-msgid "PUID Lookup"
-msgstr "PUID otsimine"
-
-#: core/import/musicbrainzclient.cpp:278
-msgid "PUID Collision"
-msgstr "PUID-de kokkupõrge"
-
-#: core/import/musicbrainzclient.cpp:280
-msgid "TRM Lookup"
-msgstr "TRM-i otsimine"
-
-#: core/import/musicbrainzclient.cpp:281
-msgid "TRM Collision"
-msgstr "TRM-ide kokkupärge"
-
-#: core/import/musicbrainzclient.cpp:283
-msgid "File Lookup"
-msgstr "Faili otsimine"
-
-#: core/import/musicbrainzclient.cpp:284 core/import/musicbrainzclient.cpp:569
+#: core/import/musicbrainzclient.cpp:265
 msgid "User Selection"
 msgstr "Kasutaja valik"
 
-#: core/import/musicbrainzclient.cpp:285
-msgid "Verified"
-msgstr "Kinnitatud"
+#: core/import/musicbrainzclient.cpp:288
+msgid "Fingerprint"
+msgstr "Sõrmejälg"
 
-#: core/import/musicbrainzclient.cpp:286
-msgid "Saved"
-msgstr "Salvestatud"
-
-#: core/import/musicbrainzclient.cpp:287
-msgid "Deleted"
-msgstr "Kustutatud"
-
-#: core/import/musicbrainzclient.cpp:288 core/model/dirrenamer.cpp:441
+#: core/import/musicbrainzclient.cpp:293 core/model/dirrenamer.cpp:441
 msgid "Error"
 msgstr "Viga"
 
-#: core/import/musicbrainzclient.cpp:323
-msgid "Removed"
-msgstr "Eemaldatud"
+#: core/import/musicbrainzclient.cpp:297
+msgid "ID Lookup"
+msgstr "ID otsimine"
 
-#: core/import/musicbrainzclient.cpp:395
-msgid "Written"
-msgstr "Kirjutatud"
+#: core/import/musicbrainzclient.cpp:310
+msgid "Metadata Lookup"
+msgstr "Metaandmed loetud"
 
-#: core/import/musicbrainzreleaseimporter.cpp:59
+#: core/import/musicbrainzreleaseimporter.cpp:60
 msgid "MusicBrainz Release"
 msgstr "MusicBrainz: album"
 
@@ -584,7 +548,7 @@ msgid "%1 is not a directory\n"
 msgstr "\"%1\" ei ole kataloog\n"
 
 #: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:130
-#: core/model/dirrenamer.cpp:173 gui/forms/kid3mainwindow.cpp:1980
+#: core/model/dirrenamer.cpp:173 gui/forms/kid3mainwindow.cpp:1977
 msgid "Rename %1 to %2 failed\n"
 msgstr "Elemendi \"%1\" ümbernimetamine \"%2-ks\" ebaõnnestus\n"
 
@@ -655,15 +619,15 @@ msgstr "Loogiline VÕI"
 msgid "Logical negation"
 msgstr "Loogiline EI"
 
-#: core/model/frametablemodel.cpp:190 gui/dialogs/editframefieldsdialog.cpp:672
+#: core/model/frametablemodel.cpp:190 gui/dialogs/editframefieldsdialog.cpp:669
 msgid "Data"
 msgstr "Andmed"
 
-#: core/model/kid3application.cpp:1834 core/model/kid3application.cpp:1838
+#: core/model/kid3application.cpp:1835 core/model/kid3application.cpp:1839
 msgid "All Supported Files"
 msgstr "Kõik toetatud failid"
 
-#: core/model/kid3application.cpp:1836 core/model/kid3application.cpp:1842
+#: core/model/kid3application.cpp:1837 core/model/kid3application.cpp:1843
 msgid "All Files (*)"
 msgstr "Kõik failid (*.*)"
 
@@ -676,7 +640,7 @@ msgstr "Loo nr"
 msgid "Absolute path to file"
 msgstr "Täielik tee faili juurde"
 
-#: core/model/trackdatamodel.cpp:199 gui/dialogs/editframefieldsdialog.cpp:677
+#: core/model/trackdatamodel.cpp:199 gui/dialogs/editframefieldsdialog.cpp:674
 #: gui/forms/kid3form.cpp:894 gui/forms/kid3mainwindow.cpp:366
 #: gui/forms/kid3mainwindow.cpp:369 gui/forms/kid3mainwindow.cpp:372
 msgid "Filename"
@@ -730,11 +694,11 @@ msgstr "Autor"
 msgid "BPM"
 msgstr "Lööki/min"
 
-#: core/tags/frame.cpp:79 gui/dialogs/editframefieldsdialog.cpp:900
+#: core/tags/frame.cpp:79 gui/dialogs/editframefieldsdialog.cpp:897
 msgid "Composer"
 msgstr "Helilooja"
 
-#: core/tags/frame.cpp:80 gui/dialogs/editframefieldsdialog.cpp:898
+#: core/tags/frame.cpp:80 gui/dialogs/editframefieldsdialog.cpp:895
 msgid "Conductor"
 msgstr "Dirigent"
 
@@ -758,7 +722,7 @@ msgstr "Grupeerimine"
 msgid "ISRC"
 msgstr "ISRC"
 
-#: core/tags/frame.cpp:86 gui/dialogs/editframefieldsdialog.cpp:678
+#: core/tags/frame.cpp:86 gui/dialogs/editframefieldsdialog.cpp:675
 msgid "Language"
 msgstr "Keel"
 
@@ -766,11 +730,11 @@ msgstr "Keel"
 msgid "Lyricist"
 msgstr "Sõnade autor"
 
-#: core/tags/frame.cpp:88 gui/dialogs/editframefieldsdialog.cpp:934
+#: core/tags/frame.cpp:88 gui/dialogs/editframefieldsdialog.cpp:931
 msgid "Lyrics"
 msgstr "Sõnad"
 
-#: core/tags/frame.cpp:89 gui/dialogs/editframefieldsdialog.cpp:895
+#: core/tags/frame.cpp:89 gui/dialogs/editframefieldsdialog.cpp:892
 msgid "Media"
 msgstr "Andmekandja"
 
@@ -895,9 +859,9 @@ msgstr "Tulemus"
 msgid "Picture URL"
 msgstr "Pildi URL"
 
-#: gui/dialogs/browsecoverartdialog.cpp:141 gui/dialogs/configdialog.cpp:489
+#: gui/dialogs/browsecoverartdialog.cpp:141 gui/dialogs/configdialog.cpp:492
 #: gui/dialogs/exportdialog.cpp:141 gui/dialogs/filterdialog.cpp:75
-#: gui/dialogs/importdialog.cpp:225 gui/dialogs/musicbrainzdialog.cpp:121
+#: gui/dialogs/importdialog.cpp:225 gui/dialogs/musicbrainzdialog.cpp:120
 #: gui/dialogs/numbertracksdialog.cpp:114 gui/dialogs/playlistdialog.cpp:201
 #: gui/dialogs/serverimportdialog.cpp:107 gui/dialogs/tagimportdialog.cpp:67
 #: gui/dialogs/textimportdialog.cpp:77 gui/forms/kid3mainwindow.cpp:754
@@ -906,7 +870,7 @@ msgstr "&Abi"
 
 #: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/exportdialog.cpp:147
 #: gui/dialogs/filterdialog.cpp:81 gui/dialogs/importdialog.cpp:227
-#: gui/dialogs/musicbrainzdialog.cpp:122 gui/dialogs/numbertracksdialog.cpp:119
+#: gui/dialogs/musicbrainzdialog.cpp:121 gui/dialogs/numbertracksdialog.cpp:119
 #: gui/dialogs/playlistdialog.cpp:205 gui/dialogs/rendirdialog.cpp:76
 #: gui/dialogs/serverimportdialog.cpp:108 gui/dialogs/tagimportdialog.cpp:71
 #: gui/dialogs/textimportdialog.cpp:81
@@ -917,9 +881,9 @@ msgstr "&Salvesta seaded"
 msgid "&Browse"
 msgstr "&Otsi"
 
-#: gui/dialogs/browsecoverartdialog.cpp:158 gui/dialogs/configdialog.cpp:491
-#: gui/dialogs/editframedialog.cpp:61 gui/dialogs/editframefieldsdialog.cpp:999
-#: gui/dialogs/importdialog.cpp:231 gui/dialogs/musicbrainzdialog.cpp:125
+#: gui/dialogs/browsecoverartdialog.cpp:158 gui/dialogs/configdialog.cpp:494
+#: gui/dialogs/editframedialog.cpp:61 gui/dialogs/editframefieldsdialog.cpp:996
+#: gui/dialogs/importdialog.cpp:231 gui/dialogs/musicbrainzdialog.cpp:124
 #: gui/dialogs/numbertracksdialog.cpp:134 gui/dialogs/playlistdialog.cpp:216
 msgid "&Cancel"
 msgstr "&Loobu"
@@ -984,15 +948,15 @@ msgstr "Uutes siltides kasutatav &versioon:"
 msgid "Track number &digits:"
 msgstr "Num&brite vähim arv loo numbris:"
 
-#: gui/dialogs/configdialog.cpp:223 gui/dialogs/editframefieldsdialog.cpp:875
+#: gui/dialogs/configdialog.cpp:223 gui/dialogs/editframefieldsdialog.cpp:872
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: gui/dialogs/configdialog.cpp:224 gui/dialogs/editframefieldsdialog.cpp:876
+#: gui/dialogs/configdialog.cpp:224 gui/dialogs/editframefieldsdialog.cpp:873
 msgid "UTF16"
 msgstr "UTF-16"
 
-#: gui/dialogs/configdialog.cpp:225 gui/dialogs/editframefieldsdialog.cpp:878
+#: gui/dialogs/configdialog.cpp:225 gui/dialogs/editframefieldsdialog.cpp:875
 msgid "UTF8"
 msgstr "UTF-8"
 
@@ -1129,24 +1093,28 @@ msgstr "&Rakenduse font..."
 msgid "Use custom application &style"
 msgstr "Kohandatud &stiili kasutamine"
 
-#: gui/dialogs/configdialog.cpp:469 gui/dialogs/configdialog.cpp:753
-#: gui/dialogs/musicbrainzdialog.cpp:189 gui/dialogs/musicbrainzdialog.cpp:193
-#: gui/dialogs/musicbrainzdialog.cpp:208
+#: gui/dialogs/configdialog.cpp:469 gui/dialogs/configdialog.cpp:762
+#: gui/dialogs/musicbrainzdialog.cpp:188 gui/dialogs/musicbrainzdialog.cpp:192
+#: gui/dialogs/musicbrainzdialog.cpp:207
 msgid "Unknown"
 msgstr "Teadmata"
 
-#: gui/dialogs/configdialog.cpp:480
+#: gui/dialogs/configdialog.cpp:478
+msgid "Use native system file &dialogs"
+msgstr "Natiivsete süsteemi faili&dialoogide kasutamine"
+
+#: gui/dialogs/configdialog.cpp:483
 msgid "&Appearance"
 msgstr "Väl&imus"
 
-#: gui/dialogs/configdialog.cpp:490 gui/dialogs/editframedialog.cpp:60
-#: gui/dialogs/editframefieldsdialog.cpp:998 gui/dialogs/importdialog.cpp:229
-#: gui/dialogs/musicbrainzdialog.cpp:123 gui/dialogs/numbertracksdialog.cpp:129
+#: gui/dialogs/configdialog.cpp:493 gui/dialogs/editframedialog.cpp:60
+#: gui/dialogs/editframefieldsdialog.cpp:995 gui/dialogs/importdialog.cpp:229
+#: gui/dialogs/musicbrainzdialog.cpp:122 gui/dialogs/numbertracksdialog.cpp:129
 #: gui/dialogs/playlistdialog.cpp:213
 msgid "&OK"
 msgstr "&OK"
 
-#: gui/dialogs/configdialog.cpp:678
+#: gui/dialogs/configdialog.cpp:684
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
 msgstr "Kiirklahvi '%1' juba kasutatakse järgneva tegevuse jaoks '%2'."
 
@@ -1154,205 +1122,205 @@ msgstr "Kiirklahvi '%1' juba kasutatakse järgneva tegevuse jaoks '%2'."
 msgid "Kid3 Handbook"
 msgstr "Kid3 käsiraamat"
 
-#: gui/dialogs/editframefieldsdialog.cpp:528 gui/dialogs/textimportdialog.cpp:90
+#: gui/dialogs/editframefieldsdialog.cpp:529 gui/dialogs/textimportdialog.cpp:90
 msgid "From Clip&board"
 msgstr "&Lõikepuhvrist"
 
-#: gui/dialogs/editframefieldsdialog.cpp:529
+#: gui/dialogs/editframefieldsdialog.cpp:530
 msgid "&Import"
 msgstr "&Impordi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:530
+#: gui/dialogs/editframefieldsdialog.cpp:531
 msgid "&Export"
 msgstr "&Ekspordi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:531
+#: gui/dialogs/editframefieldsdialog.cpp:532
 msgid "&View"
 msgstr "&Näita"
 
-#: gui/dialogs/editframefieldsdialog.cpp:669
+#: gui/dialogs/editframefieldsdialog.cpp:666
 msgid "Text Encoding"
 msgstr "Teksti kodeering"
 
-#: gui/dialogs/editframefieldsdialog.cpp:670
+#: gui/dialogs/editframefieldsdialog.cpp:667
 msgid "Text"
 msgstr "Tekst"
 
-#: gui/dialogs/editframefieldsdialog.cpp:671
+#: gui/dialogs/editframefieldsdialog.cpp:668
 msgid "URL"
 msgstr "URL"
 
-#: gui/dialogs/editframefieldsdialog.cpp:673
+#: gui/dialogs/editframefieldsdialog.cpp:670
 msgid "Description"
 msgstr "Kirjeldus"
 
-#: gui/dialogs/editframefieldsdialog.cpp:674
+#: gui/dialogs/editframefieldsdialog.cpp:671
 msgid "Owner"
 msgstr "Omanik"
 
-#: gui/dialogs/editframefieldsdialog.cpp:675
+#: gui/dialogs/editframefieldsdialog.cpp:672
 msgid "Email"
 msgstr "E-post"
 
-#: gui/dialogs/editframefieldsdialog.cpp:676
+#: gui/dialogs/editframefieldsdialog.cpp:673
 msgid "Rating"
 msgstr "Hinnang"
 
-#: gui/dialogs/editframefieldsdialog.cpp:679
+#: gui/dialogs/editframefieldsdialog.cpp:676
 msgid "Picture Type"
 msgstr "Pildi tüüp"
 
-#: gui/dialogs/editframefieldsdialog.cpp:680
+#: gui/dialogs/editframefieldsdialog.cpp:677
 msgid "Image format"
 msgstr "Pildivorming"
 
-#: gui/dialogs/editframefieldsdialog.cpp:681
+#: gui/dialogs/editframefieldsdialog.cpp:678
 msgid "Mimetype"
 msgstr "MIME-tüüp"
 
-#: gui/dialogs/editframefieldsdialog.cpp:682
+#: gui/dialogs/editframefieldsdialog.cpp:679
 msgid "Counter"
 msgstr "Loendur"
 
-#: gui/dialogs/editframefieldsdialog.cpp:683
+#: gui/dialogs/editframefieldsdialog.cpp:680
 msgid "Identifier"
 msgstr "Identifikaator"
 
-#: gui/dialogs/editframefieldsdialog.cpp:684
+#: gui/dialogs/editframefieldsdialog.cpp:681
 msgid "Volume Adjustment"
 msgstr "Helitugevuse korrigeerimine"
 
-#: gui/dialogs/editframefieldsdialog.cpp:685
+#: gui/dialogs/editframefieldsdialog.cpp:682
 msgid "Number of Bits"
 msgstr "Bittide arv"
 
-#: gui/dialogs/editframefieldsdialog.cpp:686
+#: gui/dialogs/editframefieldsdialog.cpp:683
 msgid "Volume Change Right"
 msgstr "Helitugevuse muutus paremal"
 
-#: gui/dialogs/editframefieldsdialog.cpp:687
+#: gui/dialogs/editframefieldsdialog.cpp:684
 msgid "Volume Change Left"
 msgstr "Helitugevuse muutus vasakul"
 
-#: gui/dialogs/editframefieldsdialog.cpp:688
+#: gui/dialogs/editframefieldsdialog.cpp:685
 msgid "Peak Volume Right"
 msgstr "Helitugevuse tipp paremal"
 
-#: gui/dialogs/editframefieldsdialog.cpp:689
+#: gui/dialogs/editframefieldsdialog.cpp:686
 msgid "Peak Volume Left"
 msgstr "Helitugevuse tipp vasakul"
 
-#: gui/dialogs/editframefieldsdialog.cpp:690
+#: gui/dialogs/editframefieldsdialog.cpp:687
 msgid "Timestamp Format"
 msgstr "Ajatempli vorming"
 
-#: gui/dialogs/editframefieldsdialog.cpp:691
+#: gui/dialogs/editframefieldsdialog.cpp:688
 msgid "Content Type"
 msgstr "Sisu tüüp"
 
-#: gui/dialogs/editframefieldsdialog.cpp:877
+#: gui/dialogs/editframefieldsdialog.cpp:874
 msgid "UTF16BE"
 msgstr "UTF-16-BE"
 
-#: gui/dialogs/editframefieldsdialog.cpp:889
-#: gui/dialogs/editframefieldsdialog.cpp:920
-#: gui/dialogs/editframefieldsdialog.cpp:933
+#: gui/dialogs/editframefieldsdialog.cpp:886
+#: gui/dialogs/editframefieldsdialog.cpp:917
+#: gui/dialogs/editframefieldsdialog.cpp:930
 msgid "Other"
 msgstr "Muu"
 
-#: gui/dialogs/editframefieldsdialog.cpp:890
+#: gui/dialogs/editframefieldsdialog.cpp:887
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 px PNG-vormingus faili ikoon"
 
-#: gui/dialogs/editframefieldsdialog.cpp:891
+#: gui/dialogs/editframefieldsdialog.cpp:888
 msgid "Other file icon"
 msgstr "Muus vormingus faili ikoon"
 
-#: gui/dialogs/editframefieldsdialog.cpp:892
+#: gui/dialogs/editframefieldsdialog.cpp:889
 msgid "Cover (front)"
 msgstr "Karbi esikülg"
 
-#: gui/dialogs/editframefieldsdialog.cpp:893
+#: gui/dialogs/editframefieldsdialog.cpp:890
 msgid "Cover (back)"
 msgstr "Karbi tagakülg"
 
-#: gui/dialogs/editframefieldsdialog.cpp:894
+#: gui/dialogs/editframefieldsdialog.cpp:891
 msgid "Leaflet page"
 msgstr "Voldiku lehekülg"
 
-#: gui/dialogs/editframefieldsdialog.cpp:896
+#: gui/dialogs/editframefieldsdialog.cpp:893
 msgid "Lead artist/lead performer/soloist"
 msgstr "Juhtiv esitaja/ettekandja / solist"
 
-#: gui/dialogs/editframefieldsdialog.cpp:897
+#: gui/dialogs/editframefieldsdialog.cpp:894
 msgid "Artist/performer"
 msgstr "Esitaja"
 
-#: gui/dialogs/editframefieldsdialog.cpp:899
+#: gui/dialogs/editframefieldsdialog.cpp:896
 msgid "Band/Orchestra"
 msgstr "Bänd/orkester"
 
-#: gui/dialogs/editframefieldsdialog.cpp:901
+#: gui/dialogs/editframefieldsdialog.cpp:898
 msgid "Lyricist/text writer"
 msgstr "Sõnade autor"
 
-#: gui/dialogs/editframefieldsdialog.cpp:902
+#: gui/dialogs/editframefieldsdialog.cpp:899
 msgid "Recording Location"
 msgstr "Lindistuskoht"
 
-#: gui/dialogs/editframefieldsdialog.cpp:903
+#: gui/dialogs/editframefieldsdialog.cpp:900
 msgid "During recording"
 msgstr "Lindistamise ajal"
 
-#: gui/dialogs/editframefieldsdialog.cpp:904
+#: gui/dialogs/editframefieldsdialog.cpp:901
 msgid "During performance"
 msgstr "Esituse ajal"
 
-#: gui/dialogs/editframefieldsdialog.cpp:905
+#: gui/dialogs/editframefieldsdialog.cpp:902
 msgid "Movie/video screen capture"
 msgstr "Kaader filmist/videost"
 
-#: gui/dialogs/editframefieldsdialog.cpp:906
+#: gui/dialogs/editframefieldsdialog.cpp:903
 msgid "A bright coloured fish"
 msgstr "Värvikirev kala"
 
-#: gui/dialogs/editframefieldsdialog.cpp:907
+#: gui/dialogs/editframefieldsdialog.cpp:904
 msgid "Illustration"
 msgstr "Illustratsioon"
 
-#: gui/dialogs/editframefieldsdialog.cpp:908
+#: gui/dialogs/editframefieldsdialog.cpp:905
 msgid "Band/artist logotype"
 msgstr "Bändi/esitaja logo"
 
-#: gui/dialogs/editframefieldsdialog.cpp:909
+#: gui/dialogs/editframefieldsdialog.cpp:906
 msgid "Publisher/Studio logotype"
 msgstr "Väljaandja/stuudio logo"
 
-#: gui/dialogs/editframefieldsdialog.cpp:921
+#: gui/dialogs/editframefieldsdialog.cpp:918
 msgid "MPEG frames as unit"
 msgstr "Ühikutena MPEG-kaadrid"
 
-#: gui/dialogs/editframefieldsdialog.cpp:922
+#: gui/dialogs/editframefieldsdialog.cpp:919
 msgid "Milliseconds as unit"
 msgstr "Ühikutena millisekundid"
 
-#: gui/dialogs/editframefieldsdialog.cpp:935
+#: gui/dialogs/editframefieldsdialog.cpp:932
 msgid "Text transcription"
 msgstr "Teksti transkriptsioon"
 
-#: gui/dialogs/editframefieldsdialog.cpp:936
+#: gui/dialogs/editframefieldsdialog.cpp:933
 msgid "Movement/part name"
 msgstr "Liikumise/osa nimi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:937
+#: gui/dialogs/editframefieldsdialog.cpp:934
 msgid "Events"
 msgstr "Sündmused"
 
-#: gui/dialogs/editframefieldsdialog.cpp:938
+#: gui/dialogs/editframefieldsdialog.cpp:935
 msgid "Chord"
 msgstr "Akord"
 
-#: gui/dialogs/editframefieldsdialog.cpp:939
+#: gui/dialogs/editframefieldsdialog.cpp:936
 msgid "Trivia/pop up"
 msgstr "Trivia/hüpik"
 
@@ -1408,14 +1376,14 @@ msgstr "Silt 1"
 msgid "Tag 2"
 msgstr "Silt 2"
 
-#: gui/dialogs/exportdialog.cpp:194 gui/forms/kid3mainwindow.cpp:972
-#: gui/forms/kid3mainwindow.cpp:975 gui/forms/kid3mainwindow.cpp:1501
-#: gui/forms/kid3mainwindow.cpp:1504 gui/forms/kid3mainwindow.cpp:1978
-#: gui/forms/kid3mainwindow.cpp:2058 gui/forms/kid3mainwindow.cpp:2061
+#: gui/dialogs/exportdialog.cpp:193 gui/forms/kid3mainwindow.cpp:972
+#: gui/forms/kid3mainwindow.cpp:975 gui/forms/kid3mainwindow.cpp:1498
+#: gui/forms/kid3mainwindow.cpp:1501 gui/forms/kid3mainwindow.cpp:1975
+#: gui/forms/kid3mainwindow.cpp:2055 gui/forms/kid3mainwindow.cpp:2058
 msgid "File Error"
 msgstr "Failiviga"
 
-#: gui/dialogs/exportdialog.cpp:195 gui/forms/kid3mainwindow.cpp:970
+#: gui/dialogs/exportdialog.cpp:194 gui/forms/kid3mainwindow.cpp:970
 #: gui/forms/kid3mainwindow.cpp:975
 msgid "Error while writing file:\n"
 msgstr "Viga kirjutamisel:\n"
@@ -1432,7 +1400,7 @@ msgstr "&Filter:"
 msgid "&Expression:"
 msgstr "&Avaldis:"
 
-#: gui/dialogs/filterdialog.cpp:91 gui/dialogs/musicbrainzdialog.cpp:124
+#: gui/dialogs/filterdialog.cpp:91 gui/dialogs/musicbrainzdialog.cpp:123
 #: gui/dialogs/tagimportdialog.cpp:76
 msgid "&Apply"
 msgstr "&Rakenda"
@@ -1449,7 +1417,7 @@ msgstr "Silt põhj&al..."
 msgid "&From Server:"
 msgstr "&Serverist:"
 
-#: gui/dialogs/importdialog.cpp:155 gui/dialogs/musicbrainzdialog.cpp:64
+#: gui/dialogs/importdialog.cpp:155 gui/dialogs/musicbrainzdialog.cpp:63
 #: gui/forms/kid3mainwindow.cpp:263 gui/forms/kid3mainwindow.cpp:488
 msgid "MusicBrainz Fingerprint"
 msgstr "MusicBrainz: sõrmejälg"
@@ -1486,23 +1454,23 @@ msgstr "&Loo nr"
 msgid "&Title"
 msgstr "&Pealkiri"
 
-#: gui/dialogs/musicbrainzdialog.cpp:73 gui/dialogs/serverimportdialog.cpp:80
+#: gui/dialogs/musicbrainzdialog.cpp:72 gui/dialogs/serverimportdialog.cpp:80
 msgid "&Server:"
 msgstr "&Server:"
 
-#: gui/dialogs/musicbrainzdialog.cpp:113
+#: gui/dialogs/musicbrainzdialog.cpp:112
 msgid "Track Title/Artist - Album"
 msgstr "Loo nr Pealkiri/Esitaja - Album"
 
-#: gui/dialogs/musicbrainzdialog.cpp:114
+#: gui/dialogs/musicbrainzdialog.cpp:113
 msgid "State"
 msgstr "Olek"
 
-#: gui/dialogs/musicbrainzdialog.cpp:189 gui/dialogs/musicbrainzdialog.cpp:368
+#: gui/dialogs/musicbrainzdialog.cpp:188 gui/dialogs/musicbrainzdialog.cpp:343
 msgid "No result"
 msgstr "Tulemuseta"
 
-#: gui/dialogs/musicbrainzdialog.cpp:368
+#: gui/dialogs/musicbrainzdialog.cpp:343
 msgid "No result selected"
 msgstr "Tulemust pole valitud"
 
@@ -2056,74 +2024,74 @@ msgstr "Hoiatus - Kid3"
 msgid "Open"
 msgstr "Avamine"
 
-#: gui/forms/kid3mainwindow.cpp:1176
+#: gui/forms/kid3mainwindow.cpp:1173
 msgid "Exiting..."
 msgstr "Väljumine..."
 
-#: gui/forms/kid3mainwindow.cpp:1220
+#: gui/forms/kid3mainwindow.cpp:1217
 msgid "Toggle the statusbar..."
 msgstr "Lülita olekuriba..."
 
-#: gui/forms/kid3mainwindow.cpp:1304
+#: gui/forms/kid3mainwindow.cpp:1301
 msgid "Creating playlist..."
 msgstr "Esitusnimekirja loomine..."
 
-#: gui/forms/kid3mainwindow.cpp:1330
+#: gui/forms/kid3mainwindow.cpp:1327
 msgid "Import"
 msgstr "Import"
 
-#: gui/forms/kid3mainwindow.cpp:1447
+#: gui/forms/kid3mainwindow.cpp:1444
 msgid "Configure - Kid3"
 msgstr "Seadistamine - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1500 gui/forms/kid3mainwindow.cpp:1505
-#: gui/forms/kid3mainwindow.cpp:1979
+#: gui/forms/kid3mainwindow.cpp:1497 gui/forms/kid3mainwindow.cpp:1502
+#: gui/forms/kid3mainwindow.cpp:1976
 msgid "Error while renaming:\n"
 msgstr "Viga ümbernimetamisel:\n"
 
-#: gui/forms/kid3mainwindow.cpp:1620
+#: gui/forms/kid3mainwindow.cpp:1617
 msgid " [filtered]"
 msgstr " [filtreeritud]"
 
-#: gui/forms/kid3mainwindow.cpp:1626
+#: gui/forms/kid3mainwindow.cpp:1623
 msgid " [modified]"
 msgstr " [muudetud]"
 
-#: gui/forms/kid3mainwindow.cpp:1868
+#: gui/forms/kid3mainwindow.cpp:1865
 msgid "Add Frame"
 msgstr "Raami lisamine"
 
-#: gui/forms/kid3mainwindow.cpp:1869
+#: gui/forms/kid3mainwindow.cpp:1866
 msgid "Select the frame ID"
 msgstr "Raami ID:"
 
-#: gui/forms/kid3mainwindow.cpp:1957
+#: gui/forms/kid3mainwindow.cpp:1954
 msgid "Rename File"
 msgstr "Faili ümbernimetamine"
 
-#: gui/forms/kid3mainwindow.cpp:1958
+#: gui/forms/kid3mainwindow.cpp:1955
 msgid "Enter new file name:"
 msgstr "Sisesta faili uus nimi:"
 
-#: gui/forms/kid3mainwindow.cpp:1988 gui/forms/kid3mainwindow.cpp:2026
+#: gui/forms/kid3mainwindow.cpp:1985 gui/forms/kid3mainwindow.cpp:2023
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Kas tõesti visata need %1 elementi prügikasti?"
 
-#: gui/forms/kid3mainwindow.cpp:2014 gui/forms/kid3mainwindow.cpp:2028
+#: gui/forms/kid3mainwindow.cpp:2011 gui/forms/kid3mainwindow.cpp:2025
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
 msgstr[0] "Kas tõesti visata see element prügikati?"
 msgstr[1] "Kas tõesti visata need %1 elementi prügikasti?"
 
-#: gui/forms/kid3mainwindow.cpp:2018 gui/forms/kid3mainwindow.cpp:2024
+#: gui/forms/kid3mainwindow.cpp:2015 gui/forms/kid3mainwindow.cpp:2021
 msgid "Move to Trash"
 msgstr "Viska prügikasti"
 
-#: gui/forms/kid3mainwindow.cpp:2055
+#: gui/forms/kid3mainwindow.cpp:2052
 msgid "Directory must be empty.\n"
 msgstr "Kataloog peab olema tühi.\n"
 
-#: gui/forms/kid3mainwindow.cpp:2056
+#: gui/forms/kid3mainwindow.cpp:2053
 msgid "Could not move these files to the Trash"
 msgstr "Nende failide viskamine prügikasti nurjus"
 

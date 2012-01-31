@@ -208,7 +208,7 @@ private:
   QPushButton* m_applicationFontButton;
   QCheckBox* m_useApplicationStyleCheckBox;
   QComboBox* m_applicationStyleComboBox;
-  QCheckBox* m_dontUseNativeDialogsCheckBox;
+  QCheckBox* m_useNativeDialogsCheckBox;
   QFont m_font;
   QString m_style;
   bool m_fontChanged;
