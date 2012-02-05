@@ -8,6 +8,10 @@ foreach (_subdir utils config tags formats export import model)
   set(core_MOC_HDRS ${core_MOC_HDRS} ${${_subdir}_MOC_HDRS})
 endforeach()
 
+if (WIN32 AND HAVE_CHROMAPRINT)
+  add_definitions(-DCHROMAPRINT_NODLL)
+endif (WIN32 AND HAVE_CHROMAPRINT)
+
 if (WITH_GCC_PCH)
   ADD_KID3_PCH_RULE(core_SRCS)
 endif (WITH_GCC_PCH)

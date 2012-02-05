@@ -24,11 +24,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#define __STDC_CONSTANT_MACROS
 #include "fingerprintcalculator.h"
 
 #ifdef HAVE_CHROMAPRINT
 
-#define __STDC_CONSTANT_MACROS
+#include <stdint.h>
 #include <stdio.h>
 extern "C" {
 #include <libavcodec/avcodec.h>

@@ -64,6 +64,16 @@ wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg-1.debian.t
 test -f zlib_1.2.5.dfsg.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg.orig.tar.gz
 
+test -f libav_0.8.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.orig.tar.gz
+test -f libav_0.8-1.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8-1.debian.tar.gz
+
+test -f chromaprint_0.6.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6.orig.tar.gz
+test -f chromaprint_0.6-1.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6-1.debian.tar.gz
+
 # Create patch files
 
 test -f fink_flac.patch ||
@@ -461,6 +471,24 @@ index 40e454e..b6bc34a 100644
      convertFrame("TT3", "TIT3", header);
 EOF
 
+test -f libav_sws.patch ||
+cat >libav_sws.patch <<"EOF"
+--- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
++++ cmdutils.c  2011-09-17 15:54:37.453134577 -0700
+@@ -311,6 +311,11 @@
+     const AVOption *oc, *of, *os;
+     char opt_stripped[128];
+     const char *p;
++// SPage: avoid sws_get_class failure
++#if !CONFIG_SWSCALE
++#   define sws_get_class(x)  0
++#endif
++
+     const AVClass *cc = avcodec_get_class(), *fc = avformat_get_class(), *sc = sws_get_class();
+ 
+     if (!(p = strchr(opt, ':')))
+EOF
+
 cd ..
 
 
@@ -537,6 +565,26 @@ fi
 
 if ! test -d mp4v2-1.9.1; then
 tar xjf source/mp4v2-1.9.1.tar.bz2
+fi
+
+# libav
+
+if ! test -d libav-0.8; then
+tar xzf source/libav_0.8.orig.tar.gz
+cd libav-0.8/
+tar xzf ../source/libav_0.8-1.debian.tar.gz
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+patch -p0 <../source/libav_sws.patch
+cd ..
+fi
+
+# chromaprint
+
+if ! test -d chromaprint-0.6; then
+tar xzf source/chromaprint_0.6.orig.tar.gz
+cd chromaprint-0.6/
+tar xzf ../source/chromaprint_0.6-1.debian.tar.gz
+cd ..
 fi
 
 
@@ -656,6 +704,119 @@ cd inst
 tar czf ../../bin/mp4v2-1.9.1.tgz usr
 cd ../..
 
+# libav
+
+cd libav-0.8
+# configure needs yasm and pr
+# Most options taken from
+# http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
+test -f Makefile || ./configure \
+	--enable-memalign-hack \
+	--disable-shared \
+	--enable-static \
+	--disable-debug \
+	--disable-avdevice \
+	--disable-avfilter \
+	--disable-swscale \
+	--enable-ffmpeg \
+	--disable-network \
+	--disable-muxers \
+	--disable-demuxers \
+	--enable-rdft \
+	--enable-demuxer=aac \
+	--enable-demuxer=ac3 \
+	--enable-demuxer=ape \
+	--enable-demuxer=asf \
+	--enable-demuxer=flac \
+	--enable-demuxer=matroska_audio \
+	--enable-demuxer=mp3 \
+	--enable-demuxer=mpc \
+	--enable-demuxer=mov \
+	--enable-demuxer=mpc8 \
+	--enable-demuxer=ogg \
+	--enable-demuxer=tta \
+	--enable-demuxer=wav \
+	--enable-demuxer=wv \
+	--disable-bsfs \
+	--disable-filters \
+	--disable-parsers \
+	--enable-parser=aac \
+	--enable-parser=ac3 \
+	--enable-parser=mpegaudio \
+	--disable-protocols \
+	--enable-protocol=file \
+	--disable-indevs \
+	--disable-outdevs \
+	--disable-encoders \
+	--disable-decoders \
+	--enable-decoder=aac \
+	--enable-decoder=ac3 \
+	--enable-decoder=alac \
+	--enable-decoder=ape \
+	--enable-decoder=flac \
+	--enable-decoder=mp1 \
+	--enable-decoder=mp2 \
+	--enable-decoder=mp3 \
+	--enable-decoder=mpc7 \
+	--enable-decoder=mpc8 \
+	--enable-decoder=tta \
+	--enable-decoder=vorbis \
+	--enable-decoder=wavpack \
+	--enable-decoder=wmav1 \
+	--enable-decoder=wmav2 \
+	--enable-decoder=pcm_alaw \
+	--enable-decoder=pcm_dvd \
+	--enable-decoder=pcm_f32be \
+	--enable-decoder=pcm_f32le \
+	--enable-decoder=pcm_f64be \
+	--enable-decoder=pcm_f64le \
+	--enable-decoder=pcm_s16be \
+	--enable-decoder=pcm_s16le \
+	--enable-decoder=pcm_s16le_planar \
+	--enable-decoder=pcm_s24be \
+	--enable-decoder=pcm_daud \
+	--enable-decoder=pcm_s24le \
+	--enable-decoder=pcm_s32be \
+	--enable-decoder=pcm_s32le \
+	--enable-decoder=pcm_s8 \
+	--enable-decoder=pcm_u16be \
+	--enable-decoder=pcm_u16le \
+	--enable-decoder=pcm_u24be \
+	--enable-decoder=pcm_u24le \
+	--enable-decoder=rawvideo
+if test $kernel = "MINGW"; then
+  LIBAV_MAKE=mingw32-make
+else
+  LIBAV_MAKE=make
+fi
+$LIBAV_MAKE
+mkdir inst
+$LIBAV_MAKE install DESTDIR=`pwd`/inst
+cd inst
+tar czf ../../bin/libav-0.8.tgz usr
+cd ../..
+
+# chromaprint
+
+cd chromaprint-0.6/
+test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=../libav-0.8/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+mkdir inst
+make install DESTDIR=`pwd`/inst
+cd inst
+if test $kernel = "MINGW"; then
+  if test -d prg; then
+    rm -rf usr
+    mv prg/msys usr
+    rmdir prg
+  elif test -d msys; then
+    rm -rf usr
+    mv msys/1.0 usr
+    rmdir msys
+  fi
+fi
+tar czf ../../bin/chromaprint-0.6.tgz usr
+cd ../..
+
 
 # Install to root directory
 
@@ -683,6 +844,8 @@ tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
 tar xzf bin/taglib-1.7.tgz -C $BUILDROOT
 tar xzf bin/mp4v2-1.9.1.tgz -C $BUILDROOT
+tar xzf bin/libav-0.8.tgz usr -C $BUILDROOT
+tar xzf bin/chromaprint-0.6.tgz -C $BUILDROOT
 
 if test $kernel = "Darwin"; then
   sudo chmod go-w ${BUILDROOT}usr/local
