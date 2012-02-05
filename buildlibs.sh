@@ -64,10 +64,10 @@ wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg-1.debian.t
 test -f zlib_1.2.5.dfsg.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg.orig.tar.gz
 
-test -f libav_0.8.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.orig.tar.gz
-test -f libav_0.8-1.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8-1.debian.tar.gz
+test -f libav_0.7.3.orig.tar.gz ||
+wget http://archive.ubuntu.com/ubuntu/pool/main/liba/libav/libav_0.7.3.orig.tar.gz
+test -f libav_0.7.3-0ubuntu0.11.10.1.debian.tar.gz ||
+wget http://archive.ubuntu.com/ubuntu/pool/main/liba/libav/libav_0.7.3-0ubuntu0.11.10.1.debian.tar.gz
 
 test -f chromaprint_0.6.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6.orig.tar.gz
@@ -471,24 +471,6 @@ index 40e454e..b6bc34a 100644
      convertFrame("TT3", "TIT3", header);
 EOF
 
-test -f libav_sws.patch ||
-cat >libav_sws.patch <<"EOF"
---- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
-+++ cmdutils.c  2011-09-17 15:54:37.453134577 -0700
-@@ -311,6 +311,11 @@
-     const AVOption *oc, *of, *os;
-     char opt_stripped[128];
-     const char *p;
-+// SPage: avoid sws_get_class failure
-+#if !CONFIG_SWSCALE
-+#   define sws_get_class(x)  0
-+#endif
-+
-     const AVClass *cc = avcodec_get_class(), *fc = avformat_get_class(), *sc = sws_get_class();
- 
-     if (!(p = strchr(opt, ':')))
-EOF
-
 cd ..
 
 
@@ -569,12 +551,11 @@ fi
 
 # libav
 
-if ! test -d libav-0.8; then
-tar xzf source/libav_0.8.orig.tar.gz
-cd libav-0.8/
-tar xzf ../source/libav_0.8-1.debian.tar.gz
+if ! test -d libav-0.7.3; then
+tar xzf source/libav_0.7.3.orig.tar.gz
+cd libav-0.7.3/
+tar xzf ../source/libav_0.7.3-0ubuntu0.11.10.1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-patch -p0 <../source/libav_sws.patch
 cd ..
 fi
 
@@ -706,11 +687,11 @@ cd ../..
 
 # libav
 
-cd libav-0.8
+cd libav-0.7.3
 # configure needs yasm and pr
 # Most options taken from
 # http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
-test -f Makefile || ./configure \
+./configure \
 	--enable-memalign-hack \
 	--disable-shared \
 	--enable-static \
@@ -793,13 +774,13 @@ $LIBAV_MAKE
 mkdir inst
 $LIBAV_MAKE install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-0.8.tgz usr
+tar czf ../../bin/libav-0.7.3.tgz usr
 cd ../..
 
 # chromaprint
 
 cd chromaprint-0.6/
-test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=../libav-0.8/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=../libav-0.7.3/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
@@ -844,7 +825,7 @@ tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
 tar xzf bin/taglib-1.7.tgz -C $BUILDROOT
 tar xzf bin/mp4v2-1.9.1.tgz -C $BUILDROOT
-tar xzf bin/libav-0.8.tgz usr -C $BUILDROOT
+tar xzf bin/libav-0.7.3.tgz -C $BUILDROOT
 tar xzf bin/chromaprint-0.6.tgz -C $BUILDROOT
 
 if test $kernel = "Darwin"; then
