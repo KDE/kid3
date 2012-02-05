@@ -5,9 +5,23 @@
 #
 # First you have to install the necessary tools:
 #
-# For Windows: MinGW/MSYS with development tools, Qt, xsltproc,
-# html\docbook.xsl. Set the environment variables MSYSDIR, XSLTPROCDIR,
-# DOCBOOKDIR to the install directories. They are used in win32/buildkit3.bat.
+# For Windows:
+#
+# Building the libraries needs msys/MinGW, CMake, yasm.
+# There is a bundle with msys/MinGW at
+# http://sourceforge.net/projects/mingwbundle/files/mingw-msys-bundle-0.4/mingw-msys-0.4-x86.zip
+# Download yasm from
+# http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-win32.exe
+# and copy it into msys /bin as yasm.exe.
+# Start the msys shell, add cmake to the path and start this script.
+# When the script has run successfully, the libraries are installed below
+# /usr/local/ in msys. You can then proceed to the Kid3 build.
+#
+# Building Kid3 needs MinGW, CMake, Qt, xsltproc, html\docbook.xsl, dumpbin.
+# Dumpbin is needed for the final packages and can be found in the MS SDK or
+# MS Visual C++ Express Edition. Set the environment variables in
+# win32/buildkid3.bat, so that these tools can be found, then start
+# buildkid3.bat from a Windows command prompt.
 #
 # For Mac: XCode, Qt, html\docbook.xsl. XCode and Qt should be installed at
 # the default location, docbook.xsl in
@@ -18,21 +32,48 @@
 # it should still work.
 #
 # buildlibs.sh will download, build and install zlib, libogg, libvorbis,
-# flac, id3lib, taglib and mp4v2. You are then ready to build Kid3 from
-# the win32 or macosx directories by starting buildkid3.bat (Windows) or
-# buildkid3.sh (Mac). A binary package can be created using createpkg.bat,
-# or createpkg.sh respectively.
+# flac, id3lib, taglib, libav, chromaprint. You are then ready to build Kid3
+# from the win32 or macosx directories by starting buildkid3.bat (Windows) or
+# buildkid3.sh (Mac).
+
+thisdir=$(pwd)
 
 kernel=$(uname)
 test ${kernel:0:5} = "MINGW" && kernel="MINGW"
+
+# Uncomment for debug build
+#ENABLE_DEBUG=--enable-debug
+#CMAKE_BUILD_TYPE_DEBUG="-DCMAKE_BUILD_TYPE=Debug"
+
+if test $kernel = "MINGW"; then
+CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
+elif test $kernel = "Darwin"; then
+CMAKE_OPTIONS="-G \"Unix Makefiles\""
+fi
+
+fixcmakeinst() {
+  if test -d inst && test $kernel = "MINGW"; then
+    cd inst
+    if test -d prg; then
+      rm -rf usr
+      mv prg/msys usr
+      rmdir prg
+    elif test -d msys; then
+      rm -rf usr
+      mv msys/1.0 usr
+      rmdir msys
+    elif test -d MinGW; then
+      mv MinGW usr
+    fi
+    cd ..
+  fi
+}
+
 
 # Download sources
 
 test -d source || mkdir source
 cd source
-
-test -f mp4v2-1.9.1.tar.bz2 ||
-wget http://mp4v2.googlecode.com/files/mp4v2-1.9.1.tar.bz2
 
 test -f flac_1.2.1-3.diff.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-3.diff.gz
@@ -177,9 +218,18 @@ EOF
 test -f id3lib-3.8.3_mingw.patch ||
 cat >id3lib-3.8.3_mingw.patch <<"EOF"
 diff -ru id3lib-3.8.3.orig/configure.in id3lib-3.8.3/configure.in
---- id3lib-3.8.3.orig/configure.in	Sun Mar  2 00:23:00 2003
-+++ id3lib-3.8.3/configure.in	Thu Oct 11 08:55:26 2007
-@@ -249,10 +249,10 @@
+--- id3lib-3.8.3.orig/configure.in	2012-02-05 13:09:59 +0100
++++ id3lib-3.8.3/configure.in	2012-02-05 13:16:33 +0100
+@@ -222,7 +222,7 @@
+ AC_LANG_CPLUSPLUS
+ AC_CHECK_HEADERS(libcw/sys.h)
+ AC_CHECK_HEADERS(cctype climits cstdio cstdlib bitset cstring)
+-AC_CHECK_HEADERS(fstream iostream iomanip vector \
++AC_CHECK_HEADERS(fstream iostream vector \
+ 	,,AC_MSG_ERROR([Missing a vital header file for id3lib - download them here: http://gcc.gnu.org/libstdc++/ or better - compile a newer compiler like gcc3.x])
+ )
+ AC_CHECK_HEADERS(               \
+@@ -248,10 +248,10 @@
  AM_CONDITIONAL(ID3_NEEDGETOPT_LONG, test x$ac_cv_func_getopt_long = xno)
  
  AC_CHECK_FUNCS(mkstemp)
@@ -194,10 +244,9 @@ diff -ru id3lib-3.8.3.orig/configure.in id3lib-3.8.3/configure.in
  
  dnl Checks for typedefs, structures, and compiler characteristics.
  AC_TYPE_SIZE_T
-Only in id3lib-3.8.3: configure.in~
 diff -ru id3lib-3.8.3.orig/include/id3/globals.h id3lib-3.8.3/include/id3/globals.h
---- id3lib-3.8.3.orig/include/id3/globals.h	Sun Mar  2 00:23:00 2003
-+++ id3lib-3.8.3/include/id3/globals.h	Thu Oct 11 08:56:28 2007
+--- id3lib-3.8.3.orig/include/id3/globals.h	2012-02-05 13:09:59 +0100
++++ id3lib-3.8.3/include/id3/globals.h	2012-02-05 13:15:42 +0100
 @@ -41,7 +41,7 @@
   * we prefix variable declarations so they can
   * properly get exported in windows dlls.
@@ -543,12 +592,6 @@ patch -p1 <../source/taglib-itunes-id3v22.patch
 cd ..
 fi
 
-# mp4v2
-
-if ! test -d mp4v2-1.9.1; then
-tar xjf source/mp4v2-1.9.1.tar.bz2
-fi
-
 # libav
 
 if ! test -d libav-0.7.3; then
@@ -570,16 +613,6 @@ fi
 
 
 # Build from sources
-
-# Uncomment for debug build
-#ENABLE_DEBUG=--enable-debug
-#CMAKE_BUILD_TYPE_DEBUG="-DCMAKE_BUILD_TYPE=Debug"
-
-if test $kernel = "MINGW"; then
-CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
-elif test $kernel = "Darwin"; then
-CMAKE_OPTIONS="-G \"Unix Makefiles\""
-fi
 
 test -d bin || mkdir bin
 
@@ -613,7 +646,7 @@ cd ../..
 # libvorbis
 
 cd libvorbis-1.3.2/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=/usr/local $ENABLE_DEBUG
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.2.2~dfsg/inst/usr/local $ENABLE_DEBUG
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
@@ -624,7 +657,7 @@ cd ../..
 # libflac
 
 cd flac-1.2.1/
-configure_args="--enable-shared=no --enable-static=yes --with-ogg=/usr/local $ENABLE_DEBUG"
+configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.2.2~dfsg/inst/usr/local $ENABLE_DEBUG"
 if test $kernel = "Darwin"; then
   configure_args="$configure_args --disable-asm-optimizations"
 fi
@@ -655,34 +688,9 @@ test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
+fixcmakeinst
 cd inst
-if test $kernel = "MINGW"; then
-  if test -d prg; then
-    rm -rf usr
-    mv prg/msys usr
-    rmdir prg
-  elif test -d msys; then
-    rm -rf usr
-    mv msys/1.0 usr
-    rmdir msys
-  fi
-fi
 tar czf ../../bin/taglib-1.7.tgz usr
-cd ../..
-
-# mp4v2
-
-cd mp4v2-1.9.1/
-# When getting from SVN with svn checkout http://mp4v2.googlecode.com/svn/trunk/ mp4v2-svn
-# libtoolize
-# aclocal
-# automake --add-missing
-# autoconf
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch $ENABLE_DEBUG
-mkdir inst
-make install DESTDIR=`pwd`/inst
-cd inst
-tar czf ../../bin/mp4v2-1.9.1.tgz usr
 cd ../..
 
 # libav
@@ -692,6 +700,7 @@ cd libav-0.7.3
 # On msys, make >= 3.81 is needed.
 # Most options taken from
 # http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
+# Disable-sse avoids a SEGFAULT under MinGW.
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
@@ -705,6 +714,7 @@ cd libav-0.7.3
 	--disable-network \
 	--disable-muxers \
 	--disable-demuxers \
+	--disable-sse \
 	--enable-rdft \
 	--enable-demuxer=aac \
 	--enable-demuxer=ac3 \
@@ -777,21 +787,11 @@ cd ../..
 # chromaprint
 
 cd chromaprint-0.6/
-test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=../libav-0.7.3/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=$thisdir/libav-0.7.3/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir inst
 make install DESTDIR=`pwd`/inst
+fixcmakeinst
 cd inst
-if test $kernel = "MINGW"; then
-  if test -d prg; then
-    rm -rf usr
-    mv prg/msys usr
-    rmdir prg
-  elif test -d msys; then
-    rm -rf usr
-    mv msys/1.0 usr
-    rmdir msys
-  fi
-fi
 tar czf ../../bin/chromaprint-0.6.tgz usr
 cd ../..
 
@@ -821,7 +821,6 @@ tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
 tar xzf bin/taglib-1.7.tgz -C $BUILDROOT
-tar xzf bin/mp4v2-1.9.1.tgz -C $BUILDROOT
 tar xzf bin/libav-0.7.3.tgz -C $BUILDROOT
 tar xzf bin/chromaprint-0.6.tgz -C $BUILDROOT
 
