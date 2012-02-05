@@ -689,6 +689,7 @@ cd ../..
 
 cd libav-0.7.3
 # configure needs yasm and pr
+# On msys, make >= 3.81 is needed.
 # Most options taken from
 # http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
 ./configure \
@@ -698,6 +699,7 @@ cd libav-0.7.3
 	--disable-debug \
 	--disable-avdevice \
 	--disable-avfilter \
+	--disable-pthreads \
 	--disable-swscale \
 	--enable-ffmpeg \
 	--disable-network \
@@ -765,14 +767,9 @@ cd libav-0.7.3
 	--enable-decoder=pcm_u24be \
 	--enable-decoder=pcm_u24le \
 	--enable-decoder=rawvideo
-if test $kernel = "MINGW"; then
-  LIBAV_MAKE=mingw32-make
-else
-  LIBAV_MAKE=make
-fi
-$LIBAV_MAKE
+make
 mkdir inst
-$LIBAV_MAKE install DESTDIR=`pwd`/inst
+make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/libav-0.7.3.tgz usr
 cd ../..
