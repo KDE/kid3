@@ -89,18 +89,14 @@ bool AmazonImporter::additionalTags() const { return true; }
  */
 void AmazonImporter::parseFindResults(const QByteArray& searchStr)
 {
-  /* products have the following format (depending on browser):
-<td class="dataColumn"><table cellpadding="0" cellspacing="0" border="0"><tr><td>
-<a href="http://www.amazon.com/Avenger-Amon-Amarth/dp/B001VROVHO/ref=sr_1_1/178-1209985-8853325?ie=UTF8&s=music&qid=1260707733&sr=1-1"><span class="srTitle">The Avenger</span></a>
-   by <a href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk1/178-1209985-8853325?_encoding=UTF8&amp;qid=1260707733&amp;sr=1-1">Amon Amarth</a> <span class="bindingBlock">(<span class="binding">Audio CD</span> - 2009)</span> - <span class="formatText">Original recording reissued</span></td></tr>
-<td></td>
-     or:
-<div class="productTitle"><a href="http://www.amazon.com/Avenger-Amon-Amarth/dp/B001VROVHO/ref=sr_1_1?ie=UTF8&s=music&qid=1260607141&sr=1-1"> The Avenger</a> <span class="ptBrand">by <a href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk_1?_encoding=UTF8&amp;qid=1260607141&amp;sr=1-1">Amon Amarth</a></span><span class="binding"> (<span class="format">Audio CD</span> - 2009)</span> - <span class="format">Original recording reissued</span></div>
+  /* products have the following format:
+<a class="title" href="http://www.amazon.com/Avenger-Amon-Amarth/dp/B001VROVHO/ref=sr_1_1?s=music&ie=UTF8&qid=1328870421&sr=1-1">The Avenger</a>
+    <span class="ptBrand">by <a href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk_1?qid=1328870421&sr=1-1">Amon Amarth</a> and <a href="/Amon-Amarth/e/B002E4DJ7Q/ref=sr_ntt_srch_lnk_1?qid=1328870421&sr=1-1">Amon Amarth</a></span>
    */
   QString str = QString::fromLatin1(searchStr);
   QRegExp catIdTitleArtistRe(
-    "<a href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"
-    "<span class=\"srTitle\">([^<]+)<.*>\\s*by\\s*(?:<[^>]+>)?([^<]+)<");
+    "<a class=\"title\" href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"
+    "([^<]+)<.*>\\s*by\\s*(?:<[^>]+>)?([^<]+)<");
   QStringList lines = str.remove('\r').split(QRegExp("\\n{2,}"));
   m_albumListModel->clear();
   for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
