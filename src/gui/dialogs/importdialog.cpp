@@ -173,7 +173,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 #ifdef CONFIG_USE_KDE
         KIcon("document-revert")
 #else
-        QIcon(":/images/document-revert.png")
+        QCM_QIcon_fromTheme("document-revert")
 #endif
         );
   revertButton->setToolTip(i18n("Revert"));

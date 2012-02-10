@@ -1,7 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
   <qresource>
     <file>images/application-exit.png</file>
-    <file>images/configure.png</file>
+    <file>images/preferences-system.png</file>
     <file>images/document-export.png</file>
     <file>images/document-import.png</file>
     <file>images/document-open.png</file>

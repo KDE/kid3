@@ -393,7 +393,7 @@ void Kid3MainWindow::initActions()
     fileOpen->setStatusTip(i18n("Opens a directory"));
     fileOpen->setText(i18n("&Open..."));
     fileOpen->setShortcut(QKeySequence::Open);
-    fileOpen->setIcon(QIcon(":/images/document-open.png"));
+    fileOpen->setIcon(QCM_QIcon_fromTheme("document-open"));
     fileOpen->setObjectName("file_open");
     shortcutsModel->registerAction(fileOpen, menuTitle);
     connect(fileOpen, SIGNAL(triggered()),
@@ -407,7 +407,7 @@ void Kid3MainWindow::initActions()
             this, SLOT(slotFileOpenRecentDirectory(const QString&)));
     m_fileOpenRecent->setStatusTip(i18n("Opens a recently used directory"));
     m_fileOpenRecent->setTitle(i18n("Open &Recent"));
-    m_fileOpenRecent->setIcon(QIcon(":/images/document-open-recent.png"));
+    m_fileOpenRecent->setIcon(QCM_QIcon_fromTheme("document-open-recent"));
     fileMenu->addMenu(m_fileOpenRecent);
   }
   QAction* fileOpenDirectory = new QAction(this);
@@ -415,7 +415,7 @@ void Kid3MainWindow::initActions()
     fileOpenDirectory->setStatusTip(i18n("Opens a directory"));
     fileOpenDirectory->setText(i18n("O&pen Directory..."));
     fileOpenDirectory->setShortcut(Qt::CTRL + Qt::Key_D);
-    fileOpenDirectory->setIcon(QIcon(":/images/document-open.png"));
+    fileOpenDirectory->setIcon(QCM_QIcon_fromTheme("document-open"));
     fileOpenDirectory->setObjectName("open_directory");
     shortcutsModel->registerAction(fileOpenDirectory, menuTitle);
     connect(fileOpenDirectory, SIGNAL(triggered()),
@@ -428,7 +428,7 @@ void Kid3MainWindow::initActions()
     fileSave->setStatusTip(i18n("Saves the changed files"));
     fileSave->setText(i18n("&Save"));
     fileSave->setShortcut(QKeySequence::Save);
-    fileSave->setIcon(QIcon(":/images/document-save.png"));
+    fileSave->setIcon(QCM_QIcon_fromTheme("document-save"));
     fileSave->setObjectName("file_save");
     shortcutsModel->registerAction(fileSave, menuTitle);
     connect(fileSave, SIGNAL(triggered()),
@@ -441,7 +441,7 @@ void Kid3MainWindow::initActions()
     fileRevert->setStatusTip(
         i18n("Reverts the changes of all or the selected files"));
     fileRevert->setText(i18n("Re&vert"));
-    fileRevert->setIcon(QIcon(":/images/document-revert.png"));
+    fileRevert->setIcon(QCM_QIcon_fromTheme("document-revert"));
     fileRevert->setObjectName("file_revert");
     shortcutsModel->registerAction(fileRevert, menuTitle);
     connect(fileRevert, SIGNAL(triggered()),
@@ -455,7 +455,7 @@ void Kid3MainWindow::initActions()
     fileImport->setData(-1);
     fileImport->setStatusTip(i18n("Import from file or clipboard"));
     fileImport->setText(i18n("&Import..."));
-    fileImport->setIcon(QIcon(":/images/document-import.png"));
+    fileImport->setIcon(QCM_QIcon_fromTheme("document-import"));
     fileImport->setObjectName("import");
     shortcutsModel->registerAction(fileImport, menuTitle);
     connect(fileImport, SIGNAL(triggered()),
@@ -512,7 +512,7 @@ void Kid3MainWindow::initActions()
   if (fileExport) {
     fileExport->setStatusTip(i18n("Export to file or clipboard"));
     fileExport->setText(i18n("&Export..."));
-    fileExport->setIcon(QIcon(":/images/document-export.png"));
+    fileExport->setIcon(QCM_QIcon_fromTheme("document-export"));
     fileExport->setObjectName("export");
     shortcutsModel->registerAction(fileExport, menuTitle);
     connect(fileExport, SIGNAL(triggered()),
@@ -537,7 +537,7 @@ void Kid3MainWindow::initActions()
     fileQuit->setStatusTip(i18n("Quits the application"));
     fileQuit->setText(i18n("&Quit"));
     fileQuit->setShortcut(Qt::CTRL + Qt::Key_Q);
-    fileQuit->setIcon(QIcon(":/images/application-exit.png"));
+    fileQuit->setIcon(QCM_QIcon_fromTheme("application-exit"));
     fileQuit->setObjectName("file_quit");
     shortcutsModel->registerAction(fileQuit, menuTitle);
     connect(fileQuit, SIGNAL(triggered()),
@@ -552,7 +552,7 @@ void Kid3MainWindow::initActions()
     editSelectAll->setStatusTip(i18n("Select all files"));
     editSelectAll->setText(i18n("Select &All"));
     editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
-    editSelectAll->setIcon(QIcon(":/images/edit-select-all.png"));
+    editSelectAll->setIcon(QCM_QIcon_fromTheme("edit-select-all"));
     editSelectAll->setObjectName("edit_select_all");
     shortcutsModel->registerAction(editSelectAll, menuTitle);
     connect(editSelectAll, SIGNAL(triggered()),
@@ -575,7 +575,7 @@ void Kid3MainWindow::initActions()
     editPreviousFile->setStatusTip(i18n("Select previous file"));
     editPreviousFile->setText(i18n("&Previous File"));
     editPreviousFile->setShortcut(Qt::ALT + Qt::Key_Up);
-    editPreviousFile->setIcon(QIcon(":/images/go-previous.png"));
+    editPreviousFile->setIcon(QCM_QIcon_fromTheme("go-previous"));
     editPreviousFile->setObjectName("previous_file");
     shortcutsModel->registerAction(editPreviousFile, menuTitle);
     connect(editPreviousFile, SIGNAL(triggered()),
@@ -588,7 +588,7 @@ void Kid3MainWindow::initActions()
     editNextFile->setStatusTip(i18n("Select next file"));
     editNextFile->setText(i18n("&Next File"));
     editNextFile->setShortcut(Qt::ALT + Qt::Key_Down);
-    editNextFile->setIcon(QIcon(":/images/go-next.png"));
+    editNextFile->setIcon(QCM_QIcon_fromTheme("go-next"));
     editNextFile->setObjectName("next_file");
     shortcutsModel->registerAction(editNextFile, menuTitle);
     connect(editNextFile, SIGNAL(triggered()),
@@ -738,7 +738,7 @@ void Kid3MainWindow::initActions()
   if (settingsConfigure) {
     settingsConfigure->setStatusTip(i18n("Configure Kid3"));
     settingsConfigure->setText(i18n("&Configure Kid3..."));
-    settingsConfigure->setIcon(QIcon(":/images/configure.png"));
+    settingsConfigure->setIcon(QCM_QIcon_fromTheme("preferences-system"));
 #if QT_VERSION >= 0x040600
     settingsConfigure->setShortcut(QKeySequence::Preferences);
 #endif
@@ -757,7 +757,7 @@ void Kid3MainWindow::initActions()
   if (helpHandbook) {
     helpHandbook->setStatusTip(i18n("Kid3 Handbook"));
     helpHandbook->setText(i18n("Kid3 &Handbook"));
-    helpHandbook->setIcon(QIcon(":/images/help-contents.png"));
+    helpHandbook->setIcon(QCM_QIcon_fromTheme("help-contents"));
     helpHandbook->setShortcut(QKeySequence::HelpContents);
     helpHandbook->setObjectName("help_contents");
     shortcutsModel->registerAction(helpHandbook, menuTitle);
