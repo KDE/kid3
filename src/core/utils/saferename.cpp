@@ -42,7 +42,7 @@ bool Utils::hasIllegalFileNameCharacters(const QString& fileName)
 
 #else
 
-bool Utils::hasIllegalCharacters(const QString&)
+bool Utils::hasIllegalFileNameCharacters(const QString&)
 {
   return false;
 }
