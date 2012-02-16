@@ -32,6 +32,7 @@
 #include "configstore.h"
 #include "genres.h"
 #include "modeliterator.h"
+#include "saferename.h"
 
 QList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
 
@@ -518,12 +519,12 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
     // insensitive filesystems (e.g. Windows).
     QString temp_filename(fnNew);
     temp_filename.append("_CASE");
-    if (!QDir(m_dirname).rename(fnOld, temp_filename)) {
+    if (!Utils::safeRename(m_dirname, fnOld, temp_filename)) {
       qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
              temp_filename.toLatin1().data());
       return false;
     }
-    if (!QDir(m_dirname).rename(temp_filename, fnNew)) {
+    if (!Utils::safeRename(m_dirname, temp_filename, fnNew)) {
       qDebug("rename(%s, %s) failed", temp_filename.toLatin1().data(),
              fnNew.toLatin1().data());
       return false;
@@ -532,7 +533,7 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
     qDebug("rename(%s, %s): %s already exists", fnOld.toLatin1().data(),
            fnNew.toLatin1().data(), fnNew.toLatin1().data());
     return false;
-  } else if (!QDir(m_dirname).rename(fnOld, fnNew)) {
+  } else if (!Utils::safeRename(m_dirname, fnOld, fnNew)) {
     qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
            fnNew.toLatin1().data());
     return false;

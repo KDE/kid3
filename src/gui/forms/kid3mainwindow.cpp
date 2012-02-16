@@ -96,6 +96,7 @@
 #include "dirrenamer.h"
 #include "movetotrash.h"
 #include "qtcompatmac.h"
+#include "saferename.h"
 #ifdef HAVE_PHONON
 #include "audioplayer.h"
 #endif
@@ -1970,7 +1971,7 @@ void Kid3MainWindow::renameFile()
         FileProxyModel::releaseTaggedFileOfIndex(index);
       }
       QString newPath = dirName + '/' + newFileName;
-      if (!QDir().rename(absFilename, newPath)) {
+      if (!Utils::safeRename(absFilename, newPath)) {
         QMessageBox::warning(
           0, i18n("File Error"),
           i18n("Error while renaming:\n") +

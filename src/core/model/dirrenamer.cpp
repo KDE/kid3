@@ -28,6 +28,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include "qtcompatmac.h"
+#include "saferename.h"
 
 /**
  * Constructor.
@@ -123,7 +124,7 @@ bool DirRenamer::renameDirectory(
     }
     return false;
   }
-  if (QDir().rename(olddir, newdir) && QFileInfo(newdir).isDir()) {
+  if (Utils::safeRename(olddir, newdir) && QFileInfo(newdir).isDir()) {
     return true;
   } else {
     if (errorMsg) {
@@ -166,7 +167,7 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
     }
     return false;
   }
-  if (QDir().rename(oldfn, newfn) && QFileInfo(newfn).isFile()) {
+  if (Utils::safeRename(oldfn, newfn) && QFileInfo(newfn).isFile()) {
     return true;
   } else {
     if (errorMsg) {
