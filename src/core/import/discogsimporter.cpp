@@ -392,14 +392,16 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     /*
      * credits can be found in "Credits"
      */
-    start = str.indexOf("<h1>Credits</h1>");
+    start = str.indexOf(">Credits</h");
     if (start >= 0) {
-      start += 16; // skip "Credits"
+      start += 13; // skip "Credits" plus end of element (e.g. "3>")
       end = str.indexOf("</div>", start + 1);
       if (end > start) {
         QString creditsStr = str.mid(start, end - start);
         creditsStr.replace(nlSpaceRe, ""); // strip new lines and space after them
         creditsStr.replace("<br />", "\n");
+        creditsStr.replace("</li>", "\n");
+        creditsStr.replace("&ndash;", " - ");
         creditsStr = removeHtml(creditsStr); // strip HTML tags and entities
         parseCredits(creditsStr, framesHdr);
       }
@@ -513,11 +515,17 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
             blockquoteStart += 12;
             int blockquoteEnd = trackDataStr.indexOf("</blockquote>",
                                                      blockquoteStart);
+            if (blockquoteEnd == -1) {
+              // If the element is not correctly closed, search for </span>
+              blockquoteEnd = trackDataStr.indexOf("</span>", blockquoteStart);
+            }
             if (blockquoteEnd > blockquoteStart) {
               QString blockquoteStr(trackDataStr.mid(blockquoteStart,
                 blockquoteEnd - blockquoteStart));
               // additional track info like "Music By, Lyrics By - "
               blockquoteStr.replace("<br />", "\n");
+              blockquoteStr.replace("</li>", "\n");
+              blockquoteStr.replace("&ndash;", " - ");
               blockquoteStr = removeHtml(blockquoteStr);
               parseCredits(blockquoteStr, frames);
             }
