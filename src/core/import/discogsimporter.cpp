@@ -25,6 +25,7 @@
  */
 
 #include "discogsimporter.h"
+#include <QUrl>
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
 #include "configstore.h"
@@ -604,5 +605,6 @@ void DiscogsImporter::sendTrackListQuery(
    * Query looks like this:
    * http://www.discogs.com/release/761529
    */
-  sendRequest(discogsServer, QString("/") + cat + '/' + id, true);
+  sendRequest(discogsServer, QString("/") + QUrl::toPercentEncoding(cat) + '/'
+              + id, true);
 }
