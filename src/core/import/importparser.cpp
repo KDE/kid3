@@ -30,6 +30,13 @@
 #include "qtcompatmac.h"
 
 /**
+ * Constructor.
+ */
+ImportParser::ImportParser() : m_trackIncrEnabled(false), m_trackIncrNr(0)
+{
+}
+
+/**
  * Get help text for format codes supported by setFormat().
  *
  * @return help text.

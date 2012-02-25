@@ -379,8 +379,6 @@ protected:
   CommentList m_comments;
   /** true if file has been read. */
   bool m_fileRead;
-  /** true if comments are changed. */
-  bool m_changed;
 
 private:
   OggFile(const OggFile&);
@@ -389,6 +387,10 @@ private:
 #ifdef HAVE_VORBIS
   /** Information about Ogg/Vorbis file. */
   struct FileInfo {
+    /** Constructor. */
+    FileInfo() : valid(false), version(0), channels(0),
+      sampleRate(0), bitrate(0), duration(0) {}
+
     /**
      * Read information about an Ogg/Vorbis file.
      * @param fn file name

@@ -76,7 +76,7 @@ public:
      * Get the directory of the item.
      * @return directory path with trailing separator.
      */
-    const QString& getDirName() { return m_dirName; }
+    QString getDirName() const { return m_dirName; }
 
     /**
      * Add item to playlist.

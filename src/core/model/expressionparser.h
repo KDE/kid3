@@ -105,13 +105,6 @@ public:
 
 private:
   /**
-   * Get the next token from the RPN stack.
-   *
-   * @return token, QString::null if stack is empty.
-   */
-  QString getToken();
-
-  /**
    * Compare operator priority.
    *
    * @return true if op1 has less priority than op2.

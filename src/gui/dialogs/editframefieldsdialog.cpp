@@ -339,7 +339,7 @@ public:
    * @param field field to edit
    */
   TextFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field) {}
+    Mp3FieldControl(field), m_edit(0) {}
 
   /**
    * Destructor.
@@ -373,7 +373,7 @@ public:
    * @param field field to edit
    */
   LineFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field) {}
+    Mp3FieldControl(field), m_edit(0) {}
 
   /**
    * Destructor.
@@ -407,7 +407,7 @@ public:
    * @param field field to edit
    */
   IntFieldControl(Frame::Field& field) :
-    Mp3FieldControl(field) {}
+    Mp3FieldControl(field), m_numInp(0) {}
 
   /**
    * Destructor.
@@ -443,7 +443,7 @@ public:
    */
   IntComboBoxControl(Frame::Field& field,
                      const char **lst) :
-    Mp3FieldControl(field), m_strLst(lst) {}
+    Mp3FieldControl(field), m_ptInp(0), m_strLst(lst) {}
 
   /**
    * Destructor.
@@ -482,7 +482,7 @@ public:
    */
   BinFieldControl(Frame::Field& field,
                   const Frame& frame, const TaggedFile* taggedFile) :
-    Mp3FieldControl(field), m_frame(frame), m_taggedFile(taggedFile) {}
+    Mp3FieldControl(field), m_bos(0), m_frame(frame), m_taggedFile(taggedFile) {}
 
   /**
    * Destructor.

@@ -167,10 +167,9 @@ static void parseFreedbTrackDurations(
 */
   trackDuration.clear();
   QRegExp discLenRe("Disc length:\\s*\\d+");
-  int discLenPos, len;
-  discLenPos = discLenRe.indexIn(text, 0);
+  int discLenPos = discLenRe.indexIn(text, 0);
   if (discLenPos != -1) {
-    len = discLenRe.matchedLength();
+    int len = discLenRe.matchedLength();
     discLenPos += 12;
     int discLen = text.mid(discLenPos, len - 12).toInt();
     int trackOffsetPos = text.indexOf("Track frame offsets", 0);

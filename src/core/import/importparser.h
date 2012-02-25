@@ -40,6 +40,11 @@ class FrameCollection;
 class ImportParser {
 public:
   /**
+   * Constructor.
+   */
+  ImportParser();
+
+  /**
    * Set import format.
    *
    * @param fmt format regexp
@@ -63,7 +68,7 @@ public:
    *
    * @return list with track durations.
    */
-  QList<int> getTrackDurations() { return m_trackDuration; }
+  QList<int> getTrackDurations() const { return m_trackDuration; }
 
   /**
    * Get help text for format codes supported by setFormat().

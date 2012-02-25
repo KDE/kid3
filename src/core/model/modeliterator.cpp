@@ -398,7 +398,8 @@ TaggedFile* SelectedTaggedFileOfDirectoryIterator::peekNext() const
  * @param selectModel selection model
  */
 TaggedFileOfSelectedDirectoriesIterator::TaggedFileOfSelectedDirectoriesIterator(
-  const QItemSelectionModel* selectModel) : m_dirIdx(0), m_row(0), m_nextFile(0)
+  const QItemSelectionModel* selectModel) : m_model(0), m_dirIdx(0), m_row(0),
+  m_nextFile(0)
 {
   if (selectModel &&
       (m_model = qobject_cast<const FileProxyModel*>(selectModel->model()))

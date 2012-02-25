@@ -139,21 +139,6 @@ void ExpressionParser::tokenizeRpn(const QString& expr)
   m_rpnIterator = m_rpnStack.begin();
 }
 
-/**
- * Get the next token from the RPN stack.
- *
- * @return token, QString::null if stack is empty.
- */
-QString ExpressionParser::getToken()
-{
-  if (!m_rpnStack.empty()) {
-    QString token = m_rpnStack.front();
-    m_rpnStack.pop_front();
-    return token;
-  }
-  return QString::null;
-}
-
 
 /**
  * Convert a string to a boolean.

@@ -52,7 +52,9 @@ ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
  * Constructor.
  * Used to create temporary configuration.
  */
-ServerImporterConfig::ServerImporterConfig() : GeneralConfig("Temporary") {}
+ServerImporterConfig::ServerImporterConfig() : GeneralConfig("Temporary"),
+  m_windowWidth(-1), m_windowHeight(-1), m_cgiPathUsed(false),
+  m_additionalTagsUsed(false), m_additionalTags(false), m_coverArt(false) {}
 
 /**
  * Destructor.

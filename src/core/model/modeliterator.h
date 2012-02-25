@@ -451,7 +451,6 @@ private:
   QModelIndexList getIndexesOfDirWithSubDirs(const QModelIndex& dirIndex);
 
   const FileProxyModel* m_model;
-  const QItemSelectionModel* m_selectModel;
   QModelIndexList m_dirIndexes;
   int m_dirIdx;
   int m_row;
