@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008  Urs Fleisch
+ * Copyright (C) 2008-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,59 +50,50 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent)
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  if (vlayout) {
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
-    m_edit = new QTextEdit(this);
-    if (m_edit) {
-      m_edit->setReadOnly(true);
-      m_edit->setTabStopWidth(20);
-      m_edit->setAcceptRichText(false);
-      vlayout->addWidget(m_edit);
-    }
+  vlayout->setMargin(6);
+  vlayout->setSpacing(6);
+  m_edit = new QTextEdit(this);
+  m_edit->setReadOnly(true);
+  m_edit->setTabStopWidth(20);
+  m_edit->setAcceptRichText(false);
+  vlayout->addWidget(m_edit);
 
-    m_formatListEdit = new FormatListEdit(
-          QStringList() << i18n("&Filter:")
-                        << i18n("&Expression:"),
-          QStringList() << QString()
-                        << FileFilter::getFormatToolTip(),
-          this);
-    vlayout->addWidget(m_formatListEdit);
+  m_formatListEdit = new FormatListEdit(
+        QStringList() << i18n("&Filter:")
+                      << i18n("&Expression:"),
+        QStringList() << QString()
+                      << FileFilter::getFormatToolTip(),
+        this);
+  vlayout->addWidget(m_formatListEdit);
 
-    QHBoxLayout* hlayout = new QHBoxLayout;
-    if (hlayout) {
-      hlayout->setSpacing(6);
-      QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-      if (helpButton) {
-        helpButton->setAutoDefault(false);
-        hlayout->addWidget(helpButton);
-        connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-      }
-      QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
-      if (saveButton) {
-        saveButton->setAutoDefault(false);
-        hlayout->addWidget(saveButton);
-        connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-      }
-      QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-                                             QSizePolicy::Minimum);
-      hlayout->addItem(hspacer);
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  hlayout->setSpacing(6);
+  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  helpButton->setAutoDefault(false);
+  hlayout->addWidget(helpButton);
+  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 
-      m_applyButton = new QPushButton(i18n("&Apply"), this);
-      QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-      if (m_applyButton && closeButton) {
-        m_applyButton->setAutoDefault(false);
-        closeButton->setAutoDefault(false);
-        hlayout->addWidget(m_applyButton);
-        hlayout->addWidget(closeButton);
-        connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyFilter()));
-        connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
-        connect(closeButton, SIGNAL(clicked()),
-                &m_fileFilter, SLOT(setAbortFlag()));
-      }
-      vlayout->addLayout(hlayout);
-    }
-  }
+  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  saveButton->setAutoDefault(false);
+  hlayout->addWidget(saveButton);
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  hlayout->addItem(hspacer);
+
+  m_applyButton = new QPushButton(i18n("&Apply"), this);
+  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  m_applyButton->setAutoDefault(false);
+  closeButton->setAutoDefault(false);
+  hlayout->addWidget(m_applyButton);
+  hlayout->addWidget(closeButton);
+  connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyFilter()));
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(closeButton, SIGNAL(clicked()),
+          &m_fileFilter, SLOT(setAbortFlag()));
+
+  vlayout->addLayout(hlayout);
 }
 
 /**

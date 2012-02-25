@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Oct 2005
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -142,68 +142,65 @@ void FlacFile::readTags(bool force)
     }
     if (m_chain && m_chain->is_valid()) {
       if (m_chain->read(fnIn)) {
-        FLAC::Metadata::Iterator* mdit = new FLAC::Metadata::Iterator;
-        if (mdit) {
-          mdit->init(*m_chain);
-          while (mdit->is_valid()) {
-            ::FLAC__MetadataType mdt = mdit->get_block_type();
-            if (mdt == FLAC__METADATA_TYPE_STREAMINFO) {
-              FLAC::Metadata::Prototype* proto = mdit->get_block();
-              if (proto) {
-                FLAC::Metadata::StreamInfo* si =
-                  dynamic_cast<FLAC::Metadata::StreamInfo*>(proto);
-                m_fileInfo.read(si);
-                delete proto;
-              }
-            } else if (mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
-              FLAC::Metadata::Prototype* proto = mdit->get_block();
-              if (proto) {
-                FLAC::Metadata::VorbisComment* vc =
-                  dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
-                if (vc && vc->is_valid()) {
-                  unsigned numComments = vc->get_num_comments();
-                  for (unsigned i = 0; i < numComments; ++i) {
-                    FLAC::Metadata::VorbisComment::Entry entry =
-                      vc->get_comment(i);
-                    if (entry.is_valid()) {
-                      QString name =
-                        QString::fromUtf8(entry.get_field_name(),
-                                          entry.get_field_name_length()).
-                        trimmed().toUpper();
-                      QString value =
-                        QString::fromUtf8(entry.get_field_value(),
-                                          entry.get_field_value_length()).
-                        trimmed();
-                      if (!value.isEmpty()) {
-                        m_comments.push_back(
-                          CommentField(name, value));
-                      }
+        FLAC::Metadata::Iterator mdit;
+        mdit.init(*m_chain);
+        while (mdit.is_valid()) {
+          ::FLAC__MetadataType mdt = mdit.get_block_type();
+          if (mdt == FLAC__METADATA_TYPE_STREAMINFO) {
+            FLAC::Metadata::Prototype* proto = mdit.get_block();
+            if (proto) {
+              FLAC::Metadata::StreamInfo* si =
+                dynamic_cast<FLAC::Metadata::StreamInfo*>(proto);
+              m_fileInfo.read(si);
+              delete proto;
+            }
+          } else if (mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
+            FLAC::Metadata::Prototype* proto = mdit.get_block();
+            if (proto) {
+              FLAC::Metadata::VorbisComment* vc =
+                dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
+              if (vc && vc->is_valid()) {
+                unsigned numComments = vc->get_num_comments();
+                for (unsigned i = 0; i < numComments; ++i) {
+                  FLAC::Metadata::VorbisComment::Entry entry =
+                    vc->get_comment(i);
+                  if (entry.is_valid()) {
+                    QString name =
+                      QString::fromUtf8(entry.get_field_name(),
+                                        entry.get_field_name_length()).
+                      trimmed().toUpper();
+                    QString value =
+                      QString::fromUtf8(entry.get_field_value(),
+                                        entry.get_field_value_length()).
+                      trimmed();
+                    if (!value.isEmpty()) {
+                      m_comments.push_back(
+                        CommentField(name, value));
                     }
                   }
                 }
-                delete proto;
               }
-            }
-#ifdef HAVE_FLAC_PICTURE
-            else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
-              FLAC::Metadata::Prototype* proto = mdit->get_block();
-              if (proto) {
-                FLAC::Metadata::Picture* pic =
-                  dynamic_cast<FLAC::Metadata::Picture*>(proto);
-                if (pic) {
-                  Frame frame(Frame::FT_Picture, "", "", pictureNr++);
-                  getPicture(frame, pic);
-                  m_pictures.push_back(frame);
-                }
-                delete proto;
-              }
-            }
-#endif
-            if (!mdit->next()) {
-              break;
+              delete proto;
             }
           }
-          delete mdit;
+#ifdef HAVE_FLAC_PICTURE
+          else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
+            FLAC::Metadata::Prototype* proto = mdit.get_block();
+            if (proto) {
+              FLAC::Metadata::Picture* pic =
+                dynamic_cast<FLAC::Metadata::Picture*>(proto);
+              if (pic) {
+                Frame frame(Frame::FT_Picture, "", "", pictureNr++);
+                getPicture(frame, pic);
+                m_pictures.push_back(frame);
+              }
+              delete proto;
+            }
+          }
+#endif
+          if (!mdit.next()) {
+            break;
+          }
         }
       }
     }
@@ -240,97 +237,85 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
     PictureList::iterator pictureIt = m_pictures.begin();
 #endif
     m_chain->sort_padding();
-    FLAC::Metadata::Iterator* mdit = new FLAC::Metadata::Iterator;
-    if (mdit) {
-      mdit->init(*m_chain);
-      while (mdit->is_valid()) {
-        ::FLAC__MetadataType mdt = mdit->get_block_type();
-        if (mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
-          if (commentsSet) {
-            mdit->delete_block(true);
-          } else {
-            FLAC::Metadata::Prototype* proto = mdit->get_block();
-            if (proto) {
-              FLAC::Metadata::VorbisComment* vc =
-                dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
-              if (vc && vc->is_valid()) {
-                setVorbisComment(vc);
-                commentsSet = true;
-              }
-              delete proto;
-            }
-          }
-        }
-#ifdef HAVE_FLAC_PICTURE
-        else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
-          if (pictureIt != m_pictures.end()) {
-            FLAC::Metadata::Prototype* proto = mdit->get_block();
-            if (proto) {
-              FLAC::Metadata::Picture* pic =
-                dynamic_cast<FLAC::Metadata::Picture*>(proto);
-              if (pic) {
-                setPicture(*pictureIt++, pic);
-                pictureSet = true;
-              }
-              delete proto;
-            }
-          } else {
-            mdit->delete_block(false);
-            pictureRemoved = true;
-          }
-        } else if (mdt == FLAC__METADATA_TYPE_PADDING) {
-          if (pictureIt != m_pictures.end()) {
-            FLAC::Metadata::Picture* pic =
-              new FLAC::Metadata::Picture;
-            if (pic) {
-              setPicture(*pictureIt, pic);
-              if (mdit->set_block(pic)) {
-                ++pictureIt;
-                pictureSet = true;
-              } else {
-                delete pic;
-              }
-            }
-          } else if (pictureRemoved) {
-            mdit->delete_block(false);
-          }
-        }
-#endif
-        if (!mdit->next()) {
-          if (!commentsSet) {
+    FLAC::Metadata::Iterator mdit;
+    mdit.init(*m_chain);
+    while (mdit.is_valid()) {
+      ::FLAC__MetadataType mdt = mdit.get_block_type();
+      if (mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
+        if (commentsSet) {
+          mdit.delete_block(true);
+        } else {
+          FLAC::Metadata::Prototype* proto = mdit.get_block();
+          if (proto) {
             FLAC::Metadata::VorbisComment* vc =
-              new FLAC::Metadata::VorbisComment;
-            if (vc) {
-              if (vc->is_valid()) {
-                setVorbisComment(vc);
-                if (mdit->insert_block_after(vc)) {
-                  commentsSet = true;
-                }
-              }
-              if (!commentsSet) {
-                delete vc;
-              }
+              dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
+            if (vc && vc->is_valid()) {
+              setVorbisComment(vc);
+              commentsSet = true;
             }
+            delete proto;
           }
-#ifdef HAVE_FLAC_PICTURE
-          while (pictureIt != m_pictures.end()) {
-            FLAC::Metadata::Picture* pic =
-              new FLAC::Metadata::Picture;
-            if (pic) {
-              setPicture(*pictureIt, pic);
-              if (mdit->insert_block_after(pic)) {
-                pictureSet = true;
-              } else {
-                delete pic;
-              }
-            }
-            ++pictureIt;
-          }
-#endif
-          break;
         }
       }
-      delete mdit;
+#ifdef HAVE_FLAC_PICTURE
+      else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
+        if (pictureIt != m_pictures.end()) {
+          FLAC::Metadata::Prototype* proto = mdit.get_block();
+          if (proto) {
+            FLAC::Metadata::Picture* pic =
+              dynamic_cast<FLAC::Metadata::Picture*>(proto);
+            if (pic) {
+              setPicture(*pictureIt++, pic);
+              pictureSet = true;
+            }
+            delete proto;
+          }
+        } else {
+          mdit.delete_block(false);
+          pictureRemoved = true;
+        }
+      } else if (mdt == FLAC__METADATA_TYPE_PADDING) {
+        if (pictureIt != m_pictures.end()) {
+          FLAC::Metadata::Picture* pic = new FLAC::Metadata::Picture;
+          setPicture(*pictureIt, pic);
+          if (mdit.set_block(pic)) {
+            ++pictureIt;
+            pictureSet = true;
+          } else {
+            delete pic;
+          }
+        } else if (pictureRemoved) {
+          mdit.delete_block(false);
+        }
+      }
+#endif
+      if (!mdit.next()) {
+        if (!commentsSet) {
+          FLAC::Metadata::VorbisComment* vc = new FLAC::Metadata::VorbisComment;
+          if (vc->is_valid()) {
+            setVorbisComment(vc);
+            if (mdit.insert_block_after(vc)) {
+              commentsSet = true;
+            }
+          }
+          if (!commentsSet) {
+            delete vc;
+          }
+        }
+#ifdef HAVE_FLAC_PICTURE
+        while (pictureIt != m_pictures.end()) {
+          FLAC::Metadata::Picture* pic = new FLAC::Metadata::Picture;
+          setPicture(*pictureIt, pic);
+          if (mdit.insert_block_after(pic)) {
+            pictureSet = true;
+          } else {
+            delete pic;
+          }
+          ++pictureIt;
+        }
+#endif
+        break;
+      }
     }
 #ifdef HAVE_FLAC_PICTURE
     if ((commentsSet || pictureSet) &&

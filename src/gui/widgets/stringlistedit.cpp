@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Apr 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,38 +44,33 @@ StringListEdit::StringListEdit(QAbstractItemModel* model, QWidget* parent) :
   setObjectName("StringListEdit");
   QHBoxLayout* hlayout = new QHBoxLayout(this);
   m_stringListBox = new QListView(this);
-  if (hlayout && m_stringListBox) {
-    m_stringListBox->setModel(model);
-    hlayout->setSpacing(6);
-    hlayout->addWidget(m_stringListBox);
-    QVBoxLayout* vlayout = new QVBoxLayout;
-    m_addPushButton = new QPushButton(i18n("&Add..."), this);
-    m_moveUpPushButton = new QPushButton(i18n("Move &Up"), this);
-    m_moveDownPushButton = new QPushButton(i18n("Move &Down"), this);
-    m_editPushButton = new QPushButton(i18n("&Edit..."), this);
-    m_removePushButton = new QPushButton(i18n("&Remove"), this);
-    if (vlayout && m_addPushButton && m_moveUpPushButton &&
-        m_moveDownPushButton && m_editPushButton && m_removePushButton) {
-      vlayout->addWidget(m_addPushButton);
-      vlayout->addWidget(m_moveUpPushButton);
-      vlayout->addWidget(m_moveDownPushButton);
-      vlayout->addWidget(m_editPushButton);
-      vlayout->addWidget(m_removePushButton);
-      vlayout->addStretch();
+  m_stringListBox->setModel(model);
+  hlayout->setSpacing(6);
+  hlayout->addWidget(m_stringListBox);
+  QVBoxLayout* vlayout = new QVBoxLayout;
+  m_addPushButton = new QPushButton(i18n("&Add..."), this);
+  m_moveUpPushButton = new QPushButton(i18n("Move &Up"), this);
+  m_moveDownPushButton = new QPushButton(i18n("Move &Down"), this);
+  m_editPushButton = new QPushButton(i18n("&Edit..."), this);
+  m_removePushButton = new QPushButton(i18n("&Remove"), this);
+  vlayout->addWidget(m_addPushButton);
+  vlayout->addWidget(m_moveUpPushButton);
+  vlayout->addWidget(m_moveDownPushButton);
+  vlayout->addWidget(m_editPushButton);
+  vlayout->addWidget(m_removePushButton);
+  vlayout->addStretch();
 
-      connect(m_addPushButton, SIGNAL(clicked()), this, SLOT(addItem()));
-      connect(m_moveUpPushButton, SIGNAL(clicked()), this, SLOT(moveUpItem()));
-      connect(m_moveDownPushButton, SIGNAL(clicked()), this, SLOT(moveDownItem()));
-      connect(m_editPushButton, SIGNAL(clicked()), this, SLOT(editItem()));
-      connect(m_removePushButton, SIGNAL(clicked()), this, SLOT(removeItem()));
-      connect(m_stringListBox->selectionModel(),
-              SIGNAL(currentChanged(QModelIndex,QModelIndex)),
-              this, SLOT(setButtonEnableState()));
+  connect(m_addPushButton, SIGNAL(clicked()), this, SLOT(addItem()));
+  connect(m_moveUpPushButton, SIGNAL(clicked()), this, SLOT(moveUpItem()));
+  connect(m_moveDownPushButton, SIGNAL(clicked()), this, SLOT(moveDownItem()));
+  connect(m_editPushButton, SIGNAL(clicked()), this, SLOT(editItem()));
+  connect(m_removePushButton, SIGNAL(clicked()), this, SLOT(removeItem()));
+  connect(m_stringListBox->selectionModel(),
+          SIGNAL(currentChanged(QModelIndex,QModelIndex)),
+          this, SLOT(setButtonEnableState()));
 
-      setButtonEnableState();
-      hlayout->addLayout(vlayout);
-    }
-  }
+  setButtonEnableState();
+  hlayout->addLayout(vlayout);
 }
 
 /**

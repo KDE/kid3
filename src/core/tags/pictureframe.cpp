@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03 Mar 2008
  *
- * Copyright (C) 2008-2009  Urs Fleisch
+ * Copyright (C) 2008-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -439,14 +439,12 @@ bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
     if (file.open(QIODevice::ReadOnly)) {
       size_t size = file.size();
       char* data = new char[size];
-      if (data) {
-        QDataStream stream(&file);
-        stream.readRawData(data, size);
-        QByteArray ba;
-        ba = QByteArray(data, size);
-        result = setData(frame, ba);
-        delete [] data;
-      }
+      QDataStream stream(&file);
+      stream.readRawData(data, size);
+      QByteArray ba;
+      ba = QByteArray(data, size);
+      result = setData(frame, ba);
+      delete [] data;
       file.close();
     }
   }

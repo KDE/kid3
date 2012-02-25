@@ -324,13 +324,11 @@ void ImportDialog::displayServerImportDialog(ServerImporter* source)
     connect(m_serverImportDialog, SIGNAL(trackDataUpdated()),
             this, SLOT(showPreview()));
   }
-  if (m_serverImportDialog) {
-    m_serverImportDialog->setImportSource(source);
-    m_serverImportDialog->setArtistAlbum(
-          m_trackDataModel->trackData().getArtist(),
-          m_trackDataModel->trackData().getAlbum());
-    m_serverImportDialog->show();
-  }
+  m_serverImportDialog->setImportSource(source);
+  m_serverImportDialog->setArtistAlbum(
+        m_trackDataModel->trackData().getArtist(),
+        m_trackDataModel->trackData().getAlbum());
+  m_serverImportDialog->show();
 }
 
 /**
@@ -357,10 +355,8 @@ void ImportDialog::fromMusicBrainz()
     connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
             this, SLOT(showPreview()));
   }
-  if (m_musicBrainzDialog) {
-    m_musicBrainzDialog->initTable();
-    (void)m_musicBrainzDialog->exec();
-  }
+  m_musicBrainzDialog->initTable();
+  (void)m_musicBrainzDialog->exec();
 }
 #endif
 

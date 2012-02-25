@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 11-Jan-2009
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2009-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -76,97 +76,83 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  if (vlayout) {
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
+  vlayout->setMargin(6);
+  vlayout->setSpacing(6);
 
-    m_edit = new QTextEdit(this);
-    if (m_edit) {
-      m_edit->setReadOnly(true);
-      vlayout->addWidget(m_edit);
-    }
+  m_edit = new QTextEdit(this);
+  m_edit->setReadOnly(true);
+  vlayout->addWidget(m_edit);
 
-    QGroupBox* artistAlbumBox = new QGroupBox(i18n("&Artist/Album"), this);
-    if (artistAlbumBox) {
-      m_artistLineEdit = new QLineEdit(artistAlbumBox);
-      m_albumLineEdit = new QLineEdit(artistAlbumBox);
-      QHBoxLayout* hbox = new QHBoxLayout;
-      hbox->setMargin(2);
-      hbox->addWidget(m_artistLineEdit);
-      hbox->addWidget(m_albumLineEdit);
-      artistAlbumBox->setLayout(hbox);
-      vlayout->addWidget(artistAlbumBox);
-      connect(m_artistLineEdit, SIGNAL(returnPressed()),
-              this, SLOT(showPreview()));
-      connect(m_albumLineEdit, SIGNAL(returnPressed()),
-              this, SLOT(showPreview()));
-    }
+  QGroupBox* artistAlbumBox = new QGroupBox(i18n("&Artist/Album"), this);
+  m_artistLineEdit = new QLineEdit(artistAlbumBox);
+  m_albumLineEdit = new QLineEdit(artistAlbumBox);
+  QHBoxLayout* hbox = new QHBoxLayout;
+  hbox->setMargin(2);
+  hbox->addWidget(m_artistLineEdit);
+  hbox->addWidget(m_albumLineEdit);
+  artistAlbumBox->setLayout(hbox);
+  vlayout->addWidget(artistAlbumBox);
+  connect(m_artistLineEdit, SIGNAL(returnPressed()),
+          this, SLOT(showPreview()));
+  connect(m_albumLineEdit, SIGNAL(returnPressed()),
+          this, SLOT(showPreview()));
 
-    QGroupBox* srcbox = new QGroupBox(i18n("&Source"), this);
-    if (srcbox) {
-      m_formatListEdit = new FormatListEdit(
-            QStringList() << i18n("Source:")
-                          << i18n("URL:"),
-            QStringList() << QString()
-                          << getToolTip(),
-            srcbox);
+  QGroupBox* srcbox = new QGroupBox(i18n("&Source"), this);
+  m_formatListEdit = new FormatListEdit(
+        QStringList() << i18n("Source:")
+                      << i18n("URL:"),
+        QStringList() << QString()
+                      << getToolTip(),
+        srcbox);
 
-      QVBoxLayout* vbox = new QVBoxLayout;
-      vbox->setMargin(2);
-      vbox->addWidget(m_formatListEdit);
-      srcbox->setLayout(vbox);
-      vlayout->addWidget(srcbox);
-      connect(m_formatListEdit, SIGNAL(formatChanged()),
-              this, SLOT(showPreview()));
-    }
+  QVBoxLayout* vbox = new QVBoxLayout;
+  vbox->setMargin(2);
+  vbox->addWidget(m_formatListEdit);
+  srcbox->setLayout(vbox);
+  vlayout->addWidget(srcbox);
+  connect(m_formatListEdit, SIGNAL(formatChanged()),
+          this, SLOT(showPreview()));
 
-    QGroupBox* tabbox = new QGroupBox(i18n("&URL extraction"), this);
-    if (tabbox) {
-      m_matchUrlTable = new ConfigTable(tabbox);
-      m_matchUrlTableModel = new ConfigTableModel(tabbox);
-      m_matchUrlTableModel->setLabels(
-        QStringList() << i18n("Match") << i18n("Picture URL"));
-      m_matchUrlTable->setModel(m_matchUrlTableModel);
-      m_matchUrlTable->setHorizontalResizeModes(
-          m_matchUrlTableModel->getHorizontalResizeModes());
-      QVBoxLayout* tablayout = new QVBoxLayout;
-      tablayout->setMargin(2);
-      tablayout->addWidget(m_matchUrlTable);
-      tabbox->setLayout(tablayout);
-      vlayout->addWidget(tabbox);
-    }
-    QHBoxLayout* hlayout = new QHBoxLayout;
-    if (hlayout) {
-      hlayout->setSpacing(6);
-      QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-      if (helpButton) {
-        helpButton->setAutoDefault(false);
-        hlayout->addWidget(helpButton);
-        connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-      }
-      QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
-      if (saveButton) {
-        saveButton->setAutoDefault(false);
-        hlayout->addWidget(saveButton);
-        connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-      }
-      QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-                                             QSizePolicy::Minimum);
-      hlayout->addItem(hspacer);
+  QGroupBox* tabbox = new QGroupBox(i18n("&URL extraction"), this);
+  m_matchUrlTable = new ConfigTable(tabbox);
+  m_matchUrlTableModel = new ConfigTableModel(tabbox);
+  m_matchUrlTableModel->setLabels(
+    QStringList() << i18n("Match") << i18n("Picture URL"));
+  m_matchUrlTable->setModel(m_matchUrlTableModel);
+  m_matchUrlTable->setHorizontalResizeModes(
+      m_matchUrlTableModel->getHorizontalResizeModes());
+  QVBoxLayout* tablayout = new QVBoxLayout;
+  tablayout->setMargin(2);
+  tablayout->addWidget(m_matchUrlTable);
+  tabbox->setLayout(tablayout);
+  vlayout->addWidget(tabbox);
 
-      QPushButton* browseButton = new QPushButton(i18n("&Browse"), this);
-      QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-      if (browseButton && cancelButton) {
-        browseButton->setAutoDefault(false);
-        cancelButton->setAutoDefault(false);
-        hlayout->addWidget(browseButton);
-        hlayout->addWidget(cancelButton);
-        connect(browseButton, SIGNAL(clicked()), this, SLOT(accept()));
-        connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-      }
-      vlayout->addLayout(hlayout);
-    }
-  }
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  hlayout->setSpacing(6);
+  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  helpButton->setAutoDefault(false);
+  hlayout->addWidget(helpButton);
+  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+
+  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  saveButton->setAutoDefault(false);
+  hlayout->addWidget(saveButton);
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  hlayout->addItem(hspacer);
+
+  QPushButton* browseButton = new QPushButton(i18n("&Browse"), this);
+  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  browseButton->setAutoDefault(false);
+  cancelButton->setAutoDefault(false);
+  hlayout->addWidget(browseButton);
+  hlayout->addWidget(cancelButton);
+  connect(browseButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+
+  vlayout->addLayout(hlayout);
 }
 
 /**
@@ -274,10 +260,8 @@ void BrowseCoverArtDialog::accept()
   if (!m_process) {
     m_process = new ExternalProcess(this);
   }
-  if (m_process) {
-    m_process->launchCommand(
-      i18n("Browse Cover Art"),
-      QStringList() << ConfigStore::s_miscCfg.m_browser << m_url);
-  }
+  m_process->launchCommand(
+    i18n("Browse Cover Art"),
+    QStringList() << ConfigStore::s_miscCfg.m_browser << m_url);
   QDialog::accept();
 }

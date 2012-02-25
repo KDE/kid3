@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -576,34 +576,32 @@ QWidget* FrameItemDelegate::createEditor(
     bool id3v1 = ftModel && ftModel->isId3v1();
     if (type == Frame::FT_Genre) {
       QComboBox* cb = new QComboBox(parent);
-      if (cb) {
-        if (!id3v1) {
-          cb->setEditable(true);
-          cb->setAutoCompletion(true);
-          cb->setDuplicatesEnabled(false);
-        }
+      if (!id3v1) {
+        cb->setEditable(true);
+        cb->setAutoCompletion(true);
+        cb->setDuplicatesEnabled(false);
+      }
 
-        QStringList strList;
-        for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
-          strList += *sl;
-        }
-        if (ConfigStore::s_miscCfg.m_onlyCustomGenres) {
-          cb->addItem("");
-        } else {
-          cb->addItems(strList);
-        }
-        if (id3v1) {
-          for (QStringList::const_iterator it =
-                 ConfigStore::s_miscCfg.m_customGenres.begin();
-               it != ConfigStore::s_miscCfg.m_customGenres.end();
-               ++it) {
-            if (Genres::getNumber(*it) != 255) {
-              cb->addItem(*it);
-            }
+      QStringList strList;
+      for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
+        strList += *sl;
+      }
+      if (ConfigStore::s_miscCfg.m_onlyCustomGenres) {
+        cb->addItem("");
+      } else {
+        cb->addItems(strList);
+      }
+      if (id3v1) {
+        for (QStringList::const_iterator it =
+               ConfigStore::s_miscCfg.m_customGenres.begin();
+             it != ConfigStore::s_miscCfg.m_customGenres.end();
+             ++it) {
+          if (Genres::getNumber(*it) != 255) {
+            cb->addItem(*it);
           }
-        } else {
-          cb->addItems(ConfigStore::s_miscCfg.m_customGenres);
         }
+      } else {
+        cb->addItems(ConfigStore::s_miscCfg.m_customGenres);
       }
       return cb;
     } else if (id3v1 &&

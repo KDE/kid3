@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -226,13 +226,11 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QTextEdit(this);
-  if (layout && m_label && m_edit) {
-    layout->setMargin(0);
-    layout->setSpacing(2);
-    m_edit->setAcceptRichText(false);
-    layout->addWidget(m_label);
-    layout->addWidget(m_edit);
-  }
+  layout->setMargin(0);
+  layout->setSpacing(2);
+  m_edit->setAcceptRichText(false);
+  layout->addWidget(m_label);
+  layout->addWidget(m_edit);
 }
 
 /**
@@ -247,12 +245,10 @@ LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QLineEdit(this);
-  if (layout && m_label && m_edit) {
-    layout->setMargin(0);
-    layout->setSpacing(2);
-    layout->addWidget(m_label);
-    layout->addWidget(m_edit);
-  }
+  layout->setMargin(0);
+  layout->setSpacing(2);
+  layout->addWidget(m_label);
+  layout->addWidget(m_edit);
 }
 
 /**
@@ -268,17 +264,15 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_combo = new QComboBox(this);
-  if (layout && m_label && m_combo) {
-    layout->setMargin(0);
-    layout->setSpacing(2);
-    QStringList strList;
-    while (*strlst) {
-      strList += QCM_translate(*strlst++);
-    }
-    m_combo->addItems(strList);
-    layout->addWidget(m_label);
-    layout->addWidget(m_combo);
+  layout->setMargin(0);
+  layout->setSpacing(2);
+  QStringList strList;
+  while (*strlst) {
+    strList += QCM_translate(*strlst++);
   }
+  m_combo->addItems(strList);
+  layout->addWidget(m_label);
+  layout->addWidget(m_combo);
 }
 
 /**
@@ -530,21 +524,19 @@ BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
   QPushButton* openButton = new QPushButton(i18n("&Import"), this);
   QPushButton* saveButton = new QPushButton(i18n("&Export"), this);
   QPushButton* viewButton = new QPushButton(i18n("&View"), this);
-  if (layout && m_label && m_clipButton && openButton && saveButton && viewButton) {
-    layout->setMargin(0);
-    layout->setSpacing(6);
-    layout->addWidget(m_label);
-    layout->addWidget(m_clipButton);
-    layout->addWidget(openButton);
-    layout->addWidget(saveButton);
-    layout->addWidget(viewButton);
-    connect(m_clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
-    connect(openButton, SIGNAL(clicked()), this, SLOT(loadData()));
-    connect(saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
-    connect(viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
-    connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(setClipButtonState()));
-    setClipButtonState();
-  }
+  layout->setMargin(0);
+  layout->setSpacing(6);
+  layout->addWidget(m_label);
+  layout->addWidget(m_clipButton);
+  layout->addWidget(openButton);
+  layout->addWidget(saveButton);
+  layout->addWidget(viewButton);
+  connect(m_clipButton, SIGNAL(clicked()), this, SLOT(clipData()));
+  connect(openButton, SIGNAL(clicked()), this, SLOT(loadData()));
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveData()));
+  connect(viewButton, SIGNAL(clicked()), this, SLOT(viewData()));
+  connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(setClipButtonState()));
+  setClipButtonState();
 }
 
 /**
@@ -599,13 +591,11 @@ void BinaryOpenSave::loadData()
     if (file.open(QIODevice::ReadOnly)) {
       size_t size = file.size();
       char* data = new char[size];
-      if (data) {
-        QDataStream stream(&file);
-        stream.readRawData(data, size);
-        m_byteArray = QByteArray(data, size);
-        m_isChanged = true;
-        delete [] data;
-      }
+      QDataStream stream(&file);
+      stream.readRawData(data, size);
+      m_byteArray = QByteArray(data, size);
+      m_isChanged = true;
+      delete [] data;
       file.close();
     }
   }
@@ -735,10 +725,8 @@ void LineFieldControl::updateTag()
 QWidget* LineFieldControl::createWidget(QWidget* parent)
 {
   m_edit = new LabeledLineEdit(parent);
-  if (m_edit) {
-    m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-    m_edit->setText(m_field.m_value.toString());
-  }
+  m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_edit->setText(m_field.m_value.toString());
   return m_edit;
 }
 
@@ -759,10 +747,8 @@ void IntFieldControl::updateTag()
 QWidget* IntFieldControl::createWidget(QWidget* parent)
 {
   m_numInp = new LabeledSpinBox(parent);
-  if (m_numInp) {
-    m_numInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-    m_numInp->setValue(m_field.m_value.toInt());
-  }
+  m_numInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_numInp->setValue(m_field.m_value.toInt());
   return m_numInp;
 }
 
@@ -783,10 +769,8 @@ void IntComboBoxControl::updateTag()
 QWidget* IntComboBoxControl::createWidget(QWidget* parent)
 {
   m_ptInp = new LabeledComboBox(parent, m_strLst);
-  if (m_ptInp) {
-    m_ptInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-    m_ptInp->setCurrentItem(m_field.m_value.toInt());
-  }
+  m_ptInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_ptInp->setCurrentItem(m_field.m_value.toInt());
   return m_ptInp;
 }
 
@@ -809,14 +793,12 @@ void BinFieldControl::updateTag()
 QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
   m_bos = new BinaryOpenSave(parent, m_field);
-  if (m_bos) {
-    m_bos->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
-    if (m_taggedFile) {
-      m_bos->setDefaultDir(m_taggedFile->getDirname());
-    }
-    if (m_frame.getType() == Frame::FT_Picture) {
-      m_bos->setDefaultFile("folder.jpg");
-    }
+  m_bos->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  if (m_taggedFile) {
+    m_bos->setDefaultDir(m_taggedFile->getDirname());
+  }
+  if (m_frame.getType() == Frame::FT_Picture) {
+    m_bos->setDefaultFile("folder.jpg");
   }
   return m_bos;
 }
@@ -856,153 +838,126 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
   qDeleteAll(m_fieldcontrols);
   m_fieldcontrols.clear();
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  if (vlayout) {
-    vlayout->setSpacing(6);
-    vlayout->setMargin(6);
+  vlayout->setSpacing(6);
+  vlayout->setMargin(6);
 
-    for (Frame::FieldList::iterator fldIt = m_fields.begin();
-         fldIt != m_fields.end();
-         ++fldIt) {
-      Frame::Field& fld = *fldIt;
-      switch (fld.m_value.type()) {
-        case QVariant::Int:
-        case QVariant::UInt:
-          if (fld.m_id == Frame::Field::ID_TextEnc) {
-            static const char* strlst[] = {
-              I18N_NOOP("ISO-8859-1"),
-              I18N_NOOP("UTF16"),
-              I18N_NOOP("UTF16BE"),
-              I18N_NOOP("UTF8"),
-              NULL
-            };
-            IntComboBoxControl* cbox =
-              new IntComboBoxControl(fld, strlst);
-            if (cbox) {
-              m_fieldcontrols.append(cbox);
-            }
-          }
-          else if (fld.m_id == Frame::Field::ID_PictureType) {
-            static const char* strlst[] = {
-              I18N_NOOP("Other"),
-              I18N_NOOP("32x32 pixels PNG file icon"),
-              I18N_NOOP("Other file icon"),
-              I18N_NOOP("Cover (front)"),
-              I18N_NOOP("Cover (back)"),
-              I18N_NOOP("Leaflet page"),
-              I18N_NOOP("Media"),
-              I18N_NOOP("Lead artist/lead performer/soloist"),
-              I18N_NOOP("Artist/performer"),
-              I18N_NOOP("Conductor"),
-              I18N_NOOP("Band/Orchestra"),
-              I18N_NOOP("Composer"),
-              I18N_NOOP("Lyricist/text writer"),
-              I18N_NOOP("Recording Location"),
-              I18N_NOOP("During recording"),
-              I18N_NOOP("During performance"),
-              I18N_NOOP("Movie/video screen capture"),
-              I18N_NOOP("A bright coloured fish"),
-              I18N_NOOP("Illustration"),
-              I18N_NOOP("Band/artist logotype"),
-              I18N_NOOP("Publisher/Studio logotype"),
-              NULL
-            };
-            IntComboBoxControl* cbox =
-              new IntComboBoxControl(fld, strlst);
-            if (cbox) {
-              m_fieldcontrols.append(cbox);
-            }
-          }
-          else if (fld.m_id == Frame::Field::ID_TimestampFormat) {
-            static const char* strlst[] = {
-              I18N_NOOP("Other"),
-              I18N_NOOP("MPEG frames as unit"),
-              I18N_NOOP("Milliseconds as unit"),
-              NULL
-            };
-            IntComboBoxControl* cbox =
-              new IntComboBoxControl(fld, strlst);
-            if (cbox) {
-              m_fieldcontrols.append(cbox);
-            }
-          }
-          else if (fld.m_id == Frame::Field::ID_ContentType) {
-            static const char* strlst[] = {
-              I18N_NOOP("Other"),
-              I18N_NOOP("Lyrics"),
-              I18N_NOOP("Text transcription"),
-              I18N_NOOP("Movement/part name"),
-              I18N_NOOP("Events"),
-              I18N_NOOP("Chord"),
-              I18N_NOOP("Trivia/pop up"),
-              NULL
-            };
-            IntComboBoxControl* cbox =
-              new IntComboBoxControl(fld, strlst);
-            if (cbox) {
-              m_fieldcontrols.append(cbox);
-            }
-          }
-          else {
-            IntFieldControl* intctl =
-              new IntFieldControl(fld);
-            if (intctl) {
-              m_fieldcontrols.append(intctl);
-            }
-          }
-          break;
-
-        case QVariant::String:
-          if (fld.m_id == Frame::Field::ID_Text) {
-            // Large textedit for text fields
-            TextFieldControl* textctl =
-              new TextFieldControl(fld);
-            if (textctl) {
-              m_fieldcontrols.append(textctl);
-            }
-          }
-          else {
-            LineFieldControl* textctl =
-              new LineFieldControl(fld);
-            if (textctl) {
-              m_fieldcontrols.append(textctl);
-            }
-          }
-          break;
-
-        case QVariant::ByteArray:
-        {
-          BinFieldControl* binctl =
-            new BinFieldControl(fld, frame, taggedFile);
-          if (binctl) {
-            m_fieldcontrols.append(binctl);
-          }
-          break;
+  for (Frame::FieldList::iterator fldIt = m_fields.begin();
+       fldIt != m_fields.end();
+       ++fldIt) {
+    Frame::Field& fld = *fldIt;
+    switch (fld.m_value.type()) {
+      case QVariant::Int:
+      case QVariant::UInt:
+        if (fld.m_id == Frame::Field::ID_TextEnc) {
+          static const char* strlst[] = {
+            I18N_NOOP("ISO-8859-1"),
+            I18N_NOOP("UTF16"),
+            I18N_NOOP("UTF16BE"),
+            I18N_NOOP("UTF8"),
+            NULL
+          };
+          IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
+          m_fieldcontrols.append(cbox);
         }
+        else if (fld.m_id == Frame::Field::ID_PictureType) {
+          static const char* strlst[] = {
+            I18N_NOOP("Other"),
+            I18N_NOOP("32x32 pixels PNG file icon"),
+            I18N_NOOP("Other file icon"),
+            I18N_NOOP("Cover (front)"),
+            I18N_NOOP("Cover (back)"),
+            I18N_NOOP("Leaflet page"),
+            I18N_NOOP("Media"),
+            I18N_NOOP("Lead artist/lead performer/soloist"),
+            I18N_NOOP("Artist/performer"),
+            I18N_NOOP("Conductor"),
+            I18N_NOOP("Band/Orchestra"),
+            I18N_NOOP("Composer"),
+            I18N_NOOP("Lyricist/text writer"),
+            I18N_NOOP("Recording Location"),
+            I18N_NOOP("During recording"),
+            I18N_NOOP("During performance"),
+            I18N_NOOP("Movie/video screen capture"),
+            I18N_NOOP("A bright coloured fish"),
+            I18N_NOOP("Illustration"),
+            I18N_NOOP("Band/artist logotype"),
+            I18N_NOOP("Publisher/Studio logotype"),
+            NULL
+          };
+          IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
+          m_fieldcontrols.append(cbox);
+        }
+        else if (fld.m_id == Frame::Field::ID_TimestampFormat) {
+          static const char* strlst[] = {
+            I18N_NOOP("Other"),
+            I18N_NOOP("MPEG frames as unit"),
+            I18N_NOOP("Milliseconds as unit"),
+            NULL
+          };
+          IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
+          m_fieldcontrols.append(cbox);
+        }
+        else if (fld.m_id == Frame::Field::ID_ContentType) {
+          static const char* strlst[] = {
+            I18N_NOOP("Other"),
+            I18N_NOOP("Lyrics"),
+            I18N_NOOP("Text transcription"),
+            I18N_NOOP("Movement/part name"),
+            I18N_NOOP("Events"),
+            I18N_NOOP("Chord"),
+            I18N_NOOP("Trivia/pop up"),
+            NULL
+          };
+          IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
+          m_fieldcontrols.append(cbox);
+        }
+        else {
+          IntFieldControl* intctl = new IntFieldControl(fld);
+          m_fieldcontrols.append(intctl);
+        }
+        break;
 
-        default:
-          qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
+      case QVariant::String:
+        if (fld.m_id == Frame::Field::ID_Text) {
+          // Large textedit for text fields
+          TextFieldControl* textctl = new TextFieldControl(fld);
+          m_fieldcontrols.append(textctl);
+        }
+        else {
+          LineFieldControl* textctl = new LineFieldControl(fld);
+          m_fieldcontrols.append(textctl);
+        }
+        break;
+
+      case QVariant::ByteArray:
+      {
+        BinFieldControl* binctl = new BinFieldControl(fld, frame, taggedFile);
+        m_fieldcontrols.append(binctl);
+        break;
       }
-    }
 
-    QListIterator<FieldControl*> it(m_fieldcontrols);
-    while (it.hasNext()) {
-      vlayout->addWidget(it.next()->createWidget(this));
+      default:
+        qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
     }
   }
+
+  QListIterator<FieldControl*> it(m_fieldcontrols);
+  while (it.hasNext()) {
+    vlayout->addWidget(it.next()->createWidget(this));
+  }
+
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
              QSizePolicy::Minimum);
   QPushButton* okButton = new QPushButton(i18n("&OK"), this);
   QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-  if (hlayout && okButton && cancelButton) {
-    hlayout->addItem(hspacer);
-    hlayout->addWidget(okButton);
-    hlayout->addWidget(cancelButton);
-    okButton->setDefault(true);
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-    vlayout->addLayout(hlayout);
-  }
+  hlayout->addItem(hspacer);
+  hlayout->addWidget(okButton);
+  hlayout->addWidget(cancelButton);
+  okButton->setDefault(true);
+  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  vlayout->addLayout(hlayout);
   setMinimumWidth(525);
 }
 

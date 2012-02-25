@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2010  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -68,16 +68,14 @@ int main(int argc, char* argv[])
   }
   else {
     Kid3MainWindow* kid3 = new Kid3MainWindow;
-    if (kid3) {
-      kid3->show();
+    kid3->show();
 
-      KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+    KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
-      if (args->count()) {
-        kid3->confirmedOpenDirectory(args->arg(0));
-      }
-      args->clear();
+    if (args->count()) {
+      kid3->confirmedOpenDirectory(args->arg(0));
     }
+    args->clear();
   }
 
   return app.exec();
@@ -139,11 +137,9 @@ int main(int argc, char* argv[])
 #endif
 
   Kid3MainWindow* kid3 = new Kid3MainWindow;
-  if (kid3) {
-    kid3->show();
-    if (argc > 1) {
-      kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));
-    }
+  kid3->show();
+  if (argc > 1) {
+    kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));
   }
   return app.exec();
 }

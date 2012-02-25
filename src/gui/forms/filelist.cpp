@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2011  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -287,9 +287,8 @@ void FileList::executeContextCommand(int id)
     if (!m_process) {
       m_process = new ExternalProcess(this);
     }
-    if (m_process) {
-      m_process->launchCommand(menuCmd.getName(), args, menuCmd.mustBeConfirmed(), menuCmd.outputShown());
-    }
+    m_process->launchCommand(menuCmd.getName(), args, menuCmd.mustBeConfirmed(),
+                             menuCmd.outputShown());
   }
 }
 

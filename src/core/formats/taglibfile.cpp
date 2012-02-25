@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Sep 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1137,9 +1137,6 @@ bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String
         } else {
           frame = new TagLib::ID3v2::CommentsFrame(enc);
         }
-        if (!frame) {
-          return false;
-        }
         frame->setText(tstr);
 #ifdef WIN32
         // freed in Windows DLL => must be allocated in the same DLL
@@ -1278,28 +1275,25 @@ void TagLibFile::setTrackV2(const QString& track)
     if (num != static_cast<int>(m_tagV2->track())) {
       TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
       if (id3v2Tag) {
-        TagLib::ID3v2::TextIdentificationFrame* frame;
         TagLib::String tstr = str.isEmpty() ?
           TagLib::String::null : QSTRING_TO_TSTRING(str);
         if (!setId3v2Unicode(m_tagV2, str, tstr, "TRCK")) {
-          if ((frame = new TagLib::ID3v2::TextIdentificationFrame(
-                 "TRCK", getDefaultTextEncoding())) != 0) {
-            frame->setText(tstr);
-            id3v2Tag->removeFrames("TRCK");
+          TagLib::ID3v2::TextIdentificationFrame* frame =
+              new TagLib::ID3v2::TextIdentificationFrame(
+                "TRCK", getDefaultTextEncoding());
+          frame->setText(tstr);
+          id3v2Tag->removeFrames("TRCK");
 #ifdef WIN32
-            // freed in Windows DLL => must be allocated in the same DLL
-            TagLib::ID3v2::Frame* dllAllocatedFrame =
-              TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
-            if (dllAllocatedFrame) {
-              id3v2Tag->addFrame(dllAllocatedFrame);
-            }
-            delete frame;
-#else
-            id3v2Tag->addFrame(frame);
-#endif
-          } else {
-            m_tagV2->setTrack(num);
+          // freed in Windows DLL => must be allocated in the same DLL
+          TagLib::ID3v2::Frame* dllAllocatedFrame =
+            TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
+          if (dllAllocatedFrame) {
+            id3v2Tag->addFrame(dllAllocatedFrame);
           }
+          delete frame;
+#else
+          id3v2Tag->addFrame(frame);
+#endif
         }
       } else {
         m_tagV2->setTrack(num);
@@ -3760,22 +3754,18 @@ bool TagLibFile::addFrameV2(Frame& frame)
         id3Frame = new TagLib::ID3v2::CommentsFrame(enc);
       } else if (frameId == "APIC") {
         id3Frame = new TagLib::ID3v2::AttachedPictureFrame;
-        if (id3Frame) {
-          ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setTextEncoding(enc);
-          ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setMimeType(
-            "image/jpeg");
-          ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setType(
-            TagLib::ID3v2::AttachedPictureFrame::FrontCover);
-        }
+        ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setTextEncoding(enc);
+        ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setMimeType(
+          "image/jpeg");
+        ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setType(
+          TagLib::ID3v2::AttachedPictureFrame::FrontCover);
       } else if (frameId == "UFID") {
         // the bytevector must not be empty
         id3Frame = new TagLib::ID3v2::UniqueFileIdentifierFrame(
           TagLib::String(), TagLib::ByteVector(" "));
       } else if (frameId == "GEOB") {
         id3Frame = new TagLib::ID3v2::GeneralEncapsulatedObjectFrame;
-        if (id3Frame) {
-          ((TagLib::ID3v2::GeneralEncapsulatedObjectFrame*)id3Frame)->setTextEncoding(enc);
-        }
+        ((TagLib::ID3v2::GeneralEncapsulatedObjectFrame*)id3Frame)->setTextEncoding(enc);
       } else if (frameId.startsWith("W")) {
         if (frameId == "WXXX") {
           id3Frame = new TagLib::ID3v2::UserUrlLinkFrame(enc);
@@ -3786,9 +3776,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         }
       } else if (frameId == "USLT") {
         id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
-        if (id3Frame) {
-          ((TagLib::ID3v2::UnsynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
-        }
+        ((TagLib::ID3v2::UnsynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
       }
       if (!id3Frame) {
         TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =

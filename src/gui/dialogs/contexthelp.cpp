@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Jul 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,15 +57,12 @@ void ContextHelp::displayHelp(const QString& anchor)
 {
   if (!s_helpBrowser) {
     QString caption(QCM_translate(I18N_NOOP("Kid3 Handbook")));
-    s_helpBrowser =
-      new BrowserDialog(0, caption);
+    s_helpBrowser = new BrowserDialog(0, caption);
   }
-  if (s_helpBrowser) {
-    s_helpBrowser->goToAnchor(anchor);
-    s_helpBrowser->setModal(!anchor.isEmpty());
-    if (s_helpBrowser->isHidden()) {
-      s_helpBrowser->show();
-    }
+  s_helpBrowser->goToAnchor(anchor);
+  s_helpBrowser->setModal(!anchor.isEmpty());
+  if (s_helpBrowser->isHidden()) {
+    s_helpBrowser->show();
   }
 }
 #endif

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,9 +46,6 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
   setModal(true);
   setWindowTitle(i18n("View Picture"));
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  if (!vlayout) {
-    return ;
-  }
   vlayout->setSpacing(6);
   vlayout->setMargin(6);
   QHBoxLayout* hlayout = new QHBoxLayout;
@@ -56,23 +53,21 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
                                          QSizePolicy::Minimum);
   m_image = new QLabel(this);
   QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-  if (hlayout && m_image && closeButton) {
-    m_image->setScaledContents(true);
-    QSize imageSize(img.size());
-    QSize desktopSize(QApplication::desktop()->availableGeometry().size());
-    desktopSize -= QSize(12, 12);
-    if (imageSize.width() > desktopSize.width() ||
-        imageSize.height() > desktopSize.height()) {
-      m_image->setPixmap(QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio)));
-    } else {
-      m_image->setPixmap(QPixmap::fromImage(img));
-    }
-    vlayout->addWidget(m_image);
-    hlayout->addItem(hspacer);
-    hlayout->addWidget(closeButton);
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-    vlayout->addLayout(hlayout);
+  m_image->setScaledContents(true);
+  QSize imageSize(img.size());
+  QSize desktopSize(QApplication::desktop()->availableGeometry().size());
+  desktopSize -= QSize(12, 12);
+  if (imageSize.width() > desktopSize.width() ||
+      imageSize.height() > desktopSize.height()) {
+    m_image->setPixmap(QPixmap::fromImage(img.scaled(desktopSize, Qt::KeepAspectRatio)));
+  } else {
+    m_image->setPixmap(QPixmap::fromImage(img));
   }
+  vlayout->addWidget(m_image);
+  hlayout->addItem(hspacer);
+  hlayout->addWidget(closeButton);
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  vlayout->addLayout(hlayout);
 }
 
 

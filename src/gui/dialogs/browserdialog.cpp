@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2009  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,9 +51,6 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   setObjectName("BrowserDialog");
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  if (!vlayout) {
-    return ;
-  }
   vlayout->setSpacing(6);
   vlayout->setMargin(6);
 

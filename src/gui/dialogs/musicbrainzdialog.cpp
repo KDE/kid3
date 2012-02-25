@@ -63,36 +63,32 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   setWindowTitle(i18n("MusicBrainz Fingerprint"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  if (!vlayout) {
-    return;
-  }
   vlayout->setMargin(6);
   vlayout->setSpacing(6);
   QHBoxLayout* serverLayout = new QHBoxLayout;
   QLabel* serverLabel = new QLabel(i18n("&Server:"), this);
   m_serverComboBox = new QComboBox(this);
-  if (serverLayout && serverLabel && m_serverComboBox) {
-    m_serverComboBox->setEditable(true);
-    static const char* serverList[] = {
-      "musicbrainz.org:80",
-      "de.musicbrainz.org:80",
-      "nl.musicbrainz.org:80",
-      0                  // end of StrList
-    };
-    QStringList strList;
-    for (const char** sl = serverList; *sl != 0; ++sl) {
-      strList += *sl;
-    }
-    m_serverComboBox->addItems(strList);
-    m_serverComboBox->setSizePolicy(
-      QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-    serverLabel->setBuddy(m_serverComboBox);
-    serverLayout->addWidget(serverLabel);
-    serverLayout->addWidget(m_serverComboBox);
-    connect(m_serverComboBox, SIGNAL(activated(int)),
-            this, SLOT(setClientConfig()));
-    vlayout->addLayout(serverLayout);
+  m_serverComboBox->setEditable(true);
+  static const char* serverList[] = {
+    "musicbrainz.org:80",
+    "de.musicbrainz.org:80",
+    "nl.musicbrainz.org:80",
+    0                  // end of StrList
+  };
+  QStringList strList;
+  for (const char** sl = serverList; *sl != 0; ++sl) {
+    strList += *sl;
   }
+  m_serverComboBox->addItems(strList);
+  m_serverComboBox->setSizePolicy(
+    QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  serverLabel->setBuddy(m_serverComboBox);
+  serverLayout->addWidget(serverLabel);
+  serverLayout->addWidget(m_serverComboBox);
+  connect(m_serverComboBox, SIGNAL(activated(int)),
+          this, SLOT(setClientConfig()));
+  vlayout->addLayout(serverLayout);
+
 
   m_albumTableModel = new QStandardItemModel(this);
   m_albumTableModel->setColumnCount(2);
@@ -122,36 +118,29 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   QPushButton* okButton = new QPushButton(i18n("&OK"), this);
   QPushButton* applyButton = new QPushButton(i18n("&Apply"), this);
   QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
-  if (hlayout && helpButton && saveButton &&
-      okButton && cancelButton && applyButton) {
-    hlayout->addWidget(helpButton);
-    hlayout->addWidget(saveButton);
-    hlayout->addItem(hspacer);
-    hlayout->addWidget(okButton);
-    hlayout->addWidget(applyButton);
-    hlayout->addWidget(cancelButton);
-    // auto default is switched off to use the return key to set the server
-    // configuration
-    okButton->setAutoDefault(false);
-    cancelButton->setAutoDefault(false);
-    applyButton->setAutoDefault(false);
-    connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-    connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-    connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
-    vlayout->addLayout(hlayout);
-  }
+  hlayout->addWidget(helpButton);
+  hlayout->addWidget(saveButton);
+  hlayout->addItem(hspacer);
+  hlayout->addWidget(okButton);
+  hlayout->addWidget(applyButton);
+  hlayout->addWidget(cancelButton);
+  // auto default is switched off to use the return key to set the server
+  // configuration
+  okButton->setAutoDefault(false);
+  cancelButton->setAutoDefault(false);
+  applyButton->setAutoDefault(false);
+  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
+  vlayout->addLayout(hlayout);
 
   m_statusBar = new QStatusBar(this);
-  if (m_statusBar) {
-    vlayout->addWidget(m_statusBar);
-    if (m_albumTable) {
-      connect(m_albumTable->selectionModel(),
-              SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),
-              this, SLOT(showFilenameInStatusBar(QModelIndex)));
-    }
-  }
+  vlayout->addWidget(m_statusBar);
+  connect(m_albumTable->selectionModel(),
+          SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),
+          this, SLOT(showFilenameInStatusBar(QModelIndex)));
 }
 
 /**

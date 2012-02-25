@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Feb 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,25 +46,21 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   setModal(false);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   m_textEdit = new QTextEdit(this);
-  if (vlayout && m_textEdit) {
-    vlayout->setSpacing(6);
-    vlayout->setMargin(6);
-    m_textEdit->setReadOnly(true);
-    vlayout->addWidget(m_textEdit);
-    QHBoxLayout* buttonLayout = new QHBoxLayout;
-    QPushButton* clearButton = new QPushButton(i18n("C&lear"), this);
-    QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-                                           QSizePolicy::Minimum);
-    QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-    if (buttonLayout && clearButton && hspacer && closeButton) {
-      buttonLayout->addWidget(clearButton);
-      buttonLayout->addItem(hspacer);
-      buttonLayout->addWidget(closeButton);
-      connect(clearButton, SIGNAL(clicked()), m_textEdit, SLOT(clear()));
-      connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-      vlayout->addLayout(buttonLayout);
-    }
-  }
+  vlayout->setSpacing(6);
+  vlayout->setMargin(6);
+  m_textEdit->setReadOnly(true);
+  vlayout->addWidget(m_textEdit);
+  QHBoxLayout* buttonLayout = new QHBoxLayout;
+  QPushButton* clearButton = new QPushButton(i18n("C&lear"), this);
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  buttonLayout->addWidget(clearButton);
+  buttonLayout->addItem(hspacer);
+  buttonLayout->addWidget(closeButton);
+  connect(clearButton, SIGNAL(clicked()), m_textEdit, SLOT(clear()));
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+  vlayout->addLayout(buttonLayout);
   resize(586, 424);
 }
 
@@ -124,41 +120,37 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
   if (!m_process) {
     m_process = new QProcess(m_parent);
   }
-  if (m_process) {
-    if (m_process->state() != QProcess::NotRunning) {
-      m_process = new QProcess(m_parent);
-    }
+  if (m_process->state() != QProcess::NotRunning) {
+    m_process = new QProcess(m_parent);
+  }
 
-    if (showOutput) {
-      if (!m_outputViewer) {
-        m_outputViewer = new OutputViewer(0);
-      }
-      if (m_outputViewer) {
-        connect(m_process, SIGNAL(readyReadStandardOutput()),
-                this, SLOT(readFromStdout()));
-        connect(m_process, SIGNAL(readyReadStandardError()),
-                this, SLOT(readFromStderr()));
-        m_outputViewer->setWindowTitle(name);
-        m_outputViewer->show();
-        m_outputViewer->raise();
-        m_outputViewer->scrollToBottom();
-      }
-    } else {
-      disconnect(m_process, SIGNAL(readyReadStandardOutput()),
-                 this, SLOT(readFromStdout()));
-      disconnect(m_process, SIGNAL(readyReadStandardError()),
-                 this, SLOT(readFromStderr()));
+  if (showOutput) {
+    if (!m_outputViewer) {
+      m_outputViewer = new OutputViewer(0);
     }
+    connect(m_process, SIGNAL(readyReadStandardOutput()),
+            this, SLOT(readFromStdout()));
+    connect(m_process, SIGNAL(readyReadStandardError()),
+            this, SLOT(readFromStderr()));
+    m_outputViewer->setWindowTitle(name);
+    m_outputViewer->show();
+    m_outputViewer->raise();
+    m_outputViewer->scrollToBottom();
+  } else {
+    disconnect(m_process, SIGNAL(readyReadStandardOutput()),
+               this, SLOT(readFromStdout()));
+    disconnect(m_process, SIGNAL(readyReadStandardError()),
+               this, SLOT(readFromStderr()));
+  }
 
-    QStringList arguments = args;
-    QString program = arguments.takeFirst();
-    m_process->start(program, arguments);
-    if (!m_process->waitForStarted(10000)) {
-      QMessageBox::warning(
-        m_parent, name,
-        i18n("Could not execute ") + args.join(" "),
-        QMessageBox::Ok, Qt::NoButton);
-    }
+  QStringList arguments = args;
+  QString program = arguments.takeFirst();
+  m_process->start(program, arguments);
+  if (!m_process->waitForStarted(10000)) {
+    QMessageBox::warning(
+      m_parent, name,
+      i18n("Could not execute ") + args.join(" "),
+      QMessageBox::Ok, Qt::NoButton);
   }
 }
 

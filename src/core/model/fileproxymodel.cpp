@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22-Mar-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -459,21 +459,20 @@ void FileProxyModel::releaseTaggedFileOfIndex(const QModelIndex& index) {
 TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (TagLibFile* tagLibFile = new TagLibFile(
-        taggedFile->getDirname(), taggedFile->getFilename(), index)) {
-    if (index.isValid()) {
-      QVariant data;
-      data.setValue(static_cast<TaggedFile*>(tagLibFile));
-      // setData() will not invalidate the model, so this should be safe.
-      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
-          index.model());
-      if (setDataModel) {
-        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
-      }
+  TagLibFile* tagLibFile = new TagLibFile(
+        taggedFile->getDirname(), taggedFile->getFilename(), index);
+  if (index.isValid()) {
+    QVariant data;
+    data.setValue(static_cast<TaggedFile*>(tagLibFile));
+    // setData() will not invalidate the model, so this should be safe.
+    QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+        index.model());
+    if (setDataModel) {
+      setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
     }
-    taggedFile = tagLibFile;
-    taggedFile->readTags(false);
   }
+  taggedFile = tagLibFile;
+  taggedFile->readTags(false);
   return taggedFile;
 }
 
@@ -487,21 +486,20 @@ TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
 TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (Mp3File* id3libFile = new Mp3File(
-        taggedFile->getDirname(), taggedFile->getFilename(), index)) {
-    if (index.isValid()) {
-      QVariant data;
-      data.setValue(static_cast<TaggedFile*>(id3libFile));
-      // setData() will not invalidate the model, so this should be safe.
-      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
-          index.model());
-      if (setDataModel) {
-        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
-      }
+  Mp3File* id3libFile = new Mp3File(
+        taggedFile->getDirname(), taggedFile->getFilename(), index);
+  if (index.isValid()) {
+    QVariant data;
+    data.setValue(static_cast<TaggedFile*>(id3libFile));
+    // setData() will not invalidate the model, so this should be safe.
+    QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+        index.model());
+    if (setDataModel) {
+      setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
     }
-    taggedFile = id3libFile;
-    taggedFile->readTags(false);
   }
+  taggedFile = id3libFile;
+  taggedFile->readTags(false);
   return taggedFile;
 }
 

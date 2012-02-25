@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,30 +44,26 @@ EditFrameDialog::EditFrameDialog(QWidget* parent, const QString& caption,
   setModal(true);
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  if (vlayout) {
-    vlayout->setSpacing(6);
-    vlayout->setMargin(6);
-    m_edit = new QTextEdit(this);
-    if (m_edit) {
-      m_edit->setPlainText(text);
-      m_edit->moveCursor(QTextCursor::End);
-      vlayout->addWidget(m_edit);
-    }
-  }
+  vlayout->setSpacing(6);
+  vlayout->setMargin(6);
+  m_edit = new QTextEdit(this);
+  m_edit->setPlainText(text);
+  m_edit->moveCursor(QTextCursor::End);
+  vlayout->addWidget(m_edit);
+
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
              QSizePolicy::Minimum);
   m_okButton = new QPushButton(i18n("&OK"), this);
   m_cancelButton = new QPushButton(i18n("&Cancel"), this);
-  if (hlayout && m_okButton && m_cancelButton) {
-    hlayout->addItem(hspacer);
-    hlayout->addWidget(m_okButton);
-    hlayout->addWidget(m_cancelButton);
-    m_okButton->setDefault(true);
-    connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-    vlayout->addLayout(hlayout);
-  }
+  hlayout->addItem(hspacer);
+  hlayout->addWidget(m_okButton);
+  hlayout->addWidget(m_cancelButton);
+  m_okButton->setDefault(true);
+  connect(m_okButton, SIGNAL(clicked()), this, SLOT(accept()));
+  connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  vlayout->addLayout(hlayout);
+
   setMinimumWidth(400);
 }
 

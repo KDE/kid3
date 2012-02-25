@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2011  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -106,10 +106,8 @@ void Mp3File::readTags(bool force)
   }
   if (!m_tagV1) {
     m_tagV1 = new ID3_Tag;
-    if (m_tagV1) {
-      m_tagV1->Link(fn, ID3TT_ID3V1);
-      markTag1Unchanged();
-    }
+    m_tagV1->Link(fn, ID3TT_ID3V1);
+    markTag1Unchanged();
   }
 
   if (force && m_tagV2) {
@@ -119,10 +117,8 @@ void Mp3File::readTags(bool force)
   }
   if (!m_tagV2) {
     m_tagV2 = new ID3_Tag;
-    if (m_tagV2) {
-      m_tagV2->Link(fn, ID3TT_ID3V2);
-      markTag2Unchanged();
-    }
+    m_tagV2->Link(fn, ID3TT_ID3V2);
+    markTag2Unchanged();
   }
 
   if (force) {
@@ -245,28 +241,25 @@ static QString fixUpUnicode(const unicode_t* str, size_t numChars)
   QString text;
   if (numChars > 0 && str && *str) {
     QChar* qcarray = new QChar[numChars];
-    if (qcarray) {
-      // Unfortunately, Unicode support in id3lib is rather buggy
-      // in the current version: The codes are mirrored.
-      // In the hope that my patches will be included, I try here
-      // to work around these bugs.
-      size_t i;
-      size_t numZeroes = 0;
-      for (i = 0; i < numChars; i++) {
-        qcarray[i] =
-          UNICODE_SUPPORT_BUGGY ?
-          (ushort)(((str[i] & 0x00ff) << 8) |
-                   ((str[i] & 0xff00) >> 8)) :
-          (ushort)str[i];
-        if (qcarray[i].isNull()) { ++numZeroes; }
-      }
-      // remove a single trailing zero character
-      if (numZeroes == 1 && qcarray[numChars - 1].isNull()) {
-        --numChars;
-      }
-      text = QString(qcarray, numChars);
-      delete [] qcarray;
+    // Unfortunately, Unicode support in id3lib is rather buggy
+    // in the current version: The codes are mirrored.
+    // In the hope that my patches will be included, I try here
+    // to work around these bugs.
+    size_t numZeroes = 0;
+    for (size_t i = 0; i < numChars; i++) {
+      qcarray[i] =
+        UNICODE_SUPPORT_BUGGY ?
+        (ushort)(((str[i] & 0x00ff) << 8) |
+                 ((str[i] & 0xff00) >> 8)) :
+        (ushort)str[i];
+      if (qcarray[i].isNull()) { ++numZeroes; }
     }
+    // remove a single trailing zero character
+    if (numZeroes == 1 && qcarray[numChars - 1].isNull()) {
+      --numChars;
+    }
+    text = QString(qcarray, numChars);
+    delete [] qcarray;
   }
   return text;
 }
@@ -436,17 +429,14 @@ static unicode_t* newFixedUpUnicode(const QString& text)
   const QChar* qcarray = text.unicode();
   uint unicode_size = text.length();
   unicode_t* unicode = new unicode_t[unicode_size + 1];
-  if (unicode) {
-    uint i;
-    for (i = 0; i < unicode_size; i++) {
-      unicode[i] = (ushort)qcarray[i].unicode();
-      if (UNICODE_SUPPORT_BUGGY) {
-        unicode[i] = (ushort)(((unicode[i] & 0x00ff) << 8) |
-                              ((unicode[i] & 0xff00) >> 8));
-      }
+  for (uint i = 0; i < unicode_size; i++) {
+    unicode[i] = (ushort)qcarray[i].unicode();
+    if (UNICODE_SUPPORT_BUGGY) {
+      unicode[i] = (ushort)(((unicode[i] & 0x00ff) << 8) |
+                            ((unicode[i] & 0xff00) >> 8));
     }
-    unicode[unicode_size] = 0;
   }
+  unicode[unicode_size] = 0;
   return unicode;
 }
 
@@ -1711,48 +1701,46 @@ bool Mp3File::addFrameV2(Frame& frame)
   }
   if (id != ID3FID_NOFRAME && id != ID3FID_SETSUBTITLE && m_tagV2) {
     ID3_Frame* id3Frame = new ID3_Frame(id);
-    if (id3Frame) {
-      ID3_Field* fld = id3Frame->GetField(ID3FN_TEXT);
-      if (fld) {
-        ID3_TextEnc enc = getDefaultTextEncoding();
-        ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
-        if (encfld) {
-          encfld->Set(enc);
-        }
-        fld->SetEncoding(enc);
+    ID3_Field* fld = id3Frame->GetField(ID3FN_TEXT);
+    if (fld) {
+      ID3_TextEnc enc = getDefaultTextEncoding();
+      ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
+      if (encfld) {
+        encfld->Set(enc);
       }
-      if (id == ID3FID_USERTEXT && !frame.getName().startsWith("TXXX")) {
-        fld = id3Frame->GetField(ID3FN_DESCRIPTION);
-        if (fld) {
-          setString(fld, frame.getName());
-        }
-      } else if (id == ID3FID_PICTURE) {
-        fld = id3Frame->GetField(ID3FN_MIMETYPE);
-        if (fld) {
-          setString(fld, "image/jpeg");
-        }
-        fld = id3Frame->GetField(ID3FN_PICTURETYPE);
-        if (fld) {
-          fld->Set(ID3PT_COVERFRONT);
-        }
-      }
-      if (!frame.fieldList().empty()) {
-        setId3v2Frame(id3Frame, frame);
-      }
-      Frame::Type type;
-      const char* name;
-      getTypeStringForId3libFrameId(id, type, name);
-      m_tagV2->AttachFrame(id3Frame);
-      frame.setInternalName(name);
-      frame.setIndex(m_tagV2->NumFrames() - 1);
-      if (frame.fieldList().empty()) {
-        // add field list to frame
-        getFieldsFromId3Frame(id3Frame, frame.fieldList());
-        frame.setFieldListFromValue();
-      }
-      markTag2Changed(frame.getType());
-      return true;
+      fld->SetEncoding(enc);
     }
+    if (id == ID3FID_USERTEXT && !frame.getName().startsWith("TXXX")) {
+      fld = id3Frame->GetField(ID3FN_DESCRIPTION);
+      if (fld) {
+        setString(fld, frame.getName());
+      }
+    } else if (id == ID3FID_PICTURE) {
+      fld = id3Frame->GetField(ID3FN_MIMETYPE);
+      if (fld) {
+        setString(fld, "image/jpeg");
+      }
+      fld = id3Frame->GetField(ID3FN_PICTURETYPE);
+      if (fld) {
+        fld->Set(ID3PT_COVERFRONT);
+      }
+    }
+    if (!frame.fieldList().empty()) {
+      setId3v2Frame(id3Frame, frame);
+    }
+    Frame::Type type;
+    const char* name;
+    getTypeStringForId3libFrameId(id, type, name);
+    m_tagV2->AttachFrame(id3Frame);
+    frame.setInternalName(name);
+    frame.setIndex(m_tagV2->NumFrames() - 1);
+    if (frame.fieldList().empty()) {
+      // add field list to frame
+      getFieldsFromId3Frame(id3Frame, frame.fieldList());
+      frame.setFieldListFromValue();
+    }
+    markTag2Changed(frame.getType());
+    return true;
   }
 
   // Try the superclass method

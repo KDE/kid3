@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 May 2006
  *
- * Copyright (C) 2006-2008  Urs Fleisch
+ * Copyright (C) 2006-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -73,96 +73,83 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  if (vlayout) {
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
-    m_edit = new QTextEdit(this);
-    if (m_edit) {
-      m_edit->setAcceptRichText(false);
-      vlayout->addWidget(m_edit);
-    }
-    m_table = new QTableView(this);
-    m_table->setModel(m_textTableModel);
-    m_table->hide();
-    vlayout->addWidget(m_table);
+  vlayout->setMargin(6);
+  vlayout->setSpacing(6);
+  m_edit = new QTextEdit(this);
+  m_edit->setAcceptRichText(false);
+  vlayout->addWidget(m_edit);
 
-    QString formatToolTip = ImportTrackData::getFormatToolTip();
-    m_formatListEdit = new FormatListEdit(
-          QStringList() << i18n("Format:")
-                        << i18n("Header:")
-                        << i18n("Tracks:")
-                        << i18n("Footer:"),
-          QStringList() << QString()
-                        << formatToolTip
-                        << formatToolTip
-                        << formatToolTip,
-          this);
-    connect(m_formatListEdit, SIGNAL(formatChanged()),
-            this, SLOT(showPreview()));
-    vlayout->addWidget(m_formatListEdit);
+  m_table = new QTableView(this);
+  m_table->setModel(m_textTableModel);
+  m_table->hide();
+  vlayout->addWidget(m_table);
 
-    QHBoxLayout* butlayout = new QHBoxLayout;
-    if (butlayout) {
-      butlayout->setSpacing(6);
-      m_fileButton = new QPushButton(i18n("To F&ile"), this);
-      if (m_fileButton) {
-        m_fileButton->setAutoDefault(false);
-        butlayout->addWidget(m_fileButton);
-        connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotToFile()));
-      }
-      m_clipButton = new QPushButton(i18n("To Clip&board"), this);
-      if (m_clipButton) {
-        m_clipButton->setAutoDefault(false);
-        butlayout->addWidget(m_clipButton);
-        connect(m_clipButton, SIGNAL(clicked()), this, SLOT(slotToClipboard()));
-      }
-      QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-                                               QSizePolicy::Minimum);
-      butlayout->addItem(butspacer);
+  QString formatToolTip = ImportTrackData::getFormatToolTip();
+  m_formatListEdit = new FormatListEdit(
+        QStringList() << i18n("Format:")
+                      << i18n("Header:")
+                      << i18n("Tracks:")
+                      << i18n("Footer:"),
+        QStringList() << QString()
+                      << formatToolTip
+                      << formatToolTip
+                      << formatToolTip,
+        this);
+  connect(m_formatListEdit, SIGNAL(formatChanged()),
+          this, SLOT(showPreview()));
+  vlayout->addWidget(m_formatListEdit);
 
-      QLabel* srcLabel = new QLabel(i18n("&Source:"), this);
-      butlayout->addWidget(srcLabel);
-      m_srcComboBox = new QComboBox(this);
-      if (m_srcComboBox) {
-        m_srcComboBox->setEditable(false);
-        m_srcComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
-        m_srcComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
-        srcLabel->setBuddy(m_srcComboBox);
-        butlayout->addWidget(m_srcComboBox);
-        connect(m_srcComboBox, SIGNAL(activated(int)),
-                this, SLOT(onSrcComboBoxActivated(int)));
-      }
-      vlayout->addLayout(butlayout);
-    }
+  QHBoxLayout* butlayout = new QHBoxLayout;
+  butlayout->setSpacing(6);
+  m_fileButton = new QPushButton(i18n("To F&ile"), this);
+  m_fileButton->setAutoDefault(false);
+  butlayout->addWidget(m_fileButton);
+  connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotToFile()));
 
-    QHBoxLayout* hlayout = new QHBoxLayout;
-    if (hlayout) {
-      hlayout->setSpacing(6);
-      QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-      if (helpButton) {
-        helpButton->setAutoDefault(false);
-        hlayout->addWidget(helpButton);
-        connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-      }
-      QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
-      if (saveButton) {
-        saveButton->setAutoDefault(false);
-        hlayout->addWidget(saveButton);
-        connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
-      }
-      QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
-                                             QSizePolicy::Minimum);
-      hlayout->addItem(hspacer);
+  m_clipButton = new QPushButton(i18n("To Clip&board"), this);
+  m_clipButton->setAutoDefault(false);
+  butlayout->addWidget(m_clipButton);
+  connect(m_clipButton, SIGNAL(clicked()), this, SLOT(slotToClipboard()));
 
-      QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-      if (closeButton) {
-        closeButton->setAutoDefault(false);
-        hlayout->addWidget(closeButton);
-        connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-      }
-      vlayout->addLayout(hlayout);
-    }
-  }
+  QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                           QSizePolicy::Minimum);
+  butlayout->addItem(butspacer);
+
+  QLabel* srcLabel = new QLabel(i18n("&Source:"), this);
+  butlayout->addWidget(srcLabel);
+  m_srcComboBox = new QComboBox(this);
+  m_srcComboBox->setEditable(false);
+  m_srcComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
+  m_srcComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
+  srcLabel->setBuddy(m_srcComboBox);
+  butlayout->addWidget(m_srcComboBox);
+  connect(m_srcComboBox, SIGNAL(activated(int)),
+          this, SLOT(onSrcComboBoxActivated(int)));
+
+  vlayout->addLayout(butlayout);
+
+  QHBoxLayout* hlayout = new QHBoxLayout;
+  hlayout->setSpacing(6);
+  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  helpButton->setAutoDefault(false);
+  hlayout->addWidget(helpButton);
+  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+
+  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  saveButton->setAutoDefault(false);
+  hlayout->addWidget(saveButton);
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+
+  QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
+                                         QSizePolicy::Minimum);
+  hlayout->addItem(hspacer);
+
+  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  closeButton->setAutoDefault(false);
+  hlayout->addWidget(closeButton);
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+
+  vlayout->addLayout(hlayout);
 }
 
 /**

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Mar 2004
  *
- * Copyright (C) 2004-2007  Urs Fleisch
+ * Copyright (C) 2004-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -103,40 +103,37 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   QHBoxLayout* actionLayout = new QHBoxLayout;
   m_actionComboBox = new QComboBox(page);
   m_tagversionComboBox = new QComboBox(page);
-  if (m_actionComboBox && m_tagversionComboBox) {
-    m_actionComboBox->insertItem(ActionRename, i18n("Rename Directory"));
-    m_actionComboBox->insertItem(ActionCreate, i18n("Create Directory"));
-    actionLayout->addWidget(m_actionComboBox);
-    connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-    m_tagversionComboBox->addItem(i18n("From Tag 2 and Tag 1"), TrackData::TagV2V1);
-    m_tagversionComboBox->addItem(i18n("From Tag 1"), TrackData::TagV1);
-    m_tagversionComboBox->addItem(i18n("From Tag 2"), TrackData::TagV2);
-    actionLayout->addWidget(m_tagversionComboBox);
-    connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-    vlayout->addLayout(actionLayout);
-  }
+  m_actionComboBox->insertItem(ActionRename, i18n("Rename Directory"));
+  m_actionComboBox->insertItem(ActionCreate, i18n("Create Directory"));
+  actionLayout->addWidget(m_actionComboBox);
+  connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+  m_tagversionComboBox->addItem(i18n("From Tag 2 and Tag 1"), TrackData::TagV2V1);
+  m_tagversionComboBox->addItem(i18n("From Tag 1"), TrackData::TagV1);
+  m_tagversionComboBox->addItem(i18n("From Tag 2"), TrackData::TagV2);
+  actionLayout->addWidget(m_tagversionComboBox);
+  connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+  vlayout->addLayout(actionLayout);
+
   QHBoxLayout* formatLayout = new QHBoxLayout;
   QLabel* formatLabel = new QLabel(i18n("&Format:"), page);
   m_formatComboBox = new QComboBox(page);
-  if (formatLayout && formatLabel && m_formatComboBox) {
-    QStringList strList;
-    for (const char** sl = MiscConfig::s_defaultDirFmtList; *sl != 0; ++sl) {
-      strList += *sl;
-    }
-    m_formatComboBox->addItems(strList);
-    m_formatComboBox->setEditable(true);
-    m_formatComboBox->setItemText(ConfigStore::s_miscCfg.m_dirFormatItem,
-                                  ConfigStore::s_miscCfg.m_dirFormatText);
-    m_formatComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_dirFormatItem);
-    m_tagversionComboBox->setCurrentIndex(
-          m_tagversionComboBox->findData(ConfigStore::s_miscCfg.m_renDirSrc));
-    formatLabel->setBuddy(m_formatComboBox);
-    formatLayout->addWidget(formatLabel);
-    formatLayout->addWidget(m_formatComboBox);
-    connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-    connect(m_formatComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(slotUpdateNewDirname()));
-    vlayout->addLayout(formatLayout);
+  QStringList strList;
+  for (const char** sl = MiscConfig::s_defaultDirFmtList; *sl != 0; ++sl) {
+    strList += *sl;
   }
+  m_formatComboBox->addItems(strList);
+  m_formatComboBox->setEditable(true);
+  m_formatComboBox->setItemText(ConfigStore::s_miscCfg.m_dirFormatItem,
+                                ConfigStore::s_miscCfg.m_dirFormatText);
+  m_formatComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_dirFormatItem);
+  m_tagversionComboBox->setCurrentIndex(
+        m_tagversionComboBox->findData(ConfigStore::s_miscCfg.m_renDirSrc));
+  formatLabel->setBuddy(m_formatComboBox);
+  formatLayout->addWidget(formatLabel);
+  formatLayout->addWidget(m_formatComboBox);
+  connect(m_formatComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
+  connect(m_formatComboBox, SIGNAL(editTextChanged(const QString&)), this, SLOT(slotUpdateNewDirname()));
+  vlayout->addLayout(formatLayout);
 
   QGridLayout* fromToLayout = new QGridLayout;
   vlayout->addLayout(fromToLayout);
@@ -144,13 +141,10 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   m_currentDirLabel = new QLabel(page);
   QLabel* toLabel = new QLabel(i18n("To:"), page);
   m_newDirLabel = new QLabel(page);
-  if (fromToLayout && fromLabel && m_currentDirLabel &&
-    toLabel && m_newDirLabel) {
-    fromToLayout->addWidget(fromLabel, 0, 0);
-    fromToLayout->addWidget(m_currentDirLabel, 0, 1);
-    fromToLayout->addWidget(toLabel, 1, 0);
-    fromToLayout->addWidget(m_newDirLabel, 1, 1);
-  }
+  fromToLayout->addWidget(fromLabel, 0, 0);
+  fromToLayout->addWidget(m_currentDirLabel, 0, 1);
+  fromToLayout->addWidget(toLabel, 1, 0);
+  fromToLayout->addWidget(m_newDirLabel, 1, 1);
 }
 
 /**
@@ -161,14 +155,10 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
 void RenDirDialog::setupPreviewPage(QWidget* page)
 {
   QVBoxLayout* vlayout = new QVBoxLayout(page);
-  if (vlayout) {
-    m_edit = new QTextEdit(page);
-    if (m_edit) {
-      m_edit->setReadOnly(true);
-      m_edit->setAcceptRichText(false);
-      vlayout->addWidget(m_edit);
-    }
-  }
+  m_edit = new QTextEdit(page);
+  m_edit->setReadOnly(true);
+  m_edit->setAcceptRichText(false);
+  vlayout->addWidget(m_edit);
 }
 
 /**
