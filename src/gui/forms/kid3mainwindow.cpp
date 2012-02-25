@@ -1925,6 +1925,7 @@ void Kid3MainWindow::renameFile()
           i18n("Error while renaming:\n") +
           i18n("Rename %1 to %2 failed\n").arg(fileName).arg(newFileName),
           QMessageBox::Ok, Qt::NoButton);
+        model->initTaggedFileData(index);
       }
     }
   }
