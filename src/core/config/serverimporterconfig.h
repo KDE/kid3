@@ -29,11 +29,12 @@
 
 #include "generalconfig.h"
 #include <QString>
+#include "kid3api.h"
 
 /**
  * Freedb configuration.
  */
-class ServerImporterConfig : public GeneralConfig {
+class KID3_CORE_EXPORT ServerImporterConfig : public GeneralConfig {
 public:
   /**
    * Constructor.

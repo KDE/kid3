@@ -30,11 +30,12 @@
 #include <QAbstractTableModel>
 #include <QList>
 #include "trackdata.h"
+#include "kid3api.h"
 
 /**
  * Model for table with track data.
  */
-class TrackDataModel : public QAbstractTableModel {
+class KID3_CORE_EXPORT TrackDataModel : public QAbstractTableModel {
   Q_OBJECT
 public:
   /** Additional track properties extending Frame::Type. */

@@ -58,7 +58,7 @@ class AudioPlayer;
 /**
  * Kid3 application logic, independent of GUI.
  */
-class Kid3Application : public QObject {
+class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_OBJECT
 public:
   /** Destination for downloadImage(). */

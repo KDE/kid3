@@ -28,13 +28,14 @@
 #define IMPORTCLIENT_H
 
 #include "httpclient.h"
+#include "kid3api.h"
 
 class ServerImporterConfig;
 
 /**
  * Client to connect to server with import data.
  */
-class ImportClient : public HttpClient
+class KID3_CORE_EXPORT ImportClient : public HttpClient
 {
 Q_OBJECT
 

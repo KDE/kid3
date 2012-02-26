@@ -27,13 +27,15 @@
 #ifndef IFRAMEEDITOR_H
 #define IFRAMEEDITOR_H
 
+#include "kid3api.h"
+
 class Frame;
 class TaggedFile;
 
 /**
  * Interface for editor of frame fields.
  */
-class IFrameEditor {
+class KID3_CORE_EXPORT IFrameEditor {
 public:
   /**
    * Destructor.

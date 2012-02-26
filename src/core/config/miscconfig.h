@@ -32,13 +32,14 @@
 #include "config.h"
 #include "generalconfig.h"
 #include "trackdata.h"
+#include "kid3api.h"
 
 class QString;
 
 /**
  * Miscellaneous Configuration.
  */
-class MiscConfig : public GeneralConfig
+class KID3_CORE_EXPORT MiscConfig : public GeneralConfig
 {
 public:
   /** The ID3v2 version used for new tags. */

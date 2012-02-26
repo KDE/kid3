@@ -1,12 +1,12 @@
 /**
- * \file movetotrash.h
- * Move file or directory to trash.
+ * \file kid3api.h
+ * Macros for import and export of shared library symbols.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 22 Aug 2011
+ * \date 26 Feb 2012
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,24 +24,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MOVETOTRASH_H
-#define MOVETOTRASH_H
+#ifndef KID3API_H
+#define KID3API_H
 
-#include "kid3api.h"
+#ifdef KID3_SHARED
 
-class QString;
+#include <QtGlobal>
 
-namespace Utils {
+#ifdef KID3_BUILD_CORE_LIB
+#define KID3_CORE_EXPORT Q_DECL_EXPORT
+#else
+#define KID3_CORE_EXPORT Q_DECL_IMPORT
+#endif
 
-  /**
-   * Move file or directory to trash.
-   *
-   * @param path path to file or directory
-   *
-   * @return true if ok.
-   */
-  bool KID3_CORE_EXPORT moveToTrash(const QString& path);
+#ifdef KID3_BUILD_GUI_LIB
+#define KID3_GUI_EXPORT Q_DECL_EXPORT
+#else
+#define KID3_GUI_EXPORT Q_DECL_IMPORT
+#endif
 
-}
+#else
 
-#endif // MOVETOTRASH_H
+#define KID3_CORE_EXPORT
+#define KID3_GUI_EXPORT
+
+#endif
+
+#endif // KID3API_H

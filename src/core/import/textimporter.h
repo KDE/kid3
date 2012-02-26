@@ -28,6 +28,7 @@
 #define TEXTIMPORTER_H
 
 #include <QString>
+#include "kid3api.h"
 
 class ImportTrackDataVector;
 class ImportParser;
@@ -37,7 +38,7 @@ class FrameCollection;
 /**
  * Import tags from text.
  */
-class TextImporter {
+class KID3_CORE_EXPORT TextImporter {
 public:
   /**
    * Constructor.

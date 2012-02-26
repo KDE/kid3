@@ -45,7 +45,7 @@ class FingerprintCalculator;
 /**
  * MusicBrainz client.
  */
-class MusicBrainzClient : public QObject
+class KID3_CORE_EXPORT MusicBrainzClient : public QObject
 {
 Q_OBJECT
 

@@ -27,6 +27,8 @@
 #ifndef SAFERENAME_H
 #define SAFERENAME_H
 
+#include "kid3api.h"
+
 class QString;
 
 namespace Utils {
@@ -38,7 +40,7 @@ namespace Utils {
  *
  * @return true if file name contains illegal characters.
  */
-bool hasIllegalFileNameCharacters(const QString& fileName);
+bool KID3_CORE_EXPORT hasIllegalFileNameCharacters(const QString& fileName);
 
 /**
  * Rename a file.
@@ -50,7 +52,7 @@ bool hasIllegalFileNameCharacters(const QString& fileName);
  *
  * @return true if ok.
  */
-bool safeRename(const QString& oldName, const QString& newName);
+bool KID3_CORE_EXPORT safeRename(const QString& oldName, const QString& newName);
 
 /**
  * Rename a file.
@@ -63,7 +65,7 @@ bool safeRename(const QString& oldName, const QString& newName);
  *
  * @return true if ok.
  */
-bool safeRename(const QString& dirPath,
+bool KID3_CORE_EXPORT safeRename(const QString& dirPath,
                 const QString& oldName, const QString& newName);
 
 }

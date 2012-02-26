@@ -29,6 +29,7 @@
 
 #include <QDialog>
 #include <QTextEdit>
+#include "kid3api.h"
 
 class QProcess;
 class QString;
@@ -38,7 +39,7 @@ class TaggedFile;
 /**
  * Handler for external process.
  */
-class ExternalProcess : public QObject {
+class KID3_CORE_EXPORT ExternalProcess : public QObject {
 Q_OBJECT
 
 public:

@@ -30,11 +30,12 @@
 #include <QStringList>
 #include "config.h"
 #include "generalconfig.h"
+#include "kid3api.h"
 
 /**
  * Filter configuration.
  */
-class FilterConfig : public GeneralConfig {
+class KID3_CORE_EXPORT FilterConfig : public GeneralConfig {
 public:
   /**
    * Constructor.

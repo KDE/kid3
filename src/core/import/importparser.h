@@ -31,13 +31,14 @@
 #include <QRegExp>
 #include <QMap>
 #include <QList>
+#include "kid3api.h"
 
 class FrameCollection;
 
 /**
  * Import parser.
  */
-class ImportParser {
+class KID3_CORE_EXPORT ImportParser {
 public:
   /**
    * Constructor.

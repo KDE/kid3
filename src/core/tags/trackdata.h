@@ -30,11 +30,12 @@
 #include <QVector>
 #include "frame.h"
 #include "taggedfile.h"
+#include "kid3api.h"
 
 /**
  * Track data, frames with association to tagged file.
  */
-class TrackData : public FrameCollection {
+class KID3_CORE_EXPORT TrackData : public FrameCollection {
 public:
   /** Tag version contained in track data. */
   enum TagVersion {
@@ -238,7 +239,7 @@ private:
 /**
  * Vector containing tracks to import and artist, album names.
  */
-class ImportTrackDataVector : public QVector<ImportTrackData> {
+class KID3_CORE_EXPORT ImportTrackDataVector : public QVector<ImportTrackData> {
 public:
   /**
    * Clear vector and associated data.
@@ -298,7 +299,7 @@ private:
 /**
  * Replaces track data format codes in a string.
  */
-class TrackDataFormatReplacer : public FrameFormatReplacer {
+class KID3_CORE_EXPORT TrackDataFormatReplacer : public FrameFormatReplacer {
 public:
   /**
    * Constructor.

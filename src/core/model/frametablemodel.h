@@ -32,11 +32,12 @@
 #include <QItemDelegate>
 #include <QLineEdit>
 #include "frame.h"
+#include "kid3api.h"
 
 /**
  * Model for table with frames.
  */
-class FrameTableModel : public QAbstractTableModel {
+class KID3_CORE_EXPORT FrameTableModel : public QAbstractTableModel {
   Q_OBJECT
 public:
   /** Custom role. */
@@ -320,7 +321,7 @@ private slots:
 
 
 /** Delegate for table widget items. */
-class FrameItemDelegate : public QItemDelegate {
+class KID3_CORE_EXPORT FrameItemDelegate : public QItemDelegate {
 public:
   /**
    * Constructor.

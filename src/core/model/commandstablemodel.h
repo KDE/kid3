@@ -31,11 +31,12 @@
 #include <QHeaderView>
 #include <QList>
 #include "miscconfig.h"
+#include "kid3api.h"
 
 /**
  * Context menu commands configuration table model.
  */
-class CommandsTableModel : public QAbstractTableModel {
+class KID3_CORE_EXPORT CommandsTableModel : public QAbstractTableModel {
 public:
   /**
    * Constructor.

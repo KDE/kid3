@@ -28,11 +28,12 @@
 #define DIRLIST_H
 
 #include <QListView>
+#include "kid3api.h"
 
 /**
  * List of directories to operate on.
  */
-class DirList : public QListView {
+class KID3_CORE_EXPORT DirList : public QListView {
 public:
   /**
    * Constructor.

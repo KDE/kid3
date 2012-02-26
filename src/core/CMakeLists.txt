@@ -8,6 +8,7 @@ foreach (_subdir utils config tags formats export import model)
   set(core_MOC_HDRS ${core_MOC_HDRS} ${${_subdir}_MOC_HDRS})
 endforeach()
 
+add_definitions(-DKID3_BUILD_CORE_LIB)
 if (WIN32 AND HAVE_CHROMAPRINT)
   add_definitions(-DCHROMAPRINT_NODLL)
 endif (WIN32 AND HAVE_CHROMAPRINT)

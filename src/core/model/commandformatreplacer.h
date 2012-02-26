@@ -32,7 +32,7 @@
 /**
  * Replaces context command format codes in a string.
  */
-class CommandFormatReplacer : public FrameFormatReplacer {
+class KID3_CORE_EXPORT CommandFormatReplacer : public FrameFormatReplacer {
 public:
   /**
    * Constructor.

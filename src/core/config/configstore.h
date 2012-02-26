@@ -43,7 +43,7 @@ class ShortcutsModel;
 /**
  * Configuration storage.
  */
-class ConfigStore {
+class KID3_CORE_EXPORT ConfigStore {
 public:
   /**
    * Constructor.

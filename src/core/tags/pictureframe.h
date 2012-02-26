@@ -32,7 +32,7 @@
 class QImage;
 
 /** Frame containing picture. */
-class PictureFrame : public Frame {
+class KID3_CORE_EXPORT PictureFrame : public Frame {
 public:
   /** Picture type, compatible with ID3v2 and FLAC. */
   enum PictureType {

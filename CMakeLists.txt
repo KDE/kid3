@@ -59,10 +59,6 @@ include (KDE4Defaults)
 set(WITH_BINDIR ${BIN_INSTALL_DIR})
 set(WITH_LIBDIR ${LIB_INSTALL_DIR})
 
-if (BUILD_SHARED_LIBS AND __KDE_HAVE_GCC_VISIBILITY)
-  message(WARNING "Use -D__KDE_HAVE_GCC_VISIBILITY=OFF to build KDE shared libraries")
-endif (BUILD_SHARED_LIBS AND __KDE_HAVE_GCC_VISIBILITY)
-
 else (WITH_KDE)
 
 find_package(Threads)
@@ -164,6 +160,10 @@ endif (WITH_KDE)
 if (WIN32)
 link_directories($ENV{LIB})
 endif (WIN32)
+
+if (BUILD_SHARED_LIBS)
+  add_definitions(-DKID3_SHARED)
+endif (BUILD_SHARED_LIBS)
 
 ### Check for taglib
 set(TAGLIB_LIBRARIES)
@@ -414,9 +414,18 @@ if (WITH_PHONON)
 endif (WITH_PHONON)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -D_REENTRANT")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -D_REENTRANT")
-add_definitions(${QT_DEFINITIONS} ${TAGLIB_CFLAGS} ${ID3LIB_DEFINITIONS} ${FLAC_DEFINITIONS} -DHAVE_CONFIG_H=1)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-exceptions -D_REENTRANT")
+add_definitions(${QT_DEFINITIONS} ${TAGLIB_CFLAGS} ${ID3LIB_DEFINITIONS} ${FLAC_DEFINITIONS} -DHAVE_CONFIG_H=1 -DQT_NO_EXCEPTIONS -DQT_NO_STL)
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES} ${PHONON_INCLUDE_DIR} ${MP4V2_INCLUDE_DIR} ${ID3LIB_INCLUDE_DIR} ${CHROMAPRINT_INCLUDES} ${VORBIS_INCLUDE_DIR} ${FLACPP_INCLUDE_DIR})
+
+if (NOT WIN32)
+  include (CheckCXXCompilerFlag)
+  check_cxx_compiler_flag(-fvisibility=hidden _HAVE_GCC_VISIBILITY)
+  if (_HAVE_GCC_VISIBILITY)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=hidden")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden")
+  endif (_HAVE_GCC_VISIBILITY)
+endif (NOT WIN32)
 
 if (UNIX AND NOT APPLE)
   set(KID3_EXECUTABLE kid3-qt)

@@ -32,11 +32,12 @@
 #include <QStringList>
 #include <QPair>
 #include <QMap>
+#include "kid3api.h"
 
 /**
  * Context menu commands configuration table model.
  */
-class ConfigTableModel : public QAbstractTableModel {
+class KID3_CORE_EXPORT ConfigTableModel : public QAbstractTableModel {
 public:
   /**
    * Constructor.

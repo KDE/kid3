@@ -30,11 +30,12 @@
 #include <QString>
 #include "config.h"
 #include "generalconfig.h"
+#include "kid3api.h"
 
 /**
  * Playlist configuration.
  */
-class PlaylistConfig : public GeneralConfig {
+class KID3_CORE_EXPORT PlaylistConfig : public GeneralConfig {
 public:
   /**
    * Playlist format.

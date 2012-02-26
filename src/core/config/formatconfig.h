@@ -30,6 +30,7 @@
 #include "config.h"
 #include "generalconfig.h"
 #include <QMap>
+#include "kid3api.h"
 
 class QString;
 class FrameCollection;
@@ -37,7 +38,7 @@ class FrameCollection;
 /**
  * Format configuration.
  */
-class FormatConfig : public GeneralConfig
+class KID3_CORE_EXPORT FormatConfig : public GeneralConfig
 {
 public:
   /** Case conversion options. */

@@ -37,7 +37,7 @@ class TaggedFile;
 /**
  * Filter for tagged files.
  */
-class FileFilter : public QObject {
+class KID3_CORE_EXPORT FileFilter : public QObject {
 Q_OBJECT
 public:
   /** Type of filter event. */

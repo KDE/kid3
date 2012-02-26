@@ -27,6 +27,8 @@
 #ifndef TRACKDATAMATCHER_H
 #define TRACKDATAMATCHER_H
 
+#include "kid3api.h"
+
 class TrackDataModel;
 
 /**
@@ -41,7 +43,7 @@ namespace TrackDataMatcher {
  * @param diffCheckEnable true if time difference check is enabled
  * @param maxDiff maximum allowed time difference
  */
-bool matchWithLength(TrackDataModel* trackDataModel,
+bool KID3_CORE_EXPORT matchWithLength(TrackDataModel* trackDataModel,
                      bool diffCheckEnable, int maxDiff);
 
 /**
@@ -49,14 +51,14 @@ bool matchWithLength(TrackDataModel* trackDataModel,
  *
  * @param trackDataModel tracks to match
  */
-bool matchWithTrack(TrackDataModel* trackDataModel);
+bool KID3_CORE_EXPORT matchWithTrack(TrackDataModel* trackDataModel);
 
 /**
  * Match import data with title.
  *
  * @param trackDataModel tracks to match
  */
-bool matchWithTitle(TrackDataModel* trackDataModel);
+bool KID3_CORE_EXPORT matchWithTitle(TrackDataModel* trackDataModel);
 
 }
 

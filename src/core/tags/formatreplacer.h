@@ -11,11 +11,12 @@
 #define FORMATREPLACER_H
 
 #include <QString>
+#include "kid3api.h"
 
 /**
  * Replaces format codes in a string.
  */
-class FormatReplacer {
+class KID3_CORE_EXPORT FormatReplacer {
 public:
   /** Flags for replacePercentCodes(). */
   enum FormatStringFlags {

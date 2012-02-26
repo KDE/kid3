@@ -32,9 +32,10 @@
 #include <QVariant>
 #include <QList>
 #include <set>
+#include "kid3api.h"
 
 /** Generalized frame. */
-class Frame {
+class KID3_CORE_EXPORT Frame {
 public:
   /** Generalized frame types. */
   enum Type {
@@ -414,7 +415,7 @@ private:
 };
 
 /** Collection of frames. */
-class FrameCollection : public std::multiset<Frame> {
+class KID3_CORE_EXPORT FrameCollection : public std::multiset<Frame> {
 public:
   /**
    * Constructor.
@@ -641,7 +642,7 @@ public:
 /**
  * Replaces frame format codes in a string.
  */
-class FrameFormatReplacer : public FormatReplacer {
+class KID3_CORE_EXPORT FrameFormatReplacer : public FormatReplacer {
 public:
   /**
    * Constructor.

@@ -30,6 +30,7 @@
 #include <QModelIndex>
 #include <QStack>
 #include <QQueue>
+#include "kid3api.h"
 
 class QItemSelectionModel;
 class TaggedFile;
@@ -156,7 +157,7 @@ private:
 /**
  * Abstract base class for tagged file iterators.
  */
-class AbstractTaggedFileIterator {
+class KID3_CORE_EXPORT AbstractTaggedFileIterator {
 public:
   /**
    * Destructor.
@@ -196,7 +197,7 @@ public:
  * }
  * @endcode
  */
-class TaggedFileIterator : public AbstractTaggedFileIterator {
+class KID3_CORE_EXPORT TaggedFileIterator : public AbstractTaggedFileIterator {
 public:
   /**
    * Constructor.
@@ -301,7 +302,7 @@ private:
  * }
  * @endcode
  */
-class TaggedFileOfDirectoryIterator : public AbstractTaggedFileIterator {
+class KID3_CORE_EXPORT TaggedFileOfDirectoryIterator : public AbstractTaggedFileIterator {
 public:
   /**
    * Constructor.

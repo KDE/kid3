@@ -11,6 +11,8 @@ foreach (_subdir widgets dialogs forms)
   set(gui_MOC_HDRS ${gui_MOC_HDRS} ${${_subdir}_MOC_HDRS})
 endforeach()
 
+add_definitions(-DKID3_BUILD_GUI_LIB)
+
 if (WITH_GCC_PCH)
   ADD_KID3_PCH_RULE(gui_SRCS)
 endif (WITH_GCC_PCH)

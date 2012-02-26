@@ -33,6 +33,7 @@
 #ifdef HAVE_PHONON
 
 #include <QStringList>
+#include "kid3api.h"
 
 namespace Phonon {
   class AudioOutput;
@@ -42,7 +43,7 @@ namespace Phonon {
 /**
  * Audio player toolbar.
  */
-class AudioPlayer : public QObject {
+class KID3_CORE_EXPORT AudioPlayer : public QObject {
   Q_OBJECT
 
 public:

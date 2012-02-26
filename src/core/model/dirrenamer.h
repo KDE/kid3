@@ -30,13 +30,14 @@
 #include <QObject>
 #include <QString>
 #include "trackdata.h"
+#include "kid3api.h"
 
 class TaggedFile;
 
 /**
  * Directory renamer.
  */
-class DirRenamer : public QObject {
+class KID3_CORE_EXPORT DirRenamer : public QObject {
 public:
   /**
    * Constructor.

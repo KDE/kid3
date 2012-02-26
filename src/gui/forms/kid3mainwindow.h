@@ -45,6 +45,7 @@ typedef QMainWindow Kid3MainWindowBaseClass;
 #endif
 #include "iframeeditor.h"
 #include "trackdata.h"
+#include "kid3api.h"
 
 class KURL;
 class KUrl;
@@ -75,7 +76,7 @@ class DirProxyModel;
 class TrackDataModel;
 
 /** Kid3 main window */
-class Kid3MainWindow : public Kid3MainWindowBaseClass, public IFrameEditor
+class KID3_GUI_EXPORT Kid3MainWindow : public Kid3MainWindowBaseClass, public IFrameEditor
 {
 Q_OBJECT
 

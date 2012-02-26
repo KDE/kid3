@@ -32,6 +32,7 @@
 #include <QSet>
 #include <QFileInfo>
 #include <QStringList>
+#include "kid3api.h"
 
 class QFileSystemModel;
 class TaggedFile;
@@ -40,7 +41,7 @@ class TaggedFileIconProvider;
 /**
  * Proxy for filesystem model which filters files.
  */
-class FileProxyModel : public QSortFilterProxyModel {
+class KID3_CORE_EXPORT FileProxyModel : public QSortFilterProxyModel {
   Q_OBJECT
 public:
   /** Custom role, extending QFileSystemModel::Roles. */

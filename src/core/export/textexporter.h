@@ -29,11 +29,12 @@
 
 #include <QObject>
 #include "trackdata.h"
+#include "kid3api.h"
 
 /**
  * Export text from tags.
  */
-class TextExporter : public QObject {
+class KID3_CORE_EXPORT TextExporter : public QObject {
 public:
   /**
    * Constructor.

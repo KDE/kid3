@@ -34,7 +34,7 @@
 #include "frame.h"
 
 /** Base class for tagged files. */
-class TaggedFile {
+class KID3_CORE_EXPORT TaggedFile {
 public:
   /** Abstract base class for pluggable file type resolution. */
   class Resolver {

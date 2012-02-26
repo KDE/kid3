@@ -30,11 +30,12 @@
 #include <QAbstractTableModel>
 #include <QList>
 #include <QStringList>
+#include "kid3api.h"
 
 /**
  * Model to display a text with tabulators in a table.
  */
-class TextTableModel : public QAbstractTableModel {
+class KID3_CORE_EXPORT TextTableModel : public QAbstractTableModel {
 public:
   /**
    * Constructor.
