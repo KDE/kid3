@@ -1732,7 +1732,7 @@ void Kid3MainWindow::updateGuiControls()
     // unsaved data in the tag.
     if (!hasTagV1 && tagV1Supported) {
       const FrameCollection& frames = m_app->frameModelV1()->frames();
-      for (FrameCollection::iterator it = frames.begin();
+      for (FrameCollection::const_iterator it = frames.begin();
            it != frames.end();
            ++it) {
         if (!(*it).getValue().isEmpty()) {
@@ -1743,7 +1743,7 @@ void Kid3MainWindow::updateGuiControls()
     }
     if (!hasTagV2) {
       const FrameCollection& frames = m_app->frameModelV2()->frames();
-      for (FrameCollection::iterator it = frames.begin();
+      for (FrameCollection::const_iterator it = frames.begin();
            it != frames.end();
            ++it) {
         if (!(*it).getValue().isEmpty()) {

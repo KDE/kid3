@@ -479,7 +479,7 @@ public:
    *
    * @return iterator or end() if not found.
    */
-  iterator findByName(const QString& name) const;
+  const_iterator findByName(const QString& name) const;
 
   /**
    * Find a frame by index.
@@ -488,7 +488,7 @@ public:
    *
    * @return iterator or end() if not found.
    */
-  iterator findByIndex(int index) const;
+  const_iterator findByIndex(int index) const;
 
   /**
    * Get value by type.

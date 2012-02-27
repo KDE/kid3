@@ -31,9 +31,13 @@
 #ifdef Q_OS_WIN32  
 
 #include <QVector>
+#ifdef Q_CC_MSVC
+#include <windows.h>
+#else
 #include <windef.h>
 #include <winbase.h>
 #include <shellapi.h>
+#endif
 
 bool Utils::moveToTrash(const QString& path)
 {

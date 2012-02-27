@@ -543,7 +543,7 @@ bool FrameCollection::isEmptyOrInactive() const
  *
  * @return iterator or end() if not found.
  */
-FrameCollection::iterator FrameCollection::findByName(const QString& name) const
+FrameCollection::const_iterator FrameCollection::findByName(const QString& name) const
 {
   Frame::Type type = Frame::getTypeFromName(name);
   Frame frame(type, "", name, -1);
@@ -573,7 +573,7 @@ FrameCollection::iterator FrameCollection::findByName(const QString& name) const
  *
  * @return iterator or end() if not found.
  */
-FrameCollection::iterator FrameCollection::findByIndex(int index) const
+FrameCollection::const_iterator FrameCollection::findByIndex(int index) const
 {
   const_iterator it;
   for (it = begin(); it != end(); ++it) {
@@ -655,7 +655,7 @@ void FrameCollection::setIntValue(Frame::Type type, int value)
 void FrameCollection::markChangedFrames(const FrameCollection& other)
 {
   for (FrameCollection::iterator it = begin(); it != end(); ++it) {
-    iterator otherIt = it->getIndex() != -1
+    const_iterator otherIt = it->getIndex() != -1
         ? other.findByIndex(it->getIndex())
         : other.find(*it);
     Frame& frame = const_cast<Frame&>(*it);
@@ -723,7 +723,7 @@ bool FrameFilter::isEnabled(Frame::Type type, const QString& name) const
   if (type <= Frame::FT_LastFrame) {
     return (m_enabledFrames & (1 << type)) != 0;
   } else if (!name.isEmpty()) {
-    std::set<QString>::iterator it = m_disabledOtherFrames.find(name);
+    std::set<QString>::const_iterator it = m_disabledOtherFrames.find(name);
     return it == m_disabledOtherFrames.end();
   } else {
     return true;
@@ -836,7 +836,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       name.truncate(len - 2);
     }
 
-    FrameCollection::iterator it = m_frames.findByName(name);
+    FrameCollection::const_iterator it = m_frames.findByName(name);
     if (it != m_frames.end()) {
       result = it->getValue();
       if (result.isNull()) {

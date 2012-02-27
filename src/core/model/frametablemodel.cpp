@@ -316,7 +316,7 @@ int FrameTableModel::rowOf(FrameCollection::iterator frameIt) const {
 const Frame* FrameTableModel::getFrameOfIndex(const QModelIndex& index) const
 {
   if (index.isValid() && index.row() < static_cast<int>(m_frames.size())) {
-    FrameCollection::iterator it = frameAt(index.row());
+    FrameCollection::const_iterator it = frameAt(index.row());
     return &(*it);
   }
   return 0;
