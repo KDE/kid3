@@ -149,7 +149,7 @@ sub generateTs
 {
   my ($lupdate_cmd, $podir, $srcdir) = @_;
   my @pofiles = glob "$podir/*.po";
-  my @languages = map { /^.*\W(\w+)\.po$/ } @pofiles;
+  my @languages = map { /^.*\/([\w@]+)\.po$/ } @pofiles;
   my $tmpdir = ".tsdir";
   mkdir $tmpdir unless -d $tmpdir;
   find(\&wanted, $srcdir);

@@ -1,0 +1,2273 @@
+# Kid3 Serbian Ijekavian Latin Translation.
+# Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012. Free Software Foundation, Inc.
+#
+# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012.
+# Mladen Pejaković <pejakm@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: kid3-2.0.1\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"group_id=70849&atid=529221\n"
+"POT-Creation-Date: 2012-02-29 23:54+0100\n"
+"PO-Revision-Date: 2011-04-26 23:41+0200\n"
+"Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
+"Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
+"Language: sr@ijekavianlatin\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: core/config/shortcutsmodel.cpp:177
+msgid "Action"
+msgstr "Radnja"
+
+#: core/config/shortcutsmodel.cpp:179
+msgid "Shortcut"
+msgstr "Prečica"
+
+#: core/formats/mp3file.cpp:1245 core/formats/taglibfile.cpp:1667
+msgid "AENC - Audio encryption"
+msgstr "AENC - audio šifrovanje"
+
+#: core/formats/mp3file.cpp:1246 core/formats/taglibfile.cpp:1668
+msgid "APIC - Attached picture"
+msgstr "APIC - priložena slika"
+
+#: core/formats/mp3file.cpp:1248 core/formats/taglibfile.cpp:1670
+msgid "COMM - Comments"
+msgstr "COMM - komentari"
+
+#: core/formats/mp3file.cpp:1249 core/formats/taglibfile.cpp:1671
+msgid "COMR - Commercial"
+msgstr "COMR - komercijalno"
+
+#: core/formats/mp3file.cpp:1250 core/formats/taglibfile.cpp:1672
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - registracija metode šifrovanja"
+
+#: core/formats/mp3file.cpp:1252
+msgid "EQUA - Equalization"
+msgstr "EQUA - jednačenje"
+
+#: core/formats/mp3file.cpp:1253 core/formats/taglibfile.cpp:1674
+msgid "ETCO - Event timing codes"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1254 core/formats/taglibfile.cpp:1675
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - opšti ugniježđeni objekat"
+
+#: core/formats/mp3file.cpp:1255 core/formats/taglibfile.cpp:1676
+msgid "GRID - Group identification registration"
+msgstr "GRID - registracija identifikacije grupe"
+
+#: core/formats/mp3file.cpp:1256
+msgid "IPLS - Involved people list"
+msgstr "IPLS - spisak uključenih ljudi"
+
+#: core/formats/mp3file.cpp:1257 core/formats/taglibfile.cpp:1677
+msgid "LINK - Linked information"
+msgstr "LINK - povezana informacija"
+
+#: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1678
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - identifikator muzičkog CD-a"
+
+#: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1679
+msgid "MLLT - MPEG location lookup table"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1260 core/formats/taglibfile.cpp:1680
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - vlasnički okvir"
+
+#: core/formats/mp3file.cpp:1261 core/formats/taglibfile.cpp:1681
+msgid "PRIV - Private frame"
+msgstr "PRIV - privatni okvir"
+
+#: core/formats/mp3file.cpp:1262 core/formats/taglibfile.cpp:1682
+msgid "PCNT - Play counter"
+msgstr "PCNT - brojač reprodukcije"
+
+#: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1683
+msgid "POPM - Popularimeter"
+msgstr "POPM - mjerač popularnosti"
+
+#: core/formats/mp3file.cpp:1264 core/formats/taglibfile.cpp:1684
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - kadar sinhronizacije pozicije"
+
+#: core/formats/mp3file.cpp:1265 core/formats/taglibfile.cpp:1685
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - preporučena veličina bafera"
+
+#: core/formats/mp3file.cpp:1267
+msgid "RVAD - Relative volume adjustment"
+msgstr "RVAD - podešavanje relativne jačine zvuka"
+
+#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1687
+msgid "RVRB - Reverb"
+msgstr "RVRB - reverberacija"
+
+#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1690
+msgid "SYLT - Synchronized lyric/text"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1691
+msgid "SYTC - Synchronized tempo codes"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1692
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - naslov albuma/filma/emisije"
+
+#: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1693
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (otkucaja u minuti)"
+
+#: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1695
+msgid "TCOM - Composer"
+msgstr "TCOM - kompozitor"
+
+#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1696
+msgid "TCON - Content type"
+msgstr "TCON - tip sadržaja"
+
+#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1697
+msgid "TCOP - Copyright message"
+msgstr "TCOP - poruka autorskog prava"
+
+#: core/formats/mp3file.cpp:1278
+msgid "TDAT - Date"
+msgstr "TDAT - datum"
+
+#: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1699
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - kašnjenje liste numera"
+
+#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1704
+msgid "TENC - Encoded by"
+msgstr "TENC - koder"
+
+#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1705
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - pjesnik/tekstopisac"
+
+#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1706
+msgid "TFLT - File type"
+msgstr "TFLT - tip fajla"
+
+#: core/formats/mp3file.cpp:1289
+msgid "TIME - Time"
+msgstr "TIME - vrijeme"
+
+#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1708
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - opis grupe sadržaja"
+
+#: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1709
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - naslov/ime pjesme/opis sadržaja"
+
+#: core/formats/mp3file.cpp:1292 core/formats/taglibfile.cpp:1710
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1293 core/formats/taglibfile.cpp:1711
+msgid "TKEY - Initial key"
+msgstr "TKEY - početni ključ"
+
+#: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1712
+msgid "TLAN - Language(s)"
+msgstr "TLAN - jezik (jezici)"
+
+#: core/formats/mp3file.cpp:1295 core/formats/taglibfile.cpp:1713
+msgid "TLEN - Length"
+msgstr "TLEN - trajanje"
+
+#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1715
+msgid "TMED - Media type"
+msgstr "TMED - tip medija"
+
+#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1717
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - izvorni naslov albuma/filma/emisije"
+
+#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1718
+msgid "TOFN - Original filename"
+msgstr "TOFN - izvorno ime"
+
+#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1719
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1720
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1303
+msgid "TORY - Original release year"
+msgstr "TORY - izvorna godina izdavanja"
+
+#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1721
+msgid "TOWN - File owner/licensee"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1722
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1306 core/formats/taglibfile.cpp:1723
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1724
+msgid "TPE3 - Conductor/performer refinement"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1308 core/formats/taglibfile.cpp:1725
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1726
+msgid "TPOS - Part of a set"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1728
+msgid "TPUB - Publisher"
+msgstr "TPUB - izdavač"
+
+#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1729
+msgid "TRCK - Track number/Position in set"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1313
+msgid "TRDA - Recording dates"
+msgstr "TRDA - datumi snimanja"
+
+#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1730
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - ime internet radio stanice"
+
+#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1731
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - vlasnik internet radio stanice"
+
+#: core/formats/mp3file.cpp:1316
+msgid "TSIZ - Size"
+msgstr "TSIZ - veličina"
+
+#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1737
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (međunarodni standardni kôd snimanja)"
+
+#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1738
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1740
+msgid "TXXX - User defined text information"
+msgstr "TXXX - korisnički definisana tekstualna informacija"
+
+#: core/formats/mp3file.cpp:1324
+msgid "TYER - Year"
+msgstr "TYER - godina"
+
+#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1741
+msgid "UFID - Unique file identifier"
+msgstr "UFID - jedinstveni identifikator fajla"
+
+#: core/formats/mp3file.cpp:1326 core/formats/taglibfile.cpp:1742
+msgid "USER - Terms of use"
+msgstr "USER - uslovi korišćenja"
+
+#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1743
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1744
+msgid "WCOM - Commercial information"
+msgstr "WCOM - podaci o komercijalizovanju"
+
+#: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1745
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - autorsko pravo/pravne informacije"
+
+#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1746
+msgid "WOAF - Official audio file webpage"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1747
+msgid "WOAR - Official artist/performer webpage"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1748
+msgid "WOAS - Official audio source webpage"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1749
+msgid "WORS - Official internet radio station homepage"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1750
+msgid "WPAY - Payment"
+msgstr "WPAY - plaćanje"
+
+#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1751
+msgid "WPUB - Official publisher webpage"
+msgstr ""
+
+#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1752
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - korisnički definisana URL veza"
+
+#: core/formats/taglibfile.cpp:1669
+msgid "ASPI - Audio seek point index"
+msgstr ""
+
+#: core/formats/taglibfile.cpp:1673
+msgid "EQU2 - Equalisation (2)"
+msgstr "EQU2 - jednačenje (2)"
+
+#: core/formats/taglibfile.cpp:1686
+msgid "RVA2 - Relative volume adjustment (2)"
+msgstr "RVA2 - podešavanje relativne jačine zvuka (2)"
+
+#: core/formats/taglibfile.cpp:1688
+msgid "SEEK - Seek frame"
+msgstr "SEEK - kadar traženja"
+
+#: core/formats/taglibfile.cpp:1689
+msgid "SIGN - Signature frame"
+msgstr "SIGN - kadar potpisa"
+
+#: core/formats/taglibfile.cpp:1694
+msgid "TCMP - iTunes compilation flag"
+msgstr ""
+
+#: core/formats/taglibfile.cpp:1698
+msgid "TDEN - Encoding time"
+msgstr "TDEN - vrijeme kodiranja"
+
+#: core/formats/taglibfile.cpp:1700
+msgid "TDOR - Original release time"
+msgstr "TDOR - vrijeme izdavanja originala"
+
+#: core/formats/taglibfile.cpp:1701
+msgid "TDRC - Recording time"
+msgstr "TDRC - vrijeme snimanja"
+
+#: core/formats/taglibfile.cpp:1702
+msgid "TDRL - Release time"
+msgstr "TDRL - vrijeme izdavanja"
+
+#: core/formats/taglibfile.cpp:1703
+msgid "TDTG - Tagging time"
+msgstr "TDTG - vrijeme označavanja"
+
+#: core/formats/taglibfile.cpp:1707
+msgid "TIPL - Involved people list"
+msgstr "TIPL - spisak uključenih ljudi"
+
+#: core/formats/taglibfile.cpp:1714
+msgid "TMCL - Musician credits list"
+msgstr ""
+
+#: core/formats/taglibfile.cpp:1716
+msgid "TMOO - Mood"
+msgstr "TMOO - raspoloženje"
+
+#: core/formats/taglibfile.cpp:1727
+msgid "TPRO - Produced notice"
+msgstr ""
+
+#: core/formats/taglibfile.cpp:1732
+msgid "TSO2 - Album artist sort order"
+msgstr "TSO2 - redoslijed sortiranja autora albuma"
+
+#: core/formats/taglibfile.cpp:1733
+msgid "TSOA - Album sort order"
+msgstr "TSOA - redoslijed sortiranja albuma"
+
+#: core/formats/taglibfile.cpp:1734
+msgid "TSOC - Composer sort order"
+msgstr "TSOC - redoslijed sortiranja kompozitora"
+
+#: core/formats/taglibfile.cpp:1735
+msgid "TSOP - Performer sort order"
+msgstr "TSOP - redoslijed sortiranja izvođača"
+
+#: core/formats/taglibfile.cpp:1736
+msgid "TSOT - Title sort order"
+msgstr "TSOT - redoslijed sortiranja naslova"
+
+#: core/formats/taglibfile.cpp:1739
+msgid "TSST - Set subtitle"
+msgstr "TSST - postavi podnaslov"
+
+#: core/import/amazonimporter.cpp:59
+msgid "Amazon"
+msgstr "Amazon"
+
+#: core/import/discogsimporter.cpp:61
+msgid "Discogs"
+msgstr "Diskogs"
+
+#: core/import/freedbimporter.cpp:60
+msgid "gnudb.org"
+msgstr "gnudb.org"
+
+#: core/import/httpclient.cpp:72 core/import/httpclient.cpp:84
+#: core/import/httpclient.cpp:133 core/model/downloadclient.cpp:62
+#: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:165
+#: gui/forms/kid3mainwindow.cpp:794 gui/forms/kid3mainwindow.cpp:947
+#: gui/forms/kid3mainwindow.cpp:1190 gui/forms/kid3mainwindow.cpp:1269
+msgid "Ready."
+msgstr "Spreman."
+
+#: core/import/httpclient.cpp:75
+msgid "Connecting..."
+msgstr "Povezivanje..."
+
+#: core/import/httpclient.cpp:78
+msgid "Host found..."
+msgstr "Domaćin nađen..."
+
+#: core/import/httpclient.cpp:81
+msgid "Request sent..."
+msgstr "Zahtjev poslat..."
+
+#: core/import/httpclient.cpp:94 core/import/httpclient.cpp:104
+msgid "Data received: %1"
+msgstr "Podaci primljeni: %1"
+
+#: core/import/httpclient.cpp:117
+msgid "Socket error: "
+msgstr "Greška soketa: "
+
+#: core/import/httpclient.cpp:120
+msgid "Connection refused"
+msgstr "Veza odbijena"
+
+#: core/import/httpclient.cpp:123
+msgid "Host not found"
+msgstr "Domaćin nije nađen"
+
+#: core/import/importparser.cpp:66 core/tags/frame.cpp:898
+msgid "Year"
+msgstr "Godina"
+
+#: core/import/importparser.cpp:78 core/model/trackdatamodel.cpp:203
+#: core/tags/trackdata.cpp:191 core/tags/trackdata.cpp:195
+msgid "Length"
+msgstr "Trajanje"
+
+#: core/import/musicbrainzclient.cpp:250
+msgid "Unrecognized"
+msgstr "Nije prepoznato"
+
+#: core/import/musicbrainzclient.cpp:262
+msgid "Recognized"
+msgstr "Prepoznato"
+
+#: core/import/musicbrainzclient.cpp:265
+msgid "User Selection"
+msgstr "Korisnikov odabir"
+
+#: core/import/musicbrainzclient.cpp:288
+msgid "Fingerprint"
+msgstr "Otisak prsta"
+
+#: core/import/musicbrainzclient.cpp:293 core/model/dirrenamer.cpp:443
+msgid "Error"
+msgstr "Greška"
+
+#: core/import/musicbrainzclient.cpp:297
+msgid "ID Lookup"
+msgstr "ID pretraga"
+
+#: core/import/musicbrainzclient.cpp:310
+msgid "Metadata Lookup"
+msgstr "Pretraga metapodataka"
+
+#: core/import/musicbrainzreleaseimporter.cpp:60
+msgid "MusicBrainz Release"
+msgstr "MjuzikBrejnz izdanje"
+
+#: core/import/tracktypeimporter.cpp:59
+msgid "TrackType.org"
+msgstr "TrekTajp.org"
+
+#: core/model/commandformatreplacer.cpp:140
+msgid "Filenames"
+msgstr "Imena fajlova"
+
+#: core/model/commandformatreplacer.cpp:148
+msgid "URLs"
+msgstr "URL-ovi"
+
+#: core/model/commandformatreplacer.cpp:152
+msgid "Directory name"
+msgstr "Ime direktorijuma"
+
+#: core/model/commandformatreplacer.cpp:160
+#: gui/dialogs/browsecoverartdialog.cpp:58
+msgid "Encode as URL"
+msgstr "Kodiraj kao URL"
+
+#: core/model/commandstablemodel.cpp:172
+msgid "Confirm"
+msgstr "Potvrdi"
+
+#: core/model/commandstablemodel.cpp:174
+msgid "Output"
+msgstr "Izlaz"
+
+#: core/model/commandstablemodel.cpp:176 core/model/frametablemodel.cpp:190
+msgid "Name"
+msgstr "Ime"
+
+#: core/model/commandstablemodel.cpp:178
+msgid "Command"
+msgstr "Naredba"
+
+#: core/model/dirrenamer.cpp:71 core/model/dirrenamer.cpp:90
+msgid "Create directory %1 failed\n"
+msgstr "Pravljenje direktorijuma %1 nije uspjelo\n"
+
+#: core/model/dirrenamer.cpp:97 core/model/dirrenamer.cpp:118
+msgid "File %1 already exists\n"
+msgstr "Fajl %1 već postoji\n"
+
+#: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:124
+msgid "%1 is not a directory\n"
+msgstr "%1 nije direktorijum\n"
+
+#: core/model/dirrenamer.cpp:101 core/model/dirrenamer.cpp:132
+#: core/model/dirrenamer.cpp:175 gui/forms/kid3mainwindow.cpp:1926
+msgid "Rename %1 to %2 failed\n"
+msgstr "Preimenovanje %1 u %2 nije uspjelo\n"
+
+#: core/model/dirrenamer.cpp:139 core/model/dirrenamer.cpp:161
+msgid "%1 already exists\n"
+msgstr "%1 već postoji\n"
+
+#: core/model/dirrenamer.cpp:141 core/model/dirrenamer.cpp:167
+msgid "%1 is not a file\n"
+msgstr "%1 nije fajl\n"
+
+#: core/model/dirrenamer.cpp:390
+msgid "New directory name is too different\n"
+msgstr "Novo ime direktorijuma je previše različito\n"
+
+#: core/model/dirrenamer.cpp:440
+msgid "Create directory"
+msgstr "Napravi direktorijum"
+
+#: core/model/dirrenamer.cpp:441
+msgid "Rename directory"
+msgstr "Preimenuj direktorijum"
+
+#: core/model/dirrenamer.cpp:442
+msgid "Rename file"
+msgstr "Preimenuj fajl"
+
+#: core/model/externalprocess.cpp:54
+msgid "C&lear"
+msgstr "O&čisti"
+
+#: core/model/externalprocess.cpp:57 gui/dialogs/browserdialog.cpp:118
+#: gui/dialogs/exportdialog.cpp:147 gui/dialogs/filterdialog.cpp:86
+#: gui/dialogs/serverimportdialog.cpp:109 gui/dialogs/tagimportdialog.cpp:80
+#: gui/dialogs/textimportdialog.cpp:94 gui/widgets/imageviewer.cpp:55
+msgid "&Close"
+msgstr "&Zatvori"
+
+#: core/model/externalprocess.cpp:116
+msgid "Execute "
+msgstr "Izvrši "
+
+#: core/model/externalprocess.cpp:152
+msgid "Could not execute "
+msgstr "Ne mogu da izvršim "
+
+#: core/model/filefilter.cpp:112
+msgid "True if strings are equal"
+msgstr "Tačno ako su nizovi jednaki"
+
+#: core/model/filefilter.cpp:116
+msgid "True if string contains substring"
+msgstr "Tačno ako niz sadrži podniz"
+
+#: core/model/filefilter.cpp:120
+msgid "True if string matches regexp"
+msgstr "Tačno ako se niz poklapa sa regizom"
+
+#: core/model/filefilter.cpp:124
+msgid "Logical AND"
+msgstr "Logičko I"
+
+#: core/model/filefilter.cpp:128
+msgid "Logical OR"
+msgstr "Logičko ILI"
+
+#: core/model/filefilter.cpp:132
+msgid "Logical negation"
+msgstr "Logička negacija"
+
+#: core/model/frametablemodel.cpp:190
+#: gui/dialogs/editframefieldsdialog.cpp:659
+msgid "Data"
+msgstr "Podaci"
+
+#: core/model/kid3application.cpp:1835 core/model/kid3application.cpp:1839
+msgid "All Supported Files"
+msgstr "Svi podržani fajlovi"
+
+#: core/model/kid3application.cpp:1837 core/model/kid3application.cpp:1843
+msgid "All Files (*)"
+msgstr "Svi fajlovi (*)"
+
+#: core/model/trackdatamodel.cpp:191 core/tags/frame.cpp:902
+#: core/tags/frame.cpp:906 core/tags/frame.cpp:910
+msgid "Track"
+msgstr "Numera"
+
+#: core/model/trackdatamodel.cpp:197 core/tags/trackdata.cpp:183
+msgid "Absolute path to file"
+msgstr "Apsolutna putanja do fajla"
+
+#: core/model/trackdatamodel.cpp:199 gui/dialogs/editframefieldsdialog.cpp:664
+#: gui/forms/kid3form.cpp:894 gui/forms/kid3mainwindow.cpp:367
+#: gui/forms/kid3mainwindow.cpp:370 gui/forms/kid3mainwindow.cpp:373
+msgid "Filename"
+msgstr "Ime fajla"
+
+#: core/model/trackdatamodel.cpp:201
+msgid "Duration"
+msgstr "Trajanje"
+
+#: core/tags/frame.cpp:67
+msgid "Title"
+msgstr "Naslov"
+
+#: core/tags/frame.cpp:68
+msgid "Artist"
+msgstr "Izvođač"
+
+#: core/tags/frame.cpp:69
+msgid "Album"
+msgstr "Album"
+
+#: core/tags/frame.cpp:70
+msgid "Comment"
+msgstr "Komentar"
+
+#: core/tags/frame.cpp:71
+msgid "Date"
+msgstr "Godina"
+
+#: core/tags/frame.cpp:72 gui/widgets/frametable.cpp:60
+msgid "Track Number"
+msgstr "Broj numere"
+
+#: core/tags/frame.cpp:73
+msgid "Genre"
+msgstr "Žanr"
+
+#: core/tags/frame.cpp:75
+msgid "Album Artist"
+msgstr "Izvođač albuma"
+
+#: core/tags/frame.cpp:76
+msgid "Arranger"
+msgstr "Aranžer"
+
+#: core/tags/frame.cpp:77
+msgid "Author"
+msgstr "Autor"
+
+#: core/tags/frame.cpp:78
+msgid "BPM"
+msgstr "BPM"
+
+#: core/tags/frame.cpp:79 gui/dialogs/editframefieldsdialog.cpp:875
+msgid "Composer"
+msgstr "Kompozitor"
+
+#: core/tags/frame.cpp:80 gui/dialogs/editframefieldsdialog.cpp:873
+msgid "Conductor"
+msgstr "Dirigent"
+
+#: core/tags/frame.cpp:81
+msgid "Copyright"
+msgstr "Autorsko pravo"
+
+#: core/tags/frame.cpp:82
+msgid "Disc Number"
+msgstr "Broj diska"
+
+#: core/tags/frame.cpp:83
+msgid "Encoded-by"
+msgstr "Koder"
+
+#: core/tags/frame.cpp:84
+msgid "Grouping"
+msgstr "Grupisanje"
+
+#: core/tags/frame.cpp:85
+msgid "ISRC"
+msgstr "ISRC"
+
+#: core/tags/frame.cpp:86 gui/dialogs/editframefieldsdialog.cpp:665
+msgid "Language"
+msgstr "Jezik"
+
+#: core/tags/frame.cpp:87
+msgid "Lyricist"
+msgstr "Tekstopisac"
+
+#: core/tags/frame.cpp:88 gui/dialogs/editframefieldsdialog.cpp:903
+msgid "Lyrics"
+msgstr "Tekst"
+
+#: core/tags/frame.cpp:89 gui/dialogs/editframefieldsdialog.cpp:870
+msgid "Media"
+msgstr "Medija"
+
+#: core/tags/frame.cpp:90
+msgid "Original Album"
+msgstr "Izvorni album"
+
+#: core/tags/frame.cpp:91
+msgid "Original Artist"
+msgstr "Izvorni izvođač"
+
+#: core/tags/frame.cpp:92
+msgid "Original Date"
+msgstr "Izvorni datum"
+
+#: core/tags/frame.cpp:93
+msgid "Part"
+msgstr "Dio"
+
+#: core/tags/frame.cpp:94
+msgid "Performer"
+msgstr "Izvođač"
+
+#: core/tags/frame.cpp:95
+msgid "Picture"
+msgstr "Slika"
+
+#: core/tags/frame.cpp:96
+msgid "Publisher"
+msgstr "Izdavač"
+
+#: core/tags/frame.cpp:97
+msgid "Remixer"
+msgstr "Remikser"
+
+#: core/tags/frame.cpp:98
+msgid "Subtitle"
+msgstr "Podnaslov"
+
+#: core/tags/frame.cpp:99
+msgid "Website"
+msgstr "Vebsajt"
+
+#: core/tags/trackdata.cpp:199
+msgid "Number of tracks"
+msgstr "Broj numera"
+
+#: core/tags/trackdata.cpp:203
+msgid "Extension"
+msgstr "Ekstenzija"
+
+#: core/tags/trackdata.cpp:215
+msgid "Bitrate"
+msgstr "Bitski protok"
+
+#: core/tags/trackdata.cpp:219
+msgid "VBR"
+msgstr "VBR"
+
+#: core/tags/trackdata.cpp:223
+msgid "Samplerate"
+msgstr "Uzorkovanje"
+
+#: core/tags/trackdata.cpp:229
+msgid "Channels"
+msgstr "Kanala"
+
+#: core/tags/trackdata.cpp:233
+msgid "Codec"
+msgstr "Kodek"
+
+#: gui/app/main.cpp:40
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 uređivač ID3 oznaka"
+
+#: gui/app/main.cpp:54 gui/forms/kid3form.cpp:175
+msgid "Kid3"
+msgstr "Kid3"
+
+#: gui/app/main.cpp:56
+msgid "(c) 2003-"
+msgstr "© 2003-"
+
+#: gui/app/main.cpp:58
+msgid "Urs Fleisch"
+msgstr "Urs Flajš"
+
+#: gui/app/main.cpp:62
+msgid "directory to open"
+msgstr "direktorijum za otvaranje"
+
+#: gui/dialogs/browsecoverartdialog.cpp:75
+#: gui/dialogs/browsecoverartdialog.cpp:264
+msgid "Browse Cover Art"
+msgstr "Pretraga omota albuma"
+
+#: gui/dialogs/browsecoverartdialog.cpp:86
+msgid "&Artist/Album"
+msgstr "I&zvođač/album"
+
+#: gui/dialogs/browsecoverartdialog.cpp:100
+msgid "&Source"
+msgstr "&Izvor"
+
+#: gui/dialogs/browsecoverartdialog.cpp:102 gui/dialogs/tagimportdialog.cpp:58
+msgid "Source:"
+msgstr "Izvor:"
+
+#: gui/dialogs/browsecoverartdialog.cpp:103
+msgid "URL:"
+msgstr "URL:"
+
+#: gui/dialogs/browsecoverartdialog.cpp:116
+msgid "&URL extraction"
+msgstr "Izvlačenje &URL-a"
+
+#: gui/dialogs/browsecoverartdialog.cpp:120
+msgid "Match"
+msgstr "Poklopi"
+
+#: gui/dialogs/browsecoverartdialog.cpp:120
+msgid "Picture URL"
+msgstr "URL slike"
+
+#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:439
+#: gui/dialogs/exportdialog.cpp:133 gui/dialogs/filterdialog.cpp:71
+#: gui/dialogs/importdialog.cpp:225 gui/dialogs/musicbrainzdialog.cpp:116
+#: gui/dialogs/numbertracksdialog.cpp:106 gui/dialogs/playlistdialog.cpp:201
+#: gui/dialogs/serverimportdialog.cpp:107 gui/dialogs/tagimportdialog.cpp:67
+#: gui/dialogs/textimportdialog.cpp:77 gui/forms/kid3mainwindow.cpp:724
+msgid "&Help"
+msgstr "Po&moć"
+
+#: gui/dialogs/browsecoverartdialog.cpp:137 gui/dialogs/exportdialog.cpp:138
+#: gui/dialogs/filterdialog.cpp:76 gui/dialogs/importdialog.cpp:227
+#: gui/dialogs/musicbrainzdialog.cpp:117
+#: gui/dialogs/numbertracksdialog.cpp:110 gui/dialogs/playlistdialog.cpp:205
+#: gui/dialogs/rendirdialog.cpp:76 gui/dialogs/serverimportdialog.cpp:108
+#: gui/dialogs/tagimportdialog.cpp:71 gui/dialogs/textimportdialog.cpp:81
+msgid "&Save Settings"
+msgstr "&Sačuvaj podešavanja"
+
+#: gui/dialogs/browsecoverartdialog.cpp:146
+msgid "&Browse"
+msgstr "&Potraži"
+
+#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:441
+#: gui/dialogs/editframedialog.cpp:58
+#: gui/dialogs/editframefieldsdialog.cpp:953 gui/dialogs/importdialog.cpp:231
+#: gui/dialogs/musicbrainzdialog.cpp:120
+#: gui/dialogs/numbertracksdialog.cpp:123 gui/dialogs/playlistdialog.cpp:216
+msgid "&Cancel"
+msgstr "&Odustani"
+
+#: gui/dialogs/browsecoverartdialog.cpp:178
+msgid "Click Browse to start"
+msgstr "Kliknite na „Potraži“ da biste pokrenuli"
+
+#: gui/dialogs/browsecoverartdialog.cpp:184
+msgid "Then drag the picture from the browser to Kid3."
+msgstr "i onda prevucite sliku sa pregledača u Kid3."
+
+#: gui/dialogs/browserdialog.cpp:76
+msgid "&Back"
+msgstr "&Nazad"
+
+#: gui/dialogs/browserdialog.cpp:81
+msgid "&Forward"
+msgstr "Na&prijed"
+
+#: gui/dialogs/browserdialog.cpp:86
+msgid "&Find:"
+msgstr "&Nađi:"
+
+#: gui/dialogs/browserdialog.cpp:100
+msgid "Find Previous"
+msgstr "Nađi prethodno"
+
+#: gui/dialogs/browserdialog.cpp:110
+msgid "Find Next"
+msgstr "Nađi sljedeće"
+
+#: gui/dialogs/configdialog.cpp:114
+msgid "ID3v1"
+msgstr "ID3v1"
+
+#: gui/dialogs/configdialog.cpp:118
+msgid "&Mark truncated fields"
+msgstr "Označi odsječena &polja"
+
+#: gui/dialogs/configdialog.cpp:121 gui/dialogs/configdialog.cpp:207
+msgid "Text &encoding:"
+msgstr "Kodiranje &teksta:"
+
+#: gui/dialogs/configdialog.cpp:196
+msgid "ID3v2"
+msgstr "ID3v2"
+
+#: gui/dialogs/configdialog.cpp:200
+msgid "Use &track/total number of tracks format"
+msgstr "Koristi format &numera/ukupno numera"
+
+#: gui/dialogs/configdialog.cpp:202
+msgid "Track number &digits:"
+msgstr "Broj &cifara numere:"
+
+#: gui/dialogs/configdialog.cpp:206
+msgid "&Genre as text instead of numeric string"
+msgstr "&Žanr kao tekst umjesto brojnog niza"
+
+#: gui/dialogs/configdialog.cpp:209 gui/dialogs/editframefieldsdialog.cpp:853
+msgid "ISO-8859-1"
+msgstr "ISO-8859-1"
+
+#: gui/dialogs/configdialog.cpp:210 gui/dialogs/editframefieldsdialog.cpp:854
+msgid "UTF16"
+msgstr "UTF-16"
+
+#: gui/dialogs/configdialog.cpp:211 gui/dialogs/editframefieldsdialog.cpp:856
+msgid "UTF8"
+msgstr "UTF-8"
+
+#: gui/dialogs/configdialog.cpp:219
+msgid "&Version used for new tags:"
+msgstr "I&zdanje za nove oznake:"
+
+#: gui/dialogs/configdialog.cpp:221
+msgid "ID3v2.3.0 (id3lib)"
+msgstr "ID3v2.3.0 (id3lib)"
+
+#: gui/dialogs/configdialog.cpp:222
+msgid "ID3v2.4.0 (TagLib)"
+msgstr "ID3v2.4.0 (TagLib)"
+
+#: gui/dialogs/configdialog.cpp:233
+msgid "Ogg/Vorbis"
+msgstr "Ogg/Vorbis"
+
+#: gui/dialogs/configdialog.cpp:234
+msgid "Comment field &name:"
+msgstr "Ime polja ko&mentara:"
+
+#: gui/dialogs/configdialog.cpp:236
+msgid "&Picture field name:"
+msgstr "Ime polja &slike:"
+
+#: gui/dialogs/configdialog.cpp:259
+msgid "Custom &Genres"
+msgstr "Pose&bni žanrovi"
+
+#: gui/dialogs/configdialog.cpp:260
+msgid "&Show only custom genres"
+msgstr "Prik&aži samo posebne žanrove"
+
+#: gui/dialogs/configdialog.cpp:269
+msgid "&Tag Format"
+msgstr "&Format oznake"
+
+#: gui/dialogs/configdialog.cpp:274
+msgid "Tags"
+msgstr "Oznake"
+
+#: gui/dialogs/configdialog.cpp:276
+msgid "&Tags"
+msgstr "&Oznake"
+
+#: gui/dialogs/configdialog.cpp:285
+msgid "Save"
+msgstr "Sačuvaj"
+
+#: gui/dialogs/configdialog.cpp:286
+msgid "&Preserve file timestamp"
+msgstr "Očuvaj &vremensku oznaku fajla"
+
+#: gui/dialogs/configdialog.cpp:287
+msgid "&Mark changes"
+msgstr "O&znači izmjene"
+
+#: gui/dialogs/configdialog.cpp:294
+msgid "&Filename Format"
+msgstr "Format imena &fajla"
+
+#: gui/dialogs/configdialog.cpp:298
+msgid "Files"
+msgstr "Fajlovi"
+
+#: gui/dialogs/configdialog.cpp:300
+msgid "&Files"
+msgstr "&Fajlovi"
+
+#: gui/dialogs/configdialog.cpp:309
+msgid "Browser"
+msgstr "Pregledač"
+
+#: gui/dialogs/configdialog.cpp:310
+msgid "Web &browser:"
+msgstr "Veb &pregledač"
+
+#: gui/dialogs/configdialog.cpp:320
+msgid "Context &Menu Commands"
+msgstr "Naredbe kontekstnog me&nija"
+
+#: gui/dialogs/configdialog.cpp:322
+msgid "&Play on double click"
+msgstr "&Reprodukuj pri dvokliku"
+
+#: gui/dialogs/configdialog.cpp:335
+msgid "User Actions"
+msgstr "Radnje korisnika"
+
+#: gui/dialogs/configdialog.cpp:337
+msgid "&User Actions"
+msgstr "Radnje &korisnika"
+
+#: gui/dialogs/configdialog.cpp:346
+msgid "Proxy"
+msgstr "Proksi"
+
+#: gui/dialogs/configdialog.cpp:347
+msgid "&Proxy:"
+msgstr "&Proksi:"
+
+#: gui/dialogs/configdialog.cpp:349
+msgid "&Use authentication with proxy"
+msgstr "Koristi &autentifikaciju za proksi"
+
+#: gui/dialogs/configdialog.cpp:350
+msgid "Proxy user &name:"
+msgstr "Korisničko &ime za proksi:"
+
+#: gui/dialogs/configdialog.cpp:353
+msgid "Proxy pass&word:"
+msgstr "Lozinka za proksi:"
+
+#: gui/dialogs/configdialog.cpp:377
+msgid "Network"
+msgstr "Mreža"
+
+#: gui/dialogs/configdialog.cpp:379
+msgid "&Network"
+msgstr "&Mreža"
+
+#: gui/dialogs/configdialog.cpp:397
+msgid "&Keyboard Shortcuts"
+msgstr "Prečice &tastature"
+
+#: gui/dialogs/configdialog.cpp:407
+msgid "Use custom app&lication font"
+msgstr "Koristi pose&bni font za aplikaciju"
+
+#: gui/dialogs/configdialog.cpp:408
+msgid "A&pplication Font..."
+msgstr "&Font aplikacije..."
+
+#: gui/dialogs/configdialog.cpp:409
+msgid "Use custom application &style"
+msgstr "Koristi posebni &stil za aplikaciju"
+
+#: gui/dialogs/configdialog.cpp:417 gui/dialogs/configdialog.cpp:707
+#: gui/dialogs/musicbrainzdialog.cpp:177 gui/dialogs/musicbrainzdialog.cpp:181
+#: gui/dialogs/musicbrainzdialog.cpp:196
+msgid "Unknown"
+msgstr "Nepoznato"
+
+#: gui/dialogs/configdialog.cpp:426
+msgid "Use native system file &dialogs"
+msgstr "Koristi sistemske &dijaloge fajlova"
+
+#: gui/dialogs/configdialog.cpp:430
+msgid "&Appearance"
+msgstr "&Izgled"
+
+#: gui/dialogs/configdialog.cpp:440 gui/dialogs/editframedialog.cpp:57
+#: gui/dialogs/editframefieldsdialog.cpp:952 gui/dialogs/importdialog.cpp:229
+#: gui/dialogs/musicbrainzdialog.cpp:118
+#: gui/dialogs/numbertracksdialog.cpp:119 gui/dialogs/playlistdialog.cpp:213
+msgid "&OK"
+msgstr "&U redu"
+
+#: gui/dialogs/configdialog.cpp:629
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Prečica tastature '%1' je već dodijeljena '%2'."
+
+#: gui/dialogs/contexthelp.cpp:59 gui/forms/kid3mainwindow.cpp:727
+msgid "Kid3 Handbook"
+msgstr "Kid3 priručnik"
+
+#: gui/dialogs/editframefieldsdialog.cpp:523
+#: gui/dialogs/textimportdialog.cpp:90
+msgid "From Clip&board"
+msgstr "Iz klip&borda"
+
+#: gui/dialogs/editframefieldsdialog.cpp:524
+msgid "&Import"
+msgstr "U&vezi"
+
+#: gui/dialogs/editframefieldsdialog.cpp:525
+msgid "&Export"
+msgstr "Izv&ezi"
+
+#: gui/dialogs/editframefieldsdialog.cpp:526
+msgid "&View"
+msgstr "&Prikaz"
+
+#: gui/dialogs/editframefieldsdialog.cpp:656
+msgid "Text Encoding"
+msgstr "Kodiranje teksta"
+
+#: gui/dialogs/editframefieldsdialog.cpp:657
+msgid "Text"
+msgstr "Tekst"
+
+#: gui/dialogs/editframefieldsdialog.cpp:658
+msgid "URL"
+msgstr "URL"
+
+#: gui/dialogs/editframefieldsdialog.cpp:660
+msgid "Description"
+msgstr "Opis"
+
+#: gui/dialogs/editframefieldsdialog.cpp:661
+msgid "Owner"
+msgstr "Vlasnik"
+
+#: gui/dialogs/editframefieldsdialog.cpp:662
+msgid "Email"
+msgstr "E-adresa"
+
+#: gui/dialogs/editframefieldsdialog.cpp:663
+msgid "Rating"
+msgstr "Rejting"
+
+#: gui/dialogs/editframefieldsdialog.cpp:666
+msgid "Picture Type"
+msgstr "Tip slike"
+
+#: gui/dialogs/editframefieldsdialog.cpp:667
+msgid "Image format"
+msgstr "Format slike"
+
+#: gui/dialogs/editframefieldsdialog.cpp:668
+msgid "Mimetype"
+msgstr "Mime"
+
+#: gui/dialogs/editframefieldsdialog.cpp:669
+msgid "Counter"
+msgstr "Brojač"
+
+#: gui/dialogs/editframefieldsdialog.cpp:670
+msgid "Identifier"
+msgstr "Identifikator"
+
+#: gui/dialogs/editframefieldsdialog.cpp:671
+msgid "Volume Adjustment"
+msgstr "Podešavanje jačine"
+
+#: gui/dialogs/editframefieldsdialog.cpp:672
+msgid "Number of Bits"
+msgstr "Broj bita"
+
+#: gui/dialogs/editframefieldsdialog.cpp:673
+msgid "Volume Change Right"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:674
+msgid "Volume Change Left"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:675
+msgid "Peak Volume Right"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:676
+msgid "Peak Volume Left"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:677
+msgid "Timestamp Format"
+msgstr "Format vremenske oznake"
+
+#: gui/dialogs/editframefieldsdialog.cpp:678
+msgid "Content Type"
+msgstr "Tip sadržaja"
+
+#: gui/dialogs/editframefieldsdialog.cpp:855
+msgid "UTF16BE"
+msgstr "UTF-16BE"
+
+#: gui/dialogs/editframefieldsdialog.cpp:864
+#: gui/dialogs/editframefieldsdialog.cpp:892
+#: gui/dialogs/editframefieldsdialog.cpp:902
+msgid "Other"
+msgstr "Ostalo"
+
+#: gui/dialogs/editframefieldsdialog.cpp:865
+msgid "32x32 pixels PNG file icon"
+msgstr "PNG ikona fajla 32x32 piksela"
+
+#: gui/dialogs/editframefieldsdialog.cpp:866
+msgid "Other file icon"
+msgstr "Ostale ikone fajla"
+
+#: gui/dialogs/editframefieldsdialog.cpp:867
+msgid "Cover (front)"
+msgstr "Omot (prednji)"
+
+#: gui/dialogs/editframefieldsdialog.cpp:868
+msgid "Cover (back)"
+msgstr "Omot (zadnji)"
+
+#: gui/dialogs/editframefieldsdialog.cpp:869
+msgid "Leaflet page"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:871
+msgid "Lead artist/lead performer/soloist"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:872
+msgid "Artist/performer"
+msgstr "Umjetnik/izvođač"
+
+#: gui/dialogs/editframefieldsdialog.cpp:874
+msgid "Band/Orchestra"
+msgstr "Bend/orkestar"
+
+#: gui/dialogs/editframefieldsdialog.cpp:876
+msgid "Lyricist/text writer"
+msgstr "Pjesnik/tekstopisac"
+
+#: gui/dialogs/editframefieldsdialog.cpp:877
+msgid "Recording Location"
+msgstr "Mjesto snimanja"
+
+#: gui/dialogs/editframefieldsdialog.cpp:878
+msgid "During recording"
+msgstr "Tokom snimanja"
+
+#: gui/dialogs/editframefieldsdialog.cpp:879
+msgid "During performance"
+msgstr "Tokom izvođenja"
+
+#: gui/dialogs/editframefieldsdialog.cpp:880
+msgid "Movie/video screen capture"
+msgstr "Snimak ekrana filma/videa"
+
+#: gui/dialogs/editframefieldsdialog.cpp:881
+msgid "A bright coloured fish"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:882
+msgid "Illustration"
+msgstr "Ilustracija"
+
+#: gui/dialogs/editframefieldsdialog.cpp:883
+msgid "Band/artist logotype"
+msgstr "Logotip benda/izvođača"
+
+#: gui/dialogs/editframefieldsdialog.cpp:884
+msgid "Publisher/Studio logotype"
+msgstr "Logotip izdavača/studija"
+
+#: gui/dialogs/editframefieldsdialog.cpp:893
+msgid "MPEG frames as unit"
+msgstr "Broj MPEG kadrova kao jedinica"
+
+#: gui/dialogs/editframefieldsdialog.cpp:894
+msgid "Milliseconds as unit"
+msgstr "Milisekunde kao jedinica"
+
+#: gui/dialogs/editframefieldsdialog.cpp:904
+msgid "Text transcription"
+msgstr "Transkripcija teksta"
+
+#: gui/dialogs/editframefieldsdialog.cpp:905
+msgid "Movement/part name"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:906
+msgid "Events"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:907
+msgid "Chord"
+msgstr "Akord"
+
+#: gui/dialogs/editframefieldsdialog.cpp:908
+msgid "Trivia/pop up"
+msgstr ""
+
+#: gui/dialogs/exportdialog.cpp:72
+msgid "Export"
+msgstr "Izvezi"
+
+#: gui/dialogs/exportdialog.cpp:89 gui/dialogs/tagimportdialog.cpp:57
+#: gui/dialogs/textimportdialog.cpp:67 gui/forms/kid3form.cpp:218
+#: gui/forms/kid3form.cpp:242
+msgid "Format:"
+msgstr "Format:"
+
+#: gui/dialogs/exportdialog.cpp:90 gui/dialogs/textimportdialog.cpp:68
+msgid "Header:"
+msgstr "Zaglavlje:"
+
+#: gui/dialogs/exportdialog.cpp:91 gui/dialogs/textimportdialog.cpp:69
+msgid "Tracks:"
+msgstr "Numere:"
+
+#: gui/dialogs/exportdialog.cpp:92
+msgid "Footer:"
+msgstr "Podnožje:"
+
+#: gui/dialogs/exportdialog.cpp:104
+msgid "To F&ile"
+msgstr "U f&ajl"
+
+#: gui/dialogs/exportdialog.cpp:109
+msgid "To Clip&board"
+msgstr "U klip&bord"
+
+#: gui/dialogs/exportdialog.cpp:118
+msgid "&Source:"
+msgstr "&Izvor:"
+
+#: gui/dialogs/exportdialog.cpp:122 gui/dialogs/importdialog.cpp:166
+#: gui/dialogs/numbertracksdialog.cpp:78 gui/forms/kid3form.cpp:235
+#: gui/forms/kid3form.cpp:260 gui/forms/kid3form.cpp:899
+#: gui/forms/kid3mainwindow.cpp:328 gui/forms/kid3mainwindow.cpp:331
+#: gui/forms/kid3mainwindow.cpp:334 gui/forms/kid3mainwindow.cpp:337
+#: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:376
+msgid "Tag 1"
+msgstr "oznaka 1"
+
+#: gui/dialogs/exportdialog.cpp:123 gui/dialogs/importdialog.cpp:167
+#: gui/dialogs/numbertracksdialog.cpp:79 gui/forms/kid3form.cpp:238
+#: gui/forms/kid3form.cpp:264 gui/forms/kid3form.cpp:906
+#: gui/forms/kid3mainwindow.cpp:343 gui/forms/kid3mainwindow.cpp:346
+#: gui/forms/kid3mainwindow.cpp:349 gui/forms/kid3mainwindow.cpp:352
+#: gui/forms/kid3mainwindow.cpp:355 gui/forms/kid3mainwindow.cpp:379
+msgid "Tag 2"
+msgstr "oznaka 2"
+
+#: gui/dialogs/exportdialog.cpp:180 gui/forms/kid3mainwindow.cpp:938
+#: gui/forms/kid3mainwindow.cpp:941 gui/forms/kid3mainwindow.cpp:1453
+#: gui/forms/kid3mainwindow.cpp:1456 gui/forms/kid3mainwindow.cpp:1924
+#: gui/forms/kid3mainwindow.cpp:2005 gui/forms/kid3mainwindow.cpp:2008
+msgid "File Error"
+msgstr "Greška fajla"
+
+#: gui/dialogs/exportdialog.cpp:181 gui/forms/kid3mainwindow.cpp:936
+#: gui/forms/kid3mainwindow.cpp:941
+msgid "Error while writing file:\n"
+msgstr "Greška prilikom upisa fajla:\n"
+
+#: gui/dialogs/filterdialog.cpp:49 gui/forms/kid3mainwindow.cpp:622
+msgid "Filter"
+msgstr "Filter"
+
+#: gui/dialogs/filterdialog.cpp:62
+msgid "&Filter:"
+msgstr "&Filter:"
+
+#: gui/dialogs/filterdialog.cpp:63
+msgid "&Expression:"
+msgstr "&Izraz:"
+
+#: gui/dialogs/filterdialog.cpp:85 gui/dialogs/musicbrainzdialog.cpp:119
+#: gui/dialogs/tagimportdialog.cpp:76
+msgid "&Apply"
+msgstr "&Primijeni"
+
+#: gui/dialogs/importdialog.cpp:138
+msgid "From F&ile/Clipboard..."
+msgstr "Iz &fajla/klipborda..."
+
+#: gui/dialogs/importdialog.cpp:142
+msgid "From T&ags..."
+msgstr "Iz o&znaka..."
+
+#: gui/dialogs/importdialog.cpp:146
+msgid "&From Server:"
+msgstr "S&a servera:"
+
+#: gui/dialogs/importdialog.cpp:155 gui/dialogs/musicbrainzdialog.cpp:63
+#: gui/forms/kid3mainwindow.cpp:264 gui/forms/kid3mainwindow.cpp:482
+msgid "MusicBrainz Fingerprint"
+msgstr "MjuzikBrejnz Otisak prsta"
+
+#: gui/dialogs/importdialog.cpp:162
+msgid "D&estination:"
+msgstr "O&dredište:"
+
+#: gui/dialogs/importdialog.cpp:168 gui/dialogs/numbertracksdialog.cpp:80
+msgid "Tag 1 and Tag 2"
+msgstr "oznaka 1 i oznaka 2"
+
+#: gui/dialogs/importdialog.cpp:179
+msgid "Revert"
+msgstr "Vrati"
+
+#: gui/dialogs/importdialog.cpp:190
+msgid "Check maximum allowable time &difference (sec):"
+msgstr "Provjeri najveću dozvoljenu &vremensku razliku (sek):"
+
+#: gui/dialogs/importdialog.cpp:198
+msgid "Match with:"
+msgstr "Poklopi sa:"
+
+#: gui/dialogs/importdialog.cpp:200
+msgid "&Length"
+msgstr "tra&janjem"
+
+#: gui/dialogs/importdialog.cpp:203
+msgid "T&rack"
+msgstr "&numerom"
+
+#: gui/dialogs/importdialog.cpp:206
+msgid "&Title"
+msgstr "nas&lovom"
+
+#: gui/dialogs/musicbrainzdialog.cpp:69 gui/dialogs/serverimportdialog.cpp:80
+msgid "&Server:"
+msgstr "&Server:"
+
+#: gui/dialogs/musicbrainzdialog.cpp:108
+msgid "Track Title/Artist - Album"
+msgstr "Numera/izvođač - album"
+
+#: gui/dialogs/musicbrainzdialog.cpp:109
+msgid "State"
+msgstr "Stanje"
+
+#: gui/dialogs/musicbrainzdialog.cpp:177 gui/dialogs/musicbrainzdialog.cpp:332
+msgid "No result"
+msgstr "Nema rezultata"
+
+#: gui/dialogs/musicbrainzdialog.cpp:332
+msgid "No result selected"
+msgstr "Ništa nije izabrano"
+
+#: gui/dialogs/numbertracksdialog.cpp:56 gui/forms/kid3mainwindow.cpp:613
+msgid "Number Tracks"
+msgstr "Numeriši"
+
+#: gui/dialogs/numbertracksdialog.cpp:63
+msgid "&Start number:"
+msgstr "&Početni broj:"
+
+#: gui/dialogs/numbertracksdialog.cpp:75
+msgid "&Destination:"
+msgstr "&Odredište:"
+
+#: gui/dialogs/numbertracksdialog.cpp:91
+msgid "&Total number of tracks:"
+msgstr "&Ukupno numera:"
+
+#: gui/dialogs/playlistdialog.cpp:58
+msgid "Create Playlist"
+msgstr "Napravi listu numera"
+
+#: gui/dialogs/playlistdialog.cpp:144
+msgid "Playlist File Name"
+msgstr "Ime fajla liste numera"
+
+#: gui/dialogs/playlistdialog.cpp:145
+msgid "Same as &directory name"
+msgstr "Isto kao ime &direktorijuma"
+
+#: gui/dialogs/playlistdialog.cpp:147 gui/dialogs/rendirdialog.cpp:118
+msgid "&Format:"
+msgstr "&Format:"
+
+#: gui/dialogs/playlistdialog.cpp:156
+msgid "Cr&eate in:"
+msgstr "N&apravi u:"
+
+#: gui/dialogs/playlistdialog.cpp:160
+msgid "Current directory"
+msgstr "trenutnom direktorijumu"
+
+#: gui/dialogs/playlistdialog.cpp:161
+msgid "Every directory"
+msgstr "svim direktorijumima"
+
+#: gui/dialogs/playlistdialog.cpp:162
+msgid "Top-level directory"
+msgstr "najvišem direktorijumu"
+
+#: gui/dialogs/playlistdialog.cpp:163
+msgid "Playlist Content"
+msgstr "Sadržaj liste numera"
+
+#: gui/dialogs/playlistdialog.cpp:164
+msgid "For&mat:"
+msgstr "For&mat:"
+
+#: gui/dialogs/playlistdialog.cpp:167
+msgid "Incl&ude only the selected files"
+msgstr "Uključi samo &označene fajlove"
+
+#: gui/dialogs/playlistdialog.cpp:168
+msgid "Sort by file &name"
+msgstr "Sortiraj po &imenu"
+
+#: gui/dialogs/playlistdialog.cpp:170
+msgid "Sort by &tag field"
+msgstr "Sortiraj po &polju oznake"
+
+#: gui/dialogs/playlistdialog.cpp:184
+msgid "Use &relative path for files in playlist"
+msgstr "Koristi &relativnu putanju za fajlove na listi numera"
+
+#: gui/dialogs/playlistdialog.cpp:186
+msgid "Use full p&ath for files in playlist"
+msgstr "Koristi punu put&anju za fajlove na listi numera"
+
+#: gui/dialogs/playlistdialog.cpp:187
+msgid "Write only &list of files"
+msgstr "Upiši samo &spisak fajlova"
+
+#: gui/dialogs/playlistdialog.cpp:189
+msgid "Write &info using"
+msgstr "Upiši &informacije koristeći"
+
+#: gui/dialogs/rendirdialog.cpp:60 gui/dialogs/rendirdialog.cpp:106
+#: gui/forms/kid3mainwindow.cpp:604
+msgid "Rename Directory"
+msgstr "Preimenuj direktorijum"
+
+#: gui/dialogs/rendirdialog.cpp:67
+msgid "Format"
+msgstr "Format"
+
+#: gui/dialogs/rendirdialog.cpp:72
+msgid "Preview"
+msgstr "Pregled"
+
+#: gui/dialogs/rendirdialog.cpp:107
+msgid "Create Directory"
+msgstr "Napravi direktorijum"
+
+#: gui/dialogs/rendirdialog.cpp:110
+msgid "From Tag 2 and Tag 1"
+msgstr "Iz oznake 2 i oznake 1"
+
+#: gui/dialogs/rendirdialog.cpp:111 gui/forms/kid3form.cpp:333
+#: gui/forms/kid3form.cpp:896 gui/forms/kid3form.cpp:908
+#: gui/forms/kid3mainwindow.cpp:346 gui/forms/kid3mainwindow.cpp:367
+msgid "From Tag 1"
+msgstr "Iz oznake 1"
+
+#: gui/dialogs/rendirdialog.cpp:112 gui/forms/kid3form.cpp:293
+#: gui/forms/kid3form.cpp:897 gui/forms/kid3form.cpp:901
+#: gui/forms/kid3mainwindow.cpp:331 gui/forms/kid3mainwindow.cpp:370
+msgid "From Tag 2"
+msgstr "Iz oznake 2"
+
+#: gui/dialogs/rendirdialog.cpp:140 gui/forms/kid3form.cpp:233
+msgid "From:"
+msgstr "Iz:"
+
+#: gui/dialogs/rendirdialog.cpp:142 gui/forms/kid3form.cpp:257
+msgid "To:"
+msgstr "U:"
+
+#: gui/dialogs/serverimportdialog.cpp:63
+msgid "&Find"
+msgstr "&Nađi"
+
+#: gui/dialogs/serverimportdialog.cpp:83
+msgid "C&GI Path:"
+msgstr "C&GI putanja:"
+
+#: gui/dialogs/serverimportdialog.cpp:94
+msgid "&Additional Tags"
+msgstr "Doda&tne oznake"
+
+#: gui/dialogs/serverimportdialog.cpp:95
+msgid "C&over Art"
+msgstr "Omot a&lbuma"
+
+#: gui/dialogs/tagimportdialog.cpp:49
+msgid "Import from Tags"
+msgstr "Uvezi iz oznaka"
+
+#: gui/dialogs/tagimportdialog.cpp:59
+msgid "Extraction:"
+msgstr "Izvlačenje:"
+
+#: gui/dialogs/textimportdialog.cpp:58
+msgid "Import from File/Clipboard"
+msgstr "Uvezi iz fajla/klipborda"
+
+#: gui/dialogs/textimportdialog.cpp:86
+msgid "From F&ile"
+msgstr "Iz &fajla"
+
+#: gui/forms/filelist.cpp:136
+msgid "&Expand all"
+msgstr "Raz&granaj sve"
+
+#: gui/forms/filelist.cpp:137
+msgid "&Collapse all"
+msgstr "&Sakupi sve"
+
+#: gui/forms/filelist.cpp:138
+msgid "&Rename"
+msgstr "P&reimenuj"
+
+#: gui/forms/filelist.cpp:139
+msgid "&Move to Trash"
+msgstr "Premjesti u &smeće"
+
+#: gui/forms/filelist.cpp:141 gui/forms/kid3mainwindow.cpp:308
+#: gui/forms/kid3mainwindow.cpp:655
+msgid "&Play"
+msgstr "Re&produkuj"
+
+#: gui/forms/kid3form.cpp:198 gui/forms/kid3form.cpp:852
+#: gui/forms/kid3form.cpp:854
+msgid "F&ile"
+msgstr "F&ajl"
+
+#: gui/forms/kid3form.cpp:211
+msgid "Name:"
+msgstr "Ime:"
+
+#: gui/forms/kid3form.cpp:236
+msgid "Filename from Tag 1"
+msgstr "oznake 1 u ime fajla"
+
+#: gui/forms/kid3form.cpp:239
+msgid "Filename from Tag 2"
+msgstr "oznake 2 u ime fajla"
+
+#: gui/forms/kid3form.cpp:261
+msgid "Tag 1 from Filename"
+msgstr "oznaku 1 iz imena fajla"
+
+#: gui/forms/kid3form.cpp:265
+msgid "Tag 2 from Filename"
+msgstr "oznaku 2 iz imena fajla"
+
+#: gui/forms/kid3form.cpp:271 gui/forms/kid3form.cpp:589
+msgid "Tag &1"
+msgstr "Oznaka &1"
+
+#: gui/forms/kid3form.cpp:296 gui/forms/kid3form.cpp:337
+#: gui/forms/kid3form.cpp:902 gui/forms/kid3form.cpp:909
+#: gui/forms/kid3mainwindow.cpp:334 gui/forms/kid3mainwindow.cpp:349
+msgid "Copy"
+msgstr "Kopiraj"
+
+#: gui/forms/kid3form.cpp:300 gui/forms/kid3form.cpp:341
+#: gui/forms/kid3form.cpp:903 gui/forms/kid3form.cpp:910
+#: gui/forms/kid3mainwindow.cpp:337 gui/forms/kid3mainwindow.cpp:352
+msgid "Paste"
+msgstr "Nalijepi"
+
+#: gui/forms/kid3form.cpp:304 gui/forms/kid3form.cpp:345
+#: gui/forms/kid3form.cpp:904 gui/forms/kid3form.cpp:911
+#: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:355
+msgid "Remove"
+msgstr "Ukloni"
+
+#: gui/forms/kid3form.cpp:313 gui/forms/kid3form.cpp:604
+msgid "Tag &2"
+msgstr "Oznaka &2"
+
+#: gui/forms/kid3form.cpp:351 gui/forms/kid3form.cpp:912
+#: gui/forms/kid3mainwindow.cpp:358
+msgid "Edit"
+msgstr "Uredi"
+
+#: gui/forms/kid3form.cpp:354 gui/forms/kid3form.cpp:913
+#: gui/forms/kid3mainwindow.cpp:361
+msgid "Add"
+msgstr "Dodaj"
+
+#: gui/forms/kid3form.cpp:357 gui/forms/kid3form.cpp:914
+#: gui/forms/kid3mainwindow.cpp:364
+msgid "Delete"
+msgstr "Obriši"
+
+#: gui/forms/kid3form.cpp:898 gui/forms/kid3form.cpp:905
+#: gui/forms/kid3form.cpp:915 gui/forms/kid3mainwindow.cpp:373
+#: gui/forms/kid3mainwindow.cpp:376 gui/forms/kid3mainwindow.cpp:379
+msgid "Focus"
+msgstr "Fokus"
+
+#: gui/forms/kid3form.cpp:900 gui/forms/kid3form.cpp:907
+#: gui/forms/kid3mainwindow.cpp:328 gui/forms/kid3mainwindow.cpp:343
+msgid "From Filename"
+msgstr "Iz imena fajla"
+
+#: gui/forms/kid3mainwindow.cpp:115
+msgid "Download"
+msgstr "Preuzmi"
+
+#. i18n: file: gui/app/kid3ui.rc:37
+#. i18n: ectx: ToolBar (mainToolBar)
+#: gui/forms/kid3mainwindow.cpp:193 rc.cpp:15
+msgid "Main Toolbar"
+msgstr "Glavna traka"
+
+#: gui/forms/kid3mainwindow.cpp:226 gui/forms/kid3mainwindow.cpp:394
+#: gui/forms/kid3mainwindow.cpp:414
+msgid "Opens a directory"
+msgstr "Otvara direktorijum"
+
+#: gui/forms/kid3mainwindow.cpp:227 gui/forms/kid3mainwindow.cpp:408
+msgid "Opens a recently used directory"
+msgstr "Otvara nedavno korišćen direktorijum"
+
+#: gui/forms/kid3mainwindow.cpp:229 gui/forms/kid3mainwindow.cpp:439
+msgid "Reverts the changes of all or the selected files"
+msgstr "Poništava izmjene svih ili izabranih fajlova"
+
+#: gui/forms/kid3mainwindow.cpp:230 gui/forms/kid3mainwindow.cpp:426
+msgid "Saves the changed files"
+msgstr "Upisuje izmjene fajlova"
+
+#: gui/forms/kid3mainwindow.cpp:231 gui/forms/kid3mainwindow.cpp:526
+msgid "Quits the application"
+msgstr "Napušta aplikaciju"
+
+#: gui/forms/kid3mainwindow.cpp:232 gui/forms/kid3mainwindow.cpp:539
+msgid "Select all files"
+msgstr "Izaberi sve fajlove"
+
+#: gui/forms/kid3mainwindow.cpp:234 gui/forms/kid3mainwindow.cpp:550
+msgid "Deselect all files"
+msgstr "Poništi izbor svih fajlova"
+
+#: gui/forms/kid3mainwindow.cpp:235
+msgid "Configure Shortcuts"
+msgstr "Podesi prečice"
+
+#: gui/forms/kid3mainwindow.cpp:236
+msgid "Configure Toolbars"
+msgstr "Podesi trake alata"
+
+#: gui/forms/kid3mainwindow.cpp:237
+msgid "Preferences dialog"
+msgstr "Dijalog podešavanja"
+
+#: gui/forms/kid3mainwindow.cpp:239 gui/forms/kid3mainwindow.cpp:415
+msgid "O&pen Directory..."
+msgstr "O&tvori direktorijum..."
+
+#: gui/forms/kid3mainwindow.cpp:243 gui/forms/kid3mainwindow.cpp:453
+msgid "&Import..."
+msgstr "&Uvezi..."
+
+#: gui/forms/kid3mainwindow.cpp:257 gui/forms/kid3mainwindow.cpp:266
+#: gui/forms/kid3mainwindow.cpp:472 gui/forms/kid3mainwindow.cpp:485
+msgid "Import from %1..."
+msgstr "Uvezi sa %1..."
+
+#: gui/forms/kid3mainwindow.cpp:273 gui/forms/kid3mainwindow.cpp:496
+msgid "&Browse Cover Art..."
+msgstr "Potraži o&mot albuma..."
+
+#: gui/forms/kid3mainwindow.cpp:276 gui/forms/kid3mainwindow.cpp:505
+msgid "&Export..."
+msgstr "Izv&ezi..."
+
+#: gui/forms/kid3mainwindow.cpp:279 gui/forms/kid3mainwindow.cpp:515
+msgid "&Create Playlist..."
+msgstr "Napravi &listu numera..."
+
+#: gui/forms/kid3mainwindow.cpp:282 gui/forms/kid3mainwindow.cpp:587
+msgid "Apply &Filename Format"
+msgstr "Primijeni format imena fa&jla"
+
+#: gui/forms/kid3mainwindow.cpp:285 gui/forms/kid3mainwindow.cpp:596
+msgid "Apply &Tag Format"
+msgstr "Primijeni format &oznake"
+
+#: gui/forms/kid3mainwindow.cpp:288 gui/forms/kid3mainwindow.cpp:605
+msgid "&Rename Directory..."
+msgstr "Preimenuj &direktorijum..."
+
+#: gui/forms/kid3mainwindow.cpp:291 gui/forms/kid3mainwindow.cpp:614
+msgid "&Number Tracks..."
+msgstr "Nu&meriši..."
+
+#: gui/forms/kid3mainwindow.cpp:294 gui/forms/kid3mainwindow.cpp:623
+msgid "F&ilter..."
+msgstr "F&ilter..."
+
+#: gui/forms/kid3mainwindow.cpp:298 gui/forms/kid3mainwindow.cpp:633
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Pretvori ID3v2.3 u ID3v2.&4"
+
+#: gui/forms/kid3mainwindow.cpp:303 gui/forms/kid3mainwindow.cpp:644
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Pretvori ID3v2.4 u ID3v2.&3"
+
+#: gui/forms/kid3mainwindow.cpp:312 gui/forms/kid3mainwindow.cpp:691
+msgid "Show &Picture"
+msgstr "Prikaži s&liku"
+
+#: gui/forms/kid3mainwindow.cpp:316 gui/forms/kid3mainwindow.cpp:701
+msgid "Auto &Hide Tags"
+msgstr "Automatski &sakrij oznake"
+
+#: gui/forms/kid3mainwindow.cpp:320 gui/forms/kid3mainwindow.cpp:561
+msgid "&Previous File"
+msgstr "&Prethodni fajl"
+
+#: gui/forms/kid3mainwindow.cpp:324 gui/forms/kid3mainwindow.cpp:573
+msgid "&Next File"
+msgstr "&Sljedeći fajl"
+
+#: gui/forms/kid3mainwindow.cpp:358 gui/forms/kid3mainwindow.cpp:361
+#: gui/forms/kid3mainwindow.cpp:364
+msgid "Frames:"
+msgstr "Kadrovi:"
+
+#. i18n: file: gui/app/kid3ui.rc:4
+#. i18n: ectx: Menu (file)
+#: gui/forms/kid3mainwindow.cpp:389 rc.cpp:3
+msgid "&File"
+msgstr "&Fajl"
+
+#: gui/forms/kid3mainwindow.cpp:395
+msgid "&Open..."
+msgstr "&Otvori..."
+
+#: gui/forms/kid3mainwindow.cpp:409
+msgid "Open &Recent"
+msgstr "Otvori &nedavno"
+
+#: gui/forms/kid3mainwindow.cpp:427
+msgid "&Save"
+msgstr "&Sačuvaj"
+
+#: gui/forms/kid3mainwindow.cpp:440
+msgid "Re&vert"
+msgstr "&Vrati"
+
+#: gui/forms/kid3mainwindow.cpp:452
+msgid "Import from file or clipboard"
+msgstr "Uvezi iz fajla ili klipborda"
+
+#: gui/forms/kid3mainwindow.cpp:471 gui/forms/kid3mainwindow.cpp:484
+msgid "Import from %1"
+msgstr "Uvezi sa %1"
+
+#: gui/forms/kid3mainwindow.cpp:495
+msgid "Browse album cover artwork"
+msgstr "Potraži sliku omota albuma"
+
+#: gui/forms/kid3mainwindow.cpp:504
+msgid "Export to file or clipboard"
+msgstr "Izvezi u fajl ili klipbord"
+
+#: gui/forms/kid3mainwindow.cpp:514
+msgid "Create M3U Playlist"
+msgstr "Napravi M3U listu numera"
+
+#: gui/forms/kid3mainwindow.cpp:527
+msgid "&Quit"
+msgstr "&Napusti"
+
+#. i18n: file: gui/app/kid3ui.rc:17
+#. i18n: ectx: Menu (edit)
+#: gui/forms/kid3mainwindow.cpp:536 rc.cpp:6
+msgid "&Edit"
+msgstr "&Uredi"
+
+#: gui/forms/kid3mainwindow.cpp:540
+msgid "Select &All"
+msgstr "Izaberi s&ve"
+
+#: gui/forms/kid3mainwindow.cpp:551
+msgid "Dese&lect"
+msgstr "Po&ništi izbor"
+
+#: gui/forms/kid3mainwindow.cpp:560
+msgid "Select previous file"
+msgstr "Izaberi prethodni fajl"
+
+#: gui/forms/kid3mainwindow.cpp:572
+msgid "Select next file"
+msgstr "Izaberi sljedeći fajl"
+
+#. i18n: file: gui/app/kid3ui.rc:21
+#. i18n: ectx: Menu (tools)
+#: gui/forms/kid3mainwindow.cpp:583 rc.cpp:9
+msgid "&Tools"
+msgstr "&Alati"
+
+#: gui/forms/kid3mainwindow.cpp:586
+msgid "Apply Filename Format"
+msgstr "Primijeni format naziva fajla"
+
+#: gui/forms/kid3mainwindow.cpp:595
+msgid "Apply Tag Format"
+msgstr "Primijeni format oznake"
+
+#: gui/forms/kid3mainwindow.cpp:632
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Pretvori ID3v2.3 u ID3v2.4"
+
+#: gui/forms/kid3mainwindow.cpp:643
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Pretvori ID3v2.4 u ID3v2.3"
+
+#: gui/forms/kid3mainwindow.cpp:654 gui/widgets/playtoolbar.cpp:57
+msgid "Play"
+msgstr "Reprodukcija"
+
+#. i18n: file: gui/app/kid3ui.rc:31
+#. i18n: ectx: Menu (settings)
+#: gui/forms/kid3mainwindow.cpp:665 rc.cpp:12
+msgid "&Settings"
+msgstr "&Podešavanje"
+
+#: gui/forms/kid3mainwindow.cpp:669
+msgid "Enables/disables the toolbar"
+msgstr "Prikazuje/sakriva traku alata"
+
+#: gui/forms/kid3mainwindow.cpp:670
+msgid "Show &Toolbar"
+msgstr "Prikaži traku &alata"
+
+#: gui/forms/kid3mainwindow.cpp:680
+msgid "Enables/disables the statusbar"
+msgstr "Prikazuje/sakriva traku stanja"
+
+#: gui/forms/kid3mainwindow.cpp:681
+msgid "Show St&atusbar"
+msgstr "Prikaži traku &stanja"
+
+#: gui/forms/kid3mainwindow.cpp:690
+msgid "Show Picture"
+msgstr "Prikaži sliku"
+
+#: gui/forms/kid3mainwindow.cpp:700
+msgid "Auto Hide Tags"
+msgstr "Automatski sakrij oznake"
+
+#: gui/forms/kid3mainwindow.cpp:710
+msgid "Configure Kid3"
+msgstr "Podesi Kid3"
+
+#: gui/forms/kid3mainwindow.cpp:711
+msgid "&Configure Kid3..."
+msgstr "&Podesi Kid3..."
+
+#: gui/forms/kid3mainwindow.cpp:728
+msgid "Kid3 &Handbook"
+msgstr "Kid3 p&riručnik"
+
+#: gui/forms/kid3mainwindow.cpp:738
+msgid "About Kid3"
+msgstr "O Kid3-u"
+
+#: gui/forms/kid3mainwindow.cpp:739
+msgid "&About Kid3"
+msgstr "&O Kid3-u"
+
+#: gui/forms/kid3mainwindow.cpp:747
+msgid "About Qt"
+msgstr "O KjuT-u"
+
+#: gui/forms/kid3mainwindow.cpp:748
+msgid "About &Qt"
+msgstr "O KjuT-u"
+
+#: gui/forms/kid3mainwindow.cpp:790
+msgid "Opening directory..."
+msgstr "Otvaram direktorijum..."
+
+#: gui/forms/kid3mainwindow.cpp:912
+msgid "Saving directory..."
+msgstr "Upisujem direktorijum..."
+
+#: gui/forms/kid3mainwindow.cpp:971 gui/forms/kid3mainwindow.cpp:981
+msgid ""
+"The current directory has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Trenutni direktorijum je izmijenjen.\n"
+"Želite li da sačuvate izmjene?"
+
+#: gui/forms/kid3mainwindow.cpp:973
+msgid "Warning"
+msgstr "Upozorenje"
+
+#: gui/forms/kid3mainwindow.cpp:980
+msgid "Warning - Kid3"
+msgstr "Upozorenje - Kid3"
+
+#: gui/forms/kid3mainwindow.cpp:1059
+msgid "Open"
+msgstr "Otvori"
+
+#: gui/forms/kid3mainwindow.cpp:1139
+msgid "Exiting..."
+msgstr "Izlazim..."
+
+#: gui/forms/kid3mainwindow.cpp:1183
+msgid "Toggle the statusbar..."
+msgstr "Prikaži/sakrij traku stanja..."
+
+#: gui/forms/kid3mainwindow.cpp:1265
+msgid "Creating playlist..."
+msgstr "Pravim listu numera..."
+
+#: gui/forms/kid3mainwindow.cpp:1291
+msgid "Import"
+msgstr "Uvezi"
+
+#: gui/forms/kid3mainwindow.cpp:1404
+msgid "Configure - Kid3"
+msgstr "Podešavanje - Kid3"
+
+#: gui/forms/kid3mainwindow.cpp:1452 gui/forms/kid3mainwindow.cpp:1457
+#: gui/forms/kid3mainwindow.cpp:1925
+msgid "Error while renaming:\n"
+msgstr "Greška prilikom preimenovanja:\n"
+
+#: gui/forms/kid3mainwindow.cpp:1566
+msgid " [filtered]"
+msgstr " [filtriran]"
+
+#: gui/forms/kid3mainwindow.cpp:1572
+msgid " [modified]"
+msgstr " [izmijenjen]"
+
+#: gui/forms/kid3mainwindow.cpp:1814
+msgid "Add Frame"
+msgstr "Dodaj okvir"
+
+#: gui/forms/kid3mainwindow.cpp:1815
+msgid "Select the frame ID"
+msgstr "Izaberite ID okvira"
+
+#: gui/forms/kid3mainwindow.cpp:1903
+msgid "Rename File"
+msgstr "Preimenuj fajl"
+
+#: gui/forms/kid3mainwindow.cpp:1904
+msgid "Enter new file name:"
+msgstr "Unesite novo ime fajla:"
+
+#: gui/forms/kid3mainwindow.cpp:1935 gui/forms/kid3mainwindow.cpp:1973
+msgid "Do you really want to move these %1 items to the trash?"
+msgstr "Želite li zaista da premjestite ovih %1 stavki u smeće?"
+
+#: gui/forms/kid3mainwindow.cpp:1961 gui/forms/kid3mainwindow.cpp:1975
+msgid "Do you really want to move this item to the trash?"
+msgid_plural "Do you really want to move these %1 items to the trash?"
+msgstr[0] "Želite li zaista da premjestite ovu %1 stavku u smeće?"
+msgstr[1] "Želite li zaista da premjestite ove %1 stavke u smeće?"
+msgstr[2] "Želite li zaista da premjestite ovih %1 stavki u smeće?"
+msgstr[3] "Želite li zaista da premjestite ovu stavku u smeće?"
+
+#: gui/forms/kid3mainwindow.cpp:1965 gui/forms/kid3mainwindow.cpp:1971
+msgid "Move to Trash"
+msgstr "Premjesti u smeće"
+
+#: gui/forms/kid3mainwindow.cpp:2002
+msgid "Directory must be empty.\n"
+msgstr "Direktoriujm mora biti prazan.\n"
+
+#: gui/forms/kid3mainwindow.cpp:2003
+msgid "Could not move these files to the Trash"
+msgstr "Nisam mogao da premjestim ove fajlove u smeće"
+
+#: gui/widgets/configtable.cpp:135
+msgid "&Insert row"
+msgstr "&Ubaci red"
+
+#: gui/widgets/configtable.cpp:139
+msgid "&Delete row"
+msgstr "&Obriši red"
+
+#: gui/widgets/configtable.cpp:143
+msgid "&Clear row"
+msgstr "O&čisti red"
+
+#: gui/widgets/formatbox.cpp:47
+msgid "Format while editing"
+msgstr "Formatiraj pri uređivanju"
+
+#: gui/widgets/formatbox.cpp:51
+msgid "Case conversion:"
+msgstr "Veličina slova:"
+
+#: gui/widgets/formatbox.cpp:57
+msgid "No changes"
+msgstr "bez izmjena"
+
+#: gui/widgets/formatbox.cpp:59
+msgid "All lowercase"
+msgstr "sve malim"
+
+#: gui/widgets/formatbox.cpp:61
+msgid "All uppercase"
+msgstr "sve velikim"
+
+#: gui/widgets/formatbox.cpp:63
+msgid "First letter uppercase"
+msgstr "prvo slovo velikim"
+
+#: gui/widgets/formatbox.cpp:65
+msgid "All first letters uppercase"
+msgstr "sva prva slova velikim"
+
+#: gui/widgets/formatbox.cpp:68
+msgid "String replacement:"
+msgstr "Zamjena teksta:"
+
+#: gui/widgets/formatbox.cpp:72
+msgid "From"
+msgstr "iz"
+
+#: gui/widgets/formatbox.cpp:72
+msgid "To"
+msgstr "u"
+
+#: gui/widgets/formatlistedit.cpp:81
+msgid "&Add"
+msgstr "&Dodaj"
+
+#: gui/widgets/formatlistedit.cpp:83 gui/widgets/stringlistedit.cpp:55
+msgid "&Remove"
+msgstr "U&kloni"
+
+#: gui/widgets/formatlistedit.cpp:242
+msgid "New"
+msgstr "Novo"
+
+#: gui/widgets/frametable.cpp:145
+msgid "&Select all"
+msgstr "I&zaberi sve"
+
+#: gui/widgets/frametable.cpp:147
+msgid "&Deselect all"
+msgstr "Po&ništi izbor"
+
+#: gui/widgets/imageviewer.cpp:47
+msgid "View Picture"
+msgstr "Pogledaj sliku"
+
+#: gui/widgets/picturelabel.cpp:58
+msgid ""
+"Drag album\n"
+"artwork\n"
+"here"
+msgstr ""
+"Prevuci\n"
+"sliku albuma\n"
+"ovdje"
+
+#: gui/widgets/playtoolbar.cpp:62
+msgid "Play/Pause"
+msgstr "Reprodukuj/pauziraj"
+
+#: gui/widgets/playtoolbar.cpp:64
+msgid "Stop playback"
+msgstr "Zaustavi reprodukciju"
+
+#: gui/widgets/playtoolbar.cpp:66
+msgid "Previous Track"
+msgstr "Prethodna numera"
+
+#: gui/widgets/playtoolbar.cpp:68
+msgid "Next Track"
+msgstr "Sljedeća numera"
+
+#: gui/widgets/playtoolbar.cpp:70
+msgid "Close"
+msgstr "Zatvori"
+
+#: gui/widgets/recentfilesmenu.cpp:111
+msgid "&Clear List"
+msgstr "O&čisti spisak"
+
+#: gui/widgets/shortcutsdelegate.cpp:189
+msgid "Clear"
+msgstr "Očisti"
+
+#: gui/widgets/shortcutsdelegate.cpp:193
+msgid "Reset"
+msgstr "Ponovo postavi"
+
+#: gui/widgets/stringlistedit.cpp:51
+msgid "&Add..."
+msgstr "&Dodaj..."
+
+#: gui/widgets/stringlistedit.cpp:52
+msgid "Move &Up"
+msgstr "Pomjeri &gore"
+
+#: gui/widgets/stringlistedit.cpp:53
+msgid "Move &Down"
+msgstr "Pomjeri do&lje"
+
+#: gui/widgets/stringlistedit.cpp:54
+msgid "&Edit..."
+msgstr "U&redi..."
+
+#: gui/widgets/stringlistedit.cpp:90
+msgid "Add Item"
+msgstr "Dodaj stavku"
+
+#: gui/widgets/stringlistedit.cpp:123
+msgid "Edit Item"
+msgstr "Uredi stavku"
+
+#: rc.cpp:16
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Mladen Pejaković"
+
+#: rc.cpp:17
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "pejakm@gmail.com"
+
+#: rc.cpp:18
+msgid ""
+"_: NAME OF TRANSLATORS\n"
+"Your names"
+msgstr "Mladen Pejaković"
+
+#: rc.cpp:19
+msgid ""
+"_: EMAIL OF TRANSLATORS\n"
+"Your emails"
+msgstr "pejakm@gmail.com"

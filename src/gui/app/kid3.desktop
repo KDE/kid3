@@ -1,5 +1,7 @@
 [Desktop Entry]
 Name=Kid3
+Name[sr]=Кид3
+Name[sr@ijekavian]=Кид3
 Exec=kid3 %f
 Icon=kid3
 Type=Application
@@ -14,6 +16,10 @@ GenericName[it]=Editor di tag audio
 GenericName[nl]=Audio tag editor
 GenericName[pl]=Edytor znaczników audio
 GenericName[ru]=Программа-редактор аудио-тегов
+GenericName[sr]=Уређивач аудио ознака
+GenericName[sr@ijekavian]=Уређивач аудио ознака
+GenericName[sr@latin]=Uređivač audio oznaka
+GenericName[sr@ijekavianlatin]=Uređivač audio oznaka
 Terminal=false
 Categories=Qt;KDE;AudioVideo;Audio;AudioVideoEditing;
 StartupNotify=true
