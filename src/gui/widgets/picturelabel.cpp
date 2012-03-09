@@ -5,11 +5,29 @@
  * \b Project: Kid3
  * \author Urs Fleisch
  * \date 04 Jan 2009
+ *
+ * Copyright (C) 2009-2012  Urs Fleisch
+ *
+ * This file is part of Kid3.
+ *
+ * Kid3 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Kid3 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "picturelabel.h"
 #include <QHash>
 #include <QByteArray>
+#include <QPixmap>
 #include "qtcompatmac.h"
 
 /**
@@ -42,15 +60,6 @@ int PictureLabel::heightForWidth(int w) const
 }
 
 /**
- * Set picture.
- */
-void PictureLabel::setPicture()
-{
-  setMargin(0);
-  setPixmap(m_pixmap);
-}
-
-/**
  * Clear picture.
  */
 void PictureLabel::clearPicture()
@@ -69,23 +78,21 @@ void PictureLabel::setData(const QByteArray* data)
 {
   if (data && !data->isEmpty()) {
     uint hash = qHash(*data);
-    if (hash != m_pixmapHash) {
-      // creating new pixmap
-      if (m_pixmap.loadFromData(*data)) {
-        m_pixmap = m_pixmap.scaled(width(), height(), Qt::KeepAspectRatio);
+    if (pixmap() && hash == m_pixmapHash)
+      return; // keep existing pixmap
+
+    // creating new pixmap
+    QPixmap pm;
+    if (pm.loadFromData(*data)) {
+      QPixmap scaledPm = pm.scaled(width(), height(), Qt::KeepAspectRatio);
+      if (!scaledPm.isNull()) {
         m_pixmapHash = hash;
-        setPicture();
-      } else {
-        clearPicture();
+        setMargin(0);
+        setPixmap(scaledPm);
+        return;
       }
-    } else {
-      if (!pixmap()) {
-        // using cached pixmap
-        setPicture();
-      }
-      // else keeping current pixmap
     }
-  } else {
-    clearPicture();
   }
+
+  clearPicture();
 }
