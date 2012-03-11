@@ -215,7 +215,7 @@ void Kid3Application::readConfig()
 {
   m_configStore->readFromConfig();
   if (ConfigStore::s_miscCfg.m_nameFilter.isEmpty()) {
-    createFilterString(&ConfigStore::s_miscCfg.m_nameFilter);
+    ConfigStore::s_miscCfg.m_nameFilter = createFilterString();
   }
   setTextEncodings();
   if (ConfigStore::s_freedbCfg.m_server == "freedb2.org:80") {
@@ -252,7 +252,8 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
     dir = QDir(dir).absolutePath();
   }
 
-  QStringList nameFilters(ConfigStore::s_miscCfg.m_nameFilter.split(' '));
+  QStringList nameFilters(ConfigStore::s_miscCfg.getNameFilterPatterns().
+                          split(' '));
   m_fileProxyModel->setNameFilters(nameFilters);
   m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
   QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
@@ -1742,11 +1743,9 @@ QString Kid3Application::getImageUrl(const QString& url)
  * Create a filter string for the file dialog.
  * The filter string contains entries for all supported types.
  *
- * @param defaultNameFilter if not 0, return default name filter here
- *
  * @return filter string.
  */
-QString Kid3Application::createFilterString(QString* defaultNameFilter) const
+QString Kid3Application::createFilterString() const
 {
   QStringList extensions = TaggedFile::getSupportedFileExtensions();
   QString result, allPatterns;
@@ -1787,10 +1786,6 @@ QString Kid3Application::createFilterString(QString* defaultNameFilter) const
   allExt += ");;";
   result = allExt + result + i18n("All Files (*)");
 #endif
-
-  if (defaultNameFilter) {
-    *defaultNameFilter = allPatterns;
-  }
 
   return result;
 }

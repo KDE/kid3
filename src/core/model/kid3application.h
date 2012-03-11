@@ -390,11 +390,9 @@ public:
    * Create a filter string for the file dialog.
    * The filter string contains entries for all supported types.
    *
-   * @param defaultNameFilter if not 0, return default name filter here
-   *
    * @return filter string.
    */
-  QString createFilterString(QString* defaultNameFilter = 0) const;
+  QString createFilterString() const;
 
   /**
    * Get image destination set by downloadImage().

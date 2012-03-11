@@ -1053,7 +1053,7 @@ void Kid3MainWindow::slotFileOpen()
   updateCurrentSelection();
   if(saveModified()) {
     static QString flt = m_app->createFilterString();
-    QString dir, filter;
+    QString dir, filter(ConfigStore::s_miscCfg.m_nameFilter);
 #ifdef CONFIG_USE_KDE
     KFileDialog diag(m_app->getDirName(), flt, this);
     diag.setWindowTitle(i18n("Open"));
@@ -1069,10 +1069,6 @@ void Kid3MainWindow::slotFileOpen()
       ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #endif
     if (!dir.isEmpty()) {
-      int start = filter.indexOf('('), end = filter.indexOf(')');
-      if (start != -1 && end != -1 && end > start) {
-        filter = filter.mid(start + 1, end - start - 1);
-      }
       if (!filter.isEmpty()) {
         ConfigStore::s_miscCfg.m_nameFilter = filter;
       }

@@ -171,6 +171,12 @@ public:
    */
   void readFromConfig(Kid3Settings* config);
 
+  /**
+   * Get file pattern part of m_nameFilter.
+   * @return file patterns, e.g. "*.mp3".
+   */
+  QString getNameFilterPatterns() const;
+
   /** true to mark truncated ID3v1.1 fields */
   bool m_markTruncations;
   /** true to write total number of tracks into track fields */

@@ -214,7 +214,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
 {
 #ifdef CONFIG_USE_KDE
   KConfigGroup cfg = config->group(m_group);
-  cfg.writeEntry("NameFilter2", m_nameFilter);
+  cfg.writeEntry("NameFilter3", m_nameFilter);
   cfg.writeEntry("FormatItem", m_formatItem);
   cfg.writeEntry("FormatItems", m_formatItems);
   cfg.writeEntry("FormatText2", m_formatText);
@@ -274,7 +274,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   }
 #else
   config->beginGroup("/" + m_group);
-  config->setValue("/NameFilter2", QVariant(m_nameFilter));
+  config->setValue("/NameFilter3", QVariant(m_nameFilter));
   config->setValue("/FormatItem", QVariant(m_formatItem));
   config->setValue("/FormatItems", QVariant(m_formatItems));
   config->setValue("/FormatText2", QVariant(m_formatText));
@@ -367,7 +367,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
 #ifdef CONFIG_USE_KDE
   KConfigGroup cfg = config->group(m_group);
   m_nameFilter =
-      cfg.readEntry("NameFilter2", "");
+      cfg.readEntry("NameFilter3", "");
   m_formatItem =
       cfg.readEntry("FormatItem", 0);
   m_formatItems =
@@ -431,7 +431,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
 #else
   config->beginGroup("/" + m_group);
   m_nameFilter =
-      config->value("/NameFilter2", "").toString();
+      config->value("/NameFilter3", "").toString();
   m_formatItem =
       config->value("/FormatItem", 0).toInt();
   m_formatItems =
@@ -568,6 +568,28 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
     }
   }
 }
+
+/**
+ * Get file pattern part of m_nameFilter.
+ * @return file patterns, e.g. "*.mp3".
+ */
+QString MiscConfig::getNameFilterPatterns() const
+{
+#ifdef CONFIG_USE_KDE
+  if (m_nameFilter.startsWith('*')) {
+    int end = m_nameFilter.indexOf('|');
+    return end != -1 ? m_nameFilter.left(end) : m_nameFilter;
+  } else {
+    return QString();
+  }
+#else
+  int start = m_nameFilter.indexOf('('), end = m_nameFilter.indexOf(')');
+  return start != -1 && end != -1 && end > start
+      ? m_nameFilter.mid(start + 1, end - start - 1)
+      : QString();
+#endif
+}
+
 
 /**
  * Constructor.
