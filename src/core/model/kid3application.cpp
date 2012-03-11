@@ -1738,56 +1738,6 @@ QString Kid3Application::getImageUrl(const QString& url)
   return imgurl;
 }
 
-#ifndef WIN32
-/**
- * Get all combinations with lower- and uppercase characters.
- *
- * @param str original string
- *
- * @return string with all combinations, separated by spaces.
- */
-static QString lowerUpperCaseCombinations(const QString& str)
-{
-  QString result;
-  QString lc(str.toLower());
-  QString uc(str.toUpper());
-
-  // get a mask of all alphabetic characters in the string
-  unsigned char numChars = 0, charMask = 0, posMask = 1;
-  int numPos = lc.length();
-  if (numPos > 8) numPos = 8;
-  for (int pos = 0; pos < numPos; ++pos, posMask <<= 1) {
-    if (lc[pos] >= 'a' && lc[pos] <= 'z') {
-      charMask |= posMask;
-      ++numChars;
-    }
-  }
-
-  int numCombinations = 1 << numChars;
-  for (int comb = 0; comb < numCombinations; ++comb) {
-    posMask = 1;
-    int combMask = 1;
-    if (!result.isEmpty()) {
-      result += ' ';
-    }
-    for (int pos = 0; pos < numPos; ++pos, posMask <<= 1) {
-      if (charMask & posMask) {
-        if (comb & combMask) {
-          result += uc[pos];
-        } else {
-          result += lc[pos];
-        }
-        combMask <<= 1;
-      } else {
-        result += lc[pos];
-      }
-    }
-  }
-
-  return result;
-}
-#endif
-
 /**
  * Create a filter string for the file dialog.
  * The filter string contains entries for all supported types.
@@ -1799,38 +1749,33 @@ static QString lowerUpperCaseCombinations(const QString& str)
 QString Kid3Application::createFilterString(QString* defaultNameFilter) const
 {
   QStringList extensions = TaggedFile::getSupportedFileExtensions();
-  QString result, allCombinations;
+  QString result, allPatterns;
   for (QStringList::const_iterator it = extensions.begin();
        it != extensions.end();
        ++it) {
     QString text = (*it).mid(1).toUpper();
-    QString lowerExt = '*' + *it;
-#ifdef WIN32
-    const QString& combinations = lowerExt;
-#else
-    QString combinations = lowerUpperCaseCombinations(lowerExt);
-#endif
-    if (!allCombinations.isEmpty()) {
-      allCombinations += ' ';
+    QString pattern = '*' + *it;
+    if (!allPatterns.isEmpty()) {
+      allPatterns += ' ';
     }
-    allCombinations += combinations;
+    allPatterns += pattern;
 #ifdef CONFIG_USE_KDE
-    result += combinations;
+    result += pattern;
     result += '|';
     result += text;
     result += " (";
-    result += lowerExt;
+    result += pattern;
     result += ")\n";
 #else
     result += text;
     result += " (";
-    result += combinations;
+    result += pattern;
     result += ");;";
 #endif
   }
 
 #ifdef CONFIG_USE_KDE
-  QString allExt = allCombinations;
+  QString allExt = allPatterns;
   allExt += '|';
   allExt += i18n("All Supported Files");
   allExt += '\n';
@@ -1838,13 +1783,13 @@ QString Kid3Application::createFilterString(QString* defaultNameFilter) const
 #else
   QString allExt = i18n("All Supported Files");
   allExt += " (";
-  allExt += allCombinations;
+  allExt += allPatterns;
   allExt += ");;";
   result = allExt + result + i18n("All Files (*)");
 #endif
 
   if (defaultNameFilter) {
-    *defaultNameFilter = allCombinations;
+    *defaultNameFilter = allPatterns;
   }
 
   return result;
