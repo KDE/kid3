@@ -578,12 +578,12 @@ void BinaryOpenSave::loadData()
 #ifdef CONFIG_USE_KDE
   QString loadfilename = KFileDialog::getOpenFileName(
     m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
-    QString::null, this);
+    m_filter, this);
 #else
   QString loadfilename = QFileDialog::getOpenFileName(
     this, QString(),
     m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
-    QString(), 0, ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+    m_filter, 0, ConfigStore::s_miscCfg.m_dontUseNativeDialogs
     ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #endif
   if (!loadfilename.isEmpty()) {
@@ -615,10 +615,10 @@ void BinaryOpenSave::saveData()
     dir += m_defaultFile;
   }
 #ifdef CONFIG_USE_KDE
-  QString fn = KFileDialog::getSaveFileName(dir, QString::null, this);
+  QString fn = KFileDialog::getSaveFileName(dir, m_filter, this);
 #else
   QString fn = QFileDialog::getSaveFileName(this, QString(), dir,
-    QString(), 0, ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+    m_filter, 0, ConfigStore::s_miscCfg.m_dontUseNativeDialogs
     ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 #endif
   if (!fn.isEmpty()) {
@@ -799,6 +799,14 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
   }
   if (m_frame.getType() == Frame::FT_Picture) {
     m_bos->setDefaultFile("folder.jpg");
+    m_bos->setFilter(
+#ifdef CONFIG_USE_KDE
+          "*.jpg *.jpeg *.png|" +
+          i18n("Images (*.jpg *.jpeg *.png)") + "\n*|" + i18n("All Files (*)")
+#else
+          i18n("Images (*.jpg *.jpeg *.png)") + ";;" + i18n("All Files (*)")
+#endif
+          );
   }
   return m_bos;
 }

@@ -78,6 +78,12 @@ class BinaryOpenSave : public QWidget {
    */
   void setDefaultFile(const QString& defaultFile) { m_defaultFile = defaultFile; }
 
+  /**
+   * Set filter.
+   * @param filter filter for file dialog
+   */
+  void setFilter(const QString& filter) { m_filter = filter; }
+
  public slots:
   /**
    * Enable the "From Clipboard" button if the clipboard contains an image.
@@ -118,6 +124,8 @@ class BinaryOpenSave : public QWidget {
   QString m_defaultDir;
   /** Default file name */
   QString m_defaultFile;
+  /** Filter names */
+  QString m_filter;
 };
 
 
