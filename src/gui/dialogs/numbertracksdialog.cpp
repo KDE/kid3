@@ -62,7 +62,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   trackLayout->setSpacing(6);
   QLabel* trackLabel = new QLabel(i18n("&Start number:"), this);
   m_trackSpinBox = new QSpinBox(this);
-  m_trackSpinBox->setMaximum(999);
+  m_trackSpinBox->setMaximum(9999);
   m_trackSpinBox->setValue(ConfigStore::s_miscCfg.m_numberTracksStart);
   trackLayout->addWidget(trackLabel);
   trackLayout->addWidget(m_trackSpinBox);
