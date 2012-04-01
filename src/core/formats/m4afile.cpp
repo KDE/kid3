@@ -57,6 +57,13 @@
 #define MPEG4IP_MAJOR_MINOR_VERSION 0x0009
 #endif
 
+#if MPEG4IP_MAJOR_MINOR_VERSION < 0x0200
+#define MP4TagsSetContentID MP4TagsSetCNID
+#define MP4TagsSetArtistID MP4TagsSetATID
+#define MP4TagsSetPlaylistID MP4TagsSetPLID
+#define MP4TagsSetGenreID MP4TagsSetGEID
+#endif
+
 /**
  * Constructor.
  *
@@ -240,7 +247,9 @@ static Frame::Type getTypeForName(const QString& name,
   return Frame::FT_UnknownFrame;
 }
 
-#ifndef HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG
+#if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
+#elif defined HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG
+#else
 /**
  * Check if a name is a free form field.
  *
@@ -649,7 +658,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
             MP4TagsSetCompilation(tags, &cpl);
           } else if (name == "covr") {
             MP4TagArtwork artwork;
-            artwork.data = value.data();
+            artwork.data = (void *)value.data();
             artwork.size = value.size();
             artwork.type = MP4_ART_UNDEFINED;
             MP4TagsAddArtwork(tags, &artwork);
@@ -722,16 +731,16 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
             MP4TagsSetITunesCountry(tags, &val);
           } else if (name == "cnID") {
             uint32_t val = str.toULong();
-            MP4TagsSetCNID(tags, &val);
+            MP4TagsSetContentID(tags, &val);
           } else if (name == "atID") {
             uint32_t val = str.toULong();
-            MP4TagsSetATID(tags, &val);
+            MP4TagsSetArtistID(tags, &val);
           } else if (name == "plID") {
             uint64_t val = str.toULongLong();
-            MP4TagsSetPLID(tags, &val);
+            MP4TagsSetPlaylistID(tags, &val);
           } else if (name == "geID") {
             uint32_t val = str.toULong();
-            MP4TagsSetGEID(tags, &val);
+            MP4TagsSetGenreID(tags, &val);
           } else {
             MP4ItmfItem* item = MP4ItmfItemAlloc("----", 1);
             item->mean = strdup("com.apple.iTunes");
