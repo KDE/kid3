@@ -75,8 +75,8 @@ fixcmakeinst() {
 test -d source || mkdir source
 cd source
 
-test -f flac_1.2.1-3.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-3.diff.gz
+test -f flac_1.2.1-6.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-6.diff.gz
 test -f flac_1.2.1.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1.orig.tar.gz
 
@@ -95,25 +95,30 @@ wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2-1.
 test -f libvorbis_1.3.2.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
 
-test -f taglib_1.7-1.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7-1.debian.tar.gz
-test -f taglib_1.7.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7.orig.tar.gz
+#test -f taglib_1.7-1.debian.tar.gz ||
+#wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7-1.debian.tar.gz
+test -f taglib-1.7.1.tar.gz ||
+wget http://developer.kde.org/~wheeler/files/src/taglib-1.7.1.tar.gz
 
-test -f zlib_1.2.5.dfsg-1.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg-1.debian.tar.gz
-test -f zlib_1.2.5.dfsg.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.5.dfsg.orig.tar.gz
+test -f zlib_1.2.6.dfsg-2.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.6.dfsg-2.debian.tar.gz
+test -f zlib_1.2.6.dfsg.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.6.dfsg.orig.tar.gz
 
-test -f libav_0.7.3.orig.tar.gz ||
-wget http://archive.ubuntu.com/ubuntu/pool/main/liba/libav/libav_0.7.3.orig.tar.gz
-test -f libav_0.7.3-0ubuntu0.11.10.1.debian.tar.gz ||
-wget http://archive.ubuntu.com/ubuntu/pool/main/liba/libav/libav_0.7.3-0ubuntu0.11.10.1.debian.tar.gz
+test -f libav_0.8.1.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.1.orig.tar.gz
+test -f libav_0.8.1-4.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.1-4.debian.tar.gz
 
 test -f chromaprint_0.6.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6.orig.tar.gz
 test -f chromaprint_0.6-1.debian.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6-1.debian.tar.gz
+
+#test -f mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2 ||
+#wget http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
+#test -f mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz ||
+#wget http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz
 
 # Create patch files
 
@@ -520,6 +525,24 @@ index 40e454e..b6bc34a 100644
      convertFrame("TT3", "TIT3", header);
 EOF
 
+test -f libav_sws.patch ||
+cat >libav_sws.patch <<"EOF"
+--- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
++++ cmdutils.c  2011-09-17 15:54:37.453134577 -0700
+@@ -311,6 +311,11 @@
+     const AVOption *oc, *of, *os;
+     char opt_stripped[128];
+     const char *p;
++// SPage: avoid sws_get_class failure
++#if !CONFIG_SWSCALE
++#   define sws_get_class(x)  0
++#endif
++
+     const AVClass *cc = avcodec_get_class(), *fc = avformat_get_class(), *sc = sws_get_class();
+ 
+     if (!(p = strchr(opt, ':')))
+EOF
+
 cd ..
 
 
@@ -527,10 +550,10 @@ cd ..
 
 # zlib
 
-if ! test -d zlib-1.2.5.dfsg; then
-tar xzf source/zlib_1.2.5.dfsg.orig.tar.gz
-cd zlib-1.2.5.dfsg/
-tar xzf ../source/zlib_1.2.5.dfsg-1.debian.tar.gz
+if ! test -d zlib-1.2.6.dfsg; then
+tar xzf source/zlib_1.2.6.dfsg.orig.tar.gz
+cd zlib-1.2.6.dfsg/
+tar xzf ../source/zlib_1.2.6.dfsg-2.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -558,8 +581,8 @@ fi
 if ! test -d flac-1.2.1; then
 tar xzf source/flac_1.2.1.orig.tar.gz
 cd flac-1.2.1/
-gunzip -c ../source/flac_1.2.1-3.diff.gz | patch -p1
-for f in debian/patches/*.dpatch; do patch -p1 <$f; done
+gunzip -c ../source/flac_1.2.1-6.diff.gz | patch -p1
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
 if test $kernel = "Darwin"; then
 patch -p1 <../source/fink_flac.patch
@@ -582,11 +605,11 @@ fi
 
 # taglib
 
-if ! test -d taglib-1.7; then
-tar xzf source/taglib_1.7.orig.tar.gz
-cd taglib-1.7/
-tar xzf ../source/taglib_1.7-1.debian.tar.gz
-for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+if ! test -d taglib-1.7.1; then
+tar xzf source/taglib-1.7.1.tar.gz
+cd taglib-1.7.1/
+#tar xzf ../source/taglib_1.7-1.debian.tar.gz
+#for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/taglib-mp4-uinttypes.patch
 patch -p1 <../source/taglib-itunes-id3v22.patch
 cd ..
@@ -594,11 +617,12 @@ fi
 
 # libav
 
-if ! test -d libav-0.7.3; then
-tar xzf source/libav_0.7.3.orig.tar.gz
-cd libav-0.7.3/
-tar xzf ../source/libav_0.7.3-0ubuntu0.11.10.1.debian.tar.gz
+if ! test -d libav-0.8.1; then
+tar xzf source/libav_0.8.1.orig.tar.gz
+cd libav-0.8.1/
+tar xzf ../source/libav_0.8.1-4.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+patch -p0 <../source/libav_sws.patch
 cd ..
 fi
 
@@ -611,6 +635,15 @@ tar xzf ../source/chromaprint_0.6-1.debian.tar.gz
 cd ..
 fi
 
+# mp4v2
+
+#if ! test -d mp4v2-1.9.1+svn479~dfsg0; then
+#tar xjf source/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
+#cd mp4v2-1.9.1+svn479~dfsg0/
+#tar xzf ../source/mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz
+#cd ..
+#fi
+
 
 # Build from sources
 
@@ -618,7 +651,7 @@ test -d bin || mkdir bin
 
 # zlib
 
-cd zlib-1.2.5.dfsg/
+cd zlib-1.2.6.dfsg/
 if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
 make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib
@@ -629,7 +662,7 @@ mkdir -p inst/usr/local
 make install -f Makefile.inst prefix=`pwd`/inst/usr/local
 fi
 cd inst
-tar czf ../../bin/zlib-1.2.5.tgz usr
+tar czf ../../bin/zlib-1.2.6.tgz usr
 cd ../..
 
 # libogg
@@ -683,19 +716,19 @@ cd ../..
 
 # taglib
 
-cd taglib-1.7/
+cd taglib-1.7.1/
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
-tar czf ../../bin/taglib-1.7.tgz usr
+tar czf ../../bin/taglib-1.7.1.tgz usr
 cd ../..
 
 # libav
 
-cd libav-0.7.3
+cd libav-0.8.1
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -781,19 +814,29 @@ make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-0.7.3.tgz usr
+tar czf ../../bin/libav-0.8.1.tgz usr
 cd ../..
 
 # chromaprint
 
 cd chromaprint-0.6/
-test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=$thisdir/libav-0.7.3/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=$thisdir/libav-0.8.1/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
 tar czf ../../bin/chromaprint-0.6.tgz usr
 cd ../..
+
+# mp4v2
+
+#cd mp4v2-1.9.1+svn479~dfsg0/
+#test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch
+#mkdir inst
+#make install DESTDIR=`pwd`/inst
+#cd inst
+#tar czf ../../bin/mp4v2-1.9.1+svn479.tgz usr
+#cd ../..
 
 
 # Install to root directory
@@ -807,7 +850,8 @@ if test $kernel = "Linux"; then
     mkdir kid3
     cat >kid3/build.sh <<"EOF"
 BUILDPREFIX=$(cd ..; pwd)/buildroot/usr/local
-cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L$BUILDPREFIX/lib -ltag" -DTAGLIB_CFLAGS:STRING="-I$BUILDPREFIX/include/taglib -DTAGLIB_STATIC" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=$BUILDPREFIX/bin -DCMAKE_BUILD_TYPE=Debug -DWITH_GCC_PCH=OFF -DWITH_KDE=OFF -DWITH_TUNEPIMP=OFF -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
+export PKG_CONFIG_PATH=$BUILDPREFIX/lib/pkgconfig
+cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L$BUILDPREFIX/lib -ltag" -DTAGLIB_CFLAGS:STRING="-I$BUILDPREFIX/include/taglib -DTAGLIB_STATIC" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=$BUILDPREFIX/bin -DFFMPEG_ROOT=$BUILDPREFIX -DCMAKE_BUILD_TYPE=Debug -DWITH_GCC_PCH=OFF -DWITH_KDE=OFF -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
 EOF
     chmod +x kid3/build.sh
   fi
@@ -815,14 +859,15 @@ elif test $kernel = "Darwin"; then
   sudo chmod go+w ${BUILDROOT}usr/local
 fi
 
-tar xzf bin/zlib-1.2.5.tgz -C $BUILDROOT
+tar xzf bin/zlib-1.2.6.tgz -C $BUILDROOT
 tar xzf bin/libogg-1.2.2.tgz -C $BUILDROOT
 tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.7.tgz -C $BUILDROOT
-tar xzf bin/libav-0.7.3.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.7.1.tgz -C $BUILDROOT
+tar xzf bin/libav-0.8.1.tgz -C $BUILDROOT
 tar xzf bin/chromaprint-0.6.tgz -C $BUILDROOT
+#tar xzf bin/mp4v2-1.9.1+svn479.tgz -C $BUILDROOT
 
 if test $kernel = "Darwin"; then
   sudo chmod go-w ${BUILDROOT}usr/local
