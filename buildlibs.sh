@@ -654,7 +654,7 @@ test -d bin || mkdir bin
 cd zlib-1.2.6.dfsg/
 if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
-make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib
+make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 else
 CFLAGS="-O3 -Wall -DNO_FSEEKO" ./configure --static
 sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
