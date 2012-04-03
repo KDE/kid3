@@ -3389,7 +3389,55 @@ static void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
   }
 }
 
-#if TAGLIB_VERSION >= 0x010602
+#if TAGLIB_VERSION >= 0x010700
+/**
+ * Get a picture frame from a WM/Picture.
+ *
+ * @param picture ASF picture
+ * @param frame   the picture frame is returned here
+ *
+ * @return true if ok.
+ */
+static bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
+{
+  if (!picture.isValid())
+    return false;
+
+  TagLib::ByteVector data = picture.picture();
+  QString description(TStringToQString(picture.description()));
+  PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, "JPG",
+                          TStringToQString(picture.mimeType()),
+                          static_cast<PictureFrame::PictureType>(picture.type()),
+                          description,
+                          QByteArray(data.data(), data.size()));
+  frame.setType(Frame::FT_Picture);
+  return true;
+}
+
+/**
+ * Render the bytes of a WM/Picture from a picture frame.
+ *
+ * @param frame   picture frame
+ * @param picture the ASF picture is returned here
+ */
+static void renderAsfPicture(const Frame& frame, TagLib::ASF::Picture& picture)
+{
+  Frame::Field::TextEncoding enc;
+  PictureFrame::PictureType pictureType;
+  QByteArray data;
+  QString imgFormat, mimeType, description;
+  PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
+                          description, data);
+
+  if (frame.isValueChanged()) {
+    description = frame.getValue();
+  }
+  picture.setMimeType(QSTRING_TO_TSTRING(mimeType));
+  picture.setType(static_cast<TagLib::ASF::Picture::Type>(pictureType));
+  picture.setDescription(QSTRING_TO_TSTRING(description));
+  picture.setPicture(TagLib::ByteVector(data.data(), data.size()));
+}
+#elif TAGLIB_VERSION >= 0x010602
 /**
  * Get a picture frame from the bytes in a WM/Picture frame.
  * The WM/Picture frame has the following data:
@@ -3451,6 +3499,9 @@ static void renderAsfPicture(const Frame& frame, TagLib::ByteVector& data)
   QString imgFormat, mimeType, description;
   PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
                           description, picture);
+  if (frame.isValueChanged()) {
+    description = frame.getValue();
+  }
 
   data.resize(5);
   data[0] = pictureType;
@@ -3507,7 +3558,13 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
           return TagLib::ASF::Attribute(TagLib::ByteVector(ba.data(), ba.size()));
         }
       }
-#if TAGLIB_VERSION >= 0x010602
+#if TAGLIB_VERSION >= 0x010700
+      else {
+        TagLib::ASF::Picture picture;
+        renderAsfPicture(frame, picture);
+        return TagLib::ASF::Attribute(picture);
+      }
+#elif TAGLIB_VERSION >= 0x010602
       else {
         TagLib::ByteVector bv;
         renderAsfPicture(frame, bv);
@@ -4505,7 +4562,13 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
             field.m_value = ba;
             frame.fieldList().push_back(field);
           }
-#if TAGLIB_VERSION >= 0x010602
+#if TAGLIB_VERSION >= 0x010700
+          ++i;
+          if (type == Frame::FT_Picture) {
+            parseAsfPicture((*ait).toPicture(), frame);
+          }
+          frames.insert(frame);
+#elif TAGLIB_VERSION >= 0x010602
           ++i;
           if (type == Frame::FT_Picture) {
             parseAsfPicture((*ait).toByteVector(), frame);
