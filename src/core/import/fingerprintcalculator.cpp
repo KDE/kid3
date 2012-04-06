@@ -91,13 +91,23 @@ public:
 #else
         ::avformat_open_input(&m_ptr, fileName, 0, 0) != 0
 #endif
-        || ::av_find_stream_info(m_ptr) < 0)
+        ||
+#if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53, 5, 0)
+        ::av_find_stream_info(m_ptr) < 0
+#else
+        ::avformat_find_stream_info(m_ptr, 0) < 0
+#endif
+      )
       m_hasError = true;
   }
 
   ~Format() {
     if (m_ptr)
+#if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53, 21, 0)
       ::av_close_input_file(m_ptr);
+#else
+      ::avformat_close_input(&m_ptr);
+#endif
   }
 
   bool hasError() const { return m_hasError; }
@@ -162,9 +172,33 @@ public:
 #if LIBAVCODEC_VERSION_INT <= AV_VERSION_INT(52, 25, 0)
     return ::avcodec_decode_audio2(m_ptr,
       samples, frameSize, pkt->data, pkt->size);
-    #else
+#elif LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 25, 0)
     return ::avcodec_decode_audio3(m_ptr,
       samples, frameSize, pkt);
+#else
+    AVFrame frame;
+    int decoded = 0;
+    int len = ::avcodec_decode_audio4(m_ptr, &frame, &decoded, pkt);
+    if (len >= 0 && decoded) {
+      int planar = ::av_sample_fmt_is_planar(m_ptr->sample_fmt);
+      int planeSize;
+      int dataSize = ::av_samples_get_buffer_size(&planeSize, m_ptr->channels,
+                         frame.nb_samples, m_ptr->sample_fmt, 1);
+      if (*frameSize < dataSize)
+        return -1;
+      ::memcpy(samples, frame.extended_data[0], planeSize);
+      if (planar && m_ptr->channels > 1) {
+        uint8_t* out = reinterpret_cast<uint8_t*>(samples) + planeSize;
+        for (int ch = 1; ch < m_ptr->channels; ++ch) {
+          ::memcpy(out, frame.extended_data[ch], planeSize);
+          out += planeSize;
+        }
+      }
+      *frameSize = dataSize;
+    } else {
+      *frameSize = 0;
+    }
+    return len;
 #endif
   }
 
