@@ -2,6 +2,7 @@
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
+export DEB_BUILD_HARDENING=1
 
 kdedocs = $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML
 
@@ -25,9 +26,11 @@ ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 	INSTALL_PROGRAM += -s
 endif
 
-build: build-arch build-indep
-build-arch: build-stamp
-build-indep: build-stamp
+build: build-stamp
+
+build-arch: build
+
+build-indep: build
 
 DEB_CMAKE_PREFIX = /usr
 DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/kde4/config
@@ -45,18 +48,18 @@ CMAKE_KDE4_FLAGS += \
 	-DLIB_INSTALL_DIR=$(DEB_CMAKE_PREFIX)/lib
 
 CMAKE_QT4_FLAGS = \
-  -DCMAKE_SKIP_RPATH=ON \
-  -DCMAKE_INSTALL_PREFIX="$(DEB_CMAKE_PREFIX)" \
-  -DCMAKE_C_COMPILER:FILEPATH="$(CC)" \
-  -DCMAKE_CXX_COMPILER:FILEPATH="$(CXX)" \
-  -DCMAKE_C_FLAGS="$(CFLAGS)" \
-  -DCMAKE_CXX_FLAGS="$(CXXFLAGS)" \
-  -DWITH_MP4V2=OFF \
-  -DWITH_KDE=OFF \
-  -DWITH_DATAROOTDIR=share \
-  -DWITH_DOCDIR=share/doc/kid3-qt \
-  -DWITH_TRANSLATIONSDIR=share/kid3-qt/translations \
-  -DWITH_BINDIR=bin
+	-DCMAKE_SKIP_RPATH=ON \
+	-DCMAKE_INSTALL_PREFIX="$(DEB_CMAKE_PREFIX)" \
+	-DCMAKE_C_COMPILER:FILEPATH="$(CC)" \
+	-DCMAKE_CXX_COMPILER:FILEPATH="$(CXX)" \
+	-DCMAKE_C_FLAGS="$(CFLAGS)" \
+	-DCMAKE_CXX_FLAGS="$(CXXFLAGS)" \
+	-DWITH_MP4V2=OFF \
+	-DWITH_KDE=OFF \
+	-DWITH_DATAROOTDIR=share \
+	-DWITH_DOCDIR=share/doc/kid3-qt \
+	-DWITH_TRANSLATIONSDIR=share/kid3-qt/translations \
+	-DWITH_BINDIR=bin
 
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 CMAKE_QT4_FLAGS += -DCMAKE_BUILD_TYPE=Debug
@@ -71,32 +74,29 @@ build-stamp:
 	cd kid3-kde4 && cmake .. $(CMAKE_KDE4_FLAGS)
 	$(MAKE) -C kid3-kde4
 	# Qt4 build.
-	mkdir kid3-qt4
-	cd kid3-qt4 && cmake .. $(CMAKE_QT4_FLAGS)
-	$(MAKE) -C kid3-qt4
+	mkdir kid3-qt
+	cd kid3-qt && cmake .. $(CMAKE_QT4_FLAGS)
+	$(MAKE) -C kid3-qt
 	touch build-stamp
 
 clean:
 	dh_testdir
 	dh_testroot
+	[ ! -f kid3-qt/Makefile ] || $(MAKE) -C kid3-qt clean
 	[ ! -f kid3-kde4/Makefile ] || $(MAKE) -C kid3-kde4 clean
-	[ ! -f kid3-qt4/Makefile ] || $(MAKE) -C kid3-qt4 clean
-	-rm -rf kid3-kde4 kid3-qt4
-	-rm -f *-stamp
+	rm -rf kid3-kde4 kid3-qt
+	rm -f *-stamp po/*.gmo
 	dh_clean
 
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 	# Main install.
 	$(MAKE) -C kid3-kde4 install DESTDIR=$(CURDIR)/debian/kid3
-	$(MAKE) -C kid3-qt4 install DESTDIR=$(CURDIR)/debian/kid3-qt
-	# Make common links for docs.
-	for p in `dh_listpackages`; do \
-	  for i in `find $(kdedocs) -type d -name $$p -not -regex .*/en/$$p`; do \
-	    ln -f -n -s ../../en/common $$i/common; done; done
+	$(MAKE) -C kid3-qt install DESTDIR=$(CURDIR)/debian/kid3-qt
+	rm $(CURDIR)/debian/kid3/usr/share/doc/kde/HTML/*/kid3/common
 
 binary-indep: build install
 
@@ -109,6 +109,7 @@ binary-arch: build install
 	dh_installchangelogs ChangeLog
 	dh_icons
 	dh_link
+	dh_lintian
 	dh_strip
 	dh_compress --exclude=.docbook
 	dh_fixperms

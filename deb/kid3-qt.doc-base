@@ -1,0 +1,14 @@
+Document: kid3-qt
+Title: The Kid3 Handbook
+Author: Urs Fleisch
+Abstract: Kid3 is an application to edit the ID3v1 and ID3v2 tags in MP3 files
+ in an efficient way. Also tags in Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2,
+ Speex, TrueAudio, WavPack, WMA, WAV and AIFF files are supported. It is easy to
+ set tags of multiple files to the same values (e.g. album, artist, year and
+ genre in all files of the same album) and generate the tags from the file name
+ or vice versa.
+Section: Sound
+
+Format: HTML
+Index: /usr/share/doc/kid3-qt/kid3_en.html
+Files: /usr/share/doc/kid3-qt/*.html

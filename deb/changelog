@@ -1,8 +1,28 @@
-kid3 (2.1-0.1) unstable; urgency=low
+kid3 (2.0.1-4) unstable; urgency=low
 
-  * New upstream release, local package.
+  * Add patch 01-gcc4.7-ftbfs to fix a FTBFS with GCC 4.7.
+    Closes: #667227
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 14 Jan 2012 18:03:23 +0100
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 04 Apr 2012 16:32:21 +0200
+
+kid3 (2.0.1-3) unstable; urgency=low
+
+  * Bump Standards-Version to 3.9.3 (no changed needed).
+  * Wrap all debian/control fields.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 24 Feb 2012 19:22:47 +0100
+
+kid3 (2.0.1-2) unstable; urgency=low
+
+  * Do not build the package with libtunepimp.
+    Closes: #657018
+  * Add missing build-arch and build-indep debian/rules target.
+  * Add doc-base registration for the kid3-qt package.
+  * Repair broken common symlinks in the kid3 package and add an lintian
+    overwrite for it (false positive).
+    Closes: #583333
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Wed, 25 Jan 2012 16:07:08 +0100
 
 kid3 (2.0.1-1) unstable; urgency=low
 

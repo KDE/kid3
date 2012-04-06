@@ -2,20 +2,33 @@ Source: kid3
 Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
-Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>, Mark Purcell <msp@debian.org>,
+Uploaders: Ana Beatriz Guerrero Lopez <ana@debian.org>,
+ Mark Purcell <msp@debian.org>,
  Patrick Matthäi <pmatthaei@debian.org>
-Build-Depends: debhelper (>= 6), libqt4-dev, kdelibs5-dev, cmake,
- libid3-3.8.3-dev, libflac++-dev, libvorbis-dev, libtag1-dev,
- libavformat-dev, libavcodec-dev, libchromaprint-dev,
- xsltproc, docbook-xsl, lsb-release
-Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 7),
+ libqt4-dev,
+ kdelibs5-dev,
+ cmake,
+ libid3-3.8.3-dev,
+ libflac++-dev,
+ libvorbis-dev,
+ libtag1-dev,
+ libavformat-dev,
+ libavcodec-dev,
+ libchromaprint-dev,
+ hardening-wrapper,
+ lsb-release,
+ docbook-xsl,
+ xsltproc
+Standards-Version: 3.9.3
 Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log
 
 Package: kid3
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends},
+ ${misc:Depends}
 Description: KDE MP3 ID3 tag editor
  With Kid3, an ID3 tag editor for KDE you can:
   * Edit ID3v1.1 tags in your MP3 files
@@ -39,7 +52,8 @@ Description: KDE MP3 ID3 tag editor
 Package: kid3-qt
 Section: sound
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends},
+ ${misc:Depends}
 Description: Audio tag editor
  With Kid3, an audio tag editor you can:
   * Edit ID3v1.1 tags in your MP3 files
