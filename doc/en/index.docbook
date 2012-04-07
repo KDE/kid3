@@ -20,13 +20,13 @@
 </authorgroup>
 
 <copyright>
-<year>2011</year>
+<year>2012</year>
 <holder>Urs Fleisch</holder>
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2011-10-29</date>
-<releaseinfo>2.0.1</releaseinfo>
+<date>2012-04-07</date>
+<releaseinfo>2.1</releaseinfo>
 
 <abstract>
 <para>
@@ -1696,11 +1696,10 @@ and libFLAC</ulink>.
 MP4 files.
 These four formats are also supported by
 <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
-which can also handle MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV and AIFF files. 
-For MusicBrainz support,
-<ulink url="http://musicbrainz.org/doc/libtunepimp">libtunepimp</ulink>
-is used. As there does not exist a tunepimp SDK for Windows at the moment, the
-Windows version is compiled without MusicBrainz import. 
+which can also handle MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV and AIFF files.
+To import from acoustic fingerprints,
+<ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
+and <ulink url="http://libav.org/">libav</ulink> are used.
 </para>
 <para>
 &kid3; is available for most Linux distributions, Windows and Mac OS X.
@@ -1734,8 +1733,8 @@ If not all libraries are present, &kid3; is built with reduced functionality.
 So you should take care to have all desired development packages installed.
 On the other side, <userinput>cmake</userinput>-options control which
 libraries are compiled in. The default is
-<userinput>-D WITH_TAGLIB:BOOL=ON -D WITH_MP4V2:BOOL=ON -D WITH_ID3LIB:BOOL=ON
--D WITH_TUNEPIMP:BOOL=ON -D WITH_VORBIS:BOOL=ON -D WITH_FLAC:BOOL=ON
+<userinput>-D WITH_TAGLIB:BOOL=ON -D WITH_MP4V2:BOOL=OFF -D WITH_ID3LIB:BOOL=ON
+-D WITH_CHROMAPRINT:BOOL=ON -D WITH_VORBIS:BOOL=ON -D WITH_FLAC:BOOL=ON
 </userinput>. These options can be disabled using
 <userinput>OFF</userinput>.
 </para>

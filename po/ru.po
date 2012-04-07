@@ -7,7 +7,7 @@
 # "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: ru\n"
+"Project-Id-Version: Kid3 2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2012-03-12 21:11+0100\n"

@@ -1,3 +1,9 @@
+kid3 (2.1-0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 07 Apr 2012 09:43:54 +0200
+
 kid3 (2.0.1-4) unstable; urgency=low
 
   * Add patch 01-gcc4.7-ftbfs to fix a FTBFS with GCC 4.7.
