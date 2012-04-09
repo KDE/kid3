@@ -282,5 +282,10 @@ QList<MiscConfig::MenuCommand> CommandsTableModel::getCommandList() const
       cmdList.append(*it);
     }
   }
+  if (cmdList.isEmpty()) {
+    // Make sure that their is at least one entry, so that new entries can
+    // be added.
+    cmdList.append(MiscConfig::MenuCommand());
+  }
   return cmdList;
 }

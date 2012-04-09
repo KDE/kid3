@@ -131,7 +131,7 @@ void FileList::updateCurrentSelection()
  */
 void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
-  if (index.isValid() && !ConfigStore::s_miscCfg.m_contextMenuCommands.empty()) {
+  if (index.isValid()) {
     QMenu menu(this);
     menu.addAction(i18n("&Expand all"), this, SLOT(expandAll()));
     menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
@@ -145,7 +145,10 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
            it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
          it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
          ++it) {
-      menu.addAction((*it).getName());
+      QString name((*it).getName());
+      if (!name.isEmpty()) {
+        menu.addAction(name);
+      }
       ++id;
     }
     connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));
