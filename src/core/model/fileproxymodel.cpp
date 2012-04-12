@@ -26,7 +26,6 @@
 
 #include "fileproxymodel.h"
 #include <QFileSystemModel>
-#include "taggedfile.h"
 #include "taggedfileiconprovider.h"
 #include "config.h"
 #ifdef HAVE_ID3LIB

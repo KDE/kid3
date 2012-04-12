@@ -32,10 +32,10 @@
 #include <QSet>
 #include <QFileInfo>
 #include <QStringList>
+#include "taggedfile.h"
 #include "kid3api.h"
 
 class QFileSystemModel;
-class TaggedFile;
 class TaggedFileIconProvider;
 
 /**

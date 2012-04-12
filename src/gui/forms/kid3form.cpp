@@ -45,6 +45,7 @@
 #include <QUrl>
 #include <QApplication>
 #include <QFileSystemModel>
+#include <QMimeData>
 #include "frametable.h"
 #include "frametablemodel.h"
 #include "trackdata.h"
