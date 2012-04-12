@@ -38,6 +38,7 @@
 class QFileSystemModel;
 class QItemSelectionModel;
 class QModelIndex;
+class QNetworkAccessManager;
 class FileProxyModel;
 class DirProxyModel;
 class TrackDataModel;
@@ -49,6 +50,7 @@ class TaggedFile;
 class FrameList;
 class IFrameEditor;
 class ServerImporter;
+class MusicBrainzClient;
 class TextExporter;
 class DirRenamer;
 #ifdef HAVE_PHONON
@@ -169,6 +171,12 @@ public:
    * @return list of server importers.
    */
   QList<ServerImporter*> getServerImporters() { return m_importers; }
+
+  /**
+   * Get MusicBrainz client.
+   * @return MusicBrainz client if supported, else 0
+   */
+  MusicBrainzClient* getMusicBrainzClient() { return m_musicBrainzClient; }
 
   /**
    * Get directory renamer.
@@ -857,6 +865,8 @@ private:
   FrameList* m_framelist;
   /** Configuration */
   ConfigStore* m_configStore;
+  /** Network access manager */
+  QNetworkAccessManager* m_netMgr;
   /** Download client */
   DownloadClient* m_downloadClient;
   /** Text exporter */
@@ -883,7 +893,8 @@ private:
   QString m_tagsToFilenameFormat;
   /** Importers for different servers */
   QList<ServerImporter*> m_importers;
-
+  /** Importer for MusicBrainz fingerprints */
+  MusicBrainzClient* m_musicBrainzClient;
   /** Current directory */
   static QString s_dirName;
 };

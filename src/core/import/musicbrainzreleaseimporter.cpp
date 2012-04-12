@@ -35,12 +35,12 @@
 /**
  * Constructor.
  *
- * @param parent          parent object
+ * @param netMgr network access manager
  * @param trackDataModel track data to be filled with imported values
  */
 MusicBrainzReleaseImporter::MusicBrainzReleaseImporter(
-  QObject* parent, TrackDataModel* trackDataModel) :
-  ServerImporter(parent, trackDataModel)
+  QNetworkAccessManager* netMgr, TrackDataModel *trackDataModel) :
+  ServerImporter(netMgr, trackDataModel)
 {
   setObjectName("MusicBrainzReleaseImporter");
 }

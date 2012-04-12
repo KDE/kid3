@@ -90,13 +90,16 @@ QList<int> checkableFrameTypes() {
  * @param trackDataModel track data to be filled with imported values,
  *                      is passed with durations of files set
  * @param importers     server importers
+ * @param mbClient      MusicBrainz client if supported, else 0
  */
 ImportDialog::ImportDialog(QWidget* parent, QString& caption,
                            TrackDataModel* trackDataModel,
-                           const QList<ServerImporter*>& importers) :
+                           const QList<ServerImporter*>& importers,
+                           MusicBrainzClient* mbClient) :
   QDialog(parent),
   m_autoStartSubDialog(-1), m_columnVisibility(0ULL),
-  m_trackDataModel(trackDataModel), m_importers(importers)
+  m_trackDataModel(trackDataModel), m_importers(importers),
+  m_musicBrainzClient(mbClient)
 {
   setObjectName("ImportDialog");
   setModal(true);
@@ -351,7 +354,8 @@ void ImportDialog::hideSubdialogs()
 void ImportDialog::fromMusicBrainz()
 {
   if (!m_musicBrainzDialog) {
-    m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataModel);
+    m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataModel,
+                                                m_musicBrainzClient);
     connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
             this, SLOT(showPreview()));
   }

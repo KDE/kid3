@@ -25,7 +25,9 @@
  */
 
 #include "httpclient.h"
-#include <QHttp>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkProxy>
 #include <QByteArray>
 #include "configstore.h"
 #include "qtcompatmac.h"
@@ -34,20 +36,12 @@
 /**
  * Constructor.
  *
- * @param parent  parent object
+ * @param netMgr  network access manager
  */
-HttpClient::HttpClient(QObject* parent) : QObject(parent), m_rcvBodyLen(0)
+HttpClient::HttpClient(QNetworkAccessManager* netMgr) :
+  QObject(netMgr), m_netMgr(netMgr), m_rcvBodyLen(0)
 {
   setObjectName("HttpClient");
-  m_http = new QHttp();
-  connect(m_http, SIGNAL(stateChanged(int)),
-          this, SLOT(slotStateChanged(int)));
-  connect(m_http, SIGNAL(dataReadProgress(int, int)),
-          this, SLOT(slotDataReadProgress(int, int)));
-  connect(m_http, SIGNAL(done(bool)),
-          this, SLOT(slotDone(bool)));
-  connect(m_http, SIGNAL(responseHeaderReceived(const QHttpResponseHeader&)),
-          this, SLOT(slotResponseHeaderReceived(const QHttpResponseHeader&)));
 }
 
 /**
@@ -55,38 +49,10 @@ HttpClient::HttpClient(QObject* parent) : QObject(parent), m_rcvBodyLen(0)
  */
 HttpClient::~HttpClient()
 {
-  m_http->close();
-  m_http->disconnect();
-  delete m_http;
-}
-
-/**
- * Called when the connection state changes.
- *
- * @param state HTTP connection state
- */
-void HttpClient::slotStateChanged(int state)
-{
-  switch (state) {
-    case QHttp::HostLookup:
-      emitProgress(i18n("Ready."), CS_RequestConnection, CS_EstimatedBytes);
-      break;
-    case QHttp::Connecting:
-      emitProgress(i18n("Connecting..."), CS_Connecting, CS_EstimatedBytes);
-      break;
-    case QHttp::Sending:
-      emitProgress(i18n("Host found..."), CS_HostFound, CS_EstimatedBytes);
-      break;
-    case QHttp::Reading:
-      emitProgress(i18n("Request sent..."), CS_RequestSent, CS_EstimatedBytes);
-      break;
-    case QHttp::Connected:
-      emitProgress(i18n("Ready."), -1, -1);
-      break;
-    case QHttp::Unconnected:
-    case QHttp::Closing:
-    default:
-      ;
+  if (m_reply) {
+    m_reply->close();
+    m_reply->disconnect();
+    m_reply->deleteLater();
   }
 }
 
@@ -94,101 +60,90 @@ void HttpClient::slotStateChanged(int state)
 #define DATA_RECEIVED_FOR_PO I18N_NOOP("Data received: %1")
 
 /**
+ * Called when the request is finished.
+ */
+void HttpClient::networkReplyFinished()
+{
+  if (QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender())) {
+    QByteArray data(reply->readAll());
+    m_rcvBodyType = reply->header(QNetworkRequest::ContentTypeHeader).toString();
+    m_rcvBodyLen = reply->header(QNetworkRequest::ContentLengthHeader).toUInt();
+    emit bytesReceived(data);
+    QString msg(i18n("Ready."));
+    if (reply->error() != QNetworkReply::NoError) {
+      msg = i18n("Error");
+      msg += ": ";
+      msg += reply->errorString();
+    }
+    emitProgress(msg, data.size(), data.size());
+    reply->deleteLater();
+  }
+}
+
+/**
  * Called to report connection progress.
  *
- * @param done  bytes received
- * @param total total bytes, 0 if unknown
+ * @param received bytes received
+ * @param total total bytes
  */
-void HttpClient::slotDataReadProgress(int done, int total)
+void HttpClient::networkReplyProgress(qint64 received, qint64 total)
 {
-  emitProgress(i18n("Data received: %1").arg(done), done, total);
+  emitProgress(i18n("Data received: %1").arg(received), received, total);
 }
 
 /**
- * Called when the request is finished.
+ * Called when an error occurred.
  *
- * @param error true if error occurred
+ * @param code error code
  */
-void HttpClient::slotDone(bool error)
+void HttpClient::networkReplyError(QNetworkReply::NetworkError)
 {
-  if (error) {
-    QHttp::Error err = m_http->error();
-    if (err != QHttp::UnexpectedClose) {
-      QString msg(i18n("Socket error: "));
-      switch (err) {
-        case QHttp::ConnectionRefused:
-          msg += i18n("Connection refused");
-          break;
-        case QHttp::HostNotFound:
-          msg += i18n("Host not found");
-          break;
-        default:
-          msg += m_http->errorString();
-      }
-      emitProgress(msg, -1, -1);
-    }
-  }
-  emit bytesReceived(m_http->readAll());
-  if (!error) {
-    emitProgress(i18n("Ready."), CS_EstimatedBytes, CS_EstimatedBytes);
+  if (QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender())) {
+    emitProgress(reply->errorString(), -1, -1);
   }
 }
 
-/**
- * Called when the response header is available.
- *
- * @param resp HTTP response header
- */
-void HttpClient::slotResponseHeaderReceived(const QHttpResponseHeader& resp)
-{
-  m_rcvBodyType = resp.contentType();
-  m_rcvBodyLen = resp.contentLength();
-}
 
 /**
  * Send a HTTP GET request.
  *
  * @param server host name
  * @param path   path of the URL
- * @param setUserAgent true to set user agent to Mozilla
  */
-void HttpClient::sendRequest(const QString& server, const QString& path,
-                             bool setUserAgent)
+void HttpClient::sendRequest(const QString& server, const QString& path)
 {
   m_rcvBodyLen = 0;
   m_rcvBodyType = "";
-  QString dest;
-  int destPort;
-  splitNamePort(server, dest, destPort);
-  m_http->setHost(dest, destPort);
   QString proxy, username, password;
   int proxyPort = 0;
+  QNetworkProxy::ProxyType proxyType = QNetworkProxy::NoProxy;
   if (ConfigStore::s_miscCfg.m_useProxy) {
     splitNamePort(ConfigStore::s_miscCfg.m_proxy, proxy, proxyPort);
+    proxyType = QNetworkProxy::HttpProxy;
   }
   if (ConfigStore::s_miscCfg.m_useProxyAuthentication) {
     username = ConfigStore::s_miscCfg.m_proxyUserName;
     password = ConfigStore::s_miscCfg.m_proxyPassword;
   }
-  m_http->setProxy(proxy, proxyPort, username, password);
-  m_http->setHost(dest, destPort);
-  if (!setUserAgent) {
-    m_http->get(path);
-  } else {
-    // Set User-Agent to Mozilla to avoid that request is blocked.
-    QHttpRequestHeader header("GET", path);
-    if (destPort != 80)
-      header.setValue("Host", dest + ':' + QString::number(destPort));
-    else
-      header.setValue("Host", dest);
-    header.setValue("User-Agent","Mozilla/5.0");
-    header.setValue("Accept","text/html,application/xhtml+xml,application/xml"
-                    ";q=0.9,*/*;q=0.8");
-    header.setValue("Accept-Language","en-us,en;q=0.5");
-    header.setValue("Accept-Charset","utf-8");
-    header.setValue("Connection","keep-alive");
-    m_http->request(header);
+  m_netMgr->setProxy(QNetworkProxy(proxyType, proxy, proxyPort,
+                                   username, password));
+
+  QString host(server);
+  if (host.endsWith(":80")) {
+    host.chop(3);
   }
+  QUrl url;
+  url.setEncodedUrl(("http://" + host + path).toAscii());
+  QNetworkRequest request(url);
+  QNetworkReply* reply = m_netMgr->get(request);
+  m_reply = reply;
+  connect(reply, SIGNAL(finished()),
+          this, SLOT(networkReplyFinished()));
+  connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
+          this, SLOT(networkReplyProgress(qint64,qint64)));
+  connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
+          this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
+  emitProgress(i18n("Request sent..."), 0, 0);
 }
 
 /**
@@ -196,7 +151,9 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
  */
 void HttpClient::abort()
 {
-  m_http->abort();
+  if (m_reply) {
+    m_reply->abort();
+  }
 }
 
 /**

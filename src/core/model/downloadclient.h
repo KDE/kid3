@@ -40,9 +40,9 @@ public:
   /**
    * Constructor.
    *
-   * @param parent parent object
+   * @param netMgr network access manager
    */
-  explicit DownloadClient(QObject* parent = 0);
+  explicit DownloadClient(QNetworkAccessManager* netMgr);
 
   /**
    * Destructor.

@@ -38,11 +38,11 @@ public:
   /**
    * Constructor.
    *
-   * @param parent          parent object
+   * @param netMgr network access manager
    * @param trackDataModel track data to be filled with imported values
    */
-  DiscogsImporter(QObject* parent,
-                  TrackDataModel* trackDataModel);
+  DiscogsImporter(QNetworkAccessManager* netMgr,
+                  TrackDataModel *trackDataModel);
 
   /**
    * Destructor.

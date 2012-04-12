@@ -47,11 +47,11 @@ public:
   /**
    * Constructor.
    *
-   * @param parent  parent object
+   * @param netMgr network access manager
    * @param trackDataModel track data to be filled with imported values
    */
-  ServerImporter(QObject* parent,
-                 TrackDataModel* trackDataModel);
+  ServerImporter(QNetworkAccessManager* netMgr,
+                 TrackDataModel *trackDataModel);
 
   /**
    * Destructor.

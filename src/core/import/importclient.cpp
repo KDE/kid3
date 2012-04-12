@@ -34,10 +34,10 @@
 /**
  * Constructor.
  *
- * @param parent  parent object
+ * @param netMgr  network access manager
  */
-ImportClient::ImportClient(QObject* parent) :
-  HttpClient(parent), m_requestType(RT_None)
+ImportClient::ImportClient(QNetworkAccessManager* netMgr) :
+  HttpClient(netMgr), m_requestType(RT_None)
 {
   setObjectName("ImportClient");
   connect(this, SIGNAL(bytesReceived(const QByteArray&)),

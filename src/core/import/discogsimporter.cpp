@@ -37,12 +37,12 @@ static const char discogsServer[] = "www.discogs.com:80";
 /**
  * Constructor.
  *
- * @param parent          parent object
+ * @param netMgr network access manager
  * @param trackDataModel track data to be filled with imported values
  */
-DiscogsImporter::DiscogsImporter(QObject* parent,
+DiscogsImporter::DiscogsImporter(QNetworkAccessManager* netMgr,
                                  TrackDataModel* trackDataModel) :
-  ServerImporter(parent, trackDataModel)
+  ServerImporter(netMgr, trackDataModel)
 {
   setObjectName("DiscogsImporter");
 }
@@ -595,7 +595,7 @@ void DiscogsImporter::sendFindQuery(
    */
   sendRequest(discogsServer,
               QString("/search?type=releases&q=") +
-              encodeUrlQuery(artist + " " + album) + "&btn=Search", true);
+              encodeUrlQuery(artist + " " + album) + "&btn=Search");
 }
 
 /**
@@ -614,5 +614,5 @@ void DiscogsImporter::sendTrackListQuery(
    * http://www.discogs.com/release/761529
    */
   sendRequest(discogsServer, QString("/") + QUrl::toPercentEncoding(cat) + '/'
-              + id, true);
+              + id);
 }

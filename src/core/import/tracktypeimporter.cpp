@@ -34,12 +34,12 @@ static const char trackTypeServer[] = "tracktype.org:80";
 /**
  * Constructor.
  *
- * @param parent          parent object
+ * @param netMgr network access manager
  * @param trackDataModel track data to be filled with imported values
  */
-TrackTypeImporter::TrackTypeImporter(QObject* parent,
-                                     TrackDataModel* trackDataModel) :
-  FreedbImporter(parent, trackDataModel)
+TrackTypeImporter::TrackTypeImporter(QNetworkAccessManager* netMgr,
+                                     TrackDataModel *trackDataModel) :
+  FreedbImporter(netMgr, trackDataModel)
 {
   setObjectName("TrackTypeImporter");
 }

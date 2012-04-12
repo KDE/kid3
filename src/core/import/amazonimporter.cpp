@@ -34,13 +34,13 @@
 /**
  * Constructor.
  *
- * @param parent          parent object
+ * @param netMgr network access manager
  * @param trackDataModel track data to be filled with imported values
  */
 AmazonImporter::AmazonImporter(
-  QObject* parent,
+  QNetworkAccessManager* netMgr,
   TrackDataModel* trackDataModel)
-  : ServerImporter(parent, trackDataModel)
+  : ServerImporter(netMgr, trackDataModel)
 {
   setObjectName("AmazonImporter");
 }

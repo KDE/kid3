@@ -38,11 +38,11 @@ public:
   /**
    * Constructor.
    *
-   * @param parent          parent object
+   * @param netMgr network access manager
    * @param trackDataModel track data to be filled with imported values
    */
-  AmazonImporter(QObject* parent,
-                 TrackDataModel* trackDataModel);
+  AmazonImporter(QNetworkAccessManager* netMgr,
+                 TrackDataModel *trackDataModel);
 
   /**
    * Destructor.

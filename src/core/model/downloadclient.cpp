@@ -30,10 +30,10 @@
 /**
  * Constructor.
  *
- * @param parent parent object
+ * @param netMgr network access manager
  */
-DownloadClient::DownloadClient(QObject* parent) : HttpClient(parent),
-  m_canceled(false)
+DownloadClient::DownloadClient(QNetworkAccessManager* netMgr) :
+  HttpClient(netMgr), m_canceled(false)
 {
   connect(this, SIGNAL(bytesReceived(const QByteArray&)),
           this, SLOT(requestFinished(const QByteArray&)));
@@ -59,9 +59,7 @@ void DownloadClient::startDownload(const QString& hostName, const QString& path)
   m_url += hostName;
   m_url += path;
   emit downloadStarted(m_url);
-  emit progress(i18n("Ready."),
-                HttpClient::CS_RequestConnection,
-                HttpClient::CS_EstimatedBytes);
+  emit progress(i18n("Ready."), 0, 0);
   sendRequest(hostName, path);
 }
 

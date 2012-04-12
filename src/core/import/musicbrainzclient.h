@@ -36,6 +36,7 @@
 #include "trackdata.h"
 
 class QByteArray;
+class QNetworkAccessManager;
 class ImportTrackData;
 class ImportTrackDataVector;
 class TrackDataModel;
@@ -53,10 +54,12 @@ public:
   /**
    * Constructor.
    *
+   * @param netMgr network access manager
    * @param trackDataModel track data to be filled with imported values,
    *                       is passed with filenames set
    */
-  explicit MusicBrainzClient(TrackDataModel* trackDataModel);
+  MusicBrainzClient(QNetworkAccessManager* netMgr,
+                    TrackDataModel* trackDataModel);
 
   /**
    * Destructor.
@@ -74,6 +77,11 @@ public:
    * Add the files in the file list.
    */
   void addFiles();
+
+  /**
+   * Reset the client state.
+   */
+  void resetState();
 
 signals:
   /**
@@ -107,7 +115,6 @@ private:
 
   bool verifyIdIndex();
   bool verifyTrackIndex();
-  void resetState();
   void processNextStep();
   void processNextTrack();
 

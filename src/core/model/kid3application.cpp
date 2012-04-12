@@ -30,6 +30,7 @@
 #include <QTextCodec>
 #include <QUrl>
 #include <QTextStream>
+#include <QNetworkAccessManager>
 #ifdef CONFIG_USE_KDE
 #include <kapplication.h>
 #else
@@ -60,6 +61,9 @@
 #include "discogsimporter.h"
 #include "amazonimporter.h"
 #include "qtcompatmac.h"
+#ifdef HAVE_CHROMAPRINT
+#include "musicbrainzclient.h"
+#endif
 #ifdef HAVE_PHONON
 #include "audioplayer.h"
 #endif
@@ -98,13 +102,15 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   m_framesV2SelectionModel(new QItemSelectionModel(m_framesV2Model, this)),
   m_framelist(new FrameList(m_framesV2Model, m_framesV2SelectionModel)),
   m_configStore(new ConfigStore),
-  m_downloadClient(new DownloadClient(this)),
+  m_netMgr(new QNetworkAccessManager(this)),
+  m_downloadClient(new DownloadClient(m_netMgr)),
   m_textExporter(new TextExporter(this)),
   m_dirRenamer(new DirRenamer(this)),
 #ifdef HAVE_PHONON
   m_player(0),
 #endif
-  m_downloadImageDest(ImageForSelectedFiles)
+  m_downloadImageDest(ImageForSelectedFiles),
+  m_musicBrainzClient(0)
 {
   setObjectName("Kid3Application");
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
@@ -120,11 +126,14 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   ConfigStore::s_fnFormatCfg.setAsFilenameFormatter();
 
   m_importers
-      << new FreedbImporter(this, m_trackDataModel)
-      << new TrackTypeImporter(this, m_trackDataModel)
-      << new DiscogsImporter(this, m_trackDataModel)
-      << new AmazonImporter(this, m_trackDataModel)
-      << new MusicBrainzReleaseImporter(this, m_trackDataModel);
+      << new FreedbImporter(m_netMgr, m_trackDataModel)
+      << new TrackTypeImporter(m_netMgr, m_trackDataModel)
+      << new DiscogsImporter(m_netMgr, m_trackDataModel)
+      << new AmazonImporter(m_netMgr, m_trackDataModel)
+      << new MusicBrainzReleaseImporter(m_netMgr, m_trackDataModel);
+#ifdef HAVE_CHROMAPRINT
+  m_musicBrainzClient = new MusicBrainzClient(m_netMgr, m_trackDataModel);
+#endif
 
 #ifdef HAVE_QTDBUS
   if (QDBusConnection::sessionBus().isConnected()) {

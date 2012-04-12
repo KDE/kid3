@@ -1287,7 +1287,8 @@ void Kid3MainWindow::setupImportDialog()
     QString caption(i18n("Import"));
     m_importDialog =
       new ImportDialog(this, caption, m_app->getTrackDataModel(),
-                       m_app->getServerImporters());
+                       m_app->getServerImporters(),
+                       m_app->getMusicBrainzClient());
   }
   m_importDialog->clear();
 }

@@ -175,11 +175,14 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
 /**
  * Constructor.
  *
+ * @param netMgr network access manager
  * @param trackDataModel track data to be filled with imported values,
  *                      is passed with filenames set
  */
-MusicBrainzClient::MusicBrainzClient(TrackDataModel* trackDataModel) :
-  m_httpClient(new HttpClient(this)),
+MusicBrainzClient::MusicBrainzClient(QNetworkAccessManager* netMgr,
+                                     TrackDataModel *trackDataModel) :
+  QObject(netMgr),
+  m_httpClient(new HttpClient(netMgr)),
   m_fingerprintCalculator(new FingerprintCalculator),
   m_trackDataModel(trackDataModel),
   m_state(Idle), m_currentIndex(-1)

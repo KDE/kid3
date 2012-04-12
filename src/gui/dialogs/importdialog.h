@@ -47,6 +47,7 @@ class TagImportDialog;
 class ImportTrackDataVector;
 class FrameCollection;
 class FreedbConfig;
+class MusicBrainzClient;
 #ifdef HAVE_CHROMAPRINT
 class MusicBrainzConfig;
 #endif
@@ -66,10 +67,12 @@ public:
    * @param trackDataModel track data to be filled with imported values,
    *                      is passed with durations of files set
    * @param importers     server importers
+   * @param mbClient      MusicBrainz client if supported, else 0
    */
   ImportDialog(QWidget* parent, QString& caption,
                TrackDataModel* trackDataModel,
-               const QList<ServerImporter*>& importers);
+               const QList<ServerImporter*>& importers,
+               MusicBrainzClient* mbClient);
   /**
    * Destructor.
    */
@@ -231,6 +234,8 @@ private:
   QSpinBox* m_maxDiffSpinBox;
   /** importers for different servers */
   QList<ServerImporter*> m_importers;
+  /** MusicBrainz client */
+  MusicBrainzClient* m_musicBrainzClient;
   /** MusicBrainz import dialog */
   MusicBrainzDialog* m_musicBrainzDialog;
   /** Server import dialog */

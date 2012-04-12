@@ -52,11 +52,13 @@
  * @param parent          parent widget
  * @param trackDataModel track data to be filled with imported values,
  *                        is passed with filenames set
+ * @param mbClient       MusicBrainz client
  */
 MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
-                                     TrackDataModel* trackDataModel)
+                                     TrackDataModel* trackDataModel,
+                                     MusicBrainzClient* mbClient)
   : QDialog(parent), m_statusBar(0),
-    m_client(0), m_trackDataModel(trackDataModel)
+    m_client(mbClient), m_trackDataModel(trackDataModel)
 {
   setObjectName("MusicBrainzDialog");
   setModal(true);
@@ -141,6 +143,13 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   connect(m_albumTable->selectionModel(),
           SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),
           this, SLOT(showFilenameInStatusBar(QModelIndex)));
+
+  connect(m_client, SIGNAL(statusChanged(int, QString)),
+          this, SLOT(setFileStatus(int, QString)));
+  connect(m_client, SIGNAL(metaDataReceived(int, ImportTrackData&)),
+          this, SLOT(setMetaData(int, ImportTrackData&)));
+  connect(m_client, SIGNAL(resultsReceived(int, ImportTrackDataVector&)),
+          this, SLOT(setResults(int, ImportTrackDataVector&)));
 }
 
 /**
@@ -203,9 +212,7 @@ void MusicBrainzDialog::clearResults()
  */
 void MusicBrainzDialog::setClientConfig()
 {
-  if (m_client) {
-    m_client->setConfig(getServer());
-  }
+  m_client->setConfig(getServer());
 }
 
 /**
@@ -214,17 +221,8 @@ void MusicBrainzDialog::setClientConfig()
 void MusicBrainzDialog::startClient()
 {
   clearResults();
-  if (!m_client) {
-    m_client = new MusicBrainzClient(m_trackDataModel);
-    setClientConfig();
-    connect(m_client, SIGNAL(statusChanged(int, QString)),
-            this, SLOT(setFileStatus(int, QString)));
-    connect(m_client, SIGNAL(metaDataReceived(int, ImportTrackData&)),
-            this, SLOT(setMetaData(int, ImportTrackData&)));
-    connect(m_client, SIGNAL(resultsReceived(int, ImportTrackDataVector&)),
-            this, SLOT(setResults(int, ImportTrackDataVector&)));
-    m_client->addFiles();
-  }
+  setClientConfig();
+  m_client->addFiles();
 }
 
 /**
@@ -232,11 +230,7 @@ void MusicBrainzDialog::startClient()
  */
 void MusicBrainzDialog::stopClient()
 {
-  if (m_client) {
-    m_client->disconnect();
-    delete m_client;
-    m_client = 0;
-  }
+  m_client->resetState();
 }
 
 /**

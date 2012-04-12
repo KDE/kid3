@@ -34,12 +34,12 @@
 /**
  * Constructor.
  *
- * @param parent  parent object
+ * @param netMgr network access manager
  * @param trackDataModel track data to be filled with imported values
  */
-ServerImporter::ServerImporter(QObject* parent,
+ServerImporter::ServerImporter(QNetworkAccessManager* netMgr,
                                TrackDataModel* trackDataModel)
-  : ImportClient(parent),
+  : ImportClient(netMgr),
     m_albumListModel(new QStandardItemModel(this)),
     m_trackDataModel(trackDataModel),
     m_additionalTagsEnabled(false), m_coverArtEnabled(false)

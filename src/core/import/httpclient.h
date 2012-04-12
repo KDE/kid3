@@ -29,34 +29,25 @@
 
 #include <QObject>
 #include <QString>
+#include <QNetworkReply>
+#include <QPointer>
 
 class QByteArray;
-class QHttp;
-class QHttpResponseHeader;
+class QNetworkAccessManager;
 
 /**
  * Client to connect to HTTP server.
  */
-class HttpClient : public QObject
-{
+class HttpClient : public QObject {
 Q_OBJECT
 
 public:
-  /** Connection progress steps. */
-  enum ConnectionSteps {
-    CS_RequestConnection = 0, /**< Send Request */
-    CS_Connecting        = 1, /**< Connecting */
-    CS_HostFound         = 2, /**< Host Found */
-    CS_RequestSent       = 3, /**< Request Sent */
-    CS_EstimatedBytes = 75000 /**< Estimated total number of bytes */
-  };
-
   /**
    * Constructor.
    *
-   * @param parent  parent object
+   * @param netMgr  network access manager
    */
-  explicit HttpClient(QObject* parent = 0);
+  explicit HttpClient(QNetworkAccessManager* netMgr);
 
   /**
    * Destructor.
@@ -68,10 +59,8 @@ public:
    *
    * @param server host name
    * @param path   path of the URL
-   * @param setUserAgent true to set user agent to Mozilla
    */
-  void sendRequest(const QString& server, const QString& path,
-                   bool setUserAgent = false);
+  void sendRequest(const QString& server, const QString& path);
 
   /**
    * Abort request.
@@ -115,33 +104,24 @@ signals:
 
 private slots:
   /**
-   * Called when the connection state changes.
-   *
-   * @param state HTTP connection state
+   * Called when the request is finished.
    */
-  void slotStateChanged(int state);
+  void networkReplyFinished();
 
   /**
    * Called to report connection progress.
    *
-   * @param done  bytes received
-   * @param total total bytes, 0 if unknown
+   * @param received bytes received
+   * @param total total bytes
    */
-  void slotDataReadProgress(int done, int total);
+  void networkReplyProgress(qint64 received, qint64 total);
 
   /**
-   * Called when the request is finished.
+   * Called when an error occurred.
    *
-   * @param error true if error occurred
+   * @param code error code
    */
-  void slotDone(bool error);
-
-  /**
-   * Called when the response header is available.
-   *
-   * @param resp HTTP response header
-   */
-  void slotResponseHeaderReceived(const QHttpResponseHeader& resp);
+  void networkReplyError(QNetworkReply::NetworkError);
 
 private:
   /**
@@ -175,8 +155,10 @@ private:
    */
   static QString getProxyOrDest(const QString& dst);
 
-  /** client socket */
-  QHttp* m_http;
+  /** network access manager */
+  QNetworkAccessManager* m_netMgr;
+  /** network reply if available, else 0 */
+  QPointer<QNetworkReply> m_reply;
   /** content length of entitiy-body, 0 if not available */
   unsigned long m_rcvBodyLen;
   /** content type */

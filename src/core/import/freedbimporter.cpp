@@ -36,12 +36,12 @@ static const char gnudbServer[] = "www.gnudb.org:80";
 /**
  * Constructor.
  *
- * @param parent          parent object
+ * @param netMgr network access manager
  * @param trackDataModel track data to be filled with imported values
  */
-FreedbImporter::FreedbImporter(QObject* parent,
-                               TrackDataModel* trackDataModel) :
-  ServerImporter(parent, trackDataModel)
+FreedbImporter::FreedbImporter(QNetworkAccessManager* netMgr,
+                               TrackDataModel *trackDataModel) :
+  ServerImporter(netMgr, trackDataModel)
 {
   setObjectName("FreedbImporter");
 }

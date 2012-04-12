@@ -43,9 +43,9 @@ public:
   /**
    * Constructor.
    *
-   * @param parent  parent object
+   * @param netMgr  network access manager
    */
-  explicit ImportClient(QObject* parent = 0);
+  explicit ImportClient(QNetworkAccessManager* netMgr);
 
   /**
    * Destructor.

@@ -63,7 +63,9 @@ public:
    *                        is passed with filenames set
    */
   MusicBrainzDialog(QWidget* parent,
-                    TrackDataModel* trackDataModel);
+                    TrackDataModel* trackDataModel,
+                    MusicBrainzClient *mbClient);
+
   /**
    * Destructor.
    */
