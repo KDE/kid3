@@ -487,6 +487,20 @@ public:
   static TagLib::String::Type getDefaultTextEncoding() { return s_defaultTextEncoding; }
 
 private:
+  /** Tag type for cached information. */
+  enum TagType {
+    TT_Unknown,
+    TT_Id3v1,
+    TT_Id3v2,
+    TT_Vorbis,
+    TT_Ape,
+    TT_Mp4,
+    TT_Asf
+  };
+
+  TagLibFile(const TagLibFile&);
+  TagLibFile& operator=(const TagLibFile&);
+
   /**
    * Modify an ID3v2 frame.
    *
@@ -496,8 +510,26 @@ private:
   void setId3v2Frame(
     TagLib::ID3v2::Frame* id3Frame, const Frame& frame) const;
 
-  TagLibFile(const TagLibFile&);
-  TagLibFile& operator=(const TagLibFile&);
+  /**
+   * Close file handle.
+   * TagLib keeps the file handle open until the FileRef is destroyed.
+   * This causes problems when the operating system has a limited number of
+   * open file handles. This method closes the file by assigning a new file
+   * reference. Note that this will also invalidate the tag pointers.
+   * The file is only closed if there are no unsaved tag changes or if the
+   * @a force parameter is set.
+   *
+   * @param force true to close the file even if tags are changed
+   */
+  void closeFile(bool force = false);
+
+  /**
+   * Make sure that file is open.
+   * This method should be called before accessing m_fileRef, m_tagV1, m_tagV2.
+   *
+   * @param force true to force reopening of file even if it is already open
+   */
+  void makeFileOpen(bool force = false);
 
   /**
    * Create m_tagV1 if it does not already exist so that it can be set.
@@ -513,10 +545,46 @@ private:
    */
   bool makeTagV2Settable();
 
+  /**
+   * Get the format of a tag.
+   *
+   * @param tag tag, 0 if no tag available
+   * @param type the tag type is returned here
+   *
+   * @return string describing format of tag,
+   *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
+   *         QString::null if unknown.
+   */
+  static QString getTagFormat(const TagLib::Tag* tag, TagType& type);
+
+  /**
+   * Register open TagLib file, so that the number of open files can be limited.
+   * If the number of open files exceeds a limit, files are closed.
+   *
+   * @param tagLibFile new open file to be registered
+   */
+  static void registerOpenFile(TagLibFile* tagLibFile);
+
+  /**
+   * Deregister open TagLib file.
+   *
+   * @param tagLibFile file which is no longer open
+   */
+  static void deregisterOpenFile(TagLibFile* tagLibFile);
+
   TagLib::FileRef m_fileRef; /**< file reference */
   TagLib::Tag* m_tagV1;      /**< ID3v1 tags */
   TagLib::Tag* m_tagV2;      /**< ID3v2 tags */
   bool m_fileRead;           /**< true if file has been read */
+
+  /* Cached information updated in readTags() */
+  bool m_tagInformationRead;
+  bool m_hasTagV1;
+  bool m_hasTagV2;
+  TagType m_tagTypeV1;
+  TagType m_tagTypeV2;
+  QString m_tagFormatV1;
+  QString m_tagFormatV2;
 
 #if TAGLIB_VERSION >= 0x010700
   class Pictures : public QList<Frame> {
@@ -534,6 +602,9 @@ private:
 
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;
+
+  /** list of TagLib files with open file descriptor */
+  static QList<TagLibFile*> s_openFiles;
 };
 
 #endif // HAVE_TAGLIB

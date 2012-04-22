@@ -223,6 +223,10 @@ TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
 /** Default text encoding */
 TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
 
+/** List of TagLib files with open file descriptor */
+QList<TagLibFile*> TagLibFile::s_openFiles;
+
+
 /**
  * Constructor.
  *
@@ -232,7 +236,9 @@ TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
  */
 TagLibFile::TagLibFile(const QString& dn, const QString& fn,
                        const QPersistentModelIndex& idx) :
-  TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0), m_fileRead(false)
+  TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0), m_fileRead(false),
+  m_tagInformationRead(false), m_hasTagV1(false), m_hasTagV2(false),
+  m_tagTypeV1(TT_Unknown), m_tagTypeV2(TT_Unknown)
 {
 }
 
@@ -241,6 +247,7 @@ TagLibFile::TagLibFile(const QString& dn, const QString& fn,
  */
 TagLibFile::~TagLibFile()
 {
+  closeFile(true);
 }
 
 /**
@@ -269,6 +276,7 @@ void TagLibFile::readTags(bool force)
     markTag1Unchanged();
     markTag2Unchanged();
     m_fileRead = true;
+    registerOpenFile(this);
 
 #if TAGLIB_VERSION >= 0x010700
     m_pictures.clear();
@@ -370,8 +378,50 @@ void TagLibFile::readTags(bool force)
     }
   }
 
+  // Cache information, so that it is available after file is closed.
+  m_tagInformationRead = true;
+  m_hasTagV1 = m_tagV1 && !m_tagV1->isEmpty();
+  m_hasTagV2 = m_tagV2 && !m_tagV2->isEmpty();
+  m_tagFormatV1 = getTagFormat(m_tagV1, m_tagTypeV1);
+  m_tagFormatV2 = getTagFormat(m_tagV2, m_tagTypeV2);
+
   if (force) {
     setFilename(currentFilename());
+  }
+}
+
+/**
+ * Close file handle.
+ * TagLib keeps the file handle open until the FileRef is destroyed.
+ * This causes problems when the operating system has a limited number of
+ * open file handles. This method closes the file by assigning a new file
+ * reference. Note that this will also invalidate the tag pointers.
+ * The file is only closed if there are no unsaved tag changes or if the
+ * @a force parameter is set.
+ *
+ * @param force true to close the file even if tags are changed
+ */
+void TagLibFile::closeFile(bool force)
+{
+  if (force || (!isTag1Changed() && !isTag2Changed())) {
+    m_fileRef = TagLib::FileRef();
+    m_tagV1 = 0;
+    m_tagV2 = 0;
+    m_fileRead = false;
+    deregisterOpenFile(this);
+  }
+}
+
+/**
+ * Make sure that file is open.
+ * This method should be called before accessing m_fileRef, m_tagV1, m_tagV2.
+ *
+ * @param force true to force reopening of file even if it is already open
+ */
+void TagLibFile::makeFileOpen(bool force)
+{
+  if (!m_fileRead || force) {
+    readTags(force);
   }
 }
 
@@ -512,9 +562,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
   }
 
   // If the file was changed, make sure it is written to disk.
-  // This is done when the file is closed, which is only done
-  // in the TagLib::File destructor. To force destruction, a new
-  // file reference is assigned, later readTags() is called.
+  // This is done when the file is closed. Later the file is opened again.
   // If the file is not properly closed, doubled tags can be
   // written if the file is finally closed!
   // This can be reproduced with an untagged MP3 file, then add
@@ -525,7 +573,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 #ifndef WIN32
   if (fileChanged)
 #endif
-    m_fileRef = TagLib::FileRef();
+    closeFile(true);
 
   // restore time stamp
   if (setUtime) {
@@ -543,7 +591,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 #ifndef WIN32
   if (fileChanged)
 #endif
-    readTags(true);
+    makeFileOpen(true);
   return true;
 }
 
@@ -554,6 +602,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
  */
 void TagLibFile::deleteFramesV1(const FrameFilter& flt)
 {
+  makeFileOpen();
   if (m_tagV1) {
     TaggedFile::deleteFramesV1(flt);
   }
@@ -568,6 +617,7 @@ void TagLibFile::deleteFramesV1(const FrameFilter& flt)
  */
 QString TagLibFile::getTitleV1()
 {
+  makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->title();
     return str.isNull() ? QString("") : TStringToQString(str);
@@ -585,6 +635,7 @@ QString TagLibFile::getTitleV1()
  */
 QString TagLibFile::getArtistV1()
 {
+  makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->artist();
     return str.isNull() ? QString("") : TStringToQString(str);
@@ -602,6 +653,7 @@ QString TagLibFile::getArtistV1()
  */
 QString TagLibFile::getAlbumV1()
 {
+  makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->album();
     return str.isNull() ? QString("") : TStringToQString(str);
@@ -619,6 +671,7 @@ QString TagLibFile::getAlbumV1()
  */
 QString TagLibFile::getCommentV1()
 {
+  makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->comment();
     if (str.isNull()) {
@@ -642,6 +695,7 @@ QString TagLibFile::getCommentV1()
  */
 int TagLibFile::getYearV1()
 {
+  makeFileOpen();
   if (m_tagV1) {
     return m_tagV1->year();
   } else {
@@ -658,6 +712,7 @@ int TagLibFile::getYearV1()
  */
 int TagLibFile::getTrackNumV1()
 {
+  makeFileOpen();
   if (m_tagV1) {
     return m_tagV1->track();
   } else {
@@ -674,6 +729,7 @@ int TagLibFile::getTrackNumV1()
  */
 QString TagLibFile::getGenreV1()
 {
+  makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->genre();
     return str.isNull() ? QString("") : TStringToQString(str);
@@ -691,6 +747,7 @@ QString TagLibFile::getGenreV1()
  */
 QString TagLibFile::getTitleV2()
 {
+  makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->title();
     return str.isNull() ? QString("") : TStringToQString(str);
@@ -708,6 +765,7 @@ QString TagLibFile::getTitleV2()
  */
 QString TagLibFile::getArtistV2()
 {
+  makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->artist();
     return str.isNull() ? QString("") : TStringToQString(str);
@@ -725,6 +783,7 @@ QString TagLibFile::getArtistV2()
  */
 QString TagLibFile::getAlbumV2()
 {
+  makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->album();
     return str.isNull() ? QString("") : TStringToQString(str);
@@ -742,6 +801,7 @@ QString TagLibFile::getAlbumV2()
  */
 QString TagLibFile::getCommentV2()
 {
+  makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->comment();
     return str.isNull() ? QString("") : TStringToQString(str);
@@ -759,6 +819,7 @@ QString TagLibFile::getCommentV2()
  */
 int TagLibFile::getYearV2()
 {
+  makeFileOpen();
   if (m_tagV2) {
     return m_tagV2->year();
   } else {
@@ -775,6 +836,7 @@ int TagLibFile::getYearV2()
  */
 QString TagLibFile::getTrackV2()
 {
+  makeFileOpen();
   if (m_tagV2) {
     int nr = m_tagV2->track();
     if (nr == 0)
@@ -825,6 +887,7 @@ static QString getGenreString(const TagLib::String& str)
  */
 QString TagLibFile::getGenreV2()
 {
+  makeFileOpen();
   if (m_tagV2) {
     return getGenreString(m_tagV2->genre());
   } else {
@@ -839,6 +902,7 @@ QString TagLibFile::getGenreV2()
  */
 bool TagLibFile::makeTagV1Settable()
 {
+  makeFileOpen();
   if (!m_tagV1) {
     TagLib::File* file;
     if (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0) {
@@ -881,6 +945,7 @@ bool TagLibFile::makeTagV1Settable()
  */
 bool TagLibFile::makeTagV2Settable()
 {
+  makeFileOpen();
   if (!m_tagV2) {
     TagLib::File* file;
     if (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0) {
@@ -1351,7 +1416,7 @@ void TagLibFile::setGenreV2(const QString& str)
  */
 bool TagLibFile::isTagInformationRead() const
 {
-  return m_fileRead;
+  return m_tagInformationRead;
 }
 
 /**
@@ -1362,7 +1427,7 @@ bool TagLibFile::isTagInformationRead() const
  */
 bool TagLibFile::hasTagV1() const
 {
-  return m_tagV1 && !m_tagV1->isEmpty();
+  return m_hasTagV1;
 }
 
 /**
@@ -1395,7 +1460,7 @@ bool TagLibFile::isTagV1Supported() const
  */
 bool TagLibFile::hasTagV2() const
 {
-  return m_tagV2 && !m_tagV2->isEmpty();
+  return m_hasTagV2;
 }
 
 /**
@@ -1584,12 +1649,13 @@ QString TagLibFile::getFileExtension() const
  * Get the format of a tag.
  *
  * @param tag tag, 0 if no tag available
+ * @param type the tag type is returned here
  *
  * @return string describing format of tag,
  *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
  *         QString::null if unknown.
  */
-static QString getTagFormat(const TagLib::Tag* tag)
+QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
 {
   if (tag && !tag->isEmpty()) {
     const TagLib::ID3v1::Tag* id3v1Tag;
@@ -1597,8 +1663,10 @@ static QString getTagFormat(const TagLib::Tag* tag)
     const TagLib::Ogg::XiphComment* oggTag;
     const TagLib::APE::Tag* apeTag;
     if ((id3v1Tag = dynamic_cast<const TagLib::ID3v1::Tag*>(tag)) != 0) {
+      type = TT_Id3v1;
       return "ID3v1.1";
     } else if ((id3v2Tag = dynamic_cast<const TagLib::ID3v2::Tag*>(tag)) != 0) {
+      type = TT_Id3v2;
       TagLib::ID3v2::Header* header = id3v2Tag->header();
       if (header) {
         uint majorVersion = header->majorVersion();
@@ -1615,21 +1683,26 @@ static QString getTagFormat(const TagLib::Tag* tag)
         return "ID3v2";
       }
     } else if ((oggTag = dynamic_cast<const TagLib::Ogg::XiphComment*>(tag)) != 0) {
+      type = TT_Vorbis;
       return "Vorbis";
     } else if ((apeTag = dynamic_cast<const TagLib::APE::Tag*>(tag)) != 0) {
+      type = TT_Ape;
       return "APE";
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if (dynamic_cast<const TagLib::MP4::Tag*>(tag) != 0) {
+      type = TT_Mp4;
       return "MP4";
 #endif
 #ifdef TAGLIB_WITH_ASF
     } else if (dynamic_cast<const TagLib::ASF::Tag*>(tag) != 0) {
+      type = TT_Asf;
       return "ASF";
 #endif
 #endif
     }
   }
+  type = TT_Unknown;
   return QString::null;
 }
 
@@ -1642,7 +1715,7 @@ static QString getTagFormat(const TagLib::Tag* tag)
  */
 QString TagLibFile::getTagFormatV1() const
 {
-  return getTagFormat(m_tagV1);
+  return m_tagFormatV1;
 }
 
 /**
@@ -1654,7 +1727,7 @@ QString TagLibFile::getTagFormatV1() const
  */
 QString TagLibFile::getTagFormatV2() const
 {
-  return getTagFormat(m_tagV2);
+  return m_tagFormatV2;
 }
 
 
@@ -3585,6 +3658,7 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
  */
 bool TagLibFile::setFrameV2(const Frame& frame)
 {
+  makeFileOpen();
   // If the frame has an index, change that specific frame
   int index = frame.getIndex();
   if (index != -1 && m_tagV2) {
@@ -4039,6 +4113,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
  */
 bool TagLibFile::deleteFrameV2(const Frame& frame)
 {
+  makeFileOpen();
   // If the frame has an index, delete that specific frame
   int index = frame.getIndex();
   if (index != -1 && m_tagV2) {
@@ -4164,6 +4239,7 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
  */
 void TagLibFile::deleteFramesV2(const FrameFilter& flt)
 {
+  makeFileOpen();
   if (m_tagV2) {
     TagLib::ID3v2::Tag* id3v2Tag;
     TagLib::Ogg::XiphComment* oggTag;
@@ -4320,6 +4396,7 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
  */
 void TagLibFile::getAllFramesV2(FrameCollection& frames)
 {
+  makeFileOpen();
   frames.clear();
   if (m_tagV2) {
     TagLib::ID3v2::Tag* id3v2Tag;
@@ -4598,17 +4675,8 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
  */
 QStringList TagLibFile::getFrameIds() const
 {
-  TagLib::ID3v2::Tag* id3v2Tag;
-#if TAGLIB_VERSION >= 0x010600
-#ifdef TAGLIB_WITH_MP4
-    TagLib::MP4::Tag* mp4Tag;
-#endif
-#ifdef TAGLIB_WITH_ASF
-    TagLib::ASF::Tag* asfTag;
-#endif
-#endif
   QStringList lst;
-  if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
+  if (m_tagTypeV2 == TT_Id3v2) {
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
     }
@@ -4620,7 +4688,7 @@ QStringList TagLibFile::getFrameIds() const
     }
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
-  } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tagV2)) != 0) {
+  } else if (m_tagTypeV2 == TT_Mp4) {
     TagLib::String name;
     Mp4ValueType valueType;
     Frame::Type type;
@@ -4643,7 +4711,7 @@ QStringList TagLibFile::getFrameIds() const
     }
 #endif
 #ifdef TAGLIB_WITH_ASF
-  } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tagV2)) != 0) {
+  } else if (m_tagTypeV2 == TT_Asf) {
     TagLib::String name;
     TagLib::ASF::Attribute::AttributeTypes valueType;
     Frame::Type type;
@@ -4761,6 +4829,51 @@ void TagLibFile::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
       s_defaultTextEncoding = TagLib::String::UTF8;
   }
 }
+
+/**
+ * Register open TagLib file, so that the number of open files can be limited.
+ * If the number of open files exceeds a limit, files are closed.
+ *
+ * @param tagLibFile new open file to be registered
+ */
+void TagLibFile::registerOpenFile(TagLibFile* tagLibFile)
+{
+  if (s_openFiles.contains(tagLibFile))
+    return;
+
+  int numberOfFilesToClose = s_openFiles.size() - 15;
+  if (numberOfFilesToClose > 5) {
+    QList<TagLibFile*> filesToClose;
+    for (QList<TagLibFile*>::iterator it = s_openFiles.begin();
+         it != s_openFiles.end();
+         ++it) {
+      TagLibFile* tlf = *it;
+      if (!tlf->isTag1Changed() && !tlf->isTag2Changed()) {
+        filesToClose.append(tlf);
+        if (--numberOfFilesToClose <= 0) {
+          break;
+        }
+      }
+    }
+    for (QList<TagLibFile*>::iterator it = filesToClose.begin();
+         it != filesToClose.end();
+         ++it) {
+      (*it)->closeFile(false);
+    }
+  }
+  s_openFiles.append(tagLibFile);
+}
+
+/**
+ * Deregister open TagLib file.
+ *
+ * @param tagLibFile file which is no longer open
+ */
+void TagLibFile::deregisterOpenFile(TagLibFile* tagLibFile)
+{
+  s_openFiles.removeAll(tagLibFile);
+}
+
 
 /**
  * Create an TagLibFile object if it supports the filename's extension.
