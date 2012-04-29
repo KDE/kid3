@@ -63,9 +63,7 @@ public:
     /**
      * Append text.
      */
-    void append(const QString& text) {
-      m_textEdit->append(text);
-    }
+    void append(const QString& text);
 
     /**
      * Scroll text to bottom.
@@ -105,11 +103,6 @@ private slots:
    * Read data from standard output and display it in the output viewer.
    */
   void readFromStdout();
-
-  /**
-   * Read data from standard error and display it in the output viewer.
-   */
-  void readFromStderr();
 
 private:
   QWidget* m_parent;

@@ -49,6 +49,8 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   vlayout->setSpacing(6);
   vlayout->setMargin(6);
   m_textEdit->setReadOnly(true);
+  m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
+  m_textEdit->setStyleSheet("font-family: \"Courier\";");
   vlayout->addWidget(m_textEdit);
   QHBoxLayout* buttonLayout = new QHBoxLayout;
   QPushButton* clearButton = new QPushButton(i18n("C&lear"), this);
@@ -61,13 +63,57 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   connect(clearButton, SIGNAL(clicked()), m_textEdit, SLOT(clear()));
   connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
   vlayout->addLayout(buttonLayout);
-  resize(586, 424);
+  resize(600, 424);
 }
 
 /**
  * Destructor.
  */
 ExternalProcess::OutputViewer::~OutputViewer() {}
+
+/**
+ * Append text.
+ */
+void ExternalProcess::OutputViewer::append(const QString& text)
+{
+  if (text.isEmpty())
+    return;
+
+  QString txt(text);
+  txt.replace("\r\n", "\n");
+  int startPos = 0;
+  int txtLen = txt.length();
+  while (startPos < txtLen) {
+    QChar ch;
+    int len;
+    int crLfPos = txt.indexOf(QRegExp("[\\r\\n]"), startPos);
+    if (crLfPos >= startPos) {
+      ch = txt.at(crLfPos);
+      len = crLfPos - startPos;
+    } else {
+      ch = QChar();
+      len = -1;
+    }
+    QString line(txt.mid(startPos, len));
+    if (!m_textEdit->textCursor().atBlockEnd()) {
+      QTextCursor cursor = m_textEdit->textCursor();
+      cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor,
+                          line.length());
+      m_textEdit->setTextCursor(cursor);
+    }
+    m_textEdit->insertPlainText(line);
+    if (ch == '\r') {
+      m_textEdit->moveCursor(QTextCursor::StartOfLine);
+    } else if (ch == '\n') {
+      m_textEdit->moveCursor(QTextCursor::EndOfLine);
+      m_textEdit->insertPlainText(ch);
+    }
+    if (len == -1) {
+      break;
+    }
+    startPos = crLfPos + 1;
+  }
+}
 
 /**
  * Scroll text to bottom.
@@ -128,10 +174,9 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
     if (!m_outputViewer) {
       m_outputViewer = new OutputViewer(0);
     }
+    m_process->setProcessChannelMode(QProcess::MergedChannels);
     connect(m_process, SIGNAL(readyReadStandardOutput()),
             this, SLOT(readFromStdout()));
-    connect(m_process, SIGNAL(readyReadStandardError()),
-            this, SLOT(readFromStderr()));
     m_outputViewer->setWindowTitle(name);
     m_outputViewer->show();
     m_outputViewer->raise();
@@ -139,8 +184,6 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
   } else {
     disconnect(m_process, SIGNAL(readyReadStandardOutput()),
                this, SLOT(readFromStdout()));
-    disconnect(m_process, SIGNAL(readyReadStandardError()),
-               this, SLOT(readFromStderr()));
   }
 
   QStringList arguments = args;
@@ -160,12 +203,4 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 void ExternalProcess::readFromStdout()
 {
   m_outputViewer->append(m_process->readAllStandardOutput());
-}
-
-/**
- * Read data from standard error and display it in the output viewer.
- */
-void ExternalProcess::readFromStderr()
-{
-  m_outputViewer->append(m_process->readAllStandardError());
 }
