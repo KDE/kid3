@@ -90,16 +90,20 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
 
     if (!name.isNull()) {
       if (name == "file") {
-        result = m_files.front();
+        if (!m_files.isEmpty()) {
+          result = m_files.front();
+        }
       } else if (name == "directory") {
-        result = m_files.front();
-        if (!m_isDir) {
-          int sepPos = result.lastIndexOf('/');
-          if (sepPos < 0) {
-            sepPos = result.lastIndexOf(QDir::separator());
-          }
-          if (sepPos >= 0) {
-            result.truncate(sepPos);
+        if (!m_files.isEmpty()) {
+          result = m_files.front();
+          if (!m_isDir) {
+            int sepPos = result.lastIndexOf('/');
+            if (sepPos < 0) {
+              sepPos = result.lastIndexOf(QDir::separator());
+            }
+            if (sepPos >= 0) {
+              result.truncate(sepPos);
+            }
           }
         }
       } else if (name == "browser") {
