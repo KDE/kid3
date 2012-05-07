@@ -1,4 +1,4 @@
-Sat Apr  7 09:43:54 CEST 2012  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Mon May  7 21:20:06 CEST 2012  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 2.1
 
@@ -7,6 +7,7 @@ Sat Apr  7 09:43:54 CEST 2012  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Use Chromaprint for import from MusicBrainz Fingerprint, is now
 	    also available on Windows and Mac OS X.
 	  + Serbian translation.
+	  + Support build with Qt5.
 
 	* Improved:
 	  + Support most frames in format codes with %{framename}.
@@ -15,10 +16,12 @@ Sat Apr  7 09:43:54 CEST 2012  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Handling of pictures in WMA files.
 	  + Use themed icons.
 	  + Building with shared libraries on KDE.
+	  + Handle carriage return characters in output from user commands.
 
 	* Fixed:
 	  + Windows: Avoid truncation of file when renaming with illegal
 	    characters.
+	  + Limit number of open file handles.
 	  + Nicer icons, install SVG instead of SVGZ in kid3-qt.
 	  + Fixed import from Amazon.
 	  + Adapted to Discogs server update.
