@@ -1,6 +1,6 @@
 set QTDIR=C:\Qt\4.8.1
 set MSYSDIR=C:\msys\1.0
-set MINGWDIR=C:\MinGW
+set MINGWDIR=C:\msys\1.0\mingw
 set PERLDIR=%HOME%\prg\Perl
 set DUMPBINDIR=%HOME%\prg\dumpbin
 set CMAKEDIR=%HOME%\prg\cmake-2.8.6-win32-x86

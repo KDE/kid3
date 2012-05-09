@@ -8,8 +8,8 @@
 # For Windows:
 #
 # Building the libraries needs msys/MinGW, CMake, yasm.
-# There is a bundle with msys/MinGW at
-# http://sourceforge.net/projects/mingwbundle/files/mingw-msys-bundle-0.4/mingw-msys-0.4-x86.zip
+# You should use the MinGW which comes with Qt and add msys tools to build
+# the libraries.
 # Download yasm from
 # http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-win32.exe
 # and copy it into msys /bin as yasm.exe.
