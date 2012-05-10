@@ -29,6 +29,8 @@
 #include <QDir>
 #include "qtcompatmac.h"
 #include "saferename.h"
+#include "fileproxymodel.h"
+#include "modeliterator.h"
 
 /**
  * Constructor.
@@ -105,13 +107,15 @@ bool DirRenamer::createDirectory(const QString& dir,
  *
  * @param olddir   old directory name
  * @param newdir   new directory name
+ * @param index    model index of item to rename
  * @param errorMsg if not NULL and an error occurred, a message is
  *                 appended here, otherwise it is not touched
  *
  * @return true if rename successful.
  */
 bool DirRenamer::renameDirectory(
-  const QString& olddir, const QString& newdir, QString* errorMsg) const
+  const QString& olddir, const QString& newdir,
+  const QPersistentModelIndex& index, QString* errorMsg) const
 {
   if (QFileInfo(newdir).exists()) {
     if (errorMsg) {
@@ -124,6 +128,10 @@ bool DirRenamer::renameDirectory(
       errorMsg->append(i18n("%1 is not a directory\n").arg(olddir));
     }
     return false;
+  }
+  if (index.isValid()) {
+    // The directory must be closed before renaming on Windows.
+    TaggedFileIterator::closeFileHandles(index);
   }
   if (Utils::safeRename(olddir, newdir) && QFileInfo(newdir).isDir()) {
     return true;
@@ -147,11 +155,12 @@ bool DirRenamer::renameDirectory(
  * @param newfn    new file name
  * @param errorMsg if not NULL and an error occurred, a message is
  *                 appended here, otherwise it is not touched
+ * @param index    model index of item to rename
  *
  * @return true if rename successful or newfn already exists.
  */
 bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
-                QString* errorMsg) const
+                const QPersistentModelIndex& index, QString* errorMsg) const
 {
   if (QFileInfo(newfn).isFile()) {
     return true;
@@ -167,6 +176,10 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
       errorMsg->append(i18n("%1 is not a file\n").arg(oldfn));
     }
     return false;
+  }
+  if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+    // The file must be closed before renaming on Windows.
+    taggedFile->closeFileHandle();
   }
   if (Utils::safeRename(oldfn, newfn) && QFileInfo(newfn).isFile()) {
     return true;
@@ -229,8 +242,10 @@ void DirRenamer::clearActions()
  * @param type type of action
  * @param src  source file or directory name
  * @param dest destination file or directory name
+ * @param index model index of item to rename
  */
-void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QString& dest)
+void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QString& dest,
+                           const QPersistentModelIndex& index)
 {
   // do not add an action if the source or destination is already in an action
   for (RenameActionList::const_iterator it = m_actions.begin();
@@ -242,7 +257,7 @@ void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QS
     }
   }
 
-  m_actions.push_back(RenameAction(type, src, dest));
+  m_actions.push_back(RenameAction(type, src, dest, index));
 }
 
 /**
@@ -356,7 +371,8 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
           if (!createDir) {
             addAction(RenameAction::RenameFile,
                       dirWithFiles + '/' + taggedFile->getFilename(),
-                      currentDirname + newPart + '/' + taggedFile->getFilename());
+                      currentDirname + newPart + '/' + taggedFile->getFilename(),
+                      taggedFile->getIndex());
           }
           currentDirname = currentDirname + newPart;
         }
@@ -379,10 +395,12 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
             // directory already exists => move files
             addAction(RenameAction::RenameFile,
                       currentDirname + '/' + taggedFile->getFilename(),
-                      parentWithNewPart + '/' + taggedFile->getFilename());
+                      parentWithNewPart + '/' + taggedFile->getFilename(),
+                      taggedFile->getIndex());
             currentDirname = parentWithNewPart;
           } else {
-            addAction(RenameAction::RenameDirectory, currentDirname, parentWithNewPart);
+            addAction(RenameAction::RenameDirectory, currentDirname, parentWithNewPart,
+                      taggedFile->getIndex().parent());
             currentDirname = parentWithNewPart;
           }
         } else {
@@ -411,14 +429,15 @@ void DirRenamer::performActions(QString* errorMsg)
         createDirectory((*it).m_dest, errorMsg);
         break;
       case RenameAction::RenameDirectory:
-        if (renameDirectory((*it).m_src, (*it).m_dest, errorMsg)) {
+        if (renameDirectory((*it).m_src, (*it).m_dest, (*it).m_index,
+                            errorMsg)) {
           if ((*it).m_src == m_dirName) {
             m_dirName = (*it).m_dest;
           }
         }
         break;
       case RenameAction::RenameFile:
-        renameFile((*it).m_src, (*it).m_dest, errorMsg);
+        renameFile((*it).m_src, (*it).m_dest, (*it).m_index, errorMsg);
         break;
       case RenameAction::ReportError:
       default:

@@ -161,9 +161,11 @@ private:
      * @param type type of action
      * @param src  source file or directory name
      * @param dest destination file or directory name
+     * @param index model index of item to rename
      */
-    RenameAction(Type type, const QString& src, const QString& dest) :
-      m_type(type), m_src(src), m_dest(dest) {}
+    RenameAction(Type type, const QString& src, const QString& dest,
+                 const QPersistentModelIndex& index) :
+      m_type(type), m_src(src), m_dest(dest), m_index(index) {}
 
     /**
      * Constructor.
@@ -187,6 +189,7 @@ private:
     Type m_type;    /**< type of action */
     QString m_src;  /**< source file or directory name */
     QString m_dest; /**< destination file or directory name */
+    QPersistentModelIndex m_index; /**< model index of item to rename */
   };
 
   /** List of rename actions. */
@@ -210,11 +213,13 @@ private:
    * @param newdir   new directory name
    * @param errorMsg if not NULL and an error occurred, a message is
    *                 appended here, otherwise it is not touched
+   * @param index    model index of item to rename
    *
    * @return true if rename successful.
    */
   bool renameDirectory(
-    const QString& olddir, const QString& newdir, QString* errorMsg) const;
+    const QString& olddir, const QString& newdir,
+    const QPersistentModelIndex& index, QString *errorMsg) const;
 
   /**
    * Rename a file.
@@ -223,11 +228,12 @@ private:
    * @param newfn    new file name
    * @param errorMsg if not NULL and an error occurred, a message is
    *                 appended here, otherwise it is not touched
+   * @param index    model index of item to rename
    *
    * @return true if rename successful or newfn already exists.
    */
   bool renameFile(const QString& oldfn, const QString& newfn,
-                  QString* errorMsg) const;
+                  const QPersistentModelIndex& index, QString* errorMsg) const;
 
   /**
    * Add a rename action.
@@ -235,9 +241,11 @@ private:
    * @param type type of action
    * @param src  source file or directory name
    * @param dest destination file or directory name
+   * @param index model index of item to rename
    */
   void addAction(RenameAction::Type type, const QString& src,
-                 const QString& dest);
+                 const QString& dest,
+                 const QPersistentModelIndex& index = QPersistentModelIndex());
 
   /**
    * Add a rename action.
