@@ -1910,10 +1910,10 @@ void Kid3MainWindow::renameFile()
         }
         // This will close the file.
         // The file must be closed before renaming on Windows.
-        FileProxyModel::releaseTaggedFileOfIndex(index);
+        taggedFile->closeFileHandle();
       } else if (model->isDir(index)) {
         // The directory must be closed before renaming on Windows.
-        FileProxyModel::releaseTaggedFileOfIndex(index);
+        TaggedFileIterator::closeFileHandles(index);
       }
       QString newPath = dirName + '/' + newFileName;
       if (!Utils::safeRename(absFilename, newPath)) {
@@ -1922,7 +1922,6 @@ void Kid3MainWindow::renameFile()
           i18n("Error while renaming:\n") +
           i18n("Rename %1 to %2 failed\n").arg(fileName).arg(newFileName),
           QMessageBox::Ok, Qt::NoButton);
-        model->initTaggedFileData(index);
       }
     }
   }
@@ -1983,10 +1982,11 @@ void Kid3MainWindow::deleteFile()
             files.append(absFilename);
           }
         } else {
-          if (FileProxyModel::getTaggedFileOfIndex(index)) {
+          if (TaggedFile* taggedFile =
+              FileProxyModel::getTaggedFileOfIndex(index)) {
             // This will close the file.
             // The file must be closed before deleting on Windows.
-            FileProxyModel::releaseTaggedFileOfIndex(index);
+            taggedFile->closeFileHandle();
           }
           if (!Utils::moveToTrash(absFilename)) {
             files.append(absFilename);

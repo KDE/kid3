@@ -219,6 +219,19 @@ TaggedFile* TaggedFileIterator::next()
   return result;
 }
 
+/**
+ * Try to close the file handles.
+ *
+ * @param index root of model to iterate
+ */
+void TaggedFileIterator::closeFileHandles(const QModelIndex& index)
+{
+  TaggedFileIterator it(index);
+  while (it.hasNext()) {
+    it.next()->closeFileHandle();
+  }
+}
+
 
 /**
  * Constructor.

@@ -454,6 +454,11 @@ public:
   virtual void getAllFramesV2(FrameCollection& frames);
 
   /**
+   * Close file handle which is held open by the TagLib object.
+   */
+  virtual void closeFileHandle();
+
+  /**
    * Get a list of frame IDs which can be added.
    *
    * @return list with frame IDs.

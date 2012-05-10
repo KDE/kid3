@@ -224,6 +224,13 @@ public:
    */
   virtual TaggedFile* peekNext() const { return m_nextFile; }
 
+  /**
+   * Try to close the file handles.
+   *
+   * @param index root of model to iterate
+   */
+  static void closeFileHandles(const QModelIndex& index);
+
 private:
   ModelIterator m_it;
   TaggedFile* m_nextFile;

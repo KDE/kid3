@@ -4669,6 +4669,14 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
 }
 
 /**
+ * Close file handle which is held open by the TagLib object.
+ */
+void TagLibFile::closeFileHandle()
+{
+  closeFile(false);
+}
+
+/**
  * Get a list of frame IDs which can be added.
  *
  * @return list with frame IDs.

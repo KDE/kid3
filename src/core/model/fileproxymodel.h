@@ -172,12 +172,6 @@ public:
   bool rmdir(const QModelIndex& index) const;
 
   /**
-   * Initialize tagged file for model index.
-   * @param index model index
-   */
-  void initTaggedFileData(const QModelIndex& index);
-
-  /**
    * Get tagged file data of model index.
    *
    * @param index model index
@@ -206,14 +200,6 @@ public:
    * @return directory path, null if not directory
    */
   static QString getPathIfIndexOfDir(const QModelIndex& index);
-
-  /**
-   * Release a tagged file or directory index from an index.
-   * If the index has a TaggedFile, it will be deleted.
-   *
-   * @param index model index
-   */
-  static void releaseTaggedFileOfIndex(const QModelIndex& index);
 
   /**
    * Read tagged file with TagLib.
@@ -283,6 +269,12 @@ private:
    * Clear store with tagged files.
    */
   void clearTaggedFileStore();
+
+  /**
+   * Initialize tagged file for model index.
+   * @param index model index
+   */
+  void initTaggedFileData(const QModelIndex& index);
 
   QHash<QPersistentModelIndex, TaggedFile*> m_taggedFiles;
   QSet<QPersistentModelIndex> m_filteredOut;

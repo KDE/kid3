@@ -434,19 +434,6 @@ QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
   return model->filePath(index);
 }
 
-/**
- * Release a tagged file or directory index from an index.
- * If the index has a TaggedFile, it will be deleted.
- *
- * @param index model index
- */
-void FileProxyModel::releaseTaggedFileOfIndex(const QModelIndex& index) {
-  // setData() will not invalidate the model, so this should be safe.
-  QAbstractItemModel* model = const_cast<QAbstractItemModel*>(index.model());
-  if (model)
-    model->setData(index, QVariant(), FileProxyModel::TaggedFileRole);
-}
-
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 /**
  * Read tagged file with TagLib.

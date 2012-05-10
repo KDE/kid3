@@ -536,6 +536,15 @@ public:
   virtual void getAllFramesV2(FrameCollection& frames);
 
   /**
+   * Close any file handles which are held open by the tagged file object.
+   * The default implementation does nothing. If a concrete subclass holds
+   * any file handles open, it has to close them in this method. This method
+   * can be used before operations which require that a file is not open,
+   * e.g. file renaming on Windows.
+   */
+  virtual void closeFileHandle();
+
+  /**
    * Set frames in tag 1.
    *
    * @param frames      frame collection
