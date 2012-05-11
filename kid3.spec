@@ -19,9 +19,8 @@ BuildRequires:  id3lib-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  flac-devel
 # Mandriva: BuildRequires:  libflac++-devel
-BuildRequires:  libtunepimp-devel
+BuildRequires:  libchromaprint-devel
 BuildRequires:  libvorbis-devel
-BuildRequires:  libmp4v2-devel
 BuildRequires:  gettext
 Requires:       xdg-utils
 

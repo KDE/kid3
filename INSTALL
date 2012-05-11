@@ -2,7 +2,7 @@
 ** Requirements
 
 Qt, optional KDE, id3lib, TagLib, libogg, libvorbis, libvorbisfile, libFLAC++,
-libFLAC, libtunepimp, mp4v2.
+libFLAC, Chromaprint, mp4v2.
 
 ** Linux
 

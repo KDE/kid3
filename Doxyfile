@@ -1414,13 +1414,16 @@ INCLUDE_FILE_PATTERNS  =
 # instead of the = operator.
 
 PREDEFINED             = HAVE_FLAC \
+                         HAVE_FLAC_PICTURE \
                          HAVE_ID3LIB \
                          HAVE_MP4V2 \
                          HAVE_TAGLIB \
-                         HAVE_TUNEPIMP=5 \
+                         HAVE_CHROMAPRINT \
+                         HAVE_AV_AUDIO_CONVERT \
                          HAVE_VORBIS \
                          HAVE_QTDBUS \
-                         HAVE_PHONON
+                         HAVE_PHONON \
+                         HAVE_MNTENT_H
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then
 # this tag can be used to specify a list of macro names that should be expanded.
