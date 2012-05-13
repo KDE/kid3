@@ -61,7 +61,7 @@ Tue Aug 30 19:02:37 CEST 2011  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Import table is editable and has optional columns for file
 	    names and paths (selectable with context menu).
 	  + The tracks to import can be selected, e.g. to import only one
-	    CD from a doulbe-CD album.
+	    CD from a double-CD album.
 	  + Number Tracks can number the tracks of multiple directories.
 	  + Multiple directories can be selected with Rename Directory.
 	  + M4A support with TagLib (can fully replace libmp4v2).
@@ -206,7 +206,7 @@ Sat Sep 27 15:51:35 CEST 2008  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Fixed:
 	  + Build for KDE 3 without id3lib or TagLib
-	  + Supress using unsupported UTF-8 for ID3v2.3
+	  + Suppress using unsupported UTF-8 for ID3v2.3
 	  + Qt 4, KDE 4: Wrong track times in import dialog when some track
 	    times are missing.
 	  + KDE 4: Translations with arguments (%1, %2).
@@ -229,7 +229,7 @@ Sat Mar  1 15:44:56 CET 2008  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Rename directory wizard.
 	  + Use xdg-open as the default web browser.
 	  + Display description instead of TXXX and WXXX.
-	  + Add pictures to files by drag and drop and from cllipboard.
+	  + Add pictures to files by drag and drop and from clipboard.
 	  + Compilation with GCC 4.3 and compiler detection for kid3-qt.
 	  + Support for TagLib 1.5.
 

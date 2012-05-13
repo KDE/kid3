@@ -1417,7 +1417,7 @@ Tag specific options can be found on the <guilabel>Tags</guilabel> page.
 If <guilabel>Mark truncated fields</guilabel> is checked, truncated ID3v1.1
 fields will be marked red. The text fields of ID3v1.1 tags can only have 30
 characters, the comment only 28 characters. Also the genre and track numbers
-are restricted, so that fields can be truncated when imported or transfered
+are restricted, so that fields can be truncated when imported or transferred
 from ID3v2. Truncated fields and the file will be marked red, and the mark
 will be removed after the field has been edited.
 </para>
