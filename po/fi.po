@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2012-03-12 21:11+0100\n"
-"PO-Revision-Date: 2011-08-29 23:34+0200\n"
+"PO-Revision-Date: 2012-05-13 12:07+0200\n"
 "Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -389,7 +389,7 @@ msgstr "TPRO – Tuotantoilmoitus"
 
 #: core/formats/taglibfile.cpp:1732
 msgid "TSO2 - Album artist sort order"
-msgstr "TSOA – Albumiartistin lajittelujärjestys"
+msgstr "TSO2 – Albumiartistien lajittelujärjestys"
 
 #: core/formats/taglibfile.cpp:1733
 msgid "TSOA - Album sort order"
@@ -397,7 +397,7 @@ msgstr "TSOA – Levyjen lajittelujärjestys"
 
 #: core/formats/taglibfile.cpp:1734
 msgid "TSOC - Composer sort order"
-msgstr "TSOC – Säveltäjä lajittelujärjestys"
+msgstr "TSOC – Säveltäjien lajittelujärjestys"
 
 #: core/formats/taglibfile.cpp:1735
 msgid "TSOP - Performer sort order"
