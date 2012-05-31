@@ -981,34 +981,36 @@ void Kid3Application::editFrame(IFrameEditor* frameEditor)
       emit frameModified(taggedFile);
     } else if (!taggedFile) {
       // multiple files selected
-      bool firstFile = true;
-      QString name;
-      SelectedTaggedFileIterator tfit(getRootIndex(),
-                                      getFileSelectionModel(),
-                                      false);
-      while (tfit.hasNext()) {
-        TaggedFile* currentFile = tfit.next();
-        if (firstFile) {
-          firstFile = false;
-          taggedFile = currentFile;
-          m_framelist->setTaggedFile(taggedFile);
-          name = m_framelist->getSelectedName();
-          if (name.isEmpty() ||
-              !frameEditor->editFrameOfTaggedFile(&frame, taggedFile)) {
-            break;
-          }
+      // Get the first selected file by using a temporary iterator.
+      taggedFile = SelectedTaggedFileIterator(
+            getRootIndex(), getFileSelectionModel(), false).peekNext();
+      if (taggedFile) {
+        m_framelist->setTaggedFile(taggedFile);
+        QString name = m_framelist->getSelectedName();
+        if (!name.isEmpty() &&
+            frameEditor->editFrameOfTaggedFile(&frame, taggedFile)) {
           m_framelist->setFrame(frame);
-        }
-        FrameCollection frames;
-        currentFile->getAllFramesV2(frames);
-        for (FrameCollection::const_iterator it = frames.begin();
-             it != frames.end();
-             ++it) {
-          if (it->getName() == name) {
-            currentFile->deleteFrameV2(*it);
-            m_framelist->setTaggedFile(currentFile);
-            m_framelist->pasteFrame();
-            break;
+
+          // Start a new iteration because the file selection model can be
+          // changed by editFrameOfTaggedFile(), e.g. when a file is exported
+          // from a picture frame.
+          SelectedTaggedFileIterator tfit(getRootIndex(),
+                                          getFileSelectionModel(),
+                                          false);
+          while (tfit.hasNext()) {
+            TaggedFile* currentFile = tfit.next();
+            FrameCollection frames;
+            currentFile->getAllFramesV2(frames);
+            for (FrameCollection::const_iterator it = frames.begin();
+                 it != frames.end();
+                 ++it) {
+              if (it->getName() == name) {
+                currentFile->deleteFrameV2(*it);
+                m_framelist->setTaggedFile(currentFile);
+                m_framelist->pasteFrame();
+                break;
+              }
+            }
           }
         }
       }
