@@ -80,40 +80,40 @@ wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-6.diff.gz
 test -f flac_1.2.1.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1.orig.tar.gz
 
-test -f id3lib3.8.3_3.8.3-14.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-14.debian.tar.gz
+test -f id3lib3.8.3_3.8.3-15.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-15.debian.tar.gz
 test -f id3lib3.8.3_3.8.3.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3.orig.tar.gz
 
-test -f libogg_1.2.2~dfsg-1.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.2.2~dfsg-1.diff.gz
-test -f libogg_1.2.2~dfsg.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.2.2~dfsg.orig.tar.gz
+test -f libogg_1.3.0-3.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.0-3.diff.gz
+test -f libogg_1.3.0.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.0.orig.tar.gz
 
-test -f libvorbis_1.3.2-1.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2-1.diff.gz
+test -f libvorbis_1.3.2-1.3.diff.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2-1.3.diff.gz
 test -f libvorbis_1.3.2.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
 
 #test -f taglib_1.7-1.debian.tar.gz ||
 #wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7-1.debian.tar.gz
-test -f taglib-1.7.1.tar.gz ||
-wget http://developer.kde.org/~wheeler/files/src/taglib-1.7.1.tar.gz
+test -f taglib-1.7.2.tar.gz ||
+wget http://developer.kde.org/~wheeler/files/src/taglib-1.7.2.tar.gz
 
-test -f zlib_1.2.6.dfsg-2.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.6.dfsg-2.debian.tar.gz
-test -f zlib_1.2.6.dfsg.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.6.dfsg.orig.tar.gz
+test -f zlib_1.2.7.dfsg-11.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-11.debian.tar.gz
+test -f zlib_1.2.7.dfsg.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg.orig.tar.gz
 
-test -f libav_0.8.1.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.1.orig.tar.gz
-test -f libav_0.8.1-4.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.1-4.debian.tar.gz
+test -f libav_0.8.2.orig.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.2.orig.tar.gz
+test -f libav_0.8.2-2.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.2-2.debian.tar.gz
 
 test -f chromaprint_0.6.orig.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6.orig.tar.gz
-test -f chromaprint_0.6-1.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6-1.debian.tar.gz
+test -f chromaprint_0.6-2.debian.tar.gz ||
+wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6-2.debian.tar.gz
 
 #test -f mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2 ||
 #wget http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
@@ -550,20 +550,20 @@ cd ..
 
 # zlib
 
-if ! test -d zlib-1.2.6.dfsg; then
-tar xzf source/zlib_1.2.6.dfsg.orig.tar.gz
-cd zlib-1.2.6.dfsg/
-tar xzf ../source/zlib_1.2.6.dfsg-2.debian.tar.gz
+if ! test -d zlib-1.2.7; then
+tar xzf source/zlib_1.2.7.dfsg.orig.tar.gz
+cd zlib-1.2.7/
+tar xzf ../source/zlib_1.2.7.dfsg-11.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 
 # libogg
 
-if ! test -d libogg-1.2.2~dfsg; then
-tar xzf source/libogg_1.2.2~dfsg.orig.tar.gz
-cd libogg-1.2.2~dfsg/
-gunzip -c ../source/libogg_1.2.2~dfsg-1.diff.gz | patch -p1
+if ! test -d libogg-1.3.0; then
+tar xzf source/libogg_1.3.0.orig.tar.gz
+cd libogg-1.3.0/
+gunzip -c ../source/libogg_1.3.0-3.diff.gz | patch -p1
 cd ..
 fi
 
@@ -572,7 +572,7 @@ fi
 if ! test -d libvorbis-1.3.2.orig; then
 tar xzf source/libvorbis_1.3.2.orig.tar.gz
 cd libvorbis-1.3.2/
-gunzip -c ../source/libvorbis_1.3.2-1.diff.gz | patch -p1
+gunzip -c ../source/libvorbis_1.3.2-1.3.diff.gz | patch -p1
 cd ..
 fi
 
@@ -597,7 +597,7 @@ fi
 if ! test -d id3lib-3.8.3; then
 tar xzf source/id3lib3.8.3_3.8.3.orig.tar.gz
 cd id3lib-3.8.3/
-tar xzf ../source/id3lib3.8.3_3.8.3-14.debian.tar.gz
+tar xzf ../source/id3lib3.8.3_3.8.3-15.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
 cd ..
@@ -605,9 +605,9 @@ fi
 
 # taglib
 
-if ! test -d taglib-1.7.1; then
-tar xzf source/taglib-1.7.1.tar.gz
-cd taglib-1.7.1/
+if ! test -d taglib-1.7.2; then
+tar xzf source/taglib-1.7.2.tar.gz
+cd taglib-1.7.2/
 #tar xzf ../source/taglib_1.7-1.debian.tar.gz
 #for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/taglib-mp4-uinttypes.patch
@@ -617,10 +617,10 @@ fi
 
 # libav
 
-if ! test -d libav-0.8.1; then
-tar xzf source/libav_0.8.1.orig.tar.gz
-cd libav-0.8.1/
-tar xzf ../source/libav_0.8.1-4.debian.tar.gz
+if ! test -d libav-0.8.2; then
+tar xzf source/libav_0.8.2.orig.tar.gz
+cd libav-0.8.2/
+tar xzf ../source/libav_0.8.2-2.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p0 <../source/libav_sws.patch
 cd ..
@@ -631,7 +631,7 @@ fi
 if ! test -d chromaprint-0.6; then
 tar xzf source/chromaprint_0.6.orig.tar.gz
 cd chromaprint-0.6/
-tar xzf ../source/chromaprint_0.6-1.debian.tar.gz
+tar xzf ../source/chromaprint_0.6-2.debian.tar.gz
 cd ..
 fi
 
@@ -651,7 +651,7 @@ test -d bin || mkdir bin
 
 # zlib
 
-cd zlib-1.2.6.dfsg/
+cd zlib-1.2.7/
 if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
 make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
@@ -662,24 +662,24 @@ mkdir -p inst/usr/local
 make install -f Makefile.inst prefix=`pwd`/inst/usr/local
 fi
 cd inst
-tar czf ../../bin/zlib-1.2.6.tgz usr
+tar czf ../../bin/zlib-1.2.7.tgz usr
 cd ../..
 
 # libogg
 
-cd libogg-1.2.2~dfsg/
+cd libogg-1.3.0/
 test -f Makefile || ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libogg-1.2.2.tgz usr
+tar czf ../../bin/libogg-1.3.0.tgz usr
 cd ../..
 
 # libvorbis
 
 cd libvorbis-1.3.2/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.2.2~dfsg/inst/usr/local $ENABLE_DEBUG
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.3.0/inst/usr/local $ENABLE_DEBUG
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
@@ -690,7 +690,7 @@ cd ../..
 # libflac
 
 cd flac-1.2.1/
-configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.2.2~dfsg/inst/usr/local $ENABLE_DEBUG"
+configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.3.0/inst/usr/local $ENABLE_DEBUG"
 if test $kernel = "Darwin"; then
   configure_args="$configure_args --disable-asm-optimizations"
 fi
@@ -716,19 +716,19 @@ cd ../..
 
 # taglib
 
-cd taglib-1.7.1/
+cd taglib-1.7.2/
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
-tar czf ../../bin/taglib-1.7.1.tgz usr
+tar czf ../../bin/taglib-1.7.2.tgz usr
 cd ../..
 
 # libav
 
-cd libav-0.8.1
+cd libav-0.8.2
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -814,13 +814,13 @@ make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-0.8.1.tgz usr
+tar czf ../../bin/libav-0.8.2.tgz usr
 cd ../..
 
 # chromaprint
 
 cd chromaprint-0.6/
-test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=$thisdir/libav-0.8.1/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=$thisdir/libav-0.8.2/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
@@ -859,13 +859,13 @@ elif test $kernel = "Darwin"; then
   sudo chmod go+w ${BUILDROOT}usr/local
 fi
 
-tar xzf bin/zlib-1.2.6.tgz -C $BUILDROOT
-tar xzf bin/libogg-1.2.2.tgz -C $BUILDROOT
+tar xzf bin/zlib-1.2.7.tgz -C $BUILDROOT
+tar xzf bin/libogg-1.3.0.tgz -C $BUILDROOT
 tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.7.1.tgz -C $BUILDROOT
-tar xzf bin/libav-0.8.1.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.7.2.tgz -C $BUILDROOT
+tar xzf bin/libav-0.8.2.tgz -C $BUILDROOT
 tar xzf bin/chromaprint-0.6.tgz -C $BUILDROOT
 #tar xzf bin/mp4v2-1.9.1+svn479.tgz -C $BUILDROOT
 
