@@ -218,7 +218,7 @@ public:
   }
 
   bool createForCodec(const Codec& codecCtx) {
-    m_ptr = ::av_audio_convert_alloc(SAMPLE_FMT_S16, codecCtx.channels(),
+    m_ptr = ::av_audio_convert_alloc(AV_SAMPLE_FMT_S16, codecCtx.channels(),
                  codecCtx.sampleFormat(), codecCtx.channels(), 0, 0);
     return m_ptr != 0;
   }
@@ -342,7 +342,7 @@ FingerprintCalculator::Result::Error FingerprintCalculator::decodeAudioFile(
     return Result::NoCodecFound;
 
   Converter converter;
-  if (codec.sampleFormat() != SAMPLE_FMT_S16) {
+  if (codec.sampleFormat() != AV_SAMPLE_FMT_S16) {
     if (!converter.createForCodec(codec))
       return Result::NoConverterFound;
   }
