@@ -43,7 +43,7 @@ public:
    */
   class Result {
   public:
-    /** Types of error occuring in fingerprint calculation. */
+    /** Types of error occurring in fingerprint calculation. */
     enum Error {
       Ok,               /**< Fingerprint calculation OK */
       Pending,          /**< Not started */

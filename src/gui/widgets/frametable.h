@@ -66,7 +66,7 @@ public:
 
   /**
    * Commit data from the current editor.
-   * This is used to avoid loosing the changes in open editors e.g. when
+   * This is used to avoid losing the changes in open editors e.g. when
    * the file is changed using Alt-Up or Alt-Down.
    *
    * @return true if data was committed.
