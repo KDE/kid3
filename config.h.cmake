@@ -27,6 +27,9 @@
 /* Define to build with Chromaprint */
 #cmakedefine HAVE_CHROMAPRINT ${HAVE_CHROMAPRINT}
 
+/* Define to build with GStreamer */
+#cmakedefine HAVE_GSTREAMER ${HAVE_GSTREAMER}
+
 /* Define if av_audio_convert is available */
 #cmakedefine HAVE_AV_AUDIO_CONVERT ${HAVE_AV_AUDIO_CONVERT}
 

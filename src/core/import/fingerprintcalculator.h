@@ -50,7 +50,9 @@ public:
       NoStreamFound,    /**< Format not recognized or no audio stream found */
       NoCodecFound,     /**< No codec found */
       NoConverterFound, /**< Sample rate conversion failed or unavailable */
-      FingerprintCalculationFailed /**< Chromaprint error */
+      FingerprintCalculationFailed, /**< Chromaprint error */
+      Timeout,          /**< Operation timeout */
+      DecoderError      /**< Error while decoding */
     };
 
     /** Constructor. */
@@ -102,11 +104,12 @@ public:
   Result calculateFingerprint(const QString& fileName);
 
 private:
+  class Decoder;
+
   Result::Error decodeAudioFile(const QString &filePath, int &duration);
 
-  qint16* m_buffer1;
-  qint16* m_buffer2;
   void** m_chromaprintCtx;
+  Decoder* m_decoder;
 };
 
 #endif // HAVE_CHROMAPRINT

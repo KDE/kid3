@@ -29,6 +29,297 @@
 
 #ifdef HAVE_CHROMAPRINT
 
+#ifdef HAVE_GSTREAMER
+
+#include <string.h>
+#include <gst/gst.h>
+#include <chromaprint.h>
+#include <QFileInfo>
+#include <QUrl>
+
+class FingerprintCalculator::Decoder {
+public:
+  explicit Decoder(ChromaprintContext* ctx);
+  ~Decoder();
+
+  bool run(const QString& filePath);
+
+  int getDuration() const { return m_duration; }
+  FingerprintCalculator::Result::Error getError() const { return m_error; }
+
+private:
+  static const int BUFFER_SIZE = 10;
+  static const gint64 MAX_LENGTH_NS = 120000000000;
+  static const guint TIMEOUT_MS = 5000;
+
+  void raiseError(FingerprintCalculator::Result::Error error);
+  static gboolean cb_timeout(gpointer data);
+  static void cb_message(GstBus* bus, GstMessage* message, Decoder* self);
+  static void cb_pad_added(GstElement* dec, GstPad* pad, Decoder* self);
+  static void cb_no_more_pads(GstElement* dec, Decoder* self);
+  static void cb_notify_caps(GstPad *pad, GParamSpec* spec, Decoder* self);
+  static void cb_unknown_type(GstElement* dec, GstPad* pad, GstCaps* caps, Decoder* self);
+  static void cb_new_buffer(GstElement* sink, Decoder* self);
+
+  ChromaprintContext* m_chromaprint;
+  GMainLoop* m_loop;
+  GstElement* m_pipeline;
+  GstElement* m_dec;
+  GstElement* m_conv;
+  FingerprintCalculator::Result::Error m_error;
+  int m_duration;
+  gint m_channels;
+  gint m_rate;
+  bool m_gotPad;
+};
+
+FingerprintCalculator::Decoder::Decoder(ChromaprintContext* ctx) :
+  m_chromaprint(ctx), m_error(FingerprintCalculator::Result::Ok),
+  m_duration(0), m_channels(0), m_rate(0), m_gotPad(false)
+{
+  gst_init(NULL, NULL);
+//  gst_debug_set_default_threshold(GST_LEVEL_INFO);
+//  gst_debug_set_colored(FALSE);
+  m_loop = g_main_loop_new(NULL, FALSE);
+  m_pipeline = gst_pipeline_new("pipeline");
+  m_dec = gst_element_factory_make("uridecodebin", "dec");
+  m_conv = gst_element_factory_make("audioconvert", "conv");
+  GstElement* sink = gst_element_factory_make("appsink", "sink");
+
+  if (m_loop && m_pipeline && m_dec && m_conv && sink) {
+    if (GstBus* bus = gst_pipeline_get_bus(GST_PIPELINE(m_pipeline))) {
+      gst_bus_add_signal_watch(bus);
+      g_signal_connect(bus, "message::eos", G_CALLBACK(cb_message), this);
+      g_signal_connect(bus, "message::error", G_CALLBACK(cb_message), this);
+      gst_object_unref(GST_OBJECT(bus));
+    }
+
+    g_signal_connect(m_dec, "pad-added", G_CALLBACK(cb_pad_added), this);
+    g_signal_connect(m_dec, "no-more-pads", G_CALLBACK(cb_no_more_pads), this);
+    g_signal_connect(m_dec, "unknown-type", G_CALLBACK(cb_unknown_type), this);
+
+    if (GstCaps* sinkcaps = gst_caps_new_simple("audio/x-raw-int",
+      "width", G_TYPE_INT, 16,
+      "depth", G_TYPE_INT, 16,
+      "signed", G_TYPE_BOOLEAN, TRUE,
+      NULL)) {
+      g_object_set(G_OBJECT(sink), "caps", sinkcaps, NULL);
+      gst_caps_unref(sinkcaps);
+    }
+    g_object_set(G_OBJECT(sink),
+                 "drop", FALSE,
+                 "max-buffers", BUFFER_SIZE,
+                 "sync", FALSE,
+                 "emit-signals", TRUE,
+                 NULL);
+    g_signal_connect(sink, "new-buffer", G_CALLBACK(cb_new_buffer), this);
+    if (GstPad* pad = gst_element_get_static_pad(sink, "sink")) {
+      g_signal_connect(pad, "notify::caps", G_CALLBACK(cb_notify_caps), this);
+      gst_object_unref(pad);
+    }
+
+    gst_bin_add_many(GST_BIN(m_pipeline), m_dec, m_conv, sink, NULL);
+    gst_element_link_many(m_conv, sink, NULL);
+  } else {
+    if (m_loop) {
+      g_main_loop_unref(m_loop);
+      m_loop = NULL;
+    } else {
+      g_print("Failed to create main loop.\n");
+    }
+    if (m_pipeline) {
+      gst_object_unref(m_pipeline);
+      m_pipeline = NULL;
+    } else {
+      g_print("Failed to create pipeline.\n");
+    }
+    if (m_dec) {
+      gst_object_unref(m_dec);
+      m_dec = NULL;
+    } else {
+      g_print("Failed to create uridecodebin.\n");
+    }
+    if (m_conv) {
+      gst_object_unref(m_conv);
+      m_conv = NULL;
+    } else {
+      g_print("Failed to create audioconvert.\n");
+    }
+    if (sink) {
+      gst_object_unref(sink);
+    } else {
+      g_print("Failed to create appsink.\n");
+    }
+  }
+}
+
+FingerprintCalculator::Decoder::~Decoder()
+{
+  if (m_pipeline) {
+    gst_element_set_state(m_pipeline, GST_STATE_NULL);
+    gst_object_unref(m_pipeline);
+  }
+  if (m_loop) {
+    g_main_loop_unref(m_loop);
+  }
+}
+
+void FingerprintCalculator::Decoder::raiseError(
+    FingerprintCalculator::Result::Error error)
+{
+  m_error = error;
+  g_main_loop_quit(m_loop);
+}
+
+gboolean FingerprintCalculator::Decoder::cb_timeout(gpointer data)
+{
+  Decoder* self = reinterpret_cast<Decoder*>(data);
+  self->raiseError(FingerprintCalculator::Result::Timeout);
+  return FALSE;
+}
+
+void FingerprintCalculator::Decoder::cb_message(GstBus*, GstMessage* message,
+                                  Decoder* self)
+{
+  switch (GST_MESSAGE_TYPE(message)) {
+  case GST_MESSAGE_ERROR: {
+    GError *err;
+    gchar *debug;
+    gst_message_parse_error(message, &err, &debug);
+    g_print("Error: %s\n", err->message);
+    g_error_free(err);
+    g_free(debug);
+    self->raiseError(FingerprintCalculator::Result::DecoderError);
+    break;
+  }
+  case GST_MESSAGE_EOS:
+    // end-of-stream
+    g_main_loop_quit(self->m_loop);
+    break;
+  default:
+    break;
+  }
+}
+
+void FingerprintCalculator::Decoder::cb_pad_added(GstElement*, GstPad* pad,
+                                    Decoder* self)
+{
+  if (GstCaps* caps = gst_pad_get_caps(pad)) {
+    const GstStructure* str = gst_caps_get_structure(caps, 0);
+    const gchar* name = gst_structure_get_name(str);
+    if (name && strncmp(name, "audio/x-raw-", 12) == 0) {
+      if (GstPad* nextpad = gst_element_get_static_pad(self->m_conv, "sink")) {
+        if (!gst_pad_is_linked(nextpad)) {
+          if (gst_pad_link(pad, nextpad) == GST_PAD_LINK_OK) {
+            self->m_gotPad = true;
+          } else {
+            g_print("Failed to link pads\n");
+          }
+        }
+        gst_object_unref(nextpad);
+      }
+    }
+    gst_caps_unref(caps);
+  }
+}
+
+void FingerprintCalculator::Decoder::cb_no_more_pads(GstElement*, Decoder* self)
+{
+  if (!self->m_gotPad) {
+    self->raiseError(FingerprintCalculator::Result::NoStreamFound);
+  }
+}
+
+void FingerprintCalculator::Decoder::cb_notify_caps(GstPad *pad, GParamSpec*, Decoder* self)
+{
+  if (GstCaps* caps = gst_pad_get_negotiated_caps(pad)) {
+    const GstStructure* str = gst_caps_get_structure(caps, 0);
+    if (gst_structure_get_int(str, "channels", &self->m_channels) &&
+        gst_structure_get_int(str, "rate", &self->m_rate)) {
+      ::chromaprint_start(self->m_chromaprint, self->m_rate, self->m_channels);
+    } else {
+      g_print("No channels/rate available\n");
+    }
+    gst_caps_unref(caps);
+  }
+  if (GstQuery* query = gst_query_new_duration(GST_FORMAT_TIME)) {
+    if (GstPad* peer = gst_pad_get_peer(pad)) {
+      if (gst_pad_query(peer, query)) {
+        GstFormat format;
+        gint64 length;
+        gst_query_parse_duration(query, &format, &length);
+        if (format == GST_FORMAT_TIME) {
+          self->m_duration = length / 1000000000;
+        }
+      }
+      gst_object_unref(peer);
+    }
+    gst_query_unref(query);
+  }
+}
+
+void FingerprintCalculator::Decoder::cb_unknown_type(GstElement*, GstPad*, GstCaps* caps,
+                                       Decoder* self)
+{
+  bool isAudio = false;
+  if (gchar* streaminfo = gst_caps_to_string(caps)) {
+    isAudio = strncmp(streaminfo, "audio/", 6) == 0;
+    g_free(streaminfo);
+  }
+  if (!isAudio)
+    return;
+  self->raiseError(FingerprintCalculator::Result::NoCodecFound);
+}
+
+void FingerprintCalculator::Decoder::cb_new_buffer(GstElement* sink, Decoder* self)
+{
+  GstBuffer *buffer;
+  g_signal_emit_by_name(sink, "pull-buffer", &buffer);
+  if (buffer) {
+    gint64 buf_pos = GST_BUFFER_TIMESTAMP(buffer);
+    size_t len = GST_BUFFER_SIZE(buffer);
+    guint8* data = GST_BUFFER_DATA(buffer);
+    bool error = !::chromaprint_feed(self->m_chromaprint, data, len / 2);
+    gst_buffer_unref(buffer);
+    if (error) {
+      self->raiseError(FingerprintCalculator::Result::FingerprintCalculationFailed);
+    }
+    if (buf_pos >= MAX_LENGTH_NS) {
+      g_main_loop_quit(self->m_loop);
+    }
+  }
+}
+
+bool FingerprintCalculator::Decoder::run(const QString& filePath)
+{
+  if (!m_loop) {
+    // Initialization failed
+    m_error = FingerprintCalculator::Result::DecoderError;
+    return false;
+  }
+
+  m_error = FingerprintCalculator::Result::Ok;
+  m_duration = 0;
+  m_channels = 0;
+  m_rate = 0;
+  m_gotPad = false;
+
+  QByteArray url(
+      QUrl::fromLocalFile(QFileInfo(filePath).absoluteFilePath()).toEncoded());
+  g_object_set(G_OBJECT(m_dec), "uri", url.constData(), NULL);
+
+  gst_element_set_state(GST_ELEMENT(m_pipeline), GST_STATE_PLAYING);
+
+  guint timeoutFuncId = g_timeout_add(TIMEOUT_MS, cb_timeout, this);
+  g_main_loop_run(m_loop);
+  g_source_remove(timeoutFuncId);
+
+  gst_element_set_state(m_pipeline, GST_STATE_READY);
+  return m_error == FingerprintCalculator::Result::Ok;
+}
+
+#else // HAVE_GSTREAMER
+
 #include <stdint.h>
 #include <stdio.h>
 extern "C" {
@@ -259,71 +550,53 @@ public:
 };
 #endif
 
+class FingerprintCalculator::Decoder {
+public:
+  explicit Decoder(ChromaprintContext* ctx);
+  ~Decoder();
 
-/**
- * Constructor.
- */
-FingerprintCalculator::FingerprintCalculator()
+  bool run(const QString& filePath);
+
+  int getDuration() const { return m_duration; }
+  FingerprintCalculator::Result::Error getError() const { return m_error; }
+
+private:
+  ChromaprintContext* m_chromaprint;
+  qint16* m_buffer1;
+  qint16* m_buffer2;
+  int m_duration;
+  FingerprintCalculator::Result::Error m_error;
+};
+
+FingerprintCalculator::Decoder::Decoder(ChromaprintContext* ctx) :
+  m_chromaprint(ctx), m_duration(0), m_error(FingerprintCalculator::Result::Ok)
 {
   ::av_register_all();
   ::av_log_set_level(AV_LOG_ERROR);
 
   m_buffer1 = reinterpret_cast<qint16*>(::av_malloc(BUFFER_SIZE + 16));
   m_buffer2 = reinterpret_cast<qint16*>(::av_malloc(BUFFER_SIZE + 16));
-  m_chromaprintCtx = ::chromaprint_new(CHROMAPRINT_ALGORITHM_DEFAULT);
 }
 
-/**
- * Destructor.
- */
-FingerprintCalculator::~FingerprintCalculator()
+FingerprintCalculator::Decoder::~Decoder()
 {
-  ::chromaprint_free(m_chromaprintCtx);
   ::av_free(m_buffer1);
   ::av_free(m_buffer2);
 }
 
-/**
- * Calculate audio fingerprint for audio file.
- *
- * @param fileName path to audio file
- *
- * @return result of fingerprint calculation.
- */
-FingerprintCalculator::Result FingerprintCalculator::calculateFingerprint(
-    const QString &fileName) {
-  Result result;
-  result.m_error = decodeAudioFile(fileName, result.m_duration);
-  if (result.m_error == Result::Ok) {
-    char* fingerprint;
-    if (::chromaprint_get_fingerprint(m_chromaprintCtx, &fingerprint)) {
-      result.m_fingerprint = QString::fromAscii(fingerprint);
-      ::chromaprint_dealloc(fingerprint);
-    } else {
-      result.m_error = Result::FingerprintCalculationFailed;
-    }
-  }
-  return result;
-}
-
-/**
- * Decode audio file.
- *
- * @param filePath path to audio file
- * @param duration the length of the audio file in seconds is returned here
- *
- * @return Ok if OK, else error code.
- */
-FingerprintCalculator::Result::Error FingerprintCalculator::decodeAudioFile(
-    const QString& filePath, int& duration)
+bool FingerprintCalculator::Decoder::run(const QString& filePath)
 {
   /*
    * The code here is based on fpcalc.c from chromaprint-0.6/examples.
    */
+  m_error = FingerprintCalculator::Result::Ok;
+  m_duration = 0;
   QByteArray fileName(QFile::encodeName(filePath));
   Format format(fileName.constData());
-  if (format.hasError())
-    return Result::NoStreamFound;
+  if (format.hasError()) {
+    m_error = Result::NoStreamFound;
+    return false;
+  }
 
   AVStream* stream = 0;
   Codec codec;
@@ -335,19 +608,24 @@ FingerprintCalculator::Result::Error FingerprintCalculator::decodeAudioFile(
     }
   }
   if (!stream) {
-    return Result::NoStreamFound;
+    m_error = Result::NoStreamFound;
+    return false;
   }
 
-  if (!codec.open() || codec.channels() <= 0)
-    return Result::NoCodecFound;
+  if (!codec.open() || codec.channels() <= 0) {
+    m_error = Result::NoCodecFound;
+    return false;
+  }
 
   Converter converter;
   if (codec.sampleFormat() != AV_SAMPLE_FMT_S16) {
-    if (!converter.createForCodec(codec))
-      return Result::NoConverterFound;
+    if (!converter.createForCodec(codec)) {
+      m_error = Result::NoConverterFound;
+      return false;
+    }
   }
 
-  duration = stream->time_base.num * stream->duration / stream->time_base.den;
+  m_duration = stream->time_base.num * stream->duration / stream->time_base.den;
 
   AVPacket packet, packetTemp;
   ::av_init_packet(&packet);
@@ -355,7 +633,7 @@ FingerprintCalculator::Result::Error FingerprintCalculator::decodeAudioFile(
 
   const int MAX_LENGTH = 120;
   int remaining = MAX_LENGTH * codec.channels() * codec.sampleRate();
-  ::chromaprint_start(m_chromaprintCtx, codec.sampleRate(), codec.channels());
+  ::chromaprint_start(m_chromaprint, codec.sampleRate(), codec.channels());
 
   while (remaining > 0) {
     Packet pkt(&packet);
@@ -385,8 +663,9 @@ FingerprintCalculator::Result::Error FingerprintCalculator::decodeAudioFile(
         break;
 
       int length = qMin(remaining, bufferSize / 2);
-      if (!::chromaprint_feed(m_chromaprintCtx, buffer, length)) {
-        return Result::FingerprintCalculationFailed;
+      if (!::chromaprint_feed(m_chromaprint, buffer, length)) {
+        m_error = Result::FingerprintCalculationFailed;
+        return false;
       }
 
       remaining -= length;
@@ -396,6 +675,73 @@ FingerprintCalculator::Result::Error FingerprintCalculator::decodeAudioFile(
     }
   }
 
+  return true;
+}
+
+#endif // HAVE_GSTREAMER
+
+/**
+ * Constructor.
+ */
+FingerprintCalculator::FingerprintCalculator() :
+  m_chromaprintCtx(0), m_decoder(0)
+{
+}
+
+/**
+ * Destructor.
+ */
+FingerprintCalculator::~FingerprintCalculator()
+{
+  if (m_chromaprintCtx) {
+    delete m_decoder;
+    ::chromaprint_free(m_chromaprintCtx);
+  }
+}
+
+/**
+ * Calculate audio fingerprint for audio file.
+ *
+ * @param fileName path to audio file
+ *
+ * @return result of fingerprint calculation.
+ */
+FingerprintCalculator::Result FingerprintCalculator::calculateFingerprint(
+    const QString &fileName) {
+  if (!m_chromaprintCtx) {
+    // Lazy intialization to save resources if not used
+    m_chromaprintCtx = ::chromaprint_new(CHROMAPRINT_ALGORITHM_DEFAULT);
+    m_decoder = new Decoder(m_chromaprintCtx);
+  }
+  Result result;
+  result.m_error = decodeAudioFile(fileName, result.m_duration);
+  if (result.m_error == Result::Ok) {
+    char* fingerprint;
+    if (::chromaprint_get_fingerprint(m_chromaprintCtx, &fingerprint)) {
+      result.m_fingerprint = QString::fromAscii(fingerprint);
+      ::chromaprint_dealloc(fingerprint);
+    } else {
+      result.m_error = Result::FingerprintCalculationFailed;
+    }
+  }
+  return result;
+}
+
+/**
+ * Decode audio file.
+ *
+ * @param filePath path to audio file
+ * @param duration the length of the audio file in seconds is returned here
+ *
+ * @return Ok if OK, else error code.
+ */
+FingerprintCalculator::Result::Error FingerprintCalculator::decodeAudioFile(
+    const QString& filePath, int& duration)
+{
+  if (!m_decoder->run(filePath)) {
+    return m_decoder->getError();
+  }
+  duration = m_decoder->getDuration();
   if (!::chromaprint_finish(m_chromaprintCtx)) {
     return Result::FingerprintCalculationFailed;
   }
