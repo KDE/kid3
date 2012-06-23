@@ -39,6 +39,7 @@ class OggFile : public TaggedFile {
 public:
   /** File type resolution. */
   class Resolver : public TaggedFile::Resolver {
+  public:
     /**
      * Create an OggFile object if it supports the filename's extension.
      *

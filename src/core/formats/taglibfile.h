@@ -53,6 +53,7 @@ class TagLibFile : public TaggedFile {
 public:
   /** File type resolution. */
   class Resolver : public TaggedFile::Resolver {
+  public:
     /**
      * Create an TagLibFile object if it supports the filename's extension.
      *

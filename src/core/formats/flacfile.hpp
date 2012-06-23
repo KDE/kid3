@@ -46,6 +46,7 @@ class FlacFile : public OggFile {
 public:
   /** File type resolution. */
   class Resolver : public TaggedFile::Resolver {
+  public:
     /**
      * Create an FlacFile object if it supports the filename's extension.
      *

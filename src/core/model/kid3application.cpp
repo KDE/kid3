@@ -1883,7 +1883,9 @@ void Kid3Application::convertToId3v23()
     taggedFile->readTags(false);
     if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
       QString tagFmt = taggedFile->getTagFormatV2();
-      if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3') {
+      if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3' &&
+          Mp3File::Resolver().getSupportedFileExtensions().contains(
+            taggedFile->getFileExtension())) {
         if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
           FrameCollection frames;
           taggedFile->getAllFramesV2(frames);
