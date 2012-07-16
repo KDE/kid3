@@ -10,8 +10,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
 "POT-Creation-Date: 2012-07-16 21:00+0200\n"
-"PO-Revision-Date: 2011-01-15 17:36+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2012-07-08 16:54+0100\n"
+"Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -32,11 +32,11 @@ msgstr "Sneltoets"
 
 #: core/formats/mp3file.cpp:1245 core/formats/taglibfile.cpp:1740
 msgid "AENC - Audio encryption"
-msgstr "AENC - Audio encryptie"
+msgstr "AENC - Audio versleuteling"
 
 #: core/formats/mp3file.cpp:1246 core/formats/taglibfile.cpp:1741
 msgid "APIC - Attached picture"
-msgstr ""
+msgstr "APIC - Bijgevoegde afbeelding"
 
 #: core/formats/mp3file.cpp:1248 core/formats/taglibfile.cpp:1743
 msgid "COMM - Comments"
@@ -44,103 +44,103 @@ msgstr "COMM - Opmerkingen"
 
 #: core/formats/mp3file.cpp:1249 core/formats/taglibfile.cpp:1744
 msgid "COMR - Commercial"
-msgstr ""
+msgstr "COMR - Commercieel"
 
 #: core/formats/mp3file.cpp:1250 core/formats/taglibfile.cpp:1745
 msgid "ENCR - Encryption method registration"
-msgstr ""
+msgstr "ENCR - Registratie van encryptie methode"
 
 #: core/formats/mp3file.cpp:1252
 msgid "EQUA - Equalization"
-msgstr ""
+msgstr "EQUA - Egalisatie"
 
 #: core/formats/mp3file.cpp:1253 core/formats/taglibfile.cpp:1747
 msgid "ETCO - Event timing codes"
-msgstr ""
+msgstr "ETCO - Gebeurtenis timing codes"
 
 #: core/formats/mp3file.cpp:1254 core/formats/taglibfile.cpp:1748
 msgid "GEOB - General encapsulated object"
-msgstr ""
+msgstr "GEOB - Algemeen ingekapselde object"
 
 #: core/formats/mp3file.cpp:1255 core/formats/taglibfile.cpp:1749
 msgid "GRID - Group identification registration"
-msgstr ""
+msgstr "GRID - Registratie van groep identificatie"
 
 #: core/formats/mp3file.cpp:1256
 msgid "IPLS - Involved people list"
-msgstr ""
+msgstr "IPLS - Betrokken personenlijst"
 
 #: core/formats/mp3file.cpp:1257 core/formats/taglibfile.cpp:1750
 msgid "LINK - Linked information"
-msgstr ""
+msgstr "LINK - Gelinkte informatie"
 
 #: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1751
 msgid "MCDI - Music CD identifier"
-msgstr ""
+msgstr "MCDI - Muziek CD identificatie"
 
 #: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1752
 msgid "MLLT - MPEG location lookup table"
-msgstr ""
+msgstr "MLLT - Opzoektabel van MPEG locatie"
 
 #: core/formats/mp3file.cpp:1260 core/formats/taglibfile.cpp:1753
 msgid "OWNE - Ownership frame"
-msgstr ""
+msgstr "OWNE - Eigendom frame"
 
 #: core/formats/mp3file.cpp:1261 core/formats/taglibfile.cpp:1754
 msgid "PRIV - Private frame"
-msgstr ""
+msgstr "PRIV - Privé frame"
 
 #: core/formats/mp3file.cpp:1262 core/formats/taglibfile.cpp:1755
 msgid "PCNT - Play counter"
-msgstr ""
+msgstr "PCNT - Afspeelteller"
 
 #: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1756
 msgid "POPM - Popularimeter"
-msgstr ""
+msgstr "POPM - Popularimeter"
 
 #: core/formats/mp3file.cpp:1264 core/formats/taglibfile.cpp:1757
 msgid "POSS - Position synchronisation frame"
-msgstr ""
+msgstr "POSS - Positie synchronisatie frame"
 
 #: core/formats/mp3file.cpp:1265 core/formats/taglibfile.cpp:1758
 msgid "RBUF - Recommended buffer size"
-msgstr ""
+msgstr "RBUF - Aanbevolen buffer grootte"
 
 #: core/formats/mp3file.cpp:1267
 msgid "RVAD - Relative volume adjustment"
-msgstr ""
+msgstr "RVAD - Relatief volume aanpassing"
 
 #: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1760
 msgid "RVRB - Reverb"
-msgstr ""
+msgstr "RVRB - Galm"
 
 #: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1763
 msgid "SYLT - Synchronized lyric/text"
-msgstr ""
+msgstr "SYLT - Gesynchroniseerde liedtekst"
 
 #: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1764
 msgid "SYTC - Synchronized tempo codes"
-msgstr ""
+msgstr "SYTC - Gesynchroniseerde tempo codes"
 
 #: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1765
 msgid "TALB - Album/Movie/Show title"
-msgstr ""
+msgstr "TALB - Album/film/show titel"
 
 #: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1766
 msgid "TBPM - BPM (beats per minute)"
-msgstr ""
+msgstr "TBPM - BPM (slagen per minuut)"
 
 #: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1768
 msgid "TCOM - Composer"
-msgstr ""
+msgstr "TCOM - Componist"
 
 #: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1769
 msgid "TCON - Content type"
-msgstr ""
+msgstr "TCON - Soort inhoud"
 
 #: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1770
 msgid "TCOP - Copyright message"
-msgstr ""
+msgstr "TCOP - Auteursrecht boodschap"
 
 #: core/formats/mp3file.cpp:1278
 msgid "TDAT - Date"
@@ -148,19 +148,19 @@ msgstr "TDAT - Datum"
 
 #: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1772
 msgid "TDLY - Playlist delay"
-msgstr ""
+msgstr "TDLY - Speellijst vertraging"
 
 #: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1777
 msgid "TENC - Encoded by"
-msgstr ""
+msgstr "TENC - Geëncodeerd door"
 
 #: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1778
 msgid "TEXT - Lyricist/Text writer"
-msgstr ""
+msgstr "TEXT - Tekstschrijver"
 
 #: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1779
 msgid "TFLT - File type"
-msgstr ""
+msgstr "TFLT - Soort bestand"
 
 #: core/formats/mp3file.cpp:1289
 msgid "TIME - Time"
@@ -168,19 +168,19 @@ msgstr "TIME - Tijd"
 
 #: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1781
 msgid "TIT1 - Content group description"
-msgstr ""
+msgstr "TIT1 - Inhoud van groep omschrijving"
 
 #: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1782
 msgid "TIT2 - Title/songname/content description"
-msgstr ""
+msgstr "TIT2 - Titel/inhoudsbeschrijving"
 
 #: core/formats/mp3file.cpp:1292 core/formats/taglibfile.cpp:1783
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr ""
+msgstr "TIT3 - Verfijning van ondertitel/omschrijving"
 
 #: core/formats/mp3file.cpp:1293 core/formats/taglibfile.cpp:1784
 msgid "TKEY - Initial key"
-msgstr ""
+msgstr "TKEY - Initiële sleutel"
 
 #: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1785
 msgid "TLAN - Language(s)"
@@ -192,11 +192,11 @@ msgstr "TLEN - Lengte"
 
 #: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1788
 msgid "TMED - Media type"
-msgstr "TMED - Media type"
+msgstr "TMED - Soort media"
 
 #: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1790
 msgid "TOAL - Original album/movie/show title"
-msgstr ""
+msgstr "TOAL - Titel van originele album/film/show"
 
 #: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1791
 msgid "TOFN - Original filename"
@@ -204,75 +204,75 @@ msgstr "TOFN - Originele bestandsnaam"
 
 #: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1792
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr ""
+msgstr "TOLY - Originele tekstschrijver(s)"
 
 #: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1793
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr ""
+msgstr "TOPE - Originele artiest(s)/uitvoerende"
 
 #: core/formats/mp3file.cpp:1303
 msgid "TORY - Original release year"
-msgstr ""
+msgstr "TORY - Originele vrijgavejaar"
 
 #: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1794
 msgid "TOWN - File owner/licensee"
-msgstr ""
+msgstr "TOWN - Eigenaar/licentiehouder van bestand"
 
 #: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1795
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr ""
+msgstr "TPE1 - Hoofd uitvoerende"
 
 #: core/formats/mp3file.cpp:1306 core/formats/taglibfile.cpp:1796
 msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr ""
+msgstr "TPE2 - Begeleidende band/orkest"
 
 #: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1797
 msgid "TPE3 - Conductor/performer refinement"
-msgstr ""
+msgstr "TPE3 - Dirigent/uitvoerende verfijning"
 
 #: core/formats/mp3file.cpp:1308 core/formats/taglibfile.cpp:1798
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr ""
+msgstr "TPE4 - Geïnterpreteerd, remixen, of op andere wijze gewijzigd"
 
 #: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1799
 msgid "TPOS - Part of a set"
-msgstr ""
+msgstr "TPOS - Deel van een set"
 
 #: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1801
 msgid "TPUB - Publisher"
-msgstr ""
+msgstr "TPUB - Uitgever"
 
 #: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1802
 msgid "TRCK - Track number/Position in set"
-msgstr ""
+msgstr "TRCK - Tracknummer/positie in een set"
 
 #: core/formats/mp3file.cpp:1313
 msgid "TRDA - Recording dates"
-msgstr ""
+msgstr "TRDA - Opnamedata"
 
 #: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1803
 msgid "TRSN - Internet radio station name"
-msgstr ""
+msgstr "TRSN - Naam van internet radiostation"
 
 #: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1804
 msgid "TRSO - Internet radio station owner"
-msgstr ""
+msgstr "TRSO - Eigenaar van internet radiostation"
 
 #: core/formats/mp3file.cpp:1316
 msgid "TSIZ - Size"
-msgstr ""
+msgstr "TSIZ - Grootte"
 
 #: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1810
 msgid "TSRC - ISRC (international standard recording code)"
-msgstr ""
+msgstr "TSRC - ISRC (internationale standaard opnamecode)"
 
 #: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1811
 msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr ""
+msgstr "TSSE - Instellingen die worden gebruikt voor het coderen"
 
 #: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1813
 msgid "TXXX - User defined text information"
-msgstr ""
+msgstr "TXXX - Gedefinieerde gebruikersinformatie"
 
 #: core/formats/mp3file.cpp:1324
 msgid "TYER - Year"
@@ -280,103 +280,103 @@ msgstr "TYER - Jaar"
 
 #: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1814
 msgid "UFID - Unique file identifier"
-msgstr ""
+msgstr "UFID - Unieke bestand herkenner"
 
 #: core/formats/mp3file.cpp:1326 core/formats/taglibfile.cpp:1815
 msgid "USER - Terms of use"
-msgstr ""
+msgstr "USER - Voorwaarden voor het gebruik"
 
 #: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1816
 msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr ""
+msgstr "USLT - ongesynchroniseerde liedtekst"
 
 #: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1817
 msgid "WCOM - Commercial information"
-msgstr ""
+msgstr "WCOM - Commerciële informatie"
 
 #: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1818
 msgid "WCOP - Copyright/Legal information"
-msgstr ""
+msgstr "WCOP - Auteursrecht informatie"
 
 #: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1819
 msgid "WOAF - Official audio file webpage"
-msgstr ""
+msgstr "WOAF - Officiële website van audio bestand"
 
 #: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1820
 msgid "WOAR - Official artist/performer webpage"
-msgstr ""
+msgstr "WOAR - Officiële website van artiest/uitvoerende"
 
 #: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1821
 msgid "WOAS - Official audio source webpage"
-msgstr ""
+msgstr "WOAS - Officiële website van audio bron"
 
 #: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1822
 msgid "WORS - Official internet radio station homepage"
-msgstr ""
+msgstr "WORS - Officiële website van internet radiostation"
 
 #: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1823
 msgid "WPAY - Payment"
-msgstr ""
+msgstr "WPAY - Betaling"
 
 #: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1824
 msgid "WPUB - Official publisher webpage"
-msgstr ""
+msgstr "WPUB - Officiële website van uitgever"
 
 #: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1825
 msgid "WXXX - User defined URL link"
-msgstr ""
+msgstr "WXXX - Gedefinieerde link van gebruiker"
 
 #: core/formats/taglibfile.cpp:1742
 msgid "ASPI - Audio seek point index"
-msgstr ""
+msgstr "ASPI - Audio zoeken punt-index"
 
 #: core/formats/taglibfile.cpp:1746
 msgid "EQU2 - Equalisation (2)"
-msgstr ""
+msgstr "EQU2 - Egalisatie (2)"
 
 #: core/formats/taglibfile.cpp:1759
 msgid "RVA2 - Relative volume adjustment (2)"
-msgstr ""
+msgstr "RVAD - Aanpassing van relatief volume (2)"
 
 #: core/formats/taglibfile.cpp:1761
 msgid "SEEK - Seek frame"
-msgstr ""
+msgstr "SEEK - zoek frame"
 
 #: core/formats/taglibfile.cpp:1762
 msgid "SIGN - Signature frame"
-msgstr ""
+msgstr "SIGN - Handtekening frame"
 
 #: core/formats/taglibfile.cpp:1767
 msgid "TCMP - iTunes compilation flag"
-msgstr ""
+msgstr "TCMP - iTunes compilatie flag"
 
 #: core/formats/taglibfile.cpp:1771
 msgid "TDEN - Encoding time"
-msgstr ""
+msgstr "TDEN - Tijd encodering"
 
 #: core/formats/taglibfile.cpp:1773
 msgid "TDOR - Original release time"
-msgstr ""
+msgstr "TDOR - Originele vrijgavetijd"
 
 #: core/formats/taglibfile.cpp:1774
 msgid "TDRC - Recording time"
-msgstr ""
+msgstr "TDRC - Opnametijd"
 
 #: core/formats/taglibfile.cpp:1775
 msgid "TDRL - Release time"
-msgstr ""
+msgstr "TDRL - Vrijgavetijd"
 
 #: core/formats/taglibfile.cpp:1776
 msgid "TDTG - Tagging time"
-msgstr ""
+msgstr "TDTG - Tag tijd"
 
 #: core/formats/taglibfile.cpp:1780
 msgid "TIPL - Involved people list"
-msgstr ""
+msgstr "TIPL - Personenlijst van betrokkenen"
 
 #: core/formats/taglibfile.cpp:1787
 msgid "TMCL - Musician credits list"
-msgstr ""
+msgstr "TMCL - Credits van muzikant"
 
 #: core/formats/taglibfile.cpp:1789
 msgid "TMOO - Mood"
@@ -384,31 +384,31 @@ msgstr "TMOO - Stemming"
 
 #: core/formats/taglibfile.cpp:1800
 msgid "TPRO - Produced notice"
-msgstr ""
+msgstr "TPRO - Bericht producent"
 
 #: core/formats/taglibfile.cpp:1805
 msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - Sorteervolgorde van albumartiest"
+msgstr "TSO2 - Sorteervolgorde albumartiest"
 
 #: core/formats/taglibfile.cpp:1806
 msgid "TSOA - Album sort order"
-msgstr ""
+msgstr "TSOA - Sorteervolgorde album"
 
 #: core/formats/taglibfile.cpp:1807
 msgid "TSOC - Composer sort order"
-msgstr "TSOC - Sorteervolgorde van componist"
+msgstr "TSOC - Sorteervolgorde componist"
 
 #: core/formats/taglibfile.cpp:1808
 msgid "TSOP - Performer sort order"
-msgstr ""
+msgstr "TSOP - Sorteervolgorde uitvoerende"
 
 #: core/formats/taglibfile.cpp:1809
 msgid "TSOT - Title sort order"
-msgstr ""
+msgstr "TSOT - Sorteervolgorde titel"
 
 #: core/formats/taglibfile.cpp:1812
 msgid "TSST - Set subtitle"
-msgstr ""
+msgstr "TSST - ingestelde ondertitel"
 
 #: core/import/amazonimporter.cpp:59
 msgid "Amazon"
@@ -461,11 +461,11 @@ msgstr "Herkend"
 
 #: core/import/musicbrainzclient.cpp:268
 msgid "User Selection"
-msgstr "Gebruikersselectie"
+msgstr "Gebruikerselectie"
 
 #: core/import/musicbrainzclient.cpp:291
 msgid "Fingerprint"
-msgstr "Fingerprint"
+msgstr "Vingerafdruk"
 
 #: core/import/musicbrainzclient.cpp:300
 msgid "ID Lookup"
@@ -473,11 +473,11 @@ msgstr "ID-zoekactie"
 
 #: core/import/musicbrainzclient.cpp:313
 msgid "Metadata Lookup"
-msgstr "Metadata lezen"
+msgstr "Metadata zoekactie"
 
 #: core/import/musicbrainzreleaseimporter.cpp:60
 msgid "MusicBrainz Release"
-msgstr "MusicBrainz Release"
+msgstr "MusicBrainz vrijgave"
 
 #: core/import/tracktypeimporter.cpp:59
 msgid "TrackType.org"
@@ -566,7 +566,7 @@ msgstr "&Wissen"
 #: gui/dialogs/serverimportdialog.cpp:109 gui/dialogs/tagimportdialog.cpp:80
 #: gui/dialogs/textimportdialog.cpp:94 gui/widgets/imageviewer.cpp:55
 msgid "&Close"
-msgstr "Sl&uiten"
+msgstr "&Sluiten"
 
 #: core/model/externalprocess.cpp:162
 msgid "Execute "
@@ -688,7 +688,7 @@ msgstr "Dirigent"
 
 #: core/tags/frame.cpp:81
 msgid "Copyright"
-msgstr "Copyright"
+msgstr "Auteursrecht"
 
 #: core/tags/frame.cpp:82
 msgid "Disc Number"
@@ -724,7 +724,7 @@ msgstr "Medium"
 
 #: core/tags/frame.cpp:90
 msgid "Original Album"
-msgstr "Origineel Album"
+msgstr "Originele Album"
 
 #: core/tags/frame.cpp:91
 msgid "Original Artist"
@@ -740,7 +740,7 @@ msgstr "Deel"
 
 #: core/tags/frame.cpp:94
 msgid "Performer"
-msgstr "Uitvoerend artiest"
+msgstr "Artiest/uitvoerende"
 
 #: core/tags/frame.cpp:95
 msgid "Picture"
@@ -859,11 +859,11 @@ msgstr "&Help"
 #: gui/dialogs/rendirdialog.cpp:76 gui/dialogs/serverimportdialog.cpp:108
 #: gui/dialogs/tagimportdialog.cpp:71 gui/dialogs/textimportdialog.cpp:81
 msgid "&Save Settings"
-msgstr "Instellingen ops&laan"
+msgstr "&Instellingen opslaan"
 
 #: gui/dialogs/browsecoverartdialog.cpp:146
 msgid "&Browse"
-msgstr "&Browser"
+msgstr "&Ophalen"
 
 #: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:441
 #: gui/dialogs/editframedialog.cpp:58
@@ -879,15 +879,15 @@ msgstr "Klik op de knop Browser om te starten"
 
 #: gui/dialogs/browsecoverartdialog.cpp:184
 msgid "Then drag the picture from the browser to Kid3."
-msgstr "Vervolgens slepen afbeelding van de browser aan Kid3."
+msgstr "Sleep de afbeelding van de browser naar Kid3."
 
 #: gui/dialogs/browserdialog.cpp:76
 msgid "&Back"
-msgstr "&Terug"
+msgstr "&Vorige"
 
 #: gui/dialogs/browserdialog.cpp:81
 msgid "&Forward"
-msgstr "&Verder"
+msgstr "&Volgende"
 
 #: gui/dialogs/browserdialog.cpp:86
 msgid "&Find:"
@@ -919,7 +919,7 @@ msgstr "ID3v2"
 
 #: gui/dialogs/configdialog.cpp:200
 msgid "Use &track/total number of tracks format"
-msgstr "Gebruik &track/totaal aantal tracks structuur"
+msgstr "&Track/totaal aantal tracks structuur gebruiken"
 
 #: gui/dialogs/configdialog.cpp:202
 msgid "Track number &digits:"
@@ -991,7 +991,7 @@ msgstr "Opslaan"
 
 #: gui/dialogs/configdialog.cpp:286
 msgid "&Preserve file timestamp"
-msgstr "Be&hou timestamp van bestanden"
+msgstr "Tijd&stempel van bestanden behouden"
 
 #: gui/dialogs/configdialog.cpp:287
 msgid "&Mark changes"
@@ -1023,7 +1023,7 @@ msgstr "Context &Menu commando's"
 
 #: gui/dialogs/configdialog.cpp:322
 msgid "&Play on double click"
-msgstr "&Afspelen bij dubbelklik"
+msgstr "Afspelen bij &dubbelklik"
 
 #: gui/dialogs/configdialog.cpp:335
 msgid "User Actions"
@@ -1031,7 +1031,7 @@ msgstr "Gebruikersacties"
 
 #: gui/dialogs/configdialog.cpp:337
 msgid "&User Actions"
-msgstr "&Gebrukersacties"
+msgstr "&Gebruikeracties"
 
 #: gui/dialogs/configdialog.cpp:346
 msgid "Proxy"
@@ -1121,7 +1121,7 @@ msgstr "&Exporteren"
 
 #: gui/dialogs/editframefieldsdialog.cpp:526
 msgid "&View"
-msgstr "Beel&d"
+msgstr "&Beeld"
 
 #: gui/dialogs/editframefieldsdialog.cpp:656
 msgid "Text Encoding"
@@ -1201,7 +1201,7 @@ msgstr "Opmaak Tijdsaanduiding"
 
 #: gui/dialogs/editframefieldsdialog.cpp:678
 msgid "Content Type"
-msgstr "Inhoudstype"
+msgstr "Soort inhoud"
 
 #: gui/dialogs/editframefieldsdialog.cpp:805
 #: gui/dialogs/editframefieldsdialog.cpp:807
@@ -1244,7 +1244,7 @@ msgstr "Hoofd artiest/hoofd uitvoerende"
 
 #: gui/dialogs/editframefieldsdialog.cpp:880
 msgid "Artist/performer"
-msgstr "Artiest/uitvoerder"
+msgstr "Artiest/uitvoerende"
 
 #: gui/dialogs/editframefieldsdialog.cpp:882
 msgid "Band/Orchestra"
@@ -1252,7 +1252,7 @@ msgstr "Band/Orchest"
 
 #: gui/dialogs/editframefieldsdialog.cpp:884
 msgid "Lyricist/text writer"
-msgstr "tekstschrijver"
+msgstr "Tekstschrijver"
 
 #: gui/dialogs/editframefieldsdialog.cpp:885
 msgid "Recording Location"
@@ -1284,11 +1284,11 @@ msgstr "Artiest logotype"
 
 #: gui/dialogs/editframefieldsdialog.cpp:892
 msgid "Publisher/Studio logotype"
-msgstr "Uitgever"
+msgstr "Uitgever logotype"
 
 #: gui/dialogs/editframefieldsdialog.cpp:901
 msgid "MPEG frames as unit"
-msgstr "MPEG frames als eenheid"
+msgstr "MPEG frame als eenheid"
 
 #: gui/dialogs/editframefieldsdialog.cpp:902
 msgid "Milliseconds as unit"
@@ -1334,7 +1334,7 @@ msgstr "Tracks:"
 
 #: gui/dialogs/exportdialog.cpp:92
 msgid "Footer:"
-msgstr "Voetnoot:"
+msgstr "Voettekst:"
 
 #: gui/dialogs/exportdialog.cpp:104
 msgid "To F&ile"
@@ -1397,7 +1397,7 @@ msgstr "Toe&passen"
 
 #: gui/dialogs/importdialog.cpp:141
 msgid "From F&ile/Clipboard..."
-msgstr "Van Bestand/Klem&bord..."
+msgstr "Van Bestand/&Klembord..."
 
 #: gui/dialogs/importdialog.cpp:145
 msgid "From T&ags..."
@@ -1405,7 +1405,7 @@ msgstr "Van T&ags..."
 
 #: gui/dialogs/importdialog.cpp:149
 msgid "&From Server:"
-msgstr "&Van Server:"
+msgstr "Van &Server:"
 
 #: gui/dialogs/importdialog.cpp:158 gui/dialogs/musicbrainzdialog.cpp:65
 #: gui/forms/kid3mainwindow.cpp:264 gui/forms/kid3mainwindow.cpp:482
@@ -1438,7 +1438,7 @@ msgstr "&Lengte"
 
 #: gui/dialogs/importdialog.cpp:206
 msgid "T&rack"
-msgstr "Numme&r"
+msgstr "&Nummer"
 
 #: gui/dialogs/importdialog.cpp:209
 msgid "&Title"
@@ -1490,15 +1490,15 @@ msgstr "Speellijst bestandsnaam"
 
 #: gui/dialogs/playlistdialog.cpp:145
 msgid "Same as &directory name"
-msgstr "Gelijk aan &de mapnaam"
+msgstr "Bestandsnaam volgens &mapnaam"
 
 #: gui/dialogs/playlistdialog.cpp:147 gui/dialogs/rendirdialog.cpp:118
 msgid "&Format:"
-msgstr "Structuur:"
+msgstr "Bestandsnaam volgens $Structuur:"
 
 #: gui/dialogs/playlistdialog.cpp:156
 msgid "Cr&eate in:"
-msgstr "Aanmak&en in:"
+msgstr "$Bestand aanmaken in:"
 
 #: gui/dialogs/playlistdialog.cpp:160
 msgid "Current directory"
@@ -1514,11 +1514,11 @@ msgstr "Hoogste nivo map"
 
 #: gui/dialogs/playlistdialog.cpp:163
 msgid "Playlist Content"
-msgstr "Playlist inhoud"
+msgstr "Inhoud van speellijst"
 
 #: gui/dialogs/playlistdialog.cpp:164
 msgid "For&mat:"
-msgstr "&Structuur:"
+msgstr "&Computerbestandsformaat:"
 
 #: gui/dialogs/playlistdialog.cpp:167
 msgid "Incl&ude only the selected files"
@@ -1526,11 +1526,11 @@ msgstr "Alleen &geselecteerde bestanden meetellen"
 
 #: gui/dialogs/playlistdialog.cpp:168
 msgid "Sort by file &name"
-msgstr "Lijst sorteren bij bestands&naam"
+msgstr "Lijst sorteren op &bestandsnaam"
 
 #: gui/dialogs/playlistdialog.cpp:170
 msgid "Sort by &tag field"
-msgstr "Lijst sorteren bij label&veld"
+msgstr "Lijst sorteren op &tagveld"
 
 #: gui/dialogs/playlistdialog.cpp:184
 msgid "Use &relative path for files in playlist"
@@ -1538,7 +1538,7 @@ msgstr "Gebruik &relatief pad voor bestanden in lijst"
 
 #: gui/dialogs/playlistdialog.cpp:186
 msgid "Use full p&ath for files in playlist"
-msgstr "Gebruik volledig p&ad voor bestanden in lijst"
+msgstr "Gebruik &volledig pad voor bestanden in lijst"
 
 #: gui/dialogs/playlistdialog.cpp:187
 msgid "Write only &list of files"
@@ -1546,7 +1546,7 @@ msgstr "Bewaar enkel &lijst met bestanden"
 
 #: gui/dialogs/playlistdialog.cpp:189
 msgid "Write &info using"
-msgstr "Bewaar &info gebruik makend van"
+msgstr "Bewaar info &gebruik makend van"
 
 #: gui/dialogs/rendirdialog.cpp:60 gui/dialogs/rendirdialog.cpp:106
 #: gui/forms/kid3mainwindow.cpp:604
@@ -1635,7 +1635,7 @@ msgstr "He&rnoemen"
 
 #: gui/forms/filelist.cpp:139
 msgid "&Move to Trash"
-msgstr "Naar p&rullenbak verplaatsen"
+msgstr "Naar prullenbak verplaatsen"
 
 #: gui/forms/filelist.cpp:141 gui/forms/kid3mainwindow.cpp:308
 #: gui/forms/kid3mainwindow.cpp:655
@@ -1791,7 +1791,7 @@ msgstr "&Exporteren..."
 
 #: gui/forms/kid3mainwindow.cpp:279 gui/forms/kid3mainwindow.cpp:515
 msgid "&Create Playlist..."
-msgstr "&Afspeellijst aanmaken..."
+msgstr "&Speellijst aanmaken..."
 
 #: gui/forms/kid3mainwindow.cpp:282 gui/forms/kid3mainwindow.cpp:587
 msgid "Apply &Filename Format"
@@ -1799,7 +1799,7 @@ msgstr "&Bestandsnaamstructuur Toepassen"
 
 #: gui/forms/kid3mainwindow.cpp:285 gui/forms/kid3mainwindow.cpp:596
 msgid "Apply &Tag Format"
-msgstr "Tagstructuur &Toepassen"
+msgstr "&Tagstructuur Toepassen"
 
 #: gui/forms/kid3mainwindow.cpp:288 gui/forms/kid3mainwindow.cpp:605
 msgid "&Rename Directory..."
@@ -1831,7 +1831,7 @@ msgstr "Automatisch &verbergen"
 
 #: gui/forms/kid3mainwindow.cpp:320 gui/forms/kid3mainwindow.cpp:561
 msgid "&Previous File"
-msgstr "Vor&ig bestand"
+msgstr "&Vorig bestand"
 
 #: gui/forms/kid3mainwindow.cpp:324 gui/forms/kid3mainwindow.cpp:573
 msgid "&Next File"
@@ -1880,7 +1880,7 @@ msgstr "Exporteer naar bestand of klembord"
 
 #: gui/forms/kid3mainwindow.cpp:514
 msgid "Create M3U Playlist"
-msgstr "M3U afspeellijst aanmaken"
+msgstr "M3U speellijst aanmaken"
 
 #: gui/forms/kid3mainwindow.cpp:527
 msgid "&Quit"
@@ -1964,7 +1964,7 @@ msgstr "Kid3 instellen"
 
 #: gui/forms/kid3mainwindow.cpp:711
 msgid "&Configure Kid3..."
-msgstr "Kid3 in&stellen..."
+msgstr "&Kid3 instellen..."
 
 #: gui/forms/kid3mainwindow.cpp:728
 msgid "Kid3 &Handbook"
@@ -1976,7 +1976,7 @@ msgstr "Over Kid3"
 
 #: gui/forms/kid3mainwindow.cpp:739
 msgid "&About Kid3"
-msgstr "&Over Kid3"
+msgstr "Over &Kid3"
 
 #: gui/forms/kid3mainwindow.cpp:747
 msgid "About Qt"
@@ -2024,7 +2024,7 @@ msgstr "De statusbalk omschakelen..."
 
 #: gui/forms/kid3mainwindow.cpp:1261
 msgid "Creating playlist..."
-msgstr "Afspeellijst Aanmaken..."
+msgstr "Speellijst Aanmaken..."
 
 #: gui/forms/kid3mainwindow.cpp:1287
 msgid "Import"
@@ -2053,7 +2053,7 @@ msgstr "Frame toevoegen"
 
 #: gui/forms/kid3mainwindow.cpp:1812
 msgid "Select the frame ID"
-msgstr "Selecteer de frameidentiteit"
+msgstr "Selecteer de frame identiteit"
 
 #: gui/forms/kid3mainwindow.cpp:1900
 msgid "Rename File"
@@ -2233,21 +2233,21 @@ msgstr "Item bewerken"
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Kenny Verstraete"
+msgstr "Kenny Verstraete, Toon van Gerwen"
 
 #: rc.cpp:2
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "verstraete_kenny@skynet.be"
+msgstr "verstraete_kenny@skynet.be, toon@vgerwen.nl"
 
 #: rc.cpp:3
 msgid ""
 "_: NAME OF TRANSLATORS\n"
 "Your names"
-msgstr "Kenny Verstraete"
+msgstr "Kenny Verstraete, Toon van Gerwen"
 
 #: rc.cpp:4
 msgid ""
 "_: EMAIL OF TRANSLATORS\n"
 "Your emails"
-msgstr "verstraete_kenny@skynet.be"
+msgstr "verstraete_kenny@skynet.be, toon@vgerwen.nl"
