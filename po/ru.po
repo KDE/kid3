@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2012-03-12 21:11+0100\n"
+"POT-Creation-Date: 2012-07-16 21:00+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -32,23 +32,23 @@ msgstr "Действие"
 msgid "Shortcut"
 msgstr "Комбинация клавиш"
 
-#: core/formats/mp3file.cpp:1245 core/formats/taglibfile.cpp:1667
+#: core/formats/mp3file.cpp:1245 core/formats/taglibfile.cpp:1740
 msgid "AENC - Audio encryption"
 msgstr "AENC - Аудио-кодирование"
 
-#: core/formats/mp3file.cpp:1246 core/formats/taglibfile.cpp:1668
+#: core/formats/mp3file.cpp:1246 core/formats/taglibfile.cpp:1741
 msgid "APIC - Attached picture"
 msgstr "APIC - Прикрепленная картинка"
 
-#: core/formats/mp3file.cpp:1248 core/formats/taglibfile.cpp:1670
+#: core/formats/mp3file.cpp:1248 core/formats/taglibfile.cpp:1743
 msgid "COMM - Comments"
 msgstr "COMM - Комментарии"
 
-#: core/formats/mp3file.cpp:1249 core/formats/taglibfile.cpp:1671
+#: core/formats/mp3file.cpp:1249 core/formats/taglibfile.cpp:1744
 msgid "COMR - Commercial"
 msgstr "COMR - Реклама"
 
-#: core/formats/mp3file.cpp:1250 core/formats/taglibfile.cpp:1672
+#: core/formats/mp3file.cpp:1250 core/formats/taglibfile.cpp:1745
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - Encryption method registration"
 
@@ -56,15 +56,15 @@ msgstr "ENCR - Encryption method registration"
 msgid "EQUA - Equalization"
 msgstr "EQUA - Equalization"
 
-#: core/formats/mp3file.cpp:1253 core/formats/taglibfile.cpp:1674
+#: core/formats/mp3file.cpp:1253 core/formats/taglibfile.cpp:1747
 msgid "ETCO - Event timing codes"
 msgstr "ETCO - Event timing codes"
 
-#: core/formats/mp3file.cpp:1254 core/formats/taglibfile.cpp:1675
+#: core/formats/mp3file.cpp:1254 core/formats/taglibfile.cpp:1748
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - General encapsulated object"
 
-#: core/formats/mp3file.cpp:1255 core/formats/taglibfile.cpp:1676
+#: core/formats/mp3file.cpp:1255 core/formats/taglibfile.cpp:1749
 msgid "GRID - Group identification registration"
 msgstr "GRID - Group identification registration"
 
@@ -72,39 +72,39 @@ msgstr "GRID - Group identification registration"
 msgid "IPLS - Involved people list"
 msgstr "IPLS - Involved people list"
 
-#: core/formats/mp3file.cpp:1257 core/formats/taglibfile.cpp:1677
+#: core/formats/mp3file.cpp:1257 core/formats/taglibfile.cpp:1750
 msgid "LINK - Linked information"
 msgstr "LINK - Linked information"
 
-#: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1678
+#: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1751
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - Music CD identifier"
 
-#: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1679
+#: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1752
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - MPEG location lookup table"
 
-#: core/formats/mp3file.cpp:1260 core/formats/taglibfile.cpp:1680
+#: core/formats/mp3file.cpp:1260 core/formats/taglibfile.cpp:1753
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - Ownership frame"
 
-#: core/formats/mp3file.cpp:1261 core/formats/taglibfile.cpp:1681
+#: core/formats/mp3file.cpp:1261 core/formats/taglibfile.cpp:1754
 msgid "PRIV - Private frame"
 msgstr "PRIV - Private frame"
 
-#: core/formats/mp3file.cpp:1262 core/formats/taglibfile.cpp:1682
+#: core/formats/mp3file.cpp:1262 core/formats/taglibfile.cpp:1755
 msgid "PCNT - Play counter"
 msgstr "PCNT - Play counter"
 
-#: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1683
+#: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1756
 msgid "POPM - Popularimeter"
 msgstr "POPM - Popularimeter"
 
-#: core/formats/mp3file.cpp:1264 core/formats/taglibfile.cpp:1684
+#: core/formats/mp3file.cpp:1264 core/formats/taglibfile.cpp:1757
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - Position synchronisation frame"
 
-#: core/formats/mp3file.cpp:1265 core/formats/taglibfile.cpp:1685
+#: core/formats/mp3file.cpp:1265 core/formats/taglibfile.cpp:1758
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - Recommended buffer size"
 
@@ -112,35 +112,35 @@ msgstr "RBUF - Recommended buffer size"
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - Relative volume adjustment"
 
-#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1687
+#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1760
 msgid "RVRB - Reverb"
 msgstr "RVRB - Reverb"
 
-#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1690
+#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1763
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - Synchronized lyric/text"
 
-#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1691
+#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1764
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - Synchronized tempo codes"
 
-#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1692
+#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1765
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - Album/Movie/Show title"
 
-#: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1693
+#: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1766
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM (beats per minute)"
 
-#: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1695
+#: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1768
 msgid "TCOM - Composer"
 msgstr "TCOM - Composer"
 
-#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1696
+#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1769
 msgid "TCON - Content type"
 msgstr "TCON - Content type"
 
-#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1697
+#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1770
 msgid "TCOP - Copyright message"
 msgstr "TCOP - Copyright message"
 
@@ -148,19 +148,19 @@ msgstr "TCOP - Copyright message"
 msgid "TDAT - Date"
 msgstr "TDAT - Date"
 
-#: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1699
+#: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1772
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - Playlist delay"
 
-#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1704
+#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1777
 msgid "TENC - Encoded by"
 msgstr "TENC - Encoded by"
 
-#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1705
+#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1778
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - Lyricist/Text writer"
 
-#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1706
+#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1779
 msgid "TFLT - File type"
 msgstr "TFLT - File type"
 
@@ -168,47 +168,47 @@ msgstr "TFLT - File type"
 msgid "TIME - Time"
 msgstr "TIME - Time"
 
-#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1708
+#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1781
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - Content group description"
 
-#: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1709
+#: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1782
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - Title/songname/content description"
 
-#: core/formats/mp3file.cpp:1292 core/formats/taglibfile.cpp:1710
+#: core/formats/mp3file.cpp:1292 core/formats/taglibfile.cpp:1783
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 - Subtitle/Description refinement"
 
-#: core/formats/mp3file.cpp:1293 core/formats/taglibfile.cpp:1711
+#: core/formats/mp3file.cpp:1293 core/formats/taglibfile.cpp:1784
 msgid "TKEY - Initial key"
 msgstr "TKEY - Initial key"
 
-#: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1712
+#: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1785
 msgid "TLAN - Language(s)"
 msgstr "TLAN - Язык(и)"
 
-#: core/formats/mp3file.cpp:1295 core/formats/taglibfile.cpp:1713
+#: core/formats/mp3file.cpp:1295 core/formats/taglibfile.cpp:1786
 msgid "TLEN - Length"
 msgstr "TLEN - Длина"
 
-#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1715
+#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1788
 msgid "TMED - Media type"
 msgstr "TMED - Тип носителя"
 
-#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1717
+#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1790
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - Original album/movie/show title"
 
-#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1718
+#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1791
 msgid "TOFN - Original filename"
 msgstr "TOFN - Original filename"
 
-#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1719
+#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1792
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - Original lyricist(s)/text writer(s)"
 
-#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1720
+#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1793
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - Original artist(s)/performer(s)"
 
@@ -216,35 +216,35 @@ msgstr "TOPE - Original artist(s)/performer(s)"
 msgid "TORY - Original release year"
 msgstr "TORY - Original release year"
 
-#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1721
+#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1794
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - File owner/licensee"
 
-#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1722
+#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1795
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - Lead performer(s)/Soloist(s)"
 
-#: core/formats/mp3file.cpp:1306 core/formats/taglibfile.cpp:1723
+#: core/formats/mp3file.cpp:1306 core/formats/taglibfile.cpp:1796
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - Band/orchestra/accompaniment"
 
-#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1724
+#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1797
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 - Conductor/performer refinement"
 
-#: core/formats/mp3file.cpp:1308 core/formats/taglibfile.cpp:1725
+#: core/formats/mp3file.cpp:1308 core/formats/taglibfile.cpp:1798
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - Interpreted, remixed, or otherwise modified by"
 
-#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1726
+#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1799
 msgid "TPOS - Part of a set"
 msgstr "TPOS - Part of a set"
 
-#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1728
+#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1801
 msgid "TPUB - Publisher"
 msgstr "TPUB - Publisher"
 
-#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1729
+#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1802
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - Track number/Position in set"
 
@@ -252,11 +252,11 @@ msgstr "TRCK - Track number/Position in set"
 msgid "TRDA - Recording dates"
 msgstr "TRDA - Recording dates"
 
-#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1730
+#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1803
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - Internet radio station name"
 
-#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1731
+#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1804
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - Internet radio station owner"
 
@@ -264,15 +264,15 @@ msgstr "TRSO - Internet radio station owner"
 msgid "TSIZ - Size"
 msgstr "TSIZ - Size"
 
-#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1737
+#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1810
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ISRC (international standard recording code)"
 
-#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1738
+#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1811
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - Software/Hardware and settings used for encoding"
 
-#: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1740
+#: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1813
 msgid "TXXX - User defined text information"
 msgstr "TXXX - User defined text information"
 
@@ -280,135 +280,135 @@ msgstr "TXXX - User defined text information"
 msgid "TYER - Year"
 msgstr "TYER - Year"
 
-#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1741
+#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1814
 msgid "UFID - Unique file identifier"
 msgstr "UFID - Unique file identifier"
 
-#: core/formats/mp3file.cpp:1326 core/formats/taglibfile.cpp:1742
+#: core/formats/mp3file.cpp:1326 core/formats/taglibfile.cpp:1815
 msgid "USER - Terms of use"
 msgstr "USER - Terms of use"
 
-#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1743
+#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1816
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - Unsynchronized lyric/text transcription"
 
-#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1744
+#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1817
 msgid "WCOM - Commercial information"
 msgstr "WCOM - Commercial information"
 
-#: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1745
+#: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1818
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - Copyright/Legal information"
 
-#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1746
+#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1819
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - Official audio file webpage"
 
-#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1747
+#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1820
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - Official artist/performer webpage"
 
-#: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1748
+#: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1821
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS - Official audio source webpage"
 
-#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1749
+#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1822
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS - Official internet radio station homepage"
 
-#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1750
+#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1823
 msgid "WPAY - Payment"
 msgstr "WPAY - Payment"
 
-#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1751
+#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1824
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - Official publisher webpage"
 
-#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1752
+#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1825
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - User defined URL link"
 
-#: core/formats/taglibfile.cpp:1669
+#: core/formats/taglibfile.cpp:1742
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Audio seek point index"
 
-#: core/formats/taglibfile.cpp:1673
+#: core/formats/taglibfile.cpp:1746
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Equalisation (2)"
 
-#: core/formats/taglibfile.cpp:1686
+#: core/formats/taglibfile.cpp:1759
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Relative volume adjustment (2)"
 
-#: core/formats/taglibfile.cpp:1688
+#: core/formats/taglibfile.cpp:1761
 msgid "SEEK - Seek frame"
 msgstr "SEEK - Seek frame"
 
-#: core/formats/taglibfile.cpp:1689
+#: core/formats/taglibfile.cpp:1762
 msgid "SIGN - Signature frame"
 msgstr "SIGN - Signature frame"
 
-#: core/formats/taglibfile.cpp:1694
+#: core/formats/taglibfile.cpp:1767
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - iTunes сборник"
 
-#: core/formats/taglibfile.cpp:1698
+#: core/formats/taglibfile.cpp:1771
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Encoding time"
 
-#: core/formats/taglibfile.cpp:1700
+#: core/formats/taglibfile.cpp:1773
 msgid "TDOR - Original release time"
 msgstr "TDOR - Original release time"
 
-#: core/formats/taglibfile.cpp:1701
+#: core/formats/taglibfile.cpp:1774
 msgid "TDRC - Recording time"
 msgstr "TDRC - Recording time"
 
-#: core/formats/taglibfile.cpp:1702
+#: core/formats/taglibfile.cpp:1775
 msgid "TDRL - Release time"
 msgstr "TDRL - Release time"
 
-#: core/formats/taglibfile.cpp:1703
+#: core/formats/taglibfile.cpp:1776
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Tagging time"
 
-#: core/formats/taglibfile.cpp:1707
+#: core/formats/taglibfile.cpp:1780
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Involved people list"
 
-#: core/formats/taglibfile.cpp:1714
+#: core/formats/taglibfile.cpp:1787
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - Musician credits list"
 
-#: core/formats/taglibfile.cpp:1716
+#: core/formats/taglibfile.cpp:1789
 msgid "TMOO - Mood"
 msgstr "TMOO - Mood"
 
-#: core/formats/taglibfile.cpp:1727
+#: core/formats/taglibfile.cpp:1800
 msgid "TPRO - Produced notice"
 msgstr "TPRO - Produced notice"
 
-#: core/formats/taglibfile.cpp:1732
+#: core/formats/taglibfile.cpp:1805
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - Порядок сортировки исполнителей альбомов"
 
-#: core/formats/taglibfile.cpp:1733
+#: core/formats/taglibfile.cpp:1806
 msgid "TSOA - Album sort order"
 msgstr "TSOA - Album sort order"
 
-#: core/formats/taglibfile.cpp:1734
+#: core/formats/taglibfile.cpp:1807
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - порядок композитор рода"
 
-#: core/formats/taglibfile.cpp:1735
+#: core/formats/taglibfile.cpp:1808
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - Performer sort order"
 
-#: core/formats/taglibfile.cpp:1736
+#: core/formats/taglibfile.cpp:1809
 msgid "TSOT - Title sort order"
 msgstr "TSOT - Title sort order"
 
-#: core/formats/taglibfile.cpp:1739
+#: core/formats/taglibfile.cpp:1812
 msgid "TSST - Set subtitle"
 msgstr "TSST - Set subtitle"
 
@@ -424,41 +424,25 @@ msgstr "Discogs"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: core/import/httpclient.cpp:72 core/import/httpclient.cpp:84
-#: core/import/httpclient.cpp:133 core/model/downloadclient.cpp:62
+#: core/import/httpclient.cpp:60 core/import/httpclient.cpp:91
+msgid "Data received: %1"
+msgstr "Полученные сведения: %1"
+
+#: core/import/httpclient.cpp:72 core/model/downloadclient.cpp:62
 #: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:165
 #: gui/forms/kid3mainwindow.cpp:794 gui/forms/kid3mainwindow.cpp:947
 #: gui/forms/kid3mainwindow.cpp:1186 gui/forms/kid3mainwindow.cpp:1265
 msgid "Ready."
 msgstr "Готово."
 
-#: core/import/httpclient.cpp:75
-msgid "Connecting..."
-msgstr "Соединение..."
+#: core/import/httpclient.cpp:74 core/import/musicbrainzclient.cpp:296
+#: core/model/dirrenamer.cpp:462
+msgid "Error"
+msgstr "Ошибка"
 
-#: core/import/httpclient.cpp:78
-msgid "Host found..."
-msgstr "Сервер найден..."
-
-#: core/import/httpclient.cpp:81
+#: core/import/httpclient.cpp:146
 msgid "Request sent..."
 msgstr "Передано..."
-
-#: core/import/httpclient.cpp:94 core/import/httpclient.cpp:104
-msgid "Data received: %1"
-msgstr "Полученные сведения: %1"
-
-#: core/import/httpclient.cpp:117
-msgid "Socket error: "
-msgstr "Ошибка сокета:"
-
-#: core/import/httpclient.cpp:120
-msgid "Connection refused"
-msgstr "Соединение отвергнуто"
-
-#: core/import/httpclient.cpp:123
-msgid "Host not found"
-msgstr "Сервер не найден"
 
 #: core/import/importparser.cpp:66 core/tags/frame.cpp:898
 msgid "Year"
@@ -469,31 +453,27 @@ msgstr "Год"
 msgid "Length"
 msgstr "Длительность"
 
-#: core/import/musicbrainzclient.cpp:250
+#: core/import/musicbrainzclient.cpp:253
 msgid "Unrecognized"
 msgstr "Непризнанный"
 
-#: core/import/musicbrainzclient.cpp:262
+#: core/import/musicbrainzclient.cpp:265
 msgid "Recognized"
 msgstr "Признанный"
 
-#: core/import/musicbrainzclient.cpp:265
+#: core/import/musicbrainzclient.cpp:268
 msgid "User Selection"
 msgstr "Выбор"
 
-#: core/import/musicbrainzclient.cpp:288
+#: core/import/musicbrainzclient.cpp:291
 msgid "Fingerprint"
 msgstr "Отпечатка пальцев"
 
-#: core/import/musicbrainzclient.cpp:293 core/model/dirrenamer.cpp:443
-msgid "Error"
-msgstr "Ошибка"
-
-#: core/import/musicbrainzclient.cpp:297
+#: core/import/musicbrainzclient.cpp:300
 msgid "ID Lookup"
 msgstr "Поиск ID"
 
-#: core/import/musicbrainzclient.cpp:310
+#: core/import/musicbrainzclient.cpp:313
 msgid "Metadata Lookup"
 msgstr "Чтение метаданных"
 
@@ -505,19 +485,19 @@ msgstr "MusicBrainz альбом"
 msgid "TrackType.org"
 msgstr "TrackType.org"
 
-#: core/model/commandformatreplacer.cpp:140
+#: core/model/commandformatreplacer.cpp:144
 msgid "Filenames"
 msgstr "Имена файлов"
 
-#: core/model/commandformatreplacer.cpp:148
+#: core/model/commandformatreplacer.cpp:152
 msgid "URLs"
 msgstr "URL"
 
-#: core/model/commandformatreplacer.cpp:152
+#: core/model/commandformatreplacer.cpp:156
 msgid "Directory name"
 msgstr "Имя каталога"
 
-#: core/model/commandformatreplacer.cpp:160
+#: core/model/commandformatreplacer.cpp:164
 #: gui/dialogs/browsecoverartdialog.cpp:58
 msgid "Encode as URL"
 msgstr "Кодировать URL"
@@ -538,63 +518,63 @@ msgstr "Имя"
 msgid "Command"
 msgstr "Команда"
 
-#: core/model/dirrenamer.cpp:71 core/model/dirrenamer.cpp:90
+#: core/model/dirrenamer.cpp:73 core/model/dirrenamer.cpp:92
 msgid "Create directory %1 failed\n"
 msgstr "Сбой попытки создания требуемого каталога %1\n"
 
-#: core/model/dirrenamer.cpp:97 core/model/dirrenamer.cpp:118
+#: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:122
 msgid "File %1 already exists\n"
 msgstr "Файл %1 уже существует\n"
 
-#: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:124
+#: core/model/dirrenamer.cpp:101 core/model/dirrenamer.cpp:128
 msgid "%1 is not a directory\n"
 msgstr "%1 - это не каталог\n"
 
-#: core/model/dirrenamer.cpp:101 core/model/dirrenamer.cpp:132
-#: core/model/dirrenamer.cpp:175 gui/forms/kid3mainwindow.cpp:1922
+#: core/model/dirrenamer.cpp:103 core/model/dirrenamer.cpp:140
+#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:1923
 msgid "Rename %1 to %2 failed\n"
 msgstr "Ошибка переименование из %1 в %2\n"
 
-#: core/model/dirrenamer.cpp:139 core/model/dirrenamer.cpp:161
+#: core/model/dirrenamer.cpp:147 core/model/dirrenamer.cpp:170
 msgid "%1 already exists\n"
 msgstr "%1 уже существует\n"
 
-#: core/model/dirrenamer.cpp:141 core/model/dirrenamer.cpp:167
+#: core/model/dirrenamer.cpp:149 core/model/dirrenamer.cpp:176
 msgid "%1 is not a file\n"
 msgstr "%1 не является файлом\n"
 
-#: core/model/dirrenamer.cpp:390
+#: core/model/dirrenamer.cpp:408
 msgid "New directory name is too different\n"
 msgstr "Новое название каталога слишком отлично\n"
 
-#: core/model/dirrenamer.cpp:440
+#: core/model/dirrenamer.cpp:459
 msgid "Create directory"
 msgstr "Создать Каталог"
 
-#: core/model/dirrenamer.cpp:441
+#: core/model/dirrenamer.cpp:460
 msgid "Rename directory"
 msgstr "Переименовать Каталог"
 
-#: core/model/dirrenamer.cpp:442
+#: core/model/dirrenamer.cpp:461
 msgid "Rename file"
 msgstr "Переименовать файл"
 
-#: core/model/externalprocess.cpp:54
+#: core/model/externalprocess.cpp:56
 msgid "C&lear"
 msgstr "О&чистить"
 
-#: core/model/externalprocess.cpp:57 gui/dialogs/browserdialog.cpp:118
+#: core/model/externalprocess.cpp:59 gui/dialogs/browserdialog.cpp:118
 #: gui/dialogs/exportdialog.cpp:147 gui/dialogs/filterdialog.cpp:86
 #: gui/dialogs/serverimportdialog.cpp:109 gui/dialogs/tagimportdialog.cpp:80
 #: gui/dialogs/textimportdialog.cpp:94 gui/widgets/imageviewer.cpp:55
 msgid "&Close"
 msgstr "&Закрыть"
 
-#: core/model/externalprocess.cpp:116
+#: core/model/externalprocess.cpp:162
 msgid "Execute "
 msgstr "Выполнить "
 
-#: core/model/externalprocess.cpp:152
+#: core/model/externalprocess.cpp:195
 msgid "Could not execute "
 msgstr "Не удалось запустить "
 
@@ -627,11 +607,11 @@ msgstr "Логического отрицания"
 msgid "Data"
 msgstr "Дата"
 
-#: core/model/kid3application.cpp:1779 core/model/kid3application.cpp:1783
+#: core/model/kid3application.cpp:1790 core/model/kid3application.cpp:1794
 msgid "All Supported Files"
 msgstr "Все поддерживаемые файлы"
 
-#: core/model/kid3application.cpp:1781 core/model/kid3application.cpp:1787
+#: core/model/kid3application.cpp:1792 core/model/kid3application.cpp:1798
 #: gui/dialogs/editframefieldsdialog.cpp:805
 #: gui/dialogs/editframefieldsdialog.cpp:807
 msgid "All Files (*)"
@@ -647,7 +627,7 @@ msgid "Absolute path to file"
 msgstr "Абсолютный путь"
 
 #: core/model/trackdatamodel.cpp:199 gui/dialogs/editframefieldsdialog.cpp:664
-#: gui/forms/kid3form.cpp:894 gui/forms/kid3mainwindow.cpp:367
+#: gui/forms/kid3form.cpp:895 gui/forms/kid3mainwindow.cpp:367
 #: gui/forms/kid3mainwindow.cpp:370 gui/forms/kid3mainwindow.cpp:373
 msgid "Filename"
 msgstr "Имя файла"
@@ -816,7 +796,7 @@ msgstr "Кодек"
 msgid "Kid3 ID3 Tagger"
 msgstr "Kid3 Редактор тэгов ID3"
 
-#: gui/app/main.cpp:54 gui/forms/kid3form.cpp:175
+#: gui/app/main.cpp:54 gui/forms/kid3form.cpp:176
 msgid "Kid3"
 msgstr "Kid3"
 
@@ -867,7 +847,7 @@ msgstr "Картинка URL"
 
 #: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:439
 #: gui/dialogs/exportdialog.cpp:133 gui/dialogs/filterdialog.cpp:71
-#: gui/dialogs/importdialog.cpp:225 gui/dialogs/musicbrainzdialog.cpp:116
+#: gui/dialogs/importdialog.cpp:228 gui/dialogs/musicbrainzdialog.cpp:118
 #: gui/dialogs/numbertracksdialog.cpp:106 gui/dialogs/playlistdialog.cpp:201
 #: gui/dialogs/serverimportdialog.cpp:107 gui/dialogs/tagimportdialog.cpp:67
 #: gui/dialogs/textimportdialog.cpp:77 gui/forms/kid3mainwindow.cpp:724
@@ -875,8 +855,8 @@ msgid "&Help"
 msgstr "Помо&щь"
 
 #: gui/dialogs/browsecoverartdialog.cpp:137 gui/dialogs/exportdialog.cpp:138
-#: gui/dialogs/filterdialog.cpp:76 gui/dialogs/importdialog.cpp:227
-#: gui/dialogs/musicbrainzdialog.cpp:117
+#: gui/dialogs/filterdialog.cpp:76 gui/dialogs/importdialog.cpp:230
+#: gui/dialogs/musicbrainzdialog.cpp:119
 #: gui/dialogs/numbertracksdialog.cpp:110 gui/dialogs/playlistdialog.cpp:205
 #: gui/dialogs/rendirdialog.cpp:76 gui/dialogs/serverimportdialog.cpp:108
 #: gui/dialogs/tagimportdialog.cpp:71 gui/dialogs/textimportdialog.cpp:81
@@ -889,8 +869,8 @@ msgstr "&Браузер"
 
 #: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:441
 #: gui/dialogs/editframedialog.cpp:58
-#: gui/dialogs/editframefieldsdialog.cpp:961 gui/dialogs/importdialog.cpp:231
-#: gui/dialogs/musicbrainzdialog.cpp:120
+#: gui/dialogs/editframefieldsdialog.cpp:961 gui/dialogs/importdialog.cpp:234
+#: gui/dialogs/musicbrainzdialog.cpp:122
 #: gui/dialogs/numbertracksdialog.cpp:123 gui/dialogs/playlistdialog.cpp:216
 msgid "&Cancel"
 msgstr "О&тмена"
@@ -1101,8 +1081,8 @@ msgid "Use custom application &style"
 msgstr "Использовать выбранный &стиль приложения"
 
 #: gui/dialogs/configdialog.cpp:417 gui/dialogs/configdialog.cpp:707
-#: gui/dialogs/musicbrainzdialog.cpp:177 gui/dialogs/musicbrainzdialog.cpp:181
-#: gui/dialogs/musicbrainzdialog.cpp:196
+#: gui/dialogs/musicbrainzdialog.cpp:186 gui/dialogs/musicbrainzdialog.cpp:190
+#: gui/dialogs/musicbrainzdialog.cpp:205
 msgid "Unknown"
 msgstr "Неизвестен"
 
@@ -1115,8 +1095,8 @@ msgid "&Appearance"
 msgstr "&Внешний вид"
 
 #: gui/dialogs/configdialog.cpp:440 gui/dialogs/editframedialog.cpp:57
-#: gui/dialogs/editframefieldsdialog.cpp:960 gui/dialogs/importdialog.cpp:229
-#: gui/dialogs/musicbrainzdialog.cpp:118
+#: gui/dialogs/editframefieldsdialog.cpp:960 gui/dialogs/importdialog.cpp:232
+#: gui/dialogs/musicbrainzdialog.cpp:120
 #: gui/dialogs/numbertracksdialog.cpp:119 gui/dialogs/playlistdialog.cpp:213
 msgid "&OK"
 msgstr "&ОК"
@@ -1342,8 +1322,8 @@ msgid "Export"
 msgstr "Экспорт"
 
 #: gui/dialogs/exportdialog.cpp:89 gui/dialogs/tagimportdialog.cpp:57
-#: gui/dialogs/textimportdialog.cpp:67 gui/forms/kid3form.cpp:218
-#: gui/forms/kid3form.cpp:242
+#: gui/dialogs/textimportdialog.cpp:67 gui/forms/kid3form.cpp:219
+#: gui/forms/kid3form.cpp:243
 msgid "Format:"
 msgstr "Формат:"
 
@@ -1371,18 +1351,18 @@ msgstr "В &Буфера Обмена"
 msgid "&Source:"
 msgstr "&Источник:"
 
-#: gui/dialogs/exportdialog.cpp:122 gui/dialogs/importdialog.cpp:166
-#: gui/dialogs/numbertracksdialog.cpp:78 gui/forms/kid3form.cpp:235
-#: gui/forms/kid3form.cpp:260 gui/forms/kid3form.cpp:899
+#: gui/dialogs/exportdialog.cpp:122 gui/dialogs/importdialog.cpp:169
+#: gui/dialogs/numbertracksdialog.cpp:78 gui/forms/kid3form.cpp:236
+#: gui/forms/kid3form.cpp:261 gui/forms/kid3form.cpp:900
 #: gui/forms/kid3mainwindow.cpp:328 gui/forms/kid3mainwindow.cpp:331
 #: gui/forms/kid3mainwindow.cpp:334 gui/forms/kid3mainwindow.cpp:337
 #: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:376
 msgid "Tag 1"
 msgstr "Тег 1"
 
-#: gui/dialogs/exportdialog.cpp:123 gui/dialogs/importdialog.cpp:167
-#: gui/dialogs/numbertracksdialog.cpp:79 gui/forms/kid3form.cpp:238
-#: gui/forms/kid3form.cpp:264 gui/forms/kid3form.cpp:906
+#: gui/dialogs/exportdialog.cpp:123 gui/dialogs/importdialog.cpp:170
+#: gui/dialogs/numbertracksdialog.cpp:79 gui/forms/kid3form.cpp:239
+#: gui/forms/kid3form.cpp:265 gui/forms/kid3form.cpp:907
 #: gui/forms/kid3mainwindow.cpp:343 gui/forms/kid3mainwindow.cpp:346
 #: gui/forms/kid3mainwindow.cpp:349 gui/forms/kid3mainwindow.cpp:352
 #: gui/forms/kid3mainwindow.cpp:355 gui/forms/kid3mainwindow.cpp:379
@@ -1390,9 +1370,9 @@ msgid "Tag 2"
 msgstr "Тег 2"
 
 #: gui/dialogs/exportdialog.cpp:180 gui/forms/kid3mainwindow.cpp:938
-#: gui/forms/kid3mainwindow.cpp:941 gui/forms/kid3mainwindow.cpp:1449
-#: gui/forms/kid3mainwindow.cpp:1452 gui/forms/kid3mainwindow.cpp:1920
-#: gui/forms/kid3mainwindow.cpp:2001 gui/forms/kid3mainwindow.cpp:2004
+#: gui/forms/kid3mainwindow.cpp:941 gui/forms/kid3mainwindow.cpp:1450
+#: gui/forms/kid3mainwindow.cpp:1453 gui/forms/kid3mainwindow.cpp:1921
+#: gui/forms/kid3mainwindow.cpp:2002 gui/forms/kid3mainwindow.cpp:2005
 msgid "File Error"
 msgstr "Ошибка файла"
 
@@ -1413,77 +1393,77 @@ msgstr "&Фильтр:"
 msgid "&Expression:"
 msgstr "&Выражение:"
 
-#: gui/dialogs/filterdialog.cpp:85 gui/dialogs/musicbrainzdialog.cpp:119
+#: gui/dialogs/filterdialog.cpp:85 gui/dialogs/musicbrainzdialog.cpp:121
 #: gui/dialogs/tagimportdialog.cpp:76
 msgid "&Apply"
 msgstr "&Применить"
 
-#: gui/dialogs/importdialog.cpp:138
+#: gui/dialogs/importdialog.cpp:141
 msgid "From F&ile/Clipboard..."
 msgstr "Из файл или &буфер обмена..."
 
-#: gui/dialogs/importdialog.cpp:142
+#: gui/dialogs/importdialog.cpp:145
 msgid "From T&ags..."
 msgstr "Из т&ег..."
 
-#: gui/dialogs/importdialog.cpp:146
+#: gui/dialogs/importdialog.cpp:149
 msgid "&From Server:"
 msgstr "&Из сервер:"
 
-#: gui/dialogs/importdialog.cpp:155 gui/dialogs/musicbrainzdialog.cpp:63
+#: gui/dialogs/importdialog.cpp:158 gui/dialogs/musicbrainzdialog.cpp:65
 #: gui/forms/kid3mainwindow.cpp:264 gui/forms/kid3mainwindow.cpp:482
 msgid "MusicBrainz Fingerprint"
 msgstr "MusicBrainz \"отпечатка пальцев\""
 
-#: gui/dialogs/importdialog.cpp:162
+#: gui/dialogs/importdialog.cpp:165
 msgid "D&estination:"
 msgstr "М&есто назначения:"
 
-#: gui/dialogs/importdialog.cpp:168 gui/dialogs/numbertracksdialog.cpp:80
+#: gui/dialogs/importdialog.cpp:171 gui/dialogs/numbertracksdialog.cpp:80
 msgid "Tag 1 and Tag 2"
 msgstr "Тег 1 и тег 2"
 
-#: gui/dialogs/importdialog.cpp:179
+#: gui/dialogs/importdialog.cpp:182
 msgid "Revert"
 msgstr "Отменить"
 
-#: gui/dialogs/importdialog.cpp:190
+#: gui/dialogs/importdialog.cpp:193
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Проверить максимальную допустимую &разницу во времени (секунды):"
 
-#: gui/dialogs/importdialog.cpp:198
+#: gui/dialogs/importdialog.cpp:201
 msgid "Match with:"
 msgstr "Состязание с:"
 
-#: gui/dialogs/importdialog.cpp:200
+#: gui/dialogs/importdialog.cpp:203
 msgid "&Length"
 msgstr "&Длительность"
 
-#: gui/dialogs/importdialog.cpp:203
+#: gui/dialogs/importdialog.cpp:206
 msgid "T&rack"
 msgstr "&Дорожка"
 
-#: gui/dialogs/importdialog.cpp:206
+#: gui/dialogs/importdialog.cpp:209
 msgid "&Title"
 msgstr "&Название"
 
-#: gui/dialogs/musicbrainzdialog.cpp:69 gui/dialogs/serverimportdialog.cpp:80
+#: gui/dialogs/musicbrainzdialog.cpp:71 gui/dialogs/serverimportdialog.cpp:80
 msgid "&Server:"
 msgstr "&Сервер:"
 
-#: gui/dialogs/musicbrainzdialog.cpp:108
+#: gui/dialogs/musicbrainzdialog.cpp:110
 msgid "Track Title/Artist - Album"
 msgstr "Число Название/Исполнитель - Альбом"
 
-#: gui/dialogs/musicbrainzdialog.cpp:109
+#: gui/dialogs/musicbrainzdialog.cpp:111
 msgid "State"
 msgstr "Состояние"
 
-#: gui/dialogs/musicbrainzdialog.cpp:177 gui/dialogs/musicbrainzdialog.cpp:332
+#: gui/dialogs/musicbrainzdialog.cpp:186 gui/dialogs/musicbrainzdialog.cpp:326
 msgid "No result"
 msgstr "Не удалось найти"
 
-#: gui/dialogs/musicbrainzdialog.cpp:332
+#: gui/dialogs/musicbrainzdialog.cpp:326
 msgid "No result selected"
 msgstr "Никакой отобранный результат"
 
@@ -1592,23 +1572,23 @@ msgstr "Создать Каталог"
 msgid "From Tag 2 and Tag 1"
 msgstr "Из тег 2 и тег 1"
 
-#: gui/dialogs/rendirdialog.cpp:111 gui/forms/kid3form.cpp:333
-#: gui/forms/kid3form.cpp:896 gui/forms/kid3form.cpp:908
+#: gui/dialogs/rendirdialog.cpp:111 gui/forms/kid3form.cpp:334
+#: gui/forms/kid3form.cpp:897 gui/forms/kid3form.cpp:909
 #: gui/forms/kid3mainwindow.cpp:346 gui/forms/kid3mainwindow.cpp:367
 msgid "From Tag 1"
 msgstr "Из тег 1"
 
-#: gui/dialogs/rendirdialog.cpp:112 gui/forms/kid3form.cpp:293
-#: gui/forms/kid3form.cpp:897 gui/forms/kid3form.cpp:901
+#: gui/dialogs/rendirdialog.cpp:112 gui/forms/kid3form.cpp:294
+#: gui/forms/kid3form.cpp:898 gui/forms/kid3form.cpp:902
 #: gui/forms/kid3mainwindow.cpp:331 gui/forms/kid3mainwindow.cpp:370
 msgid "From Tag 2"
 msgstr "Из тег 2"
 
-#: gui/dialogs/rendirdialog.cpp:140 gui/forms/kid3form.cpp:233
+#: gui/dialogs/rendirdialog.cpp:140 gui/forms/kid3form.cpp:234
 msgid "From:"
 msgstr "От:"
 
-#: gui/dialogs/rendirdialog.cpp:142 gui/forms/kid3form.cpp:257
+#: gui/dialogs/rendirdialog.cpp:142 gui/forms/kid3form.cpp:258
 msgid "To:"
 msgstr "На:"
 
@@ -1665,79 +1645,79 @@ msgstr "&Выбросить в корзину"
 msgid "&Play"
 msgstr "&Играть"
 
-#: gui/forms/kid3form.cpp:198 gui/forms/kid3form.cpp:852
-#: gui/forms/kid3form.cpp:854
+#: gui/forms/kid3form.cpp:199 gui/forms/kid3form.cpp:853
+#: gui/forms/kid3form.cpp:855
 msgid "F&ile"
 msgstr "Ф&айлы"
 
-#: gui/forms/kid3form.cpp:211
+#: gui/forms/kid3form.cpp:212
 msgid "Name:"
 msgstr "Имя:"
 
-#: gui/forms/kid3form.cpp:236
+#: gui/forms/kid3form.cpp:237
 msgid "Filename from Tag 1"
 msgstr "Имя файла из тег 1"
 
-#: gui/forms/kid3form.cpp:239
+#: gui/forms/kid3form.cpp:240
 msgid "Filename from Tag 2"
 msgstr "Имя файла из тег 2"
 
-#: gui/forms/kid3form.cpp:261
+#: gui/forms/kid3form.cpp:262
 msgid "Tag 1 from Filename"
 msgstr "Тег 1 из имени файла"
 
-#: gui/forms/kid3form.cpp:265
+#: gui/forms/kid3form.cpp:266
 msgid "Tag 2 from Filename"
 msgstr "Тег 1 из имени файла"
 
-#: gui/forms/kid3form.cpp:271 gui/forms/kid3form.cpp:589
+#: gui/forms/kid3form.cpp:272 gui/forms/kid3form.cpp:590
 msgid "Tag &1"
 msgstr "Тег &1"
 
-#: gui/forms/kid3form.cpp:296 gui/forms/kid3form.cpp:337
-#: gui/forms/kid3form.cpp:902 gui/forms/kid3form.cpp:909
+#: gui/forms/kid3form.cpp:297 gui/forms/kid3form.cpp:338
+#: gui/forms/kid3form.cpp:903 gui/forms/kid3form.cpp:910
 #: gui/forms/kid3mainwindow.cpp:334 gui/forms/kid3mainwindow.cpp:349
 msgid "Copy"
 msgstr "Копировать"
 
-#: gui/forms/kid3form.cpp:300 gui/forms/kid3form.cpp:341
-#: gui/forms/kid3form.cpp:903 gui/forms/kid3form.cpp:910
+#: gui/forms/kid3form.cpp:301 gui/forms/kid3form.cpp:342
+#: gui/forms/kid3form.cpp:904 gui/forms/kid3form.cpp:911
 #: gui/forms/kid3mainwindow.cpp:337 gui/forms/kid3mainwindow.cpp:352
 msgid "Paste"
 msgstr "Вставить"
 
-#: gui/forms/kid3form.cpp:304 gui/forms/kid3form.cpp:345
-#: gui/forms/kid3form.cpp:904 gui/forms/kid3form.cpp:911
+#: gui/forms/kid3form.cpp:305 gui/forms/kid3form.cpp:346
+#: gui/forms/kid3form.cpp:905 gui/forms/kid3form.cpp:912
 #: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:355
 msgid "Remove"
 msgstr "Удалить"
 
-#: gui/forms/kid3form.cpp:313 gui/forms/kid3form.cpp:604
+#: gui/forms/kid3form.cpp:314 gui/forms/kid3form.cpp:605
 msgid "Tag &2"
 msgstr "Тег &2"
 
-#: gui/forms/kid3form.cpp:351 gui/forms/kid3form.cpp:912
+#: gui/forms/kid3form.cpp:352 gui/forms/kid3form.cpp:913
 #: gui/forms/kid3mainwindow.cpp:358
 msgid "Edit"
 msgstr "Правка"
 
-#: gui/forms/kid3form.cpp:354 gui/forms/kid3form.cpp:913
+#: gui/forms/kid3form.cpp:355 gui/forms/kid3form.cpp:914
 #: gui/forms/kid3mainwindow.cpp:361
 msgid "Add"
 msgstr "Добавить"
 
-#: gui/forms/kid3form.cpp:357 gui/forms/kid3form.cpp:914
+#: gui/forms/kid3form.cpp:358 gui/forms/kid3form.cpp:915
 #: gui/forms/kid3mainwindow.cpp:364
 msgid "Delete"
 msgstr "Удалить"
 
-#: gui/forms/kid3form.cpp:898 gui/forms/kid3form.cpp:905
-#: gui/forms/kid3form.cpp:915 gui/forms/kid3mainwindow.cpp:373
+#: gui/forms/kid3form.cpp:899 gui/forms/kid3form.cpp:906
+#: gui/forms/kid3form.cpp:916 gui/forms/kid3mainwindow.cpp:373
 #: gui/forms/kid3mainwindow.cpp:376 gui/forms/kid3mainwindow.cpp:379
 msgid "Focus"
 msgstr "Фокус"
 
-#: gui/forms/kid3form.cpp:900 gui/forms/kid3form.cpp:907
+#: gui/forms/kid3form.cpp:901 gui/forms/kid3form.cpp:908
 #: gui/forms/kid3mainwindow.cpp:328 gui/forms/kid3mainwindow.cpp:343
 msgid "From Filename"
 msgstr "Из имени файла"
@@ -2053,36 +2033,36 @@ msgstr "Создание списка песен..."
 msgid "Import"
 msgstr "Импорт"
 
-#: gui/forms/kid3mainwindow.cpp:1400
+#: gui/forms/kid3mainwindow.cpp:1401
 msgid "Configure - Kid3"
 msgstr "Настройка - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1448 gui/forms/kid3mainwindow.cpp:1453
-#: gui/forms/kid3mainwindow.cpp:1921
+#: gui/forms/kid3mainwindow.cpp:1449 gui/forms/kid3mainwindow.cpp:1454
+#: gui/forms/kid3mainwindow.cpp:1922
 msgid "Error while renaming:\n"
 msgstr "Ошибка переименование:\n"
 
-#: gui/forms/kid3mainwindow.cpp:1562
+#: gui/forms/kid3mainwindow.cpp:1563
 msgid " [filtered]"
 msgstr " [фильтровано]"
 
-#: gui/forms/kid3mainwindow.cpp:1568
+#: gui/forms/kid3mainwindow.cpp:1569
 msgid " [modified]"
 msgstr " [изменено]"
 
-#: gui/forms/kid3mainwindow.cpp:1810
+#: gui/forms/kid3mainwindow.cpp:1811
 msgid "Add Frame"
 msgstr "Добавить Фрейм"
 
-#: gui/forms/kid3mainwindow.cpp:1811
+#: gui/forms/kid3mainwindow.cpp:1812
 msgid "Select the frame ID"
 msgstr "Выбрать ID фрейма"
 
-#: gui/forms/kid3mainwindow.cpp:1899
+#: gui/forms/kid3mainwindow.cpp:1900
 msgid "Rename File"
 msgstr "Переименовать файл"
 
-#: gui/forms/kid3mainwindow.cpp:1900
+#: gui/forms/kid3mainwindow.cpp:1901
 msgid "Enter new file name:"
 msgstr "Введите новое имя файла:"
 
@@ -2091,6 +2071,7 @@ msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Вы действительно хотите переместить %1 элементов в корзину?"
 
 #: gui/forms/kid3mainwindow.cpp:1957 gui/forms/kid3mainwindow.cpp:1971
+#, fuzzy, kde-format
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
 msgstr[0] "Переместить в корзину?"
@@ -2101,11 +2082,11 @@ msgstr[2] "Вы действительно хотите переместить %
 msgid "Move to Trash"
 msgstr "Выбросить в корзину"
 
-#: gui/forms/kid3mainwindow.cpp:1998
+#: gui/forms/kid3mainwindow.cpp:1999
 msgid "Directory must be empty.\n"
 msgstr "Каталог должен быть пустым.\n"
 
-#: gui/forms/kid3mainwindow.cpp:1999
+#: gui/forms/kid3mainwindow.cpp:2000
 msgid "Could not move these files to the Trash"
 msgstr "Не удалось переместить элементы в корзину"
 
