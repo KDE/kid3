@@ -3290,7 +3290,7 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
       return TagLib::MP4::Item(coverArtList);
     }
 #endif
-#ifdef HAVE_TAGLIB_MP4_UINTTYPES
+#if TAGLIB_VERSION >= 0x010800
     case MVT_Byte:
       return TagLib::MP4::Item(static_cast<uchar>(frame.getValue().toInt()));
     case MVT_UInt:
@@ -4544,7 +4544,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
             break;
           }
 #endif
-#ifdef HAVE_TAGLIB_MP4_UINTTYPES
+#if TAGLIB_VERSION >= 0x010800
           case MVT_Byte:
             value.setNum((*it).second.toByte());
             break;

@@ -97,8 +97,8 @@ wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.or
 
 #test -f taglib_1.7-1.debian.tar.gz ||
 #wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7-1.debian.tar.gz
-test -f taglib-1.7.2.tar.gz ||
-wget http://developer.kde.org/~wheeler/files/src/taglib-1.7.2.tar.gz
+test -f taglib-1.8.tar.gz ||
+wget https://github.com/downloads/taglib/taglib/taglib-1.8.tar.gz
 
 test -f zlib_1.2.7.dfsg-13.debian.tar.gz ||
 wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13.debian.tar.gz
@@ -263,268 +263,6 @@ diff -ru id3lib-3.8.3.orig/include/id3/globals.h id3lib-3.8.3/include/id3/global
  #  define LINKOPTION_USE_DYNAMIC    3 //if your project links id3lib dynamic
 EOF
 
-test -f taglib-mp4-uinttypes.patch ||
-cat >taglib-mp4-uinttypes.patch <<"EOF"
-diff --git a/taglib/mp4/mp4item.cpp b/taglib/mp4/mp4item.cpp
-index 7dcf594..7d95079 100644
---- a/taglib/mp4/mp4item.cpp
-+++ b/taglib/mp4/mp4item.cpp
-@@ -45,6 +45,9 @@ public:
-     bool m_bool;
-     int m_int;
-     IntPair m_intPair;
-+    uchar m_byte;
-+    uint m_uint;
-+    long long m_longlong;
-   };
-   StringList m_stringList;
-   MP4::CoverArtList m_coverArtList;
-@@ -91,6 +94,24 @@ MP4::Item::Item(int value)
-   d->m_int = value;
- }
- 
-+MP4::Item::Item(uchar value)
-+{
-+  d = new ItemPrivate;
-+  d->m_byte = value;
-+}
-+
-+MP4::Item::Item(uint value)
-+{
-+  d = new ItemPrivate;
-+  d->m_uint = value;
-+}
-+
-+MP4::Item::Item(long long value)
-+{
-+  d = new ItemPrivate;
-+  d->m_longlong = value;
-+}
-+
- MP4::Item::Item(int value1, int value2)
- {
-   d = new ItemPrivate;
-@@ -122,6 +143,24 @@ MP4::Item::toInt() const
-   return d->m_int;
- }
- 
-+uchar
-+MP4::Item::toByte() const
-+{
-+  return d->m_byte;
-+}
-+
-+TagLib::uint
-+MP4::Item::toUInt() const
-+{
-+  return d->m_uint;
-+}
-+
-+long long
-+MP4::Item::toLongLong() const
-+{
-+  return d->m_longlong;
-+}
-+
- MP4::Item::IntPair
- MP4::Item::toIntPair() const
- {
-diff --git a/taglib/mp4/mp4item.h b/taglib/mp4/mp4item.h
-index 3158b4d..243a099 100644
---- a/taglib/mp4/mp4item.h
-+++ b/taglib/mp4/mp4item.h
-@@ -47,12 +47,18 @@ namespace TagLib {
-       ~Item();
- 
-       Item(int value);
-+      Item(uchar value);
-+      Item(uint value);
-+      Item(long long value);
-       Item(bool value);
-       Item(int first, int second);
-       Item(const StringList &value);
-       Item(const CoverArtList &value);
- 
-       int toInt() const;
-+      uchar toByte() const;
-+      uint toUInt() const;
-+      long long toLongLong() const;
-       bool toBool() const;
-       IntPair toIntPair() const;
-       StringList toStringList() const;
-diff --git a/taglib/mp4/mp4tag.cpp b/taglib/mp4/mp4tag.cpp
-index d7933db..a2f5d1f 100644
---- a/taglib/mp4/mp4tag.cpp
-+++ b/taglib/mp4/mp4tag.cpp
-@@ -68,12 +68,23 @@ MP4::Tag::Tag(TagLib::File *file, MP4::Atoms *atoms)
-     else if(atom->name == "trkn" || atom->name == "disk") {
-       parseIntPair(atom, file);
-     }
--    else if(atom->name == "cpil" || atom->name == "pgap" || atom->name == "pcst") {
-+    else if(atom->name == "cpil" || atom->name == "pgap" || atom->name == "pcst" ||
-+            atom->name == "hdvd") {
-       parseBool(atom, file);
-     }
-     else if(atom->name == "tmpo") {
-       parseInt(atom, file);
-     }
-+    else if(atom->name == "tvsn" || atom->name == "tves" || atom->name == "cnID" ||
-+            atom->name == "sfID" || atom->name == "atID" || atom->name == "geID") {
-+      parseUInt(atom, file);
-+    }
-+    else if(atom->name == "plID") {
-+      parseLongLong(atom, file);
-+    }
-+    else if(atom->name == "stik" || atom->name == "rtng" || atom->name == "akID") {
-+      parseByte(atom, file);
-+    }
-     else if(atom->name == "gnre") {
-       parseGnre(atom, file);
-     }
-@@ -138,6 +149,33 @@ MP4::Tag::parseInt(MP4::Atom *atom, TagLib::File *file)
- }
- 
- void
-+MP4::Tag::parseUInt(MP4::Atom *atom, TagLib::File *file)
-+{
-+  ByteVectorList data = parseData(atom, file);
-+  if(data.size()) {
-+    d->items.insert(atom->name, data[0].toUInt());
-+  }
-+}
-+
-+void
-+MP4::Tag::parseLongLong(MP4::Atom *atom, TagLib::File *file)
-+{
-+  ByteVectorList data = parseData(atom, file);
-+  if(data.size()) {
-+    d->items.insert(atom->name, data[0].toLongLong());
-+  }
-+}
-+
-+void
-+MP4::Tag::parseByte(MP4::Atom *atom, TagLib::File *file)
-+{
-+  ByteVectorList data = parseData(atom, file);
-+  if(data.size()) {
-+    d->items.insert(atom->name, (uchar)data[0].at(0));
-+  }
-+}
-+
-+void
- MP4::Tag::parseGnre(MP4::Atom *atom, TagLib::File *file)
- {
-   ByteVectorList data = parseData(atom, file);
-@@ -263,6 +301,30 @@ MP4::Tag::renderInt(const ByteVector &name, MP4::Item &item)
- }
- 
- ByteVector
-+MP4::Tag::renderUInt(const ByteVector &name, MP4::Item &item)
-+{
-+  ByteVectorList data;
-+  data.append(ByteVector::fromUInt(item.toUInt()));
-+  return renderData(name, 0x15, data);
-+}
-+
-+ByteVector
-+MP4::Tag::renderLongLong(const ByteVector &name, MP4::Item &item)
-+{
-+  ByteVectorList data;
-+  data.append(ByteVector::fromLongLong(item.toLongLong()));
-+  return renderData(name, 0x15, data);
-+}
-+
-+ByteVector
-+MP4::Tag::renderByte(const ByteVector &name, MP4::Item &item)
-+{
-+  ByteVectorList data;
-+  data.append(ByteVector(1, item.toByte()));
-+  return renderData(name, 0x15, data);
-+}
-+
-+ByteVector
- MP4::Tag::renderIntPair(const ByteVector &name, MP4::Item &item)
- {
-   ByteVectorList data;
-@@ -339,12 +401,22 @@ MP4::Tag::save()
-     else if(name == "disk") {
-       data.append(renderIntPairNoTrailing(name.data(String::Latin1), i->second));
-     }
--    else if(name == "cpil" || name == "pgap" || name == "pcst") {
-+    else if(name == "cpil" || name == "pgap" || name == "pcst" || name == "hdvd") {
-       data.append(renderBool(name.data(String::Latin1), i->second));
-     }
-     else if(name == "tmpo") {
-       data.append(renderInt(name.data(String::Latin1), i->second));
-     }
-+    else if(name == "tvsn" || name == "tves" || name == "cnID" ||
-+            name == "sfID" || name == "atID" || name == "geID") {
-+      data.append(renderUInt(name.data(String::Latin1), i->second));
-+    }
-+    else if(name == "plID") {
-+      data.append(renderLongLong(name.data(String::Latin1), i->second));
-+    }
-+    else if(name == "stik" || name == "rtng" || name == "akID") {
-+      data.append(renderByte(name.data(String::Latin1), i->second));
-+    }
-     else if(name == "covr") {
-       data.append(renderCovr(name.data(String::Latin1), i->second));
-     }
-diff --git a/taglib/mp4/mp4tag.h b/taglib/mp4/mp4tag.h
-index 3e6d667..d0ff728 100644
---- a/taglib/mp4/mp4tag.h
-+++ b/taglib/mp4/mp4tag.h
-@@ -71,6 +71,9 @@ namespace TagLib {
-         void parseText(Atom *atom, TagLib::File *file, int expectedFlags = 1);
-         void parseFreeForm(Atom *atom, TagLib::File *file);
-         void parseInt(Atom *atom, TagLib::File *file);
-+        void parseByte(Atom *atom, TagLib::File *file);
-+        void parseUInt(Atom *atom, TagLib::File *file);
-+        void parseLongLong(Atom *atom, TagLib::File *file);
-         void parseGnre(Atom *atom, TagLib::File *file);
-         void parseIntPair(Atom *atom, TagLib::File *file);
-         void parseBool(Atom *atom, TagLib::File *file);
-@@ -83,6 +86,9 @@ namespace TagLib {
-         TagLib::ByteVector renderFreeForm(const String &name, Item &item);
-         TagLib::ByteVector renderBool(const ByteVector &name, Item &item);
-         TagLib::ByteVector renderInt(const ByteVector &name, Item &item);
-+        TagLib::ByteVector renderByte(const ByteVector &name, Item &item);
-+        TagLib::ByteVector renderUInt(const ByteVector &name, Item &item);
-+        TagLib::ByteVector renderLongLong(const ByteVector &name, Item &item);
-         TagLib::ByteVector renderIntPair(const ByteVector &name, Item &item);
-         TagLib::ByteVector renderIntPairNoTrailing(const ByteVector &name, Item &item);
-         TagLib::ByteVector renderCovr(const ByteVector &name, Item &item);
-EOF
-
-test -f taglib-itunes-id3v22.patch ||
-cat >taglib-itunes-id3v22.patch <<"EOF"
-diff --git a/taglib/mpeg/id3v2/id3v2framefactory.cpp b/taglib/mpeg/id3v2/id3v2framefactory.cpp
-index 40e454e..b6bc34a 100644
---- a/taglib/mpeg/id3v2/id3v2framefactory.cpp
-+++ b/taglib/mpeg/id3v2/id3v2framefactory.cpp
-@@ -310,6 +310,7 @@ bool FrameFactory::updateFrame(Frame::Header *header) const
-     convertFrame("TBP", "TBPM", header);
-     convertFrame("TCM", "TCOM", header);
-     convertFrame("TCO", "TCON", header);
-+    convertFrame("TCP", "TCMP", header);
-     convertFrame("TCR", "TCOP", header);
-     convertFrame("TDY", "TDLY", header);
-     convertFrame("TEN", "TENC", header);
-@@ -332,7 +333,12 @@ bool FrameFactory::updateFrame(Frame::Header *header) const
-     convertFrame("TRC", "TSRC", header);
-     convertFrame("TRD", "TDRC", header);
-     convertFrame("TRK", "TRCK", header);
-+    convertFrame("TS2", "TSO2", header);
-+    convertFrame("TSA", "TSOA", header);
-+    convertFrame("TSC", "TSOC", header);
-+    convertFrame("TSP", "TSOP", header);
-     convertFrame("TSS", "TSSE", header);
-+    convertFrame("TST", "TSOT", header);
-     convertFrame("TT1", "TIT1", header);
-     convertFrame("TT2", "TIT2", header);
-     convertFrame("TT3", "TIT3", header);
-EOF
-
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -605,14 +343,12 @@ fi
 
 # taglib
 
-if ! test -d taglib-1.7.2; then
-tar xzf source/taglib-1.7.2.tar.gz
-cd taglib-1.7.2/
+if ! test -d taglib-1.8; then
+tar xzf source/taglib-1.8.tar.gz
+#cd taglib-1.8/
 #tar xzf ../source/taglib_1.7-1.debian.tar.gz
 #for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-patch -p1 <../source/taglib-mp4-uinttypes.patch
-patch -p1 <../source/taglib-itunes-id3v22.patch
-cd ..
+#cd ..
 fi
 
 # libav
@@ -716,14 +452,14 @@ cd ../..
 
 # taglib
 
-cd taglib-1.7.2/
+cd taglib-1.8/
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
-tar czf ../../bin/taglib-1.7.2.tgz usr
+tar czf ../../bin/taglib-1.8.tgz usr
 cd ../..
 
 # libav
@@ -864,7 +600,7 @@ tar xzf bin/libogg-1.3.0.tgz -C $BUILDROOT
 tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
-tar xzf bin/taglib-1.7.2.tgz -C $BUILDROOT
+tar xzf bin/taglib-1.8.tgz -C $BUILDROOT
 tar xzf bin/libav-0.8.3.tgz -C $BUILDROOT
 tar xzf bin/chromaprint-0.6.tgz -C $BUILDROOT
 #tar xzf bin/mp4v2-1.9.1+svn479.tgz -C $BUILDROOT

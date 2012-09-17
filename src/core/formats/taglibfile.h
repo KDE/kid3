@@ -41,6 +41,11 @@
 /** TagLib version in with 8 bits for major, minor and patch version. */
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
                         ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION))
+/* Workaround for the wrong TAGLIB_MINOR_VERSION in TagLib 1.8.0 */
+#if defined HAVE_TAGLIB_MP4_UINTTYPES && TAGLIB_VERSION == 0x010700
+#undef TAGLIB_VERSION
+#define TAGLIB_VERSION 0x010800
+#endif
 
 /** Convert QString @a s to a TagLib::String. */
 #define QSTRING_TO_TSTRING(s) TagLib::String(s.toUtf8().data(), TagLib::String::UTF8)
