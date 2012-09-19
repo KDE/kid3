@@ -107,7 +107,12 @@ public:
       ID_PeakVolRight,
       ID_PeakVolLeft,
       ID_TimestampFormat,
-      ID_ContentType
+      ID_ContentType,
+
+      // These are additional fields used by TagLib
+      ID_Price,
+      ID_Date,
+      ID_Seller
     };
 
     /** Text encoding for fields of type ID_TextEnc. */

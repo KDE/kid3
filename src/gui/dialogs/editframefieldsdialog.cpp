@@ -675,12 +675,16 @@ const char* Mp3FieldControl::getFieldIDString(Frame::Field::Id id) const
     I18N_NOOP("Peak Volume Right"),
     I18N_NOOP("Peak Volume Left"),
     I18N_NOOP("Timestamp Format"),
-    I18N_NOOP("Content Type")
+    I18N_NOOP("Content Type"),
+
+    I18N_NOOP("Price"),
+    I18N_NOOP("Date"),
+    I18N_NOOP("Seller")
   };
   class not_used { int array_size_check[
-      sizeof(idStr) / sizeof(idStr[0]) == Frame::Field::ID_ContentType + 1
+      sizeof(idStr) / sizeof(idStr[0]) == Frame::Field::ID_Seller + 1
       ? 1 : -1 ]; };
-  return idStr[id <= Frame::Field::ID_ContentType ? id : 0];
+  return idStr[id <= Frame::Field::ID_Seller ? id : 0];
 }
 
 /**

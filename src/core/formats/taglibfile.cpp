@@ -97,6 +97,10 @@
 #include <taglib/apefile.h>
 #endif
 
+#if TAGLIB_VERSION >= 0x010800
+#include <taglib/ownershipframe.h>
+#endif
+
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
@@ -1750,7 +1754,13 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          I18N_NOOP("LINK - Linked information"), false },
   { Frame::FT_Other,          I18N_NOOP("MCDI - Music CD identifier"), false },
   { Frame::FT_Other,          I18N_NOOP("MLLT - MPEG location lookup table"), false },
-  { Frame::FT_Other,          I18N_NOOP("OWNE - Ownership frame"), false },
+  { Frame::FT_Other,          I18N_NOOP("OWNE - Ownership frame"),
+#if TAGLIB_VERSION >= 0x010800
+    true
+#else
+    false
+#endif
+  },
   { Frame::FT_Other,          I18N_NOOP("PRIV - Private frame"), false },
   { Frame::FT_Other,          I18N_NOOP("PCNT - Play counter"), false },
   { Frame::FT_Other,          I18N_NOOP("POPM - Popularimeter"), false },
@@ -2226,6 +2236,41 @@ static QString getFieldsFromPopmFrame(
 }
 #endif
 
+#if TAGLIB_VERSION >= 0x010800
+/**
+ * Get the fields from an ownership frame.
+ *
+ * @param owneFrame ownership frame
+ * @param fields the fields are appended to this list
+ *
+ * @return text representation of fields (Text or URL).
+ */
+static QString getFieldsFromOwneFrame(
+  const TagLib::ID3v2::OwnershipFrame* owneFrame,
+  Frame::FieldList& fields)
+{
+  Frame::Field field;
+  field.m_id = Frame::Field::ID_TextEnc;
+  field.m_value = owneFrame->textEncoding();
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_Date;
+  field.m_value = TStringToQString(owneFrame->datePurchased());
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_Price;
+  field.m_value = TStringToQString(owneFrame->pricePaid());
+  fields.push_back(field);
+
+  field.m_id = Frame::Field::ID_Seller;
+  QString text(TStringToQString(owneFrame->seller()));
+  field.m_value = text;
+  fields.push_back(field);
+
+  return text;
+}
+#endif
+
 /**
  * Get the fields from an unknown frame.
  *
@@ -2272,6 +2317,9 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     const TagLib::ID3v2::PrivateFrame* privFrame;
     const TagLib::ID3v2::PopularimeterFrame* popmFrame;
 #endif
+#if TAGLIB_VERSION >= 0x010800
+    const TagLib::ID3v2::OwnershipFrame* owneFrame;
+#endif
     if ((tFrame =
          dynamic_cast<const TagLib::ID3v2::TextIdentificationFrame*>(frame)) !=
         0) {
@@ -2307,6 +2355,11 @@ static QString getFieldsFromId3Frame(const TagLib::ID3v2::Frame* frame,
     } else if ((popmFrame = dynamic_cast<const TagLib::ID3v2::PopularimeterFrame*>(
                 frame)) != 0) {
       return getFieldsFromPopmFrame(popmFrame, fields);
+#endif
+#if TAGLIB_VERSION >= 0x010800
+    } else if ((owneFrame = dynamic_cast<const TagLib::ID3v2::OwnershipFrame*>(
+                frame)) != 0) {
+      return getFieldsFromOwneFrame(owneFrame, fields);
 #endif
     } else {
       TagLib::ByteVector id = frame->frameID();
@@ -2688,6 +2741,50 @@ void setCounter(TagLib::ID3v2::PopularimeterFrame* f, const Frame::Field& fld)
 }
 #endif
 
+#if TAGLIB_VERSION >= 0x010800
+template <class T>
+void setDate(T*, const Frame::Field&) {}
+
+template <>
+void setDate(TagLib::ID3v2::OwnershipFrame* f, const Frame::Field& fld)
+{
+  // The date string must have exactly 8 characters (should be YYYYMMDD)
+  QString date(fld.m_value.toString().leftJustified(8, ' ', true));
+  f->setDatePurchased(QSTRING_TO_TSTRING(date));
+}
+
+template <class T>
+void setPrice(T*, const Frame::Field&) {}
+
+template <>
+void setPrice(TagLib::ID3v2::OwnershipFrame* f, const Frame::Field& fld)
+{
+  f->setPricePaid(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <class T>
+void setSeller(T*, const Frame::Field&) {}
+
+template <>
+void setSeller(TagLib::ID3v2::OwnershipFrame* f, const Frame::Field& fld)
+{
+  f->setSeller(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <>
+void setTextEncoding(TagLib::ID3v2::OwnershipFrame* f,
+                     TagLib::String::Type enc)
+{
+  f->setTextEncoding(enc);
+}
+
+template <>
+void setValue(TagLib::ID3v2::OwnershipFrame* f, const TagLib::String& text)
+{
+  f->setSeller(text);
+}
+#endif
+
 /**
  * Set the fields in a TagLib ID3v2 frame.
  *
@@ -2772,6 +2869,17 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
           setCounter(tFrame, fld);
           break;
 #endif
+#if TAGLIB_VERSION >= 0x010800
+        case Frame::Field::ID_Price:
+          setPrice(tFrame, fld);
+          break;
+        case Frame::Field::ID_Date:
+          setDate(tFrame, fld);
+          break;
+        case Frame::Field::ID_Seller:
+          setSeller(tFrame, fld);
+          break;
+#endif
       }
     }
   }
@@ -2798,6 +2906,9 @@ void TagLibFile::setId3v2Frame(
 #if TAGLIB_VERSION >= 0x010600
     TagLib::ID3v2::PrivateFrame* privFrame;
     TagLib::ID3v2::PopularimeterFrame* popmFrame;
+#endif
+#if TAGLIB_VERSION >= 0x010800
+    TagLib::ID3v2::OwnershipFrame* owneFrame;
 #endif
     if ((tFrame =
          dynamic_cast<TagLib::ID3v2::TextIdentificationFrame*>(id3Frame))
@@ -2841,6 +2952,11 @@ void TagLibFile::setId3v2Frame(
     } else if ((popmFrame = dynamic_cast<TagLib::ID3v2::PopularimeterFrame*>(
                   id3Frame)) != 0) {
       setTagLibFrame(this, popmFrame, frame);
+#endif
+#if TAGLIB_VERSION >= 0x010800
+    } else if ((owneFrame = dynamic_cast<TagLib::ID3v2::OwnershipFrame*>(
+                  id3Frame)) != 0) {
+      setTagLibFrame(this, owneFrame, frame);
 #endif
     } else {
       TagLib::ByteVector id(id3Frame->frameID());
@@ -3908,6 +4024,10 @@ bool TagLibFile::addFrameV2(Frame& frame)
       } else if (frameId == "USLT") {
         id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
         ((TagLib::ID3v2::UnsynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
+#if TAGLIB_VERSION >= 0x010800
+      } else if (frameId == "OWNE") {
+        id3Frame = new TagLib::ID3v2::OwnershipFrame(enc);
+#endif
       }
       if (!id3Frame) {
         TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =
