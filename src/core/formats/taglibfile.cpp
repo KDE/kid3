@@ -1761,9 +1761,21 @@ static const struct TypeStrOfId {
     false
 #endif
   },
-  { Frame::FT_Other,          I18N_NOOP("PRIV - Private frame"), false },
+  { Frame::FT_Other,          I18N_NOOP("PRIV - Private frame"),
+  #if TAGLIB_VERSION >= 0x010600
+      true
+  #else
+      false
+  #endif
+  },
   { Frame::FT_Other,          I18N_NOOP("PCNT - Play counter"), false },
-  { Frame::FT_Other,          I18N_NOOP("POPM - Popularimeter"), false },
+  { Frame::FT_Other,          I18N_NOOP("POPM - Popularimeter"),
+#if TAGLIB_VERSION >= 0x010600
+    true
+#else
+    false
+#endif
+  },
   { Frame::FT_Other,          I18N_NOOP("POSS - Position synchronisation frame"), false },
   { Frame::FT_Other,          I18N_NOOP("RBUF - Recommended buffer size"), false },
   { Frame::FT_Other,          I18N_NOOP("RVA2 - Relative volume adjustment (2)"), false },
@@ -2597,6 +2609,14 @@ void setOwner(TagLib::ID3v2::PrivateFrame* f,
               const Frame::Field& fld)
 {
   f->setOwner(QSTRING_TO_TSTRING(fld.m_value.toString()));
+}
+
+template <>
+void setData(TagLib::ID3v2::PrivateFrame* f,
+             const Frame::Field& fld)
+{
+  QByteArray ba(fld.m_value.toByteArray());
+  f->setData(TagLib::ByteVector(ba.data(), ba.size()));
 }
 #endif
 
@@ -4024,6 +4044,12 @@ bool TagLibFile::addFrameV2(Frame& frame)
       } else if (frameId == "USLT") {
         id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
         ((TagLib::ID3v2::UnsynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
+#if TAGLIB_VERSION >= 0x010600
+      } else if (frameId == "POPM") {
+        id3Frame = new TagLib::ID3v2::PopularimeterFrame;
+      } else if (frameId == "PRIV") {
+        id3Frame = new TagLib::ID3v2::PrivateFrame;
+#endif
 #if TAGLIB_VERSION >= 0x010800
       } else if (frameId == "OWNE") {
         id3Frame = new TagLib::ID3v2::OwnershipFrame(enc);
