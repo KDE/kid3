@@ -263,6 +263,22 @@ diff -ru id3lib-3.8.3.orig/include/id3/globals.h id3lib-3.8.3/include/id3/global
  #  define LINKOPTION_USE_DYNAMIC    3 //if your project links id3lib dynamic
 EOF
 
+test -f taglib-xm-file-save.patch ||
+cat >taglib-xm-file-save.patch <<"EOF"
+diff -ru taglib-1.8.orig/taglib/xm/xmfile.cpp taglib-1.8/taglib/xm/xmfile.cpp
+--- taglib-1.8.orig/taglib/xm/xmfile.cpp	2012-09-06 20:03:15.000000000 +0200
++++ taglib-1.8/taglib/xm/xmfile.cpp	2012-09-22 08:55:07.052052207 +0200
+@@ -443,7 +443,7 @@
+       return false;
+ 
+     uint len = std::min(22UL, instrumentHeaderSize - 4U);
+-    if(i > lines.size())
++    if(i >= lines.size())
+       writeString(String::null, len);
+     else
+       writeString(lines[i], len);
+EOF
+
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -345,10 +361,11 @@ fi
 
 if ! test -d taglib-1.8; then
 tar xzf source/taglib-1.8.tar.gz
-#cd taglib-1.8/
+cd taglib-1.8/
 #tar xzf ../source/taglib_1.7-1.debian.tar.gz
 #for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-#cd ..
+patch -p1 <../source/taglib-xm-file-save.patch
+cd ..
 fi
 
 # libav

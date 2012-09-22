@@ -556,6 +556,15 @@ private:
    */
   bool makeTagV2Settable();
 
+#if TAGLIB_VERSION >= 0x010800
+  /**
+   * Get tracker name of a module file.
+   *
+   * @return tracker name, null if not found.
+   */
+  QString getTrackerName() const;
+#endif
+
   /**
    * Get the format of a tag.
    *

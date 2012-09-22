@@ -99,6 +99,10 @@
 
 #if TAGLIB_VERSION >= 0x010800
 #include <taglib/ownershipframe.h>
+#include <taglib/modfile.h>
+#include <taglib/s3mfile.h>
+#include <taglib/itfile.h>
+#include <taglib/xmfile.h>
 #endif
 
 #include "taglibext/aac/aacfiletyperesolver.h"
@@ -1487,6 +1491,12 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 #if TAGLIB_VERSION >= 0x010700
     TagLib::APE::Properties* apeProperties;
 #endif
+#if TAGLIB_VERSION >= 0x010800
+    TagLib::Mod::Properties* modProperties;
+    TagLib::S3M::Properties* s3mProperties;
+    TagLib::IT::Properties* itProperties;
+    TagLib::XM::Properties* xmProperties;
+#endif
     info.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
@@ -1576,6 +1586,35 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
         arg(apeProperties->version() % 1000).
         arg(apeProperties->bitsPerSample());
 #endif
+#if TAGLIB_VERSION >= 0x010800
+    } else if ((modProperties =
+                dynamic_cast<TagLib::Mod::Properties*>(audioProperties)) != 0) {
+      info.format = QString("Mod %1 %2 Instruments").
+          arg(getTrackerName()).
+          arg(modProperties->instrumentCount());
+    } else if ((s3mProperties =
+                dynamic_cast<TagLib::S3M::Properties*>(audioProperties)) != 0) {
+      info.format = QString("S3M %1 V%2 T%3").
+          arg(getTrackerName()).
+          arg(s3mProperties->fileFormatVersion()).
+          arg(s3mProperties->trackerVersion(), 0, 16);
+      info.channelMode = s3mProperties->stereo()
+          ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
+    } else if ((itProperties =
+                dynamic_cast<TagLib::IT::Properties*>(audioProperties)) != 0) {
+      info.format = QString("IT %1 V%2 %3 Instruments").
+          arg(getTrackerName()).
+          arg(itProperties->version(), 0, 16).
+          arg(itProperties->instrumentCount());
+      info.channelMode = itProperties->stereo()
+          ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
+    } else if ((xmProperties =
+                dynamic_cast<TagLib::XM::Properties*>(audioProperties)) != 0) {
+      info.format = QString("XM %1 V%2 %3 Instruments").
+          arg(getTrackerName()).
+          arg(xmProperties->version(), 0, 16).
+          arg(xmProperties->instrumentCount());
+#endif
     }
     info.bitrate = audioProperties->bitrate();
     info.sampleRate = audioProperties->sampleRate();
@@ -1587,6 +1626,22 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
     info.valid = false;
   }
 }
+
+#if TAGLIB_VERSION >= 0x010800
+  /**
+   * Get tracker name of a module file.
+   *
+   * @return tracker name, null if not found.
+   */
+  QString TagLibFile::getTrackerName() const
+  {
+    QString trackerName;
+    if (TagLib::Mod::Tag* modTag = dynamic_cast<TagLib::Mod::Tag*>(m_tagV2)) {
+      trackerName = TStringToQString(modTag->trackerName()).trimmed();
+    }
+    return trackerName;
+  }
+#endif
 
 /**
  * Get duration of file.
@@ -1643,6 +1698,16 @@ QString TagLibFile::getFileExtension() const
 #if TAGLIB_VERSION >= 0x010700
     } else if (dynamic_cast<TagLib::APE::File*>(file) != 0) {
       return ".ape";
+#endif
+#if TAGLIB_VERSION >= 0x010800
+    } else if (dynamic_cast<TagLib::Mod::File*>(file) != 0) {
+      return ".mod";
+    } else if (dynamic_cast<TagLib::S3M::File*>(file) != 0) {
+      return ".s3m";
+    } else if (dynamic_cast<TagLib::IT::File*>(file) != 0) {
+      return ".it";
+    } else if (dynamic_cast<TagLib::XM::File*>(file) != 0) {
+      return ".xm";
 #endif
     }
   }
@@ -5042,6 +5107,7 @@ TaggedFile* TagLibFile::Resolver::createFile(
   const QString& dn, const QString& fn, const QPersistentModelIndex& idx) const
 {
   QString ext = fn.right(4).toLower();
+  QString ext2 = ext.right(3);
   if (((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_ID3LIB
        && ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0
@@ -5061,7 +5127,10 @@ TaggedFile* TagLibFile::Resolver::createFile(
 #if TAGLIB_VERSION >= 0x010700
       || ext == ".ape"
 #endif
-      || ext.right(3) == ".wv")
+#if TAGLIB_VERSION >= 0x010800
+      || ext == ".mod" || ext == ".s3m" || ext2 == ".it" || ext2 == ".xm"
+#endif
+      || ext2 == ".wv")
     return new TagLibFile(dn, fn, idx);
   else
     return 0;
@@ -5087,6 +5156,9 @@ QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
 #endif
 #if TAGLIB_VERSION >= 0x010700
     ".ape" <<
+#endif
+#if TAGLIB_VERSION >= 0x010800
+    ".mod" << ".s3m" << ".it" << ".xm" <<
 #endif
     ".wv";
 }
