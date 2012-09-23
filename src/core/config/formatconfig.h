@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,6 +30,7 @@
 #include "config.h"
 #include "generalconfig.h"
 #include <QMap>
+#include <QLocale>
 #include "kid3api.h"
 
 class QString;
@@ -102,11 +103,23 @@ public:
   bool m_formatWhileEditing;
   /** Case conversion option */
   CaseConversion m_caseConversion;
+  /** true to use system locale for case conversion */
+  bool m_useSystemLocale;
   /** true if string replacement enabled */
   bool m_strRepEnabled;
   /** Mapping for string replacement */
   QMap<QString, QString> m_strRepMap;
+
 private:
+  /** Returns a lowercase copy of @a str. */
+  QString toLower(const QString& str) const;
+
+  /** Returns an uppercase copy of @a str. */
+  QString toUpper(const QString& str) const;
+
+  /** System locale */
+  const QLocale m_locale;
+
   /** true if it is a file formatter */
   bool m_filenameFormatter;
 };

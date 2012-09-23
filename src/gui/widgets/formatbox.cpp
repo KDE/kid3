@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2009  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,6 +30,7 @@
 #include <QCheckBox>
 #include <QString>
 #include <QVBoxLayout>
+#include <QLocale>
 #include "formatconfig.h"
 #include "configtable.h"
 #include "configtablemodel.h"
@@ -64,6 +65,11 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
   m_caseConvComboBox->insertItem(FormatConfig::AllFirstLettersUppercase,
                                      i18n("All first letters uppercase"));
 
+#if QT_VERSION >= 0x040800
+  m_useSystemLocaleCheckBox = new QCheckBox(this);
+  m_useSystemLocaleCheckBox->setText(i18n("Use current locale (%1)").
+                                     arg(QLocale().name()));
+#endif
   m_strRepCheckBox = new QCheckBox(this);
   m_strRepCheckBox->setText(i18n("String replacement:"));
   m_strReplTable = new ConfigTable(this);
@@ -78,6 +84,9 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
   vbox->addWidget(m_formatEditingCheckBox);
   vbox->addWidget(caseConvLabel);
   vbox->addWidget(m_caseConvComboBox);
+#if QT_VERSION >= 0x040800
+  vbox->addWidget(m_useSystemLocaleCheckBox);
+#endif
   vbox->addWidget(m_strRepCheckBox);
   vbox->addWidget(m_strReplTable);
   setLayout(vbox);
@@ -97,6 +106,9 @@ void FormatBox::fromFormatConfig(const FormatConfig* cfg)
 {
   m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
   m_caseConvComboBox->setCurrentIndex(cfg->m_caseConversion);
+#if QT_VERSION >= 0x040800
+  m_useSystemLocaleCheckBox->setChecked(cfg->m_useSystemLocale);
+#endif
   m_strRepCheckBox->setChecked(cfg->m_strRepEnabled);
   m_strReplTableModel->setMap(cfg->m_strRepMap);
 }
@@ -114,6 +126,9 @@ void FormatBox::toFormatConfig(FormatConfig* cfg) const
   if (cfg->m_caseConversion >= FormatConfig::NumCaseConversions) {
     cfg->m_caseConversion = FormatConfig::NoChanges;
   }
+#if QT_VERSION >= 0x040800
+  cfg->m_useSystemLocale = m_useSystemLocaleCheckBox->isChecked();
+#endif
   cfg->m_strRepEnabled = m_strRepCheckBox->isChecked();
   cfg->m_strRepMap = m_strReplTableModel->getMap();
 }

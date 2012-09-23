@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2009  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -72,6 +72,9 @@ public:
 
 private:
   QComboBox* m_caseConvComboBox;
+#if QT_VERSION >= 0x040800
+  QCheckBox* m_useSystemLocaleCheckBox;
+#endif
   QCheckBox* m_strRepCheckBox;
   ConfigTable* m_strReplTable;
   ConfigTableModel* m_strReplTableModel;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,6 +42,7 @@ FormatConfig::FormatConfig(const QString& grp) :
   GeneralConfig(grp),
   m_formatWhileEditing(false),
   m_caseConversion(AllFirstLettersUppercase),
+  m_useSystemLocale(false),
   m_strRepEnabled(false),
   m_filenameFormatter(false)
 {
@@ -62,6 +63,7 @@ void FormatConfig::setAsFilenameFormatter()
 {
   m_filenameFormatter = true;
   m_caseConversion = NoChanges;
+  m_useSystemLocale = false;
   m_strRepEnabled = true;
   m_strRepMap["/"] = "-";
   m_strRepMap[":"] = "-";
@@ -155,13 +157,13 @@ void FormatConfig::formatString(QString& str) const
   if (m_caseConversion != NoChanges) {
     switch (m_caseConversion) {
       case AllLowercase:
-        str = str.toLower();
+        str = toLower(str);
         break;
       case AllUppercase:
-        str = str.toUpper();
+        str = toUpper(str);
         break;
       case FirstLetterUppercase:
-        str = str.at(0).toUpper() + str.right(str.length() - 1).toLower();
+        str = toUpper(str.at(0)) + toLower(str.right(str.length() - 1));
         break;
       case AllFirstLettersUppercase: {
         QString newstr;
@@ -174,9 +176,9 @@ void FormatConfig::formatString(QString& str) const
             newstr.append(ch);
           } else if (wordstart) {
             wordstart = false;
-            newstr.append(ch.toUpper());
+            newstr.append(toUpper(ch));
           } else {
-            newstr.append(ch.toLower());
+            newstr.append(toLower(ch));
           }
         }
         str = newstr;
@@ -196,6 +198,26 @@ void FormatConfig::formatString(QString& str) const
   if (dotPos != -1) {
     str.append(ext);
   }
+}
+
+/** Returns a lowercase copy of @a str. */
+QString FormatConfig::toLower(const QString& str) const
+{
+#if QT_VERSION >= 0x040800
+  if (m_useSystemLocale)
+    return m_locale.toLower(str);
+#endif
+  return str.toLower();
+}
+
+/** Returns an uppercase copy of @a str. */
+QString FormatConfig::toUpper(const QString& str) const
+{
+#if QT_VERSION >= 0x040800
+  if (m_useSystemLocale)
+    return m_locale.toUpper(str);
+#endif
+  return str.toUpper();
 }
 
 /**
@@ -230,6 +252,7 @@ void FormatConfig::writeToConfig(Kid3Settings* config) const
   KConfigGroup cfg = config->group(m_group);
   cfg.writeEntry("FormatWhileEditing", m_formatWhileEditing);
   cfg.writeEntry("CaseConversion", static_cast<int>(m_caseConversion));
+  cfg.writeEntry("UseSystemLocale", m_useSystemLocale);
   cfg.writeEntry("StrRepEnabled", m_strRepEnabled);
   cfg.writeEntry("StrRepMapKeys", m_strRepMap.keys());
   cfg.writeEntry("StrRepMapValues", m_strRepMap.values());
@@ -237,6 +260,7 @@ void FormatConfig::writeToConfig(Kid3Settings* config) const
   config->beginGroup("/" + m_group);
   config->setValue("/FormatWhileEditing", QVariant(m_formatWhileEditing));
   config->setValue("/CaseConversion", QVariant(m_caseConversion));
+  config->setValue("/UseSystemLocale", QVariant(m_useSystemLocale));
   config->setValue("/StrRepEnabled", QVariant(m_strRepEnabled));
   config->setValue("/StrRepMapKeys", QVariant(m_strRepMap.keys()));
   config->setValue("/StrRepMapValues", QVariant(m_strRepMap.values()));
@@ -256,6 +280,7 @@ void FormatConfig::readFromConfig(Kid3Settings* config)
   m_formatWhileEditing = cfg.readEntry("FormatWhileEditing", m_formatWhileEditing);
   m_caseConversion = (CaseConversion)cfg.readEntry("CaseConversion",
                               (int)m_caseConversion);
+  m_useSystemLocale = cfg.readEntry("UseSystemLocale", m_useSystemLocale);
   m_strRepEnabled = cfg.readEntry("StrRepEnabled", m_strRepEnabled);
   QStringList keys = cfg.readEntry("StrRepMapKeys", QStringList());
   QStringList values = cfg.readEntry("StrRepMapValues", QStringList());
@@ -273,6 +298,7 @@ void FormatConfig::readFromConfig(Kid3Settings* config)
   m_formatWhileEditing = config->value("/FormatWhileEditing", m_formatWhileEditing).toBool();
   m_caseConversion = (CaseConversion)config->value("/CaseConversion",
                                                    (int)m_caseConversion).toInt();
+  m_useSystemLocale = config->value("/UseSystemLocale", m_useSystemLocale).toBool();
   m_strRepEnabled = config->value("/StrRepEnabled", m_strRepEnabled).toBool();
   QStringList keys = config->value("/StrRepMapKeys").toStringList();
   QStringList values = config->value("/StrRepMapValues").toStringList();
