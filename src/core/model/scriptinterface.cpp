@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Dec 2007
  *
- * Copyright (C) 2007-2011  Urs Fleisch
+ * Copyright (C) 2007-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -343,7 +343,7 @@ void ScriptInterface::convertToId3v24()
 }
 #endif
 
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
 /**
  * Convert ID3v2.4 tags to ID3v2.3.
  */

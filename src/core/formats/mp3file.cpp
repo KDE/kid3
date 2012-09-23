@@ -1969,6 +1969,7 @@ TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
   if ((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_TAGLIB
       && ConfigStore::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
+      && ConfigStore::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_3_0_TAGLIB
 #endif
     )
     return new Mp3File(dn, fn, idx);

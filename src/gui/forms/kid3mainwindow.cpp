@@ -299,7 +299,7 @@ void Kid3MainWindow::initActions()
   actionCollection()->addAction("convert_to_id3v24", toolsConvertToId3v24);
   connect(toolsConvertToId3v24, SIGNAL(triggered()), m_app, SLOT(convertToId3v24()));
 #endif
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   KAction* toolsConvertToId3v23 = new KAction(i18n("Convert ID3v2.4 to ID3v2.&3"), this);
   actionCollection()->addAction("convert_to_id3v23", toolsConvertToId3v23);
   connect(toolsConvertToId3v23, SIGNAL(triggered()), m_app, SLOT(convertToId3v23()));
@@ -638,7 +638,7 @@ void Kid3MainWindow::initActions()
   toolsMenu->addAction(toolsConvertToId3v24);
 #endif
 
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   QAction* toolsConvertToId3v23 = new QAction(this);
   toolsConvertToId3v23->setStatusTip(i18n("Convert ID3v2.4 to ID3v2.3"));
   toolsConvertToId3v23->setText(i18n("Convert ID3v2.4 to ID3v2.&3"));

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Sep 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@
 #define TAGLIB_VERSION (((TAGLIB_MAJOR_VERSION) << 16) + \
                         ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION))
 /* Workaround for the wrong TAGLIB_MINOR_VERSION in TagLib 1.8.0 */
-#if defined HAVE_TAGLIB_MP4_UINTTYPES && TAGLIB_VERSION == 0x010700
+#if defined HAVE_TAGLIB_ID3V23_SUPPORT && TAGLIB_VERSION == 0x010700
 #undef TAGLIB_VERSION
 #define TAGLIB_VERSION 0x010800
 #endif
@@ -114,6 +114,22 @@ public:
    * @return true if ok, false if the file could not be written or renamed.
    */
   virtual bool writeTags(bool force, bool* renamed, bool preserve);
+
+  /**
+   * Write tags to file and rename it if necessary.
+   *
+   * @param force    true to force writing even if file was not changed.
+   * @param renamed  will be set to true if the file was renamed,
+   *                 i.e. the file name is no longer valid, else *renamed
+   *                 is left unchanged
+   * @param preserve true to preserve file time stamps
+   * @param id3v2Version ID3v2 version to use, 0 to use existing or preferred,
+   *                     3 to force ID3v2.3.0, 4 to force ID3v2.4.0. Is ignored
+   *                     if TagLib version is less than 1.8.0.
+   *
+   * @return true if ok, false if the file could not be written or renamed.
+   */
+  bool writeTags(bool force, bool* renamed, bool preserve, int id3v2Version);
 
   /**
    * Remove ID3v1 frames.
@@ -595,6 +611,9 @@ private:
   TagLib::FileRef m_fileRef; /**< file reference */
   TagLib::Tag* m_tagV1;      /**< ID3v1 tags */
   TagLib::Tag* m_tagV2;      /**< ID3v2 tags */
+#if TAGLIB_VERSION >= 0x010800
+  int m_id3v2Version;        /**< 3 for ID3v2.3, 4 for ID3v2.4, 0 if none */
+#endif
   bool m_fileRead;           /**< true if file has been read */
 
   /* Cached information updated in readTags() */

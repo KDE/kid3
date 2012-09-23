@@ -215,11 +215,16 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     v2GroupBoxLayout->addWidget(textEncodingLabel, 2, 0);
     v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 2, 1);
 #endif
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
     QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
     m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
-    m_id3v2VersionComboBox->insertItem(MiscConfig::ID3v2_3_0, i18n("ID3v2.3.0 (id3lib)"));
-    m_id3v2VersionComboBox->insertItem(MiscConfig::ID3v2_4_0, i18n("ID3v2.4.0 (TagLib)"));
+#ifdef HAVE_ID3LIB
+    m_id3v2VersionComboBox->addItem(i18n("ID3v2.3.0 (id3lib)"), MiscConfig::ID3v2_3_0);
+#endif
+    m_id3v2VersionComboBox->addItem(i18n("ID3v2.4.0 (TagLib)"), MiscConfig::ID3v2_4_0);
+#ifdef HAVE_TAGLIB_ID3V23_SUPPORT
+    m_id3v2VersionComboBox->addItem(i18n("ID3v2.3.0 (TagLib)"), MiscConfig::ID3v2_3_0_TAGLIB);
+#endif
     m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
     id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
     v2GroupBoxLayout->addWidget(id3v2VersionLabel, 3, 0);
@@ -507,8 +512,9 @@ void ConfigDialog::setConfig(const ConfigStore* cfg)
   m_textEncodingV1ComboBox->setCurrentIndex(textEncodingV1Index);
   m_textEncodingComboBox->setCurrentIndex(miscCfg->m_textEncoding);
 #endif
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-  m_id3v2VersionComboBox->setCurrentIndex(miscCfg->m_id3v2Version);
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
+  m_id3v2VersionComboBox->setCurrentIndex(
+        m_id3v2VersionComboBox->findData(miscCfg->m_id3v2Version));
 #endif
   m_trackNumberDigitsSpinBox->setValue(miscCfg->m_trackNumberDigits);
   m_browserLineEdit->setText(miscCfg->m_browser);
@@ -575,8 +581,9 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
     getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText());
   miscCfg->m_textEncoding = m_textEncodingComboBox->currentIndex();
 #endif
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-  miscCfg->m_id3v2Version = m_id3v2VersionComboBox->currentIndex();
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
+  miscCfg->m_id3v2Version = m_id3v2VersionComboBox->itemData(
+        m_id3v2VersionComboBox->currentIndex()).toInt();
 #endif
   miscCfg->m_trackNumberDigits = m_trackNumberDigitsSpinBox->value();
   miscCfg->m_browser = m_browserLineEdit->text();

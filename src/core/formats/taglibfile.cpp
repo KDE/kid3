@@ -244,7 +244,11 @@ QList<TagLibFile*> TagLibFile::s_openFiles;
  */
 TagLibFile::TagLibFile(const QString& dn, const QString& fn,
                        const QPersistentModelIndex& idx) :
-  TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0), m_fileRead(false),
+  TaggedFile(dn, fn, idx), m_tagV1(0), m_tagV2(0),
+#if TAGLIB_VERSION >= 0x010800
+  m_id3v2Version(0),
+#endif
+  m_fileRead(false),
   m_tagInformationRead(false), m_hasTagV1(false), m_hasTagV2(false),
   m_tagTypeV1(TT_Unknown), m_tagTypeV2(TT_Unknown)
 {
@@ -310,7 +314,19 @@ void TagLibFile::readTags(bool force)
         markTag1Unchanged();
       }
       if (!m_tagV2) {
+#if TAGLIB_VERSION >= 0x010800
+        m_id3v2Version = 0;
+        TagLib::ID3v2::Tag* id3v2Tag = mpegFile->ID3v2Tag();
+        if (id3v2Tag && !id3v2Tag->isEmpty()) {
+          TagLib::ID3v2::Header* header = id3v2Tag->header();
+          if (header) {
+            m_id3v2Version = header->majorVersion();
+          }
+        }
+        m_tagV2 = id3v2Tag;
+#else
         m_tagV2 = mpegFile->ID3v2Tag();
+#endif
         markTag2Unchanged();
       }
     } else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
@@ -446,6 +462,26 @@ void TagLibFile::makeFileOpen(bool force)
  */
 bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 {
+  return writeTags(force, renamed, preserve, 0);
+}
+
+/**
+ * Write tags to file and rename it if necessary.
+ *
+ * @param force    true to force writing even if file was not changed.
+ * @param renamed  will be set to true if the file was renamed,
+ *                 i.e. the file name is no longer valid, else *renamed
+ *                 is left unchanged
+ * @param preserve true to preserve file time stamps
+ * @param id3v2Version ID3v2 version to use, 0 to use existing or preferred,
+ *                     3 to force ID3v2.3.0, 4 to force ID3v2.4.0. Is ignored
+ *                     if TagLib version is less than 1.8.0.
+ *
+ * @return true if ok, false if the file could not be written or renamed.
+ */
+bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
+                           int id3v2Version)
+{
   QString fnStr(getDirname() + QDir::separator() + currentFilename());
   if (isChanged() && !QFileInfo(fnStr).isWritable()) {
     return false;
@@ -490,7 +526,22 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
         saveMask |= TagLib::MPEG::File::ID3v2;
       }
       if (saveMask != 0) {
-        if (mpegFile->save(saveMask, false)) {
+#if TAGLIB_VERSION >= 0x010800
+        if (id3v2Version == 3 || id3v2Version == 4) {
+          m_id3v2Version = id3v2Version;
+        }
+        if (m_id3v2Version != 3 && m_id3v2Version != 4) {
+          m_id3v2Version = ConfigStore::s_miscCfg.m_id3v2Version ==
+              MiscConfig::ID3v2_3_0_TAGLIB ? 3 : 4;
+        }
+#else
+        Q_UNUSED(id3v2Version);
+#endif
+        if (mpegFile->save(saveMask, false
+#if TAGLIB_VERSION >= 0x010800
+                           , m_id3v2Version
+#endif
+                           )) {
           fileChanged = true;
           if (saveMask & TagLib::MPEG::File::ID3v1) {
             markTag1Unchanged();
@@ -5110,7 +5161,8 @@ TaggedFile* TagLibFile::Resolver::createFile(
   QString ext2 = ext.right(3);
   if (((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
 #ifdef HAVE_ID3LIB
-       && ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0
+       && (ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0 ||
+           ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_3_0_TAGLIB)
 #endif
         )
       || ext == ".mpc" || ext == ".oga" || ext == ".ogg" || ext == "flac"

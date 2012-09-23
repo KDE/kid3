@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -168,7 +168,7 @@ private:
   /** ID3v2 text encoding combo box */
   QComboBox* m_textEncodingComboBox;
 #endif
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   /** ID3v2 version combo box */
   QComboBox* m_id3v2VersionComboBox;
 #endif

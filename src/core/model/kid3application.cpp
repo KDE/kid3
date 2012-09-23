@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1859,7 +1859,13 @@ void Kid3Application::convertToId3v24()
 
         // Write the file with TagLib, it always writes ID3v2.4 tags
         bool renamed;
-        taggedFile->writeTags(true, &renamed, ConfigStore::s_miscCfg.m_preserveTime);
+        if (TagLibFile* taglibFile = dynamic_cast<TagLibFile*>(taggedFile)) {
+          taglibFile->writeTags(true, &renamed,
+                                ConfigStore::s_miscCfg.m_preserveTime, 4);
+        } else {
+          taggedFile->writeTags(true, &renamed,
+                                ConfigStore::s_miscCfg.m_preserveTime);
+        }
         taggedFile->readTags(true);
       }
     }
@@ -1868,7 +1874,7 @@ void Kid3Application::convertToId3v24()
 }
 #endif
 
-#if defined HAVE_TAGLIB && defined HAVE_ID3LIB
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
 /**
  * Convert ID3v2.4 to ID3v2.3 tags.
  */
@@ -1883,28 +1889,53 @@ void Kid3Application::convertToId3v23()
     taggedFile->readTags(false);
     if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
       QString tagFmt = taggedFile->getTagFormatV2();
+      QString ext = taggedFile->getFileExtension();
       if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3' &&
-          Mp3File::Resolver().getSupportedFileExtensions().contains(
-            taggedFile->getFileExtension())) {
-        if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
-          FrameCollection frames;
-          taggedFile->getAllFramesV2(frames);
-          FrameFilter flt;
-          flt.enableAll();
-          taggedFile->deleteFramesV2(flt);
-
-          // The file has to be read with id3lib to write ID3v2.3 tags
-          taggedFile = FileProxyModel::readWithId3Lib(taggedFile);
-
-          // Restore the frames
-          FrameFilter frameFlt;
-          frameFlt.enableAll();
-          taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
-        }
-
-        // Write the file with id3lib, it always writes ID3v2.3 tags
+          (ext == ".mp3" || ext == ".mp2" || ext == ".aac")) {
+        /*
+         * The ID3v2.3.0 tag is written using TagLib if it supports it.
+         * If id3lib is also available it is used instead unless
+         * MiscConfig::ID3v2_3_0_TAGLIB is selected, so that the behavior
+         * remains compatible. The variable taglibFile is used to select whether
+         * TagLib shall be used or not.
+         */
+#ifdef HAVE_TAGLIB_ID3V23_SUPPORT
+#ifdef HAVE_ID3LIB
+        TagLibFile* taglibFile =
+          ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_3_0_TAGLIB
+          ? dynamic_cast<TagLibFile*>(taggedFile) : 0;
+#else
+        TagLibFile* taglibFile = dynamic_cast<TagLibFile*>(taggedFile);
+#endif
+#else
+        TagLibFile* taglibFile = 0;
+#endif
         bool renamed;
-        taggedFile->writeTags(true, &renamed, ConfigStore::s_miscCfg.m_preserveTime);
+        if (taglibFile) {
+          taglibFile->writeTags(true, &renamed,
+                                ConfigStore::s_miscCfg.m_preserveTime, 3);
+        } else {
+#ifdef HAVE_ID3LIB
+          if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
+            FrameCollection frames;
+            taggedFile->getAllFramesV2(frames);
+            FrameFilter flt;
+            flt.enableAll();
+            taggedFile->deleteFramesV2(flt);
+
+            // The file has to be read with id3lib to write ID3v2.3 tags
+            taggedFile = FileProxyModel::readWithId3Lib(taggedFile);
+
+            // Restore the frames
+            FrameFilter frameFlt;
+            frameFlt.enableAll();
+            taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
+          }
+
+          // Write the file with id3lib, it always writes ID3v2.3 tags
+          taggedFile->writeTags(true, &renamed, ConfigStore::s_miscCfg.m_preserveTime);
+#endif
+        }
         taggedFile->readTags(true);
       }
     }

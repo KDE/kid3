@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Jan 2004
  *
- * Copyright (C) 2004-2007  Urs Fleisch
+ * Copyright (C) 2004-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,8 @@ public:
   /** The ID3v2 version used for new tags. */
   enum Id3v2Version {
     ID3v2_3_0 = 0,
-    ID3v2_4_0 = 1
+    ID3v2_4_0 = 1,
+    ID3v2_3_0_TAGLIB = 2
   };
 
   /** Encoding used for ID3v2 frames. */
