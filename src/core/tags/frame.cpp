@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -26,6 +26,7 @@
 
 #include "frame.h"
 #include <QMap>
+#include <QRegExp>
 #include "pictureframe.h"
 #include "qtcompatmac.h"
 
@@ -850,6 +851,13 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
           // an empty value indicates "no picture"
           result = "1";
         }
+      }
+    }
+
+    if (lcName == "year") {
+      QRegExp yearRe("^\\d{4}-\\d{2}");
+      if (yearRe.indexIn(result) == 0) {
+        result.truncate(4);
       }
     }
 
