@@ -263,6 +263,32 @@ diff -ru id3lib-3.8.3.orig/include/id3/globals.h id3lib-3.8.3/include/id3/global
  #  define LINKOPTION_USE_DYNAMIC    3 //if your project links id3lib dynamic
 EOF
 
+test -f id3lib-fix-utf16-stringlists.patch ||
+cat >id3lib-fix-utf16-stringlists.patch <<EOF
+diff -ru id3lib-3.8.3.orig/src/io_helpers.cpp id3lib-3.8.3/src/io_helpers.cpp
+--- id3lib-3.8.3.orig/src/io_helpers.cpp	2012-08-26 19:52:21.523825799 +0200
++++ id3lib-3.8.3/src/io_helpers.cpp	2012-08-26 19:53:02.060028394 +0200
+@@ -373,10 +373,17 @@
+     //}
+     // Right code
+     unsigned char *pdata = (unsigned char *) data.c_str();
++    unicode_t lastCh = BOM;
+     for (size_t i = 0; i < size; i += 2)
+     {
+       unicode_t ch = (pdata[i] << 8) | pdata[i+1];
++      if (lastCh == 0 && ch != BOM)
++      {
++        // Last character was NULL, so start next string with BOM.
++        writer.writeChars((const unsigned char*) &BOM, 2);
++      }
+       writer.writeChars((const unsigned char*) &ch, 2);
++      lastCh = ch;
+     }
+     // End patch
+   }
+
+EOF
+
 test -f taglib-xm-file-save.patch ||
 cat >taglib-xm-file-save.patch <<"EOF"
 diff -ru taglib-1.8.orig/taglib/xm/xmfile.cpp taglib-1.8/taglib/xm/xmfile.cpp
@@ -354,6 +380,7 @@ cd id3lib-3.8.3/
 tar xzf ../source/id3lib3.8.3_3.8.3-15.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
+patch -p1 <../source/id3lib-fix-utf16-stringlists.patch
 cd ..
 fi
 
