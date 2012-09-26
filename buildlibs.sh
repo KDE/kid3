@@ -51,6 +51,12 @@ elif test $kernel = "Darwin"; then
 CMAKE_OPTIONS="-G \"Unix Makefiles\""
 fi
 
+if which wget >/dev/null; then
+DOWNLOAD=wget
+else
+DOWNLOAD="curl -sfLO"
+fi
+
 fixcmakeinst() {
   if test -d inst && test $kernel = "MINGW"; then
     cd inst
@@ -76,49 +82,49 @@ test -d source || mkdir source
 cd source
 
 test -f flac_1.2.1-6.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-6.diff.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-6.diff.gz
 test -f flac_1.2.1.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1.orig.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1.orig.tar.gz
 
 test -f id3lib3.8.3_3.8.3-15.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-15.debian.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-15.debian.tar.gz
 test -f id3lib3.8.3_3.8.3.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3.orig.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3.orig.tar.gz
 
 test -f libogg_1.3.0-4.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.0-4.diff.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.0-4.diff.gz
 test -f libogg_1.3.0.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.0.orig.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.0.orig.tar.gz
 
 test -f libvorbis_1.3.2-1.3.diff.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2-1.3.diff.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2-1.3.diff.gz
 test -f libvorbis_1.3.2.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
 
 #test -f taglib_1.7-1.debian.tar.gz ||
-#wget http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7-1.debian.tar.gz
+#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7-1.debian.tar.gz
 test -f taglib-1.8.tar.gz ||
-wget https://github.com/downloads/taglib/taglib/taglib-1.8.tar.gz
+$DOWNLOAD https://github.com/downloads/taglib/taglib/taglib-1.8.tar.gz
 
 test -f zlib_1.2.7.dfsg-13.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13.debian.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13.debian.tar.gz
 test -f zlib_1.2.7.dfsg.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg.orig.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg.orig.tar.gz
 
 test -f libav_0.8.3.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.3.orig.tar.gz
-test -f libav_0.8.3-6.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.3-6.debian.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.3.orig.tar.gz
+test -f libav_0.8.3-7.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.3-7.debian.tar.gz
 
 test -f chromaprint_0.6.orig.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6.orig.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6.orig.tar.gz
 test -f chromaprint_0.6-2.debian.tar.gz ||
-wget http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6-2.debian.tar.gz
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6-2.debian.tar.gz
 
 #test -f mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2 ||
-#wget http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
+#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
 #test -f mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz ||
-#wget http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz
+#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz
 
 # Create patch files
 
@@ -333,7 +339,7 @@ cd ..
 if ! test -d zlib-1.2.7; then
 tar xzf source/zlib_1.2.7.dfsg.orig.tar.gz
 cd zlib-1.2.7/
-tar xzf ../source/zlib_1.2.7.dfsg-11.debian.tar.gz
+tar xzf ../source/zlib_1.2.7.dfsg-13.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -400,7 +406,7 @@ fi
 if ! test -d libav-0.8.3; then
 tar xzf source/libav_0.8.3.orig.tar.gz
 cd libav-0.8.3/
-tar xzf ../source/libav_0.8.3-6.debian.tar.gz
+tar xzf ../source/libav_0.8.3-7.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p0 <../source/libav_sws.patch
 cd ..

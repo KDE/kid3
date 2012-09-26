@@ -1,4 +1,4 @@
 #!/bin/sh
-cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX= ..
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON ..
 make
 cpack
