@@ -67,8 +67,10 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 
 #if QT_VERSION >= 0x040800
   m_useSystemLocaleCheckBox = new QCheckBox(this);
+  QStringList langNames(QLocale().uiLanguages());
   m_useSystemLocaleCheckBox->setText(i18n("Use current locale (%1)").
-                                     arg(QLocale().name()));
+                             arg(langNames.isEmpty() ? "" : langNames.first()));
+
 #endif
   m_strRepCheckBox = new QCheckBox(this);
   m_strRepCheckBox->setText(i18n("String replacement:"));

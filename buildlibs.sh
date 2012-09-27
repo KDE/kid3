@@ -54,7 +54,7 @@ fi
 if which wget >/dev/null; then
 DOWNLOAD=wget
 else
-DOWNLOAD="curl -sfLO"
+DOWNLOAD="curl -skfLO"
 fi
 
 fixcmakeinst() {
