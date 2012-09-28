@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2012-07-16 21:00+0200\n"
+"POT-Creation-Date: 2012-09-28 17:17+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -30,23 +30,23 @@ msgstr "Radnja"
 msgid "Shortcut"
 msgstr "Prečica"
 
-#: core/formats/mp3file.cpp:1245 core/formats/taglibfile.cpp:1740
+#: core/formats/mp3file.cpp:1245 core/formats/taglibfile.cpp:1860
 msgid "AENC - Audio encryption"
 msgstr "AENC - audio šifrovanje"
 
-#: core/formats/mp3file.cpp:1246 core/formats/taglibfile.cpp:1741
+#: core/formats/mp3file.cpp:1246 core/formats/taglibfile.cpp:1861
 msgid "APIC - Attached picture"
 msgstr "APIC - priložena slika"
 
-#: core/formats/mp3file.cpp:1248 core/formats/taglibfile.cpp:1743
+#: core/formats/mp3file.cpp:1248 core/formats/taglibfile.cpp:1863
 msgid "COMM - Comments"
 msgstr "COMM - komentari"
 
-#: core/formats/mp3file.cpp:1249 core/formats/taglibfile.cpp:1744
+#: core/formats/mp3file.cpp:1249 core/formats/taglibfile.cpp:1864
 msgid "COMR - Commercial"
 msgstr "COMR - komercijalno"
 
-#: core/formats/mp3file.cpp:1250 core/formats/taglibfile.cpp:1745
+#: core/formats/mp3file.cpp:1250 core/formats/taglibfile.cpp:1865
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - registracija metode šifrovanja"
 
@@ -54,15 +54,15 @@ msgstr "ENCR - registracija metode šifrovanja"
 msgid "EQUA - Equalization"
 msgstr "EQUA - jednačenje"
 
-#: core/formats/mp3file.cpp:1253 core/formats/taglibfile.cpp:1747
+#: core/formats/mp3file.cpp:1253 core/formats/taglibfile.cpp:1867
 msgid "ETCO - Event timing codes"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1254 core/formats/taglibfile.cpp:1748
+#: core/formats/mp3file.cpp:1254 core/formats/taglibfile.cpp:1868
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - opšti ugniježđeni objekat"
 
-#: core/formats/mp3file.cpp:1255 core/formats/taglibfile.cpp:1749
+#: core/formats/mp3file.cpp:1255 core/formats/taglibfile.cpp:1869
 msgid "GRID - Group identification registration"
 msgstr "GRID - registracija identifikacije grupe"
 
@@ -70,39 +70,39 @@ msgstr "GRID - registracija identifikacije grupe"
 msgid "IPLS - Involved people list"
 msgstr "IPLS - spisak uključenih ljudi"
 
-#: core/formats/mp3file.cpp:1257 core/formats/taglibfile.cpp:1750
+#: core/formats/mp3file.cpp:1257 core/formats/taglibfile.cpp:1870
 msgid "LINK - Linked information"
 msgstr "LINK - povezana informacija"
 
-#: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1751
+#: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1871
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - identifikator muzičkog CD-a"
 
-#: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1752
+#: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1872
 msgid "MLLT - MPEG location lookup table"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1260 core/formats/taglibfile.cpp:1753
+#: core/formats/mp3file.cpp:1260 core/formats/taglibfile.cpp:1873
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - vlasnički okvir"
 
-#: core/formats/mp3file.cpp:1261 core/formats/taglibfile.cpp:1754
+#: core/formats/mp3file.cpp:1261 core/formats/taglibfile.cpp:1880
 msgid "PRIV - Private frame"
 msgstr "PRIV - privatni okvir"
 
-#: core/formats/mp3file.cpp:1262 core/formats/taglibfile.cpp:1755
+#: core/formats/mp3file.cpp:1262 core/formats/taglibfile.cpp:1887
 msgid "PCNT - Play counter"
 msgstr "PCNT - brojač reprodukcije"
 
-#: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1756
+#: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1888
 msgid "POPM - Popularimeter"
 msgstr "POPM - mjerač popularnosti"
 
-#: core/formats/mp3file.cpp:1264 core/formats/taglibfile.cpp:1757
+#: core/formats/mp3file.cpp:1264 core/formats/taglibfile.cpp:1895
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - kadar sinhronizacije pozicije"
 
-#: core/formats/mp3file.cpp:1265 core/formats/taglibfile.cpp:1758
+#: core/formats/mp3file.cpp:1265 core/formats/taglibfile.cpp:1896
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - preporučena veličina bafera"
 
@@ -110,35 +110,35 @@ msgstr "RBUF - preporučena veličina bafera"
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - podešavanje relativne jačine zvuka"
 
-#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1760
+#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1898
 msgid "RVRB - Reverb"
 msgstr "RVRB - reverberacija"
 
-#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1763
+#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1901
 msgid "SYLT - Synchronized lyric/text"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1764
+#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1902
 msgid "SYTC - Synchronized tempo codes"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1765
+#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1903
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - naslov albuma/filma/emisije"
 
-#: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1766
+#: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1904
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM (otkucaja u minuti)"
 
-#: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1768
+#: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1906
 msgid "TCOM - Composer"
 msgstr "TCOM - kompozitor"
 
-#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1769
+#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1907
 msgid "TCON - Content type"
 msgstr "TCON - tip sadržaja"
 
-#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1770
+#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1908
 msgid "TCOP - Copyright message"
 msgstr "TCOP - poruka autorskog prava"
 
@@ -146,19 +146,19 @@ msgstr "TCOP - poruka autorskog prava"
 msgid "TDAT - Date"
 msgstr "TDAT - datum"
 
-#: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1772
+#: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1910
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - kašnjenje liste numera"
 
-#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1777
+#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1915
 msgid "TENC - Encoded by"
 msgstr "TENC - koder"
 
-#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1778
+#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1916
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - pjesnik/tekstopisac"
 
-#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1779
+#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1917
 msgid "TFLT - File type"
 msgstr "TFLT - tip fajla"
 
@@ -166,47 +166,47 @@ msgstr "TFLT - tip fajla"
 msgid "TIME - Time"
 msgstr "TIME - vrijeme"
 
-#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1781
+#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1919
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - opis grupe sadržaja"
 
-#: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1782
+#: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1920
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - naslov/ime pjesme/opis sadržaja"
 
-#: core/formats/mp3file.cpp:1292 core/formats/taglibfile.cpp:1783
+#: core/formats/mp3file.cpp:1292 core/formats/taglibfile.cpp:1921
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1293 core/formats/taglibfile.cpp:1784
+#: core/formats/mp3file.cpp:1293 core/formats/taglibfile.cpp:1922
 msgid "TKEY - Initial key"
 msgstr "TKEY - početni ključ"
 
-#: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1785
+#: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1923
 msgid "TLAN - Language(s)"
 msgstr "TLAN - jezik (jezici)"
 
-#: core/formats/mp3file.cpp:1295 core/formats/taglibfile.cpp:1786
+#: core/formats/mp3file.cpp:1295 core/formats/taglibfile.cpp:1924
 msgid "TLEN - Length"
 msgstr "TLEN - trajanje"
 
-#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1788
+#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1926
 msgid "TMED - Media type"
 msgstr "TMED - tip medija"
 
-#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1790
+#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1928
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - izvorni naslov albuma/filma/emisije"
 
-#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1791
+#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1929
 msgid "TOFN - Original filename"
 msgstr "TOFN - izvorno ime"
 
-#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1792
+#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1930
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1793
+#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1931
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr ""
 
@@ -214,35 +214,35 @@ msgstr ""
 msgid "TORY - Original release year"
 msgstr "TORY - izvorna godina izdavanja"
 
-#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1794
+#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1932
 msgid "TOWN - File owner/licensee"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1795
+#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1933
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1306 core/formats/taglibfile.cpp:1796
+#: core/formats/mp3file.cpp:1306 core/formats/taglibfile.cpp:1934
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1797
+#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1935
 msgid "TPE3 - Conductor/performer refinement"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1308 core/formats/taglibfile.cpp:1798
+#: core/formats/mp3file.cpp:1308 core/formats/taglibfile.cpp:1936
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1799
+#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1937
 msgid "TPOS - Part of a set"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1801
+#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1939
 msgid "TPUB - Publisher"
 msgstr "TPUB - izdavač"
 
-#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1802
+#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1940
 msgid "TRCK - Track number/Position in set"
 msgstr ""
 
@@ -250,11 +250,11 @@ msgstr ""
 msgid "TRDA - Recording dates"
 msgstr "TRDA - datumi snimanja"
 
-#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1803
+#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1941
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - ime internet radio stanice"
 
-#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1804
+#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1942
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - vlasnik internet radio stanice"
 
@@ -262,15 +262,15 @@ msgstr "TRSO - vlasnik internet radio stanice"
 msgid "TSIZ - Size"
 msgstr "TSIZ - veličina"
 
-#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1810
+#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1948
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ISRC (međunarodni standardni kôd snimanja)"
 
-#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1811
+#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1949
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1813
+#: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1951
 msgid "TXXX - User defined text information"
 msgstr "TXXX - korisnički definisana tekstualna informacija"
 
@@ -278,135 +278,135 @@ msgstr "TXXX - korisnički definisana tekstualna informacija"
 msgid "TYER - Year"
 msgstr "TYER - godina"
 
-#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1814
+#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1952
 msgid "UFID - Unique file identifier"
 msgstr "UFID - jedinstveni identifikator fajla"
 
-#: core/formats/mp3file.cpp:1326 core/formats/taglibfile.cpp:1815
+#: core/formats/mp3file.cpp:1326 core/formats/taglibfile.cpp:1953
 msgid "USER - Terms of use"
 msgstr "USER - uslovi korišćenja"
 
-#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1816
+#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1954
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1817
+#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1955
 msgid "WCOM - Commercial information"
 msgstr "WCOM - podaci o komercijalizovanju"
 
-#: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1818
+#: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1956
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - autorsko pravo/pravne informacije"
 
-#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1819
+#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1957
 msgid "WOAF - Official audio file webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1820
+#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1958
 msgid "WOAR - Official artist/performer webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1821
+#: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1959
 msgid "WOAS - Official audio source webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1822
+#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1960
 msgid "WORS - Official internet radio station homepage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1823
+#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1961
 msgid "WPAY - Payment"
 msgstr "WPAY - plaćanje"
 
-#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1824
+#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1962
 msgid "WPUB - Official publisher webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1825
+#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1963
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - korisnički definisana URL veza"
 
-#: core/formats/taglibfile.cpp:1742
+#: core/formats/taglibfile.cpp:1862
 msgid "ASPI - Audio seek point index"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1746
+#: core/formats/taglibfile.cpp:1866
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - jednačenje (2)"
 
-#: core/formats/taglibfile.cpp:1759
+#: core/formats/taglibfile.cpp:1897
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - podešavanje relativne jačine zvuka (2)"
 
-#: core/formats/taglibfile.cpp:1761
+#: core/formats/taglibfile.cpp:1899
 msgid "SEEK - Seek frame"
 msgstr "SEEK - kadar traženja"
 
-#: core/formats/taglibfile.cpp:1762
+#: core/formats/taglibfile.cpp:1900
 msgid "SIGN - Signature frame"
 msgstr "SIGN - kadar potpisa"
 
-#: core/formats/taglibfile.cpp:1767
+#: core/formats/taglibfile.cpp:1905
 msgid "TCMP - iTunes compilation flag"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1771
+#: core/formats/taglibfile.cpp:1909
 msgid "TDEN - Encoding time"
 msgstr "TDEN - vrijeme kodiranja"
 
-#: core/formats/taglibfile.cpp:1773
+#: core/formats/taglibfile.cpp:1911
 msgid "TDOR - Original release time"
 msgstr "TDOR - vrijeme izdavanja originala"
 
-#: core/formats/taglibfile.cpp:1774
+#: core/formats/taglibfile.cpp:1912
 msgid "TDRC - Recording time"
 msgstr "TDRC - vrijeme snimanja"
 
-#: core/formats/taglibfile.cpp:1775
+#: core/formats/taglibfile.cpp:1913
 msgid "TDRL - Release time"
 msgstr "TDRL - vrijeme izdavanja"
 
-#: core/formats/taglibfile.cpp:1776
+#: core/formats/taglibfile.cpp:1914
 msgid "TDTG - Tagging time"
 msgstr "TDTG - vrijeme označavanja"
 
-#: core/formats/taglibfile.cpp:1780
+#: core/formats/taglibfile.cpp:1918
 msgid "TIPL - Involved people list"
 msgstr "TIPL - spisak uključenih ljudi"
 
-#: core/formats/taglibfile.cpp:1787
+#: core/formats/taglibfile.cpp:1925
 msgid "TMCL - Musician credits list"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1789
+#: core/formats/taglibfile.cpp:1927
 msgid "TMOO - Mood"
 msgstr "TMOO - raspoloženje"
 
-#: core/formats/taglibfile.cpp:1800
+#: core/formats/taglibfile.cpp:1938
 msgid "TPRO - Produced notice"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1805
+#: core/formats/taglibfile.cpp:1943
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - redoslijed sortiranja autora albuma"
 
-#: core/formats/taglibfile.cpp:1806
+#: core/formats/taglibfile.cpp:1944
 msgid "TSOA - Album sort order"
 msgstr "TSOA - redoslijed sortiranja albuma"
 
-#: core/formats/taglibfile.cpp:1807
+#: core/formats/taglibfile.cpp:1945
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - redoslijed sortiranja kompozitora"
 
-#: core/formats/taglibfile.cpp:1808
+#: core/formats/taglibfile.cpp:1946
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - redoslijed sortiranja izvođača"
 
-#: core/formats/taglibfile.cpp:1809
+#: core/formats/taglibfile.cpp:1947
 msgid "TSOT - Title sort order"
 msgstr "TSOT - redoslijed sortiranja naslova"
 
-#: core/formats/taglibfile.cpp:1812
+#: core/formats/taglibfile.cpp:1950
 msgid "TSST - Set subtitle"
 msgstr "TSST - postavi podnaslov"
 
@@ -423,6 +423,7 @@ msgid "gnudb.org"
 msgstr "gnudb.org"
 
 #: core/import/httpclient.cpp:60 core/import/httpclient.cpp:91
+#, kde-format
 msgid "Data received: %1"
 msgstr "Podaci primljeni: %1"
 
@@ -442,7 +443,7 @@ msgstr "Greška"
 msgid "Request sent..."
 msgstr "Zahtjev poslat..."
 
-#: core/import/importparser.cpp:66 core/tags/frame.cpp:898
+#: core/import/importparser.cpp:66 core/tags/frame.cpp:906
 msgid "Year"
 msgstr "Godina"
 
@@ -517,27 +518,33 @@ msgid "Command"
 msgstr "Naredba"
 
 #: core/model/dirrenamer.cpp:73 core/model/dirrenamer.cpp:92
+#, kde-format
 msgid "Create directory %1 failed\n"
 msgstr "Pravljenje direktorijuma %1 nije uspjelo\n"
 
 #: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:122
+#, kde-format
 msgid "File %1 already exists\n"
 msgstr "Fajl %1 već postoji\n"
 
 #: core/model/dirrenamer.cpp:101 core/model/dirrenamer.cpp:128
+#, kde-format
 msgid "%1 is not a directory\n"
 msgstr "%1 nije direktorijum\n"
 
 #: core/model/dirrenamer.cpp:103 core/model/dirrenamer.cpp:140
 #: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:1923
+#, kde-format
 msgid "Rename %1 to %2 failed\n"
 msgstr "Preimenovanje %1 u %2 nije uspjelo\n"
 
 #: core/model/dirrenamer.cpp:147 core/model/dirrenamer.cpp:170
+#, kde-format
 msgid "%1 already exists\n"
 msgstr "%1 već postoji\n"
 
 #: core/model/dirrenamer.cpp:149 core/model/dirrenamer.cpp:176
+#, kde-format
 msgid "%1 is not a file\n"
 msgstr "%1 nije fajl\n"
 
@@ -610,13 +617,13 @@ msgid "All Supported Files"
 msgstr "Svi podržani fajlovi"
 
 #: core/model/kid3application.cpp:1792 core/model/kid3application.cpp:1798
-#: gui/dialogs/editframefieldsdialog.cpp:805
-#: gui/dialogs/editframefieldsdialog.cpp:807
+#: gui/dialogs/editframefieldsdialog.cpp:809
+#: gui/dialogs/editframefieldsdialog.cpp:811
 msgid "All Files (*)"
 msgstr "Svi fajlovi (*)"
 
-#: core/model/trackdatamodel.cpp:191 core/tags/frame.cpp:902
-#: core/tags/frame.cpp:906 core/tags/frame.cpp:910
+#: core/model/trackdatamodel.cpp:191 core/tags/frame.cpp:910
+#: core/tags/frame.cpp:914 core/tags/frame.cpp:918
 msgid "Track"
 msgstr "Numera"
 
@@ -634,131 +641,131 @@ msgstr "Ime fajla"
 msgid "Duration"
 msgstr "Trajanje"
 
-#: core/tags/frame.cpp:67
+#: core/tags/frame.cpp:68
 msgid "Title"
 msgstr "Naslov"
 
-#: core/tags/frame.cpp:68
+#: core/tags/frame.cpp:69
 msgid "Artist"
 msgstr "Izvođač"
 
-#: core/tags/frame.cpp:69
+#: core/tags/frame.cpp:70
 msgid "Album"
 msgstr "Album"
 
-#: core/tags/frame.cpp:70
+#: core/tags/frame.cpp:71
 msgid "Comment"
 msgstr "Komentar"
 
-#: core/tags/frame.cpp:71
+#: core/tags/frame.cpp:72 gui/dialogs/editframefieldsdialog.cpp:681
 msgid "Date"
 msgstr "Godina"
 
-#: core/tags/frame.cpp:72 gui/widgets/frametable.cpp:60
+#: core/tags/frame.cpp:73 gui/widgets/frametable.cpp:60
 msgid "Track Number"
 msgstr "Broj numere"
 
-#: core/tags/frame.cpp:73
+#: core/tags/frame.cpp:74
 msgid "Genre"
 msgstr "Žanr"
 
-#: core/tags/frame.cpp:75
+#: core/tags/frame.cpp:76
 msgid "Album Artist"
 msgstr "Izvođač albuma"
 
-#: core/tags/frame.cpp:76
+#: core/tags/frame.cpp:77
 msgid "Arranger"
 msgstr "Aranžer"
 
-#: core/tags/frame.cpp:77
+#: core/tags/frame.cpp:78
 msgid "Author"
 msgstr "Autor"
 
-#: core/tags/frame.cpp:78
+#: core/tags/frame.cpp:79
 msgid "BPM"
 msgstr "BPM"
 
-#: core/tags/frame.cpp:79 gui/dialogs/editframefieldsdialog.cpp:883
+#: core/tags/frame.cpp:80 gui/dialogs/editframefieldsdialog.cpp:887
 msgid "Composer"
 msgstr "Kompozitor"
 
-#: core/tags/frame.cpp:80 gui/dialogs/editframefieldsdialog.cpp:881
+#: core/tags/frame.cpp:81 gui/dialogs/editframefieldsdialog.cpp:885
 msgid "Conductor"
 msgstr "Dirigent"
 
-#: core/tags/frame.cpp:81
+#: core/tags/frame.cpp:82
 msgid "Copyright"
 msgstr "Autorsko pravo"
 
-#: core/tags/frame.cpp:82
+#: core/tags/frame.cpp:83
 msgid "Disc Number"
 msgstr "Broj diska"
 
-#: core/tags/frame.cpp:83
+#: core/tags/frame.cpp:84
 msgid "Encoded-by"
 msgstr "Koder"
 
-#: core/tags/frame.cpp:84
+#: core/tags/frame.cpp:85
 msgid "Grouping"
 msgstr "Grupisanje"
 
-#: core/tags/frame.cpp:85
+#: core/tags/frame.cpp:86
 msgid "ISRC"
 msgstr "ISRC"
 
-#: core/tags/frame.cpp:86 gui/dialogs/editframefieldsdialog.cpp:665
+#: core/tags/frame.cpp:87 gui/dialogs/editframefieldsdialog.cpp:665
 msgid "Language"
 msgstr "Jezik"
 
-#: core/tags/frame.cpp:87
+#: core/tags/frame.cpp:88
 msgid "Lyricist"
 msgstr "Tekstopisac"
 
-#: core/tags/frame.cpp:88 gui/dialogs/editframefieldsdialog.cpp:911
+#: core/tags/frame.cpp:89 gui/dialogs/editframefieldsdialog.cpp:915
 msgid "Lyrics"
 msgstr "Tekst"
 
-#: core/tags/frame.cpp:89 gui/dialogs/editframefieldsdialog.cpp:878
+#: core/tags/frame.cpp:90 gui/dialogs/editframefieldsdialog.cpp:882
 msgid "Media"
 msgstr "Medija"
 
-#: core/tags/frame.cpp:90
+#: core/tags/frame.cpp:91
 msgid "Original Album"
 msgstr "Izvorni album"
 
-#: core/tags/frame.cpp:91
+#: core/tags/frame.cpp:92
 msgid "Original Artist"
 msgstr "Izvorni izvođač"
 
-#: core/tags/frame.cpp:92
+#: core/tags/frame.cpp:93
 msgid "Original Date"
 msgstr "Izvorni datum"
 
-#: core/tags/frame.cpp:93
+#: core/tags/frame.cpp:94
 msgid "Part"
 msgstr "Dio"
 
-#: core/tags/frame.cpp:94
+#: core/tags/frame.cpp:95
 msgid "Performer"
 msgstr "Izvođač"
 
-#: core/tags/frame.cpp:95
+#: core/tags/frame.cpp:96
 msgid "Picture"
 msgstr "Slika"
 
-#: core/tags/frame.cpp:96
+#: core/tags/frame.cpp:97
 msgid "Publisher"
 msgstr "Izdavač"
 
-#: core/tags/frame.cpp:97
+#: core/tags/frame.cpp:98
 msgid "Remixer"
 msgstr "Remikser"
 
-#: core/tags/frame.cpp:98
+#: core/tags/frame.cpp:99
 msgid "Subtitle"
 msgstr "Podnaslov"
 
-#: core/tags/frame.cpp:99
+#: core/tags/frame.cpp:100
 msgid "Website"
 msgstr "Vebsajt"
 
@@ -843,7 +850,7 @@ msgstr "Poklopi"
 msgid "Picture URL"
 msgstr "URL slike"
 
-#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:439
+#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:444
 #: gui/dialogs/exportdialog.cpp:133 gui/dialogs/filterdialog.cpp:71
 #: gui/dialogs/importdialog.cpp:228 gui/dialogs/musicbrainzdialog.cpp:118
 #: gui/dialogs/numbertracksdialog.cpp:106 gui/dialogs/playlistdialog.cpp:201
@@ -865,9 +872,9 @@ msgstr "&Sačuvaj podešavanja"
 msgid "&Browse"
 msgstr "&Potraži"
 
-#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:441
+#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:446
 #: gui/dialogs/editframedialog.cpp:58
-#: gui/dialogs/editframefieldsdialog.cpp:961 gui/dialogs/importdialog.cpp:234
+#: gui/dialogs/editframefieldsdialog.cpp:965 gui/dialogs/importdialog.cpp:234
 #: gui/dialogs/musicbrainzdialog.cpp:122
 #: gui/dialogs/numbertracksdialog.cpp:123 gui/dialogs/playlistdialog.cpp:216
 msgid "&Cancel"
@@ -929,15 +936,15 @@ msgstr "Broj &cifara numere:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Žanr kao tekst umjesto brojnog niza"
 
-#: gui/dialogs/configdialog.cpp:209 gui/dialogs/editframefieldsdialog.cpp:861
+#: gui/dialogs/configdialog.cpp:209 gui/dialogs/editframefieldsdialog.cpp:865
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: gui/dialogs/configdialog.cpp:210 gui/dialogs/editframefieldsdialog.cpp:862
+#: gui/dialogs/configdialog.cpp:210 gui/dialogs/editframefieldsdialog.cpp:866
 msgid "UTF16"
 msgstr "UTF-16"
 
-#: gui/dialogs/configdialog.cpp:211 gui/dialogs/editframefieldsdialog.cpp:864
+#: gui/dialogs/configdialog.cpp:211 gui/dialogs/editframefieldsdialog.cpp:868
 msgid "UTF8"
 msgstr "UTF-8"
 
@@ -945,160 +952,165 @@ msgstr "UTF-8"
 msgid "&Version used for new tags:"
 msgstr "I&zdanje za nove oznake:"
 
-#: gui/dialogs/configdialog.cpp:221
+#: gui/dialogs/configdialog.cpp:222
 msgid "ID3v2.3.0 (id3lib)"
 msgstr "ID3v2.3.0 (id3lib)"
 
-#: gui/dialogs/configdialog.cpp:222
+#: gui/dialogs/configdialog.cpp:224
 msgid "ID3v2.4.0 (TagLib)"
 msgstr "ID3v2.4.0 (TagLib)"
 
-#: gui/dialogs/configdialog.cpp:233
+#: gui/dialogs/configdialog.cpp:226
+msgid "ID3v2.3.0 (TagLib)"
+msgstr "ID3v2.3.0 (TagLib)"
+
+#: gui/dialogs/configdialog.cpp:238
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: gui/dialogs/configdialog.cpp:234
+#: gui/dialogs/configdialog.cpp:239
 msgid "Comment field &name:"
 msgstr "Ime polja ko&mentara:"
 
-#: gui/dialogs/configdialog.cpp:236
+#: gui/dialogs/configdialog.cpp:241
 msgid "&Picture field name:"
 msgstr "Ime polja &slike:"
 
-#: gui/dialogs/configdialog.cpp:259
+#: gui/dialogs/configdialog.cpp:264
 msgid "Custom &Genres"
 msgstr "Pose&bni žanrovi"
 
-#: gui/dialogs/configdialog.cpp:260
+#: gui/dialogs/configdialog.cpp:265
 msgid "&Show only custom genres"
 msgstr "Prik&aži samo posebne žanrove"
 
-#: gui/dialogs/configdialog.cpp:269
+#: gui/dialogs/configdialog.cpp:274
 msgid "&Tag Format"
 msgstr "&Format oznake"
 
-#: gui/dialogs/configdialog.cpp:274
+#: gui/dialogs/configdialog.cpp:279
 msgid "Tags"
 msgstr "Oznake"
 
-#: gui/dialogs/configdialog.cpp:276
+#: gui/dialogs/configdialog.cpp:281
 msgid "&Tags"
 msgstr "&Oznake"
 
-#: gui/dialogs/configdialog.cpp:285
+#: gui/dialogs/configdialog.cpp:290
 msgid "Save"
 msgstr "Sačuvaj"
 
-#: gui/dialogs/configdialog.cpp:286
+#: gui/dialogs/configdialog.cpp:291
 msgid "&Preserve file timestamp"
 msgstr "Očuvaj &vremensku oznaku fajla"
 
-#: gui/dialogs/configdialog.cpp:287
+#: gui/dialogs/configdialog.cpp:292
 msgid "&Mark changes"
 msgstr "O&znači izmjene"
 
-#: gui/dialogs/configdialog.cpp:294
+#: gui/dialogs/configdialog.cpp:299
 msgid "&Filename Format"
 msgstr "Format imena &fajla"
 
-#: gui/dialogs/configdialog.cpp:298
+#: gui/dialogs/configdialog.cpp:303
 msgid "Files"
 msgstr "Fajlovi"
 
-#: gui/dialogs/configdialog.cpp:300
+#: gui/dialogs/configdialog.cpp:305
 msgid "&Files"
 msgstr "&Fajlovi"
 
-#: gui/dialogs/configdialog.cpp:309
+#: gui/dialogs/configdialog.cpp:314
 msgid "Browser"
 msgstr "Pregledač"
 
-#: gui/dialogs/configdialog.cpp:310
+#: gui/dialogs/configdialog.cpp:315
 msgid "Web &browser:"
 msgstr "Veb &pregledač"
 
-#: gui/dialogs/configdialog.cpp:320
+#: gui/dialogs/configdialog.cpp:325
 msgid "Context &Menu Commands"
 msgstr "Naredbe kontekstnog me&nija"
 
-#: gui/dialogs/configdialog.cpp:322
+#: gui/dialogs/configdialog.cpp:327
 msgid "&Play on double click"
 msgstr "&Reprodukuj pri dvokliku"
 
-#: gui/dialogs/configdialog.cpp:335
+#: gui/dialogs/configdialog.cpp:340
 msgid "User Actions"
 msgstr "Radnje korisnika"
 
-#: gui/dialogs/configdialog.cpp:337
+#: gui/dialogs/configdialog.cpp:342
 msgid "&User Actions"
 msgstr "Radnje &korisnika"
 
-#: gui/dialogs/configdialog.cpp:346
+#: gui/dialogs/configdialog.cpp:351
 msgid "Proxy"
 msgstr "Proksi"
 
-#: gui/dialogs/configdialog.cpp:347
+#: gui/dialogs/configdialog.cpp:352
 msgid "&Proxy:"
 msgstr "&Proksi:"
 
-#: gui/dialogs/configdialog.cpp:349
+#: gui/dialogs/configdialog.cpp:354
 msgid "&Use authentication with proxy"
 msgstr "Koristi &autentifikaciju za proksi"
 
-#: gui/dialogs/configdialog.cpp:350
+#: gui/dialogs/configdialog.cpp:355
 msgid "Proxy user &name:"
 msgstr "Korisničko &ime za proksi:"
 
-#: gui/dialogs/configdialog.cpp:353
+#: gui/dialogs/configdialog.cpp:358
 msgid "Proxy pass&word:"
 msgstr "Lozinka za proksi:"
 
-#: gui/dialogs/configdialog.cpp:377
+#: gui/dialogs/configdialog.cpp:382
 msgid "Network"
 msgstr "Mreža"
 
-#: gui/dialogs/configdialog.cpp:379
+#: gui/dialogs/configdialog.cpp:384
 msgid "&Network"
 msgstr "&Mreža"
 
-#: gui/dialogs/configdialog.cpp:397
+#: gui/dialogs/configdialog.cpp:402
 msgid "&Keyboard Shortcuts"
 msgstr "Prečice &tastature"
 
-#: gui/dialogs/configdialog.cpp:407
+#: gui/dialogs/configdialog.cpp:412
 msgid "Use custom app&lication font"
 msgstr "Koristi pose&bni font za aplikaciju"
 
-#: gui/dialogs/configdialog.cpp:408
+#: gui/dialogs/configdialog.cpp:413
 msgid "A&pplication Font..."
 msgstr "&Font aplikacije..."
 
-#: gui/dialogs/configdialog.cpp:409
+#: gui/dialogs/configdialog.cpp:414
 msgid "Use custom application &style"
 msgstr "Koristi posebni &stil za aplikaciju"
 
-#: gui/dialogs/configdialog.cpp:417 gui/dialogs/configdialog.cpp:707
+#: gui/dialogs/configdialog.cpp:422 gui/dialogs/configdialog.cpp:714
 #: gui/dialogs/musicbrainzdialog.cpp:186 gui/dialogs/musicbrainzdialog.cpp:190
 #: gui/dialogs/musicbrainzdialog.cpp:205
 msgid "Unknown"
 msgstr "Nepoznato"
 
-#: gui/dialogs/configdialog.cpp:426
+#: gui/dialogs/configdialog.cpp:431
 msgid "Use native system file &dialogs"
 msgstr "Koristi sistemske &dijaloge fajlova"
 
-#: gui/dialogs/configdialog.cpp:430
+#: gui/dialogs/configdialog.cpp:435
 msgid "&Appearance"
 msgstr "&Izgled"
 
-#: gui/dialogs/configdialog.cpp:440 gui/dialogs/editframedialog.cpp:57
-#: gui/dialogs/editframefieldsdialog.cpp:960 gui/dialogs/importdialog.cpp:232
+#: gui/dialogs/configdialog.cpp:445 gui/dialogs/editframedialog.cpp:57
+#: gui/dialogs/editframefieldsdialog.cpp:964 gui/dialogs/importdialog.cpp:232
 #: gui/dialogs/musicbrainzdialog.cpp:120
 #: gui/dialogs/numbertracksdialog.cpp:119 gui/dialogs/playlistdialog.cpp:213
 msgid "&OK"
 msgstr "&U redu"
 
-#: gui/dialogs/configdialog.cpp:629
+#: gui/dialogs/configdialog.cpp:636
+#, kde-format
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
 msgstr "Prečica tastature '%1' je već dodijeljena '%2'."
 
@@ -1203,114 +1215,122 @@ msgstr "Format vremenske oznake"
 msgid "Content Type"
 msgstr "Tip sadržaja"
 
-#: gui/dialogs/editframefieldsdialog.cpp:805
-#: gui/dialogs/editframefieldsdialog.cpp:807
+#: gui/dialogs/editframefieldsdialog.cpp:680
+msgid "Price"
+msgstr "Cijena"
+
+#: gui/dialogs/editframefieldsdialog.cpp:682
+msgid "Seller"
+msgstr ""
+
+#: gui/dialogs/editframefieldsdialog.cpp:809
+#: gui/dialogs/editframefieldsdialog.cpp:811
 msgid "Images (*.jpg *.jpeg *.png)"
 msgstr "slike (*.jpg *.jpeg *.png)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:863
+#: gui/dialogs/editframefieldsdialog.cpp:867
 msgid "UTF16BE"
 msgstr "UTF-16BE"
 
-#: gui/dialogs/editframefieldsdialog.cpp:872
-#: gui/dialogs/editframefieldsdialog.cpp:900
-#: gui/dialogs/editframefieldsdialog.cpp:910
+#: gui/dialogs/editframefieldsdialog.cpp:876
+#: gui/dialogs/editframefieldsdialog.cpp:904
+#: gui/dialogs/editframefieldsdialog.cpp:914
 msgid "Other"
 msgstr "Ostalo"
 
-#: gui/dialogs/editframefieldsdialog.cpp:873
+#: gui/dialogs/editframefieldsdialog.cpp:877
 msgid "32x32 pixels PNG file icon"
 msgstr "PNG ikona fajla 32x32 piksela"
 
-#: gui/dialogs/editframefieldsdialog.cpp:874
+#: gui/dialogs/editframefieldsdialog.cpp:878
 msgid "Other file icon"
 msgstr "Ostale ikone fajla"
 
-#: gui/dialogs/editframefieldsdialog.cpp:875
+#: gui/dialogs/editframefieldsdialog.cpp:879
 msgid "Cover (front)"
 msgstr "Omot (prednji)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:876
+#: gui/dialogs/editframefieldsdialog.cpp:880
 msgid "Cover (back)"
 msgstr "Omot (zadnji)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:877
+#: gui/dialogs/editframefieldsdialog.cpp:881
 msgid "Leaflet page"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:879
+#: gui/dialogs/editframefieldsdialog.cpp:883
 msgid "Lead artist/lead performer/soloist"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:880
+#: gui/dialogs/editframefieldsdialog.cpp:884
 msgid "Artist/performer"
 msgstr "Umjetnik/izvođač"
 
-#: gui/dialogs/editframefieldsdialog.cpp:882
+#: gui/dialogs/editframefieldsdialog.cpp:886
 msgid "Band/Orchestra"
 msgstr "Bend/orkestar"
 
-#: gui/dialogs/editframefieldsdialog.cpp:884
+#: gui/dialogs/editframefieldsdialog.cpp:888
 msgid "Lyricist/text writer"
 msgstr "Pjesnik/tekstopisac"
 
-#: gui/dialogs/editframefieldsdialog.cpp:885
+#: gui/dialogs/editframefieldsdialog.cpp:889
 msgid "Recording Location"
 msgstr "Mjesto snimanja"
 
-#: gui/dialogs/editframefieldsdialog.cpp:886
+#: gui/dialogs/editframefieldsdialog.cpp:890
 msgid "During recording"
 msgstr "Tokom snimanja"
 
-#: gui/dialogs/editframefieldsdialog.cpp:887
+#: gui/dialogs/editframefieldsdialog.cpp:891
 msgid "During performance"
 msgstr "Tokom izvođenja"
 
-#: gui/dialogs/editframefieldsdialog.cpp:888
+#: gui/dialogs/editframefieldsdialog.cpp:892
 msgid "Movie/video screen capture"
 msgstr "Snimak ekrana filma/videa"
 
-#: gui/dialogs/editframefieldsdialog.cpp:889
+#: gui/dialogs/editframefieldsdialog.cpp:893
 msgid "A bright coloured fish"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:890
+#: gui/dialogs/editframefieldsdialog.cpp:894
 msgid "Illustration"
 msgstr "Ilustracija"
 
-#: gui/dialogs/editframefieldsdialog.cpp:891
+#: gui/dialogs/editframefieldsdialog.cpp:895
 msgid "Band/artist logotype"
 msgstr "Logotip benda/izvođača"
 
-#: gui/dialogs/editframefieldsdialog.cpp:892
+#: gui/dialogs/editframefieldsdialog.cpp:896
 msgid "Publisher/Studio logotype"
 msgstr "Logotip izdavača/studija"
 
-#: gui/dialogs/editframefieldsdialog.cpp:901
+#: gui/dialogs/editframefieldsdialog.cpp:905
 msgid "MPEG frames as unit"
 msgstr "Broj MPEG kadrova kao jedinica"
 
-#: gui/dialogs/editframefieldsdialog.cpp:902
+#: gui/dialogs/editframefieldsdialog.cpp:906
 msgid "Milliseconds as unit"
 msgstr "Milisekunde kao jedinica"
 
-#: gui/dialogs/editframefieldsdialog.cpp:912
+#: gui/dialogs/editframefieldsdialog.cpp:916
 msgid "Text transcription"
 msgstr "Transkripcija teksta"
 
-#: gui/dialogs/editframefieldsdialog.cpp:913
+#: gui/dialogs/editframefieldsdialog.cpp:917
 msgid "Movement/part name"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:914
+#: gui/dialogs/editframefieldsdialog.cpp:918
 msgid "Events"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:915
+#: gui/dialogs/editframefieldsdialog.cpp:919
 msgid "Chord"
 msgstr "Akord"
 
-#: gui/dialogs/editframefieldsdialog.cpp:916
+#: gui/dialogs/editframefieldsdialog.cpp:920
 msgid "Trivia/pop up"
 msgstr ""
 
@@ -1778,6 +1798,7 @@ msgstr "&Uvezi..."
 
 #: gui/forms/kid3mainwindow.cpp:257 gui/forms/kid3mainwindow.cpp:266
 #: gui/forms/kid3mainwindow.cpp:472 gui/forms/kid3mainwindow.cpp:485
+#, kde-format
 msgid "Import from %1..."
 msgstr "Uvezi sa %1..."
 
@@ -1867,6 +1888,7 @@ msgid "Import from file or clipboard"
 msgstr "Uvezi iz fajla ili klipborda"
 
 #: gui/forms/kid3mainwindow.cpp:471 gui/forms/kid3mainwindow.cpp:484
+#, kde-format
 msgid "Import from %1"
 msgstr "Uvezi sa %1"
 
@@ -2064,10 +2086,12 @@ msgid "Enter new file name:"
 msgstr "Unesite novo ime fajla:"
 
 #: gui/forms/kid3mainwindow.cpp:1931 gui/forms/kid3mainwindow.cpp:1969
+#, kde-format
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Želite li zaista da premjestite ovih %1 stavki u smeće?"
 
 #: gui/forms/kid3mainwindow.cpp:1957 gui/forms/kid3mainwindow.cpp:1971
+#, kde-format
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
 msgstr[0] "Želite li zaista da premjestite ovu %1 stavku u smeće?"
@@ -2099,43 +2123,51 @@ msgstr "&Obriši red"
 msgid "&Clear row"
 msgstr "O&čisti red"
 
-#: gui/widgets/formatbox.cpp:47
+#: gui/widgets/formatbox.cpp:48
 msgid "Format while editing"
 msgstr "Formatiraj pri uređivanju"
 
-#: gui/widgets/formatbox.cpp:51
+#: gui/widgets/formatbox.cpp:52
 msgid "Case conversion:"
 msgstr "Veličina slova:"
 
-#: gui/widgets/formatbox.cpp:57
+#: gui/widgets/formatbox.cpp:58
 msgid "No changes"
 msgstr "bez izmjena"
 
-#: gui/widgets/formatbox.cpp:59
+#: gui/widgets/formatbox.cpp:60
 msgid "All lowercase"
 msgstr "sve malim"
 
-#: gui/widgets/formatbox.cpp:61
+#: gui/widgets/formatbox.cpp:62
 msgid "All uppercase"
 msgstr "sve velikim"
 
-#: gui/widgets/formatbox.cpp:63
+#: gui/widgets/formatbox.cpp:64
 msgid "First letter uppercase"
 msgstr "prvo slovo velikim"
 
-#: gui/widgets/formatbox.cpp:65
+#: gui/widgets/formatbox.cpp:66
 msgid "All first letters uppercase"
 msgstr "sva prva slova velikim"
 
-#: gui/widgets/formatbox.cpp:68
+#: gui/widgets/formatbox.cpp:71
+msgid "&Locale:"
+msgstr "&Lokalitet:"
+
+#: gui/widgets/formatbox.cpp:74
+msgid "None"
+msgstr "nikakav"
+
+#: gui/widgets/formatbox.cpp:80
 msgid "String replacement:"
 msgstr "Zamjena teksta:"
 
-#: gui/widgets/formatbox.cpp:72
+#: gui/widgets/formatbox.cpp:84
 msgid "From"
 msgstr "iz"
 
-#: gui/widgets/formatbox.cpp:72
+#: gui/widgets/formatbox.cpp:84
 msgid "To"
 msgstr "u"
 
