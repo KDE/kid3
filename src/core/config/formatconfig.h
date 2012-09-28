@@ -30,10 +30,10 @@
 #include "config.h"
 #include "generalconfig.h"
 #include <QMap>
-#include <QLocale>
 #include "kid3api.h"
 
 class QString;
+class QLocale;
 class FrameCollection;
 
 /**
@@ -99,26 +99,39 @@ public:
    */
   virtual void readFromConfig(Kid3Settings* config);
 
+  /**
+   * Get name of locale to use for string conversions.
+   * @return locale name
+   */
+  QString getLocaleName() const { return m_localeName; }
+
+  /**
+   * Set name of locale to use for string conversions.
+   * @param localeName locale name
+   */
+  void setLocaleName(const QString& localeName);
+
   /** true to enable formating in line edits */
   bool m_formatWhileEditing;
   /** Case conversion option */
   CaseConversion m_caseConversion;
-  /** true to use system locale for case conversion */
-  bool m_useSystemLocale;
   /** true if string replacement enabled */
   bool m_strRepEnabled;
   /** Mapping for string replacement */
   QMap<QString, QString> m_strRepMap;
 
 private:
+  /** Locale to use for case conversion */
+  QString m_localeName;
+
   /** Returns a lowercase copy of @a str. */
   QString toLower(const QString& str) const;
 
   /** Returns an uppercase copy of @a str. */
   QString toUpper(const QString& str) const;
 
-  /** System locale */
-  const QLocale m_locale;
+  /** Locale to use for string conversions */
+  const QLocale* m_locale;
 
   /** true if it is a file formatter */
   bool m_filenameFormatter;

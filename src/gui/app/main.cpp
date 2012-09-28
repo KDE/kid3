@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
 
   // translation file for Qt
   QTranslator qt_tr(0);
-#if QT_VERSION >= 0x040800 && defined __APPLE__
+#if QT_VERSION >= 0x040800 && !defined WIN32
 #if defined WIN32 || defined __APPLE__
 #ifdef CFG_TRANSLATIONSDIR
   if (!qt_tr.load(locale, "qt", "_", CFG_TRANSLATIONSDIR))
@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 
   // translation file for application strings
   QTranslator kid3_tr(0);
-#if QT_VERSION >= 0x040800 && defined __APPLE__
+#if QT_VERSION >= 0x040800 && !defined WIN32
 #ifdef CFG_TRANSLATIONSDIR
   if (!kid3_tr.load(locale, "kid3", "_", CFG_TRANSLATIONSDIR))
 #endif

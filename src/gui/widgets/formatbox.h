@@ -73,7 +73,7 @@ public:
 private:
   QComboBox* m_caseConvComboBox;
 #if QT_VERSION >= 0x040800
-  QCheckBox* m_useSystemLocaleCheckBox;
+  QComboBox* m_localeComboBox;
 #endif
   QCheckBox* m_strRepCheckBox;
   ConfigTable* m_strReplTable;

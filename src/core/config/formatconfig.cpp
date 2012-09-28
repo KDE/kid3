@@ -32,6 +32,7 @@
 #include <QString>
 #include <QStringList>
 #endif
+#include <QLocale>
 #include "generalconfig.h"
 #include "frame.h"
 
@@ -42,8 +43,8 @@ FormatConfig::FormatConfig(const QString& grp) :
   GeneralConfig(grp),
   m_formatWhileEditing(false),
   m_caseConversion(AllFirstLettersUppercase),
-  m_useSystemLocale(false),
   m_strRepEnabled(false),
+  m_locale(0),
   m_filenameFormatter(false)
 {
   m_strRepMap.clear();
@@ -52,7 +53,10 @@ FormatConfig::FormatConfig(const QString& grp) :
 /**
  * Destructor.
  */
-FormatConfig::~FormatConfig() {}
+FormatConfig::~FormatConfig()
+{
+  delete m_locale;
+}
 
 /**
  * Set specific properties for a filename format.
@@ -63,7 +67,9 @@ void FormatConfig::setAsFilenameFormatter()
 {
   m_filenameFormatter = true;
   m_caseConversion = NoChanges;
-  m_useSystemLocale = false;
+  m_localeName = QString();
+  delete m_locale;
+  m_locale = 0;
   m_strRepEnabled = true;
   m_strRepMap["/"] = "-";
   m_strRepMap[":"] = "-";
@@ -204,8 +210,8 @@ void FormatConfig::formatString(QString& str) const
 QString FormatConfig::toLower(const QString& str) const
 {
 #if QT_VERSION >= 0x040800
-  if (m_useSystemLocale)
-    return m_locale.toLower(str);
+  if (m_locale)
+    return m_locale->toLower(str);
 #endif
   return str.toLower();
 }
@@ -214,8 +220,8 @@ QString FormatConfig::toLower(const QString& str) const
 QString FormatConfig::toUpper(const QString& str) const
 {
 #if QT_VERSION >= 0x040800
-  if (m_useSystemLocale)
-    return m_locale.toUpper(str);
+  if (m_locale)
+    return m_locale->toUpper(str);
 #endif
   return str.toUpper();
 }
@@ -252,7 +258,7 @@ void FormatConfig::writeToConfig(Kid3Settings* config) const
   KConfigGroup cfg = config->group(m_group);
   cfg.writeEntry("FormatWhileEditing", m_formatWhileEditing);
   cfg.writeEntry("CaseConversion", static_cast<int>(m_caseConversion));
-  cfg.writeEntry("UseSystemLocale", m_useSystemLocale);
+  cfg.writeEntry("LocaleName", m_localeName);
   cfg.writeEntry("StrRepEnabled", m_strRepEnabled);
   cfg.writeEntry("StrRepMapKeys", m_strRepMap.keys());
   cfg.writeEntry("StrRepMapValues", m_strRepMap.values());
@@ -260,7 +266,7 @@ void FormatConfig::writeToConfig(Kid3Settings* config) const
   config->beginGroup("/" + m_group);
   config->setValue("/FormatWhileEditing", QVariant(m_formatWhileEditing));
   config->setValue("/CaseConversion", QVariant(m_caseConversion));
-  config->setValue("/UseSystemLocale", QVariant(m_useSystemLocale));
+  config->setValue("/LocaleName", QVariant(m_localeName));
   config->setValue("/StrRepEnabled", QVariant(m_strRepEnabled));
   config->setValue("/StrRepMapKeys", QVariant(m_strRepMap.keys()));
   config->setValue("/StrRepMapValues", QVariant(m_strRepMap.values()));
@@ -280,7 +286,7 @@ void FormatConfig::readFromConfig(Kid3Settings* config)
   m_formatWhileEditing = cfg.readEntry("FormatWhileEditing", m_formatWhileEditing);
   m_caseConversion = (CaseConversion)cfg.readEntry("CaseConversion",
                               (int)m_caseConversion);
-  m_useSystemLocale = cfg.readEntry("UseSystemLocale", m_useSystemLocale);
+  m_localeName = cfg.readEntry("LocaleName", m_localeName);
   m_strRepEnabled = cfg.readEntry("StrRepEnabled", m_strRepEnabled);
   QStringList keys = cfg.readEntry("StrRepMapKeys", QStringList());
   QStringList values = cfg.readEntry("StrRepMapValues", QStringList());
@@ -298,7 +304,7 @@ void FormatConfig::readFromConfig(Kid3Settings* config)
   m_formatWhileEditing = config->value("/FormatWhileEditing", m_formatWhileEditing).toBool();
   m_caseConversion = (CaseConversion)config->value("/CaseConversion",
                                                    (int)m_caseConversion).toInt();
-  m_useSystemLocale = config->value("/UseSystemLocale", m_useSystemLocale).toBool();
+  m_localeName = config->value("/LocaleName", m_localeName).toString();
   m_strRepEnabled = config->value("/StrRepEnabled", m_strRepEnabled).toBool();
   QStringList keys = config->value("/StrRepMapKeys").toStringList();
   QStringList values = config->value("/StrRepMapValues").toStringList();
@@ -313,4 +319,17 @@ void FormatConfig::readFromConfig(Kid3Settings* config)
   }
   config->endGroup();
 #endif
+}
+
+/**
+ * Set name of locale to use for string conversions.
+ * @param localeName locale name
+ */
+void FormatConfig::setLocaleName(const QString& localeName)
+{
+  if (localeName != m_localeName) {
+    m_localeName = localeName;
+    delete m_locale;
+    m_locale = new QLocale(m_localeName);
+  }
 }

@@ -66,11 +66,15 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
                                      i18n("All first letters uppercase"));
 
 #if QT_VERSION >= 0x040800
-  m_useSystemLocaleCheckBox = new QCheckBox(this);
-  QStringList langNames(QLocale().uiLanguages());
-  m_useSystemLocaleCheckBox->setText(i18n("Use current locale (%1)").
-                             arg(langNames.isEmpty() ? "" : langNames.first()));
-
+  QHBoxLayout* localeLayout = new QHBoxLayout;
+  localeLayout->setMargin(2);
+  QLabel* localeLabel = new QLabel(i18n("Use &locale:"));
+  localeLayout->addWidget(localeLabel);
+  m_localeComboBox = new QComboBox(this);
+  m_localeComboBox->addItem(i18n("None"));
+  m_localeComboBox->addItems(QLocale().uiLanguages());
+  localeLabel->setBuddy(m_localeComboBox);
+  localeLayout->addWidget(m_localeComboBox);
 #endif
   m_strRepCheckBox = new QCheckBox(this);
   m_strRepCheckBox->setText(i18n("String replacement:"));
@@ -87,7 +91,7 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
   vbox->addWidget(caseConvLabel);
   vbox->addWidget(m_caseConvComboBox);
 #if QT_VERSION >= 0x040800
-  vbox->addWidget(m_useSystemLocaleCheckBox);
+  vbox->addLayout(localeLayout);
 #endif
   vbox->addWidget(m_strRepCheckBox);
   vbox->addWidget(m_strReplTable);
@@ -109,7 +113,11 @@ void FormatBox::fromFormatConfig(const FormatConfig* cfg)
   m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
   m_caseConvComboBox->setCurrentIndex(cfg->m_caseConversion);
 #if QT_VERSION >= 0x040800
-  m_useSystemLocaleCheckBox->setChecked(cfg->m_useSystemLocale);
+  int localeIndex = m_localeComboBox->findText(cfg->getLocaleName());
+  if (localeIndex == -1) {
+    localeIndex = 0;
+  }
+  m_localeComboBox->setCurrentIndex(localeIndex);
 #endif
   m_strRepCheckBox->setChecked(cfg->m_strRepEnabled);
   m_strReplTableModel->setMap(cfg->m_strRepMap);
@@ -129,7 +137,8 @@ void FormatBox::toFormatConfig(FormatConfig* cfg) const
     cfg->m_caseConversion = FormatConfig::NoChanges;
   }
 #if QT_VERSION >= 0x040800
-  cfg->m_useSystemLocale = m_useSystemLocaleCheckBox->isChecked();
+  cfg->setLocaleName(m_localeComboBox->currentIndex() > 0
+                     ? m_localeComboBox->currentText() : QString());
 #endif
   cfg->m_strRepEnabled = m_strRepCheckBox->isChecked();
   cfg->m_strRepMap = m_strReplTableModel->getMap();
