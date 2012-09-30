@@ -172,9 +172,11 @@ void FormatConfig::formatString(QString& str) const
         str = toUpper(str.at(0)) + toLower(str.right(str.length() - 1));
         break;
       case AllFirstLettersUppercase: {
+        static const QString romanLetters("IVXLCDM");
         QString newstr;
         bool wordstart = true;
-        for (unsigned i = 0; i < static_cast<unsigned>(str.length()); ++i) {
+        const unsigned strLen = static_cast<unsigned>(str.length());
+        for (unsigned i = 0; i < strLen; ++i) {
           QChar ch = str.at(i);
           if (!ch.isLetterOrNumber() &&
             ch != '\'' && ch != '`') {
@@ -182,6 +184,27 @@ void FormatConfig::formatString(QString& str) const
             newstr.append(ch);
           } else if (wordstart) {
             wordstart = false;
+
+            // Skip word if it is a roman number
+            if (romanLetters.contains(ch)) {
+              unsigned j = i + 1;
+              while (j < strLen) {
+                QChar c = str.at(j);
+                if (!c.isLetterOrNumber()) {
+                  break;
+                } else if (!romanLetters.contains(c)) {
+                  j = i;
+                  break;
+                }
+                ++j;
+              }
+              if (j > i) {
+                newstr.append(str.mid(i, j - i));
+                i = j - 1;
+                continue;
+              }
+            }
+
             newstr.append(toUpper(ch));
           } else {
             newstr.append(toLower(ch));
