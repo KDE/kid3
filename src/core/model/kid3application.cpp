@@ -213,6 +213,10 @@ Kid3Settings* Kid3Application::getSettings() const
  */
 void Kid3Application::saveConfig()
 {
+  if (ConfigStore::s_miscCfg.m_loadLastOpenedFile) {
+    ConfigStore::s_miscCfg.m_lastOpenedFile =
+        m_fileProxyModel->filePath(currentOrRootIndex());
+  }
   m_configStore->writeToConfig();
   m_configStore->getSettings()->sync();
 }

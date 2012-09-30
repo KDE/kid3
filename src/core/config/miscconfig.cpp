@@ -186,7 +186,8 @@ MiscConfig::MiscConfig(const QString& group) :
   m_playOnDoubleClick(false),
   m_useProxy(false),
   m_useProxyAuthentication(false),
-  m_onlyCustomGenres(false)
+  m_onlyCustomGenres(false),
+  m_loadLastOpenedFile(false)
 #ifndef CONFIG_USE_KDE
   , m_useFont(false), m_fontSize(-1),
   m_dontUseNativeDialogs(
@@ -254,6 +255,8 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("ProxyPassword", m_proxyPassword);
   cfg.writeEntry("Browser", m_browser);
   cfg.writeEntry("OnlyCustomGenres", m_onlyCustomGenres);
+  cfg.writeEntry("LoadLastOpenedFile", m_loadLastOpenedFile);
+  cfg.writeEntry("LastOpenedFile", m_lastOpenedFile);
 
   KConfigGroup menuCmdCfg = config->group("MenuCommands");
   int cmdNr = 1;
@@ -327,6 +330,8 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   config->setValue("/ProxyPassword", QVariant(m_proxyPassword));
   config->setValue("/Browser", QVariant(m_browser));
   config->setValue("/OnlyCustomGenres", QVariant(m_onlyCustomGenres));
+  config->setValue("/LoadLastOpenedFile", QVariant(m_loadLastOpenedFile));
+  config->setValue("/LastOpenedFile", QVariant(m_lastOpenedFile));
   config->setValue("/Geometry", m_geometry);
   config->setValue("/WindowState", m_windowState);
   config->setValue("/UseFont", QVariant(m_useFont));
@@ -416,6 +421,8 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_proxyPassword = cfg.readEntry("ProxyPassword", m_proxyPassword);
   m_browser = cfg.readEntry("Browser", defaultBrowser);
   m_onlyCustomGenres = cfg.readEntry("OnlyCustomGenres", m_onlyCustomGenres);
+  m_loadLastOpenedFile = cfg.readEntry("LoadLastOpenedFile", m_loadLastOpenedFile);
+  m_lastOpenedFile = cfg.readEntry("LastOpenedFile", m_lastOpenedFile);
 
   m_contextMenuCommands.clear();
   KConfigGroup menuCmdCfg = config->group("MenuCommands");
@@ -506,6 +513,8 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_browser = config->value("/Browser", defaultBrowser).toString();
 #endif
   m_onlyCustomGenres = config->value("/OnlyCustomGenres", m_onlyCustomGenres).toBool();
+  m_loadLastOpenedFile = config->value("/LoadLastOpenedFile", m_loadLastOpenedFile).toBool();
+  m_lastOpenedFile = config->value("/LastOpenedFile", m_lastOpenedFile).toString();
   m_geometry = config->value("/Geometry").toByteArray();
   m_windowState = config->value("/WindowState").toByteArray();
   m_useFont = config->value("/UseFont", m_useFont).toBool();

@@ -145,7 +145,8 @@ private:
 #ifndef CONFIG_USE_KDE
   void setShortcutsModel(ShortcutsModel* model);
 #endif
-
+  /** Load last-opened files checkbox */
+  QCheckBox* m_loadLastOpenedFileCheckBox;
   /** Preserve timestamp checkbox */
   QCheckBox* m_preserveTimeCheckBox;
   /** Mark changes checkbox */

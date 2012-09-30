@@ -287,6 +287,14 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     QVBoxLayout* vlayout = new QVBoxLayout(filesPage);
     vlayout->setMargin(6);
     vlayout->setSpacing(6);
+    QGroupBox* startupGroupBox = new QGroupBox(i18n("Startup"), filesPage);
+    m_loadLastOpenedFileCheckBox = new QCheckBox(i18n("&Load last-opened files"),
+                                                 startupGroupBox);
+    QVBoxLayout* startupLayout = new QVBoxLayout;
+    startupLayout->setMargin(2);
+    startupLayout->addWidget(m_loadLastOpenedFileCheckBox);
+    startupGroupBox->setLayout(startupLayout);
+    vlayout->addWidget(startupGroupBox);
     QGroupBox* saveGroupBox = new QGroupBox(i18n("Save"), filesPage);
     m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
     m_markChangesCheckBox = new QCheckBox(i18n("&Mark changes"), saveGroupBox);
@@ -481,6 +489,7 @@ void ConfigDialog::setConfig(const ConfigStore* cfg)
   m_id3FormatBox->fromFormatConfig(id3Cfg);
   m_markTruncationsCheckBox->setChecked(miscCfg->m_markTruncations);
   m_totalNumTracksCheckBox->setChecked(miscCfg->m_enableTotalNumberOfTracks);
+  m_loadLastOpenedFileCheckBox->setChecked(miscCfg->m_loadLastOpenedFile);
   m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
   m_markChangesCheckBox->setChecked(miscCfg->m_markChanges);
   m_onlyCustomGenresCheckBox->setChecked(miscCfg->m_onlyCustomGenres);
@@ -566,6 +575,7 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
   m_id3FormatBox->toFormatConfig(id3Cfg);
   miscCfg->m_markTruncations = m_markTruncationsCheckBox->isChecked();
   miscCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
+  miscCfg->m_loadLastOpenedFile = m_loadLastOpenedFileCheckBox->isChecked();
   miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
   miscCfg->m_markChanges = m_markChangesCheckBox->isChecked();
   miscCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();

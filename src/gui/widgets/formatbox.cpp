@@ -68,7 +68,7 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 #if QT_VERSION >= 0x040800
   QHBoxLayout* localeLayout = new QHBoxLayout;
   localeLayout->setMargin(2);
-  QLabel* localeLabel = new QLabel(i18n("&Locale:"));
+  QLabel* localeLabel = new QLabel(i18n("Locale:"));
   localeLayout->addWidget(localeLabel);
   m_localeComboBox = new QComboBox(this);
   m_localeComboBox->addItem(i18n("None"));

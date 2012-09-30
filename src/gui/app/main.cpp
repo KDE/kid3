@@ -26,6 +26,7 @@
 
 #include "config.h"
 #include <QFile>
+#include "configstore.h"
 #ifdef CONFIG_USE_KDE
 
 #include <kdeversion.h>
@@ -74,6 +75,9 @@ int main(int argc, char* argv[])
 
     if (args->count()) {
       kid3->confirmedOpenDirectory(args->arg(0));
+    } else if (ConfigStore::s_miscCfg.m_loadLastOpenedFile &&
+               !ConfigStore::s_miscCfg.m_lastOpenedFile.isEmpty()) {
+      kid3->confirmedOpenDirectory(ConfigStore::s_miscCfg.m_lastOpenedFile);
     }
     args->clear();
   }
@@ -160,6 +164,9 @@ int main(int argc, char* argv[])
   kid3->show();
   if (argc > 1) {
     kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));
+  } else if (ConfigStore::s_miscCfg.m_loadLastOpenedFile &&
+             !ConfigStore::s_miscCfg.m_lastOpenedFile.isEmpty()) {
+    kid3->confirmedOpenDirectory(ConfigStore::s_miscCfg.m_lastOpenedFile);
   }
   return app.exec();
 }

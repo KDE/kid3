@@ -264,6 +264,10 @@ public:
   QString m_browser;
   /** true to show only custom genres in combo boxes */
   bool m_onlyCustomGenres;
+  /** true to open last opened file on startup */
+  bool m_loadLastOpenedFile;
+  /** path to last opened file */
+  QString m_lastOpenedFile;
 #ifndef CONFIG_USE_KDE
   /** mainwindow geometry */
   QByteArray m_geometry;
