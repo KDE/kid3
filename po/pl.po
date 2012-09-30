@@ -8,9 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.1\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2012-09-28 17:17+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=70849&atid=529221\n"
+"POT-Creation-Date: 2012-09-30 19:07+0200\n"
 "PO-Revision-Date: 2011-01-15 17:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -18,8 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.1\n"
 "X-Language: pl\n"
 "X-Source-Language: en\n"
@@ -609,16 +607,15 @@ msgstr "Logiczna OR"
 msgid "Logical negation"
 msgstr "Logiczna NOT"
 
-#: core/model/frametablemodel.cpp:190
-#: gui/dialogs/editframefieldsdialog.cpp:659
+#: core/model/frametablemodel.cpp:190 gui/dialogs/editframefieldsdialog.cpp:659
 msgid "Data"
 msgstr "Dane"
 
-#: core/model/kid3application.cpp:1790 core/model/kid3application.cpp:1794
+#: core/model/kid3application.cpp:1794 core/model/kid3application.cpp:1798
 msgid "All Supported Files"
 msgstr "Wszystkie obsługiwane pliki"
 
-#: core/model/kid3application.cpp:1792 core/model/kid3application.cpp:1798
+#: core/model/kid3application.cpp:1796 core/model/kid3application.cpp:1802
 #: gui/dialogs/editframefieldsdialog.cpp:809
 #: gui/dialogs/editframefieldsdialog.cpp:811
 msgid "All Files (*)"
@@ -799,23 +796,23 @@ msgstr "Kanały"
 msgid "Codec"
 msgstr "Kodek"
 
-#: gui/app/main.cpp:40
+#: gui/app/main.cpp:41
 msgid "Kid3 ID3 Tagger"
 msgstr "Kid3 - Edytor znaczników ID3"
 
-#: gui/app/main.cpp:54 gui/forms/kid3form.cpp:176
+#: gui/app/main.cpp:55 gui/forms/kid3form.cpp:176
 msgid "Kid3"
 msgstr "Kid3"
 
-#: gui/app/main.cpp:56
+#: gui/app/main.cpp:57
 msgid "(c) 2003-"
 msgstr "(c) 2003-"
 
-#: gui/app/main.cpp:58
+#: gui/app/main.cpp:59
 msgid "Urs Fleisch"
 msgstr "Urs Fleisch"
 
-#: gui/app/main.cpp:62
+#: gui/app/main.cpp:63
 msgid "directory to open"
 msgstr "katalog do otwarcia"
 
@@ -852,7 +849,7 @@ msgstr "Dopasowanie"
 msgid "Picture URL"
 msgstr "Obrazek URL"
 
-#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:444
+#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:452
 #: gui/dialogs/exportdialog.cpp:133 gui/dialogs/filterdialog.cpp:71
 #: gui/dialogs/importdialog.cpp:228 gui/dialogs/musicbrainzdialog.cpp:118
 #: gui/dialogs/numbertracksdialog.cpp:106 gui/dialogs/playlistdialog.cpp:201
@@ -863,10 +860,10 @@ msgstr "Pomo&c"
 
 #: gui/dialogs/browsecoverartdialog.cpp:137 gui/dialogs/exportdialog.cpp:138
 #: gui/dialogs/filterdialog.cpp:76 gui/dialogs/importdialog.cpp:230
-#: gui/dialogs/musicbrainzdialog.cpp:119
-#: gui/dialogs/numbertracksdialog.cpp:110 gui/dialogs/playlistdialog.cpp:205
-#: gui/dialogs/rendirdialog.cpp:76 gui/dialogs/serverimportdialog.cpp:108
-#: gui/dialogs/tagimportdialog.cpp:71 gui/dialogs/textimportdialog.cpp:81
+#: gui/dialogs/musicbrainzdialog.cpp:119 gui/dialogs/numbertracksdialog.cpp:110
+#: gui/dialogs/playlistdialog.cpp:205 gui/dialogs/rendirdialog.cpp:76
+#: gui/dialogs/serverimportdialog.cpp:108 gui/dialogs/tagimportdialog.cpp:71
+#: gui/dialogs/textimportdialog.cpp:81
 msgid "&Save Settings"
 msgstr "&Zapisz ustawienia"
 
@@ -874,10 +871,9 @@ msgstr "&Zapisz ustawienia"
 msgid "&Browse"
 msgstr "&Przeglądarka"
 
-#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:446
-#: gui/dialogs/editframedialog.cpp:58
-#: gui/dialogs/editframefieldsdialog.cpp:965 gui/dialogs/importdialog.cpp:234
-#: gui/dialogs/musicbrainzdialog.cpp:122
+#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:454
+#: gui/dialogs/editframedialog.cpp:58 gui/dialogs/editframefieldsdialog.cpp:965
+#: gui/dialogs/importdialog.cpp:234 gui/dialogs/musicbrainzdialog.cpp:122
 #: gui/dialogs/numbertracksdialog.cpp:123 gui/dialogs/playlistdialog.cpp:216
 msgid "&Cancel"
 msgstr "&Anuluj"
@@ -999,120 +995,128 @@ msgid "&Tags"
 msgstr "&Znaczniki"
 
 #: gui/dialogs/configdialog.cpp:290
+msgid "Startup"
+msgstr "Uruchamianie"
+
+#: gui/dialogs/configdialog.cpp:291
+msgid "&Load last-opened files"
+msgstr "Na &starcie wczytaj ostatnio otwarte pliki"
+
+#: gui/dialogs/configdialog.cpp:298
 msgid "Save"
 msgstr "Zapisz"
 
-#: gui/dialogs/configdialog.cpp:291
+#: gui/dialogs/configdialog.cpp:299
 msgid "&Preserve file timestamp"
 msgstr "&Zachowaj znacznik czasu pliku"
 
-#: gui/dialogs/configdialog.cpp:292
+#: gui/dialogs/configdialog.cpp:300
 msgid "&Mark changes"
 msgstr "&Oznacz zmiany"
 
-#: gui/dialogs/configdialog.cpp:299
+#: gui/dialogs/configdialog.cpp:307
 msgid "&Filename Format"
 msgstr "&Format nazwy pliku"
 
-#: gui/dialogs/configdialog.cpp:303
+#: gui/dialogs/configdialog.cpp:311
 msgid "Files"
 msgstr "Pliki"
 
-#: gui/dialogs/configdialog.cpp:305
+#: gui/dialogs/configdialog.cpp:313
 msgid "&Files"
 msgstr "&Pliki"
 
-#: gui/dialogs/configdialog.cpp:314
+#: gui/dialogs/configdialog.cpp:322
 msgid "Browser"
 msgstr "Przeglądarka"
 
-#: gui/dialogs/configdialog.cpp:315
+#: gui/dialogs/configdialog.cpp:323
 msgid "Web &browser:"
 msgstr "&Przeglądarka WWW:"
 
-#: gui/dialogs/configdialog.cpp:325
+#: gui/dialogs/configdialog.cpp:333
 msgid "Context &Menu Commands"
 msgstr "Polecenia &menu kontekstowego"
 
-#: gui/dialogs/configdialog.cpp:327
+#: gui/dialogs/configdialog.cpp:335
 #, fuzzy
 msgid "&Play on double click"
 msgstr "&Odtwarzaj na podwójne kliknięcie"
 
-#: gui/dialogs/configdialog.cpp:340
+#: gui/dialogs/configdialog.cpp:348
 msgid "User Actions"
 msgstr "Działania użytkownika"
 
-#: gui/dialogs/configdialog.cpp:342
+#: gui/dialogs/configdialog.cpp:350
 msgid "&User Actions"
 msgstr "&Działania użytkownika"
 
-#: gui/dialogs/configdialog.cpp:351
+#: gui/dialogs/configdialog.cpp:359
 msgid "Proxy"
 msgstr "Pośrednik (proxy)"
 
-#: gui/dialogs/configdialog.cpp:352
+#: gui/dialogs/configdialog.cpp:360
 msgid "&Proxy:"
 msgstr "&Pośrednik (proxy):"
 
-#: gui/dialogs/configdialog.cpp:354
+#: gui/dialogs/configdialog.cpp:362
 msgid "&Use authentication with proxy"
 msgstr "&Użyj uwierzytelniania dla proxy"
 
-#: gui/dialogs/configdialog.cpp:355
+#: gui/dialogs/configdialog.cpp:363
 msgid "Proxy user &name:"
 msgstr "&Użytkownik proxy:"
 
-#: gui/dialogs/configdialog.cpp:358
+#: gui/dialogs/configdialog.cpp:366
 msgid "Proxy pass&word:"
 msgstr "&Hasło dla proxy:"
 
-#: gui/dialogs/configdialog.cpp:382
+#: gui/dialogs/configdialog.cpp:390
 msgid "Network"
 msgstr "Sieć"
 
-#: gui/dialogs/configdialog.cpp:384
+#: gui/dialogs/configdialog.cpp:392
 msgid "&Network"
 msgstr "&Sieć"
 
-#: gui/dialogs/configdialog.cpp:402
+#: gui/dialogs/configdialog.cpp:410
 msgid "&Keyboard Shortcuts"
 msgstr "Skróty &klawiszowe"
 
-#: gui/dialogs/configdialog.cpp:412
+#: gui/dialogs/configdialog.cpp:420
 msgid "Use custom app&lication font"
 msgstr "Użyj własnej &czcionki"
 
-#: gui/dialogs/configdialog.cpp:413
+#: gui/dialogs/configdialog.cpp:421
 msgid "A&pplication Font..."
 msgstr "Czcionka &programu..."
 
-#: gui/dialogs/configdialog.cpp:414
+#: gui/dialogs/configdialog.cpp:422
 msgid "Use custom application &style"
 msgstr "Używaj własnego programu i &stylu"
 
-#: gui/dialogs/configdialog.cpp:422 gui/dialogs/configdialog.cpp:714
+#: gui/dialogs/configdialog.cpp:430 gui/dialogs/configdialog.cpp:724
 #: gui/dialogs/musicbrainzdialog.cpp:186 gui/dialogs/musicbrainzdialog.cpp:190
 #: gui/dialogs/musicbrainzdialog.cpp:205
 msgid "Unknown"
 msgstr "Nieznany"
 
-#: gui/dialogs/configdialog.cpp:431
+#: gui/dialogs/configdialog.cpp:439
 msgid "Use native system file &dialogs"
 msgstr "&Użyj natywnych okien systemu"
 
-#: gui/dialogs/configdialog.cpp:435
+#: gui/dialogs/configdialog.cpp:443
 msgid "&Appearance"
 msgstr "&Wygląd"
 
-#: gui/dialogs/configdialog.cpp:445 gui/dialogs/editframedialog.cpp:57
+#: gui/dialogs/configdialog.cpp:453 gui/dialogs/editframedialog.cpp:57
 #: gui/dialogs/editframefieldsdialog.cpp:964 gui/dialogs/importdialog.cpp:232
-#: gui/dialogs/musicbrainzdialog.cpp:120
-#: gui/dialogs/numbertracksdialog.cpp:119 gui/dialogs/playlistdialog.cpp:213
+#: gui/dialogs/musicbrainzdialog.cpp:120 gui/dialogs/numbertracksdialog.cpp:119
+#: gui/dialogs/playlistdialog.cpp:213
 msgid "&OK"
 msgstr "&OK"
 
-#: gui/dialogs/configdialog.cpp:636
+#: gui/dialogs/configdialog.cpp:646
 #, kde-format
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
 msgstr "Skrót klawiaturowy '%1' jest już przypisany do '%2'."
@@ -1121,8 +1125,7 @@ msgstr "Skrót klawiaturowy '%1' jest już przypisany do '%2'."
 msgid "Kid3 Handbook"
 msgstr "Podręcznik programu Kid3"
 
-#: gui/dialogs/editframefieldsdialog.cpp:523
-#: gui/dialogs/textimportdialog.cpp:90
+#: gui/dialogs/editframefieldsdialog.cpp:523 gui/dialogs/textimportdialog.cpp:90
 msgid "From Clip&board"
 msgstr "Ze &schowka"
 
@@ -2155,8 +2158,8 @@ msgid "All first letters uppercase"
 msgstr "Duże wszystkie pierwsze litery"
 
 #: gui/widgets/formatbox.cpp:71
-msgid "&Locale:"
-msgstr "&Lokalizacja:"
+msgid "Locale:"
+msgstr "Lokalizacja:"
 
 #: gui/widgets/formatbox.cpp:74
 msgid "None"
