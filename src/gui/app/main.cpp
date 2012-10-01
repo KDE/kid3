@@ -115,15 +115,25 @@ int main(int argc, char* argv[])
   // translation file for Qt
   QTranslator qt_tr(0);
 #if QT_VERSION >= 0x040800 && !defined WIN32
+  // If the preferred language is English, no language files are loaded because
+  // this would result in a mixture between English and the second language
+  // because there is no qt_en.qm file available, so the second language would
+  // be used for the Qt strings, for example French strings would be used if
+  // LANGUAGE=en:fr.
+  QStringList languages = locale.uiLanguages();
+  bool isEnglish = !languages.isEmpty() && languages.first().startsWith("en");
+  if (!isEnglish) {
 #if defined WIN32 || defined __APPLE__
 #ifdef CFG_TRANSLATIONSDIR
-  if (!qt_tr.load(locale, "qt", "_", CFG_TRANSLATIONSDIR))
+    if (!qt_tr.load(locale, "qt", "_", CFG_TRANSLATIONSDIR))
 #endif
-  qt_tr.load(locale, "qt", "_");
+    qt_tr.load(locale, "qt", "_");
 #else
-  qt_tr.load(locale, "qt", "_",
-             QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+    qt_tr.load(locale, "qt", "_",
+               QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 #endif
+    app.installTranslator(&qt_tr);
+  }
 #else
   QString localeName(locale.name());
 #if defined WIN32 || defined __APPLE__
@@ -135,23 +145,26 @@ int main(int argc, char* argv[])
   qt_tr.load(QString("qt_") + localeName,
              QLibraryInfo::location(QLibraryInfo::TranslationsPath));
 #endif
-#endif
   app.installTranslator(&qt_tr);
+#endif
 
   // translation file for application strings
   QTranslator kid3_tr(0);
 #if QT_VERSION >= 0x040800 && !defined WIN32
+  if (!isEnglish) {
 #ifdef CFG_TRANSLATIONSDIR
-  if (!kid3_tr.load(locale, "kid3", "_", CFG_TRANSLATIONSDIR))
+    if (!kid3_tr.load(locale, "kid3", "_", CFG_TRANSLATIONSDIR))
 #endif
-  kid3_tr.load(locale, "kid3", "_");
+    kid3_tr.load(locale, "kid3", "_");
+    app.installTranslator(&kid3_tr);
+  }
 #else
 #ifdef CFG_TRANSLATIONSDIR
   if (!kid3_tr.load(QString("kid3_") + localeName, CFG_TRANSLATIONSDIR))
 #endif
   kid3_tr.load( QString("kid3_") + localeName, "." );
-#endif
   app.installTranslator(&kid3_tr);
+#endif
 
 #ifdef __APPLE__
  QDir dir(QApplication::applicationDirPath());
