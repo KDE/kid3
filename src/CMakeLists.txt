@@ -22,3 +22,4 @@ endif (WITH_GCC_PCH)
 
 add_subdirectory(core)
 add_subdirectory(gui)
+add_subdirectory(test)
