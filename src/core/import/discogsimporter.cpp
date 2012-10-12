@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,9 +30,240 @@
 #include "trackdatamodel.h"
 #include "configstore.h"
 #include "genres.h"
+#include "jsonparser.h"
 #include "qtcompatmac.h"
 
-static const char discogsServer[] = "www.discogs.com:80";
+/**
+ * Stores information about extra artists.
+ * The information can be used to add frames to the appropriate tracks.
+ */
+class ExtraArtist {
+public:
+  /**
+   * Constructor.
+   * @param varMap variant map containing extra artist information
+   */
+  explicit ExtraArtist(const QVariantMap& varMap);
+
+  /**
+   * Add extra artist information to frames.
+   * @param frames   frame collection
+   * @param trackPos optional position, the extra artist information will
+   *                 only be added if this track position is listed in the
+   *                 track restrictions or is empty
+   */
+  void addToFrames(FrameCollection& frames,
+                   const QString& trackPos = QString()) const;
+
+  /**
+   * Check if extra artist information is only valid for a subset of the tracks.
+   * @return true if extra artist has track restriction.
+   */
+  bool hasTrackRestriction() const { return !m_tracks.isEmpty(); }
+
+private:
+  QString m_name;
+  QString m_role;
+  QStringList m_tracks;
+};
+
+
+namespace {
+
+const char discogsServer[] = "api.discogs.com:80";
+
+/**
+ * Replace unicode escape sequences (e.g. "\u2022") by unicode characters.
+ * @param str string containing unicode escape sequences
+ * @return string with replaced unicode escape sequences.
+ */
+QString replaceEscapedUnicodeCharacters(QString str)
+{
+  QRegExp unicodeRe("\\\\u([0-9a-fA-F]{4})");
+  int offset = 0;
+  while (offset >= 0) {
+    offset = unicodeRe.indexIn(str, offset);
+    if (offset >= 0) {
+      str.replace(offset, unicodeRe.matchedLength(),
+                  QChar(unicodeRe.cap(1).toUInt(0, 16)));
+      ++offset;
+    }
+  }
+  return str;
+}
+
+/**
+ * Remove trailing stars and numbers like (2) from a string.
+ *
+ * @param str string
+ *
+ * @return fixed up string.
+ */
+QString fixUpArtist(QString str)
+{
+  str.remove(QRegExp("[*\\s]*\\(\\d+\\)"));
+  str.replace(QRegExp("\\*($| - |, | / )"), "\\1");
+
+  return str;
+}
+
+/**
+ * Create a string with artists contained in an artist list.
+ * @param artists list containing artist maps
+ * @return string with artists joined appropriately.
+ */
+QString getArtistString(const QVariantList& artists)
+{
+  QString artist;
+  if (!artists.isEmpty()) {
+    QString join;
+    foreach (const QVariant& var, artists) {
+      QVariantMap varMap = var.toMap();
+      if (!artist.isEmpty()) {
+        artist += join;
+      }
+      artist += fixUpArtist(varMap.value("name").toString());
+      join = varMap.value("join").toString();
+      if (join.isEmpty() || join == ",") {
+        join = ", ";
+      } else {
+        join = ' ' + join + ' ';
+      }
+    }
+  }
+  return artist;
+}
+
+/**
+ * Add involved people to a frame.
+ * The format used is (should be converted according to tag specifications):
+ * involvee 1 (involvement 1)\n
+ * involvee 2 (involvement 2)\n
+ * ...
+ * involvee n (involvement n)
+ *
+ * @param frames      frame collection
+ * @param type        type of frame
+ * @param involvement involvement (e.g. instrument)
+ * @param involvee    name of involvee (e.g. musician)
+ */
+void addInvolvedPeople(
+  FrameCollection& frames, Frame::Type type,
+  const QString& involvement, const QString& involvee)
+{
+  QString value = frames.getValue(type);
+  if (!value.isEmpty()) value += Frame::stringListSeparator();
+  value += involvement;
+  value += Frame::stringListSeparator();
+  value += involvee;
+  frames.setValue(type, value);
+}
+
+/**
+ * Add name to frame with credits.
+ * @param frames frame collection
+ * @param type   type of frame
+ * @param name   name of person to credit
+ */
+void addCredit(FrameCollection& frames, Frame::Type type, const QString& name)
+{
+  QString value = frames.getValue(type);
+  if (!value.isEmpty()) value += ", ";
+  value += name;
+  frames.setValue(type, value);
+}
+
+}
+
+/**
+ * Constructor.
+ * @param varMap variant map containing extra artist information
+ */
+ExtraArtist::ExtraArtist(const QVariantMap& varMap) :
+  m_name(fixUpArtist(varMap.value("name").toString())),
+  m_role(varMap.value("role").toString())
+{
+  static const QRegExp tracksSepRe(",\\s*");
+  QString tracks = varMap.value("tracks").toString();
+  if (!tracks.isEmpty()) {
+    m_tracks = tracks.split(tracksSepRe);
+  }
+}
+
+/**
+ * Add extra artist information to frames.
+ * @param frames   frame collection
+ * @param trackPos optional position, the extra artist information will
+ *                 only be added if this track position is listed in the
+ *                 track restrictions or is empty
+ */
+void ExtraArtist::addToFrames(FrameCollection& frames,
+                              const QString& trackPos) const
+{
+  if (!trackPos.isEmpty() && !m_tracks.contains(trackPos))
+    return;
+
+  if (m_role.contains("Composed By") || m_role.contains("Music By") ||
+      m_role.contains("Songwriter")) {
+    addCredit(frames, Frame::FT_Composer, m_name);
+  }
+  if (m_role.contains("Written-By") || m_role.contains("Written By")) {
+    addCredit(frames, Frame::FT_Author, m_name);
+  }
+  if (m_role.contains("Lyrics By")) {
+    addCredit(frames, Frame::FT_Lyricist, m_name);
+  }
+  if (m_role.contains("Conductor")) {
+    addCredit(frames, Frame::FT_Conductor, m_name);
+  }
+  if (m_role.contains("Orchestra")) {
+    addCredit(frames, Frame::FT_AlbumArtist, m_name);
+  }
+  if (m_role.contains("Remix")) {
+    addCredit(frames, Frame::FT_Remixer, m_name);
+  }
+
+  if (m_role.contains("Arranged By")) {
+    addInvolvedPeople(frames, Frame::FT_Arranger,
+                      "Arranger", m_name);
+  }
+  if (m_role.contains("Mixed By")) {
+    addInvolvedPeople(frames, Frame::FT_Arranger,
+                      "Mixer", m_name);
+  }
+  if (m_role.contains("DJ Mix") || m_role.contains("Dj Mix")) {
+    addInvolvedPeople(frames, Frame::FT_Arranger,
+                      "DJMixer", m_name);
+  }
+  if (m_role.contains("Engineer") || m_role.contains("Mastered By")) {
+    addInvolvedPeople(frames, Frame::FT_Arranger,
+                      "Engineer", m_name);
+  }
+  if (m_role.contains("Producer") || m_role.contains("Co-producer") ||
+      m_role.contains("Executive Producer")) {
+    addInvolvedPeople(frames, Frame::FT_Arranger,
+                      "Producer", m_name);
+  }
+
+  static const char* const instruments[] = {
+    "Performer", "Vocals", "Voice", "Featuring", "Choir", "Chorus",
+    "Baritone", "Tenor", "Rap", "Scratches", "Drums", "Percussion",
+    "Keyboards", "Cello", "Piano", "Organ", "Synthesizer", "Keys",
+    "Wurlitzer", "Rhodes", "Harmonica", "Xylophone", "Guitar", "Bass",
+    "Strings", "Violin", "Viola", "Banjo", "Harp", "Mandolin",
+    "Clarinet", "Horn", "Cornet", "Flute", "Oboe", "Saxophone",
+    "Trumpet", "Tuba", "Trombone"
+  };
+  for (unsigned i = 0;
+       i < sizeof(instruments) / sizeof(instruments[0]);
+       ++i) {
+    if (m_role.contains(instruments[i])) {
+      addInvolvedPeople(frames, Frame::FT_Performer, m_role, m_name);
+      break;
+    }
+  }
+}
+
 
 /**
  * Constructor.
@@ -45,6 +276,8 @@ DiscogsImporter::DiscogsImporter(QNetworkAccessManager* netMgr,
   ServerImporter(netMgr, trackDataModel)
 {
   setObjectName("DiscogsImporter");
+  m_discogsHeaders["User-Agent"] = "Kid3/" VERSION
+      " +http://kid3.sourceforge.net";
 }
 
 /**
@@ -76,184 +309,23 @@ bool DiscogsImporter::additionalTags() const { return true; }
  */
 void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
 {
-  // releases have the format:
-  // <div class="data">
-  // <div>
-  //     <a href="/Amon-Amarth-The-Avenger/release/398878">
-  //         <em>Amon</em> <em>Amarth</em> - <em>The</em> <em>Avenger</em>
-  //     </a>
-  // </div>
-  QString str = QString::fromUtf8(searchStr);
-  QRegExp idTitleRe("class=\"data\".*<a href=\"/([^/]*/?release)/([0-9]+)\">(.+)</a>");
-  QStringList lines = str.remove('\r').split(QRegExp("\\n{2,}"));
+  // search results have the format (JSON, simplified):
+  // {"results": [{"style": ["Heavy Metal"], "title": "Wizard (23) - Odin",
+  //               "type": "release", "id": 2487778}]}
+  QString str = replaceEscapedUnicodeCharacters(QString::fromUtf8(searchStr));
+
+  QVariantMap map = JsonParser::deserialize(str).toMap();
   m_albumListModel->clear();
-  for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
-    QString line(*it);
-    line.remove('\n');
-    if (idTitleRe.indexIn(line) != -1) {
-      QString title(idTitleRe.cap(3).trimmed());
-      title.replace(QRegExp("<[^>]+>"), "");
-      if (!title.isEmpty()) {
-        m_albumListModel->appendRow(new AlbumListItem(
-          title,
-          idTitleRe.cap(1),
-          idTitleRe.cap(2)));
-      }
+  foreach (const QVariant& var, map.value("results").toList()) {
+    QVariantMap result = var.toMap();
+    QString title = fixUpArtist(result.value("title").toString());
+    if (!title.isEmpty()) {
+      m_albumListModel->appendRow(new AlbumListItem(
+        title,
+        "releases",
+        QString::number(result.value("id").toInt())));
     }
   }
-}
-
-/**
- * Remove trailing stars and numbers like (2) from a string.
- *
- * @param str string
- *
- * @return fixed up string.
- */
-static QString fixUpArtist(QString str)
-{
-  str.replace(QRegExp(",(\\S)"), ", \\1");
-  str.replace("* / ", " / ");
-  str.replace("*,", ",");
-  str.remove(QRegExp("\\*$"));
-  str.remove(QRegExp("[*\\s]*\\(\\d+\\)\\(tracks:[^)]+\\)"));
-  str.replace(QRegExp(
-    "[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)(\\s*/\\s*,|\\s*&amp;|\\s*And|\\s*and)"),
-    "\\1");
-  str.remove(QRegExp("[*\\s]*\\((?:\\d+|tracks:[^)]+)\\)$"));
-  return ServerImporter::removeHtml(str);
-}
-
-
-/**
- * Add involved people to a frame.
- * The format used is (should be converted according to tag specifications):
- * involvee 1 (involvement 1)\n
- * involvee 2 (involvement 2)\n
- * ...
- * involvee n (involvement n)
- *
- * @param frames      frame collection
- * @param type        type of frame
- * @param involvement involvement (e.g. instrument)
- * @param involvee    name of involvee (e.g. musician)
- */
-static void addInvolvedPeople(
-  FrameCollection& frames, Frame::Type type,
-  const QString& involvement, const QString& involvee)
-{
-  QString value = frames.getValue(type);
-  if (!value.isEmpty()) value += Frame::stringListSeparator();
-  value += involvement;
-  value += Frame::stringListSeparator();
-  value += involvee;
-  frames.setValue(type, value);
-}
-
-/**
- * Set tags from a string with credits lines.
- * The string must have lines like "Composed By - Iommi", separated by \\n.
- *
- * @param str    credits string
- * @param frames tags will be added to these frames
- *
- * @return true if credits found.
- */
-static bool parseCredits(const QString& str, FrameCollection& frames)
-{
-  bool result = false;
-  QStringList lines = str.split("\n");
-  for (QStringList::const_iterator it = lines.begin();
-       it != lines.end();
-       ++it) {
-    int nameStart = (*it).indexOf(" - ");
-    if (nameStart != -1) {
-      QString name(fixUpArtist((*it).mid(nameStart + 3)));
-      QStringList credits = (*it).left(nameStart).split(", ");
-      for (QStringList::const_iterator cit = credits.begin();
-           cit != credits.end();
-           ++cit) {
-        static const struct {
-          const char* credit;
-          Frame::Type type;
-        } creditToType[] = {
-          { "Composed By", Frame::FT_Composer },
-          { "Conductor", Frame::FT_Conductor },
-          { "Orchestra", Frame::FT_AlbumArtist },
-          { "Lyrics By", Frame::FT_Lyricist },
-          { "Written-By", Frame::FT_Author },
-          { "Written By", Frame::FT_Author },
-          { "Remix", Frame::FT_Remixer },
-          { "Music By", Frame::FT_Composer },
-          { "Songwriter", Frame::FT_Composer }
-        };
-        bool found = false;
-        for (unsigned i = 0;
-             i < sizeof(creditToType) / sizeof(creditToType[0]);
-             ++i) {
-          if (*cit == creditToType[i].credit) {
-            frames.setValue(creditToType[i].type, name);
-            found = true;
-            break;
-          }
-        }
-        if (found) {
-          result = true;
-        } else {
-          static const struct {
-            const char* credit;
-            const char* arrangement;
-          } creditToArrangement[] = {
-            { "Arranged By", "Arranger" },
-            { "Mixed By", "Mixer" },
-            { "DJ Mix", "DJMixer" },
-            { "Dj Mix", "DJMixer" },
-            { "Engineer", "Engineer" },
-            { "Mastered By", "Engineer" },
-            { "Producer", "Producer" },
-            { "Co-producer", "Producer" },
-            { "Executive Producer", "Producer" }
-          };
-          for (unsigned i = 0;
-               i < sizeof(creditToArrangement) / sizeof(creditToArrangement[0]);
-               ++i) {
-            if ((*cit).startsWith(creditToArrangement[i].credit)) {
-              addInvolvedPeople(frames, Frame::FT_Arranger,
-                                creditToArrangement[i].arrangement, name);
-              found = true;
-              break;
-            }
-          }
-        }
-        if (found) {
-          result = true;
-        } else {
-          static const char* const instruments[] = {
-            "Performer", "Vocals", "Voice", "Featuring", "Choir", "Chorus",
-            "Baritone", "Tenor", "Rap", "Scratches", "Drums", "Percussion",
-            "Keyboards", "Cello", "Piano", "Organ", "Synthesizer", "Keys",
-            "Wurlitzer", "Rhodes", "Harmonica", "Xylophone", "Guitar", "Bass",
-            "Strings", "Violin", "Viola", "Banjo", "Harp", "Mandolin",
-            "Clarinet", "Horn", "Cornet", "Flute", "Oboe", "Saxophone",
-            "Trumpet", "Tuba", "Trombone"
-          };
-          for (unsigned i = 0;
-               i < sizeof(instruments) / sizeof(instruments[0]);
-               ++i) {
-            if ((*cit).contains(instruments[i])) {
-              addInvolvedPeople(frames, Frame::FT_Performer, *cit, name);
-              found = true;
-              break;
-            }
-          }
-        }
-        if (found) {
-          result = true;
-        }
-      }
-    }
-  }
-  return result;
 }
 
 /**
@@ -263,317 +335,198 @@ static bool parseCredits(const QString& str, FrameCollection& frames)
  */
 void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
 {
-  QRegExp nlSpaceRe("[\r\n]+\\s*");
-  QRegExp atDiscogsRe("\\s*\\([^)]+\\) at Discogs$");
-  QString str = QString::fromUtf8(albumStr);
+  // releases have the format (JSON, simplified):
+  // { "styles": ["Heavy Metal"],
+  //   "labels": [{"name": "LMP"}],
+  //   "year": 2003,
+  //   "artists": [{"name": "Wizard (23)"}],
+  //   "images": [
+  //   { "uri": "http://api.discogs.com/image/R-2487778-1293847958.jpeg",
+  //     "type": "primary" },
+  //   { "uri": "http://api.discogs.com/image/R-2487778-1293847967.jpeg",
+  //     "type": "secondary" }],
+  //   "id": 2487778,
+  //   "genres": ["Rock"],
+  //   "thumb": "http://api.discogs.com/image/R-150-2487778-1293847958.jpeg",
+  //   "extraartists": [],
+  //   "title": "Odin",
+  //   "tracklist": [
+  //     {"duration": "5:19", "position": "1", "title": "The Prophecy"},
+  //     {"duration": "", "position": "Video", "title": "Betrayer"}
+  //   ],
+  //   "released": "2003",
+  //   "formats": [{"name": "CD"}]
+  // }
+  QRegExp discTrackPosRe("(\\d+)-(\\d+)");
+  QRegExp yearRe("^\\d{4}-\\d{2}");
+  QString str = replaceEscapedUnicodeCharacters(QString::fromUtf8(albumStr));
+  QVariantMap map = JsonParser::deserialize(str).toMap();
+
+  QList<ExtraArtist> trackExtraArtists;
+  ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   FrameCollection framesHdr;
-  /*
-   * artist and album can be found in the title:
-<title>Amon Amarth - The Avenger (CD, Album, Dig) at Discogs</title>
-   */
-  int end = 0;
-  int start = str.indexOf("<title>");
-  if (start >= 0) {
-    start += 7; // skip <title>
-    end = str.indexOf("</title>", start);
-    if (end > start) {
-      QString titleStr = str.mid(start, end - start);
-      titleStr.replace(atDiscogsRe, "");
-      titleStr.replace(nlSpaceRe, " "); // reduce new lines and space after them
-      start = 0;
-      end = titleStr.indexOf(" - ", start);
-      if (end > start) {
-        framesHdr.setArtist(fixUpArtist(titleStr.mid(start, end - start)));
-        start = end + 3; // skip " - "
-      }
-      framesHdr.setAlbum(removeHtml(titleStr.mid(start)));
-    }
+  framesHdr.setAlbum(map.value("title").toString());
+  framesHdr.setArtist(getArtistString(map.value("artists").toList()));
+
+  // The year can be found in "released".
+  QString released(map.value("released").toString());
+  if (yearRe.indexIn(released) == 0) {
+    released.truncate(4);
   }
-  /*
-   * the year can be found in "Released:"
-<div class="head">Released:</div><div class="content">02 Nov 1999</div>
-   */
-  start = str.indexOf("Released:");
-  if (start >= 0) {
-    start += 9; // skip "Released:"
-    end = str.indexOf("</div>", start + 1);
-    if (end > start) {
-      QString yearStr = str.mid(start, end - start);
-      yearStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-      yearStr = removeHtml(yearStr); // strip HTML tags and entities
-      QRegExp yearRe("(\\d{4})"); // this should skip day and month numbers
-      if (yearRe.indexIn(yearStr) >= 0) {
-        framesHdr.setYear(yearRe.cap(1).toInt());
-      }
-    }
-  }
-  /*
-   * the genre can be found in "Genre:" or "Style:" (lines with only whitespace in between):
-<div class="head">Genre:</div><div class="content">
-      Rock
-</div>
-<div class="head">Style:</div><div class="content">
-    Viking Metal,
-    Death Metal
-</div>
-   */
+  framesHdr.setYear(released.toInt());
+
+  // The genre can be found in "genre" or "style".
   // All genres found are checked for an ID3v1 number, starting with those
-  // in the Style field.
-  QStringList genreList;
-  static const char* const fields[] = { "Style:", "Genre:" };
-  for (unsigned i = 0; i < sizeof(fields) / sizeof(fields[0]); ++i) {
-    start = str.indexOf(fields[i]);
-    if (start >= 0) {
-      start += qstrlen(fields[i]); // skip field
-      end = str.indexOf("</div>", start + 1);
-      if (end > start) {
-        QString genreStr = str.mid(start, end - start);
-        genreStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-        genreStr = removeHtml(genreStr); // strip HTML tags and entities
-        if (genreStr.indexOf(',') >= 0) {
-          genreList += genreStr.split(QRegExp(",\\s*"));
-        } else {
-          if (!genreStr.isEmpty()) {
-            genreList += genreStr;
-          }
-        }
-      }
-    }
-  }
+  // in the style field.
+  QVariantList genreList(map.value("styles").toList() +
+                         map.value("genres").toList());
   int genreNum = 255;
-  for (QStringList::const_iterator it = genreList.begin();
-       it != genreList.end();
-       ++it) {
-    genreNum = Genres::getNumber(*it);
+  foreach (const QVariant& var, genreList) {
+    genreNum = Genres::getNumber(var.toString());
     if (genreNum != 255) {
       break;
     }
   }
   if (genreNum != 255) {
     framesHdr.setGenre(Genres::getName(genreNum));
-  } else if (!genreList.empty()) {
-    framesHdr.setGenre(genreList.front());
+  } else if (!genreList.isEmpty()) {
+    framesHdr.setGenre(genreList.first().toString());
   }
 
   const bool additionalTags = getAdditionalTags();
   if (additionalTags) {
-    /*
-     * publisher can be found in "Label:"
-     */
-    start = str.indexOf("Label:");
-    if (start >= 0) {
-      start += 6; // skip "Label:"
-      end = str.indexOf("</div>", start + 1);
-      if (end > start) {
-        QString labelStr = str.mid(start, end - start);
-        labelStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-        labelStr = fixUpArtist(labelStr);
-        if (labelStr != "Not On Label") {
-          framesHdr.setValue(Frame::FT_Publisher, labelStr);
-        }
-      }
+    // Publisher can be found in "label"
+    QVariantList labels = map.value("labels").toList();
+    if (!labels.isEmpty()) {
+      framesHdr.setValue(Frame::FT_Publisher,
+          fixUpArtist(labels.first().toMap().value("name").toString()));
     }
-
-    /*
-     * media can be found in "Format:"
-     */
-    start = str.indexOf("Format:");
-    if (start >= 0) {
-      start += 7; // skip "Format:"
-      end = str.indexOf("</div>", start + 1);
-      if (end > start) {
-        QString mediaStr = str.mid(start, end - start);
-        mediaStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-        mediaStr = removeHtml(mediaStr); // strip HTML tags and entities
-        framesHdr.setValue(Frame::FT_Media, mediaStr);
-      }
+    // Media can be found in "formats"
+    QVariantList formats = map.value("formats").toList();
+    if (!formats.isEmpty()) {
+      framesHdr.setValue(Frame::FT_Media,
+                         formats.first().toMap().value("name").toString());
     }
-
-    /*
-     * credits can be found in "Credits"
-     */
-    start = str.indexOf(">Credits</h");
-    if (start >= 0) {
-      start += 13; // skip "Credits" plus end of element (e.g. "3>")
-      end = str.indexOf("</div>", start + 1);
-      if (end > start) {
-        QString creditsStr = str.mid(start, end - start);
-        creditsStr.replace(nlSpaceRe, ""); // strip new lines and space after them
-        creditsStr.replace("<br />", "\n");
-        creditsStr.replace("</li>", "\n");
-        creditsStr.replace("&ndash;", " - ");
-        creditsStr = removeHtml(creditsStr); // strip HTML tags and entities
-        parseCredits(creditsStr, framesHdr);
-      }
-    }
-  }
-
-  ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  trackDataVector.setCoverArtUrl(QString::null);
-  if (getCoverArt()) {
-    /*
-     * cover art can be found in image source
-     */
-    start = str.indexOf("<img src=\"http://www.discogs.com/image/");
-    if (start >= 0) {
-      start += 10; // skip <img src="
-      end = str.indexOf("\"", start);
-      if (end > start) {
-        trackDataVector.setCoverArtUrl(str.mid(start, end - start));
-      }
-    }
-  }
-
-  /*
-   * album tracks have the format (lines with only whitespace in between):
-<h1>Tracklist</h1>
-<div class="section_content">
-<table>
-  <tr class="first">
-    <td class="track_pos">1</td>
-      <td>&nbsp;</td>
-    <td class="track_title">Bleed For Ancient Gods</td>
-    <td class="track_duration">4:31</td>
-    <td class="track_itunes"></td>
-  </tr>
-  <tr>
-    <td class="track_pos">2</td>
-(..)
-</table>
-   *
-   * Variations: strange track numbers, no durations, links instead of tracks,
-   * only "track" instead of "track_title", align attribute in "track_duration"
-   */
-  start = str.indexOf(">Tracklist</");
-  if (start >= 0) {
-    end = str.indexOf("</table>", start);
-    if (end > start) {
-      str = str.mid(start, end - start);
-      // strip whitespace
-      str.replace(nlSpaceRe, "");
-
-      FrameCollection frames(framesHdr);
-      QRegExp posRe("<td [^>]*class=\"track_pos\">(\\d+)</td>");
-      QRegExp artistsRe("<td class=\"track_artists\"><a href=\"/artist/[^>]+>([^<]+)</a>");
-      QRegExp moreArtistsRe("^([^<>]+)<a href=\"/artist/[^>]+>([^<]+)</a>");
-      QRegExp titleRe("class=\"track_title\"[^>]*>([^<]+)<");
-      QRegExp durationRe("<td [^>]*class=\"track_duration\"[^>]*>(?:<span>)?(\\d+):(\\d+)</");
-      QRegExp indexRe("<td class=\"track_index\">([^<]+)$");
-      QRegExp rowEndRe("</td>[\\s\\r\\n]*</tr>");
-      ImportTrackDataVector::iterator it = trackDataVector.begin();
-      bool atTrackDataListEnd = (it == trackDataVector.end());
-      int trackNr = 1;
-      start = 0;
-      while ((end = rowEndRe.indexIn(str, start)) > start) {
-        QString trackDataStr = str.mid(start, end - start);
-        QString title;
-        int duration = 0;
-        int pos = trackNr;
-        if (titleRe.indexIn(trackDataStr) >= 0) {
-          title = removeHtml(titleRe.cap(1));
-        }
-        if (durationRe.indexIn(trackDataStr) >= 0) {
-          duration = durationRe.cap(1).toInt() * 60 +
-            durationRe.cap(2).toInt();
-        }
-        if (posRe.indexIn(trackDataStr) >= 0) {
-          pos = posRe.cap(1).toInt();
-        }
-        if (additionalTags) {
-          if (artistsRe.indexIn(trackDataStr) >= 0) {
-            // use the artist in the header as the album artist
-            // and the artist in the track as the artist
-            QString artist(fixUpArtist(artistsRe.cap(1)));
-            // Look if there are more artists
-            int artistEndPos = artistsRe.pos() + artistsRe.matchedLength();
-            while (moreArtistsRe.indexIn(
-                     trackDataStr, artistEndPos, QRegExp::CaretAtOffset) >=
-                   artistEndPos) {
-              artist += moreArtistsRe.cap(1);
-              artist += fixUpArtist(moreArtistsRe.cap(2));
-              int endPos = moreArtistsRe.pos() + moreArtistsRe.matchedLength();
-              if (endPos <= artistEndPos) // must be true for regexp
-                break;
-              artistEndPos = endPos;
-            }
-            frames.setArtist(artist);
-            frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
-          }
-        }
-        start = end + 10; // skip </td></tr>
-        if (indexRe.indexIn(trackDataStr) >= 0) {
-          if (additionalTags) {
-            QString subtitle(removeHtml(indexRe.cap(1)));
-            framesHdr.setValue(Frame::FT_Part, subtitle);
-            frames.setValue(Frame::FT_Part, subtitle);
-          }
-          continue;
-        }
-        if (additionalTags) {
-          int blockquoteStart = trackDataStr.indexOf("<blockquote>");
-          if (blockquoteStart >= 0) {
-            blockquoteStart += 12;
-            int blockquoteEnd = trackDataStr.indexOf("</blockquote>",
-                                                     blockquoteStart);
-            if (blockquoteEnd == -1) {
-              // If the element is not correctly closed, search for </span>
-              blockquoteEnd = trackDataStr.indexOf("</span>", blockquoteStart);
-            }
-            if (blockquoteEnd > blockquoteStart) {
-              QString blockquoteStr(trackDataStr.mid(blockquoteStart,
-                blockquoteEnd - blockquoteStart));
-              // additional track info like "Music By, Lyrics By - "
-              blockquoteStr.replace("<br />", "\n");
-              blockquoteStr.replace("</li>", "\n");
-              blockquoteStr.replace("&ndash;", " - ");
-              blockquoteStr = removeHtml(blockquoteStr);
-              parseCredits(blockquoteStr, frames);
-            }
-          }
-        }
-
-        if (!title.isEmpty() || duration != 0) {
-          frames.setTrack(pos);
-          frames.setTitle(title);
-          if (atTrackDataListEnd) {
-            ImportTrackData trackData;
-            trackData.setFrameCollection(frames);
-            trackData.setImportDuration(duration);
-            trackDataVector.push_back(trackData);
-          } else {
-            while (!atTrackDataListEnd && !it->isEnabled()) {
-              ++it;
-              atTrackDataListEnd = (it == trackDataVector.end());
-            }
-            if (!atTrackDataListEnd) {
-              (*it).setFrameCollection(frames);
-              (*it).setImportDuration(duration);
-              ++it;
-              atTrackDataListEnd = (it == trackDataVector.end());
-            }
-          }
-          ++trackNr;
-        }
-        frames = framesHdr;
-      }
-
-      // handle redundant tracks
-      frames.clear();
-      while (!atTrackDataListEnd) {
-        if (it->isEnabled()) {
-          if ((*it).getFileDuration() == 0) {
-            it = trackDataVector.erase(it);
-          } else {
-            (*it).setFrameCollection(frames);
-            (*it).setImportDuration(0);
-            ++it;
-          }
+    // Credits can be found in "extraartists"
+    QVariantList extraartists = map.value("extraartists").toList();
+    if (!extraartists.isEmpty()) {
+      foreach (const QVariant& var, extraartists) {
+        ExtraArtist extraArtist(var.toMap());
+        if (extraArtist.hasTrackRestriction()) {
+          trackExtraArtists.append(extraArtist);
         } else {
-          ++it;
+          extraArtist.addToFrames(framesHdr);
         }
-        atTrackDataListEnd = (it == trackDataVector.end());
       }
     }
+
+    // Cover art can be found in "images"
+    QVariantList images = map.value("images").toList();
+    if (!images.isEmpty()) {
+      trackDataVector.setCoverArtUrl(images.first().toMap().value("uri").toString());
+    }
+  }
+
+  FrameCollection frames(framesHdr);
+  ImportTrackDataVector::iterator it = trackDataVector.begin();
+  bool atTrackDataListEnd = (it == trackDataVector.end());
+  int trackNr = 1;
+  QVariantList trackList = map.value("tracklist").toList();
+
+  // Check if all positions are empty.
+  bool allPositionsEmpty = true;
+  foreach (const QVariant& var, trackList) {
+    if (!var.toMap().value("position").toString().isEmpty()) {
+      allPositionsEmpty = false;
+      break;
+    }
+  }
+
+  foreach (const QVariant& var, trackList) {
+    QVariantMap track = var.toMap();
+
+    QString position(track.value("position").toString());
+    bool ok;
+    int pos = position.toInt(&ok);
+    if (!ok) {
+      if (discTrackPosRe.exactMatch(position)) {
+        if (additionalTags) {
+          frames.setValue(Frame::FT_Disc, discTrackPosRe.cap(1));
+        }
+        pos = discTrackPosRe.cap(2).toInt();
+      } else {
+        pos = trackNr;
+      }
+    }
+    QString title(track.value("title").toString());
+
+    QStringList durationHms = track.value("duration").toString().split(':');
+    int duration = 0;
+    foreach (const QString& var, durationHms) {
+      duration *= 60;
+      duration += var.toInt();
+    }
+    if (!allPositionsEmpty && position.isEmpty()) {
+      if (additionalTags) {
+        framesHdr.setValue(Frame::FT_Part, title);
+      }
+    } else if (!title.isEmpty() || duration != 0) {
+      frames.setTrack(pos);
+      frames.setTitle(title);
+      QVariantList artists(track.value("artists").toList());
+      if (!artists.isEmpty()) {
+        frames.setArtist(getArtistString(artists));
+        frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
+      }
+      if (additionalTags) {
+        QVariantList extraartists(track.value("extraartists").toList());
+        if (!extraartists.isEmpty()) {
+          foreach (const QVariant& var, extraartists) {
+            ExtraArtist extraArtist(var.toMap());
+            extraArtist.addToFrames(frames);
+          }
+        }
+      }
+      foreach (const ExtraArtist& extraArtist, trackExtraArtists) {
+        extraArtist.addToFrames(frames, position);
+      }
+
+      if (atTrackDataListEnd) {
+        ImportTrackData trackData;
+        trackData.setFrameCollection(frames);
+        trackData.setImportDuration(duration);
+        trackDataVector.append(trackData);
+      } else {
+        while (!atTrackDataListEnd && !it->isEnabled()) {
+          ++it;
+          atTrackDataListEnd = (it == trackDataVector.end());
+        }
+        if (!atTrackDataListEnd) {
+          (*it).setFrameCollection(frames);
+          (*it).setImportDuration(duration);
+          ++it;
+          atTrackDataListEnd = (it == trackDataVector.end());
+        }
+      }
+      ++trackNr;
+    }
+    frames = framesHdr;
+  }
+  // handle redundant tracks
+  frames.clear();
+  while (!atTrackDataListEnd) {
+    if (it->isEnabled()) {
+      if ((*it).getFileDuration() == 0) {
+        it = trackDataVector.erase(it);
+      } else {
+        (*it).setFrameCollection(frames);
+        (*it).setImportDuration(0);
+        ++it;
+      }
+    } else {
+      ++it;
+    }
+    atTrackDataListEnd = (it == trackDataVector.end());
   }
   m_trackDataModel->setTrackData(trackDataVector);
 }
@@ -591,11 +544,11 @@ void DiscogsImporter::sendFindQuery(
 {
   /*
    * Query looks like this:
-   * http://www.discogs.com/search?type=releases&q=amon+amarth+avenger&btn=Search
+   * http://api.discogs.com//database/search?type=release&title&q=amon+amarth+avenger
    */
   sendRequest(discogsServer,
-              QString("/search?type=releases&q=") +
-              encodeUrlQuery(artist + " " + album) + "&btn=Search");
+              QString("/database/search?type=release&title&q=") +
+              encodeUrlQuery(artist + " " + album), m_discogsHeaders);
 }
 
 /**
@@ -611,8 +564,8 @@ void DiscogsImporter::sendTrackListQuery(
 {
   /*
    * Query looks like this:
-   * http://www.discogs.com/release/761529
+   * http://api.discogs.com/releases/761529
    */
   sendRequest(discogsServer, QString("/") + QUrl::toPercentEncoding(cat) + '/'
-              + id);
+              + id, m_discogsHeaders);
 }

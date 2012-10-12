@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2011  Urs Fleisch
+ * Copyright (C) 2008-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -59,8 +59,11 @@ public:
    *
    * @param server host name
    * @param path   path of the URL
+   * @param headers optional raw headers to send
    */
-  void sendRequest(const QString& server, const QString& path);
+  void sendRequest(const QString& server, const QString& path,
+                   const QMap<QByteArray, QByteArray> &headers =
+                     QMap<QByteArray, QByteArray>());
 
   /**
    * Abort request.

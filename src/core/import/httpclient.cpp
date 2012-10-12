@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2011  Urs Fleisch
+ * Copyright (C) 2008-2012  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -110,7 +110,8 @@ void HttpClient::networkReplyError(QNetworkReply::NetworkError)
  * @param server host name
  * @param path   path of the URL
  */
-void HttpClient::sendRequest(const QString& server, const QString& path)
+void HttpClient::sendRequest(const QString& server, const QString& path,
+                             const QMap<QByteArray, QByteArray>& headers)
 {
   m_rcvBodyLen = 0;
   m_rcvBodyType = "";
@@ -135,6 +136,12 @@ void HttpClient::sendRequest(const QString& server, const QString& path)
   QUrl url;
   url.setEncodedUrl(("http://" + host + path).toAscii());
   QNetworkRequest request(url);
+  for (QMap<QByteArray, QByteArray>::const_iterator it =
+         headers.constBegin();
+       it != headers.constEnd();
+       ++it) {
+    request.setRawHeader(it.key(), it.value());
+  }
   QNetworkReply* reply = m_netMgr->get(request);
   m_reply = reply;
   connect(reply, SIGNAL(finished()),

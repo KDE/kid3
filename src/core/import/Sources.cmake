@@ -6,6 +6,7 @@ set(import_SRCS
   import/httpclient.cpp
   import/importclient.cpp
   import/importparser.cpp
+  import/jsonparser.cpp
   import/musicbrainzclient.cpp
   import/musicbrainzreleaseimporter.cpp
   import/serverimporter.cpp
