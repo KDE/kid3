@@ -1,8 +1,22 @@
-kid3 (2.1-0) unstable; urgency=low
+kid3 (2.2-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 07 May 2012 21:20:06 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 13 Oct 2012 13:42:31 +0200
+
+kid3 (2.1-2) unstable; urgency=low
+
+  * Remove patch 01-gcc4.7-ftbfs, it was merged with 2.1 to another location.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 14 May 2012 18:27:44 +0200
+
+kid3 (2.1-1) unstable; urgency=low
+
+  * New upstream release.
+    - Add new build dependencies libchromaprint-dev, libavformat-dev,
+      libavcodec-dev and pkg-config.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Sun, 13 May 2012 18:09:20 +0200
 
 kid3 (2.0.1-4) unstable; urgency=low
 

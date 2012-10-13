@@ -5,9 +5,10 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.1\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2012-09-30 19:07+0200\n"
+"Project-Id-Version: Kid3 2.2\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"group_id=70849&atid=529221\n"
+"POT-Creation-Date: 2012-10-13 15:52+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -16,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: sr\n"
 "X-Source-Language: C\n"
 
@@ -412,7 +414,7 @@ msgstr "TSST - постави поднаслов"
 msgid "Amazon"
 msgstr "Амазон"
 
-#: core/import/discogsimporter.cpp:61
+#: core/import/discogsimporter.cpp:294
 msgid "Discogs"
 msgstr "Дискогс"
 
@@ -437,7 +439,7 @@ msgstr "Спреман."
 msgid "Error"
 msgstr "Грешка"
 
-#: core/import/httpclient.cpp:146
+#: core/import/httpclient.cpp:153
 msgid "Request sent..."
 msgstr "Захтев послат..."
 
@@ -605,7 +607,8 @@ msgstr "Логичко ИЛИ"
 msgid "Logical negation"
 msgstr "Логичка негација"
 
-#: core/model/frametablemodel.cpp:190 gui/dialogs/editframefieldsdialog.cpp:659
+#: core/model/frametablemodel.cpp:190
+#: gui/dialogs/editframefieldsdialog.cpp:659
 msgid "Data"
 msgstr "Подаци"
 
@@ -858,10 +861,10 @@ msgstr "По&моћ"
 
 #: gui/dialogs/browsecoverartdialog.cpp:137 gui/dialogs/exportdialog.cpp:138
 #: gui/dialogs/filterdialog.cpp:76 gui/dialogs/importdialog.cpp:230
-#: gui/dialogs/musicbrainzdialog.cpp:119 gui/dialogs/numbertracksdialog.cpp:110
-#: gui/dialogs/playlistdialog.cpp:205 gui/dialogs/rendirdialog.cpp:76
-#: gui/dialogs/serverimportdialog.cpp:108 gui/dialogs/tagimportdialog.cpp:71
-#: gui/dialogs/textimportdialog.cpp:81
+#: gui/dialogs/musicbrainzdialog.cpp:119
+#: gui/dialogs/numbertracksdialog.cpp:110 gui/dialogs/playlistdialog.cpp:205
+#: gui/dialogs/rendirdialog.cpp:76 gui/dialogs/serverimportdialog.cpp:108
+#: gui/dialogs/tagimportdialog.cpp:71 gui/dialogs/textimportdialog.cpp:81
 msgid "&Save Settings"
 msgstr "&Сачувај подешавања"
 
@@ -870,8 +873,9 @@ msgid "&Browse"
 msgstr "&Потражи"
 
 #: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:454
-#: gui/dialogs/editframedialog.cpp:58 gui/dialogs/editframefieldsdialog.cpp:965
-#: gui/dialogs/importdialog.cpp:234 gui/dialogs/musicbrainzdialog.cpp:122
+#: gui/dialogs/editframedialog.cpp:58
+#: gui/dialogs/editframefieldsdialog.cpp:965 gui/dialogs/importdialog.cpp:234
+#: gui/dialogs/musicbrainzdialog.cpp:122
 #: gui/dialogs/numbertracksdialog.cpp:123 gui/dialogs/playlistdialog.cpp:216
 msgid "&Cancel"
 msgstr "&Одустани"
@@ -1108,8 +1112,8 @@ msgstr "&Изглед"
 
 #: gui/dialogs/configdialog.cpp:453 gui/dialogs/editframedialog.cpp:57
 #: gui/dialogs/editframefieldsdialog.cpp:964 gui/dialogs/importdialog.cpp:232
-#: gui/dialogs/musicbrainzdialog.cpp:120 gui/dialogs/numbertracksdialog.cpp:119
-#: gui/dialogs/playlistdialog.cpp:213
+#: gui/dialogs/musicbrainzdialog.cpp:120
+#: gui/dialogs/numbertracksdialog.cpp:119 gui/dialogs/playlistdialog.cpp:213
 msgid "&OK"
 msgstr "&У реду"
 
@@ -1122,7 +1126,8 @@ msgstr "Пречица тастатуре '%1' је већ додељена '%2'
 msgid "Kid3 Handbook"
 msgstr "Кид3 приручник"
 
-#: gui/dialogs/editframefieldsdialog.cpp:523 gui/dialogs/textimportdialog.cpp:90
+#: gui/dialogs/editframefieldsdialog.cpp:523
+#: gui/dialogs/textimportdialog.cpp:90
 msgid "From Clip&board"
 msgstr "Из клип&борда"
 

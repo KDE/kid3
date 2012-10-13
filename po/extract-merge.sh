@@ -2,7 +2,7 @@
 
 BASEDIR="../src" # root of translatable sources
 PROJECT="kid3" # project name
-PROJECTVERSION="2.1" # project version
+PROJECTVERSION="2.2" # project version
 BUGADDR="http://sourceforge.net/tracker/?group_id=70849&atid=529221" # MSGID-Bugs
 WDIR=`pwd` # working dir
 

@@ -25,14 +25,14 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2012-05-07</date>
-<releaseinfo>2.1</releaseinfo>
+<date>2012-10-13</date>
+<releaseinfo>2.2</releaseinfo>
 
 <abstract>
 <para>
 &kid3; ist eine Anwendung zum effizienten Editieren von ID3v1 und ID3v2 Tags
 in MP3 Dateien. Auch die Tags in Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
-TrueAudio, WavPack, WMA, WAV und AIFF Dateien werden
+TrueAudio, WavPack, WMA, WAV, AIFF Dateien und Tracker Modulen (MOD, S3M, IT, XM) werden
 unterstützt. Es ist einfach, Tags in mehreren Dateien auf die gleichen Werte
 zu setzen (z.B. Album, Interpret, Jahr und Stil in allen Dateien eines Albums),
 Tags aus den Dateinamen zu generieren oder umgekehrt.
@@ -61,6 +61,10 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 <keyword>WMA</keyword>
 <keyword>WAV</keyword>
 <keyword>AIFF</keyword>
+<keyword>MOD</keyword>
+<keyword>S3M</keyword>
+<keyword>IT</keyword>
+<keyword>XM</keyword>
 </keywordset>
 
 </bookinfo>
@@ -73,7 +77,8 @@ Tags aus den Dateinamen zu generieren oder umgekehrt.
 in MP3 Dateien. Diese Tags können zwar mit den meisten MP3 Player
 Programmen editiert werden, jedoch nicht auf eine sehr komfortable und
 effiziente Art. Darüber hinaus werden auch die Tags in Ogg/Vorbis, FLAC,
-MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV und AIFF Dateien unterstützt.
+MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF Dateien
+und Tracker Modulen (MOD, S3M, IT, XM) unterstützt.
 </para>
 <para>
 &kid3; kann weder MP3 grabben noch codieren, es ist darauf
@@ -1640,6 +1645,8 @@ verwendet, TagLib kommt nur dann zum Einsatz, wenn ein ID3v2.4.0 Tag
 bearbeitet werden muss. Mit der Einstellung <guilabel>ID3v2.4.0
 (TagLib)</guilabel> wird für MP3-Dateien immer die TagLib verwendet;
 veränderte oder neu erstellte Tags werden dann als ID3v2.4.0 gespeichert.
+Mit <guilabel>ID3v2.3.0 (TagLib)</guilabel> wird TagLib auch für ID3v2.3.0
+Tags verwendet.
 </para>
 <para>
 <guilabel>Anzahl der Stellen in Tracknummer</guilabel> bestimmt die Zahl der
@@ -1696,7 +1703,9 @@ wird die Eingabe während dem Editieren automatisch formatiert.
 Änderungen</guilabel>, <guilabel>Alles Kleinbuchstaben</guilabel>,
 <guilabel>Alles Großbuchstaben</guilabel>, <guilabel>Den ersten Buchstaben
 groß</guilabel> oder <guilabel>Alle ersten Buchstaben groß</guilabel>
-gesetzt werden.
+gesetzt werden. Um die Eigenheiten einer Sprache bei der Konversion zwischen
+Klein- und Großbuchstaben zu berücksichtigen, kann eine Sprache in der
+darunterliegenden Auswahlliste gewählt werden.
 Die <guilabel>Zeichen ersetzen</guilabel> Liste kann mit beliebigen Zuordnungen
 von Zeichenketten gefüllt werden. Eine neue Zuordnung kann
 hinzugefügt werden, indem in der <guilabel>Von</guilabel> Zelle einer
@@ -1710,9 +1719,11 @@ Maustaste drückt. Ersetzungen werden nur durchgeführt, wenn das
 <guilabel>Zeichen ersetzen</guilabel> Markierungsfeld aktiviert ist.
 </para>
 <para>
-Auf der Seite <guilabel>Dateien</guilabel>, kann mit dem Markierungsfeld
-<guilabel>Datei-Zeitstempel nicht verändern</guilabel> eingestellt werden,
-dass die Modifikationszeit der Datei nicht verändert wird.
+Auf der Seite <guilabel>Dateien</guilabel> bestimmt das Markierungsfeld
+<guilabel>Zuletzt geöffnete Dateien laden</guilabel>, ob &kid3; beim nächsten
+Start wieder die zuletzt gewählte Datei öffnet und selektiert. Mit
+<guilabel>Datei-Zeitstempel nicht verändern</guilabel> kann eingestellt
+werden, dass die Modifikationszeit der Datei nicht verändert wird.
 </para>
 <para>
 Wenn <guilabel>Änderungen markieren</guilabel> aktiviert ist, werden veränderte
@@ -1891,10 +1902,10 @@ wird die <ulink url="http://id3lib.sourceforge.net">id3lib</ulink>
 verwendet.
 Für MP4 Dateien wird 
 <ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> benötigt.
-Für diese vier Formate kann auch durch
+Für diese vier Formate kann auch
 die <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>
 verwendet werden, welche zudem auch MPC, APE, MP2, Speex, TrueAudio, WavPack,
-WMA, WAV und AIFF Dateien unterstützt.
+WMA, WAV, AIFF Dateien und Tracker Module unterstützt.
 Für das Importieren über akustische Fingerabdrücke
 werden <ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
 und <ulink url="http://libav.org/">libav</ulink> verwendet.
@@ -1959,10 +1970,9 @@ beinhalten Skripte zum Kompilieren und Erzeugen von Paketen. Das Skript
 Importformate, die Dateinamen- und ID3-Formate, die
 Einstellungen für die Werkzeug- und Statusleiste sowie die Fenstergröße im
 Standardverzeichnis in der Datei <filename>kid3rc</filename> gespeichert.
-Als Qt-Anwendung liegt diese Datei im Verzeichnis <filename>.qt</filename>,
-bei Qt 4 in <filename>.config/kid3.sourceforge.net/Kid3.conf</filename>,
-bei älteren Qt-Versionen wird eine Datei <filename>kid3.cfg</filename>
-erstellt. Unter Windows wird die Konfiguration in der Registry gespeichert.
+Als Qt-Anwendung liegt diese Datei
+in <filename>.config/kid3.sourceforge.net/Kid3.conf</filename>. Unter
+Windows wird die Konfiguration in der Registry gespeichert. 
 </para>
 
 </sect1>

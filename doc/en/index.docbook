@@ -25,14 +25,14 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2012-05-07</date>
-<releaseinfo>2.1</releaseinfo>
+<date>2012-10-13</date>
+<releaseinfo>2.2</releaseinfo>
 
 <abstract>
 <para>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
 an efficient way. Also tags in Ogg/Vorbis, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
-TrueAudio, WavPack, WMA, WAV and AIFF files are supported.
+TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD, S3M, IT, XM) are supported.
 It is easy to set tags of multiple files to the same
 values (e.g. album, artist, year and genre in all files of the same album) and
 generate the tags from the file name or vice versa.
@@ -61,6 +61,10 @@ generate the tags from the file name or vice versa.
 <keyword>WMA</keyword>
 <keyword>WAV</keyword>
 <keyword>AIFF</keyword>
+<keyword>MOD</keyword>
+<keyword>S3M</keyword>
+<keyword>IT</keyword>
+<keyword>XM</keyword>
 </keywordset>
 
 </bookinfo>
@@ -72,7 +76,8 @@ generate the tags from the file name or vice versa.
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
 an efficient way. These tags can be edited by most MP3 players, but not in
 a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis, FLAC,
-MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV and AIFF files are supported too.
+MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and
+tracker modules (MOD, S3M, IT, XM) are supported too.
 </para>
 <para>
 &kid3; does not grab nor encode
@@ -1543,6 +1548,8 @@ as it was in earlier versions of &kid3; and TagLib is only applied when an
 ID3v2.4.0 tag is encountered. In the second case, <guilabel>ID3v2.4.0
 (TagLib)</guilabel>, TagLib is generally used for MP3 files; changed or newly
 created tags will then be saved in version 2.4.0.
+When <guilabel>ID3v2.3.0 (TagLib)</guilabel> is selected, TagLib is also used
+for ID3v2.3.0 tags.
 </para>
 <para>
 <guilabel>Track number digits</guilabel> is the number of digits in Track
@@ -1590,7 +1597,9 @@ configuration is automatically used while editing text in the line edits.
 The <guilabel>Case conversion</guilabel> can be set to <guilabel>No
 changes</guilabel>, <guilabel>All lowercase</guilabel>, <guilabel>All
 uppercase</guilabel>, <guilabel>First letter uppercase</guilabel> or
-<guilabel>All first letters uppercase</guilabel>. 
+<guilabel>All first letters uppercase</guilabel>. To use locale-aware
+conversion between lowercase and uppercase characters, a locale can be
+selected in the combobox below.
 The string replacement list can be set to arbitrary string mappings. To add a
 new mapping, select the <guilabel>From</guilabel> cell of a row and insert the
 text to replace, then go to the <guilabel>To</guilabel> column and enter the
@@ -1601,9 +1610,11 @@ right mouse button is clicked.  Replacement is only active, if the
 <guilabel>String replacement</guilabel> checkbox is checked.
 </para>
 <para>
-On the page <guilabel>Files</guilabel> the check box <guilabel>Preserve file
-timestamp</guilabel> can be marked to preserve the file modification time
-stamp.
+On the page <guilabel>Files</guilabel> the check box <guilabel>Load
+last-opened files</guilabel> can be marked so that &kid3; will open and
+select the last selected file when it is started the next time.
+<guilabel>Preserve file timestamp</guilabel> can be checked to preserve
+the file modification time stamp.
 </para>
 <para>
 If <guilabel>Mark changes</guilabel> is active, changed fields are marked with
@@ -1779,7 +1790,8 @@ and libFLAC</ulink>.
 MP4 files.
 These four formats are also supported by
 <ulink url="http://developer.kde.org/~wheeler/taglib.html">TagLib</ulink>,
-which can also handle MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV and AIFF files.
+which can also handle MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF
+files and tracker modules.
 To import from acoustic fingerprints,
 <ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
 and <ulink url="http://libav.org/">libav</ulink> are used.
@@ -1847,10 +1859,9 @@ The libraries can be installed using <filename>buildlibs.sh</filename>.
 filename and ID3 formats, the toolbar and statusbar
 settings as well as the window size will be be saved in the standard
 location in file <filename>kid3rc</filename>.
-As a Qt application, this file is in the <filename>.qt</filename> directory,
-with Qt 4 in <filename>.config/kid3.sourceforge.net/Kid3.conf</filename>,
-with older releases of Qt, a file <filename>kid3.cfg</filename> is created.
-On Windows, the configuration is stored in the registry.
+As a Qt application, this file is
+in <filename>.config/kid3.sourceforge.net/Kid3.conf</filename>. On Windows,
+the configuration is stored in the registry. 
 </para>
 
 </sect1>

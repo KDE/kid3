@@ -1,3 +1,26 @@
+Sat Oct 13 13:42:31 CEST 2012  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 2.2
+
+	* New:
+	  + Option to load last opened file on startup.
+	  + Option to use locale for character conversion.
+	  + Support new features of TagLib 1.8: More ID3 frames, ID3v2.3,
+	    tracker modules (MOD, S3M, IT, XM).
+	  + Support use of GStreamer instead of FFmpeg for Chromaprint decoding.
+	  + Support building with latest libav/FFmpeg libraries.
+
+	* Improved:
+	  + Extract year from "YYYY-MM.." date frame for %{year} format code.
+	  + Character conversion for roman numbers.
+	  + Dutch translation.
+	  + Finnish translation.
+
+	* Fixed:
+	  + Avoid crash when exporting album cover while editing multiple files.
+	  + Check if file format supported before converting to ID3v2.3.0.
+	  + Rewritten Discogs import to use Discogs API v2.0.
+
 Mon May  7 21:20:06 CEST 2012  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 2.1
