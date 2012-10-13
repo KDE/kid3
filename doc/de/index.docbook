@@ -192,10 +192,7 @@ im Verzeichnis.
 <chapter id="commands">
 <title>Menüeinträge</title>
 
-<sect1 id="kid3-window">
-<title>Das Kid3 Fenster</title>
-
-<sect2 id="gui-elements">
+<sect1 id="gui-elements">
 <title>Die Elemente der Benutzeroberfläche</title>
 <para>
 Die &kid3; Benutzeroberfläche ist in fünf Sektionen aufgeteilt: Links finden sich das
@@ -205,10 +202,9 @@ die <guilabel>Datei</guilabel>,
 Sektionen.
 </para>
 
-<variablelist>
+<sect2 id="file-list">
+<title>Dateiliste</title>
 
-<varlistentry><term>Dateiliste</term>
-<listitem>
 <para>
 Die Dateiliste enthält die Namen aller Dateien im geöffneten Verzeichnis,
 welche den gewählten Dateinamenfilter (typischerweise <filename>*.mp3
@@ -262,11 +258,11 @@ auch die Wiedergabe von Dateien per Doppelklick aktiviert werden.
 </para></listitem>
 </itemizedlist>
 </para>
-</listitem>
-</varlistentry>
+</sect2>
 
-<varlistentry><term>Verzeichnisliste</term>
-<listitem>
+<sect2 id="directory-list">
+<title>Verzeichnisliste</title>
+
 <para>
 Die Verzeichnisliste enthält die Verzeichnisse, welche das geöffnete
 Verzeichnis enthält, sowie das aktuelle (<filename>.</filename>) und das
@@ -274,12 +270,11 @@ Verzeichnis enthält, sowie das aktuelle (<filename>.</filename>) und das
 Wechsel zwischen Verzeichnissen, ohne den Umweg über die
 <guimenuitem>Öffnen...</guimenuitem> Funktion oder "Drag and Drop".
 </para>
-</listitem>
-</varlistentry>
+</sect2>
 
-<varlistentry>
-<term><guilabel>Datei</guilabel></term>
-<listitem>
+<sect2 id="file">
+<title>Datei</title>
+
 <para>
 Zeigt Informationen über Codierung (MP3,
 Ogg, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
@@ -349,11 +344,11 @@ Wenn eine einzelne Datei ausgewählt wurde, werden die Eingabefelder mit den
 aus dem Dateinamen extrahierten Werten gefüllt. Bei Mehrfachselektion
 werden die Werte direkt gemäß den Dateinamen gesetzt.
 </para>
-</listitem>
-</varlistentry>
+</sect2>
 
-<varlistentry><term><guilabel>Tag 1</guilabel></term>
-<listitem>
+<sect2 id="tag1">
+<title>Tag 1</title>
+
 <para>
 Die Eingabefelder für <guilabel>Titel</guilabel>,
 <guilabel>Interpret</guilabel>,
@@ -420,11 +415,11 @@ Eingabefelder ein.
 die leeren Werte, entfernt also alle Werte. Die gespeicherte Datei enthält
 dann kein Tag 1 mehr.
 </para>
-</listitem>
-</varlistentry>
+</sect2>
 
-<varlistentry><term><guilabel>Tag 2</guilabel></term>
-<listitem>
+<sect2 id="tag2">
+<title>Tag 2</title>
+
 <para>
 Die Eingabefelder funktionieren gleich wie bei <guilabel>Tag 1</guilabel>
 beschrieben, die Länge der Zeichenketten ist jedoch nicht begrenzt.
@@ -441,7 +436,7 @@ verschiedenen Feldern bestehen. Die Tag 2 Tabelle zeigt alle Elemente
 an, welche in der ausgewählten Datei vorhanden sind.
 </para>
 <para>
-<guibutton>Editieren</guibutton>: Ein Fenster wird geöffnet, in welchem
+<guibutton>Bearbeiten</guibutton>: Ein Fenster wird geöffnet, in welchem
 alle Felder des gewählten Elementes editiert werden können. Wenn mehrere Dateien
 ausgewählt sind, so werden die editierten Felder bei allen ausgewählten
 Dateien angewendet, welche solch ein Element enthalten.
@@ -464,13 +459,107 @@ Browser oder Dateimanager hinzufügen; sie werden dann hier angezeigt. Das
 Editieren oder Hinzufügen eines Bild-Elements kann mit einem Doppelklick
 ausgelöst werden.
 </para>
-</listitem>
 
-</varlistentry>
-</variablelist>
+<sect3 id="frame-list">
+<title>Frame-Liste</title>
+
+<para>
+&kid3; kann die meisten Frames aller unterstützten Dateiformate
+editieren. Gebräuchliche Frames können über vereinheitlichte Namen
+angesprochen werden, so dass sie auch zwischen unterschiedlichen Dateiformaten
+ausgetauscht werden können. Frames ohne vereinheitlichte Namen können über die
+formatspezifische Bezeichnung erreicht werden.
+</para>
+
+<table>
+  <title>Zuordnung der vereinheitlichten Frame-Namen in den unterschiedlichen Formaten</title>
+   <tgroup cols="6">
+     <thead>
+       <row><entry>Unified</entry>          <entry>ID3v2.3</entry> <entry>ID3v2.4</entry> <entry>MP4</entry>            <entry>ASF</entry>                        <entry>Vorbis</entry></row>
+     </thead>
+     <tbody>
+       <row><entry>Titel</entry>            <entry>TIT2</entry>    <entry>TIT2</entry>    <entry>©nam</entry>           <entry>Title</entry>                      <entry>TITLE</entry></row>
+       <row><entry>Interpret</entry>        <entry>TPE1</entry>    <entry>TPE1</entry>    <entry>©ART</entry>           <entry>Author</entry>                     <entry>ARTIST</entry></row>
+       <row><entry>Album</entry>            <entry>TALB</entry>    <entry>TALB</entry>    <entry>©alb</entry>           <entry>WM/AlbumTitle</entry>              <entry>ALBUM</entry></row>
+       <row><entry>Kommentar</entry>        <entry>COMM</entry>    <entry>COMM</entry>    <entry>©cmt</entry>           <entry>Description</entry>                <entry>COMMENT</entry></row>
+       <row><entry>Datum</entry>            <entry>TYER</entry>    <entry>TDRC</entry>    <entry>©day</entry>           <entry>WM/Year</entry>                    <entry>DATE</entry></row>
+       <row><entry>Tracknummer</entry>      <entry>TRCK</entry>    <entry>TRCK</entry>    <entry>trkn</entry>           <entry>WM/TrackNumber</entry>             <entry>TRACKNUMBER</entry></row>
+       <row><entry>Stil</entry>             <entry>TCON</entry>    <entry>TCON</entry>    <entry>©gen</entry>           <entry>WM/Genre</entry>                   <entry>GENRE</entry></row>
+       <row><entry>Albuminterpret</entry>   <entry>TPE2</entry>    <entry>TPE2</entry>    <entry>aART</entry>           <entry>WM/AlbumArtist</entry>             <entry>ALBUMARTIST</entry></row>
+       <row><entry>Arrangierung</entry>     <entry>IPLS</entry>    <entry>TIPL</entry>    <entry>ARRANGER</entry>       <entry>WM/Producer</entry>                <entry>ARRANGER</entry></row>
+       <row><entry>Autor</entry>            <entry>TOLY</entry>    <entry>TOLY</entry>    <entry>AUTHOR</entry>         <entry></entry>                           <entry>AUTHOR</entry></row>
+       <row><entry>BPM</entry>              <entry>TBPM</entry>    <entry>TBPM</entry>    <entry>tmpo</entry>           <entry>WM/BeatsPerMinute</entry>          <entry>BPM</entry></row>
+       <row><entry>Komponist</entry>        <entry>TCOM</entry>    <entry>TCOM</entry>    <entry>©wrt</entry>           <entry>WM/Composer</entry>                <entry>COMPOSER</entry></row>
+       <row><entry>Leiter/Dirigent</entry>  <entry>TPE3</entry>    <entry>TPE3</entry>    <entry>CONDUCTOR</entry>      <entry>WM/Conductor</entry>               <entry>CONDUCTOR</entry></row>
+       <row><entry>Copyright</entry>        <entry>TCOP</entry>    <entry>TCOP</entry>    <entry>cprt</entry>           <entry>Copyright</entry>                  <entry>COPYRIGHT</entry></row>
+       <row><entry>CD-Nummer</entry>        <entry>TPOS</entry>    <entry>TPOS</entry>    <entry>disk</entry>           <entry>WM/PartOfSet</entry>               <entry>DISCNUMBER</entry></row>
+       <row><entry>Kodiert von</entry>      <entry>TENC</entry>    <entry>TENC</entry>    <entry>©too</entry>           <entry>WM/EncodedBy</entry>               <entry>ENCODED-BY</entry></row>
+       <row><entry>Gruppierung</entry>      <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©grp</entry>           <entry>WM/ContentGroupDescription</entry> <entry>GROUPING</entry></row>
+       <row><entry>ISRC</entry>             <entry>TSRC</entry>    <entry>TSRC</entry>    <entry>ISRC</entry>           <entry>WM/ISRC</entry>                    <entry>ISRC</entry></row>
+       <row><entry>Sprache</entry>          <entry>TLAN</entry>    <entry>TLAN</entry>    <entry>LANGUAGE</entry>       <entry>WM/Language</entry>                <entry>LANGUAGE</entry></row>
+       <row><entry>Texter</entry>           <entry>TEXT</entry>    <entry>TEXT</entry>    <entry>LYRICIST</entry>       <entry>WM/Writer</entry>                  <entry>LYRICIST</entry></row>
+       <row><entry>Text</entry>             <entry>USLT</entry>    <entry>USLT</entry>    <entry>©lyr</entry>           <entry>WM/Lyrics</entry>                  <entry>LYRICS</entry></row>
+       <row><entry>Medium</entry>           <entry>TMED</entry>    <entry>TMED</entry>    <entry>SOURCEMEDIA</entry>    <entry>WM/AudioSourceURL</entry>          <entry>SOURCEMEDIA</entry></row>
+       <row><entry>Originalalbum</entry>    <entry>TOAL</entry>    <entry>TOAL</entry>    <entry>ORIGINALALBUM</entry>  <entry>WM/OriginalAlbumTitle</entry>      <entry>ORIGINALALBUM</entry></row>
+       <row><entry>Originalkünstler</entry> <entry>TOPE</entry>    <entry>TOPE</entry>    <entry>ORIGINALARTIST</entry> <entry>WM/OriginalArtist</entry>          <entry>ORIGINALARTIST</entry></row>
+       <row><entry>Originaldatum</entry>    <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry></row>
+       <row><entry>Teil</entry>             <entry>TSST</entry>    <entry>TSST</entry>    <entry>PART</entry>           <entry>WM/SubTitleDescription</entry>     <entry>PART</entry></row>
+       <row><entry>Interpret</entry>        <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry></row>
+       <row><entry>Bild</entry>             <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry></row>
+       <row><entry>Herausgeber</entry>      <entry>TPUB</entry>    <entry>TPUB</entry>    <entry>PUBLISHER</entry>      <entry>WM/Publisher</entry>               <entry>PUBLISHER</entry></row>
+       <row><entry>Remixer</entry>          <entry>TPE4</entry>    <entry>TPE4</entry>    <entry>REMIXER</entry>        <entry>WM/ModifiedBy</entry>              <entry>REMIXER</entry></row>
+       <row><entry>Untertitel</entry>       <entry>TIT3</entry>    <entry>TIT3</entry>    <entry>SUBTITLE</entry>       <entry>WM/SubTitle</entry>                <entry>SUBTITLE</entry></row>
+       <row><entry>Webseite</entry>         <entry>WOAR</entry>    <entry>WOAR</entry>    <entry>WEBSITE</entry>        <entry>WM/AuthorURL</entry>               <entry>WEBSITE</entry></row>
+     </tbody>
+   </tgroup>
+ </table>
+
+<para>
+Bemerkungen zu den Zuordnungen der vereinheitlichten Frame-Namen:
+<itemizedlist>
+<listitem><para>
+Die Zahl der vereinheitlichten Frame-Namen ist insofern beschränkt, als dass
+in allen unterstützten Dateiformaten eine sinnvolle Zuordnung möglich sein
+soll. Die meisten Tags unterstützen Frames mit beliebigen Namen; diese werden
+dann verwendet, wenn kein spezifisches Frame zur Verfügung steht (z.B. die
+Namen in Großbuchstaben in der Spalte MP4). Falls keine solche Möglichkeit
+besteht, so kann es vorkommen, dass für ein Format bestimmte Frame-Typen nicht
+unterstützt werden können, so Autor und Interpret für ASF (WMA).
+</para></listitem>
+<listitem><para>
+Die Zuordnungen sind nicht rein willkürlich, sondern orientieren sich daran,
+wie die Frames in anderen Programmen und Geräten verwendet werden. So legt das
+ID3v2-Frame "TPE2 - Band/Orchester/Begleitung" nicht unbedingt die Verwendung
+als Albuminterpret nahe, doch ist dies die gebräuchlichste Verwendung. Die
+eigentliche Bedeutung bei ID3v2 ist dann wiederum der Grund, wieso dieses
+Frame beim Importieren (z.B. von Discogs) für das Orchester verwendet wird,
+obwohl dies für andere Tag-Formate etwas sonderbar erscheinen mag.
+</para></listitem>
+<listitem><para>
+Die Zuordnung ist nicht immer eindeutig. So wird bei ID3v2.3 sowohl für
+Arrangierung als auch für Interpret ein IPLS-Frame verwendet. Beim Zurücklesen
+wird dann für beide Typen "Arrangierung" angezeigt.
+</para></listitem>
+<listitem><para>
+Die Frames Arrangierung und Interpret verwenden ein besonderes Format für
+ihren Inhalt: "Mitwirkung 1|Mitwirkender 1|Mitwirkung 2|Mitwirkender 2|...",
+beispielsweise "Chorus Master|Ernst Dunshirn|Soprano Vocals|Anna
+Netrebko". Dadurch wird für die IPLS bzw. TIPL/TMCL Frames in MP3-Dateien eine
+Zeichenkettenliste mit dem spezifizierten Inhalt erzeugt (das "|" dient als
+Trennzeichen zwischen den einzelnen Zeichenketten). Entsprechende Werte werden
+auch beim Import von Daten von Servern, welche diese Informationen bieten,
+gesetzt.
+</para></listitem>
+</itemizedlist>
+</para>
+
+</sect3>
+
 </sect2>
 
-<sect2 id="file-menu">
+</sect1>
+
+<sect1 id="file-menu">
 <title>Das Menü Datei</title>
 <para>
 <variablelist>
@@ -1061,9 +1150,9 @@ Stückliste generiert.
 </variablelist>
 </para>
 
-</sect2>
+</sect1>
 
-<sect2 id="edit-menu">
+<sect1 id="edit-menu">
 <title>Das Menü Bearbeiten</title>
 <para>
 <variablelist>
@@ -1114,9 +1203,9 @@ Stückliste generiert.
 
 </variablelist>
 </para>
-</sect2>
+</sect1>
 
-<sect2 id="tools-menu">
+<sect1 id="tools-menu">
 <title>Das Menü Extras</title>
 <para>
 <variablelist>
@@ -1442,9 +1531,9 @@ Stücke wenn eine oder keine Datei selektiert ist.
 
 </variablelist>
 </para>
-</sect2>
+</sect1>
 
-<sect2 id="settings-menu">
+<sect1 id="settings-menu">
 <title>Das Menü Einstellungen</title>
 <para>
 <variablelist>
@@ -1723,9 +1812,9 @@ alles auswählen.
 </variablelist>
 </para>
 
-</sect2>
+</sect1>
 
-<sect2 id="help-menu">
+<sect1 id="help-menu">
 <title>Das Menü Hilfe</title>
 <para>
 <variablelist>
@@ -1751,9 +1840,8 @@ alles auswählen.
 </variablelist>
 </para>
 
-</sect2>
-
 </sect1>
+
 </chapter>
 
 

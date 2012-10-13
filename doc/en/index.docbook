@@ -183,10 +183,7 @@ Selecting <guimenuitem>Create Playlist</guimenuitem> from the
 <chapter id="commands">
 <title>Command Reference</title>
 
-<sect1 id="kid3-window">
-<title>The Kid3 Window</title>
-
-<sect2 id="gui-elements">
+<sect1 id="gui-elements">
 <title>The GUI Elements</title>
 <para>
 The &kid3; GUI is separated in five sections: At the left are the file
@@ -194,10 +191,9 @@ and directory listboxes, the right side contains the <guilabel>File</guilabel>,
 <guilabel>Tag 1</guilabel> and <guilabel>Tag 2</guilabel> sections.
 </para>
 
-<variablelist>
+<sect2 id="file-list">
+<title>File List</title>
 
-<varlistentry><term>Filelist</term>
-<listitem>
 <para>
 The file list contains the names of all the files in the opened
 directory which match the selected file name filter (typically
@@ -246,24 +242,22 @@ click can also be activated there.
 </para></listitem>
 </itemizedlist>
 </para>
-</listitem>
-</varlistentry>
+</sect2>
 
-<varlistentry><term>Directory List</term>
-<listitem>
+<sect2 id="directory-list">
+<title>Directory List</title>
+
 <para>
 The directory list contains the names of the directories in the opened
 directory, as well as the current (<filename>.</filename>) and the parent
 (<filename>..</filename>) directory. It allows to quickly change the directory
 without using the <guimenuitem>Open...</guimenuitem> command or drag and drop.
 </para>
-</listitem>
-</varlistentry>
+</sect2>
 
-<varlistentry>
-<term><guilabel>File</guilabel></term>
+<sect2 id="file">
+<title>File</title>
 
-<listitem>
 <para>
 Shows information about the encoding
 (MP3, Ogg, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
@@ -330,11 +324,11 @@ If a single file is selected, the GUI controls are filled with the values
 extracted from the filename. If multiple files are selected, the tags of the
 files are directly set according to the filenames.
 </para>
-</listitem>
-</varlistentry>
+</sect2>
 
-<varlistentry><term><guilabel>Tag 1</guilabel></term>
-<listitem>
+<sect2 id="tag1">
+<title>Tag 1</title>
+
 <para>
 The line edit widgets for <guilabel>Title</guilabel>,
 <guilabel>Artist</guilabel>,
@@ -397,11 +391,11 @@ GUI controls.
 values which results in removing all values. The saved file will then contain
 no tag 1.
 </para>
-</listitem>
-</varlistentry>
+</sect2>
 
-<varlistentry><term><guilabel>Tag 2</guilabel></term>
-<listitem>
+<sect2 id="tag2">
+<title>Tag 2</title>
+
 <para>
 The GUI controls function in the same way as described for the
 <guilabel>Tag 1</guilabel> section, but the size of the strings is not limited.
@@ -437,13 +431,103 @@ contain embedded cover art. A picture can be added using drag and drop from a
 browser or file manager and will be displayed here. Picture frames can be
 edited or added by double clicking on this control.
 </para>
-</listitem>
-</varlistentry>
 
-</variablelist>
+<sect3 id="frame-list">
+<title>Frame List</title>
+
+<para>
+&kid3; can edit most of the frames for all of the supported file types. Some
+frames are accessed using unified names, so that they can be exchanged
+between files with different formats. Frames which are not unified can be accessed as
+format specific frames.
+</para>
+
+<table>
+  <title>Mapping of Unified Frame Types to Various Formats</title>
+   <tgroup cols="6">
+     <thead>
+       <row><entry>Unified</entry>         <entry>ID3v2.3</entry> <entry>ID3v2.4</entry> <entry>MP4</entry>            <entry>ASF</entry>                        <entry>Vorbis</entry></row>
+     </thead>
+     <tbody>
+       <row><entry>Title</entry>           <entry>TIT2</entry>    <entry>TIT2</entry>    <entry>©nam</entry>           <entry>Title</entry>                      <entry>TITLE</entry></row>
+       <row><entry>Artist</entry>          <entry>TPE1</entry>    <entry>TPE1</entry>    <entry>©ART</entry>           <entry>Author</entry>                     <entry>ARTIST</entry></row>
+       <row><entry>Album</entry>           <entry>TALB</entry>    <entry>TALB</entry>    <entry>©alb</entry>           <entry>WM/AlbumTitle</entry>              <entry>ALBUM</entry></row>
+       <row><entry>Comment</entry>         <entry>COMM</entry>    <entry>COMM</entry>    <entry>©cmt</entry>           <entry>Description</entry>                <entry>COMMENT</entry></row>
+       <row><entry>Date</entry>            <entry>TYER</entry>    <entry>TDRC</entry>    <entry>©day</entry>           <entry>WM/Year</entry>                    <entry>DATE</entry></row>
+       <row><entry>Track Number</entry>    <entry>TRCK</entry>    <entry>TRCK</entry>    <entry>trkn</entry>           <entry>WM/TrackNumber</entry>             <entry>TRACKNUMBER</entry></row>
+       <row><entry>Genre</entry>           <entry>TCON</entry>    <entry>TCON</entry>    <entry>©gen</entry>           <entry>WM/Genre</entry>                   <entry>GENRE</entry></row>
+       <row><entry>Album Artist</entry>    <entry>TPE2</entry>    <entry>TPE2</entry>    <entry>aART</entry>           <entry>WM/AlbumArtist</entry>             <entry>ALBUMARTIST</entry></row>
+       <row><entry>Arranger</entry>        <entry>IPLS</entry>    <entry>TIPL</entry>    <entry>ARRANGER</entry>       <entry>WM/Producer</entry>                <entry>ARRANGER</entry></row>
+       <row><entry>Author</entry>          <entry>TOLY</entry>    <entry>TOLY</entry>    <entry>AUTHOR</entry>         <entry></entry>                           <entry>AUTHOR</entry></row>
+       <row><entry>BPM</entry>             <entry>TBPM</entry>    <entry>TBPM</entry>    <entry>tmpo</entry>           <entry>WM/BeatsPerMinute</entry>          <entry>BPM</entry></row>
+       <row><entry>Composer</entry>        <entry>TCOM</entry>    <entry>TCOM</entry>    <entry>©wrt</entry>           <entry>WM/Composer</entry>                <entry>COMPOSER</entry></row>
+       <row><entry>Conductor</entry>       <entry>TPE3</entry>    <entry>TPE3</entry>    <entry>CONDUCTOR</entry>      <entry>WM/Conductor</entry>               <entry>CONDUCTOR</entry></row>
+       <row><entry>Copyright</entry>       <entry>TCOP</entry>    <entry>TCOP</entry>    <entry>cprt</entry>           <entry>Copyright</entry>                  <entry>COPYRIGHT</entry></row>
+       <row><entry>Disc Number</entry>     <entry>TPOS</entry>    <entry>TPOS</entry>    <entry>disk</entry>           <entry>WM/PartOfSet</entry>               <entry>DISCNUMBER</entry></row>
+       <row><entry>Encoded-by</entry>      <entry>TENC</entry>    <entry>TENC</entry>    <entry>©too</entry>           <entry>WM/EncodedBy</entry>               <entry>ENCODED-BY</entry></row>
+       <row><entry>Grouping</entry>        <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©grp</entry>           <entry>WM/ContentGroupDescription</entry> <entry>GROUPING</entry></row>
+       <row><entry>ISRC</entry>            <entry>TSRC</entry>    <entry>TSRC</entry>    <entry>ISRC</entry>           <entry>WM/ISRC</entry>                    <entry>ISRC</entry></row>
+       <row><entry>Language</entry>        <entry>TLAN</entry>    <entry>TLAN</entry>    <entry>LANGUAGE</entry>       <entry>WM/Language</entry>                <entry>LANGUAGE</entry></row>
+       <row><entry>Lyricist</entry>        <entry>TEXT</entry>    <entry>TEXT</entry>    <entry>LYRICIST</entry>       <entry>WM/Writer</entry>                  <entry>LYRICIST</entry></row>
+       <row><entry>Lyrics</entry>          <entry>USLT</entry>    <entry>USLT</entry>    <entry>©lyr</entry>           <entry>WM/Lyrics</entry>                  <entry>LYRICS</entry></row>
+       <row><entry>Media</entry>           <entry>TMED</entry>    <entry>TMED</entry>    <entry>SOURCEMEDIA</entry>    <entry>WM/AudioSourceURL</entry>          <entry>SOURCEMEDIA</entry></row>
+       <row><entry>Original Album</entry>  <entry>TOAL</entry>    <entry>TOAL</entry>    <entry>ORIGINALALBUM</entry>  <entry>WM/OriginalAlbumTitle</entry>      <entry>ORIGINALALBUM</entry></row>
+       <row><entry>Original Artist</entry> <entry>TOPE</entry>    <entry>TOPE</entry>    <entry>ORIGINALARTIST</entry> <entry>WM/OriginalArtist</entry>          <entry>ORIGINALARTIST</entry></row>
+       <row><entry>Original Date</entry>   <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry></row>
+       <row><entry>Part</entry>            <entry>TSST</entry>    <entry>TSST</entry>    <entry>PART</entry>           <entry>WM/SubTitleDescription</entry>     <entry>PART</entry></row>
+       <row><entry>Performer</entry>       <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry></row>
+       <row><entry>Picture</entry>         <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry></row>
+       <row><entry>Publisher</entry>       <entry>TPUB</entry>    <entry>TPUB</entry>    <entry>PUBLISHER</entry>      <entry>WM/Publisher</entry>               <entry>PUBLISHER</entry></row>
+       <row><entry>Remixer</entry>         <entry>TPE4</entry>    <entry>TPE4</entry>    <entry>REMIXER</entry>        <entry>WM/ModifiedBy</entry>              <entry>REMIXER</entry></row>
+       <row><entry>Subtitle</entry>        <entry>TIT3</entry>    <entry>TIT3</entry>    <entry>SUBTITLE</entry>       <entry>WM/SubTitle</entry>                <entry>SUBTITLE</entry></row>
+       <row><entry>Website</entry>         <entry>WOAR</entry>    <entry>WOAR</entry>    <entry>WEBSITE</entry>        <entry>WM/AuthorURL</entry>               <entry>WEBSITE</entry></row>
+     </tbody>
+   </tgroup>
+ </table>
+
+<para>
+Remarks concerning the mappings to unified frame names:
+<itemizedlist>
+<listitem><para>
+The number of unified frame names is limited by the fact that a sensible
+mapping shall be possible for all supported file formats. Most tags support
+frames with arbitrary names; these will be used if no specific frame is
+available (e.g. the names in uppercase in the column MP4). If no such
+possibility exists, some frame types may not be supported for the format,
+e.g. Author and Performer for ASF (WMA).
+</para></listitem>
+<listitem><para>
+The mappings are not chosen arbitrarily, they are geared to the usage of the
+frames in other applications and devices. Thus the ID3v2 frame "TPE2 -
+Band/orchestra/accompaniment" does not suggest its usage as Album Artist, but
+this is commonly used. The actual meaning for ID3v2 on the other hand is the
+reason why this frame is used for the orchestra when importing (e.g. from
+Discogs), although this may seem a bit strange for other tag formats.
+</para></listitem>
+<listitem><para>
+The mappings are not always bijective. So ID3v2.3 uses an IPLS frame for both
+Arranger and Performer. When reading back, both frames are displayed as
+"Arranger".
+</para></listitem>
+<listitem><para>
+The frames Arranger and Performer use a particular format for their contents:
+"involvement 1|involvee 1|involvement 2|involvee 2|...", for
+instance "Chorus Master|Ernst Dunshirn|Soprano Vocals|Anna Netrebko". This
+will create IPLS (ID3v2.3) or TIPL/TMCL (ID3v2.4) frames with a string list in
+the specified format (the "|" is used as a separator between the strings).
+Values in this format are also set when importing data from servers which
+offer this information.
+</para></listitem>
+</itemizedlist>
+</para>
+
+</sect3>
+
 </sect2>
 
-<sect2 id="file-menu">
+</sect1>
+
+<sect1 id="file-menu">
 <title>The File Menu</title>
 <para>
 <variablelist>
@@ -996,9 +1080,9 @@ the <guibutton>Write info using</guibutton> control.
 </variablelist>
 </para>
 
-</sect2>
+</sect1>
 
-<sect2 id="edit-menu">
+<sect1 id="edit-menu">
 <title>The Edit Menu</title>
 <para>
 <variablelist>
@@ -1049,9 +1133,9 @@ the <guibutton>Write info using</guibutton> control.
 
 </variablelist>
 </para>
-</sect2>
+</sect1>
 
-<sect2 id="tools-menu">
+<sect1 id="tools-menu">
 <title>The Tools Menu</title>
 <para>
 <variablelist>
@@ -1354,9 +1438,9 @@ files will be played.
 
 </variablelist>
 </para>
-</sect2>
+</sect1>
 
-<sect2 id="settings-menu">
+<sect1 id="settings-menu">
 <title>The Settings Menu</title>
 <para>
 <variablelist>
@@ -1612,9 +1696,9 @@ button available, e.g. next file, previous file, select all.
 </variablelist>
 </para>
 
-</sect2>
+</sect1>
 
-<sect2 id="help-menu">
+<sect1 id="help-menu">
 <title>The Help Menu</title>
 <para>
 <variablelist>
@@ -1640,9 +1724,8 @@ button available, e.g. next file, previous file, select all.
 </variablelist>
 </para>
 
-</sect2>
-
 </sect1>
+
 </chapter>
 
 
