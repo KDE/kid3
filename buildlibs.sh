@@ -520,6 +520,8 @@ cd libav-0.8.3
 # Most options taken from
 # http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
 # Disable-sse avoids a SEGFAULT under MinGW.
+# Later versions (tested with libav-HEAD-5d2be71) do not have
+# --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
