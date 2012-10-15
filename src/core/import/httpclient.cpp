@@ -111,7 +111,7 @@ void HttpClient::networkReplyError(QNetworkReply::NetworkError)
  * @param path   path of the URL
  */
 void HttpClient::sendRequest(const QString& server, const QString& path,
-                             const QMap<QByteArray, QByteArray>& headers)
+                             const RawHeaderMap& headers)
 {
   m_rcvBodyLen = 0;
   m_rcvBodyType = "";
@@ -136,7 +136,7 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
   QUrl url;
   url.setEncodedUrl(("http://" + host + path).toAscii());
   QNetworkRequest request(url);
-  for (QMap<QByteArray, QByteArray>::const_iterator it =
+  for (RawHeaderMap::const_iterator it =
          headers.constBegin();
        it != headers.constEnd();
        ++it) {

@@ -31,6 +31,7 @@
 #include <QString>
 #include <QNetworkReply>
 #include <QPointer>
+#include <QMap>
 
 class QByteArray;
 class QNetworkAccessManager;
@@ -42,6 +43,8 @@ class HttpClient : public QObject {
 Q_OBJECT
 
 public:
+  typedef QMap<QByteArray, QByteArray> RawHeaderMap;
+
   /**
    * Constructor.
    *
@@ -62,8 +65,7 @@ public:
    * @param headers optional raw headers to send
    */
   void sendRequest(const QString& server, const QString& path,
-                   const QMap<QByteArray, QByteArray> &headers =
-                     QMap<QByteArray, QByteArray>());
+                   const RawHeaderMap& headers = RawHeaderMap());
 
   /**
    * Abort request.
