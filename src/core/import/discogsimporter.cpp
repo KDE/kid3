@@ -393,6 +393,17 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     framesHdr.setGenre(genreList.first().toString());
   }
 
+  trackDataVector.setCoverArtUrl(QString());
+  const bool coverArt = getCoverArt();
+  if (coverArt) {
+    // Cover art can be found in "images"
+    QVariantList images = map.value("images").toList();
+    if (!images.isEmpty()) {
+      trackDataVector.setCoverArtUrl(images.first().toMap().value("uri").
+                                     toString());
+    }
+  }
+
   const bool additionalTags = getAdditionalTags();
   if (additionalTags) {
     // Publisher can be found in "label"
@@ -418,12 +429,6 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
           extraArtist.addToFrames(framesHdr);
         }
       }
-    }
-
-    // Cover art can be found in "images"
-    QVariantList images = map.value("images").toList();
-    if (!images.isEmpty()) {
-      trackDataVector.setCoverArtUrl(images.first().toMap().value("uri").toString());
     }
   }
 
