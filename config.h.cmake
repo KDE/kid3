@@ -14,6 +14,7 @@
 /* Define if you have TagLib installed */
 #cmakedefine HAVE_TAGLIB 1
 #cmakedefine HAVE_TAGLIB_ID3V23_SUPPORT 1
+#cmakedefine HAVE_TAGLIB_XM_SUPPORT 1
 
 /* Define if you have mp4v2 installed */
 #cmakedefine HAVE_MP4V2 1

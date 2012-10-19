@@ -102,7 +102,9 @@
 #include <taglib/modfile.h>
 #include <taglib/s3mfile.h>
 #include <taglib/itfile.h>
+#ifdef HAVE_TAGLIB_XM_SUPPORT
 #include <taglib/xmfile.h>
+#endif
 #endif
 
 #include "taglibext/aac/aacfiletyperesolver.h"
@@ -1546,7 +1548,9 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
     TagLib::Mod::Properties* modProperties;
     TagLib::S3M::Properties* s3mProperties;
     TagLib::IT::Properties* itProperties;
+#ifdef HAVE_TAGLIB_XM_SUPPORT
     TagLib::XM::Properties* xmProperties;
+#endif
 #endif
     info.valid = true;
     if ((mpegProperties =
@@ -1659,12 +1663,14 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
           arg(itProperties->instrumentCount());
       info.channelMode = itProperties->stereo()
           ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
+#ifdef HAVE_TAGLIB_XM_SUPPORT
     } else if ((xmProperties =
                 dynamic_cast<TagLib::XM::Properties*>(audioProperties)) != 0) {
       info.format = QString("XM %1 V%2 %3 Instruments").
           arg(getTrackerName()).
           arg(xmProperties->version(), 0, 16).
           arg(xmProperties->instrumentCount());
+#endif
 #endif
     }
     info.bitrate = audioProperties->bitrate();
@@ -1757,8 +1763,10 @@ QString TagLibFile::getFileExtension() const
       return ".s3m";
     } else if (dynamic_cast<TagLib::IT::File*>(file) != 0) {
       return ".it";
+#ifdef HAVE_TAGLIB_XM_SUPPORT
     } else if (dynamic_cast<TagLib::XM::File*>(file) != 0) {
       return ".xm";
+#endif
 #endif
     }
   }
@@ -5180,7 +5188,10 @@ TaggedFile* TagLibFile::Resolver::createFile(
       || ext == ".ape"
 #endif
 #if TAGLIB_VERSION >= 0x010800
-      || ext == ".mod" || ext == ".s3m" || ext2 == ".it" || ext2 == ".xm"
+      || ext == ".mod" || ext == ".s3m" || ext2 == ".it"
+#ifdef HAVE_TAGLIB_XM_SUPPORT
+      || ext2 == ".xm"
+    #endif
 #endif
       || ext2 == ".wv")
     return new TagLibFile(dn, fn, idx);
@@ -5210,7 +5221,10 @@ QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
     ".ape" <<
 #endif
 #if TAGLIB_VERSION >= 0x010800
-    ".mod" << ".s3m" << ".it" << ".xm" <<
+    ".mod" << ".s3m" << ".it" <<
+#ifdef HAVE_TAGLIB_XM_SUPPORT
+    ".xm" <<
+#endif
 #endif
     ".wv";
 }
