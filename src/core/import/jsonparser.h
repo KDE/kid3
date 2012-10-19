@@ -27,9 +27,10 @@
 #ifndef JSONPARSER_H
 #define JSONPARSER_H
 
-#include <QMap>
-#include <QString>
-#include <QVariant>
+#include "kid3api.h"
+
+class QString;
+class QVariant;
 
 /**
  * Serialize and deserialize simple string-variant maps with JSON.
@@ -46,14 +47,14 @@ namespace JsonParser {
  * @param ok if not null, true is returned here on success
  * @return deserialized string-variant map
  */
-QVariant deserialize(const QString& str, bool* ok = 0);
+QVariant KID3_CORE_EXPORT deserialize(const QString& str, bool* ok = 0);
 
 /**
  * Serialize a variant as a JSON string.
  * @param var variant
  * @return JSON representation of @a var.
  */
-QString serialize(const QVariant& var);
+QString KID3_CORE_EXPORT serialize(const QVariant& var);
 
 }
 

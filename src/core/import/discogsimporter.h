@@ -28,11 +28,12 @@
 #define DISCOGSIMPORTER_H
 
 #include "serverimporter.h"
+#include "kid3api.h"
 
 /**
  * Discogs importer.
  */
-class DiscogsImporter : public ServerImporter
+class KID3_CORE_EXPORT DiscogsImporter : public ServerImporter
 {
 public:
   /**

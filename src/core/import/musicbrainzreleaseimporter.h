@@ -28,11 +28,12 @@
 #define MUSICBRAINZRELEASEIMPORTER_H
 
 #include "serverimporter.h"
+#include "kid3api.h"
 
 /**
  * MusicBrainz release database importer.
  */
-class MusicBrainzReleaseImporter : public ServerImporter
+class KID3_CORE_EXPORT MusicBrainzReleaseImporter : public ServerImporter
 {
 public:
   /**

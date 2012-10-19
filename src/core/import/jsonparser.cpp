@@ -25,6 +25,9 @@
  */
 
 #include "jsonparser.h"
+#include <QMap>
+#include <QString>
+#include <QVariant>
 #include <QDateTime>
 #include <limits.h>
 
