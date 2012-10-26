@@ -153,8 +153,11 @@ void AudioPlayer::aboutToFinish()
   int nextFileNr = m_fileNr + 1;
   if (nextFileNr >= 0 && nextFileNr < m_files.size()) {
     m_fileNr = nextFileNr;
-    Phonon::MediaSource source(m_files[m_fileNr]);
-    m_mediaObject->enqueue(source);
+    const QString& fileName = m_files[m_fileNr];
+    if (QFile::exists(fileName)) {
+      Phonon::MediaSource source(fileName);
+      m_mediaObject->enqueue(source);
+    }
   }
 }
 
