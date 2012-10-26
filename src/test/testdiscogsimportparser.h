@@ -29,6 +29,9 @@
 
 #include "testserverimporterbase.h"
 
+/**
+ * Test parsing of import data from Discogs server.
+ */
 class TestDiscogsImportParser : public TestServerImporterBase {
   Q_OBJECT
 private slots:

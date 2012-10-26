@@ -1,5 +1,5 @@
 /**
- * \file main.cpp
+ * \file test/main.cpp
  * Main program for executing unit test cases.
  * Besides the standard QtTest options, this test runner also allows to select
  * the testcase with "-testcase" and list the testcases with "-testcases".
@@ -35,6 +35,14 @@
 #include "testdiscogsimportparser.h"
 #include "testdiscogsimporter.h"
 
+/**
+ * Main routine for test runner.
+ *
+ * @param argc number of arguments (including the command)
+ * @param argv command and arguments
+ *
+ * @return 0 if OK, the number of failed tests if failed.
+ */
 int main(int argc, char *argv[])
 {
   QCoreApplication app(argc, argv);

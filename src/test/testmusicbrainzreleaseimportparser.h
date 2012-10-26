@@ -29,6 +29,9 @@
 
 #include "testserverimporterbase.h"
 
+/**
+ * Test parsing of import data from MusicBrainz server.
+ */
 class TestMusicBrainzReleaseImportParser : public TestServerImporterBase {
   Q_OBJECT
 private slots:

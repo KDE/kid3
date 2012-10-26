@@ -1,5 +1,5 @@
 /**
- * \file main.cpp
+ * \file gui/app/main.cpp
  * Main program.
  *
  * \b Project: Kid3

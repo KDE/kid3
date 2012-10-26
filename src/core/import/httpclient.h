@@ -43,6 +43,7 @@ class HttpClient : public QObject {
 Q_OBJECT
 
 public:
+  /** Name-value map for raw HTTP headers. */
   typedef QMap<QByteArray, QByteArray> RawHeaderMap;
 
   /**

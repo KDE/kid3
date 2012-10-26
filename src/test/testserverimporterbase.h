@@ -33,6 +33,9 @@ class QNetworkAccessManager;
 class TrackDataModel;
 class ServerImporter;
 
+/**
+ * Base class for server importer tests.
+ */
 class TestServerImporterBase : public QObject {
   Q_OBJECT
 public:

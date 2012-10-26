@@ -348,6 +348,8 @@ int av_audio_convert(AVAudioConvert *ctx,
 #include <chromaprint.h>
 #include <QFile>
 
+namespace {
+
 const int BUFFER_SIZE = AVCODEC_MAX_AUDIO_FRAME_SIZE * 2;
 
 /*
@@ -550,14 +552,41 @@ public:
 };
 #endif
 
+}
+
+/**
+ * Decoder for fingerprints from audio files.
+ */
 class FingerprintCalculator::Decoder {
 public:
+  /**
+   * Constructor.
+   * @param ctx chromaprint context
+   */
   explicit Decoder(ChromaprintContext* ctx);
+
+  /**
+   * Destructor.
+   */
   ~Decoder();
 
+  /**
+   * Run decoder on audio file.
+   * @param filePath path to audio file
+   * @return true if ok.
+   */
   bool run(const QString& filePath);
 
+  /**
+   * Get duration of audio file
+   * @return length of audio file in seconds.
+   */
   int getDuration() const { return m_duration; }
+
+  /**
+   * Get error occurred during decoding.
+   * @return error code.
+   */
   FingerprintCalculator::Result::Error getError() const { return m_error; }
 
 private:

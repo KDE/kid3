@@ -31,6 +31,9 @@
 #include <QDateTime>
 #include <limits.h>
 
+/**
+ * JSON deserializer.
+ */
 class JsonDeserializer {
 public:
   /**
@@ -104,8 +107,6 @@ QVariant valueStringToVariant(const QString& value)
   return value;
 }
 
-}
-
 QString variantToValueString(const QVariant& var)
 {
   QString value;
@@ -141,6 +142,8 @@ QString variantToValueString(const QVariant& var)
     }
   }
   return value;
+}
+
 }
 
 

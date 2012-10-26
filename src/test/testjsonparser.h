@@ -30,6 +30,9 @@
 
 #include <QTest>
 
+/**
+ * Test JSON serializer and deserializer.
+ */
 class TestJsonParser : public QObject {
   Q_OBJECT
 private slots:
