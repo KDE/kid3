@@ -37,6 +37,7 @@
  * Context menu commands configuration table model.
  */
 class KID3_CORE_EXPORT CommandsTableModel : public QAbstractTableModel {
+  Q_OBJECT
 public:
   /**
    * Constructor.

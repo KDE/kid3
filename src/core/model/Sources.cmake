@@ -23,6 +23,7 @@ set(model_SRCS
 
 set(model_MOC_HDRS
   model/audioplayer.h
+  model/commandstablemodel.h
   model/downloadclient.h
   model/externalprocess.h
   model/filefilter.h
