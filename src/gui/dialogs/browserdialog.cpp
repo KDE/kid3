@@ -54,8 +54,18 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   vlayout->setSpacing(6);
   vlayout->setMargin(6);
 
-  QString lang(QLocale::system().name().left(2));
+  QLocale locale;
   QStringList docPaths;
+#if QT_VERSION >= 0x040800 && !defined WIN32
+  foreach (const QString& uiLang, locale.uiLanguages()) {
+    QString lang(uiLang.left(2));
+    docPaths += QDir::currentPath() + "/kid3_" + lang + ".html";
+#ifdef CFG_DOCDIR
+    docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
+#endif
+  }
+#endif
+  QString lang(locale.name().left(2));
 #ifdef CFG_DOCDIR
   docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
   docPaths += QString(CFG_DOCDIR) + "/kid3_en.html";
