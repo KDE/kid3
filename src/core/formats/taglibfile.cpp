@@ -4133,6 +4133,15 @@ bool TagLibFile::addFrameV2(Frame& frame)
       QString frameId = name;
       frameId.truncate(4);
       TagLib::ID3v2::Frame* id3Frame = 0;
+
+      if (name == "AverageLevel" ||
+          name == "PeakValue" ||
+          name.startsWith("WM/")) {
+        frameId = "PRIV";
+      } else if (name.startsWith("iTun")) {
+        frameId = "COMM";
+      }
+
       if (frameId.startsWith("T")) {
         if (frameId == "TXXX") {
           id3Frame = new TagLib::ID3v2::UserTextIdentificationFrame(enc);
@@ -4142,7 +4151,12 @@ bool TagLibFile::addFrameV2(Frame& frame)
           id3Frame->setText(""); // is necessary for createFrame() to work
         }
       } else if (frameId == "COMM") {
-        id3Frame = new TagLib::ID3v2::CommentsFrame(enc);
+        TagLib::ID3v2::CommentsFrame* commFrame =
+            new TagLib::ID3v2::CommentsFrame(enc);
+        id3Frame = commFrame;
+        if (frame.getType() == Frame::FT_Other) {
+          commFrame->setDescription(QSTRING_TO_TSTRING(frame.getName()));
+        }
       } else if (frameId == "APIC") {
         id3Frame = new TagLib::ID3v2::AttachedPictureFrame;
         ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setTextEncoding(enc);
@@ -4152,8 +4166,16 @@ bool TagLibFile::addFrameV2(Frame& frame)
           TagLib::ID3v2::AttachedPictureFrame::FrontCover);
       } else if (frameId == "UFID") {
         // the bytevector must not be empty
-        id3Frame = new TagLib::ID3v2::UniqueFileIdentifierFrame(
-          TagLib::String(), TagLib::ByteVector(" "));
+        TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame =
+            new TagLib::ID3v2::UniqueFileIdentifierFrame(
+                      TagLib::String(), TagLib::ByteVector(" "));
+        id3Frame = ufidFrame;
+        QByteArray data;
+        if (AttributeData::isHexString(frame.getValue(), 'Z')) {
+          data = (frame.getValue() + '\0').toLatin1();
+          ufidFrame->setIdentifier(TagLib::ByteVector(data.constData(),
+                                                      data.size()));
+        }
       } else if (frameId == "GEOB") {
         id3Frame = new TagLib::ID3v2::GeneralEncapsulatedObjectFrame;
         ((TagLib::ID3v2::GeneralEncapsulatedObjectFrame*)id3Frame)->setTextEncoding(enc);
@@ -4172,7 +4194,16 @@ bool TagLibFile::addFrameV2(Frame& frame)
       } else if (frameId == "POPM") {
         id3Frame = new TagLib::ID3v2::PopularimeterFrame;
       } else if (frameId == "PRIV") {
-        id3Frame = new TagLib::ID3v2::PrivateFrame;
+        TagLib::ID3v2::PrivateFrame* privFrame =
+            new TagLib::ID3v2::PrivateFrame;
+        id3Frame = privFrame;
+        if (!frame.getName().startsWith("PRIV")) {
+          privFrame->setOwner(QSTRING_TO_TSTRING(frame.getName()));
+          QByteArray data;
+          if (AttributeData(frame.getName()).toByteArray(frame.getValue(), data)) {
+            privFrame->setData(TagLib::ByteVector(data.constData(), data.size()));
+          }
+        }
 #endif
 #if TAGLIB_VERSION >= 0x010800
       } else if (frameId == "OWNE") {

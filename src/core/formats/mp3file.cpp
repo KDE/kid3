@@ -1696,7 +1696,15 @@ bool Mp3File::addFrameV2(Frame& frame)
   } else {
     id = getId3libFrameIdForName(frame.getName());
     if (id == ID3FID_NOFRAME) {
-      id = ID3FID_USERTEXT;
+      if (frame.getName() == "AverageLevel" ||
+          frame.getName() == "PeakValue" ||
+          frame.getName().startsWith("WM/")) {
+        id = ID3FID_PRIVATE;
+      } else if (frame.getName().startsWith("iTun")) {
+        id = ID3FID_COMMENT;
+      } else {
+        id = ID3FID_USERTEXT;
+      }
     }
   }
   if (id != ID3FID_NOFRAME && id != ID3FID_SETSUBTITLE && m_tagV2) {
@@ -1714,6 +1722,34 @@ bool Mp3File::addFrameV2(Frame& frame)
       fld = id3Frame->GetField(ID3FN_DESCRIPTION);
       if (fld) {
         setString(fld, frame.getName());
+      }
+    } else if (id == ID3FID_COMMENT && frame.getType() == Frame::FT_Other) {
+      fld = id3Frame->GetField(ID3FN_DESCRIPTION);
+      if (fld) {
+        setString(fld, frame.getName());
+      }
+    } else if (id == ID3FID_PRIVATE && !frame.getName().startsWith("PRIV")) {
+      fld = id3Frame->GetField(ID3FN_OWNER);
+      if (fld) {
+        setString(fld, frame.getName());
+        QByteArray data;
+        if (AttributeData(frame.getName()).toByteArray(frame.getValue(), data)) {
+          fld = id3Frame->GetField(ID3FN_DATA);
+          if (fld) {
+            fld->Set(reinterpret_cast<const unsigned char*>(data.data()),
+                     data.size());
+          }
+        }
+      }
+    } else if (id == ID3FID_UNIQUEFILEID) {
+      QByteArray data;
+      if (AttributeData::isHexString(frame.getValue(), 'Z')) {
+        data = (frame.getValue() + '\0').toLatin1();
+        fld = id3Frame->GetField(ID3FN_DATA);
+        if (fld) {
+          fld->Set(reinterpret_cast<const unsigned char*>(data.data()),
+                   data.size());
+        }
       }
     } else if (id == ID3FID_PICTURE) {
       fld = id3Frame->GetField(ID3FN_MIMETYPE);
