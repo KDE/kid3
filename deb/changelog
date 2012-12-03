@@ -1,8 +1,18 @@
-kid3 (2.2-0) unstable; urgency=low
+kid3 (2.2.1-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Fri, 26 Oct 2012 17:07:27 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 03 Dec 2012 11:09:12 +0100
+
+kid3 (2.2-1) experimental; urgency=low
+
+  * New upstream release.
+  * Bump Standards-Version to 3.9.4 (no changes needed).
+  * Switch to xz compression and add a Pre-Depends on dpkg.
+  * Add lintian overrides for false positive hardening-no-fortify-functions
+    warnings.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 12 Nov 2012 13:21:29 +0100
 
 kid3 (2.1-2) unstable; urgency=low
 

@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
         localeName.startsWith("en") ||
 #if defined WIN32 || defined __APPLE__
 #ifdef CFG_TRANSLATIONSDIR
-        qt_tr.load(QString("qt_") + localeName, CFG_TRANSLATIONSDIR)) ||
+        qt_tr.load(QString("qt_") + localeName, CFG_TRANSLATIONSDIR) ||
 #endif
         qt_tr.load(QString("qt_") + localeName, ".")
 #else

@@ -21,13 +21,14 @@ Build-Depends: debhelper (>= 7),
  lsb-release,
  docbook-xsl,
  xsltproc
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log
 
 Package: kid3
 Architecture: any
+Pre-Depends: dpkg
 Depends: ${shlibs:Depends},
  ${misc:Depends}
 Description: KDE MP3 ID3 tag editor
@@ -53,6 +54,7 @@ Description: KDE MP3 ID3 tag editor
 Package: kid3-qt
 Section: sound
 Architecture: any
+Pre-Depends: dpkg
 Depends: ${shlibs:Depends},
  ${misc:Depends}
 Description: Audio tag editor
