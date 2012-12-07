@@ -536,6 +536,34 @@ bool FrameCollection::isEmptyOrInactive() const
 }
 
 /**
+ * Search for a frame only by name.
+ *
+ * @param name the name of the frame to find, a case-insensitive search for
+ *             the first name starting with this string is performed
+ *
+ * @return iterator or end() if not found.
+ */
+FrameCollection::const_iterator FrameCollection::searchByName(
+    const QString& name) const
+{
+  const_iterator it;
+  QString ucName = name.toUpper().remove('/');
+  int len = ucName.length();
+  for (it = begin(); it != end(); ++it) {
+    QString ucFrameName(it->getName().toUpper().remove('/'));
+    if (ucName == ucFrameName.left(len)) {
+      break;
+    }
+    int nlPos = ucFrameName.indexOf("\n");
+    if (nlPos > 0 && ucName == ucFrameName.mid(nlPos + 1, len)) {
+      // Description in TXXX, WXXX, COMM, PRIV matches
+      break;
+    }
+  }
+  return it;
+}
+
+/**
  * Find a frame by name.
  *
  * @param name  the name of the frame to find, if the exact name is not
@@ -549,22 +577,10 @@ FrameCollection::const_iterator FrameCollection::findByName(const QString& name)
   Frame::Type type = Frame::getTypeFromName(name);
   Frame frame(type, "", name, -1);
   const_iterator it = find(frame);
-  if (it == end()) {
-    QString ucName = name.toUpper().remove('/');
-    int len = ucName.length();
-    for (it = begin(); it != end(); ++it) {
-      QString ucFrameName(it->getName().toUpper().remove('/'));
-      if (ucName == ucFrameName.left(len)) {
-        break;
-      }
-      int nlPos = ucFrameName.indexOf("\n");
-      if (nlPos > 0 && ucName == ucFrameName.mid(nlPos + 1, len)) {
-        // Description in TXXX, WXXX, COMM, PRIV matches
-        break;
-      }
-    }
+  if (it != end()) {
+    return it;
   }
-  return it;
+  return searchByName(name);
 }
 
 /**
@@ -610,6 +626,33 @@ void FrameCollection::setValue(Frame::Type type, const QString& value)
   if (!value.isNull()) {
     Frame frame(type, "", "", -1);
     iterator it = find(frame);
+    if (it != end()) {
+      Frame& frameFound = const_cast<Frame&>(*it);
+      frameFound.setValueIfChanged(value);
+    } else {
+      frame.setValueIfChanged(value);
+      insert(frame);
+    }
+  }
+}
+
+/**
+ * Set value by name.
+ *
+ * @param name  the name of the frame to find, if the exact name is not
+ *              found, a case-insensitive search for the first name
+ *              starting with this string is performed
+ * @param value value, nothing is done if QString::null
+ */
+void FrameCollection::setValueByName(const QString& name, const QString& value)
+{
+  if (!value.isNull()) {
+    Frame::Type type = Frame::getTypeFromName(name);
+    Frame frame(type, "", name, -1);
+    const_iterator it = find(frame);
+    if (it == end()) {
+      it = searchByName(name);
+    }
     if (it != end()) {
       Frame& frameFound = const_cast<Frame&>(*it);
       frameFound.setValueIfChanged(value);

@@ -119,7 +119,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
     int closingBracePos = m_pattern.indexOf("}(", percentIdx + 2);
     if (closingBracePos > percentIdx + 2) {
       QString code =
-        m_pattern.mid(percentIdx + 2, closingBracePos - percentIdx - 2).toLower();
+        m_pattern.mid(percentIdx + 2, closingBracePos - percentIdx - 2);
       m_codePos[code] = nr;
       percentIdx = closingBracePos + 2;
       ++nr;
@@ -189,7 +189,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
       QString name = it.key();
       QString str = m_re.cap(*it);
       if (!str.isEmpty() && !name.startsWith("__")) {
-        frames.setValue(Frame::getTypeFromName(name), str);
+        frames.setValueByName(name, str);
       }
     }
     if (m_trackIncrEnabled) {

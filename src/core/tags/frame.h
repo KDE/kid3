@@ -513,6 +513,16 @@ public:
   void setValue(Frame::Type type, const QString& value);
 
   /**
+   * Set value by name.
+   *
+   * @param name  the name of the frame to find, if the exact name is not
+   *              found, a case-insensitive search for the first name
+   *              starting with this string is performed
+   * @param value value, nothing is done if QString::null
+   */
+  void setValueByName(const QString& name, const QString& value);
+
+  /**
    * Get integer value by type.
    *
    * @param type type
@@ -641,6 +651,17 @@ public:
    */
   void dump() const;
 #endif
+
+private:
+  /**
+   * Search for a frame only by name.
+   *
+   * @param name the name of the frame to find, a case-insensitive search for
+   *             the first name starting with this string is performed
+   *
+   * @return iterator or end() if not found.
+   */
+  const_iterator searchByName(const QString& name) const;
 };
 
 

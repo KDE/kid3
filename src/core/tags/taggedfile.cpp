@@ -372,7 +372,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     int closingBracePos = pattern.indexOf("\\}", percentIdx + 3);
     if (closingBracePos > percentIdx + 3) {
       QString code =
-        pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3).toLower();
+        pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3);
       codePos[code] = nr++;
       if (code == "track number" || code == "date" || code == "disc number" ||
           code == "bpm") {
@@ -400,7 +400,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
           str = str.mid(1);
         }
         if (name != "ignore")
-          frames.setValue(Frame::getTypeFromName(name), str);
+          frames.setValueByName(name, str);
       }
     }
     return;
