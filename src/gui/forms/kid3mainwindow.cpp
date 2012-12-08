@@ -1783,8 +1783,8 @@ static Frame::Type getTypeFromTranslatedName(QString name)
     // first time initialization
     for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
       Frame::Type type = static_cast<Frame::Type>(i);
-      strNumMap.insert(QCM_translate(Frame::getNameFromType(type)).remove(' ').toUpper(),
-                       type);
+      strNumMap.insert(Frame::ExtendedType(type, "").getTranslatedName().
+                       remove(' ').toUpper(), type);
     }
   }
   QMap<QString, int>::const_iterator it =
@@ -1833,7 +1833,7 @@ bool Kid3MainWindow::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
     return false;
 
   bool result = true;
-  QString name(frame->getName(true));
+  QString name(frame->getInternalName());
   if (!name.isEmpty()) {
     int nlPos = name.indexOf("\n");
     if (nlPos > 0) {

@@ -400,7 +400,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
           str = str.mid(1);
         }
         if (name != "ignore")
-          frames.setValueByName(name, str);
+          frames.setValue(Frame::ExtendedType(name), str);
       }
     }
     return;
@@ -811,7 +811,7 @@ bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame)
       frame.m_value.setNum(n);
     }
   }
-  frame.m_type = type;
+  frame.setType(type);
   return true;
 }
 
@@ -825,8 +825,8 @@ bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame)
 bool TaggedFile::setFrameV1(const Frame& frame)
 {
   int n = -1;
-  if (frame.m_type == Frame::FT_Date ||
-      frame.m_type == Frame::FT_Track) {
+  if (frame.getType() == Frame::FT_Date ||
+      frame.getType() == Frame::FT_Track) {
     if (frame.isInactive()) {
       n = -1;
     } else if (frame.isEmpty()) {
@@ -835,7 +835,7 @@ bool TaggedFile::setFrameV1(const Frame& frame)
       n = Frame::numberWithoutTotal(frame.m_value);
     }
   }
-  switch (frame.m_type) {
+  switch (frame.getType()) {
     case Frame::FT_Album:
       setAlbumV1(frame.m_value);
       break;
@@ -913,7 +913,7 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
       frame.m_value.setNum(n);
     }
   }
-  frame.m_type = type;
+  frame.setType(type);
   return true;
 }
 
@@ -927,7 +927,7 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
 bool TaggedFile::setFrameV2(const Frame& frame)
 {
   int n = -1;
-  if (frame.m_type == Frame::FT_Date) {
+  if (frame.getType() == Frame::FT_Date) {
     if (frame.isInactive()) {
       n = -1;
     } else if (frame.isEmpty()) {
@@ -936,7 +936,7 @@ bool TaggedFile::setFrameV2(const Frame& frame)
       n = Frame::numberWithoutTotal(frame.m_value);
     }
   }
-  switch (frame.m_type) {
+  switch (frame.getType()) {
     case Frame::FT_Album:
       setAlbumV2(frame.m_value);
       break;

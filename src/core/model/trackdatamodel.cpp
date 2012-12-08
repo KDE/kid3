@@ -189,8 +189,8 @@ QVariant TrackDataModel::headerData(
     if (type < FT_FirstTrackProperty) {
       return type == Frame::FT_Track
         ? i18n("Track") // shorter header for track number
-        : FrameTableModel::getDisplayName(
-            Frame::getNameFromType(static_cast<Frame::Type>(type)));
+        : FrameTableModel::getDisplayName(Frame::ExtendedType(
+              static_cast<Frame::Type>(type), "").getName());
     } else {
       switch (type) {
       case FT_FilePath:

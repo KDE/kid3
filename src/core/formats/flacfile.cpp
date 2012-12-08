@@ -86,7 +86,7 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
     QString::fromUtf8(
       reinterpret_cast<const char*>(pic->get_description())),
     ba);
-  frame.setInternalName("Picture");
+  frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, "Picture"));
 }
 
 /**
@@ -469,7 +469,7 @@ QStringList FlacFile::getFrameIds() const
 {
   QStringList lst(OggFile::getFrameIds());
   QStringList::iterator it = lst.begin() + Frame::FT_Picture;
-  lst.insert(it, QCM_translate(Frame::getNameFromType(Frame::FT_Picture)));
+  lst.insert(it, Frame::ExtendedType(Frame::FT_Picture, "").getTranslatedName());
   return lst;
 }
 #endif // HAVE_FLAC_PICTURE

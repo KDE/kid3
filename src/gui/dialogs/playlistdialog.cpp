@@ -173,8 +173,8 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   QStringList lst;
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     QString frameName =
-      QString(Frame::getNameFromType(
-                static_cast<Frame::Type>(type))).toLower();
+        Frame::ExtendedType(static_cast<Frame::Type>(type), "").getName().
+        toLower();
     if (frameName == "track number") frameName = "track.3";
     lst.append("%{" + frameName + "}");
   }

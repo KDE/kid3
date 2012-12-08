@@ -189,7 +189,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
       QString name = it.key();
       QString str = m_re.cap(*it);
       if (!str.isEmpty() && !name.startsWith("__")) {
-        frames.setValueByName(name, str);
+        frames.setValue(Frame::ExtendedType(name), str);
       }
     }
     if (m_trackIncrEnabled) {

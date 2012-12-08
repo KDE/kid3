@@ -575,7 +575,7 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
   QString mimeType("image/jpeg");
   QString description("");
-  if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
+  if (frame.getInternalName() == "METADATA_BLOCK_PICTURE") {
     unsigned long baSize = static_cast<unsigned long>(ba.size());
     if (baSize < 32) return;
     int index = 0;
@@ -617,7 +617,7 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
   QByteArray pic;
   PictureFrame::getFields(frame, enc, imgFormat, mimeType,
                           pictureType, description, pic);
-  if (frame.getName(true) == "METADATA_BLOCK_PICTURE") {
+  if (frame.getInternalName() == "METADATA_BLOCK_PICTURE") {
     QByteArray mimeStr = mimeType.toAscii();
     QByteArray descStr = description.toUtf8();
     int mimeLen = mimeStr.length();

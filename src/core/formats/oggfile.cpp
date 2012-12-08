@@ -673,7 +673,7 @@ bool OggFile::setFrameV2(const Frame& frame)
     QString value = frame.getValue();
     if (frame.getType() == Frame::FT_Picture) {
       PictureFrame::getFieldsToBase64(frame, value);
-      if (!value.isEmpty() && frame.getName(true) == "COVERART") {
+      if (!value.isEmpty() && frame.getInternalName() == "COVERART") {
         QString mimeType;
         PictureFrame::getMimeType(frame, mimeType);
         setTextField("COVERARTMIME", mimeType, Frame::FT_Other);
@@ -710,11 +710,11 @@ bool OggFile::addFrameV2(Frame& frame)
         frame, Frame::Field::TE_ISO8859_1, "", "image/jpeg",
         PictureFrame::PT_CoverFront, "", QByteArray());
     }
-    frame.setInternalName(name);
+    frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, name));
     PictureFrame::getFieldsToBase64(frame, value);
   }
   m_comments.push_back(OggFile::CommentField(name, value));
-  frame.setInternalName(name);
+  frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
   frame.setIndex(m_comments.size() - 1);
   markTag2Changed(frame.getType());
   return true;
@@ -808,7 +808,8 @@ QStringList OggFile::getFrameIds() const
 
   QStringList lst;
   for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-    lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
+    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), "").
+               getTranslatedName());
   }
   for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
     lst.append(fieldNames[i]);

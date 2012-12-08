@@ -1768,7 +1768,7 @@ bool Mp3File::addFrameV2(Frame& frame)
     const char* name;
     getTypeStringForId3libFrameId(id, type, name);
     m_tagV2->AttachFrame(id3Frame);
-    frame.setInternalName(name);
+    frame.setExtendedType(Frame::ExtendedType(type, name));
     frame.setIndex(m_tagV2->NumFrames() - 1);
     if (frame.fieldList().empty()) {
       // add field list to frame
@@ -1875,8 +1875,8 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
         if (fieldValue.isValid()) {
           QString description = fieldValue.toString();
           if (!description.isEmpty()) {
-            frame.setInternalName(QString(name) + '\n' + description);
-            frame.setType(Frame::FT_Other);
+            frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                                      QString(name) + '\n' + description));
           }
         }
       } else if (id3Frame->GetID() == ID3FID_PRIVATE) {
@@ -1889,7 +1889,8 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
           if ((*it).m_id == Frame::Field::ID_Owner) {
             owner = (*it).m_value.toString();
             if (!owner.isEmpty()) {
-              frame.setInternalName(QString(name) + '\n' + owner);
+              frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                                        QString(name) + '\n' + owner));
             }
           } else if ((*it).m_id == Frame::Field::ID_Data) {
             data = (*it).m_value.toByteArray();
@@ -1951,8 +1952,8 @@ QStringList Mp3File::getFrameIds() const
   QStringList lst;
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     if (type != Frame::FT_Part) {
-      lst.append(QCM_translate(Frame::getNameFromType(
-                                 static_cast<Frame::Type>(type))));
+      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type), "").
+                 getTranslatedName());
     }
   }
   for (int i = 0; i <= ID3FID_WWWUSER; ++i) {

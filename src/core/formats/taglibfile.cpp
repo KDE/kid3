@@ -3492,11 +3492,11 @@ static void getMp4TypeForFrame(const Frame& frame, TagLib::String& name,
   if (frame.getType() != Frame::FT_Other) {
     getMp4NameForType(frame.getType(), name, value);
     if (name.isEmpty()) {
-      name = QSTRING_TO_TSTRING(frame.getName(true));
+      name = QSTRING_TO_TSTRING(frame.getInternalName());
     }
   } else {
     Frame::Type type;
-    name = QSTRING_TO_TSTRING(frame.getName(true));
+    name = QSTRING_TO_TSTRING(frame.getInternalName());
     getMp4TypeForName(name, type, value);
   }
 }
@@ -3713,11 +3713,11 @@ static void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
   if (frame.getType() != Frame::FT_Other) {
     getAsfNameForType(frame.getType(), name, value);
     if (name.isEmpty()) {
-      name = QSTRING_TO_TSTRING(frame.getName(true));
+      name = QSTRING_TO_TSTRING(frame.getInternalName());
     }
   } else {
     Frame::Type type;
-    name = QSTRING_TO_TSTRING(frame.getName(true));
+    name = QSTRING_TO_TSTRING(frame.getInternalName());
     getAsfTypeForName(name, type, value);
   }
 }
@@ -3882,7 +3882,7 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
     default:
       if (frame.getType() != Frame::FT_Picture) {
         QByteArray ba;
-        if (AttributeData(frame.getName(true)).toByteArray(frame.getValue(), ba)) {
+        if (AttributeData(frame.getInternalName()).toByteArray(frame.getValue(), ba)) {
           return TagLib::ASF::Attribute(TagLib::ByteVector(ba.data(), ba.size()));
         }
         QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
@@ -4215,9 +4215,10 @@ bool TagLibFile::addFrameV2(Frame& frame)
           new TagLib::ID3v2::UserTextIdentificationFrame(enc);
         txxxFrame->setDescription(QSTRING_TO_TSTRING(frame.getName()));
         id3Frame = txxxFrame;
-        frame.setInternalName("TXXX - User defined text information");
+        frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                                  "TXXX - User defined text information"));
       } else {
-        frame.setInternalName(name);
+        frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
       }
       if (id3Frame) {
         if (!frame.fieldList().empty()) {
@@ -4275,7 +4276,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #else
       oggTag->addField(tname, tvalue, false);
 #endif
-      frame.setInternalName(name);
+      frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
 
       const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
       int index = 0;
@@ -4304,7 +4305,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         tvalue = " "; // empty values are not added by TagLib
       }
       apeTag->addValue(tname, tvalue, true);
-      frame.setInternalName(name);
+      frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
 
       const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
       int index = 0;
@@ -4335,7 +4336,8 @@ bool TagLibFile::addFrameV2(Frame& frame)
       if (!item.isValid()) {
         return false;
       }
-      frame.setInternalName(TStringToQString(name));
+      frame.setExtendedType(Frame::ExtendedType(frame.getType(),
+                                                TStringToQString(name)));
       prefixMp4FreeFormName(name);
       mp4Tag->itemListMap()[name] = item;
       const TagLib::MP4::ItemListMap& itemListMap = mp4Tag->itemListMap();
@@ -4378,7 +4380,8 @@ bool TagLibFile::addFrameV2(Frame& frame)
       }
       TagLib::ASF::Attribute attribute = getAsfAttributeForFrame(frame, valueType);
       asfTag->addAttribute(name, attribute);
-      frame.setInternalName(TStringToQString(name));
+      frame.setExtendedType(Frame::ExtendedType(frame.getType(),
+                                                TStringToQString(name)));
 
       const TagLib::ASF::AttributeListMap& attrListMap = asfTag->attributeListMap();
       int index = AFI_Attributes;
@@ -4450,7 +4453,7 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
       }
 #endif
       TagLib::String key =
-        QSTRING_TO_TSTRING(frame.getName(true));
+        QSTRING_TO_TSTRING(frame.getInternalName());
 #if TAGLIB_VERSION <= 0x010400
       // Remove all fields with that key, because TagLib <= 1.4 crashes
       // using an invalidated iterator after calling erase().
@@ -4461,14 +4464,14 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
       markTag2Changed(frame.getType());
       return true;
     } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tagV2)) != 0) {
-      TagLib::String key = QSTRING_TO_TSTRING(frame.getName(true));
+      TagLib::String key = QSTRING_TO_TSTRING(frame.getInternalName());
       apeTag->removeItem(key);
       markTag2Changed(frame.getType());
       return true;
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tagV2)) != 0) {
-      TagLib::String name = QSTRING_TO_TSTRING(frame.getName(true));
+      TagLib::String name = QSTRING_TO_TSTRING(frame.getInternalName());
       prefixMp4FreeFormName(name);
       mp4Tag->itemListMap().erase(name);
       markTag2Changed(frame.getType());
@@ -4495,7 +4498,7 @@ bool TagLibFile::deleteFrameV2(const Frame& frame)
         case AFI_Attributes:
         default:
         {
-          TagLib::String name = QSTRING_TO_TSTRING(frame.getName(true));
+          TagLib::String name = QSTRING_TO_TSTRING(frame.getInternalName());
           TagLib::ASF::AttributeListMap& attrListMap = asfTag->attributeListMap();
           if (attrListMap.contains(name) && attrListMap[name].size() > 1) {
             int i = AFI_Attributes;
@@ -4732,8 +4735,8 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
                 // remove ExFalso/QuodLibet "namespace"
                 description = description.mid(11);
               }
-              frame.setInternalName(QString(name) + '\n' + description);
-              frame.setType(Frame::FT_Other);
+              frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                                        QString(name) + '\n' + description));
             }
           }
 #if TAGLIB_VERSION >= 0x010600
@@ -4742,7 +4745,8 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           if (fieldValue.isValid()) {
             QString owner = fieldValue.toString();
             if (!owner.isEmpty()) {
-              frame.setInternalName(QString(name) + '\n' + owner);
+              frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                                        QString(name) + '\n' + owner));
             }
           }
 #endif
@@ -4987,7 +4991,8 @@ QStringList TagLibFile::getFrameIds() const
   QStringList lst;
   if (m_tagTypeV2 == TT_Id3v2) {
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-      lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
+      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), "").
+                 getTranslatedName());
     }
     for (unsigned i = 0; i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]); ++i) {
       const TypeStrOfId& ts = typeStrOfId[i];
@@ -5007,7 +5012,7 @@ QStringList TagLibFile::getFrameIds() const
       getMp4NameForType(type, name, valueType);
       if (!name.isEmpty() && valueType != MVT_ByteArray &&
           !(name[0] >= 'A' && name[0] <= 'Z')) {
-        lst.append(QCM_translate(Frame::getNameFromType(type)));
+        lst.append(Frame::ExtendedType(type, "").getTranslatedName());
       }
     }
     for (unsigned i = 0; i < sizeof(mp4NameTypeValues) / sizeof(mp4NameTypeValues[0]); ++i) {
@@ -5033,7 +5038,7 @@ QStringList TagLibFile::getFrameIds() const
           && type != Frame::FT_Picture
 #endif
         ) {
-        lst.append(QCM_translate(Frame::getNameFromType(type)));
+        lst.append(Frame::ExtendedType(type, "").getTranslatedName());
       }
     }
     for (unsigned i = 0; i < sizeof(asfNameTypeValues) / sizeof(asfNameTypeValues[0]); ++i) {
@@ -5079,7 +5084,8 @@ QStringList TagLibFile::getFrameIds() const
 #endif
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       if (k != Frame::FT_Picture || picturesSupported) {
-        lst.append(QCM_translate(Frame::getNameFromType(static_cast<Frame::Type>(k))));
+        lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), "").
+                   getTranslatedName());
       }
     }
     for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {

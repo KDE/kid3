@@ -1227,7 +1227,7 @@ QString M4aFile::getTagFormatV2() const
  */
 bool M4aFile::setFrameV2(const Frame& frame)
 {
-  QString name(frame.getName(true));
+  QString name(frame.getInternalName());
   MetadataMap::iterator it = m_metadata.find(name);
   if (it != m_metadata.end()) {
     if (frame.getType() != Frame::FT_Picture) {
@@ -1265,7 +1265,7 @@ bool M4aFile::addFrameV2(Frame& frame)
       frame.setInternalName(name);
     }
   }
-  name = frame.getName(true);
+  name = frame.getInternalName();
   if (type == Frame::FT_Picture) {
     if (!PictureFrame::getData(frame, m_metadata[name])) {
       PictureFrame::setFields(frame);
@@ -1287,7 +1287,7 @@ bool M4aFile::addFrameV2(Frame& frame)
  */
 bool M4aFile::deleteFrameV2(const Frame& frame)
 {
-  QString name(frame.getName(true));
+  QString name(frame.getInternalName());
   MetadataMap::iterator it = m_metadata.find(name);
   if (it != m_metadata.end()) {
     m_metadata.erase(it);

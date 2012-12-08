@@ -479,9 +479,8 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
     }
     return true;
   } else if (tagMask & 2) {
-    Frame::Type type = Frame::getTypeFromName(frameName);
-    Frame frame(type, value, frameName, -1);
-    if (type == Frame::FT_Picture && !dataFileName.isEmpty()) {
+    Frame frame(Frame::ExtendedType(frameName), value, -1);
+    if (frame.getType() == Frame::FT_Picture && !dataFileName.isEmpty()) {
       PictureFrame::setFields(frame);
       PictureFrame::setDescription(frame, value);
       PictureFrame::setDataFromFile(frame, dataFileName);

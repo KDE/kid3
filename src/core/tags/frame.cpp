@@ -30,30 +30,7 @@
 #include "pictureframe.h"
 #include "qtcompatmac.h"
 
-/**
- * Constructor.
- */
-Frame::Frame() :
-  m_type(FT_UnknownFrame), m_index(-1), m_valueChanged(false)
-{
-}
-
-/**
- * Constructor.
- */
-Frame::Frame(Type type, const QString& value,
-             const QString& name, int index) :
-  m_type(type), m_index(index), m_valueChanged(false),
-  m_value(value), m_name(name)
-{
-}
-
-/**
- * Destructor.
- */
-Frame::~Frame()
-{
-}
+namespace {
 
 /**
  * Get name of frame from type.
@@ -62,7 +39,7 @@ Frame::~Frame()
  *
  * @return name.
  */
-const char* Frame::getNameFromType(Type type)
+const char* getNameFromType(Frame::Type type)
 {
   static const char* const names[] = {
     I18N_NOOP("Title"),           // FT_Title,
@@ -101,9 +78,9 @@ const char* Frame::getNameFromType(Type type)
                                   // FT_LastFrame = FT_Website
   };
   class not_used { int array_size_check[
-      sizeof(names) / sizeof(names[0]) == FT_LastFrame + 1
+      sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
       ? 1 : -1 ]; };
-  return type <= FT_LastFrame ? names[type] : "Unknown";
+  return type <= Frame::FT_LastFrame ? names[type] : "Unknown";
 }
 
 /**
@@ -113,13 +90,13 @@ const char* Frame::getNameFromType(Type type)
  *
  * @return type.
  */
-Frame::Type Frame::getTypeFromName(QString name)
+Frame::Type getTypeFromName(QString name)
 {
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
     // first time initialization
-    for (int i = 0; i <= FT_LastFrame; ++i) {
-      Type type = static_cast<Type>(i);
+    for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+      Frame::Type type = static_cast<Frame::Type>(i);
       strNumMap.insert(QString(getNameFromType(type)).
                        remove(' ').toUpper(), type);
     }
@@ -127,22 +104,76 @@ Frame::Type Frame::getTypeFromName(QString name)
   QMap<QString, int>::const_iterator it =
     strNumMap.find(name.remove(' ').toUpper());
   if (it != strNumMap.end()) {
-    return static_cast<Type>(*it);
+    return static_cast<Frame::Type>(*it);
   }
-  return FT_Other;
+  return Frame::FT_Other;
+}
+
+}
+
+Frame::ExtendedType::ExtendedType(const QString& name) :
+  m_type(getTypeFromName(name)), m_name(name)
+{
+}
+
+Frame::ExtendedType::ExtendedType(Type type) :
+  m_type(type), m_name(getNameFromType(type))
+{
 }
 
 /**
- * Get name of frame.
- *
- * @param internal true to get internal (non-general) name
- *
+ * Get name of type.
  * @return name.
  */
-QString Frame::getName(bool internal) const
+QString Frame::ExtendedType::getName() const
 {
-  return !internal && m_type != FT_Other ?
-    QString(getNameFromType(m_type)) : m_name;
+  return m_type != FT_Other ? QString(getNameFromType(m_type)) : m_name;
+}
+
+/**
+ * Get translated name of type.
+ * @return name.
+ */
+QString Frame::ExtendedType::getTranslatedName() const
+{
+  return m_type != FT_Other ? QCM_translate(getNameFromType(m_type)) : m_name;
+}
+
+
+/**
+ * Constructor.
+ */
+Frame::Frame() :
+  m_index(-1), m_valueChanged(false)
+{
+}
+
+/**
+ * Constructor.
+ */
+Frame::Frame(Type type, const QString& value,
+             const QString& name, int index) :
+  m_extendedType(type, name), m_index(index), m_valueChanged(false),
+  m_value(value)
+{
+}
+
+/**
+ * Constructor.
+ * @param type  type and internal name
+ * @param value value
+ * @param index index inside tag, -1 if unknown
+ */
+Frame::Frame(const ExtendedType& type, const QString& value, int index) :
+  m_extendedType(type), m_index(index), m_valueChanged(false), m_value(value)
+{
+}
+
+/**
+ * Destructor.
+ */
+Frame::~Frame()
+{
 }
 
 /**
@@ -546,6 +577,9 @@ bool FrameCollection::isEmptyOrInactive() const
 FrameCollection::const_iterator FrameCollection::searchByName(
     const QString& name) const
 {
+  if (name.isEmpty())
+    return end();
+
   const_iterator it;
   QString ucName = name.toUpper().remove('/');
   int len = ucName.length();
@@ -574,13 +608,32 @@ FrameCollection::const_iterator FrameCollection::searchByName(
  */
 FrameCollection::const_iterator FrameCollection::findByName(const QString& name) const
 {
-  Frame::Type type = Frame::getTypeFromName(name);
-  Frame frame(type, "", name, -1);
+  Frame frame(Frame::ExtendedType(name), "", -1);
   const_iterator it = find(frame);
   if (it != end()) {
     return it;
   }
   return searchByName(name);
+}
+
+/**
+ * Find a frame by type or name.
+ *
+ * @param type  type and name of the frame to find, if the exact name is not
+ *              found, a case-insensitive search for the first name
+ *              starting with this string is performed
+ *
+ * @return iterator or end() if not found.
+ */
+FrameCollection::const_iterator FrameCollection::findByExtendedType(
+    const Frame::ExtendedType& type) const
+{
+  Frame frame(type, "", -1);
+  const_iterator it = find(frame);
+  if (it == end()) {
+    it = searchByName(frame.getInternalName());
+  }
+  return it;
 }
 
 /**
@@ -616,6 +669,21 @@ QString FrameCollection::getValue(Frame::Type type) const
 }
 
 /**
+ * Get value by type and name.
+ *
+ * @param type  type and name of the frame to find, if the exact name is not
+ *              found, a case-insensitive search for the first name
+ *              starting with this string is performed
+ *
+ * @return value, QString::null if not found.
+ */
+QString FrameCollection::getValue(const Frame::ExtendedType& type) const
+{
+  const_iterator it = findByExtendedType(type);
+  return it != end() ? it->getValue() : QString::null;
+}
+
+/**
  * Set value by type.
  *
  * @param type type
@@ -637,21 +705,21 @@ void FrameCollection::setValue(Frame::Type type, const QString& value)
 }
 
 /**
- * Set value by name.
+ * Set value by type and name.
  *
- * @param name  the name of the frame to find, if the exact name is not
+ * @param type  type and name of the frame to find, if the exact name is not
  *              found, a case-insensitive search for the first name
  *              starting with this string is performed
  * @param value value, nothing is done if QString::null
  */
-void FrameCollection::setValueByName(const QString& name, const QString& value)
+void FrameCollection::setValue(const Frame::ExtendedType& type,
+                               const QString& value)
 {
   if (!value.isNull()) {
-    Frame::Type type = Frame::getTypeFromName(name);
-    Frame frame(type, "", name, -1);
+    Frame frame(type, "", -1);
     const_iterator it = find(frame);
     if (it == end()) {
-      it = searchByName(name);
+      it = searchByName(type.getInternalName());
     }
     if (it != end()) {
       Frame& frameFound = const_cast<Frame&>(*it);

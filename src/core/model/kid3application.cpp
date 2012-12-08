@@ -1650,7 +1650,7 @@ void Kid3Application::numberTracks(int nr, int total,
         }
       } else {
         frame.setValue(value);
-        frame.setInternalName(Frame::getNameFromType(Frame::FT_Track));
+        frame.setExtendedType(Frame::ExtendedType(Frame::FT_Track));
         taggedFile->setFrameV2(frame);
       }
     }

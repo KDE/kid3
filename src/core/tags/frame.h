@@ -131,6 +131,86 @@ public:
   typedef QList<Field> FieldList;
 
   /**
+   * Type and name of frame.
+   */
+  class ExtendedType {
+  public:
+    /**
+     * Constructor.
+     */
+    ExtendedType() : m_type(FT_UnknownFrame) {}
+
+    /**
+     * Constructor.
+     * @param type type
+     * @param name internal name
+     */
+    ExtendedType(Type type, const QString& name) : m_type(type), m_name(name) {}
+
+    /**
+     * Constructor.
+     * @param name internal name
+     */
+    explicit ExtendedType(const QString& name);
+
+    /**
+     * Constructor.
+     * @param type type
+     */
+    explicit ExtendedType(Type type);
+
+    /**
+     * Get name of type.
+     * @return name.
+     */
+    QString getName() const;
+
+    /**
+     * Get translated name of type.
+     * @return name.
+     */
+    QString getTranslatedName() const;
+
+    /**
+     * Get internal name of type.
+     * @return name.
+     */
+    QString getInternalName() const { return m_name; }
+
+    /**
+     * Less than operator.
+     * @param rhs right hand side to compare
+     * @return true if this < rhs.
+     */
+    bool operator<(const ExtendedType& rhs) const {
+      return m_type < rhs.m_type ||
+             (m_type == FT_Other && m_type == rhs.m_type && m_name < rhs.m_name);
+    }
+
+    /**
+     * Equality operator.
+     * @param rhs right hand side to compare
+     * @return true if this == rhs.
+     */
+    bool operator==(const ExtendedType& rhs) const {
+      return m_type == rhs.m_type &&
+             (m_type != FT_Other || m_name == rhs.m_name);
+    }
+
+    /**
+     * Get type
+     * @return type.
+     */
+    Type getType() const { return m_type; }
+
+  private:
+    friend class Frame;
+    Type m_type;
+    QString m_name;
+  };
+
+
+  /**
    * Constructor.
    */
   Frame();
@@ -145,6 +225,14 @@ public:
   Frame(Type type, const QString& value, const QString& name, int index);
 
   /**
+   * Constructor.
+   * @param type  type and internal name
+   * @param value value
+   * @param index index inside tag, -1 if unknown
+   */
+  Frame(const ExtendedType& type, const QString& value, int index);
+
+  /**
    * Destructor.
    */
   ~Frame();
@@ -156,20 +244,32 @@ public:
    * @return true if this < rhs.
    */
   bool operator<(const Frame& rhs) const {
-    return m_type < rhs.m_type || (m_type == FT_Other && m_type == rhs.m_type && m_name < rhs.m_name);
+    return m_extendedType < rhs.m_extendedType;
   }
 
   /**
    * Get type of frame.
    * @return type.
    */
-  Type getType() const { return m_type; }
+  Type getType() const { return m_extendedType.m_type; }
 
   /**
    * Set type of frame.
    * @param type type of frame
    */
-  void setType(Type type) { m_type = type; }
+  void setType(Type type) { m_extendedType.m_type = type; }
+
+  /**
+   * Get type and name of frame.
+   * @return extended type.
+   */
+  ExtendedType getExtendedType() const { return m_extendedType; }
+
+  /**
+   * Set type and name of frame.
+   * @param type extended type of frame
+   */
+  void setExtendedType(const ExtendedType& type) { m_extendedType = type; }
 
   /**
    * Get index of frame.
@@ -185,18 +285,15 @@ public:
 
   /**
    * Get name of frame.
-   *
-   * @param internal true to get internal (non-general) name
-   *
    * @return name.
    */
-  QString getName(bool internal = false) const;
+  QString getName() const { return m_extendedType.getName(); }
 
   /**
-   * Set internal name of frame.
-   * @param name internal (non-general) name
+   * Get internal name of frame.
+   * @return name.
    */
-  void setInternalName(const QString& name) { m_name = name; }
+  QString getInternalName() const { return m_extendedType.getInternalName(); }
 
   /**
    * Get value as string.
@@ -311,24 +408,6 @@ public:
 #endif
 
   /**
-   * Get name of frame from type.
-   *
-   * @param type type
-   *
-   * @return name.
-   */
-  static const char* getNameFromType(Type type);
-
-  /**
-   * Get type of frame from English name.
-   *
-   * @param name name, spaces and case are ignored
-   *
-   * @return type.
-   */
-  static Type getTypeFromName(QString name);
-
-  /**
    * If a frame contains a string list as a value, it is stored in a single
    * string, separated by this special separator character.
    *
@@ -355,11 +434,10 @@ private:
    */
   static QChar differentRepresentation() { return QChar(0x2260); }
 
-  Type m_type;
+  ExtendedType m_extendedType;
   int m_index;
   bool m_valueChanged;
   QString m_value;
-  QString m_name;
   FieldList m_fieldList;
 };
 
@@ -487,6 +565,17 @@ public:
   const_iterator findByName(const QString& name) const;
 
   /**
+   * Find a frame by type or name.
+   *
+   * @param type  type and name of the frame to find, if the exact name is not
+   *              found, a case-insensitive search for the first name
+   *              starting with this string is performed
+   *
+   * @return iterator or end() if not found.
+   */
+  const_iterator findByExtendedType(const Frame::ExtendedType& type) const;
+
+  /**
    * Find a frame by index.
    *
    * @param index the index in the frame, see \ref Frame::getIndex()
@@ -505,6 +594,17 @@ public:
   QString getValue(Frame::Type type) const;
 
   /**
+   * Get value by type and name.
+   *
+   * @param type  type and name of the frame to find, if the exact name is not
+   *              found, a case-insensitive search for the first name
+   *              starting with this string is performed
+   *
+   * @return value, QString::null if not found.
+   */
+  QString getValue(const Frame::ExtendedType& type) const;
+
+  /**
    * Set value by type.
    *
    * @param type type
@@ -513,14 +613,14 @@ public:
   void setValue(Frame::Type type, const QString& value);
 
   /**
-   * Set value by name.
+   * Set value by type and name.
    *
-   * @param name  the name of the frame to find, if the exact name is not
+   * @param type  type and name of the frame to find, if the exact name is not
    *              found, a case-insensitive search for the first name
    *              starting with this string is performed
    * @param value value, nothing is done if QString::null
    */
-  void setValueByName(const QString& name, const QString& value);
+  void setValue(const Frame::ExtendedType& type, const QString& value);
 
   /**
    * Get integer value by type.
