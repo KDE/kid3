@@ -217,7 +217,7 @@ public:
 
 private:
   ImportTrackDataVector m_trackDataVector;
-  QList<int> m_frameTypes;
+  QList<Frame::ExtendedType> m_frameTypes;
   bool m_diffCheckEnabled;
   int m_maxDiff;
 };

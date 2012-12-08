@@ -55,7 +55,8 @@ Qt::ItemFlags TrackDataModel::flags(const QModelIndex& index) const
   Qt::ItemFlags theFlags = QAbstractTableModel::flags(index);
   if (index.isValid()) {
     theFlags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled;
-    if (m_frameTypes.at(index.column()) < FT_FirstTrackProperty) {
+    if (static_cast<int>(m_frameTypes.at(index.column()).getType()) <
+        FT_FirstTrackProperty) {
       theFlags |= Qt::ItemIsEditable;
     }
     if (index.column() == 0) {
@@ -82,13 +83,14 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
 
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     const ImportTrackData& trackData = m_trackDataVector.at(index.row());
-    int type = m_frameTypes.at(index.column());
-    if (type < FT_FirstTrackProperty) {
-      QString value(trackData.getValue(static_cast<Frame::Type>(type)));
+    Frame::ExtendedType type = m_frameTypes.at(index.column());
+    int typeOrProperty = static_cast<int>(type.getType());
+    if (typeOrProperty < FT_FirstTrackProperty) {
+      QString value(trackData.getValue(type));
       if (!value.isNull())
         return value;
     } else {
-      switch (type) {
+      switch (typeOrProperty) {
       case FT_FilePath:
         return trackData.getAbsFilename();
       case FT_FileName:
@@ -108,7 +110,7 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
       }
     }
   } else if (role == FrameTableModel::FrameTypeRole) {
-    return m_frameTypes.at(index.column());
+    return m_frameTypes.at(index.column()).getType();
   } else if (role == Qt::BackgroundColorRole) {
     if (index.column() == 0 && m_diffCheckEnabled) {
       const ImportTrackData& trackData = m_trackDataVector.at(index.row());
@@ -146,20 +148,11 @@ bool TrackDataModel::setData(const QModelIndex& index,
 
   if (role == Qt::EditRole) {
     ImportTrackData& trackData = m_trackDataVector[index.row()];
-    int type = m_frameTypes.at(index.column());
-    if (type >= FT_FirstTrackProperty)
+    Frame::ExtendedType type = m_frameTypes.at(index.column());
+    if (static_cast<int>(type.getType()) >= FT_FirstTrackProperty)
       return false;
 
-    Frame frame(static_cast<Frame::Type>(type), "", "", -1);
-    FrameCollection::iterator it = trackData.find(frame);
-    QString valueStr(value.toString());
-    if (it != trackData.end()) {
-      Frame& frameFound = const_cast<Frame&>(*it);
-      frameFound.setValueIfChanged(valueStr);
-    } else {
-      frame.setValueIfChanged(valueStr);
-      trackData.insert(frame);
-    }
+    trackData.setValue(type, value.toString());
     return true;
   } else if (role == Qt::CheckStateRole && index.column() == 0) {
     bool isChecked(value.toInt() == Qt::Checked);
@@ -185,14 +178,14 @@ QVariant TrackDataModel::headerData(
   if (role != Qt::DisplayRole)
     return QVariant();
   if (orientation == Qt::Horizontal && section < m_frameTypes.size()) {
-    int type = m_frameTypes.at(section);
-    if (type < FT_FirstTrackProperty) {
-      return type == Frame::FT_Track
+    Frame::ExtendedType type = m_frameTypes.at(section);
+    int typeOrProperty = static_cast<int>(type.getType());
+    if (typeOrProperty < FT_FirstTrackProperty) {
+      return typeOrProperty == Frame::FT_Track
         ? i18n("Track") // shorter header for track number
-        : FrameTableModel::getDisplayName(Frame::ExtendedType(
-              static_cast<Frame::Type>(type), "").getName());
+        : FrameTableModel::getDisplayName(type.getName());
     } else {
-      switch (type) {
+      switch (typeOrProperty) {
       case FT_FilePath:
         return i18n("Absolute path to file");
       case FT_FileName:
@@ -281,7 +274,7 @@ bool TrackDataModel::insertColumns(int column, int count,
 {
   beginInsertColumns(QModelIndex(), column, column + count - 1);
   for (int i = 0; i < count; ++i)
-    m_frameTypes.insert(column, Frame::FT_UnknownFrame);
+    m_frameTypes.insert(column, Frame::ExtendedType());
   endInsertColumns();
   return true;
 }
@@ -344,12 +337,11 @@ const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
     return 0;
 
   const ImportTrackData& trackData = m_trackDataVector.at(index.row());
-  int type = m_frameTypes.at(index.column());
-  if (type >= FT_FirstTrackProperty)
+  Frame::ExtendedType type = m_frameTypes.at(index.column());
+  if (static_cast<int>(type.getType()) >= FT_FirstTrackProperty)
     return 0;
 
-  Frame frame(static_cast<Frame::Type>(type), "", "", -1);
-  FrameCollection::const_iterator it = trackData.find(frame);
+  FrameCollection::const_iterator it = trackData.findByExtendedType(type);
   return it != trackData.end() ? &(*it) : 0;
 }
 
@@ -368,9 +360,10 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
   unsigned numStandardColumns =
     sizeof(initFrameTypes) / sizeof(initFrameTypes[0]);
 
-  QList<int> newFrameTypes;
+  QList<Frame::ExtendedType> newFrameTypes;
   for (unsigned i = 0; i < numStandardColumns; ++i) {
-    newFrameTypes.append(initFrameTypes[i]);
+    newFrameTypes.append(
+          Frame::ExtendedType(static_cast<Frame::Type>(initFrameTypes[i]), ""));
   }
 
   for (ImportTrackDataVector::const_iterator tit = trackDataVector.constBegin();
@@ -379,8 +372,8 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
     for (FrameCollection::const_iterator fit = tit->begin();
          fit != tit->end();
          ++fit) {
-      Frame::Type type = fit->getType();
-      if (type > Frame::FT_LastV1Frame &&
+      Frame::ExtendedType type = fit->getExtendedType();
+      if (type.getType() > Frame::FT_LastV1Frame &&
           !newFrameTypes.contains(type)) {
         newFrameTypes.append(type);
       }
@@ -440,7 +433,7 @@ ImportTrackDataVector TrackDataModel::getTrackData() const
  */
 int TrackDataModel::frameTypeForColumn(int column) const
 {
-  return column < m_frameTypes.size() ? m_frameTypes.at(column) : -1;
+  return column < m_frameTypes.size() ? m_frameTypes.at(column).getType() : -1;
 }
 
 /**
@@ -451,6 +444,7 @@ int TrackDataModel::frameTypeForColumn(int column) const
  */
 int TrackDataModel::columnForFrameType(int frameType) const
 {
-  return m_frameTypes.indexOf(frameType);
+  return m_frameTypes.indexOf(
+        Frame::ExtendedType(static_cast<Frame::Type>(frameType), ""));
 }
 
