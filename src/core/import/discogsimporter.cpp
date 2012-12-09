@@ -409,8 +409,13 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     // Publisher can be found in "label"
     QVariantList labels = map.value("labels").toList();
     if (!labels.isEmpty()) {
+      QVariantMap firstLabelMap = labels.first().toMap();
       framesHdr.setValue(Frame::FT_Publisher,
-          fixUpArtist(labels.first().toMap().value("name").toString()));
+          fixUpArtist(firstLabelMap.value("name").toString()));
+      QString catNo = firstLabelMap.value("catno").toString();
+      if (!catNo.isEmpty() && catNo.toLower() != "none") {
+        framesHdr.setValue(Frame::ExtendedType("CATALOGNUMBER"), catNo);
+      }
     }
     // Media can be found in "formats"
     QVariantList formats = map.value("formats").toList();
@@ -429,6 +434,11 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
           extraArtist.addToFrames(framesHdr);
         }
       }
+    }
+    // Release country can be found in "country"
+    QString country(map.value("country").toString());
+    if (!country.isEmpty()) {
+      framesHdr.setValue(Frame::ExtendedType("RELEASECOUNTRY"), country);
     }
   }
 

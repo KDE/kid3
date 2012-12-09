@@ -5068,6 +5068,7 @@ QStringList TagLibFile::getFrameIds() const
       "PRODUCER",
       "PRODUCTNUMBER",
       "RECORDINGDATE",
+      "RELEASECOUNTRY",
       "RELEASE DATE",
       "SOURCE ARTIST",
       "SOURCE MEDIUM",
