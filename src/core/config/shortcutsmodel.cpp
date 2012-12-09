@@ -102,9 +102,12 @@ QVariant ShortcutsModel::data(const QModelIndex& index, int role) const
                 return font;
               }
             }
-          } else if (index.column() == ShortcutColumn &&
-                     (role == Qt::DisplayRole || role == Qt::EditRole)) {
-            return shortcutItem.activeShortcut();
+          } else if (index.column() == ShortcutColumn) {
+            if (role == Qt::DisplayRole || role == Qt::EditRole) {
+              return shortcutItem.activeShortcut();
+            } else if (role == Qt::ToolTipRole) {
+              return i18n("Press F2 or double click to edit cell contents.");
+            }
           }
         }
       }
