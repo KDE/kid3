@@ -258,6 +258,16 @@ public slots:
   void setFocusV2();
 
   /**
+   * Set focus on file list.
+   */
+  void setFocusFileList();
+
+  /**
+   * Set focus on directory list.
+   */
+  void setFocusDirList();
+
+  /**
    * Select all files.
    */
   void selectAllFiles();

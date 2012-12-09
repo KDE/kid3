@@ -379,7 +379,12 @@ void Kid3MainWindow::initActions()
   KAction* actionV2Focus = new KAction(i18n("Tag 2") + ": " + i18n("Focus"), this);
   actionCollection()->addAction("v2_focus", actionV2Focus);
   connect(actionV2Focus, SIGNAL(triggered()), m_form, SLOT(setFocusV2()));
-
+  KAction* actionFileListFocus = new KAction(i18n("File List") + ": " + i18n("Focus"), this);
+  actionCollection()->addAction("filelist_focus", actionFileListFocus);
+  connect(actionFileListFocus, SIGNAL(triggered()), m_form, SLOT(setFocusFileList()));
+  KAction* actionDirListFocus = new KAction(i18n("Directory List") + ": " + i18n("Focus"), this);
+  actionCollection()->addAction("dirlist_focus", actionDirListFocus);
+  connect(actionDirListFocus, SIGNAL(triggered()), m_form, SLOT(setFocusDirList()));
   createGUI();
 
 #else

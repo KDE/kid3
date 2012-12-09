@@ -729,6 +729,22 @@ void Kid3Form::setFocusV2()
 }
 
 /**
+ * Set focus on file list.
+ */
+void Kid3Form::setFocusFileList()
+{
+  m_fileListBox->setFocus();
+}
+
+/**
+ * Set focus on directory list.
+ */
+void Kid3Form::setFocusDirList()
+{
+  m_dirListBox->setFocus();
+}
+
+/**
  * Get the items from a combo box.
  *
  * @param comboBox combo box
@@ -914,6 +930,10 @@ void Kid3Form::initActions()
   initAction(i18n("Add"), "frames_add", this, SLOT(addFrame()), ctx, sm);
   initAction(i18n("Delete"), "frames_delete", this, SLOT(deleteFrame()), ctx, sm);
   initAction(i18n("Focus"), "v2_focus", this, SLOT(setFocusV2()), ctx, sm);
+  ctx = i18n("File List");
+  initAction(i18n("Focus"), "filelist_focus", this, SLOT(setFocusFileList()), ctx, sm);
+  ctx = i18n("Directory List");
+  initAction(i18n("Focus"), "dirlist_focus", this, SLOT(setFocusDirList()), ctx, sm);
 }
 
 void Kid3Form::initAction(const QString& text, const QString& name,
