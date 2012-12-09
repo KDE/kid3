@@ -278,6 +278,11 @@ public slots:
   void deselectAllFiles();
 
   /**
+   * Select all files in the current directory.
+   */
+  void selectAllInDirectory();
+
+  /**
    * Set the root index of the directory and file lists.
    *
    * @param directoryIndex root index of directory in file system model

@@ -903,6 +903,30 @@ void Kid3Form::deselectAllFiles()
 }
 
 /**
+ * Select all files in the current directory.
+ */
+void Kid3Form::selectAllInDirectory()
+{
+  QModelIndex parent = m_fileListBox->currentIndex();
+  const QAbstractItemModel* model = parent.model();
+  if (parent.isValid() && model) {
+    if (!model->hasChildren(parent)) {
+      parent = parent.parent();
+    }
+    QItemSelection selection;
+    for (int row = 0; row < model->rowCount(parent); ++row) {
+      QModelIndex index = model->index(row, 0, parent);
+      if (!model->hasChildren(index)) {
+        selection.append(QItemSelectionRange(index));
+      }
+    }
+    if (QItemSelectionModel* selModel = m_fileListBox->selectionModel()) {
+      selModel->select(selection, QItemSelectionModel::Select);
+    }
+  }
+}
+
+/**
  * Set the root index of the directory and file lists.
  *
  * @param directoryIndex root index of directory in file system model

@@ -317,6 +317,9 @@ void Kid3MainWindow::initActions()
   m_settingsAutoHideTags->setCheckable(true);
   actionCollection()->addAction("auto_hide_tags", m_settingsAutoHideTags);
   connect(m_settingsAutoHideTags, SIGNAL(triggered()), this, SLOT(slotSettingsAutoHideTags()));
+  KAction* editSelectAllInDir = new KAction(i18n("Select All in &Directory"), this);
+  actionCollection()->addAction("select_all_in_directory", editSelectAllInDir);
+  connect(editSelectAllInDir, SIGNAL(triggered()), m_form, SLOT(selectAllInDirectory()));
   KAction* editPreviousFile = new KAction(KIcon("go-previous"), i18n("&Previous File"), this);
   editPreviousFile->setShortcut(KShortcut("Alt+Up"));
   actionCollection()->addAction("previous_file", editPreviousFile);
@@ -560,6 +563,15 @@ void Kid3MainWindow::initActions()
   connect(editDeselect, SIGNAL(triggered()),
     m_form, SLOT(deselectAllFiles()));
   editMenu->addAction(editDeselect);
+
+  QAction* editSelectAllInDir = new QAction(this);
+  editSelectAllInDir->setStatusTip(i18n("Select all files in the current directory"));
+  editSelectAllInDir->setText(i18n("Select All in &Directory"));
+  editSelectAllInDir->setObjectName("select_all_in_directory");
+  shortcutsModel->registerAction(editSelectAllInDir, menuTitle);
+  connect(editSelectAllInDir, SIGNAL(triggered()),
+    m_form, SLOT(selectAllInDirectory()));
+  editMenu->addAction(editSelectAllInDir);
 
   QAction* editPreviousFile = new QAction(this);
   editPreviousFile->setStatusTip(i18n("Select previous file"));

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kid3" version="10">
+<kpartgui name="kid3" version="11">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="open_directory" append="open_merge"/>
@@ -15,6 +15,7 @@
     <Action name="create_playlist"/>
   </Menu>
   <Menu name="edit"><text>&amp;Edit</text>
+    <Action name="select_all_in_directory" append="edit_select_merge"/>
     <Action name="previous_file" append="edit_select_merge"/>
     <Action name="next_file" append="edit_select_merge"/>
   </Menu>
