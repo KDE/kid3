@@ -58,6 +58,11 @@
 #define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
 #endif
 
+#if defined __GNUC__ && (__GNUC__ * 100 + __GNUC_MINOR__) >= 406
+/** Defined if GCC is used and supports diagnostic pragmas */
+#define GCC_HAS_DIAGNOSTIC_PRAGMA
+#endif
+
 /** Text codec for ID3v1 tags, 0 to use default (ISO 8859-1) */
 const QTextCodec* Mp3File::s_textCodecV1 = 0;
 
@@ -218,7 +223,15 @@ void Mp3File::deleteFramesV1(const FrameFilter& flt)
       /* allocated in Windows DLL => must be freed in the same DLL */
       ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+/* Is safe because iterator implementation has default destructor */
+#endif
       delete iter;
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
+#endif
 #endif
       markTag1Changed(Frame::FT_UnknownFrame);
       clearTrunctionFlags();
@@ -1452,7 +1465,15 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
   /* allocated in Windows DLL => must be freed in the same DLL */
   ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+/* Is safe because iterator implementation has default destructor */
+#endif
   delete iter;
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
+#endif
 #endif
   return text;
 }
@@ -1483,7 +1504,15 @@ static ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
     /* allocated in Windows DLL => must be freed in the same DLL */
     ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+/* Is safe because iterator implementation has default destructor */
+#endif
     delete iter;
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
+#endif
 #endif
   }
   return result;
@@ -1556,7 +1585,15 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
   /* allocated in Windows DLL => must be freed in the same DLL */
   ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+/* Is safe because iterator implementation has default destructor */
+#endif
   delete iter;
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
+#endif
 #endif
 }
 
@@ -1825,7 +1862,15 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
       /* allocated in Windows DLL => must be freed in the same DLL */
       ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+/* Is safe because iterator implementation has default destructor */
+#endif
       delete iter;
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
+#endif
 #endif
       markTag2Changed(Frame::FT_UnknownFrame);
     } else {
@@ -1843,7 +1888,15 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
       /* allocated in Windows DLL => must be freed in the same DLL */
       ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+/* Is safe because iterator implementation has default destructor */
+#endif
       delete iter;
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
+#endif
 #endif
       markTag2Changed(Frame::FT_UnknownFrame);
     }
@@ -1936,7 +1989,15 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
     /* allocated in Windows DLL => must be freed in the same DLL */
     ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+/* Is safe because iterator implementation has default destructor */
+#endif
     delete iter;
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
+#endif
 #endif
   }
   frames.addMissingStandardFrames();
