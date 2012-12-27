@@ -285,6 +285,9 @@ void Kid3MainWindow::initActions()
   KAction* toolsApplyId3Format = new KAction(i18n("Apply &Tag Format"), this);
   actionCollection()->addAction("apply_id3_format", toolsApplyId3Format);
   connect(toolsApplyId3Format, SIGNAL(triggered()), m_app, SLOT(applyId3Format()));
+  KAction* toolsApplyTextEncoding = new KAction(i18n("Apply Text &Encoding"), this);
+  actionCollection()->addAction("apply_text_encoding", toolsApplyTextEncoding);
+  connect(toolsApplyTextEncoding, SIGNAL(triggered()), m_app, SLOT(applyTextEncoding()));
   KAction* toolsRenameDirectory = new KAction(i18n("&Rename Directory..."), this);
   actionCollection()->addAction("rename_directory", toolsRenameDirectory);
   connect(toolsRenameDirectory, SIGNAL(triggered()), this, SLOT(slotRenameDirectory()));
@@ -616,6 +619,15 @@ void Kid3MainWindow::initActions()
   connect(toolsApplyId3Format, SIGNAL(triggered()),
     m_app, SLOT(applyId3Format()));
   toolsMenu->addAction(toolsApplyId3Format);
+
+  QAction* toolsApplyTextEncoding = new QAction(this);
+  toolsApplyTextEncoding->setStatusTip(i18n("Apply Text Encoding"));
+  toolsApplyTextEncoding->setText(i18n("Apply Text &Encoding"));
+  toolsApplyTextEncoding->setObjectName("apply_text_encoding");
+  shortcutsModel->registerAction(toolsApplyTextEncoding, menuTitle);
+  connect(toolsApplyTextEncoding, SIGNAL(triggered()),
+    m_app, SLOT(applyTextEncoding()));
+  toolsMenu->addAction(toolsApplyTextEncoding);
 
   QAction* toolsRenameDirectory = new QAction(this);
   toolsRenameDirectory->setStatusTip(i18n("Rename Directory"));

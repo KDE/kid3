@@ -66,6 +66,8 @@
     </method>
     <method name="applyTagFormat">
     </method>
+    <method name="applyTextEncoding">
+    </method>
     <method name="setDirNameFromTag">
       <arg type="b" direction="out"/>
       <arg name="tagMask" type="i" direction="in"/>

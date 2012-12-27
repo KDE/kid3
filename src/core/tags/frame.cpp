@@ -411,7 +411,8 @@ static QString variantToString(const QVariant& val)
 void Frame::dump() const
 {
   qDebug("Frame: name=%s, value=%s, type=%s, index=%d, valueChanged=%u",
-         m_name.toLatin1().data(), m_value.toLatin1().data(), frameTypeToString(m_type), m_index,
+         getInternalName().toLatin1().data(), m_value.toLatin1().data(),
+         frameTypeToString(getType()), m_index,
          m_valueChanged);
   qDebug("  fields=");
   for (FieldList::const_iterator it = m_fieldList.begin();

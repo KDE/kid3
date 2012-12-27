@@ -507,6 +507,13 @@ public slots:
    */
   void applyId3Format();
 
+  /**
+   * Apply text encoding.
+   * Set the text encoding selected in the settings Tags/ID3v2/Text encoding
+   * for all selected files which have an ID3v2 tag.
+   */
+  void applyTextEncoding();
+
 #ifdef HAVE_TAGLIB
   /**
    * Convert ID3v2.3 to ID3v2.4 tags.

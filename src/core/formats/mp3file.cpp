@@ -1631,21 +1631,36 @@ bool Mp3File::setFrameV2(const Frame& frame)
           } else if (id3Frame->GetID() == ID3FID_TRACKNUM) {
             formatTrackNumberIfEnabled(value, true);
           }
-          if (fld->GetEncoding() == ID3TE_ISO8859_1) {
+          bool hasEnc;
+          const ID3_TextEnc enc = fld->GetEncoding();
+          ID3_TextEnc newEnc = static_cast<ID3_TextEnc>(
+                frame.getFieldValue(Frame::Field::ID_TextEnc).toInt(&hasEnc));
+          if (!hasEnc) {
+            newEnc = enc;
+          }
+          if (newEnc != ID3TE_ISO8859_1 && newEnc != ID3TE_UTF16) {
+            // only ISO-8859-1 and UTF16 are allowed for ID3v2.3.0
+            newEnc = ID3TE_UTF16;
+          }
+          if (newEnc == ID3TE_ISO8859_1) {
             // check if information is lost if the string is not unicode
             uint i, unicode_size = value.length();
             const QChar* qcarray = value.unicode();
             for (i = 0; i < unicode_size; i++) {
               char ch = qcarray[i].toLatin1();
               if (ch == 0 || (ch & 0x80) != 0) {
-                ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
-                if (encfld) {
-                  encfld->Set(ID3TE_UTF16);
-                }
-                fld->SetEncoding(ID3TE_UTF16);
+                newEnc = ID3TE_UTF16;
                 break;
               }
             }
+          }
+          if (enc != newEnc) {
+            ID3_Field* encfld = id3Frame->GetField(ID3FN_TEXTENC);
+            if (encfld) {
+              encfld->Set(newEnc);
+            }
+            fld->SetEncoding(newEnc);
+            markTag2Changed(frame.getType());
           }
           if (getString(fld) != value) {
             setString(fld, value);

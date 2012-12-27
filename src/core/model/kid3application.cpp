@@ -699,6 +699,68 @@ void Kid3Application::applyId3Format()
 }
 
 /**
+ * Apply text encoding.
+ * Set the text encoding selected in the settings Tags/ID3v2/Text encoding
+ * for all selected files which have an ID3v2 tag.
+ */
+void Kid3Application::applyTextEncoding()
+{
+  emit fileSelectionUpdateRequested();
+  Frame::Field::TextEncoding encoding;
+  switch (ConfigStore::s_miscCfg.m_textEncoding) {
+  case MiscConfig::TE_UTF16:
+    encoding = Frame::Field::TE_UTF16;
+    break;
+  case MiscConfig::TE_UTF8:
+    encoding = Frame::Field::TE_UTF8;
+    break;
+  case MiscConfig::TE_ISO8859_1:
+  default:
+    encoding = Frame::Field::TE_ISO8859_1;
+  }
+  FrameCollection frames;
+  SelectedTaggedFileIterator it(getRootIndex(),
+                                getFileSelectionModel(),
+                                true);
+  while (it.hasNext()) {
+    TaggedFile* taggedFile = it.next();
+    taggedFile->readTags(false);
+    taggedFile->getAllFramesV2(frames);
+    for (FrameCollection::iterator frameIt = frames.begin();
+         frameIt != frames.end();
+         ++frameIt) {
+      Frame& frame = const_cast<Frame&>(*frameIt);
+      // Only ISO-8859-1 and UTF16 are allowed for ID3v2.3.0.
+      if (taggedFile->getTagFormatV2() == "ID3v2.3.0" &&
+          ((encoding != Frame::Field::TE_ISO8859_1 &&
+            encoding != Frame::Field::TE_UTF16)
+#ifdef HAVE_TAGLIB
+        // TagLib sets the ID3v2.3.0 frame containing the date internally with
+        // ISO-8859-1, so the encoding cannot be set for such frames.
+        || (dynamic_cast<TagLibFile*>(taggedFile) != 0 &&
+            frame.getType() == Frame::FT_Date &&
+            encoding != Frame::Field::TE_ISO8859_1)
+#endif
+           ))
+          continue;
+
+      Frame::FieldList& fields = frame.fieldList();
+      for (Frame::FieldList::iterator fieldIt = fields.begin();
+           fieldIt != fields.end();
+           ++fieldIt) {
+        if (fieldIt->m_id == Frame::Field::ID_TextEnc &&
+            fieldIt->m_value.toInt() != encoding) {
+          fieldIt->m_value = encoding;
+          frame.setValueChanged();
+        }
+      }
+    }
+    taggedFile->setFramesV2(frames);
+  }
+  emit selectedFilesUpdated();
+}
+
+/**
  * Copy tags 1 into copy buffer.
  */
 void Kid3Application::copyTagsV1()

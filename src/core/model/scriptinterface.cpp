@@ -290,6 +290,14 @@ void ScriptInterface::applyTagFormat()
 }
 
 /**
+ * Apply text encoding.
+ */
+void ScriptInterface::applyTextEncoding()
+{
+  m_app->applyTextEncoding();
+}
+
+/**
  * Set the directory name from the tags.
  *
  * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)

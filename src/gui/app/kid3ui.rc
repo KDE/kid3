@@ -22,6 +22,7 @@
   <Menu name="tools"><text>&amp;Tools</text>
     <Action name="apply_filename_format"/>
     <Action name="apply_id3_format"/>
+    <Action name="apply_text_encoding"/>
     <Action name="rename_directory"/>
     <Action name="number_tracks"/>
     <Action name="filter"/>
