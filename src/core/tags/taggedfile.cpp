@@ -1083,7 +1083,7 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
             myFramesValid = true;
           }
           FrameCollection::iterator myIt = myFrames.find(*it);
-          if (myIt != myFrames.end()) {
+          if (myIt != myFrames.end() && myIt->getIndex() != -1) {
             Frame myFrame(*it);
             myFrame.setIndex(myIt->getIndex());
             setFrameV2(myFrame);

@@ -182,6 +182,7 @@ MiscConfig::MiscConfig(const QString& group) :
   m_id3v2Version(ID3v2_3_0),
   m_textEncodingV1("ISO-8859-1"),
   m_textEncoding(TE_ISO8859_1),
+  m_quickAccessFrames(FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES),
   m_trackNumberDigits(1),
   m_playOnDoubleClick(false),
   m_useProxy(false),
@@ -246,6 +247,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("ID3v2Version", m_id3v2Version);
   cfg.writeEntry("TextEncodingV1", m_textEncodingV1);
   cfg.writeEntry("TextEncoding", m_textEncoding);
+  cfg.writeEntry("QuickAccessFrames", m_quickAccessFrames);
   cfg.writeEntry("TrackNumberDigits", m_trackNumberDigits);
   cfg.writeEntry("PlayOnDoubleClick", m_playOnDoubleClick);
   cfg.writeEntry("UseProxy", m_useProxy);
@@ -321,6 +323,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   config->setValue("/ID3v2Version", QVariant(m_id3v2Version));
   config->setValue("/TextEncodingV1", QVariant(m_textEncodingV1));
   config->setValue("/TextEncoding", QVariant(m_textEncoding));
+  config->setValue("/QuickAccessFrames", QVariant(m_quickAccessFrames));
   config->setValue("/TrackNumberDigits", QVariant(m_trackNumberDigits));
   config->setValue("/PlayOnDoubleClick", QVariant(m_playOnDoubleClick));
   config->setValue("/UseProxy", QVariant(m_useProxy));
@@ -412,6 +415,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_id3v2Version = cfg.readEntry("ID3v2Version", static_cast<int>(ID3v2_3_0));
   m_textEncodingV1 = cfg.readEntry("TextEncodingV1", "ISO-8859-1");
   m_textEncoding = cfg.readEntry("TextEncoding", static_cast<int>(TE_ISO8859_1));
+  m_quickAccessFrames = cfg.readEntry("QuickAccessFrames", m_quickAccessFrames);
   m_trackNumberDigits = cfg.readEntry("TrackNumberDigits", 1);
   m_playOnDoubleClick = cfg.readEntry("PlayOnDoubleClick", m_playOnDoubleClick);
   m_useProxy = cfg.readEntry("UseProxy", m_useProxy);
@@ -496,6 +500,8 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_id3v2Version = config->value("/ID3v2Version", ID3v2_3_0).toInt();
   m_textEncodingV1 = config->value("/TextEncodingV1", "ISO-8859-1").toString();
   m_textEncoding = config->value("/TextEncoding", TE_ISO8859_1).toInt();
+  m_quickAccessFrames = config->value("/QuickAccessFrames",
+                                     FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toUInt();
   m_trackNumberDigits = config->value("/TrackNumberDigits", 1).toInt();
   m_playOnDoubleClick = config->value("/PlayOnDoubleClick", m_playOnDoubleClick).toBool();
   m_useProxy = config->value("/UseProxy", m_useProxy).toBool();

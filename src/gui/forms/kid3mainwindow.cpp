@@ -1447,6 +1447,8 @@ void Kid3MainWindow::slotSettingsConfigure()
       m_form->markChangedFilename(false);
     }
     m_app->setTextEncodings();
+    FrameCollection::setQuickAccessFrames(
+          ConfigStore::s_miscCfg.m_quickAccessFrames);
   }
 #ifdef CONFIG_USE_KDE
   delete configSkeleton;

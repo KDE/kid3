@@ -231,6 +231,8 @@ void Kid3Application::readConfig()
     ConfigStore::s_miscCfg.m_nameFilter = createFilterString();
   }
   setTextEncodings();
+  FrameCollection::setQuickAccessFrames(
+        ConfigStore::s_miscCfg.m_quickAccessFrames);
   if (ConfigStore::s_freedbCfg.m_server == "freedb2.org:80") {
     ConfigStore::s_freedbCfg.m_server = "www.gnudb.org:80"; // replace old default
   }

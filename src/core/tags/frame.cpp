@@ -426,6 +426,14 @@ void Frame::dump() const
 
 
 /**
+ * Bit mask containing the bits of all frame types which shall be used as
+ * quick access frames.
+ * This mask has to be handled like FrameFilter::m_enabledFrames.
+ */
+quint32 FrameCollection::s_quickAccessFrames =
+    FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES;
+
+/**
  * Set values which are different inactive.
  *
  * @param others frames to compare, will be modified
@@ -475,11 +483,17 @@ void FrameCollection::filterDifferent(FrameCollection& others)
  */
 void FrameCollection::addMissingStandardFrames()
 {
-  for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
-    Frame frame(static_cast<Frame::Type>(i), QString::null, QString::null, -1);
-    FrameCollection::const_iterator it = find(frame);
-    if (it == end()) {
-      insert(frame);
+  quint32 mask;
+  int i;
+  for (i = Frame::FT_FirstFrame, mask = 1;
+       i <= Frame::FT_LastFrame;
+       ++i, mask <<= 1) {
+    if (s_quickAccessFrames & mask) {
+      Frame frame(static_cast<Frame::Type>(i), QString::null, QString::null, -1);
+      FrameCollection::const_iterator it = find(frame);
+      if (it == end()) {
+        insert(frame);
+      }
     }
   }
 }

@@ -501,6 +501,18 @@ private:
 class KID3_CORE_EXPORT FrameCollection : public std::multiset<Frame> {
 public:
   /**
+   * Default value for quick access frames.
+   */
+  static const quint32 DEFAULT_QUICK_ACCESS_FRAMES =
+      (1 << Frame::FT_Title)   |
+      (1 << Frame::FT_Artist)  |
+      (1 << Frame::FT_Album)   |
+      (1 << Frame::FT_Comment) |
+      (1 << Frame::FT_Date)    |
+      (1 << Frame::FT_Track)   |
+      (1 << Frame::FT_Genre);
+
+  /**
    * Constructor.
    */
   FrameCollection() {}
@@ -752,6 +764,16 @@ public:
   void dump() const;
 #endif
 
+  /**
+   * Set mask containing the bits of all frame types which shall be used as
+   * quick access frames.
+   * @param mask bit mask with bits for quick access frames set, default is
+   * DEFAULT_QUICK_ACCESS_FRAMES.
+   */
+  static void setQuickAccessFrames(quint32 mask) {
+    s_quickAccessFrames = mask;
+  }
+
 private:
   /**
    * Search for a frame only by name.
@@ -762,6 +784,13 @@ private:
    * @return iterator or end() if not found.
    */
   const_iterator searchByName(const QString& name) const;
+
+  /**
+   * Bit mask containing the bits of all frame types which shall be used as
+   * quick access frames.
+   * This mask has to be handled like FrameFilter::m_enabledFrames.
+   */
+  static quint32 s_quickAccessFrames;
 };
 
 
