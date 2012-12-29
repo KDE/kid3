@@ -19,6 +19,7 @@ set(model_SRCS
   model/taggedfileiconprovider.cpp
   model/texttablemodel.cpp
   model/trackdatamodel.cpp
+  model/checkablestringlistmodel.cpp
 )
 
 set(model_MOC_HDRS

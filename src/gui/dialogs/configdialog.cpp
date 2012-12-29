@@ -39,12 +39,13 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QTabWidget>
+#include <QListView>
 #include <QSpinBox>
-#include "qtcompatmac.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <QStringListModel>
+#include "qtcompatmac.h"
 #ifndef CONFIG_USE_KDE
 #include <QApplication>
 #include <QFontDialog>
@@ -61,6 +62,7 @@
 #include "stringlistedit.h"
 #include "configtable.h"
 #include "commandstablemodel.h"
+#include "checkablestringlistmodel.h"
 #include "contexthelp.h"
 #include "configstore.h"
 
@@ -104,6 +106,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   topLayout->setSpacing(6);
   topLayout->setMargin(6);
   QTabWidget* tabWidget = new QTabWidget(this);
+  tabWidget->setUsesScrollButtons(false);
 #endif
 
   {
@@ -111,7 +114,12 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     QVBoxLayout* vlayout = new QVBoxLayout(tagsPage);
     vlayout->setMargin(6);
     vlayout->setSpacing(6);
-    QGroupBox* v1GroupBox = new QGroupBox(i18n("ID3v1"), tagsPage);
+
+    QWidget* tag1Page = new QWidget;
+    QVBoxLayout* tag1Layout = new QVBoxLayout(tag1Page);
+    tag1Layout->setMargin(6);
+    tag1Layout->setSpacing(6);
+    QGroupBox* v1GroupBox = new QGroupBox(i18n("ID3v1"), tag1Page);
     QGridLayout* v1GroupBoxLayout = new QGridLayout(v1GroupBox);
     v1GroupBoxLayout->setMargin(2);
     v1GroupBoxLayout->setSpacing(4);
@@ -191,9 +199,14 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     v1GroupBoxLayout->addWidget(textEncodingV1Label, 1, 0);
     v1GroupBoxLayout->addWidget(m_textEncodingV1ComboBox, 1, 1);
 #endif
-    vlayout->addWidget(v1GroupBox);
+    tag1Layout->addWidget(v1GroupBox);
+    tag1Layout->addStretch();
 
-    QGroupBox* v2GroupBox = new QGroupBox(i18n("ID3v2"), tagsPage);
+    QWidget* tag2Page = new QWidget;
+    QVBoxLayout* tag2Layout = new QVBoxLayout(tag2Page);
+    tag2Layout->setMargin(6);
+    tag2Layout->setSpacing(6);
+    QGroupBox* v2GroupBox = new QGroupBox(i18n("ID3v2"), tag2Page);
     QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox);
     v2GroupBoxLayout->setMargin(2);
     v2GroupBoxLayout->setSpacing(4);
@@ -233,10 +246,10 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     trackNumberDigitsLabel->setBuddy(m_trackNumberDigitsSpinBox);
     v2GroupBoxLayout->addWidget(trackNumberDigitsLabel, 4, 0);
     v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 4, 1);
-    vlayout->addWidget(v2GroupBox);
+    tag2Layout->addWidget(v2GroupBox);
 #ifdef HAVE_VORBIS
-    QGroupBox* vorbisGroupBox = new QGroupBox(i18n("Ogg/Vorbis"), tagsPage);
-    QLabel* commentNameLabel = new QLabel(i18n("Comment field &name:"), vorbisGroupBox);
+    QGroupBox* vorbisGroupBox = new QGroupBox(i18n("Ogg/Vorbis"), tag2Page);
+    QLabel* commentNameLabel = new QLabel(i18n("Co&mment field name:"), vorbisGroupBox);
     m_commentNameComboBox = new QComboBox(vorbisGroupBox);
     QLabel* pictureNameLabel = new QLabel(i18n("&Picture field name:"), vorbisGroupBox);
     m_pictureNameComboBox = new QComboBox(vorbisGroupBox);
@@ -258,10 +271,10 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     vorbisGroupBoxLayout->addWidget(pictureNameLabel, 1, 0);
     vorbisGroupBoxLayout->addWidget(m_pictureNameComboBox, 1, 1);
     vorbisGroupBox->setLayout(vorbisGroupBoxLayout);
-    vlayout->addWidget(vorbisGroupBox);
+    tag2Layout->addWidget(vorbisGroupBox);
 #endif
-    QHBoxLayout* hlayout = new QHBoxLayout;
-    QGroupBox* genresGroupBox = new QGroupBox(i18n("Custom &Genres"), tagsPage);
+    QHBoxLayout* genresQuickAccessLayout = new QHBoxLayout;
+    QGroupBox* genresGroupBox = new QGroupBox(i18n("Custom &Genres"), tag2Page);
     m_onlyCustomGenresCheckBox = new QCheckBox(i18n("&Show only custom genres"), genresGroupBox);
     m_genresEditModel = new QStringListModel(genresGroupBox);
     StringListEdit* genresEdit = new StringListEdit(m_genresEditModel, genresGroupBox);
@@ -270,11 +283,39 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     vbox->addWidget(m_onlyCustomGenresCheckBox);
     vbox->addWidget(genresEdit);
     genresGroupBox->setLayout(vbox);
-    hlayout->addWidget(genresGroupBox);
+    genresQuickAccessLayout->addWidget(genresGroupBox);
+
+    QGroupBox* quickAccessTagsGroupBox = new QGroupBox(i18n("&Quick Access Tags"));
+    QVBoxLayout* quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
+    quickAccessTagsLayout->setMargin(2);
+    QListView* quickAccessTagsListView = new QListView;
+    m_quickAccessTagsModel = new CheckableStringListModel(quickAccessTagsGroupBox);
+    QStringList unifiedFrameNames;
+    for (int i = Frame::FT_FirstFrame; i< Frame::FT_LastFrame; ++i) {
+      unifiedFrameNames.append(
+          Frame::ExtendedType(static_cast<Frame::Type>(i)).getTranslatedName());
+    }
+    m_quickAccessTagsModel->setStringList(unifiedFrameNames);
+    quickAccessTagsListView->setModel(m_quickAccessTagsModel);
+    quickAccessTagsLayout->addWidget(quickAccessTagsListView);
+    genresQuickAccessLayout->addWidget(quickAccessTagsGroupBox);
+    tag2Layout->addLayout(genresQuickAccessLayout);
+
+    QWidget* tag1AndTag2Page = new QWidget;
+    QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
+    tag1AndTag2Layout->setMargin(6);
+    tag1AndTag2Layout->setSpacing(6);
     QString id3FormatTitle(i18n("&Tag Format"));
-    m_id3FormatBox = new FormatBox(id3FormatTitle, tagsPage);
-    hlayout->addWidget(m_id3FormatBox);
-    vlayout->addLayout(hlayout);
+    m_id3FormatBox = new FormatBox(id3FormatTitle, tag1AndTag2Page);
+    tag1AndTag2Layout->addWidget(m_id3FormatBox);
+
+    QTabWidget* tagsTabWidget = new QTabWidget;
+    tagsTabWidget->addTab(tag1Page, i18n("Tag &1"));
+    tagsTabWidget->addTab(tag2Page, i18n("Tag &2"));
+    tagsTabWidget->addTab(tag1AndTag2Page, i18n("Tag 1 a&nd Tag 2"));
+    tagsTabWidget->setCurrentIndex(1);
+    vlayout->addWidget(tagsTabWidget);
+
 #ifdef CONFIG_USE_KDE
     addPage(tagsPage, i18n("Tags"), "applications-multimedia");
 #else
@@ -494,6 +535,7 @@ void ConfigDialog::setConfig(const ConfigStore* cfg)
   m_markChangesCheckBox->setChecked(miscCfg->m_markChanges);
   m_onlyCustomGenresCheckBox->setChecked(miscCfg->m_onlyCustomGenres);
   m_genresEditModel->setStringList(miscCfg->m_customGenres);
+  m_quickAccessTagsModel->setBitMask(miscCfg->m_quickAccessFrames);
   m_commandsTableModel->setCommandList(miscCfg->m_contextMenuCommands);
 #ifdef HAVE_VORBIS
   int idx = m_commentNameComboBox->findText(miscCfg->m_commentName);
@@ -580,6 +622,7 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
   miscCfg->m_markChanges = m_markChangesCheckBox->isChecked();
   miscCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
   miscCfg->m_customGenres = m_genresEditModel->stringList();
+  miscCfg->m_quickAccessFrames = m_quickAccessTagsModel->getBitMask();
   miscCfg->m_contextMenuCommands = m_commandsTableModel->getCommandList();
 #ifdef HAVE_VORBIS
   miscCfg->m_commentName = m_commentNameComboBox->currentText();

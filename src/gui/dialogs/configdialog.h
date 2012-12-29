@@ -49,6 +49,7 @@ class QComboBox;
 class QLineEdit;
 class QSpinBox;
 class QStringListModel;
+class CheckableStringListModel;
 class ConfigStore;
 
 /** Base class for configuration dialog. */
@@ -183,6 +184,8 @@ private:
   QCheckBox* m_onlyCustomGenresCheckBox;
   /** Model with list of custom genres */
   QStringListModel* m_genresEditModel;
+  /** Model with standard tags selection */
+  CheckableStringListModel* m_quickAccessTagsModel;
   /** Play on double click checkbox */
   QCheckBox* m_playOnDoubleClickCheckBox;
   /** Commands table */
