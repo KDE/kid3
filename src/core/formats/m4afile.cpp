@@ -1262,7 +1262,7 @@ bool M4aFile::addFrameV2(Frame& frame)
   if (type != Frame::FT_Other) {
     name = getNameForType(type);
     if (!name.isEmpty()) {
-      frame.setInternalName(name);
+      frame.setExtendedType(Frame::ExtendedType(type, name));
     }
   }
   name = frame.getInternalName();
@@ -1319,7 +1319,7 @@ void M4aFile::getAllFramesV2(FrameCollection& frames)
       frames.insert(Frame(type, value, name, -1));
     } else {
       PictureFrame frame(*it);
-      frame.setInternalName(name);
+      frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, name));
       frames.insert(frame);
     }
   }
@@ -1362,7 +1362,8 @@ QStringList M4aFile::getFrameIds() const
 
   QStringList lst;
   for (unsigned i = 0; i < sizeof(types) / sizeof(types[0]); ++i) {
-    lst.append(QCM_translate(Frame::getNameFromType(types[i])));
+    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(i), "").
+               getTranslatedName());
   }
   lst << "cpil";
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
