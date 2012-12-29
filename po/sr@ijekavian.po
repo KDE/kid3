@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2012-10-13 15:52+0200\n"
+"POT-Creation-Date: 2012-12-29 17:00+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -22,391 +22,395 @@ msgstr ""
 "X-Language: sr\n"
 "X-Source-Language: C\n"
 
-#: core/config/shortcutsmodel.cpp:177
+#: core/config/shortcutsmodel.cpp:109
+msgid "Press F2 or double click to edit cell contents."
+msgstr ""
+
+#: core/config/shortcutsmodel.cpp:180
 msgid "Action"
 msgstr "Радња"
 
-#: core/config/shortcutsmodel.cpp:179
+#: core/config/shortcutsmodel.cpp:182
 msgid "Shortcut"
 msgstr "Пречица"
 
-#: core/formats/mp3file.cpp:1245 core/formats/taglibfile.cpp:1860
+#: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1868
 msgid "AENC - Audio encryption"
 msgstr "AENC - аудио шифровање"
 
-#: core/formats/mp3file.cpp:1246 core/formats/taglibfile.cpp:1861
+#: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1869
 msgid "APIC - Attached picture"
 msgstr "APIC - приложена слика"
 
-#: core/formats/mp3file.cpp:1248 core/formats/taglibfile.cpp:1863
+#: core/formats/mp3file.cpp:1261 core/formats/taglibfile.cpp:1871
 msgid "COMM - Comments"
 msgstr "COMM - коментари"
 
-#: core/formats/mp3file.cpp:1249 core/formats/taglibfile.cpp:1864
+#: core/formats/mp3file.cpp:1262 core/formats/taglibfile.cpp:1872
 msgid "COMR - Commercial"
 msgstr "COMR - комерцијално"
 
-#: core/formats/mp3file.cpp:1250 core/formats/taglibfile.cpp:1865
+#: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1873
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - регистрација методе шифровања"
 
-#: core/formats/mp3file.cpp:1252
+#: core/formats/mp3file.cpp:1265
 msgid "EQUA - Equalization"
 msgstr "EQUA - једначење"
 
-#: core/formats/mp3file.cpp:1253 core/formats/taglibfile.cpp:1867
+#: core/formats/mp3file.cpp:1266 core/formats/taglibfile.cpp:1875
 msgid "ETCO - Event timing codes"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1254 core/formats/taglibfile.cpp:1868
+#: core/formats/mp3file.cpp:1267 core/formats/taglibfile.cpp:1876
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - општи угнијежђени објекат"
 
-#: core/formats/mp3file.cpp:1255 core/formats/taglibfile.cpp:1869
+#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1877
 msgid "GRID - Group identification registration"
 msgstr "GRID - регистрација идентификације групе"
 
-#: core/formats/mp3file.cpp:1256
+#: core/formats/mp3file.cpp:1269
 msgid "IPLS - Involved people list"
 msgstr "IPLS - списак укључених људи"
 
-#: core/formats/mp3file.cpp:1257 core/formats/taglibfile.cpp:1870
+#: core/formats/mp3file.cpp:1270 core/formats/taglibfile.cpp:1878
 msgid "LINK - Linked information"
 msgstr "LINK - повезана информација"
 
-#: core/formats/mp3file.cpp:1258 core/formats/taglibfile.cpp:1871
+#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1879
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - идентификатор музичког ЦД-а"
 
-#: core/formats/mp3file.cpp:1259 core/formats/taglibfile.cpp:1872
+#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1880
 msgid "MLLT - MPEG location lookup table"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1260 core/formats/taglibfile.cpp:1873
+#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1881
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - власнички оквир"
 
-#: core/formats/mp3file.cpp:1261 core/formats/taglibfile.cpp:1880
+#: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1888
 msgid "PRIV - Private frame"
 msgstr "PRIV - приватни оквир"
 
-#: core/formats/mp3file.cpp:1262 core/formats/taglibfile.cpp:1887
+#: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1895
 msgid "PCNT - Play counter"
 msgstr "PCNT - бројач репродукције"
 
-#: core/formats/mp3file.cpp:1263 core/formats/taglibfile.cpp:1888
+#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1896
 msgid "POPM - Popularimeter"
 msgstr "POPM - мјерач популарности"
 
-#: core/formats/mp3file.cpp:1264 core/formats/taglibfile.cpp:1895
+#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1903
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - кадар синхронизације позиције"
 
-#: core/formats/mp3file.cpp:1265 core/formats/taglibfile.cpp:1896
+#: core/formats/mp3file.cpp:1278 core/formats/taglibfile.cpp:1904
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - препоручена величина бафера"
 
-#: core/formats/mp3file.cpp:1267
+#: core/formats/mp3file.cpp:1280
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - подешавање релативне јачине звука"
 
-#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1898
+#: core/formats/mp3file.cpp:1281 core/formats/taglibfile.cpp:1906
 msgid "RVRB - Reverb"
 msgstr "RVRB - реверберација"
 
-#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1901
+#: core/formats/mp3file.cpp:1284 core/formats/taglibfile.cpp:1909
 msgid "SYLT - Synchronized lyric/text"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1902
+#: core/formats/mp3file.cpp:1285 core/formats/taglibfile.cpp:1910
 msgid "SYTC - Synchronized tempo codes"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1903
+#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1911
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - наслов албума/филма/емисије"
 
-#: core/formats/mp3file.cpp:1274 core/formats/taglibfile.cpp:1904
+#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1912
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - БПМ (откуцаја у минути)"
 
-#: core/formats/mp3file.cpp:1275 core/formats/taglibfile.cpp:1906
+#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1914
 msgid "TCOM - Composer"
 msgstr "TCOM - композитор"
 
-#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1907
+#: core/formats/mp3file.cpp:1289 core/formats/taglibfile.cpp:1915
 msgid "TCON - Content type"
 msgstr "TCON - тип садржаја"
 
-#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1908
+#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1916
 msgid "TCOP - Copyright message"
 msgstr "TCOP - порука ауторског права"
 
-#: core/formats/mp3file.cpp:1278
+#: core/formats/mp3file.cpp:1291
 msgid "TDAT - Date"
 msgstr "TDAT - датум"
 
-#: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1910
+#: core/formats/mp3file.cpp:1293 core/formats/taglibfile.cpp:1918
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - кашњење листе нумера"
 
-#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1915
+#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1923
 msgid "TENC - Encoded by"
 msgstr "TENC - кодер"
 
-#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1916
+#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1924
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - пјесник/текстописац"
 
-#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1917
+#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1925
 msgid "TFLT - File type"
 msgstr "TFLT - тип фајла"
 
-#: core/formats/mp3file.cpp:1289
+#: core/formats/mp3file.cpp:1302
 msgid "TIME - Time"
 msgstr "TIME - вријеме"
 
-#: core/formats/mp3file.cpp:1290 core/formats/taglibfile.cpp:1919
+#: core/formats/mp3file.cpp:1303 core/formats/taglibfile.cpp:1927
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - опис групе садржаја"
 
-#: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1920
+#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1928
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - наслов/име пјесме/опис садржаја"
 
-#: core/formats/mp3file.cpp:1292 core/formats/taglibfile.cpp:1921
+#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1929
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1293 core/formats/taglibfile.cpp:1922
+#: core/formats/mp3file.cpp:1306 core/formats/taglibfile.cpp:1930
 msgid "TKEY - Initial key"
 msgstr "TKEY - почетни кључ"
 
-#: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1923
+#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1931
 msgid "TLAN - Language(s)"
 msgstr "TLAN - језик (језици)"
 
-#: core/formats/mp3file.cpp:1295 core/formats/taglibfile.cpp:1924
+#: core/formats/mp3file.cpp:1308 core/formats/taglibfile.cpp:1932
 msgid "TLEN - Length"
 msgstr "TLEN - трајање"
 
-#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1926
+#: core/formats/mp3file.cpp:1310 core/formats/taglibfile.cpp:1934
 msgid "TMED - Media type"
 msgstr "TMED - тип медија"
 
-#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1928
+#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1936
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - изворни наслов албума/филма/емисије"
 
-#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1929
+#: core/formats/mp3file.cpp:1313 core/formats/taglibfile.cpp:1937
 msgid "TOFN - Original filename"
 msgstr "TOFN - изворно име"
 
-#: core/formats/mp3file.cpp:1301 core/formats/taglibfile.cpp:1930
+#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1938
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1302 core/formats/taglibfile.cpp:1931
+#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1939
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1303
+#: core/formats/mp3file.cpp:1316
 msgid "TORY - Original release year"
 msgstr "TORY - изворна година издавања"
 
-#: core/formats/mp3file.cpp:1304 core/formats/taglibfile.cpp:1932
+#: core/formats/mp3file.cpp:1317 core/formats/taglibfile.cpp:1940
 msgid "TOWN - File owner/licensee"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1305 core/formats/taglibfile.cpp:1933
+#: core/formats/mp3file.cpp:1318 core/formats/taglibfile.cpp:1941
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1306 core/formats/taglibfile.cpp:1934
+#: core/formats/mp3file.cpp:1319 core/formats/taglibfile.cpp:1942
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1307 core/formats/taglibfile.cpp:1935
+#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1943
 msgid "TPE3 - Conductor/performer refinement"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1308 core/formats/taglibfile.cpp:1936
+#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1944
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1937
+#: core/formats/mp3file.cpp:1322 core/formats/taglibfile.cpp:1945
 msgid "TPOS - Part of a set"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1939
+#: core/formats/mp3file.cpp:1324 core/formats/taglibfile.cpp:1947
 msgid "TPUB - Publisher"
 msgstr "TPUB - издавач"
 
-#: core/formats/mp3file.cpp:1312 core/formats/taglibfile.cpp:1940
+#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1948
 msgid "TRCK - Track number/Position in set"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1313
+#: core/formats/mp3file.cpp:1326
 msgid "TRDA - Recording dates"
 msgstr "TRDA - датуми снимања"
 
-#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1941
+#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1949
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - име интернет радио станице"
 
-#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1942
+#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1950
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - власник интернет радио станице"
 
-#: core/formats/mp3file.cpp:1316
+#: core/formats/mp3file.cpp:1329
 msgid "TSIZ - Size"
 msgstr "TSIZ - величина"
 
-#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1948
+#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1956
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ИСРЦ (међународни стандардни кôд снимања)"
 
-#: core/formats/mp3file.cpp:1321 core/formats/taglibfile.cpp:1949
+#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1957
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1951
+#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1959
 msgid "TXXX - User defined text information"
 msgstr "TXXX - кориснички дефинисана текстуална информација"
 
-#: core/formats/mp3file.cpp:1324
+#: core/formats/mp3file.cpp:1337
 msgid "TYER - Year"
 msgstr "TYER - година"
 
-#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1952
+#: core/formats/mp3file.cpp:1338 core/formats/taglibfile.cpp:1960
 msgid "UFID - Unique file identifier"
 msgstr "UFID - јединствени идентификатор фајла"
 
-#: core/formats/mp3file.cpp:1326 core/formats/taglibfile.cpp:1953
+#: core/formats/mp3file.cpp:1339 core/formats/taglibfile.cpp:1961
 msgid "USER - Terms of use"
 msgstr "USER - услови коришћења"
 
-#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1954
+#: core/formats/mp3file.cpp:1340 core/formats/taglibfile.cpp:1962
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1955
+#: core/formats/mp3file.cpp:1341 core/formats/taglibfile.cpp:1963
 msgid "WCOM - Commercial information"
 msgstr "WCOM - подаци о комерцијализовању"
 
-#: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1956
+#: core/formats/mp3file.cpp:1342 core/formats/taglibfile.cpp:1964
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - ауторско право/правне информације"
 
-#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1957
+#: core/formats/mp3file.cpp:1343 core/formats/taglibfile.cpp:1965
 msgid "WOAF - Official audio file webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1958
+#: core/formats/mp3file.cpp:1344 core/formats/taglibfile.cpp:1966
 msgid "WOAR - Official artist/performer webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1959
+#: core/formats/mp3file.cpp:1345 core/formats/taglibfile.cpp:1967
 msgid "WOAS - Official audio source webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1333 core/formats/taglibfile.cpp:1960
+#: core/formats/mp3file.cpp:1346 core/formats/taglibfile.cpp:1968
 msgid "WORS - Official internet radio station homepage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1961
+#: core/formats/mp3file.cpp:1347 core/formats/taglibfile.cpp:1969
 msgid "WPAY - Payment"
 msgstr "WPAY - плаћање"
 
-#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1962
+#: core/formats/mp3file.cpp:1348 core/formats/taglibfile.cpp:1970
 msgid "WPUB - Official publisher webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1336 core/formats/taglibfile.cpp:1963
+#: core/formats/mp3file.cpp:1349 core/formats/taglibfile.cpp:1971
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - кориснички дефинисана УРЛ веза"
 
-#: core/formats/taglibfile.cpp:1862
+#: core/formats/taglibfile.cpp:1870
 msgid "ASPI - Audio seek point index"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1866
+#: core/formats/taglibfile.cpp:1874
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - једначење (2)"
 
-#: core/formats/taglibfile.cpp:1897
+#: core/formats/taglibfile.cpp:1905
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - подешавање релативне јачине звука (2)"
 
-#: core/formats/taglibfile.cpp:1899
+#: core/formats/taglibfile.cpp:1907
 msgid "SEEK - Seek frame"
 msgstr "SEEK - кадар тражења"
 
-#: core/formats/taglibfile.cpp:1900
+#: core/formats/taglibfile.cpp:1908
 msgid "SIGN - Signature frame"
 msgstr "SIGN - кадар потписа"
 
-#: core/formats/taglibfile.cpp:1905
+#: core/formats/taglibfile.cpp:1913
 msgid "TCMP - iTunes compilation flag"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1909
+#: core/formats/taglibfile.cpp:1917
 msgid "TDEN - Encoding time"
 msgstr "TDEN - вријеме кодирања"
 
-#: core/formats/taglibfile.cpp:1911
+#: core/formats/taglibfile.cpp:1919
 msgid "TDOR - Original release time"
 msgstr "TDOR - вријеме издавања оригинала"
 
-#: core/formats/taglibfile.cpp:1912
+#: core/formats/taglibfile.cpp:1920
 msgid "TDRC - Recording time"
 msgstr "TDRC - вријеме снимања"
 
-#: core/formats/taglibfile.cpp:1913
+#: core/formats/taglibfile.cpp:1921
 msgid "TDRL - Release time"
 msgstr "TDRL - вријеме издавања"
 
-#: core/formats/taglibfile.cpp:1914
+#: core/formats/taglibfile.cpp:1922
 msgid "TDTG - Tagging time"
 msgstr "TDTG - вријеме означавања"
 
-#: core/formats/taglibfile.cpp:1918
+#: core/formats/taglibfile.cpp:1926
 msgid "TIPL - Involved people list"
 msgstr "TIPL - списак укључених људи"
 
-#: core/formats/taglibfile.cpp:1925
+#: core/formats/taglibfile.cpp:1933
 msgid "TMCL - Musician credits list"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1927
+#: core/formats/taglibfile.cpp:1935
 msgid "TMOO - Mood"
 msgstr "TMOO - расположење"
 
-#: core/formats/taglibfile.cpp:1938
+#: core/formats/taglibfile.cpp:1946
 msgid "TPRO - Produced notice"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1943
+#: core/formats/taglibfile.cpp:1951
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - редослијед сортирања аутора албума"
 
-#: core/formats/taglibfile.cpp:1944
+#: core/formats/taglibfile.cpp:1952
 msgid "TSOA - Album sort order"
 msgstr "TSOA - редослијед сортирања албума"
 
-#: core/formats/taglibfile.cpp:1945
+#: core/formats/taglibfile.cpp:1953
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - редослијед сортирања композитора"
 
-#: core/formats/taglibfile.cpp:1946
+#: core/formats/taglibfile.cpp:1954
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - редослијед сортирања извођача"
 
-#: core/formats/taglibfile.cpp:1947
+#: core/formats/taglibfile.cpp:1955
 msgid "TSOT - Title sort order"
 msgstr "TSOT - редослијед сортирања наслова"
 
-#: core/formats/taglibfile.cpp:1950
+#: core/formats/taglibfile.cpp:1958
 msgid "TSST - Set subtitle"
 msgstr "TSST - постави поднаслов"
 
@@ -423,14 +427,13 @@ msgid "gnudb.org"
 msgstr "gnudb.org"
 
 #: core/import/httpclient.cpp:60 core/import/httpclient.cpp:91
-#, kde-format
 msgid "Data received: %1"
 msgstr "Подаци примљени: %1"
 
 #: core/import/httpclient.cpp:72 core/model/downloadclient.cpp:62
 #: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:165
-#: gui/forms/kid3mainwindow.cpp:794 gui/forms/kid3mainwindow.cpp:947
-#: gui/forms/kid3mainwindow.cpp:1186 gui/forms/kid3mainwindow.cpp:1265
+#: gui/forms/kid3mainwindow.cpp:823 gui/forms/kid3mainwindow.cpp:976
+#: gui/forms/kid3mainwindow.cpp:1215 gui/forms/kid3mainwindow.cpp:1294
 msgid "Ready."
 msgstr "Спреман."
 
@@ -443,11 +446,11 @@ msgstr "Грешка"
 msgid "Request sent..."
 msgstr "Захтјев послат..."
 
-#: core/import/importparser.cpp:66 core/tags/frame.cpp:906
+#: core/import/importparser.cpp:66 core/tags/frame.cpp:1032
 msgid "Year"
 msgstr "Година"
 
-#: core/import/importparser.cpp:78 core/model/trackdatamodel.cpp:203
+#: core/import/importparser.cpp:78 core/model/trackdatamodel.cpp:196
 #: core/tags/trackdata.cpp:191 core/tags/trackdata.cpp:195
 msgid "Length"
 msgstr "Трајање"
@@ -518,33 +521,27 @@ msgid "Command"
 msgstr "Наредба"
 
 #: core/model/dirrenamer.cpp:73 core/model/dirrenamer.cpp:92
-#, kde-format
 msgid "Create directory %1 failed\n"
 msgstr "Прављење директоријума %1 није успјело\n"
 
 #: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:122
-#, kde-format
 msgid "File %1 already exists\n"
 msgstr "Фајл %1 већ постоји\n"
 
 #: core/model/dirrenamer.cpp:101 core/model/dirrenamer.cpp:128
-#, kde-format
 msgid "%1 is not a directory\n"
 msgstr "%1 није директоријум\n"
 
 #: core/model/dirrenamer.cpp:103 core/model/dirrenamer.cpp:140
-#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:1923
-#, kde-format
+#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:1954
 msgid "Rename %1 to %2 failed\n"
 msgstr "Преименовање %1 у %2 није успјело\n"
 
 #: core/model/dirrenamer.cpp:147 core/model/dirrenamer.cpp:170
-#, kde-format
 msgid "%1 already exists\n"
 msgstr "%1 већ постоји\n"
 
 #: core/model/dirrenamer.cpp:149 core/model/dirrenamer.cpp:176
-#, kde-format
 msgid "%1 is not a file\n"
 msgstr "%1 није фајл\n"
 
@@ -568,7 +565,7 @@ msgstr "Преименуј фајл"
 msgid "C&lear"
 msgstr "О&чисти"
 
-#: core/model/externalprocess.cpp:59 gui/dialogs/browserdialog.cpp:118
+#: core/model/externalprocess.cpp:59 gui/dialogs/browserdialog.cpp:128
 #: gui/dialogs/exportdialog.cpp:147 gui/dialogs/filterdialog.cpp:86
 #: gui/dialogs/serverimportdialog.cpp:109 gui/dialogs/tagimportdialog.cpp:80
 #: gui/dialogs/textimportdialog.cpp:94 gui/widgets/imageviewer.cpp:55
@@ -612,160 +609,160 @@ msgstr "Логичка негација"
 msgid "Data"
 msgstr "Подаци"
 
-#: core/model/kid3application.cpp:1794 core/model/kid3application.cpp:1798
+#: core/model/kid3application.cpp:1858 core/model/kid3application.cpp:1862
 msgid "All Supported Files"
 msgstr "Сви подржани фајлови"
 
-#: core/model/kid3application.cpp:1796 core/model/kid3application.cpp:1802
+#: core/model/kid3application.cpp:1860 core/model/kid3application.cpp:1866
 #: gui/dialogs/editframefieldsdialog.cpp:809
 #: gui/dialogs/editframefieldsdialog.cpp:811
 msgid "All Files (*)"
 msgstr "Сви фајлови (*)"
 
-#: core/model/trackdatamodel.cpp:191 core/tags/frame.cpp:910
-#: core/tags/frame.cpp:914 core/tags/frame.cpp:918
+#: core/model/trackdatamodel.cpp:185 core/tags/frame.cpp:1036
+#: core/tags/frame.cpp:1040 core/tags/frame.cpp:1044
 msgid "Track"
 msgstr "Нумера"
 
-#: core/model/trackdatamodel.cpp:197 core/tags/trackdata.cpp:183
+#: core/model/trackdatamodel.cpp:190 core/tags/trackdata.cpp:183
 msgid "Absolute path to file"
 msgstr "Апсолутна путања до фајла"
 
-#: core/model/trackdatamodel.cpp:199 gui/dialogs/editframefieldsdialog.cpp:664
-#: gui/forms/kid3form.cpp:895 gui/forms/kid3mainwindow.cpp:367
-#: gui/forms/kid3mainwindow.cpp:370 gui/forms/kid3mainwindow.cpp:373
+#: core/model/trackdatamodel.cpp:192 gui/dialogs/editframefieldsdialog.cpp:664
+#: gui/forms/kid3form.cpp:948 gui/forms/kid3mainwindow.cpp:373
+#: gui/forms/kid3mainwindow.cpp:376 gui/forms/kid3mainwindow.cpp:379
 msgid "Filename"
 msgstr "Име фајла"
 
-#: core/model/trackdatamodel.cpp:201
+#: core/model/trackdatamodel.cpp:194
 msgid "Duration"
 msgstr "Трајање"
 
-#: core/tags/frame.cpp:68
+#: core/tags/frame.cpp:45
 msgid "Title"
 msgstr "Наслов"
 
-#: core/tags/frame.cpp:69
+#: core/tags/frame.cpp:46
 msgid "Artist"
 msgstr "Извођач"
 
-#: core/tags/frame.cpp:70
+#: core/tags/frame.cpp:47
 msgid "Album"
 msgstr "Албум"
 
-#: core/tags/frame.cpp:71
+#: core/tags/frame.cpp:48
 msgid "Comment"
 msgstr "Коментар"
 
-#: core/tags/frame.cpp:72 gui/dialogs/editframefieldsdialog.cpp:681
+#: core/tags/frame.cpp:49 gui/dialogs/editframefieldsdialog.cpp:681
 msgid "Date"
 msgstr "Година"
 
-#: core/tags/frame.cpp:73 gui/widgets/frametable.cpp:60
+#: core/tags/frame.cpp:50 gui/widgets/frametable.cpp:60
 msgid "Track Number"
 msgstr "Број нумере"
 
-#: core/tags/frame.cpp:74
+#: core/tags/frame.cpp:51
 msgid "Genre"
 msgstr "Жанр"
 
-#: core/tags/frame.cpp:76
+#: core/tags/frame.cpp:53
 msgid "Album Artist"
 msgstr "Извођач албума"
 
-#: core/tags/frame.cpp:77
+#: core/tags/frame.cpp:54
 msgid "Arranger"
 msgstr "Аранжер"
 
-#: core/tags/frame.cpp:78
+#: core/tags/frame.cpp:55
 msgid "Author"
 msgstr "Аутор"
 
-#: core/tags/frame.cpp:79
+#: core/tags/frame.cpp:56
 msgid "BPM"
 msgstr "БПМ"
 
-#: core/tags/frame.cpp:80 gui/dialogs/editframefieldsdialog.cpp:887
+#: core/tags/frame.cpp:57 gui/dialogs/editframefieldsdialog.cpp:887
 msgid "Composer"
 msgstr "Композитор"
 
-#: core/tags/frame.cpp:81 gui/dialogs/editframefieldsdialog.cpp:885
+#: core/tags/frame.cpp:58 gui/dialogs/editframefieldsdialog.cpp:885
 msgid "Conductor"
 msgstr "Диригент"
 
-#: core/tags/frame.cpp:82
+#: core/tags/frame.cpp:59
 msgid "Copyright"
 msgstr "Ауторско право"
 
-#: core/tags/frame.cpp:83
+#: core/tags/frame.cpp:60
 msgid "Disc Number"
 msgstr "Број диска"
 
-#: core/tags/frame.cpp:84
+#: core/tags/frame.cpp:61
 msgid "Encoded-by"
 msgstr "Кодер"
 
-#: core/tags/frame.cpp:85
+#: core/tags/frame.cpp:62
 msgid "Grouping"
 msgstr "Груписање"
 
-#: core/tags/frame.cpp:86
+#: core/tags/frame.cpp:63
 msgid "ISRC"
 msgstr "ИСРЦ"
 
-#: core/tags/frame.cpp:87 gui/dialogs/editframefieldsdialog.cpp:665
+#: core/tags/frame.cpp:64 gui/dialogs/editframefieldsdialog.cpp:665
 msgid "Language"
 msgstr "Језик"
 
-#: core/tags/frame.cpp:88
+#: core/tags/frame.cpp:65
 msgid "Lyricist"
 msgstr "Текстописац"
 
-#: core/tags/frame.cpp:89 gui/dialogs/editframefieldsdialog.cpp:915
+#: core/tags/frame.cpp:66 gui/dialogs/editframefieldsdialog.cpp:915
 msgid "Lyrics"
 msgstr "Текст"
 
-#: core/tags/frame.cpp:90 gui/dialogs/editframefieldsdialog.cpp:882
+#: core/tags/frame.cpp:67 gui/dialogs/editframefieldsdialog.cpp:882
 msgid "Media"
 msgstr "Медија"
 
-#: core/tags/frame.cpp:91
+#: core/tags/frame.cpp:68
 msgid "Original Album"
 msgstr "Изворни албум"
 
-#: core/tags/frame.cpp:92
+#: core/tags/frame.cpp:69
 msgid "Original Artist"
 msgstr "Изворни извођач"
 
-#: core/tags/frame.cpp:93
+#: core/tags/frame.cpp:70
 msgid "Original Date"
 msgstr "Изворни датум"
 
-#: core/tags/frame.cpp:94
+#: core/tags/frame.cpp:71
 msgid "Part"
 msgstr "Дио"
 
-#: core/tags/frame.cpp:95
+#: core/tags/frame.cpp:72
 msgid "Performer"
 msgstr "Извођач"
 
-#: core/tags/frame.cpp:96
+#: core/tags/frame.cpp:73
 msgid "Picture"
 msgstr "Слика"
 
-#: core/tags/frame.cpp:97
+#: core/tags/frame.cpp:74
 msgid "Publisher"
 msgstr "Издавач"
 
-#: core/tags/frame.cpp:98
+#: core/tags/frame.cpp:75
 msgid "Remixer"
 msgstr "Ремиксер"
 
-#: core/tags/frame.cpp:99
+#: core/tags/frame.cpp:76
 msgid "Subtitle"
 msgstr "Поднаслов"
 
-#: core/tags/frame.cpp:100
+#: core/tags/frame.cpp:77
 msgid "Website"
 msgstr "Вебсајт"
 
@@ -850,12 +847,12 @@ msgstr "Поклопи"
 msgid "Picture URL"
 msgstr "УРЛ слике"
 
-#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:452
+#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:493
 #: gui/dialogs/exportdialog.cpp:133 gui/dialogs/filterdialog.cpp:71
 #: gui/dialogs/importdialog.cpp:228 gui/dialogs/musicbrainzdialog.cpp:118
 #: gui/dialogs/numbertracksdialog.cpp:106 gui/dialogs/playlistdialog.cpp:201
 #: gui/dialogs/serverimportdialog.cpp:107 gui/dialogs/tagimportdialog.cpp:67
-#: gui/dialogs/textimportdialog.cpp:77 gui/forms/kid3mainwindow.cpp:724
+#: gui/dialogs/textimportdialog.cpp:77 gui/forms/kid3mainwindow.cpp:753
 msgid "&Help"
 msgstr "По&моћ"
 
@@ -872,7 +869,7 @@ msgstr "&Сачувај подешавања"
 msgid "&Browse"
 msgstr "&Потражи"
 
-#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:454
+#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:495
 #: gui/dialogs/editframedialog.cpp:58
 #: gui/dialogs/editframefieldsdialog.cpp:965 gui/dialogs/importdialog.cpp:234
 #: gui/dialogs/musicbrainzdialog.cpp:122
@@ -888,241 +885,258 @@ msgstr "Кликните на „Потражи“ да бисте покрен�
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "и онда превуците слику са прегледача у Кид3."
 
-#: gui/dialogs/browserdialog.cpp:76
+#: gui/dialogs/browserdialog.cpp:86
 msgid "&Back"
 msgstr "&Назад"
 
-#: gui/dialogs/browserdialog.cpp:81
+#: gui/dialogs/browserdialog.cpp:91
 msgid "&Forward"
 msgstr "На&пријед"
 
-#: gui/dialogs/browserdialog.cpp:86
+#: gui/dialogs/browserdialog.cpp:96
 msgid "&Find:"
 msgstr "&Нађи:"
 
-#: gui/dialogs/browserdialog.cpp:100
+#: gui/dialogs/browserdialog.cpp:110
 msgid "Find Previous"
 msgstr "Нађи претходно"
 
-#: gui/dialogs/browserdialog.cpp:110
+#: gui/dialogs/browserdialog.cpp:120
 msgid "Find Next"
 msgstr "Нађи сљедеће"
 
-#: gui/dialogs/configdialog.cpp:114
+#: gui/dialogs/configdialog.cpp:122
 msgid "ID3v1"
 msgstr "ИД3в1"
 
-#: gui/dialogs/configdialog.cpp:118
+#: gui/dialogs/configdialog.cpp:126
 msgid "&Mark truncated fields"
 msgstr "Означи одсјечена &поља"
 
-#: gui/dialogs/configdialog.cpp:121 gui/dialogs/configdialog.cpp:207
+#: gui/dialogs/configdialog.cpp:129 gui/dialogs/configdialog.cpp:220
 msgid "Text &encoding:"
 msgstr "Кодирање &текста:"
 
-#: gui/dialogs/configdialog.cpp:196
+#: gui/dialogs/configdialog.cpp:209
 msgid "ID3v2"
 msgstr "ИД3в2"
 
-#: gui/dialogs/configdialog.cpp:200
+#: gui/dialogs/configdialog.cpp:213
 msgid "Use &track/total number of tracks format"
 msgstr "Користи формат &нумера/укупно нумера"
 
-#: gui/dialogs/configdialog.cpp:202
+#: gui/dialogs/configdialog.cpp:215
 msgid "Track number &digits:"
 msgstr "Број &цифара нумере:"
 
-#: gui/dialogs/configdialog.cpp:206
+#: gui/dialogs/configdialog.cpp:219
 msgid "&Genre as text instead of numeric string"
 msgstr "&Жанр као текст умјесто бројног низа"
 
-#: gui/dialogs/configdialog.cpp:209 gui/dialogs/editframefieldsdialog.cpp:865
+#: gui/dialogs/configdialog.cpp:222 gui/dialogs/editframefieldsdialog.cpp:865
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: gui/dialogs/configdialog.cpp:210 gui/dialogs/editframefieldsdialog.cpp:866
+#: gui/dialogs/configdialog.cpp:223 gui/dialogs/editframefieldsdialog.cpp:866
 msgid "UTF16"
 msgstr "UTF-16"
 
-#: gui/dialogs/configdialog.cpp:211 gui/dialogs/editframefieldsdialog.cpp:868
+#: gui/dialogs/configdialog.cpp:224 gui/dialogs/editframefieldsdialog.cpp:868
 msgid "UTF8"
 msgstr "UTF-8"
 
-#: gui/dialogs/configdialog.cpp:219
+#: gui/dialogs/configdialog.cpp:232
 msgid "&Version used for new tags:"
 msgstr "И&здање за нове ознаке:"
 
-#: gui/dialogs/configdialog.cpp:222
+#: gui/dialogs/configdialog.cpp:235
 msgid "ID3v2.3.0 (id3lib)"
 msgstr "ИД3в2.3.0 (id3lib)"
 
-#: gui/dialogs/configdialog.cpp:224
+#: gui/dialogs/configdialog.cpp:237
 msgid "ID3v2.4.0 (TagLib)"
 msgstr "ИД3в2.4.0 (TagLib)"
 
-#: gui/dialogs/configdialog.cpp:226
+#: gui/dialogs/configdialog.cpp:239
 msgid "ID3v2.3.0 (TagLib)"
 msgstr "ИД3в2.3.0 (TagLib)"
 
-#: gui/dialogs/configdialog.cpp:238
+#: gui/dialogs/configdialog.cpp:251
 msgid "Ogg/Vorbis"
 msgstr "Огг/Ворбис"
 
-#: gui/dialogs/configdialog.cpp:239
-msgid "Comment field &name:"
+#: gui/dialogs/configdialog.cpp:252
+msgid "Co&mment field name:"
 msgstr "Име поља ко&ментара:"
 
-#: gui/dialogs/configdialog.cpp:241
+#: gui/dialogs/configdialog.cpp:254
 msgid "&Picture field name:"
 msgstr "Име поља &слике:"
 
-#: gui/dialogs/configdialog.cpp:264
+#: gui/dialogs/configdialog.cpp:277
 msgid "Custom &Genres"
 msgstr "Посе&бни жанрови"
 
-#: gui/dialogs/configdialog.cpp:265
+#: gui/dialogs/configdialog.cpp:278
 msgid "&Show only custom genres"
 msgstr "Прик&ажи само посебне жанрове"
 
-#: gui/dialogs/configdialog.cpp:274
+#: gui/dialogs/configdialog.cpp:288
+msgid "&Quick Access Tags"
+msgstr ""
+
+#: gui/dialogs/configdialog.cpp:308
 msgid "&Tag Format"
 msgstr "&Формат ознаке"
 
-#: gui/dialogs/configdialog.cpp:279
+#: gui/dialogs/configdialog.cpp:313 gui/forms/kid3form.cpp:272
+#: gui/forms/kid3form.cpp:603
+msgid "Tag &1"
+msgstr "Ознака &1"
+
+#: gui/dialogs/configdialog.cpp:314 gui/forms/kid3form.cpp:314
+#: gui/forms/kid3form.cpp:618
+msgid "Tag &2"
+msgstr "Ознака &2"
+
+#: gui/dialogs/configdialog.cpp:315
+msgid "Tag 1 a&nd Tag 2"
+msgstr "ознака 1 &и ознака 2"
+
+#: gui/dialogs/configdialog.cpp:320
 msgid "Tags"
 msgstr "Ознаке"
 
-#: gui/dialogs/configdialog.cpp:281
+#: gui/dialogs/configdialog.cpp:322
 msgid "&Tags"
 msgstr "&Ознаке"
 
-#: gui/dialogs/configdialog.cpp:290
+#: gui/dialogs/configdialog.cpp:331
 msgid "Startup"
 msgstr "Покретање"
 
-#: gui/dialogs/configdialog.cpp:291
+#: gui/dialogs/configdialog.cpp:332
 msgid "&Load last-opened files"
 msgstr ""
 
-#: gui/dialogs/configdialog.cpp:298
+#: gui/dialogs/configdialog.cpp:339
 msgid "Save"
 msgstr "Сачувај"
 
-#: gui/dialogs/configdialog.cpp:299
+#: gui/dialogs/configdialog.cpp:340
 msgid "&Preserve file timestamp"
 msgstr "Очувај &временску ознаку фајла"
 
-#: gui/dialogs/configdialog.cpp:300
+#: gui/dialogs/configdialog.cpp:341
 msgid "&Mark changes"
 msgstr "О&значи измјене"
 
-#: gui/dialogs/configdialog.cpp:307
+#: gui/dialogs/configdialog.cpp:348
 msgid "&Filename Format"
 msgstr "Формат имена &фајла"
 
-#: gui/dialogs/configdialog.cpp:311
+#: gui/dialogs/configdialog.cpp:352
 msgid "Files"
 msgstr "Фајлови"
 
-#: gui/dialogs/configdialog.cpp:313
+#: gui/dialogs/configdialog.cpp:354
 msgid "&Files"
 msgstr "&Фајлови"
 
-#: gui/dialogs/configdialog.cpp:322
+#: gui/dialogs/configdialog.cpp:363
 msgid "Browser"
 msgstr "Прегледач"
 
-#: gui/dialogs/configdialog.cpp:323
+#: gui/dialogs/configdialog.cpp:364
 msgid "Web &browser:"
 msgstr "Веб &прегледач"
 
-#: gui/dialogs/configdialog.cpp:333
+#: gui/dialogs/configdialog.cpp:374
 msgid "Context &Menu Commands"
 msgstr "Наредбе контекстног ме&нија"
 
-#: gui/dialogs/configdialog.cpp:335
+#: gui/dialogs/configdialog.cpp:376
 msgid "&Play on double click"
 msgstr "&Репродукуј при двоклику"
 
-#: gui/dialogs/configdialog.cpp:348
+#: gui/dialogs/configdialog.cpp:389
 msgid "User Actions"
 msgstr "Радње корисника"
 
-#: gui/dialogs/configdialog.cpp:350
+#: gui/dialogs/configdialog.cpp:391
 msgid "&User Actions"
 msgstr "Радње &корисника"
 
-#: gui/dialogs/configdialog.cpp:359
+#: gui/dialogs/configdialog.cpp:400
 msgid "Proxy"
 msgstr "Прокси"
 
-#: gui/dialogs/configdialog.cpp:360
+#: gui/dialogs/configdialog.cpp:401
 msgid "&Proxy:"
 msgstr "&Прокси:"
 
-#: gui/dialogs/configdialog.cpp:362
+#: gui/dialogs/configdialog.cpp:403
 msgid "&Use authentication with proxy"
 msgstr "Користи &аутентификацију за прокси"
 
-#: gui/dialogs/configdialog.cpp:363
+#: gui/dialogs/configdialog.cpp:404
 msgid "Proxy user &name:"
 msgstr "Корисничко &име за прокси:"
 
-#: gui/dialogs/configdialog.cpp:366
+#: gui/dialogs/configdialog.cpp:407
 msgid "Proxy pass&word:"
-msgstr "Лозинка за прокси:"
+msgstr "Л&озинка за прокси:"
 
-#: gui/dialogs/configdialog.cpp:390
+#: gui/dialogs/configdialog.cpp:431
 msgid "Network"
 msgstr "Мрежа"
 
-#: gui/dialogs/configdialog.cpp:392
+#: gui/dialogs/configdialog.cpp:433
 msgid "&Network"
 msgstr "&Мрежа"
 
-#: gui/dialogs/configdialog.cpp:410
+#: gui/dialogs/configdialog.cpp:451
 msgid "&Keyboard Shortcuts"
 msgstr "Пречице &тастатуре"
 
-#: gui/dialogs/configdialog.cpp:420
+#: gui/dialogs/configdialog.cpp:461
 msgid "Use custom app&lication font"
 msgstr "Користи посе&бни фонт за апликацију"
 
-#: gui/dialogs/configdialog.cpp:421
+#: gui/dialogs/configdialog.cpp:462
 msgid "A&pplication Font..."
 msgstr "&Фонт апликације..."
 
-#: gui/dialogs/configdialog.cpp:422
+#: gui/dialogs/configdialog.cpp:463
 msgid "Use custom application &style"
 msgstr "Користи посебни &стил за апликацију"
 
-#: gui/dialogs/configdialog.cpp:430 gui/dialogs/configdialog.cpp:724
+#: gui/dialogs/configdialog.cpp:471 gui/dialogs/configdialog.cpp:767
 #: gui/dialogs/musicbrainzdialog.cpp:186 gui/dialogs/musicbrainzdialog.cpp:190
 #: gui/dialogs/musicbrainzdialog.cpp:205
 msgid "Unknown"
 msgstr "Непознато"
 
-#: gui/dialogs/configdialog.cpp:439
+#: gui/dialogs/configdialog.cpp:480
 msgid "Use native system file &dialogs"
 msgstr "Користи системске &дијалоге фајлова"
 
-#: gui/dialogs/configdialog.cpp:443
+#: gui/dialogs/configdialog.cpp:484
 msgid "&Appearance"
 msgstr "&Изглед"
 
-#: gui/dialogs/configdialog.cpp:453 gui/dialogs/editframedialog.cpp:57
+#: gui/dialogs/configdialog.cpp:494 gui/dialogs/editframedialog.cpp:57
 #: gui/dialogs/editframefieldsdialog.cpp:964 gui/dialogs/importdialog.cpp:232
 #: gui/dialogs/musicbrainzdialog.cpp:120
 #: gui/dialogs/numbertracksdialog.cpp:119 gui/dialogs/playlistdialog.cpp:213
 msgid "&OK"
 msgstr "&У реду"
 
-#: gui/dialogs/configdialog.cpp:646
-#, kde-format
+#: gui/dialogs/configdialog.cpp:689
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
 msgstr "Пречица тастатуре '%1' је већ додијељена '%2'."
 
-#: gui/dialogs/contexthelp.cpp:59 gui/forms/kid3mainwindow.cpp:727
+#: gui/dialogs/contexthelp.cpp:59 gui/forms/kid3mainwindow.cpp:756
 msgid "Kid3 Handbook"
 msgstr "Кид3 приручник"
 
@@ -1378,35 +1392,35 @@ msgstr "&Извор:"
 
 #: gui/dialogs/exportdialog.cpp:122 gui/dialogs/importdialog.cpp:169
 #: gui/dialogs/numbertracksdialog.cpp:78 gui/forms/kid3form.cpp:236
-#: gui/forms/kid3form.cpp:261 gui/forms/kid3form.cpp:900
-#: gui/forms/kid3mainwindow.cpp:328 gui/forms/kid3mainwindow.cpp:331
+#: gui/forms/kid3form.cpp:261 gui/forms/kid3form.cpp:953
 #: gui/forms/kid3mainwindow.cpp:334 gui/forms/kid3mainwindow.cpp:337
-#: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:376
+#: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:343
+#: gui/forms/kid3mainwindow.cpp:346 gui/forms/kid3mainwindow.cpp:382
 msgid "Tag 1"
 msgstr "ознака 1"
 
 #: gui/dialogs/exportdialog.cpp:123 gui/dialogs/importdialog.cpp:170
 #: gui/dialogs/numbertracksdialog.cpp:79 gui/forms/kid3form.cpp:239
-#: gui/forms/kid3form.cpp:265 gui/forms/kid3form.cpp:907
-#: gui/forms/kid3mainwindow.cpp:343 gui/forms/kid3mainwindow.cpp:346
+#: gui/forms/kid3form.cpp:265 gui/forms/kid3form.cpp:960
 #: gui/forms/kid3mainwindow.cpp:349 gui/forms/kid3mainwindow.cpp:352
-#: gui/forms/kid3mainwindow.cpp:355 gui/forms/kid3mainwindow.cpp:379
+#: gui/forms/kid3mainwindow.cpp:355 gui/forms/kid3mainwindow.cpp:358
+#: gui/forms/kid3mainwindow.cpp:361 gui/forms/kid3mainwindow.cpp:385
 msgid "Tag 2"
 msgstr "ознака 2"
 
-#: gui/dialogs/exportdialog.cpp:180 gui/forms/kid3mainwindow.cpp:938
-#: gui/forms/kid3mainwindow.cpp:941 gui/forms/kid3mainwindow.cpp:1450
-#: gui/forms/kid3mainwindow.cpp:1453 gui/forms/kid3mainwindow.cpp:1921
-#: gui/forms/kid3mainwindow.cpp:2002 gui/forms/kid3mainwindow.cpp:2005
+#: gui/dialogs/exportdialog.cpp:180 gui/forms/kid3mainwindow.cpp:967
+#: gui/forms/kid3mainwindow.cpp:970 gui/forms/kid3mainwindow.cpp:1481
+#: gui/forms/kid3mainwindow.cpp:1484 gui/forms/kid3mainwindow.cpp:1952
+#: gui/forms/kid3mainwindow.cpp:2033 gui/forms/kid3mainwindow.cpp:2036
 msgid "File Error"
 msgstr "Грешка фајла"
 
-#: gui/dialogs/exportdialog.cpp:181 gui/forms/kid3mainwindow.cpp:936
-#: gui/forms/kid3mainwindow.cpp:941
+#: gui/dialogs/exportdialog.cpp:181 gui/forms/kid3mainwindow.cpp:965
+#: gui/forms/kid3mainwindow.cpp:970
 msgid "Error while writing file:\n"
 msgstr "Грешка приликом уписа фајла:\n"
 
-#: gui/dialogs/filterdialog.cpp:49 gui/forms/kid3mainwindow.cpp:622
+#: gui/dialogs/filterdialog.cpp:49 gui/forms/kid3mainwindow.cpp:651
 msgid "Filter"
 msgstr "Филтер"
 
@@ -1436,7 +1450,7 @@ msgid "&From Server:"
 msgstr "С&а сервера:"
 
 #: gui/dialogs/importdialog.cpp:158 gui/dialogs/musicbrainzdialog.cpp:65
-#: gui/forms/kid3mainwindow.cpp:264 gui/forms/kid3mainwindow.cpp:482
+#: gui/forms/kid3mainwindow.cpp:264 gui/forms/kid3mainwindow.cpp:493
 msgid "MusicBrainz Fingerprint"
 msgstr "МјузикБрејнз Отисак прста"
 
@@ -1492,7 +1506,7 @@ msgstr "Нема резултата"
 msgid "No result selected"
 msgstr "Ништа није изабрано"
 
-#: gui/dialogs/numbertracksdialog.cpp:56 gui/forms/kid3mainwindow.cpp:613
+#: gui/dialogs/numbertracksdialog.cpp:56 gui/forms/kid3mainwindow.cpp:642
 msgid "Number Tracks"
 msgstr "Нумериши"
 
@@ -1577,7 +1591,7 @@ msgid "Write &info using"
 msgstr "Упиши &информације користећи"
 
 #: gui/dialogs/rendirdialog.cpp:60 gui/dialogs/rendirdialog.cpp:106
-#: gui/forms/kid3mainwindow.cpp:604
+#: gui/forms/kid3mainwindow.cpp:633
 msgid "Rename Directory"
 msgstr "Преименуј директоријум"
 
@@ -1598,14 +1612,14 @@ msgid "From Tag 2 and Tag 1"
 msgstr "Из ознаке 2 и ознаке 1"
 
 #: gui/dialogs/rendirdialog.cpp:111 gui/forms/kid3form.cpp:334
-#: gui/forms/kid3form.cpp:897 gui/forms/kid3form.cpp:909
-#: gui/forms/kid3mainwindow.cpp:346 gui/forms/kid3mainwindow.cpp:367
+#: gui/forms/kid3form.cpp:950 gui/forms/kid3form.cpp:962
+#: gui/forms/kid3mainwindow.cpp:352 gui/forms/kid3mainwindow.cpp:373
 msgid "From Tag 1"
 msgstr "Из ознаке 1"
 
 #: gui/dialogs/rendirdialog.cpp:112 gui/forms/kid3form.cpp:294
-#: gui/forms/kid3form.cpp:898 gui/forms/kid3form.cpp:902
-#: gui/forms/kid3mainwindow.cpp:331 gui/forms/kid3mainwindow.cpp:370
+#: gui/forms/kid3form.cpp:951 gui/forms/kid3form.cpp:955
+#: gui/forms/kid3mainwindow.cpp:337 gui/forms/kid3mainwindow.cpp:376
 msgid "From Tag 2"
 msgstr "Из ознаке 2"
 
@@ -1665,13 +1679,13 @@ msgstr "П&реименуј"
 msgid "&Move to Trash"
 msgstr "Премјести у &смеће"
 
-#: gui/forms/filelist.cpp:141 gui/forms/kid3mainwindow.cpp:308
-#: gui/forms/kid3mainwindow.cpp:655
+#: gui/forms/filelist.cpp:141 gui/forms/kid3mainwindow.cpp:311
+#: gui/forms/kid3mainwindow.cpp:684
 msgid "&Play"
 msgstr "Ре&продукуј"
 
-#: gui/forms/kid3form.cpp:199 gui/forms/kid3form.cpp:853
-#: gui/forms/kid3form.cpp:855
+#: gui/forms/kid3form.cpp:199 gui/forms/kid3form.cpp:882
+#: gui/forms/kid3form.cpp:884
 msgid "F&ile"
 msgstr "Ф&ајл"
 
@@ -1695,57 +1709,63 @@ msgstr "ознаку 1 из имена фајла"
 msgid "Tag 2 from Filename"
 msgstr "ознаку 2 из имена фајла"
 
-#: gui/forms/kid3form.cpp:272 gui/forms/kid3form.cpp:590
-msgid "Tag &1"
-msgstr "Ознака &1"
-
 #: gui/forms/kid3form.cpp:297 gui/forms/kid3form.cpp:338
-#: gui/forms/kid3form.cpp:903 gui/forms/kid3form.cpp:910
-#: gui/forms/kid3mainwindow.cpp:334 gui/forms/kid3mainwindow.cpp:349
+#: gui/forms/kid3form.cpp:956 gui/forms/kid3form.cpp:963
+#: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:355
 msgid "Copy"
 msgstr "Копирај"
 
 #: gui/forms/kid3form.cpp:301 gui/forms/kid3form.cpp:342
-#: gui/forms/kid3form.cpp:904 gui/forms/kid3form.cpp:911
-#: gui/forms/kid3mainwindow.cpp:337 gui/forms/kid3mainwindow.cpp:352
+#: gui/forms/kid3form.cpp:957 gui/forms/kid3form.cpp:964
+#: gui/forms/kid3mainwindow.cpp:343 gui/forms/kid3mainwindow.cpp:358
 msgid "Paste"
 msgstr "Налијепи"
 
 #: gui/forms/kid3form.cpp:305 gui/forms/kid3form.cpp:346
-#: gui/forms/kid3form.cpp:905 gui/forms/kid3form.cpp:912
-#: gui/forms/kid3mainwindow.cpp:340 gui/forms/kid3mainwindow.cpp:355
+#: gui/forms/kid3form.cpp:958 gui/forms/kid3form.cpp:965
+#: gui/forms/kid3mainwindow.cpp:346 gui/forms/kid3mainwindow.cpp:361
 msgid "Remove"
 msgstr "Уклони"
 
-#: gui/forms/kid3form.cpp:314 gui/forms/kid3form.cpp:605
-msgid "Tag &2"
-msgstr "Ознака &2"
+#: gui/forms/kid3form.cpp:356
+msgid "Frame"
+msgstr "Кадрови"
 
-#: gui/forms/kid3form.cpp:352 gui/forms/kid3form.cpp:913
-#: gui/forms/kid3mainwindow.cpp:358
+#: gui/forms/kid3form.cpp:365 gui/forms/kid3form.cpp:966
+#: gui/forms/kid3mainwindow.cpp:364
 msgid "Edit"
 msgstr "Уреди"
 
-#: gui/forms/kid3form.cpp:355 gui/forms/kid3form.cpp:914
-#: gui/forms/kid3mainwindow.cpp:361
+#: gui/forms/kid3form.cpp:368 gui/forms/kid3form.cpp:967
+#: gui/forms/kid3mainwindow.cpp:367
 msgid "Add"
 msgstr "Додај"
 
-#: gui/forms/kid3form.cpp:358 gui/forms/kid3form.cpp:915
-#: gui/forms/kid3mainwindow.cpp:364
+#: gui/forms/kid3form.cpp:371 gui/forms/kid3form.cpp:968
+#: gui/forms/kid3mainwindow.cpp:370
 msgid "Delete"
 msgstr "Обриши"
 
-#: gui/forms/kid3form.cpp:899 gui/forms/kid3form.cpp:906
-#: gui/forms/kid3form.cpp:916 gui/forms/kid3mainwindow.cpp:373
-#: gui/forms/kid3mainwindow.cpp:376 gui/forms/kid3mainwindow.cpp:379
+#: gui/forms/kid3form.cpp:952 gui/forms/kid3form.cpp:959
+#: gui/forms/kid3form.cpp:969 gui/forms/kid3form.cpp:971
+#: gui/forms/kid3form.cpp:973 gui/forms/kid3mainwindow.cpp:379
+#: gui/forms/kid3mainwindow.cpp:382 gui/forms/kid3mainwindow.cpp:385
+#: gui/forms/kid3mainwindow.cpp:388 gui/forms/kid3mainwindow.cpp:391
 msgid "Focus"
 msgstr "Фокус"
 
-#: gui/forms/kid3form.cpp:901 gui/forms/kid3form.cpp:908
-#: gui/forms/kid3mainwindow.cpp:328 gui/forms/kid3mainwindow.cpp:343
+#: gui/forms/kid3form.cpp:954 gui/forms/kid3form.cpp:961
+#: gui/forms/kid3mainwindow.cpp:334 gui/forms/kid3mainwindow.cpp:349
 msgid "From Filename"
 msgstr "Из имена фајла"
+
+#: gui/forms/kid3form.cpp:970 gui/forms/kid3mainwindow.cpp:388
+msgid "File List"
+msgstr "Списак фајлова"
+
+#: gui/forms/kid3form.cpp:972 gui/forms/kid3mainwindow.cpp:391
+msgid "Directory List"
+msgstr ""
 
 #: gui/forms/kid3mainwindow.cpp:115
 msgid "Download"
@@ -1755,32 +1775,32 @@ msgstr "Преузми"
 msgid "Main Toolbar"
 msgstr "Главна трака"
 
-#: gui/forms/kid3mainwindow.cpp:226 gui/forms/kid3mainwindow.cpp:394
-#: gui/forms/kid3mainwindow.cpp:414
+#: gui/forms/kid3mainwindow.cpp:226 gui/forms/kid3mainwindow.cpp:405
+#: gui/forms/kid3mainwindow.cpp:425
 msgid "Opens a directory"
 msgstr "Отвара директоријум"
 
-#: gui/forms/kid3mainwindow.cpp:227 gui/forms/kid3mainwindow.cpp:408
+#: gui/forms/kid3mainwindow.cpp:227 gui/forms/kid3mainwindow.cpp:419
 msgid "Opens a recently used directory"
 msgstr "Отвара недавно коришћен директоријум"
 
-#: gui/forms/kid3mainwindow.cpp:229 gui/forms/kid3mainwindow.cpp:439
+#: gui/forms/kid3mainwindow.cpp:229 gui/forms/kid3mainwindow.cpp:450
 msgid "Reverts the changes of all or the selected files"
 msgstr "Поништава измјене свих или изабраних фајлова"
 
-#: gui/forms/kid3mainwindow.cpp:230 gui/forms/kid3mainwindow.cpp:426
+#: gui/forms/kid3mainwindow.cpp:230 gui/forms/kid3mainwindow.cpp:437
 msgid "Saves the changed files"
 msgstr "Уписује измјене фајлова"
 
-#: gui/forms/kid3mainwindow.cpp:231 gui/forms/kid3mainwindow.cpp:526
+#: gui/forms/kid3mainwindow.cpp:231 gui/forms/kid3mainwindow.cpp:537
 msgid "Quits the application"
 msgstr "Напушта апликацију"
 
-#: gui/forms/kid3mainwindow.cpp:232 gui/forms/kid3mainwindow.cpp:539
+#: gui/forms/kid3mainwindow.cpp:232 gui/forms/kid3mainwindow.cpp:550
 msgid "Select all files"
 msgstr "Изабери све фајлове"
 
-#: gui/forms/kid3mainwindow.cpp:234 gui/forms/kid3mainwindow.cpp:550
+#: gui/forms/kid3mainwindow.cpp:234 gui/forms/kid3mainwindow.cpp:561
 msgid "Deselect all files"
 msgstr "Поништи избор свих фајлова"
 
@@ -1796,235 +1816,249 @@ msgstr "Подеси траке алата"
 msgid "Preferences dialog"
 msgstr "Дијалог подешавања"
 
-#: gui/forms/kid3mainwindow.cpp:239 gui/forms/kid3mainwindow.cpp:415
+#: gui/forms/kid3mainwindow.cpp:239 gui/forms/kid3mainwindow.cpp:426
 msgid "O&pen Directory..."
 msgstr "О&твори директоријум..."
 
-#: gui/forms/kid3mainwindow.cpp:243 gui/forms/kid3mainwindow.cpp:453
+#: gui/forms/kid3mainwindow.cpp:243 gui/forms/kid3mainwindow.cpp:464
 msgid "&Import..."
 msgstr "&Увези..."
 
 #: gui/forms/kid3mainwindow.cpp:257 gui/forms/kid3mainwindow.cpp:266
-#: gui/forms/kid3mainwindow.cpp:472 gui/forms/kid3mainwindow.cpp:485
-#, kde-format
+#: gui/forms/kid3mainwindow.cpp:483 gui/forms/kid3mainwindow.cpp:496
 msgid "Import from %1..."
 msgstr "Увези са %1..."
 
-#: gui/forms/kid3mainwindow.cpp:273 gui/forms/kid3mainwindow.cpp:496
+#: gui/forms/kid3mainwindow.cpp:273 gui/forms/kid3mainwindow.cpp:507
 msgid "&Browse Cover Art..."
 msgstr "Потражи о&мот албума..."
 
-#: gui/forms/kid3mainwindow.cpp:276 gui/forms/kid3mainwindow.cpp:505
+#: gui/forms/kid3mainwindow.cpp:276 gui/forms/kid3mainwindow.cpp:516
 msgid "&Export..."
 msgstr "Изв&ези..."
 
-#: gui/forms/kid3mainwindow.cpp:279 gui/forms/kid3mainwindow.cpp:515
+#: gui/forms/kid3mainwindow.cpp:279 gui/forms/kid3mainwindow.cpp:526
 msgid "&Create Playlist..."
 msgstr "Направи &листу нумера..."
 
-#: gui/forms/kid3mainwindow.cpp:282 gui/forms/kid3mainwindow.cpp:587
+#: gui/forms/kid3mainwindow.cpp:282 gui/forms/kid3mainwindow.cpp:607
 msgid "Apply &Filename Format"
 msgstr "Примијени формат имена фа&јла"
 
-#: gui/forms/kid3mainwindow.cpp:285 gui/forms/kid3mainwindow.cpp:596
+#: gui/forms/kid3mainwindow.cpp:285 gui/forms/kid3mainwindow.cpp:616
 msgid "Apply &Tag Format"
 msgstr "Примијени формат &ознаке"
 
-#: gui/forms/kid3mainwindow.cpp:288 gui/forms/kid3mainwindow.cpp:605
+#: gui/forms/kid3mainwindow.cpp:288 gui/forms/kid3mainwindow.cpp:625
+msgid "Apply Text &Encoding"
+msgstr "Примени кодирање т&екста"
+
+#: gui/forms/kid3mainwindow.cpp:291 gui/forms/kid3mainwindow.cpp:634
 msgid "&Rename Directory..."
 msgstr "Преименуј &директоријум..."
 
-#: gui/forms/kid3mainwindow.cpp:291 gui/forms/kid3mainwindow.cpp:614
+#: gui/forms/kid3mainwindow.cpp:294 gui/forms/kid3mainwindow.cpp:643
 msgid "&Number Tracks..."
 msgstr "Ну&мериши..."
 
-#: gui/forms/kid3mainwindow.cpp:294 gui/forms/kid3mainwindow.cpp:623
+#: gui/forms/kid3mainwindow.cpp:297 gui/forms/kid3mainwindow.cpp:652
 msgid "F&ilter..."
 msgstr "Ф&илтер..."
 
-#: gui/forms/kid3mainwindow.cpp:298 gui/forms/kid3mainwindow.cpp:633
+#: gui/forms/kid3mainwindow.cpp:301 gui/forms/kid3mainwindow.cpp:662
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Претвори ИД3в2.3 у ИД3в2.&4"
 
-#: gui/forms/kid3mainwindow.cpp:303 gui/forms/kid3mainwindow.cpp:644
+#: gui/forms/kid3mainwindow.cpp:306 gui/forms/kid3mainwindow.cpp:673
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Претвори ИД3в2.4 у ИД3в2.&3"
 
-#: gui/forms/kid3mainwindow.cpp:312 gui/forms/kid3mainwindow.cpp:691
+#: gui/forms/kid3mainwindow.cpp:315 gui/forms/kid3mainwindow.cpp:720
 msgid "Show &Picture"
 msgstr "Прикажи с&лику"
 
-#: gui/forms/kid3mainwindow.cpp:316 gui/forms/kid3mainwindow.cpp:701
+#: gui/forms/kid3mainwindow.cpp:319 gui/forms/kid3mainwindow.cpp:730
 msgid "Auto &Hide Tags"
 msgstr "Аутоматски &сакриј ознаке"
 
-#: gui/forms/kid3mainwindow.cpp:320 gui/forms/kid3mainwindow.cpp:561
+#: gui/forms/kid3mainwindow.cpp:323 gui/forms/kid3mainwindow.cpp:572
+msgid "Select All in &Directory"
+msgstr "Изабери све фајлове у тренутном &директоријуму"
+
+#: gui/forms/kid3mainwindow.cpp:326 gui/forms/kid3mainwindow.cpp:581
 msgid "&Previous File"
 msgstr "&Претходни фајл"
 
-#: gui/forms/kid3mainwindow.cpp:324 gui/forms/kid3mainwindow.cpp:573
+#: gui/forms/kid3mainwindow.cpp:330 gui/forms/kid3mainwindow.cpp:593
 msgid "&Next File"
 msgstr "&Сљедећи фајл"
 
-#: gui/forms/kid3mainwindow.cpp:358 gui/forms/kid3mainwindow.cpp:361
-#: gui/forms/kid3mainwindow.cpp:364
+#: gui/forms/kid3mainwindow.cpp:364 gui/forms/kid3mainwindow.cpp:367
+#: gui/forms/kid3mainwindow.cpp:370
 msgid "Frames:"
 msgstr "Кадрови:"
 
-#: gui/forms/kid3mainwindow.cpp:389
+#: gui/forms/kid3mainwindow.cpp:400
 msgid "&File"
 msgstr "&Фајл"
 
-#: gui/forms/kid3mainwindow.cpp:395
+#: gui/forms/kid3mainwindow.cpp:406
 msgid "&Open..."
 msgstr "&Отвори..."
 
-#: gui/forms/kid3mainwindow.cpp:409
+#: gui/forms/kid3mainwindow.cpp:420
 msgid "Open &Recent"
 msgstr "Отвори &недавно"
 
-#: gui/forms/kid3mainwindow.cpp:427
+#: gui/forms/kid3mainwindow.cpp:438
 msgid "&Save"
 msgstr "&Сачувај"
 
-#: gui/forms/kid3mainwindow.cpp:440
+#: gui/forms/kid3mainwindow.cpp:451
 msgid "Re&vert"
 msgstr "&Врати"
 
-#: gui/forms/kid3mainwindow.cpp:452
+#: gui/forms/kid3mainwindow.cpp:463
 msgid "Import from file or clipboard"
 msgstr "Увези из фајла или клипборда"
 
-#: gui/forms/kid3mainwindow.cpp:471 gui/forms/kid3mainwindow.cpp:484
-#, kde-format
+#: gui/forms/kid3mainwindow.cpp:482 gui/forms/kid3mainwindow.cpp:495
 msgid "Import from %1"
 msgstr "Увези са %1"
 
-#: gui/forms/kid3mainwindow.cpp:495
+#: gui/forms/kid3mainwindow.cpp:506
 msgid "Browse album cover artwork"
 msgstr "Потражи слику омота албума"
 
-#: gui/forms/kid3mainwindow.cpp:504
+#: gui/forms/kid3mainwindow.cpp:515
 msgid "Export to file or clipboard"
 msgstr "Извези у фајл или клипборд"
 
-#: gui/forms/kid3mainwindow.cpp:514
+#: gui/forms/kid3mainwindow.cpp:525
 msgid "Create M3U Playlist"
 msgstr "Направи М3У листу нумера"
 
-#: gui/forms/kid3mainwindow.cpp:527
+#: gui/forms/kid3mainwindow.cpp:538
 msgid "&Quit"
 msgstr "&Напусти"
 
-#: gui/forms/kid3mainwindow.cpp:536
+#: gui/forms/kid3mainwindow.cpp:547
 msgid "&Edit"
 msgstr "&Уреди"
 
-#: gui/forms/kid3mainwindow.cpp:540
+#: gui/forms/kid3mainwindow.cpp:551
 msgid "Select &All"
 msgstr "Изабери с&ве"
 
-#: gui/forms/kid3mainwindow.cpp:551
+#: gui/forms/kid3mainwindow.cpp:562
 msgid "Dese&lect"
 msgstr "По&ништи избор"
 
-#: gui/forms/kid3mainwindow.cpp:560
+#: gui/forms/kid3mainwindow.cpp:571
+msgid "Select all files in the current directory"
+msgstr "Изабери све фајлове у тренутном директоријуму"
+
+#: gui/forms/kid3mainwindow.cpp:580
 msgid "Select previous file"
 msgstr "Изабери претходни фајл"
 
-#: gui/forms/kid3mainwindow.cpp:572
+#: gui/forms/kid3mainwindow.cpp:592
 msgid "Select next file"
 msgstr "Изабери сљедећи фајл"
 
-#: gui/forms/kid3mainwindow.cpp:583
+#: gui/forms/kid3mainwindow.cpp:603
 msgid "&Tools"
 msgstr "&Алати"
 
-#: gui/forms/kid3mainwindow.cpp:586
+#: gui/forms/kid3mainwindow.cpp:606
 msgid "Apply Filename Format"
 msgstr "Примијени формат назива фајла"
 
-#: gui/forms/kid3mainwindow.cpp:595
+#: gui/forms/kid3mainwindow.cpp:615
 msgid "Apply Tag Format"
 msgstr "Примијени формат ознаке"
 
-#: gui/forms/kid3mainwindow.cpp:632
+#: gui/forms/kid3mainwindow.cpp:624
+msgid "Apply Text Encoding"
+msgstr "Примени кодирање текста"
+
+#: gui/forms/kid3mainwindow.cpp:661
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Претвори ИД3в2.3 у ИД3в2.4"
 
-#: gui/forms/kid3mainwindow.cpp:643
+#: gui/forms/kid3mainwindow.cpp:672
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Претвори ИД3в2.4 у ИД3в2.3"
 
-#: gui/forms/kid3mainwindow.cpp:654 gui/widgets/playtoolbar.cpp:57
+#: gui/forms/kid3mainwindow.cpp:683 gui/widgets/playtoolbar.cpp:57
 msgid "Play"
 msgstr "Репродукција"
 
-#: gui/forms/kid3mainwindow.cpp:665
+#: gui/forms/kid3mainwindow.cpp:694
 msgid "&Settings"
 msgstr "&Подешавање"
 
-#: gui/forms/kid3mainwindow.cpp:669
+#: gui/forms/kid3mainwindow.cpp:698
 msgid "Enables/disables the toolbar"
 msgstr "Приказује/сакрива траку алата"
 
-#: gui/forms/kid3mainwindow.cpp:670
+#: gui/forms/kid3mainwindow.cpp:699
 msgid "Show &Toolbar"
 msgstr "Прикажи траку &алата"
 
-#: gui/forms/kid3mainwindow.cpp:680
+#: gui/forms/kid3mainwindow.cpp:709
 msgid "Enables/disables the statusbar"
 msgstr "Приказује/сакрива траку стања"
 
-#: gui/forms/kid3mainwindow.cpp:681
+#: gui/forms/kid3mainwindow.cpp:710
 msgid "Show St&atusbar"
 msgstr "Прикажи траку &стања"
 
-#: gui/forms/kid3mainwindow.cpp:690
+#: gui/forms/kid3mainwindow.cpp:719
 msgid "Show Picture"
 msgstr "Прикажи слику"
 
-#: gui/forms/kid3mainwindow.cpp:700
+#: gui/forms/kid3mainwindow.cpp:729
 msgid "Auto Hide Tags"
 msgstr "Аутоматски сакриј ознаке"
 
-#: gui/forms/kid3mainwindow.cpp:710
+#: gui/forms/kid3mainwindow.cpp:739
 msgid "Configure Kid3"
 msgstr "Подеси Кид3"
 
-#: gui/forms/kid3mainwindow.cpp:711
+#: gui/forms/kid3mainwindow.cpp:740
 msgid "&Configure Kid3..."
 msgstr "&Подеси Кид3..."
 
-#: gui/forms/kid3mainwindow.cpp:728
+#: gui/forms/kid3mainwindow.cpp:757
 msgid "Kid3 &Handbook"
 msgstr "Кид3 п&риручник"
 
-#: gui/forms/kid3mainwindow.cpp:738
+#: gui/forms/kid3mainwindow.cpp:767
 msgid "About Kid3"
 msgstr "О Кид3-у"
 
-#: gui/forms/kid3mainwindow.cpp:739
+#: gui/forms/kid3mainwindow.cpp:768
 msgid "&About Kid3"
 msgstr "&О Кид3-у"
 
-#: gui/forms/kid3mainwindow.cpp:747
+#: gui/forms/kid3mainwindow.cpp:776
 msgid "About Qt"
 msgstr "О КјуТ-у"
 
-#: gui/forms/kid3mainwindow.cpp:748
+#: gui/forms/kid3mainwindow.cpp:777
 msgid "About &Qt"
-msgstr "О КјуТ-у"
+msgstr "О &КјуТ-у"
 
-#: gui/forms/kid3mainwindow.cpp:790
+#: gui/forms/kid3mainwindow.cpp:819
 msgid "Opening directory..."
 msgstr "Отварам директоријум..."
 
-#: gui/forms/kid3mainwindow.cpp:912
+#: gui/forms/kid3mainwindow.cpp:941
 msgid "Saving directory..."
 msgstr "Уписујем директоријум..."
 
-#: gui/forms/kid3mainwindow.cpp:971 gui/forms/kid3mainwindow.cpp:981
+#: gui/forms/kid3mainwindow.cpp:1000 gui/forms/kid3mainwindow.cpp:1010
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -2032,74 +2066,72 @@ msgstr ""
 "Тренутни директоријум је измијењен.\n"
 "Желите ли да сачувате измјене?"
 
-#: gui/forms/kid3mainwindow.cpp:973
+#: gui/forms/kid3mainwindow.cpp:1002
 msgid "Warning"
 msgstr "Упозорење"
 
-#: gui/forms/kid3mainwindow.cpp:980
+#: gui/forms/kid3mainwindow.cpp:1009
 msgid "Warning - Kid3"
 msgstr "Упозорење - Кид3"
 
-#: gui/forms/kid3mainwindow.cpp:1059
+#: gui/forms/kid3mainwindow.cpp:1088
 msgid "Open"
 msgstr "Отвори"
 
-#: gui/forms/kid3mainwindow.cpp:1135
+#: gui/forms/kid3mainwindow.cpp:1164
 msgid "Exiting..."
 msgstr "Излазим..."
 
-#: gui/forms/kid3mainwindow.cpp:1179
+#: gui/forms/kid3mainwindow.cpp:1208
 msgid "Toggle the statusbar..."
 msgstr "Прикажи/сакриј траку стања..."
 
-#: gui/forms/kid3mainwindow.cpp:1261
+#: gui/forms/kid3mainwindow.cpp:1290
 msgid "Creating playlist..."
 msgstr "Правим листу нумера..."
 
-#: gui/forms/kid3mainwindow.cpp:1287
+#: gui/forms/kid3mainwindow.cpp:1316
 msgid "Import"
 msgstr "Увези"
 
-#: gui/forms/kid3mainwindow.cpp:1401
+#: gui/forms/kid3mainwindow.cpp:1430
 msgid "Configure - Kid3"
 msgstr "Подешавање - Кид3"
 
-#: gui/forms/kid3mainwindow.cpp:1449 gui/forms/kid3mainwindow.cpp:1454
-#: gui/forms/kid3mainwindow.cpp:1922
+#: gui/forms/kid3mainwindow.cpp:1480 gui/forms/kid3mainwindow.cpp:1485
+#: gui/forms/kid3mainwindow.cpp:1953
 msgid "Error while renaming:\n"
 msgstr "Грешка приликом преименовања:\n"
 
-#: gui/forms/kid3mainwindow.cpp:1563
+#: gui/forms/kid3mainwindow.cpp:1594
 msgid " [filtered]"
 msgstr " [филтриран]"
 
-#: gui/forms/kid3mainwindow.cpp:1569
+#: gui/forms/kid3mainwindow.cpp:1600
 msgid " [modified]"
 msgstr " [измијењен]"
 
-#: gui/forms/kid3mainwindow.cpp:1811
+#: gui/forms/kid3mainwindow.cpp:1842
 msgid "Add Frame"
 msgstr "Додај оквир"
 
-#: gui/forms/kid3mainwindow.cpp:1812
+#: gui/forms/kid3mainwindow.cpp:1843
 msgid "Select the frame ID"
 msgstr "Изаберите ИД оквира"
 
-#: gui/forms/kid3mainwindow.cpp:1900
+#: gui/forms/kid3mainwindow.cpp:1931
 msgid "Rename File"
 msgstr "Преименуј фајл"
 
-#: gui/forms/kid3mainwindow.cpp:1901
+#: gui/forms/kid3mainwindow.cpp:1932
 msgid "Enter new file name:"
 msgstr "Унесите ново име фајла:"
 
-#: gui/forms/kid3mainwindow.cpp:1931 gui/forms/kid3mainwindow.cpp:1969
-#, kde-format
+#: gui/forms/kid3mainwindow.cpp:1962 gui/forms/kid3mainwindow.cpp:2000
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Желите ли заиста да премјестите ових %1 ставки у смеће?"
 
-#: gui/forms/kid3mainwindow.cpp:1957 gui/forms/kid3mainwindow.cpp:1971
-#, kde-format
+#: gui/forms/kid3mainwindow.cpp:1988 gui/forms/kid3mainwindow.cpp:2002
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
 msgstr[0] "Желите ли заиста да премјестите ову %1 ставку у смеће?"
@@ -2107,15 +2139,15 @@ msgstr[1] "Желите ли заиста да премјестите ове %1 
 msgstr[2] "Желите ли заиста да премјестите ових %1 ставки у смеће?"
 msgstr[3] "Желите ли заиста да премјестите ову ставку у смеће?"
 
-#: gui/forms/kid3mainwindow.cpp:1961 gui/forms/kid3mainwindow.cpp:1967
+#: gui/forms/kid3mainwindow.cpp:1992 gui/forms/kid3mainwindow.cpp:1998
 msgid "Move to Trash"
 msgstr "Премјести у смеће"
 
-#: gui/forms/kid3mainwindow.cpp:1999
+#: gui/forms/kid3mainwindow.cpp:2030
 msgid "Directory must be empty.\n"
 msgstr "Директориујм мора бити празан.\n"
 
-#: gui/forms/kid3mainwindow.cpp:2000
+#: gui/forms/kid3mainwindow.cpp:2031
 msgid "Could not move these files to the Trash"
 msgstr "Нисам могао да премјестим ове фајлове у смеће"
 
