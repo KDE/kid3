@@ -45,6 +45,12 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 #ENABLE_DEBUG=--enable-debug
 #CMAKE_BUILD_TYPE_DEBUG="-DCMAKE_BUILD_TYPE=Debug"
 
+if ! which cmake >/dev/null; then
+  echo cmake not found.
+  return
+  exit 1
+fi
+
 if test $kernel = "MINGW"; then
 CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
 elif test $kernel = "Darwin"; then
@@ -340,7 +346,8 @@ if ! test -d zlib-1.2.7; then
 tar xzf source/zlib_1.2.7.dfsg.orig.tar.gz
 cd zlib-1.2.7/
 tar xzf ../source/zlib_1.2.7.dfsg-13.debian.tar.gz
-for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+echo Can be ignored: Cannot create symlink to debian.series
+for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 
