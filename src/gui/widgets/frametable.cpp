@@ -46,7 +46,9 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
   setModel(model);
   setSelectionMode(SingleSelection);
   horizontalHeader()->setResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);
-  horizontalHeader()->hide();
+  // Set a small height instead of hiding the header, so that the column
+  // widths can still be resized by the user.
+  horizontalHeader()->setFixedHeight(2);
   verticalHeader()->hide();
   if (model->isId3v1()) {
     bool insertTemporaryRow = model->rowCount() < 1;
