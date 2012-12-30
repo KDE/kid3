@@ -111,6 +111,20 @@ public:
   void clear();
 
   /**
+   * Get standard tags option.
+   *
+   * @return true if standard tags are enabled.
+   */
+  bool getStandardTags() const { return m_standardTagsEnabled; }
+
+  /**
+   * Set standard tags option.
+   *
+   * @param enable true if standard tags are enabled
+   */
+  void setStandardTags(bool enable) { m_standardTagsEnabled = enable; }
+
+  /**
    * Get additional tags option.
    *
    * @return true if additional tags are enabled.
@@ -161,6 +175,7 @@ protected:
   TrackDataModel* m_trackDataModel; /**< model with tracks to import */
 
 private:
+  bool m_standardTagsEnabled;
   bool m_additionalTagsEnabled;
   bool m_coverArtEnabled;
 };

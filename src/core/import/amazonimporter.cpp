@@ -152,10 +152,11 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
    */
   QString str = QString::fromLatin1(albumStr);
   FrameCollection framesHdr;
+  const bool standardTags = getStandardTags();
   // search for 'id="btAsinTitle"', text after '>' until ' [' or '<' => album
   int end = 0;
   int start = str.indexOf("id=\"btAsinTitle\"");
-  if (start >= 0) {
+  if (start >= 0 && standardTags) {
     start = str.indexOf(">", start);
     if (start >= 0) {
       end = str.indexOf("<", start);
@@ -192,7 +193,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     if (detailStart < 0) {
       detailStart  = str.indexOf(">Audio CD<", start);
     }
-    if (detailStart >= 0) {
+    if (detailStart >= 0 && standardTags) {
       int detailEnd = str.indexOf("\n", detailStart + 10);
       if (detailEnd > detailStart + 10) {
         QRegExp yearRe("(\\d{4})");
@@ -364,14 +365,16 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
         }
       }
       if (!title.isEmpty()) {
-        frames.setTitle(replaceHtmlEntities(title));
-        if (!artist.isEmpty()) {
-          frames.setArtist(replaceHtmlEntities(artist));
+        if (standardTags) {
+          frames.setTitle(replaceHtmlEntities(title));
+          if (!artist.isEmpty()) {
+            frames.setArtist(replaceHtmlEntities(artist));
+          }
+          frames.setTrack(trackNr);
         }
         if (!albumArtist.isEmpty() && additionalTags) {
           frames.setValue(Frame::FT_AlbumArtist, albumArtist);
         }
-        frames.setTrack(trackNr);
         if (atTrackDataListEnd) {
           ImportTrackData trackData;
           trackData.setFrameCollection(frames);

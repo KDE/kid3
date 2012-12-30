@@ -44,7 +44,7 @@ ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
                                            bool additionalTagsUsed) :
   GeneralConfig(grp), m_windowWidth(-1), m_windowHeight(-1),
   m_cgiPathUsed(cgiPathUsed), m_additionalTagsUsed(additionalTagsUsed),
-  m_additionalTags(true), m_coverArt(true)
+  m_standardTags(true), m_additionalTags(true), m_coverArt(true)
 {
 }
 
@@ -54,7 +54,8 @@ ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
  */
 ServerImporterConfig::ServerImporterConfig() : GeneralConfig("Temporary"),
   m_windowWidth(-1), m_windowHeight(-1), m_cgiPathUsed(false),
-  m_additionalTagsUsed(false), m_additionalTags(false), m_coverArt(false) {}
+  m_additionalTagsUsed(false), m_standardTags(false), m_additionalTags(false),
+  m_coverArt(false) {}
 
 /**
  * Destructor.
@@ -74,6 +75,7 @@ void ServerImporterConfig::writeToConfig(Kid3Settings* config) const
   if (m_cgiPathUsed)
     cfg.writeEntry("CgiPath", m_cgiPath);
   if (m_additionalTagsUsed) {
+    cfg.writeEntry("StandardTags", m_standardTags);
     cfg.writeEntry("AdditionalTags", m_additionalTags);
     cfg.writeEntry("CoverArt", m_coverArt);
   }
@@ -85,6 +87,7 @@ void ServerImporterConfig::writeToConfig(Kid3Settings* config) const
   if (m_cgiPathUsed)
     config->setValue("/CgiPath", QVariant(m_cgiPath));
   if (m_additionalTagsUsed) {
+    config->setValue("/StandardTags", QVariant(m_standardTags));
     config->setValue("/AdditionalTags", QVariant(m_additionalTags));
     config->setValue("/CoverArt", QVariant(m_coverArt));
   }
@@ -107,6 +110,8 @@ void ServerImporterConfig::readFromConfig(Kid3Settings* config)
   if (m_cgiPathUsed)
     m_cgiPath = cfg.readEntry("CgiPath", m_cgiPath);
   if (m_additionalTagsUsed) {
+    m_standardTags = cfg.readEntry("StandardTags",
+                                   m_standardTags);
     m_additionalTags = cfg.readEntry("AdditionalTags",
                                              m_additionalTags);
     m_coverArt = cfg.readEntry("CoverArt", m_coverArt);
@@ -119,6 +124,8 @@ void ServerImporterConfig::readFromConfig(Kid3Settings* config)
   if (m_cgiPathUsed)
     m_cgiPath = config->value("/CgiPath", m_cgiPath).toString();
   if (m_additionalTagsUsed) {
+    m_standardTags = config->value("/StandardTags",
+                                   m_standardTags).toBool();
     m_additionalTags = config->value("/AdditionalTags",
                                      m_additionalTags).toBool();
     m_coverArt = config->value("/CoverArt", m_coverArt).toBool();

@@ -52,6 +52,7 @@ void TestServerImporterBase::onFindFinished(const QByteArray& searchStr)
 void TestServerImporterBase::onAlbumFinished(const QByteArray& albumStr)
 {
   if (m_importer) {
+    m_importer->setStandardTags(true);
     m_importer->setAdditionalTags(true);
     m_importer->parseAlbumResults(albumStr);
   }

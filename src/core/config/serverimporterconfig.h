@@ -90,6 +90,9 @@ public:
   /** true if additional tags configuration is used */
   bool m_additionalTagsUsed;
 
+  /** standard tags imported */
+  bool m_standardTags;
+
   /** additional tags imported */
   bool m_additionalTags;
 

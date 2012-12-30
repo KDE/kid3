@@ -365,32 +365,35 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
   QList<ExtraArtist> trackExtraArtists;
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   FrameCollection framesHdr;
-  framesHdr.setAlbum(map.value("title").toString());
-  framesHdr.setArtist(getArtistString(map.value("artists").toList()));
+  const bool standardTags = getStandardTags();
+  if (standardTags) {
+    framesHdr.setAlbum(map.value("title").toString());
+    framesHdr.setArtist(getArtistString(map.value("artists").toList()));
 
-  // The year can be found in "released".
-  QString released(map.value("released").toString());
-  if (yearRe.indexIn(released) == 0) {
-    released.truncate(4);
-  }
-  framesHdr.setYear(released.toInt());
-
-  // The genre can be found in "genre" or "style".
-  // All genres found are checked for an ID3v1 number, starting with those
-  // in the style field.
-  QVariantList genreList(map.value("styles").toList() +
-                         map.value("genres").toList());
-  int genreNum = 255;
-  foreach (const QVariant& var, genreList) {
-    genreNum = Genres::getNumber(var.toString());
-    if (genreNum != 255) {
-      break;
+    // The year can be found in "released".
+    QString released(map.value("released").toString());
+    if (yearRe.indexIn(released) == 0) {
+      released.truncate(4);
     }
-  }
-  if (genreNum != 255) {
-    framesHdr.setGenre(Genres::getName(genreNum));
-  } else if (!genreList.isEmpty()) {
-    framesHdr.setGenre(genreList.first().toString());
+    framesHdr.setYear(released.toInt());
+
+    // The genre can be found in "genre" or "style".
+    // All genres found are checked for an ID3v1 number, starting with those
+    // in the style field.
+    QVariantList genreList(map.value("styles").toList() +
+                           map.value("genres").toList());
+    int genreNum = 255;
+    foreach (const QVariant& var, genreList) {
+      genreNum = Genres::getNumber(var.toString());
+      if (genreNum != 255) {
+        break;
+      }
+    }
+    if (genreNum != 255) {
+      framesHdr.setGenre(Genres::getName(genreNum));
+    } else if (!genreList.isEmpty()) {
+      framesHdr.setGenre(genreList.first().toString());
+    }
   }
 
   trackDataVector.setCoverArtUrl(QString());
@@ -486,12 +489,18 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
         framesHdr.setValue(Frame::FT_Part, title);
       }
     } else if (!title.isEmpty() || duration != 0) {
-      frames.setTrack(pos);
-      frames.setTitle(title);
+      if (standardTags) {
+        frames.setTrack(pos);
+        frames.setTitle(title);
+      }
       QVariantList artists(track.value("artists").toList());
       if (!artists.isEmpty()) {
-        frames.setArtist(getArtistString(artists));
-        frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
+        if (standardTags) {
+          frames.setArtist(getArtistString(artists));
+        }
+        if (additionalTags) {
+          frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
+        }
       }
       if (additionalTags) {
         QVariantList extraartists(track.value("extraartists").toList());

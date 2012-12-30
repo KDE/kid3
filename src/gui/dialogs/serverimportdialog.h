@@ -100,6 +100,20 @@ public:
   void setCgiPath(const QString& cgi);
 
   /**
+   * Get standard tags option.
+   *
+   * @return true if standard tags are enabled.
+   */
+  bool getStandardTags() const;
+
+  /**
+   * Set standard tags option.
+   *
+   * @param enable true if standard tags are enabled
+   */
+  void setStandardTags(bool enable);
+
+  /**
    * Get additional tags option.
    *
    * @return true if additional tags are enabled.
@@ -210,6 +224,7 @@ private:
   QComboBox* m_serverComboBox;
   QLabel* m_cgiLabel;
   QLineEdit* m_cgiLineEdit;
+  QCheckBox* m_standardTagsCheckBox;
   QCheckBox* m_additionalTagsCheckBox;
   QCheckBox* m_coverArtCheckBox;
   QPushButton* m_helpButton;

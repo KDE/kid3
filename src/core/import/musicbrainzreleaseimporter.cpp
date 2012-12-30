@@ -286,22 +286,25 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
     QDomElement release =
       doc.namedItem("metadata").toElement().namedItem("release").toElement();
     FrameCollection framesHdr;
-    framesHdr.setAlbum(release.namedItem("title").toElement().text());
-    framesHdr.setArtist(release.namedItem("artist-credit").toElement().
-                        namedItem("name-credit").toElement().
-                        namedItem("artist").toElement().
-                        namedItem("name").toElement().text());
-    QString date(release.namedItem("date").toElement().text());
-    if (!date.isEmpty()) {
-      QRegExp dateRe("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?");
-      int year = 0;
-      if (dateRe.exactMatch(date)) {
-        year = dateRe.cap(1).toInt();
-      } else {
-        year = date.toInt();
-      }
-      if (year != 0) {
-        framesHdr.setYear(year);
+    const bool standardTags = getStandardTags();
+    if (standardTags) {
+      framesHdr.setAlbum(release.namedItem("title").toElement().text());
+      framesHdr.setArtist(release.namedItem("artist-credit").toElement().
+                          namedItem("name-credit").toElement().
+                          namedItem("artist").toElement().
+                          namedItem("name").toElement().text());
+      QString date(release.namedItem("date").toElement().text());
+      if (!date.isEmpty()) {
+        QRegExp dateRe("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?");
+        int year = 0;
+        if (dateRe.exactMatch(date)) {
+          year = dateRe.cap(1).toInt();
+        } else {
+          year = date.toInt();
+        }
+        if (year != 0) {
+          framesHdr.setYear(year);
+        }
       }
     }
 
@@ -393,7 +396,7 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
       for (QDomNode trackNode = trackList.namedItem("track");
            !trackNode.isNull();
            trackNode = trackNode.nextSibling()) {
-        if (mediumCount > 1) {
+        if (mediumCount > 1 && additionalTags) {
           frames.setValue(Frame::FT_Disc, QString::number(discNr));
         }
         QDomElement track = trackNode.toElement();
@@ -401,29 +404,37 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
         if (ok) {
           trackNr = position;
         }
-        frames.setTrack(trackNr);
+        if (standardTags) {
+          frames.setTrack(trackNr);
+        }
         int duration = track.namedItem("length").toElement().text().toInt();
         QDomElement recording = track.namedItem("recording").toElement();
         if (!recording.isNull()) {
-          frames.setTitle(recording.namedItem("title").toElement().text());
+          if (standardTags) {
+            frames.setTitle(recording.namedItem("title").toElement().text());
+          }
           int length = recording.namedItem("length").toElement().text().toInt(&ok);
           if (ok) {
             duration = length;
           }
-          if (additionalTags) {
-            QDomNode artistNode = recording.namedItem("artist-credit");
-            if (!artistNode.isNull()) {
-              QString artist(artistNode.toElement().
-                  namedItem("name-credit").toElement().
-                  namedItem("artist").toElement().
-                  namedItem("name").toElement().text());
-              if (!artist.isEmpty()) {
-                // use the artist in the header as the album artist
-                // and the artist in the track as the artist
+          QDomNode artistNode = recording.namedItem("artist-credit");
+          if (!artistNode.isNull()) {
+            QString artist(artistNode.toElement().
+                namedItem("name-credit").toElement().
+                namedItem("artist").toElement().
+                namedItem("name").toElement().text());
+            if (!artist.isEmpty()) {
+              // use the artist in the header as the album artist
+              // and the artist in the track as the artist
+              if (standardTags) {
                 frames.setArtist(artist);
+              }
+              if (additionalTags) {
                 frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
               }
             }
+          }
+          if (additionalTags) {
             QDomElement relationList =
                 recording.namedItem("relation-list").toElement();
             if (!relationList.isNull() &&

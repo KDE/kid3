@@ -48,8 +48,8 @@
  * @param parent  parent widget
  */
 ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
-    m_serverComboBox(0), m_cgiLineEdit(0), m_additionalTagsCheckBox(0),
-    m_coverArtCheckBox(0), m_source(0)
+    m_serverComboBox(0), m_cgiLineEdit(0), m_standardTagsCheckBox(0),
+    m_additionalTagsCheckBox(0), m_coverArtCheckBox(0), m_source(0)
 {
   setObjectName("ServerImportDialog");
 
@@ -91,8 +91,10 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   vlayout->addLayout(serverLayout);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
+  m_standardTagsCheckBox = new QCheckBox(i18n("&Standard Tags"), this);
   m_additionalTagsCheckBox = new QCheckBox(i18n("&Additional Tags"), this);
   m_coverArtCheckBox = new QCheckBox(i18n("C&over Art"), this);
+  hlayout->addWidget(m_standardTagsCheckBox);
   hlayout->addWidget(m_additionalTagsCheckBox);
   hlayout->addWidget(m_coverArtCheckBox);
   vlayout->addLayout(hlayout);
@@ -181,9 +183,11 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
       m_cgiLineEdit->hide();
     }
     if (m_source->additionalTags()) {
+      m_standardTagsCheckBox->show();
       m_additionalTagsCheckBox->show();
       m_coverArtCheckBox->show();
     } else {
+      m_standardTagsCheckBox->hide();
       m_additionalTagsCheckBox->hide();
       m_coverArtCheckBox->hide();
     }
@@ -280,6 +284,31 @@ void ServerImportDialog::setCgiPath(const QString& cgi)
 }
 
 /**
+ * Get standard tags option.
+ *
+ * @return true if standard tags are enabled.
+ */
+bool ServerImportDialog::getStandardTags() const
+{
+  return m_standardTagsCheckBox ?
+    m_standardTagsCheckBox->checkState() == Qt::Checked
+    : false;
+}
+
+/**
+ * Set standard tags option.
+ *
+ * @param enable true if standard tags are enabled
+ */
+void ServerImportDialog::setStandardTags(bool enable)
+{
+  if (m_standardTagsCheckBox) {
+    m_standardTagsCheckBox->setCheckState(
+      enable ? Qt::Checked : Qt::Unchecked);
+  }
+}
+
+/**
  * Get additional tags option.
  *
  * @return true if additional tags are enabled.
@@ -338,6 +367,7 @@ void ServerImportDialog::getImportSourceConfig(ServerImporterConfig* cfg) const
 {
   cfg->m_server = getServer();
   cfg->m_cgiPath = getCgiPath();
+  cfg->m_standardTags = getStandardTags();
   cfg->m_additionalTags = getAdditionalTags();
   cfg->m_coverArt = getCoverArt();
   cfg->m_windowWidth = size().width();
@@ -366,6 +396,7 @@ void ServerImportDialog::setArtistAlbum(const QString& artist, const QString& al
     ServerImporterConfig* cf = m_source->config();
     setServer(cf->m_server);
     setCgiPath(cf->m_cgiPath);
+    setStandardTags(cf->m_standardTags);
     setAdditionalTags(cf->m_additionalTags);
     setCoverArt(cf->m_coverArt);
     if (cf->m_windowWidth > 0 && cf->m_windowHeight > 0) {
@@ -428,6 +459,7 @@ void ServerImportDialog::slotFindFinished(const QByteArray& searchStr)
 void ServerImportDialog::slotAlbumFinished(const QByteArray& albumStr)
 {
   if (m_source) {
+    m_source->setStandardTags(getStandardTags());
     m_source->setAdditionalTags(getAdditionalTags());
     m_source->setCoverArt(getCoverArt());
     m_source->parseAlbumResults(albumStr);

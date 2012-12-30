@@ -41,7 +41,7 @@ ServerImporter::ServerImporter(QNetworkAccessManager* netMgr,
                                TrackDataModel* trackDataModel)
   : ImportClient(netMgr),
     m_albumListModel(new QStandardItemModel(this)),
-    m_trackDataModel(trackDataModel),
+    m_trackDataModel(trackDataModel), m_standardTagsEnabled(true),
     m_additionalTagsEnabled(false), m_coverArtEnabled(false)
 {
   setObjectName("ServerImporter");
