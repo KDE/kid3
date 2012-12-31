@@ -1436,6 +1436,7 @@ void Kid3MainWindow::slotSettingsConfigure()
 #endif
   dialog->setConfig(m_app->getConfigStore());
   if (dialog->exec() == QDialog::Accepted) {
+    quint32 oldQuickAccessFrames = ConfigStore::s_miscCfg.m_quickAccessFrames;
     dialog->getConfig(m_app->getConfigStore());
     m_app->saveConfig();
     if (!ConfigStore::s_miscCfg.m_markTruncations) {
@@ -1447,8 +1448,11 @@ void Kid3MainWindow::slotSettingsConfigure()
       m_form->markChangedFilename(false);
     }
     m_app->setTextEncodings();
-    FrameCollection::setQuickAccessFrames(
-          ConfigStore::s_miscCfg.m_quickAccessFrames);
+    if (ConfigStore::s_miscCfg.m_quickAccessFrames != oldQuickAccessFrames) {
+      FrameCollection::setQuickAccessFrames(
+            ConfigStore::s_miscCfg.m_quickAccessFrames);
+      updateGuiControls();
+    }
   }
 #ifdef CONFIG_USE_KDE
   delete configSkeleton;
