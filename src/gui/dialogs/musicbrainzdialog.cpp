@@ -258,6 +258,7 @@ void MusicBrainzDialog::reject()
 void MusicBrainzDialog::apply()
 {
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+  trackDataVector.setCoverArtUrl(QString());
   ImportTrackDataVector::iterator it = trackDataVector.begin();
   bool newTrackData = false;
   unsigned numRows = m_albumTableModel->rowCount();

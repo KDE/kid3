@@ -254,6 +254,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   }
 
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+  trackDataVector.setCoverArtUrl(QString());
   if (getCoverArt()) {
     // <input type="hidden" id="ASIN" name="ASIN" value="B0025AY48W" />
     start = str.indexOf("id=\"ASIN\"");

@@ -175,6 +175,12 @@ public:
   void setTimeDifferenceCheck(bool enable, int maxDiff);
 
   /**
+   * Calculate accuracy of imported track data.
+   * @return accuracy in percent, -1 if unknown.
+   */
+  int calculateAccuracy() const;
+
+  /**
    * Get frame for index.
    * @param index model index
    * @return frame, 0 if no frame.

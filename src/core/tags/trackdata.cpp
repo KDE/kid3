@@ -443,6 +443,72 @@ int TrackData::getTotalNumberOfTracksInDir() const
 
 
 /**
+ * Get the difference between the imported duration and the track's duration.
+ * @return absolute value of time difference in seconds, -1 if not available.
+ */
+int ImportTrackData::getTimeDifference() const
+{
+  int fileDuration = getFileDuration();
+  int importDuration = getImportDuration();
+  return fileDuration != 0 && importDuration != 0
+      ? fileDuration > importDuration
+        ? fileDuration - importDuration
+        : importDuration - fileDuration
+      : -1;
+}
+
+namespace {
+
+/**
+ * Get lower case words found in string.
+ * @return lower case words.
+ */
+QSet<QString> getLowerCaseWords(const QString& str)
+{
+  if (!str.isEmpty()) {
+    QString normalized = str.normalized(QString::NormalizationForm_D).toLower();
+    QString simplified;
+    for (QString::const_iterator it = normalized.constBegin();
+         it != normalized.constEnd();
+         ++it) {
+      if (it->isLetter()) {
+        simplified += *it;
+      } else if (it->isPunct() || it->isSpace() || it->isSymbol()) {
+        simplified += ' ';
+      }
+    }
+    return simplified.split(' ', QString::SkipEmptyParts).toSet();
+  }
+  return QSet<QString>();
+}
+
+}
+
+/**
+ * Get words of file name.
+ * @return lower case words found in file name.
+ */
+QSet<QString> ImportTrackData::getFilenameWords() const
+{
+  QString fileName = getFilename();
+  int endIndex = fileName.lastIndexOf('.');
+  if (endIndex > 0) {
+    fileName.truncate(endIndex);
+  }
+  return getLowerCaseWords(fileName);
+}
+
+/**
+ * Get words of title.
+ * @return lower case words found in title.
+ */
+QSet<QString> ImportTrackData::getTitleWords() const
+{
+  return getLowerCaseWords(getTitle());
+}
+
+
+/**
  * Clear vector and associated data.
  */
 void ImportTrackDataVector::clearData()

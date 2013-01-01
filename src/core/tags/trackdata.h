@@ -28,6 +28,8 @@
 #define TRACKDATA_H
 
 #include <QVector>
+#include <QString>
+#include <QSet>
 #include "frame.h"
 #include "taggedfile.h"
 #include "kid3api.h"
@@ -230,6 +232,24 @@ public:
    * @param enabled true to enable
    */
   void setEnabled(bool enabled) { m_enabled = enabled; }
+
+  /**
+   * Get the difference between the imported duration and the track's duration.
+   * @return absolute value of time difference in seconds, -1 if not available.
+   */
+  int getTimeDifference() const;
+
+  /**
+   * Get words of file name.
+   * @return lower case words found in file name.
+   */
+  QSet<QString> getFilenameWords() const;
+
+  /**
+   * Get words of title.
+   * @return lower case words found in title.
+   */
+  QSet<QString> getTitleWords() const;
 
 private:
   int m_importDuration;

@@ -114,11 +114,8 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
   } else if (role == Qt::BackgroundColorRole) {
     if (index.column() == 0 && m_diffCheckEnabled) {
       const ImportTrackData& trackData = m_trackDataVector.at(index.row());
-      int fileDuration = trackData.getFileDuration();
-      int importDuration = trackData.getImportDuration();
-      if (fileDuration != 0 && importDuration != 0) {
-        int diff = fileDuration > importDuration ?
-          fileDuration - importDuration : importDuration - fileDuration;
+      int diff = trackData.getTimeDifference();
+      if (diff >= 0) {
         return diff > m_maxDiff ? QBrush(Qt::red) : Qt::NoBrush;
       }
     }
@@ -321,6 +318,58 @@ void TrackDataModel::setTimeDifferenceCheck(bool enable, int maxDiff) {
   if (changed)
     emit dataChanged(index(0,0), index(rowCount() - 1, 0));
 }
+
+/**
+ * Calculate accuracy of imported track data.
+ * @return accuracy in percent, -1 if unknown.
+ */
+int TrackDataModel::calculateAccuracy() const
+{
+  int numImportTracks = 0, numTracks = 0, numMismatches = 0, numMatches = 0;
+  for (ImportTrackDataVector::const_iterator it = m_trackDataVector.constBegin();
+       it != m_trackDataVector.constEnd();
+       ++it) {
+    const ImportTrackData& trackData = *it;
+    int diff = trackData.getTimeDifference();
+    if (diff >= 0) {
+      if (diff > 3) {
+        ++numMismatches;
+      } else {
+        ++numMatches;
+      }
+    } else {
+      // no durations available => try to match using file name and title
+      QSet<QString> titleWords = trackData.getTitleWords();
+      int numWords = titleWords.size();
+      if (numWords > 0) {
+        QSet<QString> fileWords = trackData.getFilenameWords();
+        if (fileWords.size() < numWords) {
+          numWords = fileWords.size();
+        }
+        int wordMatch = numWords > 0
+            ? 100 * (fileWords & titleWords).size() / numWords : 0;
+        if (wordMatch < 75) {
+          ++numMismatches;
+        } else {
+          ++numMatches;
+        }
+      }
+    }
+    if (trackData.getImportDuration() != 0 || !trackData.getTitle().isEmpty()) {
+      ++numImportTracks;
+    }
+    if (trackData.getFileDuration() != 0) {
+      ++numTracks;
+    }
+  }
+
+  if (numTracks > 0 && numImportTracks > 0 &&
+      (numMatches > 0 || numMismatches > 0)) {
+    return numMatches * 100 / numTracks;
+  }
+  return -1;
+}
+
 
 /**
  * Get frame for index.

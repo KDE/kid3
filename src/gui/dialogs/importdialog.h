@@ -38,6 +38,7 @@ class QLineEdit;
 class QCheckBox;
 class QSpinBox;
 class QTableView;
+class QLabel;
 class TrackDataModel;
 class MusicBrainzDialog;
 class ServerImporter;
@@ -226,6 +227,10 @@ private:
   QTableView* m_trackDataTable;
   /** Track data model */
   TrackDataModel* m_trackDataModel;
+  /** Accuracy value */
+  QLabel* m_accuracyPercentLabel;
+  /** URL of cover art to be imported */
+  QLabel* m_coverArtUrlLabel;
   /** combobox with import servers */
   QComboBox* m_serverComboBox;
   /** combobox with import destinations */

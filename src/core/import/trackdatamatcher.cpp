@@ -25,7 +25,6 @@
  */
 
 #include "trackdatamatcher.h"
-#include <QStringList>
 #include <QRegExp>
 #include <QDir>
 #include <limits.h>
@@ -255,8 +254,8 @@ bool TrackDataMatcher::matchWithTrack(TrackDataModel* trackDataModel)
 bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
 {
   struct MatchData {
-    QStringList fileWords;  // words in file name
-    QStringList titleWords; // words in title
+    QSet<QString> fileWords;  // words in file name
+    QSet<QString> titleWords; // words in title
     int assignedTo;   // number of file import is assigned to, -1 if not assigned
     int assignedFrom; // number of import assigned to file, -1 if not assigned
   };
@@ -267,8 +266,6 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
   if (numTracks > 0) {
     MatchData* md = new MatchData[numTracks];
     unsigned numFiles = 0, numImports = 0;
-    QRegExp nonWordCharRegExp("\\W");
-    QRegExp nonLetterSpaceRegExp("[^a-z ]");
     unsigned i = 0;
     for (ImportTrackDataVector::const_iterator it = trackDataVector.begin();
          it != trackDataVector.end();
@@ -276,23 +273,13 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
       if (i >= numTracks) {
         break;
       }
-      QString fileName = (*it).getAbsFilename();
-      if (!fileName.isEmpty()) {
+      md[i].fileWords = it->getFilenameWords();
+      if (!md[i].fileWords.isEmpty()) {
         ++numFiles;
-        int startIndex = fileName.lastIndexOf(QDir::separator()) + 1;
-        int endIndex = fileName.lastIndexOf('.');
-        if (endIndex > startIndex) {
-          fileName = fileName.mid(startIndex, endIndex - startIndex);
-        } else {
-          fileName = fileName.mid(startIndex);
-        }
-        md[i].fileWords = fileName.toLower().
-          replace(nonLetterSpaceRegExp, " ").split(nonWordCharRegExp);
       }
-      if (!(*it).getTitle().isEmpty()) {
+      md[i].titleWords = it->getTitleWords();
+      if (!md[i].titleWords.isEmpty()) {
         ++numImports;
-        md[i].titleWords = (*it).getTitle().toLower().
-          replace(nonLetterSpaceRegExp, " ").split(nonWordCharRegExp);
       }
       md[i].assignedTo = -1;
       md[i].assignedFrom = -1;
@@ -308,14 +295,8 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
           // Find the unassigned import with the best match
           for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedTo == -1) {
-              int comparedMatch = 0;
-              for (QStringList::const_iterator fwit = md[i].fileWords.begin();
-                   fwit != md[i].fileWords.end();
-                   ++fwit) {
-                if (md[comparedTrack].titleWords.contains(*fwit)) {
-                  ++comparedMatch;
-                }
-              }
+              int comparedMatch =
+                  (md[i].fileWords & md[comparedTrack].titleWords).size();
               if (comparedMatch > bestMatch) {
                 bestMatch = comparedMatch;
                 bestTrack = comparedTrack;
@@ -341,14 +322,8 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
           // Find the unassigned file with the best match
           for (unsigned comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedFrom == -1) {
-              int comparedMatch = 0;
-              for (QStringList::const_iterator fwit = md[comparedTrack].fileWords.begin();
-                   fwit != md[comparedTrack].fileWords.end();
-                   ++fwit) {
-                if (md[i].titleWords.contains(*fwit)) {
-                  ++comparedMatch;
-                }
-              }
+              int comparedMatch =
+                  (md[comparedTrack].fileWords & md[i].titleWords).size();
               if (comparedMatch > bestMatch) {
                 bestMatch = comparedMatch;
                 bestTrack = comparedTrack;

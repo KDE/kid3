@@ -134,22 +134,35 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
       this, SLOT(showTableHeaderContextMenu(QPoint)));
   vlayout->addWidget(m_trackDataTable);
 
-  QWidget* butbox = new QWidget(this);
-  QHBoxLayout* butlayout = new QHBoxLayout(butbox);
+  QHBoxLayout* accuracyLayout = new QHBoxLayout;
+  accuracyLayout->setMargin(0);
+  accuracyLayout->setSpacing(6);
+  QLabel* accuracyLabel = new QLabel(i18n("Accuracy:"));
+  accuracyLayout->addWidget(accuracyLabel);
+  m_accuracyPercentLabel = new QLabel("-");
+  m_accuracyPercentLabel->setMinimumWidth(
+        m_accuracyPercentLabel->fontMetrics().width("100%"));
+  accuracyLayout->addWidget(m_accuracyPercentLabel);
+  QLabel* coverArtLabel = new QLabel(i18n("Cover Art:"));
+  accuracyLayout->addWidget(coverArtLabel);
+  m_coverArtUrlLabel = new QLabel(" -");
+  accuracyLayout->addWidget(m_coverArtUrlLabel);
+  accuracyLayout->addStretch();
+  vlayout->addLayout(accuracyLayout);
+
+  QHBoxLayout* butlayout = new QHBoxLayout;
   butlayout->setMargin(0);
   butlayout->setSpacing(6);
-  QPushButton* fileButton = new QPushButton(i18n("From F&ile/Clipboard..."),
-                                            butbox);
+  QPushButton* fileButton = new QPushButton(i18n("From F&ile/Clipboard..."));
   fileButton->setAutoDefault(false);
   butlayout->addWidget(fileButton);
-  QPushButton* tagsButton = new QPushButton(i18n("From T&ags..."),
-                                            butbox);
+  QPushButton* tagsButton = new QPushButton(i18n("From T&ags..."));
   tagsButton->setAutoDefault(false);
   butlayout->addWidget(tagsButton);
-  QPushButton* serverButton = new QPushButton(i18n("&From Server:"), butbox);
+  QPushButton* serverButton = new QPushButton(i18n("&From Server:"));
   serverButton->setAutoDefault(false);
   butlayout->addWidget(serverButton);
-  m_serverComboBox = new QComboBox(butbox);
+  m_serverComboBox = new QComboBox;
   m_serverComboBox->setEditable(false);
   foreach (const ServerImporter* si, m_importers) {
     m_serverComboBox->addItem(QCM_translate(si->name()));
@@ -161,17 +174,17 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   butlayout->addItem(butspacer);
-  QLabel* destLabel = new QLabel(butbox);
+  QLabel* destLabel = new QLabel;
   destLabel->setText(i18n("D&estination:"));
   butlayout->addWidget(destLabel);
-  m_destComboBox = new QComboBox(butbox);
+  m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
   m_destComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
   m_destComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
   m_destComboBox->addItem(i18n("Tag 1 and Tag 2"), TrackData::TagV2V1);
   destLabel->setBuddy(m_destComboBox);
   butlayout->addWidget(m_destComboBox);
-  QToolButton* revertButton = new QToolButton(butbox);
+  QToolButton* revertButton = new QToolButton;
   revertButton->setIcon(
 #ifdef CONFIG_USE_KDE
         KIcon("document-revert")
@@ -183,33 +196,32 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   connect(revertButton, SIGNAL(clicked()),
           this, SLOT(changeTagDestination()));
   butlayout->addWidget(revertButton);
-  vlayout->addWidget(butbox);
+  vlayout->addLayout(butlayout);
 
-  QWidget* matchBox = new QWidget(this);
-  QHBoxLayout* matchLayout = new QHBoxLayout(matchBox);
+  QHBoxLayout* matchLayout = new QHBoxLayout;
   matchLayout->setMargin(0);
   matchLayout->setSpacing(6);
   m_mismatchCheckBox = new QCheckBox(
-    i18n("Check maximum allowable time &difference (sec):"), matchBox);
+    i18n("Check maximum allowable time &difference (sec):"));
   matchLayout->addWidget(m_mismatchCheckBox);
-  m_maxDiffSpinBox = new QSpinBox(matchBox);
+  m_maxDiffSpinBox = new QSpinBox;
   m_maxDiffSpinBox->setMaximum(9999);
   matchLayout->addWidget(m_maxDiffSpinBox);
   QSpacerItem* matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                              QSizePolicy::Minimum);
   matchLayout->addItem(matchSpacer);
-  QLabel* matchLabel = new QLabel(i18n("Match with:"), matchBox);
+  QLabel* matchLabel = new QLabel(i18n("Match with:"));
   matchLayout->addWidget(matchLabel);
-  QPushButton* lengthButton = new QPushButton(i18n("&Length"), matchBox);
+  QPushButton* lengthButton = new QPushButton(i18n("&Length"));
   lengthButton->setAutoDefault(false);
   matchLayout->addWidget(lengthButton);
-  QPushButton* trackButton = new QPushButton(i18n("T&rack"), matchBox);
+  QPushButton* trackButton = new QPushButton(i18n("T&rack"));
   trackButton->setAutoDefault(false);
   matchLayout->addWidget(trackButton);
-  QPushButton* titleButton = new QPushButton(i18n("&Title"), matchBox);
+  QPushButton* titleButton = new QPushButton(i18n("&Title"));
   titleButton->setAutoDefault(false);
   matchLayout->addWidget(titleButton);
-  vlayout->addWidget(matchBox);
+  vlayout->addLayout(matchLayout);
 
   connect(fileButton, SIGNAL(clicked()), this, SLOT(fromText()));
   connect(tagsButton, SIGNAL(clicked()), this, SLOT(fromTags()));
@@ -442,6 +454,12 @@ void ImportDialog::showPreview()
   m_trackDataTable->scrollToTop();
   m_trackDataTable->resizeColumnsToContents();
   m_trackDataTable->resizeRowsToContents();
+
+  int accuracy = m_trackDataModel->calculateAccuracy();
+  m_accuracyPercentLabel->setText(accuracy >= 0 && accuracy <= 100
+                                  ? QString::number(accuracy) + "%" : "-");
+  QString coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
+  m_coverArtUrlLabel->setText(coverArtUrl.isEmpty() ? "-" : coverArtUrl);
 }
 
 /**
