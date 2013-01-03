@@ -1,5 +1,8 @@
 set(config_SRCS
   config/amazonconfig.cpp
+  config/batchimportconfig.cpp
+  config/batchimportprofile.cpp
+  config/batchimportsourcesmodel.cpp
   config/configstore.cpp
   config/discogsconfig.cpp
   config/filterconfig.cpp
@@ -15,5 +18,6 @@ set(config_SRCS
 )
 
 set(config_MOC_HDRS
+  config/batchimportsourcesmodel.h
   config/shortcutsmodel.h
 )

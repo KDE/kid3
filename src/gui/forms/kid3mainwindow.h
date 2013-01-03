@@ -53,6 +53,7 @@ class Kid3Form;
 class Kid3Application;
 class TaggedFile;
 class ImportDialog;
+class BatchImportDialog;
 class ExportDialog;
 class BrowseCoverArtDialog;
 class RenDirDialog;
@@ -278,6 +279,11 @@ public slots:
   void slotImport();
 
   /**
+   * Batch import.
+   */
+  void slotBatchImport();
+
+  /**
    * Browse album cover artwork.
    */
   void slotBrowseCoverArt();
@@ -412,6 +418,8 @@ private:
   Kid3Application* m_app;
   /** Import dialog */
   ImportDialog* m_importDialog;
+  /** Batch import dialog */
+  BatchImportDialog* m_batchImportDialog;
   /** Browse cover art dialog */
   BrowseCoverArtDialog* m_browseCoverArtDialog;
   /** Export dialog */

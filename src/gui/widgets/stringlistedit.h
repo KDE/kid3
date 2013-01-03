@@ -27,18 +27,13 @@
 #ifndef STRINGLISTEDIT_H
 #define STRINGLISTEDIT_H
 
-#include <QWidget>
-
-class QListView;
-class QPushButton;
-class QAbstractItemModel;
+#include "abstractlistedit.h"
 
 /**
  * Widget to edit a string list.
  */
-class StringListEdit : public QWidget {
-Q_OBJECT
-
+class StringListEdit : public AbstractListEdit {
+  Q_OBJECT
 public:
   /**
    * Constructor.
@@ -51,46 +46,18 @@ public:
   /**
    * Destructor.
    */
-  ~StringListEdit();
+  virtual ~StringListEdit();
 
 public slots:
   /**
    * Add a new item.
    */
-  void addItem();
-
-  /**
-   * Remove the selected item.
-   */
-  void removeItem();
+  virtual void addItem();
 
   /**
    * Edit the selected item.
    */
-  void editItem();
-
-  /**
-   * Move the selected item up.
-   */
-  void moveUpItem();
-
-  /**
-   * Move the selected item down.
-   */
-  void moveDownItem();
-
-  /**
-   * Change state of buttons according to the current item and the count.
-   */
-  void setButtonEnableState();
-
-private:
-  QListView* m_stringListBox;
-  QPushButton* m_addPushButton;
-  QPushButton* m_moveUpPushButton;
-  QPushButton* m_moveDownPushButton;
-  QPushButton* m_editPushButton;
-  QPushButton* m_removePushButton;
+  virtual void editItem();
 };
 
 #endif // STRINGLISTEDIT_H

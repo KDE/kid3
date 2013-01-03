@@ -1,4 +1,6 @@
 set(dialogs_SRCS
+  dialogs/batchimportdialog.cpp
+  dialogs/batchimportsourcedialog.cpp
   dialogs/browsecoverartdialog.cpp
   dialogs/browserdialog.cpp
   dialogs/configdialog.cpp
@@ -20,6 +22,8 @@ set(dialogs_SRCS
 )
 
 set(dialogs_MOC_HDRS
+  dialogs/batchimportdialog.h
+  dialogs/batchimportsourcedialog.h
   dialogs/browsecoverartdialog.h
   dialogs/browserdialog.h
   dialogs/configdialog.h

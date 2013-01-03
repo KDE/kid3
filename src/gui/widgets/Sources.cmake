@@ -1,4 +1,5 @@
 set(widgets_SRCS
+  widgets/abstractlistedit.cpp
   widgets/comboboxdelegate.cpp
   widgets/configtable.cpp
   widgets/formatbox.cpp
@@ -13,6 +14,7 @@ set(widgets_SRCS
 )
 
 set(widgets_MOC_HDRS
+  widgets/abstractlistedit.h
   widgets/configtable.h
   widgets/formatbox.h
   widgets/formatlistedit.h

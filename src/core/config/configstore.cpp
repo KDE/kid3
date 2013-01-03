@@ -32,6 +32,7 @@
 
 MiscConfig ConfigStore::s_miscCfg("General Options");
 ImportConfig ConfigStore::s_genCfg("General Options");
+BatchImportConfig ConfigStore::s_batchImportCfg("BatchImport");
 FormatConfig ConfigStore::s_fnFormatCfg("FilenameFormat");
 FormatConfig ConfigStore::s_id3FormatCfg("Id3Format");
 FreedbConfig ConfigStore::s_freedbCfg("Freedb");
@@ -76,6 +77,7 @@ void ConfigStore::writeToConfig()
   s_fnFormatCfg.writeToConfig(m_config);
   s_id3FormatCfg.writeToConfig(m_config);
   s_genCfg.writeToConfig(m_config);
+  s_batchImportCfg.writeToConfig(m_config);
   s_freedbCfg.writeToConfig(m_config);
   s_trackTypeCfg.writeToConfig(m_config);
   s_discogsCfg.writeToConfig(m_config);
@@ -96,6 +98,7 @@ void ConfigStore::readFromConfig()
   s_fnFormatCfg.readFromConfig(m_config);
   s_id3FormatCfg.readFromConfig(m_config);
   s_genCfg.readFromConfig(m_config);
+  s_batchImportCfg.readFromConfig(m_config);
   s_freedbCfg.readFromConfig(m_config);
   s_trackTypeCfg.readFromConfig(m_config);
   s_discogsCfg.readFromConfig(m_config);

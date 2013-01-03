@@ -10,6 +10,7 @@
     <Action name="import_amazon"/>
     <Action name="import_musicbrainzrelease"/>
     <Action name="import_musicbrainz"/>
+    <Action name="batch_import"/>
     <Action name="browse_cover_art"/>
     <Action name="export"/>
     <Action name="create_playlist"/>

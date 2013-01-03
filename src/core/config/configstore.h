@@ -30,6 +30,7 @@
 #include "generalconfig.h" // Kid3Settings
 #include "formatconfig.h"
 #include "importconfig.h"
+#include "batchimportconfig.h"
 #include "miscconfig.h"
 #include "freedbconfig.h"
 #include "discogsconfig.h"
@@ -85,6 +86,8 @@ public:
   static FormatConfig s_id3FormatCfg;
   /** Import configuration */
   static ImportConfig s_genCfg;
+  /** Batch import configuration */
+  static BatchImportConfig s_batchImportCfg;
   /** Miscellaneous configuration */
   static MiscConfig s_miscCfg;
   /** Freedb configuration */

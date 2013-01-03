@@ -73,6 +73,7 @@
 #include "frametable.h"
 #include "configdialog.h"
 #include "importdialog.h"
+#include "batchimportdialog.h"
 #include "browsecoverartdialog.h"
 #include "exportdialog.h"
 #include "numbertracksdialog.h"
@@ -109,7 +110,7 @@
  */
 Kid3MainWindow::Kid3MainWindow() :
   m_app(new Kid3Application(this)),
-  m_importDialog(0), m_browseCoverArtDialog(0),
+  m_importDialog(0), m_batchImportDialog(0), m_browseCoverArtDialog(0),
   m_exportDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
   m_downloadDialog(new DownloadDialog(this, i18n("Download"))),
@@ -179,6 +180,7 @@ Kid3MainWindow::Kid3MainWindow() :
 Kid3MainWindow::~Kid3MainWindow()
 {
   delete m_importDialog;
+  delete m_batchImportDialog;
   delete m_renDirDialog;
   delete m_numberTracksDialog;
   delete m_filterDialog;
@@ -269,6 +271,9 @@ void Kid3MainWindow::initActions()
   connect(fileImportMusicBrainz, SIGNAL(triggered()), this, SLOT(slotImport()));
   ++importerIdx;
 #endif
+  KAction* fileBatchImport = new KAction(i18n("Batch I&mport..."), this);
+  actionCollection()->addAction("batch_import", fileBatchImport);
+  connect(fileBatchImport, SIGNAL(triggered()), this, SLOT(slotBatchImport()));
 
   KAction* fileBrowseCoverArt = new KAction(i18n("&Browse Cover Art..."), this);
   actionCollection()->addAction("browse_cover_art", fileBrowseCoverArt);
@@ -501,6 +506,14 @@ void Kid3MainWindow::initActions()
   fileMenu->addAction(fileImportMusicBrainz);
   ++importerIdx;
 #endif
+  QAction* fileBatchImport = new QAction(this);
+  fileBatchImport->setStatusTip(i18n("Batch import"));
+  fileBatchImport->setText(i18n("Batch I&mport..."));
+  fileBatchImport->setObjectName("batch_import");
+  shortcutsModel->registerAction(fileBatchImport, menuTitle);
+  connect(fileBatchImport, SIGNAL(triggered()),
+    this, SLOT(slotBatchImport()));
+  fileMenu->addAction(fileBatchImport);
 
   QAction* fileBrowseCoverArt = new QAction(this);
   fileBrowseCoverArt->setStatusTip(i18n("Browse album cover artwork"));
@@ -1345,6 +1358,20 @@ void Kid3MainWindow::slotImport()
       execImportDialog();
     }
   }
+}
+
+/**
+ * Batch import.
+ */
+void Kid3MainWindow::slotBatchImport()
+{
+  if (!m_batchImportDialog) {
+    m_batchImportDialog = new BatchImportDialog(m_app->getServerImporters(),
+                                                this);
+  }
+  m_app->fetchAllDirectories();
+  m_batchImportDialog->readConfig();
+  m_batchImportDialog->show();
 }
 
 /**
