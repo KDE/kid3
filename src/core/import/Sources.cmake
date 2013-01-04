@@ -1,5 +1,6 @@
 set(import_SRCS
   import/amazonimporter.cpp
+  import/batchimporter.cpp
   import/discogsimporter.cpp
   import/fingerprintcalculator.cpp
   import/freedbimporter.cpp
@@ -16,6 +17,7 @@ set(import_SRCS
 )
 
 set(import_MOC_HDRS
+  import/batchimporter.h
   import/httpclient.h
   import/importclient.h
   import/musicbrainzclient.h

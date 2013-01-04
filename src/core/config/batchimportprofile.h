@@ -35,6 +35,19 @@
  */
 class BatchImportProfile {
 public:
+  /** Events occuring during batch import. */
+  enum ImportEventType {
+    Started,
+    SourceSelected,
+    QueryingAlbumList,
+    FetchingTrackList,
+    TrackListReceived,
+    FetchingCoverArt,
+    CoverArtReceived,
+    Finished,
+    Aborted
+  };
+
   /**
    * Properties of a source used during batch import.
    */

@@ -71,6 +71,20 @@ signals:
   void start(const BatchImportProfile& profile,
              TrackData::TagVersion tagVersion);
 
+  /**
+   * Abort batch import.
+   */
+  void abort();
+
+public slots:
+  /**
+   * Show information about import event.
+   * @param type import event type
+   * @param text text to display
+   */
+  void showImportEvent(BatchImportProfile::ImportEventType type,
+                       const QString& text);
+
 private slots:
   /**
    * Save the local settings to the configuration.
@@ -108,6 +122,11 @@ private slots:
    * @param name profile name
    */
   void changeProfileName(const QString& name);
+
+  /**
+   * Abort a running import.
+   */
+  void abortRunningImport();
 
 private:
   /**

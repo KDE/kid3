@@ -60,6 +60,8 @@
 #include "musicbrainzreleaseimporter.h"
 #include "discogsimporter.h"
 #include "amazonimporter.h"
+#include "batchimportprofile.h"
+#include "batchimporter.h"
 #include "qtcompatmac.h"
 #ifdef HAVE_CHROMAPRINT
 #include "musicbrainzclient.h"
@@ -106,6 +108,7 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   m_downloadClient(new DownloadClient(m_netMgr)),
   m_textExporter(new TextExporter(this)),
   m_dirRenamer(new DirRenamer(this)),
+  m_batchImporter(new BatchImporter(m_netMgr)),
 #ifdef HAVE_PHONON
   m_player(0),
 #endif
@@ -134,6 +137,7 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
 #ifdef HAVE_CHROMAPRINT
   m_musicBrainzClient = new MusicBrainzClient(m_netMgr, m_trackDataModel);
 #endif
+  m_batchImporter->setImporters(m_importers, m_trackDataModel);
 
 #ifdef HAVE_QTDBUS
   if (QDBusConnection::sessionBus().isConnected()) {
@@ -584,6 +588,50 @@ void Kid3Application::downloadImage(const QString& url, DownloadImageDestination
     m_downloadImageDest = dest;
     m_downloadClient->startDownload(imgurl);
   }
+}
+
+/**
+ * Perform a batch import for the selected directories.
+ * @param profile batch import profile
+ * @param tagVersion import destination tag versions
+ */
+void Kid3Application::batchImport(const BatchImportProfile& profile,
+                                  TrackData::TagVersion tagVersion)
+{
+  QList<ImportTrackDataVector> albums;
+  ImportTrackDataVector trackDataList;
+  QString lastDirName;
+  // If directories are selected, rename them, else process files of the
+  // current directory.
+  AbstractTaggedFileIterator* it =
+      new TaggedFileOfSelectedDirectoriesIterator(m_fileSelectionModel);
+  if (!it->hasNext()) {
+    delete it;
+    it = new TaggedFileIterator(getRootIndex());
+  }
+  while (it->hasNext()) {
+    TaggedFile* taggedFile = it->next();
+    taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+    taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+#endif
+    if (taggedFile->getDirname() != lastDirName) {
+      lastDirName = taggedFile->getDirname();
+      if (!trackDataList.isEmpty()) {
+        albums.append(trackDataList);
+      }
+      trackDataList.clear();
+    }
+    trackDataList.append(ImportTrackData(*taggedFile, tagVersion));
+  }
+  if (!trackDataList.isEmpty()) {
+    albums.append(trackDataList);
+  }
+  delete it;
+  m_batchImporter->setFrameFilter((tagVersion & TrackData::TagV1) != 0
+      ? frameModelV1()->getEnabledFrameFilter(true)
+      : frameModelV2()->getEnabledFrameFilter(true));
+  m_batchImporter->start(albums, profile, tagVersion);
 }
 
 /**

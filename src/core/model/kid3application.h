@@ -53,6 +53,8 @@ class ServerImporter;
 class MusicBrainzClient;
 class TextExporter;
 class DirRenamer;
+class BatchImportProfile;
+class BatchImporter;
 #ifdef HAVE_PHONON
 class AudioPlayer;
 #endif
@@ -183,6 +185,12 @@ public:
    * @return directory renamer.
    */
   DirRenamer* getDirRenamer() { return m_dirRenamer; }
+
+  /**
+   * Get batch importer.
+   * @return batch importer.
+   */
+  BatchImporter* getBatchImporter() { return m_batchImporter; }
 
 #ifdef HAVE_PHONON
   /**
@@ -741,6 +749,14 @@ public slots:
    */
   void applyFilter(const QString& expression);
 
+  /**
+   * Perform a batch import for the selected directories.
+   * @param profile batch import profile
+   * @param tagVersion import destination tag versions
+   */
+  void batchImport(const BatchImportProfile& profile,
+                   TrackData::TagVersion tagVersion);
+
 #ifdef HAVE_PHONON
   /**
    * Play audio file.
@@ -869,6 +885,8 @@ private:
   TextExporter* m_textExporter;
   /** Directory renamer */
   DirRenamer* m_dirRenamer;
+  /** Batch importer */
+  BatchImporter* m_batchImporter;
 #ifdef HAVE_PHONON
   /** Audio player */
   AudioPlayer* m_player;

@@ -94,6 +94,7 @@
 #include "frame.h"
 #include "textexporter.h"
 #include "serverimporter.h"
+#include "batchimporter.h"
 #include "dirrenamer.h"
 #include "movetotrash.h"
 #include "qtcompatmac.h"
@@ -1368,6 +1369,20 @@ void Kid3MainWindow::slotBatchImport()
   if (!m_batchImportDialog) {
     m_batchImportDialog = new BatchImportDialog(m_app->getServerImporters(),
                                                 this);
+    connect(m_batchImportDialog,
+            SIGNAL(start(BatchImportProfile,TrackData::TagVersion)),
+            m_app,
+            SLOT(batchImport(BatchImportProfile,TrackData::TagVersion)));
+    connect(m_app->getBatchImporter(),
+            SIGNAL(reportImportEvent(BatchImportProfile::ImportEventType,
+                                     QString)),
+            m_batchImportDialog,
+            SLOT(showImportEvent(BatchImportProfile::ImportEventType,
+                                 QString)));
+    connect(m_batchImportDialog, SIGNAL(abort()),
+            m_app->getBatchImporter(), SLOT(abort()));
+    connect(m_app->getBatchImporter(), SIGNAL(finished()),
+            this, SLOT(updateGuiControls()));
   }
   m_app->fetchAllDirectories();
   m_batchImportDialog->readConfig();
