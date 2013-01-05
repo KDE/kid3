@@ -252,6 +252,7 @@ TagLibFile::TagLibFile(const QString& dn, const QString& fn,
 #endif
   m_fileRead(false),
   m_tagInformationRead(false), m_hasTagV1(false), m_hasTagV2(false),
+  m_isTagV1Supported(false), m_duration(0),
   m_tagTypeV1(TT_Unknown), m_tagTypeV2(TT_Unknown)
 {
 }
@@ -310,7 +311,11 @@ void TagLibFile::readTags(bool force)
 #if TAGLIB_VERSION >= 0x010700
     TagLib::APE::File* apeFile;
 #endif
+    m_fileExtension = ".mp3";
+    m_isTagV1Supported = false;
     if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
+      m_fileExtension = ".mp3";
+      m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = mpegFile->ID3v1Tag();
         markTag1Unchanged();
@@ -332,6 +337,8 @@ void TagLibFile::readTags(bool force)
         markTag2Unchanged();
       }
     } else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
+      m_fileExtension = ".flac";
+      m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = flacFile->ID3v1Tag();
         markTag1Unchanged();
@@ -356,6 +363,8 @@ void TagLibFile::readTags(bool force)
 #endif
 #ifdef MPC_ID3V1
     } else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
+      m_fileExtension = ".mpc";
+      m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = mpcFile->ID3v1Tag();
         markTag1Unchanged();
@@ -365,6 +374,8 @@ void TagLibFile::readTags(bool force)
         markTag2Unchanged();
       }
     } else if ((wvFile = dynamic_cast<TagLib::WavPack::File*>(file)) != 0) {
+      m_fileExtension = ".wv";
+      m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = wvFile->ID3v1Tag();
         markTag1Unchanged();
@@ -375,6 +386,8 @@ void TagLibFile::readTags(bool force)
       }
 #endif
     } else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
+      m_fileExtension = ".tta";
+      m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = ttaFile->ID3v1Tag();
         markTag1Unchanged();
@@ -385,6 +398,8 @@ void TagLibFile::readTags(bool force)
       }
 #if TAGLIB_VERSION >= 0x010700
     } else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
+      m_fileExtension = ".ape";
+      m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = apeFile->ID3v1Tag();
         markTag1Unchanged();
@@ -395,6 +410,43 @@ void TagLibFile::readTags(bool force)
       }
 #endif
     } else {
+      if (dynamic_cast<TagLib::Vorbis::File*>(file) != 0) {
+        m_fileExtension = ".ogg";
+      } else if (dynamic_cast<TagLib::Ogg::Speex::File*>(file) != 0) {
+        m_fileExtension = ".spx";
+#ifndef MPC_ID3V1
+      } else if (dynamic_cast<TagLib::MPC::File*>(file) != 0) {
+        m_fileExtension = ".mpc";
+      } else if (dynamic_cast<TagLib::WavPack::File*>(file) != 0) {
+        m_fileExtension = ".wv";
+#endif
+#if TAGLIB_VERSION >= 0x010600
+#ifdef TAGLIB_WITH_MP4
+      } else if (dynamic_cast<TagLib::MP4::File*>(file) != 0) {
+        m_fileExtension = ".m4a";
+#endif
+#ifdef TAGLIB_WITH_ASF
+      } else if (dynamic_cast<TagLib::ASF::File*>(file) != 0) {
+        m_fileExtension = ".wma";
+#endif
+      } else if (dynamic_cast<TagLib::RIFF::AIFF::File*>(file) != 0) {
+        m_fileExtension = ".aiff";
+      } else if (dynamic_cast<TagLib::RIFF::WAV::File*>(file) != 0) {
+        m_fileExtension = ".wav";
+#endif
+#if TAGLIB_VERSION >= 0x010800
+      } else if (dynamic_cast<TagLib::Mod::File*>(file) != 0) {
+        m_fileExtension = ".mod";
+      } else if (dynamic_cast<TagLib::S3M::File*>(file) != 0) {
+        m_fileExtension = ".s3m";
+      } else if (dynamic_cast<TagLib::IT::File*>(file) != 0) {
+        m_fileExtension = ".it";
+#ifdef HAVE_TAGLIB_XM_SUPPORT
+      } else if (dynamic_cast<TagLib::XM::File*>(file) != 0) {
+        m_fileExtension = ".xm";
+#endif
+#endif
+      }
       m_tagV1 = 0;
       markTag1Unchanged();
       if (!m_tagV2) {
@@ -410,6 +462,7 @@ void TagLibFile::readTags(bool force)
   m_hasTagV2 = m_tagV2 && !m_tagV2->isEmpty();
   m_tagFormatV1 = getTagFormat(m_tagV1, m_tagTypeV1);
   m_tagFormatV2 = getTagFormat(m_tagV2, m_tagTypeV2);
+  readAudioProperties();
 
   if (force) {
     setFilename(currentFilename());
@@ -1498,19 +1551,7 @@ bool TagLibFile::hasTagV1() const
  */
 bool TagLibFile::isTagV1Supported() const
 {
-  TagLib::File* file;
-  return (!m_fileRef.isNull() && (file = m_fileRef.file()) != 0 &&
-          (dynamic_cast<TagLib::MPEG::File*>(file) != 0 ||
-           dynamic_cast<TagLib::FLAC::File*>(file) != 0 ||
-           dynamic_cast<TagLib::TrueAudio::File*>(file) != 0
-#ifdef MPC_ID3V1
-           || dynamic_cast<TagLib::MPC::File*>(file)  != 0
-           || dynamic_cast<TagLib::WavPack::File*>(file) != 0
-#endif
-#if TAGLIB_VERSION >= 0x010700
-           || dynamic_cast<TagLib::APE::File*>(file) != 0
-#endif
-            ));
+  return m_isTagV1Supported;
 }
 
 /**
@@ -1530,6 +1571,14 @@ bool TagLibFile::hasTagV2() const
  * @param info the detail information is returned here
  */
 void TagLibFile::getDetailInfo(DetailInfo& info) const
+{
+  info = m_detailInfo;
+}
+
+/**
+ * Cache technical detail information.
+ */
+void TagLibFile::readAudioProperties()
 {
   TagLib::AudioProperties* audioProperties;
   if (!m_fileRef.isNull() &&
@@ -1552,91 +1601,91 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
     TagLib::XM::Properties* xmProperties;
 #endif
 #endif
-    info.valid = true;
+    m_detailInfo.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
       if (getFilename().right(4).toLower() == ".aac") {
-        info.format = "AAC";
+        m_detailInfo.format = "AAC";
         return;
       }
       switch (mpegProperties->version()) {
         case TagLib::MPEG::Header::Version1:
-          info.format = "MPEG 1 ";
+          m_detailInfo.format = "MPEG 1 ";
           break;
         case TagLib::MPEG::Header::Version2:
-          info.format = "MPEG 2 ";
+          m_detailInfo.format = "MPEG 2 ";
           break;
         case TagLib::MPEG::Header::Version2_5:
-          info.format = "MPEG 2.5 ";
+          m_detailInfo.format = "MPEG 2.5 ";
           break;
       }
       int layer = mpegProperties->layer();
       if (layer >= 1 && layer <= 3) {
-        info.format += "Layer ";
-        info.format += QString::number(layer);
+        m_detailInfo.format += "Layer ";
+        m_detailInfo.format += QString::number(layer);
       }
       switch (mpegProperties->channelMode()) {
         case TagLib::MPEG::Header::Stereo:
-          info.channelMode = DetailInfo::CM_Stereo;
-          info.channels = 2;
+          m_detailInfo.channelMode = DetailInfo::CM_Stereo;
+          m_detailInfo.channels = 2;
           break;
         case TagLib::MPEG::Header::JointStereo:
-          info.channelMode = DetailInfo::CM_JointStereo;
-          info.channels = 2;
+          m_detailInfo.channelMode = DetailInfo::CM_JointStereo;
+          m_detailInfo.channels = 2;
           break;
         case TagLib::MPEG::Header::DualChannel:
-          info.channels = 2;
+          m_detailInfo.channels = 2;
           break;
         case TagLib::MPEG::Header::SingleChannel:
-          info.channels = 1;
+          m_detailInfo.channels = 1;
           break;
       }
     } else if ((oggProperties =
                 dynamic_cast<TagLib::Vorbis::Properties*>(audioProperties)) !=
                0) {
-      info.format = "Ogg Vorbis";
+      m_detailInfo.format = "Ogg Vorbis";
     } else if ((flacProperties =
                 dynamic_cast<TagLib::FLAC::Properties*>(audioProperties)) !=
                0) {
-      info.format = "FLAC";
+      m_detailInfo.format = "FLAC";
     } else if ((mpcProperties =
                 dynamic_cast<TagLib::MPC::Properties*>(audioProperties)) != 0) {
-      info.format = "MPC";
+      m_detailInfo.format = "MPC";
     } else if ((speexProperties =
                 dynamic_cast<TagLib::Ogg::Speex::Properties*>(audioProperties)) != 0) {
-      info.format = QString("Speex %1").arg(speexProperties->speexVersion());
+      m_detailInfo.format = QString("Speex %1").arg(speexProperties->speexVersion());
     } else if ((ttaProperties =
                 dynamic_cast<TagLib::TrueAudio::Properties*>(audioProperties)) != 0) {
-      info.format = "True Audio ";
-      info.format += QString::number(ttaProperties->ttaVersion());
-      info.format += " ";
-      info.format += QString::number(ttaProperties->bitsPerSample());
-      info.format += " bit";
+      m_detailInfo.format = "True Audio ";
+      m_detailInfo.format += QString::number(ttaProperties->ttaVersion());
+      m_detailInfo.format += " ";
+      m_detailInfo.format += QString::number(ttaProperties->bitsPerSample());
+      m_detailInfo.format += " bit";
     } else if ((wvProperties =
                 dynamic_cast<TagLib::WavPack::Properties*>(audioProperties)) != 0) {
-      info.format = "WavPack ";
-      info.format += QString::number(wvProperties->version(), 16);
-      info.format += " ";
-      info.format += QString::number(wvProperties->bitsPerSample());
-      info.format += " bit";
+      m_detailInfo.format = "WavPack ";
+      m_detailInfo.format += QString::number(wvProperties->version(), 16);
+      m_detailInfo.format += " ";
+      m_detailInfo.format += QString::number(wvProperties->bitsPerSample());
+      m_detailInfo.format += " bit";
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if (dynamic_cast<TagLib::MP4::Properties*>(audioProperties) != 0) {
-      info.format = "MP4";
+      m_detailInfo.format = "MP4";
 #endif
 #ifdef TAGLIB_WITH_ASF
     } else if (dynamic_cast<TagLib::ASF::Properties*>(audioProperties) != 0) {
-      info.format = "ASF";
+      m_detailInfo.format = "ASF";
 #endif
     } else if (dynamic_cast<TagLib::RIFF::AIFF::Properties*>(audioProperties) != 0) {
-      info.format = "AIFF";
+      m_detailInfo.format = "AIFF";
     } else if (dynamic_cast<TagLib::RIFF::WAV::Properties*>(audioProperties) != 0) {
-      info.format = "WAV";
+      m_detailInfo.format = "WAV";
 #endif
 #if TAGLIB_VERSION >= 0x010700
     } else if ((apeProperties =
                 dynamic_cast<TagLib::APE::Properties*>(audioProperties)) != 0) {
-      info.format = QString("APE %1.%2 %3 bit").
+      m_detailInfo.format = QString("APE %1.%2 %3 bit").
         arg(apeProperties->version() / 1000).
         arg(apeProperties->version() % 1000).
         arg(apeProperties->bitsPerSample());
@@ -1644,24 +1693,24 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 #if TAGLIB_VERSION >= 0x010800
     } else if ((modProperties =
                 dynamic_cast<TagLib::Mod::Properties*>(audioProperties)) != 0) {
-      info.format = QString("Mod %1 %2 Instruments").
+      m_detailInfo.format = QString("Mod %1 %2 Instruments").
           arg(getTrackerName()).
           arg(modProperties->instrumentCount());
     } else if ((s3mProperties =
                 dynamic_cast<TagLib::S3M::Properties*>(audioProperties)) != 0) {
-      info.format = QString("S3M %1 V%2 T%3").
+      m_detailInfo.format = QString("S3M %1 V%2 T%3").
           arg(getTrackerName()).
           arg(s3mProperties->fileFormatVersion()).
           arg(s3mProperties->trackerVersion(), 0, 16);
-      info.channelMode = s3mProperties->stereo()
+      m_detailInfo.channelMode = s3mProperties->stereo()
           ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
     } else if ((itProperties =
                 dynamic_cast<TagLib::IT::Properties*>(audioProperties)) != 0) {
-      info.format = QString("IT %1 V%2 %3 Instruments").
+      m_detailInfo.format = QString("IT %1 V%2 %3 Instruments").
           arg(getTrackerName()).
           arg(itProperties->version(), 0, 16).
           arg(itProperties->instrumentCount());
-      info.channelMode = itProperties->stereo()
+      m_detailInfo.channelMode = itProperties->stereo()
           ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
 #ifdef HAVE_TAGLIB_XM_SUPPORT
     } else if ((xmProperties =
@@ -1673,14 +1722,14 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
 #endif
 #endif
     }
-    info.bitrate = audioProperties->bitrate();
-    info.sampleRate = audioProperties->sampleRate();
+    m_detailInfo.bitrate = audioProperties->bitrate();
+    m_detailInfo.sampleRate = audioProperties->sampleRate();
     if (audioProperties->channels() > 0) {
-      info.channels = audioProperties->channels();
+      m_detailInfo.channels = audioProperties->channels();
     }
-    info.duration = audioProperties->length();
+    m_detailInfo.duration = audioProperties->length();
   } else {
-    info.valid = false;
+    m_detailInfo.valid = false;
   }
 }
 
@@ -1708,11 +1757,7 @@ void TagLibFile::getDetailInfo(DetailInfo& info) const
  */
 unsigned TagLibFile::getDuration() const
 {
-  TagLib::AudioProperties* audioProperties;
-  return
-    ((!m_fileRef.isNull() &&
-      (audioProperties = m_fileRef.audioProperties()) != 0)) ?
-    audioProperties->length() : 0;
+  return m_detailInfo.valid ? m_detailInfo.duration : 0;
 }
 
 /**
@@ -1722,55 +1767,7 @@ unsigned TagLibFile::getDuration() const
  */
 QString TagLibFile::getFileExtension() const
 {
-  TagLib::File* file = m_fileRef.file();
-  if (file) {
-    if (dynamic_cast<TagLib::MPEG::File*>(file) != 0) {
-      return ".mp3";
-    } else if (dynamic_cast<TagLib::Vorbis::File*>(file) != 0) {
-      return ".ogg";
-    } else if (dynamic_cast<TagLib::FLAC::File*>(file) != 0) {
-      return ".flac";
-    } else if (dynamic_cast<TagLib::MPC::File*>(file) != 0) {
-      return ".mpc";
-    } else if (dynamic_cast<TagLib::Ogg::Speex::File*>(file) != 0) {
-      return ".spx";
-    } else if (dynamic_cast<TagLib::WavPack::File*>(file) != 0) {
-      return ".wv";
-    } else if (dynamic_cast<TagLib::TrueAudio::File*>(file) != 0) {
-      return ".tta";
-#if TAGLIB_VERSION >= 0x010600
-#ifdef TAGLIB_WITH_MP4
-    } else if (dynamic_cast<TagLib::MP4::File*>(file) != 0) {
-      return ".m4a";
-#endif
-#ifdef TAGLIB_WITH_ASF
-    } else if (dynamic_cast<TagLib::ASF::File*>(file) != 0) {
-      return ".wma";
-#endif
-    } else if (dynamic_cast<TagLib::RIFF::AIFF::File*>(file) != 0) {
-      return ".aiff";
-    } else if (dynamic_cast<TagLib::RIFF::WAV::File*>(file) != 0) {
-      return ".wav";
-#endif
-#if TAGLIB_VERSION >= 0x010700
-    } else if (dynamic_cast<TagLib::APE::File*>(file) != 0) {
-      return ".ape";
-#endif
-#if TAGLIB_VERSION >= 0x010800
-    } else if (dynamic_cast<TagLib::Mod::File*>(file) != 0) {
-      return ".mod";
-    } else if (dynamic_cast<TagLib::S3M::File*>(file) != 0) {
-      return ".s3m";
-    } else if (dynamic_cast<TagLib::IT::File*>(file) != 0) {
-      return ".it";
-#ifdef HAVE_TAGLIB_XM_SUPPORT
-    } else if (dynamic_cast<TagLib::XM::File*>(file) != 0) {
-      return ".xm";
-#endif
-#endif
-    }
-  }
-  return ".mp3";
+  return m_fileExtension;
 }
 
 /**

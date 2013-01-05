@@ -572,6 +572,11 @@ private:
    */
   bool makeTagV2Settable();
 
+  /**
+   * Cache technical detail information.
+   */
+  void readAudioProperties();
+
 #if TAGLIB_VERSION >= 0x010800
   /**
    * Get tracker name of a module file.
@@ -620,10 +625,14 @@ private:
   bool m_tagInformationRead;
   bool m_hasTagV1;
   bool m_hasTagV2;
+  bool m_isTagV1Supported;
+  unsigned m_duration;
   TagType m_tagTypeV1;
   TagType m_tagTypeV2;
   QString m_tagFormatV1;
   QString m_tagFormatV2;
+  QString m_fileExtension;
+  DetailInfo m_detailInfo;
 
 #if TAGLIB_VERSION >= 0x010700
   class Pictures : public QList<Frame> {
