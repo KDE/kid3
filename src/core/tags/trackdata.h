@@ -304,6 +304,13 @@ public:
    */
   void readTags(ImportTrackData::TagVersion tagVersion);
 
+#ifdef DEBUG
+  /**
+   * Dump contents of tracks to debug console.
+   */
+  void dump() const;
+#endif
+
 private:
   /**
    * Get frame from first track.

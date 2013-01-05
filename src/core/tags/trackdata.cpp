@@ -609,3 +609,32 @@ void ImportTrackDataVector::readTags(ImportTrackData::TagVersion tagVersion)
   }
   setCoverArtUrl(QString());
 }
+
+#ifdef DEBUG
+/**
+ * Dump contents of tracks to debug console.
+ */
+void ImportTrackDataVector::dump() const
+{
+  qDebug("ImportTrackDataVector (%s - %s, %s):",
+         qPrintable(getArtist()), qPrintable(getAlbum()),
+         qPrintable(getCoverArtUrl()));
+  for (const_iterator it = constBegin();
+       it != constEnd();
+       ++it) {
+    const ImportTrackData& trackData = *it;
+    int fileDuration = trackData.getFileDuration();
+    int importDuration = trackData.getImportDuration();
+    qDebug("%d:%02d, %d:%02d, %s, %d, %s, %s, %s, %d, %s",
+           fileDuration / 60, fileDuration % 60,
+           importDuration / 60, importDuration % 60,
+           qPrintable(trackData.getFilename()),
+           trackData.getTrack(),
+           qPrintable(trackData.getTitle()),
+           qPrintable(trackData.getArtist()),
+           qPrintable(trackData.getAlbum()),
+           trackData.getYear(),
+           qPrintable(trackData.getGenre()));
+  }
+}
+#endif
