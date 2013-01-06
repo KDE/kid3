@@ -86,6 +86,13 @@ public:
   void formatFrames(FrameCollection& frames) const;
 
   /**
+   * Format frames if format while editing is switched on.
+   *
+   * @param frames frames
+   */
+  void formatFramesIfEnabled(FrameCollection& frames) const;
+
+  /**
    * Persist configuration.
    *
    * @param config KDE configuration

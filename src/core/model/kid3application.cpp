@@ -615,9 +615,7 @@ void Kid3Application::formatFileNameIfEnabled(TaggedFile* taggedFile) const
  */
 void Kid3Application::formatFramesIfEnabled(FrameCollection& frames) const
 {
-  if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
-    ConfigStore::s_id3FormatCfg.formatFrames(frames);
-  }
+  ConfigStore::s_id3FormatCfg.formatFramesIfEnabled(frames);
 }
 
 /**

@@ -271,6 +271,18 @@ void FormatConfig::formatFrames(FrameCollection& frames) const
 }
 
 /**
+ * Format frames if format while editing is switched on.
+ *
+ * @param frames frames
+ */
+void FormatConfig::formatFramesIfEnabled(FrameCollection& frames) const
+{
+  if (m_formatWhileEditing) {
+    formatFrames(frames);
+  }
+}
+
+/**
  * Persist configuration.
  *
  * @param config KDE configuration
