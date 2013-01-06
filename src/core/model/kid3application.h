@@ -471,17 +471,6 @@ public:
    */
   static void setTextEncodings();
 
-  /**
-   * Get the URL of an image file.
-   * The input URL is transformed using the match picture URL table to
-   * get the URL of an image file.
-   *
-   * @param url URL from image drag
-   *
-   * @return URL of image file, empty if no image URL found.
-   */
-  static QString getImageUrl(const QString& url);
-
 public slots:
   /**
    * Revert file modifications.

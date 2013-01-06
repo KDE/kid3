@@ -579,18 +579,10 @@ void Kid3Application::trackDataModelToFiles(TrackData::TagVersion tagVersion)
  */
 void Kid3Application::downloadImage(const QString& url, DownloadImageDestination dest)
 {
-  QString imgurl(getImageUrl(url));
+  QString imgurl(DownloadClient::getImageUrl(url));
   if (!imgurl.isEmpty()) {
-    int hostPos = imgurl.indexOf("://");
-    if (hostPos > 0) {
-      int pathPos = imgurl.indexOf("/", hostPos + 3);
-      if (pathPos > hostPos) {
-        m_downloadImageDest = dest;
-        m_downloadClient->startDownload(
-          imgurl.mid(hostPos + 3, pathPos - hostPos - 3),
-          imgurl.mid(pathPos));
-      }
-    }
+    m_downloadImageDest = dest;
+    m_downloadClient->startDownload(imgurl);
   }
 }
 
@@ -1770,50 +1762,6 @@ int Kid3Application::getTotalNumberOfTracksInDir()
     return taggedFile->getTotalNumberOfTracksInDir();
   }
   return 0;
-}
-
-/**
- * Get the URL of an image file.
- * The input URL is transformed using the match picture URL table to
- * get the URL of an image file.
- *
- * @param url URL from image drag
- *
- * @return URL of image file, empty if no image URL found.
- */
-QString Kid3Application::getImageUrl(const QString& url)
-{
-  QString imgurl;
-  if (url.startsWith("http://")) {
-    if (url.endsWith(".jpg", Qt::CaseInsensitive) ||
-        url.endsWith(".jpeg", Qt::CaseInsensitive) ||
-        url.endsWith(".png", Qt::CaseInsensitive)) {
-      imgurl = url;
-    }
-    else {
-      for (QMap<QString, QString>::ConstIterator it =
-             ConfigStore::s_genCfg.m_matchPictureUrlMap.begin();
-           it != ConfigStore::s_genCfg.m_matchPictureUrlMap.end();
-           ++it) {
-        QRegExp re(it.key());
-        if (re.exactMatch(url)) {
-          QString pictureUrl(url);
-          imgurl = url;
-          imgurl.replace(re, *it);
-          if (imgurl.indexOf("%25") != -1) {
-            // double URL encoded: first decode
-            imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
-          }
-          if (imgurl.indexOf("%2F") != -1) {
-            // URL encoded: decode
-            imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
-          }
-          break;
-        }
-      }
-    }
-  }
-  return imgurl;
 }
 
 /**

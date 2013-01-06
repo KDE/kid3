@@ -25,6 +25,7 @@
  */
 
 #include "downloadclient.h"
+#include "configstore.h"
 #include "qtcompatmac.h"
 
 /**
@@ -64,6 +65,23 @@ void DownloadClient::startDownload(const QString& hostName, const QString& path)
 }
 
 /**
+ * Send a download request.
+ *
+ * @param url URL of resource to download
+ */
+void DownloadClient::startDownload(const QString& url)
+{
+  int hostPos = url.indexOf("://");
+  if (hostPos > 0) {
+    int pathPos = url.indexOf("/", hostPos + 3);
+    if (pathPos > hostPos) {
+      startDownload(url.mid(hostPos + 3, pathPos - hostPos - 3),
+                    url.mid(pathPos));
+    }
+  }
+}
+
+/**
  * Cancel a download.
  */
 void DownloadClient::cancelDownload()
@@ -86,3 +104,45 @@ void DownloadClient::requestFinished(const QByteArray& data)
   }
 }
 
+/**
+ * Get the URL of an image file.
+ * The input URL is transformed using the match picture URL table to
+ * get the URL of an image file.
+ *
+ * @param url URL from image drag
+ *
+ * @return URL of image file, empty if no image URL found.
+ */
+QString DownloadClient::getImageUrl(const QString& url)
+{
+  QString imgurl;
+  if (url.startsWith("http://")) {
+    if (url.endsWith(".jpg", Qt::CaseInsensitive) ||
+        url.endsWith(".jpeg", Qt::CaseInsensitive) ||
+        url.endsWith(".png", Qt::CaseInsensitive)) {
+      imgurl = url;
+    }
+    else {
+      for (QMap<QString, QString>::ConstIterator it =
+             ConfigStore::s_genCfg.m_matchPictureUrlMap.begin();
+           it != ConfigStore::s_genCfg.m_matchPictureUrlMap.end();
+           ++it) {
+        QRegExp re(it.key());
+        if (re.exactMatch(url)) {
+          imgurl = url;
+          imgurl.replace(re, *it);
+          if (imgurl.indexOf("%25") != -1) {
+            // double URL encoded: first decode
+            imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
+          }
+          if (imgurl.indexOf("%2F") != -1) {
+            // URL encoded: decode
+            imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
+          }
+          break;
+        }
+      }
+    }
+  }
+  return imgurl;
+}
