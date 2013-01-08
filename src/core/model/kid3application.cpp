@@ -770,27 +770,27 @@ void Kid3Application::applyTextEncoding()
          frameIt != frames.end();
          ++frameIt) {
       Frame& frame = const_cast<Frame&>(*frameIt);
-      // Only ISO-8859-1 and UTF16 are allowed for ID3v2.3.0.
-      if (taggedFile->getTagFormatV2() == "ID3v2.3.0" &&
-          ((encoding != Frame::Field::TE_ISO8859_1 &&
-            encoding != Frame::Field::TE_UTF16)
+      Frame::Field::TextEncoding enc = encoding;
+      if (taggedFile->getTagFormatV2() == "ID3v2.3.0") {
 #ifdef HAVE_TAGLIB
         // TagLib sets the ID3v2.3.0 frame containing the date internally with
         // ISO-8859-1, so the encoding cannot be set for such frames.
-        || (dynamic_cast<TagLibFile*>(taggedFile) != 0 &&
+        if (dynamic_cast<TagLibFile*>(taggedFile) != 0 &&
             frame.getType() == Frame::FT_Date &&
-            encoding != Frame::Field::TE_ISO8859_1)
-#endif
-           ))
+            enc != Frame::Field::TE_ISO8859_1)
           continue;
-
+#endif
+        // Only ISO-8859-1 and UTF16 are allowed for ID3v2.3.0.
+        if (enc != Frame::Field::TE_ISO8859_1)
+          enc = Frame::Field::TE_UTF16;
+      }
       Frame::FieldList& fields = frame.fieldList();
       for (Frame::FieldList::iterator fieldIt = fields.begin();
            fieldIt != fields.end();
            ++fieldIt) {
         if (fieldIt->m_id == Frame::Field::ID_TextEnc &&
-            fieldIt->m_value.toInt() != encoding) {
-          fieldIt->m_value = encoding;
+            fieldIt->m_value.toInt() != enc) {
+          fieldIt->m_value = enc;
           frame.setValueChanged();
         }
       }
