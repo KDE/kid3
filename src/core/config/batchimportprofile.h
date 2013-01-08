@@ -45,7 +45,8 @@ public:
     FetchingCoverArt,
     CoverArtReceived,
     Finished,
-    Aborted
+    Aborted,
+    Error
   };
 
   /**

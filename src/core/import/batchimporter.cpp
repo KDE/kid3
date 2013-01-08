@@ -196,6 +196,8 @@ void BatchImporter::stateTransition()
       m_albumModel = 0;
       connect(m_currentImporter, SIGNAL(findFinished(QByteArray)),
               this, SLOT(onFindFinished(QByteArray)));
+      connect(m_currentImporter, SIGNAL(progress(QString,int,int)),
+              this, SLOT(onFindProgress(QString,int,int)));
       m_currentImporter->find(m_currentImporter->config(),
                               m_currentArtist, m_currentAlbum);
     }
@@ -226,6 +228,8 @@ void BatchImporter::stateTransition()
                              m_albumListItem->text());
       connect(m_currentImporter, SIGNAL(albumFinished(QByteArray)),
               this, SLOT(onAlbumFinished(QByteArray)));
+      connect(m_currentImporter, SIGNAL(progress(QString,int,int)),
+              this, SLOT(onAlbumProgress(QString,int,int)));
       m_currentImporter->getTrackList(m_currentImporter->config(),
                                       m_albumListItem->getCategory(),
                                       m_albumListItem->getId());
@@ -269,11 +273,13 @@ void BatchImporter::stateTransition()
 
 void BatchImporter::onFindFinished(const QByteArray& searchStr)
 {
+  disconnect(m_currentImporter, SIGNAL(findFinished(QByteArray)),
+             this, SLOT(onFindFinished(QByteArray)));
+  disconnect(m_currentImporter, SIGNAL(progress(QString,int,int)),
+            this, SLOT(onFindProgress(QString,int,int)));
   if (m_state == Aborted) {
     stateTransition();
   } else if (m_currentImporter) {
-    disconnect(m_currentImporter, SIGNAL(findFinished(QByteArray)),
-               this, SLOT(onFindFinished(QByteArray)));
     m_currentImporter->parseFindResults(searchStr);
     m_albumModel = m_currentImporter->getAlbumListModel();
     m_state = CheckNextAlbum;
@@ -281,13 +287,28 @@ void BatchImporter::onFindFinished(const QByteArray& searchStr)
   }
 }
 
+void BatchImporter::onFindProgress(const QString& text, int step, int total)
+{
+  if (step == -1 && total == -1) {
+    disconnect(m_currentImporter, SIGNAL(findFinished(QByteArray)),
+               this, SLOT(onFindFinished(QByteArray)));
+    disconnect(m_currentImporter, SIGNAL(progress(QString,int,int)),
+              this, SLOT(onFindProgress(QString,int,int)));
+    emit reportImportEvent(BatchImportProfile::Error, text);
+    m_state = CheckNextAlbum;
+    stateTransition();
+  }
+}
+
 void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
 {
+  disconnect(m_currentImporter, SIGNAL(albumFinished(QByteArray)),
+             this, SLOT(onAlbumFinished(QByteArray)));
+  disconnect(m_currentImporter, SIGNAL(progress(QString,int,int)),
+             this, SLOT(onAlbumProgress(QString,int,int)));
   if (m_state == Aborted) {
     stateTransition();
   } else if (m_trackDataModel && m_currentImporter) {
-    disconnect(m_currentImporter, SIGNAL(albumFinished(QByteArray)),
-               this, SLOT(onAlbumFinished(QByteArray)));
     int pendingData = m_requestedData & ~m_importedData;
     m_currentImporter->setStandardTags(pendingData & StandardTags);
     m_currentImporter->setAdditionalTags(pendingData & AdditionalTags);
@@ -337,6 +358,19 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
       trackDataVector.setCoverArtUrl(QString());
       m_trackDataModel->setTrackData(trackDataVector);
     }
+    m_state = GettingCover;
+    stateTransition();
+  }
+}
+
+void BatchImporter::onAlbumProgress(const QString& text, int step, int total)
+{
+  if (step == -1 && total == -1) {
+    disconnect(m_currentImporter, SIGNAL(albumFinished(QByteArray)),
+               this, SLOT(onAlbumFinished(QByteArray)));
+    disconnect(m_currentImporter, SIGNAL(progress(QString,int,int)),
+               this, SLOT(onAlbumProgress(QString,int,int)));
+    emit reportImportEvent(BatchImportProfile::Error, text);
     m_state = GettingCover;
     stateTransition();
   }

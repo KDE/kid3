@@ -499,6 +499,9 @@ void BatchImportDialog::showImportEvent(BatchImportProfile::ImportEventType type
   case BatchImportProfile::Aborted:
     m_startButton->setEnabled(true);
     eventText = i18n("Aborted");
+    break;
+  case BatchImportProfile::Error:
+    eventText = i18n("Error");
   }
   if (!text.isEmpty()) {
     eventText += ": ";

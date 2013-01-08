@@ -101,7 +101,9 @@ public slots:
 
 private slots:
   void onFindFinished(const QByteArray& searchStr);
+  void onFindProgress(const QString& text, int step, int total);
   void onAlbumFinished(const QByteArray& albumStr);
+  void onAlbumProgress(const QString& text, int step, int total);
   void onImageDownloaded(const QByteArray& data, const QString& mimeType,
                          const QString& url);
 
