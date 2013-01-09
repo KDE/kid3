@@ -94,7 +94,7 @@ static const struct {
   { "\251wrt", Frame::FT_Composer },
   { "\251alb", Frame::FT_Album },
   { "\251day", Frame::FT_Date },
-  { "\251too", Frame::FT_EncodedBy },
+  { "\251enc", Frame::FT_EncodedBy },
   { "\251cmt", Frame::FT_Comment },
   { "\251gen", Frame::FT_Genre },
   { "trkn", Frame::FT_Track },
@@ -125,7 +125,7 @@ static const struct {
   { "soal", Frame::FT_Other },
   { "soco", Frame::FT_Other },
   { "sosn", Frame::FT_Other },
-  { "\251enc", Frame::FT_Other },
+  { "\251too", Frame::FT_Other },
   { "purd", Frame::FT_Other },
   { "pcst", Frame::FT_Other },
   { "keyw", Frame::FT_Other },
@@ -1371,7 +1371,7 @@ QStringList M4aFile::getFrameIds() const
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
   lst << "akID" << "apID" << "atID" << "catg" << "cnID" << "desc" <<
-    "\251enc" << "geID" << "hdvd" << "keyw" << "ldes" << "pcst" <<
+    "\251too" << "geID" << "hdvd" << "keyw" << "ldes" << "pcst" <<
     "plID" << "purd" << "rtng" << "sfID" << "soaa" << "soal" <<
     "soar" << "soco" << "sonm" << "sosn" << "stik" << "tven" <<
     "tves" << "tvnn" << "tvsh" << "tvsn";

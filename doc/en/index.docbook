@@ -469,7 +469,7 @@ format specific frames.
        <row><entry>Conductor</entry>       <entry>TPE3</entry>    <entry>TPE3</entry>    <entry>CONDUCTOR</entry>      <entry>WM/Conductor</entry>               <entry>CONDUCTOR</entry></row>
        <row><entry>Copyright</entry>       <entry>TCOP</entry>    <entry>TCOP</entry>    <entry>cprt</entry>           <entry>Copyright</entry>                  <entry>COPYRIGHT</entry></row>
        <row><entry>Disc Number</entry>     <entry>TPOS</entry>    <entry>TPOS</entry>    <entry>disk</entry>           <entry>WM/PartOfSet</entry>               <entry>DISCNUMBER</entry></row>
-       <row><entry>Encoded-by</entry>      <entry>TENC</entry>    <entry>TENC</entry>    <entry>©too</entry>           <entry>WM/EncodedBy</entry>               <entry>ENCODED-BY</entry></row>
+       <row><entry>Encoded-by</entry>      <entry>TENC</entry>    <entry>TENC</entry>    <entry>©enc</entry>           <entry>WM/EncodedBy</entry>               <entry>ENCODED-BY</entry></row>
        <row><entry>Grouping</entry>        <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©grp</entry>           <entry>WM/ContentGroupDescription</entry> <entry>GROUPING</entry></row>
        <row><entry>ISRC</entry>            <entry>TSRC</entry>    <entry>TSRC</entry>    <entry>ISRC</entry>           <entry>WM/ISRC</entry>                    <entry>ISRC</entry></row>
        <row><entry>Language</entry>        <entry>TLAN</entry>    <entry>TLAN</entry>    <entry>LANGUAGE</entry>       <entry>WM/Language</entry>                <entry>LANGUAGE</entry></row>

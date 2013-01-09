@@ -3304,7 +3304,7 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "\251wrt", Frame::FT_Composer, MVT_String },
   { "\251alb", Frame::FT_Album, MVT_String },
   { "\251day", Frame::FT_Date, MVT_String },
-  { "\251too", Frame::FT_EncodedBy, MVT_String },
+  { "\251enc", Frame::FT_EncodedBy, MVT_String },
   { "\251cmt", Frame::FT_Comment, MVT_String },
   { "gnre", Frame::FT_Genre, MVT_String },
   // (c)gen is after gnre so that it is used in the maps because TagLib uses it
@@ -3331,7 +3331,7 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "soal", Frame::FT_Other, MVT_String },
   { "soco", Frame::FT_Other, MVT_String },
   { "sosn", Frame::FT_Other, MVT_String },
-  { "\251enc", Frame::FT_Other, MVT_String },
+  { "\251too", Frame::FT_Other, MVT_String },
   { "purd", Frame::FT_Other, MVT_String },
   { "pcst", Frame::FT_Other, MVT_Bool },
   { "keyw", Frame::FT_Other, MVT_String },
