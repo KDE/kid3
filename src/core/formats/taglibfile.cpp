@@ -154,7 +154,7 @@ void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
     pic->setWidth(image.width());
     pic->setHeight(image.height());
     pic->setColorDepth(image.depth());
-    pic->setNumColors(image.numColors());
+    pic->setNumColors(image.colorCount());
   }
 }
 #endif
@@ -1715,7 +1715,7 @@ void TagLibFile::readAudioProperties()
 #ifdef HAVE_TAGLIB_XM_SUPPORT
     } else if ((xmProperties =
                 dynamic_cast<TagLib::XM::Properties*>(audioProperties)) != 0) {
-      info.format = QString("XM %1 V%2 %3 Instruments").
+      m_detailInfo.format = QString("XM %1 V%2 %3 Instruments").
           arg(getTrackerName()).
           arg(xmProperties->version(), 0, 16).
           arg(xmProperties->instrumentCount());

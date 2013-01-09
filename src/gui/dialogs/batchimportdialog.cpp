@@ -98,7 +98,11 @@ BatchImportSourceListEdit::BatchImportSourceListEdit(
 {
   setObjectName("BatchImportSourceListEdit");
   m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+#if QT_VERSION >= 0x050000
+  m_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+#else
   m_tableView->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
+#endif
 }
 
 /**

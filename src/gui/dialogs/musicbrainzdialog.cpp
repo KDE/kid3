@@ -100,7 +100,11 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
     "A Not So Short State");
   m_albumTable = new QTableView(this);
   m_albumTable->setModel(m_albumTableModel);
+#if QT_VERSION >= 0x050000
+  m_albumTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+#else
   m_albumTable->horizontalHeader()->setResizeMode(0, QHeaderView::Stretch);
+#endif
   m_albumTable->setSelectionMode(QAbstractItemView::NoSelection);
   m_albumTable->resizeColumnsToContents();
   m_albumTable->setItemDelegateForColumn(0, new ComboBoxDelegate(this));

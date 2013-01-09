@@ -130,11 +130,14 @@ int TextTableModel::columnCount(const QModelIndex& parent) const
  */
 bool TextTableModel::setText(const QString& text, bool hasHeaderLine)
 {
+  beginResetModel();
   m_hasHeaderLine = hasHeaderLine;
   m_cells.clear();
   QStringList lines = text.split(QRegExp("[\\r\\n]+"));
-  if (lines.isEmpty() || lines.first().indexOf('\t') == -1)
+  if (lines.isEmpty() || lines.first().indexOf('\t') == -1) {
+    endResetModel();
     return false;
+  }
 
   for (int i = 0; i < lines.size(); ++i) {
     const QString& line = lines.at(i);
@@ -142,6 +145,6 @@ bool TextTableModel::setText(const QString& text, bool hasHeaderLine)
       break;
     m_cells.append(line.split('\t'));
   }
-  reset();
+  endResetModel();
   return true;
 }

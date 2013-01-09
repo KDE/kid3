@@ -747,7 +747,7 @@ FingerprintCalculator::Result FingerprintCalculator::calculateFingerprint(
   if (result.m_error == Result::Ok) {
     char* fingerprint;
     if (::chromaprint_get_fingerprint(m_chromaprintCtx, &fingerprint)) {
-      result.m_fingerprint = QString::fromAscii(fingerprint);
+      result.m_fingerprint = QString::fromLatin1(fingerprint);
       ::chromaprint_dealloc(fingerprint);
     } else {
       result.m_error = Result::FingerprintCalculationFailed;

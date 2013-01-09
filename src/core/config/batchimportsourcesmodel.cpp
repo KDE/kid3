@@ -276,8 +276,9 @@ void BatchImportSourcesModel::getBatchImportSource(
 void BatchImportSourcesModel::setBatchImportSources(
     const QList<BatchImportProfile::Source>& sources)
 {
+  beginResetModel();
   m_sources = sources;
-  reset();
+  endResetModel();
 }
 
 /**

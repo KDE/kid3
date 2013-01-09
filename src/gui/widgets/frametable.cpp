@@ -45,7 +45,11 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
   setObjectName("FrameTable");
   setModel(model);
   setSelectionMode(SingleSelection);
+#if QT_VERSION >= 0x050000
+  horizontalHeader()->setSectionResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);
+#else
   horizontalHeader()->setResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);
+#endif
   // Set a small height instead of hiding the header, so that the column
   // widths can still be resized by the user.
   horizontalHeader()->setFixedHeight(2);
@@ -66,7 +70,11 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
     QStyle::SE_ViewItemCheckIndicator, &option, this).width();
   setColumnWidth(FrameTableModel::CI_Enable, width);
 
+#if QT_VERSION >= 0x050000
+  horizontalHeader()->setSectionResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);
+#else
   horizontalHeader()->setResizeMode(FrameTableModel::CI_Value, QHeaderView::Stretch);
+#endif
   setItemDelegate(new FrameItemDelegate(this));
   setEditTriggers(AllEditTriggers);
   viewport()->installEventFilter(this); // keep track of editors

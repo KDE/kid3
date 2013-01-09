@@ -194,8 +194,9 @@ QList<QHeaderView::ResizeMode>
  */
 void ConfigTableModel::setLabels(const QStringList& labels)
 {
+  beginResetModel();
   m_labels = labels;
-  reset();
+  endResetModel();
 }
 
 /**
@@ -205,6 +206,7 @@ void ConfigTableModel::setLabels(const QStringList& labels)
  */
 void ConfigTableModel::setMap(const QMap<QString, QString>& map)
 {
+  beginResetModel();
   m_keyValues.clear();
   for (QMap<QString, QString>::const_iterator it = map.constBegin();
       it != map.constEnd();
@@ -214,7 +216,7 @@ void ConfigTableModel::setMap(const QMap<QString, QString>& map)
   // make sure that at least one line is in the table
   if (m_keyValues.isEmpty())
     m_keyValues.append(qMakePair(QString(), QString()));
-  reset();
+  endResetModel();
 }
 
 /**

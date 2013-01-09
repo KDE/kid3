@@ -81,7 +81,7 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
   PictureFrame::setFields(
     frame,
     Frame::Field::TE_ISO8859_1, "",
-    QString::fromAscii(pic->get_mime_type()),
+    QString::fromLatin1(pic->get_mime_type()),
     static_cast<PictureFrame::PictureType>(pic->get_type()),
     QString::fromUtf8(
       reinterpret_cast<const char*>(pic->get_description())),
@@ -108,9 +108,9 @@ static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
     pic->set_width(image.width());
     pic->set_height(image.height());
     pic->set_depth(image.depth());
-    pic->set_colors(image.numColors());
+    pic->set_colors(image.colorCount());
   }
-  pic->set_mime_type(mimeType.toAscii());
+  pic->set_mime_type(mimeType.toLatin1());
   pic->set_type(
     static_cast<FLAC__StreamMetadata_Picture_Type>(pictureType));
   pic->set_description(

@@ -264,8 +264,9 @@ QList<QHeaderView::ResizeMode>
 void CommandsTableModel::setCommandList(
   const QList<MiscConfig::MenuCommand>& cmdList)
 {
+  beginResetModel();
   m_cmdList = cmdList;
-  reset();
+  endResetModel();
 }
 
 /**

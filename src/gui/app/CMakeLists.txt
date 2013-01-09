@@ -133,14 +133,19 @@ else (WITH_KDE)
   endif (APPLE OR WIN32)
 
   if (WIN32)
-    # Unfortunately, the binutils which come with the gcc-4.4.0 in the MinGW
-    # for Qt generate an executable which cannot be analyzed with dumpbin.
-    # This happens when Kid3 is linked with libav (used with Chromaprint).
-    # Therefore, the dependencies for kid3.exe are not added to the bundle.
-    # This workaround adds the missing files.
-    install(FILES "${QT_BINARY_DIR}/QtNetwork4.dll"
-                  "${QT_BINARY_DIR}/QtXml4.dll"
-            DESTINATION ${WITH_BINDIR})
+    if (NOT HAVE_QT5)
+      # Unfortunately, the binutils which come with the gcc-4.4.0 in the MinGW
+      # for Qt generate an executable which cannot be analyzed with dumpbin.
+      # This happens when Kid3 is linked with libav (used with Chromaprint).
+      # Therefore, the dependencies for kid3.exe are not added to the bundle.
+      # This workaround adds the missing files.
+      install(FILES "${QT_BINARY_DIR}/QtNetwork4.dll"
+                    "${QT_BINARY_DIR}/QtXml4.dll"
+              DESTINATION ${WITH_BINDIR})
+    else (NOT HAVE_QT5)
+      install(FILES "${_qt5Dir}/../ported-x32/bin/libjpeg-8.dll"
+              DESTINATION ${WITH_BINDIR})
+    endif (NOT HAVE_QT5)
   endif (WIN32)
 
 endif (WITH_KDE)

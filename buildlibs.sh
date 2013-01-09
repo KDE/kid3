@@ -529,6 +529,7 @@ cd libav-0.8.3
 # Disable-sse avoids a SEGFAULT under MinGW.
 # Later versions (tested with libav-HEAD-5d2be71) do not have
 # --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
+# The two --disable-hwaccel were added for MinGW-builds GCC 4.7.2.
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
@@ -604,7 +605,9 @@ cd libav-0.8.3
 	--enable-decoder=pcm_u16le \
 	--enable-decoder=pcm_u24be \
 	--enable-decoder=pcm_u24le \
-	--enable-decoder=rawvideo
+	--enable-decoder=rawvideo \
+	--disable-hwaccel=h264_dxva2 \
+	--disable-hwaccel=mpeg2_dxva2
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
@@ -614,8 +617,9 @@ cd ../..
 
 # chromaprint
 
+# The zlib library path was added for MinGW-builds GCC 4.7.2.
 cd chromaprint-0.6/
-test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=-lz -DFFMPEG_ROOT=$thisdir/libav-0.8.3/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-1.2.7/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-0.8.3/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst

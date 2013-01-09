@@ -134,7 +134,11 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
     host.chop(3);
   }
   QUrl url;
+#if QT_VERSION >= 0x050000
+  url.setUrl("http://" + host + path);
+#else
   url.setEncodedUrl(("http://" + host + path).toAscii());
+#endif
   QNetworkRequest request(url);
   for (RawHeaderMap::const_iterator it =
          headers.constBegin();

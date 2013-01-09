@@ -123,8 +123,13 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   m_trackDataTable->setItemDelegateForColumn(
         m_trackDataModel->columnForFrameType(Frame::FT_Genre),
         new FrameItemDelegate(this));
+#if QT_VERSION >= 0x050000
+  m_trackDataTable->verticalHeader()->setSectionsMovable(true);
+  m_trackDataTable->horizontalHeader()->setSectionsMovable(true);
+#else
   m_trackDataTable->verticalHeader()->setMovable(true);
   m_trackDataTable->horizontalHeader()->setMovable(true);
+#endif
   m_trackDataTable->horizontalHeader()->setContextMenuPolicy(
         Qt::CustomContextMenu);
   connect(m_trackDataTable->verticalHeader(), SIGNAL(sectionMoved(int, int, int)),

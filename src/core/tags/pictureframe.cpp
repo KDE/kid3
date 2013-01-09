@@ -571,7 +571,7 @@ static void renderCharsToByteArray(const char* str, QByteArray& data,
  */
 void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
 {
-  QByteArray ba = QByteArray::fromBase64(base64Value.toAscii());
+  QByteArray ba = QByteArray::fromBase64(base64Value.toLatin1());
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
   QString mimeType("image/jpeg");
   QString description("");
@@ -585,7 +585,7 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
     unsigned long mimeLen = getBigEndianULongFromByteArray(ba, index);
     index += 4;
     if (baSize < index + mimeLen + 24) return;
-    mimeType = QString::fromAscii(ba.data() + index, mimeLen);
+    mimeType = QString::fromLatin1(ba.data() + index, mimeLen);
     index += mimeLen;
     unsigned long descLen = getBigEndianULongFromByteArray(ba, index);
     index += 4;
@@ -618,7 +618,7 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
   PictureFrame::getFields(frame, enc, imgFormat, mimeType,
                           pictureType, description, pic);
   if (frame.getInternalName() == "METADATA_BLOCK_PICTURE") {
-    QByteArray mimeStr = mimeType.toAscii();
+    QByteArray mimeStr = mimeType.toLatin1();
     QByteArray descStr = description.toUtf8();
     int mimeLen = mimeStr.length();
     int descLen = descStr.length();
@@ -642,7 +642,7 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
       width = image.width();
       height = image.height();
       depth = image.depth();
-      numColors = image.numColors();
+      numColors = image.colorCount();
     }
     renderBigEndianULongToByteArray(width, ba, index);
     index += 4;
