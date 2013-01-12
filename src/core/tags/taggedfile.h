@@ -625,19 +625,19 @@ public:
    * Get the mask of the frame types changed in tag 1.
    * @return mask of frame types.
    */
-  unsigned long getChangedFramesV1() const { return m_changedFramesV1; }
+  quint64 getChangedFramesV1() const { return m_changedFramesV1; }
 
   /**
    * Get the mask of the frame types changed in tag 2.
    * @return mask of frame types.
    */
-  unsigned long getChangedFramesV2() const { return m_changedFramesV2; }
+  quint64 getChangedFramesV2() const { return m_changedFramesV2; }
 
   /**
    * Set the mask of the frame types changed in tag 2.
    * @param mask mask of frame types
    */
-  void setChangedFramesV2(unsigned long mask) {
+  void setChangedFramesV2(quint64 mask) {
     m_changedFramesV2 = mask; m_changedV2 = mask != 0;
   }
 
@@ -645,7 +645,7 @@ public:
    * Get the truncation flags.
    * @return truncation flags.
    */
-  unsigned getTruncationFlags() const { return m_truncation; }
+  quint64 getTruncationFlags() const { return m_truncation; }
 
   /**
    * Format track number/total number of tracks with configured digits.
@@ -812,7 +812,7 @@ protected:
    * @return str truncated to len characters if necessary, else QString::null.
    */
   QString checkTruncation(const QString& str,
-                          unsigned flag, int len = 30);
+                          quint64 flag, int len = 30);
 
   /**
    * Check if a number has to be truncated.
@@ -823,7 +823,7 @@ protected:
    *
    * @return val truncated to max if necessary, else -1.
    */
-  int checkTruncation(int val, unsigned flag,
+  int checkTruncation(int val, quint64 flag,
                       int max = 255);
 
   /**
@@ -846,13 +846,13 @@ private:
   /** true if ID3v1 tags were changed */
   bool m_changedV1;
   /** changed tag 1 frame types */
-  unsigned long m_changedFramesV1;
+  quint64 m_changedFramesV1;
   /** true if ID3v2 tags were changed */
   bool m_changedV2;
   /** changed tag 2 frame types */
-  unsigned long m_changedFramesV2;
+  quint64 m_changedFramesV2;
   /** Truncation flags. */
-  unsigned m_truncation;
+  quint64 m_truncation;
 
   static QList<const Resolver*> s_resolvers;
 };

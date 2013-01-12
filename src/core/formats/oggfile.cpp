@@ -250,17 +250,23 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "ARRANGER",        // FT_Arranger,
     "AUTHOR",          // FT_Author,
     "BPM",             // FT_Bpm,
+    "CATALOGNUMBER",   // FT_CatalogNumber,
+    "COMPILATION",     // FT_Compilation,
     "COMPOSER",        // FT_Composer,
     "CONDUCTOR",       // FT_Conductor,
     "COPYRIGHT",       // FT_Copyright,
     "DISCNUMBER",      // FT_Disc,
     "ENCODED-BY",      // FT_EncodedBy,
+    "ENCODINGSETTINGS", // FT_EncodingSettings,
+    "ENCODINGTIME",    // FT_EncodingTime,
     "GROUPING",        // FT_Grouping,
+    "INITIALKEY",      // FT_InitialKey,
     "ISRC",            // FT_Isrc,
     "LANGUAGE",        // FT_Language,
     "LYRICIST",        // FT_Lyricist,
     "LYRICS",          // FT_Lyrics,
     "SOURCEMEDIA",     // FT_Media,
+    "MOOD",            // FT_Mood,
     "ORIGINALALBUM",   // FT_OriginalAlbum,
     "ORIGINALARTIST",  // FT_OriginalArtist,
     "ORIGINALDATE",    // FT_OriginalDate,
@@ -268,10 +274,18 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "PERFORMER",       // FT_Performer,
     "METADATA_BLOCK_PICTURE", // FT_Picture,
     "PUBLISHER",       // FT_Publisher,
+    "RELEASECOUNTRY",  // FT_ReleaseCountry,
     "REMIXER",         // FT_Remixer,
+    "ALBUMSORT",       // FT_SortAlbum,
+    "ALBUMARTISTSORT", // FT_SortAlbumArtist,
+    "ARTISTSORT",      // FT_SortArtist,
+    "COMPOSERSORT",    // FT_SortComposer,
+    "TITLESORT",       // FT_SortName,
     "SUBTITLE",        // FT_Subtitle,
     "WEBSITE",         // FT_Website,
-                       // FT_LastFrame = FT_Website
+    "WWWAUDIOFILE",    // FT_WWWAudioFile,
+    "WWWAUDIOSOURCE"   // FT_WWWAudioSource,
+                       // FT_LastFrame = FT_WWWAudioSource
   };
   class not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -778,7 +792,6 @@ void OggFile::getAllFramesV2(FrameCollection& frames)
 QStringList OggFile::getFrameIds() const
 {
   static const char* const fieldNames[] = {
-    "CATALOGNUMBER",
     "CONTACT",
     "DESCRIPTION",
     "EAN/UPN",
@@ -796,7 +809,6 @@ QStringList OggFile::getFrameIds() const
     "PRODUCER",
     "PRODUCTNUMBER",
     "RECORDINGDATE",
-    "RELEASECOUNTRY",
     "RELEASE DATE",
     "SOURCE ARTIST",
     "SOURCE MEDIUM",

@@ -54,17 +54,23 @@ const char* getNameFromType(Frame::Type type)
     I18N_NOOP("Arranger"),        // FT_Arranger,
     I18N_NOOP("Author"),          // FT_Author,
     I18N_NOOP("BPM"),             // FT_Bpm,
+    I18N_NOOP("Catalog Number"),  // FT_CatalogNumber,
+    I18N_NOOP("Compilation"),     // FT_Compilation,
     I18N_NOOP("Composer"),        // FT_Composer,
     I18N_NOOP("Conductor"),       // FT_Conductor,
     I18N_NOOP("Copyright"),       // FT_Copyright,
     I18N_NOOP("Disc Number"),     // FT_Disc,
     I18N_NOOP("Encoded-by"),      // FT_EncodedBy,
+    I18N_NOOP("Encoding Settings"), // FT_EncodingSettings,
+    I18N_NOOP("Encoding Time"),   // FT_EncodingTime,
     I18N_NOOP("Grouping"),        // FT_Grouping,
+    I18N_NOOP("Initial Key"),     // FT_InitialKey,
     I18N_NOOP("ISRC"),            // FT_Isrc,
     I18N_NOOP("Language"),        // FT_Language,
     I18N_NOOP("Lyricist"),        // FT_Lyricist,
     I18N_NOOP("Lyrics"),          // FT_Lyrics,
     I18N_NOOP("Media"),           // FT_Media,
+    I18N_NOOP("Mood"),            // FT_Mood,
     I18N_NOOP("Original Album"),  // FT_OriginalAlbum,
     I18N_NOOP("Original Artist"), // FT_OriginalArtist,
     I18N_NOOP("Original Date"),   // FT_OriginalDate,
@@ -72,10 +78,18 @@ const char* getNameFromType(Frame::Type type)
     I18N_NOOP("Performer"),       // FT_Performer,
     I18N_NOOP("Picture"),         // FT_Picture,
     I18N_NOOP("Publisher"),       // FT_Publisher,
+    I18N_NOOP("Release Country"), // FT_ReleaseCountry,
     I18N_NOOP("Remixer"),         // FT_Remixer,
+    I18N_NOOP("Sort Album"),      // FT_SortAlbum,
+    I18N_NOOP("Sort Album Artist"), // FT_SortAlbumArtist,
+    I18N_NOOP("Sort Artist"),     // FT_SortArtist,
+    I18N_NOOP("Sort Composer"),   // FT_SortComposer,
+    I18N_NOOP("Sort Name"),       // FT_SortName,
     I18N_NOOP("Subtitle"),        // FT_Subtitle,
-    I18N_NOOP("Website")          // FT_Website,
-                                  // FT_LastFrame = FT_Website
+    I18N_NOOP("Website"),         // FT_Website,
+    I18N_NOOP("WWW Audio File"),  // FT_WWWAudioFile,
+    I18N_NOOP("WWW Audio Source") // FT_WWWAudioSource,
+                                  // FT_LastFrame = FT_WWWAudioSource
   };
   class not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -326,17 +340,23 @@ static const char* frameTypeToString(Frame::Type type)
     "FT_Arranger",
     "FT_Author",
     "FT_Bpm",
+    "FT_CatalogNumber",
+    "FT_Compilation",
     "FT_Composer",
     "FT_Conductor",
     "FT_Copyright",
     "FT_Disc",
     "FT_EncodedBy",
+    "FT_EncodingSettings",
+    "FT_EncodingTime",
     "FT_Grouping",
+    "FT_InitialKey",
     "FT_Isrc",
     "FT_Language",
     "FT_Lyricist",
     "FT_Lyrics",
     "FT_Media",
+    "FT_Mood",
     "FT_OriginalAlbum",
     "FT_OriginalArtist",
     "FT_OriginalDate",
@@ -344,9 +364,17 @@ static const char* frameTypeToString(Frame::Type type)
     "FT_Performer",
     "FT_Picture",
     "FT_Publisher",
+    "FT_ReleaseCountry",
     "FT_Remixer",
+    "FT_SortAlbum",
+    "FT_SortAlbumArtist",
+    "FT_SortArtist",
+    "FT_SortComposer",
+    "FT_SortName",
     "FT_Subtitle",
     "FT_Website",
+    "FT_WWWAudioFile",
+    "FT_WWWAudioSource",
     "FT_Other",
     "FT_UnknownFrame"
   };
@@ -430,7 +458,7 @@ void Frame::dump() const
  * quick access frames.
  * This mask has to be handled like FrameFilter::m_enabledFrames.
  */
-quint32 FrameCollection::s_quickAccessFrames =
+quint64 FrameCollection::s_quickAccessFrames =
     FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES;
 
 /**
@@ -483,9 +511,9 @@ void FrameCollection::filterDifferent(FrameCollection& others)
  */
 void FrameCollection::addMissingStandardFrames()
 {
-  quint32 mask;
+  quint64 mask;
   int i;
-  for (i = Frame::FT_FirstFrame, mask = 1;
+  for (i = Frame::FT_FirstFrame, mask = 1ULL;
        i <= Frame::FT_LastFrame;
        ++i, mask <<= 1) {
     if (s_quickAccessFrames & mask) {
@@ -848,7 +876,7 @@ bool FrameFilter::areAllEnabled() const
 bool FrameFilter::isEnabled(Frame::Type type, const QString& name) const
 {
   if (type <= Frame::FT_LastFrame) {
-    return (m_enabledFrames & (1 << type)) != 0;
+    return (m_enabledFrames & (1ULL << type)) != 0;
   } else if (!name.isEmpty()) {
     std::set<QString>::const_iterator it = m_disabledOtherFrames.find(name);
     return it == m_disabledOtherFrames.end();
@@ -868,9 +896,9 @@ void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
 {
   if (type <= Frame::FT_LastFrame) {
     if (en) {
-      m_enabledFrames |= (1 << type);
+      m_enabledFrames |= (1ULL << type);
     } else {
-      m_enabledFrames &= ~(1 << type);
+      m_enabledFrames &= ~(1ULL << type);
     }
   } else if (!name.isEmpty()) {
     if (en) {

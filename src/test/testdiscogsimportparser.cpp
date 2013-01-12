@@ -73,7 +73,9 @@ void TestDiscogsImportParser::testParseTracks()
     QCOMPARE(m_trackDataModel->index(row, 6).data().toString(), QString("Odin"));
     QCOMPARE(m_trackDataModel->index(row, 7).data().toInt(), 2003);
     QCOMPARE(m_trackDataModel->index(row, 8).data().toString(), QString("Heavy Metal"));
-    QCOMPARE(m_trackDataModel->index(row, 10).data().toString(), QString("CD"));
-    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString("LMP"));
+    QCOMPARE(m_trackDataModel->index(row, 10).data().toString(), QString("LMP 0303-054 Ltd. CD"));
+    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString("CD"));
+    QCOMPARE(m_trackDataModel->index(row, 12).data().toString(), QString("LMP"));
+    QCOMPARE(m_trackDataModel->index(row, 13).data().toString(), QString("Germany"));
   }
 }

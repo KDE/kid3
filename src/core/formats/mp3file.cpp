@@ -855,7 +855,7 @@ void Mp3File::setTitleV1(const QString& str)
   if (getTextField(m_tagV1, ID3FID_TITLE, s_textCodecV1) != str &&
       setTextField(m_tagV1, ID3FID_TITLE, str, false, true, true, s_textCodecV1)) {
     markTag1Changed(Frame::FT_Title);
-    QString s = checkTruncation(str, 1 << Frame::FT_Title);
+    QString s = checkTruncation(str, 1ULL << Frame::FT_Title);
     if (!s.isNull()) setTextField(m_tagV1, ID3FID_TITLE, s, false, true, true, s_textCodecV1);
   }
 }
@@ -870,7 +870,7 @@ void Mp3File::setArtistV1(const QString& str)
   if (getTextField(m_tagV1, ID3FID_LEADARTIST, s_textCodecV1) != str &&
       setTextField(m_tagV1, ID3FID_LEADARTIST, str, false, true, true, s_textCodecV1)) {
     markTag1Changed(Frame::FT_Artist);
-    QString s = checkTruncation(str, 1 << Frame::FT_Artist);
+    QString s = checkTruncation(str, 1ULL << Frame::FT_Artist);
     if (!s.isNull()) setTextField(m_tagV1, ID3FID_LEADARTIST, s, false, true, true, s_textCodecV1);
   }
 }
@@ -885,7 +885,7 @@ void Mp3File::setAlbumV1(const QString& str)
   if (getTextField(m_tagV1, ID3FID_ALBUM, s_textCodecV1) != str &&
       setTextField(m_tagV1, ID3FID_ALBUM, str, false, true, true, s_textCodecV1)) {
     markTag1Changed(Frame::FT_Album);
-    QString s = checkTruncation(str, 1 << Frame::FT_Album);
+    QString s = checkTruncation(str, 1ULL << Frame::FT_Album);
     if (!s.isNull()) setTextField(m_tagV1, ID3FID_ALBUM, s, false, true, true, s_textCodecV1);
   }
 }
@@ -900,7 +900,7 @@ void Mp3File::setCommentV1(const QString& str)
   if (getTextField(m_tagV1, ID3FID_COMMENT, s_textCodecV1) != str &&
       setTextField(m_tagV1, ID3FID_COMMENT, str, false, true, true, s_textCodecV1)) {
     markTag1Changed(Frame::FT_Comment);
-    QString s = checkTruncation(str, 1 << Frame::FT_Comment, 28);
+    QString s = checkTruncation(str, 1ULL << Frame::FT_Comment, 28);
     if (!s.isNull()) setTextField(m_tagV1, ID3FID_COMMENT, s, false, true, true, s_textCodecV1);
   }
 }
@@ -926,7 +926,7 @@ void Mp3File::setTrackNumV1(int num)
 {
   if (setTrackNum(m_tagV1, num)) {
     markTag1Changed(Frame::FT_Track);
-    int n = checkTruncation(num, 1 << Frame::FT_Track);
+    int n = checkTruncation(num, 1ULL << Frame::FT_Track);
     if (n != -1) setTrackNum(m_tagV1, n);
   }
 }
@@ -945,7 +945,7 @@ void Mp3File::setGenreV1(const QString& str)
     }
     // if the string cannot be converted to a number, set the truncation flag
     checkTruncation(num == 0xff && !str.isEmpty() ? 1 : 0,
-                    1 << Frame::FT_Genre, 0);
+                    1ULL << Frame::FT_Genre, 0);
   }
 }
 
@@ -1303,7 +1303,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Grouping,       I18N_NOOP("TIT1 - Content group description") },                       /* TIT1 */
   { Frame::FT_Title,          I18N_NOOP("TIT2 - Title/songname/content description") },              /* TIT2 */
   { Frame::FT_Subtitle,       I18N_NOOP("TIT3 - Subtitle/Description refinement") },                 /* TIT3 */
-  { Frame::FT_Other,          I18N_NOOP("TKEY - Initial key") },                                     /* TKEY */
+  { Frame::FT_InitialKey,     I18N_NOOP("TKEY - Initial key") },                                     /* TKEY */
   { Frame::FT_Language,       I18N_NOOP("TLAN - Language(s)") },                                     /* TLAN */
   { Frame::FT_Other,          I18N_NOOP("TLEN - Length") },                                          /* TLEN */
   { Frame::FT_Other,          0 },                                                                   /* TMCL */
@@ -1331,7 +1331,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          0 },                                                                   /* TSOP */
   { Frame::FT_Other,          0 },                                                                   /* TSOT */
   { Frame::FT_Isrc,           I18N_NOOP("TSRC - ISRC (international standard recording code)") },    /* TSRC */
-  { Frame::FT_Other,          I18N_NOOP("TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
+  { Frame::FT_EncodingSettings,I18N_NOOP("TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
   { Frame::FT_Part,           0 },                                                                   /* TSST */
   { Frame::FT_Other,          I18N_NOOP("TXXX - User defined text information") },                   /* TXXX */
   { Frame::FT_Date,           I18N_NOOP("TYER - Year") },                                            /* TYER */
@@ -1340,9 +1340,9 @@ static const struct TypeStrOfId {
   { Frame::FT_Lyrics,         I18N_NOOP("USLT - Unsynchronized lyric/text transcription") },         /* USLT */
   { Frame::FT_Other,          I18N_NOOP("WCOM - Commercial information") },                          /* WCOM */
   { Frame::FT_Other,          I18N_NOOP("WCOP - Copyright/Legal information") },                     /* WCOP */
-  { Frame::FT_Other,          I18N_NOOP("WOAF - Official audio file webpage") },                     /* WOAF */
+  { Frame::FT_WWWAudioFile,   I18N_NOOP("WOAF - Official audio file webpage") },                     /* WOAF */
   { Frame::FT_Website,        I18N_NOOP("WOAR - Official artist/performer webpage") },               /* WOAR */
-  { Frame::FT_Other,          I18N_NOOP("WOAS - Official audio source webpage") },                   /* WOAS */
+  { Frame::FT_WWWAudioSource, I18N_NOOP("WOAS - Official audio source webpage") },                   /* WOAS */
   { Frame::FT_Other,          I18N_NOOP("WORS - Official internet radio station homepage") },        /* WORS */
   { Frame::FT_Other,          I18N_NOOP("WPAY - Payment") },                                         /* WPAY */
   { Frame::FT_Other,          I18N_NOOP("WPUB - Official publisher webpage") },                      /* WPUB */
@@ -1381,6 +1381,9 @@ static ID3_FrameID getId3libFrameIdForType(Frame::Type type)
   // IPLS is mapped to FT_Arranger and FT_Performer
   if (type == Frame::FT_Performer) {
     return ID3FID_INVOLVEDPEOPLE;
+  } else if (type == Frame::FT_CatalogNumber ||
+             type == Frame::FT_ReleaseCountry) {
+    return ID3FID_USERTEXT;
   }
 
   static int typeIdMap[Frame::FT_LastFrame + 1] = { -1, };
@@ -1773,7 +1776,15 @@ bool Mp3File::addFrameV2(Frame& frame)
     if (id == ID3FID_USERTEXT && !frame.getName().startsWith("TXXX")) {
       fld = id3Frame->GetField(ID3FN_DESCRIPTION);
       if (fld) {
-        setString(fld, frame.getName());
+        QString description;
+        if (frame.getType() == Frame::FT_CatalogNumber) {
+          description = "CATALOGNUMBER";
+        } else if (frame.getType() == Frame::FT_ReleaseCountry) {
+          description = "RELEASECOUNTRY";
+        } else {
+          description = frame.getName();
+        }
+        setString(fld, description);
       }
     } else if (id == ID3FID_COMMENT && frame.getType() == Frame::FT_Other) {
       fld = id3Frame->GetField(ID3FN_DESCRIPTION);
@@ -1943,8 +1954,14 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
         if (fieldValue.isValid()) {
           QString description = fieldValue.toString();
           if (!description.isEmpty()) {
-            frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+            if (description == "CATALOGNUMBER") {
+              frame.setType(Frame::FT_CatalogNumber);
+            } else if (description == "RELEASECOUNTRY") {
+              frame.setType(Frame::FT_ReleaseCountry);
+            } else {
+              frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
                                       QString(name) + '\n' + description));
+            }
           }
         }
       } else if (id3Frame->GetID() == ID3FID_PRIVATE) {

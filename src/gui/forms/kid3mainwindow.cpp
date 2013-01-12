@@ -1478,7 +1478,7 @@ void Kid3MainWindow::slotSettingsConfigure()
 #endif
   dialog->setConfig(m_app->getConfigStore());
   if (dialog->exec() == QDialog::Accepted) {
-    quint32 oldQuickAccessFrames = ConfigStore::s_miscCfg.m_quickAccessFrames;
+    quint64 oldQuickAccessFrames = ConfigStore::s_miscCfg.m_quickAccessFrames;
     dialog->getConfig(m_app->getConfigStore());
     m_app->saveConfig();
     if (!ConfigStore::s_miscCfg.m_markTruncations) {

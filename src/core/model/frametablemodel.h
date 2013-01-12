@@ -161,14 +161,14 @@ public:
    * Mark rows.
    * @param rowMask mask with bits of rows to mark
    */
-  void markRows(unsigned char rowMask) { m_markedRows = rowMask; }
+  void markRows(quint64 rowMask) { m_markedRows = rowMask; }
 
 
   /**
    * Mark changed frames.
    * @param frameMask mask with bits of frame types to mark
    */
-  void markChangedFrames(unsigned long frameMask) {
+  void markChangedFrames(quint64 frameMask) {
     m_changedFrames = frameMask;
   }
 
@@ -289,8 +289,8 @@ private:
   void resizeFrameSelected();
 
   QBitArray m_frameSelected;
-  unsigned char m_markedRows;
-  unsigned long m_changedFrames;
+  quint64 m_markedRows;
+  quint64 m_changedFrames;
   bool m_id3v1;
   FrameCollection m_frames;
 };

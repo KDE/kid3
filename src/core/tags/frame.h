@@ -52,17 +52,23 @@ public:
     FT_Arranger,
     FT_Author,
     FT_Bpm,
+    FT_CatalogNumber,
+    FT_Compilation,
     FT_Composer,
     FT_Conductor,
     FT_Copyright,
     FT_Disc,
     FT_EncodedBy,
+    FT_EncodingSettings,
+    FT_EncodingTime,
     FT_Grouping,
+    FT_InitialKey,
     FT_Isrc,
     FT_Language,
     FT_Lyricist,
     FT_Lyrics,
     FT_Media,
+    FT_Mood,
     FT_OriginalAlbum,
     FT_OriginalArtist,
     FT_OriginalDate,
@@ -70,10 +76,18 @@ public:
     FT_Performer,
     FT_Picture,
     FT_Publisher,
+    FT_ReleaseCountry,
     FT_Remixer,
+    FT_SortAlbum,
+    FT_SortAlbumArtist,
+    FT_SortArtist,
+    FT_SortComposer,
+    FT_SortName,
     FT_Subtitle,
     FT_Website,
-    FT_LastFrame = FT_Website,
+    FT_WWWAudioFile,
+    FT_WWWAudioSource,
+    FT_LastFrame = FT_WWWAudioSource,
     FT_Other,
     FT_UnknownFrame
   };
@@ -487,13 +501,8 @@ public:
   void enable(Frame::Type type, const QString& name = QString(), bool en = true);
 
 private:
-  class not_used { int num_frame_types_check[
-      Frame::FT_LastFrame == 31
-      ? 1 : -1 ]; };
-  enum { FTM_AllFrames = 0xffffffff };
-  // if FTM_AllFrames is not 31, use
-  // enum { FTM_AllFrames = (1 << (Frame::FT_LastFrame + 1)) - 1 };
-  unsigned long m_enabledFrames;
+  static const quint64 FTM_AllFrames = (1ULL << (Frame::FT_LastFrame + 1)) - 1;
+  quint64 m_enabledFrames;
   std::set<QString> m_disabledOtherFrames;
 };
 
@@ -503,14 +512,14 @@ public:
   /**
    * Default value for quick access frames.
    */
-  static const quint32 DEFAULT_QUICK_ACCESS_FRAMES =
-      (1 << Frame::FT_Title)   |
-      (1 << Frame::FT_Artist)  |
-      (1 << Frame::FT_Album)   |
-      (1 << Frame::FT_Comment) |
-      (1 << Frame::FT_Date)    |
-      (1 << Frame::FT_Track)   |
-      (1 << Frame::FT_Genre);
+  static const quint64 DEFAULT_QUICK_ACCESS_FRAMES =
+      (1ULL << Frame::FT_Title)   |
+      (1ULL << Frame::FT_Artist)  |
+      (1ULL << Frame::FT_Album)   |
+      (1ULL << Frame::FT_Comment) |
+      (1ULL << Frame::FT_Date)    |
+      (1ULL << Frame::FT_Track)   |
+      (1ULL << Frame::FT_Genre);
 
   /**
    * Constructor.
@@ -770,7 +779,7 @@ public:
    * @param mask bit mask with bits for quick access frames set, default is
    * DEFAULT_QUICK_ACCESS_FRAMES.
    */
-  static void setQuickAccessFrames(quint32 mask) {
+  static void setQuickAccessFrames(quint64 mask) {
     s_quickAccessFrames = mask;
   }
 
@@ -790,7 +799,7 @@ private:
    * quick access frames.
    * This mask has to be handled like FrameFilter::m_enabledFrames.
    */
-  static quint32 s_quickAccessFrames;
+  static quint64 s_quickAccessFrames;
 };
 
 

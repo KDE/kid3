@@ -1102,7 +1102,7 @@ void TagLibFile::setTitleV1(const QString& str)
     TagLib::String tstr = str.isEmpty() ?
       TagLib::String::null : QSTRING_TO_TSTRING(str);
     if (!(tstr == m_tagV1->title())) {
-      QString s = checkTruncation(str, 1 << Frame::FT_Title);
+      QString s = checkTruncation(str, 1ULL << Frame::FT_Title);
       if (!s.isNull())
         m_tagV1->setTitle(QSTRING_TO_TSTRING(s));
       else
@@ -1123,7 +1123,7 @@ void TagLibFile::setArtistV1(const QString& str)
     TagLib::String tstr = str.isEmpty() ?
       TagLib::String::null : QSTRING_TO_TSTRING(str);
     if (!(tstr == m_tagV1->artist())) {
-      QString s = checkTruncation(str, 1 << Frame::FT_Artist);
+      QString s = checkTruncation(str, 1ULL << Frame::FT_Artist);
       if (!s.isNull())
         m_tagV1->setArtist(QSTRING_TO_TSTRING(s));
       else
@@ -1144,7 +1144,7 @@ void TagLibFile::setAlbumV1(const QString& str)
     TagLib::String tstr = str.isEmpty() ?
       TagLib::String::null : QSTRING_TO_TSTRING(str);
     if (!(tstr == m_tagV1->album())) {
-      QString s = checkTruncation(str, 1 << Frame::FT_Album);
+      QString s = checkTruncation(str, 1ULL << Frame::FT_Album);
       if (!s.isNull())
         m_tagV1->setAlbum(QSTRING_TO_TSTRING(s));
       else
@@ -1165,7 +1165,7 @@ void TagLibFile::setCommentV1(const QString& str)
     TagLib::String tstr = str.isEmpty() ?
       TagLib::String::null : QSTRING_TO_TSTRING(str);
     if (!(tstr == m_tagV1->comment())) {
-      QString s = checkTruncation(str, 1 << Frame::FT_Comment, 28);
+      QString s = checkTruncation(str, 1ULL << Frame::FT_Comment, 28);
       if (!s.isNull())
         m_tagV1->setComment(QSTRING_TO_TSTRING(s));
       else
@@ -1199,7 +1199,7 @@ void TagLibFile::setTrackNumV1(int num)
 {
   if (makeTagV1Settable() && num >= 0) {
     if (num != static_cast<int>(m_tagV1->track())) {
-      int n = checkTruncation(num, 1 << Frame::FT_Track);
+      int n = checkTruncation(num, 1ULL << Frame::FT_Track);
       if (n != -1)
         m_tagV1->setTrack(n);
       else
@@ -1225,7 +1225,7 @@ void TagLibFile::setGenreV1(const QString& str)
     }
     // if the string cannot be converted to a number, set the truncation flag
     checkTruncation(!str.isEmpty() && Genres::getNumber(str) == 0xff ? 1 : 0,
-                    1 << Frame::FT_Genre, 0);
+                    1ULL << Frame::FT_Genre, 0);
   }
 }
 
@@ -1907,11 +1907,11 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          I18N_NOOP("SYTC - Synchronized tempo codes"), false },
   { Frame::FT_Album,          I18N_NOOP("TALB - Album/Movie/Show title"), true },
   { Frame::FT_Bpm,            I18N_NOOP("TBPM - BPM (beats per minute)"), true },
-  { Frame::FT_Other,          I18N_NOOP("TCMP - iTunes compilation flag"), true },
+  { Frame::FT_Compilation,    I18N_NOOP("TCMP - iTunes compilation flag"), true },
   { Frame::FT_Composer,       I18N_NOOP("TCOM - Composer"), true },
   { Frame::FT_Genre,          I18N_NOOP("TCON - Content type"), true },
   { Frame::FT_Copyright,      I18N_NOOP("TCOP - Copyright message"), true },
-  { Frame::FT_Other,          I18N_NOOP("TDEN - Encoding time"), true },
+  { Frame::FT_EncodingTime,   I18N_NOOP("TDEN - Encoding time"), true },
   { Frame::FT_Other,          I18N_NOOP("TDLY - Playlist delay"), true },
   { Frame::FT_OriginalDate,   I18N_NOOP("TDOR - Original release time"), true },
   { Frame::FT_Date,           I18N_NOOP("TDRC - Recording time"), true },
@@ -1924,12 +1924,12 @@ static const struct TypeStrOfId {
   { Frame::FT_Grouping,       I18N_NOOP("TIT1 - Content group description"), true },
   { Frame::FT_Title,          I18N_NOOP("TIT2 - Title/songname/content description"), true },
   { Frame::FT_Subtitle,       I18N_NOOP("TIT3 - Subtitle/Description refinement"), true },
-  { Frame::FT_Other,          I18N_NOOP("TKEY - Initial key"), true },
+  { Frame::FT_InitialKey,     I18N_NOOP("TKEY - Initial key"), true },
   { Frame::FT_Language,       I18N_NOOP("TLAN - Language(s)"), true },
   { Frame::FT_Other,          I18N_NOOP("TLEN - Length"), true },
   { Frame::FT_Performer,      I18N_NOOP("TMCL - Musician credits list"), true },
   { Frame::FT_Media,          I18N_NOOP("TMED - Media type"), true },
-  { Frame::FT_Other,          I18N_NOOP("TMOO - Mood"), true },
+  { Frame::FT_Mood,           I18N_NOOP("TMOO - Mood"), true },
   { Frame::FT_OriginalAlbum,  I18N_NOOP("TOAL - Original album/movie/show title"), true },
   { Frame::FT_Other,          I18N_NOOP("TOFN - Original filename"), true },
   { Frame::FT_Author,         I18N_NOOP("TOLY - Original lyricist(s)/text writer(s)"), true },
@@ -1945,13 +1945,13 @@ static const struct TypeStrOfId {
   { Frame::FT_Track,          I18N_NOOP("TRCK - Track number/Position in set"), true },
   { Frame::FT_Other,          I18N_NOOP("TRSN - Internet radio station name"), true },
   { Frame::FT_Other,          I18N_NOOP("TRSO - Internet radio station owner"), true },
-  { Frame::FT_Other,          I18N_NOOP("TSO2 - Album artist sort order"), true },
-  { Frame::FT_Other,          I18N_NOOP("TSOA - Album sort order"), true },
-  { Frame::FT_Other,          I18N_NOOP("TSOC - Composer sort order"), true },
-  { Frame::FT_Other,          I18N_NOOP("TSOP - Performer sort order"), true },
-  { Frame::FT_Other,          I18N_NOOP("TSOT - Title sort order"), true },
+  { Frame::FT_SortAlbumArtist, I18N_NOOP("TSO2 - Album artist sort order"), true },
+  { Frame::FT_SortAlbum,      I18N_NOOP("TSOA - Album sort order"), true },
+  { Frame::FT_SortComposer,   I18N_NOOP("TSOC - Composer sort order"), true },
+  { Frame::FT_SortArtist,     I18N_NOOP("TSOP - Performer sort order"), true },
+  { Frame::FT_SortName,       I18N_NOOP("TSOT - Title sort order"), true },
   { Frame::FT_Isrc,           I18N_NOOP("TSRC - ISRC (international standard recording code)"), true },
-  { Frame::FT_Other,          I18N_NOOP("TSSE - Software/Hardware and settings used for encoding"), true },
+  { Frame::FT_EncodingSettings, I18N_NOOP("TSSE - Software/Hardware and settings used for encoding"), true },
   { Frame::FT_Part,           I18N_NOOP("TSST - Set subtitle"), true },
   { Frame::FT_Other,          I18N_NOOP("TXXX - User defined text information"), true },
   { Frame::FT_Other,          I18N_NOOP("UFID - Unique file identifier"), true },
@@ -1959,9 +1959,9 @@ static const struct TypeStrOfId {
   { Frame::FT_Lyrics,         I18N_NOOP("USLT - Unsynchronized lyric/text transcription"), true },
   { Frame::FT_Other,          I18N_NOOP("WCOM - Commercial information"), true },
   { Frame::FT_Other,          I18N_NOOP("WCOP - Copyright/Legal information"), true },
-  { Frame::FT_Other,          I18N_NOOP("WOAF - Official audio file webpage"), true },
+  { Frame::FT_WWWAudioFile,   I18N_NOOP("WOAF - Official audio file webpage"), true },
   { Frame::FT_Website,        I18N_NOOP("WOAR - Official artist/performer webpage"), true },
-  { Frame::FT_Other,          I18N_NOOP("WOAS - Official audio source webpage"), true },
+  { Frame::FT_WWWAudioSource, I18N_NOOP("WOAS - Official audio source webpage"), true },
   { Frame::FT_Other,          I18N_NOOP("WORS - Official internet radio station homepage"), true },
   { Frame::FT_Other,          I18N_NOOP("WPAY - Payment"), true },
   { Frame::FT_Other,          I18N_NOOP("WPUB - Official publisher webpage"), true },
@@ -3157,17 +3157,23 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "ARRANGER",        // FT_Arranger,
     "AUTHOR",          // FT_Author,
     "BPM",             // FT_Bpm,
+    "CATALOGNUMBER",   // FT_CatalogNumber,
+    "COMPILATION",     // FT_Compilation,
     "COMPOSER",        // FT_Composer,
     "CONDUCTOR",       // FT_Conductor,
     "COPYRIGHT",       // FT_Copyright,
     "DISCNUMBER",      // FT_Disc,
     "ENCODED-BY",      // FT_EncodedBy,
+    "ENCODINGSETTINGS", // FT_EncodingSettings,
+    "ENCODINGTIME",    // FT_EncodingTime,
     "GROUPING",        // FT_Grouping,
+    "INITIALKEY",      // FT_InitialKey,
     "ISRC",            // FT_Isrc,
     "LANGUAGE",        // FT_Language,
     "LYRICIST",        // FT_Lyricist,
     "LYRICS",          // FT_Lyrics,
     "SOURCEMEDIA",     // FT_Media,
+    "MOOD",            // FT_Mood,
     "ORIGINALALBUM",   // FT_OriginalAlbum,
     "ORIGINALARTIST",  // FT_OriginalArtist,
     "ORIGINALDATE",    // FT_OriginalDate,
@@ -3175,10 +3181,18 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "PERFORMER",       // FT_Performer,
     "UNKNOWN",         // FT_Picture,
     "PUBLISHER",       // FT_Publisher,
+    "RELEASECOUNTRY",  // FT_ReleaseCountry,
     "REMIXER",         // FT_Remixer,
+    "ALBUMSORT",       // FT_SortAlbum,
+    "ALBUMARTISTSORT", // FT_SortAlbumArtist,
+    "ARTISTSORT",      // FT_SortArtist,
+    "COMPOSERSORT",    // FT_SortComposer,
+    "TITLESORT",       // FT_SortName,
     "SUBTITLE",        // FT_Subtitle,
     "WEBSITE",         // FT_Website,
-                       // FT_LastFrame = FT_Website
+    "WWWAUDIOFILE",    // FT_WWWAudioFile,
+    "WWWAUDIOSOURCE"   // FT_WWWAudioSource,
+                       // FT_LastFrame = FT_WWWAudioSource
   };
   class not_used { int array_size_check[
       sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1
@@ -3311,7 +3325,7 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "\251gen", Frame::FT_Genre, MVT_String },
   { "trkn", Frame::FT_Track, MVT_IntPair },
   { "disk", Frame::FT_Disc, MVT_IntPair },
-  { "cpil", Frame::FT_Other, MVT_Bool },
+  { "cpil", Frame::FT_Compilation, MVT_Bool },
   { "tmpo", Frame::FT_Bpm, MVT_Int },
   { "\251grp", Frame::FT_Grouping, MVT_String },
   { "aART", Frame::FT_AlbumArtist, MVT_String },
@@ -3325,13 +3339,13 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "tves", Frame::FT_Other, MVT_UInt },
   { "desc", Frame::FT_Other, MVT_String },
   { "ldes", Frame::FT_Other, MVT_String },
-  { "sonm", Frame::FT_Other, MVT_String },
-  { "soar", Frame::FT_Other, MVT_String },
-  { "soaa", Frame::FT_Other, MVT_String },
-  { "soal", Frame::FT_Other, MVT_String },
-  { "soco", Frame::FT_Other, MVT_String },
+  { "sonm", Frame::FT_SortName, MVT_String },
+  { "soar", Frame::FT_SortArtist, MVT_String },
+  { "soaa", Frame::FT_SortAlbumArtist, MVT_String },
+  { "soal", Frame::FT_SortAlbum, MVT_String },
+  { "soco", Frame::FT_SortComposer, MVT_String },
   { "sosn", Frame::FT_Other, MVT_String },
-  { "\251too", Frame::FT_Other, MVT_String },
+  { "\251too", Frame::FT_EncodingSettings, MVT_String },
   { "purd", Frame::FT_Other, MVT_String },
   { "pcst", Frame::FT_Other, MVT_Bool },
   { "keyw", Frame::FT_Other, MVT_String },
@@ -3353,10 +3367,14 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
 #endif
   { "ARRANGER", Frame::FT_Arranger, MVT_String },
   { "AUTHOR", Frame::FT_Author, MVT_String },
+  { "CATALOGNUMBER", Frame::FT_CatalogNumber, MVT_String },
   { "CONDUCTOR", Frame::FT_Conductor, MVT_String },
+  { "ENCODINGTIME", Frame::FT_EncodingTime, MVT_String },
+  { "INITIALKEY", Frame::FT_InitialKey, MVT_String },
   { "ISRC", Frame::FT_Isrc, MVT_String },
   { "LANGUAGE", Frame::FT_Language, MVT_String },
   { "LYRICIST", Frame::FT_Lyricist, MVT_String },
+  { "MOOD", Frame::FT_Mood, MVT_String },
   { "SOURCEMEDIA", Frame::FT_Media, MVT_String },
   { "ORIGINALALBUM", Frame::FT_OriginalAlbum, MVT_String },
   { "ORIGINALARTIST", Frame::FT_OriginalArtist, MVT_String },
@@ -3364,9 +3382,12 @@ static const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "PART", Frame::FT_Part, MVT_String },
   { "PERFORMER", Frame::FT_Performer, MVT_String },
   { "PUBLISHER", Frame::FT_Publisher, MVT_String },
+  { "RELEASECOUNTRY", Frame::FT_ReleaseCountry, MVT_String },
   { "REMIXER", Frame::FT_Remixer, MVT_String },
   { "SUBTITLE", Frame::FT_Subtitle, MVT_String },
-  { "WEBSITE", Frame::FT_Website, MVT_String }
+  { "WEBSITE", Frame::FT_Website, MVT_String },
+  { "WWWAUDIOFILE", Frame::FT_WWWAudioFile, MVT_String },
+  { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource, MVT_String }
 };
 
 /**
@@ -3595,6 +3616,9 @@ static const AsfNameTypeValue asfNameTypeValues[] = {
   { "WM/Genre", Frame::FT_Genre, TagLib::ASF::Attribute::UnicodeType },
   { "WM/GenreID", Frame::FT_Genre, TagLib::ASF::Attribute::UnicodeType },
   { "WM/AlbumArtist", Frame::FT_AlbumArtist, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/AlbumSortOrder", Frame::FT_SortAlbum, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/ArtistSortOrder", Frame::FT_SortArtist, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/TitleSortOrder", Frame::FT_SortName, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Producer", Frame::FT_Arranger, TagLib::ASF::Attribute::UnicodeType },
   { "WM/BeatsPerMinute", Frame::FT_Bpm, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Composer", Frame::FT_Composer, TagLib::ASF::Attribute::UnicodeType },
@@ -3606,7 +3630,7 @@ static const AsfNameTypeValue asfNameTypeValues[] = {
   { "WM/Language", Frame::FT_Language, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Writer", Frame::FT_Lyricist, TagLib::ASF::Attribute::UnicodeType },
   { "WM/Lyrics", Frame::FT_Lyrics, TagLib::ASF::Attribute::UnicodeType },
-  { "WM/AudioSourceURL", Frame::FT_Media, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/AudioSourceURL", Frame::FT_WWWAudioSource, TagLib::ASF::Attribute::UnicodeType },
   { "WM/OriginalAlbumTitle", Frame::FT_OriginalAlbum, TagLib::ASF::Attribute::UnicodeType },
   { "WM/OriginalArtist", Frame::FT_OriginalArtist, TagLib::ASF::Attribute::UnicodeType },
   { "WM/OriginalReleaseYear", Frame::FT_OriginalDate, TagLib::ASF::Attribute::UnicodeType },
@@ -3618,16 +3642,16 @@ static const AsfNameTypeValue asfNameTypeValues[] = {
   { "WM/AuthorURL", Frame::FT_Website, TagLib::ASF::Attribute::UnicodeType },
   { "AverageLevel", Frame::FT_Other, TagLib::ASF::Attribute::DWordType },
   { "PeakValue", Frame::FT_Other, TagLib::ASF::Attribute::DWordType },
-  { "WM/AudioFileURL", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
-  { "WM/EncodingSettings", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
-  { "WM/EncodingTime", Frame::FT_Other, TagLib::ASF::Attribute::BytesType },
-  { "WM/InitialKey", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/AudioFileURL", Frame::FT_WWWAudioFile, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/EncodingSettings", Frame::FT_EncodingSettings, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/EncodingTime", Frame::FT_EncodingTime, TagLib::ASF::Attribute::BytesType },
+  { "WM/InitialKey", Frame::FT_InitialKey, TagLib::ASF::Attribute::UnicodeType },
   // incorrect WM/Lyrics_Synchronised data make file inaccessible in Windows
   // { "WM/Lyrics_Synchronised", Frame::FT_Other, TagLib::ASF::Attribute::BytesType },
   { "WM/MCDI", Frame::FT_Other, TagLib::ASF::Attribute::BytesType },
   { "WM/MediaClassPrimaryID", Frame::FT_Other, TagLib::ASF::Attribute::GuidType },
   { "WM/MediaClassSecondaryID", Frame::FT_Other, TagLib::ASF::Attribute::GuidType },
-  { "WM/Mood", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
+  { "WM/Mood", Frame::FT_Mood, TagLib::ASF::Attribute::UnicodeType },
   { "WM/OriginalFilename", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
   { "WM/OriginalLyricist", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
   { "WM/PromotionURL", Frame::FT_Other, TagLib::ASF::Attribute::UnicodeType },
@@ -4210,10 +4234,18 @@ bool TagLibFile::addFrameV2(Frame& frame)
       if (!id3Frame) {
         TagLib::ID3v2::UserTextIdentificationFrame* txxxFrame =
           new TagLib::ID3v2::UserTextIdentificationFrame(enc);
-        txxxFrame->setDescription(QSTRING_TO_TSTRING(frame.getName()));
+        TagLib::String description;
+        if (frame.getType() == Frame::FT_CatalogNumber) {
+          description = "CATALOGNUMBER";
+        } else if (frame.getType() == Frame::FT_ReleaseCountry) {
+          description = "RELEASECOUNTRY";
+        } else {
+          description = QSTRING_TO_TSTRING(frame.getName());
+          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                                    "TXXX - User defined text information"));
+        }
+        txxxFrame->setDescription(description);
         id3Frame = txxxFrame;
-        frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                                  "TXXX - User defined text information"));
       } else {
         frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
       }
@@ -4728,12 +4760,18 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           if (fieldValue.isValid()) {
             QString description = fieldValue.toString();
             if (!description.isEmpty()) {
-              if (description.startsWith("QuodLibet::")) {
-                // remove ExFalso/QuodLibet "namespace"
-                description = description.mid(11);
+              if (description == "CATALOGNUMBER") {
+                frame.setType(Frame::FT_CatalogNumber);
+              } else if (description == "RELEASECOUNTRY") {
+                frame.setType(Frame::FT_ReleaseCountry);
+              } else {
+                if (description.startsWith("QuodLibet::")) {
+                  // remove ExFalso/QuodLibet "namespace"
+                  description = description.mid(11);
+                }
+                frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                                          QString(name) + '\n' + description));
               }
-              frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                                        QString(name) + '\n' + description));
             }
           }
 #if TAGLIB_VERSION >= 0x010600
@@ -5047,7 +5085,6 @@ QStringList TagLibFile::getFrameIds() const
 #endif
   } else {
     static const char* const fieldNames[] = {
-      "CATALOGNUMBER",
       "CONTACT",
       "DESCRIPTION",
       "EAN/UPN",
@@ -5065,7 +5102,6 @@ QStringList TagLibFile::getFrameIds() const
       "PRODUCER",
       "PRODUCTNUMBER",
       "RECORDINGDATE",
-      "RELEASECOUNTRY",
       "RELEASE DATE",
       "SOURCE ARTIST",
       "SOURCE MEDIUM",

@@ -67,6 +67,8 @@ void TestMusicBrainzReleaseImporter::testQueryTracks()
     QCOMPARE(m_trackDataModel->index(row, 6).data().toString(), QString("Odin"));
     QCOMPARE(m_trackDataModel->index(row, 7).data().toInt(), 2003);
     QCOMPARE(m_trackDataModel->index(row, 10).data().toString(), QString("Wizard"));
-    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString("Limb Music Products"));
+    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString("LMP 0303-054 CD"));
+    QCOMPARE(m_trackDataModel->index(row, 12).data().toString(), QString("Limb Music Products"));
+    QCOMPARE(m_trackDataModel->index(row, 13).data().toString(), QString("DE"));
   }
 }

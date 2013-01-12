@@ -63,7 +63,7 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
       model->removeRow(0);
   }
   // Set width of first column
-  int width = fontMetrics().width(i18n("Track Number") + "WW");
+  int width = fontMetrics().width(i18n("WWW Audio Source") + "WW");
   QStyleOptionButton option;
   option.initFrom(this);
   width += style()->subElementRect(

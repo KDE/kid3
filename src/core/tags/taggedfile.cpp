@@ -262,7 +262,7 @@ void TaggedFile::markTag1Changed(Frame::Type type)
 {
   m_changedV1 = true;
   if (static_cast<unsigned>(type) < sizeof(m_changedFramesV1) * 8) {
-    m_changedFramesV1 |= (1 << type);
+    m_changedFramesV1 |= (1ULL << type);
   }
 }
 
@@ -275,7 +275,7 @@ void TaggedFile::markTag2Changed(Frame::Type type)
 {
   m_changedV2 = true;
   if (static_cast<unsigned>(type) < sizeof(m_changedFramesV2) * 8) {
-    m_changedFramesV2 |= (1 << type);
+    m_changedFramesV2 |= (1ULL << type);
   }
 }
 
@@ -727,7 +727,7 @@ QString TaggedFile::getTagFormatV2() const
  * @return str truncated to len characters if necessary, else QString::null.
  */
 QString TaggedFile::checkTruncation(
-  const QString& str, unsigned flag, int len)
+  const QString& str, quint64 flag, int len)
 {
   if (static_cast<int>(str.length()) > len) {
     QString s = str;
@@ -749,7 +749,7 @@ QString TaggedFile::checkTruncation(
  *
  * @return val truncated to max if necessary, else -1.
  */
-int TaggedFile::checkTruncation(int val, unsigned flag,
+int TaggedFile::checkTruncation(int val, quint64 flag,
                                 int max)
 {
   if (val > max) {

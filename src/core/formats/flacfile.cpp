@@ -459,19 +459,6 @@ void FlacFile::getAllFramesV2(FrameCollection& frames)
     frames.insert(*it);
   }
 }
-
-/**
- * Get a list of frame IDs which can be added.
- *
- * @return list with frame IDs.
- */
-QStringList FlacFile::getFrameIds() const
-{
-  QStringList lst(OggFile::getFrameIds());
-  QStringList::iterator it = lst.begin() + Frame::FT_Picture;
-  lst.insert(it, Frame::ExtendedType(Frame::FT_Picture, "").getTranslatedName());
-  return lst;
-}
 #endif // HAVE_FLAC_PICTURE
 
 /**

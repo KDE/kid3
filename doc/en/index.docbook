@@ -465,17 +465,23 @@ format specific frames.
        <row><entry>Arranger</entry>        <entry>IPLS</entry>    <entry>TIPL</entry>    <entry>ARRANGER</entry>       <entry>WM/Producer</entry>                <entry>ARRANGER</entry></row>
        <row><entry>Author</entry>          <entry>TOLY</entry>    <entry>TOLY</entry>    <entry>AUTHOR</entry>         <entry></entry>                           <entry>AUTHOR</entry></row>
        <row><entry>BPM</entry>             <entry>TBPM</entry>    <entry>TBPM</entry>    <entry>tmpo</entry>           <entry>WM/BeatsPerMinute</entry>          <entry>BPM</entry></row>
+       <row><entry>Catalog Number</entry>  <entry>TXXX:CATALOGNUMBER</entry> <entry>TXXX:CATALOGNUMBER</entry> <entry></entry> <entry></entry>                   <entry>CATALOGNUMBER</entry></row>
+       <row><entry>Compilation</entry>     <entry>TCMP</entry>    <entry>TCMP</entry>    <entry>cpil</entry>           <entry></entry>                           <entry>COMPILATION</entry></row>
        <row><entry>Composer</entry>        <entry>TCOM</entry>    <entry>TCOM</entry>    <entry>©wrt</entry>           <entry>WM/Composer</entry>                <entry>COMPOSER</entry></row>
        <row><entry>Conductor</entry>       <entry>TPE3</entry>    <entry>TPE3</entry>    <entry>CONDUCTOR</entry>      <entry>WM/Conductor</entry>               <entry>CONDUCTOR</entry></row>
        <row><entry>Copyright</entry>       <entry>TCOP</entry>    <entry>TCOP</entry>    <entry>cprt</entry>           <entry>Copyright</entry>                  <entry>COPYRIGHT</entry></row>
        <row><entry>Disc Number</entry>     <entry>TPOS</entry>    <entry>TPOS</entry>    <entry>disk</entry>           <entry>WM/PartOfSet</entry>               <entry>DISCNUMBER</entry></row>
        <row><entry>Encoded-by</entry>      <entry>TENC</entry>    <entry>TENC</entry>    <entry>©enc</entry>           <entry>WM/EncodedBy</entry>               <entry>ENCODED-BY</entry></row>
+       <row><entry>Encoding Settings</entry> <entry>TSSE</entry>  <entry>TSSE</entry>    <entry>©too</entry>           <entry>WM/EncodingSettings</entry>        <entry>ENCODINGSETTINGS</entry></row>
+       <row><entry>Encoding Time</entry>   <entry></entry>        <entry>TDEN</entry>    <entry></entry>               <entry>WM/EncodingTime</entry>            <entry>ENCODINGTIME</entry></row>
        <row><entry>Grouping</entry>        <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©grp</entry>           <entry>WM/ContentGroupDescription</entry> <entry>GROUPING</entry></row>
+       <row><entry>Initial Key</entry>     <entry>TKEY</entry>    <entry>TKEY</entry>    <entry></entry>               <entry>WM/InitialKey</entry>              <entry>INITIALKEY</entry></row>
        <row><entry>ISRC</entry>            <entry>TSRC</entry>    <entry>TSRC</entry>    <entry>ISRC</entry>           <entry>WM/ISRC</entry>                    <entry>ISRC</entry></row>
        <row><entry>Language</entry>        <entry>TLAN</entry>    <entry>TLAN</entry>    <entry>LANGUAGE</entry>       <entry>WM/Language</entry>                <entry>LANGUAGE</entry></row>
        <row><entry>Lyricist</entry>        <entry>TEXT</entry>    <entry>TEXT</entry>    <entry>LYRICIST</entry>       <entry>WM/Writer</entry>                  <entry>LYRICIST</entry></row>
        <row><entry>Lyrics</entry>          <entry>USLT</entry>    <entry>USLT</entry>    <entry>©lyr</entry>           <entry>WM/Lyrics</entry>                  <entry>LYRICS</entry></row>
-       <row><entry>Media</entry>           <entry>TMED</entry>    <entry>TMED</entry>    <entry>SOURCEMEDIA</entry>    <entry>WM/AudioSourceURL</entry>          <entry>SOURCEMEDIA</entry></row>
+       <row><entry>Media</entry>           <entry>TMED</entry>    <entry>TMED</entry>    <entry>SOURCEMEDIA</entry>    <entry></entry>                           <entry>SOURCEMEDIA</entry></row>
+       <row><entry>Mood</entry>            <entry></entry>        <entry>TMOO</entry>    <entry></entry>               <entry>WM/Mood</entry>                    <entry>MOOD</entry></row>
        <row><entry>Original Album</entry>  <entry>TOAL</entry>    <entry>TOAL</entry>    <entry>ORIGINALALBUM</entry>  <entry>WM/OriginalAlbumTitle</entry>      <entry>ORIGINALALBUM</entry></row>
        <row><entry>Original Artist</entry> <entry>TOPE</entry>    <entry>TOPE</entry>    <entry>ORIGINALARTIST</entry> <entry>WM/OriginalArtist</entry>          <entry>ORIGINALARTIST</entry></row>
        <row><entry>Original Date</entry>   <entry>TORY</entry>    <entry>TDOR</entry>    <entry>ORIGINALDATE</entry>   <entry>WM/OriginalReleaseYear</entry>     <entry>ORIGINALDATE</entry></row>
@@ -483,9 +489,17 @@ format specific frames.
        <row><entry>Performer</entry>       <entry>IPLS</entry>    <entry>TMCL</entry>    <entry>PERFORMER</entry>      <entry></entry>                           <entry>PERFORMER</entry></row>
        <row><entry>Picture</entry>         <entry>APIC</entry>    <entry>APIC</entry>    <entry>covr</entry>           <entry>WM/Picture</entry>                 <entry>METADATA_BLOCK_PICTURE</entry></row>
        <row><entry>Publisher</entry>       <entry>TPUB</entry>    <entry>TPUB</entry>    <entry>PUBLISHER</entry>      <entry>WM/Publisher</entry>               <entry>PUBLISHER</entry></row>
+       <row><entry>Release Country</entry> <entry>TXXX:RELEASECOUNTRY</entry> <entry>TXXX:RELEASECOUNTRY</entry> <entry></entry> <entry></entry>                 <entry>RELEASECOUNTRY</entry></row>
        <row><entry>Remixer</entry>         <entry>TPE4</entry>    <entry>TPE4</entry>    <entry>REMIXER</entry>        <entry>WM/ModifiedBy</entry>              <entry>REMIXER</entry></row>
+       <row><entry>Sort Album</entry>      <entry>TSOA</entry>    <entry>TSOA</entry>    <entry>soal</entry>           <entry>WM/AlbumSortOrder</entry>          <entry>ALBUMSORT</entry></row>
+       <row><entry>Sort Album Artist</entry> <entry>TSO2</entry>  <entry>TSO2</entry>    <entry>soaa</entry>           <entry></entry>                           <entry>ALBUMARTISTSORT</entry></row>
+       <row><entry>Sort Artist</entry>     <entry>TSOP</entry>    <entry>TSOP</entry>    <entry>soar</entry>           <entry>WM/ArtistSortOrder</entry>         <entry>ARTISTSORT</entry></row>
+       <row><entry>Sort Composer</entry>   <entry>TSOC</entry>    <entry>TSOC</entry>    <entry>soco</entry>           <entry></entry>                           <entry>COMPOSERSORT</entry></row>
+       <row><entry>Sort Name</entry>       <entry>TSOT</entry>    <entry>TSOT</entry>    <entry>sonm</entry>           <entry>WM/TitleSortOrder</entry>          <entry>TITLESORT</entry></row>
        <row><entry>Subtitle</entry>        <entry>TIT3</entry>    <entry>TIT3</entry>    <entry>SUBTITLE</entry>       <entry>WM/SubTitle</entry>                <entry>SUBTITLE</entry></row>
        <row><entry>Website</entry>         <entry>WOAR</entry>    <entry>WOAR</entry>    <entry>WEBSITE</entry>        <entry>WM/AuthorURL</entry>               <entry>WEBSITE</entry></row>
+       <row><entry>WWW Audio File</entry>  <entry>WOAF</entry>    <entry>WOAF</entry>    <entry></entry>               <entry>WM/AudioFileURL</entry>            <entry>WWWAUDIOFILE</entry></row>
+       <row><entry>WWW Audio Source</entry> <entry>WOAS</entry>   <entry>WOAS</entry>    <entry></entry>               <entry>WM/AudioSourceURL</entry>          <entry>WWWAUDIOSOURCE</entry></row>
      </tbody>
    </tgroup>
  </table>

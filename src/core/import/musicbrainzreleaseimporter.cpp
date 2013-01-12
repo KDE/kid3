@@ -332,14 +332,14 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
           }
           QString catNo(labelInfo.namedItem("catalog-number").toElement().text());
           if (!catNo.isEmpty()) {
-            framesHdr.setValue(Frame::ExtendedType("CATALOGNUMBER"), catNo);
+            framesHdr.setValue(Frame::FT_CatalogNumber, catNo);
           }
         }
       }
       // Release country can be found in "country"
       QString country(release.namedItem("country").toElement().text());
       if (!country.isEmpty()) {
-        framesHdr.setValue(Frame::ExtendedType("RELEASECOUNTRY"), country);
+        framesHdr.setValue(Frame::FT_ReleaseCountry, country);
       }
     }
 

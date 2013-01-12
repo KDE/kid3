@@ -120,10 +120,11 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       return ConfigStore::s_miscCfg.m_markChanges &&
         (it->isValueChanged() ||
         (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
-         (m_changedFrames & (1 << (*it).getType())) != 0))
+         (m_changedFrames & (1ULL << (*it).getType())) != 0))
           ? QApplication::palette().mid() : Qt::NoBrush;
-    } else if (index.column() == CI_Value && index.row() < 8) {
-      return (m_markedRows & (1 << index.row())) != 0
+    } else if (index.column() == CI_Value &&
+               static_cast<unsigned>(index.row()) < sizeof(m_markedRows) * 8) {
+      return (m_markedRows & (1ULL << index.row())) != 0
              ? QBrush(Qt::red) : Qt::NoBrush;
     }
   } else if (role == FrameTypeRole) {

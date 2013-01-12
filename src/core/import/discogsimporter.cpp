@@ -417,7 +417,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
           fixUpArtist(firstLabelMap.value("name").toString()));
       QString catNo = firstLabelMap.value("catno").toString();
       if (!catNo.isEmpty() && catNo.toLower() != "none") {
-        framesHdr.setValue(Frame::ExtendedType("CATALOGNUMBER"), catNo);
+        framesHdr.setValue(Frame::FT_CatalogNumber, catNo);
       }
     }
     // Media can be found in "formats"
@@ -441,7 +441,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     // Release country can be found in "country"
     QString country(map.value("country").toString());
     if (!country.isEmpty()) {
-      framesHdr.setValue(Frame::ExtendedType("RELEASECOUNTRY"), country);
+      framesHdr.setValue(Frame::FT_ReleaseCountry, country);
     }
   }
 

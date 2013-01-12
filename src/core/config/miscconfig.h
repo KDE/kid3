@@ -247,7 +247,7 @@ public:
   /** text encoding used for new ID3v2 tags */
   int m_textEncoding;
   /** frames which are displayed for Tag 2 even if not present */
-  quint32 m_quickAccessFrames;
+  quint64 m_quickAccessFrames;
   /** number of digits in track number */
   int m_trackNumberDigits;
   /** true to play file on double click */

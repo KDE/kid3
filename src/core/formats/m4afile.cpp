@@ -100,7 +100,7 @@ static const struct {
   { "trkn", Frame::FT_Track },
   { "disk", Frame::FT_Disc },
   { "gnre", Frame::FT_Genre },
-  { "cpil", Frame::FT_Other },
+  { "cpil", Frame::FT_Compilation },
   { "tmpo", Frame::FT_Bpm },
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0105
   { "\251grp", Frame::FT_Grouping },
@@ -119,13 +119,13 @@ static const struct {
   { "tves", Frame::FT_Other },
   { "desc", Frame::FT_Other },
   { "ldes", Frame::FT_Other },
-  { "sonm", Frame::FT_Other },
-  { "soar", Frame::FT_Other },
-  { "soaa", Frame::FT_Other },
-  { "soal", Frame::FT_Other },
-  { "soco", Frame::FT_Other },
+  { "sonm", Frame::FT_SortName },
+  { "soar", Frame::FT_SortArtist },
+  { "soaa", Frame::FT_SortAlbumArtist },
+  { "soal", Frame::FT_SortAlbum },
+  { "soco", Frame::FT_SortComposer },
   { "sosn", Frame::FT_Other },
-  { "\251too", Frame::FT_Other },
+  { "\251too", Frame::FT_EncodingSettings },
   { "purd", Frame::FT_Other },
   { "pcst", Frame::FT_Other },
   { "keyw", Frame::FT_Other },
@@ -152,7 +152,10 @@ freeFormNameTypes[] = {
 #endif
   { "ARRANGER", Frame::FT_Arranger },
   { "AUTHOR", Frame::FT_Author },
+  { "CATALOGNUMBER", Frame::FT_CatalogNumber },
   { "CONDUCTOR", Frame::FT_Conductor },
+  { "ENCODINGTIME", Frame::FT_EncodingTime },
+  { "INITIALKEY", Frame::FT_InitialKey },
 #if !(MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109)
   { "COPYRIGHT", Frame::FT_Copyright },
 #endif
@@ -162,6 +165,7 @@ freeFormNameTypes[] = {
 #if !(MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109)
   { "LYRICS", Frame::FT_Lyrics },
 #endif
+  { "MOOD", Frame::FT_Mood },
   { "SOURCEMEDIA", Frame::FT_Media },
   { "ORIGINALALBUM", Frame::FT_OriginalAlbum },
   { "ORIGINALARTIST", Frame::FT_OriginalArtist },
@@ -169,9 +173,12 @@ freeFormNameTypes[] = {
   { "PART", Frame::FT_Part },
   { "PERFORMER", Frame::FT_Performer },
   { "PUBLISHER", Frame::FT_Publisher },
+  { "RELEASECOUNTRY", Frame::FT_ReleaseCountry },
   { "REMIXER", Frame::FT_Remixer },
   { "SUBTITLE", Frame::FT_Subtitle },
-  { "WEBSITE", Frame::FT_Website }
+  { "WEBSITE", Frame::FT_Website },
+  { "WWWAUDIOFILE", Frame::FT_WWWAudioFile },
+  { "WWWAUDIOSOURCE", Frame::FT_WWWAudioSource }
 };
 
 /**

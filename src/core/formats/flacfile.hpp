@@ -174,13 +174,6 @@ public:
    * @param frames frame collection to set.
    */
   virtual void getAllFramesV2(FrameCollection& frames);
-
-  /**
-   * Get a list of frame IDs which can be added.
-   *
-   * @return list with frame IDs.
-   */
-  virtual QStringList getFrameIds() const;
 #endif // HAVE_FLAC_PICTURE
 
 private:

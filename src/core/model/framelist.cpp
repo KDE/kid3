@@ -162,7 +162,7 @@ bool FrameList::deleteFrame()
 bool FrameList::addAndEditFrame(IFrameEditor* frameEditor)
 {
   if (m_taggedFile) {
-    unsigned long oldChangedFrames = m_taggedFile->getChangedFramesV2();
+    quint64 oldChangedFrames = m_taggedFile->getChangedFramesV2();
     if (!m_taggedFile->addFrameV2(m_frame)) {
       return false;
     }
