@@ -58,7 +58,7 @@
 #define UNICODE_SUPPORT_BUGGY ((((ID3LIB_MAJOR_VERSION) << 16) + ((ID3LIB_MINOR_VERSION) << 8) + (ID3LIB_PATCH_VERSION)) <= 0x030803)
 #endif
 
-#if defined __GNUC__ && (__GNUC__ * 100 + __GNUC_MINOR__) >= 406
+#if defined __GNUC__ && (__GNUC__ * 100 + __GNUC_MINOR__) >= 407
 /** Defined if GCC is used and supports diagnostic pragmas */
 #define GCC_HAS_DIAGNOSTIC_PRAGMA
 #endif
