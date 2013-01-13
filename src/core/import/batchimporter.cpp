@@ -170,11 +170,10 @@ void BatchImporter::stateTransition()
         if (profileSource.standardTagsEnabled())
           m_requestedData |= StandardTags;
         if (m_currentImporter->additionalTags()) {
-          // Also fetch standard tags, so that accuracy can be measured
           if (profileSource.additionalTagsEnabled())
-            m_requestedData |= AdditionalTags | StandardTags;
+            m_requestedData |= AdditionalTags;
           if (profileSource.coverArtEnabled())
-            m_requestedData |= CoverArt | StandardTags;
+            m_requestedData |= CoverArt;
         }
         break;
       }
@@ -226,6 +225,12 @@ void BatchImporter::stateTransition()
     if (m_albumListItem && m_currentImporter) {
       emit reportImportEvent(BatchImportProfile::FetchingTrackList,
                              m_albumListItem->text());
+      int pendingData = m_requestedData & ~m_importedData;
+      // Also fetch standard tags, so that accuracy can be measured
+      m_currentImporter->setStandardTags(
+            pendingData & (StandardTags | AdditionalTags | CoverArt));
+      m_currentImporter->setAdditionalTags(pendingData & AdditionalTags);
+      m_currentImporter->setCoverArt(pendingData & CoverArt);
       connect(m_currentImporter, SIGNAL(albumFinished(QByteArray)),
               this, SLOT(onAlbumFinished(QByteArray)));
       connect(m_currentImporter, SIGNAL(progress(QString,int,int)),
@@ -309,10 +314,6 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
   if (m_state == Aborted) {
     stateTransition();
   } else if (m_trackDataModel && m_currentImporter) {
-    int pendingData = m_requestedData & ~m_importedData;
-    m_currentImporter->setStandardTags(pendingData & StandardTags);
-    m_currentImporter->setAdditionalTags(pendingData & AdditionalTags);
-    m_currentImporter->setCoverArt(pendingData & CoverArt);
     m_currentImporter->parseAlbumResults(albumStr);
 
     int accuracy = m_trackDataModel->calculateAccuracy();
@@ -324,8 +325,7 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
     const BatchImportProfile::Source& profileSource =
         m_profile.getSources().at(m_sourceNr);
     if (accuracy >= profileSource.getRequiredAccuracy()) {
-      if (profileSource.standardTagsEnabled() ||
-          profileSource.additionalTagsEnabled()) {
+      if (m_requestedData & (StandardTags | AdditionalTags)) {
         // Set imported data in tags of files.
         ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
         for (ImportTrackDataVector::iterator it = trackDataVector.begin();
@@ -343,20 +343,23 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
             }
           }
         }
+        trackDataVector.setCoverArtUrl(QString());
+        m_trackLists[m_trackListNr] = trackDataVector;
+      } else {
+        // Revert imported data.
+        ImportTrackDataVector trackDataVector(m_trackLists.at(m_trackListNr));
+        trackDataVector.setCoverArtUrl(
+              m_trackDataModel->getTrackData().getCoverArtUrl());
+        m_trackDataModel->setTrackData(trackDataVector);
       }
 
-      if (pendingData & StandardTags)
+      if (m_requestedData & StandardTags)
         m_importedData |= StandardTags;
-      if (pendingData & AdditionalTags)
+      if (m_requestedData & AdditionalTags)
         m_importedData |= AdditionalTags;
     } else {
       // Accuracy not sufficient => Revert imported data, check next album.
-      ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-      if (pendingData & (StandardTags | AdditionalTags)) {
-        trackDataVector.readTags(m_tagVersion);
-      }
-      trackDataVector.setCoverArtUrl(QString());
-      m_trackDataModel->setTrackData(trackDataVector);
+      m_trackDataModel->setTrackData(m_trackLists.at(m_trackListNr));
     }
     m_state = GettingCover;
     stateTransition();

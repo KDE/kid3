@@ -29,11 +29,12 @@
 
 #include <QString>
 #include <QList>
+#include "kid3api.h"
 
 /**
  * Profile containing a name list for source for batch import.
  */
-class BatchImportProfile {
+class KID3_CORE_EXPORT BatchImportProfile {
 public:
   /** Events occuring during batch import. */
   enum ImportEventType {
