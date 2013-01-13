@@ -414,7 +414,7 @@ public:
    */
   bool isEqual(const Frame& other) const;
 
-#ifdef DEBUG
+#ifndef QT_NO_DEBUG
   /**
    * Dump contents of frame to debug console.
    */
@@ -766,7 +766,7 @@ public:
    */
   void markChangedFrames(const FrameCollection& other);
 
-#ifdef DEBUG
+#ifndef QT_NO_DEBUG
   /**
    * Dump contents of frame collection to debug console.
    */

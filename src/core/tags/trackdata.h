@@ -304,7 +304,7 @@ public:
    */
   void readTags(ImportTrackData::TagVersion tagVersion);
 
-#ifdef DEBUG
+#ifndef QT_NO_DEBUG
   /**
    * Dump contents of tracks to debug console.
    */

@@ -610,7 +610,7 @@ void ImportTrackDataVector::readTags(ImportTrackData::TagVersion tagVersion)
   setCoverArtUrl(QString());
 }
 
-#ifdef DEBUG
+#ifndef QT_NO_DEBUG
 /**
  * Dump contents of tracks to debug console.
  */

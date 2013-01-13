@@ -1,4 +1,5 @@
 set(utils_SRCS
+  utils/debugutils.cpp
   utils/movetotrash.cpp
   utils/saferename.cpp
 )

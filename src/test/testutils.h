@@ -27,10 +27,8 @@
 #ifndef TESTUTILS_H
 #define TESTUTILS_H
 
-#include <QModelIndex>
-
-class QAbstractItemModel;
-class QStandardItemModel;
+class QObject;
+class QStringList;
 
 namespace TestUtils {
 
@@ -47,21 +45,6 @@ namespace TestUtils {
  * @return 0 if OK, the number of failed tests if failed.
  */
 int runTestSuite(const QObject& testSuite, QStringList& args);
-
-/**
- * Dump an item model.
- * @param model item model to dump
- * @param parent parent model index
- * @param indent number of spaces to indent
- */
-void dumpModel(const QAbstractItemModel& model,
-               const QModelIndex& parent = QModelIndex(), int indent = 0);
-
-/**
- * Dump an album list.
- * @param albumModel album list model
- */
-void dumpAlbumList(const QStandardItemModel* albumModel);
 
 }
 

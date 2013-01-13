@@ -119,3 +119,20 @@ QString ServerImporter::removeHtml(QString str)
   QRegExp htmlTagRe("<[^>]+>");
   return replaceHtmlEntities(str.remove(htmlTagRe)).trimmed();
 }
+
+#ifndef QT_NO_DEBUG
+/**
+ * Dump an album list.
+ * @param albumModel album list model
+ */
+void AlbumListItem::dumpAlbumList(const QStandardItemModel* albumModel)
+{
+  for (int row = 0; row < albumModel->rowCount(); ++row) {
+    AlbumListItem* item = dynamic_cast<AlbumListItem*>(albumModel->item(row, 0));
+    if (item) {
+      qDebug("%s (%s, %s)", qPrintable(item->text()),
+             qPrintable(item->getCategory()), qPrintable(item->getId()));
+    }
+  }
+}
+#endif

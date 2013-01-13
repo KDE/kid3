@@ -28,7 +28,6 @@
 #include <QtTest>
 #include <QRegExp>
 #include <cstdio>
-#include "serverimporter.h"
 
 /**
  * Run the tests of a test suite.
@@ -84,77 +83,4 @@ int TestUtils::runTestSuite(const QObject& testSuite, QStringList& args)
   std::printf("Test cases: %d passed, %d failed\n",
               testCasesPassed, testCasesFailed);
   return testsFailed;
-}
-
-/**
- * Dump an item model.
- * @param model item model to dump
- * @param parent parent model index
- * @param indent number of spaces to indent
- */
-void TestUtils::dumpModel(const QAbstractItemModel& model,
-                          const QModelIndex& parent, int indent)
-{
-  if (indent == 0) {
-    QString name(model.objectName());
-    if (name.isEmpty()) {
-      if (const QMetaObject* metaObject = model.metaObject()) {
-        name = metaObject->className();
-      }
-    }
-    qDebug("Dump for %s", qPrintable(name));
-    QString columnStr;
-    for (int i = 0; i < model.columnCount(parent); ++i) {
-      if (i != 0)
-        columnStr += ", ";
-      columnStr += QString::number(i);
-      columnStr += ": ";
-      columnStr += model.headerData(i, Qt::Horizontal).toString();
-    }
-    qDebug("%s", qPrintable(columnStr));
-  }
-  if (!model.hasChildren(parent))
-    return;
-
-  for (int row = 0; row < model.rowCount(parent); ++row) {
-    QString rowStr(indent, ' ');
-    QString rowHeader(model.headerData(row, Qt::Vertical).toString());
-    rowStr += QString::number(row);
-    if (!rowHeader.isEmpty()) {
-      rowStr += ' ';
-      rowStr += rowHeader;
-    }
-    rowStr += ':';
-    QModelIndexList indexesWithChildren;
-    for (int column = 0; column < model.columnCount(parent); ++column) {
-      QModelIndex idx(model.index(row, column, parent));
-      if (column > 0)
-        rowStr += ",";
-      rowStr += QString("%1%2:").
-          arg(model.hasChildren(idx) ? "p" : "").
-          arg(column);
-      rowStr += model.data(idx).toString();
-      if (model.hasChildren(idx))
-        indexesWithChildren.append(idx);
-    }
-    qDebug("%s", qPrintable(rowStr));
-    foreach (QModelIndex idx, indexesWithChildren) {
-      dumpModel(model, idx, indent + 2);
-    }
-  }
-}
-
-/**
- * Dump an album list.
- * @param albumModel album list model
- */
-void TestUtils::dumpAlbumList(const QStandardItemModel* albumModel)
-{
-  for (int row = 0; row < albumModel->rowCount(); ++row) {
-    AlbumListItem* item = dynamic_cast<AlbumListItem*>(albumModel->item(row, 0));
-    if (item) {
-      qDebug("%s (%s, %s)", qPrintable(item->text()),
-             qPrintable(item->getCategory()), qPrintable(item->getId()));
-    }
-  }
 }

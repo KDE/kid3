@@ -209,6 +209,14 @@ public:
    * @return ID.
    */
   QString getId() const { return data(Qt::UserRole + 2).toString(); }
+
+#ifndef QT_NO_DEBUG
+  /**
+   * Dump an album list.
+   * @param albumModel album list model
+   */
+  static void dumpAlbumList(const QStandardItemModel* albumModel);
+#endif
 };
 
 #endif

@@ -320,7 +320,7 @@ bool Frame::isEqual(const Frame& other) const
   return true;
 }
 
-#ifdef DEBUG
+#ifndef QT_NO_DEBUG
 /**
  * Convert frame type to string.
  * @param type frame type
@@ -818,7 +818,7 @@ void FrameCollection::markChangedFrames(const FrameCollection& other)
   }
 }
 
-#ifdef DEBUG
+#ifndef QT_NO_DEBUG
 /**
  * Dump contents of frame collection to debug console.
  */
