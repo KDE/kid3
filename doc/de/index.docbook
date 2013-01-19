@@ -501,7 +501,7 @@ formatspezifische Bezeichnung erreicht werden.
        <row><entry>Copyright</entry>        <entry>TCOP</entry>    <entry>TCOP</entry>    <entry>cprt</entry>           <entry>Copyright</entry>                  <entry>COPYRIGHT</entry></row>
        <row><entry>CD-Nummer</entry>        <entry>TPOS</entry>    <entry>TPOS</entry>    <entry>disk</entry>           <entry>WM/PartOfSet</entry>               <entry>DISCNUMBER</entry></row>
        <row><entry>Kodiert von</entry>      <entry>TENC</entry>    <entry>TENC</entry>    <entry>©enc</entry>           <entry>WM/EncodedBy</entry>               <entry>ENCODED-BY</entry></row>
-       <row><entry>Kodierungseinstellungen</entry> <entry>TSSE</entry> <entry>TSSE</entry> <entry>©too</entry>          <entry>WM/EncodingSettings</entry>        <entry>ENCODINGSETTINGS</entry></row>
+       <row><entry>Kodierungseinstellungen</entry> <entry>TSSE</entry> <entry>TSSE</entry> <entry>©too</entry>          <entry>WM/EncodingSettings</entry>        <entry>ENCODERSETTINGS</entry></row>
        <row><entry>Aufnahmedatum</entry>    <entry></entry>        <entry>TDEN</entry>    <entry></entry>               <entry>WM/EncodingTime</entry>            <entry>ENCODINGTIME</entry></row>
        <row><entry>Gruppierung</entry>      <entry>TIT1</entry>    <entry>TIT1</entry>    <entry>©grp</entry>           <entry>WM/ContentGroupDescription</entry> <entry>GROUPING</entry></row>
        <row><entry>Anfangstonart</entry>    <entry>TKEY</entry>    <entry>TKEY</entry>    <entry></entry>               <entry>WM/InitialKey</entry>              <entry>INITIALKEY</entry></row>

@@ -59,7 +59,7 @@ public:
     FT_Copyright,
     FT_Disc,
     FT_EncodedBy,
-    FT_EncodingSettings,
+    FT_EncoderSettings,
     FT_EncodingTime,
     FT_Grouping,
     FT_InitialKey,

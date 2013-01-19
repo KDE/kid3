@@ -1331,7 +1331,7 @@ static const struct TypeStrOfId {
   { Frame::FT_Other,          0 },                                                                   /* TSOP */
   { Frame::FT_Other,          0 },                                                                   /* TSOT */
   { Frame::FT_Isrc,           I18N_NOOP("TSRC - ISRC (international standard recording code)") },    /* TSRC */
-  { Frame::FT_EncodingSettings,I18N_NOOP("TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
+  { Frame::FT_EncoderSettings,I18N_NOOP("TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
   { Frame::FT_Part,           0 },                                                                   /* TSST */
   { Frame::FT_Other,          I18N_NOOP("TXXX - User defined text information") },                   /* TXXX */
   { Frame::FT_Date,           I18N_NOOP("TYER - Year") },                                            /* TYER */

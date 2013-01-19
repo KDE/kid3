@@ -257,7 +257,7 @@ static const char* getVorbisNameFromType(Frame::Type type)
     "COPYRIGHT",       // FT_Copyright,
     "DISCNUMBER",      // FT_Disc,
     "ENCODED-BY",      // FT_EncodedBy,
-    "ENCODINGSETTINGS", // FT_EncodingSettings,
+    "ENCODERSETTINGS", // FT_EncoderSettings,
     "ENCODINGTIME",    // FT_EncodingTime,
     "GROUPING",        // FT_Grouping,
     "INITIALKEY",      // FT_InitialKey,

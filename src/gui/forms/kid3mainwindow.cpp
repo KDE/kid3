@@ -272,7 +272,7 @@ void Kid3MainWindow::initActions()
   connect(fileImportMusicBrainz, SIGNAL(triggered()), this, SLOT(slotImport()));
   ++importerIdx;
 #endif
-  KAction* fileBatchImport = new KAction(i18n("Batch I&mport..."), this);
+  KAction* fileBatchImport = new KAction(i18n("Automatic I&mport..."), this);
   actionCollection()->addAction("batch_import", fileBatchImport);
   connect(fileBatchImport, SIGNAL(triggered()), this, SLOT(slotBatchImport()));
 
@@ -508,8 +508,8 @@ void Kid3MainWindow::initActions()
   ++importerIdx;
 #endif
   QAction* fileBatchImport = new QAction(this);
-  fileBatchImport->setStatusTip(i18n("Batch import"));
-  fileBatchImport->setText(i18n("Batch I&mport..."));
+  fileBatchImport->setStatusTip(i18n("Automatic import"));
+  fileBatchImport->setText(i18n("Automatic I&mport..."));
   fileBatchImport->setObjectName("batch_import");
   shortcutsModel->registerAction(fileBatchImport, menuTitle);
   connect(fileBatchImport, SIGNAL(triggered()),

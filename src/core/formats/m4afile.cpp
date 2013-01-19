@@ -125,7 +125,7 @@ static const struct {
   { "soal", Frame::FT_SortAlbum },
   { "soco", Frame::FT_SortComposer },
   { "sosn", Frame::FT_Other },
-  { "\251too", Frame::FT_EncodingSettings },
+  { "\251too", Frame::FT_EncoderSettings },
   { "purd", Frame::FT_Other },
   { "pcst", Frame::FT_Other },
   { "keyw", Frame::FT_Other },

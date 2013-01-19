@@ -164,7 +164,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   QDialog(parent), m_importers(importers), m_profileIdx(-1)
 {
   setObjectName("BatchImportDialog");
-  setWindowTitle(i18n("Batch Import"));
+  setWindowTitle(i18n("Automatic Import"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
