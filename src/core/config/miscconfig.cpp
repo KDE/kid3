@@ -66,6 +66,7 @@ static const char* defaultFromFilenameFormats[] = {
   "%{artist} - %{album}/%{track}. %{title}",
   "%{artist} - [%{year}] %{album}/%{track} %{title}",
   "%{artist} - [%{year}] %{album}/%{track}. %{title}",
+  "%{artist} - %{album} (%{year})/%{track} - %{title}",
   "%{artist}/%{album}/%{track} %{title}",
   "%{artist}/%{album}/%{track}. %{title}",
   "%{artist}/[%{year}] %{album}/%{track} %{title}",
@@ -89,6 +90,7 @@ static const char* defaultFromFilenameFormats[] = {
 static const char* dirFmt[] = {
   "%{artist} - %{album}",
   "%{artist} - [%{year}] %{album}",
+  "%{artist} - %{album} (%{year})",
   "%{artist}/%{album}",
   "%{artist}/[%{year}] %{album}",
   "%{album}",

@@ -415,6 +415,18 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     frames.setTitle(re.cap(4));
     return;
   }
+
+  // artist - album (year)/track song
+  re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)[_ ]\\((\\d{4})\\)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  if (re.indexIn(fn) != -1) {
+    frames.setArtist(re.cap(1));
+    frames.setAlbum(re.cap(2));
+    frames.setYear(re.cap(3).toInt());
+    frames.setTrack(re.cap(4).toInt());
+    frames.setTitle(re.cap(5));
+    return;
+  }
+
   // artist - album/track song
   re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
   if (re.indexIn(fn) != -1) {
