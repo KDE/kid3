@@ -188,7 +188,8 @@ MiscConfig::MiscConfig(const QString& group) :
   m_useProxy(false),
   m_useProxyAuthentication(false),
   m_onlyCustomGenres(false),
-  m_loadLastOpenedFile(false)
+  m_loadLastOpenedFile(false),
+  m_defaultCoverFileName("folder.jpg")
 #ifndef CONFIG_USE_KDE
   , m_useFont(false), m_fontSize(-1),
   m_dontUseNativeDialogs(
@@ -259,6 +260,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("OnlyCustomGenres", m_onlyCustomGenres);
   cfg.writeEntry("LoadLastOpenedFile", m_loadLastOpenedFile);
   cfg.writeEntry("LastOpenedFile", m_lastOpenedFile);
+  cfg.writeEntry("DefaultCoverFileName", m_defaultCoverFileName);
 
   KConfigGroup menuCmdCfg = config->group("MenuCommands");
   int cmdNr = 1;
@@ -335,6 +337,7 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
   config->setValue("/OnlyCustomGenres", QVariant(m_onlyCustomGenres));
   config->setValue("/LoadLastOpenedFile", QVariant(m_loadLastOpenedFile));
   config->setValue("/LastOpenedFile", QVariant(m_lastOpenedFile));
+  config->setValue("/DefaultCoverFileName", QVariant(m_defaultCoverFileName));
   config->setValue("/Geometry", m_geometry);
   config->setValue("/WindowState", m_windowState);
   config->setValue("/UseFont", QVariant(m_useFont));
@@ -427,6 +430,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_onlyCustomGenres = cfg.readEntry("OnlyCustomGenres", m_onlyCustomGenres);
   m_loadLastOpenedFile = cfg.readEntry("LoadLastOpenedFile", m_loadLastOpenedFile);
   m_lastOpenedFile = cfg.readEntry("LastOpenedFile", m_lastOpenedFile);
+  m_defaultCoverFileName = cfg.readEntry("DefaultCoverFileName", m_defaultCoverFileName);
 
   m_contextMenuCommands.clear();
   KConfigGroup menuCmdCfg = config->group("MenuCommands");
@@ -521,6 +525,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_onlyCustomGenres = config->value("/OnlyCustomGenres", m_onlyCustomGenres).toBool();
   m_loadLastOpenedFile = config->value("/LoadLastOpenedFile", m_loadLastOpenedFile).toBool();
   m_lastOpenedFile = config->value("/LastOpenedFile", m_lastOpenedFile).toString();
+  m_defaultCoverFileName = config->value("/DefaultCoverFileName", m_defaultCoverFileName).toString();
   m_geometry = config->value("/Geometry").toByteArray();
   m_windowState = config->value("/WindowState").toByteArray();
   m_useFont = config->value("/UseFont", m_useFont).toBool();

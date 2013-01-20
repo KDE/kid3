@@ -42,11 +42,11 @@
 #include "taggedfile.h"
 #include "qtcompatmac.h"
 #include "config.h"
+#include "configstore.h"
 #ifdef CONFIG_USE_KDE
 #include <kfiledialog.h>
 #else
 #include <QFileDialog>
-#include "configstore.h"
 #endif
 
 /** QTextEdit with label above */
@@ -802,7 +802,7 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
     m_bos->setDefaultDir(m_taggedFile->getDirname());
   }
   if (m_frame.getType() == Frame::FT_Picture) {
-    m_bos->setDefaultFile("folder.jpg");
+    m_bos->setDefaultFile(ConfigStore::s_miscCfg.m_defaultCoverFileName);
     m_bos->setFilter(
 #ifdef CONFIG_USE_KDE
           "*.jpg *.jpeg *.png|" +

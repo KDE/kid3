@@ -152,6 +152,8 @@ private:
   QCheckBox* m_preserveTimeCheckBox;
   /** Mark changes checkbox */
   QCheckBox* m_markChangesCheckBox;
+  /** Filename for cover lineedit */
+  QLineEdit* m_coverFileNameLineEdit;
   /** Mark truncated fields checkbox */
   QCheckBox* m_markTruncationsCheckBox;
   /** ID3v1 text encodings */

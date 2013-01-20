@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-01-17 19:02+0100\n"
+"POT-Creation-Date: 2013-01-20 10:01+0100\n"
 "PO-Revision-Date: 2011-01-15 17:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -440,8 +440,8 @@ msgstr "TSST - Sous-titre"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: core/import/batchimporter.cpp:324 gui/dialogs/configdialog.cpp:471
-#: gui/dialogs/configdialog.cpp:767 gui/dialogs/musicbrainzdialog.cpp:190
+#: core/import/batchimporter.cpp:324 gui/dialogs/configdialog.cpp:479
+#: gui/dialogs/configdialog.cpp:777 gui/dialogs/musicbrainzdialog.cpp:190
 #: gui/dialogs/musicbrainzdialog.cpp:194 gui/dialogs/musicbrainzdialog.cpp:209
 msgid "Unknown"
 msgstr "Inconnu"
@@ -953,7 +953,7 @@ msgid "Remove"
 msgstr "Supprimer"
 
 #: gui/dialogs/batchimportdialog.cpp:232
-#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:493
+#: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:501
 #: gui/dialogs/exportdialog.cpp:133 gui/dialogs/filterdialog.cpp:71
 #: gui/dialogs/importdialog.cpp:245 gui/dialogs/musicbrainzdialog.cpp:122
 #: gui/dialogs/numbertracksdialog.cpp:106 gui/dialogs/playlistdialog.cpp:201
@@ -1077,7 +1077,7 @@ msgstr "URL de l'image"
 msgid "&Browse"
 msgstr "&Navigateur"
 
-#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:495
+#: gui/dialogs/browsecoverartdialog.cpp:147 gui/dialogs/configdialog.cpp:503
 #: gui/dialogs/editframedialog.cpp:58
 #: gui/dialogs/editframefieldsdialog.cpp:965 gui/dialogs/importdialog.cpp:251
 #: gui/dialogs/musicbrainzdialog.cpp:126
@@ -1239,102 +1239,106 @@ msgstr "&Préserver l'horodatage des fichiers"
 msgid "&Mark changes"
 msgstr "&Marquer les changements"
 
-#: gui/dialogs/configdialog.cpp:348
+#: gui/dialogs/configdialog.cpp:342
+msgid "F&ilename for cover:"
+msgstr "Nom de f&ichier pour la jaquette:"
+
+#: gui/dialogs/configdialog.cpp:356
 msgid "&Filename Format"
 msgstr "Format du nom de &fichier"
 
-#: gui/dialogs/configdialog.cpp:352
+#: gui/dialogs/configdialog.cpp:360
 msgid "Files"
 msgstr "Fichiers"
 
-#: gui/dialogs/configdialog.cpp:354
+#: gui/dialogs/configdialog.cpp:362
 msgid "&Files"
 msgstr "&Fichiers"
 
-#: gui/dialogs/configdialog.cpp:363
+#: gui/dialogs/configdialog.cpp:371
 msgid "Browser"
 msgstr "Navigateur"
 
-#: gui/dialogs/configdialog.cpp:364
+#: gui/dialogs/configdialog.cpp:372
 msgid "Web &browser:"
 msgstr "&Navigateur web:"
 
-#: gui/dialogs/configdialog.cpp:374
+#: gui/dialogs/configdialog.cpp:382
 msgid "Context &Menu Commands"
 msgstr "Commandes du &menu contextuel"
 
-#: gui/dialogs/configdialog.cpp:376
+#: gui/dialogs/configdialog.cpp:384
 msgid "&Play on double click"
 msgstr "Double-cliquer pour &lire"
 
-#: gui/dialogs/configdialog.cpp:389
+#: gui/dialogs/configdialog.cpp:397
 msgid "User Actions"
 msgstr "Commandes utilisateur"
 
-#: gui/dialogs/configdialog.cpp:391
+#: gui/dialogs/configdialog.cpp:399
 msgid "&User Actions"
 msgstr "Commandes &utilisateur"
 
-#: gui/dialogs/configdialog.cpp:400
+#: gui/dialogs/configdialog.cpp:408
 msgid "Proxy"
 msgstr "Proxy"
 
-#: gui/dialogs/configdialog.cpp:401
+#: gui/dialogs/configdialog.cpp:409
 msgid "&Proxy:"
 msgstr "&Proxy:"
 
-#: gui/dialogs/configdialog.cpp:403
+#: gui/dialogs/configdialog.cpp:411
 msgid "&Use authentication with proxy"
 msgstr "&Utiliser l'authentification avec le serveur mandataire"
 
-#: gui/dialogs/configdialog.cpp:404
+#: gui/dialogs/configdialog.cpp:412
 msgid "Proxy user &name:"
 msgstr "&Nom d'utilisateur:"
 
-#: gui/dialogs/configdialog.cpp:407
+#: gui/dialogs/configdialog.cpp:415
 msgid "Proxy pass&word:"
 msgstr "&Mot de passe:"
 
-#: gui/dialogs/configdialog.cpp:431
+#: gui/dialogs/configdialog.cpp:439
 msgid "Network"
 msgstr "Réseau"
 
-#: gui/dialogs/configdialog.cpp:433
+#: gui/dialogs/configdialog.cpp:441
 msgid "&Network"
 msgstr "&Réseau"
 
-#: gui/dialogs/configdialog.cpp:451
+#: gui/dialogs/configdialog.cpp:459
 msgid "&Keyboard Shortcuts"
 msgstr "&Raccourcis clavier"
 
-#: gui/dialogs/configdialog.cpp:461
+#: gui/dialogs/configdialog.cpp:469
 msgid "Use custom app&lication font"
 msgstr "Choisir une po&lice personnalisée"
 
-#: gui/dialogs/configdialog.cpp:462
+#: gui/dialogs/configdialog.cpp:470
 msgid "A&pplication Font..."
 msgstr "&Police..."
 
-#: gui/dialogs/configdialog.cpp:463
+#: gui/dialogs/configdialog.cpp:471
 msgid "Use custom application &style"
 msgstr "Choisir un &style personnalisé"
 
-#: gui/dialogs/configdialog.cpp:480
+#: gui/dialogs/configdialog.cpp:488
 msgid "Use native system file &dialogs"
 msgstr "Utiliser les boîtes de &dialogue de fichiers système natives"
 
-#: gui/dialogs/configdialog.cpp:484
+#: gui/dialogs/configdialog.cpp:492
 msgid "&Appearance"
 msgstr "&Apparence"
 
-#: gui/dialogs/configdialog.cpp:494 gui/dialogs/editframedialog.cpp:57
+#: gui/dialogs/configdialog.cpp:502 gui/dialogs/editframedialog.cpp:57
 #: gui/dialogs/editframefieldsdialog.cpp:964 gui/dialogs/importdialog.cpp:249
 #: gui/dialogs/musicbrainzdialog.cpp:124
 #: gui/dialogs/numbertracksdialog.cpp:119 gui/dialogs/playlistdialog.cpp:213
 msgid "&OK"
 msgstr "&OK"
 
-#: gui/dialogs/configdialog.cpp:689
+#: gui/dialogs/configdialog.cpp:699
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
 msgstr "Le raccourcis clavier '%1' est déjà assigné à '%2'."
 

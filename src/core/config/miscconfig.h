@@ -270,6 +270,8 @@ public:
   bool m_loadLastOpenedFile;
   /** path to last opened file */
   QString m_lastOpenedFile;
+  /** default file name to save cover art */
+  QString m_defaultCoverFileName;
 #ifndef CONFIG_USE_KDE
   /** mainwindow geometry */
   QByteArray m_geometry;

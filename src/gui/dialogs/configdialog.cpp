@@ -339,10 +339,18 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     QGroupBox* saveGroupBox = new QGroupBox(i18n("Save"), filesPage);
     m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
     m_markChangesCheckBox = new QCheckBox(i18n("&Mark changes"), saveGroupBox);
+    QLabel* coverFileNameLabel = new QLabel(i18n("F&ilename for cover:"), saveGroupBox);
+    m_coverFileNameLineEdit = new QLineEdit(saveGroupBox);
+    coverFileNameLabel->setBuddy(m_coverFileNameLineEdit);
+    QHBoxLayout* hbox = new QHBoxLayout;
+    hbox->setContentsMargins(2, 0, 2, 0);
+    hbox->addWidget(coverFileNameLabel);
+    hbox->addWidget(m_coverFileNameLineEdit);
     QVBoxLayout* vbox = new QVBoxLayout;
     vbox->setMargin(2);
     vbox->addWidget(m_preserveTimeCheckBox);
     vbox->addWidget(m_markChangesCheckBox);
+    vbox->addLayout(hbox);
     saveGroupBox->setLayout(vbox);
     vlayout->addWidget(saveGroupBox);
     QString fnFormatTitle(i18n("&Filename Format"));
@@ -533,6 +541,7 @@ void ConfigDialog::setConfig(const ConfigStore* cfg)
   m_loadLastOpenedFileCheckBox->setChecked(miscCfg->m_loadLastOpenedFile);
   m_preserveTimeCheckBox->setChecked(miscCfg->m_preserveTime);
   m_markChangesCheckBox->setChecked(miscCfg->m_markChanges);
+  m_coverFileNameLineEdit->setText(miscCfg->m_defaultCoverFileName);
   m_onlyCustomGenresCheckBox->setChecked(miscCfg->m_onlyCustomGenres);
   m_genresEditModel->setStringList(miscCfg->m_customGenres);
   m_quickAccessTagsModel->setBitMask(miscCfg->m_quickAccessFrames);
@@ -620,6 +629,7 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
   miscCfg->m_loadLastOpenedFile = m_loadLastOpenedFileCheckBox->isChecked();
   miscCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
   miscCfg->m_markChanges = m_markChangesCheckBox->isChecked();
+  miscCfg->m_defaultCoverFileName = m_coverFileNameLineEdit->text();
   miscCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
   miscCfg->m_customGenres = m_genresEditModel->stringList();
   miscCfg->m_quickAccessFrames = m_quickAccessTagsModel->getBitMask();
