@@ -26,6 +26,7 @@
 
 #include "batchimportconfig.h"
 #include <QString>
+#include "batchimportprofile.h"
 #include "config.h"
 
 #ifdef CONFIG_USE_KDE
@@ -139,4 +140,28 @@ void BatchImportConfig::readFromConfig(Kid3Settings* config)
 
   if (m_profileIdx >= static_cast<int>(m_profileNames.size()))
     m_profileIdx = 0;
+}
+
+/**
+ * Get a batch import profile.
+ *
+ * @param name name of profile
+ * @param profile the profile will be returned here
+ * @return true if profile with @a name found.
+ */
+bool BatchImportConfig::getProfileByName(const QString& name,
+                                         BatchImportProfile& profile) const
+{
+  for (QStringList::const_iterator namesIt = m_profileNames.constBegin(),
+       sourcesIt = m_profileSources.constBegin();
+       namesIt != m_profileNames.constEnd() &&
+       sourcesIt != m_profileSources.constEnd();
+       ++namesIt, ++sourcesIt) {
+    if (name == *namesIt) {
+      profile.setName(*namesIt);
+      profile.setSourcesFromString(*sourcesIt);
+      return true;
+    }
+  }
+  return false;
 }

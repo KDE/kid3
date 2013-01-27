@@ -38,6 +38,8 @@
 #include "pictureframe.h"
 #include "fileproxymodel.h"
 #include "modeliterator.h"
+#include "configstore.h"
+#include "batchimportprofile.h"
 
 /**
  * Constructor.
@@ -119,6 +121,24 @@ bool ScriptInterface::importFromFile(int tagMask, const QString& path,
                                      int fmtIdx)
 {
   return m_app->importTags(TrackData::tagVersionCast(tagMask), path, fmtIdx);
+}
+
+/**
+ * Start an automatic batch import.
+ *
+ * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+ * @param profileName name of batch import profile to use
+ *
+ * @return true if profile found.
+ */
+bool ScriptInterface::batchImport(int tagMask, const QString& profileName)
+{
+  BatchImportProfile profile;
+  if (ConfigStore::s_batchImportCfg.getProfileByName(profileName, profile)) {
+    m_app->batchImport(profile, TrackData::tagVersionCast(tagMask));
+    return true;
+  }
+  return false;
 }
 
 /**

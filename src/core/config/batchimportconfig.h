@@ -33,6 +33,8 @@
 #include "trackdata.h"
 #include "kid3api.h"
 
+class BatchImportProfile;
+
 /**
  * Filter configuration.
  */
@@ -66,11 +68,13 @@ public:
   virtual void readFromConfig(Kid3Settings* config);
 
   /**
-   * Set the filename format in the "Filename Tag Mismatch" filter.
+   * Get a batch import profile.
    *
-   * @param format filename format
+   * @param name name of profile
+   * @param profile the profile will be returned here
+   * @return true if profile with @a name found.
    */
-  void setFilenameFormat(const QString& format);
+  bool getProfileByName(const QString& name, BatchImportProfile& profile) const;
 
   /** tag version to import */
   TrackData::TagVersion m_importDest;

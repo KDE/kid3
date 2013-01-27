@@ -101,6 +101,16 @@ public slots:
   bool importFromFile(int tagMask, const QString& path, int fmtIdx);
 
   /**
+   * Start an automatic batch import.
+   *
+   * @param tagMask tag mask (bit 0 for tag 1, bit 1 for tag 2)
+   * @param profileName name of batch import profile to use
+   *
+   * @return true if profile found.
+   */
+  bool batchImport(int tagMask, const QString& profileName);
+
+  /**
    * Download album cover art into the picture frame of the selected files.
    *
    * @param url           URL of picture file or album art resource

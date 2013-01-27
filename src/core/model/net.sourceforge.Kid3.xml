@@ -19,6 +19,11 @@
       <arg name="path" type="s" direction="in"/>
       <arg name="fmtIdx" type="i" direction="in"/>
     </method>
+    <method name="batchImport">
+      <arg type="b" direction="out"/>
+      <arg name="tagMask" type="i" direction="in"/>
+      <arg name="profileName" type="s" direction="in"/>
+    </method>
     <method name="downloadAlbumArt">
       <arg name="url" type="s" direction="in"/>
       <arg name="allFilesInDir" type="b" direction="in"/>
