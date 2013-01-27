@@ -996,9 +996,12 @@ void Kid3MainWindow::saveDirectory(bool updateGui)
 /**
  * If anything was modified, save after asking user.
  *
+ * @param doNotRevert if true, modifications are not reverted, this can be
+ * used to skip the possibly long process if the application is not be closed
+ *
  * @return false if user canceled.
  */
-bool Kid3MainWindow::saveModified()
+bool Kid3MainWindow::saveModified(bool doNotRevert)
 {
   bool completed=true;
 
@@ -1035,10 +1038,12 @@ bool Kid3MainWindow::saveModified()
       break;
 
     case No:
-      if (m_form->getFileList()->selectionModel())
-        m_form->getFileList()->selectionModel()->clearSelection();
-      m_app->revertFileModifications();
-      m_app->setModified(false);
+      if (!doNotRevert) {
+        if (m_form->getFileList()->selectionModel())
+          m_form->getFileList()->selectionModel()->clearSelection();
+        m_app->revertFileModifications();
+        m_app->setModified(false);
+      }
       completed=true;
       break;
 
@@ -1080,7 +1085,7 @@ void Kid3MainWindow::cleanup()
 bool Kid3MainWindow::queryClose()
 {
   updateCurrentSelection();
-  if (saveModified()) {
+  if (saveModified(true)) {
     saveOptions();
     cleanup();
     return true;

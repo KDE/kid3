@@ -383,9 +383,12 @@ private:
   /**
    * If anything was modified, save after asking user.
    *
-   * @return FALSE if user canceled.
+   * @param doNotRevert if true, modifications are not reverted, this can be
+   * used to skip the possibly long process if the application is not be closed
+   *
+   * @return false if user canceled.
    */
-  bool saveModified();
+  bool saveModified(bool doNotRevert = false);
 
   /**
    * Set window title with information from directory, filter and modification
