@@ -278,6 +278,7 @@ void BatchImportDialog::startImport()
   setProfileFromGuiControls();
   if (m_profileIdx >= 0 && m_profileIdx < m_profiles.size()) {
     m_edit->clear();
+    m_edit->append(i18n("Reading directory"));
     emit start(
           m_profiles.at(m_profileIdx),
           TrackData::tagVersionCast(

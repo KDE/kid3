@@ -603,8 +603,16 @@ void Kid3Application::batchImport(const BatchImportProfile& profile,
   QList<ImportTrackDataVector> albums;
   ImportTrackDataVector trackDataList;
   QString lastDirName;
-  // If directories are selected, rename them, else process files of the
-  // current directory.
+  // The reading of a lot of directories can take some time, so first process
+  // the event queue so that any messages begging for patience are getting to
+  // the user. The actual reading process cannot be interrupted because this
+  // would invalidate the iterator.
+#ifdef CONFIG_USE_KDE
+  kapp->processEvents();
+#else
+  qApp->processEvents();
+#endif
+  // If no directories are selected, process files of the current directory.
   AbstractTaggedFileIterator* it =
       new TaggedFileOfSelectedDirectoriesIterator(m_fileSelectionModel);
   if (!it->hasNext()) {
