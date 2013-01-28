@@ -161,7 +161,8 @@ void BatchImportSourceListEdit::editItem()
  */
 BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
                                      QWidget* parent) :
-  QDialog(parent), m_importers(importers), m_profileIdx(-1)
+  QDialog(parent), m_importers(importers), m_profileIdx(-1),
+  m_isAbortButton(false)
 {
   setObjectName("BatchImportDialog");
   setWindowTitle(i18n("Automatic Import"));
@@ -240,15 +241,16 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
   hlayout->addStretch();
 
-  m_startButton = new QPushButton(i18n("S&tart"), this);
+  m_startAbortButton = new QPushButton(this);
+  setAbortButton(false);
   QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
-  m_startButton->setAutoDefault(false);
+  m_startAbortButton->setAutoDefault(false);
   closeButton->setAutoDefault(false);
-  hlayout->addWidget(m_startButton);
+  hlayout->addWidget(m_startAbortButton);
   hlayout->addWidget(closeButton);
-  connect(m_startButton, SIGNAL(clicked()), this, SLOT(startImport()));
-  connect(closeButton, SIGNAL(clicked()), this, SLOT(abortRunningImport()));
+  connect(m_startAbortButton, SIGNAL(clicked()), this, SLOT(startOrAbortImport()));
   connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
+  connect(this, SIGNAL(rejected()), this, SIGNAL(abort()));
 
   vlayout->addLayout(hlayout);
 }
@@ -260,29 +262,22 @@ BatchImportDialog::~BatchImportDialog()
 {}
 
 /**
- * Abort a running import.
+ * Start or abort batch import.
  */
-void BatchImportDialog::abortRunningImport()
+void BatchImportDialog::startOrAbortImport()
 {
-  if (!m_startButton->isEnabled()) {
-    m_startButton->setEnabled(true);
+  if (m_isAbortButton) {
     emit abort();
-  }
-}
-
-/**
- * Start batch import.
- */
-void BatchImportDialog::startImport()
-{
-  setProfileFromGuiControls();
-  if (m_profileIdx >= 0 && m_profileIdx < m_profiles.size()) {
-    m_edit->clear();
-    m_edit->append(i18n("Reading directory"));
-    emit start(
-          m_profiles.at(m_profileIdx),
-          TrackData::tagVersionCast(
-            m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt()));
+  } else {
+    setProfileFromGuiControls();
+    if (m_profileIdx >= 0 && m_profileIdx < m_profiles.size()) {
+      m_edit->clear();
+      m_currentProfile = m_profiles.at(m_profileIdx);
+      emit start(
+            m_currentProfile,
+            TrackData::tagVersionCast(
+              m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt()));
+    }
   }
 }
 
@@ -425,7 +420,7 @@ void BatchImportDialog::setProfileFromConfig()
 void BatchImportDialog::readConfig()
 {
   m_edit->clear();
-  m_startButton->setEnabled(true);
+  setAbortButton(false);
 
   TrackData::TagVersion importDest = ConfigStore::s_batchImportCfg.m_importDest;
   int index = m_destComboBox->findData(importDest);
@@ -477,8 +472,12 @@ void BatchImportDialog::showImportEvent(BatchImportProfile::ImportEventType type
 {
   QString eventText;
   switch (type) {
+  case BatchImportProfile::ReadingDirectory:
+    setAbortButton(true);
+    eventText = i18n("Reading Directory");
+    break;
   case BatchImportProfile::Started:
-    m_startButton->setEnabled(false);
+    setAbortButton(true);
     eventText = i18n("Started");
     break;
   case BatchImportProfile::SourceSelected:
@@ -498,11 +497,11 @@ void BatchImportDialog::showImportEvent(BatchImportProfile::ImportEventType type
     eventText = i18n("Cover");
     break;
   case BatchImportProfile::Finished:
-    m_startButton->setEnabled(true);
+    setAbortButton(false);
     eventText = i18n("Finished");
     break;
   case BatchImportProfile::Aborted:
-    m_startButton->setEnabled(true);
+    setAbortButton(false);
     eventText = i18n("Aborted");
     break;
   case BatchImportProfile::Error:
@@ -513,4 +512,14 @@ void BatchImportDialog::showImportEvent(BatchImportProfile::ImportEventType type
     eventText += text;
   }
   m_edit->append(eventText);
+}
+
+/**
+ * Set button to Start or Abort.
+ * @param enableAbort true to set Abort button
+ */
+void BatchImportDialog::setAbortButton(bool enableAbort)
+{
+  m_isAbortButton = enableAbort;
+  m_startAbortButton->setText(m_isAbortButton ? i18n("A&bort") : i18n("S&tart"));
 }

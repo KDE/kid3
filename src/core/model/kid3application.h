@@ -56,6 +56,7 @@ class TextExporter;
 class DirRenamer;
 class BatchImportProfile;
 class BatchImporter;
+class IAbortable;
 #ifdef HAVE_PHONON
 class AudioPlayer;
 #endif
@@ -722,8 +723,14 @@ public slots:
    * items and independent of the GUI. The processing is done in the background
    * by QFileSystemModel, so the fetched items are not immediately available
    * after calling this method.
+   *
+   * @param abortOperation operation which will abort fetching, 0 if not used
+   * @param timeoutMs timeout in milliseconds, -1 if not used
+   *
+   * @return true if directories fetched, false if aborted or timeout.
    */
-  void fetchAllDirectories();
+  bool fetchAllDirectories(const IAbortable* abortOperation = 0,
+                           int timeoutMs = -1);
 
   /**
    * Process change of selection.
@@ -855,6 +862,13 @@ private slots:
    */
   void filterNextFile(const QPersistentModelIndex& index);
 
+  /**
+   * Apply single file to batch import.
+   *
+   * @param index index of file in file proxy model
+   */
+  void batchImportNextFile(const QPersistentModelIndex& index);
+
 private:
   /**
   * Init file types.
@@ -923,6 +937,11 @@ private:
   /* Context for filterNextFile() */
   FileFilter* m_fileFilter;
   QString m_lastProcessedDirName;
+  /* Context for batchImportNextFile() */
+  const BatchImportProfile* m_batchImportProfile;
+  TrackData::TagVersion m_batchImportTagVersion;
+  QList<ImportTrackDataVector> m_batchImportAlbums;
+  ImportTrackDataVector m_batchImportTrackDataList;
 
   /** Current directory */
   static QString s_dirName;

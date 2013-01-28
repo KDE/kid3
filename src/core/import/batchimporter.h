@@ -30,6 +30,7 @@
 #include <QObject>
 #include "trackdata.h"
 #include "batchimportprofile.h"
+#include "iabortable.h"
 
 class QNetworkAccessManager;
 class QStandardItemModel;
@@ -41,7 +42,7 @@ class AlbumListItem;
 /**
  * Batch importer.
  */
-class BatchImporter : public QObject {
+class BatchImporter : public QObject, public IAbortable {
   Q_OBJECT
 public:
   /**
@@ -54,6 +55,18 @@ public:
    * Destructor.
    */
   virtual ~BatchImporter();
+
+  /**
+   * Check if operation is aborted.
+   *
+   * @return true if aborted.
+   */
+  virtual bool isAborted() const;
+
+  /**
+   * Clear state which is reported by isAborted().
+   */
+  virtual void clearAborted();
 
   /**
    * Set importers.
@@ -79,6 +92,16 @@ public:
    */
   void setFrameFilter(const FrameFilter& flt) { m_frameFilter = flt; }
 
+  /**
+   * Emit a report event.
+   * @param type type of event
+   * @param text additional message
+   */
+  void emitReportImportEvent(BatchImportProfile::ImportEventType type,
+                             const QString& text) {
+    emit reportImportEvent(type, text);
+  }
+
 signals:
   /**
    * Report event.
@@ -97,7 +120,7 @@ public slots:
   /**
    * Abort batch import.
    */
-  void abort();
+  virtual void abort();
 
 private slots:
   void onFindFinished(const QByteArray& searchStr);

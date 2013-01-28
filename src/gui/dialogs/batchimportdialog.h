@@ -97,9 +97,9 @@ private slots:
   void showHelp();
 
   /**
-   * Start import.
+   * Start or abort batch import.
    */
-  void startImport();
+  void startOrAbortImport();
 
   /**
    * Add a new profile.
@@ -123,11 +123,6 @@ private slots:
    */
   void changeProfileName(const QString& name);
 
-  /**
-   * Abort a running import.
-   */
-  void abortRunningImport();
-
 private:
   /**
    * Set the profile from the configuration.
@@ -149,14 +144,20 @@ private:
    */
   void addNewProfile();
 
+  /**
+   * Set button to Start or Abort.
+   * @param enableAbort true to set Abort button
+   */
+  void setAbortButton(bool enableAbort);
+
   /** Text editor */
   QTextEdit* m_edit;
   /** Combo box with import destinations */
   QComboBox* m_destComboBox;
   /** Combo box with profile name */
   QComboBox* m_profileComboBox;
-  /** Apply button */
-  QPushButton* m_startButton;
+  /** Start/Abort button */
+  QPushButton* m_startAbortButton;
   /** Model containing currently selected import sources */
   BatchImportSourcesModel* m_profileModel;
   /** Importers for different servers */
@@ -165,6 +166,10 @@ private:
   QList<BatchImportProfile> m_profiles;
   /** Index of currently selected profile */
   int m_profileIdx;
+  /** true if m_startAbortButton is an Abort button */
+  bool m_isAbortButton;
+  /** Currently used batch import profile */
+  BatchImportProfile m_currentProfile;
 };
 
 #endif

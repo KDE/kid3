@@ -96,6 +96,27 @@ void BatchImporter::start(const QList<ImportTrackDataVector>& trackLists,
 }
 
 /**
+ * Check if operation is aborted.
+ *
+ * @return true if aborted.
+ */
+bool BatchImporter::isAborted() const
+{
+  return m_state == Aborted;
+}
+
+/**
+ * Clear state which is reported by isAborted().
+ */
+void BatchImporter::clearAborted()
+{
+  if (m_state == Aborted) {
+    m_state = Idle;
+    stateTransition();
+  }
+}
+
+/**
  * Abort batch import.
  */
 void BatchImporter::abort()
@@ -106,6 +127,7 @@ void BatchImporter::abort()
     stateTransition();
   } else if (oldState == GettingCover) {
     m_downloadClient->cancelDownload();
+    stateTransition();
   }
 }
 
@@ -270,8 +292,6 @@ void BatchImporter::stateTransition()
     break;
   case Aborted:
     emit reportImportEvent(BatchImportProfile::Aborted, QString());
-    m_state = Idle;
-    stateTransition();
     break;
   }
 }

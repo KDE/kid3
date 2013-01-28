@@ -1389,7 +1389,7 @@ void Kid3MainWindow::slotBatchImport()
     connect(m_app->getBatchImporter(), SIGNAL(finished()),
             this, SLOT(updateGuiControls()));
   }
-  m_app->fetchAllDirectories();
+  m_app->getBatchImporter()->clearAborted();
   m_batchImportDialog->readConfig();
   m_batchImportDialog->show();
 }

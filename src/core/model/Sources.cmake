@@ -1,4 +1,5 @@
 set(model_SRCS
+  model/iabortable.cpp
   model/audioplayer.cpp
   model/commandformatreplacer.cpp
   model/commandstablemodel.cpp

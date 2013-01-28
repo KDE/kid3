@@ -31,6 +31,7 @@
 #include <QUrl>
 #include <QTextStream>
 #include <QNetworkAccessManager>
+#include <QTimer>
 #ifdef CONFIG_USE_KDE
 #include <kapplication.h>
 #else
@@ -600,48 +601,75 @@ void Kid3Application::downloadImage(const QString& url, DownloadImageDestination
 void Kid3Application::batchImport(const BatchImportProfile& profile,
                                   TrackData::TagVersion tagVersion)
 {
-  QList<ImportTrackDataVector> albums;
-  ImportTrackDataVector trackDataList;
-  QString lastDirName;
-  // The reading of a lot of directories can take some time, so first process
-  // the event queue so that any messages begging for patience are getting to
-  // the user. The actual reading process cannot be interrupted because this
-  // would invalidate the iterator.
-#ifdef CONFIG_USE_KDE
-  kapp->processEvents();
-#else
-  qApp->processEvents();
-#endif
+  m_batchImportProfile = &profile;
+  m_batchImportTagVersion = tagVersion;
+  m_batchImportAlbums.clear();
+  m_batchImportTrackDataList.clear();
+  m_lastProcessedDirName.clear();
+  m_batchImporter->clearAborted();
+  m_batchImporter->emitReportImportEvent(BatchImportProfile::ReadingDirectory,
+                                         QString());
   // If no directories are selected, process files of the current directory.
-  AbstractTaggedFileIterator* it =
-      new TaggedFileOfSelectedDirectoriesIterator(m_fileSelectionModel);
-  if (!it->hasNext()) {
-    delete it;
-    it = new TaggedFileIterator(getRootIndex());
-  }
-  while (it->hasNext()) {
-    TaggedFile* taggedFile = it->next();
-    taggedFile->readTags(false);
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-    taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
-#endif
-    if (taggedFile->getDirname() != lastDirName) {
-      lastDirName = taggedFile->getDirname();
-      if (!trackDataList.isEmpty()) {
-        albums.append(trackDataList);
-      }
-      trackDataList.clear();
+  QList<QPersistentModelIndex> indexes;
+  foreach (const QModelIndex& index, m_fileSelectionModel->selectedIndexes()) {
+    if (m_fileProxyModel->isDir(index)) {
+      indexes.append(index);
     }
-    trackDataList.append(ImportTrackData(*taggedFile, tagVersion));
   }
-  if (!trackDataList.isEmpty()) {
-    albums.append(trackDataList);
+  if (indexes.isEmpty()) {
+    indexes.append(m_fileProxyModelRootIndex);
   }
-  delete it;
-  m_batchImporter->setFrameFilter((tagVersion & TrackData::TagV1) != 0
-      ? frameModelV1()->getEnabledFrameFilter(true)
-      : frameModelV2()->getEnabledFrameFilter(true));
-  m_batchImporter->start(albums, profile, tagVersion);
+
+  connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
+          this, SLOT(batchImportNextFile(QPersistentModelIndex)));
+  m_fileProxyModelIterator->start(indexes);
+}
+
+/**
+ * Apply single file to batch import.
+ *
+ * @param index index of file in file proxy model
+ */
+void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
+{
+  bool terminated = !index.isValid();
+  if (!terminated) {
+    if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+      taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+      taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+#endif
+      if (taggedFile->getDirname() != m_lastProcessedDirName) {
+        m_lastProcessedDirName = taggedFile->getDirname();
+        if (!m_batchImportTrackDataList.isEmpty()) {
+          m_batchImportAlbums.append(m_batchImportTrackDataList);
+        }
+        m_batchImportTrackDataList.clear();
+        if (m_batchImporter->isAborted()) {
+          terminated = true;
+        }
+      }
+      m_batchImportTrackDataList.append(ImportTrackData(*taggedFile,
+                                                      m_batchImportTagVersion));
+    }
+  }
+  if (terminated) {
+    m_fileProxyModelIterator->abort();
+    disconnect(m_fileProxyModelIterator,
+               SIGNAL(nextReady(QPersistentModelIndex)),
+               this, SLOT(batchImportNextFile(QPersistentModelIndex)));
+    if (!m_batchImporter->isAborted()) {
+      if (!m_batchImportTrackDataList.isEmpty()) {
+        m_batchImportAlbums.append(m_batchImportTrackDataList);
+      }
+      m_batchImporter->setFrameFilter(
+            (m_batchImportTagVersion & TrackData::TagV1) != 0
+          ? frameModelV1()->getEnabledFrameFilter(true)
+          : frameModelV2()->getEnabledFrameFilter(true));
+      m_batchImporter->start(m_batchImportAlbums, *m_batchImportProfile,
+                             m_batchImportTagVersion);
+    }
+  }
 }
 
 /**
@@ -1539,16 +1567,48 @@ void Kid3Application::fetchDirectory(const QModelIndex& index)
  * items and independent of the GUI. The processing is done in the background
  * by QFileSystemModel, so the fetched items are not immediately available
  * after calling this method.
+ *
+ * @param abortOperation operation which will abort fetching, 0 if not used
+ * @param timeoutMs timeout in milliseconds, -1 if not used
+ *
+ * @return true if directories fetched, false if aborted or timeout.
  */
-void Kid3Application::fetchAllDirectories()
+bool Kid3Application::fetchAllDirectories(const IAbortable* abortOperation,
+                                          int timeoutMs)
 {
+  QTimer timer;
+  if (timeoutMs >= 0) {
+    timer.setSingleShot(true);
+    timer.setInterval(timeoutMs);
+    timer.start();
+  }
+  QList<QPersistentModelIndex> indexes;
   ModelIterator it(getRootIndex());
   while (it.hasNext()) {
-    QModelIndex index(it.next());
+    indexes.append(it.next());
+  }
+  int count = 0;
+  for (QList<QPersistentModelIndex>::iterator it = indexes.begin();
+       it != indexes.end();
+       ++it) {
+    QModelIndex index(*it);
     if (m_fileProxyModel->canFetchMore(index)) {
       m_fileProxyModel->fetchMore(index);
+      if (++count >= 10) {
+        count = 0;
+#ifdef CONFIG_USE_KDE
+        kapp->processEvents();
+#else
+        qApp->processEvents();
+#endif
+        if ((timeoutMs >= 0 && !timer.isActive()) ||
+            (abortOperation && abortOperation->isAborted())) {
+          return false;
+        }
+      }
     }
   }
+  return true;
 }
 
 /**

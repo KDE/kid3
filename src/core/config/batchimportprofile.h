@@ -38,6 +38,7 @@ class KID3_CORE_EXPORT BatchImportProfile {
 public:
   /** Events occuring during batch import. */
   enum ImportEventType {
+    ReadingDirectory,
     Started,
     SourceSelected,
     QueryingAlbumList,
