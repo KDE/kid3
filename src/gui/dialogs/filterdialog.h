@@ -93,15 +93,21 @@ private slots:
   void showHelp();
 
   /**
-   * Apply filter.
+   * Apply or abort filter.
    */
-  void applyFilter();
+  void applyOrAbortFilter();
 
 private:
   /**
    * Set the filter combo box and line edit from the configuration.
    */
   void setFiltersFromConfig();
+
+  /**
+   * Set button to Apply or Abort.
+   * @param enableAbort true to set Abort button
+   */
+  void setAbortButton(bool enableAbort);
 
   /** Text editor */
   QTextEdit* m_edit;
@@ -111,6 +117,8 @@ private:
   QPushButton* m_applyButton;
   /** file filter used */
   FileFilter m_fileFilter;
+  /** true if m_applyButton is an Abort button */
+  bool m_isAbortButton;
 };
 
 #endif

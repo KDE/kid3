@@ -1603,44 +1603,69 @@ void Kid3Application::applyFilter(FileFilter& fileFilter)
 {
   m_fileProxyModel->disableFilteringOutIndexes();
   setFiltered(false);
-  fileFilter.clearAbortFlag();
+  fileFilter.clearAborted();
+  emit fileFiltered(FileFilter::Started, QString());
 
-  bool ok = true;
-  unsigned numFiles = 0;
-  TaggedFileIterator it(m_fileProxyModelRootIndex);
-  while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
+  m_fileFilter = &fileFilter;
+  m_lastProcessedDirName.clear();
+  connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
+          this, SLOT(filterNextFile(QPersistentModelIndex)));
+  m_fileProxyModelIterator->start(m_fileProxyModelRootIndex);
+}
 
-    taggedFile->readTags(false);
+/**
+ * Apply single file to file filter.
+ *
+ * @param index index of file in file proxy model
+ */
+void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
+{
+  if (!m_fileFilter)
+    return;
+
+  bool terminated = !index.isValid();
+  if (!terminated) {
+    if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+      taggedFile->readTags(false);
 #if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-    taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
 #endif
-    bool pass = fileFilter.filter(*taggedFile, &ok);
-    if (!ok) {
-      emit fileFiltered(FileFilter::ParseError, QString());
-      break;
-    }
-    emit fileFiltered(
-          pass ? FileFilter::FilePassed : FileFilter::FileFilteredOut,
-          taggedFile->getFilename());
-    if (!pass)
-      m_fileProxyModel->filterOutIndex(taggedFile->getIndex());
+      if (taggedFile->getDirname() != m_lastProcessedDirName) {
+        m_lastProcessedDirName = taggedFile->getDirname();
+        emit fileFiltered(FileFilter::Directory, m_lastProcessedDirName);
+      }
+      bool ok;
+      bool pass = m_fileFilter->filter(*taggedFile, &ok);
+      if (ok) {
+        emit fileFiltered(
+              pass ? FileFilter::FilePassed : FileFilter::FileFilteredOut,
+              taggedFile->getFilename());
+        if (!pass)
+          m_fileProxyModel->filterOutIndex(taggedFile->getIndex());
+      } else {
+        emit fileFiltered(FileFilter::ParseError, QString());
+        terminated = true;
+      }
 
-    if (++numFiles == 8) {
-      numFiles = 0;
-#ifdef CONFIG_USE_KDE
-      kapp->processEvents();
-#else
-      qApp->processEvents();
-#endif
-      if (fileFilter.getAbortFlag())
-        break;
+      if (m_fileFilter->isAborted()) {
+        terminated = true;
+        emit fileFiltered(FileFilter::Aborted, QString());
+      }
     }
   }
+  if (terminated) {
+    if (!m_fileFilter->isAborted()) {
+      emit fileFiltered(FileFilter::Finished, QString());
+    }
 
-  m_fileProxyModel->applyFilteringOutIndexes();
-  setFiltered(!fileFilter.isEmptyFilterExpression());
-  emit fileModified();
+    m_fileProxyModelIterator->abort();
+    m_fileProxyModel->applyFilteringOutIndexes();
+    setFiltered(!m_fileFilter->isEmptyFilterExpression());
+    emit fileModified();
+
+    disconnect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
+               this, SLOT(filterNextFile(QPersistentModelIndex)));
+  }
 }
 
 /**

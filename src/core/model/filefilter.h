@@ -29,6 +29,7 @@
 
 #include "expressionparser.h"
 #include "trackdata.h"
+#include "iabortable.h"
 #include <QObject>
 #include <QString>
 
@@ -37,12 +38,13 @@ class TaggedFile;
 /**
  * Filter for tagged files.
  */
-class KID3_CORE_EXPORT FileFilter : public QObject {
+class KID3_CORE_EXPORT FileFilter : public QObject, public IAbortable {
 Q_OBJECT
 public:
   /** Type of filter event. */
   enum FilterEventType {
-    ParseError, FilePassed, FileFilteredOut
+    Started, Directory, ParseError, FilePassed, FileFilteredOut,
+    Finished, Aborted
   };
 
   /**
@@ -89,13 +91,13 @@ public:
   /**
    * Clear abort flag.
    */
-  void clearAbortFlag() { m_aborted = false; }
+  virtual void clearAborted();
 
   /**
    * Check if dialog was aborted.
    * @return true if aborted.
    */
-  bool getAbortFlag() { return m_aborted; }
+  virtual bool isAborted() const;
 
   /**
    * Get help text for format codes supported by formatString().
@@ -111,7 +113,7 @@ public slots:
   /**
    * Set abort flag.
    */
-  void setAbortFlag() { m_aborted = true; }
+  virtual void abort();
 
 private:
   /**

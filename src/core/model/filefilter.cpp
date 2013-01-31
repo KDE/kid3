@@ -190,3 +190,28 @@ bool FileFilter::filter(TaggedFile& taggedFile, bool* ok)
     return result;
   }
 }
+
+/**
+ * Clear abort flag.
+ */
+void FileFilter::clearAborted()
+{
+  m_aborted = false;
+}
+
+/**
+ * Check if dialog was aborted.
+ * @return true if aborted.
+ */
+bool FileFilter::isAborted() const
+{
+  return m_aborted;
+}
+
+/**
+ * Set abort flag.
+ */
+void FileFilter::abort()
+{
+  m_aborted = true;
+}

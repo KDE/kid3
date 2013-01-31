@@ -42,10 +42,10 @@
  *
  * @param parent parent widget
  */
-FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent)
+FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
+  m_isAbortButton(false)
 {
   setObjectName("FilterDialog");
-  setModal(true);
   setWindowTitle(i18n("Filter"));
   setSizeGripEnabled(true);
 
@@ -82,16 +82,16 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent)
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  m_applyButton = new QPushButton(i18n("&Apply"), this);
+  m_applyButton = new QPushButton(this);
+  setAbortButton(false);
   QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
   m_applyButton->setAutoDefault(false);
   closeButton->setAutoDefault(false);
   hlayout->addWidget(m_applyButton);
   hlayout->addWidget(closeButton);
-  connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyFilter()));
+  connect(m_applyButton, SIGNAL(clicked()), this, SLOT(applyOrAbortFilter()));
   connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
-  connect(closeButton, SIGNAL(clicked()),
-          &m_fileFilter, SLOT(setAbortFlag()));
+  connect(this, SIGNAL(rejected()), &m_fileFilter, SLOT(abort()));
 
   vlayout->addLayout(hlayout);
 }
@@ -103,16 +103,18 @@ FilterDialog::~FilterDialog()
 {}
 
 /**
- * Apply filter.
+ * Apply or abort filter.
  */
-void FilterDialog::applyFilter()
+void FilterDialog::applyOrAbortFilter()
 {
-  m_edit->clear();
-  m_fileFilter.setFilterExpression(m_formatListEdit->getCurrentFormat(1));
-  m_fileFilter.initParser();
-  m_applyButton->setEnabled(false);
-  emit apply(m_fileFilter);
-  m_applyButton->setEnabled(true);
+  if (m_isAbortButton) {
+    m_fileFilter.abort();
+  } else {
+    m_edit->clear();
+    m_fileFilter.setFilterExpression(m_formatListEdit->getCurrentFormat(1));
+    m_fileFilter.initParser();
+    emit apply(m_fileFilter);
+  }
 }
 
 /**
@@ -131,9 +133,9 @@ void FilterDialog::setFiltersFromConfig()
  */
 void FilterDialog::readConfig()
 {
-  m_fileFilter.clearAbortFlag();
+  m_fileFilter.clearAborted();
   m_edit->clear();
-  m_applyButton->setEnabled(true);
+  setAbortButton(false);
 
   setFiltersFromConfig();
 
@@ -173,6 +175,13 @@ void FilterDialog::showHelp()
 void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
                                    const QString& fileName) {
   switch (type) {
+  case FileFilter::Started:
+    m_edit->append(i18n("Started"));
+    setAbortButton(true);
+    break;
+  case FileFilter::Directory:
+    m_edit->append(QString("\t") + fileName);
+    break;
   case FileFilter::ParseError:
     m_edit->append("parse error");
     break;
@@ -182,5 +191,23 @@ void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
   case FileFilter::FileFilteredOut:
     m_edit->append(QString("-\t") + fileName);
     break;
+  case FileFilter::Finished:
+    m_edit->append(i18n("Finished"));
+    setAbortButton(false);
+    break;
+  case FileFilter::Aborted:
+    m_edit->append(i18n("Aborted"));
+    setAbortButton(false);
+    break;
   }
+}
+
+/**
+ * Set button to Start or Abort.
+ * @param enableAbort true to set Abort button
+ */
+void FilterDialog::setAbortButton(bool enableAbort)
+{
+  m_isAbortButton = enableAbort;
+  m_applyButton->setText(m_isAbortButton ? i18n("A&bort") : i18n("&Apply"));
 }

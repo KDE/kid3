@@ -1579,11 +1579,10 @@ void Kid3MainWindow::slotFilter()
               m_filterDialog,
               SLOT(showFilterEvent(FileFilter::FilterEventType,QString)));
     }
-    m_app->fetchAllDirectories();
     ConfigStore::s_filterCfg.setFilenameFormat(
           m_app->getTagsToFilenameFormat());
     m_filterDialog->readConfig();
-    m_filterDialog->exec();
+    m_filterDialog->show();
   }
 }
 

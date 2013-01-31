@@ -847,6 +847,14 @@ signals:
    */
   void aboutToPlayAudio();
 
+private slots:
+  /**
+   * Apply single file to file filter.
+   *
+   * @param index index of file in file proxy model
+   */
+  void filterNextFile(const QPersistentModelIndex& index);
+
 private:
   /**
   * Init file types.
@@ -911,6 +919,11 @@ private:
   QList<ServerImporter*> m_importers;
   /** Importer for MusicBrainz fingerprints */
   MusicBrainzClient* m_musicBrainzClient;
+
+  /* Context for filterNextFile() */
+  FileFilter* m_fileFilter;
+  QString m_lastProcessedDirName;
+
   /** Current directory */
   static QString s_dirName;
 };
