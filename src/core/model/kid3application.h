@@ -40,6 +40,7 @@ class QItemSelectionModel;
 class QModelIndex;
 class QNetworkAccessManager;
 class FileProxyModel;
+class FileProxyModelIterator;
 class DirProxyModel;
 class TrackDataModel;
 class FrameTableModel;
@@ -865,6 +866,7 @@ private:
   /** model of filesystem */
   QFileSystemModel* m_fileSystemModel;
   FileProxyModel* m_fileProxyModel;
+  FileProxyModelIterator* m_fileProxyModelIterator;
   DirProxyModel* m_dirProxyModel;
   QItemSelectionModel* m_fileSelectionModel;
   /** Track data model */

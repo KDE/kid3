@@ -228,6 +228,17 @@ public:
    */
   static TaggedFile* readWithTagLibIfId3V24(TaggedFile* taggedFile);
 
+signals:
+#if QT_VERSION >= 0x040700
+  /**
+   * This signal is emitted when the gatherer thread has finished to load the
+   * @a path.
+   *
+   * @param path directory fetched due to fetchMore() call.
+   */
+  void directoryLoaded(const QString& path);
+#endif
+
 private slots:
   /**
    * Update the TaggedFile contents for rows inserted into the model.

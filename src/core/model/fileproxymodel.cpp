@@ -248,6 +248,11 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
   m_fsModel = qobject_cast<QFileSystemModel*>(sourceModel);
   Q_ASSERT_X(m_fsModel != 0 , "setSourceModel",
              "sourceModel is not QFileSystemModel");
+#if QT_VERSION >= 0x040700
+  disconnect(this, SIGNAL(directoryLoaded(QString)));
+  connect(m_fsModel, SIGNAL(directoryLoaded(QString)),
+          this, SIGNAL(directoryLoaded(QString)));
+#endif
   QSortFilterProxyModel::setSourceModel(sourceModel);
 }
 

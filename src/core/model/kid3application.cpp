@@ -42,6 +42,7 @@
 #include "scriptinterface.h"
 #endif
 #include "fileproxymodel.h"
+#include "fileproxymodeliterator.h"
 #include "dirproxymodel.h"
 #include "modeliterator.h"
 #include "trackdatamodel.h"
@@ -95,6 +96,7 @@ QString Kid3Application::s_dirName;
 Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   m_fileSystemModel(new QFileSystemModel(this)),
   m_fileProxyModel(new FileProxyModel(this)),
+  m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
   m_dirProxyModel(new DirProxyModel(this)),
   m_fileSelectionModel(new QItemSelectionModel(m_fileProxyModel, this)),
   m_trackDataModel(new TrackDataModel(this)),

@@ -11,6 +11,7 @@ set(model_SRCS
   model/externalprocess.cpp
   model/filefilter.cpp
   model/fileproxymodel.cpp
+  model/fileproxymodeliterator.cpp
   model/framelist.cpp
   model/frametablemodel.cpp
   model/iframeeditor.cpp
@@ -29,6 +30,7 @@ set(model_MOC_HDRS
   model/externalprocess.h
   model/filefilter.h
   model/fileproxymodel.h
+  model/fileproxymodeliterator.h
   model/frametablemodel.h
   model/kid3application.h
   model/trackdatamodel.h
