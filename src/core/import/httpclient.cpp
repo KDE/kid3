@@ -39,9 +39,12 @@
  * @param netMgr  network access manager
  */
 HttpClient::HttpClient(QNetworkAccessManager* netMgr) :
-  QObject(netMgr), m_netMgr(netMgr), m_rcvBodyLen(0)
+  QObject(netMgr), m_netMgr(netMgr), m_rcvBodyLen(0),
+  m_minimumRequestInterval(0), m_requestTimer(new QTimer(this))
 {
   setObjectName("HttpClient");
+  m_requestTimer->setSingleShot(true);
+  connect(m_requestTimer, SIGNAL(timeout()), this, SLOT(delayedSendRequest()));
 }
 
 /**
@@ -113,6 +116,19 @@ void HttpClient::networkReplyError(QNetworkReply::NetworkError)
 void HttpClient::sendRequest(const QString& server, const QString& path,
                              const RawHeaderMap& headers)
 {
+  QDateTime now = QDateTime::currentDateTime();
+  qint64 msSinceLastRequest;
+  if (m_lastRequestTime.isValid() && m_minimumRequestInterval > 0 &&
+      (msSinceLastRequest = m_lastRequestTime.msecsTo(now)) <
+      m_minimumRequestInterval) {
+    // Delay request to comply with minimum interval
+    m_delayedSendRequestContext.server = server;
+    m_delayedSendRequestContext.path = path;
+    m_delayedSendRequestContext.headers = headers;
+    m_requestTimer->start(m_minimumRequestInterval - msSinceLastRequest);
+    return;
+  }
+
   m_rcvBodyLen = 0;
   m_rcvBodyType = "";
   QString proxy, username, password;
@@ -154,7 +170,18 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
           this, SLOT(networkReplyProgress(qint64,qint64)));
   connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
+  m_lastRequestTime = now;
   emitProgress(i18n("Request sent..."), 0, 0);
+}
+
+/**
+ * Called to start delayed sendRequest().
+ */
+void HttpClient::delayedSendRequest()
+{
+  sendRequest(m_delayedSendRequestContext.server,
+              m_delayedSendRequestContext.path,
+              m_delayedSendRequestContext.headers);
 }
 
 /**
