@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-01-20 10:01+0100\n"
+"POT-Creation-Date: 2013-02-07 19:52+0100\n"
 "PO-Revision-Date: 2011-01-15 17:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Spanish <kde-i18n-doc@kde.org>\n"
@@ -28,7 +28,7 @@ msgid "Server"
 msgstr "Servidor"
 
 #: core/config/batchimportsourcesmodel.cpp:176
-#: core/import/batchimporter.cpp:321
+#: core/import/batchimporter.cpp:341
 msgid "Accuracy"
 msgstr "Precisión"
 
@@ -440,13 +440,13 @@ msgstr "TSST - Subtítulo de movimiento"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: core/import/batchimporter.cpp:324 gui/dialogs/configdialog.cpp:479
+#: core/import/batchimporter.cpp:344 gui/dialogs/configdialog.cpp:479
 #: gui/dialogs/configdialog.cpp:777 gui/dialogs/musicbrainzdialog.cpp:190
 #: gui/dialogs/musicbrainzdialog.cpp:194 gui/dialogs/musicbrainzdialog.cpp:209
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: core/import/batchimporter.cpp:406
+#: core/import/batchimporter.cpp:426
 msgid "Invalid File"
 msgstr "Archivo no válido"
 
@@ -458,23 +458,23 @@ msgstr "Discogs"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: core/import/httpclient.cpp:60 core/import/httpclient.cpp:91
+#: core/import/httpclient.cpp:63 core/import/httpclient.cpp:94
 msgid "Data received: %1"
 msgstr "Datos recibidos: %1"
 
-#: core/import/httpclient.cpp:72 core/model/downloadclient.cpp:63
+#: core/import/httpclient.cpp:75 core/model/downloadclient.cpp:63
 #: gui/dialogs/serverimportdialog.cpp:125 gui/forms/kid3mainwindow.cpp:167
 #: gui/forms/kid3mainwindow.cpp:837 gui/forms/kid3mainwindow.cpp:990
-#: gui/forms/kid3mainwindow.cpp:1229 gui/forms/kid3mainwindow.cpp:1308
+#: gui/forms/kid3mainwindow.cpp:1234 gui/forms/kid3mainwindow.cpp:1313
 msgid "Ready."
 msgstr "Listo."
 
-#: core/import/httpclient.cpp:74 core/import/musicbrainzclient.cpp:296
+#: core/import/httpclient.cpp:77 core/import/musicbrainzclient.cpp:296
 #: core/model/dirrenamer.cpp:462 gui/dialogs/batchimportdialog.cpp:508
 msgid "Error"
 msgstr "Error"
 
-#: core/import/httpclient.cpp:157
+#: core/import/httpclient.cpp:174
 msgid "Request sent..."
 msgstr "Petición enviada..."
 
@@ -565,7 +565,7 @@ msgid "%1 is not a directory\n"
 msgstr "%1 no es un directorio\n"
 
 #: core/model/dirrenamer.cpp:103 core/model/dirrenamer.cpp:140
-#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:2000
+#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:2004
 msgid "Rename %1 to %2 failed\n"
 msgstr "Fallo al renombrar %1 a %2\n"
 
@@ -597,9 +597,9 @@ msgstr "Renombrar archivo"
 msgid "C&lear"
 msgstr "&Limpiar"
 
-#: core/model/externalprocess.cpp:59 gui/dialogs/batchimportdialog.cpp:244
+#: core/model/externalprocess.cpp:59 gui/dialogs/batchimportdialog.cpp:246
 #: gui/dialogs/browserdialog.cpp:128 gui/dialogs/exportdialog.cpp:147
-#: gui/dialogs/filterdialog.cpp:86 gui/dialogs/serverimportdialog.cpp:111
+#: gui/dialogs/filterdialog.cpp:87 gui/dialogs/serverimportdialog.cpp:111
 #: gui/dialogs/tagimportdialog.cpp:80 gui/dialogs/textimportdialog.cpp:94
 #: gui/widgets/imageviewer.cpp:55
 msgid "&Close"
@@ -642,11 +642,11 @@ msgstr "La función lógica NOT"
 msgid "Data"
 msgstr "Datos"
 
-#: core/model/kid3application.cpp:1852 core/model/kid3application.cpp:1856
+#: core/model/kid3application.cpp:1947 core/model/kid3application.cpp:1951
 msgid "All Supported Files"
 msgstr "Todos los archivos soportados"
 
-#: core/model/kid3application.cpp:1854 core/model/kid3application.cpp:1860
+#: core/model/kid3application.cpp:1949 core/model/kid3application.cpp:1955
 #: gui/dialogs/editframefieldsdialog.cpp:809
 #: gui/dialogs/editframefieldsdialog.cpp:811
 msgid "All Files (*)"
@@ -903,15 +903,15 @@ msgstr "Urs Fleisch"
 msgid "directory to open"
 msgstr "Directorio a abrir"
 
-#: gui/dialogs/batchimportdialog.cpp:167
+#: gui/dialogs/batchimportdialog.cpp:168
 msgid "Automatic Import"
 msgstr "Importar automáticamente"
 
-#: gui/dialogs/batchimportdialog.cpp:184 gui/dialogs/importdialog.cpp:183
+#: gui/dialogs/batchimportdialog.cpp:185 gui/dialogs/importdialog.cpp:183
 msgid "D&estination:"
 msgstr "D&estino:"
 
-#: gui/dialogs/batchimportdialog.cpp:188 gui/dialogs/exportdialog.cpp:122
+#: gui/dialogs/batchimportdialog.cpp:189 gui/dialogs/exportdialog.cpp:122
 #: gui/dialogs/importdialog.cpp:187 gui/dialogs/numbertracksdialog.cpp:78
 #: gui/forms/kid3form.cpp:236 gui/forms/kid3form.cpp:261
 #: gui/forms/kid3form.cpp:953 gui/forms/kid3mainwindow.cpp:340
@@ -921,7 +921,7 @@ msgstr "D&estino:"
 msgid "Tag 1"
 msgstr "Etiqueta 1"
 
-#: gui/dialogs/batchimportdialog.cpp:189 gui/dialogs/exportdialog.cpp:123
+#: gui/dialogs/batchimportdialog.cpp:190 gui/dialogs/exportdialog.cpp:123
 #: gui/dialogs/importdialog.cpp:188 gui/dialogs/numbertracksdialog.cpp:79
 #: gui/forms/kid3form.cpp:239 gui/forms/kid3form.cpp:265
 #: gui/forms/kid3form.cpp:960 gui/forms/kid3mainwindow.cpp:355
@@ -931,28 +931,28 @@ msgstr "Etiqueta 1"
 msgid "Tag 2"
 msgstr "Etiqueta 2"
 
-#: gui/dialogs/batchimportdialog.cpp:190 gui/dialogs/importdialog.cpp:189
+#: gui/dialogs/batchimportdialog.cpp:191 gui/dialogs/importdialog.cpp:189
 #: gui/dialogs/numbertracksdialog.cpp:80
 msgid "Tag 1 and Tag 2"
 msgstr "Etiqueta 1 y etiqueta 2"
 
-#: gui/dialogs/batchimportdialog.cpp:198
+#: gui/dialogs/batchimportdialog.cpp:199
 msgid "&Profile:"
 msgstr "&Perfil:"
 
-#: gui/dialogs/batchimportdialog.cpp:208 gui/forms/kid3form.cpp:368
+#: gui/dialogs/batchimportdialog.cpp:209 gui/forms/kid3form.cpp:368
 #: gui/forms/kid3form.cpp:967 gui/forms/kid3mainwindow.cpp:373
 msgid "Add"
 msgstr "Añadir"
 
-#: gui/dialogs/batchimportdialog.cpp:212 gui/forms/kid3form.cpp:305
+#: gui/dialogs/batchimportdialog.cpp:213 gui/forms/kid3form.cpp:305
 #: gui/forms/kid3form.cpp:346 gui/forms/kid3form.cpp:958
 #: gui/forms/kid3form.cpp:965 gui/forms/kid3mainwindow.cpp:352
 #: gui/forms/kid3mainwindow.cpp:367
 msgid "Remove"
 msgstr "Eliminar"
 
-#: gui/dialogs/batchimportdialog.cpp:232
+#: gui/dialogs/batchimportdialog.cpp:233
 #: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:501
 #: gui/dialogs/exportdialog.cpp:133 gui/dialogs/filterdialog.cpp:71
 #: gui/dialogs/importdialog.cpp:245 gui/dialogs/musicbrainzdialog.cpp:122
@@ -962,7 +962,7 @@ msgstr "Eliminar"
 msgid "&Help"
 msgstr "A&yuda"
 
-#: gui/dialogs/batchimportdialog.cpp:237
+#: gui/dialogs/batchimportdialog.cpp:238
 #: gui/dialogs/browsecoverartdialog.cpp:137 gui/dialogs/exportdialog.cpp:138
 #: gui/dialogs/filterdialog.cpp:76 gui/dialogs/importdialog.cpp:247
 #: gui/dialogs/musicbrainzdialog.cpp:123
@@ -972,15 +972,15 @@ msgstr "A&yuda"
 msgid "&Save Settings"
 msgstr "&Guardar configuración"
 
-#: gui/dialogs/batchimportdialog.cpp:243
-msgid "S&tart"
-msgstr "&Iniciar"
-
-#: gui/dialogs/batchimportdialog.cpp:294 gui/widgets/formatlistedit.cpp:242
+#: gui/dialogs/batchimportdialog.cpp:290 gui/widgets/formatlistedit.cpp:242
 msgid "New"
 msgstr "Nuevo"
 
-#: gui/dialogs/batchimportdialog.cpp:481
+#: gui/dialogs/batchimportdialog.cpp:477
+msgid "Reading Directory"
+msgstr "Leyendo directorio"
+
+#: gui/dialogs/batchimportdialog.cpp:481 gui/dialogs/filterdialog.cpp:179
 msgid "Started"
 msgstr "Iniciado"
 
@@ -1004,13 +1004,21 @@ msgstr "Datos recibidos"
 msgid "Cover"
 msgstr "Portada"
 
-#: gui/dialogs/batchimportdialog.cpp:501
+#: gui/dialogs/batchimportdialog.cpp:501 gui/dialogs/filterdialog.cpp:195
 msgid "Finished"
 msgstr "Finalizado"
 
-#: gui/dialogs/batchimportdialog.cpp:505
+#: gui/dialogs/batchimportdialog.cpp:505 gui/dialogs/filterdialog.cpp:199
 msgid "Aborted"
 msgstr "Abortado"
+
+#: gui/dialogs/batchimportdialog.cpp:524 gui/dialogs/filterdialog.cpp:212
+msgid "A&bort"
+msgstr "A&bortar"
+
+#: gui/dialogs/batchimportdialog.cpp:524
+msgid "S&tart"
+msgstr "&Iniciar"
 
 #: gui/dialogs/batchimportsourcedialog.cpp:45
 msgid "Import Source"
@@ -1598,9 +1606,9 @@ msgid "&Source:"
 msgstr "&Origen:"
 
 #: gui/dialogs/exportdialog.cpp:180 gui/forms/kid3mainwindow.cpp:981
-#: gui/forms/kid3mainwindow.cpp:984 gui/forms/kid3mainwindow.cpp:1527
-#: gui/forms/kid3mainwindow.cpp:1530 gui/forms/kid3mainwindow.cpp:1998
-#: gui/forms/kid3mainwindow.cpp:2079 gui/forms/kid3mainwindow.cpp:2082
+#: gui/forms/kid3mainwindow.cpp:984 gui/forms/kid3mainwindow.cpp:1532
+#: gui/forms/kid3mainwindow.cpp:1535 gui/forms/kid3mainwindow.cpp:2002
+#: gui/forms/kid3mainwindow.cpp:2083 gui/forms/kid3mainwindow.cpp:2086
 msgid "File Error"
 msgstr "Error en archivo"
 
@@ -1621,7 +1629,7 @@ msgstr "&Filtro:"
 msgid "&Expression:"
 msgstr "&Expresión:"
 
-#: gui/dialogs/filterdialog.cpp:85 gui/dialogs/musicbrainzdialog.cpp:125
+#: gui/dialogs/filterdialog.cpp:212 gui/dialogs/musicbrainzdialog.cpp:125
 #: gui/dialogs/tagimportdialog.cpp:76
 msgid "&Apply"
 msgstr "&Aplicar"
@@ -2232,7 +2240,7 @@ msgstr "Abrir directorio..."
 msgid "Saving directory..."
 msgstr "Guardando directorio..."
 
-#: gui/forms/kid3mainwindow.cpp:1014 gui/forms/kid3mainwindow.cpp:1024
+#: gui/forms/kid3mainwindow.cpp:1017 gui/forms/kid3mainwindow.cpp:1027
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -2240,86 +2248,86 @@ msgstr ""
 "El directorio actual ha sido modificado.\n"
 "¿Desea guardarlo?"
 
-#: gui/forms/kid3mainwindow.cpp:1016
+#: gui/forms/kid3mainwindow.cpp:1019
 msgid "Warning"
 msgstr "Advertencia"
 
-#: gui/forms/kid3mainwindow.cpp:1023
+#: gui/forms/kid3mainwindow.cpp:1026
 msgid "Warning - Kid3"
 msgstr "Atención - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1102
+#: gui/forms/kid3mainwindow.cpp:1107
 msgid "Open"
 msgstr "Abrir"
 
-#: gui/forms/kid3mainwindow.cpp:1178
+#: gui/forms/kid3mainwindow.cpp:1183
 msgid "Exiting..."
 msgstr "Saliendo..."
 
-#: gui/forms/kid3mainwindow.cpp:1222
+#: gui/forms/kid3mainwindow.cpp:1227
 msgid "Toggle the statusbar..."
 msgstr "Conmutando la barra de estado..."
 
-#: gui/forms/kid3mainwindow.cpp:1304
+#: gui/forms/kid3mainwindow.cpp:1309
 msgid "Creating playlist..."
 msgstr "Creando lista de reproducción..."
 
-#: gui/forms/kid3mainwindow.cpp:1330
+#: gui/forms/kid3mainwindow.cpp:1335
 msgid "Import"
 msgstr "Importar"
 
-#: gui/forms/kid3mainwindow.cpp:1472
+#: gui/forms/kid3mainwindow.cpp:1477
 msgid "Configure - Kid3"
 msgstr "Configurar - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1526 gui/forms/kid3mainwindow.cpp:1531
-#: gui/forms/kid3mainwindow.cpp:1999
+#: gui/forms/kid3mainwindow.cpp:1531 gui/forms/kid3mainwindow.cpp:1536
+#: gui/forms/kid3mainwindow.cpp:2003
 msgid "Error while renaming:\n"
 msgstr "Error mientras se renombra:\n"
 
-#: gui/forms/kid3mainwindow.cpp:1640
+#: gui/forms/kid3mainwindow.cpp:1644
 msgid " [filtered]"
 msgstr " [filtrado]"
 
-#: gui/forms/kid3mainwindow.cpp:1646
+#: gui/forms/kid3mainwindow.cpp:1650
 msgid " [modified]"
 msgstr " [modificado]"
 
-#: gui/forms/kid3mainwindow.cpp:1888
+#: gui/forms/kid3mainwindow.cpp:1892
 msgid "Add Frame"
 msgstr "Añadir campo"
 
-#: gui/forms/kid3mainwindow.cpp:1889
+#: gui/forms/kid3mainwindow.cpp:1893
 msgid "Select the frame ID"
 msgstr "Seleccionar el identificador de campo"
 
-#: gui/forms/kid3mainwindow.cpp:1977
+#: gui/forms/kid3mainwindow.cpp:1981
 msgid "Rename File"
 msgstr "Renombrar archivo"
 
-#: gui/forms/kid3mainwindow.cpp:1978
+#: gui/forms/kid3mainwindow.cpp:1982
 msgid "Enter new file name:"
 msgstr "Da un nuevo nombre de archivo:"
 
-#: gui/forms/kid3mainwindow.cpp:2008 gui/forms/kid3mainwindow.cpp:2046
+#: gui/forms/kid3mainwindow.cpp:2012 gui/forms/kid3mainwindow.cpp:2050
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "¿Esta seguro que quiere mover estos %1 objetos a la basura?"
 
-#: gui/forms/kid3mainwindow.cpp:2034 gui/forms/kid3mainwindow.cpp:2048
+#: gui/forms/kid3mainwindow.cpp:2038 gui/forms/kid3mainwindow.cpp:2052
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
 msgstr[0] "¿Esta seguro que quiere mover este objeto a la basura?"
 msgstr[1] "¿Esta seguro que quiere mover estos %1 objetos a la basura?"
 
-#: gui/forms/kid3mainwindow.cpp:2038 gui/forms/kid3mainwindow.cpp:2044
+#: gui/forms/kid3mainwindow.cpp:2042 gui/forms/kid3mainwindow.cpp:2048
 msgid "Move to Trash"
 msgstr "Mover a la papelera"
 
-#: gui/forms/kid3mainwindow.cpp:2076
+#: gui/forms/kid3mainwindow.cpp:2080
 msgid "Directory must be empty.\n"
 msgstr "El directorio debe estar vacío.\n"
 
-#: gui/forms/kid3mainwindow.cpp:2077
+#: gui/forms/kid3mainwindow.cpp:2081
 msgid "Could not move these files to the Trash"
 msgstr "No puede mover algunos de los elementos a la papelera"
 

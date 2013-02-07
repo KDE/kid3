@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-01-20 10:01+0100\n"
+"POT-Creation-Date: 2013-02-07 19:52+0100\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -27,7 +27,7 @@ msgid "Server"
 msgstr "Server"
 
 #: core/config/batchimportsourcesmodel.cpp:176
-#: core/import/batchimporter.cpp:321
+#: core/import/batchimporter.cpp:341
 msgid "Accuracy"
 msgstr "Preciznost"
 
@@ -439,13 +439,13 @@ msgstr "TSST - postavi podnaslov"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: core/import/batchimporter.cpp:324 gui/dialogs/configdialog.cpp:479
+#: core/import/batchimporter.cpp:344 gui/dialogs/configdialog.cpp:479
 #: gui/dialogs/configdialog.cpp:777 gui/dialogs/musicbrainzdialog.cpp:190
 #: gui/dialogs/musicbrainzdialog.cpp:194 gui/dialogs/musicbrainzdialog.cpp:209
 msgid "Unknown"
 msgstr "Nepoznato"
 
-#: core/import/batchimporter.cpp:406
+#: core/import/batchimporter.cpp:426
 msgid "Invalid File"
 msgstr "Neispravna datoteka"
 
@@ -457,23 +457,23 @@ msgstr "Diskogs"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: core/import/httpclient.cpp:60 core/import/httpclient.cpp:91
+#: core/import/httpclient.cpp:63 core/import/httpclient.cpp:94
 msgid "Data received: %1"
 msgstr "Podaci primljeni: %1"
 
-#: core/import/httpclient.cpp:72 core/model/downloadclient.cpp:63
+#: core/import/httpclient.cpp:75 core/model/downloadclient.cpp:63
 #: gui/dialogs/serverimportdialog.cpp:125 gui/forms/kid3mainwindow.cpp:167
 #: gui/forms/kid3mainwindow.cpp:837 gui/forms/kid3mainwindow.cpp:990
-#: gui/forms/kid3mainwindow.cpp:1229 gui/forms/kid3mainwindow.cpp:1308
+#: gui/forms/kid3mainwindow.cpp:1234 gui/forms/kid3mainwindow.cpp:1313
 msgid "Ready."
 msgstr "Spreman."
 
-#: core/import/httpclient.cpp:74 core/import/musicbrainzclient.cpp:296
+#: core/import/httpclient.cpp:77 core/import/musicbrainzclient.cpp:296
 #: core/model/dirrenamer.cpp:462 gui/dialogs/batchimportdialog.cpp:508
 msgid "Error"
 msgstr "Greška"
 
-#: core/import/httpclient.cpp:157
+#: core/import/httpclient.cpp:174
 msgid "Request sent..."
 msgstr "Zahtev poslat..."
 
@@ -564,7 +564,7 @@ msgid "%1 is not a directory\n"
 msgstr "%1 nije direktorijum\n"
 
 #: core/model/dirrenamer.cpp:103 core/model/dirrenamer.cpp:140
-#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:2000
+#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:2004
 msgid "Rename %1 to %2 failed\n"
 msgstr "Preimenovanje %1 u %2 nije uspelo\n"
 
@@ -596,9 +596,9 @@ msgstr "Preimenuj fajl"
 msgid "C&lear"
 msgstr "O&čisti"
 
-#: core/model/externalprocess.cpp:59 gui/dialogs/batchimportdialog.cpp:244
+#: core/model/externalprocess.cpp:59 gui/dialogs/batchimportdialog.cpp:246
 #: gui/dialogs/browserdialog.cpp:128 gui/dialogs/exportdialog.cpp:147
-#: gui/dialogs/filterdialog.cpp:86 gui/dialogs/serverimportdialog.cpp:111
+#: gui/dialogs/filterdialog.cpp:87 gui/dialogs/serverimportdialog.cpp:111
 #: gui/dialogs/tagimportdialog.cpp:80 gui/dialogs/textimportdialog.cpp:94
 #: gui/widgets/imageviewer.cpp:55
 msgid "&Close"
@@ -641,11 +641,11 @@ msgstr "Logička negacija"
 msgid "Data"
 msgstr "Podaci"
 
-#: core/model/kid3application.cpp:1852 core/model/kid3application.cpp:1856
+#: core/model/kid3application.cpp:1947 core/model/kid3application.cpp:1951
 msgid "All Supported Files"
 msgstr "Svi podržani fajlovi"
 
-#: core/model/kid3application.cpp:1854 core/model/kid3application.cpp:1860
+#: core/model/kid3application.cpp:1949 core/model/kid3application.cpp:1955
 #: gui/dialogs/editframefieldsdialog.cpp:809
 #: gui/dialogs/editframefieldsdialog.cpp:811
 msgid "All Files (*)"
@@ -902,15 +902,15 @@ msgstr "Urs Flajš"
 msgid "directory to open"
 msgstr "direktorijum za otvaranje"
 
-#: gui/dialogs/batchimportdialog.cpp:167
+#: gui/dialogs/batchimportdialog.cpp:168
 msgid "Automatic Import"
 msgstr "Automatski uvozi"
 
-#: gui/dialogs/batchimportdialog.cpp:184 gui/dialogs/importdialog.cpp:183
+#: gui/dialogs/batchimportdialog.cpp:185 gui/dialogs/importdialog.cpp:183
 msgid "D&estination:"
 msgstr "O&dredište:"
 
-#: gui/dialogs/batchimportdialog.cpp:188 gui/dialogs/exportdialog.cpp:122
+#: gui/dialogs/batchimportdialog.cpp:189 gui/dialogs/exportdialog.cpp:122
 #: gui/dialogs/importdialog.cpp:187 gui/dialogs/numbertracksdialog.cpp:78
 #: gui/forms/kid3form.cpp:236 gui/forms/kid3form.cpp:261
 #: gui/forms/kid3form.cpp:953 gui/forms/kid3mainwindow.cpp:340
@@ -920,7 +920,7 @@ msgstr "O&dredište:"
 msgid "Tag 1"
 msgstr "oznaka 1"
 
-#: gui/dialogs/batchimportdialog.cpp:189 gui/dialogs/exportdialog.cpp:123
+#: gui/dialogs/batchimportdialog.cpp:190 gui/dialogs/exportdialog.cpp:123
 #: gui/dialogs/importdialog.cpp:188 gui/dialogs/numbertracksdialog.cpp:79
 #: gui/forms/kid3form.cpp:239 gui/forms/kid3form.cpp:265
 #: gui/forms/kid3form.cpp:960 gui/forms/kid3mainwindow.cpp:355
@@ -930,28 +930,28 @@ msgstr "oznaka 1"
 msgid "Tag 2"
 msgstr "oznaka 2"
 
-#: gui/dialogs/batchimportdialog.cpp:190 gui/dialogs/importdialog.cpp:189
+#: gui/dialogs/batchimportdialog.cpp:191 gui/dialogs/importdialog.cpp:189
 #: gui/dialogs/numbertracksdialog.cpp:80
 msgid "Tag 1 and Tag 2"
 msgstr "oznaka 1 i oznaka 2"
 
-#: gui/dialogs/batchimportdialog.cpp:198
+#: gui/dialogs/batchimportdialog.cpp:199
 msgid "&Profile:"
 msgstr "&Profil:"
 
-#: gui/dialogs/batchimportdialog.cpp:208 gui/forms/kid3form.cpp:368
+#: gui/dialogs/batchimportdialog.cpp:209 gui/forms/kid3form.cpp:368
 #: gui/forms/kid3form.cpp:967 gui/forms/kid3mainwindow.cpp:373
 msgid "Add"
 msgstr "Dodaj"
 
-#: gui/dialogs/batchimportdialog.cpp:212 gui/forms/kid3form.cpp:305
+#: gui/dialogs/batchimportdialog.cpp:213 gui/forms/kid3form.cpp:305
 #: gui/forms/kid3form.cpp:346 gui/forms/kid3form.cpp:958
 #: gui/forms/kid3form.cpp:965 gui/forms/kid3mainwindow.cpp:352
 #: gui/forms/kid3mainwindow.cpp:367
 msgid "Remove"
 msgstr "Ukloni"
 
-#: gui/dialogs/batchimportdialog.cpp:232
+#: gui/dialogs/batchimportdialog.cpp:233
 #: gui/dialogs/browsecoverartdialog.cpp:132 gui/dialogs/configdialog.cpp:501
 #: gui/dialogs/exportdialog.cpp:133 gui/dialogs/filterdialog.cpp:71
 #: gui/dialogs/importdialog.cpp:245 gui/dialogs/musicbrainzdialog.cpp:122
@@ -961,7 +961,7 @@ msgstr "Ukloni"
 msgid "&Help"
 msgstr "Po&moć"
 
-#: gui/dialogs/batchimportdialog.cpp:237
+#: gui/dialogs/batchimportdialog.cpp:238
 #: gui/dialogs/browsecoverartdialog.cpp:137 gui/dialogs/exportdialog.cpp:138
 #: gui/dialogs/filterdialog.cpp:76 gui/dialogs/importdialog.cpp:247
 #: gui/dialogs/musicbrainzdialog.cpp:123
@@ -971,15 +971,15 @@ msgstr "Po&moć"
 msgid "&Save Settings"
 msgstr "&Sačuvaj podešavanja"
 
-#: gui/dialogs/batchimportdialog.cpp:243
-msgid "S&tart"
-msgstr "&Pokreni"
-
-#: gui/dialogs/batchimportdialog.cpp:294 gui/widgets/formatlistedit.cpp:242
+#: gui/dialogs/batchimportdialog.cpp:290 gui/widgets/formatlistedit.cpp:242
 msgid "New"
 msgstr "Novo"
 
-#: gui/dialogs/batchimportdialog.cpp:481
+#: gui/dialogs/batchimportdialog.cpp:477
+msgid "Reading Directory"
+msgstr ""
+
+#: gui/dialogs/batchimportdialog.cpp:481 gui/dialogs/filterdialog.cpp:179
 msgid "Started"
 msgstr "Započet"
 
@@ -1003,13 +1003,21 @@ msgstr "Podaci primljeni"
 msgid "Cover"
 msgstr "Omot"
 
-#: gui/dialogs/batchimportdialog.cpp:501
+#: gui/dialogs/batchimportdialog.cpp:501 gui/dialogs/filterdialog.cpp:195
 msgid "Finished"
 msgstr "Završeno"
 
-#: gui/dialogs/batchimportdialog.cpp:505
+#: gui/dialogs/batchimportdialog.cpp:505 gui/dialogs/filterdialog.cpp:199
 msgid "Aborted"
 msgstr "Obustavljen"
+
+#: gui/dialogs/batchimportdialog.cpp:524 gui/dialogs/filterdialog.cpp:212
+msgid "A&bort"
+msgstr "O&bustavi"
+
+#: gui/dialogs/batchimportdialog.cpp:524
+msgid "S&tart"
+msgstr "&Pokreni"
 
 #: gui/dialogs/batchimportsourcedialog.cpp:45
 msgid "Import Source"
@@ -1596,9 +1604,9 @@ msgid "&Source:"
 msgstr "&Izvor:"
 
 #: gui/dialogs/exportdialog.cpp:180 gui/forms/kid3mainwindow.cpp:981
-#: gui/forms/kid3mainwindow.cpp:984 gui/forms/kid3mainwindow.cpp:1527
-#: gui/forms/kid3mainwindow.cpp:1530 gui/forms/kid3mainwindow.cpp:1998
-#: gui/forms/kid3mainwindow.cpp:2079 gui/forms/kid3mainwindow.cpp:2082
+#: gui/forms/kid3mainwindow.cpp:984 gui/forms/kid3mainwindow.cpp:1532
+#: gui/forms/kid3mainwindow.cpp:1535 gui/forms/kid3mainwindow.cpp:2002
+#: gui/forms/kid3mainwindow.cpp:2083 gui/forms/kid3mainwindow.cpp:2086
 msgid "File Error"
 msgstr "Greška fajla"
 
@@ -1619,7 +1627,7 @@ msgstr "&Filter:"
 msgid "&Expression:"
 msgstr "&Izraz:"
 
-#: gui/dialogs/filterdialog.cpp:85 gui/dialogs/musicbrainzdialog.cpp:125
+#: gui/dialogs/filterdialog.cpp:212 gui/dialogs/musicbrainzdialog.cpp:125
 #: gui/dialogs/tagimportdialog.cpp:76
 msgid "&Apply"
 msgstr "&Primeni"
@@ -2230,7 +2238,7 @@ msgstr "Otvaram direktorijum..."
 msgid "Saving directory..."
 msgstr "Upisujem direktorijum..."
 
-#: gui/forms/kid3mainwindow.cpp:1014 gui/forms/kid3mainwindow.cpp:1024
+#: gui/forms/kid3mainwindow.cpp:1017 gui/forms/kid3mainwindow.cpp:1027
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -2238,72 +2246,72 @@ msgstr ""
 "Trenutni direktorijum je izmenjen.\n"
 "Želite li da sačuvate izmene?"
 
-#: gui/forms/kid3mainwindow.cpp:1016
+#: gui/forms/kid3mainwindow.cpp:1019
 msgid "Warning"
 msgstr "Upozorenje"
 
-#: gui/forms/kid3mainwindow.cpp:1023
+#: gui/forms/kid3mainwindow.cpp:1026
 msgid "Warning - Kid3"
 msgstr "Upozorenje - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1102
+#: gui/forms/kid3mainwindow.cpp:1107
 msgid "Open"
 msgstr "Otvori"
 
-#: gui/forms/kid3mainwindow.cpp:1178
+#: gui/forms/kid3mainwindow.cpp:1183
 msgid "Exiting..."
 msgstr "Izlazim..."
 
-#: gui/forms/kid3mainwindow.cpp:1222
+#: gui/forms/kid3mainwindow.cpp:1227
 msgid "Toggle the statusbar..."
 msgstr "Prikaži/sakrij traku stanja..."
 
-#: gui/forms/kid3mainwindow.cpp:1304
+#: gui/forms/kid3mainwindow.cpp:1309
 msgid "Creating playlist..."
 msgstr "Pravim listu numera..."
 
-#: gui/forms/kid3mainwindow.cpp:1330
+#: gui/forms/kid3mainwindow.cpp:1335
 msgid "Import"
 msgstr "Uvezi"
 
-#: gui/forms/kid3mainwindow.cpp:1472
+#: gui/forms/kid3mainwindow.cpp:1477
 msgid "Configure - Kid3"
 msgstr "Podešavanje - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1526 gui/forms/kid3mainwindow.cpp:1531
-#: gui/forms/kid3mainwindow.cpp:1999
+#: gui/forms/kid3mainwindow.cpp:1531 gui/forms/kid3mainwindow.cpp:1536
+#: gui/forms/kid3mainwindow.cpp:2003
 msgid "Error while renaming:\n"
 msgstr "Greška prilikom preimenovanja:\n"
 
-#: gui/forms/kid3mainwindow.cpp:1640
+#: gui/forms/kid3mainwindow.cpp:1644
 msgid " [filtered]"
 msgstr " [filtriran]"
 
-#: gui/forms/kid3mainwindow.cpp:1646
+#: gui/forms/kid3mainwindow.cpp:1650
 msgid " [modified]"
 msgstr " [izmenjen]"
 
-#: gui/forms/kid3mainwindow.cpp:1888
+#: gui/forms/kid3mainwindow.cpp:1892
 msgid "Add Frame"
 msgstr "Dodaj okvir"
 
-#: gui/forms/kid3mainwindow.cpp:1889
+#: gui/forms/kid3mainwindow.cpp:1893
 msgid "Select the frame ID"
 msgstr "Izaberite ID okvira"
 
-#: gui/forms/kid3mainwindow.cpp:1977
+#: gui/forms/kid3mainwindow.cpp:1981
 msgid "Rename File"
 msgstr "Preimenuj fajl"
 
-#: gui/forms/kid3mainwindow.cpp:1978
+#: gui/forms/kid3mainwindow.cpp:1982
 msgid "Enter new file name:"
 msgstr "Unesite novo ime fajla:"
 
-#: gui/forms/kid3mainwindow.cpp:2008 gui/forms/kid3mainwindow.cpp:2046
+#: gui/forms/kid3mainwindow.cpp:2012 gui/forms/kid3mainwindow.cpp:2050
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Želite li zaista da premestite ovih %1 stavki u smeće?"
 
-#: gui/forms/kid3mainwindow.cpp:2034 gui/forms/kid3mainwindow.cpp:2048
+#: gui/forms/kid3mainwindow.cpp:2038 gui/forms/kid3mainwindow.cpp:2052
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
 msgstr[0] "Želite li zaista da premestite ovu %1 stavku u smeće?"
@@ -2311,15 +2319,15 @@ msgstr[1] "Želite li zaista da premestite ove %1 stavke u smeće?"
 msgstr[2] "Želite li zaista da premestite ovih %1 stavki u smeće?"
 msgstr[3] "Želite li zaista da premestite ovu stavku u smeće?"
 
-#: gui/forms/kid3mainwindow.cpp:2038 gui/forms/kid3mainwindow.cpp:2044
+#: gui/forms/kid3mainwindow.cpp:2042 gui/forms/kid3mainwindow.cpp:2048
 msgid "Move to Trash"
 msgstr "Premesti u smeće"
 
-#: gui/forms/kid3mainwindow.cpp:2076
+#: gui/forms/kid3mainwindow.cpp:2080
 msgid "Directory must be empty.\n"
 msgstr "Direktoriujm mora biti prazan.\n"
 
-#: gui/forms/kid3mainwindow.cpp:2077
+#: gui/forms/kid3mainwindow.cpp:2081
 msgid "Could not move these files to the Trash"
 msgstr "Nisam mogao da premestim ove fajlove u smeće"
 

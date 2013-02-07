@@ -1,8 +1,14 @@
-kid3 (2.2.1-0) unstable; urgency=low
+kid3 (2.3-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Mon, 03 Dec 2012 11:09:12 +0100
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 07 Feb 2013 19:45:23 +0100
+
+kid3 (2.2.1-1) experimental; urgency=low
+
+  * New upstream release.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 07 Dec 2012 10:36:24 +0100
 
 kid3 (2.2-1) experimental; urgency=low
 
