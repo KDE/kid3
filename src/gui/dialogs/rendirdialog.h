@@ -81,6 +81,14 @@ public:
    */
   QString getNewDirname() const;
 
+public slots:
+  /**
+   * Display action preview.
+   *
+   * @param actionStrs description of action
+   */
+  void displayActionPreview(const QStringList& actionStrs);
+
 protected:
   /**
    * Called when the wizard is canceled.
@@ -143,11 +151,6 @@ private:
    * Clear action preview.
    */
   void clearPreview();
-
-  /**
-   * Display action preview.
-   */
-  void displayPreview();
 
   /**
    * Set configuration from dialog in directory renamer.

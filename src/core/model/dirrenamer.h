@@ -30,6 +30,7 @@
 #include <QObject>
 #include <QString>
 #include "trackdata.h"
+#include "iabortable.h"
 #include "kid3api.h"
 
 class TaggedFile;
@@ -37,7 +38,8 @@ class TaggedFile;
 /**
  * Directory renamer.
  */
-class KID3_CORE_EXPORT DirRenamer : public QObject {
+class KID3_CORE_EXPORT DirRenamer : public QObject, public IAbortable {
+  Q_OBJECT
 public:
   /**
    * Constructor.
@@ -49,6 +51,23 @@ public:
    * Destructor.
    */
   virtual ~DirRenamer();
+
+  /**
+   * Check if operation is aborted.
+   *
+   * @return true if aborted.
+   */
+  virtual bool isAborted() const;
+
+  /**
+   * Clear state which is reported by isAborted().
+   */
+  virtual void clearAborted();
+
+  /**
+   * Abort operation.
+   */
+  virtual void abort();
 
   /**
    * Set version of tags used to get rename information.
@@ -103,24 +122,6 @@ public:
   void performActions(QString* errorMsg);
 
   /**
-   * Get description of actions to be performed.
-   * @return list of (action, [src,] dst) lists describing the actions to be
-   * performed.
-   */
-  QList<QStringList> describeActions() const;
-
-  /**
-   * Check if dialog was aborted.
-   * @return true if aborted.
-   */
-  bool getAbortFlag() const { return m_aborted; }
-
-  /**
-   * Set abort flag.
-   */
-  void setAbortFlag() { m_aborted = true; }
-
-  /**
    * Set directory name.
    * This should be done before calling performActions(), so that the directory
    * name is changed when the application directory is renamed.
@@ -140,6 +141,14 @@ public:
    * @return directory.
    */
   QString getDirName() const { return m_dirName; }
+
+signals:
+  /**
+   * Is emitted after an action has been scheduled.
+   *
+   * @param actionStrs description of action
+   */
+  void actionScheduled(const QStringList& actionStrs);
 
 private:
   /**
@@ -275,6 +284,13 @@ private:
    * @param src directory name, will be replaced if there is a rename action
    */
   void replaceIfAlreadyRenamed(QString& src) const;
+
+  /**
+   * Get description of an actions to be performed.
+   * @return (action, [src,] dst) list describing the action to be
+   * performed.
+   */
+  QStringList describeAction(const RenameAction& action) const;
 
   RenameActionList m_actions;
   bool m_aborted;

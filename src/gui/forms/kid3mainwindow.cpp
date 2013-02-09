@@ -1516,8 +1516,9 @@ void Kid3MainWindow::slotRenameDirectory()
       m_renDirDialog = new RenDirDialog(this, m_app->getDirRenamer());
       connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
               m_app, SLOT(scheduleRenameActions()));
+      connect(m_app->getDirRenamer(), SIGNAL(actionScheduled(QStringList)),
+              m_renDirDialog, SLOT(displayActionPreview(QStringList)));
     }
-    m_app->fetchAllDirectories();
     if (TaggedFile* taggedFile =
       TaggedFileOfDirectoryIterator::first(m_app->currentOrRootIndex())) {
       m_renDirDialog->startDialog(taggedFile);

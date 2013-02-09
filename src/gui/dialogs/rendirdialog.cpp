@@ -260,37 +260,31 @@ void RenDirDialog::clearPreview()
 {
   if (m_edit) {
     m_edit->clear();
+    m_edit->setLineWrapMode(QTextEdit::NoWrap);
   }
 }
 
 /**
  * Display action preview.
+ *
+ * @param actionStrs description of action
  */
-void RenDirDialog::displayPreview()
+void RenDirDialog::displayActionPreview(const QStringList& actionStrs)
 {
-  m_edit->clear();
-  m_edit->setLineWrapMode(QTextEdit::NoWrap);
-  QFontMetrics metrics = fontMetrics();
-  int typeWidth = -1;
-  foreach (const QStringList& actionStrs, m_dirRenamer->describeActions()) {
-    QString str = actionStrs.at(0);
-    int width = metrics.width(str);
-    if (typeWidth < width) {
-      typeWidth = width;
-    }
-    if (actionStrs.size() > 1) {
-      str += '\t';
-      str += actionStrs.at(1);
-    }
-    if (actionStrs.size() > 2) {
-      str += "\n\t";
-      str += actionStrs.at(2);
-    }
-    m_edit->append(str);
+  QString str = actionStrs.at(0);
+  int width = fontMetrics().width(str) + 8;
+  if (m_edit->tabStopWidth() < width) {
+    m_edit->setTabStopWidth(width);
   }
-  if (typeWidth > 0) {
-    m_edit->setTabStopWidth(typeWidth + 8);
+  if (actionStrs.size() > 1) {
+    str += '\t';
+    str += actionStrs.at(1);
   }
+  if (actionStrs.size() > 2) {
+    str += "\n\t";
+    str += actionStrs.at(2);
+  }
+  m_edit->append(str);
 }
 
 /**
@@ -299,12 +293,9 @@ void RenDirDialog::displayPreview()
 void RenDirDialog::pageChanged()
 {
   if (currentId() == 1) {
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
     clearPreview();
     setDirRenamerConfiguration();
     emit actionSchedulingRequested();
-    displayPreview();
-    QApplication::restoreOverrideCursor();
   }
 }
 
@@ -313,6 +304,6 @@ void RenDirDialog::pageChanged()
  */
 void RenDirDialog::reject()
 {
-  m_dirRenamer->setAbortFlag();
+  m_dirRenamer->abort();
   QWizard::reject();
 }

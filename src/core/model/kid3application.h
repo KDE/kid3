@@ -718,21 +718,6 @@ public slots:
   void fetchDirectory(const QModelIndex& index);
 
   /**
-   * Fetch entries for all directories if not already fetched.
-   * This works like FileList::expandAll(), but without expanding tree view
-   * items and independent of the GUI. The processing is done in the background
-   * by QFileSystemModel, so the fetched items are not immediately available
-   * after calling this method.
-   *
-   * @param abortOperation operation which will abort fetching, 0 if not used
-   * @param timeoutMs timeout in milliseconds, -1 if not used
-   *
-   * @return true if directories fetched, false if aborted or timeout.
-   */
-  bool fetchAllDirectories(const IAbortable* abortOperation = 0,
-                           int timeoutMs = -1);
-
-  /**
    * Process change of selection.
    * The GUI is signaled to update the current selection and the controls.
    */
@@ -868,6 +853,13 @@ private slots:
    * @param index index of file in file proxy model
    */
   void batchImportNextFile(const QPersistentModelIndex& index);
+
+  /**
+   * Schedule rename action for a file.
+   *
+   * @param index index of file in file proxy model
+   */
+  void scheduleNextRenameAction(const QPersistentModelIndex& index);
 
 private:
   /**

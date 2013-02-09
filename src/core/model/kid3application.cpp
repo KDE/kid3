@@ -1562,56 +1562,6 @@ void Kid3Application::fetchDirectory(const QModelIndex& index)
 }
 
 /**
- * Fetch entries for all directories if not already fetched.
- * This works like FileList::expandAll(), but without expanding tree view
- * items and independent of the GUI. The processing is done in the background
- * by QFileSystemModel, so the fetched items are not immediately available
- * after calling this method.
- *
- * @param abortOperation operation which will abort fetching, 0 if not used
- * @param timeoutMs timeout in milliseconds, -1 if not used
- *
- * @return true if directories fetched, false if aborted or timeout.
- */
-bool Kid3Application::fetchAllDirectories(const IAbortable* abortOperation,
-                                          int timeoutMs)
-{
-  QTimer timer;
-  if (timeoutMs >= 0) {
-    timer.setSingleShot(true);
-    timer.setInterval(timeoutMs);
-    timer.start();
-  }
-  QList<QPersistentModelIndex> indexes;
-  ModelIterator it(getRootIndex());
-  while (it.hasNext()) {
-    indexes.append(it.next());
-  }
-  int count = 0;
-  for (QList<QPersistentModelIndex>::iterator it = indexes.begin();
-       it != indexes.end();
-       ++it) {
-    QModelIndex index(*it);
-    if (m_fileProxyModel->canFetchMore(index)) {
-      m_fileProxyModel->fetchMore(index);
-      if (++count >= 10) {
-        count = 0;
-#ifdef CONFIG_USE_KDE
-        kapp->processEvents();
-#else
-        qApp->processEvents();
-#endif
-        if ((timeoutMs >= 0 && !timer.isActive()) ||
-            (abortOperation && abortOperation->isAborted())) {
-          return false;
-        }
-      }
-    }
-  }
-  return true;
-}
-
-/**
  * Process change of selection.
  * The GUI is signaled to update the current selection and the controls.
  */
@@ -1626,32 +1576,51 @@ void Kid3Application::fileSelected()
  */
 void Kid3Application::scheduleRenameActions()
 {
-  getDirRenamer()->clearActions();
+  m_dirRenamer->clearActions();
+  m_dirRenamer->clearAborted();
   // If directories are selected, rename them, else process files of the
   // current directory.
-  AbstractTaggedFileIterator* it =
-      new TaggedFileOfSelectedDirectoriesIterator(m_fileSelectionModel);
-  if (!it->hasNext()) {
-    delete it;
-    it = new TaggedFileIterator(getRootIndex());
-  }
-  while (it->hasNext()) {
-    TaggedFile* taggedFile = it->next();
-    taggedFile->readTags(false);
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
-    taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
-#endif
-    getDirRenamer()->scheduleAction(taggedFile);
-#ifdef CONFIG_USE_KDE
-    kapp->processEvents();
-#else
-    qApp->processEvents();
-#endif
-    if (getDirRenamer()->getAbortFlag()) {
-      break;
+  QList<QPersistentModelIndex> indexes;
+  foreach (const QModelIndex& index, m_fileSelectionModel->selectedIndexes()) {
+    if (m_fileProxyModel->isDir(index)) {
+      indexes.append(index);
     }
   }
-  delete it;
+  if (indexes.isEmpty()) {
+    indexes.append(m_fileProxyModelRootIndex);
+  }
+
+  connect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
+          this, SLOT(scheduleNextRenameAction(QPersistentModelIndex)));
+  m_fileProxyModelIterator->start(indexes);
+}
+
+/**
+ * Schedule rename action for a file.
+ *
+ * @param index index of file in file proxy model
+ */
+void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& index)
+{
+  bool terminated = !index.isValid();
+  if (!terminated) {
+    if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+      taggedFile->readTags(false);
+      taggedFile->readTags(false);
+#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
+      taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+#endif
+      m_dirRenamer->scheduleAction(taggedFile);
+      if (m_dirRenamer->isAborted()) {
+        terminated = true;
+      }
+    }
+  }
+  if (terminated) {
+    m_fileProxyModelIterator->abort();
+    disconnect(m_fileProxyModelIterator, SIGNAL(nextReady(QPersistentModelIndex)),
+               this, SLOT(scheduleNextRenameAction(QPersistentModelIndex)));
+  }
 }
 
 /**

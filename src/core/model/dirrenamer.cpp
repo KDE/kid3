@@ -233,7 +233,6 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
 void DirRenamer::clearActions()
 {
   m_actions.clear();
-  m_aborted = false;
 }
 
 /**
@@ -257,7 +256,9 @@ void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QS
     }
   }
 
-  m_actions.push_back(RenameAction(type, src, dest, index));
+  RenameAction action(type, src, dest, index);
+  m_actions.append(action);
+  emit actionScheduled(describeAction(action));
 }
 
 /**
@@ -449,11 +450,11 @@ void DirRenamer::performActions(QString* errorMsg)
 }
 
 /**
- * Get description of actions to be performed.
- * @return list of (action, [src,] dst) lists describing the actions to be
+ * Get description of an actions to be performed.
+ * @return (action, [src,] dst) list describing the action to be
  * performed.
  */
-QList<QStringList> DirRenamer::describeActions() const
+QStringList DirRenamer::describeAction(const RenameAction& action) const
 {
   static const char* const typeStr[] = {
     I18N_NOOP("Create directory"),
@@ -463,21 +464,41 @@ QList<QStringList> DirRenamer::describeActions() const
   };
   static const unsigned numTypeStr = sizeof(typeStr) / sizeof(typeStr[0]);
 
-  QList<QStringList> lst;
-  for (RenameActionList::const_iterator it = m_actions.constBegin();
-       it != m_actions.constEnd();
-       ++it) {
-    QStringList actionStrs;
-    unsigned typeIdx = static_cast<unsigned>((*it).m_type);
-    if (typeIdx >= numTypeStr) {
-      typeIdx = numTypeStr - 1;
-    }
-    actionStrs.append(QCM_translate(typeStr[typeIdx]));
-    if (!(*it).m_src.isEmpty()) {
-      actionStrs.append((*it).m_src);
-    }
-    actionStrs.append((*it).m_dest);
-    lst.append(actionStrs);
+  QStringList actionStrs;
+  unsigned typeIdx = static_cast<unsigned>(action.m_type);
+  if (typeIdx >= numTypeStr) {
+    typeIdx = numTypeStr - 1;
   }
-  return lst;
+  actionStrs.append(QCM_translate(typeStr[typeIdx]));
+  if (!action.m_src.isEmpty()) {
+    actionStrs.append(action.m_src);
+  }
+  actionStrs.append(action.m_dest);
+  return actionStrs;
+}
+
+/**
+ * Check if operation is aborted.
+ *
+ * @return true if aborted.
+ */
+bool DirRenamer::isAborted() const
+{
+  return m_aborted;
+}
+
+/**
+ * Clear state which is reported by isAborted().
+ */
+void DirRenamer::clearAborted()
+{
+  m_aborted = false;
+}
+
+/**
+ * Abort operation.
+ */
+void DirRenamer::abort()
+{
+  m_aborted = true;
 }
