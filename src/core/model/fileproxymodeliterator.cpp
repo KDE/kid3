@@ -103,6 +103,7 @@ void FileProxyModelIterator::clearAborted()
  */
 void FileProxyModelIterator::start(const QPersistentModelIndex& rootIdx)
 {
+  m_nodes.clear();
   m_rootIndexes.clear();
   m_rootIndexes.append(rootIdx);
   m_aborted = false;
@@ -116,6 +117,7 @@ void FileProxyModelIterator::start(const QPersistentModelIndex& rootIdx)
  */
 void FileProxyModelIterator::start(const QList<QPersistentModelIndex>& indexes)
 {
+  m_nodes.clear();
   m_rootIndexes = indexes;
   m_aborted = false;
   fetchNext();
@@ -170,6 +172,8 @@ void FileProxyModelIterator::fetchNext()
       emit nextReady(m_nextIdx);
     }
   }
+  m_nodes.clear();
+  m_rootIndexes.clear();
   m_nextIdx = QPersistentModelIndex();
   emit nextReady(m_nextIdx);
 }
