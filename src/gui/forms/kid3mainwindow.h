@@ -43,6 +43,7 @@ class RecentFilesMenu;
 /** Base class for main window. */
 typedef QMainWindow Kid3MainWindowBaseClass;
 #endif
+#include <QDateTime>
 #include "iframeeditor.h"
 #include "trackdata.h"
 #include "kid3api.h"
@@ -62,6 +63,7 @@ class RenDirDialog;
 class FilterDialog;
 class FileFilter;
 class QImage;
+class QProgressDialog;
 class DownloadDialog;
 class PlaylistDialog;
 class PlaylistConfig;
@@ -352,6 +354,11 @@ public slots:
    */
   void deleteFile();
 
+  /**
+   * Expand the file list.
+   */
+  void expandFileList();
+
 private slots:
   /**
    * Update ID3v2 tags in GUI controls from file displayed in frame list.
@@ -371,6 +378,13 @@ private slots:
    */
   void showPlayToolBar();
 #endif
+
+  /**
+   * Expand item if it is a directory.
+   *
+   * @param index index of file in file proxy model
+   */
+  void expandNextDirectory(const QPersistentModelIndex& index);
 
 private:
   /**
@@ -437,10 +451,13 @@ private:
   DownloadDialog* m_downloadDialog;
   /** Playlist dialog */
   PlaylistDialog* m_playlistDialog;
+  /** Progress dialog */
+  QProgressDialog* m_progressDialog;
 #ifdef HAVE_PHONON
   /** Play toolbar */
   PlayToolBar* m_playToolBar;
 #endif
+  QDateTime m_expandFileListStartTime;
 
 #ifdef CONFIG_USE_KDE
   /** Actions */

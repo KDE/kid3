@@ -97,6 +97,14 @@ public:
   */
   FileProxyModel* getFileProxyModel() { return m_fileProxyModel; }
 
+  /**
+  * Get file proxy model iterator.
+  * @return file proxy model iterator.
+   */
+  FileProxyModelIterator* getFileProxyModelIterator() {
+    return m_fileProxyModelIterator;
+  }
+
  /**
   * Get directory proxy model.
   * @return directory proxy model.

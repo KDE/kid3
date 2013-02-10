@@ -133,7 +133,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
   if (index.isValid()) {
     QMenu menu(this);
-    menu.addAction(i18n("&Expand all"), this, SLOT(expandAll()));
+    menu.addAction(i18n("&Expand all"), m_mainWin, SLOT(expandFileList()));
     menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
     menu.addAction(i18n("&Rename"), m_mainWin, SLOT(renameFile()));
     menu.addAction(i18n("&Move to Trash"), m_mainWin, SLOT(deleteFile()));

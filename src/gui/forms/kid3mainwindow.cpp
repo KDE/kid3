@@ -85,6 +85,7 @@
 #include "editframedialog.h"
 #include "editframefieldsdialog.h"
 #include "fileproxymodel.h"
+#include "fileproxymodeliterator.h"
 #include "modeliterator.h"
 #include "filelist.h"
 #include "dirlist.h"
@@ -115,7 +116,7 @@ Kid3MainWindow::Kid3MainWindow() :
   m_exportDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
   m_downloadDialog(new DownloadDialog(this, i18n("Download"))),
-  m_playlistDialog(0)
+  m_playlistDialog(0), m_progressDialog(0)
 #ifdef HAVE_PHONON
   , m_playToolBar(0)
 #endif
@@ -2087,6 +2088,60 @@ void Kid3MainWindow::deleteFile()
           this, i18n("File Error"), txt, files, QMessageBox::Ok);
 #endif
       }
+    }
+  }
+}
+
+/**
+ * Expand the file list.
+ */
+void Kid3MainWindow::expandFileList()
+{
+  m_expandFileListStartTime = QDateTime::currentDateTime();
+  connect(m_app->getFileProxyModelIterator(),
+          SIGNAL(nextReady(QPersistentModelIndex)),
+          this, SLOT(expandNextDirectory(QPersistentModelIndex)));
+  m_app->getFileProxyModelIterator()->start(m_form->getFileList()->rootIndex());
+}
+
+/**
+ * Expand item if it is a directory.
+ *
+ * @param index index of file in file proxy model
+ */
+void Kid3MainWindow::expandNextDirectory(const QPersistentModelIndex& index)
+{
+  bool terminated = !index.isValid();
+  if (!terminated) {
+    if (m_app->getFileProxyModel()->isDir(index)) {
+      m_form->getFileList()->expand(index);
+    }
+    if (m_expandFileListStartTime.isValid() &&
+        m_expandFileListStartTime.secsTo(QDateTime::currentDateTime()) >= 3) {
+      // Operation is taking some time, show dialog to abort it.
+      m_expandFileListStartTime = QDateTime();
+      if (!m_progressDialog) {
+        m_progressDialog = new QProgressDialog(this);
+      }
+      m_progressDialog->setWindowTitle(i18n("Expand All"));
+      m_progressDialog->setLabelText(QString());
+      m_progressDialog->setCancelButtonText(i18n("A&bort"));
+      m_progressDialog->setMinimum(0);
+      m_progressDialog->setMaximum(0);
+      m_progressDialog->setAutoClose(true);
+      m_progressDialog->show();
+    }
+    if (m_progressDialog && m_progressDialog->wasCanceled()) {
+      terminated = true;
+    }
+  }
+  if (terminated) {
+    m_app->getFileProxyModelIterator()->abort();
+    disconnect(m_app->getFileProxyModelIterator(),
+               SIGNAL(nextReady(QPersistentModelIndex)),
+               this, SLOT(expandNextDirectory(QPersistentModelIndex)));
+    if (m_progressDialog) {
+      m_progressDialog->reset();
     }
   }
 }
