@@ -100,10 +100,10 @@
 #include "movetotrash.h"
 #include "qtcompatmac.h"
 #include "saferename.h"
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
 #endif
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "playtoolbar.h"
 #endif
 
@@ -117,7 +117,7 @@ Kid3MainWindow::Kid3MainWindow() :
   m_numberTracksDialog(0), m_filterDialog(0),
   m_downloadDialog(new DownloadDialog(this, i18n("Download"))),
   m_playlistDialog(0), m_progressDialog(0)
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   , m_playToolBar(0)
 #endif
 {
@@ -145,7 +145,7 @@ Kid3MainWindow::Kid3MainWindow() :
           this, SLOT(confirmedOpenDirectory(QString)));
   connect(m_app, SIGNAL(directoryOpened(QModelIndex,QModelIndex)),
           this, SLOT(onDirectoryOpened()));
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
 #endif
 
@@ -188,7 +188,7 @@ Kid3MainWindow::~Kid3MainWindow()
   delete m_filterDialog;
   delete m_browseCoverArtDialog;
   delete m_playlistDialog;
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   delete m_playToolBar;
 #endif
 }
@@ -314,7 +314,7 @@ void Kid3MainWindow::initActions()
   actionCollection()->addAction("convert_to_id3v23", toolsConvertToId3v23);
   connect(toolsConvertToId3v23, SIGNAL(triggered()), m_app, SLOT(convertToId3v23()));
 #endif
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   KAction* toolsPlay = new KAction(KIcon("media-playback-start"), i18n("&Play"), this);
   actionCollection()->addAction("play", toolsPlay);
   connect(toolsPlay, SIGNAL(triggered()), m_app, SLOT(playAudio()));
@@ -693,7 +693,7 @@ void Kid3MainWindow::initActions()
   toolsMenu->addAction(toolsConvertToId3v23);
 #endif
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   QAction* toolsPlay = new QAction(this);
   toolsPlay->setStatusTip(i18n("Play"));
   toolsPlay->setText(i18n("&Play"));
@@ -1588,7 +1588,7 @@ void Kid3MainWindow::slotFilter()
   }
 }
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Play audio file.
  */

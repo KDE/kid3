@@ -30,15 +30,20 @@
 #include <QObject>
 #include "config.h"
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 
 #include <QStringList>
 #include "kid3api.h"
 
+#ifdef HAVE_PHONON
 namespace Phonon {
   class AudioOutput;
   class MediaObject;
 }
+#else
+class QMediaPlayer;
+class QMediaPlaylist;
+#endif
 
 /**
  * Audio player toolbar.
@@ -67,6 +72,7 @@ public:
    */
   void setFiles(const QStringList& files, int fileNr = 0);
 
+#ifdef HAVE_PHONON
   /**
    * Play a track from the files.
    *
@@ -85,6 +91,13 @@ public:
    * @return audio output.
    */
   Phonon::AudioOutput* audioOutput() { return m_audioOutput; }
+#else
+  /**
+   * Access to media player.
+   * @return media player.
+   */
+  QMediaPlayer* mediaPlayer() { return m_mediaPlayer; }
+#endif
 
 signals:
   /**
@@ -117,6 +130,7 @@ public slots:
   void next();
 
 private slots:
+#ifdef HAVE_PHONON
   /**
    * Update display and button state when the current source is changed.
    */
@@ -126,8 +140,16 @@ private slots:
    * Queue next track when the current track is about to finish.
    */
   void aboutToFinish();
+#else
+  /**
+   * Update display and button state when the current source is changed.
+   * @param position number of song in play list
+   */
+  void currentIndexChanged(int position);
+#endif
 
 private:
+#ifdef HAVE_PHONON
   /**
    * Select a track from the files and optionally start playing it.
    *
@@ -141,7 +163,12 @@ private:
 
   QStringList m_files;
   int m_fileNr;
+#else
+  QMediaPlayer* m_mediaPlayer;
+  QMediaPlaylist* m_mediaPlaylist;
+#endif
 };
+
 #else // HAVE_PHONON
 
 // Just to suppress moc "No relevant classes found" warning.

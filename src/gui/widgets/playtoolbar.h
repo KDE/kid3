@@ -30,21 +30,28 @@
 #include <QToolBar>
 #include "config.h"
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 
 #include <QStringList>
 #include <QIcon>
-#include <phonon/phononnamespace.h>
 
 class QAction;
 class QLCDNumber;
 class QLabel;
 class AudioPlayer;
 
+#ifdef HAVE_PHONON
 namespace Phonon {
   class SeekSlider;
   class VolumeSlider;
 }
+
+#include <phonon/phononnamespace.h>
+#else
+#include <QMediaPlayer>
+
+class QSlider;
+#endif
 
 /**
  * Audio player toolbar.
@@ -81,12 +88,57 @@ private slots:
    */
   void tick(qint64 msec);
 
+#ifdef HAVE_PHONON
   /**
    * Update button states when the Phonon state changed.
    *
    * @param newState new Phonon state
    */
   void stateChanged(Phonon::State newState);
+#else
+  /**
+   * Update button states when the media player state changed.
+   *
+   * @param newState new Phonon state
+   */
+  void stateChanged(QMediaPlayer::State newState);
+
+  /**
+   * Update states when a media player error occurs.
+   *
+   * @param err error
+   */
+  void error(QMediaPlayer::Error err);
+
+  /**
+   * Called when the duration changes.
+   * @param duration duration in miliseconds
+   */
+  void durationChanged(qint64 duration);
+
+  /**
+   * Set the tool tip for the volume slider.
+   * @param volume current volume (0..100)
+   */
+  void setVolumeToolTip(int volume);
+
+  /**
+   * Set current position in track when slider position is changed.
+   * @param action slider action
+   */
+  void seekAction(int action);
+
+  /**
+   * Set volume when slider position is changed.
+   * @param action slider action
+   */
+  void volumeAction(int action);
+
+  /**
+   * Toggle muted state.
+   */
+  void toggleMute();
+#endif
 
   /**
    * Update display and button state when the current track is changed.
@@ -116,6 +168,12 @@ private:
   QLabel* m_titleLabel;
 
   AudioPlayer* m_player;
+
+#ifndef HAVE_PHONON
+  QAction* m_muteAction;
+  QSlider* m_seekSlider;
+  QSlider* m_volumeSlider;
+#endif
 };
 #else // HAVE_PHONON
 

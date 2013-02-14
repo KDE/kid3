@@ -127,7 +127,7 @@ private slots:
    */
   void customContextMenu(const QPoint& pos);
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play item if it is a tagged file.
    *

@@ -54,7 +54,7 @@ FileList::FileList(QWidget* parent, Kid3MainWindow* mainWin) :
   setContextMenuPolicy(Qt::CustomContextMenu);
   connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
       this, SLOT(customContextMenu(const QPoint&)));
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(this, SIGNAL(doubleClicked(QModelIndex)),
           this, SLOT(playIfTaggedFile(QModelIndex)));
 #endif
@@ -137,7 +137,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
     menu.addAction(i18n("&Rename"), m_mainWin, SLOT(renameFile()));
     menu.addAction(i18n("&Move to Trash"), m_mainWin, SLOT(deleteFile()));
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
     menu.addAction(i18n("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
     int id = 0;
@@ -328,7 +328,7 @@ void FileList::customContextMenu(const QPoint& pos)
   contextMenu(currentIndex(), mapToGlobal(pos));
 }
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Play item if it is a tagged file.
  *

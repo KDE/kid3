@@ -163,6 +163,7 @@ int main(int argc, char* argv[])
 #endif
 
   Kid3MainWindow* kid3 = new Kid3MainWindow;
+  kid3->setAttribute(Qt::WA_DeleteOnClose);
   kid3->show();
   if (argc > 1) {
     kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));

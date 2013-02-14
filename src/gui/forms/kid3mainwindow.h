@@ -67,7 +67,7 @@ class QProgressDialog;
 class DownloadDialog;
 class PlaylistDialog;
 class PlaylistConfig;
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class PlayToolBar;
 #endif
 class ConfigStore;
@@ -325,7 +325,7 @@ public slots:
    */
   void slotFilter();
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play audio file.
    */
@@ -372,7 +372,7 @@ private slots:
    */
   void updateModificationState();
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Show play tool bar.
    */
@@ -453,7 +453,7 @@ private:
   PlaylistDialog* m_playlistDialog;
   /** Progress dialog */
   QProgressDialog* m_progressDialog;
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /** Play toolbar */
   PlayToolBar* m_playToolBar;
 #endif

@@ -68,7 +68,7 @@
 #ifdef HAVE_CHROMAPRINT
 #include "musicbrainzclient.h"
 #endif
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
 #endif
 #ifdef HAVE_ID3LIB
@@ -112,7 +112,7 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   m_textExporter(new TextExporter(this)),
   m_dirRenamer(new DirRenamer(this)),
   m_batchImporter(new BatchImporter(m_netMgr)),
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_player(0),
 #endif
   m_downloadImageDest(ImageForSelectedFiles),
@@ -192,7 +192,7 @@ void Kid3Application::initFileTypes()
 #endif
 }
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Get audio player.
  * @return audio player.
@@ -1826,7 +1826,7 @@ void Kid3Application::numberTracks(int nr, int total,
   delete it;
 }
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 /**
  * Play audio file.
  */

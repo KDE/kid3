@@ -57,7 +57,7 @@ class DirRenamer;
 class BatchImportProfile;
 class BatchImporter;
 class IAbortable;
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class AudioPlayer;
 #endif
 
@@ -202,7 +202,7 @@ public:
    */
   BatchImporter* getBatchImporter() { return m_batchImporter; }
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Get audio player.
    * @return audio player.
@@ -758,7 +758,7 @@ public slots:
   void batchImport(const BatchImportProfile& profile,
                    TrackData::TagVersion tagVersion);
 
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /**
    * Play audio file.
    */
@@ -911,7 +911,7 @@ private:
   DirRenamer* m_dirRenamer;
   /** Batch importer */
   BatchImporter* m_batchImporter;
-#ifdef HAVE_PHONON
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
   /** Audio player */
   AudioPlayer* m_player;
 #endif
