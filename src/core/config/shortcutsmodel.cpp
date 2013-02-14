@@ -32,6 +32,21 @@
 #include <QSettings>
 #include "qtcompatmac.h"
 
+namespace {
+
+static const int TopLevelId = -1;
+
+bool isTopLevelItem(const QModelIndex& index)
+{
+#if QT_VERSION >= 0x050000
+  return quintptr(index.internalId()) == quintptr(TopLevelId);
+#else
+  return index.internalId() == TopLevelId;
+#endif
+}
+
+}
+
 /**
  * Constructor.
  * @param parent parent widget
@@ -72,7 +87,7 @@ const ShortcutsModel::ShortcutGroup* ShortcutsModel::shortcutGroupForIndex(
 {
   if (index.column() == 0 &&
       index.row() >= 0 && index.row() < m_shortcutGroups.size() &&
-      index.internalId() == -1) {
+      isTopLevelItem(index)) {
     return &m_shortcutGroups.at(index.row());
   }
   return 0;
@@ -232,7 +247,7 @@ QModelIndex ShortcutsModel::index(int row, int column,
   } else {
     if (column == 0 &&
         row >= 0 && row < m_shortcutGroups.size()) {
-      return createIndex(row, column, -1);
+      return createIndex(row, column, TopLevelId);
     }
   }
   return QModelIndex();
@@ -247,7 +262,7 @@ QModelIndex ShortcutsModel::parent(const QModelIndex& index) const
 {
   int id = index.internalId();
   if (id >= 0 && id < m_shortcutGroups.size()) {
-    return createIndex(id, 0, -1);
+    return createIndex(id, 0, TopLevelId);
   }
   return QModelIndex();
 }
