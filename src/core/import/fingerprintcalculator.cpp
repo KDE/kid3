@@ -318,7 +318,7 @@ bool FingerprintCalculator::Decoder::run(const QString& filePath)
   return m_error == FingerprintCalculator::Result::Ok;
 }
 
-#else // HAVE_GSTREAMER
+#elif defined HAVE_FFMPEG
 
 #include <stdint.h>
 #include <stdio.h>
@@ -704,6 +704,126 @@ bool FingerprintCalculator::Decoder::run(const QString& filePath)
     }
   }
 
+  return true;
+}
+
+#elif QT_VERSION >= 0x050000
+
+#include <chromaprint.h>
+#include <QAudioDecoder>
+#include <QEventLoop>
+#include <QTimer>
+
+/**
+ * Decoder for fingerprints from audio files.
+ */
+class FingerprintCalculator::Decoder {
+public:
+  /**
+   * Constructor.
+   * @param ctx chromaprint context
+   */
+  explicit Decoder(ChromaprintContext* ctx);
+
+  /**
+   * Destructor.
+   */
+  ~Decoder();
+
+  /**
+   * Run decoder on audio file.
+   * @param filePath path to audio file
+   * @return true if ok.
+   */
+  bool run(const QString& filePath);
+
+  /**
+   * Get duration of audio file
+   * @return length of audio file in seconds.
+   */
+  int getDuration() const { return m_duration; }
+
+  /**
+   * Get error occurred during decoding.
+   * @return error code.
+   */
+  FingerprintCalculator::Result::Error getError() const { return m_error; }
+
+private:
+  ChromaprintContext* m_chromaprint;
+  int m_duration;
+  FingerprintCalculator::Result::Error m_error;
+};
+
+FingerprintCalculator::Decoder::Decoder(ChromaprintContext* ctx) :
+  m_chromaprint(ctx), m_duration(0), m_error(FingerprintCalculator::Result::Ok)
+{
+}
+
+FingerprintCalculator::Decoder::~Decoder()
+{
+}
+
+bool FingerprintCalculator::Decoder::run(const QString& filePath)
+{
+  static const int TIMEOUT_MS = 5000;
+
+  QAudioFormat desiredFormat;
+  desiredFormat.setChannelCount(2);
+  desiredFormat.setCodec("audio/x-raw-int");
+  desiredFormat.setSampleType(QAudioFormat::SignedInt);
+  desiredFormat.setSampleRate(44100);
+  desiredFormat.setSampleSize(16);
+
+  QAudioDecoder decoder;
+  decoder.setAudioFormat(desiredFormat);
+  decoder.setSourceFilename(filePath);
+
+  m_duration = 0;
+  QAudioFormat format = decoder.audioFormat();
+  ::chromaprint_start(m_chromaprint, format.sampleRate(), format.channelCount());
+
+  QEventLoop eventLoop;
+  QTimer timer;
+  timer.setSingleShot(true);
+  QObject::connect(&timer, SIGNAL(timeout()), &eventLoop, SLOT(quit()));
+  QObject::connect(&decoder, SIGNAL(bufferReady()), &eventLoop, SLOT(quit()));
+  QObject::connect(&decoder, SIGNAL(finished()), &eventLoop, SLOT(quit()));
+  QObject::connect(&decoder, SIGNAL(error(QAudioDecoder::Error)),
+                   &eventLoop, SLOT(quit()));
+  forever {
+    decoder.start();
+    timer.start(TIMEOUT_MS);
+    eventLoop.exec();
+    if (timer.isActive()) {
+      QAudioDecoder::Error err = decoder.error();
+      if (err != QAudioDecoder::NoError) {
+        m_error = FingerprintCalculator::Result::DecoderError;
+        return false;
+      }
+
+      if (!decoder.bufferAvailable()) {
+        break;
+      }
+      QAudioBuffer buffer = decoder.read();
+      if (!buffer.isValid()) {
+        break;
+      }
+      if (buffer.startTime() > 120000000LL) {
+        break;
+      }
+      void* data = buffer.data();
+      if (!::chromaprint_feed(m_chromaprint, data, buffer.sampleCount())) {
+        m_error = Result::FingerprintCalculationFailed;
+        return false;
+      }
+
+    } else {
+      m_error = FingerprintCalculator::Result::Timeout;
+      return false;
+    }
+  }
+  m_duration = decoder.duration() / 1000LL;
   return true;
 }
 
