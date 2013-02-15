@@ -31,6 +31,7 @@
 #include <QStack>
 #include <QPersistentModelIndex>
 #include "iabortable.h"
+#include "kid3api.h"
 
 class QTimer;
 class FileProxyModel;
@@ -47,7 +48,7 @@ class FileProxyModel;
  * responsive. If the iteration shall stop before all files are processed,
  * abort() shall be called.
  */
-class FileProxyModelIterator : public QObject, public IAbortable {
+class KID3_CORE_EXPORT FileProxyModelIterator : public QObject, public IAbortable {
   Q_OBJECT
 public:
   /**
