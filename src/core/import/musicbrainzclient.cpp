@@ -183,12 +183,14 @@ MusicBrainzClient::MusicBrainzClient(QNetworkAccessManager* netMgr,
                                      TrackDataModel *trackDataModel) :
   QObject(netMgr),
   m_httpClient(new HttpClient(netMgr)),
-  m_fingerprintCalculator(new FingerprintCalculator),
+  m_fingerprintCalculator(new FingerprintCalculator(this)),
   m_trackDataModel(trackDataModel),
   m_state(Idle), m_currentIndex(-1)
 {
   connect(m_httpClient, SIGNAL(bytesReceived(QByteArray)),
           this, SLOT(receiveBytes(QByteArray)));
+  connect(m_fingerprintCalculator, SIGNAL(finished(QString,int,int)),
+          this, SLOT(receiveFingerprint(QString,int,int)));
 }
 
 /**
@@ -196,7 +198,6 @@ MusicBrainzClient::MusicBrainzClient(QNetworkAccessManager* netMgr,
  */
 MusicBrainzClient::~MusicBrainzClient()
 {
-  delete m_fingerprintCalculator;
 }
 
 /**
@@ -234,6 +235,7 @@ bool MusicBrainzClient::verifyTrackIndex()
  */
 void MusicBrainzClient::resetState()
 {
+  m_fingerprintCalculator->stop();
   m_currentIndex = -1;
   m_state = Idle;
 }
@@ -277,6 +279,29 @@ void MusicBrainzClient::receiveBytes(const QByteArray& bytes)
 }
 
 /**
+ * Receive fingerprint from decoder.
+ *
+ * @param fingerprint Chromaprint fingerprint
+ * @param duration duration in seconds
+ * @param error error code
+ */
+void MusicBrainzClient::receiveFingerprint(const QString& fingerprint,
+                                           int duration, int error)
+{
+  if (error == FingerprintCalculator::Ok) {
+    m_state = GettingIds;
+    emit statusChanged(m_currentIndex, i18n("ID Lookup"));
+    QString path("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=" +
+                 QString::number(duration) +
+                 "&fingerprint=" + fingerprint);
+    m_httpClient->sendRequest("api.acoustid.org", path);
+  } else {
+    emit statusChanged(m_currentIndex, i18n("Error"));
+    processNextTrack();
+  }
+}
+
+/**
  * Process next step in importing from fingerprints.
  */
 void MusicBrainzClient::processNextStep()
@@ -289,19 +314,7 @@ void MusicBrainzClient::processNextStep()
     if (!verifyTrackIndex())
       return;
     emit statusChanged(m_currentIndex, i18n("Fingerprint"));
-    FingerprintCalculator::Result fp =
-        m_fingerprintCalculator->calculateFingerprint(
-          m_filenameOfTrack.at(m_currentIndex));
-    if (fp.getError() != FingerprintCalculator::Result::Ok) {
-      emit statusChanged(m_currentIndex, i18n("Error"));
-      processNextTrack();
-    }
-    m_state = GettingIds;
-    emit statusChanged(m_currentIndex, i18n("ID Lookup"));
-    QString path("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=" +
-                 QString::number(fp.getDuration()) +
-                 "&fingerprint=" + fp.getFingerprint());
-    m_httpClient->sendRequest("api.acoustid.org", path);
+    m_fingerprintCalculator->start(m_filenameOfTrack.at(m_currentIndex));
     break;
   }
   case GettingMetadata:

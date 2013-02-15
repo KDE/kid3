@@ -105,6 +105,8 @@ signals:
 private slots:
   void receiveBytes(const QByteArray& bytes);
 
+  void receiveFingerprint(const QString& fingerprint, int duration, int error);
+
 private:
   enum State {
     Idle,

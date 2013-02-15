@@ -28,88 +28,101 @@
 #define FINGERPRINTCALCULATOR_H
 
 #include "config.h"
+#include <QObject>
 
 #ifdef HAVE_CHROMAPRINT
 
 #include <QString>
 
+class AbstractFingerprintDecoder;
+
 /**
  * Calculate Chromaprint audio fingerprints for audio files.
  */
-class FingerprintCalculator {
+class FingerprintCalculator : public QObject {
+  Q_OBJECT
 public:
-  /**
-   * Result of fingerprint calculation.
-   */
-  class Result {
-  public:
-    /** Types of error occurring in fingerprint calculation. */
-    enum Error {
-      Ok,               /**< Fingerprint calculation OK */
-      Pending,          /**< Not started */
-      NoStreamFound,    /**< Format not recognized or no audio stream found */
-      NoCodecFound,     /**< No codec found */
-      NoConverterFound, /**< Sample rate conversion failed or unavailable */
-      FingerprintCalculationFailed, /**< Chromaprint error */
-      Timeout,          /**< Operation timeout */
-      DecoderError      /**< Error while decoding */
-    };
-
-    /** Constructor. */
-    Result() : m_duration(0), m_error(Pending) {}
-
-    /**
-     * Get Chromaprint fingerprint.
-     * @return fingerprint.
-     */
-    QString getFingerprint() { return m_fingerprint; }
-
-    /**
-     * Get duration in seconds.
-     * @return duration.
-     */
-    int getDuration() const { return m_duration; }
-
-    /**
-     * Get error code.
-     * @return Ok if OK, else error code.
-     */
-    Error getError() const { return m_error; }
-
-  private:
-    friend class FingerprintCalculator;
-
-    QString m_fingerprint;
-    int m_duration;
-    Error m_error;
+  /** Types of error occurring in fingerprint calculation. */
+  enum Error {
+    Ok,               /**< Fingerprint calculation OK */
+    Pending,          /**< Not started */
+    NoStreamFound,    /**< Format not recognized or no audio stream found */
+    NoCodecFound,     /**< No codec found */
+    NoConverterFound, /**< Sample rate conversion failed or unavailable */
+    FingerprintCalculationFailed, /**< Chromaprint error */
+    Timeout,          /**< Operation timeout */
+    DecoderError      /**< Error while decoding */
   };
 
   /**
    * Constructor.
    */
-  FingerprintCalculator();
+  explicit FingerprintCalculator(QObject* parent = 0);
 
   /**
    * Destructor.
    */
-  ~FingerprintCalculator();
+  virtual ~FingerprintCalculator();
 
   /**
    * Calculate audio fingerprint for audio file.
+   * When the calculation is finished, finished() is emitted.
    *
    * @param fileName path to audio file
-   *
-   * @return result of fingerprint calculation.
    */
-  Result calculateFingerprint(const QString& fileName);
+  void start(const QString& fileName);
+
+  /**
+   * Stop decoder.
+   */
+  void stop();
+
+signals:
+  /**
+   * Emitted when the fingerprint calculation is finished.
+   *
+   * @param fingerprint Chromaprint fingerprint
+   * @param duration duration in seconds
+   * @param error error code, enum FingerprintCalculator::Error
+   */
+  void finished(const QString& fingerprint, int duration, int error);
+
+private slots:
+  /**
+   * Called when decoding starts.
+   * @param sampleRate sample rate of the audio stream (in Hz)
+   * @param channelCount numbers of channels in the audio stream (1 or 2)
+   */
+  void startChromaprint(int sampleRate, int channelCount);
+
+  /**
+   * Called when decoded data is available.
+   * @param data 16-bit signed integers in native byte-order
+   */
+  void feedChromaprint(QByteArray data);
+
+  /**
+   * Called when an error occurs.
+   * @param err error code, enum FingerprintCalculator::Error
+   */
+  void receiveError(int err);
+
+  /**
+   * Called when decoding finished successfully.
+   * @param duration duration of stream in seconds
+   */
+  void finishChromaprint(int duration);
 
 private:
-  class Decoder;
-
-  Result::Error decodeAudioFile(const QString &filePath, int &duration);
-
   void** m_chromaprintCtx;
-  Decoder* m_decoder;
+  AbstractFingerprintDecoder* m_decoder;
+};
+
+#else // HAVE_CHROMAPRINT
+
+// Just to suppress moc "No relevant classes found" warning.
+class FingerprintCalculator : public QObject {
+  Q_OBJECT
 };
 
 #endif // HAVE_CHROMAPRINT
