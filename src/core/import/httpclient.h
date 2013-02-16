@@ -88,20 +88,6 @@ public:
   QString getContentType() const { return m_rcvBodyType; }
 
   /**
-   * Set minimum interval between two requests.
-   * This can be used for rate limiting.
-   * @param ms minimum interval between two requests in miliseconds,
-   * 0 to disable (default)
-   */
-  void setMinimumRequestInterval(int ms) { m_minimumRequestInterval = ms; }
-
-  /**
-   * Get minimum interval between two requests.
-   * @return minimum interval between two requests in miliseconds.
-   */
-  int getMinimumRequestInterval() const { return m_minimumRequestInterval; }
-
-  /**
    * Extract name and port from string.
    *
    * @param namePort input string with "name:port"
@@ -190,10 +176,6 @@ private:
   unsigned long m_rcvBodyLen;
   /** content type */
   QString m_rcvBodyType;
-  /** Time when last request was sent */
-  QDateTime m_lastRequestTime;
-  /** Minimum interval between two requests in ms */
-  int m_minimumRequestInterval;
   /** Timer used to delay requests */
   QTimer* m_requestTimer;
   /** Context for delayedSendRequest() */
@@ -202,6 +184,13 @@ private:
     QString path;
     RawHeaderMap headers;
   } m_delayedSendRequestContext;
+
+  friend struct MinimumRequestIntervalInitializer;
+
+  /** Time when last request was sent to server */
+  static QMap<QString, QDateTime> s_lastRequestTime;
+  /** Minimum interval between two requests to server in ms */
+  static QMap<QString, int> s_minimumRequestInterval;
 };
 
 #endif

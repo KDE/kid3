@@ -40,11 +40,6 @@ ImportClient::ImportClient(QNetworkAccessManager* netMgr) :
   HttpClient(netMgr), m_requestType(RT_None)
 {
   setObjectName("ImportClient");
-  // Rate limit requests to servers, MusicBrainz and Discogs impose a limit of
-  // one request per second
-  // http://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Source_IP_address
-  // http://www.discogs.com/developers/accessing.html#rate-limiting
-  setMinimumRequestInterval(1000);
   connect(this, SIGNAL(bytesReceived(const QByteArray&)),
           this, SLOT(requestFinished(const QByteArray&)));
 }

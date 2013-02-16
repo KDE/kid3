@@ -33,6 +33,33 @@
 #include "qtcompatmac.h"
 
 
+/** Time when last request was sent to server */
+QMap<QString, QDateTime> HttpClient::s_lastRequestTime;
+/** Minimum interval between two requests to server in ms */
+QMap<QString, int> HttpClient::s_minimumRequestInterval;
+
+/**
+ * Used to initialize the minimum interval for some servers
+ * at static initialization time.
+ *
+ * Rate limit requests to servers, MusicBrainz and Discogs impose a limit of
+ * one request per second
+ * http://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Source_IP_address
+ * http://www.discogs.com/developers/accessing.html#rate-limiting
+ */
+static struct MinimumRequestIntervalInitializer {
+  MinimumRequestIntervalInitializer() {
+    HttpClient::s_minimumRequestInterval["musicbrainz.org"] = 1000;
+    HttpClient::s_minimumRequestInterval["api.discogs.com"] = 1000;
+    HttpClient::s_minimumRequestInterval["www.amazon.com"] = 1000;
+    HttpClient::s_minimumRequestInterval["images.amazon.com"] = 1000;
+    HttpClient::s_minimumRequestInterval["www.gnudb.org"] = 1000;
+    HttpClient::s_minimumRequestInterval["gnudb.gnudb.org"] = 1000;
+    HttpClient::s_minimumRequestInterval["tracktype.org"] = 1000;
+    HttpClient::s_minimumRequestInterval["api.acoustid.org"] = 1000;
+  }
+} minimumRequestIntervalInitializer;
+
 /**
  * Constructor.
  *
@@ -40,7 +67,7 @@
  */
 HttpClient::HttpClient(QNetworkAccessManager* netMgr) :
   QObject(netMgr), m_netMgr(netMgr), m_rcvBodyLen(0),
-  m_minimumRequestInterval(0), m_requestTimer(new QTimer(this))
+  m_requestTimer(new QTimer(this))
 {
   setObjectName("HttpClient");
   m_requestTimer->setSingleShot(true);
@@ -116,16 +143,23 @@ void HttpClient::networkReplyError(QNetworkReply::NetworkError)
 void HttpClient::sendRequest(const QString& server, const QString& path,
                              const RawHeaderMap& headers)
 {
+  QString host(server);
+  if (host.endsWith(":80")) {
+    host.chop(3);
+  }
   QDateTime now = QDateTime::currentDateTime();
   qint64 msSinceLastRequest;
-  if (m_lastRequestTime.isValid() && m_minimumRequestInterval > 0 &&
-      (msSinceLastRequest = m_lastRequestTime.msecsTo(now)) <
-      m_minimumRequestInterval) {
+  int minimumRequestInterval;
+  QDateTime lastRequestTime = s_lastRequestTime.value(host);
+  if (lastRequestTime.isValid() &&
+      (minimumRequestInterval = s_minimumRequestInterval.value(host)) > 0 &&
+      (msSinceLastRequest = lastRequestTime.msecsTo(now)) <
+      minimumRequestInterval) {
     // Delay request to comply with minimum interval
     m_delayedSendRequestContext.server = server;
     m_delayedSendRequestContext.path = path;
     m_delayedSendRequestContext.headers = headers;
-    m_requestTimer->start(m_minimumRequestInterval - msSinceLastRequest);
+    m_requestTimer->start(minimumRequestInterval - msSinceLastRequest);
     return;
   }
 
@@ -145,10 +179,6 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
   m_netMgr->setProxy(QNetworkProxy(proxyType, proxy, proxyPort,
                                    username, password));
 
-  QString host(server);
-  if (host.endsWith(":80")) {
-    host.chop(3);
-  }
   QUrl url;
 #if QT_VERSION >= 0x050000
   url.setUrl("http://" + host + path);
@@ -170,7 +200,7 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
           this, SLOT(networkReplyProgress(qint64,qint64)));
   connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
-  m_lastRequestTime = now;
+  s_lastRequestTime[host] = now;
   emitProgress(i18n("Request sent..."), 0, 0);
 }
 
