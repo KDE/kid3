@@ -1334,7 +1334,7 @@ void Kid3Application::openDrop(QString txt)
   }
   QUrl url(txt);
   if (!url.path().isEmpty()) {
-#if defined _WIN32 || defined WIN32
+#ifdef Q_OS_WIN32
     QString dir = url.toString();
 #else
     QString dir = url.path().trimmed();

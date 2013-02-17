@@ -205,7 +205,7 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
   taggedFile->readTags(false);
   TrackData trackData(*taggedFile, m_tagVersion);
   QString newdir(taggedFile->getDirname());
-#ifdef WIN32
+#ifdef Q_OS_WIN32
   newdir.replace(QLatin1Char('\\'), QLatin1Char('/'));
 #endif
   if (newdir.endsWith(QLatin1Char('/'))) {

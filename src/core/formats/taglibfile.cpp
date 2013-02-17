@@ -38,7 +38,7 @@
 #include "attributedata.h"
 #include "pictureframe.h"
 #include <sys/stat.h>
-#ifdef WIN32
+#ifdef Q_OS_WIN32
 #include <sys/utime.h>
 #else
 #include <utime.h>
@@ -276,7 +276,7 @@ void TagLibFile::readTags(bool force)
   QByteArray fn = QFile::encodeName(fileName);
 
   if (force || m_fileRef.isNull()) {
-#if TAGLIB_VERSION > 0x010400 && defined _WIN32
+#if TAGLIB_VERSION > 0x010400 && defined Q_OS_WIN32
     int fnLen = fileName.length();
     wchar_t* fnWs = new wchar_t[fnLen + 1];
     fnWs[fnLen] = 0;
@@ -684,7 +684,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
   // => double ID3v2 tags.
   // On Windows it is necessary to close the file before renaming it,
   // so it is done even if the file is not changed.
-#ifndef WIN32
+#ifndef Q_OS_WIN32
   if (fileChanged)
 #endif
     closeFile(true);
@@ -702,7 +702,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
     *renamed = true;
   }
 
-#ifndef WIN32
+#ifndef Q_OS_WIN32
   if (fileChanged)
 #endif
     makeFileOpen(true);
@@ -1317,7 +1317,7 @@ bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String
           frame = new TagLib::ID3v2::CommentsFrame(enc);
         }
         frame->setText(tstr);
-#ifdef WIN32
+#ifdef Q_OS_WIN32
         // freed in Windows DLL => must be allocated in the same DLL
         TagLib::ID3v2::Frame* dllAllocatedFrame =
           TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
@@ -1462,7 +1462,7 @@ void TagLibFile::setTrackV2(const QString& track)
                 "TRCK", getDefaultTextEncoding());
           frame->setText(tstr);
           id3v2Tag->removeFrames("TRCK");
-#ifdef WIN32
+#ifdef Q_OS_WIN32
           // freed in Windows DLL => must be allocated in the same DLL
           TagLib::ID3v2::Frame* dllAllocatedFrame =
             TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
@@ -1501,7 +1501,7 @@ void TagLibFile::setGenreV2(const QString& str)
               "TCON", getDefaultTextEncoding())) != 0) {
           frame->setText(tstr);
           id3v2Tag->removeFrames("TCON");
-#ifdef WIN32
+#ifdef Q_OS_WIN32
           // freed in Windows DLL => must be allocated in the same DLL
           TagLib::ID3v2::Frame* dllAllocatedFrame =
             TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
@@ -4254,7 +4254,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
           frame.setValueFromFieldList();
           setId3v2Frame(id3Frame, frame);
         }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
         // freed in Windows DLL => must be allocated in the same DLL
         TagLib::ID3v2::Frame* dllAllocatedFrame =
           TagLib::ID3v2::FrameFactory::instance()->createFrame(id3Frame->render());
@@ -4270,7 +4270,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
           getFieldsFromId3Frame(id3Frame, frame.fieldList(), frame.getType());
           frame.setFieldListFromValue();
         }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
         delete id3Frame;
 #endif
         markTag2Changed(frame.getType());

@@ -113,7 +113,7 @@ int main(int argc, char* argv[])
   QLocale locale;
 
   QStringList languages(
-#if QT_VERSION >= 0x040800 && !defined WIN32
+#if QT_VERSION >= 0x040800 && !defined Q_OS_WIN32
         locale.uiLanguages()
 #else
         locale.name()
@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
   foreach (QString localeName, languages) {
     if (
         localeName.startsWith(QLatin1String("en")) ||
-#if defined WIN32 || defined __APPLE__
+#if defined Q_OS_WIN32 || defined Q_OS_MAC
 #ifdef CFG_TRANSLATIONSDIR
         qt_tr.load(QLatin1String("qt_") + localeName, QLatin1String(CFG_TRANSLATIONSDIR)) ||
 #endif
@@ -155,7 +155,7 @@ int main(int argc, char* argv[])
   }
   app.installTranslator(&kid3_tr);
 
-#ifdef __APPLE__
+#ifdef Q_OS_MAC
  QDir dir(QApplication::applicationDirPath());
  dir.cdUp();
  dir.cd(QLatin1String("PlugIns"));

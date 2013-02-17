@@ -31,7 +31,7 @@
 #include <QDir>
 #include <QByteArray>
 #include <sys/stat.h>
-#ifdef WIN32
+#ifdef Q_OS_WIN32
 #include <sys/utime.h>
 #else
 #include <utime.h>
@@ -858,7 +858,7 @@ bool OggFile::FileInfo::read(const char* fn)
           bitrate = vi->bitrate_lower;
         }
       }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
       duration = (long)::ov_time_total(&vf, -1);
 #else
       duration = ::lrint(::ov_time_total(&vf, -1));

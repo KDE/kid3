@@ -27,6 +27,8 @@
 #ifndef GENRES_H
 #define GENRES_H
 
+#include <QtGlobal>
+
 class QString;
 
 /** Alphabetically sorted list of genres, conversion to/from genre numbers */
@@ -78,7 +80,7 @@ public:
   static QString getNumberString(const QString& str, bool parentheses);
 
   /** Number of genres */
-#if defined _WIN32 || defined WIN32
+#ifdef Q_OS_WIN32
   enum { count = 148 };
 #else
   static const int count = 148;

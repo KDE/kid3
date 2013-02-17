@@ -35,7 +35,7 @@
 #include <cstring>
 #include <sys/stat.h>
 #include <id3/tag.h>
-#ifdef WIN32
+#ifdef Q_OS_WIN32
 #include <id3.h>
 #include <sys/utime.h>
 #else
@@ -47,7 +47,7 @@
 #include "attributedata.h"
 #include "qtcompatmac.h"
 
-#ifdef WIN32
+#ifdef Q_OS_WIN32
 /**
  * This will be set for id3lib versions with Unicode bugs.
  * ID3LIB_ symbols cannot be found on Windows ?!
@@ -219,7 +219,7 @@ void Mp3File::deleteFramesV1(const FrameFilter& flt)
       while ((frame = iter->GetNext()) != NULL) {
         m_tagV1->RemoveFrame(frame);
       }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
       /* allocated in Windows DLL => must be freed in the same DLL */
       ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
@@ -1464,7 +1464,7 @@ static QString getFieldsFromId3Frame(ID3_Frame* id3Frame,
     }
     fields.push_back(field);
   }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
   /* allocated in Windows DLL => must be freed in the same DLL */
   ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
@@ -1503,7 +1503,7 @@ static ID3_Frame* getId3v2Frame(ID3_Tag* tag, int index)
       }
       ++i;
     }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
     /* allocated in Windows DLL => must be freed in the same DLL */
     ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
@@ -1584,7 +1584,7 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         qDebug("Unknown type %d in field %d", fld.m_value.type(), fld.m_id);
     }
   }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
   /* allocated in Windows DLL => must be freed in the same DLL */
   ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
@@ -1884,7 +1884,7 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
       while ((frame = iter->GetNext()) != NULL) {
         m_tagV2->RemoveFrame(frame);
       }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
       /* allocated in Windows DLL => must be freed in the same DLL */
       ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
@@ -1910,7 +1910,7 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
           m_tagV2->RemoveFrame(frame);
         }
       }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
       /* allocated in Windows DLL => must be freed in the same DLL */
       ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else
@@ -2017,7 +2017,7 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
       }
       frames.insert(frame);
     }
-#ifdef WIN32
+#ifdef Q_OS_WIN32
     /* allocated in Windows DLL => must be freed in the same DLL */
     ID3TagIterator_Delete(reinterpret_cast<ID3TagIterator*>(iter));
 #else

@@ -150,10 +150,10 @@ Kid3MainWindow::Kid3MainWindow() :
 #endif
 
 #ifndef CONFIG_USE_KDE
-#if !defined _WIN32 && !defined WIN32 && defined CFG_DATAROOTDIR
+#if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
   QPixmap icon;
   if (icon.load(QLatin1String(CFG_DATAROOTDIR) +
-#ifndef __APPLE__
+#ifndef Q_OS_MAC
                 QLatin1String("/icons/hicolor/48x48/apps/kid3-qt.png")
 #else
                 QLatin1String("/kid3.png")

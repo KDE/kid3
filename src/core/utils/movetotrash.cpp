@@ -28,7 +28,7 @@
 #include <QFileInfo>
 #include "config.h"
 
-#ifdef Q_OS_WIN32  
+#ifdef Q_OS_WIN32
 
 #include <QVector>
 #ifdef Q_CC_MSVC

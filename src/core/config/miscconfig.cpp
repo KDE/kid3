@@ -38,7 +38,7 @@
 const char* const defaultCommentName = "COMMENT";
 
 /** Default value for web browser */
-#ifdef __APPLE__
+#ifdef Q_OS_MAC
 const char* const defaultBrowser = "open";
 #else
 const char* const defaultBrowser = "xdg-open";
@@ -515,7 +515,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   m_useProxyAuthentication = config->value(QLatin1String("/UseProxyAuthentication"), m_useProxyAuthentication).toBool();
   m_proxyUserName = config->value(QLatin1String("/ProxyUserName"), m_proxyUserName).toString();
   m_proxyPassword = config->value(QLatin1String("/ProxyPassword"), m_proxyPassword).toString();
-#if defined _WIN32 || defined WIN32
+#ifdef Q_OS_WIN32
   m_browser = config->value(QLatin1String("/Browser"), QString()).toString();
   if (m_browser.isEmpty()) {
     m_browser = QString::fromLocal8Bit(::getenv("ProgramFiles"));
@@ -552,13 +552,13 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   config->endGroup();
 #endif
   if (cmdNr == 1) {
-#if defined _WIN32 || defined WIN32
+#ifdef Q_OS_WIN32
     QString prgDir = QString::fromLocal8Bit(::getenv("ProgramFiles"));
     m_contextMenuCommands.push_back(
       MiscConfig::MenuCommand(
         QLatin1String("Windows Media Player"),
         QLatin1Char('"') + prgDir + QLatin1String("\\Windows Media Player\\wmplayer.exe\" %{files}")));
-#elif !defined __APPLE__
+#elif !defined Q_OS_MAC
     m_contextMenuCommands.push_back(
       MiscConfig::MenuCommand(QLatin1String("Amarok"), QLatin1String("amarok %{files}")));
 #endif
