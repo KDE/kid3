@@ -5,6 +5,23 @@
  * \b Project: Kid3
  * \author Urs Fleisch
  * \date 06 Jul 2008
+ *
+ * Copyright (C) 2008-2013  Urs Fleisch
+ *
+ * This file is part of Kid3.
+ *
+ * Kid3 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Kid3 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "formatreplacer.h"
@@ -32,12 +49,12 @@ void FormatReplacer::replaceEscapedChars()
   if (!m_str.isEmpty()) {
     const int numEscCodes = 8;
     const QChar escCode[numEscCodes] = {
-      'n', 't', 'r', '\\', 'a', 'b', 'f', 'v'};
+      QLatin1Char('n'), QLatin1Char('t'), QLatin1Char('r'), QLatin1Char('\\'), QLatin1Char('a'), QLatin1Char('b'), QLatin1Char('f'), QLatin1Char('v')};
     const char escChar[numEscCodes] = {
       '\n', '\t', '\r', '\\', '\a', '\b', '\f', '\v'};
 
     for (int pos = 0; pos < static_cast<int>(m_str.length());) {
-      pos = m_str.indexOf('\\', pos);
+      pos = m_str.indexOf(QLatin1Char('\\'), pos);
       if (pos == -1) break;
       ++pos;
       for (int k = 0;; ++k) {
@@ -48,7 +65,7 @@ void FormatReplacer::replaceEscapedChars()
         }
         if (m_str[pos] == escCode[k]) {
           // code found, replace it
-          m_str.replace(pos - 1, 2, escChar[k]);
+          m_str.replace(pos - 1, 2, QLatin1Char(escChar[k]));
           break;
         }
       }
@@ -68,19 +85,19 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 {
   if (!m_str.isEmpty()) {
     for (int pos = 0; pos < static_cast<int>(m_str.length());) {
-      pos = m_str.indexOf('%', pos);
+      pos = m_str.indexOf(QLatin1Char('%'), pos);
       if (pos == -1) break;
 
       int codePos = pos + 1;
       int codeLen = 0;
       bool urlEncode = false;
       QString repl;
-      if ((flags & FSF_SupportUrlEncode) && m_str[codePos] == 'u') {
+      if ((flags & FSF_SupportUrlEncode) && m_str[codePos] == QLatin1Char('u')) {
         ++codePos;
         urlEncode = true;
       }
-      if (m_str[codePos] == '{') {
-        int closingBracePos = m_str.indexOf('}', codePos + 1);
+      if (m_str[codePos] == QLatin1Char('{')) {
+        int closingBracePos = m_str.indexOf(QLatin1Char('}'), codePos + 1);
         if (closingBracePos > codePos + 1) {
           QString longCode =
             m_str.mid(codePos + 1, closingBracePos - codePos - 1).toLower();
@@ -94,12 +111,12 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 
       if (codeLen > 0) {
         if (flags & FSF_ReplaceSeparators) {
-          repl.replace('/', '-');
-          repl.replace('\\', '-');
-          repl.replace(':', '-');
+          repl.replace(QLatin1Char('/'), QLatin1Char('-'));
+          repl.replace(QLatin1Char('\\'), QLatin1Char('-'));
+          repl.replace(QLatin1Char(':'), QLatin1Char('-'));
         }
         if (urlEncode) {
-          repl = QUrl::toPercentEncoding(repl);
+          repl = QString::fromLatin1(QUrl::toPercentEncoding(repl));
         }
         if (!repl.isNull() || codeLen > 2) {
           m_str.replace(pos, codeLen, repl);

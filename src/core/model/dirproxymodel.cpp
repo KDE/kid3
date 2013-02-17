@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19-Mar-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,7 +34,7 @@
  */
 DirProxyModel::DirProxyModel(QObject* parent) : QSortFilterProxyModel(parent)
 {
-  setObjectName("DirProxyModel");
+  setObjectName(QLatin1String("DirProxyModel"));
 }
 
 /**

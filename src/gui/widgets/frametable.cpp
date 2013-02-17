@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Sep 2007
  *
- * Copyright (C) 2007-2011  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@
 FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
   QTableView(parent), m_currentEditor(0)
 {
-  setObjectName("FrameTable");
+  setObjectName(QLatin1String("FrameTable"));
   setModel(model);
   setSelectionMode(SingleSelection);
 #if QT_VERSION >= 0x050000
@@ -63,7 +63,7 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
       model->removeRow(0);
   }
   // Set width of first column
-  int width = fontMetrics().width(i18n("WWW Audio Source") + "WW");
+  int width = fontMetrics().width(i18n("WWW Audio Source") + QLatin1String("WW"));
   QStyleOptionButton option;
   option.initFrom(this);
   width += style()->subElementRect(

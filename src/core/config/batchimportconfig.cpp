@@ -46,17 +46,17 @@ BatchImportConfig::BatchImportConfig(const QString& grp) :
    * Preset profile expressions.
    */
   m_profileNames <<
-    "All" <<
-    "MusicBrainz" <<
-    "Discogs" <<
-    "Cover Art" <<
-    "Custom Profile";
+    QLatin1String("All") <<
+    QLatin1String("MusicBrainz") <<
+    QLatin1String("Discogs") <<
+    QLatin1String("Cover Art") <<
+    QLatin1String("Custom Profile");
   m_profileSources <<
-    "MusicBrainz Release:75:SAC;Discogs:75:SAC;Amazon:75:SAC;gnudb.org:75:S;TrackType.org:75:S" <<
-    "MusicBrainz Release:75:SAC" <<
-    "Discogs:75:SAC" <<
-    "Amazon:75:C;Discogs:75:C;MusicBrainz Release:75:C" <<
-    "";
+    QLatin1String("MusicBrainz Release:75:SAC;Discogs:75:SAC;Amazon:75:SAC;gnudb.org:75:S;TrackType.org:75:S") <<
+    QLatin1String("MusicBrainz Release:75:SAC") <<
+    QLatin1String("Discogs:75:SAC") <<
+    QLatin1String("Amazon:75:C;Discogs:75:C;MusicBrainz Release:75:C") <<
+    QLatin1String("");
 }
 
 /**
@@ -81,12 +81,12 @@ void BatchImportConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("ProfileIdx", m_profileIdx);
   cfg.writeEntry("WindowGeometry", m_windowGeometry);
 #else
-  config->beginGroup("/" + m_group);
-  config->setValue("/ImportDestination", QVariant(m_importDest));
-  config->setValue("/ProfileNames", QVariant(m_profileNames));
-  config->setValue("/ProfileSources", QVariant(m_profileSources));
-  config->setValue("/ProfileIdx", QVariant(m_profileIdx));
-  config->setValue("/WindowGeometry", QVariant(m_windowGeometry));
+  config->beginGroup(QLatin1Char('/') + m_group);
+  config->setValue(QLatin1String("/ImportDestination"), QVariant(m_importDest));
+  config->setValue(QLatin1String("/ProfileNames"), QVariant(m_profileNames));
+  config->setValue(QLatin1String("/ProfileSources"), QVariant(m_profileSources));
+  config->setValue(QLatin1String("/ProfileIdx"), QVariant(m_profileIdx));
+  config->setValue(QLatin1String("/WindowGeometry"), QVariant(m_windowGeometry));
 
   config->endGroup();
 #endif
@@ -113,15 +113,15 @@ void BatchImportConfig::readFromConfig(Kid3Settings* config)
   // so we have to append them again.
   unsigned numNames = names.size();
   while (static_cast<unsigned>(sources.size()) < numNames)
-    sources.append("");
+    sources.append(QLatin1String(""));
 #else
-  config->beginGroup("/" + m_group);
+  config->beginGroup(QLatin1Char('/') + m_group);
   m_importDest = TrackData::tagVersionCast(
-        config->value("/ImportDestination", m_importDest).toInt());
-  names = config->value("/ProfileNames").toStringList();
-  sources = config->value("/ProfileSources").toStringList();
-  m_profileIdx = config->value("/ProfileIdx", m_profileIdx).toInt();
-  m_windowGeometry = config->value("/WindowGeometry").toByteArray();
+        config->value(QLatin1String("/ImportDestination"), m_importDest).toInt());
+  names = config->value(QLatin1String("/ProfileNames")).toStringList();
+  sources = config->value(QLatin1String("/ProfileSources")).toStringList();
+  m_profileIdx = config->value(QLatin1String("/ProfileIdx"), m_profileIdx).toInt();
+  m_windowGeometry = config->value(QLatin1String("/WindowGeometry")).toByteArray();
   config->endGroup();
 #endif
   /* Use defaults if no configuration found */

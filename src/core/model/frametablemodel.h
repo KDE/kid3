@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -328,7 +328,7 @@ public:
    * @param parent parent QTableView
    */
   FrameItemDelegate(QObject* parent) : QItemDelegate(parent) {
-    setObjectName("FrameItemDelegate");
+    setObjectName(QLatin1String("FrameItemDelegate"));
   }
 
   /**

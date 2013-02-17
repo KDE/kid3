@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2011  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -161,7 +161,7 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
  : QSplitter(parent), m_app(app)
 {
-  setObjectName("Kid3Form");
+  setObjectName(QLatin1String("Kid3Form"));
   const int margin = 6;
   const int spacing = 2;
 
@@ -445,7 +445,7 @@ Kid3Form::~Kid3Form()
  */
 void Kid3Form::dragEnterEvent(QDragEnterEvent* ev)
 {
-  if (ev->mimeData()->hasFormat("text/uri-list") ||
+  if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list")) ||
       ev->mimeData()->hasImage())
     ev->acceptProposedAction();
 }
@@ -470,7 +470,7 @@ void Kid3Form::dropEvent(QDropEvent* ev)
     m_app->openDrop(text);
   } else {
     text = urls.first().toString();
-    if (text.startsWith("http://")) {
+    if (text.startsWith(QLatin1String("http://"))) {
       m_app->dropUrl(text);
     }
   }
@@ -574,7 +574,7 @@ void Kid3Form::dirSelected(const QModelIndex& index)
   QString dirPath = index.data(QFileSystemModel::FilePathRole).toString();
   if (!dirPath.isEmpty()) {
     m_dirListBox->setEntryToSelect(
-        dirPath.endsWith("..") ? index.parent() : QModelIndex());
+        dirPath.endsWith(QLatin1String("..")) ? index.parent() : QModelIndex());
     mainWin()->updateCurrentSelection();
     mainWin()->confirmedOpenDirectory(dirPath);
   }
@@ -602,7 +602,7 @@ void Kid3Form::setTagFormatV1(const QString& str)
 {
   QString txt = i18n("Tag &1");
   if (!str.isEmpty()) {
-    txt += ": ";
+    txt += QLatin1String(": ");
     txt += str;
   }
   m_tag1Label->setText(txt);
@@ -617,7 +617,7 @@ void Kid3Form::setTagFormatV2(const QString& str)
 {
   QString txt = i18n("Tag &2");
   if (!str.isEmpty()) {
-    txt += ": ";
+    txt += QLatin1String(": ");
     txt += str;
   }
   m_tag2Label->setText(txt);
@@ -851,27 +851,27 @@ void Kid3Form::setDetailInfo(const TaggedFile::DetailInfo& info)
   QString str;
   if (info.valid) {
     str = info.format;
-    str += ' ';
+    str += QLatin1Char(' ');
     if (info.bitrate > 0 && info.bitrate < 999) {
-      if (info.vbr) str += "VBR ";
+      if (info.vbr) str += QLatin1String("VBR ");
       str += QString::number(info.bitrate);
-      str += " kbps ";
+      str += QLatin1String(" kbps ");
     }
     if (info.sampleRate > 0) {
       str += QString::number(info.sampleRate);
-      str += " Hz ";
+      str += QLatin1String(" Hz ");
     }
     switch (info.channelMode) {
       case TaggedFile::DetailInfo::CM_Stereo:
-        str += "Stereo ";
+        str += QLatin1String("Stereo ");
         break;
       case TaggedFile::DetailInfo::CM_JointStereo:
-        str += "Joint Stereo ";
+        str += QLatin1String("Joint Stereo ");
         break;
       default:
         if (info.channels > 0) {
           str += QString::number(info.channels);
-          str += " Channels ";
+          str += QLatin1String(" Channels ");
         }
     }
     if (info.duration > 0) {
@@ -879,7 +879,7 @@ void Kid3Form::setDetailInfo(const TaggedFile::DetailInfo& info)
     }
   }
   if (!str.isEmpty()) {
-    str = i18n("F&ile") + ": " + str;
+    str = i18n("F&ile") + QLatin1String(": ") + str;
   } else {
     str = i18n("F&ile");
   }
@@ -947,30 +947,30 @@ void Kid3Form::initActions()
 {
   QString ctx(i18n("Filename"));
   ShortcutsModel* sm = m_app->getConfigStore()->getShortcutsModel();
-  initAction(i18n("From Tag 1"), "filename_from_v1", this, SLOT(fnFromID3V1()), ctx, sm);
-  initAction(i18n("From Tag 2"), "filename_from_v2", this, SLOT(fnFromID3V2()), ctx, sm);
-  initAction(i18n("Focus"), "filename_focus", this, SLOT(setFocusFilename()), ctx, sm);
+  initAction(i18n("From Tag 1"), QLatin1String("filename_from_v1"), this, SLOT(fnFromID3V1()), ctx, sm);
+  initAction(i18n("From Tag 2"), QLatin1String("filename_from_v2"), this, SLOT(fnFromID3V2()), ctx, sm);
+  initAction(i18n("Focus"), QLatin1String("filename_focus"), this, SLOT(setFocusFilename()), ctx, sm);
   ctx = i18n("Tag 1");
-  initAction(i18n("From Filename"), "v1_from_filename", m_app, SLOT(getTagsFromFilenameV1()), ctx, sm);
-  initAction(i18n("From Tag 2"), "v1_from_v2", m_app, SLOT(copyV2ToV1()), ctx, sm);
-  initAction(i18n("Copy"), "v1_copy", m_app, SLOT(copyTagsV1()), ctx, sm);
-  initAction(i18n("Paste"), "v1_paste", m_app, SLOT(pasteTagsV1()), ctx, sm);
-  initAction(i18n("Remove"), "v1_remove", m_app, SLOT(removeTagsV1()), ctx, sm);
-  initAction(i18n("Focus"), "v1_focus", this, SLOT(setFocusV1()), ctx, sm);
+  initAction(i18n("From Filename"), QLatin1String("v1_from_filename"), m_app, SLOT(getTagsFromFilenameV1()), ctx, sm);
+  initAction(i18n("From Tag 2"), QLatin1String("v1_from_v2"), m_app, SLOT(copyV2ToV1()), ctx, sm);
+  initAction(i18n("Copy"), QLatin1String("v1_copy"), m_app, SLOT(copyTagsV1()), ctx, sm);
+  initAction(i18n("Paste"), QLatin1String("v1_paste"), m_app, SLOT(pasteTagsV1()), ctx, sm);
+  initAction(i18n("Remove"), QLatin1String("v1_remove"), m_app, SLOT(removeTagsV1()), ctx, sm);
+  initAction(i18n("Focus"), QLatin1String("v1_focus"), this, SLOT(setFocusV1()), ctx, sm);
   ctx = i18n("Tag 2");
-  initAction(i18n("From Filename"), "v2_from_filename", m_app, SLOT(getTagsFromFilenameV2()), ctx, sm);
-  initAction(i18n("From Tag 1"), "v2_from_v1", m_app, SLOT(copyV1ToV2()), ctx, sm);
-  initAction(i18n("Copy"), "v2_copy", m_app, SLOT(copyTagsV2()), ctx, sm);
-  initAction(i18n("Paste"), "v2_paste", m_app, SLOT(pasteTagsV2()), ctx, sm);
-  initAction(i18n("Remove"), "v2_remove", m_app, SLOT(removeTagsV2()), ctx, sm);
-  initAction(i18n("Edit"), "frames_edit", this, SLOT(editFrame()), ctx, sm);
-  initAction(i18n("Add"), "frames_add", this, SLOT(addFrame()), ctx, sm);
-  initAction(i18n("Delete"), "frames_delete", this, SLOT(deleteFrame()), ctx, sm);
-  initAction(i18n("Focus"), "v2_focus", this, SLOT(setFocusV2()), ctx, sm);
+  initAction(i18n("From Filename"), QLatin1String("v2_from_filename"), m_app, SLOT(getTagsFromFilenameV2()), ctx, sm);
+  initAction(i18n("From Tag 1"), QLatin1String("v2_from_v1"), m_app, SLOT(copyV1ToV2()), ctx, sm);
+  initAction(i18n("Copy"), QLatin1String("v2_copy"), m_app, SLOT(copyTagsV2()), ctx, sm);
+  initAction(i18n("Paste"), QLatin1String("v2_paste"), m_app, SLOT(pasteTagsV2()), ctx, sm);
+  initAction(i18n("Remove"), QLatin1String("v2_remove"), m_app, SLOT(removeTagsV2()), ctx, sm);
+  initAction(i18n("Edit"), QLatin1String("frames_edit"), this, SLOT(editFrame()), ctx, sm);
+  initAction(i18n("Add"), QLatin1String("frames_add"), this, SLOT(addFrame()), ctx, sm);
+  initAction(i18n("Delete"), QLatin1String("frames_delete"), this, SLOT(deleteFrame()), ctx, sm);
+  initAction(i18n("Focus"), QLatin1String("v2_focus"), this, SLOT(setFocusV2()), ctx, sm);
   ctx = i18n("File List");
-  initAction(i18n("Focus"), "filelist_focus", this, SLOT(setFocusFileList()), ctx, sm);
+  initAction(i18n("Focus"), QLatin1String("filelist_focus"), this, SLOT(setFocusFileList()), ctx, sm);
   ctx = i18n("Directory List");
-  initAction(i18n("Focus"), "dirlist_focus", this, SLOT(setFocusDirList()), ctx, sm);
+  initAction(i18n("Focus"), QLatin1String("dirlist_focus"), this, SLOT(setFocusDirList()), ctx, sm);
 }
 
 void Kid3Form::initAction(const QString& text, const QString& name,

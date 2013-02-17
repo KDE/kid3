@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Jul 2011
  *
- * Copyright (C) 2011-2012  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -30,18 +30,18 @@
 #include "shortcutsmodel.h"
 #endif
 
-MiscConfig ConfigStore::s_miscCfg("General Options");
-ImportConfig ConfigStore::s_genCfg("General Options");
-BatchImportConfig ConfigStore::s_batchImportCfg("BatchImport");
-FormatConfig ConfigStore::s_fnFormatCfg("FilenameFormat");
-FormatConfig ConfigStore::s_id3FormatCfg("Id3Format");
-FreedbConfig ConfigStore::s_freedbCfg("Freedb");
-FreedbConfig ConfigStore::s_trackTypeCfg("TrackType");
-DiscogsConfig ConfigStore::s_discogsCfg("Discogs");
-AmazonConfig ConfigStore::s_amazonCfg("Amazon");
-MusicBrainzConfig ConfigStore::s_musicBrainzCfg("MusicBrainz");
-FilterConfig ConfigStore::s_filterCfg("Filter");
-PlaylistConfig ConfigStore::s_playlistCfg("Playlist");
+MiscConfig ConfigStore::s_miscCfg(QLatin1String("General Options"));
+ImportConfig ConfigStore::s_genCfg(QLatin1String("General Options"));
+BatchImportConfig ConfigStore::s_batchImportCfg(QLatin1String("BatchImport"));
+FormatConfig ConfigStore::s_fnFormatCfg(QLatin1String("FilenameFormat"));
+FormatConfig ConfigStore::s_id3FormatCfg(QLatin1String("Id3Format"));
+FreedbConfig ConfigStore::s_freedbCfg(QLatin1String("Freedb"));
+FreedbConfig ConfigStore::s_trackTypeCfg(QLatin1String("TrackType"));
+DiscogsConfig ConfigStore::s_discogsCfg(QLatin1String("Discogs"));
+AmazonConfig ConfigStore::s_amazonCfg(QLatin1String("Amazon"));
+MusicBrainzConfig ConfigStore::s_musicBrainzCfg(QLatin1String("MusicBrainz"));
+FilterConfig ConfigStore::s_filterCfg(QLatin1String("Filter"));
+PlaylistConfig ConfigStore::s_playlistCfg(QLatin1String("Playlist"));
 
 /**
  * Constructor.
@@ -51,8 +51,8 @@ ConfigStore::ConfigStore()
 #ifdef CONFIG_USE_KDE
   m_config = new KConfig;
 #else
-  m_config = new Kid3Settings(QSettings::UserScope, "kid3.sourceforge.net", "Kid3");
-  m_config->beginGroup("/kid3");
+  m_config = new Kid3Settings(QSettings::UserScope, QLatin1String("kid3.sourceforge.net"), QLatin1String("Kid3"));
+  m_config->beginGroup(QLatin1String("/kid3"));
   m_shortcutsModel = new ShortcutsModel;
 #endif
 }

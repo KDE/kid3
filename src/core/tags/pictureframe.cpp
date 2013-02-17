@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03 Mar 2008
  *
- * Copyright (C) 2008-2012  Urs Fleisch
+ * Copyright (C) 2008-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -64,7 +64,7 @@ PictureFrame::PictureFrame(const Frame& frame)
   // Make sure all fields are available in the correct order
   Field::TextEncoding enc = Field::TE_ISO8859_1;
   PictureType pictureType = PT_CoverFront;
-  QString imgFormat("JPG"), mimeType("image/jpeg"), description;
+  QString imgFormat(QLatin1String("JPG")), mimeType(QLatin1String("image/jpeg")), description;
   QByteArray data;
   getFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
   setFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
@@ -501,11 +501,11 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
  */
 bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName)
 {
-  if (fileName.endsWith(".jpg", Qt::CaseInsensitive) ||
-      fileName.endsWith(".jpeg", Qt::CaseInsensitive)) {
-    return setMimeType(frame, "image/jpeg") && setImageFormat(frame, "JPG");
-  } else if (fileName.endsWith(".png", Qt::CaseInsensitive)) {
-    return setMimeType(frame, "image/png") && setImageFormat(frame, "PNG");
+  if (fileName.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
+      fileName.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive)) {
+    return setMimeType(frame, QLatin1String("image/jpeg")) && setImageFormat(frame, QLatin1String("JPG"));
+  } else if (fileName.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
+    return setMimeType(frame, QLatin1String("image/png")) && setImageFormat(frame, QLatin1String("PNG"));
   }
   return false;
 }
@@ -573,9 +573,9 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
 {
   QByteArray ba = QByteArray::fromBase64(base64Value.toLatin1());
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
-  QString mimeType("image/jpeg");
-  QString description("");
-  if (frame.getInternalName() == "METADATA_BLOCK_PICTURE") {
+  QString mimeType(QLatin1String("image/jpeg"));
+  QString description(QLatin1String(""));
+  if (frame.getInternalName() == QLatin1String("METADATA_BLOCK_PICTURE")) {
     unsigned long baSize = static_cast<unsigned long>(ba.size());
     if (baSize < 32) return;
     int index = 0;
@@ -599,7 +599,7 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
     ba = ba.mid(index);
   }
   PictureFrame::setFields(
-    frame, Frame::Field::TE_UTF8, "", mimeType,
+    frame, Frame::Field::TE_UTF8, QLatin1String(""), mimeType,
     pictureType, description, ba);
 }
 
@@ -617,7 +617,7 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
   QByteArray pic;
   PictureFrame::getFields(frame, enc, imgFormat, mimeType,
                           pictureType, description, pic);
-  if (frame.getInternalName() == "METADATA_BLOCK_PICTURE") {
+  if (frame.getInternalName() == QLatin1String("METADATA_BLOCK_PICTURE")) {
     QByteArray mimeStr = mimeType.toLatin1();
     QByteArray descStr = description.toUtf8();
     int mimeLen = mimeStr.length();
@@ -658,5 +658,5 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
     renderCharsToByteArray(pic.data(), ba, index, picLen);
     pic = ba;
   }
-  base64Value = pic.toBase64();
+  base64Value = QString::fromLatin1(pic.toBase64());
 }

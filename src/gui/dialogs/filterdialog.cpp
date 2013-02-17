@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008-2012  Urs Fleisch
+ * Copyright (C) 2008-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,7 @@
 FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   m_isAbortButton(false)
 {
-  setObjectName("FilterDialog");
+  setObjectName(QLatin1String("FilterDialog"));
   setWindowTitle(i18n("Filter"));
   setSizeGripEnabled(true);
 
@@ -166,7 +166,7 @@ void FilterDialog::saveConfig()
  */
 void FilterDialog::showHelp()
 {
-  ContextHelp::displayHelp("filter");
+  ContextHelp::displayHelp(QLatin1String("filter"));
 }
 
 /**
@@ -180,16 +180,16 @@ void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
     setAbortButton(true);
     break;
   case FileFilter::Directory:
-    m_edit->append(QString("\t") + fileName);
+    m_edit->append(QLatin1Char('\t') + fileName);
     break;
   case FileFilter::ParseError:
-    m_edit->append("parse error");
+    m_edit->append(QLatin1String("parse error"));
     break;
   case FileFilter::FilePassed:
-    m_edit->append(QString("+\t") + fileName);
+    m_edit->append(QLatin1String("+\t") + fileName);
     break;
   case FileFilter::FileFilteredOut:
-    m_edit->append(QString("-\t") + fileName);
+    m_edit->append(QLatin1String("-\t") + fileName);
     break;
   case FileFilter::Finished:
     m_edit->append(i18n("Finished"));

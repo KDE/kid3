@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009-2011  Urs Fleisch
+ * Copyright (C) 2009-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@ AmazonImporter::AmazonImporter(
   TrackDataModel* trackDataModel)
   : ServerImporter(netMgr, trackDataModel)
 {
-  setObjectName("AmazonImporter");
+  setObjectName(QLatin1String("AmazonImporter"));
 }
 
 /**
@@ -94,17 +94,17 @@ void AmazonImporter::parseFindResults(const QByteArray& searchStr)
     <span class="ptBrand">by <a href="/Amon-Amarth/e/B000APIBHO/ref=sr_ntt_srch_lnk_1?qid=1328870421&sr=1-1">Amon Amarth</a> and <a href="/Amon-Amarth/e/B002E4DJ7Q/ref=sr_ntt_srch_lnk_1?qid=1328870421&sr=1-1">Amon Amarth</a></span>
    */
   QString str = QString::fromLatin1(searchStr);
-  QRegExp catIdTitleArtistRe(
+  QRegExp catIdTitleArtistRe(QLatin1String(
     "<a class=\"title\" href=\"[^\"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+)[^\"]+\">"
-    "([^<]+)<.*>\\s*by\\s*(?:<[^>]+>)?([^<]+)<");
-  QStringList lines = str.remove('\r').split(QRegExp("\\n{2,}"));
+    "([^<]+)<.*>\\s*by\\s*(?:<[^>]+>)?([^<]+)<"));
+  QStringList lines = str.remove(QLatin1Char('\r')).split(QRegExp(QLatin1String("\\n{2,}")));
   m_albumListModel->clear();
   for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
     QString line(*it);
-    line.remove('\n');
+    line.remove(QLatin1Char('\n'));
     if (catIdTitleArtistRe.indexIn(line) != -1) {
       m_albumListModel->appendRow(new AlbumListItem(
-        removeHtml(catIdTitleArtistRe.cap(4)) + " - " +
+        removeHtml(catIdTitleArtistRe.cap(4)) + QLatin1String(" - ") +
         removeHtml(catIdTitleArtistRe.cap(3)),
         catIdTitleArtistRe.cap(1),
         catIdTitleArtistRe.cap(2)));
@@ -155,13 +155,13 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   const bool standardTags = getStandardTags();
   // search for 'id="btAsinTitle"', text after '>' until ' [' or '<' => album
   int end = 0;
-  int start = str.indexOf("id=\"btAsinTitle\"");
+  int start = str.indexOf(QLatin1String("id=\"btAsinTitle\""));
   if (start >= 0 && standardTags) {
-    start = str.indexOf(">", start);
+    start = str.indexOf(QLatin1Char('>'), start);
     if (start >= 0) {
-      end = str.indexOf("<", start);
+      end = str.indexOf(QLatin1Char('<'), start);
       if (end > start) {
-        int bracketPos = str.indexOf(" [", start);
+        int bracketPos = str.indexOf(QLatin1String(" ["), start);
         if (bracketPos >= 0 && bracketPos < end) {
           end = bracketPos;
         }
@@ -169,11 +169,11 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
           replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
 
         // next '<a href=', text after '>' until '<' => artist
-        start = str.indexOf("<a href=", end);
+        start = str.indexOf(QLatin1String("<a href="), end);
         if (start >= 0) {
-          start = str.indexOf(">", start);
+          start = str.indexOf(QLatin1Char('>'), start);
           if (start >= 0) {
-            end = str.indexOf("<", start);
+            end = str.indexOf(QLatin1Char('<'), start);
             if (end > start) {
               framesHdr.setArtist(
                 replaceHtmlEntities(str.mid(start + 1, end - start - 1)));
@@ -187,16 +187,16 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   // search for >Product Details<, >Original Release Date:<, >Label:<
   const bool additionalTags = getAdditionalTags();
   QString albumArtist;
-  start = str.indexOf(">Product Details<");
+  start = str.indexOf(QLatin1String(">Product Details<"));
   if (start >= 0) {
-    int detailStart = str.indexOf(">Original Release Date:<", start);
+    int detailStart = str.indexOf(QLatin1String(">Original Release Date:<"), start);
     if (detailStart < 0) {
-      detailStart  = str.indexOf(">Audio CD<", start);
+      detailStart  = str.indexOf(QLatin1String(">Audio CD<"), start);
     }
     if (detailStart >= 0 && standardTags) {
-      int detailEnd = str.indexOf("\n", detailStart + 10);
+      int detailEnd = str.indexOf(QLatin1Char('\n'), detailStart + 10);
       if (detailEnd > detailStart + 10) {
-        QRegExp yearRe("(\\d{4})");
+        QRegExp yearRe(QLatin1String("(\\d{4})"));
         if (yearRe.indexIn(
               str.mid(detailStart + 10, detailEnd - detailStart - 11)) >= 0) {
           framesHdr.setYear(yearRe.cap(1).toInt());
@@ -204,46 +204,46 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
       }
     }
     if (additionalTags) {
-      detailStart = str.indexOf(">Label:<", start);
+      detailStart = str.indexOf(QLatin1String(">Label:<"), start);
       if (detailStart > 0) {
-        int detailEnd = str.indexOf("\n", detailStart + 8);
+        int detailEnd = str.indexOf(QLatin1Char('\n'), detailStart + 8);
         if (detailEnd > detailStart + 8) {
-          QRegExp labelRe(">\\s*([^<]+)<");
+          QRegExp labelRe(QLatin1String(">\\s*([^<]+)<"));
           if (labelRe.indexIn(
                 str.mid(detailStart + 8, detailEnd - detailStart - 9)) >= 0) {
             framesHdr.setValue(Frame::FT_Publisher, removeHtml(labelRe.cap(1)));
           }
         }
       }
-      detailStart = str.indexOf(">Performer:<", start);
+      detailStart = str.indexOf(QLatin1String(">Performer:<"), start);
       if (detailStart > 0) {
-        int detailEnd = str.indexOf("</li>", detailStart + 12);
+        int detailEnd = str.indexOf(QLatin1String("</li>"), detailStart + 12);
         if (detailEnd > detailStart + 12) {
           framesHdr.setValue(
             Frame::FT_Performer,
             removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11)));
         }
       }
-      detailStart = str.indexOf(">Orchestra:<", start);
+      detailStart = str.indexOf(QLatin1String(">Orchestra:<"), start);
       if (detailStart > 0) {
-        int detailEnd = str.indexOf("</li>", detailStart + 12);
+        int detailEnd = str.indexOf(QLatin1String("</li>"), detailStart + 12);
         if (detailEnd > detailStart + 12) {
           albumArtist =
             removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11));
         }
       }
-      detailStart = str.indexOf(">Conductor:<", start);
+      detailStart = str.indexOf(QLatin1String(">Conductor:<"), start);
       if (detailStart > 0) {
-        int detailEnd = str.indexOf("</li>", detailStart + 12);
+        int detailEnd = str.indexOf(QLatin1String("</li>"), detailStart + 12);
         if (detailEnd > detailStart + 12) {
           framesHdr.setValue(
             Frame::FT_Conductor,
             removeHtml(str.mid(detailStart + 11, detailEnd - detailStart - 11)));
         }
       }
-      detailStart = str.indexOf(">Composer:<", start);
+      detailStart = str.indexOf(QLatin1String(">Composer:<"), start);
       if (detailStart > 0) {
-        int detailEnd = str.indexOf("</li>", detailStart + 11);
+        int detailEnd = str.indexOf(QLatin1String("</li>"), detailStart + 11);
         if (detailEnd > detailStart + 11) {
           framesHdr.setValue(
             Frame::FT_Composer,
@@ -257,14 +257,14 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   trackDataVector.setCoverArtUrl(QString());
   if (getCoverArt()) {
     // <input type="hidden" id="ASIN" name="ASIN" value="B0025AY48W" />
-    start = str.indexOf("id=\"ASIN\"");
+    start = str.indexOf(QLatin1String("id=\"ASIN\""));
     if (start > 0) {
-      start = str.indexOf("value=\"", start);
+      start = str.indexOf(QLatin1String("value=\""), start);
       if (start > 0) {
-        end = str.indexOf("\"", start + 7);
+        end = str.indexOf(QLatin1Char('"'), start + 7);
         if (end > start) {
           trackDataVector.setCoverArtUrl(
-            QString("http://www.amazon.com/dp/") +
+            QLatin1String("http://www.amazon.com/dp/") +
             str.mid(start + 7, end - start - 7));
         }
       }
@@ -272,19 +272,19 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   }
 
   bool hasTitleCol = false;
-  bool hasArtist = str.indexOf("<td>Song Title</td><td>Artist</td>") != -1;
+  bool hasArtist = str.indexOf(QLatin1String("<td>Song Title</td><td>Artist</td>")) != -1;
   // search 'class="titleCol"', next '<a href=', text after '>' until '<'
   // => title
   // if not found: alternatively look for 'class="listRow'
-  start = str.indexOf("class=\"titleCol\"");
+  start = str.indexOf(QLatin1String("class=\"titleCol\""));
   if (start >= 0) {
     hasTitleCol = true;
   } else {
-    start = str.indexOf("class=\"listRow");
+    start = str.indexOf(QLatin1String("class=\"listRow"));
   }
   if (start >= 0) {
-    QRegExp durationRe("(\\d+):(\\d+)");
-    QRegExp nrTitleRe("\\s*\\d+\\.\\s+(.*\\S)");
+    QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
+    QRegExp nrTitleRe(QLatin1String("\\s*\\d+\\.\\s+(.*\\S)"));
     FrameCollection frames(framesHdr);
     ImportTrackDataVector::iterator it = trackDataVector.begin();
     bool atTrackDataListEnd = (it == trackDataVector.end());
@@ -294,27 +294,27 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
       QString artist;
       int duration = 0;
       if (hasTitleCol) {
-        end = str.indexOf("\n", start);
+        end = str.indexOf(QLatin1Char('\n'), start);
         if (end > start) {
           QString line = str.mid(start, end - start);
-          int titleStart = line.indexOf("<a href=");
+          int titleStart = line.indexOf(QLatin1String("<a href="));
           if (titleStart >= 0) {
-            titleStart = line.indexOf(">", titleStart);
+            titleStart = line.indexOf(QLatin1Char('>'), titleStart);
             if (titleStart >= 0) {
-              int titleEnd = line.indexOf("<", titleStart);
+              int titleEnd = line.indexOf(QLatin1Char('<'), titleStart);
               if (titleEnd > titleStart) {
                 title = line.mid(titleStart + 1, titleEnd - titleStart - 1);
                 // if there was an Artist title,
                 // search for artist in a second titleCol
                 if (hasArtist) {
                   int artistStart =
-                    line.indexOf("class=\"titleCol\"", titleEnd);
+                    line.indexOf(QLatin1String("class=\"titleCol\""), titleEnd);
                   if (artistStart >= 0) {
-                    artistStart = line.indexOf("<a href=", artistStart);
+                    artistStart = line.indexOf(QLatin1String("<a href="), artistStart);
                     if (artistStart >= 0) {
-                      artistStart = line.indexOf(">", artistStart);
+                      artistStart = line.indexOf(QLatin1Char('>'), artistStart);
                       if (artistStart >= 0) {
-                        int artistEnd = line.indexOf("<", artistStart);
+                        int artistEnd = line.indexOf(QLatin1Char('<'), artistStart);
                         if (artistEnd > artistStart) {
                           artist = line.mid(
                             artistStart + 1, artistEnd - artistStart - 1);
@@ -329,11 +329,11 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
                 // search for next 'class="', if it is 'class="runtimeCol"',
                 // text after '>' until '<' => duration
                 int runtimeStart =
-                  line.indexOf("class=\"runtimeCol\"", titleEnd);
+                  line.indexOf(QLatin1String("class=\"runtimeCol\""), titleEnd);
                 if (runtimeStart >= 0) {
-                  runtimeStart = line.indexOf(">", runtimeStart + 18);
+                  runtimeStart = line.indexOf(QLatin1Char('>'), runtimeStart + 18);
                   if (runtimeStart >= 0) {
-                    int runtimeEnd = line.indexOf("<", runtimeStart);
+                    int runtimeEnd = line.indexOf(QLatin1Char('<'), runtimeStart);
                     if (runtimeEnd > runtimeStart) {
                       if (durationRe.indexIn(
                             line.mid(runtimeStart + 1,
@@ -344,7 +344,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
                     }
                   }
                 }
-                start = str.indexOf("class=\"titleCol\"", end);
+                start = str.indexOf(QLatin1String("class=\"titleCol\""), end);
               } else {
                 start = -1;
               }
@@ -353,13 +353,13 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
         }
       } else {
         // 'class="listRow' found
-        start = str.indexOf("<td>", start);
+        start = str.indexOf(QLatin1String("<td>"), start);
         if (start >= 0) {
-          end = str.indexOf("</td>", start);
+          end = str.indexOf(QLatin1String("</td>"), start);
           if (end > start &&
               nrTitleRe.indexIn(str.mid(start + 4, end - start - 4)) >= 0) {
             title = nrTitleRe.cap(1);
-            start = str.indexOf("class=\"listRow", end);
+            start = str.indexOf(QLatin1String("class=\"listRow"), end);
           } else {
             start = -1;
           }
@@ -443,9 +443,9 @@ void AmazonImporter::sendFindQuery(
    * http://www.amazon.com/gp/search/ref=sr_adv_m_pop/?search-alias=popular&field-artist=amon+amarth&field-title=the+avenger
    */
   sendRequest(cfg->m_server,
-              QString("/gp/search/ref=sr_adv_m_pop/"
+              QLatin1String("/gp/search/ref=sr_adv_m_pop/"
                       "?search-alias=popular&field-artist=") +
-              encodeUrlQuery(artist) + "&field-title=" + encodeUrlQuery(album));
+              encodeUrlQuery(artist) + QLatin1String("&field-title=") + encodeUrlQuery(album));
 }
 
 /**
@@ -463,5 +463,5 @@ void AmazonImporter::sendTrackListQuery(
    * Query looks like this:
    * http://www.amazon.com/dp/B001VROVHO
    */
-  sendRequest(cfg->m_server, QString("/") + cat + '/' + id);
+  sendRequest(cfg->m_server, QLatin1Char('/') + cat + QLatin1Char('/') + id);
 }

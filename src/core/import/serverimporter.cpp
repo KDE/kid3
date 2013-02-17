@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,7 +44,7 @@ ServerImporter::ServerImporter(QNetworkAccessManager* netMgr,
     m_trackDataModel(trackDataModel), m_standardTagsEnabled(true),
     m_additionalTagsEnabled(false), m_coverArtEnabled(false)
 {
-  setObjectName("ServerImporter");
+  setObjectName(QLatin1String("ServerImporter"));
 }
 
 /**
@@ -89,15 +89,15 @@ void ServerImporter::clear()
  */
 QString ServerImporter::replaceHtmlEntities(QString str)
 {
-  str.replace("&quot;", "\"");
-  str.replace("&nbsp;", " ");
-  str.replace("&lt;", "<");
-  str.replace("&gt;", ">");
-  str.replace("&amp;", "&");
-  str.replace("&times;", QString(QChar(0xd7)));
-  str.replace("&ndash;", "-");
+  str.replace(QLatin1String("&quot;"), QLatin1String("\""));
+  str.replace(QLatin1String("&nbsp;"), QLatin1String(" "));
+  str.replace(QLatin1String("&lt;"), QLatin1String("<"));
+  str.replace(QLatin1String("&gt;"), QLatin1String(">"));
+  str.replace(QLatin1String("&amp;"), QLatin1String("&"));
+  str.replace(QLatin1String("&times;"), QString(QChar(0xd7)));
+  str.replace(QLatin1String("&ndash;"), QLatin1String("-"));
 
-  QRegExp numEntityRe("&#(\\d+);");
+  QRegExp numEntityRe(QLatin1String("&#(\\d+);"));
   int pos = 0;
   while ((pos = numEntityRe.indexIn(str, pos)) != -1) {
     str.replace(pos, numEntityRe.matchedLength(),
@@ -116,7 +116,7 @@ QString ServerImporter::replaceHtmlEntities(QString str)
  */
 QString ServerImporter::removeHtml(QString str)
 {
-  QRegExp htmlTagRe("<[^>]+>");
+  QRegExp htmlTagRe(QLatin1String("<[^>]+>"));
   return replaceHtmlEntities(str.remove(htmlTagRe)).trimmed();
 }
 

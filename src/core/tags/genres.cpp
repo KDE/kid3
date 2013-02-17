@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -389,7 +389,7 @@ int Genres::getNumber(const QString& str)
   if (strNumMap.empty()) {
     // first time initialization
     for (int i = 0; i < Genres::count + 1; i++) {
-      strNumMap.insert(s_genre[i], s_genreNum[i]);
+      strNumMap.insert(QString::fromLatin1(s_genre[i]), s_genreNum[i]);
     }
   }
   QMap<QString, int>::const_iterator it = strNumMap.find(str);
@@ -410,13 +410,13 @@ QString Genres::getNameString(const QString& str)
   if (!str.isEmpty()) {
     int cpPos, n;
     bool ok;
-    if ((str[0] == '(') && ((cpPos = str.indexOf(')', 2)) > 1)) {
+    if ((str[0] == QLatin1Char('(')) && ((cpPos = str.indexOf(QLatin1Char(')'), 2)) > 1)) {
       n = str.mid(1, cpPos - 1).toInt(&ok);
       if (ok && n <= 0xff) {
-        return getName(n);
+        return QString::fromLatin1(getName(n));
       }
     } else if ((n = str.toInt(&ok)) >= 0 && n <= 0xff && ok) {
-      return getName(n);
+      return QString::fromLatin1(getName(n));
     }
   }
   return str;
@@ -435,9 +435,9 @@ QString Genres::getNumberString(const QString& str, bool parentheses)
   int n = getNumber(str);
   if (n < 0xff) {
     if (parentheses) {
-      QString s("(");
+      QString s(QLatin1String("("));
       s += QString::number(n);
-      s += ')';
+      s += QLatin1Char(')');
       return s;
     } else {
       return QString::number(n);

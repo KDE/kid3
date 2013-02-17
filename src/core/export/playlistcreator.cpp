@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2009
  *
- * Copyright (C) 2009-2011  Urs Fleisch
+ * Copyright (C) 2009-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -76,7 +76,7 @@ bool PlaylistCreator::write()
                it != m_entries.end();
                ++it) {
             if (m_cfg.m_writeInfo) {
-              stream << QString("#EXTINF:%1,%2\n").
+              stream << QString(QLatin1String("#EXTINF:%1,%2\n")).
                 arg((*it).duration).arg((*it).info);
             }
             stream << (*it).filePath << "\n";
@@ -86,14 +86,14 @@ bool PlaylistCreator::write()
         {
           unsigned nr = 1;
           stream << "[playlist]\n";
-          stream << QString("NumberOfEntries=%1\n").arg(m_entries.size());
+          stream << QString(QLatin1String("NumberOfEntries=%1\n")).arg(m_entries.size());
           for (QMap<QString, Entry>::const_iterator it = m_entries.begin();
                it != m_entries.end();
                ++it) {
-            stream << QString("File%1=%2\n").arg(nr).arg((*it).filePath);
+            stream << QString(QLatin1String("File%1=%2\n")).arg(nr).arg((*it).filePath);
             if (m_cfg.m_writeInfo) {
-              stream << QString("Title%1=%2\n").arg(nr).arg((*it).info);
-              stream << QString("Length%1=%2\n").arg(nr).arg((*it).duration);
+              stream << QString(QLatin1String("Title%1=%2\n")).arg(nr).arg((*it).info);
+              stream << QString(QLatin1String("Length%1=%2\n")).arg(nr).arg((*it).duration);
             }
             ++nr;
           }
@@ -103,13 +103,13 @@ bool PlaylistCreator::write()
         case PlaylistConfig::PF_XSPF:
         {
           stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-          QString line = "<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\"";
+          QString line = QLatin1String("<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\"");
           if (!m_cfg.m_useFullPath) {
             QUrl url(m_playlistDirName);
-            url.setScheme("file");
-            line += QString(" xml:base=\"%1\"").arg(url.toEncoded().data());
+            url.setScheme(QLatin1String("file"));
+            line += QString(QLatin1String(" xml:base=\"%1\"")).arg(QString::fromLatin1(url.toEncoded().data()));
           }
-          line += ">\n";
+          line += QLatin1String(">\n");
           stream << line;
           stream << "  <trackList>\n";
 
@@ -119,10 +119,10 @@ bool PlaylistCreator::write()
             stream << "    <track>\n";
             QUrl url((*it).filePath);
             if (m_cfg.m_useFullPath) {
-              url.setScheme("file");
+              url.setScheme(QLatin1String("file"));
             }
-            stream << QString("      <location>%1</location>\n").arg(
-              url.toEncoded().data());
+            stream << QString(QLatin1String("      <location>%1</location>\n")).arg(
+              QString::fromLatin1(url.toEncoded().data()));
             if (m_cfg.m_writeInfo) {
               // the info is already formatted in the case of XSPF
               stream << (*it).info;
@@ -137,7 +137,7 @@ bool PlaylistCreator::write()
       }
 
       m_entries.clear();
-      m_playlistFileName = "";
+      m_playlistFileName = QLatin1String("");
       file.close();
     }
   }
@@ -220,13 +220,13 @@ bool PlaylistCreator::Item::add()
     }
     switch (m_ctr.m_cfg.m_format) {
       case PlaylistConfig::PF_M3U:
-        m_ctr.m_playlistFileName += ".m3u";
+        m_ctr.m_playlistFileName += QLatin1String(".m3u");
         break;
       case PlaylistConfig::PF_PLS:
-        m_ctr.m_playlistFileName += ".pls";
+        m_ctr.m_playlistFileName += QLatin1String(".pls");
         break;
       case PlaylistConfig::PF_XSPF:
-        m_ctr.m_playlistFileName += ".xspf";
+        m_ctr.m_playlistFileName += QLatin1String(".xspf");
         break;
     }
   }
@@ -246,12 +246,12 @@ bool PlaylistCreator::Item::add()
     if (m_ctr.m_cfg.m_format != PlaylistConfig::PF_XSPF) {
       entry.info = formatString(m_ctr.m_cfg.m_infoFormat);
     } else {
-      entry.info = formatString(
+      entry.info = formatString(QLatin1String(
         "      <title>%{title}</title>\n"
         "      <creator>%{artist}</creator>\n"
         "      <album>%{album}</album>\n"
         "      <trackNum>%{track.1}</trackNum>\n"
-        "      <duration>%{seconds}000</duration>\n");
+        "      <duration>%{seconds}000</duration>\n"));
     }
     TaggedFile::DetailInfo detailInfo;
     m_taggedFile->getDetailInfo(detailInfo);

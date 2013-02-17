@@ -476,6 +476,8 @@ endif (WITH_DBUS AND QT_QTDBUS_LIBRARY)
 include(CheckIncludeFile)
 check_include_file("mntent.h" HAVE_MNTENT_H)
 
+set(QT_DEFINITIONS ${QT_DEFINITIONS} -DQT_ASCII_CAST_WARNINGS)
+
 if (WITH_KDE)
 
 ### Check for Phonon

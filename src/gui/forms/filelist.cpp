@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,7 +48,7 @@
 FileList::FileList(QWidget* parent, Kid3MainWindow* mainWin) :
   QTreeView(parent), m_process(0), m_mainWin(mainWin)
 {
-  setObjectName("FileList");
+  setObjectName(QLatin1String("FileList"));
   setSelectionMode(ExtendedSelection);
   setSortingEnabled(false);
   setContextMenuPolicy(Qt::CustomContextMenu);
@@ -207,16 +207,16 @@ QStringList FileList::formatStringList(const QStringList& format)
   for (QStringList::const_iterator it = format.begin();
        it != format.end();
        ++it) {
-    if ((*it).indexOf('%') == -1) {
+    if ((*it).indexOf(QLatin1Char('%')) == -1) {
       fmt.push_back(*it);
     } else {
-      if (*it == "%F" || *it == "%{files}") {
+      if (*it == QLatin1String("%F") || *it == QLatin1String("%{files}")) {
         // list of files
         fmt += files;
-      } else if (*it == "%uF" || *it == "%{urls}") {
+      } else if (*it == QLatin1String("%uF") || *it == QLatin1String("%{urls}")) {
         // list of URLs or URL
         QUrl url;
-        url.setScheme("file");
+        url.setScheme(QLatin1String("file"));
         for (QStringList::const_iterator fit = files.begin();
              fit != files.end();
              ++fit) {
@@ -232,7 +232,7 @@ QStringList FileList::formatStringList(const QStringList& format)
           frames.merge(frames1);
         }
         QString str(*it);
-        str.replace("%uf", "%{url}");
+        str.replace(QLatin1String("%uf"), QLatin1String("%{url}"));
         CommandFormatReplacer cfr(frames, str, files, !dirPath.isNull());
         cfr.replacePercentCodes(FrameFormatReplacer::FSF_SupportUrlEncode);
         fmt.push_back(cfr.getString());
@@ -259,17 +259,17 @@ void FileList::executeContextCommand(int id)
     int end = 0;
     while (end < len) {
       begin = end;
-      while (begin < len && cmd[begin] == ' ') ++begin;
+      while (begin < len && cmd[begin] == QLatin1Char(' ')) ++begin;
       if (begin >= len) break;
-      if (cmd[begin] == '"') {
+      if (cmd[begin] == QLatin1Char('"')) {
         ++begin;
         QString str;
         while (begin < len) {
-          if (cmd[begin] == '\\' && begin + 1 < len &&
-              (cmd[begin + 1] == '\\' ||
-               cmd[begin + 1] == '"')) {
+          if (cmd[begin] == QLatin1Char('\\') && begin + 1 < len &&
+              (cmd[begin + 1] == QLatin1Char('\\') ||
+               cmd[begin + 1] == QLatin1Char('"'))) {
             ++begin;
-          } else if (cmd[begin] == '"') {
+          } else if (cmd[begin] == QLatin1Char('"')) {
             break;
           }
           str += cmd[begin];
@@ -278,7 +278,7 @@ void FileList::executeContextCommand(int id)
         args.push_back(str);
         end = begin;
       } else {
-        end = cmd.indexOf(' ', begin + 1);
+        end = cmd.indexOf(QLatin1Char(' '), begin + 1);
         if (end == -1) end = len;
         args.push_back(cmd.mid(begin, end - begin));
       }
@@ -303,7 +303,7 @@ void FileList::executeContextCommand(int id)
 void FileList::executeAction(QAction* action)
 {
   if (action) {
-    QString name = action->text().remove('&');
+    QString name = action->text().remove(QLatin1Char('&'));
     int id = 0;
     for (QList<MiscConfig::MenuCommand>::const_iterator
            it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();

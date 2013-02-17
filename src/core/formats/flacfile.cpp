@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Oct 2005
  *
- * Copyright (C) 2005-2012  Urs Fleisch
+ * Copyright (C) 2005-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -80,13 +80,13 @@ static void getPicture(Frame& frame, const FLAC::Metadata::Picture* pic)
     pic->get_data_length());
   PictureFrame::setFields(
     frame,
-    Frame::Field::TE_ISO8859_1, "",
+    Frame::Field::TE_ISO8859_1, QLatin1String(""),
     QString::fromLatin1(pic->get_mime_type()),
     static_cast<PictureFrame::PictureType>(pic->get_type()),
     QString::fromUtf8(
       reinterpret_cast<const char*>(pic->get_description())),
     ba);
-  frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, "Picture"));
+  frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, QLatin1String("Picture")));
 }
 
 /**
@@ -190,7 +190,7 @@ void FlacFile::readTags(bool force)
               FLAC::Metadata::Picture* pic =
                 dynamic_cast<FLAC::Metadata::Picture*>(proto);
               if (pic) {
-                Frame frame(Frame::FT_Picture, "", "", pictureNr++);
+                Frame frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), pictureNr++);
                 getPicture(frame, pic);
                 m_pictures.push_back(frame);
               }
@@ -397,8 +397,8 @@ bool FlacFile::addFrameV2(Frame& frame)
   if (frame.getType() == Frame::FT_Picture) {
     if (frame.getFieldList().empty()) {
       PictureFrame::setFields(
-        frame, Frame::Field::TE_ISO8859_1, "JPG", "image/jpeg",
-        PictureFrame::PT_CoverFront, "", QByteArray());
+        frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
+        PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
     }
     PictureFrame::setDescription(frame, frame.getValue());
     frame.setIndex(m_pictures.size());
@@ -508,7 +508,7 @@ void FlacFile::getDetailInfo(DetailInfo& info) const
 {
   if (m_fileRead && m_fileInfo.valid) {
     info.valid = true;
-    info.format = "FLAC";
+    info.format = QLatin1String("FLAC");
     info.bitrate = m_fileInfo.bitrate / 1000;
     info.sampleRate = m_fileInfo.sampleRate;
     info.channels = m_fileInfo.channels;
@@ -539,7 +539,7 @@ unsigned FlacFile::getDuration() const
  */
 QString FlacFile::getFileExtension() const
 {
-  return ".flac";
+  return QLatin1String(".flac");
 }
 
 
@@ -575,7 +575,7 @@ bool FlacFile::FileInfo::read(FLAC::Metadata::StreamInfo* si)
 TaggedFile* FlacFile::Resolver::createFile(const QString& dn, const QString& fn,
     const QPersistentModelIndex& idx) const
 {
-  if (fn.right(5).toLower() == ".flac")
+  if (fn.right(5).toLower() == QLatin1String(".flac"))
     return new FlacFile(dn, fn, idx);
   else
     return 0;
@@ -588,7 +588,7 @@ TaggedFile* FlacFile::Resolver::createFile(const QString& dn, const QString& fn,
  */
 QStringList FlacFile::Resolver::getSupportedFileExtensions() const
 {
-  return QStringList() << ".flac";
+  return QStringList() << QLatin1String(".flac");
 }
 
 #endif // HAVE_FLAC

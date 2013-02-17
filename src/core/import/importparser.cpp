@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,41 +44,41 @@ ImportParser::ImportParser() : m_trackIncrEnabled(false), m_trackIncrNr(0)
 QString ImportParser::getFormatToolTip()
 {
   QString str;
-  str += "<table>\n";
+  str += QLatin1String("<table>\n");
 
-  str += "<tr><td>%s</td><td>%{title}</td><td>";
+  str += QLatin1String("<tr><td>%s</td><td>%{title}</td><td>");
   str += QCM_translate("Title");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%l</td><td>%{album}</td><td>";
+  str += QLatin1String("<tr><td>%l</td><td>%{album}</td><td>");
   str += QCM_translate("Album");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%a</td><td>%{artist}</td><td>";
+  str += QLatin1String("<tr><td>%a</td><td>%{artist}</td><td>");
   str += QCM_translate("Artist");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%c</td><td>%{comment}</td><td>";
+  str += QLatin1String("<tr><td>%c</td><td>%{comment}</td><td>");
   str += QCM_translate("Comment");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%y</td><td>%{year}</td><td>";
+  str += QLatin1String("<tr><td>%y</td><td>%{year}</td><td>");
   str += QCM_translate(I18N_NOOP("Year"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%t</td><td>%{track}</td><td>";
+  str += QLatin1String("<tr><td>%t</td><td>%{track}</td><td>");
   str += QCM_translate("Track");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%g</td><td>%{genre}</td><td>";
+  str += QLatin1String("<tr><td>%g</td><td>%{genre}</td><td>");
   str += QCM_translate("Genre");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%d</td><td>%{duration}</td><td>";
+  str += QLatin1String("<tr><td>%d</td><td>%{duration}</td><td>");
   str += QCM_translate(I18N_NOOP("Length"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "</table>\n";
+  str += QLatin1String("</table>\n");
   return str;
 }
 
@@ -110,13 +110,13 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
   int percentIdx = 0, nr = 1, lastIdx = fmt.length() - 1;
   m_pattern = fmt;
   for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
-    m_pattern.replace(codeToName[i].from, codeToName[i].to);
+    m_pattern.replace(QString::fromLatin1(codeToName[i].from), QString::fromLatin1(codeToName[i].to));
   }
 
   m_codePos.clear();
-  while (((percentIdx = m_pattern.indexOf("%{", percentIdx)) >= 0) &&
+  while (((percentIdx = m_pattern.indexOf(QLatin1String("%{"), percentIdx)) >= 0) &&
          (percentIdx < lastIdx)) {
-    int closingBracePos = m_pattern.indexOf("}(", percentIdx + 2);
+    int closingBracePos = m_pattern.indexOf(QLatin1String("}("), percentIdx + 2);
     if (closingBracePos > percentIdx + 2) {
       QString code =
         m_pattern.mid(percentIdx + 2, closingBracePos - percentIdx - 2);
@@ -128,7 +128,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
     }
   }
 
-  if (enableTrackIncr && !m_codePos.contains("track number")) {
+  if (enableTrackIncr && !m_codePos.contains(QLatin1String("track number"))) {
     m_trackIncrEnabled = true;
     m_trackIncrNr = 1;
   } else {
@@ -136,7 +136,7 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
     m_trackIncrNr = 0;
   }
 
-  m_pattern.remove(QRegExp("%\\{[^}]+\\}"));
+  m_pattern.remove(QRegExp(QLatin1String("%\\{[^}]+\\}")));
   m_re.setPattern(m_pattern);
 }
 
@@ -156,16 +156,16 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
     m_trackDuration.clear();
     return false;
   }
-  if (!m_codePos.contains("__duration")) {
+  if (!m_codePos.contains(QLatin1String("__duration"))) {
     m_trackDuration.clear();
   } else if (pos == 0) {
     m_trackDuration.clear();
     int dsp = 0; // "duration search pos"
     int lastDsp = dsp;
     while ((idx = m_re.indexIn(text, dsp)) != -1) {
-      QString durationStr = m_re.cap(m_codePos["__duration"]);
+      QString durationStr = m_re.cap(m_codePos[QLatin1String("__duration")]);
       int duration;
-      QRegExp durationRe("(\\d+):(\\d+)");
+      QRegExp durationRe(QLatin1String("(\\d+):(\\d+)"));
       if (durationRe.indexIn(durationStr) != -1) {
         duration = durationRe.cap(1).toInt() * 60 +
           durationRe.cap(2).toInt();
@@ -188,7 +188,7 @@ bool ImportParser::getNextTags(const QString& text, FrameCollection& frames, int
          ++it) {
       QString name = it.key();
       QString str = m_re.cap(*it);
-      if (!str.isEmpty() && !name.startsWith("__")) {
+      if (!str.isEmpty() && !name.startsWith(QLatin1String("__"))) {
         frames.setValue(Frame::ExtendedType(name), str);
       }
     }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2007  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -52,7 +52,7 @@ ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
  * Constructor.
  * Used to create temporary configuration.
  */
-ServerImporterConfig::ServerImporterConfig() : GeneralConfig("Temporary"),
+ServerImporterConfig::ServerImporterConfig() : GeneralConfig(QLatin1String("Temporary")),
   m_windowWidth(-1), m_windowHeight(-1), m_cgiPathUsed(false),
   m_additionalTagsUsed(false), m_standardTags(false), m_additionalTags(false),
   m_coverArt(false) {}
@@ -82,17 +82,17 @@ void ServerImporterConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("WindowWidth", m_windowWidth);
   cfg.writeEntry("WindowHeight", m_windowHeight);
 #else
-  config->beginGroup("/" + m_group);
-  config->setValue("/Server", QVariant(m_server));
+  config->beginGroup(QLatin1Char('/') + m_group);
+  config->setValue(QLatin1String("/Server"), QVariant(m_server));
   if (m_cgiPathUsed)
-    config->setValue("/CgiPath", QVariant(m_cgiPath));
+    config->setValue(QLatin1String("/CgiPath"), QVariant(m_cgiPath));
   if (m_additionalTagsUsed) {
-    config->setValue("/StandardTags", QVariant(m_standardTags));
-    config->setValue("/AdditionalTags", QVariant(m_additionalTags));
-    config->setValue("/CoverArt", QVariant(m_coverArt));
+    config->setValue(QLatin1String("/StandardTags"), QVariant(m_standardTags));
+    config->setValue(QLatin1String("/AdditionalTags"), QVariant(m_additionalTags));
+    config->setValue(QLatin1String("/CoverArt"), QVariant(m_coverArt));
   }
-  config->setValue("/WindowWidth", QVariant(m_windowWidth));
-  config->setValue("/WindowHeight", QVariant(m_windowHeight));
+  config->setValue(QLatin1String("/WindowWidth"), QVariant(m_windowWidth));
+  config->setValue(QLatin1String("/WindowHeight"), QVariant(m_windowHeight));
   config->endGroup();
 #endif
 }
@@ -119,19 +119,19 @@ void ServerImporterConfig::readFromConfig(Kid3Settings* config)
   m_windowWidth = cfg.readEntry("WindowWidth", -1);
   m_windowHeight = cfg.readEntry("WindowHeight", -1);
 #else
-  config->beginGroup("/" + m_group);
-  m_server = config->value("/Server", m_server).toString();
+  config->beginGroup(QLatin1Char('/') + m_group);
+  m_server = config->value(QLatin1String("/Server"), m_server).toString();
   if (m_cgiPathUsed)
-    m_cgiPath = config->value("/CgiPath", m_cgiPath).toString();
+    m_cgiPath = config->value(QLatin1String("/CgiPath"), m_cgiPath).toString();
   if (m_additionalTagsUsed) {
-    m_standardTags = config->value("/StandardTags",
+    m_standardTags = config->value(QLatin1String("/StandardTags"),
                                    m_standardTags).toBool();
-    m_additionalTags = config->value("/AdditionalTags",
+    m_additionalTags = config->value(QLatin1String("/AdditionalTags"),
                                      m_additionalTags).toBool();
-    m_coverArt = config->value("/CoverArt", m_coverArt).toBool();
+    m_coverArt = config->value(QLatin1String("/CoverArt"), m_coverArt).toBool();
   }
-  m_windowWidth = config->value("/WindowWidth", -1).toInt();
-  m_windowHeight = config->value("/WindowHeight", -1).toInt();
+  m_windowWidth = config->value(QLatin1String("/WindowWidth"), -1).toInt();
+  m_windowHeight = config->value(QLatin1String("/WindowHeight"), -1).toInt();
   config->endGroup();
 #endif
 }

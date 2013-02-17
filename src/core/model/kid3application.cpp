@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011-2012  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -118,7 +118,7 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
   m_downloadImageDest(ImageForSelectedFiles),
   m_musicBrainzClient(0)
 {
-  setObjectName("Kid3Application");
+  setObjectName(QLatin1String("Kid3Application"));
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
   m_dirProxyModel->setSourceModel(m_fileSystemModel);
 
@@ -144,15 +144,15 @@ Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
 
 #ifdef HAVE_QTDBUS
   if (QDBusConnection::sessionBus().isConnected()) {
-    QString serviceName("net.sourceforge.kid3");
+    QString serviceName(QLatin1String("net.sourceforge.kid3"));
     QDBusConnection::sessionBus().registerService(serviceName);
 #ifndef CONFIG_USE_KDE
-    serviceName += '-';
+    serviceName += QLatin1Char('-');
     serviceName += QString::number(::getpid());
     QDBusConnection::sessionBus().registerService(serviceName);
 #endif
     new ScriptInterface(this);
-    if (!QDBusConnection::sessionBus().registerObject("/Kid3", this)) {
+    if (!QDBusConnection::sessionBus().registerObject(QLatin1String("/Kid3"), this)) {
       qWarning("Registering D-Bus object failed");
     }
   } else {
@@ -240,11 +240,11 @@ void Kid3Application::readConfig()
   setTextEncodings();
   FrameCollection::setQuickAccessFrames(
         ConfigStore::s_miscCfg.m_quickAccessFrames);
-  if (ConfigStore::s_freedbCfg.m_server == "freedb2.org:80") {
-    ConfigStore::s_freedbCfg.m_server = "www.gnudb.org:80"; // replace old default
+  if (ConfigStore::s_freedbCfg.m_server == QLatin1String("freedb2.org:80")) {
+    ConfigStore::s_freedbCfg.m_server = QLatin1String("www.gnudb.org:80"); // replace old default
   }
-  if (ConfigStore::s_trackTypeCfg.m_server == "gnudb.gnudb.org:80") {
-    ConfigStore::s_trackTypeCfg.m_server = "tracktype.org:80"; // replace default
+  if (ConfigStore::s_trackTypeCfg.m_server == QLatin1String("gnudb.gnudb.org:80")) {
+    ConfigStore::s_trackTypeCfg.m_server = QLatin1String("tracktype.org:80"); // replace default
   }
 }
 
@@ -275,7 +275,7 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
   }
 
   QStringList nameFilters(ConfigStore::s_miscCfg.getNameFilterPatterns().
-                          split(' '));
+                          split(QLatin1Char(' ')));
   m_fileProxyModel->setNameFilters(nameFilters);
   m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
   QModelIndex rootIndex = m_fileSystemModel->setRootPath(dir);
@@ -462,7 +462,7 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
           if (plItem.getDirName().startsWith(selectedDirPrefix)) {
             inSelectedDir = true;
           } else {
-            selectedDirPrefix = "";
+            selectedDirPrefix = QLatin1String("");
           }
         }
         if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
@@ -477,7 +477,7 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
           if (dirName.startsWith(selectedDirPrefix)) {
             inSelectedDir = true;
           } else {
-            selectedDirPrefix = "";
+            selectedDirPrefix = QLatin1String("");
           }
         }
         if (inSelectedDir || noSelection || selectModel->isSelected(index)) {
@@ -706,13 +706,13 @@ QString Kid3Application::getFileNameOfSelectedFile()
   QModelIndex index = getFileSelectionModel()->currentIndex();
   QString dirname = FileProxyModel::getPathIfIndexOfDir(index);
   if (!dirname.isNull()) {
-    if (!dirname.endsWith('/')) dirname += '/';
+    if (!dirname.endsWith(QLatin1Char('/'))) dirname += QLatin1Char('/');
     return dirname;
   } else if (TaggedFile* taggedFile =
              FileProxyModel::getTaggedFileOfIndex(index)) {
     return taggedFile->getAbsFilename();
   }
-  return "";
+  return QLatin1String("");
 }
 
 /**
@@ -809,7 +809,7 @@ void Kid3Application::applyTextEncoding()
          ++frameIt) {
       Frame& frame = const_cast<Frame&>(*frameIt);
       Frame::Field::TextEncoding enc = encoding;
-      if (taggedFile->getTagFormatV2() == "ID3v2.3.0") {
+      if (taggedFile->getTagFormatV2() == QLatin1String("ID3v2.3.0")) {
 #ifdef HAVE_TAGLIB
         // TagLib sets the ID3v2.3.0 frame containing the date internally with
         // ISO-8859-1, so the encoding cannot be set for such frames.
@@ -1313,7 +1313,7 @@ void Kid3Application::addFrame(const Frame* frame, IFrameEditor* frameEditor)
  */
 void Kid3Application::editOrAddPicture(IFrameEditor* frameEditor)
 {
-  if (m_framelist->selectByName("Picture")) {
+  if (m_framelist->selectByName(QLatin1String("Picture"))) {
     editFrame(frameEditor);
   } else {
     PictureFrame frame;
@@ -1328,7 +1328,7 @@ void Kid3Application::editOrAddPicture(IFrameEditor* frameEditor)
  */
 void Kid3Application::openDrop(QString txt)
 {
-  int lfPos = txt.indexOf('\n');
+  int lfPos = txt.indexOf(QLatin1Char('\n'));
   if (lfPos > 0 && lfPos < (int)txt.length() - 1) {
     txt.truncate(lfPos + 1);
   }
@@ -1339,13 +1339,13 @@ void Kid3Application::openDrop(QString txt)
 #else
     QString dir = url.path().trimmed();
 #endif
-    if (dir.endsWith(".jpg", Qt::CaseInsensitive) ||
-        dir.endsWith(".jpeg", Qt::CaseInsensitive) ||
-        dir.endsWith(".png", Qt::CaseInsensitive)) {
+    if (dir.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
+        dir.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
+        dir.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
       PictureFrame frame;
       if (PictureFrame::setDataFromFile(frame, dir)) {
         QString fileName(dir);
-        int slashPos = fileName.lastIndexOf('/');
+        int slashPos = fileName.lastIndexOf(QLatin1Char('/'));
         if (slashPos != -1) {
           fileName = fileName.mid(slashPos + 1);
         }
@@ -1397,7 +1397,7 @@ void Kid3Application::dropUrl(const QString& txt)
 void Kid3Application::imageDownloaded(const QByteArray& data,
                               const QString& mimeType, const QString& url)
 {
-  if (mimeType.startsWith("image")) {
+  if (mimeType.startsWith(QLatin1String("image"))) {
     PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
     if (getDownloadImageDestination() == ImageForAllFilesInDirectory) {
       TaggedFileOfDirectoryIterator it(currentOrRootIndex());
@@ -1806,7 +1806,7 @@ void Kid3Application::numberTracks(int nr, int total,
       }
       FrameCollection frames;
       taggedFile->getAllFramesV2(frames);
-      Frame frame(Frame::FT_Track, "", "", -1);
+      Frame frame(Frame::FT_Track, QLatin1String(""), QLatin1String(""), -1);
       FrameCollection::const_iterator it = frames.find(frame);
       if (it != frames.end()) {
         frame = *it;
@@ -1890,37 +1890,37 @@ QString Kid3Application::createFilterString() const
        it != extensions.end();
        ++it) {
     QString text = (*it).mid(1).toUpper();
-    QString pattern = '*' + *it;
+    QString pattern = QLatin1Char('*') + *it;
     if (!allPatterns.isEmpty()) {
-      allPatterns += ' ';
+      allPatterns += QLatin1Char(' ');
     }
     allPatterns += pattern;
 #ifdef CONFIG_USE_KDE
     result += pattern;
-    result += '|';
+    result += QLatin1Char('|');
     result += text;
-    result += " (";
+    result += QLatin1String(" (");
     result += pattern;
-    result += ")\n";
+    result += QLatin1String(")\n");
 #else
     result += text;
-    result += " (";
+    result += QLatin1String(" (");
     result += pattern;
-    result += ");;";
+    result += QLatin1String(");;");
 #endif
   }
 
 #ifdef CONFIG_USE_KDE
   QString allExt = allPatterns;
-  allExt += '|';
+  allExt += QLatin1Char('|');
   allExt += i18n("All Supported Files");
-  allExt += '\n';
-  result = allExt + result + "*|" + i18n("All Files (*)");
+  allExt += QLatin1Char('\n');
+  result = allExt + result + QLatin1String("*|") + i18n("All Files (*)");
 #else
   QString allExt = i18n("All Supported Files");
-  allExt += " (";
+  allExt += QLatin1String(" (");
   allExt += allPatterns;
-  allExt += ");;";
+  allExt += QLatin1String(");;");
   result = allExt + result + i18n("All Files (*)");
 #endif
 
@@ -1934,7 +1934,7 @@ void Kid3Application::setTextEncodings()
 {
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   const QTextCodec* id3v1TextCodec =
-    ConfigStore::s_miscCfg.m_textEncodingV1 != "ISO-8859-1" ?
+    ConfigStore::s_miscCfg.m_textEncodingV1 != QLatin1String("ISO-8859-1") ?
     QTextCodec::codecForName(ConfigStore::s_miscCfg.m_textEncodingV1.toLatin1().data()) : 0;
 #endif
 #ifdef HAVE_ID3LIB
@@ -1964,7 +1964,7 @@ void Kid3Application::convertToId3v24()
     taggedFile->readTags(false);
     if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
       QString tagFmt = taggedFile->getTagFormatV2();
-      if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] < '4') {
+      if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) && tagFmt[6] < QLatin1Char('4')) {
 #ifdef HAVE_ID3LIB
         if (dynamic_cast<Mp3File*>(taggedFile) != 0) {
           FrameCollection frames;
@@ -2016,8 +2016,8 @@ void Kid3Application::convertToId3v23()
     if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
       QString tagFmt = taggedFile->getTagFormatV2();
       QString ext = taggedFile->getFileExtension();
-      if (tagFmt.length() >= 7 && tagFmt.startsWith("ID3v2.") && tagFmt[6] > '3' &&
-          (ext == ".mp3" || ext == ".mp2" || ext == ".aac")) {
+      if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) && tagFmt[6] > QLatin1Char('3') &&
+          (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))) {
         /*
          * The ID3v2.3.0 tag is written using TagLib if it supports it.
          * If id3lib is also available it is used instead unless

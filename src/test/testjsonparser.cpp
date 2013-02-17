@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2012
  *
- * Copyright (C) 2012  Urs Fleisch
+ * Copyright (C) 2012-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,7 +31,7 @@ namespace {
 
 QString numberedName(int nr)
 {
-  return QString("val%1").arg(nr, 2, 10, QChar('0'));
+  return QString(QLatin1String("val%1")).arg(nr, 2, 10, QLatin1Char('0'));
 }
 
 }
@@ -40,30 +40,30 @@ void TestJsonParser::serializeAndDeserializeMessage()
 {
   QMap<QString, QVariant> map;
 
-  map["uri"] = "http://www.youtube.com/watch?v=QVdDhOnoR8k";
-  map["duration"] = 334;
-  map["embed"] = true;
-  map["format"] = "12\"";
+  map[QLatin1String("uri")] = QLatin1String("http://www.youtube.com/watch?v=QVdDhOnoR8k");
+  map[QLatin1String("duration")] = 334;
+  map[QLatin1String("embed")] = true;
+  map[QLatin1String("format")] = QLatin1String("12\"");
 
   QString str = JsonParser::serialize(map);
-  QCOMPARE(str, QString("{\"duration\": 334, \"embed\": true, \"format\": \"12\\\"\", \"uri\": \"http://www.youtube.com/watch?v=QVdDhOnoR8k\"}"));
+  QCOMPARE(str, QString(QLatin1String("{\"duration\": 334, \"embed\": true, \"format\": \"12\\\"\", \"uri\": \"http://www.youtube.com/watch?v=QVdDhOnoR8k\"}")));
 
   bool ok;
   QVariant json = JsonParser::deserialize(str, &ok);
   QMap<QString, QVariant> deser = json.toMap();
   QVERIFY(ok);
-  QVariant val = deser.value("uri");
+  QVariant val = deser.value(QLatin1String("uri"));
   QCOMPARE(val.type(), QVariant::String);
-  QCOMPARE(val.toString(), QString("http://www.youtube.com/watch?v=QVdDhOnoR8k"));
-  val = deser.value("duration");
+  QCOMPARE(val.toString(), QString(QLatin1String("http://www.youtube.com/watch?v=QVdDhOnoR8k")));
+  val = deser.value(QLatin1String("duration"));
   QCOMPARE(val.type(), QVariant::Int);
   QCOMPARE(val.toInt(), 334);
-  val = deser.value("embed");
+  val = deser.value(QLatin1String("embed"));
   QCOMPARE(val.type(), QVariant::Bool);
   QCOMPARE(val.toBool(), true);
-  val = deser.value("format");
+  val = deser.value(QLatin1String("format"));
   QCOMPARE(val.type(), QVariant::String);
-  QCOMPARE(val.toString(), QString("12\""));
+  QCOMPARE(val.toString(), QString(QLatin1String("12\"")));
 
   QCOMPARE(JsonParser::serialize(deser), str);
 }
@@ -78,14 +78,14 @@ void TestJsonParser::serializeAndDeserializeTypes()
   bool valBool1(false);
   bool valBool2(true);
   QVariant valNull;
-  QString valString("String with \"'\\{}[]");
+  QString valString(QLatin1String("String with \"'\\{}[]"));
   double valDouble(3.141592653);
   QVariantMap valObject;
-  valObject["nested"] = true;
-  valObject["obj"] = 1e23;
+  valObject[QLatin1String("nested")] = true;
+  valObject[QLatin1String("obj")] = 1e23;
   QVariantList valArray;
   QVariantMap valArrayElement;
-  valArrayElement["val"] = 2;
+  valArrayElement[QLatin1String("val")] = 2;
   valArray << 1 << valArrayElement << 3;
   bool ok;
 
@@ -98,14 +98,14 @@ void TestJsonParser::serializeAndDeserializeTypes()
   }
 
   QString str = JsonParser::serialize(map);
-  QCOMPARE(str, QString(
+  QCOMPARE(str, QString(QLatin1String(
              "{\"val00\": \"2011-08-18T14:02:07\", \"val01\": -7654321, "
              "\"val02\": 1234567890123456789, "
              "\"val03\": false, \"val04\": true, \"val05\": null, \"val06\": "
              "\"String with \\\"'\\\\{}[]\", \"val07\": 3.141592653, "
              "\"val08\": {\"nested\": true, "
              "\"obj\": 1e+23}, \"val09\": [1, {\"val\": 2}, 3]}"
-             ));
+             )));
 
   QMap<QString, QVariant> deser = JsonParser::deserialize(str, &ok).toMap();
   QVERIFY(ok);
@@ -120,7 +120,7 @@ void TestJsonParser::serializeAndDeserializeTypes()
 
 void TestJsonParser::deserializeMusicData()
 {
-  QString musicStr(
+  QString musicStr(QLatin1String(
     "{\n"
     "  \"id\": 1,\n"
     "  \"title\": \"Stockholm\",\n"
@@ -133,33 +133,33 @@ void TestJsonParser::deserializeMusicData()
     "    {\"style\": [\"Heavy Metal\"]},\n"
     "    {\"style\": [\"Hard Rock}]\"]}\n"
     "  ]\n"
-    "}\n");
+    "}\n"));
 
   bool ok = true;
   QVariantMap musicMap = JsonParser::deserialize(musicStr, &ok).toMap();
   QVERIFY(ok);
-  QCOMPARE(musicMap.value("id"), QVariant(1));
-  QCOMPARE(musicMap.value("title"), QVariant("Stockholm"));
+  QCOMPARE(musicMap.value(QLatin1String("id")), QVariant(1));
+  QCOMPARE(musicMap.value(QLatin1String("title")), QVariant(QLatin1String("Stockholm")));
 
   QVariantList styles;
-  styles << "Deep House";
-  QCOMPARE(musicMap.value("styles"), QVariant(styles));
+  styles << QLatin1String("Deep House");
+  QCOMPARE(musicMap.value(QLatin1String("styles")), QVariant(styles));
 
   QVariantMap label1, label2;
-  label1["entity_type"] = "1";
-  label1["name"] = "Svek";
-  label2["name"] = "LMP";
+  label1[QLatin1String("entity_type")] = QLatin1String("1");
+  label1[QLatin1String("name")] = QLatin1String("Svek");
+  label2[QLatin1String("name")] = QLatin1String("LMP");
   QVariantList labels;
   labels << label1 << label2;
-  QCOMPARE(musicMap.value("labels"), QVariant(labels));
+  QCOMPARE(musicMap.value(QLatin1String("labels")), QVariant(labels));
 
   QVariantMap result1, result2;
   QVariantList resultStyle1, resultStyle2;
-  resultStyle1 << "Heavy Metal";
-  resultStyle2 << "Hard Rock}]";
-  result1["style"] = resultStyle1;
-  result2["style"] = resultStyle2;
+  resultStyle1 << QLatin1String("Heavy Metal");
+  resultStyle2 << QLatin1String("Hard Rock}]");
+  result1[QLatin1String("style")] = resultStyle1;
+  result2[QLatin1String("style")] = resultStyle2;
   QVariantList results;
   results << result1 << result2;
-  QCOMPARE(musicMap.value("results"), QVariant(results));
+  QCOMPARE(musicMap.value(QLatin1String("results")), QVariant(results));
 }

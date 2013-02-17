@@ -41,16 +41,16 @@ void DebugUtils::dumpModel(const QAbstractItemModel& model,
     QString name(model.objectName());
     if (name.isEmpty()) {
       if (const QMetaObject* metaObject = model.metaObject()) {
-        name = metaObject->className();
+        name = QString::fromLatin1(metaObject->className());
       }
     }
     qDebug("Dump for %s", qPrintable(name));
     QString columnStr;
     for (int i = 0; i < model.columnCount(parent); ++i) {
       if (i != 0)
-        columnStr += ", ";
+        columnStr += QLatin1String(", ");
       columnStr += QString::number(i);
-      columnStr += ": ";
+      columnStr += QLatin1String(": ");
       columnStr += model.headerData(i, Qt::Horizontal).toString();
     }
     qDebug("%s", qPrintable(columnStr));
@@ -59,21 +59,21 @@ void DebugUtils::dumpModel(const QAbstractItemModel& model,
     return;
 
   for (int row = 0; row < model.rowCount(parent); ++row) {
-    QString rowStr(indent, ' ');
+    QString rowStr(indent, QLatin1Char(' '));
     QString rowHeader(model.headerData(row, Qt::Vertical).toString());
     rowStr += QString::number(row);
     if (!rowHeader.isEmpty()) {
-      rowStr += ' ';
+      rowStr += QLatin1Char(' ');
       rowStr += rowHeader;
     }
-    rowStr += ':';
+    rowStr += QLatin1Char(':');
     QModelIndexList indexesWithChildren;
     for (int column = 0; column < model.columnCount(parent); ++column) {
       QModelIndex idx(model.index(row, column, parent));
       if (column > 0)
-        rowStr += ",";
-      rowStr += QString("%1%2:").
-          arg(model.hasChildren(idx) ? "p" : "").
+        rowStr += QLatin1String(",");
+      rowStr += QString(QLatin1String("%1%2:")).
+          arg(model.hasChildren(idx) ? QLatin1String("p") : QLatin1String("")).
           arg(column);
       rowStr += model.data(idx).toString();
       if (model.hasChildren(idx))

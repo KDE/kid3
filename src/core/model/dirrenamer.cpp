@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jul 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,7 +39,7 @@
 DirRenamer::DirRenamer(QObject* parent) : QObject(parent), m_aborted(false),
   m_tagVersion(TrackData::TagV2V1), m_actionCreate(false)
 {
-  setObjectName("DirRenamer");
+  setObjectName(QLatin1String("DirRenamer"));
 }
 
 /**
@@ -60,11 +60,11 @@ DirRenamer::~DirRenamer()
 static QString parentDirectory(const QString& dir)
 {
   QString parent(dir);
-  int slashPos = parent.lastIndexOf('/');
+  int slashPos = parent.lastIndexOf(QLatin1Char('/'));
   if (slashPos != -1) {
     parent.truncate(slashPos + 1);
   } else {
-    parent = "";
+    parent = QLatin1String("");
   }
   return parent;
 }
@@ -206,9 +206,9 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
   TrackData trackData(*taggedFile, m_tagVersion);
   QString newdir(taggedFile->getDirname());
 #ifdef WIN32
-  newdir.replace('\\', '/');
+  newdir.replace(QLatin1Char('\\'), QLatin1Char('/'));
 #endif
-  if (newdir.endsWith(QChar('/'))) {
+  if (newdir.endsWith(QLatin1Char('/'))) {
     // remove trailing separator
     newdir.truncate(newdir.length() - 1);
   }
@@ -219,7 +219,7 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
     if (!m_actionCreate) {
       newdir = parentDirectory(newdir);
     } else if (!newdir.isEmpty()) {
-      newdir.append('/');
+      newdir.append(QLatin1Char('/'));
     }
     newdir.append(trackData.formatFilenameFromTags(m_format, true));
   }
@@ -348,7 +348,7 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
   for (int round = 0; round < 2; ++round) {
     replaceIfAlreadyRenamed(currentDirname);
     if (newDirname != currentDirname) {
-      if (newDirname.startsWith(currentDirname + '/')) {
+      if (newDirname.startsWith(currentDirname + QLatin1Char('/'))) {
         // A new directory is created in the current directory.
         bool createDir = true;
         QString dirWithFiles(currentDirname);
@@ -359,7 +359,7 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
           // currentDirname does not end with a separator, so newPart
           // starts with a separator and the search starts with the
           // second character.
-          int slashPos = newPart.indexOf('/', 1);
+          int slashPos = newPart.indexOf(QLatin1Char('/'), 1);
           if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
             newPart.truncate(slashPos);
             // the new part has multiple directories
@@ -371,8 +371,8 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
           addAction(RenameAction::CreateDirectory, currentDirname + newPart);
           if (!createDir) {
             addAction(RenameAction::RenameFile,
-                      dirWithFiles + '/' + taggedFile->getFilename(),
-                      currentDirname + newPart + '/' + taggedFile->getFilename(),
+                      dirWithFiles + QLatin1Char('/') + taggedFile->getFilename(),
+                      currentDirname + newPart + QLatin1Char('/') + taggedFile->getFilename(),
                       taggedFile->getIndex());
           }
           currentDirname = currentDirname + newPart;
@@ -381,7 +381,7 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
         QString parent(parentDirectory(currentDirname));
         if (newDirname.startsWith(parent)) {
           QString newPart(newDirname.mid(parent.length()));
-          int slashPos = newPart.indexOf('/');
+          int slashPos = newPart.indexOf(QLatin1Char('/'));
           if (slashPos != -1 && slashPos != (int)newPart.length() - 1) {
             newPart.truncate(slashPos);
             // the new part has multiple directories
@@ -395,8 +395,8 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
               actionHasDestination(parentWithNewPart)) {
             // directory already exists => move files
             addAction(RenameAction::RenameFile,
-                      currentDirname + '/' + taggedFile->getFilename(),
-                      parentWithNewPart + '/' + taggedFile->getFilename(),
+                      currentDirname + QLatin1Char('/') + taggedFile->getFilename(),
+                      parentWithNewPart + QLatin1Char('/') + taggedFile->getFilename(),
                       taggedFile->getIndex());
             currentDirname = parentWithNewPart;
           } else {

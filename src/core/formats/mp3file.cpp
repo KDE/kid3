@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -288,7 +288,7 @@ static QString fixUpUnicode(const unicode_t* str, size_t numChars)
  */
 static QString getString(ID3_Field* field, const QTextCodec* codec = 0)
 {
-  QString text("");
+  QString text(QLatin1String(""));
   if (field != NULL) {
     ID3_TextEnc enc = field->GetEncoding();
     if (enc == ID3TE_UTF16 || enc == ID3TE_UTF16BE) {
@@ -303,7 +303,7 @@ static QString getString(ID3_Field* field, const QTextCodec* codec = 0)
         // object, so I do not use it.
         text = fixUpUnicode(field->GetRawUnicodeText(),
                             field->Size() / sizeof(unicode_t));
-        text.replace('\0', Frame::stringListSeparator());
+        text.replace(QLatin1Char('\0'), Frame::stringListSeparator());
       }
     } else {
       // (ID3TE_IS_SINGLE_BYTE_ENC(enc))
@@ -312,16 +312,16 @@ static QString getString(ID3_Field* field, const QTextCodec* codec = 0)
       if (numItems <= 1) {
         text = codec ?
           codec->toUnicode(field->GetRawText(), field->Size()) :
-          QString(field->GetRawText());
+          QString::fromLatin1(field->GetRawText());
       } else {
         // if there are multiple items, put them into one string
         // separated by a special separator.
         for (size_t itemNr = 0; itemNr < numItems; ++itemNr) {
           if (itemNr == 0) {
-            text = field->GetRawTextItem(0);
+            text = QString::fromLatin1(field->GetRawTextItem(0));
           } else {
             text += Frame::stringListSeparator();
-            text += field->GetRawTextItem(itemNr);
+            text += QString::fromLatin1(field->GetRawTextItem(itemNr));
           }
         }
       }
@@ -346,7 +346,7 @@ static QString getTextField(const ID3_Tag* tag, ID3_FrameID id,
   if (!tag) {
     return QString::null;
   }
-  QString str("");
+  QString str(QLatin1String(""));
   ID3_Field* fld;
   ID3_Frame* frame = tag->Find(id);
   if (frame && ((fld = frame->GetField(ID3FN_TEXT)) != NULL)) {
@@ -385,7 +385,7 @@ static int getTrackNum(const ID3_Tag* tag)
   if (str.isNull()) return -1;
   if (str.isEmpty()) return 0;
   // handle "track/total number of tracks" format
-  int slashPos = str.indexOf('/');
+  int slashPos = str.indexOf(QLatin1Char('/'));
   if (slashPos != -1) {
     str.truncate(slashPos);
   }
@@ -406,7 +406,7 @@ static int getGenreNum(const ID3_Tag* tag)
   if (str.isNull()) return -1;
   if (str.isEmpty()) return 0xff;
   int cpPos = 0, n = 0xff;
-  if ((str[0] == '(') && ((cpPos = str.indexOf(')', 2)) > 1)) {
+  if ((str[0] == QLatin1Char('(')) && ((cpPos = str.indexOf(QLatin1Char(')'), 2)) > 1)) {
     bool ok;
     n = str.mid(1, cpPos - 1).toInt(&ok);
     if (!ok || n > 0xff) {
@@ -613,7 +613,7 @@ static bool setYear(ID3_Tag* tag, int num)
     if (num != 0) {
       str.setNum(num);
     } else {
-      str = "";
+      str.clear();
     }
     changed = getTextField(tag, ID3FID_YEAR) != str &&
               setTextField(tag, ID3FID_YEAR, str);
@@ -655,9 +655,9 @@ static bool setGenreNum(ID3_Tag* tag, int num)
   if (num >= 0) {
     QString str;
     if (num != 0xff) {
-      str = QString("(%1)").arg(num);
+      str = QString(QLatin1String("(%1)")).arg(num);
     } else {
-      str = "";
+      str.clear();
     }
     changed = getTextField(tag, ID3FID_CONTENTTYPE) != str &&
               setTextField(tag, ID3FID_CONTENTTYPE, str);
@@ -750,9 +750,9 @@ QString Mp3File::getGenreV1()
   if (num == -1) {
     return QString::null;
   } else if (num == 0xff) {
-    return "";
+    return QLatin1String("");
   } else {
-    return Genres::getName(num);
+    return QString::fromLatin1(Genres::getName(num));
   }
 }
 
@@ -839,7 +839,7 @@ QString Mp3File::getGenreV2()
 {
   int num = getGenreNum(m_tagV2);
   if (num != 0xff && num != -1) {
-    return Genres::getName(num);
+    return QString::fromLatin1(Genres::getName(num));
   } else {
     return getTextField(m_tagV2, ID3FID_CONTENTTYPE);
   }
@@ -1104,9 +1104,9 @@ bool Mp3File::hasTagV2() const
  */
 void Mp3File::getDetailInfo(DetailInfo& info) const
 {
-  if (getFilename().right(4).toLower() == ".aac") {
+  if (getFilename().right(4).toLower() == QLatin1String(".aac")) {
     info.valid = true;
-    info.format = "AAC";
+    info.format = QLatin1String("AAC");
     return;
   }
 
@@ -1121,26 +1121,26 @@ void Mp3File::getDetailInfo(DetailInfo& info) const
     info.valid = true;
     switch (headerInfo->version) {
       case MPEGVERSION_1:
-        info.format = "MPEG 1 ";
+        info.format = QLatin1String("MPEG 1 ");
         break;
       case MPEGVERSION_2:
-        info.format = "MPEG 2 ";
+        info.format = QLatin1String("MPEG 2 ");
         break;
       case MPEGVERSION_2_5:
-        info.format = "MPEG 2.5 ";
+        info.format = QLatin1String("MPEG 2.5 ");
         break;
       default:
         ; // nothing
     }
     switch (headerInfo->layer) {
       case MPEGLAYER_I:
-        info.format += "Layer 1";
+        info.format += QLatin1String("Layer 1");
         break;
       case MPEGLAYER_II:
-        info.format += "Layer 2";
+        info.format += QLatin1String("Layer 2");
         break;
       case MPEGLAYER_III:
-        info.format += "Layer 3";
+        info.format += QLatin1String("Layer 3");
         break;
       default:
         ; // nothing
@@ -1207,10 +1207,10 @@ unsigned Mp3File::getDuration() const
 QString Mp3File::getFileExtension() const
 {
   QString ext(getFilename().right(4).toLower());
-  if (ext == ".aac" || ext == ".mp2")
+  if (ext == QLatin1String(".aac") || ext == QLatin1String(".mp2"))
     return ext;
   else
-    return ".mp3";
+    return QLatin1String(".mp3");
 }
 
 /**
@@ -1221,7 +1221,7 @@ QString Mp3File::getFileExtension() const
  */
 QString Mp3File::getTagFormatV1() const
 {
-  return hasTagV1() ? QString("ID3v1.1") : QString::null;
+  return hasTagV1() ? QString(QLatin1String("ID3v1.1")) : QString();
 }
 
 /**
@@ -1235,13 +1235,13 @@ QString Mp3File::getTagFormatV2() const
   if (m_tagV2 && m_tagV2->HasV2Tag()) {
     switch (m_tagV2->GetSpec()) {
       case ID3V2_3_0:
-        return "ID3v2.3.0";
+        return QLatin1String("ID3v2.3.0");
       case ID3V2_4_0:
-        return "ID3v2.4.0";
+        return QLatin1String("ID3v2.4.0");
       case ID3V2_2_0:
-        return "ID3v2.2.0";
+        return QLatin1String("ID3v2.2.0");
       case ID3V2_2_1:
-        return "ID3v2.2.1";
+        return QLatin1String("ID3v2.2.1");
       default:
         break;
     }
@@ -1689,7 +1689,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
         } else if (id3Frame->GetID() == ID3FID_CDID &&
                    (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
           QByteArray newData, oldData;
-          if (AttributeData::isHexString(value, 'F', "+") &&
+          if (AttributeData::isHexString(value, 'F', QLatin1String("+")) &&
               AttributeData(AttributeData::Utf16).toByteArray(value, newData)) {
             oldData = QByteArray((const char *)fld->GetRawBinary(),
                                  (unsigned int)fld->Size());
@@ -1704,7 +1704,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
                    (fld = id3Frame->GetField(ID3FN_DATA)) != 0) {
           QByteArray newData, oldData;
           if (AttributeData::isHexString(value, 'Z')) {
-            newData = (value + '\0').toLatin1();
+            newData = (value + QLatin1Char('\0')).toLatin1();
             oldData = QByteArray((const char *)fld->GetRawBinary(),
                                  (unsigned int)fld->Size());
             if (newData != oldData) {
@@ -1751,11 +1751,11 @@ bool Mp3File::addFrameV2(Frame& frame)
   } else {
     id = getId3libFrameIdForName(frame.getName());
     if (id == ID3FID_NOFRAME) {
-      if (frame.getName() == "AverageLevel" ||
-          frame.getName() == "PeakValue" ||
-          frame.getName().startsWith("WM/")) {
+      if (frame.getName() == QLatin1String("AverageLevel") ||
+          frame.getName() == QLatin1String("PeakValue") ||
+          frame.getName().startsWith(QLatin1String("WM/"))) {
         id = ID3FID_PRIVATE;
-      } else if (frame.getName().startsWith("iTun")) {
+      } else if (frame.getName().startsWith(QLatin1String("iTun"))) {
         id = ID3FID_COMMENT;
       } else {
         id = ID3FID_USERTEXT;
@@ -1773,14 +1773,14 @@ bool Mp3File::addFrameV2(Frame& frame)
       }
       fld->SetEncoding(enc);
     }
-    if (id == ID3FID_USERTEXT && !frame.getName().startsWith("TXXX")) {
+    if (id == ID3FID_USERTEXT && !frame.getName().startsWith(QLatin1String("TXXX"))) {
       fld = id3Frame->GetField(ID3FN_DESCRIPTION);
       if (fld) {
         QString description;
         if (frame.getType() == Frame::FT_CatalogNumber) {
-          description = "CATALOGNUMBER";
+          description = QLatin1String("CATALOGNUMBER");
         } else if (frame.getType() == Frame::FT_ReleaseCountry) {
-          description = "RELEASECOUNTRY";
+          description = QLatin1String("RELEASECOUNTRY");
         } else {
           description = frame.getName();
         }
@@ -1791,7 +1791,7 @@ bool Mp3File::addFrameV2(Frame& frame)
       if (fld) {
         setString(fld, frame.getName());
       }
-    } else if (id == ID3FID_PRIVATE && !frame.getName().startsWith("PRIV")) {
+    } else if (id == ID3FID_PRIVATE && !frame.getName().startsWith(QLatin1String("PRIV"))) {
       fld = id3Frame->GetField(ID3FN_OWNER);
       if (fld) {
         setString(fld, frame.getName());
@@ -1807,7 +1807,7 @@ bool Mp3File::addFrameV2(Frame& frame)
     } else if (id == ID3FID_UNIQUEFILEID) {
       QByteArray data;
       if (AttributeData::isHexString(frame.getValue(), 'Z')) {
-        data = (frame.getValue() + '\0').toLatin1();
+        data = (frame.getValue() + QLatin1Char('\0')).toLatin1();
         fld = id3Frame->GetField(ID3FN_DATA);
         if (fld) {
           fld->Set(reinterpret_cast<const unsigned char*>(data.data()),
@@ -1817,7 +1817,7 @@ bool Mp3File::addFrameV2(Frame& frame)
     } else if (id == ID3FID_PICTURE) {
       fld = id3Frame->GetField(ID3FN_MIMETYPE);
       if (fld) {
-        setString(fld, "image/jpeg");
+        setString(fld, QLatin1String("image/jpeg"));
       }
       fld = id3Frame->GetField(ID3FN_PICTURETYPE);
       if (fld) {
@@ -1831,7 +1831,7 @@ bool Mp3File::addFrameV2(Frame& frame)
     const char* name;
     getTypeStringForId3libFrameId(id, type, name);
     m_tagV2->AttachFrame(id3Frame);
-    frame.setExtendedType(Frame::ExtendedType(type, name));
+    frame.setExtendedType(Frame::ExtendedType(type, QString::fromLatin1(name)));
     frame.setIndex(m_tagV2->NumFrames() - 1);
     if (frame.fieldList().empty()) {
       // add field list to frame
@@ -1906,7 +1906,7 @@ void Mp3File::deleteFramesV2(const FrameFilter& flt)
         Frame::Type type;
         const char* name;
         getTypeStringForId3libFrameId(frame->GetID(), type, name);
-        if (flt.isEnabled(type, name)) {
+        if (flt.isEnabled(type, QString::fromLatin1(name))) {
           m_tagV2->RemoveFrame(frame);
         }
       }
@@ -1945,7 +1945,7 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
     const char* name;
     while ((id3Frame = iter->GetNext()) != 0) {
       getTypeStringForId3libFrameId(id3Frame->GetID(), type, name);
-      Frame frame(type, "", name, i++);
+      Frame frame(type, QLatin1String(""), QString::fromLatin1(name), i++);
       frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList()));
       if (id3Frame->GetID() == ID3FID_USERTEXT ||
           id3Frame->GetID() == ID3FID_WWWUSER ||
@@ -1954,13 +1954,13 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
         if (fieldValue.isValid()) {
           QString description = fieldValue.toString();
           if (!description.isEmpty()) {
-            if (description == "CATALOGNUMBER") {
+            if (description == QLatin1String("CATALOGNUMBER")) {
               frame.setType(Frame::FT_CatalogNumber);
-            } else if (description == "RELEASECOUNTRY") {
+            } else if (description == QLatin1String("RELEASECOUNTRY")) {
               frame.setType(Frame::FT_ReleaseCountry);
             } else {
               frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                                      QString(name) + '\n' + description));
+                  QString::fromLatin1(name) + QLatin1Char('\n') + description));
             }
           }
         }
@@ -1975,7 +1975,7 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
             owner = (*it).m_value.toString();
             if (!owner.isEmpty()) {
               frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                                        QString(name) + '\n' + owner));
+                        QString::fromLatin1(name) + QLatin1Char('\n') + owner));
             }
           } else if ((*it).m_id == Frame::Field::ID_Data) {
             data = (*it).m_value.toByteArray();
@@ -1992,7 +1992,7 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
         if (fieldValue.isValid()) {
           QString str;
           if (AttributeData(AttributeData::Utf16).toString(fieldValue.toByteArray(), str) &&
-              AttributeData::isHexString(str, 'F', "+")) {
+              AttributeData::isHexString(str, 'F', QLatin1String("+"))) {
             frame.setValue(str);
           }
         }
@@ -2000,7 +2000,7 @@ void Mp3File::getAllFramesV2(FrameCollection& frames)
         QVariant fieldValue = frame.getFieldValue(Frame::Field::ID_Data);
         if (fieldValue.isValid()) {
           QByteArray ba(fieldValue.toByteArray());
-          QString str(ba);
+          QString str(QString::fromLatin1(ba));
           if (ba.size() - str.length() <= 1 &&
               AttributeData::isHexString(str, 'Z')) {
             frame.setValue(str);
@@ -2045,7 +2045,7 @@ QStringList Mp3File::getFrameIds() const
   QStringList lst;
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     if (type != Frame::FT_Part) {
-      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type), "").
+      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type), QLatin1String("")).
                  getTranslatedName());
     }
   }
@@ -2096,7 +2096,7 @@ TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
     const QPersistentModelIndex& idx) const
 {
   QString ext = fn.right(4).toLower();
-  if ((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
+  if ((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
 #ifdef HAVE_TAGLIB
       && ConfigStore::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
       && ConfigStore::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_3_0_TAGLIB
@@ -2114,7 +2114,7 @@ TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
  */
 QStringList Mp3File::Resolver::getSupportedFileExtensions() const
 {
-  return QStringList() << ".mp3" << ".mp2" << ".aac";
+  return QStringList() << QLatin1String(".mp3") << QLatin1String(".mp2") << QLatin1String(".aac");
 }
 
 #endif // HAVE_ID3LIB

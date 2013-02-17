@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011-2012  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,7 +40,7 @@ FrameTableModel::FrameTableModel(bool id3v1, QObject* parent) :
   QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
   m_id3v1(id3v1)
 {
-  setObjectName("FrameTableModel");
+  setObjectName(QLatin1String("FrameTableModel"));
 }
 
 /**
@@ -80,12 +80,12 @@ Qt::ItemFlags FrameTableModel::flags(const QModelIndex& index) const
 QString FrameTableModel::getDisplayName(const QString& str)
 {
   if (!str.isEmpty()) {
-    int nlPos = str.indexOf("\n");
+    int nlPos = str.indexOf(QLatin1Char('\n'));
     if (nlPos > 0) {
       // probably "TXXX - User defined text information\nDescription" or
       // "WXXX - User defined URL link\nDescription"
       return str.mid(nlPos + 1);
-    } else if (str.mid(4, 3) == " - ") {
+    } else if (str.mid(4, 3) == QLatin1String(" - ")) {
       // probably "ID3-ID - Description"
       return str.left(4);
     } else {
@@ -152,7 +152,7 @@ bool FrameTableModel::setData(const QModelIndex& index,
     FrameCollection::iterator it = frameAt(index.row());
     if (valueStr != (*it).getValue()) {
       Frame& frame = const_cast<Frame&>(*it);
-      if (valueStr.isNull()) valueStr = "";
+      if (valueStr.isNull()) valueStr = QLatin1String("");
       frame.setValueIfChanged(valueStr);
       emit dataChanged(index, index);
 
@@ -528,7 +528,7 @@ void FrameTableModel::resizeFrameSelected()
 FrameTableLineEdit::FrameTableLineEdit(QWidget* parent) :
   QLineEdit(parent)
 {
-  setObjectName("FrameTableLineEdit");
+  setObjectName(QLatin1String("FrameTableLineEdit"));
   connect(this, SIGNAL(textChanged(const QString&)),
           this, SLOT(formatTextIfEnabled(const QString&)));
 }
@@ -585,10 +585,10 @@ QWidget* FrameItemDelegate::createEditor(
 
       QStringList strList;
       for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
-        strList += *sl;
+        strList += QString::fromLatin1(*sl);
       }
       if (ConfigStore::s_miscCfg.m_onlyCustomGenres) {
-        cb->addItem("");
+        cb->addItem(QLatin1String(""));
       } else {
         cb->addItems(strList);
       }

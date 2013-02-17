@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Apr 2007
  *
- * Copyright (C) 2007-2012  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,7 +40,7 @@
 StringListEdit::StringListEdit(QAbstractItemModel* model, QWidget* parent) :
   AbstractListEdit(new QListView, model, parent)
 {
-  setObjectName("StringListEdit");
+  setObjectName(QLatin1String("StringListEdit"));
 }
 
 /**

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2009-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,7 +36,7 @@
 AmazonConfig::AmazonConfig(const QString& grp) :
   ServerImporterConfig(grp, false, true)
 {
-  m_server = "www.amazon.com:80";
+  m_server = QLatin1String("www.amazon.com:80");
 }
 
 /**

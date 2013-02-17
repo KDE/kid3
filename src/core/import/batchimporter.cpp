@@ -202,7 +202,7 @@ void BatchImporter::stateTransition()
     }
     if (m_currentImporter) {
       emit reportImportEvent(BatchImportProfile::SourceSelected,
-                             m_currentImporter->name());
+                             QString::fromLatin1(m_currentImporter->name()));
       m_state = GettingAlbumList;
     } else {
       m_state = CheckNextTrackList;
@@ -212,7 +212,7 @@ void BatchImporter::stateTransition()
   case GettingAlbumList:
     if (m_currentImporter) {
       emit reportImportEvent(BatchImportProfile::QueryingAlbumList,
-                             m_currentArtist + " - " + m_currentAlbum);
+                             m_currentArtist + QLatin1String(" - ") + m_currentAlbum);
       m_albumNr = -1;
       m_albumModel = 0;
       connect(m_currentImporter, SIGNAL(findFinished(QByteArray)),
@@ -338,9 +338,9 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
 
     int accuracy = m_trackDataModel->calculateAccuracy();
     emit reportImportEvent(BatchImportProfile::TrackListReceived,
-                           i18n("Accuracy") + " " +
+                           i18n("Accuracy") + QLatin1Char(' ') +
                            (accuracy >= 0
-                            ? QString::number(accuracy) + '%'
+                            ? QString::number(accuracy) + QLatin1Char('%')
                             : i18n("Unknown")));
     const BatchImportProfile::Source& profileSource =
         m_profile.getSources().at(m_sourceNr);
@@ -406,7 +406,7 @@ void BatchImporter::onImageDownloaded(const QByteArray& data,
     stateTransition();
   } else {
     if (data.size() >= 1024) {
-      if (mimeType.startsWith("image") && m_trackDataModel) {
+      if (mimeType.startsWith(QLatin1String("image")) && m_trackDataModel) {
         emit reportImportEvent(BatchImportProfile::CoverArtReceived, url);
         PictureFrame frame(data, url, PictureFrame::PT_CoverFront, mimeType);
         ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
@@ -433,7 +433,7 @@ void BatchImporter::onImageDownloaded(const QByteArray& data,
 ServerImporter* BatchImporter::getImporter(const QString& name)
 {
   foreach (ServerImporter* importer, m_importers) {
-    if (importer->name() == name) {
+    if (QString::fromLatin1(importer->name()) == name) {
       return importer;
     }
   }

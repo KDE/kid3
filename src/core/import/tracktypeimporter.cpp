@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Apr 2007
  *
- * Copyright (C) 2007-2011  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,7 +41,7 @@ TrackTypeImporter::TrackTypeImporter(QNetworkAccessManager* netMgr,
                                      TrackDataModel *trackDataModel) :
   FreedbImporter(netMgr, trackDataModel)
 {
-  setObjectName("TrackTypeImporter");
+  setObjectName(QLatin1String("TrackTypeImporter"));
 }
 
 /**
@@ -95,12 +95,12 @@ theoretically, but never seen
 200 categ discid dtitle
 */
   QString str = QString::fromUtf8(searchStr);
-  QRegExp catIdTitleRe("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)");
-  QStringList lines = str.split(QRegExp("[\\r\\n]+"));
+  QRegExp catIdTitleRe(QLatin1String("([a-z]+)\\s+([0-9a-f]+)\\s+([^/]+ / .+)"));
+  QStringList lines = str.split(QRegExp(QLatin1String("[\\r\\n]+")));
   bool inEntries = false;
   m_albumListModel->clear();
   for (QStringList::const_iterator it = lines.begin(); it != lines.end(); ++it) {
-    if (*it == ".") {
+    if (*it == QLatin1String(".")) {
       break;
     }
     if (inEntries) {
@@ -111,9 +111,9 @@ theoretically, but never seen
           catIdTitleRe.cap(2)));
       }
     } else {
-      if ((*it).startsWith("21") && (*it).indexOf(" match") != -1) {
+      if ((*it).startsWith(QLatin1String("21")) && (*it).indexOf(QLatin1String(" match")) != -1) {
         inEntries = true;
-      } else if ((*it).startsWith("200 ")) {
+      } else if ((*it).startsWith(QLatin1String("200 "))) {
         if (catIdTitleRe.exactMatch((*it).mid(4))) {
           m_albumListModel->appendRow(new AlbumListItem(
             catIdTitleRe.cap(3),
@@ -138,8 +138,8 @@ void TrackTypeImporter::sendFindQuery(
 {
   // At the moment, only TrackType.org recognizes cddb album commands,
   // so we always use this server for find queries.
-  sendRequest(trackTypeServer,
-              cfg->m_cgiPath + "?cmd=cddb+album+" +
-              encodeUrlQuery(artist + " / " + album) +
-              "&hello=noname+localhost+Kid3+" VERSION "&proto=6");
+  sendRequest(QString::fromLatin1(trackTypeServer),
+              cfg->m_cgiPath + QLatin1String("?cmd=cddb+album+") +
+              encodeUrlQuery(artist + QLatin1String(" / ") + album) +
+              QLatin1String("&hello=noname+localhost+Kid3+" VERSION "&proto=6"));
 }

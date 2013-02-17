@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jan 2008
  *
- * Copyright (C) 2008  Urs Fleisch
+ * Copyright (C) 2008-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,7 +33,7 @@
  * Constructor.
  */
 FileFilter::FileFilter() :
-  m_parser(QStringList() << "equals" << "contains" << "matches"),
+  m_parser(QStringList() << QLatin1String("equals") << QLatin1String("contains") << QLatin1String("matches")),
   m_aborted(false)
 {
 }
@@ -64,18 +64,18 @@ void FileFilter::initParser()
  */
 QString FileFilter::formatString(const QString& format)
 {
-  if (format.indexOf('%') == -1) {
+  if (format.indexOf(QLatin1Char('%')) == -1) {
     return format;
   }
   QString str(format);
-  str.replace(QString("%1"), QString("\v1"));
-  str.replace(QString("%2"), QString("\v2"));
+  str.replace(QLatin1String("%1"), QLatin1String("\v1"));
+  str.replace(QLatin1String("%2"), QLatin1String("\v2"));
   str = m_trackData12.formatString(str);
-  if (str.indexOf('\v') != -1) {
-    str.replace(QString("\v2"), QString("%"));
+  if (str.indexOf(QLatin1Char('\v')) != -1) {
+    str.replace(QLatin1String("\v2"), QLatin1String("%"));
     str = m_trackData2.formatString(str);
-    if (str.indexOf('\v') != -1) {
-      str.replace(QString("\v1"), QString("%"));
+    if (str.indexOf(QLatin1Char('\v')) != -1) {
+      str.replace(QLatin1String("\v1"), QLatin1String("%"));
       str = m_trackData1.formatString(str);
     }
   }
@@ -93,46 +93,46 @@ QString FileFilter::formatString(const QString& format)
 QString FileFilter::getFormatToolTip(bool onlyRows)
 {
   QString str;
-  if (!onlyRows) str += "<table>\n";
+  if (!onlyRows) str += QLatin1String("<table>\n");
   str += TrackDataFormatReplacer::getToolTip(true);
 
-  str += "<tr><td>%1a...</td><td>%1{artist}...</td><td>";
+  str += QLatin1String("<tr><td>%1a...</td><td>%1{artist}...</td><td>");
   str += QCM_translate("Tag 1");
-  str += " ";
+  str += QLatin1Char(' ');
   str += QCM_translate("Artist");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%2a...</td><td>%2{artist}...</td><td>";
+  str += QLatin1String("<tr><td>%2a...</td><td>%2{artist}...</td><td>");
   str += QCM_translate("Tag 2");
-  str += " ";
+  str += QLatin1Char(' ');
   str += QCM_translate("Artist");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td></td><td>equals</td><td>";
+  str += QLatin1String("<tr><td></td><td>equals</td><td>");
   str += QCM_translate(I18N_NOOP("True if strings are equal"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td></td><td>contains</td><td>";
+  str += QLatin1String("<tr><td></td><td>contains</td><td>");
   str += QCM_translate(I18N_NOOP("True if string contains substring"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td></td><td>matches</td><td>";
+  str += QLatin1String("<tr><td></td><td>matches</td><td>");
   str += QCM_translate(I18N_NOOP("True if string matches regexp"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td></td><td>and</td><td>";
+  str += QLatin1String("<tr><td></td><td>and</td><td>");
   str += QCM_translate(I18N_NOOP("Logical AND"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td></td><td>or</td><td>";
+  str += QLatin1String("<tr><td></td><td>or</td><td>");
   str += QCM_translate(I18N_NOOP("Logical OR"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td></td><td>not</td><td>";
+  str += QLatin1String("<tr><td></td><td>not</td><td>");
   str += QCM_translate(I18N_NOOP("Logical negation"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  if (!onlyRows) str += "</table>\n";
+  if (!onlyRows) str += QLatin1String("</table>\n");
   return str;
 }
 
@@ -149,11 +149,11 @@ bool FileFilter::parse()
   while (m_parser.evaluate(op, var1, var2)) {
     var1 = formatString(var1);
     var2 = formatString(var2);
-    if (op == "equals") {
+    if (op == QLatin1String("equals")) {
       m_parser.pushBool(var1 == var2);
-    } else if (op == "contains") {
+    } else if (op == QLatin1String("contains")) {
       m_parser.pushBool(var2.indexOf(var1) >= 0);
-    } else if (op == "matches") {
+    } else if (op == QLatin1String("matches")) {
       m_parser.pushBool(QRegExp(var1).exactMatch(var2));
     }
   }

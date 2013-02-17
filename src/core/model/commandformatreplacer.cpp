@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Aug 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -80,7 +80,7 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
       const char c = code[0].toLatin1();
       for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
         if (shortToLong[i].shortCode == c) {
-          name = shortToLong[i].longCode;
+          name = QString::fromLatin1(shortToLong[i].longCode);
           break;
         }
       }
@@ -89,15 +89,15 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
     }
 
     if (!name.isNull()) {
-      if (name == "file") {
+      if (name == QLatin1String("file")) {
         if (!m_files.isEmpty()) {
           result = m_files.front();
         }
-      } else if (name == "directory") {
+      } else if (name == QLatin1String("directory")) {
         if (!m_files.isEmpty()) {
           result = m_files.front();
           if (!m_isDir) {
-            int sepPos = result.lastIndexOf('/');
+            int sepPos = result.lastIndexOf(QLatin1Char('/'));
             if (sepPos < 0) {
               sepPos = result.lastIndexOf(QDir::separator());
             }
@@ -106,12 +106,12 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
             }
           }
         }
-      } else if (name == "browser") {
+      } else if (name == QLatin1String("browser")) {
         result = ConfigStore::s_miscCfg.m_browser;
-      } else if (name == "url") {
+      } else if (name == QLatin1String("url")) {
         if (!m_files.empty()) {
           QUrl url;
-          url.setScheme("file");
+          url.setScheme(QLatin1String("file"));
           url.setPath(m_files.front());
           result = url.toString();
         }
@@ -133,37 +133,37 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
 QString CommandFormatReplacer::getToolTip(bool onlyRows)
 {
   QString str;
-  if (!onlyRows) str += "<table>\n";
+  if (!onlyRows) str += QLatin1String("<table>\n");
   str += FrameFormatReplacer::getToolTip(true);
 
-  str += "<tr><td>%f</td><td>%{file}</td><td>";
+  str += QLatin1String("<tr><td>%f</td><td>%{file}</td><td>");
   str += QCM_translate("Filename");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%F</td><td>%{files}</td><td>";
+  str += QLatin1String("<tr><td>%F</td><td>%{files}</td><td>");
   str += QCM_translate(I18N_NOOP("Filenames"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%uf</td><td>%{url}</td><td>";
+  str += QLatin1String("<tr><td>%uf</td><td>%{url}</td><td>");
   str += QCM_translate("URL");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%uF</td><td>%{urls}</td><td>";
+  str += QLatin1String("<tr><td>%uF</td><td>%{urls}</td><td>");
   str += QCM_translate(I18N_NOOP("URLs"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%d</td><td>%{directory}</td><td>";
+  str += QLatin1String("<tr><td>%d</td><td>%{directory}</td><td>");
   str += QCM_translate(I18N_NOOP("Directory name"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%b</td><td>%{browser}</td><td>";
+  str += QLatin1String("<tr><td>%b</td><td>%{browser}</td><td>");
   str += QCM_translate("Browser");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
+  str += QLatin1String("<tr><td>%ua...</td><td>%u{artist}...</td><td>");
   str += QCM_translate(I18N_NOOP("Encode as URL"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  if (!onlyRows) str += "</table>\n";
+  if (!onlyRows) str += QLatin1String("</table>\n");
   return str;
 }

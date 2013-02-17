@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Aug 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -131,16 +131,16 @@ bool moveToTrashDir(const QFileInfo& fi, const QString& trashDir)
 {
   QString absPath(fi.absoluteFilePath());
   QString fileName(fi.fileName());
-  QString filesPath(trashDir + "/files");
-  QString infoPath(trashDir + "/info");
+  QString filesPath(trashDir + QLatin1String("/files"));
+  QString infoPath(trashDir + QLatin1String("/info"));
   QString baseName(fi.baseName());
   QString suffix(fi.completeSuffix());
   QString destName(fileName);
   int counter = 1;
-  while (QFile::exists(filesPath + "/" + destName) ||
-         QFile::exists(infoPath + "/" + destName + ".trashinfo")) {
+  while (QFile::exists(filesPath + QLatin1Char('/') + destName) ||
+         QFile::exists(infoPath + QLatin1Char('/') + destName + QLatin1String(".trashinfo"))) {
     ++counter;
-    destName = QString("%1.%2.%3").arg(baseName).arg(counter).arg(suffix);
+    destName = QString(QLatin1String("%1.%2.%3")).arg(baseName).arg(counter).arg(suffix);
   }
   if (!(QDir(filesPath).exists() ||
         QDir().mkpath(filesPath)) ||
@@ -148,15 +148,15 @@ bool moveToTrashDir(const QFileInfo& fi, const QString& trashDir)
         QDir().mkpath(infoPath)))
     return false;
 
-  QFile file(infoPath + "/" + destName + ".trashinfo");
+  QFile file(infoPath + QLatin1Char('/') + destName + QLatin1String(".trashinfo"));
   if (!file.open(QIODevice::WriteOnly))
     return false;
   QTextStream stream(&file);
-  stream << QString("[Trash Info]\nPath=%1\nDeletionDate=%2\n").
+  stream << QString(QLatin1String("[Trash Info]\nPath=%1\nDeletionDate=%2\n")).
     arg(absPath).
     arg(QDateTime::currentDateTime().toString(Qt::ISODate));
   file.close();
-  return QDir().rename(absPath, filesPath + "/" + destName);
+  return QDir().rename(absPath, filesPath + QLatin1Char('/') + destName);
 }
 
 bool findMountPoint(dev_t dev, QString& mountPoint)
@@ -172,7 +172,7 @@ bool findMountPoint(dev_t dev, QString& mountPoint)
 
       if (st.st_dev == dev) {
         ::endmntent(fp);
-        mountPoint = mnt->mnt_dir;
+        mountPoint = QString::fromLatin1(mnt->mnt_dir);
         return true;
       }
     }
@@ -185,14 +185,14 @@ bool findMountPoint(dev_t dev, QString& mountPoint)
 bool findExtVolumeTrash(const QString& volumeRoot, QString& trashDir)
 {
   struct stat st;
-  trashDir = volumeRoot + "/.Trash";
+  trashDir = volumeRoot + QLatin1String("/.Trash");
   uid_t uid = ::getuid();
   if (QDir(trashDir).exists() &&
       ::lstat(trashDir.toLocal8Bit().data(), &st) == 0 &&
       (S_ISDIR(st.st_mode) && !S_ISLNK(st.st_mode) && (st.st_mode & S_ISVTX))) {
-    trashDir += QString("/%1").arg(uid);
+    trashDir += QString(QLatin1String("/%1")).arg(uid);
   } else {
-    trashDir += QString("-%1").arg(uid);
+    trashDir += QString(QLatin1String("-%1")).arg(uid);
   }
   if (QDir(trashDir).exists() ||
       QDir().mkpath(trashDir)) {
@@ -221,8 +221,8 @@ bool Utils::moveToTrash(const QString& path)
   QString trashDir;
   if (pathStat.st_dev == trashStat.st_dev) {
     char* xdhEnv = ::getenv("XDG_DATA_HOME");
-    topDir = xdhEnv ? QString(xdhEnv) : QDir::homePath() + "/.local/share";
-    trashDir = topDir + "/Trash";
+    topDir = xdhEnv ? QString::fromLatin1(xdhEnv) : QDir::homePath() + QLatin1String("/.local/share");
+    trashDir = topDir + QLatin1String("/Trash");
   } else if (!(findMountPoint(pathStat.st_dev, topDir) &&
                findExtVolumeTrash(topDir, trashDir))) {
     return false;

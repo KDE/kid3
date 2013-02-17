@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -222,7 +222,7 @@ private:
 LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
   QWidget(parent)
 {
-  setObjectName("LabeledTextEdit");
+  setObjectName(QLatin1String("LabeledTextEdit"));
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QTextEdit(this);
@@ -241,7 +241,7 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
 LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
   QWidget(parent)
 {
-  setObjectName("LabeledLineEdit");
+  setObjectName(QLatin1String("LabeledLineEdit"));
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QLineEdit(this);
@@ -260,7 +260,7 @@ LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
 LabeledComboBox::LabeledComboBox(QWidget* parent,
          const char **strlst) : QWidget(parent)
 {
-  setObjectName("LabeledComboBox");
+  setObjectName(QLatin1String("LabeledComboBox"));
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_combo = new QComboBox(this);
@@ -283,7 +283,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
 LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
   QWidget(parent)
 {
-  setObjectName("LabeledSpinBox");
+  setObjectName(QLatin1String("LabeledSpinBox"));
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_spinbox = new QSpinBox(this);
@@ -517,7 +517,7 @@ BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
   QWidget(parent), m_byteArray(field.m_value.toByteArray()),
   m_isChanged(false)
 {
-  setObjectName("BinaryOpenSave");
+  setObjectName(QLatin1String("BinaryOpenSave"));
   QHBoxLayout* layout = new QHBoxLayout(this);
   m_label = new QLabel(this);
   m_clipButton = new QPushButton(i18n("From Clip&board"), this);
@@ -546,7 +546,7 @@ void BinaryOpenSave::setClipButtonState()
 {
   QClipboard* cb = QApplication::clipboard();
   m_clipButton->setEnabled(
-    cb && (cb->mimeData()->hasFormat("image/jpeg") ||
+    cb && (cb->mimeData()->hasFormat(QLatin1String("image/jpeg")) ||
            cb->mimeData()->hasImage()));
 }
 
@@ -557,8 +557,8 @@ void BinaryOpenSave::clipData()
 {
   QClipboard* cb = QApplication::clipboard();
   if (cb) {
-    if (cb->mimeData()->hasFormat("image/jpeg")) {
-      m_byteArray = cb->mimeData()->data("image/jpeg");
+    if (cb->mimeData()->hasFormat(QLatin1String("image/jpeg"))) {
+      m_byteArray = cb->mimeData()->data(QLatin1String("image/jpeg"));
       m_isChanged = true;
     } else if (cb->mimeData()->hasImage()) {
       QBuffer buffer(&m_byteArray);
@@ -805,10 +805,10 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
     m_bos->setDefaultFile(ConfigStore::s_miscCfg.m_defaultCoverFileName);
     m_bos->setFilter(
 #ifdef CONFIG_USE_KDE
-          "*.jpg *.jpeg *.png|" +
-          i18n("Images (*.jpg *.jpeg *.png)") + "\n*|" + i18n("All Files (*)")
+          QLatin1String("*.jpg *.jpeg *.png|") +
+          i18n("Images (*.jpg *.jpeg *.png)") + QLatin1String("\n*|") + i18n("All Files (*)")
 #else
-          i18n("Images (*.jpg *.jpeg *.png)") + ";;" + i18n("All Files (*)")
+          i18n("Images (*.jpg *.jpeg *.png)") + QLatin1String(";;") + i18n("All Files (*)")
 #endif
           );
   }
@@ -844,7 +844,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
   const Frame& frame, const TaggedFile* taggedFile) :
   QDialog(parent), m_fields(frame.getFieldList())
 {
-  setObjectName("EditFrameFieldsDialog");
+  setObjectName(QLatin1String("EditFrameFieldsDialog"));
   setModal(true);
   setWindowTitle(caption);
   qDeleteAll(m_fieldcontrols);

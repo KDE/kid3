@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Sep 2006
  *
- * Copyright (C) 2006-2012  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -123,7 +123,7 @@ void flacPictureToFrame(const TagLib::FLAC::Picture* pic, Frame& frame)
 {
   TagLib::ByteVector picData(pic->data());
   PictureFrame::setFields(
-    frame, Frame::Field::TE_ISO8859_1, "JPG", TStringToQString(pic->mimeType()),
+    frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), TStringToQString(pic->mimeType()),
     static_cast<PictureFrame::PictureType>(pic->type()),
     TStringToQString(pic->description()),
     QByteArray(picData.data(), picData.size()));
@@ -311,10 +311,10 @@ void TagLibFile::readTags(bool force)
 #if TAGLIB_VERSION >= 0x010700
     TagLib::APE::File* apeFile;
 #endif
-    m_fileExtension = ".mp3";
+    m_fileExtension = QLatin1String(".mp3");
     m_isTagV1Supported = false;
     if ((mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) != 0) {
-      m_fileExtension = ".mp3";
+      m_fileExtension = QLatin1String(".mp3");
       m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = mpegFile->ID3v1Tag();
@@ -337,7 +337,7 @@ void TagLibFile::readTags(bool force)
         markTag2Unchanged();
       }
     } else if ((flacFile = dynamic_cast<TagLib::FLAC::File*>(file)) != 0) {
-      m_fileExtension = ".flac";
+      m_fileExtension = QLatin1String(".flac");
       m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = flacFile->ID3v1Tag();
@@ -363,7 +363,7 @@ void TagLibFile::readTags(bool force)
 #endif
 #ifdef MPC_ID3V1
     } else if ((mpcFile = dynamic_cast<TagLib::MPC::File*>(file)) != 0) {
-      m_fileExtension = ".mpc";
+      m_fileExtension = QLatin1String(".mpc");
       m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = mpcFile->ID3v1Tag();
@@ -374,7 +374,7 @@ void TagLibFile::readTags(bool force)
         markTag2Unchanged();
       }
     } else if ((wvFile = dynamic_cast<TagLib::WavPack::File*>(file)) != 0) {
-      m_fileExtension = ".wv";
+      m_fileExtension = QLatin1String(".wv");
       m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = wvFile->ID3v1Tag();
@@ -386,7 +386,7 @@ void TagLibFile::readTags(bool force)
       }
 #endif
     } else if ((ttaFile = dynamic_cast<TagLib::TrueAudio::File*>(file)) != 0) {
-      m_fileExtension = ".tta";
+      m_fileExtension = QLatin1String(".tta");
       m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = ttaFile->ID3v1Tag();
@@ -398,7 +398,7 @@ void TagLibFile::readTags(bool force)
       }
 #if TAGLIB_VERSION >= 0x010700
     } else if ((apeFile = dynamic_cast<TagLib::APE::File*>(file)) != 0) {
-      m_fileExtension = ".ape";
+      m_fileExtension = QLatin1String(".ape");
       m_isTagV1Supported = true;
       if (!m_tagV1) {
         m_tagV1 = apeFile->ID3v1Tag();
@@ -411,39 +411,39 @@ void TagLibFile::readTags(bool force)
 #endif
     } else {
       if (dynamic_cast<TagLib::Vorbis::File*>(file) != 0) {
-        m_fileExtension = ".ogg";
+        m_fileExtension = QLatin1String(".ogg");
       } else if (dynamic_cast<TagLib::Ogg::Speex::File*>(file) != 0) {
-        m_fileExtension = ".spx";
+        m_fileExtension = QLatin1String(".spx");
 #ifndef MPC_ID3V1
       } else if (dynamic_cast<TagLib::MPC::File*>(file) != 0) {
-        m_fileExtension = ".mpc";
+        m_fileExtension = QLatin1String(".mpc");
       } else if (dynamic_cast<TagLib::WavPack::File*>(file) != 0) {
-        m_fileExtension = ".wv";
+        m_fileExtension = QLatin1String(".wv");
 #endif
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
       } else if (dynamic_cast<TagLib::MP4::File*>(file) != 0) {
-        m_fileExtension = ".m4a";
+        m_fileExtension = QLatin1String(".m4a");
 #endif
 #ifdef TAGLIB_WITH_ASF
       } else if (dynamic_cast<TagLib::ASF::File*>(file) != 0) {
-        m_fileExtension = ".wma";
+        m_fileExtension = QLatin1String(".wma");
 #endif
       } else if (dynamic_cast<TagLib::RIFF::AIFF::File*>(file) != 0) {
-        m_fileExtension = ".aiff";
+        m_fileExtension = QLatin1String(".aiff");
       } else if (dynamic_cast<TagLib::RIFF::WAV::File*>(file) != 0) {
-        m_fileExtension = ".wav";
+        m_fileExtension = QLatin1String(".wav");
 #endif
 #if TAGLIB_VERSION >= 0x010800
       } else if (dynamic_cast<TagLib::Mod::File*>(file) != 0) {
-        m_fileExtension = ".mod";
+        m_fileExtension = QLatin1String(".mod");
       } else if (dynamic_cast<TagLib::S3M::File*>(file) != 0) {
-        m_fileExtension = ".s3m";
+        m_fileExtension = QLatin1String(".s3m");
       } else if (dynamic_cast<TagLib::IT::File*>(file) != 0) {
-        m_fileExtension = ".it";
+        m_fileExtension = QLatin1String(".it");
 #ifdef HAVE_TAGLIB_XM_SUPPORT
       } else if (dynamic_cast<TagLib::XM::File*>(file) != 0) {
-        m_fileExtension = ".xm";
+        m_fileExtension = QLatin1String(".xm");
 #endif
 #endif
       }
@@ -734,7 +734,7 @@ QString TagLibFile::getTitleV1()
   makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->title();
-    return str.isNull() ? QString("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
     return QString::null;
   }
@@ -752,7 +752,7 @@ QString TagLibFile::getArtistV1()
   makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->artist();
-    return str.isNull() ? QString("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
     return QString::null;
   }
@@ -770,7 +770,7 @@ QString TagLibFile::getAlbumV1()
   makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->album();
-    return str.isNull() ? QString("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
     return QString::null;
   }
@@ -789,7 +789,7 @@ QString TagLibFile::getCommentV1()
   if (m_tagV1) {
     TagLib::String str = m_tagV1->comment();
     if (str.isNull()) {
-      return QString("");
+      return QLatin1String("");
     } else {
       QString qstr(TStringToQString(str));
       qstr.truncate(28);
@@ -846,7 +846,7 @@ QString TagLibFile::getGenreV1()
   makeFileOpen();
   if (m_tagV1) {
     TagLib::String str = m_tagV1->genre();
-    return str.isNull() ? QString("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
     return QString::null;
   }
@@ -864,7 +864,7 @@ QString TagLibFile::getTitleV2()
   makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->title();
-    return str.isNull() ? QString("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
     return QString::null;
   }
@@ -882,7 +882,7 @@ QString TagLibFile::getArtistV2()
   makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->artist();
-    return str.isNull() ? QString("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
     return QString::null;
   }
@@ -900,7 +900,7 @@ QString TagLibFile::getAlbumV2()
   makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->album();
-    return str.isNull() ? QString("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
     return QString::null;
   }
@@ -918,7 +918,7 @@ QString TagLibFile::getCommentV2()
   makeFileOpen();
   if (m_tagV2) {
     TagLib::String str = m_tagV2->comment();
-    return str.isNull() ? QString("") : TStringToQString(str);
+    return str.isNull() ? QLatin1String("") : TStringToQString(str);
   } else {
     return QString::null;
   }
@@ -954,7 +954,7 @@ QString TagLibFile::getTrackV2()
   if (m_tagV2) {
     int nr = m_tagV2->track();
     if (nr == 0)
-      return "";
+      return QLatin1String("");
     else
       return QString::number(nr);
   } else {
@@ -976,19 +976,19 @@ static QString getGenreString(const TagLib::String& str)
     QString qs = TStringToQString(str);
     int cpPos = 0, n = 0xff;
     bool ok = false;
-    if (qs[0] == '(' && (cpPos = qs.indexOf(')', 2)) > 1) {
+    if (qs[0] == QLatin1Char('(') && (cpPos = qs.indexOf(QLatin1Char(')'), 2)) > 1) {
       n = qs.mid(1, cpPos - 1).toInt(&ok);
       if (!ok || n > 0xff) {
         n = 0xff;
       }
-      return Genres::getName(n);
+      return QString::fromLatin1(Genres::getName(n));
     } else if ((n = qs.toInt(&ok)) >= 0 && n <= 0xff && ok) {
-      return Genres::getName(n);
+      return QString::fromLatin1(Genres::getName(n));
     } else {
       return qs;
     }
   } else {
-    return "";
+    return QLatin1String("");
   }
 }
 
@@ -1427,7 +1427,7 @@ void TagLibFile::setYearV2(int num)
         if (num != 0) {
           str.setNum(num);
         } else {
-          str = "";
+          str = QLatin1String("");
         }
         TagLib::String tstr = str.isEmpty() ?
           TagLib::String::null : QSTRING_TO_TSTRING(str);
@@ -1604,24 +1604,24 @@ void TagLibFile::readAudioProperties()
     m_detailInfo.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
-      if (getFilename().right(4).toLower() == ".aac") {
-        m_detailInfo.format = "AAC";
+      if (getFilename().right(4).toLower() == QLatin1String(".aac")) {
+        m_detailInfo.format = QLatin1String("AAC");
         return;
       }
       switch (mpegProperties->version()) {
         case TagLib::MPEG::Header::Version1:
-          m_detailInfo.format = "MPEG 1 ";
+          m_detailInfo.format = QLatin1String("MPEG 1 ");
           break;
         case TagLib::MPEG::Header::Version2:
-          m_detailInfo.format = "MPEG 2 ";
+          m_detailInfo.format = QLatin1String("MPEG 2 ");
           break;
         case TagLib::MPEG::Header::Version2_5:
-          m_detailInfo.format = "MPEG 2.5 ";
+          m_detailInfo.format = QLatin1String("MPEG 2.5 ");
           break;
       }
       int layer = mpegProperties->layer();
       if (layer >= 1 && layer <= 3) {
-        m_detailInfo.format += "Layer ";
+        m_detailInfo.format += QLatin1String("Layer ");
         m_detailInfo.format += QString::number(layer);
       }
       switch (mpegProperties->channelMode()) {
@@ -1643,49 +1643,49 @@ void TagLibFile::readAudioProperties()
     } else if ((oggProperties =
                 dynamic_cast<TagLib::Vorbis::Properties*>(audioProperties)) !=
                0) {
-      m_detailInfo.format = "Ogg Vorbis";
+      m_detailInfo.format = QLatin1String("Ogg Vorbis");
     } else if ((flacProperties =
                 dynamic_cast<TagLib::FLAC::Properties*>(audioProperties)) !=
                0) {
-      m_detailInfo.format = "FLAC";
+      m_detailInfo.format = QLatin1String("FLAC");
     } else if ((mpcProperties =
                 dynamic_cast<TagLib::MPC::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = "MPC";
+      m_detailInfo.format = QLatin1String("MPC");
     } else if ((speexProperties =
                 dynamic_cast<TagLib::Ogg::Speex::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = QString("Speex %1").arg(speexProperties->speexVersion());
+      m_detailInfo.format = QString(QLatin1String("Speex %1")).arg(speexProperties->speexVersion());
     } else if ((ttaProperties =
                 dynamic_cast<TagLib::TrueAudio::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = "True Audio ";
+      m_detailInfo.format = QLatin1String("True Audio ");
       m_detailInfo.format += QString::number(ttaProperties->ttaVersion());
-      m_detailInfo.format += " ";
+      m_detailInfo.format += QLatin1Char(' ');
       m_detailInfo.format += QString::number(ttaProperties->bitsPerSample());
-      m_detailInfo.format += " bit";
+      m_detailInfo.format += QLatin1String(" bit");
     } else if ((wvProperties =
                 dynamic_cast<TagLib::WavPack::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = "WavPack ";
+      m_detailInfo.format = QLatin1String("WavPack ");
       m_detailInfo.format += QString::number(wvProperties->version(), 16);
-      m_detailInfo.format += " ";
+      m_detailInfo.format += QLatin1Char(' ');
       m_detailInfo.format += QString::number(wvProperties->bitsPerSample());
-      m_detailInfo.format += " bit";
+      m_detailInfo.format += QLatin1String(" bit");
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if (dynamic_cast<TagLib::MP4::Properties*>(audioProperties) != 0) {
-      m_detailInfo.format = "MP4";
+      m_detailInfo.format = QLatin1String("MP4");
 #endif
 #ifdef TAGLIB_WITH_ASF
     } else if (dynamic_cast<TagLib::ASF::Properties*>(audioProperties) != 0) {
-      m_detailInfo.format = "ASF";
+      m_detailInfo.format = QLatin1String("ASF");
 #endif
     } else if (dynamic_cast<TagLib::RIFF::AIFF::Properties*>(audioProperties) != 0) {
-      m_detailInfo.format = "AIFF";
+      m_detailInfo.format = QLatin1String("AIFF");
     } else if (dynamic_cast<TagLib::RIFF::WAV::Properties*>(audioProperties) != 0) {
-      m_detailInfo.format = "WAV";
+      m_detailInfo.format = QLatin1String("WAV");
 #endif
 #if TAGLIB_VERSION >= 0x010700
     } else if ((apeProperties =
                 dynamic_cast<TagLib::APE::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = QString("APE %1.%2 %3 bit").
+      m_detailInfo.format = QString(QLatin1String("APE %1.%2 %3 bit")).
         arg(apeProperties->version() / 1000).
         arg(apeProperties->version() % 1000).
         arg(apeProperties->bitsPerSample());
@@ -1693,12 +1693,12 @@ void TagLibFile::readAudioProperties()
 #if TAGLIB_VERSION >= 0x010800
     } else if ((modProperties =
                 dynamic_cast<TagLib::Mod::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = QString("Mod %1 %2 Instruments").
+      m_detailInfo.format = QString(QLatin1String("Mod %1 %2 Instruments")).
           arg(getTrackerName()).
           arg(modProperties->instrumentCount());
     } else if ((s3mProperties =
                 dynamic_cast<TagLib::S3M::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = QString("S3M %1 V%2 T%3").
+      m_detailInfo.format = QString(QLatin1String("S3M %1 V%2 T%3")).
           arg(getTrackerName()).
           arg(s3mProperties->fileFormatVersion()).
           arg(s3mProperties->trackerVersion(), 0, 16);
@@ -1706,7 +1706,7 @@ void TagLibFile::readAudioProperties()
           ? DetailInfo::CM_Stereo : DetailInfo::CM_None;
     } else if ((itProperties =
                 dynamic_cast<TagLib::IT::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = QString("IT %1 V%2 %3 Instruments").
+      m_detailInfo.format = QString(QLatin1String("IT %1 V%2 %3 Instruments")).
           arg(getTrackerName()).
           arg(itProperties->version(), 0, 16).
           arg(itProperties->instrumentCount());
@@ -1715,7 +1715,7 @@ void TagLibFile::readAudioProperties()
 #ifdef HAVE_TAGLIB_XM_SUPPORT
     } else if ((xmProperties =
                 dynamic_cast<TagLib::XM::Properties*>(audioProperties)) != 0) {
-      m_detailInfo.format = QString("XM %1 V%2 %3 Instruments").
+      m_detailInfo.format = QString(QLatin1String("XM %1 V%2 %3 Instruments")).
           arg(getTrackerName()).
           arg(xmProperties->version(), 0, 16).
           arg(xmProperties->instrumentCount());
@@ -1789,7 +1789,7 @@ QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
     const TagLib::APE::Tag* apeTag;
     if ((id3v1Tag = dynamic_cast<const TagLib::ID3v1::Tag*>(tag)) != 0) {
       type = TT_Id3v1;
-      return "ID3v1.1";
+      return QLatin1String("ID3v1.1");
     } else if ((id3v2Tag = dynamic_cast<const TagLib::ID3v2::Tag*>(tag)) != 0) {
       type = TT_Id3v2;
       TagLib::ID3v2::Header* header = id3v2Tag->header();
@@ -1802,27 +1802,27 @@ QString TagLibFile::getTagFormat(const TagLib::Tag* tag, TagType& type)
           majorVersion = 4;
         }
 #endif
-        return QString("ID3v2.%1.%2").
+        return QString(QLatin1String("ID3v2.%1.%2")).
           arg(majorVersion).arg(revisionNumber);
       } else {
-        return "ID3v2";
+        return QLatin1String("ID3v2");
       }
     } else if ((oggTag = dynamic_cast<const TagLib::Ogg::XiphComment*>(tag)) != 0) {
       type = TT_Vorbis;
-      return "Vorbis";
+      return QLatin1String("Vorbis");
     } else if ((apeTag = dynamic_cast<const TagLib::APE::Tag*>(tag)) != 0) {
       type = TT_Ape;
-      return "APE";
+      return QLatin1String("APE");
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
     } else if (dynamic_cast<const TagLib::MP4::Tag*>(tag) != 0) {
       type = TT_Mp4;
-      return "MP4";
+      return QLatin1String("MP4");
 #endif
 #ifdef TAGLIB_WITH_ASF
     } else if (dynamic_cast<const TagLib::ASF::Tag*>(tag) != 0) {
       type = TT_Asf;
-      return "ASF";
+      return QLatin1String("ASF");
 #endif
 #endif
     }
@@ -2046,11 +2046,11 @@ static QString getFieldsFromTextFrame(
     fields.push_back(field);
 
     TagLib::StringList slText = tFrame->fieldList();
-    text = slText.size() > 1 ? TStringToQString(slText[1]) : "";
+    text = slText.size() > 1 ? TStringToQString(slText[1]) : QLatin1String("");
   } else {
     // if there are multiple items, put them into one string
     // separated by a special separator.
-    text = TStringToQString(tFrame->fieldList().toString(Frame::stringListSeparator()));
+    text = TStringToQString(tFrame->fieldList().toString(Frame::stringListSeparator().toLatin1()));
   }
   field.m_id = Frame::Field::ID_Text;
   if (type == Frame::FT_Genre) {
@@ -2082,7 +2082,7 @@ static QString getFieldsFromApicFrame(
 
   // for compatibility with ID3v2.3 id3lib
   field.m_id = Frame::Field::ID_ImageFormat;
-  field.m_value = QString("");
+  field.m_value = QString(QLatin1String(""));
   fields.push_back(field);
 
   field.m_id = Frame::Field::ID_MimeType;
@@ -2127,7 +2127,7 @@ static QString getFieldsFromCommFrame(
 
   field.m_id = Frame::Field::ID_Language;
   TagLib::ByteVector bvLang = commFrame->language();
-  field.m_value = QString(QByteArray(bvLang.data(), bvLang.size()));
+  field.m_value = QString::fromLatin1(QByteArray(bvLang.data(), bvLang.size()));
   fields.push_back(field);
 
   field.m_id = Frame::Field::ID_Description;
@@ -2167,7 +2167,7 @@ static QString getFieldsFromUfidFrame(
   fields.push_back(field);
 
   if (!ba.isEmpty()) {
-    QString text(ba);
+    QString text(QString::fromLatin1(ba));
     if (ba.size() - text.length() <= 1 &&
         AttributeData::isHexString(text, 'Z')) {
       return text;
@@ -2288,7 +2288,7 @@ static QString getFieldsFromUsltFrame(
 
   field.m_id = Frame::Field::ID_Language;
   TagLib::ByteVector bvLang = usltFrame->language();
-  field.m_value = QString(QByteArray(bvLang.data(), bvLang.size() + 1));
+  field.m_value = QString::fromLatin1(QByteArray(bvLang.data(), bvLang.size() + 1));
   fields.push_back(field);
 
   field.m_id = Frame::Field::ID_Description;
@@ -2537,7 +2537,7 @@ static TagLib::ByteVector languageCodeByteVector(QString str)
     str.truncate(3);
   } else if (len < 3) {
     for (uint i = len; i < 3; ++i) {
-      str += ' ';
+      str += QLatin1Char(' ');
     }
   }
   return TagLib::ByteVector(str.toLatin1().data(), str.length());
@@ -2798,10 +2798,10 @@ void setValue(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
 
 static void setStringOrList(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& text)
 {
-  if (text.find(Frame::stringListSeparator()) == -1) {
+  if (text.find(Frame::stringListSeparator().toLatin1()) == -1) {
     f->setText(text);
   } else {
-    f->setText(TagLib::StringList::split(text, Frame::stringListSeparator()));
+    f->setText(TagLib::StringList::split(text, Frame::stringListSeparator().toLatin1()));
   }
 }
 
@@ -2890,7 +2890,7 @@ template <>
 void setDate(TagLib::ID3v2::OwnershipFrame* f, const Frame::Field& fld)
 {
   // The date string must have exactly 8 characters (should be YYYYMMDD)
-  QString date(fld.m_value.toString().leftJustified(8, ' ', true));
+  QString date(fld.m_value.toString().leftJustified(8, QLatin1Char(' '), true));
   f->setDatePurchased(QSTRING_TO_TSTRING(date));
 }
 
@@ -3214,12 +3214,12 @@ static Frame::Type getTypeFromVorbisName(QString name)
     // first time initialization
     for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
       Frame::Type type = static_cast<Frame::Type>(i);
-      strNumMap.insert(getVorbisNameFromType(type), type);
+      strNumMap.insert(QString::fromLatin1(getVorbisNameFromType(type)), type);
     }
-    strNumMap.insert("DESCRIPTION", Frame::FT_Comment);
+    strNumMap.insert(QLatin1String("DESCRIPTION"), Frame::FT_Comment);
   }
   QMap<QString, int>::const_iterator it =
-    strNumMap.find(name.remove(' ').toUpper());
+    strNumMap.find(name.remove(QLatin1Char(' ')).toUpper());
   if (it != strNumMap.end()) {
     return static_cast<Frame::Type>(*it);
   }
@@ -3237,11 +3237,11 @@ static Frame::Type getTypeFromApeName(const QString& name)
 {
   Frame::Type type = getTypeFromVorbisName(name);
   if (type == Frame::FT_Other) {
-    if (name == "YEAR") {
+    if (name == QLatin1String("YEAR")) {
       type = Frame::FT_Date;
-    } else if (name == "TRACK") {
+    } else if (name == QLatin1String("TRACK")) {
       type = Frame::FT_Track;
-    } else if (name == "ENCODED BY") {
+    } else if (name == QLatin1String("ENCODED BY")) {
       type = Frame::FT_EncodedBy;
     }
   }
@@ -3259,11 +3259,11 @@ static QString getVorbisName(const Frame& frame)
 {
   Frame::Type type = frame.getType();
   if (type == Frame::FT_Comment) {
-    return "DESCRIPTION";
+    return QLatin1String("DESCRIPTION");
   } else if (type <= Frame::FT_LastFrame) {
-    return getVorbisNameFromType(type);
+    return QString::fromLatin1(getVorbisNameFromType(type));
   } else {
-    return frame.getName().remove(' ').toUpper();
+    return frame.getName().remove(QLatin1Char(' ')).toUpper();
   }
 }
 
@@ -3278,11 +3278,11 @@ static QString getApeName(const Frame& frame)
 {
   Frame::Type type = frame.getType();
   if (type == Frame::FT_Date) {
-    return "YEAR";
+    return QLatin1String("YEAR");
   } else if (type == Frame::FT_Track) {
-    return "TRACK";
+    return QLatin1String("TRACK");
   } else if (type <= Frame::FT_LastFrame) {
-    return getVorbisNameFromType(type);
+    return QString::fromLatin1(getVorbisNameFromType(type));
   } else {
     return frame.getName().toUpper();
   }
@@ -3541,8 +3541,8 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
       return TagLib::MP4::Item(frame.getValue().toInt());
     case MVT_IntPair:
     {
-      QString str1 = frame.getValue(), str2 = "0";
-      int slashPos = str1.indexOf('/');
+      QString str1 = frame.getValue(), str2 = QLatin1String("0");
+      int slashPos = str1.indexOf(QLatin1Char('/'));
       if (slashPos != -1) {
         str2 = str1.mid(slashPos + 1);
         str1.truncate(slashPos);
@@ -3557,7 +3557,7 @@ static TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& 
       if (PictureFrame::getData(frame, ba)) {
         QString mimeType;
         if (PictureFrame::getMimeType(frame, mimeType) &&
-            mimeType == "image/png") {
+            mimeType == QLatin1String("image/png")) {
           format = TagLib::MP4::CoverArt::PNG;
         }
       }
@@ -3759,7 +3759,7 @@ static bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
 
   TagLib::ByteVector data = picture.picture();
   QString description(TStringToQString(picture.description()));
-  PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, "JPG",
+  PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"),
                           TStringToQString(picture.mimeType()),
                           static_cast<PictureFrame::PictureType>(picture.type()),
                           description,
@@ -3891,7 +3891,7 @@ static TagLib::ASF::Attribute getAsfAttributeForFrame(
     case TagLib::ASF::Attribute::UnicodeType:
       return TagLib::ASF::Attribute(QSTRING_TO_TSTRING(frame.getValue()));
     case TagLib::ASF::Attribute::BoolType:
-      return TagLib::ASF::Attribute(frame.getValue() == "1");
+      return TagLib::ASF::Attribute(frame.getValue() == QLatin1String("1"));
     case TagLib::ASF::Attribute::WordType:
       return TagLib::ASF::Attribute(frame.getValue().toUShort());
     case TagLib::ASF::Attribute::DWordType:
@@ -4149,43 +4149,43 @@ bool TagLibFile::addFrameV2(Frame& frame)
 #endif
     if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2)) != 0) {
       QString name = frame.getType() != Frame::FT_Other ?
-        QString(getStringForType(frame.getType())) :
+        QString::fromLatin1(getStringForType(frame.getType())) :
         frame.getName();
       QString frameId = name;
       frameId.truncate(4);
       TagLib::ID3v2::Frame* id3Frame = 0;
 
-      if (name == "AverageLevel" ||
-          name == "PeakValue" ||
-          name.startsWith("WM/")) {
-        frameId = "PRIV";
-      } else if (name.startsWith("iTun")) {
-        frameId = "COMM";
+      if (name == QLatin1String("AverageLevel") ||
+          name == QLatin1String("PeakValue") ||
+          name.startsWith(QLatin1String("WM/"))) {
+        frameId = QLatin1String("PRIV");
+      } else if (name.startsWith(QLatin1String("iTun"))) {
+        frameId = QLatin1String("COMM");
       }
 
-      if (frameId.startsWith("T")) {
-        if (frameId == "TXXX") {
+      if (frameId.startsWith(QLatin1String("T"))) {
+        if (frameId == QLatin1String("TXXX")) {
           id3Frame = new TagLib::ID3v2::UserTextIdentificationFrame(enc);
         } else if (isFrameIdValid(frameId)) {
           id3Frame = new TagLib::ID3v2::TextIdentificationFrame(
             TagLib::ByteVector(frameId.toLatin1().data(), frameId.length()), enc);
           id3Frame->setText(""); // is necessary for createFrame() to work
         }
-      } else if (frameId == "COMM") {
+      } else if (frameId == QLatin1String("COMM")) {
         TagLib::ID3v2::CommentsFrame* commFrame =
             new TagLib::ID3v2::CommentsFrame(enc);
         id3Frame = commFrame;
         if (frame.getType() == Frame::FT_Other) {
           commFrame->setDescription(QSTRING_TO_TSTRING(frame.getName()));
         }
-      } else if (frameId == "APIC") {
+      } else if (frameId == QLatin1String("APIC")) {
         id3Frame = new TagLib::ID3v2::AttachedPictureFrame;
         ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setTextEncoding(enc);
         ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setMimeType(
           "image/jpeg");
         ((TagLib::ID3v2::AttachedPictureFrame*)id3Frame)->setType(
           TagLib::ID3v2::AttachedPictureFrame::FrontCover);
-      } else if (frameId == "UFID") {
+      } else if (frameId == QLatin1String("UFID")) {
         // the bytevector must not be empty
         TagLib::ID3v2::UniqueFileIdentifierFrame* ufidFrame =
             new TagLib::ID3v2::UniqueFileIdentifierFrame(
@@ -4193,32 +4193,32 @@ bool TagLibFile::addFrameV2(Frame& frame)
         id3Frame = ufidFrame;
         QByteArray data;
         if (AttributeData::isHexString(frame.getValue(), 'Z')) {
-          data = (frame.getValue() + '\0').toLatin1();
+          data = (frame.getValue() + QLatin1Char('\0')).toLatin1();
           ufidFrame->setIdentifier(TagLib::ByteVector(data.constData(),
                                                       data.size()));
         }
-      } else if (frameId == "GEOB") {
+      } else if (frameId == QLatin1String("GEOB")) {
         id3Frame = new TagLib::ID3v2::GeneralEncapsulatedObjectFrame;
         ((TagLib::ID3v2::GeneralEncapsulatedObjectFrame*)id3Frame)->setTextEncoding(enc);
-      } else if (frameId.startsWith("W")) {
-        if (frameId == "WXXX") {
+      } else if (frameId.startsWith(QLatin1String("W"))) {
+        if (frameId == QLatin1String("WXXX")) {
           id3Frame = new TagLib::ID3v2::UserUrlLinkFrame(enc);
         } else if (isFrameIdValid(frameId)) {
           id3Frame = new TagLib::ID3v2::UrlLinkFrame(
             TagLib::ByteVector(frameId.toLatin1().data(), frameId.length()));
           id3Frame->setText("http://"); // is necessary for createFrame() to work
         }
-      } else if (frameId == "USLT") {
+      } else if (frameId == QLatin1String("USLT")) {
         id3Frame = new TagLib::ID3v2::UnsynchronizedLyricsFrame(enc);
         ((TagLib::ID3v2::UnsynchronizedLyricsFrame*)id3Frame)->setLanguage("eng");
 #if TAGLIB_VERSION >= 0x010600
-      } else if (frameId == "POPM") {
+      } else if (frameId == QLatin1String("POPM")) {
         id3Frame = new TagLib::ID3v2::PopularimeterFrame;
-      } else if (frameId == "PRIV") {
+      } else if (frameId == QLatin1String("PRIV")) {
         TagLib::ID3v2::PrivateFrame* privFrame =
             new TagLib::ID3v2::PrivateFrame;
         id3Frame = privFrame;
-        if (!frame.getName().startsWith("PRIV")) {
+        if (!frame.getName().startsWith(QLatin1String("PRIV"))) {
           privFrame->setOwner(QSTRING_TO_TSTRING(frame.getName()));
           QByteArray data;
           if (AttributeData(frame.getName()).toByteArray(frame.getValue(), data)) {
@@ -4227,7 +4227,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         }
 #endif
 #if TAGLIB_VERSION >= 0x010800
-      } else if (frameId == "OWNE") {
+      } else if (frameId == QLatin1String("OWNE")) {
         id3Frame = new TagLib::ID3v2::OwnershipFrame(enc);
 #endif
       }
@@ -4242,7 +4242,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         } else {
           description = QSTRING_TO_TSTRING(frame.getName());
           frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                                    "TXXX - User defined text information"));
+                        QLatin1String("TXXX - User defined text information")));
         }
         txxxFrame->setDescription(description);
         id3Frame = txxxFrame;
@@ -4282,8 +4282,8 @@ bool TagLibFile::addFrameV2(Frame& frame)
         if (m_pictures.isRead()) {
           if (frame.getFieldList().empty()) {
             PictureFrame::setFields(
-              frame, Frame::Field::TE_ISO8859_1, "JPG", "image/jpeg",
-              PictureFrame::PT_CoverFront, "", QByteArray());
+              frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
+              PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
           }
           PictureFrame::setDescription(frame, frame.getValue());
           frame.setIndex(m_pictures.size());
@@ -4636,7 +4636,7 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
         for (TagLib::ID3v2::FrameList::ConstIterator it = frameList.begin();
              it != frameList.end();) {
           getTypeStringForFrameId((*it)->frameID(), type, name);
-          if (flt.isEnabled(type, name)) {
+          if (flt.isEnabled(type, QString::fromLatin1(name))) {
             id3v2Tag->removeFrame(*it++, true);
           } else {
             ++it;
@@ -4696,7 +4696,7 @@ void TagLibFile::deleteFramesV2(const FrameFilter& flt)
           asfTag->setComment("");
         if (flt.isEnabled(Frame::FT_Copyright))
           asfTag->setCopyright("");
-        if (flt.isEnabled(Frame::FT_Other, "Rating"))
+        if (flt.isEnabled(Frame::FT_Other, QLatin1String("Rating")))
           asfTag->setRating("");
 
         TagLib::ASF::AttributeListMap& attrListMap = asfTag->attributeListMap();
@@ -4752,7 +4752,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
            it != frameList.end();
            ++it) {
         getTypeStringForFrameId((*it)->frameID(), type, name);
-        Frame frame(type, TStringToQString((*it)->toString()), name, i++);
+        Frame frame(type, TStringToQString((*it)->toString()), QString::fromLatin1(name), i++);
         frame.setValue(getFieldsFromId3Frame(*it, frame.fieldList(), type));
         if ((*it)->frameID().mid(1, 3) == "XXX" ||
             type == Frame::FT_Comment) {
@@ -4760,17 +4760,17 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           if (fieldValue.isValid()) {
             QString description = fieldValue.toString();
             if (!description.isEmpty()) {
-              if (description == "CATALOGNUMBER") {
+              if (description == QLatin1String("CATALOGNUMBER")) {
                 frame.setType(Frame::FT_CatalogNumber);
-              } else if (description == "RELEASECOUNTRY") {
+              } else if (description == QLatin1String("RELEASECOUNTRY")) {
                 frame.setType(Frame::FT_ReleaseCountry);
               } else {
-                if (description.startsWith("QuodLibet::")) {
+                if (description.startsWith(QLatin1String("QuodLibet::"))) {
                   // remove ExFalso/QuodLibet "namespace"
                   description = description.mid(11);
                 }
                 frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                                          QString(name) + '\n' + description));
+                  QString::fromLatin1(name) + QLatin1Char('\n') + description));
               }
             }
           }
@@ -4781,7 +4781,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
             QString owner = fieldValue.toString();
             if (!owner.isEmpty()) {
               frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                                        QString(name) + '\n' + owner));
+                        QString::fromLatin1(name) + QLatin1Char('\n') + owner));
             }
           }
 #endif
@@ -4821,7 +4821,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
         TagLib::StringList values = (*it).second.toStringList();
         Frame::Type type = getTypeFromApeName(name);
         frames.insert(
-          Frame(type, values.size() > 0 ? TStringToQString(values.front()) : "",
+          Frame(type, values.size() > 0 ? TStringToQString(values.front()) : QLatin1String(""),
                 name, i++));
       }
 #if TAGLIB_VERSION >= 0x010600
@@ -4843,11 +4843,11 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           case MVT_String:
           {
             TagLib::StringList strings = (*it).second.toStringList();
-            value = strings.size() > 0 ? TStringToQString(strings.front()) : "";
+            value = strings.size() > 0 ? TStringToQString(strings.front()) : QLatin1String("");
             break;
           }
           case MVT_Bool:
-            value = (*it).second.toBool() ? "1" : "0";
+            value = (*it).second.toBool() ? QLatin1String("1") : QLatin1String("0");
             break;
           case MVT_Int:
             value.setNum((*it).second.toInt());
@@ -4857,7 +4857,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
             TagLib::MP4::Item::IntPair intPair = (*it).second.toIntPair();
             value.setNum(intPair.first);
             if (intPair.second != 0) {
-              value += '/';
+              value += QLatin1Char('/');
               value += QString::number(intPair.second);
             }
             break;
@@ -4869,15 +4869,15 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
             if (coverArtList.size() > 0) {
               const TagLib::MP4::CoverArt& coverArt = coverArtList.front();
               TagLib::ByteVector bv = coverArt.data();
-              Frame frame(type, "", TStringToQString(name), i++);
+              Frame frame(type, QLatin1String(""), TStringToQString(name), i++);
               QByteArray ba;
               ba = QByteArray(bv.data(), bv.size());
               PictureFrame::setFields(
                 frame, Frame::Field::TE_ISO8859_1,
-                coverArt.format() == TagLib::MP4::CoverArt::PNG ? "PNG" : "JPG",
+                coverArt.format() == TagLib::MP4::CoverArt::PNG ? QLatin1String("PNG") : QLatin1String("JPG"),
                 coverArt.format() == TagLib::MP4::CoverArt::PNG ?
-                "image/png" : "image/jpeg",
-                PictureFrame::PT_CoverFront, "", ba);
+                QLatin1String("image/png") : QLatin1String("image/jpeg"),
+                PictureFrame::PT_CoverFront, QLatin1String(""), ba);
               frames.insert(frame);
               frameAlreadyInserted = true;
             }
@@ -4898,7 +4898,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
           case MVT_ByteArray:
           default:
             // binary data and album art are not handled by TagLib
-            value = "";
+            value = QLatin1String("");
         }
         if (!frameAlreadyInserted)
           frames.insert(
@@ -4950,7 +4950,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
               value = TStringToQString((*ait).toString());
               break;
             case TagLib::ASF::Attribute::BoolType:
-              value = (*ait).toBool() ? "1" : "0";
+              value = (*ait).toBool() ? QLatin1String("1") : QLatin1String("0");
               break;
             case TagLib::ASF::Attribute::DWordType:
               value.setNum((*ait).toUInt());
@@ -4967,7 +4967,7 @@ void TagLibFile::getAllFramesV2(FrameCollection& frames)
             {
               TagLib::ByteVector bv = (*ait).toByteVector();
               ba = QByteArray(bv.data(), bv.size());
-              value = "";
+              value = QLatin1String("");
               AttributeData(TStringToQString(name)).toString(ba, value);
             }
           }
@@ -5026,7 +5026,7 @@ QStringList TagLibFile::getFrameIds() const
   QStringList lst;
   if (m_tagTypeV2 == TT_Id3v2) {
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), "").
+      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
                  getTranslatedName());
     }
     for (unsigned i = 0; i < sizeof(typeStrOfId) / sizeof(typeStrOfId[0]); ++i) {
@@ -5047,7 +5047,7 @@ QStringList TagLibFile::getFrameIds() const
       getMp4NameForType(type, name, valueType);
       if (!name.isEmpty() && valueType != MVT_ByteArray &&
           !(name[0] >= 'A' && name[0] <= 'Z')) {
-        lst.append(Frame::ExtendedType(type, "").getTranslatedName());
+        lst.append(Frame::ExtendedType(type, QLatin1String("")).getTranslatedName());
       }
     }
     for (unsigned i = 0; i < sizeof(mp4NameTypeValues) / sizeof(mp4NameTypeValues[0]); ++i) {
@@ -5055,7 +5055,7 @@ QStringList TagLibFile::getFrameIds() const
           mp4NameTypeValues[i].value != MVT_ByteArray &&
           !(mp4NameTypeValues[i].name[0] >= 'A' &&
             mp4NameTypeValues[i].name[0] <= 'Z')) {
-        lst.append(mp4NameTypeValues[i].name);
+        lst.append(QString::fromLatin1(mp4NameTypeValues[i].name));
       }
     }
 #endif
@@ -5073,12 +5073,12 @@ QStringList TagLibFile::getFrameIds() const
           && type != Frame::FT_Picture
 #endif
         ) {
-        lst.append(Frame::ExtendedType(type, "").getTranslatedName());
+        lst.append(Frame::ExtendedType(type, QLatin1String("")).getTranslatedName());
       }
     }
     for (unsigned i = 0; i < sizeof(asfNameTypeValues) / sizeof(asfNameTypeValues[0]); ++i) {
       if (asfNameTypeValues[i].type == Frame::FT_Other) {
-        lst.append(asfNameTypeValues[i].name);
+        lst.append(QString::fromLatin1(asfNameTypeValues[i].name));
       }
     }
 #endif
@@ -5118,12 +5118,12 @@ QStringList TagLibFile::getFrameIds() const
 #endif
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       if (k != Frame::FT_Picture || picturesSupported) {
-        lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), "").
+        lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")).
                    getTranslatedName());
       }
     }
     for (unsigned i = 0; i < sizeof(fieldNames) / sizeof(fieldNames[0]); ++i) {
-      lst.append(fieldNames[i]);
+      lst.append(QString::fromLatin1(fieldNames[i]));
     }
   }
   return lst;
@@ -5238,33 +5238,33 @@ TaggedFile* TagLibFile::Resolver::createFile(
 {
   QString ext = fn.right(4).toLower();
   QString ext2 = ext.right(3);
-  if (((ext == ".mp3" || ext == ".mp2" || ext == ".aac")
+  if (((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
 #ifdef HAVE_ID3LIB
        && (ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0 ||
            ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_3_0_TAGLIB)
 #endif
         )
-      || ext == ".mpc" || ext == ".oga" || ext == ".ogg" || ext == "flac"
-      || ext == ".spx" || ext == ".tta"
+      || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga") || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")
+      || ext == QLatin1String(".spx") || ext == QLatin1String(".tta")
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
-      || ext == ".m4a" || ext ==  ".m4b" || ext ==  ".m4p" || ext ==  ".mp4"
+      || ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") || ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4")
 #endif
 #ifdef TAGLIB_WITH_ASF
-      || ext == ".wma" || ext ==  ".asf"
+      || ext == QLatin1String(".wma") || ext ==  QLatin1String(".asf")
 #endif
-      || ext == ".aif" || ext ==  "aiff" || ext ==  ".wav"
+      || ext == QLatin1String(".aif") || ext ==  QLatin1String("aiff") || ext ==  QLatin1String(".wav")
 #endif
 #if TAGLIB_VERSION >= 0x010700
-      || ext == ".ape"
+      || ext == QLatin1String(".ape")
 #endif
 #if TAGLIB_VERSION >= 0x010800
-      || ext == ".mod" || ext == ".s3m" || ext2 == ".it"
+      || ext == QLatin1String(".mod") || ext == QLatin1String(".s3m") || ext2 == QLatin1String(".it")
 #ifdef HAVE_TAGLIB_XM_SUPPORT
-      || ext2 == ".xm"
+      || ext2 == QLatin1String(".xm")
     #endif
 #endif
-      || ext2 == ".wv")
+      || ext2 == QLatin1String(".wv"))
     return new TagLibFile(dn, fn, idx);
   else
     return 0;
@@ -5277,27 +5277,27 @@ TaggedFile* TagLibFile::Resolver::createFile(
  */
 QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
 {
-  return QStringList() << ".flac" << ".mp3" << ".mpc" << ".oga" << ".ogg" <<
-    ".spx" << ".tta" << ".aac" << ".mp2" <<
+  return QStringList() << QLatin1String(".flac") << QLatin1String(".mp3") << QLatin1String(".mpc") << QLatin1String(".oga") << QLatin1String(".ogg") <<
+    QLatin1String(".spx") << QLatin1String(".tta") << QLatin1String(".aac") << QLatin1String(".mp2") <<
 #if TAGLIB_VERSION >= 0x010600
 #ifdef TAGLIB_WITH_MP4
-    ".m4a" << ".m4b" << ".m4p" << ".mp4" <<
+    QLatin1String(".m4a") << QLatin1String(".m4b") << QLatin1String(".m4p") << QLatin1String(".mp4") <<
 #endif
 #ifdef TAGLIB_WITH_ASF
-    ".wma" << ".asf" <<
+    QLatin1String(".wma") << QLatin1String(".asf") <<
 #endif
-    ".aif" << ".aiff" << ".wav" <<
+    QLatin1String(".aif") << QLatin1String(".aiff") << QLatin1String(".wav") <<
 #endif
 #if TAGLIB_VERSION >= 0x010700
-    ".ape" <<
+    QLatin1String(".ape") <<
 #endif
 #if TAGLIB_VERSION >= 0x010800
-    ".mod" << ".s3m" << ".it" <<
+    QLatin1String(".mod") << QLatin1String(".s3m") << QLatin1String(".it") <<
 #ifdef HAVE_TAGLIB_XM_SUPPORT
-    ".xm" <<
+    QLatin1String(".xm") <<
 #endif
 #endif
-    ".wv";
+    QLatin1String(".wv");
 }
 
 #endif // HAVE_TAGLIB

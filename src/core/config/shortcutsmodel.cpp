@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -53,7 +53,7 @@ bool isTopLevelItem(const QModelIndex& index)
  */
 ShortcutsModel::ShortcutsModel(QObject* parent) : QAbstractItemModel(parent)
 {
-  setObjectName("ShortcutsModel");
+  setObjectName(QLatin1String("ShortcutsModel"));
 }
 
 /**
@@ -337,15 +337,15 @@ void ShortcutsModel::discardChangedShortcuts()
  */
 void ShortcutsModel::writeToConfig(QSettings* config) const
 {
-  config->beginGroup("/Shortcuts");
-  config->remove("");
+  config->beginGroup(QLatin1String("/Shortcuts"));
+  config->remove(QLatin1String(""));
   for (QList<ShortcutGroup>::const_iterator git = m_shortcutGroups.constBegin();
        git != m_shortcutGroups.constEnd();
        ++git) {
     for (ShortcutGroup::const_iterator iit = git->constBegin();
          iit != git->constEnd();
          ++iit) {
-      QString actionName(iit->action() ? iit->action()->objectName() : "");
+      QString actionName(iit->action() ? iit->action()->objectName() : QLatin1String(""));
       if (!actionName.isEmpty()) {
         if (!iit->customShortcut().isEmpty()) {
           config->setValue(actionName, iit->customShortcut());
@@ -366,14 +366,14 @@ void ShortcutsModel::writeToConfig(QSettings* config) const
  */
 void ShortcutsModel::readFromConfig(QSettings* config)
 {
-  config->beginGroup("/Shortcuts");
+  config->beginGroup(QLatin1String("/Shortcuts"));
   for (QList<ShortcutGroup>::iterator git = m_shortcutGroups.begin();
        git != m_shortcutGroups.end();
        ++git) {
     for (ShortcutGroup::iterator iit = git->begin();
          iit != git->end();
          ++iit) {
-      QString actionName(iit->action() ? iit->action()->objectName() : "");
+      QString actionName(iit->action() ? iit->action()->objectName() : QLatin1String(""));
       if (!actionName.isEmpty() && config->contains(actionName)) {
         QString keyStr(config->value(actionName).toString());
         iit->setCustomShortcut(keyStr);
@@ -408,14 +408,14 @@ void ShortcutsModel::ShortcutItem::assignCustomShortcut()
 
 QString ShortcutsModel::ShortcutItem::actionText() const
 {
-  return m_action ? m_action->text().remove('&') : "";
+  return m_action ? m_action->text().remove(QLatin1Char('&')) : QLatin1String("");
 }
 
 
 ShortcutsModel::ShortcutGroup::ShortcutGroup(const QString& ctx) :
   m_context(ctx)
 {
-  m_context.remove('&');
+  m_context.remove(QLatin1Char('&'));
 }
 
 #endif // !CONFIG_USE_KDE

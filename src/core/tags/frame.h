@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2007
  *
- * Copyright (C) 2007  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -427,7 +427,7 @@ public:
    *
    * @return separator character.
    */
-  static char stringListSeparator() { return '|'; }
+  static QLatin1Char stringListSeparator() { return QLatin1Char('|'); }
 
   /**
    * Convert string (e.g. "track/total number of tracks") to number.

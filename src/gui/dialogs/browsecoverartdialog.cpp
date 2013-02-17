@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 11-Jan-2009
  *
- * Copyright (C) 2009-2012  Urs Fleisch
+ * Copyright (C) 2009-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,14 +51,14 @@
  */
 static QString getToolTip()
 {
-  QString str = "<table>\n";
+  QString str = QLatin1String("<table>\n");
   str += FrameFormatReplacer::getToolTip(true);
 
-  str += "<tr><td>%ua...</td><td>%u{artist}...</td><td>";
+  str += QLatin1String("<tr><td>%ua...</td><td>%u{artist}...</td><td>");
   str += QCM_translate(I18N_NOOP("Encode as URL"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "</table>\n";
+  str += QLatin1String("</table>\n");
   return str;
 }
 
@@ -70,7 +70,7 @@ static QString getToolTip()
 BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   QDialog(parent), m_process(0)
 {
-  setObjectName("BrowseCoverArtDialog");
+  setObjectName(QLatin1String("BrowseCoverArtDialog"));
   setModal(true);
   setWindowTitle(i18n("Browse Cover Art"));
   setSizeGripEnabled(true);
@@ -174,15 +174,15 @@ void BrowseCoverArtDialog::showPreview()
   fmt.replaceEscapedChars();
   fmt.replacePercentCodes(FormatReplacer::FSF_SupportUrlEncode);
   m_url = fmt.getString();
-  QString txt("<p><b>");
+  QString txt(QLatin1String("<p><b>"));
   txt += i18n("Click Browse to start");
-  txt += "</b></p><p><tt>";
+  txt += QLatin1String("</b></p><p><tt>");
   txt += ConfigStore::s_miscCfg.m_browser;
-  txt += " ";
+  txt += QLatin1Char(' ');
   txt += m_url;
-  txt += "</tt></p><p><b>";
+  txt += QLatin1String("</tt></p><p><b>");
   txt += i18n("Then drag the picture from the browser to Kid3.");
-  txt += "</b></p>";
+  txt += QLatin1String("</b></p>");
   m_edit->clear();
   m_edit->append(txt);
 }
@@ -249,7 +249,7 @@ void BrowseCoverArtDialog::saveConfig()
  */
 void BrowseCoverArtDialog::showHelp()
 {
-  ContextHelp::displayHelp("browse_pictures");
+  ContextHelp::displayHelp(QLatin1String("browse_pictures"));
 }
 
 /**

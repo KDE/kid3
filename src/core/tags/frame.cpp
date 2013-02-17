@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2007
  *
- * Copyright (C) 2007-2012  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -111,12 +111,12 @@ Frame::Type getTypeFromName(QString name)
     // first time initialization
     for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
       Frame::Type type = static_cast<Frame::Type>(i);
-      strNumMap.insert(QString(getNameFromType(type)).
-                       remove(' ').toUpper(), type);
+      strNumMap.insert(QString::fromLatin1(getNameFromType(type)).
+                       remove(QLatin1Char(' ')).toUpper(), type);
     }
   }
   QMap<QString, int>::const_iterator it =
-    strNumMap.find(name.remove(' ').toUpper());
+    strNumMap.find(name.remove(QLatin1Char(' ')).toUpper());
   if (it != strNumMap.end()) {
     return static_cast<Frame::Type>(*it);
   }
@@ -131,7 +131,7 @@ Frame::ExtendedType::ExtendedType(const QString& name) :
 }
 
 Frame::ExtendedType::ExtendedType(Type type) :
-  m_type(type), m_name(getNameFromType(type))
+  m_type(type), m_name(QString::fromLatin1(getNameFromType(type)))
 {
 }
 
@@ -141,7 +141,7 @@ Frame::ExtendedType::ExtendedType(Type type) :
  */
 QString Frame::ExtendedType::getName() const
 {
-  return m_type != FT_Other ? QString(getNameFromType(m_type)) : m_name;
+  return m_type != FT_Other ? QString::fromLatin1(getNameFromType(m_type)) : m_name;
 }
 
 /**
@@ -251,7 +251,7 @@ void Frame::setFieldListFromValue()
  */
 int Frame::numberWithoutTotal(const QString& str, bool* ok)
 {
-  int slashPos = str.indexOf("/");
+  int slashPos = str.indexOf(QLatin1Char('/'));
   return slashPos == -1 ?
     str.toInt(ok) :
     str.left(slashPos).toInt(ok);
@@ -427,7 +427,7 @@ static const char* fieldIdToString(int id)
 static QString variantToString(const QVariant& val)
 {
   if (val.type() == QVariant::ByteArray) {
-    return QString("ByteArray of %1 bytes").arg(val.toByteArray().size());
+    return QString(QLatin1String("ByteArray of %1 bytes")).arg(val.toByteArray().size());
   } else {
     return val.toString();
   }
@@ -624,14 +624,14 @@ FrameCollection::const_iterator FrameCollection::searchByName(
     return end();
 
   const_iterator it;
-  QString ucName = name.toUpper().remove('/');
+  QString ucName = name.toUpper().remove(QLatin1Char('/'));
   int len = ucName.length();
   for (it = begin(); it != end(); ++it) {
-    QString ucFrameName(it->getName().toUpper().remove('/'));
+    QString ucFrameName(it->getName().toUpper().remove(QLatin1Char('/')));
     if (ucName == ucFrameName.left(len)) {
       break;
     }
-    int nlPos = ucFrameName.indexOf("\n");
+    int nlPos = ucFrameName.indexOf(QLatin1Char('\n'));
     if (nlPos > 0 && ucName == ucFrameName.mid(nlPos + 1, len)) {
       // Description in TXXX, WXXX, COMM, PRIV matches
       break;
@@ -651,7 +651,7 @@ FrameCollection::const_iterator FrameCollection::searchByName(
  */
 FrameCollection::const_iterator FrameCollection::findByName(const QString& name) const
 {
-  Frame frame(Frame::ExtendedType(name), "", -1);
+  Frame frame(Frame::ExtendedType(name), QLatin1String(""), -1);
   const_iterator it = find(frame);
   if (it != end()) {
     return it;
@@ -671,7 +671,7 @@ FrameCollection::const_iterator FrameCollection::findByName(const QString& name)
 FrameCollection::const_iterator FrameCollection::findByExtendedType(
     const Frame::ExtendedType& type) const
 {
-  Frame frame(type, "", -1);
+  Frame frame(type, QLatin1String(""), -1);
   const_iterator it = find(frame);
   if (it == end()) {
     it = searchByName(frame.getInternalName());
@@ -706,7 +706,7 @@ FrameCollection::const_iterator FrameCollection::findByIndex(int index) const
  */
 QString FrameCollection::getValue(Frame::Type type) const
 {
-  Frame frame(type, "", "", -1);
+  Frame frame(type, QLatin1String(""), QLatin1String(""), -1);
   const_iterator it = find(frame);
   return it != end() ? it->getValue() : QString::null;
 }
@@ -735,7 +735,7 @@ QString FrameCollection::getValue(const Frame::ExtendedType& type) const
 void FrameCollection::setValue(Frame::Type type, const QString& value)
 {
   if (!value.isNull()) {
-    Frame frame(type, "", "", -1);
+    Frame frame(type, QLatin1String(""), QLatin1String(""), -1);
     iterator it = find(frame);
     if (it != end()) {
       Frame& frameFound = const_cast<Frame&>(*it);
@@ -759,7 +759,7 @@ void FrameCollection::setValue(const Frame::ExtendedType& type,
                                const QString& value)
 {
   if (!value.isNull()) {
-    Frame frame(type, "", -1);
+    Frame frame(type, QLatin1String(""), -1);
     const_iterator it = find(frame);
     if (it == end()) {
       it = searchByName(type.getInternalName());
@@ -796,7 +796,7 @@ int FrameCollection::getIntValue(Frame::Type type) const
 void FrameCollection::setIntValue(Frame::Type type, int value)
 {
   if (value != -1) {
-    QString str = value != 0 ? QString::number(value) : QString("");
+    QString str = value != 0 ? QString::number(value) : QLatin1String("");
     setValue(type, str);
   }
 }
@@ -967,7 +967,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
     const char c = code[0].toLatin1();
     for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
       if (shortToLong[i].shortCode == c) {
-        name = shortToLong[i].longCode;
+        name = QString::fromLatin1(shortToLong[i].longCode);
         break;
       }
     }
@@ -977,15 +977,15 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 
   if (!name.isNull()) {
     QString lcName(name.toLower());
-    int fieldWidth = lcName == "track" ? 2 : -1;
-    if (lcName == "year") {
-      name = "date";
-    } else if (lcName == "tracknumber") {
-      name = "track number";
+    int fieldWidth = lcName == QLatin1String("track") ? 2 : -1;
+    if (lcName == QLatin1String("year")) {
+      name = QLatin1String("date");
+    } else if (lcName == QLatin1String("tracknumber")) {
+      name = QLatin1String("track number");
     }
     int len = lcName.length();
-    if (len > 2 && lcName[len - 2] == '.' &&
-        lcName[len - 1] >= '0' && lcName[len - 1] <= '9') {
+    if (len > 2 && lcName[len - 2] == QLatin1Char('.') &&
+        lcName[len - 1] >= QLatin1Char('0') && lcName[len - 1] <= QLatin1Char('9')) {
       fieldWidth = lcName[len - 1].toLatin1() - '0';
       lcName.truncate(len - 2);
       name.truncate(len - 2);
@@ -996,20 +996,20 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       result = it->getValue();
       if (result.isNull()) {
         // code was found, but value is empty
-        result = "";
+        result = QLatin1String("");
       }
       if (it->getType() == Frame::FT_Picture && result.isEmpty()) {
         QVariant fieldValue = it->getFieldValue(Frame::Field::ID_Data);
         if (fieldValue.isValid() && fieldValue.toByteArray().size() > 0) {
           // If there is a picture without description, return "1", so that
           // an empty value indicates "no picture"
-          result = "1";
+          result = QLatin1String("1");
         }
       }
     }
 
-    if (lcName == "year") {
-      QRegExp yearRe("^\\d{4}-\\d{2}");
+    if (lcName == QLatin1String("year")) {
+      QRegExp yearRe(QLatin1String("^\\d{4}-\\d{2}"));
       if (yearRe.indexIn(result) == 0) {
         result.truncate(4);
       }
@@ -1038,44 +1038,44 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 QString FrameFormatReplacer::getToolTip(bool onlyRows)
 {
   QString str;
-  if (!onlyRows) str += "<table>\n";
+  if (!onlyRows) str += QLatin1String("<table>\n");
 
-  str += "<tr><td>%s</td><td>%{title}</td><td>";
+  str += QLatin1String("<tr><td>%s</td><td>%{title}</td><td>");
   str += QCM_translate("Title");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%l</td><td>%{album}</td><td>";
+  str += QLatin1String("<tr><td>%l</td><td>%{album}</td><td>");
   str += QCM_translate("Album");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%a</td><td>%{artist}</td><td>";
+  str += QLatin1String("<tr><td>%a</td><td>%{artist}</td><td>");
   str += QCM_translate("Artist");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%c</td><td>%{comment}</td><td>";
+  str += QLatin1String("<tr><td>%c</td><td>%{comment}</td><td>");
   str += QCM_translate("Comment");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%y</td><td>%{year}</td><td>";
+  str += QLatin1String("<tr><td>%y</td><td>%{year}</td><td>");
   str += QCM_translate(I18N_NOOP("Year"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%t</td><td>%{track}</td><td>";
+  str += QLatin1String("<tr><td>%t</td><td>%{track}</td><td>");
   str += QCM_translate(I18N_NOOP("Track"));
-  str += " &quot;01&quot;</td></tr>\n";
+  str += QLatin1String(" &quot;01&quot;</td></tr>\n");
 
-  str += "<tr><td>%t</td><td>%{track.3}</td><td>";
+  str += QLatin1String("<tr><td>%t</td><td>%{track.3}</td><td>");
   str += QCM_translate(I18N_NOOP("Track"));
-  str += " &quot;001&quot;</td></tr>\n";
+  str += QLatin1String(" &quot;001&quot;</td></tr>\n");
 
-  str += "<tr><td>%T</td><td>%{tracknumber}</td><td>";
+  str += QLatin1String("<tr><td>%T</td><td>%{tracknumber}</td><td>");
   str += QCM_translate(I18N_NOOP("Track"));
-  str += " &quot;1&quot;</td></tr>\n";
+  str += QLatin1String(" &quot;1&quot;</td></tr>\n");
 
-  str += "<tr><td>%g</td><td>%{genre}</td><td>";
+  str += QLatin1String("<tr><td>%g</td><td>%{genre}</td><td>");
   str += QCM_translate("Genre");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  if (!onlyRows) str += "</table>\n";
+  if (!onlyRows) str += QLatin1String("</table>\n");
   return str;
 }

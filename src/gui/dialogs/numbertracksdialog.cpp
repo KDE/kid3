@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 May 2006
  *
- * Copyright (C) 2006-2012  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,7 +51,7 @@
 NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   QDialog(parent)
 {
-  setObjectName("NumberTracksDialog");
+  setObjectName(QLatin1String("NumberTracksDialog"));
   setModal(true);
   setWindowTitle(i18n("Number Tracks"));
 
@@ -166,7 +166,7 @@ void NumberTracksDialog::saveConfig()
  */
 void NumberTracksDialog::showHelp()
 {
-  ContextHelp::displayHelp("number-tracks");
+  ContextHelp::displayHelp(QLatin1String("number-tracks"));
 }
 
 /**

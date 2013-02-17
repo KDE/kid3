@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jan 2008
  *
- * Copyright (C) 2008  Urs Fleisch
+ * Copyright (C) 2008-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,7 +36,7 @@
  *                  highest priority first
  */
 ExpressionParser::ExpressionParser(QStringList operators) :
-  m_operators(operators << "not" << "and" << "or"),
+  m_operators(operators << QLatin1String("not") << QLatin1String("and") << QLatin1String("or")),
   m_error(false)
 {
 }
@@ -58,7 +58,7 @@ bool ExpressionParser::lessPriority(const QString& op1,
 {
   int index1 = m_operators.indexOf(op1);
   int index2 = m_operators.indexOf(op2);
-  if (op1 == "(") return true;
+  if (op1 == QLatin1String("(")) return true;
   if (index1 >= 0 && index2 >= 0) return index1 >= index2;
   return false;
 }
@@ -77,40 +77,40 @@ void ExpressionParser::tokenizeRpn(const QString& expr)
   int begin = 0, end = 0, len = expr.length();
   while (begin < len) {
     // skip spaces
-    while (expr[begin] == ' ') {
+    while (expr[begin] == QLatin1Char(' ')) {
       ++begin;
     }
 
-    if (expr[begin] == '(') {
+    if (expr[begin] == QLatin1Char('(')) {
       // push '(' on operator stack and continue
-      operatorStack.push_back("(");
+      operatorStack.push_back(QLatin1String("("));
       ++begin;
-    } else if (expr[begin] == ')') {
+    } else if (expr[begin] == QLatin1Char(')')) {
       // after ')', pop operator stack until '(' is found
       while (!operatorStack.empty()) {
         QString lastOp = operatorStack.back();
         operatorStack.pop_back();
-        if (lastOp == "(") {
+        if (lastOp == QLatin1String("(")) {
           break;
         }
         m_rpnStack.push_back(lastOp);
       }
       ++begin;
     } else {
-      if (expr[begin] == '"') {
+      if (expr[begin] == QLatin1Char('"')) {
         // skip quoted string
         end = begin + 1;
         while (end < len &&
-               !(expr[end] == '"' && (end <= 0 || expr[end - 1] != '\\'))) {
+               !(expr[end] == QLatin1Char('"') && (end <= 0 || expr[end - 1] != QLatin1Char('\\')))) {
           ++end;
         }
         token = expr.mid(begin + 1, end - begin - 1);
-        token.replace("\\\"", "\"");
+        token.replace(QLatin1String("\\\""), QLatin1String("\""));
         begin = end + 1;
       } else {
         // skip spaces
         end = begin;
-        while (end < len && expr[end] != ' ' && expr[end] != ')') {
+        while (end < len && expr[end] != QLatin1Char(' ') && expr[end] != QLatin1Char(')')) {
           ++end;
         }
         token = expr.mid(begin, end - begin);
@@ -150,10 +150,10 @@ void ExpressionParser::tokenizeRpn(const QString& expr)
  */
 static bool stringToBool(const QString& str, bool& b)
 {
-  if (str == "1" || str == "true" || str == "on" || str == "yes") {
+  if (str == QLatin1String("1") || str == QLatin1String("true") || str == QLatin1String("on") || str == QLatin1String("yes")) {
     b = true;
     return true;
-  } else if (str == "0" || str == "false" || str == "off" || str == "no") {
+  } else if (str == QLatin1String("0") || str == QLatin1String("false") || str == QLatin1String("off") || str == QLatin1String("no")) {
     b = false;
     return true;
   }
@@ -169,7 +169,7 @@ static bool stringToBool(const QString& str, bool& b)
  */
 static QString boolToString(bool b)
 {
-  return b ? "1" : "0";
+  return b ? QLatin1String("1") : QLatin1String("0");
 }
 
 /**
@@ -251,21 +251,21 @@ bool ExpressionParser::evaluate(QString& op, QString& var1, QString& var2)
 {
   while (m_rpnIterator != m_rpnStack.end()) {
     QString token = *m_rpnIterator++;
-    if (token == "and") {
+    if (token == QLatin1String("and")) {
       bool var1, var2;
       if (!popTwoBools(var1, var2)) {
         m_error = true;
         break;
       }
       pushBool(var1 && var2);
-    } else if (token == "or") {
+    } else if (token == QLatin1String("or")) {
       bool var1, var2;
       if (!popTwoBools(var1, var2)) {
         m_error = true;
         break;
       }
       pushBool(var1 || var2);
-    } else if (token == "not") {
+    } else if (token == QLatin1String("not")) {
       bool var;
       if (!popBool(var)) {
         m_error = true;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -250,7 +250,7 @@ bool ShortcutsDelegateEditor::event(QEvent* ev)
     }
 
     QString keyString = QKeySequence(keyCode).toString();
-    if (!keyString.endsWith('+')) {
+    if (!keyString.endsWith(QLatin1Char('+'))) {
       m_lineEdit->setText(keyString);
       emit valueEntered();
     }

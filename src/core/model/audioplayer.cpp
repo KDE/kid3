@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03-Aug-2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,7 +49,7 @@ AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent)
 , m_fileNr(-1)
 #endif
 {
-  setObjectName("AudioPlayer");
+  setObjectName(QLatin1String("AudioPlayer"));
 
 #ifdef HAVE_PHONON
   m_mediaObject = new Phonon::MediaObject(this);

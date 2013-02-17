@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,8 +36,8 @@ class QString;
  */
 FreedbConfig::FreedbConfig(const QString& grp) : ServerImporterConfig(grp)
 {
-  m_server = "gnudb.gnudb.org:80";
-  m_cgiPath = "/~cddb/cddb.cgi";
+  m_server = QLatin1String("gnudb.gnudb.org:80");
+  m_cgiPath = QLatin1String("/~cddb/cddb.cgi");
 }
 
 /**

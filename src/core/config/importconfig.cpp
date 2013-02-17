@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2009  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -90,17 +90,17 @@ ImportConfig::ImportConfig(const QString& grp) :
    * %u %{url} URL
    * %n %{tracks} number of tracks
    */
-  m_importFormatNames.append("CSV unquoted");
-  m_importFormatHeaders.append("");
-  m_importFormatTracks.append("%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t%{album}([^\\r\\n\\t]*)\\t%{year}(\\d+)\\t%{genre}([^\\r\\n\\t]*)\\t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)");
+  m_importFormatNames.append(QLatin1String("CSV unquoted"));
+  m_importFormatHeaders.append(QLatin1String(""));
+  m_importFormatTracks.append(QLatin1String("%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t%{album}([^\\r\\n\\t]*)\\t%{year}(\\d+)\\t%{genre}([^\\r\\n\\t]*)\\t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)"));
 
-  m_importFormatNames.append("CSV quoted");
-  m_importFormatHeaders.append("");
-  m_importFormatTracks.append("\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t\"?%{year}(\\d+)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)");
+  m_importFormatNames.append(QLatin1String("CSV quoted"));
+  m_importFormatHeaders.append(QLatin1String(""));
+  m_importFormatTracks.append(QLatin1String("\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t\"?%{year}(\\d+)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t\"?%{comment}([^\\r\\n\\t\"]*)\"?\\t\"?(?:\\d+:)?%{duration}(\\d+:\\d+)"));
 
-  m_importFormatNames.append("CSV more unquoted");
-  m_importFormatHeaders.append("");
-  m_importFormatTracks.append(
+  m_importFormatNames.append(QLatin1String("CSV more unquoted"));
+  m_importFormatHeaders.append(QLatin1String(""));
+  m_importFormatTracks.append(QLatin1String(
     "%{track}(\\d+)\\t%{title}([^\\r\\n\\t]*)\\t%{artist}([^\\r\\n\\t]*)\\t"
     "%{album}([^\\r\\n\\t]*)\\t%{year}(\\d+)\\t%{genre}([^\\r\\n\\t]*)\\"
     "t%{comment}([^\\r\\n\\t]*)\\t(?:\\d+:)?%{duration}(\\d+:\\d+)(?:\\.\\d+)?\\t"
@@ -114,11 +114,11 @@ ImportConfig::ImportConfig(const QString& grp) :
     "%{original artist}([^\\r\\n\\t]*)\\t%{original date}([^\\r\\n\\t]*)\\t"
     "%{part}([^\\r\\n\\t]*)\\t%{performer}([^\\r\\n\\t]*)\\t"
     "%{publisher}([^\\r\\n\\t]*)\\t%{remixer}([^\\r\\n\\t]*)\\t"
-    "%{subtitle}([^\\r\\n\\t]*)\\t%{website}([^\\r\\n\\t]*)");
+    "%{subtitle}([^\\r\\n\\t]*)\\t%{website}([^\\r\\n\\t]*)"));
 
-  m_importFormatNames.append("CSV more quoted");
-  m_importFormatHeaders.append("");
-  m_importFormatTracks.append(
+  m_importFormatNames.append(QLatin1String("CSV more quoted"));
+  m_importFormatHeaders.append(QLatin1String(""));
+  m_importFormatTracks.append(QLatin1String(
     "\"?%{track}(\\d+)\"?\\t\"?%{title}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?%{artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{album}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?%{year}(\\d+)\"?\\t\"?%{genre}([^\\r\\n\\t\"]*)\"?\\t"
@@ -134,98 +134,98 @@ ImportConfig::ImportConfig(const QString& grp) :
     "\"?%{original artist}([^\\r\\n\\t\"]*)\"?\\t\"?%{original date}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?%{part}([^\\r\\n\\t\"]*)\"?\\t\"?%{performer}([^\\r\\n\\t\"]*)\"?\\t"
     "\"?%{publisher}([^\\r\\n\\t\"]*)\"?\\t\"?%{remixer}([^\\r\\n\\t\"]*)\"?\\t"
-    "\"?%{subtitle}([^\\r\\n\\t\"]*)\"?\\t\"?%{website}([^\\r\\n\\t\"]*)");
+    "\"?%{subtitle}([^\\r\\n\\t\"]*)\"?\\t\"?%{website}([^\\r\\n\\t\"]*)"));
 
-  m_importFormatNames.append("freedb HTML text");
-  m_importFormatHeaders.append("%{artist}(\\S[^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n]*\\S)?[\\r\\n]");
-  m_importFormatTracks.append("[\\r\\n]%{track}(\\d+)[\\.\\s]+%{duration}(\\d+:\\d+)\\s+%{title}(\\S[^\\r\\n]*\\S)");
+  m_importFormatNames.append(QLatin1String("freedb HTML text"));
+  m_importFormatHeaders.append(QLatin1String("%{artist}(\\S[^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*\\S)[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n]*\\S)?[\\r\\n]"));
+  m_importFormatTracks.append(QLatin1String("[\\r\\n]%{track}(\\d+)[\\.\\s]+%{duration}(\\d+:\\d+)\\s+%{title}(\\S[^\\r\\n]*\\S)"));
 
-  m_importFormatNames.append("freedb HTML source");
-  m_importFormatHeaders.append("<[^>]+>%{artist}([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]");
-  m_importFormatTracks.append("<td[^>]*>\\s*%{track}(\\d+).</td><td[^>]*>\\s*%{duration}(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%{title}([^<\\r\\n]+)");
+  m_importFormatNames.append(QLatin1String("freedb HTML source"));
+  m_importFormatHeaders.append(QLatin1String("<[^>]+>%{artist}([^<\\s][^\\r\\n/]*\\S)\\s*/\\s*%{album}(\\S[^\\r\\n]*[^\\s>])<[^>]+>[\\r\\n]+\\s*tracks:\\s+\\d+.*year:\\s*%{year}(\\d+)?.*genre:\\s*%{genre}(\\S[^\\r\\n>]*\\S)?<[^>]+>[\\r\\n]"));
+  m_importFormatTracks.append(QLatin1String("<td[^>]*>\\s*%{track}(\\d+).</td><td[^>]*>\\s*%{duration}(\\d+:\\d+)</td><td[^>]*>(?:<[^>]+>)?%{title}([^<\\r\\n]+)"));
 
-  m_importFormatNames.append("Title");
-  m_importFormatHeaders.append("");
-  m_importFormatTracks.append("\\s*%{title}(\\S[^\\r\\n]*\\S)\\s*");
+  m_importFormatNames.append(QLatin1String("Title"));
+  m_importFormatHeaders.append(QLatin1String(""));
+  m_importFormatTracks.append(QLatin1String("\\s*%{title}(\\S[^\\r\\n]*\\S)\\s*"));
 
-  m_importFormatNames.append("Track Title");
-  m_importFormatHeaders.append("");
-  m_importFormatTracks.append("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S[^\\r\\n]*\\S)\\s*");
+  m_importFormatNames.append(QLatin1String("Track Title"));
+  m_importFormatHeaders.append(QLatin1String(""));
+  m_importFormatTracks.append(QLatin1String("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S[^\\r\\n]*\\S)\\s*"));
 
-  m_importFormatNames.append("Track Title Time");
-  m_importFormatHeaders.append("");
-  m_importFormatTracks.append("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S[^\\r\\n]*\\S)\\s+%{duration}(\\d+:\\d+)\\s*");
+  m_importFormatNames.append(QLatin1String("Track Title Time"));
+  m_importFormatHeaders.append(QLatin1String(""));
+  m_importFormatTracks.append(QLatin1String("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S[^\\r\\n]*\\S)\\s+%{duration}(\\d+:\\d+)\\s*"));
 
-  m_importFormatNames.append("Custom Format");
-  m_importFormatHeaders.append("");
-  m_importFormatTracks.append("");
+  m_importFormatNames.append(QLatin1String("Custom Format"));
+  m_importFormatHeaders.append(QLatin1String(""));
+  m_importFormatTracks.append(QLatin1String(""));
 
-  m_exportFormatNames.append("CSV unquoted");
-  m_exportFormatHeaders.append("");
-  m_exportFormatTracks.append("%{track}\\t%{title}\\t%{artist}\\t%{album}\\t%{year}\\t%{genre}\\t%{comment}\\t%{duration}.00");
-  m_exportFormatTrailers.append("");
+  m_exportFormatNames.append(QLatin1String("CSV unquoted"));
+  m_exportFormatHeaders.append(QLatin1String(""));
+  m_exportFormatTracks.append(QLatin1String("%{track}\\t%{title}\\t%{artist}\\t%{album}\\t%{year}\\t%{genre}\\t%{comment}\\t%{duration}.00"));
+  m_exportFormatTrailers.append(QLatin1String(""));
 
-  m_exportFormatNames.append("CSV quoted");
-  m_exportFormatHeaders.append("");
-  m_exportFormatTracks.append("\"%{track}\"\\t\"%{title}\"\\t\"%{artist}\"\\t\"%{album}\"\\t\"%{year}\"\\t\"%{genre}\"\\t\"%{comment}\"\\t\"%{duration}.00\"");
-  m_exportFormatTrailers.append("");
+  m_exportFormatNames.append(QLatin1String("CSV quoted"));
+  m_exportFormatHeaders.append(QLatin1String(""));
+  m_exportFormatTracks.append(QLatin1String("\"%{track}\"\\t\"%{title}\"\\t\"%{artist}\"\\t\"%{album}\"\\t\"%{year}\"\\t\"%{genre}\"\\t\"%{comment}\"\\t\"%{duration}.00\""));
+  m_exportFormatTrailers.append(QLatin1String(""));
 
-  m_importTagsNames.append("Artist to Album Artist");
-  m_importTagsSources.append("%{artist}");
-  m_importTagsExtractions.append("%{albumartist}(.+)");
+  m_importTagsNames.append(QLatin1String("Artist to Album Artist"));
+  m_importTagsSources.append(QLatin1String("%{artist}"));
+  m_importTagsExtractions.append(QLatin1String("%{albumartist}(.+)"));
 
-  m_importTagsNames.append("Album Artist to Artist");
-  m_importTagsSources.append("%{albumartist}");
-  m_importTagsExtractions.append("%{artist}(.+)");
+  m_importTagsNames.append(QLatin1String("Album Artist to Artist"));
+  m_importTagsSources.append(QLatin1String("%{albumartist}"));
+  m_importTagsExtractions.append(QLatin1String("%{artist}(.+)"));
 
-  m_importTagsNames.append("Artist to Composer");
-  m_importTagsSources.append("%{artist}");
-  m_importTagsExtractions.append("%{composer}(.+)");
+  m_importTagsNames.append(QLatin1String("Artist to Composer"));
+  m_importTagsSources.append(QLatin1String("%{artist}"));
+  m_importTagsExtractions.append(QLatin1String("%{composer}(.+)"));
 
-  m_importTagsNames.append("Artist to Conductor");
-  m_importTagsSources.append("%{artist}");
-  m_importTagsExtractions.append("%{conductor}(.+)");
+  m_importTagsNames.append(QLatin1String("Artist to Conductor"));
+  m_importTagsSources.append(QLatin1String("%{artist}"));
+  m_importTagsExtractions.append(QLatin1String("%{conductor}(.+)"));
 
-  m_importTagsNames.append("Track Number from Title");
-  m_importTagsSources.append("%{title}");
-  m_importTagsExtractions.append("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S.*\\S)\\s*");
+  m_importTagsNames.append(QLatin1String("Track Number from Title"));
+  m_importTagsSources.append(QLatin1String("%{title}"));
+  m_importTagsExtractions.append(QLatin1String("\\s*%{track}(\\d+)[\\.\\s]+%{title}(\\S.*\\S)\\s*"));
 
-  m_importTagsNames.append("Track Number to Title");
-  m_importTagsSources.append("%{track} %{title}");
-  m_importTagsExtractions.append("%{title}(.+)");
+  m_importTagsNames.append(QLatin1String("Track Number to Title"));
+  m_importTagsSources.append(QLatin1String("%{track} %{title}"));
+  m_importTagsExtractions.append(QLatin1String("%{title}(.+)"));
 
-  m_importTagsNames.append("Subtitle from Title");
-  m_importTagsSources.append("%{title}");
-  m_importTagsExtractions.append("%{subtitle}(.+) - ");
+  m_importTagsNames.append(QLatin1String("Subtitle from Title"));
+  m_importTagsSources.append(QLatin1String("%{title}"));
+  m_importTagsExtractions.append(QLatin1String("%{subtitle}(.+) - "));
 
-  m_importTagsNames.append("Title Annotation to Comment");
-  m_importTagsSources.append("%{title}");
-  m_importTagsExtractions.append("%{title}(.+) +\\(%{comment}((?:Bonus|Remix)[^)]*)\\)");
+  m_importTagsNames.append(QLatin1String("Title Annotation to Comment"));
+  m_importTagsSources.append(QLatin1String("%{title}"));
+  m_importTagsExtractions.append(QLatin1String("%{title}(.+) +\\(%{comment}((?:Bonus|Remix)[^)]*)\\)"));
 
-  m_importTagsNames.append("Custom Format");
-  m_importTagsSources.append("");
-  m_importTagsExtractions.append("");
+  m_importTagsNames.append(QLatin1String("Custom Format"));
+  m_importTagsSources.append(QLatin1String(""));
+  m_importTagsExtractions.append(QLatin1String(""));
 
-  m_exportFormatNames.append("CSV more unquoted");
-  m_exportFormatHeaders.append(
+  m_exportFormatNames.append(QLatin1String("CSV more unquoted"));
+  m_exportFormatHeaders.append(QLatin1String(
     "Track\\tTitle\\tArtist\\tAlbum\\tDate\\tGenre\\tComment\\tDuration\\t"
     "Album Artist\\tArranger\\tAuthor\\tBPM\\tComposer\\t"
     "Conductor\\tCopyright\\tDisc Number\\tEncoded-by\\tGrouping\\tISRC\\t"
     "Language\\tLyricist\\tLyrics\\tMedia\\tOriginal Album\\t"
     "Original Artist\\tOriginal Date\\tPart\\tPerformer\\t"
-    "Publisher\\tRemixer\\tSubtitle\\tWebsite");
-  m_exportFormatTracks.append(
+    "Publisher\\tRemixer\\tSubtitle\\tWebsite"));
+  m_exportFormatTracks.append(QLatin1String(
     "%{track}\\t%{title}\\t%{artist}\\t%{album}\\t%{year}\\t%{genre}\\t%{comment}\\t"
     "%{duration}.00\\t"
     "%{album artist}\\t%{arranger}\\t%{author}\\t%{bpm}\\t%{composer}\\t"
     "%{conductor}\\t%{copyright}\\t%{disc number}\\t%{encoded-by}\\t%{grouping}\\t%{isrc}\\t"
     "%{language}\\t%{lyricist}\\t%{lyrics}\\t%{media}\\t%{original album}\\t"
     "%{original artist}\\t%{original date}\\t%{part}\\t%{performer}\\t"
-    "%{publisher}\\t%{remixer}\\t%{subtitle}\\t%{website}");
-  m_exportFormatTrailers.append("");
+    "%{publisher}\\t%{remixer}\\t%{subtitle}\\t%{website}"));
+  m_exportFormatTrailers.append(QLatin1String(""));
 
-  m_exportFormatNames.append("CSV more quoted");
-  m_exportFormatHeaders.append(
+  m_exportFormatNames.append(QLatin1String("CSV more quoted"));
+  m_exportFormatHeaders.append(QLatin1String(
     "\"Track\"\\t\"Title\"\\t\"Artist\"\\t\"Album\"\\t\"Date\"\\t"
     "\"Genre\"\\t\"Comment\"\\t\"Duration\"\\t"
     "\"Album Artist\"\\t\"Arranger\"\\t\"Author\"\\t\"BPM\"\\t"
@@ -233,8 +233,8 @@ ImportConfig::ImportConfig(const QString& grp) :
     "\"Encoded-by\"\\t\"Grouping\"\\t\"ISRC\"\\t\"Language\"\\t\"Lyricist\"\\t\"Lyrics\"\\t"
     "\"Media\"\\t\"Original Album\"\\t\"Original Artist\"\\t"
     "\"Original Date\"\\t\"Part\"\\t\"Performer\"\\t\"Publisher\"\\t"
-    "\"Remixer\"\\t\"Subtitle\"\\t\"Website\"");
-  m_exportFormatTracks.append(
+    "\"Remixer\"\\t\"Subtitle\"\\t\"Website\""));
+  m_exportFormatTracks.append(QLatin1String(
     "\"%{track}\"\\t\"%{title}\"\\t\"%{artist}\"\\t\"%{album}\"\\t\"%{year}\"\\t"
     "\"%{genre}\"\\t\"%{comment}\"\\t\"%{duration}.00\"\\t"
     "\"%{album artist}\"\\t\"%{arranger}\"\\t\"%{author}\"\\t\"%{bpm}\"\\t"
@@ -242,94 +242,94 @@ ImportConfig::ImportConfig(const QString& grp) :
     "\"%{encoded-by}\"\\t\"%{grouping}\"\\t\"%{isrc}\"\\t\"%{language}\"\\t\"%{lyricist}\"\\t\"%{lyrics}\"\\t"
     "\"%{media}\"\\t\"%{original album}\"\\t\"%{original artist}\"\\t"
     "\"%{original date}\"\\t\"%{part}\"\\t\"%{performer}\"\\t\"%{publisher}\"\\t"
-    "\"%{remixer}\"\\t\"%{subtitle}\"\\t\"%{website}\"");
-  m_exportFormatTrailers.append("");
+    "\"%{remixer}\"\\t\"%{subtitle}\"\\t\"%{website}\""));
+  m_exportFormatTrailers.append(QLatin1String(""));
 
-  m_exportFormatNames.append("Extended M3U");
-  m_exportFormatHeaders.append("#EXTM3U");
-  m_exportFormatTracks.append("#EXTINF:%{seconds},%{artist} - %{title}\\n%{filepath}");
-  m_exportFormatTrailers.append("");
+  m_exportFormatNames.append(QLatin1String("Extended M3U"));
+  m_exportFormatHeaders.append(QLatin1String("#EXTM3U"));
+  m_exportFormatTracks.append(QLatin1String("#EXTINF:%{seconds},%{artist} - %{title}\\n%{filepath}"));
+  m_exportFormatTrailers.append(QLatin1String(""));
 
-  m_exportFormatNames.append("Extended PLS");
-  m_exportFormatHeaders.append("[playlist]");
-  m_exportFormatTracks.append("File%{tracknumber}=%{filepath}\\nTitle%{tracknumber}=%{artist} - %{title}\\nLength%{tracknumber}=%{seconds}");
-  m_exportFormatTrailers.append("NumberOfEntries=%{tracks}\\nVersion=2");
+  m_exportFormatNames.append(QLatin1String("Extended PLS"));
+  m_exportFormatHeaders.append(QLatin1String("[playlist]"));
+  m_exportFormatTracks.append(QLatin1String("File%{tracknumber}=%{filepath}\\nTitle%{tracknumber}=%{artist} - %{title}\\nLength%{tracknumber}=%{seconds}"));
+  m_exportFormatTrailers.append(QLatin1String("NumberOfEntries=%{tracks}\\nVersion=2"));
 
-  m_exportFormatNames.append("HTML");
-  m_exportFormatHeaders.append("<html>\\n <head>\\n  <title>%{artist} - %{album}</title>\\n </head>\\n <body>\\n  <h1>%{artist} - %{album}</h1>\\n  <dl>");
-  m_exportFormatTracks.append("   <dt><a href=\"%{url}\">%{track}. %{title}</a></dt>");
-  m_exportFormatTrailers.append("  </dl>\\n </body>\\n</html>");
+  m_exportFormatNames.append(QLatin1String("HTML"));
+  m_exportFormatHeaders.append(QLatin1String("<html>\\n <head>\\n  <title>%{artist} - %{album}</title>\\n </head>\\n <body>\\n  <h1>%{artist} - %{album}</h1>\\n  <dl>"));
+  m_exportFormatTracks.append(QLatin1String("   <dt><a href=\"%{url}\">%{track}. %{title}</a></dt>"));
+  m_exportFormatTrailers.append(QLatin1String("  </dl>\\n </body>\\n</html>"));
 
-  m_exportFormatNames.append("Kover XML");
-  m_exportFormatHeaders.append("<kover>\\n <title>\\n  <text><![CDATA[%{artist} ]]></text>\\n  <text><![CDATA[%{album}]]></text>\\n </title>\\n <content>");
-  m_exportFormatTracks.append("  <text><![CDATA[%{track}. %{title}]]></text>");
-  m_exportFormatTrailers.append(" </content>\\n</kover>");
+  m_exportFormatNames.append(QLatin1String("Kover XML"));
+  m_exportFormatHeaders.append(QLatin1String("<kover>\\n <title>\\n  <text><![CDATA[%{artist} ]]></text>\\n  <text><![CDATA[%{album}]]></text>\\n </title>\\n <content>"));
+  m_exportFormatTracks.append(QLatin1String("  <text><![CDATA[%{track}. %{title}]]></text>"));
+  m_exportFormatTrailers.append(QLatin1String(" </content>\\n</kover>"));
 
-  m_exportFormatNames.append("Technical Details");
-  m_exportFormatHeaders.append("File\\tBitrate\\tVBR\\tDuration\\tSamplerate\\tChannels\\tMode\\tCodec");
-  m_exportFormatTracks.append("%{file}\\t%{bitrate}\\t%{vbr}\\t%{duration}\\t%{samplerate}\\t%{channels}\\t%{mode}\\t%{codec}");
-  m_exportFormatTrailers.append("");
+  m_exportFormatNames.append(QLatin1String("Technical Details"));
+  m_exportFormatHeaders.append(QLatin1String("File\\tBitrate\\tVBR\\tDuration\\tSamplerate\\tChannels\\tMode\\tCodec"));
+  m_exportFormatTracks.append(QLatin1String("%{file}\\t%{bitrate}\\t%{vbr}\\t%{duration}\\t%{samplerate}\\t%{channels}\\t%{mode}\\t%{codec}"));
+  m_exportFormatTrailers.append(QLatin1String(""));
 
-  m_exportFormatNames.append("Custom Format");
-  m_exportFormatHeaders.append("");
-  m_exportFormatTracks.append("");
-  m_exportFormatTrailers.append("");
+  m_exportFormatNames.append(QLatin1String("Custom Format"));
+  m_exportFormatHeaders.append(QLatin1String(""));
+  m_exportFormatTracks.append(QLatin1String(""));
+  m_exportFormatTrailers.append(QLatin1String(""));
 
-  m_pictureSourceNames.append("Google Images");
-  m_pictureSourceUrls.append("http://images.google.com/images?q=%u{artist}%20%u{album}");
-  m_pictureSourceNames.append("Yahoo Images");
-  m_pictureSourceUrls.append("http://images.search.yahoo.com/search/images?ei=UTF-8&p=%u{artist}%20%u{album}");
-  m_pictureSourceNames.append("Amazon");
-  m_pictureSourceUrls.append("http://www.amazon.com/s?search-alias=aps&field-keywords=%u{artist}+%u{album}");
-  m_pictureSourceNames.append("Amazon.co.uk");
-  m_pictureSourceUrls.append("http://www.amazon.co.uk/s?search-alias=aps&field-keywords=%u{artist}+%u{album}");
-  m_pictureSourceNames.append("Amazon.de");
-  m_pictureSourceUrls.append("http://www.amazon.de/s?search-alias=aps&field-keywords=%u{artist}+%u{album}");
-  m_pictureSourceNames.append("Amazon.fr");
-  m_pictureSourceUrls.append("http://www.amazon.fr/s?search-alias=aps&field-keywords=%u{artist}+%u{album}");
-  m_pictureSourceNames.append("MusicBrainz");
-  m_pictureSourceUrls.append("http://musicbrainz.org/search/textsearch.html?query=%u{artist}+%u{album}&type=release");
-  m_pictureSourceNames.append("Discogs");
-  m_pictureSourceUrls.append("http://www.discogs.com/search?q=%u{artist}+%u{album}");
-  m_pictureSourceNames.append("CD Universe");
-  m_pictureSourceUrls.append("http://www.cduniverse.com/sresult.asp?HT_Search_Info=%u{artist}+%u{album}");
-  m_pictureSourceNames.append("Coveralia");
-  m_pictureSourceUrls.append("http://www.coveralia.com/mostrar.php?bus=%u{artist}%20%u{album}&bust=2");
-  m_pictureSourceNames.append("FreeCovers");
-  m_pictureSourceUrls.append("http://www.freecovers.net/search.php?search=%u{artist}+%u{album}&cat=4");
-  m_pictureSourceNames.append("CoverHunt");
-  m_pictureSourceUrls.append("http://www.coverhunt.com/search/%u{artist}+%u{album}");
-  m_pictureSourceNames.append("SlothRadio");
-  m_pictureSourceUrls.append("http://www.slothradio.com/covers/?artist=%u{artist}&album=%u{album}");
-  m_pictureSourceNames.append("Albumart");
-  m_pictureSourceUrls.append("http://www.albumart.org/index.php?srchkey=%u{artist}+%u{album}&searchindex=Music");
-  m_pictureSourceNames.append("Yalp!");
-  m_pictureSourceUrls.append("http://search.yalp.alice.it/search/search.html?txtToSearch=%u{artist}%20%u{album}");
-  m_pictureSourceNames.append("HMV");
-  m_pictureSourceUrls.append("http://hmv.com/hmvweb/advancedSearch.do?searchType=2&artist=%u{artist}&title=%u{album}");
-  m_pictureSourceNames.append("CD Baby");
-  m_pictureSourceUrls.append("http://cdbaby.com/found?artist=%u{artist}&album=%u{album}");
-  m_pictureSourceNames.append("Jamendo");
-  m_pictureSourceUrls.append("http://www.jamendo.com/en/search/all/%u{artist}%20%u{album}");
-  m_pictureSourceNames.append("Custom Source");
-  m_pictureSourceUrls.append("");
+  m_pictureSourceNames.append(QLatin1String("Google Images"));
+  m_pictureSourceUrls.append(QLatin1String("http://images.google.com/images?q=%u{artist}%20%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Yahoo Images"));
+  m_pictureSourceUrls.append(QLatin1String("http://images.search.yahoo.com/search/images?ei=UTF-8&p=%u{artist}%20%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Amazon"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.amazon.com/s?search-alias=aps&field-keywords=%u{artist}+%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Amazon.co.uk"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.amazon.co.uk/s?search-alias=aps&field-keywords=%u{artist}+%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Amazon.de"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.amazon.de/s?search-alias=aps&field-keywords=%u{artist}+%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Amazon.fr"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.amazon.fr/s?search-alias=aps&field-keywords=%u{artist}+%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("MusicBrainz"));
+  m_pictureSourceUrls.append(QLatin1String("http://musicbrainz.org/search/textsearch.html?query=%u{artist}+%u{album}&type=release"));
+  m_pictureSourceNames.append(QLatin1String("Discogs"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.discogs.com/search?q=%u{artist}+%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("CD Universe"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.cduniverse.com/sresult.asp?HT_Search_Info=%u{artist}+%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Coveralia"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.coveralia.com/mostrar.php?bus=%u{artist}%20%u{album}&bust=2"));
+  m_pictureSourceNames.append(QLatin1String("FreeCovers"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.freecovers.net/search.php?search=%u{artist}+%u{album}&cat=4"));
+  m_pictureSourceNames.append(QLatin1String("CoverHunt"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.coverhunt.com/search/%u{artist}+%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("SlothRadio"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.slothradio.com/covers/?artist=%u{artist}&album=%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Albumart"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.albumart.org/index.php?srchkey=%u{artist}+%u{album}&searchindex=Music"));
+  m_pictureSourceNames.append(QLatin1String("Yalp!"));
+  m_pictureSourceUrls.append(QLatin1String("http://search.yalp.alice.it/search/search.html?txtToSearch=%u{artist}%20%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("HMV"));
+  m_pictureSourceUrls.append(QLatin1String("http://hmv.com/hmvweb/advancedSearch.do?searchType=2&artist=%u{artist}&title=%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("CD Baby"));
+  m_pictureSourceUrls.append(QLatin1String("http://cdbaby.com/found?artist=%u{artist}&album=%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Jamendo"));
+  m_pictureSourceUrls.append(QLatin1String("http://www.jamendo.com/en/search/all/%u{artist}%20%u{album}"));
+  m_pictureSourceNames.append(QLatin1String("Custom Source"));
+  m_pictureSourceUrls.append(QLatin1String(""));
 
-  m_matchPictureUrlMap["http://images.google.com/.*imgurl=([^&]+)&.*"] =
-    "\\1";
-  m_matchPictureUrlMap["http://rds.yahoo.com/.*%26imgurl=((?:[^%]|%(?!26))+).*"] =
-    "http%253A%252F%252F\\1";
-  m_matchPictureUrlMap["http://rds.yahoo.com/.*&imgurl=([^&]+)&.*"] =
-    "http%3A%2F%2F\\1";
-  m_matchPictureUrlMap["http://(?:www.)?amazon.(?:com|co.uk|de|fr).*/(?:dp|ASIN|images|product|-)/([A-Z0-9]+).*"] =
-    "http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg";
-  m_matchPictureUrlMap["http://musicbrainz.org/misc/redirects/.*&asin=([A-Z0-9]+).*"] =
-    "http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg";
-  m_matchPictureUrlMap["http://www.freecovers.net/view/(\\d+)/([0-9a-f]+)/.*"] =
-    "http://www.freecovers.net/preview/\\1/\\2/big.jpg";
-  m_matchPictureUrlMap["http://cdbaby.com/cd/(\\w)(\\w)(\\w+)"] =
-    "http://cdbaby.name/\\1/\\2/\\1\\2\\3.jpg";
-  m_matchPictureUrlMap["http://www.jamendo.com/en/album/(\\d+)"] =
-    "http://imgjam.com/albums/\\1/covers/1.0.jpg";
+  m_matchPictureUrlMap[QLatin1String("http://images.google.com/.*imgurl=([^&]+)&.*")] =
+    QLatin1String("\\1");
+  m_matchPictureUrlMap[QLatin1String("http://rds.yahoo.com/.*%26imgurl=((?:[^%]|%(?!26))+).*")] =
+    QLatin1String("http%253A%252F%252F\\1");
+  m_matchPictureUrlMap[QLatin1String("http://rds.yahoo.com/.*&imgurl=([^&]+)&.*")] =
+    QLatin1String("http%3A%2F%2F\\1");
+  m_matchPictureUrlMap[QLatin1String("http://(?:www.)?amazon.(?:com|co.uk|de|fr).*/(?:dp|ASIN|images|product|-)/([A-Z0-9]+).*")] =
+    QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
+  m_matchPictureUrlMap[QLatin1String("http://musicbrainz.org/misc/redirects/.*&asin=([A-Z0-9]+).*")] =
+    QLatin1String("http://images.amazon.com/images/P/\\1.01._SCLZZZZZZZ_.jpg");
+  m_matchPictureUrlMap[QLatin1String("http://www.freecovers.net/view/(\\d+)/([0-9a-f]+)/.*")] =
+    QLatin1String("http://www.freecovers.net/preview/\\1/\\2/big.jpg");
+  m_matchPictureUrlMap[QLatin1String("http://cdbaby.com/cd/(\\w)(\\w)(\\w+)")] =
+    QLatin1String("http://cdbaby.name/\\1/\\2/\\1\\2\\3.jpg");
+  m_matchPictureUrlMap[QLatin1String("http://www.jamendo.com/en/album/(\\d+)")] =
+    QLatin1String("http://imgjam.com/albums/\\1/covers/1.0.jpg");
 }
 
 /**
@@ -380,41 +380,41 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("BrowseCoverArtWindowWidth", m_browseCoverArtWindowWidth);
   cfg.writeEntry("BrowseCoverArtWindowHeight", m_browseCoverArtWindowHeight);
 #else
-  config->beginGroup("/" + m_group);
-  config->setValue("/ImportServer", QVariant(m_importServer));
-  config->setValue("/ImportDestination",
+  config->beginGroup(QLatin1Char('/') + m_group);
+  config->setValue(QLatin1String("/ImportServer"), QVariant(m_importServer));
+  config->setValue(QLatin1String("/ImportDestination"),
                    QVariant(tagVersionToImportDestCfg(m_importDest)));
-  config->setValue("/ImportFormatNames", QVariant(m_importFormatNames));
-  config->setValue("/ImportFormatHeaders", QVariant(m_importFormatHeaders));
-  config->setValue("/ImportFormatTracks", QVariant(m_importFormatTracks));
-  config->setValue("/ImportFormatIdx", QVariant(m_importFormatIdx));
-  config->setValue("/EnableTimeDifferenceCheck", QVariant(m_enableTimeDifferenceCheck));
-  config->setValue("/MaxTimeDifference", QVariant(m_maxTimeDifference));
-  config->setValue("/ImportVisibleColumns", QVariant(m_importVisibleColumns));
-  config->setValue("/ImportWindowWidth", QVariant(m_importWindowWidth));
-  config->setValue("/ImportWindowHeight", QVariant(m_importWindowHeight));
+  config->setValue(QLatin1String("/ImportFormatNames"), QVariant(m_importFormatNames));
+  config->setValue(QLatin1String("/ImportFormatHeaders"), QVariant(m_importFormatHeaders));
+  config->setValue(QLatin1String("/ImportFormatTracks"), QVariant(m_importFormatTracks));
+  config->setValue(QLatin1String("/ImportFormatIdx"), QVariant(m_importFormatIdx));
+  config->setValue(QLatin1String("/EnableTimeDifferenceCheck"), QVariant(m_enableTimeDifferenceCheck));
+  config->setValue(QLatin1String("/MaxTimeDifference"), QVariant(m_maxTimeDifference));
+  config->setValue(QLatin1String("/ImportVisibleColumns"), QVariant(m_importVisibleColumns));
+  config->setValue(QLatin1String("/ImportWindowWidth"), QVariant(m_importWindowWidth));
+  config->setValue(QLatin1String("/ImportWindowHeight"), QVariant(m_importWindowHeight));
 
-  config->setValue("/ImportTagsNames", QVariant(m_importTagsNames));
-  config->setValue("/ImportTagsSources", QVariant(m_importTagsSources));
-  config->setValue("/ImportTagsExtractions", QVariant(m_importTagsExtractions));
-  config->setValue("/ImportTagsIdx", QVariant(m_importTagsIdx));
+  config->setValue(QLatin1String("/ImportTagsNames"), QVariant(m_importTagsNames));
+  config->setValue(QLatin1String("/ImportTagsSources"), QVariant(m_importTagsSources));
+  config->setValue(QLatin1String("/ImportTagsExtractions"), QVariant(m_importTagsExtractions));
+  config->setValue(QLatin1String("/ImportTagsIdx"), QVariant(m_importTagsIdx));
 
-  config->setValue("/ExportSourceV1", QVariant(m_exportSrcV1 == TrackData::TagV1));
-  config->setValue("/ExportFormatNames", QVariant(m_exportFormatNames));
-  config->setValue("/ExportFormatHeaders", QVariant(m_exportFormatHeaders));
-  config->setValue("/ExportFormatTracks", QVariant(m_exportFormatTracks));
-  config->setValue("/ExportFormatTrailers", QVariant(m_exportFormatTrailers));
-  config->setValue("/ExportFormatIdx", QVariant(m_exportFormatIdx));
-  config->setValue("/ExportWindowWidth", QVariant(m_exportWindowWidth));
-  config->setValue("/ExportWindowHeight", QVariant(m_exportWindowHeight));
+  config->setValue(QLatin1String("/ExportSourceV1"), QVariant(m_exportSrcV1 == TrackData::TagV1));
+  config->setValue(QLatin1String("/ExportFormatNames"), QVariant(m_exportFormatNames));
+  config->setValue(QLatin1String("/ExportFormatHeaders"), QVariant(m_exportFormatHeaders));
+  config->setValue(QLatin1String("/ExportFormatTracks"), QVariant(m_exportFormatTracks));
+  config->setValue(QLatin1String("/ExportFormatTrailers"), QVariant(m_exportFormatTrailers));
+  config->setValue(QLatin1String("/ExportFormatIdx"), QVariant(m_exportFormatIdx));
+  config->setValue(QLatin1String("/ExportWindowWidth"), QVariant(m_exportWindowWidth));
+  config->setValue(QLatin1String("/ExportWindowHeight"), QVariant(m_exportWindowHeight));
 
-  config->setValue("/PictureSourceNames", QVariant(m_pictureSourceNames));
-  config->setValue("/PictureSourceUrls", QVariant(m_pictureSourceUrls));
-  config->setValue("/PictureSourceIdx", QVariant(m_pictureSourceIdx));
-  config->setValue("/MatchPictureUrlMapKeys", QVariant(m_matchPictureUrlMap.keys()));
-  config->setValue("/MatchPictureUrlMapValues", QVariant(m_matchPictureUrlMap.values()));
-  config->setValue("/BrowseCoverArtWindowWidth", QVariant(m_browseCoverArtWindowWidth));
-  config->setValue("/BrowseCoverArtWindowHeight", QVariant(m_browseCoverArtWindowHeight));
+  config->setValue(QLatin1String("/PictureSourceNames"), QVariant(m_pictureSourceNames));
+  config->setValue(QLatin1String("/PictureSourceUrls"), QVariant(m_pictureSourceUrls));
+  config->setValue(QLatin1String("/PictureSourceIdx"), QVariant(m_pictureSourceIdx));
+  config->setValue(QLatin1String("/MatchPictureUrlMapKeys"), QVariant(m_matchPictureUrlMap.keys()));
+  config->setValue(QLatin1String("/MatchPictureUrlMapValues"), QVariant(m_matchPictureUrlMap.values()));
+  config->setValue(QLatin1String("/BrowseCoverArtWindowWidth"), QVariant(m_browseCoverArtWindowWidth));
+  config->setValue(QLatin1String("/BrowseCoverArtWindowHeight"), QVariant(m_browseCoverArtWindowHeight));
 
   config->endGroup();
 #endif
@@ -480,52 +480,52 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
   unsigned numNames = names.size();
-  while (static_cast<unsigned>(headers.size()) < numNames) headers.append("");
-  while (static_cast<unsigned>(tracks.size()) < numNames) tracks.append("");
+  while (static_cast<unsigned>(headers.size()) < numNames) headers.append(QLatin1String(""));
+  while (static_cast<unsigned>(tracks.size()) < numNames) tracks.append(QLatin1String(""));
   unsigned numExpNames = expNames.size();
-  while (static_cast<unsigned>(expHeaders.size()) < numExpNames) expHeaders.append("");
-  while (static_cast<unsigned>(expTracks.size()) < numExpNames) expTracks.append("");
-  while (static_cast<unsigned>(expTrailers.size()) < numExpNames) expTrailers.append("");
+  while (static_cast<unsigned>(expHeaders.size()) < numExpNames) expHeaders.append(QLatin1String(""));
+  while (static_cast<unsigned>(expTracks.size()) < numExpNames) expTracks.append(QLatin1String(""));
+  while (static_cast<unsigned>(expTrailers.size()) < numExpNames) expTrailers.append(QLatin1String(""));
   unsigned numPicNames = picNames.size();
-  while (static_cast<unsigned>(picUrls.size()) < numPicNames) picUrls.append("");
+  while (static_cast<unsigned>(picUrls.size()) < numPicNames) picUrls.append(QLatin1String(""));
 #else
-  config->beginGroup("/" + m_group);
-  m_importServer = config->value("/ImportServer", m_importServer).toInt();
+  config->beginGroup(QLatin1Char('/') + m_group);
+  m_importServer = config->value(QLatin1String("/ImportServer"), m_importServer).toInt();
   m_importDest = importDestCfgToTagVersion(
-    config->value("/ImportDestination",
+    config->value(QLatin1String("/ImportDestination"),
                   tagVersionToImportDestCfg(m_importDest)).toInt());
-  names = config->value("/ImportFormatNames").toStringList();
-  headers = config->value("/ImportFormatHeaders").toStringList();
-  tracks = config->value("/ImportFormatTracks").toStringList();
-  m_importFormatIdx = config->value("/ImportFormatIdx", m_importFormatIdx).toInt();
-  m_enableTimeDifferenceCheck = config->value("/EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck).toBool();
-  m_maxTimeDifference = config->value("/MaxTimeDifference", m_maxTimeDifference).toInt();
-  m_importVisibleColumns = config->value("/ImportVisibleColumns", m_importVisibleColumns).toULongLong();
-  m_importWindowWidth = config->value("/ImportWindowWidth", -1).toInt();
-  m_importWindowHeight = config->value("/ImportWindowHeight", -1).toInt();
+  names = config->value(QLatin1String("/ImportFormatNames")).toStringList();
+  headers = config->value(QLatin1String("/ImportFormatHeaders")).toStringList();
+  tracks = config->value(QLatin1String("/ImportFormatTracks")).toStringList();
+  m_importFormatIdx = config->value(QLatin1String("/ImportFormatIdx"), m_importFormatIdx).toInt();
+  m_enableTimeDifferenceCheck = config->value(QLatin1String("/EnableTimeDifferenceCheck"), m_enableTimeDifferenceCheck).toBool();
+  m_maxTimeDifference = config->value(QLatin1String("/MaxTimeDifference"), m_maxTimeDifference).toInt();
+  m_importVisibleColumns = config->value(QLatin1String("/ImportVisibleColumns"), m_importVisibleColumns).toULongLong();
+  m_importWindowWidth = config->value(QLatin1String("/ImportWindowWidth"), -1).toInt();
+  m_importWindowHeight = config->value(QLatin1String("/ImportWindowHeight"), -1).toInt();
 
-  tagsNames = config->value("/ImportTagsNames").toStringList();
-  tagsSources = config->value("/ImportTagsSources").toStringList();
-  tagsExtractions = config->value("/ImportTagsExtractions").toStringList();
-  m_importTagsIdx = config->value("/ImportTagsIdx", m_importTagsIdx).toInt();
+  tagsNames = config->value(QLatin1String("/ImportTagsNames")).toStringList();
+  tagsSources = config->value(QLatin1String("/ImportTagsSources")).toStringList();
+  tagsExtractions = config->value(QLatin1String("/ImportTagsExtractions")).toStringList();
+  m_importTagsIdx = config->value(QLatin1String("/ImportTagsIdx"), m_importTagsIdx).toInt();
 
-  m_exportSrcV1 = config->value("/ExportSourceV1",
+  m_exportSrcV1 = config->value(QLatin1String("/ExportSourceV1"),
       m_exportSrcV1 == TrackData::TagV1).toBool()
       ? TrackData::TagV1 : TrackData::TagV2;
-  expNames = config->value("/ExportFormatNames").toStringList();
-  expHeaders = config->value("/ExportFormatHeaders").toStringList();
-  expTracks = config->value("/ExportFormatTracks").toStringList();
-  expTrailers = config->value("/ExportFormatTrailers").toStringList();
-  m_exportFormatIdx = config->value("/ExportFormatIdx", m_exportFormatIdx).toInt();
-  m_exportWindowWidth = config->value("/ExportWindowWidth", -1).toInt();
-  m_exportWindowHeight = config->value("/ExportWindowHeight", -1).toInt();
+  expNames = config->value(QLatin1String("/ExportFormatNames")).toStringList();
+  expHeaders = config->value(QLatin1String("/ExportFormatHeaders")).toStringList();
+  expTracks = config->value(QLatin1String("/ExportFormatTracks")).toStringList();
+  expTrailers = config->value(QLatin1String("/ExportFormatTrailers")).toStringList();
+  m_exportFormatIdx = config->value(QLatin1String("/ExportFormatIdx"), m_exportFormatIdx).toInt();
+  m_exportWindowWidth = config->value(QLatin1String("/ExportWindowWidth"), -1).toInt();
+  m_exportWindowHeight = config->value(QLatin1String("/ExportWindowHeight"), -1).toInt();
 
-  picNames = config->value("/PictureSourceNames").toStringList();
-  picUrls = config->value("/PictureSourceUrls").toStringList();
+  picNames = config->value(QLatin1String("/PictureSourceNames")).toStringList();
+  picUrls = config->value(QLatin1String("/PictureSourceUrls")).toStringList();
   m_pictureSourceIdx = config->value(
-    "/PictureSourceIdx", m_pictureSourceIdx).toInt();
-  QStringList keys = config->value("/MatchPictureUrlMapKeys").toStringList();
-  QStringList values = config->value("/MatchPictureUrlMapValues").toStringList();
+    QLatin1String("/PictureSourceIdx"), m_pictureSourceIdx).toInt();
+  QStringList keys = config->value(QLatin1String("/MatchPictureUrlMapKeys")).toStringList();
+  QStringList values = config->value(QLatin1String("/MatchPictureUrlMapValues")).toStringList();
   if (!keys.empty() && !values.empty()) {
     QStringList::Iterator itk, itv;
     m_matchPictureUrlMap.clear();
@@ -536,9 +536,9 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
     }
   }
   m_browseCoverArtWindowWidth = config->value(
-    "/BrowseCoverArtWindowWidth", -1).toInt();
+    QLatin1String("/BrowseCoverArtWindowWidth"), -1).toInt();
   m_browseCoverArtWindowHeight = config->value(
-    "/BrowseCoverArtWindowHeight", -1).toInt();
+    QLatin1String("/BrowseCoverArtWindowHeight"), -1).toInt();
 
   config->endGroup();
 #endif

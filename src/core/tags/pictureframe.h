@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03 Mar 2008
  *
- * Copyright (C) 2008-2009  Urs Fleisch
+ * Copyright (C) 2008-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -71,11 +71,11 @@ public:
    */
   explicit PictureFrame(
     const QByteArray& data = QByteArray(),
-    const QString& description = "",
+    const QString& description = QLatin1String(""),
     PictureType pictureType = PT_CoverFront,
-    const QString& mimeType = "image/jpeg",
+    const QString& mimeType = QLatin1String("image/jpeg"),
     Field::TextEncoding enc = Field::TE_ISO8859_1,
-    const QString& imgFormat = "JPG");
+    const QString& imgFormat = QLatin1String("JPG"));
 
   /**
    * Constructor.
@@ -102,9 +102,9 @@ public:
    */
   static void setFields(
     Frame& frame,
-    Field::TextEncoding enc = Field::TE_ISO8859_1, const QString& imgFormat = "JPG",
-    const QString& mimeType = "image/jpeg", PictureType pictureType = PT_CoverFront,
-    const QString& description = "", const QByteArray& data = QByteArray());
+    Field::TextEncoding enc = Field::TE_ISO8859_1, const QString& imgFormat = QLatin1String("JPG"),
+    const QString& mimeType = QLatin1String("image/jpeg"), PictureType pictureType = PT_CoverFront,
+    const QString& description = QLatin1String(""), const QByteArray& data = QByteArray());
 
   /**
    * Get all properties.

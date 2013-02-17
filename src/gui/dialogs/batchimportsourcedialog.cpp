@@ -41,7 +41,7 @@
 BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
   QDialog(parent)
 {
-  setObjectName("BatchImportSourceDialog");
+  setObjectName(QLatin1String("BatchImportSourceDialog"));
   setWindowTitle(i18n("Import Source"));
   setSizeGripEnabled(true);
 

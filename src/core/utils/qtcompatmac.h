@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 31 Oct 2006
  *
- * Copyright (C) 2006-2012  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,11 +46,11 @@
 
 #if QT_VERSION >= 0x040600
 
-#define QCM_QIcon_fromTheme(n) QIcon::fromTheme(n, QIcon(":/images/" n ".png"))
+#define QCM_QIcon_fromTheme(n) QIcon::fromTheme(QLatin1String(n), QIcon(QLatin1String(":/images/" n ".png")))
 
 #else
 
-#define QCM_QIcon_fromTheme(n) QIcon(":/images/" n ".png")
+#define QCM_QIcon_fromTheme(n) QIcon(QLatin1String(":/images/" n ".png"))
 
 #endif
 

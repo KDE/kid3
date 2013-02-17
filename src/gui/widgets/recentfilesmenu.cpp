@@ -5,6 +5,23 @@
  * \b Project: Kid3
  * \author Urs Fleisch
  * \date 15 Aug 2010
+ *
+ * Copyright (C) 2010-2013  Urs Fleisch
+ *
+ * This file is part of Kid3.
+ *
+ * Kid3 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Kid3 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "recentfilesmenu.h"
@@ -24,7 +41,7 @@ static const int MAX_RECENT_FILES = 10;
  */
 RecentFilesMenu::RecentFilesMenu(QWidget* parent) : QMenu(parent)
 {
-  setObjectName("RecentFilesMenu");
+  setObjectName(QLatin1String("RecentFilesMenu"));
 }
 
 /**
@@ -66,8 +83,8 @@ void RecentFilesMenu::addDirectory(const QString& dir)
  */
 void RecentFilesMenu::saveEntries(Kid3Settings* config)
 {
-  config->beginGroup("/Recent Files");
-  config->setValue("Files", QVariant(m_files));
+  config->beginGroup(QLatin1String("/Recent Files"));
+  config->setValue(QLatin1String("Files"), QVariant(m_files));
   config->endGroup();
 }
 
@@ -78,8 +95,8 @@ void RecentFilesMenu::saveEntries(Kid3Settings* config)
  */
 void RecentFilesMenu::loadEntries(Kid3Settings* config)
 {
-  config->beginGroup("/Recent Files");
-  m_files = config->value("Files").toStringList();
+  config->beginGroup(QLatin1String("/Recent Files"));
+  m_files = config->value(QLatin1String("Files")).toStringList();
   config->endGroup();
 
   while (m_files.size() > MAX_RECENT_FILES) {
@@ -100,7 +117,7 @@ void RecentFilesMenu::updateRecentFileActions()
        it != m_files.end();
        ++it) {
     QAction* act = new QAction(this);
-    act->setText(QString("&%1 %2").arg(++i).arg(*it));
+    act->setText(QString(QLatin1String("&%1 %2")).arg(++i).arg(*it));
     act->setData(*it);
     connect(act, SIGNAL(triggered()), this, SLOT(openRecentFile()));
     this->addAction(act);

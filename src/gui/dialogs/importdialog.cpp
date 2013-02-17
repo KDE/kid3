@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -101,7 +101,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   m_trackDataModel(trackDataModel), m_importers(importers),
   m_musicBrainzClient(mbClient)
 {
-  setObjectName("ImportDialog");
+  setObjectName(QLatin1String("ImportDialog"));
   setModal(true);
   setWindowTitle(caption);
   setSizeGripEnabled(true);
@@ -144,13 +144,13 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   accuracyLayout->setSpacing(6);
   QLabel* accuracyLabel = new QLabel(i18n("Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
-  m_accuracyPercentLabel = new QLabel("-");
+  m_accuracyPercentLabel = new QLabel(QLatin1String("-"));
   m_accuracyPercentLabel->setMinimumWidth(
-        m_accuracyPercentLabel->fontMetrics().width("100%"));
+        m_accuracyPercentLabel->fontMetrics().width(QLatin1String("100%")));
   accuracyLayout->addWidget(m_accuracyPercentLabel);
   QLabel* coverArtLabel = new QLabel(i18n("Cover Art:"));
   accuracyLayout->addWidget(coverArtLabel);
-  m_coverArtUrlLabel = new QLabel(" -");
+  m_coverArtUrlLabel = new QLabel(QLatin1String(" -"));
   accuracyLayout->addWidget(m_coverArtUrlLabel);
   accuracyLayout->addStretch();
   vlayout->addLayout(accuracyLayout);
@@ -192,7 +192,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   QToolButton* revertButton = new QToolButton;
   revertButton->setIcon(
 #ifdef CONFIG_USE_KDE
-        KIcon("document-revert")
+        KIcon(QLatin1String("document-revert"))
 #else
         QCM_QIcon_fromTheme("document-revert")
 #endif
@@ -462,9 +462,9 @@ void ImportDialog::showPreview()
 
   int accuracy = m_trackDataModel->calculateAccuracy();
   m_accuracyPercentLabel->setText(accuracy >= 0 && accuracy <= 100
-                                  ? QString::number(accuracy) + "%" : "-");
+                                  ? QString::number(accuracy) + QLatin1Char('%') : QLatin1String("-"));
   QString coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
-  m_coverArtUrlLabel->setText(coverArtUrl.isEmpty() ? "-" : coverArtUrl);
+  m_coverArtUrlLabel->setText(coverArtUrl.isEmpty() ? QLatin1String("-") : coverArtUrl);
 }
 
 /**
@@ -483,7 +483,7 @@ TrackData::TagVersion ImportDialog::getDestination() const
  */
 void ImportDialog::showHelp()
 {
-  ContextHelp::displayHelp("import");
+  ContextHelp::displayHelp(QLatin1String("import"));
 }
 
 /**

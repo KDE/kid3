@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Mar 2011
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,7 +33,7 @@
 ConfigTableModel::ConfigTableModel(QObject* parent) :
   QAbstractTableModel(parent)
 {
-  setObjectName("ConfigTableModel");
+  setObjectName(QLatin1String("ConfigTableModel"));
 }
 
 /**

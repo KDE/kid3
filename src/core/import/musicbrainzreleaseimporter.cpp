@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@ MusicBrainzReleaseImporter::MusicBrainzReleaseImporter(
   QNetworkAccessManager* netMgr, TrackDataModel *trackDataModel) :
   ServerImporter(netMgr, trackDataModel)
 {
-  setObjectName("MusicBrainzReleaseImporter");
+  setObjectName(QLatin1String("MusicBrainzReleaseImporter"));
 }
 
 /**
@@ -122,19 +122,19 @@ void MusicBrainzReleaseImporter::parseFindResults(const QByteArray& searchStr)
   if (doc.setContent(xmlStr, false)) {
     m_albumListModel->clear();
     QDomElement releaseList =
-      doc.namedItem("metadata").toElement().namedItem("release-list").toElement();
-    for (QDomNode releaseNode = releaseList.namedItem("release");
+      doc.namedItem(QLatin1String("metadata")).toElement().namedItem(QLatin1String("release-list")).toElement();
+    for (QDomNode releaseNode = releaseList.namedItem(QLatin1String("release"));
          !releaseNode.isNull();
          releaseNode = releaseNode.nextSibling()) {
       QDomElement release = releaseNode.toElement();
-      QString id = release.attribute("id");
-      QString title = release.namedItem("title").toElement().text();
-      QDomElement artist = release.namedItem("artist-credit").toElement().
-          namedItem("name-credit").toElement().namedItem("artist").toElement();
-      QString name = artist.namedItem("name").toElement().text();
+      QString id = release.attribute(QLatin1String("id"));
+      QString title = release.namedItem(QLatin1String("title")).toElement().text();
+      QDomElement artist = release.namedItem(QLatin1String("artist-credit")).toElement().
+          namedItem(QLatin1String("name-credit")).toElement().namedItem(QLatin1String("artist")).toElement();
+      QString name = artist.namedItem(QLatin1String("name")).toElement().text();
       m_albumListModel->appendRow(new AlbumListItem(
-        name + " - " + title,
-        "release",
+        name + QLatin1String(" - ") + title,
+        QLatin1String("release"),
         id));
     }
   }
@@ -154,7 +154,7 @@ static QString upperCaseFirstLetters(const QString& str)
   int pos = 0;
   while (pos < len) {
     result[pos] = result.at(pos).toUpper();
-    pos = result.indexOf(' ', pos);
+    pos = result.indexOf(QLatin1Char(' '), pos);
     if (pos++ == -1) {
       break;
     }
@@ -200,17 +200,17 @@ static bool parseCredits(const QDomElement& relationList, FrameCollection& frame
   bool result = false;
   QDomNode relation(relationList.firstChild());
   while (!relation.isNull()) {
-    QString artist(relation.toElement().namedItem("artist").toElement().
-                   namedItem("name").toElement().text());
+    QString artist(relation.toElement().namedItem(QLatin1String("artist")).toElement().
+                   namedItem(QLatin1String("name")).toElement().text());
     if (!artist.isEmpty()) {
-      QString type(relation.toElement().attribute("type"));
-      if (type == "instrument") {
-        QDomNode attributeList(relation.toElement().namedItem("attribute-list"));
+      QString type(relation.toElement().attribute(QLatin1String("type")));
+      if (type == QLatin1String("instrument")) {
+        QDomNode attributeList(relation.toElement().namedItem(QLatin1String("attribute-list")));
         if (!attributeList.isNull()) {
           addInvolvedPeople(frames, Frame::FT_Performer,
             attributeList.firstChild().toElement().text(), artist);
         }
-      } else if (type == "vocal") {
+      } else if (type == QLatin1String("vocal")) {
         addInvolvedPeople(frames, Frame::FT_Performer, type, artist);
       } else {
         static const struct {
@@ -228,13 +228,13 @@ static bool parseCredits(const QDomElement& relationList, FrameCollection& frame
         for (unsigned i = 0;
              i < sizeof(creditToType) / sizeof(creditToType[0]);
              ++i) {
-          if (type == creditToType[i].credit) {
+          if (type == QString::fromLatin1(creditToType[i].credit)) {
             frames.setValue(creditToType[i].type, artist);
             found = true;
             break;
           }
         }
-        if (!found && type != "tribute") {
+        if (!found && type != QLatin1String("tribute")) {
           addInvolvedPeople(frames, Frame::FT_Arranger, type, artist);
         }
       }
@@ -284,18 +284,18 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
   QDomDocument doc;
   if (doc.setContent(xmlStr, false)) {
     QDomElement release =
-      doc.namedItem("metadata").toElement().namedItem("release").toElement();
+      doc.namedItem(QLatin1String("metadata")).toElement().namedItem(QLatin1String("release")).toElement();
     FrameCollection framesHdr;
     const bool standardTags = getStandardTags();
     if (standardTags) {
-      framesHdr.setAlbum(release.namedItem("title").toElement().text());
-      framesHdr.setArtist(release.namedItem("artist-credit").toElement().
-                          namedItem("name-credit").toElement().
-                          namedItem("artist").toElement().
-                          namedItem("name").toElement().text());
-      QString date(release.namedItem("date").toElement().text());
+      framesHdr.setAlbum(release.namedItem(QLatin1String("title")).toElement().text());
+      framesHdr.setArtist(release.namedItem(QLatin1String("artist-credit")).toElement().
+                          namedItem(QLatin1String("name-credit")).toElement().
+                          namedItem(QLatin1String("artist")).toElement().
+                          namedItem(QLatin1String("name")).toElement().text());
+      QString date(release.namedItem(QLatin1String("date")).toElement().text());
       if (!date.isEmpty()) {
-        QRegExp dateRe("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?");
+        QRegExp dateRe(QLatin1String("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?"));
         int year = 0;
         if (dateRe.exactMatch(date)) {
           year = dateRe.cap(1).toInt();
@@ -312,32 +312,32 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
     trackDataVector.setCoverArtUrl(QString::null);
     const bool coverArt = getCoverArt();
     if (coverArt) {
-      QString asin(release.namedItem("asin").toElement().text());
+      QString asin(release.namedItem(QLatin1String("asin")).toElement().text());
       if (!asin.isEmpty()) {
         trackDataVector.setCoverArtUrl(
-          QString("http://www.amazon.com/dp/") + asin);
+          QLatin1String("http://www.amazon.com/dp/") + asin);
       }
     }
 
     const bool additionalTags = getAdditionalTags();
     if (additionalTags) {
       // label can be found in the label-info-list
-      QDomElement labelInfoList(release.namedItem("label-info-list").toElement());
+      QDomElement labelInfoList(release.namedItem(QLatin1String("label-info-list")).toElement());
       if (!labelInfoList.isNull()) {
-        QDomElement labelInfo((labelInfoList.namedItem("label-info").toElement()));
+        QDomElement labelInfo((labelInfoList.namedItem(QLatin1String("label-info")).toElement()));
         if (!labelInfo.isNull()) {
-          QString label(labelInfo.namedItem("label").namedItem("name").toElement().text());
+          QString label(labelInfo.namedItem(QLatin1String("label")).namedItem(QLatin1String("name")).toElement().text());
           if (!label.isEmpty()) {
             framesHdr.setValue(Frame::FT_Publisher, label);
           }
-          QString catNo(labelInfo.namedItem("catalog-number").toElement().text());
+          QString catNo(labelInfo.namedItem(QLatin1String("catalog-number")).toElement().text());
           if (!catNo.isEmpty()) {
             framesHdr.setValue(Frame::FT_CatalogNumber, catNo);
           }
         }
       }
       // Release country can be found in "country"
-      QString country(release.namedItem("country").toElement().text());
+      QString country(release.namedItem(QLatin1String("country")).toElement().text());
       if (!country.isEmpty()) {
         framesHdr.setValue(Frame::FT_ReleaseCountry, country);
       }
@@ -346,25 +346,25 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
     if (additionalTags || coverArt) {
       QDomNode relationListNode(release.firstChild());
       while (!relationListNode.isNull()) {
-        if (relationListNode.nodeName() == "relation-list") {
+        if (relationListNode.nodeName() == QLatin1String("relation-list")) {
           QDomElement relationList(relationListNode.toElement());
           if (!relationList.isNull()) {
-            QString targetType(relationList.attribute("target-type"));
-            if (targetType == "artist") {
+            QString targetType(relationList.attribute(QLatin1String("target-type")));
+            if (targetType == QLatin1String("artist")) {
               if (additionalTags) {
                 parseCredits(relationList, framesHdr);
               }
-            } else if (targetType == "url") {
+            } else if (targetType == QLatin1String("url")) {
               if (coverArt) {
                 QDomNode relationNode(relationList.firstChild());
                 while (!relationNode.isNull()) {
-                  if (relationNode.nodeName() == "relation") {
+                  if (relationNode.nodeName() == QLatin1String("relation")) {
                     QDomElement relation(relationNode.toElement());
                     if (!relation.isNull()) {
-                      QString type(relation.attribute("type"));
-                      if (type == "cover art link" || type == "amazon asin") {
+                      QString type(relation.attribute(QLatin1String("type")));
+                      if (type == QLatin1String("cover art link") || type == QLatin1String("amazon asin")) {
                         trackDataVector.setCoverArtUrl(
-                          relation.namedItem("target").toElement().text());
+                          relation.namedItem(QLatin1String("target")).toElement().text());
                       }
                     }
                   }
@@ -383,46 +383,46 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
     int discNr = 1, trackNr = 1, position;
     bool ok;
     FrameCollection frames(framesHdr);
-    QDomElement mediumList = release.namedItem("medium-list").toElement();
-    int mediumCount = mediumList.attribute("count").toInt();
-    for (QDomNode mediumNode = mediumList.namedItem("medium");
+    QDomElement mediumList = release.namedItem(QLatin1String("medium-list")).toElement();
+    int mediumCount = mediumList.attribute(QLatin1String("count")).toInt();
+    for (QDomNode mediumNode = mediumList.namedItem(QLatin1String("medium"));
          !mediumNode.isNull();
          mediumNode = mediumNode.nextSibling()) {
-      position = mediumNode.namedItem("position").toElement().text().toInt(&ok);
+      position = mediumNode.namedItem(QLatin1String("position")).toElement().text().toInt(&ok);
       if (ok) {
         discNr = position;
       }
-      QDomElement trackList = mediumNode.namedItem("track-list").toElement();
-      for (QDomNode trackNode = trackList.namedItem("track");
+      QDomElement trackList = mediumNode.namedItem(QLatin1String("track-list")).toElement();
+      for (QDomNode trackNode = trackList.namedItem(QLatin1String("track"));
            !trackNode.isNull();
            trackNode = trackNode.nextSibling()) {
         if (mediumCount > 1 && additionalTags) {
           frames.setValue(Frame::FT_Disc, QString::number(discNr));
         }
         QDomElement track = trackNode.toElement();
-        position = track.namedItem("position").toElement().text().toInt(&ok);
+        position = track.namedItem(QLatin1String("position")).toElement().text().toInt(&ok);
         if (ok) {
           trackNr = position;
         }
         if (standardTags) {
           frames.setTrack(trackNr);
         }
-        int duration = track.namedItem("length").toElement().text().toInt();
-        QDomElement recording = track.namedItem("recording").toElement();
+        int duration = track.namedItem(QLatin1String("length")).toElement().text().toInt();
+        QDomElement recording = track.namedItem(QLatin1String("recording")).toElement();
         if (!recording.isNull()) {
           if (standardTags) {
-            frames.setTitle(recording.namedItem("title").toElement().text());
+            frames.setTitle(recording.namedItem(QLatin1String("title")).toElement().text());
           }
-          int length = recording.namedItem("length").toElement().text().toInt(&ok);
+          int length = recording.namedItem(QLatin1String("length")).toElement().text().toInt(&ok);
           if (ok) {
             duration = length;
           }
-          QDomNode artistNode = recording.namedItem("artist-credit");
+          QDomNode artistNode = recording.namedItem(QLatin1String("artist-credit"));
           if (!artistNode.isNull()) {
             QString artist(artistNode.toElement().
-                namedItem("name-credit").toElement().
-                namedItem("artist").toElement().
-                namedItem("name").toElement().text());
+                namedItem(QLatin1String("name-credit")).toElement().
+                namedItem(QLatin1String("artist")).toElement().
+                namedItem(QLatin1String("name")).toElement().text());
             if (!artist.isEmpty()) {
               // use the artist in the header as the album artist
               // and the artist in the track as the artist
@@ -436,9 +436,9 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
           }
           if (additionalTags) {
             QDomElement relationList =
-                recording.namedItem("relation-list").toElement();
+                recording.namedItem(QLatin1String("relation-list")).toElement();
             if (!relationList.isNull() &&
-                relationList.attribute("target-type") == "artist") {
+                relationList.attribute(QLatin1String("target-type")) == QLatin1String("artist")) {
               parseCredits(relationList, frames);
             }
           }
@@ -501,23 +501,23 @@ void MusicBrainzReleaseImporter::sendFindQuery(
    * Query looks like this:
    * http://musicbrainz.org/ws/2/release?query=artist:wizard%20AND%20release:odin
    */
-  QString path("/ws/2/release?query=");
+  QString path(QLatin1String("/ws/2/release?query="));
   if (!artist.isEmpty()) {
-    QString artistQuery(artist.contains(' ')
-                        ? QString('"') + artist + '"'
+    QString artistQuery(artist.contains(QLatin1Char(' '))
+                        ? QLatin1Char('"') + artist + QLatin1Char('"')
                         : artist);
     if (!album.isEmpty()) {
-      artistQuery += " AND ";
+      artistQuery += QLatin1String(" AND ");
     }
-    path += "artist:";
-    path += QUrl::toPercentEncoding(artistQuery);
+    path += QLatin1String("artist:");
+    path += QString::fromLatin1(QUrl::toPercentEncoding(artistQuery));
   }
   if (!album.isEmpty()) {
-    QString albumQuery(album.contains(' ')
-                        ? QString('"') + album + '"'
+    QString albumQuery(album.contains(QLatin1Char(' '))
+                        ? QLatin1Char('"') + album + QLatin1Char('"')
                         : album);
-    path += "release:";
-    path += QUrl::toPercentEncoding(albumQuery);
+    path += QLatin1String("release:");
+    path += QString::fromLatin1(QUrl::toPercentEncoding(albumQuery));
   }
   sendRequest(cfg->m_server, path);
 }
@@ -537,17 +537,17 @@ void MusicBrainzReleaseImporter::sendTrackListQuery(
    * Query looks like this:
    * http://musicbrainz.org/ws/2/release/978c7ed1-a854-4ef2-bd4e-e7c1317be854?inc=artists+recordings
    */
-  QString path("/ws/2/");
+  QString path(QLatin1String("/ws/2/"));
   path += cat;
-  path += '/';
+  path += QLatin1Char('/');
   path += id;
-  path += "?inc=artists+recordings";
+  path += QLatin1String("?inc=artists+recordings");
   if (cfg->m_additionalTags) {
-    path += "+artist-rels+artist-credits+release-rels+recording-rels+"
-      "recording-level-rels+labels";
+    path += QLatin1String("+artist-rels+artist-credits+release-rels+recording-rels+"
+      "recording-level-rels+labels");
   }
   if (cfg->m_coverArt) {
-    path += "+url-rels";
+    path += QLatin1String("+url-rels");
   }
   sendRequest(cfg->m_server, path);
 }

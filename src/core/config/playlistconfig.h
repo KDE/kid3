@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Sep 2009
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2009-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -61,7 +61,7 @@ public:
    *
    * @param grp configuration group
    */
-  PlaylistConfig(const QString& grp = "Playlist");
+  PlaylistConfig(const QString& grp = QLatin1String("Playlist"));
 
   /**
    * Destructor.

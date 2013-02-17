@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 31 Dec 2008
  *
- * Copyright (C) 2008-2009  Urs Fleisch
+ * Copyright (C) 2008-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,7 +36,7 @@
 DownloadDialog::DownloadDialog(QWidget* parent, const QString& caption) :
   QProgressDialog(parent)
 {
-  setObjectName("DownloadDialog");
+  setObjectName(QLatin1String("DownloadDialog"));
   setWindowTitle(caption);
 }
 
@@ -67,7 +67,7 @@ void DownloadDialog::showStartOfDownload(const QString& url)
 void DownloadDialog::updateProgressStatus(const QString& msg,
                                           int receivedBytes, int totalBytes)
 {
-  setLabelText(m_url + '\n' + msg);
+  setLabelText(m_url + QLatin1Char('\n') + msg);
   if (receivedBytes >= 0 && totalBytes >= 0) {
     setRange(0, totalBytes);
     setValue(receivedBytes);

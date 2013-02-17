@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Oct 2007
  *
- * Copyright (C) 2007-2011  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -195,11 +195,11 @@ static QString getNameForType(Frame::Type type)
     // first time initialization
     for (unsigned i = 0; i < sizeof(nameTypes) / sizeof(nameTypes[0]); ++i) {
       if (nameTypes[i].type != Frame::FT_Other) {
-        typeNameMap.insert(nameTypes[i].type, nameTypes[i].name);
+        typeNameMap.insert(nameTypes[i].type, QString::fromLatin1(nameTypes[i].name));
       }
     }
     for (unsigned i = 0; i < sizeof(freeFormNameTypes) / sizeof(freeFormNameTypes[0]); ++i) {
-      typeNameMap.insert(freeFormNameTypes[i].type, freeFormNameTypes[i].name);
+      typeNameMap.insert(freeFormNameTypes[i].type, QString::fromLatin1(freeFormNameTypes[i].name));
     }
   }
   if (type != Frame::FT_Other) {
@@ -229,7 +229,7 @@ static Frame::Type getTypeForName(const QString& name,
     if (nameTypeMap.empty()) {
       // first time initialization
       for (unsigned i = 0; i < sizeof(nameTypes) / sizeof(nameTypes[0]); ++i) {
-        nameTypeMap.insert(nameTypes[i].name, nameTypes[i].type);
+        nameTypeMap.insert(QString::fromLatin1(nameTypes[i].name), nameTypes[i].type);
       }
     }
     QMap<QString, Frame::Type>::const_iterator it = nameTypeMap.find(name);
@@ -242,7 +242,7 @@ static Frame::Type getTypeForName(const QString& name,
     if (freeFormNameTypeMap.empty()) {
       // first time initialization
       for (unsigned i = 0; i < sizeof(freeFormNameTypes) / sizeof(freeFormNameTypes[0]); ++i) {
-        freeFormNameTypeMap.insert(freeFormNameTypes[i].name, freeFormNameTypes[i].type);
+        freeFormNameTypeMap.insert(QString::fromLatin1(freeFormNameTypes[i].name), freeFormNameTypes[i].type);
       }
     }
     QMap<QString, Frame::Type>::const_iterator it = freeFormNameTypeMap.find(name);
@@ -465,7 +465,7 @@ void M4aFile::readTags(bool force)
           if (item.dataList.size > 0 && item.dataList.elements[0].value && item.dataList.elements[0].valueSize > 0) {
             ba = getValueByteArray(key, item.dataList.elements[0].value, item.dataList.elements[0].valueSize);
           }
-          m_metadata[key] = ba;
+          m_metadata[QString::fromLatin1(key)] = ba;
         }
       }
       MP4ItmfItemListFree(list);
@@ -619,21 +619,21 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
           const QString& name = it.key();
           const QByteArray& str = value;
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
-          if (name == "\251nam") {
+          if (name == QLatin1String("\251nam")) {
             MP4TagsSetName(tags, str);
-          } else if (name == "\251ART") {
+          } else if (name == QLatin1String("\251ART")) {
             MP4TagsSetArtist(tags, str);
-          } else if (name == "\251wrt") {
+          } else if (name == QLatin1String("\251wrt")) {
             MP4TagsSetComposer(tags, str);
-          } else if (name == "\251cmt") {
+          } else if (name == QLatin1String("\251cmt")) {
             MP4TagsSetComments(tags, str);
-          } else if (name == "\251too") {
+          } else if (name == QLatin1String("\251too")) {
             MP4TagsSetEncodingTool(tags, str);
-          } else if (name == "\251day") {
+          } else if (name == QLatin1String("\251day")) {
             MP4TagsSetReleaseDate(tags, str);
-          } else if (name == "\251alb") {
+          } else if (name == QLatin1String("\251alb")) {
             MP4TagsSetAlbum(tags, str);
-          } else if (name == "trkn") {
+          } else if (name == QLatin1String("trkn")) {
             MP4TagTrack indexTotal;
             int slashPos = str.indexOf('/');
             if (slashPos != -1) {
@@ -644,7 +644,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
               indexTotal.index = str.toUShort();
             }
             MP4TagsSetTrack(tags, &indexTotal);
-          } else if (name == "disk") {
+          } else if (name == QLatin1String("disk")) {
             MP4TagDisk indexTotal;
             int slashPos = str.indexOf('/');
             if (slashPos != -1) {
@@ -655,97 +655,97 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
               indexTotal.index = str.toUShort();
             }
             MP4TagsSetDisk(tags, &indexTotal);
-          } else if (name == "\251gen" || name == "gnre") {
+          } else if (name == QLatin1String("\251gen") || name == QLatin1String("gnre")) {
             MP4TagsSetGenre(tags, str);
-          } else if (name == "tmpo") {
+          } else if (name == QLatin1String("tmpo")) {
             uint16_t tempo = str.toUShort();
             MP4TagsSetTempo(tags, &tempo);
-          } else if (name == "cpil") {
+          } else if (name == QLatin1String("cpil")) {
             uint8_t cpl = str.toUShort();
             MP4TagsSetCompilation(tags, &cpl);
-          } else if (name == "covr") {
+          } else if (name == QLatin1String("covr")) {
             MP4TagArtwork artwork;
             artwork.data = (void *)value.data();
             artwork.size = value.size();
             artwork.type = MP4_ART_UNDEFINED;
             MP4TagsAddArtwork(tags, &artwork);
-          } else if (name == "\251grp") {
+          } else if (name == QLatin1String("\251grp")) {
             MP4TagsSetGrouping(tags, str);
-          } else if (name == "aART") {
+          } else if (name == QLatin1String("aART")) {
             MP4TagsSetAlbumArtist(tags, str);
-          } else if (name == "pgap") {
+          } else if (name == QLatin1String("pgap")) {
             uint8_t pgap = str.toUShort();
             MP4TagsSetGapless(tags, &pgap);
-          } else if (name == "tvsh") {
+          } else if (name == QLatin1String("tvsh")) {
             MP4TagsSetTVShow(tags, str);
-          } else if (name == "tvnn") {
+          } else if (name == QLatin1String("tvnn")) {
             MP4TagsSetTVNetwork(tags, str);
-          } else if (name == "tven") {
+          } else if (name == QLatin1String("tven")) {
             MP4TagsSetTVEpisodeID(tags, str);
-          } else if (name == "tvsn") {
+          } else if (name == QLatin1String("tvsn")) {
             uint32_t val = str.toULong();
             MP4TagsSetTVSeason(tags, &val);
-          } else if (name == "tves") {
+          } else if (name == QLatin1String("tves")) {
             uint32_t val = str.toULong();
             MP4TagsSetTVEpisode(tags, &val);
-          } else if (name == "desc") {
+          } else if (name == QLatin1String("desc")) {
             MP4TagsSetDescription(tags, str);
-          } else if (name == "ldes") {
+          } else if (name == QLatin1String("ldes")) {
             MP4TagsSetLongDescription(tags, str);
-          } else if (name == "\251lyr") {
+          } else if (name == QLatin1String("\251lyr")) {
             MP4TagsSetLyrics(tags, str);
-          } else if (name == "sonm") {
+          } else if (name == QLatin1String("sonm")) {
             MP4TagsSetSortName(tags, str);
-          } else if (name == "soar") {
+          } else if (name == QLatin1String("soar")) {
             MP4TagsSetSortArtist(tags, str);
-          } else if (name == "soaa") {
+          } else if (name == QLatin1String("soaa")) {
             MP4TagsSetSortAlbumArtist(tags, str);
-          } else if (name == "soal") {
+          } else if (name == QLatin1String("soal")) {
             MP4TagsSetSortAlbum(tags, str);
-          } else if (name == "soco") {
+          } else if (name == QLatin1String("soco")) {
             MP4TagsSetSortComposer(tags, str);
-          } else if (name == "sosn") {
+          } else if (name == QLatin1String("sosn")) {
             MP4TagsSetSortTVShow(tags, str);
-          } else if (name == "cprt") {
+          } else if (name == QLatin1String("cprt")) {
             MP4TagsSetCopyright(tags, str);
-          } else if (name == "\251enc") {
+          } else if (name == QLatin1String("\251enc")) {
             MP4TagsSetEncodedBy(tags, str);
-          } else if (name == "purd") {
+          } else if (name == QLatin1String("purd")) {
             MP4TagsSetPurchaseDate(tags, str);
-          } else if (name == "pcst") {
+          } else if (name == QLatin1String("pcst")) {
             uint8_t val = str.toUShort();
             MP4TagsSetPodcast(tags, &val);
-          } else if (name == "keyw") {
+          } else if (name == QLatin1String("keyw")) {
             MP4TagsSetKeywords(tags, str);
-          } else if (name == "catg") {
+          } else if (name == QLatin1String("catg")) {
             MP4TagsSetCategory(tags, str);
-          } else if (name == "hdvd") {
+          } else if (name == QLatin1String("hdvd")) {
             uint8_t val = str.toUShort();
             MP4TagsSetHDVideo(tags, &val);
-          } else if (name == "stik") {
+          } else if (name == QLatin1String("stik")) {
             uint8_t val = str.toUShort();
             MP4TagsSetMediaType(tags, &val);
-          } else if (name == "rtng") {
+          } else if (name == QLatin1String("rtng")) {
             uint8_t val = str.toUShort();
             MP4TagsSetContentRating(tags, &val);
-          } else if (name == "apID") {
+          } else if (name == QLatin1String("apID")) {
             MP4TagsSetITunesAccount(tags, str);
-          } else if (name == "akID") {
+          } else if (name == QLatin1String("akID")) {
             uint8_t val = str.toUShort();
             MP4TagsSetITunesAccountType(tags, &val);
-          } else if (name == "sfID") {
+          } else if (name == QLatin1String("sfID")) {
             uint32_t val = str.toULong();
             MP4TagsSetITunesCountry(tags, &val);
-          } else if (name == "cnID") {
+          } else if (name == QLatin1String("cnID")) {
             uint32_t val = str.toULong();
             MP4TagsSetContentID(tags, &val);
-          } else if (name == "atID") {
+          } else if (name == QLatin1String("atID")) {
             uint32_t val = str.toULong();
             MP4TagsSetArtistID(tags, &val);
-          } else if (name == "plID") {
+          } else if (name == QLatin1String("plID")) {
             uint64_t val = str.toULongLong();
             MP4TagsSetPlaylistID(tags, &val);
-          } else if (name == "geID") {
+          } else if (name == QLatin1String("geID")) {
             uint32_t val = str.toULong();
             MP4TagsSetGenreID(tags, &val);
           } else {
@@ -764,17 +764,17 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
           }
 #else
           bool setOk;
-          if (name == "\251nam") {
+          if (name == QLatin1String("\251nam")) {
             setOk = MP4SetMetadataName(handle, str);
-          } else if (name == "\251ART") {
+          } else if (name == QLatin1String("\251ART")) {
             setOk = MP4SetMetadataArtist(handle, str);
-          } else if (name == "\251wrt") {
+          } else if (name == QLatin1String("\251wrt")) {
             setOk = MP4SetMetadataWriter(handle, str);
-          } else if (name == "\251cmt") {
+          } else if (name == QLatin1String("\251cmt")) {
             setOk = MP4SetMetadataComment(handle, str);
-          } else if (name == "\251too") {
+          } else if (name == QLatin1String("\251too")) {
             setOk = MP4SetMetadataTool(handle, str);
-          } else if (name == "\251day") {
+          } else if (name == QLatin1String("\251day")) {
             unsigned short year = str.toUShort();
             if (year > 0) {
               if (year < 1000) year += 2000;
@@ -784,9 +784,9 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
             } else {
               setOk = true;
             }
-          } else if (name == "\251alb") {
+          } else if (name == QLatin1String("\251alb")) {
             setOk = MP4SetMetadataAlbum(handle, str);
-          } else if (name == "trkn") {
+          } else if (name == QLatin1String("trkn")) {
             uint16_t track = 0, totalTracks = 0;
             int slashPos = str.indexOf('/');
             if (slashPos != -1) {
@@ -796,7 +796,7 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
               track = str.toUShort();
             }
             setOk = MP4SetMetadataTrack(handle, track, totalTracks);
-          } else if (name == "disk") {
+          } else if (name == QLatin1String("disk")) {
             uint16_t disk = 0, totalDisks = 0;
             int slashPos = str.indexOf('/');
             if (slashPos != -1) {
@@ -806,15 +806,15 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
               disk = str.toUShort();
             }
             setOk = MP4SetMetadataDisk(handle, disk, totalDisks);
-          } else if (name == "\251gen" || name == "gnre") {
+          } else if (name == QLatin1String("\251gen") || name == QLatin1String("gnre")) {
             setOk = MP4SetMetadataGenre(handle, str);
-          } else if (name == "tmpo") {
+          } else if (name == QLatin1String("tmpo")) {
             uint16_t tempo = str.toUShort();
             setOk = MP4SetMetadataTempo(handle, tempo);
-          } else if (name == "cpil") {
+          } else if (name == QLatin1String("cpil")) {
             uint8_t cpl = str.toUShort();
             setOk = MP4SetMetadataCompilation(handle, cpl);
-          } else if (name == "covr") {
+          } else if (name == QLatin1String("covr")) {
             setOk = MP4SetMetadataCoverArt(
               handle,
               reinterpret_cast<uint8_t*>(const_cast<char*>(value.data())),
@@ -825,13 +825,13 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
 // undefined reference to MP4SetMetadataGrouping. To avoid this,
 // in the line below, 0x105 is replaced by 0x106.
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
-          } else if (name == "\251grp") {
+          } else if (name == QLatin1String("\251grp")) {
             setOk = MP4SetMetadataGrouping(handle, str);
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
-          } else if (name == "aART") {
+          } else if (name == QLatin1String("aART")) {
             setOk = MP4SetMetadataAlbumArtist(handle, str);
-          } else if (name == "pgap") {
+          } else if (name == QLatin1String("pgap")) {
             uint8_t pgap = str.toUShort();
             setOk = MP4SetMetadataPartOfGaplessAlbum(handle, pgap);
 #endif
@@ -927,7 +927,7 @@ QString M4aFile::getTextField(const QString& name) const
     if (it != m_metadata.end()) {
       return QString::fromUtf8((*it).data(), (*it).size());
     }
-    return "";
+    return QLatin1String("");
   }
   return QString::null;
 }
@@ -968,7 +968,7 @@ void M4aFile::setTextField(const QString& name, const QString& value,
  */
 QString M4aFile::getTitleV2()
 {
-  return getTextField("\251nam");
+  return getTextField(QLatin1String("\251nam"));
 }
 
 /**
@@ -980,7 +980,7 @@ QString M4aFile::getTitleV2()
  */
 QString M4aFile::getArtistV2()
 {
-  return getTextField("\251ART");
+  return getTextField(QLatin1String("\251ART"));
 }
 
 /**
@@ -992,7 +992,7 @@ QString M4aFile::getArtistV2()
  */
 QString M4aFile::getAlbumV2()
 {
-  return getTextField("\251alb");
+  return getTextField(QLatin1String("\251alb"));
 }
 
 /**
@@ -1004,7 +1004,7 @@ QString M4aFile::getAlbumV2()
  */
 QString M4aFile::getCommentV2()
 {
-  return getTextField("\251cmt");
+  return getTextField(QLatin1String("\251cmt"));
 }
 
 /**
@@ -1016,7 +1016,7 @@ QString M4aFile::getCommentV2()
  */
 int M4aFile::getYearV2()
 {
-  QString str(getTextField("\251day"));
+  QString str(getTextField(QLatin1String("\251day")));
   if (!str.isNull()) {
     return str.toInt();
   }
@@ -1032,7 +1032,7 @@ int M4aFile::getYearV2()
  */
 QString M4aFile::getTrackV2()
 {
-  return getTextField("trkn");
+  return getTextField(QLatin1String("trkn"));
 }
 
 /**
@@ -1044,9 +1044,9 @@ QString M4aFile::getTrackV2()
  */
 QString M4aFile::getGenreV2()
 {
-  QString str(getTextField("\251gen"));
+  QString str(getTextField(QLatin1String("\251gen")));
   if (str.isEmpty()) {
-    str = getTextField("gnre");
+    str = getTextField(QLatin1String("gnre"));
   }
   return str;
 }
@@ -1058,7 +1058,7 @@ QString M4aFile::getGenreV2()
  */
 void M4aFile::setTitleV2(const QString& str)
 {
-  setTextField("\251nam", str, Frame::FT_Title);
+  setTextField(QLatin1String("\251nam"), str, Frame::FT_Title);
 }
 
 /**
@@ -1068,7 +1068,7 @@ void M4aFile::setTitleV2(const QString& str)
  */
 void M4aFile::setArtistV2(const QString& str)
 {
-  setTextField("\251ART", str, Frame::FT_Artist);
+  setTextField(QLatin1String("\251ART"), str, Frame::FT_Artist);
 }
 
 /**
@@ -1078,7 +1078,7 @@ void M4aFile::setArtistV2(const QString& str)
  */
 void M4aFile::setAlbumV2(const QString& str)
 {
-  setTextField("\251alb", str, Frame::FT_Album);
+  setTextField(QLatin1String("\251alb"), str, Frame::FT_Album);
 }
 
 /**
@@ -1088,7 +1088,7 @@ void M4aFile::setAlbumV2(const QString& str)
  */
 void M4aFile::setCommentV2(const QString& str)
 {
-  setTextField("\251cmt", str, Frame::FT_Comment);
+  setTextField(QLatin1String("\251cmt"), str, Frame::FT_Comment);
 }
 
 /**
@@ -1099,7 +1099,7 @@ void M4aFile::setCommentV2(const QString& str)
 void M4aFile::setYearV2(int num)
 {
   if (num >= 0) {
-    setTextField("\251day", num != 0 ? QString::number(num) : "",
+    setTextField(QLatin1String("\251day"), num != 0 ? QString::number(num) : QLatin1String(""),
                  Frame::FT_Date);
   }
 }
@@ -1120,13 +1120,13 @@ void M4aFile::setTrackV2(const QString& track)
       if (numTracks == 0)
         numTracks = getTotalNumberOfTracksIfEnabled();
       if (numTracks > 0) {
-        str += '/';
+        str += QLatin1Char('/');
         str += QString::number(numTracks);
       }
     } else {
-      str = "";
+      str = QLatin1String("");
     }
-    setTextField("trkn", str, Frame::FT_Track);
+    setTextField(QLatin1String("trkn"), str, Frame::FT_Track);
   }
 }
 
@@ -1140,11 +1140,11 @@ void M4aFile::setGenreV2(const QString& str)
   if (str != getGenreV2()) {
     int genreNum = Genres::getNumber(str);
     if (genreNum != 255) {
-      setTextField("gnre", str, Frame::FT_Genre);
-      m_metadata.remove("\251gen");
+      setTextField(QLatin1String("gnre"), str, Frame::FT_Genre);
+      m_metadata.remove(QLatin1String("\251gen"));
     } else {
-      setTextField("\251gen", str, Frame::FT_Genre);
-      m_metadata.remove("gnre");
+      setTextField(QLatin1String("\251gen"), str, Frame::FT_Genre);
+      m_metadata.remove(QLatin1String("gnre"));
     }
   }
 }
@@ -1179,7 +1179,7 @@ bool M4aFile::hasTagV2() const
  */
 QString M4aFile::getFileExtension() const
 {
-  return ".m4a";
+  return QLatin1String(".m4a");
 }
 
 /**
@@ -1191,7 +1191,7 @@ void M4aFile::getDetailInfo(DetailInfo& info) const
 {
   if (m_fileRead && m_fileInfo.valid) {
     info.valid = true;
-    info.format = "MP4";
+    info.format = QLatin1String("MP4");
     info.bitrate = m_fileInfo.bitrate;
     info.sampleRate = m_fileInfo.sampleRate;
     info.channels = m_fileInfo.channels;
@@ -1222,7 +1222,7 @@ unsigned M4aFile::getDuration() const
  */
 QString M4aFile::getTagFormatV2() const
 {
-  return hasTagV2() ? QString("MP4") : QString::null;
+  return hasTagV2() ? QLatin1String("MP4") : QString();
 }
 
 /**
@@ -1369,19 +1369,19 @@ QStringList M4aFile::getFrameIds() const
 
   QStringList lst;
   for (unsigned i = 0; i < sizeof(types) / sizeof(types[0]); ++i) {
-    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(i), "").
+    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(i), QLatin1String("")).
                getTranslatedName());
   }
-  lst << "cpil";
+  lst << QLatin1String("cpil");
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0106
-  lst << "pgap";
+  lst << QLatin1String("pgap");
 #endif
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
-  lst << "akID" << "apID" << "atID" << "catg" << "cnID" << "desc" <<
-    "\251too" << "geID" << "hdvd" << "keyw" << "ldes" << "pcst" <<
-    "plID" << "purd" << "rtng" << "sfID" << "soaa" << "soal" <<
-    "soar" << "soco" << "sonm" << "sosn" << "stik" << "tven" <<
-    "tves" << "tvnn" << "tvsh" << "tvsn";
+  lst << QLatin1String("akID") << QLatin1String("apID") << QLatin1String("atID") << QLatin1String("catg") << QLatin1String("cnID") << QLatin1String("desc") <<
+    QLatin1String("\251too") << QLatin1String("geID") << QLatin1String("hdvd") << QLatin1String("keyw") << QLatin1String("ldes") << QLatin1String("pcst") <<
+    QLatin1String("plID") << QLatin1String("purd") << QLatin1String("rtng") << QLatin1String("sfID") << QLatin1String("soaa") << QLatin1String("soal") <<
+    QLatin1String("soar") << QLatin1String("soco") << QLatin1String("sonm") << QLatin1String("sosn") << QLatin1String("stik") << QLatin1String("tven") <<
+    QLatin1String("tves") << QLatin1String("tvnn") << QLatin1String("tvsh") << QLatin1String("tvsn");
 #endif
   return lst;
 }
@@ -1431,8 +1431,8 @@ TaggedFile* M4aFile::Resolver::createFile(const QString& dn, const QString& fn,
     const QPersistentModelIndex& idx) const
 {
   QString ext = fn.right(4).toLower();
-  if (ext == ".m4a" || ext == ".m4b" || ext == ".m4p" || ext == ".mp4" ||
-      ext == ".m4v" || ext == "mp4v")
+  if (ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") || ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4") ||
+      ext == QLatin1String(".m4v") || ext == QLatin1String("mp4v"))
     return new M4aFile(dn, fn, idx);
   else
     return 0;
@@ -1445,7 +1445,7 @@ TaggedFile* M4aFile::Resolver::createFile(const QString& dn, const QString& fn,
  */
 QStringList M4aFile::Resolver::getSupportedFileExtensions() const
 {
-  return QStringList() << ".m4a" << ".m4b" << ".m4p" << ".mp4";
+  return QStringList() << QLatin1String(".m4a") << QLatin1String(".m4b") << QLatin1String(".m4p") << QLatin1String(".mp4");
 }
 
 #endif // HAVE_MP4V2

@@ -42,7 +42,7 @@ QtFingerprintDecoder::QtFingerprintDecoder(QObject* parent) :
 {
   QAudioFormat desiredFormat;
   desiredFormat.setChannelCount(2);
-  desiredFormat.setCodec("audio/x-raw-int");
+  desiredFormat.setCodec(QLatin1String("audio/x-raw-int"));
   desiredFormat.setSampleType(QAudioFormat::SignedInt);
   desiredFormat.setSampleRate(44100);
   desiredFormat.setSampleSize(16);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2009
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2009-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -53,7 +53,7 @@
 PlaylistDialog::PlaylistDialog(QWidget* parent):
   QDialog(parent)
 {
-  setObjectName("PlaylistDialog");
+  setObjectName(QLatin1String("PlaylistDialog"));
   setModal(true);
   setWindowTitle(i18n("Create Playlist"));
   setSizeGripEnabled(true);
@@ -149,8 +149,8 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   m_fileNameFormatComboBox->setEnabled(false);
   m_fileNameFormatComboBox->addItems(
     QStringList() <<
-    "%{artist} - %{album}" << "%{artist} - [%{year}] %{album}" << "%{album}" <<
-    "playlist_%{artist}_-_%{album}" << "playlist");
+    QLatin1String("%{artist} - %{album}") << QLatin1String("%{artist} - [%{year}] %{album}") << QLatin1String("%{album}") <<
+    QLatin1String("playlist_%{artist}_-_%{album}") << QLatin1String("playlist"));
   connect(m_fileNameFormatButton, SIGNAL(toggled(bool)),
           m_fileNameFormatComboBox, SLOT(setEnabled(bool)));
   locationLabel->setText(i18n("Cr&eate in:"));
@@ -163,7 +163,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   pcGroupBox->setTitle(i18n("Playlist Content"));
   formatLabel->setText(i18n("For&mat:"));
   formatLabel->setBuddy(m_formatComboBox);
-  m_formatComboBox->addItems(QStringList() << "M3U" << "PLS" << "XSPF");
+  m_formatComboBox->addItems(QStringList() << QLatin1String("M3U") << QLatin1String("PLS") << QLatin1String("XSPF"));
   m_onlySelectedFilesCheckBox->setText(i18n("Incl&ude only the selected files"));
   m_sortFileNameButton->setText(i18n("Sort by file &name"));
   m_sortFileNameButton->setChecked(true);
@@ -173,10 +173,10 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   QStringList lst;
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
     QString frameName =
-        Frame::ExtendedType(static_cast<Frame::Type>(type), "").getName().
+        Frame::ExtendedType(static_cast<Frame::Type>(type), QLatin1String("")).getName().
         toLower();
-    if (frameName == "track number") frameName = "track.3";
-    lst.append("%{" + frameName + "}");
+    if (frameName == QLatin1String("track number")) frameName = QLatin1String("track.3");
+    lst.append(QLatin1String("%{") + frameName + QLatin1String("}"));
   }
   m_sortTagFieldComboBox->addItems(lst);
   connect(m_sortTagFieldButton, SIGNAL(toggled(bool)),
@@ -191,8 +191,8 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   m_writeInfoComboBox->setEnabled(false);
   m_writeInfoComboBox->addItems(
     QStringList() <<
-    "%{artist} - %{title}" << "%{title}" <<
-    "%{track.1}/%{tracks} - %{artist} - %{album} - %{title}");
+    QLatin1String("%{artist} - %{title}") << QLatin1String("%{title}") <<
+    QLatin1String("%{track.1}/%{tracks} - %{artist} - %{album} - %{title}"));
   connect(m_writeInfoButton, SIGNAL(toggled(bool)),
           m_writeInfoComboBox, SLOT(setEnabled(bool)));
 
@@ -284,5 +284,5 @@ void PlaylistDialog::saveConfig() const
  */
 void PlaylistDialog::showHelp()
 {
-  ContextHelp::displayHelp("create-playlist");
+  ContextHelp::displayHelp(QLatin1String("create-playlist"));
 }

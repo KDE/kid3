@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Dec 2007
  *
- * Copyright (C) 2007-2012  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,7 +49,7 @@
 ScriptInterface::ScriptInterface(Kid3Application* app) :
   QDBusAbstractAdaptor(app), m_app(app)
 {
-  setObjectName("ScriptInterface");
+  setObjectName(QLatin1String("ScriptInterface"));
   setAutoRelaySignals(true);
 }
 
@@ -85,7 +85,7 @@ bool ScriptInterface::save()
     m_errorMsg.clear();
     return true;
   } else {
-    m_errorMsg = "Error while writing file:\n" + errorFiles.join("\n");
+    m_errorMsg = QLatin1String("Error while writing file:\n") + errorFiles.join(QLatin1String("\n"));
     return false;
   }
 }
@@ -335,7 +335,7 @@ bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
     m_errorMsg.clear();
     return true;
   } else {
-    m_errorMsg = "Error while renaming:\n" + m_errorMsg;
+    m_errorMsg = QLatin1String("Error while renaming:\n") + m_errorMsg;
     return false;
   }
 }
@@ -446,7 +446,7 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
 {
   QString frameName(name);
   QString dataFileName;
-  int colonIndex = frameName.indexOf(':');
+  int colonIndex = frameName.indexOf(QLatin1Char(':'));
   if (colonIndex != -1) {
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
@@ -460,7 +460,7 @@ QString ScriptInterface::getFrame(int tagMask, const QString& name)
     }
     return it->getValue();
   } else {
-    return "";
+    return QLatin1String("");
   }
 }
 
@@ -480,7 +480,7 @@ bool ScriptInterface::setFrame(int tagMask, const QString& name,
 {
   QString frameName(name);
   QString dataFileName;
-  int colonIndex = frameName.indexOf(':');
+  int colonIndex = frameName.indexOf(QLatin1Char(':'));
   if (colonIndex != -1) {
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
@@ -557,36 +557,36 @@ QStringList ScriptInterface::getInformation()
     TaggedFile::DetailInfo info;
     taggedFile->getDetailInfo(info);
     if (info.valid) {
-      lst << "Format" << info.format;
+      lst << QLatin1String("Format") << info.format;
       if (info.bitrate > 0 && info.bitrate < 999) {
-        lst << "Bitrate" << QString::number(info.bitrate);
+        lst << QLatin1String("Bitrate") << QString::number(info.bitrate);
       }
       if (info.sampleRate > 0) {
-        lst << "Samplerate" << QString::number(info.sampleRate);
+        lst << QLatin1String("Samplerate") << QString::number(info.sampleRate);
       }
       if (info.channels > 0) {
-        lst << "Channels" << QString::number(info.channels);
+        lst << QLatin1String("Channels") << QString::number(info.channels);
       }
       if (info.duration > 0) {
-        lst << "Duration" << QString::number(info.duration);
+        lst << QLatin1String("Duration") << QString::number(info.duration);
       }
       if (info.channelMode == TaggedFile::DetailInfo::CM_Stereo ||
           info.channelMode == TaggedFile::DetailInfo::CM_JointStereo) {
-        lst << "Channel Mode" <<
+        lst << QLatin1String("Channel Mode") <<
           (info.channelMode == TaggedFile::DetailInfo::CM_Stereo ?
-           "Stereo" : "Joint Stereo");
+           QLatin1String("Stereo") : QLatin1String("Joint Stereo"));
       }
       if (info.vbr) {
-        lst << "VBR" << "1";
+        lst << QLatin1String("VBR") << QLatin1String("1");
       }
     }
     QString tag1 = taggedFile->getTagFormatV1();
     if (!tag1.isEmpty()) {
-      lst << "Tag 1" << tag1;
+      lst << QLatin1String("Tag 1") << tag1;
     }
     QString tag2 = taggedFile->getTagFormatV2();
     if (!tag2.isEmpty()) {
-      lst << "Tag 2" << tag2;
+      lst << QLatin1String("Tag 2") << tag2;
     }
   }
   return lst;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,7 +39,7 @@
 ImportClient::ImportClient(QNetworkAccessManager* netMgr) :
   HttpClient(netMgr), m_requestType(RT_None)
 {
-  setObjectName("ImportClient");
+  setObjectName(QLatin1String("ImportClient"));
   connect(this, SIGNAL(bytesReceived(const QByteArray&)),
           this, SLOT(requestFinished(const QByteArray&)));
 }
@@ -109,8 +109,8 @@ void ImportClient::getTrackList(const ServerImporterConfig* cfg, QString cat, QS
 QString ImportClient::encodeUrlQuery(const QString& query)
 {
   QString result(query);
-  result.replace(QRegExp(" +"), " "); // collapse spaces
-  result = QUrl::toPercentEncoding(result);
-  result.replace("%20", "+"); // replace spaces by '+'
+  result.replace(QRegExp(QLatin1String(" +")), QLatin1String(" ")); // collapse spaces
+  result = QString::fromLatin1(QUrl::toPercentEncoding(result));
+  result.replace(QLatin1String("%20"), QLatin1String("+")); // replace spaces by '+'
   return result;
 }

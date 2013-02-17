@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Mar 2004
  *
- * Copyright (C) 2004-2012  Urs Fleisch
+ * Copyright (C) 2004-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -55,7 +55,7 @@
 RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
   QWizard(parent), m_taggedFile(0), m_dirRenamer(dirRenamer)
 {
-  setObjectName("RenDirDialog");
+  setObjectName(QLatin1String("RenDirDialog"));
   setModal(true);
   setWindowTitle(i18n("Rename Directory"));
   setSizeGripEnabled(true);
@@ -119,7 +119,7 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   m_formatComboBox = new QComboBox(page);
   QStringList strList;
   for (const char** sl = MiscConfig::s_defaultDirFmtList; *sl != 0; ++sl) {
-    strList += *sl;
+    strList += QString::fromLatin1(*sl);
   }
   m_formatComboBox->addItems(strList);
   m_formatComboBox->setEditable(true);
@@ -238,7 +238,7 @@ void RenDirDialog::saveConfig()
  */
 void RenDirDialog::showHelp()
 {
-  ContextHelp::displayHelp("rename-directory");
+  ContextHelp::displayHelp(QLatin1String("rename-directory"));
 }
 
 /**
@@ -277,11 +277,11 @@ void RenDirDialog::displayActionPreview(const QStringList& actionStrs)
     m_edit->setTabStopWidth(width);
   }
   if (actionStrs.size() > 1) {
-    str += '\t';
+    str += QLatin1Char('\t');
     str += actionStrs.at(1);
   }
   if (actionStrs.size() > 2) {
-    str += "\n\t";
+    str += QLatin1String("\n\t");
     str += actionStrs.at(2);
   }
   m_edit->append(str);

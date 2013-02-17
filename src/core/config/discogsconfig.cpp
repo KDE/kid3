@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,7 +35,7 @@
  */
 DiscogsConfig::DiscogsConfig(const QString& grp) : ServerImporterConfig(grp, false, true)
 {
-  m_server = "www.discogs.com:80";
+  m_server = QLatin1String("www.discogs.com:80");
 }
 
 /**

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,7 +40,7 @@ EditFrameDialog::EditFrameDialog(QWidget* parent, const QString& caption,
                                  const QString& text) :
   QDialog(parent)
 {
-  setObjectName("EditFrameDialog");
+  setObjectName(QLatin1String("EditFrameDialog"));
   setModal(true);
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008  Urs Fleisch
+ * Copyright (C) 2008-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,31 +46,31 @@ FilterConfig::FilterConfig(const QString& grp) :
    * Preset filter expressions.
    */
   m_filterNames <<
-    "All" <<
-    "Filename Tag Mismatch" <<
-    "No Tag 1" <<
-    "No Tag 2" <<
-    "ID3v2.2.0 Tag" <<
-    "ID3v2.3.0 Tag" <<
-    "ID3v2.4.0 Tag" <<
-    "Tag 1 != Tag 2" <<
-    "Tag 1 == Tag 2" <<
-    "Incomplete" <<
-    "No Picture" <<
-    "Custom Filter";
+    QLatin1String("All") <<
+    QLatin1String("Filename Tag Mismatch") <<
+    QLatin1String("No Tag 1") <<
+    QLatin1String("No Tag 2") <<
+    QLatin1String("ID3v2.2.0 Tag") <<
+    QLatin1String("ID3v2.3.0 Tag") <<
+    QLatin1String("ID3v2.4.0 Tag") <<
+    QLatin1String("Tag 1 != Tag 2") <<
+    QLatin1String("Tag 1 == Tag 2") <<
+    QLatin1String("Incomplete") <<
+    QLatin1String("No Picture") <<
+    QLatin1String("Custom Filter");
   m_filterExpressions <<
-    "" <<
-    "not (%{filepath} contains \"%{artist} - %{album}/%{track} %{title}\")" <<
-    "%{tag1} equals \"\"" <<
-    "%{tag2} equals \"\"" <<
-    "%{tag2} equals \"ID3v2.2.0\"" <<
-    "%{tag2} equals \"ID3v2.3.0\"" <<
-    "%{tag2} equals \"ID3v2.4.0\"" <<
-    "not (%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre})" <<
-    "%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre}" <<
-    "%{title} equals \"\" or %{artist} equals \"\" or %{album} equals \"\" or %{year} equals \"\" or %{tracknumber} equals \"\" or %{genre} equals \"\"" <<
-    "%{picture} equals \"\"" <<
-    "";
+    QLatin1String("") <<
+    QLatin1String("not (%{filepath} contains \"%{artist} - %{album}/%{track} %{title}\")") <<
+    QLatin1String("%{tag1} equals \"\"") <<
+    QLatin1String("%{tag2} equals \"\"") <<
+    QLatin1String("%{tag2} equals \"ID3v2.2.0\"") <<
+    QLatin1String("%{tag2} equals \"ID3v2.3.0\"") <<
+    QLatin1String("%{tag2} equals \"ID3v2.4.0\"") <<
+    QLatin1String("not (%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre})") <<
+    QLatin1String("%1{title} equals %2{title} and %1{album} equals %2{album} and %1{artist} equals %2{artist} and %1{comment} equals %2{comment} and %1{year} equals %2{year} and %1{track} equals %2{track} and %1{genre} equals %2{genre}") <<
+    QLatin1String("%{title} equals \"\" or %{artist} equals \"\" or %{album} equals \"\" or %{year} equals \"\" or %{tracknumber} equals \"\" or %{genre} equals \"\"") <<
+    QLatin1String("%{picture} equals \"\"") <<
+    QLatin1String("");
 }
 
 /**
@@ -93,12 +93,12 @@ void FilterConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("WindowWidth", m_windowWidth);
   cfg.writeEntry("WindowHeight", m_windowHeight);
 #else
-  config->beginGroup("/" + m_group);
-  config->setValue("/FilterNames", QVariant(m_filterNames));
-  config->setValue("/FilterExpressions", QVariant(m_filterExpressions));
-  config->setValue("/FilterIdx", QVariant(m_filterIdx));
-  config->setValue("/WindowWidth", QVariant(m_windowWidth));
-  config->setValue("/WindowHeight", QVariant(m_windowHeight));
+  config->beginGroup(QLatin1Char('/') + m_group);
+  config->setValue(QLatin1String("/FilterNames"), QVariant(m_filterNames));
+  config->setValue(QLatin1String("/FilterExpressions"), QVariant(m_filterExpressions));
+  config->setValue(QLatin1String("/FilterIdx"), QVariant(m_filterIdx));
+  config->setValue(QLatin1String("/WindowWidth"), QVariant(m_windowWidth));
+  config->setValue(QLatin1String("/WindowHeight"), QVariant(m_windowHeight));
 
   config->endGroup();
 #endif
@@ -124,14 +124,14 @@ void FilterConfig::readFromConfig(Kid3Settings* config)
   // so we have to append them again.
   unsigned numNames = names.size();
   while (static_cast<unsigned>(expressions.size()) < numNames)
-    expressions.append("");
+    expressions.append(QLatin1String(""));
 #else
-  config->beginGroup("/" + m_group);
-  names = config->value("/FilterNames").toStringList();
-  expressions = config->value("/FilterExpressions").toStringList();
-  m_filterIdx = config->value("/FilterIdx", m_filterIdx).toInt();
-  m_windowWidth = config->value("/WindowWidth", -1).toInt();
-  m_windowHeight = config->value("/WindowHeight", -1).toInt();
+  config->beginGroup(QLatin1Char('/') + m_group);
+  names = config->value(QLatin1String("/FilterNames")).toStringList();
+  expressions = config->value(QLatin1String("/FilterExpressions")).toStringList();
+  m_filterIdx = config->value(QLatin1String("/FilterIdx"), m_filterIdx).toInt();
+  m_windowWidth = config->value(QLatin1String("/WindowWidth"), -1).toInt();
+  m_windowHeight = config->value(QLatin1String("/WindowHeight"), -1).toInt();
 
   config->endGroup();
 #endif
@@ -160,10 +160,10 @@ void FilterConfig::readFromConfig(Kid3Settings* config)
  */
 void FilterConfig::setFilenameFormat(const QString& format)
 {
-  int idx = m_filterNames.indexOf("Filename Tag Mismatch");
+  int idx = m_filterNames.indexOf(QLatin1String("Filename Tag Mismatch"));
   if (idx != -1) {
-    m_filterExpressions[idx] = QString("not (%{filepath} contains \"") +
-      format + "\")";
+    m_filterExpressions[idx] = QLatin1String("not (%{filepath} contains \"") +
+      format + QLatin1String("\")");
   }
 }
 

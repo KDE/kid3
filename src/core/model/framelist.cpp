@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,7 +40,7 @@ FrameList::FrameList(FrameTableModel* ftm, QItemSelectionModel* selModel) :
   QObject(ftm), m_taggedFile(0), m_frameTableModel(ftm),
   m_selectionModel(selModel), m_cursorRow(-1), m_cursorColumn(-1)
 {
-  setObjectName("FrameList");
+  setObjectName(QLatin1String("FrameList"));
 }
 
 /**

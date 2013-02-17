@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Sep 2005
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -149,13 +149,13 @@ QString TaggedFile::getGenreV1()
  */
 void TaggedFile::deleteFramesV1(const FrameFilter& flt)
 {
-  if (flt.isEnabled(Frame::FT_Title))   setTitleV1("");
-  if (flt.isEnabled(Frame::FT_Artist))  setArtistV1("");
-  if (flt.isEnabled(Frame::FT_Album))   setAlbumV1("");
-  if (flt.isEnabled(Frame::FT_Comment)) setCommentV1("");
+  if (flt.isEnabled(Frame::FT_Title))   setTitleV1(QLatin1String(""));
+  if (flt.isEnabled(Frame::FT_Artist))  setArtistV1(QLatin1String(""));
+  if (flt.isEnabled(Frame::FT_Album))   setAlbumV1(QLatin1String(""));
+  if (flt.isEnabled(Frame::FT_Comment)) setCommentV1(QLatin1String(""));
   if (flt.isEnabled(Frame::FT_Date))    setYearV1(0);
   if (flt.isEnabled(Frame::FT_Track))   setTrackNumV1(0);
-  if (flt.isEnabled(Frame::FT_Genre))   setGenreV1("");
+  if (flt.isEnabled(Frame::FT_Genre))   setGenreV1(QLatin1String(""));
 }
 
 /**
@@ -291,7 +291,7 @@ void TaggedFile::markTag2Changed(Frame::Type type)
 static QString removeArtist(const QString& album)
 {
   QString str(album);
-  int pos = str.indexOf(" - ");
+  int pos = str.indexOf(QLatin1String(" - "));
   if (pos != -1) {
     str.remove(0, pos + 3);
   }
@@ -327,23 +327,23 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   // if the format does not contain a '_', they are replaced by spaces
   // in the filename.
   QString fileName(fn);
-  if (!fmt.contains('_')) {
-    fileName.replace(QChar('_'), QChar(' '));
+  if (!fmt.contains(QLatin1Char('_'))) {
+    fileName.replace(QLatin1Char('_'), QLatin1Char(' '));
   }
 
   // escape regexp characters
   QString pattern;
   uint fmtLen = fmt.length();
-  static const QString escChars("+?.*^$()[]{}|\\");
+  static const QString escChars(QLatin1String("+?.*^$()[]{}|\\"));
   for (uint i = 0; i < fmtLen; ++i) {
     const QChar ch = fmt.at(i);
     if (escChars.contains(ch)) {
-      pattern += '\\';
+      pattern += QLatin1Char('\\');
     }
     pattern += ch;
   }
   // and finally a dot followed by 3 or 4 characters for the extension
-  pattern += "\\..{3,4}$";
+  pattern += QLatin1String("\\..{3,4}$");
 
   static const struct {
     const char* from;
@@ -363,23 +363,23 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   };
   int percentIdx = 0, nr = 1;
   for (unsigned i = 0; i < sizeof(codeToName) / sizeof(codeToName[0]); ++i) {
-    pattern.replace(codeToName[i].from, codeToName[i].to);
+    pattern.replace(QString::fromLatin1(codeToName[i].from), QString::fromLatin1(codeToName[i].to));
   }
 
   QMap<QString, int> codePos;
-  while (((percentIdx = pattern.indexOf("%\\{", percentIdx)) >= 0) &&
+  while (((percentIdx = pattern.indexOf(QLatin1String("%\\{"), percentIdx)) >= 0) &&
          (percentIdx < static_cast<int>(pattern.length()) - 1)) {
-    int closingBracePos = pattern.indexOf("\\}", percentIdx + 3);
+    int closingBracePos = pattern.indexOf(QLatin1String("\\}"), percentIdx + 3);
     if (closingBracePos > percentIdx + 3) {
       QString code =
         pattern.mid(percentIdx + 3, closingBracePos - percentIdx - 3);
       codePos[code] = nr++;
-      if (code == "track number" || code == "date" || code == "disc number" ||
-          code == "bpm") {
-        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "(\\d{1,4})");
+      if (code == QLatin1String("track number") || code == QLatin1String("date") || code == QLatin1String("disc number") ||
+          code == QLatin1String("bpm")) {
+        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, QLatin1String("(\\d{1,4})"));
         percentIdx += 9;
       } else {
-        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, "([^-_\\./ ][^/]*[^-_/ ])");
+        pattern.replace(percentIdx, closingBracePos - percentIdx + 2, QLatin1String("([^-_\\./ ][^/]*[^-_/ ])"));
         percentIdx += 23;
       }
     } else {
@@ -395,11 +395,11 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
       QString name = it.key();
       QString str = re.cap(*it);
       if (!str.isEmpty()) {
-        if (name == "track number" && str.length() == 2 && str[0] == '0') {
+        if (name == QLatin1String("track number") && str.length() == 2 && str[0] == QLatin1Char('0')) {
           // remove leading zero
           str = str.mid(1);
         }
-        if (name != "ignore")
+        if (name != QLatin1String("ignore"))
           frames.setValue(Frame::ExtendedType(name), str);
       }
     }
@@ -407,7 +407,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // album/track - artist - song
-  re.setPattern("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{3,4}$");
+  re.setPattern(QLatin1String("([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)[_ ]-[_ ]([^-_\\./ ][^/]+)\\..{3,4}$"));
   if (re.indexIn(fn) != -1) {
     frames.setAlbum(removeArtist(re.cap(1)));
     frames.setTrack(re.cap(2).toInt());
@@ -417,7 +417,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // artist - album (year)/track song
-  re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)[_ ]\\((\\d{4})\\)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  re.setPattern(QLatin1String("([^/]+)[_ ]-[_ ]([^/]+)[_ ]\\((\\d{4})\\)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$"));
   if (re.indexIn(fn) != -1) {
     frames.setArtist(re.cap(1));
     frames.setAlbum(re.cap(2));
@@ -428,7 +428,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // artist - album/track song
-  re.setPattern("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  re.setPattern(QLatin1String("([^/]+)[_ ]-[_ ]([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$"));
   if (re.indexIn(fn) != -1) {
     frames.setArtist(re.cap(1));
     frames.setAlbum(re.cap(2));
@@ -437,7 +437,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // /artist - album - track - song
-  re.setPattern("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  re.setPattern(QLatin1String("/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+[^-_/ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$"));
   if (re.indexIn(fn) != -1) {
     frames.setArtist(re.cap(1));
     frames.setAlbum(re.cap(2));
@@ -446,7 +446,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // album/artist - track - song
-  re.setPattern("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  re.setPattern(QLatin1String("([^/]+)/([^/]+[^-_\\./ ])[-_\\. ]+(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$"));
   if (re.indexIn(fn) != -1) {
     frames.setAlbum(removeArtist(re.cap(1)));
     frames.setArtist(re.cap(2));
@@ -455,7 +455,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // artist/album/track song
-  re.setPattern("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$");
+  re.setPattern(QLatin1String("([^/]+)/([^/]+)/(\\d{1,3})[-_\\. ]+([^-_\\./ ][^/]+)\\..{3,4}$"));
   if (re.indexIn(fn) != -1) {
     frames.setArtist(re.cap(1));
     frames.setAlbum(re.cap(2));
@@ -464,7 +464,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     return;
   }
   // album/artist - song
-  re.setPattern("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{3,4}$");
+  re.setPattern(QLatin1String("([^/]+)/([^/]+[^-_/ ])[_ ]-[_ ]([^-_/ ][^/]+)\\..{3,4}$"));
   if (re.indexIn(fn) != -1) {
     frames.setAlbum(removeArtist(re.cap(1)));
     frames.setArtist(re.cap(2));
@@ -530,7 +530,7 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
     // temporary filename, so that it works also with case
     // insensitive filesystems (e.g. Windows).
     QString temp_filename(fnNew);
-    temp_filename.append("_CASE");
+    temp_filename.append(QLatin1String("_CASE"));
     if (!Utils::safeRename(m_dirname, fnOld, temp_filename)) {
       qDebug("rename(%s, %s) failed", fnOld.toLatin1().data(),
              temp_filename.toLatin1().data());
@@ -578,7 +578,7 @@ int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
   if (str.isNull())
     return -1;
 
-  int slashPos = str.indexOf('/');
+  int slashPos = str.indexOf(QLatin1Char('/'));
   if (slashPos == -1)
     return str.toInt();
 
@@ -637,7 +637,7 @@ QString TaggedFile::trackNumberString(int num, int numTracks) const
       str.setNum(num);
     }
     if (numTracks > 0) {
-      str += '/';
+      str += QLatin1Char('/');
       if (numDigits > 0) {
         str += QString().sprintf("%0*d", numDigits, numTracks);
       } else {
@@ -645,7 +645,7 @@ QString TaggedFile::trackNumberString(int num, int numTracks) const
       }
     }
   } else {
-    str = "";
+    str = QLatin1String("");
   }
   return str;
 }
@@ -696,13 +696,13 @@ int TaggedFile::getTrackNumberDigits() const
  */
 void TaggedFile::deleteFramesV2(const FrameFilter& flt)
 {
-  if (flt.isEnabled(Frame::FT_Title))   setTitleV2("");
-  if (flt.isEnabled(Frame::FT_Artist))  setArtistV2("");
-  if (flt.isEnabled(Frame::FT_Album))   setAlbumV2("");
-  if (flt.isEnabled(Frame::FT_Comment)) setCommentV2("");
+  if (flt.isEnabled(Frame::FT_Title))   setTitleV2(QLatin1String(""));
+  if (flt.isEnabled(Frame::FT_Artist))  setArtistV2(QLatin1String(""));
+  if (flt.isEnabled(Frame::FT_Album))   setAlbumV2(QLatin1String(""));
+  if (flt.isEnabled(Frame::FT_Comment)) setCommentV2(QLatin1String(""));
   if (flt.isEnabled(Frame::FT_Date))    setYearV2(0);
-  if (flt.isEnabled(Frame::FT_Track))   setTrackV2("");
-  if (flt.isEnabled(Frame::FT_Genre))   setGenreV2("");
+  if (flt.isEnabled(Frame::FT_Track))   setTrackV2(QLatin1String(""));
+  if (flt.isEnabled(Frame::FT_Genre))   setGenreV2(QLatin1String(""));
 }
 
 /**
@@ -818,7 +818,7 @@ bool TaggedFile::getFrameV1(Frame::Type type, Frame& frame)
     if (n == -1) {
       frame.m_value = QString();
     } else if (n == 0) {
-      frame.m_value = QString("");
+      frame.m_value = QLatin1String("");
     } else {
       frame.m_value.setNum(n);
     }
@@ -920,7 +920,7 @@ bool TaggedFile::getFrameV2(Frame::Type type, Frame& frame)
     if (n == -1) {
       frame.m_value = QString();
     } else if (n == 0) {
-      frame.m_value = QString("");
+      frame.m_value = QLatin1String("");
     } else {
       frame.m_value.setNum(n);
     }
@@ -999,7 +999,7 @@ bool TaggedFile::addFrameV2(Frame& frame)
 bool TaggedFile::deleteFrameV2(const Frame& frame)
 {
   Frame emptyFrame(frame);
-  emptyFrame.setValue("");
+  emptyFrame.setValue(QLatin1String(""));
   return setFrameV2(emptyFrame);
 }
 
@@ -1162,7 +1162,7 @@ QStringList TaggedFile::getSupportedFileExtensions()
 
   // remove duplicates
   extensions.sort();
-  QString lastExt("");
+  QString lastExt(QLatin1String(""));
   for (QStringList::iterator it = extensions.begin();
        it != extensions.end();) {
     if (*it == lastExt) {

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Aug 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
                                QWidget* parent) :
   QWidget(parent)
 {
-  setObjectName("FormatListEdit");
+  setObjectName(QLatin1String("FormatListEdit"));
   QHBoxLayout* hlayout = new QHBoxLayout(this);
   hlayout->setMargin(0);
   QFormLayout* formatLayout = new QFormLayout;
@@ -239,7 +239,7 @@ void FormatListEdit::addItem()
     if (index == -1) {
       // no empty format found, add a new one
       for (int i = 0; i < m_formats.size(); ++i) {
-        m_formats[i].append(i == 0 ? i18n("New") : "");
+        m_formats[i].append(i == 0 ? i18n("New") : QLatin1String(""));
       }
       index = m_formats.first().size() - 1;
     }

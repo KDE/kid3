@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 07 Oct 2012
  *
- * Copyright (C) 2012  Urs Fleisch
+ * Copyright (C) 2012-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,15 +46,15 @@ int TestUtils::runTestSuite(const QObject& testSuite, QStringList& args)
   bool listTestCases = false;
   QRegExp testCaseRe;
   for (int i = 1; i < args.size(); ++i) {
-    if (args.at(i) == "-help") {
+    if (args.at(i) == QLatin1String("-help")) {
       std::printf(" -testcases : Returns a list of current testcases\n"
                   " -testcase re      : Run only testcases matching regular "
                   "expression\n");
-    } else if (args.at(i) == "-testcases") {
+    } else if (args.at(i) == QLatin1String("-testcases")) {
       listTestCases = true;
       args.removeAt(i);
       break;
-    } else if (args.at(i) == "-testcase" && i + 1 < args.size()) {
+    } else if (args.at(i) == QLatin1String("-testcase") && i + 1 < args.size()) {
       testCaseRe.setPattern(args.at(i + 1));
       args.removeAt(i + 1);
       args.removeAt(i);
@@ -66,7 +66,7 @@ int TestUtils::runTestSuite(const QObject& testSuite, QStringList& args)
   int testCasesFailed = 0;
 
   foreach (QObject* tc, testSuite.children()) {
-    QString tcName(tc->metaObject()->className());
+    QString tcName(QString::fromLatin1(tc->metaObject()->className()));
     if (listTestCases) {
       std::printf("%s\n", qPrintable(tcName));
     } else if (testCaseRe.isEmpty() || testCaseRe.exactMatch(tcName)) {

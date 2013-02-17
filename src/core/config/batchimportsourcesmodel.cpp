@@ -44,7 +44,7 @@ enum ColumnIndex {
 BatchImportSourcesModel::BatchImportSourcesModel(QObject* parent) :
   QAbstractTableModel(parent)
 {
-  setObjectName("BatchImportSourcesModel");
+  setObjectName(QLatin1String("BatchImportSourcesModel"));
 }
 
 /**

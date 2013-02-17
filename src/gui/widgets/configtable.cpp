@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Oct 2005
  *
- * Copyright (C) 2005-2007  Urs Fleisch
+ * Copyright (C) 2005-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,7 +37,7 @@
 ConfigTable::ConfigTable(QWidget* parent) :
   QTableView(parent)
 {
-  setObjectName("ConfigTable");
+  setObjectName(QLatin1String("ConfigTable"));
   setContextMenuPolicy(Qt::CustomContextMenu);
   connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
       this, SLOT(customContextMenu(const QPoint&)));

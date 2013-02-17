@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Jun 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,7 @@ TagImportDialog::TagImportDialog(QWidget* parent,
                                  TrackDataModel* trackDataModel) :
   QDialog(parent), m_trackDataModel(trackDataModel)
 {
-  setObjectName("TagImportDialog");
+  setObjectName(QLatin1String("TagImportDialog"));
   setWindowTitle(i18n("Import from Tags"));
   setSizeGripEnabled(true);
 
@@ -143,5 +143,5 @@ void TagImportDialog::saveConfig()
  */
 void TagImportDialog::showHelp()
 {
-  ContextHelp::displayHelp("import-tags");
+  ContextHelp::displayHelp(QLatin1String("import-tags"));
 }

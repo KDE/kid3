@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,7 +48,7 @@
 BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   : QDialog(parent)
 {
-  setObjectName("BrowserDialog");
+  setObjectName(QLatin1String("BrowserDialog"));
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   vlayout->setSpacing(6);
@@ -59,19 +59,19 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
 #if QT_VERSION >= 0x040800 && !defined WIN32
   foreach (const QString& uiLang, locale.uiLanguages()) {
     QString lang(uiLang.left(2));
-    docPaths += QDir::currentPath() + "/kid3_" + lang + ".html";
+    docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");
 #ifdef CFG_DOCDIR
-    docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
+    docPaths += QLatin1String(CFG_DOCDIR) + QLatin1String("/kid3_") + lang + QLatin1String(".html");
 #endif
   }
 #endif
   QString lang(locale.name().left(2));
 #ifdef CFG_DOCDIR
-  docPaths += QString(CFG_DOCDIR) + "/kid3_" + lang + ".html";
-  docPaths += QString(CFG_DOCDIR) + "/kid3_en.html";
+  docPaths += QLatin1String(CFG_DOCDIR) + QLatin1String("/kid3_") + lang + QLatin1String(".html");
+  docPaths += QLatin1String(CFG_DOCDIR) + QLatin1String("/kid3_en.html");
 #endif
-  docPaths += QDir::currentPath() + "/kid3_" + lang + ".html";
-  docPaths += QDir::currentPath() + "/kid3_en.html";
+  docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang + QLatin1String(".html");
+  docPaths += QDir::currentPath() + QLatin1String("/kid3_en.html");
   for (QStringList::const_iterator it = docPaths.begin();
        it != docPaths.end();
        ++it) {

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Feb 2007
  *
- * Copyright (C) 2007-2012  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@
  */
 ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
 {
-  setObjectName("OutputViewer");
+  setObjectName(QLatin1String("OutputViewer"));
   setModal(false);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   m_textEdit = new QTextEdit(this);
@@ -50,7 +50,7 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   vlayout->setMargin(6);
   m_textEdit->setReadOnly(true);
   m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
-  m_textEdit->setStyleSheet("font-family: \"Courier\";");
+  m_textEdit->setStyleSheet(QLatin1String("font-family: \"Courier\";"));
   vlayout->addWidget(m_textEdit);
   QHBoxLayout* buttonLayout = new QHBoxLayout;
   QPushButton* clearButton = new QPushButton(i18n("C&lear"), this);
@@ -80,13 +80,13 @@ void ExternalProcess::OutputViewer::append(const QString& text)
     return;
 
   QString txt(text);
-  txt.replace("\r\n", "\n");
+  txt.replace(QLatin1String("\r\n"), QLatin1String("\n"));
   int startPos = 0;
   int txtLen = txt.length();
   while (startPos < txtLen) {
     QChar ch;
     int len;
-    int crLfPos = txt.indexOf(QRegExp("[\\r\\n]"), startPos);
+    int crLfPos = txt.indexOf(QRegExp(QLatin1String("[\\r\\n]")), startPos);
     if (crLfPos >= startPos) {
       ch = txt.at(crLfPos);
       len = crLfPos - startPos;
@@ -102,9 +102,9 @@ void ExternalProcess::OutputViewer::append(const QString& text)
       m_textEdit->setTextCursor(cursor);
     }
     m_textEdit->insertPlainText(line);
-    if (ch == '\r') {
+    if (ch == QLatin1Char('\r')) {
       m_textEdit->moveCursor(QTextCursor::StartOfLine);
-    } else if (ch == '\n') {
+    } else if (ch == QLatin1Char('\n')) {
       m_textEdit->moveCursor(QTextCursor::EndOfLine);
       m_textEdit->insertPlainText(ch);
     }
@@ -132,7 +132,7 @@ void ExternalProcess::OutputViewer::scrollToBottom()
 ExternalProcess::ExternalProcess(QWidget* parent) :
   QObject(parent), m_parent(parent), m_process(0), m_outputViewer(0)
 {
-  setObjectName("ExternalProcess");
+  setObjectName(QLatin1String("ExternalProcess"));
 }
 
 /**
@@ -159,7 +159,7 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 
   if (confirm && QMessageBox::question(
         m_parent, name,
-        i18n("Execute ") + args.join(" ") + "?",
+        i18n("Execute ") + args.join(QLatin1String(" ")) + QLatin1Char('?'),
         QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok) {
     return;
   }
@@ -192,7 +192,7 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
   if (!m_process->waitForStarted(10000)) {
     QMessageBox::warning(
       m_parent, name,
-      i18n("Could not execute ") + args.join(" "),
+      i18n("Could not execute ") + args.join(QLatin1String(" ")),
       QMessageBox::Ok, Qt::NoButton);
   }
 }
@@ -202,5 +202,5 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
  */
 void ExternalProcess::readFromStdout()
 {
-  m_outputViewer->append(m_process->readAllStandardOutput());
+  m_outputViewer->append(QString::fromLocal8Bit(m_process->readAllStandardOutput()));
 }

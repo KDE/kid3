@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Jul 2005
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,7 +33,7 @@
  */
 DirList::DirList(QWidget* parent) : QListView(parent)
 {
-  setObjectName("DirList");
+  setObjectName(QLatin1String("DirList"));
 }
 
 /**

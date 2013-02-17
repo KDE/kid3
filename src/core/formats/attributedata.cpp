@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 Mar 2009
  *
- * Copyright (C) 2009  Urs Fleisch
+ * Copyright (C) 2009-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -85,7 +85,7 @@ AttributeData::AttributeData(const QString& name)
     // first time initialization
     for (unsigned i = 0; i < sizeof(typeOfWmPriv) / sizeof(typeOfWmPriv[0]);
          ++i) {
-      strNumMap.insert(QString(typeOfWmPriv[i].str), typeOfWmPriv[i].type);
+      strNumMap.insert(QString::fromLatin1(typeOfWmPriv[i].str), typeOfWmPriv[i].type);
     }
   }
   QMap<QString, int>::const_iterator it =
@@ -118,13 +118,13 @@ bool AttributeData::toString(const QByteArray& data, QString& str)
         str.clear();
         for (int i = 0; i < 16; ++i) {
           if (i == 4 || i == 6 || i == 8 || i == 10) {
-            str += '-';
+            str += QLatin1Char('-');
           }
           unsigned char c = (unsigned char)data[i];
           unsigned char d = c >> 4;
-          str += d >= 10 ? d - 10 + 'A' : d + '0';
+          str += QLatin1Char(d >= 10 ? d - 10 + 'A' : d + '0');
           d = c & 0x0f;
-          str += d >= 10 ? d - 10 + 'A' : d + '0';
+          str += QLatin1Char(d >= 10 ? d - 10 + 'A' : d + '0');
         }
         return true;
       }
@@ -167,7 +167,7 @@ bool AttributeData::toByteArray(const QString& str, QByteArray& data)
     }
     case Guid: {
       QString hexStr(str.toUpper());
-      hexStr.remove('-');
+      hexStr.remove(QLatin1Char('-'));
       if (hexStr.length() == 32) {
         unsigned char buf[16];
         unsigned char* bufPtr = buf;
@@ -226,7 +226,7 @@ bool AttributeData::isHexString(const QString& str, char lastAllowedLetter,
   for (int i = 0; i < static_cast<int>(str.length()); ++i) {
     char c = str[i].toLatin1();
     if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= lastAllowedLetter) ||
-          additionalChars.indexOf(c) != -1)) {
+          additionalChars.indexOf(QLatin1Char(c)) != -1)) {
       return false;
     }
   }

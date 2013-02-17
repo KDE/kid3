@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2012
  *
- * Copyright (C) 2012  Urs Fleisch
+ * Copyright (C) 2012-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -64,7 +64,7 @@ namespace {
 
 QString stripQuotes(const QString& str)
 {
-  return (str.startsWith('"') && str.endsWith('"'))
+  return (str.startsWith(QLatin1Char('"')) && str.endsWith(QLatin1Char('"')))
       ? str.mid(1, str.length() - 2)
       : str;
 }
@@ -72,7 +72,7 @@ QString stripQuotes(const QString& str)
 QVariant valueStringToVariant(const QString& value)
 {
   bool ok;
-  if (value.startsWith('"') && value.endsWith('"')) {
+  if (value.startsWith(QLatin1Char('"')) && value.endsWith(QLatin1Char('"'))) {
     // The value is probably a string, but could also be a date/time.
     QString str(value.mid(1, value.length() - 2));
     QDateTime dt(QDateTime::fromString(str, Qt::ISODate));
@@ -83,14 +83,14 @@ QVariant valueStringToVariant(const QString& value)
   }
 
   // Return nested objects or arrays.
-  if (value.startsWith('{') || value.startsWith('['))
+  if (value.startsWith(QLatin1Char('{')) || value.startsWith(QLatin1Char('[')))
     return JsonDeserializer().deserialize(value);
 
-  if (value == "true")
+  if (value == QLatin1String("true"))
     return true;
-  else if (value == "false")
+  else if (value == QLatin1String("false"))
     return false;
-  else if (value == "null")
+  else if (value == QLatin1String("null"))
     return QVariant();
 
   qlonglong num = value.toLongLong(&ok);
@@ -112,33 +112,33 @@ QString variantToValueString(const QVariant& var)
   QString value;
   QVariant::Type type = var.type();
   if (!var.isValid()) {
-    value = "null";
+    value = QLatin1String("null");
   } else if (type == QVariant::List) {
     QVariantList lst(var.toList());
     // Serialize into an array container "[...]".
     for (int i = 0; i < lst.size(); i++) {
-      value += QString("%1%2").arg(value.isEmpty() ? "" : ", ").
+      value += QString(QLatin1String("%1%2")).arg(value.isEmpty() ? QLatin1String("") : QLatin1String(", ")).
           arg(variantToValueString(lst.at(i)));
     }
-    value = QString("[%1]").arg(value);
+    value = QString(QLatin1String("[%1]")).arg(value);
   } else if (type == QVariant::Map) {
     // Serialize into an object container "{...}".
     QVariantMap map(var.toMap());
     for (QMap<QString, QVariant>::const_iterator it = map.constBegin();
          it != map.constEnd();
          ++it) {
-      value += QString("%1\"%2\": %3").arg(value.isEmpty() ? "" : ", ").
+      value += QString(QLatin1String("%1\"%2\": %3")).arg(value.isEmpty() ? QLatin1String("") : QLatin1String(", ")).
           arg(it.key()).arg(variantToValueString(it.value()));
     }
-    value = QString("{%1}").arg(value);
+    value = QString(QLatin1String("{%1}")).arg(value);
   } else {
     value = var.toString();
-    if (value.startsWith('{') || value.startsWith('[')) {
+    if (value.startsWith(QLatin1Char('{')) || value.startsWith(QLatin1Char('['))) {
       ; // keep value
     } else if (type == QVariant::String || type == QVariant::DateTime ||
                type == QVariant::Date || type == QVariant::Time) {
-      value = QString('"') +
-          value.replace('\\', "\\\\").replace('"', "\\\"") + '"';
+      value = QLatin1Char('"') +
+          value.replace(QLatin1Char('\\'), QLatin1String("\\\\")).replace(QLatin1Char('"'), QLatin1String("\\\"")) + QLatin1Char('"');
     }
   }
   return value;
@@ -159,31 +159,31 @@ QVariant JsonDeserializer::deserialize(const QString& str,
   m_str = str;
   m_len = str.length();
   m_pos = 0;
-  if (requireDelimiter("{")) {
+  if (requireDelimiter(QLatin1String("{"))) {
     // Deserialize from object container "{...}".
     QVariantMap map;
     isOk = true;
     while (m_pos < m_len) {
       QString key = parseSymbol();
-      if (key.isEmpty() || !requireDelimiter(":")) {
+      if (key.isEmpty() || !requireDelimiter(QLatin1String(":"))) {
         isOk = false;
         break;
       }
       QString value = parseSymbol();
-      if (value.isEmpty() || !requireDelimiter(",}")) {
+      if (value.isEmpty() || !requireDelimiter(QLatin1String(",}"))) {
         isOk = false;
         break;
       }
       map.insert(stripQuotes(key), valueStringToVariant(value));
     }
     result = map;
-  } else if (requireDelimiter("[")) {
+  } else if (requireDelimiter(QLatin1String("["))) {
     // Deserialize from array container "[...]".
     QVariantList lst;
     isOk = true;
     for (int i = 0; m_pos < m_len; i++) {
       QString value = parseSymbol();
-      if (value.isEmpty() || !requireDelimiter(",]")) {
+      if (value.isEmpty() || !requireDelimiter(QLatin1String(",]"))) {
         isOk = false;
         break;
       }
@@ -200,8 +200,8 @@ QVariant JsonDeserializer::deserialize(const QString& str,
 void JsonDeserializer::skipWhiteSpace()
 {
   QChar ch;
-  while (m_pos < m_len && ((ch = m_str.at(m_pos)) == ' ' ||
-                         ch == '\t' || ch == '\r' || ch == '\n')) {
+  while (m_pos < m_len && ((ch = m_str.at(m_pos)) == QLatin1Char(' ') ||
+                         ch == QLatin1Char('\t') || ch == QLatin1Char('\r') || ch == QLatin1Char('\n'))) {
     ++m_pos;
   }
 }
@@ -223,24 +223,24 @@ QString JsonDeserializer::parseSymbol()
   skipWhiteSpace();
   if (m_pos < m_len) {
     const QChar beginCh = m_str.at(m_pos);
-    if (beginCh == '"') {
+    if (beginCh == QLatin1Char('"')) {
       // String, get symbol between double quotes respecting escaped quotes.
       int endPos;
       int searchPos = m_pos + 1;
       forever {
-        endPos = m_str.indexOf('"', searchPos);
-        if (endPos < 1 || m_str.at(endPos - 1) != '\\')
+        endPos = m_str.indexOf(QLatin1Char('"'), searchPos);
+        if (endPos < 1 || m_str.at(endPos - 1) != QLatin1Char('\\'))
           break;
         searchPos = endPos + 1;
       }
       if (endPos > m_pos) {
         result = m_str.mid(m_pos, ++endPos - m_pos).
-            replace("\\\"", "\"").replace("\\\\", "\\");
+            replace(QLatin1String("\\\""), QLatin1String("\"")).replace(QLatin1String("\\\\"), QLatin1String("\\"));
         m_pos = endPos;
       }
-    } else if (beginCh == '{' || beginCh == '[') {
+    } else if (beginCh == QLatin1Char('{') || beginCh == QLatin1Char('[')) {
       // Object or array, find end. Nesting is supported.
-      const QChar endCh = beginCh == '{' ? '}' : ']';
+      const QChar endCh = beginCh == QLatin1Char('{') ? QLatin1Char('}') : QLatin1Char(']');
       int nestingLevel = 0;
       bool insideString = false;
       QChar lastCh;
@@ -248,11 +248,11 @@ QString JsonDeserializer::parseSymbol()
       while (endPos < m_len) {
         const QChar ch = m_str.at(endPos);
         if (insideString) {
-          if (ch == '"' && lastCh != '\\') {
+          if (ch == QLatin1Char('"') && lastCh != QLatin1Char('\\')) {
             insideString = false;
           }
         } else {
-          if (ch == '"') {
+          if (ch == QLatin1Char('"')) {
             insideString = true;
           } else if (ch == beginCh) {
             ++nestingLevel;
@@ -274,7 +274,7 @@ QString JsonDeserializer::parseSymbol()
     } else {
       // Probably number or symbol without whitespace.
       int startPos = m_pos;
-      const QString endChars = " \t\r\n:,}]";
+      const QString endChars = QLatin1String(" \t\r\n:,}]");
       while (m_pos < m_len && endChars.indexOf(m_str.at(m_pos)) == -1) {
         ++m_pos;
       }

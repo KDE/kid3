@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Jun 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -56,7 +56,7 @@ DownloadClient::~DownloadClient()
 void DownloadClient::startDownload(const QString& hostName, const QString& path)
 {
   m_canceled = false;
-  m_url = "http://";
+  m_url = QLatin1String("http://");
   m_url += hostName;
   m_url += path;
   emit downloadStarted(m_url);
@@ -71,9 +71,9 @@ void DownloadClient::startDownload(const QString& hostName, const QString& path)
  */
 void DownloadClient::startDownload(const QString& url)
 {
-  int hostPos = url.indexOf("://");
+  int hostPos = url.indexOf(QLatin1String("://"));
   if (hostPos > 0) {
-    int pathPos = url.indexOf("/", hostPos + 3);
+    int pathPos = url.indexOf(QLatin1Char('/'), hostPos + 3);
     if (pathPos > hostPos) {
       startDownload(url.mid(hostPos + 3, pathPos - hostPos - 3),
                     url.mid(pathPos));
@@ -116,10 +116,10 @@ void DownloadClient::requestFinished(const QByteArray& data)
 QString DownloadClient::getImageUrl(const QString& url)
 {
   QString imgurl;
-  if (url.startsWith("http://")) {
-    if (url.endsWith(".jpg", Qt::CaseInsensitive) ||
-        url.endsWith(".jpeg", Qt::CaseInsensitive) ||
-        url.endsWith(".png", Qt::CaseInsensitive)) {
+  if (url.startsWith(QLatin1String("http://"))) {
+    if (url.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
+        url.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
+        url.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
       imgurl = url;
     }
     else {
@@ -131,11 +131,11 @@ QString DownloadClient::getImageUrl(const QString& url)
         if (re.exactMatch(url)) {
           imgurl = url;
           imgurl.replace(re, *it);
-          if (imgurl.indexOf("%25") != -1) {
+          if (imgurl.indexOf(QLatin1String("%25")) != -1) {
             // double URL encoded: first decode
             imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
           }
-          if (imgurl.indexOf("%2F") != -1) {
+          if (imgurl.indexOf(QLatin1String("%2F")) != -1) {
             // URL encoded: decode
             imgurl = QUrl::fromPercentEncoding(imgurl.toUtf8());
           }

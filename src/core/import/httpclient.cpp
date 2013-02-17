@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2012  Urs Fleisch
+ * Copyright (C) 2008-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,14 +49,14 @@ QMap<QString, int> HttpClient::s_minimumRequestInterval;
  */
 static struct MinimumRequestIntervalInitializer {
   MinimumRequestIntervalInitializer() {
-    HttpClient::s_minimumRequestInterval["musicbrainz.org"] = 1000;
-    HttpClient::s_minimumRequestInterval["api.discogs.com"] = 1000;
-    HttpClient::s_minimumRequestInterval["www.amazon.com"] = 1000;
-    HttpClient::s_minimumRequestInterval["images.amazon.com"] = 1000;
-    HttpClient::s_minimumRequestInterval["www.gnudb.org"] = 1000;
-    HttpClient::s_minimumRequestInterval["gnudb.gnudb.org"] = 1000;
-    HttpClient::s_minimumRequestInterval["tracktype.org"] = 1000;
-    HttpClient::s_minimumRequestInterval["api.acoustid.org"] = 1000;
+    HttpClient::s_minimumRequestInterval[QLatin1String("musicbrainz.org")] = 1000;
+    HttpClient::s_minimumRequestInterval[QLatin1String("api.discogs.com")] = 1000;
+    HttpClient::s_minimumRequestInterval[QLatin1String("www.amazon.com")] = 1000;
+    HttpClient::s_minimumRequestInterval[QLatin1String("images.amazon.com")] = 1000;
+    HttpClient::s_minimumRequestInterval[QLatin1String("www.gnudb.org")] = 1000;
+    HttpClient::s_minimumRequestInterval[QLatin1String("gnudb.gnudb.org")] = 1000;
+    HttpClient::s_minimumRequestInterval[QLatin1String("tracktype.org")] = 1000;
+    HttpClient::s_minimumRequestInterval[QLatin1String("api.acoustid.org")] = 1000;
   }
 } minimumRequestIntervalInitializer;
 
@@ -69,7 +69,7 @@ HttpClient::HttpClient(QNetworkAccessManager* netMgr) :
   QObject(netMgr), m_netMgr(netMgr), m_rcvBodyLen(0),
   m_requestTimer(new QTimer(this))
 {
-  setObjectName("HttpClient");
+  setObjectName(QLatin1String("HttpClient"));
   m_requestTimer->setSingleShot(true);
   connect(m_requestTimer, SIGNAL(timeout()), this, SLOT(delayedSendRequest()));
 }
@@ -102,7 +102,7 @@ void HttpClient::networkReplyFinished()
     QString msg(i18n("Ready."));
     if (reply->error() != QNetworkReply::NoError) {
       msg = i18n("Error");
-      msg += ": ";
+      msg += QLatin1String(": ");
       msg += reply->errorString();
     }
     emitProgress(msg, data.size(), data.size());
@@ -144,7 +144,7 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
                              const RawHeaderMap& headers)
 {
   QString host(server);
-  if (host.endsWith(":80")) {
+  if (host.endsWith(QLatin1String(":80"))) {
     host.chop(3);
   }
   QDateTime now = QDateTime::currentDateTime();
@@ -164,7 +164,7 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
   }
 
   m_rcvBodyLen = 0;
-  m_rcvBodyType = "";
+  m_rcvBodyType = QLatin1String("");
   QString proxy, username, password;
   int proxyPort = 0;
   QNetworkProxy::ProxyType proxyType = QNetworkProxy::NoProxy;
@@ -181,9 +181,9 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
 
   QUrl url;
 #if QT_VERSION >= 0x050000
-  url.setUrl("http://" + host + path);
+  url.setUrl(QLatin1String("http://") + host + path);
 #else
-  url.setEncodedUrl(("http://" + host + path).toAscii());
+  url.setEncodedUrl((QLatin1String("http://") + host + path).toAscii());
 #endif
   QNetworkRequest request(url);
   for (RawHeaderMap::const_iterator it =
@@ -246,7 +246,7 @@ void HttpClient::emitProgress(const QString& text, int step, int totalSteps)
 void HttpClient::splitNamePort(const QString& namePort,
                                  QString& name, int& port)
 {
-  int colPos = namePort.lastIndexOf(':');
+  int colPos = namePort.lastIndexOf(QLatin1Char(':'));
   if (colPos >= 0) {
     bool ok;
     port = namePort.mid(colPos + 1).toInt(&ok);

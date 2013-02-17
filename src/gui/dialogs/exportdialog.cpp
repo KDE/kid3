@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 May 2006
  *
- * Copyright (C) 2006-2012  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -67,7 +67,7 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   QDialog(parent),
   m_textExporter(textExporter), m_textTableModel(new TextTableModel(this))
 {
-  setObjectName("ExportDialog");
+  setObjectName(QLatin1String("ExportDialog"));
   setModal(true);
   setWindowTitle(i18n("Export"));
   setSizeGripEnabled(true);
@@ -268,7 +268,7 @@ void ExportDialog::saveConfig()
  */
 void ExportDialog::showHelp()
 {
-  ContextHelp::displayHelp("export");
+  ContextHelp::displayHelp(QLatin1String("export"));
 }
 
 /**

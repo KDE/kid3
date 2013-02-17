@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Jan 2009
  *
- * Copyright (C) 2009-2012  Urs Fleisch
+ * Copyright (C) 2009-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,7 +37,7 @@
  */
 PictureLabel::PictureLabel(QWidget* parent) : QLabel(parent), m_pixmapHash(0)
 {
-  setObjectName("PictureLabel");
+  setObjectName(QLatin1String("PictureLabel"));
   setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
   setWordWrap(true);
   clearPicture();

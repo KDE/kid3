@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Feb 2007
  *
- * Copyright (C) 2007-2011  Urs Fleisch
+ * Copyright (C) 2007-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -92,7 +92,7 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
       const char c = code[0].toLatin1();
       for (unsigned i = 0; i < sizeof(shortToLong) / sizeof(shortToLong[0]); ++i) {
         if (shortToLong[i].shortCode == c) {
-          name = shortToLong[i].longCode;
+          name = QString::fromLatin1(shortToLong[i].longCode);
           break;
         }
       }
@@ -103,9 +103,9 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
     if (!name.isNull()) {
       TaggedFile::DetailInfo info;
       m_trackData.getDetailInfo(info);
-      if (name == "file") {
+      if (name == QLatin1String("file")) {
         QString filename(m_trackData.getAbsFilename());
-        int sepPos = filename.lastIndexOf('/');
+        int sepPos = filename.lastIndexOf(QLatin1Char('/'));
         if (sepPos < 0) {
           sepPos = filename.lastIndexOf(QDir::separator());
         }
@@ -113,46 +113,46 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
           filename.remove(0, sepPos + 1);
         }
         result = filename;
-      } else if (name == "filepath") {
+      } else if (name == QLatin1String("filepath")) {
         result = m_trackData.getAbsFilename();
-      } else if (name == "url") {
+      } else if (name == QLatin1String("url")) {
         QUrl url;
         url.setPath(m_trackData.getAbsFilename());
-        url.setScheme("file");
+        url.setScheme(QLatin1String("file"));
         result = url.toString();
-      } else if (name == "duration") {
+      } else if (name == QLatin1String("duration")) {
         result = TaggedFile::formatTime(m_trackData.getFileDuration());
-      } else if (name == "seconds") {
+      } else if (name == QLatin1String("seconds")) {
         result = QString::number(m_trackData.getFileDuration());
-      } else if (name == "tracks") {
+      } else if (name == QLatin1String("tracks")) {
         result = QString::number(m_trackData.getTotalNumberOfTracksInDir());
-      } else if (name == "extension") {
+      } else if (name == QLatin1String("extension")) {
         result = m_trackData.getFileExtension();
-      } else if (name == "tag1") {
+      } else if (name == QLatin1String("tag1")) {
         result = m_trackData.getTagFormatV1();
-      } else if (name == "tag2") {
+      } else if (name == QLatin1String("tag2")) {
         result = m_trackData.getTagFormatV2();
-      } else if (name == "bitrate") {
+      } else if (name == QLatin1String("bitrate")) {
         result.setNum(info.bitrate);
-      } else if (name == "vbr") {
-        result = info.vbr ? "VBR" : "";
-      } else if (name == "samplerate") {
+      } else if (name == QLatin1String("vbr")) {
+        result = info.vbr ? QLatin1String("VBR") : QLatin1String("");
+      } else if (name == QLatin1String("samplerate")) {
         result.setNum(info.sampleRate);
-      } else if (name == "mode") {
+      } else if (name == QLatin1String("mode")) {
         switch (info.channelMode) {
           case TaggedFile::DetailInfo::CM_Stereo:
-            result = "Stereo";
+            result = QLatin1String("Stereo");
             break;
           case TaggedFile::DetailInfo::CM_JointStereo:
-            result = "Joint Stereo";
+            result = QLatin1String("Joint Stereo");
             break;
           case TaggedFile::DetailInfo::CM_None:
           default:
-            result = "";
+            result = QLatin1String("");
         }
-      } else if (name == "channels") {
+      } else if (name == QLatin1String("channels")) {
         result.setNum(info.channels);
-      } else if (name == "codec") {
+      } else if (name == QLatin1String("codec")) {
         result = info.format;
       }
     }
@@ -172,68 +172,68 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
 QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
 {
   QString str;
-  if (!onlyRows) str += "<table>\n";
+  if (!onlyRows) str += QLatin1String("<table>\n");
   str += FrameFormatReplacer::getToolTip(true);
 
-  str += "<tr><td>%f</td><td>%{file}</td><td>";
+  str += QLatin1String("<tr><td>%f</td><td>%{file}</td><td>");
   str += QCM_translate("Filename");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%p</td><td>%{filepath}</td><td>";
+  str += QLatin1String("<tr><td>%p</td><td>%{filepath}</td><td>");
   str += QCM_translate(I18N_NOOP("Absolute path to file"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%u</td><td>%{url}</td><td>";
+  str += QLatin1String("<tr><td>%u</td><td>%{url}</td><td>");
   str += QCM_translate("URL");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%d</td><td>%{duration}</td><td>";
+  str += QLatin1String("<tr><td>%d</td><td>%{duration}</td><td>");
   str += QCM_translate(I18N_NOOP("Length"));
-  str += " &quot;M:S&quot;</td></tr>\n";
+  str += QLatin1String(" &quot;M:S&quot;</td></tr>\n");
 
-  str += "<tr><td>%D</td><td>%{seconds}</td><td>";
+  str += QLatin1String("<tr><td>%D</td><td>%{seconds}</td><td>");
   str += QCM_translate(I18N_NOOP("Length"));
-  str += " &quot;S&quot;</td></tr>\n";
+  str += QLatin1String(" &quot;S&quot;</td></tr>\n");
 
-  str += "<tr><td>%n</td><td>%{tracks}</td><td>";
+  str += QLatin1String("<tr><td>%n</td><td>%{tracks}</td><td>");
   str += QCM_translate(I18N_NOOP("Number of tracks"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%e</td><td>%{extension}</td><td>";
+  str += QLatin1String("<tr><td>%e</td><td>%{extension}</td><td>");
   str += QCM_translate(I18N_NOOP("Extension"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%O</td><td>%{tag1}</td><td>";
+  str += QLatin1String("<tr><td>%O</td><td>%{tag1}</td><td>");
   str += QCM_translate("Tag 1");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%o</td><td>%{tag2}</td><td>";
+  str += QLatin1String("<tr><td>%o</td><td>%{tag2}</td><td>");
   str += QCM_translate("Tag 2");
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%b</td><td>%{bitrate}</td><td>";
+  str += QLatin1String("<tr><td>%b</td><td>%{bitrate}</td><td>");
   str += QCM_translate(I18N_NOOP("Bitrate"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%v</td><td>%{vbr}</td><td>";
+  str += QLatin1String("<tr><td>%v</td><td>%{vbr}</td><td>");
   str += QCM_translate(I18N_NOOP("VBR"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%r</td><td>%{samplerate}</td><td>";
+  str += QLatin1String("<tr><td>%r</td><td>%{samplerate}</td><td>");
   str += QCM_translate(I18N_NOOP("Samplerate"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%m</td><td>%{mode}</td><td>Stereo, Joint Stereo</td></tr>\n";
+  str += QLatin1String("<tr><td>%m</td><td>%{mode}</td><td>Stereo, Joint Stereo</td></tr>\n");
 
-  str += "<tr><td>%h</td><td>%{channels}</td><td>";
+  str += QLatin1String("<tr><td>%h</td><td>%{channels}</td><td>");
   str += QCM_translate(I18N_NOOP("Channels"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  str += "<tr><td>%k</td><td>%{codec}</td><td>";
+  str += QLatin1String("<tr><td>%k</td><td>%{codec}</td><td>");
   str += QCM_translate(I18N_NOOP("Codec"));
-  str += "</td></tr>\n";
+  str += QLatin1String("</td></tr>\n");
 
-  if (!onlyRows) str += "</table>\n";
+  if (!onlyRows) str += QLatin1String("</table>\n");
   return str;
 }
 
@@ -382,7 +382,7 @@ QString TrackData::formatFilenameFromTags(QString str, bool isDirname) const
 {
   if (!isDirname) {
     // first remove directory part from str
-    const int sepPos = str.lastIndexOf('/');
+    const int sepPos = str.lastIndexOf(QLatin1Char('/'));
     if (sepPos >= 0) {
       str.remove(0, sepPos + 1);
     }
@@ -425,7 +425,7 @@ QString TrackData::getFileExtension() const
   if (!fileExtension.isEmpty()) {
     return fileExtension;
   } else {
-    int dotPos = absFilename.lastIndexOf(".");
+    int dotPos = absFilename.lastIndexOf(QLatin1Char('.'));
     return dotPos != -1 ? absFilename.mid(dotPos) : QString();
   }
 }
@@ -474,10 +474,10 @@ QSet<QString> getLowerCaseWords(const QString& str)
       if (it->isLetter()) {
         simplified += *it;
       } else if (it->isPunct() || it->isSpace() || it->isSymbol()) {
-        simplified += ' ';
+        simplified += QLatin1Char(' ');
       }
     }
-    return simplified.split(' ', QString::SkipEmptyParts).toSet();
+    return simplified.split(QLatin1Char(' '), QString::SkipEmptyParts).toSet();
   }
   return QSet<QString>();
 }
@@ -491,7 +491,7 @@ QSet<QString> getLowerCaseWords(const QString& str)
 QSet<QString> ImportTrackData::getFilenameWords() const
 {
   QString fileName = getFilename();
-  int endIndex = fileName.lastIndexOf('.');
+  int endIndex = fileName.lastIndexOf(QLatin1Char('.'));
   if (endIndex > 0) {
     fileName.truncate(endIndex);
   }

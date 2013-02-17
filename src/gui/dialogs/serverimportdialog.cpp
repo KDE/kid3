@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2011  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,7 +51,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
     m_serverComboBox(0), m_cgiLineEdit(0), m_standardTagsCheckBox(0),
     m_additionalTagsCheckBox(0), m_coverArtCheckBox(0), m_source(0)
 {
-  setObjectName("ServerImportDialog");
+  setObjectName(QLatin1String("ServerImportDialog"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   vlayout->setSpacing(6);
@@ -171,7 +171,7 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
       if (m_source->serverList()) {
         QStringList strList;
         for (const char** sl = m_source->serverList(); *sl != 0; ++sl) {
-          strList += *sl;
+          strList += QString::fromLatin1(*sl);
         }
         m_serverComboBox->clear();
         m_serverComboBox->addItems(strList);
@@ -227,7 +227,7 @@ QString ServerImportDialog::getServer() const
   if (m_serverComboBox) {
     QString server(m_serverComboBox->currentText());
     if (server.isEmpty() && m_source) {
-      server = m_source->defaultServer();
+      server = QString::fromLatin1(m_source->defaultServer());
     }
     return server;
   } else {
@@ -263,7 +263,7 @@ QString ServerImportDialog::getCgiPath() const
   if (m_cgiLineEdit) {
     QString cgi(m_cgiLineEdit->text());
     if (cgi.isEmpty() && m_source) {
-      cgi = m_source->defaultCgiPath();
+      cgi = QString::fromLatin1(m_source->defaultCgiPath());
     }
     return cgi;
   } else {
@@ -499,6 +499,6 @@ void ServerImportDialog::requestTrackList(const QModelIndex& index)
 void ServerImportDialog::showHelp()
 {
   if (m_source && m_source->helpAnchor()) {
-    ContextHelp::displayHelp(m_source->helpAnchor());
+    ContextHelp::displayHelp(QString::fromLatin1(m_source->helpAnchor()));
   }
 }

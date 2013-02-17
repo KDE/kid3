@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Jul 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,7 +37,7 @@
  */
 TextExporter::TextExporter(QObject* parent) : QObject(parent)
 {
-  setObjectName("TextExporter");
+  setObjectName(QLatin1String("TextExporter"));
 }
 
 /**
@@ -66,15 +66,15 @@ void TextExporter::updateText(
        ++it) {
     if (trackNr == 0 && !headerFormat.isEmpty()) {
       m_text.append((*it).formatString(headerFormat));
-      m_text.append("\n");
+      m_text.append(QLatin1Char('\n'));
     }
     if (!trackFormat.isEmpty()) {
       m_text.append((*it).formatString(trackFormat));
-      m_text.append("\n");
+      m_text.append(QLatin1Char('\n'));
     }
     if (trackNr == numTracks - 1 && !trailerFormat.isEmpty()) {
       m_text.append((*it).formatString(trailerFormat));
-      m_text.append("\n");
+      m_text.append(QLatin1Char('\n'));
     }
     ++trackNr;
   }

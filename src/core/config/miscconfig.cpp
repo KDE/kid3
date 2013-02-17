@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Jan 2004
  *
- * Copyright (C) 2004-2009  Urs Fleisch
+ * Copyright (C) 2004-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -160,14 +160,14 @@ MiscConfig::MiscConfig(const QString& group) :
   m_genreNotNumeric(false),
   m_preserveTime(false),
   m_markChanges(true),
-  m_commentName(defaultCommentName),
+  m_commentName(QString::fromLatin1(defaultCommentName)),
   m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
-  m_nameFilter(""),
-  m_formatText(defaultToFilenameFormats[0]),
+  m_nameFilter(QLatin1String("")),
+  m_formatText(QString::fromLatin1(defaultToFilenameFormats[0])),
   m_formatItem(0),
-  m_formatFromFilenameText(defaultFromFilenameFormats[0]),
+  m_formatFromFilenameText(QString::fromLatin1(defaultFromFilenameFormats[0])),
   m_formatFromFilenameItem(0),
-  m_dirFormatText(s_defaultDirFmtList[0]),
+  m_dirFormatText(QString::fromLatin1(s_defaultDirFmtList[0])),
   m_dirFormatItem(0),
   m_renDirSrc(TrackData::TagV2V1),
   m_numberTracksDst(TrackData::TagV1),
@@ -182,7 +182,7 @@ MiscConfig::MiscConfig(const QString& group) :
   m_hideV2(false),
   m_hidePicture(false),
   m_id3v2Version(ID3v2_3_0),
-  m_textEncodingV1("ISO-8859-1"),
+  m_textEncodingV1(QLatin1String("ISO-8859-1")),
   m_textEncoding(TE_ISO8859_1),
   m_quickAccessFrames(FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES),
   m_trackNumberDigits(1),
@@ -191,7 +191,7 @@ MiscConfig::MiscConfig(const QString& group) :
   m_useProxyAuthentication(false),
   m_onlyCustomGenres(false),
   m_loadLastOpenedFile(false),
-  m_defaultCoverFileName("folder.jpg")
+  m_defaultCoverFileName(QLatin1String("folder.jpg"))
 #ifndef CONFIG_USE_KDE
   , m_useFont(false), m_fontSize(-1),
   m_dontUseNativeDialogs(
@@ -270,100 +270,100 @@ void MiscConfig::writeToConfig(Kid3Settings* config) const
          it = m_contextMenuCommands.begin();
        it != m_contextMenuCommands.end();
        ++it) {
-    menuCmdCfg.writeEntry(QString("Command%1").arg(cmdNr++), (*it).toStringList());
+    menuCmdCfg.writeEntry(QString(QLatin1String("Command%1")).arg(cmdNr++), (*it).toStringList());
   }
   // delete entries which are no longer used
   for (;;) {
-    QStringList strList = menuCmdCfg.readEntry(QString("Command%1").arg(cmdNr), QStringList());
+    QStringList strList = menuCmdCfg.readEntry(QString(QLatin1String("Command%1")).arg(cmdNr), QStringList());
     if (strList.empty()) {
       break;
     }
-    menuCmdCfg.deleteEntry(QString("Command%1").arg(cmdNr));
+    menuCmdCfg.deleteEntry(QString(QLatin1String("Command%1")).arg(cmdNr));
     ++cmdNr;
   }
 #else
-  config->beginGroup("/" + m_group);
-  config->setValue("/NameFilter3", QVariant(m_nameFilter));
-  config->setValue("/FormatItem", QVariant(m_formatItem));
-  config->setValue("/FormatItems", QVariant(m_formatItems));
-  config->setValue("/FormatText2", QVariant(m_formatText));
-  config->setValue("/FormatFromFilenameItem", QVariant(m_formatFromFilenameItem));
-  config->setValue("/FormatFromFilenameItems", QVariant(m_formatFromFilenameItems));
-  config->setValue("/FormatFromFilenameText", QVariant(m_formatFromFilenameText));
-  config->setValue("/DirFormatItem", QVariant(m_dirFormatItem));
-  config->setValue("/DirFormatText", QVariant(m_dirFormatText));
-  config->setValue("/RenameDirectorySource", QVariant(tagVersionToRenDirCfg(m_renDirSrc)));
-  config->setValue("/NumberTracksDestination",
+  config->beginGroup(QLatin1Char('/') + m_group);
+  config->setValue(QLatin1String("/NameFilter3"), QVariant(m_nameFilter));
+  config->setValue(QLatin1String("/FormatItem"), QVariant(m_formatItem));
+  config->setValue(QLatin1String("/FormatItems"), QVariant(m_formatItems));
+  config->setValue(QLatin1String("/FormatText2"), QVariant(m_formatText));
+  config->setValue(QLatin1String("/FormatFromFilenameItem"), QVariant(m_formatFromFilenameItem));
+  config->setValue(QLatin1String("/FormatFromFilenameItems"), QVariant(m_formatFromFilenameItems));
+  config->setValue(QLatin1String("/FormatFromFilenameText"), QVariant(m_formatFromFilenameText));
+  config->setValue(QLatin1String("/DirFormatItem"), QVariant(m_dirFormatItem));
+  config->setValue(QLatin1String("/DirFormatText"), QVariant(m_dirFormatText));
+  config->setValue(QLatin1String("/RenameDirectorySource"), QVariant(tagVersionToRenDirCfg(m_renDirSrc)));
+  config->setValue(QLatin1String("/NumberTracksDestination"),
                    QVariant(tagVersionToNumberTracksDestCfg(m_numberTracksDst)));
-  config->setValue("/NumberTracksStartNumber", QVariant(m_numberTracksStart));
-  config->setValue("/MarkTruncations", QVariant(m_markTruncations));
-  config->setValue("/EnableTotalNumberOfTracks", QVariant(m_enableTotalNumberOfTracks));
-  config->setValue("/GenreNotNumeric", QVariant(m_genreNotNumeric));
-  config->setValue("/PreserveTime", QVariant(m_preserveTime));
-  config->setValue("/MarkChanges", QVariant(m_markChanges));
-  config->setValue("/CommentName", QVariant(m_commentName));
-  config->setValue("/PictureNameItem", QVariant(m_pictureNameItem));
+  config->setValue(QLatin1String("/NumberTracksStartNumber"), QVariant(m_numberTracksStart));
+  config->setValue(QLatin1String("/MarkTruncations"), QVariant(m_markTruncations));
+  config->setValue(QLatin1String("/EnableTotalNumberOfTracks"), QVariant(m_enableTotalNumberOfTracks));
+  config->setValue(QLatin1String("/GenreNotNumeric"), QVariant(m_genreNotNumeric));
+  config->setValue(QLatin1String("/PreserveTime"), QVariant(m_preserveTime));
+  config->setValue(QLatin1String("/MarkChanges"), QVariant(m_markChanges));
+  config->setValue(QLatin1String("/CommentName"), QVariant(m_commentName));
+  config->setValue(QLatin1String("/PictureNameItem"), QVariant(m_pictureNameItem));
 
   QList<int>::const_iterator it;
   int i;
   for (it = m_splitterSizes.begin(), i = 0;
      it != m_splitterSizes.end();
      ++it, ++i) {
-    config->setValue("/SplitterSize" + QString::number(i), QVariant(*it));
+    config->setValue(QLatin1String("/SplitterSize") + QString::number(i), QVariant(*it));
   }
   for (it = m_vSplitterSizes.begin(), i = 0;
      it != m_vSplitterSizes.end();
      ++it, ++i) {
-    config->setValue("/VSplitterSize" + QString::number(i), QVariant(*it));
+    config->setValue(QLatin1String("/VSplitterSize") + QString::number(i), QVariant(*it));
   }
-  config->setValue("/CustomGenres", QVariant(m_customGenres));
-  config->setValue("/HideToolBar", QVariant(m_hideToolBar));
-  config->setValue("/HideStatusBar", QVariant(m_hideStatusBar));
-  config->setValue("/AutoHideTags", QVariant(m_autoHideTags));
-  config->setValue("/HideFile", QVariant(m_hideFile));
-  config->setValue("/HideV1", QVariant(m_hideV1));
-  config->setValue("/HideV2", QVariant(m_hideV2));
-  config->setValue("/HidePicture", QVariant(m_hidePicture));
-  config->setValue("/ID3v2Version", QVariant(m_id3v2Version));
-  config->setValue("/TextEncodingV1", QVariant(m_textEncodingV1));
-  config->setValue("/TextEncoding", QVariant(m_textEncoding));
-  config->setValue("/QuickAccessFrames", QVariant(m_quickAccessFrames));
-  config->setValue("/TrackNumberDigits", QVariant(m_trackNumberDigits));
-  config->setValue("/PlayOnDoubleClick", QVariant(m_playOnDoubleClick));
-  config->setValue("/UseProxy", QVariant(m_useProxy));
-  config->setValue("/Proxy", QVariant(m_proxy));
-  config->setValue("/UseProxyAuthentication", QVariant(m_useProxyAuthentication));
-  config->setValue("/ProxyUserName", QVariant(m_proxyUserName));
-  config->setValue("/ProxyPassword", QVariant(m_proxyPassword));
-  config->setValue("/Browser", QVariant(m_browser));
-  config->setValue("/OnlyCustomGenres", QVariant(m_onlyCustomGenres));
-  config->setValue("/LoadLastOpenedFile", QVariant(m_loadLastOpenedFile));
-  config->setValue("/LastOpenedFile", QVariant(m_lastOpenedFile));
-  config->setValue("/DefaultCoverFileName", QVariant(m_defaultCoverFileName));
-  config->setValue("/Geometry", m_geometry);
-  config->setValue("/WindowState", m_windowState);
-  config->setValue("/UseFont", QVariant(m_useFont));
-  config->setValue("/FontFamily", QVariant(m_fontFamily));
-  config->setValue("/FontSize", QVariant(m_fontSize));
-  config->setValue("/Style", QVariant(m_style));
-  config->setValue("/DontUseNativeDialogs", QVariant(m_dontUseNativeDialogs));
+  config->setValue(QLatin1String("/CustomGenres"), QVariant(m_customGenres));
+  config->setValue(QLatin1String("/HideToolBar"), QVariant(m_hideToolBar));
+  config->setValue(QLatin1String("/HideStatusBar"), QVariant(m_hideStatusBar));
+  config->setValue(QLatin1String("/AutoHideTags"), QVariant(m_autoHideTags));
+  config->setValue(QLatin1String("/HideFile"), QVariant(m_hideFile));
+  config->setValue(QLatin1String("/HideV1"), QVariant(m_hideV1));
+  config->setValue(QLatin1String("/HideV2"), QVariant(m_hideV2));
+  config->setValue(QLatin1String("/HidePicture"), QVariant(m_hidePicture));
+  config->setValue(QLatin1String("/ID3v2Version"), QVariant(m_id3v2Version));
+  config->setValue(QLatin1String("/TextEncodingV1"), QVariant(m_textEncodingV1));
+  config->setValue(QLatin1String("/TextEncoding"), QVariant(m_textEncoding));
+  config->setValue(QLatin1String("/QuickAccessFrames"), QVariant(m_quickAccessFrames));
+  config->setValue(QLatin1String("/TrackNumberDigits"), QVariant(m_trackNumberDigits));
+  config->setValue(QLatin1String("/PlayOnDoubleClick"), QVariant(m_playOnDoubleClick));
+  config->setValue(QLatin1String("/UseProxy"), QVariant(m_useProxy));
+  config->setValue(QLatin1String("/Proxy"), QVariant(m_proxy));
+  config->setValue(QLatin1String("/UseProxyAuthentication"), QVariant(m_useProxyAuthentication));
+  config->setValue(QLatin1String("/ProxyUserName"), QVariant(m_proxyUserName));
+  config->setValue(QLatin1String("/ProxyPassword"), QVariant(m_proxyPassword));
+  config->setValue(QLatin1String("/Browser"), QVariant(m_browser));
+  config->setValue(QLatin1String("/OnlyCustomGenres"), QVariant(m_onlyCustomGenres));
+  config->setValue(QLatin1String("/LoadLastOpenedFile"), QVariant(m_loadLastOpenedFile));
+  config->setValue(QLatin1String("/LastOpenedFile"), QVariant(m_lastOpenedFile));
+  config->setValue(QLatin1String("/DefaultCoverFileName"), QVariant(m_defaultCoverFileName));
+  config->setValue(QLatin1String("/Geometry"), m_geometry);
+  config->setValue(QLatin1String("/WindowState"), m_windowState);
+  config->setValue(QLatin1String("/UseFont"), QVariant(m_useFont));
+  config->setValue(QLatin1String("/FontFamily"), QVariant(m_fontFamily));
+  config->setValue(QLatin1String("/FontSize"), QVariant(m_fontSize));
+  config->setValue(QLatin1String("/Style"), QVariant(m_style));
+  config->setValue(QLatin1String("/DontUseNativeDialogs"), QVariant(m_dontUseNativeDialogs));
   config->endGroup();
 
-  config->beginGroup("/MenuCommands");
+  config->beginGroup(QLatin1String("/MenuCommands"));
   int cmdNr = 1;
   for (QList<MenuCommand>::const_iterator
          it = m_contextMenuCommands.begin();
        it != m_contextMenuCommands.end();
        ++it) {
-    config->setValue(QString("/Command%1").arg(cmdNr++), QVariant((*it).toStringList()));
+    config->setValue(QString(QLatin1String("/Command%1")).arg(cmdNr++), QVariant((*it).toStringList()));
   }
   // delete entries which are no longer used
   for (;;) {
-    QStringList strList = config->value(QString("/Command%1").arg(cmdNr)).toStringList();
+    QStringList strList = config->value(QString(QLatin1String("/Command%1")).arg(cmdNr)).toStringList();
     if (strList.empty()) {
       break;
     }
-    config->remove(QString("/Command%1").arg(cmdNr));
+    config->remove(QString(QLatin1String("/Command%1")).arg(cmdNr));
     ++cmdNr;
   }
   config->endGroup();
@@ -438,7 +438,7 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   KConfigGroup menuCmdCfg = config->group("MenuCommands");
   int cmdNr = 1;
   for (;;) {
-    QStringList strList = menuCmdCfg.readEntry(QString("Command%1").arg(cmdNr), QStringList());
+    QStringList strList = menuCmdCfg.readEntry(QString(QLatin1String("Command%1")).arg(cmdNr), QStringList());
     if (strList.empty()) {
       break;
     }
@@ -446,40 +446,40 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
     ++cmdNr;
   }
 #else
-  config->beginGroup("/" + m_group);
+  config->beginGroup(QLatin1Char('/') + m_group);
   m_nameFilter =
-      config->value("/NameFilter3", "").toString();
+      config->value(QLatin1String("/NameFilter3"), QLatin1String("")).toString();
   m_formatItem =
-      config->value("/FormatItem", 0).toInt();
+      config->value(QLatin1String("/FormatItem"), 0).toInt();
   m_formatItems =
-      config->value("/FormatItems").toStringList();
+      config->value(QLatin1String("/FormatItems")).toStringList();
   m_formatFromFilenameItem =
-      config->value("/FormatFromFilenameItem", 0).toInt();
+      config->value(QLatin1String("/FormatFromFilenameItem"), 0).toInt();
   m_formatFromFilenameItems =
-      config->value("/FormatFromFilenameItems").toStringList();
+      config->value(QLatin1String("/FormatFromFilenameItems")).toStringList();
   m_dirFormatItem =
-      config->value("/DirFormatItem", 0).toInt();
-  m_renDirSrc = renDirCfgToTagVersion(config->value("/RenameDirectorySource", 0).toInt());
+      config->value(QLatin1String("/DirFormatItem"), 0).toInt();
+  m_renDirSrc = renDirCfgToTagVersion(config->value(QLatin1String("/RenameDirectorySource"), 0).toInt());
   m_numberTracksDst = numberTracksDestCfgToTagVersion(
-        config->value("/NumberTracksDestination", 0).toInt());
-  m_numberTracksStart = config->value("/NumberTracksStartNumber", 1).toInt();
-  m_markTruncations = config->value("/MarkTruncations", m_markTruncations).toBool();
-  m_enableTotalNumberOfTracks = config->value("/EnableTotalNumberOfTracks", m_enableTotalNumberOfTracks).toBool();
-  m_genreNotNumeric = config->value("/GenreNotNumeric", m_genreNotNumeric).toBool();
-  m_preserveTime = config->value("/PreserveTime", m_preserveTime).toBool();
-  m_markChanges = config->value("/MarkChanges", m_markChanges).toBool();
-  m_commentName = config->value("/CommentName", defaultCommentName).toString();
-  m_pictureNameItem = config->value("/PictureNameItem", VP_METADATA_BLOCK_PICTURE).toInt();
+        config->value(QLatin1String("/NumberTracksDestination"), 0).toInt());
+  m_numberTracksStart = config->value(QLatin1String("/NumberTracksStartNumber"), 1).toInt();
+  m_markTruncations = config->value(QLatin1String("/MarkTruncations"), m_markTruncations).toBool();
+  m_enableTotalNumberOfTracks = config->value(QLatin1String("/EnableTotalNumberOfTracks"), m_enableTotalNumberOfTracks).toBool();
+  m_genreNotNumeric = config->value(QLatin1String("/GenreNotNumeric"), m_genreNotNumeric).toBool();
+  m_preserveTime = config->value(QLatin1String("/PreserveTime"), m_preserveTime).toBool();
+  m_markChanges = config->value(QLatin1String("/MarkChanges"), m_markChanges).toBool();
+  m_commentName = config->value(QLatin1String("/CommentName"), QString::fromLatin1(defaultCommentName)).toString();
+  m_pictureNameItem = config->value(QLatin1String("/PictureNameItem"), VP_METADATA_BLOCK_PICTURE).toInt();
 
   m_formatText =
-      config->value("/FormatText2", defaultToFilenameFormats[0]).toString();
+      config->value(QLatin1String("/FormatText2"), QString::fromLatin1(defaultToFilenameFormats[0])).toString();
   m_formatFromFilenameText =
-      config->value("/FormatFromFilenameText", defaultFromFilenameFormats[0]).toString();
+      config->value(QLatin1String("/FormatFromFilenameText"), QString::fromLatin1(defaultFromFilenameFormats[0])).toString();
   m_dirFormatText =
-      config->value("/DirFormatText", s_defaultDirFmtList[0]).toString();
+      config->value(QLatin1String("/DirFormatText"), QString::fromLatin1(s_defaultDirFmtList[0])).toString();
   m_splitterSizes.clear();
   for (int i = 0; i < 5; ++i) {
-    int val = config->value("/SplitterSize" + QString::number(i), -1).toInt();
+    int val = config->value(QLatin1String("/SplitterSize") + QString::number(i), -1).toInt();
     if (val != -1) {
       m_splitterSizes.push_back(val);
     } else {
@@ -488,61 +488,61 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
   }
   m_vSplitterSizes.clear();
   for (int j = 0; j < 5; ++j) {
-    int val = config->value("/VSplitterSize" + QString::number(j), -1).toInt();
+    int val = config->value(QLatin1String("/VSplitterSize") + QString::number(j), -1).toInt();
     if (val != -1) {
       m_vSplitterSizes.push_back(val);
     } else {
       break;
     }
   }
-  m_customGenres = config->value("/CustomGenres").toStringList();
-  m_hideToolBar = config->value("/HideToolBar", m_hideToolBar).toBool();
-  m_hideStatusBar = config->value("/HideStatusBar", m_hideStatusBar).toBool();
-  m_autoHideTags = config->value("/AutoHideTags", m_autoHideTags).toBool();
-  m_hideFile = config->value("/HideFile", m_hideFile).toBool();
-  m_hideV1 = config->value("/HideV1", m_hideV1).toBool();
-  m_hideV2 = config->value("/HideV2", m_hideV2).toBool();
-  m_hidePicture = config->value("/HidePicture", m_hidePicture).toBool();
-  m_id3v2Version = config->value("/ID3v2Version", ID3v2_3_0).toInt();
-  m_textEncodingV1 = config->value("/TextEncodingV1", "ISO-8859-1").toString();
-  m_textEncoding = config->value("/TextEncoding", TE_ISO8859_1).toInt();
-  m_quickAccessFrames = config->value("/QuickAccessFrames",
+  m_customGenres = config->value(QLatin1String("/CustomGenres")).toStringList();
+  m_hideToolBar = config->value(QLatin1String("/HideToolBar"), m_hideToolBar).toBool();
+  m_hideStatusBar = config->value(QLatin1String("/HideStatusBar"), m_hideStatusBar).toBool();
+  m_autoHideTags = config->value(QLatin1String("/AutoHideTags"), m_autoHideTags).toBool();
+  m_hideFile = config->value(QLatin1String("/HideFile"), m_hideFile).toBool();
+  m_hideV1 = config->value(QLatin1String("/HideV1"), m_hideV1).toBool();
+  m_hideV2 = config->value(QLatin1String("/HideV2"), m_hideV2).toBool();
+  m_hidePicture = config->value(QLatin1String("/HidePicture"), m_hidePicture).toBool();
+  m_id3v2Version = config->value(QLatin1String("/ID3v2Version"), ID3v2_3_0).toInt();
+  m_textEncodingV1 = config->value(QLatin1String("/TextEncodingV1"), QLatin1String("ISO-8859-1")).toString();
+  m_textEncoding = config->value(QLatin1String("/TextEncoding"), TE_ISO8859_1).toInt();
+  m_quickAccessFrames = config->value(QLatin1String("/QuickAccessFrames"),
                                      FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toUInt();
-  m_trackNumberDigits = config->value("/TrackNumberDigits", 1).toInt();
-  m_playOnDoubleClick = config->value("/PlayOnDoubleClick", m_playOnDoubleClick).toBool();
-  m_useProxy = config->value("/UseProxy", m_useProxy).toBool();
-  m_proxy = config->value("/Proxy", m_proxy).toString();
-  m_useProxyAuthentication = config->value("/UseProxyAuthentication", m_useProxyAuthentication).toBool();
-  m_proxyUserName = config->value("/ProxyUserName", m_proxyUserName).toString();
-  m_proxyPassword = config->value("/ProxyPassword", m_proxyPassword).toString();
+  m_trackNumberDigits = config->value(QLatin1String("/TrackNumberDigits"), 1).toInt();
+  m_playOnDoubleClick = config->value(QLatin1String("/PlayOnDoubleClick"), m_playOnDoubleClick).toBool();
+  m_useProxy = config->value(QLatin1String("/UseProxy"), m_useProxy).toBool();
+  m_proxy = config->value(QLatin1String("/Proxy"), m_proxy).toString();
+  m_useProxyAuthentication = config->value(QLatin1String("/UseProxyAuthentication"), m_useProxyAuthentication).toBool();
+  m_proxyUserName = config->value(QLatin1String("/ProxyUserName"), m_proxyUserName).toString();
+  m_proxyPassword = config->value(QLatin1String("/ProxyPassword"), m_proxyPassword).toString();
 #if defined _WIN32 || defined WIN32
-  m_browser = config->value("/Browser", QString()).toString();
+  m_browser = config->value(QLatin1String("/Browser"), QString()).toString();
   if (m_browser.isEmpty()) {
-    m_browser = ::getenv("ProgramFiles");
-    m_browser += "\\Internet Explorer\\IEXPLORE.EXE";
+    m_browser = QString::fromLocal8Bit(::getenv("ProgramFiles"));
+    m_browser += QLatin1String("\\Internet Explorer\\IEXPLORE.EXE");
   }
 #else
-  m_browser = config->value("/Browser", defaultBrowser).toString();
+  m_browser = config->value(QLatin1String("/Browser"), QString::fromLatin1(defaultBrowser)).toString();
 #endif
-  m_onlyCustomGenres = config->value("/OnlyCustomGenres", m_onlyCustomGenres).toBool();
-  m_loadLastOpenedFile = config->value("/LoadLastOpenedFile", m_loadLastOpenedFile).toBool();
-  m_lastOpenedFile = config->value("/LastOpenedFile", m_lastOpenedFile).toString();
-  m_defaultCoverFileName = config->value("/DefaultCoverFileName", m_defaultCoverFileName).toString();
-  m_geometry = config->value("/Geometry").toByteArray();
-  m_windowState = config->value("/WindowState").toByteArray();
-  m_useFont = config->value("/UseFont", m_useFont).toBool();
-  m_fontFamily = config->value("/FontFamily", m_fontFamily).toString();
-  m_fontSize = config->value("/FontSize", -1).toInt();
-  m_style = config->value("/Style", m_style).toString();
-  m_dontUseNativeDialogs = config->value("/DontUseNativeDialogs",
+  m_onlyCustomGenres = config->value(QLatin1String("/OnlyCustomGenres"), m_onlyCustomGenres).toBool();
+  m_loadLastOpenedFile = config->value(QLatin1String("/LoadLastOpenedFile"), m_loadLastOpenedFile).toBool();
+  m_lastOpenedFile = config->value(QLatin1String("/LastOpenedFile"), m_lastOpenedFile).toString();
+  m_defaultCoverFileName = config->value(QLatin1String("/DefaultCoverFileName"), m_defaultCoverFileName).toString();
+  m_geometry = config->value(QLatin1String("/Geometry")).toByteArray();
+  m_windowState = config->value(QLatin1String("/WindowState")).toByteArray();
+  m_useFont = config->value(QLatin1String("/UseFont"), m_useFont).toBool();
+  m_fontFamily = config->value(QLatin1String("/FontFamily"), m_fontFamily).toString();
+  m_fontSize = config->value(QLatin1String("/FontSize"), -1).toInt();
+  m_style = config->value(QLatin1String("/Style"), m_style).toString();
+  m_dontUseNativeDialogs = config->value(QLatin1String("/DontUseNativeDialogs"),
                                          m_dontUseNativeDialogs).toBool();
   config->endGroup();
 
   m_contextMenuCommands.clear();
-  config->beginGroup("/MenuCommands");
+  config->beginGroup(QLatin1String("/MenuCommands"));
   int cmdNr = 1;
   for (;;) {
-    QStringList strList = config->value(QString("/Command%1").arg(cmdNr)).toStringList();
+    QStringList strList = config->value(QString(QLatin1String("/Command%1")).arg(cmdNr)).toStringList();
     if (strList.empty()) {
       break;
     }
@@ -553,40 +553,40 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
 #endif
   if (cmdNr == 1) {
 #if defined _WIN32 || defined WIN32
-    QString prgDir = ::getenv("ProgramFiles");
+    QString prgDir = QString::fromLocal8Bit(::getenv("ProgramFiles"));
     m_contextMenuCommands.push_back(
       MiscConfig::MenuCommand(
-        "Windows Media Player",
-        QString('"') + prgDir + "\\Windows Media Player\\wmplayer.exe\" %{files}"));
+        QLatin1String("Windows Media Player"),
+        QLatin1Char('"') + prgDir + QLatin1String("\\Windows Media Player\\wmplayer.exe\" %{files}")));
 #elif !defined __APPLE__
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("Amarok", "amarok %{files}"));
+      MiscConfig::MenuCommand(QLatin1String("Amarok"), QLatin1String("amarok %{files}")));
 #endif
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("Google Images", "%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}"));
+      MiscConfig::MenuCommand(QLatin1String("Google Images"), QLatin1String("%{browser} http://images.google.com/images?q=%u{artist}%20%u{album}")));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("Amazon", "%{browser} http://www.amazon.com/s?search-alias=aps&field-keywords=%u{artist}+%u{album}"));
+      MiscConfig::MenuCommand(QLatin1String("Amazon"), QLatin1String("%{browser} http://www.amazon.com/s?search-alias=aps&field-keywords=%u{artist}+%u{album}")));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("LyricWiki", "%{browser} http://lyricwiki.org/%u{artist}:%u{title}"));
+      MiscConfig::MenuCommand(QLatin1String("LyricWiki"), QLatin1String("%{browser} http://lyricwiki.org/%u{artist}:%u{title}")));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("Lyrics.com", "%{browser} http://www.lyrics.com/search.php?keyword=%u{artist}+%u{title}&what=all"));
+      MiscConfig::MenuCommand(QLatin1String("Lyrics.com"), QLatin1String("%{browser} http://www.lyrics.com/search.php?keyword=%u{artist}+%u{title}&what=all")));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("AZLyrics", "%{browser} http://search.azlyrics.com/search.php?q=%u{artist}+%u{title}"));
+      MiscConfig::MenuCommand(QLatin1String("AZLyrics"), QLatin1String("%{browser} http://search.azlyrics.com/search.php?q=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("Dark Lyrics", "%{browser} http://www.darklyrics.com/search?q=%u{album}"));
+      MiscConfig::MenuCommand(QLatin1String("Dark Lyrics"), QLatin1String("%{browser} http://www.darklyrics.com/search?q=%u{album}")));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("Metro Lyrics", "%{browser} http://www.metrolyrics.com/search.php?category=artisttitle&search=%u{artist}+%u{title}"));
+      MiscConfig::MenuCommand(QLatin1String("Metro Lyrics"), QLatin1String("%{browser} http://www.metrolyrics.com/search.php?category=artisttitle&search=%u{artist}+%u{title}")));
     m_contextMenuCommands.push_back(
-      MiscConfig::MenuCommand("SongLyrics", "%{browser} http://www.songlyrics.com/index.php?section=search&searchW=%u{artist}+%u{title}"));
+      MiscConfig::MenuCommand(QLatin1String("SongLyrics"), QLatin1String("%{browser} http://www.songlyrics.com/index.php?section=search&searchW=%u{artist}+%u{title}")));
   }
   if (m_formatItems.isEmpty()) {
     for (const char** sl = defaultToFilenameFormats; *sl != 0; ++sl) {
-      m_formatItems += *sl;
+      m_formatItems += QString::fromLatin1(*sl);
     }
   }
   if (m_formatFromFilenameItems.isEmpty()) {
     for (const char** sl = defaultFromFilenameFormats; *sl != 0; ++sl) {
-      m_formatFromFilenameItems += *sl;
+      m_formatFromFilenameItems += QString::fromLatin1(*sl);
     }
   }
 }
@@ -598,14 +598,14 @@ void MiscConfig::readFromConfig(Kid3Settings* config)
 QString MiscConfig::getNameFilterPatterns() const
 {
 #ifdef CONFIG_USE_KDE
-  if (m_nameFilter.startsWith('*')) {
-    int end = m_nameFilter.indexOf('|');
+  if (m_nameFilter.startsWith(QLatin1Char('*'))) {
+    int end = m_nameFilter.indexOf(QLatin1Char('|'));
     return end != -1 ? m_nameFilter.left(end) : m_nameFilter;
   } else {
     return QString();
   }
 #else
-  int start = m_nameFilter.indexOf('('), end = m_nameFilter.indexOf(')');
+  int start = m_nameFilter.indexOf(QLatin1Char('(')), end = m_nameFilter.indexOf(QLatin1Char(')'));
   return start != -1 && end != -1 && end > start
       ? m_nameFilter.mid(start + 1, end - start - 1)
       : QString();

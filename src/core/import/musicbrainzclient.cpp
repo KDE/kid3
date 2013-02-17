@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Sep 2005
  *
- * Copyright (C) 2005-2012  Urs Fleisch
+ * Copyright (C) 2005-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -60,8 +60,8 @@ QStringList parseAcoustidIds(const QByteArray& bytes)
       startPos += 15;
       int endPos = bytes.indexOf(']', startPos);
       if (endPos > startPos) {
-        QRegExp idRe("\"id\":\\s*\"([^\"]+)\"");
-        QString recordings(bytes.mid(startPos, endPos - startPos));
+        QRegExp idRe(QLatin1String("\"id\":\\s*\"([^\"]+)\""));
+        QString recordings(QString::fromLatin1(bytes.mid(startPos, endPos - startPos)));
         int pos = 0;
         while ((pos = idRe.indexIn(recordings, pos)) != -1) {
           ids.append(idRe.cap(1));
@@ -122,28 +122,28 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
   QDomDocument doc;
   if (doc.setContent(xmlStr, false)) {
     QDomElement recording =
-      doc.namedItem("metadata").namedItem("recording").toElement();
+      doc.namedItem(QLatin1String("metadata")).namedItem(QLatin1String("recording")).toElement();
     if (!recording.isNull()) {
       bool ok;
       ImportTrackData frames;
-      frames.setTitle(recording.namedItem("title").toElement().text());
-      int length = recording.namedItem("length").toElement().text().toInt(&ok);
+      frames.setTitle(recording.namedItem(QLatin1String("title")).toElement().text());
+      int length = recording.namedItem(QLatin1String("length")).toElement().text().toInt(&ok);
       if (ok) {
         frames.setImportDuration(length / 1000);
       }
-      QDomNode artistNode = recording.namedItem("artist-credit");
+      QDomNode artistNode = recording.namedItem(QLatin1String("artist-credit"));
       if (!artistNode.isNull()) {
-        QString artist(artistNode.namedItem("name-credit").namedItem("artist").
-            namedItem("name").toElement().text());
+        QString artist(artistNode.namedItem(QLatin1String("name-credit")).namedItem(QLatin1String("artist")).
+            namedItem(QLatin1String("name")).toElement().text());
         frames.setArtist(artist);
       }
-      QDomNode releaseNode = recording.namedItem("release-list").
-          namedItem("release");
+      QDomNode releaseNode = recording.namedItem(QLatin1String("release-list")).
+          namedItem(QLatin1String("release"));
       if (!releaseNode.isNull()) {
-        frames.setAlbum(releaseNode.namedItem("title").toElement().text());
-        QString date(releaseNode.namedItem("date").toElement().text());
+        frames.setAlbum(releaseNode.namedItem(QLatin1String("title")).toElement().text());
+        QString date(releaseNode.namedItem(QLatin1String("date")).toElement().text());
         if (!date.isEmpty()) {
-          QRegExp dateRe("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?");
+          QRegExp dateRe(QLatin1String("(\\d{4})(?:-\\d{2})?(?:-\\d{2})?"));
           int year = 0;
           if (dateRe.exactMatch(date)) {
             year = dateRe.cap(1).toInt();
@@ -154,10 +154,10 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
             frames.setYear(year);
           }
         }
-        QDomNode trackNode = releaseNode.namedItem("medium-list").
-            namedItem("medium").namedItem("track-list").namedItem("track");
+        QDomNode trackNode = releaseNode.namedItem(QLatin1String("medium-list")).
+            namedItem(QLatin1String("medium")).namedItem(QLatin1String("track-list")).namedItem(QLatin1String("track"));
         if (!trackNode.isNull()) {
-          int trackNr = trackNode.namedItem("position").toElement().text().
+          int trackNr = trackNode.namedItem(QLatin1String("position")).toElement().text().
               toInt(&ok);
           if (ok) {
             frames.setTrack(trackNr);
@@ -291,10 +291,10 @@ void MusicBrainzClient::receiveFingerprint(const QString& fingerprint,
   if (error == FingerprintCalculator::Ok) {
     m_state = GettingIds;
     emit statusChanged(m_currentIndex, i18n("ID Lookup"));
-    QString path("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=" +
+    QString path(QLatin1String("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=") +
                  QString::number(duration) +
-                 "&fingerprint=" + fingerprint);
-    m_httpClient->sendRequest("api.acoustid.org", path);
+                 QLatin1String("&fingerprint=") + fingerprint);
+    m_httpClient->sendRequest(QLatin1String("api.acoustid.org"), path);
   } else {
     emit statusChanged(m_currentIndex, i18n("Error"));
     processNextTrack();
@@ -324,8 +324,8 @@ void MusicBrainzClient::processNextStep()
     QStringList& ids = m_idsOfTrack[m_currentIndex];
     if (!ids.isEmpty()) {
       emit statusChanged(m_currentIndex, i18n("Metadata Lookup"));
-      QString path("/ws/2/recording/" + ids.takeFirst() +
-                   "?inc=artists+releases+media");
+      QString path(QLatin1String("/ws/2/recording/") + ids.takeFirst() +
+                   QLatin1String("?inc=artists+releases+media"));
       m_httpClient->sendRequest(m_musicBrainzServer, path);
     } else {
       processNextTrack();

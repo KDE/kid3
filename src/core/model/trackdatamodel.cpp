@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 May 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,7 +35,7 @@
 TrackDataModel::TrackDataModel(QObject* parent) :
   QAbstractTableModel(parent), m_diffCheckEnabled(false), m_maxDiff(0)
 {
-  setObjectName("TrackDataModel");
+  setObjectName(QLatin1String("TrackDataModel"));
 }
 
 /**
@@ -412,7 +412,7 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
   QList<Frame::ExtendedType> newFrameTypes;
   for (unsigned i = 0; i < numStandardColumns; ++i) {
     newFrameTypes.append(
-          Frame::ExtendedType(static_cast<Frame::Type>(initFrameTypes[i]), ""));
+        Frame::ExtendedType(static_cast<Frame::Type>(initFrameTypes[i]), QLatin1String("")));
   }
 
   for (ImportTrackDataVector::const_iterator tit = trackDataVector.constBegin();
@@ -494,6 +494,6 @@ int TrackDataModel::frameTypeForColumn(int column) const
 int TrackDataModel::columnForFrameType(int frameType) const
 {
   return m_frameTypes.indexOf(
-        Frame::ExtendedType(static_cast<Frame::Type>(frameType), ""));
+        Frame::ExtendedType(static_cast<Frame::Type>(frameType), QLatin1String("")));
 }
 

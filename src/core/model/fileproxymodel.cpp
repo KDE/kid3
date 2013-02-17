@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22-Mar-2011
  *
- * Copyright (C) 2011-2012  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,7 +43,7 @@
 FileProxyModel::FileProxyModel(QObject* parent) : QSortFilterProxyModel(parent),
   m_iconProvider(new TaggedFileIconProvider), m_fsModel(0)
 {
-  setObjectName("FileProxyModel");
+  setObjectName(QLatin1String("FileProxyModel"));
   connect(this, SIGNAL(rowsInserted(QModelIndex, int, int)),
           this, SLOT(updateInsertedRows(QModelIndex,int,int)));
 }
@@ -181,7 +181,7 @@ bool FileProxyModel::filterAcceptsRow(
         return false;
     }
     QString item(srcIndex.data().toString());
-    if (item == "." || item == "..")
+    if (item == QLatin1String(".") || item == QLatin1String(".."))
       return false;
     if (m_extensions.isEmpty() || !m_fsModel || m_fsModel->isDir(srcIndex))
       return true;
@@ -262,7 +262,7 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
  */
 void FileProxyModel::setNameFilters(const QStringList& filters)
 {
-  QRegExp wildcardRe("\\.\\w+");
+  QRegExp wildcardRe(QLatin1String("\\.\\w+"));
   QSet<QString> exts;
   foreach (QString filter, filters) {
     int pos = 0;
@@ -509,7 +509,7 @@ TaggedFile* FileProxyModel::readWithTagLibIfId3V24(TaggedFile* taggedFile)
       !taggedFile->isChanged() &&
       taggedFile->isTagInformationRead() && taggedFile->hasTagV2()) {
     QString id3v2Version = taggedFile->getTagFormatV2();
-    if (id3v2Version.isNull() || id3v2Version == "ID3v2.2.0") {
+    if (id3v2Version.isNull() || id3v2Version == QLatin1String("ID3v2.2.0")) {
       taggedFile = readWithTagLib(taggedFile);
     }
   }

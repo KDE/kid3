@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
   Q_INIT_RESOURCE(kid3);
 
   QApplication app(argc, argv);
-  app.setApplicationName("Kid3");
+  app.setApplicationName(QLatin1String("Kid3"));
   QLocale locale;
 
   QStringList languages(
@@ -124,14 +124,14 @@ int main(int argc, char* argv[])
   QTranslator qt_tr;
   foreach (QString localeName, languages) {
     if (
-        localeName.startsWith("en") ||
+        localeName.startsWith(QLatin1String("en")) ||
 #if defined WIN32 || defined __APPLE__
 #ifdef CFG_TRANSLATIONSDIR
-        qt_tr.load(QString("qt_") + localeName, CFG_TRANSLATIONSDIR) ||
+        qt_tr.load(QLatin1String("qt_") + localeName, QLatin1String(CFG_TRANSLATIONSDIR)) ||
 #endif
-        qt_tr.load(QString("qt_") + localeName, ".")
+        qt_tr.load(QLatin1String("qt_") + localeName, QLatin1String("."))
 #else
-        qt_tr.load(QString("qt_") + localeName,
+        qt_tr.load(QLatin1String("qt_") + localeName,
                    QLibraryInfo::location(QLibraryInfo::TranslationsPath))
 #endif
         ) {
@@ -144,11 +144,11 @@ int main(int argc, char* argv[])
   QTranslator kid3_tr;
   foreach (QString localeName, languages) {
     if (
-        localeName.startsWith("en") ||
+        localeName.startsWith(QLatin1String("en")) ||
 #ifdef CFG_TRANSLATIONSDIR
-        kid3_tr.load(QString("kid3_") + localeName, CFG_TRANSLATIONSDIR) ||
+        kid3_tr.load(QLatin1String("kid3_") + localeName, QLatin1String(CFG_TRANSLATIONSDIR)) ||
 #endif
-        kid3_tr.load(QString("kid3_") + localeName, ".")
+        kid3_tr.load(QLatin1String("kid3_") + localeName, QLatin1String("."))
         ) {
       break;
     }
@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
 #ifdef __APPLE__
  QDir dir(QApplication::applicationDirPath());
  dir.cdUp();
- dir.cd("PlugIns");
+ dir.cd(QLatin1String("PlugIns"));
  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 

@@ -49,9 +49,9 @@ void BatchImportProfile::setSourcesFromString(const QString& str)
 {
   m_sources.clear();
   if (!str.isEmpty()) {
-    QStringList srcStrs = str.split(';');
+    QStringList srcStrs = str.split(QLatin1Char(';'));
     foreach (const QString& srcStr, srcStrs) {
-      QStringList propStrs = srcStr.split(':');
+      QStringList propStrs = srcStr.split(QLatin1Char(':'));
       Source src;
       if (propStrs.size() > 0)
         src.setName(propStrs.at(0));
@@ -59,9 +59,9 @@ void BatchImportProfile::setSourcesFromString(const QString& str)
         src.setRequiredAccuracy(propStrs.at(1).toInt());
       if (propStrs.size() > 2) {
         const QString& enableStr = propStrs.at(2);
-        src.enableStandardTags(enableStr.contains('S'));
-        src.enableAdditionalTags(enableStr.contains('A'));
-        src.enableCoverArt(enableStr.contains('C'));
+        src.enableStandardTags(enableStr.contains(QLatin1Char('S')));
+        src.enableAdditionalTags(enableStr.contains(QLatin1Char('A')));
+        src.enableCoverArt(enableStr.contains(QLatin1Char('C')));
       }
       m_sources.append(src);
     }
@@ -77,12 +77,12 @@ QString BatchImportProfile::getSourcesAsString() const
   QStringList strs;
   foreach (const Source& src, m_sources) {
     QString enableStr;
-    if (src.standardTagsEnabled())   enableStr += 'S';
-    if (src.additionalTagsEnabled()) enableStr += 'A';
-    if (src.coverArtEnabled())       enableStr += 'C';
-    strs.append(src.getName() + ":" +
-                QString::number(src.getRequiredAccuracy()) + ":" +
+    if (src.standardTagsEnabled())   enableStr += QLatin1Char('S');
+    if (src.additionalTagsEnabled()) enableStr += QLatin1Char('A');
+    if (src.coverArtEnabled())       enableStr += QLatin1Char('C');
+    strs.append(src.getName() + QLatin1Char(':') +
+                QString::number(src.getRequiredAccuracy()) + QLatin1Char(':') +
                 enableStr);
   }
-  return strs.join(";");
+  return strs.join(QLatin1String(";"));
 }

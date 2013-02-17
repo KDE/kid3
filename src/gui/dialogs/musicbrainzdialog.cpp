@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2012  Urs Fleisch
+ * Copyright (C) 2005-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -60,7 +60,7 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   : QDialog(parent), m_statusBar(0),
     m_client(mbClient), m_trackDataModel(trackDataModel)
 {
-  setObjectName("MusicBrainzDialog");
+  setObjectName(QLatin1String("MusicBrainzDialog"));
   setModal(true);
   setWindowTitle(i18n("MusicBrainz Fingerprint"));
 
@@ -79,7 +79,7 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   };
   QStringList strList;
   for (const char** sl = serverList; *sl != 0; ++sl) {
-    strList += *sl;
+    strList += QString::fromLatin1(*sl);
   }
   m_serverComboBox->addItems(strList);
   m_serverComboBox->setSizePolicy(
@@ -96,8 +96,8 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   m_albumTableModel->setColumnCount(2);
   m_albumTableModel->setHorizontalHeaderLabels(
     QStringList() <<
-    "08 A Not So Short Title/Medium Sized Artist - And The Album Title [2005]" <<
-    "A Not So Short State");
+    QLatin1String("08 A Not So Short Title/Medium Sized Artist - And The Album Title [2005]") <<
+    QLatin1String("A Not So Short State"));
   m_albumTable = new QTableView(this);
   m_albumTable->setModel(m_albumTableModel);
 #if QT_VERSION >= 0x050000
@@ -335,12 +335,12 @@ void MusicBrainzDialog::updateFileTrackData(int index)
        ++it) {
     str.sprintf("%02d ", (*it).getTrack());
     str += (*it).getTitle();
-    str += '/';
+    str += QLatin1Char('/');
     str += (*it).getArtist();
-    str += " - ";
+    str += QLatin1String(" - ");
     str += (*it).getAlbum();
     if ((*it).getYear() > 0) {
-      str += QString(" [%1]").arg((*it).getYear());
+      str += QString(QLatin1String(" [%1]")).arg((*it).getYear());
     }
     stringList.push_back(str);
   }
@@ -392,7 +392,7 @@ QString MusicBrainzDialog::getServer() const
 {
   QString server(m_serverComboBox->currentText());
   if (server.isEmpty()) {
-    server = "musicbrainz.org:80";
+    server = QLatin1String("musicbrainz.org:80");
   }
   return server;
 }
@@ -426,7 +426,7 @@ void MusicBrainzDialog::saveConfig()
  */
 void MusicBrainzDialog::showHelp()
 {
-  ContextHelp::displayHelp("import-musicbrainz");
+  ContextHelp::displayHelp(QLatin1String("import-musicbrainz"));
 }
 
 /**

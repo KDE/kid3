@@ -41,7 +41,7 @@ AbstractListEdit::AbstractListEdit(QAbstractItemView* itemView,
                                    QAbstractItemModel* model, QWidget* parent) :
   QWidget(parent)
 {
-  setObjectName("AbstractListEdit");
+  setObjectName(QLatin1String("AbstractListEdit"));
   QHBoxLayout* hlayout = new QHBoxLayout(this);
   m_itemView = itemView;
   m_itemView->setModel(model);

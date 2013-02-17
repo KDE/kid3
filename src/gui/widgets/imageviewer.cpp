@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@
 ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
   QDialog(parent)
 {
-  setObjectName("ImageViewer");
+  setObjectName(QLatin1String("ImageViewer"));
   setModal(true);
   setWindowTitle(i18n("View Picture"));
   QVBoxLayout* vlayout = new QVBoxLayout(this);

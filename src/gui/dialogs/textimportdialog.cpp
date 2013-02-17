@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,7 +54,7 @@ TextImportDialog::TextImportDialog(QWidget* parent,
                                    TrackDataModel* trackDataModel) :
   QDialog(parent), m_textImporter(new TextImporter(trackDataModel))
 {
-  setObjectName("TextImportDialog");
+  setObjectName(QLatin1String("TextImportDialog"));
   setWindowTitle(i18n("Import from File/Clipboard"));
   setSizeGripEnabled(true);
 
@@ -208,5 +208,5 @@ void TextImportDialog::saveConfig()
  */
 void TextImportDialog::showHelp()
 {
-  ContextHelp::displayHelp("import-text");
+  ContextHelp::displayHelp(QLatin1String("import-text"));
 }

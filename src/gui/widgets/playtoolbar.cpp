@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 24-Aug-2010
  *
- * Copyright (C) 2010  Urs Fleisch
+ * Copyright (C) 2010-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,7 +47,7 @@
 #include "audioplayer.h"
 #include "qtcompatmac.h"
 
-static const QString zeroTime(" 0:00");
+static const QString zeroTime(QLatin1String(" 0:00"));
 
 /**
  * Constructor.
@@ -58,7 +58,7 @@ static const QString zeroTime(" 0:00");
 PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   QToolBar(parent), m_player(player)
 {
-  setObjectName("Kid3Player");
+  setObjectName(QLatin1String("Kid3Player"));
   setWindowTitle(i18n("Play"));
 
   m_playIcon = style()->standardIcon(QStyle::SP_MediaPlay);
@@ -176,8 +176,8 @@ void PlayToolBar::tick(qint64 msec)
 {
   int minutes = (msec / (60 * 1000)) % 60;
   int seconds = (msec / 1000) % 60;
-  m_timeLcd->display(QString("%1:%2").arg(minutes, 2, 10, QChar(' '))
-                     .arg(seconds, 2, 10, QChar('0')));
+  m_timeLcd->display(QString(QLatin1String("%1:%2")).arg(minutes, 2, 10, QLatin1Char(' '))
+                     .arg(seconds, 2, 10, QLatin1Char('0')));
 #ifndef HAVE_PHONON
   if (!m_seekSlider->isSliderDown()) {
     m_seekSlider->setValue(msec / 1000);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2012  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -78,7 +78,7 @@ enum { TextEncodingV1Latin1Index = 13 };
  */
 static QString getTextEncodingV1CodecName(const QString& comboEntry)
 {
-  int braceIdx = comboEntry.indexOf(" (");
+  int braceIdx = comboEntry.indexOf(QLatin1String(" ("));
   return braceIdx == -1 ? comboEntry : comboEntry.left(braceIdx);
 }
 #endif
@@ -92,13 +92,13 @@ static QString getTextEncodingV1CodecName(const QString& comboEntry)
 #ifdef CONFIG_USE_KDE
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
                            KConfigSkeleton* configSkeleton) :
-  KConfigDialog(parent, "configure", configSkeleton)
+  KConfigDialog(parent, QLatin1String("configure"), configSkeleton)
 #else
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   QDialog(parent)
 #endif
 {
-  setObjectName("ConfigDialog");
+  setObjectName(QLatin1String("ConfigDialog"));
   setWindowTitle(caption);
   setSizeGripEnabled(true);
 #ifndef CONFIG_USE_KDE
@@ -191,7 +191,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     const char* const* str = codecs;
     m_textEncodingV1List.clear();
     while (*str) {
-      m_textEncodingV1List += *str++;
+      m_textEncodingV1List += QString::fromLatin1(*str++);
     }
     m_textEncodingV1ComboBox->addItems(m_textEncodingV1List);
     m_textEncodingV1ComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
@@ -255,12 +255,12 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     m_pictureNameComboBox = new QComboBox(vorbisGroupBox);
     m_commentNameComboBox->setEditable(true);
     QStringList items;
-    items += "COMMENT";
-    items += "DESCRIPTION";
+    items += QLatin1String("COMMENT");
+    items += QLatin1String("DESCRIPTION");
     m_commentNameComboBox->addItems(items);
     m_commentNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
     commentNameLabel->setBuddy(m_commentNameComboBox);
-    m_pictureNameComboBox->addItems(QStringList() << "METADATA_BLOCK_PICTURE" << "COVERART");
+    m_pictureNameComboBox->addItems(QStringList() << QLatin1String("METADATA_BLOCK_PICTURE") << QLatin1String("COVERART"));
     m_pictureNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
     pictureNameLabel->setBuddy(m_pictureNameComboBox);
     QGridLayout* vorbisGroupBoxLayout = new QGridLayout(vorbisGroupBox);
@@ -317,7 +317,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     vlayout->addWidget(tagsTabWidget);
 
 #ifdef CONFIG_USE_KDE
-    addPage(tagsPage, i18n("Tags"), "applications-multimedia");
+    addPage(tagsPage, i18n("Tags"), QLatin1String("applications-multimedia"));
 #else
     tabWidget->addTab(tagsPage, i18n("&Tags"));
 #endif
@@ -357,7 +357,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     m_fnFormatBox = new FormatBox(fnFormatTitle, filesPage);
     vlayout->addWidget(m_fnFormatBox);
 #ifdef CONFIG_USE_KDE
-    addPage(filesPage, i18n("Files"), "document-save");
+    addPage(filesPage, i18n("Files"), QLatin1String("document-save"));
 #else
     tabWidget->addTab(filesPage, i18n("&Files"));
 #endif
@@ -394,7 +394,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     commandsGroupBox->setLayout(commandsLayout);
     vlayout->addWidget(commandsGroupBox);
 #ifdef CONFIG_USE_KDE
-    addPage(actionsPage, i18n("User Actions"), "preferences-other");
+    addPage(actionsPage, i18n("User Actions"), QLatin1String("preferences-other"));
 #else
     tabWidget->addTab(actionsPage, i18n("&User Actions"));
 #endif
@@ -436,7 +436,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
     vlayout->addItem(vspacer);
 #ifdef CONFIG_USE_KDE
-    addPage(networkPage, i18n("Network"), "preferences-system-network");
+    addPage(networkPage, i18n("Network"), QLatin1String("preferences-system-network"));
 #else
     tabWidget->addTab(networkPage, i18n("&Network"));
 #endif
@@ -513,7 +513,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   topLayout->addLayout(hlayout);
 #else
   setButtons(Ok | Cancel | Help);
-  setHelp("configure-kid3");
+  setHelp(QLatin1String("configure-kid3"));
 #endif
 }
 
@@ -668,7 +668,7 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
   }
   if (!m_useApplicationStyleCheckBox->isChecked() ||
       m_applicationStyleComboBox->currentIndex() == 0) {
-    miscCfg->m_style = "";
+    miscCfg->m_style = QLatin1String("");
   } else {
     miscCfg->m_style = m_applicationStyleComboBox->currentText();
   }
@@ -681,7 +681,7 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
  */
 void ConfigDialog::slotHelp()
 {
-  ContextHelp::displayHelp("configure-kid3");
+  ContextHelp::displayHelp(QLatin1String("configure-kid3"));
 }
 
 #ifndef CONFIG_USE_KDE
@@ -698,7 +698,7 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
   m_shortcutAlreadyUsedLabel->setText(
         i18n("The keyboard shortcut '%1' is already assigned to '%2'.").
         arg(key).
-        arg(context + '/' + (action ? action->text().remove('&') : "?")));
+        arg(context + QLatin1Char('/') + (action ? action->text().remove(QLatin1Char('&')) : QLatin1String("?"))));
 }
 
 /**

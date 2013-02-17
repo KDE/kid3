@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 07 Oct 2012
  *
- * Copyright (C) 2012  Urs Fleisch
+ * Copyright (C) 2012-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,8 +43,8 @@ void TestMusicBrainzReleaseImportParser::testParseAlbums()
   QCOMPARE(albumModel->rowCount(), 3);
   AlbumListItem* item = dynamic_cast<AlbumListItem*>(albumModel->item(0, 0));
   QVERIFY(item);
-  QCOMPARE(item->text(), QString("Wizard - Odin"));
-  QCOMPARE(item->getCategory(), QString("release"));
+  QCOMPARE(item->text(), QString(QLatin1String("Wizard - Odin")));
+  QCOMPARE(item->getCategory(), QString(QLatin1String("release")));
   QVERIFY(!item->getId().isEmpty());
 }
 
@@ -55,24 +55,24 @@ void TestMusicBrainzReleaseImportParser::testParseTracks()
   onAlbumFinished(albumStr);
 
   QStringList titles;
-  titles << "The Prophecy" << "Betrayer" << "Dead Hope" << "Dark God"
-         << "Loki's Punishment" << "Beginning of the End" << "Thor's Hammer"
-         << "Hall of Odin" << "The Powergod" << "March of the Einheriers"
-         << "End of All";
+  titles << QLatin1String("The Prophecy") << QLatin1String("Betrayer") << QLatin1String("Dead Hope") << QLatin1String("Dark God")
+         << QLatin1String("Loki's Punishment") << QLatin1String("Beginning of the End") << QLatin1String("Thor's Hammer")
+         << QLatin1String("Hall of Odin") << QLatin1String("The Powergod") << QLatin1String("March of the Einheriers")
+         << QLatin1String("End of All");
   QStringList lengths;
-  lengths << "5:19" << "4:53" << "6:02" << "5:42" << "5:08" << "4:01" << "5:01"
-          << "5:06" << "5:21" << "5:40" << "3:53";
+  lengths << QLatin1String("5:19") << QLatin1String("4:53") << QLatin1String("6:02") << QLatin1String("5:42") << QLatin1String("5:08") << QLatin1String("4:01") << QLatin1String("5:01")
+          << QLatin1String("5:06") << QLatin1String("5:21") << QLatin1String("5:40") << QLatin1String("3:53");
   QCOMPARE(m_trackDataModel->rowCount(), 11);
   for (int row = 0; row < 11; ++row) {
     QCOMPARE(m_trackDataModel->index(row, 0).data().toString(), lengths.at(row));
     QCOMPARE(m_trackDataModel->index(row, 3).data().toInt(), row + 1);
     QCOMPARE(m_trackDataModel->index(row, 4).data().toString(), titles.at(row));
-    QCOMPARE(m_trackDataModel->index(row, 5).data().toString(), QString("Wizard"));
-    QCOMPARE(m_trackDataModel->index(row, 6).data().toString(), QString("Odin"));
+    QCOMPARE(m_trackDataModel->index(row, 5).data().toString(), QString(QLatin1String("Wizard")));
+    QCOMPARE(m_trackDataModel->index(row, 6).data().toString(), QString(QLatin1String("Odin")));
     QCOMPARE(m_trackDataModel->index(row, 7).data().toInt(), 2003);
-    QCOMPARE(m_trackDataModel->index(row, 10).data().toString(), QString("Wizard"));
-    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString("LMP 0303-054 CD"));
-    QCOMPARE(m_trackDataModel->index(row, 12).data().toString(), QString("Limb Music Products"));
-    QCOMPARE(m_trackDataModel->index(row, 13).data().toString(), QString("DE"));
+    QCOMPARE(m_trackDataModel->index(row, 10).data().toString(), QString(QLatin1String("Wizard")));
+    QCOMPARE(m_trackDataModel->index(row, 11).data().toString(), QString(QLatin1String("LMP 0303-054 CD")));
+    QCOMPARE(m_trackDataModel->index(row, 12).data().toString(), QString(QLatin1String("Limb Music Products")));
+    QCOMPARE(m_trackDataModel->index(row, 13).data().toString(), QString(QLatin1String("DE")));
   }
 }

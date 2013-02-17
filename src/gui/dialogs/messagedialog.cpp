@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Aug 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,7 +43,7 @@
 MessageDialog::MessageDialog(QWidget* parent)
   : QDialog(parent)
 {
-  setObjectName("MessageDialog");
+  setObjectName(QLatin1String("MessageDialog"));
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   vlayout->setSpacing(6);
   vlayout->setMargin(6);
@@ -96,7 +96,7 @@ void MessageDialog::setText(const QString &text)
 void MessageDialog::setInformativeText(const QString& text)
 {
   m_textEdit->setText(text);
-  QStringList lines = text.split('\n');
+  QStringList lines = text.split(QLatin1Char('\n'));
   QFontMetrics fm(m_textEdit->fontMetrics());
   int maxWidth = 0;
   foreach (const QString& line, lines) {
@@ -105,7 +105,7 @@ void MessageDialog::setInformativeText(const QString& text)
       maxWidth = lineWidth;
     }
   }
-  maxWidth += fm.width("WW"); // some space for the borders
+  maxWidth += fm.width(QLatin1String("WW")); // some space for the borders
 
   if (maxWidth <= 1000) {
     m_textEdit->setMinimumWidth(maxWidth);
@@ -209,7 +209,7 @@ int MessageDialog::warningList(
   MessageDialog dialog(parent);
   dialog.setWindowTitle(title);
   dialog.setText(text);
-  dialog.setInformativeText(list.join("\n"));
+  dialog.setInformativeText(list.join(QLatin1String("\n")));
   dialog.setIcon(QMessageBox::Warning);
   dialog.setStandardButtons(buttons);
   return dialog.exec();

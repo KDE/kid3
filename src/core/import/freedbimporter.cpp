@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Jan 2004
  *
- * Copyright (C) 2004-2011  Urs Fleisch
+ * Copyright (C) 2004-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,7 +43,7 @@ FreedbImporter::FreedbImporter(QNetworkAccessManager* netMgr,
                                TrackDataModel *trackDataModel) :
   ServerImporter(netMgr, trackDataModel)
 {
-  setObjectName("FreedbImporter");
+  setObjectName(QLatin1String("FreedbImporter"));
 }
 
 /**
@@ -116,9 +116,9 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
   }
   QString str = isUtf8 ? QString::fromUtf8(searchStr) :
                          QString::fromLatin1(searchStr);
-  QRegExp titleRe("<a href=\"[^\"]+/cd/[^\"]+\"><b>([^<]+)</b></a>");
-  QRegExp catIdRe("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)");
-  QStringList lines = str.split(QRegExp("[\\r\\n]+"));
+  QRegExp titleRe(QLatin1String("<a href=\"[^\"]+/cd/[^\"]+\"><b>([^<]+)</b></a>"));
+  QRegExp catIdRe(QLatin1String("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)"));
+  QStringList lines = str.split(QRegExp(QLatin1String("[\\r\\n]+")));
   QString title;
   bool inEntries = false;
   m_albumListModel->clear();
@@ -133,7 +133,7 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
           catIdRe.cap(1),
           catIdRe.cap(2)));
       }
-    } else if ((*it).indexOf(" albums found:") != -1) {
+    } else if ((*it).indexOf(QLatin1String(" albums found:")) != -1) {
       inEntries = true;
     }
   }
@@ -166,15 +166,15 @@ static void parseFreedbTrackDurations(
    # Disc length: 3114 seconds
 */
   trackDuration.clear();
-  QRegExp discLenRe("Disc length:\\s*\\d+");
+  QRegExp discLenRe(QLatin1String("Disc length:\\s*\\d+"));
   int discLenPos = discLenRe.indexIn(text, 0);
   if (discLenPos != -1) {
     int len = discLenRe.matchedLength();
     discLenPos += 12;
     int discLen = text.mid(discLenPos, len - 12).toInt();
-    int trackOffsetPos = text.indexOf("Track frame offsets", 0);
+    int trackOffsetPos = text.indexOf(QLatin1String("Track frame offsets"), 0);
     if (trackOffsetPos != -1) {
-      QRegExp re("#\\s*\\d+");
+      QRegExp re(QLatin1String("#\\s*\\d+"));
       int lastOffset = -1;
       while ((trackOffsetPos = re.indexIn(text, trackOffsetPos)) != -1 &&
              trackOffsetPos < discLenPos) {
@@ -204,18 +204,18 @@ static void parseFreedbTrackDurations(
 static void parseFreedbAlbumData(const QString& text,
                                  FrameCollection& frames)
 {
-  QRegExp fdre("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]");
+  QRegExp fdre(QLatin1String("DTITLE=\\s*(\\S[^\\r\\n]*\\S)\\s*/\\s*(\\S[^\\r\\n]*\\S)[\\r\\n]"));
   if (fdre.indexIn(text) != -1) {
     frames.setArtist(fdre.cap(1));
     frames.setAlbum(fdre.cap(2));
   }
-  fdre.setPattern("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D");
+  fdre.setPattern(QLatin1String("EXTD=[^\\r\\n]*YEAR:\\s*(\\d+)\\D"));
   if (fdre.indexIn(text) != -1) {
     frames.setYear(fdre.cap(1).toInt());
   }
-  fdre.setPattern("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D");
+  fdre.setPattern(QLatin1String("EXTD=[^\\r\\n]*ID3G:\\s*(\\d+)\\D"));
   if (fdre.indexIn(text) != -1) {
-    frames.setGenre(Genres::getName(fdre.cap(1).toInt()));
+    frames.setGenre(QString::fromLatin1(Genres::getName(fdre.cap(1).toInt())));
   }
 }
 
@@ -242,7 +242,7 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
   int idx, oldpos = pos;
   int tracknr = 0;
   for (;;) {
-    QRegExp fdre(QString("TTITLE%1=([^\\r\\n]+)[\\r\\n]").arg(tracknr));
+    QRegExp fdre(QString(QLatin1String("TTITLE%1=([^\\r\\n]+)[\\r\\n]")).arg(tracknr));
     QString title;
     while ((idx = fdre.indexIn(text, pos)) != -1) {
       title += fdre.cap(1);
@@ -308,8 +308,8 @@ void FreedbImporter::sendFindQuery(
 {
   // At the moment, only www.gnudb.org has a working search
   // so we always use this server for find queries.
-  sendRequest(gnudbServer, QString("/search/") +
-              encodeUrlQuery(artist + " " + album));
+  sendRequest(QString::fromLatin1(gnudbServer), QLatin1String("/search/") +
+              encodeUrlQuery(artist + QLatin1Char(' ') + album));
 }
 
 /**
@@ -324,6 +324,6 @@ void FreedbImporter::sendTrackListQuery(
   const ServerImporterConfig* cfg, const QString& cat, const QString& id)
 {
   sendRequest(cfg->m_server,
-              cfg->m_cgiPath + "?cmd=cddb+read+" + cat + "+" + id +
-              "&hello=noname+localhost+Kid3+" VERSION "&proto=6");
+              cfg->m_cgiPath + QLatin1String("?cmd=cddb+read+") + cat + QLatin1Char('+') + id +
+              QLatin1String("&hello=noname+localhost+Kid3+" VERSION "&proto=6"));
 }

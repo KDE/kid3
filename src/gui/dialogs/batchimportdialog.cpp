@@ -96,7 +96,7 @@ BatchImportSourceListEdit::BatchImportSourceListEdit(
     BatchImportSourcesModel* model, QWidget* parent) :
   AbstractListEdit(m_tableView = new QTableView, model, parent)
 {
-  setObjectName("BatchImportSourceListEdit");
+  setObjectName(QLatin1String("BatchImportSourceListEdit"));
   m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 #if QT_VERSION >= 0x050000
   m_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
@@ -164,7 +164,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   QDialog(parent), m_importers(importers), m_profileIdx(-1),
   m_isAbortButton(false)
 {
-  setObjectName("BatchImportDialog");
+  setObjectName(QLatin1String("BatchImportDialog"));
   setWindowTitle(i18n("Automatic Import"));
   setSizeGripEnabled(true);
 
@@ -218,7 +218,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
 
   QStringList servers;
   foreach (const ServerImporter* si, m_importers) {
-    servers.append(si->name());
+    servers.append(QString::fromLatin1(si->name()));
   }
   m_profileModel = new BatchImportSourcesModel(this);
   BatchImportSourceListEdit* profileListEdit =
@@ -459,7 +459,7 @@ void BatchImportDialog::saveConfig()
  */
 void BatchImportDialog::showHelp()
 {
-  ContextHelp::displayHelp("batch-import");
+  ContextHelp::displayHelp(QLatin1String("batch-import"));
 }
 
 /**
@@ -508,7 +508,7 @@ void BatchImportDialog::showImportEvent(BatchImportProfile::ImportEventType type
     eventText = i18n("Error");
   }
   if (!text.isEmpty()) {
-    eventText += ": ";
+    eventText += QLatin1String(": ");
     eventText += text;
   }
   m_edit->append(eventText);

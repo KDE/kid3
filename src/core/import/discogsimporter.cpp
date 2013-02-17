@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2012  Urs Fleisch
+ * Copyright (C) 2006-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -79,7 +79,7 @@ const char discogsServer[] = "api.discogs.com:80";
  */
 QString replaceEscapedUnicodeCharacters(QString str)
 {
-  QRegExp unicodeRe("\\\\u([0-9a-fA-F]{4})");
+  QRegExp unicodeRe(QLatin1String("\\\\u([0-9a-fA-F]{4})"));
   int offset = 0;
   while (offset >= 0) {
     offset = unicodeRe.indexIn(str, offset);
@@ -101,8 +101,8 @@ QString replaceEscapedUnicodeCharacters(QString str)
  */
 QString fixUpArtist(QString str)
 {
-  str.remove(QRegExp("[*\\s]*\\(\\d+\\)"));
-  str.replace(QRegExp("\\*($| - |, | / )"), "\\1");
+  str.remove(QRegExp(QLatin1String("[*\\s]*\\(\\d+\\)")));
+  str.replace(QRegExp(QLatin1String("\\*($| - |, | / )")), QLatin1String("\\1"));
 
   return str;
 }
@@ -122,12 +122,12 @@ QString getArtistString(const QVariantList& artists)
       if (!artist.isEmpty()) {
         artist += join;
       }
-      artist += fixUpArtist(varMap.value("name").toString());
-      join = varMap.value("join").toString();
-      if (join.isEmpty() || join == ",") {
-        join = ", ";
+      artist += fixUpArtist(varMap.value(QLatin1String("name")).toString());
+      join = varMap.value(QLatin1String("join")).toString();
+      if (join.isEmpty() || join == QLatin1String(",")) {
+        join = QLatin1String(", ");
       } else {
-        join = ' ' + join + ' ';
+        join = QLatin1Char(' ') + join + QLatin1Char(' ');
       }
     }
   }
@@ -168,7 +168,7 @@ void addInvolvedPeople(
 void addCredit(FrameCollection& frames, Frame::Type type, const QString& name)
 {
   QString value = frames.getValue(type);
-  if (!value.isEmpty()) value += ", ";
+  if (!value.isEmpty()) value += QLatin1String(", ");
   value += name;
   frames.setValue(type, value);
 }
@@ -180,11 +180,11 @@ void addCredit(FrameCollection& frames, Frame::Type type, const QString& name)
  * @param varMap variant map containing extra artist information
  */
 ExtraArtist::ExtraArtist(const QVariantMap& varMap) :
-  m_name(fixUpArtist(varMap.value("name").toString())),
-  m_role(varMap.value("role").toString())
+  m_name(fixUpArtist(varMap.value(QLatin1String("name")).toString())),
+  m_role(varMap.value(QLatin1String("role")).toString())
 {
-  static const QRegExp tracksSepRe(",\\s*");
-  QString tracks = varMap.value("tracks").toString();
+  static const QRegExp tracksSepRe(QLatin1String(",\\s*"));
+  QString tracks = varMap.value(QLatin1String("tracks")).toString();
   if (!tracks.isEmpty()) {
     m_tracks = tracks.split(tracksSepRe);
   }
@@ -203,46 +203,46 @@ void ExtraArtist::addToFrames(FrameCollection& frames,
   if (!trackPos.isEmpty() && !m_tracks.contains(trackPos))
     return;
 
-  if (m_role.contains("Composed By") || m_role.contains("Music By") ||
-      m_role.contains("Songwriter")) {
+  if (m_role.contains(QLatin1String("Composed By")) || m_role.contains(QLatin1String("Music By")) ||
+      m_role.contains(QLatin1String("Songwriter"))) {
     addCredit(frames, Frame::FT_Composer, m_name);
   }
-  if (m_role.contains("Written-By") || m_role.contains("Written By")) {
+  if (m_role.contains(QLatin1String("Written-By")) || m_role.contains(QLatin1String("Written By"))) {
     addCredit(frames, Frame::FT_Author, m_name);
   }
-  if (m_role.contains("Lyrics By")) {
+  if (m_role.contains(QLatin1String("Lyrics By"))) {
     addCredit(frames, Frame::FT_Lyricist, m_name);
   }
-  if (m_role.contains("Conductor")) {
+  if (m_role.contains(QLatin1String("Conductor"))) {
     addCredit(frames, Frame::FT_Conductor, m_name);
   }
-  if (m_role.contains("Orchestra")) {
+  if (m_role.contains(QLatin1String("Orchestra"))) {
     addCredit(frames, Frame::FT_AlbumArtist, m_name);
   }
-  if (m_role.contains("Remix")) {
+  if (m_role.contains(QLatin1String("Remix"))) {
     addCredit(frames, Frame::FT_Remixer, m_name);
   }
 
-  if (m_role.contains("Arranged By")) {
+  if (m_role.contains(QLatin1String("Arranged By"))) {
     addInvolvedPeople(frames, Frame::FT_Arranger,
-                      "Arranger", m_name);
+                      QLatin1String("Arranger"), m_name);
   }
-  if (m_role.contains("Mixed By")) {
+  if (m_role.contains(QLatin1String("Mixed By"))) {
     addInvolvedPeople(frames, Frame::FT_Arranger,
-                      "Mixer", m_name);
+                      QLatin1String("Mixer"), m_name);
   }
-  if (m_role.contains("DJ Mix") || m_role.contains("Dj Mix")) {
+  if (m_role.contains(QLatin1String("DJ Mix")) || m_role.contains(QLatin1String("Dj Mix"))) {
     addInvolvedPeople(frames, Frame::FT_Arranger,
-                      "DJMixer", m_name);
+                      QLatin1String("DJMixer"), m_name);
   }
-  if (m_role.contains("Engineer") || m_role.contains("Mastered By")) {
+  if (m_role.contains(QLatin1String("Engineer")) || m_role.contains(QLatin1String("Mastered By"))) {
     addInvolvedPeople(frames, Frame::FT_Arranger,
-                      "Engineer", m_name);
+                      QLatin1String("Engineer"), m_name);
   }
-  if (m_role.contains("Producer") || m_role.contains("Co-producer") ||
-      m_role.contains("Executive Producer")) {
+  if (m_role.contains(QLatin1String("Producer")) || m_role.contains(QLatin1String("Co-producer")) ||
+      m_role.contains(QLatin1String("Executive Producer"))) {
     addInvolvedPeople(frames, Frame::FT_Arranger,
-                      "Producer", m_name);
+                      QLatin1String("Producer"), m_name);
   }
 
   static const char* const instruments[] = {
@@ -257,7 +257,7 @@ void ExtraArtist::addToFrames(FrameCollection& frames,
   for (unsigned i = 0;
        i < sizeof(instruments) / sizeof(instruments[0]);
        ++i) {
-    if (m_role.contains(instruments[i])) {
+    if (m_role.contains(QString::fromLatin1(instruments[i]))) {
       addInvolvedPeople(frames, Frame::FT_Performer, m_role, m_name);
       break;
     }
@@ -275,7 +275,7 @@ DiscogsImporter::DiscogsImporter(QNetworkAccessManager* netMgr,
                                  TrackDataModel* trackDataModel) :
   ServerImporter(netMgr, trackDataModel)
 {
-  setObjectName("DiscogsImporter");
+  setObjectName(QLatin1String("DiscogsImporter"));
   m_discogsHeaders["User-Agent"] = "Kid3/" VERSION
       " +http://kid3.sourceforge.net";
 }
@@ -316,14 +316,14 @@ void DiscogsImporter::parseFindResults(const QByteArray& searchStr)
 
   QVariantMap map = JsonParser::deserialize(str).toMap();
   m_albumListModel->clear();
-  foreach (const QVariant& var, map.value("results").toList()) {
+  foreach (const QVariant& var, map.value(QLatin1String("results")).toList()) {
     QVariantMap result = var.toMap();
-    QString title = fixUpArtist(result.value("title").toString());
+    QString title = fixUpArtist(result.value(QLatin1String("title")).toString());
     if (!title.isEmpty()) {
       m_albumListModel->appendRow(new AlbumListItem(
         title,
-        "releases",
-        QString::number(result.value("id").toInt())));
+        QLatin1String("releases"),
+        QString::number(result.value(QLatin1String("id")).toInt())));
     }
   }
 }
@@ -357,8 +357,8 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
   //   "released": "2003",
   //   "formats": [{"name": "CD"}]
   // }
-  QRegExp discTrackPosRe("(\\d+)-(\\d+)");
-  QRegExp yearRe("^\\d{4}-\\d{2}");
+  QRegExp discTrackPosRe(QLatin1String("(\\d+)-(\\d+)"));
+  QRegExp yearRe(QLatin1String("^\\d{4}-\\d{2}"));
   QString str = replaceEscapedUnicodeCharacters(QString::fromUtf8(albumStr));
   QVariantMap map = JsonParser::deserialize(str).toMap();
 
@@ -367,11 +367,11 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
   FrameCollection framesHdr;
   const bool standardTags = getStandardTags();
   if (standardTags) {
-    framesHdr.setAlbum(map.value("title").toString());
-    framesHdr.setArtist(getArtistString(map.value("artists").toList()));
+    framesHdr.setAlbum(map.value(QLatin1String("title")).toString());
+    framesHdr.setArtist(getArtistString(map.value(QLatin1String("artists")).toList()));
 
     // The year can be found in "released".
-    QString released(map.value("released").toString());
+    QString released(map.value(QLatin1String("released")).toString());
     if (yearRe.indexIn(released) == 0) {
       released.truncate(4);
     }
@@ -380,8 +380,8 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
     // The genre can be found in "genre" or "style".
     // All genres found are checked for an ID3v1 number, starting with those
     // in the style field.
-    QVariantList genreList(map.value("styles").toList() +
-                           map.value("genres").toList());
+    QVariantList genreList(map.value(QLatin1String("styles")).toList() +
+                           map.value(QLatin1String("genres")).toList());
     int genreNum = 255;
     foreach (const QVariant& var, genreList) {
       genreNum = Genres::getNumber(var.toString());
@@ -390,7 +390,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
       }
     }
     if (genreNum != 255) {
-      framesHdr.setGenre(Genres::getName(genreNum));
+      framesHdr.setGenre(QString::fromLatin1(Genres::getName(genreNum)));
     } else if (!genreList.isEmpty()) {
       framesHdr.setGenre(genreList.first().toString());
     }
@@ -400,9 +400,9 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
   const bool coverArt = getCoverArt();
   if (coverArt) {
     // Cover art can be found in "images"
-    QVariantList images = map.value("images").toList();
+    QVariantList images = map.value(QLatin1String("images")).toList();
     if (!images.isEmpty()) {
-      trackDataVector.setCoverArtUrl(images.first().toMap().value("uri").
+      trackDataVector.setCoverArtUrl(images.first().toMap().value(QLatin1String("uri")).
                                      toString());
     }
   }
@@ -410,24 +410,24 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
   const bool additionalTags = getAdditionalTags();
   if (additionalTags) {
     // Publisher can be found in "label"
-    QVariantList labels = map.value("labels").toList();
+    QVariantList labels = map.value(QLatin1String("labels")).toList();
     if (!labels.isEmpty()) {
       QVariantMap firstLabelMap = labels.first().toMap();
       framesHdr.setValue(Frame::FT_Publisher,
-          fixUpArtist(firstLabelMap.value("name").toString()));
-      QString catNo = firstLabelMap.value("catno").toString();
-      if (!catNo.isEmpty() && catNo.toLower() != "none") {
+          fixUpArtist(firstLabelMap.value(QLatin1String("name")).toString()));
+      QString catNo = firstLabelMap.value(QLatin1String("catno")).toString();
+      if (!catNo.isEmpty() && catNo.toLower() != QLatin1String("none")) {
         framesHdr.setValue(Frame::FT_CatalogNumber, catNo);
       }
     }
     // Media can be found in "formats"
-    QVariantList formats = map.value("formats").toList();
+    QVariantList formats = map.value(QLatin1String("formats")).toList();
     if (!formats.isEmpty()) {
       framesHdr.setValue(Frame::FT_Media,
-                         formats.first().toMap().value("name").toString());
+                         formats.first().toMap().value(QLatin1String("name")).toString());
     }
     // Credits can be found in "extraartists"
-    QVariantList extraartists = map.value("extraartists").toList();
+    QVariantList extraartists = map.value(QLatin1String("extraartists")).toList();
     if (!extraartists.isEmpty()) {
       foreach (const QVariant& var, extraartists) {
         ExtraArtist extraArtist(var.toMap());
@@ -439,7 +439,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
       }
     }
     // Release country can be found in "country"
-    QString country(map.value("country").toString());
+    QString country(map.value(QLatin1String("country")).toString());
     if (!country.isEmpty()) {
       framesHdr.setValue(Frame::FT_ReleaseCountry, country);
     }
@@ -449,12 +449,12 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
   ImportTrackDataVector::iterator it = trackDataVector.begin();
   bool atTrackDataListEnd = (it == trackDataVector.end());
   int trackNr = 1;
-  QVariantList trackList = map.value("tracklist").toList();
+  QVariantList trackList = map.value(QLatin1String("tracklist")).toList();
 
   // Check if all positions are empty.
   bool allPositionsEmpty = true;
   foreach (const QVariant& var, trackList) {
-    if (!var.toMap().value("position").toString().isEmpty()) {
+    if (!var.toMap().value(QLatin1String("position")).toString().isEmpty()) {
       allPositionsEmpty = false;
       break;
     }
@@ -463,7 +463,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
   foreach (const QVariant& var, trackList) {
     QVariantMap track = var.toMap();
 
-    QString position(track.value("position").toString());
+    QString position(track.value(QLatin1String("position")).toString());
     bool ok;
     int pos = position.toInt(&ok);
     if (!ok) {
@@ -476,9 +476,9 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
         pos = trackNr;
       }
     }
-    QString title(track.value("title").toString());
+    QString title(track.value(QLatin1String("title")).toString());
 
-    QStringList durationHms = track.value("duration").toString().split(':');
+    QStringList durationHms = track.value(QLatin1String("duration")).toString().split(QLatin1Char(':'));
     int duration = 0;
     foreach (const QString& var, durationHms) {
       duration *= 60;
@@ -493,7 +493,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
         frames.setTrack(pos);
         frames.setTitle(title);
       }
-      QVariantList artists(track.value("artists").toList());
+      QVariantList artists(track.value(QLatin1String("artists")).toList());
       if (!artists.isEmpty()) {
         if (standardTags) {
           frames.setArtist(getArtistString(artists));
@@ -503,7 +503,7 @@ void DiscogsImporter::parseAlbumResults(const QByteArray& albumStr)
         }
       }
       if (additionalTags) {
-        QVariantList extraartists(track.value("extraartists").toList());
+        QVariantList extraartists(track.value(QLatin1String("extraartists")).toList());
         if (!extraartists.isEmpty()) {
           foreach (const QVariant& var, extraartists) {
             ExtraArtist extraArtist(var.toMap());
@@ -570,9 +570,9 @@ void DiscogsImporter::sendFindQuery(
    * Query looks like this:
    * http://api.discogs.com//database/search?type=release&title&q=amon+amarth+avenger
    */
-  sendRequest(discogsServer,
-              QString("/database/search?type=release&title&q=") +
-              encodeUrlQuery(artist + " " + album), m_discogsHeaders);
+  sendRequest(QString::fromLatin1(discogsServer),
+              QLatin1String("/database/search?type=release&title&q=") +
+              encodeUrlQuery(artist + QLatin1Char(' ') + album), m_discogsHeaders);
 }
 
 /**
@@ -590,6 +590,6 @@ void DiscogsImporter::sendTrackListQuery(
    * Query looks like this:
    * http://api.discogs.com/releases/761529
    */
-  sendRequest(discogsServer, QString("/") + QUrl::toPercentEncoding(cat) + '/'
+  sendRequest(QString::fromLatin1(discogsServer), QLatin1Char('/') + QString::fromLatin1(QUrl::toPercentEncoding(cat)) + QLatin1Char('/')
               + id, m_discogsHeaders);
 }
