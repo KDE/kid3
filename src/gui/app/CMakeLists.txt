@@ -106,6 +106,24 @@ else (WITH_KDE)
       FILES_MATCHING PATTERN "*jpeg${CMAKE_SHARED_LIBRARY_SUFFIX}"
                      PATTERN "*jpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
+    if (HAVE_QT5)
+      if (APPLE)
+        install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
+          DESTINATION kid3.app/Contents/MacOS
+          FILES_MATCHING PATTERN "libqcocoa${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+          DESTINATION ${plugin_dest_dir}
+          FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      elseif (WIN32)
+        install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
+          DESTINATION ${plugin_dest_dir}
+          FILES_MATCHING PATTERN "qwindows${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+          DESTINATION ${plugin_dest_dir}
+          FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      endif (APPLE)
+    endif (HAVE_QT5)
+
     if (HAVE_PHONON)
       install(DIRECTORY "${QT_PLUGINS_DIR}/phonon_backend"
         DESTINATION ${plugin_dest_dir}
@@ -119,6 +137,11 @@ else (WITH_KDE)
     install(CODE "
       file(GLOB_RECURSE QTPLUGINS
         \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${plugin_dest_dir}/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+      if (APPLE)
+        file(GLOB_RECURSE QTPLATFORMPLUGINS
+          \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/kid3.app/Contents/MacOS/platforms/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+        set(QTPLUGINS \"\${QTPLUGINS};\${QTPLATFORMPLUGINS}\")
+      endif (APPLE)
       include(BundleUtilities)
       fixup_bundle(\"${bundle_app}\" \"\${QTPLUGINS}\" \"${QT_LIBRARY_DIR}\")
       if (APPLE)
@@ -143,8 +166,10 @@ else (WITH_KDE)
                     "${QT_BINARY_DIR}/QtXml4.dll"
               DESTINATION ${WITH_BINDIR})
     else (NOT HAVE_QT5)
-      install(FILES "${_qt5Dir}/../ported-x32/bin/libjpeg-8.dll"
-              DESTINATION ${WITH_BINDIR})
+      if (EXISTS "${_qt5Dir}/../ported-x32/bin/libjpeg-8.dll")
+        install(FILES "${_qt5Dir}/../ported-x32/bin/libjpeg-8.dll"
+                DESTINATION ${WITH_BINDIR})
+      endif ()
     endif (NOT HAVE_QT5)
   endif (WIN32)
 
