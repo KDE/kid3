@@ -196,6 +196,9 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   m_fileButton = new QToolButton(m_rightHalfVBox);
   m_fileButton->setIcon(*s_collapsePixmap);
   m_fileButton->setAutoRaise(true);
+#ifdef Q_OS_MAC
+  m_fileButton->setStyleSheet(QLatin1String("border: 0;"));
+#endif
   m_fileLabel = new QLabel(i18n("F&ile"), m_rightHalfVBox);
   QHBoxLayout* fileButtonLayout = new QHBoxLayout;
   fileButtonLayout->addWidget(m_fileButton);
@@ -269,6 +272,9 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   m_tag1Button = new QToolButton(m_rightHalfVBox);
   m_tag1Button->setIcon(*s_collapsePixmap);
   m_tag1Button->setAutoRaise(true);
+#ifdef Q_OS_MAC
+  m_tag1Button->setStyleSheet(QLatin1String("border: 0;"));
+#endif
   m_tag1Label = new QLabel(i18n("Tag &1"), m_rightHalfVBox);
   QHBoxLayout* tag1ButtonLayout = new QHBoxLayout;
   tag1ButtonLayout->addWidget(m_tag1Button);
@@ -311,6 +317,9 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   m_tag2Button = new QToolButton(m_rightHalfVBox);
   m_tag2Button->setIcon(*s_collapsePixmap);
   m_tag2Button->setAutoRaise(true);
+#ifdef Q_OS_MAC
+  m_tag2Button->setStyleSheet(QLatin1String("border: 0;"));
+#endif
   m_tag2Label = new QLabel(i18n("Tag &2"), m_rightHalfVBox);
   QHBoxLayout* tag2ButtonLayout = new QHBoxLayout;
   tag2ButtonLayout->addWidget(m_tag2Button);
