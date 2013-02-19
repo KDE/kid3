@@ -1314,7 +1314,10 @@ bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr, const TagLib::String
         if (frameId[0] != 'C') {
           frame = new TagLib::ID3v2::TextIdentificationFrame(id, enc);
         } else {
-          frame = new TagLib::ID3v2::CommentsFrame(enc);
+          TagLib::ID3v2::CommentsFrame* commFrame =
+              new TagLib::ID3v2::CommentsFrame(enc);
+          frame = commFrame;
+          commFrame->setLanguage("eng"); // for compatibility with iTunes
         }
         frame->setText(tstr);
 #ifdef Q_OS_WIN32
@@ -4175,6 +4178,7 @@ bool TagLibFile::addFrameV2(Frame& frame)
         TagLib::ID3v2::CommentsFrame* commFrame =
             new TagLib::ID3v2::CommentsFrame(enc);
         id3Frame = commFrame;
+        commFrame->setLanguage("eng"); // for compatibility with iTunes
         if (frame.getType() == Frame::FT_Other) {
           commFrame->setDescription(QSTRING_TO_TSTRING(frame.getName()));
         }
