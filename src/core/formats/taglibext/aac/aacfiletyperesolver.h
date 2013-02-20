@@ -29,7 +29,7 @@
 
 class AACFileTypeResolver : public TagLib::FileRef::FileTypeResolver
 {
-public
+public:
     virtual TagLib::File *createFile(TagLib::FileName fileName,
             bool readAudioProperties,
             TagLib::AudioProperties::ReadStyle audioPropertiesStyle) const;
