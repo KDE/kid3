@@ -488,12 +488,6 @@ public:
   virtual QStringList getFrameIds() const;
 
   /**
-   * Static initialization.
-   * Registers file types.
-   */
-  static void staticInit();
-
-  /**
    * Set the text codec to be used for tag 1.
    *
    * @param codec text codec, 0 to use default (ISO 8859-1)

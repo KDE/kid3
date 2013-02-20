@@ -2291,7 +2291,7 @@ static QString getFieldsFromUsltFrame(
 
   field.m_id = Frame::Field::ID_Language;
   TagLib::ByteVector bvLang = usltFrame->language();
-  field.m_value = QString::fromLatin1(QByteArray(bvLang.data(), bvLang.size() + 1));
+  field.m_value = QString::fromLatin1(QByteArray(bvLang.data(), bvLang.size()));
   fields.push_back(field);
 
   field.m_id = Frame::Field::ID_Description;
@@ -5134,23 +5134,6 @@ QStringList TagLibFile::getFrameIds() const
 }
 
 /**
- * Static initialization.
- * Registers file types.
- */
-void TagLibFile::staticInit()
-{
-#if TAGLIB_VERSION <= 0x010400
-  TagLib::FileRef::addFileTypeResolver(new SpeexFileTypeResolver);
-  TagLib::FileRef::addFileTypeResolver(new WavPackFileTypeResolver);
-  TagLib::FileRef::addFileTypeResolver(new TTAFileTypeResolver);
-#endif
-  TagLib::FileRef::addFileTypeResolver(new AACFileTypeResolver);
-  TagLib::FileRef::addFileTypeResolver(new MP2FileTypeResolver);
-
-  TagLib::ID3v1::Tag::setStringHandler(new TextCodecStringHandler);
-}
-
-/**
  * Set the text codec to be used for tag 1.
  *
  * @param codec text codec, 0 to use default (ISO 8859-1)
@@ -5303,5 +5286,61 @@ QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
 #endif
     QLatin1String(".wv");
 }
+
+
+/**
+ * Used to register file types at static initialization time.
+ */
+class TagLibInitializer {
+public:
+  /** Constructor. */
+  TagLibInitializer();
+  /** Destructor. */
+  ~TagLibInitializer();
+
+private:
+#if TAGLIB_VERSION <= 0x010400
+  SpeexFileTypeResolver* m_speexFileTypeResolver;
+  WavPackFileTypeResolver* m_wavPackFileTypeResolver;
+  TTAFileTypeResolver* m_ttaFileTypeResolver;
+#endif
+  AACFileTypeResolver* m_aacFileTypeResolver;
+  MP2FileTypeResolver* m_mp2FileTypeResolver;
+  TextCodecStringHandler* m_textCodecStringHandler;
+};
+
+
+TagLibInitializer::TagLibInitializer() :
+#if TAGLIB_VERSION <= 0x010400
+  m_speexFileTypeResolver(new SpeexFileTypeResolver),
+  m_wavPackFileTypeResolver(new WavPackFileTypeResolver),
+  m_ttaFileTypeResolver(new TTAFileTypeResolver),
+#endif
+  m_aacFileTypeResolver(new AACFileTypeResolver),
+  m_mp2FileTypeResolver(new MP2FileTypeResolver),
+  m_textCodecStringHandler(new TextCodecStringHandler)
+{
+#if TAGLIB_VERSION <= 0x010400
+  TagLib::FileRef::addFileTypeResolver(m_speexFileTypeResolver);
+  TagLib::FileRef::addFileTypeResolver(m_wavPackFileTypeResolver);
+  TagLib::FileRef::addFileTypeResolver(m_ttaFileTypeResolver);
+#endif
+  TagLib::FileRef::addFileTypeResolver(m_aacFileTypeResolver);
+  TagLib::FileRef::addFileTypeResolver(m_mp2FileTypeResolver);
+  TagLib::ID3v1::Tag::setStringHandler(m_textCodecStringHandler);
+}
+
+TagLibInitializer::~TagLibInitializer() {
+  delete m_textCodecStringHandler;
+  delete m_mp2FileTypeResolver;
+  delete m_aacFileTypeResolver;
+#if TAGLIB_VERSION <= 0x010400
+  delete m_ttaFileTypeResolver;
+  delete m_wavPackFileTypeResolver;
+  delete m_speexFileTypeResolver;
+#endif
+}
+
+static TagLibInitializer tagLibInitializer;
 
 #endif // HAVE_TAGLIB

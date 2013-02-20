@@ -103,6 +103,7 @@ TextImportDialog::TextImportDialog(QWidget* parent,
  */
 TextImportDialog::~TextImportDialog()
 {
+  delete m_textImporter;
 }
 
 /**

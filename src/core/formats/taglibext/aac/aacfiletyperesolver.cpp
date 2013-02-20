@@ -19,6 +19,16 @@
  *   MA  02110-1301  USA                                                   *
  ***************************************************************************/
 
+#if defined __GNUC__ && (__GNUC__ * 100 + __GNUC_MINOR__) >= 407
+/** Defined if GCC is used and supports diagnostic pragmas */
+#define GCC_HAS_DIAGNOSTIC_PRAGMA
+#endif
+
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#endif
+
 #include "aacfiletyperesolver.h"
 #include <mpegfile.h>
 
@@ -58,4 +68,8 @@ TagLib::File *AACFileTypeResolver::createFile(const char *fileName,
     return 0;
 }
 
+#endif
+
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
 #endif

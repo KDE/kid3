@@ -187,7 +187,6 @@ void Kid3Application::initFileTypes()
   TaggedFile::addResolver(new M4aFile::Resolver);
 #endif
 #ifdef HAVE_TAGLIB
-  TagLibFile::staticInit();
   TaggedFile::addResolver(new TagLibFile::Resolver);
 #endif
 }

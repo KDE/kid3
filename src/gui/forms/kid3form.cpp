@@ -113,7 +113,7 @@ public:
    * Constructor.
    */
   PictureDblClickHandler(Kid3Application* app, IFrameEditor* frameEditor) :
-    m_app(app), m_frameEditor(frameEditor) {}
+    QObject(app), m_app(app), m_frameEditor(frameEditor) {}
   virtual ~PictureDblClickHandler() {}
 
 protected:

@@ -14,11 +14,20 @@
  *   MA  02110-1301  USA                                                   *
  ***************************************************************************/
 
+#if defined __GNUC__ && (__GNUC__ * 100 + __GNUC_MINOR__) >= 407
+/** Defined if GCC is used and supports diagnostic pragmas */
+#define GCC_HAS_DIAGNOSTIC_PRAGMA
+#endif
+
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnon-virtual-dtor"
+#endif
+
 #include "mp2filetyperesolver.h"
 #include <mpegfile.h>
 
 #include <string.h>
-
 #if (((TAGLIB_MAJOR_VERSION) << 16) + ((TAGLIB_MINOR_VERSION) << 8) + (TAGLIB_PATCH_VERSION)) > 0x010400  && defined _WIN32
 
 TagLib::File *MP2FileTypeResolver::createFile(TagLib::FileName fileName,
@@ -53,4 +62,8 @@ TagLib::File *MP2FileTypeResolver::createFile(const char *fileName,
     return 0;
 }
 
+#endif
+
+#ifdef GCC_HAS_DIAGNOSTIC_PRAGMA
+#pragma GCC diagnostic pop
 #endif
