@@ -5295,8 +5295,15 @@ class TagLibInitializer {
 public:
   /** Constructor. */
   TagLibInitializer();
+
   /** Destructor. */
   ~TagLibInitializer();
+
+  /**
+   * Initialization.
+   * Is deferred because it will crash on Mac OS X if done in the constructor.
+   */
+  void init();
 
 private:
 #if TAGLIB_VERSION <= 0x010400
@@ -5320,6 +5327,10 @@ TagLibInitializer::TagLibInitializer() :
   m_mp2FileTypeResolver(new MP2FileTypeResolver),
   m_textCodecStringHandler(new TextCodecStringHandler)
 {
+}
+
+void TagLibInitializer::init()
+{
 #if TAGLIB_VERSION <= 0x010400
   TagLib::FileRef::addFileTypeResolver(m_speexFileTypeResolver);
   TagLib::FileRef::addFileTypeResolver(m_wavPackFileTypeResolver);
@@ -5342,5 +5353,14 @@ TagLibInitializer::~TagLibInitializer() {
 }
 
 static TagLibInitializer tagLibInitializer;
+
+/**
+ * Static initialization.
+ * Registers file types.
+ */
+void TagLibFile::staticInit()
+{
+  tagLibInitializer.init();
+}
 
 #endif // HAVE_TAGLIB
