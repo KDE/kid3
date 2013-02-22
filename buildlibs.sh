@@ -41,6 +41,8 @@ thisdir=$(pwd)
 kernel=$(uname)
 test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
+compiler="gcc"
+
 # Uncomment for debug build
 #ENABLE_DEBUG=--enable-debug
 #CMAKE_BUILD_TYPE_DEBUG="-DCMAKE_BUILD_TYPE=Debug"
@@ -317,6 +319,24 @@ diff -ru taglib-1.8.orig/taglib/xm/xmfile.cpp taglib-1.8/taglib/xm/xmfile.cpp
        writeString(lines[i], len);
 EOF
 
+test -f taglib-msvc.patch ||
+cat >taglib-msvc.patch <<"EOF"
+diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
+--- taglib-1.8.orig/CMakeLists.txt	Thu Sep  6 20:03:15 2012
++++ taglib-1.8/CMakeLists.txt	Fri Feb 22 06:41:36 2013
+@@ -31,6 +31,10 @@
+ set(LIB_INSTALL_DIR "${EXEC_INSTALL_PREFIX}/lib${LIB_SUFFIX}" CACHE PATH "The subdirectory relative to the install prefix where libraries will be installed (default is /lib${LIB_SUFFIX})" FORCE)
+ set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/include" CACHE PATH "The subdirectory to the header prefix" FORCE)
+ 
++if(MSVC)
++  add_definitions(/Zc:wchar_t-)
++endif(MSVC)
++
+ if(APPLE)
+ 	option(BUILD_FRAMEWORK "Build an OS X framework" OFF)
+ 	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
+EOF
+
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -405,6 +425,7 @@ cd taglib-1.8/
 #tar xzf ../source/taglib_1.7-1.debian.tar.gz
 #for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/taglib-xm-file-save.patch
+patch -p1 <../source/taglib-msvc.patch
 cd ..
 fi
 
@@ -510,11 +531,17 @@ cd ../..
 # taglib
 
 cd taglib-1.8/
+if test "$compiler" = "msvc"; then
+test -f taglib.sln || cmake -G "Visual Studio 9 2008" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
+mkdir inst
+DESTDIR=inst cmake --build . --config Release --target install
+else
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
+fi
 cd inst
 tar czf ../../bin/taglib-1.8.tgz usr
 cd ../..

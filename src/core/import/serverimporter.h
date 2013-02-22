@@ -39,7 +39,7 @@ class TrackDataModel;
 /**
  * Generic baseclass to import from an external source.
  */
-class ServerImporter : public ImportClient
+class KID3_CORE_EXPORT ServerImporter : public ImportClient
 {
   Q_OBJECT
 

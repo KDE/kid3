@@ -1,5 +1,7 @@
 set(kid3_SRCS main.cpp)
 
+remove_definitions(-DKID3_BUILD_GUI_LIB)
+
 if (WITH_KDE)
 
   kde4_add_executable(kid3 ${kid3_SRCS})
