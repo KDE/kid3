@@ -226,8 +226,7 @@ LabeledTextEdit::LabeledTextEdit(QWidget* parent) :
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QTextEdit(this);
-  layout->setMargin(0);
-  layout->setSpacing(2);
+  layout->setContentsMargins(0, 0, 0, 0);
   m_edit->setAcceptRichText(false);
   layout->addWidget(m_label);
   layout->addWidget(m_edit);
@@ -245,8 +244,7 @@ LabeledLineEdit::LabeledLineEdit(QWidget* parent) :
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_edit = new QLineEdit(this);
-  layout->setMargin(0);
-  layout->setSpacing(2);
+  layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(m_label);
   layout->addWidget(m_edit);
 }
@@ -264,8 +262,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
   QVBoxLayout* layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_combo = new QComboBox(this);
-  layout->setMargin(0);
-  layout->setSpacing(2);
+  layout->setContentsMargins(0, 0, 0, 0);
   QStringList strList;
   while (*strlst) {
     strList += QCM_translate(*strlst++);
@@ -289,8 +286,7 @@ LabeledSpinBox::LabeledSpinBox(QWidget* parent) :
   m_spinbox = new QSpinBox(this);
   if (layout && m_label && m_spinbox) {
     m_spinbox->setRange(0, INT_MAX);
-    layout->setMargin(0);
-    layout->setSpacing(2);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_label);
     layout->addWidget(m_spinbox);
   }
@@ -524,8 +520,7 @@ BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
   QPushButton* openButton = new QPushButton(i18n("&Import"), this);
   QPushButton* saveButton = new QPushButton(i18n("&Export"), this);
   QPushButton* viewButton = new QPushButton(i18n("&View"), this);
-  layout->setMargin(0);
-  layout->setSpacing(6);
+  layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(m_label);
   layout->addWidget(m_clipButton);
   layout->addWidget(openButton);
@@ -850,8 +845,6 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
   qDeleteAll(m_fieldcontrols);
   m_fieldcontrols.clear();
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
 
   for (Frame::FieldList::iterator fldIt = m_fields.begin();
        fldIt != m_fields.end();

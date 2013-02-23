@@ -56,10 +56,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   setWindowTitle(i18n("Number Tracks"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setMargin(6);
-  vlayout->setSpacing(6);
   QHBoxLayout* trackLayout = new QHBoxLayout;
-  trackLayout->setSpacing(6);
   QLabel* trackLabel = new QLabel(i18n("&Start number:"), this);
   m_trackSpinBox = new QSpinBox(this);
   m_trackSpinBox->setMaximum(9999);
@@ -87,7 +84,6 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   vlayout->addLayout(trackLayout);
 
   QHBoxLayout* totalLayout = new QHBoxLayout;
-  totalLayout->setSpacing(6);
   m_totalNumTracksCheckBox = new QCheckBox(i18n("&Total number of tracks:"),
                                            this);
   m_totalNumTrackSpinBox = new QSpinBox(this);
@@ -102,7 +98,6 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   vlayout->addLayout(totalLayout);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  hlayout->setSpacing(6);
   QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
   hlayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));

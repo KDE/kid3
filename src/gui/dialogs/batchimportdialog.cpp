@@ -169,8 +169,6 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setMargin(6);
-  vlayout->setSpacing(6);
   QSplitter* splitter = new QSplitter(Qt::Vertical);
 
   m_edit = new QTextEdit(this);
@@ -180,6 +178,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
 
   QWidget* profileWidget = new QWidget;
   QVBoxLayout* profileLayout = new QVBoxLayout(profileWidget);
+  profileLayout->setContentsMargins(0, 0, 0, 0);
 
   QHBoxLayout* destLayout = new QHBoxLayout;
   QLabel* destLabel = new QLabel(i18n("D&estination:"));
@@ -195,7 +194,6 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   profileLayout->addLayout(destLayout);
 
   QHBoxLayout* nameLayout = new QHBoxLayout;
-  nameLayout->setSpacing(6);
   QLabel* profileLabel = new QLabel(i18n("&Profile:"));
   nameLayout->addWidget(profileLabel);
   m_profileComboBox = new QComboBox;
@@ -229,7 +227,6 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   vlayout->addWidget(splitter);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  hlayout->setSpacing(6);
   QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);

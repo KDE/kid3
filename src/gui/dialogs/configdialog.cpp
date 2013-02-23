@@ -103,8 +103,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   setSizeGripEnabled(true);
 #ifndef CONFIG_USE_KDE
   QVBoxLayout* topLayout = new QVBoxLayout(this);
-  topLayout->setSpacing(6);
-  topLayout->setMargin(6);
   QTabWidget* tabWidget = new QTabWidget(this);
   tabWidget->setUsesScrollButtons(false);
 #endif
@@ -112,17 +110,11 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   {
     QWidget* tagsPage = new QWidget;
     QVBoxLayout* vlayout = new QVBoxLayout(tagsPage);
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
 
     QWidget* tag1Page = new QWidget;
     QVBoxLayout* tag1Layout = new QVBoxLayout(tag1Page);
-    tag1Layout->setMargin(6);
-    tag1Layout->setSpacing(6);
     QGroupBox* v1GroupBox = new QGroupBox(i18n("ID3v1"), tag1Page);
     QGridLayout* v1GroupBoxLayout = new QGridLayout(v1GroupBox);
-    v1GroupBoxLayout->setMargin(2);
-    v1GroupBoxLayout->setSpacing(4);
     m_markTruncationsCheckBox = new QCheckBox(i18n("&Mark truncated fields"), v1GroupBox);
     v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
@@ -204,12 +196,8 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
     QWidget* tag2Page = new QWidget;
     QVBoxLayout* tag2Layout = new QVBoxLayout(tag2Page);
-    tag2Layout->setMargin(6);
-    tag2Layout->setSpacing(6);
     QGroupBox* v2GroupBox = new QGroupBox(i18n("ID3v2"), tag2Page);
     QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox);
-    v2GroupBoxLayout->setMargin(2);
-    v2GroupBoxLayout->setSpacing(4);
     m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
     v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
     QLabel* trackNumberDigitsLabel = new QLabel(i18n("Track number &digits:"), v2GroupBox);
@@ -264,8 +252,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     m_pictureNameComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
     pictureNameLabel->setBuddy(m_pictureNameComboBox);
     QGridLayout* vorbisGroupBoxLayout = new QGridLayout(vorbisGroupBox);
-    vorbisGroupBoxLayout->setMargin(2);
-    vorbisGroupBoxLayout->setSpacing(4);
     vorbisGroupBoxLayout->addWidget(commentNameLabel, 0, 0);
     vorbisGroupBoxLayout->addWidget(m_commentNameComboBox, 0, 1);
     vorbisGroupBoxLayout->addWidget(pictureNameLabel, 1, 0);
@@ -279,7 +265,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     m_genresEditModel = new QStringListModel(genresGroupBox);
     StringListEdit* genresEdit = new StringListEdit(m_genresEditModel, genresGroupBox);
     QVBoxLayout* vbox = new QVBoxLayout;
-    vbox->setMargin(2);
     vbox->addWidget(m_onlyCustomGenresCheckBox);
     vbox->addWidget(genresEdit);
     genresGroupBox->setLayout(vbox);
@@ -287,7 +272,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
     QGroupBox* quickAccessTagsGroupBox = new QGroupBox(i18n("&Quick Access Tags"));
     QVBoxLayout* quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
-    quickAccessTagsLayout->setMargin(2);
     QListView* quickAccessTagsListView = new QListView;
     m_quickAccessTagsModel = new CheckableStringListModel(quickAccessTagsGroupBox);
     QStringList unifiedFrameNames;
@@ -303,8 +287,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
     QWidget* tag1AndTag2Page = new QWidget;
     QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
-    tag1AndTag2Layout->setMargin(6);
-    tag1AndTag2Layout->setSpacing(6);
     QString id3FormatTitle(i18n("&Tag Format"));
     m_id3FormatBox = new FormatBox(id3FormatTitle, tag1AndTag2Page);
     tag1AndTag2Layout->addWidget(m_id3FormatBox);
@@ -326,13 +308,10 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   {
     QWidget* filesPage = new QWidget;
     QVBoxLayout* vlayout = new QVBoxLayout(filesPage);
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
     QGroupBox* startupGroupBox = new QGroupBox(i18n("Startup"), filesPage);
     m_loadLastOpenedFileCheckBox = new QCheckBox(i18n("&Load last-opened files"),
                                                  startupGroupBox);
     QVBoxLayout* startupLayout = new QVBoxLayout;
-    startupLayout->setMargin(2);
     startupLayout->addWidget(m_loadLastOpenedFileCheckBox);
     startupGroupBox->setLayout(startupLayout);
     vlayout->addWidget(startupGroupBox);
@@ -347,7 +326,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     hbox->addWidget(coverFileNameLabel);
     hbox->addWidget(m_coverFileNameLineEdit);
     QVBoxLayout* vbox = new QVBoxLayout;
-    vbox->setMargin(2);
     vbox->addWidget(m_preserveTimeCheckBox);
     vbox->addWidget(m_markChangesCheckBox);
     vbox->addLayout(hbox);
@@ -366,14 +344,11 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   {
     QWidget* actionsPage = new QWidget;
     QVBoxLayout* vlayout = new QVBoxLayout(actionsPage);
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
     QGroupBox* browserGroupBox = new QGroupBox(i18n("Browser"), actionsPage);
     QLabel* browserLabel = new QLabel(i18n("Web &browser:"), browserGroupBox);
     m_browserLineEdit = new QLineEdit(browserGroupBox);
     browserLabel->setBuddy(m_browserLineEdit);
     QHBoxLayout* hbox = new QHBoxLayout;
-    hbox->setMargin(2);
     hbox->addWidget(browserLabel);
     hbox->addWidget(m_browserLineEdit);
     browserGroupBox->setLayout(hbox);
@@ -388,7 +363,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     m_commandsTable->setHorizontalResizeModes(
       m_commandsTableModel->getHorizontalResizeModes());
     QVBoxLayout* commandsLayout = new QVBoxLayout;
-    commandsLayout->setMargin(2);
     commandsLayout->addWidget(m_playOnDoubleClickCheckBox);
     commandsLayout->addWidget(m_commandsTable);
     commandsGroupBox->setLayout(commandsLayout);
@@ -403,8 +377,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   {
     QWidget* networkPage = new QWidget;
     QVBoxLayout* vlayout = new QVBoxLayout(networkPage);
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
     QGroupBox* proxyGroupBox = new QGroupBox(i18n("Proxy"), networkPage);
     m_proxyCheckBox = new QCheckBox(i18n("&Proxy:"), proxyGroupBox);
     m_proxyLineEdit = new QLineEdit(proxyGroupBox);
@@ -417,9 +389,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     proxyPasswordLabel->setBuddy(m_proxyPasswordLineEdit);
     m_proxyPasswordLineEdit->setEchoMode(QLineEdit::Password);
     QVBoxLayout* vbox = new QVBoxLayout;
-    vbox->setMargin(2);
     QHBoxLayout* proxyHbox = new QHBoxLayout;
-    proxyHbox->setMargin(2);
     proxyHbox->addWidget(m_proxyCheckBox);
     proxyHbox->addWidget(m_proxyLineEdit);
     vbox->addLayout(proxyHbox);
@@ -447,8 +417,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     QWidget* shortcutsPage = new QWidget;
     m_shortcutsModel = 0;
     QVBoxLayout* vlayout = new QVBoxLayout(shortcutsPage);
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
     m_shortcutsTreeView = new QTreeView;
     m_shortcutsTreeView->setSelectionMode(QAbstractItemView::NoSelection);
     m_shortcutsTreeView->setItemDelegateForColumn(
@@ -462,16 +430,12 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   {
     QWidget* appearancePage = new QWidget;
     QVBoxLayout* vlayout = new QVBoxLayout(appearancePage);
-    vlayout->setMargin(6);
-    vlayout->setSpacing(6);
     QGridLayout* fontStyleLayout = new QGridLayout;
 
     m_useApplicationFontCheckBox = new QCheckBox(i18n("Use custom app&lication font"), appearancePage);
     m_applicationFontButton = new QPushButton(i18n("A&pplication Font..."), appearancePage);
     m_useApplicationStyleCheckBox = new QCheckBox(i18n("Use custom application &style"), appearancePage);
     m_applicationStyleComboBox = new QComboBox(appearancePage);
-    fontStyleLayout->setMargin(0);
-    fontStyleLayout->setSpacing(4);
     fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 0, 0);
     fontStyleLayout->addWidget(m_applicationFontButton, 0, 1);
     fontStyleLayout->addWidget(m_useApplicationStyleCheckBox, 1, 0);

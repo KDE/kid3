@@ -162,8 +162,6 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
  : QSplitter(parent), m_app(app)
 {
   setObjectName(QLatin1String("Kid3Form"));
-  const int margin = 6;
-  const int spacing = 2;
 
   if (!s_collapsePixmap) {
     s_collapsePixmap = new QPixmap((const char**)collapse_xpm);
@@ -190,8 +188,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   scrollView->setWidget(m_rightHalfVBox);
   scrollView->setWidgetResizable(true);
   QVBoxLayout* rightHalfLayout = new QVBoxLayout(m_rightHalfVBox);
-  rightHalfLayout->setSpacing(2);
-  rightHalfLayout->setMargin(2);
+  rightHalfLayout->setSpacing(0);
 
   m_fileButton = new QToolButton(m_rightHalfVBox);
   m_fileButton->setIcon(*s_collapsePixmap);
@@ -209,8 +206,6 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   m_fileWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   rightHalfLayout->addWidget(m_fileWidget);
   QGridLayout* fileLayout = new QGridLayout(m_fileWidget);
-  fileLayout->setMargin(margin);
-  fileLayout->setSpacing(spacing);
 
   m_nameLabel = new QLabel(i18n("Name:"), m_fileWidget);
   fileLayout->addWidget(m_nameLabel, 0, 0);
@@ -286,8 +281,6 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   rightHalfLayout->addWidget(m_tag1Widget, 100);
 
   QHBoxLayout* idV1HBoxLayout = new QHBoxLayout(m_tag1Widget);
-  idV1HBoxLayout->setMargin(margin);
-  idV1HBoxLayout->setSpacing(spacing);
   m_framesV1Table = new FrameTable(m_app->frameModelV1(), m_tag1Widget);
   m_framesV1Table->setSelectionModel(m_app->getFramesV1SelectionModel());
   idV1HBoxLayout->addWidget(m_framesV1Table, 100);
@@ -330,8 +323,6 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   rightHalfLayout->addWidget(m_tag2Widget, 100);
 
   QHBoxLayout* idV2HBoxLayout = new QHBoxLayout(m_tag2Widget);
-  idV2HBoxLayout->setMargin(margin);
-  idV2HBoxLayout->setSpacing(spacing);
   m_framesV2Table = new FrameTable(m_app->frameModelV2(), m_tag2Widget);
   m_framesV2Table->setSelectionModel(m_app->getFramesV2SelectionModel());
   idV2HBoxLayout->addWidget(m_framesV2Table);

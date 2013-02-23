@@ -97,9 +97,6 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
     return;
   }
 
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
-
   QHBoxLayout* actionLayout = new QHBoxLayout;
   m_actionComboBox = new QComboBox(page);
   m_tagversionComboBox = new QComboBox(page);

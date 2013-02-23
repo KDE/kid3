@@ -114,8 +114,6 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 #endif
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
 
   m_trackDataTable = new QTableView(this);
   m_trackDataTable->setModel(m_trackDataModel);
@@ -140,8 +138,6 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   vlayout->addWidget(m_trackDataTable);
 
   QHBoxLayout* accuracyLayout = new QHBoxLayout;
-  accuracyLayout->setMargin(0);
-  accuracyLayout->setSpacing(6);
   QLabel* accuracyLabel = new QLabel(i18n("Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
   m_accuracyPercentLabel = new QLabel(QLatin1String("-"));
@@ -156,8 +152,6 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   vlayout->addLayout(accuracyLayout);
 
   QHBoxLayout* butlayout = new QHBoxLayout;
-  butlayout->setMargin(0);
-  butlayout->setSpacing(6);
   QPushButton* fileButton = new QPushButton(i18n("From F&ile/Clipboard..."));
   fileButton->setAutoDefault(false);
   butlayout->addWidget(fileButton);
@@ -204,8 +198,6 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   vlayout->addLayout(butlayout);
 
   QHBoxLayout* matchLayout = new QHBoxLayout;
-  matchLayout->setMargin(0);
-  matchLayout->setSpacing(6);
   m_mismatchCheckBox = new QCheckBox(
     i18n("Check maximum allowable time &difference (sec):"));
   matchLayout->addWidget(m_mismatchCheckBox);

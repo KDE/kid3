@@ -50,8 +50,6 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   setSizeGripEnabled(true);
 
   QVBoxLayout* vboxLayout = new QVBoxLayout(this);
-  vboxLayout->setSpacing(6);
-  vboxLayout->setMargin(6);
 
   m_formatListEdit = new FormatListEdit(
         QStringList() << i18n("Format:")

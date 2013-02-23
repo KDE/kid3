@@ -65,8 +65,6 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   setWindowTitle(i18n("MusicBrainz Fingerprint"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setMargin(6);
-  vlayout->setSpacing(6);
   QHBoxLayout* serverLayout = new QHBoxLayout;
   QLabel* serverLabel = new QLabel(i18n("&Server:"), this);
   m_serverComboBox = new QComboBox(this);

@@ -45,8 +45,6 @@ MessageDialog::MessageDialog(QWidget* parent)
 {
   setObjectName(QLatin1String("MessageDialog"));
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
   m_iconLabel = new QLabel;

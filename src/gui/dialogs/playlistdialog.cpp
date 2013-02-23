@@ -59,12 +59,8 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setMargin(6);
-  vlayout->setSpacing(6);
   QGroupBox* fnGroupBox = new QGroupBox(this);
   QVBoxLayout* fnGroupBoxLayout = new QVBoxLayout(fnGroupBox);
-  fnGroupBoxLayout->setMargin(2);
-  fnGroupBoxLayout->setSpacing(4);
   m_sameAsDirNameButton = new QRadioButton(this);
   fnGroupBoxLayout->addWidget(m_sameAsDirNameButton);
   QHBoxLayout* fileNameFormatLayout = new QHBoxLayout;
@@ -84,8 +80,6 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
 
   QGroupBox* pcGroupBox = new QGroupBox(this);
   QVBoxLayout* pcGroupBoxLayout = new QVBoxLayout(pcGroupBox);
-  pcGroupBoxLayout->setMargin(2);
-  pcGroupBoxLayout->setSpacing(4);
   QHBoxLayout* formatLayout = new QHBoxLayout;
   QLabel* formatLabel = new QLabel(this);
   m_formatComboBox = new QComboBox(this);
@@ -197,7 +191,6 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
           m_writeInfoComboBox, SLOT(setEnabled(bool)));
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  hlayout->setSpacing(6);
   QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);

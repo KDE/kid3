@@ -67,7 +67,6 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 
 #if QT_VERSION >= 0x040800
   QHBoxLayout* localeLayout = new QHBoxLayout;
-  localeLayout->setMargin(2);
   QLabel* localeLabel = new QLabel(i18n("Locale:"));
   localeLayout->addWidget(localeLabel);
   m_localeComboBox = new QComboBox(this);
@@ -86,7 +85,6 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
   m_strReplTable->setHorizontalResizeModes(
       m_strReplTableModel->getHorizontalResizeModes());
   QVBoxLayout* vbox = new QVBoxLayout;
-  vbox->setMargin(2);
   vbox->addWidget(m_formatEditingCheckBox);
   vbox->addWidget(caseConvLabel);
   vbox->addWidget(m_caseConvComboBox);

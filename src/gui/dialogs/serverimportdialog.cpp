@@ -54,8 +54,6 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   setObjectName(QLatin1String("ServerImportDialog"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
 
   QHBoxLayout* findLayout = new QHBoxLayout;
   m_artistLineEdit = new QComboBox(this);

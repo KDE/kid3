@@ -44,8 +44,6 @@ EditFrameDialog::EditFrameDialog(QWidget* parent, const QString& caption,
   setModal(true);
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
   m_edit = new QTextEdit(this);
   m_edit->setPlainText(text);
   m_edit->moveCursor(QTextCursor::End);

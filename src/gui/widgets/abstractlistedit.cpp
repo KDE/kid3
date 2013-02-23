@@ -45,7 +45,7 @@ AbstractListEdit::AbstractListEdit(QAbstractItemView* itemView,
   QHBoxLayout* hlayout = new QHBoxLayout(this);
   m_itemView = itemView;
   m_itemView->setModel(model);
-  hlayout->setSpacing(6);
+  hlayout->setContentsMargins(0, 0, 0, 0);
   hlayout->addWidget(m_itemView);
   QVBoxLayout* vlayout = new QVBoxLayout;
   m_addPushButton = new QPushButton(i18n("&Add..."), this);

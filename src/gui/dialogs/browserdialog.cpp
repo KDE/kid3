@@ -51,8 +51,6 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   setObjectName(QLatin1String("BrowserDialog"));
   setWindowTitle(caption);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
 
   QLocale locale;
   QStringList docPaths;

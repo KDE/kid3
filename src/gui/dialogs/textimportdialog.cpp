@@ -59,8 +59,6 @@ TextImportDialog::TextImportDialog(QWidget* parent,
   setSizeGripEnabled(true);
 
   QVBoxLayout* vboxLayout = new QVBoxLayout(this);
-  vboxLayout->setSpacing(6);
-  vboxLayout->setMargin(6);
 
   QString formatToolTip = ImportParser::getFormatToolTip();
   m_formatListEdit = new FormatListEdit(

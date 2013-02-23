@@ -65,7 +65,6 @@ int PictureLabel::heightForWidth(int w) const
 void PictureLabel::clearPicture()
 {
   const char* const msg = I18N_NOOP("Drag album\nartwork\nhere");
-  setMargin(6);
   setText(QCM_translate(msg));
 }
 
@@ -87,7 +86,7 @@ void PictureLabel::setData(const QByteArray* data)
       QPixmap scaledPm = pm.scaled(width(), height(), Qt::KeepAspectRatio);
       if (!scaledPm.isNull()) {
         m_pixmapHash = hash;
-        setMargin(0);
+        setContentsMargins(0, 0, 0, 0);
         setPixmap(scaledPm);
         return;
       }

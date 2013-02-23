@@ -46,8 +46,6 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   setModal(false);
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   m_textEdit = new QTextEdit(this);
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
   m_textEdit->setReadOnly(true);
   m_textEdit->setLineWrapMode(QTextEdit::NoWrap);
   m_textEdit->setStyleSheet(QLatin1String("font-family: \"Courier\";"));

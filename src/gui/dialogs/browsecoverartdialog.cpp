@@ -76,8 +76,6 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setMargin(6);
-  vlayout->setSpacing(6);
 
   m_edit = new QTextEdit(this);
   m_edit->setReadOnly(true);
@@ -87,7 +85,6 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   m_artistLineEdit = new QLineEdit(artistAlbumBox);
   m_albumLineEdit = new QLineEdit(artistAlbumBox);
   QHBoxLayout* hbox = new QHBoxLayout;
-  hbox->setMargin(2);
   hbox->addWidget(m_artistLineEdit);
   hbox->addWidget(m_albumLineEdit);
   artistAlbumBox->setLayout(hbox);
@@ -106,7 +103,6 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
         srcbox);
 
   QVBoxLayout* vbox = new QVBoxLayout;
-  vbox->setMargin(2);
   vbox->addWidget(m_formatListEdit);
   srcbox->setLayout(vbox);
   vlayout->addWidget(srcbox);
@@ -122,13 +118,11 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   m_matchUrlTable->setHorizontalResizeModes(
       m_matchUrlTableModel->getHorizontalResizeModes());
   QVBoxLayout* tablayout = new QVBoxLayout;
-  tablayout->setMargin(2);
   tablayout->addWidget(m_matchUrlTable);
   tabbox->setLayout(tablayout);
   vlayout->addWidget(tabbox);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  hlayout->setSpacing(6);
   QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);

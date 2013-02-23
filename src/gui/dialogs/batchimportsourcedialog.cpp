@@ -46,11 +46,8 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setMargin(6);
-  vlayout->setSpacing(6);
 
   QHBoxLayout* serverLayout = new QHBoxLayout;
-  serverLayout->setSpacing(6);
   QLabel* serverLabel = new QLabel(i18n("&Server:"));
   serverLayout->addWidget(serverLabel);
   m_serverComboBox = new QComboBox;
@@ -59,7 +56,6 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
   vlayout->addLayout(serverLayout);
 
   QHBoxLayout* accuracyLayout = new QHBoxLayout;
-  accuracyLayout->setSpacing(6);
   QLabel* accuracyLabel = new QLabel(i18n("&Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
   m_accuracySpinBox = new QSpinBox;
@@ -70,7 +66,6 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
   vlayout->addLayout(accuracyLayout);
 
   QHBoxLayout* tagsCoverLayout = new QHBoxLayout;
-  tagsCoverLayout->setSpacing(6);
   m_standardTagsCheckBox = new QCheckBox(i18n("&Standard Tags"));
   m_standardTagsCheckBox->setChecked(true);
   m_additionalTagsCheckBox = new QCheckBox(i18n("&Additional Tags"));

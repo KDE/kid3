@@ -73,8 +73,6 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setMargin(6);
-  vlayout->setSpacing(6);
   m_edit = new QTextEdit(this);
   m_edit->setAcceptRichText(false);
   vlayout->addWidget(m_edit);
@@ -100,7 +98,6 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   vlayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* butlayout = new QHBoxLayout;
-  butlayout->setSpacing(6);
   m_fileButton = new QPushButton(i18n("To F&ile"), this);
   m_fileButton->setAutoDefault(false);
   butlayout->addWidget(m_fileButton);
@@ -129,7 +126,6 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   vlayout->addLayout(butlayout);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  hlayout->setSpacing(6);
   QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);

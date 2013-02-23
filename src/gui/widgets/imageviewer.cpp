@@ -46,8 +46,6 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
   setModal(true);
   setWindowTitle(i18n("View Picture"));
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setSpacing(6);
-  vlayout->setMargin(6);
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);

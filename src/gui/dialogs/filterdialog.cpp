@@ -50,8 +50,6 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
-  vlayout->setMargin(6);
-  vlayout->setSpacing(6);
   m_edit = new QTextEdit(this);
   m_edit->setReadOnly(true);
   m_edit->setTabStopWidth(20);
@@ -67,7 +65,6 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   vlayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  hlayout->setSpacing(6);
   QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);

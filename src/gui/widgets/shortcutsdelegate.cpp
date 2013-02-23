@@ -182,8 +182,7 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   QLineEdit* lineEdit, QWidget* parent) :
   QFrame(parent), m_lineEdit(lineEdit) {
   QHBoxLayout* hlayout = new QHBoxLayout(this);
-  hlayout->setMargin(0);
-  hlayout->setSpacing(2);
+  hlayout->setContentsMargins(0, 0, 0, 0);
   hlayout->addWidget(m_lineEdit, 0, Qt::AlignLeft);
   QToolButton* clearButton = new QToolButton(this);
   clearButton->setText(i18n("Clear"));
