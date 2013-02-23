@@ -984,9 +984,9 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       name = QLatin1String("track number");
     }
     int len = lcName.length();
-    if (len > 2 && lcName[len - 2] == QLatin1Char('.') &&
-        lcName[len - 1] >= QLatin1Char('0') && lcName[len - 1] <= QLatin1Char('9')) {
-      fieldWidth = lcName[len - 1].toLatin1() - '0';
+    if (len > 2 && lcName.at(len - 2) == QLatin1Char('.') &&
+        lcName.at(len - 1) >= QLatin1Char('0') && lcName.at(len - 1) <= QLatin1Char('9')) {
+      fieldWidth = lcName.at(len - 1).toLatin1() - '0';
       lcName.truncate(len - 2);
       name.truncate(len - 2);
     }
