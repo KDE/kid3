@@ -110,11 +110,10 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
           this, SLOT(showPreview()));
 
   QGroupBox* tabbox = new QGroupBox(i18n("&URL extraction"), this);
-  m_matchUrlTable = new ConfigTable(tabbox);
   m_matchUrlTableModel = new ConfigTableModel(tabbox);
   m_matchUrlTableModel->setLabels(
     QStringList() << i18n("Match") << i18n("Picture URL"));
-  m_matchUrlTable->setModel(m_matchUrlTableModel);
+  m_matchUrlTable = new ConfigTable(m_matchUrlTableModel, tabbox);
   m_matchUrlTable->setHorizontalResizeModes(
       m_matchUrlTableModel->getHorizontalResizeModes());
   QVBoxLayout* tablayout = new QVBoxLayout;

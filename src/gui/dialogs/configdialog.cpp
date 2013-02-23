@@ -358,8 +358,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     m_playOnDoubleClickCheckBox =
         new QCheckBox(i18n("&Play on double click"), commandsGroupBox);
     m_commandsTableModel = new CommandsTableModel(commandsGroupBox);
-    m_commandsTable = new ConfigTable(commandsGroupBox);
-    m_commandsTable->setModel(m_commandsTableModel);
+    m_commandsTable = new ConfigTable(m_commandsTableModel, commandsGroupBox);
     m_commandsTable->setHorizontalResizeModes(
       m_commandsTableModel->getHorizontalResizeModes());
     QVBoxLayout* commandsLayout = new QVBoxLayout;

@@ -168,3 +168,11 @@ void AbstractListEdit::setButtonEnableState()
   m_editPushButton->setEnabled(idx >= 0);
   m_removePushButton->setEnabled(idx >= 0);
 }
+
+/**
+ * Hide the Edit button.
+ */
+void AbstractListEdit::hideEditButton()
+{
+  m_editPushButton->hide();
+}

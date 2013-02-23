@@ -93,6 +93,11 @@ protected:
    */
   const QAbstractItemView* getItemView() const { return m_itemView; }
 
+  /**
+   * Hide the Edit button.
+   */
+  void hideEditButton();
+
 private:
   QAbstractItemView* m_itemView;
   QPushButton* m_addPushButton;

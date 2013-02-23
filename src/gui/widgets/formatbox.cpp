@@ -77,11 +77,10 @@ FormatBox::FormatBox(const QString& title, QWidget* parent) :
 #endif
   m_strRepCheckBox = new QCheckBox(this);
   m_strRepCheckBox->setText(i18n("String replacement:"));
-  m_strReplTable = new ConfigTable(this);
   m_strReplTableModel = new ConfigTableModel(this);
   m_strReplTableModel->setLabels(
     QStringList() << i18n("From") << i18n("To"));
-  m_strReplTable->setModel(m_strReplTableModel);
+  m_strReplTable = new ConfigTable(m_strReplTableModel, this);
   m_strReplTable->setHorizontalResizeModes(
       m_strReplTableModel->getHorizontalResizeModes());
   QVBoxLayout* vbox = new QVBoxLayout;

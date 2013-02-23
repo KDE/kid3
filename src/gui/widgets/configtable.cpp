@@ -34,12 +34,13 @@
  *
  * @param parent parent widget
  */
-ConfigTable::ConfigTable(QWidget* parent) :
-  QTableView(parent)
+ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent) :
+  AbstractListEdit(m_tableView = new QTableView, model, parent)
 {
   setObjectName(QLatin1String("ConfigTable"));
-  setContextMenuPolicy(Qt::CustomContextMenu);
-  connect(this, SIGNAL(customContextMenuRequested(const QPoint&)),
+  hideEditButton();
+  m_tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+  connect(m_tableView, SIGNAL(customContextMenuRequested(const QPoint&)),
       this, SLOT(customContextMenu(const QPoint&)));
 }
 
@@ -55,7 +56,7 @@ ConfigTable::~ConfigTable() {}
 void ConfigTable::setHorizontalResizeModes(
   const QList<QHeaderView::ResizeMode>& resizeModes)
 {
-  QHeaderView* header = horizontalHeader();
+  QHeaderView* header = m_tableView->horizontalHeader();
   int col = 0;
   foreach (QHeaderView::ResizeMode mode, resizeModes)
 #if QT_VERSION >= 0x050000
@@ -72,7 +73,7 @@ void ConfigTable::setHorizontalResizeModes(
  */
 void ConfigTable::addRow(int row)
 {
-  model()->insertRow(row + 1);
+  m_tableView->model()->insertRow(row + 1);
 }
 
 /**
@@ -82,9 +83,9 @@ void ConfigTable::addRow(int row)
  */
 void ConfigTable::deleteRow(int row)
 {
-  if (model()->rowCount() <= 1)
+  if (m_tableView->model()->rowCount() <= 1)
     return;
-  model()->removeRow(row);
+  m_tableView->model()->removeRow(row);
 }
 
 /**
@@ -94,8 +95,8 @@ void ConfigTable::deleteRow(int row)
  */
 void ConfigTable::clearRow(int row)
 {
-  if (row < model()->rowCount() && model()->removeRow(row))
-    model()->insertRow(row);
+  if (row < m_tableView->model()->rowCount() && m_tableView->model()->removeRow(row))
+    m_tableView->model()->insertRow(row);
 }
 
 /**
@@ -159,8 +160,23 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
  */
 void ConfigTable::customContextMenu(const QPoint& pos)
 {
-  QModelIndex index = indexAt(pos);
+  QModelIndex index = m_tableView->indexAt(pos);
   if (index.isValid()) {
     contextMenu(index.row(), index.column(), mapToGlobal(pos));
   }
+}
+
+/**
+ * Add a new item.
+ */
+void ConfigTable::addItem()
+{
+  addRow(getItemView()->model()->rowCount());
+}
+
+/**
+ * Edit the selected item.
+ */
+void ConfigTable::editItem()
+{
 }

@@ -30,20 +30,22 @@
 #include <QTableView>
 #include <QList>
 #include <QHeaderView>
+#include "abstractlistedit.h"
 
 /**
  * Context menu commands configuration table.
  */
-class ConfigTable : public QTableView {
+class ConfigTable : public AbstractListEdit {
 Q_OBJECT
 
 public:
   /**
    * Constructor.
    *
+   * @param model item model
    * @param parent parent widget
    */
-  ConfigTable(QWidget* parent = 0);
+  ConfigTable(QAbstractItemModel* model, QWidget* parent = 0);
 
   /**
    * Destructor.
@@ -57,6 +59,16 @@ public:
   void setHorizontalResizeModes(const QList<QHeaderView::ResizeMode>& resizeModes);
 
 public slots:
+  /**
+   * Add a new item.
+   */
+  virtual void addItem();
+
+  /**
+   * Edit the selected item.
+   */
+  virtual void editItem();
+
   /**
    * Insert a new row into the table.
    *
@@ -100,6 +112,9 @@ public slots:
    * @param pos position where context menu is drawn on screen
    */
   void customContextMenu(const QPoint& pos);
+
+private:
+  QTableView* m_tableView;
 };
 
 #endif // CONFIGTABLE_H
