@@ -233,10 +233,8 @@ void ExportDialog::readConfig()
 
   setFormatFromConfig();
 
-  if (ConfigStore::s_genCfg.m_exportWindowWidth > 0 &&
-      ConfigStore::s_genCfg.m_exportWindowHeight > 0) {
-    resize(ConfigStore::s_genCfg.m_exportWindowWidth,
-           ConfigStore::s_genCfg.m_exportWindowHeight);
+  if (!ConfigStore::s_genCfg.m_exportWindowGeometry.isEmpty()) {
+    restoreGeometry(ConfigStore::s_genCfg.m_exportWindowGeometry);
   }
 }
 
@@ -253,8 +251,7 @@ void ExportDialog::saveConfig()
   ConfigStore::s_genCfg.m_exportFormatHeaders = formats.at(1);
   ConfigStore::s_genCfg.m_exportFormatTracks = formats.at(2);
   ConfigStore::s_genCfg.m_exportFormatTrailers = formats.at(3);
-  ConfigStore::s_genCfg.m_exportWindowWidth = size().width();
-  ConfigStore::s_genCfg.m_exportWindowHeight = size().height();
+  ConfigStore::s_genCfg.m_exportWindowGeometry = saveGeometry();
 
   setFormatFromConfig();
 }

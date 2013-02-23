@@ -368,8 +368,7 @@ void ServerImportDialog::getImportSourceConfig(ServerImporterConfig* cfg) const
   cfg->m_standardTags = getStandardTags();
   cfg->m_additionalTags = getAdditionalTags();
   cfg->m_coverArt = getCoverArt();
-  cfg->m_windowWidth = size().width();
-  cfg->m_windowHeight = size().height();
+  cfg->m_windowGeometry = saveGeometry();
 }
 
 /**
@@ -397,8 +396,8 @@ void ServerImportDialog::setArtistAlbum(const QString& artist, const QString& al
     setStandardTags(cf->m_standardTags);
     setAdditionalTags(cf->m_additionalTags);
     setCoverArt(cf->m_coverArt);
-    if (cf->m_windowWidth > 0 && cf->m_windowHeight > 0) {
-      resize(cf->m_windowWidth, cf->m_windowHeight);
+    if (!cf->m_windowGeometry.isEmpty()) {
+      restoreGeometry(cf->m_windowGeometry);
     }
   }
 

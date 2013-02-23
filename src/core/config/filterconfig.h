@@ -77,10 +77,8 @@ public:
   QStringList m_filterExpressions;
   /** Selected filter */
   int m_filterIdx;
-  /** Window width */
-  int m_windowWidth;
-  /** Window height */
-  int m_windowHeight;
+  /** Window geometry */
+  QByteArray m_windowGeometry;
 };
 
 #endif

@@ -83,10 +83,8 @@ public:
   int m_maxTimeDifference;
   /** visible optional columns in import table */
   quint64 m_importVisibleColumns;
-  /** import window width */
-  int m_importWindowWidth;
-  /** import window height */
-  int m_importWindowHeight;
+  /** import window geometry */
+  QByteArray m_importWindowGeometry;
 
   /** Names of import tags formats */
   QStringList m_importTagsNames;
@@ -109,10 +107,8 @@ public:
   QStringList m_exportFormatTrailers;
   /** selected export format */
   int m_exportFormatIdx;
-  /** export window width */
-  int m_exportWindowWidth;
-  /** export window height */
-  int m_exportWindowHeight;
+  /** export window geometry */
+  QByteArray m_exportWindowGeometry;
 
   /** names of picture sources */
   QStringList m_pictureSourceNames;
@@ -120,10 +116,8 @@ public:
   QStringList m_pictureSourceUrls;
   /** selected picture source */
   int m_pictureSourceIdx;
-  /** Browse cover art window width */
-  int m_browseCoverArtWindowWidth;
-  /** Browse cover art window height */
-  int m_browseCoverArtWindowHeight;
+  /** Browse cover art window geometry */
+  QByteArray m_browseCoverArtWindowGeometry;
   /** Mapping for picture URL matching */
   QMap<QString, QString> m_matchPictureUrlMap;
 

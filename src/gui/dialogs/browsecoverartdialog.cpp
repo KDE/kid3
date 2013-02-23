@@ -214,10 +214,8 @@ void BrowseCoverArtDialog::readConfig()
   setSourceFromConfig();
   m_matchUrlTableModel->setMap(ConfigStore::s_genCfg.m_matchPictureUrlMap);
 
-  if (ConfigStore::s_genCfg.m_browseCoverArtWindowWidth > 0 &&
-      ConfigStore::s_genCfg.m_browseCoverArtWindowHeight > 0) {
-    resize(ConfigStore::s_genCfg.m_browseCoverArtWindowWidth,
-           ConfigStore::s_genCfg.m_browseCoverArtWindowHeight);
+  if (!ConfigStore::s_genCfg.m_browseCoverArtWindowGeometry.isEmpty()) {
+    restoreGeometry(ConfigStore::s_genCfg.m_browseCoverArtWindowGeometry);
   }
 }
 
@@ -231,8 +229,7 @@ void BrowseCoverArtDialog::saveConfig()
   ConfigStore::s_genCfg.m_pictureSourceNames = formats.at(0);
   ConfigStore::s_genCfg.m_pictureSourceUrls = formats.at(1);
   ConfigStore::s_genCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
-  ConfigStore::s_genCfg.m_browseCoverArtWindowWidth = size().width();
-  ConfigStore::s_genCfg.m_browseCoverArtWindowHeight = size().height();
+  ConfigStore::s_genCfg.m_browseCoverArtWindowGeometry = saveGeometry();
 
   setSourceFromConfig();
 }

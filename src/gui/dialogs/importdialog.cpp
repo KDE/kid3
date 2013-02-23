@@ -429,10 +429,8 @@ void ImportDialog::clear()
     }
   }
 
-  if (ConfigStore::s_genCfg.m_importWindowWidth > 0 &&
-      ConfigStore::s_genCfg.m_importWindowHeight > 0) {
-    resize(ConfigStore::s_genCfg.m_importWindowWidth,
-           ConfigStore::s_genCfg.m_importWindowHeight);
+  if (!ConfigStore::s_genCfg.m_importWindowGeometry.isEmpty()) {
+    restoreGeometry(ConfigStore::s_genCfg.m_importWindowGeometry);
   }
 
   showPreview();
@@ -491,8 +489,7 @@ void ImportDialog::saveConfig()
                          ConfigStore::s_genCfg.m_maxTimeDifference);
   ConfigStore::s_genCfg.m_importVisibleColumns = m_columnVisibility;
 
-  ConfigStore::s_genCfg.m_importWindowWidth = size().width();
-  ConfigStore::s_genCfg.m_importWindowHeight = size().height();
+  ConfigStore::s_genCfg.m_importWindowGeometry = saveGeometry();
 }
 
 /**

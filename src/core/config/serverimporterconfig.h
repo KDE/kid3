@@ -78,11 +78,8 @@ public:
   /** CGI path used for access */
   QString m_cgiPath;
 
-  /** window width */
-  int m_windowWidth;
-
-  /** window height */
-  int m_windowHeight;
+  /** window geometry */
+  QByteArray m_windowGeometry;
 
   /** true if CgiPath configuration is used */
   bool m_cgiPathUsed;

@@ -39,8 +39,7 @@
  * @param grp configuration group
  */
 FilterConfig::FilterConfig(const QString& grp) :
-  GeneralConfig(grp), m_filterIdx(0),
-  m_windowWidth(-1), m_windowHeight(-1)
+  GeneralConfig(grp), m_filterIdx(0)
 {
   /**
    * Preset filter expressions.
@@ -90,15 +89,13 @@ void FilterConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("FilterNames", m_filterNames);
   cfg.writeEntry("FilterExpressions", m_filterExpressions);
   cfg.writeEntry("FilterIdx", m_filterIdx);
-  cfg.writeEntry("WindowWidth", m_windowWidth);
-  cfg.writeEntry("WindowHeight", m_windowHeight);
+  cfg.writeEntry("WindowGeometry", m_windowGeometry);
 #else
   config->beginGroup(QLatin1Char('/') + m_group);
   config->setValue(QLatin1String("/FilterNames"), QVariant(m_filterNames));
   config->setValue(QLatin1String("/FilterExpressions"), QVariant(m_filterExpressions));
   config->setValue(QLatin1String("/FilterIdx"), QVariant(m_filterIdx));
-  config->setValue(QLatin1String("/WindowWidth"), QVariant(m_windowWidth));
-  config->setValue(QLatin1String("/WindowHeight"), QVariant(m_windowHeight));
+  config->setValue(QLatin1String("/WindowGeometry"), QVariant(m_windowGeometry));
 
   config->endGroup();
 #endif
@@ -117,8 +114,7 @@ void FilterConfig::readFromConfig(Kid3Settings* config)
   names = cfg.readEntry("FilterNames", QStringList());
   expressions = cfg.readEntry("FilterExpressions", QStringList());
   m_filterIdx = cfg.readEntry("FilterIdx", m_filterIdx);
-  m_windowWidth = cfg.readEntry("WindowWidth", -1);
-  m_windowHeight = cfg.readEntry("WindowHeight", -1);
+  m_windowGeometry = cfg.readEntry("WindowGeometry", QByteArray());
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
@@ -130,8 +126,7 @@ void FilterConfig::readFromConfig(Kid3Settings* config)
   names = config->value(QLatin1String("/FilterNames")).toStringList();
   expressions = config->value(QLatin1String("/FilterExpressions")).toStringList();
   m_filterIdx = config->value(QLatin1String("/FilterIdx"), m_filterIdx).toInt();
-  m_windowWidth = config->value(QLatin1String("/WindowWidth"), -1).toInt();
-  m_windowHeight = config->value(QLatin1String("/WindowHeight"), -1).toInt();
+  m_windowGeometry = config->value(QLatin1String("/WindowGeometry")).toByteArray();
 
   config->endGroup();
 #endif

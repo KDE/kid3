@@ -136,10 +136,8 @@ void FilterDialog::readConfig()
 
   setFiltersFromConfig();
 
-  if (ConfigStore::s_filterCfg.m_windowWidth > 0 &&
-      ConfigStore::s_filterCfg.m_windowHeight > 0) {
-    resize(ConfigStore::s_filterCfg.m_windowWidth,
-           ConfigStore::s_filterCfg.m_windowHeight);
+  if (!ConfigStore::s_filterCfg.m_windowGeometry.isEmpty()) {
+    restoreGeometry(ConfigStore::s_filterCfg.m_windowGeometry);
   }
 }
 
@@ -152,8 +150,7 @@ void FilterDialog::saveConfig()
         &ConfigStore::s_filterCfg.m_filterIdx);
   ConfigStore::s_filterCfg.m_filterNames = formats.at(0);
   ConfigStore::s_filterCfg.m_filterExpressions = formats.at(1);
-  ConfigStore::s_filterCfg.m_windowWidth = size().width();
-  ConfigStore::s_filterCfg.m_windowHeight = size().height();
+  ConfigStore::s_filterCfg.m_windowGeometry = saveGeometry();
 
   setFiltersFromConfig();
 }

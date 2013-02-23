@@ -65,12 +65,9 @@ ImportConfig::ImportConfig(const QString& grp) :
   m_importDest(TrackData::TagV1), m_importFormatIdx(0),
   m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
   m_importVisibleColumns(0x2000000000ULL),
-  m_importWindowWidth(-1), m_importWindowHeight(-1),
   m_importTagsIdx(0),
   m_exportSrcV1(TrackData::TagV1), m_exportFormatIdx(0),
-  m_exportWindowWidth(-1), m_exportWindowHeight(-1),
-  m_pictureSourceIdx(0),
-  m_browseCoverArtWindowWidth(-1), m_browseCoverArtWindowHeight(-1)
+  m_pictureSourceIdx(0)
 {
   /**
    * Preset import format regular expressions.
@@ -355,8 +352,7 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
   cfg.writeEntry("MaxTimeDifference", m_maxTimeDifference);
   cfg.writeEntry("ImportVisibleColumns", m_importVisibleColumns);
-  cfg.writeEntry("ImportWindowWidth", m_importWindowWidth);
-  cfg.writeEntry("ImportWindowHeight", m_importWindowHeight);
+  cfg.writeEntry("ImportWindowGeometry", m_importWindowGeometry);
 
   cfg.writeEntry("ImportTagsNames", m_importTagsNames);
   cfg.writeEntry("ImportTagsSources", m_importTagsSources);
@@ -369,16 +365,14 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
   cfg.writeEntry("ExportFormatTracks", m_exportFormatTracks);
   cfg.writeEntry("ExportFormatTrailers", m_exportFormatTrailers);
   cfg.writeEntry("ExportFormatIdx", m_exportFormatIdx);
-  cfg.writeEntry("ExportWindowWidth", m_exportWindowWidth);
-  cfg.writeEntry("ExportWindowHeight", m_exportWindowHeight);
+  cfg.writeEntry("ExportWindowGeometry", m_exportWindowGeometry);
 
   cfg.writeEntry("PictureSourceNames", m_pictureSourceNames);
   cfg.writeEntry("PictureSourceUrls", m_pictureSourceUrls);
   cfg.writeEntry("PictureSourceIdx", m_pictureSourceIdx);
   cfg.writeEntry("MatchPictureUrlMapKeys", m_matchPictureUrlMap.keys());
   cfg.writeEntry("MatchPictureUrlMapValues", m_matchPictureUrlMap.values());
-  cfg.writeEntry("BrowseCoverArtWindowWidth", m_browseCoverArtWindowWidth);
-  cfg.writeEntry("BrowseCoverArtWindowHeight", m_browseCoverArtWindowHeight);
+  cfg.writeEntry("BrowseCoverArtWindowGeometry", m_browseCoverArtWindowGeometry);
 #else
   config->beginGroup(QLatin1Char('/') + m_group);
   config->setValue(QLatin1String("/ImportServer"), QVariant(m_importServer));
@@ -391,8 +385,7 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
   config->setValue(QLatin1String("/EnableTimeDifferenceCheck"), QVariant(m_enableTimeDifferenceCheck));
   config->setValue(QLatin1String("/MaxTimeDifference"), QVariant(m_maxTimeDifference));
   config->setValue(QLatin1String("/ImportVisibleColumns"), QVariant(m_importVisibleColumns));
-  config->setValue(QLatin1String("/ImportWindowWidth"), QVariant(m_importWindowWidth));
-  config->setValue(QLatin1String("/ImportWindowHeight"), QVariant(m_importWindowHeight));
+  config->setValue(QLatin1String("/ImportWindowGeometry"), QVariant(m_importWindowGeometry));
 
   config->setValue(QLatin1String("/ImportTagsNames"), QVariant(m_importTagsNames));
   config->setValue(QLatin1String("/ImportTagsSources"), QVariant(m_importTagsSources));
@@ -405,16 +398,14 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
   config->setValue(QLatin1String("/ExportFormatTracks"), QVariant(m_exportFormatTracks));
   config->setValue(QLatin1String("/ExportFormatTrailers"), QVariant(m_exportFormatTrailers));
   config->setValue(QLatin1String("/ExportFormatIdx"), QVariant(m_exportFormatIdx));
-  config->setValue(QLatin1String("/ExportWindowWidth"), QVariant(m_exportWindowWidth));
-  config->setValue(QLatin1String("/ExportWindowHeight"), QVariant(m_exportWindowHeight));
+  config->setValue(QLatin1String("/ExportWindowGeometry"), QVariant(m_exportWindowGeometry));
 
   config->setValue(QLatin1String("/PictureSourceNames"), QVariant(m_pictureSourceNames));
   config->setValue(QLatin1String("/PictureSourceUrls"), QVariant(m_pictureSourceUrls));
   config->setValue(QLatin1String("/PictureSourceIdx"), QVariant(m_pictureSourceIdx));
   config->setValue(QLatin1String("/MatchPictureUrlMapKeys"), QVariant(m_matchPictureUrlMap.keys()));
   config->setValue(QLatin1String("/MatchPictureUrlMapValues"), QVariant(m_matchPictureUrlMap.values()));
-  config->setValue(QLatin1String("/BrowseCoverArtWindowWidth"), QVariant(m_browseCoverArtWindowWidth));
-  config->setValue(QLatin1String("/BrowseCoverArtWindowHeight"), QVariant(m_browseCoverArtWindowHeight));
+  config->setValue(QLatin1String("/BrowseCoverArtWindowGeometry"), QVariant(m_browseCoverArtWindowGeometry));
 
   config->endGroup();
 #endif
@@ -442,8 +433,7 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
   m_enableTimeDifferenceCheck = cfg.readEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
   m_maxTimeDifference = cfg.readEntry("MaxTimeDifference", m_maxTimeDifference);
   m_importVisibleColumns = cfg.readEntry("ImportVisibleColumns", m_importVisibleColumns);
-  m_importWindowWidth = cfg.readEntry("ImportWindowWidth", -1);
-  m_importWindowHeight = cfg.readEntry("ImportWindowHeight", -1);
+  m_importWindowGeometry = cfg.readEntry("ImportWindowGeometry", QByteArray());
 
   tagsNames = cfg.readEntry("ImportTagsNames", QStringList());
   tagsSources = cfg.readEntry("ImportTagsSources", QStringList());
@@ -457,8 +447,7 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
   expTracks = cfg.readEntry("ExportFormatTracks", QStringList());
   expTrailers = cfg.readEntry("ExportFormatTrailers", QStringList());
   m_exportFormatIdx = cfg.readEntry("ExportFormatIdx", m_exportFormatIdx);
-  m_exportWindowWidth = cfg.readEntry("ExportWindowWidth", -1);
-  m_exportWindowHeight = cfg.readEntry("ExportWindowHeight", -1);
+  m_exportWindowGeometry = cfg.readEntry("ExportWindowGeometry", QByteArray());
 
   picNames = cfg.readEntry("PictureSourceNames", QStringList());
   picUrls = cfg.readEntry("PictureSourceUrls", QStringList());
@@ -474,8 +463,7 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
       m_matchPictureUrlMap[*itk] = *itv;
     }
   }
-  m_browseCoverArtWindowWidth = cfg.readEntry("BrowseCoverArtWindowWidth", -1);
-  m_browseCoverArtWindowHeight = cfg.readEntry("BrowseCoverArtWindowHeight", -1);
+  m_browseCoverArtWindowGeometry = cfg.readEntry("BrowseCoverArtWindowGeometry", QByteArray());
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
@@ -501,8 +489,7 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
   m_enableTimeDifferenceCheck = config->value(QLatin1String("/EnableTimeDifferenceCheck"), m_enableTimeDifferenceCheck).toBool();
   m_maxTimeDifference = config->value(QLatin1String("/MaxTimeDifference"), m_maxTimeDifference).toInt();
   m_importVisibleColumns = config->value(QLatin1String("/ImportVisibleColumns"), m_importVisibleColumns).toULongLong();
-  m_importWindowWidth = config->value(QLatin1String("/ImportWindowWidth"), -1).toInt();
-  m_importWindowHeight = config->value(QLatin1String("/ImportWindowHeight"), -1).toInt();
+  m_importWindowGeometry = config->value(QLatin1String("/ImportWindowGeometry")).toByteArray();
 
   tagsNames = config->value(QLatin1String("/ImportTagsNames")).toStringList();
   tagsSources = config->value(QLatin1String("/ImportTagsSources")).toStringList();
@@ -517,8 +504,7 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
   expTracks = config->value(QLatin1String("/ExportFormatTracks")).toStringList();
   expTrailers = config->value(QLatin1String("/ExportFormatTrailers")).toStringList();
   m_exportFormatIdx = config->value(QLatin1String("/ExportFormatIdx"), m_exportFormatIdx).toInt();
-  m_exportWindowWidth = config->value(QLatin1String("/ExportWindowWidth"), -1).toInt();
-  m_exportWindowHeight = config->value(QLatin1String("/ExportWindowHeight"), -1).toInt();
+  m_exportWindowGeometry = config->value(QLatin1String("/ExportWindowGeometry")).toByteArray();
 
   picNames = config->value(QLatin1String("/PictureSourceNames")).toStringList();
   picUrls = config->value(QLatin1String("/PictureSourceUrls")).toStringList();
@@ -535,10 +521,8 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
       m_matchPictureUrlMap[*itk] = *itv;
     }
   }
-  m_browseCoverArtWindowWidth = config->value(
-    QLatin1String("/BrowseCoverArtWindowWidth"), -1).toInt();
-  m_browseCoverArtWindowHeight = config->value(
-    QLatin1String("/BrowseCoverArtWindowHeight"), -1).toInt();
+  m_browseCoverArtWindowGeometry = config->value(
+    QLatin1String("/BrowseCoverArtWindowGeometry")).toByteArray();
 
   config->endGroup();
 #endif

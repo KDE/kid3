@@ -42,7 +42,7 @@
  */
 ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
                                            bool additionalTagsUsed) :
-  GeneralConfig(grp), m_windowWidth(-1), m_windowHeight(-1),
+  GeneralConfig(grp),
   m_cgiPathUsed(cgiPathUsed), m_additionalTagsUsed(additionalTagsUsed),
   m_standardTags(true), m_additionalTags(true), m_coverArt(true)
 {
@@ -53,7 +53,7 @@ ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
  * Used to create temporary configuration.
  */
 ServerImporterConfig::ServerImporterConfig() : GeneralConfig(QLatin1String("Temporary")),
-  m_windowWidth(-1), m_windowHeight(-1), m_cgiPathUsed(false),
+  m_cgiPathUsed(false),
   m_additionalTagsUsed(false), m_standardTags(false), m_additionalTags(false),
   m_coverArt(false) {}
 
@@ -79,8 +79,7 @@ void ServerImporterConfig::writeToConfig(Kid3Settings* config) const
     cfg.writeEntry("AdditionalTags", m_additionalTags);
     cfg.writeEntry("CoverArt", m_coverArt);
   }
-  cfg.writeEntry("WindowWidth", m_windowWidth);
-  cfg.writeEntry("WindowHeight", m_windowHeight);
+  cfg.writeEntry("WindowGeometry", m_windowGeometry);
 #else
   config->beginGroup(QLatin1Char('/') + m_group);
   config->setValue(QLatin1String("/Server"), QVariant(m_server));
@@ -91,8 +90,7 @@ void ServerImporterConfig::writeToConfig(Kid3Settings* config) const
     config->setValue(QLatin1String("/AdditionalTags"), QVariant(m_additionalTags));
     config->setValue(QLatin1String("/CoverArt"), QVariant(m_coverArt));
   }
-  config->setValue(QLatin1String("/WindowWidth"), QVariant(m_windowWidth));
-  config->setValue(QLatin1String("/WindowHeight"), QVariant(m_windowHeight));
+  config->setValue(QLatin1String("/WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 #endif
 }
@@ -116,8 +114,7 @@ void ServerImporterConfig::readFromConfig(Kid3Settings* config)
                                              m_additionalTags);
     m_coverArt = cfg.readEntry("CoverArt", m_coverArt);
   }
-  m_windowWidth = cfg.readEntry("WindowWidth", -1);
-  m_windowHeight = cfg.readEntry("WindowHeight", -1);
+  m_windowGeometry = cfg.readEntry("WindowGeometry", QByteArray());
 #else
   config->beginGroup(QLatin1Char('/') + m_group);
   m_server = config->value(QLatin1String("/Server"), m_server).toString();
@@ -130,8 +127,7 @@ void ServerImporterConfig::readFromConfig(Kid3Settings* config)
                                      m_additionalTags).toBool();
     m_coverArt = config->value(QLatin1String("/CoverArt"), m_coverArt).toBool();
   }
-  m_windowWidth = config->value(QLatin1String("/WindowWidth"), -1).toInt();
-  m_windowHeight = config->value(QLatin1String("/WindowHeight"), -1).toInt();
+  m_windowGeometry = config->value(QLatin1String("/WindowGeometry")).toByteArray();
   config->endGroup();
 #endif
 }
