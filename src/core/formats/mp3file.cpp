@@ -63,11 +63,21 @@
 #define GCC_HAS_DIAGNOSTIC_PRAGMA
 #endif
 
+namespace {
+
 /** Text codec for ID3v1 tags, 0 to use default (ISO 8859-1) */
-const QTextCodec* Mp3File::s_textCodecV1 = 0;
+const QTextCodec* s_textCodecV1 = 0;
 
 /** Default text encoding */
-ID3_TextEnc Mp3File::s_defaultTextEncoding = ID3TE_ISO8859_1;
+ID3_TextEnc s_defaultTextEncoding = ID3TE_ISO8859_1;
+
+/**
+ * Get the default text encoding.
+ * @return default text encoding.
+ */
+ID3_TextEnc getDefaultTextEncoding() { return s_defaultTextEncoding; }
+
+}
 
 /**
  * Constructor.
@@ -569,7 +579,7 @@ static bool setTextField(ID3_Tag* tag, ID3_FrameID id, const QString& text,
         ID3_Field* fld = frame->GetField(ID3FN_TEXT);
         if (fld) {
           ID3_TextEnc enc = tag->HasV2Tag() ?
-            Mp3File::getDefaultTextEncoding() : ID3TE_ISO8859_1;
+            getDefaultTextEncoding() : ID3TE_ISO8859_1;
           if (allowUnicode && enc == ID3TE_ISO8859_1) {
             // check if information is lost if the string is not unicode
             uint i, unicode_size = text.length();
