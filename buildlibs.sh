@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This script can be used to build static libraries for the Windows and Mac
 # versions of Kid3. Linux and BSD users do not need it because the libraries
 # can be installed from their repositories.
@@ -35,6 +35,9 @@
 # flac, id3lib, taglib, libav, chromaprint. You are then ready to build Kid3
 # from the win32 or macosx directories by starting buildkid3.bat (Windows) or
 # buildkid3.sh (Mac).
+
+# Exit if an error occurs
+set -e
 
 thisdir=$(pwd)
 
@@ -303,6 +306,43 @@ diff -ru id3lib-3.8.3.orig/src/io_helpers.cpp id3lib-3.8.3/src/io_helpers.cpp
 
 EOF
 
+test -f id3lib-msvc.patch ||
+cat >id3lib-msvc.patch <<"EOF"
+diff -ru id3lib-3.8.3.orig/makefile.win32 id3lib-3.8.3/makefile.win32
+--- id3lib-3.8.3.orig/makefile.win32	Wed Feb 27 07:42:32 2013
++++ id3lib-3.8.3/makefile.win32	Wed Feb 27 07:43:55 2013
+@@ -23,12 +23,12 @@
+ #
+ 
+ CFLAGS=-nologo -I. -Iinclude -Iinclude\id3 -Izlib\include \
+-	-W3 -WX -GX \
++	-W3 -EHsc \
+ 	-DHAVE_CONFIG_H -DID3LIB_LINKOPTION=1
+ 
+ !ifdef DEBUG
+ SUFFIX=d
+-CFLAGS=$(CFLAGS) -Od -Z7 -Oy- -MD -D "WIN32" -D "_DEBUG"
++CFLAGS=$(CFLAGS) -Od -Z7 -Oy- -MDd -D "WIN32" -D "_DEBUG"
+ !else
+ SUFFIX=
+ CFLAGS=$(CFLAGS) -Ox     -Oy- -MD -D "WIN32" -D "NDEBUG"
+EOF
+
+test -f libvorbis-msvc.patch ||
+cat >libvorbis-msvc.patch <<"EOF"
+diff -ru libvorbis-1.3.2.orig/win32/VS2008/libogg.vsprops libvorbis-1.3.2/win32/VS2008/libogg.vsprops
+--- libvorbis-1.3.2.orig/win32/VS2008/libogg.vsprops	Thu Mar 25 07:28:59 2010
++++ libvorbis-1.3.2/win32/VS2008/libogg.vsprops	Mon Feb 25 08:21:12 2013
+@@ -14,6 +14,6 @@
+ 	/>
+ 	<UserMacro
+ 		Name="LIBOGG_VERSION"
+-		Value="1.1.4"
++		Value="1.3.0"
+ 	/>
+ </VisualStudioPropertySheet>
+EOF
+
 test -f taglib-xm-file-save.patch ||
 cat >taglib-xm-file-save.patch <<"EOF"
 diff -ru taglib-1.8.orig/taglib/xm/xmfile.cpp taglib-1.8/taglib/xm/xmfile.cpp
@@ -365,7 +405,7 @@ cd ..
 if ! test -d zlib-1.2.7; then
 tar xzf source/zlib_1.2.7.dfsg.orig.tar.gz
 cd zlib-1.2.7/
-tar xzf ../source/zlib_1.2.7.dfsg-13.debian.tar.gz
+tar xzf ../source/zlib_1.2.7.dfsg-13.debian.tar.gz || true
 echo Can be ignored: Cannot create symlink to debian.series
 for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
 cd ..
@@ -386,6 +426,7 @@ if ! test -d libvorbis-1.3.2.orig; then
 tar xzf source/libvorbis_1.3.2.orig.tar.gz
 cd libvorbis-1.3.2/
 gunzip -c ../source/libvorbis_1.3.2-1.3.diff.gz | patch -p1
+patch --ignore-whitespace -p1 <../source/libvorbis-msvc.patch
 cd ..
 fi
 
@@ -414,6 +455,7 @@ tar xzf ../source/id3lib3.8.3_3.8.3-15.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
 patch -p1 <../source/id3lib-fix-utf16-stringlists.patch
+patch -p1 --ignore-whitespace <../source/id3lib-msvc.patch
 cd ..
 fi
 
@@ -435,7 +477,15 @@ if ! test -d libav-0.8.3; then
 tar xzf source/libav_0.8.3.orig.tar.gz
 cd libav-0.8.3/
 tar xzf ../source/libav_0.8.3-7.debian.tar.gz
-for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+oldifs=$IFS
+IFS='
+'
+for f in $(cat debian/patches/series); do
+  if test "${f:0:1}" != "#"; then
+    patch -p1 <debian/patches/$f
+  fi
+done
+IFS=$oldifs
 patch -p0 <../source/libav_sws.patch
 cd ..
 fi
@@ -462,6 +512,75 @@ fi
 # Build from sources
 
 test -d bin || mkdir bin
+
+if test "$compiler" = "msvc"; then
+
+# libogg
+
+cd libogg-1.3.0/
+$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\libogg_static.sln /p:Configuration=Debug;Platform=Win32"
+$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\libogg_static.sln /p:Configuration=Release;Platform=Win32"
+mkdir -p inst/include/ogg inst/lib/Debug inst/lib/Release
+cp win32/VS2008/Win32/Debug/libogg_static.lib inst/lib/Debug/
+cp win32/VS2008/Win32/Release/libogg_static.lib inst/lib/Release/
+cp include/ogg/*.h inst/include/ogg/
+cd inst
+tar czf ../../bin/libogg-1.3.0.tgz include lib
+cd ../..
+
+# libvorbis
+
+cd libvorbis-1.3.2/
+$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\vorbis_static.sln /p:Configuration=Debug;Platform=Win32"
+$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\vorbis_static.sln /p:Configuration=Release;Platform=Win32"
+mkdir -p inst/include/vorbis inst/lib/Debug inst/lib/Release
+cp win32/VS2008/Win32/Debug/*.lib inst/lib/Debug/
+cp win32/VS2008/Win32/Release/*.lib inst/lib/Release/
+cp include/vorbis/*.h inst/include/vorbis/
+cd inst
+tar czf ../../bin/libvorbis-1.3.2.tgz include lib
+cd ../..
+
+# id3lib
+
+cd id3lib-3.8.3/
+test -f config.h || cp config.h.win32 config.h
+$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32 DEBUG=1"
+$COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && nmake -f makefile.win32"
+mkdir -p inst/include inst/lib/Debug inst/lib/Release
+cp -a include/id3* inst/include
+cp id3libd.lib inst/lib/Debug/id3lib.lib
+cp id3lib.lib inst/lib/Release/
+cd inst
+tar czf ../../bin/id3lib-3.8.3.tgz include lib
+cd ../..
+
+# taglib
+
+cd taglib-1.8/
+test -f taglib.sln || cmake -G "Visual Studio 9 2008" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
+mkdir instd
+DESTDIR=instd cmake --build . --config Debug --target install
+mkdir inst
+DESTDIR=inst cmake --build . --config Release --target install
+mv inst/lib inst/Release
+mv instd/lib inst/Debug
+mkdir inst/lib
+mv inst/Debug inst/Release inst/lib/
+rm -rf instd
+cd inst
+tar czf ../../bin/taglib-1.8.tgz include lib
+cd ../..
+
+# Install to root directory
+
+BUILDROOT=../libs-msvc
+test -d $BUILDROOT || mkdir $BUILDROOT
+for f in bin/*.tgz; do
+  tar xzf $f -C $BUILDROOT
+done
+
+else
 
 # zlib
 
@@ -531,17 +650,11 @@ cd ../..
 # taglib
 
 cd taglib-1.8/
-if test "$compiler" = "msvc"; then
-test -f taglib.sln || cmake -G "Visual Studio 9 2008" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
-mkdir inst
-DESTDIR=inst cmake --build . --config Release --target install
-else
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
-fi
 cd inst
 tar czf ../../bin/taglib-1.8.tgz usr
 cd ../..
@@ -698,3 +811,7 @@ tar xzf bin/chromaprint-0.6.tgz -C $BUILDROOT
 if test $kernel = "Darwin"; then
   sudo chmod go-w ${BUILDROOT}usr/local
 fi
+
+fi
+
+echo "Built successfully."
