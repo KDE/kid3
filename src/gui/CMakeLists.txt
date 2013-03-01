@@ -12,6 +12,9 @@ foreach (_subdir widgets dialogs forms)
 endforeach()
 
 add_definitions(-DKID3_BUILD_GUI_LIB)
+if (NOT BUILD_SHARED_LIBS)
+  add_definitions(${QT_EXECUTABLE_COMPILE_FLAGS})
+endif (NOT BUILD_SHARED_LIBS)
 
 if (WITH_GCC_PCH)
   ADD_KID3_PCH_RULE(gui_SRCS)
