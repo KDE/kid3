@@ -317,7 +317,7 @@ static Frame::Type getTypeFromVorbisName(QString name)
     strNumMap.insert(QLatin1String("COVERART"), Frame::FT_Picture);
   }
   QMap<QString, int>::const_iterator it =
-    strNumMap.find(name.remove(QLatin1Char(' ')).toUpper());
+    strNumMap.find(name.remove(QLatin1Char('=')).toUpper());
   if (it != strNumMap.end()) {
     return static_cast<Frame::Type>(*it);
   }
@@ -337,7 +337,7 @@ static QString getVorbisName(const Frame& frame)
   if (type <= Frame::FT_LastFrame) {
     return QString::fromLatin1(getVorbisNameFromType(type));
   } else {
-    return frame.getName().remove(QLatin1Char(' ')).toUpper();
+    return frame.getName().remove(QLatin1Char('=')).toUpper();
   }
 }
 
@@ -798,7 +798,7 @@ QStringList OggFile::getFrameIds() const
     "ENCODING",
     "ENGINEER",
     "ENSEMBLE",
-    "GUEST ARTIST",
+    "GUESTARTIST",
     "LABEL",
     "LABELNO",
     "LICENSE",
@@ -809,10 +809,10 @@ QStringList OggFile::getFrameIds() const
     "PRODUCER",
     "PRODUCTNUMBER",
     "RECORDINGDATE",
-    "RELEASE DATE",
-    "SOURCE ARTIST",
-    "SOURCE MEDIUM",
-    "SOURCE WORK",
+    "RELEASEDATE",
+    "SOURCEARTIST",
+    "SOURCEMEDIUM",
+    "SOURCEWORK",
     "SPARS",
     "TRACKTOTAL",
     "VERSION",
