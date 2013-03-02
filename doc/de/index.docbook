@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2013-02-07</date>
+<date>2013-03-02</date>
 <releaseinfo>2.3</releaseinfo>
 
 <abstract>
@@ -313,6 +313,13 @@ Werte aus den Tags im Dateinamen einzusetzen:
 <listitem><para>%g %{genre} Stil (Genre)</para></listitem>
 <listitem><para>  %{ignore} Wird ignoriert wenn Tags aus dem Dateinamen erzeugt werden</para></listitem>
 </itemizedlist>
+
+<para>
+Die Formatcodes sind nicht auf die oben gegebenen Beispiele beschränkt. Alle
+Framenamen können benutzt werden, sowohl vereinheitlichte
+wie <userinput>%{bpm}</userinput> als auch formatspezifische
+wie <userinput>%{popm}</userinput>.
+</para>
 
 <para>
 Ein zweites <guilabel>Format</guilabel> Auswahlfeld (mit Pfeil runter)
@@ -672,6 +679,8 @@ Zum Importieren vom Discogs Server wird <guibutton>Discogs</guibutton>
 gewählt. Wie bei <guibutton>Von
 gnudb.org</guibutton> können auch hier Artist und Album eingegeben werden und
 es wird ebenfalls eine Liste mit Alben zur Auswahl gestellt.
+Wenn <guilabel>Standard Tags</guilabel> markiert ist, werden grundlegende
+Informationen importiert, so z.B. Interpret, Album und Titel.
 Wenn <guilabel>Zusätzliche Tags</guilabel> markiert ist, werden mehr
 verfügbare Informationen importiert, z.B. Interpreten, Arrangierer oder der
 Herausgeber.
@@ -766,7 +775,8 @@ um Titeldaten zu kriegen, also Nummer und Titel. In den regulären Ausdrücken
 können alle von Qt unterstützten Funktionen eingesetzt werden; also das meiste
 von dem, was Perl bietet. Klammerkonstrukte "(..)" werden benützt, um
 Felddaten zu extrahieren und werden von einem &kid3;-spezifischen Feldcode
-eingeleitet. Die Codes sind dieselben wie beim Dateinamenformat:
+eingeleitet. Die Codes sind dieselben wie beim Dateinamenformat, auch hier
+sind nebst den unten aufgelisteten Codes beliebige Framenamen möglich:
 </para>
 
 <itemizedlist id="format-codes">
@@ -790,6 +800,14 @@ im Konfigurationsverzeichnis. Diese Datei kann auch direkt verändert werden,
 um mehr Importformate zu haben, oder man kann sie löschen, um wieder zu den
 Standardeinstellungen zu kommen. Formate können
 mit <guibutton>Entfernen</guibutton> gelöscht werden.
+</para>
+<para>
+<guibutton>Genauigkeit</guibutton> zeigt eine Abschätzung, wie gut die
+importierten Daten zu den Stücken passen. Dazu werden die Längen oder die
+Dateinamen verglichen um den Grad an Übereinstimmung in Prozent zu
+errechnen.
+<guibutton>Cover-Bild</guibutton> zeigt die URL des Cover-Bildes, welches
+heruntergeladen wird.
 </para>
 <para>
 Um zu prüfen, ob die importierten Stücke den vorhandenen Dateien entsprechen,
@@ -945,6 +963,60 @@ den <guibutton>Von MusicBrainz Album</guibutton> Dialog.</para></listitem>
 Dieser Menüpunkt öffnet denselben Import Dialog
 wie <guimenuitem>Importieren...</guimenuitem>, öffnet jedoch direkt auch
 den <guibutton>Von MusicBrainz Fingerprint</guibutton> Dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry id="batch-import">
+<term><menuchoice>
+<guimenu>Datei</guimenu>
+<guimenuitem>Automatisch importieren...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+<action>Automatisch importieren</action> lassen sich Informationen für mehrere
+Alben von verschiedenen Web-Diensten. Wenn Verzeichnisse in der Dateiliste
+selektiert sind, so werden Metadaten für die Stücke der gewählten
+Verzeichnisse importiert. Wenn kein Verzeichnis ausgewählt ist, so werden
+Informationen für alle Verzeichnisse innerhalb der Dateiliste importiert.
+</para>
+<para>
+Der Tag Typ (Tag 1, Tag 2, Tag 1 und Tag 2) kann
+über das <guilabel>Ziel</guilabel> Auswahlfeld selektiert werden.
+</para>
+<para>
+Profile bestimmen, von welchen Servern die Album-Informationen geholt
+werden. Einige Profile sind bereits vordefiniert (All, MusicBrainz, Discogs,
+Cover Art), eigene Profile können mit dem <guibutton>Hinzufügen</guibutton>
+Knopf rechts von der <guilabel>Profil</guilabel> Auswahlliste erstellt
+werden.
+</para>
+<para>
+Die Tabelle darunter zeigt die Server, welche benutzt werden, wenn mit dem
+ausgewählten Profil importiert wird. Der Import-Prozess für ein Album wird
+beendet, wenn alle geforderten Informationen gefunden wurden, daher ist die
+Reihenfolge der Server in der Tabelle wichtig. Sie kann mit den
+<guibutton>Nach oben</guibutton> und <guibutton>Nach unten</guibutton>
+Knöpfen verändert werden. Mit <guibutton>Bearbeiten</guibutton> kann ein
+bestehender Eintrag verändert werden. Die <guibutton>Server</guibutton>
+Auswahl stellt dieselben Server zur Verfügung wie die Import-Funktionen.
+<guilabel>Standard Tags</guilabel>,
+<guilabel>Zusätzliche Tags</guilabel>
+und <guilabel>Cover-Bilder</guilabel> bestimmen die Informationen, welche
+vom Server geholt werden sollen. Die <guilabel>Genauigkeit</guilabel>
+schliesslich bestimmt die minimale Übereinstimmung, welche erreicht werden
+muss, damit die importierten Daten akzeptiert werden. Ist sie ungenügend, so
+wird ein Import mit dem nächsten Server versucht. Dieser Dialog mit den
+Server-Eigenschaften wird auch angezeigt wenn
+<guibutton>Hinzufügen</guibutton> gewählt wird, um einen neuen Eintrag zu
+erstellen. Bestehende Zeilen können mit <guibutton>Entfernen</guibutton>
+gelöscht werden.
+</para>
+<para>
+Um einen automatischen Import mit dem ausgewählten Profil zu beginnen wird
+<guibutton>Starten</guibutton> gedrückt. Details über den laufenden Prozess
+werden im Dialog oben angezeigt. <guibutton>Abbrechen</guibutton> führt zu
+einer vorzeitigen Beendigung des Imports.
+</para>
+<para>
+</para></listitem> 
 </varlistentry>
 
 <varlistentry id="browse_pictures">
@@ -1200,6 +1272,15 @@ Stückliste generiert.
 
 <varlistentry>
 <term><menuchoice>
+<guimenu>Bearbeiten</guimenu>
+<guimenuitem>Alles im Verzeichnis auswählen</guimenuitem>
+</menuchoice></term>
+<listitem><para>Selektiert alle Dateien im aktuellen
+Verzeichnis.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
 <shortcut>
 <keycombo><keycap>Alt</keycap><keycap>Up</keycap></keycombo>
 </shortcut>
@@ -1250,10 +1331,10 @@ rückgängig gemacht werden.
 <varlistentry>
 <term><menuchoice>
 <guimenu>Extras</guimenu>
-<guimenuitem>ID3 Format anwenden</guimenuitem>
+<guimenuitem>Tag-Format anwenden</guimenuitem>
 </menuchoice></term>
 <listitem><para>Wenn <guilabel>Während des Editierens formatieren</guilabel>
-im Konfigurationsdialog beim ID3 Format deaktiviert ist, kann man mit diesem Menüpunkt
+im Konfigurationsdialog beim Tag Format deaktiviert ist, kann man mit diesem Menüpunkt
 <action>die Formatierung auf die Tags der ausgewählten Dateien anwenden</action>.
 Diese Funktion kann auch angewendet werden, um zu testen, ob die Tags dem
 eingestellten Format entsprechen. Hierzu sollten alle Dateien
@@ -1263,6 +1344,18 @@ dem eingestellten Format entsprechen. Ungewollte Änderungen können
 mit <guilabel>Zuletzt gespeicherte Fassung</guilabel>
 rückgängig gemacht werden.
 </para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Extras</guimenu>
+<guimenuitem>Textkodierung anwenden</guimenuitem>
+</menuchoice></term>
+<listitem><para>Setzt die <guilabel>Textkodierung</guilabel>, welche
+in <guilabel>Einstellungen/Kid3 einrichten.../Tags/Tag 2</guilabel>
+eingestellt ist, für alle ausgewählten Dateien. Wenn UTF8 eingestellt ist,
+so wird für ID3v2.3.0 Tags UTF16 verwendet, denn dieses Format unterstützt
+UTF8 nicht.</para></listitem>
 </varlistentry>
 
 <varlistentry id="rename-directory">
@@ -1608,7 +1701,10 @@ aufklappen.
 der aus verschiedenen Seiten besteht, mit Optionen für Tags, Dateien, Benutzerbefehle und Netzwerk.
 </para>
 <para>
-Optionen für Tags sind auf der Seite <guilabel>Tags</guilabel> zu finden.
+Optionen für Tags sind auf der Seite <guilabel>Tags</guilabel> zu finden,
+welche ihrerseits in drei Reiter unterteilt ist für
+<guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel> und
+<guilabel>Tag 1 und Tag 2</guilabel>.
 </para>
 <para>
 Wenn <guilabel>Markiere abgeschnittene Felder</guilabel> aktiv ist, werden
@@ -1709,6 +1805,12 @@ markiert ist, so werden die eigenen Stile am Ende der Auswahlliste
 aufgeführt.
 </para>
 <para>
+<guilabel>Schnellzugriff-Tags</guilabel> bestimmt, welche Frametypen immer
+bei <link linkend="tag2">Tag 2</link> angezeigt werden. Solche Frames können
+dann hinzugefügt werden, ohne zuerst den <guibutton>Hinzufügen</guibutton>
+Knopf zu drücken.
+</para>
+<para>
 <guilabel>Tag Format</guilabel> enthält Einstellungen für das Format
 der Tags.
 Wenn <guilabel>Während dem Editieren formatieren</guilabel> aktiviert ist,
@@ -1742,6 +1844,8 @@ werden, dass die Modifikationszeit der Datei nicht verändert wird.
 <para>
 Wenn <guilabel>Änderungen markieren</guilabel> aktiviert ist, werden veränderte
 Felder markiert, indem der Hintergrund des Namens grau gesetzt wird.
+<guilabel>Dateiname für Cover</guilabel> setzt den Namen, welcher
+vorgeschlagen wird, wenn ein eingebettetes Bild als Datei exportiert wird.
 </para>
 <para>
 <guilabel>Dateinamen Format</guilabel> enthält Einstellungen für das
@@ -2106,6 +2210,17 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 </funcsynopsis>
 </sect2>
 
+<sect2 id="dbus-batchImport">
+<title>Automatischen Import starten</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>batchImport</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> Tag Maske (Bit 0 für Tag 1, Bit 1 für Tag 2)</paramdef>
+  <paramdef>string <parameter>profileName</parameter> Name des zu verwendenden Profils</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
 <sect2 id="dbus-importFromFile">
 <title>Tags von Datei importieren</title>
 <funcsynopsis>
@@ -2291,6 +2406,16 @@ spezifiziert. Die Kid3 Schnittstelle hat die folgenden Methoden:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>applyTagFormat</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-applyTextEncoding">
+<title>Textkodierung anwenden</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>applyTextEncoding</function></funcdef>
   <void/>
 </funcprototype>
 </funcsynopsis>

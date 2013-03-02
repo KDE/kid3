@@ -1,7 +1,7 @@
 Begin4
 Title:          Kid3 -- Efficient Audio Tagger
 Version:        2.3
-Entered-date:   2013-02-07
+Entered-date:   2013-03-02
 Description:    Audio tagger to edit ID3v1.1, ID3v2.3, ID3v2.4, Ogg/Vorbis,
                 FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV
                 and AIFF tags, multiple files, generate tags from file names

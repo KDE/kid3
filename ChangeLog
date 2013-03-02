@@ -1,6 +1,29 @@
-Thu Feb  7 19:45:23 CET 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
+Sat Mar  2 09:36:02 CET 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 2.3
+
+	* New:
+	  + Automatic batch import for multiple directories.
+	  + Import catalog number and release country from Discogs and
+	    MusicBrainz.
+	  + Quick access tags are configurable for tag 2.
+	  + Setting for default file name to save cover art.
+	  + Select all in directory.
+	  + Apply text encoding.
+	  + Support Qt 5.0.
+
+	* Improved:
+	  + Better responsiveness when working with a huge number of files,
+	    long operations can be aborted (filtering, renaming, expanding).
+	  + Support custom frame names in formats and imports.
+	  + Display accuracy and cover art URL for imports.
+	  + Added more unified frame types.
+	  + GUI and usability.
+
+	* Fixed:
+	  + Swapped mapping of too and enc for M4A files.
+	  + Compatibility of ID3v2.4.0 COMM frames with iTunes.
+	  + Do not remove spaces in Vorbis comment field names.
 
 Mon Dec  3 11:09:12 CET 2012  Urs Fleisch  <ufleisch@users.sourceforge.net>
 

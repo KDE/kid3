@@ -25,7 +25,7 @@
 </copyright>
 <legalnotice id="fdl-notice">&FDLNotice;</legalnotice>
 
-<date>2013-02-07</date>
+<date>2013-03-02</date>
 <releaseinfo>2.3</releaseinfo>
 
 <abstract>
@@ -275,7 +275,7 @@ be renamed when the Save command is used.
 </para>
 <para>
 The <guilabel>Format</guilabel> combo box and line edit contains the format
-to be used when the filename is generated from first or the second tag.
+to be used when the filename is generated from the first or the second tag.
 The filename can contain arbitrary characters, even a directory part separated
 by a slash from the file name, but that directory must already exist for the
 renaming to succeed. The following special codes are used to insert tag values
@@ -294,6 +294,13 @@ into the filename:
 <listitem><para>%g %{genre} Genre</para></listitem>
 <listitem><para>   %{ignore} Ignored when generating tags from the file name</para></listitem>
 </itemizedlist>
+
+<para>
+The format codes are not restricted to the examples given above. Any frame
+name can be used, for instance unified frame names
+like <userinput>%{bpm}</userinput> or format specific names
+like <userinput>%{popm}</userinput>. 
+</para>
 
 <para>
 A second <guilabel>Format</guilabel> combo box (with arrow down) is used
@@ -638,6 +645,8 @@ can be imported by terminating the import dialog with
 A search on the Discogs server can be performed using
 <guibutton>Discogs</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,
 you can enter artist and album and then choose from a list of releases.
+If <guilabel>Standard Tags</guilabel> is marked, the standard information is
+imported, e.g. artist, album, and title.
 If <guilabel>Additional Tags</guilabel> is marked, more information is
 imported if available, e.g. performers, arrangers, or the publisher.
 If <guilabel>Cover Art</guilabel> is marked, cover art will be downloaded if
@@ -722,7 +731,8 @@ and title. The regular expressions include all the features offered by Qt,
 which is most of the what Perl offers. Bracketing constructs "(..)" create
 capture buffers for the fields to import and are preceded by &kid3; specific
 codes to specify which field to capture. The codes are the same as used for
-the filename format:
+the filename format, besides the codes listed below, any frame name is
+possible: 
 </para>
 
 <itemizedlist id="format-codes">
@@ -745,6 +755,13 @@ be changed by editing the regular expressions and the name and then clicking
 be directly edited to have more import formats or it can be deleted to revert
 to the default formats. Formats can be deleted
 using <guibutton>Remove</guibutton>.
+</para>
+<para>
+<guibutton>Accuracy</guibutton> shows an estimation of how good the
+imported information matches the given tracks. It uses track durations or
+file names to calculate the level of similarity in percent.
+<guibutton>Cover Art</guibutton> shows the URL of the album cover image
+which will be downloaded.
 </para>
 <para>
 To check whether the imported tracks match the current set of files, the
@@ -891,6 +908,56 @@ dialog.</para></listitem>
 item opens the same import dialog as <guimenuitem>Import...</guimenuitem>, but
 opens directly the <guibutton>From MusicBrainz Fingerprint</guibutton>
 dialog.</para></listitem> 
+</varlistentry>
+
+<varlistentry id="batch-import">
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Automatic Import...</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+<action>Automatic Import</action> allows to import information for multiple
+albums from various web services. If directories are selected in the file
+list, track data for the selected directories will be imported. If no
+directory is selected, all directories in the file list will be imported.
+</para>
+<para>
+The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the 
+<guilabel>Destination</guilabel> combo box.
+</para>
+<para>
+Profiles determine which servers will be contacted to fetch album
+information. Some profiles are predefined (All, MusicBrainz, Discogs,
+Cover Art), custom profiles can be added using the
+<guibutton>Add</guibutton> button at the right of the
+<guilabel>Profile</guilabel> combo box.
+</para>
+<para>
+The table below shows the servers which will be used when importing album
+information using the selected profile. The import process for an album is
+finished if all required information has been found, so the order of the
+rows in the table is important. It can be changed using the
+<guibutton>Move Up</guibutton> and <guibutton>Move Down</guibutton> buttons.
+<guibutton>Edit</guibutton> can be used to change an existing entry. The
+<guibutton>Server</guibutton> selection offers the same servers as can be
+used in the import functions. <guilabel>Standard Tags</guilabel>,
+<guilabel>Additional Tags</guilabel>, <guilabel>Cover Art</guilabel>
+determine the information which shall be fetched from the server. Finally,
+<guilabel>Accuracy</guilabel> is the minimum accuracy which must be
+achieved to accept the imported data. If the accuracy is insufficient, the
+next server in the list will be tried. The same dialog containing the server
+properties appears when <guibutton>Add</guibutton> is clicked to add a new
+server entry. Existing entries can be deleted using
+<guibutton>Remove</guibutton>.
+</para>
+<para>
+To launch an automatic batch import with the selected profile, click
+<guibutton>Start</guibutton>. Details about the running import are displayed
+at the top of the dialog. The process can be aborted with the
+<guibutton>Abort</guibutton> button.
+</para>
+<para>
+</para></listitem> 
 </varlistentry>
 
 <varlistentry id="browse_pictures">
@@ -1130,6 +1197,14 @@ the <guibutton>Write info using</guibutton> control.
 
 <varlistentry>
 <term><menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Select All in Directory</guimenuitem>
+</menuchoice></term>
+<listitem><para>Selects all files of the current directory.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
 <shortcut>
 <keycombo><keycap>Alt</keycap><keycap>Up</keycap></keycombo>
 </shortcut>
@@ -1176,15 +1251,26 @@ changed (and therefore marked with a disk symbol in the file listbox).
 <varlistentry>
 <term><menuchoice>
 <guimenu>Tools</guimenu>
-<guimenuitem>Apply ID3 Format</guimenuitem>
+<guimenuitem>Apply Tag Format</guimenuitem>
 </menuchoice></term>
 <listitem><para>When <guilabel>Format while editing</guilabel> is switched off
-for the ID3 format in the configuration dialog, this menu item can be used to <action>apply
+for the tag format in the configuration dialog, this menu item can be used to <action>apply
 the configured format to the tags of the selected files</action>. This can also be used
 to check whether the tags conform with the configured format
 by applying the format to all saved files and then checking if any files were
 changed (and therefore marked with a disk symbol in the file listbox).
 </para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Apply Text Encoding</guimenuitem>
+</menuchoice></term>
+<listitem><para>Sets the <guilabel>Text encoding</guilabel> selected
+in <guilabel>Settings/Configure Kid3.../Tags/Tag 2</guilabel> for all
+selected files. If UTF8 is selected, UTF16 will be used for ID3v2.3.0 tags
+because UTF8 is not supported for this format.</para></listitem>
 </varlistentry>
 
 <varlistentry id="rename-directory">
@@ -1514,7 +1600,10 @@ by clicking on the corresponding
 consists of pages for tags, files, user actions, and network settings.
 </para>
 <para>
-Tag specific options can be found on the <guilabel>Tags</guilabel> page.
+Tag specific options can be found on the <guilabel>Tags</guilabel> page,
+which is itself separated into three tabs
+for <guilabel>Tag 1</guilabel>, <guilabel>Tag 2</guilabel>, and
+<guilabel>Tag 1 and Tag 2</guilabel>.
 </para>
 <para>
 If <guilabel>Mark truncated fields</guilabel> is checked, truncated ID3v1.1
@@ -1605,6 +1694,11 @@ If <guilabel>Show only custom genres</guilabel> is not active, the custom
 genres can be found at the end of the genres list.
 </para>
 <para>
+<guilabel>Quick Access Tags</guilabel> defines which frame types are always
+shown in the <link linkend="tag2">Tag 2</link> section. Such frames can
+then be added without first using the <guibutton>Add</guibutton> button.
+</para>
+<para>
 <guilabel>Tag Format</guilabel> contains options for the format of the tags.
 When <guilabel>Format while editing</guilabel> is checked, the format
 configuration is automatically used while editing text in the line edits.
@@ -1629,6 +1723,8 @@ last-opened files</guilabel> can be marked so that &kid3; will open and
 select the last selected file when it is started the next time.
 <guilabel>Preserve file timestamp</guilabel> can be checked to preserve
 the file modification time stamp.
+<guilabel>Filename for cover</guilabel> sets the name which is suggested
+when an embedded image is exported to a file.
 </para>
 <para>
 If <guilabel>Mark changes</guilabel> is active, changed fields are marked with
@@ -1994,6 +2090,17 @@ following methods:
 </funcsynopsis>
 </sect2>
 
+<sect2 id="dbus-batchImport">
+<title>Start an automatic batch import</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef>boolean <function>batchImport</function></funcdef>
+  <paramdef>int32 <parameter>tagMask</parameter> tag mask (bit 0 for tag 1, bit 1 for tag 2)</paramdef>
+  <paramdef>string <parameter>profileName</parameter> name of batch import profile to use</paramdef>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
 <sect2 id="dbus-importFromFile">
 <title>Import tags from a file</title>
 <funcsynopsis>
@@ -2179,6 +2286,16 @@ following methods:
 <funcsynopsis>
 <funcprototype>
   <funcdef><function>applyTagFormat</function></funcdef>
+  <void/>
+</funcprototype>
+</funcsynopsis>
+</sect2>
+
+<sect2 id="dbus-applyTextEncoding">
+<title>Apply text encoding</title>
+<funcsynopsis>
+<funcprototype>
+  <funcdef><function>applyTextEncoding</function></funcdef>
   <void/>
 </funcprototype>
 </funcsynopsis>
