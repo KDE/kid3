@@ -57,6 +57,11 @@ int av_audio_convert(AVAudioConvert *ctx,
 #include <QFile>
 #include "fingerprintcalculator.h"
 
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(52, 94, 1)
+#define AV_SAMPLE_FMT_S16 SAMPLE_FMT_S16
+#define AVMEDIA_TYPE_AUDIO CODEC_TYPE_AUDIO
+#endif
+
 namespace {
 
 const int BUFFER_SIZE = AVCODEC_MAX_AUDIO_FRAME_SIZE * 2;
@@ -144,23 +149,23 @@ public:
   void assign(AVCodecContext* ptr) { m_ptr = ptr; }
 
   bool codecTypeIsAudio() const {
-#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(52, 64, 0)
-    return m_ptr && m_ptr->codec_type == CODEC_TYPE_AUDIO;
-#else
     return m_ptr && m_ptr->codec_type == AVMEDIA_TYPE_AUDIO;
-#endif
   }
 
   bool open() {
     AVCodec* codec;
-    m_opened = (m_ptr &&
-                (codec = ::avcodec_find_decoder(m_ptr->codec_id)) != 0 &&
+    m_opened = false;
+    if (m_ptr &&
+        (codec = ::avcodec_find_decoder(m_ptr->codec_id)) != 0) {
+      m_ptr->request_sample_fmt = AV_SAMPLE_FMT_S16;
+      m_opened =
 #if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 5, 0)
         ::avcodec_open(m_ptr, codec) >= 0
 #else
         ::avcodec_open2(m_ptr, codec, 0) >= 0
 #endif
-        );
+          ;
+    }
     return m_opened;
   }
 
@@ -171,7 +176,7 @@ public:
   int sampleRate() const { return m_ptr->sample_rate; }
 
   int decode(int16_t* samples, int* frameSize, AVPacket* pkt) {
-#if LIBAVCODEC_VERSION_INT <= AV_VERSION_INT(52, 25, 0)
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(52, 23, 0)
     return ::avcodec_decode_audio2(m_ptr,
       samples, frameSize, pkt->data, pkt->size);
 #elif LIBAVCODEC_VERSION_INT < AV_VERSION_INT(53, 25, 0)
@@ -179,6 +184,8 @@ public:
       samples, frameSize, pkt);
 #else
     AVFrame frame;
+    ::memset(&frame, 0, sizeof(frame));
+    ::avcodec_get_frame_defaults(&frame);
     int decoded = 0;
     int len = ::avcodec_decode_audio4(m_ptr, &frame, &decoded, pkt);
     if (len >= 0 && decoded) {
