@@ -34,6 +34,9 @@
 /* Define to build with FFmpeg */
 #cmakedefine HAVE_FFMPEG ${HAVE_FFMPEG}
 
+/* Define if avresample is available */
+#cmakedefine HAVE_AVRESAMPLE ${HAVE_AVRESAMPLE}
+
 /* Define if av_audio_convert is available */
 #cmakedefine HAVE_AV_AUDIO_CONVERT ${HAVE_AV_AUDIO_CONVERT}
 

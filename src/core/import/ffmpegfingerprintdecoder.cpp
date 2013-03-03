@@ -35,7 +35,10 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 
-#ifdef HAVE_AV_AUDIO_CONVERT
+#ifdef HAVE_AVRESAMPLE
+#include <libavresample/avresample.h>
+#include <libavutil/opt.h>
+#elif defined HAVE_AV_AUDIO_CONVERT
 #include <libavutil/audioconvert.h>
 #include <libavutil/samplefmt.h>
 
@@ -175,6 +178,8 @@ public:
 
   int sampleRate() const { return m_ptr->sample_rate; }
 
+  uint64_t channelLayout() const { return m_ptr->channel_layout; }
+
   int decode(int16_t* samples, int* frameSize, AVPacket* pkt) {
 #if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(52, 23, 0)
     return ::avcodec_decode_audio2(m_ptr,
@@ -216,7 +221,61 @@ private:
   bool m_opened;
 };
 
-#ifdef HAVE_AV_AUDIO_CONVERT
+#ifdef HAVE_AVRESAMPLE
+class Converter {
+public:
+  Converter() : m_ptr(0), m_isOpen(false) {}
+
+  ~Converter() {
+    if (m_ptr) {
+      if (m_isOpen) {
+        ::avresample_close(m_ptr);
+      }
+      ::avresample_close(m_ptr);
+    }
+  }
+
+  bool createForCodec(const Codec& codecCtx) {
+    if ((m_ptr = ::avresample_alloc_context()) != 0) {
+      ::av_opt_set_int(m_ptr, "in_channel_layout",  codecCtx.channelLayout(), 0);
+      ::av_opt_set_int(m_ptr, "in_sample_fmt",      codecCtx.sampleFormat(), 0);
+      ::av_opt_set_int(m_ptr, "in_sample_rate",     codecCtx.sampleRate(), 0);
+      ::av_opt_set_int(m_ptr, "out_channel_layout", AV_CH_LAYOUT_STEREO, 0);
+      ::av_opt_set_int(m_ptr, "out_sample_fmt",     AV_SAMPLE_FMT_S16, 0);
+      ::av_opt_set_int(m_ptr, "out_sample_rate",    44100, 0);
+      m_isOpen = ::avresample_open(m_ptr) >= 0;
+      return m_isOpen;
+    }
+    return false;
+  }
+
+  int16_t* convert(const Codec& codecCtx,
+                   int16_t* buffer1, int16_t* buffer2,
+                   int& bufferSize) {
+    if (m_ptr) {
+      int bytesPerSample = ::av_get_bytes_per_sample(codecCtx.sampleFormat());
+      int numSamplesIn = bufferSize / bytesPerSample;
+      int linesizeIn;
+      ::av_samples_get_buffer_size(&linesizeIn, codecCtx.channels(),
+          numSamplesIn / codecCtx.channels(), codecCtx.sampleFormat(), 0);
+      int numSamplesOut = ::avresample_convert(
+            m_ptr, reinterpret_cast<uint8_t**>(&buffer2), 0, BUFFER_SIZE,
+            reinterpret_cast<uint8_t**>(&buffer1), linesizeIn, numSamplesIn);
+      if (numSamplesOut < 0) {
+        return 0;
+      }
+      bufferSize = numSamplesOut * 2;
+      return buffer2;
+    } else {
+      return buffer1;
+    }
+  }
+
+private:
+  AVAudioResampleContext* m_ptr;
+  bool m_isOpen;
+};
+#elif defined HAVE_AV_AUDIO_CONVERT
 class Converter {
 public:
   Converter() : m_ptr(0) {}
