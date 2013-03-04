@@ -112,25 +112,35 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3
 test -f libvorbis_1.3.2.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
 
-#test -f taglib_1.7-1.debian.tar.gz ||
-#$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.7-1.debian.tar.gz
-test -f taglib-1.8.tar.gz ||
-$DOWNLOAD https://github.com/downloads/taglib/taglib/taglib-1.8.tar.gz
+test -f taglib_1.8-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.8-1.debian.tar.gz
+test -f taglib_1.8.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.8.orig.tar.gz
 
 test -f zlib_1.2.7.dfsg-13.debian.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13.debian.tar.gz
 test -f zlib_1.2.7.dfsg.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg.orig.tar.gz
 
-test -f libav_0.8.3.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.3.orig.tar.gz
-test -f libav_0.8.3-7.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.3-7.debian.tar.gz
+# With the new libav 9.1, some M4A fingerprints are not recognized,
+# so we'll stick with the old.
+libav_version=0.8.5
+if test "$libav_version" = "0.8.5"; then
+test -f libav_0.8.5.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.5.orig.tar.gz
+test -f libav_0.8.5-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.5-1.debian.tar.gz
+else
+test -f libav_9.1.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.1.orig.tar.xz
+test -f libav_9.1-3.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.1-3.debian.tar.gz
+fi
 
-test -f chromaprint_0.6.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6.orig.tar.gz
-test -f chromaprint_0.6-2.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.6-2.debian.tar.gz
+test -f chromaprint_0.7.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.7.orig.tar.gz
+test -f chromaprint_0.7-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.7-1.debian.tar.gz
 
 #test -f mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2 ||
 #$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
@@ -306,43 +316,6 @@ diff -ru id3lib-3.8.3.orig/src/io_helpers.cpp id3lib-3.8.3/src/io_helpers.cpp
 
 EOF
 
-test -f id3lib-msvc.patch ||
-cat >id3lib-msvc.patch <<"EOF"
-diff -ru id3lib-3.8.3.orig/makefile.win32 id3lib-3.8.3/makefile.win32
---- id3lib-3.8.3.orig/makefile.win32	Wed Feb 27 07:42:32 2013
-+++ id3lib-3.8.3/makefile.win32	Wed Feb 27 07:43:55 2013
-@@ -23,12 +23,12 @@
- #
- 
- CFLAGS=-nologo -I. -Iinclude -Iinclude\id3 -Izlib\include \
--	-W3 -WX -GX \
-+	-W3 -EHsc \
- 	-DHAVE_CONFIG_H -DID3LIB_LINKOPTION=1
- 
- !ifdef DEBUG
- SUFFIX=d
--CFLAGS=$(CFLAGS) -Od -Z7 -Oy- -MD -D "WIN32" -D "_DEBUG"
-+CFLAGS=$(CFLAGS) -Od -Z7 -Oy- -MDd -D "WIN32" -D "_DEBUG"
- !else
- SUFFIX=
- CFLAGS=$(CFLAGS) -Ox     -Oy- -MD -D "WIN32" -D "NDEBUG"
-EOF
-
-test -f libvorbis-msvc.patch ||
-cat >libvorbis-msvc.patch <<"EOF"
-diff -ru libvorbis-1.3.2.orig/win32/VS2008/libogg.vsprops libvorbis-1.3.2/win32/VS2008/libogg.vsprops
---- libvorbis-1.3.2.orig/win32/VS2008/libogg.vsprops	Thu Mar 25 07:28:59 2010
-+++ libvorbis-1.3.2/win32/VS2008/libogg.vsprops	Mon Feb 25 08:21:12 2013
-@@ -14,6 +14,6 @@
- 	/>
- 	<UserMacro
- 		Name="LIBOGG_VERSION"
--		Value="1.1.4"
-+		Value="1.3.0"
- 	/>
- </VisualStudioPropertySheet>
-EOF
-
 test -f taglib-xm-file-save.patch ||
 cat >taglib-xm-file-save.patch <<"EOF"
 diff -ru taglib-1.8.orig/taglib/xm/xmfile.cpp taglib-1.8/taglib/xm/xmfile.cpp
@@ -377,6 +350,7 @@ diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
  	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 EOF
 
+if test "$libav_version" = "0.8.5"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -394,6 +368,7 @@ cat >libav_sws.patch <<"EOF"
  
      if (!(p = strchr(opt, ':')))
 EOF
+fi
 
 cd ..
 
@@ -422,11 +397,12 @@ fi
 
 # libvorbis
 
-if ! test -d libvorbis-1.3.2.orig; then
+if ! test -d libvorbis-1.3.2; then
 tar xzf source/libvorbis_1.3.2.orig.tar.gz
 cd libvorbis-1.3.2/
 gunzip -c ../source/libvorbis_1.3.2-1.3.diff.gz | patch -p1
-patch --ignore-whitespace -p1 <../source/libvorbis-msvc.patch
+test -f win32/VS2008/libogg.vsprops.orig || mv win32/VS2008/libogg.vsprops win32/VS2008/libogg.vsprops.orig
+sed 's/Value="1.1.4"/Value="1.3.0"/' win32/VS2008/libogg.vsprops.orig >win32/VS2008/libogg.vsprops
 cd ..
 fi
 
@@ -455,17 +431,18 @@ tar xzf ../source/id3lib3.8.3_3.8.3-15.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/id3lib-3.8.3_mingw.patch
 patch -p1 <../source/id3lib-fix-utf16-stringlists.patch
-patch -p1 --ignore-whitespace <../source/id3lib-msvc.patch
+test -f makefile.win32.orig || mv makefile.win32 makefile.win32.orig
+sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "_DEBUG"/' makefile.win32.orig >makefile.win32
 cd ..
 fi
 
 # taglib
 
 if ! test -d taglib-1.8; then
-tar xzf source/taglib-1.8.tar.gz
+tar xzf source/taglib_1.8.orig.tar.gz
 cd taglib-1.8/
-#tar xzf ../source/taglib_1.7-1.debian.tar.gz
-#for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+tar xzf ../source/taglib_1.8-1.debian.tar.gz
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/taglib-xm-file-save.patch
 patch -p1 <../source/taglib-msvc.patch
 cd ..
@@ -473,10 +450,11 @@ fi
 
 # libav
 
-if ! test -d libav-0.8.3; then
-tar xzf source/libav_0.8.3.orig.tar.gz
-cd libav-0.8.3/
-tar xzf ../source/libav_0.8.3-7.debian.tar.gz
+if test "$libav_version" = "0.8.5"; then
+if ! test -d libav-0.8.5; then
+tar xzf source/libav_0.8.5.orig.tar.gz
+cd libav-0.8.5/
+tar xzf ../source/libav_0.8.5-1.debian.tar.gz
 oldifs=$IFS
 IFS='
 '
@@ -489,13 +467,23 @@ IFS=$oldifs
 patch -p0 <../source/libav_sws.patch
 cd ..
 fi
+else
+if ! test -d libav-9.1; then
+unxz -c source/libav_9.1.orig.tar.xz | tar x
+cd libav-9.1/
+tar xzf ../source/libav_9.1-3.debian.tar.gz
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+cd ..
+fi
+fi
 
 # chromaprint
 
-if ! test -d chromaprint-0.6; then
-tar xzf source/chromaprint_0.6.orig.tar.gz
-cd chromaprint-0.6/
-tar xzf ../source/chromaprint_0.6-2.debian.tar.gz
+if ! test -d chromaprint-0.7; then
+tar xzf source/chromaprint_0.7.orig.tar.gz
+cd chromaprint-0.7/
+tar xzf ../source/chromaprint_0.7-1.debian.tar.gz
+for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 
@@ -559,13 +547,13 @@ cd ../..
 
 cd taglib-1.8/
 test -f taglib.sln || cmake -G "Visual Studio 9 2008" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
-mkdir instd
+mkdir -p instd
 DESTDIR=instd cmake --build . --config Debug --target install
-mkdir inst
+mkdir -p inst
 DESTDIR=inst cmake --build . --config Release --target install
 mv inst/lib inst/Release
 mv instd/lib inst/Debug
-mkdir inst/lib
+mkdir -p inst/lib
 mv inst/Debug inst/Release inst/lib/
 rm -rf instd
 cd inst
@@ -603,7 +591,7 @@ cd ../..
 cd libogg-1.3.0/
 test -f Makefile || ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG
 make
-mkdir inst
+mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/libogg-1.3.0.tgz usr
@@ -614,7 +602,7 @@ cd ../..
 cd libvorbis-1.3.2/
 test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.3.0/inst/usr/local $ENABLE_DEBUG
 make
-mkdir inst
+mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/libvorbis-1.3.2.tgz usr
@@ -629,7 +617,7 @@ if test $kernel = "Darwin"; then
 fi
 test -f Makefile || ./configure $configure_args
 make
-mkdir inst
+mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/flac-1.2.1.tgz usr
@@ -641,7 +629,7 @@ cd id3lib-3.8.3/
 autoconf
 test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG
 SED=sed make
-mkdir inst
+mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
 tar czf ../../bin/id3lib-3.8.3.tgz usr
@@ -652,7 +640,7 @@ cd ../..
 cd taglib-1.8/
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
-mkdir inst
+mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
@@ -661,7 +649,8 @@ cd ../..
 
 # libav
 
-cd libav-0.8.3
+if test "$libav_version" = "0.8.5"; then
+cd libav-0.8.5
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -749,22 +738,116 @@ cd libav-0.8.3
 	--disable-hwaccel=h264_dxva2 \
 	--disable-hwaccel=mpeg2_dxva2
 make
-mkdir inst
+mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-0.8.3.tgz usr
+tar czf ../../bin/libav-0.8.5.tgz usr
 cd ../..
+else
+cd libav-9.1
+# configure needs yasm and pr
+# On msys, make >= 3.81 is needed.
+# Most options taken from
+# http://oxygene.sk/lukas/2011/04/minimal-audio-only-ffmpeg-build-with-mingw32/
+# Disable-sse avoids a SEGFAULT under MinGW.
+# Later versions (tested with libav-HEAD-5d2be71) do not have
+# --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
+# The two --disable-hwaccel were added for MinGW-builds GCC 4.7.2.
+./configure \
+	--enable-memalign-hack \
+	--disable-shared \
+	--enable-static \
+	--disable-debug \
+	--disable-avdevice \
+	--disable-avfilter \
+	--disable-pthreads \
+	--disable-swscale \
+	--disable-network \
+	--disable-muxers \
+	--disable-demuxers \
+	--disable-sse \
+	--enable-rdft \
+	--enable-demuxer=aac \
+	--enable-demuxer=ac3 \
+	--enable-demuxer=ape \
+	--enable-demuxer=asf \
+	--enable-demuxer=flac \
+	--enable-demuxer=matroska_audio \
+	--enable-demuxer=mp3 \
+	--enable-demuxer=mpc \
+	--enable-demuxer=mov \
+	--enable-demuxer=mpc8 \
+	--enable-demuxer=ogg \
+	--enable-demuxer=tta \
+	--enable-demuxer=wav \
+	--enable-demuxer=wv \
+	--disable-bsfs \
+	--disable-filters \
+	--disable-parsers \
+	--enable-parser=aac \
+	--enable-parser=ac3 \
+	--enable-parser=mpegaudio \
+	--disable-protocols \
+	--enable-protocol=file \
+	--disable-indevs \
+	--disable-outdevs \
+	--disable-encoders \
+	--disable-decoders \
+	--enable-decoder=aac \
+	--enable-decoder=ac3 \
+	--enable-decoder=alac \
+	--enable-decoder=ape \
+	--enable-decoder=flac \
+	--enable-decoder=mp1 \
+	--enable-decoder=mp2 \
+	--enable-decoder=mp3 \
+	--enable-decoder=mpc7 \
+	--enable-decoder=mpc8 \
+	--enable-decoder=tta \
+	--enable-decoder=vorbis \
+	--enable-decoder=wavpack \
+	--enable-decoder=wmav1 \
+	--enable-decoder=wmav2 \
+	--enable-decoder=pcm_alaw \
+	--enable-decoder=pcm_dvd \
+	--enable-decoder=pcm_f32be \
+	--enable-decoder=pcm_f32le \
+	--enable-decoder=pcm_f64be \
+	--enable-decoder=pcm_f64le \
+	--enable-decoder=pcm_s16be \
+	--enable-decoder=pcm_s16le \
+	--enable-decoder=pcm_s16le_planar \
+	--enable-decoder=pcm_s24be \
+	--enable-decoder=pcm_daud \
+	--enable-decoder=pcm_s24le \
+	--enable-decoder=pcm_s32be \
+	--enable-decoder=pcm_s32le \
+	--enable-decoder=pcm_s8 \
+	--enable-decoder=pcm_u16be \
+	--enable-decoder=pcm_u16le \
+	--enable-decoder=pcm_u24be \
+	--enable-decoder=pcm_u24le \
+	--enable-decoder=rawvideo \
+	--disable-hwaccel=h264_dxva2 \
+	--disable-hwaccel=mpeg2_dxva2
+make
+mkdir -p inst
+make install DESTDIR=`pwd`/inst
+cd inst
+tar czf ../../bin/libav-9.1.tgz usr
+cd ../..
+fi
 
 # chromaprint
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
-cd chromaprint-0.6/
-test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-1.2.7/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-0.8.3/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
-mkdir inst
+cd chromaprint-0.7/
+test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-1.2.7/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-$libav_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
 cd inst
-tar czf ../../bin/chromaprint-0.6.tgz usr
+tar czf ../../bin/chromaprint-0.7.tgz usr
 cd ../..
 
 # mp4v2
@@ -804,8 +887,8 @@ tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
 tar xzf bin/taglib-1.8.tgz -C $BUILDROOT
-tar xzf bin/libav-0.8.3.tgz -C $BUILDROOT
-tar xzf bin/chromaprint-0.6.tgz -C $BUILDROOT
+tar xzf bin/libav-${libav_version}.tgz -C $BUILDROOT
+tar xzf bin/chromaprint-0.7.tgz -C $BUILDROOT
 #tar xzf bin/mp4v2-1.9.1+svn479.tgz -C $BUILDROOT
 
 if test $kernel = "Darwin"; then
