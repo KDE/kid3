@@ -350,6 +350,30 @@ diff -ru taglib-1.8.orig/CMakeLists.txt taglib-1.8/CMakeLists.txt
  	set(FRAMEWORK_INSTALL_DIR "/Library/Frameworks" CACHE STRING "Directory to install frameworks to.")
 EOF
 
+test -f taglib-no-id3-duplication.patch ||
+cat >taglib-no-id3-duplication.patch <<"EOF"
+diff --git a/taglib/mpeg/mpegfile.cpp b/taglib/mpeg/mpegfile.cpp
+index c73da41..af53ac1 100644
+--- a/taglib/mpeg/mpegfile.cpp
++++ b/taglib/mpeg/mpegfile.cpp
+@@ -203,15 +203,6 @@ bool MPEG::File::save(int tags, bool stripOthers, int id3v2Version)
+     return false;
+   }
+ 
+-  // Create the tags if we've been asked to.  Copy the values from the tag that
+-  // does exist into the new tag, except if the existing tag is to be stripped.
+-
+-  if((tags & ID3v2) && ID3v1Tag() && !(stripOthers && !(tags & ID3v1)))
+-    Tag::duplicate(ID3v1Tag(), ID3v2Tag(true), false);
+-
+-  if((tags & ID3v1) && d->tag[ID3v2Index] && !(stripOthers && !(tags & ID3v2)))
+-    Tag::duplicate(ID3v2Tag(), ID3v1Tag(true), false);
+-
+   bool success = true;
+ 
+   if(ID3v2 & tags) {
+EOF
+
 if test "$libav_version" = "0.8.5"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
@@ -445,6 +469,7 @@ tar xzf ../source/taglib_1.8-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/taglib-xm-file-save.patch
 patch -p1 <../source/taglib-msvc.patch
+patch -p1 <../source/taglib-no-id3-duplication.patch
 cd ..
 fi
 

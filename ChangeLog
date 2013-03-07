@@ -24,6 +24,7 @@ Sat Mar  2 09:36:02 CET 2013  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Swapped mapping of too and enc for M4A files.
 	  + Compatibility of ID3v2.4.0 COMM frames with iTunes.
 	  + Do not remove spaces in Vorbis comment field names.
+	  + Crash and decoding for fingerprints with libav 9.1.
 
 Mon Dec  3 11:09:12 CET 2012  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
