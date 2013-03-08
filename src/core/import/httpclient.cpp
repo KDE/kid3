@@ -34,7 +34,11 @@
 
 
 /** Time when last request was sent to server */
+#if QT_VERSION >= 0x040700
 QMap<QString, QDateTime> HttpClient::s_lastRequestTime;
+#else
+QMap<QString, QTime> HttpClient::s_lastRequestTime;
+#endif
 /** Minimum interval between two requests to server in ms */
 QMap<QString, int> HttpClient::s_minimumRequestInterval;
 
@@ -147,10 +151,15 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
   if (host.endsWith(QLatin1String(":80"))) {
     host.chop(3);
   }
-  QDateTime now = QDateTime::currentDateTime();
   qint64 msSinceLastRequest;
   int minimumRequestInterval;
+#if QT_VERSION >= 0x040700
+  QDateTime now = QDateTime::currentDateTime();
   QDateTime lastRequestTime = s_lastRequestTime.value(host);
+#else
+  QTime now = QTime::currentTime();
+  QTime lastRequestTime = s_lastRequestTime.value(host);
+#endif
   if (lastRequestTime.isValid() &&
       (minimumRequestInterval = s_minimumRequestInterval.value(host)) > 0 &&
       (msSinceLastRequest = lastRequestTime.msecsTo(now)) <

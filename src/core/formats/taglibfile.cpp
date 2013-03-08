@@ -3833,7 +3833,7 @@ static bool parseAsfPicture(const TagLib::ByteVector& data, Frame& frame)
   if (offset > len)
     return false;
   TagLib::ByteVector picture = data.mid(offset, len - offset);
-  PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, "JPG",
+  PictureFrame::setFields(frame, Frame::Field::TE_ISO8859_1, QLatin1String("JPG"),
                           mimeType,
                           static_cast<PictureFrame::PictureType>(pictureType),
                           description,
