@@ -77,6 +77,9 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
   }
   hlayout->addLayout(formatLayout);
   QVBoxLayout* vlayout = new QVBoxLayout;
+#ifdef Q_OS_MAC
+  vlayout->setSpacing(6);
+#endif
   m_addPushButton = new QPushButton(i18n("&Add"));
   m_addPushButton->setAutoDefault(false);
   m_removePushButton = new QPushButton(i18n("&Remove"));
@@ -87,7 +90,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
   hlayout->addLayout(vlayout);
   connect(m_addPushButton, SIGNAL(clicked()), this, SLOT(addItem()));
   connect(m_removePushButton, SIGNAL(clicked()), this, SLOT(removeItem()));
-  setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+  setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
 }
 
 /**
