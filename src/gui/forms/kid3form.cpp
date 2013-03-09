@@ -346,20 +346,10 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
     new QPushButton(i18n("Remove"), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(removeV2PushButton);
 
-  buttonsV2VBoxLayout->insertSpacing(-1, 8);
-
-  QHBoxLayout* frameLineLayout = new QHBoxLayout;
-  QFrame* leftFrameLine = new QFrame;
-  leftFrameLine->setFrameShape(QFrame::HLine);
-  leftFrameLine->setFrameShadow(QFrame::Sunken);
-  frameLineLayout->addWidget(leftFrameLine);
-  QLabel* frameLabel = new QLabel(i18n("Frame"));
-  frameLineLayout->addWidget(frameLabel);
-  QFrame* rightFrameLine = new QFrame;
-  rightFrameLine->setFrameShape(QFrame::HLine);
-  rightFrameLine->setFrameShadow(QFrame::Sunken);
-  frameLineLayout->addWidget(rightFrameLine);
-  buttonsV2VBoxLayout->addLayout(frameLineLayout);
+  QFrame* frameLine = new QFrame;
+  frameLine->setFrameShape(QFrame::HLine);
+  frameLine->setFrameShadow(QFrame::Sunken);
+  buttonsV2VBoxLayout->addWidget(frameLine);
 
   QPushButton* editFramesPushButton =
     new QPushButton(i18n("Edit"), m_tag2Widget);
