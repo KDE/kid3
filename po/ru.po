@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-02 08:55+0100\n"
+"POT-Creation-Date: 2013-03-09 09:13+0100\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -459,23 +459,23 @@ msgstr "Discogs"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: core/import/httpclient.cpp:90 core/import/httpclient.cpp:121
+#: core/import/httpclient.cpp:94 core/import/httpclient.cpp:125
 msgid "Data received: %1"
 msgstr "Полученные сведения: %1"
 
-#: core/import/httpclient.cpp:102 core/model/downloadclient.cpp:63
+#: core/import/httpclient.cpp:106 core/model/downloadclient.cpp:63
 #: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:168
 #: gui/forms/kid3mainwindow.cpp:838 gui/forms/kid3mainwindow.cpp:991
 #: gui/forms/kid3mainwindow.cpp:1235 gui/forms/kid3mainwindow.cpp:1314
 msgid "Ready."
 msgstr "Готово."
 
-#: core/import/httpclient.cpp:104 core/import/musicbrainzclient.cpp:299
+#: core/import/httpclient.cpp:108 core/import/musicbrainzclient.cpp:299
 #: core/model/dirrenamer.cpp:463 gui/dialogs/batchimportdialog.cpp:505
 msgid "Error"
 msgstr "Ошибка"
 
-#: core/import/httpclient.cpp:204
+#: core/import/httpclient.cpp:213
 msgid "Request sent..."
 msgstr "Передано..."
 
@@ -566,7 +566,7 @@ msgid "%1 is not a directory\n"
 msgstr "%1 - это не каталог\n"
 
 #: core/model/dirrenamer.cpp:103 core/model/dirrenamer.cpp:140
-#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:2006
+#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:2007
 msgid "Rename %1 to %2 failed\n"
 msgstr "Ошибка переименование из %1 в %2\n"
 
@@ -639,7 +639,7 @@ msgid "Logical negation"
 msgstr "Логического отрицания"
 
 #: core/model/frametablemodel.cpp:191
-#: gui/dialogs/editframefieldsdialog.cpp:654
+#: gui/dialogs/editframefieldsdialog.cpp:661
 msgid "Data"
 msgstr "Дата"
 
@@ -648,8 +648,8 @@ msgid "All Supported Files"
 msgstr "Все поддерживаемые файлы"
 
 #: core/model/kid3application.cpp:1918 core/model/kid3application.cpp:1924
-#: gui/dialogs/editframefieldsdialog.cpp:804
-#: gui/dialogs/editframefieldsdialog.cpp:806
+#: gui/dialogs/editframefieldsdialog.cpp:812
+#: gui/dialogs/editframefieldsdialog.cpp:814
 msgid "All Files (*)"
 msgstr "Все файлы (*)"
 
@@ -662,8 +662,8 @@ msgstr "Дорожка"
 msgid "Absolute path to file"
 msgstr "Абсолютный путь"
 
-#: core/model/trackdatamodel.cpp:189 gui/dialogs/editframefieldsdialog.cpp:659
-#: gui/forms/kid3form.cpp:948 gui/forms/kid3mainwindow.cpp:380
+#: core/model/trackdatamodel.cpp:189 gui/dialogs/editframefieldsdialog.cpp:666
+#: gui/forms/kid3form.cpp:938 gui/forms/kid3mainwindow.cpp:380
 #: gui/forms/kid3mainwindow.cpp:383 gui/forms/kid3mainwindow.cpp:386
 msgid "Filename"
 msgstr "Имя файла"
@@ -688,7 +688,7 @@ msgstr "Альбом"
 msgid "Comment"
 msgstr "Коментарий"
 
-#: core/tags/frame.cpp:49 gui/dialogs/editframefieldsdialog.cpp:676
+#: core/tags/frame.cpp:49 gui/dialogs/editframefieldsdialog.cpp:683
 msgid "Date"
 msgstr "Дата"
 
@@ -724,11 +724,11 @@ msgstr "Номер каталога"
 msgid "Compilation"
 msgstr "Сборник"
 
-#: core/tags/frame.cpp:59 gui/dialogs/editframefieldsdialog.cpp:880
+#: core/tags/frame.cpp:59 gui/dialogs/editframefieldsdialog.cpp:888
 msgid "Composer"
 msgstr "Композитор"
 
-#: core/tags/frame.cpp:60 gui/dialogs/editframefieldsdialog.cpp:878
+#: core/tags/frame.cpp:60 gui/dialogs/editframefieldsdialog.cpp:886
 msgid "Conductor"
 msgstr "Дирижер"
 
@@ -764,7 +764,7 @@ msgstr ""
 msgid "ISRC"
 msgstr "ISRC"
 
-#: core/tags/frame.cpp:69 gui/dialogs/editframefieldsdialog.cpp:660
+#: core/tags/frame.cpp:69 gui/dialogs/editframefieldsdialog.cpp:667
 msgid "Language"
 msgstr "Язык"
 
@@ -772,11 +772,11 @@ msgstr "Язык"
 msgid "Lyricist"
 msgstr "Автор"
 
-#: core/tags/frame.cpp:71 gui/dialogs/editframefieldsdialog.cpp:908
+#: core/tags/frame.cpp:71 gui/dialogs/editframefieldsdialog.cpp:916
 msgid "Lyrics"
 msgstr "Lyrics"
 
-#: core/tags/frame.cpp:72 gui/dialogs/editframefieldsdialog.cpp:875
+#: core/tags/frame.cpp:72 gui/dialogs/editframefieldsdialog.cpp:883
 msgid "Media"
 msgstr "Медиа"
 
@@ -915,7 +915,7 @@ msgstr "М&есто назначения:"
 #: gui/dialogs/batchimportdialog.cpp:188 gui/dialogs/exportdialog.cpp:119
 #: gui/dialogs/importdialog.cpp:181 gui/dialogs/numbertracksdialog.cpp:75
 #: gui/forms/kid3form.cpp:234 gui/forms/kid3form.cpp:259
-#: gui/forms/kid3form.cpp:953 gui/forms/kid3mainwindow.cpp:341
+#: gui/forms/kid3form.cpp:943 gui/forms/kid3mainwindow.cpp:341
 #: gui/forms/kid3mainwindow.cpp:344 gui/forms/kid3mainwindow.cpp:347
 #: gui/forms/kid3mainwindow.cpp:350 gui/forms/kid3mainwindow.cpp:353
 #: gui/forms/kid3mainwindow.cpp:389
@@ -925,7 +925,7 @@ msgstr "Тег 1"
 #: gui/dialogs/batchimportdialog.cpp:189 gui/dialogs/exportdialog.cpp:120
 #: gui/dialogs/importdialog.cpp:182 gui/dialogs/numbertracksdialog.cpp:76
 #: gui/forms/kid3form.cpp:237 gui/forms/kid3form.cpp:263
-#: gui/forms/kid3form.cpp:960 gui/forms/kid3mainwindow.cpp:356
+#: gui/forms/kid3form.cpp:950 gui/forms/kid3mainwindow.cpp:356
 #: gui/forms/kid3mainwindow.cpp:359 gui/forms/kid3mainwindow.cpp:362
 #: gui/forms/kid3mainwindow.cpp:365 gui/forms/kid3mainwindow.cpp:368
 #: gui/forms/kid3mainwindow.cpp:392
@@ -941,14 +941,14 @@ msgstr "Тег 1 и тег 2"
 msgid "&Profile:"
 msgstr "&Профиль:"
 
-#: gui/dialogs/batchimportdialog.cpp:207 gui/forms/kid3form.cpp:368
-#: gui/forms/kid3form.cpp:967 gui/forms/kid3mainwindow.cpp:374
+#: gui/dialogs/batchimportdialog.cpp:207 gui/forms/kid3form.cpp:358
+#: gui/forms/kid3form.cpp:957 gui/forms/kid3mainwindow.cpp:374
 msgid "Add"
 msgstr "Добавить"
 
 #: gui/dialogs/batchimportdialog.cpp:211 gui/forms/kid3form.cpp:304
-#: gui/forms/kid3form.cpp:346 gui/forms/kid3form.cpp:958
-#: gui/forms/kid3form.cpp:965 gui/forms/kid3mainwindow.cpp:353
+#: gui/forms/kid3form.cpp:346 gui/forms/kid3form.cpp:948
+#: gui/forms/kid3form.cpp:955 gui/forms/kid3mainwindow.cpp:353
 #: gui/forms/kid3mainwindow.cpp:368
 msgid "Remove"
 msgstr "Удалить"
@@ -1014,7 +1014,7 @@ msgid "Aborted"
 msgstr "Прервано"
 
 #: gui/dialogs/batchimportdialog.cpp:521 gui/dialogs/filterdialog.cpp:206
-#: gui/forms/kid3mainwindow.cpp:2128
+#: gui/forms/kid3mainwindow.cpp:2129
 msgid "A&bort"
 msgstr "Прер&вать"
 
@@ -1089,7 +1089,7 @@ msgstr "&Браузер"
 
 #: gui/dialogs/browsecoverartdialog.cpp:140 gui/dialogs/configdialog.cpp:466
 #: gui/dialogs/editframedialog.cpp:56
-#: gui/dialogs/editframefieldsdialog.cpp:958 gui/dialogs/importdialog.cpp:243
+#: gui/dialogs/editframefieldsdialog.cpp:966 gui/dialogs/importdialog.cpp:243
 #: gui/dialogs/musicbrainzdialog.cpp:124
 #: gui/dialogs/numbertracksdialog.cpp:118 gui/dialogs/playlistdialog.cpp:209
 msgid "&Cancel"
@@ -1151,15 +1151,15 @@ msgstr "Номер дорожки &количество цифр:"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Жанр как текст"
 
-#: gui/dialogs/configdialog.cpp:210 gui/dialogs/editframefieldsdialog.cpp:858
+#: gui/dialogs/configdialog.cpp:210 gui/dialogs/editframefieldsdialog.cpp:866
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: gui/dialogs/configdialog.cpp:211 gui/dialogs/editframefieldsdialog.cpp:859
+#: gui/dialogs/configdialog.cpp:211 gui/dialogs/editframefieldsdialog.cpp:867
 msgid "UTF16"
 msgstr "UTF16"
 
-#: gui/dialogs/configdialog.cpp:212 gui/dialogs/editframefieldsdialog.cpp:861
+#: gui/dialogs/configdialog.cpp:212 gui/dialogs/editframefieldsdialog.cpp:869
 msgid "UTF8"
 msgstr "UTF8"
 
@@ -1208,12 +1208,12 @@ msgid "&Tag Format"
 msgstr "&Формат тэга"
 
 #: gui/dialogs/configdialog.cpp:295 gui/forms/kid3form.cpp:273
-#: gui/forms/kid3form.cpp:603
+#: gui/forms/kid3form.cpp:593
 msgid "Tag &1"
 msgstr "Тег &1"
 
 #: gui/dialogs/configdialog.cpp:296 gui/forms/kid3form.cpp:316
-#: gui/forms/kid3form.cpp:618
+#: gui/forms/kid3form.cpp:608
 msgid "Tag &2"
 msgstr "Тег &2"
 
@@ -1343,7 +1343,7 @@ msgid "&Appearance"
 msgstr "&Внешний вид"
 
 #: gui/dialogs/configdialog.cpp:465 gui/dialogs/editframedialog.cpp:55
-#: gui/dialogs/editframefieldsdialog.cpp:957 gui/dialogs/importdialog.cpp:241
+#: gui/dialogs/editframefieldsdialog.cpp:965 gui/dialogs/importdialog.cpp:241
 #: gui/dialogs/musicbrainzdialog.cpp:122
 #: gui/dialogs/numbertracksdialog.cpp:114 gui/dialogs/playlistdialog.cpp:206
 msgid "&OK"
@@ -1357,219 +1357,219 @@ msgstr "Клавиатурная комбинация '%1' уже назначе
 msgid "Kid3 Handbook"
 msgstr "Руководство Kid3"
 
-#: gui/dialogs/editframefieldsdialog.cpp:519
+#: gui/dialogs/editframefieldsdialog.cpp:526
 #: gui/dialogs/textimportdialog.cpp:88
 msgid "From Clip&board"
 msgstr "Из &Буфера Обмена"
 
-#: gui/dialogs/editframefieldsdialog.cpp:520
+#: gui/dialogs/editframefieldsdialog.cpp:527
 msgid "&Import"
 msgstr "&Импорт"
 
-#: gui/dialogs/editframefieldsdialog.cpp:521
+#: gui/dialogs/editframefieldsdialog.cpp:528
 msgid "&Export"
 msgstr "&Экспорт"
 
-#: gui/dialogs/editframefieldsdialog.cpp:522
+#: gui/dialogs/editframefieldsdialog.cpp:529
 msgid "&View"
 msgstr "&Вид"
 
-#: gui/dialogs/editframefieldsdialog.cpp:651
+#: gui/dialogs/editframefieldsdialog.cpp:658
 msgid "Text Encoding"
 msgstr "Кодировка Текста"
 
-#: gui/dialogs/editframefieldsdialog.cpp:652
+#: gui/dialogs/editframefieldsdialog.cpp:659
 msgid "Text"
 msgstr "Текст"
 
-#: gui/dialogs/editframefieldsdialog.cpp:653
+#: gui/dialogs/editframefieldsdialog.cpp:660
 msgid "URL"
 msgstr "URL"
 
-#: gui/dialogs/editframefieldsdialog.cpp:655
+#: gui/dialogs/editframefieldsdialog.cpp:662
 msgid "Description"
 msgstr "Описание"
 
-#: gui/dialogs/editframefieldsdialog.cpp:656
+#: gui/dialogs/editframefieldsdialog.cpp:663
 msgid "Owner"
 msgstr "Владелец"
 
-#: gui/dialogs/editframefieldsdialog.cpp:657
+#: gui/dialogs/editframefieldsdialog.cpp:664
 msgid "Email"
 msgstr "Почта"
 
-#: gui/dialogs/editframefieldsdialog.cpp:658
+#: gui/dialogs/editframefieldsdialog.cpp:665
 msgid "Rating"
 msgstr "Рейтинг"
 
-#: gui/dialogs/editframefieldsdialog.cpp:661
+#: gui/dialogs/editframefieldsdialog.cpp:668
 msgid "Picture Type"
 msgstr "Тип Картинки"
 
-#: gui/dialogs/editframefieldsdialog.cpp:662
+#: gui/dialogs/editframefieldsdialog.cpp:669
 msgid "Image format"
 msgstr "Формат Картинки"
 
-#: gui/dialogs/editframefieldsdialog.cpp:663
+#: gui/dialogs/editframefieldsdialog.cpp:670
 msgid "Mimetype"
 msgstr "Тип MIME"
 
-#: gui/dialogs/editframefieldsdialog.cpp:664
+#: gui/dialogs/editframefieldsdialog.cpp:671
 msgid "Counter"
 msgstr "Счетчик"
 
-#: gui/dialogs/editframefieldsdialog.cpp:665
+#: gui/dialogs/editframefieldsdialog.cpp:672
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: gui/dialogs/editframefieldsdialog.cpp:666
+#: gui/dialogs/editframefieldsdialog.cpp:673
 msgid "Volume Adjustment"
 msgstr "Корректировка Громкости"
 
-#: gui/dialogs/editframefieldsdialog.cpp:667
+#: gui/dialogs/editframefieldsdialog.cpp:674
 msgid "Number of Bits"
 msgstr "Количество Бит"
 
-#: gui/dialogs/editframefieldsdialog.cpp:668
+#: gui/dialogs/editframefieldsdialog.cpp:675
 msgid "Volume Change Right"
 msgstr "Изменить громкость Справа"
 
-#: gui/dialogs/editframefieldsdialog.cpp:669
+#: gui/dialogs/editframefieldsdialog.cpp:676
 msgid "Volume Change Left"
 msgstr "Изменить громкость Слева"
 
-#: gui/dialogs/editframefieldsdialog.cpp:670
+#: gui/dialogs/editframefieldsdialog.cpp:677
 msgid "Peak Volume Right"
 msgstr "Максимальная громкость Справа"
 
-#: gui/dialogs/editframefieldsdialog.cpp:671
+#: gui/dialogs/editframefieldsdialog.cpp:678
 msgid "Peak Volume Left"
 msgstr "Максимальная громкость Слева"
 
-#: gui/dialogs/editframefieldsdialog.cpp:672
+#: gui/dialogs/editframefieldsdialog.cpp:679
 msgid "Timestamp Format"
 msgstr "Формат отметки о времени"
 
-#: gui/dialogs/editframefieldsdialog.cpp:673
+#: gui/dialogs/editframefieldsdialog.cpp:680
 msgid "Content Type"
 msgstr "Тип Содержимого"
 
-#: gui/dialogs/editframefieldsdialog.cpp:675
+#: gui/dialogs/editframefieldsdialog.cpp:682
 msgid "Price"
 msgstr "Цена"
 
-#: gui/dialogs/editframefieldsdialog.cpp:677
+#: gui/dialogs/editframefieldsdialog.cpp:684
 msgid "Seller"
 msgstr "Продавец"
 
-#: gui/dialogs/editframefieldsdialog.cpp:804
-#: gui/dialogs/editframefieldsdialog.cpp:806
+#: gui/dialogs/editframefieldsdialog.cpp:812
+#: gui/dialogs/editframefieldsdialog.cpp:814
 msgid "Images (*.jpg *.jpeg *.png)"
 msgstr "Изображения (*.jpg *.jpeg *.png)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:860
+#: gui/dialogs/editframefieldsdialog.cpp:868
 msgid "UTF16BE"
 msgstr "UTF16BE"
 
-#: gui/dialogs/editframefieldsdialog.cpp:869
-#: gui/dialogs/editframefieldsdialog.cpp:897
-#: gui/dialogs/editframefieldsdialog.cpp:907
+#: gui/dialogs/editframefieldsdialog.cpp:877
+#: gui/dialogs/editframefieldsdialog.cpp:905
+#: gui/dialogs/editframefieldsdialog.cpp:915
 msgid "Other"
 msgstr "Другое"
 
-#: gui/dialogs/editframefieldsdialog.cpp:870
+#: gui/dialogs/editframefieldsdialog.cpp:878
 msgid "32x32 pixels PNG file icon"
 msgstr "Иконка PNG-файла 32x32 точки"
 
-#: gui/dialogs/editframefieldsdialog.cpp:871
+#: gui/dialogs/editframefieldsdialog.cpp:879
 msgid "Other file icon"
 msgstr "Другая Иконка файла"
 
-#: gui/dialogs/editframefieldsdialog.cpp:872
+#: gui/dialogs/editframefieldsdialog.cpp:880
 msgid "Cover (front)"
 msgstr "Оболочка (Спереди)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:873
+#: gui/dialogs/editframefieldsdialog.cpp:881
 msgid "Cover (back)"
 msgstr "Оболочка (Сзади)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:874
+#: gui/dialogs/editframefieldsdialog.cpp:882
 msgid "Leaflet page"
 msgstr "Лист Брошюры"
 
-#: gui/dialogs/editframefieldsdialog.cpp:876
+#: gui/dialogs/editframefieldsdialog.cpp:884
 msgid "Lead artist/lead performer/soloist"
 msgstr "Ведущий Исполнитель/Солист"
 
-#: gui/dialogs/editframefieldsdialog.cpp:877
+#: gui/dialogs/editframefieldsdialog.cpp:885
 msgid "Artist/performer"
 msgstr "Исполнитель"
 
-#: gui/dialogs/editframefieldsdialog.cpp:879
+#: gui/dialogs/editframefieldsdialog.cpp:887
 msgid "Band/Orchestra"
 msgstr "Группа/Оркестр"
 
-#: gui/dialogs/editframefieldsdialog.cpp:881
+#: gui/dialogs/editframefieldsdialog.cpp:889
 msgid "Lyricist/text writer"
 msgstr "Автор текста"
 
-#: gui/dialogs/editframefieldsdialog.cpp:882
+#: gui/dialogs/editframefieldsdialog.cpp:890
 msgid "Recording Location"
 msgstr "Место записи"
 
-#: gui/dialogs/editframefieldsdialog.cpp:883
+#: gui/dialogs/editframefieldsdialog.cpp:891
 msgid "During recording"
 msgstr "Длительность записи"
 
-#: gui/dialogs/editframefieldsdialog.cpp:884
+#: gui/dialogs/editframefieldsdialog.cpp:892
 msgid "During performance"
 msgstr "Длительность исполнения"
 
-#: gui/dialogs/editframefieldsdialog.cpp:885
+#: gui/dialogs/editframefieldsdialog.cpp:893
 msgid "Movie/video screen capture"
 msgstr "Movie/video screen capture"
 
-#: gui/dialogs/editframefieldsdialog.cpp:886
+#: gui/dialogs/editframefieldsdialog.cpp:894
 msgid "A bright coloured fish"
 msgstr "A bright coloured fish"
 
-#: gui/dialogs/editframefieldsdialog.cpp:887
+#: gui/dialogs/editframefieldsdialog.cpp:895
 msgid "Illustration"
 msgstr "Иллюстрация"
 
-#: gui/dialogs/editframefieldsdialog.cpp:888
+#: gui/dialogs/editframefieldsdialog.cpp:896
 msgid "Band/artist logotype"
 msgstr "Логотип группы/испольнителя"
 
-#: gui/dialogs/editframefieldsdialog.cpp:889
+#: gui/dialogs/editframefieldsdialog.cpp:897
 msgid "Publisher/Studio logotype"
 msgstr "Логотип студии записи"
 
-#: gui/dialogs/editframefieldsdialog.cpp:898
+#: gui/dialogs/editframefieldsdialog.cpp:906
 msgid "MPEG frames as unit"
 msgstr "Измерять в MPEG-кадрах"
 
-#: gui/dialogs/editframefieldsdialog.cpp:899
+#: gui/dialogs/editframefieldsdialog.cpp:907
 msgid "Milliseconds as unit"
 msgstr "Измерять в милисекундах"
 
-#: gui/dialogs/editframefieldsdialog.cpp:909
+#: gui/dialogs/editframefieldsdialog.cpp:917
 msgid "Text transcription"
 msgstr "Запись текста"
 
-#: gui/dialogs/editframefieldsdialog.cpp:910
+#: gui/dialogs/editframefieldsdialog.cpp:918
 msgid "Movement/part name"
 msgstr "Movement/part name"
 
-#: gui/dialogs/editframefieldsdialog.cpp:911
+#: gui/dialogs/editframefieldsdialog.cpp:919
 msgid "Events"
 msgstr "События"
 
-#: gui/dialogs/editframefieldsdialog.cpp:912
+#: gui/dialogs/editframefieldsdialog.cpp:920
 msgid "Chord"
 msgstr "Аккорд"
 
-#: gui/dialogs/editframefieldsdialog.cpp:913
+#: gui/dialogs/editframefieldsdialog.cpp:921
 msgid "Trivia/pop up"
 msgstr "Trivia/pop up"
 
@@ -1609,8 +1609,8 @@ msgstr "&Источник:"
 
 #: gui/dialogs/exportdialog.cpp:176 gui/forms/kid3mainwindow.cpp:982
 #: gui/forms/kid3mainwindow.cpp:985 gui/forms/kid3mainwindow.cpp:1534
-#: gui/forms/kid3mainwindow.cpp:1537 gui/forms/kid3mainwindow.cpp:2004
-#: gui/forms/kid3mainwindow.cpp:2085 gui/forms/kid3mainwindow.cpp:2088
+#: gui/forms/kid3mainwindow.cpp:1537 gui/forms/kid3mainwindow.cpp:2005
+#: gui/forms/kid3mainwindow.cpp:2086 gui/forms/kid3mainwindow.cpp:2089
 msgid "File Error"
 msgstr "Ошибка файла"
 
@@ -1807,13 +1807,13 @@ msgid "From Tag 2 and Tag 1"
 msgstr "Из тег 2 и тег 1"
 
 #: gui/dialogs/rendirdialog.cpp:108 gui/forms/kid3form.cpp:334
-#: gui/forms/kid3form.cpp:950 gui/forms/kid3form.cpp:962
+#: gui/forms/kid3form.cpp:940 gui/forms/kid3form.cpp:952
 #: gui/forms/kid3mainwindow.cpp:359 gui/forms/kid3mainwindow.cpp:380
 msgid "From Tag 1"
 msgstr "Из тег 1"
 
 #: gui/dialogs/rendirdialog.cpp:109 gui/forms/kid3form.cpp:293
-#: gui/forms/kid3form.cpp:951 gui/forms/kid3form.cpp:955
+#: gui/forms/kid3form.cpp:941 gui/forms/kid3form.cpp:945
 #: gui/forms/kid3mainwindow.cpp:344 gui/forms/kid3mainwindow.cpp:383
 msgid "From Tag 2"
 msgstr "Из тег 2"
@@ -1871,8 +1871,8 @@ msgstr "&Выбросить в корзину"
 msgid "&Play"
 msgstr "&Играть"
 
-#: gui/forms/kid3form.cpp:199 gui/forms/kid3form.cpp:882
-#: gui/forms/kid3form.cpp:884
+#: gui/forms/kid3form.cpp:199 gui/forms/kid3form.cpp:872
+#: gui/forms/kid3form.cpp:874
 msgid "F&ile"
 msgstr "Ф&айлы"
 
@@ -1897,49 +1897,45 @@ msgid "Tag 2 from Filename"
 msgstr "Тег 1 из имени файла"
 
 #: gui/forms/kid3form.cpp:296 gui/forms/kid3form.cpp:338
-#: gui/forms/kid3form.cpp:956 gui/forms/kid3form.cpp:963
+#: gui/forms/kid3form.cpp:946 gui/forms/kid3form.cpp:953
 #: gui/forms/kid3mainwindow.cpp:347 gui/forms/kid3mainwindow.cpp:362
 msgid "Copy"
 msgstr "Копировать"
 
 #: gui/forms/kid3form.cpp:300 gui/forms/kid3form.cpp:342
-#: gui/forms/kid3form.cpp:957 gui/forms/kid3form.cpp:964
+#: gui/forms/kid3form.cpp:947 gui/forms/kid3form.cpp:954
 #: gui/forms/kid3mainwindow.cpp:350 gui/forms/kid3mainwindow.cpp:365
 msgid "Paste"
 msgstr "Вставить"
 
-#: gui/forms/kid3form.cpp:356
-msgid "Frame"
-msgstr "Фрейм"
-
-#: gui/forms/kid3form.cpp:365 gui/forms/kid3form.cpp:966
+#: gui/forms/kid3form.cpp:355 gui/forms/kid3form.cpp:956
 #: gui/forms/kid3mainwindow.cpp:371
 msgid "Edit"
 msgstr "Правка"
 
-#: gui/forms/kid3form.cpp:371 gui/forms/kid3form.cpp:968
+#: gui/forms/kid3form.cpp:361 gui/forms/kid3form.cpp:958
 #: gui/forms/kid3mainwindow.cpp:377
 msgid "Delete"
 msgstr "Удалить"
 
-#: gui/forms/kid3form.cpp:952 gui/forms/kid3form.cpp:959
-#: gui/forms/kid3form.cpp:969 gui/forms/kid3form.cpp:971
-#: gui/forms/kid3form.cpp:973 gui/forms/kid3mainwindow.cpp:386
+#: gui/forms/kid3form.cpp:942 gui/forms/kid3form.cpp:949
+#: gui/forms/kid3form.cpp:959 gui/forms/kid3form.cpp:961
+#: gui/forms/kid3form.cpp:963 gui/forms/kid3mainwindow.cpp:386
 #: gui/forms/kid3mainwindow.cpp:389 gui/forms/kid3mainwindow.cpp:392
 #: gui/forms/kid3mainwindow.cpp:395 gui/forms/kid3mainwindow.cpp:398
 msgid "Focus"
 msgstr "Фокус"
 
-#: gui/forms/kid3form.cpp:954 gui/forms/kid3form.cpp:961
+#: gui/forms/kid3form.cpp:944 gui/forms/kid3form.cpp:951
 #: gui/forms/kid3mainwindow.cpp:341 gui/forms/kid3mainwindow.cpp:356
 msgid "From Filename"
 msgstr "Из имени файла"
 
-#: gui/forms/kid3form.cpp:970 gui/forms/kid3mainwindow.cpp:395
+#: gui/forms/kid3form.cpp:960 gui/forms/kid3mainwindow.cpp:395
 msgid "File List"
 msgstr "Список файлов"
 
-#: gui/forms/kid3form.cpp:972 gui/forms/kid3mainwindow.cpp:398
+#: gui/forms/kid3form.cpp:962 gui/forms/kid3mainwindow.cpp:398
 msgid "Directory List"
 msgstr "Содержимое каталога"
 
@@ -2283,7 +2279,7 @@ msgid "Configure - Kid3"
 msgstr "Настройка - Kid3"
 
 #: gui/forms/kid3mainwindow.cpp:1533 gui/forms/kid3mainwindow.cpp:1538
-#: gui/forms/kid3mainwindow.cpp:2005
+#: gui/forms/kid3mainwindow.cpp:2006
 msgid "Error while renaming:\n"
 msgstr "Ошибка переименование:\n"
 
@@ -2295,27 +2291,27 @@ msgstr " [фильтровано]"
 msgid " [modified]"
 msgstr " [изменено]"
 
-#: gui/forms/kid3mainwindow.cpp:1894
+#: gui/forms/kid3mainwindow.cpp:1895
 msgid "Add Frame"
 msgstr "Добавить Фрейм"
 
-#: gui/forms/kid3mainwindow.cpp:1895
+#: gui/forms/kid3mainwindow.cpp:1896
 msgid "Select the frame ID"
 msgstr "Выбрать ID фрейма"
 
-#: gui/forms/kid3mainwindow.cpp:1983
+#: gui/forms/kid3mainwindow.cpp:1984
 msgid "Rename File"
 msgstr "Переименовать файл"
 
-#: gui/forms/kid3mainwindow.cpp:1984
+#: gui/forms/kid3mainwindow.cpp:1985
 msgid "Enter new file name:"
 msgstr "Введите новое имя файла:"
 
-#: gui/forms/kid3mainwindow.cpp:2014 gui/forms/kid3mainwindow.cpp:2052
+#: gui/forms/kid3mainwindow.cpp:2015 gui/forms/kid3mainwindow.cpp:2053
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Вы действительно хотите переместить %1 элементов в корзину?"
 
-#: gui/forms/kid3mainwindow.cpp:2040 gui/forms/kid3mainwindow.cpp:2054
+#: gui/forms/kid3mainwindow.cpp:2041 gui/forms/kid3mainwindow.cpp:2055
 #, fuzzy
 msgid "Do you really want to move this item to the trash?"
 msgid_plural "Do you really want to move these %1 items to the trash?"
@@ -2323,19 +2319,19 @@ msgstr[0] "Переместить в корзину?"
 msgstr[1] "Вы действительно хотите переместить %1 элементов в корзину?"
 msgstr[2] "Вы действительно хотите переместить %1 элементов в корзину?"
 
-#: gui/forms/kid3mainwindow.cpp:2044 gui/forms/kid3mainwindow.cpp:2050
+#: gui/forms/kid3mainwindow.cpp:2045 gui/forms/kid3mainwindow.cpp:2051
 msgid "Move to Trash"
 msgstr "Выбросить в корзину"
 
-#: gui/forms/kid3mainwindow.cpp:2082
+#: gui/forms/kid3mainwindow.cpp:2083
 msgid "Directory must be empty.\n"
 msgstr "Каталог должен быть пустым.\n"
 
-#: gui/forms/kid3mainwindow.cpp:2083
+#: gui/forms/kid3mainwindow.cpp:2084
 msgid "Could not move these files to the Trash"
 msgstr "Не удалось переместить элементы в корзину"
 
-#: gui/forms/kid3mainwindow.cpp:2126
+#: gui/forms/kid3mainwindow.cpp:2127
 msgid "Expand All"
 msgstr "Развернуть всё"
 
