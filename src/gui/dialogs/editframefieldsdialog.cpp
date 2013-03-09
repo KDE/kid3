@@ -78,6 +78,13 @@ public:
   }
 
   /**
+   * Set focus to text field.
+   */
+  void setFocus() {
+    m_edit->setFocus();
+  }
+
+  /**
    * Set label.
    *
    * @param txt label
@@ -704,6 +711,7 @@ QWidget* TextFieldControl::createWidget(QWidget* parent)
 
   m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
   m_edit->setText(m_field.m_value.toString());
+  m_edit->setFocus();
   return m_edit;
 }
 
