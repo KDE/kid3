@@ -1773,6 +1773,7 @@ void Kid3MainWindow::updateGuiControls()
   else {
     if (num_v2_selected > 1) {
       m_form->setFilenameEditEnabled(false);
+      m_form->setFilename(Frame::differentRepresentation());
     }
     m_form->setDetailInfo(info);
     m_form->setTagFormatV1(QString::null);

@@ -464,14 +464,14 @@ public:
    */
   static int numberWithoutTotal(const QString& str, bool* ok = 0);
 
-private:
-  friend class TaggedFile;
-
   /**
    * Get representation of different frames in multiple files.
    * @return "different" representation.
    */
   static QChar differentRepresentation() { return QChar(0x2260); }
+
+private:
+  friend class TaggedFile;
 
   ExtendedType m_extendedType;
   int m_index;
