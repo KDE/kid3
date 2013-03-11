@@ -258,9 +258,15 @@ public:
       int linesizeIn;
       ::av_samples_get_buffer_size(&linesizeIn, codecCtx.channels(),
           numSamplesIn / codecCtx.channels(), codecCtx.sampleFormat(), 0);
+#if LIBAVRESAMPLE_VERSION_INT < AV_VERSION_INT(1, 0, 0)
+      int numSamplesOut = ::avresample_convert(
+            m_ptr, reinterpret_cast<void**>(&buffer2), 0, BUFFER_SIZE,
+            reinterpret_cast<void**>(&buffer1), linesizeIn, numSamplesIn);
+#else
       int numSamplesOut = ::avresample_convert(
             m_ptr, reinterpret_cast<uint8_t**>(&buffer2), 0, BUFFER_SIZE,
             reinterpret_cast<uint8_t**>(&buffer1), linesizeIn, numSamplesIn);
+#endif
       if (numSamplesOut < 0) {
         return 0;
       }
