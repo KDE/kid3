@@ -236,6 +236,17 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
     bool pictureRemoved = false;
     PictureList::iterator pictureIt = m_pictures.begin();
 #endif
+
+    if (m_chain->status() == FLAC__METADATA_CHAIN_STATUS_NOT_A_FLAC_FILE) {
+      // This check is done because of a crash in mdit.get_block_type() with an
+      // empty file with flac extension. m_chain->status() will set the status
+      // to FLAC__METADATA_CHAIN_STATUS_OK (!?), so we have to delete the
+      // chain to avoid a crash with the next call to writeTags().
+      delete m_chain;
+      m_chain = 0;
+      return false;
+    }
+
     m_chain->sort_padding();
     FLAC::Metadata::Iterator mdit;
     mdit.init(*m_chain);
