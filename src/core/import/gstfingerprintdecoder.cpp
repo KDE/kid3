@@ -62,10 +62,20 @@ GstFingerprintDecoder::GstFingerprintDecoder(QObject* parent) :
     g_signal_connect(m_dec, "no-more-pads", G_CALLBACK(cb_no_more_pads), this);
     g_signal_connect(m_dec, "unknown-type", G_CALLBACK(cb_unknown_type), this);
 
-    if (GstCaps* sinkcaps = gst_caps_new_simple("audio/x-raw-int",
+    if (GstCaps* sinkcaps = gst_caps_new_simple(
+#if GST_CHECK_VERSION(1, 0, 0)
+      "audio/x-raw",
+      "format", G_TYPE_STRING, "S16LE",
+      "layout", G_TYPE_STRING, "interleaved",
+      "rate", G_TYPE_INT, 44100,
+      "channels", G_TYPE_INT, 2,
+      "channel-mask", GST_TYPE_BITMASK, (gint64)0x3,
+#else
+      "audio/x-raw-int",
       "width", G_TYPE_INT, 16,
       "depth", G_TYPE_INT, 16,
       "signed", G_TYPE_BOOLEAN, TRUE,
+#endif
       NULL)) {
       g_object_set(G_OBJECT(sink), "caps", sinkcaps, NULL);
       gst_caps_unref(sinkcaps);
@@ -76,7 +86,11 @@ GstFingerprintDecoder::GstFingerprintDecoder(QObject* parent) :
                  "sync", FALSE,
                  "emit-signals", TRUE,
                  NULL);
+#if GST_CHECK_VERSION(1, 0, 0)
+    g_signal_connect(sink, "new-sample", G_CALLBACK(cb_new_buffer), this);
+#else
     g_signal_connect(sink, "new-buffer", G_CALLBACK(cb_new_buffer), this);
+#endif
     if (GstPad* pad = gst_element_get_static_pad(sink, "sink")) {
       g_signal_connect(pad, "notify::caps", G_CALLBACK(cb_notify_caps), this);
       gst_object_unref(pad);
@@ -171,10 +185,16 @@ void GstFingerprintDecoder::cb_message(GstBus*, GstMessage* message,
 void GstFingerprintDecoder::cb_pad_added(GstElement*, GstPad* pad,
                                     GstFingerprintDecoder* self)
 {
-  if (GstCaps* caps = gst_pad_get_caps(pad)) {
+  if (GstCaps* caps =
+#if GST_CHECK_VERSION(1, 0, 0)
+      gst_pad_query_caps(pad, 0)
+#else
+      gst_pad_get_caps(pad)
+#endif
+      ) {
     const GstStructure* str = gst_caps_get_structure(caps, 0);
     const gchar* name = gst_structure_get_name(str);
-    if (name && strncmp(name, "audio/x-raw-", 12) == 0) {
+    if (name && strncmp(name, "audio/x-raw", 11) == 0) {
       if (GstPad* nextpad = gst_element_get_static_pad(self->m_conv, "sink")) {
         if (!gst_pad_is_linked(nextpad)) {
           if (gst_pad_link(pad, nextpad) == GST_PAD_LINK_OK) {
@@ -199,7 +219,13 @@ void GstFingerprintDecoder::cb_no_more_pads(GstElement*, GstFingerprintDecoder* 
 
 void GstFingerprintDecoder::cb_notify_caps(GstPad *pad, GParamSpec*, GstFingerprintDecoder* self)
 {
-  if (GstCaps* caps = gst_pad_get_negotiated_caps(pad)) {
+  if (GstCaps* caps =
+#if GST_CHECK_VERSION(1, 0, 0)
+      gst_pad_get_current_caps(pad)
+#else
+      gst_pad_get_negotiated_caps(pad)
+#endif
+      ) {
     const GstStructure* str = gst_caps_get_structure(caps, 0);
     if (gst_structure_get_int(str, "channels", &self->m_channels) &&
         gst_structure_get_int(str, "rate", &self->m_rate)) {
@@ -240,7 +266,20 @@ void GstFingerprintDecoder::cb_unknown_type(GstElement*, GstPad*, GstCaps* caps,
 
 void GstFingerprintDecoder::cb_new_buffer(GstElement* sink, GstFingerprintDecoder* self)
 {
-  GstBuffer *buffer;
+#if GST_CHECK_VERSION(1, 0, 0)
+  GstSample* sample = 0;
+  g_signal_emit_by_name(sink, "pull-sample", &sample);
+  if (sample) {
+    GstBuffer* buffer = gst_sample_get_buffer(sample);
+    gint64 buf_pos = GST_BUFFER_TIMESTAMP(buffer);
+    GstMapInfo mapinfo = {0, };
+    gst_buffer_map(buffer, &mapinfo, GST_MAP_READ);
+    emit self->bufferReady(QByteArray(reinterpret_cast<char*>(mapinfo.data),
+                                      mapinfo.size));
+    gst_buffer_unmap(buffer, &mapinfo);
+    gst_sample_unref(sample);
+#else
+  GstBuffer* buffer = 0;
   g_signal_emit_by_name(sink, "pull-buffer", &buffer);
   if (buffer) {
     gint64 buf_pos = GST_BUFFER_TIMESTAMP(buffer);
@@ -248,6 +287,7 @@ void GstFingerprintDecoder::cb_new_buffer(GstElement* sink, GstFingerprintDecode
     guint8* data = GST_BUFFER_DATA(buffer);
     emit self->bufferReady(QByteArray(reinterpret_cast<char*>(data), len));
     gst_buffer_unref(buffer);
+#endif
     if (self->isStopped()) {
       self->raiseError(FingerprintCalculator::FingerprintCalculationFailed);
     }
