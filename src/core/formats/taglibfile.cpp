@@ -107,6 +107,10 @@
 #endif
 #endif
 
+#if TAGLIB_VERSION >= 0x010900
+#include <taglib/opusfile.h>
+#endif
+
 #include "taglibext/aac/aacfiletyperesolver.h"
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
@@ -445,6 +449,10 @@ void TagLibFile::readTags(bool force)
       } else if (dynamic_cast<TagLib::XM::File*>(file) != 0) {
         m_fileExtension = QLatin1String(".xm");
 #endif
+#endif
+#if TAGLIB_VERSION >= 0x010900
+      } else if (dynamic_cast<TagLib::Ogg::Opus::File*>(file) != 0) {
+        m_fileExtension = QLatin1String(".opus");
 #endif
       }
       m_tagV1 = 0;
@@ -1604,6 +1612,9 @@ void TagLibFile::readAudioProperties()
     TagLib::XM::Properties* xmProperties;
 #endif
 #endif
+#if TAGLIB_VERSION >= 0x010900
+    TagLib::Ogg::Opus::Properties* opusProperties;
+#endif
     m_detailInfo.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != 0) {
@@ -1723,6 +1734,12 @@ void TagLibFile::readAudioProperties()
           arg(xmProperties->version(), 0, 16).
           arg(xmProperties->instrumentCount());
 #endif
+#endif
+#if TAGLIB_VERSION >= 0x010900
+    } else if ((opusProperties =
+          dynamic_cast<TagLib::Ogg::Opus::Properties*>(audioProperties)) != 0) {
+      m_detailInfo.format = QString(QLatin1String("Opus %1")).
+          arg(opusProperties->opusVersion());
 #endif
     }
     m_detailInfo.bitrate = audioProperties->bitrate();
@@ -5251,6 +5268,9 @@ TaggedFile* TagLibFile::Resolver::createFile(
       || ext2 == QLatin1String(".xm")
     #endif
 #endif
+#if TAGLIB_VERSION >= 0x010900
+      || ext == QLatin1String("opus")
+#endif
       || ext2 == QLatin1String(".wv"))
     return new TagLibFile(dn, fn, idx);
   else
@@ -5283,6 +5303,9 @@ QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
 #ifdef HAVE_TAGLIB_XM_SUPPORT
     QLatin1String(".xm") <<
 #endif
+#endif
+#if TAGLIB_VERSION >= 0x010900
+    QLatin1String(".opus") <<
 #endif
     QLatin1String(".wv");
 }
