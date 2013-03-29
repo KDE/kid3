@@ -26,7 +26,6 @@
 
 #include "downloadclient.h"
 #include "configstore.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -60,7 +59,7 @@ void DownloadClient::startDownload(const QString& hostName, const QString& path)
   m_url += hostName;
   m_url += path;
   emit downloadStarted(m_url);
-  emit progress(i18n("Ready."), 0, 0);
+  emit progress(tr("Ready."), 0, 0);
   sendRequest(hostName, path);
 }
 

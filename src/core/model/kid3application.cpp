@@ -64,7 +64,6 @@
 #include "amazonimporter.h"
 #include "batchimportprofile.h"
 #include "batchimporter.h"
-#include "qtcompatmac.h"
 #ifdef HAVE_CHROMAPRINT
 #include "musicbrainzclient.h"
 #endif
@@ -1913,15 +1912,15 @@ QString Kid3Application::createFilterString() const
 #ifdef CONFIG_USE_KDE
   QString allExt = allPatterns;
   allExt += QLatin1Char('|');
-  allExt += i18n("All Supported Files");
+  allExt += tr("All Supported Files");
   allExt += QLatin1Char('\n');
-  result = allExt + result + QLatin1String("*|") + i18n("All Files (*)");
+  result = allExt + result + QLatin1String("*|") + tr("All Files (*)");
 #else
-  QString allExt = i18n("All Supported Files");
+  QString allExt = tr("All Supported Files");
   allExt += QLatin1String(" (");
   allExt += allPatterns;
   allExt += QLatin1String(");;");
-  result = allExt + result + i18n("All Files (*)");
+  result = allExt + result + tr("All Files (*)");
 #endif
 
   return result;

@@ -41,7 +41,6 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "abstractlistedit.h"
-#include "qtcompatmac.h"
 
 /**
  * Widget to edit a list of import sources.
@@ -165,7 +164,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   m_isAbortButton(false)
 {
   setObjectName(QLatin1String("BatchImportDialog"));
-  setWindowTitle(i18n("Automatic Import"));
+  setWindowTitle(tr("Automatic Import"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
@@ -181,20 +180,20 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   profileLayout->setContentsMargins(0, 0, 0, 0);
 
   QHBoxLayout* destLayout = new QHBoxLayout;
-  QLabel* destLabel = new QLabel(i18n("D&estination:"));
+  QLabel* destLabel = new QLabel(tr("D&estination:"));
   destLayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
-  m_destComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
-  m_destComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
-  m_destComboBox->addItem(i18n("Tag 1 and Tag 2"), TrackData::TagV2V1);
+  m_destComboBox->addItem(tr("Tag 1"), TrackData::TagV1);
+  m_destComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
+  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), TrackData::TagV2V1);
   destLabel->setBuddy(m_destComboBox);
   destLayout->addWidget(m_destComboBox);
   destLayout->addStretch();
   profileLayout->addLayout(destLayout);
 
   QHBoxLayout* nameLayout = new QHBoxLayout;
-  QLabel* profileLabel = new QLabel(i18n("&Profile:"));
+  QLabel* profileLabel = new QLabel(tr("&Profile:"));
   nameLayout->addWidget(profileLabel);
   m_profileComboBox = new QComboBox;
   m_profileComboBox->setEditable(true);
@@ -204,11 +203,11 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
           this, SLOT(changeProfileName(QString)));
   profileLabel->setBuddy(m_profileComboBox);
   nameLayout->addWidget(m_profileComboBox, 1);
-  QPushButton* profileAddButton = new QPushButton(i18n("Add"));
+  QPushButton* profileAddButton = new QPushButton(tr("Add"));
   connect(profileAddButton, SIGNAL(clicked()),
           this, SLOT(addProfile()));
   nameLayout->addWidget(profileAddButton);
-  QPushButton* profileRemoveButton = new QPushButton(i18n("Remove"));
+  QPushButton* profileRemoveButton = new QPushButton(tr("Remove"));
   connect(profileRemoveButton, SIGNAL(clicked()),
           this, SLOT(removeProfile()));
   nameLayout->addWidget(profileRemoveButton);
@@ -227,12 +226,12 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   vlayout->addWidget(splitter);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
@@ -240,7 +239,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
 
   m_startAbortButton = new QPushButton(this);
   setAbortButton(false);
-  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   m_startAbortButton->setAutoDefault(false);
   closeButton->setAutoDefault(false);
   hlayout->addWidget(m_startAbortButton);
@@ -284,7 +283,7 @@ void BatchImportDialog::startOrAbortImport()
 void BatchImportDialog::addNewProfile()
 {
   BatchImportProfile profile;
-  profile.setName(i18n("New"));
+  profile.setName(tr("New"));
   m_profiles.append(profile);
   m_profileIdx = m_profiles.size() - 1;
 }
@@ -471,38 +470,38 @@ void BatchImportDialog::showImportEvent(BatchImportProfile::ImportEventType type
   switch (type) {
   case BatchImportProfile::ReadingDirectory:
     setAbortButton(true);
-    eventText = i18n("Reading Directory");
+    eventText = tr("Reading Directory");
     break;
   case BatchImportProfile::Started:
     setAbortButton(true);
-    eventText = i18n("Started");
+    eventText = tr("Started");
     break;
   case BatchImportProfile::SourceSelected:
-    eventText = i18n("Source");
+    eventText = tr("Source");
     break;
   case BatchImportProfile::QueryingAlbumList:
-    eventText = i18n("Querying");
+    eventText = tr("Querying");
     break;
   case BatchImportProfile::FetchingTrackList:
   case BatchImportProfile::FetchingCoverArt:
-    eventText = i18n("Fetching");
+    eventText = tr("Fetching");
     break;
   case BatchImportProfile::TrackListReceived:
-    eventText = i18n("Data received");
+    eventText = tr("Data received");
     break;
   case BatchImportProfile::CoverArtReceived:
-    eventText = i18n("Cover");
+    eventText = tr("Cover");
     break;
   case BatchImportProfile::Finished:
     setAbortButton(false);
-    eventText = i18n("Finished");
+    eventText = tr("Finished");
     break;
   case BatchImportProfile::Aborted:
     setAbortButton(false);
-    eventText = i18n("Aborted");
+    eventText = tr("Aborted");
     break;
   case BatchImportProfile::Error:
-    eventText = i18n("Error");
+    eventText = tr("Error");
   }
   if (!text.isEmpty()) {
     eventText += QLatin1String(": ");
@@ -518,5 +517,5 @@ void BatchImportDialog::showImportEvent(BatchImportProfile::ImportEventType type
 void BatchImportDialog::setAbortButton(bool enableAbort)
 {
   m_isAbortButton = enableAbort;
-  m_startAbortButton->setText(m_isAbortButton ? i18n("A&bort") : i18n("S&tart"));
+  m_startAbortButton->setText(m_isAbortButton ? tr("A&bort") : tr("S&tart"));
 }

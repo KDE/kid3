@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-09 09:13+0100\n"
+"POT-Creation-Date: 2013-03-29 17:08+0100\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -24,2221 +24,1596 @@ msgstr ""
 "X-Language: zh_TW\n"
 "X-Source-Language: en\n"
 
-#: core/config/batchimportsourcesmodel.cpp:174
 msgid "Server"
 msgstr "伺服器"
 
-#: core/config/batchimportsourcesmodel.cpp:176
-#: core/import/batchimporter.cpp:341
 msgid "Accuracy"
 msgstr "正確率"
 
-#: core/config/batchimportsourcesmodel.cpp:178
 msgid "Standard Tags"
 msgstr "標準 標籤"
 
-#: core/config/batchimportsourcesmodel.cpp:180
 msgid "Additional Tags"
 msgstr "額外標籤"
 
-#: core/config/batchimportsourcesmodel.cpp:182
 msgid "Cover Art"
 msgstr "封面"
 
-#: core/config/shortcutsmodel.cpp:124
 msgid "Press F2 or double click to edit cell contents."
 msgstr "按 F2 或雙擊來編輯清單內容。"
 
-#: core/config/shortcutsmodel.cpp:195
 msgid "Action"
 msgstr "動作"
 
-#: core/config/shortcutsmodel.cpp:197
 msgid "Shortcut"
 msgstr "快捷鍵"
 
-#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1868
 msgid "AENC - Audio encryption"
 msgstr "AENC - 音效加密"
 
-#: core/formats/mp3file.cpp:1269 core/formats/taglibfile.cpp:1869
 msgid "APIC - Attached picture"
 msgstr "APIC - 附加圖片"
 
-#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1871
 msgid "COMM - Comments"
 msgstr "COMM - 評論"
 
-#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1872
 msgid "COMR - Commercial"
 msgstr "COMR - 商業"
 
-#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1873
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - 加密方法註冊"
 
-#: core/formats/mp3file.cpp:1275
 msgid "EQUA - Equalization"
 msgstr "EQUA - 等化"
 
-#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1875
 msgid "ETCO - Event timing codes"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1876
 msgid "GEOB - General encapsulated object"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1278 core/formats/taglibfile.cpp:1877
 msgid "GRID - Group identification registration"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1279
 msgid "IPLS - Involved people list"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1878
 msgid "LINK - Linked information"
 msgstr "LINK - 連結資訊"
 
-#: core/formats/mp3file.cpp:1281 core/formats/taglibfile.cpp:1879
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - 音樂光碟識別"
 
-#: core/formats/mp3file.cpp:1282 core/formats/taglibfile.cpp:1880
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - MPEG 位置查詢表"
 
-#: core/formats/mp3file.cpp:1283 core/formats/taglibfile.cpp:1881
 msgid "OWNE - Ownership frame"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1284 core/formats/taglibfile.cpp:1888
 msgid "PRIV - Private frame"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1285 core/formats/taglibfile.cpp:1895
 msgid "PCNT - Play counter"
 msgstr "PCNT - 播放計數器"
 
-#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1896
 msgid "POPM - Popularimeter"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1903
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - 位置同步訊框"
 
-#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1904
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - 建議緩衝器大小"
 
-#: core/formats/mp3file.cpp:1290
 msgid "RVAD - Relative volume adjustment"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1906
 msgid "RVRB - Reverb"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1909
 msgid "SYLT - Synchronized lyric/text"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1295 core/formats/taglibfile.cpp:1910
 msgid "SYTC - Synchronized tempo codes"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1296 core/formats/taglibfile.cpp:1911
 msgid "TALB - Album/Movie/Show title"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1912
 msgid "TBPM - BPM (beats per minute)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1298 core/formats/taglibfile.cpp:1914
 msgid "TCOM - Composer"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1915
 msgid "TCON - Content type"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1916
 msgid "TCOP - Copyright message"
 msgstr "TCOP - 版權訊息"
 
-#: core/formats/mp3file.cpp:1301
 msgid "TDAT - Date"
 msgstr "TDAT - 日期"
 
-#: core/formats/mp3file.cpp:1303 core/formats/taglibfile.cpp:1918
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - 播放清單延遲"
 
-#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1923
 msgid "TENC - Encoded by"
 msgstr "TENC - 編碼方式"
 
-#: core/formats/mp3file.cpp:1310 core/formats/taglibfile.cpp:1924
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - 作詞者"
 
-#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1925
 msgid "TFLT - File type"
 msgstr "TFLT - 檔案型態"
 
-#: core/formats/mp3file.cpp:1312
 msgid "TIME - Time"
 msgstr "TIME - 時間"
 
-#: core/formats/mp3file.cpp:1313 core/formats/taglibfile.cpp:1927
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - 內容群組描述"
 
-#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1928
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - 標題/歌名/內容描述"
 
-#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1929
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1316 core/formats/taglibfile.cpp:1930
 msgid "TKEY - Initial key"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1317 core/formats/taglibfile.cpp:1931
 msgid "TLAN - Language(s)"
 msgstr "TLAN - 語言"
 
-#: core/formats/mp3file.cpp:1318 core/formats/taglibfile.cpp:1932
 msgid "TLEN - Length"
 msgstr "TLEN - 長度"
 
-#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1934
 msgid "TMED - Media type"
 msgstr "TMED - 媒體型態"
 
-#: core/formats/mp3file.cpp:1322 core/formats/taglibfile.cpp:1936
 msgid "TOAL - Original album/movie/show title"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1937
 msgid "TOFN - Original filename"
 msgstr "TOFN - 原始檔名"
 
-#: core/formats/mp3file.cpp:1324 core/formats/taglibfile.cpp:1938
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - 原始作詞者"
 
-#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1939
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - 原始演出者"
 
-#: core/formats/mp3file.cpp:1326
 msgid "TORY - Original release year"
 msgstr "TORY - 原始發行年份"
 
-#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1940
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - 檔案擁有者/授權者"
 
-#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1941
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - 首席表演者/獨唱者"
 
-#: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1942
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - 樂團"
 
-#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1943
 msgid "TPE3 - Conductor/performer refinement"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1944
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1945
 msgid "TPOS - Part of a set"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1947
 msgid "TPUB - Publisher"
 msgstr "TPUB - 發行者"
 
-#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1948
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - 音軌編號/位置"
 
-#: core/formats/mp3file.cpp:1336
 msgid "TRDA - Recording dates"
 msgstr "TRDA - 錄製日期"
 
-#: core/formats/mp3file.cpp:1337 core/formats/taglibfile.cpp:1949
 msgid "TRSN - Internet radio station name"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1338 core/formats/taglibfile.cpp:1950
 msgid "TRSO - Internet radio station owner"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1339
 msgid "TSIZ - Size"
 msgstr "TSIZ - 大小"
 
-#: core/formats/mp3file.cpp:1343 core/formats/taglibfile.cpp:1956
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1344 core/formats/taglibfile.cpp:1957
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - 用於編碼的軟硬體設定"
 
-#: core/formats/mp3file.cpp:1346 core/formats/taglibfile.cpp:1959
 msgid "TXXX - User defined text information"
 msgstr "TXXX - 使用者定義文字資訊"
 
-#: core/formats/mp3file.cpp:1347
 msgid "TYER - Year"
 msgstr "TYER - 年份"
 
-#: core/formats/mp3file.cpp:1348 core/formats/taglibfile.cpp:1960
 msgid "UFID - Unique file identifier"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1349 core/formats/taglibfile.cpp:1961
 msgid "USER - Terms of use"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1350 core/formats/taglibfile.cpp:1962
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1351 core/formats/taglibfile.cpp:1963
 msgid "WCOM - Commercial information"
 msgstr "WCOM - 商業資訊"
 
-#: core/formats/mp3file.cpp:1352 core/formats/taglibfile.cpp:1964
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - 版權資訊"
 
-#: core/formats/mp3file.cpp:1353 core/formats/taglibfile.cpp:1965
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - 正式音效檔網頁"
 
-#: core/formats/mp3file.cpp:1354 core/formats/taglibfile.cpp:1966
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - 正式演出者網頁"
 
-#: core/formats/mp3file.cpp:1355 core/formats/taglibfile.cpp:1967
 msgid "WOAS - Official audio source webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1356 core/formats/taglibfile.cpp:1968
 msgid "WORS - Official internet radio station homepage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1357 core/formats/taglibfile.cpp:1969
 msgid "WPAY - Payment"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1358 core/formats/taglibfile.cpp:1970
 msgid "WPUB - Official publisher webpage"
 msgstr ""
 
-#: core/formats/mp3file.cpp:1359 core/formats/taglibfile.cpp:1971
 msgid "WXXX - User defined URL link"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1870
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - 音效搜尋點索引"
 
-#: core/formats/taglibfile.cpp:1874
 msgid "EQU2 - Equalisation (2)"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1905
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - 相對音量調整 (2)"
 
-#: core/formats/taglibfile.cpp:1907
 msgid "SEEK - Seek frame"
 msgstr "SEEK - 尋找訊框"
 
-#: core/formats/taglibfile.cpp:1908
 msgid "SIGN - Signature frame"
 msgstr "SIGN - 簽章訊框"
 
-#: core/formats/taglibfile.cpp:1913
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - iTunes的編譯"
 
-#: core/formats/taglibfile.cpp:1917
 msgid "TDEN - Encoding time"
 msgstr "TDEN - 編碼時間"
 
-#: core/formats/taglibfile.cpp:1919
 msgid "TDOR - Original release time"
 msgstr "TDOR - 原始發行時間"
 
-#: core/formats/taglibfile.cpp:1920
 msgid "TDRC - Recording time"
 msgstr "TDRC - 錄音時間"
 
-#: core/formats/taglibfile.cpp:1921
 msgid "TDRL - Release time"
 msgstr "TDRL - 發行時間"
 
-#: core/formats/taglibfile.cpp:1922
 msgid "TDTG - Tagging time"
 msgstr "TDTG - 標籤時間 "
 
-#: core/formats/taglibfile.cpp:1926
 msgid "TIPL - Involved people list"
 msgstr "TIPL - 參與人員清單"
 
-#: core/formats/taglibfile.cpp:1933
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - 音樂誌謝清單"
 
-#: core/formats/taglibfile.cpp:1935
 msgid "TMOO - Mood"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1946
 msgid "TPRO - Produced notice"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1951
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - 艺术家专辑排序"
 
-#: core/formats/taglibfile.cpp:1952
 msgid "TSOA - Album sort order"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1953
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - 作曲家篩選秩序"
 
-#: core/formats/taglibfile.cpp:1954
 msgid "TSOP - Performer sort order"
 msgstr ""
 
-#: core/formats/taglibfile.cpp:1955
 msgid "TSOT - Title sort order"
 msgstr "TSOT - 標題排序順序"
 
-#: core/formats/taglibfile.cpp:1958
 msgid "TSST - Set subtitle"
 msgstr "TSST - 設定字幕"
 
-#: core/import/amazonimporter.cpp:59
 msgid "Amazon"
 msgstr "Amazon"
 
-#: core/import/batchimporter.cpp:344 gui/dialogs/configdialog.cpp:442
-#: gui/dialogs/configdialog.cpp:740 gui/dialogs/musicbrainzdialog.cpp:188
-#: gui/dialogs/musicbrainzdialog.cpp:192 gui/dialogs/musicbrainzdialog.cpp:207
 msgid "Unknown"
 msgstr "未知"
 
-#: core/import/batchimporter.cpp:426
 msgid "Invalid File"
 msgstr "檔案無效"
 
-#: core/import/discogsimporter.cpp:294
 msgid "Discogs"
 msgstr "Discogs"
 
-#: core/import/freedbimporter.cpp:60
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: core/import/httpclient.cpp:94 core/import/httpclient.cpp:125
 msgid "Data received: %1"
 msgstr "接收 %1 資料中"
 
-#: core/import/httpclient.cpp:106 core/model/downloadclient.cpp:63
-#: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:168
-#: gui/forms/kid3mainwindow.cpp:838 gui/forms/kid3mainwindow.cpp:991
-#: gui/forms/kid3mainwindow.cpp:1235 gui/forms/kid3mainwindow.cpp:1314
 msgid "Ready."
 msgstr "已就緒。"
 
-#: core/import/httpclient.cpp:108 core/import/musicbrainzclient.cpp:299
-#: core/model/dirrenamer.cpp:463 gui/dialogs/batchimportdialog.cpp:505
 msgid "Error"
 msgstr "錯誤"
 
-#: core/import/httpclient.cpp:213
 msgid "Request sent..."
 msgstr "送出連線要求..."
 
-#: core/import/importparser.cpp:66 core/tags/frame.cpp:1060
 msgid "Year"
 msgstr "年"
 
-#: core/import/importparser.cpp:78 core/model/trackdatamodel.cpp:193
-#: core/tags/trackdata.cpp:191 core/tags/trackdata.cpp:195
 msgid "Length"
 msgstr "長度"
 
-#: core/import/musicbrainzclient.cpp:255
 msgid "Unrecognized"
 msgstr "未辨識"
 
-#: core/import/musicbrainzclient.cpp:267
 msgid "Recognized"
 msgstr "已辨識"
 
-#: core/import/musicbrainzclient.cpp:270
 msgid "User Selection"
 msgstr "使用者選擇"
 
-#: core/import/musicbrainzclient.cpp:293
 msgid "ID Lookup"
 msgstr ""
 
-#: core/import/musicbrainzclient.cpp:316
 msgid "Fingerprint"
 msgstr "Fingerprint"
 
-#: core/import/musicbrainzclient.cpp:326
 msgid "Metadata Lookup"
 msgstr ""
 
-#: core/import/musicbrainzreleaseimporter.cpp:60
 msgid "MusicBrainz Release"
 msgstr "MusicBrainz Release"
 
-#: core/import/tracktypeimporter.cpp:59
 msgid "TrackType.org"
 msgstr "TrackType.org"
 
-#: core/model/commandformatreplacer.cpp:144
 msgid "Filenames"
 msgstr "檔名"
 
-#: core/model/commandformatreplacer.cpp:152
 msgid "URLs"
 msgstr "網址"
 
-#: core/model/commandformatreplacer.cpp:156
 msgid "Directory name"
 msgstr "目錄名稱"
 
-#: core/model/commandformatreplacer.cpp:164
-#: gui/dialogs/browsecoverartdialog.cpp:58
 msgid "Encode as URL"
 msgstr "編碼成網址"
 
-#: core/model/commandstablemodel.cpp:172
 msgid "Confirm"
 msgstr "確認"
 
-#: core/model/commandstablemodel.cpp:174
 msgid "Output"
 msgstr "輸出"
 
-#: core/model/commandstablemodel.cpp:176 core/model/frametablemodel.cpp:191
 msgid "Name"
 msgstr "名稱"
 
-#: core/model/commandstablemodel.cpp:178
 msgid "Command"
 msgstr "指令"
 
-#: core/model/dirrenamer.cpp:73 core/model/dirrenamer.cpp:92
 msgid "Create directory %1 failed\n"
 msgstr "建立 %1 目錄失敗\n"
 
-#: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:122
 msgid "File %1 already exists\n"
 msgstr " %1 檔已經存在\n"
 
-#: core/model/dirrenamer.cpp:101 core/model/dirrenamer.cpp:128
 msgid "%1 is not a directory\n"
 msgstr "%1 不是目錄\n"
 
-#: core/model/dirrenamer.cpp:103 core/model/dirrenamer.cpp:140
-#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:2007
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1 更名至 %2 失敗\n"
 
-#: core/model/dirrenamer.cpp:147 core/model/dirrenamer.cpp:170
 msgid "%1 already exists\n"
 msgstr "%1 已經存在\n"
 
-#: core/model/dirrenamer.cpp:149 core/model/dirrenamer.cpp:176
 msgid "%1 is not a file\n"
 msgstr "%1 不是檔案\n"
 
-#: core/model/dirrenamer.cpp:409
 msgid "New directory name is too different\n"
 msgstr "新目錄名稱太奇怪\n"
 
-#: core/model/dirrenamer.cpp:460
 msgid "Create directory"
 msgstr "建立目錄"
 
-#: core/model/dirrenamer.cpp:461
 msgid "Rename directory"
 msgstr "更改目錄名稱"
 
-#: core/model/dirrenamer.cpp:462
 msgid "Rename file"
 msgstr "更改檔案名稱"
 
-#: core/model/externalprocess.cpp:54
 msgid "C&lear"
 msgstr "清除(&l)"
 
-#: core/model/externalprocess.cpp:57 gui/dialogs/batchimportdialog.cpp:243
-#: gui/dialogs/browserdialog.cpp:126 gui/dialogs/exportdialog.cpp:143
-#: gui/dialogs/filterdialog.cpp:84 gui/dialogs/serverimportdialog.cpp:109
-#: gui/dialogs/tagimportdialog.cpp:78 gui/dialogs/textimportdialog.cpp:92
-#: gui/widgets/imageviewer.cpp:53
 msgid "&Close"
 msgstr "關閉(&C)"
 
-#: core/model/externalprocess.cpp:160
 msgid "Execute "
 msgstr "執行"
 
-#: core/model/externalprocess.cpp:193
 msgid "Could not execute "
 msgstr "無法執行"
 
-#: core/model/filefilter.cpp:112
 msgid "True if strings are equal"
 msgstr "字串相等的話則為真"
 
-#: core/model/filefilter.cpp:116
 msgid "True if string contains substring"
 msgstr "字串包含某個子字串的話則為真"
 
-#: core/model/filefilter.cpp:120
 msgid "True if string matches regexp"
 msgstr "字串符合正規表示式的話則為真"
 
-#: core/model/filefilter.cpp:124
 msgid "Logical AND"
 msgstr "邏輯 AND"
 
-#: core/model/filefilter.cpp:128
 msgid "Logical OR"
 msgstr "邏輯 OR"
 
-#: core/model/filefilter.cpp:132
 msgid "Logical negation"
 msgstr "邏輯 NOT"
 
-#: core/model/frametablemodel.cpp:191
-#: gui/dialogs/editframefieldsdialog.cpp:661
 msgid "Data"
 msgstr "資料"
 
-#: core/model/kid3application.cpp:1916 core/model/kid3application.cpp:1920
 msgid "All Supported Files"
 msgstr "所有支援檔案"
 
-#: core/model/kid3application.cpp:1918 core/model/kid3application.cpp:1924
-#: gui/dialogs/editframefieldsdialog.cpp:812
-#: gui/dialogs/editframefieldsdialog.cpp:814
 msgid "All Files (*)"
 msgstr "所有檔案(*)"
 
-#: core/model/trackdatamodel.cpp:182 core/tags/frame.cpp:1064
-#: core/tags/frame.cpp:1068 core/tags/frame.cpp:1072
 msgid "Track"
 msgstr "音軌"
 
-#: core/model/trackdatamodel.cpp:187 core/tags/trackdata.cpp:183
 msgid "Absolute path to file"
 msgstr "檔案的絕對路徑"
 
-#: core/model/trackdatamodel.cpp:189 gui/dialogs/editframefieldsdialog.cpp:666
-#: gui/forms/kid3form.cpp:938 gui/forms/kid3mainwindow.cpp:380
-#: gui/forms/kid3mainwindow.cpp:383 gui/forms/kid3mainwindow.cpp:386
 msgid "Filename"
 msgstr "檔名"
 
-#: core/model/trackdatamodel.cpp:191
 msgid "Duration"
 msgstr "持續時間"
 
-#: core/tags/frame.cpp:45
 msgid "Title"
 msgstr "歌(曲)名"
 
-#: core/tags/frame.cpp:46
 msgid "Artist"
 msgstr "演唱(奏)者"
 
-#: core/tags/frame.cpp:47
 msgid "Album"
 msgstr "專輯名稱"
 
-#: core/tags/frame.cpp:48
 msgid "Comment"
 msgstr "內容註釋"
 
-#: core/tags/frame.cpp:49 gui/dialogs/editframefieldsdialog.cpp:683
 msgid "Date"
 msgstr "日期"
 
-#: core/tags/frame.cpp:50
 msgid "Track Number"
 msgstr "音軌編號"
 
-#: core/tags/frame.cpp:51
 msgid "Genre"
 msgstr "曲風"
 
-#: core/tags/frame.cpp:53
 msgid "Album Artist"
 msgstr "專輯演唱(奏)者"
 
-#: core/tags/frame.cpp:54
 msgid "Arranger"
 msgstr "編曲者"
 
-#: core/tags/frame.cpp:55
 msgid "Author"
 msgstr "作者"
 
-#: core/tags/frame.cpp:56
 msgid "BPM"
 msgstr "BPM"
 
-#: core/tags/frame.cpp:57
 msgid "Catalog Number"
 msgstr "分类号码"
 
-#: core/tags/frame.cpp:58
 msgid "Compilation"
 msgstr "曲集"
 
-#: core/tags/frame.cpp:59 gui/dialogs/editframefieldsdialog.cpp:888
 msgid "Composer"
 msgstr "作曲者"
 
-#: core/tags/frame.cpp:60 gui/dialogs/editframefieldsdialog.cpp:886
 msgid "Conductor"
 msgstr "指揮"
 
-#: core/tags/frame.cpp:61
 msgid "Copyright"
 msgstr "版權"
 
-#: core/tags/frame.cpp:62
 msgid "Disc Number"
 msgstr "碟片編號"
 
-#: core/tags/frame.cpp:63
 msgid "Encoded-by"
 msgstr "編碼方式"
 
-#: core/tags/frame.cpp:64
 msgid "Encoder Settings"
 msgstr "用於編碼的軟硬體設定"
 
-#: core/tags/frame.cpp:65
 msgid "Encoding Time"
 msgstr "編碼時間"
 
-#: core/tags/frame.cpp:66
 msgid "Grouping"
 msgstr "群組中"
 
-#: core/tags/frame.cpp:67
 msgid "Initial Key"
 msgstr ""
 
-#: core/tags/frame.cpp:68
 msgid "ISRC"
 msgstr "ISRC"
 
-#: core/tags/frame.cpp:69 gui/dialogs/editframefieldsdialog.cpp:667
 msgid "Language"
 msgstr "語言"
 
-#: core/tags/frame.cpp:70
 msgid "Lyricist"
 msgstr "Lyricist"
 
-#: core/tags/frame.cpp:71 gui/dialogs/editframefieldsdialog.cpp:916
 msgid "Lyrics"
 msgstr "Lyrics"
 
-#: core/tags/frame.cpp:72 gui/dialogs/editframefieldsdialog.cpp:883
 msgid "Media"
 msgstr "媒體"
 
-#: core/tags/frame.cpp:73
 msgid "Mood"
 msgstr "心情"
 
-#: core/tags/frame.cpp:74
 msgid "Original Album"
 msgstr "原專輯名稱"
 
-#: core/tags/frame.cpp:75
 msgid "Original Artist"
 msgstr "原演唱(奏)者"
 
-#: core/tags/frame.cpp:76
 msgid "Original Date"
 msgstr "原出版日期"
 
-#: core/tags/frame.cpp:77
 msgid "Part"
 msgstr "退出"
 
-#: core/tags/frame.cpp:78
 msgid "Performer"
 msgstr "表演者"
 
-#: core/tags/frame.cpp:79
 msgid "Picture"
 msgstr "圖片"
 
-#: core/tags/frame.cpp:80
 msgid "Publisher"
 msgstr "出版商"
 
-#: core/tags/frame.cpp:81
 msgid "Release Country"
 msgstr "版本地区"
 
-#: core/tags/frame.cpp:82
 msgid "Remixer"
 msgstr "混音"
 
-#: core/tags/frame.cpp:83
 msgid "Sort Album"
 msgstr "排序專輯標題"
 
-#: core/tags/frame.cpp:84
 msgid "Sort Album Artist"
 msgstr "艺术家专辑排序"
 
-#: core/tags/frame.cpp:85
 msgid "Sort Artist"
 msgstr "排序曲目演出者"
 
-#: core/tags/frame.cpp:86
 msgid "Sort Composer"
 msgstr "作曲家篩選秩序"
 
-#: core/tags/frame.cpp:87
 msgid "Sort Name"
 msgstr "標題排序順序"
 
-#: core/tags/frame.cpp:88
 msgid "Subtitle"
 msgstr "字幕"
 
-#: core/tags/frame.cpp:89
 msgid "Website"
 msgstr "網站"
 
-#: core/tags/frame.cpp:90
 msgid "WWW Audio File"
 msgstr "正式音效檔網頁"
 
-#: core/tags/frame.cpp:91 gui/widgets/frametable.cpp:67
 msgid "WWW Audio Source"
 msgstr ""
 
-#: core/tags/trackdata.cpp:199
 msgid "Number of tracks"
 msgstr "音軌編號"
 
-#: core/tags/trackdata.cpp:203
 msgid "Extension"
 msgstr "副檔名"
 
-#: core/tags/trackdata.cpp:215
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: core/tags/trackdata.cpp:219
 msgid "VBR"
 msgstr "VBR"
 
-#: core/tags/trackdata.cpp:223
 msgid "Samplerate"
 msgstr "取樣頻率"
 
-#: core/tags/trackdata.cpp:229
 msgid "Channels"
 msgstr "頻道"
 
-#: core/tags/trackdata.cpp:233
 msgid "Codec"
 msgstr "Codec"
 
-#: gui/app/main.cpp:41
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 ID3 Tagger"
-
-#: gui/app/main.cpp:55 gui/forms/kid3form.cpp:174
-msgid "Kid3"
-msgstr "Kid3"
-
-#: gui/app/main.cpp:57
-msgid "(c) 2003-"
-msgstr "(c) 2003-"
-
-#: gui/app/main.cpp:59
-msgid "Urs Fleisch"
-msgstr "Urs Fleisch"
-
-#: gui/app/main.cpp:63
 msgid "directory to open"
 msgstr "開啟目錄"
 
-#: gui/dialogs/batchimportdialog.cpp:168
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 ID3 Tagger"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Chung-Yu Hsu"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "yayow at mail dot shps dot kh dot edu dot tw"
+
 msgid "Automatic Import"
 msgstr "自動匯入"
 
-#: gui/dialogs/batchimportdialog.cpp:184 gui/dialogs/importdialog.cpp:177
 msgid "D&estination:"
 msgstr "目的(&E)："
 
-#: gui/dialogs/batchimportdialog.cpp:188 gui/dialogs/exportdialog.cpp:119
-#: gui/dialogs/importdialog.cpp:181 gui/dialogs/numbertracksdialog.cpp:75
-#: gui/forms/kid3form.cpp:234 gui/forms/kid3form.cpp:259
-#: gui/forms/kid3form.cpp:943 gui/forms/kid3mainwindow.cpp:341
-#: gui/forms/kid3mainwindow.cpp:344 gui/forms/kid3mainwindow.cpp:347
-#: gui/forms/kid3mainwindow.cpp:350 gui/forms/kid3mainwindow.cpp:353
-#: gui/forms/kid3mainwindow.cpp:389
 msgid "Tag 1"
 msgstr "標籤 1"
 
-#: gui/dialogs/batchimportdialog.cpp:189 gui/dialogs/exportdialog.cpp:120
-#: gui/dialogs/importdialog.cpp:182 gui/dialogs/numbertracksdialog.cpp:76
-#: gui/forms/kid3form.cpp:237 gui/forms/kid3form.cpp:263
-#: gui/forms/kid3form.cpp:950 gui/forms/kid3mainwindow.cpp:356
-#: gui/forms/kid3mainwindow.cpp:359 gui/forms/kid3mainwindow.cpp:362
-#: gui/forms/kid3mainwindow.cpp:365 gui/forms/kid3mainwindow.cpp:368
-#: gui/forms/kid3mainwindow.cpp:392
 msgid "Tag 2"
 msgstr "標籤 2"
 
-#: gui/dialogs/batchimportdialog.cpp:190 gui/dialogs/importdialog.cpp:183
-#: gui/dialogs/numbertracksdialog.cpp:77
 msgid "Tag 1 and Tag 2"
 msgstr "標籤 1 與 標籤 2"
 
-#: gui/dialogs/batchimportdialog.cpp:197
 msgid "&Profile:"
 msgstr "設定檔(&P):"
 
-#: gui/dialogs/batchimportdialog.cpp:207 gui/forms/kid3form.cpp:358
-#: gui/forms/kid3form.cpp:957 gui/forms/kid3mainwindow.cpp:374
 msgid "Add"
 msgstr "新增"
 
-#: gui/dialogs/batchimportdialog.cpp:211 gui/forms/kid3form.cpp:304
-#: gui/forms/kid3form.cpp:346 gui/forms/kid3form.cpp:948
-#: gui/forms/kid3form.cpp:955 gui/forms/kid3mainwindow.cpp:353
-#: gui/forms/kid3mainwindow.cpp:368
 msgid "Remove"
 msgstr "移除"
 
-#: gui/dialogs/batchimportdialog.cpp:230
-#: gui/dialogs/browsecoverartdialog.cpp:125 gui/dialogs/configdialog.cpp:464
-#: gui/dialogs/exportdialog.cpp:129 gui/dialogs/filterdialog.cpp:68
-#: gui/dialogs/importdialog.cpp:237 gui/dialogs/musicbrainzdialog.cpp:120
-#: gui/dialogs/numbertracksdialog.cpp:101 gui/dialogs/playlistdialog.cpp:194
-#: gui/dialogs/serverimportdialog.cpp:107 gui/dialogs/tagimportdialog.cpp:65
-#: gui/dialogs/textimportdialog.cpp:75 gui/forms/kid3mainwindow.cpp:768
 msgid "&Help"
 msgstr "求助(&H)"
 
-#: gui/dialogs/batchimportdialog.cpp:235
-#: gui/dialogs/browsecoverartdialog.cpp:130 gui/dialogs/exportdialog.cpp:134
-#: gui/dialogs/filterdialog.cpp:73 gui/dialogs/importdialog.cpp:239
-#: gui/dialogs/musicbrainzdialog.cpp:121
-#: gui/dialogs/numbertracksdialog.cpp:105 gui/dialogs/playlistdialog.cpp:198
-#: gui/dialogs/rendirdialog.cpp:76 gui/dialogs/serverimportdialog.cpp:108
-#: gui/dialogs/tagimportdialog.cpp:69 gui/dialogs/textimportdialog.cpp:79
 msgid "&Save Settings"
 msgstr "儲存設定(&S)"
 
-#: gui/dialogs/batchimportdialog.cpp:287 gui/widgets/formatlistedit.cpp:241
 msgid "New"
 msgstr "新增"
 
-#: gui/dialogs/batchimportdialog.cpp:474
 msgid "Reading Directory"
 msgstr "正在讀取目錄"
 
-#: gui/dialogs/batchimportdialog.cpp:478 gui/dialogs/filterdialog.cpp:173
 msgid "Started"
 msgstr "已開始"
 
-#: gui/dialogs/batchimportdialog.cpp:481
 msgid "Source"
 msgstr "來源"
 
-#: gui/dialogs/batchimportdialog.cpp:484
 msgid "Querying"
 msgstr "正查詢"
 
-#: gui/dialogs/batchimportdialog.cpp:488
 msgid "Fetching"
 msgstr "接收中"
 
-#: gui/dialogs/batchimportdialog.cpp:491
 msgid "Data received"
 msgstr "获得的数据进行"
 
-#: gui/dialogs/batchimportdialog.cpp:494
 msgid "Cover"
 msgstr "封面"
 
-#: gui/dialogs/batchimportdialog.cpp:498 gui/dialogs/filterdialog.cpp:189
 msgid "Finished"
 msgstr "已完成"
 
-#: gui/dialogs/batchimportdialog.cpp:502 gui/dialogs/filterdialog.cpp:193
 msgid "Aborted"
 msgstr "已中止"
 
-#: gui/dialogs/batchimportdialog.cpp:521 gui/dialogs/filterdialog.cpp:206
-#: gui/forms/kid3mainwindow.cpp:2129
 msgid "A&bort"
 msgstr "中斷(&B)"
 
-#: gui/dialogs/batchimportdialog.cpp:521
 msgid "S&tart"
 msgstr "開始(&T)"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:45
 msgid "Import Source"
 msgstr "匯入來源"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:51
-#: gui/dialogs/musicbrainzdialog.cpp:69 gui/dialogs/serverimportdialog.cpp:78
 msgid "&Server:"
 msgstr "伺服器(&S):"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:59
 msgid "&Accuracy:"
 msgstr "正確率(&A):"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:69
-#: gui/dialogs/serverimportdialog.cpp:92
 msgid "&Standard Tags"
 msgstr "標準 標籤(&S)"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:71
-#: gui/dialogs/serverimportdialog.cpp:93
 msgid "&Additional Tags"
 msgstr "額外標籤(&A)"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:73
-#: gui/dialogs/serverimportdialog.cpp:94
 msgid "C&over Art"
 msgstr "封面(&O)"
 
-#: gui/dialogs/browsecoverartdialog.cpp:75
-#: gui/dialogs/browsecoverartdialog.cpp:254
 msgid "Browse Cover Art"
 msgstr "瀏覽 Cover Art 網站"
 
-#: gui/dialogs/browsecoverartdialog.cpp:84
 msgid "&Artist/Album"
 msgstr "演唱(奏)者/專輯(&A)"
 
-#: gui/dialogs/browsecoverartdialog.cpp:97
 msgid "&Source"
 msgstr "來源(&S)"
 
-#: gui/dialogs/browsecoverartdialog.cpp:99 gui/dialogs/tagimportdialog.cpp:56
 msgid "Source:"
 msgstr "來源:"
 
-#: gui/dialogs/browsecoverartdialog.cpp:100
 msgid "URL:"
 msgstr "URL:"
 
-#: gui/dialogs/browsecoverartdialog.cpp:112
 msgid "&URL extraction"
 msgstr "網址擴展(&U)"
 
-#: gui/dialogs/browsecoverartdialog.cpp:115
 msgid "Match"
 msgstr "比對"
 
-#: gui/dialogs/browsecoverartdialog.cpp:115
 msgid "Picture URL"
 msgstr "圖片網址"
 
-#: gui/dialogs/browsecoverartdialog.cpp:139
 msgid "&Browse"
 msgstr "瀏覽(&B)"
 
-#: gui/dialogs/browsecoverartdialog.cpp:140 gui/dialogs/configdialog.cpp:466
-#: gui/dialogs/editframedialog.cpp:56
-#: gui/dialogs/editframefieldsdialog.cpp:966 gui/dialogs/importdialog.cpp:243
-#: gui/dialogs/musicbrainzdialog.cpp:124
-#: gui/dialogs/numbertracksdialog.cpp:118 gui/dialogs/playlistdialog.cpp:209
 msgid "&Cancel"
 msgstr "取消(&C)"
 
-#: gui/dialogs/browsecoverartdialog.cpp:171
 msgid "Click Browse to start"
 msgstr "按瀏覽開始"
 
-#: gui/dialogs/browsecoverartdialog.cpp:177
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "然後從瀏覽器拖拉圖片至 Kid3."
 
-#: gui/dialogs/browserdialog.cpp:84
 msgid "&Back"
 msgstr "返回(&B)"
 
-#: gui/dialogs/browserdialog.cpp:89
 msgid "&Forward"
 msgstr "向前(&F)"
 
-#: gui/dialogs/browserdialog.cpp:94
 msgid "&Find:"
 msgstr "尋找(&F):"
 
-#: gui/dialogs/browserdialog.cpp:108
 msgid "Find Previous"
 msgstr "尋找前一個"
 
-#: gui/dialogs/browserdialog.cpp:118
 msgid "Find Next"
 msgstr "尋找下一個"
 
-#: gui/dialogs/configdialog.cpp:116
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: gui/dialogs/configdialog.cpp:118
 msgid "&Mark truncated fields"
 msgstr "標記被截斷的欄位(&M)"
 
-#: gui/dialogs/configdialog.cpp:121 gui/dialogs/configdialog.cpp:208
 msgid "Text &encoding:"
 msgstr "編碼(&E):"
 
-#: gui/dialogs/configdialog.cpp:199
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: gui/dialogs/configdialog.cpp:201
 msgid "Use &track/total number of tracks format"
 msgstr "使用「音軌/音軌總數」的格式(&T)"
 
-#: gui/dialogs/configdialog.cpp:203
 msgid "Track number &digits:"
 msgstr "音軌編號位數(&D)："
 
-#: gui/dialogs/configdialog.cpp:207
 msgid "&Genre as text instead of numeric string"
 msgstr "將曲風視做文字而不是數字字串(&G)"
 
-#: gui/dialogs/configdialog.cpp:210 gui/dialogs/editframefieldsdialog.cpp:866
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: gui/dialogs/configdialog.cpp:211 gui/dialogs/editframefieldsdialog.cpp:867
 msgid "UTF16"
 msgstr "UTF16"
 
-#: gui/dialogs/configdialog.cpp:212 gui/dialogs/editframefieldsdialog.cpp:869
 msgid "UTF8"
 msgstr "UTF8"
 
-#: gui/dialogs/configdialog.cpp:220
 msgid "&Version used for new tags:"
 msgstr "使用新標籤版本(&V):"
 
-#: gui/dialogs/configdialog.cpp:223
 msgid "ID3v2.3.0 (id3lib)"
 msgstr "ID3v2.3.0 (id3lib)"
 
-#: gui/dialogs/configdialog.cpp:225
 msgid "ID3v2.4.0 (TagLib)"
 msgstr "ID3v2.4.0 (TagLib)"
 
-#: gui/dialogs/configdialog.cpp:227
 msgid "ID3v2.3.0 (TagLib)"
 msgstr "ID3v2.3.0 (TagLib)"
 
-#: gui/dialogs/configdialog.cpp:239
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: gui/dialogs/configdialog.cpp:240
 msgid "Co&mment field name:"
 msgstr "內容註釋欄位名稱(&m):"
 
-#: gui/dialogs/configdialog.cpp:242
 msgid "&Picture field name:"
 msgstr "圖片欄位名稱(&P):"
 
-#: gui/dialogs/configdialog.cpp:263
 msgid "Custom &Genres"
 msgstr "自訂曲風(&G)"
 
-#: gui/dialogs/configdialog.cpp:264
 msgid "&Show only custom genres"
 msgstr "僅顯示自訂曲風(&S)"
 
-#: gui/dialogs/configdialog.cpp:273
 msgid "&Quick Access Tags"
 msgstr "快速访问标签(&Q)"
 
-#: gui/dialogs/configdialog.cpp:290
 msgid "&Tag Format"
 msgstr "標籤格式(&T)"
 
-#: gui/dialogs/configdialog.cpp:295 gui/forms/kid3form.cpp:273
-#: gui/forms/kid3form.cpp:593
 msgid "Tag &1"
 msgstr "標籤 &1"
 
-#: gui/dialogs/configdialog.cpp:296 gui/forms/kid3form.cpp:316
-#: gui/forms/kid3form.cpp:608
 msgid "Tag &2"
 msgstr "標籤 &2"
 
-#: gui/dialogs/configdialog.cpp:297
 msgid "Tag 1 a&nd Tag 2"
 msgstr "標籤 1 與 標籤 2(&N)"
 
-#: gui/dialogs/configdialog.cpp:302
 msgid "Tags"
 msgstr "標籤"
 
-#: gui/dialogs/configdialog.cpp:304
 msgid "&Tags"
 msgstr "標籤(&T)"
 
-#: gui/dialogs/configdialog.cpp:311
 msgid "Startup"
 msgstr "啟動"
 
-#: gui/dialogs/configdialog.cpp:312
 msgid "&Load last-opened files"
 msgstr ""
 
-#: gui/dialogs/configdialog.cpp:318
 msgid "Save"
 msgstr "儲存"
 
-#: gui/dialogs/configdialog.cpp:319
 msgid "&Preserve file timestamp"
 msgstr "保留檔案的原來時間(&P)"
 
-#: gui/dialogs/configdialog.cpp:320
 msgid "&Mark changes"
 msgstr "標記變更(&M)"
 
-#: gui/dialogs/configdialog.cpp:321
 msgid "F&ilename for cover:"
 msgstr "專輯封面的文件名(&I):"
 
-#: gui/dialogs/configdialog.cpp:334
 msgid "&Filename Format"
 msgstr "檔案名稱格式(&F)"
 
-#: gui/dialogs/configdialog.cpp:338
 msgid "Files"
 msgstr "檔案"
 
-#: gui/dialogs/configdialog.cpp:340
 msgid "&Files"
 msgstr "檔案(&F)"
 
-#: gui/dialogs/configdialog.cpp:347
 msgid "Browser"
 msgstr "瀏覽"
 
-#: gui/dialogs/configdialog.cpp:348
 msgid "Web &browser:"
 msgstr "網頁瀏覽器(&B):"
 
-#: gui/dialogs/configdialog.cpp:357
 msgid "Context &Menu Commands"
 msgstr "內文選單指令(&M)"
 
-#: gui/dialogs/configdialog.cpp:359
 #, fuzzy
 msgid "&Play on double click"
 msgstr "雙擊上播放(&P)"
 
-#: gui/dialogs/configdialog.cpp:370
 msgid "User Actions"
 msgstr "自訂動作"
 
-#: gui/dialogs/configdialog.cpp:372
 msgid "&User Actions"
 msgstr "自訂動作(&U)"
 
-#: gui/dialogs/configdialog.cpp:379
 msgid "Proxy"
 msgstr "代理伺服器"
 
-#: gui/dialogs/configdialog.cpp:380
 msgid "&Proxy:"
 msgstr "代理伺服器(&P):"
 
-#: gui/dialogs/configdialog.cpp:382
 msgid "&Use authentication with proxy"
 msgstr "代理伺服器要認證(&U)"
 
-#: gui/dialogs/configdialog.cpp:383
 msgid "Proxy user &name:"
 msgstr "代理伺服器帳號(&n):"
 
-#: gui/dialogs/configdialog.cpp:386
 msgid "Proxy pass&word:"
 msgstr "代理伺服器密碼(&w):"
 
-#: gui/dialogs/configdialog.cpp:408
 msgid "Network"
 msgstr "網路"
 
-#: gui/dialogs/configdialog.cpp:410
 msgid "&Network"
 msgstr "網路(&N)"
 
-#: gui/dialogs/configdialog.cpp:426
 msgid "&Keyboard Shortcuts"
 msgstr "捷徑鍵(&K)"
 
-#: gui/dialogs/configdialog.cpp:434
 msgid "Use custom app&lication font"
 msgstr "使用自訂應用程式字型(&L)"
 
-#: gui/dialogs/configdialog.cpp:435
 msgid "A&pplication Font..."
 msgstr "應用程式字型(&P)..."
 
-#: gui/dialogs/configdialog.cpp:436
 msgid "Use custom application &style"
 msgstr "使用自訂應用程式樣式(&S)"
 
-#: gui/dialogs/configdialog.cpp:451
 msgid "Use native system file &dialogs"
 msgstr "使用原始系統檔案對話框(&D)"
 
-#: gui/dialogs/configdialog.cpp:455
 msgid "&Appearance"
 msgstr "外觀設定(&A)"
 
-#: gui/dialogs/configdialog.cpp:465 gui/dialogs/editframedialog.cpp:55
-#: gui/dialogs/editframefieldsdialog.cpp:965 gui/dialogs/importdialog.cpp:241
-#: gui/dialogs/musicbrainzdialog.cpp:122
-#: gui/dialogs/numbertracksdialog.cpp:114 gui/dialogs/playlistdialog.cpp:206
 msgid "&OK"
 msgstr "確定(&O)"
 
-#: gui/dialogs/configdialog.cpp:662
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
 msgstr "快速鍵'%1'已經指定為'%2'."
 
-#: gui/dialogs/contexthelp.cpp:59 gui/forms/kid3mainwindow.cpp:771
 msgid "Kid3 Handbook"
 msgstr "Kid3 手冊"
 
-#: gui/dialogs/editframefieldsdialog.cpp:526
-#: gui/dialogs/textimportdialog.cpp:88
 msgid "From Clip&board"
 msgstr "從剪貼簿(&b)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:527
 msgid "&Import"
 msgstr "匯入(&I)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:528
 msgid "&Export"
 msgstr "匯出(&E)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:529
 msgid "&View"
 msgstr "檢視(&V)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:658
 msgid "Text Encoding"
 msgstr "字元編碼"
 
-#: gui/dialogs/editframefieldsdialog.cpp:659
 msgid "Text"
 msgstr "文字"
 
-#: gui/dialogs/editframefieldsdialog.cpp:660
 msgid "URL"
 msgstr "網址"
 
-#: gui/dialogs/editframefieldsdialog.cpp:662
 msgid "Description"
 msgstr "描述"
 
-#: gui/dialogs/editframefieldsdialog.cpp:663
 msgid "Owner"
 msgstr "擁有者"
 
-#: gui/dialogs/editframefieldsdialog.cpp:664
 msgid "Email"
 msgstr "電子信箱"
 
-#: gui/dialogs/editframefieldsdialog.cpp:665
 msgid "Rating"
 msgstr "評比"
 
-#: gui/dialogs/editframefieldsdialog.cpp:668
 msgid "Picture Type"
 msgstr "圖片格式"
 
-#: gui/dialogs/editframefieldsdialog.cpp:669
 msgid "Image format"
 msgstr "圖片格式"
 
-#: gui/dialogs/editframefieldsdialog.cpp:670
 msgid "Mimetype"
 msgstr "Mimetype"
 
-#: gui/dialogs/editframefieldsdialog.cpp:671
 msgid "Counter"
 msgstr "計數器"
 
-#: gui/dialogs/editframefieldsdialog.cpp:672
 msgid "Identifier"
 msgstr "識別子"
 
-#: gui/dialogs/editframefieldsdialog.cpp:673
 msgid "Volume Adjustment"
 msgstr "音量調整"
 
-#: gui/dialogs/editframefieldsdialog.cpp:674
 msgid "Number of Bits"
 msgstr "位元數"
 
-#: gui/dialogs/editframefieldsdialog.cpp:675
 msgid "Volume Change Right"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:676
 msgid "Volume Change Left"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:677
 msgid "Peak Volume Right"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:678
 msgid "Peak Volume Left"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:679
 msgid "Timestamp Format"
 msgstr "時間格式"
 
-#: gui/dialogs/editframefieldsdialog.cpp:680
 msgid "Content Type"
 msgstr "內容類型"
 
-#: gui/dialogs/editframefieldsdialog.cpp:682
 msgid "Price"
 msgstr "價格"
 
-#: gui/dialogs/editframefieldsdialog.cpp:684
 msgid "Seller"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:812
-#: gui/dialogs/editframefieldsdialog.cpp:814
 msgid "Images (*.jpg *.jpeg *.png)"
 msgstr "影像（*.jpg *.jpeg *.png）"
 
-#: gui/dialogs/editframefieldsdialog.cpp:868
 msgid "UTF16BE"
 msgstr "UTF16BE"
 
-#: gui/dialogs/editframefieldsdialog.cpp:877
-#: gui/dialogs/editframefieldsdialog.cpp:905
-#: gui/dialogs/editframefieldsdialog.cpp:915
 msgid "Other"
 msgstr "其他"
 
-#: gui/dialogs/editframefieldsdialog.cpp:878
 msgid "32x32 pixels PNG file icon"
 msgstr "32x32 像素 PNG 檔圖示"
 
-#: gui/dialogs/editframefieldsdialog.cpp:879
 msgid "Other file icon"
 msgstr "其他檔案圖示"
 
-#: gui/dialogs/editframefieldsdialog.cpp:880
 msgid "Cover (front)"
 msgstr "封面(前)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:881
 msgid "Cover (back)"
 msgstr "封面(後)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:882
 msgid "Leaflet page"
 msgstr "小冊子"
 
-#: gui/dialogs/editframefieldsdialog.cpp:884
 msgid "Lead artist/lead performer/soloist"
 msgstr "首席演出者"
 
-#: gui/dialogs/editframefieldsdialog.cpp:885
 msgid "Artist/performer"
 msgstr "演出者"
 
-#: gui/dialogs/editframefieldsdialog.cpp:887
 msgid "Band/Orchestra"
 msgstr "樂團"
 
-#: gui/dialogs/editframefieldsdialog.cpp:889
 msgid "Lyricist/text writer"
 msgstr "作詞者"
 
-#: gui/dialogs/editframefieldsdialog.cpp:890
 msgid "Recording Location"
 msgstr "錄製地點"
 
-#: gui/dialogs/editframefieldsdialog.cpp:891
 msgid "During recording"
 msgstr "錄音期間"
 
-#: gui/dialogs/editframefieldsdialog.cpp:892
 msgid "During performance"
 msgstr "表演期間"
 
-#: gui/dialogs/editframefieldsdialog.cpp:893
 msgid "Movie/video screen capture"
 msgstr "電影/影像螢幕擷取"
 
-#: gui/dialogs/editframefieldsdialog.cpp:894
 msgid "A bright coloured fish"
 msgstr "明亮高彩魚"
 
-#: gui/dialogs/editframefieldsdialog.cpp:895
 msgid "Illustration"
 msgstr "插圖"
 
-#: gui/dialogs/editframefieldsdialog.cpp:896
 msgid "Band/artist logotype"
 msgstr "樂團╱演唱者標誌"
 
-#: gui/dialogs/editframefieldsdialog.cpp:897
 msgid "Publisher/Studio logotype"
 msgstr "出版商╱錄音室標誌"
 
-#: gui/dialogs/editframefieldsdialog.cpp:906
 msgid "MPEG frames as unit"
 msgstr "以 MPEG 訊框為單位"
 
-#: gui/dialogs/editframefieldsdialog.cpp:907
 msgid "Milliseconds as unit"
 msgstr "以毫秒為單位"
 
-#: gui/dialogs/editframefieldsdialog.cpp:917
 msgid "Text transcription"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:918
 msgid "Movement/part name"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:919
 msgid "Events"
 msgstr "事件"
 
-#: gui/dialogs/editframefieldsdialog.cpp:920
 msgid "Chord"
 msgstr ""
 
-#: gui/dialogs/editframefieldsdialog.cpp:921
 msgid "Trivia/pop up"
 msgstr ""
 
-#: gui/dialogs/exportdialog.cpp:72
 msgid "Export"
 msgstr "匯出"
 
-#: gui/dialogs/exportdialog.cpp:87 gui/dialogs/tagimportdialog.cpp:55
-#: gui/dialogs/textimportdialog.cpp:65 gui/forms/kid3form.cpp:217
-#: gui/forms/kid3form.cpp:241
 msgid "Format:"
 msgstr "格式:"
 
-#: gui/dialogs/exportdialog.cpp:88 gui/dialogs/textimportdialog.cpp:66
 msgid "Header:"
 msgstr "標頭:"
 
-#: gui/dialogs/exportdialog.cpp:89 gui/dialogs/textimportdialog.cpp:67
 msgid "Tracks:"
 msgstr "曲目:"
 
-#: gui/dialogs/exportdialog.cpp:90
 msgid "Footer:"
 msgstr "頁尾:"
 
-#: gui/dialogs/exportdialog.cpp:101
 msgid "To F&ile"
 msgstr "至檔案(&i)"
 
-#: gui/dialogs/exportdialog.cpp:106
 msgid "To Clip&board"
 msgstr "至剪貼簿(&b)"
 
-#: gui/dialogs/exportdialog.cpp:115
 msgid "&Source:"
 msgstr "來源(&S):"
 
-#: gui/dialogs/exportdialog.cpp:176 gui/forms/kid3mainwindow.cpp:982
-#: gui/forms/kid3mainwindow.cpp:985 gui/forms/kid3mainwindow.cpp:1534
-#: gui/forms/kid3mainwindow.cpp:1537 gui/forms/kid3mainwindow.cpp:2005
-#: gui/forms/kid3mainwindow.cpp:2086 gui/forms/kid3mainwindow.cpp:2089
 msgid "File Error"
 msgstr "檔案錯誤"
 
-#: gui/dialogs/exportdialog.cpp:177 gui/forms/kid3mainwindow.cpp:980
-#: gui/forms/kid3mainwindow.cpp:985
 msgid "Error while writing file:\n"
 msgstr "寫入檔案錯誤:\n"
 
-#: gui/dialogs/filterdialog.cpp:49 gui/forms/kid3mainwindow.cpp:666
 msgid "Filter"
 msgstr "篩選"
 
-#: gui/dialogs/filterdialog.cpp:60
 msgid "&Filter:"
 msgstr "篩選(&F):"
 
-#: gui/dialogs/filterdialog.cpp:61
 msgid "&Expression:"
 msgstr "算式(&E):"
 
-#: gui/dialogs/filterdialog.cpp:206 gui/dialogs/musicbrainzdialog.cpp:123
-#: gui/dialogs/tagimportdialog.cpp:74
 msgid "&Apply"
 msgstr "套用(&A)"
 
-#: gui/dialogs/importdialog.cpp:141
 msgid "Accuracy:"
 msgstr "正確率:"
 
-#: gui/dialogs/importdialog.cpp:147
 msgid "Cover Art:"
 msgstr "封面:"
 
-#: gui/dialogs/importdialog.cpp:155
 msgid "From F&ile/Clipboard..."
 msgstr "自剪貼簿匯入(&i)..."
 
-#: gui/dialogs/importdialog.cpp:158
 msgid "From T&ags..."
 msgstr "從標籤(&a)..."
 
-#: gui/dialogs/importdialog.cpp:161
 msgid "&From Server:"
 msgstr "從伺服器(&F):"
 
-#: gui/dialogs/importdialog.cpp:170 gui/dialogs/musicbrainzdialog.cpp:65
-#: gui/forms/kid3mainwindow.cpp:268 gui/forms/kid3mainwindow.cpp:500
 msgid "MusicBrainz Fingerprint"
 msgstr "MusicBrainz Fingerprint"
 
-#: gui/dialogs/importdialog.cpp:194
 msgid "Revert"
 msgstr "還原"
 
-#: gui/dialogs/importdialog.cpp:202
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "請勾選最大可允許的時間差異(單位為秒)(&D)："
 
-#: gui/dialogs/importdialog.cpp:210
 msgid "Match with:"
 msgstr "符合："
 
-#: gui/dialogs/importdialog.cpp:212
 msgid "&Length"
 msgstr "長度(&L)"
 
-#: gui/dialogs/importdialog.cpp:215
 msgid "T&rack"
 msgstr "音軌(&R)"
 
-#: gui/dialogs/importdialog.cpp:218
 msgid "&Title"
 msgstr "歌(曲)名(&T)"
 
-#: gui/dialogs/musicbrainzdialog.cpp:112
 msgid "Track Title/Artist - Album"
 msgstr "音軌標題/演出者 - 專輯標題"
 
-#: gui/dialogs/musicbrainzdialog.cpp:113
 msgid "State"
 msgstr "狀態"
 
-#: gui/dialogs/musicbrainzdialog.cpp:188 gui/dialogs/musicbrainzdialog.cpp:329
 msgid "No result"
 msgstr "沒有結果"
 
-#: gui/dialogs/musicbrainzdialog.cpp:329
 msgid "No result selected"
 msgstr "沒有選擇結果"
 
-#: gui/dialogs/numbertracksdialog.cpp:56 gui/forms/kid3mainwindow.cpp:657
 msgid "Number Tracks"
 msgstr "音軌編號"
 
-#: gui/dialogs/numbertracksdialog.cpp:60
 msgid "&Start number:"
 msgstr "起始編號(&S):"
 
-#: gui/dialogs/numbertracksdialog.cpp:72
 msgid "&Destination:"
 msgstr "到(&D):"
 
-#: gui/dialogs/numbertracksdialog.cpp:87
 msgid "&Total number of tracks:"
 msgstr "音軌編號(&T):"
 
-#: gui/dialogs/playlistdialog.cpp:58
 msgid "Create Playlist"
 msgstr "建立播放清單"
 
-#: gui/dialogs/playlistdialog.cpp:138
 msgid "Playlist File Name"
 msgstr "播放清單檔案名稱"
 
-#: gui/dialogs/playlistdialog.cpp:139
 msgid "Same as &directory name"
 msgstr "與目錄同名(&D)"
 
-#: gui/dialogs/playlistdialog.cpp:141 gui/dialogs/rendirdialog.cpp:115
 msgid "&Format:"
 msgstr "格式(&F)："
 
-#: gui/dialogs/playlistdialog.cpp:150
 msgid "Cr&eate in:"
 msgstr "建立在(&E)："
 
-#: gui/dialogs/playlistdialog.cpp:154
 msgid "Current directory"
 msgstr "目前目錄"
 
-#: gui/dialogs/playlistdialog.cpp:155
 msgid "Every directory"
 msgstr "每個目錄"
 
-#: gui/dialogs/playlistdialog.cpp:156
 msgid "Top-level directory"
 msgstr "頂層目錄"
 
-#: gui/dialogs/playlistdialog.cpp:157
 msgid "Playlist Content"
 msgstr "播放清單內容"
 
-#: gui/dialogs/playlistdialog.cpp:158
 msgid "For&mat:"
 msgstr "格式(&M)："
 
-#: gui/dialogs/playlistdialog.cpp:161
 msgid "Incl&ude only the selected files"
 msgstr "僅包含選取的檔案(&U)"
 
-#: gui/dialogs/playlistdialog.cpp:162
 msgid "Sort by file &name"
 msgstr "依據檔名排序(&N)"
 
-#: gui/dialogs/playlistdialog.cpp:164
 msgid "Sort by &tag field"
 msgstr "依據標籤欄位排序(&T)"
 
-#: gui/dialogs/playlistdialog.cpp:178
 msgid "Use &relative path for files in playlist"
 msgstr "播放清單中使用相對路徑(&R)"
 
-#: gui/dialogs/playlistdialog.cpp:180
 msgid "Use full p&ath for files in playlist"
 msgstr "播放清單中使用完全路徑(&A)"
 
-#: gui/dialogs/playlistdialog.cpp:181
 msgid "Write only &list of files"
 msgstr "僅依據檔案清單來寫入(&L)"
 
-#: gui/dialogs/playlistdialog.cpp:183
 msgid "Write &info using"
 msgstr "寫入依據(&I)"
 
-#: gui/dialogs/rendirdialog.cpp:60 gui/dialogs/rendirdialog.cpp:103
-#: gui/forms/kid3mainwindow.cpp:648
 msgid "Rename Directory"
 msgstr "更改目錄名稱"
 
-#: gui/dialogs/rendirdialog.cpp:67
 msgid "Format"
 msgstr "格式"
 
-#: gui/dialogs/rendirdialog.cpp:72
 msgid "Preview"
 msgstr "預覽"
 
-#: gui/dialogs/rendirdialog.cpp:104
 msgid "Create Directory"
 msgstr "建立目錄"
 
-#: gui/dialogs/rendirdialog.cpp:107
 msgid "From Tag 2 and Tag 1"
 msgstr "從 標籤 2 與 標籤 1"
 
-#: gui/dialogs/rendirdialog.cpp:108 gui/forms/kid3form.cpp:334
-#: gui/forms/kid3form.cpp:940 gui/forms/kid3form.cpp:952
-#: gui/forms/kid3mainwindow.cpp:359 gui/forms/kid3mainwindow.cpp:380
 msgid "From Tag 1"
 msgstr "從標籤 1"
 
-#: gui/dialogs/rendirdialog.cpp:109 gui/forms/kid3form.cpp:293
-#: gui/forms/kid3form.cpp:941 gui/forms/kid3form.cpp:945
-#: gui/forms/kid3mainwindow.cpp:344 gui/forms/kid3mainwindow.cpp:383
 msgid "From Tag 2"
 msgstr "從標籤 2"
 
-#: gui/dialogs/rendirdialog.cpp:137 gui/forms/kid3form.cpp:232
 msgid "From:"
 msgstr "從："
 
-#: gui/dialogs/rendirdialog.cpp:139 gui/forms/kid3form.cpp:256
 msgid "To:"
 msgstr "至："
 
-#: gui/dialogs/serverimportdialog.cpp:61
 msgid "&Find"
 msgstr "尋找(&F)"
 
-#: gui/dialogs/serverimportdialog.cpp:81
 msgid "C&GI Path:"
 msgstr "CGI路徑(&G):"
 
-#: gui/dialogs/tagimportdialog.cpp:49
 msgid "Import from Tags"
 msgstr "從標籤"
 
-#: gui/dialogs/tagimportdialog.cpp:57
 msgid "Extraction:"
 msgstr "提取:"
 
-#: gui/dialogs/textimportdialog.cpp:58
 msgid "Import from File/Clipboard"
 msgstr "自剪貼簿匯入"
 
-#: gui/dialogs/textimportdialog.cpp:84
 msgid "From F&ile"
 msgstr "從檔案(&I)"
 
-#: gui/forms/filelist.cpp:136
 msgid "&Expand all"
 msgstr "全部展開(&E)"
 
-#: gui/forms/filelist.cpp:137
 msgid "&Collapse all"
 msgstr "全部折疊(&C)"
 
-#: gui/forms/filelist.cpp:138
 msgid "&Rename"
 msgstr "更名(&R)"
 
-#: gui/forms/filelist.cpp:139
 msgid "&Move to Trash"
 msgstr "移至垃圾桶(&M)"
 
-#: gui/forms/filelist.cpp:141 gui/forms/kid3mainwindow.cpp:318
-#: gui/forms/kid3mainwindow.cpp:699
 msgid "&Play"
 msgstr "播放(&P)"
 
-#: gui/forms/kid3form.cpp:199 gui/forms/kid3form.cpp:872
-#: gui/forms/kid3form.cpp:874
+msgid "Kid3"
+msgstr "Kid3"
+
 msgid "F&ile"
 msgstr "檔案(&I)"
 
-#: gui/forms/kid3form.cpp:210
 msgid "Name:"
 msgstr "檔案名稱:"
 
-#: gui/forms/kid3form.cpp:235
 msgid "Filename from Tag 1"
 msgstr "檔名從標籤 1"
 
-#: gui/forms/kid3form.cpp:238
 msgid "Filename from Tag 2"
 msgstr "檔名從標籤 2"
 
-#: gui/forms/kid3form.cpp:260
 msgid "Tag 1 from Filename"
 msgstr "標籤 1從檔名"
 
-#: gui/forms/kid3form.cpp:264
 msgid "Tag 2 from Filename"
 msgstr "標籤 2從檔名"
 
-#: gui/forms/kid3form.cpp:296 gui/forms/kid3form.cpp:338
-#: gui/forms/kid3form.cpp:946 gui/forms/kid3form.cpp:953
-#: gui/forms/kid3mainwindow.cpp:347 gui/forms/kid3mainwindow.cpp:362
 msgid "Copy"
 msgstr "複製"
 
-#: gui/forms/kid3form.cpp:300 gui/forms/kid3form.cpp:342
-#: gui/forms/kid3form.cpp:947 gui/forms/kid3form.cpp:954
-#: gui/forms/kid3mainwindow.cpp:350 gui/forms/kid3mainwindow.cpp:365
 msgid "Paste"
 msgstr "貼上"
 
-#: gui/forms/kid3form.cpp:355 gui/forms/kid3form.cpp:956
-#: gui/forms/kid3mainwindow.cpp:371
 msgid "Edit"
 msgstr "編輯"
 
-#: gui/forms/kid3form.cpp:361 gui/forms/kid3form.cpp:958
-#: gui/forms/kid3mainwindow.cpp:377
 msgid "Delete"
 msgstr "刪除"
 
-#: gui/forms/kid3form.cpp:942 gui/forms/kid3form.cpp:949
-#: gui/forms/kid3form.cpp:959 gui/forms/kid3form.cpp:961
-#: gui/forms/kid3form.cpp:963 gui/forms/kid3mainwindow.cpp:386
-#: gui/forms/kid3mainwindow.cpp:389 gui/forms/kid3mainwindow.cpp:392
-#: gui/forms/kid3mainwindow.cpp:395 gui/forms/kid3mainwindow.cpp:398
 msgid "Focus"
 msgstr "焦點"
 
-#: gui/forms/kid3form.cpp:944 gui/forms/kid3form.cpp:951
-#: gui/forms/kid3mainwindow.cpp:341 gui/forms/kid3mainwindow.cpp:356
 msgid "From Filename"
 msgstr "從檔名"
 
-#: gui/forms/kid3form.cpp:960 gui/forms/kid3mainwindow.cpp:395
 msgid "File List"
 msgstr "檔案清單"
 
-#: gui/forms/kid3form.cpp:962 gui/forms/kid3mainwindow.cpp:398
 msgid "Directory List"
 msgstr "目錄清單"
 
-#: gui/forms/kid3mainwindow.cpp:118
 msgid "Download"
 msgstr "下載"
 
-#: gui/forms/kid3mainwindow.cpp:197
 msgid "Main Toolbar"
 msgstr "主工具列"
 
-#: gui/forms/kid3mainwindow.cpp:230 gui/forms/kid3mainwindow.cpp:412
-#: gui/forms/kid3mainwindow.cpp:432
 msgid "Opens a directory"
 msgstr "開啟目錄"
 
-#: gui/forms/kid3mainwindow.cpp:231 gui/forms/kid3mainwindow.cpp:426
 msgid "Opens a recently used directory"
 msgstr "開啟目前所在的目錄"
 
-#: gui/forms/kid3mainwindow.cpp:233 gui/forms/kid3mainwindow.cpp:457
 msgid "Reverts the changes of all or the selected files"
 msgstr "還原全部有更動的檔案或只有選取部份"
 
-#: gui/forms/kid3mainwindow.cpp:234 gui/forms/kid3mainwindow.cpp:444
 msgid "Saves the changed files"
 msgstr "儲存更動的檔案"
 
-#: gui/forms/kid3mainwindow.cpp:235 gui/forms/kid3mainwindow.cpp:552
 msgid "Quits the application"
 msgstr "離開應用程式"
 
-#: gui/forms/kid3mainwindow.cpp:236 gui/forms/kid3mainwindow.cpp:565
 msgid "Select all files"
 msgstr "選擇全部檔案"
 
-#: gui/forms/kid3mainwindow.cpp:238 gui/forms/kid3mainwindow.cpp:576
 msgid "Deselect all files"
 msgstr "全部不選"
 
-#: gui/forms/kid3mainwindow.cpp:239
 msgid "Configure Shortcuts"
 msgstr "設定捷徑"
 
-#: gui/forms/kid3mainwindow.cpp:240
 msgid "Configure Toolbars"
 msgstr "設定工具列"
 
-#: gui/forms/kid3mainwindow.cpp:241
 msgid "Preferences dialog"
 msgstr "喜好設定對話框"
 
-#: gui/forms/kid3mainwindow.cpp:243 gui/forms/kid3mainwindow.cpp:433
 msgid "O&pen Directory..."
 msgstr "開啟目錄(&P)..."
 
-#: gui/forms/kid3mainwindow.cpp:247 gui/forms/kid3mainwindow.cpp:471
 msgid "&Import..."
 msgstr "匯入(&I)..."
 
-#: gui/forms/kid3mainwindow.cpp:261 gui/forms/kid3mainwindow.cpp:270
-#: gui/forms/kid3mainwindow.cpp:490 gui/forms/kid3mainwindow.cpp:503
 msgid "Import from %1..."
 msgstr "從 %1 匯入..."
 
-#: gui/forms/kid3mainwindow.cpp:276 gui/forms/kid3mainwindow.cpp:513
 msgid "Automatic I&mport..."
 msgstr "自動匯入(&M)..."
 
-#: gui/forms/kid3mainwindow.cpp:280 gui/forms/kid3mainwindow.cpp:522
 msgid "&Browse Cover Art..."
 msgstr "瀏覽專輯封面(&B)..."
 
-#: gui/forms/kid3mainwindow.cpp:283 gui/forms/kid3mainwindow.cpp:531
 msgid "&Export..."
 msgstr "匯出(&E)..."
 
-#: gui/forms/kid3mainwindow.cpp:286 gui/forms/kid3mainwindow.cpp:541
 msgid "&Create Playlist..."
 msgstr "新增播放清單(&C)..."
 
-#: gui/forms/kid3mainwindow.cpp:289 gui/forms/kid3mainwindow.cpp:622
 msgid "Apply &Filename Format"
 msgstr "依據檔名格式(&F)"
 
-#: gui/forms/kid3mainwindow.cpp:292 gui/forms/kid3mainwindow.cpp:631
 msgid "Apply &Tag Format"
 msgstr "套用標籤格式(&T)"
 
-#: gui/forms/kid3mainwindow.cpp:295 gui/forms/kid3mainwindow.cpp:640
 msgid "Apply Text &Encoding"
 msgstr "将字符编码(&E)"
 
-#: gui/forms/kid3mainwindow.cpp:298 gui/forms/kid3mainwindow.cpp:649
 msgid "&Rename Directory..."
 msgstr "更改目錄名稱(&R)..."
 
-#: gui/forms/kid3mainwindow.cpp:301 gui/forms/kid3mainwindow.cpp:658
 msgid "&Number Tracks..."
 msgstr "音軌編號(&N)..."
 
-#: gui/forms/kid3mainwindow.cpp:304 gui/forms/kid3mainwindow.cpp:667
 msgid "F&ilter..."
 msgstr "過濾(&I)..."
 
-#: gui/forms/kid3mainwindow.cpp:308 gui/forms/kid3mainwindow.cpp:677
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "從 ID3v2.3 轉換至 ID3v2.&4"
 
-#: gui/forms/kid3mainwindow.cpp:313 gui/forms/kid3mainwindow.cpp:688
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "從 ID3v2.4 轉換至 ID3v2.&3"
 
-#: gui/forms/kid3mainwindow.cpp:322 gui/forms/kid3mainwindow.cpp:735
 msgid "Show &Picture"
 msgstr "顯示圖片(&P)"
 
-#: gui/forms/kid3mainwindow.cpp:326 gui/forms/kid3mainwindow.cpp:745
 msgid "Auto &Hide Tags"
 msgstr "自動隱藏標籤(&H)"
 
-#: gui/forms/kid3mainwindow.cpp:330 gui/forms/kid3mainwindow.cpp:587
 msgid "Select All in &Directory"
 msgstr "选中当前目录中所有的文件(&D)"
 
-#: gui/forms/kid3mainwindow.cpp:333 gui/forms/kid3mainwindow.cpp:596
 msgid "&Previous File"
 msgstr "上一個檔案(&P)"
 
-#: gui/forms/kid3mainwindow.cpp:337 gui/forms/kid3mainwindow.cpp:608
 msgid "&Next File"
 msgstr "下一個檔案(&N)"
 
-#: gui/forms/kid3mainwindow.cpp:371 gui/forms/kid3mainwindow.cpp:374
-#: gui/forms/kid3mainwindow.cpp:377
 msgid "Frames:"
 msgstr "訊框："
 
-#: gui/forms/kid3mainwindow.cpp:407
 msgid "&File"
 msgstr "檔案(&F)"
 
-#: gui/forms/kid3mainwindow.cpp:413
 msgid "&Open..."
 msgstr "開啟(&O)..."
 
-#: gui/forms/kid3mainwindow.cpp:427
 msgid "Open &Recent"
 msgstr "開啟最近的檔案(&R)"
 
-#: gui/forms/kid3mainwindow.cpp:445
 msgid "&Save"
 msgstr "儲存(&S)"
 
-#: gui/forms/kid3mainwindow.cpp:458
 msgid "Re&vert"
 msgstr "還原(&V)"
 
-#: gui/forms/kid3mainwindow.cpp:470
 msgid "Import from file or clipboard"
 msgstr "自剪貼簿匯入"
 
-#: gui/forms/kid3mainwindow.cpp:489 gui/forms/kid3mainwindow.cpp:502
 msgid "Import from %1"
 msgstr "自 %1 匯入"
 
-#: gui/forms/kid3mainwindow.cpp:512
 msgid "Automatic import"
 msgstr "自動匯入"
 
-#: gui/forms/kid3mainwindow.cpp:521
 msgid "Browse album cover artwork"
 msgstr "瀏覽專輯封面"
 
-#: gui/forms/kid3mainwindow.cpp:530
 msgid "Export to file or clipboard"
 msgstr "匯出至檔案或剪貼簿"
 
-#: gui/forms/kid3mainwindow.cpp:540
 msgid "Create M3U Playlist"
 msgstr "建立 M3U 播放清單"
 
-#: gui/forms/kid3mainwindow.cpp:553
 msgid "&Quit"
 msgstr "離開(&Q)"
 
-#: gui/forms/kid3mainwindow.cpp:562
 msgid "&Edit"
 msgstr "編輯(&E)"
 
-#: gui/forms/kid3mainwindow.cpp:566
 msgid "Select &All"
 msgstr "全選(&A)"
 
-#: gui/forms/kid3mainwindow.cpp:577
 msgid "Dese&lect"
 msgstr "取消選擇(&l)"
 
-#: gui/forms/kid3mainwindow.cpp:586
 msgid "Select all files in the current directory"
 msgstr "选中当前目录中所有的文件"
 
-#: gui/forms/kid3mainwindow.cpp:595
 msgid "Select previous file"
 msgstr "選擇上一個檔案"
 
-#: gui/forms/kid3mainwindow.cpp:607
 msgid "Select next file"
 msgstr "選擇下一個檔案"
 
-#: gui/forms/kid3mainwindow.cpp:618
 msgid "&Tools"
 msgstr "工具(&T)"
 
-#: gui/forms/kid3mainwindow.cpp:621
 msgid "Apply Filename Format"
 msgstr "套用檔名格式"
 
-#: gui/forms/kid3mainwindow.cpp:630
 msgid "Apply Tag Format"
 msgstr "套用 Tag 格式"
 
-#: gui/forms/kid3mainwindow.cpp:639
 msgid "Apply Text Encoding"
 msgstr "将字符编码"
 
-#: gui/forms/kid3mainwindow.cpp:676
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "從 ID3v2.3 轉換成 ID3v2.4"
 
-#: gui/forms/kid3mainwindow.cpp:687
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "從 ID3v2.4 轉換成 ID3v2.3"
 
-#: gui/forms/kid3mainwindow.cpp:698 gui/widgets/playtoolbar.cpp:62
 msgid "Play"
 msgstr "播放"
 
-#: gui/forms/kid3mainwindow.cpp:709
 msgid "&Settings"
 msgstr "設定(&S)"
 
-#: gui/forms/kid3mainwindow.cpp:713
 msgid "Enables/disables the toolbar"
 msgstr "開啟/關閉 工具列"
 
-#: gui/forms/kid3mainwindow.cpp:714
 msgid "Show &Toolbar"
 msgstr "顯示工具列(&T)"
 
-#: gui/forms/kid3mainwindow.cpp:724
 msgid "Enables/disables the statusbar"
 msgstr "開啟/關閉 狀態列"
 
-#: gui/forms/kid3mainwindow.cpp:725
 msgid "Show St&atusbar"
 msgstr "顯示狀態列(&A)"
 
-#: gui/forms/kid3mainwindow.cpp:734
 msgid "Show Picture"
 msgstr "顯示圖片"
 
-#: gui/forms/kid3mainwindow.cpp:744
 msgid "Auto Hide Tags"
 msgstr "自動隱藏標籤"
 
-#: gui/forms/kid3mainwindow.cpp:754
 msgid "Configure Kid3"
 msgstr "設定 Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:755
 msgid "&Configure Kid3..."
 msgstr "設定 Kid3(&C)..."
 
-#: gui/forms/kid3mainwindow.cpp:772
 msgid "Kid3 &Handbook"
 msgstr "Kid3 手冊(&H)"
 
-#: gui/forms/kid3mainwindow.cpp:782
 msgid "About Kid3"
 msgstr "關於 Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:783
 msgid "&About Kid3"
 msgstr "關於 Kid3(&A)"
 
-#: gui/forms/kid3mainwindow.cpp:791
 msgid "About Qt"
 msgstr "關於 Qt"
 
-#: gui/forms/kid3mainwindow.cpp:792
 msgid "About &Qt"
 msgstr "關於 Qt(&Q)"
 
-#: gui/forms/kid3mainwindow.cpp:834
 msgid "Opening directory..."
 msgstr "開啟目錄..."
 
-#: gui/forms/kid3mainwindow.cpp:956
 msgid "Saving directory..."
 msgstr "儲存目錄..."
 
-#: gui/forms/kid3mainwindow.cpp:1018 gui/forms/kid3mainwindow.cpp:1028
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -2246,191 +1621,141 @@ msgstr ""
 "目前目錄已更動\n"
 "要儲存嗎？"
 
-#: gui/forms/kid3mainwindow.cpp:1020
 msgid "Warning"
 msgstr "警告"
 
-#: gui/forms/kid3mainwindow.cpp:1027
 msgid "Warning - Kid3"
 msgstr "警告 - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1108
 msgid "Open"
 msgstr "開啟"
 
-#: gui/forms/kid3mainwindow.cpp:1184
 msgid "Exiting..."
 msgstr "離開..."
 
-#: gui/forms/kid3mainwindow.cpp:1228
 msgid "Toggle the statusbar..."
 msgstr "切換狀態列..."
 
-#: gui/forms/kid3mainwindow.cpp:1310
 msgid "Creating playlist..."
 msgstr "新增播放清單..."
 
-#: gui/forms/kid3mainwindow.cpp:1336
 msgid "Import"
 msgstr "匯入"
 
-#: gui/forms/kid3mainwindow.cpp:1478
 msgid "Configure - Kid3"
 msgstr "設定 - Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1533 gui/forms/kid3mainwindow.cpp:1538
-#: gui/forms/kid3mainwindow.cpp:2006
 msgid "Error while renaming:\n"
 msgstr "更改檔名發生錯誤:\n"
 
-#: gui/forms/kid3mainwindow.cpp:1646
 msgid " [filtered]"
 msgstr "[已篩選]"
 
-#: gui/forms/kid3mainwindow.cpp:1652
 msgid " [modified]"
 msgstr "[已更改]"
 
-#: gui/forms/kid3mainwindow.cpp:1895
 msgid "Add Frame"
 msgstr "新增訊框"
 
-#: gui/forms/kid3mainwindow.cpp:1896
 msgid "Select the frame ID"
 msgstr "選擇訊框代碼"
 
-#: gui/forms/kid3mainwindow.cpp:1984
 msgid "Rename File"
 msgstr "更改檔名"
 
-#: gui/forms/kid3mainwindow.cpp:1985
 msgid "Enter new file name:"
 msgstr "輸入新檔名:"
 
-#: gui/forms/kid3mainwindow.cpp:2015 gui/forms/kid3mainwindow.cpp:2053
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "您真的要將這 %1 個項目移到資源回收筒嗎？"
 
-#: gui/forms/kid3mainwindow.cpp:2041 gui/forms/kid3mainwindow.cpp:2055
-#, fuzzy
 msgid "Do you really want to move this item to the trash?"
-msgid_plural "Do you really want to move these %1 items to the trash?"
-msgstr[0] "您真的要將這 1 個項目移到資源回收筒嗎？"
-msgstr[1] "您真的要將這 %1 個項目移到資源回收筒嗎？"
+msgstr "您真的要將這 1 個項目移到資源回收筒嗎？"
 
-#: gui/forms/kid3mainwindow.cpp:2045 gui/forms/kid3mainwindow.cpp:2051
 msgid "Move to Trash"
 msgstr "移至垃圾桶"
 
-#: gui/forms/kid3mainwindow.cpp:2083
 msgid "Directory must be empty.\n"
 msgstr "目錄裡面必須是空的.\n"
 
-#: gui/forms/kid3mainwindow.cpp:2084
 msgid "Could not move these files to the Trash"
 msgstr "無法將這些檔案丟到垃圾桶"
 
-#: gui/forms/kid3mainwindow.cpp:2127
 msgid "Expand All"
 msgstr "全部展開"
 
-#: gui/widgets/abstractlistedit.cpp:51
 msgid "&Add..."
 msgstr "新增(&A)..."
 
-#: gui/widgets/abstractlistedit.cpp:52
 msgid "Move &Up"
 msgstr "上移(&U)"
 
-#: gui/widgets/abstractlistedit.cpp:53
 msgid "Move &Down"
 msgstr "下移(&D)"
 
-#: gui/widgets/abstractlistedit.cpp:54
 msgid "&Edit..."
 msgstr "編輯(&E)..."
 
-#: gui/widgets/abstractlistedit.cpp:55 gui/widgets/formatlistedit.cpp:82
 msgid "&Remove"
 msgstr "移除(&R)"
 
-#: gui/widgets/configtable.cpp:140
 msgid "&Insert row"
 msgstr "插入列(&I)"
 
-#: gui/widgets/configtable.cpp:144
 msgid "&Delete row"
 msgstr "刪除列(&D)"
 
-#: gui/widgets/configtable.cpp:148
 msgid "&Clear row"
 msgstr "清除列(&C)"
 
-#: gui/widgets/formatbox.cpp:48
 msgid "Format while editing"
 msgstr "檔名格式的編輯"
 
-#: gui/widgets/formatbox.cpp:52
 msgid "Case conversion:"
 msgstr "大小寫的轉換:"
 
-#: gui/widgets/formatbox.cpp:58
 msgid "No changes"
 msgstr "不轉換"
 
-#: gui/widgets/formatbox.cpp:60
 msgid "All lowercase"
 msgstr "全部小寫"
 
-#: gui/widgets/formatbox.cpp:62
 msgid "All uppercase"
 msgstr "全部大寫"
 
-#: gui/widgets/formatbox.cpp:64
 msgid "First letter uppercase"
 msgstr "第一個字母大寫"
 
-#: gui/widgets/formatbox.cpp:66
 msgid "All first letters uppercase"
 msgstr "所有字的第一個字母大寫"
 
-#: gui/widgets/formatbox.cpp:70
 msgid "Locale:"
 msgstr "地區設定:"
 
-#: gui/widgets/formatbox.cpp:73
 msgid "None"
 msgstr "無"
 
-#: gui/widgets/formatbox.cpp:79
 msgid "String replacement:"
 msgstr "字詞替換:"
 
-#: gui/widgets/formatbox.cpp:82
 msgid "From"
 msgstr "從"
 
-#: gui/widgets/formatbox.cpp:82
 msgid "To"
 msgstr "至"
 
-#: gui/widgets/formatlistedit.cpp:80
 msgid "&Add"
 msgstr "新增(&A)"
 
-#: gui/widgets/frametable.cpp:156
 msgid "&Select all"
 msgstr "全選(&A)"
 
-#: gui/widgets/frametable.cpp:158
 msgid "&Deselect all"
 msgstr "取消選擇(&D)"
 
-#: gui/widgets/imageviewer.cpp:47
 msgid "View Picture"
 msgstr "檢視圖片"
 
-#: gui/widgets/picturelabel.cpp:67
 msgid ""
 "Drag album\n"
 "artwork\n"
@@ -2440,72 +1765,38 @@ msgstr ""
 "圖片\n"
 "至此"
 
-#: gui/widgets/playtoolbar.cpp:67
 msgid "Play/Pause"
 msgstr "播放/暫停"
 
-#: gui/widgets/playtoolbar.cpp:69
 msgid "Stop playback"
 msgstr "停止播放"
 
-#: gui/widgets/playtoolbar.cpp:71
 msgid "Previous Track"
 msgstr "上一音軌"
 
-#: gui/widgets/playtoolbar.cpp:73
 msgid "Next Track"
 msgstr "下一音軌"
 
-#: gui/widgets/playtoolbar.cpp:75
 msgid "Close"
 msgstr "關閉"
 
-#: gui/widgets/playtoolbar.cpp:97
 msgid "Mute"
 msgstr "靜音"
 
-#: gui/widgets/playtoolbar.cpp:281
 msgid "Volume: %1%"
 msgstr "音量: %1%"
 
-#: gui/widgets/recentfilesmenu.cpp:128
 msgid "&Clear List"
 msgstr "清除清單(&C)"
 
-#: gui/widgets/shortcutsdelegate.cpp:188
 msgid "Clear"
 msgstr "清除"
 
-#: gui/widgets/shortcutsdelegate.cpp:192
 msgid "Reset"
 msgstr "重設"
 
-#: gui/widgets/stringlistedit.cpp:60
 msgid "Add Item"
 msgstr "新增項目"
 
-#: gui/widgets/stringlistedit.cpp:80
 msgid "Edit Item"
 msgstr "編輯項目"
-
-#: rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Chung-Yu Hsu"
-
-#: rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "yayow at mail dot shps dot kh dot edu dot tw"
-
-#: rc.cpp:3
-msgid ""
-"_: NAME OF TRANSLATORS\n"
-"Your names"
-msgstr "Chung-Yu Hsu"
-
-#: rc.cpp:4
-msgid ""
-"_: EMAIL OF TRANSLATORS\n"
-"Your emails"
-msgstr "yayow at mail dot shps dot kh dot edu dot tw"

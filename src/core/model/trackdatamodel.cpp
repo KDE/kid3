@@ -26,7 +26,6 @@
 
 #include "trackdatamodel.h"
 #include "frametablemodel.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -179,18 +178,18 @@ QVariant TrackDataModel::headerData(
     int typeOrProperty = static_cast<int>(type.getType());
     if (typeOrProperty < FT_FirstTrackProperty) {
       return typeOrProperty == Frame::FT_Track
-        ? i18n("Track") // shorter header for track number
+        ? tr("Track") // shorter header for track number
         : FrameTableModel::getDisplayName(type.getName());
     } else {
       switch (typeOrProperty) {
       case FT_FilePath:
-        return i18n("Absolute path to file");
+        return tr("Absolute path to file");
       case FT_FileName:
-        return i18n("Filename");
+        return tr("Filename");
       case FT_Duration:
-        return i18n("Duration");
+        return tr("Duration");
       case FT_ImportDuration:
-        return i18n("Length");
+        return tr("Length");
       default:
         ;
       }

@@ -31,7 +31,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QVBoxLayout>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -44,13 +43,13 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img) :
 {
   setObjectName(QLatin1String("ImageViewer"));
   setModal(true);
-  setWindowTitle(i18n("View Picture"));
+  setWindowTitle(tr("View Picture"));
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   m_image = new QLabel(this);
-  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   m_image->setScaledContents(true);
   QSize imageSize(img.size());
   QSize desktopSize(QApplication::desktop()->availableGeometry().size());

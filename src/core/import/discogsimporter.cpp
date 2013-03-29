@@ -31,7 +31,6 @@
 #include "configstore.h"
 #include "genres.h"
 #include "jsonparser.h"
-#include "qtcompatmac.h"
 
 /**
  * Stores information about extra artists.
@@ -291,7 +290,7 @@ DiscogsImporter::~DiscogsImporter()
  * Name of import source.
  * @return name.
  */
-const char* DiscogsImporter::name() const { return I18N_NOOP("Discogs"); }
+const char* DiscogsImporter::name() const { return QT_TRANSLATE_NOOP("@default", "Discogs"); }
 
 /** anchor to online help, 0 to disable */
 const char* DiscogsImporter::helpAnchor() const { return "import-discogs"; }

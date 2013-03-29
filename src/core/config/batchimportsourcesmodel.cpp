@@ -25,7 +25,6 @@
  */
 
 #include "batchimportsourcesmodel.h"
-#include "qtcompatmac.h"
 
 /** Column indices. */
 enum ColumnIndex {
@@ -171,15 +170,15 @@ QVariant BatchImportSourcesModel::headerData(
   if (orientation == Qt::Horizontal) {
     switch (section) {
     case CI_Name:
-      return i18n("Server");
+      return tr("Server");
     case CI_Accuracy:
-      return i18n("Accuracy");
+      return tr("Accuracy");
     case CI_StandardTags:
-      return i18n("Standard Tags");
+      return tr("Standard Tags");
     case CI_AdditionalTags:
-      return i18n("Additional Tags");
+      return tr("Additional Tags");
     case CI_CoverArt:
-      return i18n("Cover Art");
+      return tr("Cover Art");
     default:
       return section + 1;
     }

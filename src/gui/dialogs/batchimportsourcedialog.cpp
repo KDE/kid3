@@ -32,7 +32,6 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QDialogButtonBox>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -42,13 +41,13 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
   QDialog(parent)
 {
   setObjectName(QLatin1String("BatchImportSourceDialog"));
-  setWindowTitle(i18n("Import Source"));
+  setWindowTitle(tr("Import Source"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
 
   QHBoxLayout* serverLayout = new QHBoxLayout;
-  QLabel* serverLabel = new QLabel(i18n("&Server:"));
+  QLabel* serverLabel = new QLabel(tr("&Server:"));
   serverLayout->addWidget(serverLabel);
   m_serverComboBox = new QComboBox;
   serverLabel->setBuddy(m_serverComboBox);
@@ -56,7 +55,7 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
   vlayout->addLayout(serverLayout);
 
   QHBoxLayout* accuracyLayout = new QHBoxLayout;
-  QLabel* accuracyLabel = new QLabel(i18n("&Accuracy:"));
+  QLabel* accuracyLabel = new QLabel(tr("&Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
   m_accuracySpinBox = new QSpinBox;
   m_accuracySpinBox->setRange(0, 100);
@@ -66,11 +65,11 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent) :
   vlayout->addLayout(accuracyLayout);
 
   QHBoxLayout* tagsCoverLayout = new QHBoxLayout;
-  m_standardTagsCheckBox = new QCheckBox(i18n("&Standard Tags"));
+  m_standardTagsCheckBox = new QCheckBox(tr("&Standard Tags"));
   m_standardTagsCheckBox->setChecked(true);
-  m_additionalTagsCheckBox = new QCheckBox(i18n("&Additional Tags"));
+  m_additionalTagsCheckBox = new QCheckBox(tr("&Additional Tags"));
   m_additionalTagsCheckBox->setChecked(true);
-  m_coverArtCheckBox = new QCheckBox(i18n("C&over Art"));
+  m_coverArtCheckBox = new QCheckBox(tr("C&over Art"));
   m_coverArtCheckBox->setChecked(true);
   tagsCoverLayout->addWidget(m_standardTagsCheckBox);
   tagsCoverLayout->addWidget(m_additionalTagsCheckBox);

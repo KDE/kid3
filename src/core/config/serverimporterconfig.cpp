@@ -26,7 +26,6 @@
 
 #include "serverimporterconfig.h"
 #include <QtGlobal>
-#include "qtcompatmac.h"
 
 #ifdef CONFIG_USE_KDE
 #include <kconfiggroup.h>

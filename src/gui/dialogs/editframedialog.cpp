@@ -27,7 +27,6 @@
 #include "editframedialog.h"
 #include <QPushButton>
 #include <QVBoxLayout>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -52,8 +51,8 @@ EditFrameDialog::EditFrameDialog(QWidget* parent, const QString& caption,
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
              QSizePolicy::Minimum);
-  m_okButton = new QPushButton(i18n("&OK"), this);
-  m_cancelButton = new QPushButton(i18n("&Cancel"), this);
+  m_okButton = new QPushButton(tr("&OK"), this);
+  m_cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addItem(hspacer);
   hlayout->addWidget(m_okButton);
   hlayout->addWidget(m_cancelButton);

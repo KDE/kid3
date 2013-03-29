@@ -35,7 +35,6 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "formatlistedit.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -46,7 +45,7 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   m_isAbortButton(false)
 {
   setObjectName(QLatin1String("FilterDialog"));
-  setWindowTitle(i18n("Filter"));
+  setWindowTitle(tr("Filter"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
@@ -57,20 +56,20 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   vlayout->addWidget(m_edit);
 
   m_formatListEdit = new FormatListEdit(
-        QStringList() << i18n("&Filter:")
-                      << i18n("&Expression:"),
+        QStringList() << tr("&Filter:")
+                      << tr("&Expression:"),
         QStringList() << QString()
                       << FileFilter::getFormatToolTip(),
         this);
   vlayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
@@ -81,7 +80,7 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
 
   m_applyButton = new QPushButton(this);
   setAbortButton(false);
-  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   m_applyButton->setAutoDefault(false);
   closeButton->setAutoDefault(false);
   hlayout->addWidget(m_applyButton);
@@ -170,7 +169,7 @@ void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
                                    const QString& fileName) {
   switch (type) {
   case FileFilter::Started:
-    m_edit->append(i18n("Started"));
+    m_edit->append(tr("Started"));
     setAbortButton(true);
     break;
   case FileFilter::Directory:
@@ -186,11 +185,11 @@ void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
     m_edit->append(QLatin1String("-\t") + fileName);
     break;
   case FileFilter::Finished:
-    m_edit->append(i18n("Finished"));
+    m_edit->append(tr("Finished"));
     setAbortButton(false);
     break;
   case FileFilter::Aborted:
-    m_edit->append(i18n("Aborted"));
+    m_edit->append(tr("Aborted"));
     setAbortButton(false);
     break;
   }
@@ -203,5 +202,5 @@ void FilterDialog::showFilterEvent(FileFilter::FilterEventType type,
 void FilterDialog::setAbortButton(bool enableAbort)
 {
   m_isAbortButton = enableAbort;
-  m_applyButton->setText(m_isAbortButton ? i18n("A&bort") : i18n("&Apply"));
+  m_applyButton->setText(m_isAbortButton ? tr("A&bort") : tr("&Apply"));
 }

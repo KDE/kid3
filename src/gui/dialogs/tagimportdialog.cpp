@@ -33,7 +33,6 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "formatlistedit.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -46,15 +45,15 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   QDialog(parent), m_trackDataModel(trackDataModel)
 {
   setObjectName(QLatin1String("TagImportDialog"));
-  setWindowTitle(i18n("Import from Tags"));
+  setWindowTitle(tr("Import from Tags"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vboxLayout = new QVBoxLayout(this);
 
   m_formatListEdit = new FormatListEdit(
-        QStringList() << i18n("Format:")
-                      << i18n("Source:")
-                      << i18n("Extraction:"),
+        QStringList() << tr("Format:")
+                      << tr("Source:")
+                      << tr("Extraction:"),
         QStringList() << QString()
                       << TrackDataFormatReplacer::getToolTip()
                       << ImportParser::getFormatToolTip(),
@@ -62,20 +61,20 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   vboxLayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* buttonLayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   buttonLayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
   buttonLayout->addStretch();
-  QPushButton* applyButton = new QPushButton(i18n("&Apply"), this);
+  QPushButton* applyButton = new QPushButton(tr("&Apply"), this);
   applyButton->setAutoDefault(false);
   buttonLayout->addWidget(applyButton);
   connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
-  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   buttonLayout->addWidget(closeButton);
   connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));

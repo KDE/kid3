@@ -44,7 +44,6 @@
 #include "contexthelp.h"
 #include "miscconfig.h"
 #include "dirrenamer.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -57,23 +56,23 @@ RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer) :
 {
   setObjectName(QLatin1String("RenDirDialog"));
   setModal(true);
-  setWindowTitle(i18n("Rename Directory"));
+  setWindowTitle(tr("Rename Directory"));
   setSizeGripEnabled(true);
 
   QWizardPage* mainPage = new QWizardPage;
 
   QVBoxLayout* mainLayout = new QVBoxLayout(mainPage);
   setupMainPage(mainPage, mainLayout);
-  mainPage->setTitle(i18n("Format"));
+  mainPage->setTitle(tr("Format"));
   addPage(mainPage);
 
   QWizardPage* previewPage = new QWizardPage;
   setupPreviewPage(previewPage);
-  previewPage->setTitle(i18n("Preview"));
+  previewPage->setTitle(tr("Preview"));
   addPage(previewPage);
 
   setOptions(HaveHelpButton | HaveCustomButton1);
-  setButtonText(CustomButton1, i18n("&Save Settings"));
+  setButtonText(CustomButton1, tr("&Save Settings"));
   connect(this, SIGNAL(helpRequested()), this, SLOT(showHelp()));
   connect(this, SIGNAL(customButtonClicked(int)), this, SLOT(saveConfig()));
   connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(pageChanged()));
@@ -100,19 +99,19 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   QHBoxLayout* actionLayout = new QHBoxLayout;
   m_actionComboBox = new QComboBox(page);
   m_tagversionComboBox = new QComboBox(page);
-  m_actionComboBox->insertItem(ActionRename, i18n("Rename Directory"));
-  m_actionComboBox->insertItem(ActionCreate, i18n("Create Directory"));
+  m_actionComboBox->insertItem(ActionRename, tr("Rename Directory"));
+  m_actionComboBox->insertItem(ActionCreate, tr("Create Directory"));
   actionLayout->addWidget(m_actionComboBox);
   connect(m_actionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
-  m_tagversionComboBox->addItem(i18n("From Tag 2 and Tag 1"), TrackData::TagV2V1);
-  m_tagversionComboBox->addItem(i18n("From Tag 1"), TrackData::TagV1);
-  m_tagversionComboBox->addItem(i18n("From Tag 2"), TrackData::TagV2);
+  m_tagversionComboBox->addItem(tr("From Tag 2 and Tag 1"), TrackData::TagV2V1);
+  m_tagversionComboBox->addItem(tr("From Tag 1"), TrackData::TagV1);
+  m_tagversionComboBox->addItem(tr("From Tag 2"), TrackData::TagV2);
   actionLayout->addWidget(m_tagversionComboBox);
   connect(m_tagversionComboBox, SIGNAL(activated(int)), this, SLOT(slotUpdateNewDirname()));
   vlayout->addLayout(actionLayout);
 
   QHBoxLayout* formatLayout = new QHBoxLayout;
-  QLabel* formatLabel = new QLabel(i18n("&Format:"), page);
+  QLabel* formatLabel = new QLabel(tr("&Format:"), page);
   m_formatComboBox = new QComboBox(page);
   QStringList strList;
   for (const char** sl = MiscConfig::s_defaultDirFmtList; *sl != 0; ++sl) {
@@ -134,9 +133,9 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
 
   QGridLayout* fromToLayout = new QGridLayout;
   vlayout->addLayout(fromToLayout);
-  QLabel* fromLabel = new QLabel(i18n("From:"), page);
+  QLabel* fromLabel = new QLabel(tr("From:"), page);
   m_currentDirLabel = new QLabel(page);
-  QLabel* toLabel = new QLabel(i18n("To:"), page);
+  QLabel* toLabel = new QLabel(tr("To:"), page);
   m_newDirLabel = new QLabel(page);
   fromToLayout->addWidget(fromLabel, 0, 0);
   fromToLayout->addWidget(m_currentDirLabel, 0, 1);

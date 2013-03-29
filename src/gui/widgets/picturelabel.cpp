@@ -28,7 +28,7 @@
 #include <QHash>
 #include <QByteArray>
 #include <QPixmap>
-#include "qtcompatmac.h"
+#include <QCoreApplication>
 
 /**
  * Constructor.
@@ -64,8 +64,8 @@ int PictureLabel::heightForWidth(int w) const
  */
 void PictureLabel::clearPicture()
 {
-  const char* const msg = I18N_NOOP("Drag album\nartwork\nhere");
-  setText(QCM_translate(msg));
+  const char* const msg = QT_TRANSLATE_NOOP("@default", "Drag album\nartwork\nhere");
+  setText(QCoreApplication::translate("@default", msg));
 }
 
 /**

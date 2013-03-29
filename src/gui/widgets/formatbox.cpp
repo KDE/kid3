@@ -34,7 +34,6 @@
 #include "formatconfig.h"
 #include "configtable.h"
 #include "configtablemodel.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -45,41 +44,41 @@
 FormatBox::FormatBox(const QString& title, QWidget* parent) :
   QGroupBox(title, parent)
 {
-  m_formatEditingCheckBox = new QCheckBox(i18n("Format while editing"),
+  m_formatEditingCheckBox = new QCheckBox(tr("Format while editing"),
                                           this);
 
   QLabel* caseConvLabel = new QLabel(this);
-  caseConvLabel->setText(i18n("Case conversion:"));
+  caseConvLabel->setText(tr("Case conversion:"));
 
   m_caseConvComboBox = new QComboBox(this);
   m_caseConvComboBox->setEditable(false);
   m_caseConvComboBox->clear();
   m_caseConvComboBox->insertItem(FormatConfig::NoChanges,
-                                     i18n("No changes"));
+                                     tr("No changes"));
   m_caseConvComboBox->insertItem(FormatConfig::AllLowercase,
-                                     i18n("All lowercase"));
+                                     tr("All lowercase"));
   m_caseConvComboBox->insertItem(FormatConfig::AllUppercase,
-                                     i18n("All uppercase"));
+                                     tr("All uppercase"));
   m_caseConvComboBox->insertItem(FormatConfig::FirstLetterUppercase,
-                                     i18n("First letter uppercase"));
+                                     tr("First letter uppercase"));
   m_caseConvComboBox->insertItem(FormatConfig::AllFirstLettersUppercase,
-                                     i18n("All first letters uppercase"));
+                                     tr("All first letters uppercase"));
 
 #if QT_VERSION >= 0x040800
   QHBoxLayout* localeLayout = new QHBoxLayout;
-  QLabel* localeLabel = new QLabel(i18n("Locale:"));
+  QLabel* localeLabel = new QLabel(tr("Locale:"));
   localeLayout->addWidget(localeLabel);
   m_localeComboBox = new QComboBox(this);
-  m_localeComboBox->addItem(i18n("None"));
+  m_localeComboBox->addItem(tr("None"));
   m_localeComboBox->addItems(QLocale().uiLanguages());
   localeLabel->setBuddy(m_localeComboBox);
   localeLayout->addWidget(m_localeComboBox);
 #endif
   m_strRepCheckBox = new QCheckBox(this);
-  m_strRepCheckBox->setText(i18n("String replacement:"));
+  m_strRepCheckBox->setText(tr("String replacement:"));
   m_strReplTableModel = new ConfigTableModel(this);
   m_strReplTableModel->setLabels(
-    QStringList() << i18n("From") << i18n("To"));
+    QStringList() << tr("From") << tr("To"));
   m_strReplTable = new ConfigTable(m_strReplTableModel, this);
   m_strReplTable->setHorizontalResizeModes(
       m_strReplTableModel->getHorizontalResizeModes());

@@ -30,7 +30,6 @@
 
 #include <QAction>
 #include <QDir>
-#include "qtcompatmac.h"
 
 static const int MAX_RECENT_FILES = 10;
 
@@ -125,7 +124,7 @@ void RecentFilesMenu::updateRecentFileActions()
   if (i > 0) {
     addSeparator();
     QAction* clearListAction = new QAction(this);
-    clearListAction->setText(i18n("&Clear List"));
+    clearListAction->setText(tr("&Clear List"));
     connect(clearListAction, SIGNAL(triggered()), this, SLOT(clearList()));
     this->addAction(clearListAction);
     setEnabled(true);

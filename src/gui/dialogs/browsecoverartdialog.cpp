@@ -36,13 +36,13 @@
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QCoreApplication>
 #include "configstore.h"
 #include "contexthelp.h"
 #include "externalprocess.h"
 #include "configtable.h"
 #include "configtablemodel.h"
 #include "formatlistedit.h"
-#include "qtcompatmac.h"
 
 /**
  * Get help text for supported format codes.
@@ -55,7 +55,7 @@ static QString getToolTip()
   str += FrameFormatReplacer::getToolTip(true);
 
   str += QLatin1String("<tr><td>%ua...</td><td>%u{artist}...</td><td>");
-  str += QCM_translate(I18N_NOOP("Encode as URL"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Encode as URL"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("</table>\n");
@@ -72,7 +72,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
 {
   setObjectName(QLatin1String("BrowseCoverArtDialog"));
   setModal(true);
-  setWindowTitle(i18n("Browse Cover Art"));
+  setWindowTitle(tr("Browse Cover Art"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
@@ -81,7 +81,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   m_edit->setReadOnly(true);
   vlayout->addWidget(m_edit);
 
-  QGroupBox* artistAlbumBox = new QGroupBox(i18n("&Artist/Album"), this);
+  QGroupBox* artistAlbumBox = new QGroupBox(tr("&Artist/Album"), this);
   m_artistLineEdit = new QLineEdit(artistAlbumBox);
   m_albumLineEdit = new QLineEdit(artistAlbumBox);
   QHBoxLayout* hbox = new QHBoxLayout;
@@ -94,10 +94,10 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   connect(m_albumLineEdit, SIGNAL(returnPressed()),
           this, SLOT(showPreview()));
 
-  QGroupBox* srcbox = new QGroupBox(i18n("&Source"), this);
+  QGroupBox* srcbox = new QGroupBox(tr("&Source"), this);
   m_formatListEdit = new FormatListEdit(
-        QStringList() << i18n("Source:")
-                      << i18n("URL:"),
+        QStringList() << tr("Source:")
+                      << tr("URL:"),
         QStringList() << QString()
                       << getToolTip(),
         srcbox);
@@ -109,10 +109,10 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   connect(m_formatListEdit, SIGNAL(formatChanged()),
           this, SLOT(showPreview()));
 
-  QGroupBox* tabbox = new QGroupBox(i18n("&URL extraction"), this);
+  QGroupBox* tabbox = new QGroupBox(tr("&URL extraction"), this);
   m_matchUrlTableModel = new ConfigTableModel(tabbox);
   m_matchUrlTableModel->setLabels(
-    QStringList() << i18n("Match") << i18n("Picture URL"));
+    QStringList() << tr("Match") << tr("Picture URL"));
   m_matchUrlTable = new ConfigTable(m_matchUrlTableModel, tabbox);
   m_matchUrlTable->setHorizontalResizeModes(
       m_matchUrlTableModel->getHorizontalResizeModes());
@@ -122,12 +122,12 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
   vlayout->addWidget(tabbox);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
@@ -136,8 +136,8 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(QWidget* parent) :
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  QPushButton* browseButton = new QPushButton(i18n("&Browse"), this);
-  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  QPushButton* browseButton = new QPushButton(tr("&Browse"), this);
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   browseButton->setAutoDefault(false);
   cancelButton->setAutoDefault(false);
   hlayout->addWidget(browseButton);
@@ -168,13 +168,13 @@ void BrowseCoverArtDialog::showPreview()
   fmt.replacePercentCodes(FormatReplacer::FSF_SupportUrlEncode);
   m_url = fmt.getString();
   QString txt(QLatin1String("<p><b>"));
-  txt += i18n("Click Browse to start");
+  txt += tr("Click Browse to start");
   txt += QLatin1String("</b></p><p><tt>");
   txt += ConfigStore::s_miscCfg.m_browser;
   txt += QLatin1Char(' ');
   txt += m_url;
   txt += QLatin1String("</tt></p><p><b>");
-  txt += i18n("Then drag the picture from the browser to Kid3.");
+  txt += tr("Then drag the picture from the browser to Kid3.");
   txt += QLatin1String("</b></p>");
   m_edit->clear();
   m_edit->append(txt);
@@ -251,7 +251,7 @@ void BrowseCoverArtDialog::accept()
     m_process = new ExternalProcess(this);
   }
   m_process->launchCommand(
-    i18n("Browse Cover Art"),
+    tr("Browse Cover Art"),
     QStringList() << ConfigStore::s_miscCfg.m_browser << m_url);
   QDialog::accept();
 }

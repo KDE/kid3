@@ -30,7 +30,6 @@
 #include <QNetworkProxy>
 #include <QByteArray>
 #include "configstore.h"
-#include "qtcompatmac.h"
 
 
 /** Time when last request was sent to server */
@@ -91,7 +90,7 @@ HttpClient::~HttpClient()
 }
 
 /** Only defined for generation of translation files */
-#define DATA_RECEIVED_FOR_PO I18N_NOOP("Data received: %1")
+#define DATA_RECEIVED_FOR_PO QT_TRANSLATE_NOOP("@default", "Data received: %1")
 
 /**
  * Called when the request is finished.
@@ -103,9 +102,9 @@ void HttpClient::networkReplyFinished()
     m_rcvBodyType = reply->header(QNetworkRequest::ContentTypeHeader).toString();
     m_rcvBodyLen = reply->header(QNetworkRequest::ContentLengthHeader).toUInt();
     emit bytesReceived(data);
-    QString msg(i18n("Ready."));
+    QString msg(tr("Ready."));
     if (reply->error() != QNetworkReply::NoError) {
-      msg = i18n("Error");
+      msg = tr("Error");
       msg += QLatin1String(": ");
       msg += reply->errorString();
     }
@@ -122,7 +121,7 @@ void HttpClient::networkReplyFinished()
  */
 void HttpClient::networkReplyProgress(qint64 received, qint64 total)
 {
-  emitProgress(i18n("Data received: %1").arg(received), received, total);
+  emitProgress(tr("Data received: %1").arg(received), received, total);
 }
 
 /**
@@ -210,7 +209,7 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
   connect(reply, SIGNAL(error(QNetworkReply::NetworkError)),
           this, SLOT(networkReplyError(QNetworkReply::NetworkError)));
   s_lastRequestTime[host] = now;
-  emitProgress(i18n("Request sent..."), 0, 0);
+  emitProgress(tr("Request sent..."), 0, 0);
 }
 
 /**

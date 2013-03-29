@@ -41,7 +41,6 @@
 #endif
 #include <cstdio>
 #include <cmath>
-#include "qtcompatmac.h"
 #include <QByteArray>
 
 /**

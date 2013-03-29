@@ -30,7 +30,6 @@
 
 #include <QAction>
 #include <QSettings>
-#include "qtcompatmac.h"
 
 namespace {
 
@@ -121,7 +120,7 @@ QVariant ShortcutsModel::data(const QModelIndex& index, int role) const
             if (role == Qt::DisplayRole || role == Qt::EditRole) {
               return shortcutItem.activeShortcut();
             } else if (role == Qt::ToolTipRole) {
-              return i18n("Press F2 or double click to edit cell contents.");
+              return tr("Press F2 or double click to edit cell contents.");
             }
           }
         }
@@ -192,9 +191,9 @@ QVariant ShortcutsModel::headerData(int section, Qt::Orientation orientation,
     return QVariant();
   if (orientation == Qt::Horizontal) {
     if (section == ActionColumn) {
-      return i18n("Action");
+      return tr("Action");
     } else if (section == ShortcutColumn) {
-      return i18n("Shortcut");
+      return tr("Shortcut");
     }
   }
   return section + 1;

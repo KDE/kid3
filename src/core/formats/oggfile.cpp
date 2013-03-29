@@ -44,7 +44,6 @@
 #endif
 #include "pictureframe.h"
 #include "configstore.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.

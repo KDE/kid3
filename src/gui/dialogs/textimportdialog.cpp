@@ -42,7 +42,6 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "formatlistedit.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -55,16 +54,16 @@ TextImportDialog::TextImportDialog(QWidget* parent,
   QDialog(parent), m_textImporter(new TextImporter(trackDataModel))
 {
   setObjectName(QLatin1String("TextImportDialog"));
-  setWindowTitle(i18n("Import from File/Clipboard"));
+  setWindowTitle(tr("Import from File/Clipboard"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vboxLayout = new QVBoxLayout(this);
 
   QString formatToolTip = ImportParser::getFormatToolTip();
   m_formatListEdit = new FormatListEdit(
-        QStringList() << i18n("Format:")
-                      << i18n("Header:")
-                      << i18n("Tracks:"),
+        QStringList() << tr("Format:")
+                      << tr("Header:")
+                      << tr("Tracks:"),
         QStringList() << QString()
                       << formatToolTip
                       << formatToolTip,
@@ -72,24 +71,24 @@ TextImportDialog::TextImportDialog(QWidget* parent,
   vboxLayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* buttonLayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   buttonLayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
   buttonLayout->addStretch();
-  QPushButton* fileButton = new QPushButton(i18n("From F&ile"), this);
+  QPushButton* fileButton = new QPushButton(tr("From F&ile"), this);
   fileButton->setAutoDefault(false);
   buttonLayout->addWidget(fileButton);
   connect(fileButton, SIGNAL(clicked()), this, SLOT(fromFile()));
-  QPushButton* clipButton = new QPushButton(i18n("From Clip&board"), this);
+  QPushButton* clipButton = new QPushButton(tr("From Clip&board"), this);
   clipButton->setAutoDefault(false);
   buttonLayout->addWidget(clipButton);
   connect(clipButton, SIGNAL(clicked()), this, SLOT(fromClipboard()));
-  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   buttonLayout->addWidget(closeButton);
   connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));

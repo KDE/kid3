@@ -1,12 +1,12 @@
 /**
- * \file qtcompatmac.h
- * Qt compatibility macros.
+ * \file loadtranslation.h
+ * Load application translation.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 31 Oct 2006
+ * \date 26 Mar 2013
  *
- * Copyright (C) 2006-2013  Urs Fleisch
+ * Copyright (C) 2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,19 +24,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef QTCOMPATMAC_H
-#define QTCOMPATMAC_H
+#ifndef LOADTRANSLATION_H
+#define LOADTRANSLATION_H
 
-#include <QtGlobal>
+#include <QString>
+#include "kid3api.h"
 
-#if QT_VERSION >= 0x040600
+namespace Utils {
 
-#define QCM_QIcon_fromTheme(n) QIcon::fromTheme(QLatin1String(n), QIcon(QLatin1String(":/images/" n ".png")))
+/**
+ * @brief Load application translation.
+ *
+ * @param lang preferred language, if not set, the language is determined by
+ * the system configuration
+ */
+void KID3_CORE_EXPORT loadTranslation(const QString& lang = QString());
 
-#else
+}
 
-#define QCM_QIcon_fromTheme(n) QIcon(QLatin1String(":/images/" n ".png"))
-
-#endif
-
-#endif // QTCOMPATMAC_H
+#endif // LOADTRANSLATION_H

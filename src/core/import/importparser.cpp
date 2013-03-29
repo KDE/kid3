@@ -25,9 +25,9 @@
  */
 
 #include "importparser.h"
+#include <QCoreApplication>
 #include "frame.h"
 #include "genres.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -47,35 +47,35 @@ QString ImportParser::getFormatToolTip()
   str += QLatin1String("<table>\n");
 
   str += QLatin1String("<tr><td>%s</td><td>%{title}</td><td>");
-  str += QCM_translate("Title");
+  str += QCoreApplication::translate("@default", "Title");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%l</td><td>%{album}</td><td>");
-  str += QCM_translate("Album");
+  str += QCoreApplication::translate("@default", "Album");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%a</td><td>%{artist}</td><td>");
-  str += QCM_translate("Artist");
+  str += QCoreApplication::translate("@default", "Artist");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%c</td><td>%{comment}</td><td>");
-  str += QCM_translate("Comment");
+  str += QCoreApplication::translate("@default", "Comment");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%y</td><td>%{year}</td><td>");
-  str += QCM_translate(I18N_NOOP("Year"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Year"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%t</td><td>%{track}</td><td>");
-  str += QCM_translate("Track");
+  str += QCoreApplication::translate("@default", "Track");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%g</td><td>%{genre}</td><td>");
-  str += QCM_translate("Genre");
+  str += QCoreApplication::translate("@default", "Genre");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%d</td><td>%{duration}</td><td>");
-  str += QCM_translate(I18N_NOOP("Length"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Length"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("</table>\n");

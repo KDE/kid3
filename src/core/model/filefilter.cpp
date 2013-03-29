@@ -27,7 +27,7 @@
 #include "filefilter.h"
 #include "taggedfile.h"
 #include <QRegExp>
-#include "qtcompatmac.h"
+#include <QCoreApplication>
 
 /**
  * Constructor.
@@ -97,39 +97,39 @@ QString FileFilter::getFormatToolTip(bool onlyRows)
   str += TrackDataFormatReplacer::getToolTip(true);
 
   str += QLatin1String("<tr><td>%1a...</td><td>%1{artist}...</td><td>");
-  str += QCM_translate("Tag 1");
+  str += QCoreApplication::translate("@default", "Tag 1");
   str += QLatin1Char(' ');
-  str += QCM_translate("Artist");
+  str += QCoreApplication::translate("@default", "Artist");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%2a...</td><td>%2{artist}...</td><td>");
-  str += QCM_translate("Tag 2");
+  str += QCoreApplication::translate("@default", "Tag 2");
   str += QLatin1Char(' ');
-  str += QCM_translate("Artist");
+  str += QCoreApplication::translate("@default", "Artist");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>equals</td><td>");
-  str += QCM_translate(I18N_NOOP("True if strings are equal"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "True if strings are equal"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>contains</td><td>");
-  str += QCM_translate(I18N_NOOP("True if string contains substring"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "True if string contains substring"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>matches</td><td>");
-  str += QCM_translate(I18N_NOOP("True if string matches regexp"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "True if string matches regexp"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>and</td><td>");
-  str += QCM_translate(I18N_NOOP("Logical AND"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Logical AND"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>or</td><td>");
-  str += QCM_translate(I18N_NOOP("Logical OR"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Logical OR"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td></td><td>not</td><td>");
-  str += QCM_translate(I18N_NOOP("Logical negation"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Logical negation"));
   str += QLatin1String("</td></tr>\n");
 
   if (!onlyRows) str += QLatin1String("</table>\n");

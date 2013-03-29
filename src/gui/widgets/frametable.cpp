@@ -31,7 +31,6 @@
 #include <QMenu>
 #include <QChildEvent>
 #include "frametablemodel.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -64,7 +63,7 @@ FrameTable::FrameTable(FrameTableModel* model, QWidget* parent) :
       model->removeRow(0);
   }
   // Set width of first column
-  int width = fontMetrics().width(i18n("WWW Audio Source") + QLatin1String("WW"));
+  int width = fontMetrics().width(tr("WWW Audio Source") + QLatin1String("WW"));
   QStyleOptionButton option;
   option.initFrom(this);
   width += style()->subElementRect(
@@ -153,9 +152,9 @@ void FrameTable::contextMenu(int row, int col, const QPoint& pos)
     qobject_cast<const FrameTableModel*>(model());
   if (ftModel && col == 0 && row >= 0) {
     QMenu menu(this);
-    QAction* action = menu.addAction(i18n("&Select all"));
+    QAction* action = menu.addAction(tr("&Select all"));
     connect(action, SIGNAL(triggered()), ftModel, SLOT(selectAllFrames()));
-    action = menu.addAction(i18n("&Deselect all"));
+    action = menu.addAction(tr("&Deselect all"));
     connect(action, SIGNAL(triggered()), ftModel, SLOT(deselectAllFrames()));
     menu.setMouseTracking(true);
     menu.exec(pos);

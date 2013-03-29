@@ -27,7 +27,7 @@
 #include "dirrenamer.h"
 #include <QFileInfo>
 #include <QDir>
-#include "qtcompatmac.h"
+#include <QCoreApplication>
 #include "saferename.h"
 #include "fileproxymodel.h"
 #include "modeliterator.h"
@@ -70,7 +70,7 @@ static QString parentDirectory(const QString& dir)
 }
 
 /** Only defined for generation of translation files */
-#define CREATE_DIR_FAILED_FOR_PO I18N_NOOP("Create directory %1 failed\n")
+#define CREATE_DIR_FAILED_FOR_PO QT_TRANSLATE_NOOP("@default", "Create directory %1 failed\n")
 
 /**
  * Create a directory if it does not exist.
@@ -89,18 +89,18 @@ bool DirRenamer::createDirectory(const QString& dir,
     return true;
   } else {
     if (errorMsg) {
-      errorMsg->append(i18n("Create directory %1 failed\n").arg(dir));
+      errorMsg->append(tr("Create directory %1 failed\n").arg(dir));
     }
     return false;
   }
 }
 
 /** Only defined for generation of translation files */
-#define FILE_ALREADY_EXISTS_FOR_PO I18N_NOOP("File %1 already exists\n")
+#define FILE_ALREADY_EXISTS_FOR_PO QT_TRANSLATE_NOOP("@default", "File %1 already exists\n")
 /** Only defined for generation of translation files */
-#define IS_NOT_DIR_FOR_PO I18N_NOOP("%1 is not a directory\n")
+#define IS_NOT_DIR_FOR_PO QT_TRANSLATE_NOOP("@default", "%1 is not a directory\n")
 /** Only defined for generation of translation files */
-#define RENAME_FAILED_FOR_PO I18N_NOOP("Rename %1 to %2 failed\n")
+#define RENAME_FAILED_FOR_PO QT_TRANSLATE_NOOP("@default", "Rename %1 to %2 failed\n")
 
 /**
  * Rename a directory.
@@ -119,13 +119,13 @@ bool DirRenamer::renameDirectory(
 {
   if (QFileInfo(newdir).exists()) {
     if (errorMsg) {
-      errorMsg->append(i18n("File %1 already exists\n").arg(newdir));
+      errorMsg->append(tr("File %1 already exists\n").arg(newdir));
     }
     return false;
   }
   if (!QFileInfo(olddir).isDir()) {
     if (errorMsg) {
-      errorMsg->append(i18n("%1 is not a directory\n").arg(olddir));
+      errorMsg->append(tr("%1 is not a directory\n").arg(olddir));
     }
     return false;
   }
@@ -137,16 +137,16 @@ bool DirRenamer::renameDirectory(
     return true;
   } else {
     if (errorMsg) {
-      errorMsg->append(i18n("Rename %1 to %2 failed\n").arg(olddir).arg(newdir));
+      errorMsg->append(tr("Rename %1 to %2 failed\n").arg(olddir).arg(newdir));
     }
     return false;
   }
 }
 
 /** Only defined for generation of translation files */
-#define ALREADY_EXISTS_FOR_PO I18N_NOOP("%1 already exists\n")
+#define ALREADY_EXISTS_FOR_PO QT_TRANSLATE_NOOP("@default", "%1 already exists\n")
 /** Only defined for generation of translation files */
-#define IS_NOT_FILE_FOR_PO I18N_NOOP("%1 is not a file\n")
+#define IS_NOT_FILE_FOR_PO QT_TRANSLATE_NOOP("@default", "%1 is not a file\n")
 
 /**
  * Rename a file.
@@ -167,13 +167,13 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
   }
   if (QFileInfo(newfn).exists()) {
     if (errorMsg) {
-      errorMsg->append(i18n("%1 already exists\n").arg(newfn));
+      errorMsg->append(tr("%1 already exists\n").arg(newfn));
     }
     return false;
   }
   if (!QFileInfo(oldfn).isFile()) {
     if (errorMsg) {
-      errorMsg->append(i18n("%1 is not a file\n").arg(oldfn));
+      errorMsg->append(tr("%1 is not a file\n").arg(oldfn));
     }
     return false;
   }
@@ -185,7 +185,7 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
     return true;
   } else {
     if (errorMsg) {
-      errorMsg->append(i18n("Rename %1 to %2 failed\n").arg(oldfn).arg(newfn));
+      errorMsg->append(tr("Rename %1 to %2 failed\n").arg(oldfn).arg(newfn));
     }
     return false;
   }
@@ -406,7 +406,7 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
           }
         } else {
           // new directory name is too different
-          addAction(RenameAction::ReportError, i18n("New directory name is too different\n"));
+          addAction(RenameAction::ReportError, tr("New directory name is too different\n"));
         }
       }
     }
@@ -457,10 +457,10 @@ void DirRenamer::performActions(QString* errorMsg)
 QStringList DirRenamer::describeAction(const RenameAction& action) const
 {
   static const char* const typeStr[] = {
-    I18N_NOOP("Create directory"),
-    I18N_NOOP("Rename directory"),
-    I18N_NOOP("Rename file"),
-    I18N_NOOP("Error")
+    QT_TRANSLATE_NOOP("@default", "Create directory"),
+    QT_TRANSLATE_NOOP("@default", "Rename directory"),
+    QT_TRANSLATE_NOOP("@default", "Rename file"),
+    QT_TRANSLATE_NOOP("@default", "Error")
   };
   static const unsigned numTypeStr = sizeof(typeStr) / sizeof(typeStr[0]);
 
@@ -469,7 +469,7 @@ QStringList DirRenamer::describeAction(const RenameAction& action) const
   if (typeIdx >= numTypeStr) {
     typeIdx = numTypeStr - 1;
   }
-  actionStrs.append(QCM_translate(typeStr[typeIdx]));
+  actionStrs.append(QCoreApplication::translate("@default", typeStr[typeIdx]));
   if (!action.m_src.isEmpty()) {
     actionStrs.append(action.m_src);
   }

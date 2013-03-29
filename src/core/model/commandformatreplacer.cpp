@@ -28,8 +28,8 @@
 #include <QStringList>
 #include <QUrl>
 #include <QDir>
+#include <QCoreApplication>
 #include "configstore.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -137,31 +137,31 @@ QString CommandFormatReplacer::getToolTip(bool onlyRows)
   str += FrameFormatReplacer::getToolTip(true);
 
   str += QLatin1String("<tr><td>%f</td><td>%{file}</td><td>");
-  str += QCM_translate("Filename");
+  str += QCoreApplication::translate("@default", "Filename");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%F</td><td>%{files}</td><td>");
-  str += QCM_translate(I18N_NOOP("Filenames"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Filenames"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%uf</td><td>%{url}</td><td>");
-  str += QCM_translate("URL");
+  str += QCoreApplication::translate("@default", "URL");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%uF</td><td>%{urls}</td><td>");
-  str += QCM_translate(I18N_NOOP("URLs"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "URLs"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%d</td><td>%{directory}</td><td>");
-  str += QCM_translate(I18N_NOOP("Directory name"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Directory name"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%b</td><td>%{browser}</td><td>");
-  str += QCM_translate("Browser");
+  str += QCoreApplication::translate("@default", "Browser");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%ua...</td><td>%u{artist}...</td><td>");
-  str += QCM_translate(I18N_NOOP("Encode as URL"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Encode as URL"));
   str += QLatin1String("</td></tr>\n");
 
   if (!onlyRows) str += QLatin1String("</table>\n");

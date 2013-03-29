@@ -31,7 +31,6 @@
 #include <QProcess>
 #include <QString>
 #include <QStringList>
-#include "qtcompatmac.h"
 #include <QTextCursor>
 #include "taggedfile.h"
 
@@ -51,10 +50,10 @@ ExternalProcess::OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   m_textEdit->setStyleSheet(QLatin1String("font-family: \"Courier\";"));
   vlayout->addWidget(m_textEdit);
   QHBoxLayout* buttonLayout = new QHBoxLayout;
-  QPushButton* clearButton = new QPushButton(i18n("C&lear"), this);
+  QPushButton* clearButton = new QPushButton(tr("C&lear"), this);
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   buttonLayout->addWidget(clearButton);
   buttonLayout->addItem(hspacer);
   buttonLayout->addWidget(closeButton);
@@ -157,7 +156,7 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
 
   if (confirm && QMessageBox::question(
         m_parent, name,
-        i18n("Execute ") + args.join(QLatin1String(" ")) + QLatin1Char('?'),
+        tr("Execute ") + args.join(QLatin1String(" ")) + QLatin1Char('?'),
         QMessageBox::Ok, QMessageBox::Cancel) != QMessageBox::Ok) {
     return;
   }
@@ -190,7 +189,7 @@ void ExternalProcess::launchCommand(const QString& name, const QStringList& args
   if (!m_process->waitForStarted(10000)) {
     QMessageBox::warning(
       m_parent, name,
-      i18n("Could not execute ") + args.join(QLatin1String(" ")),
+      tr("Could not execute ") + args.join(QLatin1String(" ")),
       QMessageBox::Ok, Qt::NoButton);
   }
 }

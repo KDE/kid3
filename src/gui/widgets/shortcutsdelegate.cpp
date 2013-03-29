@@ -32,7 +32,6 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QKeyEvent>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -185,11 +184,11 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   hlayout->setContentsMargins(0, 0, 0, 0);
   hlayout->addWidget(m_lineEdit, 0, Qt::AlignLeft);
   QToolButton* clearButton = new QToolButton(this);
-  clearButton->setText(i18n("Clear"));
+  clearButton->setText(tr("Clear"));
   connect(clearButton, SIGNAL(clicked()), this, SIGNAL(clearClicked()));
   hlayout->addWidget(clearButton);
   QToolButton* resetButton = new QToolButton(this);
-  resetButton->setText(i18n("Reset"));
+  resetButton->setText(tr("Reset"));
   connect(resetButton, SIGNAL(clicked()), this, SIGNAL(resetClicked()));
   hlayout->addWidget(resetButton);
   setFocusProxy(m_lineEdit);

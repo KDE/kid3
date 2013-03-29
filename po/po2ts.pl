@@ -2,40 +2,13 @@
 package po2ts;
 
 use strict;
-use File::Basename;
+use Cwd;
 use File::Find;
-use File::Path;
 
 use vars qw(@ISA @EXPORT);
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT = qw(generateTs);
-
-# Read all source files given in the parameter list and copy them to the
-# output directory, replaceing i18n by tr and I18N_NOOP by QT_TRANSLATE_NOOP.
-sub createTranslateSources($@)
-{
-  my $outdir = shift;
-  my $indir = shift;
-  my @sources = @_;
-  my $indirLen = length($indir);
-  foreach my $file (@sources) {
-    open IF, $file or die "Could not open $file: $!\n";
-    my $outfn = $outdir . substr($file, $indirLen);
-    my $outfndir = dirname($outfn);
-    mkpath($outfndir) unless -d $outfndir;
-    open OF, ">$outfn" or die "Could not create $outfn: $!\n";
-    while (<IF>) {
-      s/i18n\(/tr(/g;
-      s/KCM_i18n1\(([^,]+), ([^)]+)\)/tr($1).arg($2)/g;
-      s/KCM_i18n2\(([^,]+), ([^,]+), ([^)]+)\)/tr($1).arg($2).arg($3)/g;
-      s/I18N_NOOP\(/QT_TRANSLATE_NOOP("\@default", /g;
-      print OF $_;
-    }
-    close OF;
-    close IF;
-  }
-}
 
 # Read all translations from a .po file, fill them into an associative
 # array.
@@ -150,18 +123,16 @@ sub generateTs
   my ($lupdate_cmd, $podir, $srcdir) = @_;
   my @pofiles = glob "$podir/*.po";
   my @languages = map { /^.*\/([\w@]+)\.po$/ } @pofiles;
-  my $tmpdir = ".tsdir";
-  mkdir $tmpdir unless -d $tmpdir;
+  my $curdir = cwd();
   find(\&wanted, $srcdir);
-  createTranslateSources($tmpdir, $srcdir, @sources);
-  chdir $tmpdir or die "Could not change to $tmpdir: $!\n";
-  system "$lupdate_cmd -recursive . -ts " . join ' ', map { "kid3_". $_ . ".ts" } @languages;
-  chdir "..";
+  chdir $srcdir or die "Could not change to $srcdir: $!\n";
+  system "$lupdate_cmd -recursive . -ts " . join ' ', map { "$curdir/tmp_". $_ . ".ts" } @languages;
+  chdir $curdir;
   foreach my $lang (@languages) {
-    setTsTranslations("$tmpdir/kid3_$lang.ts", "kid3_$lang.ts",
+    setTsTranslations("tmp_$lang.ts", "kid3_$lang.ts",
                       getPoTranslations("$podir/$lang.po"));
   }
-  rmtree($tmpdir);
+  unlink map { "tmp_". $_ . ".ts" } @languages;
 }
 
 if (!caller()) {

@@ -29,7 +29,6 @@
 #include "serverimporterconfig.h"
 #include "importclient.h"
 #include "trackdata.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.

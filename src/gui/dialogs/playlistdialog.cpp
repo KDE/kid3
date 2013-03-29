@@ -43,7 +43,6 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "trackdata.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -55,7 +54,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
 {
   setObjectName(QLatin1String("PlaylistDialog"));
   setModal(true);
-  setWindowTitle(i18n("Create Playlist"));
+  setWindowTitle(tr("Create Playlist"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
@@ -135,10 +134,10 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   writeButtonGroup->addButton(m_writeListButton);
   writeButtonGroup->addButton(m_writeInfoButton);
   vlayout->addWidget(pcGroupBox);
-  fnGroupBox->setTitle(i18n("Playlist File Name"));
-  m_sameAsDirNameButton->setText(i18n("Same as &directory name"));
+  fnGroupBox->setTitle(tr("Playlist File Name"));
+  m_sameAsDirNameButton->setText(tr("Same as &directory name"));
   m_sameAsDirNameButton->setChecked(true);
-  m_fileNameFormatButton->setText(i18n("&Format:"));
+  m_fileNameFormatButton->setText(tr("&Format:"));
   m_fileNameFormatComboBox->setEditable(true);
   m_fileNameFormatComboBox->setEnabled(false);
   m_fileNameFormatComboBox->addItems(
@@ -147,21 +146,21 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
     QLatin1String("playlist_%{artist}_-_%{album}") << QLatin1String("playlist"));
   connect(m_fileNameFormatButton, SIGNAL(toggled(bool)),
           m_fileNameFormatComboBox, SLOT(setEnabled(bool)));
-  locationLabel->setText(i18n("Cr&eate in:"));
+  locationLabel->setText(tr("Cr&eate in:"));
   locationLabel->setBuddy(m_locationComboBox);
   m_locationComboBox->addItems(
     QStringList() <<
-    i18n("Current directory") <<
-    i18n("Every directory") <<
-    i18n("Top-level directory"));
-  pcGroupBox->setTitle(i18n("Playlist Content"));
-  formatLabel->setText(i18n("For&mat:"));
+    tr("Current directory") <<
+    tr("Every directory") <<
+    tr("Top-level directory"));
+  pcGroupBox->setTitle(tr("Playlist Content"));
+  formatLabel->setText(tr("For&mat:"));
   formatLabel->setBuddy(m_formatComboBox);
   m_formatComboBox->addItems(QStringList() << QLatin1String("M3U") << QLatin1String("PLS") << QLatin1String("XSPF"));
-  m_onlySelectedFilesCheckBox->setText(i18n("Incl&ude only the selected files"));
-  m_sortFileNameButton->setText(i18n("Sort by file &name"));
+  m_onlySelectedFilesCheckBox->setText(tr("Incl&ude only the selected files"));
+  m_sortFileNameButton->setText(tr("Sort by file &name"));
   m_sortFileNameButton->setChecked(true);
-  m_sortTagFieldButton->setText(i18n("Sort by &tag field"));
+  m_sortTagFieldButton->setText(tr("Sort by &tag field"));
   m_sortTagFieldComboBox->setEditable(true);
   m_sortTagFieldComboBox->setEnabled(false);
   QStringList lst;
@@ -175,12 +174,12 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
   m_sortTagFieldComboBox->addItems(lst);
   connect(m_sortTagFieldButton, SIGNAL(toggled(bool)),
           m_sortTagFieldComboBox, SLOT(setEnabled(bool)));
-  m_relPathButton->setText(i18n("Use &relative path for files in playlist"));
+  m_relPathButton->setText(tr("Use &relative path for files in playlist"));
   m_relPathButton->setChecked(true);
-  m_fullPathButton->setText(i18n("Use full p&ath for files in playlist"));
-  m_writeListButton->setText(i18n("Write only &list of files"));
+  m_fullPathButton->setText(tr("Use full p&ath for files in playlist"));
+  m_writeListButton->setText(tr("Write only &list of files"));
   m_writeListButton->setChecked(true);
-  m_writeInfoButton->setText(i18n("Write &info using"));
+  m_writeInfoButton->setText(tr("Write &info using"));
   m_writeInfoComboBox->setEditable(true);
   m_writeInfoComboBox->setEnabled(false);
   m_writeInfoComboBox->addItems(
@@ -191,11 +190,11 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
           m_writeInfoComboBox, SLOT(setEnabled(bool)));
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
@@ -203,10 +202,10 @@ PlaylistDialog::PlaylistDialog(QWidget* parent):
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  QPushButton* okButton = new QPushButton(i18n("&OK"), this);
+  QPushButton* okButton = new QPushButton(tr("&OK"), this);
   hlayout->addWidget(okButton);
   connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(cancelButton);
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
   vlayout->addLayout(hlayout);

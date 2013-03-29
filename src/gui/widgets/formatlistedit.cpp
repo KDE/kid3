@@ -31,7 +31,6 @@
 #include <QLayout>
 #include <QFormLayout>
 #include <QSizePolicy>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -80,9 +79,9 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
 #ifdef Q_OS_MAC
   vlayout->setSpacing(6);
 #endif
-  m_addPushButton = new QPushButton(i18n("&Add"));
+  m_addPushButton = new QPushButton(tr("&Add"));
   m_addPushButton->setAutoDefault(false);
-  m_removePushButton = new QPushButton(i18n("&Remove"));
+  m_removePushButton = new QPushButton(tr("&Remove"));
   m_removePushButton->setAutoDefault(false);
   vlayout->addWidget(m_addPushButton);
   vlayout->addWidget(m_removePushButton);
@@ -241,7 +240,7 @@ void FormatListEdit::addItem()
     if (index == -1) {
       // no empty format found, add a new one
       for (int i = 0; i < m_formats.size(); ++i) {
-        m_formats[i].append(i == 0 ? i18n("New") : QLatin1String(""));
+        m_formats[i].append(i == 0 ? tr("New") : QLatin1String(""));
       }
       index = m_formats.first().size() - 1;
     }

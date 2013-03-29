@@ -41,7 +41,6 @@
 #include <QHBoxLayout>
 #include "configstore.h"
 #include "contexthelp.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -53,11 +52,11 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
 {
   setObjectName(QLatin1String("NumberTracksDialog"));
   setModal(true);
-  setWindowTitle(i18n("Number Tracks"));
+  setWindowTitle(tr("Number Tracks"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   QHBoxLayout* trackLayout = new QHBoxLayout;
-  QLabel* trackLabel = new QLabel(i18n("&Start number:"), this);
+  QLabel* trackLabel = new QLabel(tr("&Start number:"), this);
   m_trackSpinBox = new QSpinBox(this);
   m_trackSpinBox->setMaximum(9999);
   m_trackSpinBox->setValue(ConfigStore::s_miscCfg.m_numberTracksStart);
@@ -69,12 +68,12 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
                                              QSizePolicy::Minimum);
   trackLayout->addItem(trackSpacer);
 
-  QLabel* destLabel = new QLabel(i18n("&Destination:"), this);
+  QLabel* destLabel = new QLabel(tr("&Destination:"), this);
   m_destComboBox = new QComboBox(this);
   m_destComboBox->setEditable(false);
-  m_destComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
-  m_destComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
-  m_destComboBox->addItem(i18n("Tag 1 and Tag 2"), TrackData::TagV2V1);
+  m_destComboBox->addItem(tr("Tag 1"), TrackData::TagV1);
+  m_destComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
+  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), TrackData::TagV2V1);
   m_destComboBox->setCurrentIndex(
       m_destComboBox->findData(ConfigStore::s_miscCfg.m_numberTracksDst));
   trackLayout->addWidget(destLabel);
@@ -84,7 +83,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   vlayout->addLayout(trackLayout);
 
   QHBoxLayout* totalLayout = new QHBoxLayout;
-  m_totalNumTracksCheckBox = new QCheckBox(i18n("&Total number of tracks:"),
+  m_totalNumTracksCheckBox = new QCheckBox(tr("&Total number of tracks:"),
                                            this);
   m_totalNumTrackSpinBox = new QSpinBox(this);
   if (m_totalNumTracksCheckBox && m_totalNumTrackSpinBox) {
@@ -98,11 +97,11 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
   vlayout->addLayout(totalLayout);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   hlayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
@@ -111,11 +110,11 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent) :
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  QPushButton* okButton = new QPushButton(i18n("&OK"), this);
+  QPushButton* okButton = new QPushButton(tr("&OK"), this);
   hlayout->addWidget(okButton);
   connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(cancelButton);
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 

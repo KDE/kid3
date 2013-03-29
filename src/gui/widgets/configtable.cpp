@@ -27,7 +27,6 @@
 #include "configtable.h"
 #include <QToolTip>
 #include <QMenu>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -137,15 +136,15 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
   QMenu menu(this);
   QAction* action;
   if (row >= -1) {
-    action = menu.addAction(i18n("&Insert row"));
+    action = menu.addAction(tr("&Insert row"));
     if (action) action->setData((row << 2) | 0);
   }
   if (row >= 0) {
-    action = menu.addAction(i18n("&Delete row"));
+    action = menu.addAction(tr("&Delete row"));
     if (action) action->setData((row << 2) | 1);
   }
   if (row >= 0) {
-    action = menu.addAction(i18n("&Clear row"));
+    action = menu.addAction(tr("&Clear row"));
     if (action) action->setData((row << 2) | 2);
   }
   connect(&menu, SIGNAL(triggered(QAction*)), this, SLOT(executeAction(QAction*)));

@@ -46,7 +46,6 @@
 #include <cstring>
 #include "genres.h"
 #include "pictureframe.h"
-#include "qtcompatmac.h"
 
 /** MPEG4IP version as 16-bit hex number with major and minor version. */
 #if defined MP4V2_PROJECT_version_major && defined MP4V2_PROJECT_version_minor

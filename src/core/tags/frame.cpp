@@ -27,8 +27,8 @@
 #include "frame.h"
 #include <QMap>
 #include <QRegExp>
+#include <QCoreApplication>
 #include "pictureframe.h"
-#include "qtcompatmac.h"
 
 namespace {
 
@@ -42,53 +42,53 @@ namespace {
 const char* getNameFromType(Frame::Type type)
 {
   static const char* const names[] = {
-    I18N_NOOP("Title"),           // FT_Title,
-    I18N_NOOP("Artist"),          // FT_Artist,
-    I18N_NOOP("Album"),           // FT_Album,
-    I18N_NOOP("Comment"),         // FT_Comment,
-    I18N_NOOP("Date"),            // FT_Date,
-    I18N_NOOP("Track Number"),    // FT_Track,
-    I18N_NOOP("Genre"),           // FT_Genre,
+    QT_TRANSLATE_NOOP("@default", "Title"),           // FT_Title,
+    QT_TRANSLATE_NOOP("@default", "Artist"),          // FT_Artist,
+    QT_TRANSLATE_NOOP("@default", "Album"),           // FT_Album,
+    QT_TRANSLATE_NOOP("@default", "Comment"),         // FT_Comment,
+    QT_TRANSLATE_NOOP("@default", "Date"),            // FT_Date,
+    QT_TRANSLATE_NOOP("@default", "Track Number"),    // FT_Track,
+    QT_TRANSLATE_NOOP("@default", "Genre"),           // FT_Genre,
                                   // FT_LastV1Frame = FT_Track,
-    I18N_NOOP("Album Artist"),    // FT_AlbumArtist
-    I18N_NOOP("Arranger"),        // FT_Arranger,
-    I18N_NOOP("Author"),          // FT_Author,
-    I18N_NOOP("BPM"),             // FT_Bpm,
-    I18N_NOOP("Catalog Number"),  // FT_CatalogNumber,
-    I18N_NOOP("Compilation"),     // FT_Compilation,
-    I18N_NOOP("Composer"),        // FT_Composer,
-    I18N_NOOP("Conductor"),       // FT_Conductor,
-    I18N_NOOP("Copyright"),       // FT_Copyright,
-    I18N_NOOP("Disc Number"),     // FT_Disc,
-    I18N_NOOP("Encoded-by"),      // FT_EncodedBy,
-    I18N_NOOP("Encoder Settings"), // FT_EncoderSettings,
-    I18N_NOOP("Encoding Time"),   // FT_EncodingTime,
-    I18N_NOOP("Grouping"),        // FT_Grouping,
-    I18N_NOOP("Initial Key"),     // FT_InitialKey,
-    I18N_NOOP("ISRC"),            // FT_Isrc,
-    I18N_NOOP("Language"),        // FT_Language,
-    I18N_NOOP("Lyricist"),        // FT_Lyricist,
-    I18N_NOOP("Lyrics"),          // FT_Lyrics,
-    I18N_NOOP("Media"),           // FT_Media,
-    I18N_NOOP("Mood"),            // FT_Mood,
-    I18N_NOOP("Original Album"),  // FT_OriginalAlbum,
-    I18N_NOOP("Original Artist"), // FT_OriginalArtist,
-    I18N_NOOP("Original Date"),   // FT_OriginalDate,
-    I18N_NOOP("Part"),            // FT_Part,
-    I18N_NOOP("Performer"),       // FT_Performer,
-    I18N_NOOP("Picture"),         // FT_Picture,
-    I18N_NOOP("Publisher"),       // FT_Publisher,
-    I18N_NOOP("Release Country"), // FT_ReleaseCountry,
-    I18N_NOOP("Remixer"),         // FT_Remixer,
-    I18N_NOOP("Sort Album"),      // FT_SortAlbum,
-    I18N_NOOP("Sort Album Artist"), // FT_SortAlbumArtist,
-    I18N_NOOP("Sort Artist"),     // FT_SortArtist,
-    I18N_NOOP("Sort Composer"),   // FT_SortComposer,
-    I18N_NOOP("Sort Name"),       // FT_SortName,
-    I18N_NOOP("Subtitle"),        // FT_Subtitle,
-    I18N_NOOP("Website"),         // FT_Website,
-    I18N_NOOP("WWW Audio File"),  // FT_WWWAudioFile,
-    I18N_NOOP("WWW Audio Source") // FT_WWWAudioSource,
+    QT_TRANSLATE_NOOP("@default", "Album Artist"),    // FT_AlbumArtist
+    QT_TRANSLATE_NOOP("@default", "Arranger"),        // FT_Arranger,
+    QT_TRANSLATE_NOOP("@default", "Author"),          // FT_Author,
+    QT_TRANSLATE_NOOP("@default", "BPM"),             // FT_Bpm,
+    QT_TRANSLATE_NOOP("@default", "Catalog Number"),  // FT_CatalogNumber,
+    QT_TRANSLATE_NOOP("@default", "Compilation"),     // FT_Compilation,
+    QT_TRANSLATE_NOOP("@default", "Composer"),        // FT_Composer,
+    QT_TRANSLATE_NOOP("@default", "Conductor"),       // FT_Conductor,
+    QT_TRANSLATE_NOOP("@default", "Copyright"),       // FT_Copyright,
+    QT_TRANSLATE_NOOP("@default", "Disc Number"),     // FT_Disc,
+    QT_TRANSLATE_NOOP("@default", "Encoded-by"),      // FT_EncodedBy,
+    QT_TRANSLATE_NOOP("@default", "Encoder Settings"), // FT_EncoderSettings,
+    QT_TRANSLATE_NOOP("@default", "Encoding Time"),   // FT_EncodingTime,
+    QT_TRANSLATE_NOOP("@default", "Grouping"),        // FT_Grouping,
+    QT_TRANSLATE_NOOP("@default", "Initial Key"),     // FT_InitialKey,
+    QT_TRANSLATE_NOOP("@default", "ISRC"),            // FT_Isrc,
+    QT_TRANSLATE_NOOP("@default", "Language"),        // FT_Language,
+    QT_TRANSLATE_NOOP("@default", "Lyricist"),        // FT_Lyricist,
+    QT_TRANSLATE_NOOP("@default", "Lyrics"),          // FT_Lyrics,
+    QT_TRANSLATE_NOOP("@default", "Media"),           // FT_Media,
+    QT_TRANSLATE_NOOP("@default", "Mood"),            // FT_Mood,
+    QT_TRANSLATE_NOOP("@default", "Original Album"),  // FT_OriginalAlbum,
+    QT_TRANSLATE_NOOP("@default", "Original Artist"), // FT_OriginalArtist,
+    QT_TRANSLATE_NOOP("@default", "Original Date"),   // FT_OriginalDate,
+    QT_TRANSLATE_NOOP("@default", "Part"),            // FT_Part,
+    QT_TRANSLATE_NOOP("@default", "Performer"),       // FT_Performer,
+    QT_TRANSLATE_NOOP("@default", "Picture"),         // FT_Picture,
+    QT_TRANSLATE_NOOP("@default", "Publisher"),       // FT_Publisher,
+    QT_TRANSLATE_NOOP("@default", "Release Country"), // FT_ReleaseCountry,
+    QT_TRANSLATE_NOOP("@default", "Remixer"),         // FT_Remixer,
+    QT_TRANSLATE_NOOP("@default", "Sort Album"),      // FT_SortAlbum,
+    QT_TRANSLATE_NOOP("@default", "Sort Album Artist"), // FT_SortAlbumArtist,
+    QT_TRANSLATE_NOOP("@default", "Sort Artist"),     // FT_SortArtist,
+    QT_TRANSLATE_NOOP("@default", "Sort Composer"),   // FT_SortComposer,
+    QT_TRANSLATE_NOOP("@default", "Sort Name"),       // FT_SortName,
+    QT_TRANSLATE_NOOP("@default", "Subtitle"),        // FT_Subtitle,
+    QT_TRANSLATE_NOOP("@default", "Website"),         // FT_Website,
+    QT_TRANSLATE_NOOP("@default", "WWW Audio File"),  // FT_WWWAudioFile,
+    QT_TRANSLATE_NOOP("@default", "WWW Audio Source") // FT_WWWAudioSource,
                                   // FT_LastFrame = FT_WWWAudioSource
   };
   class not_used { int array_size_check[
@@ -150,7 +150,7 @@ QString Frame::ExtendedType::getName() const
  */
 QString Frame::ExtendedType::getTranslatedName() const
 {
-  return m_type != FT_Other ? QCM_translate(getNameFromType(m_type)) : m_name;
+  return m_type != FT_Other ? QCoreApplication::translate("@default", getNameFromType(m_type)) : m_name;
 }
 
 
@@ -1041,39 +1041,39 @@ QString FrameFormatReplacer::getToolTip(bool onlyRows)
   if (!onlyRows) str += QLatin1String("<table>\n");
 
   str += QLatin1String("<tr><td>%s</td><td>%{title}</td><td>");
-  str += QCM_translate("Title");
+  str += QCoreApplication::translate("@default", "Title");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%l</td><td>%{album}</td><td>");
-  str += QCM_translate("Album");
+  str += QCoreApplication::translate("@default", "Album");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%a</td><td>%{artist}</td><td>");
-  str += QCM_translate("Artist");
+  str += QCoreApplication::translate("@default", "Artist");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%c</td><td>%{comment}</td><td>");
-  str += QCM_translate("Comment");
+  str += QCoreApplication::translate("@default", "Comment");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%y</td><td>%{year}</td><td>");
-  str += QCM_translate(I18N_NOOP("Year"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Year"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%t</td><td>%{track}</td><td>");
-  str += QCM_translate(I18N_NOOP("Track"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Track"));
   str += QLatin1String(" &quot;01&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%t</td><td>%{track.3}</td><td>");
-  str += QCM_translate(I18N_NOOP("Track"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Track"));
   str += QLatin1String(" &quot;001&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%T</td><td>%{tracknumber}</td><td>");
-  str += QCM_translate(I18N_NOOP("Track"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Track"));
   str += QLatin1String(" &quot;1&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%g</td><td>%{genre}</td><td>");
-  str += QCM_translate("Genre");
+  str += QCoreApplication::translate("@default", "Genre");
   str += QLatin1String("</td></tr>\n");
 
   if (!onlyRows) str += QLatin1String("</table>\n");

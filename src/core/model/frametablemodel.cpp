@@ -29,7 +29,6 @@
 #include <QComboBox>
 #include "configstore.h"
 #include "genres.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -89,7 +88,7 @@ QString FrameTableModel::getDisplayName(const QString& str)
       // probably "ID3-ID - Description"
       return str.left(4);
     } else {
-      return QCM_translate(str.toLatin1().data());
+      return QCoreApplication::translate("@default", str.toLatin1().data());
     }
   }
   return str;
@@ -188,7 +187,7 @@ QVariant FrameTableModel::headerData(
   if (role != Qt::DisplayRole)
     return QVariant();
   if (orientation == Qt::Horizontal) {
-    return section == CI_Enable ? i18n("Name") : i18n("Data");
+    return section == CI_Enable ? tr("Name") : tr("Data");
   }
   return section + 1;
 }

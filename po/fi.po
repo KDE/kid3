@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 2.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-09 09:13+0100\n"
+"POT-Creation-Date: 2013-03-29 17:08+0100\n"
 "PO-Revision-Date: 2013-03-14 23:39+0200\n"
 "Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -22,2220 +22,1595 @@ msgstr ""
 "X-Language: fi\n"
 "X-Source-Language: en\n"
 
-#: core/config/batchimportsourcesmodel.cpp:174
 msgid "Server"
 msgstr "Palvelin"
 
-#: core/config/batchimportsourcesmodel.cpp:176
-#: core/import/batchimporter.cpp:341
 msgid "Accuracy"
 msgstr "Tarkkuus"
 
-#: core/config/batchimportsourcesmodel.cpp:178
 msgid "Standard Tags"
 msgstr "Standardit tagit"
 
-#: core/config/batchimportsourcesmodel.cpp:180
 msgid "Additional Tags"
 msgstr "Lisätagit"
 
-#: core/config/batchimportsourcesmodel.cpp:182
 msgid "Cover Art"
 msgstr "Kansikuvat"
 
-#: core/config/shortcutsmodel.cpp:124
 msgid "Press F2 or double click to edit cell contents."
 msgstr ""
 
-#: core/config/shortcutsmodel.cpp:195
 msgid "Action"
 msgstr "Toiminto"
 
-#: core/config/shortcutsmodel.cpp:197
 msgid "Shortcut"
 msgstr "Näppäinyhdistelmä"
 
-#: core/formats/mp3file.cpp:1268 core/formats/taglibfile.cpp:1868
 msgid "AENC - Audio encryption"
 msgstr "AENC – Äänen koodaus"
 
-#: core/formats/mp3file.cpp:1269 core/formats/taglibfile.cpp:1869
 msgid "APIC - Attached picture"
 msgstr "APIC – Liitetty kuva"
 
-#: core/formats/mp3file.cpp:1271 core/formats/taglibfile.cpp:1871
 msgid "COMM - Comments"
 msgstr "COMM – Kommentit"
 
-#: core/formats/mp3file.cpp:1272 core/formats/taglibfile.cpp:1872
 msgid "COMR - Commercial"
 msgstr "COMR – Kaupallinen"
 
-#: core/formats/mp3file.cpp:1273 core/formats/taglibfile.cpp:1873
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR – Salausmenetelmän rekisteröinti"
 
-#: core/formats/mp3file.cpp:1275
 msgid "EQUA - Equalization"
 msgstr "EQUA – Ekvalisointi"
 
-#: core/formats/mp3file.cpp:1276 core/formats/taglibfile.cpp:1875
 msgid "ETCO - Event timing codes"
 msgstr "ETCO – Tapahtumien aikakoodit"
 
-#: core/formats/mp3file.cpp:1277 core/formats/taglibfile.cpp:1876
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB – Yleinen sisällytetty objekti"
 
-#: core/formats/mp3file.cpp:1278 core/formats/taglibfile.cpp:1877
 msgid "GRID - Group identification registration"
 msgstr "GRID – Ryhmätunnisteen rekisteröinti"
 
-#: core/formats/mp3file.cpp:1279
 msgid "IPLS - Involved people list"
 msgstr "IPLS – Mukana olleiden henkilöiden luettelo"
 
-#: core/formats/mp3file.cpp:1280 core/formats/taglibfile.cpp:1878
 msgid "LINK - Linked information"
 msgstr "LINK – Linkattu tieto"
 
-#: core/formats/mp3file.cpp:1281 core/formats/taglibfile.cpp:1879
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI – Musiikki-CD:n tunniste"
 
-#: core/formats/mp3file.cpp:1282 core/formats/taglibfile.cpp:1880
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT – MPEGin sijainninhakutaulukko"
 
-#: core/formats/mp3file.cpp:1283 core/formats/taglibfile.cpp:1881
 msgid "OWNE - Ownership frame"
 msgstr "OWNE – Omistajakehys"
 
-#: core/formats/mp3file.cpp:1284 core/formats/taglibfile.cpp:1888
 msgid "PRIV - Private frame"
 msgstr "PRIV – Yksityiskehys"
 
-#: core/formats/mp3file.cpp:1285 core/formats/taglibfile.cpp:1895
 msgid "PCNT - Play counter"
 msgstr "PCNT – Soittokertalaskuri"
 
-#: core/formats/mp3file.cpp:1286 core/formats/taglibfile.cpp:1896
 msgid "POPM - Popularimeter"
 msgstr "POPM – Suosiomittari"
 
-#: core/formats/mp3file.cpp:1287 core/formats/taglibfile.cpp:1903
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS – Sijainnin tahdistuskehys"
 
-#: core/formats/mp3file.cpp:1288 core/formats/taglibfile.cpp:1904
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF – Suositeltu puskurikoko"
 
-#: core/formats/mp3file.cpp:1290
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD – Äänenvoimakkuuden suhteellinen säätö"
 
-#: core/formats/mp3file.cpp:1291 core/formats/taglibfile.cpp:1906
 msgid "RVRB - Reverb"
 msgstr "RVRB – Kaikuefekti"
 
-#: core/formats/mp3file.cpp:1294 core/formats/taglibfile.cpp:1909
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT – Tahdistettu sanoitus/teksti"
 
-#: core/formats/mp3file.cpp:1295 core/formats/taglibfile.cpp:1910
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC – Tahdistetut tempokoodit"
 
-#: core/formats/mp3file.cpp:1296 core/formats/taglibfile.cpp:1911
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB – Levyn/elokuvan/sarjan otsikko"
 
-#: core/formats/mp3file.cpp:1297 core/formats/taglibfile.cpp:1912
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM – BPM (iskua minuutissa)"
 
-#: core/formats/mp3file.cpp:1298 core/formats/taglibfile.cpp:1914
 msgid "TCOM - Composer"
 msgstr "TCOM – Säveltäjä"
 
-#: core/formats/mp3file.cpp:1299 core/formats/taglibfile.cpp:1915
 msgid "TCON - Content type"
 msgstr "TCON – Sisältötyyppi"
 
-#: core/formats/mp3file.cpp:1300 core/formats/taglibfile.cpp:1916
 msgid "TCOP - Copyright message"
 msgstr "TCOP – Tekijänoikeustiedote"
 
-#: core/formats/mp3file.cpp:1301
 msgid "TDAT - Date"
 msgstr "TDAT – Päiväys"
 
-#: core/formats/mp3file.cpp:1303 core/formats/taglibfile.cpp:1918
 msgid "TDLY - Playlist delay"
 msgstr "TDLY – Soittolistan viive"
 
-#: core/formats/mp3file.cpp:1309 core/formats/taglibfile.cpp:1923
 msgid "TENC - Encoded by"
 msgstr "TENC – Koodaaja"
 
-#: core/formats/mp3file.cpp:1310 core/formats/taglibfile.cpp:1924
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT – Sanoittaja/tekstin kirjoittaja"
 
-#: core/formats/mp3file.cpp:1311 core/formats/taglibfile.cpp:1925
 msgid "TFLT - File type"
 msgstr "TFLT – Tiedoston tyyppi"
 
-#: core/formats/mp3file.cpp:1312
 msgid "TIME - Time"
 msgstr "TIME – Aika"
 
-#: core/formats/mp3file.cpp:1313 core/formats/taglibfile.cpp:1927
 msgid "TIT1 - Content group description"
 msgstr "TIT1 – Sisältöryhmän kuvaus"
 
-#: core/formats/mp3file.cpp:1314 core/formats/taglibfile.cpp:1928
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 – Otsikon/kappaleen nimen/sisällön kuvaus"
 
-#: core/formats/mp3file.cpp:1315 core/formats/taglibfile.cpp:1929
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 – Tekstitys/kuvauksen täsmennys"
 
-#: core/formats/mp3file.cpp:1316 core/formats/taglibfile.cpp:1930
 msgid "TKEY - Initial key"
 msgstr "TKEY – Alkusävellaji"
 
-#: core/formats/mp3file.cpp:1317 core/formats/taglibfile.cpp:1931
 msgid "TLAN - Language(s)"
 msgstr "TLAN – Kieli tai kielet"
 
-#: core/formats/mp3file.cpp:1318 core/formats/taglibfile.cpp:1932
 msgid "TLEN - Length"
 msgstr "TLEN – Kesto"
 
-#: core/formats/mp3file.cpp:1320 core/formats/taglibfile.cpp:1934
 msgid "TMED - Media type"
 msgstr "TMED – Mediatyyppi"
 
-#: core/formats/mp3file.cpp:1322 core/formats/taglibfile.cpp:1936
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL – Alkuperäinen levyn/elokuvan/sarjan otsikko"
 
-#: core/formats/mp3file.cpp:1323 core/formats/taglibfile.cpp:1937
 msgid "TOFN - Original filename"
 msgstr "TOFN – Alkuperäinen tiedostonimi"
 
-#: core/formats/mp3file.cpp:1324 core/formats/taglibfile.cpp:1938
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY – Alkuperäinen sanoittaja/tekstin kirjoittaja"
 
-#: core/formats/mp3file.cpp:1325 core/formats/taglibfile.cpp:1939
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE – Alkuperäinen artisti/esiintyjä"
 
-#: core/formats/mp3file.cpp:1326
 msgid "TORY - Original release year"
 msgstr "TORY – Alkuperäinen julkaisuvuosi"
 
-#: core/formats/mp3file.cpp:1327 core/formats/taglibfile.cpp:1940
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN – Tiedoston omistaja/lisenssi"
 
-#: core/formats/mp3file.cpp:1328 core/formats/taglibfile.cpp:1941
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 – Pääesiintyjä(t)/sooloartisti(t)"
 
-#: core/formats/mp3file.cpp:1329 core/formats/taglibfile.cpp:1942
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 – Yhtye/orkesteri/säestys"
 
-#: core/formats/mp3file.cpp:1330 core/formats/taglibfile.cpp:1943
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 – Kapellimestari tai esityksen parantelija"
 
-#: core/formats/mp3file.cpp:1331 core/formats/taglibfile.cpp:1944
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 – Tulkinnut, uudelleen miksannut tai muuten muokannut"
 
-#: core/formats/mp3file.cpp:1332 core/formats/taglibfile.cpp:1945
 msgid "TPOS - Part of a set"
 msgstr "TPOS – Osa joukkoa"
 
-#: core/formats/mp3file.cpp:1334 core/formats/taglibfile.cpp:1947
 msgid "TPUB - Publisher"
 msgstr "TPUB – Julkaisija"
 
-#: core/formats/mp3file.cpp:1335 core/formats/taglibfile.cpp:1948
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK – Kappaleen raita/sijainti joukossa"
 
-#: core/formats/mp3file.cpp:1336
 msgid "TRDA - Recording dates"
 msgstr "TRDA – Tallennuspäivät"
 
-#: core/formats/mp3file.cpp:1337 core/formats/taglibfile.cpp:1949
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN – Internet-radioaseman nimi"
 
-#: core/formats/mp3file.cpp:1338 core/formats/taglibfile.cpp:1950
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO – Internetin radioaseman omistaja"
 
-#: core/formats/mp3file.cpp:1339
 msgid "TSIZ - Size"
 msgstr "TSIZ – Koko"
 
-#: core/formats/mp3file.cpp:1343 core/formats/taglibfile.cpp:1956
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC – ISRC (kansainvälinen standardi nauhoituskoodi)"
 
-#: core/formats/mp3file.cpp:1344 core/formats/taglibfile.cpp:1957
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE – Koodauksessa käytetty ohjelmisto tai laitteisto sekä asetukset"
 
-#: core/formats/mp3file.cpp:1346 core/formats/taglibfile.cpp:1959
 msgid "TXXX - User defined text information"
 msgstr "TXXX – Käyttäjän määrittämä tekstitieto"
 
-#: core/formats/mp3file.cpp:1347
 msgid "TYER - Year"
 msgstr "TYER – Vuosi"
 
-#: core/formats/mp3file.cpp:1348 core/formats/taglibfile.cpp:1960
 msgid "UFID - Unique file identifier"
 msgstr "UFID – Tiedoston ainutkertainen tunniste"
 
-#: core/formats/mp3file.cpp:1349 core/formats/taglibfile.cpp:1961
 msgid "USER - Terms of use"
 msgstr "USER – Käyttöehdot"
 
-#: core/formats/mp3file.cpp:1350 core/formats/taglibfile.cpp:1962
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT – Tahdistamaton sanoitus tai tekstitranskriptio"
 
-#: core/formats/mp3file.cpp:1351 core/formats/taglibfile.cpp:1963
 msgid "WCOM - Commercial information"
 msgstr "WCOM – Kaupallinen tieto"
 
-#: core/formats/mp3file.cpp:1352 core/formats/taglibfile.cpp:1964
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP – Tekijänoikeustiedot"
 
-#: core/formats/mp3file.cpp:1353 core/formats/taglibfile.cpp:1965
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF – Äänitiedoston virallinen verkkosivu"
 
-#: core/formats/mp3file.cpp:1354 core/formats/taglibfile.cpp:1966
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR – Artistin/esiintyjän virallinen verkkosivu"
 
-#: core/formats/mp3file.cpp:1355 core/formats/taglibfile.cpp:1967
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS – Äänilähteen virallinen verkkosivu"
 
-#: core/formats/mp3file.cpp:1356 core/formats/taglibfile.cpp:1968
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS – Internetin radioaseman virallinen verkkosivu"
 
-#: core/formats/mp3file.cpp:1357 core/formats/taglibfile.cpp:1969
 msgid "WPAY - Payment"
 msgstr "WPAY – Maksaminen"
 
-#: core/formats/mp3file.cpp:1358 core/formats/taglibfile.cpp:1970
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB – Julkaisijan virallinen verkkosivu"
 
-#: core/formats/mp3file.cpp:1359 core/formats/taglibfile.cpp:1971
 msgid "WXXX - User defined URL link"
 msgstr "WXXX – Käyttäjän määrittämä verkko-osoite"
 
-#: core/formats/taglibfile.cpp:1870
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI – Äänihaun sijainti-indeksi"
 
-#: core/formats/taglibfile.cpp:1874
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 – Ekvalisaatio (2)"
 
-#: core/formats/taglibfile.cpp:1905
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 – Suhteellinen äänenvoimakkuuden säätö (2)"
 
-#: core/formats/taglibfile.cpp:1907
 msgid "SEEK - Seek frame"
 msgstr "SEEK – Hakukehys"
 
-#: core/formats/taglibfile.cpp:1908
 msgid "SIGN - Signature frame"
 msgstr "SIGN – Allekirjoituskehys"
 
-#: core/formats/taglibfile.cpp:1913
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - iTunes kokoelma"
 
-#: core/formats/taglibfile.cpp:1917
 msgid "TDEN - Encoding time"
 msgstr "TDEN – Koodausajankohta"
 
-#: core/formats/taglibfile.cpp:1919
 msgid "TDOR - Original release time"
 msgstr "TDOR – Alkuperäinen julkaisuajankohta"
 
-#: core/formats/taglibfile.cpp:1920
 msgid "TDRC - Recording time"
 msgstr "TDRC – Äänitysajankohta"
 
-#: core/formats/taglibfile.cpp:1921
 msgid "TDRL - Release time"
 msgstr "TRDL – Julkaisuajankohta"
 
-#: core/formats/taglibfile.cpp:1922
 msgid "TDTG - Tagging time"
 msgstr "TDTG – Luokitusajankohta"
 
-#: core/formats/taglibfile.cpp:1926
 msgid "TIPL - Involved people list"
 msgstr "TIPL – Mukana olleiden henkilöiden luettelo"
 
-#: core/formats/taglibfile.cpp:1933
 msgid "TMCL - Musician credits list"
 msgstr "TMCL – Ansioituneiden muusikkojen luettelo"
 
-#: core/formats/taglibfile.cpp:1935
 msgid "TMOO - Mood"
 msgstr "TMOO – Tunnelma"
 
-#: core/formats/taglibfile.cpp:1946
 msgid "TPRO - Produced notice"
 msgstr "TPRO – Tuotantoilmoitus"
 
-#: core/formats/taglibfile.cpp:1951
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 – Albumiartistien lajittelujärjestys"
 
-#: core/formats/taglibfile.cpp:1952
 msgid "TSOA - Album sort order"
 msgstr "TSOA – Levyjen lajittelujärjestys"
 
-#: core/formats/taglibfile.cpp:1953
 msgid "TSOC - Composer sort order"
 msgstr "TSOC – Säveltäjien lajittelujärjestys"
 
-#: core/formats/taglibfile.cpp:1954
 msgid "TSOP - Performer sort order"
 msgstr "TSOP – Esittäjien lajittelujärjestys"
 
-#: core/formats/taglibfile.cpp:1955
 msgid "TSOT - Title sort order"
 msgstr "TSOT – Nimikkeiden lajittelujärjestys"
 
-#: core/formats/taglibfile.cpp:1958
 msgid "TSST - Set subtitle"
 msgstr "TSST – Aseta tekstitys"
 
-#: core/import/amazonimporter.cpp:59
 msgid "Amazon"
 msgstr "Amazon"
 
-#: core/import/batchimporter.cpp:344 gui/dialogs/configdialog.cpp:442
-#: gui/dialogs/configdialog.cpp:740 gui/dialogs/musicbrainzdialog.cpp:188
-#: gui/dialogs/musicbrainzdialog.cpp:192 gui/dialogs/musicbrainzdialog.cpp:207
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: core/import/batchimporter.cpp:426
 msgid "Invalid File"
 msgstr "Virheellinen tiedosto"
 
-#: core/import/discogsimporter.cpp:294
 msgid "Discogs"
 msgstr "Discogs"
 
-#: core/import/freedbimporter.cpp:60
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: core/import/httpclient.cpp:94 core/import/httpclient.cpp:125
 msgid "Data received: %1"
 msgstr "Vastaanotettu data: %1"
 
-#: core/import/httpclient.cpp:106 core/model/downloadclient.cpp:63
-#: gui/dialogs/serverimportdialog.cpp:123 gui/forms/kid3mainwindow.cpp:168
-#: gui/forms/kid3mainwindow.cpp:838 gui/forms/kid3mainwindow.cpp:991
-#: gui/forms/kid3mainwindow.cpp:1235 gui/forms/kid3mainwindow.cpp:1314
 msgid "Ready."
 msgstr "Valmis."
 
-#: core/import/httpclient.cpp:108 core/import/musicbrainzclient.cpp:299
-#: core/model/dirrenamer.cpp:463 gui/dialogs/batchimportdialog.cpp:505
 msgid "Error"
 msgstr "Virhe"
 
-#: core/import/httpclient.cpp:213
 msgid "Request sent..."
 msgstr "Pyyntö lähetetty..."
 
-#: core/import/importparser.cpp:66 core/tags/frame.cpp:1060
 msgid "Year"
 msgstr "Vuosi"
 
-#: core/import/importparser.cpp:78 core/model/trackdatamodel.cpp:193
-#: core/tags/trackdata.cpp:191 core/tags/trackdata.cpp:195
 msgid "Length"
 msgstr "Kesto"
 
-#: core/import/musicbrainzclient.cpp:255
 msgid "Unrecognized"
 msgstr "Tunnistamaton"
 
-#: core/import/musicbrainzclient.cpp:267
 msgid "Recognized"
 msgstr "Tunnistettu"
 
-#: core/import/musicbrainzclient.cpp:270
 msgid "User Selection"
 msgstr "Käyttäjän valinta"
 
-#: core/import/musicbrainzclient.cpp:293
 msgid "ID Lookup"
 msgstr "ID-haku"
 
-#: core/import/musicbrainzclient.cpp:316
 msgid "Fingerprint"
 msgstr "Sormenjälki"
 
-#: core/import/musicbrainzclient.cpp:326
 msgid "Metadata Lookup"
 msgstr "Metadata luettu"
 
-#: core/import/musicbrainzreleaseimporter.cpp:60
 msgid "MusicBrainz Release"
 msgstr "MusicBrainzin julkaisu"
 
-#: core/import/tracktypeimporter.cpp:59
 msgid "TrackType.org"
 msgstr "TrackType.org"
 
-#: core/model/commandformatreplacer.cpp:144
 msgid "Filenames"
 msgstr "Tiedostot"
 
-#: core/model/commandformatreplacer.cpp:152
 msgid "URLs"
 msgstr "Osoitteet"
 
-#: core/model/commandformatreplacer.cpp:156
 msgid "Directory name"
 msgstr "Kansion nimi"
 
-#: core/model/commandformatreplacer.cpp:164
-#: gui/dialogs/browsecoverartdialog.cpp:58
 msgid "Encode as URL"
 msgstr "Koodaa URLiksi"
 
-#: core/model/commandstablemodel.cpp:172
 msgid "Confirm"
 msgstr "Vahvista"
 
-#: core/model/commandstablemodel.cpp:174
 msgid "Output"
 msgstr "Tulos"
 
-#: core/model/commandstablemodel.cpp:176 core/model/frametablemodel.cpp:191
 msgid "Name"
 msgstr "Nimi"
 
-#: core/model/commandstablemodel.cpp:178
 msgid "Command"
 msgstr "Komento"
 
-#: core/model/dirrenamer.cpp:73 core/model/dirrenamer.cpp:92
 msgid "Create directory %1 failed\n"
 msgstr "Kansion %1 luonti epäonnistui\n"
 
-#: core/model/dirrenamer.cpp:99 core/model/dirrenamer.cpp:122
 msgid "File %1 already exists\n"
 msgstr "Tiedosto %1 on jo olemassa\n"
 
-#: core/model/dirrenamer.cpp:101 core/model/dirrenamer.cpp:128
 msgid "%1 is not a directory\n"
 msgstr "%1 ei ole kansio\n"
 
-#: core/model/dirrenamer.cpp:103 core/model/dirrenamer.cpp:140
-#: core/model/dirrenamer.cpp:188 gui/forms/kid3mainwindow.cpp:2007
 msgid "Rename %1 to %2 failed\n"
 msgstr "Nimen muutos %1 -&gt; %2 epäonnistui\n"
 
-#: core/model/dirrenamer.cpp:147 core/model/dirrenamer.cpp:170
 msgid "%1 already exists\n"
 msgstr "%1 on jo olemassa\n"
 
-#: core/model/dirrenamer.cpp:149 core/model/dirrenamer.cpp:176
 msgid "%1 is not a file\n"
 msgstr "%1 ei ole tiedosto\n"
 
-#: core/model/dirrenamer.cpp:409
 msgid "New directory name is too different\n"
 msgstr "Hakemiston uusi nimi on liian erilainen\n"
 
-#: core/model/dirrenamer.cpp:460
 msgid "Create directory"
 msgstr "Luo kansio"
 
-#: core/model/dirrenamer.cpp:461
 msgid "Rename directory"
 msgstr "Muuta kansion nimeä"
 
-#: core/model/dirrenamer.cpp:462
 msgid "Rename file"
 msgstr "Muuta tiedoston nimeä"
 
-#: core/model/externalprocess.cpp:54
 msgid "C&lear"
 msgstr "&Tyhjennä"
 
-#: core/model/externalprocess.cpp:57 gui/dialogs/batchimportdialog.cpp:243
-#: gui/dialogs/browserdialog.cpp:126 gui/dialogs/exportdialog.cpp:143
-#: gui/dialogs/filterdialog.cpp:84 gui/dialogs/serverimportdialog.cpp:109
-#: gui/dialogs/tagimportdialog.cpp:78 gui/dialogs/textimportdialog.cpp:92
-#: gui/widgets/imageviewer.cpp:53
 msgid "&Close"
 msgstr "&Sulje"
 
-#: core/model/externalprocess.cpp:160
 msgid "Execute "
 msgstr "Suorita"
 
-#: core/model/externalprocess.cpp:193
 msgid "Could not execute "
 msgstr "Ei voitu suorittaa "
 
-#: core/model/filefilter.cpp:112
 msgid "True if strings are equal"
 msgstr "Tosi, jos merkkijonot ovat yhtäläiset"
 
-#: core/model/filefilter.cpp:116
 msgid "True if string contains substring"
 msgstr "Tosi, jos merkkijono sisältää alijonon"
 
-#: core/model/filefilter.cpp:120
 msgid "True if string matches regexp"
 msgstr "Tosi, jos merkkijono vastaa sääntölauseketta"
 
-#: core/model/filefilter.cpp:124
 msgid "Logical AND"
 msgstr "Looginen JA"
 
-#: core/model/filefilter.cpp:128
 msgid "Logical OR"
 msgstr "Looginen TAI"
 
-#: core/model/filefilter.cpp:132
 msgid "Logical negation"
 msgstr "Looginen kielto"
 
-#: core/model/frametablemodel.cpp:191
-#: gui/dialogs/editframefieldsdialog.cpp:661
 msgid "Data"
 msgstr "Data"
 
-#: core/model/kid3application.cpp:1916 core/model/kid3application.cpp:1920
 msgid "All Supported Files"
 msgstr "Kaikki tuetut tiedostot"
 
-#: core/model/kid3application.cpp:1918 core/model/kid3application.cpp:1924
-#: gui/dialogs/editframefieldsdialog.cpp:812
-#: gui/dialogs/editframefieldsdialog.cpp:814
 msgid "All Files (*)"
 msgstr "Kaikki tiedostot (*)"
 
-#: core/model/trackdatamodel.cpp:182 core/tags/frame.cpp:1064
-#: core/tags/frame.cpp:1068 core/tags/frame.cpp:1072
 msgid "Track"
 msgstr "Raita"
 
-#: core/model/trackdatamodel.cpp:187 core/tags/trackdata.cpp:183
 msgid "Absolute path to file"
 msgstr "Tiedoston absoluuttinen polku"
 
-#: core/model/trackdatamodel.cpp:189 gui/dialogs/editframefieldsdialog.cpp:666
-#: gui/forms/kid3form.cpp:938 gui/forms/kid3mainwindow.cpp:380
-#: gui/forms/kid3mainwindow.cpp:383 gui/forms/kid3mainwindow.cpp:386
 msgid "Filename"
 msgstr "Tiedostonimi"
 
-#: core/model/trackdatamodel.cpp:191
 msgid "Duration"
 msgstr "Kesto"
 
-#: core/tags/frame.cpp:45
 msgid "Title"
 msgstr "Nimi"
 
-#: core/tags/frame.cpp:46
 msgid "Artist"
 msgstr "Artisti"
 
-#: core/tags/frame.cpp:47
 msgid "Album"
 msgstr "Levyn nimi"
 
-#: core/tags/frame.cpp:48
 msgid "Comment"
 msgstr "Kommentti"
 
-#: core/tags/frame.cpp:49 gui/dialogs/editframefieldsdialog.cpp:683
 msgid "Date"
 msgstr "Päiväys"
 
-#: core/tags/frame.cpp:50
 msgid "Track Number"
 msgstr "Kappaleen raita"
 
-#: core/tags/frame.cpp:51
 msgid "Genre"
 msgstr "Tyylilaji"
 
-#: core/tags/frame.cpp:53
 msgid "Album Artist"
 msgstr "Levyn artisti"
 
-#: core/tags/frame.cpp:54
 msgid "Arranger"
 msgstr "Sovittaja"
 
-#: core/tags/frame.cpp:55
 msgid "Author"
 msgstr "Tekijä"
 
-#: core/tags/frame.cpp:56
 msgid "BPM"
 msgstr "BPM"
 
-#: core/tags/frame.cpp:57
 msgid "Catalog Number"
 msgstr "Kataloginumero"
 
-#: core/tags/frame.cpp:58
 msgid "Compilation"
 msgstr "Kokoelmalevy"
 
-#: core/tags/frame.cpp:59 gui/dialogs/editframefieldsdialog.cpp:888
 msgid "Composer"
 msgstr "Säveltäjä"
 
-#: core/tags/frame.cpp:60 gui/dialogs/editframefieldsdialog.cpp:886
 msgid "Conductor"
 msgstr "Kapellimestari"
 
-#: core/tags/frame.cpp:61
 msgid "Copyright"
 msgstr "Tekijänoikeudet"
 
-#: core/tags/frame.cpp:62
 msgid "Disc Number"
 msgstr "Levynumero"
 
-#: core/tags/frame.cpp:63
 msgid "Encoded-by"
 msgstr "Pakannut"
 
-#: core/tags/frame.cpp:64
 msgid "Encoder Settings"
 msgstr "Pakkausasetukset"
 
-#: core/tags/frame.cpp:65
 msgid "Encoding Time"
 msgstr "Koodausajankohta"
 
-#: core/tags/frame.cpp:66
 msgid "Grouping"
 msgstr "Ryhmittely"
 
-#: core/tags/frame.cpp:67
 msgid "Initial Key"
 msgstr "Alkusävellaji"
 
-#: core/tags/frame.cpp:68
 msgid "ISRC"
 msgstr "ISRC"
 
-#: core/tags/frame.cpp:69 gui/dialogs/editframefieldsdialog.cpp:667
 msgid "Language"
 msgstr "Kieli"
 
-#: core/tags/frame.cpp:70
 msgid "Lyricist"
 msgstr "Sanoittaja"
 
-#: core/tags/frame.cpp:71 gui/dialogs/editframefieldsdialog.cpp:916
 msgid "Lyrics"
 msgstr "Sanoitus"
 
-#: core/tags/frame.cpp:72 gui/dialogs/editframefieldsdialog.cpp:883
 msgid "Media"
 msgstr "Media"
 
-#: core/tags/frame.cpp:73
 msgid "Mood"
 msgstr "Tunnelma"
 
-#: core/tags/frame.cpp:74
 msgid "Original Album"
 msgstr "Alkuperäinen levy"
 
-#: core/tags/frame.cpp:75
 msgid "Original Artist"
 msgstr "Alkuperäinen artisti"
 
-#: core/tags/frame.cpp:76
 msgid "Original Date"
 msgstr "Alkuperäinen päiväys"
 
-#: core/tags/frame.cpp:77
 msgid "Part"
 msgstr "Osa"
 
-#: core/tags/frame.cpp:78
 msgid "Performer"
 msgstr "Esiintyjä"
 
-#: core/tags/frame.cpp:79
 msgid "Picture"
 msgstr "Kuva"
 
-#: core/tags/frame.cpp:80
 msgid "Publisher"
 msgstr "Julkaisija"
 
-#: core/tags/frame.cpp:81
 msgid "Release Country"
 msgstr "Julkaisumaa"
 
-#: core/tags/frame.cpp:82
 msgid "Remixer"
 msgstr "Uudelleen miksannut"
 
-#: core/tags/frame.cpp:83
 msgid "Sort Album"
 msgstr "Levyjen lajittelujärjestys"
 
-#: core/tags/frame.cpp:84
 msgid "Sort Album Artist"
 msgstr "Albumiartistien lajittelujärjestys"
 
-#: core/tags/frame.cpp:85
 msgid "Sort Artist"
 msgstr "Esittäjien lajittelujärjestys"
 
-#: core/tags/frame.cpp:86
 msgid "Sort Composer"
 msgstr "Säveltäjien lajittelujärjestys"
 
-#: core/tags/frame.cpp:87
 msgid "Sort Name"
 msgstr "Nimikkeiden lajittelujärjestys"
 
-#: core/tags/frame.cpp:88
 msgid "Subtitle"
 msgstr "Tekstitys"
 
-#: core/tags/frame.cpp:89
 msgid "Website"
 msgstr "Sivusto"
 
-#: core/tags/frame.cpp:90
 msgid "WWW Audio File"
 msgstr "Äänitiedoston WWW"
 
-#: core/tags/frame.cpp:91 gui/widgets/frametable.cpp:67
 msgid "WWW Audio Source"
 msgstr "Äänilähteen WWW"
 
-#: core/tags/trackdata.cpp:199
 msgid "Number of tracks"
 msgstr "Kappaleiden lukumäärä"
 
-#: core/tags/trackdata.cpp:203
 msgid "Extension"
 msgstr "Tiedostopääte"
 
-#: core/tags/trackdata.cpp:215
 msgid "Bitrate"
 msgstr "Bittinopeus"
 
-#: core/tags/trackdata.cpp:219
 msgid "VBR"
 msgstr "Vaihteleva bittinopeus"
 
-#: core/tags/trackdata.cpp:223
 msgid "Samplerate"
 msgstr "Näytteenottotaajuus"
 
-#: core/tags/trackdata.cpp:229
 msgid "Channels"
 msgstr "Kanavat"
 
-#: core/tags/trackdata.cpp:233
 msgid "Codec"
 msgstr "Koodekki"
 
-#: gui/app/main.cpp:41
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3, ID3-tagimuokkaaja"
-
-#: gui/app/main.cpp:55 gui/forms/kid3form.cpp:174
-msgid "Kid3"
-msgstr "Kid3"
-
-#: gui/app/main.cpp:57
-msgid "(c) 2003-"
-msgstr "(c) 2003-"
-
-#: gui/app/main.cpp:59
-msgid "Urs Fleisch"
-msgstr "Urs Fleisch"
-
-#: gui/app/main.cpp:63
 msgid "directory to open"
 msgstr "avattava kansio"
 
-#: gui/dialogs/batchimportdialog.cpp:168
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3, ID3-tagimuokkaaja"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Tommi Nieminen, Ville Skyttä"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "translator@legisign.org, ville.skytta@iki.fi"
+
 msgid "Automatic Import"
 msgstr "Tuo automaattisesti"
 
-#: gui/dialogs/batchimportdialog.cpp:184 gui/dialogs/importdialog.cpp:177
 msgid "D&estination:"
 msgstr "Koh&de:"
 
-#: gui/dialogs/batchimportdialog.cpp:188 gui/dialogs/exportdialog.cpp:119
-#: gui/dialogs/importdialog.cpp:181 gui/dialogs/numbertracksdialog.cpp:75
-#: gui/forms/kid3form.cpp:234 gui/forms/kid3form.cpp:259
-#: gui/forms/kid3form.cpp:943 gui/forms/kid3mainwindow.cpp:341
-#: gui/forms/kid3mainwindow.cpp:344 gui/forms/kid3mainwindow.cpp:347
-#: gui/forms/kid3mainwindow.cpp:350 gui/forms/kid3mainwindow.cpp:353
-#: gui/forms/kid3mainwindow.cpp:389
 msgid "Tag 1"
 msgstr "1-tagi"
 
-#: gui/dialogs/batchimportdialog.cpp:189 gui/dialogs/exportdialog.cpp:120
-#: gui/dialogs/importdialog.cpp:182 gui/dialogs/numbertracksdialog.cpp:76
-#: gui/forms/kid3form.cpp:237 gui/forms/kid3form.cpp:263
-#: gui/forms/kid3form.cpp:950 gui/forms/kid3mainwindow.cpp:356
-#: gui/forms/kid3mainwindow.cpp:359 gui/forms/kid3mainwindow.cpp:362
-#: gui/forms/kid3mainwindow.cpp:365 gui/forms/kid3mainwindow.cpp:368
-#: gui/forms/kid3mainwindow.cpp:392
 msgid "Tag 2"
 msgstr "2-tagi"
 
-#: gui/dialogs/batchimportdialog.cpp:190 gui/dialogs/importdialog.cpp:183
-#: gui/dialogs/numbertracksdialog.cpp:77
 msgid "Tag 1 and Tag 2"
 msgstr "1- ja 2-tagit"
 
-#: gui/dialogs/batchimportdialog.cpp:197
 msgid "&Profile:"
 msgstr "&Profiili:"
 
-#: gui/dialogs/batchimportdialog.cpp:207 gui/forms/kid3form.cpp:358
-#: gui/forms/kid3form.cpp:957 gui/forms/kid3mainwindow.cpp:374
 msgid "Add"
 msgstr "Lisää"
 
-#: gui/dialogs/batchimportdialog.cpp:211 gui/forms/kid3form.cpp:304
-#: gui/forms/kid3form.cpp:346 gui/forms/kid3form.cpp:948
-#: gui/forms/kid3form.cpp:955 gui/forms/kid3mainwindow.cpp:353
-#: gui/forms/kid3mainwindow.cpp:368
 msgid "Remove"
 msgstr "Poista"
 
-#: gui/dialogs/batchimportdialog.cpp:230
-#: gui/dialogs/browsecoverartdialog.cpp:125 gui/dialogs/configdialog.cpp:464
-#: gui/dialogs/exportdialog.cpp:129 gui/dialogs/filterdialog.cpp:68
-#: gui/dialogs/importdialog.cpp:237 gui/dialogs/musicbrainzdialog.cpp:120
-#: gui/dialogs/numbertracksdialog.cpp:101 gui/dialogs/playlistdialog.cpp:194
-#: gui/dialogs/serverimportdialog.cpp:107 gui/dialogs/tagimportdialog.cpp:65
-#: gui/dialogs/textimportdialog.cpp:75 gui/forms/kid3mainwindow.cpp:768
 msgid "&Help"
 msgstr "O&hje"
 
-#: gui/dialogs/batchimportdialog.cpp:235
-#: gui/dialogs/browsecoverartdialog.cpp:130 gui/dialogs/exportdialog.cpp:134
-#: gui/dialogs/filterdialog.cpp:73 gui/dialogs/importdialog.cpp:239
-#: gui/dialogs/musicbrainzdialog.cpp:121
-#: gui/dialogs/numbertracksdialog.cpp:105 gui/dialogs/playlistdialog.cpp:198
-#: gui/dialogs/rendirdialog.cpp:76 gui/dialogs/serverimportdialog.cpp:108
-#: gui/dialogs/tagimportdialog.cpp:69 gui/dialogs/textimportdialog.cpp:79
 msgid "&Save Settings"
 msgstr "&Tallenna asetukset"
 
-#: gui/dialogs/batchimportdialog.cpp:287 gui/widgets/formatlistedit.cpp:241
 msgid "New"
 msgstr "Uusi"
 
-#: gui/dialogs/batchimportdialog.cpp:474
 msgid "Reading Directory"
 msgstr "Luetaan hakemistoa"
 
-#: gui/dialogs/batchimportdialog.cpp:478 gui/dialogs/filterdialog.cpp:173
 msgid "Started"
 msgstr "Aloitettu"
 
-#: gui/dialogs/batchimportdialog.cpp:481
 msgid "Source"
 msgstr "Lähde"
 
-#: gui/dialogs/batchimportdialog.cpp:484
 msgid "Querying"
 msgstr "Kysytään"
 
-#: gui/dialogs/batchimportdialog.cpp:488
 msgid "Fetching"
 msgstr "Noudetaan"
 
-#: gui/dialogs/batchimportdialog.cpp:491
 msgid "Data received"
 msgstr "Vastaanotettu data"
 
-#: gui/dialogs/batchimportdialog.cpp:494
 msgid "Cover"
 msgstr "Kansikuvat"
 
-#: gui/dialogs/batchimportdialog.cpp:498 gui/dialogs/filterdialog.cpp:189
 msgid "Finished"
 msgstr "Valmis"
 
-#: gui/dialogs/batchimportdialog.cpp:502 gui/dialogs/filterdialog.cpp:193
 msgid "Aborted"
 msgstr "Keskeytetty"
 
-#: gui/dialogs/batchimportdialog.cpp:521 gui/dialogs/filterdialog.cpp:206
-#: gui/forms/kid3mainwindow.cpp:2129
 msgid "A&bort"
 msgstr "&Keskeytä"
 
-#: gui/dialogs/batchimportdialog.cpp:521
 msgid "S&tart"
 msgstr "&Alku"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:45
 msgid "Import Source"
 msgstr "Tuonnin lähde"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:51
-#: gui/dialogs/musicbrainzdialog.cpp:69 gui/dialogs/serverimportdialog.cpp:78
 msgid "&Server:"
 msgstr "&Palvelin:"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:59
 msgid "&Accuracy:"
 msgstr "T&arkkuus:"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:69
-#: gui/dialogs/serverimportdialog.cpp:92
 msgid "&Standard Tags"
 msgstr "&Standardit tagit"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:71
-#: gui/dialogs/serverimportdialog.cpp:93
 msgid "&Additional Tags"
 msgstr "&Lisätagit"
 
-#: gui/dialogs/batchimportsourcedialog.cpp:73
-#: gui/dialogs/serverimportdialog.cpp:94
 msgid "C&over Art"
 msgstr "&Kansikuvat"
 
-#: gui/dialogs/browsecoverartdialog.cpp:75
-#: gui/dialogs/browsecoverartdialog.cpp:254
 msgid "Browse Cover Art"
 msgstr "Selaa kansikuvia"
 
-#: gui/dialogs/browsecoverartdialog.cpp:84
 msgid "&Artist/Album"
 msgstr "&Artisti/Levy"
 
-#: gui/dialogs/browsecoverartdialog.cpp:97
 msgid "&Source"
 msgstr "&Lähde"
 
-#: gui/dialogs/browsecoverartdialog.cpp:99 gui/dialogs/tagimportdialog.cpp:56
 msgid "Source:"
 msgstr "Lähde:"
 
-#: gui/dialogs/browsecoverartdialog.cpp:100
 msgid "URL:"
 msgstr "Osoite:"
 
-#: gui/dialogs/browsecoverartdialog.cpp:112
 msgid "&URL extraction"
 msgstr "&Osoitteen tunnistus"
 
-#: gui/dialogs/browsecoverartdialog.cpp:115
 msgid "Match"
 msgstr "Sovita"
 
-#: gui/dialogs/browsecoverartdialog.cpp:115
 msgid "Picture URL"
 msgstr "Kuvan osoite"
 
-#: gui/dialogs/browsecoverartdialog.cpp:139
 msgid "&Browse"
 msgstr "&Selaa"
 
-#: gui/dialogs/browsecoverartdialog.cpp:140 gui/dialogs/configdialog.cpp:466
-#: gui/dialogs/editframedialog.cpp:56
-#: gui/dialogs/editframefieldsdialog.cpp:966 gui/dialogs/importdialog.cpp:243
-#: gui/dialogs/musicbrainzdialog.cpp:124
-#: gui/dialogs/numbertracksdialog.cpp:118 gui/dialogs/playlistdialog.cpp:209
 msgid "&Cancel"
 msgstr "&Peruuta"
 
-#: gui/dialogs/browsecoverartdialog.cpp:171
 msgid "Click Browse to start"
 msgstr "Aloita napsauttamalla Selaa"
 
-#: gui/dialogs/browsecoverartdialog.cpp:177
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Vedä sitten kuva selaimesta Kid3:een."
 
-#: gui/dialogs/browserdialog.cpp:84
 msgid "&Back"
 msgstr "&Takaisin"
 
-#: gui/dialogs/browserdialog.cpp:89
 msgid "&Forward"
 msgstr "&Seuraava"
 
-#: gui/dialogs/browserdialog.cpp:94
 msgid "&Find:"
 msgstr "&Etsi:"
 
-#: gui/dialogs/browserdialog.cpp:108
 msgid "Find Previous"
 msgstr "Etsi edellinen"
 
-#: gui/dialogs/browserdialog.cpp:118
 msgid "Find Next"
 msgstr "Etsi seuraava"
 
-#: gui/dialogs/configdialog.cpp:116
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: gui/dialogs/configdialog.cpp:118
 msgid "&Mark truncated fields"
 msgstr "&Merkitse lyhennetyt kentät"
 
-#: gui/dialogs/configdialog.cpp:121 gui/dialogs/configdialog.cpp:208
 msgid "Text &encoding:"
 msgstr "Merkist&ökoodaus:"
 
-#: gui/dialogs/configdialog.cpp:199
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: gui/dialogs/configdialog.cpp:201
 msgid "Use &track/total number of tracks format"
 msgstr "Numeroi &raidat muodossa raita/kaikkiaan"
 
-#: gui/dialogs/configdialog.cpp:203
 msgid "Track number &digits:"
 msgstr "Numeroiden &määrä:"
 
-#: gui/dialogs/configdialog.cpp:207
 msgid "&Genre as text instead of numeric string"
 msgstr "&Tyylilaji tekstinä numerojonon sijaan"
 
-#: gui/dialogs/configdialog.cpp:210 gui/dialogs/editframefieldsdialog.cpp:866
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: gui/dialogs/configdialog.cpp:211 gui/dialogs/editframefieldsdialog.cpp:867
 msgid "UTF16"
 msgstr "UTF-16"
 
-#: gui/dialogs/configdialog.cpp:212 gui/dialogs/editframefieldsdialog.cpp:869
 msgid "UTF8"
 msgstr "UTF-8"
 
-#: gui/dialogs/configdialog.cpp:220
 msgid "&Version used for new tags:"
 msgstr "&Uusien tagien versio:"
 
-#: gui/dialogs/configdialog.cpp:223
 msgid "ID3v2.3.0 (id3lib)"
 msgstr "ID3v2.3.0 (id3lib)"
 
-#: gui/dialogs/configdialog.cpp:225
 msgid "ID3v2.4.0 (TagLib)"
 msgstr "ID3v2.4.0 (TagLib)"
 
-#: gui/dialogs/configdialog.cpp:227
 msgid "ID3v2.3.0 (TagLib)"
 msgstr "ID3v2.3.0 (TagLib)"
 
-#: gui/dialogs/configdialog.cpp:239
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: gui/dialogs/configdialog.cpp:240
 msgid "Co&mment field name:"
 msgstr "K&ommenttikentän nimi:"
 
-#: gui/dialogs/configdialog.cpp:242
 msgid "&Picture field name:"
 msgstr "&Kuvakentän nimi:"
 
-#: gui/dialogs/configdialog.cpp:263
 msgid "Custom &Genres"
 msgstr "Omat t&yylilajit"
 
-#: gui/dialogs/configdialog.cpp:264
 msgid "&Show only custom genres"
 msgstr "Näytä &vain omat tyylilajit"
 
-#: gui/dialogs/configdialog.cpp:273
 msgid "&Quick Access Tags"
 msgstr ""
 
-#: gui/dialogs/configdialog.cpp:290
 msgid "&Tag Format"
 msgstr "Ta&gin muoto"
 
-#: gui/dialogs/configdialog.cpp:295 gui/forms/kid3form.cpp:273
-#: gui/forms/kid3form.cpp:593
 msgid "Tag &1"
 msgstr "&1-tagi"
 
-#: gui/dialogs/configdialog.cpp:296 gui/forms/kid3form.cpp:316
-#: gui/forms/kid3form.cpp:608
 msgid "Tag &2"
 msgstr "&2-tagi"
 
-#: gui/dialogs/configdialog.cpp:297
 msgid "Tag 1 a&nd Tag 2"
 msgstr "1- &ja 2-tagit"
 
-#: gui/dialogs/configdialog.cpp:302
 msgid "Tags"
 msgstr "Tagit"
 
-#: gui/dialogs/configdialog.cpp:304
 msgid "&Tags"
 msgstr "&Tagit"
 
-#: gui/dialogs/configdialog.cpp:311
 msgid "Startup"
 msgstr "Käynnistys"
 
-#: gui/dialogs/configdialog.cpp:312
 msgid "&Load last-opened files"
 msgstr "&Lataa viimeksi avatut tiedostot"
 
-#: gui/dialogs/configdialog.cpp:318
 msgid "Save"
 msgstr "Tallenna"
 
-#: gui/dialogs/configdialog.cpp:319
 msgid "&Preserve file timestamp"
 msgstr "&Säilytä tiedoston päiväys"
 
-#: gui/dialogs/configdialog.cpp:320
 msgid "&Mark changes"
 msgstr "&Merkitse muutokset"
 
-#: gui/dialogs/configdialog.cpp:321
 msgid "F&ilename for cover:"
 msgstr "Kans&ikuvan tiedostonimi:"
 
-#: gui/dialogs/configdialog.cpp:334
 msgid "&Filename Format"
 msgstr "&Tiedostonimen muoto"
 
-#: gui/dialogs/configdialog.cpp:338
 msgid "Files"
 msgstr "Tiedostot"
 
-#: gui/dialogs/configdialog.cpp:340
 msgid "&Files"
 msgstr "&Tiedostot"
 
-#: gui/dialogs/configdialog.cpp:347
 msgid "Browser"
 msgstr "Selain"
 
-#: gui/dialogs/configdialog.cpp:348
 msgid "Web &browser:"
 msgstr "&Web-selain:"
 
-#: gui/dialogs/configdialog.cpp:357
 msgid "Context &Menu Commands"
 msgstr "&Kontekstivalikon komennot"
 
-#: gui/dialogs/configdialog.cpp:359
 msgid "&Play on double click"
 msgstr "&Soita tuplaklikkaamalla"
 
-#: gui/dialogs/configdialog.cpp:370
 msgid "User Actions"
 msgstr "Käyttäjän toimet"
 
-#: gui/dialogs/configdialog.cpp:372
 msgid "&User Actions"
 msgstr "&Käyttäjän toimet"
 
-#: gui/dialogs/configdialog.cpp:379
 msgid "Proxy"
 msgstr "Välityspalvelin"
 
-#: gui/dialogs/configdialog.cpp:380
 msgid "&Proxy:"
 msgstr "&Välityspalvelin:"
 
-#: gui/dialogs/configdialog.cpp:382
 msgid "&Use authentication with proxy"
 msgstr "T&unnistaudu välityspalvelimeen"
 
-#: gui/dialogs/configdialog.cpp:383
 msgid "Proxy user &name:"
 msgstr "K&äyttäjätunnus:"
 
-#: gui/dialogs/configdialog.cpp:386
 msgid "Proxy pass&word:"
 msgstr "&Salasana:"
 
-#: gui/dialogs/configdialog.cpp:408
 msgid "Network"
 msgstr "Verkko"
 
-#: gui/dialogs/configdialog.cpp:410
 msgid "&Network"
 msgstr "&Verkko"
 
-#: gui/dialogs/configdialog.cpp:426
 msgid "&Keyboard Shortcuts"
 msgstr "Näppäimistön pi&kavalinnat"
 
-#: gui/dialogs/configdialog.cpp:434
 msgid "Use custom app&lication font"
 msgstr "Käytä &omaa kirjasinta sovelluksessa"
 
-#: gui/dialogs/configdialog.cpp:435
 msgid "A&pplication Font..."
 msgstr "&Käytettävä kirjasin..."
 
-#: gui/dialogs/configdialog.cpp:436
 msgid "Use custom application &style"
 msgstr "Käytä sovelluksessa omaa t&yyliä"
 
-#: gui/dialogs/configdialog.cpp:451
 msgid "Use native system file &dialogs"
 msgstr "Käytä kotoperäisiä järjestelmän tie&dostovalintaikkunoita"
 
-#: gui/dialogs/configdialog.cpp:455
 msgid "&Appearance"
 msgstr "&Ulkonäkö"
 
-#: gui/dialogs/configdialog.cpp:465 gui/dialogs/editframedialog.cpp:55
-#: gui/dialogs/editframefieldsdialog.cpp:965 gui/dialogs/importdialog.cpp:241
-#: gui/dialogs/musicbrainzdialog.cpp:122
-#: gui/dialogs/numbertracksdialog.cpp:114 gui/dialogs/playlistdialog.cpp:206
 msgid "&OK"
 msgstr "&OK"
 
-#: gui/dialogs/configdialog.cpp:662
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
 msgstr "Pikanäppäin '%1' on jo kytketty toimintoon '%2'."
 
-#: gui/dialogs/contexthelp.cpp:59 gui/forms/kid3mainwindow.cpp:771
 msgid "Kid3 Handbook"
 msgstr "Kid3 Käsikirja"
 
-#: gui/dialogs/editframefieldsdialog.cpp:526
-#: gui/dialogs/textimportdialog.cpp:88
 msgid "From Clip&board"
 msgstr "&Leikepöydältä"
 
-#: gui/dialogs/editframefieldsdialog.cpp:527
 msgid "&Import"
 msgstr "&Tuo"
 
-#: gui/dialogs/editframefieldsdialog.cpp:528
 msgid "&Export"
 msgstr "&Vie"
 
-#: gui/dialogs/editframefieldsdialog.cpp:529
 msgid "&View"
 msgstr "&Näytä"
 
-#: gui/dialogs/editframefieldsdialog.cpp:658
 msgid "Text Encoding"
 msgstr "Merkistökoodaus"
 
-#: gui/dialogs/editframefieldsdialog.cpp:659
 msgid "Text"
 msgstr "Teksti"
 
-#: gui/dialogs/editframefieldsdialog.cpp:660
 msgid "URL"
 msgstr "Osoite"
 
-#: gui/dialogs/editframefieldsdialog.cpp:662
 msgid "Description"
 msgstr "Kuvaus"
 
-#: gui/dialogs/editframefieldsdialog.cpp:663
 msgid "Owner"
 msgstr "Omistaja"
 
-#: gui/dialogs/editframefieldsdialog.cpp:664
 msgid "Email"
 msgstr "Sähköposti"
 
-#: gui/dialogs/editframefieldsdialog.cpp:665
 msgid "Rating"
 msgstr "Arvostelu"
 
-#: gui/dialogs/editframefieldsdialog.cpp:668
 msgid "Picture Type"
 msgstr "Kuvan tyyppi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:669
 msgid "Image format"
 msgstr "Kuvatiedoston muoto"
 
-#: gui/dialogs/editframefieldsdialog.cpp:670
 msgid "Mimetype"
 msgstr "MIME-tyyppi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:671
 msgid "Counter"
 msgstr "Laskuri"
 
-#: gui/dialogs/editframefieldsdialog.cpp:672
 msgid "Identifier"
 msgstr "Tunniste"
 
-#: gui/dialogs/editframefieldsdialog.cpp:673
 msgid "Volume Adjustment"
 msgstr "Äänenvoimakkuuden säätö"
 
-#: gui/dialogs/editframefieldsdialog.cpp:674
 msgid "Number of Bits"
 msgstr "Bittien määrä"
 
-#: gui/dialogs/editframefieldsdialog.cpp:675
 msgid "Volume Change Right"
 msgstr "Äänenvoimakkuuden säätö (oikea)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:676
 msgid "Volume Change Left"
 msgstr "Äänenvoimakkuuden säätö (vasen)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:677
 msgid "Peak Volume Right"
 msgstr "Enimmäisäänenvoimakkuus (oikea)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:678
 msgid "Peak Volume Left"
 msgstr "Enimmäisäänenvoimakkuus (vasen)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:679
 msgid "Timestamp Format"
 msgstr "Aikaleiman muoto"
 
-#: gui/dialogs/editframefieldsdialog.cpp:680
 msgid "Content Type"
 msgstr "Sisällön tyyppi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:682
 msgid "Price"
 msgstr "Hinta"
 
-#: gui/dialogs/editframefieldsdialog.cpp:684
 msgid "Seller"
 msgstr "Myyjä"
 
-#: gui/dialogs/editframefieldsdialog.cpp:812
-#: gui/dialogs/editframefieldsdialog.cpp:814
 msgid "Images (*.jpg *.jpeg *.png)"
 msgstr "Kuvat (*.jpg *.jpeg *.png)"
 
-#: gui/dialogs/editframefieldsdialog.cpp:868
 msgid "UTF16BE"
 msgstr "UTF-16BE"
 
-#: gui/dialogs/editframefieldsdialog.cpp:877
-#: gui/dialogs/editframefieldsdialog.cpp:905
-#: gui/dialogs/editframefieldsdialog.cpp:915
 msgid "Other"
 msgstr "Muut"
 
-#: gui/dialogs/editframefieldsdialog.cpp:878
 msgid "32x32 pixels PNG file icon"
 msgstr "32×32 pisteen PNG-kuvake"
 
-#: gui/dialogs/editframefieldsdialog.cpp:879
 msgid "Other file icon"
 msgstr "Muu kuvake"
 
-#: gui/dialogs/editframefieldsdialog.cpp:880
 msgid "Cover (front)"
 msgstr "Etukansi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:881
 msgid "Cover (back)"
 msgstr "Takakansi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:882
 msgid "Leaflet page"
 msgstr "Lehtiön sivu"
 
-#: gui/dialogs/editframefieldsdialog.cpp:884
 msgid "Lead artist/lead performer/soloist"
 msgstr "Pääartisti/-esiintyjä/-sooloartisti"
 
-#: gui/dialogs/editframefieldsdialog.cpp:885
 msgid "Artist/performer"
 msgstr "Artisti/esiintyjä"
 
-#: gui/dialogs/editframefieldsdialog.cpp:887
 msgid "Band/Orchestra"
 msgstr "Yhtye/orkesteri"
 
-#: gui/dialogs/editframefieldsdialog.cpp:889
 msgid "Lyricist/text writer"
 msgstr "Sanoittaja/tekstin tuottaja"
 
-#: gui/dialogs/editframefieldsdialog.cpp:890
 msgid "Recording Location"
 msgstr "Tallennuspaikka"
 
-#: gui/dialogs/editframefieldsdialog.cpp:891
 msgid "During recording"
 msgstr "Tallennuksen aikana"
 
-#: gui/dialogs/editframefieldsdialog.cpp:892
 msgid "During performance"
 msgstr "Esityksen aikana"
 
-#: gui/dialogs/editframefieldsdialog.cpp:893
 msgid "Movie/video screen capture"
 msgstr "Videokuvakaappaus"
 
-#: gui/dialogs/editframefieldsdialog.cpp:894
 msgid "A bright coloured fish"
 msgstr "Kirkasvärinen kala"
 
-#: gui/dialogs/editframefieldsdialog.cpp:895
 msgid "Illustration"
 msgstr "Kuvitus"
 
-#: gui/dialogs/editframefieldsdialog.cpp:896
 msgid "Band/artist logotype"
 msgstr "Yhtyeen/artistin logotyyppi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:897
 msgid "Publisher/Studio logotype"
 msgstr "Julkaisijan/studion logotyyppi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:906
 msgid "MPEG frames as unit"
 msgstr "Yksiköinä MPEG-kuvakehykset"
 
-#: gui/dialogs/editframefieldsdialog.cpp:907
 msgid "Milliseconds as unit"
 msgstr "Yksiköinä millisekunnit"
 
-#: gui/dialogs/editframefieldsdialog.cpp:917
 msgid "Text transcription"
 msgstr "Tekstin transkriptio"
 
-#: gui/dialogs/editframefieldsdialog.cpp:918
 msgid "Movement/part name"
 msgstr "Osan nimi"
 
-#: gui/dialogs/editframefieldsdialog.cpp:919
 msgid "Events"
 msgstr "Tapahtumat"
 
-#: gui/dialogs/editframefieldsdialog.cpp:920
 msgid "Chord"
 msgstr "Sointu"
 
-#: gui/dialogs/editframefieldsdialog.cpp:921
 msgid "Trivia/pop up"
 msgstr "Nippelitietoa"
 
-#: gui/dialogs/exportdialog.cpp:72
 msgid "Export"
 msgstr "Vie"
 
-#: gui/dialogs/exportdialog.cpp:87 gui/dialogs/tagimportdialog.cpp:55
-#: gui/dialogs/textimportdialog.cpp:65 gui/forms/kid3form.cpp:217
-#: gui/forms/kid3form.cpp:241
 msgid "Format:"
 msgstr "Muoto:"
 
-#: gui/dialogs/exportdialog.cpp:88 gui/dialogs/textimportdialog.cpp:66
 msgid "Header:"
 msgstr "Ylätunniste"
 
-#: gui/dialogs/exportdialog.cpp:89 gui/dialogs/textimportdialog.cpp:67
 msgid "Tracks:"
 msgstr "Kappale:"
 
-#: gui/dialogs/exportdialog.cpp:90
 msgid "Footer:"
 msgstr "Alatunniste:"
 
-#: gui/dialogs/exportdialog.cpp:101
 msgid "To F&ile"
 msgstr "T&iedostoon"
 
-#: gui/dialogs/exportdialog.cpp:106
 msgid "To Clip&board"
 msgstr "&Leikepöydälle"
 
-#: gui/dialogs/exportdialog.cpp:115
 msgid "&Source:"
 msgstr "&Lähde:"
 
-#: gui/dialogs/exportdialog.cpp:176 gui/forms/kid3mainwindow.cpp:982
-#: gui/forms/kid3mainwindow.cpp:985 gui/forms/kid3mainwindow.cpp:1534
-#: gui/forms/kid3mainwindow.cpp:1537 gui/forms/kid3mainwindow.cpp:2005
-#: gui/forms/kid3mainwindow.cpp:2086 gui/forms/kid3mainwindow.cpp:2089
 msgid "File Error"
 msgstr "Tiedostovirhe"
 
-#: gui/dialogs/exportdialog.cpp:177 gui/forms/kid3mainwindow.cpp:980
-#: gui/forms/kid3mainwindow.cpp:985
 msgid "Error while writing file:\n"
 msgstr "Virhe kirjoitettaessa tiedostoa:\n"
 
-#: gui/dialogs/filterdialog.cpp:49 gui/forms/kid3mainwindow.cpp:666
 msgid "Filter"
 msgstr "Suodin"
 
-#: gui/dialogs/filterdialog.cpp:60
 msgid "&Filter:"
 msgstr "&Suodin:"
 
-#: gui/dialogs/filterdialog.cpp:61
 msgid "&Expression:"
 msgstr "&Lauseke:"
 
-#: gui/dialogs/filterdialog.cpp:206 gui/dialogs/musicbrainzdialog.cpp:123
-#: gui/dialogs/tagimportdialog.cpp:74
 msgid "&Apply"
 msgstr "&Käytä"
 
-#: gui/dialogs/importdialog.cpp:141
 msgid "Accuracy:"
 msgstr "Tarkkuus:"
 
-#: gui/dialogs/importdialog.cpp:147
 msgid "Cover Art:"
 msgstr "Kansikuvat:"
 
-#: gui/dialogs/importdialog.cpp:155
 msgid "From F&ile/Clipboard..."
 msgstr "Tiedostosta/&leikepöydältä..."
 
-#: gui/dialogs/importdialog.cpp:158
 msgid "From T&ags..."
 msgstr "T&agista..."
 
-#: gui/dialogs/importdialog.cpp:161
 msgid "&From Server:"
 msgstr "&Palvelimelta:"
 
-#: gui/dialogs/importdialog.cpp:170 gui/dialogs/musicbrainzdialog.cpp:65
-#: gui/forms/kid3mainwindow.cpp:268 gui/forms/kid3mainwindow.cpp:500
 msgid "MusicBrainz Fingerprint"
 msgstr "MusicBrainzin sormenjälki"
 
-#: gui/dialogs/importdialog.cpp:194
 msgid "Revert"
 msgstr "Kumoa"
 
-#: gui/dialogs/importdialog.cpp:202
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Aseta &enimmäisaikaero (s):"
 
-#: gui/dialogs/importdialog.cpp:210
 msgid "Match with:"
 msgstr "Sovita:"
 
-#: gui/dialogs/importdialog.cpp:212
 msgid "&Length"
 msgstr "&Kestoon"
 
-#: gui/dialogs/importdialog.cpp:215
 msgid "T&rack"
 msgstr "&Raitaan"
 
-#: gui/dialogs/importdialog.cpp:218
 msgid "&Title"
 msgstr "&Nimeen"
 
-#: gui/dialogs/musicbrainzdialog.cpp:112
 msgid "Track Title/Artist - Album"
 msgstr "Kappaleen nimi/artisti - levy"
 
-#: gui/dialogs/musicbrainzdialog.cpp:113
 msgid "State"
 msgstr "Tila"
 
-#: gui/dialogs/musicbrainzdialog.cpp:188 gui/dialogs/musicbrainzdialog.cpp:329
 msgid "No result"
 msgstr "Ei tuloksia"
 
-#: gui/dialogs/musicbrainzdialog.cpp:329
 msgid "No result selected"
 msgstr "Ei valittuja tuloksia"
 
-#: gui/dialogs/numbertracksdialog.cpp:56 gui/forms/kid3mainwindow.cpp:657
 msgid "Number Tracks"
 msgstr "Kappaleiden numerointi"
 
-#: gui/dialogs/numbertracksdialog.cpp:60
 msgid "&Start number:"
 msgstr "&Aloittava numero:"
 
-#: gui/dialogs/numbertracksdialog.cpp:72
 msgid "&Destination:"
 msgstr "&Kohde:"
 
-#: gui/dialogs/numbertracksdialog.cpp:87
 msgid "&Total number of tracks:"
 msgstr "Kappaleiden &lukumäärä:"
 
-#: gui/dialogs/playlistdialog.cpp:58
 msgid "Create Playlist"
 msgstr "Luo soittolista"
 
-#: gui/dialogs/playlistdialog.cpp:138
 msgid "Playlist File Name"
 msgstr "Soittolistatiedoston nimi"
 
-#: gui/dialogs/playlistdialog.cpp:139
 msgid "Same as &directory name"
 msgstr "Käytä &kansion nimeä"
 
-#: gui/dialogs/playlistdialog.cpp:141 gui/dialogs/rendirdialog.cpp:115
 msgid "&Format:"
 msgstr "&Muoto:"
 
-#: gui/dialogs/playlistdialog.cpp:150
 msgid "Cr&eate in:"
 msgstr "&Luo kansioon:"
 
-#: gui/dialogs/playlistdialog.cpp:154
 msgid "Current directory"
 msgstr "Nykyinen kansio"
 
-#: gui/dialogs/playlistdialog.cpp:155
 msgid "Every directory"
 msgstr "Jokainen kansio"
 
-#: gui/dialogs/playlistdialog.cpp:156
 msgid "Top-level directory"
 msgstr "Ylimmän tason kansio"
 
-#: gui/dialogs/playlistdialog.cpp:157
 msgid "Playlist Content"
 msgstr "Soittolistan sisältö"
 
-#: gui/dialogs/playlistdialog.cpp:158
 msgid "For&mat:"
 msgstr "&Muoto:"
 
-#: gui/dialogs/playlistdialog.cpp:161
 msgid "Incl&ude only the selected files"
 msgstr "S&isällytä vain valitut tiedostot"
 
-#: gui/dialogs/playlistdialog.cpp:162
 msgid "Sort by file &name"
 msgstr "Lajittele tiedosto&nimen mukaan"
 
-#: gui/dialogs/playlistdialog.cpp:164
 msgid "Sort by &tag field"
 msgstr "Lajittele ta&gin mukaan"
 
-#: gui/dialogs/playlistdialog.cpp:178
 msgid "Use &relative path for files in playlist"
 msgstr "Käytä soittolistan tiedostoille s&uhteellista polkua"
 
-#: gui/dialogs/playlistdialog.cpp:180
 msgid "Use full p&ath for files in playlist"
 msgstr "Käytä soittolistan tiedostoille &täyttä polkua"
 
-#: gui/dialogs/playlistdialog.cpp:181
 msgid "Write only &list of files"
 msgstr "Kirjoita &vain tiedostoluettelo"
 
-#: gui/dialogs/playlistdialog.cpp:183
 msgid "Write &info using"
 msgstr "Kirjoita tieto k&äyttäen"
 
-#: gui/dialogs/rendirdialog.cpp:60 gui/dialogs/rendirdialog.cpp:103
-#: gui/forms/kid3mainwindow.cpp:648
 msgid "Rename Directory"
 msgstr "Muuta kansion nimeä"
 
-#: gui/dialogs/rendirdialog.cpp:67
 msgid "Format"
 msgstr "Muoto"
 
-#: gui/dialogs/rendirdialog.cpp:72
 msgid "Preview"
 msgstr "Esikatselu"
 
-#: gui/dialogs/rendirdialog.cpp:104
 msgid "Create Directory"
 msgstr "Luo kansio"
 
-#: gui/dialogs/rendirdialog.cpp:107
 msgid "From Tag 2 and Tag 1"
 msgstr "2- ja 1-tageista"
 
-#: gui/dialogs/rendirdialog.cpp:108 gui/forms/kid3form.cpp:334
-#: gui/forms/kid3form.cpp:940 gui/forms/kid3form.cpp:952
-#: gui/forms/kid3mainwindow.cpp:359 gui/forms/kid3mainwindow.cpp:380
 msgid "From Tag 1"
 msgstr "1-tagista"
 
-#: gui/dialogs/rendirdialog.cpp:109 gui/forms/kid3form.cpp:293
-#: gui/forms/kid3form.cpp:941 gui/forms/kid3form.cpp:945
-#: gui/forms/kid3mainwindow.cpp:344 gui/forms/kid3mainwindow.cpp:383
 msgid "From Tag 2"
 msgstr "2-tagista"
 
-#: gui/dialogs/rendirdialog.cpp:137 gui/forms/kid3form.cpp:232
 msgid "From:"
 msgstr "Alkuperäinen:"
 
-#: gui/dialogs/rendirdialog.cpp:139 gui/forms/kid3form.cpp:256
 msgid "To:"
 msgstr "Uusi:"
 
-#: gui/dialogs/serverimportdialog.cpp:61
 msgid "&Find"
 msgstr "&Etsi"
 
-#: gui/dialogs/serverimportdialog.cpp:81
 msgid "C&GI Path:"
 msgstr "&CGI-polku:"
 
-#: gui/dialogs/tagimportdialog.cpp:49
 msgid "Import from Tags"
 msgstr "Tuo tagista"
 
-#: gui/dialogs/tagimportdialog.cpp:57
 msgid "Extraction:"
 msgstr "Uuttaminen:"
 
-#: gui/dialogs/textimportdialog.cpp:58
 msgid "Import from File/Clipboard"
 msgstr "Tuo tiedostosta/leikepöydältä"
 
-#: gui/dialogs/textimportdialog.cpp:84
 msgid "From F&ile"
 msgstr "&Tiedostosta"
 
-#: gui/forms/filelist.cpp:136
 msgid "&Expand all"
 msgstr "&Levitä kaikki"
 
-#: gui/forms/filelist.cpp:137
 msgid "&Collapse all"
 msgstr "&Kokoa kaikki"
 
-#: gui/forms/filelist.cpp:138
 msgid "&Rename"
 msgstr "M&uuta nimeä"
 
-#: gui/forms/filelist.cpp:139
 msgid "&Move to Trash"
 msgstr "&Siirrä roskakoriin"
 
-#: gui/forms/filelist.cpp:141 gui/forms/kid3mainwindow.cpp:318
-#: gui/forms/kid3mainwindow.cpp:699
 msgid "&Play"
 msgstr "&Soita"
 
-#: gui/forms/kid3form.cpp:199 gui/forms/kid3form.cpp:872
-#: gui/forms/kid3form.cpp:874
+msgid "Kid3"
+msgstr "Kid3"
+
 msgid "F&ile"
 msgstr "T&iedosto"
 
-#: gui/forms/kid3form.cpp:210
 msgid "Name:"
 msgstr "Nimi:"
 
-#: gui/forms/kid3form.cpp:235
 msgid "Filename from Tag 1"
 msgstr "Tiedostonimi 1-tagista"
 
-#: gui/forms/kid3form.cpp:238
 msgid "Filename from Tag 2"
 msgstr "Tiedostonimi 2-tagista"
 
-#: gui/forms/kid3form.cpp:260
 msgid "Tag 1 from Filename"
 msgstr "1-tagi tiedostonimestä"
 
-#: gui/forms/kid3form.cpp:264
 msgid "Tag 2 from Filename"
 msgstr "2-tagi tiedostonimestä"
 
-#: gui/forms/kid3form.cpp:296 gui/forms/kid3form.cpp:338
-#: gui/forms/kid3form.cpp:946 gui/forms/kid3form.cpp:953
-#: gui/forms/kid3mainwindow.cpp:347 gui/forms/kid3mainwindow.cpp:362
 msgid "Copy"
 msgstr "Kopioi"
 
-#: gui/forms/kid3form.cpp:300 gui/forms/kid3form.cpp:342
-#: gui/forms/kid3form.cpp:947 gui/forms/kid3form.cpp:954
-#: gui/forms/kid3mainwindow.cpp:350 gui/forms/kid3mainwindow.cpp:365
 msgid "Paste"
 msgstr "Liitä"
 
-#: gui/forms/kid3form.cpp:355 gui/forms/kid3form.cpp:956
-#: gui/forms/kid3mainwindow.cpp:371
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: gui/forms/kid3form.cpp:361 gui/forms/kid3form.cpp:958
-#: gui/forms/kid3mainwindow.cpp:377
 msgid "Delete"
 msgstr "Poista"
 
-#: gui/forms/kid3form.cpp:942 gui/forms/kid3form.cpp:949
-#: gui/forms/kid3form.cpp:959 gui/forms/kid3form.cpp:961
-#: gui/forms/kid3form.cpp:963 gui/forms/kid3mainwindow.cpp:386
-#: gui/forms/kid3mainwindow.cpp:389 gui/forms/kid3mainwindow.cpp:392
-#: gui/forms/kid3mainwindow.cpp:395 gui/forms/kid3mainwindow.cpp:398
 msgid "Focus"
 msgstr "Kohdistus"
 
-#: gui/forms/kid3form.cpp:944 gui/forms/kid3form.cpp:951
-#: gui/forms/kid3mainwindow.cpp:341 gui/forms/kid3mainwindow.cpp:356
 msgid "From Filename"
 msgstr "Tiedostonimestä"
 
-#: gui/forms/kid3form.cpp:960 gui/forms/kid3mainwindow.cpp:395
 msgid "File List"
 msgstr "Tiedostoluettelo"
 
-#: gui/forms/kid3form.cpp:962 gui/forms/kid3mainwindow.cpp:398
 msgid "Directory List"
 msgstr "Hakemistolista"
 
-#: gui/forms/kid3mainwindow.cpp:118
 msgid "Download"
 msgstr "Lataa"
 
-#: gui/forms/kid3mainwindow.cpp:197
 msgid "Main Toolbar"
 msgstr "Päätyökalupalkki"
 
-#: gui/forms/kid3mainwindow.cpp:230 gui/forms/kid3mainwindow.cpp:412
-#: gui/forms/kid3mainwindow.cpp:432
 msgid "Opens a directory"
 msgstr "Avaa kansion"
 
-#: gui/forms/kid3mainwindow.cpp:231 gui/forms/kid3mainwindow.cpp:426
 msgid "Opens a recently used directory"
 msgstr "Avaa viimeaikaisen kansion"
 
-#: gui/forms/kid3mainwindow.cpp:233 gui/forms/kid3mainwindow.cpp:457
 msgid "Reverts the changes of all or the selected files"
 msgstr "Kumoaa muutokset kaikkiin tai valittuihin tiedostoihin"
 
-#: gui/forms/kid3mainwindow.cpp:234 gui/forms/kid3mainwindow.cpp:444
 msgid "Saves the changed files"
 msgstr "Tallentaa muuttuneet tiedostot"
 
-#: gui/forms/kid3mainwindow.cpp:235 gui/forms/kid3mainwindow.cpp:552
 msgid "Quits the application"
 msgstr "Sulkee sovelluksen"
 
-#: gui/forms/kid3mainwindow.cpp:236 gui/forms/kid3mainwindow.cpp:565
 msgid "Select all files"
 msgstr "Valitse kaikki tiedostot"
 
-#: gui/forms/kid3mainwindow.cpp:238 gui/forms/kid3mainwindow.cpp:576
 msgid "Deselect all files"
 msgstr "Poista kaikki valinnat"
 
-#: gui/forms/kid3mainwindow.cpp:239
 msgid "Configure Shortcuts"
 msgstr "Aseta pikanäppäimet"
 
-#: gui/forms/kid3mainwindow.cpp:240
 msgid "Configure Toolbars"
 msgstr "Aseta työkalupalkit"
 
-#: gui/forms/kid3mainwindow.cpp:241
 msgid "Preferences dialog"
 msgstr "Asetusikkuna"
 
-#: gui/forms/kid3mainwindow.cpp:243 gui/forms/kid3mainwindow.cpp:433
 msgid "O&pen Directory..."
 msgstr "Avaa &kansio..."
 
-#: gui/forms/kid3mainwindow.cpp:247 gui/forms/kid3mainwindow.cpp:471
 msgid "&Import..."
 msgstr "T&uo..."
 
-#: gui/forms/kid3mainwindow.cpp:261 gui/forms/kid3mainwindow.cpp:270
-#: gui/forms/kid3mainwindow.cpp:490 gui/forms/kid3mainwindow.cpp:503
 msgid "Import from %1..."
 msgstr "Tuo %1ista..."
 
-#: gui/forms/kid3mainwindow.cpp:276 gui/forms/kid3mainwindow.cpp:513
 msgid "Automatic I&mport..."
 msgstr "Tuo auto&maattisesti..."
 
-#: gui/forms/kid3mainwindow.cpp:280 gui/forms/kid3mainwindow.cpp:522
 msgid "&Browse Cover Art..."
 msgstr "Selaa &kansikuvia..."
 
-#: gui/forms/kid3mainwindow.cpp:283 gui/forms/kid3mainwindow.cpp:531
 msgid "&Export..."
 msgstr "&Vie..."
 
-#: gui/forms/kid3mainwindow.cpp:286 gui/forms/kid3mainwindow.cpp:541
 msgid "&Create Playlist..."
 msgstr "&Luo soittolista..."
 
-#: gui/forms/kid3mainwindow.cpp:289 gui/forms/kid3mainwindow.cpp:622
 msgid "Apply &Filename Format"
 msgstr "Ota tiedosto&nimimuutokset käyttöön"
 
-#: gui/forms/kid3mainwindow.cpp:292 gui/forms/kid3mainwindow.cpp:631
 msgid "Apply &Tag Format"
 msgstr "Ota ta&gimuutokset käyttöön"
 
-#: gui/forms/kid3mainwindow.cpp:295 gui/forms/kid3mainwindow.cpp:640
 msgid "Apply Text &Encoding"
 msgstr "Ota m&erkistökoodaus"
 
-#: gui/forms/kid3mainwindow.cpp:298 gui/forms/kid3mainwindow.cpp:649
 msgid "&Rename Directory..."
 msgstr "Muuta &kansion nimeä..."
 
-#: gui/forms/kid3mainwindow.cpp:301 gui/forms/kid3mainwindow.cpp:658
 msgid "&Number Tracks..."
 msgstr "&Numeroi kappaleet..."
 
-#: gui/forms/kid3mainwindow.cpp:304 gui/forms/kid3mainwindow.cpp:667
 msgid "F&ilter..."
 msgstr "&Suodata..."
 
-#: gui/forms/kid3mainwindow.cpp:308 gui/forms/kid3mainwindow.cpp:677
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Muunna ID3v2.3:sta ID3v2.&4:ksi"
 
-#: gui/forms/kid3mainwindow.cpp:313 gui/forms/kid3mainwindow.cpp:688
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Muunna ID3v2.4:sta ID3v2.&3:ksi"
 
-#: gui/forms/kid3mainwindow.cpp:322 gui/forms/kid3mainwindow.cpp:735
 msgid "Show &Picture"
 msgstr "Näytä k&uva"
 
-#: gui/forms/kid3mainwindow.cpp:326 gui/forms/kid3mainwindow.cpp:745
 msgid "Auto &Hide Tags"
 msgstr "&Piilota automaattisesti"
 
-#: gui/forms/kid3mainwindow.cpp:330 gui/forms/kid3mainwindow.cpp:587
 msgid "Select All in &Directory"
 msgstr "Valitse kaikki &hakemistossa"
 
-#: gui/forms/kid3mainwindow.cpp:333 gui/forms/kid3mainwindow.cpp:596
 msgid "&Previous File"
 msgstr "&Edellinen tiedosto"
 
-#: gui/forms/kid3mainwindow.cpp:337 gui/forms/kid3mainwindow.cpp:608
 msgid "&Next File"
 msgstr "&Seuraava tiedosto"
 
-#: gui/forms/kid3mainwindow.cpp:371 gui/forms/kid3mainwindow.cpp:374
-#: gui/forms/kid3mainwindow.cpp:377
 msgid "Frames:"
 msgstr "Kehykset:"
 
-#: gui/forms/kid3mainwindow.cpp:407
 msgid "&File"
 msgstr "&Tiedosto"
 
-#: gui/forms/kid3mainwindow.cpp:413
 msgid "&Open..."
 msgstr "&Avaa..."
 
-#: gui/forms/kid3mainwindow.cpp:427
 msgid "Open &Recent"
 msgstr "Avaa &viimeaikainen"
 
-#: gui/forms/kid3mainwindow.cpp:445
 msgid "&Save"
 msgstr "&Tallenna"
 
-#: gui/forms/kid3mainwindow.cpp:458
 msgid "Re&vert"
 msgstr "K&umoa"
 
-#: gui/forms/kid3mainwindow.cpp:470
 msgid "Import from file or clipboard"
 msgstr "Tuo tiedostosta tai leikepöydältä"
 
-#: gui/forms/kid3mainwindow.cpp:489 gui/forms/kid3mainwindow.cpp:502
 msgid "Import from %1"
 msgstr "Tuo %1ista"
 
-#: gui/forms/kid3mainwindow.cpp:512
 msgid "Automatic import"
 msgstr "Tuo automaattisesti"
 
-#: gui/forms/kid3mainwindow.cpp:521
 msgid "Browse album cover artwork"
 msgstr "Selaa kansikuvia"
 
-#: gui/forms/kid3mainwindow.cpp:530
 msgid "Export to file or clipboard"
 msgstr "Vie tiedostoon tai leikepöydälle"
 
-#: gui/forms/kid3mainwindow.cpp:540
 msgid "Create M3U Playlist"
 msgstr "Luo soittolista"
 
-#: gui/forms/kid3mainwindow.cpp:553
 msgid "&Quit"
 msgstr "&Lopeta"
 
-#: gui/forms/kid3mainwindow.cpp:562
 msgid "&Edit"
 msgstr "&Muokkaa"
 
-#: gui/forms/kid3mainwindow.cpp:566
 msgid "Select &All"
 msgstr "Valitse &kaikki"
 
-#: gui/forms/kid3mainwindow.cpp:577
 msgid "Dese&lect"
 msgstr "&Poista valinta"
 
-#: gui/forms/kid3mainwindow.cpp:586
 msgid "Select all files in the current directory"
 msgstr "Valitse kaikki tiedostot nykyisessä hakemistossa"
 
-#: gui/forms/kid3mainwindow.cpp:595
 msgid "Select previous file"
 msgstr "Edellinen tiedosto"
 
-#: gui/forms/kid3mainwindow.cpp:607
 msgid "Select next file"
 msgstr "Seuraava tiedosto"
 
-#: gui/forms/kid3mainwindow.cpp:618
 msgid "&Tools"
 msgstr "T&yökalut"
 
-#: gui/forms/kid3mainwindow.cpp:621
 msgid "Apply Filename Format"
 msgstr "Ota muutokset käyttöön"
 
-#: gui/forms/kid3mainwindow.cpp:630
 msgid "Apply Tag Format"
 msgstr "Ota muutokset käyttöön"
 
-#: gui/forms/kid3mainwindow.cpp:639
 msgid "Apply Text Encoding"
 msgstr "Ota merkistökoodaus"
 
-#: gui/forms/kid3mainwindow.cpp:676
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Muunna ID3v2.3:sta ID3v2.4:ksi"
 
-#: gui/forms/kid3mainwindow.cpp:687
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Muunna ID3v2.4:sta ID3v2.3:ksi"
 
-#: gui/forms/kid3mainwindow.cpp:698 gui/widgets/playtoolbar.cpp:62
 msgid "Play"
 msgstr "Soita"
 
-#: gui/forms/kid3mainwindow.cpp:709
 msgid "&Settings"
 msgstr "&Asetukset"
 
-#: gui/forms/kid3mainwindow.cpp:713
 msgid "Enables/disables the toolbar"
 msgstr "Ottaa käyttöön tai poistaa käytöstä työkalupalkin"
 
-#: gui/forms/kid3mainwindow.cpp:714
 msgid "Show &Toolbar"
 msgstr "Näytä &työkalurivi"
 
-#: gui/forms/kid3mainwindow.cpp:724
 msgid "Enables/disables the statusbar"
 msgstr "Ottaa käyttöön tai poistaa käytöstä tilarivin"
 
-#: gui/forms/kid3mainwindow.cpp:725
 msgid "Show St&atusbar"
 msgstr "Näytä &tilarivi"
 
-#: gui/forms/kid3mainwindow.cpp:734
 msgid "Show Picture"
 msgstr "Näytä kuva"
 
-#: gui/forms/kid3mainwindow.cpp:744
 msgid "Auto Hide Tags"
 msgstr "Piilota automaattisesti"
 
-#: gui/forms/kid3mainwindow.cpp:754
 msgid "Configure Kid3"
 msgstr "Kid3:n asetukset"
 
-#: gui/forms/kid3mainwindow.cpp:755
 msgid "&Configure Kid3..."
 msgstr "Kid3:n &asetukset..."
 
-#: gui/forms/kid3mainwindow.cpp:772
 msgid "Kid3 &Handbook"
 msgstr "Kid3 &Käsikirja"
 
-#: gui/forms/kid3mainwindow.cpp:782
 msgid "About Kid3"
 msgstr "Tietoja Kid3:sta"
 
-#: gui/forms/kid3mainwindow.cpp:783
 msgid "&About Kid3"
 msgstr "&Tietoja Kid3:sta"
 
-#: gui/forms/kid3mainwindow.cpp:791
 msgid "About Qt"
 msgstr "Tietoja Qt:stä"
 
-#: gui/forms/kid3mainwindow.cpp:792
 msgid "About &Qt"
 msgstr "Tietoja &Qt:stä"
 
-#: gui/forms/kid3mainwindow.cpp:834
 msgid "Opening directory..."
 msgstr "Avaa kansio..."
 
-#: gui/forms/kid3mainwindow.cpp:956
 msgid "Saving directory..."
 msgstr "Tallennetaan kansio..."
 
-#: gui/forms/kid3mainwindow.cpp:1018 gui/forms/kid3mainwindow.cpp:1028
 msgid ""
 "The current directory has been modified.\n"
 "Do you want to save it?"
@@ -2243,190 +1618,141 @@ msgstr ""
 "Nykyistä kansiota on muokattu.\n"
 "Haluatko tallentaa sen?"
 
-#: gui/forms/kid3mainwindow.cpp:1020
 msgid "Warning"
 msgstr "Varoitus"
 
-#: gui/forms/kid3mainwindow.cpp:1027
 msgid "Warning - Kid3"
 msgstr "Varoitus – Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1108
 msgid "Open"
 msgstr "Avaa"
 
-#: gui/forms/kid3mainwindow.cpp:1184
 msgid "Exiting..."
 msgstr "Poistutaan..."
 
-#: gui/forms/kid3mainwindow.cpp:1228
 msgid "Toggle the statusbar..."
 msgstr "Näytä/piilota tilarivi..."
 
-#: gui/forms/kid3mainwindow.cpp:1310
 msgid "Creating playlist..."
 msgstr "Luo soittolista..."
 
-#: gui/forms/kid3mainwindow.cpp:1336
 msgid "Import"
 msgstr "Tuo"
 
-#: gui/forms/kid3mainwindow.cpp:1478
 msgid "Configure - Kid3"
 msgstr "Asetukset – Kid3"
 
-#: gui/forms/kid3mainwindow.cpp:1533 gui/forms/kid3mainwindow.cpp:1538
-#: gui/forms/kid3mainwindow.cpp:2006
 msgid "Error while renaming:\n"
 msgstr "Virhe muutettaessa nimeä:\n"
 
-#: gui/forms/kid3mainwindow.cpp:1646
 msgid " [filtered]"
 msgstr " [suodatettu]"
 
-#: gui/forms/kid3mainwindow.cpp:1652
 msgid " [modified]"
 msgstr " [muutettu]"
 
-#: gui/forms/kid3mainwindow.cpp:1895
 msgid "Add Frame"
 msgstr "Lisää kehys"
 
-#: gui/forms/kid3mainwindow.cpp:1896
 msgid "Select the frame ID"
 msgstr "Valitse kehyksen tunniste"
 
-#: gui/forms/kid3mainwindow.cpp:1984
 msgid "Rename File"
 msgstr "Muuta tiedoston nimeä"
 
-#: gui/forms/kid3mainwindow.cpp:1985
 msgid "Enter new file name:"
 msgstr "Anna tiedoston uusi nimi:"
 
-#: gui/forms/kid3mainwindow.cpp:2015 gui/forms/kid3mainwindow.cpp:2053
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Haluatko varmasti siirtää seuraavat %1 tietuetta roskakoriin?"
 
-#: gui/forms/kid3mainwindow.cpp:2041 gui/forms/kid3mainwindow.cpp:2055
 msgid "Do you really want to move this item to the trash?"
-msgid_plural "Do you really want to move these %1 items to the trash?"
-msgstr[0] "Haluatko varmasti siirtää tämän tietueen roskakoriin?"
-msgstr[1] "Haluatko varmasti siirtää seuraavat %1 tietuetta roskakoriin?"
+msgstr "Haluatko varmasti siirtää tämän tietueen roskakoriin?"
 
-#: gui/forms/kid3mainwindow.cpp:2045 gui/forms/kid3mainwindow.cpp:2051
 msgid "Move to Trash"
 msgstr "Siirrä roskakoriin"
 
-#: gui/forms/kid3mainwindow.cpp:2083
 msgid "Directory must be empty.\n"
 msgstr "Kansion on oltava tyhjä.\n"
 
-#: gui/forms/kid3mainwindow.cpp:2084
 msgid "Could not move these files to the Trash"
 msgstr "Tiedostoja ei voitu siirtää Roskakoriin"
 
-#: gui/forms/kid3mainwindow.cpp:2127
 msgid "Expand All"
 msgstr "Levitä kaikki"
 
-#: gui/widgets/abstractlistedit.cpp:51
 msgid "&Add..."
 msgstr "L&isää..."
 
-#: gui/widgets/abstractlistedit.cpp:52
 msgid "Move &Up"
 msgstr "Siirrä &ylemmäs"
 
-#: gui/widgets/abstractlistedit.cpp:53
 msgid "Move &Down"
 msgstr "Siirrä &alemmas"
 
-#: gui/widgets/abstractlistedit.cpp:54
 msgid "&Edit..."
 msgstr "&Muokkaa..."
 
-#: gui/widgets/abstractlistedit.cpp:55 gui/widgets/formatlistedit.cpp:82
 msgid "&Remove"
 msgstr "&Poista"
 
-#: gui/widgets/configtable.cpp:140
 msgid "&Insert row"
 msgstr "&Lisää rivi"
 
-#: gui/widgets/configtable.cpp:144
 msgid "&Delete row"
 msgstr "&Poista rivi"
 
-#: gui/widgets/configtable.cpp:148
 msgid "&Clear row"
 msgstr "&Tyhjennä rivi"
 
-#: gui/widgets/formatbox.cpp:48
 msgid "Format while editing"
 msgstr "Muotoile muokattaessa"
 
-#: gui/widgets/formatbox.cpp:52
 msgid "Case conversion:"
 msgstr "Kirjaintason muunnos:"
 
-#: gui/widgets/formatbox.cpp:58
 msgid "No changes"
 msgstr "Ei mitään"
 
-#: gui/widgets/formatbox.cpp:60
 msgid "All lowercase"
 msgstr "Kokonaan pienaakkosiin"
 
-#: gui/widgets/formatbox.cpp:62
 msgid "All uppercase"
 msgstr "Kokonaan suuraakkosiin"
 
-#: gui/widgets/formatbox.cpp:64
 msgid "First letter uppercase"
 msgstr "Alkukirjain suuraakkosiin"
 
-#: gui/widgets/formatbox.cpp:66
 msgid "All first letters uppercase"
 msgstr "Kaikki alkukirjaimet suuraakkosiin"
 
-#: gui/widgets/formatbox.cpp:70
 msgid "Locale:"
 msgstr "Maa-asetukset:"
 
-#: gui/widgets/formatbox.cpp:73
 msgid "None"
 msgstr "Ei mitään"
 
-#: gui/widgets/formatbox.cpp:79
 msgid "String replacement:"
 msgstr "Merkkijonojen korvaus:"
 
-#: gui/widgets/formatbox.cpp:82
 msgid "From"
 msgstr "Korvattava"
 
-#: gui/widgets/formatbox.cpp:82
 msgid "To"
 msgstr "Korvaava"
 
-#: gui/widgets/formatlistedit.cpp:80
 msgid "&Add"
 msgstr "L&isää"
 
-#: gui/widgets/frametable.cpp:156
 msgid "&Select all"
 msgstr "&Valitse kaikki"
 
-#: gui/widgets/frametable.cpp:158
 msgid "&Deselect all"
 msgstr "&Poista valinnat"
 
-#: gui/widgets/imageviewer.cpp:47
 msgid "View Picture"
 msgstr "Katso kuvaa"
 
-#: gui/widgets/picturelabel.cpp:67
 msgid ""
 "Drag album\n"
 "artwork\n"
@@ -2436,72 +1762,38 @@ msgstr ""
 "kansikuva\n"
 "tähän"
 
-#: gui/widgets/playtoolbar.cpp:67
 msgid "Play/Pause"
 msgstr "Soita/tauko"
 
-#: gui/widgets/playtoolbar.cpp:69
 msgid "Stop playback"
 msgstr "Pysäytä soitto"
 
-#: gui/widgets/playtoolbar.cpp:71
 msgid "Previous Track"
 msgstr "Edellinen kappale"
 
-#: gui/widgets/playtoolbar.cpp:73
 msgid "Next Track"
 msgstr "Seuraava kappale"
 
-#: gui/widgets/playtoolbar.cpp:75
 msgid "Close"
 msgstr "Sulje"
 
-#: gui/widgets/playtoolbar.cpp:97
 msgid "Mute"
 msgstr "Vaimenna"
 
-#: gui/widgets/playtoolbar.cpp:281
 msgid "Volume: %1%"
 msgstr "Äänenvoimakkuus: %1%"
 
-#: gui/widgets/recentfilesmenu.cpp:128
 msgid "&Clear List"
 msgstr "&Tyhjennä luettelo"
 
-#: gui/widgets/shortcutsdelegate.cpp:188
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#: gui/widgets/shortcutsdelegate.cpp:192
 msgid "Reset"
 msgstr "Nollaa"
 
-#: gui/widgets/stringlistedit.cpp:60
 msgid "Add Item"
 msgstr "Lisää osa"
 
-#: gui/widgets/stringlistedit.cpp:80
 msgid "Edit Item"
 msgstr "Muokkaa osaa"
-
-#: rc.cpp:1
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Tommi Nieminen, Ville Skyttä"
-
-#: rc.cpp:2
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "translator@legisign.org, ville.skytta@iki.fi"
-
-#: rc.cpp:3
-msgid ""
-"_: NAME OF TRANSLATORS\n"
-"Your names"
-msgstr "Tommi Nieminen, Ville Skyttä"
-
-#: rc.cpp:4
-msgid ""
-"_: EMAIL OF TRANSLATORS\n"
-"Your emails"
-msgstr "translator@legisign.org, ville.skytta@iki.fi"

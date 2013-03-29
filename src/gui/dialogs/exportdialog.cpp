@@ -55,7 +55,6 @@
 #include "textexporter.h"
 #include "texttablemodel.h"
 #include "formatlistedit.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -69,7 +68,7 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
 {
   setObjectName(QLatin1String("ExportDialog"));
   setModal(true);
-  setWindowTitle(i18n("Export"));
+  setWindowTitle(tr("Export"));
   setSizeGripEnabled(true);
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
@@ -84,10 +83,10 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
 
   QString formatToolTip = ImportTrackData::getFormatToolTip();
   m_formatListEdit = new FormatListEdit(
-        QStringList() << i18n("Format:")
-                      << i18n("Header:")
-                      << i18n("Tracks:")
-                      << i18n("Footer:"),
+        QStringList() << tr("Format:")
+                      << tr("Header:")
+                      << tr("Tracks:")
+                      << tr("Footer:"),
         QStringList() << QString()
                       << formatToolTip
                       << formatToolTip
@@ -98,12 +97,12 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   vlayout->addWidget(m_formatListEdit);
 
   QHBoxLayout* butlayout = new QHBoxLayout;
-  m_fileButton = new QPushButton(i18n("To F&ile"), this);
+  m_fileButton = new QPushButton(tr("To F&ile"), this);
   m_fileButton->setAutoDefault(false);
   butlayout->addWidget(m_fileButton);
   connect(m_fileButton, SIGNAL(clicked()), this, SLOT(slotToFile()));
 
-  m_clipButton = new QPushButton(i18n("To Clip&board"), this);
+  m_clipButton = new QPushButton(tr("To Clip&board"), this);
   m_clipButton->setAutoDefault(false);
   butlayout->addWidget(m_clipButton);
   connect(m_clipButton, SIGNAL(clicked()), this, SLOT(slotToClipboard()));
@@ -112,12 +111,12 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
                                            QSizePolicy::Minimum);
   butlayout->addItem(butspacer);
 
-  QLabel* srcLabel = new QLabel(i18n("&Source:"), this);
+  QLabel* srcLabel = new QLabel(tr("&Source:"), this);
   butlayout->addWidget(srcLabel);
   m_srcComboBox = new QComboBox(this);
   m_srcComboBox->setEditable(false);
-  m_srcComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
-  m_srcComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
+  m_srcComboBox->addItem(tr("Tag 1"), TrackData::TagV1);
+  m_srcComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
   srcLabel->setBuddy(m_srcComboBox);
   butlayout->addWidget(m_srcComboBox);
   connect(m_srcComboBox, SIGNAL(activated(int)),
@@ -126,12 +125,12 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
   vlayout->addLayout(butlayout);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
 
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
@@ -140,7 +139,7 @@ ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   hlayout->addWidget(closeButton);
   connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
@@ -173,8 +172,8 @@ void ExportDialog::slotToFile()
   if (!fileName.isEmpty()) {
     if (!m_textExporter->exportToFile(fileName)) {
       QMessageBox::warning(
-        0, i18n("File Error"),
-        i18n("Error while writing file:\n") + fileName,
+        0, tr("File Error"),
+        tr("Error while writing file:\n") + fileName,
         QMessageBox::Ok, Qt::NoButton);
     }
   }

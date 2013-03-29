@@ -44,7 +44,6 @@
 #include "musicbrainzclient.h"
 #include "comboboxdelegate.h"
 #include "trackdatamodel.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -62,11 +61,11 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
 {
   setObjectName(QLatin1String("MusicBrainzDialog"));
   setModal(true);
-  setWindowTitle(i18n("MusicBrainz Fingerprint"));
+  setWindowTitle(tr("MusicBrainz Fingerprint"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   QHBoxLayout* serverLayout = new QHBoxLayout;
-  QLabel* serverLabel = new QLabel(i18n("&Server:"), this);
+  QLabel* serverLabel = new QLabel(tr("&Server:"), this);
   m_serverComboBox = new QComboBox(this);
   m_serverComboBox->setEditable(true);
   static const char* serverList[] = {
@@ -109,19 +108,19 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   m_albumTable->setEditTriggers(QAbstractItemView::AllEditTriggers);
   m_albumTableModel->setHorizontalHeaderLabels(
     QStringList() <<
-    i18n("Track Title/Artist - Album") <<
-    i18n("State"));
+    tr("Track Title/Artist - Album") <<
+    tr("State"));
   initTable();
   vlayout->addWidget(m_albumTable);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
-  QPushButton* okButton = new QPushButton(i18n("&OK"), this);
-  QPushButton* applyButton = new QPushButton(i18n("&Apply"), this);
-  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  QPushButton* okButton = new QPushButton(tr("&OK"), this);
+  QPushButton* applyButton = new QPushButton(tr("&Apply"), this);
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(helpButton);
   hlayout->addWidget(saveButton);
   hlayout->addItem(hspacer);
@@ -185,11 +184,11 @@ void MusicBrainzDialog::initTable()
   for (unsigned i = 0; i < numRows; ++i) {
     QStandardItem* item = new QStandardItem;
     QStringList cbItems;
-    cbItems << i18n("No result") << i18n("Unknown");
+    cbItems << tr("No result") << tr("Unknown");
     item->setData(cbItems.first(), Qt::EditRole);
     item->setData(cbItems, Qt::UserRole);
     m_albumTableModel->setItem(i, 0, item);
-    item = new QStandardItem(i18n("Unknown"));
+    item = new QStandardItem(tr("Unknown"));
     item->setFlags(item->flags() & ~Qt::ItemIsEditable);
     m_albumTableModel->setItem(i, 1, item);
   }
@@ -204,7 +203,7 @@ void MusicBrainzDialog::clearResults()
   unsigned numRows = m_trackResults.size();
   for (unsigned i = 0; i < numRows; ++i) {
     m_trackResults[i].clear();
-    setFileStatus(i, i18n("Unknown"));
+    setFileStatus(i, tr("Unknown"));
     updateFileTrackData(i);
   }
 }
@@ -326,7 +325,7 @@ void MusicBrainzDialog::updateFileTrackData(int index)
   QStringList stringList;
   unsigned numResults = m_trackResults[index].size();
   QString str(numResults == 0 ?
-              i18n("No result") : i18n("No result selected"));
+              tr("No result") : tr("No result selected"));
   stringList.push_back(str);
   for (ImportTrackDataVector::const_iterator it = m_trackResults[index].begin();
        it != m_trackResults[index].end();

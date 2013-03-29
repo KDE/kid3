@@ -20,6 +20,8 @@
 
 project(kid3)
 
+cmake_minimum_required(VERSION 2.8)
+
 set(WITH_TAGLIB ON CACHE BOOL "build with TagLib")
 set(WITH_MP4V2 OFF CACHE BOOL "build with mp4v2")
 set(WITH_ID3LIB ON CACHE BOOL "build with id3lib")
@@ -47,26 +49,6 @@ set(CPACK_PACKAGE_VERSION_PATCH 0)
 set(CPACK_PACKAGE_VERSION "git20130402")
 set(RELEASE_YEAR 2013)
 
-if (WITH_GCC_PCH)
-include(GccPchMacros.cmake)
-endif (WITH_GCC_PCH)
-
-if (WITH_KDE)
-
-find_package(KDE4 REQUIRED)
-if (WITH_PHONON)
-  find_package(Phonon)
-endif (WITH_PHONON)
-include (KDE4Defaults)
-
-# Set variables used to install shared libraries
-set(WITH_BINDIR ${BIN_INSTALL_DIR})
-set(WITH_LIBDIR ${LIB_INSTALL_DIR})
-
-else (WITH_KDE)
-
-find_package(Threads)
-
 # Platform specific default installation paths
 if (APPLE)
   set(WITH_DATAROOTDIR_DEFAULT "kid3.app/Contents/Resources")
@@ -83,7 +65,11 @@ elseif (WIN32)
 else (APPLE)
   set(WITH_DATAROOTDIR_DEFAULT "share")
   set(WITH_DOCDIR_DEFAULT "share/doc/kid3-qt")
-  set(WITH_TRANSLATIONSDIR_DEFAULT "share/kid3-qt/translations")
+  if (WITH_KDE OR BUILD_SHARED_LIBS)
+    set(WITH_TRANSLATIONSDIR_DEFAULT "share/kid3/translations")
+  else (WITH_KDE OR BUILD_SHARED_LIBS)
+    set(WITH_TRANSLATIONSDIR_DEFAULT "share/kid3-qt/translations")
+  endif (WITH_KDE OR BUILD_SHARED_LIBS)
   set(WITH_BINDIR_DEFAULT "bin")
   set(WITH_LIBDIR_DEFAULT "lib")
 endif (APPLE)
@@ -108,7 +94,35 @@ set(CFG_DATAROOTDIR ${CMAKE_INSTALL_PREFIX_SLASH}${WITH_DATAROOTDIR})
 set(CFG_DOCDIR ${CMAKE_INSTALL_PREFIX_SLASH}${WITH_DOCDIR})
 set(CFG_TRANSLATIONSDIR ${CMAKE_INSTALL_PREFIX_SLASH}${WITH_TRANSLATIONSDIR})
 
-cmake_minimum_required(VERSION 2.8)
+if (WITH_GCC_PCH)
+include(GccPchMacros.cmake)
+endif (WITH_GCC_PCH)
+
+find_package(Threads)
+find_package(Perl REQUIRED)
+include (CheckCXXSourceCompiles)
+include (CheckLibraryExists)
+
+if (WITH_KDE)
+
+find_package(KDE4 REQUIRED)
+if (WITH_PHONON)
+  find_package(Phonon)
+endif (WITH_PHONON)
+include (KDE4Defaults)
+
+# Set variables used to install shared libraries
+set(WITH_BINDIR ${BIN_INSTALL_DIR})
+set(WITH_LIBDIR ${LIB_INSTALL_DIR})
+
+set(CONFIG_USE_KDE 1)
+set(BASIC_LIBRARIES ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
+if (WITH_PHONON)
+  set(BASIC_LIBRARIES ${BASIC_LIBRARIES} ${PHONON_LIBS})
+endif (WITH_PHONON)
+
+else (WITH_KDE)
+
 set(QT_EXECUTABLE_COMPILE_FLAGS)
 string(REGEX MATCH "^(.*[Qq]t5.*).bin.qmake.*" _qt5Dir "${QT_QMAKE_EXECUTABLE}")
 if (_qt5Dir)
@@ -186,9 +200,6 @@ if (_qt5Dir)
   message(STATUS "Found Qt5: ${_qt5_corelib_install_prefix} (found version \"${Qt5Core_VERSION_STRING}\")")
 endif (_qt5Dir)
 
-include (CheckCXXSourceCompiles)
-find_package(Perl REQUIRED)
-
 ### Check for xsltproc
 find_program(XSLTPROC xsltproc DOC "xsltproc transforms XML via XSLT"
   PATHS $ENV{XSLTPROCDIR})
@@ -214,25 +225,16 @@ if (NOT DOCBOOK_XSL_DIR)
   message(FATAL_ERROR "Could not find HTML docbook.xsl")
 endif (NOT DOCBOOK_XSL_DIR)
 
+set(BASIC_LIBRARIES ${QT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+
 endif (WITH_KDE)
 
-include (CheckLibraryExists)
-
-if (WITH_KDE)
-  set(CONFIG_USE_KDE 1)
-  set(BASIC_LIBRARIES ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
-  if (WITH_PHONON)
-    set(BASIC_LIBRARIES ${BASIC_LIBRARIES} ${PHONON_LIBS})
-  endif (WITH_PHONON)
-else (WITH_KDE)
-  set(BASIC_LIBRARIES ${QT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-  if (APPLE)
-    set(BASIC_LIBRARIES ${BASIC_LIBRARIES} "-framework CoreServices")
-  endif (APPLE)
-endif (WITH_KDE)
+if (APPLE)
+  set(BASIC_LIBRARIES ${BASIC_LIBRARIES} "-framework CoreServices")
+endif (APPLE)
 
 if (WIN32)
-link_directories($ENV{LIB})
+  link_directories($ENV{LIB})
 endif (WIN32)
 
 if (BUILD_SHARED_LIBS)

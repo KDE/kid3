@@ -38,7 +38,6 @@
 #include "configstore.h"
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -133,12 +132,12 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
   if (index.isValid()) {
     QMenu menu(this);
-    menu.addAction(i18n("&Expand all"), m_mainWin, SLOT(expandFileList()));
-    menu.addAction(i18n("&Collapse all"), this, SLOT(collapseAll()));
-    menu.addAction(i18n("&Rename"), m_mainWin, SLOT(renameFile()));
-    menu.addAction(i18n("&Move to Trash"), m_mainWin, SLOT(deleteFile()));
+    menu.addAction(tr("&Expand all"), m_mainWin, SLOT(expandFileList()));
+    menu.addAction(tr("&Collapse all"), this, SLOT(collapseAll()));
+    menu.addAction(tr("&Rename"), m_mainWin, SLOT(renameFile()));
+    menu.addAction(tr("&Move to Trash"), m_mainWin, SLOT(deleteFile()));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
-    menu.addAction(i18n("&Play"), m_mainWin, SLOT(slotPlayAudio()));
+    menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
     int id = 0;
     for (QList<MiscConfig::MenuCommand>::const_iterator

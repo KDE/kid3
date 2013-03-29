@@ -29,7 +29,6 @@
 #include <QInputDialog>
 #include <QLayout>
 #include <QListView>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -57,7 +56,7 @@ void StringListEdit::addItem()
 {
   bool ok;
   QString txt = QInputDialog::getText(
-    this, i18n("Add Item"), QString::null, QLineEdit::Normal,
+    this, tr("Add Item"), QString::null, QLineEdit::Normal,
     QString::null, &ok);
   if (ok && !txt.isEmpty()) {
     QAbstractItemModel* model = getItemView()->model();
@@ -77,7 +76,7 @@ void StringListEdit::editItem()
     QAbstractItemModel* model = getItemView()->model();
     bool ok;
     QString txt = QInputDialog::getText(
-      this, i18n("Edit Item"), QString::null, QLineEdit::Normal,
+      this, tr("Edit Item"), QString::null, QLineEdit::Normal,
       model->data(index, Qt::EditRole).toString(), &ok);
     if (ok && !txt.isEmpty()) {
       model->setData(index, txt);

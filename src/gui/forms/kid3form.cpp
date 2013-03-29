@@ -60,7 +60,6 @@
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
 #include "kid3application.h"
-#include "qtcompatmac.h"
 
 #ifndef CONFIG_USE_KDE
 #include <QAction>
@@ -171,7 +170,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   }
 
   setAcceptDrops(true);
-  setWindowTitle(i18n("Kid3"));
+  setWindowTitle(tr("Kid3"));
 
   m_vSplitter = new QSplitter(Qt::Vertical, this);
   m_fileListBox = new FileList(m_vSplitter, mainWin());
@@ -196,7 +195,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 #ifdef Q_OS_MAC
   m_fileButton->setStyleSheet(QLatin1String("border: 0;"));
 #endif
-  m_fileLabel = new QLabel(i18n("F&ile"), m_rightHalfVBox);
+  m_fileLabel = new QLabel(tr("F&ile"), m_rightHalfVBox);
   QHBoxLayout* fileButtonLayout = new QHBoxLayout;
   fileButtonLayout->addWidget(m_fileButton);
   fileButtonLayout->addWidget(m_fileLabel);
@@ -207,14 +206,14 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   rightHalfLayout->addWidget(m_fileWidget);
   QGridLayout* fileLayout = new QGridLayout(m_fileWidget);
 
-  m_nameLabel = new QLabel(i18n("Name:"), m_fileWidget);
+  m_nameLabel = new QLabel(tr("Name:"), m_fileWidget);
   fileLayout->addWidget(m_nameLabel, 0, 0);
 
   m_nameLineEdit = new QLineEdit(m_fileWidget);
   fileLayout->addWidget(m_nameLineEdit, 0, 1, 1, 4);
   m_fileLabel->setBuddy(m_nameLineEdit);
 
-  QLabel* formatLabel = new QLabel(i18n("Format:") + QChar(0x2191),
+  QLabel* formatLabel = new QLabel(tr("Format:") + QChar(0x2191),
                                    m_fileWidget);
   fileLayout->addWidget(formatLabel, 1, 0);
 
@@ -229,16 +228,16 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
           m_formatComboBox, SLOT(setEditText(QString)));
   fileLayout->addWidget(m_formatComboBox, 1, 1);
 
-  QLabel* fromTagLabel = new QLabel(i18n("From:"), m_fileWidget);
+  QLabel* fromTagLabel = new QLabel(tr("From:"), m_fileWidget);
   fileLayout->addWidget(fromTagLabel, 1, 2);
-  m_fnV1Button = new QPushButton(i18n("Tag 1"), m_fileWidget);
-  m_fnV1Button->setToolTip(i18n("Filename from Tag 1"));
+  m_fnV1Button = new QPushButton(tr("Tag 1"), m_fileWidget);
+  m_fnV1Button->setToolTip(tr("Filename from Tag 1"));
   fileLayout->addWidget(m_fnV1Button, 1, 3);
-  QPushButton* fnV2Button = new QPushButton(i18n("Tag 2"), m_fileWidget);
-  fnV2Button->setToolTip(i18n("Filename from Tag 2"));
+  QPushButton* fnV2Button = new QPushButton(tr("Tag 2"), m_fileWidget);
+  fnV2Button->setToolTip(tr("Filename from Tag 2"));
   fileLayout->addWidget(fnV2Button, 1, 4);
 
-  QLabel* formatFromFilenameLabel = new QLabel(i18n("Format:") + QChar(0x2193),
+  QLabel* formatFromFilenameLabel = new QLabel(tr("Format:") + QChar(0x2193),
                                                m_fileWidget);
   fileLayout->addWidget(formatFromFilenameLabel, 2, 0);
 
@@ -253,15 +252,15 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
           m_formatFromFilenameComboBox, SLOT(setEditText(QString)));
   fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
-  QLabel* toTagLabel = new QLabel(i18n("To:"), m_fileWidget);
+  QLabel* toTagLabel = new QLabel(tr("To:"), m_fileWidget);
   fileLayout->addWidget(toTagLabel, 2, 2);
   m_toTagV1Button =
-    new QPushButton(i18n("Tag 1"), m_fileWidget);
-  m_toTagV1Button->setToolTip(i18n("Tag 1 from Filename"));
+    new QPushButton(tr("Tag 1"), m_fileWidget);
+  m_toTagV1Button->setToolTip(tr("Tag 1 from Filename"));
   fileLayout->addWidget(m_toTagV1Button, 2, 3);
   QPushButton* toTagV2Button =
-    new QPushButton(i18n("Tag 2"), m_fileWidget);
-  toTagV2Button->setToolTip(i18n("Tag 2 from Filename"));
+    new QPushButton(tr("Tag 2"), m_fileWidget);
+  toTagV2Button->setToolTip(tr("Tag 2 from Filename"));
   fileLayout->addWidget(toTagV2Button, 2, 4);
 
   m_tag1Button = new QToolButton(m_rightHalfVBox);
@@ -270,7 +269,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 #ifdef Q_OS_MAC
   m_tag1Button->setStyleSheet(QLatin1String("border: 0;"));
 #endif
-  m_tag1Label = new QLabel(i18n("Tag &1"), m_rightHalfVBox);
+  m_tag1Label = new QLabel(tr("Tag &1"), m_rightHalfVBox);
   QHBoxLayout* tag1ButtonLayout = new QHBoxLayout;
   tag1ButtonLayout->addWidget(m_tag1Button);
   tag1ButtonLayout->addWidget(m_tag1Label);
@@ -290,18 +289,18 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   idV1HBoxLayout->addLayout(buttonsV1VBoxLayout);
 
   QPushButton* id3V1PushButton =
-    new QPushButton(i18n("From Tag 2"), m_tag1Widget);
+    new QPushButton(tr("From Tag 2"), m_tag1Widget);
   buttonsV1VBoxLayout->addWidget(id3V1PushButton);
 
-  QPushButton* copyV1PushButton = new QPushButton(i18n("Copy"), m_tag1Widget);
+  QPushButton* copyV1PushButton = new QPushButton(tr("Copy"), m_tag1Widget);
   buttonsV1VBoxLayout->addWidget(copyV1PushButton);
 
   QPushButton* pasteV1PushButton =
-    new QPushButton(i18n("Paste"), m_tag1Widget);
+    new QPushButton(tr("Paste"), m_tag1Widget);
   buttonsV1VBoxLayout->addWidget(pasteV1PushButton);
 
   QPushButton* removeV1PushButton =
-    new QPushButton(i18n("Remove"), m_tag1Widget);
+    new QPushButton(tr("Remove"), m_tag1Widget);
   buttonsV1VBoxLayout->addWidget(removeV1PushButton);
 
   buttonsV1VBoxLayout->addItem(
@@ -313,7 +312,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
 #ifdef Q_OS_MAC
   m_tag2Button->setStyleSheet(QLatin1String("border: 0;"));
 #endif
-  m_tag2Label = new QLabel(i18n("Tag &2"), m_rightHalfVBox);
+  m_tag2Label = new QLabel(tr("Tag &2"), m_rightHalfVBox);
   QHBoxLayout* tag2ButtonLayout = new QHBoxLayout;
   tag2ButtonLayout->addWidget(m_tag2Button);
   tag2ButtonLayout->addWidget(m_tag2Label);
@@ -331,19 +330,19 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   QVBoxLayout* buttonsV2VBoxLayout = new QVBoxLayout;
   idV2HBoxLayout->addLayout(buttonsV2VBoxLayout);
 
-  m_id3V2PushButton = new QPushButton(i18n("From Tag 1"), m_tag2Widget);
+  m_id3V2PushButton = new QPushButton(tr("From Tag 1"), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(m_id3V2PushButton);
 
   QPushButton* copyV2PushButton =
-    new QPushButton(i18n("Copy"), m_tag2Widget);
+    new QPushButton(tr("Copy"), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(copyV2PushButton);
 
   QPushButton* pasteV2PushButton =
-    new QPushButton(i18n("Paste"), m_tag2Widget);
+    new QPushButton(tr("Paste"), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(pasteV2PushButton);
 
   QPushButton* removeV2PushButton =
-    new QPushButton(i18n("Remove"), m_tag2Widget);
+    new QPushButton(tr("Remove"), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(removeV2PushButton);
 
   QFrame* frameLine = new QFrame;
@@ -352,13 +351,13 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   buttonsV2VBoxLayout->addWidget(frameLine);
 
   QPushButton* editFramesPushButton =
-    new QPushButton(i18n("Edit"), m_tag2Widget);
+    new QPushButton(tr("Edit"), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(editFramesPushButton);
   QPushButton* framesAddPushButton =
-    new QPushButton(i18n("Add"), m_tag2Widget);
+    new QPushButton(tr("Add"), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(framesAddPushButton);
   QPushButton* deleteFramesPushButton =
-    new QPushButton(i18n("Delete"), m_tag2Widget);
+    new QPushButton(tr("Delete"), m_tag2Widget);
   buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
 
   m_pictureLabel = new PictureLabel(this);
@@ -590,7 +589,7 @@ void Kid3Form::enableControlsV1(bool enable)
  */
 void Kid3Form::setTagFormatV1(const QString& str)
 {
-  QString txt = i18n("Tag &1");
+  QString txt = tr("Tag &1");
   if (!str.isEmpty()) {
     txt += QLatin1String(": ");
     txt += str;
@@ -605,7 +604,7 @@ void Kid3Form::setTagFormatV1(const QString& str)
  */
 void Kid3Form::setTagFormatV2(const QString& str)
 {
-  QString txt = i18n("Tag &2");
+  QString txt = tr("Tag &2");
   if (!str.isEmpty()) {
     txt += QLatin1String(": ");
     txt += str;
@@ -869,9 +868,9 @@ void Kid3Form::setDetailInfo(const TaggedFile::DetailInfo& info)
     }
   }
   if (!str.isEmpty()) {
-    str = i18n("F&ile") + QLatin1String(": ") + str;
+    str = tr("F&ile") + QLatin1String(": ") + str;
   } else {
-    str = i18n("F&ile");
+    str = tr("F&ile");
   }
   m_fileLabel->setText(str);
 }
@@ -935,32 +934,32 @@ void Kid3Form::setDirectoryIndex(const QModelIndex& directoryIndex,
  */
 void Kid3Form::initActions()
 {
-  QString ctx(i18n("Filename"));
+  QString ctx(tr("Filename"));
   ShortcutsModel* sm = m_app->getConfigStore()->getShortcutsModel();
-  initAction(i18n("From Tag 1"), QLatin1String("filename_from_v1"), this, SLOT(fnFromID3V1()), ctx, sm);
-  initAction(i18n("From Tag 2"), QLatin1String("filename_from_v2"), this, SLOT(fnFromID3V2()), ctx, sm);
-  initAction(i18n("Focus"), QLatin1String("filename_focus"), this, SLOT(setFocusFilename()), ctx, sm);
-  ctx = i18n("Tag 1");
-  initAction(i18n("From Filename"), QLatin1String("v1_from_filename"), m_app, SLOT(getTagsFromFilenameV1()), ctx, sm);
-  initAction(i18n("From Tag 2"), QLatin1String("v1_from_v2"), m_app, SLOT(copyV2ToV1()), ctx, sm);
-  initAction(i18n("Copy"), QLatin1String("v1_copy"), m_app, SLOT(copyTagsV1()), ctx, sm);
-  initAction(i18n("Paste"), QLatin1String("v1_paste"), m_app, SLOT(pasteTagsV1()), ctx, sm);
-  initAction(i18n("Remove"), QLatin1String("v1_remove"), m_app, SLOT(removeTagsV1()), ctx, sm);
-  initAction(i18n("Focus"), QLatin1String("v1_focus"), this, SLOT(setFocusV1()), ctx, sm);
-  ctx = i18n("Tag 2");
-  initAction(i18n("From Filename"), QLatin1String("v2_from_filename"), m_app, SLOT(getTagsFromFilenameV2()), ctx, sm);
-  initAction(i18n("From Tag 1"), QLatin1String("v2_from_v1"), m_app, SLOT(copyV1ToV2()), ctx, sm);
-  initAction(i18n("Copy"), QLatin1String("v2_copy"), m_app, SLOT(copyTagsV2()), ctx, sm);
-  initAction(i18n("Paste"), QLatin1String("v2_paste"), m_app, SLOT(pasteTagsV2()), ctx, sm);
-  initAction(i18n("Remove"), QLatin1String("v2_remove"), m_app, SLOT(removeTagsV2()), ctx, sm);
-  initAction(i18n("Edit"), QLatin1String("frames_edit"), this, SLOT(editFrame()), ctx, sm);
-  initAction(i18n("Add"), QLatin1String("frames_add"), this, SLOT(addFrame()), ctx, sm);
-  initAction(i18n("Delete"), QLatin1String("frames_delete"), this, SLOT(deleteFrame()), ctx, sm);
-  initAction(i18n("Focus"), QLatin1String("v2_focus"), this, SLOT(setFocusV2()), ctx, sm);
-  ctx = i18n("File List");
-  initAction(i18n("Focus"), QLatin1String("filelist_focus"), this, SLOT(setFocusFileList()), ctx, sm);
-  ctx = i18n("Directory List");
-  initAction(i18n("Focus"), QLatin1String("dirlist_focus"), this, SLOT(setFocusDirList()), ctx, sm);
+  initAction(tr("From Tag 1"), QLatin1String("filename_from_v1"), this, SLOT(fnFromID3V1()), ctx, sm);
+  initAction(tr("From Tag 2"), QLatin1String("filename_from_v2"), this, SLOT(fnFromID3V2()), ctx, sm);
+  initAction(tr("Focus"), QLatin1String("filename_focus"), this, SLOT(setFocusFilename()), ctx, sm);
+  ctx = tr("Tag 1");
+  initAction(tr("From Filename"), QLatin1String("v1_from_filename"), m_app, SLOT(getTagsFromFilenameV1()), ctx, sm);
+  initAction(tr("From Tag 2"), QLatin1String("v1_from_v2"), m_app, SLOT(copyV2ToV1()), ctx, sm);
+  initAction(tr("Copy"), QLatin1String("v1_copy"), m_app, SLOT(copyTagsV1()), ctx, sm);
+  initAction(tr("Paste"), QLatin1String("v1_paste"), m_app, SLOT(pasteTagsV1()), ctx, sm);
+  initAction(tr("Remove"), QLatin1String("v1_remove"), m_app, SLOT(removeTagsV1()), ctx, sm);
+  initAction(tr("Focus"), QLatin1String("v1_focus"), this, SLOT(setFocusV1()), ctx, sm);
+  ctx = tr("Tag 2");
+  initAction(tr("From Filename"), QLatin1String("v2_from_filename"), m_app, SLOT(getTagsFromFilenameV2()), ctx, sm);
+  initAction(tr("From Tag 1"), QLatin1String("v2_from_v1"), m_app, SLOT(copyV1ToV2()), ctx, sm);
+  initAction(tr("Copy"), QLatin1String("v2_copy"), m_app, SLOT(copyTagsV2()), ctx, sm);
+  initAction(tr("Paste"), QLatin1String("v2_paste"), m_app, SLOT(pasteTagsV2()), ctx, sm);
+  initAction(tr("Remove"), QLatin1String("v2_remove"), m_app, SLOT(removeTagsV2()), ctx, sm);
+  initAction(tr("Edit"), QLatin1String("frames_edit"), this, SLOT(editFrame()), ctx, sm);
+  initAction(tr("Add"), QLatin1String("frames_add"), this, SLOT(addFrame()), ctx, sm);
+  initAction(tr("Delete"), QLatin1String("frames_delete"), this, SLOT(deleteFrame()), ctx, sm);
+  initAction(tr("Focus"), QLatin1String("v2_focus"), this, SLOT(setFocusV2()), ctx, sm);
+  ctx = tr("File List");
+  initAction(tr("Focus"), QLatin1String("filelist_focus"), this, SLOT(setFocusFileList()), ctx, sm);
+  ctx = tr("Directory List");
+  initAction(tr("Focus"), QLatin1String("dirlist_focus"), this, SLOT(setFocusDirList()), ctx, sm);
 }
 
 void Kid3Form::initAction(const QString& text, const QString& name,

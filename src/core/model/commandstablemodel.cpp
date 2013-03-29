@@ -26,7 +26,6 @@
 
 #include "commandstablemodel.h"
 #include "commandformatreplacer.h"
-#include "qtcompatmac.h"
 
 /** Column indices. */
 enum ColumnIndex {
@@ -169,13 +168,13 @@ QVariant CommandsTableModel::headerData(
   if (orientation == Qt::Horizontal) {
     switch (section) {
     case CI_Confirm:
-      return i18n("Confirm");
+      return tr("Confirm");
     case CI_Output:
-      return i18n("Output");
+      return tr("Output");
     case CI_Name:
-      return i18n("Name");
+      return tr("Name");
     case CI_Command:
-      return i18n("Command");
+      return tr("Command");
     default:
       return section + 1;
     }

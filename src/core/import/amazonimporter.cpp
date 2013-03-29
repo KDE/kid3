@@ -29,7 +29,6 @@
 #include <QDomDocument>
 #include "trackdatamodel.h"
 #include "configstore.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -56,7 +55,7 @@ AmazonImporter::~AmazonImporter()
  * Name of import source.
  * @return name.
  */
-const char* AmazonImporter::name() const { return I18N_NOOP("Amazon"); }
+const char* AmazonImporter::name() const { return QT_TRANSLATE_NOOP("@default", "Amazon"); }
 
 /** NULL-terminated array of server strings, 0 if not used */
 const char** AmazonImporter::serverList() const

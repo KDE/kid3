@@ -28,8 +28,8 @@
 #ifdef CONFIG_USE_KDE
 #include <ktoolinvocation.h>
 #else
+#include <QCoreApplication>
 #include "browserdialog.h"
-#include "qtcompatmac.h"
 
 BrowserDialog* ContextHelp::s_helpBrowser = 0;
 #endif
@@ -56,7 +56,7 @@ void ContextHelp::displayHelp(const QString& anchor)
 void ContextHelp::displayHelp(const QString& anchor)
 {
   if (!s_helpBrowser) {
-    QString caption(QCM_translate(I18N_NOOP("Kid3 Handbook")));
+    QString caption(QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Kid3 Handbook")));
     s_helpBrowser = new BrowserDialog(0, caption);
   }
   s_helpBrowser->goToAnchor(anchor);

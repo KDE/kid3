@@ -40,7 +40,6 @@
 #include "kid3application.h"
 #include "imageviewer.h"
 #include "taggedfile.h"
-#include "qtcompatmac.h"
 #include "config.h"
 #include "configstore.h"
 #ifdef CONFIG_USE_KDE
@@ -272,7 +271,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
   layout->setContentsMargins(0, 0, 0, 0);
   QStringList strList;
   while (*strlst) {
-    strList += QCM_translate(*strlst++);
+    strList += QCoreApplication::translate("@default", *strlst++);
   }
   m_combo->addItems(strList);
   layout->addWidget(m_label);
@@ -523,10 +522,10 @@ BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
   setObjectName(QLatin1String("BinaryOpenSave"));
   QHBoxLayout* layout = new QHBoxLayout(this);
   m_label = new QLabel(this);
-  m_clipButton = new QPushButton(i18n("From Clip&board"), this);
-  QPushButton* openButton = new QPushButton(i18n("&Import"), this);
-  QPushButton* saveButton = new QPushButton(i18n("&Export"), this);
-  QPushButton* viewButton = new QPushButton(i18n("&View"), this);
+  m_clipButton = new QPushButton(tr("From Clip&board"), this);
+  QPushButton* openButton = new QPushButton(tr("&Import"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Export"), this);
+  QPushButton* viewButton = new QPushButton(tr("&View"), this);
   layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(m_label);
   layout->addWidget(m_clipButton);
@@ -655,33 +654,33 @@ const char* Mp3FieldControl::getFieldIDString(Frame::Field::Id id) const
 {
   static const char* const idStr[] = {
     "Unknown",
-    I18N_NOOP("Text Encoding"),
-    I18N_NOOP("Text"),
-    I18N_NOOP("URL"),
-    I18N_NOOP("Data"),
-    I18N_NOOP("Description"),
-    I18N_NOOP("Owner"),
-    I18N_NOOP("Email"),
-    I18N_NOOP("Rating"),
-    I18N_NOOP("Filename"),
-    I18N_NOOP("Language"),
-    I18N_NOOP("Picture Type"),
-    I18N_NOOP("Image format"),
-    I18N_NOOP("Mimetype"),
-    I18N_NOOP("Counter"),
-    I18N_NOOP("Identifier"),
-    I18N_NOOP("Volume Adjustment"),
-    I18N_NOOP("Number of Bits"),
-    I18N_NOOP("Volume Change Right"),
-    I18N_NOOP("Volume Change Left"),
-    I18N_NOOP("Peak Volume Right"),
-    I18N_NOOP("Peak Volume Left"),
-    I18N_NOOP("Timestamp Format"),
-    I18N_NOOP("Content Type"),
+    QT_TRANSLATE_NOOP("@default", "Text Encoding"),
+    QT_TRANSLATE_NOOP("@default", "Text"),
+    QT_TRANSLATE_NOOP("@default", "URL"),
+    QT_TRANSLATE_NOOP("@default", "Data"),
+    QT_TRANSLATE_NOOP("@default", "Description"),
+    QT_TRANSLATE_NOOP("@default", "Owner"),
+    QT_TRANSLATE_NOOP("@default", "Email"),
+    QT_TRANSLATE_NOOP("@default", "Rating"),
+    QT_TRANSLATE_NOOP("@default", "Filename"),
+    QT_TRANSLATE_NOOP("@default", "Language"),
+    QT_TRANSLATE_NOOP("@default", "Picture Type"),
+    QT_TRANSLATE_NOOP("@default", "Image format"),
+    QT_TRANSLATE_NOOP("@default", "Mimetype"),
+    QT_TRANSLATE_NOOP("@default", "Counter"),
+    QT_TRANSLATE_NOOP("@default", "Identifier"),
+    QT_TRANSLATE_NOOP("@default", "Volume Adjustment"),
+    QT_TRANSLATE_NOOP("@default", "Number of Bits"),
+    QT_TRANSLATE_NOOP("@default", "Volume Change Right"),
+    QT_TRANSLATE_NOOP("@default", "Volume Change Left"),
+    QT_TRANSLATE_NOOP("@default", "Peak Volume Right"),
+    QT_TRANSLATE_NOOP("@default", "Peak Volume Left"),
+    QT_TRANSLATE_NOOP("@default", "Timestamp Format"),
+    QT_TRANSLATE_NOOP("@default", "Content Type"),
 
-    I18N_NOOP("Price"),
-    I18N_NOOP("Date"),
-    I18N_NOOP("Seller")
+    QT_TRANSLATE_NOOP("@default", "Price"),
+    QT_TRANSLATE_NOOP("@default", "Date"),
+    QT_TRANSLATE_NOOP("@default", "Seller")
   };
   class not_used { int array_size_check[
       sizeof(idStr) / sizeof(idStr[0]) == Frame::Field::ID_Seller + 1
@@ -709,7 +708,8 @@ QWidget* TextFieldControl::createWidget(QWidget* parent)
   if (m_edit == NULL)
     return NULL;
 
-  m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_edit->setLabel(QCoreApplication::translate("@default",
+      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
   m_edit->setText(m_field.m_value.toString());
   m_edit->setFocus();
   return m_edit;
@@ -732,7 +732,8 @@ void LineFieldControl::updateTag()
 QWidget* LineFieldControl::createWidget(QWidget* parent)
 {
   m_edit = new LabeledLineEdit(parent);
-  m_edit->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_edit->setLabel(QCoreApplication::translate("@default",
+      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
   m_edit->setText(m_field.m_value.toString());
   return m_edit;
 }
@@ -754,7 +755,8 @@ void IntFieldControl::updateTag()
 QWidget* IntFieldControl::createWidget(QWidget* parent)
 {
   m_numInp = new LabeledSpinBox(parent);
-  m_numInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_numInp->setLabel(QCoreApplication::translate("@default",
+      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
   m_numInp->setValue(m_field.m_value.toInt());
   return m_numInp;
 }
@@ -776,7 +778,8 @@ void IntComboBoxControl::updateTag()
 QWidget* IntComboBoxControl::createWidget(QWidget* parent)
 {
   m_ptInp = new LabeledComboBox(parent, m_strLst);
-  m_ptInp->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_ptInp->setLabel(QCoreApplication::translate("@default",
+      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
   m_ptInp->setCurrentItem(m_field.m_value.toInt());
   return m_ptInp;
 }
@@ -800,7 +803,8 @@ void BinFieldControl::updateTag()
 QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
   m_bos = new BinaryOpenSave(parent, m_field);
-  m_bos->setLabel(QCM_translate(getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
+  m_bos->setLabel(QCoreApplication::translate("@default",
+      getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
   if (m_taggedFile) {
     m_bos->setDefaultDir(m_taggedFile->getDirname());
   }
@@ -809,9 +813,17 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
     m_bos->setFilter(
 #ifdef CONFIG_USE_KDE
           QLatin1String("*.jpg *.jpeg *.png|") +
-          i18n("Images (*.jpg *.jpeg *.png)") + QLatin1String("\n*|") + i18n("All Files (*)")
+          QCoreApplication::translate("@default",
+              QT_TRANSLATE_NOOP("@default", "Images (*.jpg *.jpeg *.png)")) +
+          QLatin1String("\n*|") +
+          QCoreApplication::translate("@default",
+              QT_TRANSLATE_NOOP("@default", "All Files (*)"))
 #else
-          i18n("Images (*.jpg *.jpeg *.png)") + QLatin1String(";;") + i18n("All Files (*)")
+          QCoreApplication::translate("@default",
+              QT_TRANSLATE_NOOP("@default", "Images (*.jpg *.jpeg *.png)")) +
+          QLatin1String(";;") +
+          QCoreApplication::translate("@default",
+              QT_TRANSLATE_NOOP("@default", "All Files (*)"))
 #endif
           );
   }
@@ -863,10 +875,10 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
       case QVariant::UInt:
         if (fld.m_id == Frame::Field::ID_TextEnc) {
           static const char* strlst[] = {
-            I18N_NOOP("ISO-8859-1"),
-            I18N_NOOP("UTF16"),
-            I18N_NOOP("UTF16BE"),
-            I18N_NOOP("UTF8"),
+            QT_TRANSLATE_NOOP("@default", "ISO-8859-1"),
+            QT_TRANSLATE_NOOP("@default", "UTF16"),
+            QT_TRANSLATE_NOOP("@default", "UTF16BE"),
+            QT_TRANSLATE_NOOP("@default", "UTF8"),
             NULL
           };
           IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
@@ -874,27 +886,27 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
         }
         else if (fld.m_id == Frame::Field::ID_PictureType) {
           static const char* strlst[] = {
-            I18N_NOOP("Other"),
-            I18N_NOOP("32x32 pixels PNG file icon"),
-            I18N_NOOP("Other file icon"),
-            I18N_NOOP("Cover (front)"),
-            I18N_NOOP("Cover (back)"),
-            I18N_NOOP("Leaflet page"),
-            I18N_NOOP("Media"),
-            I18N_NOOP("Lead artist/lead performer/soloist"),
-            I18N_NOOP("Artist/performer"),
-            I18N_NOOP("Conductor"),
-            I18N_NOOP("Band/Orchestra"),
-            I18N_NOOP("Composer"),
-            I18N_NOOP("Lyricist/text writer"),
-            I18N_NOOP("Recording Location"),
-            I18N_NOOP("During recording"),
-            I18N_NOOP("During performance"),
-            I18N_NOOP("Movie/video screen capture"),
-            I18N_NOOP("A bright coloured fish"),
-            I18N_NOOP("Illustration"),
-            I18N_NOOP("Band/artist logotype"),
-            I18N_NOOP("Publisher/Studio logotype"),
+            QT_TRANSLATE_NOOP("@default", "Other"),
+            QT_TRANSLATE_NOOP("@default", "32x32 pixels PNG file icon"),
+            QT_TRANSLATE_NOOP("@default", "Other file icon"),
+            QT_TRANSLATE_NOOP("@default", "Cover (front)"),
+            QT_TRANSLATE_NOOP("@default", "Cover (back)"),
+            QT_TRANSLATE_NOOP("@default", "Leaflet page"),
+            QT_TRANSLATE_NOOP("@default", "Media"),
+            QT_TRANSLATE_NOOP("@default", "Lead artist/lead performer/soloist"),
+            QT_TRANSLATE_NOOP("@default", "Artist/performer"),
+            QT_TRANSLATE_NOOP("@default", "Conductor"),
+            QT_TRANSLATE_NOOP("@default", "Band/Orchestra"),
+            QT_TRANSLATE_NOOP("@default", "Composer"),
+            QT_TRANSLATE_NOOP("@default", "Lyricist/text writer"),
+            QT_TRANSLATE_NOOP("@default", "Recording Location"),
+            QT_TRANSLATE_NOOP("@default", "During recording"),
+            QT_TRANSLATE_NOOP("@default", "During performance"),
+            QT_TRANSLATE_NOOP("@default", "Movie/video screen capture"),
+            QT_TRANSLATE_NOOP("@default", "A bright coloured fish"),
+            QT_TRANSLATE_NOOP("@default", "Illustration"),
+            QT_TRANSLATE_NOOP("@default", "Band/artist logotype"),
+            QT_TRANSLATE_NOOP("@default", "Publisher/Studio logotype"),
             NULL
           };
           IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
@@ -902,9 +914,9 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
         }
         else if (fld.m_id == Frame::Field::ID_TimestampFormat) {
           static const char* strlst[] = {
-            I18N_NOOP("Other"),
-            I18N_NOOP("MPEG frames as unit"),
-            I18N_NOOP("Milliseconds as unit"),
+            QT_TRANSLATE_NOOP("@default", "Other"),
+            QT_TRANSLATE_NOOP("@default", "MPEG frames as unit"),
+            QT_TRANSLATE_NOOP("@default", "Milliseconds as unit"),
             NULL
           };
           IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
@@ -912,13 +924,13 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
         }
         else if (fld.m_id == Frame::Field::ID_ContentType) {
           static const char* strlst[] = {
-            I18N_NOOP("Other"),
-            I18N_NOOP("Lyrics"),
-            I18N_NOOP("Text transcription"),
-            I18N_NOOP("Movement/part name"),
-            I18N_NOOP("Events"),
-            I18N_NOOP("Chord"),
-            I18N_NOOP("Trivia/pop up"),
+            QT_TRANSLATE_NOOP("@default", "Other"),
+            QT_TRANSLATE_NOOP("@default", "Lyrics"),
+            QT_TRANSLATE_NOOP("@default", "Text transcription"),
+            QT_TRANSLATE_NOOP("@default", "Movement/part name"),
+            QT_TRANSLATE_NOOP("@default", "Events"),
+            QT_TRANSLATE_NOOP("@default", "Chord"),
+            QT_TRANSLATE_NOOP("@default", "Trivia/pop up"),
             NULL
           };
           IntComboBoxControl* cbox = new IntComboBoxControl(fld, strlst);
@@ -962,8 +974,8 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
              QSizePolicy::Minimum);
-  QPushButton* okButton = new QPushButton(i18n("&OK"), this);
-  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  QPushButton* okButton = new QPushButton(tr("&OK"), this);
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addItem(hspacer);
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);

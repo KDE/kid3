@@ -28,8 +28,8 @@
 #include <QString>
 #include <QUrl>
 #include <QDir>
+#include <QCoreApplication>
 #include "fileproxymodel.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -176,61 +176,61 @@ QString TrackDataFormatReplacer::getToolTip(bool onlyRows)
   str += FrameFormatReplacer::getToolTip(true);
 
   str += QLatin1String("<tr><td>%f</td><td>%{file}</td><td>");
-  str += QCM_translate("Filename");
+  str += QCoreApplication::translate("@default", "Filename");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%p</td><td>%{filepath}</td><td>");
-  str += QCM_translate(I18N_NOOP("Absolute path to file"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Absolute path to file"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%u</td><td>%{url}</td><td>");
-  str += QCM_translate("URL");
+  str += QCoreApplication::translate("@default", "URL");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%d</td><td>%{duration}</td><td>");
-  str += QCM_translate(I18N_NOOP("Length"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Length"));
   str += QLatin1String(" &quot;M:S&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%D</td><td>%{seconds}</td><td>");
-  str += QCM_translate(I18N_NOOP("Length"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Length"));
   str += QLatin1String(" &quot;S&quot;</td></tr>\n");
 
   str += QLatin1String("<tr><td>%n</td><td>%{tracks}</td><td>");
-  str += QCM_translate(I18N_NOOP("Number of tracks"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Number of tracks"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%e</td><td>%{extension}</td><td>");
-  str += QCM_translate(I18N_NOOP("Extension"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Extension"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%O</td><td>%{tag1}</td><td>");
-  str += QCM_translate("Tag 1");
+  str += QCoreApplication::translate("@default", "Tag 1");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%o</td><td>%{tag2}</td><td>");
-  str += QCM_translate("Tag 2");
+  str += QCoreApplication::translate("@default", "Tag 2");
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%b</td><td>%{bitrate}</td><td>");
-  str += QCM_translate(I18N_NOOP("Bitrate"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Bitrate"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%v</td><td>%{vbr}</td><td>");
-  str += QCM_translate(I18N_NOOP("VBR"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "VBR"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%r</td><td>%{samplerate}</td><td>");
-  str += QCM_translate(I18N_NOOP("Samplerate"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Samplerate"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%m</td><td>%{mode}</td><td>Stereo, Joint Stereo</td></tr>\n");
 
   str += QLatin1String("<tr><td>%h</td><td>%{channels}</td><td>");
-  str += QCM_translate(I18N_NOOP("Channels"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Channels"));
   str += QLatin1String("</td></tr>\n");
 
   str += QLatin1String("<tr><td>%k</td><td>%{codec}</td><td>");
-  str += QCM_translate(I18N_NOOP("Codec"));
+  str += QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Codec"));
   str += QLatin1String("</td></tr>\n");
 
   if (!onlyRows) str += QLatin1String("</table>\n");

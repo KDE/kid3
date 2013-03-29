@@ -32,7 +32,6 @@
 #include "httpclient.h"
 #include "trackdatamodel.h"
 #include "fingerprintcalculator.h"
-#include "qtcompatmac.h"
 
 namespace {
 
@@ -252,7 +251,7 @@ void MusicBrainzClient::receiveBytes(const QByteArray& bytes)
       return;
     m_idsOfTrack[m_currentIndex] = parseAcoustidIds(bytes);
     if (m_idsOfTrack.at(m_currentIndex).isEmpty()) {
-      emit statusChanged(m_currentIndex, i18n("Unrecognized"));
+      emit statusChanged(m_currentIndex, tr("Unrecognized"));
     }
     m_state = GettingMetadata;
     processNextStep();
@@ -264,10 +263,10 @@ void MusicBrainzClient::receiveBytes(const QByteArray& bytes)
     if (m_idsOfTrack.at(m_currentIndex).isEmpty()) {
       int numResults = m_currentTrackData.size();
       if (numResults == 1) {
-        emit statusChanged(m_currentIndex, i18n("Recognized"));
+        emit statusChanged(m_currentIndex, tr("Recognized"));
         emit metaDataReceived(m_currentIndex, m_currentTrackData.first());
       } else if (numResults > 1) {
-        emit statusChanged(m_currentIndex, i18n("User Selection"));
+        emit statusChanged(m_currentIndex, tr("User Selection"));
         emit resultsReceived(m_currentIndex, m_currentTrackData);
       }
     }
@@ -290,13 +289,13 @@ void MusicBrainzClient::receiveFingerprint(const QString& fingerprint,
 {
   if (error == FingerprintCalculator::Ok) {
     m_state = GettingIds;
-    emit statusChanged(m_currentIndex, i18n("ID Lookup"));
+    emit statusChanged(m_currentIndex, tr("ID Lookup"));
     QString path(QLatin1String("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=") +
                  QString::number(duration) +
                  QLatin1String("&fingerprint=") + fingerprint);
     m_httpClient->sendRequest(QLatin1String("api.acoustid.org"), path);
   } else {
-    emit statusChanged(m_currentIndex, i18n("Error"));
+    emit statusChanged(m_currentIndex, tr("Error"));
     processNextTrack();
   }
 }
@@ -313,7 +312,7 @@ void MusicBrainzClient::processNextStep()
   {
     if (!verifyTrackIndex())
       return;
-    emit statusChanged(m_currentIndex, i18n("Fingerprint"));
+    emit statusChanged(m_currentIndex, tr("Fingerprint"));
     m_fingerprintCalculator->start(m_filenameOfTrack.at(m_currentIndex));
     break;
   }
@@ -323,7 +322,7 @@ void MusicBrainzClient::processNextStep()
       return;
     QStringList& ids = m_idsOfTrack[m_currentIndex];
     if (!ids.isEmpty()) {
-      emit statusChanged(m_currentIndex, i18n("Metadata Lookup"));
+      emit statusChanged(m_currentIndex, tr("Metadata Lookup"));
       QString path(QLatin1String("/ws/2/recording/") + ids.takeFirst() +
                    QLatin1String("?inc=artists+releases+media"));
       m_httpClient->sendRequest(m_musicBrainzServer, path);

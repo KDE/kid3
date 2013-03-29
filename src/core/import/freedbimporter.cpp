@@ -29,7 +29,6 @@
 #include "trackdatamodel.h"
 #include "configstore.h"
 #include "genres.h"
-#include "qtcompatmac.h"
 
 static const char gnudbServer[] = "www.gnudb.org:80";
 
@@ -57,7 +56,7 @@ FreedbImporter::~FreedbImporter()
  * Name of import source.
  * @return name.
  */
-const char* FreedbImporter::name() const { return I18N_NOOP("gnudb.org"); }
+const char* FreedbImporter::name() const { return QT_TRANSLATE_NOOP("@default", "gnudb.org"); }
 
 /** NULL-terminated array of server strings, 0 if not used */
 const char** FreedbImporter::serverList() const

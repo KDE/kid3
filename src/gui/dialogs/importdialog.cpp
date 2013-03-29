@@ -49,6 +49,7 @@
 #include <QGroupBox>
 #include <QDir>
 #include <QMenu>
+#include <QCoreApplication>
 #include "genres.h"
 #include "serverimporter.h"
 #include "serverimportdialog.h"
@@ -138,13 +139,13 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   vlayout->addWidget(m_trackDataTable);
 
   QHBoxLayout* accuracyLayout = new QHBoxLayout;
-  QLabel* accuracyLabel = new QLabel(i18n("Accuracy:"));
+  QLabel* accuracyLabel = new QLabel(tr("Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
   m_accuracyPercentLabel = new QLabel(QLatin1String("-"));
   m_accuracyPercentLabel->setMinimumWidth(
         m_accuracyPercentLabel->fontMetrics().width(QLatin1String("100%")));
   accuracyLayout->addWidget(m_accuracyPercentLabel);
-  QLabel* coverArtLabel = new QLabel(i18n("Cover Art:"));
+  QLabel* coverArtLabel = new QLabel(tr("Cover Art:"));
   accuracyLayout->addWidget(coverArtLabel);
   m_coverArtUrlLabel = new QLabel(QLatin1String(" -"));
   accuracyLayout->addWidget(m_coverArtUrlLabel);
@@ -152,35 +153,35 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   vlayout->addLayout(accuracyLayout);
 
   QHBoxLayout* butlayout = new QHBoxLayout;
-  QPushButton* fileButton = new QPushButton(i18n("From F&ile/Clipboard..."));
+  QPushButton* fileButton = new QPushButton(tr("From F&ile/Clipboard..."));
   fileButton->setAutoDefault(false);
   butlayout->addWidget(fileButton);
-  QPushButton* tagsButton = new QPushButton(i18n("From T&ags..."));
+  QPushButton* tagsButton = new QPushButton(tr("From T&ags..."));
   tagsButton->setAutoDefault(false);
   butlayout->addWidget(tagsButton);
-  QPushButton* serverButton = new QPushButton(i18n("&From Server:"));
+  QPushButton* serverButton = new QPushButton(tr("&From Server:"));
   serverButton->setAutoDefault(false);
   butlayout->addWidget(serverButton);
   m_serverComboBox = new QComboBox;
   m_serverComboBox->setEditable(false);
   foreach (const ServerImporter* si, m_importers) {
-    m_serverComboBox->addItem(QCM_translate(si->name()));
+    m_serverComboBox->addItem(QCoreApplication::translate("@default", si->name()));
   }
 #ifdef HAVE_CHROMAPRINT
-  m_serverComboBox->addItem(i18n("MusicBrainz Fingerprint"));
+  m_serverComboBox->addItem(tr("MusicBrainz Fingerprint"));
 #endif
   butlayout->addWidget(m_serverComboBox);
   QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   butlayout->addItem(butspacer);
   QLabel* destLabel = new QLabel;
-  destLabel->setText(i18n("D&estination:"));
+  destLabel->setText(tr("D&estination:"));
   butlayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
-  m_destComboBox->addItem(i18n("Tag 1"), TrackData::TagV1);
-  m_destComboBox->addItem(i18n("Tag 2"), TrackData::TagV2);
-  m_destComboBox->addItem(i18n("Tag 1 and Tag 2"), TrackData::TagV2V1);
+  m_destComboBox->addItem(tr("Tag 1"), TrackData::TagV1);
+  m_destComboBox->addItem(tr("Tag 2"), TrackData::TagV2);
+  m_destComboBox->addItem(tr("Tag 1 and Tag 2"), TrackData::TagV2V1);
   destLabel->setBuddy(m_destComboBox);
   butlayout->addWidget(m_destComboBox);
   QToolButton* revertButton = new QToolButton;
@@ -191,7 +192,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
         QCM_QIcon_fromTheme("document-revert")
 #endif
         );
-  revertButton->setToolTip(i18n("Revert"));
+  revertButton->setToolTip(tr("Revert"));
   connect(revertButton, SIGNAL(clicked()),
           this, SLOT(changeTagDestination()));
   butlayout->addWidget(revertButton);
@@ -199,7 +200,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
 
   QHBoxLayout* matchLayout = new QHBoxLayout;
   m_mismatchCheckBox = new QCheckBox(
-    i18n("Check maximum allowable time &difference (sec):"));
+    tr("Check maximum allowable time &difference (sec):"));
   matchLayout->addWidget(m_mismatchCheckBox);
   m_maxDiffSpinBox = new QSpinBox;
   m_maxDiffSpinBox->setMaximum(9999);
@@ -207,15 +208,15 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   QSpacerItem* matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                              QSizePolicy::Minimum);
   matchLayout->addItem(matchSpacer);
-  QLabel* matchLabel = new QLabel(i18n("Match with:"));
+  QLabel* matchLabel = new QLabel(tr("Match with:"));
   matchLayout->addWidget(matchLabel);
-  QPushButton* lengthButton = new QPushButton(i18n("&Length"));
+  QPushButton* lengthButton = new QPushButton(tr("&Length"));
   lengthButton->setAutoDefault(false);
   matchLayout->addWidget(lengthButton);
-  QPushButton* trackButton = new QPushButton(i18n("T&rack"));
+  QPushButton* trackButton = new QPushButton(tr("T&rack"));
   trackButton->setAutoDefault(false);
   matchLayout->addWidget(trackButton);
-  QPushButton* titleButton = new QPushButton(i18n("&Title"));
+  QPushButton* titleButton = new QPushButton(tr("&Title"));
   titleButton->setAutoDefault(false);
   matchLayout->addWidget(titleButton);
   vlayout->addLayout(matchLayout);
@@ -234,13 +235,13 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
-  QPushButton* saveButton = new QPushButton(i18n("&Save Settings"), this);
+  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
-  QPushButton* okButton = new QPushButton(i18n("&OK"), this);
+  QPushButton* okButton = new QPushButton(tr("&OK"), this);
   okButton->setAutoDefault(false);
-  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   cancelButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   hlayout->addWidget(saveButton);

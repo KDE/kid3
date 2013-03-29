@@ -27,6 +27,7 @@
 #include "config.h"
 #include <QFile>
 #include "configstore.h"
+#include "loadtranslation.h"
 #ifdef CONFIG_USE_KDE
 
 #include <kdeversion.h>
@@ -34,11 +35,9 @@
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <klocale.h>
+#include <kconfiggroup.h>
 
 #include "kid3mainwindow.h"
-
-/** Description for application */
-static const char* description = I18N_NOOP("Kid3 ID3 Tagger");
 
 /**
  * Main program.
@@ -52,17 +51,38 @@ static const char* description = I18N_NOOP("Kid3 ID3 Tagger");
 int main(int argc, char* argv[])
 {
   KAboutData aboutData(
-    "kid3", 0, ki18n("Kid3"),
-    VERSION, ki18n(description), KAboutData::License_GPL,
-    ki18n("(c) 2003-" RELEASE_YEAR " Urs Fleisch"), KLocalizedString(), "http://kid3.sourceforge.net",
+    "kid3", "kdelibs4", ki18n("Kid3"),
+    VERSION, ki18n("Kid3 ID3 Tagger"), KAboutData::License_GPL,
+    ki18n("(c) 2003-" RELEASE_YEAR " Urs Fleisch"), KLocalizedString(),
+    "http://kid3.sourceforge.net",
     "ufleisch@users.sourceforge.net");
-  aboutData.addAuthor(ki18n("Urs Fleisch"), KLocalizedString(), "ufleisch@users.sourceforge.net");
+  aboutData.addAuthor(ki18n("Urs Fleisch"), KLocalizedString(),
+                      "ufleisch@users.sourceforge.net");
   KCmdLineArgs::init(argc, argv, &aboutData);
 
   KCmdLineOptions options;
-  options.add("+[Dir]", ki18n("directory to open"));
+  options.add("+[Dir]", ki18n("%1").subs(QCoreApplication::translate("@default",
+                          QT_TRANSLATE_NOOP("@default", "directory to open"))));
   KCmdLineArgs::addCmdLineOptions(options);
   KApplication app;
+
+  QString configuredLanguage =
+      KConfigGroup(KGlobal::config(), "Locale").readEntry("Language");
+  Utils::loadTranslation(configuredLanguage);
+
+  aboutData.setShortDescription(
+        ki18n("%1").subs(QCoreApplication::translate("@default",
+            QT_TRANSLATE_NOOP("@default", "Kid3 ID3 Tagger"))));
+  aboutData.setTranslator(
+        ki18n("%1").subs(QCoreApplication::translate("@default",
+            // i18n NAME OF TRANSLATORS
+            QT_TRANSLATE_NOOP("@default", "Your names"))),
+        ki18n("%1").subs(QCoreApplication::translate("@default",
+            // i18n EMAIL OF TRANSLATORS
+            QT_TRANSLATE_NOOP("@default", "Your emails"))));
+  // Should not be used, but seems to be the only way to update the "about data"
+  // with translated information.
+  KGlobal::activeComponent().setAboutData(aboutData);
 
   if (app.isSessionRestored()) {
     RESTORE(Kid3MainWindow);
@@ -110,50 +130,8 @@ int main(int argc, char* argv[])
 
   QApplication app(argc, argv);
   app.setApplicationName(QLatin1String("Kid3"));
-  QLocale locale;
 
-  QStringList languages(
-#if QT_VERSION >= 0x040800 && !defined Q_OS_WIN32
-        locale.uiLanguages()
-#else
-        locale.name()
-#endif
-        );
-
-  // translation file for Qt
-  QTranslator qt_tr;
-  foreach (QString localeName, languages) {
-    if (
-        localeName.startsWith(QLatin1String("en")) ||
-#if defined Q_OS_WIN32 || defined Q_OS_MAC
-#ifdef CFG_TRANSLATIONSDIR
-        qt_tr.load(QLatin1String("qt_") + localeName, QLatin1String(CFG_TRANSLATIONSDIR)) ||
-#endif
-        qt_tr.load(QLatin1String("qt_") + localeName, QLatin1String("."))
-#else
-        qt_tr.load(QLatin1String("qt_") + localeName,
-                   QLibraryInfo::location(QLibraryInfo::TranslationsPath))
-#endif
-        ) {
-      break;
-    }
-  }
-  app.installTranslator(&qt_tr);
-
-  // translation file for application strings
-  QTranslator kid3_tr;
-  foreach (QString localeName, languages) {
-    if (
-        localeName.startsWith(QLatin1String("en")) ||
-#ifdef CFG_TRANSLATIONSDIR
-        kid3_tr.load(QLatin1String("kid3_") + localeName, QLatin1String(CFG_TRANSLATIONSDIR)) ||
-#endif
-        kid3_tr.load(QLatin1String("kid3_") + localeName, QLatin1String("."))
-        ) {
-      break;
-    }
-  }
-  app.installTranslator(&kid3_tr);
+  Utils::loadTranslation();
 
 #ifdef Q_OS_MAC
  QDir dir(QApplication::applicationDirPath());

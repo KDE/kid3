@@ -36,11 +36,11 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QListView>
+#include <QCoreApplication>
 #include "serverimporter.h"
 #include "serverimporterconfig.h"
 #include "contexthelp.h"
 #include "trackdata.h"
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -58,7 +58,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   QHBoxLayout* findLayout = new QHBoxLayout;
   m_artistLineEdit = new QComboBox(this);
   m_albumLineEdit = new QComboBox(this);
-  m_findButton = new QPushButton(i18n("&Find"), this);
+  m_findButton = new QPushButton(tr("&Find"), this);
   m_artistLineEdit->setEditable(true);
   m_artistLineEdit->setAutoCompletion(true);
   m_artistLineEdit->setDuplicatesEnabled(false);
@@ -75,10 +75,10 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   vlayout->addLayout(findLayout);
 
   QHBoxLayout* serverLayout = new QHBoxLayout;
-  m_serverLabel = new QLabel(i18n("&Server:"), this);
+  m_serverLabel = new QLabel(tr("&Server:"), this);
   m_serverComboBox = new QComboBox(this);
   m_serverComboBox->setEditable(true);
-  m_cgiLabel = new QLabel(i18n("C&GI Path:"), this);
+  m_cgiLabel = new QLabel(tr("C&GI Path:"), this);
   m_cgiLineEdit = new QLineEdit(this);
   serverLayout->addWidget(m_serverLabel);
   serverLayout->addWidget(m_serverComboBox);
@@ -89,9 +89,9 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   vlayout->addLayout(serverLayout);
 
   QHBoxLayout* hlayout = new QHBoxLayout;
-  m_standardTagsCheckBox = new QCheckBox(i18n("&Standard Tags"), this);
-  m_additionalTagsCheckBox = new QCheckBox(i18n("&Additional Tags"), this);
-  m_coverArtCheckBox = new QCheckBox(i18n("C&over Art"), this);
+  m_standardTagsCheckBox = new QCheckBox(tr("&Standard Tags"), this);
+  m_additionalTagsCheckBox = new QCheckBox(tr("&Additional Tags"), this);
+  m_coverArtCheckBox = new QCheckBox(tr("C&over Art"), this);
   hlayout->addWidget(m_standardTagsCheckBox);
   hlayout->addWidget(m_additionalTagsCheckBox);
   hlayout->addWidget(m_coverArtCheckBox);
@@ -104,9 +104,9 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
       this, SLOT(requestTrackList(QModelIndex)));
 
   QHBoxLayout* buttonLayout = new QHBoxLayout;
-  m_helpButton = new QPushButton(i18n("&Help"), this);
-  m_saveButton = new QPushButton(i18n("&Save Settings"), this);
-  QPushButton* closeButton = new QPushButton(i18n("&Close"), this);
+  m_helpButton = new QPushButton(tr("&Help"), this);
+  m_saveButton = new QPushButton(tr("&Save Settings"), this);
+  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
   buttonLayout->addWidget(m_helpButton);
   connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
   buttonLayout->addWidget(m_saveButton);
@@ -120,7 +120,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
 
   m_statusBar = new QStatusBar(this);
   vlayout->addWidget(m_statusBar);
-  showStatusMessage(i18n("Ready."));
+  showStatusMessage(tr("Ready."));
 }
 
 /**
@@ -155,7 +155,7 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
     connect(m_source, SIGNAL(albumFinished(const QByteArray&)),
         this, SLOT(slotAlbumFinished(const QByteArray&)));
 
-    setWindowTitle(QCM_translate(m_source->name()));
+    setWindowTitle(QCoreApplication::translate("@default", m_source->name()));
     if (m_source->defaultServer()) {
       m_serverLabel->show();
       m_serverComboBox->show();

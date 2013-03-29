@@ -31,6 +31,7 @@
 #include <QString>
 #include <QTextCodec>
 #include <QByteArray>
+#include <QCoreApplication>
 
 #include <cstring>
 #include <sys/stat.h>
@@ -45,7 +46,6 @@
 #include "genres.h"
 #include "configstore.h"
 #include "attributedata.h"
-#include "qtcompatmac.h"
 
 #ifdef Q_OS_WIN32
 /**
@@ -1264,99 +1264,99 @@ static const struct TypeStrOfId {
   Frame::Type type;
   const char* str;
 } typeStrOfId[] = {
-  { Frame::FT_UnknownFrame,   0 },                                                                   /* ???? */
-  { Frame::FT_Other,          I18N_NOOP("AENC - Audio encryption") },                                /* AENC */
-  { Frame::FT_Picture,        I18N_NOOP("APIC - Attached picture") },                                /* APIC */
-  { Frame::FT_Other,          0 },                                                                   /* ASPI */
-  { Frame::FT_Comment,        I18N_NOOP("COMM - Comments") },                                        /* COMM */
-  { Frame::FT_Other,          I18N_NOOP("COMR - Commercial") },                                      /* COMR */
-  { Frame::FT_Other,          I18N_NOOP("ENCR - Encryption method registration") },                  /* ENCR */
-  { Frame::FT_Other,          0 },                                                                   /* EQU2 */
-  { Frame::FT_Other,          I18N_NOOP("EQUA - Equalization") },                                    /* EQUA */
-  { Frame::FT_Other,          I18N_NOOP("ETCO - Event timing codes") },                              /* ETCO */
-  { Frame::FT_Other,          I18N_NOOP("GEOB - General encapsulated object") },                     /* GEOB */
-  { Frame::FT_Other,          I18N_NOOP("GRID - Group identification registration") },               /* GRID */
-  { Frame::FT_Arranger,       I18N_NOOP("IPLS - Involved people list") },                            /* IPLS */
-  { Frame::FT_Other,          I18N_NOOP("LINK - Linked information") },                              /* LINK */
-  { Frame::FT_Other,          I18N_NOOP("MCDI - Music CD identifier") },                             /* MCDI */
-  { Frame::FT_Other,          I18N_NOOP("MLLT - MPEG location lookup table") },                      /* MLLT */
-  { Frame::FT_Other,          I18N_NOOP("OWNE - Ownership frame") },                                 /* OWNE */
-  { Frame::FT_Other,          I18N_NOOP("PRIV - Private frame") },                                   /* PRIV */
-  { Frame::FT_Other,          I18N_NOOP("PCNT - Play counter") },                                    /* PCNT */
-  { Frame::FT_Other,          I18N_NOOP("POPM - Popularimeter") },                                   /* POPM */
-  { Frame::FT_Other,          I18N_NOOP("POSS - Position synchronisation frame") },                  /* POSS */
-  { Frame::FT_Other,          I18N_NOOP("RBUF - Recommended buffer size") },                         /* RBUF */
-  { Frame::FT_Other,          0 },                                                                   /* RVA2 */
-  { Frame::FT_Other,          I18N_NOOP("RVAD - Relative volume adjustment") },                      /* RVAD */
-  { Frame::FT_Other,          I18N_NOOP("RVRB - Reverb") },                                          /* RVRB */
-  { Frame::FT_Other,          0 },                                                                   /* SEEK */
-  { Frame::FT_Other,          0 },                                                                   /* SIGN */
-  { Frame::FT_Other,          I18N_NOOP("SYLT - Synchronized lyric/text") },                         /* SYLT */
-  { Frame::FT_Other,          I18N_NOOP("SYTC - Synchronized tempo codes") },                        /* SYTC */
-  { Frame::FT_Album,          I18N_NOOP("TALB - Album/Movie/Show title") },                          /* TALB */
-  { Frame::FT_Bpm,            I18N_NOOP("TBPM - BPM (beats per minute)") },                          /* TBPM */
-  { Frame::FT_Composer,       I18N_NOOP("TCOM - Composer") },                                        /* TCOM */
-  { Frame::FT_Genre,          I18N_NOOP("TCON - Content type") },                                    /* TCON */
-  { Frame::FT_Copyright,      I18N_NOOP("TCOP - Copyright message") },                               /* TCOP */
-  { Frame::FT_Other,          I18N_NOOP("TDAT - Date") },                                            /* TDAT */
-  { Frame::FT_Other,          0 },                                                                   /* TDEN */
-  { Frame::FT_Other,          I18N_NOOP("TDLY - Playlist delay") },                                  /* TDLY */
-  { Frame::FT_Other,          0 },                                                                   /* TDOR */
-  { Frame::FT_Other,          0 },                                                                   /* TDRC */
-  { Frame::FT_Other,          0 },                                                                   /* TDRL */
-  { Frame::FT_Other,          0 },                                                                   /* TDTG */
-  { Frame::FT_Other,          0 },                                                                   /* TIPL */
-  { Frame::FT_EncodedBy,      I18N_NOOP("TENC - Encoded by") },                                      /* TENC */
-  { Frame::FT_Lyricist,       I18N_NOOP("TEXT - Lyricist/Text writer") },                            /* TEXT */
-  { Frame::FT_Other,          I18N_NOOP("TFLT - File type") },                                       /* TFLT */
-  { Frame::FT_Other,          I18N_NOOP("TIME - Time") },                                            /* TIME */
-  { Frame::FT_Grouping,       I18N_NOOP("TIT1 - Content group description") },                       /* TIT1 */
-  { Frame::FT_Title,          I18N_NOOP("TIT2 - Title/songname/content description") },              /* TIT2 */
-  { Frame::FT_Subtitle,       I18N_NOOP("TIT3 - Subtitle/Description refinement") },                 /* TIT3 */
-  { Frame::FT_InitialKey,     I18N_NOOP("TKEY - Initial key") },                                     /* TKEY */
-  { Frame::FT_Language,       I18N_NOOP("TLAN - Language(s)") },                                     /* TLAN */
-  { Frame::FT_Other,          I18N_NOOP("TLEN - Length") },                                          /* TLEN */
-  { Frame::FT_Other,          0 },                                                                   /* TMCL */
-  { Frame::FT_Media,          I18N_NOOP("TMED - Media type") },                                      /* TMED */
-  { Frame::FT_Other,          0 },                                                                   /* TMOO */
-  { Frame::FT_OriginalAlbum,  I18N_NOOP("TOAL - Original album/movie/show title") },                 /* TOAL */
-  { Frame::FT_Other,          I18N_NOOP("TOFN - Original filename") },                               /* TOFN */
-  { Frame::FT_Author,         I18N_NOOP("TOLY - Original lyricist(s)/text writer(s)") },             /* TOLY */
-  { Frame::FT_OriginalArtist, I18N_NOOP("TOPE - Original artist(s)/performer(s)") },                 /* TOPE */
-  { Frame::FT_OriginalDate,   I18N_NOOP("TORY - Original release year") },                           /* TORY */
-  { Frame::FT_Other,          I18N_NOOP("TOWN - File owner/licensee") },                             /* TOWN */
-  { Frame::FT_Artist,         I18N_NOOP("TPE1 - Lead performer(s)/Soloist(s)") },                    /* TPE1 */
-  { Frame::FT_AlbumArtist,    I18N_NOOP("TPE2 - Band/orchestra/accompaniment") },                    /* TPE2 */
-  { Frame::FT_Conductor,      I18N_NOOP("TPE3 - Conductor/performer refinement") },                  /* TPE3 */
-  { Frame::FT_Remixer,        I18N_NOOP("TPE4 - Interpreted, remixed, or otherwise modified by") },  /* TPE4 */
-  { Frame::FT_Disc,           I18N_NOOP("TPOS - Part of a set") },                                   /* TPOS */
-  { Frame::FT_Other,          0 },                                                                   /* TPRO */
-  { Frame::FT_Publisher,      I18N_NOOP("TPUB - Publisher") },                                       /* TPUB */
-  { Frame::FT_Track,          I18N_NOOP("TRCK - Track number/Position in set") },                    /* TRCK */
-  { Frame::FT_Other,          I18N_NOOP("TRDA - Recording dates") },                                 /* TRDA */
-  { Frame::FT_Other,          I18N_NOOP("TRSN - Internet radio station name") },                     /* TRSN */
-  { Frame::FT_Other,          I18N_NOOP("TRSO - Internet radio station owner") },                    /* TRSO */
-  { Frame::FT_Other,          I18N_NOOP("TSIZ - Size") },                                            /* TSIZ */
-  { Frame::FT_Other,          0 },                                                                   /* TSOA */
-  { Frame::FT_Other,          0 },                                                                   /* TSOP */
-  { Frame::FT_Other,          0 },                                                                   /* TSOT */
-  { Frame::FT_Isrc,           I18N_NOOP("TSRC - ISRC (international standard recording code)") },    /* TSRC */
-  { Frame::FT_EncoderSettings,I18N_NOOP("TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
-  { Frame::FT_Part,           0 },                                                                   /* TSST */
-  { Frame::FT_Other,          I18N_NOOP("TXXX - User defined text information") },                   /* TXXX */
-  { Frame::FT_Date,           I18N_NOOP("TYER - Year") },                                            /* TYER */
-  { Frame::FT_Other,          I18N_NOOP("UFID - Unique file identifier") },                          /* UFID */
-  { Frame::FT_Other,          I18N_NOOP("USER - Terms of use") },                                    /* USER */
-  { Frame::FT_Lyrics,         I18N_NOOP("USLT - Unsynchronized lyric/text transcription") },         /* USLT */
-  { Frame::FT_Other,          I18N_NOOP("WCOM - Commercial information") },                          /* WCOM */
-  { Frame::FT_Other,          I18N_NOOP("WCOP - Copyright/Legal information") },                     /* WCOP */
-  { Frame::FT_WWWAudioFile,   I18N_NOOP("WOAF - Official audio file webpage") },                     /* WOAF */
-  { Frame::FT_Website,        I18N_NOOP("WOAR - Official artist/performer webpage") },               /* WOAR */
-  { Frame::FT_WWWAudioSource, I18N_NOOP("WOAS - Official audio source webpage") },                   /* WOAS */
-  { Frame::FT_Other,          I18N_NOOP("WORS - Official internet radio station homepage") },        /* WORS */
-  { Frame::FT_Other,          I18N_NOOP("WPAY - Payment") },                                         /* WPAY */
-  { Frame::FT_Other,          I18N_NOOP("WPUB - Official publisher webpage") },                      /* WPUB */
-  { Frame::FT_Other,          I18N_NOOP("WXXX - User defined URL link") }                            /* WXXX */
+  { Frame::FT_UnknownFrame,   0 },                                                                                       /* ???? */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "AENC - Audio encryption") },                                /* AENC */
+  { Frame::FT_Picture,        QT_TRANSLATE_NOOP("@default", "APIC - Attached picture") },                                /* APIC */
+  { Frame::FT_Other,          0 },                                                                                       /* ASPI */
+  { Frame::FT_Comment,        QT_TRANSLATE_NOOP("@default", "COMM - Comments") },                                        /* COMM */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "COMR - Commercial") },                                      /* COMR */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "ENCR - Encryption method registration") },                  /* ENCR */
+  { Frame::FT_Other,          0 },                                                                                       /* EQU2 */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "EQUA - Equalization") },                                    /* EQUA */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "ETCO - Event timing codes") },                              /* ETCO */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "GEOB - General encapsulated object") },                     /* GEOB */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "GRID - Group identification registration") },               /* GRID */
+  { Frame::FT_Arranger,       QT_TRANSLATE_NOOP("@default", "IPLS - Involved people list") },                            /* IPLS */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "LINK - Linked information") },                              /* LINK */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "MCDI - Music CD identifier") },                             /* MCDI */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "MLLT - MPEG location lookup table") },                      /* MLLT */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "OWNE - Ownership frame") },                                 /* OWNE */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PRIV - Private frame") },                                   /* PRIV */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "PCNT - Play counter") },                                    /* PCNT */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POPM - Popularimeter") },                                   /* POPM */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "POSS - Position synchronisation frame") },                  /* POSS */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RBUF - Recommended buffer size") },                         /* RBUF */
+  { Frame::FT_Other,          0 },                                                                                       /* RVA2 */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVAD - Relative volume adjustment") },                      /* RVAD */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "RVRB - Reverb") },                                          /* RVRB */
+  { Frame::FT_Other,          0 },                                                                                       /* SEEK */
+  { Frame::FT_Other,          0 },                                                                                       /* SIGN */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SYLT - Synchronized lyric/text") },                         /* SYLT */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "SYTC - Synchronized tempo codes") },                        /* SYTC */
+  { Frame::FT_Album,          QT_TRANSLATE_NOOP("@default", "TALB - Album/Movie/Show title") },                          /* TALB */
+  { Frame::FT_Bpm,            QT_TRANSLATE_NOOP("@default", "TBPM - BPM (beats per minute)") },                          /* TBPM */
+  { Frame::FT_Composer,       QT_TRANSLATE_NOOP("@default", "TCOM - Composer") },                                        /* TCOM */
+  { Frame::FT_Genre,          QT_TRANSLATE_NOOP("@default", "TCON - Content type") },                                    /* TCON */
+  { Frame::FT_Copyright,      QT_TRANSLATE_NOOP("@default", "TCOP - Copyright message") },                               /* TCOP */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDAT - Date") },                                            /* TDAT */
+  { Frame::FT_Other,          0 },                                                                                       /* TDEN */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TDLY - Playlist delay") },                                  /* TDLY */
+  { Frame::FT_Other,          0 },                                                                                       /* TDOR */
+  { Frame::FT_Other,          0 },                                                                                       /* TDRC */
+  { Frame::FT_Other,          0 },                                                                                       /* TDRL */
+  { Frame::FT_Other,          0 },                                                                                       /* TDTG */
+  { Frame::FT_Other,          0 },                                                                                       /* TIPL */
+  { Frame::FT_EncodedBy,      QT_TRANSLATE_NOOP("@default", "TENC - Encoded by") },                                      /* TENC */
+  { Frame::FT_Lyricist,       QT_TRANSLATE_NOOP("@default", "TEXT - Lyricist/Text writer") },                            /* TEXT */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TFLT - File type") },                                       /* TFLT */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TIME - Time") },                                            /* TIME */
+  { Frame::FT_Grouping,       QT_TRANSLATE_NOOP("@default", "TIT1 - Content group description") },                       /* TIT1 */
+  { Frame::FT_Title,          QT_TRANSLATE_NOOP("@default", "TIT2 - Title/songname/content description") },              /* TIT2 */
+  { Frame::FT_Subtitle,       QT_TRANSLATE_NOOP("@default", "TIT3 - Subtitle/Description refinement") },                 /* TIT3 */
+  { Frame::FT_InitialKey,     QT_TRANSLATE_NOOP("@default", "TKEY - Initial key") },                                     /* TKEY */
+  { Frame::FT_Language,       QT_TRANSLATE_NOOP("@default", "TLAN - Language(s)") },                                     /* TLAN */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TLEN - Length") },                                          /* TLEN */
+  { Frame::FT_Other,          0 },                                                                                       /* TMCL */
+  { Frame::FT_Media,          QT_TRANSLATE_NOOP("@default", "TMED - Media type") },                                      /* TMED */
+  { Frame::FT_Other,          0 },                                                                                       /* TMOO */
+  { Frame::FT_OriginalAlbum,  QT_TRANSLATE_NOOP("@default", "TOAL - Original album/movie/show title") },                 /* TOAL */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TOFN - Original filename") },                               /* TOFN */
+  { Frame::FT_Author,         QT_TRANSLATE_NOOP("@default", "TOLY - Original lyricist(s)/text writer(s)") },             /* TOLY */
+  { Frame::FT_OriginalArtist, QT_TRANSLATE_NOOP("@default", "TOPE - Original artist(s)/performer(s)") },                 /* TOPE */
+  { Frame::FT_OriginalDate,   QT_TRANSLATE_NOOP("@default", "TORY - Original release year") },                           /* TORY */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TOWN - File owner/licensee") },                             /* TOWN */
+  { Frame::FT_Artist,         QT_TRANSLATE_NOOP("@default", "TPE1 - Lead performer(s)/Soloist(s)") },                    /* TPE1 */
+  { Frame::FT_AlbumArtist,    QT_TRANSLATE_NOOP("@default", "TPE2 - Band/orchestra/accompaniment") },                    /* TPE2 */
+  { Frame::FT_Conductor,      QT_TRANSLATE_NOOP("@default", "TPE3 - Conductor/performer refinement") },                  /* TPE3 */
+  { Frame::FT_Remixer,        QT_TRANSLATE_NOOP("@default", "TPE4 - Interpreted, remixed, or otherwise modified by") },  /* TPE4 */
+  { Frame::FT_Disc,           QT_TRANSLATE_NOOP("@default", "TPOS - Part of a set") },                                   /* TPOS */
+  { Frame::FT_Other,          0 },                                                                                       /* TPRO */
+  { Frame::FT_Publisher,      QT_TRANSLATE_NOOP("@default", "TPUB - Publisher") },                                       /* TPUB */
+  { Frame::FT_Track,          QT_TRANSLATE_NOOP("@default", "TRCK - Track number/Position in set") },                    /* TRCK */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TRDA - Recording dates") },                                 /* TRDA */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TRSN - Internet radio station name") },                     /* TRSN */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TRSO - Internet radio station owner") },                    /* TRSO */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TSIZ - Size") },                                            /* TSIZ */
+  { Frame::FT_Other,          0 },                                                                                       /* TSOA */
+  { Frame::FT_Other,          0 },                                                                                       /* TSOP */
+  { Frame::FT_Other,          0 },                                                                                       /* TSOT */
+  { Frame::FT_Isrc,           QT_TRANSLATE_NOOP("@default", "TSRC - ISRC (international standard recording code)") },    /* TSRC */
+  { Frame::FT_EncoderSettings,QT_TRANSLATE_NOOP("@default", "TSSE - Software/Hardware and settings used for encoding") },/* TSSE */
+  { Frame::FT_Part,           0 },                                                                                       /* TSST */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "TXXX - User defined text information") },                   /* TXXX */
+  { Frame::FT_Date,           QT_TRANSLATE_NOOP("@default", "TYER - Year") },                                            /* TYER */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "UFID - Unique file identifier") },                          /* UFID */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "USER - Terms of use") },                                    /* USER */
+  { Frame::FT_Lyrics,         QT_TRANSLATE_NOOP("@default", "USLT - Unsynchronized lyric/text transcription") },         /* USLT */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WCOM - Commercial information") },                          /* WCOM */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WCOP - Copyright/Legal information") },                     /* WCOP */
+  { Frame::FT_WWWAudioFile,   QT_TRANSLATE_NOOP("@default", "WOAF - Official audio file webpage") },                     /* WOAF */
+  { Frame::FT_Website,        QT_TRANSLATE_NOOP("@default", "WOAR - Official artist/performer webpage") },               /* WOAR */
+  { Frame::FT_WWWAudioSource, QT_TRANSLATE_NOOP("@default", "WOAS - Official audio source webpage") },                   /* WOAS */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WORS - Official internet radio station homepage") },        /* WORS */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WPAY - Payment") },                                         /* WPAY */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WPUB - Official publisher webpage") },                      /* WPUB */
+  { Frame::FT_Other,          QT_TRANSLATE_NOOP("@default", "WXXX - User defined URL link") }                            /* WXXX */
 };
 
 /** Not instantiated class to check array size at compilation time. */
@@ -2063,7 +2063,7 @@ QStringList Mp3File::getFrameIds() const
     if (typeStrOfId[i].type == Frame::FT_Other) {
       const char* s = typeStrOfId[i].str;
       if (s) {
-        lst.append(QCM_translate(s));
+        lst.append(QCoreApplication::translate("@default", s));
       }
     }
   }

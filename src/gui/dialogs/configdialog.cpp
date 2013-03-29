@@ -45,7 +45,6 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <QStringListModel>
-#include "qtcompatmac.h"
 #ifndef CONFIG_USE_KDE
 #include <QApplication>
 #include <QFontDialog>
@@ -113,12 +112,12 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
     QWidget* tag1Page = new QWidget;
     QVBoxLayout* tag1Layout = new QVBoxLayout(tag1Page);
-    QGroupBox* v1GroupBox = new QGroupBox(i18n("ID3v1"), tag1Page);
+    QGroupBox* v1GroupBox = new QGroupBox(tr("ID3v1"), tag1Page);
     QGridLayout* v1GroupBoxLayout = new QGridLayout(v1GroupBox);
-    m_markTruncationsCheckBox = new QCheckBox(i18n("&Mark truncated fields"), v1GroupBox);
+    m_markTruncationsCheckBox = new QCheckBox(tr("&Mark truncated fields"), v1GroupBox);
     v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-    QLabel* textEncodingV1Label = new QLabel(i18n("Text &encoding:"), v1GroupBox);
+    QLabel* textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
     m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
     static const char* const codecs[] = {
       "Apple Roman (macintosh)",
@@ -196,20 +195,20 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
     QWidget* tag2Page = new QWidget;
     QVBoxLayout* tag2Layout = new QVBoxLayout(tag2Page);
-    QGroupBox* v2GroupBox = new QGroupBox(i18n("ID3v2"), tag2Page);
+    QGroupBox* v2GroupBox = new QGroupBox(tr("ID3v2"), tag2Page);
     QGridLayout* v2GroupBoxLayout = new QGridLayout(v2GroupBox);
-    m_totalNumTracksCheckBox = new QCheckBox(i18n("Use &track/total number of tracks format"), v2GroupBox);
+    m_totalNumTracksCheckBox = new QCheckBox(tr("Use &track/total number of tracks format"), v2GroupBox);
     v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
-    QLabel* trackNumberDigitsLabel = new QLabel(i18n("Track number &digits:"), v2GroupBox);
+    QLabel* trackNumberDigitsLabel = new QLabel(tr("Track number &digits:"), v2GroupBox);
     m_trackNumberDigitsSpinBox = new QSpinBox(v2GroupBox);
     m_trackNumberDigitsSpinBox->setMaximum(5);
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-    m_genreNotNumericCheckBox = new QCheckBox(i18n("&Genre as text instead of numeric string"), v2GroupBox);
-    QLabel* textEncodingLabel = new QLabel(i18n("Text &encoding:"), v2GroupBox);
+    m_genreNotNumericCheckBox = new QCheckBox(tr("&Genre as text instead of numeric string"), v2GroupBox);
+    QLabel* textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
     m_textEncodingComboBox = new QComboBox(v2GroupBox);
-    m_textEncodingComboBox->insertItem(MiscConfig::TE_ISO8859_1, i18n("ISO-8859-1"));
-    m_textEncodingComboBox->insertItem(MiscConfig::TE_UTF16, i18n("UTF16"));
-    m_textEncodingComboBox->insertItem(MiscConfig::TE_UTF8, i18n("UTF8"));
+    m_textEncodingComboBox->insertItem(MiscConfig::TE_ISO8859_1, tr("ISO-8859-1"));
+    m_textEncodingComboBox->insertItem(MiscConfig::TE_UTF16, tr("UTF16"));
+    m_textEncodingComboBox->insertItem(MiscConfig::TE_UTF8, tr("UTF8"));
     m_textEncodingComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
     textEncodingLabel->setBuddy(m_textEncodingComboBox);
     v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
@@ -217,14 +216,14 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 2, 1);
 #endif
 #if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
-    QLabel* id3v2VersionLabel = new QLabel(i18n("&Version used for new tags:"), v2GroupBox);
+    QLabel* id3v2VersionLabel = new QLabel(tr("&Version used for new tags:"), v2GroupBox);
     m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
 #ifdef HAVE_ID3LIB
-    m_id3v2VersionComboBox->addItem(i18n("ID3v2.3.0 (id3lib)"), MiscConfig::ID3v2_3_0);
+    m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0 (id3lib)"), MiscConfig::ID3v2_3_0);
 #endif
-    m_id3v2VersionComboBox->addItem(i18n("ID3v2.4.0 (TagLib)"), MiscConfig::ID3v2_4_0);
+    m_id3v2VersionComboBox->addItem(tr("ID3v2.4.0 (TagLib)"), MiscConfig::ID3v2_4_0);
 #ifdef HAVE_TAGLIB_ID3V23_SUPPORT
-    m_id3v2VersionComboBox->addItem(i18n("ID3v2.3.0 (TagLib)"), MiscConfig::ID3v2_3_0_TAGLIB);
+    m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0 (TagLib)"), MiscConfig::ID3v2_3_0_TAGLIB);
 #endif
     m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
     id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
@@ -236,10 +235,10 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 4, 1);
     tag2Layout->addWidget(v2GroupBox);
 #ifdef HAVE_VORBIS
-    QGroupBox* vorbisGroupBox = new QGroupBox(i18n("Ogg/Vorbis"), tag2Page);
-    QLabel* commentNameLabel = new QLabel(i18n("Co&mment field name:"), vorbisGroupBox);
+    QGroupBox* vorbisGroupBox = new QGroupBox(tr("Ogg/Vorbis"), tag2Page);
+    QLabel* commentNameLabel = new QLabel(tr("Co&mment field name:"), vorbisGroupBox);
     m_commentNameComboBox = new QComboBox(vorbisGroupBox);
-    QLabel* pictureNameLabel = new QLabel(i18n("&Picture field name:"), vorbisGroupBox);
+    QLabel* pictureNameLabel = new QLabel(tr("&Picture field name:"), vorbisGroupBox);
     m_pictureNameComboBox = new QComboBox(vorbisGroupBox);
     m_commentNameComboBox->setEditable(true);
     QStringList items;
@@ -260,8 +259,8 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     tag2Layout->addWidget(vorbisGroupBox);
 #endif
     QHBoxLayout* genresQuickAccessLayout = new QHBoxLayout;
-    QGroupBox* genresGroupBox = new QGroupBox(i18n("Custom &Genres"), tag2Page);
-    m_onlyCustomGenresCheckBox = new QCheckBox(i18n("&Show only custom genres"), genresGroupBox);
+    QGroupBox* genresGroupBox = new QGroupBox(tr("Custom &Genres"), tag2Page);
+    m_onlyCustomGenresCheckBox = new QCheckBox(tr("&Show only custom genres"), genresGroupBox);
     m_genresEditModel = new QStringListModel(genresGroupBox);
     StringListEdit* genresEdit = new StringListEdit(m_genresEditModel, genresGroupBox);
     QVBoxLayout* vbox = new QVBoxLayout;
@@ -270,7 +269,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     genresGroupBox->setLayout(vbox);
     genresQuickAccessLayout->addWidget(genresGroupBox);
 
-    QGroupBox* quickAccessTagsGroupBox = new QGroupBox(i18n("&Quick Access Tags"));
+    QGroupBox* quickAccessTagsGroupBox = new QGroupBox(tr("&Quick Access Tags"));
     QVBoxLayout* quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
     QListView* quickAccessTagsListView = new QListView;
     m_quickAccessTagsModel = new CheckableStringListModel(quickAccessTagsGroupBox);
@@ -287,38 +286,38 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
     QWidget* tag1AndTag2Page = new QWidget;
     QVBoxLayout* tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
-    QString id3FormatTitle(i18n("&Tag Format"));
+    QString id3FormatTitle(tr("&Tag Format"));
     m_id3FormatBox = new FormatBox(id3FormatTitle, tag1AndTag2Page);
     tag1AndTag2Layout->addWidget(m_id3FormatBox);
 
     QTabWidget* tagsTabWidget = new QTabWidget;
-    tagsTabWidget->addTab(tag1Page, i18n("Tag &1"));
-    tagsTabWidget->addTab(tag2Page, i18n("Tag &2"));
-    tagsTabWidget->addTab(tag1AndTag2Page, i18n("Tag 1 a&nd Tag 2"));
+    tagsTabWidget->addTab(tag1Page, tr("Tag &1"));
+    tagsTabWidget->addTab(tag2Page, tr("Tag &2"));
+    tagsTabWidget->addTab(tag1AndTag2Page, tr("Tag 1 a&nd Tag 2"));
     tagsTabWidget->setCurrentIndex(1);
     vlayout->addWidget(tagsTabWidget);
 
 #ifdef CONFIG_USE_KDE
-    addPage(tagsPage, i18n("Tags"), QLatin1String("applications-multimedia"));
+    addPage(tagsPage, tr("Tags"), QLatin1String("applications-multimedia"));
 #else
-    tabWidget->addTab(tagsPage, i18n("&Tags"));
+    tabWidget->addTab(tagsPage, tr("&Tags"));
 #endif
   }
 
   {
     QWidget* filesPage = new QWidget;
     QVBoxLayout* vlayout = new QVBoxLayout(filesPage);
-    QGroupBox* startupGroupBox = new QGroupBox(i18n("Startup"), filesPage);
-    m_loadLastOpenedFileCheckBox = new QCheckBox(i18n("&Load last-opened files"),
+    QGroupBox* startupGroupBox = new QGroupBox(tr("Startup"), filesPage);
+    m_loadLastOpenedFileCheckBox = new QCheckBox(tr("&Load last-opened files"),
                                                  startupGroupBox);
     QVBoxLayout* startupLayout = new QVBoxLayout;
     startupLayout->addWidget(m_loadLastOpenedFileCheckBox);
     startupGroupBox->setLayout(startupLayout);
     vlayout->addWidget(startupGroupBox);
-    QGroupBox* saveGroupBox = new QGroupBox(i18n("Save"), filesPage);
-    m_preserveTimeCheckBox = new QCheckBox(i18n("&Preserve file timestamp"), saveGroupBox);
-    m_markChangesCheckBox = new QCheckBox(i18n("&Mark changes"), saveGroupBox);
-    QLabel* coverFileNameLabel = new QLabel(i18n("F&ilename for cover:"), saveGroupBox);
+    QGroupBox* saveGroupBox = new QGroupBox(tr("Save"), filesPage);
+    m_preserveTimeCheckBox = new QCheckBox(tr("&Preserve file timestamp"), saveGroupBox);
+    m_markChangesCheckBox = new QCheckBox(tr("&Mark changes"), saveGroupBox);
+    QLabel* coverFileNameLabel = new QLabel(tr("F&ilename for cover:"), saveGroupBox);
     m_coverFileNameLineEdit = new QLineEdit(saveGroupBox);
     coverFileNameLabel->setBuddy(m_coverFileNameLineEdit);
     QHBoxLayout* hbox = new QHBoxLayout;
@@ -331,21 +330,21 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     vbox->addLayout(hbox);
     saveGroupBox->setLayout(vbox);
     vlayout->addWidget(saveGroupBox);
-    QString fnFormatTitle(i18n("&Filename Format"));
+    QString fnFormatTitle(tr("&Filename Format"));
     m_fnFormatBox = new FormatBox(fnFormatTitle, filesPage);
     vlayout->addWidget(m_fnFormatBox);
 #ifdef CONFIG_USE_KDE
-    addPage(filesPage, i18n("Files"), QLatin1String("document-save"));
+    addPage(filesPage, tr("Files"), QLatin1String("document-save"));
 #else
-    tabWidget->addTab(filesPage, i18n("&Files"));
+    tabWidget->addTab(filesPage, tr("&Files"));
 #endif
   }
 
   {
     QWidget* actionsPage = new QWidget;
     QVBoxLayout* vlayout = new QVBoxLayout(actionsPage);
-    QGroupBox* browserGroupBox = new QGroupBox(i18n("Browser"), actionsPage);
-    QLabel* browserLabel = new QLabel(i18n("Web &browser:"), browserGroupBox);
+    QGroupBox* browserGroupBox = new QGroupBox(tr("Browser"), actionsPage);
+    QLabel* browserLabel = new QLabel(tr("Web &browser:"), browserGroupBox);
     m_browserLineEdit = new QLineEdit(browserGroupBox);
     browserLabel->setBuddy(m_browserLineEdit);
     QHBoxLayout* hbox = new QHBoxLayout;
@@ -354,9 +353,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     browserGroupBox->setLayout(hbox);
     vlayout->addWidget(browserGroupBox);
 
-    QGroupBox* commandsGroupBox = new QGroupBox(i18n("Context &Menu Commands"), actionsPage);
+    QGroupBox* commandsGroupBox = new QGroupBox(tr("Context &Menu Commands"), actionsPage);
     m_playOnDoubleClickCheckBox =
-        new QCheckBox(i18n("&Play on double click"), commandsGroupBox);
+        new QCheckBox(tr("&Play on double click"), commandsGroupBox);
     m_commandsTableModel = new CommandsTableModel(commandsGroupBox);
     m_commandsTable = new ConfigTable(m_commandsTableModel, commandsGroupBox);
     m_commandsTable->setHorizontalResizeModes(
@@ -367,23 +366,23 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     commandsGroupBox->setLayout(commandsLayout);
     vlayout->addWidget(commandsGroupBox);
 #ifdef CONFIG_USE_KDE
-    addPage(actionsPage, i18n("User Actions"), QLatin1String("preferences-other"));
+    addPage(actionsPage, tr("User Actions"), QLatin1String("preferences-other"));
 #else
-    tabWidget->addTab(actionsPage, i18n("&User Actions"));
+    tabWidget->addTab(actionsPage, tr("&User Actions"));
 #endif
   }
 
   {
     QWidget* networkPage = new QWidget;
     QVBoxLayout* vlayout = new QVBoxLayout(networkPage);
-    QGroupBox* proxyGroupBox = new QGroupBox(i18n("Proxy"), networkPage);
-    m_proxyCheckBox = new QCheckBox(i18n("&Proxy:"), proxyGroupBox);
+    QGroupBox* proxyGroupBox = new QGroupBox(tr("Proxy"), networkPage);
+    m_proxyCheckBox = new QCheckBox(tr("&Proxy:"), proxyGroupBox);
     m_proxyLineEdit = new QLineEdit(proxyGroupBox);
-    m_proxyAuthenticationCheckBox = new QCheckBox(i18n("&Use authentication with proxy"), proxyGroupBox);
-    QLabel* proxyUserNameLabel = new QLabel(i18n("Proxy user &name:"), proxyGroupBox);
+    m_proxyAuthenticationCheckBox = new QCheckBox(tr("&Use authentication with proxy"), proxyGroupBox);
+    QLabel* proxyUserNameLabel = new QLabel(tr("Proxy user &name:"), proxyGroupBox);
     m_proxyUserNameLineEdit = new QLineEdit(proxyGroupBox);
     proxyUserNameLabel->setBuddy(m_proxyUserNameLineEdit);
-    QLabel* proxyPasswordLabel = new QLabel(i18n("Proxy pass&word:"), proxyGroupBox);
+    QLabel* proxyPasswordLabel = new QLabel(tr("Proxy pass&word:"), proxyGroupBox);
     m_proxyPasswordLineEdit = new QLineEdit(proxyGroupBox);
     proxyPasswordLabel->setBuddy(m_proxyPasswordLineEdit);
     m_proxyPasswordLineEdit->setEchoMode(QLineEdit::Password);
@@ -405,9 +404,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
     vlayout->addItem(vspacer);
 #ifdef CONFIG_USE_KDE
-    addPage(networkPage, i18n("Network"), QLatin1String("preferences-system-network"));
+    addPage(networkPage, tr("Network"), QLatin1String("preferences-system-network"));
 #else
-    tabWidget->addTab(networkPage, i18n("&Network"));
+    tabWidget->addTab(networkPage, tr("&Network"));
 #endif
   }
 
@@ -423,7 +422,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     vlayout->addWidget(m_shortcutsTreeView);
     m_shortcutAlreadyUsedLabel = new QLabel;
     vlayout->addWidget(m_shortcutAlreadyUsedLabel);
-    tabWidget->addTab(shortcutsPage, i18n("&Keyboard Shortcuts"));
+    tabWidget->addTab(shortcutsPage, tr("&Keyboard Shortcuts"));
   }
 
   {
@@ -431,15 +430,15 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     QVBoxLayout* vlayout = new QVBoxLayout(appearancePage);
     QGridLayout* fontStyleLayout = new QGridLayout;
 
-    m_useApplicationFontCheckBox = new QCheckBox(i18n("Use custom app&lication font"), appearancePage);
-    m_applicationFontButton = new QPushButton(i18n("A&pplication Font..."), appearancePage);
-    m_useApplicationStyleCheckBox = new QCheckBox(i18n("Use custom application &style"), appearancePage);
+    m_useApplicationFontCheckBox = new QCheckBox(tr("Use custom app&lication font"), appearancePage);
+    m_applicationFontButton = new QPushButton(tr("A&pplication Font..."), appearancePage);
+    m_useApplicationStyleCheckBox = new QCheckBox(tr("Use custom application &style"), appearancePage);
     m_applicationStyleComboBox = new QComboBox(appearancePage);
     fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 0, 0);
     fontStyleLayout->addWidget(m_applicationFontButton, 0, 1);
     fontStyleLayout->addWidget(m_useApplicationStyleCheckBox, 1, 0);
     fontStyleLayout->addWidget(m_applicationStyleComboBox, 1, 1);
-    m_applicationStyleComboBox->addItem(i18n("Unknown"));
+    m_applicationStyleComboBox->addItem(tr("Unknown"));
     m_applicationStyleComboBox->addItems(QStyleFactory::keys());
     connect(m_applicationFontButton, SIGNAL(clicked()), this, SLOT(slotSelectFont()));
     connect(m_applicationStyleComboBox, SIGNAL(activated(const QString&)), this, SLOT(slotSelectStyle(const QString&)));
@@ -448,11 +447,11 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     vlayout->addLayout(fontStyleLayout);
 
     m_useNativeDialogsCheckBox =
-        new QCheckBox(i18n("Use native system file &dialogs"), appearancePage);
+        new QCheckBox(tr("Use native system file &dialogs"), appearancePage);
     vlayout->addWidget(m_useNativeDialogsCheckBox);
     QSpacerItem* vspacer = new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
     vlayout->addItem(vspacer);
-    tabWidget->addTab(appearancePage, i18n("&Appearance"));
+    tabWidget->addTab(appearancePage, tr("&Appearance"));
   }
   m_fontChanged = false;
   m_styleChanged = false;
@@ -461,9 +460,9 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* helpButton = new QPushButton(i18n("&Help"), this);
-  QPushButton* okButton = new QPushButton(i18n("&OK"), this);
-  QPushButton* cancelButton = new QPushButton(i18n("&Cancel"), this);
+  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  QPushButton* okButton = new QPushButton(tr("&OK"), this);
+  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(helpButton);
   hlayout->addItem(hspacer);
   hlayout->addWidget(okButton);
@@ -659,7 +658,7 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
     const QString& key, const QString& context, const QAction* action)
 {
   m_shortcutAlreadyUsedLabel->setText(
-        i18n("The keyboard shortcut '%1' is already assigned to '%2'.").
+        tr("The keyboard shortcut '%1' is already assigned to '%2'.").
         arg(key).
         arg(context + QLatin1Char('/') + (action ? action->text().remove(QLatin1Char('&')) : QLatin1String("?"))));
 }
@@ -737,7 +736,7 @@ void ConfigDialog::slotSelectFont()
  */
 void ConfigDialog::slotSelectStyle(const QString& key)
 {
-  if (key != i18n("Unknown") &&
+  if (key != tr("Unknown") &&
       QApplication::setStyle(key)) {
     m_styleChanged = true;
   }

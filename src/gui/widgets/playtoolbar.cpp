@@ -45,7 +45,6 @@
 #include <QSlider>
 #endif
 #include "audioplayer.h"
-#include "qtcompatmac.h"
 
 static const QString zeroTime(QLatin1String(" 0:00"));
 
@@ -59,20 +58,20 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   QToolBar(parent), m_player(player)
 {
   setObjectName(QLatin1String("Kid3Player"));
-  setWindowTitle(i18n("Play"));
+  setWindowTitle(tr("Play"));
 
   m_playIcon = style()->standardIcon(QStyle::SP_MediaPlay);
   m_pauseIcon = style()->standardIcon(QStyle::SP_MediaPause);
 
-  m_playOrPauseAction = new QAction(m_playIcon, i18n("Play/Pause"), this);
+  m_playOrPauseAction = new QAction(m_playIcon, tr("Play/Pause"), this);
   m_stopAction = new QAction(
-    style()->standardIcon(QStyle::SP_MediaStop), i18n("Stop playback"), this);
+    style()->standardIcon(QStyle::SP_MediaStop), tr("Stop playback"), this);
   m_previousAction = new QAction(
-    style()->standardIcon(QStyle::SP_MediaSkipBackward), i18n("Previous Track"), this);
+    style()->standardIcon(QStyle::SP_MediaSkipBackward), tr("Previous Track"), this);
   m_nextAction = new QAction(
-    style()->standardIcon(QStyle::SP_MediaSkipForward), i18n("Next Track"), this);
+    style()->standardIcon(QStyle::SP_MediaSkipForward), tr("Next Track"), this);
   QAction* closeAction = new QAction(
-    style()->standardIcon(QStyle::SP_TitleBarCloseButton), i18n("Close"), this);
+    style()->standardIcon(QStyle::SP_TitleBarCloseButton), tr("Close"), this);
 
   QSplitter* splitter = new QSplitter(this);
   m_titleLabel = new QLabel(splitter);
@@ -94,7 +93,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent) :
   connect(m_seekSlider, SIGNAL(actionTriggered(int)),
           this, SLOT(seekAction(int)));
   m_muteAction = new QAction(
-        style()->standardIcon(QStyle::SP_MediaVolume), i18n("Mute"), this);
+        style()->standardIcon(QStyle::SP_MediaVolume), tr("Mute"), this);
   m_volumeSlider = new QSlider(Qt::Horizontal, this);
   m_volumeSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   m_volumeSlider->setRange(0, 100);
@@ -278,7 +277,7 @@ void PlayToolBar::durationChanged(qint64 duration)
  */
 void PlayToolBar::setVolumeToolTip(int volume)
 {
-  m_volumeSlider->setToolTip(i18n("Volume: %1%").arg(volume));
+  m_volumeSlider->setToolTip(tr("Volume: %1%").arg(volume));
 }
 
 /**

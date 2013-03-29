@@ -28,7 +28,6 @@
 #include <QPushButton>
 #include <QLayout>
 #include <QAbstractItemView>
-#include "qtcompatmac.h"
 
 /**
  * Constructor.
@@ -48,11 +47,11 @@ AbstractListEdit::AbstractListEdit(QAbstractItemView* itemView,
   hlayout->setContentsMargins(0, 0, 0, 0);
   hlayout->addWidget(m_itemView);
   QVBoxLayout* vlayout = new QVBoxLayout;
-  m_addPushButton = new QPushButton(i18n("&Add..."), this);
-  m_moveUpPushButton = new QPushButton(i18n("Move &Up"), this);
-  m_moveDownPushButton = new QPushButton(i18n("Move &Down"), this);
-  m_editPushButton = new QPushButton(i18n("&Edit..."), this);
-  m_removePushButton = new QPushButton(i18n("&Remove"), this);
+  m_addPushButton = new QPushButton(tr("&Add..."), this);
+  m_moveUpPushButton = new QPushButton(tr("Move &Up"), this);
+  m_moveDownPushButton = new QPushButton(tr("Move &Down"), this);
+  m_editPushButton = new QPushButton(tr("&Edit..."), this);
+  m_removePushButton = new QPushButton(tr("&Remove"), this);
   vlayout->addWidget(m_addPushButton);
   vlayout->addWidget(m_moveUpPushButton);
   vlayout->addWidget(m_moveDownPushButton);

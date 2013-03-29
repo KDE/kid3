@@ -27,7 +27,6 @@
 #include "genres.h"
 #include <QString>
 #include <QMap>
-#include "qtcompatmac.h"
 
 /**
  * Alphabetic list of genres, starts with unknown (empty) entry.

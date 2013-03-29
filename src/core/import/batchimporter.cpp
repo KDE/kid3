@@ -30,7 +30,6 @@
 #include "downloadclient.h"
 #include "pictureframe.h"
 #include "configstore.h"
-#include "qtcompatmac.h"
 
 /**
  * Flags to store types of data which have to be imported.
@@ -338,10 +337,10 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
 
     int accuracy = m_trackDataModel->calculateAccuracy();
     emit reportImportEvent(BatchImportProfile::TrackListReceived,
-                           i18n("Accuracy") + QLatin1Char(' ') +
+                           tr("Accuracy") + QLatin1Char(' ') +
                            (accuracy >= 0
                             ? QString::number(accuracy) + QLatin1Char('%')
-                            : i18n("Unknown")));
+                            : tr("Unknown")));
     const BatchImportProfile::Source& profileSource =
         m_profile.getSources().at(m_sourceNr);
     if (accuracy >= profileSource.getRequiredAccuracy()) {
@@ -423,7 +422,7 @@ void BatchImporter::onImageDownloaded(const QByteArray& data,
     } else {
       // Probably an invalid 1x1 picture from Amazon
       emit reportImportEvent(BatchImportProfile::CoverArtReceived,
-                             i18n("Invalid File"));
+                             tr("Invalid File"));
     }
     m_state = CheckIfDone;
     stateTransition();
