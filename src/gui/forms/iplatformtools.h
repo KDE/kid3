@@ -49,6 +49,14 @@ public:
    * @return true if ok.
    */
   virtual bool moveToTrash(const QString& path) const = 0;
+
+
+  /**
+   * Display help for a topic.
+   *
+   * @param anchor anchor in help document
+   */
+  virtual void displayHelp(const QString& anchor) = 0;
 };
 
 #endif // IPLATFORMTOOLS_H

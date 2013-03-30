@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Jul 2011
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,15 +28,22 @@
 #define CONTEXTHELP_H
 
 #include <QString>
-#include "config.h"
+#include "kid3api.h"
 
-class BrowserDialog;
+class IPlatformTools;
 
 /**
  * Context sensitive help.
  */
-class ContextHelp {
+class KID3_GUI_EXPORT ContextHelp {
 public:
+  /**
+   * Initialize context help.
+   *
+   * @param platformTools platform tools to use
+   */
+  static void init(IPlatformTools* platformTools);
+
   /**
    * Display help for a topic.
    *
@@ -44,15 +51,8 @@ public:
    */
   static void displayHelp(const QString& anchor = QString());
 
-  /**
-   * Free static resources.
-   */
-  static void staticCleanup();
-
 private:
-#ifndef CONFIG_USE_KDE
-  static BrowserDialog* s_helpBrowser;
-#endif
+  static IPlatformTools* s_platformTools;
 };
 
 #endif // CONTEXTHELP_H

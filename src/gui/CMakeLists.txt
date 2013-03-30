@@ -1,6 +1,6 @@
 include_directories(
   ../core/utils ../core/config ../core/tags ../core/export ../core/import ../core/model
-  widgets dialogs
+  widgets dialogs forms
 )
 
 set(gui_SRCS)

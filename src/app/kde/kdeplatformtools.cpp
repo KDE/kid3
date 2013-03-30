@@ -28,6 +28,7 @@
 #include <kurl.h>
 #include <kio/copyjob.h>
 #include <kio/netaccess.h>
+#include <ktoolinvocation.h>
 
 /**
  * Constructor.
@@ -56,4 +57,14 @@ bool KdePlatformTools::moveToTrash(const QString& path) const
   src.setPath(path);
   KIO::Job* job = KIO::trash(src);
   return KIO::NetAccess::synchronousRun(job, 0);
+}
+
+/**
+ * Display help for a topic.
+ *
+ * @param anchor anchor in help document
+ */
+void KdePlatformTools::displayHelp(const QString& anchor)
+{
+  KToolInvocation::invokeHelp(anchor);
 }

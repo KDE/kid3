@@ -26,12 +26,15 @@
 
 #include "platformtools.h"
 #include <QFileInfo>
+#include <QCoreApplication>
 #include "config.h"
+#include "browserdialog.h"
 
 /**
  * Constructor.
  */
-PlatformTools::PlatformTools()
+PlatformTools::PlatformTools() :
+  m_helpBrowser(0)
 {
 }
 
@@ -40,6 +43,7 @@ PlatformTools::PlatformTools()
  */
 PlatformTools::~PlatformTools()
 {
+  delete m_helpBrowser;
 }
 
 #ifdef Q_OS_WIN32
@@ -231,3 +235,22 @@ bool PlatformTools::moveToTrash(const QString& path) const
 }
 
 #endif
+
+/**
+ * Display help for a topic.
+ *
+ * @param anchor anchor in help document
+ */
+void PlatformTools::displayHelp(const QString& anchor)
+{
+  if (!m_helpBrowser) {
+    QString caption(QCoreApplication::translate("@default",
+                    QT_TRANSLATE_NOOP("@default", "Kid3 Handbook")));
+    m_helpBrowser = new BrowserDialog(0, caption);
+  }
+  m_helpBrowser->goToAnchor(anchor);
+  m_helpBrowser->setModal(!anchor.isEmpty());
+  if (m_helpBrowser->isHidden()) {
+    m_helpBrowser->show();
+  }
+}

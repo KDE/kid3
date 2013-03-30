@@ -123,6 +123,8 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools) :
   , m_playToolBar(0)
 #endif
 {
+  ContextHelp::init(m_platformTools);
+
   DownloadClient* downloadClient = m_app->getDownloadClient();
   connect(downloadClient, SIGNAL(progress(QString,int,int)),
           m_downloadDialog, SLOT(updateProgressStatus(QString,int,int)));
@@ -1071,7 +1073,6 @@ void Kid3MainWindow::cleanup()
 {
   m_app->getSettings()->sync();
   TaggedFile::staticCleanup();
-  ContextHelp::staticCleanup();
 }
 
 /**

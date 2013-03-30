@@ -29,6 +29,8 @@
 
 #include "iplatformtools.h"
 
+class BrowserDialog;
+
 /**
  * Platform specific tools.
  */
@@ -52,6 +54,16 @@ public:
    * @return true if ok.
    */
   virtual bool moveToTrash(const QString& path) const;
+
+  /**
+   * Display help for a topic.
+   *
+   * @param anchor anchor in help document
+   */
+  virtual void displayHelp(const QString& anchor);
+
+private:
+  BrowserDialog* m_helpBrowser;
 };
 
 #endif // PLATFORMTOOLS_H

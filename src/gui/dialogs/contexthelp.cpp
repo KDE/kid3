@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Jul 2011
  *
- * Copyright (C) 2011-2012  Urs Fleisch
+ * Copyright (C) 2011-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -25,16 +25,19 @@
  */
 
 #include "contexthelp.h"
-#ifdef CONFIG_USE_KDE
-#include <ktoolinvocation.h>
-#else
-#include <QCoreApplication>
-#include "browserdialog.h"
+#include "iplatformtools.h"
 
-BrowserDialog* ContextHelp::s_helpBrowser = 0;
-#endif
+IPlatformTools* ContextHelp::s_platformTools = 0;
 
-#ifdef CONFIG_USE_KDE
+/**
+ * Initialize context help.
+ *
+ * @param platformTools platform tools to use
+ */
+void ContextHelp::init(IPlatformTools* platformTools)
+{
+  s_platformTools = platformTools;
+}
 
 /**
  * Display help for a topic.
@@ -43,37 +46,7 @@ BrowserDialog* ContextHelp::s_helpBrowser = 0;
  */
 void ContextHelp::displayHelp(const QString& anchor)
 {
-  KToolInvocation::invokeHelp(anchor);
-}
-
-#else
-
-/**
- * Display help for a topic.
- *
- * @param anchor anchor in help document
- */
-void ContextHelp::displayHelp(const QString& anchor)
-{
-  if (!s_helpBrowser) {
-    QString caption(QCoreApplication::translate("@default", QT_TRANSLATE_NOOP("@default", "Kid3 Handbook")));
-    s_helpBrowser = new BrowserDialog(0, caption);
+  if (s_platformTools) {
+    s_platformTools->displayHelp(anchor);
   }
-  s_helpBrowser->goToAnchor(anchor);
-  s_helpBrowser->setModal(!anchor.isEmpty());
-  if (s_helpBrowser->isHidden()) {
-    s_helpBrowser->show();
-  }
-}
-#endif
-
-/**
- * Free static resources.
- */
-void ContextHelp::staticCleanup()
-{
-#ifndef CONFIG_USE_KDE
-  delete s_helpBrowser;
-  s_helpBrowser = 0;
-#endif
 }

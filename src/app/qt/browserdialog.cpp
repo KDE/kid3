@@ -25,8 +25,6 @@
  */
 
 #include "browserdialog.h"
-
-#ifndef CONFIG_USE_KDE
 #include <QTextBrowser>
 #include <QLocale>
 #include <QDir>
@@ -37,6 +35,7 @@
 #include <QToolButton>
 #include <QStyle>
 #include <QAction>
+#include "config.h"
 
 /**
  * Constructor.
@@ -163,5 +162,3 @@ void BrowserDialog::findNext()
 {
   m_textBrowser->find(m_findLineEdit->text());
 }
-
-#endif // CONFIG_USE_KDE

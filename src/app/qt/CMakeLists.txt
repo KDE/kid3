@@ -1,4 +1,7 @@
-set(qt_SRCS mainqt.cpp platformtools.cpp)
+set(qt_SRCS mainqt.cpp platformtools.cpp browserdialog.cpp)
+set(qt_MOC_HDRS browserdialog.h)
+qt4_wrap_cpp(qt_GEN_MOC_SRCS ${qt_MOC_HDRS})
+set(qt_SRCS ${qt_SRCS} ${qt_GEN_MOC_SRCS})
 
 if (APPLE)
   # Icon and properties for .plist file
