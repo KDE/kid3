@@ -1,5 +1,5 @@
 /**
- * \file gui/app/main.cpp
+ * \file mainkde.cpp
  * Main program.
  *
  * \b Project: Kid3
@@ -24,19 +24,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
 #include <QFile>
-#include "configstore.h"
-#include "loadtranslation.h"
-#ifdef CONFIG_USE_KDE
-
 #include <kdeversion.h>
 #include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kaboutdata.h>
 #include <klocale.h>
 #include <kconfiggroup.h>
-
+#include "configstore.h"
+#include "loadtranslation.h"
 #include "kid3mainwindow.h"
 
 /**
@@ -104,52 +100,3 @@ int main(int argc, char* argv[])
 
   return app.exec();
 }
-
-#else
-
-#include <QApplication>
-#include <QLibraryInfo>
-#include <QLocale>
-#include <QTranslator>
-#include <QDir>
-
-#include "kid3mainwindow.h"
-
-/**
- * Main program.
- *
- * @param argc number of arguments including command name
- * @param argv arguments, argv[0] is command name
- *
- * @return exit code of application.
- */
-
-int main(int argc, char* argv[])
-{
-  Q_INIT_RESOURCE(kid3);
-
-  QApplication app(argc, argv);
-  app.setApplicationName(QLatin1String("Kid3"));
-
-  Utils::loadTranslation();
-
-#ifdef Q_OS_MAC
- QDir dir(QApplication::applicationDirPath());
- dir.cdUp();
- dir.cd(QLatin1String("PlugIns"));
- QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
-#endif
-
-  Kid3MainWindow* kid3 = new Kid3MainWindow;
-  kid3->setAttribute(Qt::WA_DeleteOnClose);
-  kid3->show();
-  if (argc > 1) {
-    kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));
-  } else if (ConfigStore::s_miscCfg.m_loadLastOpenedFile &&
-             !ConfigStore::s_miscCfg.m_lastOpenedFile.isEmpty()) {
-    kid3->confirmedOpenDirectory(ConfigStore::s_miscCfg.m_lastOpenedFile);
-  }
-  return app.exec();
-}
-
-#endif

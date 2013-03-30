@@ -1,5 +1,5 @@
 /**
- * \file test/main.cpp
+ * \file maintest.cpp
  * Main program for executing unit test cases.
  * Besides the standard QtTest options, this test runner also allows to select
  * the testcase with "-testcase" and list the testcases with "-testcases".

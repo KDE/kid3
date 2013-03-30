@@ -31,6 +31,3 @@ if (BUILD_SHARED_LIBS)
     ARCHIVE DESTINATION ${WITH_LIBDIR}
     RUNTIME DESTINATION ${WITH_BINDIR})
 endif (BUILD_SHARED_LIBS)
-
-include_directories(forms)
-add_subdirectory(app)

@@ -13,7 +13,7 @@ testmusicbrainzreleaseimporter.cpp
 testmusicbrainzreleaseimportparser.cpp
 testdiscogsimporter.cpp
 testdiscogsimportparser.cpp
-main.cpp
+maintest.cpp
 )
 
 set(test_MOC_HDRS
