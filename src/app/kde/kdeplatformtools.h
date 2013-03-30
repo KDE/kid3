@@ -1,12 +1,12 @@
 /**
- * \file movetotrash.h
- * Move file or directory to trash.
+ * \file kdeplatformtools.h
+ * KDE platform specific tools.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 22 Aug 2011
+ * \date 30 Mar 2013
  *
- * Copyright (C) 2011  Urs Fleisch
+ * Copyright (C) 2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,14 +24,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MOVETOTRASH_H
-#define MOVETOTRASH_H
+#ifndef KDEPLATFORMTOOLS_H
+#define KDEPLATFORMTOOLS_H
 
-#include "kid3api.h"
+#include "iplatformtools.h"
 
-class QString;
+/**
+ * KDE platform specific tools.
+ */
+class KdePlatformTools : public IPlatformTools {
+public:
+  /**
+   * Constructor.
+   */
+  KdePlatformTools();
 
-namespace Utils {
+  /**
+   * Destructor.
+   */
+  virtual ~KdePlatformTools();
 
   /**
    * Move file or directory to trash.
@@ -40,8 +51,7 @@ namespace Utils {
    *
    * @return true if ok.
    */
-  bool KID3_CORE_EXPORT moveToTrash(const QString& path);
+  virtual bool moveToTrash(const QString& path) const;
+};
 
-}
-
-#endif // MOVETOTRASH_H
+#endif // KDEPLATFORMTOOLS_H

@@ -77,6 +77,7 @@ class QModelIndex;
 class FileProxyModel;
 class DirProxyModel;
 class TrackDataModel;
+class IPlatformTools;
 
 /** Kid3 main window */
 class KID3_GUI_EXPORT Kid3MainWindow : public Kid3MainWindowBaseClass, public IFrameEditor
@@ -86,8 +87,10 @@ Q_OBJECT
 public:
   /**
    * Constructor.
+   *
+   * @param platformTools platform specific tools
    */
-  Kid3MainWindow();
+  explicit Kid3MainWindow(IPlatformTools* platformTools);
 
   /**
    * Destructor.
@@ -429,6 +432,8 @@ private:
    */
   bool writePlaylist(const PlaylistConfig& cfg);
 
+  /** Platform specific tools */
+  IPlatformTools* m_platformTools;
   /** GUI with controls */
   Kid3Form* m_form;
   /** Application logic */

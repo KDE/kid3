@@ -1,12 +1,12 @@
 /**
- * \file movetotrash.cpp
- * Move file or directory to trash.
+ * \file platformtools.cpp
+ * Platform specific tools.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 22 Aug 2011
+ * \date 30 Mar 2013
  *
- * Copyright (C) 2011-2013  Urs Fleisch
+ * Copyright (C) 2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,9 +24,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "movetotrash.h"
+#include "platformtools.h"
 #include <QFileInfo>
 #include "config.h"
+
+/**
+ * Constructor.
+ */
+PlatformTools::PlatformTools()
+{
+}
+
+/**
+ * Destructor.
+ */
+PlatformTools::~PlatformTools()
+{
+}
 
 #ifdef Q_OS_WIN32
 
@@ -39,7 +53,7 @@
 #include <shellapi.h>
 #endif
 
-bool Utils::moveToTrash(const QString& path)
+bool PlatformTools::moveToTrash(const QString& path) const
 {
   typedef int (WINAPI *SHFileOperationW_t)(LPSHFILEOPSTRUCTW);
   HMODULE hshell32 = GetModuleHandleA("shell32.dll");
@@ -77,7 +91,7 @@ bool Utils::moveToTrash(const QString& path)
 
 #include <CoreServices/CoreServices.h>
 
-bool Utils::moveToTrash(const QString& path)
+bool PlatformTools::moveToTrash(const QString& path) const
 {
   QFileInfo fi(path);
   const QString absPath(fi.absoluteFilePath());
@@ -90,20 +104,6 @@ bool Utils::moveToTrash(const QString& path)
     return false;
 
   return FSMoveObjectToTrashSync(&fsRef, 0, kFSFileOperationDefaultOptions) == noErr;
-}
-
-#elif defined CONFIG_USE_KDE
-
-#include <kurl.h>
-#include <kio/copyjob.h>
-#include <kio/netaccess.h>
-
-bool Utils::moveToTrash(const QString& path)
-{
-  KUrl src;
-  src.setPath(path);
-  KIO::Job* job = KIO::trash(src);
-  return KIO::NetAccess::synchronousRun(job, 0);
 }
 
 #else
@@ -203,7 +203,7 @@ bool findExtVolumeTrash(const QString& volumeRoot, QString& trashDir)
 
 } // anonymous namespace
 
-bool Utils::moveToTrash(const QString& path)
+bool PlatformTools::moveToTrash(const QString& path) const
 {
   QFileInfo fi(path);
   const QString absPath(fi.absoluteFilePath());

@@ -32,6 +32,7 @@
 #include <QDir>
 #include "configstore.h"
 #include "loadtranslation.h"
+#include "platformtools.h"
 #include "kid3mainwindow.h"
 
 /**
@@ -59,7 +60,8 @@ int main(int argc, char* argv[])
  QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
 #endif
 
-  Kid3MainWindow* kid3 = new Kid3MainWindow;
+  PlatformTools platformTools;
+  Kid3MainWindow* kid3 = new Kid3MainWindow(&platformTools);
   kid3->setAttribute(Qt::WA_DeleteOnClose);
   kid3->show();
   if (argc > 1) {

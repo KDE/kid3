@@ -97,7 +97,7 @@
 #include "serverimporter.h"
 #include "batchimporter.h"
 #include "dirrenamer.h"
-#include "movetotrash.h"
+#include "iplatformtools.h"
 #include "qtcompatmac.h"
 #include "saferename.h"
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
@@ -109,9 +109,11 @@
 
 /**
  * Constructor.
+ *
+ * @param platformTools platform specific tools
  */
-Kid3MainWindow::Kid3MainWindow() :
-  m_app(new Kid3Application(this)),
+Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools) :
+  m_platformTools(platformTools), m_app(new Kid3Application(this)),
   m_importDialog(0), m_batchImportDialog(0), m_browseCoverArtDialog(0),
   m_exportDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
@@ -2062,7 +2064,7 @@ void Kid3MainWindow::deleteFile()
       foreach (QPersistentModelIndex index, selItems) {
         QString absFilename(model->filePath(index));
         if (model->isDir(index)) {
-          if (!Utils::moveToTrash(absFilename)) {
+          if (!m_platformTools->moveToTrash(absFilename)) {
             rmdirError = true;
             files.append(absFilename);
           }
@@ -2073,7 +2075,7 @@ void Kid3MainWindow::deleteFile()
             // The file must be closed before deleting on Windows.
             taggedFile->closeFileHandle();
           }
-          if (!Utils::moveToTrash(absFilename)) {
+          if (!m_platformTools->moveToTrash(absFilename)) {
             files.append(absFilename);
           }
         }

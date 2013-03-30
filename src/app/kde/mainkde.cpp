@@ -33,6 +33,7 @@
 #include <kconfiggroup.h>
 #include "configstore.h"
 #include "loadtranslation.h"
+#include "kdeplatformtools.h"
 #include "kid3mainwindow.h"
 
 /**
@@ -80,11 +81,16 @@ int main(int argc, char* argv[])
   // with translated information.
   KGlobal::activeComponent().setAboutData(aboutData);
 
+  KdePlatformTools platformTools;
   if (app.isSessionRestored()) {
-    RESTORE(Kid3MainWindow);
+    int n = 1;
+    while (KMainWindow::canBeRestored(n)) {
+      (new Kid3MainWindow(&platformTools))->restore(n);
+      n++;
+    }
   }
   else {
-    Kid3MainWindow* kid3 = new Kid3MainWindow;
+    Kid3MainWindow* kid3 = new Kid3MainWindow(&platformTools);
     kid3->show();
 
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();

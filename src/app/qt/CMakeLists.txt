@@ -1,4 +1,4 @@
-set(qt_SRCS mainqt.cpp)
+set(qt_SRCS mainqt.cpp platformtools.cpp)
 
 if (APPLE)
   # Icon and properties for .plist file
