@@ -79,23 +79,32 @@ class DirProxyModel;
 class TrackDataModel;
 class IPlatformTools;
 
-/** Kid3 main window */
-class KID3_GUI_EXPORT Kid3MainWindow : public Kid3MainWindowBaseClass, public IFrameEditor
-{
-Q_OBJECT
+class BaseMainWindow;
 
+/**
+ * Implementation class for BaseMainWindow.
+ * The reason for this implementation class is that a QObject is needed to
+ * have slots. However, BaseMainWindow cannot inherit from QObject because it
+ * is used with multiple inheritance together with another class which is a
+ * QObject (actually a QMainWindow). Therefore the functionality of the main
+ * put into this class which is then used as an implementation class by
+ * BaseMainWindow.
+ */
+class BaseMainWindowImpl : public QObject, public IFrameEditor {
+  Q_OBJECT
 public:
   /**
    * Constructor.
    *
+   * @param mainWin main window widget
    * @param platformTools platform specific tools
    */
-  explicit Kid3MainWindow(IPlatformTools* platformTools);
+  BaseMainWindowImpl(QMainWindow* mainWin, IPlatformTools* platformTools);
 
   /**
    * Destructor.
    */
-  ~Kid3MainWindow();
+  virtual ~BaseMainWindowImpl();
 
   /**
    * Create dialog to edit a frame and update the fields
@@ -118,66 +127,60 @@ public:
    */
   virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile);
 
-protected:
   /**
-   * Init menu and toolbar actions.
+   * Set back pointer for implementation class.
+   *
+   * @param self back pointer
    */
-  void initActions();
+  void setBackPointer(BaseMainWindow* self) { m_self = self; }
 
   /**
-   * Free allocated resources.
-   * Our destructor may not be called, so cleanup is done here.
+   * Initialize main window.
+   * Shall be called at end of constructor body.
    */
-  void cleanup();
+  void init();
 
   /**
    * Update modification state before closing.
-   * Called on closeEvent() of window.
    * If anything was modified, save after asking user.
+   * Save options before closing.
+   * This method shall be called by closeEvent() (Qt) or
+   * queryClose() (KDE).
    *
-   * @return FALSE if user canceled.
+   * @return false if user canceled,
+   *         true will quit the application.
    */
-  virtual bool queryClose();
+  bool queryBeforeClosing();
 
-#ifdef CONFIG_USE_KDE
   /**
-   * Saves the window properties for each open window during session end
-   * to the session config file.
+   * Open recent directory.
    *
-   * @param cfg application configuration
+   * @param dir directory to open
    */
-  virtual void saveProperties(KConfigGroup& cfg);
+  void openRecentDirectory(const QString& dir);
 
   /**
-   * Reads the session config file and restores the application's state.
-   *
-   * @param cfg application configuration
+   * Set window title with information from directory, filter and modification
+   * state.
    */
-  virtual void readProperties(const KConfigGroup& cfg);
-
-#else
-  /**
-   * Window is closed.
-   *
-   * @param ce close event
-   */
-  void closeEvent(QCloseEvent* ce);
+  void updateWindowCaption();
 
   /**
-   * Read font and style options.
+   * Apply configuration changes.
    */
-  void readFontAndStyleOptions();
-#endif
+  void applyChangedConfiguration();
 
   /**
-   * Save application options.
+   * Access to application.
+   * @return application.
    */
-  void saveOptions();
+  Kid3Application* app() { return m_app; }
 
   /**
-   * Load application options.
+   * Access to main form.
+   * @return main form.
    */
-  void readOptions();
+  Kid3Form* form() { return m_form; }
 
 public slots:
   /**
@@ -202,52 +205,6 @@ public slots:
    * Request new directory and open it.
    */
   void slotFileOpenDirectory();
-
-#ifdef CONFIG_USE_KDE
-  /**
-   * Open recent directory.
-   *
-   * @param url URL of directory to open
-   */
-  void slotFileOpenRecentUrl(const KUrl& url);
-#else
-  /**
-   * Open recent directory.
-   *
-   * @param dir directory to open
-   */
-  void slotFileOpenRecentDirectory(const QString& dir);
-#endif
-
-  /**
-   * Turn status bar on or off.
-   */
-  void slotViewStatusBar();
-
-  /**
-   * Shortcuts configuration.
-   */
-  void slotSettingsShortcuts();
-
-  /**
-   * Toolbars configuration.
-   */
-  void slotSettingsToolbars();
-
-  /**
-   * Display handbook.
-   */
-  void slotHelpHandbook();
-
-  /**
-   * Display "About" dialog.
-   */
-  void slotHelpAbout();
-
-  /**
-   * Display "About Qt" dialog.
-   */
-  void slotHelpAboutQt();
 
   /**
    * Save modified files.
@@ -307,11 +264,6 @@ public slots:
    * Show or hide picture.
    */
   void slotSettingsShowHidePicture();
-
-  /**
-   * Preferences.
-   */
-  void slotSettingsConfigure();
 
   /**
    * Rename directory.
@@ -391,6 +343,22 @@ private slots:
 
 private:
   /**
+   * Free allocated resources.
+   * Our destructor may not be called, so cleanup is done here.
+   */
+  void cleanup();
+
+  /**
+   * Save application options.
+   */
+  void saveOptions();
+
+  /**
+   * Load application options.
+   */
+  void readOptions();
+
+  /**
    * Save all changed files.
    *
    * @param updateGui true to update GUI (controls, status, cursor)
@@ -406,12 +374,6 @@ private:
    * @return false if user canceled.
    */
   bool saveModified(bool doNotRevert = false);
-
-  /**
-   * Set window title with information from directory, filter and modification
-   * state.
-   */
-  void updateWindowCaption();
 
   /**
    * Update track data and create import dialog.
@@ -432,8 +394,10 @@ private:
    */
   bool writePlaylist(const PlaylistConfig& cfg);
 
-  /** Platform specific tools */
   IPlatformTools* m_platformTools;
+  QMainWindow* m_w;
+  BaseMainWindow* m_self;
+
   /** GUI with controls */
   Kid3Form* m_form;
   /** Application logic */
@@ -463,7 +427,330 @@ private:
   PlayToolBar* m_playToolBar;
 #endif
   QDateTime m_expandFileListStartTime;
+};
 
+
+/**
+ * Base class for the main window.
+ * The main window classes for Qt (QMainWindow) and KDE (KXmlGuiWindow)
+ * have common functionality. The actual Kid3 main window can inherit from both
+ * the platform dependent main window class and this base class. Differences
+ * between the platforms can be handled by implementing the pure virtual methods
+ * of this class. Because this class cannot be a QObject (QMainWindow is
+ * already a QObject), most of its functionality is delegated to a QObject
+ * implementation class.
+ */
+class KID3_GUI_EXPORT BaseMainWindow : public IFrameEditor {
+public:
+  /**
+   * Constructor.
+   *
+   * @param mainWin main window instance
+   * @param platformTools platform specific tools
+   */
+  BaseMainWindow(QMainWindow* mainWin, IPlatformTools* platformTools);
+
+  /**
+   * Destructor.
+   */
+  virtual ~BaseMainWindow();
+
+  /**
+   * Init menu and toolbar actions.
+   */
+  virtual void initActions() = 0;
+
+  /**
+   * Add directory to recent files list.
+   *
+   * @param dirName path to directory
+   */
+  virtual void addDirectoryToRecentFiles(const QString& dirName) = 0;
+
+  /**
+   * Read settings from the configuration.
+   */
+  virtual void readConfig() = 0;
+
+  /**
+   * Store geometry and recent files in settings.
+   */
+  virtual void saveConfig() = 0;
+
+  /**
+   * Get action for Settings/Auto Hide Tags.
+   * @return action.
+   */
+  virtual QAction* autoHideTagsAction() = 0;
+
+  /**
+   * Get action for Settings/Hide Picture.
+   * @return action.
+   */
+  virtual QAction* showHidePictureAction() = 0;
+
+  /**
+   * Set main window caption.
+   *
+   * @param caption caption without application name
+   * @param modified true if any file is modified
+   */
+  virtual void setWindowCaption(const QString& caption, bool modified) = 0;
+
+  /**
+   * Create dialog to edit a frame and update the fields
+   * if Ok is returned.
+   *
+   * @param frame frame to edit
+   * @param taggedFile tagged file where frame has to be set
+   *
+   * @return true if Ok selected in dialog.
+   */
+  virtual bool editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile);
+
+  /**
+   * Let user select a frame type.
+   *
+   * @param frame is filled with the selected frame if true is returned
+   * @param taggedFile tagged file for which frame has to be selected
+   *
+   * @return false if no frame selected.
+   */
+  virtual bool selectFrame(Frame* frame, const TaggedFile* taggedFile);
+
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+  /**
+   * Play audio file.
+   */
+  void slotPlayAudio();
+#endif
+
+  /**
+   * Update files of current selection.
+   */
+  void updateCurrentSelection();
+
+  /**
+   * Open directory, user has to confirm if current directory modified.
+   *
+   * @param dir directory or file path
+   */
+  void confirmedOpenDirectory(const QString& dir);
+
+  /**
+   * Access to implementation object.
+   * @return implementation object.
+   */
+  BaseMainWindowImpl* impl() { return m_impl; }
+
+protected:
+  /**
+   * Initialize main window.
+   * Shall be called at end of constructor body in derived classes.
+   */
+  void init();
+
+  /**
+   * Change status message.
+   *
+   * @param text message
+   */
+  void slotStatusMsg(const QString& text);
+
+  /**
+   * Update modification state before closing.
+   * If anything was modified, save after asking user.
+   * Save options before closing.
+   * This method shall be called by closeEvent() (Qt) or
+   * queryClose() (KDE).
+   *
+   * @return false if user canceled,
+   *         true will quit the application.
+   */
+  bool queryBeforeClosing();
+
+  /**
+   * Open recent directory.
+   *
+   * @param dir directory to open
+   */
+  void openRecentDirectory(const QString& dir);
+
+  /**
+   * Set window title with information from directory, filter and modification
+   * state.
+   */
+  void updateWindowCaption();
+
+  /**
+   * Access to application.
+   * @return application.
+   */
+  Kid3Application* app();
+
+  /**
+   * Access to main form.
+   * @return main form.
+   */
+  Kid3Form* form();
+
+private:
+  BaseMainWindowImpl* m_impl;
+};
+
+
+/** Kid3 main window */
+class KID3_GUI_EXPORT Kid3MainWindow :
+    public Kid3MainWindowBaseClass, public BaseMainWindow {
+  Q_OBJECT
+public:
+  /**
+   * Constructor.
+   *
+   * @param platformTools platform specific tools
+   */
+  explicit Kid3MainWindow(IPlatformTools* platformTools);
+
+  /**
+   * Destructor.
+   */
+  ~Kid3MainWindow();
+
+  /**
+   * Init menu and toolbar actions.
+   */
+  virtual void initActions();
+
+  /**
+   * Add directory to recent files list.
+   *
+   * @param dirName path to directory
+   */
+  virtual void addDirectoryToRecentFiles(const QString& dirName);
+
+  /**
+   * Read settings from the configuration.
+   */
+  virtual void readConfig();
+
+  /**
+   * Store geometry and recent files in settings.
+   */
+  virtual void saveConfig();
+
+  /**
+   * Get action for Settings/Auto Hide Tags.
+   * @return action.
+   */
+  virtual QAction* autoHideTagsAction();
+
+  /**
+   * Get action for Settings/Hide Picture.
+   * @return action.
+   */
+  virtual QAction* showHidePictureAction();
+
+  /**
+   * Set main window caption.
+   *
+   * @param caption caption without application name
+   * @param modified true if any file is modified
+   */
+  virtual void setWindowCaption(const QString& caption, bool modified);
+
+protected:
+#ifdef CONFIG_USE_KDE
+  /**
+   * Update modification state before closing.
+   * Called on closeEvent() of window.
+   * If anything was modified, save after asking user.
+   *
+   * @return FALSE if user canceled.
+   */
+  virtual bool queryClose();
+
+  /**
+   * Saves the window properties for each open window during session end
+   * to the session config file.
+   *
+   * @param cfg application configuration
+   */
+  virtual void saveProperties(KConfigGroup& cfg);
+
+  /**
+   * Reads the session config file and restores the application's state.
+   *
+   * @param cfg application configuration
+   */
+  virtual void readProperties(const KConfigGroup& cfg);
+
+#else
+  /**
+   * Window is closed.
+   *
+   * @param ce close event
+   */
+  void closeEvent(QCloseEvent* ce);
+
+  /**
+   * Read font and style options.
+   */
+  void readFontAndStyleOptions();
+#endif
+
+public slots:
+#ifdef CONFIG_USE_KDE
+  /**
+   * Open recent directory.
+   *
+   * @param url URL of directory to open
+   */
+  void slotFileOpenRecentUrl(const KUrl& url);
+#else
+  /**
+   * Open recent directory.
+   *
+   * @param dir directory to open
+   */
+  void slotFileOpenRecentDirectory(const QString& dir);
+#endif
+
+  /**
+   * Turn status bar on or off.
+   */
+  void slotViewStatusBar();
+
+  /**
+   * Shortcuts configuration.
+   */
+  void slotSettingsShortcuts();
+
+  /**
+   * Toolbars configuration.
+   */
+  void slotSettingsToolbars();
+
+  /**
+   * Preferences.
+   */
+  void slotSettingsConfigure();
+
+  /**
+   * Display handbook.
+   */
+  void slotHelpHandbook();
+
+  /**
+   * Display "About" dialog.
+   */
+  void slotHelpAbout();
+
+  /**
+   * Display "About Qt" dialog.
+   */
+  void slotHelpAboutQt();
+
+private:
 #ifdef CONFIG_USE_KDE
   /** Actions */
   KRecentFilesAction* m_fileOpenRecent;

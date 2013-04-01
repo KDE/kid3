@@ -808,6 +808,15 @@ public:
     s_quickAccessFrames = mask;
   }
 
+  /**
+   * Get mask containing the bits of all frame types which shall be used as
+   * quick access frames.
+   * @return mask bit mask with bits for quick access frames set.
+   */
+  static quint64 getQuickAccessFrames() {
+    return s_quickAccessFrames;
+  }
+
 private:
   /**
    * Search for a frame only by name.

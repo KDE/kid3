@@ -132,12 +132,12 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
   if (index.isValid()) {
     QMenu menu(this);
-    menu.addAction(tr("&Expand all"), m_mainWin, SLOT(expandFileList()));
+    menu.addAction(tr("&Expand all"), m_mainWin->impl(), SLOT(expandFileList()));
     menu.addAction(tr("&Collapse all"), this, SLOT(collapseAll()));
-    menu.addAction(tr("&Rename"), m_mainWin, SLOT(renameFile()));
-    menu.addAction(tr("&Move to Trash"), m_mainWin, SLOT(deleteFile()));
+    menu.addAction(tr("&Rename"), m_mainWin->impl(), SLOT(renameFile()));
+    menu.addAction(tr("&Move to Trash"), m_mainWin->impl(), SLOT(deleteFile()));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
-    menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
+    menu.addAction(tr("&Play"), m_mainWin->impl(), SLOT(slotPlayAudio()));
 #endif
     int id = 0;
     for (QList<MiscConfig::MenuCommand>::const_iterator

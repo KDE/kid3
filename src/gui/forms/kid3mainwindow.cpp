@@ -62,7 +62,6 @@
 #include <QStatusBar>
 #include <QFileDialog>
 #include "recentfilesmenu.h"
-#include "messagedialog.h"
 #include "shortcutsmodel.h"
 #endif
 
@@ -110,14 +109,17 @@
 /**
  * Constructor.
  *
+ * @param mainWin main window widget
  * @param platformTools platform specific tools
  */
-Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools) :
-  m_platformTools(platformTools), m_app(new Kid3Application(this)),
+BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
+                                       IPlatformTools* platformTools) :
+  m_platformTools(platformTools), m_w(mainWin), m_self(0),
+  m_app(new Kid3Application(this)),
   m_importDialog(0), m_batchImportDialog(0), m_browseCoverArtDialog(0),
   m_exportDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
-  m_downloadDialog(new DownloadDialog(this, tr("Download"))),
+  m_downloadDialog(new DownloadDialog(m_w, tr("Download"))),
   m_playlistDialog(0), m_progressDialog(0)
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   , m_playToolBar(0)
@@ -134,8 +136,10 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools) :
           m_downloadDialog, SLOT(reset()));
   connect(m_downloadDialog, SIGNAL(canceled()),
           downloadClient, SLOT(cancelDownload()));
-  connect(downloadClient, SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
-          m_app, SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
+  connect(downloadClient,
+    SIGNAL(downloadFinished(const QByteArray&, const QString&, const QString&)),
+    m_app,
+    SLOT(imageDownloaded(const QByteArray&, const QString&, const QString&)));
 
   connect(m_app, SIGNAL(fileSelectionUpdateRequested()),
           this, SLOT(updateCurrentSelection()));
@@ -152,38 +156,12 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools) :
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   connect(m_app, SIGNAL(aboutToPlayAudio()), this, SLOT(showPlayToolBar()));
 #endif
-
-#ifndef CONFIG_USE_KDE
-#if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
-  QPixmap icon;
-  if (icon.load(QLatin1String(CFG_DATAROOTDIR) +
-#ifndef Q_OS_MAC
-                QLatin1String("/icons/hicolor/48x48/apps/kid3-qt.png")
-#else
-                QLatin1String("/kid3.png")
-#endif
-        )) {
-    setWindowIcon(icon);
-  }
-#endif
-  readFontAndStyleOptions();
-#endif
-
-  statusBar()->showMessage(tr("Ready."));
-  m_form = new Kid3Form(m_app, this);
-  setCentralWidget(m_form);
-
-  initActions();
-
-  resize(sizeHint());
-
-  readOptions();
 }
 
 /**
  * Destructor.
  */
-Kid3MainWindow::~Kid3MainWindow()
+BaseMainWindowImpl::~BaseMainWindowImpl()
 {
   delete m_importDialog;
   delete m_batchImportDialog;
@@ -197,631 +175,21 @@ Kid3MainWindow::~Kid3MainWindow()
 #endif
 }
 
-/** Only defined for generation of translation files */
-#define MAIN_TOOLBAR_FOR_PO QT_TRANSLATE_NOOP("@default", "Main Toolbar")
-
 /**
- * Init menu and toolbar actions.
+ * Initialize main window.
+ * Shall be called at end of constructor body.
  */
-void Kid3MainWindow::initActions()
+void BaseMainWindowImpl::init()
 {
-#ifdef CONFIG_USE_KDE
-  KAction* fileOpen = KStandardAction::open(
-      this, SLOT(slotFileOpen()), actionCollection());
-  m_fileOpenRecent = KStandardAction::openRecent(
-      this,
-      SLOT(slotFileOpenRecentUrl(const KUrl&)),
-      actionCollection());
-  KAction* fileRevert = KStandardAction::revert(
-      m_app, SLOT(revertFileModifications()), actionCollection());
-  KAction* fileSave = KStandardAction::save(
-      this, SLOT(slotFileSave()), actionCollection());
-  KAction* fileQuit = KStandardAction::quit(
-      this, SLOT(slotFileQuit()), actionCollection());
-  KAction* editSelectAll = KStandardAction::selectAll(
-      m_form, SLOT(selectAllFiles()), actionCollection());
-  KAction* editDeselect = KStandardAction::deselect(
-      m_form, SLOT(deselectAllFiles()), actionCollection());
-  setStandardToolBarMenuEnabled(true);
-  createStandardStatusBarAction();
-  KAction* settingsShortcuts = KStandardAction::keyBindings(
-    this, SLOT(slotSettingsShortcuts()), actionCollection());
-  KAction* settingsToolbars = KStandardAction::configureToolbars(
-    this, SLOT(slotSettingsToolbars()), actionCollection());
-  KAction* settingsConfigure = KStandardAction::preferences(
-      this, SLOT(slotSettingsConfigure()), actionCollection());
+  m_w->statusBar()->showMessage(tr("Ready."));
+  m_form = new Kid3Form(m_app, m_w);
+  m_w->setCentralWidget(m_form);
 
-  fileOpen->setStatusTip(tr("Opens a directory"));
-  m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
-  fileRevert->setStatusTip(
-      tr("Reverts the changes of all or the selected files"));
-  fileSave->setStatusTip(tr("Saves the changed files"));
-  fileQuit->setStatusTip(tr("Quits the application"));
-  editSelectAll->setStatusTip(tr("Select all files"));
-  editSelectAll->setShortcut(KShortcut(QLatin1String("Alt+Shift+A")));
-  editDeselect->setStatusTip(tr("Deselect all files"));
-  settingsShortcuts->setStatusTip(tr("Configure Shortcuts"));
-  settingsToolbars->setStatusTip(tr("Configure Toolbars"));
-  settingsConfigure->setStatusTip(tr("Preferences dialog"));
+  m_self->initActions();
 
-  KAction* fileOpenDirectory = new KAction(KIcon(QLatin1String("document-open")), tr("O&pen Directory..."), this);
-  fileOpenDirectory->setShortcut(KShortcut(QLatin1String("Ctrl+D")));
-  actionCollection()->addAction(QLatin1String("open_directory"), fileOpenDirectory);
-  connect(fileOpenDirectory, SIGNAL(triggered()), this, SLOT(slotFileOpenDirectory()));
-  KAction* fileImport = new KAction(KIcon(QLatin1String("document-import")), tr("&Import..."), this);
-  fileImport->setData(-1);
-  actionCollection()->addAction(QLatin1String("import"), fileImport);
-  connect(fileImport, SIGNAL(triggered()), this, SLOT(slotImport()));
+  m_w->resize(m_w->sizeHint());
 
-  int importerIdx = 0;
-  foreach (const ServerImporter* si, m_app->getServerImporters()) {
-    QString serverName(QCoreApplication::translate("@default", si->name()));
-    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
-    int dotPos = actionName.indexOf(QLatin1Char('.'));
-    if (dotPos != -1)
-      actionName.truncate(dotPos);
-    actionName = QLatin1String("import_") + actionName;
-    KAction* fileImportServer =
-        new KAction(tr("Import from %1...").arg(serverName), this);
-    fileImportServer->setData(importerIdx);
-    actionCollection()->addAction(actionName, fileImportServer);
-    connect(fileImportServer, SIGNAL(triggered()), this, SLOT(slotImport()));
-    ++importerIdx;
-  }
-#ifdef HAVE_CHROMAPRINT
-  QString serverName(tr("MusicBrainz Fingerprint"));
-  KAction* fileImportMusicBrainz =
-      new KAction(tr("Import from %1...").arg(serverName), this);
-  fileImportMusicBrainz->setData(importerIdx);
-  actionCollection()->addAction(QLatin1String("import_musicbrainz"), fileImportMusicBrainz);
-  connect(fileImportMusicBrainz, SIGNAL(triggered()), this, SLOT(slotImport()));
-  ++importerIdx;
-#endif
-  KAction* fileBatchImport = new KAction(tr("Automatic I&mport..."), this);
-  actionCollection()->addAction(QLatin1String("batch_import"), fileBatchImport);
-  connect(fileBatchImport, SIGNAL(triggered()), this, SLOT(slotBatchImport()));
-
-  KAction* fileBrowseCoverArt = new KAction(tr("&Browse Cover Art..."), this);
-  actionCollection()->addAction(QLatin1String("browse_cover_art"), fileBrowseCoverArt);
-  connect(fileBrowseCoverArt, SIGNAL(triggered()), this, SLOT(slotBrowseCoverArt()));
-  KAction* fileExport = new KAction(KIcon(QLatin1String("document-export")), tr("&Export..."), this);
-  actionCollection()->addAction(QLatin1String("export"), fileExport);
-  connect(fileExport, SIGNAL(triggered()), this, SLOT(slotExport()));
-  KAction* fileCreatePlaylist = new KAction(KIcon(QLatin1String("view-media-playlist")), tr("&Create Playlist..."), this);
-  actionCollection()->addAction(QLatin1String("create_playlist"), fileCreatePlaylist);
-  connect(fileCreatePlaylist, SIGNAL(triggered()), this, SLOT(slotPlaylistDialog()));
-  KAction* toolsApplyFilenameFormat = new KAction(tr("Apply &Filename Format"), this);
-  actionCollection()->addAction(QLatin1String("apply_filename_format"), toolsApplyFilenameFormat);
-  connect(toolsApplyFilenameFormat, SIGNAL(triggered()), m_app, SLOT(applyFilenameFormat()));
-  KAction* toolsApplyId3Format = new KAction(tr("Apply &Tag Format"), this);
-  actionCollection()->addAction(QLatin1String("apply_id3_format"), toolsApplyId3Format);
-  connect(toolsApplyId3Format, SIGNAL(triggered()), m_app, SLOT(applyId3Format()));
-  KAction* toolsApplyTextEncoding = new KAction(tr("Apply Text &Encoding"), this);
-  actionCollection()->addAction(QLatin1String("apply_text_encoding"), toolsApplyTextEncoding);
-  connect(toolsApplyTextEncoding, SIGNAL(triggered()), m_app, SLOT(applyTextEncoding()));
-  KAction* toolsRenameDirectory = new KAction(tr("&Rename Directory..."), this);
-  actionCollection()->addAction(QLatin1String("rename_directory"), toolsRenameDirectory);
-  connect(toolsRenameDirectory, SIGNAL(triggered()), this, SLOT(slotRenameDirectory()));
-  KAction* toolsNumberTracks = new KAction(tr("&Number Tracks..."), this);
-  actionCollection()->addAction(QLatin1String("number_tracks"), toolsNumberTracks);
-  connect(toolsNumberTracks, SIGNAL(triggered()), this, SLOT(slotNumberTracks()));
-  KAction* toolsFilter = new KAction(tr("F&ilter..."), this);
-  actionCollection()->addAction(QLatin1String("filter"), toolsFilter);
-  connect(toolsFilter, SIGNAL(triggered()), this, SLOT(slotFilter()));
-#ifdef HAVE_TAGLIB
-  KAction* toolsConvertToId3v24 = new KAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
-  actionCollection()->addAction(QLatin1String("convert_to_id3v24"), toolsConvertToId3v24);
-  connect(toolsConvertToId3v24, SIGNAL(triggered()), m_app, SLOT(convertToId3v24()));
-#endif
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
-  KAction* toolsConvertToId3v23 = new KAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
-  actionCollection()->addAction(QLatin1String("convert_to_id3v23"), toolsConvertToId3v23);
-  connect(toolsConvertToId3v23, SIGNAL(triggered()), m_app, SLOT(convertToId3v23()));
-#endif
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
-  KAction* toolsPlay = new KAction(KIcon(QLatin1String("media-playback-start")), tr("&Play"), this);
-  actionCollection()->addAction(QLatin1String("play"), toolsPlay);
-  connect(toolsPlay, SIGNAL(triggered()), m_app, SLOT(playAudio()));
-#endif
-  m_settingsShowHidePicture = new KToggleAction(tr("Show &Picture"), this);
-  m_settingsShowHidePicture->setCheckable(true);
-  actionCollection()->addAction(QLatin1String("hide_picture"), m_settingsShowHidePicture);
-  connect(m_settingsShowHidePicture, SIGNAL(triggered()), this, SLOT(slotSettingsShowHidePicture()));
-  m_settingsAutoHideTags = new KToggleAction(tr("Auto &Hide Tags"), this);
-  m_settingsAutoHideTags->setCheckable(true);
-  actionCollection()->addAction(QLatin1String("auto_hide_tags"), m_settingsAutoHideTags);
-  connect(m_settingsAutoHideTags, SIGNAL(triggered()), this, SLOT(slotSettingsAutoHideTags()));
-  KAction* editSelectAllInDir = new KAction(tr("Select All in &Directory"), this);
-  actionCollection()->addAction(QLatin1String("select_all_in_directory"), editSelectAllInDir);
-  connect(editSelectAllInDir, SIGNAL(triggered()), m_form, SLOT(selectAllInDirectory()));
-  KAction* editPreviousFile = new KAction(KIcon(QLatin1String("go-previous")), tr("&Previous File"), this);
-  editPreviousFile->setShortcut(KShortcut(QLatin1String("Alt+Up")));
-  actionCollection()->addAction(QLatin1String("previous_file"), editPreviousFile);
-  connect(editPreviousFile, SIGNAL(triggered()), m_app, SLOT(previousFile()));
-  KAction* editNextFile = new KAction(KIcon(QLatin1String("go-next")), tr("&Next File"), this);
-  editNextFile->setShortcut(KShortcut(QLatin1String("Alt+Down")));
-  actionCollection()->addAction(QLatin1String("next_file"), editNextFile);
-  connect(editNextFile, SIGNAL(triggered()), m_app, SLOT(nextFile()));
-  KAction* actionV1FromFilename = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("From Filename"), this);
-  actionCollection()->addAction(QLatin1String("v1_from_filename"), actionV1FromFilename);
-  connect(actionV1FromFilename, SIGNAL(triggered()), m_app, SLOT(getTagsFromFilenameV1()));
-  KAction* actionV1FromV2 = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("From Tag 2"), this);
-  actionCollection()->addAction(QLatin1String("v1_from_v2"), actionV1FromV2);
-  connect(actionV1FromV2, SIGNAL(triggered()), m_app, SLOT(copyV2ToV1()));
-  KAction* actionV1Copy = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Copy"), this);
-  actionCollection()->addAction(QLatin1String("v1_copy"), actionV1Copy);
-  connect(actionV1Copy, SIGNAL(triggered()), m_app, SLOT(copyTagsV1()));
-  KAction* actionV1Paste = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Paste"), this);
-  actionCollection()->addAction(QLatin1String("v1_paste"), actionV1Paste);
-  connect(actionV1Paste, SIGNAL(triggered()), m_app, SLOT(pasteTagsV1()));
-  KAction* actionV1Remove = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Remove"), this);
-  actionCollection()->addAction(QLatin1String("v1_remove"), actionV1Remove);
-  connect(actionV1Remove, SIGNAL(triggered()), m_app, SLOT(removeTagsV1()));
-  KAction* actionV2FromFilename = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("From Filename"), this);
-  actionCollection()->addAction(QLatin1String("v2_from_filename"), actionV2FromFilename);
-  connect(actionV2FromFilename, SIGNAL(triggered()), m_app, SLOT(getTagsFromFilenameV2()));
-  KAction* actionV2FromV1 = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("From Tag 1"), this);
-  actionCollection()->addAction(QLatin1String("v2_from_v1"), actionV2FromV1);
-  connect(actionV2FromV1, SIGNAL(triggered()), m_app, SLOT(copyV1ToV2()));
-  KAction* actionV2Copy = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Copy"), this);
-  actionCollection()->addAction(QLatin1String("v2_copy"), actionV2Copy);
-  connect(actionV2Copy, SIGNAL(triggered()), m_app, SLOT(copyTagsV2()));
-  KAction* actionV2Paste = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Paste"), this);
-  actionCollection()->addAction(QLatin1String("v2_paste"), actionV2Paste);
-  connect(actionV2Paste, SIGNAL(triggered()), m_app, SLOT(pasteTagsV2()));
-  KAction* actionV2Remove = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Remove"), this);
-  actionCollection()->addAction(QLatin1String("v2_remove"), actionV2Remove);
-  connect(actionV2Remove, SIGNAL(triggered()), m_app, SLOT(removeTagsV2()));
-  KAction* actionFramesEdit = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Edit"), this);
-  actionCollection()->addAction(QLatin1String("frames_edit"), actionFramesEdit);
-  connect(actionFramesEdit, SIGNAL(triggered()), m_form, SLOT(editFrame()));
-  KAction* actionFramesAdd = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Add"), this);
-  actionCollection()->addAction(QLatin1String("frames_add"), actionFramesAdd);
-  connect(actionFramesAdd, SIGNAL(triggered()), m_form, SLOT(addFrame()));
-  KAction* actionFramesDelete = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Delete"), this);
-  actionCollection()->addAction(QLatin1String("frames_delete"), actionFramesDelete);
-  connect(actionFramesDelete, SIGNAL(triggered()), m_form, SLOT(deleteFrame()));
-  KAction* actionFilenameFromV1 = new KAction(tr("Filename") + QLatin1String(": ") + tr("From Tag 1"), this);
-  actionCollection()->addAction(QLatin1String("filename_from_v1"), actionFilenameFromV1);
-  connect(actionFilenameFromV1, SIGNAL(triggered()), m_form, SLOT(fnFromID3V1()));
-  KAction* actionFilenameFromV2 = new KAction(tr("Filename") + QLatin1String(": ") + tr("From Tag 2"), this);
-  actionCollection()->addAction(QLatin1String("filename_from_v2"), actionFilenameFromV2);
-  connect(actionFilenameFromV2, SIGNAL(triggered()), m_form, SLOT(fnFromID3V2()));
-  KAction* actionFilenameFocus = new KAction(tr("Filename") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("filename_focus"), actionFilenameFocus);
-  connect(actionFilenameFocus, SIGNAL(triggered()), m_form, SLOT(setFocusFilename()));
-  KAction* actionV1Focus = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("v1_focus"), actionV1Focus);
-  connect(actionV1Focus, SIGNAL(triggered()), m_form, SLOT(setFocusV1()));
-  KAction* actionV2Focus = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("v2_focus"), actionV2Focus);
-  connect(actionV2Focus, SIGNAL(triggered()), m_form, SLOT(setFocusV2()));
-  KAction* actionFileListFocus = new KAction(tr("File List") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("filelist_focus"), actionFileListFocus);
-  connect(actionFileListFocus, SIGNAL(triggered()), m_form, SLOT(setFocusFileList()));
-  KAction* actionDirListFocus = new KAction(tr("Directory List") + QLatin1String(": ") + tr("Focus"), this);
-  actionCollection()->addAction(QLatin1String("dirlist_focus"), actionDirListFocus);
-  connect(actionDirListFocus, SIGNAL(triggered()), m_form, SLOT(setFocusDirList()));
-  createGUI();
-
-#else
-  QToolBar* toolBar = new QToolBar(this);
-  toolBar->setObjectName(QLatin1String("MainToolbar"));
-  QMenuBar* menubar = menuBar();
-  QString menuTitle(tr("&File"));
-  ShortcutsModel* shortcutsModel = m_app->getConfigStore()->getShortcutsModel();
-  QMenu* fileMenu = menubar->addMenu(menuTitle);
-
-  QAction* fileOpen = new QAction(this);
-  fileOpen->setStatusTip(tr("Opens a directory"));
-  fileOpen->setText(tr("&Open..."));
-  fileOpen->setShortcut(QKeySequence::Open);
-  fileOpen->setIcon(QCM_QIcon_fromTheme("document-open"));
-  fileOpen->setObjectName(QLatin1String("file_open"));
-  shortcutsModel->registerAction(fileOpen, menuTitle);
-  connect(fileOpen, SIGNAL(triggered()),
-    this, SLOT(slotFileOpen()));
-  fileMenu->addAction(fileOpen);
-  toolBar->addAction(fileOpen);
-
-  m_fileOpenRecent = new RecentFilesMenu(fileMenu);
-  connect(m_fileOpenRecent, SIGNAL(loadFile(const QString&)),
-          this, SLOT(slotFileOpenRecentDirectory(const QString&)));
-  m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
-  m_fileOpenRecent->setTitle(tr("Open &Recent"));
-  m_fileOpenRecent->setIcon(QCM_QIcon_fromTheme("document-open-recent"));
-  fileMenu->addMenu(m_fileOpenRecent);
-
-  QAction* fileOpenDirectory = new QAction(this);
-  fileOpenDirectory->setStatusTip(tr("Opens a directory"));
-  fileOpenDirectory->setText(tr("O&pen Directory..."));
-  fileOpenDirectory->setShortcut(Qt::CTRL + Qt::Key_D);
-  fileOpenDirectory->setIcon(QCM_QIcon_fromTheme("document-open"));
-  fileOpenDirectory->setObjectName(QLatin1String("open_directory"));
-  shortcutsModel->registerAction(fileOpenDirectory, menuTitle);
-  connect(fileOpenDirectory, SIGNAL(triggered()),
-    this, SLOT(slotFileOpenDirectory()));
-  fileMenu->addAction(fileOpenDirectory);
-  fileMenu->addSeparator();
-
-  QAction* fileSave = new QAction(this);
-  fileSave->setStatusTip(tr("Saves the changed files"));
-  fileSave->setText(tr("&Save"));
-  fileSave->setShortcut(QKeySequence::Save);
-  fileSave->setIcon(QCM_QIcon_fromTheme("document-save"));
-  fileSave->setObjectName(QLatin1String("file_save"));
-  shortcutsModel->registerAction(fileSave, menuTitle);
-  connect(fileSave, SIGNAL(triggered()),
-    this, SLOT(slotFileSave()));
-  fileMenu->addAction(fileSave);
-  toolBar->addAction(fileSave);
-
-  QAction* fileRevert = new QAction(this);
-  fileRevert->setStatusTip(
-      tr("Reverts the changes of all or the selected files"));
-  fileRevert->setText(tr("Re&vert"));
-  fileRevert->setIcon(QCM_QIcon_fromTheme("document-revert"));
-  fileRevert->setObjectName(QLatin1String("file_revert"));
-  shortcutsModel->registerAction(fileRevert, menuTitle);
-  connect(fileRevert, SIGNAL(triggered()),
-    m_app, SLOT(revertFileModifications()));
-  fileMenu->addAction(fileRevert);
-  toolBar->addAction(fileRevert);
-  fileMenu->addSeparator();
-
-  QAction* fileImport = new QAction(this);
-  fileImport->setData(-1);
-  fileImport->setStatusTip(tr("Import from file or clipboard"));
-  fileImport->setText(tr("&Import..."));
-  fileImport->setIcon(QCM_QIcon_fromTheme("document-import"));
-  fileImport->setObjectName(QLatin1String("import"));
-  shortcutsModel->registerAction(fileImport, menuTitle);
-  connect(fileImport, SIGNAL(triggered()),
-    this, SLOT(slotImport()));
-  fileMenu->addAction(fileImport);
-
-  int importerIdx = 0;
-  foreach (const ServerImporter* si, m_app->getServerImporters()) {
-    QString serverName(QCoreApplication::translate("@default", si->name()));
-    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
-    int dotPos = actionName.indexOf(QLatin1Char('.'));
-    if (dotPos != -1)
-      actionName.truncate(dotPos);
-    actionName = QLatin1String("import_") + actionName;
-    QAction* fileImportServer = new QAction(this);
-    fileImportServer->setData(importerIdx);
-    fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
-    fileImportServer->setText(tr("Import from %1...").arg(serverName));
-    fileImportServer->setObjectName(actionName);
-    shortcutsModel->registerAction(fileImportServer, menuTitle);
-    connect(fileImportServer, SIGNAL(triggered()),
-      this, SLOT(slotImport()));
-    fileMenu->addAction(fileImportServer);
-    ++importerIdx;
-  }
-#ifdef HAVE_CHROMAPRINT
-  QAction* fileImportMusicBrainz = new QAction(this);
-  QString serverName(tr("MusicBrainz Fingerprint"));
-  fileImportMusicBrainz->setData(importerIdx);
-  fileImportMusicBrainz->setStatusTip(tr("Import from %1").arg(serverName));
-  fileImportMusicBrainz->setText(tr("Import from %1...").arg(serverName));
-  fileImportMusicBrainz->setObjectName(QLatin1String("import_musicbrainz"));
-  shortcutsModel->registerAction(fileImportMusicBrainz, menuTitle);
-  connect(fileImportMusicBrainz, SIGNAL(triggered()),
-    this, SLOT(slotImport()));
-  fileMenu->addAction(fileImportMusicBrainz);
-  ++importerIdx;
-#endif
-  QAction* fileBatchImport = new QAction(this);
-  fileBatchImport->setStatusTip(tr("Automatic import"));
-  fileBatchImport->setText(tr("Automatic I&mport..."));
-  fileBatchImport->setObjectName(QLatin1String("batch_import"));
-  shortcutsModel->registerAction(fileBatchImport, menuTitle);
-  connect(fileBatchImport, SIGNAL(triggered()),
-    this, SLOT(slotBatchImport()));
-  fileMenu->addAction(fileBatchImport);
-
-  QAction* fileBrowseCoverArt = new QAction(this);
-  fileBrowseCoverArt->setStatusTip(tr("Browse album cover artwork"));
-  fileBrowseCoverArt->setText(tr("&Browse Cover Art..."));
-  fileBrowseCoverArt->setObjectName(QLatin1String("browse_cover_art"));
-  shortcutsModel->registerAction(fileBrowseCoverArt, menuTitle);
-  connect(fileBrowseCoverArt, SIGNAL(triggered()),
-    this, SLOT(slotBrowseCoverArt()));
-  fileMenu->addAction(fileBrowseCoverArt);
-
-  QAction* fileExport = new QAction(this);
-  fileExport->setStatusTip(tr("Export to file or clipboard"));
-  fileExport->setText(tr("&Export..."));
-  fileExport->setIcon(QCM_QIcon_fromTheme("document-export"));
-  fileExport->setObjectName(QLatin1String("export"));
-  shortcutsModel->registerAction(fileExport, menuTitle);
-  connect(fileExport, SIGNAL(triggered()),
-    this, SLOT(slotExport()));
-  fileMenu->addAction(fileExport);
-
-  QAction* fileCreatePlaylist = new QAction(this);
-  fileCreatePlaylist->setStatusTip(tr("Create M3U Playlist"));
-  fileCreatePlaylist->setText(tr("&Create Playlist..."));
-  fileCreatePlaylist->setIcon(QIcon(QLatin1String(":/images/view-media-playlist.png")));
-  fileCreatePlaylist->setObjectName(QLatin1String("create_playlist"));
-  shortcutsModel->registerAction(fileCreatePlaylist, menuTitle);
-  connect(fileCreatePlaylist, SIGNAL(triggered()),
-    this, SLOT(slotPlaylistDialog()));
-  fileMenu->addAction(fileCreatePlaylist);
-  toolBar->addAction(fileCreatePlaylist);
-  fileMenu->addSeparator();
-
-  QAction* fileQuit = new QAction(this);
-  fileQuit->setStatusTip(tr("Quits the application"));
-  fileQuit->setText(tr("&Quit"));
-  fileQuit->setShortcut(Qt::CTRL + Qt::Key_Q);
-  fileQuit->setIcon(QCM_QIcon_fromTheme("application-exit"));
-  fileQuit->setObjectName(QLatin1String("file_quit"));
-  shortcutsModel->registerAction(fileQuit, menuTitle);
-  connect(fileQuit, SIGNAL(triggered()),
-    this, SLOT(slotFileQuit()));
-  fileMenu->addAction(fileQuit);
-
-  menuTitle = tr("&Edit");
-  QMenu* editMenu = menubar->addMenu(menuTitle);
-  QAction* editSelectAll = new QAction(this);
-  editSelectAll->setStatusTip(tr("Select all files"));
-  editSelectAll->setText(tr("Select &All"));
-  editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
-  editSelectAll->setIcon(QCM_QIcon_fromTheme("edit-select-all"));
-  editSelectAll->setObjectName(QLatin1String("edit_select_all"));
-  shortcutsModel->registerAction(editSelectAll, menuTitle);
-  connect(editSelectAll, SIGNAL(triggered()),
-    m_form, SLOT(selectAllFiles()));
-  editMenu->addAction(editSelectAll);
-
-  QAction* editDeselect = new QAction(this);
-  editDeselect->setStatusTip(tr("Deselect all files"));
-  editDeselect->setText(tr("Dese&lect"));
-  editDeselect->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_A);
-  editDeselect->setObjectName(QLatin1String("edit_deselect"));
-  shortcutsModel->registerAction(editDeselect, menuTitle);
-  connect(editDeselect, SIGNAL(triggered()),
-    m_form, SLOT(deselectAllFiles()));
-  editMenu->addAction(editDeselect);
-
-  QAction* editSelectAllInDir = new QAction(this);
-  editSelectAllInDir->setStatusTip(tr("Select all files in the current directory"));
-  editSelectAllInDir->setText(tr("Select All in &Directory"));
-  editSelectAllInDir->setObjectName(QLatin1String("select_all_in_directory"));
-  shortcutsModel->registerAction(editSelectAllInDir, menuTitle);
-  connect(editSelectAllInDir, SIGNAL(triggered()),
-    m_form, SLOT(selectAllInDirectory()));
-  editMenu->addAction(editSelectAllInDir);
-
-  QAction* editPreviousFile = new QAction(this);
-  editPreviousFile->setStatusTip(tr("Select previous file"));
-  editPreviousFile->setText(tr("&Previous File"));
-  editPreviousFile->setShortcut(Qt::ALT + Qt::Key_Up);
-  editPreviousFile->setIcon(QCM_QIcon_fromTheme("go-previous"));
-  editPreviousFile->setObjectName(QLatin1String("previous_file"));
-  shortcutsModel->registerAction(editPreviousFile, menuTitle);
-  connect(editPreviousFile, SIGNAL(triggered()),
-    m_app, SLOT(previousFile()));
-  editMenu->addAction(editPreviousFile);
-  toolBar->addAction(editPreviousFile);
-
-  QAction* editNextFile = new QAction(this);
-  editNextFile->setStatusTip(tr("Select next file"));
-  editNextFile->setText(tr("&Next File"));
-  editNextFile->setShortcut(Qt::ALT + Qt::Key_Down);
-  editNextFile->setIcon(QCM_QIcon_fromTheme("go-next"));
-  editNextFile->setObjectName(QLatin1String("next_file"));
-  shortcutsModel->registerAction(editNextFile, menuTitle);
-  connect(editNextFile, SIGNAL(triggered()),
-    m_app, SLOT(nextFile()));
-  editMenu->addAction(editNextFile);
-  toolBar->addAction(editNextFile);
-
-  menuTitle = tr("&Tools");
-  QMenu* toolsMenu = menubar->addMenu(menuTitle);
-  QAction* toolsApplyFilenameFormat = new QAction(this);
-  toolsApplyFilenameFormat->setStatusTip(tr("Apply Filename Format"));
-  toolsApplyFilenameFormat->setText(tr("Apply &Filename Format"));
-  toolsApplyFilenameFormat->setObjectName(QLatin1String("apply_filename_format"));
-  shortcutsModel->registerAction(toolsApplyFilenameFormat, menuTitle);
-  connect(toolsApplyFilenameFormat, SIGNAL(triggered()),
-    m_app, SLOT(applyFilenameFormat()));
-  toolsMenu->addAction(toolsApplyFilenameFormat);
-
-  QAction* toolsApplyId3Format = new QAction(this);
-  toolsApplyId3Format->setStatusTip(tr("Apply Tag Format"));
-  toolsApplyId3Format->setText(tr("Apply &Tag Format"));
-  toolsApplyId3Format->setObjectName(QLatin1String("apply_id3_format"));
-  shortcutsModel->registerAction(toolsApplyId3Format, menuTitle);
-  connect(toolsApplyId3Format, SIGNAL(triggered()),
-    m_app, SLOT(applyId3Format()));
-  toolsMenu->addAction(toolsApplyId3Format);
-
-  QAction* toolsApplyTextEncoding = new QAction(this);
-  toolsApplyTextEncoding->setStatusTip(tr("Apply Text Encoding"));
-  toolsApplyTextEncoding->setText(tr("Apply Text &Encoding"));
-  toolsApplyTextEncoding->setObjectName(QLatin1String("apply_text_encoding"));
-  shortcutsModel->registerAction(toolsApplyTextEncoding, menuTitle);
-  connect(toolsApplyTextEncoding, SIGNAL(triggered()),
-    m_app, SLOT(applyTextEncoding()));
-  toolsMenu->addAction(toolsApplyTextEncoding);
-
-  QAction* toolsRenameDirectory = new QAction(this);
-  toolsRenameDirectory->setStatusTip(tr("Rename Directory"));
-  toolsRenameDirectory->setText(tr("&Rename Directory..."));
-  toolsRenameDirectory->setObjectName(QLatin1String("rename_directory"));
-  shortcutsModel->registerAction(toolsRenameDirectory, menuTitle);
-  connect(toolsRenameDirectory, SIGNAL(triggered()),
-    this, SLOT(slotRenameDirectory()));
-  toolsMenu->addAction(toolsRenameDirectory);
-
-  QAction* toolsNumberTracks = new QAction(this);
-  toolsNumberTracks->setStatusTip(tr("Number Tracks"));
-  toolsNumberTracks->setText(tr("&Number Tracks..."));
-  toolsNumberTracks->setObjectName(QLatin1String("number_tracks"));
-  shortcutsModel->registerAction(toolsNumberTracks, menuTitle);
-  connect(toolsNumberTracks, SIGNAL(triggered()),
-    this, SLOT(slotNumberTracks()));
-  toolsMenu->addAction(toolsNumberTracks);
-
-  QAction* toolsFilter = new QAction(this);
-  toolsFilter->setStatusTip(tr("Filter"));
-  toolsFilter->setText(tr("F&ilter..."));
-  toolsFilter->setObjectName(QLatin1String("filter"));
-  shortcutsModel->registerAction(toolsFilter, menuTitle);
-  connect(toolsFilter, SIGNAL(triggered()),
-    this, SLOT(slotFilter()));
-  toolsMenu->addAction(toolsFilter);
-
-#ifdef HAVE_TAGLIB
-  QAction* toolsConvertToId3v24 = new QAction(this);
-  toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
-  toolsConvertToId3v24->setText(tr("Convert ID3v2.3 to ID3v2.&4"));
-  toolsConvertToId3v24->setObjectName(QLatin1String("convert_to_id3v24"));
-  shortcutsModel->registerAction(toolsConvertToId3v24, menuTitle);
-  connect(toolsConvertToId3v24, SIGNAL(triggered()),
-    m_app, SLOT(convertToId3v24()));
-  toolsMenu->addAction(toolsConvertToId3v24);
-#endif
-
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
-  QAction* toolsConvertToId3v23 = new QAction(this);
-  toolsConvertToId3v23->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
-  toolsConvertToId3v23->setText(tr("Convert ID3v2.4 to ID3v2.&3"));
-  toolsConvertToId3v23->setObjectName(QLatin1String("convert_to_id3v23"));
-  shortcutsModel->registerAction(toolsConvertToId3v23, menuTitle);
-  connect(toolsConvertToId3v23, SIGNAL(triggered()),
-    m_app, SLOT(convertToId3v23()));
-  toolsMenu->addAction(toolsConvertToId3v23);
-#endif
-
-#if defined HAVE_PHONON || QT_VERSION >= 0x050000
-  QAction* toolsPlay = new QAction(this);
-  toolsPlay->setStatusTip(tr("Play"));
-  toolsPlay->setText(tr("&Play"));
-  toolsPlay->setIcon(QIcon(style()->standardIcon(QStyle::SP_MediaPlay)));
-  toolsPlay->setObjectName(QLatin1String("play"));
-  shortcutsModel->registerAction(toolsPlay, menuTitle);
-  connect(toolsPlay, SIGNAL(triggered()),
-    m_app, SLOT(playAudio()));
-  toolsMenu->addAction(toolsPlay);
-  toolBar->addAction(toolsPlay);
-#endif
-
-  menuTitle = tr("&Settings");
-  QMenu* settingsMenu = menubar->addMenu(menuTitle);
-  m_viewToolBar = toolBar->toggleViewAction();
-  if (m_viewToolBar) {
-    m_viewToolBar->setStatusTip(tr("Enables/disables the toolbar"));
-    m_viewToolBar->setText(tr("Show &Toolbar"));
-    m_viewToolBar->setObjectName(QLatin1String("options_configure_toolbars"));
-    shortcutsModel->registerAction(m_viewToolBar, menuTitle);
-  }
-  if (ConfigStore::s_miscCfg.m_hideToolBar)
-    toolBar->hide();
-  m_viewToolBar->setChecked(!ConfigStore::s_miscCfg.m_hideToolBar);
-  settingsMenu->addAction(m_viewToolBar);
-
-  m_viewStatusBar = new QAction(this);
-  m_viewStatusBar->setStatusTip(tr("Enables/disables the statusbar"));
-  m_viewStatusBar->setText(tr("Show St&atusbar"));
-  m_viewStatusBar->setCheckable(true);
-  m_viewStatusBar->setObjectName(QLatin1String("options_show_statusbar"));
-  shortcutsModel->registerAction(m_viewStatusBar, menuTitle);
-  connect(m_viewStatusBar, SIGNAL(triggered()),
-    this, SLOT(slotViewStatusBar()));
-  settingsMenu->addAction(m_viewStatusBar);
-
-  m_settingsShowHidePicture = new QAction(this);
-  m_settingsShowHidePicture->setStatusTip(tr("Show Picture"));
-  m_settingsShowHidePicture->setText(tr("Show &Picture"));
-  m_settingsShowHidePicture->setCheckable(true);
-  m_settingsShowHidePicture->setObjectName(QLatin1String("hide_picture"));
-  shortcutsModel->registerAction(m_settingsShowHidePicture, menuTitle);
-  connect(m_settingsShowHidePicture, SIGNAL(triggered()),
-    this, SLOT(slotSettingsShowHidePicture()));
-  settingsMenu->addAction(m_settingsShowHidePicture);
-
-  m_settingsAutoHideTags = new QAction(this);
-  m_settingsAutoHideTags->setStatusTip(tr("Auto Hide Tags"));
-  m_settingsAutoHideTags->setText(tr("Auto &Hide Tags"));
-  m_settingsAutoHideTags->setCheckable(true);
-  m_settingsAutoHideTags->setObjectName(QLatin1String("auto_hide_tags"));
-  shortcutsModel->registerAction(m_settingsAutoHideTags, menuTitle);
-  connect(m_settingsAutoHideTags, SIGNAL(triggered()),
-    this, SLOT(slotSettingsAutoHideTags()));
-  settingsMenu->addAction(m_settingsAutoHideTags);
-
-  QAction* settingsConfigure = new QAction(this);
-  settingsConfigure->setStatusTip(tr("Configure Kid3"));
-  settingsConfigure->setText(tr("&Configure Kid3..."));
-  settingsConfigure->setIcon(QCM_QIcon_fromTheme("preferences-system"));
-#if QT_VERSION >= 0x040600
-  settingsConfigure->setShortcut(QKeySequence::Preferences);
-#endif
-  settingsConfigure->setObjectName(QLatin1String("options_configure"));
-  shortcutsModel->registerAction(settingsConfigure, menuTitle);
-  connect(settingsConfigure, SIGNAL(triggered()),
-    this, SLOT(slotSettingsConfigure()));
-  settingsMenu->addSeparator();
-  settingsMenu->addAction(settingsConfigure);
-  toolBar->addAction(settingsConfigure);
-
-  menuTitle = tr("&Help");
-  QMenu* helpMenu = menubar->addMenu(menuTitle);
-  QAction* helpHandbook = new QAction(this);
-  helpHandbook->setStatusTip(tr("Kid3 Handbook"));
-  helpHandbook->setText(tr("Kid3 &Handbook"));
-  helpHandbook->setIcon(QCM_QIcon_fromTheme("help-contents"));
-  helpHandbook->setShortcut(QKeySequence::HelpContents);
-  helpHandbook->setObjectName(QLatin1String("help_contents"));
-  shortcutsModel->registerAction(helpHandbook, menuTitle);
-  connect(helpHandbook, SIGNAL(triggered()),
-    this, SLOT(slotHelpHandbook()));
-  helpMenu->addAction(helpHandbook);
-
-  QAction* helpAbout = new QAction(this);
-  helpAbout->setStatusTip(tr("About Kid3"));
-  helpAbout->setText(tr("&About Kid3"));
-  helpAbout->setObjectName(QLatin1String("help_about_app"));
-  shortcutsModel->registerAction(helpAbout, menuTitle);
-  connect(helpAbout, SIGNAL(triggered()),
-    this, SLOT(slotHelpAbout()));
-  helpMenu->addAction(helpAbout);
-
-  QAction* helpAboutQt = new QAction(this);
-  helpAboutQt->setStatusTip(tr("About Qt"));
-  helpAboutQt->setText(tr("About &Qt"));
-  helpAboutQt->setObjectName(QLatin1String("help_about_qt"));
-  shortcutsModel->registerAction(helpAboutQt, menuTitle);
-  connect(helpAboutQt, SIGNAL(triggered()),
-    this, SLOT(slotHelpAboutQt()));
-  helpMenu->addAction(helpAboutQt);
-
-  addToolBar(toolBar);
-
-  updateWindowCaption();
-
-  m_form->initActions();
-#endif
-}
-
-/**
- * Update the recent file list and the caption when a new directory
- * is opened.
- */
-void Kid3MainWindow::onDirectoryOpened()
-{
-#ifdef CONFIG_USE_KDE
-  KUrl url;
-  url.setPath(m_app->getDirName());
-  m_fileOpenRecent->addUrl(url);
-#else
-  m_fileOpenRecent->addDirectory(m_app->getDirName());
-#endif
-  updateWindowCaption();
+  readOptions();
 }
 
 /**
@@ -829,7 +197,7 @@ void Kid3MainWindow::onDirectoryOpened()
  *
  * @param dir directory or file path
  */
-void Kid3MainWindow::confirmedOpenDirectory(const QString& dir)
+void BaseMainWindowImpl::confirmedOpenDirectory(const QString& dir)
 {
   if (!saveModified()) {
     return;
@@ -844,21 +212,21 @@ void Kid3MainWindow::confirmedOpenDirectory(const QString& dir)
 }
 
 /**
+ * Update the recent file list and the caption when a new directory
+ * is opened.
+ */
+void BaseMainWindowImpl::onDirectoryOpened()
+{
+  m_self->addDirectoryToRecentFiles(m_app->getDirName());
+  updateWindowCaption();
+}
+
+/**
  * Save application options.
  */
-void Kid3MainWindow::saveOptions()
+void BaseMainWindowImpl::saveOptions()
 {
-#ifdef CONFIG_USE_KDE
-  m_fileOpenRecent->saveEntries(KConfigGroup(m_app->getSettings(),
-                                             "Recent Files"));
-#else
-  m_fileOpenRecent->saveEntries(m_app->getSettings());
-  m_app->getConfigStore()->getShortcutsModel()->writeToConfig(
-        m_app->getSettings());
-  ConfigStore::s_miscCfg.m_hideToolBar = !m_viewToolBar->isChecked();
-  ConfigStore::s_miscCfg.m_geometry = saveGeometry();
-  ConfigStore::s_miscCfg.m_windowState = saveState();
-#endif
+  m_self->saveConfig();
   m_form->saveConfig();
   m_app->saveConfig();
 }
@@ -866,93 +234,19 @@ void Kid3MainWindow::saveOptions()
 /**
  * Load application options.
  */
-void Kid3MainWindow::readOptions()
+void BaseMainWindowImpl::readOptions()
 {
   m_app->readConfig();
-#ifdef CONFIG_USE_KDE
-  setAutoSaveSettings();
-  m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
-  m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
-  m_fileOpenRecent->loadEntries(KConfigGroup(m_app->getSettings(),
-                                             "Recent Files"));
-#else
-  if (ConfigStore::s_miscCfg.m_hideStatusBar)
-    statusBar()->hide();
-  m_viewStatusBar->setChecked(!ConfigStore::s_miscCfg.m_hideStatusBar);
-  m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
-  m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
-  m_fileOpenRecent->loadEntries(m_app->getSettings());
-  m_app->getConfigStore()->getShortcutsModel()->readFromConfig(
-        m_app->getSettings());
-  restoreGeometry(ConfigStore::s_miscCfg.m_geometry);
-  restoreState(ConfigStore::s_miscCfg.m_windowState);
-#endif
+  m_self->readConfig();
   m_form->readConfig();
 }
-
-#ifdef CONFIG_USE_KDE
-/**
- * Saves the window properties to the session config file.
- *
- * @param cfg application configuration
- */
-void Kid3MainWindow::saveProperties(KConfigGroup& cfg)
-{
-  cfg.writeEntry("dirname", m_app->getDirName());
-}
-
-/**
- * Reads the session config file and restores the application's state.
- *
- * @param cfg application configuration
- */
-void Kid3MainWindow::readProperties(const KConfigGroup& cfg)
-{
-  m_app->openDirectory(cfg.readEntry("dirname", ""));
-}
-
-#else /* CONFIG_USE_KDE */
-
-/**
- * Window is closed.
- *
- * @param ce close event
- */
-void Kid3MainWindow::closeEvent(QCloseEvent* ce)
-{
-  if (queryClose()) {
-    ce->accept();
-  }
-  else {
-    ce->ignore();
-  }
-}
-
-/**
- * Read font and style options.
- */
-void Kid3MainWindow::readFontAndStyleOptions()
-{
-  ConfigStore::s_miscCfg.readFromConfig(m_app->getSettings());
-  if (ConfigStore::s_miscCfg.m_useFont &&
-      !ConfigStore::s_miscCfg.m_fontFamily.isEmpty() &&
-      ConfigStore::s_miscCfg.m_fontSize > 0) {
-    QApplication::setFont(QFont(ConfigStore::s_miscCfg.m_fontFamily,
-                                ConfigStore::s_miscCfg.m_fontSize));
-  }
-  if (!ConfigStore::s_miscCfg.m_style.isEmpty()) {
-    QApplication::setStyle(ConfigStore::s_miscCfg.m_style);
-  }
-}
-
-#endif /* CONFIG_USE_KDE */
 
 /**
  * Save all changed files.
  *
  * @param updateGui true to update GUI (controls, status, cursor)
  */
-void Kid3MainWindow::saveDirectory(bool updateGui)
+void BaseMainWindowImpl::saveDirectory(bool updateGui)
 {
   if (updateGui) {
     updateCurrentSelection();
@@ -961,34 +255,24 @@ void Kid3MainWindow::saveDirectory(bool updateGui)
   }
 
   QProgressBar* progress = new QProgressBar;
-  statusBar()->addPermanentWidget(progress);
+  m_w->statusBar()->addPermanentWidget(progress);
   progress->setMinimum(0);
   connect(m_app, SIGNAL(saveStarted(int)),
           progress, SLOT(setMaximum(int)));
   connect(m_app, SIGNAL(saveProgress(int)),
           progress, SLOT(setValue(int)));
-#ifdef CONFIG_USE_KDE
-  kapp->processEvents();
-#else
   qApp->processEvents();
-#endif
 
   QStringList errorFiles = m_app->saveDirectory();
 
-  statusBar()->removeWidget(progress);
+  m_w->statusBar()->removeWidget(progress);
   delete progress;
   updateModificationState();
   if (!errorFiles.empty()) {
-#ifdef CONFIG_USE_KDE
-    KMessageBox::errorList(
-      this, tr("Error while writing file:\n"),
+    m_platformTools->errorList(
+      m_w, tr("Error while writing file:\n"),
       errorFiles,
       tr("File Error"));
-#else
-    MessageDialog::warningList(
-      this, tr("File Error"), tr("Error while writing file:\n"),
-      errorFiles, QMessageBox::Ok);
-#endif
   }
 
   if (updateGui) {
@@ -1006,43 +290,26 @@ void Kid3MainWindow::saveDirectory(bool updateGui)
  *
  * @return false if user canceled.
  */
-bool Kid3MainWindow::saveModified(bool doNotRevert)
+bool BaseMainWindowImpl::saveModified(bool doNotRevert)
 {
   bool completed=true;
 
   if(m_app->isModified() && !m_app->getDirName().isEmpty())
   {
     Kid3MainWindow* win=(Kid3MainWindow *) parent();
-#ifdef CONFIG_USE_KDE
-    const int Yes = KMessageBox::Yes;
-    const int No = KMessageBox::No;
-    const int Cancel = KMessageBox::Cancel;
-    int want_save = KMessageBox::warningYesNoCancel(
+    int want_save = m_platformTools->warningYesNoCancel(
         win,
         tr("The current directory has been modified.\n"
        "Do you want to save it?"),
         tr("Warning"));
-#else
-    const int Yes = QMessageBox::Yes;
-    const int No = QMessageBox::No;
-    const int Cancel = QMessageBox::Cancel;
-    int want_save = QMessageBox::warning(
-      win,
-      tr("Warning - Kid3"),
-      tr("The current directory has been modified.\n"
-           "Do you want to save it?"),
-      QMessageBox::Yes | QMessageBox::Default,
-      QMessageBox::No,
-      QMessageBox::Cancel | QMessageBox::Escape);
-#endif
     switch(want_save)
     {
-    case Yes:
+    case QMessageBox::Yes:
       saveDirectory();
       completed=true;
       break;
 
-    case No:
+    case QMessageBox::No:
       if (!doNotRevert) {
         if (m_form->getFileList()->selectionModel())
           m_form->getFileList()->selectionModel()->clearSelection();
@@ -1052,7 +319,7 @@ bool Kid3MainWindow::saveModified(bool doNotRevert)
       completed=true;
       break;
 
-    case Cancel:
+    case QMessageBox::Cancel:
       completed=false;
       break;
 
@@ -1069,7 +336,7 @@ bool Kid3MainWindow::saveModified(bool doNotRevert)
  * Free allocated resources.
  * Our destructor may not be called, so cleanup is done here.
  */
-void Kid3MainWindow::cleanup()
+void BaseMainWindowImpl::cleanup()
 {
   m_app->getSettings()->sync();
   TaggedFile::staticCleanup();
@@ -1077,16 +344,15 @@ void Kid3MainWindow::cleanup()
 
 /**
  * Update modification state before closing.
- * Called on closeEvent() of window.
  * If anything was modified, save after asking user.
  * Save options before closing.
- * This method is called by closeEvent(), which occurs when the
- * window is closed or slotFileQuit() (Quit menu) is selected.
+ * This method shall be called by closeEvent() (Qt) or
+ * queryClose() (KDE).
  *
  * @return false if user canceled,
  *         true will quit the application.
  */
-bool Kid3MainWindow::queryClose()
+bool BaseMainWindowImpl::queryBeforeClosing()
 {
   updateCurrentSelection();
   if (saveModified(true)) {
@@ -1100,26 +366,14 @@ bool Kid3MainWindow::queryClose()
 /**
  * Request new directory and open it.
  */
-void Kid3MainWindow::slotFileOpen()
+void BaseMainWindowImpl::slotFileOpen()
 {
   updateCurrentSelection();
   if(saveModified()) {
     static QString flt = m_app->createFilterString();
-    QString dir, filter(ConfigStore::s_miscCfg.m_nameFilter);
-#ifdef CONFIG_USE_KDE
-    KFileDialog diag(m_app->getDirName(), flt, this);
-    diag.setWindowTitle(tr("Open"));
-    if (diag.exec() == QDialog::Accepted) {
-      dir = diag.selectedFile();
-      filter = diag.currentFilter();
-    }
-#else
-    dir = QFileDialog::getOpenFileName(
-      this, QString(), m_app->getDirName(), flt, &filter,
-      // filter does not work with the KDE style file dialog
-      ConfigStore::s_miscCfg.m_dontUseNativeDialogs
-      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
-#endif
+    QString filter(ConfigStore::s_miscCfg.m_nameFilter);
+    QString dir = m_platformTools->getOpenFileName(
+      m_w, QString(), m_app->getDirName(), flt, &filter);
     if (!dir.isEmpty()) {
       if (!filter.isEmpty()) {
         ConfigStore::s_miscCfg.m_nameFilter = filter;
@@ -1132,19 +386,12 @@ void Kid3MainWindow::slotFileOpen()
 /**
  * Request new directory and open it.
  */
-void Kid3MainWindow::slotFileOpenDirectory()
+void BaseMainWindowImpl::slotFileOpenDirectory()
 {
   updateCurrentSelection();
   if(saveModified()) {
-    QString dir;
-#ifdef CONFIG_USE_KDE
-    dir = KFileDialog::getExistingDirectory(m_app->getDirName(), this);
-#else
-    dir = QFileDialog::getExistingDirectory(this, QString(), m_app->getDirName(),
-      ConfigStore::s_miscCfg.m_dontUseNativeDialogs
-      ? QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
-      : QFileDialog::ShowDirsOnly);
-#endif
+    QString dir = m_platformTools->getExistingDirectory(m_w, QString(),
+                                                        m_app->getDirName());
     if (!dir.isEmpty()) {
       m_app->openDirectory(dir);
     }
@@ -1156,25 +403,16 @@ void Kid3MainWindow::slotFileOpenDirectory()
  *
  * @param dir directory to open
  */
-#ifdef CONFIG_USE_KDE
-void Kid3MainWindow::slotFileOpenRecentUrl(const KUrl& url)
-{
-  updateCurrentSelection();
-  QString dir = url.path();
-  confirmedOpenDirectory(dir);
-}
-#else /* CONFIG_USE_KDE */
-void Kid3MainWindow::slotFileOpenRecentDirectory(const QString& dir)
+void BaseMainWindowImpl::openRecentDirectory(const QString& dir)
 {
   updateCurrentSelection();
   confirmedOpenDirectory(dir);
 }
-#endif /* CONFIG_USE_KDE */
 
 /**
  * Save modified files.
  */
-void Kid3MainWindow::slotFileSave()
+void BaseMainWindowImpl::slotFileSave()
 {
   saveDirectory(true);
 }
@@ -1182,115 +420,34 @@ void Kid3MainWindow::slotFileSave()
 /**
  * Quit application.
  */
-void Kid3MainWindow::slotFileQuit()
+void BaseMainWindowImpl::slotFileQuit()
 {
   slotStatusMsg(tr("Exiting..."));
-  close(); /* this will lead to call of closeEvent(), queryClose() */
+  m_w->close(); /* this will lead to call of closeEvent(), queryClose() */
 }
 
-#ifdef CONFIG_USE_KDE
-
-void Kid3MainWindow::slotViewStatusBar() {}
-
-/**
- * Shortcuts configuration.
- */
-void Kid3MainWindow::slotSettingsShortcuts()
-{
-  KShortcutsDialog::configure(
-    actionCollection(),
-    KShortcutsEditor::LetterShortcutsDisallowed, this);
-}
-
-/**
- * Toolbars configuration.
- */
-void Kid3MainWindow::slotSettingsToolbars()
-{
-  KEditToolBar dlg(actionCollection());
-  if (dlg.exec()) {
-    createGUI();
-  }
-}
-
-void Kid3MainWindow::slotHelpHandbook() {}
-void Kid3MainWindow::slotHelpAbout() {}
-void Kid3MainWindow::slotHelpAboutQt() {}
-
-#else /* CONFIG_USE_KDE */
-
-void Kid3MainWindow::slotSettingsShortcuts() {}
-void Kid3MainWindow::slotSettingsToolbars() {}
-
-/**
- * Turn status bar on or off.
- */
-void Kid3MainWindow::slotViewStatusBar()
-{
-  ConfigStore::s_miscCfg.m_hideStatusBar = !m_viewStatusBar->isChecked();
-  slotStatusMsg(tr("Toggle the statusbar..."));
-  if(ConfigStore::s_miscCfg.m_hideStatusBar) {
-    statusBar()->hide();
-  }
-  else {
-    statusBar()->show();
-  }
-  slotStatusMsg(tr("Ready."));
-}
-
-/**
- * Display handbook.
- */
-void Kid3MainWindow::slotHelpHandbook()
-{
-  ContextHelp::displayHelp();
-}
-
-/**
- * Display "About" dialog.
- */
-void Kid3MainWindow::slotHelpAbout()
-{
-  QMessageBox::about(
-    this, QLatin1String("Kid3"),
-    QLatin1String("Kid3 " VERSION
-    "\n(c) 2003-" RELEASE_YEAR " Urs Fleisch\nufleisch@users.sourceforge.net"));
-}
-
-/**
- * Display "About Qt" dialog.
- */
-void Kid3MainWindow::slotHelpAboutQt()
-{
-  QMessageBox::aboutQt(this, QLatin1String("Kid3"));
-}
-#endif /* CONFIG_USE_KDE */
 
 /**
  * Change status message.
  *
  * @param text message
  */
-void Kid3MainWindow::slotStatusMsg(const QString& text)
+void BaseMainWindowImpl::slotStatusMsg(const QString& text)
 {
-  statusBar()->showMessage(text);
+  m_w->statusBar()->showMessage(text);
   // processEvents() is necessary to make the change of the status bar
   // visible when it is changed back again in the same function,
   // i.e. in the same call from the Qt main event loop.
-#ifdef CONFIG_USE_KDE
-  kapp->processEvents();
-#else
   qApp->processEvents();
-#endif
 }
 
 /**
  * Show playlist dialog.
  */
-void Kid3MainWindow::slotPlaylistDialog()
+void BaseMainWindowImpl::slotPlaylistDialog()
 {
   if (!m_playlistDialog) {
-    m_playlistDialog = new PlaylistDialog(this);
+    m_playlistDialog = new PlaylistDialog(m_w);
   }
   m_playlistDialog->readConfig();
   if (m_playlistDialog->exec() == QDialog::Accepted) {
@@ -1307,7 +464,7 @@ void Kid3MainWindow::slotPlaylistDialog()
  *
  * @return true if ok.
  */
-bool Kid3MainWindow::writePlaylist(const PlaylistConfig& cfg)
+bool BaseMainWindowImpl::writePlaylist(const PlaylistConfig& cfg)
 {
   QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   slotStatusMsg(tr("Creating playlist..."));
@@ -1324,7 +481,7 @@ bool Kid3MainWindow::writePlaylist(const PlaylistConfig& cfg)
  *
  * @return true if ok.
  */
-bool Kid3MainWindow::slotCreatePlaylist()
+bool BaseMainWindowImpl::slotCreatePlaylist()
 {
   return writePlaylist(ConfigStore::s_playlistCfg);
 }
@@ -1332,13 +489,13 @@ bool Kid3MainWindow::slotCreatePlaylist()
 /**
  * Update track data and create import dialog.
  */
-void Kid3MainWindow::setupImportDialog()
+void BaseMainWindowImpl::setupImportDialog()
 {
   m_app->filesToTrackDataModel(ConfigStore::s_genCfg.m_importDest);
   if (!m_importDialog) {
     QString caption(tr("Import"));
     m_importDialog =
-      new ImportDialog(this, caption, m_app->getTrackDataModel(),
+      new ImportDialog(m_w, caption, m_app->getTrackDataModel(),
                        m_app->getServerImporters(),
                        m_app->getMusicBrainzClient());
   }
@@ -1348,7 +505,7 @@ void Kid3MainWindow::setupImportDialog()
 /**
  * Execute the import dialog.
  */
-void Kid3MainWindow::execImportDialog()
+void BaseMainWindowImpl::execImportDialog()
 {
   if (m_importDialog &&
       m_importDialog->exec() == QDialog::Accepted) {
@@ -1359,7 +516,7 @@ void Kid3MainWindow::execImportDialog()
 /**
  * Import.
  */
-void Kid3MainWindow::slotImport()
+void BaseMainWindowImpl::slotImport()
 {
   if (QAction* action = qobject_cast<QAction*>(sender())) {
     setupImportDialog();
@@ -1373,11 +530,11 @@ void Kid3MainWindow::slotImport()
 /**
  * Batch import.
  */
-void Kid3MainWindow::slotBatchImport()
+void BaseMainWindowImpl::slotBatchImport()
 {
   if (!m_batchImportDialog) {
     m_batchImportDialog = new BatchImportDialog(m_app->getServerImporters(),
-                                                this);
+                                                m_w);
     connect(m_batchImportDialog,
             SIGNAL(start(BatchImportProfile,TrackData::TagVersion)),
             m_app,
@@ -1401,10 +558,10 @@ void Kid3MainWindow::slotBatchImport()
 /**
  * Browse album cover artwork.
  */
-void Kid3MainWindow::slotBrowseCoverArt()
+void BaseMainWindowImpl::slotBrowseCoverArt()
 {
   if (!m_browseCoverArtDialog) {
-    m_browseCoverArtDialog = new BrowseCoverArtDialog(this);
+    m_browseCoverArtDialog = new BrowseCoverArtDialog(m_w);
   }
   FrameCollection frames2;
   QModelIndex index = m_form->getFileList()->currentIndex();
@@ -1424,9 +581,9 @@ void Kid3MainWindow::slotBrowseCoverArt()
 /**
  * Export.
  */
-void Kid3MainWindow::slotExport()
+void BaseMainWindowImpl::slotExport()
 {
-  m_exportDialog = new ExportDialog(this, m_app->getTextExporter());
+  m_exportDialog = new ExportDialog(m_w, m_app->getTextExporter());
   m_exportDialog->readConfig();
   ImportTrackDataVector trackDataVector;
   m_app->filesToTrackData(ConfigStore::s_genCfg.m_exportSrcV1,
@@ -1441,13 +598,9 @@ void Kid3MainWindow::slotExport()
 /**
  * Toggle auto hiding of tags.
  */
-void Kid3MainWindow::slotSettingsAutoHideTags()
+void BaseMainWindowImpl::slotSettingsAutoHideTags()
 {
-#ifdef CONFIG_USE_KDE
-  ConfigStore::s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isChecked();
-#else
-  ConfigStore::s_miscCfg.m_autoHideTags = m_settingsAutoHideTags->isChecked();
-#endif
+  ConfigStore::s_miscCfg.m_autoHideTags = m_self->autoHideTagsAction()->isChecked();
   updateCurrentSelection();
   updateGuiControls();
 }
@@ -1455,13 +608,9 @@ void Kid3MainWindow::slotSettingsAutoHideTags()
 /**
  * Show or hide picture.
  */
-void Kid3MainWindow::slotSettingsShowHidePicture()
+void BaseMainWindowImpl::slotSettingsShowHidePicture()
 {
-#ifdef CONFIG_USE_KDE
-  ConfigStore::s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isChecked();
-#else
-  ConfigStore::s_miscCfg.m_hidePicture = !m_settingsShowHidePicture->isChecked();
-#endif
+  ConfigStore::s_miscCfg.m_hidePicture = !m_self->showHidePictureAction()->isChecked();
 
   m_form->hidePicture(ConfigStore::s_miscCfg.m_hidePicture);
   // In Qt3 the picture is displayed too small if Kid3 is started with picture
@@ -1474,50 +623,36 @@ void Kid3MainWindow::slotSettingsShowHidePicture()
 }
 
 /**
- * Preferences.
+ * Apply configuration changes.
  */
-void Kid3MainWindow::slotSettingsConfigure()
+void BaseMainWindowImpl::applyChangedConfiguration()
 {
-  QString caption(tr("Configure - Kid3"));
-#ifdef CONFIG_USE_KDE
-  KConfigSkeleton* configSkeleton = new KConfigSkeleton;
-  ConfigDialog* dialog = new ConfigDialog(this, caption, configSkeleton);
-#else
-  ConfigDialog* dialog = new ConfigDialog(this, caption);
-#endif
-  dialog->setConfig(m_app->getConfigStore());
-  if (dialog->exec() == QDialog::Accepted) {
-    quint64 oldQuickAccessFrames = ConfigStore::s_miscCfg.m_quickAccessFrames;
-    dialog->getConfig(m_app->getConfigStore());
-    m_app->saveConfig();
-    if (!ConfigStore::s_miscCfg.m_markTruncations) {
-      m_app->frameModelV1()->markRows(0);
-    }
-    if (!ConfigStore::s_miscCfg.m_markChanges) {
-      m_app->frameModelV1()->markChangedFrames(0);
-      m_app->frameModelV2()->markChangedFrames(0);
-      m_form->markChangedFilename(false);
-    }
-    m_app->setTextEncodings();
-    if (ConfigStore::s_miscCfg.m_quickAccessFrames != oldQuickAccessFrames) {
-      FrameCollection::setQuickAccessFrames(
-            ConfigStore::s_miscCfg.m_quickAccessFrames);
-      updateGuiControls();
-    }
+  m_app->saveConfig();
+  if (!ConfigStore::s_miscCfg.m_markTruncations) {
+    m_app->frameModelV1()->markRows(0);
   }
-#ifdef CONFIG_USE_KDE
-  delete configSkeleton;
-#endif
+  if (!ConfigStore::s_miscCfg.m_markChanges) {
+    m_app->frameModelV1()->markChangedFrames(0);
+    m_app->frameModelV2()->markChangedFrames(0);
+    m_form->markChangedFilename(false);
+  }
+  m_app->setTextEncodings();
+  quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
+  if (ConfigStore::s_miscCfg.m_quickAccessFrames != oldQuickAccessFrames) {
+    FrameCollection::setQuickAccessFrames(
+          ConfigStore::s_miscCfg.m_quickAccessFrames);
+    updateGuiControls();
+  }
 }
 
 /**
  * Rename directory.
  */
-void Kid3MainWindow::slotRenameDirectory()
+void BaseMainWindowImpl::slotRenameDirectory()
 {
   if (saveModified()) {
     if (!m_renDirDialog) {
-      m_renDirDialog = new RenDirDialog(this, m_app->getDirRenamer());
+      m_renDirDialog = new RenDirDialog(m_w, m_app->getDirRenamer());
       connect(m_renDirDialog, SIGNAL(actionSchedulingRequested()),
               m_app, SLOT(scheduleRenameActions()));
       connect(m_app->getDirRenamer(), SIGNAL(actionScheduled(QStringList)),
@@ -1532,17 +667,8 @@ void Kid3MainWindow::slotRenameDirectory()
     if (m_renDirDialog->exec() == QDialog::Accepted) {
       QString errorMsg(m_app->performRenameActions());
       if (!errorMsg.isEmpty()) {
-#ifdef CONFIG_USE_KDE
-        KMessageBox::error(this, tr("Error while renaming:\n") + errorMsg,
-                           tr("File Error"));
-#else
-        MessageDialog dialog(this);
-        dialog.setWindowTitle(tr("File Error"));
-        dialog.setText(tr("Error while renaming:\n"));
-        dialog.setInformativeText(errorMsg);
-        dialog.setIcon(QMessageBox::Warning);
-        dialog.exec();
-#endif
+        m_platformTools->warningDialog(m_w, tr("Error while renaming:\n"),
+                                       errorMsg, tr("File Error"));
       }
     }
   }
@@ -1551,10 +677,10 @@ void Kid3MainWindow::slotRenameDirectory()
 /**
  * Number tracks.
  */
-void Kid3MainWindow::slotNumberTracks()
+void BaseMainWindowImpl::slotNumberTracks()
 {
   if (!m_numberTracksDialog) {
-    m_numberTracksDialog = new NumberTracksDialog(this);
+    m_numberTracksDialog = new NumberTracksDialog(m_w);
   }
   m_numberTracksDialog->setTotalNumberOfTracks(
     m_app->getTotalNumberOfTracksInDir(),
@@ -1573,11 +699,11 @@ void Kid3MainWindow::slotNumberTracks()
 /**
  * Filter.
  */
-void Kid3MainWindow::slotFilter()
+void BaseMainWindowImpl::slotFilter()
 {
   if (saveModified()) {
     if (!m_filterDialog) {
-      m_filterDialog = new FilterDialog(this);
+      m_filterDialog = new FilterDialog(m_w);
       connect(m_filterDialog, SIGNAL(apply(FileFilter&)),
               m_app, SLOT(applyFilter(FileFilter&)));
       connect(m_app, SIGNAL(fileFiltered(FileFilter::FilterEventType,QString)),
@@ -1595,7 +721,7 @@ void Kid3MainWindow::slotFilter()
 /**
  * Play audio file.
  */
-void Kid3MainWindow::slotPlayAudio()
+void BaseMainWindowImpl::slotPlayAudio()
 {
   m_app->playAudio();
 }
@@ -1603,12 +729,12 @@ void Kid3MainWindow::slotPlayAudio()
 /**
  * Show play tool bar.
  */
-void Kid3MainWindow::showPlayToolBar()
+void BaseMainWindowImpl::showPlayToolBar()
 {
   if (!m_playToolBar) {
-    m_playToolBar = new PlayToolBar(m_app->getAudioPlayer(), this);
+    m_playToolBar = new PlayToolBar(m_app->getAudioPlayer(), m_w);
     m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
-    addToolBar(Qt::BottomToolBarArea, m_playToolBar);
+    m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
     connect(m_playToolBar, SIGNAL(errorMessage(const QString&)),
             this, SLOT(slotStatusMsg(const QString&)));
   }
@@ -1619,7 +745,7 @@ void Kid3MainWindow::showPlayToolBar()
 /**
  * Update modification state, caption and listbox entries.
  */
-void Kid3MainWindow::updateModificationState()
+void BaseMainWindowImpl::updateModificationState()
 {
   bool modified = false;
   TaggedFileIterator it(m_form->getFileList()->rootIndex());
@@ -1639,7 +765,7 @@ void Kid3MainWindow::updateModificationState()
  * Set window title with information from directory, filter and modification
  * state.
  */
-void Kid3MainWindow::updateWindowCaption()
+void BaseMainWindowImpl::updateWindowCaption()
 {
   QString cap;
   if (!m_app->getDirName().isEmpty()) {
@@ -1648,24 +774,13 @@ void Kid3MainWindow::updateWindowCaption()
   if (m_app->isFiltered()) {
     cap += tr(" [filtered]");
   }
-#ifdef CONFIG_USE_KDE
-  setCaption(cap, m_app->isModified());
-#else
-  if (m_app->isModified()) {
-    cap += tr(" [modified]");
-  }
-  if (!cap.isEmpty()) {
-    cap += QLatin1String(" - ");
-  }
-  cap += QLatin1String("Kid3");
-  setWindowTitle(cap);
-#endif
+  m_self->setWindowCaption(cap, m_app->isModified());
 }
 
 /**
  * Update files of current selection.
  */
-void Kid3MainWindow::updateCurrentSelection()
+void BaseMainWindowImpl::updateCurrentSelection()
 {
   const QList<QPersistentModelIndex>& selItems =
     m_form->getFileList()->getCurrentSelection();
@@ -1695,7 +810,7 @@ void Kid3MainWindow::updateCurrentSelection()
  * The new selection is stored and the GUI controls and frame list
  * updated accordingly (filtered for multiple selection).
  */
-void Kid3MainWindow::updateGuiControls()
+void BaseMainWindowImpl::updateGuiControls()
 {
   TaggedFile* single_v2_file = 0;
   int num_v1_selected = 0;
@@ -1846,7 +961,7 @@ void Kid3MainWindow::updateGuiControls()
  *
  * @param taggedFile the selected file
  */
-void Kid3MainWindow::updateAfterFrameModification(TaggedFile* taggedFile)
+void BaseMainWindowImpl::updateAfterFrameModification(TaggedFile* taggedFile)
 {
   if (taggedFile) {
     FrameCollection frames;
@@ -1890,12 +1005,12 @@ static Frame::Type getTypeFromTranslatedName(QString name)
  *
  * @return false if no frame selected.
  */
-bool Kid3MainWindow::selectFrame(Frame* frame, const TaggedFile* taggedFile)
+bool BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
 {
   bool ok = false;
   if (taggedFile && frame) {
     QString name = QInputDialog::getItem(
-      this, tr("Add Frame"),
+      m_w, tr("Add Frame"),
       tr("Select the frame ID"), taggedFile->getFrameIds(), 0, true, &ok);
     if (ok) {
       Frame::Type type = getTypeFromTranslatedName(name);
@@ -1914,7 +1029,7 @@ bool Kid3MainWindow::selectFrame(Frame* frame, const TaggedFile* taggedFile)
  *
  * @return true if Ok selected in dialog.
  */
-bool Kid3MainWindow::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
+bool BaseMainWindowImpl::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
 {
   if (!frame || !taggedFile)
     return false;
@@ -1932,14 +1047,14 @@ bool Kid3MainWindow::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
   }
   if (frame->getFieldList().empty()) {
     EditFrameDialog* dialog =
-      new EditFrameDialog(this, name, frame->getValue());
+      new EditFrameDialog(m_w, name, frame->getValue());
     result = dialog && dialog->exec() == QDialog::Accepted;
     if (result) {
       frame->setValue(dialog->getText());
     }
   } else {
     EditFrameFieldsDialog* dialog =
-      new EditFrameFieldsDialog(this, name, *frame, taggedFile);
+      new EditFrameFieldsDialog(m_w, name, *frame, taggedFile);
     result = dialog && dialog->exec() == QDialog::Accepted;
     if (result) {
       frame->setFieldList(dialog->getUpdatedFieldList());
@@ -1957,7 +1072,7 @@ bool Kid3MainWindow::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
 /**
  * Rename the selected file(s).
  */
-void Kid3MainWindow::renameFile()
+void BaseMainWindowImpl::renameFile()
 {
   QItemSelectionModel* selectModel = m_form->getFileList()->selectionModel();
   FileProxyModel* model =
@@ -1983,7 +1098,7 @@ void Kid3MainWindow::renameFile()
     }
     bool ok;
     QString newFileName = QInputDialog::getText(
-      this,
+      m_w,
       tr("Rename File"),
       tr("Enter new file name:"),
       QLineEdit::Normal, fileName, &ok);
@@ -2020,7 +1135,7 @@ void Kid3MainWindow::renameFile()
 /**
  * Delete the selected file(s).
  */
-void Kid3MainWindow::deleteFile()
+void BaseMainWindowImpl::deleteFile()
 {
   QItemSelectionModel* selectModel = m_form->getFileList()->selectionModel();
   FileProxyModel* model =
@@ -2038,28 +1153,14 @@ void Kid3MainWindow::deleteFile()
 
   unsigned numFiles = files.size();
   if (numFiles > 0) {
-#ifdef CONFIG_USE_KDE
-    if (KMessageBox::warningContinueCancelList(
-          this,
+    if (m_platformTools->warningContinueCancelList(
+          m_w,
           numFiles > 1
           ? tr("Do you really want to move these %1 items to the trash?").
             arg(numFiles)
           : tr("Do you really want to move this item to the trash?"),
           files,
-          tr("Move to Trash"),
-          KStandardGuiItem::ok(), KStandardGuiItem::cancel(), QString(),
-          KMessageBox::Dangerous) == KMessageBox::Continue)
-#else
-    if (MessageDialog::warningList(
-          this,
-          tr("Move to Trash"),
-          numFiles > 1
-          ? tr("Do you really want to move these %1 items to the trash?").
-            arg(numFiles)
-          : tr("Do you really want to move this item to the trash?"),
-          files) == QMessageBox::Ok)
-#endif
-    {
+          tr("Move to Trash"))) {
       bool rmdirError = false;
       files.clear();
       foreach (QPersistentModelIndex index, selItems) {
@@ -2086,12 +1187,7 @@ void Kid3MainWindow::deleteFile()
         if (rmdirError)
           txt += tr("Directory must be empty.\n");
         txt += tr("Could not move these files to the Trash");
-#ifdef CONFIG_USE_KDE
-        KMessageBox::errorList(this, txt, files, tr("File Error"));
-#else
-        MessageDialog::warningList(
-          this, tr("File Error"), txt, files, QMessageBox::Ok);
-#endif
+        m_platformTools->errorList(m_w, txt, files, tr("File Error"));
       }
     }
   }
@@ -2100,7 +1196,7 @@ void Kid3MainWindow::deleteFile()
 /**
  * Expand the file list.
  */
-void Kid3MainWindow::expandFileList()
+void BaseMainWindowImpl::expandFileList()
 {
   m_expandFileListStartTime = QDateTime::currentDateTime();
   connect(m_app->getFileProxyModelIterator(),
@@ -2114,7 +1210,7 @@ void Kid3MainWindow::expandFileList()
  *
  * @param index index of file in file proxy model
  */
-void Kid3MainWindow::expandNextDirectory(const QPersistentModelIndex& index)
+void BaseMainWindowImpl::expandNextDirectory(const QPersistentModelIndex& index)
 {
   bool terminated = !index.isValid();
   if (!terminated) {
@@ -2126,7 +1222,7 @@ void Kid3MainWindow::expandNextDirectory(const QPersistentModelIndex& index)
       // Operation is taking some time, show dialog to abort it.
       m_expandFileListStartTime = QDateTime();
       if (!m_progressDialog) {
-        m_progressDialog = new QProgressDialog(this);
+        m_progressDialog = new QProgressDialog(m_w);
       }
       m_progressDialog->setWindowTitle(tr("Expand All"));
       m_progressDialog->setLabelText(QString());
@@ -2149,4 +1245,1086 @@ void Kid3MainWindow::expandNextDirectory(const QPersistentModelIndex& index)
       m_progressDialog->reset();
     }
   }
+}
+
+
+/**
+ * Constructor.
+ *
+ * @param platformTools platform specific tools
+ */
+Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools) :
+  BaseMainWindow(this, platformTools) {
+#ifndef CONFIG_USE_KDE
+#if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
+  QPixmap icon;
+  if (icon.load(QLatin1String(CFG_DATAROOTDIR) +
+#ifndef Q_OS_MAC
+                QLatin1String("/icons/hicolor/48x48/apps/kid3-qt.png")
+#else
+                QLatin1String("/kid3.png")
+#endif
+        )) {
+    setWindowIcon(icon);
+  }
+#endif
+  readFontAndStyleOptions();
+#endif
+
+  init();
+}
+
+/**
+ * Destructor.
+ */
+Kid3MainWindow::~Kid3MainWindow()
+{
+}
+
+/** Only defined for generation of translation files */
+#define MAIN_TOOLBAR_FOR_PO QT_TRANSLATE_NOOP("@default", "Main Toolbar")
+
+/**
+ * Init menu and toolbar actions.
+ */
+void Kid3MainWindow::initActions()
+{
+#ifdef CONFIG_USE_KDE
+  KAction* fileOpen = KStandardAction::open(
+      impl(), SLOT(slotFileOpen()), actionCollection());
+  m_fileOpenRecent = KStandardAction::openRecent(
+      this,
+      SLOT(slotFileOpenRecentUrl(const KUrl&)),
+      actionCollection());
+  KAction* fileRevert = KStandardAction::revert(
+      app(), SLOT(revertFileModifications()), actionCollection());
+  KAction* fileSave = KStandardAction::save(
+      impl(), SLOT(slotFileSave()), actionCollection());
+  KAction* fileQuit = KStandardAction::quit(
+      impl(), SLOT(slotFileQuit()), actionCollection());
+  KAction* editSelectAll = KStandardAction::selectAll(
+      form(), SLOT(selectAllFiles()), actionCollection());
+  KAction* editDeselect = KStandardAction::deselect(
+      form(), SLOT(deselectAllFiles()), actionCollection());
+  setStandardToolBarMenuEnabled(true);
+  createStandardStatusBarAction();
+  KAction* settingsShortcuts = KStandardAction::keyBindings(
+    this, SLOT(slotSettingsShortcuts()), actionCollection());
+  KAction* settingsToolbars = KStandardAction::configureToolbars(
+    this, SLOT(slotSettingsToolbars()), actionCollection());
+  KAction* settingsConfigure = KStandardAction::preferences(
+      this, SLOT(slotSettingsConfigure()), actionCollection());
+
+  fileOpen->setStatusTip(tr("Opens a directory"));
+  m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
+  fileRevert->setStatusTip(
+      tr("Reverts the changes of all or the selected files"));
+  fileSave->setStatusTip(tr("Saves the changed files"));
+  fileQuit->setStatusTip(tr("Quits the application"));
+  editSelectAll->setStatusTip(tr("Select all files"));
+  editSelectAll->setShortcut(KShortcut(QLatin1String("Alt+Shift+A")));
+  editDeselect->setStatusTip(tr("Deselect all files"));
+  settingsShortcuts->setStatusTip(tr("Configure Shortcuts"));
+  settingsToolbars->setStatusTip(tr("Configure Toolbars"));
+  settingsConfigure->setStatusTip(tr("Preferences dialog"));
+
+  KAction* fileOpenDirectory = new KAction(KIcon(QLatin1String("document-open")), tr("O&pen Directory..."), this);
+  fileOpenDirectory->setShortcut(KShortcut(QLatin1String("Ctrl+D")));
+  actionCollection()->addAction(QLatin1String("open_directory"), fileOpenDirectory);
+  connect(fileOpenDirectory, SIGNAL(triggered()), impl(), SLOT(slotFileOpenDirectory()));
+  KAction* fileImport = new KAction(KIcon(QLatin1String("document-import")), tr("&Import..."), this);
+  fileImport->setData(-1);
+  actionCollection()->addAction(QLatin1String("import"), fileImport);
+  connect(fileImport, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+
+  int importerIdx = 0;
+  foreach (const ServerImporter* si, app()->getServerImporters()) {
+    QString serverName(QCoreApplication::translate("@default", si->name()));
+    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
+    int dotPos = actionName.indexOf(QLatin1Char('.'));
+    if (dotPos != -1)
+      actionName.truncate(dotPos);
+    actionName = QLatin1String("import_") + actionName;
+    KAction* fileImportServer =
+        new KAction(tr("Import from %1...").arg(serverName), this);
+    fileImportServer->setData(importerIdx);
+    actionCollection()->addAction(actionName, fileImportServer);
+    connect(fileImportServer, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+    ++importerIdx;
+  }
+#ifdef HAVE_CHROMAPRINT
+  QString serverName(tr("MusicBrainz Fingerprint"));
+  KAction* fileImportMusicBrainz =
+      new KAction(tr("Import from %1...").arg(serverName), this);
+  fileImportMusicBrainz->setData(importerIdx);
+  actionCollection()->addAction(QLatin1String("import_musicbrainz"), fileImportMusicBrainz);
+  connect(fileImportMusicBrainz, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+  ++importerIdx;
+#endif
+  KAction* fileBatchImport = new KAction(tr("Automatic I&mport..."), this);
+  actionCollection()->addAction(QLatin1String("batch_import"), fileBatchImport);
+  connect(fileBatchImport, SIGNAL(triggered()), impl(), SLOT(slotBatchImport()));
+
+  KAction* fileBrowseCoverArt = new KAction(tr("&Browse Cover Art..."), this);
+  actionCollection()->addAction(QLatin1String("browse_cover_art"), fileBrowseCoverArt);
+  connect(fileBrowseCoverArt, SIGNAL(triggered()), impl(), SLOT(slotBrowseCoverArt()));
+  KAction* fileExport = new KAction(KIcon(QLatin1String("document-export")), tr("&Export..."), this);
+  actionCollection()->addAction(QLatin1String("export"), fileExport);
+  connect(fileExport, SIGNAL(triggered()), impl(), SLOT(slotExport()));
+  KAction* fileCreatePlaylist = new KAction(KIcon(QLatin1String("view-media-playlist")), tr("&Create Playlist..."), this);
+  actionCollection()->addAction(QLatin1String("create_playlist"), fileCreatePlaylist);
+  connect(fileCreatePlaylist, SIGNAL(triggered()), impl(), SLOT(slotPlaylistDialog()));
+  KAction* toolsApplyFilenameFormat = new KAction(tr("Apply &Filename Format"), this);
+  actionCollection()->addAction(QLatin1String("apply_filename_format"), toolsApplyFilenameFormat);
+  connect(toolsApplyFilenameFormat, SIGNAL(triggered()), app(), SLOT(applyFilenameFormat()));
+  KAction* toolsApplyId3Format = new KAction(tr("Apply &Tag Format"), this);
+  actionCollection()->addAction(QLatin1String("apply_id3_format"), toolsApplyId3Format);
+  connect(toolsApplyId3Format, SIGNAL(triggered()), app(), SLOT(applyId3Format()));
+  KAction* toolsApplyTextEncoding = new KAction(tr("Apply Text &Encoding"), this);
+  actionCollection()->addAction(QLatin1String("apply_text_encoding"), toolsApplyTextEncoding);
+  connect(toolsApplyTextEncoding, SIGNAL(triggered()), app(), SLOT(applyTextEncoding()));
+  KAction* toolsRenameDirectory = new KAction(tr("&Rename Directory..."), this);
+  actionCollection()->addAction(QLatin1String("rename_directory"), toolsRenameDirectory);
+  connect(toolsRenameDirectory, SIGNAL(triggered()), impl(), SLOT(slotRenameDirectory()));
+  KAction* toolsNumberTracks = new KAction(tr("&Number Tracks..."), this);
+  actionCollection()->addAction(QLatin1String("number_tracks"), toolsNumberTracks);
+  connect(toolsNumberTracks, SIGNAL(triggered()), impl(), SLOT(slotNumberTracks()));
+  KAction* toolsFilter = new KAction(tr("F&ilter..."), this);
+  actionCollection()->addAction(QLatin1String("filter"), toolsFilter);
+  connect(toolsFilter, SIGNAL(triggered()), impl(), SLOT(slotFilter()));
+#ifdef HAVE_TAGLIB
+  KAction* toolsConvertToId3v24 = new KAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
+  actionCollection()->addAction(QLatin1String("convert_to_id3v24"), toolsConvertToId3v24);
+  connect(toolsConvertToId3v24, SIGNAL(triggered()), app(), SLOT(convertToId3v24()));
+#endif
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
+  KAction* toolsConvertToId3v23 = new KAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
+  actionCollection()->addAction(QLatin1String("convert_to_id3v23"), toolsConvertToId3v23);
+  connect(toolsConvertToId3v23, SIGNAL(triggered()), app(), SLOT(convertToId3v23()));
+#endif
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+  KAction* toolsPlay = new KAction(KIcon(QLatin1String("media-playback-start")), tr("&Play"), this);
+  actionCollection()->addAction(QLatin1String("play"), toolsPlay);
+  connect(toolsPlay, SIGNAL(triggered()), app(), SLOT(playAudio()));
+#endif
+  m_settingsShowHidePicture = new KToggleAction(tr("Show &Picture"), this);
+  m_settingsShowHidePicture->setCheckable(true);
+  actionCollection()->addAction(QLatin1String("hide_picture"), m_settingsShowHidePicture);
+  connect(m_settingsShowHidePicture, SIGNAL(triggered()), impl(), SLOT(slotSettingsShowHidePicture()));
+  m_settingsAutoHideTags = new KToggleAction(tr("Auto &Hide Tags"), this);
+  m_settingsAutoHideTags->setCheckable(true);
+  actionCollection()->addAction(QLatin1String("auto_hide_tags"), m_settingsAutoHideTags);
+  connect(m_settingsAutoHideTags, SIGNAL(triggered()), impl(), SLOT(slotSettingsAutoHideTags()));
+  KAction* editSelectAllInDir = new KAction(tr("Select All in &Directory"), this);
+  actionCollection()->addAction(QLatin1String("select_all_in_directory"), editSelectAllInDir);
+  connect(editSelectAllInDir, SIGNAL(triggered()), form(), SLOT(selectAllInDirectory()));
+  KAction* editPreviousFile = new KAction(KIcon(QLatin1String("go-previous")), tr("&Previous File"), this);
+  editPreviousFile->setShortcut(KShortcut(QLatin1String("Alt+Up")));
+  actionCollection()->addAction(QLatin1String("previous_file"), editPreviousFile);
+  connect(editPreviousFile, SIGNAL(triggered()), app(), SLOT(previousFile()));
+  KAction* editNextFile = new KAction(KIcon(QLatin1String("go-next")), tr("&Next File"), this);
+  editNextFile->setShortcut(KShortcut(QLatin1String("Alt+Down")));
+  actionCollection()->addAction(QLatin1String("next_file"), editNextFile);
+  connect(editNextFile, SIGNAL(triggered()), app(), SLOT(nextFile()));
+  KAction* actionV1FromFilename = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("From Filename"), this);
+  actionCollection()->addAction(QLatin1String("v1_from_filename"), actionV1FromFilename);
+  connect(actionV1FromFilename, SIGNAL(triggered()), app(), SLOT(getTagsFromFilenameV1()));
+  KAction* actionV1FromV2 = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("From Tag 2"), this);
+  actionCollection()->addAction(QLatin1String("v1_from_v2"), actionV1FromV2);
+  connect(actionV1FromV2, SIGNAL(triggered()), app(), SLOT(copyV2ToV1()));
+  KAction* actionV1Copy = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Copy"), this);
+  actionCollection()->addAction(QLatin1String("v1_copy"), actionV1Copy);
+  connect(actionV1Copy, SIGNAL(triggered()), app(), SLOT(copyTagsV1()));
+  KAction* actionV1Paste = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Paste"), this);
+  actionCollection()->addAction(QLatin1String("v1_paste"), actionV1Paste);
+  connect(actionV1Paste, SIGNAL(triggered()), app(), SLOT(pasteTagsV1()));
+  KAction* actionV1Remove = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Remove"), this);
+  actionCollection()->addAction(QLatin1String("v1_remove"), actionV1Remove);
+  connect(actionV1Remove, SIGNAL(triggered()), app(), SLOT(removeTagsV1()));
+  KAction* actionV2FromFilename = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("From Filename"), this);
+  actionCollection()->addAction(QLatin1String("v2_from_filename"), actionV2FromFilename);
+  connect(actionV2FromFilename, SIGNAL(triggered()), app(), SLOT(getTagsFromFilenameV2()));
+  KAction* actionV2FromV1 = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("From Tag 1"), this);
+  actionCollection()->addAction(QLatin1String("v2_from_v1"), actionV2FromV1);
+  connect(actionV2FromV1, SIGNAL(triggered()), app(), SLOT(copyV1ToV2()));
+  KAction* actionV2Copy = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Copy"), this);
+  actionCollection()->addAction(QLatin1String("v2_copy"), actionV2Copy);
+  connect(actionV2Copy, SIGNAL(triggered()), app(), SLOT(copyTagsV2()));
+  KAction* actionV2Paste = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Paste"), this);
+  actionCollection()->addAction(QLatin1String("v2_paste"), actionV2Paste);
+  connect(actionV2Paste, SIGNAL(triggered()), app(), SLOT(pasteTagsV2()));
+  KAction* actionV2Remove = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Remove"), this);
+  actionCollection()->addAction(QLatin1String("v2_remove"), actionV2Remove);
+  connect(actionV2Remove, SIGNAL(triggered()), app(), SLOT(removeTagsV2()));
+  KAction* actionFramesEdit = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Edit"), this);
+  actionCollection()->addAction(QLatin1String("frames_edit"), actionFramesEdit);
+  connect(actionFramesEdit, SIGNAL(triggered()), form(), SLOT(editFrame()));
+  KAction* actionFramesAdd = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Add"), this);
+  actionCollection()->addAction(QLatin1String("frames_add"), actionFramesAdd);
+  connect(actionFramesAdd, SIGNAL(triggered()), form(), SLOT(addFrame()));
+  KAction* actionFramesDelete = new KAction(tr("Frames:") + QLatin1Char(' ') + tr("Delete"), this);
+  actionCollection()->addAction(QLatin1String("frames_delete"), actionFramesDelete);
+  connect(actionFramesDelete, SIGNAL(triggered()), form(), SLOT(deleteFrame()));
+  KAction* actionFilenameFromV1 = new KAction(tr("Filename") + QLatin1String(": ") + tr("From Tag 1"), this);
+  actionCollection()->addAction(QLatin1String("filename_from_v1"), actionFilenameFromV1);
+  connect(actionFilenameFromV1, SIGNAL(triggered()), form(), SLOT(fnFromID3V1()));
+  KAction* actionFilenameFromV2 = new KAction(tr("Filename") + QLatin1String(": ") + tr("From Tag 2"), this);
+  actionCollection()->addAction(QLatin1String("filename_from_v2"), actionFilenameFromV2);
+  connect(actionFilenameFromV2, SIGNAL(triggered()), form(), SLOT(fnFromID3V2()));
+  KAction* actionFilenameFocus = new KAction(tr("Filename") + QLatin1String(": ") + tr("Focus"), this);
+  actionCollection()->addAction(QLatin1String("filename_focus"), actionFilenameFocus);
+  connect(actionFilenameFocus, SIGNAL(triggered()), form(), SLOT(setFocusFilename()));
+  KAction* actionV1Focus = new KAction(tr("Tag 1") + QLatin1String(": ") + tr("Focus"), this);
+  actionCollection()->addAction(QLatin1String("v1_focus"), actionV1Focus);
+  connect(actionV1Focus, SIGNAL(triggered()), form(), SLOT(setFocusV1()));
+  KAction* actionV2Focus = new KAction(tr("Tag 2") + QLatin1String(": ") + tr("Focus"), this);
+  actionCollection()->addAction(QLatin1String("v2_focus"), actionV2Focus);
+  connect(actionV2Focus, SIGNAL(triggered()), form(), SLOT(setFocusV2()));
+  KAction* actionFileListFocus = new KAction(tr("File List") + QLatin1String(": ") + tr("Focus"), this);
+  actionCollection()->addAction(QLatin1String("filelist_focus"), actionFileListFocus);
+  connect(actionFileListFocus, SIGNAL(triggered()), form(), SLOT(setFocusFileList()));
+  KAction* actionDirListFocus = new KAction(tr("Directory List") + QLatin1String(": ") + tr("Focus"), this);
+  actionCollection()->addAction(QLatin1String("dirlist_focus"), actionDirListFocus);
+  connect(actionDirListFocus, SIGNAL(triggered()), form(), SLOT(setFocusDirList()));
+  createGUI();
+
+#else
+  QToolBar* toolBar = new QToolBar(this);
+  toolBar->setObjectName(QLatin1String("MainToolbar"));
+  QMenuBar* menubar = menuBar();
+  QString menuTitle(tr("&File"));
+  ShortcutsModel* shortcutsModel = app()->getConfigStore()->getShortcutsModel();
+  QMenu* fileMenu = menubar->addMenu(menuTitle);
+
+  QAction* fileOpen = new QAction(this);
+  fileOpen->setStatusTip(tr("Opens a directory"));
+  fileOpen->setText(tr("&Open..."));
+  fileOpen->setShortcut(QKeySequence::Open);
+  fileOpen->setIcon(QCM_QIcon_fromTheme("document-open"));
+  fileOpen->setObjectName(QLatin1String("file_open"));
+  shortcutsModel->registerAction(fileOpen, menuTitle);
+  connect(fileOpen, SIGNAL(triggered()),
+    impl(), SLOT(slotFileOpen()));
+  fileMenu->addAction(fileOpen);
+  toolBar->addAction(fileOpen);
+
+  m_fileOpenRecent = new RecentFilesMenu(fileMenu);
+  connect(m_fileOpenRecent, SIGNAL(loadFile(const QString&)),
+          this, SLOT(slotFileOpenRecentDirectory(const QString&)));
+  m_fileOpenRecent->setStatusTip(tr("Opens a recently used directory"));
+  m_fileOpenRecent->setTitle(tr("Open &Recent"));
+  m_fileOpenRecent->setIcon(QCM_QIcon_fromTheme("document-open-recent"));
+  fileMenu->addMenu(m_fileOpenRecent);
+
+  QAction* fileOpenDirectory = new QAction(this);
+  fileOpenDirectory->setStatusTip(tr("Opens a directory"));
+  fileOpenDirectory->setText(tr("O&pen Directory..."));
+  fileOpenDirectory->setShortcut(Qt::CTRL + Qt::Key_D);
+  fileOpenDirectory->setIcon(QCM_QIcon_fromTheme("document-open"));
+  fileOpenDirectory->setObjectName(QLatin1String("open_directory"));
+  shortcutsModel->registerAction(fileOpenDirectory, menuTitle);
+  connect(fileOpenDirectory, SIGNAL(triggered()),
+    impl(), SLOT(slotFileOpenDirectory()));
+  fileMenu->addAction(fileOpenDirectory);
+  fileMenu->addSeparator();
+
+  QAction* fileSave = new QAction(this);
+  fileSave->setStatusTip(tr("Saves the changed files"));
+  fileSave->setText(tr("&Save"));
+  fileSave->setShortcut(QKeySequence::Save);
+  fileSave->setIcon(QCM_QIcon_fromTheme("document-save"));
+  fileSave->setObjectName(QLatin1String("file_save"));
+  shortcutsModel->registerAction(fileSave, menuTitle);
+  connect(fileSave, SIGNAL(triggered()),
+    impl(), SLOT(slotFileSave()));
+  fileMenu->addAction(fileSave);
+  toolBar->addAction(fileSave);
+
+  QAction* fileRevert = new QAction(this);
+  fileRevert->setStatusTip(
+      tr("Reverts the changes of all or the selected files"));
+  fileRevert->setText(tr("Re&vert"));
+  fileRevert->setIcon(QCM_QIcon_fromTheme("document-revert"));
+  fileRevert->setObjectName(QLatin1String("file_revert"));
+  shortcutsModel->registerAction(fileRevert, menuTitle);
+  connect(fileRevert, SIGNAL(triggered()),
+          app(), SLOT(revertFileModifications()));
+  fileMenu->addAction(fileRevert);
+  toolBar->addAction(fileRevert);
+  fileMenu->addSeparator();
+
+  QAction* fileImport = new QAction(this);
+  fileImport->setData(-1);
+  fileImport->setStatusTip(tr("Import from file or clipboard"));
+  fileImport->setText(tr("&Import..."));
+  fileImport->setIcon(QCM_QIcon_fromTheme("document-import"));
+  fileImport->setObjectName(QLatin1String("import"));
+  shortcutsModel->registerAction(fileImport, menuTitle);
+  connect(fileImport, SIGNAL(triggered()),
+    impl(), SLOT(slotImport()));
+  fileMenu->addAction(fileImport);
+
+  int importerIdx = 0;
+  foreach (const ServerImporter* si, app()->getServerImporters()) {
+    QString serverName(QCoreApplication::translate("@default", si->name()));
+    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
+    int dotPos = actionName.indexOf(QLatin1Char('.'));
+    if (dotPos != -1)
+      actionName.truncate(dotPos);
+    actionName = QLatin1String("import_") + actionName;
+    QAction* fileImportServer = new QAction(this);
+    fileImportServer->setData(importerIdx);
+    fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
+    fileImportServer->setText(tr("Import from %1...").arg(serverName));
+    fileImportServer->setObjectName(actionName);
+    shortcutsModel->registerAction(fileImportServer, menuTitle);
+    connect(fileImportServer, SIGNAL(triggered()),
+      impl(), SLOT(slotImport()));
+    fileMenu->addAction(fileImportServer);
+    ++importerIdx;
+  }
+#ifdef HAVE_CHROMAPRINT
+  QAction* fileImportMusicBrainz = new QAction(this);
+  QString serverName(tr("MusicBrainz Fingerprint"));
+  fileImportMusicBrainz->setData(importerIdx);
+  fileImportMusicBrainz->setStatusTip(tr("Import from %1").arg(serverName));
+  fileImportMusicBrainz->setText(tr("Import from %1...").arg(serverName));
+  fileImportMusicBrainz->setObjectName(QLatin1String("import_musicbrainz"));
+  shortcutsModel->registerAction(fileImportMusicBrainz, menuTitle);
+  connect(fileImportMusicBrainz, SIGNAL(triggered()),
+    impl(), SLOT(slotImport()));
+  fileMenu->addAction(fileImportMusicBrainz);
+  ++importerIdx;
+#endif
+  QAction* fileBatchImport = new QAction(this);
+  fileBatchImport->setStatusTip(tr("Automatic import"));
+  fileBatchImport->setText(tr("Automatic I&mport..."));
+  fileBatchImport->setObjectName(QLatin1String("batch_import"));
+  shortcutsModel->registerAction(fileBatchImport, menuTitle);
+  connect(fileBatchImport, SIGNAL(triggered()),
+    impl(), SLOT(slotBatchImport()));
+  fileMenu->addAction(fileBatchImport);
+
+  QAction* fileBrowseCoverArt = new QAction(this);
+  fileBrowseCoverArt->setStatusTip(tr("Browse album cover artwork"));
+  fileBrowseCoverArt->setText(tr("&Browse Cover Art..."));
+  fileBrowseCoverArt->setObjectName(QLatin1String("browse_cover_art"));
+  shortcutsModel->registerAction(fileBrowseCoverArt, menuTitle);
+  connect(fileBrowseCoverArt, SIGNAL(triggered()),
+    impl(), SLOT(slotBrowseCoverArt()));
+  fileMenu->addAction(fileBrowseCoverArt);
+
+  QAction* fileExport = new QAction(this);
+  fileExport->setStatusTip(tr("Export to file or clipboard"));
+  fileExport->setText(tr("&Export..."));
+  fileExport->setIcon(QCM_QIcon_fromTheme("document-export"));
+  fileExport->setObjectName(QLatin1String("export"));
+  shortcutsModel->registerAction(fileExport, menuTitle);
+  connect(fileExport, SIGNAL(triggered()),
+    impl(), SLOT(slotExport()));
+  fileMenu->addAction(fileExport);
+
+  QAction* fileCreatePlaylist = new QAction(this);
+  fileCreatePlaylist->setStatusTip(tr("Create M3U Playlist"));
+  fileCreatePlaylist->setText(tr("&Create Playlist..."));
+  fileCreatePlaylist->setIcon(QIcon(QLatin1String(":/images/view-media-playlist.png")));
+  fileCreatePlaylist->setObjectName(QLatin1String("create_playlist"));
+  shortcutsModel->registerAction(fileCreatePlaylist, menuTitle);
+  connect(fileCreatePlaylist, SIGNAL(triggered()),
+    impl(), SLOT(slotPlaylistDialog()));
+  fileMenu->addAction(fileCreatePlaylist);
+  toolBar->addAction(fileCreatePlaylist);
+  fileMenu->addSeparator();
+
+  QAction* fileQuit = new QAction(this);
+  fileQuit->setStatusTip(tr("Quits the application"));
+  fileQuit->setText(tr("&Quit"));
+  fileQuit->setShortcut(Qt::CTRL + Qt::Key_Q);
+  fileQuit->setIcon(QCM_QIcon_fromTheme("application-exit"));
+  fileQuit->setObjectName(QLatin1String("file_quit"));
+  shortcutsModel->registerAction(fileQuit, menuTitle);
+  connect(fileQuit, SIGNAL(triggered()),
+    impl(), SLOT(slotFileQuit()));
+  fileMenu->addAction(fileQuit);
+
+  menuTitle = tr("&Edit");
+  QMenu* editMenu = menubar->addMenu(menuTitle);
+  QAction* editSelectAll = new QAction(this);
+  editSelectAll->setStatusTip(tr("Select all files"));
+  editSelectAll->setText(tr("Select &All"));
+  editSelectAll->setShortcut(Qt::ALT + Qt::Key_A);
+  editSelectAll->setIcon(QCM_QIcon_fromTheme("edit-select-all"));
+  editSelectAll->setObjectName(QLatin1String("edit_select_all"));
+  shortcutsModel->registerAction(editSelectAll, menuTitle);
+  connect(editSelectAll, SIGNAL(triggered()),
+          form(), SLOT(selectAllFiles()));
+  editMenu->addAction(editSelectAll);
+
+  QAction* editDeselect = new QAction(this);
+  editDeselect->setStatusTip(tr("Deselect all files"));
+  editDeselect->setText(tr("Dese&lect"));
+  editDeselect->setShortcut(Qt::CTRL + Qt::SHIFT + Qt::Key_A);
+  editDeselect->setObjectName(QLatin1String("edit_deselect"));
+  shortcutsModel->registerAction(editDeselect, menuTitle);
+  connect(editDeselect, SIGNAL(triggered()),
+          form(), SLOT(deselectAllFiles()));
+  editMenu->addAction(editDeselect);
+
+  QAction* editSelectAllInDir = new QAction(this);
+  editSelectAllInDir->setStatusTip(tr("Select all files in the current directory"));
+  editSelectAllInDir->setText(tr("Select All in &Directory"));
+  editSelectAllInDir->setObjectName(QLatin1String("select_all_in_directory"));
+  shortcutsModel->registerAction(editSelectAllInDir, menuTitle);
+  connect(editSelectAllInDir, SIGNAL(triggered()),
+    form(), SLOT(selectAllInDirectory()));
+  editMenu->addAction(editSelectAllInDir);
+
+  QAction* editPreviousFile = new QAction(this);
+  editPreviousFile->setStatusTip(tr("Select previous file"));
+  editPreviousFile->setText(tr("&Previous File"));
+  editPreviousFile->setShortcut(Qt::ALT + Qt::Key_Up);
+  editPreviousFile->setIcon(QCM_QIcon_fromTheme("go-previous"));
+  editPreviousFile->setObjectName(QLatin1String("previous_file"));
+  shortcutsModel->registerAction(editPreviousFile, menuTitle);
+  connect(editPreviousFile, SIGNAL(triggered()),
+    app(), SLOT(previousFile()));
+  editMenu->addAction(editPreviousFile);
+  toolBar->addAction(editPreviousFile);
+
+  QAction* editNextFile = new QAction(this);
+  editNextFile->setStatusTip(tr("Select next file"));
+  editNextFile->setText(tr("&Next File"));
+  editNextFile->setShortcut(Qt::ALT + Qt::Key_Down);
+  editNextFile->setIcon(QCM_QIcon_fromTheme("go-next"));
+  editNextFile->setObjectName(QLatin1String("next_file"));
+  shortcutsModel->registerAction(editNextFile, menuTitle);
+  connect(editNextFile, SIGNAL(triggered()),
+    app(), SLOT(nextFile()));
+  editMenu->addAction(editNextFile);
+  toolBar->addAction(editNextFile);
+
+  menuTitle = tr("&Tools");
+  QMenu* toolsMenu = menubar->addMenu(menuTitle);
+  QAction* toolsApplyFilenameFormat = new QAction(this);
+  toolsApplyFilenameFormat->setStatusTip(tr("Apply Filename Format"));
+  toolsApplyFilenameFormat->setText(tr("Apply &Filename Format"));
+  toolsApplyFilenameFormat->setObjectName(QLatin1String("apply_filename_format"));
+  shortcutsModel->registerAction(toolsApplyFilenameFormat, menuTitle);
+  connect(toolsApplyFilenameFormat, SIGNAL(triggered()),
+    app(), SLOT(applyFilenameFormat()));
+  toolsMenu->addAction(toolsApplyFilenameFormat);
+
+  QAction* toolsApplyId3Format = new QAction(this);
+  toolsApplyId3Format->setStatusTip(tr("Apply Tag Format"));
+  toolsApplyId3Format->setText(tr("Apply &Tag Format"));
+  toolsApplyId3Format->setObjectName(QLatin1String("apply_id3_format"));
+  shortcutsModel->registerAction(toolsApplyId3Format, menuTitle);
+  connect(toolsApplyId3Format, SIGNAL(triggered()),
+    app(), SLOT(applyId3Format()));
+  toolsMenu->addAction(toolsApplyId3Format);
+
+  QAction* toolsApplyTextEncoding = new QAction(this);
+  toolsApplyTextEncoding->setStatusTip(tr("Apply Text Encoding"));
+  toolsApplyTextEncoding->setText(tr("Apply Text &Encoding"));
+  toolsApplyTextEncoding->setObjectName(QLatin1String("apply_text_encoding"));
+  shortcutsModel->registerAction(toolsApplyTextEncoding, menuTitle);
+  connect(toolsApplyTextEncoding, SIGNAL(triggered()),
+    app(), SLOT(applyTextEncoding()));
+  toolsMenu->addAction(toolsApplyTextEncoding);
+
+  QAction* toolsRenameDirectory = new QAction(this);
+  toolsRenameDirectory->setStatusTip(tr("Rename Directory"));
+  toolsRenameDirectory->setText(tr("&Rename Directory..."));
+  toolsRenameDirectory->setObjectName(QLatin1String("rename_directory"));
+  shortcutsModel->registerAction(toolsRenameDirectory, menuTitle);
+  connect(toolsRenameDirectory, SIGNAL(triggered()),
+    impl(), SLOT(slotRenameDirectory()));
+  toolsMenu->addAction(toolsRenameDirectory);
+
+  QAction* toolsNumberTracks = new QAction(this);
+  toolsNumberTracks->setStatusTip(tr("Number Tracks"));
+  toolsNumberTracks->setText(tr("&Number Tracks..."));
+  toolsNumberTracks->setObjectName(QLatin1String("number_tracks"));
+  shortcutsModel->registerAction(toolsNumberTracks, menuTitle);
+  connect(toolsNumberTracks, SIGNAL(triggered()),
+    impl(), SLOT(slotNumberTracks()));
+  toolsMenu->addAction(toolsNumberTracks);
+
+  QAction* toolsFilter = new QAction(this);
+  toolsFilter->setStatusTip(tr("Filter"));
+  toolsFilter->setText(tr("F&ilter..."));
+  toolsFilter->setObjectName(QLatin1String("filter"));
+  shortcutsModel->registerAction(toolsFilter, menuTitle);
+  connect(toolsFilter, SIGNAL(triggered()),
+    impl(), SLOT(slotFilter()));
+  toolsMenu->addAction(toolsFilter);
+
+#ifdef HAVE_TAGLIB
+  QAction* toolsConvertToId3v24 = new QAction(this);
+  toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
+  toolsConvertToId3v24->setText(tr("Convert ID3v2.3 to ID3v2.&4"));
+  toolsConvertToId3v24->setObjectName(QLatin1String("convert_to_id3v24"));
+  shortcutsModel->registerAction(toolsConvertToId3v24, menuTitle);
+  connect(toolsConvertToId3v24, SIGNAL(triggered()),
+    app(), SLOT(convertToId3v24()));
+  toolsMenu->addAction(toolsConvertToId3v24);
+#endif
+
+#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
+  QAction* toolsConvertToId3v23 = new QAction(this);
+  toolsConvertToId3v23->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
+  toolsConvertToId3v23->setText(tr("Convert ID3v2.4 to ID3v2.&3"));
+  toolsConvertToId3v23->setObjectName(QLatin1String("convert_to_id3v23"));
+  shortcutsModel->registerAction(toolsConvertToId3v23, menuTitle);
+  connect(toolsConvertToId3v23, SIGNAL(triggered()),
+    app(), SLOT(convertToId3v23()));
+  toolsMenu->addAction(toolsConvertToId3v23);
+#endif
+
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+  QAction* toolsPlay = new QAction(this);
+  toolsPlay->setStatusTip(tr("Play"));
+  toolsPlay->setText(tr("&Play"));
+  toolsPlay->setIcon(QIcon(style()->standardIcon(QStyle::SP_MediaPlay)));
+  toolsPlay->setObjectName(QLatin1String("play"));
+  shortcutsModel->registerAction(toolsPlay, menuTitle);
+  connect(toolsPlay, SIGNAL(triggered()),
+    app(), SLOT(playAudio()));
+  toolsMenu->addAction(toolsPlay);
+  toolBar->addAction(toolsPlay);
+#endif
+
+  menuTitle = tr("&Settings");
+  QMenu* settingsMenu = menubar->addMenu(menuTitle);
+  m_viewToolBar = toolBar->toggleViewAction();
+  if (m_viewToolBar) {
+    m_viewToolBar->setStatusTip(tr("Enables/disables the toolbar"));
+    m_viewToolBar->setText(tr("Show &Toolbar"));
+    m_viewToolBar->setObjectName(QLatin1String("options_configure_toolbars"));
+    shortcutsModel->registerAction(m_viewToolBar, menuTitle);
+  }
+  if (ConfigStore::s_miscCfg.m_hideToolBar)
+    toolBar->hide();
+  m_viewToolBar->setChecked(!ConfigStore::s_miscCfg.m_hideToolBar);
+  settingsMenu->addAction(m_viewToolBar);
+
+  m_viewStatusBar = new QAction(this);
+  m_viewStatusBar->setStatusTip(tr("Enables/disables the statusbar"));
+  m_viewStatusBar->setText(tr("Show St&atusbar"));
+  m_viewStatusBar->setCheckable(true);
+  m_viewStatusBar->setObjectName(QLatin1String("options_show_statusbar"));
+  shortcutsModel->registerAction(m_viewStatusBar, menuTitle);
+  connect(m_viewStatusBar, SIGNAL(triggered()),
+    this, SLOT(slotViewStatusBar()));
+  settingsMenu->addAction(m_viewStatusBar);
+
+  m_settingsShowHidePicture = new QAction(this);
+  m_settingsShowHidePicture->setStatusTip(tr("Show Picture"));
+  m_settingsShowHidePicture->setText(tr("Show &Picture"));
+  m_settingsShowHidePicture->setCheckable(true);
+  m_settingsShowHidePicture->setObjectName(QLatin1String("hide_picture"));
+  shortcutsModel->registerAction(m_settingsShowHidePicture, menuTitle);
+  connect(m_settingsShowHidePicture, SIGNAL(triggered()),
+    impl(), SLOT(slotSettingsShowHidePicture()));
+  settingsMenu->addAction(m_settingsShowHidePicture);
+
+  m_settingsAutoHideTags = new QAction(this);
+  m_settingsAutoHideTags->setStatusTip(tr("Auto Hide Tags"));
+  m_settingsAutoHideTags->setText(tr("Auto &Hide Tags"));
+  m_settingsAutoHideTags->setCheckable(true);
+  m_settingsAutoHideTags->setObjectName(QLatin1String("auto_hide_tags"));
+  shortcutsModel->registerAction(m_settingsAutoHideTags, menuTitle);
+  connect(m_settingsAutoHideTags, SIGNAL(triggered()),
+    impl(), SLOT(slotSettingsAutoHideTags()));
+  settingsMenu->addAction(m_settingsAutoHideTags);
+
+  QAction* settingsConfigure = new QAction(this);
+  settingsConfigure->setStatusTip(tr("Configure Kid3"));
+  settingsConfigure->setText(tr("&Configure Kid3..."));
+  settingsConfigure->setIcon(QCM_QIcon_fromTheme("preferences-system"));
+#if QT_VERSION >= 0x040600
+  settingsConfigure->setShortcut(QKeySequence::Preferences);
+#endif
+  settingsConfigure->setObjectName(QLatin1String("options_configure"));
+  shortcutsModel->registerAction(settingsConfigure, menuTitle);
+  connect(settingsConfigure, SIGNAL(triggered()),
+    this, SLOT(slotSettingsConfigure()));
+  settingsMenu->addSeparator();
+  settingsMenu->addAction(settingsConfigure);
+  toolBar->addAction(settingsConfigure);
+
+  menuTitle = tr("&Help");
+  QMenu* helpMenu = menubar->addMenu(menuTitle);
+  QAction* helpHandbook = new QAction(this);
+  helpHandbook->setStatusTip(tr("Kid3 Handbook"));
+  helpHandbook->setText(tr("Kid3 &Handbook"));
+  helpHandbook->setIcon(QCM_QIcon_fromTheme("help-contents"));
+  helpHandbook->setShortcut(QKeySequence::HelpContents);
+  helpHandbook->setObjectName(QLatin1String("help_contents"));
+  shortcutsModel->registerAction(helpHandbook, menuTitle);
+  connect(helpHandbook, SIGNAL(triggered()),
+    this, SLOT(slotHelpHandbook()));
+  helpMenu->addAction(helpHandbook);
+
+  QAction* helpAbout = new QAction(this);
+  helpAbout->setStatusTip(tr("About Kid3"));
+  helpAbout->setText(tr("&About Kid3"));
+  helpAbout->setObjectName(QLatin1String("help_about_app"));
+  shortcutsModel->registerAction(helpAbout, menuTitle);
+  connect(helpAbout, SIGNAL(triggered()),
+    this, SLOT(slotHelpAbout()));
+  helpMenu->addAction(helpAbout);
+
+  QAction* helpAboutQt = new QAction(this);
+  helpAboutQt->setStatusTip(tr("About Qt"));
+  helpAboutQt->setText(tr("About &Qt"));
+  helpAboutQt->setObjectName(QLatin1String("help_about_qt"));
+  shortcutsModel->registerAction(helpAboutQt, menuTitle);
+  connect(helpAboutQt, SIGNAL(triggered()),
+    this, SLOT(slotHelpAboutQt()));
+  helpMenu->addAction(helpAboutQt);
+
+  addToolBar(toolBar);
+
+  updateWindowCaption();
+
+  form()->initActions();
+#endif
+}
+
+/**
+ * Add directory to recent files list.
+ *
+ * @param dirName path to directory
+ */
+void Kid3MainWindow::addDirectoryToRecentFiles(const QString& dirName)
+{
+#ifdef CONFIG_USE_KDE
+  KUrl url;
+  url.setPath(dirName);
+  m_fileOpenRecent->addUrl(url);
+#else
+  m_fileOpenRecent->addDirectory(dirName);
+#endif
+}
+
+/**
+ * Read settings from the configuration.
+ */
+void Kid3MainWindow::readConfig()
+{
+#ifdef CONFIG_USE_KDE
+  setAutoSaveSettings();
+  m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
+  m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
+  m_fileOpenRecent->loadEntries(KConfigGroup(app()->getSettings(),
+                                             "Recent Files"));
+#else
+  if (ConfigStore::s_miscCfg.m_hideStatusBar)
+    statusBar()->hide();
+  m_viewStatusBar->setChecked(!ConfigStore::s_miscCfg.m_hideStatusBar);
+  m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
+  m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
+  m_fileOpenRecent->loadEntries(app()->getSettings());
+  app()->getConfigStore()->getShortcutsModel()->readFromConfig(
+        app()->getSettings());
+  restoreGeometry(ConfigStore::s_miscCfg.m_geometry);
+  restoreState(ConfigStore::s_miscCfg.m_windowState);
+#endif
+}
+
+/**
+ * Store geometry and recent files in settings.
+ */
+void Kid3MainWindow::saveConfig()
+{
+#ifdef CONFIG_USE_KDE
+  m_fileOpenRecent->saveEntries(KConfigGroup(app()->getSettings(),
+                                             "Recent Files"));
+#else
+  m_fileOpenRecent->saveEntries(app()->getSettings());
+  app()->getConfigStore()->getShortcutsModel()->writeToConfig(
+        app()->getSettings());
+  ConfigStore::s_miscCfg.m_hideToolBar = !m_viewToolBar->isChecked();
+  ConfigStore::s_miscCfg.m_geometry = saveGeometry();
+  ConfigStore::s_miscCfg.m_windowState = saveState();
+#endif
+}
+
+/**
+ * Set main window caption.
+ *
+ * @param caption caption without application name
+ * @param modified true if any file is modified
+ */
+void Kid3MainWindow::setWindowCaption(const QString& caption, bool modified)
+{
+#ifdef CONFIG_USE_KDE
+  setCaption(caption, modified);
+#else
+  QString cap(caption);
+  if (modified) {
+    cap += tr(" [modified]");
+  }
+  if (!cap.isEmpty()) {
+    cap += QLatin1String(" - ");
+  }
+  cap += QLatin1String("Kid3");
+  setWindowTitle(cap);
+#endif
+}
+
+/**
+ * Get action for Settings/Auto Hide Tags.
+ * @return action.
+ */
+QAction* Kid3MainWindow::autoHideTagsAction()
+{
+  return m_settingsAutoHideTags;
+}
+
+/**
+ * Get action for Settings/Hide Picture.
+ * @return action.
+ */
+QAction* Kid3MainWindow::showHidePictureAction()
+{
+ return m_settingsShowHidePicture;
+}
+
+#ifdef CONFIG_USE_KDE
+/**
+ * Update modification state before closing.
+ * Called on closeEvent() of window.
+ * If anything was modified, save after asking user.
+ * Save options before closing.
+ * This method is called by closeEvent(), which occurs when the
+ * window is closed or slotFileQuit() (Quit menu) is selected.
+ *
+ * @return false if user canceled,
+ *         true will quit the application.
+ */
+bool Kid3MainWindow::queryClose()
+{
+  return queryBeforeClosing();
+}
+
+/**
+ * Saves the window properties to the session config file.
+ *
+ * @param cfg application configuration
+ */
+void Kid3MainWindow::saveProperties(KConfigGroup& cfg)
+{
+  cfg.writeEntry("dirname", app()->getDirName());
+}
+
+/**
+ * Reads the session config file and restores the application's state.
+ *
+ * @param cfg application configuration
+ */
+void Kid3MainWindow::readProperties(const KConfigGroup& cfg)
+{
+  app()->openDirectory(cfg.readEntry("dirname", ""));
+}
+
+#else /* CONFIG_USE_KDE */
+
+/**
+ * Window is closed.
+ *
+ * @param ce close event
+ */
+void Kid3MainWindow::closeEvent(QCloseEvent* ce)
+{
+  if (queryBeforeClosing()) {
+    ce->accept();
+  }
+  else {
+    ce->ignore();
+  }
+}
+
+/**
+ * Read font and style options.
+ */
+void Kid3MainWindow::readFontAndStyleOptions()
+{
+  ConfigStore::s_miscCfg.readFromConfig(app()->getSettings());
+  if (ConfigStore::s_miscCfg.m_useFont &&
+      !ConfigStore::s_miscCfg.m_fontFamily.isEmpty() &&
+      ConfigStore::s_miscCfg.m_fontSize > 0) {
+    QApplication::setFont(QFont(ConfigStore::s_miscCfg.m_fontFamily,
+                                ConfigStore::s_miscCfg.m_fontSize));
+  }
+  if (!ConfigStore::s_miscCfg.m_style.isEmpty()) {
+    QApplication::setStyle(ConfigStore::s_miscCfg.m_style);
+  }
+}
+
+#endif /* CONFIG_USE_KDE */
+
+/**
+ * Open recent directory.
+ *
+ * @param dir directory to open
+ */
+#ifdef CONFIG_USE_KDE
+void Kid3MainWindow::slotFileOpenRecentUrl(const KUrl& url)
+{
+  openRecentDirectory(url.path());
+}
+#else /* CONFIG_USE_KDE */
+void Kid3MainWindow::slotFileOpenRecentDirectory(const QString& dir)
+{
+  openRecentDirectory(dir);
+}
+#endif /* CONFIG_USE_KDE */
+
+#ifdef CONFIG_USE_KDE
+
+void Kid3MainWindow::slotViewStatusBar() {}
+
+/**
+ * Shortcuts configuration.
+ */
+void Kid3MainWindow::slotSettingsShortcuts()
+{
+  KShortcutsDialog::configure(
+    actionCollection(),
+    KShortcutsEditor::LetterShortcutsDisallowed, this);
+}
+
+/**
+ * Toolbars configuration.
+ */
+void Kid3MainWindow::slotSettingsToolbars()
+{
+  KEditToolBar dlg(actionCollection());
+  if (dlg.exec()) {
+    createGUI();
+  }
+}
+
+void Kid3MainWindow::slotHelpHandbook() {}
+void Kid3MainWindow::slotHelpAbout() {}
+void Kid3MainWindow::slotHelpAboutQt() {}
+
+#else /* CONFIG_USE_KDE */
+
+void Kid3MainWindow::slotSettingsShortcuts() {}
+void Kid3MainWindow::slotSettingsToolbars() {}
+
+/**
+ * Turn status bar on or off.
+ */
+void Kid3MainWindow::slotViewStatusBar()
+{
+  ConfigStore::s_miscCfg.m_hideStatusBar = !m_viewStatusBar->isChecked();
+  slotStatusMsg(tr("Toggle the statusbar..."));
+  if(ConfigStore::s_miscCfg.m_hideStatusBar) {
+    statusBar()->hide();
+  }
+  else {
+    statusBar()->show();
+  }
+  slotStatusMsg(tr("Ready."));
+}
+
+/**
+ * Display handbook.
+ */
+void Kid3MainWindow::slotHelpHandbook()
+{
+  ContextHelp::displayHelp();
+}
+
+/**
+ * Display "About" dialog.
+ */
+void Kid3MainWindow::slotHelpAbout()
+{
+  QMessageBox::about(
+    this, QLatin1String("Kid3"),
+    QLatin1String("Kid3 " VERSION
+    "\n(c) 2003-" RELEASE_YEAR " Urs Fleisch\nufleisch@users.sourceforge.net"));
+}
+
+/**
+ * Display "About Qt" dialog.
+ */
+void Kid3MainWindow::slotHelpAboutQt()
+{
+  QMessageBox::aboutQt(this, QLatin1String("Kid3"));
+}
+#endif /* CONFIG_USE_KDE */
+
+/**
+ * Preferences.
+ */
+void Kid3MainWindow::slotSettingsConfigure()
+{
+  QString caption(tr("Configure - Kid3"));
+#ifdef CONFIG_USE_KDE
+  KConfigSkeleton* configSkeleton = new KConfigSkeleton;
+  ConfigDialog* dialog = new ConfigDialog(this, caption, configSkeleton);
+#else
+  ConfigDialog* dialog = new ConfigDialog(this, caption);
+#endif
+  dialog->setConfig(app()->getConfigStore());
+  if (dialog->exec() == QDialog::Accepted) {
+    dialog->getConfig(app()->getConfigStore());
+    impl()->applyChangedConfiguration();
+  }
+#ifdef CONFIG_USE_KDE
+  delete configSkeleton;
+#endif
+}
+
+
+/**
+ * Constructor.
+ *
+ * @param platformTools platform specific tools
+ */
+BaseMainWindow::BaseMainWindow(QMainWindow* mainWin,
+                               IPlatformTools* platformTools) :
+  m_impl(new BaseMainWindowImpl(mainWin, platformTools))
+{
+  m_impl->setBackPointer(this);
+}
+
+/**
+ * Destructor.
+ */
+BaseMainWindow::~BaseMainWindow()
+{
+  delete m_impl;
+}
+
+/**
+ * Initialize main window.
+ * Shall be called at end of constructor body in derived classes.
+ */
+void BaseMainWindow::init()
+{
+  m_impl->init();
+}
+
+/**
+ * Let user select a frame type.
+ *
+ * @param frame is filled with the selected frame if true is returned
+ * @param taggedFile tagged file for which frame has to be selected
+ *
+ * @return false if no frame selected.
+ */
+bool BaseMainWindow::selectFrame(Frame* frame, const TaggedFile* taggedFile)
+{
+  return m_impl->selectFrame(frame, taggedFile);
+}
+
+/**
+ * Create dialog to edit a frame and update the fields
+ * if Ok is returned.
+ *
+ * @param frame frame to edit
+ * @param taggedFile tagged file where frame has to be set
+ *
+ * @return true if Ok selected in dialog.
+ */
+bool BaseMainWindow::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedFile)
+{
+  return m_impl->editFrameOfTaggedFile(frame, taggedFile);
+}
+
+#if defined HAVE_PHONON || QT_VERSION >= 0x050000
+/**
+ * Play audio file.
+ */
+void BaseMainWindow::slotPlayAudio()
+{
+  m_impl->slotPlayAudio();
+}
+#endif
+
+/**
+ * Change status message.
+ *
+ * @param text message
+ */
+void BaseMainWindow::slotStatusMsg(const QString& text)
+{
+  m_impl->slotStatusMsg(text);
+}
+
+/**
+ * Update files of current selection.
+ */
+void BaseMainWindow::updateCurrentSelection()
+{
+  m_impl->updateCurrentSelection();
+}
+
+/**
+ * Open directory, user has to confirm if current directory modified.
+ *
+ * @param dir directory or file path
+ */
+void BaseMainWindow::confirmedOpenDirectory(const QString& dir)
+{
+  m_impl->confirmedOpenDirectory(dir);
+}
+
+/**
+ * Update modification state before closing.
+ * If anything was modified, save after asking user.
+ * Save options before closing.
+ * This method shall be called by closeEvent() (Qt) or
+ * queryClose() (KDE).
+ *
+ * @return false if user canceled,
+ *         true will quit the application.
+ */
+bool BaseMainWindow::queryBeforeClosing()
+{
+  return m_impl->queryBeforeClosing();
+}
+
+/**
+ * Open recent directory.
+ *
+ * @param dir directory to open
+ */
+void BaseMainWindow::openRecentDirectory(const QString& dir)
+{
+  m_impl->openRecentDirectory(dir);
+}
+
+/**
+ * Set window title with information from directory, filter and modification
+ * state.
+ */
+void BaseMainWindow::updateWindowCaption()
+{
+  m_impl->updateWindowCaption();
+}
+
+/**
+ * Access to application.
+ * @return application.
+ */
+Kid3Application* BaseMainWindow::app()
+{
+  return m_impl->app();
+}
+
+/**
+ * Access to main form.
+ * @return main form.
+ */
+Kid3Form* BaseMainWindow::form()
+{
+  return m_impl->form();
 }
