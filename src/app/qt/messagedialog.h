@@ -28,9 +28,6 @@
 #define MESSAGEDIALOG_H
 
 #include <QDialog>
-#include "config.h"
-#ifndef CONFIG_USE_KDE
-
 #include <QMessageBox>
 
 class QLabel;
@@ -122,13 +119,5 @@ private:
   QTextEdit* m_textEdit;
   QDialogButtonBox* m_buttonBox;
 };
-#else // !CONFIG_USE_KDE
-
-// Just to suppress moc "No relevant classes found" warning.
-class MessageDialog : public QDialog {
-Q_OBJECT
-};
-
-#endif // !CONFIG_USE_KDE
 
 #endif // MESSAGEDIALOG_H

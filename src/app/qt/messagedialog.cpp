@@ -25,8 +25,6 @@
  */
 
 #include "messagedialog.h"
-
-#ifndef CONFIG_USE_KDE
 #include <QLabel>
 #include <QTextEdit>
 #include <QDialogButtonBox>
@@ -212,5 +210,3 @@ int MessageDialog::warningList(
   dialog.setStandardButtons(buttons);
   return dialog.exec();
 }
-
-#endif // CONFIG_USE_KDE

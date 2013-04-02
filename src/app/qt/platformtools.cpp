@@ -26,9 +26,12 @@
 
 #include "platformtools.h"
 #include <QFileInfo>
+#include <QFileDialog>
 #include <QCoreApplication>
 #include "config.h"
 #include "browserdialog.h"
+#include "messagedialog.h"
+#include "configstore.h"
 
 /**
  * Constructor.
@@ -253,4 +256,100 @@ void PlatformTools::displayHelp(const QString& anchor)
   if (m_helpBrowser->isHidden()) {
     m_helpBrowser->show();
   }
+}
+
+/**
+ * Display error dialog with item list.
+ * @param parent parent widget
+ * @param text text
+ * @param strlist list of items
+ * @param caption caption
+ */
+void PlatformTools::errorList(QWidget* parent, const QString& text,
+    const QStringList& strlist, const QString& caption)
+{
+  MessageDialog::warningList(parent, caption, text, strlist, QMessageBox::Ok);
+}
+
+/**
+ * Display warning dialog with yes, no, cancel buttons.
+ * @param parent parent widget
+ * @param text text
+ * @param caption caption
+ * @return QMessageBox::Yes, QMessageBox::No or QMessageBox::Cancel.
+ */
+int PlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
+    const QString& caption)
+{
+  return QMessageBox::warning(parent, caption, text,
+                              QMessageBox::Yes | QMessageBox::Default,
+                              QMessageBox::No,
+                              QMessageBox::Cancel | QMessageBox::Escape);
+}
+
+/**
+ * Display dialog to select an existing file.
+ * @param parent parent widget
+ * @param caption caption
+ * @param dir directory
+ * @param filter filter
+ * @param selectedFilter the selected filter is returned here
+ * @return selected file, empty if canceled.
+ */
+QString PlatformTools::getOpenFileName(QWidget* parent, const QString& caption,
+    const QString& dir, const QString& filter, QString* selectedFilter)
+{
+  return QFileDialog::getOpenFileName(
+        parent, caption, dir, filter, selectedFilter,
+        ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+}
+
+/**
+ * Display dialog to select an existing directory.
+ * @param parent parent widget
+ * @param caption caption
+ * @param startDir start directory
+ * @return selected directory, empty if canceled.
+ */
+QString PlatformTools::getExistingDirectory(QWidget* parent,
+    const QString& caption, const QString& startDir)
+{
+  return QFileDialog::getExistingDirectory(parent, caption, startDir,
+      ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+      ? QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
+      : QFileDialog::ShowDirsOnly);
+}
+
+/**
+ * Display warning dialog.
+ * @param parent parent widget
+ * @param text text
+ * @param details detailed message
+ * @param caption caption
+ */
+void PlatformTools::warningDialog(QWidget* parent,
+    const QString& text, const QString& details, const QString& caption)
+{
+  MessageDialog dialog(parent);
+  dialog.setWindowTitle(caption);
+  dialog.setText(text);
+  dialog.setInformativeText(details);
+  dialog.setIcon(QMessageBox::Warning);
+  dialog.exec();
+}
+
+/**
+ * Display warning dialog with options to continue or cancel.
+ * @param parent parent widget
+ * @param text text
+ * @param strlist list of items
+ * @param caption caption
+ * @return true if continue was selected.
+ */
+bool PlatformTools::warningContinueCancelList(QWidget* parent,
+    const QString& text, const QStringList& strlist, const QString& caption)
+{
+  return MessageDialog::warningList(parent, caption, text, strlist) ==
+      QMessageBox::Ok;
 }

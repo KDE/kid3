@@ -29,6 +29,9 @@
 #include <kio/copyjob.h>
 #include <kio/netaccess.h>
 #include <ktoolinvocation.h>
+#include <kmessagebox.h>
+#include <kfiledialog.h>
+#include <QCoreApplication>
 
 /**
  * Constructor.
@@ -67,4 +70,113 @@ bool KdePlatformTools::moveToTrash(const QString& path) const
 void KdePlatformTools::displayHelp(const QString& anchor)
 {
   KToolInvocation::invokeHelp(anchor);
+}
+
+/**
+ * Display error dialog with item list.
+ * @param parent parent widget
+ * @param text text
+ * @param strlist list of items
+ * @param caption caption
+ */
+void KdePlatformTools::errorList(QWidget* parent, const QString& text,
+    const QStringList& strlist, const QString& caption)
+{
+  KMessageBox::errorList(parent, text, strlist, caption);
+}
+
+/**
+ * Display warning dialog with yes, no, cancel buttons.
+ * @param parent parent widget
+ * @param text text
+ * @param caption caption
+ * @return QMessageBox::Yes, QMessageBox::No or QMessageBox::Cancel.
+ */
+int KdePlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
+    const QString& caption)
+{
+  int rc = KMessageBox::warningYesNoCancel(parent, text, caption);
+  switch (rc) {
+  case KMessageBox::Ok:
+    return QMessageBox::Ok;
+  case KMessageBox::Cancel:
+    return QMessageBox::Cancel;
+  case KMessageBox::Yes:
+    return QMessageBox::Yes;
+  case KMessageBox::No:
+    return QMessageBox::No;
+  case KMessageBox::Continue:
+  default:
+    return QMessageBox::Ignore;
+  }
+}
+
+/**
+ * Display dialog to select an existing file.
+ * @param parent parent widget
+ * @param caption caption
+ * @param dir directory
+ * @param filter filter
+ * @param selectedFilter the selected filter is returned here
+ * @return selected file, empty if canceled.
+ */
+QString KdePlatformTools::getOpenFileName(QWidget* parent,
+    const QString& caption, const QString& dir, const QString& filter,
+    QString* selectedFilter)
+{
+  QString selectedFile;
+  KFileDialog diag(dir, filter, parent);
+  diag.setWindowTitle(caption.isEmpty()
+                      ? QCoreApplication::translate("@default",
+                            QT_TRANSLATE_NOOP("@default", "Open"))
+                      : caption);
+  if (diag.exec() == QDialog::Accepted) {
+    selectedFile = diag.selectedFile();
+    if (selectedFilter) {
+      *selectedFilter = diag.currentFilter();
+    }
+  }
+  return selectedFile;
+}
+
+/**
+ * Display dialog to select an existing directory.
+ * @param parent parent widget
+ * @param caption caption
+ * @param startDir start directory
+ * @return selected directory, empty if canceled.
+ */
+QString KdePlatformTools::getExistingDirectory(QWidget* parent,
+    const QString& caption, const QString& startDir)
+{
+  return KFileDialog::getExistingDirectory(startDir, parent, caption);
+}
+
+/**
+ * Display warning dialog.
+ * @param parent parent widget
+ * @param text text
+ * @param details detailed message
+ * @param caption caption
+ */
+void KdePlatformTools::warningDialog(QWidget* parent,
+    const QString& text, const QString& details, const QString& caption)
+{
+  KMessageBox::error(parent, text + details, caption);
+}
+
+/**
+ * Display warning dialog with options to continue or cancel.
+ * @param parent parent widget
+ * @param text text
+ * @param strlist list of items
+ * @param caption caption
+ * @return true if continue was selected.
+ */
+bool KdePlatformTools::warningContinueCancelList(QWidget* parent,
+    const QString& text, const QStringList& strlist, const QString& caption)
+{
+  return KMessageBox::warningContinueCancelList(parent, text, strlist, caption,
+      KStandardGuiItem::ok(), KStandardGuiItem::cancel(), QString(),
+      KMessageBox::Dangerous) == KMessageBox::Continue;
 }

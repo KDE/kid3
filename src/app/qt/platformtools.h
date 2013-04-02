@@ -62,6 +62,70 @@ public:
    */
   virtual void displayHelp(const QString& anchor);
 
+  /**
+   * Display error dialog with item list.
+   * @param parent parent widget
+   * @param text text
+   * @param strlist list of items
+   * @param caption caption
+   */
+  virtual void errorList(QWidget* parent, const QString& text,
+      const QStringList& strlist, const QString& caption);
+
+  /**
+   * Display warning dialog with yes, no, cancel buttons.
+   * @param parent parent widget
+   * @param text text
+   * @param caption caption
+   * @return QMessageBox::Yes, QMessageBox::No or QMessageBox::Cancel.
+   */
+  virtual int warningYesNoCancel(QWidget* parent, const QString& text,
+      const QString& caption);
+
+  /**
+   * Display dialog to select an existing file.
+   * @param parent parent widget
+   * @param caption caption
+   * @param dir directory
+   * @param filter filter
+   * @param selectedFilter the selected filter is returned here
+   * @return selected file, empty if canceled.
+   */
+  virtual QString getOpenFileName(QWidget* parent,
+      const QString& caption, const QString& dir, const QString& filter,
+      QString* selectedFilter);
+
+  /**
+   * Display dialog to select an existing directory.
+   * @param parent parent widget
+   * @param caption caption
+   * @param startDir start directory
+   * @return selected directory, empty if canceled.
+   */
+  virtual QString getExistingDirectory(QWidget* parent,
+      const QString& caption, const QString& startDir);
+
+  /**
+   * Display warning dialog.
+   * @param parent parent widget
+   * @param text text
+   * @param details detailed message
+   * @param caption caption
+   */
+  virtual void warningDialog(QWidget* parent,
+      const QString& text, const QString& details, const QString& caption);
+
+  /**
+   * Display warning dialog with options to continue or cancel.
+   * @param parent parent widget
+   * @param text text
+   * @param strlist list of items
+   * @param caption caption
+   * @return true if continue was selected.
+   */
+  virtual bool warningContinueCancelList(QWidget* parent,
+      const QString& text, const QStringList& strlist, const QString& caption);
+
 private:
   BrowserDialog* m_helpBrowser;
 };
