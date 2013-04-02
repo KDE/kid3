@@ -62,6 +62,13 @@ elif test $kernel = "Darwin"; then
 CMAKE_OPTIONS="-G \"Unix Makefiles\""
 fi
 
+if test $kernel = "Darwin" && test $(uname -m) = "x86_64"; then
+CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 -Xarch_x86_64 -mmacosx-version-min=10.5\" -DCMAKE_CXX_FLAGS=\"-O2 -Xarch_x86_64 -mmacosx-version-min=10.5\""
+export CFLAGS="-O2 -Xarch_x86_64 -mmacosx-version-min=10.5"
+export CXXFLAGS="-O2 -Xarch_x86_64 -mmacosx-version-min=10.5"
+export LDFLAGS="-Xarch_x86_64 -mmacosx-version-min=10.5"
+fi
+
 if which wget >/dev/null; then
 DOWNLOAD=wget
 else
@@ -602,7 +609,7 @@ if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
 make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 else
-CFLAGS="-O3 -Wall -DNO_FSEEKO" ./configure --static
+CFLAGS="$CFLAGS -O3 -Wall -DNO_FSEEKO" ./configure --static
 sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
 mkdir -p inst/usr/local
 make install -f Makefile.inst prefix=`pwd`/inst/usr/local
