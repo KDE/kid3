@@ -3,7 +3,9 @@ include_directories(
   ../core/utils
   ../core/tags
   ../core/model
+  ../core/import
   ../gui/forms
+  ../gui/dialogs
 )
 
 if (WITH_KDE)

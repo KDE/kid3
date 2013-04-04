@@ -48,7 +48,7 @@ class Kid3Application;
 class FileList;
 class DirList;
 class PictureLabel;
-class Kid3MainWindow;
+class BaseMainWindowImpl;
 class ShortcutsModel;
 
 /**
@@ -63,9 +63,11 @@ public:
    * Constructs an Id3Form as a child of 'parent', with the
    * name 'name' and widget flags set to 'f'.
    * @param app application
+   * @param mainWin main window
    * @param parent parent widget
    */
-  explicit Kid3Form(Kid3Application* app, QWidget* parent = 0);
+  Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
+           QWidget* parent = 0);
 
   /**
    * Destructor.
@@ -302,12 +304,6 @@ private:
   void formatLineEdit(QLineEdit* le, const QString& txt,
             const FormatConfig* fcfg);
 
-  /**
-   * Shortcut for pointer to parent main window.
-   * @return main window.
-   */
-  Kid3MainWindow* mainWin() const { return (Kid3MainWindow*)parentWidget(); }
-
 #ifndef CONFIG_USE_KDE
   void initAction(const QString& text, const QString& name,
                   const QObject* receiver, const char* slot,
@@ -338,6 +334,7 @@ private:
   QWidget* m_rightHalfVBox;
   PictureLabel* m_pictureLabel;
   Kid3Application* m_app;
+  BaseMainWindowImpl* m_mainWin;
 
   /** Collapse pixmap, will be allocated in constructor */
   static QPixmap* s_collapsePixmap;

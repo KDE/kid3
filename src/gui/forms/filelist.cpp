@@ -34,7 +34,7 @@
 #include "fileproxymodel.h"
 #include "modeliterator.h"
 #include "taggedfile.h"
-#include "kid3mainwindow.h"
+#include "basemainwindow.h"
 #include "configstore.h"
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
@@ -44,7 +44,7 @@
  * @param parent parent widget
  * @param mainWin main window
  */
-FileList::FileList(QWidget* parent, Kid3MainWindow* mainWin) :
+FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin) :
   QTreeView(parent), m_process(0), m_mainWin(mainWin)
 {
   setObjectName(QLatin1String("FileList"));
@@ -132,12 +132,12 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 {
   if (index.isValid()) {
     QMenu menu(this);
-    menu.addAction(tr("&Expand all"), m_mainWin->impl(), SLOT(expandFileList()));
+    menu.addAction(tr("&Expand all"), m_mainWin, SLOT(expandFileList()));
     menu.addAction(tr("&Collapse all"), this, SLOT(collapseAll()));
-    menu.addAction(tr("&Rename"), m_mainWin->impl(), SLOT(renameFile()));
-    menu.addAction(tr("&Move to Trash"), m_mainWin->impl(), SLOT(deleteFile()));
+    menu.addAction(tr("&Rename"), m_mainWin, SLOT(renameFile()));
+    menu.addAction(tr("&Move to Trash"), m_mainWin, SLOT(deleteFile()));
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
-    menu.addAction(tr("&Play"), m_mainWin->impl(), SLOT(slotPlayAudio()));
+    menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
     int id = 0;
     for (QList<MiscConfig::MenuCommand>::const_iterator

@@ -1,5 +1,7 @@
-set(qt_SRCS mainqt.cpp platformtools.cpp browserdialog.cpp messagedialog.cpp)
-set(qt_MOC_HDRS browserdialog.h messagedialog.h)
+set(qt_SRCS mainqt.cpp platformtools.cpp browserdialog.cpp messagedialog.cpp
+            recentfilesmenu.cpp kid3mainwindow.cpp)
+set(qt_MOC_HDRS browserdialog.h messagedialog.h recentfilesmenu.h
+                kid3mainwindow.h)
 qt4_wrap_cpp(qt_GEN_MOC_SRCS ${qt_MOC_HDRS})
 set(qt_SRCS ${qt_SRCS} ${qt_GEN_MOC_SRCS})
 

@@ -50,7 +50,7 @@
 #include "frametablemodel.h"
 #include "trackdata.h"
 #include "genres.h"
-#include "kid3mainwindow.h"
+#include "basemainwindow.h"
 #include "filelist.h"
 #include "dirlist.h"
 #include "picturelabel.h"
@@ -117,7 +117,7 @@ public:
 
 protected:
   /**
-   * Event filter function, calls Kid3MainWindow::editOrAddPicture().
+   * Event filter function, calls Kid3Application::editOrAddPicture().
    *
    * @param obj watched object
    * @param event event for object
@@ -132,7 +132,7 @@ private:
 };
 
 /**
- * Event filter function, calls Kid3MainWindow::editOrAddPicture() on double click.
+ * Event filter function, calls Kid3Application::editOrAddPicture() on double click.
  *
  * @param obj watched object
  * @param event event for object
@@ -157,8 +157,9 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
  * @param app application
  * @param parent parent widget
  */
-Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
- : QSplitter(parent), m_app(app)
+Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
+                   QWidget* parent)
+  : QSplitter(parent), m_app(app), m_mainWin(mainWin)
 {
   setObjectName(QLatin1String("Kid3Form"));
 
@@ -173,7 +174,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   setWindowTitle(tr("Kid3"));
 
   m_vSplitter = new QSplitter(Qt::Vertical, this);
-  m_fileListBox = new FileList(m_vSplitter, mainWin());
+  m_fileListBox = new FileList(m_vSplitter, m_mainWin);
   m_fileListBox->setModel(m_app->getFileProxyModel());
   m_fileListBox->setSelectionModel(m_app->getFileSelectionModel());
   m_dirListBox = new DirList(m_vSplitter);
@@ -361,7 +362,7 @@ Kid3Form::Kid3Form(Kid3Application* app, QWidget* parent)
   buttonsV2VBoxLayout->addWidget(deleteFramesPushButton);
 
   m_pictureLabel = new PictureLabel(this);
-  m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app, mainWin()));
+  m_pictureLabel->installEventFilter(new PictureDblClickHandler(m_app, m_mainWin));
   buttonsV2VBoxLayout->addWidget(m_pictureLabel);
 
   buttonsV2VBoxLayout->addItem(
@@ -470,7 +471,7 @@ void Kid3Form::dropEvent(QDropEvent* ev)
  */
 void Kid3Form::editFrame()
 {
-  m_app->editFrame(mainWin());
+  m_app->editFrame(m_mainWin);
 }
 
 /**
@@ -478,7 +479,7 @@ void Kid3Form::editFrame()
  */
 void Kid3Form::addFrame()
 {
-  m_app->addFrame(0, mainWin());
+  m_app->addFrame(0, m_mainWin);
 }
 
 /**
@@ -564,8 +565,8 @@ void Kid3Form::dirSelected(const QModelIndex& index)
   if (!dirPath.isEmpty()) {
     m_dirListBox->setEntryToSelect(
         dirPath.endsWith(QLatin1String("..")) ? index.parent() : QModelIndex());
-    mainWin()->updateCurrentSelection();
-    mainWin()->confirmedOpenDirectory(dirPath);
+    m_mainWin->updateCurrentSelection();
+    m_mainWin->confirmedOpenDirectory(dirPath);
   }
 }
 

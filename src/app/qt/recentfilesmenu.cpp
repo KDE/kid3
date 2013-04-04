@@ -25,9 +25,6 @@
  */
 
 #include "recentfilesmenu.h"
-
-#ifndef CONFIG_USE_KDE
-
 #include <QAction>
 #include <QDir>
 
@@ -152,9 +149,3 @@ void RecentFilesMenu::clearList()
   m_files.clear();
   updateRecentFileActions();
 }
-#else // !CONFIG_USE_KDE
-
-void RecentFilesMenu::openRecentFile() {}
-void RecentFilesMenu::clearList(){}
-
-#endif // !CONFIG_USE_KDE

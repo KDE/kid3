@@ -31,7 +31,7 @@
 #include <QList>
 #include "config.h"
 
-class Kid3MainWindow;
+class BaseMainWindowImpl;
 class ExternalProcess;
 
 /**
@@ -46,7 +46,7 @@ public:
    * @param parent parent widget
    * @param mainWin main window
    */
-  FileList(QWidget* parent, Kid3MainWindow* mainWin);
+  FileList(QWidget* parent, BaseMainWindowImpl* mainWin);
 
   /**
    * Destructor.
@@ -165,7 +165,7 @@ private:
   /** Process for context menu commands */
   ExternalProcess* m_process;
   QList<QPersistentModelIndex> m_currentSelection;
-  Kid3MainWindow* m_mainWin;
+  BaseMainWindowImpl* m_mainWin;
 };
 
 #endif // FILELIST_H
