@@ -26,6 +26,9 @@ else (WITH_KDE)
     set_source_files_properties(kid3.icns
       PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
     set(kid3_SRCS ${kid3_SRCS} kid3.icns)
+    set_source_files_properties(qt.conf
+      PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
+    set(kid3_SRCS ${kid3_SRCS} qt.conf)
   elseif (WIN32)
     if (MINGW)
       # support for Windows resource files with MinGW
