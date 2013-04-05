@@ -2,7 +2,7 @@ set(dialogs_SRCS
   dialogs/batchimportdialog.cpp
   dialogs/batchimportsourcedialog.cpp
   dialogs/browsecoverartdialog.cpp
-  dialogs/configdialog.cpp
+  dialogs/configdialogpages.cpp
   dialogs/contexthelp.cpp
   dialogs/downloaddialog.cpp
   dialogs/editframedialog.cpp
@@ -23,7 +23,7 @@ set(dialogs_MOC_HDRS
   dialogs/batchimportdialog.h
   dialogs/batchimportsourcedialog.h
   dialogs/browsecoverartdialog.h
-  dialogs/configdialog.h
+  dialogs/configdialogpages.h
   dialogs/downloaddialog.h
   dialogs/editframedialog.h
   dialogs/editframefieldsdialog.h

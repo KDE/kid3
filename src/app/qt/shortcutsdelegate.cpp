@@ -26,8 +26,6 @@
 
 #include "shortcutsdelegate.h"
 
-#ifndef CONFIG_USE_KDE
-
 #include <QToolButton>
 #include <QLineEdit>
 #include <QHBoxLayout>
@@ -273,5 +271,3 @@ bool ShortcutsDelegateEditor::eventFilter(QObject* watched, QEvent* ev)
   else
     return QFrame::eventFilter(watched, ev);
 }
-
-#endif // !CONFIG_USE_KDE

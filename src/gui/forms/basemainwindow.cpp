@@ -44,7 +44,6 @@
 #include "framelist.h"
 #include "frametablemodel.h"
 #include "frametable.h"
-#include "configdialog.h"
 #include "importdialog.h"
 #include "batchimportdialog.h"
 #include "browsecoverartdialog.h"

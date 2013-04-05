@@ -41,7 +41,7 @@
 #include "qtcompatmac.h"
 #include "kid3form.h"
 #include "kid3application.h"
-#include "configdialog.h"
+#include "kdeconfigdialog.h"
 #include "configstore.h"
 #include "serverimporter.h"
 #include "kdeplatformtools.h"
@@ -408,7 +408,7 @@ void KdeMainWindow::slotSettingsConfigure()
 {
   QString caption(tr("Configure - Kid3"));
   KConfigSkeleton* configSkeleton = new KConfigSkeleton;
-  ConfigDialog* dialog = new ConfigDialog(this, caption, configSkeleton);
+  KdeConfigDialog* dialog = new KdeConfigDialog(this, caption, configSkeleton);
   dialog->setConfig(app()->getConfigStore());
   if (dialog->exec() == QDialog::Accepted) {
     dialog->getConfig(app()->getConfigStore());

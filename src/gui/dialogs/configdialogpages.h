@@ -1,6 +1,6 @@
 /**
- * \file configdialog.h
- * Configuration dialog.
+ * \file configdialogpages.h
+ * Pages for configuration dialog.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,128 +24,83 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIGDIALOG_H
-#define CONFIGDIALOG_H
+#ifndef CONFIGDIALOGPAGES_H
+#define CONFIGDIALOGPAGES_H
 
-#include "config.h"
-
+#include <QObject>
 #include <QStringList>
-#ifdef CONFIG_USE_KDE
-#include <kconfigdialog.h>
-#else
-#include <QDialog>
-#endif
-#include "formatconfig.h"
+#include "config.h"
+#include "kid3api.h"
 
-class FormatBox;
 class QCheckBox;
-class FormatConfig;
-class MiscConfig;
-class ConfigTable;
-class CommandsTableModel;
 class QString;
 class QWidget;
 class QComboBox;
 class QLineEdit;
 class QSpinBox;
 class QStringListModel;
+class FormatBox;
+class MiscConfig;
+class ConfigTable;
+class CommandsTableModel;
 class CheckableStringListModel;
 class ConfigStore;
 
-/** Base class for configuration dialog. */
-#ifdef CONFIG_USE_KDE
-typedef KConfigDialog ConfigDialogBaseClass;
-#else
-typedef QDialog ConfigDialogBaseClass;
-
-class QTreeView;
-class QLabel;
-class ShortcutsModel;
-#endif
-
 /**
- * Configuration dialog.
+ * Pages for configuration dialog.
  */
-class ConfigDialog : public ConfigDialogBaseClass
-{
-Q_OBJECT
+class KID3_GUI_EXPORT ConfigDialogPages : public QObject {
+  Q_OBJECT
 public:
   /**
    * Constructor.
-   *
-   * @param parent  parent widget
-   * @param caption dialog title
    */
-#ifdef CONFIG_USE_KDE
-  ConfigDialog(QWidget* parent, QString& caption,
-               KConfigSkeleton* configSkeleton);
-#else
-  ConfigDialog(QWidget* parent, QString& caption);
-#endif
+  explicit ConfigDialogPages(QObject* parent = 0);
 
   /**
    * Destructor.
    */
-  ~ConfigDialog();
+  virtual ~ConfigDialogPages();
 
   /**
-   * Set values in dialog from current configuration.
+   * Create page with tags settings.
+   * @return tags page.
+   */
+  QWidget* createTagsPage();
+
+  /**
+   * Create page with files settings.
+   * @return files page.
+   */
+  QWidget* createFilesPage();
+
+  /**
+   * Create page with actions settings.
+   * @return actions page.
+   */
+  QWidget* createActionsPage();
+
+  /**
+   * Create page with network settings.
+   * @return network page.
+   */
+  QWidget* createNetworkPage();
+
+  /**
+   * Set values in pages from current configuration.
    *
    * @param cfg configuration
    */
   void setConfig(const ConfigStore* cfg);
 
   /**
-   * Get values from dialog and store them in the current configuration.
+   * Get values from pages and store them in the current configuration.
    *
    * @param cfg configuration
    */
   void getConfig(ConfigStore* cfg) const;
 
-protected slots:
-  /**
-   * Show help.
-   */
-  virtual void slotHelp();
-
-#ifndef CONFIG_USE_KDE
-  /**
-   * Display warning that keyboard shortcut is already used.
-   *
-   * @param key string representation of key sequence
-   * @param context context of action
-   * @param action action using @a key
-   */
-  void warnAboutAlreadyUsedShortcut(const QString& key, const QString& context,
-                                    const QAction* action);
-
-  /**
-   * Clear warning about already used keyboard shortcut.
-   */
-  void clearAlreadyUsedShortcutWarning();
-
-  /**
-   * Select custom application font.
-   */
-  void slotSelectFont();
-
-  /**
-   * Select custom application style.
-   *
-   * @param key style key
-   */
-  void slotSelectStyle(const QString& key);
-
-  /**
-   * Revert the font and style to the values in the settings.
-   */
-  void slotRevertFontAndStyle();
-#endif
-
 private:
-#ifndef CONFIG_USE_KDE
-  void setShortcutsModel(ShortcutsModel* model);
-#endif
   /** Load last-opened files checkbox */
   QCheckBox* m_loadLastOpenedFileCheckBox;
   /** Preserve timestamp checkbox */
@@ -206,20 +161,6 @@ private:
   QLineEdit* m_proxyUserNameLineEdit;
   /** Proxy password line edit */
   QLineEdit* m_proxyPasswordLineEdit;
-#ifndef CONFIG_USE_KDE
-  ShortcutsModel* m_shortcutsModel;
-  QTreeView* m_shortcutsTreeView;
-  QLabel* m_shortcutAlreadyUsedLabel;
-  QCheckBox* m_useApplicationFontCheckBox;
-  QPushButton* m_applicationFontButton;
-  QCheckBox* m_useApplicationStyleCheckBox;
-  QComboBox* m_applicationStyleComboBox;
-  QCheckBox* m_useNativeDialogsCheckBox;
-  QFont m_font;
-  QString m_style;
-  bool m_fontChanged;
-  bool m_styleChanged;
-#endif
 };
 
 #endif

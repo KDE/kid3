@@ -35,7 +35,6 @@
  */
 class ShortcutsDelegate : public QItemDelegate {
   Q_OBJECT
-#ifndef CONFIG_USE_KDE
 public:
   /**
    * Constructor.
@@ -159,7 +158,6 @@ protected:
 
 private:
   QLineEdit* m_lineEdit;
-#endif // !CONFIG_USE_KDE
 };
 
 #endif // SHORTCUTSDELEGATE_H
