@@ -198,13 +198,6 @@ public:
    */
   FrameTable* frameTableV2() { return m_framesV2Table; }
 
-#ifndef CONFIG_USE_KDE
-  /**
-   * Init actions.
-   */
-  void initActions();
-#endif
-
 public slots:
   /**
    * Frame list button Edit.
@@ -303,12 +296,6 @@ private:
    */
   void formatLineEdit(QLineEdit* le, const QString& txt,
             const FormatConfig* fcfg);
-
-#ifndef CONFIG_USE_KDE
-  void initAction(const QString& text, const QString& name,
-                  const QObject* receiver, const char* slot,
-                  const QString& context, ShortcutsModel* shortcutsModel);
-#endif
 
   FileList* m_fileListBox;
   QComboBox* m_formatComboBox;

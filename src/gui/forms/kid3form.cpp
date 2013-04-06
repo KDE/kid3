@@ -61,11 +61,6 @@
 #include "fileproxymodel.h"
 #include "kid3application.h"
 
-#ifndef CONFIG_USE_KDE
-#include <QAction>
-#include "shortcutsmodel.h"
-#endif
-
 /** Collapse pixmap, will be allocated in constructor */
 QPixmap* Kid3Form::s_collapsePixmap = 0;
 /** Expand pixmap, will be allocated in constructor */
@@ -928,52 +923,3 @@ void Kid3Form::setDirectoryIndex(const QModelIndex& directoryIndex,
   m_fileListBox->readDir(directoryIndex, fileIndex);
   m_dirListBox->readDir(directoryIndex);
 }
-
-#ifndef CONFIG_USE_KDE
-/**
- * Init actions.
- */
-void Kid3Form::initActions()
-{
-  QString ctx(tr("Filename"));
-  ShortcutsModel* sm = m_app->getConfigStore()->getShortcutsModel();
-  initAction(tr("From Tag 1"), QLatin1String("filename_from_v1"), this, SLOT(fnFromID3V1()), ctx, sm);
-  initAction(tr("From Tag 2"), QLatin1String("filename_from_v2"), this, SLOT(fnFromID3V2()), ctx, sm);
-  initAction(tr("Focus"), QLatin1String("filename_focus"), this, SLOT(setFocusFilename()), ctx, sm);
-  ctx = tr("Tag 1");
-  initAction(tr("From Filename"), QLatin1String("v1_from_filename"), m_app, SLOT(getTagsFromFilenameV1()), ctx, sm);
-  initAction(tr("From Tag 2"), QLatin1String("v1_from_v2"), m_app, SLOT(copyV2ToV1()), ctx, sm);
-  initAction(tr("Copy"), QLatin1String("v1_copy"), m_app, SLOT(copyTagsV1()), ctx, sm);
-  initAction(tr("Paste"), QLatin1String("v1_paste"), m_app, SLOT(pasteTagsV1()), ctx, sm);
-  initAction(tr("Remove"), QLatin1String("v1_remove"), m_app, SLOT(removeTagsV1()), ctx, sm);
-  initAction(tr("Focus"), QLatin1String("v1_focus"), this, SLOT(setFocusV1()), ctx, sm);
-  ctx = tr("Tag 2");
-  initAction(tr("From Filename"), QLatin1String("v2_from_filename"), m_app, SLOT(getTagsFromFilenameV2()), ctx, sm);
-  initAction(tr("From Tag 1"), QLatin1String("v2_from_v1"), m_app, SLOT(copyV1ToV2()), ctx, sm);
-  initAction(tr("Copy"), QLatin1String("v2_copy"), m_app, SLOT(copyTagsV2()), ctx, sm);
-  initAction(tr("Paste"), QLatin1String("v2_paste"), m_app, SLOT(pasteTagsV2()), ctx, sm);
-  initAction(tr("Remove"), QLatin1String("v2_remove"), m_app, SLOT(removeTagsV2()), ctx, sm);
-  initAction(tr("Edit"), QLatin1String("frames_edit"), this, SLOT(editFrame()), ctx, sm);
-  initAction(tr("Add"), QLatin1String("frames_add"), this, SLOT(addFrame()), ctx, sm);
-  initAction(tr("Delete"), QLatin1String("frames_delete"), this, SLOT(deleteFrame()), ctx, sm);
-  initAction(tr("Focus"), QLatin1String("v2_focus"), this, SLOT(setFocusV2()), ctx, sm);
-  ctx = tr("File List");
-  initAction(tr("Focus"), QLatin1String("filelist_focus"), this, SLOT(setFocusFileList()), ctx, sm);
-  ctx = tr("Directory List");
-  initAction(tr("Focus"), QLatin1String("dirlist_focus"), this, SLOT(setFocusDirList()), ctx, sm);
-}
-
-void Kid3Form::initAction(const QString& text, const QString& name,
-                          const QObject* receiver, const char* slot,
-                          const QString& context,
-                          ShortcutsModel* shortcutsModel)
-{
-  QAction* action = new QAction(this);
-  action->setStatusTip(text);
-  action->setText(text);
-  action->setObjectName(name);
-  shortcutsModel->registerAction(action, context);
-  connect(action, SIGNAL(triggered()), receiver, slot);
-  addAction(action);
-}
-#endif // CONFIG_USE_KDE

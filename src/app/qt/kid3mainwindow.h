@@ -32,6 +32,7 @@
 
 class QAction;
 class RecentFilesMenu;
+class ShortcutsModel;
 class IPlatformTools;
 
 /**
@@ -140,6 +141,19 @@ private:
    * Read font and style options.
    */
   void readFontAndStyleOptions();
+
+  /**
+   * Init actions of form.
+   */
+  void initFormActions();
+
+  /**
+   * Init action of form.
+   */
+  void initAction(const QString& text, const QString& name,
+                  const QObject* receiver, const char* slot,
+                  const QString& context,
+                  ShortcutsModel* shortcutsModel);
 
   IPlatformTools* m_platformTools;
   RecentFilesMenu* m_fileOpenRecent;

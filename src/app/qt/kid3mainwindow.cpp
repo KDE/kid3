@@ -486,7 +486,57 @@ void Kid3MainWindow::initActions()
 
   updateWindowCaption();
 
-  form()->initActions();
+  initFormActions();
+}
+
+/**
+ * Init actions of form.
+ */
+void Kid3MainWindow::initFormActions()
+{
+  QString ctx(tr("Filename"));
+  ShortcutsModel* sm = app()->getConfigStore()->getShortcutsModel();
+  initAction(tr("From Tag 1"), QLatin1String("filename_from_v1"), form(), SLOT(fnFromID3V1()), ctx, sm);
+  initAction(tr("From Tag 2"), QLatin1String("filename_from_v2"), form(), SLOT(fnFromID3V2()), ctx, sm);
+  initAction(tr("Focus"), QLatin1String("filename_focus"), form(), SLOT(setFocusFilename()), ctx, sm);
+  ctx = tr("Tag 1");
+  initAction(tr("From Filename"), QLatin1String("v1_from_filename"), app(), SLOT(getTagsFromFilenameV1()), ctx, sm);
+  initAction(tr("From Tag 2"), QLatin1String("v1_from_v2"), app(), SLOT(copyV2ToV1()), ctx, sm);
+  initAction(tr("Copy"), QLatin1String("v1_copy"), app(), SLOT(copyTagsV1()), ctx, sm);
+  initAction(tr("Paste"), QLatin1String("v1_paste"), app(), SLOT(pasteTagsV1()), ctx, sm);
+  initAction(tr("Remove"), QLatin1String("v1_remove"), app(), SLOT(removeTagsV1()), ctx, sm);
+  initAction(tr("Focus"), QLatin1String("v1_focus"), form(), SLOT(setFocusV1()), ctx, sm);
+  ctx = tr("Tag 2");
+  initAction(tr("From Filename"), QLatin1String("v2_from_filename"), app(), SLOT(getTagsFromFilenameV2()), ctx, sm);
+  initAction(tr("From Tag 1"), QLatin1String("v2_from_v1"), app(), SLOT(copyV1ToV2()), ctx, sm);
+  initAction(tr("Copy"), QLatin1String("v2_copy"), app(), SLOT(copyTagsV2()), ctx, sm);
+  initAction(tr("Paste"), QLatin1String("v2_paste"), app(), SLOT(pasteTagsV2()), ctx, sm);
+  initAction(tr("Remove"), QLatin1String("v2_remove"), app(), SLOT(removeTagsV2()), ctx, sm);
+  initAction(tr("Edit"), QLatin1String("frames_edit"), form(), SLOT(editFrame()), ctx, sm);
+  initAction(tr("Add"), QLatin1String("frames_add"), form(), SLOT(addFrame()), ctx, sm);
+  initAction(tr("Delete"), QLatin1String("frames_delete"), form(), SLOT(deleteFrame()), ctx, sm);
+  initAction(tr("Focus"), QLatin1String("v2_focus"), form(), SLOT(setFocusV2()), ctx, sm);
+  ctx = tr("File List");
+  initAction(tr("Focus"), QLatin1String("filelist_focus"), form(), SLOT(setFocusFileList()), ctx, sm);
+  ctx = tr("Directory List");
+  initAction(tr("Focus"), QLatin1String("dirlist_focus"), form(), SLOT(setFocusDirList()), ctx, sm);
+}
+
+/**
+ * Init action of form.
+ */
+void Kid3MainWindow::initAction(const QString& text, const QString& name,
+                                const QObject* receiver, const char* slot,
+                                const QString& context,
+                                ShortcutsModel* shortcutsModel)
+{
+  QAction* action = new QAction(form());
+  action->setStatusTip(text);
+  action->setText(text);
+  action->setObjectName(name);
+  shortcutsModel->registerAction(action, context);
+  connect(action, SIGNAL(triggered()), receiver, slot);
+  addAction(action);
 }
 
 /**
