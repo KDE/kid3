@@ -31,6 +31,7 @@
 #include "config.h"
 #include "importconfig.h"
 
+class IPlatformTools;
 class QString;
 class QPushButton;
 class QComboBox;
@@ -63,6 +64,7 @@ public:
   /**
    * Constructor.
    *
+   * @param platformTools platform tools
    * @param parent        parent widget
    * @param caption       dialog title
    * @param trackDataModel track data to be filled with imported values,
@@ -70,10 +72,12 @@ public:
    * @param importers     server importers
    * @param mbClient      MusicBrainz client if supported, else 0
    */
-  ImportDialog(QWidget* parent, QString& caption,
+  ImportDialog(IPlatformTools* platformTools,
+               QWidget* parent, QString& caption,
                TrackDataModel* trackDataModel,
                const QList<ServerImporter*>& importers,
                MusicBrainzClient* mbClient);
+
   /**
    * Destructor.
    */
@@ -219,6 +223,7 @@ private:
    */
   void displayServerImportDialog(ServerImporter* source);
 
+  IPlatformTools* m_platformTools;
   /** Index of importer for subdialog to open when starting, -1 for none */
   int m_autoStartSubDialog;
   /** Mask for visibility of optional columns */

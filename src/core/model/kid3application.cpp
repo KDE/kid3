@@ -32,16 +32,13 @@
 #include <QTextStream>
 #include <QNetworkAccessManager>
 #include <QTimer>
-#ifdef CONFIG_USE_KDE
-#include <kapplication.h>
-#else
 #include <QApplication>
-#endif
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include <unistd.h>
 #include "scriptinterface.h"
 #endif
+#include "icoreplatformtools.h"
 #include "fileproxymodel.h"
 #include "fileproxymodeliterator.h"
 #include "dirproxymodel.h"
@@ -91,9 +88,12 @@ QString Kid3Application::s_dirName;
 
 /**
  * Constructor.
+ * @param platformTools platform tools
  * @param parent parent object
  */
-Kid3Application::Kid3Application(QObject* parent) : QObject(parent),
+Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
+                                 QObject* parent) : QObject(parent),
+  m_platformTools(platformTools),
   m_fileSystemModel(new QFileSystemModel(this)),
   m_fileProxyModel(new FileProxyModel(this)),
   m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
@@ -1884,7 +1884,8 @@ int Kid3Application::getTotalNumberOfTracksInDir()
 QString Kid3Application::createFilterString() const
 {
   QStringList extensions = TaggedFile::getSupportedFileExtensions();
-  QString result, allPatterns;
+  QString allPatterns;
+  QList<QPair<QString, QString> > nameFilters;
   for (QStringList::const_iterator it = extensions.begin();
        it != extensions.end();
        ++it) {
@@ -1894,36 +1895,11 @@ QString Kid3Application::createFilterString() const
       allPatterns += QLatin1Char(' ');
     }
     allPatterns += pattern;
-#ifdef CONFIG_USE_KDE
-    result += pattern;
-    result += QLatin1Char('|');
-    result += text;
-    result += QLatin1String(" (");
-    result += pattern;
-    result += QLatin1String(")\n");
-#else
-    result += text;
-    result += QLatin1String(" (");
-    result += pattern;
-    result += QLatin1String(");;");
-#endif
+    nameFilters.append(qMakePair(text, pattern));
   }
-
-#ifdef CONFIG_USE_KDE
-  QString allExt = allPatterns;
-  allExt += QLatin1Char('|');
-  allExt += tr("All Supported Files");
-  allExt += QLatin1Char('\n');
-  result = allExt + result + QLatin1String("*|") + tr("All Files (*)");
-#else
-  QString allExt = tr("All Supported Files");
-  allExt += QLatin1String(" (");
-  allExt += allPatterns;
-  allExt += QLatin1String(");;");
-  result = allExt + result + tr("All Files (*)");
-#endif
-
-  return result;
+  nameFilters.prepend(qMakePair(tr("All Supported Files"), allPatterns));
+  nameFilters.append(qMakePair(tr("All Files"), QString(QLatin1Char('*'))));
+  return m_platformTools->fileDialogNameFilter(nameFilters);
 }
 
 /**

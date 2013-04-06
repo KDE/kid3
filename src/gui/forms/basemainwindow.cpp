@@ -88,7 +88,7 @@
 BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
                                        IPlatformTools* platformTools) :
   m_platformTools(platformTools), m_w(mainWin), m_self(0),
-  m_app(new Kid3Application(this)),
+  m_app(new Kid3Application(m_platformTools, this)),
   m_importDialog(0), m_batchImportDialog(0), m_browseCoverArtDialog(0),
   m_exportDialog(0), m_renDirDialog(0),
   m_numberTracksDialog(0), m_filterDialog(0),
@@ -467,7 +467,8 @@ void BaseMainWindowImpl::setupImportDialog()
   if (!m_importDialog) {
     QString caption(tr("Import"));
     m_importDialog =
-      new ImportDialog(m_w, caption, m_app->getTrackDataModel(),
+      new ImportDialog(m_platformTools, m_w,
+                       caption, m_app->getTrackDataModel(),
                        m_app->getServerImporters(),
                        m_app->getMusicBrainzClient());
   }
@@ -555,7 +556,8 @@ void BaseMainWindowImpl::slotBrowseCoverArt()
  */
 void BaseMainWindowImpl::slotExport()
 {
-  m_exportDialog = new ExportDialog(m_w, m_app->getTextExporter());
+  m_exportDialog = new ExportDialog(
+        m_platformTools, m_w, m_app->getTextExporter());
   m_exportDialog->readConfig();
   ImportTrackDataVector trackDataVector;
   m_app->filesToTrackData(ConfigStore::s_genCfg.m_exportSrcV1,
@@ -1026,7 +1028,8 @@ bool BaseMainWindowImpl::editFrameOfTaggedFile(Frame* frame, TaggedFile* taggedF
     }
   } else {
     EditFrameFieldsDialog* dialog =
-      new EditFrameFieldsDialog(m_w, name, *frame, taggedFile);
+      new EditFrameFieldsDialog(m_platformTools,
+                                m_w, name, *frame, taggedFile);
     result = dialog && dialog->exec() == QDialog::Accepted;
     if (result) {
       frame->setFieldList(dialog->getUpdatedFieldList());

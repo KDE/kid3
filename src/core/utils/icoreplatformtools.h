@@ -1,0 +1,65 @@
+/**
+ * \file icoreplatformtools.h
+ * Interface for GUI independent platform specific tools.
+ *
+ * \b Project: Kid3
+ * \author Urs Fleisch
+ * \date 06 Apr 2013
+ *
+ * Copyright (C) 2013  Urs Fleisch
+ *
+ * This file is part of Kid3.
+ *
+ * Kid3 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Kid3 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef ICOREPLATFORMTOOLS_H
+#define ICOREPLATFORMTOOLS_H
+
+#include <QList>
+#include <QPair>
+#include "kid3api.h"
+
+class QString;
+
+/**
+ * Interface for GUI independent platform specific tools.
+ */
+class KID3_CORE_EXPORT ICorePlatformTools {
+public:
+  /**
+   * Destructor.
+   */
+  virtual ~ICorePlatformTools() = 0;
+
+  /**
+   * Move file or directory to trash.
+   *
+   * @param path path to file or directory
+   *
+   * @return true if ok.
+   */
+  virtual bool moveToTrash(const QString& path) const = 0;
+
+  /**
+   * Construct a name filter string suitable for file dialogs.
+   * @param nameFilters list of description, filter pairs, e.g.
+   * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
+   * @return name filter string.
+   */
+  virtual QString fileDialogNameFilter(
+      const QList<QPair<QString, QString> >& nameFilters) const = 0;
+};
+
+#endif // ICOREPLATFORMTOOLS_H

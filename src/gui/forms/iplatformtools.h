@@ -27,16 +27,16 @@
 #ifndef IPLATFORMTOOLS_H
 #define IPLATFORMTOOLS_H
 
-#include "kid3api.h"
+#include "icoreplatformtools.h"
 
-class QString;
 class QStringList;
 class QWidget;
+class QIcon;
 
 /**
  * Interface for platform specific tools.
  */
-class KID3_GUI_EXPORT IPlatformTools {
+class KID3_GUI_EXPORT IPlatformTools : public ICorePlatformTools {
 public:
   /**
    * Destructor.
@@ -44,21 +44,18 @@ public:
   virtual ~IPlatformTools() = 0;
 
   /**
-   * Move file or directory to trash.
-   *
-   * @param path path to file or directory
-   *
-   * @return true if ok.
-   */
-  virtual bool moveToTrash(const QString& path) const = 0;
-
-
-  /**
    * Display help for a topic.
    *
    * @param anchor anchor in help document
    */
   virtual void displayHelp(const QString& anchor) = 0;
+
+  /**
+   * Get a themed icon by name.
+   * @param name name of icon
+   * @return icon.
+   */
+  virtual QIcon iconFromTheme(const QString& name) const = 0;
 
   /**
    * Display error dialog with item list.
@@ -90,6 +87,20 @@ public:
    * @return selected file, empty if canceled.
    */
   virtual QString getOpenFileName(QWidget* parent,
+      const QString& caption, const QString& dir, const QString& filter,
+      QString* selectedFilter) = 0;
+
+
+  /**
+   * Display dialog to select a file to save.
+   * @param parent parent widget
+   * @param caption caption
+   * @param dir directory
+   * @param filter filter
+   * @param selectedFilter the selected filter is returned here
+   * @return selected file, empty if canceled.
+   */
+  virtual QString getSaveFileName(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
       QString* selectedFilter) = 0;
 

@@ -31,6 +31,7 @@
 #include <QStringList>
 #include "trackdata.h"
 
+class IPlatformTools;
 class QTextEdit;
 class QTableView;
 class QPushButton;
@@ -49,10 +50,12 @@ public:
   /**
    * Constructor.
    *
+   * @param platformTools platform tools
    * @param parent       parent widget
    * @param textExporter text exporter to use
    */
-  ExportDialog(QWidget* parent, TextExporter* textExporter);
+  ExportDialog(IPlatformTools* platformTools,
+               QWidget* parent, TextExporter* textExporter);
 
   /**
    * Destructor.
@@ -103,6 +106,7 @@ private:
    */
   void setFormatFromConfig();
 
+  IPlatformTools* m_platformTools;
   /** Text editor */
   QTextEdit* m_edit;
   /** Table view */

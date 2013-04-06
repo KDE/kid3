@@ -63,6 +63,22 @@ public:
   virtual void displayHelp(const QString& anchor);
 
   /**
+   * Get a themed icon by name.
+   * @param name name of icon
+   * @return icon.
+   */
+  virtual QIcon iconFromTheme(const QString& name) const;
+
+  /**
+   * Construct a name filter string suitable for file dialogs.
+   * @param nameFilters list of description, filter pairs, e.g.
+   * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
+   * @return name filter string.
+   */
+  virtual QString fileDialogNameFilter(
+      const QList<QPair<QString, QString> >& nameFilters) const;
+
+  /**
    * Display error dialog with item list.
    * @param parent parent widget
    * @param text text
@@ -92,6 +108,19 @@ public:
    * @return selected file, empty if canceled.
    */
   virtual QString getOpenFileName(QWidget* parent,
+      const QString& caption, const QString& dir, const QString& filter,
+      QString* selectedFilter);
+
+  /**
+   * Display dialog to select a file to save.
+   * @param parent parent widget
+   * @param caption caption
+   * @param dir directory
+   * @param filter filter
+   * @param selectedFilter the selected filter is returned here
+   * @return selected file, empty if canceled.
+   */
+  virtual QString getSaveFileName(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
       QString* selectedFilter);
 

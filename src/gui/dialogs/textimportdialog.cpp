@@ -28,15 +28,13 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QFile>
+#include <QFileInfo>
+#include <QDir>
 #include <QClipboard>
 #include <QTextStream>
 #include <QApplication>
 #include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <kfiledialog.h>
-#else
-#include <QFileDialog>
-#endif
+#include "iplatformtools.h"
 #include "textimporter.h"
 #include "importparser.h"
 #include "configstore.h"
@@ -46,12 +44,15 @@
 /**
  * Constructor.
  *
+ * @param platformTools platform tools
  * @param parent  parent widget
  * @param trackDataModel track data to be filled with imported values
  */
-TextImportDialog::TextImportDialog(QWidget* parent,
+TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
+                                   QWidget* parent,
                                    TrackDataModel* trackDataModel) :
-  QDialog(parent), m_textImporter(new TextImporter(trackDataModel))
+  QDialog(parent), m_platformTools(platformTools),
+  m_textImporter(new TextImporter(trackDataModel))
 {
   setObjectName(QLatin1String("TextImportDialog"));
   setWindowTitle(tr("Import from File/Clipboard"));
@@ -158,15 +159,8 @@ bool TextImportDialog::importFromFile(const QString& fn)
  */
 void TextImportDialog::fromFile()
 {
-  importFromFile(
-#ifdef CONFIG_USE_KDE
-    KFileDialog::getOpenFileName(ConfigStore::s_genCfg.m_importDir, QString::null, this)
-#else
-    QFileDialog::getOpenFileName(this, QString(),
-      ConfigStore::s_genCfg.m_importDir, QString(), 0,
-      ConfigStore::s_miscCfg.m_dontUseNativeDialogs
-      ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0))
-#endif
+  importFromFile(m_platformTools->getOpenFileName(this, QString(),
+      ConfigStore::s_genCfg.m_importDir, QString(), 0)
     );
 }
 

@@ -26,9 +26,6 @@
 
 #include "importdialog.h"
 #include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <kicon.h>
-#endif
 #include <QLayout>
 #include <QPushButton>
 #include <QToolButton>
@@ -64,6 +61,7 @@
 #include "trackdatamatcher.h"
 #include "qtcompatmac.h"
 #include "config.h"
+#include "iplatformtools.h"
 #ifdef HAVE_CHROMAPRINT
 #include "musicbrainzdialog.h"
 #include "musicbrainzconfig.h"
@@ -86,6 +84,7 @@ QList<int> checkableFrameTypes() {
 /**
  * Constructor.
  *
+ * @param platformTools platform tools
  * @param parent        parent widget
  * @param caption       dialog title
  * @param trackDataModel track data to be filled with imported values,
@@ -93,11 +92,12 @@ QList<int> checkableFrameTypes() {
  * @param importers     server importers
  * @param mbClient      MusicBrainz client if supported, else 0
  */
-ImportDialog::ImportDialog(QWidget* parent, QString& caption,
+ImportDialog::ImportDialog(IPlatformTools* platformTools,
+                           QWidget* parent, QString& caption,
                            TrackDataModel* trackDataModel,
                            const QList<ServerImporter*>& importers,
                            MusicBrainzClient* mbClient) :
-  QDialog(parent),
+  QDialog(parent), m_platformTools(platformTools),
   m_autoStartSubDialog(-1), m_columnVisibility(0ULL),
   m_trackDataModel(trackDataModel), m_importers(importers),
   m_musicBrainzClient(mbClient)
@@ -186,12 +186,7 @@ ImportDialog::ImportDialog(QWidget* parent, QString& caption,
   butlayout->addWidget(m_destComboBox);
   QToolButton* revertButton = new QToolButton;
   revertButton->setIcon(
-#ifdef CONFIG_USE_KDE
-        KIcon(QLatin1String("document-revert"))
-#else
-        QCM_QIcon_fromTheme("document-revert")
-#endif
-        );
+        m_platformTools->iconFromTheme(QLatin1String("document-revert")));
   revertButton->setToolTip(tr("Revert"));
   connect(revertButton, SIGNAL(clicked()),
           this, SLOT(changeTagDestination()));
@@ -283,7 +278,8 @@ void ImportDialog::fromServer()
 void ImportDialog::fromText()
 {
   if (!m_textImportDialog) {
-    m_textImportDialog = new TextImportDialog(this, m_trackDataModel);
+    m_textImportDialog = new TextImportDialog(
+          m_platformTools, this, m_trackDataModel);
     connect(m_textImportDialog, SIGNAL(trackDataUpdated()),
             this, SLOT(showPreview()));
   }

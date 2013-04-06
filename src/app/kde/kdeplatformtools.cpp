@@ -73,6 +73,45 @@ void KdePlatformTools::displayHelp(const QString& anchor)
 }
 
 /**
+ * Get a themed icon by name.
+ * @param name name of icon
+ * @return icon.
+ */
+QIcon KdePlatformTools::iconFromTheme(const QString& name) const
+{
+  return KIcon(name);
+}
+
+/**
+ * Construct a name filter string suitable for file dialogs.
+ * @param nameFilters list of description, filter pairs, e.g.
+ * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
+ * @return name filter string.
+ */
+QString KdePlatformTools::fileDialogNameFilter(
+    const QList<QPair<QString, QString> >& nameFilters) const
+{
+  QString filter;
+  for (QList<QPair<QString, QString> >::const_iterator it =
+       nameFilters.constBegin();
+       it != nameFilters.constEnd();
+       ++it) {
+    if (!filter.isEmpty()) {
+      filter += QLatin1Char('\n');
+    }
+    filter += it->second;
+    filter += QLatin1Char('|');
+    filter += it->first;
+    if (it->second.length() < 60) {
+      filter += QLatin1String(" (");
+      filter += it->second;
+      filter += QLatin1Char(')');
+    }
+  }
+  return filter;
+}
+
+/**
  * Display error dialog with item list.
  * @param parent parent widget
  * @param text text
@@ -124,19 +163,53 @@ QString KdePlatformTools::getOpenFileName(QWidget* parent,
     const QString& caption, const QString& dir, const QString& filter,
     QString* selectedFilter)
 {
-  QString selectedFile;
-  KFileDialog diag(dir, filter, parent);
-  diag.setWindowTitle(caption.isEmpty()
-                      ? QCoreApplication::translate("@default",
-                            QT_TRANSLATE_NOOP("@default", "Open"))
-                      : caption);
-  if (diag.exec() == QDialog::Accepted) {
-    selectedFile = diag.selectedFile();
-    if (selectedFilter) {
+  if (selectedFilter) {
+    QString selectedFile;
+    KFileDialog diag(dir, filter, parent);
+    diag.setWindowTitle(caption.isEmpty()
+                        ? QCoreApplication::translate("@default",
+                              QT_TRANSLATE_NOOP("@default", "Open"))
+                        : caption);
+    if (diag.exec() == QDialog::Accepted) {
+      selectedFile = diag.selectedFile();
       *selectedFilter = diag.currentFilter();
     }
+    return selectedFile;
+  } else {
+    return KFileDialog::getOpenFileName(dir, filter, parent, caption);
   }
-  return selectedFile;
+}
+
+
+/**
+ * Display dialog to select a file to save.
+ * @param parent parent widget
+ * @param caption caption
+ * @param dir directory
+ * @param filter filter
+ * @param selectedFilter the selected filter is returned here
+ * @return selected file, empty if canceled.
+ */
+QString KdePlatformTools::getSaveFileName(QWidget* parent,
+    const QString& caption, const QString& dir, const QString& filter,
+    QString* selectedFilter)
+{
+  if (selectedFilter) {
+    QString selectedFile;
+    KFileDialog diag(dir, filter, parent);
+    diag.setOperationMode(KFileDialog::Saving);
+    diag.setWindowTitle(caption.isEmpty()
+                        ? QCoreApplication::translate("@default",
+                              QT_TRANSLATE_NOOP("@default", "Save As"))
+                        : caption);
+    if (diag.exec() == QDialog::Accepted) {
+      selectedFile = diag.selectedFile();
+      *selectedFilter = diag.currentFilter();
+    }
+    return selectedFile;
+  } else {
+    return KFileDialog::getSaveFileName(dir, filter, parent, caption);
+  }
 }
 
 /**

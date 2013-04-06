@@ -33,6 +33,7 @@
 #include <QList>
 
 class TaggedFile;
+class IPlatformTools;
 
 /** Row of buttons to load, save and view binary data */
 class BinaryOpenSave : public QWidget {
@@ -42,10 +43,12 @@ class BinaryOpenSave : public QWidget {
   /**
    * Constructor.
    *
+   * @param platformTools platform tools
    * @param parent parent widget
    * @param field  field containing binary data
    */
-  BinaryOpenSave(QWidget* parent, const Frame::Field& field);
+  BinaryOpenSave(IPlatformTools* platformTools,
+                 QWidget* parent, const Frame::Field& field);
 
   /**
    * Set label.
@@ -112,6 +115,7 @@ class BinaryOpenSave : public QWidget {
   void viewData();
 
  private:
+  IPlatformTools* m_platformTools;
   /** Array with binary data */
   QByteArray m_byteArray;
   /** true if m_byteArray changed */
@@ -165,12 +169,14 @@ public:
   /**
    * Constructor.
    *
+   * @param platformTools platform tools
    * @param parent     parent widget
    * @param caption    caption
    * @param frame      frame with fields to edit
    * @param taggedFile file
    */
-  EditFrameFieldsDialog(QWidget* parent, const QString& caption,
+  EditFrameFieldsDialog(IPlatformTools* platformTools, QWidget* parent,
+                        const QString& caption,
                         const Frame& frame, const TaggedFile* taggedFile);
 
   /**
@@ -186,6 +192,7 @@ public:
   const Frame::FieldList& getUpdatedFieldList();
 
 private:
+  IPlatformTools* m_platformTools;
   Frame::FieldList m_fields;
   QList<FieldControl*> m_fieldcontrols;
 };

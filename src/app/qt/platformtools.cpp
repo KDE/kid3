@@ -27,6 +27,7 @@
 #include "platformtools.h"
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QIcon>
 #include <QCoreApplication>
 #include "config.h"
 #include "browserdialog.h"
@@ -259,6 +260,46 @@ void PlatformTools::displayHelp(const QString& anchor)
 }
 
 /**
+ * Get a themed icon by name.
+ * @param name name of icon
+ * @return icon.
+ */
+QIcon PlatformTools::iconFromTheme(const QString& name) const
+{
+#if QT_VERSION >= 0x040600
+  return QIcon::fromTheme(name,
+      QIcon(QLatin1String(":/images/") + name + QLatin1String(".png")));
+#else
+  return QIcon(QLatin1String(":/images/") + name + QLatin1String(".png"));
+#endif
+}
+
+/**
+ * Construct a name filter string suitable for file dialogs.
+ * @param nameFilters list of description, filter pairs, e.g.
+ * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
+ * @return name filter string.
+ */
+QString PlatformTools::fileDialogNameFilter(
+    const QList<QPair<QString, QString> >& nameFilters) const
+{
+  QString filter;
+  for (QList<QPair<QString, QString> >::const_iterator it =
+       nameFilters.constBegin();
+       it != nameFilters.constEnd();
+       ++it) {
+    if (!filter.isEmpty()) {
+      filter += QLatin1String(";;");
+    }
+    filter += it->first;
+    filter += QLatin1String(" (");
+    filter += it->second;
+    filter += QLatin1Char(')');
+  }
+  return filter;
+}
+
+/**
  * Display error dialog with item list.
  * @param parent parent widget
  * @param text text
@@ -300,6 +341,24 @@ QString PlatformTools::getOpenFileName(QWidget* parent, const QString& caption,
     const QString& dir, const QString& filter, QString* selectedFilter)
 {
   return QFileDialog::getOpenFileName(
+        parent, caption, dir, filter, selectedFilter,
+        ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
+}
+
+/**
+ * Display dialog to select a file to save.
+ * @param parent parent widget
+ * @param caption caption
+ * @param dir directory
+ * @param filter filter
+ * @param selectedFilter the selected filter is returned here
+ * @return selected file, empty if canceled.
+ */
+QString PlatformTools::getSaveFileName(QWidget* parent, const QString& caption,
+    const QString& dir, const QString& filter, QString* selectedFilter)
+{
+  return QFileDialog::getSaveFileName(
         parent, caption, dir, filter, selectedFilter,
         ConfigStore::s_miscCfg.m_dontUseNativeDialogs
         ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));

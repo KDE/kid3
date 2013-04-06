@@ -57,6 +57,7 @@ class DirRenamer;
 class BatchImportProfile;
 class BatchImporter;
 class IAbortable;
+class ICorePlatformTools;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class AudioPlayer;
 #endif
@@ -76,9 +77,11 @@ public:
 
   /**
    * Constructor.
+   * @param platformTools platform tools
    * @param parent parent object
    */
-  explicit Kid3Application(QObject* parent = 0);
+  explicit Kid3Application(ICorePlatformTools* platformTools,
+                           QObject* parent = 0);
 
   /**
    * Destructor.
@@ -885,6 +888,7 @@ private:
    */
   bool selectAddAndEditFrame(IFrameEditor* frameEditor);
 
+  ICorePlatformTools* m_platformTools;
   /** model of filesystem */
   QFileSystemModel* m_fileSystemModel;
   FileProxyModel* m_fileProxyModel;

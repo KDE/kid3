@@ -32,6 +32,7 @@
 class TextImporter;
 class TrackDataModel;
 class FormatListEdit;
+class IPlatformTools;
 
 /**
  * Dialog to import from a text (file or clipboard).
@@ -43,11 +44,12 @@ public:
   /**
    * Constructor.
    *
+   * @param platformTools platform tools
    * @param parent  parent widget
    * @param trackDataModel track data to be filled with imported values
    */
-  explicit TextImportDialog(QWidget* parent,
-                            TrackDataModel* trackDataModel);
+  TextImportDialog(IPlatformTools* platformTools, QWidget* parent,
+                   TrackDataModel* trackDataModel);
 
   /**
    * Destructor.
@@ -102,6 +104,7 @@ private:
    */
   void setFormatFromConfig();
 
+  IPlatformTools* m_platformTools;
   /** format editor */
   FormatListEdit* m_formatListEdit;
   /** text importer */

@@ -25,13 +25,6 @@
  */
 
 #include "exportdialog.h"
-#include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <kfiledialog.h>
-#else
-#include <QFileDialog>
-#endif
-
 #include <QLayout>
 #include <QPushButton>
 #include <QLabel>
@@ -55,15 +48,18 @@
 #include "textexporter.h"
 #include "texttablemodel.h"
 #include "formatlistedit.h"
+#include "iplatformtools.h"
 
 /**
  * Constructor.
  *
+ * @param platformTools platform tools
  * @param parent       parent widget
  * @param textExporter text exporter to use
  */
-ExportDialog::ExportDialog(QWidget* parent, TextExporter* textExporter) :
-  QDialog(parent),
+ExportDialog::ExportDialog(IPlatformTools* platformTools,
+                           QWidget* parent, TextExporter* textExporter) :
+  QDialog(parent), m_platformTools(platformTools),
   m_textExporter(textExporter), m_textTableModel(new TextTableModel(this))
 {
   setObjectName(QLatin1String("ExportDialog"));
@@ -159,16 +155,8 @@ ExportDialog::~ExportDialog()
  */
 void ExportDialog::slotToFile()
 {
-  QString fileName =
-#ifdef CONFIG_USE_KDE
-    KFileDialog::getSaveFileName(ConfigStore::s_genCfg.m_importDir,
-                                 QString::null, this);
-#else
-    QFileDialog::getSaveFileName(this, QString(),
-     ConfigStore::s_genCfg.m_importDir, QString(), 0,
-     ConfigStore::s_miscCfg.m_dontUseNativeDialogs
-     ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
-#endif
+  QString fileName = m_platformTools->getSaveFileName(this, QString(),
+      ConfigStore::s_genCfg.m_importDir, QString(), 0);
   if (!fileName.isEmpty()) {
     if (!m_textExporter->exportToFile(fileName)) {
       QMessageBox::warning(

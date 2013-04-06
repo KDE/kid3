@@ -34,6 +34,7 @@
 #include <QSpinBox>
 #include <QApplication>
 #include <QFile>
+#include <QDir>
 #include <QBuffer>
 #include <QVBoxLayout>
 #include <QMimeData>
@@ -42,11 +43,7 @@
 #include "taggedfile.h"
 #include "config.h"
 #include "configstore.h"
-#ifdef CONFIG_USE_KDE
-#include <kfiledialog.h>
-#else
-#include <QFileDialog>
-#endif
+#include "iplatformtools.h"
 
 /** QTextEdit with label above */
 class LabeledTextEdit : public QWidget {
@@ -472,13 +469,15 @@ class BinFieldControl : public Mp3FieldControl {
 public:
   /**
    * Constructor.
+   * @param platformTools platform tools
    * @param field      field to edit
    * @param frame      frame with fields to edit
    * @param taggedFile file
    */
-  BinFieldControl(Frame::Field& field,
+  BinFieldControl(IPlatformTools* platformTools, Frame::Field& field,
                   const Frame& frame, const TaggedFile* taggedFile) :
-    Mp3FieldControl(field), m_bos(0), m_frame(frame), m_taggedFile(taggedFile) {}
+    Mp3FieldControl(field), m_platformTools(platformTools), m_bos(0),
+    m_frame(frame), m_taggedFile(taggedFile) {}
 
   /**
    * Destructor.
@@ -500,6 +499,8 @@ public:
   virtual QWidget* createWidget(QWidget* parent);
 
 protected:
+  /** Platform dependent tools */
+  IPlatformTools* m_platformTools;
   /** Import, Export, View buttons */
   BinaryOpenSave* m_bos;
   /** frame with fields to edit */
@@ -512,11 +513,14 @@ protected:
 /**
  * Constructor.
  *
+ * @param platformTools platform tools
  * @param parent parent widget
  * @param field  field containing binary data
  */
-BinaryOpenSave::BinaryOpenSave(QWidget* parent, const Frame::Field& field) :
-  QWidget(parent), m_byteArray(field.m_value.toByteArray()),
+BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
+                               QWidget* parent, const Frame::Field& field) :
+  QWidget(parent),
+  m_platformTools(platformTools), m_byteArray(field.m_value.toByteArray()),
   m_isChanged(false)
 {
   setObjectName(QLatin1String("BinaryOpenSave"));
@@ -576,17 +580,9 @@ void BinaryOpenSave::clipData()
  */
 void BinaryOpenSave::loadData()
 {
-#ifdef CONFIG_USE_KDE
-  QString loadfilename = KFileDialog::getOpenFileName(
-    m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
-    m_filter, this);
-#else
-  QString loadfilename = QFileDialog::getOpenFileName(
-    this, QString(),
-    m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
-    m_filter, 0, ConfigStore::s_miscCfg.m_dontUseNativeDialogs
-    ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
-#endif
+  QString loadfilename = m_platformTools->getOpenFileName(this, QString(),
+        m_defaultDir.isEmpty() ? Kid3Application::getDirName() : m_defaultDir,
+        m_filter, 0);
   if (!loadfilename.isEmpty()) {
     QFile file(loadfilename);
     if (file.open(QIODevice::ReadOnly)) {
@@ -615,13 +611,8 @@ void BinaryOpenSave::saveData()
     }
     dir += m_defaultFile;
   }
-#ifdef CONFIG_USE_KDE
-  QString fn = KFileDialog::getSaveFileName(dir, m_filter, this);
-#else
-  QString fn = QFileDialog::getSaveFileName(this, QString(), dir,
-    m_filter, 0, ConfigStore::s_miscCfg.m_dontUseNativeDialogs
-    ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
-#endif
+  QString fn = m_platformTools->getSaveFileName(
+        this, QString(), dir, m_filter, 0);
   if (!fn.isEmpty()) {
     QFile file(fn);
     if (file.open(QIODevice::WriteOnly)) {
@@ -802,7 +793,7 @@ void BinFieldControl::updateTag()
  */
 QWidget* BinFieldControl::createWidget(QWidget* parent)
 {
-  m_bos = new BinaryOpenSave(parent, m_field);
+  m_bos = new BinaryOpenSave(m_platformTools, parent, m_field);
   m_bos->setLabel(QCoreApplication::translate("@default",
       getFieldIDString(static_cast<Frame::Field::Id>(m_field.m_id))));
   if (m_taggedFile) {
@@ -810,22 +801,14 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
   }
   if (m_frame.getType() == Frame::FT_Picture) {
     m_bos->setDefaultFile(ConfigStore::s_miscCfg.m_defaultCoverFileName);
-    m_bos->setFilter(
-#ifdef CONFIG_USE_KDE
-          QLatin1String("*.jpg *.jpeg *.png|") +
-          QCoreApplication::translate("@default",
-              QT_TRANSLATE_NOOP("@default", "Images (*.jpg *.jpeg *.png)")) +
-          QLatin1String("\n*|") +
-          QCoreApplication::translate("@default",
-              QT_TRANSLATE_NOOP("@default", "All Files (*)"))
-#else
-          QCoreApplication::translate("@default",
-              QT_TRANSLATE_NOOP("@default", "Images (*.jpg *.jpeg *.png)")) +
-          QLatin1String(";;") +
-          QCoreApplication::translate("@default",
-              QT_TRANSLATE_NOOP("@default", "All Files (*)"))
-#endif
-          );
+    m_bos->setFilter(m_platformTools->fileDialogNameFilter(
+               QList<QPair<QString, QString> >()
+               << qMakePair(QCoreApplication::translate("@default",
+                                QT_TRANSLATE_NOOP("@default", "Images")),
+                            QString(QLatin1String("*.jpg *.jpeg *.png")))
+               << qMakePair(QCoreApplication::translate("@default",
+                                QT_TRANSLATE_NOOP("@default", "All Files")),
+                            QString(QLatin1Char('*')))));
   }
   return m_bos;
 }
@@ -849,15 +832,18 @@ const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
 /**
  * Constructor.
  *
+ * @param platformTools platform tools
  * @param parent     parent widget
  * @param caption    caption
  * @param frame      frame with fields to edit
  * @param taggedFile file
  */
 EditFrameFieldsDialog::EditFrameFieldsDialog(
+  IPlatformTools* platformTools,
   QWidget* parent, const QString& caption,
   const Frame& frame, const TaggedFile* taggedFile) :
-  QDialog(parent), m_fields(frame.getFieldList())
+  QDialog(parent),
+  m_platformTools(platformTools), m_fields(frame.getFieldList())
 {
   setObjectName(QLatin1String("EditFrameFieldsDialog"));
   setModal(true);
@@ -956,7 +942,8 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(
 
       case QVariant::ByteArray:
       {
-        BinFieldControl* binctl = new BinFieldControl(fld, frame, taggedFile);
+        BinFieldControl* binctl = new BinFieldControl(
+              m_platformTools, fld, frame, taggedFile);
         m_fieldcontrols.append(binctl);
         break;
       }
