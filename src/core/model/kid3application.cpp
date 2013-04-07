@@ -145,11 +145,12 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   if (QDBusConnection::sessionBus().isConnected()) {
     QString serviceName(QLatin1String("net.sourceforge.kid3"));
     QDBusConnection::sessionBus().registerService(serviceName);
-#ifndef CONFIG_USE_KDE
+    // For the case of multiple Kid3 instances running, register also a service
+    // with the PID appended. On KDE such a service is already registered but
+    // the call to registerService() seems to succeed nevertheless.
     serviceName += QLatin1Char('-');
     serviceName += QString::number(::getpid());
     QDBusConnection::sessionBus().registerService(serviceName);
-#endif
     new ScriptInterface(this);
     if (!QDBusConnection::sessionBus().registerObject(QLatin1String("/Kid3"), this)) {
       qWarning("Registering D-Bus object failed");
