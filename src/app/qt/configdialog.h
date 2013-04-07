@@ -50,8 +50,10 @@ public:
    *
    * @param parent  parent widget
    * @param caption dialog title
+   * @param shortcutsModel shortcuts model
    */
-  ConfigDialog(QWidget* parent, QString& caption);
+  ConfigDialog(QWidget* parent, QString& caption,
+               ShortcutsModel* shortcutsModel);
 
   /**
    * Destructor.
@@ -111,8 +113,6 @@ protected slots:
   void slotRevertFontAndStyle();
 
 private:
-  void setShortcutsModel(ShortcutsModel* model);
-
   ConfigDialogPages* m_pages;
   ShortcutsModel* m_shortcutsModel;
   QTreeView* m_shortcutsTreeView;

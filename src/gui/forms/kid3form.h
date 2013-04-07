@@ -49,7 +49,6 @@ class FileList;
 class DirList;
 class PictureLabel;
 class BaseMainWindowImpl;
-class ShortcutsModel;
 
 /**
  * Main widget.

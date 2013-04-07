@@ -28,7 +28,6 @@
 #include "config.h"
 #ifndef CONFIG_USE_KDE
 #include <QApplication>
-#include "shortcutsmodel.h"
 #endif
 
 MiscConfig ConfigStore::s_miscCfg(QLatin1String("General Options"));
@@ -56,7 +55,6 @@ ConfigStore::ConfigStore()
         QSettings::UserScope, QLatin1String("kid3.sourceforge.net"),
         QLatin1String("Kid3"), qApp);
   m_config->beginGroup(QLatin1String("/kid3"));
-  m_shortcutsModel = new ShortcutsModel;
 #endif
 }
 
@@ -67,8 +65,6 @@ ConfigStore::~ConfigStore()
 {
 #ifdef CONFIG_USE_KDE
   delete m_config;
-#else
-  delete m_shortcutsModel;
 #endif
   // m_config is not deleted because this could lead to a crash on Mac OS.
 }

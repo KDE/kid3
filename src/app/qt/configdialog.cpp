@@ -51,9 +51,12 @@
  *
  * @param parent  parent widget
  * @param caption dialog title
+ * @param shortcutsModel shortcuts model
  */
-ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
-  QDialog(parent), m_pages(new ConfigDialogPages(this))
+ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
+                           ShortcutsModel* shortcutsModel) :
+  QDialog(parent),
+  m_pages(new ConfigDialogPages(this)), m_shortcutsModel(shortcutsModel)
 {
   setObjectName(QLatin1String("ConfigDialog"));
   setWindowTitle(caption);
@@ -69,7 +72,6 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
 
   {
     QWidget* shortcutsPage = new QWidget;
-    m_shortcutsModel = 0;
     QVBoxLayout* vlayout = new QVBoxLayout(shortcutsPage);
     m_shortcutsTreeView = new QTreeView;
     m_shortcutsTreeView->setSelectionMode(QAbstractItemView::NoSelection);
@@ -79,6 +81,23 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption) :
     m_shortcutAlreadyUsedLabel = new QLabel;
     vlayout->addWidget(m_shortcutAlreadyUsedLabel);
     tabWidget->addTab(shortcutsPage, tr("&Keyboard Shortcuts"));
+
+    connect(m_shortcutsModel,
+            SIGNAL(shortcutAlreadyUsed(QString,QString,const QAction*)),
+            this,
+            SLOT(warnAboutAlreadyUsedShortcut(QString,QString,const QAction*)));
+    connect(m_shortcutsModel,
+            SIGNAL(shortcutSet(QString,QString,const QAction*)),
+            this,
+            SLOT(clearAlreadyUsedShortcutWarning()));
+    connect(this, SIGNAL(rejected()),
+            m_shortcutsModel, SLOT(discardChangedShortcuts()));
+    m_shortcutsTreeView->setModel(m_shortcutsModel);
+    m_shortcutsTreeView->expandAll();
+    m_shortcutsTreeView->resizeColumnToContents(ShortcutsModel::ActionColumn);
+#ifdef Q_OS_MAC
+    m_shortcutsTreeView->header()->setStretchLastSection(false);
+#endif
   }
 
   {
@@ -147,7 +166,6 @@ void ConfigDialog::setConfig(const ConfigStore* cfg)
   m_pages->setConfig(cfg);
 
   const MiscConfig* miscCfg = &cfg->s_miscCfg;
-  setShortcutsModel(cfg->getShortcutsModel());
   m_useApplicationFontCheckBox->setChecked(miscCfg->m_useFont);
   m_applicationFontButton->setEnabled(miscCfg->m_useFont);
   if (miscCfg->m_style.isEmpty()) {
@@ -182,7 +200,7 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
   m_pages->getConfig(cfg);
 
   MiscConfig* miscCfg = &cfg->s_miscCfg;
-  cfg->getShortcutsModel()->assignChangedShortcuts();
+  m_shortcutsModel->assignChangedShortcuts();
   if (m_useApplicationFontCheckBox->isChecked()) {
     QFont font = QApplication::font();
     miscCfg->m_fontFamily = font.family();
@@ -230,45 +248,6 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
 void ConfigDialog::clearAlreadyUsedShortcutWarning()
 {
   m_shortcutAlreadyUsedLabel->clear();
-}
-
-/**
- * Set model with keyboard shortcuts configuration.
- * @param model shortcuts model
- */
-void ConfigDialog::setShortcutsModel(ShortcutsModel* model)
-{
-  if (model != m_shortcutsModel) {
-    if (m_shortcutsModel) {
-      disconnect(m_shortcutsModel,
-                 SIGNAL(shortcutAlreadyUsed(QString,QString,const QAction*)),
-                 this,
-                 SLOT(warnAboutAlreadyUsedShortcut(QString,QString,const QAction*)));
-      disconnect(m_shortcutsModel,
-                 SIGNAL(shortcutSet(QString,QString,const QAction*)),
-                 this,
-                 SLOT(clearAlreadyUsedShortcutWarning()));
-      disconnect(this, SIGNAL(rejected()),
-                 m_shortcutsModel, SLOT(discardChangedShortcuts()));
-    }
-    m_shortcutsModel = model;
-    connect(m_shortcutsModel,
-            SIGNAL(shortcutAlreadyUsed(QString,QString,const QAction*)),
-            this,
-            SLOT(warnAboutAlreadyUsedShortcut(QString,QString,const QAction*)));
-    connect(m_shortcutsModel,
-            SIGNAL(shortcutSet(QString,QString,const QAction*)),
-            this,
-            SLOT(clearAlreadyUsedShortcutWarning()));
-    connect(this, SIGNAL(rejected()),
-            m_shortcutsModel, SLOT(discardChangedShortcuts()));
-    m_shortcutsTreeView->setModel(m_shortcutsModel);
-    m_shortcutsTreeView->expandAll();
-    m_shortcutsTreeView->resizeColumnToContents(ShortcutsModel::ActionColumn);
-#ifdef Q_OS_MAC
-    m_shortcutsTreeView->header()->setStretchLastSection(false);
-#endif
-  }
 }
 
 /**

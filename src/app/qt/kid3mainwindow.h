@@ -152,11 +152,11 @@ private:
    */
   void initAction(const QString& text, const QString& name,
                   const QObject* receiver, const char* slot,
-                  const QString& context,
-                  ShortcutsModel* shortcutsModel);
+                  const QString& context);
 
   IPlatformTools* m_platformTools;
   RecentFilesMenu* m_fileOpenRecent;
+  ShortcutsModel* m_shortcutsModel;
   QAction* m_viewToolBar;
   QAction* m_viewStatusBar;
   QAction* m_settingsAutoHideTags;

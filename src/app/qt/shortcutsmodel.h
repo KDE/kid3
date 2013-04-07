@@ -29,8 +29,6 @@
 
 #include <QAbstractItemModel>
 #include <QList>
-#include "config.h"
-#include "kid3api.h"
 
 class QAction;
 class QSettings;
@@ -44,9 +42,8 @@ class QSettings;
  * action can be found. The model can be used in a QTreeView, to edit the
  * @ref ShortcutColumn, a ShortcutsDelegate can be used.
  */
-class KID3_CORE_EXPORT ShortcutsModel : public QAbstractItemModel {
+class ShortcutsModel : public QAbstractItemModel {
   Q_OBJECT
-#ifndef CONFIG_USE_KDE
 public:
   /**
    * Columns in model.
@@ -239,7 +236,6 @@ private:
   const ShortcutGroup* shortcutGroupForIndex(const QModelIndex& index) const;
 
   QList<ShortcutGroup> m_shortcutGroups;
-#endif // !CONFIG_USE_KDE
 };
 
 #endif // SHORTCUTSMODEL_H

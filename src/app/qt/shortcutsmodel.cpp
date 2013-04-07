@@ -25,9 +25,6 @@
  */
 
 #include "shortcutsmodel.h"
-
-#ifndef CONFIG_USE_KDE
-
 #include <QAction>
 #include <QSettings>
 
@@ -416,5 +413,3 @@ ShortcutsModel::ShortcutGroup::ShortcutGroup(const QString& ctx) :
 {
   m_context.remove(QLatin1Char('&'));
 }
-
-#endif // !CONFIG_USE_KDE

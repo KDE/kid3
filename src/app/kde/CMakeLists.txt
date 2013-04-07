@@ -1,5 +1,9 @@
-set(kde_SRCS mainkde.cpp kdeplatformtools.cpp kdemainwindow.cpp
-             kdeconfigdialog.cpp)
+set(kde_SRCS
+  mainkde.cpp
+  kdeplatformtools.cpp
+  kdemainwindow.cpp
+  kdeconfigdialog.cpp
+)
 
 kde4_add_executable(kid3 ${kde_SRCS})
 
