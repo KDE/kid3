@@ -14,6 +14,7 @@ set(config_SRCS
   config/musicbrainzconfig.cpp
   config/playlistconfig.cpp
   config/serverimporterconfig.cpp
+  config/isettings.cpp
 )
 
 set(config_MOC_HDRS

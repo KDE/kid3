@@ -26,12 +26,8 @@
 
 #include "formatconfig.h"
 #include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <kconfiggroup.h>
-#else
 #include <QString>
 #include <QStringList>
-#endif
 #include <QLocale>
 #include "generalconfig.h"
 #include "frame.h"
@@ -287,26 +283,16 @@ void FormatConfig::formatFramesIfEnabled(FrameCollection& frames) const
  *
  * @param config KDE configuration
  */
-void FormatConfig::writeToConfig(Kid3Settings* config) const
+void FormatConfig::writeToConfig(ISettings* config) const
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  cfg.writeEntry("FormatWhileEditing", m_formatWhileEditing);
-  cfg.writeEntry("CaseConversion", static_cast<int>(m_caseConversion));
-  cfg.writeEntry("LocaleName", m_localeName);
-  cfg.writeEntry("StrRepEnabled", m_strRepEnabled);
-  cfg.writeEntry("StrRepMapKeys", m_strRepMap.keys());
-  cfg.writeEntry("StrRepMapValues", m_strRepMap.values());
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  config->setValue(QLatin1String("/FormatWhileEditing"), QVariant(m_formatWhileEditing));
-  config->setValue(QLatin1String("/CaseConversion"), QVariant(m_caseConversion));
-  config->setValue(QLatin1String("/LocaleName"), QVariant(m_localeName));
-  config->setValue(QLatin1String("/StrRepEnabled"), QVariant(m_strRepEnabled));
-  config->setValue(QLatin1String("/StrRepMapKeys"), QVariant(m_strRepMap.keys()));
-  config->setValue(QLatin1String("/StrRepMapValues"), QVariant(m_strRepMap.values()));
+  config->beginGroup(m_group);
+  config->setValue(QLatin1String("FormatWhileEditing"), QVariant(m_formatWhileEditing));
+  config->setValue(QLatin1String("CaseConversion"), QVariant(m_caseConversion));
+  config->setValue(QLatin1String("LocaleName"), QVariant(m_localeName));
+  config->setValue(QLatin1String("StrRepEnabled"), QVariant(m_strRepEnabled));
+  config->setValue(QLatin1String("StrRepMapKeys"), QVariant(m_strRepMap.keys()));
+  config->setValue(QLatin1String("StrRepMapValues"), QVariant(m_strRepMap.values()));
   config->endGroup();
-#endif
 }
 
 /**
@@ -314,35 +300,18 @@ void FormatConfig::writeToConfig(Kid3Settings* config) const
  *
  * @param config KDE configuration
  */
-void FormatConfig::readFromConfig(Kid3Settings* config)
+void FormatConfig::readFromConfig(ISettings* config)
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  m_formatWhileEditing = cfg.readEntry("FormatWhileEditing", m_formatWhileEditing);
-  m_caseConversion = (CaseConversion)cfg.readEntry("CaseConversion",
-                              (int)m_caseConversion);
-  m_localeName = cfg.readEntry("LocaleName", m_localeName);
-  m_strRepEnabled = cfg.readEntry("StrRepEnabled", m_strRepEnabled);
-  QStringList keys = cfg.readEntry("StrRepMapKeys", QStringList());
-  QStringList values = cfg.readEntry("StrRepMapValues", QStringList());
-  if (!keys.empty() && !values.empty()) {
-    QStringList::Iterator itk, itv;
-    m_strRepMap.clear();
-    for (itk = keys.begin(), itv = values.begin();
-       itk != keys.end() && itv != values.end();
-       ++itk, ++itv) {
-      m_strRepMap[*itk] = *itv;
-    }
-  }
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  m_formatWhileEditing = config->value(QLatin1String("/FormatWhileEditing"), m_formatWhileEditing).toBool();
-  m_caseConversion = (CaseConversion)config->value(QLatin1String("/CaseConversion"),
+  config->beginGroup(m_group);
+  m_formatWhileEditing = config->value(QLatin1String("FormatWhileEditing"), m_formatWhileEditing).toBool();
+  m_caseConversion = (CaseConversion)config->value(QLatin1String("CaseConversion"),
                                                    (int)m_caseConversion).toInt();
-  m_localeName = config->value(QLatin1String("/LocaleName"), m_localeName).toString();
-  m_strRepEnabled = config->value(QLatin1String("/StrRepEnabled"), m_strRepEnabled).toBool();
-  QStringList keys = config->value(QLatin1String("/StrRepMapKeys")).toStringList();
-  QStringList values = config->value(QLatin1String("/StrRepMapValues")).toStringList();
+  m_localeName = config->value(QLatin1String("LocaleName"), m_localeName).toString();
+  m_strRepEnabled = config->value(QLatin1String("StrRepEnabled"), m_strRepEnabled).toBool();
+  QStringList keys = config->value(QLatin1String("StrRepMapKeys"),
+                                   QStringList()).toStringList();
+  QStringList values = config->value(QLatin1String("StrRepMapValues"),
+                                     QStringList()).toStringList();
   if (!keys.empty() && !values.empty()) {
     QStringList::Iterator itk, itv;
     m_strRepMap.clear();
@@ -353,7 +322,6 @@ void FormatConfig::readFromConfig(Kid3Settings* config)
     }
   }
   config->endGroup();
-#endif
 }
 
 /**

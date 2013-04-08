@@ -31,12 +31,15 @@
 #include <ktoolinvocation.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
+#include <kconfig.h>
 #include <QCoreApplication>
+#include "kdesettings.h"
 
 /**
  * Constructor.
  */
-KdePlatformTools::KdePlatformTools()
+KdePlatformTools::KdePlatformTools() :
+  m_settings(0), m_config(0)
 {
 }
 
@@ -45,6 +48,21 @@ KdePlatformTools::KdePlatformTools()
  */
 KdePlatformTools::~KdePlatformTools()
 {
+  delete m_config;
+  delete m_settings;
+}
+
+/**
+ * Get application settings.
+ * @return settings instance.
+ */
+ISettings* KdePlatformTools::applicationSettings()
+{
+  if (!m_config) {
+    m_settings = new KConfig;
+    m_config = new KdeSettings(m_settings);
+  }
+  return m_config;
 }
 
 /**
@@ -109,6 +127,21 @@ QString KdePlatformTools::fileDialogNameFilter(
     }
   }
   return filter;
+}
+
+/**
+ * Get file pattern part of m_nameFilter.
+ * @param nameFilter name filter string
+ * @return file patterns, e.g. "*.mp3".
+ */
+QString KdePlatformTools::getNameFilterPatterns(const QString& nameFilter) const
+{
+  if (nameFilter.startsWith(QLatin1Char('*'))) {
+    int end = nameFilter.indexOf(QLatin1Char('|'));
+    return end != -1 ? nameFilter.left(end) : nameFilter;
+  } else {
+    return QString();
+  }
 }
 
 /**

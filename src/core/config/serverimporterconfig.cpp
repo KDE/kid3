@@ -27,10 +27,6 @@
 #include "serverimporterconfig.h"
 #include <QtGlobal>
 
-#ifdef CONFIG_USE_KDE
-#include <kconfiggroup.h>
-#endif
-
 /**
  * Constructor.
  * Set default configuration.
@@ -66,32 +62,19 @@ ServerImporterConfig::~ServerImporterConfig() {}
  *
  * @param config KDE configuration
  */
-void ServerImporterConfig::writeToConfig(Kid3Settings* config) const
+void ServerImporterConfig::writeToConfig(ISettings* config) const
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  cfg.writeEntry("Server", m_server);
+  config->beginGroup(m_group);
+  config->setValue(QLatin1String("Server"), QVariant(m_server));
   if (m_cgiPathUsed)
-    cfg.writeEntry("CgiPath", m_cgiPath);
+    config->setValue(QLatin1String("CgiPath"), QVariant(m_cgiPath));
   if (m_additionalTagsUsed) {
-    cfg.writeEntry("StandardTags", m_standardTags);
-    cfg.writeEntry("AdditionalTags", m_additionalTags);
-    cfg.writeEntry("CoverArt", m_coverArt);
+    config->setValue(QLatin1String("StandardTags"), QVariant(m_standardTags));
+    config->setValue(QLatin1String("AdditionalTags"), QVariant(m_additionalTags));
+    config->setValue(QLatin1String("CoverArt"), QVariant(m_coverArt));
   }
-  cfg.writeEntry("WindowGeometry", m_windowGeometry);
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  config->setValue(QLatin1String("/Server"), QVariant(m_server));
-  if (m_cgiPathUsed)
-    config->setValue(QLatin1String("/CgiPath"), QVariant(m_cgiPath));
-  if (m_additionalTagsUsed) {
-    config->setValue(QLatin1String("/StandardTags"), QVariant(m_standardTags));
-    config->setValue(QLatin1String("/AdditionalTags"), QVariant(m_additionalTags));
-    config->setValue(QLatin1String("/CoverArt"), QVariant(m_coverArt));
-  }
-  config->setValue(QLatin1String("/WindowGeometry"), QVariant(m_windowGeometry));
+  config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
-#endif
 }
 
 /**
@@ -99,34 +82,20 @@ void ServerImporterConfig::writeToConfig(Kid3Settings* config) const
  *
  * @param config KDE configuration
  */
-void ServerImporterConfig::readFromConfig(Kid3Settings* config)
+void ServerImporterConfig::readFromConfig(ISettings* config)
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  m_server = cfg.readEntry("Server", m_server);
+  config->beginGroup(m_group);
+  m_server = config->value(QLatin1String("Server"), m_server).toString();
   if (m_cgiPathUsed)
-    m_cgiPath = cfg.readEntry("CgiPath", m_cgiPath);
+    m_cgiPath = config->value(QLatin1String("CgiPath"), m_cgiPath).toString();
   if (m_additionalTagsUsed) {
-    m_standardTags = cfg.readEntry("StandardTags",
-                                   m_standardTags);
-    m_additionalTags = cfg.readEntry("AdditionalTags",
-                                             m_additionalTags);
-    m_coverArt = cfg.readEntry("CoverArt", m_coverArt);
-  }
-  m_windowGeometry = cfg.readEntry("WindowGeometry", QByteArray());
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  m_server = config->value(QLatin1String("/Server"), m_server).toString();
-  if (m_cgiPathUsed)
-    m_cgiPath = config->value(QLatin1String("/CgiPath"), m_cgiPath).toString();
-  if (m_additionalTagsUsed) {
-    m_standardTags = config->value(QLatin1String("/StandardTags"),
+    m_standardTags = config->value(QLatin1String("StandardTags"),
                                    m_standardTags).toBool();
-    m_additionalTags = config->value(QLatin1String("/AdditionalTags"),
+    m_additionalTags = config->value(QLatin1String("AdditionalTags"),
                                      m_additionalTags).toBool();
-    m_coverArt = config->value(QLatin1String("/CoverArt"), m_coverArt).toBool();
+    m_coverArt = config->value(QLatin1String("CoverArt"), m_coverArt).toBool();
   }
-  m_windowGeometry = config->value(QLatin1String("/WindowGeometry")).toByteArray();
+  m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
+                                   m_windowGeometry).toByteArray();
   config->endGroup();
-#endif
 }

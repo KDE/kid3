@@ -292,8 +292,7 @@ void KdeMainWindow::readConfig()
   setAutoSaveSettings();
   m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
   m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
-  m_fileOpenRecent->loadEntries(KConfigGroup(app()->getSettings(),
-                                             "Recent Files"));
+  m_fileOpenRecent->loadEntries(KGlobal::config()->group("Recent Files"));
 }
 
 /**
@@ -301,8 +300,7 @@ void KdeMainWindow::readConfig()
  */
 void KdeMainWindow::saveConfig()
 {
-  m_fileOpenRecent->saveEntries(KConfigGroup(app()->getSettings(),
-                                             "Recent Files"));
+  m_fileOpenRecent->saveEntries(KGlobal::config()->group("Recent Files"));
 }
 
 /**

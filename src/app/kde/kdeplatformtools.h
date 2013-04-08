@@ -29,6 +29,8 @@
 
 #include "iplatformtools.h"
 
+class KConfig;
+
 /**
  * KDE platform specific tools.
  */
@@ -43,6 +45,12 @@ public:
    * Destructor.
    */
   virtual ~KdePlatformTools();
+
+  /**
+   * Get application settings.
+   * @return settings instance.
+   */
+  virtual ISettings* applicationSettings();
 
   /**
    * Move file or directory to trash.
@@ -75,6 +83,13 @@ public:
    */
   virtual QString fileDialogNameFilter(
       const QList<QPair<QString, QString> >& nameFilters) const;
+
+  /**
+   * Get file pattern part of m_nameFilter.
+   * @param nameFilter name filter string
+   * @return file patterns, e.g. "*.mp3".
+   */
+  virtual QString getNameFilterPatterns(const QString& nameFilter) const;
 
   /**
    * Display error dialog with item list.
@@ -153,6 +168,10 @@ public:
    */
   virtual bool warningContinueCancelList(QWidget* parent,
       const QString& text, const QStringList& strlist, const QString& caption);
+
+private:
+  KConfig* m_settings;
+  ISettings* m_config;
 };
 
 #endif // KDEPLATFORMTOOLS_H

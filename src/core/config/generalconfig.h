@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2007  Urs Fleisch
+ * Copyright (C) 2003-2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -27,22 +27,13 @@
 #ifndef GENERALCONFIG_H
 #define GENERALCONFIG_H
 
-#include "config.h"
 #include <QString>
-
-#ifdef CONFIG_USE_KDE
-#include <kconfig.h>
-typedef KConfig Kid3Settings;
-#else
-#include <QSettings>
-/** Persistent application settings. */
-typedef QSettings Kid3Settings;
-#endif
+#include "isettings.h"
 
 /**
  * Abstract base class for configurations.
  */
-class GeneralConfig {
+class KID3_CORE_EXPORT GeneralConfig {
 public:
   /**
    * Constructor.
@@ -62,14 +53,14 @@ public:
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(Kid3Settings* config) const = 0;
+  virtual void writeToConfig(ISettings* config) const = 0;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(Kid3Settings* config) = 0;
+  virtual void readFromConfig(ISettings* config) = 0;
 
 protected:
   /** Configuration group. */

@@ -31,7 +31,7 @@
 #include <QList>
 
 class QAction;
-class QSettings;
+class ISettings;
 
 /**
  * Keyboard shortcuts configuration tree model.
@@ -152,14 +152,14 @@ public:
    *
    * @param config configuration settings
    */
-  void writeToConfig(QSettings* config) const;
+  void writeToConfig(ISettings* config) const;
 
   /**
    * Read the shortcuts from a given configuration.
    *
    * @param config configuration settings
    */
-  void readFromConfig(QSettings* config);
+  void readFromConfig(ISettings* config);
 
 public slots:
   /**

@@ -163,20 +163,14 @@ public:
    *
    * @param config KDE configuration
    */
-  void writeToConfig(Kid3Settings* config) const;
+  void writeToConfig(ISettings* config) const;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  void readFromConfig(Kid3Settings* config);
-
-  /**
-   * Get file pattern part of m_nameFilter.
-   * @return file patterns, e.g. "*.mp3".
-   */
-  QString getNameFilterPatterns() const;
+  void readFromConfig(ISettings* config);
 
   /** true to mark truncated ID3v1.1 fields */
   bool m_markTruncations;
@@ -224,12 +218,6 @@ public:
   QList<MenuCommand> m_contextMenuCommands;
   /** custom genres for ID3v2.3 */
   QStringList m_customGenres;
-#ifndef CONFIG_USE_KDE
-  /** true to hide toolbar */
-  bool m_hideToolBar;
-  /** true to hide statusbar */
-  bool m_hideStatusBar;
-#endif
   /** true to automatically hide unused tags */
   bool m_autoHideTags;
   /** true to hide file controls */
@@ -272,22 +260,6 @@ public:
   QString m_lastOpenedFile;
   /** default file name to save cover art */
   QString m_defaultCoverFileName;
-#ifndef CONFIG_USE_KDE
-  /** mainwindow geometry */
-  QByteArray m_geometry;
-  /** mainwindow state */
-  QByteArray m_windowState;
-  /** true if custom application font is used */
-  bool m_useFont;
-  /** custom application font family */
-  QString m_fontFamily;
-  /** custom application font size */
-  int m_fontSize;
-  /** custom application style, empty if not used */
-  QString m_style;
-  /** Don't use the native file dialog if true */
-  bool m_dontUseNativeDialogs;
-#endif
 
   /** Default directory format list */
   static const char** s_defaultDirFmtList;

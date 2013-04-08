@@ -26,9 +26,6 @@
 
 #include "configstore.h"
 #include "config.h"
-#ifndef CONFIG_USE_KDE
-#include <QApplication>
-#endif
 
 MiscConfig ConfigStore::s_miscCfg(QLatin1String("General Options"));
 ImportConfig ConfigStore::s_genCfg(QLatin1String("General Options"));
@@ -45,17 +42,10 @@ PlaylistConfig ConfigStore::s_playlistCfg(QLatin1String("Playlist"));
 
 /**
  * Constructor.
+ * @param config application settings
  */
-ConfigStore::ConfigStore()
+ConfigStore::ConfigStore(ISettings* config) : m_config(config)
 {
-#ifdef CONFIG_USE_KDE
-  m_config = new KConfig;
-#else
-  m_config = new Kid3Settings(
-        QSettings::UserScope, QLatin1String("kid3.sourceforge.net"),
-        QLatin1String("Kid3"), qApp);
-  m_config->beginGroup(QLatin1String("/kid3"));
-#endif
 }
 
 /**
@@ -63,10 +53,6 @@ ConfigStore::ConfigStore()
  */
 ConfigStore::~ConfigStore()
 {
-#ifdef CONFIG_USE_KDE
-  delete m_config;
-#endif
-  // m_config is not deleted because this could lead to a crash on Mac OS.
 }
 
 /**

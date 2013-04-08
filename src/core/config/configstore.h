@@ -46,8 +46,9 @@ class KID3_CORE_EXPORT ConfigStore {
 public:
   /**
    * Constructor.
+   * @param config application settings
    */
-  ConfigStore();
+  explicit ConfigStore(ISettings* config);
 
   /**
    * Destructor.
@@ -63,12 +64,6 @@ public:
    * Read persisted configuration.
    */
   void readFromConfig();
-
-  /**
-   * Get settings.
-   * @return settings.
-   */
-  Kid3Settings* getSettings() const { return m_config; }
 
 
   /** Filename format configuration */
@@ -97,7 +92,7 @@ public:
   static PlaylistConfig s_playlistCfg;
 
 private:
-  Kid3Settings* m_config;
+  ISettings* m_config;
 };
 
 #endif // CONFIGSTORE_H

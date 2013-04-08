@@ -5,8 +5,6 @@
 #define VERSION "@CPACK_PACKAGE_VERSION@"
 #define RELEASE_YEAR "@RELEASE_YEAR@"
 
-#cmakedefine CONFIG_USE_KDE 1
-
 /* Define if you have id3lib installed */
 #cmakedefine HAVE_ID3LIB 1
 #cmakedefine HAVE_NO_ID3LIB_VBR

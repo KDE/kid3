@@ -25,8 +25,8 @@
  */
 
 #include "shortcutsmodel.h"
+#include "isettings.h"
 #include <QAction>
-#include <QSettings>
 
 namespace {
 
@@ -220,6 +220,7 @@ int ShortcutsModel::rowCount(const QModelIndex& parent) const
  */
 int ShortcutsModel::columnCount(const QModelIndex& parent) const
 {
+  Q_UNUSED(parent)
   return NumColumns;
 }
 
@@ -331,9 +332,9 @@ void ShortcutsModel::discardChangedShortcuts()
  *
  * @param config configuration settings
  */
-void ShortcutsModel::writeToConfig(QSettings* config) const
+void ShortcutsModel::writeToConfig(ISettings* config) const
 {
-  config->beginGroup(QLatin1String("/Shortcuts"));
+  config->beginGroup(QLatin1String("Shortcuts"));
   config->remove(QLatin1String(""));
   for (QList<ShortcutGroup>::const_iterator git = m_shortcutGroups.constBegin();
        git != m_shortcutGroups.constEnd();
@@ -360,9 +361,9 @@ void ShortcutsModel::writeToConfig(QSettings* config) const
  *
  * @param config configuration settings
  */
-void ShortcutsModel::readFromConfig(QSettings* config)
+void ShortcutsModel::readFromConfig(ISettings* config)
 {
-  config->beginGroup(QLatin1String("/Shortcuts"));
+  config->beginGroup(QLatin1String("Shortcuts"));
   for (QList<ShortcutGroup>::iterator git = m_shortcutGroups.begin();
        git != m_shortcutGroups.end();
        ++git) {
@@ -371,7 +372,7 @@ void ShortcutsModel::readFromConfig(QSettings* config)
          ++iit) {
       QString actionName(iit->action() ? iit->action()->objectName() : QLatin1String(""));
       if (!actionName.isEmpty() && config->contains(actionName)) {
-        QString keyStr(config->value(actionName).toString());
+        QString keyStr(config->value(actionName, QString()).toString());
         iit->setCustomShortcut(keyStr);
         iit->assignCustomShortcut();
       }

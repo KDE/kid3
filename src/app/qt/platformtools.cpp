@@ -28,17 +28,19 @@
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QIcon>
+#include <QSettings>
 #include <QCoreApplication>
 #include "config.h"
 #include "browserdialog.h"
 #include "messagedialog.h"
-#include "configstore.h"
+#include "kid3settings.h"
+#include "mainwindowconfig.h"
 
 /**
  * Constructor.
  */
 PlatformTools::PlatformTools() :
-  m_helpBrowser(0)
+  m_mainWindowConfig(0), m_settings(0), m_config(0), m_helpBrowser(0)
 {
 }
 
@@ -48,6 +50,23 @@ PlatformTools::PlatformTools() :
 PlatformTools::~PlatformTools()
 {
   delete m_helpBrowser;
+  delete m_config;
+}
+
+/**
+ * Get application settings.
+ * @return settings instance.
+ */
+ISettings* PlatformTools::applicationSettings()
+{
+  if (!m_config) {
+    m_settings = new QSettings(
+          QSettings::UserScope, QLatin1String("kid3.sourceforge.net"),
+          QLatin1String("Kid3"), qApp);
+    m_settings->beginGroup(QLatin1String("/kid3"));
+    m_config = new Kid3Settings(m_settings);
+  }
+  return m_config;
 }
 
 #ifdef Q_OS_WIN32
@@ -300,6 +319,21 @@ QString PlatformTools::fileDialogNameFilter(
 }
 
 /**
+ * Get file pattern part of m_nameFilter.
+ * @param nameFilter name filter string
+ * @return file patterns, e.g. "*.mp3".
+ */
+QString PlatformTools::getNameFilterPatterns(const QString& nameFilter) const
+{
+  int start = nameFilter.indexOf(QLatin1Char('(')),
+      end = nameFilter.indexOf(QLatin1Char(')'));
+  return start != -1 && end != -1 && end > start
+      ? nameFilter.mid(start + 1, end - start - 1)
+      : QString();
+}
+
+
+/**
  * Display error dialog with item list.
  * @param parent parent widget
  * @param text text
@@ -342,7 +376,7 @@ QString PlatformTools::getOpenFileName(QWidget* parent, const QString& caption,
 {
   return QFileDialog::getOpenFileName(
         parent, caption, dir, filter, selectedFilter,
-        ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+        m_mainWindowConfig && m_mainWindowConfig->m_dontUseNativeDialogs
         ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 }
 
@@ -360,7 +394,7 @@ QString PlatformTools::getSaveFileName(QWidget* parent, const QString& caption,
 {
   return QFileDialog::getSaveFileName(
         parent, caption, dir, filter, selectedFilter,
-        ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+        m_mainWindowConfig && m_mainWindowConfig->m_dontUseNativeDialogs
         ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 }
 
@@ -375,7 +409,7 @@ QString PlatformTools::getExistingDirectory(QWidget* parent,
     const QString& caption, const QString& startDir)
 {
   return QFileDialog::getExistingDirectory(parent, caption, startDir,
-      ConfigStore::s_miscCfg.m_dontUseNativeDialogs
+      m_mainWindowConfig && m_mainWindowConfig->m_dontUseNativeDialogs
       ? QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
       : QFileDialog::ShowDirsOnly);
 }

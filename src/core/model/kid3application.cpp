@@ -105,7 +105,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_framesV1SelectionModel(new QItemSelectionModel(m_framesV1Model, this)),
   m_framesV2SelectionModel(new QItemSelectionModel(m_framesV2Model, this)),
   m_framelist(new FrameList(m_framesV2Model, m_framesV2SelectionModel)),
-  m_configStore(new ConfigStore),
+  m_configStore(new ConfigStore(m_platformTools->applicationSettings())),
   m_netMgr(new QNetworkAccessManager(this)),
   m_downloadClient(new DownloadClient(m_netMgr)),
   m_textExporter(new TextExporter(this)),
@@ -210,9 +210,9 @@ AudioPlayer* Kid3Application::getAudioPlayer()
  * Get settings.
  * @return settings.
  */
-Kid3Settings* Kid3Application::getSettings() const
+ISettings* Kid3Application::getSettings() const
 {
-  return m_configStore->getSettings();
+  return m_platformTools->applicationSettings();
 }
 
 /**
@@ -225,7 +225,7 @@ void Kid3Application::saveConfig()
         m_fileProxyModel->filePath(currentOrRootIndex());
   }
   m_configStore->writeToConfig();
-  m_configStore->getSettings()->sync();
+  getSettings()->sync();
 }
 
 /**
@@ -274,7 +274,8 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
     dir = QDir(dir).absolutePath();
   }
 
-  QStringList nameFilters(ConfigStore::s_miscCfg.getNameFilterPatterns().
+  QStringList nameFilters(m_platformTools->getNameFilterPatterns(
+                            ConfigStore::s_miscCfg.m_nameFilter).
                           split(QLatin1Char(' ')));
   m_fileProxyModel->setNameFilters(nameFilters);
   m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);

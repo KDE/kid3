@@ -61,14 +61,14 @@ public:
    *
    * @param config configuration settings
    */
-  void saveEntries(Kid3Settings* config);
+  void saveEntries(ISettings* config);
 
   /**
    * Loads the recent files entries from a given configuration.
    *
    * @param config configuration settings
    */
-  void loadEntries(Kid3Settings* config);
+  void loadEntries(ISettings* config);
 
 signals:
   /**

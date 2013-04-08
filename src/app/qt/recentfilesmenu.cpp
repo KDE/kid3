@@ -77,9 +77,9 @@ void RecentFilesMenu::addDirectory(const QString& dir)
  *
  * @param config configuration settings
  */
-void RecentFilesMenu::saveEntries(Kid3Settings* config)
+void RecentFilesMenu::saveEntries(ISettings* config)
 {
-  config->beginGroup(QLatin1String("/Recent Files"));
+  config->beginGroup(QLatin1String("Recent Files"));
   config->setValue(QLatin1String("Files"), QVariant(m_files));
   config->endGroup();
 }
@@ -89,10 +89,10 @@ void RecentFilesMenu::saveEntries(Kid3Settings* config)
  *
  * @param config configuration settings
  */
-void RecentFilesMenu::loadEntries(Kid3Settings* config)
+void RecentFilesMenu::loadEntries(ISettings* config)
 {
-  config->beginGroup(QLatin1String("/Recent Files"));
-  m_files = config->value(QLatin1String("Files")).toStringList();
+  config->beginGroup(QLatin1String("Recent Files"));
+  m_files = config->value(QLatin1String("Files"), m_files).toStringList();
   config->endGroup();
 
   while (m_files.size() > MAX_RECENT_FILES) {

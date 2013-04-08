@@ -28,10 +28,6 @@
 #include <QString>
 #include "config.h"
 
-#ifdef CONFIG_USE_KDE
-#include <kconfiggroup.h>
-#endif
-
 /**
  * Constructor.
  * Set default configuration.
@@ -82,23 +78,14 @@ FilterConfig::~FilterConfig() {}
  *
  * @param config KDE configuration
  */
-void FilterConfig::writeToConfig(Kid3Settings* config) const
+void FilterConfig::writeToConfig(ISettings* config) const
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  cfg.writeEntry("FilterNames", m_filterNames);
-  cfg.writeEntry("FilterExpressions", m_filterExpressions);
-  cfg.writeEntry("FilterIdx", m_filterIdx);
-  cfg.writeEntry("WindowGeometry", m_windowGeometry);
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  config->setValue(QLatin1String("/FilterNames"), QVariant(m_filterNames));
-  config->setValue(QLatin1String("/FilterExpressions"), QVariant(m_filterExpressions));
-  config->setValue(QLatin1String("/FilterIdx"), QVariant(m_filterIdx));
-  config->setValue(QLatin1String("/WindowGeometry"), QVariant(m_windowGeometry));
-
+  config->beginGroup(m_group);
+  config->setValue(QLatin1String("FilterNames"), QVariant(m_filterNames));
+  config->setValue(QLatin1String("FilterExpressions"), QVariant(m_filterExpressions));
+  config->setValue(QLatin1String("FilterIdx"), QVariant(m_filterIdx));
+  config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
-#endif
 }
 
 /**
@@ -106,30 +93,26 @@ void FilterConfig::writeToConfig(Kid3Settings* config) const
  *
  * @param config KDE configuration
  */
-void FilterConfig::readFromConfig(Kid3Settings* config)
+void FilterConfig::readFromConfig(ISettings* config)
 {
   QStringList names, expressions;
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  names = cfg.readEntry("FilterNames", QStringList());
-  expressions = cfg.readEntry("FilterExpressions", QStringList());
-  m_filterIdx = cfg.readEntry("FilterIdx", m_filterIdx);
-  m_windowGeometry = cfg.readEntry("WindowGeometry", QByteArray());
+  config->beginGroup(m_group);
+  names = config->value(QLatin1String("FilterNames"),
+                        m_filterNames).toStringList();
+  expressions = config->value(QLatin1String("FilterExpressions"),
+                              m_filterExpressions).toStringList();
+  m_filterIdx = config->value(QLatin1String("FilterIdx"), m_filterIdx).toInt();
+  m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
+                                   m_windowGeometry).toByteArray();
+
+  config->endGroup();
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
   unsigned numNames = names.size();
   while (static_cast<unsigned>(expressions.size()) < numNames)
     expressions.append(QLatin1String(""));
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  names = config->value(QLatin1String("/FilterNames")).toStringList();
-  expressions = config->value(QLatin1String("/FilterExpressions")).toStringList();
-  m_filterIdx = config->value(QLatin1String("/FilterIdx"), m_filterIdx).toInt();
-  m_windowGeometry = config->value(QLatin1String("/WindowGeometry")).toByteArray();
 
-  config->endGroup();
-#endif
   /* Use defaults if no configuration found */
   QStringList::const_iterator namesIt, expressionsIt;
   for (namesIt = names.begin(), expressionsIt = expressions.begin();

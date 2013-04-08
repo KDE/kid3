@@ -27,9 +27,6 @@
 #include "importconfig.h"
 #include <QString>
 #include "config.h"
-#ifdef CONFIG_USE_KDE
-#include <kconfiggroup.h>
-#endif
 
 namespace {
 
@@ -339,76 +336,41 @@ ImportConfig::~ImportConfig() {}
  *
  * @param config KDE configuration
  */
-void ImportConfig::writeToConfig(Kid3Settings* config) const
+void ImportConfig::writeToConfig(ISettings* config) const
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  cfg.writeEntry("ImportServer", m_importServer);
-  cfg.writeEntry("ImportDestination", tagVersionToImportDestCfg(m_importDest));
-  cfg.writeEntry("ImportFormatNames", m_importFormatNames);
-  cfg.writeEntry("ImportFormatHeaders", m_importFormatHeaders);
-  cfg.writeEntry("ImportFormatTracks", m_importFormatTracks);
-  cfg.writeEntry("ImportFormatIdx", m_importFormatIdx);
-  cfg.writeEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-  cfg.writeEntry("MaxTimeDifference", m_maxTimeDifference);
-  cfg.writeEntry("ImportVisibleColumns", m_importVisibleColumns);
-  cfg.writeEntry("ImportWindowGeometry", m_importWindowGeometry);
-
-  cfg.writeEntry("ImportTagsNames", m_importTagsNames);
-  cfg.writeEntry("ImportTagsSources", m_importTagsSources);
-  cfg.writeEntry("ImportTagsExtractions", m_importTagsExtractions);
-  cfg.writeEntry("ImportTagsIdx", m_importTagsIdx);
-
-  cfg.writeEntry("ExportSourceV1", m_exportSrcV1 == TrackData::TagV1);
-  cfg.writeEntry("ExportFormatNames", m_exportFormatNames);
-  cfg.writeEntry("ExportFormatHeaders", m_exportFormatHeaders);
-  cfg.writeEntry("ExportFormatTracks", m_exportFormatTracks);
-  cfg.writeEntry("ExportFormatTrailers", m_exportFormatTrailers);
-  cfg.writeEntry("ExportFormatIdx", m_exportFormatIdx);
-  cfg.writeEntry("ExportWindowGeometry", m_exportWindowGeometry);
-
-  cfg.writeEntry("PictureSourceNames", m_pictureSourceNames);
-  cfg.writeEntry("PictureSourceUrls", m_pictureSourceUrls);
-  cfg.writeEntry("PictureSourceIdx", m_pictureSourceIdx);
-  cfg.writeEntry("MatchPictureUrlMapKeys", m_matchPictureUrlMap.keys());
-  cfg.writeEntry("MatchPictureUrlMapValues", m_matchPictureUrlMap.values());
-  cfg.writeEntry("BrowseCoverArtWindowGeometry", m_browseCoverArtWindowGeometry);
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  config->setValue(QLatin1String("/ImportServer"), QVariant(m_importServer));
-  config->setValue(QLatin1String("/ImportDestination"),
+  config->beginGroup(m_group);
+  config->setValue(QLatin1String("ImportServer"), QVariant(m_importServer));
+  config->setValue(QLatin1String("ImportDestination"),
                    QVariant(tagVersionToImportDestCfg(m_importDest)));
-  config->setValue(QLatin1String("/ImportFormatNames"), QVariant(m_importFormatNames));
-  config->setValue(QLatin1String("/ImportFormatHeaders"), QVariant(m_importFormatHeaders));
-  config->setValue(QLatin1String("/ImportFormatTracks"), QVariant(m_importFormatTracks));
-  config->setValue(QLatin1String("/ImportFormatIdx"), QVariant(m_importFormatIdx));
-  config->setValue(QLatin1String("/EnableTimeDifferenceCheck"), QVariant(m_enableTimeDifferenceCheck));
-  config->setValue(QLatin1String("/MaxTimeDifference"), QVariant(m_maxTimeDifference));
-  config->setValue(QLatin1String("/ImportVisibleColumns"), QVariant(m_importVisibleColumns));
-  config->setValue(QLatin1String("/ImportWindowGeometry"), QVariant(m_importWindowGeometry));
+  config->setValue(QLatin1String("ImportFormatNames"), QVariant(m_importFormatNames));
+  config->setValue(QLatin1String("ImportFormatHeaders"), QVariant(m_importFormatHeaders));
+  config->setValue(QLatin1String("ImportFormatTracks"), QVariant(m_importFormatTracks));
+  config->setValue(QLatin1String("ImportFormatIdx"), QVariant(m_importFormatIdx));
+  config->setValue(QLatin1String("EnableTimeDifferenceCheck"), QVariant(m_enableTimeDifferenceCheck));
+  config->setValue(QLatin1String("MaxTimeDifference"), QVariant(m_maxTimeDifference));
+  config->setValue(QLatin1String("ImportVisibleColumns"), QVariant(m_importVisibleColumns));
+  config->setValue(QLatin1String("ImportWindowGeometry"), QVariant(m_importWindowGeometry));
 
-  config->setValue(QLatin1String("/ImportTagsNames"), QVariant(m_importTagsNames));
-  config->setValue(QLatin1String("/ImportTagsSources"), QVariant(m_importTagsSources));
-  config->setValue(QLatin1String("/ImportTagsExtractions"), QVariant(m_importTagsExtractions));
-  config->setValue(QLatin1String("/ImportTagsIdx"), QVariant(m_importTagsIdx));
+  config->setValue(QLatin1String("ImportTagsNames"), QVariant(m_importTagsNames));
+  config->setValue(QLatin1String("ImportTagsSources"), QVariant(m_importTagsSources));
+  config->setValue(QLatin1String("ImportTagsExtractions"), QVariant(m_importTagsExtractions));
+  config->setValue(QLatin1String("ImportTagsIdx"), QVariant(m_importTagsIdx));
 
-  config->setValue(QLatin1String("/ExportSourceV1"), QVariant(m_exportSrcV1 == TrackData::TagV1));
-  config->setValue(QLatin1String("/ExportFormatNames"), QVariant(m_exportFormatNames));
-  config->setValue(QLatin1String("/ExportFormatHeaders"), QVariant(m_exportFormatHeaders));
-  config->setValue(QLatin1String("/ExportFormatTracks"), QVariant(m_exportFormatTracks));
-  config->setValue(QLatin1String("/ExportFormatTrailers"), QVariant(m_exportFormatTrailers));
-  config->setValue(QLatin1String("/ExportFormatIdx"), QVariant(m_exportFormatIdx));
-  config->setValue(QLatin1String("/ExportWindowGeometry"), QVariant(m_exportWindowGeometry));
+  config->setValue(QLatin1String("ExportSourceV1"), QVariant(m_exportSrcV1 == TrackData::TagV1));
+  config->setValue(QLatin1String("ExportFormatNames"), QVariant(m_exportFormatNames));
+  config->setValue(QLatin1String("ExportFormatHeaders"), QVariant(m_exportFormatHeaders));
+  config->setValue(QLatin1String("ExportFormatTracks"), QVariant(m_exportFormatTracks));
+  config->setValue(QLatin1String("ExportFormatTrailers"), QVariant(m_exportFormatTrailers));
+  config->setValue(QLatin1String("ExportFormatIdx"), QVariant(m_exportFormatIdx));
+  config->setValue(QLatin1String("ExportWindowGeometry"), QVariant(m_exportWindowGeometry));
 
-  config->setValue(QLatin1String("/PictureSourceNames"), QVariant(m_pictureSourceNames));
-  config->setValue(QLatin1String("/PictureSourceUrls"), QVariant(m_pictureSourceUrls));
-  config->setValue(QLatin1String("/PictureSourceIdx"), QVariant(m_pictureSourceIdx));
-  config->setValue(QLatin1String("/MatchPictureUrlMapKeys"), QVariant(m_matchPictureUrlMap.keys()));
-  config->setValue(QLatin1String("/MatchPictureUrlMapValues"), QVariant(m_matchPictureUrlMap.values()));
-  config->setValue(QLatin1String("/BrowseCoverArtWindowGeometry"), QVariant(m_browseCoverArtWindowGeometry));
-
+  config->setValue(QLatin1String("PictureSourceNames"), QVariant(m_pictureSourceNames));
+  config->setValue(QLatin1String("PictureSourceUrls"), QVariant(m_pictureSourceUrls));
+  config->setValue(QLatin1String("PictureSourceIdx"), QVariant(m_pictureSourceIdx));
+  config->setValue(QLatin1String("MatchPictureUrlMapKeys"), QVariant(m_matchPictureUrlMap.keys()));
+  config->setValue(QLatin1String("MatchPictureUrlMapValues"), QVariant(m_matchPictureUrlMap.values()));
+  config->setValue(QLatin1String("BrowseCoverArtWindowGeometry"), QVariant(m_browseCoverArtWindowGeometry));
   config->endGroup();
-#endif
 }
 
 /**
@@ -416,44 +378,47 @@ void ImportConfig::writeToConfig(Kid3Settings* config) const
  *
  * @param config KDE configuration
  */
-void ImportConfig::readFromConfig(Kid3Settings* config)
+void ImportConfig::readFromConfig(ISettings* config)
 {
   QStringList names, headers, tracks;
   QStringList tagsNames, tagsSources, tagsExtractions;
   QStringList expNames, expHeaders, expTracks, expTrailers, picNames, picUrls;
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  m_importServer = cfg.readEntry("ImportServer", m_importServer);
+
+  config->beginGroup(m_group);
+  m_importServer = config->value(QLatin1String("ImportServer"), m_importServer).toInt();
   m_importDest = importDestCfgToTagVersion(
-    cfg.readEntry("ImportDestination", tagVersionToImportDestCfg(m_importDest)));
-  names = cfg.readEntry("ImportFormatNames", QStringList());
-  headers = cfg.readEntry("ImportFormatHeaders", QStringList());
-  tracks = cfg.readEntry("ImportFormatTracks", QStringList());
-  m_importFormatIdx = cfg.readEntry("ImportFormatIdx", m_importFormatIdx);
-  m_enableTimeDifferenceCheck = cfg.readEntry("EnableTimeDifferenceCheck", m_enableTimeDifferenceCheck);
-  m_maxTimeDifference = cfg.readEntry("MaxTimeDifference", m_maxTimeDifference);
-  m_importVisibleColumns = cfg.readEntry("ImportVisibleColumns", m_importVisibleColumns);
-  m_importWindowGeometry = cfg.readEntry("ImportWindowGeometry", QByteArray());
+    config->value(QLatin1String("ImportDestination"),
+                  tagVersionToImportDestCfg(m_importDest)).toInt());
+  names = config->value(QLatin1String("ImportFormatNames"), m_importFormatNames).toStringList();
+  headers = config->value(QLatin1String("ImportFormatHeaders"), m_importFormatHeaders).toStringList();
+  tracks = config->value(QLatin1String("ImportFormatTracks"), m_importFormatTracks).toStringList();
+  m_importFormatIdx = config->value(QLatin1String("ImportFormatIdx"), m_importFormatIdx).toInt();
+  m_enableTimeDifferenceCheck = config->value(QLatin1String("EnableTimeDifferenceCheck"), m_enableTimeDifferenceCheck).toBool();
+  m_maxTimeDifference = config->value(QLatin1String("MaxTimeDifference"), m_maxTimeDifference).toInt();
+  m_importVisibleColumns = config->value(QLatin1String("ImportVisibleColumns"), m_importVisibleColumns).toULongLong();
+  m_importWindowGeometry = config->value(QLatin1String("ImportWindowGeometry"), m_importWindowGeometry).toByteArray();
 
-  tagsNames = cfg.readEntry("ImportTagsNames", QStringList());
-  tagsSources = cfg.readEntry("ImportTagsSources", QStringList());
-  tagsExtractions = cfg.readEntry("ImportTagsExtractions", QStringList());
-  m_importTagsIdx = cfg.readEntry("ImportTagsIdx", m_importTagsIdx);
+  tagsNames = config->value(QLatin1String("ImportTagsNames"), m_importTagsNames).toStringList();
+  tagsSources = config->value(QLatin1String("ImportTagsSources"), m_importTagsSources).toStringList();
+  tagsExtractions = config->value(QLatin1String("ImportTagsExtractions"), m_importTagsExtractions).toStringList();
+  m_importTagsIdx = config->value(QLatin1String("ImportTagsIdx"), m_importTagsIdx).toInt();
 
-  m_exportSrcV1 = cfg.readEntry("ExportSourceV1", m_exportSrcV1 == TrackData::TagV1)
+  m_exportSrcV1 = config->value(QLatin1String("ExportSourceV1"),
+      m_exportSrcV1 == TrackData::TagV1).toBool()
       ? TrackData::TagV1 : TrackData::TagV2;
-  expNames = cfg.readEntry("ExportFormatNames", QStringList());
-  expHeaders = cfg.readEntry("ExportFormatHeaders", QStringList());
-  expTracks = cfg.readEntry("ExportFormatTracks", QStringList());
-  expTrailers = cfg.readEntry("ExportFormatTrailers", QStringList());
-  m_exportFormatIdx = cfg.readEntry("ExportFormatIdx", m_exportFormatIdx);
-  m_exportWindowGeometry = cfg.readEntry("ExportWindowGeometry", QByteArray());
+  expNames = config->value(QLatin1String("ExportFormatNames"), m_exportFormatNames).toStringList();
+  expHeaders = config->value(QLatin1String("ExportFormatHeaders"), m_exportFormatHeaders).toStringList();
+  expTracks = config->value(QLatin1String("ExportFormatTracks"), m_exportFormatTracks).toStringList();
+  expTrailers = config->value(QLatin1String("ExportFormatTrailers"), m_exportFormatTrailers).toStringList();
+  m_exportFormatIdx = config->value(QLatin1String("ExportFormatIdx"), m_exportFormatIdx).toInt();
+  m_exportWindowGeometry = config->value(QLatin1String("ExportWindowGeometry"), m_exportWindowGeometry).toByteArray();
 
-  picNames = cfg.readEntry("PictureSourceNames", QStringList());
-  picUrls = cfg.readEntry("PictureSourceUrls", QStringList());
-  m_pictureSourceIdx = cfg.readEntry("PictureSourceIdx", m_pictureSourceIdx);
-  QStringList keys = cfg.readEntry("MatchPictureUrlMapKeys", QStringList());
-  QStringList values = cfg.readEntry("MatchPictureUrlMapValues", QStringList());
+  picNames = config->value(QLatin1String("PictureSourceNames"), m_pictureSourceNames).toStringList();
+  picUrls = config->value(QLatin1String("PictureSourceUrls"), m_pictureSourceUrls).toStringList();
+  m_pictureSourceIdx = config->value(
+    QLatin1String("PictureSourceIdx"), m_pictureSourceIdx).toInt();
+  QStringList keys = config->value(QLatin1String("MatchPictureUrlMapKeys"), QStringList()).toStringList();
+  QStringList values = config->value(QLatin1String("MatchPictureUrlMapValues"), QStringList()).toStringList();
   if (!keys.empty() && !values.empty()) {
     QStringList::Iterator itk, itv;
     m_matchPictureUrlMap.clear();
@@ -463,7 +428,10 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
       m_matchPictureUrlMap[*itk] = *itv;
     }
   }
-  m_browseCoverArtWindowGeometry = cfg.readEntry("BrowseCoverArtWindowGeometry", QByteArray());
+  m_browseCoverArtWindowGeometry = config->value(
+        QLatin1String("BrowseCoverArtWindowGeometry"),
+        m_browseCoverArtWindowGeometry).toByteArray();
+  config->endGroup();
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
@@ -476,56 +444,7 @@ void ImportConfig::readFromConfig(Kid3Settings* config)
   while (static_cast<unsigned>(expTrailers.size()) < numExpNames) expTrailers.append(QLatin1String(""));
   unsigned numPicNames = picNames.size();
   while (static_cast<unsigned>(picUrls.size()) < numPicNames) picUrls.append(QLatin1String(""));
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  m_importServer = config->value(QLatin1String("/ImportServer"), m_importServer).toInt();
-  m_importDest = importDestCfgToTagVersion(
-    config->value(QLatin1String("/ImportDestination"),
-                  tagVersionToImportDestCfg(m_importDest)).toInt());
-  names = config->value(QLatin1String("/ImportFormatNames")).toStringList();
-  headers = config->value(QLatin1String("/ImportFormatHeaders")).toStringList();
-  tracks = config->value(QLatin1String("/ImportFormatTracks")).toStringList();
-  m_importFormatIdx = config->value(QLatin1String("/ImportFormatIdx"), m_importFormatIdx).toInt();
-  m_enableTimeDifferenceCheck = config->value(QLatin1String("/EnableTimeDifferenceCheck"), m_enableTimeDifferenceCheck).toBool();
-  m_maxTimeDifference = config->value(QLatin1String("/MaxTimeDifference"), m_maxTimeDifference).toInt();
-  m_importVisibleColumns = config->value(QLatin1String("/ImportVisibleColumns"), m_importVisibleColumns).toULongLong();
-  m_importWindowGeometry = config->value(QLatin1String("/ImportWindowGeometry")).toByteArray();
 
-  tagsNames = config->value(QLatin1String("/ImportTagsNames")).toStringList();
-  tagsSources = config->value(QLatin1String("/ImportTagsSources")).toStringList();
-  tagsExtractions = config->value(QLatin1String("/ImportTagsExtractions")).toStringList();
-  m_importTagsIdx = config->value(QLatin1String("/ImportTagsIdx"), m_importTagsIdx).toInt();
-
-  m_exportSrcV1 = config->value(QLatin1String("/ExportSourceV1"),
-      m_exportSrcV1 == TrackData::TagV1).toBool()
-      ? TrackData::TagV1 : TrackData::TagV2;
-  expNames = config->value(QLatin1String("/ExportFormatNames")).toStringList();
-  expHeaders = config->value(QLatin1String("/ExportFormatHeaders")).toStringList();
-  expTracks = config->value(QLatin1String("/ExportFormatTracks")).toStringList();
-  expTrailers = config->value(QLatin1String("/ExportFormatTrailers")).toStringList();
-  m_exportFormatIdx = config->value(QLatin1String("/ExportFormatIdx"), m_exportFormatIdx).toInt();
-  m_exportWindowGeometry = config->value(QLatin1String("/ExportWindowGeometry")).toByteArray();
-
-  picNames = config->value(QLatin1String("/PictureSourceNames")).toStringList();
-  picUrls = config->value(QLatin1String("/PictureSourceUrls")).toStringList();
-  m_pictureSourceIdx = config->value(
-    QLatin1String("/PictureSourceIdx"), m_pictureSourceIdx).toInt();
-  QStringList keys = config->value(QLatin1String("/MatchPictureUrlMapKeys")).toStringList();
-  QStringList values = config->value(QLatin1String("/MatchPictureUrlMapValues")).toStringList();
-  if (!keys.empty() && !values.empty()) {
-    QStringList::Iterator itk, itv;
-    m_matchPictureUrlMap.clear();
-    for (itk = keys.begin(), itv = values.begin();
-       itk != keys.end() && itv != values.end();
-       ++itk, ++itv) {
-      m_matchPictureUrlMap[*itk] = *itv;
-    }
-  }
-  m_browseCoverArtWindowGeometry = config->value(
-    QLatin1String("/BrowseCoverArtWindowGeometry")).toByteArray();
-
-  config->endGroup();
-#endif
   /* Use defaults if no configuration found */
   QStringList::const_iterator namesIt, headersIt, tracksIt;
   for (namesIt = names.begin(), headersIt = headers.begin(),

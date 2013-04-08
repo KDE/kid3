@@ -37,6 +37,7 @@ class QWidget;
 class QComboBox;
 class ConfigStore;
 class ShortcutsModel;
+class MainWindowConfig;
 class ConfigDialogPages;
 
 /**
@@ -51,9 +52,11 @@ public:
    * @param parent  parent widget
    * @param caption dialog title
    * @param shortcutsModel shortcuts model
+   * @param mainWindowConfig main window configuration
    */
   ConfigDialog(QWidget* parent, QString& caption,
-               ShortcutsModel* shortcutsModel);
+               ShortcutsModel* shortcutsModel,
+               MainWindowConfig* mainWindowConfig);
 
   /**
    * Destructor.
@@ -115,6 +118,7 @@ protected slots:
 private:
   ConfigDialogPages* m_pages;
   ShortcutsModel* m_shortcutsModel;
+  MainWindowConfig* m_mainWindowConfig;
   QTreeView* m_shortcutsTreeView;
   QLabel* m_shortcutAlreadyUsedLabel;
   QCheckBox* m_useApplicationFontCheckBox;

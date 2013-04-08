@@ -6,8 +6,10 @@ set(qt_SRCS
   browserdialog.cpp
   messagedialog.cpp
   configdialog.cpp
+  mainwindowconfig.cpp
   shortcutsmodel.cpp
   shortcutsdelegate.cpp
+  kid3settings.cpp
 )
 set(qt_MOC_HDRS
   kid3mainwindow.h

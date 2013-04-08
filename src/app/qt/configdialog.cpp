@@ -41,9 +41,9 @@
 #include <QAction>
 #include "shortcutsmodel.h"
 #include "shortcutsdelegate.h"
-#include "miscconfig.h"
 #include "contexthelp.h"
 #include "configstore.h"
+#include "mainwindowconfig.h"
 #include "configdialogpages.h"
 
 /**
@@ -52,11 +52,14 @@
  * @param parent  parent widget
  * @param caption dialog title
  * @param shortcutsModel shortcuts model
+ * @param mainWindowConfig main window configuration
  */
 ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
-                           ShortcutsModel* shortcutsModel) :
+                           ShortcutsModel* shortcutsModel,
+                           MainWindowConfig* mainWindowConfig) :
   QDialog(parent),
-  m_pages(new ConfigDialogPages(this)), m_shortcutsModel(shortcutsModel)
+  m_pages(new ConfigDialogPages(this)),
+  m_shortcutsModel(shortcutsModel), m_mainWindowConfig(mainWindowConfig)
 {
   setObjectName(QLatin1String("ConfigDialog"));
   setWindowTitle(caption);
@@ -165,17 +168,16 @@ void ConfigDialog::setConfig(const ConfigStore* cfg)
 {
   m_pages->setConfig(cfg);
 
-  const MiscConfig* miscCfg = &cfg->s_miscCfg;
-  m_useApplicationFontCheckBox->setChecked(miscCfg->m_useFont);
-  m_applicationFontButton->setEnabled(miscCfg->m_useFont);
-  if (miscCfg->m_style.isEmpty()) {
+  m_useApplicationFontCheckBox->setChecked(m_mainWindowConfig->m_useFont);
+  m_applicationFontButton->setEnabled(m_mainWindowConfig->m_useFont);
+  if (m_mainWindowConfig->m_style.isEmpty()) {
     m_useApplicationStyleCheckBox->setChecked(false);
     m_applicationStyleComboBox->setEnabled(false);
     m_applicationStyleComboBox->setCurrentIndex(0);
   } else {
     m_useApplicationStyleCheckBox->setChecked(true);
     m_applicationStyleComboBox->setEnabled(true);
-    int idx = m_applicationStyleComboBox->findText(miscCfg->m_style);
+    int idx = m_applicationStyleComboBox->findText(m_mainWindowConfig->m_style);
     if (idx >= 0) {
       m_applicationStyleComboBox->setCurrentIndex(idx);
     }
@@ -183,11 +185,11 @@ void ConfigDialog::setConfig(const ConfigStore* cfg)
 
   // store current font and style
   m_font = QApplication::font();
-  m_style = miscCfg->m_style;
+  m_style = m_mainWindowConfig->m_style;
   m_fontChanged = false;
   m_styleChanged = false;
 
-  m_useNativeDialogsCheckBox->setChecked(!miscCfg->m_dontUseNativeDialogs);
+  m_useNativeDialogsCheckBox->setChecked(!m_mainWindowConfig->m_dontUseNativeDialogs);
 }
 
 /**
@@ -199,23 +201,23 @@ void ConfigDialog::getConfig(ConfigStore* cfg) const
 {
   m_pages->getConfig(cfg);
 
-  MiscConfig* miscCfg = &cfg->s_miscCfg;
   m_shortcutsModel->assignChangedShortcuts();
   if (m_useApplicationFontCheckBox->isChecked()) {
     QFont font = QApplication::font();
-    miscCfg->m_fontFamily = font.family();
-    miscCfg->m_fontSize = font.pointSize();
-    miscCfg->m_useFont = true;
+    m_mainWindowConfig->m_fontFamily = font.family();
+    m_mainWindowConfig->m_fontSize = font.pointSize();
+    m_mainWindowConfig->m_useFont = true;
   } else {
-    miscCfg->m_useFont = false;
+    m_mainWindowConfig->m_useFont = false;
   }
   if (!m_useApplicationStyleCheckBox->isChecked() ||
       m_applicationStyleComboBox->currentIndex() == 0) {
-    miscCfg->m_style = QLatin1String("");
+    m_mainWindowConfig->m_style = QLatin1String("");
   } else {
-    miscCfg->m_style = m_applicationStyleComboBox->currentText();
+    m_mainWindowConfig->m_style = m_applicationStyleComboBox->currentText();
   }
-  miscCfg->m_dontUseNativeDialogs = !m_useNativeDialogsCheckBox->isChecked();
+  m_mainWindowConfig->m_dontUseNativeDialogs =
+      !m_useNativeDialogsCheckBox->isChecked();
 }
 
 /**

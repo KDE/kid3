@@ -161,7 +161,7 @@ public:
    * Get settings.
    * @return settings.
    */
-  Kid3Settings* getSettings() const;
+  ISettings* getSettings() const;
 
   /**
    * Get configuration.

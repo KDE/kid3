@@ -29,10 +29,6 @@
 #include "batchimportprofile.h"
 #include "config.h"
 
-#ifdef CONFIG_USE_KDE
-#include <kconfiggroup.h>
-#endif
-
 /**
  * Constructor.
  * Set default configuration.
@@ -71,25 +67,15 @@ BatchImportConfig::~BatchImportConfig()
  *
  * @param config KDE configuration
  */
-void BatchImportConfig::writeToConfig(Kid3Settings* config) const
+void BatchImportConfig::writeToConfig(ISettings* config) const
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  cfg.writeEntry("ImportDestination", static_cast<int>(m_importDest));
-  cfg.writeEntry("ProfileNames", m_profileNames);
-  cfg.writeEntry("ProfileSources", m_profileSources);
-  cfg.writeEntry("ProfileIdx", m_profileIdx);
-  cfg.writeEntry("WindowGeometry", m_windowGeometry);
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  config->setValue(QLatin1String("/ImportDestination"), QVariant(m_importDest));
-  config->setValue(QLatin1String("/ProfileNames"), QVariant(m_profileNames));
-  config->setValue(QLatin1String("/ProfileSources"), QVariant(m_profileSources));
-  config->setValue(QLatin1String("/ProfileIdx"), QVariant(m_profileIdx));
-  config->setValue(QLatin1String("/WindowGeometry"), QVariant(m_windowGeometry));
-
+  config->beginGroup(m_group);
+  config->setValue(QLatin1String("ImportDestination"), QVariant(m_importDest));
+  config->setValue(QLatin1String("ProfileNames"), QVariant(m_profileNames));
+  config->setValue(QLatin1String("ProfileSources"), QVariant(m_profileSources));
+  config->setValue(QLatin1String("ProfileIdx"), QVariant(m_profileIdx));
+  config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
-#endif
 }
 
 /**
@@ -97,33 +83,26 @@ void BatchImportConfig::writeToConfig(Kid3Settings* config) const
  *
  * @param config KDE configuration
  */
-void BatchImportConfig::readFromConfig(Kid3Settings* config)
+void BatchImportConfig::readFromConfig(ISettings* config)
 {
   QStringList names, sources;
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
+  config->beginGroup(m_group);
   m_importDest = TrackData::tagVersionCast(
-        cfg.readEntry("ImportDestination", static_cast<int>(m_importDest)));
-  names = cfg.readEntry("ProfileNames", QStringList());
-  sources = cfg.readEntry("ProfileSources", QStringList());
-  m_profileIdx = cfg.readEntry("ProfileIdx", m_profileIdx);
-  m_windowGeometry = cfg.readEntry("WindowGeometry", QByteArray());
+        config->value(QLatin1String("ImportDestination"), m_importDest).toInt());
+  names = config->value(QLatin1String("ProfileNames"),
+                        m_profileNames).toStringList();
+  sources = config->value(QLatin1String("ProfileSources"),
+                          m_profileSources).toStringList();
+  m_profileIdx = config->value(QLatin1String("ProfileIdx"), m_profileIdx).toInt();
+  m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
+                                   m_windowGeometry).toByteArray();
+  config->endGroup();
 
   // KConfig seems to strip empty entries from the end of the string lists,
   // so we have to append them again.
   unsigned numNames = names.size();
   while (static_cast<unsigned>(sources.size()) < numNames)
     sources.append(QLatin1String(""));
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  m_importDest = TrackData::tagVersionCast(
-        config->value(QLatin1String("/ImportDestination"), m_importDest).toInt());
-  names = config->value(QLatin1String("/ProfileNames")).toStringList();
-  sources = config->value(QLatin1String("/ProfileSources")).toStringList();
-  m_profileIdx = config->value(QLatin1String("/ProfileIdx"), m_profileIdx).toInt();
-  m_windowGeometry = config->value(QLatin1String("/WindowGeometry")).toByteArray();
-  config->endGroup();
-#endif
   /* Use defaults if no configuration found */
   QStringList::const_iterator namesIt, sourcesIt;
   for (namesIt = names.begin(), sourcesIt = sources.begin();

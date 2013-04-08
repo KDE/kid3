@@ -32,6 +32,7 @@
 #include "kid3api.h"
 
 class QString;
+class ISettings;
 
 /**
  * Interface for GUI independent platform specific tools.
@@ -42,6 +43,12 @@ public:
    * Destructor.
    */
   virtual ~ICorePlatformTools() = 0;
+
+  /**
+   * Get application settings.
+   * @return settings instance.
+   */
+  virtual ISettings* applicationSettings() = 0;
 
   /**
    * Move file or directory to trash.
@@ -60,6 +67,13 @@ public:
    */
   virtual QString fileDialogNameFilter(
       const QList<QPair<QString, QString> >& nameFilters) const = 0;
+
+  /**
+   * Get file pattern part of m_nameFilter.
+   * @param nameFilter name filter string
+   * @return file patterns, e.g. "*.mp3".
+   */
+  virtual QString getNameFilterPatterns(const QString& nameFilter) const = 0;
 };
 
 #endif // ICOREPLATFORMTOOLS_H

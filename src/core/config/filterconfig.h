@@ -55,14 +55,14 @@ public:
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(Kid3Settings* config) const;
+  virtual void writeToConfig(ISettings* config) const;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(Kid3Settings* config);
+  virtual void readFromConfig(ISettings* config);
 
   /**
    * Set the filename format in the "Filename Tag Mismatch" filter.

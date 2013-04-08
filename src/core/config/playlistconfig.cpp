@@ -27,10 +27,6 @@
 #include "playlistconfig.h"
 #include "config.h"
 
-#ifdef CONFIG_USE_KDE
-#include <kconfiggroup.h>
-#endif
-
 /**
  * Constructor.
  * Set default configuration.
@@ -58,34 +54,20 @@ PlaylistConfig::~PlaylistConfig() {}
  *
  * @param config KDE configuration
  */
-void PlaylistConfig::writeToConfig(Kid3Settings* config) const
+void PlaylistConfig::writeToConfig(ISettings* config) const
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  cfg.writeEntry("UseFileNameFormat", m_useFileNameFormat);
-  cfg.writeEntry("OnlySelectedFiles", m_onlySelectedFiles);
-  cfg.writeEntry("UseSortTagField", m_useSortTagField);
-  cfg.writeEntry("UseFullPath", m_useFullPath);
-  cfg.writeEntry("WriteInfo", m_writeInfo);
-  cfg.writeEntry("Location", static_cast<int>(m_location));
-  cfg.writeEntry("Format", static_cast<int>(m_format));
-  cfg.writeEntry("FileNameFormat", m_fileNameFormat);
-  cfg.writeEntry("SortTagField", m_sortTagField);
-  cfg.writeEntry("InfoFormat", m_infoFormat);
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  config->setValue(QLatin1String("/UseFileNameFormat"), QVariant(m_useFileNameFormat));
-  config->setValue(QLatin1String("/OnlySelectedFiles"), QVariant(m_onlySelectedFiles));
-  config->setValue(QLatin1String("/UseSortTagField"), QVariant(m_useSortTagField));
-  config->setValue(QLatin1String("/UseFullPath"), QVariant(m_useFullPath));
-  config->setValue(QLatin1String("/WriteInfo"), QVariant(m_writeInfo));
-  config->setValue(QLatin1String("/Location"), QVariant(static_cast<int>(m_location)));
-  config->setValue(QLatin1String("/Format"), QVariant(static_cast<int>(m_format)));
-  config->setValue(QLatin1String("/FileNameFormat"), QVariant(m_fileNameFormat));
-  config->setValue(QLatin1String("/SortTagField"), QVariant(m_sortTagField));
-  config->setValue(QLatin1String("/InfoFormat"), QVariant(m_infoFormat));
+  config->beginGroup(m_group);
+  config->setValue(QLatin1String("UseFileNameFormat"), QVariant(m_useFileNameFormat));
+  config->setValue(QLatin1String("OnlySelectedFiles"), QVariant(m_onlySelectedFiles));
+  config->setValue(QLatin1String("UseSortTagField"), QVariant(m_useSortTagField));
+  config->setValue(QLatin1String("UseFullPath"), QVariant(m_useFullPath));
+  config->setValue(QLatin1String("WriteInfo"), QVariant(m_writeInfo));
+  config->setValue(QLatin1String("Location"), QVariant(static_cast<int>(m_location)));
+  config->setValue(QLatin1String("Format"), QVariant(static_cast<int>(m_format)));
+  config->setValue(QLatin1String("FileNameFormat"), QVariant(m_fileNameFormat));
+  config->setValue(QLatin1String("SortTagField"), QVariant(m_sortTagField));
+  config->setValue(QLatin1String("InfoFormat"), QVariant(m_infoFormat));
   config->endGroup();
-#endif
 }
 
 /**
@@ -93,42 +75,23 @@ void PlaylistConfig::writeToConfig(Kid3Settings* config) const
  *
  * @param config KDE configuration
  */
-void PlaylistConfig::readFromConfig(Kid3Settings* config)
+void PlaylistConfig::readFromConfig(ISettings* config)
 {
-#ifdef CONFIG_USE_KDE
-  KConfigGroup cfg = config->group(m_group);
-  m_useFileNameFormat = cfg.readEntry("UseFileNameFormat",
-    m_useFileNameFormat);
-  m_onlySelectedFiles = cfg.readEntry("OnlySelectedFiles",
-    m_onlySelectedFiles);
-  m_useSortTagField = cfg.readEntry("UseSortTagField",
-    m_useSortTagField);
-  m_useFullPath = cfg.readEntry("UseFullPath", m_useFullPath);
-  m_writeInfo = cfg.readEntry("WriteInfo", m_writeInfo);
-  m_location = static_cast<PlaylistLocation>(cfg.readEntry("Location",
-    static_cast<int>(m_location)));
-  m_format = static_cast<PlaylistFormat>(cfg.readEntry("Format",
-    static_cast<int>(m_format)));
-  m_fileNameFormat = cfg.readEntry("FileNameFormat", m_fileNameFormat);
-  m_sortTagField = cfg.readEntry("SortTagField", m_sortTagField);
-  m_infoFormat = cfg.readEntry("InfoFormat", m_infoFormat);
-#else
-  config->beginGroup(QLatin1Char('/') + m_group);
-  m_useFileNameFormat = config->value(QLatin1String("/UseFileNameFormat"),
+  config->beginGroup(m_group);
+  m_useFileNameFormat = config->value(QLatin1String("UseFileNameFormat"),
                                       m_useFileNameFormat).toBool();
-  m_onlySelectedFiles = config->value(QLatin1String("/OnlySelectedFiles"),
+  m_onlySelectedFiles = config->value(QLatin1String("OnlySelectedFiles"),
                                       m_onlySelectedFiles).toBool();
-  m_useSortTagField = config->value(QLatin1String("/UseSortTagField"),
+  m_useSortTagField = config->value(QLatin1String("UseSortTagField"),
                                     m_useSortTagField).toBool();
-  m_useFullPath = config->value(QLatin1String("/UseFullPath"), m_useFullPath).toBool();
-  m_writeInfo = config->value(QLatin1String("/WriteInfo"), m_writeInfo).toBool();
+  m_useFullPath = config->value(QLatin1String("UseFullPath"), m_useFullPath).toBool();
+  m_writeInfo = config->value(QLatin1String("WriteInfo"), m_writeInfo).toBool();
   m_location = static_cast<PlaylistLocation>(config->value(QLatin1String("Location"),
     static_cast<int>(m_location)).toInt());
   m_format = static_cast<PlaylistFormat>(config->value(QLatin1String("Format"),
     static_cast<int>(m_format)).toInt());
-  m_fileNameFormat = config->value(QLatin1String("/FileNameFormat"), m_fileNameFormat).toString();
-  m_sortTagField = config->value(QLatin1String("/SortTagField"), m_sortTagField).toString();
-  m_infoFormat = config->value(QLatin1String("/InfoFormat"), m_infoFormat).toString();
+  m_fileNameFormat = config->value(QLatin1String("FileNameFormat"), m_fileNameFormat).toString();
+  m_sortTagField = config->value(QLatin1String("SortTagField"), m_sortTagField).toString();
+  m_infoFormat = config->value(QLatin1String("InfoFormat"), m_infoFormat).toString();
   config->endGroup();
-#endif
 }
