@@ -56,13 +56,13 @@ Authors: Urs Fleisch
 %build
 mkdir kde-build
 cd kde-build; \
-cmake -DCMAKE_SKIP_RPATH=ON -DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX= -DCMAKE_BUILD_TYPE=release ..; \
+cmake -DWITH_APPS=KDE -DCMAKE_SKIP_RPATH=ON -DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX= -DCMAKE_BUILD_TYPE=release ..; \
 make %{?_smp_mflags}; \
 cd ..
 
 mkdir qt-build
 cd qt-build; \
-cmake -DWITH_KDE=OFF -DCMAKE_SKIP_RPATH=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..; \
+cmake -DWITH_APPS=Qt -DCMAKE_SKIP_RPATH=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..; \
 make %{?_smp_mflags}; \
 cd ..
 

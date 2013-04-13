@@ -35,7 +35,7 @@ if (BUILD_SHARED_LIBS)
     RUNTIME DESTINATION ${WITH_BINDIR})
 endif (BUILD_SHARED_LIBS)
 
-if (WITH_KDE)
+if (BUILD_KDE_APP)
   install(FILES model/net.sourceforge.Kid3.xml
-          DESTINATION ${DBUS_INTERFACES_INSTALL_DIR})
-endif (WITH_KDE)
+          DESTINATION "share/dbus-1/interfaces")
+endif (BUILD_KDE_APP)

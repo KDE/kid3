@@ -1,7 +1,7 @@
 # Build Kid3 using CMake
 #
 # Linux:
-# cmake -D CMAKE_BUILD_TYPE=Release -D WITH_KDE=OFF -D CMAKE_INSTALL_PREFIX=/usr ../kid3
+# cmake -D CMAKE_BUILD_TYPE=Release -D WITH_APPS=Qt -D CMAKE_INSTALL_PREFIX=/usr ../kid3
 # make
 # make install/strip DESTDIR=$(pwd)/inst # or
 # cpack
@@ -36,10 +36,38 @@ set(WITH_DBUS ON CACHE BOOL "build with QtDBus")
 set(WITH_PHONON ON CACHE BOOL "build with Phonon")
 set(WITH_GCC_PCH OFF CACHE BOOL "enable precompiled headers")
 if (APPLE OR WIN32)
-  set(WITH_KDE OFF CACHE BOOL "build with KDE libraries")
+  set(WITH_APPS "Qt" CACHE STRING "build applications (Qt;Test)")
 else (APPLE OR WIN32)
-  set(WITH_KDE ON CACHE BOOL "build with KDE libraries")
+  set(WITH_APPS "Qt;KDE;Test" CACHE STRING "build applications (Qt;KDE;Test)")
 endif (APPLE OR WIN32)
+
+if (DEFINED WITH_KDE)
+  unset(WITH_KDE CACHE)
+  message(FATAL_ERROR "The variable WITH_KDE is no longer used. The KDE and Qt "
+                      "applications can now be built together using common "
+                      "libraries. Use WITH_APPS with a value of \"KDE\" for "
+                      "the KDE application, \"Qt\" for the Qt application or "
+                      "\"Qt;KDE\" for both. Default is -DWITH_APPS="
+                      "\"${WITH_APPS}\". If you build multiple applications, "
+                      "consider using -DBUILD_SHARED_LIBS=ON to build shared "
+                      "dynamic libraries.")
+endif (DEFINED WITH_KDE)
+
+if (WITH_APPS)
+  string(TOLOWER "${WITH_APPS}" _apps_lower)
+  foreach (_app ${_apps_lower})
+    if (_app STREQUAL "qt")
+      set(BUILD_QT_APP ON)
+    elseif (_app STREQUAL "kde")
+      set(BUILD_KDE_APP ON)
+    elseif (_app STREQUAL "test")
+      set(BUILD_TEST_APP ON)
+    else ()
+      message(SEND_ERROR "Invalid value ${_app} in WITH_APPS. "
+                         "Supported applications are \"Qt;KDE;Test\".")
+    endif ()
+  endforeach ()
+endif (WITH_APPS)
 
 # Version information
 set(CPACK_PACKAGE_VERSION_MAJOR 2)
@@ -65,11 +93,11 @@ elseif (WIN32)
 else (APPLE)
   set(WITH_DATAROOTDIR_DEFAULT "share")
   set(WITH_DOCDIR_DEFAULT "share/doc/kid3-qt")
-  if (WITH_KDE OR BUILD_SHARED_LIBS)
+  if (BUILD_KDE_APP OR BUILD_SHARED_LIBS)
     set(WITH_TRANSLATIONSDIR_DEFAULT "share/kid3/translations")
-  else (WITH_KDE OR BUILD_SHARED_LIBS)
+  else (BUILD_KDE_APP OR BUILD_SHARED_LIBS)
     set(WITH_TRANSLATIONSDIR_DEFAULT "share/kid3-qt/translations")
-  endif (WITH_KDE OR BUILD_SHARED_LIBS)
+  endif (BUILD_KDE_APP OR BUILD_SHARED_LIBS)
   set(WITH_BINDIR_DEFAULT "bin")
   set(WITH_LIBDIR_DEFAULT "lib")
 endif (APPLE)
@@ -101,26 +129,9 @@ endif (WITH_GCC_PCH)
 find_package(Threads)
 find_package(Perl REQUIRED)
 include (CheckCXXSourceCompiles)
+include (CheckCXXCompilerFlag)
 include (CheckLibraryExists)
 
-if (WITH_KDE)
-
-find_package(KDE4 REQUIRED)
-if (WITH_PHONON)
-  find_package(Phonon)
-endif (WITH_PHONON)
-include (KDE4Defaults)
-
-# Set variables used to install shared libraries
-set(WITH_BINDIR ${BIN_INSTALL_DIR})
-set(WITH_LIBDIR ${LIB_INSTALL_DIR})
-
-set(BASIC_LIBRARIES ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
-if (WITH_PHONON)
-  set(BASIC_LIBRARIES ${BASIC_LIBRARIES} ${PHONON_LIBS})
-endif (WITH_PHONON)
-
-else (WITH_KDE)
 
 set(QT_EXECUTABLE_COMPILE_FLAGS)
 string(REGEX MATCH "^(.*[Qq]t5.*).bin.qmake.*" _qt5Dir "${QT_QMAKE_EXECUTABLE}")
@@ -199,6 +210,13 @@ if (_qt5Dir)
   message(STATUS "Found Qt5: ${_qt5_corelib_install_prefix} (found version \"${Qt5Core_VERSION_STRING}\")")
 endif (_qt5Dir)
 
+# Check that QT_NO_DEBUG is defined for release configurations
+foreach (_buildType RELWITHDEBINFO RELEASE MINSIZEREL)
+  if (NOT CMAKE_CXX_FLAGS_${_buildType} MATCHES "-DQT_NO_DEBUG")
+    set(CMAKE_CXX_FLAGS_${_buildType} "${CMAKE_CXX_FLAGS_${_buildType}} -DQT_NO_DEBUG")
+  endif ()
+endforeach ()
+
 ### Check for xsltproc
 find_program(XSLTPROC xsltproc DOC "xsltproc transforms XML via XSLT"
   PATHS $ENV{XSLTPROCDIR})
@@ -226,7 +244,6 @@ endif (NOT DOCBOOK_XSL_DIR)
 
 set(BASIC_LIBRARIES ${QT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
-endif (WITH_KDE)
 
 if (APPLE)
   set(BASIC_LIBRARIES ${BASIC_LIBRARIES} "-framework CoreServices")
@@ -520,19 +537,8 @@ endif (WITH_DBUS AND QT_QTDBUS_LIBRARY)
 include(CheckIncludeFile)
 check_include_file("mntent.h" HAVE_MNTENT_H)
 
-set(QT_DEFINITIONS ${QT_DEFINITIONS} -DQT_ASCII_CAST_WARNINGS)
+set(QT_DEFINITIONS ${QT_DEFINITIONS} -DQT_ASCII_CAST_WARNINGS -DQT_NO_CAST_TO_ASCII)
 
-if (WITH_KDE)
-
-### Check for Phonon
-if (WITH_PHONON AND PHONON_FOUND)
-  set(HAVE_PHONON 1)
-endif (WITH_PHONON AND PHONON_FOUND)
-
-add_definitions(${QT_DEFINITIONS} ${KDE4_DEFINITIONS} ${TAGLIB_CFLAGS} ${CHROMAPRINT_CFLAGS} -DHAVE_CONFIG_H=1 -DKDE_NO_COMPAT)
-include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${KDE4_INCLUDES} ${QT_INCLUDES} ${PHONON_INCLUDES} ${MP4V2_INCLUDE_DIR} ${ID3LIB_INCLUDE_DIR} ${CHROMAPRINT_INCLUDES} ${VORBIS_INCLUDE_DIR} ${FLACPP_INCLUDE_DIR})
-
-else (WITH_KDE)
 
 ### Check for Phonon
 set(PHONON_LIBRARY)
@@ -552,10 +558,14 @@ if (WITH_PHONON)
 endif (WITH_PHONON)
 
 if (CMAKE_COMPILER_IS_GNUCC)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -D_REENTRANT")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wundef -Wcast-align -Wall -W -Wpointer-arith -D_REENTRANT")
 endif (CMAKE_COMPILER_IS_GNUCC)
 if (CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fno-exceptions -D_REENTRANT")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wundef -Wcast-align -Wall -W -Wpointer-arith -fno-exceptions -fno-check-new -fno-common -D_REENTRANT")
+  check_cxx_compiler_flag(-Woverloaded-virtual _HAVE_W_OVERLOADED_VIRTUAL)
+  if(_HAVE_W_OVERLOADED_VIRTUAL)
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Woverloaded-virtual")
+  endif(_HAVE_W_OVERLOADED_VIRTUAL)
 endif (CMAKE_COMPILER_IS_GNUCXX)
 if (MSVC)
   # Treat wchar_t as built-in type, else QString::fromWCharArray is unresolved
@@ -569,7 +579,6 @@ add_definitions(${QT_DEFINITIONS} ${TAGLIB_CFLAGS} ${CHROMAPRINT_CFLAGS} ${ID3LI
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${QT_INCLUDES} ${PHONON_INCLUDE_DIR} ${MP4V2_INCLUDE_DIR} ${ID3LIB_INCLUDE_DIR} ${CHROMAPRINT_INCLUDES} ${VORBIS_INCLUDE_DIR} ${FLACPP_INCLUDE_DIR})
 
 if (NOT WIN32)
-  include (CheckCXXCompilerFlag)
   check_cxx_compiler_flag(-fvisibility=hidden _HAVE_GCC_VISIBILITY)
   if (_HAVE_GCC_VISIBILITY)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=hidden")
@@ -583,7 +592,6 @@ else (UNIX AND NOT APPLE)
   set(KID3_EXECUTABLE kid3)
 endif (UNIX AND NOT APPLE)
 
-endif (WITH_KDE)
 
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
@@ -602,13 +610,13 @@ else (APPLE)
   set(CPACK_GENERATOR DEB)
 endif (APPLE)
 
-if (WITH_KDE OR APPLE OR WIN32)
+if (BUILD_KDE_APP OR APPLE OR WIN32)
   set(CPACK_PACKAGE_NAME "kid3")
   set(CPACK_DEBIAN_PACKAGE_SECTION "kde")
-else (WITH_KDE OR APPLE OR WIN32)
+else (BUILD_KDE_APP OR APPLE OR WIN32)
   set(CPACK_PACKAGE_NAME "kid3-qt")
   set(CPACK_DEBIAN_PACKAGE_SECTION "sound")
-endif (WITH_KDE OR APPLE OR WIN32)
+endif (BUILD_KDE_APP OR APPLE OR WIN32)
 set(CPACK_PACKAGE_CONTACT "ufleisch@users.sourceforge.net")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Audio tag editor")
 set(CPACK_STRIP_FILES ON)

@@ -1,5 +1,3 @@
-if (NOT WITH_KDE)
-
 # Create HTML handbook from DocBook file in language directory
 macro (kid3_create_handbook _docbook)
   get_filename_component(_input ${_docbook} ABSOLUTE)
@@ -34,11 +32,9 @@ macro (kid3_create_handbook _docbook)
       DEPENDS ${_input}
     )
   endif (WIN32)
-  add_custom_target("${_lang}-handbook" ALL DEPENDS ${_output})
+  add_custom_target("${_lang}-html-handbook" ALL DEPENDS ${_output})
   install(FILES ${_output} DESTINATION ${WITH_DOCDIR})
 endmacro (kid3_create_handbook)
-
-endif (NOT WITH_KDE)
 
 add_subdirectory(en)
 add_subdirectory(de)

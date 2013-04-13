@@ -83,7 +83,7 @@ if (UNIX AND NOT APPLE)
           RENAME kid3-qt.png)
 endif (UNIX AND NOT APPLE)
 
-add_definitions(${QT_DEFINITIONS} ${KID3_EXECUTABLE_COMPILE_FLAGS})
+add_definitions(${QT_DEFINITIONS} ${QT_EXECUTABLE_COMPILE_FLAGS})
 set(qt_RESOURCES kid3.qrc)
 qt4_add_resources(qt_GEN_RCS ${qt_RESOURCES})
 add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32

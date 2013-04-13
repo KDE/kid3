@@ -1945,7 +1945,9 @@ libraries are compiled in. The default is
 </para>
 <para>
 To build &kid3; as a Qt application without KDE, use the
-<userinput>cmake</userinput> option <userinput>-DWITH_KDE=OFF</userinput>.
+<userinput>cmake</userinput> option <userinput>-DWITH_APPS=Qt</userinput>.
+To build both a KDE and a Qt application, set
+<userinput>-DWITH_APPS="Qt;KDE"</userinput>.
 </para>
 <para>
 Generation of RPM-Packages is supported by the

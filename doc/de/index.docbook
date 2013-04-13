@@ -2064,7 +2064,9 @@ werden, was verwendet werden soll. Die Voreinstellung ist
 </para>
 <para>
 Um &kid3; als Qt Applikation ohne KDE zu kompilieren, wird die
-<userinput>cmake</userinput> Option <userinput>-DWITH_KDE=OFF</userinput> benutzt.
+<userinput>cmake</userinput> Option <userinput>-DWITH_APPS=Qt</userinput> benutzt.
+Um sowohl eine KDE als auch eine Qt Applikation zu kompilieren, wird
+<userinput>-DWITH_APPS="Qt;KDE"</userinput> gesetzt.
 </para>
 <para>
 Für die Erzeugung von RPM-Paketen ist die Datei <filename>kid3.spec</filename>

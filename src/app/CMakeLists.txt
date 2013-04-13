@@ -8,8 +8,13 @@ include_directories(
   ../gui/dialogs
 )
 
-if (WITH_KDE)
-  add_subdirectory(kde)
-else (WITH_KDE)
+if (BUILD_QT_APP)
   add_subdirectory(qt)
-endif (WITH_KDE)
+endif (BUILD_QT_APP)
+
+if (BUILD_KDE_APP)
+  find_package(KDE4 REQUIRED)
+  include (KDE4Defaults)
+  add_subdirectory(kde)
+  kde4_install_icons(${ICON_INSTALL_DIR})
+endif (BUILD_KDE_APP)

@@ -1,9 +1,8 @@
-if (WITH_KDE)
+if (BUILD_KDE_APP)
+  find_package(KDE4 REQUIRED)
+  kde4_create_handbook(index.docbook INSTALL_DESTINATION ${HTML_INSTALL_DIR}/de SUBDIR kid3)
+endif (BUILD_KDE_APP)
 
-kde4_create_handbook(index.docbook INSTALL_DESTINATION ${HTML_INSTALL_DIR}/de SUBDIR kid3)
-
-else (WITH_KDE)
-
-kid3_create_handbook(index.docbook)
-
-endif (WITH_KDE)
+if (BUILD_QT_APP)
+  kid3_create_handbook(index.docbook)
+endif (BUILD_QT_APP)

@@ -8,13 +8,13 @@ libFLAC, Chromaprint, mp4v2.
 
 *** Compile for KDE 4
 
-cmake .
+cmake . -DWITH_APPS=KDE
 make
 make install
 
 *** Compile for Qt 4 (no KDE)
 
-cmake . -DCMAKE_BUILD_TYPE=Release -DWITH_KDE=OFF
+cmake . -DCMAKE_BUILD_TYPE=Release -DWITH_APPS=Qt
 make
 make install
 
