@@ -6,10 +6,9 @@
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-29 17:08+0100\n"
+"Project-Id-Version: Kid3 2.3\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2013-04-14 17:22+0200\n"
 "PO-Revision-Date: 2013-03-14 23:39+0200\n"
 "Last-Translator: Ville Skyttä <ville.skytta@iki.fi>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -21,6 +20,407 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: fi\n"
 "X-Source-Language: en\n"
+
+msgid "Tags"
+msgstr "Tagit"
+
+msgid "Files"
+msgstr "Tiedostot"
+
+msgid "User Actions"
+msgstr "Käyttäjän toimet"
+
+msgid "Network"
+msgstr "Verkko"
+
+msgid "Main Toolbar"
+msgstr "Päätyökalupalkki"
+
+msgid "Opens a directory"
+msgstr "Avaa kansion"
+
+msgid "Opens a recently used directory"
+msgstr "Avaa viimeaikaisen kansion"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "Kumoaa muutokset kaikkiin tai valittuihin tiedostoihin"
+
+msgid "Saves the changed files"
+msgstr "Tallentaa muuttuneet tiedostot"
+
+msgid "Quits the application"
+msgstr "Sulkee sovelluksen"
+
+msgid "Select all files"
+msgstr "Valitse kaikki tiedostot"
+
+msgid "Deselect all files"
+msgstr "Poista kaikki valinnat"
+
+msgid "Configure Shortcuts"
+msgstr "Aseta pikanäppäimet"
+
+msgid "Configure Toolbars"
+msgstr "Aseta työkalupalkit"
+
+msgid "Preferences dialog"
+msgstr "Asetusikkuna"
+
+msgid "O&pen Directory..."
+msgstr "Avaa &kansio..."
+
+msgid "&Import..."
+msgstr "T&uo..."
+
+msgid "Import from %1..."
+msgstr "Tuo %1ista..."
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainzin sormenjälki"
+
+msgid "Automatic I&mport..."
+msgstr "Tuo auto&maattisesti..."
+
+msgid "&Browse Cover Art..."
+msgstr "Selaa &kansikuvia..."
+
+msgid "&Export..."
+msgstr "&Vie..."
+
+msgid "&Create Playlist..."
+msgstr "&Luo soittolista..."
+
+msgid "Apply &Filename Format"
+msgstr "Ota tiedosto&nimimuutokset käyttöön"
+
+msgid "Apply &Tag Format"
+msgstr "Ota ta&gimuutokset käyttöön"
+
+msgid "Apply Text &Encoding"
+msgstr "Ota m&erkistökoodaus"
+
+msgid "&Rename Directory..."
+msgstr "Muuta &kansion nimeä..."
+
+msgid "&Number Tracks..."
+msgstr "&Numeroi kappaleet..."
+
+msgid "F&ilter..."
+msgstr "&Suodata..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Muunna ID3v2.3:sta ID3v2.&4:ksi"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Muunna ID3v2.4:sta ID3v2.&3:ksi"
+
+msgid "&Play"
+msgstr "&Soita"
+
+msgid "Show &Picture"
+msgstr "Näytä k&uva"
+
+msgid "Auto &Hide Tags"
+msgstr "&Piilota automaattisesti"
+
+msgid "Select All in &Directory"
+msgstr "Valitse kaikki &hakemistossa"
+
+msgid "&Previous File"
+msgstr "&Edellinen tiedosto"
+
+msgid "&Next File"
+msgstr "&Seuraava tiedosto"
+
+msgid "Tag 1"
+msgstr "1-tagi"
+
+msgid "From Filename"
+msgstr "Tiedostonimestä"
+
+msgid "From Tag 2"
+msgstr "2-tagista"
+
+msgid "Copy"
+msgstr "Kopioi"
+
+msgid "Paste"
+msgstr "Liitä"
+
+msgid "Remove"
+msgstr "Poista"
+
+msgid "Tag 2"
+msgstr "2-tagi"
+
+msgid "From Tag 1"
+msgstr "1-tagista"
+
+msgid "Frames:"
+msgstr "Kehykset:"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Delete"
+msgstr "Poista"
+
+msgid "Filename"
+msgstr "Tiedostonimi"
+
+msgid "Focus"
+msgstr "Kohdistus"
+
+msgid "File List"
+msgstr "Tiedostoluettelo"
+
+msgid "Directory List"
+msgstr "Hakemistolista"
+
+msgid "Configure - Kid3"
+msgstr "Asetukset – Kid3"
+
+msgid "Open"
+msgstr "Avaa"
+
+msgid "Save As"
+msgstr "Tallenna nimellä"
+
+msgid "directory to open"
+msgstr "avattava kansio"
+
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3, ID3-tagimuokkaaja"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Tommi Nieminen, Ville Skyttä"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "translator@legisign.org, ville.skytta@iki.fi"
+
+msgid "&Back"
+msgstr "&Takaisin"
+
+msgid "&Forward"
+msgstr "&Seuraava"
+
+msgid "&Find:"
+msgstr "&Etsi:"
+
+msgid "Find Previous"
+msgstr "Etsi edellinen"
+
+msgid "Find Next"
+msgstr "Etsi seuraava"
+
+msgid "&Close"
+msgstr "&Sulje"
+
+msgid "&Tags"
+msgstr "&Tagit"
+
+msgid "&Files"
+msgstr "&Tiedostot"
+
+msgid "&User Actions"
+msgstr "&Käyttäjän toimet"
+
+msgid "&Network"
+msgstr "&Verkko"
+
+msgid "&Keyboard Shortcuts"
+msgstr "Näppäimistön pi&kavalinnat"
+
+msgid "Use custom app&lication font"
+msgstr "Käytä &omaa kirjasinta sovelluksessa"
+
+msgid "A&pplication Font..."
+msgstr "&Käytettävä kirjasin..."
+
+msgid "Use custom application &style"
+msgstr "Käytä sovelluksessa omaa t&yyliä"
+
+msgid "Unknown"
+msgstr "Tuntematon"
+
+msgid "Use native system file &dialogs"
+msgstr "Käytä kotoperäisiä järjestelmän tie&dostovalintaikkunoita"
+
+msgid "&Appearance"
+msgstr "&Ulkonäkö"
+
+msgid "&Help"
+msgstr "O&hje"
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "&Cancel"
+msgstr "&Peruuta"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Pikanäppäin '%1' on jo kytketty toimintoon '%2'."
+
+msgid "&File"
+msgstr "&Tiedosto"
+
+msgid "&Open..."
+msgstr "&Avaa..."
+
+msgid "Open &Recent"
+msgstr "Avaa &viimeaikainen"
+
+msgid "&Save"
+msgstr "&Tallenna"
+
+msgid "Re&vert"
+msgstr "K&umoa"
+
+msgid "Import from file or clipboard"
+msgstr "Tuo tiedostosta tai leikepöydältä"
+
+msgid "Import from %1"
+msgstr "Tuo %1ista"
+
+msgid "Automatic import"
+msgstr "Tuo automaattisesti"
+
+msgid "Browse album cover artwork"
+msgstr "Selaa kansikuvia"
+
+msgid "Export to file or clipboard"
+msgstr "Vie tiedostoon tai leikepöydälle"
+
+msgid "Create M3U Playlist"
+msgstr "Luo soittolista"
+
+msgid "&Quit"
+msgstr "&Lopeta"
+
+msgid "&Edit"
+msgstr "&Muokkaa"
+
+msgid "Select &All"
+msgstr "Valitse &kaikki"
+
+msgid "Dese&lect"
+msgstr "&Poista valinta"
+
+msgid "Select all files in the current directory"
+msgstr "Valitse kaikki tiedostot nykyisessä hakemistossa"
+
+msgid "Select previous file"
+msgstr "Edellinen tiedosto"
+
+msgid "Select next file"
+msgstr "Seuraava tiedosto"
+
+msgid "&Tools"
+msgstr "T&yökalut"
+
+msgid "Apply Filename Format"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Apply Tag Format"
+msgstr "Ota muutokset käyttöön"
+
+msgid "Apply Text Encoding"
+msgstr "Ota merkistökoodaus"
+
+msgid "Rename Directory"
+msgstr "Muuta kansion nimeä"
+
+msgid "Number Tracks"
+msgstr "Kappaleiden numerointi"
+
+msgid "Filter"
+msgstr "Suodin"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Muunna ID3v2.3:sta ID3v2.4:ksi"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Muunna ID3v2.4:sta ID3v2.3:ksi"
+
+msgid "Play"
+msgstr "Soita"
+
+msgid "&Settings"
+msgstr "&Asetukset"
+
+msgid "Enables/disables the toolbar"
+msgstr "Ottaa käyttöön tai poistaa käytöstä työkalupalkin"
+
+msgid "Show &Toolbar"
+msgstr "Näytä &työkalurivi"
+
+msgid "Enables/disables the statusbar"
+msgstr "Ottaa käyttöön tai poistaa käytöstä tilarivin"
+
+msgid "Show St&atusbar"
+msgstr "Näytä &tilarivi"
+
+msgid "Show Picture"
+msgstr "Näytä kuva"
+
+msgid "Auto Hide Tags"
+msgstr "Piilota automaattisesti"
+
+msgid "Configure Kid3"
+msgstr "Kid3:n asetukset"
+
+msgid "&Configure Kid3..."
+msgstr "Kid3:n &asetukset..."
+
+msgid "Kid3 Handbook"
+msgstr "Kid3 Käsikirja"
+
+msgid "Kid3 &Handbook"
+msgstr "Kid3 &Käsikirja"
+
+msgid "About Kid3"
+msgstr "Tietoja Kid3:sta"
+
+msgid "&About Kid3"
+msgstr "&Tietoja Kid3:sta"
+
+msgid "About Qt"
+msgstr "Tietoja Qt:stä"
+
+msgid "About &Qt"
+msgstr "Tietoja &Qt:stä"
+
+msgid " [modified]"
+msgstr " [muutettu]"
+
+msgid "Toggle the statusbar..."
+msgstr "Näytä/piilota tilarivi..."
+
+msgid "Ready."
+msgstr "Valmis."
+
+msgid "&Clear List"
+msgstr "&Tyhjennä luettelo"
+
+msgid "Clear"
+msgstr "Tyhjennä"
+
+msgid "Reset"
+msgstr "Nollaa"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr ""
+
+msgid "Action"
+msgstr "Toiminto"
+
+msgid "Shortcut"
+msgstr "Näppäinyhdistelmä"
 
 msgid "Server"
 msgstr "Palvelin"
@@ -36,15 +436,6 @@ msgstr "Lisätagit"
 
 msgid "Cover Art"
 msgstr "Kansikuvat"
-
-msgid "Press F2 or double click to edit cell contents."
-msgstr ""
-
-msgid "Action"
-msgstr "Toiminto"
-
-msgid "Shortcut"
-msgstr "Näppäinyhdistelmä"
 
 msgid "AENC - Audio encryption"
 msgstr "AENC – Äänen koodaus"
@@ -334,9 +725,6 @@ msgstr "TSST – Aseta tekstitys"
 msgid "Amazon"
 msgstr "Amazon"
 
-msgid "Unknown"
-msgstr "Tuntematon"
-
 msgid "Invalid File"
 msgstr "Virheellinen tiedosto"
 
@@ -348,9 +736,6 @@ msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Vastaanotettu data: %1"
-
-msgid "Ready."
-msgstr "Valmis."
 
 msgid "Error"
 msgstr "Virhe"
@@ -445,9 +830,6 @@ msgstr "Muuta tiedoston nimeä"
 msgid "C&lear"
 msgstr "&Tyhjennä"
 
-msgid "&Close"
-msgstr "&Sulje"
-
 msgid "Execute "
 msgstr "Suorita"
 
@@ -478,17 +860,14 @@ msgstr "Data"
 msgid "All Supported Files"
 msgstr "Kaikki tuetut tiedostot"
 
-msgid "All Files (*)"
-msgstr "Kaikki tiedostot (*)"
+msgid "All Files"
+msgstr "Kaikki tiedostot"
 
 msgid "Track"
 msgstr "Raita"
 
 msgid "Absolute path to file"
 msgstr "Tiedoston absoluuttinen polku"
-
-msgid "Filename"
-msgstr "Tiedostonimi"
 
 msgid "Duration"
 msgstr "Kesto"
@@ -652,46 +1031,17 @@ msgstr "Kanavat"
 msgid "Codec"
 msgstr "Koodekki"
 
-msgid "directory to open"
-msgstr "avattava kansio"
-
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3, ID3-tagimuokkaaja"
-
-#. i18n NAME OF TRANSLATORS
-msgid "Your names"
-msgstr "Tommi Nieminen, Ville Skyttä"
-
-#. i18n EMAIL OF TRANSLATORS
-msgid "Your emails"
-msgstr "translator@legisign.org, ville.skytta@iki.fi"
-
 msgid "Automatic Import"
 msgstr "Tuo automaattisesti"
 
 msgid "D&estination:"
 msgstr "Koh&de:"
 
-msgid "Tag 1"
-msgstr "1-tagi"
-
-msgid "Tag 2"
-msgstr "2-tagi"
-
 msgid "Tag 1 and Tag 2"
 msgstr "1- ja 2-tagit"
 
 msgid "&Profile:"
 msgstr "&Profiili:"
-
-msgid "Add"
-msgstr "Lisää"
-
-msgid "Remove"
-msgstr "Poista"
-
-msgid "&Help"
-msgstr "O&hje"
 
 msgid "&Save Settings"
 msgstr "&Tallenna asetukset"
@@ -777,29 +1127,11 @@ msgstr "Kuvan osoite"
 msgid "&Browse"
 msgstr "&Selaa"
 
-msgid "&Cancel"
-msgstr "&Peruuta"
-
 msgid "Click Browse to start"
 msgstr "Aloita napsauttamalla Selaa"
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Vedä sitten kuva selaimesta Kid3:een."
-
-msgid "&Back"
-msgstr "&Takaisin"
-
-msgid "&Forward"
-msgstr "&Seuraava"
-
-msgid "&Find:"
-msgstr "&Etsi:"
-
-msgid "Find Previous"
-msgstr "Etsi edellinen"
-
-msgid "Find Next"
-msgstr "Etsi seuraava"
 
 msgid "ID3v1"
 msgstr "ID3v1"
@@ -873,12 +1205,6 @@ msgstr "&2-tagi"
 msgid "Tag 1 a&nd Tag 2"
 msgstr "1- &ja 2-tagit"
 
-msgid "Tags"
-msgstr "Tagit"
-
-msgid "&Tags"
-msgstr "&Tagit"
-
 msgid "Startup"
 msgstr "Käynnistys"
 
@@ -900,12 +1226,6 @@ msgstr "Kans&ikuvan tiedostonimi:"
 msgid "&Filename Format"
 msgstr "&Tiedostonimen muoto"
 
-msgid "Files"
-msgstr "Tiedostot"
-
-msgid "&Files"
-msgstr "&Tiedostot"
-
 msgid "Browser"
 msgstr "Selain"
 
@@ -917,12 +1237,6 @@ msgstr "&Kontekstivalikon komennot"
 
 msgid "&Play on double click"
 msgstr "&Soita tuplaklikkaamalla"
-
-msgid "User Actions"
-msgstr "Käyttäjän toimet"
-
-msgid "&User Actions"
-msgstr "&Käyttäjän toimet"
 
 msgid "Proxy"
 msgstr "Välityspalvelin"
@@ -938,39 +1252,6 @@ msgstr "K&äyttäjätunnus:"
 
 msgid "Proxy pass&word:"
 msgstr "&Salasana:"
-
-msgid "Network"
-msgstr "Verkko"
-
-msgid "&Network"
-msgstr "&Verkko"
-
-msgid "&Keyboard Shortcuts"
-msgstr "Näppäimistön pi&kavalinnat"
-
-msgid "Use custom app&lication font"
-msgstr "Käytä &omaa kirjasinta sovelluksessa"
-
-msgid "A&pplication Font..."
-msgstr "&Käytettävä kirjasin..."
-
-msgid "Use custom application &style"
-msgstr "Käytä sovelluksessa omaa t&yyliä"
-
-msgid "Use native system file &dialogs"
-msgstr "Käytä kotoperäisiä järjestelmän tie&dostovalintaikkunoita"
-
-msgid "&Appearance"
-msgstr "&Ulkonäkö"
-
-msgid "&OK"
-msgstr "&OK"
-
-msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "Pikanäppäin '%1' on jo kytketty toimintoon '%2'."
-
-msgid "Kid3 Handbook"
-msgstr "Kid3 Käsikirja"
 
 msgid "From Clip&board"
 msgstr "&Leikepöydältä"
@@ -1050,8 +1331,8 @@ msgstr "Hinta"
 msgid "Seller"
 msgstr "Myyjä"
 
-msgid "Images (*.jpg *.jpeg *.png)"
-msgstr "Kuvat (*.jpg *.jpeg *.png)"
+msgid "Images"
+msgstr "Kuvat"
 
 msgid "UTF16BE"
 msgstr "UTF-16BE"
@@ -1161,9 +1442,6 @@ msgstr "Tiedostovirhe"
 msgid "Error while writing file:\n"
 msgstr "Virhe kirjoitettaessa tiedostoa:\n"
 
-msgid "Filter"
-msgstr "Suodin"
-
 msgid "&Filter:"
 msgstr "&Suodin:"
 
@@ -1187,9 +1465,6 @@ msgstr "T&agista..."
 
 msgid "&From Server:"
 msgstr "&Palvelimelta:"
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainzin sormenjälki"
 
 msgid "Revert"
 msgstr "Kumoa"
@@ -1220,9 +1495,6 @@ msgstr "Ei tuloksia"
 
 msgid "No result selected"
 msgstr "Ei valittuja tuloksia"
-
-msgid "Number Tracks"
-msgstr "Kappaleiden numerointi"
 
 msgid "&Start number:"
 msgstr "&Aloittava numero:"
@@ -1284,9 +1556,6 @@ msgstr "Kirjoita &vain tiedostoluettelo"
 msgid "Write &info using"
 msgstr "Kirjoita tieto k&äyttäen"
 
-msgid "Rename Directory"
-msgstr "Muuta kansion nimeä"
-
 msgid "Format"
 msgstr "Muoto"
 
@@ -1298,12 +1567,6 @@ msgstr "Luo kansio"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "2- ja 1-tageista"
-
-msgid "From Tag 1"
-msgstr "1-tagista"
-
-msgid "From Tag 2"
-msgstr "2-tagista"
 
 msgid "From:"
 msgstr "Alkuperäinen:"
@@ -1329,281 +1592,8 @@ msgstr "Tuo tiedostosta/leikepöydältä"
 msgid "From F&ile"
 msgstr "&Tiedostosta"
 
-msgid "&Expand all"
-msgstr "&Levitä kaikki"
-
-msgid "&Collapse all"
-msgstr "&Kokoa kaikki"
-
-msgid "&Rename"
-msgstr "M&uuta nimeä"
-
-msgid "&Move to Trash"
-msgstr "&Siirrä roskakoriin"
-
-msgid "&Play"
-msgstr "&Soita"
-
-msgid "Kid3"
-msgstr "Kid3"
-
-msgid "F&ile"
-msgstr "T&iedosto"
-
-msgid "Name:"
-msgstr "Nimi:"
-
-msgid "Filename from Tag 1"
-msgstr "Tiedostonimi 1-tagista"
-
-msgid "Filename from Tag 2"
-msgstr "Tiedostonimi 2-tagista"
-
-msgid "Tag 1 from Filename"
-msgstr "1-tagi tiedostonimestä"
-
-msgid "Tag 2 from Filename"
-msgstr "2-tagi tiedostonimestä"
-
-msgid "Copy"
-msgstr "Kopioi"
-
-msgid "Paste"
-msgstr "Liitä"
-
-msgid "Edit"
-msgstr "Muokkaa"
-
-msgid "Delete"
-msgstr "Poista"
-
-msgid "Focus"
-msgstr "Kohdistus"
-
-msgid "From Filename"
-msgstr "Tiedostonimestä"
-
-msgid "File List"
-msgstr "Tiedostoluettelo"
-
-msgid "Directory List"
-msgstr "Hakemistolista"
-
 msgid "Download"
 msgstr "Lataa"
-
-msgid "Main Toolbar"
-msgstr "Päätyökalupalkki"
-
-msgid "Opens a directory"
-msgstr "Avaa kansion"
-
-msgid "Opens a recently used directory"
-msgstr "Avaa viimeaikaisen kansion"
-
-msgid "Reverts the changes of all or the selected files"
-msgstr "Kumoaa muutokset kaikkiin tai valittuihin tiedostoihin"
-
-msgid "Saves the changed files"
-msgstr "Tallentaa muuttuneet tiedostot"
-
-msgid "Quits the application"
-msgstr "Sulkee sovelluksen"
-
-msgid "Select all files"
-msgstr "Valitse kaikki tiedostot"
-
-msgid "Deselect all files"
-msgstr "Poista kaikki valinnat"
-
-msgid "Configure Shortcuts"
-msgstr "Aseta pikanäppäimet"
-
-msgid "Configure Toolbars"
-msgstr "Aseta työkalupalkit"
-
-msgid "Preferences dialog"
-msgstr "Asetusikkuna"
-
-msgid "O&pen Directory..."
-msgstr "Avaa &kansio..."
-
-msgid "&Import..."
-msgstr "T&uo..."
-
-msgid "Import from %1..."
-msgstr "Tuo %1ista..."
-
-msgid "Automatic I&mport..."
-msgstr "Tuo auto&maattisesti..."
-
-msgid "&Browse Cover Art..."
-msgstr "Selaa &kansikuvia..."
-
-msgid "&Export..."
-msgstr "&Vie..."
-
-msgid "&Create Playlist..."
-msgstr "&Luo soittolista..."
-
-msgid "Apply &Filename Format"
-msgstr "Ota tiedosto&nimimuutokset käyttöön"
-
-msgid "Apply &Tag Format"
-msgstr "Ota ta&gimuutokset käyttöön"
-
-msgid "Apply Text &Encoding"
-msgstr "Ota m&erkistökoodaus"
-
-msgid "&Rename Directory..."
-msgstr "Muuta &kansion nimeä..."
-
-msgid "&Number Tracks..."
-msgstr "&Numeroi kappaleet..."
-
-msgid "F&ilter..."
-msgstr "&Suodata..."
-
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Muunna ID3v2.3:sta ID3v2.&4:ksi"
-
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Muunna ID3v2.4:sta ID3v2.&3:ksi"
-
-msgid "Show &Picture"
-msgstr "Näytä k&uva"
-
-msgid "Auto &Hide Tags"
-msgstr "&Piilota automaattisesti"
-
-msgid "Select All in &Directory"
-msgstr "Valitse kaikki &hakemistossa"
-
-msgid "&Previous File"
-msgstr "&Edellinen tiedosto"
-
-msgid "&Next File"
-msgstr "&Seuraava tiedosto"
-
-msgid "Frames:"
-msgstr "Kehykset:"
-
-msgid "&File"
-msgstr "&Tiedosto"
-
-msgid "&Open..."
-msgstr "&Avaa..."
-
-msgid "Open &Recent"
-msgstr "Avaa &viimeaikainen"
-
-msgid "&Save"
-msgstr "&Tallenna"
-
-msgid "Re&vert"
-msgstr "K&umoa"
-
-msgid "Import from file or clipboard"
-msgstr "Tuo tiedostosta tai leikepöydältä"
-
-msgid "Import from %1"
-msgstr "Tuo %1ista"
-
-msgid "Automatic import"
-msgstr "Tuo automaattisesti"
-
-msgid "Browse album cover artwork"
-msgstr "Selaa kansikuvia"
-
-msgid "Export to file or clipboard"
-msgstr "Vie tiedostoon tai leikepöydälle"
-
-msgid "Create M3U Playlist"
-msgstr "Luo soittolista"
-
-msgid "&Quit"
-msgstr "&Lopeta"
-
-msgid "&Edit"
-msgstr "&Muokkaa"
-
-msgid "Select &All"
-msgstr "Valitse &kaikki"
-
-msgid "Dese&lect"
-msgstr "&Poista valinta"
-
-msgid "Select all files in the current directory"
-msgstr "Valitse kaikki tiedostot nykyisessä hakemistossa"
-
-msgid "Select previous file"
-msgstr "Edellinen tiedosto"
-
-msgid "Select next file"
-msgstr "Seuraava tiedosto"
-
-msgid "&Tools"
-msgstr "T&yökalut"
-
-msgid "Apply Filename Format"
-msgstr "Ota muutokset käyttöön"
-
-msgid "Apply Tag Format"
-msgstr "Ota muutokset käyttöön"
-
-msgid "Apply Text Encoding"
-msgstr "Ota merkistökoodaus"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Muunna ID3v2.3:sta ID3v2.4:ksi"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Muunna ID3v2.4:sta ID3v2.3:ksi"
-
-msgid "Play"
-msgstr "Soita"
-
-msgid "&Settings"
-msgstr "&Asetukset"
-
-msgid "Enables/disables the toolbar"
-msgstr "Ottaa käyttöön tai poistaa käytöstä työkalupalkin"
-
-msgid "Show &Toolbar"
-msgstr "Näytä &työkalurivi"
-
-msgid "Enables/disables the statusbar"
-msgstr "Ottaa käyttöön tai poistaa käytöstä tilarivin"
-
-msgid "Show St&atusbar"
-msgstr "Näytä &tilarivi"
-
-msgid "Show Picture"
-msgstr "Näytä kuva"
-
-msgid "Auto Hide Tags"
-msgstr "Piilota automaattisesti"
-
-msgid "Configure Kid3"
-msgstr "Kid3:n asetukset"
-
-msgid "&Configure Kid3..."
-msgstr "Kid3:n &asetukset..."
-
-msgid "Kid3 &Handbook"
-msgstr "Kid3 &Käsikirja"
-
-msgid "About Kid3"
-msgstr "Tietoja Kid3:sta"
-
-msgid "&About Kid3"
-msgstr "&Tietoja Kid3:sta"
-
-msgid "About Qt"
-msgstr "Tietoja Qt:stä"
-
-msgid "About &Qt"
-msgstr "Tietoja &Qt:stä"
 
 msgid "Opening directory..."
 msgstr "Avaa kansio..."
@@ -1621,17 +1611,8 @@ msgstr ""
 msgid "Warning"
 msgstr "Varoitus"
 
-msgid "Warning - Kid3"
-msgstr "Varoitus – Kid3"
-
-msgid "Open"
-msgstr "Avaa"
-
 msgid "Exiting..."
 msgstr "Poistutaan..."
-
-msgid "Toggle the statusbar..."
-msgstr "Näytä/piilota tilarivi..."
 
 msgid "Creating playlist..."
 msgstr "Luo soittolista..."
@@ -1639,17 +1620,11 @@ msgstr "Luo soittolista..."
 msgid "Import"
 msgstr "Tuo"
 
-msgid "Configure - Kid3"
-msgstr "Asetukset – Kid3"
-
 msgid "Error while renaming:\n"
 msgstr "Virhe muutettaessa nimeä:\n"
 
 msgid " [filtered]"
 msgstr " [suodatettu]"
-
-msgid " [modified]"
-msgstr " [muutettu]"
 
 msgid "Add Frame"
 msgstr "Lisää kehys"
@@ -1680,6 +1655,39 @@ msgstr "Tiedostoja ei voitu siirtää Roskakoriin"
 
 msgid "Expand All"
 msgstr "Levitä kaikki"
+
+msgid "&Expand all"
+msgstr "&Levitä kaikki"
+
+msgid "&Collapse all"
+msgstr "&Kokoa kaikki"
+
+msgid "&Rename"
+msgstr "M&uuta nimeä"
+
+msgid "&Move to Trash"
+msgstr "&Siirrä roskakoriin"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "T&iedosto"
+
+msgid "Name:"
+msgstr "Nimi:"
+
+msgid "Filename from Tag 1"
+msgstr "Tiedostonimi 1-tagista"
+
+msgid "Filename from Tag 2"
+msgstr "Tiedostonimi 2-tagista"
+
+msgid "Tag 1 from Filename"
+msgstr "1-tagi tiedostonimestä"
+
+msgid "Tag 2 from Filename"
+msgstr "2-tagi tiedostonimestä"
 
 msgid "&Add..."
 msgstr "L&isää..."
@@ -1782,15 +1790,6 @@ msgstr "Vaimenna"
 
 msgid "Volume: %1%"
 msgstr "Äänenvoimakkuus: %1%"
-
-msgid "&Clear List"
-msgstr "&Tyhjennä luettelo"
-
-msgid "Clear"
-msgstr "Tyhjennä"
-
-msgid "Reset"
-msgstr "Nollaa"
 
 msgid "Add Item"
 msgstr "Lisää osa"

@@ -6,10 +6,9 @@
 # Kenny Verstraete <verstraete_kenny@skynet.be>, 2008, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-29 17:08+0100\n"
+"Project-Id-Version: Kid3 2.3\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2013-04-14 17:22+0200\n"
 "PO-Revision-Date: 2012-12-07 15:47+0100\n"
 "Last-Translator: toon <toon@vgerwen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
@@ -21,6 +20,408 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: nl\n"
 "X-Source-Language: en\n"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Files"
+msgstr "Bestanden"
+
+msgid "User Actions"
+msgstr "Gebruikersacties"
+
+msgid "Network"
+msgstr "Netwerk"
+
+msgid "Main Toolbar"
+msgstr "Hoofdwerkbalk"
+
+msgid "Opens a directory"
+msgstr "Opent een map"
+
+msgid "Opens a recently used directory"
+msgstr "Opent een recent geopende map"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "Maakt de wijzigingen van alle of de geselcteerde bestanden ongedaan"
+
+msgid "Saves the changed files"
+msgstr "Slaat de gewijzigde bestanden op"
+
+msgid "Quits the application"
+msgstr "Sluit de toepassing"
+
+msgid "Select all files"
+msgstr "Selecteer alle bestanden"
+
+msgid "Deselect all files"
+msgstr "Deselecteer alle bestanden"
+
+msgid "Configure Shortcuts"
+msgstr "Sneltoetsen instellen"
+
+msgid "Configure Toolbars"
+msgstr "Werkbalken instellen"
+
+msgid "Preferences dialog"
+msgstr "Voorkeuren"
+
+msgid "O&pen Directory..."
+msgstr "&Map openen..."
+
+msgid "&Import..."
+msgstr "&Importeren..."
+
+msgid "Import from %1..."
+msgstr "Importeren van %1..."
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Fingerprint"
+
+msgid "Automatic I&mport..."
+msgstr "Automatisch i&mporteren..."
+
+msgid "&Browse Cover Art..."
+msgstr "&Hoes ophalen..."
+
+msgid "&Export..."
+msgstr "&Exporteren..."
+
+msgid "&Create Playlist..."
+msgstr "&Speellijst aanmaken..."
+
+msgid "Apply &Filename Format"
+msgstr "&Bestandsnaamstructuur toepassen"
+
+msgid "Apply &Tag Format"
+msgstr "ID3 en &Letterstructuur toepassen"
+
+msgid "Apply Text &Encoding"
+msgstr "T&ekst-codering toepassen"
+
+msgid "&Rename Directory..."
+msgstr "&Map hernoemen..."
+
+msgid "&Number Tracks..."
+msgstr "Tracks &nummeren..."
+
+msgid "F&ilter..."
+msgstr "&Filter..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Converteer ID3v2.3 naar ID3v2.&4"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Converteer ID3v2.4 naar ID3v2.&3"
+
+msgid "&Play"
+msgstr "&Afspelen"
+
+msgid "Show &Picture"
+msgstr "&Afbeelding tonen"
+
+msgid "Auto &Hide Tags"
+msgstr "Automatisch &verbergen"
+
+msgid "Select All in &Directory"
+msgstr "Selecteer alle bestanden in &de map"
+
+msgid "&Previous File"
+msgstr "&Vorig bestand"
+
+msgid "&Next File"
+msgstr "Volge&nd bestand"
+
+msgid "Tag 1"
+msgstr "Tag 1"
+
+msgid "From Filename"
+msgstr "Van bestandsnaam"
+
+msgid "From Tag 2"
+msgstr "Van Tag 2"
+
+msgid "Copy"
+msgstr "Tag kopiëren"
+
+msgid "Paste"
+msgstr "Tag plakken"
+
+msgid "Remove"
+msgstr "Tag verwijderen"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
+msgid "From Tag 1"
+msgstr "Van Tag 1"
+
+msgid "Frames:"
+msgstr "Frames:"
+
+msgid "Edit"
+msgstr "Frame bewerken"
+
+msgid "Add"
+msgstr "Frame toevoegen"
+
+msgid "Delete"
+msgstr "Frame verwijderen"
+
+msgid "Filename"
+msgstr "Bestandsnaam"
+
+msgid "Focus"
+msgstr "Focus"
+
+msgid "File List"
+msgstr "Bestandslijst"
+
+msgid "Directory List"
+msgstr "Mappenlijst"
+
+msgid "Configure - Kid3"
+msgstr "Kid3 instellen"
+
+msgid "Open"
+msgstr "Openen"
+
+#, fuzzy
+msgid "Save As"
+msgstr "Opslaan als"
+
+msgid "directory to open"
+msgstr "Map te openen"
+
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 ID3 Tagger"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Kenny Verstraete, Toon van Gerwen"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "verstraete_kenny@skynet.be, toon@vgerwen.nl"
+
+msgid "&Back"
+msgstr "&Vorige"
+
+msgid "&Forward"
+msgstr "&Volgende"
+
+msgid "&Find:"
+msgstr "&Zoeken:"
+
+msgid "Find Previous"
+msgstr "Vorige zoeken"
+
+msgid "Find Next"
+msgstr "Volgende zoeken"
+
+msgid "&Close"
+msgstr "&Sluiten"
+
+msgid "&Tags"
+msgstr "&Tags"
+
+msgid "&Files"
+msgstr "&Bestanden"
+
+msgid "&User Actions"
+msgstr "&Gebruikersacties"
+
+msgid "&Network"
+msgstr "&Netwerk"
+
+msgid "&Keyboard Shortcuts"
+msgstr "&Sneltoetsen"
+
+msgid "Use custom app&lication font"
+msgstr "Gebruik &aangepast lettertype"
+
+msgid "A&pplication Font..."
+msgstr "&Lettertype..."
+
+msgid "Use custom application &style"
+msgstr "Aangepaste &stijl gebruiken"
+
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgid "Use native system file &dialogs"
+msgstr "Bestands&dialogen van systeem gebruiken"
+
+msgid "&Appearance"
+msgstr "&Uiterlijk"
+
+msgid "&Help"
+msgstr "&Help"
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "&Cancel"
+msgstr "&Annuleren"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "De sneltoets ‘%1’ is al toegekend aan '%2'."
+
+msgid "&File"
+msgstr "&Bestand"
+
+msgid "&Open..."
+msgstr "&Openen..."
+
+msgid "Open &Recent"
+msgstr "&Recent geopend"
+
+msgid "&Save"
+msgstr "Op&slaan"
+
+msgid "Re&vert"
+msgstr "On&gedaan maken"
+
+msgid "Import from file or clipboard"
+msgstr "Importeer van bestand of klembord"
+
+msgid "Import from %1"
+msgstr "Importeer van %1"
+
+msgid "Automatic import"
+msgstr "Automatisch importeren"
+
+msgid "Browse album cover artwork"
+msgstr "Hoes ophalen"
+
+msgid "Export to file or clipboard"
+msgstr "Exporteer naar bestand of klembord"
+
+msgid "Create M3U Playlist"
+msgstr "M3U speellijst aanmaken"
+
+msgid "&Quit"
+msgstr "&Afsluiten"
+
+msgid "&Edit"
+msgstr "Be&werken"
+
+msgid "Select &All"
+msgstr "&Alles selecteren"
+
+msgid "Dese&lect"
+msgstr "&Deselecteren"
+
+msgid "Select all files in the current directory"
+msgstr "Selecteer alle bestanden in de huidige map"
+
+msgid "Select previous file"
+msgstr "Vorig bestand selecteren"
+
+msgid "Select next file"
+msgstr "Volgend bestand selecteren"
+
+msgid "&Tools"
+msgstr "H&ulpmiddelen"
+
+msgid "Apply Filename Format"
+msgstr "Bestandsnaamstructuur Toepassen"
+
+msgid "Apply Tag Format"
+msgstr "Tagstructuur toepassen"
+
+msgid "Apply Text Encoding"
+msgstr "Tekst-codering toepassen"
+
+msgid "Rename Directory"
+msgstr "Map hernoemen"
+
+msgid "Number Tracks"
+msgstr "Tracks nummeren"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 naar ID3v2.4 omzetten"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 naar ID3v2.3 omzetten"
+
+msgid "Play"
+msgstr "Afspelen"
+
+msgid "&Settings"
+msgstr "&Instellingen"
+
+msgid "Enables/disables the toolbar"
+msgstr "Activeert/deactiveert de werkbalk"
+
+msgid "Show &Toolbar"
+msgstr "&Werkbalk tonen"
+
+msgid "Enables/disables the statusbar"
+msgstr "Activeert/deactiveert de statusbalk"
+
+msgid "Show St&atusbar"
+msgstr "&Statusbalk tonen"
+
+msgid "Show Picture"
+msgstr "Afbeelding tonen"
+
+msgid "Auto Hide Tags"
+msgstr "Automatisch verbergen"
+
+msgid "Configure Kid3"
+msgstr "Kid3 instellen"
+
+msgid "&Configure Kid3..."
+msgstr "&Kid3 instellen..."
+
+msgid "Kid3 Handbook"
+msgstr "Kid3 Handboek"
+
+msgid "Kid3 &Handbook"
+msgstr "Kid3 &Handboek"
+
+msgid "About Kid3"
+msgstr "Over Kid3"
+
+msgid "&About Kid3"
+msgstr "Over &Kid3"
+
+msgid "About Qt"
+msgstr "Over Qt"
+
+msgid "About &Qt"
+msgstr "Over &Qt"
+
+msgid " [modified]"
+msgstr " [gewijzigd]"
+
+msgid "Toggle the statusbar..."
+msgstr "De statusbalk omschakelen..."
+
+msgid "Ready."
+msgstr "Gereed."
+
+msgid "&Clear List"
+msgstr "&Lijst opschonen"
+
+msgid "Clear"
+msgstr "Wissen"
+
+msgid "Reset"
+msgstr "Herstellen"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr "Toets F2 of dubbelklik om de inhoud van de cel te bewerken."
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "Shortcut"
+msgstr "Sneltoets"
 
 msgid "Server"
 msgstr "Server"
@@ -36,15 +437,6 @@ msgstr "Additionele tags"
 
 msgid "Cover Art"
 msgstr "Hoesafbeelding"
-
-msgid "Press F2 or double click to edit cell contents."
-msgstr "Toets F2 of dubbelklik om de inhoud van de cel te bewerken."
-
-msgid "Action"
-msgstr "Actie"
-
-msgid "Shortcut"
-msgstr "Sneltoets"
 
 msgid "AENC - Audio encryption"
 msgstr "AENC - Audio versleuteling"
@@ -334,9 +726,6 @@ msgstr "TSST - ingestelde ondertitel"
 msgid "Amazon"
 msgstr "Amazon"
 
-msgid "Unknown"
-msgstr "Onbekend"
-
 msgid "Invalid File"
 msgstr "Ongeldig bestand"
 
@@ -348,9 +737,6 @@ msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Gegevens ontvangen: %1"
-
-msgid "Ready."
-msgstr "Gereed."
 
 msgid "Error"
 msgstr "Fout"
@@ -445,9 +831,6 @@ msgstr "Bestand hernoemen"
 msgid "C&lear"
 msgstr "&Wissen"
 
-msgid "&Close"
-msgstr "&Sluiten"
-
 msgid "Execute "
 msgstr "Uitvoeren "
 
@@ -478,17 +861,14 @@ msgstr "Gegevens"
 msgid "All Supported Files"
 msgstr "Alle ondersteunde bestanden"
 
-msgid "All Files (*)"
-msgstr "Alle bestanden (*)"
+msgid "All Files"
+msgstr "Alle bestanden"
 
 msgid "Track"
 msgstr "Track"
 
 msgid "Absolute path to file"
 msgstr "Absoluut pad naar bestand"
-
-msgid "Filename"
-msgstr "Bestandsnaam"
 
 msgid "Duration"
 msgstr "Duur"
@@ -652,46 +1032,17 @@ msgstr "Kanalen"
 msgid "Codec"
 msgstr "Codec"
 
-msgid "directory to open"
-msgstr "Map te openen"
-
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 ID3 Tagger"
-
-#. i18n NAME OF TRANSLATORS
-msgid "Your names"
-msgstr "Kenny Verstraete, Toon van Gerwen"
-
-#. i18n EMAIL OF TRANSLATORS
-msgid "Your emails"
-msgstr "verstraete_kenny@skynet.be, toon@vgerwen.nl"
-
 msgid "Automatic Import"
 msgstr "Automatisch importeren"
 
 msgid "D&estination:"
 msgstr "&Bestemming:"
 
-msgid "Tag 1"
-msgstr "Tag 1"
-
-msgid "Tag 2"
-msgstr "Tag 2"
-
 msgid "Tag 1 and Tag 2"
 msgstr "Tag 1 en Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profiel:"
-
-msgid "Add"
-msgstr "Frame toevoegen"
-
-msgid "Remove"
-msgstr "Tag verwijderen"
-
-msgid "&Help"
-msgstr "&Help"
 
 msgid "&Save Settings"
 msgstr "&Instellingen opslaan"
@@ -777,29 +1128,11 @@ msgstr "Afbeelding URL"
 msgid "&Browse"
 msgstr "&Ophalen"
 
-msgid "&Cancel"
-msgstr "&Annuleren"
-
 msgid "Click Browse to start"
 msgstr "Klik op de knop Browser om te starten"
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Sleep de afbeelding van de browser naar Kid3."
-
-msgid "&Back"
-msgstr "&Vorige"
-
-msgid "&Forward"
-msgstr "&Volgende"
-
-msgid "&Find:"
-msgstr "&Zoeken:"
-
-msgid "Find Previous"
-msgstr "Vorige zoeken"
-
-msgid "Find Next"
-msgstr "Volgende zoeken"
 
 msgid "ID3v1"
 msgstr "ID3v1"
@@ -873,12 +1206,6 @@ msgstr "Tag &2"
 msgid "Tag 1 a&nd Tag 2"
 msgstr "Tag 1 &en Tag 2"
 
-msgid "Tags"
-msgstr "Tags"
-
-msgid "&Tags"
-msgstr "&Tags"
-
 msgid "Startup"
 msgstr "Opstarten"
 
@@ -900,12 +1227,6 @@ msgstr "Bestandsnaam voor de hoesafbeeld&ing:"
 msgid "&Filename Format"
 msgstr "B&estandsnaamstructuur"
 
-msgid "Files"
-msgstr "Bestanden"
-
-msgid "&Files"
-msgstr "&Bestanden"
-
 msgid "Browser"
 msgstr "Browser"
 
@@ -917,12 +1238,6 @@ msgstr "&Contextmenu commando's voor albumboom"
 
 msgid "&Play on double click"
 msgstr "Afspelen bij &dubbelklik"
-
-msgid "User Actions"
-msgstr "Gebruikersacties"
-
-msgid "&User Actions"
-msgstr "&Gebruikersacties"
 
 msgid "Proxy"
 msgstr "Proxy"
@@ -938,39 +1253,6 @@ msgstr "P&roxygebruikersnaam:"
 
 msgid "Proxy pass&word:"
 msgstr "Proxy&wachtwoord:"
-
-msgid "Network"
-msgstr "Netwerk"
-
-msgid "&Network"
-msgstr "&Netwerk"
-
-msgid "&Keyboard Shortcuts"
-msgstr "&Sneltoetsen"
-
-msgid "Use custom app&lication font"
-msgstr "Gebruik &aangepast lettertype"
-
-msgid "A&pplication Font..."
-msgstr "&Lettertype..."
-
-msgid "Use custom application &style"
-msgstr "Aangepaste &stijl gebruiken"
-
-msgid "Use native system file &dialogs"
-msgstr "Bestands&dialogen van systeem gebruiken"
-
-msgid "&Appearance"
-msgstr "&Uiterlijk"
-
-msgid "&OK"
-msgstr "&OK"
-
-msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "De sneltoets ‘%1’ is al toegekend aan '%2'."
-
-msgid "Kid3 Handbook"
-msgstr "Kid3 Handboek"
 
 msgid "From Clip&board"
 msgstr "Van Klem&bord"
@@ -1050,8 +1332,8 @@ msgstr ""
 msgid "Seller"
 msgstr ""
 
-msgid "Images (*.jpg *.jpeg *.png)"
-msgstr "Afbeeldingen (*.jpg *.jpeg *.png)"
+msgid "Images"
+msgstr "Afbeeldingen"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
@@ -1161,9 +1443,6 @@ msgstr "Bestandsfout"
 msgid "Error while writing file:\n"
 msgstr "Er is een fout opgetreden tijdens het opslaan van het bestand:\n"
 
-msgid "Filter"
-msgstr "Filter"
-
 msgid "&Filter:"
 msgstr "&Filter:"
 
@@ -1187,9 +1466,6 @@ msgstr "Van &tags..."
 
 msgid "&From Server:"
 msgstr "Van &server:"
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
 
 msgid "Revert"
 msgstr "Ongedaan maken"
@@ -1220,9 +1496,6 @@ msgstr "Geen resultaat"
 
 msgid "No result selected"
 msgstr "Geen resultaat geselecteerd"
-
-msgid "Number Tracks"
-msgstr "Tracks nummeren"
 
 msgid "&Start number:"
 msgstr "&Start nummer:"
@@ -1284,9 +1557,6 @@ msgstr "Bewaar enkel &lijst met bestanden"
 msgid "Write &info using"
 msgstr "Bewaar &info gebruik makend van"
 
-msgid "Rename Directory"
-msgstr "Map hernoemen"
-
 msgid "Format"
 msgstr "Opmaak"
 
@@ -1298,12 +1568,6 @@ msgstr "Map aanmaken"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "Van Tag 2 en Tag 1"
-
-msgid "From Tag 1"
-msgstr "Van Tag 1"
-
-msgid "From Tag 2"
-msgstr "Van Tag 2"
 
 msgid "From:"
 msgstr "Van:"
@@ -1329,281 +1593,8 @@ msgstr "Importeer van bestand/klembord"
 msgid "From F&ile"
 msgstr "Van &bestand"
 
-msgid "&Expand all"
-msgstr "Mappen &uitvouwen"
-
-msgid "&Collapse all"
-msgstr "Mappen &invouwen"
-
-msgid "&Rename"
-msgstr "&Hernoemen"
-
-msgid "&Move to Trash"
-msgstr "&Verwijder map/bestand"
-
-msgid "&Play"
-msgstr "&Afspelen"
-
-msgid "Kid3"
-msgstr "Kid3"
-
-msgid "F&ile"
-msgstr "B&estand"
-
-msgid "Name:"
-msgstr "Naam:"
-
-msgid "Filename from Tag 1"
-msgstr "Bestandsnaam van Tag 1"
-
-msgid "Filename from Tag 2"
-msgstr "Bestandsnaam van Tag 2"
-
-msgid "Tag 1 from Filename"
-msgstr "Tag 1 van bestandsnaam"
-
-msgid "Tag 2 from Filename"
-msgstr "Tag 2 van bestandsnaam"
-
-msgid "Copy"
-msgstr "Tag kopiëren"
-
-msgid "Paste"
-msgstr "Tag plakken"
-
-msgid "Edit"
-msgstr "Frame bewerken"
-
-msgid "Delete"
-msgstr "Frame verwijderen"
-
-msgid "Focus"
-msgstr "Focus"
-
-msgid "From Filename"
-msgstr "Van bestandsnaam"
-
-msgid "File List"
-msgstr "Bestandslijst"
-
-msgid "Directory List"
-msgstr "Mappenlijst"
-
 msgid "Download"
 msgstr "Download"
-
-msgid "Main Toolbar"
-msgstr "Hoofdwerkbalk"
-
-msgid "Opens a directory"
-msgstr "Opent een map"
-
-msgid "Opens a recently used directory"
-msgstr "Opent een recent geopende map"
-
-msgid "Reverts the changes of all or the selected files"
-msgstr "Maakt de wijzigingen van alle of de geselcteerde bestanden ongedaan"
-
-msgid "Saves the changed files"
-msgstr "Slaat de gewijzigde bestanden op"
-
-msgid "Quits the application"
-msgstr "Sluit de toepassing"
-
-msgid "Select all files"
-msgstr "Selecteer alle bestanden"
-
-msgid "Deselect all files"
-msgstr "Deselecteer alle bestanden"
-
-msgid "Configure Shortcuts"
-msgstr "Sneltoetsen instellen"
-
-msgid "Configure Toolbars"
-msgstr "Werkbalken instellen"
-
-msgid "Preferences dialog"
-msgstr "Voorkeuren"
-
-msgid "O&pen Directory..."
-msgstr "&Map openen..."
-
-msgid "&Import..."
-msgstr "&Importeren..."
-
-msgid "Import from %1..."
-msgstr "Importeren van %1..."
-
-msgid "Automatic I&mport..."
-msgstr "Automatisch i&mporteren..."
-
-msgid "&Browse Cover Art..."
-msgstr "&Hoes ophalen..."
-
-msgid "&Export..."
-msgstr "&Exporteren..."
-
-msgid "&Create Playlist..."
-msgstr "&Speellijst aanmaken..."
-
-msgid "Apply &Filename Format"
-msgstr "&Bestandsnaamstructuur toepassen"
-
-msgid "Apply &Tag Format"
-msgstr "ID3 en &Letterstructuur toepassen"
-
-msgid "Apply Text &Encoding"
-msgstr "T&ekst-codering toepassen"
-
-msgid "&Rename Directory..."
-msgstr "&Map hernoemen..."
-
-msgid "&Number Tracks..."
-msgstr "Tracks &nummeren..."
-
-msgid "F&ilter..."
-msgstr "&Filter..."
-
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Converteer ID3v2.3 naar ID3v2.&4"
-
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Converteer ID3v2.4 naar ID3v2.&3"
-
-msgid "Show &Picture"
-msgstr "&Afbeelding tonen"
-
-msgid "Auto &Hide Tags"
-msgstr "Automatisch &verbergen"
-
-msgid "Select All in &Directory"
-msgstr "Selecteer alle bestanden in &de map"
-
-msgid "&Previous File"
-msgstr "&Vorig bestand"
-
-msgid "&Next File"
-msgstr "Volge&nd bestand"
-
-msgid "Frames:"
-msgstr "Frames:"
-
-msgid "&File"
-msgstr "&Bestand"
-
-msgid "&Open..."
-msgstr "&Openen..."
-
-msgid "Open &Recent"
-msgstr "&Recent geopend"
-
-msgid "&Save"
-msgstr "Op&slaan"
-
-msgid "Re&vert"
-msgstr "On&gedaan maken"
-
-msgid "Import from file or clipboard"
-msgstr "Importeer van bestand of klembord"
-
-msgid "Import from %1"
-msgstr "Importeer van %1"
-
-msgid "Automatic import"
-msgstr "Automatisch importeren"
-
-msgid "Browse album cover artwork"
-msgstr "Hoes ophalen"
-
-msgid "Export to file or clipboard"
-msgstr "Exporteer naar bestand of klembord"
-
-msgid "Create M3U Playlist"
-msgstr "M3U speellijst aanmaken"
-
-msgid "&Quit"
-msgstr "&Afsluiten"
-
-msgid "&Edit"
-msgstr "Be&werken"
-
-msgid "Select &All"
-msgstr "&Alles selecteren"
-
-msgid "Dese&lect"
-msgstr "&Deselecteren"
-
-msgid "Select all files in the current directory"
-msgstr "Selecteer alle bestanden in de huidige map"
-
-msgid "Select previous file"
-msgstr "Vorig bestand selecteren"
-
-msgid "Select next file"
-msgstr "Volgend bestand selecteren"
-
-msgid "&Tools"
-msgstr "H&ulpmiddelen"
-
-msgid "Apply Filename Format"
-msgstr "Bestandsnaamstructuur Toepassen"
-
-msgid "Apply Tag Format"
-msgstr "Tagstructuur toepassen"
-
-msgid "Apply Text Encoding"
-msgstr "Tekst-codering toepassen"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "ID3v2.3 naar ID3v2.4 omzetten"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "ID3v2.4 naar ID3v2.3 omzetten"
-
-msgid "Play"
-msgstr "Afspelen"
-
-msgid "&Settings"
-msgstr "&Instellingen"
-
-msgid "Enables/disables the toolbar"
-msgstr "Activeert/deactiveert de werkbalk"
-
-msgid "Show &Toolbar"
-msgstr "&Werkbalk tonen"
-
-msgid "Enables/disables the statusbar"
-msgstr "Activeert/deactiveert de statusbalk"
-
-msgid "Show St&atusbar"
-msgstr "&Statusbalk tonen"
-
-msgid "Show Picture"
-msgstr "Afbeelding tonen"
-
-msgid "Auto Hide Tags"
-msgstr "Automatisch verbergen"
-
-msgid "Configure Kid3"
-msgstr "Kid3 instellen"
-
-msgid "&Configure Kid3..."
-msgstr "&Kid3 instellen..."
-
-msgid "Kid3 &Handbook"
-msgstr "Kid3 &Handboek"
-
-msgid "About Kid3"
-msgstr "Over Kid3"
-
-msgid "&About Kid3"
-msgstr "Over &Kid3"
-
-msgid "About Qt"
-msgstr "Over Qt"
-
-msgid "About &Qt"
-msgstr "Over &Qt"
 
 msgid "Opening directory..."
 msgstr "Map openen..."
@@ -1621,17 +1612,8 @@ msgstr ""
 msgid "Warning"
 msgstr "Waarschuwing"
 
-msgid "Warning - Kid3"
-msgstr "Waarschuwing - Kid3"
-
-msgid "Open"
-msgstr "Openen"
-
 msgid "Exiting..."
 msgstr "Bezig met afsluiten..."
-
-msgid "Toggle the statusbar..."
-msgstr "De statusbalk omschakelen..."
 
 msgid "Creating playlist..."
 msgstr "Speellijst Aanmaken..."
@@ -1639,17 +1621,11 @@ msgstr "Speellijst Aanmaken..."
 msgid "Import"
 msgstr "Importeren"
 
-msgid "Configure - Kid3"
-msgstr "Kid3 instellen"
-
 msgid "Error while renaming:\n"
 msgstr "Fout tijdens hernoemen:\n"
 
 msgid " [filtered]"
 msgstr " [gefiltert]"
-
-msgid " [modified]"
-msgstr " [gewijzigd]"
 
 msgid "Add Frame"
 msgstr "Frame toevoegen"
@@ -1682,6 +1658,39 @@ msgstr "Deze bestanden konden niet naar de prullenbak worden verplaatst"
 
 msgid "Expand All"
 msgstr "Mappen uitvouwen"
+
+msgid "&Expand all"
+msgstr "Mappen &uitvouwen"
+
+msgid "&Collapse all"
+msgstr "Mappen &invouwen"
+
+msgid "&Rename"
+msgstr "&Hernoemen"
+
+msgid "&Move to Trash"
+msgstr "&Verwijder map/bestand"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "B&estand"
+
+msgid "Name:"
+msgstr "Naam:"
+
+msgid "Filename from Tag 1"
+msgstr "Bestandsnaam van Tag 1"
+
+msgid "Filename from Tag 2"
+msgstr "Bestandsnaam van Tag 2"
+
+msgid "Tag 1 from Filename"
+msgstr "Tag 1 van bestandsnaam"
+
+msgid "Tag 2 from Filename"
+msgstr "Tag 2 van bestandsnaam"
 
 msgid "&Add..."
 msgstr "T&oevoegen..."
@@ -1784,15 +1793,6 @@ msgstr "Dempen"
 
 msgid "Volume: %1%"
 msgstr "Volume: %1%"
-
-msgid "&Clear List"
-msgstr "&Lijst opschonen"
-
-msgid "Clear"
-msgstr "Wissen"
-
-msgid "Reset"
-msgstr "Herstellen"
 
 msgid "Add Item"
 msgstr "Item toevoegen"

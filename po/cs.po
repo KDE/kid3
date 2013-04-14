@@ -6,10 +6,9 @@
 # Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-29 17:08+0100\n"
+"Project-Id-Version: Kid3 2.3\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2013-04-14 17:22+0200\n"
 "PO-Revision-Date: 2012-10-27 16:11+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -21,6 +20,407 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
 "X-Language: cs\n"
 "X-Source-Language: en\n"
+
+msgid "Tags"
+msgstr "Značky"
+
+msgid "Files"
+msgstr "Soubory"
+
+msgid "User Actions"
+msgstr "Uživatelské příkazy"
+
+msgid "Network"
+msgstr "Síť"
+
+msgid "Main Toolbar"
+msgstr "Hlavní nástrojový panel"
+
+msgid "Opens a directory"
+msgstr "Otevře adresář"
+
+msgid "Opens a recently used directory"
+msgstr "Otevře nedávno použitý adresář"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "Vrátí změny všech nebo vybraných souborů"
+
+msgid "Saves the changed files"
+msgstr "Uloží změněné soubory"
+
+msgid "Quits the application"
+msgstr "Ukončí program"
+
+msgid "Select all files"
+msgstr "Vybrat všechny soubory"
+
+msgid "Deselect all files"
+msgstr "Zrušit výběr všech souborů"
+
+msgid "Configure Shortcuts"
+msgstr "Nastavit zkratky"
+
+msgid "Configure Toolbars"
+msgstr "Nastavit nástrojové panely"
+
+msgid "Preferences dialog"
+msgstr "Nastavení"
+
+msgid "O&pen Directory..."
+msgstr "&Otevřít adresář..."
+
+msgid "&Import..."
+msgstr "&Zavést..."
+
+msgid "Import from %1..."
+msgstr "Zavést z %1..."
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Fingerprint"
+
+msgid "Automatic I&mport..."
+msgstr "Automaticky i&mportovat..."
+
+msgid "&Browse Cover Art..."
+msgstr "&Procházet kvůli obrázkům obalů..."
+
+msgid "&Export..."
+msgstr "&Vyvést..."
+
+msgid "&Create Playlist..."
+msgstr "&Vytvořit seznam skladeb..."
+
+msgid "Apply &Filename Format"
+msgstr "Použít formát pro &název souboru"
+
+msgid "Apply &Tag Format"
+msgstr "Použít formát pro &značku"
+
+msgid "Apply Text &Encoding"
+msgstr "Použít kódování t&extu"
+
+msgid "&Rename Directory..."
+msgstr "&Přejmenovat adresář..."
+
+msgid "&Number Tracks..."
+msgstr "Čís&lovat skladby..."
+
+msgid "F&ilter..."
+msgstr "F&iltrovat..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Převést ID3v2.3 na ID3v2.&4"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Převést ID3v2.4 na ID3v2.&3"
+
+msgid "&Play"
+msgstr "&Přehrát"
+
+msgid "Show &Picture"
+msgstr "&Ukázat obrázek"
+
+msgid "Auto &Hide Tags"
+msgstr "Automaticky &skrýt"
+
+msgid "Select All in &Directory"
+msgstr "Vybrat všechny soubory v &adresáři"
+
+msgid "&Previous File"
+msgstr "&Předchozí soubor"
+
+msgid "&Next File"
+msgstr "&Další soubor"
+
+msgid "Tag 1"
+msgstr "Značka 1"
+
+msgid "From Filename"
+msgstr "Z názvu souboru"
+
+msgid "From Tag 2"
+msgstr "Ze značky 2"
+
+msgid "Copy"
+msgstr "Kopírovat"
+
+msgid "Paste"
+msgstr "Vložit"
+
+msgid "Remove"
+msgstr "Odstranit"
+
+msgid "Tag 2"
+msgstr "Značka 2"
+
+msgid "From Tag 1"
+msgstr "Ze značky 1"
+
+msgid "Frames:"
+msgstr "Prvky:"
+
+msgid "Edit"
+msgstr "Upravit"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Filename"
+msgstr "Název souboru"
+
+msgid "Focus"
+msgstr "Zaměření"
+
+msgid "File List"
+msgstr "Seznam souborů"
+
+msgid "Directory List"
+msgstr "Výpis adresáře"
+
+msgid "Configure - Kid3"
+msgstr "Nastavit Kid3"
+
+msgid "Open"
+msgstr "Otevřít"
+
+msgid "Save As"
+msgstr "Uložit jako"
+
+msgid "directory to open"
+msgstr "Adresář k otevření"
+
+msgid "Kid3 ID3 Tagger"
+msgstr "Značkovač ID3 programu Kid3"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Pavel Fric"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "fripohled.blogspot.com"
+
+msgid "&Back"
+msgstr "&Zpět"
+
+msgid "&Forward"
+msgstr "&Vpřed"
+
+msgid "&Find:"
+msgstr "&Hledat:"
+
+msgid "Find Previous"
+msgstr "Najít předchozí"
+
+msgid "Find Next"
+msgstr "Najít následující"
+
+msgid "&Close"
+msgstr "&Zavřít"
+
+msgid "&Tags"
+msgstr "&Značky"
+
+msgid "&Files"
+msgstr "&Soubory"
+
+msgid "&User Actions"
+msgstr "&Uživatelské příkazy"
+
+msgid "&Network"
+msgstr "&Síť"
+
+msgid "&Keyboard Shortcuts"
+msgstr "&Klávesové zkratky"
+
+msgid "Use custom app&lication font"
+msgstr "Použít v ap&likaci vlastní písmo"
+
+msgid "A&pplication Font..."
+msgstr "Pís&mo..."
+
+msgid "Use custom application &style"
+msgstr "Použít v aplikaci vlastní &styl"
+
+msgid "Unknown"
+msgstr "Neznámý"
+
+msgid "Use native system file &dialogs"
+msgstr "Použít systému vlastní souborové &dialogy"
+
+msgid "&Appearance"
+msgstr "Vz&hled"
+
+msgid "&Help"
+msgstr "&Nápověda"
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "&Cancel"
+msgstr "&Zrušit"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Klávesová zkratka '%1' už je použita pro '%2'."
+
+msgid "&File"
+msgstr "&Soubor"
+
+msgid "&Open..."
+msgstr "&Otevřít..."
+
+msgid "Open &Recent"
+msgstr "Ot&evřít nedávný"
+
+msgid "&Save"
+msgstr "&Uložit"
+
+msgid "Re&vert"
+msgstr "&Naposledy uložené znění"
+
+msgid "Import from file or clipboard"
+msgstr "Zavést ze souboru nebo ze schránky"
+
+msgid "Import from %1"
+msgstr "Zavést z %1"
+
+msgid "Automatic import"
+msgstr "Automaticky importovat"
+
+msgid "Browse album cover artwork"
+msgstr "Procházet kvůli obrázkům obalů"
+
+msgid "Export to file or clipboard"
+msgstr "Vyvést do souboru nebo do schránky"
+
+msgid "Create M3U Playlist"
+msgstr "Vytvořit seznam skladeb M3U"
+
+msgid "&Quit"
+msgstr "&Ukončit"
+
+msgid "&Edit"
+msgstr "&Úpravy"
+
+msgid "Select &All"
+msgstr "Vybrat &vše"
+
+msgid "Dese&lect"
+msgstr "&Zrušit výběr"
+
+msgid "Select all files in the current directory"
+msgstr "Vybrat všechny soubory v aktuálním adresáři"
+
+msgid "Select previous file"
+msgstr "Vybrat předchozí soubor"
+
+msgid "Select next file"
+msgstr "Vybrat další soubor"
+
+msgid "&Tools"
+msgstr "&Nástroje"
+
+msgid "Apply Filename Format"
+msgstr "Použít formát pro název souboru"
+
+msgid "Apply Tag Format"
+msgstr "Použít formát pro značku"
+
+msgid "Apply Text Encoding"
+msgstr "Použít kódování textu"
+
+msgid "Rename Directory"
+msgstr "Přejmenovat adresář"
+
+msgid "Number Tracks"
+msgstr "Číslovat skladby"
+
+msgid "Filter"
+msgstr "Filtrovat"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Převést ID3v2.3 na ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Převést ID3v2.4 na ID3v2.3"
+
+msgid "Play"
+msgstr "Přehrát"
+
+msgid "&Settings"
+msgstr "&Nastavení"
+
+msgid "Enables/disables the toolbar"
+msgstr "Povolí/Zakáže nástrojový panel"
+
+msgid "Show &Toolbar"
+msgstr "Zobrazovat nás&trojový panel"
+
+msgid "Enables/disables the statusbar"
+msgstr "Ukázat stavový řádek"
+
+msgid "Show St&atusbar"
+msgstr "Zobrazovat st&avový řádek"
+
+msgid "Show Picture"
+msgstr "Ukázat obrázek"
+
+msgid "Auto Hide Tags"
+msgstr "Automaticky skrýt"
+
+msgid "Configure Kid3"
+msgstr "Nastavit Kid3"
+
+msgid "&Configure Kid3..."
+msgstr "&Nastavit Kid3..."
+
+msgid "Kid3 Handbook"
+msgstr "Příručka k programu Kid3"
+
+msgid "Kid3 &Handbook"
+msgstr "&Příručka k programu Kid3"
+
+msgid "About Kid3"
+msgstr "O programu Kid3"
+
+msgid "&About Kid3"
+msgstr "&O programu Kid3"
+
+msgid "About Qt"
+msgstr "O Qt"
+
+msgid "About &Qt"
+msgstr "O &Qt"
+
+msgid " [modified]"
+msgstr "[změněný]"
+
+msgid "Toggle the statusbar..."
+msgstr "Přepíná se stavový řádek..."
+
+msgid "Ready."
+msgstr "Připraven."
+
+msgid "&Clear List"
+msgstr "&Smazat seznam"
+
+msgid "Clear"
+msgstr "Vyčistit"
+
+msgid "Reset"
+msgstr "Obnovit"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr "Obsah buňky editujte stisknutím F2 nebo dvojklikem."
+
+msgid "Action"
+msgstr "Akce"
+
+msgid "Shortcut"
+msgstr "Zkratka"
 
 msgid "Server"
 msgstr "Server"
@@ -36,15 +436,6 @@ msgstr "Dodatečné značky"
 
 msgid "Cover Art"
 msgstr "Obrázky obalů"
-
-msgid "Press F2 or double click to edit cell contents."
-msgstr "Obsah buňky editujte stisknutím F2 nebo dvojklikem."
-
-msgid "Action"
-msgstr "Akce"
-
-msgid "Shortcut"
-msgstr "Zkratka"
 
 msgid "AENC - Audio encryption"
 msgstr "AENC - Kódování zvuku"
@@ -334,9 +725,6 @@ msgstr "TSST - Podnázev skladby"
 msgid "Amazon"
 msgstr "Amazon"
 
-msgid "Unknown"
-msgstr "Neznámý"
-
 msgid "Invalid File"
 msgstr "Neplatný soubor"
 
@@ -348,9 +736,6 @@ msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Přijatá data: %1"
-
-msgid "Ready."
-msgstr "Připraven."
 
 msgid "Error"
 msgstr "Chyba"
@@ -447,9 +832,6 @@ msgstr "Přejmenovat soubor"
 msgid "C&lear"
 msgstr "&Smazat"
 
-msgid "&Close"
-msgstr "&Zavřít"
-
 msgid "Execute "
 msgstr "Provést "
 
@@ -480,17 +862,14 @@ msgstr "Data"
 msgid "All Supported Files"
 msgstr "Všechny podporované soubory"
 
-msgid "All Files (*)"
-msgstr "Všechny soubory (*)"
+msgid "All Files"
+msgstr "Všechny soubory"
 
 msgid "Track"
 msgstr "Stopa"
 
 msgid "Absolute path to file"
 msgstr "Nepochybná cesta k souboru"
-
-msgid "Filename"
-msgstr "Název souboru"
 
 msgid "Duration"
 msgstr "Délka"
@@ -654,46 +1033,17 @@ msgstr "Kanály"
 msgid "Codec"
 msgstr "Kodek"
 
-msgid "directory to open"
-msgstr "Adresář k otevření"
-
-msgid "Kid3 ID3 Tagger"
-msgstr "Značkovač ID3 programu Kid3"
-
-#. i18n NAME OF TRANSLATORS
-msgid "Your names"
-msgstr "Pavel Fric"
-
-#. i18n EMAIL OF TRANSLATORS
-msgid "Your emails"
-msgstr "fripohled.blogspot.com"
-
 msgid "Automatic Import"
 msgstr "Automaticky importovat"
 
 msgid "D&estination:"
 msgstr "Cí&l:"
 
-msgid "Tag 1"
-msgstr "Značka 1"
-
-msgid "Tag 2"
-msgstr "Značka 2"
-
 msgid "Tag 1 and Tag 2"
 msgstr "Značka 1 a značka 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
-
-msgid "Add"
-msgstr "Přidat"
-
-msgid "Remove"
-msgstr "Odstranit"
-
-msgid "&Help"
-msgstr "&Nápověda"
 
 msgid "&Save Settings"
 msgstr "&Uložit nastavení"
@@ -779,29 +1129,11 @@ msgstr "URL obrázku"
 msgid "&Browse"
 msgstr "&Procházet"
 
-msgid "&Cancel"
-msgstr "&Zrušit"
-
 msgid "Click Browse to start"
 msgstr "Klepněte na Procházet pro započetí"
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Potom přetáhněte obrázek z prohlížeče do okna Kid3."
-
-msgid "&Back"
-msgstr "&Zpět"
-
-msgid "&Forward"
-msgstr "&Vpřed"
-
-msgid "&Find:"
-msgstr "&Hledat:"
-
-msgid "Find Previous"
-msgstr "Najít předchozí"
-
-msgid "Find Next"
-msgstr "Najít následující"
 
 msgid "ID3v1"
 msgstr "ID3v1"
@@ -875,12 +1207,6 @@ msgstr "Značka &2"
 msgid "Tag 1 a&nd Tag 2"
 msgstr "Z&načka 1 a značka 2"
 
-msgid "Tags"
-msgstr "Značky"
-
-msgid "&Tags"
-msgstr "&Značky"
-
 msgid "Startup"
 msgstr "Spuštění"
 
@@ -902,12 +1228,6 @@ msgstr "&Jméno souboru obrazu:"
 msgid "&Filename Format"
 msgstr "Formát &souborového názvu"
 
-msgid "Files"
-msgstr "Soubory"
-
-msgid "&Files"
-msgstr "&Soubory"
-
 msgid "Browser"
 msgstr "Prohlížeč"
 
@@ -919,12 +1239,6 @@ msgstr "Příkazy souvisejících &nabídek"
 
 msgid "&Play on double click"
 msgstr "&Přehrát po dvojitém poklepání"
-
-msgid "User Actions"
-msgstr "Uživatelské příkazy"
-
-msgid "&User Actions"
-msgstr "&Uživatelské příkazy"
 
 msgid "Proxy"
 msgstr "Proxy"
@@ -940,39 +1254,6 @@ msgstr "Uživatelské &jméno uživatele Proxy:"
 
 msgid "Proxy pass&word:"
 msgstr "&Heslo pro Proxy:"
-
-msgid "Network"
-msgstr "Síť"
-
-msgid "&Network"
-msgstr "&Síť"
-
-msgid "&Keyboard Shortcuts"
-msgstr "&Klávesové zkratky"
-
-msgid "Use custom app&lication font"
-msgstr "Použít v ap&likaci vlastní písmo"
-
-msgid "A&pplication Font..."
-msgstr "Pís&mo..."
-
-msgid "Use custom application &style"
-msgstr "Použít v aplikaci vlastní &styl"
-
-msgid "Use native system file &dialogs"
-msgstr "Použít systému vlastní souborové &dialogy"
-
-msgid "&Appearance"
-msgstr "Vz&hled"
-
-msgid "&OK"
-msgstr "&OK"
-
-msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "Klávesová zkratka '%1' už je použita pro '%2'."
-
-msgid "Kid3 Handbook"
-msgstr "Příručka k programu Kid3"
 
 msgid "From Clip&board"
 msgstr "Ze s&chránky"
@@ -1052,8 +1333,8 @@ msgstr "Cena"
 msgid "Seller"
 msgstr "Prodavač"
 
-msgid "Images (*.jpg *.jpeg *.png)"
-msgstr "Obrázky (*.jpg *.jpeg *.png)"
+msgid "Images"
+msgstr "Obrázky"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
@@ -1163,9 +1444,6 @@ msgstr "Chyba v souboru"
 msgid "Error while writing file:\n"
 msgstr "Při zápisu do souboru nastala chyba:\n"
 
-msgid "Filter"
-msgstr "Filtrovat"
-
 msgid "&Filter:"
 msgstr "&Filtrovat:"
 
@@ -1189,9 +1467,6 @@ msgstr "Ze zn&ačky..."
 
 msgid "&From Server:"
 msgstr "&Ze serveru:"
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
 
 msgid "Revert"
 msgstr "Naposledy uložené znění"
@@ -1222,9 +1497,6 @@ msgstr "Žádný výsledek"
 
 msgid "No result selected"
 msgstr "Nevybrán žádný výsledek"
-
-msgid "Number Tracks"
-msgstr "Číslovat skladby"
 
 msgid "&Start number:"
 msgstr "&Začáteční číslo:"
@@ -1286,9 +1558,6 @@ msgstr "Zapsat pouze &seznamy souborů"
 msgid "Write &info using"
 msgstr "Zapsat &údaje pomocí"
 
-msgid "Rename Directory"
-msgstr "Přejmenovat adresář"
-
 msgid "Format"
 msgstr "Format"
 
@@ -1300,12 +1569,6 @@ msgstr "vytvořit adresář"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "Ze značky 2 a značky 1"
-
-msgid "From Tag 1"
-msgstr "Ze značky 1"
-
-msgid "From Tag 2"
-msgstr "Ze značky 2"
 
 msgid "From:"
 msgstr "Z:"
@@ -1331,281 +1594,8 @@ msgstr "Zavést ze souboru/schránky"
 msgid "From F&ile"
 msgstr "Ze soubor&u"
 
-msgid "&Expand all"
-msgstr "&Rozbalit vše"
-
-msgid "&Collapse all"
-msgstr "&Svinout vše"
-
-msgid "&Rename"
-msgstr "Pře&jmenovat"
-
-msgid "&Move to Trash"
-msgstr "&Přesunout do koše"
-
-msgid "&Play"
-msgstr "&Přehrát"
-
-msgid "Kid3"
-msgstr "Kid3"
-
-msgid "F&ile"
-msgstr "S&oubor"
-
-msgid "Name:"
-msgstr "Název:"
-
-msgid "Filename from Tag 1"
-msgstr "Název souboru ze značky 1"
-
-msgid "Filename from Tag 2"
-msgstr "Název souboru ze značky 2"
-
-msgid "Tag 1 from Filename"
-msgstr "Značka 1 z názvu souboru"
-
-msgid "Tag 2 from Filename"
-msgstr "Značka 2 z názvu souboru"
-
-msgid "Copy"
-msgstr "Kopírovat"
-
-msgid "Paste"
-msgstr "Vložit"
-
-msgid "Edit"
-msgstr "Upravit"
-
-msgid "Delete"
-msgstr "Smazat"
-
-msgid "Focus"
-msgstr "Zaměření"
-
-msgid "From Filename"
-msgstr "Z názvu souboru"
-
-msgid "File List"
-msgstr "Seznam souborů"
-
-msgid "Directory List"
-msgstr "Výpis adresáře"
-
 msgid "Download"
 msgstr "Stáhnout"
-
-msgid "Main Toolbar"
-msgstr "Hlavní nástrojový panel"
-
-msgid "Opens a directory"
-msgstr "Otevře adresář"
-
-msgid "Opens a recently used directory"
-msgstr "Otevře nedávno použitý adresář"
-
-msgid "Reverts the changes of all or the selected files"
-msgstr "Vrátí změny všech nebo vybraných souborů"
-
-msgid "Saves the changed files"
-msgstr "Uloží změněné soubory"
-
-msgid "Quits the application"
-msgstr "Ukončí program"
-
-msgid "Select all files"
-msgstr "Vybrat všechny soubory"
-
-msgid "Deselect all files"
-msgstr "Zrušit výběr všech souborů"
-
-msgid "Configure Shortcuts"
-msgstr "Nastavit zkratky"
-
-msgid "Configure Toolbars"
-msgstr "Nastavit nástrojové panely"
-
-msgid "Preferences dialog"
-msgstr "Nastavení"
-
-msgid "O&pen Directory..."
-msgstr "&Otevřít adresář..."
-
-msgid "&Import..."
-msgstr "&Zavést..."
-
-msgid "Import from %1..."
-msgstr "Zavést z %1..."
-
-msgid "Automatic I&mport..."
-msgstr "Automaticky i&mportovat..."
-
-msgid "&Browse Cover Art..."
-msgstr "&Procházet kvůli obrázkům obalů..."
-
-msgid "&Export..."
-msgstr "&Vyvést..."
-
-msgid "&Create Playlist..."
-msgstr "&Vytvořit seznam skladeb..."
-
-msgid "Apply &Filename Format"
-msgstr "Použít formát pro &název souboru"
-
-msgid "Apply &Tag Format"
-msgstr "Použít formát pro &značku"
-
-msgid "Apply Text &Encoding"
-msgstr "Použít kódování t&extu"
-
-msgid "&Rename Directory..."
-msgstr "&Přejmenovat adresář..."
-
-msgid "&Number Tracks..."
-msgstr "Čís&lovat skladby..."
-
-msgid "F&ilter..."
-msgstr "F&iltrovat..."
-
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Převést ID3v2.3 na ID3v2.&4"
-
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Převést ID3v2.4 na ID3v2.&3"
-
-msgid "Show &Picture"
-msgstr "&Ukázat obrázek"
-
-msgid "Auto &Hide Tags"
-msgstr "Automaticky &skrýt"
-
-msgid "Select All in &Directory"
-msgstr "Vybrat všechny soubory v &adresáři"
-
-msgid "&Previous File"
-msgstr "&Předchozí soubor"
-
-msgid "&Next File"
-msgstr "&Další soubor"
-
-msgid "Frames:"
-msgstr "Prvky:"
-
-msgid "&File"
-msgstr "&Soubor"
-
-msgid "&Open..."
-msgstr "&Otevřít..."
-
-msgid "Open &Recent"
-msgstr "Ot&evřít nedávný"
-
-msgid "&Save"
-msgstr "&Uložit"
-
-msgid "Re&vert"
-msgstr "&Naposledy uložené znění"
-
-msgid "Import from file or clipboard"
-msgstr "Zavést ze souboru nebo ze schránky"
-
-msgid "Import from %1"
-msgstr "Zavést z %1"
-
-msgid "Automatic import"
-msgstr "Automaticky importovat"
-
-msgid "Browse album cover artwork"
-msgstr "Procházet kvůli obrázkům obalů"
-
-msgid "Export to file or clipboard"
-msgstr "Vyvést do souboru nebo do schránky"
-
-msgid "Create M3U Playlist"
-msgstr "Vytvořit seznam skladeb M3U"
-
-msgid "&Quit"
-msgstr "&Ukončit"
-
-msgid "&Edit"
-msgstr "&Úpravy"
-
-msgid "Select &All"
-msgstr "Vybrat &vše"
-
-msgid "Dese&lect"
-msgstr "&Zrušit výběr"
-
-msgid "Select all files in the current directory"
-msgstr "Vybrat všechny soubory v aktuálním adresáři"
-
-msgid "Select previous file"
-msgstr "Vybrat předchozí soubor"
-
-msgid "Select next file"
-msgstr "Vybrat další soubor"
-
-msgid "&Tools"
-msgstr "&Nástroje"
-
-msgid "Apply Filename Format"
-msgstr "Použít formát pro název souboru"
-
-msgid "Apply Tag Format"
-msgstr "Použít formát pro značku"
-
-msgid "Apply Text Encoding"
-msgstr "Použít kódování textu"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Převést ID3v2.3 na ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Převést ID3v2.4 na ID3v2.3"
-
-msgid "Play"
-msgstr "Přehrát"
-
-msgid "&Settings"
-msgstr "&Nastavení"
-
-msgid "Enables/disables the toolbar"
-msgstr "Povolí/Zakáže nástrojový panel"
-
-msgid "Show &Toolbar"
-msgstr "Zobrazovat nás&trojový panel"
-
-msgid "Enables/disables the statusbar"
-msgstr "Ukázat stavový řádek"
-
-msgid "Show St&atusbar"
-msgstr "Zobrazovat st&avový řádek"
-
-msgid "Show Picture"
-msgstr "Ukázat obrázek"
-
-msgid "Auto Hide Tags"
-msgstr "Automaticky skrýt"
-
-msgid "Configure Kid3"
-msgstr "Nastavit Kid3"
-
-msgid "&Configure Kid3..."
-msgstr "&Nastavit Kid3..."
-
-msgid "Kid3 &Handbook"
-msgstr "&Příručka k programu Kid3"
-
-msgid "About Kid3"
-msgstr "O programu Kid3"
-
-msgid "&About Kid3"
-msgstr "&O programu Kid3"
-
-msgid "About Qt"
-msgstr "O Qt"
-
-msgid "About &Qt"
-msgstr "O &Qt"
 
 msgid "Opening directory..."
 msgstr "Otevírá se adresář..."
@@ -1623,17 +1613,8 @@ msgstr ""
 msgid "Warning"
 msgstr "Varování"
 
-msgid "Warning - Kid3"
-msgstr "Varování - Kid3"
-
-msgid "Open"
-msgstr "Otevřít"
-
 msgid "Exiting..."
 msgstr "Ukončuje se..."
-
-msgid "Toggle the statusbar..."
-msgstr "Přepíná se stavový řádek..."
 
 msgid "Creating playlist..."
 msgstr "Vytváří se seznam skladeb..."
@@ -1641,17 +1622,11 @@ msgstr "Vytváří se seznam skladeb..."
 msgid "Import"
 msgstr "Zavést"
 
-msgid "Configure - Kid3"
-msgstr "Nastavit Kid3"
-
 msgid "Error while renaming:\n"
 msgstr "Během přejmenovávání se vyskytla chyba:\n"
 
 msgid " [filtered]"
 msgstr " [filtrován]"
-
-msgid " [modified]"
-msgstr "[změněný]"
 
 msgid "Add Frame"
 msgstr "Přidat prvek"
@@ -1682,6 +1657,39 @@ msgstr "Nelze přesunout tyto soubory do koše"
 
 msgid "Expand All"
 msgstr "Rozbalit vše"
+
+msgid "&Expand all"
+msgstr "&Rozbalit vše"
+
+msgid "&Collapse all"
+msgstr "&Svinout vše"
+
+msgid "&Rename"
+msgstr "Pře&jmenovat"
+
+msgid "&Move to Trash"
+msgstr "&Přesunout do koše"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "S&oubor"
+
+msgid "Name:"
+msgstr "Název:"
+
+msgid "Filename from Tag 1"
+msgstr "Název souboru ze značky 1"
+
+msgid "Filename from Tag 2"
+msgstr "Název souboru ze značky 2"
+
+msgid "Tag 1 from Filename"
+msgstr "Značka 1 z názvu souboru"
+
+msgid "Tag 2 from Filename"
+msgstr "Značka 2 z názvu souboru"
 
 msgid "&Add..."
 msgstr "&Přidat..."
@@ -1784,15 +1792,6 @@ msgstr "Ztlumit"
 
 msgid "Volume: %1%"
 msgstr "Hlasitost: %1%"
-
-msgid "&Clear List"
-msgstr "&Smazat seznam"
-
-msgid "Clear"
-msgstr "Vyčistit"
-
-msgid "Reset"
-msgstr "Obnovit"
 
 msgid "Add Item"
 msgstr "Přidat položku"

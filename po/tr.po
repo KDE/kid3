@@ -5,10 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-29 17:08+0100\n"
+"Project-Id-Version: Kid3 2.3\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2013-04-14 17:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:42+0100\n"
 "Last-Translator: \n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -20,6 +19,407 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Language: tr\n"
 "X-Source-Language: en\n"
+
+msgid "Tags"
+msgstr "Etiketler"
+
+msgid "Files"
+msgstr "Dosyalar"
+
+msgid "User Actions"
+msgstr "Kullanıcı Eylemleri"
+
+msgid "Network"
+msgstr "Ağ"
+
+msgid "Main Toolbar"
+msgstr "Ana Araç Çubuğu"
+
+msgid "Opens a directory"
+msgstr "Bir dizin açar"
+
+msgid "Opens a recently used directory"
+msgstr "Son kullanılan dizini açar"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "Seçilen veya tüm dosyalardaki değişiklikleri geri alır"
+
+msgid "Saves the changed files"
+msgstr "Değiştirilen dosyaları kaydeder"
+
+msgid "Quits the application"
+msgstr "Programdan çıkar"
+
+msgid "Select all files"
+msgstr "Tüm Dosyaları Seç"
+
+msgid "Deselect all files"
+msgstr "Hiçbir dosyayı seçme"
+
+msgid "Configure Shortcuts"
+msgstr "Kısayolları yapılandır"
+
+msgid "Configure Toolbars"
+msgstr "Araç Çubuğunu Yapılandır"
+
+msgid "Preferences dialog"
+msgstr "Özellikler Penceresi"
+
+msgid "O&pen Directory..."
+msgstr "&Klasör Aç..."
+
+msgid "&Import..."
+msgstr "A&l..."
+
+msgid "Import from %1..."
+msgstr "%1'den Al..."
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Parmak İzinden"
+
+msgid "Automatic I&mport..."
+msgstr "Oto&matik al..."
+
+msgid "&Browse Cover Art..."
+msgstr "&Kapak Resimlerini Al..."
+
+msgid "&Export..."
+msgstr "&Dışa Aktar..."
+
+msgid "&Create Playlist..."
+msgstr "Playlist &Yarat..."
+
+msgid "Apply &Filename Format"
+msgstr "&Dosya Adı Biçimini Uygula"
+
+msgid "Apply &Tag Format"
+msgstr "&Tag Biçimini Uygula"
+
+msgid "Apply Text &Encoding"
+msgstr "Karakt&er Kodlaması Uygula"
+
+msgid "&Rename Directory..."
+msgstr "Dizini &Yeniden Adlandır..."
+
+msgid "&Number Tracks..."
+msgstr "&Parça Numarları..."
+
+msgid "F&ilter..."
+msgstr "F&iltre..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "ID3v2.3 dönüştürmek için ID3v2.&4"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "ID3v2.4 dönüştürmek için ID3v2.&3"
+
+msgid "&Play"
+msgstr "Ç&al"
+
+msgid "Show &Picture"
+msgstr "Resim &Göster"
+
+msgid "Auto &Hide Tags"
+msgstr "&Otomatik gizle"
+
+msgid "Select All in &Directory"
+msgstr "Dizindeki tüm &dosyaları seç"
+
+msgid "&Previous File"
+msgstr "&Önceki Dosya"
+
+msgid "&Next File"
+msgstr "S&onraki Dosya"
+
+msgid "Tag 1"
+msgstr "Tag 1"
+
+msgid "From Filename"
+msgstr "Dosya adından"
+
+msgid "From Tag 2"
+msgstr "Tag 2'den"
+
+msgid "Copy"
+msgstr "Kopyala"
+
+msgid "Paste"
+msgstr "Yapıştır"
+
+msgid "Remove"
+msgstr "Kaldır"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
+msgid "From Tag 1"
+msgstr "Tag 1'den"
+
+msgid "Frames:"
+msgstr "Çerçeve:"
+
+msgid "Edit"
+msgstr "Düzen"
+
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Filename"
+msgstr "Dosya Adı"
+
+msgid "Focus"
+msgstr "Odaklama"
+
+msgid "File List"
+msgstr "Dosya Listesi"
+
+msgid "Directory List"
+msgstr "Dizin listesi"
+
+msgid "Configure - Kid3"
+msgstr "Yapılandır - Kid3"
+
+msgid "Open"
+msgstr "Aç"
+
+msgid "Save As"
+msgstr "Farklı Kaydet"
+
+msgid "directory to open"
+msgstr "açılacak dizin"
+
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 ID3 Düzenleyici"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Mehmet Yilmaz SÜSLÜ"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "yilmazsuslu@gmail.com"
+
+msgid "&Back"
+msgstr "&Geri"
+
+msgid "&Forward"
+msgstr "İle&ri"
+
+msgid "&Find:"
+msgstr "B&ul:"
+
+msgid "Find Previous"
+msgstr "Öncekini Bul"
+
+msgid "Find Next"
+msgstr "Sonrakini Bul"
+
+msgid "&Close"
+msgstr "&Kapat"
+
+msgid "&Tags"
+msgstr "E&tiketler"
+
+msgid "&Files"
+msgstr "&Dosyalar"
+
+msgid "&User Actions"
+msgstr "K&ullanıcı Eylemleri"
+
+msgid "&Network"
+msgstr "&Ağ"
+
+msgid "&Keyboard Shortcuts"
+msgstr "&Klavye Kısayolları"
+
+msgid "Use custom app&lication font"
+msgstr "Uygu&lama için özel yazıyüzü kullan"
+
+msgid "A&pplication Font..."
+msgstr "&Uygulama yazıyüzü..."
+
+msgid "Use custom application &style"
+msgstr ""
+
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+msgid "Use native system file &dialogs"
+msgstr "Sistemin &doğal dosya pencerelerini kullan"
+
+msgid "&Appearance"
+msgstr "&Görünüm"
+
+msgid "&Help"
+msgstr "&Yardım"
+
+msgid "&OK"
+msgstr "&Tamam"
+
+msgid "&Cancel"
+msgstr "İ&ptal"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "'%1' kısayolu bu işlem için kullanılıyor '%2'."
+
+msgid "&File"
+msgstr "&Dosya"
+
+msgid "&Open..."
+msgstr "&Aç..."
+
+msgid "Open &Recent"
+msgstr "&Son kullanılanı Aç"
+
+msgid "&Save"
+msgstr "&Kaydet"
+
+msgid "Re&vert"
+msgstr "&Geri Al"
+
+msgid "Import from file or clipboard"
+msgstr "Dosya veya Pano'dan Al"
+
+msgid "Import from %1"
+msgstr "%1'den Al"
+
+msgid "Automatic import"
+msgstr "Otomatik al"
+
+msgid "Browse album cover artwork"
+msgstr "Kapak resimlerini al"
+
+msgid "Export to file or clipboard"
+msgstr "Dosya veya Panoya Ver"
+
+msgid "Create M3U Playlist"
+msgstr "M3U Playlist Dosyası Yarat"
+
+msgid "&Quit"
+msgstr "Çı&k"
+
+msgid "&Edit"
+msgstr "Dü&zen"
+
+msgid "Select &All"
+msgstr "&Tümünü Seç"
+
+msgid "Dese&lect"
+msgstr "&Seçme"
+
+msgid "Select all files in the current directory"
+msgstr "Dizindeki tüm dosyaları seç"
+
+msgid "Select previous file"
+msgstr "Önceki dosya"
+
+msgid "Select next file"
+msgstr "Sonraki dosya"
+
+msgid "&Tools"
+msgstr "&Araçlar"
+
+msgid "Apply Filename Format"
+msgstr "Dosya Adı Yapısını Uygula"
+
+msgid "Apply Tag Format"
+msgstr "Tag Yapısını Uygula"
+
+msgid "Apply Text Encoding"
+msgstr "Karakter Kodlaması Uygula"
+
+msgid "Rename Directory"
+msgstr "Dizini Yeniden Adlandır"
+
+msgid "Number Tracks"
+msgstr "Parça Numaraları"
+
+msgid "Filter"
+msgstr "Filtre"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "ID3v2.3 dönüştürmek için ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "ID3v2.4 dönüştürmek için ID3v2.3"
+
+msgid "Play"
+msgstr "Çal"
+
+msgid "&Settings"
+msgstr "Ayarla&r"
+
+msgid "Enables/disables the toolbar"
+msgstr "Araç çubuğunu açar/kapatır"
+
+msgid "Show &Toolbar"
+msgstr "&Araç Çubuğunu Göster"
+
+msgid "Enables/disables the statusbar"
+msgstr "Durum çubuğunu açar/kapatır"
+
+msgid "Show St&atusbar"
+msgstr "&Durum Çubuğunu Göster"
+
+msgid "Show Picture"
+msgstr "Resim Göster"
+
+msgid "Auto Hide Tags"
+msgstr "Otomatik gizle"
+
+msgid "Configure Kid3"
+msgstr "Kid3'ü Yapılandır"
+
+msgid "&Configure Kid3..."
+msgstr "Kid3'ü &Yapılandır..."
+
+msgid "Kid3 Handbook"
+msgstr "Kid3 El Kitabı"
+
+msgid "Kid3 &Handbook"
+msgstr "Kid3 El &Kitabı"
+
+msgid "About Kid3"
+msgstr "Kid3 Hakkında"
+
+msgid "&About Kid3"
+msgstr "Kid3 &Hakkında"
+
+msgid "About Qt"
+msgstr "Qt Hakkında"
+
+msgid "About &Qt"
+msgstr "&Qt Hakkında"
+
+msgid " [modified]"
+msgstr " [değişti]"
+
+msgid "Toggle the statusbar..."
+msgstr "Durum çubuğu açılı/kapatılıyor..."
+
+msgid "Ready."
+msgstr "Hazır."
+
+msgid "&Clear List"
+msgstr "Listeyi &Temizle"
+
+msgid "Clear"
+msgstr "Temizle"
+
+msgid "Reset"
+msgstr "Sıfırla"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr ""
+
+msgid "Action"
+msgstr "Eylem"
+
+msgid "Shortcut"
+msgstr "Kısayol"
 
 msgid "Server"
 msgstr "Sunucu"
@@ -35,15 +435,6 @@ msgstr "Ek Özellikler"
 
 msgid "Cover Art"
 msgstr "Albüm Kapağı"
-
-msgid "Press F2 or double click to edit cell contents."
-msgstr ""
-
-msgid "Action"
-msgstr "Eylem"
-
-msgid "Shortcut"
-msgstr "Kısayol"
 
 msgid "AENC - Audio encryption"
 msgstr "AENC - Ses şifreleme"
@@ -333,9 +724,6 @@ msgstr "TSST - Alt yazı ayarla"
 msgid "Amazon"
 msgstr "Amazon"
 
-msgid "Unknown"
-msgstr "Bilinmeyen"
-
 msgid "Invalid File"
 msgstr "Geçersiz Dosya"
 
@@ -347,9 +735,6 @@ msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Alınan veri: %1"
-
-msgid "Ready."
-msgstr "Hazır."
 
 msgid "Error"
 msgstr "Hata"
@@ -444,9 +829,6 @@ msgstr "Dosya adını değiştir"
 msgid "C&lear"
 msgstr "Temiz&le"
 
-msgid "&Close"
-msgstr "&Kapat"
-
 msgid "Execute "
 msgstr "Çalıştır"
 
@@ -477,17 +859,14 @@ msgstr "Veri"
 msgid "All Supported Files"
 msgstr "Desteklenen Bütün Dosyalar"
 
-msgid "All Files (*)"
-msgstr "Tüm Dosyalar (*)"
+msgid "All Files"
+msgstr "Tüm Dosyalar"
 
 msgid "Track"
 msgstr "Parça No"
 
 msgid "Absolute path to file"
 msgstr ""
-
-msgid "Filename"
-msgstr "Dosya Adı"
 
 msgid "Duration"
 msgstr "Süre"
@@ -651,46 +1030,17 @@ msgstr "Kanallar"
 msgid "Codec"
 msgstr "Kodlayıcı"
 
-msgid "directory to open"
-msgstr "açılacak dizin"
-
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 ID3 Düzenleyici"
-
-#. i18n NAME OF TRANSLATORS
-msgid "Your names"
-msgstr "Mehmet Yilmaz SÜSLÜ"
-
-#. i18n EMAIL OF TRANSLATORS
-msgid "Your emails"
-msgstr "yilmazsuslu@gmail.com"
-
 msgid "Automatic Import"
 msgstr "Otomatik al"
 
 msgid "D&estination:"
 msgstr "H&edef:"
 
-msgid "Tag 1"
-msgstr "Tag 1"
-
-msgid "Tag 2"
-msgstr "Tag 2"
-
 msgid "Tag 1 and Tag 2"
 msgstr "Tag 1 ve Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
-
-msgid "Add"
-msgstr "Ekle"
-
-msgid "Remove"
-msgstr "Kaldır"
-
-msgid "&Help"
-msgstr "&Yardım"
 
 msgid "&Save Settings"
 msgstr "&Ayarları Kaydet"
@@ -776,29 +1126,11 @@ msgstr ""
 msgid "&Browse"
 msgstr "&Gözat"
 
-msgid "&Cancel"
-msgstr "İ&ptal"
-
 msgid "Click Browse to start"
 msgstr ""
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr ""
-
-msgid "&Back"
-msgstr "&Geri"
-
-msgid "&Forward"
-msgstr "İle&ri"
-
-msgid "&Find:"
-msgstr "B&ul:"
-
-msgid "Find Previous"
-msgstr "Öncekini Bul"
-
-msgid "Find Next"
-msgstr "Sonrakini Bul"
 
 msgid "ID3v1"
 msgstr "ID3v1"
@@ -872,12 +1204,6 @@ msgstr "Tag &2"
 msgid "Tag 1 a&nd Tag 2"
 msgstr "Tag 1 &ve Tag 2"
 
-msgid "Tags"
-msgstr "Etiketler"
-
-msgid "&Tags"
-msgstr "E&tiketler"
-
 msgid "Startup"
 msgstr "Başlangıç"
 
@@ -899,12 +1225,6 @@ msgstr "Albüm kapağı &için dosya adı:"
 msgid "&Filename Format"
 msgstr "&Dosya adı Biçimi"
 
-msgid "Files"
-msgstr "Dosyalar"
-
-msgid "&Files"
-msgstr "&Dosyalar"
-
 msgid "Browser"
 msgstr "Gözat"
 
@@ -917,12 +1237,6 @@ msgstr "Açılır &Menü Komutları"
 #, fuzzy
 msgid "&Play on double click"
 msgstr "&Çift tıklayın çal"
-
-msgid "User Actions"
-msgstr "Kullanıcı Eylemleri"
-
-msgid "&User Actions"
-msgstr "K&ullanıcı Eylemleri"
 
 msgid "Proxy"
 msgstr "Vekil Sunucu"
@@ -938,39 +1252,6 @@ msgstr "Vekil su&nucu kullanıcı adı:"
 
 msgid "Proxy pass&word:"
 msgstr "&Vekil sunucu parolası:"
-
-msgid "Network"
-msgstr "Ağ"
-
-msgid "&Network"
-msgstr "&Ağ"
-
-msgid "&Keyboard Shortcuts"
-msgstr "&Klavye Kısayolları"
-
-msgid "Use custom app&lication font"
-msgstr "Uygu&lama için özel yazıyüzü kullan"
-
-msgid "A&pplication Font..."
-msgstr "&Uygulama yazıyüzü..."
-
-msgid "Use custom application &style"
-msgstr ""
-
-msgid "Use native system file &dialogs"
-msgstr "Sistemin &doğal dosya pencerelerini kullan"
-
-msgid "&Appearance"
-msgstr "&Görünüm"
-
-msgid "&OK"
-msgstr "&Tamam"
-
-msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "'%1' kısayolu bu işlem için kullanılıyor '%2'."
-
-msgid "Kid3 Handbook"
-msgstr "Kid3 El Kitabı"
 
 msgid "From Clip&board"
 msgstr "&Panodan"
@@ -1050,8 +1331,8 @@ msgstr "Fiyat"
 msgid "Seller"
 msgstr "Satıcı"
 
-msgid "Images (*.jpg *.jpeg *.png)"
-msgstr "Resimler (*.jpg *.jpeg *.png)"
+msgid "Images"
+msgstr "Resimler"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
@@ -1161,9 +1442,6 @@ msgstr "Dosya Hatası"
 msgid "Error while writing file:\n"
 msgstr "Dosyaya yazılırken hata:\n"
 
-msgid "Filter"
-msgstr "Filtre"
-
 msgid "&Filter:"
 msgstr "&Filtre:"
 
@@ -1187,9 +1465,6 @@ msgstr "T&ag'den..."
 
 msgid "&From Server:"
 msgstr "&Sunucudan:"
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Parmak İzinden"
 
 msgid "Revert"
 msgstr "Geri Al"
@@ -1220,9 +1495,6 @@ msgstr "Sonuç yok"
 
 msgid "No result selected"
 msgstr "Hiç sonuç seçilmedi"
-
-msgid "Number Tracks"
-msgstr "Parça Numaraları"
 
 msgid "&Start number:"
 msgstr "Başlangıç numara&sı:"
@@ -1284,9 +1556,6 @@ msgstr ""
 msgid "Write &info using"
 msgstr ""
 
-msgid "Rename Directory"
-msgstr "Dizini Yeniden Adlandır"
-
 msgid "Format"
 msgstr "Biçim"
 
@@ -1298,12 +1567,6 @@ msgstr "Dizin Yarat"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "Tag 2 ve Tag 1'den"
-
-msgid "From Tag 1"
-msgstr "Tag 1'den"
-
-msgid "From Tag 2"
-msgstr "Tag 2'den"
 
 msgid "From:"
 msgstr "Şuradan:"
@@ -1329,281 +1592,8 @@ msgstr "Dosya veya Pano'dan Al"
 msgid "From F&ile"
 msgstr "&Dosyadan"
 
-msgid "&Expand all"
-msgstr "&Tümünü Aç"
-
-msgid "&Collapse all"
-msgstr "Tümünü &Kapat"
-
-msgid "&Rename"
-msgstr "Ad Değişti&r"
-
-msgid "&Move to Trash"
-msgstr "Çöp &Kutusuna Taşı"
-
-msgid "&Play"
-msgstr "Ç&al"
-
-msgid "Kid3"
-msgstr "Kid3"
-
-msgid "F&ile"
-msgstr "D&osya"
-
-msgid "Name:"
-msgstr "İsim:"
-
-msgid "Filename from Tag 1"
-msgstr "Dosya adı tag 1'den"
-
-msgid "Filename from Tag 2"
-msgstr "Dosya adı tag 2'den"
-
-msgid "Tag 1 from Filename"
-msgstr "Tag 1 dosya adından"
-
-msgid "Tag 2 from Filename"
-msgstr "Tag 2 dosya adından"
-
-msgid "Copy"
-msgstr "Kopyala"
-
-msgid "Paste"
-msgstr "Yapıştır"
-
-msgid "Edit"
-msgstr "Düzen"
-
-msgid "Delete"
-msgstr "Sil"
-
-msgid "Focus"
-msgstr "Odaklama"
-
-msgid "From Filename"
-msgstr "Dosya adından"
-
-msgid "File List"
-msgstr "Dosya Listesi"
-
-msgid "Directory List"
-msgstr "Dizin listesi"
-
 msgid "Download"
 msgstr "İndir"
-
-msgid "Main Toolbar"
-msgstr "Ana Araç Çubuğu"
-
-msgid "Opens a directory"
-msgstr "Bir dizin açar"
-
-msgid "Opens a recently used directory"
-msgstr "Son kullanılan dizini açar"
-
-msgid "Reverts the changes of all or the selected files"
-msgstr "Seçilen veya tüm dosyalardaki değişiklikleri geri alır"
-
-msgid "Saves the changed files"
-msgstr "Değiştirilen dosyaları kaydeder"
-
-msgid "Quits the application"
-msgstr "Programdan çıkar"
-
-msgid "Select all files"
-msgstr "Tüm Dosyaları Seç"
-
-msgid "Deselect all files"
-msgstr "Hiçbir dosyayı seçme"
-
-msgid "Configure Shortcuts"
-msgstr "Kısayolları yapılandır"
-
-msgid "Configure Toolbars"
-msgstr "Araç Çubuğunu Yapılandır"
-
-msgid "Preferences dialog"
-msgstr "Özellikler Penceresi"
-
-msgid "O&pen Directory..."
-msgstr "&Klasör Aç..."
-
-msgid "&Import..."
-msgstr "A&l..."
-
-msgid "Import from %1..."
-msgstr "%1'den Al..."
-
-msgid "Automatic I&mport..."
-msgstr "Oto&matik al..."
-
-msgid "&Browse Cover Art..."
-msgstr "&Kapak Resimlerini Al..."
-
-msgid "&Export..."
-msgstr "&Dışa Aktar..."
-
-msgid "&Create Playlist..."
-msgstr "Playlist &Yarat..."
-
-msgid "Apply &Filename Format"
-msgstr "&Dosya Adı Biçimini Uygula"
-
-msgid "Apply &Tag Format"
-msgstr "&Tag Biçimini Uygula"
-
-msgid "Apply Text &Encoding"
-msgstr "Karakt&er Kodlaması Uygula"
-
-msgid "&Rename Directory..."
-msgstr "Dizini &Yeniden Adlandır..."
-
-msgid "&Number Tracks..."
-msgstr "&Parça Numarları..."
-
-msgid "F&ilter..."
-msgstr "F&iltre..."
-
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "ID3v2.3 dönüştürmek için ID3v2.&4"
-
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "ID3v2.4 dönüştürmek için ID3v2.&3"
-
-msgid "Show &Picture"
-msgstr "Resim &Göster"
-
-msgid "Auto &Hide Tags"
-msgstr "&Otomatik gizle"
-
-msgid "Select All in &Directory"
-msgstr "Dizindeki tüm &dosyaları seç"
-
-msgid "&Previous File"
-msgstr "&Önceki Dosya"
-
-msgid "&Next File"
-msgstr "S&onraki Dosya"
-
-msgid "Frames:"
-msgstr "Çerçeve:"
-
-msgid "&File"
-msgstr "&Dosya"
-
-msgid "&Open..."
-msgstr "&Aç..."
-
-msgid "Open &Recent"
-msgstr "&Son kullanılanı Aç"
-
-msgid "&Save"
-msgstr "&Kaydet"
-
-msgid "Re&vert"
-msgstr "&Geri Al"
-
-msgid "Import from file or clipboard"
-msgstr "Dosya veya Pano'dan Al"
-
-msgid "Import from %1"
-msgstr "%1'den Al"
-
-msgid "Automatic import"
-msgstr "Otomatik al"
-
-msgid "Browse album cover artwork"
-msgstr "Kapak resimlerini al"
-
-msgid "Export to file or clipboard"
-msgstr "Dosya veya Panoya Ver"
-
-msgid "Create M3U Playlist"
-msgstr "M3U Playlist Dosyası Yarat"
-
-msgid "&Quit"
-msgstr "Çı&k"
-
-msgid "&Edit"
-msgstr "Dü&zen"
-
-msgid "Select &All"
-msgstr "&Tümünü Seç"
-
-msgid "Dese&lect"
-msgstr "&Seçme"
-
-msgid "Select all files in the current directory"
-msgstr "Dizindeki tüm dosyaları seç"
-
-msgid "Select previous file"
-msgstr "Önceki dosya"
-
-msgid "Select next file"
-msgstr "Sonraki dosya"
-
-msgid "&Tools"
-msgstr "&Araçlar"
-
-msgid "Apply Filename Format"
-msgstr "Dosya Adı Yapısını Uygula"
-
-msgid "Apply Tag Format"
-msgstr "Tag Yapısını Uygula"
-
-msgid "Apply Text Encoding"
-msgstr "Karakter Kodlaması Uygula"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "ID3v2.3 dönüştürmek için ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "ID3v2.4 dönüştürmek için ID3v2.3"
-
-msgid "Play"
-msgstr "Çal"
-
-msgid "&Settings"
-msgstr "Ayarla&r"
-
-msgid "Enables/disables the toolbar"
-msgstr "Araç çubuğunu açar/kapatır"
-
-msgid "Show &Toolbar"
-msgstr "&Araç Çubuğunu Göster"
-
-msgid "Enables/disables the statusbar"
-msgstr "Durum çubuğunu açar/kapatır"
-
-msgid "Show St&atusbar"
-msgstr "&Durum Çubuğunu Göster"
-
-msgid "Show Picture"
-msgstr "Resim Göster"
-
-msgid "Auto Hide Tags"
-msgstr "Otomatik gizle"
-
-msgid "Configure Kid3"
-msgstr "Kid3'ü Yapılandır"
-
-msgid "&Configure Kid3..."
-msgstr "Kid3'ü &Yapılandır..."
-
-msgid "Kid3 &Handbook"
-msgstr "Kid3 El &Kitabı"
-
-msgid "About Kid3"
-msgstr "Kid3 Hakkında"
-
-msgid "&About Kid3"
-msgstr "Kid3 &Hakkında"
-
-msgid "About Qt"
-msgstr "Qt Hakkında"
-
-msgid "About &Qt"
-msgstr "&Qt Hakkında"
 
 msgid "Opening directory..."
 msgstr "Dizin Açılıyor..."
@@ -1621,17 +1611,8 @@ msgstr ""
 msgid "Warning"
 msgstr "Uyarı"
 
-msgid "Warning - Kid3"
-msgstr "Uyarı - Kid3"
-
-msgid "Open"
-msgstr "Aç"
-
 msgid "Exiting..."
 msgstr "Çıkılıyor..."
-
-msgid "Toggle the statusbar..."
-msgstr "Durum çubuğu açılı/kapatılıyor..."
 
 msgid "Creating playlist..."
 msgstr "Playlist Yaratılıyor..."
@@ -1639,17 +1620,11 @@ msgstr "Playlist Yaratılıyor..."
 msgid "Import"
 msgstr "Al"
 
-msgid "Configure - Kid3"
-msgstr "Yapılandır - Kid3"
-
 msgid "Error while renaming:\n"
 msgstr "İsim değiştirirken hata:\n"
 
 msgid " [filtered]"
 msgstr " [süzgeci]"
-
-msgid " [modified]"
-msgstr " [değişti]"
 
 msgid "Add Frame"
 msgstr "Çerçeve Ekle"
@@ -1680,6 +1655,39 @@ msgstr "Bu dosyalar Çöp Kutusuna taşınamadı"
 
 msgid "Expand All"
 msgstr "Tümünü Aç"
+
+msgid "&Expand all"
+msgstr "&Tümünü Aç"
+
+msgid "&Collapse all"
+msgstr "Tümünü &Kapat"
+
+msgid "&Rename"
+msgstr "Ad Değişti&r"
+
+msgid "&Move to Trash"
+msgstr "Çöp &Kutusuna Taşı"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "D&osya"
+
+msgid "Name:"
+msgstr "İsim:"
+
+msgid "Filename from Tag 1"
+msgstr "Dosya adı tag 1'den"
+
+msgid "Filename from Tag 2"
+msgstr "Dosya adı tag 2'den"
+
+msgid "Tag 1 from Filename"
+msgstr "Tag 1 dosya adından"
+
+msgid "Tag 2 from Filename"
+msgstr "Tag 2 dosya adından"
 
 msgid "&Add..."
 msgstr "&Ekle..."
@@ -1782,15 +1790,6 @@ msgstr "Sessiz"
 
 msgid "Volume: %1%"
 msgstr "Ses: %1%"
-
-msgid "&Clear List"
-msgstr "Listeyi &Temizle"
-
-msgid "Clear"
-msgstr "Temizle"
-
-msgid "Reset"
-msgstr "Sıfırla"
 
 msgid "Add Item"
 msgstr "Öğe Ekle"

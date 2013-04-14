@@ -5,10 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-29 17:08+0100\n"
+"Project-Id-Version: Kid3 2.3\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2013-04-14 17:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: Italian <kde-i18n-doc@kde.org>\n"
@@ -20,6 +19,407 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: it\n"
 "X-Source-Language: en\n"
+
+msgid "Tags"
+msgstr "Tag"
+
+msgid "Files"
+msgstr "File"
+
+msgid "User Actions"
+msgstr "Azioni utente"
+
+msgid "Network"
+msgstr "Rete"
+
+msgid "Main Toolbar"
+msgstr "Barra degli strumenti principale"
+
+msgid "Opens a directory"
+msgstr "Apre una cartella"
+
+msgid "Opens a recently used directory"
+msgstr "Apre una cartella usata di recente"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "Annulla le modifiche eseguite su tutti i file o quelli selezionati"
+
+msgid "Saves the changed files"
+msgstr "Salva i file modificati"
+
+msgid "Quits the application"
+msgstr "Esce dall'applicazione"
+
+msgid "Select all files"
+msgstr "Seleziona tutti i file"
+
+msgid "Deselect all files"
+msgstr "Deseleziona tutti i file"
+
+msgid "Configure Shortcuts"
+msgstr "Configura le scorciatoie"
+
+msgid "Configure Toolbars"
+msgstr "Configura la barra degli strumenti"
+
+msgid "Preferences dialog"
+msgstr "Preferenze"
+
+msgid "O&pen Directory..."
+msgstr "A&pri cartella..."
+
+msgid "&Import..."
+msgstr "&Importa..."
+
+msgid "Import from %1..."
+msgstr "Importa da %1..."
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Fingerprint"
+
+msgid "Automatic I&mport..."
+msgstr "I&mporta automaticamente..."
+
+msgid "&Browse Cover Art..."
+msgstr "&Preleva copertina..."
+
+msgid "&Export..."
+msgstr "&Esporta..."
+
+msgid "&Create Playlist..."
+msgstr "&Crea Playlist..."
+
+msgid "Apply &Filename Format"
+msgstr "Applica formato Nome &file"
+
+msgid "Apply &Tag Format"
+msgstr "Applica formato &Tag"
+
+msgid "Apply Text &Encoding"
+msgstr "Applica codifica del t&esto"
+
+msgid "&Rename Directory..."
+msgstr "&Rinomina cartella..."
+
+msgid "&Number Tracks..."
+msgstr "&Numero tracce..."
+
+msgid "F&ilter..."
+msgstr "F&iltro..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Converti ID3v2.3 in ID3v2.&4"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Converti ID3v2.4 in ID3v2.&3"
+
+msgid "&Play"
+msgstr "&Riproduci"
+
+msgid "Show &Picture"
+msgstr "Mostra &immagine"
+
+msgid "Auto &Hide Tags"
+msgstr "&Nascondi automaticamente"
+
+msgid "Select All in &Directory"
+msgstr "Seleziona tutti i file nella &cartella"
+
+msgid "&Previous File"
+msgstr "File &precedente"
+
+msgid "&Next File"
+msgstr "File &successivo"
+
+msgid "Tag 1"
+msgstr "Tag 1"
+
+msgid "From Filename"
+msgstr "Dal Nome file"
+
+msgid "From Tag 2"
+msgstr "Da Tag 2"
+
+msgid "Copy"
+msgstr "Copia"
+
+msgid "Paste"
+msgstr "Incolla"
+
+msgid "Remove"
+msgstr "Rimuovi"
+
+msgid "Tag 2"
+msgstr "Tag 2"
+
+msgid "From Tag 1"
+msgstr "Da Tag 1"
+
+msgid "Frames:"
+msgstr "Frame:"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Add"
+msgstr "Aggiungi"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Filename"
+msgstr "Nome file"
+
+msgid "Focus"
+msgstr "Punto focale"
+
+msgid "File List"
+msgstr "Lista File"
+
+msgid "Directory List"
+msgstr "Lista delle cartelle"
+
+msgid "Configure - Kid3"
+msgstr "Configura - Kid3"
+
+msgid "Open"
+msgstr "Apri"
+
+msgid "Save As"
+msgstr "Salva con nome"
+
+msgid "directory to open"
+msgstr "cartella da aprire"
+
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 ID3 Tagger"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Valter Mura"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "valtermura@yahoo.it, giacomomargarito@gmail.com"
+
+msgid "&Back"
+msgstr "&Indietro"
+
+msgid "&Forward"
+msgstr "&Avanti"
+
+msgid "&Find:"
+msgstr "&Trova:"
+
+msgid "Find Previous"
+msgstr "Trova precedente"
+
+msgid "Find Next"
+msgstr "Trova successivo"
+
+msgid "&Close"
+msgstr "&Chiudi"
+
+msgid "&Tags"
+msgstr "&Tag"
+
+msgid "&Files"
+msgstr "&File"
+
+msgid "&User Actions"
+msgstr "Azioni &utente"
+
+msgid "&Network"
+msgstr "&Rete"
+
+msgid "&Keyboard Shortcuts"
+msgstr "&Scorciatoie da tastiera"
+
+msgid "Use custom app&lication font"
+msgstr "Usare un carattere persona&lizzato"
+
+msgid "A&pplication Font..."
+msgstr "&Carattere..."
+
+msgid "Use custom application &style"
+msgstr "Usare uno &stile personalizzato"
+
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+msgid "Use native system file &dialogs"
+msgstr "Usa finestre di &dialogo file native"
+
+msgid "&Appearance"
+msgstr "&Aspetto"
+
+msgid "&Help"
+msgstr "Ai&uto"
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "&Cancel"
+msgstr "&Annulla"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "La scorciatoia '%1' è già usata per il comando '%2'."
+
+msgid "&File"
+msgstr "&File"
+
+msgid "&Open..."
+msgstr "&Apri..."
+
+msgid "Open &Recent"
+msgstr "Apri &recenti"
+
+msgid "&Save"
+msgstr "&Salva"
+
+msgid "Re&vert"
+msgstr "Ri&pristina"
+
+msgid "Import from file or clipboard"
+msgstr "Importa da file o dagli appunti"
+
+msgid "Import from %1"
+msgstr "Importa da %1"
+
+msgid "Automatic import"
+msgstr "Importa automaticamente"
+
+msgid "Browse album cover artwork"
+msgstr "Preleva copertina"
+
+msgid "Export to file or clipboard"
+msgstr "Esporta in un file o negli appunti"
+
+msgid "Create M3U Playlist"
+msgstr "Crea Playlist M3U"
+
+msgid "&Quit"
+msgstr "&Esci"
+
+msgid "&Edit"
+msgstr "&Modifica"
+
+msgid "Select &All"
+msgstr "Seleziona &tutto"
+
+msgid "Dese&lect"
+msgstr "Dese&leziona"
+
+msgid "Select all files in the current directory"
+msgstr "Seleziona tutti i file nella directory attuale"
+
+msgid "Select previous file"
+msgstr "Seleziona file precedente"
+
+msgid "Select next file"
+msgstr "Seleziona file successivo"
+
+msgid "&Tools"
+msgstr "S&trumenti"
+
+msgid "Apply Filename Format"
+msgstr "Applica formato Nome file"
+
+msgid "Apply Tag Format"
+msgstr "Applica formato Tag"
+
+msgid "Apply Text Encoding"
+msgstr "Applica codifica del testo"
+
+msgid "Rename Directory"
+msgstr "Rinomina cartella"
+
+msgid "Number Tracks"
+msgstr "Numero tracce"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Converti ID3v2.3 in ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Converti ID3v2.4 in ID3v2.3"
+
+msgid "Play"
+msgstr "Riproduci"
+
+msgid "&Settings"
+msgstr "Imp&ostazioni"
+
+msgid "Enables/disables the toolbar"
+msgstr "Attiva/disattiva la barra degli strumenti"
+
+msgid "Show &Toolbar"
+msgstr "Mostra la barra degli &strumenti"
+
+msgid "Enables/disables the statusbar"
+msgstr "Attiva/disattiva la barra di stato"
+
+msgid "Show St&atusbar"
+msgstr "Mostra la barra di st&ato"
+
+msgid "Show Picture"
+msgstr "Mostra immagine"
+
+msgid "Auto Hide Tags"
+msgstr "Nascondi automaticamente"
+
+msgid "Configure Kid3"
+msgstr "Configura Kid3"
+
+msgid "&Configure Kid3..."
+msgstr "&Configura Kid3..."
+
+msgid "Kid3 Handbook"
+msgstr "Manuale di Kid3"
+
+msgid "Kid3 &Handbook"
+msgstr "&Manuale di Kid3"
+
+msgid "About Kid3"
+msgstr "Informazioni su Kid3"
+
+msgid "&About Kid3"
+msgstr "&Informazioni su Kid3"
+
+msgid "About Qt"
+msgstr "Informazioni su Qt"
+
+msgid "About &Qt"
+msgstr "Informazioni su &Qt"
+
+msgid " [modified]"
+msgstr " [modificato]"
+
+msgid "Toggle the statusbar..."
+msgstr "Cambiamento barra di stato in corso..."
+
+msgid "Ready."
+msgstr "Pronto."
+
+msgid "&Clear List"
+msgstr "&Pulisci la lista"
+
+msgid "Clear"
+msgstr "Pulisci"
+
+msgid "Reset"
+msgstr "Azzera"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr "Premi F2 o fai doppio clic per modificare il contenuto della cella."
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "Shortcut"
+msgstr "Scorciatoia"
 
 msgid "Server"
 msgstr "Server"
@@ -35,15 +435,6 @@ msgstr "Tag aggiuntivi"
 
 msgid "Cover Art"
 msgstr "Copertina"
-
-msgid "Press F2 or double click to edit cell contents."
-msgstr "Premi F2 o fai doppio clic per modificare il contenuto della cella."
-
-msgid "Action"
-msgstr "Azione"
-
-msgid "Shortcut"
-msgstr "Scorciatoia"
 
 msgid "AENC - Audio encryption"
 msgstr "AENC - Cifratura audio"
@@ -333,9 +724,6 @@ msgstr "TSST - Imposta sottotitolo"
 msgid "Amazon"
 msgstr "Amazon"
 
-msgid "Unknown"
-msgstr "Sconosciuto"
-
 msgid "Invalid File"
 msgstr "File non valido"
 
@@ -347,9 +735,6 @@ msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Dati ricevuti: %1"
-
-msgid "Ready."
-msgstr "Pronto."
 
 msgid "Error"
 msgstr "Errore"
@@ -444,9 +829,6 @@ msgstr "Rinomina file"
 msgid "C&lear"
 msgstr "A&zzera"
 
-msgid "&Close"
-msgstr "&Chiudi"
-
 msgid "Execute "
 msgstr "Esegui "
 
@@ -477,17 +859,14 @@ msgstr "Dati"
 msgid "All Supported Files"
 msgstr "Tutti i file supportati"
 
-msgid "All Files (*)"
-msgstr "Tutti i file (*)"
+msgid "All Files"
+msgstr "Tutti i file"
 
 msgid "Track"
 msgstr "Traccia"
 
 msgid "Absolute path to file"
 msgstr "Nome di file assoluto"
-
-msgid "Filename"
-msgstr "Nome file"
 
 msgid "Duration"
 msgstr "Durata"
@@ -651,46 +1030,17 @@ msgstr "Canali"
 msgid "Codec"
 msgstr "Codec"
 
-msgid "directory to open"
-msgstr "cartella da aprire"
-
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 ID3 Tagger"
-
-#. i18n NAME OF TRANSLATORS
-msgid "Your names"
-msgstr "Valter Mura"
-
-#. i18n EMAIL OF TRANSLATORS
-msgid "Your emails"
-msgstr "valtermura@yahoo.it, giacomomargarito@gmail.com"
-
 msgid "Automatic Import"
 msgstr "Importa automaticamente"
 
 msgid "D&estination:"
 msgstr "D&estinazione:"
 
-msgid "Tag 1"
-msgstr "Tag 1"
-
-msgid "Tag 2"
-msgstr "Tag 2"
-
 msgid "Tag 1 and Tag 2"
 msgstr "Tag 1 e Tag 2"
 
 msgid "&Profile:"
 msgstr "&Profilo:"
-
-msgid "Add"
-msgstr "Aggiungi"
-
-msgid "Remove"
-msgstr "Rimuovi"
-
-msgid "&Help"
-msgstr "Ai&uto"
 
 msgid "&Save Settings"
 msgstr "&Salva impostazioni"
@@ -776,29 +1126,11 @@ msgstr "URL dell'immagine"
 msgid "&Browse"
 msgstr "&Sfoglia"
 
-msgid "&Cancel"
-msgstr "&Annulla"
-
 msgid "Click Browse to start"
 msgstr "Fai click sul pulsante Sfoglia per avviare"
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Poi trascina l'immagine dal browser su Kid3."
-
-msgid "&Back"
-msgstr "&Indietro"
-
-msgid "&Forward"
-msgstr "&Avanti"
-
-msgid "&Find:"
-msgstr "&Trova:"
-
-msgid "Find Previous"
-msgstr "Trova precedente"
-
-msgid "Find Next"
-msgstr "Trova successivo"
 
 msgid "ID3v1"
 msgstr "ID3v1"
@@ -872,12 +1204,6 @@ msgstr "Tag &2"
 msgid "Tag 1 a&nd Tag 2"
 msgstr "Tag 1 &e Tag 2"
 
-msgid "Tags"
-msgstr "Tag"
-
-msgid "&Tags"
-msgstr "&Tag"
-
 msgid "Startup"
 msgstr "Avvio"
 
@@ -899,12 +1225,6 @@ msgstr "Nome f&ile per copertina:"
 msgid "&Filename Format"
 msgstr "Formato nome&file"
 
-msgid "Files"
-msgstr "File"
-
-msgid "&Files"
-msgstr "&File"
-
 msgid "Browser"
 msgstr "Browser"
 
@@ -916,12 +1236,6 @@ msgstr "Comandi &menu contestuale"
 
 msgid "&Play on double click"
 msgstr "&Riproduci con un doppio clic"
-
-msgid "User Actions"
-msgstr "Azioni utente"
-
-msgid "&User Actions"
-msgstr "Azioni &utente"
 
 msgid "Proxy"
 msgstr "Proxy"
@@ -937,39 +1251,6 @@ msgstr "Ute&nte proxy:"
 
 msgid "Proxy pass&word:"
 msgstr "Pass&word proxy:"
-
-msgid "Network"
-msgstr "Rete"
-
-msgid "&Network"
-msgstr "&Rete"
-
-msgid "&Keyboard Shortcuts"
-msgstr "&Scorciatoie da tastiera"
-
-msgid "Use custom app&lication font"
-msgstr "Usare un carattere persona&lizzato"
-
-msgid "A&pplication Font..."
-msgstr "&Carattere..."
-
-msgid "Use custom application &style"
-msgstr "Usare uno &stile personalizzato"
-
-msgid "Use native system file &dialogs"
-msgstr "Usa finestre di &dialogo file native"
-
-msgid "&Appearance"
-msgstr "&Aspetto"
-
-msgid "&OK"
-msgstr "&OK"
-
-msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "La scorciatoia '%1' è già usata per il comando '%2'."
-
-msgid "Kid3 Handbook"
-msgstr "Manuale di Kid3"
 
 msgid "From Clip&board"
 msgstr "Dagli a&ppunti"
@@ -1049,8 +1330,8 @@ msgstr "Prezzo"
 msgid "Seller"
 msgstr "Venditore"
 
-msgid "Images (*.jpg *.jpeg *.png)"
-msgstr "Immagini (*.jpg *.jpeg *.png)"
+msgid "Images"
+msgstr "Immagini"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
@@ -1160,9 +1441,6 @@ msgstr "Errore del file"
 msgid "Error while writing file:\n"
 msgstr "Errore durante la scrittura del file:\n"
 
-msgid "Filter"
-msgstr "Filtro"
-
 msgid "&Filter:"
 msgstr "&Filtro:"
 
@@ -1186,9 +1464,6 @@ msgstr "Da T&ag..."
 
 msgid "&From Server:"
 msgstr "Dal Ser&ver:"
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
 
 msgid "Revert"
 msgstr "Ripristina"
@@ -1219,9 +1494,6 @@ msgstr "Nessun risultato"
 
 msgid "No result selected"
 msgstr "Nessun risultato selezionato"
-
-msgid "Number Tracks"
-msgstr "Numero tracce"
 
 msgid "&Start number:"
 msgstr "Numero &inizio:"
@@ -1283,9 +1555,6 @@ msgstr "Scrivi solo la &lista dei file"
 msgid "Write &info using"
 msgstr "Scrivi le &informazioni usando"
 
-msgid "Rename Directory"
-msgstr "Rinomina cartella"
-
 msgid "Format"
 msgstr "Formato"
 
@@ -1297,12 +1566,6 @@ msgstr "Crea cartella"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "Da Tag 2 e Tag 1"
-
-msgid "From Tag 1"
-msgstr "Da Tag 1"
-
-msgid "From Tag 2"
-msgstr "Da Tag 2"
 
 msgid "From:"
 msgstr "Da:"
@@ -1328,281 +1591,8 @@ msgstr "Importa da file/appunti"
 msgid "From F&ile"
 msgstr "Da f&ile"
 
-msgid "&Expand all"
-msgstr "&Espandi tutto"
-
-msgid "&Collapse all"
-msgstr "&Raccogli tutto"
-
-msgid "&Rename"
-msgstr "&Rinomina"
-
-msgid "&Move to Trash"
-msgstr "Cesti&na"
-
-msgid "&Play"
-msgstr "&Riproduci"
-
-msgid "Kid3"
-msgstr "Kid3"
-
-msgid "F&ile"
-msgstr "F&ile"
-
-msgid "Name:"
-msgstr "Nome:"
-
-msgid "Filename from Tag 1"
-msgstr "Nome file da Tag 1"
-
-msgid "Filename from Tag 2"
-msgstr "Nome file da Tag 2"
-
-msgid "Tag 1 from Filename"
-msgstr "Tag 1 dal Nome file"
-
-msgid "Tag 2 from Filename"
-msgstr "Tag 2 dal Nome file"
-
-msgid "Copy"
-msgstr "Copia"
-
-msgid "Paste"
-msgstr "Incolla"
-
-msgid "Edit"
-msgstr "Modifica"
-
-msgid "Delete"
-msgstr "Elimina"
-
-msgid "Focus"
-msgstr "Punto focale"
-
-msgid "From Filename"
-msgstr "Dal Nome file"
-
-msgid "File List"
-msgstr "Lista File"
-
-msgid "Directory List"
-msgstr "Lista delle cartelle"
-
 msgid "Download"
 msgstr "Scarica"
-
-msgid "Main Toolbar"
-msgstr "Barra degli strumenti principale"
-
-msgid "Opens a directory"
-msgstr "Apre una cartella"
-
-msgid "Opens a recently used directory"
-msgstr "Apre una cartella usata di recente"
-
-msgid "Reverts the changes of all or the selected files"
-msgstr "Annulla le modifiche eseguite su tutti i file o quelli selezionati"
-
-msgid "Saves the changed files"
-msgstr "Salva i file modificati"
-
-msgid "Quits the application"
-msgstr "Esce dall'applicazione"
-
-msgid "Select all files"
-msgstr "Seleziona tutti i file"
-
-msgid "Deselect all files"
-msgstr "Deseleziona tutti i file"
-
-msgid "Configure Shortcuts"
-msgstr "Configura le scorciatoie"
-
-msgid "Configure Toolbars"
-msgstr "Configura la barra degli strumenti"
-
-msgid "Preferences dialog"
-msgstr "Preferenze"
-
-msgid "O&pen Directory..."
-msgstr "A&pri cartella..."
-
-msgid "&Import..."
-msgstr "&Importa..."
-
-msgid "Import from %1..."
-msgstr "Importa da %1..."
-
-msgid "Automatic I&mport..."
-msgstr "I&mporta automaticamente..."
-
-msgid "&Browse Cover Art..."
-msgstr "&Preleva copertina..."
-
-msgid "&Export..."
-msgstr "&Esporta..."
-
-msgid "&Create Playlist..."
-msgstr "&Crea Playlist..."
-
-msgid "Apply &Filename Format"
-msgstr "Applica formato Nome &file"
-
-msgid "Apply &Tag Format"
-msgstr "Applica formato &Tag"
-
-msgid "Apply Text &Encoding"
-msgstr "Applica codifica del t&esto"
-
-msgid "&Rename Directory..."
-msgstr "&Rinomina cartella..."
-
-msgid "&Number Tracks..."
-msgstr "&Numero tracce..."
-
-msgid "F&ilter..."
-msgstr "F&iltro..."
-
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Converti ID3v2.3 in ID3v2.&4"
-
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Converti ID3v2.4 in ID3v2.&3"
-
-msgid "Show &Picture"
-msgstr "Mostra &immagine"
-
-msgid "Auto &Hide Tags"
-msgstr "&Nascondi automaticamente"
-
-msgid "Select All in &Directory"
-msgstr "Seleziona tutti i file nella &cartella"
-
-msgid "&Previous File"
-msgstr "File &precedente"
-
-msgid "&Next File"
-msgstr "File &successivo"
-
-msgid "Frames:"
-msgstr "Frame:"
-
-msgid "&File"
-msgstr "&File"
-
-msgid "&Open..."
-msgstr "&Apri..."
-
-msgid "Open &Recent"
-msgstr "Apri &recenti"
-
-msgid "&Save"
-msgstr "&Salva"
-
-msgid "Re&vert"
-msgstr "Ri&pristina"
-
-msgid "Import from file or clipboard"
-msgstr "Importa da file o dagli appunti"
-
-msgid "Import from %1"
-msgstr "Importa da %1"
-
-msgid "Automatic import"
-msgstr "Importa automaticamente"
-
-msgid "Browse album cover artwork"
-msgstr "Preleva copertina"
-
-msgid "Export to file or clipboard"
-msgstr "Esporta in un file o negli appunti"
-
-msgid "Create M3U Playlist"
-msgstr "Crea Playlist M3U"
-
-msgid "&Quit"
-msgstr "&Esci"
-
-msgid "&Edit"
-msgstr "&Modifica"
-
-msgid "Select &All"
-msgstr "Seleziona &tutto"
-
-msgid "Dese&lect"
-msgstr "Dese&leziona"
-
-msgid "Select all files in the current directory"
-msgstr "Seleziona tutti i file nella directory attuale"
-
-msgid "Select previous file"
-msgstr "Seleziona file precedente"
-
-msgid "Select next file"
-msgstr "Seleziona file successivo"
-
-msgid "&Tools"
-msgstr "S&trumenti"
-
-msgid "Apply Filename Format"
-msgstr "Applica formato Nome file"
-
-msgid "Apply Tag Format"
-msgstr "Applica formato Tag"
-
-msgid "Apply Text Encoding"
-msgstr "Applica codifica del testo"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Converti ID3v2.3 in ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Converti ID3v2.4 in ID3v2.3"
-
-msgid "Play"
-msgstr "Riproduci"
-
-msgid "&Settings"
-msgstr "Imp&ostazioni"
-
-msgid "Enables/disables the toolbar"
-msgstr "Attiva/disattiva la barra degli strumenti"
-
-msgid "Show &Toolbar"
-msgstr "Mostra la barra degli &strumenti"
-
-msgid "Enables/disables the statusbar"
-msgstr "Attiva/disattiva la barra di stato"
-
-msgid "Show St&atusbar"
-msgstr "Mostra la barra di st&ato"
-
-msgid "Show Picture"
-msgstr "Mostra immagine"
-
-msgid "Auto Hide Tags"
-msgstr "Nascondi automaticamente"
-
-msgid "Configure Kid3"
-msgstr "Configura Kid3"
-
-msgid "&Configure Kid3..."
-msgstr "&Configura Kid3..."
-
-msgid "Kid3 &Handbook"
-msgstr "&Manuale di Kid3"
-
-msgid "About Kid3"
-msgstr "Informazioni su Kid3"
-
-msgid "&About Kid3"
-msgstr "&Informazioni su Kid3"
-
-msgid "About Qt"
-msgstr "Informazioni su Qt"
-
-msgid "About &Qt"
-msgstr "Informazioni su &Qt"
 
 msgid "Opening directory..."
 msgstr "Apertura cartella in corso..."
@@ -1620,17 +1610,8 @@ msgstr ""
 msgid "Warning"
 msgstr "Avvertimento"
 
-msgid "Warning - Kid3"
-msgstr "Attenzione - Kid3"
-
-msgid "Open"
-msgstr "Apri"
-
 msgid "Exiting..."
 msgstr "Uscita in corso..."
-
-msgid "Toggle the statusbar..."
-msgstr "Cambiamento barra di stato in corso..."
 
 msgid "Creating playlist..."
 msgstr "Creazione playlist in corso..."
@@ -1638,17 +1619,11 @@ msgstr "Creazione playlist in corso..."
 msgid "Import"
 msgstr "Importa"
 
-msgid "Configure - Kid3"
-msgstr "Configura - Kid3"
-
 msgid "Error while renaming:\n"
 msgstr "Errore durante la rinomina:\n"
 
 msgid " [filtered]"
 msgstr " [filtrato]"
-
-msgid " [modified]"
-msgstr " [modificato]"
 
 msgid "Add Frame"
 msgstr "Aggiungi frame"
@@ -1679,6 +1654,39 @@ msgstr "Impossibile spostare questi file nel cestino"
 
 msgid "Expand All"
 msgstr "Espandi tutto"
+
+msgid "&Expand all"
+msgstr "&Espandi tutto"
+
+msgid "&Collapse all"
+msgstr "&Raccogli tutto"
+
+msgid "&Rename"
+msgstr "&Rinomina"
+
+msgid "&Move to Trash"
+msgstr "Cesti&na"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "F&ile"
+
+msgid "Name:"
+msgstr "Nome:"
+
+msgid "Filename from Tag 1"
+msgstr "Nome file da Tag 1"
+
+msgid "Filename from Tag 2"
+msgstr "Nome file da Tag 2"
+
+msgid "Tag 1 from Filename"
+msgstr "Tag 1 dal Nome file"
+
+msgid "Tag 2 from Filename"
+msgstr "Tag 2 dal Nome file"
 
 msgid "&Add..."
 msgstr "&Aggiungi..."
@@ -1781,15 +1789,6 @@ msgstr "Muto"
 
 msgid "Volume: %1%"
 msgstr "Volume: %1%"
-
-msgid "&Clear List"
-msgstr "&Pulisci la lista"
-
-msgid "Clear"
-msgstr "Pulisci"
-
-msgid "Reset"
-msgstr "Azzera"
 
 msgid "Add Item"
 msgstr "Aggiungi elemento"

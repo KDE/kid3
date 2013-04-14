@@ -2,8 +2,8 @@
 
 BASEDIR="../src" # root of translatable sources
 PROJECT="kid3" # project name
-PROJECTVERSION="2.2" # project version
-BUGADDR="http://sourceforge.net/tracker/?group_id=70849&atid=529221" # MSGID-Bugs
+PROJECTVERSION="2.3" # project version
+BUGADDR="http://sourceforge.net/p/kid3/bugs/" # MSGID-Bugs
 WDIR=`pwd` # working dir
 
 echo "Preparing rc files"

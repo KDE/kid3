@@ -7,10 +7,9 @@
 # "Egor S. Orlov" <Egor.Orlov@avalon.ru>, 2003, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-29 17:08+0100\n"
+"Project-Id-Version: Kid3 2.3\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2013-04-14 17:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: Russian <kde-i18n-doc@kde.org>\n"
@@ -23,6 +22,407 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: ru\n"
 "X-Source-Language: en\n"
+
+msgid "Tags"
+msgstr "Теги"
+
+msgid "Files"
+msgstr "Файлы"
+
+msgid "User Actions"
+msgstr "Команды пользователя"
+
+msgid "Network"
+msgstr "Сеть"
+
+msgid "Main Toolbar"
+msgstr "Основная панель инструментов"
+
+msgid "Opens a directory"
+msgstr "Открыть каталог"
+
+msgid "Opens a recently used directory"
+msgstr "Открыть недавний каталог"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "Отменить изменения всех выделенных файлов"
+
+msgid "Saves the changed files"
+msgstr "Сохранить измененные файлы"
+
+msgid "Quits the application"
+msgstr "Завершить приложение"
+
+msgid "Select all files"
+msgstr "Выделить все"
+
+msgid "Deselect all files"
+msgstr "Отменить выбор"
+
+msgid "Configure Shortcuts"
+msgstr "Настройка быстрых клавиш"
+
+msgid "Configure Toolbars"
+msgstr "Настроить инструменты"
+
+msgid "Preferences dialog"
+msgstr "Настройка параметров"
+
+msgid "O&pen Directory..."
+msgstr "Открыть &каталог..."
+
+msgid "&Import..."
+msgstr "&Импорт..."
+
+msgid "Import from %1..."
+msgstr "Импорт из %1..."
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz \"отпечатка пальцев\""
+
+msgid "Automatic I&mport..."
+msgstr "Автоматически и&мпортировать..."
+
+msgid "&Browse Cover Art..."
+msgstr "&Найти обложки..."
+
+msgid "&Export..."
+msgstr "&Экспорт..."
+
+msgid "&Create Playlist..."
+msgstr "&Cоздать список песен..."
+
+msgid "Apply &Filename Format"
+msgstr "Применить Формат имени &файла"
+
+msgid "Apply &Tag Format"
+msgstr "Применить Формат &тэга"
+
+msgid "Apply Text &Encoding"
+msgstr "Применить Кодировка Т&екста"
+
+msgid "&Rename Directory..."
+msgstr "&Переименовать Каталог..."
+
+msgid "&Number Tracks..."
+msgstr "&Пронумеровать дорожки по порядку..."
+
+msgid "F&ilter..."
+msgstr "Ф&ильтр..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Преобразуйте ID3v2.3 в ID3v2.&4"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Преобразуйте ID3v2.4 в ID3v2.&3"
+
+msgid "&Play"
+msgstr "&Играть"
+
+msgid "Show &Picture"
+msgstr "Показывать &картину"
+
+msgid "Auto &Hide Tags"
+msgstr "Теги автоматическое &скрытие"
+
+msgid "Select All in &Directory"
+msgstr "Выделить все файлы в текущем &каталоге"
+
+msgid "&Previous File"
+msgstr "&Предыдущий файл"
+
+msgid "&Next File"
+msgstr "&Следующий файл"
+
+msgid "Tag 1"
+msgstr "Тег 1"
+
+msgid "From Filename"
+msgstr "Из имени файла"
+
+msgid "From Tag 2"
+msgstr "Из тег 2"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Paste"
+msgstr "Вставить"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Tag 2"
+msgstr "Тег 2"
+
+msgid "From Tag 1"
+msgstr "Из тег 1"
+
+msgid "Frames:"
+msgstr "Фреймы:"
+
+msgid "Edit"
+msgstr "Правка"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Filename"
+msgstr "Имя файла"
+
+msgid "Focus"
+msgstr "Фокус"
+
+msgid "File List"
+msgstr "Список файлов"
+
+msgid "Directory List"
+msgstr "Содержимое каталога"
+
+msgid "Configure - Kid3"
+msgstr "Настройка - Kid3"
+
+msgid "Open"
+msgstr "Открыть"
+
+msgid "Save As"
+msgstr "Сохранить как"
+
+msgid "directory to open"
+msgstr "каталог для открытия"
+
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 Редактор тэгов ID3"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Егор С. Орлов"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "Egor.Orlov@avalon.ru"
+
+msgid "&Back"
+msgstr "&Дорожка"
+
+msgid "&Forward"
+msgstr "&Вперёд"
+
+msgid "&Find:"
+msgstr "&Найти:"
+
+msgid "Find Previous"
+msgstr "Найти предыдущее"
+
+msgid "Find Next"
+msgstr "Найти следующее"
+
+msgid "&Close"
+msgstr "&Закрыть"
+
+msgid "&Tags"
+msgstr "&Теги"
+
+msgid "&Files"
+msgstr "&Файлы"
+
+msgid "&User Actions"
+msgstr "&Команды пользователя"
+
+msgid "&Network"
+msgstr "&Сеть"
+
+msgid "&Keyboard Shortcuts"
+msgstr "&Клавиши быстрого доступа"
+
+msgid "Use custom app&lication font"
+msgstr "Использовать выбранный &шрифт приложения"
+
+msgid "A&pplication Font..."
+msgstr "Шрифт &приложения..."
+
+msgid "Use custom application &style"
+msgstr "Использовать выбранный &стиль приложения"
+
+msgid "Unknown"
+msgstr "Неизвестен"
+
+msgid "Use native system file &dialogs"
+msgstr "Использовать встроенные файловые &диалоги"
+
+msgid "&Appearance"
+msgstr "&Внешний вид"
+
+msgid "&Help"
+msgstr "Помо&щь"
+
+msgid "&OK"
+msgstr "&ОК"
+
+msgid "&Cancel"
+msgstr "О&тмена"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Клавиатурная комбинация '%1' уже назначена для '%2'."
+
+msgid "&File"
+msgstr "&Файл"
+
+msgid "&Open..."
+msgstr "&Открыть..."
+
+msgid "Open &Recent"
+msgstr "Открыть &недавние"
+
+msgid "&Save"
+msgstr "&Сохранить"
+
+msgid "Re&vert"
+msgstr "&Отменить"
+
+msgid "Import from file or clipboard"
+msgstr "Импортировать файл или буфер обмена"
+
+msgid "Import from %1"
+msgstr "Импорт из %1"
+
+msgid "Automatic import"
+msgstr "Автоматически импортировать"
+
+msgid "Browse album cover artwork"
+msgstr "Найти обложки"
+
+msgid "Export to file or clipboard"
+msgstr "Экспорт в файл или Буфера Обмена"
+
+msgid "Create M3U Playlist"
+msgstr "Создать список M3U"
+
+msgid "&Quit"
+msgstr "В&ыход"
+
+msgid "&Edit"
+msgstr "&Правка"
+
+msgid "Select &All"
+msgstr "Выделить &все"
+
+msgid "Dese&lect"
+msgstr "Отме&нить выбор"
+
+msgid "Select all files in the current directory"
+msgstr "Выделить все файлы в текущем каталоге"
+
+msgid "Select previous file"
+msgstr "Предыдущий файл"
+
+msgid "Select next file"
+msgstr "Следующий файл"
+
+msgid "&Tools"
+msgstr "&Сервис"
+
+msgid "Apply Filename Format"
+msgstr "Применить Формат имени файла"
+
+msgid "Apply Tag Format"
+msgstr "Применить формат тэга"
+
+msgid "Apply Text Encoding"
+msgstr "Применить Кодировка Текста"
+
+msgid "Rename Directory"
+msgstr "Переименовать Каталог"
+
+msgid "Number Tracks"
+msgstr "Пронумеровать дорожки по порядку"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Преобразуйте ID3v2.3 в ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Преобразуйте ID3v2.4 в ID3v2.3"
+
+msgid "Play"
+msgstr "Играть"
+
+msgid "&Settings"
+msgstr "&Настройка"
+
+msgid "Enables/disables the toolbar"
+msgstr "Включить/выключить панель инструментов"
+
+msgid "Show &Toolbar"
+msgstr "Отобразить панель &инструментов"
+
+msgid "Enables/disables the statusbar"
+msgstr "Включить/выключить строку состояния"
+
+msgid "Show St&atusbar"
+msgstr "Показать строку &состояния"
+
+msgid "Show Picture"
+msgstr "Показывать картину"
+
+msgid "Auto Hide Tags"
+msgstr "Теги автоматическое скрытие"
+
+msgid "Configure Kid3"
+msgstr "Настроить Kid3"
+
+msgid "&Configure Kid3..."
+msgstr "&Настроить Kid3..."
+
+msgid "Kid3 Handbook"
+msgstr "Руководство Kid3"
+
+msgid "Kid3 &Handbook"
+msgstr "&Руководство \"Kid3\""
+
+msgid "About Kid3"
+msgstr "О Kid3"
+
+msgid "&About Kid3"
+msgstr "&О Kid3"
+
+msgid "About Qt"
+msgstr "О Qt"
+
+msgid "About &Qt"
+msgstr "О &Qt"
+
+msgid " [modified]"
+msgstr " [изменено]"
+
+msgid "Toggle the statusbar..."
+msgstr "Переключение строки состояния..."
+
+msgid "Ready."
+msgstr "Готово."
+
+msgid "&Clear List"
+msgstr "&Очистить список"
+
+msgid "Clear"
+msgstr "Очистить"
+
+msgid "Reset"
+msgstr "Сброс"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr "Нажмите F2 или дважды щёлкните центр ячейки."
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "Shortcut"
+msgstr "Комбинация клавиш"
 
 msgid "Server"
 msgstr "Сервер"
@@ -38,15 +438,6 @@ msgstr "Дополнительные теги"
 
 msgid "Cover Art"
 msgstr "Обложки"
-
-msgid "Press F2 or double click to edit cell contents."
-msgstr "Нажмите F2 или дважды щёлкните центр ячейки."
-
-msgid "Action"
-msgstr "Действие"
-
-msgid "Shortcut"
-msgstr "Комбинация клавиш"
 
 msgid "AENC - Audio encryption"
 msgstr "AENC - Аудио-кодирование"
@@ -336,9 +727,6 @@ msgstr "TSST - Set subtitle"
 msgid "Amazon"
 msgstr "Amazon"
 
-msgid "Unknown"
-msgstr "Неизвестен"
-
 msgid "Invalid File"
 msgstr "Неверный файл"
 
@@ -350,9 +738,6 @@ msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Полученные сведения: %1"
-
-msgid "Ready."
-msgstr "Готово."
 
 msgid "Error"
 msgstr "Ошибка"
@@ -447,9 +832,6 @@ msgstr "Переименовать файл"
 msgid "C&lear"
 msgstr "О&чистить"
 
-msgid "&Close"
-msgstr "&Закрыть"
-
 msgid "Execute "
 msgstr "Выполнить "
 
@@ -480,17 +862,14 @@ msgstr "Дата"
 msgid "All Supported Files"
 msgstr "Все поддерживаемые файлы"
 
-msgid "All Files (*)"
-msgstr "Все файлы (*)"
+msgid "All Files"
+msgstr "Все файлы"
 
 msgid "Track"
 msgstr "Дорожка"
 
 msgid "Absolute path to file"
 msgstr "Абсолютный путь"
-
-msgid "Filename"
-msgstr "Имя файла"
 
 msgid "Duration"
 msgstr "Длительность"
@@ -654,46 +1033,17 @@ msgstr "Каналы"
 msgid "Codec"
 msgstr "Кодек"
 
-msgid "directory to open"
-msgstr "каталог для открытия"
-
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 Редактор тэгов ID3"
-
-#. i18n NAME OF TRANSLATORS
-msgid "Your names"
-msgstr "Егор С. Орлов"
-
-#. i18n EMAIL OF TRANSLATORS
-msgid "Your emails"
-msgstr "Egor.Orlov@avalon.ru"
-
 msgid "Automatic Import"
 msgstr "Автоматически импортировать"
 
 msgid "D&estination:"
 msgstr "М&есто назначения:"
 
-msgid "Tag 1"
-msgstr "Тег 1"
-
-msgid "Tag 2"
-msgstr "Тег 2"
-
 msgid "Tag 1 and Tag 2"
 msgstr "Тег 1 и тег 2"
 
 msgid "&Profile:"
 msgstr "&Профиль:"
-
-msgid "Add"
-msgstr "Добавить"
-
-msgid "Remove"
-msgstr "Удалить"
-
-msgid "&Help"
-msgstr "Помо&щь"
 
 msgid "&Save Settings"
 msgstr "&Сохранить настройки"
@@ -779,29 +1129,11 @@ msgstr "Картинка URL"
 msgid "&Browse"
 msgstr "&Браузер"
 
-msgid "&Cancel"
-msgstr "О&тмена"
-
 msgid "Click Browse to start"
 msgstr ""
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr ""
-
-msgid "&Back"
-msgstr "&Дорожка"
-
-msgid "&Forward"
-msgstr "&Вперёд"
-
-msgid "&Find:"
-msgstr "&Найти:"
-
-msgid "Find Previous"
-msgstr "Найти предыдущее"
-
-msgid "Find Next"
-msgstr "Найти следующее"
 
 msgid "ID3v1"
 msgstr "ID3v1"
@@ -875,12 +1207,6 @@ msgstr "Тег &2"
 msgid "Tag 1 a&nd Tag 2"
 msgstr "Тег 1 &и тег 2"
 
-msgid "Tags"
-msgstr "Теги"
-
-msgid "&Tags"
-msgstr "&Теги"
-
 msgid "Startup"
 msgstr "Запуск"
 
@@ -902,12 +1228,6 @@ msgstr "Имя фа&йла для изображения:"
 msgid "&Filename Format"
 msgstr "&Формат имени файла"
 
-msgid "Files"
-msgstr "Файлы"
-
-msgid "&Files"
-msgstr "&Файлы"
-
 msgid "Browser"
 msgstr "Браузер"
 
@@ -920,12 +1240,6 @@ msgstr "Элементы контекстного &меню"
 #, fuzzy
 msgid "&Play on double click"
 msgstr "&Играть на двойной клик"
-
-msgid "User Actions"
-msgstr "Команды пользователя"
-
-msgid "&User Actions"
-msgstr "&Команды пользователя"
 
 msgid "Proxy"
 msgstr "Прокси"
@@ -941,39 +1255,6 @@ msgstr "&Имя пользователя прокси:"
 
 msgid "Proxy pass&word:"
 msgstr "П&ароль прокси:"
-
-msgid "Network"
-msgstr "Сеть"
-
-msgid "&Network"
-msgstr "&Сеть"
-
-msgid "&Keyboard Shortcuts"
-msgstr "&Клавиши быстрого доступа"
-
-msgid "Use custom app&lication font"
-msgstr "Использовать выбранный &шрифт приложения"
-
-msgid "A&pplication Font..."
-msgstr "Шрифт &приложения..."
-
-msgid "Use custom application &style"
-msgstr "Использовать выбранный &стиль приложения"
-
-msgid "Use native system file &dialogs"
-msgstr "Использовать встроенные файловые &диалоги"
-
-msgid "&Appearance"
-msgstr "&Внешний вид"
-
-msgid "&OK"
-msgstr "&ОК"
-
-msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "Клавиатурная комбинация '%1' уже назначена для '%2'."
-
-msgid "Kid3 Handbook"
-msgstr "Руководство Kid3"
 
 msgid "From Clip&board"
 msgstr "Из &Буфера Обмена"
@@ -1053,8 +1334,8 @@ msgstr "Цена"
 msgid "Seller"
 msgstr "Продавец"
 
-msgid "Images (*.jpg *.jpeg *.png)"
-msgstr "Изображения (*.jpg *.jpeg *.png)"
+msgid "Images"
+msgstr "Изображения"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
@@ -1164,9 +1445,6 @@ msgstr "Ошибка файла"
 msgid "Error while writing file:\n"
 msgstr "Ошибка при записи файла:\n"
 
-msgid "Filter"
-msgstr "Фильтр"
-
 msgid "&Filter:"
 msgstr "&Фильтр:"
 
@@ -1190,9 +1468,6 @@ msgstr "Из т&ег..."
 
 msgid "&From Server:"
 msgstr "&Из сервер:"
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz \"отпечатка пальцев\""
 
 msgid "Revert"
 msgstr "Отменить"
@@ -1223,9 +1498,6 @@ msgstr "Не удалось найти"
 
 msgid "No result selected"
 msgstr "Никакой отобранный результат"
-
-msgid "Number Tracks"
-msgstr "Пронумеровать дорожки по порядку"
 
 msgid "&Start number:"
 msgstr "&Число начала:"
@@ -1287,9 +1559,6 @@ msgstr "Записать только &список файлов"
 msgid "Write &info using"
 msgstr "Записать &информацию используя"
 
-msgid "Rename Directory"
-msgstr "Переименовать Каталог"
-
 msgid "Format"
 msgstr "Формат"
 
@@ -1301,12 +1570,6 @@ msgstr "Создать Каталог"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "Из тег 2 и тег 1"
-
-msgid "From Tag 1"
-msgstr "Из тег 1"
-
-msgid "From Tag 2"
-msgstr "Из тег 2"
 
 msgid "From:"
 msgstr "От:"
@@ -1332,281 +1595,8 @@ msgstr "Импортировать файл или буфер обмена"
 msgid "From F&ile"
 msgstr "Из имени фа&йла"
 
-msgid "&Expand all"
-msgstr "&Развернуть всё"
-
-msgid "&Collapse all"
-msgstr "&Свернуть всё"
-
-msgid "&Rename"
-msgstr "&Переименовать"
-
-msgid "&Move to Trash"
-msgstr "&Выбросить в корзину"
-
-msgid "&Play"
-msgstr "&Играть"
-
-msgid "Kid3"
-msgstr "Kid3"
-
-msgid "F&ile"
-msgstr "Ф&айлы"
-
-msgid "Name:"
-msgstr "Имя:"
-
-msgid "Filename from Tag 1"
-msgstr "Имя файла из тег 1"
-
-msgid "Filename from Tag 2"
-msgstr "Имя файла из тег 2"
-
-msgid "Tag 1 from Filename"
-msgstr "Тег 1 из имени файла"
-
-msgid "Tag 2 from Filename"
-msgstr "Тег 1 из имени файла"
-
-msgid "Copy"
-msgstr "Копировать"
-
-msgid "Paste"
-msgstr "Вставить"
-
-msgid "Edit"
-msgstr "Правка"
-
-msgid "Delete"
-msgstr "Удалить"
-
-msgid "Focus"
-msgstr "Фокус"
-
-msgid "From Filename"
-msgstr "Из имени файла"
-
-msgid "File List"
-msgstr "Список файлов"
-
-msgid "Directory List"
-msgstr "Содержимое каталога"
-
 msgid "Download"
 msgstr "Закачка"
-
-msgid "Main Toolbar"
-msgstr "Основная панель инструментов"
-
-msgid "Opens a directory"
-msgstr "Открыть каталог"
-
-msgid "Opens a recently used directory"
-msgstr "Открыть недавний каталог"
-
-msgid "Reverts the changes of all or the selected files"
-msgstr "Отменить изменения всех выделенных файлов"
-
-msgid "Saves the changed files"
-msgstr "Сохранить измененные файлы"
-
-msgid "Quits the application"
-msgstr "Завершить приложение"
-
-msgid "Select all files"
-msgstr "Выделить все"
-
-msgid "Deselect all files"
-msgstr "Отменить выбор"
-
-msgid "Configure Shortcuts"
-msgstr "Настройка быстрых клавиш"
-
-msgid "Configure Toolbars"
-msgstr "Настроить инструменты"
-
-msgid "Preferences dialog"
-msgstr "Настройка параметров"
-
-msgid "O&pen Directory..."
-msgstr "Открыть &каталог..."
-
-msgid "&Import..."
-msgstr "&Импорт..."
-
-msgid "Import from %1..."
-msgstr "Импорт из %1..."
-
-msgid "Automatic I&mport..."
-msgstr "Автоматически и&мпортировать..."
-
-msgid "&Browse Cover Art..."
-msgstr "&Найти обложки..."
-
-msgid "&Export..."
-msgstr "&Экспорт..."
-
-msgid "&Create Playlist..."
-msgstr "&Cоздать список песен..."
-
-msgid "Apply &Filename Format"
-msgstr "Применить Формат имени &файла"
-
-msgid "Apply &Tag Format"
-msgstr "Применить Формат &тэга"
-
-msgid "Apply Text &Encoding"
-msgstr "Применить Кодировка Т&екста"
-
-msgid "&Rename Directory..."
-msgstr "&Переименовать Каталог..."
-
-msgid "&Number Tracks..."
-msgstr "&Пронумеровать дорожки по порядку..."
-
-msgid "F&ilter..."
-msgstr "Ф&ильтр..."
-
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Преобразуйте ID3v2.3 в ID3v2.&4"
-
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Преобразуйте ID3v2.4 в ID3v2.&3"
-
-msgid "Show &Picture"
-msgstr "Показывать &картину"
-
-msgid "Auto &Hide Tags"
-msgstr "Теги автоматическое &скрытие"
-
-msgid "Select All in &Directory"
-msgstr "Выделить все файлы в текущем &каталоге"
-
-msgid "&Previous File"
-msgstr "&Предыдущий файл"
-
-msgid "&Next File"
-msgstr "&Следующий файл"
-
-msgid "Frames:"
-msgstr "Фреймы:"
-
-msgid "&File"
-msgstr "&Файл"
-
-msgid "&Open..."
-msgstr "&Открыть..."
-
-msgid "Open &Recent"
-msgstr "Открыть &недавние"
-
-msgid "&Save"
-msgstr "&Сохранить"
-
-msgid "Re&vert"
-msgstr "&Отменить"
-
-msgid "Import from file or clipboard"
-msgstr "Импортировать файл или буфер обмена"
-
-msgid "Import from %1"
-msgstr "Импорт из %1"
-
-msgid "Automatic import"
-msgstr "Автоматически импортировать"
-
-msgid "Browse album cover artwork"
-msgstr "Найти обложки"
-
-msgid "Export to file or clipboard"
-msgstr "Экспорт в файл или Буфера Обмена"
-
-msgid "Create M3U Playlist"
-msgstr "Создать список M3U"
-
-msgid "&Quit"
-msgstr "В&ыход"
-
-msgid "&Edit"
-msgstr "&Правка"
-
-msgid "Select &All"
-msgstr "Выделить &все"
-
-msgid "Dese&lect"
-msgstr "Отме&нить выбор"
-
-msgid "Select all files in the current directory"
-msgstr "Выделить все файлы в текущем каталоге"
-
-msgid "Select previous file"
-msgstr "Предыдущий файл"
-
-msgid "Select next file"
-msgstr "Следующий файл"
-
-msgid "&Tools"
-msgstr "&Сервис"
-
-msgid "Apply Filename Format"
-msgstr "Применить Формат имени файла"
-
-msgid "Apply Tag Format"
-msgstr "Применить формат тэга"
-
-msgid "Apply Text Encoding"
-msgstr "Применить Кодировка Текста"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Преобразуйте ID3v2.3 в ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Преобразуйте ID3v2.4 в ID3v2.3"
-
-msgid "Play"
-msgstr "Играть"
-
-msgid "&Settings"
-msgstr "&Настройка"
-
-msgid "Enables/disables the toolbar"
-msgstr "Включить/выключить панель инструментов"
-
-msgid "Show &Toolbar"
-msgstr "Отобразить панель &инструментов"
-
-msgid "Enables/disables the statusbar"
-msgstr "Включить/выключить строку состояния"
-
-msgid "Show St&atusbar"
-msgstr "Показать строку &состояния"
-
-msgid "Show Picture"
-msgstr "Показывать картину"
-
-msgid "Auto Hide Tags"
-msgstr "Теги автоматическое скрытие"
-
-msgid "Configure Kid3"
-msgstr "Настроить Kid3"
-
-msgid "&Configure Kid3..."
-msgstr "&Настроить Kid3..."
-
-msgid "Kid3 &Handbook"
-msgstr "&Руководство \"Kid3\""
-
-msgid "About Kid3"
-msgstr "О Kid3"
-
-msgid "&About Kid3"
-msgstr "&О Kid3"
-
-msgid "About Qt"
-msgstr "О Qt"
-
-msgid "About &Qt"
-msgstr "О &Qt"
 
 msgid "Opening directory..."
 msgstr "Открытие каталога..."
@@ -1624,17 +1614,8 @@ msgstr ""
 msgid "Warning"
 msgstr "Предупреждение"
 
-msgid "Warning - Kid3"
-msgstr "Предупреждение - Kid3"
-
-msgid "Open"
-msgstr "Открыть"
-
 msgid "Exiting..."
 msgstr "Выход..."
-
-msgid "Toggle the statusbar..."
-msgstr "Переключение строки состояния..."
 
 msgid "Creating playlist..."
 msgstr "Создание списка песен..."
@@ -1642,17 +1623,11 @@ msgstr "Создание списка песен..."
 msgid "Import"
 msgstr "Импорт"
 
-msgid "Configure - Kid3"
-msgstr "Настройка - Kid3"
-
 msgid "Error while renaming:\n"
 msgstr "Ошибка переименование:\n"
 
 msgid " [filtered]"
 msgstr " [фильтровано]"
-
-msgid " [modified]"
-msgstr " [изменено]"
 
 msgid "Add Frame"
 msgstr "Добавить Фрейм"
@@ -1683,6 +1658,39 @@ msgstr "Не удалось переместить элементы в корз�
 
 msgid "Expand All"
 msgstr "Развернуть всё"
+
+msgid "&Expand all"
+msgstr "&Развернуть всё"
+
+msgid "&Collapse all"
+msgstr "&Свернуть всё"
+
+msgid "&Rename"
+msgstr "&Переименовать"
+
+msgid "&Move to Trash"
+msgstr "&Выбросить в корзину"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "Ф&айлы"
+
+msgid "Name:"
+msgstr "Имя:"
+
+msgid "Filename from Tag 1"
+msgstr "Имя файла из тег 1"
+
+msgid "Filename from Tag 2"
+msgstr "Имя файла из тег 2"
+
+msgid "Tag 1 from Filename"
+msgstr "Тег 1 из имени файла"
+
+msgid "Tag 2 from Filename"
+msgstr "Тег 1 из имени файла"
 
 msgid "&Add..."
 msgstr "&Добавить..."
@@ -1785,15 +1793,6 @@ msgstr "Отключить звук"
 
 msgid "Volume: %1%"
 msgstr "Громкость: %1%"
-
-msgid "&Clear List"
-msgstr "&Очистить список"
-
-msgid "Clear"
-msgstr "Очистить"
-
-msgid "Reset"
-msgstr "Сброс"
 
 msgid "Add Item"
 msgstr "Добавить элемент"

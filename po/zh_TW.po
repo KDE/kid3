@@ -5,10 +5,9 @@
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-29 17:08+0100\n"
+"Project-Id-Version: Kid3 2.3\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2013-04-14 17:22+0200\n"
 "PO-Revision-Date: 2011-01-15 17:43+0100\n"
 "Last-Translator: \n"
 "Language-Team: Chinese (traditional) <kde-i18n-doc@kde.org>\n"
@@ -24,6 +23,407 @@ msgstr ""
 "X-Language: zh_TW\n"
 "X-Source-Language: en\n"
 
+msgid "Tags"
+msgstr "標籤"
+
+msgid "Files"
+msgstr "檔案"
+
+msgid "User Actions"
+msgstr "自訂動作"
+
+msgid "Network"
+msgstr "網路"
+
+msgid "Main Toolbar"
+msgstr "主工具列"
+
+msgid "Opens a directory"
+msgstr "開啟目錄"
+
+msgid "Opens a recently used directory"
+msgstr "開啟目前所在的目錄"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "還原全部有更動的檔案或只有選取部份"
+
+msgid "Saves the changed files"
+msgstr "儲存更動的檔案"
+
+msgid "Quits the application"
+msgstr "離開應用程式"
+
+msgid "Select all files"
+msgstr "選擇全部檔案"
+
+msgid "Deselect all files"
+msgstr "全部不選"
+
+msgid "Configure Shortcuts"
+msgstr "設定捷徑"
+
+msgid "Configure Toolbars"
+msgstr "設定工具列"
+
+msgid "Preferences dialog"
+msgstr "喜好設定對話框"
+
+msgid "O&pen Directory..."
+msgstr "開啟目錄(&P)..."
+
+msgid "&Import..."
+msgstr "匯入(&I)..."
+
+msgid "Import from %1..."
+msgstr "從 %1 匯入..."
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Fingerprint"
+
+msgid "Automatic I&mport..."
+msgstr "自動匯入(&M)..."
+
+msgid "&Browse Cover Art..."
+msgstr "瀏覽專輯封面(&B)..."
+
+msgid "&Export..."
+msgstr "匯出(&E)..."
+
+msgid "&Create Playlist..."
+msgstr "新增播放清單(&C)..."
+
+msgid "Apply &Filename Format"
+msgstr "依據檔名格式(&F)"
+
+msgid "Apply &Tag Format"
+msgstr "套用標籤格式(&T)"
+
+msgid "Apply Text &Encoding"
+msgstr "将字符编码(&E)"
+
+msgid "&Rename Directory..."
+msgstr "更改目錄名稱(&R)..."
+
+msgid "&Number Tracks..."
+msgstr "音軌編號(&N)..."
+
+msgid "F&ilter..."
+msgstr "過濾(&I)..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "從 ID3v2.3 轉換至 ID3v2.&4"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "從 ID3v2.4 轉換至 ID3v2.&3"
+
+msgid "&Play"
+msgstr "播放(&P)"
+
+msgid "Show &Picture"
+msgstr "顯示圖片(&P)"
+
+msgid "Auto &Hide Tags"
+msgstr "自動隱藏標籤(&H)"
+
+msgid "Select All in &Directory"
+msgstr "选中当前目录中所有的文件(&D)"
+
+msgid "&Previous File"
+msgstr "上一個檔案(&P)"
+
+msgid "&Next File"
+msgstr "下一個檔案(&N)"
+
+msgid "Tag 1"
+msgstr "標籤 1"
+
+msgid "From Filename"
+msgstr "從檔名"
+
+msgid "From Tag 2"
+msgstr "從標籤 2"
+
+msgid "Copy"
+msgstr "複製"
+
+msgid "Paste"
+msgstr "貼上"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Tag 2"
+msgstr "標籤 2"
+
+msgid "From Tag 1"
+msgstr "從標籤 1"
+
+msgid "Frames:"
+msgstr "訊框："
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Filename"
+msgstr "檔名"
+
+msgid "Focus"
+msgstr "焦點"
+
+msgid "File List"
+msgstr "檔案清單"
+
+msgid "Directory List"
+msgstr "目錄清單"
+
+msgid "Configure - Kid3"
+msgstr "設定 - Kid3"
+
+msgid "Open"
+msgstr "開啟"
+
+msgid "Save As"
+msgstr "另存新檔"
+
+msgid "directory to open"
+msgstr "開啟目錄"
+
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 ID3 Tagger"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Chung-Yu Hsu"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "yayow at mail dot shps dot kh dot edu dot tw"
+
+msgid "&Back"
+msgstr "返回(&B)"
+
+msgid "&Forward"
+msgstr "向前(&F)"
+
+msgid "&Find:"
+msgstr "尋找(&F):"
+
+msgid "Find Previous"
+msgstr "尋找前一個"
+
+msgid "Find Next"
+msgstr "尋找下一個"
+
+msgid "&Close"
+msgstr "關閉(&C)"
+
+msgid "&Tags"
+msgstr "標籤(&T)"
+
+msgid "&Files"
+msgstr "檔案(&F)"
+
+msgid "&User Actions"
+msgstr "自訂動作(&U)"
+
+msgid "&Network"
+msgstr "網路(&N)"
+
+msgid "&Keyboard Shortcuts"
+msgstr "捷徑鍵(&K)"
+
+msgid "Use custom app&lication font"
+msgstr "使用自訂應用程式字型(&L)"
+
+msgid "A&pplication Font..."
+msgstr "應用程式字型(&P)..."
+
+msgid "Use custom application &style"
+msgstr "使用自訂應用程式樣式(&S)"
+
+msgid "Unknown"
+msgstr "未知"
+
+msgid "Use native system file &dialogs"
+msgstr "使用原始系統檔案對話框(&D)"
+
+msgid "&Appearance"
+msgstr "外觀設定(&A)"
+
+msgid "&Help"
+msgstr "求助(&H)"
+
+msgid "&OK"
+msgstr "確定(&O)"
+
+msgid "&Cancel"
+msgstr "取消(&C)"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "快速鍵'%1'已經指定為'%2'."
+
+msgid "&File"
+msgstr "檔案(&F)"
+
+msgid "&Open..."
+msgstr "開啟(&O)..."
+
+msgid "Open &Recent"
+msgstr "開啟最近的檔案(&R)"
+
+msgid "&Save"
+msgstr "儲存(&S)"
+
+msgid "Re&vert"
+msgstr "還原(&V)"
+
+msgid "Import from file or clipboard"
+msgstr "自剪貼簿匯入"
+
+msgid "Import from %1"
+msgstr "自 %1 匯入"
+
+msgid "Automatic import"
+msgstr "自動匯入"
+
+msgid "Browse album cover artwork"
+msgstr "瀏覽專輯封面"
+
+msgid "Export to file or clipboard"
+msgstr "匯出至檔案或剪貼簿"
+
+msgid "Create M3U Playlist"
+msgstr "建立 M3U 播放清單"
+
+msgid "&Quit"
+msgstr "離開(&Q)"
+
+msgid "&Edit"
+msgstr "編輯(&E)"
+
+msgid "Select &All"
+msgstr "全選(&A)"
+
+msgid "Dese&lect"
+msgstr "取消選擇(&l)"
+
+msgid "Select all files in the current directory"
+msgstr "选中当前目录中所有的文件"
+
+msgid "Select previous file"
+msgstr "選擇上一個檔案"
+
+msgid "Select next file"
+msgstr "選擇下一個檔案"
+
+msgid "&Tools"
+msgstr "工具(&T)"
+
+msgid "Apply Filename Format"
+msgstr "套用檔名格式"
+
+msgid "Apply Tag Format"
+msgstr "套用 Tag 格式"
+
+msgid "Apply Text Encoding"
+msgstr "将字符编码"
+
+msgid "Rename Directory"
+msgstr "更改目錄名稱"
+
+msgid "Number Tracks"
+msgstr "音軌編號"
+
+msgid "Filter"
+msgstr "篩選"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "從 ID3v2.3 轉換成 ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "從 ID3v2.4 轉換成 ID3v2.3"
+
+msgid "Play"
+msgstr "播放"
+
+msgid "&Settings"
+msgstr "設定(&S)"
+
+msgid "Enables/disables the toolbar"
+msgstr "開啟/關閉 工具列"
+
+msgid "Show &Toolbar"
+msgstr "顯示工具列(&T)"
+
+msgid "Enables/disables the statusbar"
+msgstr "開啟/關閉 狀態列"
+
+msgid "Show St&atusbar"
+msgstr "顯示狀態列(&A)"
+
+msgid "Show Picture"
+msgstr "顯示圖片"
+
+msgid "Auto Hide Tags"
+msgstr "自動隱藏標籤"
+
+msgid "Configure Kid3"
+msgstr "設定 Kid3"
+
+msgid "&Configure Kid3..."
+msgstr "設定 Kid3(&C)..."
+
+msgid "Kid3 Handbook"
+msgstr "Kid3 手冊"
+
+msgid "Kid3 &Handbook"
+msgstr "Kid3 手冊(&H)"
+
+msgid "About Kid3"
+msgstr "關於 Kid3"
+
+msgid "&About Kid3"
+msgstr "關於 Kid3(&A)"
+
+msgid "About Qt"
+msgstr "關於 Qt"
+
+msgid "About &Qt"
+msgstr "關於 Qt(&Q)"
+
+msgid " [modified]"
+msgstr "[已更改]"
+
+msgid "Toggle the statusbar..."
+msgstr "切換狀態列..."
+
+msgid "Ready."
+msgstr "已就緒。"
+
+msgid "&Clear List"
+msgstr "清除清單(&C)"
+
+msgid "Clear"
+msgstr "清除"
+
+msgid "Reset"
+msgstr "重設"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr "按 F2 或雙擊來編輯清單內容。"
+
+msgid "Action"
+msgstr "動作"
+
+msgid "Shortcut"
+msgstr "快捷鍵"
+
 msgid "Server"
 msgstr "伺服器"
 
@@ -38,15 +438,6 @@ msgstr "額外標籤"
 
 msgid "Cover Art"
 msgstr "封面"
-
-msgid "Press F2 or double click to edit cell contents."
-msgstr "按 F2 或雙擊來編輯清單內容。"
-
-msgid "Action"
-msgstr "動作"
-
-msgid "Shortcut"
-msgstr "快捷鍵"
 
 msgid "AENC - Audio encryption"
 msgstr "AENC - 音效加密"
@@ -336,9 +727,6 @@ msgstr "TSST - 設定字幕"
 msgid "Amazon"
 msgstr "Amazon"
 
-msgid "Unknown"
-msgstr "未知"
-
 msgid "Invalid File"
 msgstr "檔案無效"
 
@@ -350,9 +738,6 @@ msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "接收 %1 資料中"
-
-msgid "Ready."
-msgstr "已就緒。"
 
 msgid "Error"
 msgstr "錯誤"
@@ -447,9 +832,6 @@ msgstr "更改檔案名稱"
 msgid "C&lear"
 msgstr "清除(&l)"
 
-msgid "&Close"
-msgstr "關閉(&C)"
-
 msgid "Execute "
 msgstr "執行"
 
@@ -480,17 +862,14 @@ msgstr "資料"
 msgid "All Supported Files"
 msgstr "所有支援檔案"
 
-msgid "All Files (*)"
-msgstr "所有檔案(*)"
+msgid "All Files"
+msgstr "所有檔案"
 
 msgid "Track"
 msgstr "音軌"
 
 msgid "Absolute path to file"
 msgstr "檔案的絕對路徑"
-
-msgid "Filename"
-msgstr "檔名"
 
 msgid "Duration"
 msgstr "持續時間"
@@ -654,46 +1033,17 @@ msgstr "頻道"
 msgid "Codec"
 msgstr "Codec"
 
-msgid "directory to open"
-msgstr "開啟目錄"
-
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 ID3 Tagger"
-
-#. i18n NAME OF TRANSLATORS
-msgid "Your names"
-msgstr "Chung-Yu Hsu"
-
-#. i18n EMAIL OF TRANSLATORS
-msgid "Your emails"
-msgstr "yayow at mail dot shps dot kh dot edu dot tw"
-
 msgid "Automatic Import"
 msgstr "自動匯入"
 
 msgid "D&estination:"
 msgstr "目的(&E)："
 
-msgid "Tag 1"
-msgstr "標籤 1"
-
-msgid "Tag 2"
-msgstr "標籤 2"
-
 msgid "Tag 1 and Tag 2"
 msgstr "標籤 1 與 標籤 2"
 
 msgid "&Profile:"
 msgstr "設定檔(&P):"
-
-msgid "Add"
-msgstr "新增"
-
-msgid "Remove"
-msgstr "移除"
-
-msgid "&Help"
-msgstr "求助(&H)"
 
 msgid "&Save Settings"
 msgstr "儲存設定(&S)"
@@ -779,29 +1129,11 @@ msgstr "圖片網址"
 msgid "&Browse"
 msgstr "瀏覽(&B)"
 
-msgid "&Cancel"
-msgstr "取消(&C)"
-
 msgid "Click Browse to start"
 msgstr "按瀏覽開始"
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "然後從瀏覽器拖拉圖片至 Kid3."
-
-msgid "&Back"
-msgstr "返回(&B)"
-
-msgid "&Forward"
-msgstr "向前(&F)"
-
-msgid "&Find:"
-msgstr "尋找(&F):"
-
-msgid "Find Previous"
-msgstr "尋找前一個"
-
-msgid "Find Next"
-msgstr "尋找下一個"
 
 msgid "ID3v1"
 msgstr "ID3v1"
@@ -875,12 +1207,6 @@ msgstr "標籤 &2"
 msgid "Tag 1 a&nd Tag 2"
 msgstr "標籤 1 與 標籤 2(&N)"
 
-msgid "Tags"
-msgstr "標籤"
-
-msgid "&Tags"
-msgstr "標籤(&T)"
-
 msgid "Startup"
 msgstr "啟動"
 
@@ -902,12 +1228,6 @@ msgstr "專輯封面的文件名(&I):"
 msgid "&Filename Format"
 msgstr "檔案名稱格式(&F)"
 
-msgid "Files"
-msgstr "檔案"
-
-msgid "&Files"
-msgstr "檔案(&F)"
-
 msgid "Browser"
 msgstr "瀏覽"
 
@@ -920,12 +1240,6 @@ msgstr "內文選單指令(&M)"
 #, fuzzy
 msgid "&Play on double click"
 msgstr "雙擊上播放(&P)"
-
-msgid "User Actions"
-msgstr "自訂動作"
-
-msgid "&User Actions"
-msgstr "自訂動作(&U)"
 
 msgid "Proxy"
 msgstr "代理伺服器"
@@ -941,39 +1255,6 @@ msgstr "代理伺服器帳號(&n):"
 
 msgid "Proxy pass&word:"
 msgstr "代理伺服器密碼(&w):"
-
-msgid "Network"
-msgstr "網路"
-
-msgid "&Network"
-msgstr "網路(&N)"
-
-msgid "&Keyboard Shortcuts"
-msgstr "捷徑鍵(&K)"
-
-msgid "Use custom app&lication font"
-msgstr "使用自訂應用程式字型(&L)"
-
-msgid "A&pplication Font..."
-msgstr "應用程式字型(&P)..."
-
-msgid "Use custom application &style"
-msgstr "使用自訂應用程式樣式(&S)"
-
-msgid "Use native system file &dialogs"
-msgstr "使用原始系統檔案對話框(&D)"
-
-msgid "&Appearance"
-msgstr "外觀設定(&A)"
-
-msgid "&OK"
-msgstr "確定(&O)"
-
-msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "快速鍵'%1'已經指定為'%2'."
-
-msgid "Kid3 Handbook"
-msgstr "Kid3 手冊"
 
 msgid "From Clip&board"
 msgstr "從剪貼簿(&b)"
@@ -1053,8 +1334,8 @@ msgstr "價格"
 msgid "Seller"
 msgstr ""
 
-msgid "Images (*.jpg *.jpeg *.png)"
-msgstr "影像（*.jpg *.jpeg *.png）"
+msgid "Images"
+msgstr "圖片"
 
 msgid "UTF16BE"
 msgstr "UTF16BE"
@@ -1164,9 +1445,6 @@ msgstr "檔案錯誤"
 msgid "Error while writing file:\n"
 msgstr "寫入檔案錯誤:\n"
 
-msgid "Filter"
-msgstr "篩選"
-
 msgid "&Filter:"
 msgstr "篩選(&F):"
 
@@ -1190,9 +1468,6 @@ msgstr "從標籤(&a)..."
 
 msgid "&From Server:"
 msgstr "從伺服器(&F):"
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
 
 msgid "Revert"
 msgstr "還原"
@@ -1223,9 +1498,6 @@ msgstr "沒有結果"
 
 msgid "No result selected"
 msgstr "沒有選擇結果"
-
-msgid "Number Tracks"
-msgstr "音軌編號"
 
 msgid "&Start number:"
 msgstr "起始編號(&S):"
@@ -1287,9 +1559,6 @@ msgstr "僅依據檔案清單來寫入(&L)"
 msgid "Write &info using"
 msgstr "寫入依據(&I)"
 
-msgid "Rename Directory"
-msgstr "更改目錄名稱"
-
 msgid "Format"
 msgstr "格式"
 
@@ -1301,12 +1570,6 @@ msgstr "建立目錄"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "從 標籤 2 與 標籤 1"
-
-msgid "From Tag 1"
-msgstr "從標籤 1"
-
-msgid "From Tag 2"
-msgstr "從標籤 2"
 
 msgid "From:"
 msgstr "從："
@@ -1332,281 +1595,8 @@ msgstr "自剪貼簿匯入"
 msgid "From F&ile"
 msgstr "從檔案(&I)"
 
-msgid "&Expand all"
-msgstr "全部展開(&E)"
-
-msgid "&Collapse all"
-msgstr "全部折疊(&C)"
-
-msgid "&Rename"
-msgstr "更名(&R)"
-
-msgid "&Move to Trash"
-msgstr "移至垃圾桶(&M)"
-
-msgid "&Play"
-msgstr "播放(&P)"
-
-msgid "Kid3"
-msgstr "Kid3"
-
-msgid "F&ile"
-msgstr "檔案(&I)"
-
-msgid "Name:"
-msgstr "檔案名稱:"
-
-msgid "Filename from Tag 1"
-msgstr "檔名從標籤 1"
-
-msgid "Filename from Tag 2"
-msgstr "檔名從標籤 2"
-
-msgid "Tag 1 from Filename"
-msgstr "標籤 1從檔名"
-
-msgid "Tag 2 from Filename"
-msgstr "標籤 2從檔名"
-
-msgid "Copy"
-msgstr "複製"
-
-msgid "Paste"
-msgstr "貼上"
-
-msgid "Edit"
-msgstr "編輯"
-
-msgid "Delete"
-msgstr "刪除"
-
-msgid "Focus"
-msgstr "焦點"
-
-msgid "From Filename"
-msgstr "從檔名"
-
-msgid "File List"
-msgstr "檔案清單"
-
-msgid "Directory List"
-msgstr "目錄清單"
-
 msgid "Download"
 msgstr "下載"
-
-msgid "Main Toolbar"
-msgstr "主工具列"
-
-msgid "Opens a directory"
-msgstr "開啟目錄"
-
-msgid "Opens a recently used directory"
-msgstr "開啟目前所在的目錄"
-
-msgid "Reverts the changes of all or the selected files"
-msgstr "還原全部有更動的檔案或只有選取部份"
-
-msgid "Saves the changed files"
-msgstr "儲存更動的檔案"
-
-msgid "Quits the application"
-msgstr "離開應用程式"
-
-msgid "Select all files"
-msgstr "選擇全部檔案"
-
-msgid "Deselect all files"
-msgstr "全部不選"
-
-msgid "Configure Shortcuts"
-msgstr "設定捷徑"
-
-msgid "Configure Toolbars"
-msgstr "設定工具列"
-
-msgid "Preferences dialog"
-msgstr "喜好設定對話框"
-
-msgid "O&pen Directory..."
-msgstr "開啟目錄(&P)..."
-
-msgid "&Import..."
-msgstr "匯入(&I)..."
-
-msgid "Import from %1..."
-msgstr "從 %1 匯入..."
-
-msgid "Automatic I&mport..."
-msgstr "自動匯入(&M)..."
-
-msgid "&Browse Cover Art..."
-msgstr "瀏覽專輯封面(&B)..."
-
-msgid "&Export..."
-msgstr "匯出(&E)..."
-
-msgid "&Create Playlist..."
-msgstr "新增播放清單(&C)..."
-
-msgid "Apply &Filename Format"
-msgstr "依據檔名格式(&F)"
-
-msgid "Apply &Tag Format"
-msgstr "套用標籤格式(&T)"
-
-msgid "Apply Text &Encoding"
-msgstr "将字符编码(&E)"
-
-msgid "&Rename Directory..."
-msgstr "更改目錄名稱(&R)..."
-
-msgid "&Number Tracks..."
-msgstr "音軌編號(&N)..."
-
-msgid "F&ilter..."
-msgstr "過濾(&I)..."
-
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "從 ID3v2.3 轉換至 ID3v2.&4"
-
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "從 ID3v2.4 轉換至 ID3v2.&3"
-
-msgid "Show &Picture"
-msgstr "顯示圖片(&P)"
-
-msgid "Auto &Hide Tags"
-msgstr "自動隱藏標籤(&H)"
-
-msgid "Select All in &Directory"
-msgstr "选中当前目录中所有的文件(&D)"
-
-msgid "&Previous File"
-msgstr "上一個檔案(&P)"
-
-msgid "&Next File"
-msgstr "下一個檔案(&N)"
-
-msgid "Frames:"
-msgstr "訊框："
-
-msgid "&File"
-msgstr "檔案(&F)"
-
-msgid "&Open..."
-msgstr "開啟(&O)..."
-
-msgid "Open &Recent"
-msgstr "開啟最近的檔案(&R)"
-
-msgid "&Save"
-msgstr "儲存(&S)"
-
-msgid "Re&vert"
-msgstr "還原(&V)"
-
-msgid "Import from file or clipboard"
-msgstr "自剪貼簿匯入"
-
-msgid "Import from %1"
-msgstr "自 %1 匯入"
-
-msgid "Automatic import"
-msgstr "自動匯入"
-
-msgid "Browse album cover artwork"
-msgstr "瀏覽專輯封面"
-
-msgid "Export to file or clipboard"
-msgstr "匯出至檔案或剪貼簿"
-
-msgid "Create M3U Playlist"
-msgstr "建立 M3U 播放清單"
-
-msgid "&Quit"
-msgstr "離開(&Q)"
-
-msgid "&Edit"
-msgstr "編輯(&E)"
-
-msgid "Select &All"
-msgstr "全選(&A)"
-
-msgid "Dese&lect"
-msgstr "取消選擇(&l)"
-
-msgid "Select all files in the current directory"
-msgstr "选中当前目录中所有的文件"
-
-msgid "Select previous file"
-msgstr "選擇上一個檔案"
-
-msgid "Select next file"
-msgstr "選擇下一個檔案"
-
-msgid "&Tools"
-msgstr "工具(&T)"
-
-msgid "Apply Filename Format"
-msgstr "套用檔名格式"
-
-msgid "Apply Tag Format"
-msgstr "套用 Tag 格式"
-
-msgid "Apply Text Encoding"
-msgstr "将字符编码"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "從 ID3v2.3 轉換成 ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "從 ID3v2.4 轉換成 ID3v2.3"
-
-msgid "Play"
-msgstr "播放"
-
-msgid "&Settings"
-msgstr "設定(&S)"
-
-msgid "Enables/disables the toolbar"
-msgstr "開啟/關閉 工具列"
-
-msgid "Show &Toolbar"
-msgstr "顯示工具列(&T)"
-
-msgid "Enables/disables the statusbar"
-msgstr "開啟/關閉 狀態列"
-
-msgid "Show St&atusbar"
-msgstr "顯示狀態列(&A)"
-
-msgid "Show Picture"
-msgstr "顯示圖片"
-
-msgid "Auto Hide Tags"
-msgstr "自動隱藏標籤"
-
-msgid "Configure Kid3"
-msgstr "設定 Kid3"
-
-msgid "&Configure Kid3..."
-msgstr "設定 Kid3(&C)..."
-
-msgid "Kid3 &Handbook"
-msgstr "Kid3 手冊(&H)"
-
-msgid "About Kid3"
-msgstr "關於 Kid3"
-
-msgid "&About Kid3"
-msgstr "關於 Kid3(&A)"
-
-msgid "About Qt"
-msgstr "關於 Qt"
-
-msgid "About &Qt"
-msgstr "關於 Qt(&Q)"
 
 msgid "Opening directory..."
 msgstr "開啟目錄..."
@@ -1624,17 +1614,8 @@ msgstr ""
 msgid "Warning"
 msgstr "警告"
 
-msgid "Warning - Kid3"
-msgstr "警告 - Kid3"
-
-msgid "Open"
-msgstr "開啟"
-
 msgid "Exiting..."
 msgstr "離開..."
-
-msgid "Toggle the statusbar..."
-msgstr "切換狀態列..."
 
 msgid "Creating playlist..."
 msgstr "新增播放清單..."
@@ -1642,17 +1623,11 @@ msgstr "新增播放清單..."
 msgid "Import"
 msgstr "匯入"
 
-msgid "Configure - Kid3"
-msgstr "設定 - Kid3"
-
 msgid "Error while renaming:\n"
 msgstr "更改檔名發生錯誤:\n"
 
 msgid " [filtered]"
 msgstr "[已篩選]"
-
-msgid " [modified]"
-msgstr "[已更改]"
 
 msgid "Add Frame"
 msgstr "新增訊框"
@@ -1683,6 +1658,39 @@ msgstr "無法將這些檔案丟到垃圾桶"
 
 msgid "Expand All"
 msgstr "全部展開"
+
+msgid "&Expand all"
+msgstr "全部展開(&E)"
+
+msgid "&Collapse all"
+msgstr "全部折疊(&C)"
+
+msgid "&Rename"
+msgstr "更名(&R)"
+
+msgid "&Move to Trash"
+msgstr "移至垃圾桶(&M)"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "檔案(&I)"
+
+msgid "Name:"
+msgstr "檔案名稱:"
+
+msgid "Filename from Tag 1"
+msgstr "檔名從標籤 1"
+
+msgid "Filename from Tag 2"
+msgstr "檔名從標籤 2"
+
+msgid "Tag 1 from Filename"
+msgstr "標籤 1從檔名"
+
+msgid "Tag 2 from Filename"
+msgstr "標籤 2從檔名"
 
 msgid "&Add..."
 msgstr "新增(&A)..."
@@ -1785,15 +1793,6 @@ msgstr "靜音"
 
 msgid "Volume: %1%"
 msgstr "音量: %1%"
-
-msgid "&Clear List"
-msgstr "清除清單(&C)"
-
-msgid "Clear"
-msgstr "清除"
-
-msgid "Reset"
-msgstr "重設"
 
 msgid "Add Item"
 msgstr "新增項目"

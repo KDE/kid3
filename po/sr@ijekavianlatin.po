@@ -5,10 +5,9 @@
 # Mladen Pejaković <pejakm@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: Kid3 2.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"group_id=70849&atid=529221\n"
-"POT-Creation-Date: 2013-03-29 17:08+0100\n"
+"Project-Id-Version: Kid3 2.3\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
+"POT-Creation-Date: 2013-04-14 17:22+0200\n"
 "PO-Revision-Date: 2011-04-26 23:41+0200\n"
 "Last-Translator: Mladen Pejaković <pejakm@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@lists.kde.org>\n"
@@ -21,6 +20,407 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Language: sr\n"
 "X-Source-Language: C\n"
+
+msgid "Tags"
+msgstr "Oznake"
+
+msgid "Files"
+msgstr "Fajlovi"
+
+msgid "User Actions"
+msgstr "Radnje korisnika"
+
+msgid "Network"
+msgstr "Mreža"
+
+msgid "Main Toolbar"
+msgstr "Glavna traka"
+
+msgid "Opens a directory"
+msgstr "Otvara direktorijum"
+
+msgid "Opens a recently used directory"
+msgstr "Otvara nedavno korišćen direktorijum"
+
+msgid "Reverts the changes of all or the selected files"
+msgstr "Poništava izmjene svih ili izabranih fajlova"
+
+msgid "Saves the changed files"
+msgstr "Upisuje izmjene fajlova"
+
+msgid "Quits the application"
+msgstr "Napušta aplikaciju"
+
+msgid "Select all files"
+msgstr "Izaberi sve fajlove"
+
+msgid "Deselect all files"
+msgstr "Poništi izbor svih fajlova"
+
+msgid "Configure Shortcuts"
+msgstr "Podesi prečice"
+
+msgid "Configure Toolbars"
+msgstr "Podesi trake alata"
+
+msgid "Preferences dialog"
+msgstr "Dijalog podešavanja"
+
+msgid "O&pen Directory..."
+msgstr "O&tvori direktorijum..."
+
+msgid "&Import..."
+msgstr "&Uvezi..."
+
+msgid "Import from %1..."
+msgstr "Uvezi sa %1..."
+
+msgid "MusicBrainz Fingerprint"
+msgstr "MjuzikBrejnz Otisak prsta"
+
+msgid "Automatic I&mport..."
+msgstr "Auto&matski uvozi..."
+
+msgid "&Browse Cover Art..."
+msgstr "Potraži o&mot albuma..."
+
+msgid "&Export..."
+msgstr "Izv&ezi..."
+
+msgid "&Create Playlist..."
+msgstr "Napravi &listu numera..."
+
+msgid "Apply &Filename Format"
+msgstr "Primijeni format imena fa&jla"
+
+msgid "Apply &Tag Format"
+msgstr "Primijeni format &oznake"
+
+msgid "Apply Text &Encoding"
+msgstr "Primijeni kodiranje t&eksta"
+
+msgid "&Rename Directory..."
+msgstr "Preimenuj &direktorijum..."
+
+msgid "&Number Tracks..."
+msgstr "Nu&meriši..."
+
+msgid "F&ilter..."
+msgstr "F&ilter..."
+
+msgid "Convert ID3v2.3 to ID3v2.&4"
+msgstr "Pretvori ID3v2.3 u ID3v2.&4"
+
+msgid "Convert ID3v2.4 to ID3v2.&3"
+msgstr "Pretvori ID3v2.4 u ID3v2.&3"
+
+msgid "&Play"
+msgstr "Re&produkuj"
+
+msgid "Show &Picture"
+msgstr "Prikaži s&liku"
+
+msgid "Auto &Hide Tags"
+msgstr "Automatski &sakrij oznake"
+
+msgid "Select All in &Directory"
+msgstr ""
+
+msgid "&Previous File"
+msgstr "&Prethodni fajl"
+
+msgid "&Next File"
+msgstr "&Sljedeći fajl"
+
+msgid "Tag 1"
+msgstr "oznaka 1"
+
+msgid "From Filename"
+msgstr "Iz imena fajla"
+
+msgid "From Tag 2"
+msgstr "Iz oznake 2"
+
+msgid "Copy"
+msgstr "Kopiraj"
+
+msgid "Paste"
+msgstr "Nalijepi"
+
+msgid "Remove"
+msgstr "Ukloni"
+
+msgid "Tag 2"
+msgstr "oznaka 2"
+
+msgid "From Tag 1"
+msgstr "Iz oznake 1"
+
+msgid "Frames:"
+msgstr "Kadrovi:"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Delete"
+msgstr "Obriši"
+
+msgid "Filename"
+msgstr "Ime fajla"
+
+msgid "Focus"
+msgstr "Fokus"
+
+msgid "File List"
+msgstr "Spisak fajlova"
+
+msgid "Directory List"
+msgstr "Spisak fascikli"
+
+msgid "Configure - Kid3"
+msgstr "Podešavanje - Kid3"
+
+msgid "Open"
+msgstr "Otvori"
+
+msgid "Save As"
+msgstr "Sačuvaj kao"
+
+msgid "directory to open"
+msgstr "direktorijum za otvaranje"
+
+msgid "Kid3 ID3 Tagger"
+msgstr "Kid3 uređivač ID3 oznaka"
+
+#. i18n NAME OF TRANSLATORS
+msgid "Your names"
+msgstr "Mladen Pejaković"
+
+#. i18n EMAIL OF TRANSLATORS
+msgid "Your emails"
+msgstr "pejakm@gmail.com"
+
+msgid "&Back"
+msgstr "&Nazad"
+
+msgid "&Forward"
+msgstr "Na&prijed"
+
+msgid "&Find:"
+msgstr "&Nađi:"
+
+msgid "Find Previous"
+msgstr "Nađi prethodno"
+
+msgid "Find Next"
+msgstr "Nađi sljedeće"
+
+msgid "&Close"
+msgstr "&Zatvori"
+
+msgid "&Tags"
+msgstr "&Oznake"
+
+msgid "&Files"
+msgstr "&Fajlovi"
+
+msgid "&User Actions"
+msgstr "Radnje &korisnika"
+
+msgid "&Network"
+msgstr "&Mreža"
+
+msgid "&Keyboard Shortcuts"
+msgstr "Prečice &tastature"
+
+msgid "Use custom app&lication font"
+msgstr "Koristi pose&bni font za aplikaciju"
+
+msgid "A&pplication Font..."
+msgstr "&Font aplikacije..."
+
+msgid "Use custom application &style"
+msgstr "Koristi posebni &stil za aplikaciju"
+
+msgid "Unknown"
+msgstr "Nepoznato"
+
+msgid "Use native system file &dialogs"
+msgstr "Koristi sistemske &dijaloge fajlova"
+
+msgid "&Appearance"
+msgstr "&Izgled"
+
+msgid "&Help"
+msgstr "Po&moć"
+
+msgid "&OK"
+msgstr "&U redu"
+
+msgid "&Cancel"
+msgstr "&Odustani"
+
+msgid "The keyboard shortcut '%1' is already assigned to '%2'."
+msgstr "Prečica tastature '%1' je već dodijeljena '%2'."
+
+msgid "&File"
+msgstr "&Fajl"
+
+msgid "&Open..."
+msgstr "&Otvori..."
+
+msgid "Open &Recent"
+msgstr "Otvori &nedavno"
+
+msgid "&Save"
+msgstr "&Sačuvaj"
+
+msgid "Re&vert"
+msgstr "&Vrati"
+
+msgid "Import from file or clipboard"
+msgstr "Uvezi iz fajla ili klipborda"
+
+msgid "Import from %1"
+msgstr "Uvezi sa %1"
+
+msgid "Automatic import"
+msgstr "Automatski uvozi"
+
+msgid "Browse album cover artwork"
+msgstr "Potraži sliku omota albuma"
+
+msgid "Export to file or clipboard"
+msgstr "Izvezi u fajl ili klipbord"
+
+msgid "Create M3U Playlist"
+msgstr "Napravi M3U listu numera"
+
+msgid "&Quit"
+msgstr "&Napusti"
+
+msgid "&Edit"
+msgstr "&Uredi"
+
+msgid "Select &All"
+msgstr "Izaberi s&ve"
+
+msgid "Dese&lect"
+msgstr "Po&ništi izbor"
+
+msgid "Select all files in the current directory"
+msgstr ""
+
+msgid "Select previous file"
+msgstr "Izaberi prethodni fajl"
+
+msgid "Select next file"
+msgstr "Izaberi sljedeći fajl"
+
+msgid "&Tools"
+msgstr "&Alati"
+
+msgid "Apply Filename Format"
+msgstr "Primijeni format naziva fajla"
+
+msgid "Apply Tag Format"
+msgstr "Primijeni format oznake"
+
+msgid "Apply Text Encoding"
+msgstr "Primijeni kodiranje teksta"
+
+msgid "Rename Directory"
+msgstr "Preimenuj direktorijum"
+
+msgid "Number Tracks"
+msgstr "Numeriši"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Convert ID3v2.3 to ID3v2.4"
+msgstr "Pretvori ID3v2.3 u ID3v2.4"
+
+msgid "Convert ID3v2.4 to ID3v2.3"
+msgstr "Pretvori ID3v2.4 u ID3v2.3"
+
+msgid "Play"
+msgstr "Reprodukcija"
+
+msgid "&Settings"
+msgstr "&Podešavanje"
+
+msgid "Enables/disables the toolbar"
+msgstr "Prikazuje/sakriva traku alata"
+
+msgid "Show &Toolbar"
+msgstr "Prikaži traku &alata"
+
+msgid "Enables/disables the statusbar"
+msgstr "Prikazuje/sakriva traku stanja"
+
+msgid "Show St&atusbar"
+msgstr "Prikaži traku &stanja"
+
+msgid "Show Picture"
+msgstr "Prikaži sliku"
+
+msgid "Auto Hide Tags"
+msgstr "Automatski sakrij oznake"
+
+msgid "Configure Kid3"
+msgstr "Podesi Kid3"
+
+msgid "&Configure Kid3..."
+msgstr "&Podesi Kid3..."
+
+msgid "Kid3 Handbook"
+msgstr "Kid3 priručnik"
+
+msgid "Kid3 &Handbook"
+msgstr "Kid3 p&riručnik"
+
+msgid "About Kid3"
+msgstr "O Kid3-u"
+
+msgid "&About Kid3"
+msgstr "&O Kid3-u"
+
+msgid "About Qt"
+msgstr "O KjuT-u"
+
+msgid "About &Qt"
+msgstr "O &KjuT-u"
+
+msgid " [modified]"
+msgstr " [izmijenjen]"
+
+msgid "Toggle the statusbar..."
+msgstr "Prikaži/sakrij traku stanja..."
+
+msgid "Ready."
+msgstr "Spreman."
+
+msgid "&Clear List"
+msgstr "O&čisti spisak"
+
+msgid "Clear"
+msgstr "Očisti"
+
+msgid "Reset"
+msgstr "Ponovo postavi"
+
+msgid "Press F2 or double click to edit cell contents."
+msgstr ""
+
+msgid "Action"
+msgstr "Radnja"
+
+msgid "Shortcut"
+msgstr "Prečica"
 
 msgid "Server"
 msgstr "Server"
@@ -36,15 +436,6 @@ msgstr "Dodatne oznake"
 
 msgid "Cover Art"
 msgstr "Omot albuma"
-
-msgid "Press F2 or double click to edit cell contents."
-msgstr ""
-
-msgid "Action"
-msgstr "Radnja"
-
-msgid "Shortcut"
-msgstr "Prečica"
 
 msgid "AENC - Audio encryption"
 msgstr "AENC - audio šifrovanje"
@@ -334,9 +725,6 @@ msgstr "TSST - postavi podnaslov"
 msgid "Amazon"
 msgstr "Amazon"
 
-msgid "Unknown"
-msgstr "Nepoznato"
-
 msgid "Invalid File"
 msgstr "Neispravna datoteka"
 
@@ -348,9 +736,6 @@ msgstr "gnudb.org"
 
 msgid "Data received: %1"
 msgstr "Podaci primljeni: %1"
-
-msgid "Ready."
-msgstr "Spreman."
 
 msgid "Error"
 msgstr "Greška"
@@ -445,9 +830,6 @@ msgstr "Preimenuj fajl"
 msgid "C&lear"
 msgstr "O&čisti"
 
-msgid "&Close"
-msgstr "&Zatvori"
-
 msgid "Execute "
 msgstr "Izvrši "
 
@@ -478,17 +860,14 @@ msgstr "Podaci"
 msgid "All Supported Files"
 msgstr "Svi podržani fajlovi"
 
-msgid "All Files (*)"
-msgstr "Svi fajlovi (*)"
+msgid "All Files"
+msgstr "Svi fajlovi"
 
 msgid "Track"
 msgstr "Numera"
 
 msgid "Absolute path to file"
 msgstr "Apsolutna putanja do fajla"
-
-msgid "Filename"
-msgstr "Ime fajla"
 
 msgid "Duration"
 msgstr "Trajanje"
@@ -652,46 +1031,17 @@ msgstr "Kanala"
 msgid "Codec"
 msgstr "Kodek"
 
-msgid "directory to open"
-msgstr "direktorijum za otvaranje"
-
-msgid "Kid3 ID3 Tagger"
-msgstr "Kid3 uređivač ID3 oznaka"
-
-#. i18n NAME OF TRANSLATORS
-msgid "Your names"
-msgstr "Mladen Pejaković"
-
-#. i18n EMAIL OF TRANSLATORS
-msgid "Your emails"
-msgstr "pejakm@gmail.com"
-
 msgid "Automatic Import"
 msgstr "Automatski uvozi"
 
 msgid "D&estination:"
 msgstr "O&dredište:"
 
-msgid "Tag 1"
-msgstr "oznaka 1"
-
-msgid "Tag 2"
-msgstr "oznaka 2"
-
 msgid "Tag 1 and Tag 2"
 msgstr "oznaka 1 i oznaka 2"
 
 msgid "&Profile:"
 msgstr "&Profil:"
-
-msgid "Add"
-msgstr "Dodaj"
-
-msgid "Remove"
-msgstr "Ukloni"
-
-msgid "&Help"
-msgstr "Po&moć"
 
 msgid "&Save Settings"
 msgstr "&Sačuvaj podešavanja"
@@ -777,29 +1127,11 @@ msgstr "URL slike"
 msgid "&Browse"
 msgstr "&Potraži"
 
-msgid "&Cancel"
-msgstr "&Odustani"
-
 msgid "Click Browse to start"
 msgstr "Kliknite na „Potraži“ da biste pokrenuli"
 
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "i onda prevucite sliku sa pregledača u Kid3."
-
-msgid "&Back"
-msgstr "&Nazad"
-
-msgid "&Forward"
-msgstr "Na&prijed"
-
-msgid "&Find:"
-msgstr "&Nađi:"
-
-msgid "Find Previous"
-msgstr "Nađi prethodno"
-
-msgid "Find Next"
-msgstr "Nađi sljedeće"
 
 msgid "ID3v1"
 msgstr "ID3v1"
@@ -873,12 +1205,6 @@ msgstr "Oznaka &2"
 msgid "Tag 1 a&nd Tag 2"
 msgstr "oznaka 1 &i oznaka 2"
 
-msgid "Tags"
-msgstr "Oznake"
-
-msgid "&Tags"
-msgstr "&Oznake"
-
 msgid "Startup"
 msgstr "Pokretanje"
 
@@ -900,12 +1226,6 @@ msgstr "&Ime fajla za omot albuma:"
 msgid "&Filename Format"
 msgstr "Format imena &fajla"
 
-msgid "Files"
-msgstr "Fajlovi"
-
-msgid "&Files"
-msgstr "&Fajlovi"
-
 msgid "Browser"
 msgstr "Pregledač"
 
@@ -917,12 +1237,6 @@ msgstr "Naredbe kontekstnog me&nija"
 
 msgid "&Play on double click"
 msgstr "&Reprodukuj pri dvokliku"
-
-msgid "User Actions"
-msgstr "Radnje korisnika"
-
-msgid "&User Actions"
-msgstr "Radnje &korisnika"
 
 msgid "Proxy"
 msgstr "Proksi"
@@ -938,39 +1252,6 @@ msgstr "Korisničko &ime za proksi:"
 
 msgid "Proxy pass&word:"
 msgstr "L&ozinka za proksi:"
-
-msgid "Network"
-msgstr "Mreža"
-
-msgid "&Network"
-msgstr "&Mreža"
-
-msgid "&Keyboard Shortcuts"
-msgstr "Prečice &tastature"
-
-msgid "Use custom app&lication font"
-msgstr "Koristi pose&bni font za aplikaciju"
-
-msgid "A&pplication Font..."
-msgstr "&Font aplikacije..."
-
-msgid "Use custom application &style"
-msgstr "Koristi posebni &stil za aplikaciju"
-
-msgid "Use native system file &dialogs"
-msgstr "Koristi sistemske &dijaloge fajlova"
-
-msgid "&Appearance"
-msgstr "&Izgled"
-
-msgid "&OK"
-msgstr "&U redu"
-
-msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "Prečica tastature '%1' je već dodijeljena '%2'."
-
-msgid "Kid3 Handbook"
-msgstr "Kid3 priručnik"
 
 msgid "From Clip&board"
 msgstr "Iz klip&borda"
@@ -1050,8 +1331,8 @@ msgstr "Cijena"
 msgid "Seller"
 msgstr ""
 
-msgid "Images (*.jpg *.jpeg *.png)"
-msgstr "slike (*.jpg *.jpeg *.png)"
+msgid "Images"
+msgstr "Slike"
 
 msgid "UTF16BE"
 msgstr "UTF-16BE"
@@ -1161,9 +1442,6 @@ msgstr "Greška fajla"
 msgid "Error while writing file:\n"
 msgstr "Greška prilikom upisa fajla:\n"
 
-msgid "Filter"
-msgstr "Filter"
-
 msgid "&Filter:"
 msgstr "&Filter:"
 
@@ -1187,9 +1465,6 @@ msgstr "Iz o&znaka..."
 
 msgid "&From Server:"
 msgstr "S&a servera:"
-
-msgid "MusicBrainz Fingerprint"
-msgstr "MjuzikBrejnz Otisak prsta"
 
 msgid "Revert"
 msgstr "Vrati"
@@ -1220,9 +1495,6 @@ msgstr "Nema rezultata"
 
 msgid "No result selected"
 msgstr "Ništa nije izabrano"
-
-msgid "Number Tracks"
-msgstr "Numeriši"
 
 msgid "&Start number:"
 msgstr "&Početni broj:"
@@ -1284,9 +1556,6 @@ msgstr "Upiši samo &spisak fajlova"
 msgid "Write &info using"
 msgstr "Upiši &informacije koristeći"
 
-msgid "Rename Directory"
-msgstr "Preimenuj direktorijum"
-
 msgid "Format"
 msgstr "Format"
 
@@ -1298,12 +1567,6 @@ msgstr "Napravi direktorijum"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "Iz oznake 2 i oznake 1"
-
-msgid "From Tag 1"
-msgstr "Iz oznake 1"
-
-msgid "From Tag 2"
-msgstr "Iz oznake 2"
 
 msgid "From:"
 msgstr "Iz:"
@@ -1329,281 +1592,8 @@ msgstr "Uvezi iz fajla/klipborda"
 msgid "From F&ile"
 msgstr "Iz &fajla"
 
-msgid "&Expand all"
-msgstr "Raz&granaj sve"
-
-msgid "&Collapse all"
-msgstr "&Sakupi sve"
-
-msgid "&Rename"
-msgstr "P&reimenuj"
-
-msgid "&Move to Trash"
-msgstr "Premjesti u &smeće"
-
-msgid "&Play"
-msgstr "Re&produkuj"
-
-msgid "Kid3"
-msgstr "Kid3"
-
-msgid "F&ile"
-msgstr "F&ajl"
-
-msgid "Name:"
-msgstr "Ime:"
-
-msgid "Filename from Tag 1"
-msgstr "oznake 1 u ime fajla"
-
-msgid "Filename from Tag 2"
-msgstr "oznake 2 u ime fajla"
-
-msgid "Tag 1 from Filename"
-msgstr "oznaku 1 iz imena fajla"
-
-msgid "Tag 2 from Filename"
-msgstr "oznaku 2 iz imena fajla"
-
-msgid "Copy"
-msgstr "Kopiraj"
-
-msgid "Paste"
-msgstr "Nalijepi"
-
-msgid "Edit"
-msgstr "Uredi"
-
-msgid "Delete"
-msgstr "Obriši"
-
-msgid "Focus"
-msgstr "Fokus"
-
-msgid "From Filename"
-msgstr "Iz imena fajla"
-
-msgid "File List"
-msgstr "Spisak fajlova"
-
-msgid "Directory List"
-msgstr "Spisak fascikli"
-
 msgid "Download"
 msgstr "Preuzmi"
-
-msgid "Main Toolbar"
-msgstr "Glavna traka"
-
-msgid "Opens a directory"
-msgstr "Otvara direktorijum"
-
-msgid "Opens a recently used directory"
-msgstr "Otvara nedavno korišćen direktorijum"
-
-msgid "Reverts the changes of all or the selected files"
-msgstr "Poništava izmjene svih ili izabranih fajlova"
-
-msgid "Saves the changed files"
-msgstr "Upisuje izmjene fajlova"
-
-msgid "Quits the application"
-msgstr "Napušta aplikaciju"
-
-msgid "Select all files"
-msgstr "Izaberi sve fajlove"
-
-msgid "Deselect all files"
-msgstr "Poništi izbor svih fajlova"
-
-msgid "Configure Shortcuts"
-msgstr "Podesi prečice"
-
-msgid "Configure Toolbars"
-msgstr "Podesi trake alata"
-
-msgid "Preferences dialog"
-msgstr "Dijalog podešavanja"
-
-msgid "O&pen Directory..."
-msgstr "O&tvori direktorijum..."
-
-msgid "&Import..."
-msgstr "&Uvezi..."
-
-msgid "Import from %1..."
-msgstr "Uvezi sa %1..."
-
-msgid "Automatic I&mport..."
-msgstr "Auto&matski uvozi..."
-
-msgid "&Browse Cover Art..."
-msgstr "Potraži o&mot albuma..."
-
-msgid "&Export..."
-msgstr "Izv&ezi..."
-
-msgid "&Create Playlist..."
-msgstr "Napravi &listu numera..."
-
-msgid "Apply &Filename Format"
-msgstr "Primijeni format imena fa&jla"
-
-msgid "Apply &Tag Format"
-msgstr "Primijeni format &oznake"
-
-msgid "Apply Text &Encoding"
-msgstr "Primijeni kodiranje t&eksta"
-
-msgid "&Rename Directory..."
-msgstr "Preimenuj &direktorijum..."
-
-msgid "&Number Tracks..."
-msgstr "Nu&meriši..."
-
-msgid "F&ilter..."
-msgstr "F&ilter..."
-
-msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "Pretvori ID3v2.3 u ID3v2.&4"
-
-msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "Pretvori ID3v2.4 u ID3v2.&3"
-
-msgid "Show &Picture"
-msgstr "Prikaži s&liku"
-
-msgid "Auto &Hide Tags"
-msgstr "Automatski &sakrij oznake"
-
-msgid "Select All in &Directory"
-msgstr ""
-
-msgid "&Previous File"
-msgstr "&Prethodni fajl"
-
-msgid "&Next File"
-msgstr "&Sljedeći fajl"
-
-msgid "Frames:"
-msgstr "Kadrovi:"
-
-msgid "&File"
-msgstr "&Fajl"
-
-msgid "&Open..."
-msgstr "&Otvori..."
-
-msgid "Open &Recent"
-msgstr "Otvori &nedavno"
-
-msgid "&Save"
-msgstr "&Sačuvaj"
-
-msgid "Re&vert"
-msgstr "&Vrati"
-
-msgid "Import from file or clipboard"
-msgstr "Uvezi iz fajla ili klipborda"
-
-msgid "Import from %1"
-msgstr "Uvezi sa %1"
-
-msgid "Automatic import"
-msgstr "Automatski uvozi"
-
-msgid "Browse album cover artwork"
-msgstr "Potraži sliku omota albuma"
-
-msgid "Export to file or clipboard"
-msgstr "Izvezi u fajl ili klipbord"
-
-msgid "Create M3U Playlist"
-msgstr "Napravi M3U listu numera"
-
-msgid "&Quit"
-msgstr "&Napusti"
-
-msgid "&Edit"
-msgstr "&Uredi"
-
-msgid "Select &All"
-msgstr "Izaberi s&ve"
-
-msgid "Dese&lect"
-msgstr "Po&ništi izbor"
-
-msgid "Select all files in the current directory"
-msgstr ""
-
-msgid "Select previous file"
-msgstr "Izaberi prethodni fajl"
-
-msgid "Select next file"
-msgstr "Izaberi sljedeći fajl"
-
-msgid "&Tools"
-msgstr "&Alati"
-
-msgid "Apply Filename Format"
-msgstr "Primijeni format naziva fajla"
-
-msgid "Apply Tag Format"
-msgstr "Primijeni format oznake"
-
-msgid "Apply Text Encoding"
-msgstr "Primijeni kodiranje teksta"
-
-msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "Pretvori ID3v2.3 u ID3v2.4"
-
-msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "Pretvori ID3v2.4 u ID3v2.3"
-
-msgid "Play"
-msgstr "Reprodukcija"
-
-msgid "&Settings"
-msgstr "&Podešavanje"
-
-msgid "Enables/disables the toolbar"
-msgstr "Prikazuje/sakriva traku alata"
-
-msgid "Show &Toolbar"
-msgstr "Prikaži traku &alata"
-
-msgid "Enables/disables the statusbar"
-msgstr "Prikazuje/sakriva traku stanja"
-
-msgid "Show St&atusbar"
-msgstr "Prikaži traku &stanja"
-
-msgid "Show Picture"
-msgstr "Prikaži sliku"
-
-msgid "Auto Hide Tags"
-msgstr "Automatski sakrij oznake"
-
-msgid "Configure Kid3"
-msgstr "Podesi Kid3"
-
-msgid "&Configure Kid3..."
-msgstr "&Podesi Kid3..."
-
-msgid "Kid3 &Handbook"
-msgstr "Kid3 p&riručnik"
-
-msgid "About Kid3"
-msgstr "O Kid3-u"
-
-msgid "&About Kid3"
-msgstr "&O Kid3-u"
-
-msgid "About Qt"
-msgstr "O KjuT-u"
-
-msgid "About &Qt"
-msgstr "O &KjuT-u"
 
 msgid "Opening directory..."
 msgstr "Otvaram direktorijum..."
@@ -1621,17 +1611,8 @@ msgstr ""
 msgid "Warning"
 msgstr "Upozorenje"
 
-msgid "Warning - Kid3"
-msgstr "Upozorenje - Kid3"
-
-msgid "Open"
-msgstr "Otvori"
-
 msgid "Exiting..."
 msgstr "Izlazim..."
-
-msgid "Toggle the statusbar..."
-msgstr "Prikaži/sakrij traku stanja..."
 
 msgid "Creating playlist..."
 msgstr "Pravim listu numera..."
@@ -1639,17 +1620,11 @@ msgstr "Pravim listu numera..."
 msgid "Import"
 msgstr "Uvezi"
 
-msgid "Configure - Kid3"
-msgstr "Podešavanje - Kid3"
-
 msgid "Error while renaming:\n"
 msgstr "Greška prilikom preimenovanja:\n"
 
 msgid " [filtered]"
 msgstr " [filtriran]"
-
-msgid " [modified]"
-msgstr " [izmijenjen]"
 
 msgid "Add Frame"
 msgstr "Dodaj okvir"
@@ -1680,6 +1655,39 @@ msgstr "Nisam mogao da premjestim ove fajlove u smeće"
 
 msgid "Expand All"
 msgstr "Razgranaj sve"
+
+msgid "&Expand all"
+msgstr "Raz&granaj sve"
+
+msgid "&Collapse all"
+msgstr "&Sakupi sve"
+
+msgid "&Rename"
+msgstr "P&reimenuj"
+
+msgid "&Move to Trash"
+msgstr "Premjesti u &smeće"
+
+msgid "Kid3"
+msgstr "Kid3"
+
+msgid "F&ile"
+msgstr "F&ajl"
+
+msgid "Name:"
+msgstr "Ime:"
+
+msgid "Filename from Tag 1"
+msgstr "oznake 1 u ime fajla"
+
+msgid "Filename from Tag 2"
+msgstr "oznake 2 u ime fajla"
+
+msgid "Tag 1 from Filename"
+msgstr "oznaku 1 iz imena fajla"
+
+msgid "Tag 2 from Filename"
+msgstr "oznaku 2 iz imena fajla"
 
 msgid "&Add..."
 msgstr "&Dodaj..."
@@ -1782,15 +1790,6 @@ msgstr "Utišaj"
 
 msgid "Volume: %1%"
 msgstr "Jačina: %1%"
-
-msgid "&Clear List"
-msgstr "O&čisti spisak"
-
-msgid "Clear"
-msgstr "Očisti"
-
-msgid "Reset"
-msgstr "Ponovo postavi"
 
 msgid "Add Item"
 msgstr "Dodaj stavku"
