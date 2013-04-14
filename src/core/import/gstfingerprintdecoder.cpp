@@ -272,7 +272,8 @@ void GstFingerprintDecoder::cb_new_buffer(GstElement* sink, GstFingerprintDecode
   if (sample) {
     GstBuffer* buffer = gst_sample_get_buffer(sample);
     gint64 buf_pos = GST_BUFFER_TIMESTAMP(buffer);
-    GstMapInfo mapinfo = {0, };
+    GstMapInfo mapinfo;
+    ::memset(&mapinfo, 0, sizeof(mapinfo));
     gst_buffer_map(buffer, &mapinfo, GST_MAP_READ);
     emit self->bufferReady(QByteArray(reinterpret_cast<char*>(mapinfo.data),
                                       mapinfo.size));

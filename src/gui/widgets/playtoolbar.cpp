@@ -257,6 +257,7 @@ void PlayToolBar::stateChanged(QMediaPlayer::State newState)
  */
 void PlayToolBar::error(QMediaPlayer::Error err)
 {
+  Q_UNUSED(err)
   m_playOrPauseAction->setEnabled(false);
   m_stopAction->setEnabled(false);
   emit errorMessage(m_player->mediaPlayer()->errorString());
