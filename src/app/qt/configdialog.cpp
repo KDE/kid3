@@ -39,6 +39,7 @@
 #include <QStyleFactory>
 #include <QTreeView>
 #include <QAction>
+#include <QHeaderView>
 #include "shortcutsmodel.h"
 #include "shortcutsdelegate.h"
 #include "contexthelp.h"
