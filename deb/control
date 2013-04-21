@@ -26,12 +26,21 @@ Homepage: http://kid3.sourceforge.net/
 Vcs-Svn: svn://svn.debian.org/pkg-kde/kde-extras/kid3/trunk/
 Vcs-Browser: http://svn.debian.org/wsvn/pkg-kde/kde-extras/kid3/?op=log
 
-Package: kid3
+Package: kid3-core
 Architecture: any
-Pre-Depends: dpkg
+Pre-Depends: dpkg (>= 1.15.6~)
 Depends: ${shlibs:Depends},
  ${misc:Depends}
-Description: KDE MP3 ID3 tag editor
+Description: Audio tag editor core libraries and data
+ This package contains common libraries and data used by both kid3 and kid3-qt.
+
+Package: kid3
+Architecture: any
+Pre-Depends: dpkg (>= 1.15.6~)
+Depends: kid3-core,
+ ${shlibs:Depends},
+ ${misc:Depends}
+Description: KDE audio tag editor
  With Kid3, an ID3 tag editor for KDE you can:
   * Edit ID3v1.1 tags in your MP3 files
   * Edit all ID3v2.3 and ID3v2.4 frames in your MP3 files
@@ -54,8 +63,9 @@ Description: KDE MP3 ID3 tag editor
 Package: kid3-qt
 Section: sound
 Architecture: any
-Pre-Depends: dpkg
-Depends: ${shlibs:Depends},
+Pre-Depends: dpkg (>= 1.15.6~)
+Depends: kid3-core,
+ ${shlibs:Depends},
  ${misc:Depends}
 Description: Audio tag editor
  With Kid3, an audio tag editor you can:

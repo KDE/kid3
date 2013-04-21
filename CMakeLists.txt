@@ -99,7 +99,7 @@ else (APPLE)
     set(WITH_TRANSLATIONSDIR_DEFAULT "share/kid3-qt/translations")
   endif (BUILD_KDE_APP OR BUILD_SHARED_LIBS)
   set(WITH_BINDIR_DEFAULT "bin")
-  set(WITH_LIBDIR_DEFAULT "lib")
+  set(WITH_LIBDIR_DEFAULT "lib/kid3")
 endif (APPLE)
 
 set(WITH_DATAROOTDIR ${WITH_DATAROOTDIR_DEFAULT} CACHE STRING
@@ -255,6 +255,13 @@ endif (WIN32)
 
 if (BUILD_SHARED_LIBS)
   add_definitions(-DKID3_SHARED)
+
+  # the RPATH to be used when installing, but only if it's not a system directory
+  # see http://www.cmake.org/Wiki/CMake_RPATH_handling
+  list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/${WITH_LIBDIR}" _isSystemDir)
+  if ("${_isSystemDir}" STREQUAL "-1")
+     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${WITH_LIBDIR}")
+  endif ("${_isSystemDir}" STREQUAL "-1")
 endif (BUILD_SHARED_LIBS)
 
 ### Check for zlib
