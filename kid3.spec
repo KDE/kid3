@@ -54,22 +54,15 @@ Authors: Urs Fleisch
 %setup -q
 
 %build
-mkdir kde-build
-cd kde-build; \
-cmake -DWITH_APPS=KDE -DCMAKE_SKIP_RPATH=ON -DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX= -DCMAKE_BUILD_TYPE=release ..; \
-make %{?_smp_mflags}; \
-cd ..
-
-mkdir qt-build
-cd qt-build; \
-cmake -DWITH_APPS=Qt -DCMAKE_SKIP_RPATH=ON -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release ..; \
+mkdir kid3-build
+cd kid3-build; \
+cmake -DWITH_APPS="KDE;Qt" -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX= -DCMAKE_BUILD_TYPE=Release ..; \
 make %{?_smp_mflags}; \
 cd ..
 
 %install
 mkdir -p ${RPM_BUILD_ROOT}/%{_defaultdocdir}
-make -C kde-build install DESTDIR=${RPM_BUILD_ROOT}
-make -C qt-build install DESTDIR=${RPM_BUILD_ROOT}
+make -C kid3-build install DESTDIR=${RPM_BUILD_ROOT}
 install -Dpm 644 deb/kid3.1 $RPM_BUILD_ROOT%{_mandir}/man1/kid3.1
 
 test -d $RPM_BUILD_ROOT/usr/bin && strip $RPM_BUILD_ROOT/usr/bin/*
@@ -85,11 +78,9 @@ find $RPM_BUILD_ROOT -type f -o -name "*.so" -exec strip "{}" \;
 %{_datadir}/applications/kde4/*kid3.desktop
 %{_datadir}/icons/hicolor/*x*/apps/kid3.png
 %{_datadir}/icons/hicolor/scalable/apps/kid3.svgz
-%{_datadir}/dbus-1/interfaces/*.xml
 %{_datadir}/kde4/apps/kid3/
 %{_datadir}/doc/kde/HTML/en/kid3/
 %{_datadir}/doc/kde/HTML/de/kid3/
-%{_datadir}/locale/*/LC_MESSAGES/kid3.mo
 %{_mandir}/man1/kid3.1*
 
 
@@ -127,6 +118,21 @@ Authors: Urs Fleisch
 %{_bindir}/kid3-qt
 %{_datadir}/applications/*kid3-qt.desktop
 %{_datadir}/icons/hicolor/*x*/apps/kid3-qt.png
-%{_datadir}/icons/hicolor/scalable/apps/kid3-qt.svgz
+%{_datadir}/icons/hicolor/scalable/apps/kid3-qt.svg
 %{_datadir}/doc/kid3-qt/
-%{_datadir}/kid3-qt/translations/
+
+%package core
+Group:        Applications/Multimedia
+Summary:      Audio tag editor core libraries and data
+
+%description core
+This package contains common libraries and data used by both kid3 and kid3-qt.
+
+Authors: Urs Fleisch
+
+%files core
+%defattr(-,root,root,-)
+%doc AUTHORS ChangeLog COPYING LICENSE README
+%{_libdir}/kid3/*
+%{_datadir}/dbus-1/interfaces/*.xml
+%{_datadir}/kid3/translations/
