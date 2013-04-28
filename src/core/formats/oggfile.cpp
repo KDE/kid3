@@ -857,11 +857,7 @@ bool OggFile::FileInfo::read(const char* fn)
           bitrate = vi->bitrate_lower;
         }
       }
-#ifdef Q_OS_WIN32
-      duration = (long)::ov_time_total(&vf, -1);
-#else
-      duration = ::lrint(::ov_time_total(&vf, -1));
-#endif
+      duration = static_cast<long>(::ov_time_total(&vf, -1));
       ::ov_clear(&vf); // closes file, do not use ::fclose()
     } else {
       ::fclose(fp);
