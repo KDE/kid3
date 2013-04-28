@@ -23,6 +23,9 @@
 # win32/buildkid3.bat, so that these tools can be found, then start
 # buildkid3.bat from a Windows command prompt.
 #
+# You can also build a Windows version from Linux using the MinGW cross
+# compiler. Set compiler="cross-mingw" below.
+#
 # For Mac: XCode, Qt, html\docbook.xsl. XCode and Qt should be installed at
 # the default location, docbook.xsl in
 # $HOME/docbook-xsl-1.72.0/html/docbook.xsl.
@@ -46,6 +49,11 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 compiler="gcc"
 
+qt_version=4.8.4
+zlib_version=1.2.7
+libogg_version=1.3.0
+libav_version=0.8.6
+
 # Uncomment for debug build
 #ENABLE_DEBUG=--enable-debug
 #CMAKE_BUILD_TYPE_DEBUG="-DCMAKE_BUILD_TYPE=Debug"
@@ -60,6 +68,11 @@ if test $kernel = "MINGW"; then
 CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
 elif test $kernel = "Darwin"; then
 CMAKE_OPTIONS="-G \"Unix Makefiles\""
+fi
+
+if test "$compiler" = "cross-mingw"; then
+CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake"
+CONFIGURE_OPTIONS="--host=i586-mingw32msvc"
 fi
 
 if test $kernel = "Darwin" && test $(uname -m) = "x86_64"; then
@@ -129,19 +142,18 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13.de
 test -f zlib_1.2.7.dfsg.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg.orig.tar.gz
 
-# With the new libav 9.1, some M4A fingerprints are not recognized,
+# With the new libav 9.5, some M4A fingerprints are not recognized,
 # so we'll stick with the old.
-libav_version=0.8.5
-if test "$libav_version" = "0.8.5"; then
-test -f libav_0.8.5.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.5.orig.tar.gz
-test -f libav_0.8.5-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.5-1.debian.tar.gz
+if test "$libav_version" = "0.8.6"; then
+test -f libav_0.8.6.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.6.orig.tar.gz
+test -f libav_0.8.6-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.6-1.debian.tar.gz
 else
-test -f libav_9.1.orig.tar.xz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.1.orig.tar.xz
-test -f libav_9.1-3.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.1-3.debian.tar.gz
+test -f libav_9.5.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.5.orig.tar.xz
+test -f libav_9.5-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.5-1.debian.tar.gz
 fi
 
 test -f chromaprint_0.7.orig.tar.gz ||
@@ -155,6 +167,31 @@ $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_0.
 #$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_1.9.1+svn479~dfsg0-3.debian.tar.gz
 
 # Create patch files
+
+if test "$compiler" = "cross-mingw"; then
+test -f mingw.cmake ||
+cat >mingw.cmake <<EOF
+set(QT_PREFIX /windows/Qt/$qt_version)
+
+set(CMAKE_SYSTEM_NAME Windows)
+set(CMAKE_C_COMPILER i586-mingw32msvc-gcc)
+set(CMAKE_CXX_COMPILER i586-mingw32msvc-g++)
+set(CMAKE_RC_COMPILER i586-mingw32msvc-windres)
+set(CMAKE_FIND_ROOT_PATH /usr/i586-mingw32msvc \${QT_PREFIX} $thisdir/buildroot/usr/local $thisdir/zlib-$zlib_version/inst/usr/local $thisdir/libav-$libav_version/inst/usr/local)
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+set(QT_BINARY_DIR /usr/lib/i386-linux-gnu/qt4/bin)
+set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
+set(QT_QTCORE_LIBRARY   \${QT_PREFIX}/lib/libQtCore4.a)
+set(QT_QTCORE_INCLUDE_DIR \${QT_PREFIX}/include/QtCore)
+set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
+set(QT_MOC_EXECUTABLE  \${QT_BINARY_DIR}/moc)
+set(QT_QMAKE_EXECUTABLE  \${QT_BINARY_DIR}/qmake)
+set(QT_UIC_EXECUTABLE  \${QT_BINARY_DIR}/uic)
+EOF
+fi
 
 test -f fink_flac.patch ||
 cat >fink_flac.patch <<"EOF"
@@ -381,7 +418,7 @@ index c73da41..af53ac1 100644
    if(ID3v2 & tags) {
 EOF
 
-if test "$libav_version" = "0.8.5"; then
+if test "$libav_version" = "0.8.6"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -433,7 +470,7 @@ tar xzf source/libvorbis_1.3.2.orig.tar.gz
 cd libvorbis-1.3.2/
 gunzip -c ../source/libvorbis_1.3.2-1.3.diff.gz | patch -p1
 test -f win32/VS2008/libogg.vsprops.orig || mv win32/VS2008/libogg.vsprops win32/VS2008/libogg.vsprops.orig
-sed 's/Value="1.1.4"/Value="1.3.0"/' win32/VS2008/libogg.vsprops.orig >win32/VS2008/libogg.vsprops
+sed "s/Value=\"1.1.4\"/Value=\"$libogg_version\"/" win32/VS2008/libogg.vsprops.orig >win32/VS2008/libogg.vsprops
 cd ..
 fi
 
@@ -482,11 +519,11 @@ fi
 
 # libav
 
-if test "$libav_version" = "0.8.5"; then
-if ! test -d libav-0.8.5; then
-tar xzf source/libav_0.8.5.orig.tar.gz
-cd libav-0.8.5/
-tar xzf ../source/libav_0.8.5-1.debian.tar.gz
+if test "$libav_version" = "0.8.6"; then
+if ! test -d libav-0.8.6; then
+tar xzf source/libav_0.8.6.orig.tar.gz
+cd libav-0.8.6/
+tar xzf ../source/libav_0.8.6-1.debian.tar.gz
 oldifs=$IFS
 IFS='
 '
@@ -500,10 +537,10 @@ patch -p0 <../source/libav_sws.patch
 cd ..
 fi
 else
-if ! test -d libav-9.1; then
-unxz -c source/libav_9.1.orig.tar.xz | tar x
-cd libav-9.1/
-tar xzf ../source/libav_9.1-3.debian.tar.gz
+if ! test -d libav-9.5; then
+unxz -c source/libav_9.5.orig.tar.xz | tar x
+cd libav-9.5/
+tar xzf ../source/libav_9.5-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
@@ -608,6 +645,9 @@ cd zlib-1.2.7/
 if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
 make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
+elif test "$compiler" = "cross-mingw"; then
+make -f win32/Makefile.gcc PREFIX=i586-mingw32msvc-
+make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 else
 CFLAGS="$CFLAGS -O3 -Wall -DNO_FSEEKO" ./configure --static
 sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
@@ -621,7 +661,7 @@ cd ../..
 # libogg
 
 cd libogg-1.3.0/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG $CONFIGURE_OPTIONS
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -632,7 +672,11 @@ cd ../..
 # libvorbis
 
 cd libvorbis-1.3.2/
-test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.3.0/inst/usr/local $ENABLE_DEBUG
+if test "$compiler" = "cross-mingw"; then
+test -f Makefile || PKG_CONFIG= ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $ENABLE_DEBUG $CONFIGURE_OPTIONS
+else
+test -f Makefile || ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $ENABLE_DEBUG $CONFIGURE_OPTIONS
+fi
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -643,7 +687,7 @@ cd ../..
 # libflac
 
 cd flac-1.2.1/
-configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-1.3.0/inst/usr/local $ENABLE_DEBUG"
+configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $ENABLE_DEBUG $CONFIGURE_OPTIONS"
 if test $kernel = "Darwin"; then
   configure_args="$configure_args --disable-asm-optimizations"
 fi
@@ -659,7 +703,7 @@ cd ../..
 
 cd id3lib-3.8.3/
 autoconf
-test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG
+test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG $CONFIGURE_OPTIONS
 SED=sed make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -670,7 +714,7 @@ cd ../..
 # taglib
 
 cd taglib-1.8/
-test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DCMAKE_VERBOSE_MAKEFILE=ON $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DZLIB_ROOT=../zlib-$zlib_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
@@ -681,8 +725,8 @@ cd ../..
 
 # libav
 
-if test "$libav_version" = "0.8.5"; then
-cd libav-0.8.5
+if test "$libav_version" = "0.8.6"; then
+cd libav-0.8.6
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -691,6 +735,10 @@ cd libav-0.8.5
 # Later versions (tested with libav-HEAD-5d2be71) do not have
 # --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
 # The two --disable-hwaccel were added for MinGW-builds GCC 4.7.2.
+if test "$compiler" = "cross-mingw"; then
+sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
+AV_CONFIGURE_OPTIONS="--cross-prefix=i586-mingw32msvc- --arch=x86 --target-os=mingw32 --sysinclude=/usr/i586-mingw32msvc/include"
+fi
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
@@ -768,15 +816,15 @@ cd libav-0.8.5
 	--enable-decoder=pcm_u24le \
 	--enable-decoder=rawvideo \
 	--disable-hwaccel=h264_dxva2 \
-	--disable-hwaccel=mpeg2_dxva2
+	--disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-0.8.5.tgz usr
+tar czf ../../bin/libav-0.8.6.tgz usr
 cd ../..
 else
-cd libav-9.1
+cd libav-9.5
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -785,6 +833,10 @@ cd libav-9.1
 # Later versions (tested with libav-HEAD-5d2be71) do not have
 # --enable-ffmpeg and additionally need --disable-mmx --disable-mmxext.
 # The two --disable-hwaccel were added for MinGW-builds GCC 4.7.2.
+if test "$compiler" = "cross-mingw"; then
+sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
+AV_CONFIGURE_OPTIONS="--cross-prefix=i586-mingw32msvc- --arch=x86 --target-os=mingw32 --sysinclude=/usr/i586-mingw32msvc/include"
+fi
 ./configure \
 	--enable-memalign-hack \
 	--disable-shared \
@@ -861,12 +913,12 @@ cd libav-9.1
 	--enable-decoder=pcm_u24le \
 	--enable-decoder=rawvideo \
 	--disable-hwaccel=h264_dxva2 \
-	--disable-hwaccel=mpeg2_dxva2
+	--disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-9.1.tgz usr
+tar czf ../../bin/libav-9.5.tgz usr
 cd ../..
 fi
 
@@ -874,7 +926,7 @@ fi
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
 cd chromaprint-0.7/
-test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-1.2.7/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-$libav_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
+test -f Makefile || eval cmake -DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=OFF -DEXTRA_LIBS=\"-L$thisdir/zlib-$zlib_version/inst/usr/local/lib -lz\" -DFFMPEG_ROOT=$thisdir/libav-$libav_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 fixcmakeinst
@@ -885,7 +937,7 @@ cd ../..
 # mp4v2
 
 #cd mp4v2-1.9.1+svn479~dfsg0/
-#test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch
+#test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
 #mkdir inst
 #make install DESTDIR=`pwd`/inst
 #cd inst
@@ -902,19 +954,25 @@ if test $kernel = "Linux"; then
   # Static build can be tested from Linux in kid3 directory
   if ! test -d kid3; then
     mkdir kid3
-    cat >kid3/build.sh <<"EOF"
+    if test "$compiler" = "cross-mingw"; then
+      cat >kid3/build.sh <<EOF
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=$thisdir/source/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/stylesheet/nwalsh ../../kid3
+EOF
+    else
+      cat >kid3/build.sh <<"EOF"
 BUILDPREFIX=$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=$BUILDPREFIX/lib/pkgconfig
-cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L$BUILDPREFIX/lib -ltag" -DTAGLIB_CFLAGS:STRING="-I$BUILDPREFIX/include/taglib -DTAGLIB_STATIC" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=$BUILDPREFIX/bin -DFFMPEG_ROOT=$BUILDPREFIX -DCMAKE_BUILD_TYPE=Debug -DWITH_GCC_PCH=OFF -DWITH_APPS=Qt -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
+cmake -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L$BUILDPREFIX/lib -ltag" -DTAGLIB_CFLAGS:STRING="-I$BUILDPREFIX/include/taglib -DTAGLIB_STATIC" -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=$BUILDPREFIX -DCMAKE_BUILD_TYPE=Debug -DWITH_GCC_PCH=OFF -DWITH_APPS=Qt -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. ../../kid3
 EOF
+    fi
     chmod +x kid3/build.sh
   fi
 elif test $kernel = "Darwin"; then
   sudo chmod go+w ${BUILDROOT}usr/local
 fi
 
-tar xzf bin/zlib-1.2.7.tgz -C $BUILDROOT
-tar xzf bin/libogg-1.3.0.tgz -C $BUILDROOT
+tar xzf bin/zlib-${zlib_version}.tgz -C $BUILDROOT
+tar xzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
 tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
 tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
