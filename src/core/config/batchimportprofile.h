@@ -36,7 +36,7 @@
  */
 class KID3_CORE_EXPORT BatchImportProfile {
 public:
-  /** Events occuring during batch import. */
+  /** Events occurring during batch import. */
   enum ImportEventType {
     ReadingDirectory,
     Started,
