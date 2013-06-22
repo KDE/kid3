@@ -1,3 +1,6 @@
+add_definitions(${TAGLIB_CFLAGS} ${CHROMAPRINT_CFLAGS} ${ID3LIB_DEFINITIONS} ${FLAC_DEFINITIONS})
+include_directories(${MP4V2_INCLUDE_DIR} ${ID3LIB_INCLUDE_DIR} ${CHROMAPRINT_INCLUDES} ${VORBIS_INCLUDE_DIR} ${FLACPP_INCLUDE_DIR})
+
 include_directories(utils config tags formats export import model)
 
 set(core_SRCS)
