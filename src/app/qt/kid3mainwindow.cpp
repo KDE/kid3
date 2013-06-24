@@ -46,6 +46,7 @@
 #include "configstore.h"
 #include "contexthelp.h"
 #include "serverimporter.h"
+#include "servertrackimporter.h"
 #include "platformtools.h"
 
 /**
@@ -187,19 +188,26 @@ void Kid3MainWindow::initActions()
     fileMenu->addAction(fileImportServer);
     ++importerIdx;
   }
-#ifdef HAVE_CHROMAPRINT
-  QAction* fileImportMusicBrainz = new QAction(this);
-  QString serverName(tr("MusicBrainz Fingerprint"));
-  fileImportMusicBrainz->setData(importerIdx);
-  fileImportMusicBrainz->setStatusTip(tr("Import from %1").arg(serverName));
-  fileImportMusicBrainz->setText(tr("Import from %1...").arg(serverName));
-  fileImportMusicBrainz->setObjectName(QLatin1String("import_musicbrainz"));
-  m_shortcutsModel->registerAction(fileImportMusicBrainz, menuTitle);
-  connect(fileImportMusicBrainz, SIGNAL(triggered()),
-    impl(), SLOT(slotImport()));
-  fileMenu->addAction(fileImportMusicBrainz);
-  ++importerIdx;
-#endif
+
+  foreach (const ServerTrackImporter* si, app()->getServerTrackImporters()) {
+    QString serverName(QCoreApplication::translate("@default", si->name()));
+    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
+    int dotPos = actionName.indexOf(QLatin1Char('.'));
+    if (dotPos != -1)
+      actionName.truncate(dotPos);
+    actionName = QLatin1String("import_") + actionName;
+    QAction* fileImportServer = new QAction(this);
+    fileImportServer->setData(importerIdx);
+    fileImportServer->setStatusTip(tr("Import from %1").arg(serverName));
+    fileImportServer->setText(tr("Import from %1...").arg(serverName));
+    fileImportServer->setObjectName(actionName);
+    m_shortcutsModel->registerAction(fileImportServer, menuTitle);
+    connect(fileImportServer, SIGNAL(triggered()),
+      impl(), SLOT(slotImport()));
+    fileMenu->addAction(fileImportServer);
+    ++importerIdx;
+  }
+
   QAction* fileBatchImport = new QAction(this);
   fileBatchImport->setStatusTip(tr("Automatic import"));
   fileBatchImport->setText(tr("Automatic I&mport..."));

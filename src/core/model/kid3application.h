@@ -51,7 +51,7 @@ class TaggedFile;
 class FrameList;
 class IFrameEditor;
 class ServerImporter;
-class MusicBrainzClient;
+class ServerTrackImporter;
 class TextExporter;
 class DirRenamer;
 class BatchImportProfile;
@@ -188,10 +188,12 @@ public:
   QList<ServerImporter*> getServerImporters() { return m_importers; }
 
   /**
-   * Get MusicBrainz client.
-   * @return MusicBrainz client if supported, else 0
+   * Get available server track importers.
+   * @return list of server track importers.
    */
-  MusicBrainzClient* getMusicBrainzClient() { return m_musicBrainzClient; }
+  QList<ServerTrackImporter*> getServerTrackImporters() {
+    return m_trackImporters;
+  }
 
   /**
    * Get directory renamer.
@@ -936,7 +938,7 @@ private:
   /** Importers for different servers */
   QList<ServerImporter*> m_importers;
   /** Importer for MusicBrainz fingerprints */
-  MusicBrainzClient* m_musicBrainzClient;
+  QList<ServerTrackImporter*> m_trackImporters;
 
   /* Context for filterNextFile() */
   FileFilter* m_fileFilter;

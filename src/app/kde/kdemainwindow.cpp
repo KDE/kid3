@@ -44,6 +44,7 @@
 #include "kdeconfigdialog.h"
 #include "configstore.h"
 #include "serverimporter.h"
+#include "servertrackimporter.h"
 #include "kdeplatformtools.h"
 
 /**
@@ -135,15 +136,22 @@ void KdeMainWindow::initActions()
     connect(fileImportServer, SIGNAL(triggered()), impl(), SLOT(slotImport()));
     ++importerIdx;
   }
-#ifdef HAVE_CHROMAPRINT
-  QString serverName(tr("MusicBrainz Fingerprint"));
-  KAction* fileImportMusicBrainz =
-      new KAction(tr("Import from %1...").arg(serverName), this);
-  fileImportMusicBrainz->setData(importerIdx);
-  actionCollection()->addAction(QLatin1String("import_musicbrainz"), fileImportMusicBrainz);
-  connect(fileImportMusicBrainz, SIGNAL(triggered()), impl(), SLOT(slotImport()));
-  ++importerIdx;
-#endif
+
+  foreach (const ServerTrackImporter* si, app()->getServerTrackImporters()) {
+    QString serverName(QCoreApplication::translate("@default", si->name()));
+    QString actionName = QString::fromLatin1(si->name()).toLower().remove(QLatin1Char(' '));
+    int dotPos = actionName.indexOf(QLatin1Char('.'));
+    if (dotPos != -1)
+      actionName.truncate(dotPos);
+    actionName = QLatin1String("import_") + actionName;
+    KAction* fileImportServer =
+        new KAction(tr("Import from %1...").arg(serverName), this);
+    fileImportServer->setData(importerIdx);
+    actionCollection()->addAction(actionName, fileImportServer);
+    connect(fileImportServer, SIGNAL(triggered()), impl(), SLOT(slotImport()));
+    ++importerIdx;
+  }
+
   KAction* fileBatchImport = new KAction(tr("Automatic I&mport..."), this);
   actionCollection()->addAction(QLatin1String("batch_import"), fileBatchImport);
   connect(fileBatchImport, SIGNAL(triggered()), impl(), SLOT(slotBatchImport()));

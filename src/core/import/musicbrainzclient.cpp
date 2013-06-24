@@ -32,6 +32,7 @@
 #include "httpclient.h"
 #include "trackdatamodel.h"
 #include "fingerprintcalculator.h"
+#include "configstore.h"
 
 namespace {
 
@@ -180,13 +181,11 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
  */
 MusicBrainzClient::MusicBrainzClient(QNetworkAccessManager* netMgr,
                                      TrackDataModel *trackDataModel) :
-  QObject(netMgr),
-  m_httpClient(new HttpClient(netMgr)),
+  ServerTrackImporter(netMgr, trackDataModel),
   m_fingerprintCalculator(new FingerprintCalculator(this)),
-  m_trackDataModel(trackDataModel),
   m_state(Idle), m_currentIndex(-1)
 {
-  connect(m_httpClient, SIGNAL(bytesReceived(QByteArray)),
+  connect(httpClient(), SIGNAL(bytesReceived(QByteArray)),
           this, SLOT(receiveBytes(QByteArray)));
   connect(m_fingerprintCalculator, SIGNAL(finished(QString,int,int)),
           this, SLOT(receiveFingerprint(QString,int,int)));
@@ -200,6 +199,41 @@ MusicBrainzClient::~MusicBrainzClient()
 }
 
 /**
+ * Name of import source.
+ * @return name.
+ */
+const char* MusicBrainzClient::name() const {
+  return QT_TRANSLATE_NOOP("@default", "MusicBrainz Fingerprint");
+}
+
+/** NULL-terminated array of server strings, 0 if not used */
+const char** MusicBrainzClient::serverList() const
+{
+  static const char* servers[] = {
+    "musicbrainz.org:80",
+    "de.musicbrainz.org:80",
+    "nl.musicbrainz.org:80",
+    0                  // end of StrList
+  };
+  return servers;
+}
+
+/** default server, 0 to disable */
+const char* MusicBrainzClient::defaultServer() const {
+  return "musicbrainz.org:80";
+}
+
+/** anchor to online help, 0 to disable */
+const char* MusicBrainzClient::helpAnchor() const {
+  return "import-musicbrainz";
+}
+
+/** configuration, 0 if not used */
+ServerImporterConfig* MusicBrainzClient::config() const {
+  return &ConfigStore::s_musicBrainzCfg;
+}
+
+/**
  * Verify if m_currentIndex is in range of m_idsOfTrack.
  * @return true if index OK, false if index was invalid and state is reset.
  */
@@ -208,7 +242,7 @@ bool MusicBrainzClient::verifyIdIndex()
   if (m_currentIndex < 0 || m_currentIndex >= m_idsOfTrack.size()) {
     qWarning("Invalid index %d for IDs (size %d)",
              m_currentIndex, m_idsOfTrack.size());
-    resetState();
+    stop();
     return false;
   }
   return true;
@@ -223,7 +257,7 @@ bool MusicBrainzClient::verifyTrackIndex()
   if (m_currentIndex < 0 || m_currentIndex >= m_filenameOfTrack.size()) {
     qWarning("Invalid index %d for track (size %d)",
              m_currentIndex, m_filenameOfTrack.size());
-    resetState();
+    stop();
     return false;
   }
   return true;
@@ -232,7 +266,7 @@ bool MusicBrainzClient::verifyTrackIndex()
 /**
  * Reset the state to Idle and no track.
  */
-void MusicBrainzClient::resetState()
+void MusicBrainzClient::stop()
 {
   m_fingerprintCalculator->stop();
   m_currentIndex = -1;
@@ -261,14 +295,9 @@ void MusicBrainzClient::receiveBytes(const QByteArray& bytes)
     if (!verifyIdIndex())
       return;
     if (m_idsOfTrack.at(m_currentIndex).isEmpty()) {
-      int numResults = m_currentTrackData.size();
-      if (numResults == 1) {
-        emit statusChanged(m_currentIndex, tr("Recognized"));
-        emit metaDataReceived(m_currentIndex, m_currentTrackData.first());
-      } else if (numResults > 1) {
-        emit statusChanged(m_currentIndex, tr("User Selection"));
-        emit resultsReceived(m_currentIndex, m_currentTrackData);
-      }
+      emit statusChanged(m_currentIndex, m_currentTrackData.size() == 1
+                         ? tr("Recognized") : tr("User Selection"));
+      emit resultsReceived(m_currentIndex, m_currentTrackData);
     }
     processNextStep();
     break;
@@ -293,7 +322,7 @@ void MusicBrainzClient::receiveFingerprint(const QString& fingerprint,
     QString path(QLatin1String("/v2/lookup?client=LxDbFAXo&meta=recordingids&duration=") +
                  QString::number(duration) +
                  QLatin1String("&fingerprint=") + fingerprint);
-    m_httpClient->sendRequest(QLatin1String("api.acoustid.org"), path);
+    httpClient()->sendRequest(QLatin1String("api.acoustid.org"), path);
   } else {
     emit statusChanged(m_currentIndex, tr("Error"));
     processNextTrack();
@@ -325,7 +354,7 @@ void MusicBrainzClient::processNextStep()
       emit statusChanged(m_currentIndex, tr("Metadata Lookup"));
       QString path(QLatin1String("/ws/2/recording/") + ids.takeFirst() +
                    QLatin1String("?inc=artists+releases+media"));
-      m_httpClient->sendRequest(m_musicBrainzServer, path);
+      httpClient()->sendRequest(m_musicBrainzServer, path);
     } else {
       processNextTrack();
     }
@@ -333,7 +362,7 @@ void MusicBrainzClient::processNextStep()
   }
   case GettingIds:
     qWarning("processNextStep() called in state GettingIds");
-    resetState();
+    stop();
   }
 }
 
@@ -347,7 +376,7 @@ void MusicBrainzClient::processNextTrack()
     ++m_currentIndex;
     m_state = CalculatingFingerprint;
   } else {
-    resetState();
+    stop();
   }
   m_currentTrackData.clear();
   processNextStep();
@@ -356,21 +385,23 @@ void MusicBrainzClient::processNextTrack()
 /**
  * Set configuration.
  *
- * @param server   server
+ * @param cfg import server configuration, 0 if not used
  */
-void MusicBrainzClient::setConfig(const QString& server)
+void MusicBrainzClient::setConfig(const ServerImporterConfig* cfg)
 {
-  m_musicBrainzServer = server;
+  if (cfg) {
+    m_musicBrainzServer = cfg->m_server;
+  }
 }
 
 /**
  * Add the files in the file list.
  */
-void MusicBrainzClient::addFiles()
+void MusicBrainzClient::start()
 {
   m_filenameOfTrack.clear();
   m_idsOfTrack.clear();
-  const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
+  const ImportTrackDataVector& trackDataVector(trackDataModel()->trackData());
   for (ImportTrackDataVector::const_iterator it = trackDataVector.constBegin();
        it != trackDataVector.constEnd();
        ++it) {
@@ -379,7 +410,7 @@ void MusicBrainzClient::addFiles()
       m_idsOfTrack.append(QStringList());
     }
   }
-  resetState();
+  stop();
   processNextTrack();
 }
 

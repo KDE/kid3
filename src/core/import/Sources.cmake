@@ -15,6 +15,7 @@ set(import_SRCS
   import/musicbrainzreleaseimporter.cpp
   import/qtfingerprintdecoder.cpp
   import/serverimporter.cpp
+  import/servertrackimporter.cpp
   import/textimporter.cpp
   import/trackdatamatcher.cpp
   import/tracktypeimporter.cpp
@@ -31,4 +32,5 @@ set(import_MOC_HDRS
   import/musicbrainzclient.h
   import/qtfingerprintdecoder.h
   import/serverimporter.h
+  import/servertrackimporter.h
 )

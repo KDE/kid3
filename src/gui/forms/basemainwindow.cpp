@@ -470,7 +470,7 @@ void BaseMainWindowImpl::setupImportDialog()
       new ImportDialog(m_platformTools, m_w,
                        caption, m_app->getTrackDataModel(),
                        m_app->getServerImporters(),
-                       m_app->getMusicBrainzClient());
+                       m_app->getServerTrackImporters());
   }
   m_importDialog->clear();
 }

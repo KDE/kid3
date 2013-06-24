@@ -41,7 +41,7 @@ class QSpinBox;
 class QTableView;
 class QLabel;
 class TrackDataModel;
-class MusicBrainzDialog;
+class ServerTrackImportDialog;
 class ServerImporter;
 class ServerImportDialog;
 class TextImportDialog;
@@ -49,10 +49,7 @@ class TagImportDialog;
 class ImportTrackDataVector;
 class FrameCollection;
 class FreedbConfig;
-class MusicBrainzClient;
-#ifdef HAVE_CHROMAPRINT
-class MusicBrainzConfig;
-#endif
+class ServerTrackImporter;
 
 /**
  * Import dialog.
@@ -70,13 +67,13 @@ public:
    * @param trackDataModel track data to be filled with imported values,
    *                      is passed with durations of files set
    * @param importers     server importers
-   * @param mbClient      MusicBrainz client if supported, else 0
+   * @param trackImporters server track importers
    */
   ImportDialog(IPlatformTools* platformTools,
                QWidget* parent, QString& caption,
                TrackDataModel* trackDataModel,
                const QList<ServerImporter*>& importers,
-               MusicBrainzClient* mbClient);
+               const QList<ServerTrackImporter*>& trackImporters);
 
   /**
    * Destructor.
@@ -168,13 +165,6 @@ private slots:
    */
   void matchWithTitle();
 
-#ifdef HAVE_CHROMAPRINT
-  /**
-   * Import from MusicBrainz and preview in table.
-   */
-  void fromMusicBrainz();
-#endif
-
   /**
    * Hide subdialogs.
    */
@@ -223,6 +213,13 @@ private:
    */
   void displayServerImportDialog(ServerImporter* source);
 
+  /**
+   * Import from track server and preview in table.
+   *
+   * @param source import source
+   */
+  void displayServerTrackImportDialog(ServerTrackImporter* source);
+
   IPlatformTools* m_platformTools;
   /** Index of importer for subdialog to open when starting, -1 for none */
   int m_autoStartSubDialog;
@@ -244,10 +241,10 @@ private:
   QSpinBox* m_maxDiffSpinBox;
   /** importers for different servers */
   QList<ServerImporter*> m_importers;
-  /** MusicBrainz client */
-  MusicBrainzClient* m_musicBrainzClient;
-  /** MusicBrainz import dialog */
-  MusicBrainzDialog* m_musicBrainzDialog;
+  /** track importers for differen servers */
+  QList<ServerTrackImporter*> m_trackImporters;
+  /** Server track import dialog */
+  ServerTrackImportDialog* m_serverTrackImportDialog;
   /** Server import dialog */
   ServerImportDialog* m_serverImportDialog;
   /** Text import dialog */

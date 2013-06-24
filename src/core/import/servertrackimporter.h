@@ -1,12 +1,12 @@
 /**
- * \file musicbrainzclient.h
- * MusicBrainz client.
+ * \file servertrackimporter.h
+ * Abstract base class for track imports from a server.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 15 Sep 2005
+ * \date 23 Jun 2013
  *
- * Copyright (C) 2005-2012  Urs Fleisch
+ * Copyright (C) 2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,25 +24,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MUSICBRAINZCLIENT_H
-#define MUSICBRAINZCLIENT_H
-
-#include "config.h"
+#ifndef SERVERTRACKIMPORTER_H
+#define SERVERTRACKIMPORTER_H
 
 #include <QObject>
+#include "kid3api.h"
 
-#ifdef HAVE_CHROMAPRINT
-
-#include "servertrackimporter.h"
-#include "trackdata.h"
-
-class QByteArray;
-class FingerprintCalculator;
+class QNetworkAccessManager;
+class ImportTrackDataVector;
+class TrackDataModel;
+class ServerImporterConfig;
+class HttpClient;
 
 /**
- * MusicBrainz client.
+ * Abstract base class for track imports from a server.
  */
-class KID3_CORE_EXPORT MusicBrainzClient : public ServerTrackImporter
+class KID3_CORE_EXPORT ServerTrackImporter : public QObject
 {
   Q_OBJECT
 public:
@@ -53,19 +50,19 @@ public:
    * @param trackDataModel track data to be filled with imported values,
    *                       is passed with filenames set
    */
-  MusicBrainzClient(QNetworkAccessManager* netMgr,
-                    TrackDataModel* trackDataModel);
+  ServerTrackImporter(QNetworkAccessManager* netMgr,
+                      TrackDataModel* trackDataModel);
 
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzClient();
+  virtual ~ServerTrackImporter();
 
   /**
    * Name of import source.
    * @return name.
    */
-  virtual const char* name() const;
+  virtual const char* name() const = 0;
 
   /** NULL-terminated array of server strings, 0 if not used */
   virtual const char** serverList() const;
@@ -89,19 +86,19 @@ public:
   /**
    * Add the files in the file list.
    */
-  virtual void start();
+  virtual void start() = 0;
 
   /**
    * Reset the client state.
    */
-  virtual void stop();
+  virtual void stop() = 0;
 
 signals:
   /**
    * Emitted when status of a file changed.
    * Parameter: index of file, status text
    */
-  void statusChanged(int, QString);
+  void statusChanged(int, const QString&);
 
   /**
    * Emitted when results for a file are received.
@@ -109,40 +106,22 @@ signals:
    */
   void resultsReceived(int, ImportTrackDataVector&);
 
-private slots:
-  void receiveBytes(const QByteArray& bytes);
+protected:
+  /**
+   * Access to HTTP client.
+   * @return HTTP client.
+   */
+  HttpClient* httpClient() { return m_httpClient; }
 
-  void receiveFingerprint(const QString& fingerprint, int duration, int error);
+  /**
+   * @brief Access to track data model.
+   * @return track data model.
+   */
+  TrackDataModel* trackDataModel() { return m_trackDataModel; }
 
 private:
-  enum State {
-    Idle,
-    CalculatingFingerprint,
-    GettingIds,
-    GettingMetadata
-  };
-
-  bool verifyIdIndex();
-  bool verifyTrackIndex();
-  void processNextStep();
-  void processNextTrack();
-
-  FingerprintCalculator* m_fingerprintCalculator;
-  State m_state;
-  QVector<QString> m_filenameOfTrack;
-  QVector<QStringList> m_idsOfTrack;
-  int m_currentIndex;
-  ImportTrackDataVector m_currentTrackData;
-  QString m_musicBrainzServer;
+  HttpClient* m_httpClient;
+  TrackDataModel* m_trackDataModel;
 };
 
-#else // HAVE_CHROMAPRINT
-
-// Just to suppress moc "No relevant classes found" warning.
-class MusicBrainzClient : public QObject {
-Q_OBJECT
-};
-
-#endif // HAVE_CHROMAPRINT
-
-#endif // MUSICBRAINZCLIENT_H
+#endif // SERVERTRACKIMPORTER_H

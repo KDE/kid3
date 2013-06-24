@@ -49,7 +49,9 @@
 #include <QCoreApplication>
 #include "genres.h"
 #include "serverimporter.h"
+#include "servertrackimporter.h"
 #include "serverimportdialog.h"
+#include "servertrackimportdialog.h"
 #include "textimportdialog.h"
 #include "tagimportdialog.h"
 #include "configstore.h"
@@ -62,10 +64,6 @@
 #include "qtcompatmac.h"
 #include "config.h"
 #include "iplatformtools.h"
-#ifdef HAVE_CHROMAPRINT
-#include "musicbrainzdialog.h"
-#include "musicbrainzconfig.h"
-#endif
 
 namespace {
 
@@ -90,17 +88,17 @@ QList<int> checkableFrameTypes() {
  * @param trackDataModel track data to be filled with imported values,
  *                      is passed with durations of files set
  * @param importers     server importers
- * @param mbClient      MusicBrainz client if supported, else 0
+ * @param trackImporters server track importers
  */
 ImportDialog::ImportDialog(IPlatformTools* platformTools,
                            QWidget* parent, QString& caption,
                            TrackDataModel* trackDataModel,
                            const QList<ServerImporter*>& importers,
-                           MusicBrainzClient* mbClient) :
+                           const QList<ServerTrackImporter*>& trackImporters) :
   QDialog(parent), m_platformTools(platformTools),
   m_autoStartSubDialog(-1), m_columnVisibility(0ULL),
   m_trackDataModel(trackDataModel), m_importers(importers),
-  m_musicBrainzClient(mbClient)
+  m_trackImporters(trackImporters)
 {
   setObjectName(QLatin1String("ImportDialog"));
   setModal(true);
@@ -110,9 +108,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   m_serverImportDialog = 0;
   m_textImportDialog = 0;
   m_tagImportDialog = 0;
-#ifdef HAVE_CHROMAPRINT
-  m_musicBrainzDialog = 0;
-#endif
+  m_serverTrackImportDialog = 0;
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
 
@@ -167,9 +163,9 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   foreach (const ServerImporter* si, m_importers) {
     m_serverComboBox->addItem(QCoreApplication::translate("@default", si->name()));
   }
-#ifdef HAVE_CHROMAPRINT
-  m_serverComboBox->addItem(tr("MusicBrainz Fingerprint"));
-#endif
+  foreach (const ServerTrackImporter* si, m_trackImporters) {
+    m_serverComboBox->addItem(QCoreApplication::translate("@default", si->name()));
+  }
   butlayout->addWidget(m_serverComboBox);
   QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
@@ -258,9 +254,7 @@ ImportDialog::~ImportDialog()
   delete m_textImportDialog;
   delete m_tagImportDialog;
   delete m_serverImportDialog;
-#ifdef HAVE_CHROMAPRINT
-  delete m_musicBrainzDialog;
-#endif
+  delete m_serverTrackImportDialog;
 }
 
 /**
@@ -312,11 +306,9 @@ void ImportDialog::displayServerImportDialog(int importerIdx)
   if (importerIdx >= 0) {
     if (importerIdx < m_importers.size()) {
       displayServerImportDialog(m_importers.at(importerIdx));
-    } else {
-      // special case for MusicBrainz Fingerprint
-#ifdef HAVE_CHROMAPRINT
-      fromMusicBrainz();
-#endif
+    } else if (importerIdx - m_importers.size() < m_trackImporters.size()) {
+      displayServerTrackImportDialog(
+            m_trackImporters.at(importerIdx - m_importers.size()));
     }
   }
 }
@@ -341,6 +333,23 @@ void ImportDialog::displayServerImportDialog(ServerImporter* source)
 }
 
 /**
+ * Import from track server and preview in table.
+ *
+ * @param source import source
+ */
+void ImportDialog::displayServerTrackImportDialog(ServerTrackImporter* source)
+{
+  if (!m_serverTrackImportDialog) {
+    m_serverTrackImportDialog = new ServerTrackImportDialog(this, m_trackDataModel);
+    connect(m_serverTrackImportDialog, SIGNAL(trackDataUpdated()),
+            this, SLOT(showPreview()));
+  }
+  m_serverTrackImportDialog->setImportSource(source);
+  m_serverTrackImportDialog->initTable();
+  m_serverTrackImportDialog->exec();
+}
+
+/**
  * Hide subdialogs.
  */
 void ImportDialog::hideSubdialogs()
@@ -352,23 +361,6 @@ void ImportDialog::hideSubdialogs()
   if (m_tagImportDialog)
     m_tagImportDialog->hide();
 }
-
-#ifdef HAVE_CHROMAPRINT
-/**
- * Import from MusicBrainz and preview in table.
- */
-void ImportDialog::fromMusicBrainz()
-{
-  if (!m_musicBrainzDialog) {
-    m_musicBrainzDialog = new MusicBrainzDialog(this, m_trackDataModel,
-                                                m_musicBrainzClient);
-    connect(m_musicBrainzDialog, SIGNAL(trackDataUpdated()),
-            this, SLOT(showPreview()));
-  }
-  m_musicBrainzDialog->initTable();
-  (void)m_musicBrainzDialog->exec();
-}
-#endif
 
 /**
  * Shows the dialog as a modal dialog.

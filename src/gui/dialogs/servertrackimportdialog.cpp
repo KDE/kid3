@@ -1,6 +1,6 @@
 /**
- * \file musicbrainzdialog.cpp
- * MusicBrainz import dialog.
+ * \file servertrackimportdialog.cpp
+ * Generic dialog for track based import from a server.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,9 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "musicbrainzdialog.h"
-#ifdef HAVE_CHROMAPRINT
-
+#include "servertrackimportdialog.h"
 #include <QLayout>
 #include <QPushButton>
 #include <QLineEdit>
@@ -39,9 +37,10 @@
 #include <QHeaderView>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QCoreApplication>
 #include "configstore.h"
 #include "contexthelp.h"
-#include "musicbrainzclient.h"
+#include "servertrackimporter.h"
 #include "comboboxdelegate.h"
 #include "trackdatamodel.h"
 
@@ -51,43 +50,26 @@
  * @param parent          parent widget
  * @param trackDataModel track data to be filled with imported values,
  *                        is passed with filenames set
- * @param mbClient       MusicBrainz client
  */
-MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
-                                     TrackDataModel* trackDataModel,
-                                     MusicBrainzClient* mbClient)
+ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
+                                                 TrackDataModel* trackDataModel)
   : QDialog(parent), m_statusBar(0),
-    m_client(mbClient), m_trackDataModel(trackDataModel)
+    m_client(0), m_trackDataModel(trackDataModel)
 {
-  setObjectName(QLatin1String("MusicBrainzDialog"));
+  setObjectName(QLatin1String("ServerTrackImportDialog"));
   setModal(true);
-  setWindowTitle(tr("MusicBrainz Fingerprint"));
 
   QVBoxLayout* vlayout = new QVBoxLayout(this);
   QHBoxLayout* serverLayout = new QHBoxLayout;
-  QLabel* serverLabel = new QLabel(tr("&Server:"), this);
+  m_serverLabel = new QLabel(tr("&Server:"), this);
   m_serverComboBox = new QComboBox(this);
   m_serverComboBox->setEditable(true);
-  static const char* serverList[] = {
-    "musicbrainz.org:80",
-    "de.musicbrainz.org:80",
-    "nl.musicbrainz.org:80",
-    0                  // end of StrList
-  };
-  QStringList strList;
-  for (const char** sl = serverList; *sl != 0; ++sl) {
-    strList += QString::fromLatin1(*sl);
-  }
-  m_serverComboBox->addItems(strList);
   m_serverComboBox->setSizePolicy(
     QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-  serverLabel->setBuddy(m_serverComboBox);
-  serverLayout->addWidget(serverLabel);
+  m_serverLabel->setBuddy(m_serverComboBox);
+  serverLayout->addWidget(m_serverLabel);
   serverLayout->addWidget(m_serverComboBox);
-  connect(m_serverComboBox, SIGNAL(activated(int)),
-          this, SLOT(setClientConfig()));
   vlayout->addLayout(serverLayout);
-
 
   m_albumTableModel = new QStandardItemModel(this);
   m_albumTableModel->setColumnCount(2);
@@ -116,13 +98,13 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   QHBoxLayout* hlayout = new QHBoxLayout;
   QSpacerItem* hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  m_helpButton = new QPushButton(tr("&Help"), this);
+  m_saveButton = new QPushButton(tr("&Save Settings"), this);
   QPushButton* okButton = new QPushButton(tr("&OK"), this);
   QPushButton* applyButton = new QPushButton(tr("&Apply"), this);
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
-  hlayout->addWidget(helpButton);
-  hlayout->addWidget(saveButton);
+  hlayout->addWidget(m_helpButton);
+  hlayout->addWidget(m_saveButton);
   hlayout->addItem(hspacer);
   hlayout->addWidget(okButton);
   hlayout->addWidget(applyButton);
@@ -132,8 +114,8 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   okButton->setAutoDefault(false);
   cancelButton->setAutoDefault(false);
   applyButton->setAutoDefault(false);
-  connect(helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
-  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
+  connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showHelp()));
+  connect(m_saveButton, SIGNAL(clicked()), this, SLOT(saveConfig()));
   connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
   connect(applyButton, SIGNAL(clicked()), this, SLOT(apply()));
@@ -144,30 +126,75 @@ MusicBrainzDialog::MusicBrainzDialog(QWidget* parent,
   connect(m_albumTable->selectionModel(),
           SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),
           this, SLOT(showFilenameInStatusBar(QModelIndex)));
-
-  connect(m_client, SIGNAL(statusChanged(int, QString)),
-          this, SLOT(setFileStatus(int, QString)));
-  connect(m_client, SIGNAL(metaDataReceived(int, ImportTrackData&)),
-          this, SLOT(setMetaData(int, ImportTrackData&)));
-  connect(m_client, SIGNAL(resultsReceived(int, ImportTrackDataVector&)),
-          this, SLOT(setResults(int, ImportTrackDataVector&)));
 }
 
 /**
  * Destructor.
  */
-MusicBrainzDialog::~MusicBrainzDialog()
+ServerTrackImportDialog::~ServerTrackImportDialog()
 {
   stopClient();
+}
+
+/**
+ * Set importer to be used.
+ *
+ * @param source  import source to use
+ */
+void ServerTrackImportDialog::setImportSource(ServerTrackImporter* source)
+{
+  if (m_client) {
+    disconnect(m_client, SIGNAL(statusChanged(int, QString)),
+               this, SLOT(setFileStatus(int, QString)));
+    disconnect(m_client, SIGNAL(resultsReceived(int, ImportTrackDataVector&)),
+               this, SLOT(setResults(int, ImportTrackDataVector&)));
+  }
+  m_client = source;
+
+  if (m_client) {
+    connect(m_client, SIGNAL(statusChanged(int, QString)),
+            this, SLOT(setFileStatus(int, QString)));
+    connect(m_client, SIGNAL(resultsReceived(int, ImportTrackDataVector&)),
+            this, SLOT(setResults(int, ImportTrackDataVector&)));
+
+    setWindowTitle(QCoreApplication::translate("@default", m_client->name()));
+    if (m_client->defaultServer()) {
+      m_serverLabel->show();
+      m_serverComboBox->show();
+      if (m_client->serverList()) {
+        QStringList strList;
+        for (const char** sl = m_client->serverList(); *sl != 0; ++sl) {
+          strList += QString::fromLatin1(*sl);
+        }
+        m_serverComboBox->clear();
+        m_serverComboBox->addItems(strList);
+      }
+    } else {
+      m_serverLabel->hide();
+      m_serverComboBox->hide();
+    }
+    if (m_client->helpAnchor()) {
+      m_helpButton->show();
+    } else {
+      m_helpButton->hide();
+    }
+    if (m_client->config()) {
+      m_saveButton->show();
+    } else {
+      m_saveButton->hide();
+    }
+  }
 }
 
 /**
  * Initialize the table model.
  * Has to be called before reusing the dialog with new track data.
  */
-void MusicBrainzDialog::initTable()
+void ServerTrackImportDialog::initTable()
 {
-  setServer(ConfigStore::s_musicBrainzCfg.m_server);
+  if (m_client && m_client->config()) {
+    setServer(m_client->config()->m_server);
+  }
 
   unsigned numRows = 0;
   const ImportTrackDataVector& trackDataVector(m_trackDataModel->trackData());
@@ -198,7 +225,7 @@ void MusicBrainzDialog::initTable()
 /**
  * Clear all results.
  */
-void MusicBrainzDialog::clearResults()
+void ServerTrackImportDialog::clearResults()
 {
   unsigned numRows = m_trackResults.size();
   for (unsigned i = 0; i < numRows; ++i) {
@@ -209,35 +236,33 @@ void MusicBrainzDialog::clearResults()
 }
 
 /**
- * Set the configuration in the client.
+ * Create and start the track import client.
  */
-void MusicBrainzDialog::setClientConfig()
+void ServerTrackImportDialog::startClient()
 {
-  m_client->setConfig(getServer());
+  if (m_client) {
+    clearResults();
+    ServerImporterConfig cfg;
+    cfg.m_server = getServer();
+    m_client->setConfig(&cfg);
+    m_client->start();
+  }
 }
 
 /**
- * Create and start the MusicBrainz client.
+ * Stop and destroy the track import client.
  */
-void MusicBrainzDialog::startClient()
+void ServerTrackImportDialog::stopClient()
 {
-  clearResults();
-  setClientConfig();
-  m_client->addFiles();
-}
-
-/**
- * Stop and destroy the MusicBrainz client.
- */
-void MusicBrainzDialog::stopClient()
-{
-  m_client->resetState();
+  if (m_client) {
+    m_client->stop();
+  }
 }
 
 /**
  * Hides the dialog and sets the result to QDialog::Accepted.
  */
-void MusicBrainzDialog::accept()
+void ServerTrackImportDialog::accept()
 {
   apply();
   stopClient();
@@ -247,7 +272,7 @@ void MusicBrainzDialog::accept()
 /**
  * Hides the dialog and sets the result to QDialog::Rejected.
  */
-void MusicBrainzDialog::reject()
+void ServerTrackImportDialog::reject()
 {
   stopClient();
   QDialog::reject();
@@ -256,7 +281,7 @@ void MusicBrainzDialog::reject()
 /**
  * Apply imported data.
  */
-void MusicBrainzDialog::apply()
+void ServerTrackImportDialog::apply()
 {
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   trackDataVector.setCoverArtUrl(QString());
@@ -297,7 +322,7 @@ void MusicBrainzDialog::apply()
 /**
  * Shows the dialog as a modal dialog.
  */
-int MusicBrainzDialog::exec()
+int ServerTrackImportDialog::exec()
 {
   startClient();
   return QDialog::exec();
@@ -309,7 +334,7 @@ int MusicBrainzDialog::exec()
  * @param index  index of file
  * @param status status string
  */
-void MusicBrainzDialog::setFileStatus(int index, QString status)
+void ServerTrackImportDialog::setFileStatus(int index, const QString& status)
 {
   m_albumTableModel->setData(m_albumTableModel->index(index, 1),
                              status);
@@ -320,7 +345,7 @@ void MusicBrainzDialog::setFileStatus(int index, QString status)
  *
  * @param index  index of file
  */
-void MusicBrainzDialog::updateFileTrackData(int index)
+void ServerTrackImportDialog::updateFileTrackData(int index)
 {
   QStringList stringList;
   unsigned numResults = m_trackResults[index].size();
@@ -349,35 +374,16 @@ void MusicBrainzDialog::updateFileTrackData(int index)
 }
 
 /**
- * Set meta data for a file.
- *
- * @param index     index of file
- * @param trackData meta data
- */
-void MusicBrainzDialog::setMetaData(int index, ImportTrackData& trackData)
-{
-  m_trackResults[index].clear();
-  m_trackResults[index].push_back(trackData);
-  updateFileTrackData(index);
-}
-
-/**
  * Set result list for a file.
  *
  * @param index           index of file
  * @param trackDataVector result list
  */
-void MusicBrainzDialog::setResults(
+void ServerTrackImportDialog::setResults(
   int index, ImportTrackDataVector& trackDataVector)
 {
   m_trackResults[index] = trackDataVector;
   updateFileTrackData(index);
-  for (
-     ImportTrackDataVector::const_iterator
-       it = trackDataVector.begin();
-       it != trackDataVector.end();
-       ++it) {
-  }
 }
 
 /**
@@ -385,11 +391,11 @@ void MusicBrainzDialog::setResults(
  *
  * @return "servername:port".
  */
-QString MusicBrainzDialog::getServer() const
+QString ServerTrackImportDialog::getServer() const
 {
   QString server(m_serverComboBox->currentText());
-  if (server.isEmpty()) {
-    server = QLatin1String("musicbrainz.org:80");
+  if (server.isEmpty() && m_client && m_client->defaultServer()) {
+    server = QString::fromLatin1(m_client->defaultServer());
   }
   return server;
 }
@@ -399,7 +405,7 @@ QString MusicBrainzDialog::getServer() const
  *
  * @param srv "servername:port"
  */
-void MusicBrainzDialog::setServer(const QString& srv)
+void ServerTrackImportDialog::setServer(const QString& srv)
 {
   int idx = m_serverComboBox->findText(srv);
   if (idx >= 0) {
@@ -413,17 +419,21 @@ void MusicBrainzDialog::setServer(const QString& srv)
 /**
  * Save the local settings to the configuration.
  */
-void MusicBrainzDialog::saveConfig()
+void ServerTrackImportDialog::saveConfig()
 {
-  ConfigStore::s_musicBrainzCfg.m_server = getServer();
+  if (m_client && m_client->config()) {
+    m_client->config()->m_server = getServer();
+  }
 }
 
 /**
  * Show help.
  */
-void MusicBrainzDialog::showHelp()
+void ServerTrackImportDialog::showHelp()
 {
-  ContextHelp::displayHelp(QLatin1String("import-musicbrainz"));
+  if (m_client && m_client->helpAnchor()) {
+    ContextHelp::displayHelp(QString::fromLatin1(m_client->helpAnchor()));
+  }
 }
 
 /**
@@ -431,7 +441,7 @@ void MusicBrainzDialog::showHelp()
  *
  * @param row table row
  */
-void MusicBrainzDialog::showFilenameInStatusBar(const QModelIndex& index)
+void ServerTrackImportDialog::showFilenameInStatusBar(const QModelIndex& index)
 {
   if (m_statusBar) {
     int row = index.row();
@@ -452,5 +462,3 @@ void MusicBrainzDialog::showFilenameInStatusBar(const QModelIndex& index)
     m_statusBar->clearMessage();
   }
 }
-
-#endif // HAVE_CHROMAPRINT

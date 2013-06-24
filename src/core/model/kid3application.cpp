@@ -114,8 +114,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   m_player(0),
 #endif
-  m_downloadImageDest(ImageForSelectedFiles),
-  m_musicBrainzClient(0)
+  m_downloadImageDest(ImageForSelectedFiles)
 {
   setObjectName(QLatin1String("Kid3Application"));
   m_fileProxyModel->setSourceModel(m_fileSystemModel);
@@ -137,7 +136,8 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
       << new AmazonImporter(m_netMgr, m_trackDataModel)
       << new MusicBrainzReleaseImporter(m_netMgr, m_trackDataModel);
 #ifdef HAVE_CHROMAPRINT
-  m_musicBrainzClient = new MusicBrainzClient(m_netMgr, m_trackDataModel);
+  m_trackImporters
+      << new MusicBrainzClient(m_netMgr, m_trackDataModel);
 #endif
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
 

@@ -71,9 +71,7 @@ void ConfigStore::writeToConfig()
   s_amazonCfg.writeToConfig(m_config);
   s_filterCfg.writeToConfig(m_config);
   s_playlistCfg.writeToConfig(m_config);
-#ifdef HAVE_CHROMAPRINT
   s_musicBrainzCfg.writeToConfig(m_config);
-#endif
 }
 
 /**
@@ -92,7 +90,5 @@ void ConfigStore::readFromConfig()
   s_amazonCfg.readFromConfig(m_config);
   s_filterCfg.readFromConfig(m_config);
   s_playlistCfg.readFromConfig(m_config);
-#ifdef HAVE_CHROMAPRINT
   s_musicBrainzCfg.readFromConfig(m_config);
-#endif
 }

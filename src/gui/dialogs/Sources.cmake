@@ -10,7 +10,7 @@ set(dialogs_SRCS
   dialogs/exportdialog.cpp
   dialogs/filterdialog.cpp
   dialogs/importdialog.cpp
-  dialogs/musicbrainzdialog.cpp
+  dialogs/servertrackimportdialog.cpp
   dialogs/numbertracksdialog.cpp
   dialogs/playlistdialog.cpp
   dialogs/rendirdialog.cpp
@@ -30,7 +30,7 @@ set(dialogs_MOC_HDRS
   dialogs/exportdialog.h
   dialogs/filterdialog.h
   dialogs/importdialog.h
-  dialogs/musicbrainzdialog.h
+  dialogs/servertrackimportdialog.h
   dialogs/numbertracksdialog.h
   dialogs/playlistdialog.h
   dialogs/rendirdialog.h

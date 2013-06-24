@@ -1,6 +1,6 @@
 /**
- * \file musicbrainzdialog.h
- * MusicBrainz import dialog.
+ * \file servertrackimportdialog.h
+ * Generic dialog for track based import from a server.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,19 +24,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MUSICBRAINZDIALOG_H
-#define MUSICBRAINZDIALOG_H
+#ifndef SERVERTRACKIMPORTDIALOG_H
+#define SERVERTRACKIMPORTDIALOG_H
 
 #include <QDialog>
 #include <QString>
 #include <QVector>
-#include "config.h"
-
-#ifdef HAVE_CHROMAPRINT
 
 class QTableView;
 class QStandardItemModel;
 class QLineEdit;
+class QLabel;
 class QComboBox;
 class QPushButton;
 class QCheckBox;
@@ -45,14 +43,13 @@ class QModelIndex;
 class TrackDataModel;
 class ImportTrackData;
 class ImportTrackDataVector;
-class MusicBrainzConfig;
-class MusicBrainzClient;
+class ServerTrackImporter;
 
 /**
- * musicBrainz.org import dialog.
+ * Generic dialog for track based import from a server.
  */
-class MusicBrainzDialog : public QDialog {
-Q_OBJECT
+class ServerTrackImportDialog : public QDialog {
+  Q_OBJECT
 
 public:
   /**
@@ -62,14 +59,20 @@ public:
    * @param trackDataModel track data to be filled with imported values,
    *                        is passed with filenames set
    */
-  MusicBrainzDialog(QWidget* parent,
-                    TrackDataModel* trackDataModel,
-                    MusicBrainzClient *mbClient);
+  ServerTrackImportDialog(QWidget* parent,
+                          TrackDataModel* trackDataModel);
 
   /**
    * Destructor.
    */
-  ~MusicBrainzDialog();
+  virtual ~ServerTrackImportDialog();
+
+  /**
+   * Set importer to be used.
+   *
+   * @param source  import source to use
+   */
+  void setImportSource(ServerTrackImporter* source);
 
   /**
    * Initialize the table model.
@@ -116,11 +119,6 @@ protected slots:
 
 private slots:
   /**
-   * Set the configuration in the client.
-   */
-  void setClientConfig();
-
-  /**
    * Apply imported data.
    */
   void apply();
@@ -131,7 +129,7 @@ private slots:
    * @param index  index of file
    * @param status status string
    */
-  void setFileStatus(int index, QString status);
+  void setFileStatus(int index, const QString& status);
 
   /**
    * Update the track data combo box of a file.
@@ -139,14 +137,6 @@ private slots:
    * @param index  index of file
    */
   void updateFileTrackData(int index);
-
-  /**
-   * Set meta data for a file.
-   *
-   * @param index     index of file
-   * @param trackData meta data
-   */
-  void setMetaData(int index, ImportTrackData& trackData);
 
   /**
    * Set result list for a file.
@@ -180,30 +170,25 @@ private:
   void clearResults();
 
  /**
-  * Create and start the MusicBrainz client.
+  * Create and start the track import client.
   */
   void startClient();
 
   /**
-   * Stop and destroy the MusicBrainz client.
+   * Stop and destroy the track import client.
    */
   void stopClient();
 
+  QLabel* m_serverLabel;
   QComboBox* m_serverComboBox;
   QTableView* m_albumTable;
+  QPushButton* m_helpButton;
+  QPushButton* m_saveButton;
   QStandardItemModel* m_albumTableModel;
   QStatusBar* m_statusBar;
-  MusicBrainzClient* m_client;
+  ServerTrackImporter* m_client;
   TrackDataModel* m_trackDataModel;
   QVector<ImportTrackDataVector> m_trackResults;
 };
-#else // HAVE_CHROMAPRINT
 
-// Just to suppress moc "No relevant classes found" warning.
-class MusicBrainzDialog : public QDialog {
-Q_OBJECT
-};
-
-#endif // HAVE_CHROMAPRINT
-
-#endif // MUSICBRAINZDIALOG_H
+#endif // SERVERTRACKIMPORTDIALOG_H
