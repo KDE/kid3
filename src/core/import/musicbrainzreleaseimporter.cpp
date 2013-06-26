@@ -62,18 +62,12 @@ const char* MusicBrainzReleaseImporter::name() const {
 /** NULL-terminated array of server strings, 0 if not used */
 const char** MusicBrainzReleaseImporter::serverList() const
 {
-  static const char* servers[] = {
-    "musicbrainz.org:80",
-    "de.musicbrainz.org:80",
-    "nl.musicbrainz.org:80",
-    0                  // end of StrList
-  };
-  return servers;
+  return 0;
 }
 
 /** default server, 0 to disable */
 const char* MusicBrainzReleaseImporter::defaultServer() const {
-  return "musicbrainz.org:80";
+  return 0;
 }
 
 /** anchor to online help, 0 to disable */
@@ -496,6 +490,7 @@ void MusicBrainzReleaseImporter::sendFindQuery(
   const ServerImporterConfig* cfg,
   const QString& artist, const QString& album)
 {
+  Q_UNUSED(cfg)
   /*
    * Query looks like this:
    * http://musicbrainz.org/ws/2/release?query=artist:wizard%20AND%20release:odin
@@ -518,7 +513,7 @@ void MusicBrainzReleaseImporter::sendFindQuery(
     path += QLatin1String("release:");
     path += QString::fromLatin1(QUrl::toPercentEncoding(albumQuery));
   }
-  sendRequest(cfg->m_server, path);
+  sendRequest(QLatin1String("musicbrainz.org:80"), path);
 }
 
 /**
@@ -548,5 +543,5 @@ void MusicBrainzReleaseImporter::sendTrackListQuery(
   if (cfg->m_coverArt) {
     path += QLatin1String("+url-rels");
   }
-  sendRequest(cfg->m_server, path);
+  sendRequest(QLatin1String("musicbrainz.org:80"), path);
 }

@@ -32,7 +32,6 @@
 #include "httpclient.h"
 #include "trackdatamodel.h"
 #include "fingerprintcalculator.h"
-#include "configstore.h"
 
 namespace {
 
@@ -209,18 +208,12 @@ const char* MusicBrainzClient::name() const {
 /** NULL-terminated array of server strings, 0 if not used */
 const char** MusicBrainzClient::serverList() const
 {
-  static const char* servers[] = {
-    "musicbrainz.org:80",
-    "de.musicbrainz.org:80",
-    "nl.musicbrainz.org:80",
-    0                  // end of StrList
-  };
-  return servers;
+  return 0;
 }
 
 /** default server, 0 to disable */
 const char* MusicBrainzClient::defaultServer() const {
-  return "musicbrainz.org:80";
+  return 0;
 }
 
 /** anchor to online help, 0 to disable */
@@ -230,7 +223,7 @@ const char* MusicBrainzClient::helpAnchor() const {
 
 /** configuration, 0 if not used */
 ServerImporterConfig* MusicBrainzClient::config() const {
-  return &ConfigStore::s_musicBrainzCfg;
+  return 0;
 }
 
 /**
@@ -354,7 +347,7 @@ void MusicBrainzClient::processNextStep()
       emit statusChanged(m_currentIndex, tr("Metadata Lookup"));
       QString path(QLatin1String("/ws/2/recording/") + ids.takeFirst() +
                    QLatin1String("?inc=artists+releases+media"));
-      httpClient()->sendRequest(m_musicBrainzServer, path);
+      httpClient()->sendRequest(QLatin1String("musicbrainz.org:80"), path);
     } else {
       processNextTrack();
     }
@@ -389,9 +382,7 @@ void MusicBrainzClient::processNextTrack()
  */
 void MusicBrainzClient::setConfig(const ServerImporterConfig* cfg)
 {
-  if (cfg) {
-    m_musicBrainzServer = cfg->m_server;
-  }
+  Q_UNUSED(cfg)
 }
 
 /**

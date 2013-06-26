@@ -133,7 +133,6 @@ private:
   QVector<QStringList> m_idsOfTrack;
   int m_currentIndex;
   ImportTrackDataVector m_currentTrackData;
-  QString m_musicBrainzServer;
 };
 
 #else // HAVE_CHROMAPRINT
