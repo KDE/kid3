@@ -3,13 +3,13 @@
 #
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2011.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
-# Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012.
+# Pavel Fric <fripohled@blogspot.com>, 2010, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 2.3\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
-"POT-Creation-Date: 2013-04-14 17:22+0200\n"
-"PO-Revision-Date: 2012-10-27 16:11+0200\n"
+"POT-Creation-Date: 2013-06-26 22:07+0200\n"
+"PO-Revision-Date: 2013-06-26 21:43+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -67,7 +67,7 @@ msgid "Preferences dialog"
 msgstr "Nastavení"
 
 msgid "O&pen Directory..."
-msgstr "&Otevřít adresář..."
+msgstr "Otevřít &adresář..."
 
 msgid "&Import..."
 msgstr "&Zavést..."
@@ -75,11 +75,8 @@ msgstr "&Zavést..."
 msgid "Import from %1..."
 msgstr "Zavést z %1..."
 
-msgid "MusicBrainz Fingerprint"
-msgstr "MusicBrainz Fingerprint"
-
 msgid "Automatic I&mport..."
-msgstr "Automaticky i&mportovat..."
+msgstr "Automaticky &zavést..."
 
 msgid "&Browse Cover Art..."
 msgstr "&Procházet kvůli obrázkům obalů..."
@@ -88,7 +85,7 @@ msgid "&Export..."
 msgstr "&Vyvést..."
 
 msgid "&Create Playlist..."
-msgstr "&Vytvořit seznam skladeb..."
+msgstr "Vytvořit &seznam skladeb..."
 
 msgid "Apply &Filename Format"
 msgstr "Použít formát pro &název souboru"
@@ -100,13 +97,13 @@ msgid "Apply Text &Encoding"
 msgstr "Použít kódování t&extu"
 
 msgid "&Rename Directory..."
-msgstr "&Přejmenovat adresář..."
+msgstr "Pře&jmenovat adresář..."
 
 msgid "&Number Tracks..."
 msgstr "Čís&lovat skladby..."
 
 msgid "F&ilter..."
-msgstr "F&iltrovat..."
+msgstr "&Filtrovat..."
 
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Převést ID3v2.3 na ID3v2.&4"
@@ -118,10 +115,10 @@ msgid "&Play"
 msgstr "&Přehrát"
 
 msgid "Show &Picture"
-msgstr "&Ukázat obrázek"
+msgstr "Ukázat &obrázek"
 
 msgid "Auto &Hide Tags"
-msgstr "Automaticky &skrýt"
+msgstr "Automaticky skrýt &značky"
 
 msgid "Select All in &Directory"
 msgstr "Vybrat všechny soubory v &adresáři"
@@ -193,7 +190,7 @@ msgid "directory to open"
 msgstr "Adresář k otevření"
 
 msgid "Kid3 ID3 Tagger"
-msgstr "Značkovač ID3 programu Kid3"
+msgstr "Značkovač ID3 s názvem Kid3"
 
 #. i18n NAME OF TRANSLATORS
 msgid "Your names"
@@ -237,13 +234,13 @@ msgid "&Keyboard Shortcuts"
 msgstr "&Klávesové zkratky"
 
 msgid "Use custom app&lication font"
-msgstr "Použít v ap&likaci vlastní písmo"
+msgstr "V programu použít vlastní &písmo"
 
 msgid "A&pplication Font..."
 msgstr "Pís&mo..."
 
 msgid "Use custom application &style"
-msgstr "Použít v aplikaci vlastní &styl"
+msgstr "V programu použít vlastní &styl"
 
 msgid "Unknown"
 msgstr "Neznámý"
@@ -255,7 +252,7 @@ msgid "&Appearance"
 msgstr "Vz&hled"
 
 msgid "&Help"
-msgstr "&Nápověda"
+msgstr "Nápo&věda"
 
 msgid "&OK"
 msgstr "&OK"
@@ -273,13 +270,13 @@ msgid "&Open..."
 msgstr "&Otevřít..."
 
 msgid "Open &Recent"
-msgstr "Ot&evřít nedávný"
+msgstr "Otevřít &nedávný"
 
 msgid "&Save"
 msgstr "&Uložit"
 
 msgid "Re&vert"
-msgstr "&Naposledy uložené znění"
+msgstr "V&rátit"
 
 msgid "Import from file or clipboard"
 msgstr "Zavést ze souboru nebo ze schránky"
@@ -303,7 +300,7 @@ msgid "&Quit"
 msgstr "&Ukončit"
 
 msgid "&Edit"
-msgstr "&Úpravy"
+msgstr "Úp&ravy"
 
 msgid "Select &All"
 msgstr "Vybrat &vše"
@@ -351,19 +348,19 @@ msgid "Play"
 msgstr "Přehrát"
 
 msgid "&Settings"
-msgstr "&Nastavení"
+msgstr "Na&stavení"
 
 msgid "Enables/disables the toolbar"
 msgstr "Povolí/Zakáže nástrojový panel"
 
 msgid "Show &Toolbar"
-msgstr "Zobrazovat nás&trojový panel"
+msgstr "Ukázat nástrojový &panel"
 
 msgid "Enables/disables the statusbar"
-msgstr "Ukázat stavový řádek"
+msgstr "Povolí/Zakáže stavový řádek"
 
 msgid "Show St&atusbar"
-msgstr "Zobrazovat st&avový řádek"
+msgstr "Ukázat &stavový řádek"
 
 msgid "Show Picture"
 msgstr "Ukázat obrázek"
@@ -417,7 +414,7 @@ msgid "Press F2 or double click to edit cell contents."
 msgstr "Obsah buňky editujte stisknutím F2 nebo dvojklikem."
 
 msgid "Action"
-msgstr "Akce"
+msgstr "Činnost"
 
 msgid "Shortcut"
 msgstr "Zkratka"
@@ -749,6 +746,9 @@ msgstr "Rok"
 msgid "Length"
 msgstr "Délka"
 
+msgid "MusicBrainz Fingerprint"
+msgstr "MusicBrainz Fingerprint"
+
 msgid "Unrecognized"
 msgstr "Nerozpoznáno"
 
@@ -1052,7 +1052,7 @@ msgid "New"
 msgstr "Nový"
 
 msgid "Reading Directory"
-msgstr "Čtu adresář"
+msgstr "Čte se adresář"
 
 msgid "Started"
 msgstr "Spuštěn"
@@ -1064,7 +1064,7 @@ msgid "Querying"
 msgstr "Dotazování se"
 
 msgid "Fetching"
-msgstr "Získávám"
+msgstr "Získává se"
 
 msgid "Data received"
 msgstr "Přijatá data"
@@ -1085,7 +1085,7 @@ msgid "S&tart"
 msgstr "Začát&ek"
 
 msgid "Import Source"
-msgstr "Zdroj importu"
+msgstr "Zdroj zavedení"
 
 msgid "&Server:"
 msgstr "&Server:"
@@ -1193,7 +1193,7 @@ msgid "&Show only custom genres"
 msgstr "&Ukázat pouze vlastní žánry"
 
 msgid "&Quick Access Tags"
-msgstr "&Rychlý přístup značky"
+msgstr "Značky s &rychlým přístupem"
 
 msgid "&Tag Format"
 msgstr "&Formát značky"
@@ -1223,7 +1223,7 @@ msgid "&Mark changes"
 msgstr "&Označit změny"
 
 msgid "F&ilename for cover:"
-msgstr "&Jméno souboru obrazu:"
+msgstr "&Jméno souboru s obalem:"
 
 msgid "&Filename Format"
 msgstr "Formát &souborového názvu"
@@ -1295,7 +1295,7 @@ msgid "Image format"
 msgstr "Formát obrázku"
 
 msgid "Mimetype"
-msgstr "Mime Typ"
+msgstr "MIME typ"
 
 msgid "Counter"
 msgstr "Počítadlo"
@@ -1445,7 +1445,7 @@ msgid "Error while writing file:\n"
 msgstr "Při zápisu do souboru nastala chyba:\n"
 
 msgid "&Filter:"
-msgstr "&Filtrovat:"
+msgstr "&Filtr:"
 
 msgid "&Expression:"
 msgstr "&Výraz:"
@@ -1485,18 +1485,6 @@ msgstr "&Stopa"
 
 msgid "&Title"
 msgstr "&Název"
-
-msgid "Track Title/Artist - Album"
-msgstr "Název skladby/Umělec - Album"
-
-msgid "State"
-msgstr "Stav"
-
-msgid "No result"
-msgstr "Žádný výsledek"
-
-msgid "No result selected"
-msgstr "Nevybrán žádný výsledek"
 
 msgid "&Start number:"
 msgstr "&Začáteční číslo:"
@@ -1556,16 +1544,16 @@ msgid "Write only &list of files"
 msgstr "Zapsat pouze &seznamy souborů"
 
 msgid "Write &info using"
-msgstr "Zapsat &údaje pomocí"
+msgstr "Zapsat ú&daje pomocí"
 
 msgid "Format"
-msgstr "Format"
+msgstr "Formát"
 
 msgid "Preview"
 msgstr "Náhled"
 
 msgid "Create Directory"
-msgstr "vytvořit adresář"
+msgstr "Vytvořit adresář"
 
 msgid "From Tag 2 and Tag 1"
 msgstr "Ze značky 2 a značky 1"
@@ -1582,8 +1570,20 @@ msgstr "&Hledat"
 msgid "C&GI Path:"
 msgstr "Cesta C&GI:"
 
+msgid "Track Title/Artist - Album"
+msgstr "Název skladby/Umělec - Album"
+
+msgid "State"
+msgstr "Stav"
+
+msgid "No result"
+msgstr "Žádný výsledek"
+
+msgid "No result selected"
+msgstr "Nevybrán žádný výsledek"
+
 msgid "Import from Tags"
-msgstr "Zavést ze značky"
+msgstr "Zavést ze značek"
 
 msgid "Extraction:"
 msgstr "Získání:"
@@ -1662,7 +1662,7 @@ msgid "&Expand all"
 msgstr "&Rozbalit vše"
 
 msgid "&Collapse all"
-msgstr "&Svinout vše"
+msgstr "&Složit vše"
 
 msgid "&Rename"
 msgstr "Pře&jmenovat"
@@ -1737,10 +1737,10 @@ msgid "All first letters uppercase"
 msgstr "Všechna první písmena velká"
 
 msgid "Locale:"
-msgstr "Locale:"
+msgstr "Jazyk:"
 
 msgid "None"
-msgstr "Žádné"
+msgstr "Žádný"
 
 msgid "String replacement:"
 msgstr "Nahrazení řetězce:"
@@ -1749,7 +1749,7 @@ msgid "From"
 msgstr "Z"
 
 msgid "To"
-msgstr "Na"
+msgstr "Do"
 
 msgid "&Add"
 msgstr "&Přidat"
