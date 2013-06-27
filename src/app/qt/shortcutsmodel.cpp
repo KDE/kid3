@@ -34,11 +34,7 @@ static const int TopLevelId = -1;
 
 bool isTopLevelItem(const QModelIndex& index)
 {
-#if QT_VERSION >= 0x050000
   return quintptr(index.internalId()) == quintptr(TopLevelId);
-#else
-  return index.internalId() == TopLevelId;
-#endif
 }
 
 }
