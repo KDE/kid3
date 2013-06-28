@@ -76,10 +76,20 @@ CONFIGURE_OPTIONS="--host=i586-mingw32msvc"
 fi
 
 if test $kernel = "Darwin" && test $(uname -m) = "x86_64"; then
-CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 -Xarch_x86_64 -mmacosx-version-min=10.5\" -DCMAKE_CXX_FLAGS=\"-O2 -Xarch_x86_64 -mmacosx-version-min=10.5\""
-export CFLAGS="-O2 -Xarch_x86_64 -mmacosx-version-min=10.5"
-export CXXFLAGS="-O2 -Xarch_x86_64 -mmacosx-version-min=10.5"
-export LDFLAGS="-Xarch_x86_64 -mmacosx-version-min=10.5"
+#ARCH=i386
+if test "$ARCH" = "i386"; then
+  # To build a 32-bit Mac OS X version of Kid3 use:
+  # cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-arch i386" -DCMAKE_C_FLAGS="-arch i386" -DCMAKE_EXE_LINKER_FLAGS="-arch i386" -DQT_QMAKE_EXECUTABLE=/usr/local/Trolltech/Qt-4.8.4-i386/bin/qmake -DCMAKE_BUILD_TYPE=Release -DWITH_FFMPEG=ON -DCMAKE_INSTALL_PREFIX= ../kid3
+  # Building multiple architectures needs ARCH_FLAG="-arch i386 -arch x86_64",
+  # CONFIGURE_OPTIONS="--disable-dependency-tracking", but it fails with libav.
+  ARCH_FLAG="-arch i386"
+else
+  ARCH_FLAG="-Xarch_x86_64"
+fi
+CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5 -fvisibility=hidden -fvisibility-inlines-hidden\""
+export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
+export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
+export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.5"
 fi
 
 if which wget >/dev/null; then
