@@ -44,7 +44,7 @@ public:
    *
    * @param grp configuration group
    */
-  ImportConfig(const QString& grp);
+  explicit ImportConfig(const QString& grp);
 
   /**
    * Destructor.
@@ -54,14 +54,14 @@ public:
   /**
    * Persist configuration.
    *
-   * @param config KDE configuration
+   * @param config configuration
    */
   virtual void writeToConfig(ISettings* config) const;
 
   /**
    * Read persisted configuration.
    *
-   * @param config KDE configuration
+   * @param config configuration
    */
   virtual void readFromConfig(ISettings* config);
 
@@ -94,21 +94,6 @@ public:
   QStringList m_importTagsExtractions;
   /** selected import tags format */
   int m_importTagsIdx;
-
-  /** Tag1 to export ID3v1 tags, Tag2 for ID3v2 tags */
-  TrackData::TagVersion m_exportSrcV1;
-  /** Names of export formats */
-  QStringList m_exportFormatNames;
-  /** regexp describing header export format */
-  QStringList m_exportFormatHeaders;
-  /** regexp describing track export format */
-  QStringList m_exportFormatTracks;
-  /** regexp describing trailer export format */
-  QStringList m_exportFormatTrailers;
-  /** selected export format */
-  int m_exportFormatIdx;
-  /** export window geometry */
-  QByteArray m_exportWindowGeometry;
 
   /** names of picture sources */
   QStringList m_pictureSourceNames;

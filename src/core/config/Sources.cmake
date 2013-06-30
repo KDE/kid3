@@ -10,6 +10,7 @@ set(config_SRCS
   config/freedbconfig.cpp
   config/generalconfig.cpp
   config/importconfig.cpp
+  config/exportconfig.cpp
   config/tagconfig.cpp
   config/fileconfig.cpp
   config/rendirconfig.cpp

@@ -118,10 +118,10 @@ void TextImportDialog::clear()
 void TextImportDialog::setFormatFromConfig()
 {
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ConfigStore::s_genCfg.m_importFormatNames
-                             << ConfigStore::s_genCfg.m_importFormatHeaders
-                             << ConfigStore::s_genCfg.m_importFormatTracks,
-        ConfigStore::s_genCfg.m_importFormatIdx);
+        QList<QStringList>() << ConfigStore::s_importCfg.m_importFormatNames
+                             << ConfigStore::s_importCfg.m_importFormatHeaders
+                             << ConfigStore::s_importCfg.m_importFormatTracks,
+        ConfigStore::s_importCfg.m_importFormatIdx);
 }
 
 /**
@@ -136,7 +136,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
   if (!fn.isEmpty()) {
     QFile file(fn);
     if (file.open(QIODevice::ReadOnly)) {
-      ConfigStore::s_genCfg.m_importDir = QFileInfo(file).dir().path();
+      ConfigStore::s_importCfg.m_importDir = QFileInfo(file).dir().path();
       QTextStream stream(&file);
       QString text = stream.readAll();
       if (!text.isNull() &&
@@ -160,7 +160,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
 void TextImportDialog::fromFile()
 {
   importFromFile(m_platformTools->getOpenFileName(this, QString(),
-      ConfigStore::s_genCfg.m_importDir, QString(), 0)
+      ConfigStore::s_importCfg.m_importDir, QString(), 0)
     );
 }
 
@@ -187,10 +187,10 @@ void TextImportDialog::fromClipboard()
 void TextImportDialog::saveConfig()
 {
   QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ConfigStore::s_genCfg.m_importFormatIdx);
-  ConfigStore::s_genCfg.m_importFormatNames = formats.at(0);
-  ConfigStore::s_genCfg.m_importFormatHeaders = formats.at(1);
-  ConfigStore::s_genCfg.m_importFormatTracks = formats.at(2);
+        &ConfigStore::s_importCfg.m_importFormatIdx);
+  ConfigStore::s_importCfg.m_importFormatNames = formats.at(0);
+  ConfigStore::s_importCfg.m_importFormatHeaders = formats.at(1);
+  ConfigStore::s_importCfg.m_importFormatTracks = formats.at(2);
 
   setFormatFromConfig();
 }

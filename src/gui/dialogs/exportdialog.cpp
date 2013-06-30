@@ -156,7 +156,7 @@ ExportDialog::~ExportDialog()
 void ExportDialog::slotToFile()
 {
   QString fileName = m_platformTools->getSaveFileName(this, QString(),
-      ConfigStore::s_genCfg.m_importDir, QString(), 0);
+      ConfigStore::s_importCfg.m_importDir, QString(), 0);
   if (!fileName.isEmpty()) {
     if (!m_textExporter->exportToFile(fileName)) {
       QMessageBox::warning(
@@ -203,11 +203,11 @@ void ExportDialog::showPreview()
 void ExportDialog::setFormatFromConfig()
 {
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ConfigStore::s_genCfg.m_exportFormatNames
-                             << ConfigStore::s_genCfg.m_exportFormatHeaders
-                             << ConfigStore::s_genCfg.m_exportFormatTracks
-                             << ConfigStore::s_genCfg.m_exportFormatTrailers,
-        ConfigStore::s_genCfg.m_exportFormatIdx);
+        QList<QStringList>() << ConfigStore::s_exportCfg.m_exportFormatNames
+                             << ConfigStore::s_exportCfg.m_exportFormatHeaders
+                             << ConfigStore::s_exportCfg.m_exportFormatTracks
+                             << ConfigStore::s_exportCfg.m_exportFormatTrailers,
+        ConfigStore::s_exportCfg.m_exportFormatIdx);
 }
 
 /**
@@ -216,12 +216,12 @@ void ExportDialog::setFormatFromConfig()
 void ExportDialog::readConfig()
 {
   m_srcComboBox->setCurrentIndex(
-      m_srcComboBox->findData(ConfigStore::s_genCfg.m_exportSrcV1));
+      m_srcComboBox->findData(ConfigStore::s_exportCfg.m_exportSrcV1));
 
   setFormatFromConfig();
 
-  if (!ConfigStore::s_genCfg.m_exportWindowGeometry.isEmpty()) {
-    restoreGeometry(ConfigStore::s_genCfg.m_exportWindowGeometry);
+  if (!ConfigStore::s_exportCfg.m_exportWindowGeometry.isEmpty()) {
+    restoreGeometry(ConfigStore::s_exportCfg.m_exportWindowGeometry);
   }
 }
 
@@ -230,15 +230,15 @@ void ExportDialog::readConfig()
  */
 void ExportDialog::saveConfig()
 {
-  ConfigStore::s_genCfg.m_exportSrcV1 = TrackData::tagVersionCast(
+  ConfigStore::s_exportCfg.m_exportSrcV1 = TrackData::tagVersionCast(
     m_srcComboBox->itemData(m_srcComboBox->currentIndex()).toInt());
   QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ConfigStore::s_genCfg.m_exportFormatIdx);
-  ConfigStore::s_genCfg.m_exportFormatNames = formats.at(0);
-  ConfigStore::s_genCfg.m_exportFormatHeaders = formats.at(1);
-  ConfigStore::s_genCfg.m_exportFormatTracks = formats.at(2);
-  ConfigStore::s_genCfg.m_exportFormatTrailers = formats.at(3);
-  ConfigStore::s_genCfg.m_exportWindowGeometry = saveGeometry();
+        &ConfigStore::s_exportCfg.m_exportFormatIdx);
+  ConfigStore::s_exportCfg.m_exportFormatNames = formats.at(0);
+  ConfigStore::s_exportCfg.m_exportFormatHeaders = formats.at(1);
+  ConfigStore::s_exportCfg.m_exportFormatTracks = formats.at(2);
+  ConfigStore::s_exportCfg.m_exportFormatTrailers = formats.at(3);
+  ConfigStore::s_exportCfg.m_exportWindowGeometry = saveGeometry();
 
   setFormatFromConfig();
 }

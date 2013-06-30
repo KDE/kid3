@@ -123,8 +123,8 @@ QString DownloadClient::getImageUrl(const QString& url)
     }
     else {
       for (QMap<QString, QString>::ConstIterator it =
-             ConfigStore::s_genCfg.m_matchPictureUrlMap.begin();
-           it != ConfigStore::s_genCfg.m_matchPictureUrlMap.end();
+             ConfigStore::s_importCfg.m_matchPictureUrlMap.begin();
+           it != ConfigStore::s_importCfg.m_matchPictureUrlMap.end();
            ++it) {
         QRegExp re(it.key());
         if (re.exactMatch(url)) {

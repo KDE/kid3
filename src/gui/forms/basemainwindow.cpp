@@ -463,7 +463,7 @@ bool BaseMainWindowImpl::slotCreatePlaylist()
  */
 void BaseMainWindowImpl::setupImportDialog()
 {
-  m_app->filesToTrackDataModel(ConfigStore::s_genCfg.m_importDest);
+  m_app->filesToTrackDataModel(ConfigStore::s_importCfg.m_importDest);
   if (!m_importDialog) {
     QString caption(tr("Import"));
     m_importDialog =
@@ -560,7 +560,7 @@ void BaseMainWindowImpl::slotExport()
         m_platformTools, m_w, m_app->getTextExporter());
   m_exportDialog->readConfig();
   ImportTrackDataVector trackDataVector;
-  m_app->filesToTrackData(ConfigStore::s_genCfg.m_exportSrcV1,
+  m_app->filesToTrackData(ConfigStore::s_exportCfg.m_exportSrcV1,
                           trackDataVector);
   m_app->getTextExporter()->setTrackData(trackDataVector);
   m_exportDialog->showPreview();

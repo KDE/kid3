@@ -34,7 +34,8 @@ NumberTracksConfig ConfigStore::s_numberTracksCfg(QLatin1String("General Options
 UserActionsConfig ConfigStore::s_userActionsCfg(QLatin1String("MenuCommands"));
 GuiConfig ConfigStore::s_guiCfg(QLatin1String("General Options"));
 NetworkConfig ConfigStore::s_networkCfg(QLatin1String("General Options"));
-ImportConfig ConfigStore::s_genCfg(QLatin1String("General Options"));
+ImportConfig ConfigStore::s_importCfg(QLatin1String("General Options"));
+ExportConfig ConfigStore::s_exportCfg(QLatin1String("General Options"));
 BatchImportConfig ConfigStore::s_batchImportCfg(QLatin1String("BatchImport"));
 FormatConfig ConfigStore::s_fnFormatCfg(QLatin1String("FilenameFormat"));
 FormatConfig ConfigStore::s_id3FormatCfg(QLatin1String("Id3Format"));
@@ -75,7 +76,8 @@ void ConfigStore::writeToConfig()
   s_networkCfg.writeToConfig(m_config);
   s_fnFormatCfg.writeToConfig(m_config);
   s_id3FormatCfg.writeToConfig(m_config);
-  s_genCfg.writeToConfig(m_config);
+  s_importCfg.writeToConfig(m_config);
+  s_exportCfg.writeToConfig(m_config);
   s_batchImportCfg.writeToConfig(m_config);
   s_freedbCfg.writeToConfig(m_config);
   s_trackTypeCfg.writeToConfig(m_config);
@@ -100,7 +102,8 @@ void ConfigStore::readFromConfig()
   s_networkCfg.readFromConfig(m_config);
   s_fnFormatCfg.readFromConfig(m_config);
   s_id3FormatCfg.readFromConfig(m_config);
-  s_genCfg.readFromConfig(m_config);
+  s_importCfg.readFromConfig(m_config);
+  s_exportCfg.readFromConfig(m_config);
   s_batchImportCfg.readFromConfig(m_config);
   s_freedbCfg.readFromConfig(m_config);
   s_trackTypeCfg.readFromConfig(m_config);

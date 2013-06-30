@@ -115,10 +115,10 @@ void TagImportDialog::apply()
 void TagImportDialog::setFormatFromConfig()
 {
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ConfigStore::s_genCfg.m_importTagsNames
-                             << ConfigStore::s_genCfg.m_importTagsSources
-                             << ConfigStore::s_genCfg.m_importTagsExtractions,
-        ConfigStore::s_genCfg.m_importTagsIdx);
+        QList<QStringList>() << ConfigStore::s_importCfg.m_importTagsNames
+                             << ConfigStore::s_importCfg.m_importTagsSources
+                             << ConfigStore::s_importCfg.m_importTagsExtractions,
+        ConfigStore::s_importCfg.m_importTagsIdx);
 }
 
 /**
@@ -127,10 +127,10 @@ void TagImportDialog::setFormatFromConfig()
 void TagImportDialog::saveConfig()
 {
   QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ConfigStore::s_genCfg.m_importTagsIdx);
-  ConfigStore::s_genCfg.m_importTagsNames = formats.at(0);
-  ConfigStore::s_genCfg.m_importTagsSources = formats.at(1);
-  ConfigStore::s_genCfg.m_importTagsExtractions = formats.at(2);
+        &ConfigStore::s_importCfg.m_importTagsIdx);
+  ConfigStore::s_importCfg.m_importTagsNames = formats.at(0);
+  ConfigStore::s_importCfg.m_importTagsSources = formats.at(1);
+  ConfigStore::s_importCfg.m_importTagsExtractions = formats.at(2);
 
   setFormatFromConfig();
 }

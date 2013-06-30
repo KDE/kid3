@@ -201,9 +201,9 @@ void BrowseCoverArtDialog::setFrames(const FrameCollection& frames)
 void BrowseCoverArtDialog::setSourceFromConfig()
 {
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ConfigStore::s_genCfg.m_pictureSourceNames
-                             << ConfigStore::s_genCfg.m_pictureSourceUrls,
-        ConfigStore::s_genCfg.m_pictureSourceIdx);
+        QList<QStringList>() << ConfigStore::s_importCfg.m_pictureSourceNames
+                             << ConfigStore::s_importCfg.m_pictureSourceUrls,
+        ConfigStore::s_importCfg.m_pictureSourceIdx);
 }
 
 /**
@@ -212,10 +212,10 @@ void BrowseCoverArtDialog::setSourceFromConfig()
 void BrowseCoverArtDialog::readConfig()
 {
   setSourceFromConfig();
-  m_matchUrlTableModel->setMap(ConfigStore::s_genCfg.m_matchPictureUrlMap);
+  m_matchUrlTableModel->setMap(ConfigStore::s_importCfg.m_matchPictureUrlMap);
 
-  if (!ConfigStore::s_genCfg.m_browseCoverArtWindowGeometry.isEmpty()) {
-    restoreGeometry(ConfigStore::s_genCfg.m_browseCoverArtWindowGeometry);
+  if (!ConfigStore::s_importCfg.m_browseCoverArtWindowGeometry.isEmpty()) {
+    restoreGeometry(ConfigStore::s_importCfg.m_browseCoverArtWindowGeometry);
   }
 }
 
@@ -225,11 +225,11 @@ void BrowseCoverArtDialog::readConfig()
 void BrowseCoverArtDialog::saveConfig()
 {
   QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ConfigStore::s_genCfg.m_pictureSourceIdx);
-  ConfigStore::s_genCfg.m_pictureSourceNames = formats.at(0);
-  ConfigStore::s_genCfg.m_pictureSourceUrls = formats.at(1);
-  ConfigStore::s_genCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
-  ConfigStore::s_genCfg.m_browseCoverArtWindowGeometry = saveGeometry();
+        &ConfigStore::s_importCfg.m_pictureSourceIdx);
+  ConfigStore::s_importCfg.m_pictureSourceNames = formats.at(0);
+  ConfigStore::s_importCfg.m_pictureSourceUrls = formats.at(1);
+  ConfigStore::s_importCfg.m_matchPictureUrlMap = m_matchUrlTableModel->getMap();
+  ConfigStore::s_importCfg.m_browseCoverArtWindowGeometry = saveGeometry();
 
   setSourceFromConfig();
 }

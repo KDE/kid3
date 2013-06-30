@@ -385,14 +385,14 @@ void Kid3Application::revertFileModifications()
 bool Kid3Application::importTags(TrackData::TagVersion tagMask,
                                  const QString& path, int fmtIdx)
 {
-  filesToTrackDataModel(ConfigStore::s_genCfg.m_importDest);
+  filesToTrackDataModel(ConfigStore::s_importCfg.m_importDest);
   QFile file(path);
   if (file.open(QIODevice::ReadOnly) &&
-      fmtIdx < ConfigStore::s_genCfg.m_importFormatHeaders.size()) {
+      fmtIdx < ConfigStore::s_importCfg.m_importFormatHeaders.size()) {
     TextImporter(getTrackDataModel()).updateTrackData(
       QTextStream(&file).readAll(),
-      ConfigStore::s_genCfg.m_importFormatHeaders.at(fmtIdx),
-      ConfigStore::s_genCfg.m_importFormatTracks.at(fmtIdx));
+      ConfigStore::s_importCfg.m_importFormatHeaders.at(fmtIdx),
+      ConfigStore::s_importCfg.m_importFormatTracks.at(fmtIdx));
     file.close();
     trackDataModelToFiles(tagMask);
     return true;

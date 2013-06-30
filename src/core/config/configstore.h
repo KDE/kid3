@@ -30,6 +30,7 @@
 #include "generalconfig.h" // Kid3Settings
 #include "formatconfig.h"
 #include "importconfig.h"
+#include "exportconfig.h"
 #include "batchimportconfig.h"
 #include "tagconfig.h"
 #include "fileconfig.h"
@@ -77,7 +78,9 @@ public:
   /** ID3 format configuration */
   static FormatConfig s_id3FormatCfg;
   /** Import configuration */
-  static ImportConfig s_genCfg;
+  static ImportConfig s_importCfg;
+  /** Export configuration */
+  static ExportConfig s_exportCfg;
   /** Batch import configuration */
   static BatchImportConfig s_batchImportCfg;
   /** Miscellaneous configuration */
