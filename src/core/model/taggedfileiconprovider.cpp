@@ -249,7 +249,7 @@ QIcon TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
 QColor TaggedFileIconProvider::backgroundForTaggedFile(
     const TaggedFile* taggedFile) {
   if (taggedFile &&
-      ConfigStore::s_miscCfg.m_markTruncations &&
+      ConfigStore::s_tagCfg.m_markTruncations &&
       taggedFile->getTruncationFlags() != 0)
     return Qt::red;
   return QColor();

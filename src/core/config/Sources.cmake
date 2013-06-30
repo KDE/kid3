@@ -10,7 +10,13 @@ set(config_SRCS
   config/freedbconfig.cpp
   config/generalconfig.cpp
   config/importconfig.cpp
-  config/miscconfig.cpp
+  config/tagconfig.cpp
+  config/fileconfig.cpp
+  config/rendirconfig.cpp
+  config/numbertracksconfig.cpp
+  config/useractionsconfig.cpp
+  config/guiconfig.cpp
+  config/networkconfig.cpp
   config/musicbrainzconfig.cpp
   config/playlistconfig.cpp
   config/serverimporterconfig.cpp

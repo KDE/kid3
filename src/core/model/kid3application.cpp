@@ -220,8 +220,8 @@ ISettings* Kid3Application::getSettings() const
  */
 void Kid3Application::saveConfig()
 {
-  if (ConfigStore::s_miscCfg.m_loadLastOpenedFile) {
-    ConfigStore::s_miscCfg.m_lastOpenedFile =
+  if (ConfigStore::s_fileCfg.m_loadLastOpenedFile) {
+    ConfigStore::s_fileCfg.m_lastOpenedFile =
         m_fileProxyModel->filePath(currentOrRootIndex());
   }
   m_configStore->writeToConfig();
@@ -234,12 +234,12 @@ void Kid3Application::saveConfig()
 void Kid3Application::readConfig()
 {
   m_configStore->readFromConfig();
-  if (ConfigStore::s_miscCfg.m_nameFilter.isEmpty()) {
-    ConfigStore::s_miscCfg.m_nameFilter = createFilterString();
+  if (ConfigStore::s_fileCfg.m_nameFilter.isEmpty()) {
+    ConfigStore::s_fileCfg.m_nameFilter = createFilterString();
   }
   setTextEncodings();
   FrameCollection::setQuickAccessFrames(
-        ConfigStore::s_miscCfg.m_quickAccessFrames);
+        ConfigStore::s_tagCfg.m_quickAccessFrames);
   if (ConfigStore::s_freedbCfg.m_server == QLatin1String("freedb2.org:80")) {
     ConfigStore::s_freedbCfg.m_server = QLatin1String("www.gnudb.org:80"); // replace old default
   }
@@ -275,7 +275,7 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
   }
 
   QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                            ConfigStore::s_miscCfg.m_nameFilter).
+                            ConfigStore::s_fileCfg.m_nameFilter).
                           split(QLatin1Char(' ')));
   m_fileProxyModel->setNameFilters(nameFilters);
   m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
@@ -339,7 +339,7 @@ QStringList Kid3Application::saveDirectory()
     TaggedFile* taggedFile = it.next();
     bool renamed = false;
     if (!taggedFile->writeTags(false, &renamed,
-                               ConfigStore::s_miscCfg.m_preserveTime)) {
+                               ConfigStore::s_fileCfg.m_preserveTime)) {
       errorFiles.push_back(taggedFile->getFilename());
     }
     ++numFiles;
@@ -786,14 +786,14 @@ void Kid3Application::applyTextEncoding()
 {
   emit fileSelectionUpdateRequested();
   Frame::Field::TextEncoding encoding;
-  switch (ConfigStore::s_miscCfg.m_textEncoding) {
-  case MiscConfig::TE_UTF16:
+  switch (ConfigStore::s_tagCfg.m_textEncoding) {
+  case TagConfig::TE_UTF16:
     encoding = Frame::Field::TE_UTF16;
     break;
-  case MiscConfig::TE_UTF8:
+  case TagConfig::TE_UTF8:
     encoding = Frame::Field::TE_UTF8;
     break;
-  case MiscConfig::TE_ISO8859_1:
+  case TagConfig::TE_ISO8859_1:
   default:
     encoding = Frame::Field::TE_ISO8859_1;
   }
@@ -1771,7 +1771,7 @@ void Kid3Application::numberTracks(int nr, int total,
                                    TrackData::TagVersion tagVersion)
 {
   emit fileSelectionUpdateRequested();
-  int numDigits = ConfigStore::s_miscCfg.m_trackNumberDigits;
+  int numDigits = ConfigStore::s_tagCfg.m_trackNumberDigits;
   if (numDigits < 1 || numDigits > 5)
     numDigits = 1;
 
@@ -1911,17 +1911,17 @@ void Kid3Application::setTextEncodings()
 {
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   const QTextCodec* id3v1TextCodec =
-    ConfigStore::s_miscCfg.m_textEncodingV1 != QLatin1String("ISO-8859-1") ?
-    QTextCodec::codecForName(ConfigStore::s_miscCfg.m_textEncodingV1.toLatin1().data()) : 0;
+    ConfigStore::s_tagCfg.m_textEncodingV1 != QLatin1String("ISO-8859-1") ?
+    QTextCodec::codecForName(ConfigStore::s_tagCfg.m_textEncodingV1.toLatin1().data()) : 0;
 #endif
 #ifdef HAVE_ID3LIB
   Mp3File::setDefaultTextEncoding(
-    static_cast<MiscConfig::TextEncoding>(ConfigStore::s_miscCfg.m_textEncoding));
+    static_cast<TagConfig::TextEncoding>(ConfigStore::s_tagCfg.m_textEncoding));
   Mp3File::setTextCodecV1(id3v1TextCodec);
 #endif
 #ifdef HAVE_TAGLIB
   TagLibFile::setDefaultTextEncoding(
-    static_cast<MiscConfig::TextEncoding>(ConfigStore::s_miscCfg.m_textEncoding));
+    static_cast<TagConfig::TextEncoding>(ConfigStore::s_tagCfg.m_textEncoding));
   TagLibFile::setTextCodecV1(id3v1TextCodec);
 #endif
 }
@@ -1964,10 +1964,10 @@ void Kid3Application::convertToId3v24()
         bool renamed;
         if (TagLibFile* taglibFile = dynamic_cast<TagLibFile*>(taggedFile)) {
           taglibFile->writeTags(true, &renamed,
-                                ConfigStore::s_miscCfg.m_preserveTime, 4);
+                                ConfigStore::s_fileCfg.m_preserveTime, 4);
         } else {
           taggedFile->writeTags(true, &renamed,
-                                ConfigStore::s_miscCfg.m_preserveTime);
+                                ConfigStore::s_fileCfg.m_preserveTime);
         }
         taggedFile->readTags(true);
       }
@@ -1998,14 +1998,14 @@ void Kid3Application::convertToId3v23()
         /*
          * The ID3v2.3.0 tag is written using TagLib if it supports it.
          * If id3lib is also available it is used instead unless
-         * MiscConfig::ID3v2_3_0_TAGLIB is selected, so that the behavior
+         * TagConfig::ID3v2_3_0_TAGLIB is selected, so that the behavior
          * remains compatible. The variable taglibFile is used to select whether
          * TagLib shall be used or not.
          */
 #ifdef HAVE_TAGLIB_ID3V23_SUPPORT
 #ifdef HAVE_ID3LIB
         TagLibFile* taglibFile =
-          ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_3_0_TAGLIB
+          ConfigStore::s_tagCfg.m_id3v2Version == TagConfig::ID3v2_3_0_TAGLIB
           ? dynamic_cast<TagLibFile*>(taggedFile) : 0;
 #else
         TagLibFile* taglibFile = dynamic_cast<TagLibFile*>(taggedFile);
@@ -2016,7 +2016,7 @@ void Kid3Application::convertToId3v23()
         bool renamed;
         if (taglibFile) {
           taglibFile->writeTags(true, &renamed,
-                                ConfigStore::s_miscCfg.m_preserveTime, 3);
+                                ConfigStore::s_fileCfg.m_preserveTime, 3);
         } else {
 #ifdef HAVE_ID3LIB
           if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
@@ -2036,7 +2036,7 @@ void Kid3Application::convertToId3v23()
           }
 
           // Write the file with id3lib, it always writes ID3v2.3 tags
-          taggedFile->writeTags(true, &renamed, ConfigStore::s_miscCfg.m_preserveTime);
+          taggedFile->writeTags(true, &renamed, ConfigStore::s_fileCfg.m_preserveTime);
 #endif
         }
         taggedFile->readTags(true);

@@ -27,7 +27,13 @@
 #include "configstore.h"
 #include "config.h"
 
-MiscConfig ConfigStore::s_miscCfg(QLatin1String("General Options"));
+TagConfig ConfigStore::s_tagCfg(QLatin1String("General Options"));
+FileConfig ConfigStore::s_fileCfg(QLatin1String("General Options"));
+RenDirConfig ConfigStore::s_renDirCfg(QLatin1String("General Options"));
+NumberTracksConfig ConfigStore::s_numberTracksCfg(QLatin1String("General Options"));
+UserActionsConfig ConfigStore::s_userActionsCfg(QLatin1String("MenuCommands"));
+GuiConfig ConfigStore::s_guiCfg(QLatin1String("General Options"));
+NetworkConfig ConfigStore::s_networkCfg(QLatin1String("General Options"));
 ImportConfig ConfigStore::s_genCfg(QLatin1String("General Options"));
 BatchImportConfig ConfigStore::s_batchImportCfg(QLatin1String("BatchImport"));
 FormatConfig ConfigStore::s_fnFormatCfg(QLatin1String("FilenameFormat"));
@@ -60,7 +66,13 @@ ConfigStore::~ConfigStore()
  */
 void ConfigStore::writeToConfig()
 {
-  s_miscCfg.writeToConfig(m_config);
+  s_tagCfg.writeToConfig(m_config);
+  s_fileCfg.writeToConfig(m_config);
+  s_renDirCfg.writeToConfig(m_config);
+  s_numberTracksCfg.writeToConfig(m_config);
+  s_userActionsCfg.writeToConfig(m_config);
+  s_guiCfg.writeToConfig(m_config);
+  s_networkCfg.writeToConfig(m_config);
   s_fnFormatCfg.writeToConfig(m_config);
   s_id3FormatCfg.writeToConfig(m_config);
   s_genCfg.writeToConfig(m_config);
@@ -79,7 +91,13 @@ void ConfigStore::writeToConfig()
  */
 void ConfigStore::readFromConfig()
 {
-  s_miscCfg.readFromConfig(m_config);
+  s_tagCfg.readFromConfig(m_config);
+  s_fileCfg.readFromConfig(m_config);
+  s_renDirCfg.readFromConfig(m_config);
+  s_numberTracksCfg.readFromConfig(m_config);
+  s_userActionsCfg.readFromConfig(m_config);
+  s_guiCfg.readFromConfig(m_config);
+  s_networkCfg.readFromConfig(m_config);
   s_fnFormatCfg.readFromConfig(m_config);
   s_id3FormatCfg.readFromConfig(m_config);
   s_genCfg.readFromConfig(m_config);

@@ -298,8 +298,8 @@ void KdeMainWindow::addDirectoryToRecentFiles(const QString& dirName)
 void KdeMainWindow::readConfig()
 {
   setAutoSaveSettings();
-  m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
-  m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
+  m_settingsShowHidePicture->setChecked(!ConfigStore::s_guiCfg.m_hidePicture);
+  m_settingsAutoHideTags->setChecked(ConfigStore::s_guiCfg.m_autoHideTags);
   m_fileOpenRecent->loadEntries(KGlobal::config()->group("Recent Files"));
 }
 

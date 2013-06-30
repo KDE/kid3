@@ -32,7 +32,7 @@
 
 #include <QtGlobal>
 #include "taggedfile.h"
-#include "miscconfig.h"
+#include "tagconfig.h"
 #include <taglib/taglib.h>
 #include <taglib/fileref.h>
 #include <taglib/tag.h>
@@ -505,7 +505,7 @@ public:
    *
    * @param textEnc default text encoding
    */
-  static void setDefaultTextEncoding(MiscConfig::TextEncoding textEnc);
+  static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
 
   /**
    * Get the default text encoding.

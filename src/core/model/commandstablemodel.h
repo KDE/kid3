@@ -30,7 +30,7 @@
 #include <QAbstractTableModel>
 #include <QHeaderView>
 #include <QList>
-#include "miscconfig.h"
+#include "useractionsconfig.h"
 #include "kid3api.h"
 
 /**
@@ -141,16 +141,16 @@ public:
    * Set the model from the command list.
    * @param cmdList command list
    */
-  void setCommandList(const QList<MiscConfig::MenuCommand>& cmdList);
+  void setCommandList(const QList<UserActionsConfig::MenuCommand>& cmdList);
 
   /**
    * Get the command list from the model.
    * @return command list
    */
-  QList<MiscConfig::MenuCommand> getCommandList() const;
+  QList<UserActionsConfig::MenuCommand> getCommandList() const;
 
 private:
-  QList<MiscConfig::MenuCommand> m_cmdList;
+  QList<UserActionsConfig::MenuCommand> m_cmdList;
 };
 
 #endif // COMMANDSTABLEMODEL_H

@@ -84,7 +84,7 @@ QVariant CommandsTableModel::data(const QModelIndex& index, int role) const
       index.row() < 0 || index.row() >= m_cmdList.size() ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return QVariant();
-  const MiscConfig::MenuCommand& item = m_cmdList.at(index.row());
+  const UserActionsConfig::MenuCommand& item = m_cmdList.at(index.row());
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     switch (index.column()) {
     case CI_Name:
@@ -120,7 +120,7 @@ bool CommandsTableModel::setData(const QModelIndex& index,
       index.row() < 0 || index.row() >= m_cmdList.size() ||
       index.column() < 0 || index.column() >= CI_NumColumns)
     return false;
-  MiscConfig::MenuCommand& item = m_cmdList[index.row()];
+  UserActionsConfig::MenuCommand& item = m_cmdList[index.row()];
   if (role == Qt::EditRole) {
     switch (index.column()) {
     case CI_Name:
@@ -216,7 +216,7 @@ bool CommandsTableModel::insertRows(int row, int count,
 {
   beginInsertRows(QModelIndex(), row, row + count - 1);
   for (int i = 0; i < count; ++i)
-    m_cmdList.insert(row, MiscConfig::MenuCommand());
+    m_cmdList.insert(row, UserActionsConfig::MenuCommand());
   endInsertRows();
   return true;
 }
@@ -261,7 +261,7 @@ QList<QHeaderView::ResizeMode>
  * @param cmdList command list
  */
 void CommandsTableModel::setCommandList(
-  const QList<MiscConfig::MenuCommand>& cmdList)
+  const QList<UserActionsConfig::MenuCommand>& cmdList)
 {
   beginResetModel();
   m_cmdList = cmdList;
@@ -272,10 +272,10 @@ void CommandsTableModel::setCommandList(
  * Get the command list from the model.
  * @return command list
  */
-QList<MiscConfig::MenuCommand> CommandsTableModel::getCommandList() const
+QList<UserActionsConfig::MenuCommand> CommandsTableModel::getCommandList() const
 {
-  QList<MiscConfig::MenuCommand> cmdList;
-  for (QList<MiscConfig::MenuCommand>::const_iterator it = m_cmdList.constBegin();
+  QList<UserActionsConfig::MenuCommand> cmdList;
+  for (QList<UserActionsConfig::MenuCommand>::const_iterator it = m_cmdList.constBegin();
        it != m_cmdList.constEnd();
        ++it) {
     if (!it->getName().isEmpty()) {
@@ -285,7 +285,7 @@ QList<MiscConfig::MenuCommand> CommandsTableModel::getCommandList() const
   if (cmdList.isEmpty()) {
     // Make sure that their is at least one entry, so that new entries can
     // be added.
-    cmdList.append(MiscConfig::MenuCommand());
+    cmdList.append(UserActionsConfig::MenuCommand());
   }
   return cmdList;
 }

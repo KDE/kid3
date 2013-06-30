@@ -140,9 +140,9 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     menu.addAction(tr("&Play"), m_mainWin, SLOT(slotPlayAudio()));
 #endif
     int id = 0;
-    for (QList<MiscConfig::MenuCommand>::const_iterator
-           it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
-         it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
+    for (QList<UserActionsConfig::MenuCommand>::const_iterator
+           it = ConfigStore::s_userActionsCfg.m_contextMenuCommands.begin();
+         it != ConfigStore::s_userActionsCfg.m_contextMenuCommands.end();
          ++it) {
       QString name((*it).getName());
       if (!name.isEmpty()) {
@@ -248,9 +248,9 @@ QStringList FileList::formatStringList(const QStringList& format)
  */
 void FileList::executeContextCommand(int id)
 {
-  if (id < static_cast<int>(ConfigStore::s_miscCfg.m_contextMenuCommands.size())) {
+  if (id < static_cast<int>(ConfigStore::s_userActionsCfg.m_contextMenuCommands.size())) {
     QStringList args;
-    const MiscConfig::MenuCommand& menuCmd = ConfigStore::s_miscCfg.m_contextMenuCommands[id];
+    const UserActionsConfig::MenuCommand& menuCmd = ConfigStore::s_userActionsCfg.m_contextMenuCommands[id];
     QString cmd = menuCmd.getCommand();
 
     int len = cmd.length();
@@ -304,9 +304,9 @@ void FileList::executeAction(QAction* action)
   if (action) {
     QString name = action->text().remove(QLatin1Char('&'));
     int id = 0;
-    for (QList<MiscConfig::MenuCommand>::const_iterator
-           it = ConfigStore::s_miscCfg.m_contextMenuCommands.begin();
-         it != ConfigStore::s_miscCfg.m_contextMenuCommands.end();
+    for (QList<UserActionsConfig::MenuCommand>::const_iterator
+           it = ConfigStore::s_userActionsCfg.m_contextMenuCommands.begin();
+         it != ConfigStore::s_userActionsCfg.m_contextMenuCommands.end();
          ++it) {
       if (name == (*it).getName()) {
         executeContextCommand(id);
@@ -335,7 +335,7 @@ void FileList::customContextMenu(const QPoint& pos)
  */
 void FileList::playIfTaggedFile(const QModelIndex& index)
 {
-  if (ConfigStore::s_miscCfg.m_playOnDoubleClick &&
+  if (ConfigStore::s_guiCfg.m_playOnDoubleClick &&
       FileProxyModel::getTaggedFileOfIndex(index)) {
     m_mainWin->slotPlayAudio();
   }

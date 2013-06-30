@@ -1,0 +1,97 @@
+/**
+ * \file networkconfig.cpp
+ * Network related configuration.
+ *
+ * \b Project: Kid3
+ * \author Urs Fleisch
+ * \date 29 Jun 2013
+ *
+ * Copyright (C) 2013  Urs Fleisch
+ *
+ * This file is part of Kid3.
+ *
+ * Kid3 is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * Kid3 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include "networkconfig.h"
+
+namespace {
+
+/** Default value for web browser */
+#ifdef Q_OS_MAC
+const char* const defaultBrowser = "open";
+#else
+const char* const defaultBrowser = "xdg-open";
+#endif
+
+}
+
+/**
+ * Constructor.
+ *
+ * @param group configuration group
+ */
+NetworkConfig::NetworkConfig(const QString& group) :
+  GeneralConfig(group),
+  m_useProxy(false),
+  m_useProxyAuthentication(false)
+{
+}
+
+/**
+ * Destructor.
+ */
+NetworkConfig::~NetworkConfig() {}
+
+/**
+ * Persist configuration.
+ *
+ * @param config configuration
+ */
+void NetworkConfig::writeToConfig(ISettings* config) const
+{
+  config->beginGroup(m_group);
+  config->setValue(QLatin1String("UseProxy"), QVariant(m_useProxy));
+  config->setValue(QLatin1String("Proxy"), QVariant(m_proxy));
+  config->setValue(QLatin1String("UseProxyAuthentication"), QVariant(m_useProxyAuthentication));
+  config->setValue(QLatin1String("ProxyUserName"), QVariant(m_proxyUserName));
+  config->setValue(QLatin1String("ProxyPassword"), QVariant(m_proxyPassword));
+  config->setValue(QLatin1String("Browser"), QVariant(m_browser));
+  config->endGroup();
+}
+
+/**
+ * Read persisted configuration.
+ *
+ * @param config configuration
+ */
+void NetworkConfig::readFromConfig(ISettings* config)
+{
+  config->beginGroup(m_group);
+  m_useProxy = config->value(QLatin1String("UseProxy"), m_useProxy).toBool();
+  m_proxy = config->value(QLatin1String("Proxy"), m_proxy).toString();
+  m_useProxyAuthentication = config->value(QLatin1String("UseProxyAuthentication"), m_useProxyAuthentication).toBool();
+  m_proxyUserName = config->value(QLatin1String("ProxyUserName"), m_proxyUserName).toString();
+  m_proxyPassword = config->value(QLatin1String("ProxyPassword"), m_proxyPassword).toString();
+#ifdef Q_OS_WIN32
+  m_browser = config->value(QLatin1String("Browser"), QString()).toString();
+  if (m_browser.isEmpty()) {
+    m_browser = QString::fromLocal8Bit(::getenv("ProgramFiles"));
+    m_browser += QLatin1String("\\Internet Explorer\\IEXPLORE.EXE");
+  }
+#else
+  m_browser = config->value(QLatin1String("Browser"), QString::fromLatin1(defaultBrowser)).toString();
+#endif
+  config->endGroup();
+}

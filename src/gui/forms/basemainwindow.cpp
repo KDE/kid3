@@ -343,12 +343,12 @@ void BaseMainWindowImpl::slotFileOpen()
   updateCurrentSelection();
   if(saveModified()) {
     static QString flt = m_app->createFilterString();
-    QString filter(ConfigStore::s_miscCfg.m_nameFilter);
+    QString filter(ConfigStore::s_fileCfg.m_nameFilter);
     QString dir = m_platformTools->getOpenFileName(
       m_w, QString(), m_app->getDirName(), flt, &filter);
     if (!dir.isEmpty()) {
       if (!filter.isEmpty()) {
-        ConfigStore::s_miscCfg.m_nameFilter = filter;
+        ConfigStore::s_fileCfg.m_nameFilter = filter;
       }
       m_app->openDirectory(dir);
     }
@@ -574,7 +574,7 @@ void BaseMainWindowImpl::slotExport()
  */
 void BaseMainWindowImpl::slotSettingsAutoHideTags()
 {
-  ConfigStore::s_miscCfg.m_autoHideTags = m_self->autoHideTagsAction()->isChecked();
+  ConfigStore::s_guiCfg.m_autoHideTags = m_self->autoHideTagsAction()->isChecked();
   updateCurrentSelection();
   updateGuiControls();
 }
@@ -584,14 +584,14 @@ void BaseMainWindowImpl::slotSettingsAutoHideTags()
  */
 void BaseMainWindowImpl::slotSettingsShowHidePicture()
 {
-  ConfigStore::s_miscCfg.m_hidePicture = !m_self->showHidePictureAction()->isChecked();
+  ConfigStore::s_guiCfg.m_hidePicture = !m_self->showHidePictureAction()->isChecked();
 
-  m_form->hidePicture(ConfigStore::s_miscCfg.m_hidePicture);
+  m_form->hidePicture(ConfigStore::s_guiCfg.m_hidePicture);
   // In Qt3 the picture is displayed too small if Kid3 is started with picture
   // hidden, and then "Show Picture" is triggered while a file with a picture
   // is selected. Thus updating the controls is only done for Qt4, in Qt3 the
   // file has to be selected again for the picture to be shown.
-  if (!ConfigStore::s_miscCfg.m_hidePicture) {
+  if (!ConfigStore::s_guiCfg.m_hidePicture) {
     updateGuiControls();
   }
 }
@@ -602,19 +602,19 @@ void BaseMainWindowImpl::slotSettingsShowHidePicture()
 void BaseMainWindowImpl::applyChangedConfiguration()
 {
   m_app->saveConfig();
-  if (!ConfigStore::s_miscCfg.m_markTruncations) {
+  if (!ConfigStore::s_tagCfg.m_markTruncations) {
     m_app->frameModelV1()->markRows(0);
   }
-  if (!ConfigStore::s_miscCfg.m_markChanges) {
+  if (!ConfigStore::s_fileCfg.m_markChanges) {
     m_app->frameModelV1()->markChangedFrames(0);
     m_app->frameModelV2()->markChangedFrames(0);
     m_form->markChangedFilename(false);
   }
   m_app->setTextEncodings();
   quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
-  if (ConfigStore::s_miscCfg.m_quickAccessFrames != oldQuickAccessFrames) {
+  if (ConfigStore::s_tagCfg.m_quickAccessFrames != oldQuickAccessFrames) {
     FrameCollection::setQuickAccessFrames(
-          ConfigStore::s_miscCfg.m_quickAccessFrames);
+          ConfigStore::s_tagCfg.m_quickAccessFrames);
     updateGuiControls();
   }
 }
@@ -658,14 +658,14 @@ void BaseMainWindowImpl::slotNumberTracks()
   }
   m_numberTracksDialog->setTotalNumberOfTracks(
     m_app->getTotalNumberOfTracksInDir(),
-    ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks);
+    ConfigStore::s_tagCfg.m_enableTotalNumberOfTracks);
   if (m_numberTracksDialog->exec() == QDialog::Accepted) {
     int nr = m_numberTracksDialog->getStartNumber();
     bool totalEnabled;
     int total = m_numberTracksDialog->getTotalNumberOfTracks(&totalEnabled);
     if (!totalEnabled)
       total = 0;
-    ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks = totalEnabled;
+    ConfigStore::s_tagCfg.m_enableTotalNumberOfTracks = totalEnabled;
     m_app->numberTracks(nr, total, m_numberTracksDialog->getDestination());
   }
 }
@@ -851,10 +851,10 @@ void BaseMainWindowImpl::updateGuiControls()
     m_form->setTagFormatV1(single_v2_file->getTagFormatV1());
     m_form->setTagFormatV2(single_v2_file->getTagFormatV2());
 
-    if (ConfigStore::s_miscCfg.m_markTruncations) {
+    if (ConfigStore::s_tagCfg.m_markTruncations) {
       m_app->frameModelV1()->markRows(single_v2_file->getTruncationFlags());
     }
-    if (ConfigStore::s_miscCfg.m_markChanges) {
+    if (ConfigStore::s_fileCfg.m_markChanges) {
       m_app->frameModelV1()->markChangedFrames(
         single_v2_file->getChangedFramesV1());
       m_app->frameModelV2()->markChangedFrames(
@@ -871,16 +871,16 @@ void BaseMainWindowImpl::updateGuiControls()
     m_form->setTagFormatV1(QString::null);
     m_form->setTagFormatV2(QString::null);
 
-    if (ConfigStore::s_miscCfg.m_markTruncations) {
+    if (ConfigStore::s_tagCfg.m_markTruncations) {
       m_app->frameModelV1()->markRows(0);
     }
-    if (ConfigStore::s_miscCfg.m_markChanges) {
+    if (ConfigStore::s_fileCfg.m_markChanges) {
       m_app->frameModelV1()->markChangedFrames(0);
       m_app->frameModelV2()->markChangedFrames(0);
       m_form->markChangedFilename(false);
     }
   }
-  if (!ConfigStore::s_miscCfg.m_hidePicture) {
+  if (!ConfigStore::s_guiCfg.m_hidePicture) {
     FrameCollection::const_iterator it =
       m_app->frameModelV2()->frames().find(Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
     if (it == m_app->frameModelV2()->frames().end() ||
@@ -900,7 +900,7 @@ void BaseMainWindowImpl::updateGuiControls()
   }
   m_form->enableControlsV1(tagV1Supported);
 
-  if (ConfigStore::s_miscCfg.m_autoHideTags) {
+  if (ConfigStore::s_guiCfg.m_autoHideTags) {
     // If a tag is supposed to be absent, make sure that there is really no
     // unsaved data in the tag.
     if (!hasTagV1 && tagV1Supported) {

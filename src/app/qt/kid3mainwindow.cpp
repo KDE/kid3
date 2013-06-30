@@ -570,8 +570,8 @@ void Kid3MainWindow::readConfig()
   if (m_mainWindowConfig->m_hideStatusBar)
     statusBar()->hide();
   m_viewStatusBar->setChecked(!m_mainWindowConfig->m_hideStatusBar);
-  m_settingsShowHidePicture->setChecked(!ConfigStore::s_miscCfg.m_hidePicture);
-  m_settingsAutoHideTags->setChecked(ConfigStore::s_miscCfg.m_autoHideTags);
+  m_settingsShowHidePicture->setChecked(!ConfigStore::s_guiCfg.m_hidePicture);
+  m_settingsAutoHideTags->setChecked(ConfigStore::s_guiCfg.m_autoHideTags);
   m_fileOpenRecent->loadEntries(app()->getSettings());
   m_shortcutsModel->readFromConfig(app()->getSettings());
   restoreGeometry(m_mainWindowConfig->m_geometry);
@@ -648,7 +648,7 @@ void Kid3MainWindow::closeEvent(QCloseEvent* ce)
  */
 void Kid3MainWindow::readFontAndStyleOptions()
 {
-  ConfigStore::s_miscCfg.readFromConfig(app()->getSettings());
+  m_mainWindowConfig->readFromConfig(app()->getSettings());
   if (m_mainWindowConfig->m_useFont &&
       !m_mainWindowConfig->m_fontFamily.isEmpty() &&
       m_mainWindowConfig->m_fontSize > 0) {

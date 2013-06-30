@@ -594,8 +594,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           m_id3v2Version = id3v2Version;
         }
         if (m_id3v2Version != 3 && m_id3v2Version != 4) {
-          m_id3v2Version = ConfigStore::s_miscCfg.m_id3v2Version ==
-              MiscConfig::ID3v2_3_0_TAGLIB ? 3 : 4;
+          m_id3v2Version = ConfigStore::s_tagCfg.m_id3v2Version ==
+              TagConfig::ID3v2_3_0_TAGLIB ? 3 : 4;
         }
 #else
         Q_UNUSED(id3v2Version);
@@ -1507,7 +1507,7 @@ void TagLibFile::setGenreV2(const QString& str)
       if (!setId3v2Unicode(m_tagV2, str, tstr, "TCON")) {
         TagLib::ID3v2::TextIdentificationFrame* frame;
         TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
-        if (id3v2Tag && ConfigStore::s_miscCfg.m_genreNotNumeric &&
+        if (id3v2Tag && ConfigStore::s_tagCfg.m_genreNotNumeric &&
             (frame = new TagLib::ID3v2::TextIdentificationFrame(
               "TCON", getDefaultTextEncoding())) != 0) {
           frame->setText(tstr);
@@ -2961,7 +2961,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
   if (frame.isValueChanged() || frame.getFieldList().empty()) {
     QString text(frame.getValue());
     if (frame.getType() == Frame::FT_Genre) {
-      if (!ConfigStore::s_miscCfg.m_genreNotNumeric) {
+      if (!ConfigStore::s_tagCfg.m_genreNotNumeric) {
         text = Genres::getNumberString(text, false);
       }
     } else if (frame.getType() == Frame::FT_Track) {
@@ -2979,7 +2979,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
         {
           QString value(fld.m_value.toString());
           if (frame.getType() == Frame::FT_Genre) {
-            if (!ConfigStore::s_miscCfg.m_genreNotNumeric) {
+            if (!ConfigStore::s_tagCfg.m_genreNotNumeric) {
               value = Genres::getNumberString(value, false);
             }
           } else if (frame.getType() == Frame::FT_Track) {
@@ -5165,19 +5165,19 @@ void TagLibFile::setTextCodecV1(const QTextCodec* codec)
  *
  * @param textEnc default text encoding
  */
-void TagLibFile::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
+void TagLibFile::setDefaultTextEncoding(TagConfig::TextEncoding textEnc)
 {
   // Do not use TagLib::ID3v2::FrameFactory::setDefaultTextEncoding(),
   // it will change the encoding of existing frames read in, not only
   // of newly created frames, which is really not what we want!
   switch (textEnc) {
-    case MiscConfig::TE_ISO8859_1:
+    case TagConfig::TE_ISO8859_1:
       s_defaultTextEncoding = TagLib::String::Latin1;
       break;
-    case MiscConfig::TE_UTF16:
+    case TagConfig::TE_UTF16:
       s_defaultTextEncoding = TagLib::String::UTF16;
       break;
-    case MiscConfig::TE_UTF8:
+    case TagConfig::TE_UTF8:
     default:
       s_defaultTextEncoding = TagLib::String::UTF8;
   }
@@ -5244,8 +5244,8 @@ TaggedFile* TagLibFile::Resolver::createFile(
   QString ext2 = ext.right(3);
   if (((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
 #ifdef HAVE_ID3LIB
-       && (ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_4_0 ||
-           ConfigStore::s_miscCfg.m_id3v2Version == MiscConfig::ID3v2_3_0_TAGLIB)
+       && (ConfigStore::s_tagCfg.m_id3v2Version == TagConfig::ID3v2_4_0 ||
+           ConfigStore::s_tagCfg.m_id3v2Version == TagConfig::ID3v2_3_0_TAGLIB)
 #endif
         )
       || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga") || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")

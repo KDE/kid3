@@ -31,7 +31,7 @@
 #ifdef HAVE_ID3LIB
 
 #include "taggedfile.h"
-#include "miscconfig.h"
+#include "tagconfig.h"
 
 class ID3_Tag;
 class ID3_Field;
@@ -461,7 +461,7 @@ public:
    *
    * @param textEnc default text encoding
    */
-  static void setDefaultTextEncoding(MiscConfig::TextEncoding textEnc);
+  static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
 
 private:
   /**

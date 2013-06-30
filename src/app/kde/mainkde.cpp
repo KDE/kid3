@@ -90,9 +90,9 @@ int main(int argc, char* argv[])
 
     if (args->count()) {
       kid3->confirmedOpenDirectory(args->arg(0));
-    } else if (ConfigStore::s_miscCfg.m_loadLastOpenedFile &&
-               !ConfigStore::s_miscCfg.m_lastOpenedFile.isEmpty()) {
-      kid3->confirmedOpenDirectory(ConfigStore::s_miscCfg.m_lastOpenedFile);
+    } else if (ConfigStore::s_fileCfg.m_loadLastOpenedFile &&
+               !ConfigStore::s_fileCfg.m_lastOpenedFile.isEmpty()) {
+      kid3->confirmedOpenDirectory(ConfigStore::s_fileCfg.m_lastOpenedFile);
     }
     args->clear();
   }

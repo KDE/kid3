@@ -55,7 +55,7 @@
 #include "dirlist.h"
 #include "picturelabel.h"
 #include "configstore.h"
-#include "miscconfig.h"
+#include "guiconfig.h"
 #include "formatconfig.h"
 #include "dirproxymodel.h"
 #include "fileproxymodel.h"
@@ -763,18 +763,18 @@ static QStringList getItemsFromComboBox(const QComboBox* comboBox)
  */
 void Kid3Form::saveConfig()
 {
-  ConfigStore::s_miscCfg.m_splitterSizes = sizes();
-  ConfigStore::s_miscCfg.m_vSplitterSizes = m_vSplitter->sizes();
-  ConfigStore::s_miscCfg.m_formatItem = m_formatComboBox->currentIndex();
-  ConfigStore::s_miscCfg.m_formatText = m_formatComboBox->currentText();
-  ConfigStore::s_miscCfg.m_formatItems = getItemsFromComboBox(m_formatComboBox);
-  ConfigStore::s_miscCfg.m_formatFromFilenameItem = m_formatFromFilenameComboBox->currentIndex();
-  ConfigStore::s_miscCfg.m_formatFromFilenameText = m_formatFromFilenameComboBox->currentText();
-  ConfigStore::s_miscCfg.m_formatFromFilenameItems = getItemsFromComboBox(m_formatFromFilenameComboBox);
-  if (!ConfigStore::s_miscCfg.m_autoHideTags) {
-    ConfigStore::s_miscCfg.m_hideFile = m_fileWidget->isHidden();
-    ConfigStore::s_miscCfg.m_hideV1 = m_tag1Widget->isHidden();
-    ConfigStore::s_miscCfg.m_hideV2 = m_tag2Widget->isHidden();
+  ConfigStore::s_guiCfg.m_splitterSizes = sizes();
+  ConfigStore::s_guiCfg.m_vSplitterSizes = m_vSplitter->sizes();
+  ConfigStore::s_fileCfg.m_formatItem = m_formatComboBox->currentIndex();
+  ConfigStore::s_fileCfg.m_formatText = m_formatComboBox->currentText();
+  ConfigStore::s_fileCfg.m_formatItems = getItemsFromComboBox(m_formatComboBox);
+  ConfigStore::s_fileCfg.m_formatFromFilenameItem = m_formatFromFilenameComboBox->currentIndex();
+  ConfigStore::s_fileCfg.m_formatFromFilenameText = m_formatFromFilenameComboBox->currentText();
+  ConfigStore::s_fileCfg.m_formatFromFilenameItems = getItemsFromComboBox(m_formatFromFilenameComboBox);
+  if (!ConfigStore::s_guiCfg.m_autoHideTags) {
+    ConfigStore::s_guiCfg.m_hideFile = m_fileWidget->isHidden();
+    ConfigStore::s_guiCfg.m_hideV1 = m_tag1Widget->isHidden();
+    ConfigStore::s_guiCfg.m_hideV2 = m_tag2Widget->isHidden();
   }
 }
 
@@ -783,38 +783,38 @@ void Kid3Form::saveConfig()
  */
 void Kid3Form::readConfig()
 {
-  if (!ConfigStore::s_miscCfg.m_splitterSizes.empty()) {
-    setSizes(ConfigStore::s_miscCfg.m_splitterSizes);
+  if (!ConfigStore::s_guiCfg.m_splitterSizes.empty()) {
+    setSizes(ConfigStore::s_guiCfg.m_splitterSizes);
   } else {
     setSizes(QList<int>() << 307 << 601);
   }
-  if (!ConfigStore::s_miscCfg.m_vSplitterSizes.empty()) {
-    m_vSplitter->setSizes(ConfigStore::s_miscCfg.m_vSplitterSizes);
+  if (!ConfigStore::s_guiCfg.m_vSplitterSizes.empty()) {
+    m_vSplitter->setSizes(ConfigStore::s_guiCfg.m_vSplitterSizes);
   } else {
     m_vSplitter->setSizes(QList<int>() << 451 << 109);
   }
-  if (!ConfigStore::s_miscCfg.m_formatItems.isEmpty()) {
+  if (!ConfigStore::s_fileCfg.m_formatItems.isEmpty()) {
     m_formatComboBox->clear();
-    m_formatComboBox->addItems(ConfigStore::s_miscCfg.m_formatItems);
+    m_formatComboBox->addItems(ConfigStore::s_fileCfg.m_formatItems);
   }
-  if (!ConfigStore::s_miscCfg.m_formatFromFilenameItems.isEmpty()) {
+  if (!ConfigStore::s_fileCfg.m_formatFromFilenameItems.isEmpty()) {
     m_formatFromFilenameComboBox->clear();
-    m_formatFromFilenameComboBox->addItems(ConfigStore::s_miscCfg.m_formatFromFilenameItems);
+    m_formatFromFilenameComboBox->addItems(ConfigStore::s_fileCfg.m_formatFromFilenameItems);
   }
-  m_formatComboBox->setItemText(ConfigStore::s_miscCfg.m_formatItem,
-                                ConfigStore::s_miscCfg.m_formatText);
-  m_formatComboBox->setCurrentIndex(ConfigStore::s_miscCfg.m_formatItem);
+  m_formatComboBox->setItemText(ConfigStore::s_fileCfg.m_formatItem,
+                                ConfigStore::s_fileCfg.m_formatText);
+  m_formatComboBox->setCurrentIndex(ConfigStore::s_fileCfg.m_formatItem);
   m_formatFromFilenameComboBox->setItemText(
-    ConfigStore::s_miscCfg.m_formatFromFilenameItem,
-    ConfigStore::s_miscCfg.m_formatFromFilenameText);
+    ConfigStore::s_fileCfg.m_formatFromFilenameItem,
+    ConfigStore::s_fileCfg.m_formatFromFilenameText);
   m_formatFromFilenameComboBox->setCurrentIndex(
-    ConfigStore::s_miscCfg.m_formatFromFilenameItem);
-  if (!ConfigStore::s_miscCfg.m_autoHideTags) {
-    hideFile(ConfigStore::s_miscCfg.m_hideFile);
-    hideV1(ConfigStore::s_miscCfg.m_hideV1);
-    hideV2(ConfigStore::s_miscCfg.m_hideV2);
+    ConfigStore::s_fileCfg.m_formatFromFilenameItem);
+  if (!ConfigStore::s_guiCfg.m_autoHideTags) {
+    hideFile(ConfigStore::s_guiCfg.m_hideFile);
+    hideV1(ConfigStore::s_guiCfg.m_hideV1);
+    hideV2(ConfigStore::s_guiCfg.m_hideV2);
   }
-  hidePicture(ConfigStore::s_miscCfg.m_hidePicture);
+  hidePicture(ConfigStore::s_guiCfg.m_hidePicture);
 }
 
 /**

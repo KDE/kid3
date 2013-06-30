@@ -560,7 +560,7 @@ bool TaggedFile::renameFile(const QString& fnOld, const QString& fnNew) const
  */
 QString TaggedFile::getCommentFieldName() const
 {
-  return ConfigStore::s_miscCfg.m_commentName;
+  return ConfigStore::s_tagCfg.m_commentName;
 }
 
 /**
@@ -614,7 +614,7 @@ int TaggedFile::getTotalNumberOfTracksInDir() const {
  */
 int TaggedFile::getTotalNumberOfTracksIfEnabled() const
 {
-  return ConfigStore::s_miscCfg.m_enableTotalNumberOfTracks
+  return ConfigStore::s_tagCfg.m_enableTotalNumberOfTracks
       ? getTotalNumberOfTracksInDir() : -1;
 }
 
@@ -683,7 +683,7 @@ void TaggedFile::formatTrackNumberIfEnabled(QString& value, bool addTotal) const
  */
 int TaggedFile::getTrackNumberDigits() const
 {
-  int numDigits = ConfigStore::s_miscCfg.m_trackNumberDigits;
+  int numDigits = ConfigStore::s_tagCfg.m_trackNumberDigits;
   if (numDigits < 1 || numDigits > 5)
     numDigits = 1;
   return numDigits;

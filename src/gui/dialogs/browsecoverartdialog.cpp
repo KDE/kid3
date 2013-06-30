@@ -170,7 +170,7 @@ void BrowseCoverArtDialog::showPreview()
   QString txt(QLatin1String("<p><b>"));
   txt += tr("Click Browse to start");
   txt += QLatin1String("</b></p><p><tt>");
-  txt += ConfigStore::s_miscCfg.m_browser;
+  txt += ConfigStore::s_networkCfg.m_browser;
   txt += QLatin1Char(' ');
   txt += m_url;
   txt += QLatin1String("</tt></p><p><b>");
@@ -252,6 +252,6 @@ void BrowseCoverArtDialog::accept()
   }
   m_process->launchCommand(
     tr("Browse Cover Art"),
-    QStringList() << ConfigStore::s_miscCfg.m_browser << m_url);
+    QStringList() << ConfigStore::s_networkCfg.m_browser << m_url);
   QDialog::accept();
 }

@@ -31,7 +31,13 @@
 #include "formatconfig.h"
 #include "importconfig.h"
 #include "batchimportconfig.h"
-#include "miscconfig.h"
+#include "tagconfig.h"
+#include "fileconfig.h"
+#include "rendirconfig.h"
+#include "numbertracksconfig.h"
+#include "useractionsconfig.h"
+#include "guiconfig.h"
+#include "networkconfig.h"
 #include "freedbconfig.h"
 #include "discogsconfig.h"
 #include "amazonconfig.h"
@@ -75,7 +81,13 @@ public:
   /** Batch import configuration */
   static BatchImportConfig s_batchImportCfg;
   /** Miscellaneous configuration */
-  static MiscConfig s_miscCfg;
+  static TagConfig s_tagCfg;
+  static FileConfig s_fileCfg;
+  static RenDirConfig s_renDirCfg;
+  static NumberTracksConfig s_numberTracksCfg;
+  static UserActionsConfig s_userActionsCfg;
+  static GuiConfig s_guiCfg;
+  static NetworkConfig s_networkCfg;
   /** Freedb configuration */
   static FreedbConfig s_freedbCfg;
   /** TrackType configuration */

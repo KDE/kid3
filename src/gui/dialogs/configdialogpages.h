@@ -40,7 +40,6 @@ class QLineEdit;
 class QSpinBox;
 class QStringListModel;
 class FormatBox;
-class MiscConfig;
 class ConfigTable;
 class CommandsTableModel;
 class CheckableStringListModel;

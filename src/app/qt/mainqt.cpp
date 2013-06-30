@@ -64,9 +64,9 @@ int main(int argc, char* argv[])
   kid3->show();
   if (argc > 1) {
     kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));
-  } else if (ConfigStore::s_miscCfg.m_loadLastOpenedFile &&
-             !ConfigStore::s_miscCfg.m_lastOpenedFile.isEmpty()) {
-    kid3->confirmedOpenDirectory(ConfigStore::s_miscCfg.m_lastOpenedFile);
+  } else if (ConfigStore::s_fileCfg.m_loadLastOpenedFile &&
+             !ConfigStore::s_fileCfg.m_lastOpenedFile.isEmpty()) {
+    kid3->confirmedOpenDirectory(ConfigStore::s_fileCfg.m_lastOpenedFile);
   }
   return app.exec();
 }

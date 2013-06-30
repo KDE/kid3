@@ -1046,7 +1046,7 @@ void Mp3File::setGenreV2(const QString& str)
 {
   if (!str.isNull()) {
     int num = 0xff;
-    if (!ConfigStore::s_miscCfg.m_genreNotNumeric) {
+    if (!ConfigStore::s_tagCfg.m_genreNotNumeric) {
       num = Genres::getNumber(str);
     }
     if (num >= 0 && num != 0xff) {
@@ -1572,7 +1572,7 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         }
         QString value(fld.m_value.toString());
         if (id3Id == ID3FID_CONTENTTYPE) {
-          if (!ConfigStore::s_miscCfg.m_genreNotNumeric) {
+          if (!ConfigStore::s_tagCfg.m_genreNotNumeric) {
             value = Genres::getNumberString(value, true);
           }
         } else if (id3Id == ID3FID_TRACKNUM) {
@@ -1638,7 +1638,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
         } else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
             (fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
           if (id3Frame->GetID() == ID3FID_CONTENTTYPE) {
-            if (!ConfigStore::s_miscCfg.m_genreNotNumeric) {
+            if (!ConfigStore::s_tagCfg.m_genreNotNumeric) {
               value = Genres::getNumberString(value, true);
             }
           } else if (id3Frame->GetID() == ID3FID_TRACKNUM) {
@@ -2085,10 +2085,10 @@ void Mp3File::setTextCodecV1(const QTextCodec* codec)
  *
  * @param textEnc default text encoding
  */
-void Mp3File::setDefaultTextEncoding(MiscConfig::TextEncoding textEnc)
+void Mp3File::setDefaultTextEncoding(TagConfig::TextEncoding textEnc)
 {
   // UTF8 encoding is buggy, so UTF16 is used when UTF8 is configured
-  s_defaultTextEncoding = textEnc == MiscConfig::TE_ISO8859_1 ?
+  s_defaultTextEncoding = textEnc == TagConfig::TE_ISO8859_1 ?
     ID3TE_ISO8859_1 : ID3TE_UTF16;
 }
 
@@ -2108,8 +2108,8 @@ TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
   QString ext = fn.right(4).toLower();
   if ((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
 #ifdef HAVE_TAGLIB
-      && ConfigStore::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_4_0
-      && ConfigStore::s_miscCfg.m_id3v2Version != MiscConfig::ID3v2_3_0_TAGLIB
+      && ConfigStore::s_tagCfg.m_id3v2Version != TagConfig::ID3v2_4_0
+      && ConfigStore::s_tagCfg.m_id3v2Version != TagConfig::ID3v2_3_0_TAGLIB
 #endif
     )
     return new Mp3File(dn, fn, idx);

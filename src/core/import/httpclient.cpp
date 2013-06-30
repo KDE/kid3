@@ -176,13 +176,13 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
   QString proxy, username, password;
   int proxyPort = 0;
   QNetworkProxy::ProxyType proxyType = QNetworkProxy::NoProxy;
-  if (ConfigStore::s_miscCfg.m_useProxy) {
-    splitNamePort(ConfigStore::s_miscCfg.m_proxy, proxy, proxyPort);
+  if (ConfigStore::s_networkCfg.m_useProxy) {
+    splitNamePort(ConfigStore::s_networkCfg.m_proxy, proxy, proxyPort);
     proxyType = QNetworkProxy::HttpProxy;
   }
-  if (ConfigStore::s_miscCfg.m_useProxyAuthentication) {
-    username = ConfigStore::s_miscCfg.m_proxyUserName;
-    password = ConfigStore::s_miscCfg.m_proxyPassword;
+  if (ConfigStore::s_networkCfg.m_useProxyAuthentication) {
+    username = ConfigStore::s_networkCfg.m_proxyUserName;
+    password = ConfigStore::s_networkCfg.m_proxyPassword;
   }
   m_netMgr->setProxy(QNetworkProxy(proxyType, proxy, proxyPort,
                                    username, password));
