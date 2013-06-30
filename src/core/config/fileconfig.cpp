@@ -100,10 +100,10 @@ FileConfig::~FileConfig() {}
 void FileConfig::writeToConfig(ISettings* config) const
 {
   config->beginGroup(m_group);
-  config->setValue(QLatin1String("NameFilter3"), QVariant(m_nameFilter));
+  config->setValue(QLatin1String("NameFilter"), QVariant(m_nameFilter));
   config->setValue(QLatin1String("FormatItem"), QVariant(m_formatItem));
   config->setValue(QLatin1String("FormatItems"), QVariant(m_formatItems));
-  config->setValue(QLatin1String("FormatText2"), QVariant(m_formatText));
+  config->setValue(QLatin1String("FormatText"), QVariant(m_formatText));
   config->setValue(QLatin1String("FormatFromFilenameItem"), QVariant(m_formatFromFilenameItem));
   config->setValue(QLatin1String("FormatFromFilenameItems"), QVariant(m_formatFromFilenameItems));
   config->setValue(QLatin1String("FormatFromFilenameText"), QVariant(m_formatFromFilenameText));
@@ -124,7 +124,7 @@ void FileConfig::readFromConfig(ISettings* config)
 {
   config->beginGroup(m_group);
   m_nameFilter =
-      config->value(QLatin1String("NameFilter3"), QLatin1String("")).toString();
+      config->value(QLatin1String("NameFilter"), QLatin1String("")).toString();
   m_formatItem =
       config->value(QLatin1String("FormatItem"), 0).toInt();
   m_formatItems =
@@ -139,7 +139,7 @@ void FileConfig::readFromConfig(ISettings* config)
   m_markChanges = config->value(QLatin1String("MarkChanges"), m_markChanges).toBool();
 
   m_formatText =
-      config->value(QLatin1String("FormatText2"), QString::fromLatin1(defaultToFilenameFormats[0])).toString();
+      config->value(QLatin1String("FormatText"), QString::fromLatin1(defaultToFilenameFormats[0])).toString();
   m_formatFromFilenameText =
       config->value(QLatin1String("FormatFromFilenameText"), QString::fromLatin1(defaultFromFilenameFormats[0])).toString();
   m_loadLastOpenedFile = config->value(QLatin1String("LoadLastOpenedFile"), m_loadLastOpenedFile).toBool();

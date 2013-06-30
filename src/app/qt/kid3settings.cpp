@@ -26,12 +26,39 @@
 
 #include "kid3settings.h"
 #include <QSettings>
+#include <QStringList>
+
+namespace {
+
+void copyOldSettings(QSettings* config)
+{
+  if (!config->contains(QLatin1String("Tags/MarkTruncations"))) {
+    // Configuration missing or not in current format
+    QSettings oldSettings(
+          QSettings::UserScope, QLatin1String("kid3.sourceforge.net"),
+          QLatin1String("Kid3"));
+    if (oldSettings.contains(QLatin1String("/kid3/General Options/ExportFormatIdx"))) {
+      oldSettings.beginGroup(QLatin1String("/kid3"));
+      foreach (const QString& key, oldSettings.allKeys()) {
+        QString newKey(key);
+        newKey.replace(QLatin1String("Recent Files"),
+                       QLatin1String("RecentFiles"));
+        config->setValue(newKey, oldSettings.value(key));
+      }
+      qDebug("Copied old settings");
+    }
+  }
+}
+
+}
 
 /**
  * Constructor.
  */
 Kid3Settings::Kid3Settings(QSettings* config) : m_config(config)
 {
+  copyOldSettings(m_config);
+  migrateOldSettings();
 }
 
 /**
@@ -47,7 +74,7 @@ Kid3Settings::~Kid3Settings()
  */
 void Kid3Settings::beginGroup(const QString& prefix)
 {
-  m_config->beginGroup(QLatin1Char('/') + prefix);
+  m_config->beginGroup(prefix);
 }
 
 /**
@@ -65,7 +92,7 @@ void Kid3Settings::endGroup()
  */
 void Kid3Settings::setValue(const QString& key, const QVariant& value)
 {
-  m_config->setValue(QLatin1Char('/') + key, value);
+  m_config->setValue(key, value);
 }
 
 /**
@@ -77,7 +104,7 @@ void Kid3Settings::setValue(const QString& key, const QVariant& value)
 QVariant Kid3Settings::value(const QString& key,
                              const QVariant& defaultValue) const
 {
-  return m_config->value(QLatin1Char('/') + key, defaultValue);
+  return m_config->value(key, defaultValue);
 }
 
 /**
@@ -86,7 +113,7 @@ QVariant Kid3Settings::value(const QString& key,
  */
 void Kid3Settings::remove(const QString& key)
 {
-  m_config->remove(QLatin1Char('/') + key);
+  m_config->remove(key);
 }
 
 /**
@@ -96,7 +123,7 @@ void Kid3Settings::remove(const QString& key)
  */
 bool Kid3Settings::contains(const QString& key) const
 {
-  return m_config->contains(QLatin1Char('/') + key);
+  return m_config->contains(key);
 }
 
 /**

@@ -61,9 +61,8 @@ ISettings* PlatformTools::applicationSettings()
 {
   if (!m_config) {
     m_settings = new QSettings(
-          QSettings::UserScope, QLatin1String("kid3.sourceforge.net"),
+          QSettings::UserScope, QLatin1String("Kid3"),
           QLatin1String("Kid3"), qApp);
-    m_settings->beginGroup(QLatin1String("/kid3"));
     m_config = new Kid3Settings(m_settings);
   }
   return m_config;

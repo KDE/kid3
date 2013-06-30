@@ -79,7 +79,7 @@ void RecentFilesMenu::addDirectory(const QString& dir)
  */
 void RecentFilesMenu::saveEntries(ISettings* config)
 {
-  config->beginGroup(QLatin1String("Recent Files"));
+  config->beginGroup(QLatin1String("RecentFiles"));
   config->setValue(QLatin1String("Files"), QVariant(m_files));
   config->endGroup();
 }
@@ -91,7 +91,7 @@ void RecentFilesMenu::saveEntries(ISettings* config)
  */
 void RecentFilesMenu::loadEntries(ISettings* config)
 {
-  config->beginGroup(QLatin1String("Recent Files"));
+  config->beginGroup(QLatin1String("RecentFiles"));
   m_files = config->value(QLatin1String("Files"), m_files).toStringList();
   config->endGroup();
 

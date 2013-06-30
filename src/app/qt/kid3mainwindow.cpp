@@ -58,7 +58,7 @@ Kid3MainWindow::Kid3MainWindow(QWidget* parent) :
   QMainWindow(parent),
   BaseMainWindow(this, m_platformTools = new PlatformTools),
   m_shortcutsModel(new ShortcutsModel(this)),
-  m_mainWindowConfig(new MainWindowConfig(QLatin1String("General Options")))
+  m_mainWindowConfig(new MainWindowConfig(QLatin1String("MainWindow")))
 {
   static_cast<PlatformTools*>(m_platformTools)->
       setMainWindowConfig(m_mainWindowConfig);

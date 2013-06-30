@@ -33,6 +33,7 @@
  */
 KdeSettings::KdeSettings(KConfig* config) : m_config(config), m_group(0)
 {
+  migrateOldSettings();
 }
 
 /**

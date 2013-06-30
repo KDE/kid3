@@ -86,6 +86,14 @@ public:
    * Write unsaved changes to permanent storage.
    */
   virtual void sync() = 0;
+
+protected:
+  /**
+   * Migrate from an old settings version.
+   * Can be called from the constructor of derived classes to automatically
+   * convert old settings.
+   */
+  void migrateOldSettings();
 };
 
 #endif // ISETTINGS_H

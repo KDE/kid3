@@ -27,18 +27,18 @@
 #include "configstore.h"
 #include "config.h"
 
-TagConfig ConfigStore::s_tagCfg(QLatin1String("General Options"));
-FileConfig ConfigStore::s_fileCfg(QLatin1String("General Options"));
-RenDirConfig ConfigStore::s_renDirCfg(QLatin1String("General Options"));
-NumberTracksConfig ConfigStore::s_numberTracksCfg(QLatin1String("General Options"));
+TagConfig ConfigStore::s_tagCfg(QLatin1String("Tags"));
+FileConfig ConfigStore::s_fileCfg(QLatin1String("Files"));
+RenDirConfig ConfigStore::s_renDirCfg(QLatin1String("RenameDirectory"));
+NumberTracksConfig ConfigStore::s_numberTracksCfg(QLatin1String("NumberTracks"));
 UserActionsConfig ConfigStore::s_userActionsCfg(QLatin1String("MenuCommands"));
-GuiConfig ConfigStore::s_guiCfg(QLatin1String("General Options"));
-NetworkConfig ConfigStore::s_networkCfg(QLatin1String("General Options"));
-ImportConfig ConfigStore::s_importCfg(QLatin1String("General Options"));
-ExportConfig ConfigStore::s_exportCfg(QLatin1String("General Options"));
+GuiConfig ConfigStore::s_guiCfg(QLatin1String("GUI"));
+NetworkConfig ConfigStore::s_networkCfg(QLatin1String("Network"));
+ImportConfig ConfigStore::s_importCfg(QLatin1String("Import"));
+ExportConfig ConfigStore::s_exportCfg(QLatin1String("Export"));
 BatchImportConfig ConfigStore::s_batchImportCfg(QLatin1String("BatchImport"));
 FormatConfig ConfigStore::s_fnFormatCfg(QLatin1String("FilenameFormat"));
-FormatConfig ConfigStore::s_id3FormatCfg(QLatin1String("Id3Format"));
+FormatConfig ConfigStore::s_id3FormatCfg(QLatin1String("TagFormat"));
 FreedbConfig ConfigStore::s_freedbCfg(QLatin1String("Freedb"));
 FreedbConfig ConfigStore::s_trackTypeCfg(QLatin1String("TrackType"));
 DiscogsConfig ConfigStore::s_discogsCfg(QLatin1String("Discogs"));
