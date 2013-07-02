@@ -58,7 +58,7 @@ inline TrackData::TagVersion importDestCfgToTagVersion(int importDest) {
  * @param grp configuration group
  */
 ImportConfig::ImportConfig(const QString& grp) :
-  GeneralConfig(grp), m_importServer(0),
+  StoredConfig<ImportConfig>(grp), m_importServer(0),
   m_importDest(TrackData::TagV1), m_importFormatIdx(0),
   m_enableTimeDifferenceCheck(true), m_maxTimeDifference(3),
   m_importVisibleColumns(0x2000000000ULL),

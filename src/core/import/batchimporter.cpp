@@ -29,7 +29,8 @@
 #include "trackdatamodel.h"
 #include "downloadclient.h"
 #include "pictureframe.h"
-#include "configstore.h"
+#include "fileconfig.h"
+#include "formatconfig.h"
 
 /**
  * Flags to store types of data which have to be imported.
@@ -153,7 +154,7 @@ void BatchImporter::stateTransition()
             if (TaggedFile* taggedFile = trackList.first().getTaggedFile()) {
               FrameCollection frames;
               taggedFile->getTagsFromFilename(frames,
-                               ConfigStore::s_fileCfg.m_formatFromFilenameText);
+                               FileConfig::instance().m_formatFromFilenameText);
               m_currentArtist = frames.getArtist();
               m_currentAlbum = frames.getAlbum();
             }
@@ -353,7 +354,7 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
           if (TaggedFile* taggedFile = it->getTaggedFile()) {
             taggedFile->readTags(false);
             it->removeDisabledFrames(m_frameFilter);
-            ConfigStore::s_id3FormatCfg.formatFramesIfEnabled(*it);
+            TagFormatConfig::instance().formatFramesIfEnabled(*it);
             if (m_tagVersion & TrackData::TagV1) {
               taggedFile->setFramesV1(*it, false);
             }

@@ -34,11 +34,14 @@
 /**
  * Configuration for track numbering.
  */
-class KID3_CORE_EXPORT NumberTracksConfig : public GeneralConfig
+class KID3_CORE_EXPORT NumberTracksConfig :
+  public StoredConfig<NumberTracksConfig>
 {
 public:
   /**
    * Constructor.
+   *
+   * @param group configuration group
    */
   explicit NumberTracksConfig(const QString& group);
 

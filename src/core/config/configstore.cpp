@@ -37,10 +37,10 @@ NetworkConfig ConfigStore::s_networkCfg(QLatin1String("Network"));
 ImportConfig ConfigStore::s_importCfg(QLatin1String("Import"));
 ExportConfig ConfigStore::s_exportCfg(QLatin1String("Export"));
 BatchImportConfig ConfigStore::s_batchImportCfg(QLatin1String("BatchImport"));
-FormatConfig ConfigStore::s_fnFormatCfg(QLatin1String("FilenameFormat"));
-FormatConfig ConfigStore::s_id3FormatCfg(QLatin1String("TagFormat"));
+FilenameFormatConfig ConfigStore::s_fnFormatCfg(QLatin1String("FilenameFormat"));
+TagFormatConfig ConfigStore::s_id3FormatCfg(QLatin1String("TagFormat"));
 FreedbConfig ConfigStore::s_freedbCfg(QLatin1String("Freedb"));
-FreedbConfig ConfigStore::s_trackTypeCfg(QLatin1String("TrackType"));
+TrackTypeConfig ConfigStore::s_trackTypeCfg(QLatin1String("TrackType"));
 DiscogsConfig ConfigStore::s_discogsCfg(QLatin1String("Discogs"));
 AmazonConfig ConfigStore::s_amazonCfg(QLatin1String("Amazon"));
 MusicBrainzConfig ConfigStore::s_musicBrainzCfg(QLatin1String("MusicBrainz"));
@@ -112,4 +112,118 @@ void ConfigStore::readFromConfig()
   s_filterCfg.readFromConfig(m_config);
   s_playlistCfg.readFromConfig(m_config);
   s_musicBrainzCfg.readFromConfig(m_config);
+}
+
+template <>
+TagConfig& StoredConfig<TagConfig>::instance()
+{
+  return ConfigStore::s_tagCfg;
+}
+
+template <>
+FileConfig& StoredConfig<FileConfig>::instance()
+{
+  return ConfigStore::s_fileCfg;
+}
+
+template <>
+RenDirConfig& StoredConfig<RenDirConfig>::instance()
+{
+  return ConfigStore::s_renDirCfg;
+}
+
+template <>
+NumberTracksConfig& StoredConfig<NumberTracksConfig>::instance()
+{
+  return ConfigStore::s_numberTracksCfg;
+}
+
+template <>
+UserActionsConfig& StoredConfig<UserActionsConfig>::instance()
+{
+  return ConfigStore::s_userActionsCfg;
+}
+
+template <>
+GuiConfig& StoredConfig<GuiConfig>::instance()
+{
+  return ConfigStore::s_guiCfg;
+}
+
+template <>
+NetworkConfig& StoredConfig<NetworkConfig>::instance()
+{
+  return ConfigStore::s_networkCfg;
+}
+
+template <>
+ImportConfig& StoredConfig<ImportConfig>::instance()
+{
+  return ConfigStore::s_importCfg;
+}
+
+template <>
+ExportConfig& StoredConfig<ExportConfig>::instance()
+{
+  return ConfigStore::s_exportCfg;
+}
+
+template <>
+BatchImportConfig& StoredConfig<BatchImportConfig>::instance()
+{
+  return ConfigStore::s_batchImportCfg;
+}
+
+template <>
+DiscogsConfig& StoredConfig<DiscogsConfig, ServerImporterConfig>::instance()
+{
+  return ConfigStore::s_discogsCfg;
+}
+
+template <>
+AmazonConfig& StoredConfig<AmazonConfig, ServerImporterConfig>::instance()
+{
+  return ConfigStore::s_amazonCfg;
+}
+
+template <>
+MusicBrainzConfig& StoredConfig<MusicBrainzConfig, ServerImporterConfig>::instance()
+{
+  return ConfigStore::s_musicBrainzCfg;
+}
+
+template <>
+FilterConfig& StoredConfig<FilterConfig>::instance()
+{
+  return ConfigStore::s_filterCfg;
+}
+
+template <>
+PlaylistConfig& StoredConfig<PlaylistConfig>::instance()
+{
+  return ConfigStore::s_playlistCfg;
+}
+
+template <>
+FilenameFormatConfig& StoredConfig<FilenameFormatConfig, FormatConfig>::instance()
+{
+  return ConfigStore::s_fnFormatCfg;
+}
+
+template <>
+TagFormatConfig& StoredConfig<TagFormatConfig, FormatConfig>::instance()
+{
+  return ConfigStore::s_id3FormatCfg;
+}
+
+template <>
+FreedbConfig& StoredConfig<FreedbConfig, ServerImporterConfig>::instance()
+{
+  return ConfigStore::s_freedbCfg;
+}
+
+template <>
+TrackTypeConfig& StoredConfig<TrackTypeConfig, FreedbConfig>::instance()
+{
+  return ConfigStore::s_trackTypeCfg;
 }

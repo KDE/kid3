@@ -33,11 +33,13 @@
 /**
  * GUI related configuration.
  */
-class KID3_CORE_EXPORT GuiConfig : public GeneralConfig
+class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig>
 {
 public:
   /**
    * Constructor.
+   *
+   * @param group configuration group
    */
   explicit GuiConfig(const QString& group);
 

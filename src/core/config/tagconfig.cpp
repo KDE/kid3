@@ -40,7 +40,7 @@ const char* const defaultCommentName = "COMMENT";
  * @param group configuration group
  */
 TagConfig::TagConfig(const QString& group) :
-  GeneralConfig(group),
+  StoredConfig<TagConfig>(group),
   m_markTruncations(true),
   m_enableTotalNumberOfTracks(false),
   m_genreNotNumeric(false),

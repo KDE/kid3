@@ -32,7 +32,7 @@
 /**
  * Amazon configuration.
  */
-class AmazonConfig : public ServerImporterConfig {
+class AmazonConfig : public StoredConfig<AmazonConfig, ServerImporterConfig> {
 public:
   /**
    * Constructor.
@@ -40,7 +40,7 @@ public:
    *
    * @param grp configuration group
    */
-  AmazonConfig(const QString& grp);
+  explicit AmazonConfig(const QString& grp);
 
   /**
    * Destructor.

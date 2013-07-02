@@ -27,7 +27,9 @@
 #include "frametablemodel.h"
 #include <QApplication>
 #include <QComboBox>
-#include "configstore.h"
+#include "fileconfig.h"
+#include "tagconfig.h"
+#include "formatconfig.h"
 #include "genres.h"
 
 /**
@@ -116,7 +118,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
   } else if (role == Qt::BackgroundColorRole) {
     if (index.column() == CI_Enable) {
-      return ConfigStore::s_fileCfg.m_markChanges &&
+      return FileConfig::instance().m_markChanges &&
         (it->isValueChanged() ||
         (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
          (m_changedFrames & (1ULL << (*it).getType())) != 0))
@@ -543,9 +545,9 @@ FrameTableLineEdit::~FrameTableLineEdit() {}
  */
 void FrameTableLineEdit::formatTextIfEnabled(const QString& txt)
 {
-  if (ConfigStore::s_id3FormatCfg.m_formatWhileEditing) {
+  if (TagFormatConfig::instance().m_formatWhileEditing) {
     QString str(txt);
-    ConfigStore::s_id3FormatCfg.formatString(str);
+    TagFormatConfig::instance().formatString(str);
     if (str != txt) {
       int curPos = cursorPosition();
       setText(str);
@@ -586,22 +588,22 @@ QWidget* FrameItemDelegate::createEditor(
       for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
         strList += QString::fromLatin1(*sl);
       }
-      if (ConfigStore::s_tagCfg.m_onlyCustomGenres) {
+      if (TagConfig::instance().m_onlyCustomGenres) {
         cb->addItem(QLatin1String(""));
       } else {
         cb->addItems(strList);
       }
       if (id3v1) {
         for (QStringList::const_iterator it =
-               ConfigStore::s_tagCfg.m_customGenres.begin();
-             it != ConfigStore::s_tagCfg.m_customGenres.end();
+               TagConfig::instance().m_customGenres.begin();
+             it != TagConfig::instance().m_customGenres.end();
              ++it) {
           if (Genres::getNumber(*it) != 255) {
             cb->addItem(*it);
           }
         }
       } else {
-        cb->addItems(ConfigStore::s_tagCfg.m_customGenres);
+        cb->addItems(TagConfig::instance().m_customGenres);
       }
       return cb;
     } else if (id3v1 &&
@@ -629,7 +631,7 @@ void FrameItemDelegate::setEditorData(
     QString genreStr(index.model()->data(index).toString());
     int genreIndex = genreStr.isNull() ? 0 :
       Genres::getIndex(Genres::getNumber(genreStr));
-    if (ConfigStore::s_tagCfg.m_onlyCustomGenres) {
+    if (TagConfig::instance().m_onlyCustomGenres) {
       genreIndex = cb->findText(genreStr);
       if (genreIndex < 0) genreIndex = 0;
     } else if (genreIndex <= 0) {

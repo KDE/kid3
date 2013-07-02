@@ -40,7 +40,6 @@
 #include "taggedfile.h"
 #include "frame.h"
 #include "trackdata.h"
-#include "configstore.h"
 #include "contexthelp.h"
 #include "rendirconfig.h"
 #include "dirrenamer.h"
@@ -119,11 +118,11 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   }
   m_formatComboBox->addItems(strList);
   m_formatComboBox->setEditable(true);
-  m_formatComboBox->setItemText(ConfigStore::s_renDirCfg.m_dirFormatItem,
-                                ConfigStore::s_renDirCfg.m_dirFormatText);
-  m_formatComboBox->setCurrentIndex(ConfigStore::s_renDirCfg.m_dirFormatItem);
+  m_formatComboBox->setItemText(RenDirConfig::instance().m_dirFormatItem,
+                                RenDirConfig::instance().m_dirFormatText);
+  m_formatComboBox->setCurrentIndex(RenDirConfig::instance().m_dirFormatItem);
   m_tagversionComboBox->setCurrentIndex(
-        m_tagversionComboBox->findData(ConfigStore::s_renDirCfg.m_renDirSrc));
+        m_tagversionComboBox->findData(RenDirConfig::instance().m_renDirSrc));
   formatLabel->setBuddy(m_formatComboBox);
   formatLayout->addWidget(formatLabel);
   formatLayout->addWidget(m_formatComboBox);
@@ -223,9 +222,9 @@ void RenDirDialog::slotUpdateNewDirname()
  */
 void RenDirDialog::saveConfig()
 {
-  ConfigStore::s_renDirCfg.m_dirFormatItem = m_formatComboBox->currentIndex();
-  ConfigStore::s_renDirCfg.m_dirFormatText = m_formatComboBox->currentText();
-  ConfigStore::s_renDirCfg.m_renDirSrc = TrackData::tagVersionCast(
+  RenDirConfig::instance().m_dirFormatItem = m_formatComboBox->currentIndex();
+  RenDirConfig::instance().m_dirFormatText = m_formatComboBox->currentText();
+  RenDirConfig::instance().m_renDirSrc = TrackData::tagVersionCast(
     m_tagversionComboBox->itemData(m_tagversionComboBox->currentIndex()).toInt());
 }
 

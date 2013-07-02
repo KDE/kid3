@@ -33,11 +33,13 @@
 /**
  * Network related configuration.
  */
-class KID3_CORE_EXPORT NetworkConfig : public GeneralConfig
+class KID3_CORE_EXPORT NetworkConfig : public StoredConfig<NetworkConfig>
 {
 public:
   /**
    * Constructor.
+   *
+   * @param group configuration group
    */
   explicit NetworkConfig(const QString& group);
 

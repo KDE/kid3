@@ -32,7 +32,7 @@
 #include <QString>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include "configstore.h"
+#include "filterconfig.h"
 #include "contexthelp.h"
 #include "formatlistedit.h"
 
@@ -119,9 +119,9 @@ void FilterDialog::applyOrAbortFilter()
 void FilterDialog::setFiltersFromConfig()
 {
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ConfigStore::s_filterCfg.m_filterNames
-                             << ConfigStore::s_filterCfg.m_filterExpressions,
-        ConfigStore::s_filterCfg.m_filterIdx);
+        QList<QStringList>() << FilterConfig::instance().m_filterNames
+                             << FilterConfig::instance().m_filterExpressions,
+        FilterConfig::instance().m_filterIdx);
 }
 
 /**
@@ -135,8 +135,8 @@ void FilterDialog::readConfig()
 
   setFiltersFromConfig();
 
-  if (!ConfigStore::s_filterCfg.m_windowGeometry.isEmpty()) {
-    restoreGeometry(ConfigStore::s_filterCfg.m_windowGeometry);
+  if (!FilterConfig::instance().m_windowGeometry.isEmpty()) {
+    restoreGeometry(FilterConfig::instance().m_windowGeometry);
   }
 }
 
@@ -146,10 +146,10 @@ void FilterDialog::readConfig()
 void FilterDialog::saveConfig()
 {
   QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ConfigStore::s_filterCfg.m_filterIdx);
-  ConfigStore::s_filterCfg.m_filterNames = formats.at(0);
-  ConfigStore::s_filterCfg.m_filterExpressions = formats.at(1);
-  ConfigStore::s_filterCfg.m_windowGeometry = saveGeometry();
+        &FilterConfig::instance().m_filterIdx);
+  FilterConfig::instance().m_filterNames = formats.at(0);
+  FilterConfig::instance().m_filterExpressions = formats.at(1);
+  FilterConfig::instance().m_windowGeometry = saveGeometry();
 
   setFiltersFromConfig();
 }

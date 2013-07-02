@@ -127,7 +127,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   initFileTypes();
   setModified(false);
   setFiltered(false);
-  ConfigStore::s_fnFormatCfg.setAsFilenameFormatter();
+  FilenameFormatConfig::instance().setAsFilenameFormatter();
 
   m_importers
       << new FreedbImporter(m_netMgr, m_trackDataModel)
@@ -220,8 +220,8 @@ ISettings* Kid3Application::getSettings() const
  */
 void Kid3Application::saveConfig()
 {
-  if (ConfigStore::s_fileCfg.m_loadLastOpenedFile) {
-    ConfigStore::s_fileCfg.m_lastOpenedFile =
+  if (FileConfig::instance().m_loadLastOpenedFile) {
+    FileConfig::instance().m_lastOpenedFile =
         m_fileProxyModel->filePath(currentOrRootIndex());
   }
   m_configStore->writeToConfig();
@@ -234,17 +234,17 @@ void Kid3Application::saveConfig()
 void Kid3Application::readConfig()
 {
   m_configStore->readFromConfig();
-  if (ConfigStore::s_fileCfg.m_nameFilter.isEmpty()) {
-    ConfigStore::s_fileCfg.m_nameFilter = createFilterString();
+  if (FileConfig::instance().m_nameFilter.isEmpty()) {
+    FileConfig::instance().m_nameFilter = createFilterString();
   }
   setTextEncodings();
   FrameCollection::setQuickAccessFrames(
-        ConfigStore::s_tagCfg.m_quickAccessFrames);
-  if (ConfigStore::s_freedbCfg.m_server == QLatin1String("freedb2.org:80")) {
-    ConfigStore::s_freedbCfg.m_server = QLatin1String("www.gnudb.org:80"); // replace old default
+        TagConfig::instance().m_quickAccessFrames);
+  if (FreedbConfig::instance().m_server == QLatin1String("freedb2.org:80")) {
+    FreedbConfig::instance().m_server = QLatin1String("www.gnudb.org:80"); // replace old default
   }
-  if (ConfigStore::s_trackTypeCfg.m_server == QLatin1String("gnudb.gnudb.org:80")) {
-    ConfigStore::s_trackTypeCfg.m_server = QLatin1String("tracktype.org:80"); // replace default
+  if (TrackTypeConfig::instance().m_server == QLatin1String("gnudb.gnudb.org:80")) {
+    TrackTypeConfig::instance().m_server = QLatin1String("tracktype.org:80"); // replace default
   }
 }
 
@@ -275,7 +275,7 @@ bool Kid3Application::openDirectory(QString dir, bool fileCheck)
   }
 
   QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-                            ConfigStore::s_fileCfg.m_nameFilter).
+                            FileConfig::instance().m_nameFilter).
                           split(QLatin1Char(' ')));
   m_fileProxyModel->setNameFilters(nameFilters);
   m_fileSystemModel->setFilter(QDir::AllEntries | QDir::AllDirs);
@@ -339,7 +339,7 @@ QStringList Kid3Application::saveDirectory()
     TaggedFile* taggedFile = it.next();
     bool renamed = false;
     if (!taggedFile->writeTags(false, &renamed,
-                               ConfigStore::s_fileCfg.m_preserveTime)) {
+                               FileConfig::instance().m_preserveTime)) {
       errorFiles.push_back(taggedFile->getFilename());
     }
     ++numFiles;
@@ -385,14 +385,14 @@ void Kid3Application::revertFileModifications()
 bool Kid3Application::importTags(TrackData::TagVersion tagMask,
                                  const QString& path, int fmtIdx)
 {
-  filesToTrackDataModel(ConfigStore::s_importCfg.m_importDest);
+  filesToTrackDataModel(ImportConfig::instance().m_importDest);
   QFile file(path);
   if (file.open(QIODevice::ReadOnly) &&
-      fmtIdx < ConfigStore::s_importCfg.m_importFormatHeaders.size()) {
+      fmtIdx < ImportConfig::instance().m_importFormatHeaders.size()) {
     TextImporter(getTrackDataModel()).updateTrackData(
       QTextStream(&file).readAll(),
-      ConfigStore::s_importCfg.m_importFormatHeaders.at(fmtIdx),
-      ConfigStore::s_importCfg.m_importFormatTracks.at(fmtIdx));
+      ImportConfig::instance().m_importFormatHeaders.at(fmtIdx),
+      ImportConfig::instance().m_importFormatTracks.at(fmtIdx));
     file.close();
     trackDataModelToFiles(tagMask);
     return true;
@@ -499,7 +499,7 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
  */
 bool Kid3Application::writePlaylist()
 {
-  return writePlaylist(ConfigStore::s_playlistCfg);
+  return writePlaylist(PlaylistConfig::instance());
 }
 
 /**
@@ -680,9 +680,9 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
  */
 void Kid3Application::formatFileNameIfEnabled(TaggedFile* taggedFile) const
 {
-  if (ConfigStore::s_fnFormatCfg.m_formatWhileEditing) {
+  if (FilenameFormatConfig::instance().m_formatWhileEditing) {
     QString fn(taggedFile->getFilename());
-    ConfigStore::s_fnFormatCfg.formatString(fn);
+    FilenameFormatConfig::instance().formatString(fn);
     taggedFile->setFilename(fn);
   }
 }
@@ -694,7 +694,7 @@ void Kid3Application::formatFileNameIfEnabled(TaggedFile* taggedFile) const
  */
 void Kid3Application::formatFramesIfEnabled(FrameCollection& frames) const
 {
-  ConfigStore::s_id3FormatCfg.formatFramesIfEnabled(frames);
+  TagFormatConfig::instance().formatFramesIfEnabled(frames);
 }
 
 /**
@@ -744,7 +744,7 @@ void Kid3Application::applyFilenameFormat()
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
     QString fn = taggedFile->getFilename();
-    ConfigStore::s_fnFormatCfg.formatString(fn);
+    FilenameFormatConfig::instance().formatString(fn);
     taggedFile->setFilename(fn);
   }
   emit selectedFilesUpdated();
@@ -767,11 +767,11 @@ void Kid3Application::applyId3Format()
     taggedFile->readTags(false);
     taggedFile->getAllFramesV1(frames);
     frames.removeDisabledFrames(fltV1);
-    ConfigStore::s_id3FormatCfg.formatFrames(frames);
+    TagFormatConfig::instance().formatFrames(frames);
     taggedFile->setFramesV1(frames);
     taggedFile->getAllFramesV2(frames);
     frames.removeDisabledFrames(fltV2);
-    ConfigStore::s_id3FormatCfg.formatFrames(frames);
+    TagFormatConfig::instance().formatFrames(frames);
     taggedFile->setFramesV2(frames);
   }
   emit selectedFilesUpdated();
@@ -786,7 +786,7 @@ void Kid3Application::applyTextEncoding()
 {
   emit fileSelectionUpdateRequested();
   Frame::Field::TextEncoding encoding;
-  switch (ConfigStore::s_tagCfg.m_textEncoding) {
+  switch (TagConfig::instance().m_textEncoding) {
   case TagConfig::TE_UTF16:
     encoding = Frame::Field::TE_UTF16;
     break;
@@ -1771,7 +1771,7 @@ void Kid3Application::numberTracks(int nr, int total,
                                    TrackData::TagVersion tagVersion)
 {
   emit fileSelectionUpdateRequested();
-  int numDigits = ConfigStore::s_tagCfg.m_trackNumberDigits;
+  int numDigits = TagConfig::instance().m_trackNumberDigits;
   if (numDigits < 1 || numDigits > 5)
     numDigits = 1;
 
@@ -1911,17 +1911,17 @@ void Kid3Application::setTextEncodings()
 {
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   const QTextCodec* id3v1TextCodec =
-    ConfigStore::s_tagCfg.m_textEncodingV1 != QLatin1String("ISO-8859-1") ?
-    QTextCodec::codecForName(ConfigStore::s_tagCfg.m_textEncodingV1.toLatin1().data()) : 0;
+    TagConfig::instance().m_textEncodingV1 != QLatin1String("ISO-8859-1") ?
+    QTextCodec::codecForName(TagConfig::instance().m_textEncodingV1.toLatin1().data()) : 0;
 #endif
 #ifdef HAVE_ID3LIB
   Mp3File::setDefaultTextEncoding(
-    static_cast<TagConfig::TextEncoding>(ConfigStore::s_tagCfg.m_textEncoding));
+    static_cast<TagConfig::TextEncoding>(TagConfig::instance().m_textEncoding));
   Mp3File::setTextCodecV1(id3v1TextCodec);
 #endif
 #ifdef HAVE_TAGLIB
   TagLibFile::setDefaultTextEncoding(
-    static_cast<TagConfig::TextEncoding>(ConfigStore::s_tagCfg.m_textEncoding));
+    static_cast<TagConfig::TextEncoding>(TagConfig::instance().m_textEncoding));
   TagLibFile::setTextCodecV1(id3v1TextCodec);
 #endif
 }
@@ -1964,10 +1964,10 @@ void Kid3Application::convertToId3v24()
         bool renamed;
         if (TagLibFile* taglibFile = dynamic_cast<TagLibFile*>(taggedFile)) {
           taglibFile->writeTags(true, &renamed,
-                                ConfigStore::s_fileCfg.m_preserveTime, 4);
+                                FileConfig::instance().m_preserveTime, 4);
         } else {
           taggedFile->writeTags(true, &renamed,
-                                ConfigStore::s_fileCfg.m_preserveTime);
+                                FileConfig::instance().m_preserveTime);
         }
         taggedFile->readTags(true);
       }
@@ -2005,7 +2005,7 @@ void Kid3Application::convertToId3v23()
 #ifdef HAVE_TAGLIB_ID3V23_SUPPORT
 #ifdef HAVE_ID3LIB
         TagLibFile* taglibFile =
-          ConfigStore::s_tagCfg.m_id3v2Version == TagConfig::ID3v2_3_0_TAGLIB
+          TagConfig::instance().m_id3v2Version == TagConfig::ID3v2_3_0_TAGLIB
           ? dynamic_cast<TagLibFile*>(taggedFile) : 0;
 #else
         TagLibFile* taglibFile = dynamic_cast<TagLibFile*>(taggedFile);
@@ -2016,7 +2016,7 @@ void Kid3Application::convertToId3v23()
         bool renamed;
         if (taglibFile) {
           taglibFile->writeTags(true, &renamed,
-                                ConfigStore::s_fileCfg.m_preserveTime, 3);
+                                FileConfig::instance().m_preserveTime, 3);
         } else {
 #ifdef HAVE_ID3LIB
           if (dynamic_cast<TagLibFile*>(taggedFile) != 0) {
@@ -2036,7 +2036,7 @@ void Kid3Application::convertToId3v23()
           }
 
           // Write the file with id3lib, it always writes ID3v2.3 tags
-          taggedFile->writeTags(true, &renamed, ConfigStore::s_fileCfg.m_preserveTime);
+          taggedFile->writeTags(true, &renamed, FileConfig::instance().m_preserveTime);
 #endif
         }
         taggedFile->readTags(true);

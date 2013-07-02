@@ -37,7 +37,7 @@
 #include "iplatformtools.h"
 #include "textimporter.h"
 #include "importparser.h"
-#include "configstore.h"
+#include "importconfig.h"
 #include "contexthelp.h"
 #include "formatlistedit.h"
 
@@ -118,10 +118,10 @@ void TextImportDialog::clear()
 void TextImportDialog::setFormatFromConfig()
 {
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ConfigStore::s_importCfg.m_importFormatNames
-                             << ConfigStore::s_importCfg.m_importFormatHeaders
-                             << ConfigStore::s_importCfg.m_importFormatTracks,
-        ConfigStore::s_importCfg.m_importFormatIdx);
+        QList<QStringList>() << ImportConfig::instance().m_importFormatNames
+                             << ImportConfig::instance().m_importFormatHeaders
+                             << ImportConfig::instance().m_importFormatTracks,
+        ImportConfig::instance().m_importFormatIdx);
 }
 
 /**
@@ -136,7 +136,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
   if (!fn.isEmpty()) {
     QFile file(fn);
     if (file.open(QIODevice::ReadOnly)) {
-      ConfigStore::s_importCfg.m_importDir = QFileInfo(file).dir().path();
+      ImportConfig::instance().m_importDir = QFileInfo(file).dir().path();
       QTextStream stream(&file);
       QString text = stream.readAll();
       if (!text.isNull() &&
@@ -160,7 +160,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
 void TextImportDialog::fromFile()
 {
   importFromFile(m_platformTools->getOpenFileName(this, QString(),
-      ConfigStore::s_importCfg.m_importDir, QString(), 0)
+      ImportConfig::instance().m_importDir, QString(), 0)
     );
 }
 
@@ -187,10 +187,10 @@ void TextImportDialog::fromClipboard()
 void TextImportDialog::saveConfig()
 {
   QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ConfigStore::s_importCfg.m_importFormatIdx);
-  ConfigStore::s_importCfg.m_importFormatNames = formats.at(0);
-  ConfigStore::s_importCfg.m_importFormatHeaders = formats.at(1);
-  ConfigStore::s_importCfg.m_importFormatTracks = formats.at(2);
+        &ImportConfig::instance().m_importFormatIdx);
+  ImportConfig::instance().m_importFormatNames = formats.at(0);
+  ImportConfig::instance().m_importFormatHeaders = formats.at(1);
+  ImportConfig::instance().m_importFormatTracks = formats.at(2);
 
   setFormatFromConfig();
 }

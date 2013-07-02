@@ -32,13 +32,10 @@
  * Set default configuration.
  *
  * @param grp         configuration group
- * @param cgiPathUsed true to use CgiPath configuration
- * @param additionalTagsUsed true to use AdditionalTags configuration
  */
-ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
-                                           bool additionalTagsUsed) :
+ServerImporterConfig::ServerImporterConfig(const QString& grp) :
   GeneralConfig(grp),
-  m_cgiPathUsed(cgiPathUsed), m_additionalTagsUsed(additionalTagsUsed),
+  m_cgiPathUsed(true), m_additionalTagsUsed(false),
   m_standardTags(true), m_additionalTags(true), m_coverArt(true)
 {
 }
@@ -47,7 +44,8 @@ ServerImporterConfig::ServerImporterConfig(const QString& grp, bool cgiPathUsed,
  * Constructor.
  * Used to create temporary configuration.
  */
-ServerImporterConfig::ServerImporterConfig() : GeneralConfig(QLatin1String("Temporary")),
+ServerImporterConfig::ServerImporterConfig() :
+  GeneralConfig(QLatin1String("Temporary")),
   m_cgiPathUsed(false),
   m_additionalTagsUsed(false), m_standardTags(false), m_additionalTags(false),
   m_coverArt(false) {}
@@ -60,7 +58,7 @@ ServerImporterConfig::~ServerImporterConfig() {}
 /**
  * Persist configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void ServerImporterConfig::writeToConfig(ISettings* config) const
 {
@@ -80,7 +78,7 @@ void ServerImporterConfig::writeToConfig(ISettings* config) const
 /**
  * Read persisted configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void ServerImporterConfig::readFromConfig(ISettings* config)
 {

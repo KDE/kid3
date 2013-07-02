@@ -34,7 +34,7 @@
  * @param grp configuration group
  */
 PlaylistConfig::PlaylistConfig(const QString& grp) :
-  GeneralConfig(grp),
+  StoredConfig<PlaylistConfig>(grp),
   m_useFileNameFormat(false),
   m_onlySelectedFiles(false),
   m_useSortTagField(false), m_useFullPath(false), m_writeInfo(false),
@@ -52,7 +52,7 @@ PlaylistConfig::~PlaylistConfig() {}
 /**
  * Persist configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void PlaylistConfig::writeToConfig(ISettings* config) const
 {
@@ -73,7 +73,7 @@ void PlaylistConfig::writeToConfig(ISettings* config) const
 /**
  * Read persisted configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void PlaylistConfig::readFromConfig(ISettings* config)
 {

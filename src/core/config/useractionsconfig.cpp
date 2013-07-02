@@ -26,6 +26,7 @@
 
 #include "useractionsconfig.h"
 #include <QStringList>
+#include <stdlib.h>
 
 /**
  * Constructor.
@@ -33,7 +34,7 @@
  * @param group configuration group
  */
 UserActionsConfig::UserActionsConfig(const QString& group) :
-  GeneralConfig(group)
+  StoredConfig<UserActionsConfig>(group)
 {
 }
 

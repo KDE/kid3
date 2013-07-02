@@ -27,6 +27,7 @@
 #include "batchimportconfig.h"
 #include <QString>
 #include "batchimportprofile.h"
+#include "configstore.h"
 #include "config.h"
 
 /**
@@ -36,7 +37,8 @@
  * @param grp configuration group
  */
 BatchImportConfig::BatchImportConfig(const QString& grp) :
-  GeneralConfig(grp), m_importDest(TrackData::TagV2), m_profileIdx(0)
+  StoredConfig<BatchImportConfig>(grp),
+  m_importDest(TrackData::TagV2), m_profileIdx(0)
 {
   /**
    * Preset profile expressions.
@@ -65,7 +67,7 @@ BatchImportConfig::~BatchImportConfig()
 /**
  * Persist configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void BatchImportConfig::writeToConfig(ISettings* config) const
 {
@@ -81,7 +83,7 @@ void BatchImportConfig::writeToConfig(ISettings* config) const
 /**
  * Read persisted configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void BatchImportConfig::readFromConfig(ISettings* config)
 {

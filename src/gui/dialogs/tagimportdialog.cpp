@@ -30,7 +30,7 @@
 #include "textimporter.h"
 #include "importparser.h"
 #include "trackdatamodel.h"
-#include "configstore.h"
+#include "importconfig.h"
 #include "contexthelp.h"
 #include "formatlistedit.h"
 
@@ -115,10 +115,10 @@ void TagImportDialog::apply()
 void TagImportDialog::setFormatFromConfig()
 {
   m_formatListEdit->setFormats(
-        QList<QStringList>() << ConfigStore::s_importCfg.m_importTagsNames
-                             << ConfigStore::s_importCfg.m_importTagsSources
-                             << ConfigStore::s_importCfg.m_importTagsExtractions,
-        ConfigStore::s_importCfg.m_importTagsIdx);
+        QList<QStringList>() << ImportConfig::instance().m_importTagsNames
+                             << ImportConfig::instance().m_importTagsSources
+                             << ImportConfig::instance().m_importTagsExtractions,
+        ImportConfig::instance().m_importTagsIdx);
 }
 
 /**
@@ -127,10 +127,10 @@ void TagImportDialog::setFormatFromConfig()
 void TagImportDialog::saveConfig()
 {
   QList<QStringList> formats = m_formatListEdit->getFormats(
-        &ConfigStore::s_importCfg.m_importTagsIdx);
-  ConfigStore::s_importCfg.m_importTagsNames = formats.at(0);
-  ConfigStore::s_importCfg.m_importTagsSources = formats.at(1);
-  ConfigStore::s_importCfg.m_importTagsExtractions = formats.at(2);
+        &ImportConfig::instance().m_importTagsIdx);
+  ImportConfig::instance().m_importTagsNames = formats.at(0);
+  ImportConfig::instance().m_importTagsSources = formats.at(1);
+  ImportConfig::instance().m_importTagsExtractions = formats.at(2);
 
   setFormatFromConfig();
 }

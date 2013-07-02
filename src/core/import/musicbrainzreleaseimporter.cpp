@@ -29,7 +29,7 @@
 #include <QUrl>
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
-#include "configstore.h"
+#include "musicbrainzconfig.h"
 
 /**
  * Constructor.
@@ -77,7 +77,7 @@ const char* MusicBrainzReleaseImporter::helpAnchor() const {
 
 /** configuration, 0 if not used */
 ServerImporterConfig* MusicBrainzReleaseImporter::config() const {
-  return &ConfigStore::s_musicBrainzCfg;
+  return &MusicBrainzConfig::instance();
 }
 
 /** additional tags option, false if not used */

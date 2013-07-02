@@ -35,7 +35,8 @@
 #include "modeliterator.h"
 #include "taggedfile.h"
 #include "basemainwindow.h"
-#include "configstore.h"
+#include "useractionsconfig.h"
+#include "guiconfig.h"
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
 
@@ -141,8 +142,8 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 #endif
     int id = 0;
     for (QList<UserActionsConfig::MenuCommand>::const_iterator
-           it = ConfigStore::s_userActionsCfg.m_contextMenuCommands.begin();
-         it != ConfigStore::s_userActionsCfg.m_contextMenuCommands.end();
+           it = UserActionsConfig::instance().m_contextMenuCommands.begin();
+         it != UserActionsConfig::instance().m_contextMenuCommands.end();
          ++it) {
       QString name((*it).getName());
       if (!name.isEmpty()) {
@@ -248,9 +249,9 @@ QStringList FileList::formatStringList(const QStringList& format)
  */
 void FileList::executeContextCommand(int id)
 {
-  if (id < static_cast<int>(ConfigStore::s_userActionsCfg.m_contextMenuCommands.size())) {
+  if (id < static_cast<int>(UserActionsConfig::instance().m_contextMenuCommands.size())) {
     QStringList args;
-    const UserActionsConfig::MenuCommand& menuCmd = ConfigStore::s_userActionsCfg.m_contextMenuCommands[id];
+    const UserActionsConfig::MenuCommand& menuCmd = UserActionsConfig::instance().m_contextMenuCommands[id];
     QString cmd = menuCmd.getCommand();
 
     int len = cmd.length();
@@ -305,8 +306,8 @@ void FileList::executeAction(QAction* action)
     QString name = action->text().remove(QLatin1Char('&'));
     int id = 0;
     for (QList<UserActionsConfig::MenuCommand>::const_iterator
-           it = ConfigStore::s_userActionsCfg.m_contextMenuCommands.begin();
-         it != ConfigStore::s_userActionsCfg.m_contextMenuCommands.end();
+           it = UserActionsConfig::instance().m_contextMenuCommands.begin();
+         it != UserActionsConfig::instance().m_contextMenuCommands.end();
          ++it) {
       if (name == (*it).getName()) {
         executeContextCommand(id);
@@ -335,7 +336,7 @@ void FileList::customContextMenu(const QPoint& pos)
  */
 void FileList::playIfTaggedFile(const QModelIndex& index)
 {
-  if (ConfigStore::s_guiCfg.m_playOnDoubleClick &&
+  if (GuiConfig::instance().m_playOnDoubleClick &&
       FileProxyModel::getTaggedFileOfIndex(index)) {
     m_mainWin->slotPlayAudio();
   }

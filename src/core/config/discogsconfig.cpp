@@ -33,8 +33,11 @@
  *
  * @param grp configuration group
  */
-DiscogsConfig::DiscogsConfig(const QString& grp) : ServerImporterConfig(grp, false, true)
+DiscogsConfig::DiscogsConfig(const QString& grp) :
+  StoredConfig<DiscogsConfig, ServerImporterConfig>(grp)
 {
+  m_cgiPathUsed = false;
+  m_additionalTagsUsed = true;
   m_server = QLatin1String("www.discogs.com:80");
 }
 

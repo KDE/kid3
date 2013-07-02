@@ -43,7 +43,6 @@
 #include "shortcutsmodel.h"
 #include "shortcutsdelegate.h"
 #include "contexthelp.h"
-#include "configstore.h"
 #include "mainwindowconfig.h"
 #include "configdialogpages.h"
 

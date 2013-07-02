@@ -29,7 +29,7 @@
 #include <QUrl>
 #include <QDir>
 #include <QCoreApplication>
-#include "configstore.h"
+#include "networkconfig.h"
 
 /**
  * Constructor.
@@ -107,7 +107,7 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
           }
         }
       } else if (name == QLatin1String("browser")) {
-        result = ConfigStore::s_networkCfg.m_browser;
+        result = NetworkConfig::instance().m_browser;
       } else if (name == QLatin1String("url")) {
         if (!m_files.empty()) {
           QUrl url;

@@ -42,7 +42,7 @@
 #include "kid3form.h"
 #include "kid3application.h"
 #include "kdeconfigdialog.h"
-#include "configstore.h"
+#include "guiconfig.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
 #include "kdeplatformtools.h"
@@ -298,8 +298,8 @@ void KdeMainWindow::addDirectoryToRecentFiles(const QString& dirName)
 void KdeMainWindow::readConfig()
 {
   setAutoSaveSettings();
-  m_settingsShowHidePicture->setChecked(!ConfigStore::s_guiCfg.m_hidePicture);
-  m_settingsAutoHideTags->setChecked(ConfigStore::s_guiCfg.m_autoHideTags);
+  m_settingsShowHidePicture->setChecked(!GuiConfig::instance().m_hidePicture);
+  m_settingsAutoHideTags->setChecked(GuiConfig::instance().m_autoHideTags);
   m_fileOpenRecent->loadEntries(KGlobal::config()->group("Recent Files"));
 }
 

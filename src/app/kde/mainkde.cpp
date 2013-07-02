@@ -31,7 +31,7 @@
 #include <kaboutdata.h>
 #include <klocale.h>
 #include <kconfiggroup.h>
-#include "configstore.h"
+#include "fileconfig.h"
 #include "loadtranslation.h"
 #include "kdemainwindow.h"
 
@@ -90,9 +90,9 @@ int main(int argc, char* argv[])
 
     if (args->count()) {
       kid3->confirmedOpenDirectory(args->arg(0));
-    } else if (ConfigStore::s_fileCfg.m_loadLastOpenedFile &&
-               !ConfigStore::s_fileCfg.m_lastOpenedFile.isEmpty()) {
-      kid3->confirmedOpenDirectory(ConfigStore::s_fileCfg.m_lastOpenedFile);
+    } else if (FileConfig::instance().m_loadLastOpenedFile &&
+               !FileConfig::instance().m_lastOpenedFile.isEmpty()) {
+      kid3->confirmedOpenDirectory(FileConfig::instance().m_lastOpenedFile);
     }
     args->clear();
   }

@@ -35,7 +35,7 @@
 /**
  * Playlist configuration.
  */
-class KID3_CORE_EXPORT PlaylistConfig : public GeneralConfig {
+class KID3_CORE_EXPORT PlaylistConfig : public StoredConfig<PlaylistConfig> {
 public:
   /**
    * Playlist format.
@@ -61,7 +61,7 @@ public:
    *
    * @param grp configuration group
    */
-  PlaylistConfig(const QString& grp = QLatin1String("Playlist"));
+  explicit PlaylistConfig(const QString& grp = QLatin1String("Playlist"));
 
   /**
    * Destructor.

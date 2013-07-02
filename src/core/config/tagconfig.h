@@ -34,7 +34,7 @@
 /**
  * Tag related configuration.
  */
-class KID3_CORE_EXPORT TagConfig : public GeneralConfig
+class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig>
 {
 public:
   /** The ID3v2 version used for new tags. */
@@ -59,6 +59,8 @@ public:
 
   /**
    * Constructor.
+   *
+   * @param group configuration group
    */
   explicit TagConfig(const QString& group);
 

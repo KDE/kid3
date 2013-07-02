@@ -38,7 +38,7 @@
 #include "pictureframe.h"
 #include "fileproxymodel.h"
 #include "modeliterator.h"
-#include "configstore.h"
+#include "batchimportconfig.h"
 #include "batchimportprofile.h"
 
 /**
@@ -134,7 +134,7 @@ bool ScriptInterface::importFromFile(int tagMask, const QString& path,
 bool ScriptInterface::batchImport(int tagMask, const QString& profileName)
 {
   BatchImportProfile profile;
-  if (ConfigStore::s_batchImportCfg.getProfileByName(profileName, profile)) {
+  if (BatchImportConfig::instance().getProfileByName(profileName, profile)) {
     m_app->batchImport(profile, TrackData::tagVersionCast(tagMask));
     return true;
   }

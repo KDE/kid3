@@ -33,7 +33,7 @@
 /**
  * User actions configuration.
  */
-class KID3_CORE_EXPORT UserActionsConfig : public GeneralConfig
+class KID3_CORE_EXPORT UserActionsConfig : public StoredConfig<UserActionsConfig>
 {
 public:
   /**
@@ -124,6 +124,8 @@ public:
 
   /**
    * Constructor.
+   *
+   * @param group configuration group
    */
   explicit UserActionsConfig(const QString& group);
 

@@ -32,7 +32,7 @@
 /**
  * MusicBrainz configuration.
  */
-class MusicBrainzConfig : public ServerImporterConfig {
+class MusicBrainzConfig : public StoredConfig<MusicBrainzConfig, ServerImporterConfig> {
 public:
   /**
    * Constructor.
@@ -40,7 +40,7 @@ public:
    *
    * @param grp configuration group
    */
-  MusicBrainzConfig(const QString& grp);
+  explicit MusicBrainzConfig(const QString& grp);
 
   /**
    * Destructor.

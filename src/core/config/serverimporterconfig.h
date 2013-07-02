@@ -41,11 +41,8 @@ public:
    * Set default configuration.
    *
    * @param grp         configuration group
-   * @param cgiPathUsed true to use CgiPath configuration
-   * @param additionalTagsUsed true to use AdditionalTags configuration
    */
-  ServerImporterConfig(const QString& grp, bool cgiPathUsed = true,
-                       bool additionalTagsUsed = false);
+  explicit ServerImporterConfig(const QString& grp);
 
   /**
    * Constructor.

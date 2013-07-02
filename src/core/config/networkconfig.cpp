@@ -25,6 +25,7 @@
  */
 
 #include "networkconfig.h"
+#include <stdlib.h>
 
 namespace {
 
@@ -43,7 +44,7 @@ const char* const defaultBrowser = "xdg-open";
  * @param group configuration group
  */
 NetworkConfig::NetworkConfig(const QString& group) :
-  GeneralConfig(group),
+  StoredConfig<NetworkConfig>(group),
   m_useProxy(false),
   m_useProxyAuthentication(false)
 {

@@ -34,8 +34,10 @@
  * @param grp configuration group
  */
 AmazonConfig::AmazonConfig(const QString& grp) :
-  ServerImporterConfig(grp, false, true)
+  StoredConfig<AmazonConfig, ServerImporterConfig>(grp)
 {
+  m_cgiPathUsed = false;
+  m_additionalTagsUsed = true;
   m_server = QLatin1String("www.amazon.com:80");
 }
 

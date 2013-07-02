@@ -36,7 +36,7 @@
 /**
  * Import configuration.
  */
-class ImportConfig : public GeneralConfig {
+class KID3_CORE_EXPORT ImportConfig : public StoredConfig<ImportConfig> {
 public:
   /**
    * Constructor.

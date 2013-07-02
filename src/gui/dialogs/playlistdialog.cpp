@@ -39,8 +39,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
-
-#include "configstore.h"
+#include "playlistconfig.h"
 #include "contexthelp.h"
 #include "trackdata.h"
 
@@ -223,23 +222,23 @@ PlaylistDialog::~PlaylistDialog()
 void PlaylistDialog::readConfig()
 {
   m_fileNameFormatButton->setChecked(
-    ConfigStore::s_playlistCfg.m_useFileNameFormat);
+    PlaylistConfig::instance().m_useFileNameFormat);
   m_sameAsDirNameButton->setChecked(
-    !ConfigStore::s_playlistCfg.m_useFileNameFormat);
+    !PlaylistConfig::instance().m_useFileNameFormat);
   m_onlySelectedFilesCheckBox->setChecked(
-    ConfigStore::s_playlistCfg.m_onlySelectedFiles);
-  m_sortTagFieldButton->setChecked(ConfigStore::s_playlistCfg.m_useSortTagField);
-  m_sortFileNameButton->setChecked(!ConfigStore::s_playlistCfg.m_useSortTagField);
-  m_fullPathButton->setChecked(ConfigStore::s_playlistCfg.m_useFullPath);
-  m_relPathButton->setChecked(!ConfigStore::s_playlistCfg.m_useFullPath);
-  m_writeInfoButton->setChecked(ConfigStore::s_playlistCfg.m_writeInfo);
-  m_writeListButton->setChecked(!ConfigStore::s_playlistCfg.m_writeInfo);
-  m_locationComboBox->setCurrentIndex(ConfigStore::s_playlistCfg.m_location);
-  m_formatComboBox->setCurrentIndex(ConfigStore::s_playlistCfg.m_format);
+    PlaylistConfig::instance().m_onlySelectedFiles);
+  m_sortTagFieldButton->setChecked(PlaylistConfig::instance().m_useSortTagField);
+  m_sortFileNameButton->setChecked(!PlaylistConfig::instance().m_useSortTagField);
+  m_fullPathButton->setChecked(PlaylistConfig::instance().m_useFullPath);
+  m_relPathButton->setChecked(!PlaylistConfig::instance().m_useFullPath);
+  m_writeInfoButton->setChecked(PlaylistConfig::instance().m_writeInfo);
+  m_writeListButton->setChecked(!PlaylistConfig::instance().m_writeInfo);
+  m_locationComboBox->setCurrentIndex(PlaylistConfig::instance().m_location);
+  m_formatComboBox->setCurrentIndex(PlaylistConfig::instance().m_format);
   m_fileNameFormatComboBox->setEditText(
-    ConfigStore::s_playlistCfg.m_fileNameFormat);
-  m_sortTagFieldComboBox->setEditText(ConfigStore::s_playlistCfg.m_sortTagField);
-  m_writeInfoComboBox->setEditText(ConfigStore::s_playlistCfg.m_infoFormat);
+    PlaylistConfig::instance().m_fileNameFormat);
+  m_sortTagFieldComboBox->setEditText(PlaylistConfig::instance().m_sortTagField);
+  m_writeInfoComboBox->setEditText(PlaylistConfig::instance().m_infoFormat);
 }
 
 /**
@@ -268,7 +267,7 @@ void PlaylistDialog::getCurrentConfig(PlaylistConfig& cfg) const
  */
 void PlaylistDialog::saveConfig() const
 {
-  getCurrentConfig(ConfigStore::s_playlistCfg);
+  getCurrentConfig(PlaylistConfig::instance());
 }
 
 /**

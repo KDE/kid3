@@ -34,11 +34,13 @@
 /**
  * Configuration for directory renaming.
  */
-class KID3_CORE_EXPORT RenDirConfig : public GeneralConfig
+class KID3_CORE_EXPORT RenDirConfig : public StoredConfig<RenDirConfig>
 {
 public:
   /**
    * Constructor.
+   *
+   * @param group configuration group
    */
   explicit RenDirConfig(const QString& group);
 

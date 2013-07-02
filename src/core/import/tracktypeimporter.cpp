@@ -26,7 +26,8 @@
 
 #include "tracktypeimporter.h"
 #include "serverimporterconfig.h"
-#include "configstore.h"
+#include "freedbconfig.h"
+#include "config.h"
 
 static const char trackTypeServer[] = "tracktype.org:80";
 
@@ -72,7 +73,7 @@ const char** TrackTypeImporter::serverList() const
 const char* TrackTypeImporter::defaultServer() const { return "tracktype.org:80"; }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* TrackTypeImporter::config() const { return &ConfigStore::s_trackTypeCfg; }
+ServerImporterConfig* TrackTypeImporter::config() const { return &TrackTypeConfig::instance(); }
 
 /**
  * Process finished findCddbAlbum request.

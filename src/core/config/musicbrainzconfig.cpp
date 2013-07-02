@@ -34,8 +34,10 @@
  * @param grp configuration group
  */
 MusicBrainzConfig::MusicBrainzConfig(const QString& grp) :
-  ServerImporterConfig(grp, false, true)
+  StoredConfig<MusicBrainzConfig, ServerImporterConfig>(grp)
 {
+  m_cgiPathUsed = false;
+  m_additionalTagsUsed = true;
   m_server = QLatin1String("musicbrainz.org:80");
 }
 

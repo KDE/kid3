@@ -35,7 +35,7 @@
  * @param grp configuration group
  */
 FilterConfig::FilterConfig(const QString& grp) :
-  GeneralConfig(grp), m_filterIdx(0)
+  StoredConfig<FilterConfig>(grp), m_filterIdx(0)
 {
   /**
    * Preset filter expressions.
@@ -76,7 +76,7 @@ FilterConfig::~FilterConfig() {}
 /**
  * Persist configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void FilterConfig::writeToConfig(ISettings* config) const
 {
@@ -91,7 +91,7 @@ void FilterConfig::writeToConfig(ISettings* config) const
 /**
  * Read persisted configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void FilterConfig::readFromConfig(ISettings* config)
 {

@@ -57,7 +57,7 @@ public:
    *
    * @param grp configuration group
    */
-  FormatConfig(const QString& grp);
+  explicit FormatConfig(const QString& grp);
 
   /**
    * Destructor.
@@ -142,6 +142,46 @@ private:
 
   /** true if it is a file formatter */
   bool m_filenameFormatter;
+};
+
+
+/**
+ * FormatConfig subclass for stored filename format configuration instance.
+ */
+class KID3_CORE_EXPORT FilenameFormatConfig :
+    public StoredConfig<FilenameFormatConfig, FormatConfig> {
+public:
+  /**
+   * Constructor.
+   *
+   * @param grp configuration group
+   */
+  explicit FilenameFormatConfig(const QString& grp);
+
+  /**
+   * Destructor.
+   */
+  virtual ~FilenameFormatConfig();
+};
+
+
+/**
+ * FormatConfig subclass for stored tag format configuration instance.
+ */
+class KID3_CORE_EXPORT TagFormatConfig :
+    public StoredConfig<TagFormatConfig, FormatConfig> {
+public:
+  /**
+   * Constructor.
+   *
+   * @param grp configuration group
+   */
+  explicit TagFormatConfig(const QString& grp);
+
+  /**
+   * Destructor.
+   */
+  virtual ~TagFormatConfig();
 };
 
 #endif

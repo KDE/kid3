@@ -281,7 +281,7 @@ void FormatConfig::formatFramesIfEnabled(FrameCollection& frames) const
 /**
  * Persist configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void FormatConfig::writeToConfig(ISettings* config) const
 {
@@ -298,7 +298,7 @@ void FormatConfig::writeToConfig(ISettings* config) const
 /**
  * Read persisted configuration.
  *
- * @param config KDE configuration
+ * @param config configuration
  */
 void FormatConfig::readFromConfig(ISettings* config)
 {
@@ -335,4 +335,40 @@ void FormatConfig::setLocaleName(const QString& localeName)
     delete m_locale;
     m_locale = new QLocale(m_localeName);
   }
+}
+
+
+/**
+ * Constructor.
+ *
+ * @param grp configuration group
+ */
+FilenameFormatConfig::FilenameFormatConfig(const QString& grp) :
+  StoredConfig<FilenameFormatConfig, FormatConfig>(grp)
+{
+}
+
+/**
+ * Destructor.
+ */
+FilenameFormatConfig::~FilenameFormatConfig()
+{
+}
+
+
+/**
+ * Constructor.
+ *
+ * @param grp configuration group
+ */
+TagFormatConfig::TagFormatConfig(const QString& grp) :
+  StoredConfig<TagFormatConfig, FormatConfig>(grp)
+{
+}
+
+/**
+ * Destructor.
+ */
+TagFormatConfig::~TagFormatConfig()
+{
 }

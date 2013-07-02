@@ -32,7 +32,7 @@
 /**
  * Freedb configuration.
  */
-class FreedbConfig : public ServerImporterConfig {
+class FreedbConfig : public StoredConfig<FreedbConfig, ServerImporterConfig> {
 public:
   /**
    * Constructor.
@@ -40,12 +40,31 @@ public:
    *
    * @param grp configuration group
    */
-  FreedbConfig(const QString& grp);
+  explicit FreedbConfig(const QString& grp);
 
   /**
    * Destructor.
    */
   virtual ~FreedbConfig();
+};
+
+
+/**
+ * FreedbConfig subclass for stored TrackType configuration instance.
+ */
+class TrackTypeConfig : public StoredConfig<TrackTypeConfig, FreedbConfig> {
+public:
+  /**
+   * Constructor.
+   *
+   * @param grp configuration group
+   */
+  explicit TrackTypeConfig(const QString& grp);
+
+  /**
+   * Destructor.
+   */
+  virtual ~TrackTypeConfig();
 };
 
 #endif

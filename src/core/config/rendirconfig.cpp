@@ -75,7 +75,7 @@ inline TrackData::TagVersion renDirCfgToTagVersion(int renDirSrc) {
  * @param group configuration group
  */
 RenDirConfig::RenDirConfig(const QString& group) :
-  GeneralConfig(group),
+  StoredConfig<RenDirConfig>(group),
   m_dirFormatText(QString::fromLatin1(s_defaultDirFmtList[0])),
   m_dirFormatItem(0),
   m_renDirSrc(TrackData::TagV2V1)

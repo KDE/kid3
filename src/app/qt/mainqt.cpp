@@ -30,7 +30,7 @@
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
-#include "configstore.h"
+#include "fileconfig.h"
 #include "loadtranslation.h"
 #include "kid3mainwindow.h"
 
@@ -64,9 +64,9 @@ int main(int argc, char* argv[])
   kid3->show();
   if (argc > 1) {
     kid3->confirmedOpenDirectory(QFile::decodeName(argv[1]));
-  } else if (ConfigStore::s_fileCfg.m_loadLastOpenedFile &&
-             !ConfigStore::s_fileCfg.m_lastOpenedFile.isEmpty()) {
-    kid3->confirmedOpenDirectory(ConfigStore::s_fileCfg.m_lastOpenedFile);
+  } else if (FileConfig::instance().m_loadLastOpenedFile &&
+             !FileConfig::instance().m_lastOpenedFile.isEmpty()) {
+    kid3->confirmedOpenDirectory(FileConfig::instance().m_lastOpenedFile);
   }
   return app.exec();
 }

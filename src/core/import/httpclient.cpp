@@ -29,7 +29,7 @@
 #include <QNetworkRequest>
 #include <QNetworkProxy>
 #include <QByteArray>
-#include "configstore.h"
+#include "networkconfig.h"
 
 
 /** Time when last request was sent to server */
@@ -176,13 +176,13 @@ void HttpClient::sendRequest(const QString& server, const QString& path,
   QString proxy, username, password;
   int proxyPort = 0;
   QNetworkProxy::ProxyType proxyType = QNetworkProxy::NoProxy;
-  if (ConfigStore::s_networkCfg.m_useProxy) {
-    splitNamePort(ConfigStore::s_networkCfg.m_proxy, proxy, proxyPort);
+  if (NetworkConfig::instance().m_useProxy) {
+    splitNamePort(NetworkConfig::instance().m_proxy, proxy, proxyPort);
     proxyType = QNetworkProxy::HttpProxy;
   }
-  if (ConfigStore::s_networkCfg.m_useProxyAuthentication) {
-    username = ConfigStore::s_networkCfg.m_proxyUserName;
-    password = ConfigStore::s_networkCfg.m_proxyPassword;
+  if (NetworkConfig::instance().m_useProxyAuthentication) {
+    username = NetworkConfig::instance().m_proxyUserName;
+    password = NetworkConfig::instance().m_proxyPassword;
   }
   m_netMgr->setProxy(QNetworkProxy(proxyType, proxy, proxyPort,
                                    username, password));

@@ -35,7 +35,7 @@
 /**
  * Filter configuration.
  */
-class KID3_CORE_EXPORT FilterConfig : public GeneralConfig {
+class KID3_CORE_EXPORT FilterConfig : public StoredConfig<FilterConfig> {
 public:
   /**
    * Constructor.
@@ -43,7 +43,7 @@ public:
    *
    * @param grp configuration group
    */
-  FilterConfig(const QString& grp);
+  explicit FilterConfig(const QString& grp);
 
   /**
    * Destructor.

@@ -33,7 +33,7 @@
  * @param grp configuration group
  */
 ExportConfig::ExportConfig(const QString& grp) :
-  GeneralConfig(grp),
+  StoredConfig<ExportConfig>(grp),
   m_exportSrcV1(TrackData::TagV1), m_exportFormatIdx(0)
 {
   m_exportFormatNames.append(QLatin1String("CSV unquoted"));

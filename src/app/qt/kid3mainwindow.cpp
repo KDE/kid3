@@ -43,7 +43,7 @@
 #include "kid3form.h"
 #include "kid3application.h"
 #include "configdialog.h"
-#include "configstore.h"
+#include "guiconfig.h"
 #include "contexthelp.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
@@ -570,8 +570,8 @@ void Kid3MainWindow::readConfig()
   if (m_mainWindowConfig->m_hideStatusBar)
     statusBar()->hide();
   m_viewStatusBar->setChecked(!m_mainWindowConfig->m_hideStatusBar);
-  m_settingsShowHidePicture->setChecked(!ConfigStore::s_guiCfg.m_hidePicture);
-  m_settingsAutoHideTags->setChecked(ConfigStore::s_guiCfg.m_autoHideTags);
+  m_settingsShowHidePicture->setChecked(!GuiConfig::instance().m_hidePicture);
+  m_settingsAutoHideTags->setChecked(GuiConfig::instance().m_autoHideTags);
   m_fileOpenRecent->loadEntries(app()->getSettings());
   m_shortcutsModel->readFromConfig(app()->getSettings());
   restoreGeometry(m_mainWindowConfig->m_geometry);

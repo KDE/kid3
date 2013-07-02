@@ -38,7 +38,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QCoreApplication>
-#include "configstore.h"
+#include "serverimporterconfig.h"
 #include "contexthelp.h"
 #include "servertrackimporter.h"
 #include "comboboxdelegate.h"

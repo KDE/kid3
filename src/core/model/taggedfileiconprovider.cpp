@@ -27,7 +27,7 @@
 #include "taggedfileiconprovider.h"
 #include <QPixmap>
 #include "taggedfile.h"
-#include "configstore.h"
+#include "tagconfig.h"
 
 /* The bitmaps are stored here instead of using KDE bitmaps to make
    it work for the Qt only versions. */
@@ -249,7 +249,7 @@ QIcon TaggedFileIconProvider::iconForTaggedFile(const TaggedFile* taggedFile)
 QColor TaggedFileIconProvider::backgroundForTaggedFile(
     const TaggedFile* taggedFile) {
   if (taggedFile &&
-      ConfigStore::s_tagCfg.m_markTruncations &&
+      TagConfig::instance().m_markTruncations &&
       taggedFile->getTruncationFlags() != 0)
     return Qt::red;
   return QColor();

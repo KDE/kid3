@@ -32,7 +32,7 @@
  * @param group configuration group
  */
 GuiConfig::GuiConfig(const QString& group) :
-  GeneralConfig(group),
+  StoredConfig<GuiConfig>(group),
   m_autoHideTags(true),
   m_hideFile(false),
   m_hideV1(false),

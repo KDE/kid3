@@ -34,11 +34,13 @@
 /**
  * File related configuration.
  */
-class KID3_CORE_EXPORT FileConfig : public GeneralConfig
+class KID3_CORE_EXPORT FileConfig : public StoredConfig<FileConfig>
 {
 public:
   /**
    * Constructor.
+   *
+   * @param group configuration group
    */
   explicit FileConfig(const QString& group);
 

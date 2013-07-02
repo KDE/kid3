@@ -28,7 +28,7 @@
 #include <QRegExp>
 #include <QDomDocument>
 #include "trackdatamodel.h"
-#include "configstore.h"
+#include "amazonconfig.h"
 
 /**
  * Constructor.
@@ -76,7 +76,7 @@ const char* AmazonImporter::defaultServer() const { return "www.amazon.com:80"; 
 const char* AmazonImporter::helpAnchor() const { return "import-amazon"; }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* AmazonImporter::config() const { return &ConfigStore::s_amazonCfg; }
+ServerImporterConfig* AmazonImporter::config() const { return &AmazonConfig::instance(); }
 
 /** additional tags option, false if not used */
 bool AmazonImporter::additionalTags() const { return true; }

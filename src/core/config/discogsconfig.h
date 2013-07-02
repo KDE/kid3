@@ -32,7 +32,7 @@
 /**
  * Discogs configuration.
  */
-class DiscogsConfig : public ServerImporterConfig {
+class DiscogsConfig : public StoredConfig<DiscogsConfig, ServerImporterConfig> {
 public:
   /**
    * Constructor.
@@ -40,7 +40,7 @@ public:
    *
    * @param grp configuration group
    */
-  DiscogsConfig(const QString& grp);
+  explicit DiscogsConfig(const QString& grp);
 
   /**
    * Destructor.

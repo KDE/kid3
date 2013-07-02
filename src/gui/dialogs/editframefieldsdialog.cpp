@@ -42,7 +42,7 @@
 #include "imageviewer.h"
 #include "taggedfile.h"
 #include "config.h"
-#include "configstore.h"
+#include "fileconfig.h"
 #include "iplatformtools.h"
 
 /** QTextEdit with label above */
@@ -800,7 +800,7 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
     m_bos->setDefaultDir(m_taggedFile->getDirname());
   }
   if (m_frame.getType() == Frame::FT_Picture) {
-    m_bos->setDefaultFile(ConfigStore::s_fileCfg.m_defaultCoverFileName);
+    m_bos->setDefaultFile(FileConfig::instance().m_defaultCoverFileName);
     m_bos->setFilter(m_platformTools->fileDialogNameFilter(
                QList<QPair<QString, QString> >()
                << qMakePair(QCoreApplication::translate("@default",

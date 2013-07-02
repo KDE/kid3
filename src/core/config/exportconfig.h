@@ -34,7 +34,7 @@
 /**
  * Export configuration.
  */
-class ExportConfig : public GeneralConfig {
+class KID3_CORE_EXPORT ExportConfig : public StoredConfig<ExportConfig> {
 public:
   /**
    * Constructor.

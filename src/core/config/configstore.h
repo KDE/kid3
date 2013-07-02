@@ -74,27 +74,33 @@ public:
 
 
   /** Filename format configuration */
-  static FormatConfig s_fnFormatCfg;
-  /** ID3 format configuration */
-  static FormatConfig s_id3FormatCfg;
+  static FilenameFormatConfig s_fnFormatCfg;
+  /** Tag format configuration */
+  static TagFormatConfig s_id3FormatCfg;
   /** Import configuration */
   static ImportConfig s_importCfg;
   /** Export configuration */
   static ExportConfig s_exportCfg;
   /** Batch import configuration */
   static BatchImportConfig s_batchImportCfg;
-  /** Miscellaneous configuration */
+  /** Tag configuration */
   static TagConfig s_tagCfg;
+  /** File configuration */
   static FileConfig s_fileCfg;
+  /** Rename directory configuration */
   static RenDirConfig s_renDirCfg;
+  /** Number tracks configuration */
   static NumberTracksConfig s_numberTracksCfg;
+  /** User actions configuration */
   static UserActionsConfig s_userActionsCfg;
+  /** GUI configuration */
   static GuiConfig s_guiCfg;
+  /** Network configuration */
   static NetworkConfig s_networkCfg;
   /** Freedb configuration */
   static FreedbConfig s_freedbCfg;
   /** TrackType configuration */
-  static FreedbConfig s_trackTypeCfg;
+  static TrackTypeConfig s_trackTypeCfg;
   /** Discogs configuration */
   static DiscogsConfig s_discogsCfg;
   /** Amazon configuration */

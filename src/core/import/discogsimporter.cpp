@@ -28,7 +28,8 @@
 #include <QUrl>
 #include "serverimporterconfig.h"
 #include "trackdatamodel.h"
-#include "configstore.h"
+#include "discogsconfig.h"
+#include "config.h"
 #include "genres.h"
 #include "jsonparser.h"
 
@@ -296,7 +297,7 @@ const char* DiscogsImporter::name() const { return QT_TRANSLATE_NOOP("@default",
 const char* DiscogsImporter::helpAnchor() const { return "import-discogs"; }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* DiscogsImporter::config() const { return &ConfigStore::s_discogsCfg; }
+ServerImporterConfig* DiscogsImporter::config() const { return &DiscogsConfig::instance(); }
 
 /** additional tags option, false if not used */
 bool DiscogsImporter::additionalTags() const { return true; }

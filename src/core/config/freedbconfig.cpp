@@ -34,7 +34,8 @@ class QString;
  *
  * @param grp configuration group
  */
-FreedbConfig::FreedbConfig(const QString& grp) : ServerImporterConfig(grp)
+FreedbConfig::FreedbConfig(const QString& grp) :
+  StoredConfig<FreedbConfig, ServerImporterConfig>(grp)
 {
   m_server = QLatin1String("gnudb.gnudb.org:80");
   m_cgiPath = QLatin1String("/~cddb/cddb.cgi");
@@ -44,3 +45,21 @@ FreedbConfig::FreedbConfig(const QString& grp) : ServerImporterConfig(grp)
  * Destructor.
  */
 FreedbConfig::~FreedbConfig() {}
+
+
+/**
+ * Constructor.
+ *
+ * @param grp configuration group
+ */
+TrackTypeConfig::TrackTypeConfig(const QString& grp) :
+  StoredConfig<TrackTypeConfig, FreedbConfig>(grp)
+{
+}
+
+/**
+ * Destructor.
+ */
+TrackTypeConfig::~TrackTypeConfig()
+{
+}

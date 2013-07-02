@@ -54,7 +54,6 @@
 #include "servertrackimportdialog.h"
 #include "textimportdialog.h"
 #include "tagimportdialog.h"
-#include "configstore.h"
 #include "contexthelp.h"
 #include "taggedfile.h"
 #include "trackdata.h"
@@ -393,8 +392,8 @@ void ImportDialog::setAutoStartSubDialog(int importerIndex)
  */
 void ImportDialog::clear()
 {
-  m_serverComboBox->setCurrentIndex(ConfigStore::s_importCfg.m_importServer);
-  TrackData::TagVersion importDest = ConfigStore::s_importCfg.m_importDest;
+  m_serverComboBox->setCurrentIndex(ImportConfig::instance().m_importServer);
+  TrackData::TagVersion importDest = ImportConfig::instance().m_importDest;
   int index = m_destComboBox->findData(importDest);
   m_destComboBox->setCurrentIndex(index);
   if (importDest == TrackData::TagV1 &&
@@ -404,9 +403,9 @@ void ImportDialog::clear()
     changeTagDestination();
   }
 
-  m_mismatchCheckBox->setChecked(ConfigStore::s_importCfg.m_enableTimeDifferenceCheck);
-  m_maxDiffSpinBox->setValue(ConfigStore::s_importCfg.m_maxTimeDifference);
-  m_columnVisibility = ConfigStore::s_importCfg.m_importVisibleColumns;
+  m_mismatchCheckBox->setChecked(ImportConfig::instance().m_enableTimeDifferenceCheck);
+  m_maxDiffSpinBox->setValue(ImportConfig::instance().m_maxTimeDifference);
+  m_columnVisibility = ImportConfig::instance().m_importVisibleColumns;
 
   foreach (int frameType, checkableFrameTypes()) {
     if (frameType < 64) {
@@ -418,8 +417,8 @@ void ImportDialog::clear()
     }
   }
 
-  if (!ConfigStore::s_importCfg.m_importWindowGeometry.isEmpty()) {
-    restoreGeometry(ConfigStore::s_importCfg.m_importWindowGeometry);
+  if (!ImportConfig::instance().m_importWindowGeometry.isEmpty()) {
+    restoreGeometry(ImportConfig::instance().m_importWindowGeometry);
   }
 
   showPreview();
@@ -470,15 +469,15 @@ void ImportDialog::showHelp()
  */
 void ImportDialog::saveConfig()
 {
-  ConfigStore::s_importCfg.m_importDest = TrackData::tagVersionCast(
+  ImportConfig::instance().m_importDest = TrackData::tagVersionCast(
     m_destComboBox->itemData(m_destComboBox->currentIndex()).toInt());
 
-  ConfigStore::s_importCfg.m_importServer = m_serverComboBox->currentIndex();
-  getTimeDifferenceCheck(ConfigStore::s_importCfg.m_enableTimeDifferenceCheck,
-                         ConfigStore::s_importCfg.m_maxTimeDifference);
-  ConfigStore::s_importCfg.m_importVisibleColumns = m_columnVisibility;
+  ImportConfig::instance().m_importServer = m_serverComboBox->currentIndex();
+  getTimeDifferenceCheck(ImportConfig::instance().m_enableTimeDifferenceCheck,
+                         ImportConfig::instance().m_maxTimeDifference);
+  ImportConfig::instance().m_importVisibleColumns = m_columnVisibility;
 
-  ConfigStore::s_importCfg.m_importWindowGeometry = saveGeometry();
+  ImportConfig::instance().m_importWindowGeometry = saveGeometry();
 }
 
 /**

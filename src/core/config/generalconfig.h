@@ -41,7 +41,7 @@ public:
    *
    * @param grp configuration group
    */
-  GeneralConfig(const QString& grp);
+  explicit GeneralConfig(const QString& grp);
 
   /**
    * Destructor.
@@ -65,6 +65,45 @@ public:
 protected:
   /** Configuration group. */
   QString m_group;
+};
+
+/**
+ * Template to inject a static instance() method into a configuration class.
+ * This is an application of the "curiously recurring template pattern" so that
+ * the instance() method returns the type of the derived class.
+ * A typical usage is
+ * @code
+ * class SpecializedConfig : public StoredConfig<SpecializedConfig> {
+ * public:
+ *   explicit SpecializedConfig(const QString& grp) : StoredConfig(grp) {
+ *     (..)
+ *   }
+ * };
+ * @endcode
+ *
+ * SpecializedConfig::instance() returns a reference to a stored instance
+ * of this class. There can only be one such instance per class.
+ *
+ * @tparam Derived derived class
+ * @tparam Base base class, default is GeneralConfig
+ */
+template <class Derived, class Base = GeneralConfig>
+class KID3_CORE_EXPORT StoredConfig : public Base {
+public:
+  /**
+   * Constructor.
+   * Set default configuration.
+   *
+   * @param grp configuration group
+   */
+  explicit StoredConfig(const QString& grp) : Base(grp) {}
+
+  /**
+   * Get stored instance of class.
+   *
+   * @return instance.
+   */
+  static KID3_CORE_EXPORT Derived& instance();
 };
 
 #endif

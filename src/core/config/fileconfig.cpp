@@ -74,7 +74,7 @@ static const char* defaultFromFilenameFormats[] = {
  * @param group configuration group
  */
 FileConfig::FileConfig(const QString& group) :
-  GeneralConfig(group),
+  StoredConfig<FileConfig>(group),
   m_preserveTime(false),
   m_markChanges(true),
   m_nameFilter(QLatin1String("")),

@@ -38,7 +38,7 @@ class BatchImportProfile;
 /**
  * Filter configuration.
  */
-class KID3_CORE_EXPORT BatchImportConfig : public GeneralConfig {
+class KID3_CORE_EXPORT BatchImportConfig : public StoredConfig<BatchImportConfig> {
 public:
   /**
    * Constructor.
