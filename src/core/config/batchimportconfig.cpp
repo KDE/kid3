@@ -32,12 +32,9 @@
 
 /**
  * Constructor.
- * Set default configuration.
- *
- * @param grp configuration group
  */
-BatchImportConfig::BatchImportConfig(const QString& grp) :
-  StoredConfig<BatchImportConfig>(grp),
+BatchImportConfig::BatchImportConfig() :
+  StoredConfig<BatchImportConfig>(QLatin1String("BatchImport")),
   m_importDest(TrackData::TagV2), m_profileIdx(0)
 {
   /**

@@ -40,10 +40,8 @@ class KID3_CORE_EXPORT NumberTracksConfig :
 public:
   /**
    * Constructor.
-   *
-   * @param group configuration group
    */
-  explicit NumberTracksConfig(const QString& group);
+  NumberTracksConfig();
 
   /**
    * Destructor.

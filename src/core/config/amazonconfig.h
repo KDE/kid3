@@ -36,11 +36,8 @@ class AmazonConfig : public StoredConfig<AmazonConfig, ServerImporterConfig> {
 public:
   /**
    * Constructor.
-   * Set default configuration.
-   *
-   * @param grp configuration group
    */
-  explicit AmazonConfig(const QString& grp);
+  AmazonConfig();
 
   /**
    * Destructor.

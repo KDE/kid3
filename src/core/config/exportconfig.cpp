@@ -28,12 +28,9 @@
 
 /**
  * Constructor.
- * Set default configuration.
- *
- * @param grp configuration group
  */
-ExportConfig::ExportConfig(const QString& grp) :
-  StoredConfig<ExportConfig>(grp),
+ExportConfig::ExportConfig() :
+  StoredConfig<ExportConfig>(QLatin1String("Export")),
   m_exportSrcV1(TrackData::TagV1), m_exportFormatIdx(0)
 {
   m_exportFormatNames.append(QLatin1String("CSV unquoted"));

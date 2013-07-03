@@ -40,11 +40,8 @@ class KID3_CORE_EXPORT ImportConfig : public StoredConfig<ImportConfig> {
 public:
   /**
    * Constructor.
-   * Set default configuration.
-   *
-   * @param grp configuration group
    */
-  explicit ImportConfig(const QString& grp);
+  ImportConfig();
 
   /**
    * Destructor.

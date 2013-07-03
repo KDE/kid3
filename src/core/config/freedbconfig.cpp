@@ -49,11 +49,9 @@ FreedbConfig::~FreedbConfig() {}
 
 /**
  * Constructor.
- *
- * @param grp configuration group
  */
-TrackTypeConfig::TrackTypeConfig(const QString& grp) :
-  StoredConfig<TrackTypeConfig, FreedbConfig>(grp)
+TrackTypeConfig::TrackTypeConfig() :
+  StoredConfig<TrackTypeConfig, FreedbConfig>(QLatin1String("TrackType"))
 {
 }
 

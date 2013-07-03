@@ -28,11 +28,9 @@
 
 /**
  * Constructor.
- *
- * @param group configuration group
  */
-GuiConfig::GuiConfig(const QString& group) :
-  StoredConfig<GuiConfig>(group),
+GuiConfig::GuiConfig() :
+  StoredConfig<GuiConfig>(QLatin1String("GUI")),
   m_autoHideTags(true),
   m_hideFile(false),
   m_hideV1(false),

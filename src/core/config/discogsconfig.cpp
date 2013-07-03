@@ -29,12 +29,9 @@
 
 /**
  * Constructor.
- * Set default configuration.
- *
- * @param grp configuration group
  */
-DiscogsConfig::DiscogsConfig(const QString& grp) :
-  StoredConfig<DiscogsConfig, ServerImporterConfig>(grp)
+DiscogsConfig::DiscogsConfig() :
+  StoredConfig<DiscogsConfig, ServerImporterConfig>(QLatin1String("Discogs"))
 {
   m_cgiPathUsed = false;
   m_additionalTagsUsed = true;

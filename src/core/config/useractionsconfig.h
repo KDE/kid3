@@ -124,10 +124,8 @@ public:
 
   /**
    * Constructor.
-   *
-   * @param group configuration group
    */
-  explicit UserActionsConfig(const QString& group);
+  UserActionsConfig();
 
   /**
    * Destructor.

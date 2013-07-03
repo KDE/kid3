@@ -340,11 +340,10 @@ void FormatConfig::setLocaleName(const QString& localeName)
 
 /**
  * Constructor.
- *
- * @param grp configuration group
  */
-FilenameFormatConfig::FilenameFormatConfig(const QString& grp) :
-  StoredConfig<FilenameFormatConfig, FormatConfig>(grp)
+FilenameFormatConfig::FilenameFormatConfig() :
+  StoredConfig<FilenameFormatConfig, FormatConfig>(
+    QLatin1String("FilenameFormat"))
 {
 }
 
@@ -358,11 +357,9 @@ FilenameFormatConfig::~FilenameFormatConfig()
 
 /**
  * Constructor.
- *
- * @param grp configuration group
  */
-TagFormatConfig::TagFormatConfig(const QString& grp) :
-  StoredConfig<TagFormatConfig, FormatConfig>(grp)
+TagFormatConfig::TagFormatConfig() :
+  StoredConfig<TagFormatConfig, FormatConfig>(QLatin1String("TagFormat"))
 {
 }
 

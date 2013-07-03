@@ -29,12 +29,10 @@
 
 /**
  * Constructor.
- * Set default configuration.
- *
- * @param grp configuration group
  */
-MusicBrainzConfig::MusicBrainzConfig(const QString& grp) :
-  StoredConfig<MusicBrainzConfig, ServerImporterConfig>(grp)
+MusicBrainzConfig::MusicBrainzConfig() :
+  StoredConfig<MusicBrainzConfig, ServerImporterConfig>(
+    QLatin1String("MusicBrainz"))
 {
   m_cgiPathUsed = false;
   m_additionalTagsUsed = true;

@@ -57,11 +57,8 @@ public:
 
   /**
    * Constructor.
-   * Set default configuration.
-   *
-   * @param grp configuration group
    */
-  explicit PlaylistConfig(const QString& grp = QLatin1String("Playlist"));
+  explicit PlaylistConfig();
 
   /**
    * Destructor.

@@ -38,11 +38,8 @@ class KID3_CORE_EXPORT ExportConfig : public StoredConfig<ExportConfig> {
 public:
   /**
    * Constructor.
-   * Set default configuration.
-   *
-   * @param grp configuration group
    */
-  explicit ExportConfig(const QString& grp);
+  ExportConfig();
 
   /**
    * Destructor.

@@ -36,11 +36,9 @@ const char* const defaultCommentName = "COMMENT";
 
 /**
  * Constructor.
- *
- * @param group configuration group
  */
-TagConfig::TagConfig(const QString& group) :
-  StoredConfig<TagConfig>(group),
+TagConfig::TagConfig() :
+  StoredConfig<TagConfig>(QLatin1String("Tags")),
   m_markTruncations(true),
   m_enableTotalNumberOfTracks(false),
   m_genreNotNumeric(false),

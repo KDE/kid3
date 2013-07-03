@@ -30,11 +30,9 @@
 
 /**
  * Constructor.
- *
- * @param group configuration group
  */
-UserActionsConfig::UserActionsConfig(const QString& group) :
-  StoredConfig<UserActionsConfig>(group)
+UserActionsConfig::UserActionsConfig() :
+  StoredConfig<UserActionsConfig>(QLatin1String("MenuCommands"))
 {
 }
 

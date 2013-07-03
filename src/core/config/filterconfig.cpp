@@ -30,12 +30,9 @@
 
 /**
  * Constructor.
- * Set default configuration.
- *
- * @param grp configuration group
  */
-FilterConfig::FilterConfig(const QString& grp) :
-  StoredConfig<FilterConfig>(grp), m_filterIdx(0)
+FilterConfig::FilterConfig() :
+  StoredConfig<FilterConfig>(QLatin1String("Filter")), m_filterIdx(0)
 {
   /**
    * Preset filter expressions.

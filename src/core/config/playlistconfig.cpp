@@ -29,12 +29,9 @@
 
 /**
  * Constructor.
- * Set default configuration.
- *
- * @param grp configuration group
  */
-PlaylistConfig::PlaylistConfig(const QString& grp) :
-  StoredConfig<PlaylistConfig>(grp),
+PlaylistConfig::PlaylistConfig() :
+  StoredConfig<PlaylistConfig>(QLatin1String("Playlist")),
   m_useFileNameFormat(false),
   m_onlySelectedFiles(false),
   m_useSortTagField(false), m_useFullPath(false), m_writeInfo(false),

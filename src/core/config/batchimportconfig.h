@@ -42,11 +42,8 @@ class KID3_CORE_EXPORT BatchImportConfig : public StoredConfig<BatchImportConfig
 public:
   /**
    * Constructor.
-   * Set default configuration.
-   *
-   * @param grp configuration group
    */
-  explicit BatchImportConfig(const QString& grp);
+  BatchImportConfig();
 
   /**
    * Destructor.

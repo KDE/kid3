@@ -29,12 +29,9 @@
 
 /**
  * Constructor.
- * Set default configuration.
- *
- * @param grp configuration group
  */
-AmazonConfig::AmazonConfig(const QString& grp) :
-  StoredConfig<AmazonConfig, ServerImporterConfig>(grp)
+AmazonConfig::AmazonConfig() :
+  StoredConfig<AmazonConfig, ServerImporterConfig>(QLatin1String("Amazon"))
 {
   m_cgiPathUsed = false;
   m_additionalTagsUsed = true;

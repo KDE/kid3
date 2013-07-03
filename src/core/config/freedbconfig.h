@@ -40,7 +40,7 @@ public:
    *
    * @param grp configuration group
    */
-  explicit FreedbConfig(const QString& grp);
+  explicit FreedbConfig(const QString& grp = QLatin1String("Freedb"));
 
   /**
    * Destructor.
@@ -56,10 +56,8 @@ class TrackTypeConfig : public StoredConfig<TrackTypeConfig, FreedbConfig> {
 public:
   /**
    * Constructor.
-   *
-   * @param grp configuration group
    */
-  explicit TrackTypeConfig(const QString& grp);
+  TrackTypeConfig();
 
   /**
    * Destructor.

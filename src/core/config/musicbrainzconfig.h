@@ -36,11 +36,8 @@ class MusicBrainzConfig : public StoredConfig<MusicBrainzConfig, ServerImporterC
 public:
   /**
    * Constructor.
-   * Set default configuration.
-   *
-   * @param grp configuration group
    */
-  explicit MusicBrainzConfig(const QString& grp);
+  MusicBrainzConfig();
 
   /**
    * Destructor.

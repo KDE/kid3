@@ -59,10 +59,8 @@ public:
 
   /**
    * Constructor.
-   *
-   * @param group configuration group
    */
-  explicit TagConfig(const QString& group);
+  TagConfig();
 
   /**
    * Destructor.

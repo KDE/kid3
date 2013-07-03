@@ -40,11 +40,9 @@ const char* const defaultBrowser = "xdg-open";
 
 /**
  * Constructor.
- *
- * @param group configuration group
  */
-NetworkConfig::NetworkConfig(const QString& group) :
-  StoredConfig<NetworkConfig>(group),
+NetworkConfig::NetworkConfig() :
+  StoredConfig<NetworkConfig>(QLatin1String("Network")),
   m_useProxy(false),
   m_useProxyAuthentication(false)
 {

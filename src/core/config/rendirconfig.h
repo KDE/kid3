@@ -39,10 +39,8 @@ class KID3_CORE_EXPORT RenDirConfig : public StoredConfig<RenDirConfig>
 public:
   /**
    * Constructor.
-   *
-   * @param group configuration group
    */
-  explicit RenDirConfig(const QString& group);
+  RenDirConfig();
 
   /**
    * Destructor.

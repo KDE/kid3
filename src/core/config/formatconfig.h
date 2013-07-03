@@ -153,10 +153,8 @@ class KID3_CORE_EXPORT FilenameFormatConfig :
 public:
   /**
    * Constructor.
-   *
-   * @param grp configuration group
    */
-  explicit FilenameFormatConfig(const QString& grp);
+  FilenameFormatConfig();
 
   /**
    * Destructor.
@@ -173,10 +171,8 @@ class KID3_CORE_EXPORT TagFormatConfig :
 public:
   /**
    * Constructor.
-   *
-   * @param grp configuration group
    */
-  explicit TagFormatConfig(const QString& grp);
+  TagFormatConfig();
 
   /**
    * Destructor.

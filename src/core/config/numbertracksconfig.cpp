@@ -51,11 +51,9 @@ inline TrackData::TagVersion numberTracksDestCfgToTagVersion(int importDest) {
 
 /**
  * Constructor.
- *
- * @param group configuration group
  */
-NumberTracksConfig::NumberTracksConfig(const QString& group) :
-  StoredConfig<NumberTracksConfig>(group),
+NumberTracksConfig::NumberTracksConfig() :
+  StoredConfig<NumberTracksConfig>(QLatin1String("NumberTracks")),
   m_numberTracksDst(TrackData::TagV1),
   m_numberTracksStart(1)
 {

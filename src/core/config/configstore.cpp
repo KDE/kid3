@@ -27,25 +27,25 @@
 #include "configstore.h"
 #include "config.h"
 
-TagConfig ConfigStore::s_tagCfg(QLatin1String("Tags"));
-FileConfig ConfigStore::s_fileCfg(QLatin1String("Files"));
-RenDirConfig ConfigStore::s_renDirCfg(QLatin1String("RenameDirectory"));
-NumberTracksConfig ConfigStore::s_numberTracksCfg(QLatin1String("NumberTracks"));
-UserActionsConfig ConfigStore::s_userActionsCfg(QLatin1String("MenuCommands"));
-GuiConfig ConfigStore::s_guiCfg(QLatin1String("GUI"));
-NetworkConfig ConfigStore::s_networkCfg(QLatin1String("Network"));
-ImportConfig ConfigStore::s_importCfg(QLatin1String("Import"));
-ExportConfig ConfigStore::s_exportCfg(QLatin1String("Export"));
-BatchImportConfig ConfigStore::s_batchImportCfg(QLatin1String("BatchImport"));
-FilenameFormatConfig ConfigStore::s_fnFormatCfg(QLatin1String("FilenameFormat"));
-TagFormatConfig ConfigStore::s_id3FormatCfg(QLatin1String("TagFormat"));
-FreedbConfig ConfigStore::s_freedbCfg(QLatin1String("Freedb"));
-TrackTypeConfig ConfigStore::s_trackTypeCfg(QLatin1String("TrackType"));
-DiscogsConfig ConfigStore::s_discogsCfg(QLatin1String("Discogs"));
-AmazonConfig ConfigStore::s_amazonCfg(QLatin1String("Amazon"));
-MusicBrainzConfig ConfigStore::s_musicBrainzCfg(QLatin1String("MusicBrainz"));
-FilterConfig ConfigStore::s_filterCfg(QLatin1String("Filter"));
-PlaylistConfig ConfigStore::s_playlistCfg(QLatin1String("Playlist"));
+TagConfig ConfigStore::s_tagCfg;
+FileConfig ConfigStore::s_fileCfg;
+RenDirConfig ConfigStore::s_renDirCfg;
+NumberTracksConfig ConfigStore::s_numberTracksCfg;
+UserActionsConfig ConfigStore::s_userActionsCfg;
+GuiConfig ConfigStore::s_guiCfg;
+NetworkConfig ConfigStore::s_networkCfg;
+ImportConfig ConfigStore::s_importCfg;
+ExportConfig ConfigStore::s_exportCfg;
+BatchImportConfig ConfigStore::s_batchImportCfg;
+FilenameFormatConfig ConfigStore::s_fnFormatCfg;
+TagFormatConfig ConfigStore::s_id3FormatCfg;
+FreedbConfig ConfigStore::s_freedbCfg;
+TrackTypeConfig ConfigStore::s_trackTypeCfg;
+DiscogsConfig ConfigStore::s_discogsCfg;
+AmazonConfig ConfigStore::s_amazonCfg;
+MusicBrainzConfig ConfigStore::s_musicBrainzCfg;
+FilterConfig ConfigStore::s_filterCfg;
+PlaylistConfig ConfigStore::s_playlistCfg;
 
 /**
  * Constructor.

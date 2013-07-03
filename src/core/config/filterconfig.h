@@ -39,11 +39,8 @@ class KID3_CORE_EXPORT FilterConfig : public StoredConfig<FilterConfig> {
 public:
   /**
    * Constructor.
-   * Set default configuration.
-   *
-   * @param grp configuration group
    */
-  explicit FilterConfig(const QString& grp);
+  FilterConfig();
 
   /**
    * Destructor.

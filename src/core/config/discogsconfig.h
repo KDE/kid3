@@ -36,11 +36,8 @@ class DiscogsConfig : public StoredConfig<DiscogsConfig, ServerImporterConfig> {
 public:
   /**
    * Constructor.
-   * Set default configuration.
-   *
-   * @param grp configuration group
    */
-  explicit DiscogsConfig(const QString& grp);
+  DiscogsConfig();
 
   /**
    * Destructor.
