@@ -53,7 +53,6 @@ class PlaylistConfig;
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 class PlayToolBar;
 #endif
-class ConfigStore;
 class DirContents;
 class FileProxyModel;
 class DirProxyModel;

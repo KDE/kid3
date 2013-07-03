@@ -61,14 +61,14 @@ public:
    *
    * @param cfg format configuration
    */
-  void fromFormatConfig(const FormatConfig* cfg);
+  void fromFormatConfig(const FormatConfig& cfg);
 
   /**
    * Store the values in a format configuration.
    *
    * @param cfg format configuration
    */
-  void toFormatConfig(FormatConfig* cfg) const;
+  void toFormatConfig(FormatConfig& cfg) const;
 
 private:
   QComboBox* m_caseConvComboBox;

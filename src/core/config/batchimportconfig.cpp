@@ -27,7 +27,6 @@
 #include "batchimportconfig.h"
 #include <QString>
 #include "batchimportprofile.h"
-#include "configstore.h"
 #include "config.h"
 
 /**

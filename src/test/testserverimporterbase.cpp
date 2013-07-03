@@ -27,19 +27,27 @@
 #include "testserverimporterbase.h"
 #include <QtTest>
 #include <QNetworkAccessManager>
+#include "dummysettings.h"
 #include "serverimporter.h"
 #include "trackdatamodel.h"
+#include "configstore.h"
 
 TestServerImporterBase::TestServerImporterBase(QObject* parent) :
   QObject(parent),
   m_netMgr(new QNetworkAccessManager(this)),
   m_trackDataModel(new TrackDataModel(this)),
-  m_importer(0)
+  m_importer(0), m_settings(0), m_configStore(0)
 {
+  if (!ConfigStore::instance()) {
+    m_settings = new DummySettings;
+    m_configStore = new ConfigStore(m_settings);
+  }
 }
 
 TestServerImporterBase::~TestServerImporterBase()
 {
+  delete m_configStore;
+  delete m_settings;
 }
 
 void TestServerImporterBase::onFindFinished(const QByteArray& searchStr)

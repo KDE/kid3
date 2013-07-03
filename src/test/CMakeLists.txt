@@ -3,9 +3,11 @@ include_directories(
   ../core/model
   ../core/tags
   ../core/import
+  ../core/config
 )
 
 set(test_SRCS
+dummysettings.cpp
 testutils.cpp
 testjsonparser.cpp
 testserverimporterbase.cpp

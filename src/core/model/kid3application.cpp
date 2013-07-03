@@ -51,6 +51,11 @@
 #include "textexporter.h"
 #include "dirrenamer.h"
 #include "configstore.h"
+#include "formatconfig.h"
+#include "fileconfig.h"
+#include "freedbconfig.h"
+#include "importconfig.h"
+#include "playlistconfig.h"
 #include "playlistcreator.h"
 #include "downloadclient.h"
 #include "iframeeditor.h"
@@ -233,7 +238,6 @@ void Kid3Application::saveConfig()
  */
 void Kid3Application::readConfig()
 {
-  m_configStore->readFromConfig();
   if (FileConfig::instance().m_nameFilter.isEmpty()) {
     FileConfig::instance().m_nameFilter = createFilterString();
   }

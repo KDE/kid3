@@ -52,7 +52,7 @@
 #include "commandstablemodel.h"
 #include "checkablestringlistmodel.h"
 #include "contexthelp.h"
-#include "configstore.h"
+#include "frame.h"
 
 enum { TextEncodingV1Latin1Index = 13 };
 
@@ -394,118 +394,114 @@ QWidget* ConfigDialogPages::createNetworkPage()
 
 /**
  * Set values in dialog from current configuration.
- *
- * @param cfg configuration
  */
-void ConfigDialogPages::setConfig(const ConfigStore* cfg)
+void ConfigDialogPages::setConfig()
 {
-  const FormatConfig* fnCfg = &cfg->s_fnFormatCfg;
-  const FormatConfig* id3Cfg = &cfg->s_id3FormatCfg;
-  const TagConfig* tagCfg = &cfg->s_tagCfg;
-  const FileConfig* fileCfg = &cfg->s_fileCfg;
-  const UserActionsConfig* userActionsCfg = &cfg->s_userActionsCfg;
-  const GuiConfig* guiCfg = &cfg->s_guiCfg;
-  const NetworkConfig* networkCfg = &cfg->s_networkCfg;
+  const FormatConfig& fnCfg = FilenameFormatConfig::instance();
+  const FormatConfig& id3Cfg = TagFormatConfig::instance();
+  const TagConfig& tagCfg = TagConfig::instance();
+  const FileConfig& fileCfg = FileConfig::instance();
+  const UserActionsConfig& userActionsCfg = UserActionsConfig::instance();
+  const GuiConfig& guiCfg = GuiConfig::instance();
+  const NetworkConfig& networkCfg = NetworkConfig::instance();
 
   m_fnFormatBox->fromFormatConfig(fnCfg);
   m_id3FormatBox->fromFormatConfig(id3Cfg);
-  m_markTruncationsCheckBox->setChecked(tagCfg->m_markTruncations);
-  m_totalNumTracksCheckBox->setChecked(tagCfg->m_enableTotalNumberOfTracks);
-  m_loadLastOpenedFileCheckBox->setChecked(fileCfg->m_loadLastOpenedFile);
-  m_preserveTimeCheckBox->setChecked(fileCfg->m_preserveTime);
-  m_markChangesCheckBox->setChecked(fileCfg->m_markChanges);
-  m_coverFileNameLineEdit->setText(fileCfg->m_defaultCoverFileName);
-  m_onlyCustomGenresCheckBox->setChecked(tagCfg->m_onlyCustomGenres);
-  m_genresEditModel->setStringList(tagCfg->m_customGenres);
-  m_quickAccessTagsModel->setBitMask(tagCfg->m_quickAccessFrames);
-  m_commandsTableModel->setCommandList(userActionsCfg->m_contextMenuCommands);
+  m_markTruncationsCheckBox->setChecked(tagCfg.m_markTruncations);
+  m_totalNumTracksCheckBox->setChecked(tagCfg.m_enableTotalNumberOfTracks);
+  m_loadLastOpenedFileCheckBox->setChecked(fileCfg.m_loadLastOpenedFile);
+  m_preserveTimeCheckBox->setChecked(fileCfg.m_preserveTime);
+  m_markChangesCheckBox->setChecked(fileCfg.m_markChanges);
+  m_coverFileNameLineEdit->setText(fileCfg.m_defaultCoverFileName);
+  m_onlyCustomGenresCheckBox->setChecked(tagCfg.m_onlyCustomGenres);
+  m_genresEditModel->setStringList(tagCfg.m_customGenres);
+  m_quickAccessTagsModel->setBitMask(tagCfg.m_quickAccessFrames);
+  m_commandsTableModel->setCommandList(userActionsCfg.m_contextMenuCommands);
 #ifdef HAVE_VORBIS
-  int idx = m_commentNameComboBox->findText(tagCfg->m_commentName);
+  int idx = m_commentNameComboBox->findText(tagCfg.m_commentName);
   if (idx >= 0) {
     m_commentNameComboBox->setCurrentIndex(idx);
   } else {
-    m_commentNameComboBox->addItem(tagCfg->m_commentName);
+    m_commentNameComboBox->addItem(tagCfg.m_commentName);
     m_commentNameComboBox->setCurrentIndex(m_commentNameComboBox->count() - 1);
   }
-  m_pictureNameComboBox->setCurrentIndex(tagCfg->m_pictureNameItem);
+  m_pictureNameComboBox->setCurrentIndex(tagCfg.m_pictureNameItem);
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-  m_genreNotNumericCheckBox->setChecked(tagCfg->m_genreNotNumeric);
+  m_genreNotNumericCheckBox->setChecked(tagCfg.m_genreNotNumeric);
   int textEncodingV1Index = TextEncodingV1Latin1Index;
   int index = 0;
   for (QStringList::const_iterator it = m_textEncodingV1List.begin();
        it != m_textEncodingV1List.end();
        ++it) {
-    if (getTextEncodingV1CodecName(*it) == tagCfg->m_textEncodingV1) {
+    if (getTextEncodingV1CodecName(*it) == tagCfg.m_textEncodingV1) {
       textEncodingV1Index = index;
       break;
     }
     ++index;
   }
   m_textEncodingV1ComboBox->setCurrentIndex(textEncodingV1Index);
-  m_textEncodingComboBox->setCurrentIndex(tagCfg->m_textEncoding);
+  m_textEncodingComboBox->setCurrentIndex(tagCfg.m_textEncoding);
 #endif
 #if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   m_id3v2VersionComboBox->setCurrentIndex(
-        m_id3v2VersionComboBox->findData(tagCfg->m_id3v2Version));
+        m_id3v2VersionComboBox->findData(tagCfg.m_id3v2Version));
 #endif
-  m_trackNumberDigitsSpinBox->setValue(tagCfg->m_trackNumberDigits);
-  m_browserLineEdit->setText(networkCfg->m_browser);
-  m_playOnDoubleClickCheckBox->setChecked(guiCfg->m_playOnDoubleClick);
-  m_proxyCheckBox->setChecked(networkCfg->m_useProxy);
-  m_proxyLineEdit->setText(networkCfg->m_proxy);
-  m_proxyAuthenticationCheckBox->setChecked(networkCfg->m_useProxyAuthentication);
-  m_proxyUserNameLineEdit->setText(networkCfg->m_proxyUserName);
-  m_proxyPasswordLineEdit->setText(networkCfg->m_proxyPassword);
+  m_trackNumberDigitsSpinBox->setValue(tagCfg.m_trackNumberDigits);
+  m_browserLineEdit->setText(networkCfg.m_browser);
+  m_playOnDoubleClickCheckBox->setChecked(guiCfg.m_playOnDoubleClick);
+  m_proxyCheckBox->setChecked(networkCfg.m_useProxy);
+  m_proxyLineEdit->setText(networkCfg.m_proxy);
+  m_proxyAuthenticationCheckBox->setChecked(networkCfg.m_useProxyAuthentication);
+  m_proxyUserNameLineEdit->setText(networkCfg.m_proxyUserName);
+  m_proxyPasswordLineEdit->setText(networkCfg.m_proxyPassword);
 }
 
 /**
  * Get values from dialog and store them in the current configuration.
- *
- * @param cfg configuration
  */
-void ConfigDialogPages::getConfig(ConfigStore* cfg) const
+void ConfigDialogPages::getConfig() const
 {
-  FormatConfig* fnCfg = &cfg->s_fnFormatCfg;
-  FormatConfig* id3Cfg = &cfg->s_id3FormatCfg;
-  TagConfig* tagCfg = &cfg->s_tagCfg;
-  FileConfig* fileCfg = &cfg->s_fileCfg;
-  UserActionsConfig* userActionsCfg = &cfg->s_userActionsCfg;
-  GuiConfig* guiCfg = &cfg->s_guiCfg;
-  NetworkConfig* networkCfg = &cfg->s_networkCfg;
+  FormatConfig& fnCfg = FilenameFormatConfig::instance();
+  FormatConfig& id3Cfg = TagFormatConfig::instance();
+  TagConfig& tagCfg = TagConfig::instance();
+  FileConfig& fileCfg = FileConfig::instance();
+  UserActionsConfig& userActionsCfg = UserActionsConfig::instance();
+  GuiConfig& guiCfg = GuiConfig::instance();
+  NetworkConfig& networkCfg = NetworkConfig::instance();
 
   m_fnFormatBox->toFormatConfig(fnCfg);
   m_id3FormatBox->toFormatConfig(id3Cfg);
-  tagCfg->m_markTruncations = m_markTruncationsCheckBox->isChecked();
-  tagCfg->m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
-  fileCfg->m_loadLastOpenedFile = m_loadLastOpenedFileCheckBox->isChecked();
-  fileCfg->m_preserveTime = m_preserveTimeCheckBox->isChecked();
-  fileCfg->m_markChanges = m_markChangesCheckBox->isChecked();
-  fileCfg->m_defaultCoverFileName = m_coverFileNameLineEdit->text();
-  tagCfg->m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
-  tagCfg->m_customGenres = m_genresEditModel->stringList();
-  tagCfg->m_quickAccessFrames = m_quickAccessTagsModel->getBitMask();
-  userActionsCfg->m_contextMenuCommands = m_commandsTableModel->getCommandList();
+  tagCfg.m_markTruncations = m_markTruncationsCheckBox->isChecked();
+  tagCfg.m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
+  fileCfg.m_loadLastOpenedFile = m_loadLastOpenedFileCheckBox->isChecked();
+  fileCfg.m_preserveTime = m_preserveTimeCheckBox->isChecked();
+  fileCfg.m_markChanges = m_markChangesCheckBox->isChecked();
+  fileCfg.m_defaultCoverFileName = m_coverFileNameLineEdit->text();
+  tagCfg.m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
+  tagCfg.m_customGenres = m_genresEditModel->stringList();
+  tagCfg.m_quickAccessFrames = m_quickAccessTagsModel->getBitMask();
+  userActionsCfg.m_contextMenuCommands = m_commandsTableModel->getCommandList();
 #ifdef HAVE_VORBIS
-  tagCfg->m_commentName = m_commentNameComboBox->currentText();
-  tagCfg->m_pictureNameItem = m_pictureNameComboBox->currentIndex();
+  tagCfg.m_commentName = m_commentNameComboBox->currentText();
+  tagCfg.m_pictureNameItem = m_pictureNameComboBox->currentIndex();
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-  tagCfg->m_genreNotNumeric = m_genreNotNumericCheckBox->isChecked();
-  tagCfg->m_textEncodingV1 =
+  tagCfg.m_genreNotNumeric = m_genreNotNumericCheckBox->isChecked();
+  tagCfg.m_textEncodingV1 =
     getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText());
-  tagCfg->m_textEncoding = m_textEncodingComboBox->currentIndex();
+  tagCfg.m_textEncoding = m_textEncodingComboBox->currentIndex();
 #endif
 #if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
-  tagCfg->m_id3v2Version = m_id3v2VersionComboBox->itemData(
+  tagCfg.m_id3v2Version = m_id3v2VersionComboBox->itemData(
         m_id3v2VersionComboBox->currentIndex()).toInt();
 #endif
-  tagCfg->m_trackNumberDigits = m_trackNumberDigitsSpinBox->value();
-  networkCfg->m_browser = m_browserLineEdit->text();
-  guiCfg->m_playOnDoubleClick = m_playOnDoubleClickCheckBox->isChecked();
-  networkCfg->m_useProxy = m_proxyCheckBox->isChecked();
-  networkCfg->m_proxy = m_proxyLineEdit->text();
-  networkCfg->m_useProxyAuthentication = m_proxyAuthenticationCheckBox->isChecked();
-  networkCfg->m_proxyUserName = m_proxyUserNameLineEdit->text();
-  networkCfg->m_proxyPassword = m_proxyPasswordLineEdit->text();
+  tagCfg.m_trackNumberDigits = m_trackNumberDigitsSpinBox->value();
+  networkCfg.m_browser = m_browserLineEdit->text();
+  guiCfg.m_playOnDoubleClick = m_playOnDoubleClickCheckBox->isChecked();
+  networkCfg.m_useProxy = m_proxyCheckBox->isChecked();
+  networkCfg.m_proxy = m_proxyLineEdit->text();
+  networkCfg.m_useProxyAuthentication = m_proxyAuthenticationCheckBox->isChecked();
+  networkCfg.m_proxyUserName = m_proxyUserNameLineEdit->text();
+  networkCfg.m_proxyPassword = m_proxyPasswordLineEdit->text();
 }

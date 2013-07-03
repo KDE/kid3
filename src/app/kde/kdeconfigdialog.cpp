@@ -61,22 +61,18 @@ KdeConfigDialog::~KdeConfigDialog()
 
 /**
  * Set values in dialog from current configuration.
- *
- * @param cfg configuration
  */
-void KdeConfigDialog::setConfig(const ConfigStore* cfg)
+void KdeConfigDialog::setConfig()
 {
-  m_pages->setConfig(cfg);
+  m_pages->setConfig();
 }
 
 /**
  * Get values from dialog and store them in the current configuration.
- *
- * @param cfg configuration
  */
-void KdeConfigDialog::getConfig(ConfigStore* cfg) const
+void KdeConfigDialog::getConfig() const
 {
-  m_pages->getConfig(cfg);
+  m_pages->getConfig();
 }
 
 /**

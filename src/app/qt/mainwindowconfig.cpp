@@ -28,11 +28,9 @@
 
 /**
  * Constructor.
- *
- * @param group configuration group
  */
-MainWindowConfig::MainWindowConfig(const QString& group) :
-  GeneralConfig(group),
+MainWindowConfig::MainWindowConfig() :
+  StoredConfig<MainWindowConfig>(QLatin1String("MainWindow")),
   m_hideToolBar(false),
   m_hideStatusBar(false),
   m_useFont(false), m_fontSize(-1),

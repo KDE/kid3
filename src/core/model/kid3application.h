@@ -164,12 +164,6 @@ public:
   ISettings* getSettings() const;
 
   /**
-   * Get configuration.
-   * @return configuration.
-   */
-  ConfigStore* getConfigStore() const { return m_configStore; }
-
-  /**
    * Get download client.
    * @return download client.
    */

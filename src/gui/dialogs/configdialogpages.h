@@ -43,7 +43,6 @@ class FormatBox;
 class ConfigTable;
 class CommandsTableModel;
 class CheckableStringListModel;
-class ConfigStore;
 
 /**
  * Pages for configuration dialog.
@@ -87,17 +86,13 @@ public:
 
   /**
    * Set values in pages from current configuration.
-   *
-   * @param cfg configuration
    */
-  void setConfig(const ConfigStore* cfg);
+  void setConfig();
 
   /**
    * Get values from pages and store them in the current configuration.
-   *
-   * @param cfg configuration
    */
-  void getConfig(ConfigStore* cfg) const;
+  void getConfig() const;
 
 private:
   /** Load last-opened files checkbox */

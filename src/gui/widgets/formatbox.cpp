@@ -104,19 +104,19 @@ FormatBox::~FormatBox() {}
  *
  * @param cfg format configuration
  */
-void FormatBox::fromFormatConfig(const FormatConfig* cfg)
+void FormatBox::fromFormatConfig(const FormatConfig& cfg)
 {
-  m_formatEditingCheckBox->setChecked(cfg->m_formatWhileEditing);
-  m_caseConvComboBox->setCurrentIndex(cfg->m_caseConversion);
+  m_formatEditingCheckBox->setChecked(cfg.m_formatWhileEditing);
+  m_caseConvComboBox->setCurrentIndex(cfg.m_caseConversion);
 #if QT_VERSION >= 0x040800
-  int localeIndex = m_localeComboBox->findText(cfg->getLocaleName());
+  int localeIndex = m_localeComboBox->findText(cfg.getLocaleName());
   if (localeIndex == -1) {
     localeIndex = 0;
   }
   m_localeComboBox->setCurrentIndex(localeIndex);
 #endif
-  m_strRepCheckBox->setChecked(cfg->m_strRepEnabled);
-  m_strReplTableModel->setMap(cfg->m_strRepMap);
+  m_strRepCheckBox->setChecked(cfg.m_strRepEnabled);
+  m_strReplTableModel->setMap(cfg.m_strRepMap);
 }
 
 /**
@@ -124,18 +124,18 @@ void FormatBox::fromFormatConfig(const FormatConfig* cfg)
  *
  * @param cfg format configuration
  */
-void FormatBox::toFormatConfig(FormatConfig* cfg) const
+void FormatBox::toFormatConfig(FormatConfig& cfg) const
 {
-  cfg->m_formatWhileEditing = m_formatEditingCheckBox->isChecked();
-  cfg->m_caseConversion =
+  cfg.m_formatWhileEditing = m_formatEditingCheckBox->isChecked();
+  cfg.m_caseConversion =
     (FormatConfig::CaseConversion)m_caseConvComboBox->currentIndex();
-  if (cfg->m_caseConversion >= FormatConfig::NumCaseConversions) {
-    cfg->m_caseConversion = FormatConfig::NoChanges;
+  if (cfg.m_caseConversion >= FormatConfig::NumCaseConversions) {
+    cfg.m_caseConversion = FormatConfig::NoChanges;
   }
 #if QT_VERSION >= 0x040800
-  cfg->setLocaleName(m_localeComboBox->currentIndex() > 0
+  cfg.setLocaleName(m_localeComboBox->currentIndex() > 0
                      ? m_localeComboBox->currentText() : QString());
 #endif
-  cfg->m_strRepEnabled = m_strRepCheckBox->isChecked();
-  cfg->m_strRepMap = m_strReplTableModel->getMap();
+  cfg.m_strRepEnabled = m_strRepCheckBox->isChecked();
+  cfg.m_strRepMap = m_strReplTableModel->getMap();
 }

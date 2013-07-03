@@ -27,24 +27,11 @@
 #ifndef CONFIGSTORE_H
 #define CONFIGSTORE_H
 
-#include "generalconfig.h" // Kid3Settings
-#include "formatconfig.h"
-#include "importconfig.h"
-#include "exportconfig.h"
-#include "batchimportconfig.h"
-#include "tagconfig.h"
-#include "fileconfig.h"
-#include "rendirconfig.h"
-#include "numbertracksconfig.h"
-#include "useractionsconfig.h"
-#include "guiconfig.h"
-#include "networkconfig.h"
-#include "freedbconfig.h"
-#include "discogsconfig.h"
-#include "amazonconfig.h"
-#include "musicbrainzconfig.h"
-#include "filterconfig.h"
-#include "playlistconfig.h"
+#include <QList>
+#include "kid3api.h"
+
+class ISettings;
+class GeneralConfig;
 
 /**
  * Configuration storage.
@@ -63,57 +50,38 @@ public:
   ~ConfigStore();
 
   /**
-   * Persist configuration.
+   * Persist all added configurations.
    */
   void writeToConfig();
 
   /**
-   * Read persisted configuration.
+   * Add a configuration.
+   * The configuration will be read from the application settings.
+   *
+   * @param cfg configuration, ownership is taken
+   * @return index of configuration.
    */
-  void readFromConfig();
+  int addConfiguration(GeneralConfig* cfg);
 
+  /**
+   * Access to configuration.
+   * @param index index of configuration
+   * @return configuration, 0 if not found.
+   */
+  GeneralConfig* configuration(int index) const {
+    return m_configurations.at(index);
+  }
 
-  /** Filename format configuration */
-  static FilenameFormatConfig s_fnFormatCfg;
-  /** Tag format configuration */
-  static TagFormatConfig s_id3FormatCfg;
-  /** Import configuration */
-  static ImportConfig s_importCfg;
-  /** Export configuration */
-  static ExportConfig s_exportCfg;
-  /** Batch import configuration */
-  static BatchImportConfig s_batchImportCfg;
-  /** Tag configuration */
-  static TagConfig s_tagCfg;
-  /** File configuration */
-  static FileConfig s_fileCfg;
-  /** Rename directory configuration */
-  static RenDirConfig s_renDirCfg;
-  /** Number tracks configuration */
-  static NumberTracksConfig s_numberTracksCfg;
-  /** User actions configuration */
-  static UserActionsConfig s_userActionsCfg;
-  /** GUI configuration */
-  static GuiConfig s_guiCfg;
-  /** Network configuration */
-  static NetworkConfig s_networkCfg;
-  /** Freedb configuration */
-  static FreedbConfig s_freedbCfg;
-  /** TrackType configuration */
-  static TrackTypeConfig s_trackTypeCfg;
-  /** Discogs configuration */
-  static DiscogsConfig s_discogsCfg;
-  /** Amazon configuration */
-  static AmazonConfig s_amazonCfg;
-  /** MusicBrainz configuration */
-  static MusicBrainzConfig s_musicBrainzCfg;
-  /** Filter configuration */
-  static FilterConfig s_filterCfg;
-  /** Playlist configuration */
-  static PlaylistConfig s_playlistCfg;
+  /**
+   * Get a pointer to the application's config store instance.
+   * @return config store, 0 if no instance has been allocated.
+   */
+  static ConfigStore* instance() { return s_self; }
 
 private:
   ISettings* m_config;
+  QList<GeneralConfig*> m_configurations;
+  static ConfigStore* s_self;
 };
 
 #endif // CONFIGSTORE_H

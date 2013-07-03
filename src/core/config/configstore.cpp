@@ -25,27 +25,9 @@
  */
 
 #include "configstore.h"
-#include "config.h"
+#include "generalconfig.h"
 
-TagConfig ConfigStore::s_tagCfg;
-FileConfig ConfigStore::s_fileCfg;
-RenDirConfig ConfigStore::s_renDirCfg;
-NumberTracksConfig ConfigStore::s_numberTracksCfg;
-UserActionsConfig ConfigStore::s_userActionsCfg;
-GuiConfig ConfigStore::s_guiCfg;
-NetworkConfig ConfigStore::s_networkCfg;
-ImportConfig ConfigStore::s_importCfg;
-ExportConfig ConfigStore::s_exportCfg;
-BatchImportConfig ConfigStore::s_batchImportCfg;
-FilenameFormatConfig ConfigStore::s_fnFormatCfg;
-TagFormatConfig ConfigStore::s_id3FormatCfg;
-FreedbConfig ConfigStore::s_freedbCfg;
-TrackTypeConfig ConfigStore::s_trackTypeCfg;
-DiscogsConfig ConfigStore::s_discogsCfg;
-AmazonConfig ConfigStore::s_amazonCfg;
-MusicBrainzConfig ConfigStore::s_musicBrainzCfg;
-FilterConfig ConfigStore::s_filterCfg;
-PlaylistConfig ConfigStore::s_playlistCfg;
+ConfigStore* ConfigStore::s_self = 0;
 
 /**
  * Constructor.
@@ -53,6 +35,8 @@ PlaylistConfig ConfigStore::s_playlistCfg;
  */
 ConfigStore::ConfigStore(ISettings* config) : m_config(config)
 {
+  Q_ASSERT_X(!s_self, "ConfigStore", "there should be only one config store");
+  s_self = this;
 }
 
 /**
@@ -60,170 +44,31 @@ ConfigStore::ConfigStore(ISettings* config) : m_config(config)
  */
 ConfigStore::~ConfigStore()
 {
+  qDeleteAll(m_configurations);
 }
 
 /**
- * Persist configuration.
+ * Persist all added configurations.
  */
 void ConfigStore::writeToConfig()
 {
-  s_tagCfg.writeToConfig(m_config);
-  s_fileCfg.writeToConfig(m_config);
-  s_renDirCfg.writeToConfig(m_config);
-  s_numberTracksCfg.writeToConfig(m_config);
-  s_userActionsCfg.writeToConfig(m_config);
-  s_guiCfg.writeToConfig(m_config);
-  s_networkCfg.writeToConfig(m_config);
-  s_fnFormatCfg.writeToConfig(m_config);
-  s_id3FormatCfg.writeToConfig(m_config);
-  s_importCfg.writeToConfig(m_config);
-  s_exportCfg.writeToConfig(m_config);
-  s_batchImportCfg.writeToConfig(m_config);
-  s_freedbCfg.writeToConfig(m_config);
-  s_trackTypeCfg.writeToConfig(m_config);
-  s_discogsCfg.writeToConfig(m_config);
-  s_amazonCfg.writeToConfig(m_config);
-  s_filterCfg.writeToConfig(m_config);
-  s_playlistCfg.writeToConfig(m_config);
-  s_musicBrainzCfg.writeToConfig(m_config);
+  foreach (GeneralConfig* cfg, m_configurations) {
+    cfg->writeToConfig(m_config);
+  }
 }
 
 /**
- * Read persisted configuration.
+ * Add a configuration.
+ * The configuration will be read from the application settings.
+ *
+ * @param cfg configuration, ownership is taken
+ * @return index of configuration.
  */
-void ConfigStore::readFromConfig()
+int ConfigStore::addConfiguration(GeneralConfig* cfg)
 {
-  s_tagCfg.readFromConfig(m_config);
-  s_fileCfg.readFromConfig(m_config);
-  s_renDirCfg.readFromConfig(m_config);
-  s_numberTracksCfg.readFromConfig(m_config);
-  s_userActionsCfg.readFromConfig(m_config);
-  s_guiCfg.readFromConfig(m_config);
-  s_networkCfg.readFromConfig(m_config);
-  s_fnFormatCfg.readFromConfig(m_config);
-  s_id3FormatCfg.readFromConfig(m_config);
-  s_importCfg.readFromConfig(m_config);
-  s_exportCfg.readFromConfig(m_config);
-  s_batchImportCfg.readFromConfig(m_config);
-  s_freedbCfg.readFromConfig(m_config);
-  s_trackTypeCfg.readFromConfig(m_config);
-  s_discogsCfg.readFromConfig(m_config);
-  s_amazonCfg.readFromConfig(m_config);
-  s_filterCfg.readFromConfig(m_config);
-  s_playlistCfg.readFromConfig(m_config);
-  s_musicBrainzCfg.readFromConfig(m_config);
-}
-
-template <>
-TagConfig& StoredConfig<TagConfig>::instance()
-{
-  return ConfigStore::s_tagCfg;
-}
-
-template <>
-FileConfig& StoredConfig<FileConfig>::instance()
-{
-  return ConfigStore::s_fileCfg;
-}
-
-template <>
-RenDirConfig& StoredConfig<RenDirConfig>::instance()
-{
-  return ConfigStore::s_renDirCfg;
-}
-
-template <>
-NumberTracksConfig& StoredConfig<NumberTracksConfig>::instance()
-{
-  return ConfigStore::s_numberTracksCfg;
-}
-
-template <>
-UserActionsConfig& StoredConfig<UserActionsConfig>::instance()
-{
-  return ConfigStore::s_userActionsCfg;
-}
-
-template <>
-GuiConfig& StoredConfig<GuiConfig>::instance()
-{
-  return ConfigStore::s_guiCfg;
-}
-
-template <>
-NetworkConfig& StoredConfig<NetworkConfig>::instance()
-{
-  return ConfigStore::s_networkCfg;
-}
-
-template <>
-ImportConfig& StoredConfig<ImportConfig>::instance()
-{
-  return ConfigStore::s_importCfg;
-}
-
-template <>
-ExportConfig& StoredConfig<ExportConfig>::instance()
-{
-  return ConfigStore::s_exportCfg;
-}
-
-template <>
-BatchImportConfig& StoredConfig<BatchImportConfig>::instance()
-{
-  return ConfigStore::s_batchImportCfg;
-}
-
-template <>
-DiscogsConfig& StoredConfig<DiscogsConfig, ServerImporterConfig>::instance()
-{
-  return ConfigStore::s_discogsCfg;
-}
-
-template <>
-AmazonConfig& StoredConfig<AmazonConfig, ServerImporterConfig>::instance()
-{
-  return ConfigStore::s_amazonCfg;
-}
-
-template <>
-MusicBrainzConfig& StoredConfig<MusicBrainzConfig, ServerImporterConfig>::instance()
-{
-  return ConfigStore::s_musicBrainzCfg;
-}
-
-template <>
-FilterConfig& StoredConfig<FilterConfig>::instance()
-{
-  return ConfigStore::s_filterCfg;
-}
-
-template <>
-PlaylistConfig& StoredConfig<PlaylistConfig>::instance()
-{
-  return ConfigStore::s_playlistCfg;
-}
-
-template <>
-FilenameFormatConfig& StoredConfig<FilenameFormatConfig, FormatConfig>::instance()
-{
-  return ConfigStore::s_fnFormatCfg;
-}
-
-template <>
-TagFormatConfig& StoredConfig<TagFormatConfig, FormatConfig>::instance()
-{
-  return ConfigStore::s_id3FormatCfg;
-}
-
-template <>
-FreedbConfig& StoredConfig<FreedbConfig, ServerImporterConfig>::instance()
-{
-  return ConfigStore::s_freedbCfg;
-}
-
-template <>
-TrackTypeConfig& StoredConfig<TrackTypeConfig, FreedbConfig>::instance()
-{
-  return ConfigStore::s_trackTypeCfg;
+  Q_ASSERT(cfg);
+  int index = m_configurations.size();
+  m_configurations.append(cfg);
+  cfg->readFromConfig(m_config);
+  return index;
 }

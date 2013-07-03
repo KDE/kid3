@@ -32,13 +32,13 @@
 /**
  * Main window configuration.
  */
-class MainWindowConfig : public GeneralConfig
+class MainWindowConfig : public StoredConfig<MainWindowConfig>
 {
 public:
   /**
    * Constructor.
    */
-  MainWindowConfig(const QString& group);
+  MainWindowConfig();
 
   /**
    * Destructor.
@@ -50,14 +50,14 @@ public:
    *
    * @param config configuration
    */
-  void writeToConfig(ISettings* config) const;
+  virtual void writeToConfig(ISettings* config) const;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  void readFromConfig(ISettings* config);
+  virtual void readFromConfig(ISettings* config);
 
 
   /** true to hide toolbar */

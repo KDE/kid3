@@ -40,7 +40,7 @@
  * Constructor.
  */
 PlatformTools::PlatformTools() :
-  m_mainWindowConfig(0), m_settings(0), m_config(0), m_helpBrowser(0)
+  m_settings(0), m_config(0), m_helpBrowser(0)
 {
 }
 
@@ -375,7 +375,7 @@ QString PlatformTools::getOpenFileName(QWidget* parent, const QString& caption,
 {
   return QFileDialog::getOpenFileName(
         parent, caption, dir, filter, selectedFilter,
-        m_mainWindowConfig && m_mainWindowConfig->m_dontUseNativeDialogs
+        MainWindowConfig::instance().m_dontUseNativeDialogs
         ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 }
 
@@ -393,7 +393,7 @@ QString PlatformTools::getSaveFileName(QWidget* parent, const QString& caption,
 {
   return QFileDialog::getSaveFileName(
         parent, caption, dir, filter, selectedFilter,
-        m_mainWindowConfig && m_mainWindowConfig->m_dontUseNativeDialogs
+        MainWindowConfig::instance().m_dontUseNativeDialogs
         ? QFileDialog::DontUseNativeDialog : QFileDialog::Options(0));
 }
 
@@ -408,7 +408,7 @@ QString PlatformTools::getExistingDirectory(QWidget* parent,
     const QString& caption, const QString& startDir)
 {
   return QFileDialog::getExistingDirectory(parent, caption, startDir,
-      m_mainWindowConfig && m_mainWindowConfig->m_dontUseNativeDialogs
+      MainWindowConfig::instance().m_dontUseNativeDialogs
       ? QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
       : QFileDialog::ShowDirsOnly);
 }

@@ -33,7 +33,6 @@
 class QAction;
 class RecentFilesMenu;
 class ShortcutsModel;
-class MainWindowConfig;
 class IPlatformTools;
 
 /**
@@ -158,7 +157,6 @@ private:
   IPlatformTools* m_platformTools;
   RecentFilesMenu* m_fileOpenRecent;
   ShortcutsModel* m_shortcutsModel;
-  MainWindowConfig* m_mainWindowConfig;
   QAction* m_viewToolBar;
   QAction* m_viewStatusBar;
   QAction* m_settingsAutoHideTags;

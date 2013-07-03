@@ -415,9 +415,9 @@ void KdeMainWindow::slotSettingsConfigure()
   QString caption(tr("Configure - Kid3"));
   KConfigSkeleton* configSkeleton = new KConfigSkeleton;
   KdeConfigDialog* dialog = new KdeConfigDialog(this, caption, configSkeleton);
-  dialog->setConfig(app()->getConfigStore());
+  dialog->setConfig();
   if (dialog->exec() == QDialog::Accepted) {
-    dialog->getConfig(app()->getConfigStore());
+    dialog->getConfig();
     impl()->applyChangedConfiguration();
   }
   delete configSkeleton;

@@ -32,7 +32,6 @@
 class QString;
 class QWidget;
 class QComboBox;
-class ConfigStore;
 class ConfigDialogPages;
 
 /**
@@ -58,17 +57,13 @@ public:
 
   /**
    * Set values in dialog from current configuration.
-   *
-   * @param cfg configuration
    */
-  void setConfig(const ConfigStore* cfg);
+  void setConfig();
 
   /**
    * Get values from dialog and store them in the current configuration.
-   *
-   * @param cfg configuration
    */
-  void getConfig(ConfigStore* cfg) const;
+  void getConfig() const;
 
 protected slots:
   /**

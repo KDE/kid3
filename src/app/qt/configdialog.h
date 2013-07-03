@@ -35,9 +35,7 @@ class QCheckBox;
 class QString;
 class QWidget;
 class QComboBox;
-class ConfigStore;
 class ShortcutsModel;
-class MainWindowConfig;
 class ConfigDialogPages;
 
 /**
@@ -52,11 +50,9 @@ public:
    * @param parent  parent widget
    * @param caption dialog title
    * @param shortcutsModel shortcuts model
-   * @param mainWindowConfig main window configuration
    */
   ConfigDialog(QWidget* parent, QString& caption,
-               ShortcutsModel* shortcutsModel,
-               MainWindowConfig* mainWindowConfig);
+               ShortcutsModel* shortcutsModel);
 
   /**
    * Destructor.
@@ -65,17 +61,13 @@ public:
 
   /**
    * Set values in dialog from current configuration.
-   *
-   * @param cfg configuration
    */
-  void setConfig(const ConfigStore* cfg);
+  void setConfig();
 
   /**
    * Get values from dialog and store them in the current configuration.
-   *
-   * @param cfg configuration
    */
-  void getConfig(ConfigStore* cfg) const;
+  void getConfig() const;
 
 protected slots:
   /**
@@ -118,7 +110,6 @@ protected slots:
 private:
   ConfigDialogPages* m_pages;
   ShortcutsModel* m_shortcutsModel;
-  MainWindowConfig* m_mainWindowConfig;
   QTreeView* m_shortcutsTreeView;
   QLabel* m_shortcutAlreadyUsedLabel;
   QCheckBox* m_useApplicationFontCheckBox;

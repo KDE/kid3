@@ -32,6 +32,8 @@
 class QNetworkAccessManager;
 class TrackDataModel;
 class ServerImporter;
+class ISettings;
+class ConfigStore;
 
 /**
  * Base class for server importer tests.
@@ -58,6 +60,8 @@ protected:
   QNetworkAccessManager* m_netMgr;
   TrackDataModel* m_trackDataModel;
   ServerImporter* m_importer;
+  ISettings* m_settings;
+  ConfigStore* m_configStore;
 };
 
 #endif

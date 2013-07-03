@@ -31,7 +31,6 @@
 
 class QSettings;
 class BrowserDialog;
-class MainWindowConfig;
 
 /**
  * Platform specific tools.
@@ -47,14 +46,6 @@ public:
    * Destructor.
    */
   virtual ~PlatformTools();
-
-  /**
-   * Set main window configuration
-   * @param config main window configuration
-   */
-  void setMainWindowConfig(MainWindowConfig* config) {
-    m_mainWindowConfig = config;
-  }
 
   /**
    * Get application settings.
@@ -179,7 +170,6 @@ public:
       const QString& text, const QStringList& strlist, const QString& caption);
 
 private:
-  MainWindowConfig* m_mainWindowConfig;
   QSettings* m_settings;
   ISettings* m_config;
   BrowserDialog* m_helpBrowser;

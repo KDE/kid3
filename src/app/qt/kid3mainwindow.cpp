@@ -57,11 +57,8 @@
 Kid3MainWindow::Kid3MainWindow(QWidget* parent) :
   QMainWindow(parent),
   BaseMainWindow(this, m_platformTools = new PlatformTools),
-  m_shortcutsModel(new ShortcutsModel(this)),
-  m_mainWindowConfig(new MainWindowConfig(QLatin1String("MainWindow")))
+  m_shortcutsModel(new ShortcutsModel(this))
 {
-  static_cast<PlatformTools*>(m_platformTools)->
-      setMainWindowConfig(m_mainWindowConfig);
 #if !defined Q_OS_WIN32 && defined CFG_DATAROOTDIR
   QPixmap icon;
   if (icon.load(QLatin1String(CFG_DATAROOTDIR) +
@@ -83,7 +80,6 @@ Kid3MainWindow::Kid3MainWindow(QWidget* parent) :
  */
 Kid3MainWindow::~Kid3MainWindow()
 {
-  delete m_mainWindowConfig;
   delete m_platformTools;
 }
 
@@ -415,9 +411,9 @@ void Kid3MainWindow::initActions()
     m_viewToolBar->setObjectName(QLatin1String("options_configure_toolbars"));
     m_shortcutsModel->registerAction(m_viewToolBar, menuTitle);
   }
-  if (m_mainWindowConfig->m_hideToolBar)
+  if (MainWindowConfig::instance().m_hideToolBar)
     toolBar->hide();
-  m_viewToolBar->setChecked(!m_mainWindowConfig->m_hideToolBar);
+  m_viewToolBar->setChecked(!MainWindowConfig::instance().m_hideToolBar);
   settingsMenu->addAction(m_viewToolBar);
 
   m_viewStatusBar = new QAction(this);
@@ -566,16 +562,16 @@ void Kid3MainWindow::addDirectoryToRecentFiles(const QString& dirName)
  */
 void Kid3MainWindow::readConfig()
 {
-  m_mainWindowConfig->readFromConfig(app()->getSettings());
-  if (m_mainWindowConfig->m_hideStatusBar)
+  const MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
+  if (mainWindowConfig.m_hideStatusBar)
     statusBar()->hide();
-  m_viewStatusBar->setChecked(!m_mainWindowConfig->m_hideStatusBar);
+  m_viewStatusBar->setChecked(!mainWindowConfig.m_hideStatusBar);
   m_settingsShowHidePicture->setChecked(!GuiConfig::instance().m_hidePicture);
   m_settingsAutoHideTags->setChecked(GuiConfig::instance().m_autoHideTags);
   m_fileOpenRecent->loadEntries(app()->getSettings());
   m_shortcutsModel->readFromConfig(app()->getSettings());
-  restoreGeometry(m_mainWindowConfig->m_geometry);
-  restoreState(m_mainWindowConfig->m_windowState);
+  restoreGeometry(mainWindowConfig.m_geometry);
+  restoreState(mainWindowConfig.m_windowState);
 }
 
 /**
@@ -583,12 +579,13 @@ void Kid3MainWindow::readConfig()
  */
 void Kid3MainWindow::saveConfig()
 {
+  MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
   m_fileOpenRecent->saveEntries(app()->getSettings());
   m_shortcutsModel->writeToConfig(app()->getSettings());
-  m_mainWindowConfig->m_hideToolBar = !m_viewToolBar->isChecked();
-  m_mainWindowConfig->m_geometry = saveGeometry();
-  m_mainWindowConfig->m_windowState = saveState();
-  m_mainWindowConfig->writeToConfig(app()->getSettings());
+  mainWindowConfig.m_hideToolBar = !m_viewToolBar->isChecked();
+  mainWindowConfig.m_geometry = saveGeometry();
+  mainWindowConfig.m_windowState = saveState();
+  mainWindowConfig.writeToConfig(app()->getSettings());
 }
 
 /**
@@ -648,15 +645,15 @@ void Kid3MainWindow::closeEvent(QCloseEvent* ce)
  */
 void Kid3MainWindow::readFontAndStyleOptions()
 {
-  m_mainWindowConfig->readFromConfig(app()->getSettings());
-  if (m_mainWindowConfig->m_useFont &&
-      !m_mainWindowConfig->m_fontFamily.isEmpty() &&
-      m_mainWindowConfig->m_fontSize > 0) {
-    QApplication::setFont(QFont(m_mainWindowConfig->m_fontFamily,
-                                m_mainWindowConfig->m_fontSize));
+  const MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
+  if (mainWindowConfig.m_useFont &&
+      !mainWindowConfig.m_fontFamily.isEmpty() &&
+      mainWindowConfig.m_fontSize > 0) {
+    QApplication::setFont(QFont(mainWindowConfig.m_fontFamily,
+                                mainWindowConfig.m_fontSize));
   }
-  if (!m_mainWindowConfig->m_style.isEmpty()) {
-    QApplication::setStyle(m_mainWindowConfig->m_style);
+  if (!mainWindowConfig.m_style.isEmpty()) {
+    QApplication::setStyle(mainWindowConfig.m_style);
   }
 }
 
@@ -675,9 +672,9 @@ void Kid3MainWindow::slotFileOpenRecentDirectory(const QString& dir)
  */
 void Kid3MainWindow::slotViewStatusBar()
 {
-  m_mainWindowConfig->m_hideStatusBar = !m_viewStatusBar->isChecked();
+  MainWindowConfig::instance().m_hideStatusBar = !m_viewStatusBar->isChecked();
   slotStatusMsg(tr("Toggle the statusbar..."));
-  if (m_mainWindowConfig->m_hideStatusBar) {
+  if (MainWindowConfig::instance().m_hideStatusBar) {
     statusBar()->hide();
   }
   else {
@@ -719,11 +716,10 @@ void Kid3MainWindow::slotHelpAboutQt()
 void Kid3MainWindow::slotSettingsConfigure()
 {
   QString caption(tr("Configure - Kid3"));
-  ConfigDialog* dialog = new ConfigDialog(this, caption, m_shortcutsModel,
-                                          m_mainWindowConfig);
-  dialog->setConfig(app()->getConfigStore());
+  ConfigDialog* dialog = new ConfigDialog(this, caption, m_shortcutsModel);
+  dialog->setConfig();
   if (dialog->exec() == QDialog::Accepted) {
-    dialog->getConfig(app()->getConfigStore());
+    dialog->getConfig();
     impl()->applyChangedConfiguration();
   }
 }
