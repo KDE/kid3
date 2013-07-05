@@ -570,8 +570,14 @@ void Kid3MainWindow::readConfig()
   m_settingsAutoHideTags->setChecked(GuiConfig::instance().m_autoHideTags);
   m_fileOpenRecent->loadEntries(app()->getSettings());
   m_shortcutsModel->readFromConfig(app()->getSettings());
-  restoreGeometry(mainWindowConfig.m_geometry);
-  restoreState(mainWindowConfig.m_windowState);
+  if (!mainWindowConfig.m_geometry.isEmpty()) {
+    restoreGeometry(mainWindowConfig.m_geometry);
+  } else {
+    resize(1000, 900);
+  }
+  if (!mainWindowConfig.m_windowState.isEmpty()) {
+    restoreState(mainWindowConfig.m_windowState);
+  }
 }
 
 /**
