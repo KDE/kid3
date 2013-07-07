@@ -344,7 +344,11 @@ QStringList Kid3Application::saveDirectory()
     bool renamed = false;
     if (!taggedFile->writeTags(false, &renamed,
                                FileConfig::instance().m_preserveTime)) {
-      errorFiles.push_back(taggedFile->getFilename());
+      QString errorMsg = taggedFile->getFilename();
+      if (!QFileInfo(taggedFile->getAbsFilename()).isWritable()) {
+        errorMsg = tr("%1 is not writable").arg(errorMsg);
+      }
+      errorFiles.push_back(errorMsg);
     }
     ++numFiles;
     emit saveProgress(numFiles);
