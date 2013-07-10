@@ -89,7 +89,7 @@ protected:
  * @tparam Base base class, default is GeneralConfig
  */
 template <class Derived, class Base = GeneralConfig>
-class KID3_CORE_EXPORT StoredConfig : public Base {
+class StoredConfig : public Base {
 public:
   /**
    * Constructor.
@@ -104,7 +104,7 @@ public:
    *
    * @return instance.
    */
-  static KID3_CORE_EXPORT Derived& instance();
+  static Derived& instance();
 
 private:
   static int s_index;
