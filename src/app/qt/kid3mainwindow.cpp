@@ -93,6 +93,9 @@ void Kid3MainWindow::initActions()
 {
   QToolBar* toolBar = new QToolBar(this);
   toolBar->setObjectName(QLatin1String("MainToolbar"));
+#if defined Q_OS_MAC && QT_VERSION >= 0x050000
+  toolBar->setStyleSheet(QLatin1String("QToolButton { border: 0; }"));
+#endif
   QMenuBar* menubar = menuBar();
   QString menuTitle(tr("&File"));
   QMenu* fileMenu = menubar->addMenu(menuTitle);
