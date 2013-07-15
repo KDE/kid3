@@ -28,11 +28,12 @@
 #define GENRES_H
 
 #include <QtGlobal>
+#include "kid3api.h"
 
 class QString;
 
 /** Alphabetically sorted list of genres, conversion to/from genre numbers */
-class Genres {
+class KID3_CORE_EXPORT Genres {
 public:
   /**
    * Get name assigned to genre number.

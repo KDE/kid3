@@ -26,12 +26,12 @@
 
 #include "testmusicbrainzreleaseimporter.h"
 #include <QtTest>
-#include "musicbrainzreleaseimporter.h"
+#include "serverimporter.h"
 #include "trackdatamodel.h"
 
 void TestMusicBrainzReleaseImporter::initTestCase()
 {
-  setServerImporter(new MusicBrainzReleaseImporter(m_netMgr, m_trackDataModel));
+  setServerImporter(QLatin1String("MusicBrainzImport"));
 }
 
 void TestMusicBrainzReleaseImporter::testQueryAlbums()

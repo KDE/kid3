@@ -58,5 +58,7 @@
 #cmakedefine CFG_DATAROOTDIR "@CFG_DATAROOTDIR@"
 #cmakedefine CFG_DOCDIR "@CFG_DOCDIR@"
 #cmakedefine CFG_TRANSLATIONSDIR "@CFG_TRANSLATIONSDIR@"
+/* Path to plugins directory relative from directory containing executable */
+#cmakedefine CFG_PLUGINSDIR "@CFG_PLUGINSDIR@"
 
 #endif

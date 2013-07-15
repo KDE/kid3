@@ -20,6 +20,8 @@ if (WITH_GCC_PCH)
   endmacro (ADD_KID3_PCH_RULE _srcList)
 endif (WITH_GCC_PCH)
 
+set(PLUGIN_LIBRARIES)
+add_subdirectory(plugins)
 add_subdirectory(core)
 add_subdirectory(gui)
 add_subdirectory(app)

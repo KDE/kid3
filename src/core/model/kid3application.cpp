@@ -33,6 +33,7 @@
 #include <QNetworkAccessManager>
 #include <QTimer>
 #include <QApplication>
+#include <QPluginLoader>
 #ifdef HAVE_QTDBUS
 #include <QDBusConnection>
 #include <unistd.h>
@@ -53,19 +54,14 @@
 #include "configstore.h"
 #include "formatconfig.h"
 #include "fileconfig.h"
-#include "freedbconfig.h"
 #include "importconfig.h"
 #include "playlistconfig.h"
 #include "playlistcreator.h"
 #include "downloadclient.h"
 #include "iframeeditor.h"
-#include "freedbimporter.h"
-#include "tracktypeimporter.h"
-#include "musicbrainzreleaseimporter.h"
-#include "discogsimporter.h"
-#include "amazonimporter.h"
 #include "batchimportprofile.h"
 #include "batchimporter.h"
+#include "iserverimporterfactory.h"
 #ifdef HAVE_CHROMAPRINT
 #include "musicbrainzclient.h"
 #endif
@@ -87,6 +83,8 @@
 #ifdef HAVE_TAGLIB
 #include "taglibfile.h"
 #endif
+
+#include "importplugins.h"
 
 /** Current directory */
 QString Kid3Application::s_dirName;
@@ -134,12 +132,9 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   setFiltered(false);
   FilenameFormatConfig::instance().setAsFilenameFormatter();
 
-  m_importers
-      << new FreedbImporter(m_netMgr, m_trackDataModel)
-      << new TrackTypeImporter(m_netMgr, m_trackDataModel)
-      << new DiscogsImporter(m_netMgr, m_trackDataModel)
-      << new AmazonImporter(m_netMgr, m_trackDataModel)
-      << new MusicBrainzReleaseImporter(m_netMgr, m_trackDataModel);
+  foreach (QObject* plugin, loadPlugins()) {
+    checkPlugin(plugin);
+  }
 #ifdef HAVE_CHROMAPRINT
   m_trackImporters
       << new MusicBrainzClient(m_netMgr, m_trackDataModel);
@@ -172,6 +167,55 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 Kid3Application::~Kid3Application()
 {
   delete m_configStore;
+}
+
+/**
+ * Load plugins.
+ * @return list of plugin instances.
+ */
+QObjectList Kid3Application::loadPlugins() {
+  QObjectList plugins = QPluginLoader::staticInstances();
+
+  // First check if we are running from the build directory to load the
+  // plugins from there.
+  QDir pluginsDir(qApp->applicationDirPath());
+  QString dirName = pluginsDir.dirName().toLower();
+#ifdef Q_OS_WIN
+  if (dirName == QLatin1String("debug") ||
+      dirName == QLatin1String("release")) {
+    pluginsDir.cdUp();
+    dirName = pluginsDir.dirName().toLower();
+  }
+#endif
+  if (pluginsDir.cd(QLatin1String(
+      (dirName == QLatin1String("qt") || dirName == QLatin1String("kde"))
+      ? "../../plugins"
+      : dirName == QLatin1String("test")
+        ? "../plugins"
+        : CFG_PLUGINSDIR))) {
+    foreach (const QString& fileName, pluginsDir.entryList(QDir::Files)) {
+      QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
+      QObject* plugin = loader.instance();
+      if (plugin) {
+        plugins.append(plugin);
+      }
+    }
+  }
+  return plugins;
+}
+
+/**
+ * Check type of a loaded plugin and register it.
+ * @param plugin instance returned by plugin loader
+ */
+void Kid3Application::checkPlugin(QObject* plugin) {
+  if (IServerImporterFactory* importerFactory =
+      qobject_cast<IServerImporterFactory*>(plugin)) {
+    foreach (const QString& key, importerFactory->serverImporterKeys()) {
+      m_importers.append(importerFactory->createServerImporter(
+                           key, m_netMgr, m_trackDataModel));
+    }
+  }
 }
 
 /**
@@ -244,12 +288,6 @@ void Kid3Application::readConfig()
   setTextEncodings();
   FrameCollection::setQuickAccessFrames(
         TagConfig::instance().m_quickAccessFrames);
-  if (FreedbConfig::instance().m_server == QLatin1String("freedb2.org:80")) {
-    FreedbConfig::instance().m_server = QLatin1String("www.gnudb.org:80"); // replace old default
-  }
-  if (TrackTypeConfig::instance().m_server == QLatin1String("gnudb.gnudb.org:80")) {
-    TrackTypeConfig::instance().m_server = QLatin1String("tracktype.org:80"); // replace default
-  }
 }
 
 /**

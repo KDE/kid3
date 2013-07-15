@@ -28,6 +28,8 @@
 #include <QtTest>
 #include <QNetworkAccessManager>
 #include "dummysettings.h"
+#include "kid3application.h"
+#include "iserverimporterfactory.h"
 #include "serverimporter.h"
 #include "trackdatamodel.h"
 #include "configstore.h"
@@ -78,6 +80,24 @@ void TestServerImporterBase::setServerImporter(ServerImporter* importer)
               this, SLOT(onAlbumFinished(QByteArray)));
     }
   }
+}
+
+void TestServerImporterBase::setServerImporter(const QString& key)
+{
+  ServerImporter* serverImporter = 0;
+  QObjectList plugins = Kid3Application::loadPlugins();
+  foreach (QObject* plugin, plugins) {
+    if (IServerImporterFactory* importerFactory =
+        qobject_cast<IServerImporterFactory*>(plugin)) {
+      if (importerFactory->serverImporterKeys().contains(key)) {
+        serverImporter = importerFactory->createServerImporter(
+              key, m_netMgr, m_trackDataModel);
+        break;
+      }
+    }
+  }
+  QVERIFY(serverImporter != 0);
+  setServerImporter(serverImporter);
 }
 
 void TestServerImporterBase::queryAlbums(const QString& artist, const QString& album)

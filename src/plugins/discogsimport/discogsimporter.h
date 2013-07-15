@@ -33,7 +33,7 @@
 /**
  * Discogs importer.
  */
-class KID3_CORE_EXPORT DiscogsImporter : public ServerImporter
+class DiscogsImporter : public ServerImporter
 {
 public:
   /**

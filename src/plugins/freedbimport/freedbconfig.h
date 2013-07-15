@@ -46,6 +46,13 @@ public:
    * Destructor.
    */
   virtual ~FreedbConfig();
+
+  /**
+   * Read persisted configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void readFromConfig(ISettings* config);
 };
 
 
@@ -63,6 +70,13 @@ public:
    * Destructor.
    */
   virtual ~TrackTypeConfig();
+
+  /**
+   * Read persisted configuration.
+   *
+   * @param config KDE configuration
+   */
+  virtual void readFromConfig(ISettings* config);
 };
 
 #endif

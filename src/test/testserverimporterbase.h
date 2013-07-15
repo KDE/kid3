@@ -54,6 +54,7 @@ signals:
 
 protected:
   void setServerImporter(ServerImporter* importer);
+  void setServerImporter(const QString& key);
   void queryAlbums(const QString& artist, const QString& album);
   void queryTracks(const QString& cat, const QString& id);
 

@@ -1,5 +1,5 @@
 /**
- * \file musicbrainzreleaseimporter.cpp
+ * \file musicbrainzimporter.cpp
  * MusicBrainz release database importer.
  *
  * \b Project: Kid3
@@ -24,7 +24,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "musicbrainzreleaseimporter.h"
+#include "musicbrainzimporter.h"
 #include <QDomDocument>
 #include <QUrl>
 #include "serverimporterconfig.h"
@@ -37,17 +37,17 @@
  * @param netMgr network access manager
  * @param trackDataModel track data to be filled with imported values
  */
-MusicBrainzReleaseImporter::MusicBrainzReleaseImporter(
+MusicBrainzImporter::MusicBrainzImporter(
   QNetworkAccessManager* netMgr, TrackDataModel *trackDataModel) :
   ServerImporter(netMgr, trackDataModel)
 {
-  setObjectName(QLatin1String("MusicBrainzReleaseImporter"));
+  setObjectName(QLatin1String("MusicBrainzImporter"));
 }
 
 /**
  * Destructor.
  */
-MusicBrainzReleaseImporter::~MusicBrainzReleaseImporter()
+MusicBrainzImporter::~MusicBrainzImporter()
 {
 }
 
@@ -55,40 +55,40 @@ MusicBrainzReleaseImporter::~MusicBrainzReleaseImporter()
  * Name of import source.
  * @return name.
  */
-const char* MusicBrainzReleaseImporter::name() const {
+const char* MusicBrainzImporter::name() const {
   return QT_TRANSLATE_NOOP("@default", "MusicBrainz Release");
 }
 
 /** NULL-terminated array of server strings, 0 if not used */
-const char** MusicBrainzReleaseImporter::serverList() const
+const char** MusicBrainzImporter::serverList() const
 {
   return 0;
 }
 
 /** default server, 0 to disable */
-const char* MusicBrainzReleaseImporter::defaultServer() const {
+const char* MusicBrainzImporter::defaultServer() const {
   return 0;
 }
 
 /** anchor to online help, 0 to disable */
-const char* MusicBrainzReleaseImporter::helpAnchor() const {
+const char* MusicBrainzImporter::helpAnchor() const {
   return "import-musicbrainzrelease";
 }
 
 /** configuration, 0 if not used */
-ServerImporterConfig* MusicBrainzReleaseImporter::config() const {
+ServerImporterConfig* MusicBrainzImporter::config() const {
   return &MusicBrainzConfig::instance();
 }
 
 /** additional tags option, false if not used */
-bool MusicBrainzReleaseImporter::additionalTags() const { return true; }
+bool MusicBrainzImporter::additionalTags() const { return true; }
 
 /**
  * Process finished findCddbAlbum request.
  *
  * @param searchStr search data received
  */
-void MusicBrainzReleaseImporter::parseFindResults(const QByteArray& searchStr)
+void MusicBrainzImporter::parseFindResults(const QByteArray& searchStr)
 {
   /* simplified XML result:
 <metadata>
@@ -243,7 +243,7 @@ static bool parseCredits(const QDomElement& relationList, FrameCollection& frame
  *
  * @param albumStr album data received
  */
-void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
+void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
 {
   /*
 <metadata>
@@ -486,7 +486,7 @@ void MusicBrainzReleaseImporter::parseAlbumResults(const QByteArray& albumStr)
  * @param artist   artist to search
  * @param album    album to search
  */
-void MusicBrainzReleaseImporter::sendFindQuery(
+void MusicBrainzImporter::sendFindQuery(
   const ServerImporterConfig* cfg,
   const QString& artist, const QString& album)
 {
@@ -524,7 +524,7 @@ void MusicBrainzReleaseImporter::sendFindQuery(
  * @param cat      category
  * @param id       ID
  */
-void MusicBrainzReleaseImporter::sendTrackListQuery(
+void MusicBrainzImporter::sendTrackListQuery(
   const ServerImporterConfig* cfg, const QString& cat, const QString& id)
 {
   /*

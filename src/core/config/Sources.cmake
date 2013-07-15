@@ -1,13 +1,10 @@
 set(config_SRCS
-  config/amazonconfig.cpp
   config/batchimportconfig.cpp
   config/batchimportprofile.cpp
   config/batchimportsourcesmodel.cpp
   config/configstore.cpp
-  config/discogsconfig.cpp
   config/filterconfig.cpp
   config/formatconfig.cpp
-  config/freedbconfig.cpp
   config/generalconfig.cpp
   config/importconfig.cpp
   config/exportconfig.cpp
@@ -18,7 +15,6 @@ set(config_SRCS
   config/useractionsconfig.cpp
   config/guiconfig.cpp
   config/networkconfig.cpp
-  config/musicbrainzconfig.cpp
   config/playlistconfig.cpp
   config/serverimporterconfig.cpp
   config/isettings.cpp

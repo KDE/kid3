@@ -1,12 +1,12 @@
 /**
- * \file freedbconfig.cpp
- * freedb.org import configuration.
+ * \file iserverimporterfactory.cpp
+ * Interface for server importer factory.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 17 Sep 2003
+ * \date 13 Jul 2013
  *
- * Copyright (C) 2003-2013  Urs Fleisch
+ * Copyright (C) 2013  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,40 +24,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "freedbconfig.h"
-
-class QString;
-
-/**
- * Constructor.
- * Set default configuration.
- *
- * @param grp configuration group
- */
-FreedbConfig::FreedbConfig(const QString& grp) :
-  StoredConfig<FreedbConfig, ServerImporterConfig>(grp)
-{
-  m_server = QLatin1String("gnudb.gnudb.org:80");
-  m_cgiPath = QLatin1String("/~cddb/cddb.cgi");
-}
+#include "iserverimporterfactory.h"
 
 /**
  * Destructor.
  */
-FreedbConfig::~FreedbConfig() {}
-
-
-/**
- * Constructor.
- */
-TrackTypeConfig::TrackTypeConfig() :
-  StoredConfig<TrackTypeConfig, FreedbConfig>(QLatin1String("TrackType"))
+IServerImporterFactory::~IServerImporterFactory()
 {
-}
-
-/**
- * Destructor.
- */
-TrackTypeConfig::~TrackTypeConfig()
-{
+  // Just defining "virtual ~IServerImporterFactory() {}" in the header file
+  // will lead to unresolved symbols when building with shared libraries on
+  // Windows and a class from another library inherits from this class.
 }

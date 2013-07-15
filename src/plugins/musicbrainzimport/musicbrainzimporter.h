@@ -1,5 +1,5 @@
 /**
- * \file musicbrainzreleaseimporter.h
+ * \file musicbrainzimporter.h
  * MusicBrainz release database importer.
  *
  * \b Project: Kid3
@@ -24,16 +24,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MUSICBRAINZRELEASEIMPORTER_H
-#define MUSICBRAINZRELEASEIMPORTER_H
+#ifndef MUSICBRAINZIMPORTER_H
+#define MUSICBRAINZIMPORTER_H
 
 #include "serverimporter.h"
-#include "kid3api.h"
 
 /**
  * MusicBrainz release database importer.
  */
-class KID3_CORE_EXPORT MusicBrainzReleaseImporter : public ServerImporter
+class MusicBrainzImporter : public ServerImporter
 {
 public:
   /**
@@ -42,13 +41,13 @@ public:
    * @param netMgr network access manager
    * @param trackDataModel track data to be filled with imported values
    */
-  MusicBrainzReleaseImporter(QNetworkAccessManager* netMgr,
-                             TrackDataModel* trackDataModel);
+  MusicBrainzImporter(QNetworkAccessManager* netMgr,
+                      TrackDataModel* trackDataModel);
 
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzReleaseImporter();
+  virtual ~MusicBrainzImporter();
 
   /**
    * Name of import source.

@@ -488,6 +488,12 @@ public:
    */
   static void setTextEncodings();
 
+  /**
+   * Load plugins.
+   * @return list of plugin instances.
+   */
+  static QObjectList loadPlugins();
+
 public slots:
   /**
    * Revert file modifications.
@@ -869,6 +875,12 @@ private slots:
   void scheduleNextRenameAction(const QPersistentModelIndex& index);
 
 private:
+  /**
+   * Check type of a loaded plugin and register it.
+   * @param plugin instance returned by plugin loader
+   */
+  void checkPlugin(QObject* plugin);
+
   /**
   * Init file types.
   */

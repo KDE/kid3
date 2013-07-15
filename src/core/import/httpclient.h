@@ -34,6 +34,7 @@
 #include <QMap>
 #include <QDateTime>
 #include <QTimer>
+#include "kid3api.h"
 
 class QByteArray;
 class QNetworkAccessManager;
@@ -41,7 +42,7 @@ class QNetworkAccessManager;
 /**
  * Client to connect to HTTP server.
  */
-class HttpClient : public QObject {
+class KID3_CORE_EXPORT HttpClient : public QObject {
 Q_OBJECT
 
 public:

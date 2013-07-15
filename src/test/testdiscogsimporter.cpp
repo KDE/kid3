@@ -26,12 +26,12 @@
 
 #include "testdiscogsimporter.h"
 #include <QtTest>
-#include "discogsimporter.h"
+#include "serverimporter.h"
 #include "trackdatamodel.h"
 
 void TestDiscogsImporter::initTestCase()
 {
-  setServerImporter(new DiscogsImporter(m_netMgr, m_trackDataModel));
+  setServerImporter(QLatin1String("DiscogsImport"));
 }
 
 void TestDiscogsImporter::testQueryAlbums()

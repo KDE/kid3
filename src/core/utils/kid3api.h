@@ -43,10 +43,17 @@
 #define KID3_GUI_EXPORT Q_DECL_IMPORT
 #endif
 
+#ifdef KID3_BUILD_PLUGIN_LIB
+#define KID3_PLUGIN_EXPORT Q_DECL_EXPORT
+#else
+#define KID3_PLUGIN_EXPORT Q_DECL_IMPORT
+#endif
+
 #else
 
 #define KID3_CORE_EXPORT
 #define KID3_GUI_EXPORT
+#define KID3_PLUGIN_EXPORT
 
 #endif
 
