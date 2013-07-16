@@ -189,12 +189,18 @@ QObjectList Kid3Application::loadPlugins() {
     dirName = pluginsDir.dirName();
   }
 #endif
-  if (pluginsDir.cd(QLatin1String(
+  bool pluginsDirFound = pluginsDir.cd(QLatin1String(
       (dirName == QLatin1String("qt") || dirName == QLatin1String("kde"))
       ? "../../plugins"
       : dirName == QLatin1String("test")
         ? "../plugins"
-        : CFG_PLUGINSDIR))) {
+        : CFG_PLUGINSDIR));
+#ifdef Q_OS_MAC
+  if (!pluginsDirFound) {
+    pluginsDirFound = pluginsDir.cd(QLatin1String("../../../../../plugins"));
+  }
+#endif
+  if (pluginsDirFound) {
 #ifdef Q_OS_WIN
     if (!buildType.isEmpty()) {
       pluginsDir.cd(buildType);
