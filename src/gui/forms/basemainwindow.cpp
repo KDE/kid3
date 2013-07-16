@@ -476,19 +476,18 @@ void BaseMainWindowImpl::setupImportDialog()
                        caption, m_app->getTrackDataModel(),
                        m_app->getServerImporters(),
                        m_app->getServerTrackImporters());
+    connect(m_importDialog, SIGNAL(accepted()),
+            this, SLOT(applyImportedTrackData()));
   }
   m_importDialog->clear();
 }
 
 /**
- * Execute the import dialog.
+ * Set tagged files of directory from imported track data model.
  */
-void BaseMainWindowImpl::execImportDialog()
+void BaseMainWindowImpl::applyImportedTrackData()
 {
-  if (m_importDialog &&
-      m_importDialog->exec() == QDialog::Accepted) {
-    m_app->trackDataModelToFiles(m_importDialog->getDestination());
-  }
+  m_app->trackDataModelToFiles(m_importDialog->getDestination());
 }
 
 /**
@@ -499,8 +498,7 @@ void BaseMainWindowImpl::slotImport()
   if (QAction* action = qobject_cast<QAction*>(sender())) {
     setupImportDialog();
     if (m_importDialog) {
-      m_importDialog->setAutoStartSubDialog(action->data().toInt());
-      execImportDialog();
+      m_importDialog->showWithSubDialog(action->data().toInt());
     }
   }
 }

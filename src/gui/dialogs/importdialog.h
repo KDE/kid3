@@ -81,11 +81,11 @@ public:
   ~ImportDialog();
 
   /**
-   * Set dialog to be started automatically.
+   * Shows the dialog as a modeless dialog.
    *
-   * @param importerIndex index of importer to use
+   * @param importerIndex index of importer to use, -1 for none
    */
-  void setAutoStartSubDialog(int importerIndex);
+  void showWithSubDialog(int importerIndex);
 
   /**
    * Clear dialog data.
@@ -98,12 +98,6 @@ public:
    * @return TagV1, TagV2 or TagV2V1 for ID3v1, ID3v2 or both.
    */
   TrackData::TagVersion getDestination() const;
-
-public slots:
-  /**
-   * Shows the dialog as a modal dialog.
-   */
-  int exec();
 
 private slots:
   /**

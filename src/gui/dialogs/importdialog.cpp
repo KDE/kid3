@@ -100,7 +100,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   m_trackImporters(trackImporters)
 {
   setObjectName(QLatin1String("ImportDialog"));
-  setModal(true);
+  setModal(false);
   setWindowTitle(caption);
   setSizeGripEnabled(true);
 
@@ -362,28 +362,21 @@ void ImportDialog::hideSubdialogs()
 }
 
 /**
- * Shows the dialog as a modal dialog.
- */
-int ImportDialog::exec()
-{
-  if (m_autoStartSubDialog >= 0) {
-    show();
-    displayServerImportDialog(m_autoStartSubDialog);
-  }
-  return QDialog::exec();
-}
-
-/**
- * Set dialog to be started automatically.
+ * Shows the dialog as a modeless dialog.
  *
- * @param importerIndex index of importer to use
+ * @param importerIndex index of importer to use, -1 for none
  */
-void ImportDialog::setAutoStartSubDialog(int importerIndex)
+void ImportDialog::showWithSubDialog(int importerIndex)
 {
   m_autoStartSubDialog = importerIndex;
 
   if (importerIndex >= 0 && importerIndex < m_serverComboBox->count()) {
     m_serverComboBox->setCurrentIndex(importerIndex);
+  }
+
+  show();
+  if (m_autoStartSubDialog >= 0) {
+    displayServerImportDialog(m_autoStartSubDialog);
   }
 }
 

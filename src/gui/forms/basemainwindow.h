@@ -320,6 +320,11 @@ private slots:
    */
   void expandNextDirectory(const QPersistentModelIndex& index);
 
+  /**
+   * Set tagged files of directory from imported track data model.
+   */
+  void applyImportedTrackData();
+
 private:
   /**
    * Free allocated resources.
@@ -358,11 +363,6 @@ private:
    * Update track data and create import dialog.
    */
   void setupImportDialog();
-
-  /**
-   * Execute the import dialog.
-   */
-  void execImportDialog();
 
   /**
    * Write playlist according to playlist configuration.
