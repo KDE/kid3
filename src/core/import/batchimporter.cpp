@@ -232,7 +232,8 @@ void BatchImporter::stateTransition()
         break;
       }
       if ((m_albumListItem =
-           dynamic_cast<AlbumListItem*>(m_albumModel->item(m_albumNr, 0))) != 0) {
+          static_cast<AlbumListItem*>(m_albumModel->item(m_albumNr, 0))) != 0 &&
+          m_albumListItem->type() == AlbumListItem::Type) {
         break;
       }
     }

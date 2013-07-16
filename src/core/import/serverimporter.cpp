@@ -119,6 +119,56 @@ QString ServerImporter::removeHtml(QString str)
   return replaceHtmlEntities(str.remove(htmlTagRe)).trimmed();
 }
 
+
+/**
+ * Constructor.
+ * @param text    title
+ * @param cat     category
+ * @param idStr   ID
+ */
+AlbumListItem::AlbumListItem(const QString& text,
+        const QString& cat, const QString& idStr) :
+  QStandardItem(text)
+{
+  setData(cat, Qt::UserRole + 1);
+  setData(idStr, Qt::UserRole + 2);
+}
+
+/**
+ * Destructor.
+ */
+AlbumListItem::~AlbumListItem()
+{
+}
+
+/**
+ * Get type of item.
+ * Used to distinguish items of this custom type from base class items.
+ * @return AlbumListItem::Type.
+ */
+int AlbumListItem::type() const
+{
+  return Type;
+}
+
+/**
+ * Get category.
+ * @return category.
+ */
+QString AlbumListItem::getCategory() const
+{
+  return data(Qt::UserRole + 1).toString();
+}
+
+/**
+ * Get ID.
+ * @return ID.
+ */
+QString AlbumListItem::getId() const
+{
+  return data(Qt::UserRole + 2).toString();
+}
+
 #ifndef QT_NO_DEBUG
 /**
  * Dump an album list.
@@ -127,8 +177,8 @@ QString ServerImporter::removeHtml(QString str)
 void AlbumListItem::dumpAlbumList(const QStandardItemModel* albumModel)
 {
   for (int row = 0; row < albumModel->rowCount(); ++row) {
-    AlbumListItem* item = dynamic_cast<AlbumListItem*>(albumModel->item(row, 0));
-    if (item) {
+    AlbumListItem* item = static_cast<AlbumListItem*>(albumModel->item(row, 0));
+    if (item && item->type() == AlbumListItem::Type) {
       qDebug("%s (%s, %s)", qPrintable(item->text()),
              qPrintable(item->getCategory()), qPrintable(item->getId()));
     }

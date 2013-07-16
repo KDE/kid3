@@ -471,7 +471,8 @@ void ServerImportDialog::slotAlbumFinished(const QByteArray& albumStr)
  */
 void ServerImportDialog::requestTrackList(QStandardItem* li)
 {
-  if (AlbumListItem* ali = dynamic_cast<AlbumListItem*>(li)) {
+  AlbumListItem* ali = static_cast<AlbumListItem*>(li);
+  if (ali && ali->type() == AlbumListItem::Type) {
     ServerImporterConfig cfg;
     getImportSourceConfig(&cfg);
     if (m_source)

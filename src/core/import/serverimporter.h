@@ -183,32 +183,46 @@ private:
 /**
  * QStandardItem subclass for album list.
  */
-class AlbumListItem : public QStandardItem {
+class KID3_CORE_EXPORT AlbumListItem : public QStandardItem {
 public:
+  /**
+   * Type returned by type(), extension of QStandardItem::ItemType.
+   */
+  enum ItemType {
+    Type = UserType + 1
+  };
+
   /**
    * Constructor.
    * @param text    title
    * @param cat     category
    * @param idStr   ID
    */
-  AlbumListItem(const QString& text,
-          const QString& cat, const QString& idStr) :
-    QStandardItem(text) {
-    setData(cat, Qt::UserRole + 1);
-    setData(idStr, Qt::UserRole + 2);
-  }
+  AlbumListItem(const QString& text, const QString& cat, const QString& idStr);
+
+  /**
+   * Destructor.
+   */
+  virtual ~AlbumListItem();
+
+  /**
+   * Get type of item.
+   * Used to distinguish items of this custom type from base class items.
+   * @return AlbumListItem::Type.
+   */
+  virtual int type() const;
 
   /**
    * Get category.
    * @return category.
    */
-  QString getCategory() const { return data(Qt::UserRole + 1).toString(); }
+  QString getCategory() const;
 
   /**
    * Get ID.
    * @return ID.
    */
-  QString getId() const { return data(Qt::UserRole + 2).toString(); }
+  QString getId() const;
 
 #ifndef QT_NO_DEBUG
   /**
