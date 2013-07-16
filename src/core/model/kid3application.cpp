@@ -179,12 +179,14 @@ QObjectList Kid3Application::loadPlugins() {
   // First check if we are running from the build directory to load the
   // plugins from there.
   QDir pluginsDir(qApp->applicationDirPath());
-  QString dirName = pluginsDir.dirName().toLower();
+  QString dirName = pluginsDir.dirName();
 #ifdef Q_OS_WIN
-  if (dirName == QLatin1String("debug") ||
-      dirName == QLatin1String("release")) {
+  QString buildType;
+  if (dirName.compare(QLatin1String("debug"), Qt::CaseInsensitive) == 0 ||
+      dirName.compare(QLatin1String("release"), Qt::CaseInsensitive) == 0) {
+    buildType = dirName;
     pluginsDir.cdUp();
-    dirName = pluginsDir.dirName().toLower();
+    dirName = pluginsDir.dirName();
   }
 #endif
   if (pluginsDir.cd(QLatin1String(
@@ -193,6 +195,11 @@ QObjectList Kid3Application::loadPlugins() {
       : dirName == QLatin1String("test")
         ? "../plugins"
         : CFG_PLUGINSDIR))) {
+#ifdef Q_OS_WIN
+    if (!buildType.isEmpty()) {
+      pluginsDir.cd(buildType);
+    }
+#endif
     foreach (const QString& fileName, pluginsDir.entryList(QDir::Files)) {
       QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
       QObject* plugin = loader.instance();

@@ -5,8 +5,7 @@ macro (INSTALL_KID3_PLUGIN _target _name)
   if (BUILD_SHARED_LIBS)
     install(TARGETS ${_target}
       LIBRARY DESTINATION ${WITH_PLUGINSDIR}
-      ARCHIVE DESTINATION ${WITH_LIBDIR}
-      RUNTIME DESTINATION ${WITH_BINDIR})
+      RUNTIME DESTINATION ${WITH_PLUGINSDIR})
     set_target_properties(
       ${_target} PROPERTIES
       RUNTIME_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}
