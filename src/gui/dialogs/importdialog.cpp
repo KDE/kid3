@@ -323,6 +323,8 @@ void ImportDialog::displayServerImportDialog(ServerImporter* source)
     m_serverImportDialog = new ServerImportDialog(this);
     connect(m_serverImportDialog, SIGNAL(trackDataUpdated()),
             this, SLOT(showPreview()));
+    connect(m_serverImportDialog, SIGNAL(accepted()),
+            this, SLOT(onServerImportDialogClosed()));
   }
   m_serverImportDialog->setImportSource(source);
   m_serverImportDialog->setArtistAlbum(
@@ -436,6 +438,19 @@ void ImportDialog::showPreview()
                                   ? QString::number(accuracy) + QLatin1Char('%') : QLatin1String("-"));
   QString coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
   m_coverArtUrlLabel->setText(coverArtUrl.isEmpty() ? QLatin1String("-") : coverArtUrl);
+}
+
+/**
+ * Called when server import dialog is closed.
+ */
+void ImportDialog::onServerImportDialogClosed()
+{
+  // This is used to prevent that the import dialog is brought behind the
+  // main window when the server import dialog is closed, which happened
+  // with Qt 5 on Mac OS X.
+  show();
+  raise();
+  activateWindow();
 }
 
 /**

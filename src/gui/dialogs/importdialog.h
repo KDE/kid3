@@ -145,6 +145,11 @@ private slots:
   void showPreview();
 
   /**
+   * Called when server import dialog is closed.
+   */
+  void onServerImportDialogClosed();
+
+  /**
    * Match import data with length.
    */
   void matchWithLength();
