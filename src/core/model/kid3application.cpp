@@ -167,6 +167,16 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
 Kid3Application::~Kid3Application()
 {
   delete m_configStore;
+#if defined Q_OS_MAC && QT_VERSION >= 0x050000
+  // If a song is played, then stopped and Kid3 is terminated, it will crash in
+  // the QMediaPlayer destructor (Dispatch queue: com.apple.main-thread,
+  // objc_msgSend() selector name: setRate). Avoid calling the destructor by
+  // setting the QMediaPlayer's parent to null. See also:
+  // https://qt-project.org/forums/viewthread/29651
+  if (m_player) {
+    m_player->setParent(0);
+  }
+#endif
 }
 
 /**
