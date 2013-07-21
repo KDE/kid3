@@ -57,9 +57,13 @@
 #endif
 
 #if MPEG4IP_MAJOR_MINOR_VERSION < 0x0200
+/** Set content ID. */
 #define MP4TagsSetContentID MP4TagsSetCNID
+/** Set artist ID. */
 #define MP4TagsSetArtistID MP4TagsSetATID
+/** Set playlist ID. */
 #define MP4TagsSetPlaylistID MP4TagsSetPLID
+/** Set genre ID. */
 #define MP4TagsSetGenreID MP4TagsSetGEID
 #endif
 

@@ -2566,6 +2566,7 @@ static TagLib::ByteVector languageCodeByteVector(QString str)
  * The following template functions are used to uniformly set fields
  * in the different ID3v2 frames.
  */
+//! @cond
 template <class T>
 void setTextEncoding(T*, TagLib::String::Type) {}
 
@@ -2944,6 +2945,7 @@ void setValue(TagLib::ID3v2::OwnershipFrame* f, const TagLib::String& text)
   f->setSeller(text);
 }
 #endif
+//! @endcond
 
 /**
  * Set the fields in a TagLib ID3v2 frame.

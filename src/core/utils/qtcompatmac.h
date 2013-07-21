@@ -31,10 +31,12 @@
 
 #if QT_VERSION >= 0x040600
 
+/** Get icon from theme. */
 #define QCM_QIcon_fromTheme(n) QIcon::fromTheme(QLatin1String(n), QIcon(QLatin1String(":/images/" n ".png")))
 
 #else
 
+/** Get icon from theme. */
 #define QCM_QIcon_fromTheme(n) QIcon(QLatin1String(":/images/" n ".png"))
 
 #endif
