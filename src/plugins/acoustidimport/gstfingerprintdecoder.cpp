@@ -25,9 +25,6 @@
  */
 
 #include "gstfingerprintdecoder.h"
-
-#if defined HAVE_CHROMAPRINT && defined HAVE_GSTREAMER
-
 #include <string.h>
 #include <QFileInfo>
 #include <QUrl>
@@ -349,4 +346,15 @@ void GstFingerprintDecoder::stop()
   }
 }
 
-#endif
+
+/**
+ * Create concrete fingerprint decoder.
+ * @param parent parent object
+ * @return fingerprint decoder instance.
+ * @remarks This static method will be implemented by the concrete
+ * fingerprint decoder which is used.
+ */
+AbstractFingerprintDecoder*
+AbstractFingerprintDecoder::createFingerprintDecoder(QObject* parent) {
+  return new GstFingerprintDecoder(parent);
+}

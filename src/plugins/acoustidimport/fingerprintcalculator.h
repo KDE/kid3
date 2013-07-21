@@ -27,11 +27,7 @@
 #ifndef FINGERPRINTCALCULATOR_H
 #define FINGERPRINTCALCULATOR_H
 
-#include "config.h"
 #include <QObject>
-
-#ifdef HAVE_CHROMAPRINT
-
 #include <QString>
 
 class AbstractFingerprintDecoder;
@@ -117,14 +113,5 @@ private:
   void** m_chromaprintCtx;
   AbstractFingerprintDecoder* m_decoder;
 };
-
-#else // HAVE_CHROMAPRINT
-
-// Just to suppress moc "No relevant classes found" warning.
-class FingerprintCalculator : public QObject {
-  Q_OBJECT
-};
-
-#endif // HAVE_CHROMAPRINT
 
 #endif // FINGERPRINTCALCULATOR_H

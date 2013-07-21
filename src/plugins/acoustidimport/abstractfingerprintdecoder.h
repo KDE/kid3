@@ -27,10 +27,7 @@
 #ifndef ABSTRACTFINGERPRINTDECODER_H
 #define ABSTRACTFINGERPRINTDECODER_H
 
-#include "config.h"
 #include <QObject>
-
-#ifdef HAVE_CHROMAPRINT
 
 /**
  * Abstract base class for Chromaprint fingerprint decoder.
@@ -68,6 +65,15 @@ public:
    */
   virtual bool isStopped() const;
 
+  /**
+   * Create concrete fingerprint decoder.
+   * @param parent parent object
+   * @return fingerprint decoder instance.
+   * @remarks This static method will be implemented by the concrete
+   * fingerprint decoder which is used.
+   */
+  static AbstractFingerprintDecoder* createFingerprintDecoder(QObject* parent);
+
 signals:
   /**
    * Emitted when decoding starts.
@@ -97,14 +103,5 @@ signals:
 private:
   bool m_stopped;
 };
-
-#else // HAVE_CHROMAPRINT
-
-// Just to suppress moc "No relevant classes found" warning.
-class AbstractFingerprintDecoder : public QObject {
-  Q_OBJECT
-};
-
-#endif // HAVE_CHROMAPRINT
 
 #endif // ABSTRACTFINGERPRINTDECODER_H

@@ -27,33 +27,18 @@
 #define __STDC_CONSTANT_MACROS
 #include "fingerprintcalculator.h"
 
-#ifdef HAVE_CHROMAPRINT
-
 #include <chromaprint.h>
 #include "abstractfingerprintdecoder.h"
+#include "config.h"
 
-#ifdef HAVE_GSTREAMER
-#include "gstfingerprintdecoder.h"
-#elif defined HAVE_FFMPEG
-#include "ffmpegfingerprintdecoder.h"
-#elif QT_VERSION >= 0x050000
-#include "qtfingerprintdecoder.h"
-#endif
+#include "abstractfingerprintdecoder.h"
 
 /**
  * Constructor.
  */
 FingerprintCalculator::FingerprintCalculator(QObject* parent) : QObject(parent),
   m_chromaprintCtx(0),
-  m_decoder(
-#ifdef HAVE_GSTREAMER
-    new GstFingerprintDecoder(this)
-#elif defined HAVE_FFMPEG
-    new FFmpegFingerprintDecoder(this)
-#elif QT_VERSION >= 0x050000
-    new QtFingerprintDecoder(this)
-#endif
-    )
+  m_decoder(AbstractFingerprintDecoder::createFingerprintDecoder(this))
 {
   connect(m_decoder, SIGNAL(started(int,int)),
           this, SLOT(startChromaprint(int,int)));
@@ -145,5 +130,3 @@ void FingerprintCalculator::finishChromaprint(int duration)
   }
   emit finished(fingerprint, duration, err);
 }
-
-#endif // HAVE_CHROMAPRINT

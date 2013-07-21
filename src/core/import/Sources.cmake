@@ -1,16 +1,11 @@
 set(import_SRCS
-  import/abstractfingerprintdecoder.cpp
   import/batchimporter.cpp
-  import/ffmpegfingerprintdecoder.cpp
-  import/fingerprintcalculator.cpp
-  import/gstfingerprintdecoder.cpp
   import/httpclient.cpp
   import/importclient.cpp
   import/importparser.cpp
   import/iserverimporterfactory.cpp
+  import/iservertrackimporterfactory.cpp
   import/jsonparser.cpp
-  import/musicbrainzclient.cpp
-  import/qtfingerprintdecoder.cpp
   import/serverimporter.cpp
   import/servertrackimporter.cpp
   import/textimporter.cpp
@@ -18,13 +13,9 @@ set(import_SRCS
 )
 
 set(import_MOC_HDRS
-  import/abstractfingerprintdecoder.h
   import/batchimporter.h
-  import/fingerprintcalculator.h
   import/httpclient.h
   import/importclient.h
-  import/musicbrainzclient.h
-  import/qtfingerprintdecoder.h
   import/serverimporter.h
   import/servertrackimporter.h
 )

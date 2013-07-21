@@ -1,5 +1,5 @@
-add_definitions(${TAGLIB_CFLAGS} ${CHROMAPRINT_CFLAGS} ${ID3LIB_DEFINITIONS} ${FLAC_DEFINITIONS})
-include_directories(${MP4V2_INCLUDE_DIR} ${ID3LIB_INCLUDE_DIR} ${CHROMAPRINT_INCLUDES} ${VORBIS_INCLUDE_DIR} ${FLACPP_INCLUDE_DIR})
+add_definitions(${TAGLIB_CFLAGS} ${ID3LIB_DEFINITIONS} ${FLAC_DEFINITIONS})
+include_directories(${MP4V2_INCLUDE_DIR} ${ID3LIB_INCLUDE_DIR} ${VORBIS_INCLUDE_DIR} ${FLACPP_INCLUDE_DIR})
 
 include_directories(utils config tags formats export import model)
 
@@ -12,9 +12,6 @@ foreach (_subdir utils config tags formats export import model)
 endforeach()
 
 add_definitions(-DKID3_BUILD_CORE_LIB)
-if (WIN32 AND HAVE_CHROMAPRINT)
-  add_definitions(-DCHROMAPRINT_NODLL)
-endif (WIN32 AND HAVE_CHROMAPRINT)
 if (NOT BUILD_SHARED_LIBS)
   add_definitions(${QT_EXECUTABLE_COMPILE_FLAGS})
 endif (NOT BUILD_SHARED_LIBS)
@@ -28,7 +25,7 @@ qt4_wrap_cpp(core_GEN_MOC_SRCS ${core_MOC_HDRS})
 add_library(kid3-core ${core_SRCS} ${core_GEN_MOC_SRCS})
 target_link_libraries(kid3-core
   ${BASIC_LIBRARIES} ${ID3LIB_LIBRARIES} ${TAGLIB_LIBRARIES} ${VORBIS_LIBRARIES}
-  ${FLAC_LIBRARIES} ${CHROMAPRINT_LIBS} ${MP4V2_LIBRARIES}
+  ${FLAC_LIBRARIES} ${MP4V2_LIBRARIES}
   ${PLUGIN_LIBRARIES}
 )
 

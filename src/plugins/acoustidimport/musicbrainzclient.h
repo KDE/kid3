@@ -27,12 +27,7 @@
 #ifndef MUSICBRAINZCLIENT_H
 #define MUSICBRAINZCLIENT_H
 
-#include "config.h"
-
 #include <QObject>
-
-#ifdef HAVE_CHROMAPRINT
-
 #include "servertrackimporter.h"
 #include "trackdata.h"
 
@@ -42,7 +37,7 @@ class FingerprintCalculator;
 /**
  * MusicBrainz client.
  */
-class KID3_CORE_EXPORT MusicBrainzClient : public ServerTrackImporter
+class MusicBrainzClient : public ServerTrackImporter
 {
   Q_OBJECT
 public:
@@ -134,14 +129,5 @@ private:
   int m_currentIndex;
   ImportTrackDataVector m_currentTrackData;
 };
-
-#else // HAVE_CHROMAPRINT
-
-// Just to suppress moc "No relevant classes found" warning.
-class MusicBrainzClient : public QObject {
-Q_OBJECT
-};
-
-#endif // HAVE_CHROMAPRINT
 
 #endif // MUSICBRAINZCLIENT_H

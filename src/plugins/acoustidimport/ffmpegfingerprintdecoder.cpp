@@ -26,8 +26,7 @@
 
 #define __STDC_CONSTANT_MACROS
 #include "ffmpegfingerprintdecoder.h"
-
-#if defined HAVE_CHROMAPRINT && defined HAVE_FFMPEG
+#include "acoustidconfig.h"
 
 #include <stdint.h>
 #include <stdio.h>
@@ -452,4 +451,15 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
   emit finished(duration);
 }
 
-#endif
+
+/**
+ * Create concrete fingerprint decoder.
+ * @param parent parent object
+ * @return fingerprint decoder instance.
+ * @remarks This static method will be implemented by the concrete
+ * fingerprint decoder which is used.
+ */
+AbstractFingerprintDecoder*
+AbstractFingerprintDecoder::createFingerprintDecoder(QObject* parent) {
+  return new FFmpegFingerprintDecoder(parent);
+}

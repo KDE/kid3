@@ -25,8 +25,6 @@
  */
 
 #include "musicbrainzclient.h"
-#ifdef HAVE_CHROMAPRINT
-
 #include <QByteArray>
 #include <QDomDocument>
 #include "httpclient.h"
@@ -404,5 +402,3 @@ void MusicBrainzClient::start()
   stop();
   processNextTrack();
 }
-
-#endif // HAVE_CHROMAPRINT

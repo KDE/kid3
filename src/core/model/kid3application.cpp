@@ -62,9 +62,7 @@
 #include "batchimportprofile.h"
 #include "batchimporter.h"
 #include "iserverimporterfactory.h"
-#ifdef HAVE_CHROMAPRINT
-#include "musicbrainzclient.h"
-#endif
+#include "iservertrackimporterfactory.h"
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
 #endif
@@ -135,10 +133,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   foreach (QObject* plugin, loadPlugins()) {
     checkPlugin(plugin);
   }
-#ifdef HAVE_CHROMAPRINT
-  m_trackImporters
-      << new MusicBrainzClient(m_netMgr, m_trackDataModel);
-#endif
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
 
 #ifdef HAVE_QTDBUS
@@ -236,6 +230,13 @@ void Kid3Application::checkPlugin(QObject* plugin) {
       qobject_cast<IServerImporterFactory*>(plugin)) {
     foreach (const QString& key, importerFactory->serverImporterKeys()) {
       m_importers.append(importerFactory->createServerImporter(
+                           key, m_netMgr, m_trackDataModel));
+    }
+  }
+  if (IServerTrackImporterFactory* importerFactory =
+      qobject_cast<IServerTrackImporterFactory*>(plugin)) {
+    foreach (const QString& key, importerFactory->serverTrackImporterKeys()) {
+      m_trackImporters.append(importerFactory->createServerTrackImporter(
                            key, m_netMgr, m_trackDataModel));
     }
   }

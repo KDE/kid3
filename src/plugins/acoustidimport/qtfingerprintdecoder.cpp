@@ -25,9 +25,6 @@
  */
 
 #include "qtfingerprintdecoder.h"
-
-#if defined HAVE_CHROMAPRINT && QT_VERSION >= 0x050000 && !defined HAVE_GSTREAMER && !defined HAVE_FFMPEG
-
 #include <QAudioDecoder>
 #include <QTimer>
 #include "fingerprintcalculator.h"
@@ -140,4 +137,15 @@ void QtFingerprintDecoder::finishDecoding()
   emit finished(duration);
 }
 
-#endif
+
+/**
+ * Create concrete fingerprint decoder.
+ * @param parent parent object
+ * @return fingerprint decoder instance.
+ * @remarks This static method will be implemented by the concrete
+ * fingerprint decoder which is used.
+ */
+AbstractFingerprintDecoder*
+AbstractFingerprintDecoder::createFingerprintDecoder(QObject* parent) {
+  return new QtFingerprintDecoder(parent);
+}

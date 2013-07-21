@@ -27,11 +27,7 @@
 #ifndef QTFINGERPRINTDECODER_H
 #define QTFINGERPRINTDECODER_H
 
-#include "config.h"
 #include <QtGlobal>
-
-#if defined HAVE_CHROMAPRINT && QT_VERSION >= 0x050000 && !defined HAVE_GSTREAMER && !defined HAVE_FFMPEG
-
 #include "abstractfingerprintdecoder.h"
 
 class QAudioDecoder;
@@ -92,16 +88,5 @@ private:
   QAudioDecoder* m_decoder;
   QTimer* m_timer;
 };
-
-#else
-
-#include <QObject>
-
-// Just to suppress moc "No relevant classes found" warning.
-class QtFingerprintDecoder : public QObject {
-  Q_OBJECT
-};
-
-#endif
 
 #endif // QTFINGERPRINTDECODER_H

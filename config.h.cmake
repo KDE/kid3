@@ -23,21 +23,6 @@
 /* Define to build with MP4GetMetadataByIndex char** argument */
 #cmakedefine HAVE_MP4V2_MP4GETMETADATABYINDEX_CHARPP_ARG 1
 
-/* Define to build with Chromaprint */
-#cmakedefine HAVE_CHROMAPRINT ${HAVE_CHROMAPRINT}
-
-/* Define to build with GStreamer */
-#cmakedefine HAVE_GSTREAMER ${HAVE_GSTREAMER}
-
-/* Define to build with FFmpeg */
-#cmakedefine HAVE_FFMPEG ${HAVE_FFMPEG}
-
-/* Define if avresample is available */
-#cmakedefine HAVE_AVRESAMPLE ${HAVE_AVRESAMPLE}
-
-/* Define if av_audio_convert is available */
-#cmakedefine HAVE_AV_AUDIO_CONVERT ${HAVE_AV_AUDIO_CONVERT}
-
 /* Define if you have ogg/vorbis installed */
 #cmakedefine HAVE_VORBIS 1
 

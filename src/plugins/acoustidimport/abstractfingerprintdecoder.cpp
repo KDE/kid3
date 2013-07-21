@@ -1,6 +1,6 @@
 /**
- * \file ffmpegfingerprintdecoder.h
- * Chromaprint fingerprint decoder using FFmpeg.
+ * \file abstractfingerprintdecoder.h
+ * Abstract base class for Chromaprint fingerprint decoder.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
@@ -24,42 +24,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef FFMPEGFINGERPRINTDECODER_H
-#define FFMPEGFINGERPRINTDECODER_H
-
-#include "config.h"
-
-#if defined HAVE_CHROMAPRINT && defined HAVE_FFMPEG
-
 #include "abstractfingerprintdecoder.h"
 
 /**
- * Chromaprint fingerprint decoder using FFmpeg.
+ * Constructor.
+ * @param parent parent object
  */
-class FFmpegFingerprintDecoder : public AbstractFingerprintDecoder {
-public:
-  /**
-   * Constructor.
-   * @param parent parent object
-   */
-  explicit FFmpegFingerprintDecoder(QObject* parent = 0);
+AbstractFingerprintDecoder::AbstractFingerprintDecoder(QObject* parent) :
+  QObject(parent), m_stopped(false)
+{
+}
 
-  /**
-   * Destructor.
-   */
-  virtual ~FFmpegFingerprintDecoder();
+/**
+ * Destructor.
+ */
+AbstractFingerprintDecoder::~AbstractFingerprintDecoder()
+{
+}
 
-  /**
-   * Run decoder on audio file.
-   * @param filePath path to audio file
-   */
-  virtual void start(const QString& filePath);
+/**
+ * Run decoder on audio file.
+ */
+void AbstractFingerprintDecoder::start(const QString&)
+{
+  m_stopped = false;
+}
 
-private:
-  qint16* m_buffer1;
-  qint16* m_buffer2;
-};
+/**
+ * Stop decoder.
+ * Can be used to stop the decoder when an error is found after
+ * getting bufferReady() data.
+ */
+void AbstractFingerprintDecoder::stop()
+{
+  m_stopped = true;
+}
 
-#endif
-
-#endif // FFMPEGFINGERPRINTDECODER_H
+/**
+ * Check if decoding has been stopped.
+ * @return true if stopped.
+ */
+bool AbstractFingerprintDecoder::isStopped() const
+{
+  return m_stopped;
+}

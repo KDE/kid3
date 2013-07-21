@@ -27,10 +27,6 @@
 #ifndef GSTFINGERPRINTDECODER_H
 #define GSTFINGERPRINTDECODER_H
 
-#include "config.h"
-
-#if defined HAVE_CHROMAPRINT && defined HAVE_GSTREAMER
-
 #include <gst/gst.h>
 #include "abstractfingerprintdecoder.h"
 #include "fingerprintcalculator.h"
@@ -88,7 +84,5 @@ private:
   gint m_rate;
   bool m_gotPad;
 };
-
-#endif
 
 #endif // GSTFINGERPRINTDECODER_H
