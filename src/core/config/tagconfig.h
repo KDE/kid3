@@ -82,28 +82,115 @@ public:
   virtual void readFromConfig(ISettings* config);
 
   /** true to mark truncated ID3v1.1 fields */
-  bool m_markTruncations;
+  bool markTruncations() const { return m_markTruncations; }
+
+  /** Set true to mark truncated ID3v1.1 fields. */
+  void setMarkTruncations(bool markTruncations) {
+    m_markTruncations = markTruncations;
+  }
+
   /** true to write total number of tracks into track fields */
-  bool m_enableTotalNumberOfTracks;
+  bool enableTotalNumberOfTracks() const { return m_enableTotalNumberOfTracks; }
+
+  /** Set true to write total number of tracks into track fields. */
+  void setEnableTotalNumberOfTracks(bool enableTotalNumberOfTracks) {
+    m_enableTotalNumberOfTracks = enableTotalNumberOfTracks;
+  }
+
   /** true to write genres as text instead of numeric string */
-  bool m_genreNotNumeric;
+  bool genreNotNumeric() const { return m_genreNotNumeric; }
+
+  /** Set true to write genres as text instead of numeric string. */
+  void setGenreNotNumeric(bool genreNotNumeric) {
+    m_genreNotNumeric = genreNotNumeric;
+  }
+
   /** field name used for Vorbis comment entries */
-  QString m_commentName;
+  QString commentName() const { return m_commentName; }
+
+  /** Set field name used for Vorbis comment entries. */
+  void setCommentName(const QString& commentName) {
+    m_commentName = commentName;
+  }
+
   /** index of field name used for Vorbis picture entries */
-  int m_pictureNameItem;
+  int pictureNameItem() const { return m_pictureNameItem; }
+
+  /** Set index of field name used for Vorbis picture entries. */
+  void setPictureNameItem(int pictureNameItem) {
+    m_pictureNameItem = pictureNameItem;
+  }
+
   /** custom genres for ID3v2.3 */
-  QStringList m_customGenres;
+  QStringList customGenres() const { return m_customGenres; }
+
+  /** Set custom genres for ID3v2.3. */
+  void setCustomGenres(const QStringList& customGenres) {
+    m_customGenres = customGenres;
+  }
+
   /** version used for new ID3v2 tags */
-  int m_id3v2Version;
+  int id3v2Version() const { return m_id3v2Version; }
+
+  /** Set version used for new ID3v2 tags. */
+  void setId3v2Version(int id3v2Version) {
+    m_id3v2Version = id3v2Version;
+  }
+
   /** text encoding used for new ID3v1 tags */
-  QString m_textEncodingV1;
+  QString textEncodingV1() const { return m_textEncodingV1; }
+
+  /** Set text encoding used for new ID3v1 tags. */
+  void setTextEncodingV1(const QString& textEncodingV1) {
+    m_textEncodingV1 = textEncodingV1;
+  }
+
   /** text encoding used for new ID3v2 tags */
-  int m_textEncoding;
+  int textEncoding() const { return m_textEncoding; }
+
+  /** Set text encoding used for new ID3v2 tags. */
+  void setTextEncoding(int textEncoding) {
+    m_textEncoding = textEncoding;
+  }
+
   /** frames which are displayed for Tag 2 even if not present */
-  quint64 m_quickAccessFrames;
+  quint64 quickAccessFrames() const {
+    return m_quickAccessFrames;
+  }
+
+  /** Set frames which are displayed for Tag 2 even if not present. */
+  void setQuickAccessFrames(quint64 quickAccessFrames) {
+    m_quickAccessFrames = quickAccessFrames;
+  }
+
   /** number of digits in track number */
-  int m_trackNumberDigits;
+  int trackNumberDigits() const { return m_trackNumberDigits; }
+
+  /** Set number of digits in track number. */
+  void setTrackNumberDigits(int trackNumberDigits) {
+    m_trackNumberDigits = trackNumberDigits;
+  }
+
   /** true to show only custom genres in combo boxes */
+  bool onlyCustomGenres() const { return m_onlyCustomGenres; }
+
+  /** Set true to show only custom genres in combo boxes. */
+  void setOnlyCustomGenres(bool onlyCustomGenres) {
+    m_onlyCustomGenres = onlyCustomGenres;
+  }
+
+private:
+  bool m_markTruncations;
+  bool m_enableTotalNumberOfTracks;
+  bool m_genreNotNumeric;
+  QString m_commentName;
+  int m_pictureNameItem;
+  QStringList m_customGenres;
+  int m_id3v2Version;
+  QString m_textEncodingV1;
+  int m_textEncoding;
+  quint64 m_quickAccessFrames;
+  int m_trackNumberDigits;
   bool m_onlyCustomGenres;
 };
 

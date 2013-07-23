@@ -593,7 +593,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           m_id3v2Version = id3v2Version;
         }
         if (m_id3v2Version != 3 && m_id3v2Version != 4) {
-          m_id3v2Version = TagConfig::instance().m_id3v2Version ==
+          m_id3v2Version = TagConfig::instance().id3v2Version() ==
               TagConfig::ID3v2_3_0_TAGLIB ? 3 : 4;
         }
 #else
@@ -1506,7 +1506,7 @@ void TagLibFile::setGenreV2(const QString& str)
       if (!setId3v2Unicode(m_tagV2, str, tstr, "TCON")) {
         TagLib::ID3v2::TextIdentificationFrame* frame;
         TagLib::ID3v2::Tag* id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tagV2);
-        if (id3v2Tag && TagConfig::instance().m_genreNotNumeric &&
+        if (id3v2Tag && TagConfig::instance().genreNotNumeric() &&
             (frame = new TagLib::ID3v2::TextIdentificationFrame(
               "TCON", getDefaultTextEncoding())) != 0) {
           frame->setText(tstr);
@@ -2962,7 +2962,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
   if (frame.isValueChanged() || frame.getFieldList().empty()) {
     QString text(frame.getValue());
     if (frame.getType() == Frame::FT_Genre) {
-      if (!TagConfig::instance().m_genreNotNumeric) {
+      if (!TagConfig::instance().genreNotNumeric()) {
         text = Genres::getNumberString(text, false);
       }
     } else if (frame.getType() == Frame::FT_Track) {
@@ -2980,7 +2980,7 @@ void setTagLibFrame(const TagLibFile* self, T* tFrame, const Frame& frame)
         {
           QString value(fld.m_value.toString());
           if (frame.getType() == Frame::FT_Genre) {
-            if (!TagConfig::instance().m_genreNotNumeric) {
+            if (!TagConfig::instance().genreNotNumeric()) {
               value = Genres::getNumberString(value, false);
             }
           } else if (frame.getType() == Frame::FT_Track) {
@@ -5245,8 +5245,8 @@ TaggedFile* TagLibFile::Resolver::createFile(
   QString ext2 = ext.right(3);
   if (((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
 #ifdef HAVE_ID3LIB
-       && (TagConfig::instance().m_id3v2Version == TagConfig::ID3v2_4_0 ||
-           TagConfig::instance().m_id3v2Version == TagConfig::ID3v2_3_0_TAGLIB)
+       && (TagConfig::instance().id3v2Version() == TagConfig::ID3v2_4_0 ||
+           TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0_TAGLIB)
 #endif
         )
       || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga") || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")

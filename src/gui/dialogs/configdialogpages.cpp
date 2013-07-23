@@ -407,47 +407,47 @@ void ConfigDialogPages::setConfig()
 
   m_fnFormatBox->fromFormatConfig(fnCfg);
   m_id3FormatBox->fromFormatConfig(id3Cfg);
-  m_markTruncationsCheckBox->setChecked(tagCfg.m_markTruncations);
-  m_totalNumTracksCheckBox->setChecked(tagCfg.m_enableTotalNumberOfTracks);
+  m_markTruncationsCheckBox->setChecked(tagCfg.markTruncations());
+  m_totalNumTracksCheckBox->setChecked(tagCfg.enableTotalNumberOfTracks());
   m_loadLastOpenedFileCheckBox->setChecked(fileCfg.m_loadLastOpenedFile);
   m_preserveTimeCheckBox->setChecked(fileCfg.m_preserveTime);
   m_markChangesCheckBox->setChecked(fileCfg.m_markChanges);
   m_coverFileNameLineEdit->setText(fileCfg.m_defaultCoverFileName);
-  m_onlyCustomGenresCheckBox->setChecked(tagCfg.m_onlyCustomGenres);
-  m_genresEditModel->setStringList(tagCfg.m_customGenres);
-  m_quickAccessTagsModel->setBitMask(tagCfg.m_quickAccessFrames);
+  m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
+  m_genresEditModel->setStringList(tagCfg.customGenres());
+  m_quickAccessTagsModel->setBitMask(tagCfg.quickAccessFrames());
   m_commandsTableModel->setCommandList(userActionsCfg.m_contextMenuCommands);
 #ifdef HAVE_VORBIS
-  int idx = m_commentNameComboBox->findText(tagCfg.m_commentName);
+  int idx = m_commentNameComboBox->findText(tagCfg.commentName());
   if (idx >= 0) {
     m_commentNameComboBox->setCurrentIndex(idx);
   } else {
-    m_commentNameComboBox->addItem(tagCfg.m_commentName);
+    m_commentNameComboBox->addItem(tagCfg.commentName());
     m_commentNameComboBox->setCurrentIndex(m_commentNameComboBox->count() - 1);
   }
-  m_pictureNameComboBox->setCurrentIndex(tagCfg.m_pictureNameItem);
+  m_pictureNameComboBox->setCurrentIndex(tagCfg.pictureNameItem());
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-  m_genreNotNumericCheckBox->setChecked(tagCfg.m_genreNotNumeric);
+  m_genreNotNumericCheckBox->setChecked(tagCfg.genreNotNumeric());
   int textEncodingV1Index = TextEncodingV1Latin1Index;
   int index = 0;
   for (QStringList::const_iterator it = m_textEncodingV1List.begin();
        it != m_textEncodingV1List.end();
        ++it) {
-    if (getTextEncodingV1CodecName(*it) == tagCfg.m_textEncodingV1) {
+    if (getTextEncodingV1CodecName(*it) == tagCfg.textEncodingV1()) {
       textEncodingV1Index = index;
       break;
     }
     ++index;
   }
   m_textEncodingV1ComboBox->setCurrentIndex(textEncodingV1Index);
-  m_textEncodingComboBox->setCurrentIndex(tagCfg.m_textEncoding);
+  m_textEncodingComboBox->setCurrentIndex(tagCfg.textEncoding());
 #endif
 #if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   m_id3v2VersionComboBox->setCurrentIndex(
-        m_id3v2VersionComboBox->findData(tagCfg.m_id3v2Version));
+        m_id3v2VersionComboBox->findData(tagCfg.id3v2Version()));
 #endif
-  m_trackNumberDigitsSpinBox->setValue(tagCfg.m_trackNumberDigits);
+  m_trackNumberDigitsSpinBox->setValue(tagCfg.trackNumberDigits());
   m_browserLineEdit->setText(networkCfg.m_browser);
   m_playOnDoubleClickCheckBox->setChecked(guiCfg.m_playOnDoubleClick);
   m_proxyCheckBox->setChecked(networkCfg.m_useProxy);
@@ -472,31 +472,31 @@ void ConfigDialogPages::getConfig() const
 
   m_fnFormatBox->toFormatConfig(fnCfg);
   m_id3FormatBox->toFormatConfig(id3Cfg);
-  tagCfg.m_markTruncations = m_markTruncationsCheckBox->isChecked();
-  tagCfg.m_enableTotalNumberOfTracks = m_totalNumTracksCheckBox->isChecked();
+  tagCfg.setMarkTruncations(m_markTruncationsCheckBox->isChecked());
+  tagCfg.setEnableTotalNumberOfTracks(m_totalNumTracksCheckBox->isChecked());
   fileCfg.m_loadLastOpenedFile = m_loadLastOpenedFileCheckBox->isChecked();
   fileCfg.m_preserveTime = m_preserveTimeCheckBox->isChecked();
   fileCfg.m_markChanges = m_markChangesCheckBox->isChecked();
   fileCfg.m_defaultCoverFileName = m_coverFileNameLineEdit->text();
-  tagCfg.m_onlyCustomGenres = m_onlyCustomGenresCheckBox->isChecked();
-  tagCfg.m_customGenres = m_genresEditModel->stringList();
-  tagCfg.m_quickAccessFrames = m_quickAccessTagsModel->getBitMask();
+  tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
+  tagCfg.setCustomGenres(m_genresEditModel->stringList());
+  tagCfg.setQuickAccessFrames(m_quickAccessTagsModel->getBitMask());
   userActionsCfg.m_contextMenuCommands = m_commandsTableModel->getCommandList();
 #ifdef HAVE_VORBIS
-  tagCfg.m_commentName = m_commentNameComboBox->currentText();
-  tagCfg.m_pictureNameItem = m_pictureNameComboBox->currentIndex();
+  tagCfg.setCommentName(m_commentNameComboBox->currentText());
+  tagCfg.setPictureNameItem(m_pictureNameComboBox->currentIndex());
 #endif
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
-  tagCfg.m_genreNotNumeric = m_genreNotNumericCheckBox->isChecked();
-  tagCfg.m_textEncodingV1 =
-    getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText());
-  tagCfg.m_textEncoding = m_textEncodingComboBox->currentIndex();
+  tagCfg.setGenreNotNumeric(m_genreNotNumericCheckBox->isChecked());
+  tagCfg.setTextEncodingV1(
+    getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText()));
+  tagCfg.setTextEncoding(m_textEncodingComboBox->currentIndex());
 #endif
 #if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
-  tagCfg.m_id3v2Version = m_id3v2VersionComboBox->itemData(
-        m_id3v2VersionComboBox->currentIndex()).toInt();
+  tagCfg.setId3v2Version(m_id3v2VersionComboBox->itemData(
+        m_id3v2VersionComboBox->currentIndex()).toInt());
 #endif
-  tagCfg.m_trackNumberDigits = m_trackNumberDigitsSpinBox->value();
+  tagCfg.setTrackNumberDigits(m_trackNumberDigitsSpinBox->value());
   networkCfg.m_browser = m_browserLineEdit->text();
   guiCfg.m_playOnDoubleClick = m_playOnDoubleClickCheckBox->isChecked();
   networkCfg.m_useProxy = m_proxyCheckBox->isChecked();

@@ -605,7 +605,7 @@ void BaseMainWindowImpl::slotSettingsShowHidePicture()
 void BaseMainWindowImpl::applyChangedConfiguration()
 {
   m_app->saveConfig();
-  if (!TagConfig::instance().m_markTruncations) {
+  if (!TagConfig::instance().markTruncations()) {
     m_app->frameModelV1()->markRows(0);
   }
   if (!FileConfig::instance().m_markChanges) {
@@ -615,9 +615,9 @@ void BaseMainWindowImpl::applyChangedConfiguration()
   }
   m_app->setTextEncodings();
   quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
-  if (TagConfig::instance().m_quickAccessFrames != oldQuickAccessFrames) {
+  if (TagConfig::instance().quickAccessFrames() != oldQuickAccessFrames) {
     FrameCollection::setQuickAccessFrames(
-          TagConfig::instance().m_quickAccessFrames);
+          TagConfig::instance().quickAccessFrames());
     updateGuiControls();
   }
 }
@@ -661,14 +661,14 @@ void BaseMainWindowImpl::slotNumberTracks()
   }
   m_numberTracksDialog->setTotalNumberOfTracks(
     m_app->getTotalNumberOfTracksInDir(),
-    TagConfig::instance().m_enableTotalNumberOfTracks);
+        TagConfig::instance().enableTotalNumberOfTracks());
   if (m_numberTracksDialog->exec() == QDialog::Accepted) {
     int nr = m_numberTracksDialog->getStartNumber();
     bool totalEnabled;
     int total = m_numberTracksDialog->getTotalNumberOfTracks(&totalEnabled);
     if (!totalEnabled)
       total = 0;
-    TagConfig::instance().m_enableTotalNumberOfTracks = totalEnabled;
+    TagConfig::instance().setEnableTotalNumberOfTracks(totalEnabled);
     m_app->numberTracks(nr, total, m_numberTracksDialog->getDestination());
   }
 }
@@ -854,7 +854,7 @@ void BaseMainWindowImpl::updateGuiControls()
     m_form->setTagFormatV1(single_v2_file->getTagFormatV1());
     m_form->setTagFormatV2(single_v2_file->getTagFormatV2());
 
-    if (TagConfig::instance().m_markTruncations) {
+    if (TagConfig::instance().markTruncations()) {
       m_app->frameModelV1()->markRows(single_v2_file->getTruncationFlags());
     }
     if (FileConfig::instance().m_markChanges) {
@@ -874,7 +874,7 @@ void BaseMainWindowImpl::updateGuiControls()
     m_form->setTagFormatV1(QString::null);
     m_form->setTagFormatV2(QString::null);
 
-    if (TagConfig::instance().m_markTruncations) {
+    if (TagConfig::instance().markTruncations()) {
       m_app->frameModelV1()->markRows(0);
     }
     if (FileConfig::instance().m_markChanges) {

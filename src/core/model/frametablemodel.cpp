@@ -588,22 +588,22 @@ QWidget* FrameItemDelegate::createEditor(
       for (const char** sl = Genres::s_strList; *sl != 0; ++sl) {
         strList += QString::fromLatin1(*sl);
       }
-      if (TagConfig::instance().m_onlyCustomGenres) {
+      if (TagConfig::instance().onlyCustomGenres()) {
         cb->addItem(QLatin1String(""));
       } else {
         cb->addItems(strList);
       }
       if (id3v1) {
         for (QStringList::const_iterator it =
-               TagConfig::instance().m_customGenres.begin();
-             it != TagConfig::instance().m_customGenres.end();
+               TagConfig::instance().customGenres().begin();
+             it != TagConfig::instance().customGenres().end();
              ++it) {
           if (Genres::getNumber(*it) != 255) {
             cb->addItem(*it);
           }
         }
       } else {
-        cb->addItems(TagConfig::instance().m_customGenres);
+        cb->addItems(TagConfig::instance().customGenres());
       }
       return cb;
     } else if (id3v1 &&
@@ -631,7 +631,7 @@ void FrameItemDelegate::setEditorData(
     QString genreStr(index.model()->data(index).toString());
     int genreIndex = genreStr.isNull() ? 0 :
       Genres::getIndex(Genres::getNumber(genreStr));
-    if (TagConfig::instance().m_onlyCustomGenres) {
+    if (TagConfig::instance().onlyCustomGenres()) {
       genreIndex = cb->findText(genreStr);
       if (genreIndex < 0) genreIndex = 0;
     } else if (genreIndex <= 0) {

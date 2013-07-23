@@ -1045,7 +1045,7 @@ void Mp3File::setGenreV2(const QString& str)
 {
   if (!str.isNull()) {
     int num = 0xff;
-    if (!TagConfig::instance().m_genreNotNumeric) {
+    if (!TagConfig::instance().genreNotNumeric()) {
       num = Genres::getNumber(str);
     }
     if (num >= 0 && num != 0xff) {
@@ -1571,7 +1571,7 @@ void Mp3File::setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const
         }
         QString value(fld.m_value.toString());
         if (id3Id == ID3FID_CONTENTTYPE) {
-          if (!TagConfig::instance().m_genreNotNumeric) {
+          if (!TagConfig::instance().genreNotNumeric()) {
             value = Genres::getNumberString(value, true);
           }
         } else if (id3Id == ID3FID_TRACKNUM) {
@@ -1637,7 +1637,7 @@ bool Mp3File::setFrameV2(const Frame& frame)
         } else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != 0 ||
             (fld = id3Frame->GetField(ID3FN_DESCRIPTION)) != 0) {
           if (id3Frame->GetID() == ID3FID_CONTENTTYPE) {
-            if (!TagConfig::instance().m_genreNotNumeric) {
+            if (!TagConfig::instance().genreNotNumeric()) {
               value = Genres::getNumberString(value, true);
             }
           } else if (id3Frame->GetID() == ID3FID_TRACKNUM) {
@@ -2107,8 +2107,8 @@ TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
   QString ext = fn.right(4).toLower();
   if ((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
 #ifdef HAVE_TAGLIB
-      && TagConfig::instance().m_id3v2Version != TagConfig::ID3v2_4_0
-      && TagConfig::instance().m_id3v2Version != TagConfig::ID3v2_3_0_TAGLIB
+      && TagConfig::instance().id3v2Version() != TagConfig::ID3v2_4_0
+      && TagConfig::instance().id3v2Version() != TagConfig::ID3v2_3_0_TAGLIB
 #endif
     )
     return new Mp3File(dn, fn, idx);

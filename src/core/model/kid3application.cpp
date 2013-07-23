@@ -311,7 +311,7 @@ void Kid3Application::readConfig()
   }
   setTextEncodings();
   FrameCollection::setQuickAccessFrames(
-        TagConfig::instance().m_quickAccessFrames);
+        TagConfig::instance().quickAccessFrames());
 }
 
 /**
@@ -856,7 +856,7 @@ void Kid3Application::applyTextEncoding()
 {
   emit fileSelectionUpdateRequested();
   Frame::Field::TextEncoding encoding;
-  switch (TagConfig::instance().m_textEncoding) {
+  switch (TagConfig::instance().textEncoding()) {
   case TagConfig::TE_UTF16:
     encoding = Frame::Field::TE_UTF16;
     break;
@@ -1841,7 +1841,7 @@ void Kid3Application::numberTracks(int nr, int total,
                                    TrackData::TagVersion tagVersion)
 {
   emit fileSelectionUpdateRequested();
-  int numDigits = TagConfig::instance().m_trackNumberDigits;
+  int numDigits = TagConfig::instance().trackNumberDigits();
   if (numDigits < 1 || numDigits > 5)
     numDigits = 1;
 
@@ -1981,17 +1981,17 @@ void Kid3Application::setTextEncodings()
 {
 #if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   const QTextCodec* id3v1TextCodec =
-    TagConfig::instance().m_textEncodingV1 != QLatin1String("ISO-8859-1") ?
-    QTextCodec::codecForName(TagConfig::instance().m_textEncodingV1.toLatin1().data()) : 0;
+    TagConfig::instance().textEncodingV1() != QLatin1String("ISO-8859-1") ?
+    QTextCodec::codecForName(TagConfig::instance().textEncodingV1().toLatin1().data()) : 0;
 #endif
 #ifdef HAVE_ID3LIB
   Mp3File::setDefaultTextEncoding(
-    static_cast<TagConfig::TextEncoding>(TagConfig::instance().m_textEncoding));
+    static_cast<TagConfig::TextEncoding>(TagConfig::instance().textEncoding()));
   Mp3File::setTextCodecV1(id3v1TextCodec);
 #endif
 #ifdef HAVE_TAGLIB
   TagLibFile::setDefaultTextEncoding(
-    static_cast<TagConfig::TextEncoding>(TagConfig::instance().m_textEncoding));
+    static_cast<TagConfig::TextEncoding>(TagConfig::instance().textEncoding()));
   TagLibFile::setTextCodecV1(id3v1TextCodec);
 #endif
 }
@@ -2075,7 +2075,7 @@ void Kid3Application::convertToId3v23()
 #ifdef HAVE_TAGLIB_ID3V23_SUPPORT
 #ifdef HAVE_ID3LIB
         TagLibFile* taglibFile =
-          TagConfig::instance().m_id3v2Version == TagConfig::ID3v2_3_0_TAGLIB
+          TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0_TAGLIB
           ? dynamic_cast<TagLibFile*>(taggedFile) : 0;
 #else
         TagLibFile* taglibFile = dynamic_cast<TagLibFile*>(taggedFile);
