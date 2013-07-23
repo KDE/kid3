@@ -27,8 +27,7 @@
 #ifndef TAGLIBFILE_H
 #define TAGLIBFILE_H
 
-#include "config.h"
-#ifdef HAVE_TAGLIB
+#include "taglibconfig.h"
 
 #include <QtGlobal>
 #include "taggedfile.h"
@@ -56,30 +55,6 @@ class QTextCodec;
 /** List box item containing tagged file. */
 class TagLibFile : public TaggedFile {
 public:
-  /** File type resolution. */
-  class Resolver : public TaggedFile::Resolver {
-  public:
-    /**
-     * Create an TagLibFile object if it supports the filename's extension.
-     *
-     * @param dn directory name
-     * @param fn filename
-     * @param idx model index
-     *
-     * @return tagged file, 0 if type not supported.
-     */
-    virtual TaggedFile* createFile(const QString& dn, const QString& fn,
-                                   const QPersistentModelIndex& idx) const;
-
-    /**
-     * Get a list with all extensions supported by TagLibFile.
-     *
-     * @return list of file extensions.
-     */
-    virtual QStringList getSupportedFileExtensions() const;
-  };
-
-
   /**
    * Constructor.
    *
@@ -666,7 +641,5 @@ private:
   /** list of TagLib files with open file descriptor */
   static QList<TagLibFile*> s_openFiles;
 };
-
-#endif // HAVE_TAGLIB
 
 #endif // TAGLIBFILE_H

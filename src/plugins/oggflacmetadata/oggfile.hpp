@@ -27,9 +27,7 @@
 #ifndef OGGFILE_H
 #define OGGFILE_H
 
-#include "config.h"
-#if defined HAVE_VORBIS || defined HAVE_FLAC
-
+#include "oggflacconfig.h"
 #include <QList>
 #include "taggedfile.h"
 
@@ -37,30 +35,6 @@
  /** List box item containing OGG file */
 class OggFile : public TaggedFile {
 public:
-  /** File type resolution. */
-  class Resolver : public TaggedFile::Resolver {
-  public:
-    /**
-     * Create an OggFile object if it supports the filename's extension.
-     *
-     * @param dn directory name
-     * @param fn filename
-     * @param idx model index
-     *
-     * @return tagged file, 0 if type not supported.
-     */
-    virtual TaggedFile* createFile(const QString& dn, const QString& fn,
-                                   const QPersistentModelIndex& idx) const;
-
-    /**
-     * Get a list with all extensions supported by OggFile.
-     *
-     * @return list of file extensions.
-     */
-    virtual QStringList getSupportedFileExtensions() const;
-  };
-
-
   /**
    * Constructor.
    *
@@ -417,7 +391,5 @@ private:
   FileInfo m_fileInfo;
 #endif // HAVE_VORBIS
 };
-
-#endif // HAVE_VORBIS || define HAVE_FLAC
 
 #endif // OGGFILE_H

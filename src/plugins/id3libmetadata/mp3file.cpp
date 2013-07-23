@@ -25,7 +25,6 @@
  */
 
 #include "mp3file.h"
-#ifdef HAVE_ID3LIB
 
 #include <QDir>
 #include <QString>
@@ -43,6 +42,7 @@
 #include <utime.h>
 #endif
 
+#include "id3libconfig.h"
 #include "genres.h"
 #include "attributedata.h"
 
@@ -2113,37 +2113,3 @@ void Mp3File::notifyConfigurationChange()
     static_cast<TagConfig::TextEncoding>(TagConfig::instance().textEncoding()));
   setTextCodecV1(id3v1TextCodec);
 }
-
-
-/**
- * Create an Mp3File object if it supports the filename's extension.
- *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
- *
- * @return tagged file, 0 if type not supported.
- */
-TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
-    const QPersistentModelIndex& idx) const
-{
-  QString ext = fn.right(4).toLower();
-  if ((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
-      && TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0
-    )
-    return new Mp3File(dn, fn, idx);
-  else
-    return 0;
-}
-
-/**
- * Get a list with all extensions supported by Mp3File.
- *
- * @return list of file extensions.
- */
-QStringList Mp3File::Resolver::getSupportedFileExtensions() const
-{
-  return QStringList() << QLatin1String(".mp3") << QLatin1String(".mp2") << QLatin1String(".aac");
-}
-
-#endif // HAVE_ID3LIB

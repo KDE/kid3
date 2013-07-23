@@ -27,13 +27,10 @@
 #include "fileproxymodel.h"
 #include <QFileSystemModel>
 #include "taggedfileiconprovider.h"
+#include "itaggedfilefactory.h"
 #include "config.h"
-#ifdef HAVE_ID3LIB
-#include "mp3file.h"
-#endif
-#ifdef HAVE_TAGLIB
-#include "taglibfile.h"
-#endif
+
+QList<ITaggedFileFactory*> FileProxyModel::s_taggedFileFactories;
 
 /**
  * Constructor.
@@ -382,7 +379,7 @@ void FileProxyModel::initTaggedFileData(const QModelIndex& index) {
     return;
 
   QFileInfo info = fileInfo(index);
-  dat.setValue(TaggedFile::createFile(info.path(), info.fileName(), index));
+  dat.setValue(createTaggedFile(info.path(), info.fileName(), index));
   setData(index, dat, TaggedFileRole);
 }
 
@@ -448,24 +445,68 @@ QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
  */
 TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
 {
-#ifdef HAVE_TAGLIB
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  TagLibFile* tagLibFile = new TagLibFile(
-        taggedFile->getDirname(), taggedFile->getFilename(), index);
-  if (index.isValid()) {
-    QVariant data;
-    data.setValue(static_cast<TaggedFile*>(tagLibFile));
-    // setData() will not invalidate the model, so this should be safe.
-    QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
-        index.model());
-    if (setDataModel) {
-      setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+  if (TaggedFile* tagLibFile = createTaggedFile(QLatin1String("TaglibMetadata"),
+          taggedFile->getDirname(), taggedFile->getFilename(), index)) {
+    if (index.isValid()) {
+      QVariant data;
+      data.setValue(tagLibFile);
+      // setData() will not invalidate the model, so this should be safe.
+      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+          index.model());
+      if (setDataModel) {
+        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+      }
+    }
+    taggedFile = tagLibFile;
+    taggedFile->readTags(false);
+  }
+  return taggedFile;
+}
+
+/**
+ * Create a tagged file.
+ *
+ * @param key tagged file key
+ * @param dirName directory name
+ * @param fileName filename
+ * @param idx model index
+ *
+ * @return tagged file, 0 if key not found or type not supported.
+ */
+TaggedFile* FileProxyModel::createTaggedFile(
+    const QString& key, const QString& dirName, const QString& fileName,
+    const QPersistentModelIndex& idx) {
+  foreach (ITaggedFileFactory* factory, s_taggedFileFactories) {
+    if (factory->taggedFileKeys().contains(key)) {
+      return factory->createTaggedFile(key, dirName, fileName, idx);
     }
   }
-  taggedFile = tagLibFile;
-  taggedFile->readTags(false);
-#endif
-  return taggedFile;
+  return 0;
+}
+
+/**
+ * Create a tagged file.
+ *
+ * @param dirName directory name
+ * @param fileName filename
+ * @param idx model index
+ *
+ * @return tagged file, 0 if not found or type not supported.
+ */
+TaggedFile* FileProxyModel::createTaggedFile(
+    const QString& dirName, const QString& fileName,
+    const QPersistentModelIndex& idx) {
+  TaggedFile* taggedFile = 0;
+  foreach (ITaggedFileFactory* factory, s_taggedFileFactories) {
+    foreach (const QString& key, factory->taggedFileKeys()) {
+      taggedFile = factory->createTaggedFile(key, dirName, fileName, idx);
+      if (taggedFile) {
+        return taggedFile;
+      }
+    }
+  }
+  return 0;
 }
 
 /**
@@ -477,23 +518,22 @@ TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
  */
 TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
 {
-#ifdef HAVE_ID3LIB
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  Mp3File* id3libFile = new Mp3File(
-        taggedFile->getDirname(), taggedFile->getFilename(), index);
-  if (index.isValid()) {
-    QVariant data;
-    data.setValue(static_cast<TaggedFile*>(id3libFile));
-    // setData() will not invalidate the model, so this should be safe.
-    QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
-        index.model());
-    if (setDataModel) {
-      setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+  if (TaggedFile* id3libFile = createTaggedFile(QLatin1String("Id3libMetadata"),
+          taggedFile->getDirname(), taggedFile->getFilename(), index)) {
+    if (index.isValid()) {
+      QVariant data;
+      data.setValue(id3libFile);
+      // setData() will not invalidate the model, so this should be safe.
+      QAbstractItemModel* setDataModel = const_cast<QAbstractItemModel*>(
+          index.model());
+      if (setDataModel) {
+        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+      }
     }
+    taggedFile = id3libFile;
+    taggedFile->readTags(false);
   }
-  taggedFile = id3libFile;
-  taggedFile->readTags(false);
-#endif
   return taggedFile;
 }
 

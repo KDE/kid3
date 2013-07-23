@@ -29,9 +29,10 @@
 
 #include <QString>
 #include <QByteArray>
+#include "kid3api.h"
 
 /** Attribute data used e.g. by Windows Media Player. */
-class AttributeData {
+class KID3_CORE_EXPORT AttributeData {
 public:
   /** Attribute data types. */
   enum Type {

@@ -64,23 +64,9 @@
 #include "batchimporter.h"
 #include "iserverimporterfactory.h"
 #include "iservertrackimporterfactory.h"
+#include "itaggedfilefactory.h"
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
 #include "audioplayer.h"
-#endif
-#ifdef HAVE_ID3LIB
-#include "mp3file.h"
-#endif
-#ifdef HAVE_VORBIS
-#include "oggfile.hpp"
-#endif
-#ifdef HAVE_FLAC
-#include "flacfile.hpp"
-#endif
-#ifdef HAVE_MP4V2
-#include "m4afile.h"
-#endif
-#ifdef HAVE_TAGLIB
-#include "taglibfile.h"
 #endif
 
 #include "importplugins.h"
@@ -126,7 +112,6 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
           SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
           this, SLOT(fileSelected()));
 
-  initFileTypes();
   setModified(false);
   setFiltered(false);
   FilenameFormatConfig::instance().setAsFilenameFormatter();
@@ -241,35 +226,13 @@ void Kid3Application::checkPlugin(QObject* plugin) {
                            key, m_netMgr, m_trackDataModel));
     }
   }
-}
-
-/**
- * Init file types.
- */
-void Kid3Application::initFileTypes()
-{
-#ifdef HAVE_ID3LIB
-  TagConfig::instance().setTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB);
-  TaggedFile::addResolver(new Mp3File::Resolver);
-#endif
-#ifdef HAVE_VORBIS
-  TagConfig::instance().setTagFormat(TagConfig::TF_VORBIS_LIBOGG);
-  TaggedFile::addResolver(new OggFile::Resolver);
-#endif
-#ifdef HAVE_FLAC
-  TaggedFile::addResolver(new FlacFile::Resolver);
-#endif
-#ifdef HAVE_MP4V2
-  TaggedFile::addResolver(new M4aFile::Resolver);
-#endif
-#ifdef HAVE_TAGLIB
-#ifdef HAVE_TAGLIB_ID3V23_SUPPORT
-  TagConfig::instance().setTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB);
-#endif
-  TagConfig::instance().setTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB);
-  TagLibFile::staticInit();
-  TaggedFile::addResolver(new TagLibFile::Resolver);
-#endif
+  if (ITaggedFileFactory* taggedFileFactory =
+      qobject_cast<ITaggedFileFactory*>(plugin)) {
+    foreach (const QString& key, taggedFileFactory->taggedFileKeys()) {
+      taggedFileFactory->initialize(key);
+    }
+    FileProxyModel::taggedFileFactories().append(taggedFileFactory);
+  }
 }
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
@@ -316,7 +279,7 @@ void Kid3Application::readConfig()
   if (FileConfig::instance().m_nameFilter.isEmpty()) {
     FileConfig::instance().m_nameFilter = createFilterString();
   }
-  setTextEncodings();
+  notifyConfigurationChange();
   FrameCollection::setQuickAccessFrames(
         TagConfig::instance().quickAccessFrames());
 }
@@ -1952,7 +1915,25 @@ int Kid3Application::getTotalNumberOfTracksInDir()
  */
 QString Kid3Application::createFilterString() const
 {
-  QStringList extensions = TaggedFile::getSupportedFileExtensions();
+  QStringList extensions;
+  foreach (ITaggedFileFactory* factory, FileProxyModel::taggedFileFactories()) {
+    foreach (const QString& key, factory->taggedFileKeys()) {
+      extensions.append(factory->supportedFileExtensions(key));
+    }
+  }
+  // remove duplicates
+  extensions.sort();
+  QString lastExt(QLatin1String(""));
+  for (QStringList::iterator it = extensions.begin();
+       it != extensions.end();) {
+    if (*it == lastExt) {
+      it = extensions.erase(it);
+    } else {
+      lastExt = *it;
+      ++it;
+    }
+  }
+
   QString allPatterns;
   QList<QPair<QString, QString> > nameFilters;
   for (QStringList::const_iterator it = extensions.begin();
@@ -1972,16 +1953,15 @@ QString Kid3Application::createFilterString() const
 }
 
 /**
- * Set the ID3v1 and ID3v2 text encodings from the configuration.
+ * Notify the tagged file factories about the changed configuration.
  */
-void Kid3Application::setTextEncodings()
+void Kid3Application::notifyConfigurationChange()
 {
-#ifdef HAVE_ID3LIB
-  Mp3File::notifyConfigurationChange();
-#endif
-#ifdef HAVE_TAGLIB
-  TagLibFile::notifyConfigurationChange();
-#endif
+  foreach (ITaggedFileFactory* factory, FileProxyModel::taggedFileFactories()) {
+    foreach (const QString& key, factory->taggedFileKeys()) {
+      factory->notifyConfigurationChange(key);
+    }
+  }
 }
 
 /**

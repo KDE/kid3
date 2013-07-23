@@ -37,6 +37,7 @@
 
 class QFileSystemModel;
 class TaggedFileIconProvider;
+class ITaggedFileFactory;
 
 /**
  * Proxy for filesystem model which filters files.
@@ -172,6 +173,41 @@ public:
   bool rmdir(const QModelIndex& index) const;
 
   /**
+   * Access to tagged file factories.
+   * @return reference to tagged file factories.
+   */
+  static QList<ITaggedFileFactory*>& taggedFileFactories() {
+    return s_taggedFileFactories;
+  }
+
+  /**
+   * Create a tagged file.
+   *
+   * @param key tagged file key
+   * @param dirName directory name
+   * @param fileName filename
+   * @param idx model index
+   *
+   * @return tagged file, 0 if key not found or type not supported.
+   */
+  static TaggedFile* createTaggedFile(
+      const QString& key, const QString& dirName, const QString& fileName,
+      const QPersistentModelIndex& idx);
+
+  /**
+   * Create a tagged file.
+   *
+   * @param dirName directory name
+   * @param fileName filename
+   * @param idx model index
+   *
+   * @return tagged file, 0 if not found or type not supported.
+   */
+  static TaggedFile* createTaggedFile(
+      const QString& dirName, const QString& fileName,
+      const QPersistentModelIndex& idx);
+
+  /**
    * Get tagged file data of model index.
    *
    * @param index model index
@@ -292,6 +328,8 @@ private:
   TaggedFileIconProvider* m_iconProvider;
   QFileSystemModel* m_fsModel;
   QStringList m_extensions;
+
+  static QList<ITaggedFileFactory*> s_taggedFileFactories;
 };
 
 Q_DECLARE_METATYPE(TaggedFile*)

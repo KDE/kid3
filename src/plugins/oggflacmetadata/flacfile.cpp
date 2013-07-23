@@ -25,7 +25,6 @@
  */
 
 #include "flacfile.hpp"
-#ifdef HAVE_FLAC
 
 #include "genres.h"
 #include "pictureframe.h"
@@ -580,34 +579,3 @@ bool FlacFile::FileInfo::read(FLAC::Metadata::StreamInfo* si)
   }
   return valid;
 }
-
-
-/**
- * Create an FlacFile object if it supports the filename's extension.
- *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
- *
- * @return tagged file, 0 if type not supported.
- */
-TaggedFile* FlacFile::Resolver::createFile(const QString& dn, const QString& fn,
-    const QPersistentModelIndex& idx) const
-{
-  if (fn.right(5).toLower() == QLatin1String(".flac"))
-    return new FlacFile(dn, fn, idx);
-  else
-    return 0;
-}
-
-/**
- * Get a list with all extensions supported by FlacFile.
- *
- * @return list of file extensions.
- */
-QStringList FlacFile::Resolver::getSupportedFileExtensions() const
-{
-  return QStringList() << QLatin1String(".flac");
-}
-
-#endif // HAVE_FLAC

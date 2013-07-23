@@ -1,0 +1,89 @@
+### Check for Vorbis
+set(VORBIS_LIBRARIES)
+if(WITH_VORBIS)
+  find_path(VORBIS_INCLUDE_DIR vorbis/vorbisfile.h)
+  find_library(OGG_LIBRARY NAMES ogg libogg_static)
+  find_library(VORBIS_LIBRARY NAMES vorbis libvorbis_static)
+  find_library(VORBISFILE_LIBRARY NAMES vorbisfile libvorbisfile_static)
+  if(VORBIS_INCLUDE_DIR AND OGG_LIBRARY AND VORBIS_LIBRARY AND VORBISFILE_LIBRARY)
+    set(VORBIS_LIBRARIES ${VORBISFILE_LIBRARY} ${VORBIS_LIBRARY} ${OGG_LIBRARY})
+    message(STATUS "Vorbis found: ${VORBIS_LIBRARIES}")
+    set(HAVE_VORBIS 1)
+  else(VORBIS_INCLUDE_DIR AND OGG_LIBRARY AND VORBIS_LIBRARY AND VORBISFILE_LIBRARY)
+    message(FATAL_ERROR "Could not find Vorbis")
+  endif(VORBIS_INCLUDE_DIR AND OGG_LIBRARY AND VORBIS_LIBRARY AND VORBISFILE_LIBRARY)
+endif(WITH_VORBIS)
+
+### Check for FLAC++
+set(FLAC_LIBRARIES)
+set(FLAC_DEFINITIONS)
+if(WITH_FLAC)
+  find_path(FLACPP_INCLUDE_DIR FLAC++/metadata.h)
+  find_library(FLAC_LIBRARY NAMES FLAC)
+  find_library(FLACPP_LIBRARY NAMES FLAC++)
+  if(FLACPP_INCLUDE_DIR AND FLAC_LIBRARY AND FLACPP_LIBRARY)
+    set(FLAC_LIBRARIES ${FLACPP_LIBRARY} ${FLAC_LIBRARY})
+    message(STATUS "FLAC++ found: ${FLAC_LIBRARIES}")
+    set(HAVE_FLAC 1)
+    if (WIN32)
+      set(FLAC_DEFINITIONS -DFLAC__NO_DLL)
+      set(FLAC_LIBRARIES ${FLAC_LIBRARIES} ws2_32)
+    endif (WIN32)
+    set(_CMAKE_REQUIRED_LIBRARIES_TMP ${CMAKE_REQUIRED_LIBRARIES})
+    set(CMAKE_REQUIRED_LIBRARIES ${CMAKE_REQUIRED_LIBRARIES} ${FLAC_LIBRARIES} ${OGG_LIBRARY})
+    set(_CMAKE_REQUIRED_INCLUDES_TMP ${CMAKE_REQUIRED_INCLUDES})
+    set(CMAKE_REQUIRED_INCLUDES ${CMAKE_REQUIRED_INCLUDES} ${FLACPP_INCLUDE_DIR})
+    set(_CMAKE_REQUIRED_DEFINITIONS_TMP ${CMAKE_REQUIRED_DEFINITIONS})
+    set(CMAKE_REQUIRED_DEFINITIONS ${CMAKE_REQUIRED_DEFINITIONS} ${FLAC_DEFINITIONS})
+    CHECK_CXX_SOURCE_COMPILES("#include <FLAC++/metadata.h>\nint main() {\n  FLAC::Metadata::VorbisComment vc;\n  const ::FLAC__StreamMetadata* fsmd = vc;\n  return 0;\n}\n" FLAC_STREAMMETADATA_OPERATOR_FOUND)
+    CHECK_CXX_SOURCE_COMPILES("#include <FLAC++/metadata.h>\nint main() {\n  FLAC::Metadata::Picture pic;\n  return 0;\n}\n" FLAC_METADATA_PICTURE_FOUND)
+    set(CMAKE_REQUIRED_LIBRARIES ${_CMAKE_REQUIRED_LIBRARIES_TMP})
+    set(CMAKE_REQUIRED_INCLUDES ${_CMAKE_REQUIRED_INCLUDES_TMP})
+    set(CMAKE_REQUIRED_DEFINITIONS ${_CMAKE_REQUIRED_DEFINITIONS_TMP})
+
+    if(NOT FLAC_STREAMMETADATA_OPERATOR_FOUND)
+      set(HAVE_NO_FLAC_STREAMMETADATA_OPERATOR 1)
+    endif(NOT FLAC_STREAMMETADATA_OPERATOR_FOUND)
+    if(FLAC_METADATA_PICTURE_FOUND)
+      set(HAVE_FLAC_PICTURE 1)
+    endif(FLAC_METADATA_PICTURE_FOUND)
+  else(FLACPP_INCLUDE_DIR AND FLAC_LIBRARY AND FLACPP_LIBRARY)
+    message(FATAL_ERROR "Could not find FLAC++")
+  endif(FLACPP_INCLUDE_DIR AND FLAC_LIBRARY AND FLACPP_LIBRARY)
+endif(WITH_FLAC)
+
+if(HAVE_VORBIS OR HAVE_FLAC)
+  configure_file(oggflacconfig.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/oggflacconfig.h)
+
+  include_directories(${CMAKE_CURRENT_BINARY_DIR} ${VORBIS_INCLUDE_DIR} ../../core/tags)
+
+  set(plugin_SRCS
+    oggflacmetadataplugin.cpp
+    oggfile.cpp
+    vcedit.c
+  )
+  if(HAVE_FLAC)
+    add_definitions(${FLAC_DEFINITIONS})
+    include_directories(${FLACPP_INCLUDE_DIR})
+    set(plugin_SRCS ${plugin_SRCS} flacfile.cpp)
+  endif(HAVE_FLAC)
+
+  set(plugin_MOC_HDRS
+    oggflacmetadataplugin.h
+  )
+
+  set(plugin_NAME OggFlacMetadata)
+
+  if (WITH_GCC_PCH)
+    ADD_KID3_PCH_RULE(plugin_SRCS)
+  endif (WITH_GCC_PCH)
+
+  string(TOLOWER ${plugin_NAME} plugin_TARGET)
+
+  qt4_wrap_cpp(plugin_GEN_MOC_SRCS ${plugin_MOC_HDRS})
+
+  add_library(${plugin_TARGET} ${plugin_SRCS} ${plugin_GEN_MOC_SRCS})
+  target_link_libraries(${plugin_TARGET} kid3-core ${BASIC_LIBRARIES} ${VORBIS_LIBRARIES} ${FLAC_LIBRARIES})
+
+  INSTALL_KID3_PLUGIN(${plugin_TARGET} ${plugin_NAME})
+endif(HAVE_VORBIS OR HAVE_FLAC)

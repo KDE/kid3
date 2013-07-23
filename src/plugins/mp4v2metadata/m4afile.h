@@ -1,12 +1,12 @@
 /**
- * \file mp3file.h
- * Handling of tagged MP3 files.
+ * \file m4afile.h
+ * Handling of MPEG-4 audio files.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
- * \date 9 Jan 2003
+ * \date 25 Oct 2007
  *
- * Copyright (C) 2003-2011  Urs Fleisch
+ * Copyright (C) 2007-2011  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -24,47 +24,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MP3FILE_H
-#define MP3FILE_H
-
-#include "config.h"
-#ifdef HAVE_ID3LIB
+#ifndef M4AFILE_H
+#define M4AFILE_H
 
 #include "taggedfile.h"
-#include "tagconfig.h"
+#include <QMap>
 
-class ID3_Tag;
-class ID3_Field;
-class ID3_Frame;
-class QTextCodec;
-
-/** List box item containing MP3 file */
-class Mp3File : public TaggedFile {
+/** MPEG-4 audio file */
+class M4aFile : public TaggedFile {
 public:
-  /** File type resolution. */
-  class Resolver : public TaggedFile::Resolver {
-  public:
-    /**
-     * Create an Mp3File object if it supports the filename's extension.
-     *
-     * @param dn directory name
-     * @param fn filename
-     * @param idx model index
-     *
-     * @return tagged file, 0 if type not supported.
-     */
-    virtual TaggedFile* createFile(const QString& dn, const QString& fn,
-                                   const QPersistentModelIndex& idx) const;
-
-    /**
-     * Get a list with all extensions supported by Mp3File.
-     *
-     * @return list of file extensions.
-     */
-    virtual QStringList getSupportedFileExtensions() const;
-  };
-
-
   /**
    * Constructor.
    *
@@ -72,17 +40,17 @@ public:
    * @param fn filename
    * @param idx model index
    */
-  Mp3File(const QString& dn, const QString& fn,
+  M4aFile(const QString& dn, const QString& fn,
           const QPersistentModelIndex& idx);
 
   /**
    * Destructor.
    */
-  virtual ~Mp3File();
+  virtual ~M4aFile();
 
   /**
    * Get key of tagged file format.
-   * @return "Id3libMetadata".
+   * @return "Mp4v2Metadata".
    */
   virtual QString taggedFileKey() const;
 
@@ -107,81 +75,11 @@ public:
   virtual bool writeTags(bool force, bool* renamed, bool preserve);
 
   /**
-   * Remove ID3v1 frames.
-   *
-   * @param flt filter specifying which frames to remove
-   */
-  virtual void deleteFramesV1(const FrameFilter& flt);
-
-  /**
    * Remove ID3v2 frames.
    *
    * @param flt filter specifying which frames to remove
    */
   virtual void deleteFramesV2(const FrameFilter& flt);
-
-  /**
-   * Get ID3v1 title.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getTitleV1();
-
-  /**
-   * Get ID3v1 artist.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getArtistV1();
-
-  /**
-   * Get ID3v1 album.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getAlbumV1();
-
-  /**
-   * Get ID3v1 comment.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getCommentV1();
-
-  /**
-   * Get ID3v1 year.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getYearV1();
-
-  /**
-   * Get ID3v1 track.
-   *
-   * @return number,
-   *         0 if the field does not exist,
-   *         -1 if the tags do not exist.
-   */
-  virtual int getTrackNumV1();
-
-  /**
-   * Get ID3v1 genre.
-   *
-   * @return string,
-   *         "" if the field does not exist,
-   *         QString::null if the tags do not exist.
-   */
-  virtual QString getGenreV1();
 
   /**
    * Get ID3v2 title.
@@ -247,55 +145,6 @@ public:
   virtual QString getGenreV2();
 
   /**
-   * Set ID3v1 title.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setTitleV1(const QString& str);
-
-  /**
-   * Set ID3v1 artist.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setArtistV1(const QString& str);
-
-  /**
-   * Set ID3v1 album.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setAlbumV1(const QString& str);
-
-  /**
-   * Set ID3v1 comment.
-   *
-   * @param str string to set, "" to remove field.
-   */
-  virtual void setCommentV1(const QString& str);
-
-  /**
-   * Set ID3v1 year.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setYearV1(int num);
-
-  /**
-   * Set ID3v1 track.
-   *
-   * @param num number to set, 0 to remove field.
-   */
-  virtual void setTrackNumV1(int num);
-
-  /**
-   * Set ID3v1 genre as text.
-   *
-   * @param str string to set, "" to remove field, QString::null to ignore.
-   */
-  virtual void setGenreV1(const QString& str);
-
-  /**
    * Set ID3v2 title.
    *
    * @param str string to set, "" to remove field.
@@ -354,27 +203,12 @@ public:
   virtual bool isTagInformationRead() const;
 
   /**
-   * Check if file has an ID3v1 tag.
-   *
-   * @return true if a V1 tag is available.
-   * @see isTagInformationRead()
-   */
-  virtual bool hasTagV1() const;
-
-  /**
    * Check if file has an ID3v2 tag.
    *
    * @return true if a V2 tag is available.
    * @see isTagInformationRead()
    */
   virtual bool hasTagV2() const;
-
-  /**
-   * Check if ID3v1 tags are supported by the format of this file.
-   *
-   * @return true.
-   */
-  virtual bool isTagV1Supported() const;
 
   /**
    * Get technical detail information.
@@ -394,23 +228,14 @@ public:
   /**
    * Get file extension including the dot.
    *
-   * @return file extension ".mp3".
+   * @return file extension ".m4a".
    */
   virtual QString getFileExtension() const;
 
   /**
-   * Get the format of tag 1.
-   *
-   * @return string describing format of tag 1,
-   *         e.g. "ID3v1.1".
-   */
-  virtual QString getTagFormatV1() const;
-
-  /**
    * Get the format of tag 2.
    *
-   * @return string describing format of tag 2,
-   *         e.g. "ID3v2.3", "ID3v2.4".
+   * @return "Vorbis".
    */
   virtual QString getTagFormatV2() const;
 
@@ -426,7 +251,7 @@ public:
   /**
    * Add a frame in the tags 2.
    *
-   * @param frame frame to add, a field list may be added by this method
+   * @param frame frame to add
    *
    * @return true if ok.
    */
@@ -455,56 +280,65 @@ public:
    */
   virtual QStringList getFrameIds() const;
 
-  /**
-   * Notify about configuration change.
-   * This method shall be called when the configuration changes.
-   */
-  static void notifyConfigurationChange();
-
 private:
-  /**
-   * Set track.
-   *
-   * @param tag ID3 tag
-   * @param num number to set, 0 to remove field.
-   * @param numTracks total number of tracks, <=0 to ignore
-   *
-   * @return true if the field was changed.
-   */
-  bool setTrackNum(ID3_Tag* tag, int num, int numTracks = 0) const;
+  M4aFile(const M4aFile&);
+  M4aFile& operator=(const M4aFile&);
 
   /**
-   * Set the fields in an id3lib frame from the field in the frame.
+   * Get metadata field as string.
    *
-   * @param id3Frame id3lib frame
-   * @param frame    frame with fields
+   * @param name field name
+   *
+   * @return value as string, "" if not found,
+   *         QString::null if the tags have not been read yet.
    */
-  void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const;
+  QString getTextField(const QString& name) const;
 
   /**
-   * Set the text codec to be used for tag 1.
+   * Set text field.
+   * If value is null if the tags have not been read yet, nothing is changed.
+   * If value is different from the current value, tag 2 is marked as changed.
    *
-   * @param codec text codec, 0 to use default (ISO 8859-1)
+   * @param name name
+   * @param value value, "" to remove, QString::null to do nothing
+   * @param type frame type
    */
-  static void setTextCodecV1(const QTextCodec* codec);
+  void setTextField(const QString& name, const QString& value,
+                    Frame::Type type);
 
-  /**
-   * Set the default text encoding.
-   *
-   * @param textEnc default text encoding
-   */
-  static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
+  /** true if file has been read. */
+  bool m_fileRead;
 
-  Mp3File(const Mp3File&);
-  Mp3File& operator=(const Mp3File&);
+  /** Information about MPEG-4 file. */
+  struct FileInfo {
+    /**
+     * Constructor.
+     */
+    FileInfo() : valid(false), channels(0), sampleRate(0), bitrate(0),
+                 duration(0) {}
 
-  /** ID3v1 tags */
-  ID3_Tag* m_tagV1;
+    /**
+     * Read information about an MPEG-4 file.
+     * @param handle MP4 handle
+     * @return true if ok.
+     */
+    bool read(void* handle);
 
-  /** ID3v2 tags */
-  ID3_Tag* m_tagV2;
+    bool valid;      /**< true if read() was successful */
+    int channels;    /**< number of channels */
+    long sampleRate; /**< sample rate in Hz */
+    long bitrate;    /**< bitrate in bits/s */
+    long duration;   /**< duration in seconds */
+  };
+
+  /** Info about file. */
+  FileInfo m_fileInfo;
+
+  /** Map with metadata. */
+  typedef QMap<QString, QByteArray> MetadataMap;
+
+  /** Metadata. */
+  MetadataMap m_metadata;
 };
 
-#endif // HAVE_ID3LIB
-
-#endif // MP3FILE_H
+#endif // M4AFILE_H

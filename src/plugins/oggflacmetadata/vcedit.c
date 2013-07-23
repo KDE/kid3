@@ -32,7 +32,7 @@
  * (http://svn.xiph.org/trunk/vorbis-tools/vorbiscomment) Rev. 16716 2009-11-22,
  * modifications are marked with kid3. */
 /* kid3 */
-#include "config.h"
+#include "oggflacconfig.h"
 #ifdef HAVE_VORBIS
 
 #ifdef HAVE_CONFIG_H

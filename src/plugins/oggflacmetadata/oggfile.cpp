@@ -25,7 +25,6 @@
  */
 
 #include "oggfile.hpp"
-#if defined HAVE_VORBIS || defined HAVE_FLAC
 
 #include <QFile>
 #include <QDir>
@@ -65,7 +64,6 @@ OggFile::~OggFile()
 {
 }
 
-#ifdef HAVE_VORBIS
 /**
  * Get key of tagged file format.
  * @return "OggMetadata".
@@ -75,6 +73,7 @@ QString OggFile::taggedFileKey() const
   return QLatin1String("OggMetadata");
 }
 
+#ifdef HAVE_VORBIS
 /**
  * Read tags from file.
  *
@@ -657,6 +656,10 @@ unsigned OggFile::getDuration() const
   }
   return 0;
 }
+#else // HAVE_VORBIS
+void OggFile::getDetailInfo(DetailInfo& info) const { info.valid = false; }
+unsigned OggFile::getDuration() const { return 0; }
+#endif // HAVE_VORBIS
 
 /**
  * Get the format of tag 2.
@@ -838,8 +841,7 @@ QStringList OggFile::getFrameIds() const
   return lst;
 }
 
-
-
+#ifdef HAVE_VORBIS
 /**
  * Read information about an Ogg/Vorbis file.
  * @param fn file name
@@ -874,9 +876,6 @@ bool OggFile::FileInfo::read(const char* fn)
   }
   return valid;
 }
-#else // HAVE_VORBIS
-void OggFile::getDetailInfo(DetailInfo& info) const { info.valid = false; }
-unsigned OggFile::getDuration() const { return 0; }
 #endif // HAVE_VORBIS
 
 /**
@@ -921,35 +920,3 @@ bool OggFile::CommentList::setValue(const QString& name, const QString& value)
     return false;
   }
 }
-
-
-/**
- * Create an OggFile object if it supports the filename's extension.
- *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
- *
- * @return tagged file, 0 if type not supported.
- */
-TaggedFile* OggFile::Resolver::createFile(const QString& dn, const QString& fn,
-    const QPersistentModelIndex& idx) const
-{
-  QString ext = fn.right(4).toLower();
-  if (ext == QLatin1String(".oga") || ext == QLatin1String(".ogg"))
-    return new OggFile(dn, fn, idx);
-  else
-    return 0;
-}
-
-/**
- * Get a list with all extensions supported by OggFile.
- *
- * @return list of file extensions.
- */
-QStringList OggFile::Resolver::getSupportedFileExtensions() const
-{
-  return QStringList() << QLatin1String(".oga") << QLatin1String(".ogg");
-}
-
-#endif // HAVE_VORBIS || define HAVE_FLAC

@@ -36,40 +36,6 @@
 /** Base class for tagged files. */
 class KID3_CORE_EXPORT TaggedFile {
 public:
-  /** Abstract base class for pluggable file type resolution. */
-  class Resolver {
-  public:
-    /**
-     * Constructor.
-     */
-    Resolver() {}
-
-    /**
-     * Destructor.
-     */
-    virtual ~Resolver() {}
-
-    /**
-     * Create a TaggedFile subclass depending on the file extension.
-     *
-     * @param dn directory name
-     * @param fn filename
-     * @param idx model index
-     *
-     * @return tagged file, 0 if type not supported.
-     */
-    virtual TaggedFile* createFile(const QString& dn, const QString& fn,
-                                   const QPersistentModelIndex& idx) const = 0;
-
-    /**
-     * Get a list with all extensions (e.g. ".mp3") supported by TaggedFile subclass.
-     *
-     * @return list of file extensions.
-     */
-    virtual QStringList getSupportedFileExtensions() const = 0;
-  };
-
-
   /** Information about file. */
   struct DetailInfo {
     /** Channel mode. */
@@ -698,34 +664,6 @@ public:
   static QString formatTime(unsigned seconds);
 
   /**
-   * Add a file type resolver to the end of a list of resolvers.
-   *
-   * @param resolver file type resolver to add
-   */
-  static void addResolver(const Resolver* resolver);
-
-  /**
-   * Create a TaggedFile subclass using the first successful resolver.
-   * @see addResolver()
-   *
-   * @param dn directory name
-   * @param fn filename
-   * @param idx model index
-   *
-   * @return tagged file, 0 if type not supported.
-   */
-  static TaggedFile* createFile(const QString& dn, const QString& fn,
-                                const QPersistentModelIndex& idx);
-
-  /**
-   * Get a list with all extensions (e.g. ".mp3") supported by the resolvers.
-   * @see addResolver()
-   *
-   * @return list of file extensions.
-   */
-  static QStringList getSupportedFileExtensions();
-
-  /**
    * Free static resources.
    */
   static void staticCleanup();
@@ -859,8 +797,6 @@ private:
   quint64 m_changedFramesV2;
   /** Truncation flags. */
   quint64 m_truncation;
-
-  static QList<const Resolver*> s_resolvers;
 };
 
 #endif // TAGGEDFILE_H

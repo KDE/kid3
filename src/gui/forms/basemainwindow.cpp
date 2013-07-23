@@ -316,7 +316,6 @@ bool BaseMainWindowImpl::saveModified(bool doNotRevert)
 void BaseMainWindowImpl::cleanup()
 {
   m_app->getSettings()->sync();
-  TaggedFile::staticCleanup();
 }
 
 /**
@@ -613,7 +612,7 @@ void BaseMainWindowImpl::applyChangedConfiguration()
     m_app->frameModelV2()->markChangedFrames(0);
     m_form->markChangedFilename(false);
   }
-  m_app->setTextEncodings();
+  m_app->notifyConfigurationChange();
   quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
   if (TagConfig::instance().quickAccessFrames() != oldQuickAccessFrames) {
     FrameCollection::setQuickAccessFrames(

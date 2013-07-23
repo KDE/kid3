@@ -27,9 +27,7 @@
 #ifndef FLACFILE_H
 #define FLACFILE_H
 
-#include "config.h"
-#ifdef HAVE_FLAC
-
+#include "oggflacconfig.h"
 #include "oggfile.hpp"
 
 namespace FLAC {
@@ -44,30 +42,6 @@ namespace FLAC {
  /** List box item containing FLAC file */
 class FlacFile : public OggFile {
 public:
-  /** File type resolution. */
-  class Resolver : public TaggedFile::Resolver {
-  public:
-    /**
-     * Create an FlacFile object if it supports the filename's extension.
-     *
-     * @param dn directory name
-     * @param fn filename
-     * @param idx model index
-     *
-     * @return tagged file, 0 if type not supported.
-     */
-    virtual TaggedFile* createFile(const QString& dn, const QString& fn,
-                                   const QPersistentModelIndex& idx) const;
-
-    /**
-     * Get a list with all extensions supported by FlacFile.
-     *
-     * @return list of file extensions.
-     */
-    virtual QStringList getSupportedFileExtensions() const;
-  };
-
-
   /**
    * Constructor.
    *
@@ -221,7 +195,5 @@ private:
   /** FLAC metadata chain. */
   FLAC::Metadata::Chain* m_chain;
 };
-
-#endif // HAVE_FLAC
 
 #endif // FLACFILE_H

@@ -25,7 +25,7 @@
  */
 
 #include "m4afile.h"
-#ifdef HAVE_MP4V2
+#include "mp4v2config.h"
 
 #include <QFile>
 #include <QDir>
@@ -1428,36 +1428,3 @@ bool M4aFile::FileInfo::read(MP4FileHandle handle)
   }
   return valid;
 }
-
-
-/**
- * Create an M4aFile object if it supports the filename's extension.
- *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
- *
- * @return tagged file, 0 if type not supported.
- */
-TaggedFile* M4aFile::Resolver::createFile(const QString& dn, const QString& fn,
-    const QPersistentModelIndex& idx) const
-{
-  QString ext = fn.right(4).toLower();
-  if (ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") || ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4") ||
-      ext == QLatin1String(".m4v") || ext == QLatin1String("mp4v"))
-    return new M4aFile(dn, fn, idx);
-  else
-    return 0;
-}
-
-/**
- * Get a list with all extensions supported by M4aFile.
- *
- * @return list of file extensions.
- */
-QStringList M4aFile::Resolver::getSupportedFileExtensions() const
-{
-  return QStringList() << QLatin1String(".m4a") << QLatin1String(".m4b") << QLatin1String(".m4p") << QLatin1String(".mp4");
-}
-
-#endif // HAVE_MP4V2

@@ -689,7 +689,7 @@ RECURSIVE              = yes
 # Note that relative paths are relative to the directory from which doxygen is
 # run.
 
-EXCLUDE                = kid3/allsys.h src/core/formats/vcedit.h src/core/formats/taglibext src/test
+EXCLUDE                = kid3/allsys.h src/plugins/oggflacmetadata/vcedit.h src/plugins/taglibmetadata/taglibext src/test
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -1513,9 +1513,6 @@ INCLUDE_FILE_PATTERNS  =
 
 PREDEFINED             = HAVE_FLAC \
                          HAVE_FLAC_PICTURE \
-                         HAVE_ID3LIB \
-                         HAVE_MP4V2 \
-                         HAVE_TAGLIB \
                          HAVE_CHROMAPRINT \
                          HAVE_AV_AUDIO_CONVERT \
                          HAVE_VORBIS \

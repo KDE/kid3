@@ -481,7 +481,7 @@ private:
 };
 
 /** Filter to enable a subset of frame types. */
-class FrameFilter {
+class KID3_CORE_EXPORT FrameFilter {
 public:
   /**
    * Constructor.

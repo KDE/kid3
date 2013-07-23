@@ -25,8 +25,6 @@
  */
 
 #include "taglibfile.h"
-#ifdef HAVE_TAGLIB
-
 #include <QDir>
 #include <QString>
 #include <QTextCodec>
@@ -5253,87 +5251,6 @@ void TagLibFile::deregisterOpenFile(TagLibFile* tagLibFile)
 
 
 /**
- * Create an TagLibFile object if it supports the filename's extension.
- *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
- *
- * @return tagged file, 0 if type not supported.
- */
-TaggedFile* TagLibFile::Resolver::createFile(
-  const QString& dn, const QString& fn, const QPersistentModelIndex& idx) const
-{
-  QString ext = fn.right(4).toLower();
-  QString ext2 = ext.right(3);
-  if (((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
-       && (TagConfig::instance().id3v2Version() == TagConfig::ID3v2_4_0 ||
-           TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0_TAGLIB)
-        )
-      || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga") || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")
-      || ext == QLatin1String(".spx") || ext == QLatin1String(".tta")
-#if TAGLIB_VERSION >= 0x010600
-#ifdef TAGLIB_WITH_MP4
-      || ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") || ext == QLatin1String(".m4p") || ext == QLatin1String(".mp4")
-#endif
-#ifdef TAGLIB_WITH_ASF
-      || ext == QLatin1String(".wma") || ext ==  QLatin1String(".asf")
-#endif
-      || ext == QLatin1String(".aif") || ext ==  QLatin1String("aiff") || ext ==  QLatin1String(".wav")
-#endif
-#if TAGLIB_VERSION >= 0x010700
-      || ext == QLatin1String(".ape")
-#endif
-#if TAGLIB_VERSION >= 0x010800
-      || ext == QLatin1String(".mod") || ext == QLatin1String(".s3m") || ext2 == QLatin1String(".it")
-#ifdef HAVE_TAGLIB_XM_SUPPORT
-      || ext2 == QLatin1String(".xm")
-    #endif
-#endif
-#if TAGLIB_VERSION >= 0x010900
-      || ext == QLatin1String("opus")
-#endif
-      || ext2 == QLatin1String(".wv"))
-    return new TagLibFile(dn, fn, idx);
-  else
-    return 0;
-}
-
-/**
- * Get a list with all extensions supported by TagLibFile.
- *
- * @return list of file extensions.
- */
-QStringList TagLibFile::Resolver::getSupportedFileExtensions() const
-{
-  return QStringList() << QLatin1String(".flac") << QLatin1String(".mp3") << QLatin1String(".mpc") << QLatin1String(".oga") << QLatin1String(".ogg") <<
-    QLatin1String(".spx") << QLatin1String(".tta") << QLatin1String(".aac") << QLatin1String(".mp2") <<
-#if TAGLIB_VERSION >= 0x010600
-#ifdef TAGLIB_WITH_MP4
-    QLatin1String(".m4a") << QLatin1String(".m4b") << QLatin1String(".m4p") << QLatin1String(".mp4") <<
-#endif
-#ifdef TAGLIB_WITH_ASF
-    QLatin1String(".wma") << QLatin1String(".asf") <<
-#endif
-    QLatin1String(".aif") << QLatin1String(".aiff") << QLatin1String(".wav") <<
-#endif
-#if TAGLIB_VERSION >= 0x010700
-    QLatin1String(".ape") <<
-#endif
-#if TAGLIB_VERSION >= 0x010800
-    QLatin1String(".mod") << QLatin1String(".s3m") << QLatin1String(".it") <<
-#ifdef HAVE_TAGLIB_XM_SUPPORT
-    QLatin1String(".xm") <<
-#endif
-#endif
-#if TAGLIB_VERSION >= 0x010900
-    QLatin1String(".opus") <<
-#endif
-    QLatin1String(".wv");
-}
-
-
-/**
  * Used to register file types at static initialization time.
  */
 class TagLibInitializer {
@@ -5407,5 +5324,3 @@ void TagLibFile::staticInit()
 {
   tagLibInitializer.init();
 }
-
-#endif // HAVE_TAGLIB

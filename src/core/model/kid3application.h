@@ -52,6 +52,7 @@ class FrameList;
 class IFrameEditor;
 class ServerImporter;
 class ServerTrackImporter;
+class ITaggedFileFactory;
 class TextExporter;
 class DirRenamer;
 class BatchImportProfile;
@@ -484,9 +485,9 @@ public:
   static void setDirName(const QString& dirName) { s_dirName = dirName; }
 
   /**
-   * Set the ID3v1 and ID3v2 text encodings from the configuration.
+   * Notify the tagged file factories about the changed configuration.
    */
-  static void setTextEncodings();
+  static void notifyConfigurationChange();
 
   /**
    * Load plugins.
@@ -876,11 +877,6 @@ private:
    * @param plugin instance returned by plugin loader
    */
   void checkPlugin(QObject* plugin);
-
-  /**
-  * Init file types.
-  */
-  void initFileTypes();
 
   /**
    * Let the user select and edit a frame type and then edit the frame.

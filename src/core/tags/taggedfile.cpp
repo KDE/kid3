@@ -34,8 +34,6 @@
 #include "modeliterator.h"
 #include "saferename.h"
 
-QList<const TaggedFile::Resolver*> TaggedFile::s_resolvers;
-
 /**
  * Constructor.
  *
@@ -1109,78 +1107,4 @@ void TaggedFile::setFramesV2(const FrameCollection& frames, bool onlyChanged)
       }
     }
   }
-}
-
-
-/**
- * Add a file type resolver to the end of a list of resolvers.
- *
- * @param resolver file type resolver to add
- */
-void TaggedFile::addResolver(const Resolver* resolver)
-{
-  s_resolvers.push_back(resolver);
-}
-
-/**
- * Create a TaggedFile subclass using the first successful resolver.
- * @see addResolver()
- *
- * @param dn directory name
- * @param fn filename
- * @param idx model index
- *
- * @return tagged file, 0 if type not supported.
- */
-TaggedFile* TaggedFile::createFile(const QString& dn, const QString& fn,
-                                   const QPersistentModelIndex& idx)
-{
-  TaggedFile* taggedFile = 0;
-  for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
-       it != s_resolvers.end();
-       ++it) {
-    taggedFile = (*it)->createFile(dn, fn, idx);
-    if (taggedFile) break;
-  }
-  return taggedFile;
-}
-
-/**
- * Get a list with all extensions (e.g. ".mp3") supported by the resolvers.
- * @see addResolver()
- *
- * @return list of file extensions.
- */
-QStringList TaggedFile::getSupportedFileExtensions()
-{
-  QStringList extensions;
-  for (QList<const Resolver*>::const_iterator it = s_resolvers.begin();
-       it != s_resolvers.end();
-       ++it) {
-    extensions += (*it)->getSupportedFileExtensions();
-  }
-
-  // remove duplicates
-  extensions.sort();
-  QString lastExt(QLatin1String(""));
-  for (QStringList::iterator it = extensions.begin();
-       it != extensions.end();) {
-    if (*it == lastExt) {
-      it = extensions.erase(it);
-    } else {
-      lastExt = *it;
-      ++it;
-    }
-  }
-
-  return extensions;
-}
-
-/**
- * Free static resources.
- */
-void TaggedFile::staticCleanup()
-{
-  qDeleteAll(s_resolvers);
-  s_resolvers.clear();
 }
