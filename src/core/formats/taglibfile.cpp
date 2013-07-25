@@ -269,6 +269,15 @@ TagLibFile::~TagLibFile()
 }
 
 /**
+ * Get key of tagged file format.
+ * @return "TaglibMetadata".
+ */
+QString TagLibFile::taggedFileKey() const
+{
+  return QLatin1String("TaglibMetadata");
+}
+
+/**
  * Read tags from file.
  *
  * @param force true to force reading even if tags were already read.
@@ -5185,6 +5194,20 @@ void TagLibFile::setDefaultTextEncoding(TagConfig::TextEncoding textEnc)
 }
 
 /**
+ * Notify about configuration change.
+ * This method shall be called when the configuration changes.
+ */
+void TagLibFile::notifyConfigurationChange()
+{
+  const QTextCodec* id3v1TextCodec =
+    TagConfig::instance().textEncodingV1() != QLatin1String("ISO-8859-1") ?
+    QTextCodec::codecForName(TagConfig::instance().textEncodingV1().toLatin1().data()) : 0;
+  setDefaultTextEncoding(
+    static_cast<TagConfig::TextEncoding>(TagConfig::instance().textEncoding()));
+  setTextCodecV1(id3v1TextCodec);
+}
+
+/**
  * Register open TagLib file, so that the number of open files can be limited.
  * If the number of open files exceeds a limit, files are closed.
  *
@@ -5244,10 +5267,8 @@ TaggedFile* TagLibFile::Resolver::createFile(
   QString ext = fn.right(4).toLower();
   QString ext2 = ext.right(3);
   if (((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
-#ifdef HAVE_ID3LIB
        && (TagConfig::instance().id3v2Version() == TagConfig::ID3v2_4_0 ||
            TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0_TAGLIB)
-#endif
         )
       || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga") || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")
       || ext == QLatin1String(".spx") || ext == QLatin1String(".tta")

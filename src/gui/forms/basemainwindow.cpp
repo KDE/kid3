@@ -807,9 +807,7 @@ void BaseMainWindowImpl::updateGuiControls()
     if (taggedFile) {
       taggedFile->readTags(false);
 
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
       taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
-#endif
 
       if (taggedFile->isTagV1Supported()) {
         if (num_v1_selected == 0) {

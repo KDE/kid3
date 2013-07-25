@@ -361,7 +361,6 @@ void ScriptInterface::filter(const QString& expression)
   m_app->applyFilter(expression);
 }
 
-#ifdef HAVE_TAGLIB
 /**
  * Convert ID3v2.3 tags to ID3v2.4.
  */
@@ -369,9 +368,7 @@ void ScriptInterface::convertToId3v24()
 {
   m_app->convertToId3v24();
 }
-#endif
 
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
 /**
  * Convert ID3v2.4 tags to ID3v2.3.
  */
@@ -379,7 +376,6 @@ void ScriptInterface::convertToId3v23()
 {
   m_app->convertToId3v23();
 }
-#endif
 
 /**
  * Get path of directory.

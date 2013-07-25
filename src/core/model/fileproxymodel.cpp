@@ -439,7 +439,6 @@ QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
   return model->filePath(index);
 }
 
-#if defined HAVE_ID3LIB && defined HAVE_TAGLIB
 /**
  * Read tagged file with TagLib.
  *
@@ -449,6 +448,7 @@ QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
  */
 TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
 {
+#ifdef HAVE_TAGLIB
   const QPersistentModelIndex& index = taggedFile->getIndex();
   TagLibFile* tagLibFile = new TagLibFile(
         taggedFile->getDirname(), taggedFile->getFilename(), index);
@@ -464,6 +464,7 @@ TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
   }
   taggedFile = tagLibFile;
   taggedFile->readTags(false);
+#endif
   return taggedFile;
 }
 
@@ -476,6 +477,7 @@ TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
  */
 TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
 {
+#ifdef HAVE_ID3LIB
   const QPersistentModelIndex& index = taggedFile->getIndex();
   Mp3File* id3libFile = new Mp3File(
         taggedFile->getDirname(), taggedFile->getFilename(), index);
@@ -491,6 +493,7 @@ TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
   }
   taggedFile = id3libFile;
   taggedFile->readTags(false);
+#endif
   return taggedFile;
 }
 
@@ -505,7 +508,8 @@ TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
  */
 TaggedFile* FileProxyModel::readWithTagLibIfId3V24(TaggedFile* taggedFile)
 {
-  if (dynamic_cast<Mp3File*>(taggedFile) != 0 &&
+  if (taggedFile &&
+      taggedFile->taggedFileKey() == QLatin1String("Id3libMetadata") &&
       !taggedFile->isChanged() &&
       taggedFile->isTagInformationRead() && taggedFile->hasTagV2()) {
     QString id3v2Version = taggedFile->getTagFormatV2();
@@ -515,4 +519,3 @@ TaggedFile* FileProxyModel::readWithTagLibIfId3V24(TaggedFile* taggedFile)
   }
   return taggedFile;
 }
-#endif

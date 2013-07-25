@@ -115,16 +115,12 @@ private:
   QComboBox* m_commentNameComboBox;
   /** Picture field name combo box */
   QComboBox* m_pictureNameComboBox;
-#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   /** Genre as text instead of numeric string checkbox */
   QCheckBox* m_genreNotNumericCheckBox;
   /** ID3v2 text encoding combo box */
   QComboBox* m_textEncodingComboBox;
-#endif
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   /** ID3v2 version combo box */
   QComboBox* m_id3v2VersionComboBox;
-#endif
   /** Number of digits in track number spin box */
   QSpinBox* m_trackNumberDigitsSpinBox;
   /** Filename Format box */

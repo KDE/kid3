@@ -105,6 +105,15 @@ Mp3File::~Mp3File()
 }
 
 /**
+ * Get key of tagged file format.
+ * @return "Id3libMetadata".
+ */
+QString Mp3File::taggedFileKey() const
+{
+  return QLatin1String("Id3libMetadata");
+}
+
+/**
  * Read tags from file.
  *
  * @param force true to force reading even if tags were already read.
@@ -2091,6 +2100,20 @@ void Mp3File::setDefaultTextEncoding(TagConfig::TextEncoding textEnc)
     ID3TE_ISO8859_1 : ID3TE_UTF16;
 }
 
+/**
+ * Notify about configuration change.
+ * This method shall be called when the configuration changes.
+ */
+void Mp3File::notifyConfigurationChange()
+{
+  const QTextCodec* id3v1TextCodec =
+    TagConfig::instance().textEncodingV1() != QLatin1String("ISO-8859-1") ?
+    QTextCodec::codecForName(TagConfig::instance().textEncodingV1().toLatin1().data()) : 0;
+  setDefaultTextEncoding(
+    static_cast<TagConfig::TextEncoding>(TagConfig::instance().textEncoding()));
+  setTextCodecV1(id3v1TextCodec);
+}
+
 
 /**
  * Create an Mp3File object if it supports the filename's extension.
@@ -2106,10 +2129,7 @@ TaggedFile* Mp3File::Resolver::createFile(const QString& dn, const QString& fn,
 {
   QString ext = fn.right(4).toLower();
   if ((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
-#ifdef HAVE_TAGLIB
-      && TagConfig::instance().id3v2Version() != TagConfig::ID3v2_4_0
-      && TagConfig::instance().id3v2Version() != TagConfig::ID3v2_3_0_TAGLIB
-#endif
+      && TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0
     )
     return new Mp3File(dn, fn, idx);
   else

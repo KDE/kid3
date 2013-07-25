@@ -127,6 +127,12 @@ public:
   QString getDirname() const { return m_dirname; }
 
   /**
+   * Get key of tagged file format.
+   * @return key.
+   */
+  virtual QString taggedFileKey() const = 0;
+
+  /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.

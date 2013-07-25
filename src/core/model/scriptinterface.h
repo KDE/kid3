@@ -38,8 +38,6 @@ class Kid3Application;
  * Adaptor class for interface net.sourceforge.Kid3
  * Create net.sourceforge.Kid3.xml with:
  * echo "#define HAVE_QTDBUS" >config.h
- * echo "#define HAVE_ID3LIB" >>config.h
- * echo "#define HAVE_TAGLIB" >>config.h
  * echo "#define HAVE_PHONON" >>config.h
  * qdbuscpp2xml scriptinterface.h >net.sourceforge.Kid3.xml
  * rm config.h
@@ -252,19 +250,15 @@ public slots:
    */
   void filter(const QString& expression);
 
-#ifdef HAVE_TAGLIB
   /**
    * Convert ID3v2.3 tags to ID3v2.4.
    */
   void convertToId3v24();
-#endif
 
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   /**
    * Convert ID3v2.4 tags to ID3v2.3.
    */
   void convertToId3v23();
-#endif
 
   /**
    * Get path of directory.

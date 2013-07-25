@@ -56,7 +56,6 @@
 
 enum { TextEncodingV1Latin1Index = 13 };
 
-#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
 /**
  * Remove aliases in braces from text encoding combo box entry.
  *
@@ -69,7 +68,6 @@ static QString getTextEncodingV1CodecName(const QString& comboEntry)
   int braceIdx = comboEntry.indexOf(QLatin1String(" ("));
   return braceIdx == -1 ? comboEntry : comboEntry.left(braceIdx);
 }
-#endif
 
 /**
  * Constructor.
@@ -100,7 +98,6 @@ QWidget* ConfigDialogPages::createTagsPage()
   QGridLayout* v1GroupBoxLayout = new QGridLayout(v1GroupBox);
   m_markTruncationsCheckBox = new QCheckBox(tr("&Mark truncated fields"), v1GroupBox);
   v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
-#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   QLabel* textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
   m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
   static const char* const codecs[] = {
@@ -173,7 +170,12 @@ QWidget* ConfigDialogPages::createTagsPage()
   textEncodingV1Label->setBuddy(m_textEncodingV1ComboBox);
   v1GroupBoxLayout->addWidget(textEncodingV1Label, 1, 0);
   v1GroupBoxLayout->addWidget(m_textEncodingV1ComboBox, 1, 1);
-#endif
+  const TagConfig& tagCfg = TagConfig::instance();
+  if (!tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB) &&
+      !tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB)) {
+    textEncodingV1Label->hide();
+    m_textEncodingV1ComboBox->hide();
+  }
   tag1Layout->addWidget(v1GroupBox);
   tag1Layout->addStretch();
 
@@ -186,7 +188,6 @@ QWidget* ConfigDialogPages::createTagsPage()
   QLabel* trackNumberDigitsLabel = new QLabel(tr("Track number &digits:"), v2GroupBox);
   m_trackNumberDigitsSpinBox = new QSpinBox(v2GroupBox);
   m_trackNumberDigitsSpinBox->setMaximum(5);
-#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   m_genreNotNumericCheckBox = new QCheckBox(tr("&Genre as text instead of numeric string"), v2GroupBox);
   QLabel* textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
   m_textEncodingComboBox = new QComboBox(v2GroupBox);
@@ -198,27 +199,32 @@ QWidget* ConfigDialogPages::createTagsPage()
   v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
   v2GroupBoxLayout->addWidget(textEncodingLabel, 2, 0);
   v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 2, 1);
-#endif
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
+  if (!tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB) &&
+      !tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB)) {
+    m_genreNotNumericCheckBox->hide();
+    textEncodingLabel->hide();
+    m_textEncodingComboBox->hide();
+  }
   QLabel* id3v2VersionLabel = new QLabel(tr("&Version used for new tags:"), v2GroupBox);
   m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
-#ifdef HAVE_ID3LIB
-  m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0 (id3lib)"), TagConfig::ID3v2_3_0);
-#endif
-  m_id3v2VersionComboBox->addItem(tr("ID3v2.4.0 (TagLib)"), TagConfig::ID3v2_4_0);
-#ifdef HAVE_TAGLIB_ID3V23_SUPPORT
-  m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0 (TagLib)"), TagConfig::ID3v2_3_0_TAGLIB);
-#endif
+  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB))
+    m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0 (id3lib)"), TagConfig::ID3v2_3_0);
+  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB))
+    m_id3v2VersionComboBox->addItem(tr("ID3v2.4.0 (TagLib)"), TagConfig::ID3v2_4_0);
+  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB))
+    m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0 (TagLib)"), TagConfig::ID3v2_3_0_TAGLIB);
   m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
   v2GroupBoxLayout->addWidget(id3v2VersionLabel, 3, 0);
   v2GroupBoxLayout->addWidget(m_id3v2VersionComboBox, 3, 1);
-#endif
+  if (m_id3v2VersionComboBox->count() < 2) {
+    id3v2VersionLabel->hide();
+    m_id3v2VersionComboBox->hide();
+  }
   trackNumberDigitsLabel->setBuddy(m_trackNumberDigitsSpinBox);
   v2GroupBoxLayout->addWidget(trackNumberDigitsLabel, 4, 0);
   v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 4, 1);
   tag2Layout->addWidget(v2GroupBox);
-#ifdef HAVE_VORBIS
   QGroupBox* vorbisGroupBox = new QGroupBox(tr("Ogg/Vorbis"), tag2Page);
   QLabel* commentNameLabel = new QLabel(tr("Co&mment field name:"), vorbisGroupBox);
   m_commentNameComboBox = new QComboBox(vorbisGroupBox);
@@ -241,7 +247,9 @@ QWidget* ConfigDialogPages::createTagsPage()
   vorbisGroupBoxLayout->addWidget(m_pictureNameComboBox, 1, 1);
   vorbisGroupBox->setLayout(vorbisGroupBoxLayout);
   tag2Layout->addWidget(vorbisGroupBox);
-#endif
+  if (!tagCfg.hasTagFormat(TagConfig::TF_VORBIS_LIBOGG)) {
+    vorbisGroupBox->hide();
+  }
   QHBoxLayout* genresQuickAccessLayout = new QHBoxLayout;
   QGroupBox* genresGroupBox = new QGroupBox(tr("Custom &Genres"), tag2Page);
   m_onlyCustomGenresCheckBox = new QCheckBox(tr("&Show only custom genres"), genresGroupBox);
@@ -417,7 +425,6 @@ void ConfigDialogPages::setConfig()
   m_genresEditModel->setStringList(tagCfg.customGenres());
   m_quickAccessTagsModel->setBitMask(tagCfg.quickAccessFrames());
   m_commandsTableModel->setCommandList(userActionsCfg.m_contextMenuCommands);
-#ifdef HAVE_VORBIS
   int idx = m_commentNameComboBox->findText(tagCfg.commentName());
   if (idx >= 0) {
     m_commentNameComboBox->setCurrentIndex(idx);
@@ -426,8 +433,6 @@ void ConfigDialogPages::setConfig()
     m_commentNameComboBox->setCurrentIndex(m_commentNameComboBox->count() - 1);
   }
   m_pictureNameComboBox->setCurrentIndex(tagCfg.pictureNameItem());
-#endif
-#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   m_genreNotNumericCheckBox->setChecked(tagCfg.genreNotNumeric());
   int textEncodingV1Index = TextEncodingV1Latin1Index;
   int index = 0;
@@ -442,11 +447,8 @@ void ConfigDialogPages::setConfig()
   }
   m_textEncodingV1ComboBox->setCurrentIndex(textEncodingV1Index);
   m_textEncodingComboBox->setCurrentIndex(tagCfg.textEncoding());
-#endif
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   m_id3v2VersionComboBox->setCurrentIndex(
         m_id3v2VersionComboBox->findData(tagCfg.id3v2Version()));
-#endif
   m_trackNumberDigitsSpinBox->setValue(tagCfg.trackNumberDigits());
   m_browserLineEdit->setText(networkCfg.m_browser);
   m_playOnDoubleClickCheckBox->setChecked(guiCfg.m_playOnDoubleClick);
@@ -482,20 +484,14 @@ void ConfigDialogPages::getConfig() const
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
   tagCfg.setQuickAccessFrames(m_quickAccessTagsModel->getBitMask());
   userActionsCfg.m_contextMenuCommands = m_commandsTableModel->getCommandList();
-#ifdef HAVE_VORBIS
   tagCfg.setCommentName(m_commentNameComboBox->currentText());
   tagCfg.setPictureNameItem(m_pictureNameComboBox->currentIndex());
-#endif
-#if defined HAVE_ID3LIB || defined HAVE_TAGLIB
   tagCfg.setGenreNotNumeric(m_genreNotNumericCheckBox->isChecked());
   tagCfg.setTextEncodingV1(
     getTextEncodingV1CodecName(m_textEncodingV1ComboBox->currentText()));
   tagCfg.setTextEncoding(m_textEncodingComboBox->currentIndex());
-#endif
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   tagCfg.setId3v2Version(m_id3v2VersionComboBox->itemData(
         m_id3v2VersionComboBox->currentIndex()).toInt());
-#endif
   tagCfg.setTrackNumberDigits(m_trackNumberDigitsSpinBox->value());
   networkCfg.m_browser = m_browserLineEdit->text();
   guiCfg.m_playOnDoubleClick = m_playOnDoubleClickCheckBox->isChecked();

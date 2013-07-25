@@ -43,6 +43,7 @@
 #include "kid3application.h"
 #include "kdeconfigdialog.h"
 #include "guiconfig.h"
+#include "tagconfig.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
 #include "kdeplatformtools.h"
@@ -183,16 +184,18 @@ void KdeMainWindow::initActions()
   KAction* toolsFilter = new KAction(tr("F&ilter..."), this);
   actionCollection()->addAction(QLatin1String("filter"), toolsFilter);
   connect(toolsFilter, SIGNAL(triggered()), impl(), SLOT(slotFilter()));
-#ifdef HAVE_TAGLIB
-  KAction* toolsConvertToId3v24 = new KAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
-  actionCollection()->addAction(QLatin1String("convert_to_id3v24"), toolsConvertToId3v24);
-  connect(toolsConvertToId3v24, SIGNAL(triggered()), app(), SLOT(convertToId3v24()));
-#endif
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
-  KAction* toolsConvertToId3v23 = new KAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
-  actionCollection()->addAction(QLatin1String("convert_to_id3v23"), toolsConvertToId3v23);
-  connect(toolsConvertToId3v23, SIGNAL(triggered()), app(), SLOT(convertToId3v23()));
-#endif
+  const TagConfig& tagCfg = TagConfig::instance();
+  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB)) {
+    KAction* toolsConvertToId3v24 = new KAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
+    actionCollection()->addAction(QLatin1String("convert_to_id3v24"), toolsConvertToId3v24);
+    connect(toolsConvertToId3v24, SIGNAL(triggered()), app(), SLOT(convertToId3v24()));
+    if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB) ||
+        tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB)) {
+      KAction* toolsConvertToId3v23 = new KAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
+      actionCollection()->addAction(QLatin1String("convert_to_id3v23"), toolsConvertToId3v23);
+      connect(toolsConvertToId3v23, SIGNAL(triggered()), app(), SLOT(convertToId3v23()));
+    }
+  }
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   KAction* toolsPlay = new KAction(KIcon(QLatin1String("media-playback-start")), tr("&Play"), this);
   actionCollection()->addAction(QLatin1String("play"), toolsPlay);

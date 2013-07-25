@@ -81,6 +81,12 @@ public:
   virtual ~Mp3File();
 
   /**
+   * Get key of tagged file format.
+   * @return "Id3libMetadata".
+   */
+  virtual QString taggedFileKey() const;
+
+  /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.
@@ -450,18 +456,10 @@ public:
   virtual QStringList getFrameIds() const;
 
   /**
-   * Set the text codec to be used for tag 1.
-   *
-   * @param codec text codec, 0 to use default (ISO 8859-1)
+   * Notify about configuration change.
+   * This method shall be called when the configuration changes.
    */
-  static void setTextCodecV1(const QTextCodec* codec);
-
-  /**
-   * Set the default text encoding.
-   *
-   * @param textEnc default text encoding
-   */
-  static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
+  static void notifyConfigurationChange();
 
 private:
   /**
@@ -482,6 +480,20 @@ private:
    * @param frame    frame with fields
    */
   void setId3v2Frame(ID3_Frame* id3Frame, const Frame& frame) const;
+
+  /**
+   * Set the text codec to be used for tag 1.
+   *
+   * @param codec text codec, 0 to use default (ISO 8859-1)
+   */
+  static void setTextCodecV1(const QTextCodec* codec);
+
+  /**
+   * Set the default text encoding.
+   *
+   * @param textEnc default text encoding
+   */
+  static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
 
   Mp3File(const Mp3File&);
   Mp3File& operator=(const Mp3File&);

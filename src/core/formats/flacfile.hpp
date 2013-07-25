@@ -84,6 +84,12 @@ public:
   virtual ~FlacFile();
 
   /**
+   * Get key of tagged file format.
+   * @return "FlacMetadata".
+   */
+  virtual QString taggedFileKey() const;
+
+  /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.

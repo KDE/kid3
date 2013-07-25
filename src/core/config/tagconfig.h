@@ -57,6 +57,14 @@ public:
     VP_COVERART
   };
 
+  /** Available tag formats which can be queried at run time. */
+  enum TagFormatFlag {
+    TF_ID3v2_3_0_ID3LIB = 1 << 0,
+    TF_ID3v2_3_0_TAGLIB = 1 << 1,
+    TF_ID3v2_4_0_TAGLIB = 1 << 2,
+    TF_VORBIS_LIBOGG    = 1 << 3
+  };
+
   /**
    * Constructor.
    */
@@ -80,6 +88,27 @@ public:
    * @param config configuration
    */
   virtual void readFromConfig(ISettings* config);
+
+  /**
+   * Check if a certain tag format is available.
+   * @param fmt tag format
+   * @return true if tag format is available.
+   * @remark This information is not stored in the configuration, it is
+   * registered at initialization time using setTagFormat().
+   */
+  bool hasTagFormat(TagFormatFlag fmt) const {
+    return (m_tagFormats & fmt) != 0;
+  }
+
+  /**
+   * Register that a certain tag format is available.
+   * @param fmt tag format to register
+   * @remark This information is not stored in the configuration, it is
+   * queried at run time using hasTagFormat().
+   */
+  void setTagFormat(TagFormatFlag fmt) {
+    m_tagFormats |= fmt;
+  }
 
   /** true to mark truncated ID3v1.1 fields */
   bool markTruncations() const { return m_markTruncations; }
@@ -130,7 +159,7 @@ public:
   }
 
   /** version used for new ID3v2 tags */
-  int id3v2Version() const { return m_id3v2Version; }
+  int id3v2Version() const;
 
   /** Set version used for new ID3v2 tags. */
   void setId3v2Version(int id3v2Version) {
@@ -192,6 +221,8 @@ private:
   quint64 m_quickAccessFrames;
   int m_trackNumberDigits;
   bool m_onlyCustomGenres;
+
+  int m_tagFormats;
 };
 
 #endif

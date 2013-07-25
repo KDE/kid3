@@ -96,6 +96,12 @@ public:
   virtual ~TagLibFile();
 
   /**
+   * Get key of tagged file format.
+   * @return "TaglibMetadata".
+   */
+  virtual QString taggedFileKey() const;
+
+  /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.
@@ -494,24 +500,16 @@ public:
   static void staticInit();
 
   /**
-   * Set the text codec to be used for tag 1.
-   *
-   * @param codec text codec, 0 to use default (ISO 8859-1)
-   */
-  static void setTextCodecV1(const QTextCodec* codec);
-
-  /**
-   * Set the default text encoding.
-   *
-   * @param textEnc default text encoding
-   */
-  static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
-
-  /**
    * Get the default text encoding.
    * @return default text encoding.
    */
   static TagLib::String::Type getDefaultTextEncoding() { return s_defaultTextEncoding; }
+
+  /**
+   * Notify about configuration change.
+   * This method shall be called when the configuration changes.
+   */
+  static void notifyConfigurationChange();
 
 private:
   /** Tag type for cached information. */
@@ -612,6 +610,20 @@ private:
    * @param tagLibFile file which is no longer open
    */
   static void deregisterOpenFile(TagLibFile* tagLibFile);
+
+  /**
+   * Set the text codec to be used for tag 1.
+   *
+   * @param codec text codec, 0 to use default (ISO 8859-1)
+   */
+  static void setTextCodecV1(const QTextCodec* codec);
+
+  /**
+   * Set the default text encoding.
+   *
+   * @param textEnc default text encoding
+   */
+  static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
 
   TagLib::FileRef m_fileRef; /**< file reference */
   TagLib::Tag* m_tagV1;      /**< ID3v1 tags */

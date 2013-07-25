@@ -49,7 +49,8 @@ TagConfig::TagConfig() :
   m_textEncoding(TE_ISO8859_1),
   m_quickAccessFrames(FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES),
   m_trackNumberDigits(1),
-  m_onlyCustomGenres(false)
+  m_onlyCustomGenres(false),
+  m_tagFormats(0)
 {
 }
 
@@ -104,4 +105,21 @@ void TagConfig::readFromConfig(ISettings* config)
   m_trackNumberDigits = config->value(QLatin1String("TrackNumberDigits"), 1).toInt();
   m_onlyCustomGenres = config->value(QLatin1String("OnlyCustomGenres"), m_onlyCustomGenres).toBool();
   config->endGroup();
+}
+
+/** version used for new ID3v2 tags */
+int TagConfig::id3v2Version() const
+{
+  switch (m_id3v2Version) {
+  case ID3v2_3_0:
+    return hasTagFormat(TF_ID3v2_3_0_ID3LIB)
+        ? ID3v2_3_0
+        : hasTagFormat(TF_ID3v2_3_0_TAGLIB)
+          ? ID3v2_3_0_TAGLIB : ID3v2_4_0;
+  case ID3v2_4_0:
+    return hasTagFormat(TF_ID3v2_4_0_TAGLIB) ? ID3v2_4_0 : ID3v2_3_0;
+  case ID3v2_3_0_TAGLIB:
+    return hasTagFormat(TF_ID3v2_3_0_TAGLIB) ? ID3v2_3_0_TAGLIB : ID3v2_3_0;
+  }
+  return m_id3v2Version;
 }

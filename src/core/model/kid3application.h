@@ -526,19 +526,15 @@ public slots:
    */
   void applyTextEncoding();
 
-#ifdef HAVE_TAGLIB
   /**
    * Convert ID3v2.3 to ID3v2.4 tags.
    */
   void convertToId3v24();
-#endif
 
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
   /**
    * Convert ID3v2.4 to ID3v2.3 tags.
    */
   void convertToId3v23();
-#endif
 
   /**
    * Copy tags 1 into copy buffer.

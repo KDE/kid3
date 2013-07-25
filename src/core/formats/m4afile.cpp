@@ -433,6 +433,15 @@ static QByteArray getValueByteArray(const char* name,
 }
 
 /**
+ * Get key of tagged file format.
+ * @return "Mp4v2Metadata".
+ */
+QString M4aFile::taggedFileKey() const
+{
+  return QLatin1String("Mp4v2Metadata");
+}
+
+/**
  * Read tags from file.
  *
  * @param force true to force reading even if tags were already read.

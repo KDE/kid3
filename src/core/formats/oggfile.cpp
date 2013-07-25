@@ -67,6 +67,15 @@ OggFile::~OggFile()
 
 #ifdef HAVE_VORBIS
 /**
+ * Get key of tagged file format.
+ * @return "OggMetadata".
+ */
+QString OggFile::taggedFileKey() const
+{
+  return QLatin1String("OggMetadata");
+}
+
+/**
  * Read tags from file.
  *
  * @param force true to force reading even if tags were already read.

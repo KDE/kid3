@@ -120,6 +120,15 @@ static void setPicture(const Frame& frame, FLAC::Metadata::Picture* pic)
 #endif // HAVE_FLAC_PICTURE
 
 /**
+ * Get key of tagged file format.
+ * @return "FlacMetadata".
+ */
+QString FlacFile::taggedFileKey() const
+{
+  return QLatin1String("FlacMetadata");
+}
+
+/**
  * Read tags from file.
  *
  * @param force true to force reading even if tags were already read.

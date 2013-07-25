@@ -75,6 +75,12 @@ public:
   virtual ~M4aFile();
 
   /**
+   * Get key of tagged file format.
+   * @return "Mp4v2Metadata".
+   */
+  virtual QString taggedFileKey() const;
+
+  /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.

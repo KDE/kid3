@@ -44,6 +44,7 @@
 #include "kid3application.h"
 #include "configdialog.h"
 #include "guiconfig.h"
+#include "tagconfig.h"
 #include "contexthelp.h"
 #include "serverimporter.h"
 #include "servertrackimporter.h"
@@ -370,27 +371,29 @@ void Kid3MainWindow::initActions()
     impl(), SLOT(slotFilter()));
   toolsMenu->addAction(toolsFilter);
 
-#ifdef HAVE_TAGLIB
-  QAction* toolsConvertToId3v24 = new QAction(this);
-  toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
-  toolsConvertToId3v24->setText(tr("Convert ID3v2.3 to ID3v2.&4"));
-  toolsConvertToId3v24->setObjectName(QLatin1String("convert_to_id3v24"));
-  m_shortcutsModel->registerAction(toolsConvertToId3v24, menuTitle);
-  connect(toolsConvertToId3v24, SIGNAL(triggered()),
-    app(), SLOT(convertToId3v24()));
-  toolsMenu->addAction(toolsConvertToId3v24);
-#endif
+  const TagConfig& tagCfg = TagConfig::instance();
+  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB)) {
+    QAction* toolsConvertToId3v24 = new QAction(this);
+    toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
+    toolsConvertToId3v24->setText(tr("Convert ID3v2.3 to ID3v2.&4"));
+    toolsConvertToId3v24->setObjectName(QLatin1String("convert_to_id3v24"));
+    m_shortcutsModel->registerAction(toolsConvertToId3v24, menuTitle);
+    connect(toolsConvertToId3v24, SIGNAL(triggered()),
+      app(), SLOT(convertToId3v24()));
+    toolsMenu->addAction(toolsConvertToId3v24);
 
-#if defined HAVE_TAGLIB && (defined HAVE_ID3LIB || defined HAVE_TAGLIB_ID3V23_SUPPORT)
-  QAction* toolsConvertToId3v23 = new QAction(this);
-  toolsConvertToId3v23->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
-  toolsConvertToId3v23->setText(tr("Convert ID3v2.4 to ID3v2.&3"));
-  toolsConvertToId3v23->setObjectName(QLatin1String("convert_to_id3v23"));
-  m_shortcutsModel->registerAction(toolsConvertToId3v23, menuTitle);
-  connect(toolsConvertToId3v23, SIGNAL(triggered()),
-    app(), SLOT(convertToId3v23()));
-  toolsMenu->addAction(toolsConvertToId3v23);
-#endif
+    if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB) ||
+        tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB)) {
+      QAction* toolsConvertToId3v23 = new QAction(this);
+      toolsConvertToId3v23->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
+      toolsConvertToId3v23->setText(tr("Convert ID3v2.4 to ID3v2.&3"));
+      toolsConvertToId3v23->setObjectName(QLatin1String("convert_to_id3v23"));
+      m_shortcutsModel->registerAction(toolsConvertToId3v23, menuTitle);
+      connect(toolsConvertToId3v23, SIGNAL(triggered()),
+        app(), SLOT(convertToId3v23()));
+      toolsMenu->addAction(toolsConvertToId3v23);
+    }
+  }
 
 #if defined HAVE_PHONON || QT_VERSION >= 0x050000
   QAction* toolsPlay = new QAction(this);
