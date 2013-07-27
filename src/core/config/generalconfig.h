@@ -111,9 +111,6 @@ private:
 };
 
 template <class Derived, class Base>
-int StoredConfig<Derived, Base>::s_index(-1);
-
-template <class Derived, class Base>
 Derived& StoredConfig<Derived, Base>::instance() {
   Derived* obj = 0;
   ConfigStore* store = ConfigStore::instance();

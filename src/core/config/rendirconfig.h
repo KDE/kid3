@@ -72,4 +72,7 @@ public:
   static const char** s_defaultDirFmtList;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<RenDirConfig, GeneralConfig>::s_index;
+
 #endif

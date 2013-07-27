@@ -26,6 +26,10 @@
 
 #include "guiconfig.h"
 
+template<>
+int StoredConfig<GuiConfig, GeneralConfig>::s_index(-1);
+
+
 /**
  * Constructor.
  */

@@ -338,6 +338,9 @@ void FormatConfig::setLocaleName(const QString& localeName)
 }
 
 
+template<>
+int StoredConfig<FilenameFormatConfig, FormatConfig>::s_index(-1);
+
 /**
  * Constructor.
  */
@@ -354,6 +357,9 @@ FilenameFormatConfig::~FilenameFormatConfig()
 {
 }
 
+
+template<>
+int StoredConfig<TagFormatConfig, FormatConfig>::s_index(-1);
 
 /**
  * Constructor.

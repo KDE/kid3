@@ -101,4 +101,7 @@ public:
   QString m_infoFormat;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<PlaylistConfig, GeneralConfig>::s_index;
+
 #endif // PLAYLISTCONFIG_H

@@ -225,4 +225,7 @@ private:
   int m_tagFormats;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<TagConfig, GeneralConfig>::s_index;
+
 #endif

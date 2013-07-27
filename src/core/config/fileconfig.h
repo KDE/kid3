@@ -87,4 +87,7 @@ public:
   QString m_lastOpenedFile;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<FileConfig, GeneralConfig>::s_index;
+
 #endif

@@ -68,4 +68,7 @@ public:
   int m_numberTracksStart;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<NumberTracksConfig, GeneralConfig>::s_index;
+
 #endif

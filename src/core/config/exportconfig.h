@@ -76,4 +76,7 @@ public:
   QByteArray m_exportWindowGeometry;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<ExportConfig, GeneralConfig>::s_index;
+
 #endif

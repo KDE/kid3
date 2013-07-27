@@ -26,6 +26,9 @@
 
 #include "fileconfig.h"
 
+template<>
+int StoredConfig<FileConfig, GeneralConfig>::s_index(-1);
+
 /** Default to filename format list */
 static const char* defaultToFilenameFormats[] = {
   "%{track} %{title}",

@@ -162,6 +162,9 @@ public:
   virtual ~FilenameFormatConfig();
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<FilenameFormatConfig, FormatConfig>::s_index;
+
 
 /**
  * FormatConfig subclass for stored tag format configuration instance.
@@ -179,5 +182,8 @@ public:
    */
   virtual ~TagFormatConfig();
 };
+
+template<>
+KID3_CORE_EXPORT int StoredConfig<TagFormatConfig, FormatConfig>::s_index;
 
 #endif

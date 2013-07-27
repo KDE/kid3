@@ -78,4 +78,7 @@ public:
   QList<int> m_vSplitterSizes;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<GuiConfig, GeneralConfig>::s_index;
+
 #endif

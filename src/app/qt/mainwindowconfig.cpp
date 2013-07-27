@@ -26,6 +26,9 @@
 
 #include "mainwindowconfig.h"
 
+template<>
+int StoredConfig<MainWindowConfig, GeneralConfig>::s_index(-1);
+
 /**
  * Constructor.
  */

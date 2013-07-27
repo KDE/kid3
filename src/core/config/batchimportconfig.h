@@ -85,4 +85,7 @@ public:
   QByteArray m_windowGeometry;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<BatchImportConfig, GeneralConfig>::s_index;
+
 #endif

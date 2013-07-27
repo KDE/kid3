@@ -69,6 +69,9 @@ inline TrackData::TagVersion renDirCfgToTagVersion(int renDirSrc) {
 
 }
 
+template<>
+int StoredConfig<RenDirConfig, GeneralConfig>::s_index(-1);
+
 /**
  * Constructor.
  */

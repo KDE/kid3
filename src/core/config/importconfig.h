@@ -107,4 +107,7 @@ public:
   QString m_importDir;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<ImportConfig, GeneralConfig>::s_index;
+
 #endif

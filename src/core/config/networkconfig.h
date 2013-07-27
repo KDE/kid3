@@ -74,4 +74,7 @@ public:
   QString m_browser;
 };
 
+template<>
+KID3_CORE_EXPORT int StoredConfig<NetworkConfig, GeneralConfig>::s_index;
+
 #endif

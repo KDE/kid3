@@ -26,6 +26,9 @@
 
 #include "exportconfig.h"
 
+template<>
+int StoredConfig<ExportConfig, GeneralConfig>::s_index(-1);
+
 /**
  * Constructor.
  */

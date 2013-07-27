@@ -51,6 +51,9 @@ inline TrackData::TagVersion importDestCfgToTagVersion(int importDest) {
 
 }
 
+template<>
+int StoredConfig<ImportConfig, GeneralConfig>::s_index(-1);
+
 /**
  * Constructor.
  */

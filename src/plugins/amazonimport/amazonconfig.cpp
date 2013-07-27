@@ -27,6 +27,9 @@
 #include "amazonconfig.h"
 #include <QString>
 
+template<>
+int StoredConfig<AmazonConfig, ServerImporterConfig>::s_index(-1);
+
 /**
  * Constructor.
  */
