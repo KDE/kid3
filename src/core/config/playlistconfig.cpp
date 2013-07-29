@@ -27,8 +27,7 @@
 #include "playlistconfig.h"
 #include "config.h"
 
-template<>
-int StoredConfig<PlaylistConfig, GeneralConfig>::s_index(-1);
+int PlaylistConfig::s_index = -1;
 
 /**
  * Constructor.

@@ -76,9 +76,8 @@ public:
   int m_filterIdx;
   /** Window geometry */
   QByteArray m_windowGeometry;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<FilterConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

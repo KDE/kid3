@@ -66,9 +66,8 @@ public:
   TrackData::TagVersion m_numberTracksDst;
   /** number tracks start number */
   int m_numberTracksStart;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<NumberTracksConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

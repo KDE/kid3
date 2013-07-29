@@ -208,6 +208,8 @@ public:
     m_onlyCustomGenres = onlyCustomGenres;
   }
 
+  static int s_index;
+
 private:
   bool m_markTruncations;
   bool m_enableTotalNumberOfTracks;
@@ -224,8 +226,5 @@ private:
 
   int m_tagFormats;
 };
-
-template<>
-KID3_CORE_EXPORT int StoredConfig<TagConfig, GeneralConfig>::s_index;
 
 #endif

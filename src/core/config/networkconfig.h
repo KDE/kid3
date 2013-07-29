@@ -72,9 +72,8 @@ public:
   QString m_proxyPassword;
   /** web browser substituted for %b */
   QString m_browser;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<NetworkConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

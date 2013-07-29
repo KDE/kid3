@@ -70,9 +70,8 @@ public:
 
   /** Default directory format list */
   static const char** s_defaultDirFmtList;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<RenDirConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

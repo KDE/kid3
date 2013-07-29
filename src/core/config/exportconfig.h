@@ -74,9 +74,8 @@ public:
   int m_exportFormatIdx;
   /** export window geometry */
   QByteArray m_exportWindowGeometry;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<ExportConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

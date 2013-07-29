@@ -83,9 +83,8 @@ public:
   int m_profileIdx;
   /** Window geometry */
   QByteArray m_windowGeometry;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<BatchImportConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

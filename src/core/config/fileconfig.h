@@ -85,9 +85,8 @@ public:
   bool m_loadLastOpenedFile;
   /** path to last opened file */
   QString m_lastOpenedFile;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<FileConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

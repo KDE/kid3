@@ -43,6 +43,8 @@ public:
    * Destructor.
    */
   virtual ~MusicBrainzConfig();
+
+  static int s_index;
 };
 
 #endif // MUSICBRAINZCONFIG_H

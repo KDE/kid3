@@ -78,6 +78,8 @@ public:
   QString m_style;
   /** Don't use the native file dialog if true */
   bool m_dontUseNativeDialogs;
+
+  static int s_index;
 };
 
 #endif

@@ -26,8 +26,7 @@
 
 #include "guiconfig.h"
 
-template<>
-int StoredConfig<GuiConfig, GeneralConfig>::s_index(-1);
+int GuiConfig::s_index = -1;
 
 
 /**

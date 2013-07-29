@@ -43,6 +43,8 @@ public:
    * Destructor.
    */
   virtual ~AmazonConfig();
+
+  static int s_index;
 };
 
 #endif // AMAZONCONFIG_H

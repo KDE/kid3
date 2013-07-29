@@ -27,8 +27,7 @@
 #include "discogsconfig.h"
 #include <QString>
 
-template<>
-int StoredConfig<DiscogsConfig, ServerImporterConfig>::s_index(-1);
+int DiscogsConfig::s_index = -1;
 
 /**
  * Constructor.

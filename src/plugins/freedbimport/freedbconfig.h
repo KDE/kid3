@@ -53,6 +53,8 @@ public:
    * @param config KDE configuration
    */
   virtual void readFromConfig(ISettings* config);
+
+  static int s_index;
 };
 
 
@@ -77,6 +79,8 @@ public:
    * @param config KDE configuration
    */
   virtual void readFromConfig(ISettings* config);
+
+  static int s_index;
 };
 
 #endif

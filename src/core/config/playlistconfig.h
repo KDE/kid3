@@ -99,9 +99,8 @@ public:
   QString m_sortTagField;
   /** Format for additional information */
   QString m_infoFormat;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<PlaylistConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif // PLAYLISTCONFIG_H

@@ -105,20 +105,17 @@ public:
    * @return instance.
    */
   static Derived& instance();
-
-private:
-  static int s_index;
 };
 
 template <class Derived, class Base>
 Derived& StoredConfig<Derived, Base>::instance() {
   Derived* obj = 0;
   ConfigStore* store = ConfigStore::instance();
-  if (s_index >= 0) {
-    obj = static_cast<Derived*>(store->configuration(s_index));
+  if (Derived::s_index >= 0) {
+    obj = static_cast<Derived*>(store->configuration(Derived::s_index));
   } else {
     obj = new Derived;
-    s_index = store->addConfiguration(obj);
+    Derived::s_index = store->addConfiguration(obj);
   }
   return *obj;
 }

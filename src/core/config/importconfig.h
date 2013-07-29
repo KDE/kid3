@@ -105,9 +105,8 @@ public:
 
   /** Last directory used for import or export. */
   QString m_importDir;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<ImportConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

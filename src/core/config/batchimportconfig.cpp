@@ -29,8 +29,7 @@
 #include "batchimportprofile.h"
 #include "config.h"
 
-template<>
-int StoredConfig<BatchImportConfig, GeneralConfig>::s_index(-1);
+int BatchImportConfig::s_index = -1;
 
 /**
  * Constructor.

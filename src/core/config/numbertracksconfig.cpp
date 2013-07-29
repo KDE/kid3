@@ -49,8 +49,7 @@ inline TrackData::TagVersion numberTracksDestCfgToTagVersion(int importDest) {
 
 }
 
-template<>
-int StoredConfig<NumberTracksConfig, GeneralConfig>::s_index(-1);
+int NumberTracksConfig::s_index = -1;
 
 /**
  * Constructor.

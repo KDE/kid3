@@ -34,8 +34,7 @@ const char* const defaultCommentName = "COMMENT";
 
 }
 
-template<>
-int StoredConfig<TagConfig, GeneralConfig>::s_index(-1);
+int TagConfig::s_index = -1;
 
 /**
  * Constructor.

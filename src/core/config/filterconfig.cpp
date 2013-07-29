@@ -28,8 +28,7 @@
 #include <QString>
 #include "config.h"
 
-template<>
-int StoredConfig<FilterConfig, GeneralConfig>::s_index(-1);
+int FilterConfig::s_index = -1;
 
 /**
  * Constructor.

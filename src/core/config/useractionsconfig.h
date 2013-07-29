@@ -148,9 +148,8 @@ public:
 
   /** commands available in context menu */
   QList<MenuCommand> m_contextMenuCommands;
-};
 
-template<>
-KID3_CORE_EXPORT int StoredConfig<UserActionsConfig, GeneralConfig>::s_index;
+  static int s_index;
+};
 
 #endif

@@ -43,6 +43,8 @@ public:
    * Destructor.
    */
   virtual ~DiscogsConfig();
+
+  static int s_index;
 };
 
 #endif // DISCOGSCONFIG_H

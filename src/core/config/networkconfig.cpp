@@ -38,8 +38,7 @@ const char* const defaultBrowser = "xdg-open";
 
 }
 
-template<>
-int StoredConfig<NetworkConfig, GeneralConfig>::s_index(-1);
+int NetworkConfig::s_index = -1;
 
 /**
  * Constructor.

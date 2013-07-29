@@ -28,8 +28,7 @@
 #include <QStringList>
 #include <stdlib.h>
 
-template<>
-int StoredConfig<UserActionsConfig, GeneralConfig>::s_index(-1);
+int UserActionsConfig::s_index = -1;
 
 /**
  * Constructor.

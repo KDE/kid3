@@ -28,8 +28,7 @@
 
 class QString;
 
-template<>
-int StoredConfig<FreedbConfig, ServerImporterConfig>::s_index(-1);
+int FreedbConfig::s_index = -1;
 
 /**
  * Constructor.
@@ -63,8 +62,7 @@ void FreedbConfig::readFromConfig(ISettings* config)
 }
 
 
-template<>
-int StoredConfig<TrackTypeConfig, FreedbConfig>::s_index(-1);
+int TrackTypeConfig::s_index = -1;
 
 /**
  * Constructor.

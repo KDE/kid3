@@ -27,8 +27,7 @@
 #include "musicbrainzconfig.h"
 #include <QString>
 
-template<>
-int StoredConfig<MusicBrainzConfig, ServerImporterConfig>::s_index(-1);
+int MusicBrainzConfig::s_index = -1;
 
 /**
  * Constructor.
