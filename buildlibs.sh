@@ -50,9 +50,9 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 compiler="gcc"
 
 qt_version=4.8.4
-zlib_version=1.2.7
-libogg_version=1.3.0
-libav_version=0.8.6
+zlib_version=1.2.8
+libogg_version=1.3.1
+libav_version=0.8.7
 
 # Uncomment for debug build
 #ENABLE_DEBUG=--enable-debug
@@ -122,48 +122,48 @@ fixcmakeinst() {
 test -d source || mkdir source
 cd source
 
-test -f flac_1.2.1-6.diff.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1-6.diff.gz
-test -f flac_1.2.1.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.2.1.orig.tar.gz
+test -f flac_1.3.0-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.3.0-1.debian.tar.gz
+test -f flac_1.3.0.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_1.3.0.orig.tar.xz
 
 test -f id3lib3.8.3_3.8.3-15.debian.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3-15.debian.tar.gz
 test -f id3lib3.8.3_3.8.3.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_3.8.3.orig.tar.gz
 
-test -f libogg_1.3.0-4.diff.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.0-4.diff.gz
-test -f libogg_1.3.0.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.0.orig.tar.gz
+test -f libogg_1.3.1-1.diff.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.1-1.diff.gz
+test -f libogg_1.3.1.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_1.3.1.orig.tar.gz
 
 test -f libvorbis_1.3.2-1.3.diff.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2-1.3.diff.gz
 test -f libvorbis_1.3.2.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_1.3.2.orig.tar.gz
 
-test -f taglib_1.8-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.8-1.debian.tar.gz
+test -f taglib_1.8-2.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.8-2.debian.tar.gz
 test -f taglib_1.8.orig.tar.gz ||
 $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/t/taglib/taglib_1.8.orig.tar.gz
 
-test -f zlib_1.2.7.dfsg-13.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg-13.debian.tar.gz
-test -f zlib_1.2.7.dfsg.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.7.dfsg.orig.tar.gz
+test -f zlib_1.2.8.dfsg-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.8.dfsg-1.debian.tar.gz
+test -f zlib_1.2.8.dfsg.orig.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_1.2.8.dfsg.orig.tar.gz
 
 # With the new libav 9.5, some M4A fingerprints are not recognized,
 # so we'll stick with the old.
-if test "$libav_version" = "0.8.6"; then
-test -f libav_0.8.6.orig.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.6.orig.tar.gz
-test -f libav_0.8.6-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.6-1.debian.tar.gz
+if test "$libav_version" = "0.8.7"; then
+test -f libav_0.8.7.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.7.orig.tar.xz
+test -f libav_0.8.7-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_0.8.7-1.debian.tar.gz
 else
-test -f libav_9.5.orig.tar.xz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.5.orig.tar.xz
-test -f libav_9.5-1.debian.tar.gz ||
-$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.5-1.debian.tar.gz
+test -f libav_9.8.orig.tar.xz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.8.orig.tar.xz
+test -f libav_9.8-1.debian.tar.gz ||
+$DOWNLOAD http://ftp.de.debian.org/debian/pool/main/liba/libav/libav_9.8-1.debian.tar.gz
 fi
 
 test -f chromaprint_0.7.orig.tar.gz ||
@@ -428,7 +428,7 @@ index c73da41..af53ac1 100644
    if(ID3v2 & tags) {
 EOF
 
-if test "$libav_version" = "0.8.6"; then
+if test "$libav_version" = "0.8.7"; then
 test -f libav_sws.patch ||
 cat >libav_sws.patch <<"EOF"
 --- cmdutils.c.org      2011-09-17 13:36:43.000000000 -0700
@@ -453,27 +453,27 @@ cd ..
 
 # Extract and patch sources
 
-# zlib
+echo "### Extracting zlib"
 
-if ! test -d zlib-1.2.7; then
-tar xzf source/zlib_1.2.7.dfsg.orig.tar.gz
-cd zlib-1.2.7/
-tar xzf ../source/zlib_1.2.7.dfsg-13.debian.tar.gz || true
+if ! test -d zlib-1.2.8; then
+tar xzf source/zlib_1.2.8.dfsg.orig.tar.gz
+cd zlib-1.2.8/
+tar xzf ../source/zlib_1.2.8.dfsg-1.debian.tar.gz || true
 echo Can be ignored: Cannot create symlink to debian.series
 for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 
-# libogg
+echo "### Extracting libogg"
 
-if ! test -d libogg-1.3.0; then
-tar xzf source/libogg_1.3.0.orig.tar.gz
-cd libogg-1.3.0/
-gunzip -c ../source/libogg_1.3.0-4.diff.gz | patch -p1
+if ! test -d libogg-1.3.1; then
+tar xzf source/libogg_1.3.1.orig.tar.gz
+cd libogg-1.3.1/
+gunzip -c ../source/libogg_1.3.1-1.diff.gz | patch -p1
 cd ..
 fi
 
-# libvorbis
+echo "### Extracting libvorbis"
 
 if ! test -d libvorbis-1.3.2; then
 tar xzf source/libvorbis_1.3.2.orig.tar.gz
@@ -484,12 +484,12 @@ sed "s/Value=\"1.1.4\"/Value=\"$libogg_version\"/" win32/VS2008/libogg.vsprops.o
 cd ..
 fi
 
-# libflac
+echo "### Extracting libflac"
 
-if ! test -d flac-1.2.1; then
-tar xzf source/flac_1.2.1.orig.tar.gz
-cd flac-1.2.1/
-gunzip -c ../source/flac_1.2.1-6.diff.gz | patch -p1
+if ! test -d flac-1.3.0; then
+unxz -c source/flac_1.3.0.orig.tar.xz | tar x
+cd flac-1.3.0/
+tar xzf ../source/flac_1.3.0-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/flac_1.2.1_size_t_max_patch.diff
 if test $kernel = "Darwin"; then
@@ -500,7 +500,7 @@ fi
 cd ..
 fi
 
-# id3lib
+echo "### Extracting id3lib"
 
 if ! test -d id3lib-3.8.3; then
 tar xzf source/id3lib3.8.3_3.8.3.orig.tar.gz
@@ -514,12 +514,12 @@ sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "
 cd ..
 fi
 
-# taglib
+echo "### Extracting taglib"
 
 if ! test -d taglib-1.8; then
 tar xzf source/taglib_1.8.orig.tar.gz
 cd taglib-1.8/
-tar xzf ../source/taglib_1.8-1.debian.tar.gz
+tar xzf ../source/taglib_1.8-2.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 patch -p1 <../source/taglib-xm-file-save.patch
 patch -p1 <../source/taglib-msvc.patch
@@ -527,13 +527,13 @@ patch -p1 <../source/taglib-no-id3-duplication.patch
 cd ..
 fi
 
-# libav
+echo "### Extracting libav"
 
-if test "$libav_version" = "0.8.6"; then
-if ! test -d libav-0.8.6; then
-tar xzf source/libav_0.8.6.orig.tar.gz
-cd libav-0.8.6/
-tar xzf ../source/libav_0.8.6-1.debian.tar.gz
+if test "$libav_version" = "0.8.7"; then
+if ! test -d libav-0.8.7; then
+unxz -c source/libav_0.8.7.orig.tar.xz | tar x
+cd libav-0.8.7/
+tar xzf ../source/libav_0.8.7-1.debian.tar.gz
 oldifs=$IFS
 IFS='
 '
@@ -547,16 +547,16 @@ patch -p0 <../source/libav_sws.patch
 cd ..
 fi
 else
-if ! test -d libav-9.5; then
-unxz -c source/libav_9.5.orig.tar.xz | tar x
-cd libav-9.5/
-tar xzf ../source/libav_9.5-1.debian.tar.gz
+if ! test -d libav-9.8; then
+unxz -c source/libav_9.8.orig.tar.xz | tar x
+cd libav-9.8/
+tar xzf ../source/libav_9.8-1.debian.tar.gz
 for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 fi
 
-# chromaprint
+echo "### Extracting chromaprint"
 
 if ! test -d chromaprint-0.7; then
 tar xzf source/chromaprint_0.7.orig.tar.gz
@@ -566,8 +566,8 @@ for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
 cd ..
 fi
 
-# mp4v2
-
+#echo "### Extracting mp4v2"
+#
 #if ! test -d mp4v2-1.9.1+svn479~dfsg0; then
 #tar xjf source/mp4v2_1.9.1+svn479~dfsg0.orig.tar.bz2
 #cd mp4v2-1.9.1+svn479~dfsg0/
@@ -582,9 +582,9 @@ test -d bin || mkdir bin
 
 if test "$compiler" = "msvc"; then
 
-# libogg
+echo "### Building libogg"
 
-cd libogg-1.3.0/
+cd libogg-1.3.1/
 $COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\libogg_static.sln /p:Configuration=Debug;Platform=Win32"
 $COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\libogg_static.sln /p:Configuration=Release;Platform=Win32"
 mkdir -p inst/include/ogg inst/lib/Debug inst/lib/Release
@@ -592,10 +592,10 @@ cp win32/VS2008/Win32/Debug/libogg_static.lib inst/lib/Debug/
 cp win32/VS2008/Win32/Release/libogg_static.lib inst/lib/Release/
 cp include/ogg/*.h inst/include/ogg/
 cd inst
-tar czf ../../bin/libogg-1.3.0.tgz include lib
+tar czf ../../bin/libogg-1.3.1.tgz include lib
 cd ../..
 
-# libvorbis
+echo "### Building libvorbis"
 
 cd libvorbis-1.3.2/
 $COMSPEC /c "\"\"%VS90COMNTOOLS%vsvars32.bat\"\" && msbuild win32\VS2008\vorbis_static.sln /p:Configuration=Debug;Platform=Win32"
@@ -608,7 +608,7 @@ cd inst
 tar czf ../../bin/libvorbis-1.3.2.tgz include lib
 cd ../..
 
-# id3lib
+echo "### Building id3lib"
 
 cd id3lib-3.8.3/
 test -f config.h || cp config.h.win32 config.h
@@ -622,7 +622,7 @@ cd inst
 tar czf ../../bin/id3lib-3.8.3.tgz include lib
 cd ../..
 
-# taglib
+echo "### Building taglib"
 
 cd taglib-1.8/
 test -f taglib.sln || cmake -G "Visual Studio 9 2008" -DWITH_ASF=ON -DWITH_MP4=ON -DENABLE_STATIC=ON -DCMAKE_INSTALL_PREFIX=
@@ -639,7 +639,7 @@ cd inst
 tar czf ../../bin/taglib-1.8.tgz include lib
 cd ../..
 
-# Install to root directory
+echo "### Installing to root directory"
 
 BUILDROOT=../libs-msvc
 test -d $BUILDROOT || mkdir $BUILDROOT
@@ -649,15 +649,15 @@ done
 
 else
 
-# zlib
+echo "### Building zlib"
 
-cd zlib-1.2.7/
+cd zlib-1.2.8/
 if test $kernel = "MINGW"; then
 make -f win32/Makefile.gcc
-make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
+make install -f win32/Makefile.gcc SHARED_MODE=1 INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 elif test "$compiler" = "cross-mingw"; then
 make -f win32/Makefile.gcc PREFIX=i586-mingw32msvc-
-make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
+make install -f win32/Makefile.gcc SHARED_MODE=1 INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
 else
 CFLAGS="$CFLAGS -O3 -Wall -DNO_FSEEKO" ./configure --static
 sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
@@ -665,21 +665,21 @@ mkdir -p inst/usr/local
 make install -f Makefile.inst prefix=`pwd`/inst/usr/local
 fi
 cd inst
-tar czf ../../bin/zlib-1.2.7.tgz usr
+tar czf ../../bin/zlib-1.2.8.tgz usr
 cd ../..
 
-# libogg
+echo "### Building libogg"
 
-cd libogg-1.3.0/
+cd libogg-1.3.1/
 test -f Makefile || ./configure --enable-shared=no --enable-static=yes $ENABLE_DEBUG $CONFIGURE_OPTIONS
 make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libogg-1.3.0.tgz usr
+tar czf ../../bin/libogg-1.3.1.tgz usr
 cd ../..
 
-# libvorbis
+echo "### Building libvorbis"
 
 cd libvorbis-1.3.2/
 if test "$compiler" = "cross-mingw"; then
@@ -694,9 +694,9 @@ cd inst
 tar czf ../../bin/libvorbis-1.3.2.tgz usr
 cd ../..
 
-# libflac
+echo "### Building libflac"
 
-cd flac-1.2.1/
+cd flac-1.3.0/
 configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $ENABLE_DEBUG $CONFIGURE_OPTIONS"
 if test $kernel = "Darwin"; then
   configure_args="$configure_args --disable-asm-optimizations"
@@ -706,10 +706,10 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/flac-1.2.1.tgz usr
+tar czf ../../bin/flac-1.3.0.tgz usr
 cd ../..
 
-# id3lib
+echo "### Building id3lib"
 
 cd id3lib-3.8.3/
 autoconf
@@ -721,7 +721,7 @@ cd inst
 tar czf ../../bin/id3lib-3.8.3.tgz usr
 cd ../..
 
-# taglib
+echo "### Building taglib"
 
 cd taglib-1.8/
 test -f Makefile || eval cmake -DWITH_ASF=ON -DWITH_MP4=ON -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DENABLE_STATIC=ON -DZLIB_ROOT=../zlib-$zlib_version/inst/usr/local $CMAKE_BUILD_TYPE_DEBUG $CMAKE_OPTIONS
@@ -733,10 +733,10 @@ cd inst
 tar czf ../../bin/taglib-1.8.tgz usr
 cd ../..
 
-# libav
+echo "### Building libav"
 
-if test "$libav_version" = "0.8.6"; then
-cd libav-0.8.6
+if test "$libav_version" = "0.8.7"; then
+cd libav-0.8.7
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -831,10 +831,10 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-0.8.6.tgz usr
+tar czf ../../bin/libav-0.8.7.tgz usr
 cd ../..
 else
-cd libav-9.5
+cd libav-9.8
 # configure needs yasm and pr
 # On msys, make >= 3.81 is needed.
 # Most options taken from
@@ -928,11 +928,11 @@ make
 mkdir -p inst
 make install DESTDIR=`pwd`/inst
 cd inst
-tar czf ../../bin/libav-9.5.tgz usr
+tar czf ../../bin/libav-9.8.tgz usr
 cd ../..
 fi
 
-# chromaprint
+echo "### Building chromaprint"
 
 # The zlib library path was added for MinGW-builds GCC 4.7.2.
 cd chromaprint-0.7/
@@ -944,8 +944,8 @@ cd inst
 tar czf ../../bin/chromaprint-0.7.tgz usr
 cd ../..
 
-# mp4v2
-
+#echo "### Building mp4v2"
+#
 #cd mp4v2-1.9.1+svn479~dfsg0/
 #test -f Makefile || ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
 #mkdir inst
@@ -955,7 +955,7 @@ cd ../..
 #cd ../..
 
 
-# Install to root directory
+echo "### Installing to root directory"
 
 BUILDROOT=/
 if test $kernel = "Linux"; then
@@ -984,7 +984,7 @@ fi
 tar xzf bin/zlib-${zlib_version}.tgz -C $BUILDROOT
 tar xzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
 tar xzf bin/libvorbis-1.3.2.tgz -C $BUILDROOT
-tar xzf bin/flac-1.2.1.tgz -C $BUILDROOT
+tar xzf bin/flac-1.3.0.tgz -C $BUILDROOT
 tar xzf bin/id3lib-3.8.3.tgz -C $BUILDROOT
 tar xzf bin/taglib-1.8.tgz -C $BUILDROOT
 tar xzf bin/libav-${libav_version}.tgz -C $BUILDROOT
@@ -997,4 +997,4 @@ fi
 
 fi
 
-echo "Built successfully."
+echo "### Built successfully"
