@@ -2052,7 +2052,9 @@ QString Kid3Application::createFilterString() const
     allPatterns += pattern;
     nameFilters.append(qMakePair(text, pattern));
   }
-  nameFilters.prepend(qMakePair(tr("All Supported Files"), allPatterns));
+  if (!allPatterns.isEmpty()) {
+    nameFilters.prepend(qMakePair(tr("All Supported Files"), allPatterns));
+  }
   nameFilters.append(qMakePair(tr("All Files"), QString(QLatin1Char('*'))));
   return m_platformTools->fileDialogNameFilter(nameFilters);
 }

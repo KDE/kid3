@@ -166,6 +166,10 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
     m_serverComboBox->addItem(QCoreApplication::translate("@default", si->name()));
   }
   butlayout->addWidget(m_serverComboBox);
+  if (m_serverComboBox->count() == 0) {
+    serverButton->hide();
+    m_serverComboBox->hide();
+  }
   QSpacerItem* butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   butlayout->addItem(butspacer);
