@@ -281,6 +281,8 @@ void ImportConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("MatchPictureUrlMapKeys"), QVariant(m_matchPictureUrlMap.keys()));
   config->setValue(QLatin1String("MatchPictureUrlMapValues"), QVariant(m_matchPictureUrlMap.values()));
   config->setValue(QLatin1String("BrowseCoverArtWindowGeometry"), QVariant(m_browseCoverArtWindowGeometry));
+
+  config->setValue(QLatin1String("DisabledPlugins"), QVariant(m_disabledPlugins));
   config->endGroup();
 }
 
@@ -332,6 +334,9 @@ void ImportConfig::readFromConfig(ISettings* config)
   m_browseCoverArtWindowGeometry = config->value(
         QLatin1String("BrowseCoverArtWindowGeometry"),
         m_browseCoverArtWindowGeometry).toByteArray();
+
+  m_disabledPlugins = config->value(QLatin1String("DisabledPlugins"),
+                                 m_disabledPlugins).toStringList();
   config->endGroup();
 
   // KConfig seems to strip empty entries from the end of the string lists,

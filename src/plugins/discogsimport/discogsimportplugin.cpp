@@ -39,7 +39,7 @@ static const QLatin1String IMPORTER_NAME("DiscogsImport");
  */
 DiscogsImportPlugin::DiscogsImportPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("DiscogsImportPlugin"));
+  setObjectName(QLatin1String("DiscogsImport"));
 }
 
 /**

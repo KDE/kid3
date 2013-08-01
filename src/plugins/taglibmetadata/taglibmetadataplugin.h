@@ -53,6 +53,12 @@ public:
   virtual ~TaglibMetadataPlugin();
 
   /**
+   * Get name of factory, the same as the QObject::objectName() of the plugin.
+   * @return factory name.
+   */
+  virtual QString name() const;
+
+  /**
    * Get keys of available tagged file formats.
    * @return list of keys.
    */

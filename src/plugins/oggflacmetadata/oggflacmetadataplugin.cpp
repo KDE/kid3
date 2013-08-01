@@ -46,7 +46,7 @@ static const QLatin1String FLAC_KEY("FlacMetadata");
  */
 OggFlacMetadataPlugin::OggFlacMetadataPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("OggFlacMetadataPlugin"));
+  setObjectName(QLatin1String("OggFlacMetadata"));
 }
 
 /**
@@ -54,6 +54,15 @@ OggFlacMetadataPlugin::OggFlacMetadataPlugin(QObject* parent) : QObject(parent)
  */
 OggFlacMetadataPlugin::~OggFlacMetadataPlugin()
 {
+}
+
+/**
+ * Get name of factory, the same as the QObject::objectName() of the plugin.
+ * @return factory name.
+ */
+QString OggFlacMetadataPlugin::name() const
+{
+  return objectName();
 }
 
 /**

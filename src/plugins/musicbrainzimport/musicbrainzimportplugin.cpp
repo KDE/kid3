@@ -39,7 +39,7 @@ static const QLatin1String IMPORTER_NAME("MusicBrainzImport");
  */
 MusicBrainzImportPlugin::MusicBrainzImportPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("MusicBrainzImportPlugin"));
+  setObjectName(QLatin1String("MusicBrainzImport"));
 }
 
 /**

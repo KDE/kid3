@@ -62,6 +62,14 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
+  /**
+   * Access to list of available plugins.
+   * @return available plugins.
+   * @remark This information is not stored in the configuration, it is
+   * determined when the plugins are loaded.
+   */
+  QStringList& availablePlugins() { return m_availablePlugins; }
+
   /** import server */
   int m_importServer;
   /** tag version to import */
@@ -106,7 +114,13 @@ public:
   /** Last directory used for import or export. */
   QString m_importDir;
 
+  /** Disabled plugins */
+  QStringList m_disabledPlugins;
+
   static int s_index;
+
+private:
+  QStringList m_availablePlugins;
 };
 
 #endif

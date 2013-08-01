@@ -873,6 +873,11 @@ private slots:
 
 private:
   /**
+   * Load and initialize plugins depending on configuration.
+   */
+  void initPlugins();
+
+  /**
    * Check type of a loaded plugin and register it.
    * @param plugin instance returned by plugin loader
    */

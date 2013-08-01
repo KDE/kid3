@@ -39,7 +39,7 @@ static const QLatin1String TAGGEDFILE_KEY("TaglibMetadata");
  */
 TaglibMetadataPlugin::TaglibMetadataPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("TaglibMetadataPlugin"));
+  setObjectName(QLatin1String("TaglibMetadata"));
 }
 
 /**
@@ -47,6 +47,15 @@ TaglibMetadataPlugin::TaglibMetadataPlugin(QObject* parent) : QObject(parent)
  */
 TaglibMetadataPlugin::~TaglibMetadataPlugin()
 {
+}
+
+/**
+ * Get name of factory, the same as the QObject::objectName() of the plugin.
+ * @return factory name.
+ */
+QString TaglibMetadataPlugin::name() const
+{
+  return objectName();
 }
 
 /**

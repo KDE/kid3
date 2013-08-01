@@ -39,7 +39,7 @@ static const QLatin1String TAGGEDFILE_KEY("Mp4v2Metadata");
  */
 Mp4v2MetadataPlugin::Mp4v2MetadataPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("Mp4v2MetadataPlugin"));
+  setObjectName(QLatin1String("Mp4v2Metadata"));
 }
 
 /**

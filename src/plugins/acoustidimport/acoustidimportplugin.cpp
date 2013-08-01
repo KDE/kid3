@@ -39,7 +39,7 @@ static const QLatin1String IMPORTER_NAME("AcoustidImport");
  */
 AcoustidImportPlugin::AcoustidImportPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("AcoustidImportPlugin"));
+  setObjectName(QLatin1String("AcoustidImport"));
 }
 
 /**

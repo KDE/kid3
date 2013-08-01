@@ -46,6 +46,12 @@ public:
   virtual ~ITaggedFileFactory() = 0;
 
   /**
+   * Get name of factory, the same as the QObject::objectName() of the plugin.
+   * @return factory name.
+   */
+  virtual QString name() const = 0;
+
+  /**
    * Get keys of available tagged file formats.
    * @return list of keys.
    */

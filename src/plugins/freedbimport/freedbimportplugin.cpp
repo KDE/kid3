@@ -41,7 +41,7 @@ static const QLatin1String TRACKTYPE_IMPORTER_NAME("TrackTypeImport");
  */
 FreedbImportPlugin::FreedbImportPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("FreedbImportPlugin"));
+  setObjectName(QLatin1String("FreedbImport"));
 }
 
 /**

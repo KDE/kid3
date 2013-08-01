@@ -71,6 +71,33 @@
 
 #include "importplugins.h"
 
+namespace {
+
+/**
+ * Get the file name of the plugin from the plugin name.
+ * @param pluginName name of the plugin
+ * @return file name.
+ */
+QString pluginFileName(const QString& pluginName)
+{
+  QString fileName = pluginName.toLower();
+#ifdef Q_OS_WIN32
+#ifdef Q_CC_MSVC
+  fileName += QLatin1String(".dll");
+#else
+  fileName = QLatin1String("lib") + fileName + QLatin1String(".dll");
+#endif
+#elif defined Q_OS_MAC
+  fileName = QLatin1String("lib") + fileName + QLatin1String(".dylib");
+#else
+  fileName = QLatin1String("lib") + fileName + QLatin1String(".so");
+#endif
+  return fileName;
+}
+
+}
+
+
 /** Current directory */
 QString Kid3Application::s_dirName;
 
@@ -116,9 +143,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   setFiltered(false);
   FilenameFormatConfig::instance().setAsFilenameFormatter();
 
-  foreach (QObject* plugin, loadPlugins()) {
-    checkPlugin(plugin);
-  }
+  initPlugins();
   m_batchImporter->setImporters(m_importers, m_trackDataModel);
 
 #ifdef HAVE_QTDBUS
@@ -160,10 +185,43 @@ Kid3Application::~Kid3Application()
 }
 
 /**
+ * Load and initialize plugins depending on configuration.
+ */
+void Kid3Application::initPlugins()
+{
+  // Load plugins, set information about plugins in configuration.
+  ImportConfig& importCfg = ImportConfig::instance();
+  TagConfig& tagCfg = TagConfig::instance();
+  importCfg.availablePlugins().clear();
+  tagCfg.availablePlugins().clear();
+  foreach (QObject* plugin, loadPlugins()) {
+    checkPlugin(plugin);
+  }
+  // Order the meta data plugins as configured.
+  if (!tagCfg.pluginOrder().isEmpty()) {
+    QList<ITaggedFileFactory*> orderedFactories;
+    for (int i = 0; i < tagCfg.pluginOrder().size(); ++i) {
+      orderedFactories.append(0);
+    }
+    foreach (ITaggedFileFactory* factory, FileProxyModel::taggedFileFactories()) {
+      int idx = tagCfg.pluginOrder().indexOf(factory->name());
+      if (idx >= 0) {
+        orderedFactories[idx] = factory;
+      } else {
+        orderedFactories.append(factory);
+      }
+    }
+    orderedFactories.removeAll(0);
+    FileProxyModel::taggedFileFactories().swap(orderedFactories);
+  }
+}
+
+/**
  * Load plugins.
  * @return list of plugin instances.
  */
-QObjectList Kid3Application::loadPlugins() {
+QObjectList Kid3Application::loadPlugins()
+{
   QObjectList plugins = QPluginLoader::staticInstances();
 
   // First check if we are running from the build directory to load the
@@ -196,11 +254,45 @@ QObjectList Kid3Application::loadPlugins() {
       pluginsDir.cd(buildType);
     }
 #endif
+    ImportConfig& importCfg = ImportConfig::instance();
+    TagConfig& tagCfg = TagConfig::instance();
+
+    // Construct a set of disabled plugin file names
+    QMap<QString, QString> disabledImportPluginFileNames;
+    foreach (const QString& pluginName, importCfg.m_disabledPlugins) {
+      disabledImportPluginFileNames.insert(pluginFileName(pluginName),
+                                           pluginName);
+    }
+    QMap<QString, QString> disabledTagPluginFileNames;
+    foreach (const QString& pluginName, tagCfg.disabledPlugins()) {
+      disabledTagPluginFileNames.insert(pluginFileName(pluginName),
+                                        pluginName);
+    }
+
     foreach (const QString& fileName, pluginsDir.entryList(QDir::Files)) {
+      if (disabledImportPluginFileNames.contains(fileName)) {
+        importCfg.availablePlugins().append(
+              disabledImportPluginFileNames.value(fileName));
+        continue;
+      }
+      if (disabledTagPluginFileNames.contains(fileName)) {
+        tagCfg.availablePlugins().append(
+              disabledTagPluginFileNames.value(fileName));
+        continue;
+      }
       QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
       QObject* plugin = loader.instance();
       if (plugin) {
-        plugins.append(plugin);
+        QString name(plugin->objectName());
+        if (importCfg.m_disabledPlugins.contains(name)) {
+          importCfg.availablePlugins().append(name);
+          loader.unload();
+        } else if (tagCfg.disabledPlugins().contains(name)) {
+          tagCfg.availablePlugins().append(name);
+          loader.unload();
+        } else {
+          plugins.append(plugin);
+        }
       }
     }
   }
@@ -211,27 +303,40 @@ QObjectList Kid3Application::loadPlugins() {
  * Check type of a loaded plugin and register it.
  * @param plugin instance returned by plugin loader
  */
-void Kid3Application::checkPlugin(QObject* plugin) {
+void Kid3Application::checkPlugin(QObject* plugin)
+{
   if (IServerImporterFactory* importerFactory =
       qobject_cast<IServerImporterFactory*>(plugin)) {
-    foreach (const QString& key, importerFactory->serverImporterKeys()) {
-      m_importers.append(importerFactory->createServerImporter(
-                           key, m_netMgr, m_trackDataModel));
+    ImportConfig& importCfg = ImportConfig::instance();
+    importCfg.availablePlugins().append(plugin->objectName());
+    if (!importCfg.m_disabledPlugins.contains(plugin->objectName())) {
+      foreach (const QString& key, importerFactory->serverImporterKeys()) {
+        m_importers.append(importerFactory->createServerImporter(
+                             key, m_netMgr, m_trackDataModel));
+      }
     }
   }
   if (IServerTrackImporterFactory* importerFactory =
       qobject_cast<IServerTrackImporterFactory*>(plugin)) {
-    foreach (const QString& key, importerFactory->serverTrackImporterKeys()) {
-      m_trackImporters.append(importerFactory->createServerTrackImporter(
-                           key, m_netMgr, m_trackDataModel));
+    ImportConfig& importCfg = ImportConfig::instance();
+    importCfg.availablePlugins().append(plugin->objectName());
+    if (!importCfg.m_disabledPlugins.contains(plugin->objectName())) {
+      foreach (const QString& key, importerFactory->serverTrackImporterKeys()) {
+        m_trackImporters.append(importerFactory->createServerTrackImporter(
+                             key, m_netMgr, m_trackDataModel));
+      }
     }
   }
   if (ITaggedFileFactory* taggedFileFactory =
       qobject_cast<ITaggedFileFactory*>(plugin)) {
-    foreach (const QString& key, taggedFileFactory->taggedFileKeys()) {
-      taggedFileFactory->initialize(key);
+    TagConfig& tagCfg = TagConfig::instance();
+    tagCfg.availablePlugins().append(plugin->objectName());
+    if (!tagCfg.disabledPlugins().contains(plugin->objectName())) {
+      foreach (const QString& key, taggedFileFactory->taggedFileKeys()) {
+        taggedFileFactory->initialize(key);
+      }
+      FileProxyModel::taggedFileFactories().append(taggedFileFactory);
     }
-    FileProxyModel::taggedFileFactories().append(taggedFileFactory);
   }
 }
 

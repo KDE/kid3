@@ -32,6 +32,14 @@ namespace {
 /** Default value for comment name */
 const char* const defaultCommentName = "COMMENT";
 
+/** Default to filename format list */
+const char* defaultPluginOrder[] = {
+  "Id3libMetadata",
+  "OggFlacMetadata",
+  "TaglibMetadata",
+  0
+};
+
 }
 
 int TagConfig::s_index = -1;
@@ -81,6 +89,8 @@ void TagConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("QuickAccessFrames"), QVariant(m_quickAccessFrames));
   config->setValue(QLatin1String("TrackNumberDigits"), QVariant(m_trackNumberDigits));
   config->setValue(QLatin1String("OnlyCustomGenres"), QVariant(m_onlyCustomGenres));
+  config->setValue(QLatin1String("PluginOrder"), QVariant(m_pluginOrder));
+  config->setValue(QLatin1String("DisabledPlugins"), QVariant(m_disabledPlugins));
   config->endGroup();
 }
 
@@ -106,7 +116,17 @@ void TagConfig::readFromConfig(ISettings* config)
                                      FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toUInt();
   m_trackNumberDigits = config->value(QLatin1String("TrackNumberDigits"), 1).toInt();
   m_onlyCustomGenres = config->value(QLatin1String("OnlyCustomGenres"), m_onlyCustomGenres).toBool();
+  m_pluginOrder = config->value(QLatin1String("PluginOrder"),
+                                 m_pluginOrder).toStringList();
+  m_disabledPlugins = config->value(QLatin1String("DisabledPlugins"),
+                                 m_disabledPlugins).toStringList();
   config->endGroup();
+
+  if (m_pluginOrder.isEmpty()) {
+    for (const char** pn = defaultPluginOrder; *pn != 0; ++pn) {
+      m_pluginOrder += QString::fromLatin1(*pn);
+    }
+  }
 }
 
 /** version used for new ID3v2 tags */

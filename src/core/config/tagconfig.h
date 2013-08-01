@@ -208,6 +208,30 @@ public:
     m_onlyCustomGenres = onlyCustomGenres;
   }
 
+  /** The order in which meta data plugins are tried when opening a file */
+  QStringList pluginOrder() const { return m_pluginOrder; }
+
+  /** Set the order in which meta data plugins are tried when opening a file. */
+  void setPluginOrder(const QStringList& pluginOrder) {
+    m_pluginOrder = pluginOrder;
+  }
+
+  /** Disabled plugins */
+  QStringList disabledPlugins() const { return m_disabledPlugins; }
+
+  /** Set list of disabled plugins. */
+  void setDisabledPlugins(const QStringList& disabledPlugins) {
+    m_disabledPlugins = disabledPlugins;
+  }
+
+  /**
+   * Access to list of available plugins
+   * @return available plugins.
+   * @remark This information is not stored in the configuration, it is
+   * determined when the plugins are loaded.
+   */
+  QStringList& availablePlugins() { return m_availablePlugins; }
+
   static int s_index;
 
 private:
@@ -223,7 +247,10 @@ private:
   quint64 m_quickAccessFrames;
   int m_trackNumberDigits;
   bool m_onlyCustomGenres;
+  QStringList m_pluginOrder;
+  QStringList m_disabledPlugins;
 
+  QStringList m_availablePlugins;
   int m_tagFormats;
 };
 

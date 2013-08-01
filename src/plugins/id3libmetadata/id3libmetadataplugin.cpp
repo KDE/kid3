@@ -39,7 +39,7 @@ static const QLatin1String TAGGEDFILE_KEY("Id3libMetadata");
  */
 Id3libMetadataPlugin::Id3libMetadataPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("Id3libMetadataPlugin"));
+  setObjectName(QLatin1String("Id3libMetadata"));
 }
 
 /**
@@ -47,6 +47,15 @@ Id3libMetadataPlugin::Id3libMetadataPlugin(QObject* parent) : QObject(parent)
  */
 Id3libMetadataPlugin::~Id3libMetadataPlugin()
 {
+}
+
+/**
+ * Get name of factory, the same as the QObject::objectName() of the plugin.
+ * @return factory name.
+ */
+QString Id3libMetadataPlugin::name() const
+{
+  return objectName();
 }
 
 /**

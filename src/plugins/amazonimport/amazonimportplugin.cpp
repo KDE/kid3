@@ -39,7 +39,7 @@ static const QLatin1String IMPORTER_NAME("AmazonImport");
  */
 AmazonImportPlugin::AmazonImportPlugin(QObject* parent) : QObject(parent)
 {
-  setObjectName(QLatin1String("AmazonImportPlugin"));
+  setObjectName(QLatin1String("AmazonImport"));
 }
 
 /**
