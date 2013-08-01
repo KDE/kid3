@@ -149,6 +149,7 @@ public:
   /** commands available in context menu */
   QList<MenuCommand> m_contextMenuCommands;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

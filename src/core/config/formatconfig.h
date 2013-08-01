@@ -161,6 +161,7 @@ public:
    */
   virtual ~FilenameFormatConfig();
 
+  /** Index in configuration storage */
   static int s_index;
 };
 
@@ -181,6 +182,7 @@ public:
    */
   virtual ~TagFormatConfig();
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

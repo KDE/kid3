@@ -73,6 +73,7 @@ public:
   /** web browser substituted for %b */
   QString m_browser;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

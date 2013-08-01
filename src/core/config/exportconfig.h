@@ -75,6 +75,7 @@ public:
   /** export window geometry */
   QByteArray m_exportWindowGeometry;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

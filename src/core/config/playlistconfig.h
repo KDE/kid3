@@ -100,6 +100,7 @@ public:
   /** Format for additional information */
   QString m_infoFormat;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

@@ -123,6 +123,7 @@ public:
   /** Disabled plugins */
   QStringList m_disabledPlugins;
 
+  /** Index in configuration storage */
   static int s_index;
 
 private:

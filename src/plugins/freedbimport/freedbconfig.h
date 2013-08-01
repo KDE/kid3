@@ -54,6 +54,7 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
+  /** Index in configuration storage */
   static int s_index;
 };
 
@@ -80,6 +81,7 @@ public:
    */
   virtual void readFromConfig(ISettings* config);
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

@@ -86,6 +86,7 @@ public:
   /** path to last opened file */
   QString m_lastOpenedFile;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

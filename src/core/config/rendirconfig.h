@@ -71,6 +71,7 @@ public:
   /** Default directory format list */
   static const char** s_defaultDirFmtList;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

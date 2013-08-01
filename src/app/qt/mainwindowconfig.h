@@ -79,6 +79,7 @@ public:
   /** Don't use the native file dialog if true */
   bool m_dontUseNativeDialogs;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

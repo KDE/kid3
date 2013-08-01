@@ -77,6 +77,7 @@ public:
   /** size of file/dirlist splitter */
   QList<int> m_vSplitterSizes;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

@@ -238,6 +238,7 @@ public:
    */
   QStringList getAvailablePlugins() const { return m_availablePlugins; }
 
+  /** Index in configuration storage */
   static int s_index;
 
 private:

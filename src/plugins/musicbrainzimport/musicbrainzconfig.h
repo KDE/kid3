@@ -44,6 +44,7 @@ public:
    */
   virtual ~MusicBrainzConfig();
 
+  /** Index in configuration storage */
   static int s_index;
 };
 

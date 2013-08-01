@@ -67,6 +67,7 @@ public:
   /** number tracks start number */
   int m_numberTracksStart;
 
+  /** Index in configuration storage */
   static int s_index;
 };
 
