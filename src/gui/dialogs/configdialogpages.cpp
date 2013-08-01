@@ -47,6 +47,7 @@
 #include "useractionsconfig.h"
 #include "guiconfig.h"
 #include "networkconfig.h"
+#include "importconfig.h"
 #include "stringlistedit.h"
 #include "configtable.h"
 #include "commandstablemodel.h"
@@ -401,6 +402,38 @@ QWidget* ConfigDialogPages::createNetworkPage()
 }
 
 /**
+ * Create page with plugins settings.
+ * @return plugins page.
+ */
+QWidget* ConfigDialogPages::createPluginsPage()
+{
+  QWidget* pluginsPage = new QWidget;
+  QVBoxLayout* vlayout = new QVBoxLayout(pluginsPage);
+  QGroupBox* metadataGroupBox = new QGroupBox(
+        tr("&Metadata Plugins && Priority"), pluginsPage);
+
+
+  QVBoxLayout* metadataPluginsLayout = new QVBoxLayout(metadataGroupBox);
+  m_enabledMetadataPluginsModel = new CheckableStringListModel(metadataGroupBox);
+  StringListEdit* metadataEdit = new StringListEdit(m_enabledMetadataPluginsModel, metadataGroupBox);
+  metadataEdit->setEditingDisabled(true);
+  metadataPluginsLayout->addWidget(metadataEdit);
+  vlayout->addWidget(metadataGroupBox);
+
+  QGroupBox* pluginsGroupBox = new QGroupBox(tr("A&vailable Plugins"));
+  QVBoxLayout* pluginsLayout = new QVBoxLayout(pluginsGroupBox);
+  QListView* pluginsListView = new QListView;
+  pluginsListView->setSelectionMode(QAbstractItemView::NoSelection);
+  m_enabledPluginsModel = new CheckableStringListModel(pluginsGroupBox);
+  pluginsListView->setModel(m_enabledPluginsModel);
+  pluginsLayout->addWidget(pluginsListView);
+  vlayout->addWidget(pluginsGroupBox);
+
+  vlayout->addStretch();
+  return pluginsPage;
+}
+
+/**
  * Set values in dialog from current configuration.
  */
 void ConfigDialogPages::setConfig()
@@ -412,6 +445,7 @@ void ConfigDialogPages::setConfig()
   const UserActionsConfig& userActionsCfg = UserActionsConfig::instance();
   const GuiConfig& guiCfg = GuiConfig::instance();
   const NetworkConfig& networkCfg = NetworkConfig::instance();
+  const ImportConfig& importCfg = ImportConfig::instance();
 
   m_fnFormatBox->fromFormatConfig(fnCfg);
   m_id3FormatBox->fromFormatConfig(id3Cfg);
@@ -457,6 +491,44 @@ void ConfigDialogPages::setConfig()
   m_proxyAuthenticationCheckBox->setChecked(networkCfg.m_useProxyAuthentication);
   m_proxyUserNameLineEdit->setText(networkCfg.m_proxyUserName);
   m_proxyPasswordLineEdit->setText(networkCfg.m_proxyPassword);
+
+  QStringList metadataPlugins;
+  if (!tagCfg.pluginOrder().isEmpty()) {
+    for (int i = 0; i < tagCfg.pluginOrder().size(); ++i) {
+      metadataPlugins.append(QString());
+    }
+    foreach (const QString& pluginName, tagCfg.getAvailablePlugins()) {
+      int idx = tagCfg.pluginOrder().indexOf(pluginName);
+      if (idx >= 0) {
+        metadataPlugins[idx] = pluginName;
+      } else {
+        metadataPlugins.append(pluginName);
+      }
+    }
+    metadataPlugins.removeAll(QString());
+  } else {
+    metadataPlugins = tagCfg.getAvailablePlugins();
+  }
+  quint64 metadataPluginsMask = 0;
+  quint64 mask = 1;
+  for (int i = 0; i < metadataPlugins.size(); ++i, mask <<= 1) {
+    if (!tagCfg.disabledPlugins().contains(metadataPlugins.at(i))) {
+      metadataPluginsMask |= mask;
+    }
+  }
+  m_enabledMetadataPluginsModel->setStringList(metadataPlugins);
+  m_enabledMetadataPluginsModel->setBitMask(metadataPluginsMask);
+
+  QStringList importPlugins = importCfg.getAvailablePlugins();
+  quint64 importPluginsMask = 0;
+  mask = 1;
+  for (int i = 0; i < importPlugins.size(); ++i, mask <<= 1) {
+    if (!importCfg.m_disabledPlugins.contains(importPlugins.at(i))) {
+      importPluginsMask |= mask;
+    }
+  }
+  m_enabledPluginsModel->setStringList(importPlugins);
+  m_enabledPluginsModel->setBitMask(importPluginsMask);
 }
 
 /**
@@ -471,6 +543,7 @@ void ConfigDialogPages::getConfig() const
   UserActionsConfig& userActionsCfg = UserActionsConfig::instance();
   GuiConfig& guiCfg = GuiConfig::instance();
   NetworkConfig& networkCfg = NetworkConfig::instance();
+  ImportConfig& importCfg = ImportConfig::instance();
 
   m_fnFormatBox->toFormatConfig(fnCfg);
   m_id3FormatBox->toFormatConfig(id3Cfg);
@@ -500,4 +573,27 @@ void ConfigDialogPages::getConfig() const
   networkCfg.m_useProxyAuthentication = m_proxyAuthenticationCheckBox->isChecked();
   networkCfg.m_proxyUserName = m_proxyUserNameLineEdit->text();
   networkCfg.m_proxyPassword = m_proxyPasswordLineEdit->text();
+
+  QStringList pluginOrder, disabledPlugins;
+  for (int row = 0; row < m_enabledMetadataPluginsModel->rowCount(); ++row) {
+    QString pluginName =
+        m_enabledMetadataPluginsModel->index(row).data().toString();
+    pluginOrder.append(pluginName);
+    if (m_enabledMetadataPluginsModel->index(row).data(Qt::CheckStateRole).
+        toInt() != Qt::Checked) {
+      disabledPlugins.append(pluginName);
+    }
+  }
+  tagCfg.setPluginOrder(pluginOrder);
+  tagCfg.setDisabledPlugins(disabledPlugins);
+
+  disabledPlugins.clear();
+  for (int row = 0; row < m_enabledPluginsModel->rowCount(); ++row) {
+    if (m_enabledPluginsModel->index(row).data(Qt::CheckStateRole).
+        toInt() != Qt::Checked) {
+      disabledPlugins.append(
+            m_enabledPluginsModel->index(row).data().toString());
+    }
+  }
+  importCfg.m_disabledPlugins = disabledPlugins;
 }

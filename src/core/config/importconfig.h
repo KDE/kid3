@@ -70,6 +70,12 @@ public:
    */
   QStringList& availablePlugins() { return m_availablePlugins; }
 
+  /**
+   * Get list of available plugins.
+   * @return available plugins.
+   */
+  QStringList getAvailablePlugins() const { return m_availablePlugins; }
+
   /** import server */
   int m_importServer;
   /** tag version to import */

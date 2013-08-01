@@ -80,6 +80,18 @@ AbstractListEdit::~AbstractListEdit()
 }
 
 /**
+ * Disable editing of items.
+ * When editing is disabled, the Add, Edit and Remove buttons are hidden.
+ * @param disable true to disable, false (default) to enable editing.
+ */
+void AbstractListEdit::setEditingDisabled(bool disable)
+{
+  m_addPushButton->setHidden(disable);
+  m_editPushButton->setHidden(disable);
+  m_removePushButton->setHidden(disable);
+}
+
+/**
  * Remove the selected item.
  */
 void AbstractListEdit::removeItem()

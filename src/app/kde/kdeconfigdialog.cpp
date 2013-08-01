@@ -48,6 +48,7 @@ KdeConfigDialog::KdeConfigDialog(QWidget* parent, QString& caption,
   addPage(m_pages->createFilesPage(), tr("Files"), QLatin1String("document-save"));
   addPage(m_pages->createActionsPage(), tr("User Actions"), QLatin1String("preferences-other"));
   addPage(m_pages->createNetworkPage(), tr("Network"), QLatin1String("preferences-system-network"));
+  addPage(m_pages->createPluginsPage(), tr("Plugins"), QLatin1String("preferences-plugin"));
 
   setButtons(Ok | Cancel | Help);
   setHelp(QLatin1String("configure-kid3"));

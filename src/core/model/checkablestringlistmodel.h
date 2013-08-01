@@ -73,6 +73,25 @@ public:
   virtual bool setData(const QModelIndex& index, const QVariant& value,
                        int role = Qt::EditRole);
 
+
+  /**
+   * Insert rows.
+   * @param row first row
+   * @param count number of rows to insert
+   * @param parent parent model index
+   * @return true if rows were successfully inserted.
+   */
+  virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
+
+  /**
+   * removeRows
+   * @param row first row
+   * @param count number of rows to remove
+   * @param parent parent model index
+   * @return true if rows were successfully removed.
+   */
+  virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
+
   /**
    * Set mask with checked state for the items in the model.
    * @param mask bit mask containing check states, bit 0 is set if the first

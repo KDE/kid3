@@ -225,12 +225,18 @@ public:
   }
 
   /**
-   * Access to list of available plugins
+   * Access to list of available plugins.
    * @return available plugins.
    * @remark This information is not stored in the configuration, it is
    * determined when the plugins are loaded.
    */
   QStringList& availablePlugins() { return m_availablePlugins; }
+
+  /**
+   * Get list of available plugins.
+   * @return available plugins.
+   */
+  QStringList getAvailablePlugins() const { return m_availablePlugins; }
 
   static int s_index;
 

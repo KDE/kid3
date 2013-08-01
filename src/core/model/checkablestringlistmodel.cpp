@@ -96,3 +96,33 @@ bool CheckableStringListModel::setData(const QModelIndex& index,
   }
   return QStringListModel::setData(index, value, role);
 }
+
+/**
+ * Insert rows.
+ * @param row first row
+ * @param count number of rows to insert
+ * @param parent parent model index
+ * @return true if rows were successfully inserted.
+ */
+bool CheckableStringListModel::insertRows(int row, int count,
+                                          const QModelIndex& parent)
+{
+  quint64 mask = (1ULL << row) - 1;
+  m_bitMask = (m_bitMask & mask) | ((m_bitMask & ~mask) << count);
+  return QStringListModel::insertRows(row, count, parent);
+}
+
+/**
+ * removeRows
+ * @param row first row
+ * @param count number of rows to remove
+ * @param parent parent model index
+ * @return true if rows were successfully removed.
+ */
+bool CheckableStringListModel::removeRows(int row, int count,
+                                          const QModelIndex& parent)
+{
+  m_bitMask = (m_bitMask & ((1ULL << row) - 1)) |
+      ((m_bitMask & ~((1ULL << (row + count)) - 1)) >> count);
+  return QStringListModel::removeRows(row, count, parent);
+}

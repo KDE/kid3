@@ -85,6 +85,12 @@ public:
   QWidget* createNetworkPage();
 
   /**
+   * Create page with plugins settings.
+   * @return plugins page.
+   */
+  QWidget* createPluginsPage();
+
+  /**
    * Set values in pages from current configuration.
    */
   void setConfig();
@@ -151,6 +157,10 @@ private:
   QLineEdit* m_proxyUserNameLineEdit;
   /** Proxy password line edit */
   QLineEdit* m_proxyPasswordLineEdit;
+  /** Model with enabled metadata plugins */
+  CheckableStringListModel* m_enabledMetadataPluginsModel;
+  /** Model with enabled plugins */
+  CheckableStringListModel* m_enabledPluginsModel;
 };
 
 #endif

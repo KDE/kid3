@@ -70,6 +70,7 @@ ConfigDialog::ConfigDialog(QWidget* parent, QString& caption,
   tabWidget->addTab(m_pages->createFilesPage(), tr("&Files"));
   tabWidget->addTab(m_pages->createActionsPage(), tr("&User Actions"));
   tabWidget->addTab(m_pages->createNetworkPage(), tr("&Network"));
+  tabWidget->addTab(m_pages->createPluginsPage(), tr("&Plugins"));
 
   {
     QWidget* shortcutsPage = new QWidget;
