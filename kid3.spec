@@ -56,7 +56,7 @@ Authors: Urs Fleisch
 %build
 mkdir kid3-build
 cd kid3-build; \
-cmake -DWITH_APPS="KDE;Qt" -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX= -DCMAKE_BUILD_TYPE=Release ..; \
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DLIB_SUFFIX= -DCMAKE_BUILD_TYPE=Release ..; \
 make %{?_smp_mflags}; \
 cd ..
 

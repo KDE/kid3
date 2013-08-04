@@ -9,12 +9,12 @@
 # Windows:
 # set INCLUDE=%MSYSDIR%\local\include
 # set LIB=%MSYSDIR%\local\lib
-# cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX= -D WITH_CHROMAPRINT=OFF ..\kid3
+# cmake -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX= ..\kid3
 # mingw32-make
 # cpack
 #
 # Mac OS X:
-# cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX= -D WITH_CHROMAPRINT=OFF ../kid3
+# cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX= ../kid3
 # make
 # cpack
 
@@ -22,6 +22,7 @@ project(kid3)
 
 cmake_minimum_required(VERSION 2.8)
 
+set(BUILD_SHARED_LIBS ON CACHE BOOL "build shared libraries")
 set(WITH_TAGLIB ON CACHE BOOL "build with TagLib")
 set(WITH_MP4V2 OFF CACHE BOOL "build with mp4v2")
 set(WITH_ID3LIB ON CACHE BOOL "build with id3lib")
@@ -38,7 +39,7 @@ set(WITH_GCC_PCH OFF CACHE BOOL "enable precompiled headers")
 if (APPLE OR WIN32)
   set(WITH_APPS "Qt" CACHE STRING "build applications (Qt;Test)")
 else (APPLE OR WIN32)
-  set(WITH_APPS "Qt;KDE;Test" CACHE STRING "build applications (Qt;KDE;Test)")
+  set(WITH_APPS "Qt;KDE" CACHE STRING "build applications (Qt;KDE;Test)")
 endif (APPLE OR WIN32)
 
 if (DEFINED WITH_KDE)

@@ -37,8 +37,6 @@ DEB_CONFIG_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/kde4/config
 DEB_HTML_INSTALL_DIR = $(DEB_CMAKE_PREFIX)/share/doc/kde/HTML
 
 CMAKE_FLAGS += \
-	-DBUILD_SHARED_LIBS=ON \
-	-DWITH_APPS="KDE;Qt" \
 	-DSYSCONF_INSTALL_DIR=/etc \
 	-DCMAKE_INSTALL_PREFIX=$(DEB_CMAKE_PREFIX) \
 	-DCONFIG_INSTALL_DIR=$(DEB_CONFIG_INSTALL_DIR) \
@@ -49,11 +47,7 @@ CMAKE_FLAGS += \
 	-DCMAKE_C_COMPILER:FILEPATH="$(CC)" \
 	-DCMAKE_CXX_COMPILER:FILEPATH="$(CXX)" \
 	-DCMAKE_C_FLAGS="$(CFLAGS)" \
-	-DCMAKE_CXX_FLAGS="$(CXXFLAGS)" \
-	-DWITH_DATAROOTDIR=share \
-	-DWITH_DOCDIR=share/doc/kid3-qt \
-	-DWITH_TRANSLATIONSDIR=share/kid3/translations \
-	-DWITH_BINDIR=bin
+	-DCMAKE_CXX_FLAGS="$(CXXFLAGS)"
 
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 CMAKE_FLAGS += -DCMAKE_BUILD_TYPE=Debug
@@ -101,8 +95,9 @@ binary-arch: build install
 	dh_strip
 	dh_compress --exclude=.docbook
 	dh_fixperms
-	dh_installdeb
+	dh_makeshlibs
 	dh_shlibdeps
+	dh_installdeb
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb -- -Zxz
