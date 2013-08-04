@@ -171,12 +171,6 @@ QWidget* ConfigDialogPages::createTagsPage()
   textEncodingV1Label->setBuddy(m_textEncodingV1ComboBox);
   v1GroupBoxLayout->addWidget(textEncodingV1Label, 1, 0);
   v1GroupBoxLayout->addWidget(m_textEncodingV1ComboBox, 1, 1);
-  const TagConfig& tagCfg = TagConfig::instance();
-  if (!tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB) &&
-      !tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB)) {
-    textEncodingV1Label->hide();
-    m_textEncodingV1ComboBox->hide();
-  }
   tag1Layout->addWidget(v1GroupBox);
   tag1Layout->addStretch();
 
@@ -200,20 +194,19 @@ QWidget* ConfigDialogPages::createTagsPage()
   v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
   v2GroupBoxLayout->addWidget(textEncodingLabel, 2, 0);
   v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 2, 1);
-  if (!tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB) &&
-      !tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB)) {
+  const TagConfig& tagCfg = TagConfig::instance();
+  if (!(tagCfg.taggedFileFeatures() &
+        (TaggedFile::TF_ID3v22 | TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24))) {
     m_genreNotNumericCheckBox->hide();
     textEncodingLabel->hide();
     m_textEncodingComboBox->hide();
   }
   QLabel* id3v2VersionLabel = new QLabel(tr("&Version used for new tags:"), v2GroupBox);
   m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
-  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB))
-    m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0 (id3lib)"), TagConfig::ID3v2_3_0);
-  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB))
-    m_id3v2VersionComboBox->addItem(tr("ID3v2.4.0 (TagLib)"), TagConfig::ID3v2_4_0);
-  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB))
-    m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0 (TagLib)"), TagConfig::ID3v2_3_0_TAGLIB);
+  if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23)
+    m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0"), TagConfig::ID3v2_3_0);
+  if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24)
+    m_id3v2VersionComboBox->addItem(tr("ID3v2.4.0"), TagConfig::ID3v2_4_0);
   m_id3v2VersionComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   id3v2VersionLabel->setBuddy(m_id3v2VersionComboBox);
   v2GroupBoxLayout->addWidget(id3v2VersionLabel, 3, 0);
@@ -248,7 +241,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   vorbisGroupBoxLayout->addWidget(m_pictureNameComboBox, 1, 1);
   vorbisGroupBox->setLayout(vorbisGroupBoxLayout);
   tag2Layout->addWidget(vorbisGroupBox);
-  if (!tagCfg.hasTagFormat(TagConfig::TF_VORBIS_LIBOGG)) {
+  if (!(tagCfg.taggedFileFeatures() & TaggedFile::TF_OggPictures)) {
     vorbisGroupBox->hide();
   }
   QHBoxLayout* genresQuickAccessLayout = new QHBoxLayout;
@@ -284,7 +277,9 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag1AndTag2Layout->addWidget(m_id3FormatBox);
 
   QTabWidget* tagsTabWidget = new QTabWidget;
-  tagsTabWidget->addTab(tag1Page, tr("Tag &1"));
+  if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v11) {
+    tagsTabWidget->addTab(tag1Page, tr("Tag &1"));
+  }
   tagsTabWidget->addTab(tag2Page, tr("Tag &2"));
   tagsTabWidget->addTab(tag1AndTag2Page, tr("Tag 1 a&nd Tag 2"));
   tagsTabWidget->setCurrentIndex(1);

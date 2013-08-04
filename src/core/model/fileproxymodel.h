@@ -181,17 +181,18 @@ public:
   }
 
   /**
-   * Create a tagged file.
+   * Create a tagged file with a given feature.
    *
-   * @param key tagged file key
+   * @param feature tagged file feature
    * @param dirName directory name
    * @param fileName filename
    * @param idx model index
    *
-   * @return tagged file, 0 if key not found or type not supported.
+   * @return tagged file, 0 if feature not found or type not supported.
    */
   static TaggedFile* createTaggedFile(
-      const QString& key, const QString& dirName, const QString& fileName,
+      TaggedFile::Feature feature,
+      const QString& dirName, const QString& fileName,
       const QPersistentModelIndex& idx);
 
   /**
@@ -238,31 +239,33 @@ public:
   static QString getPathIfIndexOfDir(const QModelIndex& index);
 
   /**
-   * Read tagged file with TagLib.
+   * Read tagged file with ID3v2.4.0.
+   *
+   * @param taggedFile tagged file
+   *
+   * @return tagged file (can be newly created tagged file).
+   */
+  static TaggedFile* readWithId3V24(TaggedFile* taggedFile);
+
+  /**
+   * Read tagged file with ID3v2.3.0.
+   *
+   * @param taggedFile tagged file
+   *
+   * @return tagged file (can be newly created tagged file).
+   */
+  static TaggedFile* readWithId3V23(TaggedFile* taggedFile);
+
+  /**
+   * Read file with ID3v2.4 if it has an ID3v2.4 or ID3v2.2 tag.
+   * ID3v2.2 files are also read with ID3v2.4 because id3lib corrupts
+   * images in ID3v2.2 tags.
    *
    * @param taggedFile tagged file
    *
    * @return tagged file (can be new TagLibFile).
    */
-  static TaggedFile* readWithTagLib(TaggedFile* taggedFile);
-
-  /**
-   * Read tagged file with id3lib.
-   *
-   * @param taggedFile tagged file
-   *
-   * @return tagged file (can be new Mp3File).
-   */
-  static TaggedFile* readWithId3Lib(TaggedFile* taggedFile);
-
-  /**
-   * Read file with TagLib if it has an ID3v2.4 tag.
-   *
-   * @param taggedFile tagged file
-   *
-   * @return tagged file (can be new TagLibFile).
-   */
-  static TaggedFile* readWithTagLibIfId3V24(TaggedFile* taggedFile);
+  static TaggedFile* readWithId3V24IfId3V24(TaggedFile* taggedFile);
 
 signals:
 #if QT_VERSION >= 0x040700

@@ -50,12 +50,32 @@ Mp4v2MetadataPlugin::~Mp4v2MetadataPlugin()
 }
 
 /**
+ * Get name of factory, the same as the QObject::objectName() of the plugin.
+ * @return factory name.
+ */
+QString Mp4v2MetadataPlugin::name() const
+{
+  return objectName();
+}
+
+/**
  * Get keys of available tagged file formats.
  * @return list of keys.
  */
 QStringList Mp4v2MetadataPlugin::taggedFileKeys() const
 {
   return QStringList() << TAGGEDFILE_KEY;
+}
+
+/**
+ * Get features supported.
+ * @param key tagged file key
+ * @return bit mask with Features flags set.
+ */
+int Mp4v2MetadataPlugin::taggedFileFeatures(const QString& key) const
+{
+  Q_UNUSED(key)
+  return 0;
 }
 
 /**
@@ -75,14 +95,18 @@ void Mp4v2MetadataPlugin::initialize(const QString& key)
  * @param dirName directory name
  * @param fileName filename
  * @param idx model index
+ * @param features optional tagged file features (TaggedFile::Feature flags)
+ * to activate at creation
  *
  * @return tagged file, 0 if type not supported.
  */
 TaggedFile* Mp4v2MetadataPlugin::createTaggedFile(
     const QString& key,
     const QString& dirName, const QString& fileName,
-    const QPersistentModelIndex& idx)
+    const QPersistentModelIndex& idx,
+    int features)
 {
+  Q_UNUSED(features)
   if (key == TAGGEDFILE_KEY) {
     QString ext = fileName.right(4).toLower();
     if (ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b") ||

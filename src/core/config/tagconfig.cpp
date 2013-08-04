@@ -25,6 +25,7 @@
  */
 
 #include "tagconfig.h"
+#include "taggedfile.h"
 #include "frame.h"
 
 namespace {
@@ -60,7 +61,7 @@ TagConfig::TagConfig() :
   m_quickAccessFrames(FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES),
   m_trackNumberDigits(1),
   m_onlyCustomGenres(false),
-  m_tagFormats(0)
+  m_taggedFileFeatures(0)
 {
 }
 
@@ -132,16 +133,11 @@ void TagConfig::readFromConfig(ISettings* config)
 /** version used for new ID3v2 tags */
 int TagConfig::id3v2Version() const
 {
-  switch (m_id3v2Version) {
-  case ID3v2_3_0:
-    return hasTagFormat(TF_ID3v2_3_0_ID3LIB)
-        ? ID3v2_3_0
-        : hasTagFormat(TF_ID3v2_3_0_TAGLIB)
-          ? ID3v2_3_0_TAGLIB : ID3v2_4_0;
-  case ID3v2_4_0:
-    return hasTagFormat(TF_ID3v2_4_0_TAGLIB) ? ID3v2_4_0 : ID3v2_3_0;
-  case ID3v2_3_0_TAGLIB:
-    return hasTagFormat(TF_ID3v2_3_0_TAGLIB) ? ID3v2_3_0_TAGLIB : ID3v2_3_0;
-  }
+  if (m_id3v2Version == ID3v2_3_0 &&
+      !(taggedFileFeatures() & TaggedFile::TF_ID3v23))
+    return ID3v2_4_0;
+  if (m_id3v2Version == ID3v2_4_0 &&
+      !(taggedFileFeatures() & TaggedFile::TF_ID3v24))
+    return ID3v2_3_0;
   return m_id3v2Version;
 }

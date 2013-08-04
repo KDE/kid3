@@ -40,8 +40,7 @@ public:
   /** The ID3v2 version used for new tags. */
   enum Id3v2Version {
     ID3v2_3_0 = 0,
-    ID3v2_4_0 = 1,
-    ID3v2_3_0_TAGLIB = 2
+    ID3v2_4_0 = 1
   };
 
   /** Encoding used for ID3v2 frames. */
@@ -90,24 +89,21 @@ public:
   virtual void readFromConfig(ISettings* config);
 
   /**
-   * Check if a certain tag format is available.
-   * @param fmt tag format
-   * @return true if tag format is available.
+   * Get features provided by metadata plugins.
+   * @return bit mask with TaggedFile::Feature flags set.
    * @remark This information is not stored in the configuration, it is
-   * registered at initialization time using setTagFormat().
+   * registered at initialization time using setTaggedFileFeatures().
    */
-  bool hasTagFormat(TagFormatFlag fmt) const {
-    return (m_tagFormats & fmt) != 0;
+  int taggedFileFeatures() const {
+    return m_taggedFileFeatures;
   }
 
   /**
-   * Register that a certain tag format is available.
-   * @param fmt tag format to register
-   * @remark This information is not stored in the configuration, it is
-   * queried at run time using hasTagFormat().
+   * Set features provided by metadata plugins.
+   * @param taggedFileFeatures bit mask with TaggedFile::Feature flags set
    */
-  void setTagFormat(TagFormatFlag fmt) {
-    m_tagFormats |= fmt;
+  void setTaggedFileFeatures(int taggedFileFeatures) {
+    m_taggedFileFeatures = taggedFileFeatures;
   }
 
   /** true to mark truncated ID3v1.1 fields */
@@ -258,7 +254,7 @@ private:
   QStringList m_disabledPlugins;
 
   QStringList m_availablePlugins;
-  int m_tagFormats;
+  int m_taggedFileFeatures;
 };
 
 #endif

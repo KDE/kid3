@@ -36,6 +36,19 @@
 /** Base class for tagged files. */
 class KID3_CORE_EXPORT TaggedFile {
 public:
+  /**
+   * Special features and formats supported.
+   * Additional information which cannot be deduced from the file format
+   * supported.
+   */
+  enum Feature {
+    TF_ID3v11      = 1 << 0, /**< Supports ID3v1.1 tags */
+    TF_ID3v22      = 1 << 1, /**< Supports ID3v2.2 tags */
+    TF_ID3v23      = 1 << 2, /**< Supports ID3v2.3 tags */
+    TF_ID3v24      = 1 << 3, /**< Supports ID3v2.4 tags */
+    TF_OggPictures = 1 << 4  /**< Supports pictures in Ogg files */
+  };
+
   /** Information about file. */
   struct DetailInfo {
     /** Channel mode. */
@@ -97,6 +110,31 @@ public:
    * @return key.
    */
   virtual QString taggedFileKey() const = 0;
+
+  /**
+   * Get features supported.
+   * @return bit mask with Feature flags set.
+   */
+  virtual int taggedFileFeatures() const;
+
+  /**
+   * Get currently active tagged file features.
+   * @return active tagged file features.
+   * @see setActiveTaggedFileFeatures()
+   */
+  virtual int activeTaggedFileFeatures() const;
+
+  /**
+   * Activate some features provided by the tagged file.
+   * For example, if the TF_ID3v24 feature is provided, it can be set, so that
+   * writeTags() will write ID3v2.4.0 tags. If the feature is deactivated by
+   * passing 0, tags in the default format will be written again.
+   *
+   * @param features bit mask with some of the Feature flags which are
+   * provided by this file, as returned by taggedFileFeatures(), 0 to disable
+   * special features.
+   */
+  virtual void setActiveTaggedFileFeatures(int features);
 
   /**
    * Read tags from file.

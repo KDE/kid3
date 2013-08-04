@@ -372,7 +372,7 @@ void Kid3MainWindow::initActions()
   toolsMenu->addAction(toolsFilter);
 
   const TagConfig& tagCfg = TagConfig::instance();
-  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB)) {
+  if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
     QAction* toolsConvertToId3v24 = new QAction(this);
     toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
     toolsConvertToId3v24->setText(tr("Convert ID3v2.3 to ID3v2.&4"));
@@ -382,8 +382,7 @@ void Kid3MainWindow::initActions()
       app(), SLOT(convertToId3v24()));
     toolsMenu->addAction(toolsConvertToId3v24);
 
-    if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB) ||
-        tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB)) {
+    if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23) {
       QAction* toolsConvertToId3v23 = new QAction(this);
       toolsConvertToId3v23->setStatusTip(tr("Convert ID3v2.4 to ID3v2.3"));
       toolsConvertToId3v23->setText(tr("Convert ID3v2.4 to ID3v2.&3"));

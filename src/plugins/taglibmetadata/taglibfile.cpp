@@ -251,7 +251,7 @@ TagLibFile::TagLibFile(const QString& dn, const QString& fn,
 #if TAGLIB_VERSION >= 0x010800
   m_id3v2Version(0),
 #endif
-  m_fileRead(false),
+  m_activatedFeatures(0), m_fileRead(false),
   m_tagInformationRead(false), m_hasTagV1(false), m_hasTagV2(false),
   m_isTagV1Supported(false), m_duration(0),
   m_tagTypeV1(TT_Unknown), m_tagTypeV2(TT_Unknown)
@@ -273,6 +273,43 @@ TagLibFile::~TagLibFile()
 QString TagLibFile::taggedFileKey() const
 {
   return QLatin1String("TaglibMetadata");
+}
+
+/**
+ * Get features supported.
+ * @return bit mask with Feature flags set.
+ */
+int TagLibFile::taggedFileFeatures() const
+{
+  return TF_ID3v11 | TF_ID3v22 |
+#if TAGLIB_VERSION >= 0x010800
+      TF_ID3v23 |
+#endif
+      TF_ID3v24;
+}
+
+/**
+ * Get currently active tagged file features.
+ * @return active tagged file features (TF_ID3v23, TF_ID3v24, or 0).
+ * @see setActiveTaggedFileFeatures()
+ */
+int TagLibFile::activeTaggedFileFeatures() const
+{
+  return m_activatedFeatures;
+}
+
+/**
+ * Activate some features provided by the tagged file.
+ * TagLibFile provides the TF_ID3v23 and TF_ID3v24 features, which determine
+ * the ID3v2 version used in writeTags() (the overload without id3v2Version).
+ * If 0 is set, the default behavior applies, i.e. for new files,
+ * TagConfig::id3v2Version() is used, else the existing version.
+ *
+ * @param features TF_ID3v23, TF_ID3v24, or 0
+ */
+void TagLibFile::setActiveTaggedFileFeatures(int features)
+{
+  m_activatedFeatures = features;
 }
 
 /**
@@ -531,7 +568,14 @@ void TagLibFile::makeFileOpen(bool force)
  */
 bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve)
 {
-  return writeTags(force, renamed, preserve, 0);
+  int id3v2Version;
+  if (m_activatedFeatures & TF_ID3v24)
+    id3v2Version = 4;
+  else if (m_activatedFeatures & TF_ID3v23)
+    id3v2Version = 3;
+  else
+    id3v2Version = 0;
+  return writeTags(force, renamed, preserve, id3v2Version);
 }
 
 /**
@@ -601,7 +645,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         }
         if (m_id3v2Version != 3 && m_id3v2Version != 4) {
           m_id3v2Version = TagConfig::instance().id3v2Version() ==
-              TagConfig::ID3v2_3_0_TAGLIB ? 3 : 4;
+              TagConfig::ID3v2_3_0 ? 3 : 4;
         }
 #else
         Q_UNUSED(id3v2Version);

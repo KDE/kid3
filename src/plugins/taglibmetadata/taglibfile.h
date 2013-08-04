@@ -77,6 +77,30 @@ public:
   virtual QString taggedFileKey() const;
 
   /**
+   * Get features supported.
+   * @return bit mask with Feature flags set.
+   */
+  virtual int taggedFileFeatures() const;
+
+  /**
+   * Get currently active tagged file features.
+   * @return active tagged file features (TF_ID3v23, TF_ID3v24, or 0).
+   * @see setActiveTaggedFileFeatures()
+   */
+  virtual int activeTaggedFileFeatures() const;
+
+  /**
+   * Activate some features provided by the tagged file.
+   * TagLibFile provides the TF_ID3v23 and TF_ID3v24 features, which determine
+   * the ID3v2 version used in writeTags() (the overload without id3v2Version).
+   * If 0 is set, the default behavior applies, i.e. for new files,
+   * TagConfig::id3v2Version() is used, else the existing version.
+   *
+   * @param features TF_ID3v23, TF_ID3v24, or 0
+   */
+  virtual void setActiveTaggedFileFeatures(int features);
+
+  /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.
@@ -606,6 +630,7 @@ private:
 #if TAGLIB_VERSION >= 0x010800
   int m_id3v2Version;        /**< 3 for ID3v2.3, 4 for ID3v2.4, 0 if none */
 #endif
+  int m_activatedFeatures;   /**< TF_ID3v23, TF_ID3v24, or 0 */
   bool m_fileRead;           /**< true if file has been read */
 
   /* Cached information updated in readTags() */

@@ -60,6 +60,12 @@ public:
   virtual QString taggedFileKey() const;
 
   /**
+   * Get features supported.
+   * @return bit mask with Feature flags set.
+   */
+  virtual int taggedFileFeatures() const;
+
+  /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.

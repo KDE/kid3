@@ -185,12 +185,11 @@ void KdeMainWindow::initActions()
   actionCollection()->addAction(QLatin1String("filter"), toolsFilter);
   connect(toolsFilter, SIGNAL(triggered()), impl(), SLOT(slotFilter()));
   const TagConfig& tagCfg = TagConfig::instance();
-  if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB)) {
+  if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
     KAction* toolsConvertToId3v24 = new KAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
     actionCollection()->addAction(QLatin1String("convert_to_id3v24"), toolsConvertToId3v24);
     connect(toolsConvertToId3v24, SIGNAL(triggered()), app(), SLOT(convertToId3v24()));
-    if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB) ||
-        tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB)) {
+    if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23) {
       KAction* toolsConvertToId3v23 = new KAction(tr("Convert ID3v2.4 to ID3v2.&3"), this);
       actionCollection()->addAction(QLatin1String("convert_to_id3v23"), toolsConvertToId3v23);
       connect(toolsConvertToId3v23, SIGNAL(triggered()), app(), SLOT(convertToId3v23()));

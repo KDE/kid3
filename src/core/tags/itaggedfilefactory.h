@@ -58,6 +58,13 @@ public:
   virtual QStringList taggedFileKeys() const = 0;
 
   /**
+   * Get features supported.
+   * @param key tagged file key
+   * @return bit mask with TaggedFile::Feature flags set.
+   */
+  virtual int taggedFileFeatures(const QString& key) const = 0;
+
+  /**
    * Initialize tagged file factory.
    * This method has to be called before creating a tagged file.
    * It can be called after the application is initialized and therefore can
@@ -74,13 +81,16 @@ public:
    * @param dirName directory name
    * @param fileName filename
    * @param idx model index
+   * @param features optional tagged file features (TaggedFile::Feature flags)
+   * to activate at creation
    *
    * @return tagged file, 0 if type not supported.
    */
   virtual TaggedFile* createTaggedFile(
       const QString& key,
       const QString& dirName, const QString& fileName,
-      const QPersistentModelIndex& idx) = 0;
+      const QPersistentModelIndex& idx,
+      int features = 0) = 0;
 
   /**
    * Get a list with all extensions (e.g. ".mp3") supported by TaggedFile subclass.

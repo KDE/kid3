@@ -114,6 +114,15 @@ QString Mp3File::taggedFileKey() const
 }
 
 /**
+ * Get features supported.
+ * @return bit mask with Feature flags set.
+ */
+int Mp3File::taggedFileFeatures() const
+{
+  return TF_ID3v11 | TF_ID3v23;
+}
+
+/**
  * Read tags from file.
  *
  * @param force true to force reading even if tags were already read.

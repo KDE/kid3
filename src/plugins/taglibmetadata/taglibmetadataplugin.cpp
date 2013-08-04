@@ -68,6 +68,23 @@ QStringList TaglibMetadataPlugin::taggedFileKeys() const
 }
 
 /**
+ * Get features supported.
+ * @param key tagged file key
+ * @return bit mask with TaggedFile::Feature flags set.
+ */
+int TaglibMetadataPlugin::taggedFileFeatures(const QString& key) const
+{
+  if (key == TAGGEDFILE_KEY) {
+    return TaggedFile::TF_ID3v11 | TaggedFile::TF_ID3v22 |
+#if TAGLIB_VERSION >= 0x010800
+        TaggedFile::TF_ID3v23 |
+#endif
+        TaggedFile::TF_ID3v24;
+  }
+  return 0;
+}
+
+/**
  * Initialize tagged file factory.
  *
  * @param key tagged file key
@@ -75,10 +92,6 @@ QStringList TaglibMetadataPlugin::taggedFileKeys() const
 void TaglibMetadataPlugin::initialize(const QString& key)
 {
   if (key == TAGGEDFILE_KEY) {
-#ifdef HAVE_TAGLIB_ID3V23_SUPPORT
-    TagConfig::instance().setTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB);
-#endif
-    TagConfig::instance().setTagFormat(TagConfig::TF_ID3v2_4_0_TAGLIB);
     TagLibFile::staticInit();
   }
 }
@@ -90,20 +103,28 @@ void TaglibMetadataPlugin::initialize(const QString& key)
  * @param dirName directory name
  * @param fileName filename
  * @param idx model index
+ * @param features optional tagged file features (TaggedFile::Feature flags)
+ * to activate at creation
  *
  * @return tagged file, 0 if type not supported.
  */
 TaggedFile* TaglibMetadataPlugin::createTaggedFile(
     const QString& key,
     const QString& dirName, const QString& fileName,
-    const QPersistentModelIndex& idx)
+    const QPersistentModelIndex& idx,
+    int features)
 {
+#if TAGLIB_VERSION >= 0x010800
+  Q_UNUSED(features)
+#endif
   if (key == TAGGEDFILE_KEY) {
     QString ext = fileName.right(4).toLower();
     QString ext2 = ext.right(3);
     if (((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))
+#if TAGLIB_VERSION < 0x010800
          && (TagConfig::instance().id3v2Version() == TagConfig::ID3v2_4_0 ||
-             TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0_TAGLIB)
+             (features & TaggedFile::TF_ID3v24) != 0)
+#endif
           )
         || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga") || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")
         || ext == QLatin1String(".spx") || ext == QLatin1String(".tta")

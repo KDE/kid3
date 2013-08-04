@@ -82,19 +82,30 @@ QStringList OggFlacMetadataPlugin::taggedFileKeys() const
 }
 
 /**
+ * Get features supported.
+ * @param key tagged file key
+ * @return bit mask with TaggedFile::Feature flags set.
+ */
+int OggFlacMetadataPlugin::taggedFileFeatures(const QString& key) const
+{
+#ifdef HAVE_VORBIS
+  if (key == OGG_KEY) {
+    return TaggedFile::TF_OggPictures;
+  }
+#else
+  Q_UNUSED(key)
+#endif
+  return 0;
+}
+
+/**
  * Initialize tagged file factory.
  *
  * @param key tagged file key
  */
 void OggFlacMetadataPlugin::initialize(const QString& key)
 {
-#ifdef HAVE_VORBIS
-  if (key == OGG_KEY) {
-    TagConfig::instance().setTagFormat(TagConfig::TF_VORBIS_LIBOGG);
-  }
-#else
   Q_UNUSED(key)
-#endif
 }
 
 /**
@@ -104,14 +115,18 @@ void OggFlacMetadataPlugin::initialize(const QString& key)
  * @param dirName directory name
  * @param fileName filename
  * @param idx model index
+ * @param features optional tagged file features (TaggedFile::Feature flags)
+ * to activate at creation
  *
  * @return tagged file, 0 if type not supported.
  */
 TaggedFile* OggFlacMetadataPlugin::createTaggedFile(
     const QString& key,
     const QString& dirName, const QString& fileName,
-    const QPersistentModelIndex& idx)
+    const QPersistentModelIndex& idx,
+    int features)
 {
+  Q_UNUSED(features)
 #ifdef HAVE_VORBIS
   if (key == OGG_KEY) {
     QString ext = fileName.right(4).toLower();

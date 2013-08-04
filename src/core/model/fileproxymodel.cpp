@@ -437,16 +437,16 @@ QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
 }
 
 /**
- * Read tagged file with TagLib.
+ * Read tagged file with ID3v2.4.0.
  *
  * @param taggedFile tagged file
  *
- * @return tagged file (can be new TagLibFile).
+ * @return tagged file (can be newly created tagged file).
  */
-TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
+TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (TaggedFile* tagLibFile = createTaggedFile(QLatin1String("TaglibMetadata"),
+  if (TaggedFile* tagLibFile = createTaggedFile(TaggedFile::TF_ID3v24,
           taggedFile->getDirname(), taggedFile->getFilename(), index)) {
     if (index.isValid()) {
       QVariant data;
@@ -465,21 +465,28 @@ TaggedFile* FileProxyModel::readWithTagLib(TaggedFile* taggedFile)
 }
 
 /**
- * Create a tagged file.
+ * Create a tagged file with a given feature.
  *
- * @param key tagged file key
+ * @param feature tagged file feature
  * @param dirName directory name
  * @param fileName filename
  * @param idx model index
  *
- * @return tagged file, 0 if key not found or type not supported.
+ * @return tagged file, 0 if feature not found or type not supported.
  */
 TaggedFile* FileProxyModel::createTaggedFile(
-    const QString& key, const QString& dirName, const QString& fileName,
+    TaggedFile::Feature feature,
+    const QString& dirName, const QString& fileName,
     const QPersistentModelIndex& idx) {
+  TaggedFile* taggedFile = 0;
   foreach (ITaggedFileFactory* factory, s_taggedFileFactories) {
-    if (factory->taggedFileKeys().contains(key)) {
-      return factory->createTaggedFile(key, dirName, fileName, idx);
+    foreach (const QString& key, factory->taggedFileKeys()) {
+      if ((factory->taggedFileFeatures(key) & feature) != 0 &&
+          (taggedFile = factory->createTaggedFile(key, dirName, fileName, idx,
+                                                  feature))
+          != 0) {
+        return taggedFile;
+      }
     }
   }
   return 0;
@@ -510,16 +517,16 @@ TaggedFile* FileProxyModel::createTaggedFile(
 }
 
 /**
- * Read tagged file with id3lib.
+ * Read tagged file with ID3v2.3.0.
  *
  * @param taggedFile tagged file
  *
- * @return tagged file (can be new Mp3File).
+ * @return tagged file (can be newly created tagged file).
  */
-TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
+TaggedFile* FileProxyModel::readWithId3V23(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (TaggedFile* id3libFile = createTaggedFile(QLatin1String("Id3libMetadata"),
+  if (TaggedFile* id3libFile = createTaggedFile(TaggedFile::TF_ID3v23,
           taggedFile->getDirname(), taggedFile->getFilename(), index)) {
     if (index.isValid()) {
       QVariant data;
@@ -538,23 +545,25 @@ TaggedFile* FileProxyModel::readWithId3Lib(TaggedFile* taggedFile)
 }
 
 /**
- * Read file with TagLib if it has an ID3v2.4 or ID3v2.2 tag.
- * ID3v2.2 files are also read with TagLib because id3lib corrupts
+ * Read file with ID3v2.4 if it has an ID3v2.4 or ID3v2.2 tag.
+ * ID3v2.2 files are also read with ID3v2.4 because id3lib corrupts
  * images in ID3v2.2 tags.
  *
  * @param taggedFile tagged file
  *
  * @return tagged file (can be new TagLibFile).
  */
-TaggedFile* FileProxyModel::readWithTagLibIfId3V24(TaggedFile* taggedFile)
+TaggedFile* FileProxyModel::readWithId3V24IfId3V24(TaggedFile* taggedFile)
 {
   if (taggedFile &&
-      taggedFile->taggedFileKey() == QLatin1String("Id3libMetadata") &&
+      (taggedFile->taggedFileFeatures() &
+       (TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24)) ==
+        TaggedFile::TF_ID3v23 &&
       !taggedFile->isChanged() &&
       taggedFile->isTagInformationRead() && taggedFile->hasTagV2()) {
     QString id3v2Version = taggedFile->getTagFormatV2();
     if (id3v2Version.isNull() || id3v2Version == QLatin1String("ID3v2.2.0")) {
-      taggedFile = readWithTagLib(taggedFile);
+      taggedFile = readWithId3V24(taggedFile);
     }
   }
   return taggedFile;

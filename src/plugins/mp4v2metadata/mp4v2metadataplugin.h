@@ -53,10 +53,23 @@ public:
   virtual ~Mp4v2MetadataPlugin();
 
   /**
+   * Get name of factory, the same as the QObject::objectName() of the plugin.
+   * @return factory name.
+   */
+  virtual QString name() const;
+
+  /**
    * Get keys of available tagged file formats.
    * @return list of keys.
    */
   virtual QStringList taggedFileKeys() const;
+
+  /**
+   * Get features supported.
+   * @param key tagged file key
+   * @return bit mask with Features flags set.
+   */
+  virtual int taggedFileFeatures(const QString& key) const;
 
   /**
    * Initialize tagged file factory.
@@ -71,13 +84,16 @@ public:
    * @param dirName directory name
    * @param fileName filename
    * @param idx model index
+   * @param features optional tagged file features (TaggedFile::Feature flags)
+   * to activate at creation
    *
    * @return tagged file, 0 if type not supported.
    */
   virtual TaggedFile* createTaggedFile(
       const QString& key,
       const QString& dirName, const QString& fileName,
-      const QPersistentModelIndex& idx);
+      const QPersistentModelIndex& idx,
+      int features = 0);
 
   /**
    * Get a list with all extensions (e.g. ".mp3") supported by TaggedFile subclass.

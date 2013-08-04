@@ -57,6 +57,40 @@ TaggedFile::~TaggedFile()
 }
 
 /**
+ * Get features supported.
+ * @return bit mask with Feature flags set.
+ */
+int TaggedFile::taggedFileFeatures() const
+{
+  return 0;
+}
+
+/**
+ * Get currently active tagged file features.
+ * @return active tagged file features.
+ * @see setActiveTaggedFileFeatures()
+ */
+int TaggedFile::activeTaggedFileFeatures() const
+{
+  return 0;
+}
+
+/**
+ * Activate some features provided by the tagged file.
+ * For example, if the TF_ID3v24 feature is provided, it can be set, so that
+ * writeTags() will write ID3v2.4.0 tags. If the feature is deactivated by
+ * passing 0, tags in the default format will be written again.
+ *
+ * @param features bit mask with some of the Feature flags which are
+ * provided by this file, as returned by taggedFileFeatures(), 0 to disable
+ * special features.
+ */
+void TaggedFile::setActiveTaggedFileFeatures(int features)
+{
+  Q_UNUSED(features)
+}
+
+/**
  * Get ID3v1 title.
  *
  * @return string,

@@ -332,9 +332,12 @@ void Kid3Application::checkPlugin(QObject* plugin)
     TagConfig& tagCfg = TagConfig::instance();
     tagCfg.availablePlugins().append(plugin->objectName());
     if (!tagCfg.disabledPlugins().contains(plugin->objectName())) {
+      int features = tagCfg.taggedFileFeatures();
       foreach (const QString& key, taggedFileFactory->taggedFileKeys()) {
         taggedFileFactory->initialize(key);
+        features |= taggedFileFactory->taggedFileFeatures(key);
       }
+      tagCfg.setTaggedFileFeatures(features);
       FileProxyModel::taggedFileFactories().append(taggedFileFactory);
     }
   }
@@ -660,7 +663,7 @@ void Kid3Application::filesToTrackData(TrackData::TagVersion tagVersion,
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
-    taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+    taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
     trackDataList.push_back(ImportTrackData(*taggedFile, tagVersion));
   }
 }
@@ -780,7 +783,7 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
   if (!terminated) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
       taggedFile->readTags(false);
-      taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
       if (taggedFile->getDirname() != m_lastProcessedDirName) {
         m_lastProcessedDirName = taggedFile->getDirname();
         if (!m_batchImportTrackDataList.isEmpty()) {
@@ -1746,8 +1749,7 @@ void Kid3Application::scheduleNextRenameAction(const QPersistentModelIndex& inde
   if (!terminated) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
       taggedFile->readTags(false);
-      taggedFile->readTags(false);
-      taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
       m_dirRenamer->scheduleAction(taggedFile);
       if (m_dirRenamer->isAborted()) {
         terminated = true;
@@ -1794,7 +1796,7 @@ void Kid3Application::filterNextFile(const QPersistentModelIndex& index)
   if (!terminated) {
     if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
       taggedFile->readTags(false);
-      taggedFile = FileProxyModel::readWithTagLibIfId3V24(taggedFile);
+      taggedFile = FileProxyModel::readWithId3V24IfId3V24(taggedFile);
       if (taggedFile->getDirname() != m_lastProcessedDirName) {
         m_lastProcessedDirName = taggedFile->getDirname();
         emit fileFiltered(FileFilter::Directory, m_lastProcessedDirName);
@@ -2085,16 +2087,19 @@ void Kid3Application::convertToId3v24()
     taggedFile->readTags(false);
     if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
       QString tagFmt = taggedFile->getTagFormatV2();
-      if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) && tagFmt[6] < QLatin1Char('4')) {
-        if (taggedFile->taggedFileKey() == QLatin1String("Id3libMetadata")) {
+      if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
+          tagFmt[6] < QLatin1Char('4')) {
+        if ((taggedFile->taggedFileFeatures() &
+             (TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24)) ==
+              TaggedFile::TF_ID3v23) {
           FrameCollection frames;
           taggedFile->getAllFramesV2(frames);
           FrameFilter flt;
           flt.enableAll();
           taggedFile->deleteFramesV2(flt);
 
-          // The file has to be read with TagLib to write ID3v2.4 tags
-          taggedFile = FileProxyModel::readWithTagLib(taggedFile);
+          // The file has to be reread to write ID3v2.4 tags
+          taggedFile = FileProxyModel::readWithId3V24(taggedFile);
 
           // Restore the frames
           FrameFilter frameFlt;
@@ -2102,20 +2107,13 @@ void Kid3Application::convertToId3v24()
           taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
         }
 
-        // Write the file with TagLib, it always writes ID3v2.4 tags
+        // Write the file with ID3v2.4 tags
         bool renamed;
-        if (taggedFile->taggedFileKey() == QLatin1String("TaglibMetadata")) {
-          // Force TagLib to write ID3v2.4 tags.
-          TagConfig& tagCfg = TagConfig::instance();
-          int savedId3v2Version = tagCfg.id3v2Version();
-          tagCfg.setId3v2Version(TagConfig::ID3v2_4_0);
-          taggedFile->writeTags(true, &renamed,
-                                FileConfig::instance().m_preserveTime);
-          tagCfg.setId3v2Version(savedId3v2Version);
-        } else {
-          taggedFile->writeTags(true, &renamed,
-                                FileConfig::instance().m_preserveTime);
-        }
+        int storedFeatures = taggedFile->activeTaggedFileFeatures();
+        taggedFile->setActiveTaggedFileFeatures(TaggedFile::TF_ID3v24);
+        taggedFile->writeTags(true, &renamed,
+                              FileConfig::instance().m_preserveTime);
+        taggedFile->setActiveTaggedFileFeatures(storedFeatures);
         taggedFile->readTags(true);
       }
     }
@@ -2132,63 +2130,39 @@ void Kid3Application::convertToId3v23()
   SelectedTaggedFileIterator it(getRootIndex(),
                                 getFileSelectionModel(),
                                 false);
-  TagConfig& tagCfg = TagConfig::instance();
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
     if (taggedFile->hasTagV2() && !taggedFile->isChanged()) {
       QString tagFmt = taggedFile->getTagFormatV2();
       QString ext = taggedFile->getFileExtension();
-      if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) && tagFmt[6] > QLatin1Char('3') &&
-          (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") || ext == QLatin1String(".aac"))) {
-        /*
-         * The ID3v2.3.0 tag is written using TagLib if it supports it.
-         * If id3lib is also available it is used instead unless
-         * TagConfig::ID3v2_3_0_TAGLIB is selected, so that the behavior
-         * remains compatible. The variable taglibFile is used to select whether
-         * TagLib shall be used or not.
-         */
-        bool taglibFile = false;
-        if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_TAGLIB)) {
-          if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB)) {
-            taglibFile =
-                tagCfg.id3v2Version() == TagConfig::ID3v2_3_0_TAGLIB &&
-                taggedFile->taggedFileKey() == QLatin1String("TaglibMetadata");
-          } else {
-            taglibFile =
-                taggedFile->taggedFileKey() == QLatin1String("TaglibMetadata");
-          }
+      if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
+          tagFmt[6] > QLatin1Char('3') &&
+          (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
+           ext == QLatin1String(".aac"))) {
+        if (!(taggedFile->taggedFileFeatures() & TaggedFile::TF_ID3v23)) {
+          FrameCollection frames;
+          taggedFile->getAllFramesV2(frames);
+          FrameFilter flt;
+          flt.enableAll();
+          taggedFile->deleteFramesV2(flt);
+
+          // The file has to be reread to write ID3v2.3 tags
+          taggedFile = FileProxyModel::readWithId3V23(taggedFile);
+
+          // Restore the frames
+          FrameFilter frameFlt;
+          frameFlt.enableAll();
+          taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
         }
+
+        // Write the file with ID3v2.3 tags
         bool renamed;
-        if (taglibFile) {
-          // Force TagLib to write ID3v2.3 tags.
-          int savedId3v2Version = tagCfg.id3v2Version();
-          tagCfg.setId3v2Version(TagConfig::ID3v2_3_0_TAGLIB);
-          taggedFile->writeTags(true, &renamed,
-                                FileConfig::instance().m_preserveTime);
-          tagCfg.setId3v2Version(savedId3v2Version);
-        } else {
-          if (tagCfg.hasTagFormat(TagConfig::TF_ID3v2_3_0_ID3LIB)) {
-            if (taggedFile->taggedFileKey() == QLatin1String("TaglibMetadata")) {
-              FrameCollection frames;
-              taggedFile->getAllFramesV2(frames);
-              FrameFilter flt;
-              flt.enableAll();
-              taggedFile->deleteFramesV2(flt);
-
-              // The file has to be read with id3lib to write ID3v2.3 tags
-              taggedFile = FileProxyModel::readWithId3Lib(taggedFile);
-
-              // Restore the frames
-              FrameFilter frameFlt;
-              frameFlt.enableAll();
-              taggedFile->setFramesV2(frames.copyEnabledFrames(frameFlt), false);
-            }
-
-            // Write the file with id3lib, it always writes ID3v2.3 tags
-            taggedFile->writeTags(true, &renamed, FileConfig::instance().m_preserveTime);
-          }
-        }
+        int storedFeatures = taggedFile->activeTaggedFileFeatures();
+        taggedFile->setActiveTaggedFileFeatures(TaggedFile::TF_ID3v23);
+        taggedFile->writeTags(true, &renamed,
+                              FileConfig::instance().m_preserveTime);
+        taggedFile->setActiveTaggedFileFeatures(storedFeatures);
         taggedFile->readTags(true);
       }
     }

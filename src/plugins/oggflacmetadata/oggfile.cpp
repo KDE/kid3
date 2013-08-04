@@ -75,6 +75,15 @@ QString OggFile::taggedFileKey() const
 
 #ifdef HAVE_VORBIS
 /**
+ * Get features supported.
+ * @return bit mask with Feature flags set.
+ */
+int OggFile::taggedFileFeatures() const
+{
+  return TF_OggPictures;
+}
+
+/**
  * Read tags from file.
  *
  * @param force true to force reading even if tags were already read.
